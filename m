@@ -1,27 +1,33 @@
-Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DF6C305667;
-	Wed,  2 Sep 2026 13:29:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.242.92
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D30AE4137AE;
+	Wed,  2 Sep 2026 13:29:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788355757; cv=none; b=peMIwLs2ZtF8c4Kz0LVeE6ks7+3/T4x4Rggt8pbLxIWQ/0BB285JQuwQp4Aaor5jfXKbUprxo/VV2z2hJAVysI80DLWMYggtOmzJFIGd4UskTWPhvBsAybJfMdAMGkJ+UcZ6Zfq9HEpYHxLJnW15CfxCXnu29XORJf7Vpm3GXsc=
+	t=1788355786; cv=none; b=ehhdDAcLu431d1luzidcFje/2mti7KF5CUUh07twIe16jjxSNodZRq5aEpsLcXDYkRihEhIg5DXYmIkvHMDLAF4lz93NzpDm2jf5dJ9St+OBHqLcquMJA7ly2Kr6SJl0GIS0BXQp9mw/9Oh1Epk4SscB8WQ1mOZwqwoPBtAwLs4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788355757; c=relaxed/simple;
-	bh=1Kg8VeVvPIDG8OjLXhgVskjzW4whxSsl1We5uuEsfkY=;
+	s=arc-20240116; t=1788355786; c=relaxed/simple;
+	bh=3kzF7itCNI3649Jd2yl6+o37lkdhtqpt1JNljsXi5vg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AMuw8dEveF8UpvrN3Fp4aVasVqdoBRP2upacvyauv/9jzVBtd1xtZ9BXWV0ul1Etc1oT0trC1hbkQ+b8/i/E5wNfpIs0Kn7KkMbRzPHnGkKM7vLO+OKnbpz+kHODffCgdTjuz1LkloDxDDdUDfBXg+bo1DbnqTLuXTWwOkOLufI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net; spf=pass smtp.mailfrom=davidgow.net; arc=none smtp.client-ip=203.29.242.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=davidgow.net
-Received: by sphereful.davidgow.net (Postfix, from userid 119)
-	id CED742000FE; Wed,  2 Sep 2026 21:29:07 +0800 (AWST)
-X-Spam-Level: 
-Received: from [IPV6:2001:8003:8802:7000::41b] (unknown [IPv6:2001:8003:8802:7000::41b])
-	by sphereful.davidgow.net (Postfix) with ESMTPSA id E655E2000C8;
-	Wed,  2 Sep 2026 21:29:04 +0800 (AWST)
-Message-ID: <18b60321-e3c1-4f8b-8963-b16d44b39e59@davidgow.net>
-Date: Wed, 2 Sep 2026 21:29:02 +0800
+	 In-Reply-To:Content-Type; b=ZHiZYf4JwcD72IppbNwufmYsaEEzrOAiYiYdnkxTuaJtLGQML6LwgsobAwDbq1PhnvCfFUoHqvc61wWFwKxRLLcbGu8kxLfHSjiREuJck7bwhvpsF8TDwmovrudynX4e1IV9BabzRrQMJ+mHvG/Ge+jJFkeRJpJtiO+CXxgqtBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jAI84FJg; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jAI84FJg"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 610CE165C;
+	Wed,  2 Sep 2026 06:29:40 -0700 (PDT)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B00DA3F673;
+	Wed,  2 Sep 2026 06:29:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788355784; bh=3kzF7itCNI3649Jd2yl6+o37lkdhtqpt1JNljsXi5vg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=jAI84FJgJAvnyhbJiH1Pxn7thUuzLd5dcmWWV+5W22olMfH0LkXLMmpwmz0Dk3KR3
+	 5m2gPwMIFrSaptQU5elbNsEPXBlpZKbWjuJZQZYwq7FwXhEQvDN/S+hzOedqTuhDM8
+	 0HIoyrUUju4wL7kqZCcmtszvpBFN2e2KxZjUWK0c=
+Message-ID: <e6d4bb93-66fa-4149-985d-87d895081ea0@arm.com>
+Date: Wed, 2 Sep 2026 15:29:39 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -29,94 +35,87 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] kunit: Return void from kunit_run_all_tests()
-To: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
- Brendan Higgins <brendan.higgins@linux.dev>, Rae Moar <raemoar63@gmail.com>
-Cc: linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
+Subject: Re: [PATCH RFC 05/15] arm_mpam: Fix device_node refcount in DT
+ resource parsing
+To: Yin Li <yin.li@oss.qualcomm.com>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Shanker Donthineni <sdonthineni@nvidia.com>,
+ Conor Dooley <conor+dt@kernel.org>, Fenghua Yu <fenghuay@nvidia.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ Reinette Chatre <reinette.chatre@intel.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, James Morse <james.morse@arm.com>,
+ Ben Horgan <ben.horgan@arm.com>, Bjorn Andersson <andersson@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-arm-msm@vger.kernel.org, ganapatrao.kulkarni@oss.qualcomm.com,
+ trilok.soni@oss.qualcomm.com, devicetree@vger.kernel.org,
+ driver-core@lists.linux.dev, Srivathsa L Rao
+ <srivathsa.rao@oss.qualcomm.com>, Huang Yiwei
+ <huang.yiwei@oss.qualcomm.com>, aiqun.yu@oss.qualcomm.com,
  linux-kernel@vger.kernel.org
-References: <20260901-kunit-void-v1-1-c91952391d66@linutronix.de>
-Content-Language: en-US
-From: David Gow <david@davidgow.net>
-In-Reply-To: <20260901-kunit-void-v1-1-c91952391d66@linutronix.de>
+References: <20260811-mpam-resctrl-dt-knp-support-v1-0-ea6397bead59@oss.qualcomm.com>
+ <20260811-mpam-resctrl-dt-knp-support-v1-5-ea6397bead59@oss.qualcomm.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20260811-mpam-resctrl-dt-knp-support-v1-5-ea6397bead59@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Le 01/09/2026 à 17:50, Thomas Weißschuh a écrit :
-> No caller tests the return value of this function.
+Hi,
+
+On 8/11/26 15:30, Yin Li wrote:
+> When a cache-parented or memory-controller-parented MSC is probed via
+> device tree, the parent node was assigned directly to a
+> __free(device_node) variable without incrementing its reference count.
+> Both the parent and the cache/memory variable are declared with
+> __free(device_node), which causes the compiler to automatically insert
+> an of_node_put() call for each variable when they go out of scope.
+> Since both variables point to the same node but the reference count was
+> only incremented once by of_get_parent(), the node ends up being
+> released twice, causing a refcount underflow.
+
+Yes, looks about right: there is another assignment to both memory and 
+cache, they call of_parse_phandle(), which increments the refcount, so 
+we need to do the same for the direct assignments, to get the free'ing 
+done consistently.
+
+> Use of_node_get() to take an explicit reference so each __free variable
+> holds its own reference.
 > 
-> The integer return type is still a remnant from when the function
-> was executed as initcall. This usage however was removed in
-> commit 8c0d884986ba ("init: main: add KUnit to kernel init")
-> 
-> Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
-> ---
+> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
 
-Nice catch, thanks.
+Reviewed-by: Andre Przywara <andre.przywara@arm.com>
 
-Reviewed-by: David Gow <david@davidgow.net>
+... though this should definitely be squashed into the respective DT 
+patches. Feel free to do so.
 
 Cheers,
--- David
+Andre
 
->   include/kunit/test.h | 5 ++---
->   lib/kunit/executor.c | 5 ++---
->   2 files changed, 4 insertions(+), 6 deletions(-)
-> 
-> diff --git a/include/kunit/test.h b/include/kunit/test.h
-> index da5312e0dfa5..31d549578f8e 100644
-> --- a/include/kunit/test.h
-> +++ b/include/kunit/test.h
-> @@ -400,11 +400,10 @@ struct kunit_suite_set kunit_merge_suite_sets(struct kunit_suite_set init_suite_
->   const void *kunit_array_gen_params(struct kunit *test, const void *prev, char *desc);
->   
->   #if IS_BUILTIN(CONFIG_KUNIT)
-> -int kunit_run_all_tests(void);
-> +void kunit_run_all_tests(void);
->   #else
-> -static inline int kunit_run_all_tests(void)
-> +static inline void kunit_run_all_tests(void)
->   {
-> -	return 0;
->   }
->   #endif /* IS_BUILTIN(CONFIG_KUNIT) */
->   
-> diff --git a/lib/kunit/executor.c b/lib/kunit/executor.c
-> index b0f8a41d61d3..c798a02470d8 100644
-> --- a/lib/kunit/executor.c
-> +++ b/lib/kunit/executor.c
-> @@ -371,7 +371,7 @@ static void kunit_handle_shutdown(void)
->   
->   }
->   
-> -int kunit_run_all_tests(void)
-> +void kunit_run_all_tests(void)
->   {
->   	struct kunit_suite_set suite_set = {NULL, NULL};
->   	struct kunit_suite_set filtered_suite_set = {NULL, NULL};
-> @@ -382,7 +382,7 @@ int kunit_run_all_tests(void)
->   		__kunit_suites_start, __kunit_suites_end,
->   	};
->   	size_t init_num_suites = init_suite_set.end - init_suite_set.start;
-> -	int err = 0;
-> +	int err;
->   
->   	if (init_num_suites > 0) {
->   		suite_set = kunit_merge_suite_sets(init_suite_set, normal_suite_set);
-> @@ -432,7 +432,6 @@ int kunit_run_all_tests(void)
->   
->   out:
->   	kunit_handle_shutdown();
-> -	return err;
->   }
->   
->   #if IS_BUILTIN(CONFIG_KUNIT_TEST)
-> 
 > ---
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> change-id: 20260109-kunit-void-b2f71f7e980c
+>   drivers/resctrl/mpam_devices.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> Best regards,
-> --
-> Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+> index 975ddab771b4..559fa09128b4 100644
+> --- a/drivers/resctrl/mpam_devices.c
+> +++ b/drivers/resctrl/mpam_devices.c
+> @@ -280,7 +280,7 @@ static int mpam_dt_parse_resource(struct mpam_msc *msc, struct device_node *np,
+>   		type = MPAM_CLASS_CACHE;
+>   
+>   	} else if (of_device_is_compatible(parent, "cache")) {
+> -		cache = parent;
+> +		cache = of_node_get(parent);
+>   		type = MPAM_CLASS_CACHE;
+>   	} else if (of_device_is_compatible(np, "arm,mpam-memory")) {
+>   		memory = of_parse_phandle(np, "arm,mpam-device", 0);
+> @@ -290,7 +290,7 @@ static int mpam_dt_parse_resource(struct mpam_msc *msc, struct device_node *np,
+>   		}
+>   		type = MPAM_CLASS_MEMORY;
+>   	} else if (of_device_is_compatible(np, "arm,mpam-memory-controller-msc")) {
+> -		memory = parent;
+> +		memory = of_node_get(parent);
+>   		type = MPAM_CLASS_MEMORY;
+>   	} else {
+>   		/*
 > 
 
