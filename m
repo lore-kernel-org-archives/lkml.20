@@ -1,78 +1,126 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f1.google.com (mail-oa2-f1.google.com [74.125.231.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2F904AC144;
-	Wed,  2 Sep 2026 16:32:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FBBD472092
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:33:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788366751; cv=none; b=InYQDvp0eRn36xuee3tBduWK85yytvgTi8BEPz8WZU9cYWmw8bBzoG/e2R4QvRVgu3xUq4QLFkbWnCiq9oXf/Iij5zXksSle4VylqUXrzSg/mucefpXt/Vvind369ZhWJdzBslWaNbOCO1FVJa0M+OCuHMFQUKZNsfz47DBAbrQ=
+	t=1788366813; cv=none; b=pA4TLy8nZ5Bn+Ti4ArrNA04k2LM2ufFO4BQ+OCV1vQOd5FNNm6k2NB/4CfQK611QHPdzU95niIwGjeC0m7r10r+/qDCZd9QIEAsSizsYX1Mfnzfef88Wrv2aa7PydyPpwXgNagoBIk1zu+0+JxAylGZ2yucsOAVHRB92Q7nYTEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788366751; c=relaxed/simple;
-	bh=8Y+hdw5J+4jeHCQ3ZjAa9jZKgYtJZB39NX76XH6Tjpw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=vFJgi6tB84t6FdptrDFrkTpMIwku3KbYdzKSTIxlQdT56VYpa/ZiY6/gINyUn8GijjpeS+JyweKNwBpcvZIOV+B9mrdz45JMKvHQ9RhEs0sfgtU5bIrJg4vsMCkntiATFODBPIvPttwGz0EJ+4LrkVpo6GqSraqj0ekEGOfAKvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=3FQ79PsV; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="3FQ79PsV"
-Received: from omf16.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay09.hostedemail.com (Postfix) with ESMTP id C35DD80270;
-	Wed,  2 Sep 2026 16:32:26 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf16.hostedemail.com (Postfix) with ESMTPA id 70FD82000F;
-	Wed,  2 Sep 2026 16:32:24 +0000 (UTC)
-Date: Wed, 2 Sep 2026 12:33:25 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Lee Jones <lee@kernel.org>
-Cc: Greg KH <gregkh@linuxfoundation.org>, Vincent Donnefort
- <vdonnefort@google.com>, stable@vger.kernel.org, mhiramat@kernel.org,
- linux-trace-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com,
- kernel-team@android.com, linux-kernel@vger.kernel.org
-Subject: Re: STABLE REQ: [PATCH v5 06/10] tracing: Fix subbuf resize races
- with trace_pipe_raw readers
-Message-ID: <20260902123325.615e3934@gandalf.local.home>
-In-Reply-To: <20260902162246.GC2133376@google.com>
-References: <20260813131152.3589632-7-vdonnefort@google.com>
-	<20260901123444.GA1350131@google.com>
-	<20260901094656.487b278f@gandalf.local.home>
-	<20260902082717.GM2943942@google.com>
-	<2026090230-entryway-acquaint-d12e@gregkh>
-	<20260902095744.GN2943942@google.com>
-	<2026090221-riverbank-overlay-704c@gregkh>
-	<20260902115944.GS2943942@google.com>
-	<20260902082141.00583dfc@gandalf.local.home>
-	<20260902082550.4644fe91@gandalf.local.home>
-	<20260902162246.GC2133376@google.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1788366813; c=relaxed/simple;
+	bh=MkkTiAfIa+S9u79RbxCV3aOQkSt/YQ+M7pZsqqSd4b4=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=q8tkbG9Dm3e8+8h3ag0+g2FywKyUhhtZx201T0ixP1Sbh0NLFG5LMr9AHvMM/qNGGjswL4vwt7y7o69zDrLKBug0qtAoEgc5vPEJNwuUgATPozs+Gnb+YIAXUKIgadZP0PLofKmsiNdUeMC9gOboU5QmmWOBmDKBkELNPat42XI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa2-f1.google.com with SMTP id 586e51a60fabf-448a12ddfb4so538182fac.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:33:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788366811; x=1788971611;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YUicN5rnINFHNGdnOsZGp7jfpCrpIV80y457DhVxQPM=;
+        b=BipRztcksOUC7UiKxz30j2aJSt7AZiOx+Y2CMdrn1Yb9uKZz7qk5DnuOCta/Zc/opA
+         tHjZtaGYAxMZGNIz/NzgAqdevf4MUOLzM4uOjALWaZk/pqHxRzedhA4U20dpOh8Yf+Ce
+         ho3S/GKkr+cOlaXTAAXV6ltjNPs+cCUaEm6r2e3KNBKbQZ7ek30GRU8NmsrKdEbpW7ti
+         4PIJl4DF44AmZieay17EucarJBe9HU2+2HHm0KS44A/X7omPrFIjKS2Ob/GjTVQY0UvQ
+         avKE3zMc9XN+zlO2fDVRmytuwjGZaOkMd1bisfcn4BaChLshzsukr+4IR1iGxCzp/OCi
+         6e6g==
+X-Forwarded-Encrypted: i=1; AHgh+RoR0UIb1Aqb7TEC+fi6XsfTOAG0t1KLgi428nwAs8tXu9wCjti3L4kP3hUt8YHYMwlQbIeN1VlbteRxp/k=@vger.kernel.org
+X-Gm-Message-State: AFuF++k27IGMxbrheWxsTYJ96MENrf/O4fatS/cgesSPpcq1xUHxprq8
+	Z96pdIT+Q8BM+MpobUOaz7dlwIIQTib5dZpJc/yn5i/+6wGw4sFNJLPyNyWn/2AnmrCd0hcBtWw
+	RIvhvGx0a4PzoVYXtJRSU+lMT3l+yTKvOSA1xfbeEpibDUFZA6xF+z+7TyGk=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 70FD82000F
-X-Stat-Signature: xhzek8shc583kxmcjy49afkbfujfjdmy
-X-Rspamd-Server: rspamout07
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18qlQ8r9dHTnG33sEUhMNFcPScyL1vxPhU=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=NVLGBeoo3q3+NKK7CjyMqmZGCKYxRL9YGTQcOgb5dbg=; b=3FQ79PsVpvxtZs4NmpStBrQvzyIQQsIRR9z+ALqX62CsNboybg8OSXTLUmMh/i+PfR/lh74d12zxtgfzqHUERzzWgqzXvMywmxozNZuCqnGtS117XO5uIh1u1dvrU3qlYa7J0Q1UB3sQg5H4h/hVziO9dRgfS5AhfOYzsppYNkQ=
-X-HE-Tag: 1788366744-878283
-X-HE-Meta: U2FsdGVkX1+RRY+tcnEQXT2PKxgptvNOw1hb4PlsGEudPa9vnpzAqfhjlWF30rUxYB+T18dYI+h+G7vfhThsUGLLCAW+oYrEKFzr9LK3kQ2Aev1nWf40y0tquH/pqQz9PCyHVDsqX10kQ3khX2C5TveUKnIbqQ5B9S7hN+gP6DKzOGqLml72y1zNOQuUF5MWnFRk7CHBiiaZbf+JagEyav715jPKk8sAG3s7h1c1LqYxs4hgUgBVq2uq0d3y29szU/PmtcV9v3cUsswpAZaRHjel6sPKPy1gK3Kl2beCk73U/p57HUjVN1VhjWW9ZFqD9I5Uq5aU8x0GR6z/gvoBGYySBjxgqWbZ
+X-Received: by 2002:a05:6820:1c9d:b0:6b1:7ee2:da31 with SMTP id
+ 006d021491bc7-6b47f51cb13mr3937048eaf.11.1788366810974; Wed, 02 Sep 2026
+ 09:33:30 -0700 (PDT)
+Date: Wed, 02 Sep 2026 09:33:30 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a984fda.27a413cd.1e878c.000a.GAE@google.com>
+Subject: [syzbot] [autofs?] memory leak in autofs_new_ino
+From: syzbot <syzbot+df1db6e034b3953e19f5@syzkaller.appspotmail.com>
+To: autofs@vger.kernel.org, linux-kernel@vger.kernel.org, raven@themaw.net, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 2 Sep 2026 17:22:46 +0100
-Lee Jones <lee@kernel.org> wrote:
+Hello,
 
-> So what happens when you receive the FAILED message?
-> 
-> And why are you interested to know how far back a fix can be backported?
-> 
-> Personally, I'm _very_ interested in a _small_ number of patches, but
-> none of which usually emanate from subsystems I maintain.
+syzbot found the following issue on:
 
-I'm interested because they only get backported to kernels that are
-maintained for some reason. And since these are in my subsystem, I do like
-to know that my code works for all supported kernel releases. ;-)
+HEAD commit:    8d3ae59288f1 Linux 7.2
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1784b6c6580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=11ad91fcc8fa7933
+dashboard link: https://syzkaller.appspot.com/bug?extid=df1db6e034b3953e19f5
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11dc9a25580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1670b949580000
 
--- Steve
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/735a458674ac/disk-8d3ae592.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/fbf50adb0745/vmlinux-8d3ae592.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/6effa5f7f690/bzImage-8d3ae592.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+df1db6e034b3953e19f5@syzkaller.appspotmail.com
+
+BUG: memory leak
+unreferenced object 0xffff8881146ebc00 (size 192):
+  comm "syz.0.20", pid 5969, jiffies 4294943196
+  hex dump (first 32 bytes):
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+  backtrace (crc 55e8e63e):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4597 [inline]
+    slab_alloc_node mm/slub.c:4917 [inline]
+    __kmalloc_cache_noprof+0x356/0x440 mm/slub.c:5485
+    _kmalloc_noprof include/linux/slab.h:988 [inline]
+    _kzalloc_noprof include/linux/slab.h:1309 [inline]
+    autofs_new_ino+0x24/0x80 fs/autofs/inode.c:16
+    autofs_fill_super+0x66/0x1d0 fs/autofs/inode.c:321
+    vfs_get_super fs/super.c:1273 [inline]
+    get_tree_nodev+0x91/0xf0 fs/super.c:1292
+    autofs_get_tree+0xbc/0x120 fs/autofs/inode.c:378
+    vfs_get_tree+0x30/0x120 fs/super.c:1700
+    vfs_cmd_create+0x7d/0x120 fs/fsopen.c:231
+    vfs_fsconfig_locked fs/fsopen.c:295 [inline]
+    __do_sys_fsconfig+0x492/0x9e0 fs/fsopen.c:463
+    do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+    do_syscall_64+0xf8/0x610 arch/x86/entry/syscall_64.c:94
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
