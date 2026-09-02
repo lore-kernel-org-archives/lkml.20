@@ -1,88 +1,33 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49C174A2A7D
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:35:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 177F04A2E3C;
+	Wed,  2 Sep 2026 14:36:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788359761; cv=none; b=r46n3wvRB8r2t9hjrO3p5sLigTHAjHPu7nb+FmWyVh89y0f47Jv8pAYvXGo/GXBoh8g76u4PFgSJMFk4BYEyzid0BS7FKBmjVnV3lu4uWTDActDjvWiyb1NmSbDpMINHR0Oa8WXb0bWTAGh9ja6f5wiUy+z7Jt4WGq4Hxdv4ghU=
+	t=1788359772; cv=none; b=AJpQ/cAq3x7jLz8X/YqzdycQbrW+57rN+g0gFasOrWddAV2Qan/caX56h9ZarEYlzLMeimJploQLeqrEvzWtJZCfm3shsRCjxhSQNSIoC1NBhoB6mWmcbpEFPtBQ0IeC0txZ8ZFRUjsiBXuXbqtzhRKBH3MEqG0sTSDtBL1VilE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788359761; c=relaxed/simple;
-	bh=99Ch+3LYFJ9N7TSsuHX98/Uy8K9XP6/jMla2yvTy2pQ=;
+	s=arc-20240116; t=1788359772; c=relaxed/simple;
+	bh=eJC9UUBWutn2N8t4IKPJkVXhNrPPSiqt3WTyCAhkfEE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k3SyyU2KxuOxL2EP9A2z2IG268hZEezx6PMV0I6xRKHtsIAZqYxMF6HTXKv8eexfhlIApTb8c/5HXd8VhfeLMLXWcb+BvDSG/pU3OzbPGFsHtMVuIjsM7f+GEWJbMsM6OwniCchy8cOCxCUlrbWHiG5zu5JYNo9t+1eUDNzm/oQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RtZDvrbU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GQ/wXtjn; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=Z8l0+bG+l1s0O61sRairy2MqdktKzqxHcHfEuEYqufX/8ir7/mYcSxLtvBE6C/yMvoWpYncNyVwFDNWp5b4oyHcQRib/CamuxDtgJC5wsf/7qbWU04ITUpCDTiB+4bgVpo8+2q/6bH/DG0p1TmV8IikLzDTLF3uXgH2eRdnhP8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qz2Ew/Fo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RtZDvrbU";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GQ/wXtjn"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682D52nI1076660
-	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 14:35:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	yyLhoiY022AQ3A7dmKbaF46+l4kfEuJhlZPs9i/eMFc=; b=RtZDvrbU3o+ONCHj
-	MZVRtG39PdHqIzVvQhmGgPTm1uAjU3lDDumsAkY8CrLMc5FUg8yw1XFfVNbY8xKF
-	NlRokiijjifPaIj5MReq0aTURNweJZpykPyoMReodH8YX7czofD51MzkQQ4+sNv7
-	QVC51UA0pUn94mG5T/F6YBlnVShxtNKoFUICPtO1GNPQEqe0OgPpi/wUCO5iU6bh
-	+UlXXZ5lQyQZlYwhCN+qDE2nImvb8CNt53wNRrVUHc2hXxH0I7wyAM05AouaXhro
-	F38CR0pbXIT5HXYHRPQpNW3wz39COje4JhQcbR/MjVm8OVKd3QAQc/NZZCQw+cw2
-	Kr1NiQ==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gemce8bsr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 14:35:58 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5c7d4c89f26so22988e0c.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:35:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788359757; x=1788964557; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yyLhoiY022AQ3A7dmKbaF46+l4kfEuJhlZPs9i/eMFc=;
-        b=GQ/wXtjn9AAfSeGj58d8uxMtxM3mSx0ziLne7gaY3aF8ntGtdVfTrCU9mZ6L6H79fN
-         5BKMb/5oqmrh/pMerZxRtN2I2YV/XGQqpaSvBxScwH04gGrvCbfVaEdhbJsVx5N0Z+bu
-         ZK9rzVTAqCDkiBk9HoJrGngNAZukarI4da5L/SvyBZUqPxHYCLrMO67VK2IJQUrJ37NW
-         Wm7/FeQNG8jWncTXcR2qez27GjFhYETjpgEc2eQ+shsFqeB8T9Z/rlEY+4km5WQ13uiJ
-         +UYjPhi4WeD8br8kUck2Ot4qctUhMQBO/RX02rkIvmG73Mw48eWYoVSHNdeYwRu8flXr
-         bjHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788359757; x=1788964557;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yyLhoiY022AQ3A7dmKbaF46+l4kfEuJhlZPs9i/eMFc=;
-        b=mUOzSW3hN5qL6FChcJ/C7qlUxbJmyL3uM0yLhEiFm+zUgDoTauFjQsrWXYlHic28ZZ
-         6KLBWZ84mD/4TstIexelDssPLSeQiYObHMzYRPBTIB1gP+jtK+ttt/8AFNA2XUUO9Mls
-         b6NzwO3b8rpeFAzX0m1L5uQV3kXOWNWZuFrinHCpvvLzGuKrvqKoV/nhVvzgBHUalx89
-         e5hLaZKCjF9Q+yhKmFki2zuzv2ms5BMxHbDJTqHFTpTUOyFl2coep9Ot5gyKS6gmgwWz
-         F0G3YWaQeuAkDh3E6oPZLDoUzXi1h1SYbHMmsdpB0+lv4IiVP37mE356xueA56QY0OVL
-         zG0w==
-X-Forwarded-Encrypted: i=1; AKwUvBxTqNK6D3boyHg7y9leWt/nZ3AAHFNAU4nlwhmX/GFL8a7GTx8KuSKnii0vd9jI5thUB6IEfns7S4P3iMU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mey5iubhgliB2UamAitRY+cXxFw3HF0JKW9ngOAXKNVI86Tfht
-	Z272Gzbm2Td6PZmT5M5x/TJECPp6Fwg38EFIDNICfm+msmk0pwt8hMBdsb6odLzlJzScpYLtay+
-	8AQ8I24yHp5x8gWQIfMasxNJxwewtfdWrx2W2N6kndbHMwev87xmQQkABXasS7Duu/ozy//i4ly
-	k=
-X-Gm-Gg: AYBFou3KC+BVkVRZnfsqdTNQRWFSMd0gPK5xSZLPB52mEpv2dAoXaVzQ0Bqyeu2IYT6
-	lkbBfElVjQKYJQ9d/HIPc1UmYnEhaqnJLCq9Ht5liPfvOiDH4TokD4O9TqNR5tEftdIEdQ0fxTp
-	Okfoammx9Tiit1BWdMpyIrqq30uCS/GBwzeGMnwwnlWRJqgzxQ6Qa/+aODJDWkLwSA24Mb6cb24
-	vivMmPgKOZkx7GtawBxNkuK+wqsReWCsb7pIeEaMZLgaIzNorEweV/UNo1LHW+0oEb7HGJaGnun
-	RbckaQNUfgow+zOfGHWS2S33hXI8nbLOw1lyrDx0IxeG+8nEq4hbNAB+9AlJESMzdRPJUsbG7mL
-	AG9UMjZ1ldFOkk88zTju88Q==
-X-Received: by 2002:a05:6102:6884:b0:786:8d84:5aca with SMTP id ada2fe7eead31-78a1f339246mr824458137.2.1788359757510;
-        Wed, 02 Sep 2026 07:35:57 -0700 (PDT)
-X-Received: by 2002:a05:6102:6884:b0:786:8d84:5aca with SMTP id ada2fe7eead31-78a1f339246mr824434137.2.1788359756585;
-        Wed, 02 Sep 2026 07:35:56 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b606b22ab3sm635362e87.30.2026.09.02.07.35.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 07:35:55 -0700 (PDT)
-Message-ID: <838a68e1-c12d-4f1d-ad89-24b799f02a5e@oss.qualcomm.com>
-Date: Wed, 2 Sep 2026 16:35:53 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qz2Ew/Fo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1DAE1F000E9;
+	Wed,  2 Sep 2026 14:36:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788359770;
+	bh=uzzpWL0xLJV4HxgXaJDCRpeFEK+cpnvsfs6kVzVfAak=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Qz2Ew/Fo96WKMMFECtw6AcGedth0FeblIay9/D+sibhjAK2/BTaqye6hTBWLs8zRw
+	 qXakXIrkxjuU89HS4vq0KEDl4x5Z+5neqSP1lPuX0OLciuKdgyqjd9FTsSHKpkKbON
+	 +rEI4WgECsqIzEjtNQqxUwhobsANlSwbLo0+gejc7TXvcdF2esdVnYMH+viUhY4Vxs
+	 I5YPwI+B873UPnl851liAilmTnKwoRgKEBL/Qkp67CXcRlVxi7w0cHqyTfePTjs2ij
+	 SqS2cmlvhnjlis8DLSAigHIQ3woqHE6gL5snkeJGrQ1zoiv/+OdHptqVqSk/XgvaGn
+	 Hno8waIJ7Q4NA==
+Message-ID: <d3ca9ecd-768a-48fc-805b-cd50efa639af@kernel.org>
+Date: Wed, 2 Sep 2026 16:36:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,91 +35,97 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] power: supply: qcom_battmgr: fix CHARGE_FULL* on
- SM8350-class firmware
-To: Jan-Michael Brummer <jan.brummer@tabos.org>, sre@kernel.org
-Cc: andersson@kernel.org, neil.armstrong@linaro.org,
-        linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260829054546.86210-1-jan.brummer@tabos.org>
- <20260829054546.86210-2-jan.brummer@tabos.org>
+Subject: Re: [PATCH 1/4] USB: usbfs: replace __get_free_page() with kmalloc()
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260829054546.86210-2-jan.brummer@tabos.org>
+To: Alan Stern <stern@rowland.harvard.edu>, Oliver Neukum <oneukum@suse.com>
+Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Chas Williams <3chas3@gmail.com>, Duncan Sands <duncan.sands@free.fr>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Johan Hovold <johan@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ accessrunner-general@lists.sourceforge.net,
+ linux-atm-general@lists.sourceforge.net, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, linux-usb@vger.kernel.org, netdev@vger.kernel.org
+References: <20260830-usb-v1-0-aa349c302246@kernel.org>
+ <20260830-usb-v1-1-aa349c302246@kernel.org>
+ <ea165ff8-cda2-4fed-9354-1d14ac2d87ca@suse.com>
+ <8cbe558e-7f53-4ce4-be8e-52fdba9105d4@rowland.harvard.edu>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <8cbe558e-7f53-4ce4-be8e-52fdba9105d4@rowland.harvard.edu>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDEyOCBTYWx0ZWRfX9W7ZhmzMovLr
- 2k2Q/8cujNiIgmghwhR5X++F0UdejaqcmhBy6A65wROEM+oPPNqrxSljOdVdmqqJQypvmF/WMpb
- FTcVebH1zrza7KPnpDZu1RWRUmgRdruhySClYJT/tRY7gyCD8nz2TTUY7x7tmiXqsjD7/rhHBrO
- r9sLjEMy3g2+URPxOkV33w7QPKqzrHRPCcIlnCso4dJYhraTOiLmQDKOcAmvSlbA64uIIZQAa3x
- iFXC+mC5cSHR/iiiiBNPgDOhy6wLT+6ogv/E6eH5kZhFgjR7BPHi2wlSW2VHqQ5hnPMhV+vbZ+2
- w3U1HfCEXqDNbJCX8rIBoGJmKTv2kBwjxPemofm0lSWIdo7+rFFhzpIAcz3/7ZF4BB525J1sEkw
- INnazKOqJwP0XoRqGthLY2eEGtkA6LO2pP6CI9fB+teLEdOzsIOZnpptTKhNXKJH6Dc+YZ9vxoc
- jAxD/+sAZnUvZO1WS/w==
-X-Proofpoint-ORIG-GUID: RQ2-HrtVD5CIx_ZF061U1lwgHKd0dUy5
-X-Authority-Analysis: v=2.4 cv=QfpWeMbv c=1 sm=1 tr=0 ts=6a98344e cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=DYa_1O34AAAA:8 a=C9CdgfQ6oJW3jvxbsIcA:9 a=QEXdDO2ut3YA:10
- a=vmgOmaN-Xu0dpDh8OwbV:22 a=piCpHeHFVjWJlYWd443B:22
-X-Proofpoint-GUID: RQ2-HrtVD5CIx_ZF061U1lwgHKd0dUy5
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDEyOCBTYWx0ZWRfX2r3qnq5jiUkQ
- Ox2fttQvwFflY69Ltbslq+PmZB7j/DUEQlXU3G8tQrzCcg/wyLJ6WNIAN9sUaRuk6WOfxUSRnt5
- lwnRPxr57XMs+YO7OhtCQQuqAJaRo4w=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_03,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 bulkscore=0 phishscore=0 suspectscore=0
- lowpriorityscore=0 malwarescore=0 adultscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020128
 
-On 8/29/26 7:45 AM, Jan-Michael Brummer wrote:
-> battmgr->unit is only ever assigned in the BATTMGR_BAT_INFO handler of
-> the SC8280XP callback. The SM8350-class firmware does not implement that
-> request - every property is fetched individually via
-> BATTMGR_BAT_PROPERTY_GET - so unit keeps its zero-initialised value,
-> QCOM_BATTMGR_UNIT_mWh.
+On 8/31/26 16:30, Alan Stern wrote:
+> On Mon, Aug 31, 2026 at 03:27:07PM +0200, Oliver Neukum wrote:
+>> On 30.08.26 10:10, Mike Rapoport (Microsoft) wrote:
+>> > do_proc_control() allocates a temporary buffer for the data stage of a
+>> > control transfer issued from userspace.
+>> > 
+>> > This buffer can be allocated with kmalloc() as there's nothing special
+>> > about it to go directly to the page allocator.
+>> 
+>> You are breaking the calculation. A page has a size of exactly
+>> PAGE_SIZE. A kmalloced object of PAGE_SIZE is larger. That is
+>> a bad idea.
 > 
-> POWER_SUPPLY_PROP_CHARGE_FULL and POWER_SUPPLY_PROP_CHARGE_FULL_DESIGN
-> are guarded by 'if (unit != QCOM_BATTMGR_UNIT_mAh) return -ENODATA;',
-> hence both properties always fail on these platforms, even though the
-> values are requested from the firmware and stored in
-> info.last_full_capacity and info.design_capacity on every access:
+> By "the calculation", are you referring to the 
+> usbfs_increase_memory_usage() call in do_proc_control()?
 > 
->   $ cat /sys/class/power_supply/qcom-battmgr-bat/charge_full
->   cat: read error: No data available
-> 
-> Without a full charge value userspace cannot derive an absolute energy
-> level, so UPower reports a zero energy level and never computes a
-> time-to-empty/time-to-full estimate:
-> 
->     energy:              0 Wh
->     energy-full:         0 Wh
->     energy-rate:         12.4713 W
->     percentage:          59%
-> 
-> The firmware of this class reports charge domain values, so set the unit
-> statically when registering the SM8350/SM8550 power supplies. With this
-> patch the properties read back consistently on a Fairphone 5:
-> 
->   charge_full         4116000
->   charge_full_design  4260000
->   capacity            85
-> 
-> Fixes: 29e8142b5623 ("power: supply: Introduce Qualcomm PMIC GLINK power supply")
-> Signed-off-by: Jan-Michael Brummer <jan.brummer@tabos.org>
-> ---
+> The overhead in kmalloc allocations doesn't really matter for this 
+> purpose -- it can be considered a rounding error.
 
-This also implicitly unlocks reporting
+FWIW, the overhead will be zero for a PAGE_SIZE size, unless slab debugging
+is enabled, but you can ignore it.
 
-POWER_SUPPLY_PROP_CHARGE_EMPTY
-POWER_SUPPLY_PROP_CHARGE_NOW
+>  Besides, we don't 
+> know how big the overhead is, so we can't account for it.  You can see 
+> that in the same call, we don't try to account for the overhead involved 
+> in usb_alloc_urb() or kmalloc_obj() either.
 
-which are not populated and will always report 0.
+ksize() exists but I wouldn't bother indeed.
 
-We should probably further limit that.
+> I'd say there's nothing wrong with this patch.
 
-Konrad
+Agreed.
+
+> Alan Stern
+
