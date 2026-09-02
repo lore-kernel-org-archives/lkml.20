@@ -1,151 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C966636F906
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:32:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FAFE339363;
+	Wed,  2 Sep 2026 17:32:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788370332; cv=none; b=LZtUSFnFB7EcQvvFjdUd0IACcbCIueitLhDkAjrYmWUsU8Sx9pX+lxleja8DHkEOEIkB42q/gJanJF7xcT7HY1QlNgCjkVVhDiIAfji9ZXGMvn44Ry2Xz2cs2IsBdbEdUeolXUAXEqNeBxmH1AAiM7v00u6R0q6gmastTfcD6n0=
+	t=1788370360; cv=none; b=Z1VpqCJ4xd76lAHLw2iKMn7qPem1llBSVY/+GfBSpXiUKbteWdEsILJ8Yz+56GuygRrLc7DCagAYSOXSCnJlJpBeBNLsTdlFhG26hIbUsAY3H+c+JnzVacT76q3aSKuibPDv5pVBJqGCBbMz3aKzpc33YEYldvoA9DVUChwN5K8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788370332; c=relaxed/simple;
-	bh=CPu7LxPLFCv6NAT9Za83Ro6/HgP1YcldWvsjgKvb/Mc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DRBfLznh9SFk8UrZRjA+snivmBj0rEm/b766rNrr/dMohv0P9QUbPVzKBlUeNNyPff/WbPGjyQ/li64Rd5G+DXa8GQG7zWtVDT+6CsCZ681Pn5VeVh70OKUdxPGeH2Dut8iJcxTQpDvNcEP3f46umGMgn6zHHd/Vyzvj96IPXuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YWzAxUkc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788370360; c=relaxed/simple;
+	bh=6CwmxECFDd7oeQi8dZsJezTZbe0Bpmv0H0OSYHHUzr8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ps6++QlBqb94Lvaa0AMGrhFnOmDX6F1Z8vn88v08mDGlMflbH2Wm100zfl9P4kLmOTW9AlPR4ztql2MIWqfT812hjpInnfPiG4R+yG96ODuW4D+7RMryaomZtokNwBq9PQ42bh1L0ssKiGP/Sg+rc+3s+HlsQIuRONpZmX23rKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UEafEYVd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YWzAxUkc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ADCF1F00ACF
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:32:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UEafEYVd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06C9E1F000E9;
+	Wed,  2 Sep 2026 17:32:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788370330;
-	bh=rxRL2muMlRMq3lG+Synw0npDThgz7pBJMw6th2fO8iY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YWzAxUkchjbFpDsKRVyjM/67rBwfdKzvk+b938ePGwzaQDxPbSIzRh2TnrBJ5JXEq
-	 mqgH9V+wvoADR4fALkyHWu9TEwv0rrIVqfl8wpYE9OSIYlcHBU3FpG47CxYtvuDvKB
-	 RtlWi+0xAO/TYxXjU0bcP48K8IOt5aCFGanNCrh9wl1Y7I/M+1/J6fgHm3uzX0CCDa
-	 x+HXCiAXEzutpmgf9AHR+Z4A8iBd+0NedpthtSO5ue5/oCLz341+ydH+DwvyfFgkp3
-	 1HUVweLHTDYzMxHo113EBuhWWFFLQ9o6fZBgM5O/aQwJvJs5vCRs8lWzWAaBFZ/1TO
-	 E0M8OiI6wnZ5w==
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-39da69c5ba3so9744161fa.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:32:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy2REvg1weM0y33cbmDnxtKgxZr65h4Es7bDoXPkuJLMmtjnLvjXZO/V4T9+W5e5z9Qj+Je3UH0kB/mg0M=@vger.kernel.org
-X-Gm-Message-State: AFuF++k7h48mqup6IG+aM+JoBymZ1jOh4IczyFnUCULinpHRLPD2+b/D
-	J6cOpBEoCJ6PZ+Rx9obHjPXVS1YSWFcTctBvhaMaTGqIaGcySB7RqzNiluCgsUEqCLoc09NSm/x
-	5Kj61AaPZ4tH0MLDk1HJNEmjgyhORSFA=
-X-Received: by 2002:a05:6512:6193:b0:5ae:ba8f:f9fa with SMTP id
- 2adb3069b0e04-5b608696c7emr2002421e87.18.1788370328999; Wed, 02 Sep 2026
- 10:32:08 -0700 (PDT)
+	s=k20260515; t=1788370358;
+	bh=3NMBMzPrvgzARGDkqkkRUrIwdOjQWvMowK2DeeOcjfo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UEafEYVd1/nuWsqRSGaL6Ym6DYw4xcbcm3nx7vVQr3yGX3U4bOv8N3/0zJemQBiZo
+	 Jnl8FY9v1VjM+Fhxz5w3IOBnPSA9K3eDxx3ykfG3mvpXPIbwzE2K5l6KgBweNNS9qU
+	 B3liGmGb4D5oU3lDXHHQtQZJh13lbYb7K5m939Ne06IA93hFKTEFsP7gPZXFEVO8Ja
+	 FeP4as0D84ujfkTFxoSyPCRYGq8QXi1+TtmiMT2io8VgFh/ohSHNp0OLQsgcywWkWD
+	 VC2RFBdiS2ahqULNsmSdt5v+Vy01g4ZOyCqQ2OcR7bCUAcQTIzG4I9B3k0oiyvgJQl
+	 HDPiHPtOmsr0Q==
+Date: Wed, 2 Sep 2026 18:32:33 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Ian Ray <ian.ray@gehealthcare.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 1/3] dt-bindings: display: synopsys,dw-hdmi: add
+ ignore-rxsense
+Message-ID: <20260902-relatable-caviar-a82542bcc02a@spud>
+References: <20260902130117.2731-1-ian.ray@gehealthcare.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902154525.4090276-1-mehmet.fide@gmail.com> <20260902154525.4090276-3-mehmet.fide@gmail.com>
-In-Reply-To: <20260902154525.4090276-3-mehmet.fide@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 2 Sep 2026 19:31:56 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmJ1+ZT=j_L79SuOzZS3PjOBgrCwhO8egaHfOU1ScLPkg@mail.gmail.com>
-X-Gm-Features: AcwNN1Ufz2hwBVYNzOhxeTRLMRRl22w2wWZvYy2iKpxvY8shYC6JncpMYjsiQr0
-Message-ID: <CAD++jLmJ1+ZT=j_L79SuOzZS3PjOBgrCwhO8egaHfOU1ScLPkg@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] gpio: mmio: track the direction of chips without
- direction registers
-To: Mehmet Fide <mehmet.fide@gmail.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Dong Aisheng <aisheng.dong@nxp.com>, 
-	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, imx@lists.linux.dev, 
-	linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Mehmet Fide <mehmet.fide@screeningeagle.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="/awlfxXb81px8kJp"
+Content-Disposition: inline
+In-Reply-To: <20260902130117.2731-1-ian.ray@gehealthcare.com>
+
+--/awlfxXb81px8kJp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Mehmet,
+On Wed, Sep 02, 2026 at 04:01:13PM +0300, Ian Ray wrote:
+> Add a new property to ignore RXSENSE during hotplug events.
+>=20
+> Fixes: da09daf88108 ("drm: bridge: dw_hdmi: only trigger hotplug event on=
+ link change")
+> Signed-off-by: Ian Ray <ian.ray@gehealthcare.com>
+> ---
+>  .../bindings/display/bridge/synopsys,dw-hdmi.yaml         | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/display/bridge/synopsys,dw=
+-hdmi.yaml b/Documentation/devicetree/bindings/display/bridge/synopsys,dw-h=
+dmi.yaml
+> index 33481381cccc..0f6e4dabe11d 100644
+> --- a/Documentation/devicetree/bindings/display/bridge/synopsys,dw-hdmi.y=
+aml
+> +++ b/Documentation/devicetree/bindings/display/bridge/synopsys,dw-hdmi.y=
+aml
+> @@ -61,6 +61,14 @@ properties:
+>    interrupts:
+>      maxItems: 1
+> =20
+> +  ignore-rxsense:
+> +    type: boolean
+> +    description:
+> +      Determine the connector status from the HPD signal alone and ignor=
+e RX
+> +      sense. Set this on boards where a downstream device (for example a=
+n HDMI
+> +      to DP converter) keeps the TMDS lines permanently loaded, so that =
+RX
+> +      sense is always asserted and can never signal a disconnect.
 
-thanks for your patch!
+I'm not very familiar at all with these kinds of devices, but this seems
+like something pretty generic that not only this IP would need. Are
+there other examples of this?
 
-On Wed, Sep 2, 2026 at 5:45=E2=80=AFPM Mehmet Fide <mehmet.fide@gmail.com> =
-wrote:
+Additionally, you're missing a vendor prefix in the case that this does
+remain limited to this one device.
 
-> From: Mehmet Fide <mehmet.fide@screeningeagle.com>
->
-> A generic chip with GPIO_GENERIC_PINCTRL_BACKEND and no direction
-> registers sets the direction through pinctrl but has no get_direction
-> callback, so every gpiod_get_direction() call trips the WARN in gpiolib
-> and the direction gpiolib reports is whatever it assumed. On a Vybrid
-> Colibri module that is 21 backtraces per boot.
->
-> Keep the direction of such a chip in the existing shadow: the direction
-> setters update sdir under the chip lock, and get_direction() is the
-> shadow-reading path already used for unreadable direction registers.
-> That keeps the callback usable in atomic context, which it has to be:
-> gpiochip_lock_as_irq() calls it for !can_sleep chips from
-> gpiochip_irq_domain_activate(), under the irq descriptor lock.
->
-> The pad's actual state is read once, in process context, when a line is
-> requested: gpiolib calls request() right before get_direction() for a
-> new line, so the shadow is seeded from PIN_CONFIG_OUTPUT_ENABLE there and
-> the line reports what the pin controller says. Lines pinctrl cannot
-> answer for keep the input default, which is what gpiolib assumed before.
->
-> Suggested-by: Bartosz Golaszewski <brgl@kernel.org>
-> Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+pw-bot: changes-requested
 
-For one I really like the approach to ask the pin controller
-back-end about the direction state when the GPIO registers
-doesn't know this!
+Thanks,
+Conor.
 
-I have more of an implementation question here:
+> +
+>  additionalProperties: true
+> =20
+>  ...
+> --=20
+> 2.47.3
+>=20
 
-gpiolib already supports this:
+--/awlfxXb81px8kJp
+Content-Type: application/pgp-signature; name=signature.asc
 
-struct gpio_chip {
-(...)
-        int                     (*set_config)(struct gpio_chip *gc,
-                                              unsigned int offset,
-                                              unsigned long config);
+-----BEGIN PGP SIGNATURE-----
 
-this sets one specific config at a time. With a generic pin control
-back-end it is simply populated with gpiochip_generic_config()
-from gpiolib.c which will call pinctrl_gpio_set_config() for
-the corresponding pin.
+iHQEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaphdsAAKCRB4tDGHoIJi
+0s61APj5C2V7PJS7E7HhgcEtL8M8i7z+K1Z2DlmYJ71DTSzjAP0a45C2xL/aY4+z
+dUYv8IU3c4Qa+BedfjjYp1yUBa1qDQ==
+=rI4n
+-----END PGP SIGNATURE-----
 
-What about just implementing generic optional get_config()
-in struct gpio_chip, implement a likewise generic
-gpiochip_generic_get_config() in gpiolib and use that as
-the fallback?
-
-        int                     (*get_config)(struct gpio_chip *gc,
-                                              unsigned int offset,
-                                              unsigned long *config);
-
-
-Then the implementation becomes pretty straight-forward
-from that point, and this:
-
-+static void gpio_mmio_seed_dir_from_pinctrl(struct gpio_chip *gc,
-+                                           unsigned int gpio)
-+{
-+       struct gpio_generic_chip *chip =3D to_gpio_generic_chip(gc);
-+       unsigned long config;
-+
-+       if (!IS_ENABLED(CONFIG_PINCTRL) || chip->reg_dir_out ||
-chip->reg_dir_in)
-+               return;
-+
-+       config =3D pinconf_to_config_packed(PIN_CONFIG_OUTPUT_ENABLE, 0);
-+       if (pinctrl_gpio_get_config(gc, gpio, &config))
-+               return;
-
-Can drop all the checks for !IS_ENABLED(CONFIG_PINCTRL) as this is done
-generically in in gpiolib and:
-
-+       config =3D pinconf_to_config_packed(PIN_CONFIG_OUTPUT_ENABLE, 0);
-+       if (gc->get_config(gc, gpio, &config))
-+               return;
-
-I don't think it is necessary to provide any consumer API for this
-such as gpiod_get_config(gpiod); as no-one really needs it, we can
-keep it as a private thing in struct gpio_chip for now.
-
-Yours,
-Linus Walleij
+--/awlfxXb81px8kJp--
