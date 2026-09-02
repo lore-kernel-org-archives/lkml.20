@@ -1,106 +1,132 @@
-Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E7D368D4A
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 23:58:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92E593ED3CE
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 23:58:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788393521; cv=none; b=Bir/Go5JuP1bowR2B8JrcnihiJMiIDUiigtFklFAYa6fHysMQp4c/JSnftDL1B2k6SbiLZ5YQNTkbYf29FDvO7VcPt0WhHpQX2GdNQXDSk2JLDCZTWFnNxKmOvxltAMN3FviILqL3s0De4/rgJ+cHDfjOTW3f48+V5FG/LiJWvg=
+	t=1788393540; cv=none; b=QDTgY87MhljENssF5QmDnMPjWMyWShl0/poDu06uHoixeslBYjpqR6t8jENTz/v3EKIQ2g2pW+iWdOEc8mkVVM/t6Xd5jFzDG3uB2Is1fvAke8CHkEVTs4w1XBSPxk5f9ptZiPP/B1HeEVyakr80Dy85XVdfeguKDzw0CY1RKd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788393521; c=relaxed/simple;
-	bh=G0EhrKf0cipMkkXxqU4PnL7wzU8qvUGgDJ14ZMb56Uw=;
+	s=arc-20240116; t=1788393540; c=relaxed/simple;
+	bh=AsdYeVXmF3uMB+TvH8uJow6MovMZfFVMBCxO5aiWbOw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fKCj1K8HFqN8hcWtGe32dy4inXcDeGRn2pQEt6PuPJOuMhvaQR1Z4ttgQ+v+b2vVPNH5bZuMeomXUAYYid437gHB/9Y6Qpm8DtJ+3+3It3BrHlXsdQ3gzZdVhBRwuRnQD7XzcJYD1faHoUF5qXU1gZTXArovNAz41CN4pY/kemg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=4ixYbPT9; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=PlDXrb3u; arc=none smtp.client-ip=202.12.124.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	 Content-Type:Content-Disposition:In-Reply-To; b=pCJuYRWFoovgL9d8F3vOZNFmRiGD0jr2Am91qr1Qn4GcxRp6MKw1hqBGnXrnvWmUCaMg/FdRb2XirXM/znXP/8FJhHhFH4f10i/nbMmwfBiD+RIM/UEAg3nXIqYvZJ7u2Dx6mRR2E6chOo0kpm8PeYO/LJSPlc0i+yfL5cbKTAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=fail (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=d4bG1cCB reason="signature verification failed"; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="4ixYbPT9";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="PlDXrb3u"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 758177A00B0;
-	Wed,  2 Sep 2026 19:58:37 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Wed, 02 Sep 2026 19:58:37 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1788393517; x=
-	1788479917; bh=Eu/0YsC/xd1sD1J8JrfUVFbXgHyAug2964fjNlxShgM=; b=4
-	ixYbPT9sGE63lk08dh7p/vMHg6HWVQLq7AYU7fIF7bjRmria3LFQnhWz36eOWF0w
-	jfVrg15LXIWX0L9Vmvsztt8PSyvI0M1VAUyXC8RtX3q6E1HTKX6qBYG3SbMryLHA
-	NMDA1GlB24ZBXf21Ecbr7Dmbgn3t1QTDHKoVLENA1FjyNbPbASJ+eFxdf14UBI3N
-	JjU32Q9PFK8i7fwYFaZS2mdnTG7DTUlIgWvSl20PXcEmq4e++Z7b6nHWOCffQfGC
-	fo1IgHy36oYPGau/ydziaK1edC2wEQHlQFF/5WZsHUwh7ZWPodSM6TnweckonjE4
-	pL1ipCM6TCBZUTRZ/6dBQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1788393517; x=1788479917; bh=Eu/0YsC/xd1sD1J8JrfUVFbXgHyAug2964f
-	jNlxShgM=; b=PlDXrb3u+H4dcY1poQx/xLEGCStyF8NBMbU8JGNP3wdd5oFIz2e
-	ySRumKeAd+hP4jy6/yq2c8yYcFrZmD2DBhvmnEG/H7d0BD20GFjSm0lcO71zfmLw
-	dKdCvauMyoWcuJ3LcTRwP98Ool3e8OfXTEPiog0DMJ5+53GiIJ3wMuEUtX4Mg00e
-	8+G8BaDxDRFDGjwJGOqiFFxKeuvVRaBolcSBcXsSci145aYMqOPpNPKYg2BqJ4ty
-	EaVhKW8w9JK6Vx/DZRcbOVNUGsI5ZOpp12gT3ZJilFjj40K0aLSAf88gYSaJssqh
-	Lm9vqkOP3seVJmZSVSuNlRnGuxoNhIDwRwA==
-X-ME-Sender: <xms:LbiYag7hXfyDvuFzra-6Ul1--WaTnbHC08AMUgafu5XE5sq2_kQK_g>
-    <xme:LbiYav2v7ZAl2ERjwrkL6aYCSPGEgLhp3kFvEhNFaPcD8CpMLUV6W_jtXKDee9l8c
-    N-Tfau6dVw0nshKi7xByGZhiEiTlLCbF0m9yk9YT5PlUdOpxwmGKb8>
-X-ME-Received: <xmr:LbiYanC6U84yznbZQGJ2eGAuPcx-SGBFIJ2wzojhohorRlaaR8mX-f0-AlDN26O2NQXYbpkQ6_z39Uq8RxiziAftYBXKJg>
-X-ME-Proxy-Cause: dmFkZTFg4hlaRgdnFqzKJFe3rCFIAaTPlTae3F6RpWj8cWAGffnhnoG7IWh+sWz44G1eiV
-    1hBF564CMFGTbQHifDoJ9O3hJ0OKB6iPZtGRi6SoVPTvCWoH5/w3Sh3fl0e28Q/6q/l0DN
-    wyU+peupuaiHlRmfuTAf1beMDKclf274ax9C0y5Vp1zpVq5t7Cip27T7n6Ky6F7+IB9WFa
-    83r9iSetpAh3gPFg2YGrYF5GpmcnNqdlP8qbpFvcXdG1EUmIX58YG4i6W8Ta+qKGM309DD
-    iU3v2S0gKAi4RpqYKMC7APtBV3nb/9fI9rlCoFup1VnLoolSmVdCCA9pWftZVphqkjxcU8
-    a4J8xzGsxIkbPKP0f8uNwoQ8hPaaI8b3sUXXZvm6vrCjb6tu9toSiXtn28VY5kJou81vlt
-    pBNMkDTc3G8N0pfdMefT8Yx6a26msyAf/8j4tsPAZveECdn3tMgitTVDMvpIXL03vhEe5/
-    mcCHRjtbZVWOPEf4ikM8AW6qnxtgjvqX9lzMkNRkPf64w8eAiZ74ZGGu3wrwZf/idJO9bR
-    xa3fVuMYAJ49QiIBkBbPvsSSf9aGVWWAKvFEMtqzOvvs8ZMr6hCBC6khgkMn9AFshlC0qy
-    J6mTahrgr86ILMkb+USg/71U93muG97orvHZscfX5hRkkapY10QjIYEoPTSw
-X-ME-Proxy: <xmx:LbiYah3t_q9vgRKdpd5-1Mnj2WMcOJ-y_7yBQOlPNQwIxmlwxMPRzA>
-    <xmx:LbiYahu245BHUcI9Fl3MZcOYGq2Ud8yoBLygP-3zEovYA3VBYnU8EA>
-    <xmx:LbiYah7DRkMw9NSKRCJQlsaE3hqWGp0Sw-snUNDGRX2SU4whkpfh8g>
-    <xmx:LbiYaiIQlFA6OGZFRLP3E02kFeZAry_WCeOOc221cUBJ1ap9BlcnPg>
-    <xmx:LbiYaptIWfI0xHJnkH8GY59EVlNkoOuimxSPoy4bwvONt2nZU4HH9EWM>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 2 Sep 2026 19:58:36 -0400 (EDT)
-Date: Thu, 3 Sep 2026 08:58:33 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: linux1394-devel@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] firewire: core: fix wrong git hash in code comment
-Message-ID: <20260902235833.GA2393579@sakamocchi.jp>
-Mail-Followup-To: linux1394-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org
-References: <20260901134921.2386739-1-o-takashi@sakamocchi.jp>
+	dkim=fail reason="signature verification failed" (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="d4bG1cCB"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id D19CE40E02C2;
+	Wed,  2 Sep 2026 23:58:54 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
+	reason="fail (body has been altered)" header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id jG-GqP5vWJ92; Wed,  2 Sep 2026 23:58:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1788393524; bh=+jWmLQ4BfUUKZhN5+qVeHxA0IEBsmEBT9F0I2pHfjyk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=d4bG1cCB94QPj0niyzXG8MNmgx3y3WOEuXe9C3t69kjXgtKUnMe6Hey+5Hk48TPVY
+	 MmaaTKTEhZK7KZZJeP53hr24rIYJVuS9qYLSvkcyLBiw/XMFuXZl20ErnXEMYp2zLZ
+	 NnqHeREW9WsvHr9BgMrSDSewEXHykF92bpAlOCF53fB5bGlfME2wZ4ynQf/tZJ+8Fe
+	 kvVhBBbL6woidJziqW8+YT28wcVvcA95GVDQUywbs54huukI2vLQ1vufc0OQPbm0un
+	 +yFvEA9bknSj/+bvRL7+ZLiFH9M7p6UQCSWTzq3GyGUxSB32i0durPFqQ4Cq86yiwZ
+	 sTxhnWDkVzaOLuzTTdc6Tt5/gyzk9TO0k4obCOvZFNpn4P5y5wA7FI8eobqYVPTMBM
+	 EyvxibscDFmhmLWDgAk/jd9jvhkOZXvmZh4bJVsJVRrsm52k2/GqmlT5YgrERwLUiy
+	 76roRpxt1xTRzBZpOeOfWKGtUXRD/jPhPzx5uEVsBTnnmKo+2sg7meOvfSfFm2imxP
+	 hlRh9Gpg5cSepG0d1NkOIHoCrzJuoh4ifzQcVoFqFyMGG2b/PWKEMCDKDn2is3Svrx
+	 84IV3lzud+919ADjMiLvWVeo44N7+oCnf+xUfhsWFS5yRvk+UrbD7sv1S4taWDRDLs
+	 JkBMFI46WOwdIoMhyKJrRm2A=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id EDC6240E027F;
+	Wed,  2 Sep 2026 23:58:27 +0000 (UTC)
+Date: Wed, 2 Sep 2026 16:58:24 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Michael Matz <matz@suse.de>
+Cc: Mauricio Faria de Oliveira <mfo@igalia.com>,
+	Richard Biener <rguenther@suse.de>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Juergen Gross <jgross@suse.com>,
+	Alexey Dobriyan <adobriyan@gmail.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Jan Beulich <jbeulich@suse.com>, Brian Gerst <brgerst@gmail.com>,
+	kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v9 1/5] x86/boot: Remove "cc" clobber from memcmp()
+Message-ID: <20260902235824.GFapi4ICSFCUiPSWVG@fat_crate.local>
+References: <20260822-pvh-kasan-inline-v9-0-e70ef3b75b6a@igalia.com>
+ <20260822-pvh-kasan-inline-v9-1-e70ef3b75b6a@igalia.com>
+ <20260902023129.GGapeKgVlL2WgHcJcb@fat_crate.local>
+ <57b0d188-b256-bde4-43e6-99dae4f59d60@suse.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260901134921.2386739-1-o-takashi@sakamocchi.jp>
+In-Reply-To: <57b0d188-b256-bde4-43e6-99dae4f59d60@suse.de>
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Wed, Sep 02, 2026 at 03:29:44PM +0200, Michael Matz wrote:
+> Strictly speaking, on x86, the '=3D@ccXY' constraints are register outp=
+uts=20
+> into normal random integer registers (though they are of course=20
+> initialized in a funny way), while the 'cc' clobber is not a register a=
+t=20
+> all, but rather a fuzzy idea of "state" in old cc0-based compilers (whi=
+ch=20
+> the x86 backend isn't anymore since, ... well, about forever, 1999).  A=
+s=20
+> such they both really don't conflict and ...
+>=20
+> > But then I'd expect that gcc would enforce that. I know it can't have=
+ it=20
+> > when the clobbers contain input or output regs:
+> >=20
+> > In function =E2=80=98__memcmp=E2=80=99,
+> >     inlined from =E2=80=98main=E2=80=99 at memcmp.c:25:6:
+> > memcmp.c:11:9: error: =E2=80=98asm=E2=80=99 operand has impossible co=
+nstraints or there are not enough registers
+> >    11 |         asm volatile("test %3, %3\n\t"
+> >       |         ^~~
+> >=20
+> > but with "cc" clobbers it works.
+>=20
+> ... hence there's nothing to report.=20
 
-On Tue, Sep 01, 2026 at 10:49:21PM +0900, Takashi Sakamoto wrote:
-> When refactoring device quirk code, the wrong git hash from my local
-> repository slipped into the common header.
-> 
-> Fixes: 5a43dc9f4ee0 ("firewire: core: detect device quirk when reading configuration ROM")
-> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-> ---
->  include/linux/firewire.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+Aaaha, so the enforcement is solely documentation-based. :-)
 
-Applied to for-next branch.
+> In fact what an explicit 'cc' clobber once meant in cc0 backends (that
+> indiscriminated flag "state") is manufactured by the non-cc0 backends (=
+all
+> of them now) automatically whenever an asm has no flag output constrain=
+ts at
+> all.  (On x86 that means it adds the "flags" register (internal name fo=
+r the
+> collection of flag status bits) to the clobber set automatically when t=
+here
+> are no =3D@ccXY constraints).
+>=20
+> You can regard all 'cc' clobbers as pure source compatibility, they hav=
+e=20
+> no meaning anymore.  But as they are so ubiquitous (even in our own doc=
+u),=20
+> they remain recognized.
 
+Ah ok, I see. so we'll simply forget them.
 
-Regards
+Thanks Micha!
 
-Takashi Sakamoto
+--=20
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
