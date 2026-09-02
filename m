@@ -1,297 +1,215 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38717328267
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 04:52:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59FC1320CBE;
+	Wed,  2 Sep 2026 04:55:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788324781; cv=none; b=TuUKr1J+i1Wms9dmi/SmvE3vkA0PqQLB2Ks4/95gWwBsFQo7GQp6d7osdijpfqRVXDiNb2dA+8rIvc6iKTTPHdrzQuRtf2B7jRcrvl51TzjyV+JK5p4B4mieIGFG7heyBAcguVpfS3lrbQu5WRVOJgoTvqhrBDAwAUlCEeEjl1Q=
+	t=1788324907; cv=none; b=S6XsYkjNYcwKy13PwQcAoHxsslU+EqiQdQ1r9yOvis1qNw1UVB68HgtlwkcvGEm9+ACBB1qxUW2M9F3DXWn76uwRi70A1H5SuCa0EhaLPVbn8tfUgskJSYgUcVCbG0O29N10ihErJM8p4CWLr/DbKOSVPcIbYnaVgfh6kuGL7CE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788324781; c=relaxed/simple;
-	bh=lzwBvj5rCRwC9vpohTFNC3A3Mdt/eIKsHDElx/0cUzk=;
+	s=arc-20240116; t=1788324907; c=relaxed/simple;
+	bh=1WBbhbWHoeUJbZJJHlfXyXJ/zuakGcnf+FKHxBBOZmA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Uzj+6LUtX8+Hl9apYzzj5MAYpwCgHjc5KZrhnKPxwl5q3nnubjG4DiJj2M8mJpC+SG1vWK7IxBcl2CdPYkQBxWcJ739UuNg3MSdZdlzQuSDN89SSUQL/9Uw1kFsplv37kspi1hGDqpN6BAx95zQG0ZS1cxbZp2T4Sye79EkU2Dg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=U4UyBEj7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LaL1zUzh; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=TAzELBzEX1FfzojNX8eXIhAOR7S6USgHFvf2diwdGpPSZLBCuoxevhNFDC0TE7A9Ou1LvxNVqca5jtOB6sPHCmFmMIAVNghGUu1aZDIdkIpQ0HKamixFeQTXnCaLjhy2/L66j+AnXs9prCxgQ89vnwS4ofMhUwVpvkkIocS8JHU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=SGde+sPN; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="U4UyBEj7";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LaL1zUzh"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6823Jd5A1026272
-	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 04:52:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IpYFqn52MzyyerSAhaJx9+MNvz9oY9L3KfTClhX+lTk=; b=U4UyBEj7NkKGWdyG
-	q1Mw86N1eMYbj6BtBltl9J7A3Z+rgCHPb119lZGYX+tbBY/HGzzj3TpPCEBcetXJ
-	4XHJtslfDYoCb3ffmVQ1PqrqP5lWLoidDLlug+RFQ8pZQ03HVcOwjQTD5QWaU5en
-	3UxryAXhnO3d6IlcYOZedDq9+5OwmRb3zyi3c3dgniofwggkfUMXuJ7hfiBeWg0a
-	wHvcYZnf0YVm352Hgqbz8R7aioJPAdQUFgTWonWPAfzzCd4xJw9yEpq2F9nMje8n
-	7hz+fD5fMjARQL6AApAJ7wgacICECaAMu452SzxLIDvqWIs+YU0ZbsB9L/oM2rxu
-	Rn/CFA==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gebsx09d7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:52:59 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-398d7e0f3b4so902818a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 21:52:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788324779; x=1788929579; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IpYFqn52MzyyerSAhaJx9+MNvz9oY9L3KfTClhX+lTk=;
-        b=LaL1zUzhlhZYmx99JcqRHY1Au9CYg8qCu6FnA9fB+knjWPAc/AlrOgqzT7HdWj5Twi
-         bxTZF9hby9JBZGslTp4QZ4n3RQ6Q0cHUpxcIzLD3bVDeZTA3CDEkz0MqfhgR8Dw2Lu/A
-         eb5b2+8yG/QDcSJPyKFXsISF6eSG+e3IoZ5bMrmI8VSUvqAFhCKenuySBGdkSjRPWNUI
-         ZNaxqJ1IfONRlhZ5Dt4wHdJwSimMB495ROkKdOKFospGBzShKiecBM7IOFd/m8wu655y
-         kyczeuR/m/YqkmdqKLzjBi3fRZykOKcQKRmTBEVB2P39vNaz4udyLC4ru0C8DvDpmjzJ
-         t5kQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788324779; x=1788929579;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IpYFqn52MzyyerSAhaJx9+MNvz9oY9L3KfTClhX+lTk=;
-        b=mKGKqXqO2nVvU8KO+bQle3Fag4HYuC2CLulCnvBSHU9ppQ4ptQHqfvJdWmqH8LfXQR
-         gQRGkq9trqpuPma6N3387/PPxJYO3cZ31Xc+0zkM92vgKBWfy6BwYwsM9iScOySZwzIC
-         3krwGmHwBaz+CLKwJTZDHZ4YAgnLFCj8nOQczjqd4ZBkP7x/UwdgX71vh/lJAY7ShHMY
-         c97ZZFN812S3O29PfwDJI/bTjKcnJoMNMcwIYHLBNeKq7e6b35eu7hLqDzLNtzhM/xwU
-         cK9Z7WvFXK0ouOKGByFwRSJXlj/5TWZg3gE5nOsahjQi4NVeSabUUkY8RVQkn1rN/eD1
-         Lzuw==
-X-Forwarded-Encrypted: i=1; AKwUvBzHODJkb8EnVp3dq9k7oSaM5L87fV4C6jPnjuIuMjMTjUiHqUQHmVcZp55eJXmjb/wL21Dgxl4JiNxku/0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUXHHl1SAg8IrUjOXY6cUKaXlID5Ui9gCy+Gb2O7xFfJv5UuqG
-	CQLVRhhBblIbz5Gk39hSCBuWazc/RoPN0sHRzhAalYO9ChBySzJRiTVdk2iU4BAH4xLk5pG4VST
-	MUOwWOlhjqSTya1xOSsBtNwdVKl0DPR46lDb2G8B+XiJdDFnH5rC6JxstFl6f4Z1DWeg=
-X-Gm-Gg: AYBFou1I6IpwaJ7FdqsaVdFJioDXISv9R+BYdx2S+AN0gZlXNhSp/R2bNv+EsTanPco
-	JQC6WBoMsyNbW7/byvj0wT60meBiWyjXH6aaAh+2VF2YGM00IFKH0ZVHnnIeL7DFMSvfpoXpfwb
-	g0oQZorw61z3anfSVWFBW5fTTjWb01Y9kQZvyKltiX3UxIqAb/rQfonfDWDZC8DLTiB2hH3pMTL
-	gDvOkAf0nZbpuKKfIUCHo7ZhJzrRXlUwNESlsTJosAzKNSUW1CeLvH0EHtUXUPpQKk9Eh3fFuBE
-	58nZP6vqDWmnoia1XNFVhwCl/sHg+h8ECcBBXUIPUrcc+ZnLBNDGtOSvfN8/7FmEVAyrXzY1nRb
-	25xwyA8fML02dGhEGfgbMtg/odm1nJ6qy
-X-Received: by 2002:a17:90b:35c8:b0:393:194d:5366 with SMTP id 98e67ed59e1d1-39aedf43130mr3258295a91.10.1788324778546;
-        Tue, 01 Sep 2026 21:52:58 -0700 (PDT)
-X-Received: by 2002:a17:90b:35c8:b0:393:194d:5366 with SMTP id 98e67ed59e1d1-39aedf43130mr3258234a91.10.1788324778096;
-        Tue, 01 Sep 2026 21:52:58 -0700 (PDT)
-Received: from [10.218.35.45] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14310adaeaasm1068788c88.10.2026.09.01.21.52.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 21:52:57 -0700 (PDT)
-Message-ID: <5c3f1611-275e-4664-b3e2-748da6d210ed@oss.qualcomm.com>
-Date: Wed, 2 Sep 2026 10:22:51 +0530
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="SGde+sPN"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1188A11D4B1;
+	Wed, 02 Sep 2026 06:54:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1788324898;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=0Bq3n+d6CqRiWka+r6Puyq82APtewnlh2hBeOLFbC3w=;
+	b=SGde+sPNe3xV7Zvq3omYCHqKEviYf3ImreWf67FsFcpVfK8ba7uKTmKD/t1cdTz7OBrDVr
+	xDwsRYs1brjC8zgueF/G26DeI5AKj0IKpD6k5SwN/0iDw2A4AdE11CpxEsKCEHQbNOjXqN
+	th+7z0KqS1s2tFAVNq1FGi9kifc/xwjMJEyFzJjtnSnQL2RgsdxgHnHVUrzGDlBUvsgkM6
+	4898Cb3e+yA9hcnVgpCpahwgM917+137PJfNH9wQmi8v6qO1m3jTraWv5zq/APdqcQiYQM
+	V2rUwv9+cB7C1dNdcTsHb3LRc3MGi+tKLqLbCLUYG/5T8Xlnuuu2Tyi/9n8EMA==
+Message-ID: <ba70e613-0be8-2655-f750-c96f1e35b87a@nabladev.com>
+Date: Wed, 2 Sep 2026 06:54:13 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/6] PCI/bwctrl: Set host bridge OPP and optionally
- disable ASPM around link retraining
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Jingoo Han <jingoohan1@gmail.com>,
-        Lorenzo Pieralisi
- <lpieralisi@kernel.org>,
-        Rob Herring <robh@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
-        Bartosz Golaszewski <brgl@bgdev.pl>,
-        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, mhi@lists.linux.dev,
-        linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
-        qiang.yu@oss.qualcomm.com
-References: <20260819-bwscale-v5-0-6dea79786b37@oss.qualcomm.com>
- <20260819-bwscale-v5-1-6dea79786b37@oss.qualcomm.com>
- <atba2336nxz566wvbfrvclbx7yyma5elhnojb7ozz4ku6dk3q3@c2wa24laiqyd>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.0
+Subject: Re: [PATCH v4] driver: fpga: xilinx-selectmap: add csi and rdwr
+ support
 Content-Language: en-US
-From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-In-Reply-To: <atba2336nxz566wvbfrvclbx7yyma5elhnojb7ozz4ku6dk3q3@c2wa24laiqyd>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: ax_F0c7TwIUpsc1q33Bl4ifchOp1JKQX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA0MSBTYWx0ZWRfX9y42bRpiKNIZ
- Evnp8PkxbV93/MQzagDgJBUsauSwxQuoL6k2Ho++BNF2dTdgt3ujGYgxG5atMu/X3XRCbpnRZZ8
- pe7cOGo3IdlGHdUYF5EPn5LLsqzJjIgoe1zjzEwFDPxyQ7bmvVYVS30d4AzVjVVc/JD2sAGTgI7
- KPWrN8mkQH7Rc4s3qEiWrIbv0q/dwwYFlClDL9ZheiyLH/nqULqpzqB+s0Ck9EjnaVSOztC59jN
- tyoXyuX8CUh3rLd28FH7R83eq5xoHn8WMcrZGYEFJtCCxoA4QqV2D4O4u/TZin8vsQALtgtxI6v
- 6cfqSEKM5+3Rx7loLuQU6tz2UMZEboLY2U4tVDS9dnSTklzy2aGsapGy3pVdJ57DfixcEjachWW
- KgZBrqhOqWm2T35P781ofrfPL4I0WcbIodrg8rbuFKEG65dJCdbkbKCBQ2L9xvul/iU047vbLEY
- e+zWNmd8GsSI/uaQajQ==
-X-Proofpoint-GUID: ax_F0c7TwIUpsc1q33Bl4ifchOp1JKQX
-X-Authority-Analysis: v=2.4 cv=AufeGu9P c=1 sm=1 tr=0 ts=6a97abab cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=6HI80psrSe5n1y8aGwAA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA0MSBTYWx0ZWRfXwjoF5dtQmbCn
- BaC4GBUI3GJLj3tt4sY9ZoB1h3AO2fmpv01aqABMcGWh81ctQuUzsQm9qF/Tt3Hi1YGUR8+M9In
- ChfdeiGxW95BF6UCaXetOAdvOFPQ5ZA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_06,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 lowpriorityscore=0 impostorscore=0 phishscore=0
- spamscore=0 adultscore=0 suspectscore=0 priorityscore=1501 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020041
+To: linux-kernel@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org, linux-fpga@vger.kernel.org,
+ Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Michal Simek <michal.simek@amd.com>, Moritz Fischer <mdf@kernel.org>,
+ Tom Rix <trix@redhat.com>, Xu Yilun <yilun.xu@intel.com>,
+ linux-gpio@vger.kernel.org
+References: <20260810062105.299808-1-hs@nabladev.com>
+From: Heiko Schocher <hs@nabladev.com>
+In-Reply-To: <20260810062105.299808-1-hs@nabladev.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hi!
 
+On 10.08.26 08:20, Heiko Schocher wrote:
+> The current driver requests the optional CSI_B and RDWR_B GPIOs but
+> only configures their initial output state and never changes them
+> afterwards. As a result, CSI_B and RDWR_B remain inactive or active
+> throughout the configuration process.
+> 
+> This may work on systems with a single FPGA where these signals do not
+> need to be controlled by software, or where the signals are configured
+> to their active state. But this does not not support systems with
+> multiple FPGAs sharing a SelectMAP interface.
+> 
+> On systems with multiple FPGAs sharing the same SelectMAP data bus,
+> the driver must deassert this signals in probe, and actively control
+> them during configuration.
+> 
+> CSI_B (Chip Select, active low) selects the target FPGA. It is asserted
+> before configuration data is transferred and deasserted afterwards so
+> that only the intended device responds to bus transactions.
+> 
+> RDWR_B (Read/Write, active low) controls the transfer direction on the
+> SelectMAP interface. A low level selects write cycles, while a high
+> level selects read cycles. During FPGA configuration the driver drives
+> RDWR_B low before transferring the bitstream and restores it to its
+> reading (high state) afterwards.
+> 
+> With that info from the datasheet the driver is now changed to:
+> 
+> - deassert the CSI_B and RDWR_B pin on probe and store the
+>    optional GPIO descriptors in private driver data.
+> 
+> - toggle both signals around the configuration data transfer
+> 
+> This allows multiple FPGAs to safely share a single SelectMAP interface.
+> 
+> Signed-off-by: Heiko Schocher <hs@nabladev.com>
+> ---
+> 
+> Changes in v4:
+> - add comments from Xu Yulin
+>    replace wrong gpiod_set_raw_value() with gpiod_set_value()
+>    deassert CSI_B and RDWR_B in probe as in patch version 2
+>    rework commit message (correct the description what current
+>    driver do on probe), why this is not a problem with one
+>    FPGA, and why it needs a change if you have N FPGAs
+>    sharing the same selectmap Interface (clk and data pins).
+> 
+> Changes in v3:
+> - use 0 (deasserted state) and 1 (asserted state) in gpio_set_value()
+>    as commented from Micahl
+> - rewrite commit message as requested from Xu Yilun
+>    - describe what rdwr_b and csi_b do, and why this change is needed
+>      for more than one FPGA.
+> - add comment before asserting the signals, why they are asserted
+>    in this order.
+> 
+> Changes in v2:
+> - add comments from Michal
+>    - skip check if gpio descriptor variables csi_b/rdwr_b are valid,
+>      as validate_desc() checks this in gpiod_set_value() call.
+>    - initialize the gpio variables csi_b/rdwr_b immediately with
+>      the return value from devm_gpiod_get_optional(), so we can
+>      drop local gpio variable at all
+> 
+>   drivers/fpga/xilinx-selectmap.c | 36 ++++++++++++++++++++++++---------
+>   1 file changed, 27 insertions(+), 9 deletions(-)
 
-On 9/1/2026 1:12 PM, Manivannan Sadhasivam wrote:
-> On Wed, Aug 19, 2026 at 06:55:52PM +0530, Krishna Chaitanya Chundru wrote:
->> PCIe host bridge controllers may need their operating point raised before
-> Use either "Host Bridge devices" or "PCIe controllers".
->
->> retraining to a higher link speed so that hardware resources (e.g., RPMh
->> votes on Qualcomm platforms) are available at the requested data rate.
->> After retraining, the operating point must be updated to reflect the
->> actual negotiated speed.
->>
->> Add pcie_set_opp() to look up an OPP on the host bridge parent device
->> using a key of (per-lane frequency in kHz, LNKCTL2 Target Link Speed
->> level).  Keying by generation rather than total bandwidth lets OPP tables
->> remain width-independent.
->>
->> In pcie_set_target_speed(), call pcie_set_opp() before retraining only
->> when upscaling (speed_req > cur_bus_speed), since only raising the
->> operating point requires pre-staging hardware.  After retraining, call
->> pcie_set_opp() unconditionally with the actual cur_bus_speed to settle
->> the votes.  Both calls are skipped for downstream ports of PCIe switches,
->> as those are outside the host controller's scope.
->>
->> Some controllers also require ASPM to be disabled around link retraining.
->> Add a disable_aspm_for_retrain flag to pci_host_bridge; when set,
->> pcie_set_target_speed() saves the child device's ASPM state, disables all
->> ASPM link states before retraining, and restores them afterward.
->>
->> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
->> ---
->>  drivers/pci/pcie/bwctrl.c | 63 ++++++++++++++++++++++++++++++++++++++++++++++-
->>  include/linux/pci.h       |  1 +
->>  2 files changed, 63 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/pci/pcie/bwctrl.c b/drivers/pci/pcie/bwctrl.c
->> index c4c8d260bf96..6fa1522c47db 100644
->> --- a/drivers/pci/pcie/bwctrl.c
->> +++ b/drivers/pci/pcie/bwctrl.c
->> @@ -28,9 +28,11 @@
->>  #include <linux/mutex.h>
->>  #include <linux/pci.h>
->>  #include <linux/pci-bwctrl.h>
->> +#include <linux/pm_opp.h>
->>  #include <linux/rwsem.h>
->>  #include <linux/slab.h>
->>  #include <linux/types.h>
->> +#include <linux/units.h>
->>  
->>  #include "../pci.h"
->>  #include "portdrv.h"
->> @@ -120,6 +122,38 @@ static int pcie_bwctrl_change_speed(struct pci_dev *port, u16 target_speed, bool
->>  	return pcie_retrain_link(port, use_lt);
->>  }
->>  
->> +static int pcie_set_opp(struct pci_dev *pdev, struct pci_host_bridge *host,
->> +			enum pci_bus_speed speed)
->> +{
->> +	struct device *dev = host->dev.parent;
->> +	struct dev_pm_opp_key key = {};
->> +	int ret, freq_mbps, width;
->> +	unsigned long freq_kbps;
->> +	struct dev_pm_opp *opp;
->> +	u16 lnksta;
->> +
->> +	pcie_capability_read_word(pdev, PCI_EXP_LNKSTA, &lnksta);
->> +	width = FIELD_GET(PCI_EXP_LNKSTA_NLW, lnksta);
->> +
->> +	freq_mbps = pcie_dev_speed_mbps(speed);
->> +	if (freq_mbps < 0)
->> +		return -EINVAL;
->> +
->> +	freq_kbps = freq_mbps * KILO;
->> +	key.freq = freq_kbps;
->> +	key.level = pci_bus_speed2lnkctl2(speed);
->> +	key.bw = 0;
-> 'key' is already 0 initialized above.
->
->> +	opp = dev_pm_opp_find_key_exact(dev, &key, true);
->> +	if (!IS_ERR(opp)) {
->> +		ret = dev_pm_opp_set_opp(dev, opp);
->> +		if (ret)
->> +			dev_err(dev, "Failed to set OPP for freq (%lu): %d\n",
->> +				freq_kbps * width, ret);
->> +		dev_pm_opp_put(opp);
->> +	}
->> +	return 0;
->> +}
->> +
->>  /**
->>   * pcie_set_target_speed - Set downstream Link Speed for PCIe Port
->>   * @port:	PCIe Port
->> @@ -140,9 +174,12 @@ static int pcie_bwctrl_change_speed(struct pci_dev *port, u16 target_speed, bool
->>  int pcie_set_target_speed(struct pci_dev *port, enum pci_bus_speed speed_req,
->>  			  bool use_lt)
->>  {
->> +	struct pci_host_bridge *host = pci_find_host_bridge(port->bus);
->> +	bool is_rootbus = pci_is_root_bus(port->bus);
->>  	struct pci_bus *bus = port->subordinate;
->> +	struct pci_dev *child = NULL;
->> +	int aspm_state = 0, ret;
->>  	u16 target_speed;
->> -	int ret;
->>  
->>  	if (WARN_ON_ONCE(!pcie_valid_speed(speed_req)))
->>  		return -EINVAL;
->> @@ -152,6 +189,24 @@ int pcie_set_target_speed(struct pci_dev *port, enum pci_bus_speed speed_req,
->>  
->>  	target_speed = pcie_bwctrl_select_speed(port, speed_req);
->>  
->> +	/*
->> +	 * The host bridge driver may need to be scaled for targeted speed
-> "Host Bridge resources may need to be..."
->
->> +	 * otherwise link might not come up at requested speed.
->> +	 */
->> +	if (is_rootbus && host && bus) {
->> +		/* Get function 0 of downstream device */
->> +		list_for_each_entry(child, &bus->devices, bus_list)
->> +			if (PCI_FUNC(child->devfn) == 0)
->> +				break;
->> +
->> +		if (child && host->disable_aspm_for_retrain) {
->> +			aspm_state = pcie_aspm_enabled(child);
->> +			pci_disable_link_state_locked(child, PCIE_LINK_STATE_ALL);
->> +		}
-> You mentioned that the Host Bridge requires disabling ASPM during retraining,
-> but here you are disabling ASPM of the downstream device. So the issue is device
-> specific or Host Bridge (RP?) specific?
-Issue is RP specific, if aspm driver disables the ASPM only when we pass the
-child, if the we pass root port dev, it will just return without modifying the
-aspm.
+gentle ping.
 
-Ack for remaining comments.
+Any updates, comments on this patch?
 
-- Krishna Chaitanya.
->> +		if (speed_req > bus->cur_bus_speed)
->> +			pcie_set_opp(port, host, speed_req);
->> +	}
->> +
->>  	scoped_guard(rwsem_read, &pcie_bwctrl_setspeed_rwsem) {
->>  		struct pcie_bwctrl_data *data = port->link_bwctrl;
->>  
->> @@ -176,6 +231,12 @@ int pcie_set_target_speed(struct pci_dev *port, enum pci_bus_speed speed_req,
->>  	    !list_empty(&bus->devices))
->>  		ret = -EAGAIN;
->>  
->> +	if (bus && is_rootbus && host) {
-> Maintain an order for this check. I think this order makes sense than the above
-> one.
->
->
-> - Mani
->
+Thanks!
 
+bye,
+Heiko
+> 
+> diff --git a/drivers/fpga/xilinx-selectmap.c b/drivers/fpga/xilinx-selectmap.c
+> index d0cbb5fdfe3a..e9b1d15ca054 100644
+> --- a/drivers/fpga/xilinx-selectmap.c
+> +++ b/drivers/fpga/xilinx-selectmap.c
+> @@ -19,6 +19,8 @@
+>   struct xilinx_selectmap_conf {
+>   	struct xilinx_fpga_core core;
+>   	void __iomem *base;
+> +	struct gpio_desc *csi_b;
+> +	struct gpio_desc *rdwr_b;
+>   };
+>   
+>   #define to_xilinx_selectmap_conf(obj) \
+> @@ -30,16 +32,30 @@ static int xilinx_selectmap_write(struct xilinx_fpga_core *core,
+>   	struct xilinx_selectmap_conf *conf = to_xilinx_selectmap_conf(core);
+>   	size_t i;
+>   
+> +	/*
+> +	 * Assert CSI_B and select write mode.
+> +	 *
+> +	 * UG570 states in note 4 in Figure "Continuous x8 SelectMAP Data
+> +	 * Loading", RDWR_B should be asserted before CSI_B to avoid
+> +	 * causing an ABORT on the next CCLK.
+> +	 *
+> +	 * To be sure, set first RDWR_B pin before activate CSI_B
+> +	 */
+> +	gpiod_set_value(conf->rdwr_b, 1);
+> +	gpiod_set_value(conf->csi_b, 1);
+> +
+>   	for (i = 0; i < count; ++i)
+>   		writeb(buf[i], conf->base);
+>   
+> +	gpiod_set_value(conf->csi_b, 0);
+> +	gpiod_set_value(conf->rdwr_b, 0);
+> +
+>   	return 0;
+>   }
+>   
+>   static int xilinx_selectmap_probe(struct platform_device *pdev)
+>   {
+>   	struct xilinx_selectmap_conf *conf;
+> -	struct gpio_desc *gpio;
+>   	void __iomem *base;
+>   
+>   	conf = devm_kzalloc(&pdev->dev, sizeof(*conf), GFP_KERNEL);
+> @@ -55,16 +71,18 @@ static int xilinx_selectmap_probe(struct platform_device *pdev)
+>   				     "ioremap error\n");
+>   	conf->base = base;
+>   
+> -	/* CSI_B is active low */
+> -	gpio = devm_gpiod_get_optional(&pdev->dev, "csi", GPIOD_OUT_HIGH);
+> -	if (IS_ERR(gpio))
+> -		return dev_err_probe(&pdev->dev, PTR_ERR(gpio),
+> +	/* CSI_B is active low, deassert signal */
+> +	conf->csi_b = devm_gpiod_get_optional(&pdev->dev, "csi",
+> +					      GPIOD_OUT_LOW);
+> +	if (IS_ERR(conf->csi_b))
+> +		return dev_err_probe(&pdev->dev, PTR_ERR(conf->csi_b),
+>   				     "Failed to get CSI_B gpio\n");
+>   
+> -	/* RDWR_B is active low */
+> -	gpio = devm_gpiod_get_optional(&pdev->dev, "rdwr", GPIOD_OUT_HIGH);
+> -	if (IS_ERR(gpio))
+> -		return dev_err_probe(&pdev->dev, PTR_ERR(gpio),
+> +	/* RDWR_B is active low, deassert signal */
+> +	conf->rdwr_b = devm_gpiod_get_optional(&pdev->dev, "rdwr",
+> +					       GPIOD_OUT_LOW);
+> +	if (IS_ERR(conf->rdwr_b))
+> +		return dev_err_probe(&pdev->dev, PTR_ERR(conf->rdwr_b),
+>   				     "Failed to get RDWR_B gpio\n");
+>   
+>   	return xilinx_core_probe(&conf->core);
+> ---
+> base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+> 
+
+-- 
+Nabla Software Engineering
+HRB 40522 Augsburg
+Phone: +49 821 45592596
+E-Mail: office@nabladev.com
+Geschäftsführer : Stefano Babic
