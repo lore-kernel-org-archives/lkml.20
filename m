@@ -1,141 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EEE94AA57C;
-	Wed,  2 Sep 2026 16:53:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273003D9DDF
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:54:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788368008; cv=none; b=cgduXVIq2TlwYHpNrcZSC4cpdkuWRTJJwPf6weiMm6XqJrJCDuFUVn8gvBRrdOeLlicM0Q48ztZTaqK3a0dB5KxT0YUcM4ZlG8MLjw2c1Vh2DYAQ/OfxrYyFjsoxx7mJvGkyMtqqxF/YxnXxvjrRbi2TwNDHPkxQlPAigHW/PWo=
+	t=1788368097; cv=none; b=sfvrn3TTDqQudwfCvIzdPGxkZQiqoh2Yn+uklIIvdh/TdP8wc3Qn6hDHXUrK9/ehhWCVAW7fDvTG2DxHFqg/zjjvMHU+w9ZVnHytXHcYef+AECzbOZRQ+rOs50N3wvVhA6qQ7xZuR6jL2c9jkVqeiLJwZ2Ct2fHj6+U2C5jdj2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788368008; c=relaxed/simple;
-	bh=FXkZjsJhuvfGXBfa9R30mQd/k9rDt2tsr32CYL2l64A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G336QbR0gw9Ix8ay4nkjxyvzZoPdVAQQj3NH+HfaOZR6444P2A6fWYm9Xvtv5GlprJajETCWWdobV8ZHtjEihW5dro6FCYDMZGawHH11IEpMLorEtzqxB7DFnPmXLTuCmgR/yKO+y9Qeb4fSOY/8wcqGvAs4gd/yh6b8EBkPjiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NsY5WB9E; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788368097; c=relaxed/simple;
+	bh=SnX0fzA1DduhIUbjL1LdCOa+vmdyh8x1TGLBa8G0ktA=;
+	h=Date:From:To:Cc:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=ODXhmefxKzinK2Sd1/wyfOXm0RDqQ4KosHDxfBEuyZ169V+Mvi6M9wGHlVOiksHkzAH3LRGaDw0WVLBnKR/o+IC8uYZBVp5GrOuMPRPIuyhqFWdaF14HDNf9X5nXXPx+HoJRXMZTVd2kj/OjihYniAx+ACs8o8FLc/rVRCg7LFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ReILfIpc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NsY5WB9E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C4541F000E9;
-	Wed,  2 Sep 2026 16:53:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ReILfIpc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89FAC1F000E9;
+	Wed,  2 Sep 2026 16:54:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788368006;
-	bh=64+KUYqu36wvmy3WR4R0FjJSpd47FyPOdY1dF3w2Yho=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NsY5WB9EKQyvyik+bLrvu6FXRYRR+DThdtHC/Y2amTOH3ipSG73QmWOh+QkARCmPT
-	 GeS1ZzsawmrfbrgXQXdpngnHeOD1X70hPEQ6akf7GKoHOiL3wsFDsrZ/Lqelg0i7lG
-	 +aj9Xsw5nbJWZ+B2hQL/7bOEqNzoE72g4GSrd/EqgseE42I19U2HjAAhdPa1CvtLSM
-	 ovsirqfSq5l7TE8Mp+coZ//W1cIfoYFE8a/TCE+etkDZkOqSbpYqM1ZvXO+gnMeYjR
-	 y+nculeo18NrDaMfTN6tdbQj/6VssFJ5bRNIZA6fvkdR+ohOqAFqua0Z8E6AvnVJkd
-	 CdchACUWbmbMg==
-Date: Wed, 2 Sep 2026 11:53:25 -0500
-From: Rob Herring <robh@kernel.org>
-To: Alex Elder <elder@riscstar.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, daniel@riscstar.com,
-	mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
-	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/5] arm64: dts: qcom: qcs6490-rb3gen2: use pci for
- device nodes
-Message-ID: <20260902165325.GA1440252-robh@kernel.org>
-References: <20260901172058.1512508-1-elder@riscstar.com>
- <20260901172058.1512508-2-elder@riscstar.com>
- <CAL_JsqJJPdrYArNhbRPTM=scDghLAWe5=0a2+ACNaHe07h6-tw@mail.gmail.com>
- <d9071ec7-371f-4896-a023-77a07f01f65e@riscstar.com>
+	s=k20260515; t=1788368096;
+	bh=y2lXFjttr759fogNwtcmJ05qV+QLeR1FmpBEpxYt6hg=; h=Date:From:To:Cc;
+	b=ReILfIpcQZoEiNAZyDqgQ6hHtBfYzGmehhpdxdANpT4eJgM8ieOHpi9CG9WfIYRre
+	 crsMRUk9Iduv1SG8B2bmh/9WxxFDV8j0DDqv1e3E8ibjraB0YREbmpP7qKFJR1BQ3+
+	 9AEU+J+Vb/ISz5zLZ7g88ykVQBA2HDcJybCqbrrTPC7eAo1Ae7RraQX/apAEeEeBd4
+	 r+CRHsuGVbBtrlHFKB6l/o5HBpI9Xhpk7zx/weK3UALBe/qP+y7QOz7WuR8dcSpIWD
+	 8dVLsLd2+3KbJFvYMEbqkwiTfQHVaUSgk8jDKV43h6wLzzys32VoeJzkY1wSaK7itU
+	 ananJUb0HwUqw==
+Date: Wed, 2 Sep 2026 16:54:54 +0000
+From: Yosry Ahmed <yosry@kernel.org>
+To: Charan Teja Kalla <charan.kalla@oss.qualcomm.com>, 
+	Michal Hocko <mhocko@suse.com>
+Cc: akpm@linux-foundation.org, mgorman@techsingularity.net, 
+	david@redhat.com, vbabka@suse.cz, hannes@cmpxchg.org, quic_pkondeti@quicinc.com, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, Zach O'Keefe <zokeefe@google.com>, 
+	Axel Rasmussen <axelrasmussen@google.com>, David Rientjes <rientjes@google.com>
+Message-ID: <aphU3h1FmrLnbFiW@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <d9071ec7-371f-4896-a023-77a07f01f65e@riscstar.com>
 
-On Wed, Sep 02, 2026 at 07:51:54AM -0500, Alex Elder wrote:
-> On 9/1/26 3:05 PM, Rob Herring wrote:
-> > On Tue, Sep 1, 2026 at 12:21 PM Alex Elder <elder@riscstar.com> wrote:
-> > > 
-> > > A recent change caused the embedded PCIe endpoints on TC9564 SoCs to
-> > > be treated by the devicetree code as PCI buses, which is incorrect.
-> > > 
-> > > An RB3gen2 system has an "interposer board" that contains a TC9564
-> > > SoC.  The TC9564 includes a PCIe switch with one upstream port and
-> > > two downstream (external) ports, plus a third downstream port.  The
-> > > third port has an embedded PCIe endpoint with two functions, each
-> > > providing access to a 10 Gbps capable Ethernet interface.
-> > > 
-> > > The devicetree nodes representing these functions were previously
-> > > named "pci@" but were renamed in the interest of consistency in
-> > > commit e806c63ba51a7 ("arm64: dts: qcom: Rename pci@ nodes to pcie@").
-> > > 
-> > > Unfortunately, of_node_is_pcie() causes nodes named "pcie@" to be
-> > > treated as PCI bridges, which PCI endpoints are not.  The previous
-> > > name "pci" matched such nodes as "default-flags" bus type, defined
-> > > in the of_busses[] array.
-> > > 
-> > > Rename the PCIe endpoint nodes "pci@" so they are not mistaken for
-> > > bridge nodes by the devicetree parsing code.  This restores the
-> > > previous behavior, and allows them to be used for PCI endpoint bus.
-> > > 
-> > > Fixes: e806c63ba51a7 ("arm64: dts: qcom: Rename pci@ nodes to pcie@")
-> > > Signed-off-by: Alex Elder <elder@riscstar.com>
-> > > ---
-> > >   arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 4 ++--
-> > >   1 file changed, 2 insertions(+), 2 deletions(-)
-> > > 
-> > > diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> > > index a13315bf0fb07..99a985a177a61 100644
-> > > --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> > > +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> > > @@ -954,7 +954,7 @@ pcie@3,0 {
-> > >                          ranges;
-> > >                          bus-range = <0x5 0xff>;
-> > > 
-> > > -                       pcie@0,0 {
-> > > +                       pci@0,0 {
+Bcc:
+Subject: Re: [PATCH V3 3/3] mm: page_alloc: drain pcp lists before oom kill
+Message-ID: <aphUaA2FlniZ_h9v@google.com>
+Reply-To:
+In-Reply-To: <aphSYFTd12oia8K2@google.com>
+
+On Wed, Sep 02, 2026 at 04:49:48PM +0000, Yosry Ahmed wrote:
+> On Sun, Nov 05, 2023 at 06:20:50PM +0530, Charan Teja Kalla wrote:
+> > pcp lists are drained from __alloc_pages_direct_reclaim(), only if some
+> > progress is made in the attempt.
 > > 
-> > The kernel should treat either name the same. There may have been some
-> > reason 'pci' was not included in checks. It could have been that only
-> > old things are (parallel, plain) 'pci' and anything new is 'pcie'.
+> > struct page *__alloc_pages_direct_reclaim() {
+> >     .....
+> >    *did_some_progress = __perform_reclaim(gfp_mask, order, ac);
+> >    if (unlikely(!(*did_some_progress)))
+> >       goto out;
+> > retry:
+> >     page = get_page_from_freelist();
+> >     if (!page && !drained) {
+> >         drain_all_pages(NULL);
+> >         drained = true;
+> >         goto retry;
+> >     }
+> > out:
+> > }
+> > 
+> > After the above, allocation attempt can fallback to
+> > should_reclaim_retry() to decide reclaim retries. If it too return
+> > false, allocation request will simply fallback to oom kill path without
+> > even attempting the draining of the pcp pages that might help the
+> > allocation attempt to succeed.
+> > 
+> > VM system running with ~50MB of memory shown the below stats during OOM
+> > kill:
+> > Normal free:760kB boost:0kB min:768kB low:960kB high:1152kB
+> > reserved_highatomic:0KB managed:49152kB free_pcp:460kB
+> > 
+> > Though in such system state OOM kill is imminent, but the current kill
+> > could have been delayed if the pcp is drained as pcp + free is even
+> > above the high watermark.
+> > 
+> > Fix this missing drain of pcp list in should_reclaim_retry() along with
+> > unreserving the high atomic page blocks, like it is done in
+> > __alloc_pages_direct_reclaim().
+> > 
+> > Signed-off-by: Charan Teja Kalla <quic_charante@quicinc.com>
 > 
-> OK.  Does this mean "pci@" and "pcie@" should only represent bridge
-> devices?  (These devices are all endpoints and erroneously had
-> device_type = "pci" properties, among other things, so I'm already
-> fixing that.)
-
-Yes.
-
-> Do you want me to make a (separate) change to treat "pci" the
-> same as "pcie"?
-
-Only if it fixes something besides consistency.
-
-> > These are ethernet devices, right? Then the right name is
-> > 'ethernet@0,0'. If not, then pick something that matches what the node
-> > is. Both pci and pcie mean the node implements a PCI bus.
+> [Sorry for thread necromancy]
 > 
-> They implement Ethernet devices, yes.  But they are used for
-> pci-ep-bus (and the Ethernet devices bind to a sub-node), and
-> that's what's important about these nodes.  What's the right
-> name?  The dynamically-generated node uses "dev@".
+> Hi Charan,
 
-I don't love 'dev', but don't have a better suggestion for it.
+Charan's email bounced, trying another one I found on lore, and adding a
+few folks from other replies.
 
 > 
-> Is "ethernet@" still right, if it's also used to access a
-> clock and a reset and ... via pci-ep-bus?
-
-"ethernet@" belongs on the node that has ethernet-controller.yaml schema 
-applied.
-
+> Are you planning to respin this patch?
 > 
-> I want to use the right name, I'm just unsure about what that
-> is, given its use for access via pci-ep-bus.
-
-I don't know if there's a right name here. You just can't use a standard 
-name if the node doesn't implement what the standard name defines. 
-Granted we just have a list in the spec and some names (e.g. pci) imply 
-more that other names.
-
-Rob
+> I know that Michal was questioning the need for it. While doing some
+> stress testing I came across a couple of OOM kills that had significant
+> amount of memory in pcplists. Something that would have been prevented
+> by this patch.
+> 
+> It's not something I can reproduce reliably and it is an artificial
+> workload, so not very concerning, but the patch seems like generally a
+> good idea and hopefully pretty harmless. It's also consistent with the
+> code in __alloc_pages_direct_reclaim().
+> 
+> For the record, we have been carrying it internally for a while and
+> there haven't been any issues AFAICT.
+> 
+> Michal, WDYT?
+> 
+> > ---
+> >  mm/page_alloc.c | 6 ++++--
+> >  1 file changed, 4 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> > index b91c99e..8eee292 100644
+> > --- a/mm/page_alloc.c
+> > +++ b/mm/page_alloc.c
+> > @@ -3857,8 +3857,10 @@ should_reclaim_retry(gfp_t gfp_mask, unsigned order,
+> >  		cond_resched();
+> >  out:
+> >  	/* Before OOM, exhaust highatomic_reserve */
+> > -	if (!ret)
+> > -		return unreserve_highatomic_pageblock(ac, true);
+> > +	if (!ret) {
+> > +		ret =  unreserve_highatomic_pageblock(ac, true);
+> > +		drain_all_pages(NULL);
+> > +	}
+> >  
+> >  	return ret;
+> >  }
+> > -- 
+> > 2.7.4
+> > 
+> > 
+> 
