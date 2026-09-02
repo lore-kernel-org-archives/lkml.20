@@ -1,155 +1,235 @@
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023143.outbound.protection.outlook.com [52.101.127.143])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D419C233134
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:20:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788319249; cv=none; b=GzYQ8oe8ZgML3T9gQtZ1ccMZjqwCxLPZchCHqABakM6hEspwKcqIX/ZWoz7xn+/YdubLsC5Pukfe4A3J3MLuCrGj9EFDKhsXxQ2lfdHeOG+8xIbgCVDiZkzq4KYE3WQAxmECkxmBrzLRmWw0PHlf8rcgiAdEcAAbnfyLA81nv1A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788319249; c=relaxed/simple;
-	bh=FNAlI/S9fr0czLN1alCSiMKKpiLb8O0yfYwnoQH2sYs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TNtishsGEso1GhZgviJ08GOtKI/GbxuKy3YHojGMo+kr+F/gltxpxIZgUg0F4smXUg7kie1D0oyhilpBeMTDd21BVWjJYHZb5Yru15D26CPoZut+2dhp4YdtUnDSTnMdiH3L4V5qTLJfQrNFJA61BNfsl5nWk+0T9puMCuUDfjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=uxlKOnsG; arc=none smtp.client-ip=115.124.30.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="uxlKOnsG"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788319244; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=OLAjDGuF8OXoX4Kx5ZvQEJnyRPp4ec5ri2eE/T7xMg8=;
-	b=uxlKOnsGyPEcJlAxP98ZEcP7Y5Ir9yOdiV/YPQNcYl2wYdxw+6F4hPltsnK01N1o7attC9Rysys/RZZrmsT9OyH9zdFzWiQCXy7574bl0cwicN8XKoLjKyNTBx/LGN0ZZrF2g+pHAaBOuJTPw6kwD4CT7uUed07HkZ3NRibVLQg=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0XAB4.Wb_1788319242;
-Received: from 30.178.84.37(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XAB4.Wb_1788319242 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 02 Sep 2026 11:20:43 +0800
-Message-ID: <cc69f57b-47f3-4842-829e-df1d49158884@linux.alibaba.com>
-Date: Wed, 2 Sep 2026 11:20:40 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A640870830;
+	Wed,  2 Sep 2026 03:21:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.143
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788319305; cv=fail; b=YdYO7bT+feJrSqSCytwQnkj+lJufEk3N4HyL/pcsUlN12W/Z9NwR9o4/kEYe03KePKPz+6TPqgG7nYDia+mxQ8XSKyICpY8l/ZII3rmNau6prhbe5KpzkFB9jpwbngTRaMpr+f8NTJIjMOmCy0HHneilRV1NdpBksJrsMiSbai4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788319305; c=relaxed/simple;
+	bh=hv+IrMUbkRdQmPk9mu0jDmITKr/DjC547ipVw+Lf8Yw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Ol8N+Rl3ULgGjSWffc+yXpATW+fW/PYfkyzfap8MUqVGRkdl3eFO7E0S32JJm5aNoOLKqcUNixE8NIeKq4PwjM575lSU2neZMwqC/oo2zNSah/jS3CsjYKokoEku4KWpwVEvDCEjscNKgBnzcfiJGKD0cboL/g1DYlD9WMUsApc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=52.101.127.143
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wyc0XBrQBrchcMNAZSt+eutHOM4vp9/XqeN5YNvkwXOar/waNTvd4KCrg6zzLWHtSPtxGHqZtWBIhbr+uLdzcUrXl8DN9R2enXmahL7LxNU7p/hg5BqHpl48/taqZPX+ljIDPdE2h5KP74wfB79IhLzLTi4bR0qBIZ8W8Tumu2Eq7ArZc192whL5U4MyFHUC/cDYJ6or+wqbx3poC7jAyQCTv71rfZ9fa3rdOVcU7GFUkxRYYwxnaFwtVlSD7j/yc0HL5kHvQ0V5KPZ80Sfq8dpBkefRLI41mSEH5ZDuP0XwU82Yt4HhL8+RImnvFor+hr3rMPB2WGQqklJ13w3BOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=i8WtX0k4EqwDh/TgPkcMz1aEkAtxppzLjZYw7yZxlbs=;
+ b=IUSRcPN2PG9K0EEDfnyT5o0uQd9o7tsMGxhzeRKO2MSpbpBm74ufgY1875KY6qiM9VpsUyeL5BYb9xxfDIj10aefeH5k0W9edkknI0Ku+jB2hIwkLQ7le6RByXnf0y+JAvMGEHi6MPEceHvMNt7uQizqE8u6AslxLdlPD40oeFxRwJFYOOZXNWFXd2fXMUn4loszpsw9YdwsnSJRqNyOdMgYXoD3Er6RDJps2Xv08U6uiqMFUYuGDTaZSy1xgcoUW5DwAMISPHcFh3Vo21AVpBlwo/HdjN2+LD8Dz7stEPvUKqphZwR1Kxa3jiTt86GuZcYG9/gc62/arMwIu5devw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cadence.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from PS2PR03CA0006.apcprd03.prod.outlook.com (2603:1096:300:5b::18)
+ by JH0PR06MB6740.apcprd06.prod.outlook.com (2603:1096:990:37::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 03:21:38 +0000
+Received: from TY2PEPF0000AB87.apcprd03.prod.outlook.com
+ (2603:1096:300:5b:cafe::95) by PS2PR03CA0006.outlook.office365.com
+ (2603:1096:300:5b::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Wed, 2
+ Sep 2026 03:21:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ TY2PEPF0000AB87.mail.protection.outlook.com (10.167.253.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 03:21:37 +0000
+Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 8C47E4092106;
+	Wed,  2 Sep 2026 11:21:35 +0800 (CST)
+From: Hongliang Yang <hongliang.yang@cixtech.com>
+To: peter.chen@kernel.org,
+	pawell@cadence.com,
+	vkoul@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: gregkh@linuxfoundation.org,
+	rogerq@kernel.org,
+	neil.armstrong@linaro.org,
+	p.zabel@pengutronix.de,
+	fugang.duan@cixtech.com,
+	cix-kernel-upstream@cixtech.com,
+	linux-usb@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Hongliang Yang <hongliang.yang@cixtech.com>
+Subject: [PATCH v2 1/5] dt-bindings: phy: Add CIX Sky1 USB3 PHY
+Date: Wed,  2 Sep 2026 11:21:30 +0800
+Message-ID: <20260902032134.1182634-2-hongliang.yang@cixtech.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260831082309.3854507-1-hongliang.yang@cixtech.com>
+References: <20260831082309.3854507-1-hongliang.yang@cixtech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/list_lru: don't copy stale shrinker id from
- non-memcg-aware shrinkers
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Lance Yang <lance.yang@linux.dev>,
- Qi Zheng <qi.zheng@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>,
- Muchun Song <muchun.song@linux.dev>, Dave Chinner <david@fromorbit.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- David Hildenbrand <david@kernel.org>, Xunlei Pang
- <xlpang@linux.alibaba.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260901115104.2944996-1-qinyuntan@linux.alibaba.com>
- <20260901102913.5c571bf153bc3830905c6770@linux-foundation.org>
-From: Qinyun Tan <qinyuntan@linux.alibaba.com>
-In-Reply-To: <20260901102913.5c571bf153bc3830905c6770@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB87:EE_|JH0PR06MB6740:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: ac051b3f-0dc2-40db-a7df-08df08a14c54
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|36860700016|23010399003|82310400026|56012099006|10067099003|3023799007|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	Fe09M9LcpZEQUHsd1489xfEB0TndOQAeUSWJn9BQyU1RBFYnnPwR0UYCyu2sq28Cl8ymKrIXe9ZJzCso0Asd3T/60f0IpztNkA2wh7QNMSNTQyCgUEwmxlnvRaELxNI4LIBiKiO3ow01ID0VoLZB84BgUSV6GzYbMuNYgciT++E/qmX6npZKZ5zvOWw7+ZdVFP4bp6Z2AP28ctpwyl+1Ay8cQI7Ix4UZtp2ITx1UD2CGKmiPzcFMEniHPbTALB1ZYxpqS8XKGgxWqNnNYhKRWRChQbS1BSWCVfSEILUZ2Rq9qt+W12w1edeW/4gVkc+/8elrfRyBG+f+07YqANKOC4LMTOBEJ44tGdHhn+SxgyHXlw/twOk0W3xj5c1ws5LvXCRYWc3oldhGuTW/g/jYJHm7y+B31zRvPHmsan1nn/2cfxli/Fcv7SGdvyHLoq6cnWpTxU/Dj4JHEkfDNogds4FuwWJEULWM94Qi6exBCwEhQS+4fd5dBDeueck226Vdx5ATgyImXXubR88wVHNEJTxUe2/wz0rvWXl/dsnY6PTQ37a6U9UeLQ+i2cbWJRNWyjni6aVGU1ieggbbY25DkSW3p63UaXnTG+0lypvDqKmHhQy9R8bzfqIMP6LDFG1RouwXSNMGKaAjFpjp+bJajQ==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(36860700016)(23010399003)(82310400026)(56012099006)(10067099003)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	fkvGPCXzH2wZ6lMAeyi/0/GJYjDHHlvD46SoAfcWJHIWlOnvzeaOxdL3QsXDBiwCSgg0pUJLUtXnZo8biI8Xnq6SQflYzL7qzB4kteBlipq+s+1OJ6jch80pM8qJaTwE7jvfMmK2regw2X0KkNuPItHrxZQYAvmcjIyeH3+rgfMSURZu6kNEFnUaJN7M77pY+eUUbjHjKyo03ynJNf9nQRXjr7UMMfu2f9EsS9wxfIQ05Vwr0gVOBqJLI+UM4iMWpjVTbUCwL3+2qUSlUruCnk8JTKbCQLmBYisWESVXdeVho7cOfhdE5OKb83b0/yXItTBVXswiNb39IxGgILxLp/GzvGUsyiVf3irA5D629zdzj5P2Swi/POtNl8SCyO0g2oyB4I+Q6bUTr9z0/ZWWYToM1hIgx9RpKx9/TMSzLp3/xDHX/HLCjfvPOcbNCb+F
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 03:21:37.1229
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac051b3f-0dc2-40db-a7df-08df08a14c54
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	TY2PEPF0000AB87.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR06MB6740
 
+Add device tree binding for the CIX Sky1 USB3 PHY, a multi-port
+SuperSpeedPlus PHY supporting up to two USB3 lanes.
 
-Hi,
+Signed-off-by: Hongliang Yang <hongliang.yang@cixtech.com>
+---
+ .../bindings/phy/cix,sky1-usb3-phy.yaml       | 107 ++++++++++++++++++
+ 1 file changed, 107 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
 
-On 9/2/26 1:29 AM, Andrew Morton wrote:
-> On Tue,  1 Sep 2026 19:51:04 +0800 Qinyun Tan <qinyuntan@linux.alibaba.com> wrote:
-> 
->> With cgroup.memory=nokmem, shrinker_memcg_alloc() fails with -ENOSYS
->> for shrinkers without SHRINKER_NONSLAB, and shrinker_alloc() falls
->> back to a non-memcg-aware shrinker.  On this fallback path,
->> shrinker->id is never assigned and keeps 0 from kzalloc(), which is a
->> valid id belonging to whichever memcg-aware shrinker registers first.
->>
->> __list_lru_init() copies shrinker->id unconditionally, so every
->> list_lru backed by such a fallback shrinker (thp-deferred_split,
->> zswap-shrinker, workingset shadow nodes, superblock lrus, ...) ends
->> up with lru->shrinker_id == 0 instead of -1.
->>
->> Under nokmem the list_lru collapses to the shared per-node lists, but
->> __list_lru_add() still calls set_shrinker_bit() against the memcg of
->> the added object.  Most list_lru users are unaffected because their
->> objects resolve to a NULL memcg without kmem accounting, but the THP
->> deferred split queue holds user folios, which are charged regardless
->> of nokmem.  Since no memcg-aware shrinker can register under nokmem,
->> shrinker_nr_max stays 0 and every memcg's shrinker_info has
->> map_nr_max == 0, so the first folio added by khugepaged triggers on
->> every boot:
->>
->>   WARNING: mm/shrinker.c:212 at set_shrinker_bit+0x99/0xa0
->>
->> On systems where a SHRINKER_NONSLAB shrinker (btrfs, xfs) did register
->> and expand the maps, there is no warning; instead bit 0 is set
->> spuriously for an unrelated shrinker.
->>
->> shrinker->id is only meaningful while SHRINKER_MEMCG_AWARE is set,
->> and all readers inside mm/shrinker.c already check the flag before
->> using the id.  Make __list_lru_init() do the same and fall back to -1,
->> so set_shrinker_bit() is never reached with a bogus id.  The stale
->> shrinker->id itself is left as is; cleaning that up is a separate
->> topic.
-> 
-> Thanks.  I'll queue this for test and review.
-> 
->> Fixes: 03375203e1da8 ("mm: do not allocate shrinker info with cgroup.memory=nokmem")
-> 
-> Worth a cc:stable, I assume.
-> 
->> ---
->>
->> Verified on a machine booting with cgroup.memory=nokmem and
->> CONFIG_TRANSPARENT_HUGEPAGE=y: the warning fires once per boot from
->> khugepaged, disappears when nokmem is removed from the command line,
->> and no longer triggers with this fix applied and nokmem set.
-> 
-> That's useful info.  I'll move it into the changelog.
-> 
-> 
-> Sashiko thinks there's a problem with cgroup_disable=memory as well:
-> 	https://sashiko.dev/#/patchset/20260901115104.2944996-1-qinyuntan@linux.alibaba.com
+diff --git a/Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml b/Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
+new file mode 100644
+index 000000000000..5b025a48c844
+--- /dev/null
++++ b/Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
+@@ -0,0 +1,107 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/phy/cix,sky1-usb3-phy.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: CIX Sky1 USB3 PHY
++
++maintainers:
++  - Hongliang Yang <hongliang.yang@cixtech.com>
++
++description:
++  The CIX Sky1 USB3 PHY is a multi-port SuperSpeedPlus PHY that
++  supports up to two USB3 lanes. Each port is represented as a
++  child node of the PHY controller.
++
++properties:
++  compatible:
++    const: cix,sky1-usb3-phy
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: APB register interface clock
++      - description: PHY reference clock
++
++  clock-names:
++    items:
++      - const: apb
++      - const: ref
++
++  resets:
++    items:
++      - description: PHY reset
++      - description: PHY APB preset
++
++  reset-names:
++    items:
++      - const: core
++      - const: apb
++
++  "#address-cells":
++    const: 1
++
++  "#size-cells":
++    const: 0
++
++patternProperties:
++  "^usb-port@[0-9a-f]+$":
++    type: object
++    description:
++      A single USB3 PHY port/lane.
++
++    properties:
++      reg:
++        maxItems: 1
++
++      "#phy-cells":
++        const: 0
++
++    required:
++      - reg
++      - "#phy-cells"
++
++    additionalProperties: false
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - resets
++  - reset-names
++  - "#address-cells"
++  - "#size-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/cix,sky1.h>
++    #include <dt-bindings/reset/cix,sky1-s5-system-control.h>
++
++    usb-phy@9210000 {
++        compatible = "cix,sky1-usb3-phy";
++        reg = <0x9210000 0x40000>;
++        #address-cells = <1>;
++        clocks = <&scmi_clk CLK_TREE_USB3A_PHY3_GATE>,
++                 <&scmi_clk CLK_TREE_USB3A_PHY_x2_REF>;
++        clock-names = "apb", "ref";
++        resets = <&s5_syscon SKY1_USBPHY_SS_RST_N>,
++                 <&s5_syscon SKY1_USBPHY_SS_PST_N>;
++        reset-names = "core", "apb";
++        #size-cells = <0>;
++
++        usb-port@0 {
++            reg = <0>;
++            #phy-cells = <0>;
++        };
++
++        usb-port@1 {
++            reg = <1>;
++            #phy-cells = <0>;
++        };
++    };
+-- 
+2.54.0
 
-Yes, the observation is valid, and it turned out to be a real crash
-on mm-new, not just a semantic inconsistency.
-
-__list_lru_init() only checks mem_cgroup_kmem_disabled(), which
-covers cgroup.memory=nokmem but not cgroup_disable=memory.  With the
-controller disabled entirely, the lru stays memcg aware while
-folio_memcg() is always NULL.
-
-On mainline this is unreachable: the only caller of
-folio_memcg_list_lru_alloc(), folio_memcg_alloc_deferred(), bails out
-on mem_cgroup_disabled() first.  But the shmem unused-huge shrinker
-conversion in mm-new ("mm: shmem: make unused huge shrinker memcg
-aware") calls folio_memcg_list_lru_alloc() without such a guard, so
-booting with cgroup_disable=memory and writing to a huge=always tmpfs
-oopses immediately:
-
-  BUG: unable to handle page fault for address: 0000000000000488
-  RIP: 0010:folio_memcg_list_lru_alloc+0x41/0xf0
-  Call Trace:
-   shmem_get_folio_gfp+0x1cd/0x7c0
-   shmem_write_begin+0x5d/0x100
-   generic_perform_write+0x89/0x2a0
-   shmem_file_write_iter+0x82/0x90
-   vfs_write+0x256/0x410
-   ksys_write+0x61/0xe0
-
-The faulting address is the offset of mem_cgroup->kmemcg_id,
-dereferenced on the NULL memcg in memcg_list_lru_allocated().
-
-I've verified that checking mem_cgroup_disabled() in
-__list_lru_init() fixes this: with the lru collapsed to plain
-per-node lists, folio_memcg_list_lru_alloc() returns early, the
-inode is queued on the per-node list with a NULL objcg (which the
-shmem code and obj_cgroup_memcg() handle fine), and the shrinker
-still reclaims via the global scan.  Same reproducer runs cleanly.
-
-I'll send the fix as a follow-up patch shortly.  Since the
-triggering commit is only in mm-new, no stable backport is needed;
-it may make sense to keep it ahead of (or folded near) the shmem
-series.
-
-Thanks,
-Qinyun Tan
