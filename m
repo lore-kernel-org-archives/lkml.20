@@ -1,64 +1,50 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0DD0490BF3
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:40:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612454908AD;
+	Wed,  2 Sep 2026 12:40:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352830; cv=none; b=ZCKekBM/o5yKJmgSr3Czev/bZ9tU0JTZGOiEh1OkeD8GDqB8MLMiUV6gmxutEvO5JILgG0bykzlXNP5anAORbT1vYMIZh9txRupvskQnq3Q+DpAgZ2qAGsGThX2yHp3nfFXmglI3CuVhVAvMFlUB6wL8YtVUjZIbAhIU3zAeqgE=
+	t=1788352831; cv=none; b=Lz9b7hhyfPKKGnAvl2Te+cauMuNb8WGvF1rMsfKMDdcLNxK3u6FHBt0XCnX8jsmoy/onGuVKmzoGUqhk9IqKILpLNwxXusbGm9HBOO4a0bH2sJlVIk4WaeBzkGjIERfZwvGyHpvm7WL5R/ibaPVbiMaWguJKOFtUBnNckNTFNZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352830; c=relaxed/simple;
-	bh=4ynCKSBrYH99EP9t5ZyjcuDEGLq+jBmn0qOkuGMRw38=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Q5ugnceU7b7L+FxSkhECiWZ85evDHgbMaWOsNmvJYwk8QoOhj1ukvuoWjPzLJYA/5zCFyAxqppd3O9NQys9TZxU/AGIO1BZt1vvCGB7MC+8yRExE0+5tB0kRhifV9XpyjZl09cx3zy/1PaKztJ4AVx+pShE37VkI0GDwQJh/yu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=LfuJ41B5; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788352831; c=relaxed/simple;
+	bh=UMI0QfgMfnLxhqN+hUuIEBnQed8SOgoyTb0c5j/oTEQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iTSs8I0aZ11rDZw/NnWC0UN/GRh4Zx3naLn8eSOqh2gKSaYoowpFzWHMvL21JuIFLU+e0yJklp+zRcQ6TI5NUtbvNGVkO8bWFJnlPfQpg/9TSDSVHNub77PWZSROHE2Ln38Scj/oeMQY1NHBlguvlGMvZBsRPIbN91IXB0eMn5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=Fus7J2en; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LfuJ41B5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788352825;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Tq6X9iHJwj0Z4++cseQ+WkYkIyZIsUxG0iOqqACkzfM=;
-	b=LfuJ41B55kflz4nMHg3bdbrKemdhfvTSDnsgzNQaMcXe7c15xvOzqUQmie2ODVd2MnFFzG
-	O2coJSQWDDKlfYor+FZ7x1lq/YuWsnmGz5J817OjJq4Fo69cKQx2RnyfBQTPp+gqxT1xS9
-	Drn0PljqBfZjYrJOQssWh+0kHmAmB9Q=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-381-TShCLYeGMgCq6KwHVgGDuQ-1; Wed,
- 02 Sept 2026 08:40:22 -0400
-X-MC-Unique: TShCLYeGMgCq6KwHVgGDuQ-1
-X-Mimecast-MFC-AGG-ID: TShCLYeGMgCq6KwHVgGDuQ_1788352820
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7E7D61953972;
-	Wed,  2 Sep 2026 12:40:20 +0000 (UTC)
-Received: from vschneid-thinkpadt14sgen2i.remote.csb (unknown [10.44.33.19])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DB2B61955F7C;
-	Wed,  2 Sep 2026 12:40:16 +0000 (UTC)
-From: Valentin Schneider <vschneid@redhat.com>
-To: linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Cc: Tomas Glozar <tglozar@redhat.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Costa Shulyupin <costa.shul@redhat.com>,
-	Crystal Wood <crwood@redhat.com>,
-	John Kacur <jkacur@redhat.com>,
-	Ivan Pravdin <ipravdin.official@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>
-Subject: [PATCH v5 1/8] rtla/osnoise: Add IPI tracking cmdline option
-Date: Wed,  2 Sep 2026 14:39:30 +0200
-Message-ID: <20260902123942.695822-2-vschneid@redhat.com>
-In-Reply-To: <20260902123942.695822-1-vschneid@redhat.com>
-References: <20260902123942.695822-1-vschneid@redhat.com>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="Fus7J2en"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B9BD311CE48;
+	Wed, 02 Sep 2026 14:40:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1788352822; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=YJo+5nQ0nINBNaxywSOUixu7kVY/MO9oQIxFhCicr3U=;
+	b=Fus7J2enwqruCRbPnjDoUUUhP40Uy3ASz92Ve/vGIRhjx2qab15DuVYHpB3yKKYvPm3vqH
+	Vm676MIUl/Hou0yUJVBuS2+tCEmpu4onyCikaQYO7Hbk5qlo8FJ3EyXl2YvTNZjw1dvG5W
+	rC+kTspa6YkdHr2dLx/UyTy3HdiKDXnH1xcU5bbO1HB0/AT4Ix31FXBoRd7iql6GjOz7ao
+	y28MuKsc/8h3CLuFKNAnqY3y25YlYI/B16Sx5WAqkJvqEg3JmZk5nqbLDiu+6qIR8CsXfO
+	nTXNoFAd9vVEffaHwqjYBzESOBb08Tmn81TVSPXtBUcOJpxgNsg0gZV8pJ2aXw==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: fabrice.gasnier@foss.st.com,
+	Marek Vasut <marex@nabladev.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Christophe Roullier <christophe.roullier@foss.st.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+	Rob Herring <robh@kernel.org>,
+	Yannick Fertre <yannick.fertre@foss.st.com>,
+	devicetree@vger.kernel.org,
+	kernel@dh-electronics.com,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: [PATCH v6 1/2] dt-bindings: arm: stm32: Document st,stm32mp23/25-syscfg subnodes and cells
+Date: Wed,  2 Sep 2026 14:39:49 +0200
+Message-ID: <20260902124018.606544-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,73 +52,100 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+X-Last-TLS-Session-Version: TLSv1.3
 
-Later commits will add IPI tracking to osnoise top. To avoid breaking
-existing scripts, this new feature will be gated behind a new --ipi option.
+The st,stm32mp23-syscfg and st,stm32mp25-syscfg can have subnodes, which
+represent the USB 2.0 FEMTO-PHY. Document subnodes pattern properties and
+address/size cells.
 
-Suggested-by: Tomas Glozar <tglozar@redhat.com>
-Signed-off-by: Valentin Schneider <vschneid@redhat.com>
+Signed-off-by: Marek Vasut <marex@nabladev.com>
 ---
- Documentation/tools/rtla/rtla-osnoise-top.rst | 4 ++++
- tools/tracing/rtla/src/cli.c                  | 1 +
- tools/tracing/rtla/src/cli_p.h                | 3 +++
- tools/tracing/rtla/src/common.h               | 1 +
- 4 files changed, 9 insertions(+)
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Christophe Roullier <christophe.roullier@foss.st.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Marek Vasut <marex@nabladev.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Yannick Fertre <yannick.fertre@foss.st.com>
+Cc: devicetree@vger.kernel.org
+Cc: kernel@dh-electronics.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+---
+V2: New patch
+V3: Fix the bindings
+V4: - Undo simple-mfd in favor of dedicated SYSCFG SoC driver
+    - Update commit message to match, this used to be patch
+      dt-bindings: arm: stm32: Switch st,stm32mp23/25-syscfg into simple-mfd
+    - Split this from series arm64: dts: phy: st: usb: Add STM32MP2 USB support
+      https://lore.kernel.org/all/20260822074816.548662-1-marex@nabladev.com/
+V5: - Add missing contains: into conditional
+    - Add phy subnodes into required list for stm32mp23-syscfg/stm32mp25-syscfg
+V6: - Reduce the pattern in patternProperties to match only on phy@2400 and phy@2800
+    - Disable address/clock/size-cells/phy@2400/phy@2800 unless compatible
+      with st,stm32mp23-syscfg or st,stm32mp25-syscfg
+    - Disable clocks unless compatible with st,stm32mp157-syscfg or st,stm32f4-gcan
+---
+ .../bindings/arm/stm32/st,stm32-syscon.yaml   | 30 ++++++++++++++++++-
+ 1 file changed, 29 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/tools/rtla/rtla-osnoise-top.rst b/Documentation/tools/rtla/rtla-osnoise-top.rst
-index b91c02ac2bbe1..b948a813d45cb 100644
---- a/Documentation/tools/rtla/rtla-osnoise-top.rst
-+++ b/Documentation/tools/rtla/rtla-osnoise-top.rst
-@@ -28,6 +28,10 @@ OPTIONS
- =======
- .. include:: common_osnoise_options.txt
+diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+index 95d2319afe235..a559f8b03b842 100644
+--- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
++++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+@@ -39,6 +39,17 @@ properties:
+   "#clock-cells":
+     const: 0
  
-+**--ipi**
++  "#address-cells":
++    const: 1
 +
-+	Track sources of IPIs.
++  "#size-cells":
++    const: 1
 +
- .. include:: common_top_options.txt
- 
- .. include:: common_options.txt
-diff --git a/tools/tracing/rtla/src/cli.c b/tools/tracing/rtla/src/cli.c
-index fb8c972c0746b..8c02b94ce4321 100644
---- a/tools/tracing/rtla/src/cli.c
-+++ b/tools/tracing/rtla/src/cli.c
-@@ -78,6 +78,7 @@ struct common_params *osnoise_top_parse_args(int argc, char **argv)
- 		RTLA_OPT_STOP_TOTAL('S', "stop-total", "total sample"),
- 		OSNOISE_OPT_THRESHOLD,
- 		RTLA_OPT_TRACE_OUTPUT("osnoise", opt_osnoise_trace_output_cb),
-+		OSNOISE_OPT_IPI,
- 
- 	OPT_GROUP("Event Configuration:"),
- 		RTLA_OPT_EVENT,
-diff --git a/tools/tracing/rtla/src/cli_p.h b/tools/tracing/rtla/src/cli_p.h
-index 661240d44ad9a..f2dd7c610093d 100644
---- a/tools/tracing/rtla/src/cli_p.h
-+++ b/tools/tracing/rtla/src/cli_p.h
-@@ -497,6 +497,9 @@ static int opt_filter_cb(const struct option *opt, const char *arg, int unset)
- #define OSNOISE_OPT_THRESHOLD RTLA_OPT_LLONG('T', "threshold", &params->threshold, "us", \
- 	"the minimum delta to be considered a noise")
- 
-+#define OSNOISE_OPT_IPI OPT_BOOLEAN(0, "ipi", &params->common.ipi, \
-+	"track sources of IPIs")
++patternProperties:
++  "^phy@2[48]00$":
++    type: object
++    $ref: /schemas/phy/st,stm32-usb2phy.yaml
 +
- /*
-  * Callback functions for command line options for osnoise tools
-  */
-diff --git a/tools/tracing/rtla/src/common.h b/tools/tracing/rtla/src/common.h
-index 04b287a03f6d4..045253230fcf2 100644
---- a/tools/tracing/rtla/src/common.h
-+++ b/tools/tracing/rtla/src/common.h
-@@ -108,6 +108,7 @@ struct common_params {
- 	bool			kernel_workload;
- 	bool			user_data;
- 	bool			aa_only;
-+	bool			ipi;
+ required:
+   - compatible
+   - reg
+@@ -54,13 +65,30 @@ allOf:
+     then:
+       required:
+         - clocks
++    else:
++      properties:
++        clocks: false
+   - if:
+       properties:
+         compatible:
+-          const: st,stm32mp25-syscfg
++          contains:
++            enum:
++              - st,stm32mp23-syscfg
++              - st,stm32mp25-syscfg
+     then:
+       required:
++        - "#address-cells"
+         - "#clock-cells"
++        - "#size-cells"
++        - phy@2400
++        - phy@2800
++    else:
++      properties:
++        '#address-cells': false
++        '#clock-cells': false
++        '#size-cells': false
++        phy@2400: false
++        phy@2800: false
  
- 	struct actions		threshold_actions;
- 	struct actions		end_actions;
+ additionalProperties: false
+ 
 -- 
-2.55.0
+2.53.0
 
