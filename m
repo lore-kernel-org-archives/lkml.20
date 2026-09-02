@@ -1,167 +1,184 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 280AD4A8A2E
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:16:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF5B420E89
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:17:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788365821; cv=none; b=Zgei0IcId1pcEsQIsIN6TOgBfl9i1mSE++TrwotW/FYBUnKUvd0YYM6RFGoxKWIgBy2M7X+umbfkCauL1yeOreRNmqjfVFlIg08Iw2CyqZEAu9MnVJEV+O11l5X2ybd586nTmag/TgwCiAp6UTZxLzaGbjJ6EVJfR7JJrF7LPgE=
+	t=1788365825; cv=none; b=C03TO339trgCwzsqjcBuiO7a4x0kn8ACInjG5MfDOHrZHRcG8DzHPhU+mURkrAcurMEmO91pogvuc4c8vZIHq8kLlDVPfOBgBhAxPCH79s4KXK14l3pAB7Ts1IZk54hE1q0bgQCHkswFg2hiFFUWlu1q3MsGrpgLM2jQeopIucM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788365821; c=relaxed/simple;
-	bh=gSEvBp+KCkXzHc8dbTVfAUkWIju2bmeIwgUNZoB5Jt0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SdSw/e65IFhLtTjsHdcLF4/3U57+RrDcOfwO9A7BV02id2n9XhWvuafi7kJrHPm9nijTHz4DUwoGAkBQLYKScXhV1YfGM12FyCNl2fMAnpsJUvExRqIkXDvJBjLVpnwK+hzvuWV+u670v6gzgDu+cmTorA9HBaAGgCATmzhjrAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=GzQ39Lln; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788365825; c=relaxed/simple;
+	bh=MvzGmB5M3KwwWdgcRhErFJ3CEHCYccyXT8hULlFhA/Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=WKSCrJbyZNM6pcsj39xDUWfCM7VmiP68g/FW0MoW0K8coM7XuoqmdNX+8TMCHPFRIOFRu/Ii9yeKR98eNivE6dybMueKiHAW1ixWJ+68AhhDx2sXF/ISY/YXja1sZ62UYnbLkDvBoTttQHB3vR1lAURH8l0+kI7RQBcNQMbHJsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=ZCZY9/ou; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="GzQ39Lln"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D9862165C;
-	Wed,  2 Sep 2026 09:16:48 -0700 (PDT)
-Received: from [10.57.81.239] (unknown [10.57.81.239])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8CC9B3F882;
-	Wed,  2 Sep 2026 09:16:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788365812; bh=gSEvBp+KCkXzHc8dbTVfAUkWIju2bmeIwgUNZoB5Jt0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=GzQ39Llny2ZuYBIRxqfmTLFB8+xgcnuApQeVF7Znpj2TjYxDzgeaV37nuH25mn0rx
-	 KqEIpkSwP29+sHWsyfh1SSc4Iuv7/CcNnzDIC/mdocDoDWU2tgWauk+y1MvmzYSMU+
-	 40g6i1Xs00gK1gmyV5Y8FC4PEHfJOL8ZxTLS8jno=
-Message-ID: <8e9f7967-710d-4548-89c4-8e5ba46d8714@arm.com>
-Date: Wed, 2 Sep 2026 17:16:45 +0100
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="ZCZY9/ou"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48442ea8f59so16768f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:17:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788365818; x=1788970618; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sNc40VDRvQIJSYaBEgVXINcg1PcRLw4VS1qTwcd8gXA=;
+        b=ZCZY9/ou/3ZQ1uOggqaSdpB93HmQRbJRTe4gZ0gnpnKV5rY6XCz4kbZmWSCakOTnaK
+         FjleICOVI4pe7Ob46yTbtz4lOX2P+Z8QAziRyB6a+zJc3dtr8e6bF2v8QT4jw8PvocOj
+         pPoHBxIZ9mVIni2XWjxxgPudYgdLI1ZfrjzWvml9hqrxRk97uAsHOHlWjrV9bnQc7H16
+         VE4qHTdz55y2H9D4scZZ1bAWPkh9tPn+uGM/RYZ9GH4m+IuiPUZuKGeUwrF96lmke7Qd
+         PsJww4CRfPVn3UlUv/UaQGGXOvnFt0ggAEJ+bbfE2jmOySo17flwyfG3o++IETwhKWWc
+         qM1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788365818; x=1788970618;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sNc40VDRvQIJSYaBEgVXINcg1PcRLw4VS1qTwcd8gXA=;
+        b=AJOOJ6kNH8eLtNmSGUbpZLttB4VHR3WW1CzR33Hk6IGmZYlZH+RfF8k7Q9zmHIGAob
+         pu4L1KbycV7V1Yv5y3PkJsWJxLNUKXR88rq+YpagQsFeMj3PwZnORAaY62SRzJl70A9S
+         m51XdEmUC9V6fTVQ1RO688jJkEK64j0wvKcPDrIKBo2NKjaQ4/uz9e2c+qApIX4ZC0uZ
+         O9Y+KReiZJBfpt+rHe7qRI6c6VJYwMpxv8KGdwSn4AADOgCtVxJOure3H1/yWZ5eX61i
+         xiX92PhTDVYysFmqi1q+WG7+p57WBGr+HeopS7ua0j3/KDUUSfrUHBC9k57g3RCJrrKz
+         VAnw==
+X-Forwarded-Encrypted: i=1; AHgh+Rog44vujHkyBgvKKQoaM7jrCFudZyvgz3uWAqPZbz9CwbDYcHN7n2fA3Z9H68QMjqJxYrzNzjU0NZW8f6Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAI/h8Bb2vRmwnE828RUEV+LQeAS7rIXhX7KQrgXSGldQSjGwl
+	KG5yeua/dgY6V46eOgVPrc0yDFWo+pMtvphuZPiZ+WN2Yw/2LPMZO+C/vEROZuQRrYk=
+X-Gm-Gg: AR+sD11eaT7u/UdcCIK6UuKK0iZwfIJtvbzPgVxRqBZAMaOH1K2BcTpGBeWrdO1uhsn
+	SMX8shrN2HXSp0CcSiZSGNldWU+gknJdPda50zSYYLphLz6ee9iZmsCx4kugAqrGUvWkbn7tqZS
+	q8PSlG6KlMTQxVjFzSLxDYCDOJPwx94OGcQpCEQyyJ9mMAU+gUQ5lhMPoX2ss9jcuuNPXMn0KYE
+	rkDGKnGcCMPGN0AXVHxF6E2p8yRr01xrbxlVV1tcjpjLSAW5+dRFuXOKMBWYEQzSEgLZKbit7GI
+	62l++MT56xBTWCIwevdZc7vBfczIiHPrBRnDMz0OCOqljxmZ12D3G/djCqSVZrZb8wf98z9Q2uI
+	TQvtUDzWufys13s4AUycVq7gYub2zTHK6OSrr0I1q6Z0j9WdcjFGXt43zL9YPvfCps1TFuiUIOf
+	kTVOJ+/Ea5M1YxIck2bIme7dxigE7MRiNJTyRf1hH1XR1dtBHzte4=
+X-Received: by 2002:a05:600c:4745:b0:49c:ced9:ab7f with SMTP id 5b1f17b1804b1-49cee5f0dc7mr5346065e9.8.1788365817872;
+        Wed, 02 Sep 2026 09:16:57 -0700 (PDT)
+Received: from localhost.cz ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5d1fa6sm2948395e9.1.2026.09.02.09.16.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 09:16:57 -0700 (PDT)
+From: =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
+To: Tejun Heo <tj@kernel.org>,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Dan Schatzberg <dschatzberg@meta.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	stable@vger.kernel.org,
+	Noah Elias Feldt <N.Feldt@mittwald.de>,
+	Salvatore Bonaccorso <carnil@debian.org>,
+	Johannes Weiner <hannes@cmpxchg.org>
+Subject: [PATCH] cgroup: Avoid iteration of dying tasks with zero refcount
+Date: Wed,  2 Sep 2026 18:16:52 +0200
+Message-ID: <20260902161653.1051794-1-mkoutny@suse.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: hugetlb: fix BBM for mprotect() on contiguous PTEs
-To: Dev Jain <dev.jain@arm.com>, Karl Mehltretter <kmehltretter@gmail.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- linux-arm-kernel@lists.infradead.org
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
- Mark Rutland <mark.rutland@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Hildenbrand <david@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20260901131823.15799-1-kmehltretter@gmail.com>
- <551663b9-d031-4755-af7f-dc6c22524b35@arm.com>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <551663b9-d031-4755-af7f-dc6c22524b35@arm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 02/09/2026 15:46, Dev Jain wrote:
-> 
-> 
-> On 01/09/26 6:48 pm, Karl Mehltretter wrote:
->> huge_ptep_modify_prot_start() clears a hugetlb entry before changing its
->> permissions. For contiguous PTE mappings, break-before-make (BBM)
->> requires a TLB invalidation after clearing the set and before making any
->> entry valid again.
->>
->> Commit fb396bb459c1 ("arm64/hugetlb: Drop TLB flush from
->> get_clear_flush()") removed this invalidation, relying on the deferred
->> flush from the core code. Commit 410982303772 ("arm64: hugetlb: Restore
->> TLB invalidation for BBM on contiguous ptes") restored it for
->> huge_ptep_set_{access_flags,wrprotect}(), since a deferred flush is too
->> late for the break step. The modify-prot path has the same problem.
->>
->> Use huge_ptep_clear_flush() for contiguous entries so that the TLB is
->> invalidated during the break step. Leave huge_ptep_get_and_clear()
->> unchanged because it is also used by teardown paths, where the deferred
->> flush is sufficient.
->>
->> Fixes: fb396bb459c1 ("arm64/hugetlb: Drop TLB flush from get_clear_flush()")
->> Assisted-by: LLM
->> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
->> ---
+The commit 260fbcb92bbea ("cgroup: Move dying_tasks cleanup from
+cgroup_task_release() to cgroup_task_free()") extended the lifetime of
+tasks on the dying_tasks list.
+The iterators have provision to go through dying_tasks because of
+dying threadgroup leaders or explicit CSS_TASK_ITER_WITH_DEAD, however,
+it was expected that such tasks can obtain a new reference (that is
+possible before cgroup_task_release()/put_task_struct_rcu_user()).
+The tasks after cgroup_task_release() and before cgroup_task_free()
+are subject to race when they may or may not have usage count > 0.
+The iterator should not attempt to resurrect tasks whose usage count
+dropped to zero. (When that happens, __put_task_struct_rcu_cb() is
+already imminent and the returned task_struct would could be used
+after free.)
 
-Is there a user-visible bug here? Or is this just AI-assisted hypothesising?
+As a band-aid, filter tasks returned from css_task_iter_next() only to
+those that have positive usage count (whose reference's lifetime can be
+extended).
 
+Rough illustration of the possible race
 
-> 
-> The transition happening here is:
-> 
-> old_prot+cont -> zero -> new_prot+cont ... (i)
-> and then TLB flush.
-> 
-> Arm Arm rule R_JQQTC says:
-> "For a TLB lookup in a contiguous region mapped by translation table entries
-> that have consistent values for the Contiguous bit, but have the OA, attributes,
-> or permissions misprogrammed, that TLB lookup is permitted to produce an OA,
-> access permissions, and memory attributes that are consistent with any one
-> of the programmed translation table values."
-> 
-> This implies that a live update like
-> old_prot+cont -> new_prot+cont then TLB flush ... (ii)
-> 
-> is safe. Which should also imply that the transition (i) is safe,
-> since the configurations the PE can observe for (ii) is the same
-> for (i), except that in (ii) the PE can fault too, which is fine.
-> 
-> Upon discussing with Ryan I got to know, he was implementing the
-> contpte stuff for non-hugetlb user mappings and that basically
-> drove a clarification on the semantics of contiguous bit and
-> this rule was added.
-> 
-> If you see currently for non-hugetlb mprotect() we do not flush
-> during contpte teardown.
-> 
-> So if the above reasoning makes sense, I can infact audit and
-> remove the flushes in the hugetlb helpers.
+  R (reader of cgroup.procs)         T (thread)                       L (group leader)
+  ---------------------------------  -------------------------------- --------------------------------
+                                                                      L exits, signal->live > 0
+                                                                      cgroup_task_dead(L)
+                                                                        css_set_skip_task_iters() // skips only cset->tasks
+                                                                        list_add_tail(&L->cg_list, &cset->dying_tasks)
+  css_task_iter_next()
+    take css_set_lock
+    css_task_iter_advance()
+      leader && signal->live != 0
+      => it->task_pos = &L->cg_list
+                                     T exits
+                                     --signal->live == 0
+                                     release_task(T)
+                                       cgroup_task_release(T)
+                                       release_task(L) // zap_leader
+                                         cgroup_task_release(L)
+                                         put_task_struct_rcu_user(L)
+                                         ...RCU...
+                                         put_task_struct(L)
+                                           L->usage = 0
+                                           /* L still on dying_tasks */
+                                           ...RCU...
+                                           __put_task_struct(L)
+    it->task_pos = &L->cg_list
+    get_task_struct(L)
+      => addition on 0
+    drop css_set_lock
+                                           cgroup_task_free(L)
+                                             css_set_skip_task_iters() // dying skip comes too late
+                                           free_task(L)
+  cgroup_procs_show()
+    task_pid_vnr(L)
 
-I agree with this analysis. I believe it is safe to elide the intermediate flush
-in this case (as is done in contpte_wrprotect_ptes()). And I agree that we can
-likely remove some existing TLB maintenance in hugetlb helpers.
+cgroup_task_release() is not synced via css_set_lock hence the race
+possibility. (I'm not 100% convinced about this LLM-assisted
+interleaving, multiple css_task_iter_next() calls may be involved with
+css_set_lock released.)
+
+Fixes: 260fbcb92bbea ("cgroup: Move dying_tasks cleanup from cgroup_task_release() to cgroup_task_free()")
+Cc: stable@vger.kernel.org # v6.19+
+Link: https://lists.debian.org/debian-kernel/2026/08/msg00220.html
+Reported-by: Noah Elias Feldt <N.Feldt@mittwald.de>
+Reported-by: Salvatore Bonaccorso <carnil@debian.org>
+Signed-off-by: Michal Koutný <mkoutny@suse.com>
+---
+ kernel/cgroup/cgroup.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+Salvatore,
+I was able to trigger the issue with your reproducer on 7.1.8
+(occassionally, not always). With the patch on top of v7.3-rc1, I cannot
+reproduce it (different base though). If you can confirm that in your
+env, it'd be good.
 
 Thanks,
-Ryan
+Michal
 
-> 
->> An instrumented QEMU detected the missing break-step TLBI on an unpatched
->> kernel and none with this change. A fork() control exercising
->> huge_ptep_set_wrprotect() remained clean. No user-visible failure was
->> reproduced.
->>
->> The QEMU checker was exercised with 4K and 64K base-page kernels. The
->> patched kernel passed the LTP hugetlb tests with both -cpu max and -cpu
->> cortex-a72 (16 TPASS and no failures).
->>
->> Testing on Neoverse N1 hardware would be welcome, as it can use the
->> contiguous hint and can be configured to report TLB conflicts.
->>
->>  arch/arm64/mm/hugetlbpage.c | 7 ++++++-
->>  1 file changed, 6 insertions(+), 1 deletion(-)
->>
->> diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
->> index 8e799c1fe0aa..bb53a04b73b2 100644
->> --- a/arch/arm64/mm/hugetlbpage.c
->> +++ b/arch/arm64/mm/hugetlbpage.c
->> @@ -517,6 +517,11 @@ bool __init arch_hugetlb_valid_size(unsigned long size)
->>  pte_t huge_ptep_modify_prot_start(struct vm_area_struct *vma, unsigned long addr, pte_t *ptep)
->>  {
->>  	unsigned long psize = huge_page_size(hstate_vma(vma));
->> +	pte_t pte = __ptep_get(ptep);
->> +
->> +	/* The break step for contiguous PTEs must include the TLB flush. */
->> +	if (pte_cont(pte))
->> +		return huge_ptep_clear_flush(vma, addr, ptep);
->>  
->>  	if (alternative_has_cap_unlikely(ARM64_WORKAROUND_2645198)) {
->>  		/*
->> @@ -524,7 +529,7 @@ pte_t huge_ptep_modify_prot_start(struct vm_area_struct *vma, unsigned long addr
->>  		 * when the permission changes from executable to non-executable
->>  		 * in cases where cpu is affected with errata #2645198.
->>  		 */
->> -		if (pte_user_exec(__ptep_get(ptep)))
->> +		if (pte_user_exec(pte))
->>  			return huge_ptep_clear_flush(vma, addr, ptep);
->>  	}
->>  	return huge_ptep_get_and_clear(vma->vm_mm, addr, ptep, psize);
->>
->> base-commit: 786262be6048deab760f68c8acc2c85607165894
-> 
+diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
+index c3a12fee7528f..112d68fe28778 100644
+--- a/kernel/cgroup/cgroup.c
++++ b/kernel/cgroup/cgroup.c
+@@ -5303,10 +5303,13 @@ struct task_struct *css_task_iter_next(struct css_task_iter *it)
+ 	if (it->flags & CSS_TASK_ITER_SKIPPED)
+ 		css_task_iter_advance(it);
+ 
+-	if (it->task_pos) {
++	while (it->task_pos && !it->cur_task) {
+ 		it->cur_task = list_entry(it->task_pos, struct task_struct,
+ 					  cg_list);
+-		get_task_struct(it->cur_task);
++		/* a task on dying_tasks with zero refcount is only valid for
++		 * RCU readers, not even interesting for
++		 * CSS_TASK_ITER_WITH_DEAD, find another one */
++		it->cur_task = tryget_task_struct(it->cur_task);
+ 		css_task_iter_advance(it);
+ 	}
+ 
+-- 
+2.55.0
 
