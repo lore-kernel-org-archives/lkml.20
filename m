@@ -1,124 +1,83 @@
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D00DD3126D6;
-	Wed,  2 Sep 2026 07:47:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C573E44ED;
+	Wed,  2 Sep 2026 07:48:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788335280; cv=none; b=H/DdtOyfr1eL+nUzA1sV6Ewn80uPlr7NBAxF+JPfwztCZu6dB72J5NW1NDnTQUa9R4RmuXw7OAM1q/zb2ojHhmAl2ZgxmCPTdnjZDpu7jbHlkyOxXm5NFDNB+hFuOeHocfQvC5DWn7I/irWsq2FnVfOHJoevX3dyi0Eqz9fjjmw=
+	t=1788335302; cv=none; b=WgWEJrxa8xD2wvQQ8ZSsJLWbXcgCUTopbTWgmYHMZVCr2nWO62WsiFvaK42HpAX7olvX7hxst64erxBRX2BUiVMSTNGmqyPLBwUm0Cd2aYycEUzYLHbEf60YWnbFqnqlN01DG8HzrNUJne94fjOwjQSqzJWymt3dSiZR5Dvlh44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788335280; c=relaxed/simple;
-	bh=RlPn/tvVZtGftu+7JOxuNbPVj4H0V6O9cpmvAwURE3s=;
-	h=Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type; b=l5dc4F59lrkivsxKHGKFxTRDi0ZCUX/TuSh9DXABcrWNuv//lVA4Utiq4Gba+i7liL1blk2VDqZ7/ofISNLZ8VO8/+sv0X8N2WEcg6W2IM3T/u6ZeQGwBipZW8PR+7QJ3KEgOsSC/eXgeCxO733RrNcD0hdcN00ukKZGaun/W38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hZZZs5wHrz5B10R;
-	Wed, 02 Sep 2026 15:47:49 +0800 (CST)
-Received: from xaxapp04.zte.com.cn ([10.99.98.157])
-	by mse-fl1.zte.com.cn with SMTP id 6827ldAq037007;
-	Wed, 2 Sep 2026 15:47:39 +0800 (+08)
-	(envelope-from hu.shengming@zte.com.cn)
-Received: from mapi (xaxapp04[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Wed, 2 Sep 2026 15:47:41 +0800 (CST)
-X-Zmail-TransId: 2afb6a97d49d986-de614
-X-Mailer: Zmail v1.0
-Message-ID: <2026090215474182681fN7LLOSpqIc3s3OqJaW@zte.com.cn>
-Date: Wed, 2 Sep 2026 15:47:41 +0800 (CST)
+	s=arc-20240116; t=1788335302; c=relaxed/simple;
+	bh=19FQYqSJVhG0lf1+jj01kv0U9gP4mk9Zbsg88tIcD+c=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AxaRlPhZoMkqVJkP8lfJY3yNBjCRhG2J6N/aYnpb0xyoIhsGkFMeOtxOy8ZNsWUQfxw3Nt6AndxjnpUcwbUtTGrQvrW75X1/Zc77xoDJwrr1ejWjpuDK/2JdQNwRm+R4okRWdJVpEfjbYsP+SARY+7tO7sgda0vZHvk3f8mYq1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=izYq5VJk; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="izYq5VJk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 068E01F000E9;
+	Wed,  2 Sep 2026 07:48:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788335301;
+	bh=OeADUFwIew+k818uFxxMlUv0AMDwYY19D1ydeF7tVUI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=izYq5VJk2wZVFpoRFQlmdL1wKt3D9KB5P6sF4EX0cOHPdGByj4Rd9mxXLJ7FUSTHq
+	 ey3Ui/L0pSBVuFc8OMCI4bqP/XNLyzPsnpESX3ZCtNav2xApANu8BWjS1eQPUB6zoG
+	 JYCmTzO1WiHQZtodhqFB/kvvmFwyg5GQymdOBFMonlMQurPAwAjAc3Z2uMQ9qNwcEG
+	 PlzK+VFTzM2iijqQUNtWaS/rUpMKvzHaM7yNRoZMGKhjVCRoQAEwCuwieOLNNNx8LD
+	 WRe7gGAMK2Ae4WGzd4HobxKWfAApolDjJlBHwJu8NoRdeCJRG75QHoDz76Jb2D3SfB
+	 eesE4iLZSIpMQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x1fhj-00000003loj-181o;
+	Wed, 02 Sep 2026 07:48:19 +0000
+Date: Wed, 02 Sep 2026 08:50:52 +0100
+Message-ID: <87jyp4m6qr.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Khushit Shah <khushit.shah@nutanix.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Shameer Kolothum <skolothumtho@nvidia.com>,
+	Oliver Upton <oupton@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v1] arm64: errata: pass REVIDR when matching target implementation CPUs
+In-Reply-To: <20260831105444.4065831-1-khushit.shah@nutanix.com>
+References: <20260831105444.4065831-1-khushit.shah@nutanix.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <hu.shengming@zte.com.cn>
-To: <rafael@kernel.org>, <viresh.kumar@linaro.org>
-Cc: <linux-pm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <luo.haiyang@zte.com.cn>, <zhang.run@zte.com.cn>
-Subject: =?UTF-8?B?W1BBVENIXSBjcHVmcmVxOiBjb25zZXJ2YXRpdmU6IElnbm9yZSBpZGxlIHBlcmlvZHMgd2hlbiBhIHBvbGljeSBDUFUgaXMgYnVzeQ==?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6827ldAq037007
-X-TLS: YES
-X-ENVELOPE-SENDER: hu.shengming@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Wed, 02 Sep 2026 15:47:49 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6A97D4A5.003/4hZZZs5wHrz5B10R
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: khushit.shah@nutanix.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, skolothumtho@nvidia.com, oupton@kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-From: Shengming Hu <hu.shengming@zte.com.cn>
+On Mon, 31 Aug 2026 11:54:44 +0100,
+Khushit Shah <khushit.shah@nutanix.com> wrote:
+> 
+> When target implementation CPUs are provided, is_affected_midr_range()
+> accidentally passed the MIDR as both arguments to __is_affected_midr_range(),
+> so the REVIDR mask check operated on the wrong register.
+> 
+> Pass REVIDR as intended.
+> 
+> Fixes: 86edf6bdcf05 ("smccc/kvm_guest: Enable errata based on implementation CPUs")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Khushit Shah <khushit.shah@nutanix.com>
 
-For a shared cpufreq policy, dbs_update() derives the load from the
-highest utilization among its CPUs, but it also records deferred idle
-periods from any CPU whose idle time exceeds two sampling intervals.
+Acked-by: Marc Zyngier <maz@kernel.org>
 
-This lets a single update report both a high load (from a busy CPU)
-and several deferred idle periods (from an idle sibling). Since
-conservative applies the deferred down steps before the up step
-triggered by the high load, the down steps can outweigh the single
-up step.
+	M.
 
-The issue reproduces on a policy shared by CPUs 2 and 3: a CPU-bound
-SCHED_EXT task keeps CPU 2 at 100% utilization while CPU 3 stays
-idle. On this system SCHED_EXT generates update-util callbacks less
-frequently than CFS, so DBS updates are sparse, tracing shows:
-
- load=100 idle_periods=7 interval=59 ms
- load=100 idle_periods=4 interval=39 ms
- load=100 idle_periods=2 interval=19 ms
- load=100 idle_periods=7 interval=59 ms
-
-With the default 5% step and a 2.6 GHz ceiling, conservative first
-removes seven 130 MHz steps and then adds only one. Repeating this
-sequence keeps the policy near 530 MHz despite CPU 2 being fully busy.
-
-Only retain deferred idle periods when every CPU in the policy meets
-the long-idle condition. This keeps the existing behavior for
-single-CPU and fully idle shared policies, while preventing an idle
-sibling from downscaling a policy that contains a busy CPU.
-
-Cc: stable@vger.kernel.org
-Fixes: 00bfe05889e9 ("cpufreq: conservative: Decrease frequency faster for deferred updates")
-Reviewed-by: Luo Haiyang <luo.haiyang@zte.com.cn>
-Reviewed-by: Run Zhang <zhang.run@zte.com.cn>
-Signed-off-by: Shengming Hu <hu.shengming@zte.com.cn>
----
- drivers/cpufreq/cpufreq_governor.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/cpufreq/cpufreq_governor.c b/drivers/cpufreq/cpufreq_governor.c
-index 710d93ec89b5..64eb6b5f08a4 100644
---- a/drivers/cpufreq/cpufreq_governor.c
-+++ b/drivers/cpufreq/cpufreq_governor.c
-@@ -126,6 +126,7 @@ unsigned int dbs_update(struct cpufreq_policy *policy)
- 	unsigned int ignore_nice = dbs_data->ignore_nice_load;
- 	unsigned int max_load = 0, idle_periods = UINT_MAX;
- 	unsigned int sampling_rate, io_busy, j;
-+	bool all_cpus_idle = true;
- 	u64 cur_nice;
-
- 	/*
-@@ -233,13 +234,15 @@ unsigned int dbs_update(struct cpufreq_policy *policy)
-
- 			if (periods < idle_periods)
- 				idle_periods = periods;
-+		} else {
-+			all_cpus_idle = false;
- 		}
-
- 		if (load > max_load)
- 			max_load = load;
- 	}
-
--	policy_dbs->idle_periods = idle_periods;
-+	policy_dbs->idle_periods = all_cpus_idle ? idle_periods : UINT_MAX;
-
- 	return max_load;
- }
 -- 
-2.25.1
+Jazz isn't dead. It just smells funny.
