@@ -1,211 +1,124 @@
-Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com [185.226.149.37])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0BAB373C12
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:55:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6C3374730;
+	Wed,  2 Sep 2026 17:56:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788371741; cv=none; b=VM3iOA2VNE0LJK++9J2Bxw15l+QruqJ0hE9UCcTo1P5SeSZzdY5BRfBcrM4aPxgD/5k6ljyj3ulCIFbghgBadyflEvQrF4kUAi2K3diCORhDMuFkcJ7g7xPUicyTsSEfPIEXYMsCrtyTLI/0N9QuCd+Ah6XerlKeAzwXbW+QAF0=
+	t=1788371800; cv=none; b=kkjP08lx0NkxIaIzFkJwKkTx7yhv9RbKHNBFetXQPJq/QAAy8M5OqdcJRY/phhaJBAy/2QLZu1vQHapFcsF2N1HGxIIcpbsMMjdxvm1Dm8b8ggqNtUckMqpKYDzW8dsh8hMX6yD+djTQIQLwkuMGyRFs9Vr1T2reUuM7iz2fxQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788371741; c=relaxed/simple;
-	bh=IZhshA9fZOyRiYER+gWCvb7sLy6FkkdGhrHLrnkEMAw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=EVg5KhbeNRc8Iv1Yf1qPu7TtqGj2vInJ1P/RYOnQAEZAUTrEQ0LKuA5DAYk6fWq2Pa8QbavYMc/BVTtyT7o9pG5CFU6O3EN9gwpVEs5c2Oa2sA5zqN4rEDEPLTr7L7l7ncPObV/Cvcum1xABUY27Jij8/L/RHXdksC1NhbFt3/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co; spf=pass smtp.mailfrom=rbox.co; dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b=JmDIxZIs; arc=none smtp.client-ip=185.226.149.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
+	s=arc-20240116; t=1788371800; c=relaxed/simple;
+	bh=bzWHwfqsQDXM0tVfGhFcQoJE70q1pRuWiOSa6aqUEOM=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=LkRrGsKjoXrjQclusOtcQ9J84UidOyCDp/FYtaLtRm8U2Pl+ULQk8wHhOXomhjxU/UGDuZvZti8eKYfxqpUFqtatB/nUN1R24pWdFKArVNZ74EBZJQUJidqchjnM9bYwqlH5oa1fDtRSuf6ZSZugs7iBKVnizV42+sWFTp9DYG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ngs7g4Ru; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b="JmDIxZIs"
-Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
-	by mailtransmit04.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.93)
-	(envelope-from <mhal@rbox.co>)
-	id 1x1pAz-0093ib-0V; Wed, 02 Sep 2026 19:55:09 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
-	s=selector2; h=Cc:To:In-Reply-To:References:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From;
-	bh=FXFCe6ONM3mltyRpMuaa6tup/eZ+1813+oHLpm8cwE0=; b=JmDIxZIsDfoI2xLAITZjj+02Xk
-	cHjeyDOj3K3E3fL1Jw1PIAjNXtLuyKujLF7KyH6eO6FUQdpWym8qYRVKZ4kGvndiVXsSBBXdCAN2t
-	jVKm9QLe8pQ+pAPIt9VCRf5J8IQkevrTM8glo3H++fd3HPtTuMobI/lZbw+gtbAqN981FIxcZ8GT+
-	1b/tDZy8RuwI1amExLlEUNz8klWvQYcjY8Mq+f0cZ+XXNW6y5bQUd5ezqlxVW9kau378iDxeogJg1
-	e3A3bxIVof92hRGveKO3FBC789+anH+fBGzxfALreldg+kBtjV/OCCOH7AQBjwH9fnNiY2LFHuOp+
-	kJOguvkA==;
-Received: from [10.9.9.73] (helo=submission02.runbox)
-	by mailtransmit03.runbox with esmtp (Exim 4.86_2)
-	(envelope-from <mhal@rbox.co>)
-	id 1x1pAx-0006J2-En; Wed, 02 Sep 2026 19:55:07 +0200
-Received: by submission02.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.95)
-	id 1x1pAj-0020Qt-Mt;
-	Wed, 02 Sep 2026 19:54:53 +0200
-From: Michal Luczaj <mhal@rbox.co>
-Date: Wed, 02 Sep 2026 19:52:14 +0200
-Subject: [PATCH bpf v3 1/2] bpf: Unconditionally take socket references in
- lookup helpers
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ngs7g4Ru"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE78B1F000E9;
+	Wed,  2 Sep 2026 17:56:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788371799;
+	bh=QWeMfYXOTyMFSUAfAZF9yC+OI2pdAboC2YztJrUE0/c=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=ngs7g4RuL2HQstK3A+oCvHnGI5nS1c2TgyKG8tAFHaqb90ukyZkCUxUBssg/CJG8a
+	 GePMjAraZw57A9UaS8U5TnPELx2b/abWZBNOvBET6uUpO6MxAvpl7nMDXYXPcpjWcZ
+	 7N4mKfsIOYtXmji3pOR5N6Vei1LeXPItNw6voC2MqX4i/7H8uXqWaNVZptXH3Lm+g3
+	 nmVGVeZ/zQ58j/f5+E9END4ACoOX7Ym1S5HWz7zvb1MReXKMtmGTHhjw4ec62/zurW
+	 U7slqKPTTO2dl68b18GN+5V8TvjlqAGJy3f+W1RCMqEKci+jL6nSQltpq0VVyOZJ3U
+	 dh9up44Cw44vA==
+Date: Wed, 2 Sep 2026 12:56:37 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Mahesh Vaidya <mahesh.vaidya@altera.com>
+Cc: joyce.ooi@intel.com, lpieralisi@kernel.org, kwilczynski@kernel.org,
+	mani@kernel.org, robh@kernel.org, bhelgaas@google.com,
+	ley.foon.tan@intel.com, dinguyen@kernel.org,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	subhransu.sekhar.prusty@altera.com, preetam.narayan@altera.com,
+	cheryl.bansal@altera.com, stable@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] PCI: altera: Fix resource leaks on probe failure
+Message-ID: <20260902175637.GA1993694@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-sockmap-lookup-tcp-leak-v3-1-b998b3d49d07@rbox.co>
-References: <20260902-sockmap-lookup-tcp-leak-v3-0-b998b3d49d07@rbox.co>
-In-Reply-To: <20260902-sockmap-lookup-tcp-leak-v3-0-b998b3d49d07@rbox.co>
-To: Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, 
- Willem de Bruijn <willemb@google.com>, 
- Jakub Sitnicki <jakub@cloudflare.com>, 
- Jiayuan Chen <jiayuan.chen@linux.dev>, Joe Stringer <joe@wand.net.nz>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>, 
- Phil Sutter <phil@nwl.cc>
-Cc: Michal Luczaj <mhal@rbox.co>, bpf@vger.kernel.org, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
- Sashiko <sashiko-bot@kernel.org>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260430204330.3121003-3-mahesh.vaidya@altera.com>
 
-Lookup helpers gate the reference acquisition on sk_is_refcounted(), and
-the release side re-evaluates the same check. An established socket can be
-refcounted at acquire time and later gain SOCK_RCU_FREE via
-connect(AF_UNSPEC) + listen() before release. The release re-check then
-sees sk_is_refcounted() == false and skips the put, leaking the reference.
+On Thu, Apr 30, 2026 at 01:43:30PM -0700, Mahesh Vaidya wrote:
+> The chained IRQ handler is installed during probe but is only removed
+> from the remove path. If pci_host_probe() fails, the handler and INTx IRQ
+> domain remain installed even though the devm-managed host bridge storage
+> containing struct altera_pcie will be released, leaving the handler with
+> a stale data pointer.
+> 
+> Interrupts are also enabled before pci_host_probe() is called. If probe
+> fails after that point, the controller interrupt source should be disabled
+> before the chained handler and INTx domain are removed.
+> 
+> Install the chained handler only after the INTx domain has been created.
+> Disable controller interrupts during IRQ teardown, and tear the IRQ setup
+> down if pci_host_probe() fails.
+> 
+> Fixes: c63aed7334c2 ("PCI: altera: Use pci_host_probe() to register host")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Subhransu S. Prusty <subhransu.sekhar.prusty@altera.com>
+> Signed-off-by: Mahesh Vaidya <mahesh.vaidya@altera.com>
+> ---
+>  drivers/pci/controller/pcie-altera.c | 35 ++++++++++++++++++++++++++--
+>  1 file changed, 33 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/pcie-altera.c b/drivers/pci/controller/pcie-altera.c
+> index 3d3519b8d88f..902ae2d81763 100644
+> --- a/drivers/pci/controller/pcie-altera.c
+> +++ b/drivers/pci/controller/pcie-altera.c
+> @@ -864,8 +864,23 @@ static int altera_pcie_init_irq_domain(struct altera_pcie *pcie)
+>  	return 0;
+>  }
+>  
+> +static void altera_pcie_disable_irq(struct altera_pcie *pcie)
+> +{
+> +	if (pcie->pcie_data->version == ALTERA_PCIE_V1 ||
+> +	    pcie->pcie_data->version == ALTERA_PCIE_V2) {
+> +		/* Disable all P2A interrupts */
+> +		cra_writel(pcie, 0, P2A_INT_ENABLE);
+> +	} else if (pcie->pcie_data->version == ALTERA_PCIE_V3) {
+> +		/* Disable port-level interrupts (CFG_AER, etc.) */
+> +		writel(0, pcie->hip_base +
+> +			  pcie->pcie_data->port_conf_offset +
+> +			  pcie->pcie_data->port_irq_enable_offset);
+> +	}
+> +}
+> +
+>  static void altera_pcie_irq_teardown(struct altera_pcie *pcie)
+>  {
+> +	altera_pcie_disable_irq(pcie);
+>  	irq_set_chained_handler_and_data(pcie->irq, NULL, NULL);
+>  	irq_domain_remove(pcie->irq_domain);
+>  }
 
-Make acquire and release unconditional and symmetric: always take a
-reference, always put it. Adapt sk_select_reuseport(). Drop the
-misplaced/outdated comment above __bpf_skc_lookup().
+This patch appeared in v7.2 as 7a94138caeb2 ("PCI: altera: Fix
+resource leaks on probe failure").
 
-Fixes: 6acc9b432e67 ("bpf: Add helper to retrieve socket in BPF")
-Fixes: 64d85290d79c ("bpf: Allow bpf_map_lookup_elem for SOCKMAP and SOCKHASH")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/bpf/20260701235552.2B0AA1F00A3F@smtp.kernel.org/
-Signed-off-by: Michal Luczaj <mhal@rbox.co>
-Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
----
- net/core/filter.c   | 30 ++++++++++++++++++------------
- net/core/sock_map.c |  8 ++------
- 2 files changed, 20 insertions(+), 18 deletions(-)
+While considering this for backporting, sashiko came up with the
+questions below.  Can you take a look and see if they make sense?
 
-diff --git a/net/core/filter.c b/net/core/filter.c
-index 61940e753552..66d83a198ea2 100644
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -7205,12 +7205,17 @@ static struct sock *sk_lookup(struct net *net, struct bpf_sock_tuple *tuple,
- 		WARN_ONCE(1, "Found non-RCU, unreferenced socket!");
- 		sk = NULL;
- 	}
-+
-+	/*
-+	 * Always take a reference, even if the lookup skipped one;
-+	 * bpf_sk_release() always puts one.
-+	 */
-+	if (sk && !refcounted && !refcount_inc_not_zero(&sk->sk_refcnt))
-+		sk = NULL;
-+
- 	return sk;
- }
- 
--/* bpf_skc_lookup performs the core lookup for different types of sockets,
-- * taking a reference on the socket if it doesn't have the flag SOCK_RCU_FREE.
-- */
- static struct sock *
- __bpf_skc_lookup(struct sk_buff *skb, struct bpf_sock_tuple *tuple, u32 len,
- 		 struct net *caller_net, u32 ifindex, u8 proto, u64 netns_id,
-@@ -7263,11 +7268,16 @@ bpf_sk_lookup_full_sk(struct sock *sk)
- 	 */
- 	if (sk2 != sk) {
- 		sock_gen_put(sk);
--		/* Ensure there is no need to bump sk2 refcnt. */
- 		if (unlikely(sk2 && !sock_flag(sk2, SOCK_RCU_FREE))) {
- 			WARN_ONCE(1, "Found non-RCU, unreferenced socket!");
- 			return NULL;
- 		}
-+		/*
-+		 * sk2 is not refcounted, but take a reference anyway;
-+		 * bpf_sk_release() puts.
-+		 */
-+		if (sk2 && !refcount_inc_not_zero(&sk2->sk_refcnt))
-+			sk2 = NULL;
- 		sk = sk2;
- 	}
- 
-@@ -7448,7 +7458,7 @@ static const struct bpf_func_proto bpf_tc_sk_lookup_udp_proto = {
- 
- BPF_CALL_1(bpf_sk_release, struct sock *, sk)
- {
--	if (sk && sk_is_refcounted(sk))
-+	if (sk)
- 		sock_gen_put(sk);
- 	return 0;
- }
-@@ -11736,11 +11746,13 @@ BPF_CALL_4(sk_select_reuseport, struct sk_reuseport_kern *, reuse_kern,
- 	bool is_sockarray = map->map_type == BPF_MAP_TYPE_REUSEPORT_SOCKARRAY;
- 	struct sock_reuseport *reuse;
- 	struct sock *selected_sk;
--	int err;
-+	int err = 0;
- 
- 	selected_sk = map->ops->map_lookup_elem(map, key);
- 	if (!selected_sk)
- 		return -ENOENT;
-+	if (!is_sockarray)
-+		sock_put(selected_sk);
- 
- 	reuse = rcu_dereference(selected_sk->sk_reuseport_cb);
- 	if (!reuse) {
-@@ -11770,13 +11782,7 @@ BPF_CALL_4(sk_select_reuseport, struct sk_reuseport_kern *, reuse_kern,
- 	}
- 
- 	reuse_kern->selected_sk = selected_sk;
--
--	return 0;
- error:
--	/* Lookup in sock_map can return TCP ESTABLISHED sockets. */
--	if (sk_is_refcounted(selected_sk))
--		sock_put(selected_sk);
--
- 	return err;
- }
- 
-diff --git a/net/core/sock_map.c b/net/core/sock_map.c
-index ca49bc7f8687..ae18dc4d60f9 100644
---- a/net/core/sock_map.c
-+++ b/net/core/sock_map.c
-@@ -390,9 +390,7 @@ static void *sock_map_lookup(struct bpf_map *map, void *key)
- 	struct sock *sk;
- 
- 	sk = __sock_map_lookup_elem(map, *(u32 *)key);
--	if (!sk)
--		return NULL;
--	if (sk_is_refcounted(sk))
-+	if (sk)
- 		sock_hold(sk);
- 	return sk;
- }
-@@ -1216,9 +1214,7 @@ static void *sock_hash_lookup(struct bpf_map *map, void *key)
- 	struct sock *sk;
- 
- 	sk = __sock_hash_lookup_elem(map, key);
--	if (!sk)
--		return NULL;
--	if (sk_is_refcounted(sk))
-+	if (sk)
- 		sock_hold(sk);
- 	return sk;
- }
+  This is a pre-existing issue, but does altera_pcie_irq_teardown()
+  lack synchronization with in-flight interrupts?
 
--- 
-2.55.0
+  If a device interrupt fires just before altera_pcie_disable_irq()
+  masks it, could the chained ISR (altera_pcie_isr) execute
+  concurrently with altera_pcie_irq_teardown() on another CPU?
+
+  Because irq_set_chained_handler_and_data() unregisters the handler
+  but does not wait for currently executing ISRs on other CPUs, could
+  irq_domain_remove() free the domain while the ISR is still using it
+  to call generic_handle_domain_irq(), leading to a use-after-free and
+  a kernel panic?
+
+  Would adding a call to synchronize_irq() before removing the IRQ
+  domain prevent this race during driver removal or when
+  pci_host_probe() fails?
 
