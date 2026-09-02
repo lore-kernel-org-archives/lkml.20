@@ -1,160 +1,200 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-pz2-f10.google.com (mail-pz2-f10.google.com [74.125.228.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 496763D3CE3
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:31:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E895B3E171E
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:31:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788334308; cv=none; b=iwi7Tdj1nXO9WcCIEnY37zJ299XFHrKydjM/beWJk3wJd+sS+iVijeA97iUzYRdoYzUwQdsC9puoPL0JwHDRZR+wANpcxJEeFuQddx1KI406HMSBzdtJ1l00ZOAqLL0hE4KU6lQWiG82Go4WR9seS1WhCMbpvGOkXqQoGNNmu1k=
+	t=1788334322; cv=none; b=sce5ZioLxzICrRVsPYRo0LvfXPmsHq2lrBTGEGHtI3GgIfHBgkpMjUDy6EZ+dsjlqzk+UKMgJvJvJbmC3YlDBDoTHPdQmut2Yx3jmfQPbDzbFmJAcikF79UmA9kzV2uFSm9kQzkPKB5DrLt3zJEtmMVxYGHn/DPKdkUFXgqgbyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788334308; c=relaxed/simple;
-	bh=9U7SFbOWxiBjZFiG74OiemBYU+Y1rr027ZcAM1kmflM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uwxj4WufZhuGTbRh6fd216MOw4/EM22EB1tALEohWI5hDq6XNNTRvXfT1HSv7bBGFw3qxDwIObitcxBWDlyItKLnfoP8rZSxKZXGoiv3OSqsowrT300pyGg4VjkUySnJzR8cXEhaUkTJujCYXP5Z3XYYwEnqCCJuAiW3yFBlxNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org; spf=none smtp.mailfrom=blackwall.org; dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b=l6L6BbD8; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=blackwall.org
+	s=arc-20240116; t=1788334322; c=relaxed/simple;
+	bh=WTLR5meVohzCgam1peUGWMX1J+RDsSRr7L+2QxILnVo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pCPbpLRqtIOtAmoTkUDW7hTX2AFf4jdftdhx6EKOFEOzq77dVsbm+k4MeMmUJ+ZlFbEiygsb3/rkqDNE0LrinKL5/XtTuMjkpmutdoYL4X0EobOZa/BnhbRPGzcV5teNfTxuCT2NQWlKcCqBx2feMVbhPf9I5hSzpOcBmWnP2nU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=binadJ73; arc=none smtp.client-ip=74.125.228.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b="l6L6BbD8"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so7797695e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 00:31:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="binadJ73"
+Received: by mail-pz2-f10.google.com with SMTP id 41be03b00d2f7-cc1c753b1bbso175883a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 00:31:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blackwall.org; s=google; t=1788334304; x=1788939104; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=e8c4SkCGLeuEZ9G0EExuH6ysXn5V6G5CGFTzY2i788M=;
-        b=l6L6BbD8wgO5O9+LF/aDfHLEGVq41SggIr6mlywtJA4hy13WZmGtR4drLqQ4NBfTfs
-         KgzBQA60F76thk4iCbZr6SRTAj7xRZnkt+x5451IGcCVkcJDbqYYwBqJ6NJrteR8SPz1
-         BzxU4nV47ot3raFP32qQOTQHB/p9sI4WzKQFWrLTAe/RSgyhcSRYtLPepZkUiLOjyZXR
-         nKhInaAw+4YohTQQShFHw8n7yomYvFVPtqXudlX56zyKpGN3uSMLvjUAFvnKBp16tPf3
-         7c0XgCoLlg+djaKT7ic8dkHQmit2Yelw2UPrawTv0l0Ruj4n+xnDlqBymPfIGKPhGfYE
-         r0iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788334304; x=1788939104;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788334319; x=1788939119; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=e8c4SkCGLeuEZ9G0EExuH6ysXn5V6G5CGFTzY2i788M=;
-        b=k6JgC4Bxm5/F3IfNFETI6WtmvU871NJLcVvJ+bbnY9LGQLjs7/Tvk7s0sojC9xkJNb
-         5GYZUvloAk+O2yBzicEWbQ1cWunfb/kapmWIWWBG8mfLZhH/zgdkBqVutbvzseh50YeL
-         v365UQxONOAtqVmfWy+XlbCrq9w+WhgaTq8XGYVjrQTv1QYT2PMpRDtpqHBFuYUXYcrs
-         d2Zv2qVZvE3AHo60SwdxAzM0xsjGv9zt2f7eqSpcioEOj/OSq5FKtD+JMERM9MJMDS+w
-         XTWKoy2Epw0Sg9coVaEkRNaJ/Ul9OAALF12Xxgj1UjHX1Q+8aj0Q5XvmgfkDAQKAW+Z6
-         9TrQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoIGfWJ2oMTMy73YDe3mLf8gInL7A7m1D6Sq+u5g26L3siVJoDD981IeoQ3UvQMw6DjKQVzHnwhX6S96Io=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUrJjaQDJY1zub1myxTmqg9D+M4P4trswN7tlaDVEhbjxJFV9L
-	qLiRMs5RLAjbqAbO4cEdgEOIQT9rKVmyiGmraTKN/NN4RxZqjM4Yf8KwBz1Lm2dd5mc=
-X-Gm-Gg: AR+sD10jGCVki31GihkP8G2P0mxM0RW9Q3mLlc44hIOvTZFFbaR6dm6DT7WTu6ia8QY
-	XN1CkAnWrF6H1L6UAIRjfUMoUZmC5ltGFpF0sid0uuHhEqVxgVvf2HxTyNNBxGrvRw/bx8Oacxs
-	tXMlptH0Me2WHadpllJSU0xD+cZh23z6PJ3ZDVbOx3AvTZddkttFngEkSeUr7hqNiJzF57ZkZsH
-	q7VhYrEimGR/IMK7yfSETviuvmfgxBPWXBW0mvnhTlebK8SEldtuapltETkswfHoqNbK+zPtab1
-	sSQo2nIhQBFv9/mTiosTqZApExMlDv/VN9ob9ZOrz+3JS3xDCUSXcQaILLhyPsCw5affQdOXznE
-	Pvc+diYcjHtkbLGAWYYE6dBONnrv1H3G4UBqiNis6PNYJBHbU8tgEirSkelvEfClUFF3CQ4WjbA
-	sObrU6rxi9DSdWlxFQGz8L/srFvtjsGd0X+kHk2sHgP1zN1+7CIWNhqmWr75q5yb3zx38x+pO7w
-	HFHJYtrT8EdlUPokvU=
-X-Received: by 2002:a05:600c:6992:b0:49a:a101:4157 with SMTP id 5b1f17b1804b1-49ce58034admr51656425e9.7.1788334303651;
-        Wed, 02 Sep 2026 00:31:43 -0700 (PDT)
-Received: from [192.168.0.161] (78-154-15-182.ip.btc-net.bg. [78.154.15.182])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce3e04csm121393645e9.10.2026.09.02.00.31.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 00:31:43 -0700 (PDT)
-Message-ID: <a85105b2-a576-4702-a9fb-3d17ddf4d2a7@blackwall.org>
-Date: Wed, 2 Sep 2026 10:31:41 +0300
+        bh=cEYvUbaRHsvrLqexK6TwRNN/GB2ra0YD4DknJvJHsJI=;
+        b=binadJ73VCiV2W9HJyPUtyMD9JGMyhJZnthozF1Z74PofW32s6et5JwjpV0jP37qy+
+         lMx+zcg39tmBb8hF7ihQ5tfboBZDUdO4E49PLIn/GbMGgwX82exQEE2hmHxWcd1IkTKt
+         Wzn+cLMCMJBso4qmLVWy+S7a6kZK0QBCxkc8t5RHt1MXs5PcLY2+2HBMz615FMjqa48D
+         2vJeo035hzEsvK6rKOoJl6D5ZcVTYdTJXkW8IKJHXqc7ToX/RIWgIq0aYmcyhnNM2ZVO
+         PxtMCb6+FtDfcIR/H4g0I/aJzxyoGEfBYmj+9Yolpnw1GeS6vuWMjQdj88fGn8VfIQkG
+         Zgsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788334319; x=1788939119;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cEYvUbaRHsvrLqexK6TwRNN/GB2ra0YD4DknJvJHsJI=;
+        b=eO4ak6VaSVCZOhEi6CSKwsGBsj/Vbt2s4uFdiNb8ek35uZl/F+vO7/6tNOz2cRpPWq
+         /vQuNdwNAvOphPXyun4CoAyJKpW5Ri7ioKxkMoXrIwKvR31gGFGcL85ZAD29ZK59fBcf
+         Ln/IKfl23QVkM3qCuN89HkVz5BnjIvQ/fJPe3PGVnJiQKKqN+rp7TWifFACKrcTWbOGk
+         qVbujML6rZYLvdTz8CE55PbLn+7QlTq+cE0GmCcYqUrjsnmfOS++T+FnqzvPv5GTi17t
+         Af3grW7fh5mVaEpmC2bR/YOXvv/Nb2hAUdecFIrtDh7SVaajFHe4RnheOFZtwhoHAJoB
+         72wg==
+X-Forwarded-Encrypted: i=1; AKwUvBwEVJONt18AyKVW9zcEf2ivtScLF/lqsV9zR4aQGl50BKuM4khsIwZbDSm1uCxNoM8MpRgTVKuVE6Kc7u0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lhgzVmmm25JbVR5YtLH14NBHYzK0OrcCko51xlTtxNjybN8/HF
+	BOE4w29qdbAOu8Q2b/CKrjTHX2Mq8yPnn7d/6Mqb+WGz2RJg+rWup8o5
+X-Gm-Gg: AYBFou3m/w46Ee984U6lkSc8kCDNNes+OntPmeYwCGrpArDnF6vcVPAYNPwubZftjFc
+	wizEQqrqOnm+oOBzJNLsYkykub0tEFswWfMQZij1vTXWHC9U6vlcGGHc99tgVmFYSaCctOm1D8X
+	mtShhMFSrt/tu5FealzSTBiq2jPr7Zifl7BQHYJZQl2XZSJzDCnV4Jc1UVRCV2MRmgS3GOXMA9i
+	pbHtMWcTVuEdDPHS9mzUXlyjNc+Yis/PZpSKePatzglqiL9ZOxP85+OE21SWy77tKUamstjJLiC
+	9woph7wLltQQePvTH864ltJZw44OnR5sAMY8Awo5foBlzjvveaAyvdgrRpdV7gzoIgebehYUuRp
+	kLSq094Ab/4oaSRaLJWVQPVOrGpvH3pkxB/sI6Oe1b9nYIUu55CmmxLvHqobAgsG1rBH0UBVIH2
+	gWS9za/+WTVwGoYUb+XDqo2NBtzzSb3tnAuinUGJ87bElFAZckRqUUAiNwiR3RqBwtK+LQKfa2
+X-Received: by 2002:a05:6a00:4188:b0:857:7384:b5fc with SMTP id d2e1a72fcca58-85ed4d137e7mr5136737b3a.24.1788334319386;
+        Wed, 02 Sep 2026 00:31:59 -0700 (PDT)
+Received: from intel.company.local ([122.11.210.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db2adcbedsm926914b3a.20.2026.09.02.00.31.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 00:31:58 -0700 (PDT)
+From: Wandun Chen <chenwandun1@gmail.com>
+To: catalin.marinas@arm.com,
+	will@kernel.org,
+	chenhuacai@kernel.org,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	robh@kernel.org,
+	saravanak@kernel.org,
+	akpm@linux-foundation.org,
+	baoquan.he@linux.dev,
+	rppt@kernel.org,
+	pasha.tatashin@soleen.com,
+	pratyush@kernel.org,
+	m.szyprowski@samsung.com
+Cc: mark.rutland@arm.com,
+	kernel@xen0n.name,
+	alex@ghiti.fr,
+	hpa@zytor.com,
+	ruirui.yang@linux.dev,
+	robin.murphy@arm.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	kexec@lists.infradead.org,
+	linux-mm@kvack.org,
+	iommu@lists.linux.dev
+Subject: [PATCH v6 02/10] riscv: build crash_mem ranges from memblock instead of resource tree
+Date: Wed,  2 Sep 2026 15:31:08 +0800
+Message-ID: <20260902073116.802752-3-chenwandun1@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260902073116.802752-1-chenwandun1@gmail.com>
+References: <20260902073116.802752-1-chenwandun1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] bonding: fix slave_cnt leak on XDP error paths
-Content-Language: en-US, bg
-To: Hangbin Liu <hangbin.liu@linux.dev>, Jay Vosburgh <jv@jvosburgh.net>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Daniel Borkmann <daniel@iogearbox.net>, Jussi Maki <joamaki@gmail.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Hangbin Liu <liuhangbin@kylinos.cn>
-References: <20260902-bond_slave_cnt-v1-1-36e95bf4a6ff@kylinos.cn>
-From: Nikolay Aleksandrov <razor@blackwall.org>
-In-Reply-To: <20260902-bond_slave_cnt-v1-1-36e95bf4a6ff@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 02/09/2026 08:21, Hangbin Liu wrote:
-> From: Hangbin Liu <liuhangbin@kylinos.cn>
-> 
-> When bond_enslave() succeeds up to the XDP setup stage, slave_cnt is
-> already incremented. If XDP setup subsequently fails, the error paths
-> jump directly to err_sysfs_del, bypassing the slave_cnt decrement.
-> 
-> This causes slave_cnt to drift upward on each failed enslaving attempt,
-> which would lead to unbalanced traffic distribution with round-robin and
-> balance-xor mode.
+From: Wandun Chen <chenwandun@lixiang.com>
 
-I don't think it affects balance-xor, it's using usable_slaves->count which is
-incremented only for actual usable slaves
+Replace walk_system_ram_res() with for_each_mem_range(). A later patch
+introduces MEMBLOCK_NODUMP in memblock, the reserved-memory regions
+marked with MEMBLOCK_NODUMP can be excluded from the vmcore by walking
+memblock.
 
-> 
-> Fixes: 9e2ee5c7e7c3 ("net, bonding: Add XDP support to the bonding driver")
-> Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
-> ---
->   drivers/net/bonding/bond_main.c | 9 ++++++---
->   1 file changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
-> index 947d92a669b6..0305a017e327 100644
-> --- a/drivers/net/bonding/bond_main.c
-> +++ b/drivers/net/bonding/bond_main.c
-> @@ -2305,7 +2305,7 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
->   			SLAVE_NL_ERR(bond_dev, slave_dev, extack,
->   				     "Slave does not support XDP");
->   			res = -EOPNOTSUPP;
-> -			goto err_sysfs_del;
-> +			goto err_slave_cnt;
->   		}
->   	} else if (bond->xdp_prog) {
->   		struct netdev_bpf xdp = {
-> @@ -2319,14 +2319,14 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
->   			SLAVE_NL_ERR(bond_dev, slave_dev, extack,
->   				     "Slave has XDP program loaded, please unload before enslaving");
->   			res = -EOPNOTSUPP;
-> -			goto err_sysfs_del;
-> +			goto err_slave_cnt;
->   		}
->   
->   		res = dev_xdp_propagate(slave_dev, &xdp);
->   		if (res < 0) {
->   			/* ndo_bpf() sets extack error message */
->   			slave_dbg(bond_dev, slave_dev, "Error %d calling ndo_bpf\n", res);
-> -			goto err_sysfs_del;
-> +			goto err_slave_cnt;
->   		}
->   		if (bond->xdp_prog)
->   			bpf_prog_inc(bond->xdp_prog);
-> @@ -2348,6 +2348,9 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
->   	return 0;
->   
->   /* Undo stages on error */
-> +err_slave_cnt:
-> +	WRITE_ONCE(bond->slave_cnt, bond->slave_cnt - 1);
-> +
->   err_sysfs_del:
->   	bond_sysfs_slave_del(new_slave);
->   
-> 
-> ---
-> base-commit: 70f3995830d3f1e79faa14eb0605914f778feca9
-> change-id: 20260807-bond_slave_cnt-88e78c5f0ab9
-> 
-> Best regards,
+for_each_mem_range() iterates memblock.memory, which is freed after
+init unless ARCH_KEEP_MEMBLOCK is selected. riscv needs ARCH_KEEP_MEMBLOCK
+to filter reserved memory from the vmcore, so extend its condition
+(ACPI || KEXEC) with CRASH_DUMP. arm64 and loongarch already select
+ARCH_KEEP_MEMBLOCK unconditionally.
 
-I think we can just move the slave count inc after XDP setup when we can't fail anymore?
-I don't see anything using it before the slave array update.
+Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
+---
+ arch/riscv/Kconfig                     |  2 +-
+ arch/riscv/kernel/machine_kexec_file.c | 31 ++++++++++----------------
+ 2 files changed, 13 insertions(+), 20 deletions(-)
 
-Cheers,
-  Nik
+diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
+index d6c2dbf8455c..1de14a2d5aba 100644
+--- a/arch/riscv/Kconfig
++++ b/arch/riscv/Kconfig
+@@ -58,7 +58,7 @@ config RISCV
+ 	select ARCH_HAS_UBSAN
+ 	select ARCH_HAS_VDSO_ARCH_DATA
+ 	select ARCH_HAVE_NMI_SAFE_CMPXCHG
+-	select ARCH_KEEP_MEMBLOCK if ACPI || KEXEC
++	select ARCH_KEEP_MEMBLOCK if ACPI || KEXEC || CRASH_DUMP
+ 	select ARCH_MHP_MEMMAP_ON_MEMORY_ENABLE	if 64BIT && MMU
+ 	select ARCH_OPTIONAL_KERNEL_RWX if ARCH_HAS_STRICT_KERNEL_RWX
+ 	select ARCH_OPTIONAL_KERNEL_RWX_DEFAULT
+diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
+index 26cd2a8bd0cd..808e872f4063 100644
+--- a/arch/riscv/kernel/machine_kexec_file.c
++++ b/arch/riscv/kernel/machine_kexec_file.c
+@@ -37,39 +37,32 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
+ }
+ 
+ #ifdef CONFIG_CRASH_DUMP
+-static int get_nr_ram_ranges_callback(struct resource *res, void *arg)
+-{
+-	unsigned int *nr_ranges = arg;
+-
+-	(*nr_ranges)++;
+-	return 0;
+-}
+-
+ unsigned int arch_get_system_nr_ranges(void)
+ {
+ 	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* For exclusion of crashkernel region */
++	u64 i;
++	phys_addr_t start, end;
+ 
+-	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
++	for_each_mem_range(i, &start, &end)
++		nr_ranges++;
+ 
+ 	return nr_ranges;
+ }
+ 
+-static int prepare_elf64_ram_headers_callback(struct resource *res, void *arg)
++int arch_crash_populate_cmem(struct crash_mem *cmem)
+ {
+-	struct crash_mem *cmem = arg;
++	u64 i;
++	phys_addr_t start, end;
+ 
+-	cmem->ranges[cmem->nr_ranges].start = res->start;
+-	cmem->ranges[cmem->nr_ranges].end = res->end;
+-	cmem->nr_ranges++;
++	for_each_mem_range(i, &start, &end) {
++		cmem->ranges[cmem->nr_ranges].start = start;
++		cmem->ranges[cmem->nr_ranges].end = end - 1;
++		cmem->nr_ranges++;
++	}
+ 
+ 	return 0;
+ }
+ 
+-int arch_crash_populate_cmem(struct crash_mem *cmem)
+-{
+-	return walk_system_ram_res(0, -1, cmem, prepare_elf64_ram_headers_callback);
+-}
+-
+ static char *setup_kdump_cmdline(struct kimage *image, char *cmdline,
+ 				 unsigned long cmdline_len)
+ {
+-- 
+2.43.0
 
