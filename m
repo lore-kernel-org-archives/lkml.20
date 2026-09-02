@@ -1,87 +1,160 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B78D8476055;
-	Wed,  2 Sep 2026 17:17:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B97C3DA7D6
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:17:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788369443; cv=none; b=ImAgUvA1Zdk25Oi4o35fr95UmXTHk/DSFrx/2V07L6w/VBRbDBURN7sKpLgF+hbDm3FSNZBBIYSw+Yhj8i9vQdmj/bFi1u/1HUypYVIhCpk7KxOIPN8LHp8rej4Pq0eUsXz2vjIJK6r9RZdpiKzlhVM2nN+RnkC86Hha/0zcDfI=
+	t=1788369453; cv=none; b=MY64Bynh5kZ3p5r5+J95GNyM3N4ZVqSTKAMdrFRNaFwAnfhajQ6ryX/m7GFl98lsjZ54H8SMX64yDzQpIqegejNmnuu/UqiYmn1Xk2ScrV3WRg9UEet7IYcpX6DAbFZujJctMdKeXKNkCNeEvyTDkRmBOGaMzN/XoFwRPcIYFaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788369443; c=relaxed/simple;
-	bh=Kf8iOLL/oK/xM4IISV7gQzZdZcdKU0vIyyxOi9MLkPI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qNYexeOTZp6mSTe9vYS1SXGoh4Z90WoEqf7714rdZmzRWdEiPC495tFG1hGInI1kYiG+q8RdU63d3a3mnC2+/wLhcy4pztASWW2tZij0vKLkguMZO3hmys2pCkI0fzIMxUwnv2mom86MUId2hpzw3vqxl00ZR0JlgVS0td2Bh1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=vCUKh0Vb; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788369453; c=relaxed/simple;
+	bh=uUY40fzXDsOjxmveQ5LycP1AAWERj75mXf8gm2w3bQI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IHsReanhEqAGfCtQJCVDfxy3K5bDDl6jiDQC77SV/+mSkt2Fy40/tBgP4ErTwzCUtfE/ggAl91L1OgmcYeo21szTLNpLJnUINqxHr6GljcGQrqgRnf+dgJ/xPYIjK3Ddn9l9RbxJK4pPC/VQeHkC47JuqkRt0Ii1vDJoUe2kj+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=fK/Ih8DO; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="vCUKh0Vb"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=eF4juUrbhNqhHjtflWtqgPAc4Y/UG+CSO89tj/V20dU=; b=vCUKh0VbIzMkQMmX8xKy98i/Cw
-	K470Y655tbXjQu50Hz0s6fqy1xfsUuH5L8lfppXeXAX1cdwlVY1NsBqVqYEwFsJooU2UiVmCdhe0s
-	JJhn3oga6k8eE4vZTIoZ3CX/UwoQ1GT2+ip7Nf3g3lsrqeLjzFepNtrw0yerzBxLZeeCpqQ8rqM9J
-	XKJ+EZSUzYUvxnU9LbWgieWde7oRJb7rpHd+IibWT3Y15HF1lwCky+jRD3QDT81SHJbZGv9YAKUOZ
-	OIITabV8/U2LBXOMa77BF6Dc3yYTHiX6z1siAaLCQl31kuNAe155xtQ2xsq9SRTQCTSlXuMRk+p+B
-	Sc8q6pjQ==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x1oaL-0000000FPum-3hH1;
-	Wed, 02 Sep 2026 17:17:17 +0000
-Message-ID: <c0edc549-7dd1-4d96-a4d2-55ec6fee5caf@infradead.org>
-Date: Wed, 2 Sep 2026 10:17:17 -0700
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="fK/Ih8DO"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48433e9562bso256584f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:17:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788369450; x=1788974250; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=L+uQOUfDo+TK+k3hTP6A5HxoVxFH7C/0s0ldwdZGHuc=;
+        b=fK/Ih8DO2jUglgD6CiRq2zGCDf+V3W174qRnsiF98mvkLu7ess1uuox1wq4CxPT7/N
+         6T48Ebe33/Xz1KYQekFsGcyQ9YAsMhLZoYC5YSoM6spK+QdY0EOiVBbCKGcgCKLzp12N
+         9Z7apRRYPat8yE1WLF4GpreHxRCz86QCN3bgMezIpJedNjH+KVO5EiwZSR3HfkE3lFqW
+         Tg7srOnwX+jzNCiBkNwXa127kPtWmZS9tDWybGxVd2Y2XtCDGpPQJISdtF1jGbm489y6
+         sTysP/gBXKxDyB41sqCyBmvAj47PvGKFGryNtMfsmEyQW4Gu9wF0nc2h0CtlowID8vym
+         /9AA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788369450; x=1788974250;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L+uQOUfDo+TK+k3hTP6A5HxoVxFH7C/0s0ldwdZGHuc=;
+        b=UNL9Q2G5Omq0K9kVi2PiSUE/svPdomsWEpdj6brqLxOaPWOoElh7DHGl9sHF99kwGx
+         Y6GKq3aPTS/GucSJ1np2VhUdH/ABwQO+QrvTK0Ddo4XbBQdq6Gv1T2Npi01IGCm6R4Iu
+         DypNAXpnSUd7wimlAZeUlvy+J2+z4hmkkoGMJvxgNc5qe4d1L1r85zgKnILirrh83yIM
+         XL/W2sX27vKNLDtS11YM/zoXFOLLBCpzAqJ6XitqnqkUyUW41XqnilmSnqaIM3x3ETeE
+         4GGopB7UaJg/P14+3eN1OOgFsdKexoN1dkK+IDOuWMRrkqzkIYpaLHhsQRI2bXZ7VSDI
+         rFDw==
+X-Forwarded-Encrypted: i=1; AKwUvBz+d1/z+HzdHsrJBaeUiGd82yd3X9m89XpFShnvpmIoaolgsfDh4K37sSg1Oxzg2mF83RJirc9UY//UcEo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJCjVY7dJ3hxM3SI4gWdT7/iqX1cHYQkkqTxuWE5XexWv1ziqG
+	xet/FifrxbsBO1Ikd0S+nj60lNQgMEI3pqfhZZXprEPj65biqm+K5MZ8G7L1PyAEPsw=
+X-Gm-Gg: AYBFou3pW3/AcamOzLNevR+liZBgONpvNtFdg2bAL/jBMIZh5+bV3kyPqzi8YGf2gcM
+	ev7V+kyPdSxKWJ9dh8SUcWjCBfTuqE99FfvCvpDwN27dFsklIe+x4qeyx4L+EbsIsQ33O1/kpd8
+	kIsP3V9urg5Ua32SZsy7hgAZPk0PGN+2MxR5d06VuDNRqLZSg69C3q35Xnr0MSQs5Y2gbVXuuT+
+	Saet0+GjJ4w0hFFnMJmob4E6hPXv2YQIpTpW7qR6lQpI49hUnmZJxnOfhOWWYvCNhR5f53+FaNB
+	GFmBNkTLRSvNfdy7+NEzcFhDnpHgJPkqIy5Dn/pTFWtw3WyJeMPNHVovQ7vs9XrbCG0q+EUzyvY
+	Zb1bduhV1f7OGzWdDXu0iFjk9DchPlEFbeuYf56Wo65ihNH34DVzEjyzyVZk/1XQItGimifTONs
+	Qr0i5vEF3xCvn6pdZnxJk8SKBq7fZeBRVvmeYmPoY6JkOdXQvQ/hvUmfk8EvKngvY=
+X-Received: by 2002:a05:6000:208a:b0:484:3310:f394 with SMTP id ffacd0b85a97d-48488f20c54mr10977496f8f.23.1788369449677;
+        Wed, 02 Sep 2026 10:17:29 -0700 (PDT)
+Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448eea5b4sm7848460f8f.27.2026.09.02.10.17.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 10:17:29 -0700 (PDT)
+Date: Wed, 2 Sep 2026 19:17:27 +0200
+From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
+To: Qinyun Tan <qinyuntan@linux.alibaba.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Lance Yang <lance.yang@linux.dev>, Qi Zheng <qi.zheng@linux.dev>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Dave Chinner <david@fromorbit.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	David Hildenbrand <david@kernel.org>, Xunlei Pang <xlpang@linux.alibaba.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/list_lru: don't copy stale shrinker id from
+ non-memcg-aware shrinkers
+Message-ID: <aphXPCn8isUVV87k@localhost.localdomain>
+References: <20260901115104.2944996-1-qinyuntan@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Documentation: trace: histogram-design: fix bracket
-To: Manuel Ebner <manuelebnerli@mailbox.org>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org
-References: <20260902151032.706407-2-manuelebnerli@mailbox.org>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260902151032.706407-2-manuelebnerli@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dutiu445lzpgkhp4"
+Content-Disposition: inline
+In-Reply-To: <20260901115104.2944996-1-qinyuntan@linux.alibaba.com>
 
 
+--dutiu445lzpgkhp4
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] mm/list_lru: don't copy stale shrinker id from
+ non-memcg-aware shrinkers
+MIME-Version: 1.0
 
-On 9/2/26 8:10 AM, Manuel Ebner wrote:
-> Remove needless ')' from sentence.
-> 
-> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-> ---
->  Documentation/trace/histogram-design.rst | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/trace/histogram-design.rst b/Documentation/trace/histogram-design.rst
-> index 41a726cd3..b757afa22 100644
-> --- a/Documentation/trace/histogram-design.rst
-> +++ b/Documentation/trace/histogram-design.rst
-> @@ -876,7 +876,7 @@ next_pid field on this sched_switch event, we retrieve the
->  variables specified in the wakeup_latency() trace action, and use
->  them to generate a new wakeup_latency event into the trace stream.
->  
-> -Note that the way the trace handlers such as wakeup_latency() (which
-> +Note that the way the trace handlers such as wakeup_latency() which
->  could equivalently be written trace(wakeup_latency,$wakeup_lat,next_pid)
->  are implemented, the parameters specified to the trace handler must be
->  variables.  In this case, $wakeup_lat is obviously a variable, but
+Hello Qinyun.
 
-Seems to me that the "which ..." should be a parenthetical phrase,
-i.e., with parentheses at both ends of it. IMO.
-But let's see the the TRACE maintainers have an opinion about it.
+On Tue, Sep 01, 2026 at 07:51:04PM +0800, Qinyun Tan <qinyuntan@linux.aliba=
+ba.com> wrote:
+> With cgroup.memory=3Dnokmem, shrinker_memcg_alloc() fails with -ENOSYS
+> for shrinkers without SHRINKER_NONSLAB, and shrinker_alloc() falls
+> back to a non-memcg-aware shrinker.  On this fallback path,
+> shrinker->id is never assigned and keeps 0 from kzalloc(), which is a
+> valid id belonging to whichever memcg-aware shrinker registers first.
+>=20
+> __list_lru_init() copies shrinker->id unconditionally, so every
+> list_lru backed by such a fallback shrinker (thp-deferred_split,
+> zswap-shrinker, workingset shadow nodes, superblock lrus, ...) ends
+> up with lru->shrinker_id =3D=3D 0 instead of -1.
 
+<del>thp-deferred_split shrinek has SHRINKER_NONSLAB so, the id should be
+assigned (at least I see it in thp_shrinker_init()).</del> I was looking
+at 6.12 kernel.
 
--- 
-~Randy
+> Under nokmem the list_lru collapses to the shared per-node lists, but
+> __list_lru_add() still calls set_shrinker_bit() against the memcg of
+> the added object.  Most list_lru users are unaffected because their
+> objects resolve to a NULL memcg without kmem accounting, but the THP
+> deferred split queue holds user folios, which are charged regardless
+> of nokmem.  Since no memcg-aware shrinker can register under nokmem,
 
+Not sure I understand here, the SHRINKER_NONSLAB are excluded and should
+still register for per-memcg info.
+
+> shrinker_nr_max stays 0 and every memcg's shrinker_info has
+> map_nr_max =3D=3D 0, so the first folio added by khugepaged triggers on
+> every boot:
+>=20
+>   WARNING: mm/shrinker.c:212 at set_shrinker_bit+0x99/0xa0
+>=20
+> On systems where a SHRINKER_NONSLAB shrinker (btrfs, xfs) did register
+> and expand the maps, there is no warning; instead bit 0 is set
+> spuriously for an unrelated shrinker.
+
+Could it be that you see this issue because of a shrinker which isn't
+marked as SHRINKER_NONSLAB?
+
+I'd even go as far as pointing at
+fafaeceb89a5e ("mm: switch deferred split shrinker to list_lru")
+which removed the flag from the the thp-deferred_split shrinker.
+
+IOW, the proper fix should be addition of SHRINKER_NONSLAB so that
+per-memcg maps are properly allocated.
+
+Thanks,
+Michal
+
+--dutiu445lzpgkhp4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCaphaIhsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+AjwxQD/f1S0abo/AyOAeW4+/VMQ
+3+TWP2Ib8ZUBGnI7zXfsbJUA/jJ726jOpW+PD/iuyLKMLOLJKQniOor6aBrBChcp
+74cL
+=fIDH
+-----END PGP SIGNATURE-----
+
+--dutiu445lzpgkhp4--
