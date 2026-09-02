@@ -1,174 +1,89 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-67.mta0.migadu.com [91.218.175.67])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25AD83A8758;
-	Wed,  2 Sep 2026 06:52:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4103AA1BB
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:53:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.67
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788331977; cv=none; b=TBPXbqQZdUSJl+QTWmNSr8q+nf1IJ64jQLgAwhoUVX7OeTGJZnKwe/cQ+i1l20Uh2Up2ibqUO5B1EZJNta2GC8TlQTynh1/Qzp9D6J71c6oMGft9StsLHTRzGtccG77gyl7zOHcNabOodt2xcxE9bpLmMMpgTOOKCx6rhb7YXkM=
+	t=1788331988; cv=none; b=BwZWcKxuxmZ0VfJN13F1AalXNsl6GVmNplBY541kORCbFclPx+vBtXGZHWCt92vHOFRAsPZ730IuB4GnIJ/n16oqStYV6GOiQouqQ91q4qTB6P5eVPpoKv2XXzBOo3PpXPdxUU9q3VUu0oTtmrlSTlCf5Q6ZyQjBzgHAL78ymPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788331977; c=relaxed/simple;
-	bh=bIacrkSfXQ+4gO3WEx9zrSJUgIWx0XvFnBXIHeIb8XA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QREVC8AktXP+ty4KURpjov3yZgHm5Idj+KBsQXh84DsNZvCN0IfyXYK8zKqHRkIXUkEfeOGKDFiqZYbXqfiKF3zqrmggOy0NmvnSV//p2L5tivTvB+QLEsI7i2ZKO6PQ5wdRJ9+4uU4HmuSMfL6jk2HAYeqS1b++TM6nqeSjFFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: e37f55f4a69a11f19a56ed5b684f684d-20260902
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:d1aa2c6a-b0f4-4894-a647-16fa581cb0e4,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:ded06c49fd58b92344748250acdd7992,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
-	il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
-	S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: e37f55f4a69a11f19a56ed5b684f684d-20260902
-X-User: yanlonglong@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <yanlonglong@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1056093679; Wed, 02 Sep 2026 14:52:39 +0800
-From: longlong yan <yanlonglong@kylinos.cn>
-To: trenn@suse.com
-Cc: shuah@kernel.org,
-	skhan@linuxfoundation.org,
-	jwyatt@redhat.com,
-	sageofredondo@gmail.com,
-	jkacur@redhat.com,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	longlong yan <yanlonglong@kylinos.cn>
-Subject: [PATCH] cpupower: idle_monitor: add NULL check after calloc()
-Date: Wed,  2 Sep 2026 14:52:24 +0800
-Message-ID: <20260902065224.1392-1-yanlonglong@kylinos.cn>
-X-Mailer: git-send-email 2.47.1.windows.2
+	s=arc-20240116; t=1788331988; c=relaxed/simple;
+	bh=dySyQAn0DDi/OmRXW6V7xLYbRbFjNAUAITo75E6DfYs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=L6Zb+gf3yBBJNdke1jZF/NScpWXJOYSK2QOJaTWIXGwBwf32Qld9oP2ix/mSTSWW1wofE/OJQIEeeLcVUBZAL5fDJNZ8xzqXJBVHXEo728wXfxvd38Jzc33GMMjEQJkFbpCBJVy3znABUZIsOgRAwSeOOtwSb81CYjrIIrc7eSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gFoN28ga; arc=none smtp.client-ip=91.218.175.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gFoN28ga"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=dySyQAn0DDi/OmRXW6V7xLYbRbFjNAUAITo75E6DfYs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788331974; v=1; x=1788936774;
+ b=gFoN28gar3N0i+QaLQGlFi0uYdXMTdWLjpTpSFOc3fYQTSYM/ESq8jmgv3sBT5TCd7k/qBw9
+ m51zegGGf8aPRuDIU2ME8WdjfFTKBvQ5tRwPC8Hlw8qimcZy1PFjH7Jk2l04WPXPy8R8hxASTEX
+ pQzkYltvDhtpNBKu19Ev2bNM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 512cd5bb4ec76f49;
+	Wed, 02 Sep 2026 06:52:54 +0000
+X-Mizu-Trace-ID: 512cd5bb4ec76f49
+X-Migadu-Flow: FLOW_OUT
+From: Hangbin Liu <hangbin.liu@linux.dev>
+Subject: [PATCH mptcp-next 0/2] selftests: mptcp: convert iptables to
+ nftables
+Date: Wed, 02 Sep 2026 14:52:34 +0800
+Message-Id: <20260902-mptcp_nft-v1-0-559caa16f410@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqAIBBA4avErBNsFtV0lYjoZ6xZZKISgnT3p
+ OWDj5chsBcOMFQZPD8S5LYlmrqC7VzswUr20oAaW00a1eXi5mZrolp7wq5HNoQExTvPRtL/GuF
+ nynKKML3vB25ENvBnAAAA
+X-Change-ID: 20260902-mptcp_nft-b892782ef929
+To: MPTCP Linux <mptcp@lists.linux.dev>, 
+ Matthieu Baerts <matttbe@kernel.org>, Mat Martineau <martineau@kernel.org>, 
+ Geliang Tang <geliang@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Shuah Khan <shuah@kernel.org>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ bpf@vger.kernel.org, Hangbin Liu <liuhangbin@kylinos.cn>
+X-Mailer: b4 0.14.3
 
-Twenty calloc() calls across five idle monitor files lack NULL return
-checks, leading to potential NULL pointer dereferences on allocation
-failure:
+iptables has been deprecated for years. The Linux kernel has included
+nftables as the successor to iptables since 2014, and every major
+distribution uses nftables as the default packet filtering framework.
+The iptables command we run on modern systems is actually iptables‑nft,
+a compatibility layer that translates iptables syntax to nftables rules
+behind the scenes.
 
-  - mperf_monitor.c mperf_register(): nine consecutive calloc() calls
-    for per-CPU counters are used directly without any NULL check.
-  - snb_idle.c snb_register(): is_valid and per-CSTATE previous/current
-    counters are allocated without NULL checks.
-  - nhm_idle.c intel_nhm_register(): same pattern as snb_idle.
-  - hsw_ext_idle.c hsw_ext_register(): same pattern as snb_idle.
-  - amd_fam14h_idle.c amd_fam14h_register(): per-state previous/current
-    counters are allocated without NULL checks.
+There are also some features that can be set easily with nft, while we need
+to convert to BPF code under iptables, such as MPTCP add‑addr and
+remove‑addr suboptions. To make future work easier, convert iptables usage
+in mptcp to nftables.
 
-Add NULL checks after each allocation, returning NULL on failure,
-consistent with existing error handling in the same functions (e.g.,
-hardware capability checks already return NULL on failure).
-
-Signed-off-by: longlong yan <yanlonglong@kylinos.cn>
+Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
 ---
- tools/power/cpupower/utils/idle_monitor/amd_fam14h_idle.c | 2 ++
- tools/power/cpupower/utils/idle_monitor/hsw_ext_idle.c   | 4 ++++
- tools/power/cpupower/utils/idle_monitor/mperf_monitor.c  | 5 +++++
- tools/power/cpupower/utils/idle_monitor/nhm_idle.c      | 4 ++++
- tools/power/cpupower/utils/idle_monitor/snb_idle.c       | 4 ++++
- 5 files changed, 19 insertions(+)
+Hangbin Liu (2):
+      selftests: mptcp: convert iptables to nftables for mptcp_sockopt.sh
+      selftests: mptcp: convert iptables to nftables for mptcp_join.sh
 
-diff --git a/tools/power/cpupower/utils/idle_monitor/amd_fam14h_idle.c b/tools/power/cpupower/utils/idle_monitor/amd_fam14h_idle.c
-index 5edd35bd9ee9..6112161f7d5e 100644
---- a/tools/power/cpupower/utils/idle_monitor/amd_fam14h_idle.c
-+++ b/tools/power/cpupower/utils/idle_monitor/amd_fam14h_idle.c
-@@ -295,6 +295,8 @@ struct cpuidle_monitor *amd_fam14h_register(void)
- 					      sizeof(unsigned long long));
- 		current_count[num]  = calloc(cpu_count,
- 					      sizeof(unsigned long long));
-+		if (!previous_count[num] || !current_count[num])
-+			return NULL;
- 	}
- 
- 	/* We need PCI device: Slot 18, Func 6, compare with BKDG
-diff --git a/tools/power/cpupower/utils/idle_monitor/hsw_ext_idle.c b/tools/power/cpupower/utils/idle_monitor/hsw_ext_idle.c
-index f5a2a326b1b7..28cbe91b106b 100644
---- a/tools/power/cpupower/utils/idle_monitor/hsw_ext_idle.c
-+++ b/tools/power/cpupower/utils/idle_monitor/hsw_ext_idle.c
-@@ -159,11 +159,15 @@ static struct cpuidle_monitor *hsw_ext_register(void)
- 	}
- 
- 	is_valid = calloc(cpu_count, sizeof(int));
-+	if (!is_valid)
-+		return NULL;
- 	for (num = 0; num < HSW_EXT_CSTATE_COUNT; num++) {
- 		previous_count[num] = calloc(cpu_count,
- 					sizeof(unsigned long long));
- 		current_count[num]  = calloc(cpu_count,
- 					sizeof(unsigned long long));
-+		if (!previous_count[num] || !current_count[num])
-+			return NULL;
- 	}
- 	intel_hsw_ext_monitor.name_len = strlen(intel_hsw_ext_monitor.name);
- 	return &intel_hsw_ext_monitor;
-diff --git a/tools/power/cpupower/utils/idle_monitor/mperf_monitor.c b/tools/power/cpupower/utils/idle_monitor/mperf_monitor.c
-index 5ae02c3d5b64..5039716b591d 100644
---- a/tools/power/cpupower/utils/idle_monitor/mperf_monitor.c
-+++ b/tools/power/cpupower/utils/idle_monitor/mperf_monitor.c
-@@ -350,6 +350,11 @@ struct cpuidle_monitor *mperf_register(void)
- 	tsc_at_measure_end = calloc(cpu_count, sizeof(unsigned long long));
- 	time_start = calloc(cpu_count, sizeof(struct timespec));
- 	time_end = calloc(cpu_count, sizeof(struct timespec));
-+	if (!is_valid || !mperf_previous_count || !aperf_previous_count ||
-+	    !mperf_current_count || !aperf_current_count ||
-+	    !tsc_at_measure_start || !tsc_at_measure_end ||
-+	    !time_start || !time_end)
-+		return NULL;
- 	mperf_monitor.name_len = strlen(mperf_monitor.name);
- 	return &mperf_monitor;
- }
-diff --git a/tools/power/cpupower/utils/idle_monitor/nhm_idle.c b/tools/power/cpupower/utils/idle_monitor/nhm_idle.c
-index 6b1733782ffa..ce745dac74cc 100644
---- a/tools/power/cpupower/utils/idle_monitor/nhm_idle.c
-+++ b/tools/power/cpupower/utils/idle_monitor/nhm_idle.c
-@@ -178,11 +178,15 @@ struct cpuidle_monitor *intel_nhm_register(void)
- 
- 	/* Free this at program termination */
- 	is_valid = calloc(cpu_count, sizeof(int));
-+	if (!is_valid)
-+		return NULL;
- 	for (num = 0; num < NHM_CSTATE_COUNT; num++) {
- 		previous_count[num] = calloc(cpu_count,
- 					sizeof(unsigned long long));
- 		current_count[num]  = calloc(cpu_count,
- 					sizeof(unsigned long long));
-+		if (!previous_count[num] || !current_count[num])
-+			return NULL;
- 	}
- 
- 	intel_nhm_monitor.name_len = strlen(intel_nhm_monitor.name);
-diff --git a/tools/power/cpupower/utils/idle_monitor/snb_idle.c b/tools/power/cpupower/utils/idle_monitor/snb_idle.c
-index 5969b88a85b4..76d9986b0ecc 100644
---- a/tools/power/cpupower/utils/idle_monitor/snb_idle.c
-+++ b/tools/power/cpupower/utils/idle_monitor/snb_idle.c
-@@ -164,11 +164,15 @@ static struct cpuidle_monitor *snb_register(void)
- 	}
- 
- 	is_valid = calloc(cpu_count, sizeof(int));
-+	if (!is_valid)
-+		return NULL;
- 	for (num = 0; num < SNB_CSTATE_COUNT; num++) {
- 		previous_count[num] = calloc(cpu_count,
- 					sizeof(unsigned long long));
- 		current_count[num]  = calloc(cpu_count,
- 					sizeof(unsigned long long));
-+		if (!previous_count[num] || !current_count[num])
-+			return NULL;
- 	}
- 	intel_snb_monitor.name_len = strlen(intel_snb_monitor.name);
- 	return &intel_snb_monitor;
+ tools/testing/selftests/net/mptcp/config           |   3 +
+ tools/testing/selftests/net/mptcp/mptcp_join.sh    | 136 ++++++++-------------
+ tools/testing/selftests/net/mptcp/mptcp_lib.sh     |   2 +-
+ tools/testing/selftests/net/mptcp/mptcp_sockopt.sh |  56 ++++-----
+ 4 files changed, 77 insertions(+), 120 deletions(-)
+---
+base-commit: 8dd2802091fbba563abec55e0455d0e5273c7529
+change-id: 20260902-mptcp_nft-b892782ef929
+
+Best regards,
 -- 
-2.43.0
+Hangbin Liu <liuhangbin@kylinos.cn>
 
