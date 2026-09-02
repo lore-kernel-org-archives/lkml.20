@@ -1,212 +1,193 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8BDB30E0CC;
-	Wed,  2 Sep 2026 14:18:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788358726; cv=none; b=qt6l0KezctessLAN9DTzGRXHKs9SmYnwzyfZSXj/Nu5ng2s6v1LAYmcle6QdEFb2bC1Ke82Kxy/i3AuPr6VLiUTyqsNDUzCw5z3THO7l9nN1oywhZ4DvTYwwpHl4IwG0HF0f+XYO3c30GlIKQDPNQ3B9jviubM2MAkQrbWUQzsU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788358726; c=relaxed/simple;
-	bh=g2fh/2Y+qhtJXsZLvZ8Ia+JjBK6fwA0EcBmTPBzRIRM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ty+hD9Hrq2prkOJmvBZoBoJGQ+ynAGM9hfTysYlnU7pWhXK88sZIvLqfFb3HXydquDnzVUSltXvIdi6pUvFsvKchphYLBUhelLjDp1ze7onTaTFx9F45AH+ZAMEZACawI1xZqQ4kAv/NbENvRLdh2Ur6SB4KDegTuz8S53Hy00E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=j9Rm1vB3; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=7mm+X9y1; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=CI1EqKU9; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=LKlc4oij; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E0C94A2071
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:18:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788358729; cv=pass; b=einD4PGGgQLziFIM5426+Yvgg/IfezWwQaqgDsVjei6DTmGsp0pE5hH8NLGAu9lXAEViW8jrgzpQo8yj4wWqcNYsth4y+PShpvh1/oGbYynffl2FdszVzegigga76VKON7BJBg1n/A7fcAe8T3TeOwp5H1clYOBAkdug3O8fb2Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788358729; c=relaxed/simple;
+	bh=om459VHzGIcS7fnosyh6/zrkKImWOivry8YlszBybgk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nLmmBx3RVXHXgHF1L2LcE9ABdirvyJ2w1JGEhbqBOQTkxz2RsdmRFBsB4QCLha16eJmblloYY+ysPIObh6w12HT5vBJuxyHuWFvYr5/40n3nuYZWhvU66VlIc93fB/YZQuJjPYYxJbwMpaKHvN5k97z2gSz2/vrdQh2dmqq59c8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=Teo7tB4L; arc=pass smtp.client-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="j9Rm1vB3";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="7mm+X9y1";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="CI1EqKU9";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="LKlc4oij"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D48E41F7B8;
-	Wed,  2 Sep 2026 14:18:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788358718; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jCEcLopfA07b49SNi5+xsV9zhgEMvhJ+X9q9DwwqLF0=;
-	b=j9Rm1vB3WvXjEWIgRwCS+Bm7HMj0uQ69ftNZPo6q7NNzk9y9HsjQPZRR+7u2TOmIA+baGK
-	t3/ZPhCTfQO50AycjmZZhW/WwNxb/Tj//Mhmj1WxwJqHhwX+e9nXEsq16SQfHZ1xMAwnGE
-	LEr+eEHOUAFTvkq7/8R/rfO0W/Njq7w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788358718;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jCEcLopfA07b49SNi5+xsV9zhgEMvhJ+X9q9DwwqLF0=;
-	b=7mm+X9y1cxc/f3FuyoP8GHcWTTLA+LFwTdStmJCtXoknAyxrW7xYJaZtPIDD5CIxGRU80t
-	/NIOnKcACZQJ4YCg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788358713; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jCEcLopfA07b49SNi5+xsV9zhgEMvhJ+X9q9DwwqLF0=;
-	b=CI1EqKU9WmvcftxUilfqCeAL3JXrloDYOiyfS8NddoSXUmVQujq+nNQ+KY9Q7Tu1BGb5as
-	zDQC5sxt7akfaZanJ+Z3icbtIJ0bbBvBD2/8UoVlzd2rrVmip5AiyoW1ezxgEv6DfzZk5w
-	/sMzZ6bwuMA1rdePt0RyUFn/dtg0GBs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788358713;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jCEcLopfA07b49SNi5+xsV9zhgEMvhJ+X9q9DwwqLF0=;
-	b=LKlc4oij76A8lIuFml+FBRuO9haihM/tga2dmvSoxghaxJm14xdRSscs59z2DN1zsWcaHG
-	OFWjyCwcluNtInAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B4CC2136E6;
-	Wed,  2 Sep 2026 14:18:33 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id uoMhLDkwmGpOCwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 02 Sep 2026 14:18:33 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 5F931A13B5; Wed, 02 Sep 2026 16:18:29 +0200 (CEST)
-Date: Wed, 2 Sep 2026 16:18:29 +0200
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Christoph Hellwig <hch@lst.de>, 
-	Seth Forshee <sforshee@kernel.org>, Paul Moore <paul@paul-moore.com>, 
-	linux-security-module@vger.kernel.org, Mimi Zohar <zohar@linux.ibm.com>, 
-	linux-integrity@vger.kernel.org, Ilya Dryomov <idryomov@gmail.com>, ceph-devel@vger.kernel.org, 
-	Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, Miklos Szeredi <miklos@szeredi.hu>, 
-	Amir Goldstein <amir73il@gmail.com>, linux-unionfs@vger.kernel.org, 
-	Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 09/27] fs: port inode_owner_or_capable() to const
- mnt_idmap
-Message-ID: <7iyu53duyhf2uretzpp4opsls2ldy63rm3jooaoifoe427xdv4@ghksxihzdzx3>
-References: <20260901-work-idmap-const-v1-0-54ccd48e100b@kernel.org>
- <20260901-work-idmap-const-v1-9-54ccd48e100b@kernel.org>
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="Teo7tB4L"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8520161fdb9so1412340b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:18:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788358727; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qE9c3hl04cIhZfWltuA19UlveXyJw+njGAjADT7EvOK6FkuNLH65RsK8rPbpAP2ZWl
+         FVgWtflPexe4z812y6Lfz9xE/IEJYYgcBh1b48QWoinwZJrIMKvSV3UlllGF6yHuOGft
+         SSTNV//z43qoZ7d1rzVSHLZLz2q8yG+Yzc6vocUlA2sRg8cBtTe10L8tjz75EVtY+yvO
+         P+AkNzxLdZDKCFbu7VG97Wt1UKfaKuJl5ADcziL1rOi+etQ+lTsIcX+YMCzA3wDPJMZl
+         TesaKQ+43nY7tI2biwhoZAjRgG63LgVetLmZTaNeZ0uT4d9IF/jmOnhktbKzvRdb09cu
+         vjiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=uYNjIZZ8RMmiF+3QP0G43VfzKqj75CKSNv+DnxNLnmo=;
+        fh=ZrUZJVUemzeSnl/QLD0CGVR8kFBop1xWDI2mvN9tev8=;
+        b=dhS8ePFueujG4RghpzJWeZJf4czDQLfW5qXfLvY48Vt9vFGTNX9qGsi2yeSLmSe8+P
+         o7tNEwSmtiH4D/JTWbIL70wA3VrytfBB2Z06XGLMr8toC/B6Xl0BD3A7IWZQV//DHWzV
+         PkM0DtrEUUrWMxWXiwl1kzHZ25lJCw85lBSfW1W1oFw6iQxhsEa/xCLHQXoZHQ04KACD
+         Cmxs4nDFdQrtY7k6Uqi2DyrZKe+dxY9o/8IdxiFQjYqT1vAFy3J9/4v8thCkId3DPtNQ
+         niA6xqYP4vYTDYMbw/SmMUl1PzTivexo2bCgXYlv14ybJrKCJYMSP4xksbmwSH9h+1YW
+         EfEA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1788358727; x=1788963527; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uYNjIZZ8RMmiF+3QP0G43VfzKqj75CKSNv+DnxNLnmo=;
+        b=Teo7tB4LQR2K3ajvykXzKTv/jx8n3VGY7tNVgCtpiviUJG9H/QlzVLRGuVrLDv/JTp
+         9N0rVEqlAIirDQeXtG5pPW6rgCXXrQvVPYDvSWDb88qPMYQQbMJqfImMBwz0UKHWRZCo
+         6UIp2EKn+KzSYMsxM4ZG+1xMOBr25B+i7Etfg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788358727; x=1788963527;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uYNjIZZ8RMmiF+3QP0G43VfzKqj75CKSNv+DnxNLnmo=;
+        b=U8HK9MXrJln4Jxgi8hUyb/QKmyF+7M1V0y2jycAljiHt4P6QvTDSRh1XgyqypfJ3tb
+         4XKKzer2inG3o3Dg5iZwjdX5rA1ZBMH53SqKw7WdDioOIrB1ZGGLUkpNKcju6lmn5Ybh
+         302z9ztqVVajE/BzPlSIW5PnkwRex6nu5WDtrHy8kD5lovVK9A/840h0b98ZPjz4sgXS
+         RCSLWWxWlwlT4fX0odJnWgkKOw9iIYOOxNkjRkMLiIQeKEslUNr3n15Ub1RwQ0WlQMMR
+         o0zpHu8XFV+HNWLvfkS1L+A9h9YVrlq6WO2G/zQth3Oom9EYKESPz8Fd5kf1SjRtsRkT
+         nFgw==
+X-Forwarded-Encrypted: i=1; AKwUvBxSiyehk1Gq++P+MSLqHLMoGw9dl0WRR0Y4xOFkFcnfkRmgpsNefmz5NL7vfFgLRkCAkPgTUlrb3nwDE7c=@vger.kernel.org
+X-Gm-Message-State: AFuF++mhKkgV8zRrVkdygYB3FEnu6H2znrR0i0TFfD7jsdiRCr7SPJA7
+	s4CGymjow4vqJQxDkhOEyOPETJeNfzGq0T/uGzsRpAN3ulZfViWObYWv4vv5JnaS4v0GMswL/HL
+	L28lTYBKvME13lg9lF/q9MaMUYlivKOpEyo5u99MH
+X-Gm-Gg: AYBFou127CD1HrJy8x71ZiLFt26HIbUEmUWAodScNRnQ8c0ap+ceAcaQpT5QMMH7aLq
+	2s+ab7x6VpeCurx4RmJVYV4ZpBq4i5/gt4bAvjEgJPrqNBf+ZhBmHxSCC1JjVGn9EfN+z9Ib2hI
+	Df+Mm9iBTfqAKFpvDT7ySD64Ktd6JPdMQF1GkaI+XReIEZ0FBZgS++yjNeeKlYs3iUXylhjmEip
+	Ak4I+tL3hZ9zedPoV8orHAT8ijEfzVdBjxg1spoyxjqUj3du8Jg1fiKPmhfHJr3Zy/nRTO+JJZk
+	6t1hMOYeCapR4R0LoelEa4JLe90KcHv5Lkk8eXYIYDTEuxuJ9KmYqQ3bXAyTsoDVRsCnj9APKuf
+	1sVQNDDcBlQLqK1VCtVJ1Lu6Vg+0=
+X-Received: by 2002:a05:6a00:1701:b0:84f:dfce:966b with SMTP id
+ d2e1a72fcca58-85ed21f2412mr6888834b3a.8.1788358725561; Wed, 02 Sep 2026
+ 07:18:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901-work-idmap-const-v1-9-54ccd48e100b@kernel.org>
-X-Spam-Level: 
-X-Spam-Score: -3.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,zeniv.linux.org.uk,suse.cz,lst.de,kernel.org,paul-moore.com,linux.ibm.com,gmail.com,szeredi.hu];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,imap1.dmz-prg2.suse.org:helo,suse.com:email]
+References: <CAPBHdam0Y5cxjFgm7MgavPNHrb=wOSCG_BODbYsn5y2-CGKfQw@mail.gmail.com>
+In-Reply-To: <CAPBHdam0Y5cxjFgm7MgavPNHrb=wOSCG_BODbYsn5y2-CGKfQw@mail.gmail.com>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Wed, 2 Sep 2026 10:18:34 -0400
+X-Gm-Features: AcwNN1U6X99laJb8c88uWPJYk3eUllDdXF5Y-4eBqmjSTbtDjbsRQ5IZUPYJXh8
+Message-ID: <CAM0EoMkc57T879QJEOUg4n7pgoff4iLzmF16FGD7j+0ZXmhrug@mail.gmail.com>
+Subject: Re: [BUG] net/sched: cls_u32: ht_down refcount leak on replace_hw failure
+To: Qingyu Zhang <usupergate@gmail.com>
+Cc: Jiri Pirko <jiri@resnulli.us>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Jedrzej Jagielski <jedrzej.jagielski@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue 01-09-26 14:14:34, Christian Brauner wrote:
-> Convert to const struct mnt_idmap.
-> 
-> A mount's idmapping is immutable. The only thing that is allowed to be
-> modified afterwards is the reference count and that is hidden behind
-> mnt_idmap_get() and mnt_idmap_put(). Everything else only ever reads
-> from the idmapping. This is the same model that struct cred uses and the
-> idmapping is also rather sensitive.
-> 
-> So make the idmap argument const wherever we can. The conversion is done
-> from the bottom up so callers can continue to pass a non-const pointer
-> to a const parameter until the conversion is finished.
-> 
-> No functional changes.
-> 
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+On Tue, Sep 1, 2026 at 9:55=E2=80=AFPM Qingyu Zhang <usupergate@gmail.com> =
+wrote:
+>
+> Hello,
+>
+> u32_change()'s replace-failure path leaks a reference on the linked
+> hash table (ht_down). A patch is attached.
+>
+> Type: memory leak (refcount)
+>
+> * Summary
+>
+> u32_init_knode() does refcount_inc(&ht->refcnt) for the copied
+> ht_down. On u32_replace_hw_knode() failure:
+>
+>        u32_unbind_filter(tp, new, tb);
+>        if (tb[TCA_U32_LINK]) {
+>                ht_old =3D rtnl_dereference(n->ht_down); /* live knode */
+>                if (ht_old)
+>                        refcount_inc(&ht_old->refcnt);
+>        }
+>        __u32_destroy_key(new);  /* already drops new->ht_down */
+>
+> The extra inc is on the original knode's table. Destroying new
+> already accounts for the copy. Net +1 that is never dropped.
+> e8d3d78c19be added that inc; it is wrong given ec5b0f605b105.
+>
+> * Affected
+>
+> e8d3d78c19be. Reproduced on 08dbfad3f504. Needs cls_u32, a way to
+> make u32_replace_hw_knode() fail (no offload device: kretprobe, or
+> a driver that returns -EINVAL), and kmemleak.
+>
+> * Reproduction
+>
+>        tc qdisc add dev lo ingress
+>        tc filter add dev lo parent ffff: handle 800: protocol all u32 div=
+isor 1
+>        tc filter add dev lo parent ffff: handle 801: protocol all u32 div=
+isor 1
+>        tc filter add ... u32 ht 800: link 801: ...
+>        # replace that knode so replace_hw_knode fails
+>        tc filter del ...
+>        echo scan > /sys/kernel/debug/kmemleak
+>
+> kmemleak: size 192, u32_change, handle 0x80100000.
+>
+> Because skip_sw on replace is rejected earlier ("flags do not
+> match"), the QEMU PoC uses a kretprobe to force the 2nd
+> u32_replace_hw_knode to -EINVAL (poc/fail_replace.c + poc/u32_poc.c).
+>
 
-Looks good. Feel free to add:
+Isnt this the same cutnpaste from here?
+https://lore.kernel.org/netdev/20260813122242.1690024-4-jedrzej.jagielski@i=
+ntel.com/
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Have your AI check next time instead of overwhelming us on the list.
+It is better not to post anything that makes someone spend valuable
+cycles going to double-check this slop.
 
-								Honza
+cheers,
+jamal
 
-> ---
->  fs/btrfs/ioctl.c   | 2 +-
->  fs/ext4/ioctl.c    | 2 +-
->  fs/inode.c         | 2 +-
->  include/linux/fs.h | 2 +-
->  4 files changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-> index 72bc9d4f7708..b34c6a8247e4 100644
-> --- a/fs/btrfs/ioctl.c
-> +++ b/fs/btrfs/ioctl.c
-> @@ -3886,7 +3886,7 @@ static long btrfs_ioctl_quota_rescan_wait(struct btrfs_fs_info *fs_info)
->  }
->  
->  static long _btrfs_ioctl_set_received_subvol(struct file *file,
-> -					    struct mnt_idmap *idmap,
-> +					    const struct mnt_idmap *idmap,
->  					    struct btrfs_ioctl_received_subvol_args *sa)
->  {
->  	struct inode *inode = file_inode(file);
-> diff --git a/fs/ext4/ioctl.c b/fs/ext4/ioctl.c
-> index c8387e6a2c6e..6de77da4203c 100644
-> --- a/fs/ext4/ioctl.c
-> +++ b/fs/ext4/ioctl.c
-> @@ -373,7 +373,7 @@ void ext4_reset_inode_seed(struct inode *inode)
->   *
->   */
->  static long swap_inode_boot_loader(struct super_block *sb,
-> -				struct mnt_idmap *idmap,
-> +				const struct mnt_idmap *idmap,
->  				struct inode *inode)
->  {
->  	handle_t *handle;
-> diff --git a/fs/inode.c b/fs/inode.c
-> index 72a8bbe38d62..4313e9735c5c 100644
-> --- a/fs/inode.c
-> +++ b/fs/inode.c
-> @@ -2746,7 +2746,7 @@ EXPORT_SYMBOL(inode_init_owner);
->   * On non-idmapped mounts or if permission checking is to be performed on the
->   * raw inode simply pass @nop_mnt_idmap.
->   */
-> -bool inode_owner_or_capable(struct mnt_idmap *idmap,
-> +bool inode_owner_or_capable(const struct mnt_idmap *idmap,
->  			    const struct inode *inode)
->  {
->  	vfsuid_t vfsuid;
-> diff --git a/include/linux/fs.h b/include/linux/fs.h
-> index 7c82d7aaa775..e2babddf755d 100644
-> --- a/include/linux/fs.h
-> +++ b/include/linux/fs.h
-> @@ -1755,7 +1755,7 @@ static inline bool file_write_not_started(const struct file *file)
->  	return sb_write_not_started(file_inode(file)->i_sb);
->  }
->  
-> -bool inode_owner_or_capable(struct mnt_idmap *idmap,
-> +bool inode_owner_or_capable(const struct mnt_idmap *idmap,
->  			    const struct inode *inode);
->  
->  /*
-> 
-> -- 
-> 2.53.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+> * Expected
+>
+> Failed replace does not change ht_down's refcount of the live knode.
+>
+> * Actual
+>
+> The 801: hash table stays referenced after qdisc destroy.
+>
+> Please consider the suggested patch
+>
+> Thanks.
+>
+> Suggested patch:
+> ```
+> diff --git a/net/sched/cls_u32.c b/net/sched/cls_u32.c
+> index ac6d0fa5a40e..a619dbb435b8 100644
+> --- a/net/sched/cls_u32.c
+> +++ b/net/sched/cls_u32.c
+> @@ -938,14 +938,6 @@ static int u32_change(struct net *net, struct sk_buf=
+f *in_skb,
+> err =3D u32_replace_hw_knode(tp, new, flags, extack);
+> if (err) {
+> u32_unbind_filter(tp, new, tb);
+> -
+> - if (tb[TCA_U32_LINK]) {
+> - struct tc_u_hnode *ht_old;
+> -
+> - ht_old =3D rtnl_dereference(n->ht_down);
+> - if (ht_old)
+> - refcount_inc(&ht_old->refcnt);
+> - }
+> __u32_destroy_key(new);
+> return err;
+> }
+> ```
