@@ -1,63 +1,65 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BD3741B8CD
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:27:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B54EF41D13D
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:27:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788341235; cv=none; b=GUw+Lfz4LdxjlVQd6owLZqRaL8iukvVAbZ2E48Pq7sdUTu//P/2T6QgrQ//d8cFu3Obeurdx58Mr9KQMAs9T0m6MzofCqeH0cxD4QeA4KS8BPtlireC6eTSGk98Nut5zOGdmhateBXJE5P2/Rbav4GWDcc+K/ruBshKh49phtyk=
+	t=1788341240; cv=none; b=cJU2xkGb2NoIGha8KjzPbLzY/lwTkry/AwoMVN0EwVunxzIIKjdlk3VAwZZiH/Z3DqjTsqK4+UnJht1idukYhrT0WXXL0j4veohis6BP9KyBfiBZ+2YnyU84MLzFrvq+8ZPLQaPx49sWUfRDELWIJSFhMsdkoK4vLBDfw+PBK9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788341235; c=relaxed/simple;
-	bh=sXEVcnFq9jrgPve1Gy0ZcXcOTCTbTRh+HJbF7WchWJ0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MtDXOnLSdP/IVc5PekpLQX9M2eJgI7quPfS2AyXkULZQXfaHyW0owIiXg/6M38/DKx1LNzo+jEDFxNfl0/kNTUFQtpsWUllfXblXwZ6CTKOx0K/hhoyFOehurDWOm+0cQveX+l8KiF6Tf35kxCfOJwIGk+fkhUoHmwCU1qgR8f8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QILU2bob; arc=none smtp.client-ip=209.85.210.177
+	s=arc-20240116; t=1788341240; c=relaxed/simple;
+	bh=Ufx/Na5ud9+HB4KmgqLZ2egUUb8IbKIAGqt4GKt4yFc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Q+Ig6+EJUhb2kOKyqMUPuKczkIjU6VNwGsc4gzhjKqHm6xAy3YZrBNyARCR7juAzPblmUw6P+Q9I0LHr4xtVGpb+veRPW+yuD3MWGC+lguTsN1/A2BAUrKQZXAWmsqbxTWnpDYSOt+cKWiOnOdkZG/TRUfEJHY6t7/0Ia8kadDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PKXyDqkf; arc=none smtp.client-ip=209.85.210.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QILU2bob"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-84e84a6c4bfso859389b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 02:27:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PKXyDqkf"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-853c401326eso536722b3a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 02:27:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788341230; x=1788946030; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qIbsbl7gfwlrb28FLNmpnU53Y/rL9tIcDN9wH1WM7zM=;
-        b=QILU2bobtwQ9ai0rHjXXg/ikIIg4hspoKtrbWcZHF/k8kaFgwSDa8mwK7+2fk7v19E
-         Wd4BBKkuWXdVoLmX4UpIHh0ZOsSLAIoq2DxsfKiHwgj8NY7klPq1PwR50+oe5CRxSWug
-         vCVRNjZxnhIGnWqxSttHzpWKrKiTn1CqII55oQrGtBY5M0SLBAxCq5vVCll41y2GTOz9
-         7iuI27iLkPoVuWAFornQRgcJTOdZYVjadUxhmb4+DiTO8lH9RuQwKRTq7QkhPgterT9+
-         cVkAq5YpJ+wQpL2QtLOIRCb9ru1NiiVRUeqHFqMo7r/axMPaN7F64vK16/AY/MbfQ3Sv
-         bKDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788341230; x=1788946030;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788341234; x=1788946034; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qIbsbl7gfwlrb28FLNmpnU53Y/rL9tIcDN9wH1WM7zM=;
-        b=r4TYTVuwb2oOVYo+MVDsHsGfbsKCfrINU0nygAVlQyXc/w5/Syf5VCTZL0vlW2UzDv
-         P9vOrb0vMT//Vs/y/IDGCR5/xdE8B8zarPLivWhcgYvwe07dlJw/eLmI6E7Z8JaMhr+N
-         cx7nHtNUZ1rmIBBmde5aRtFoUJjL11TYFid/JAoPmIb3n+emzD22cxXmqNh/97UZHk26
-         dIJvh5TJjau3vpTYeTAhDvyVrJLq4o0ZP+9aphBEJxntWHxXbVKk3YtK3rYDVL3dVe4n
-         WzVEATB3kPBndnoV1nmuAQHJpkpqkH8oZ3Ich0NVYcmrZlavmh3JyjZpfjKq2SqLSU4f
-         8sGg==
-X-Forwarded-Encrypted: i=1; AKwUvBz3w2cX5inKyZp7LyY14JMdKB/wwjJQn/HxOmP9BuMNC/z9fNTd16wttPMlLJlWMADV+DiL8EPVPM+/15E=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMfmRThgW0rjLtKrTCgv79HrcAMQDWp5+wOqie1QluJRHvjnGU
-	l3oYtZiY6dpGVCB3cPhlAeXiCC8Ayd0x3Xq0ejH6t1mw3AlrXI2XHMAM
-X-Gm-Gg: AYBFou1vxigYgRZwdFheg5HHZlmQ911QUTfBG7fnlCxe9+nFQdUqHYE7A4LNmDRWmgG
-	0To5k8usU2B4XXPnHda2CCzzuNaqbbWfLIX1g50CSvT2KAxBItZYuZpIYOqaNWTAFshNWGh+KCS
-	3ATxbq31KicJwj+s3O1Zd5V4GLxg52OcUgU9rNr8GSRd0tPaCoWGovz+ZCE4Bi2fXVOc26YCbmk
-	p6oahhEZy42dRuHsYPb6xNDhXj3IbuzmKK1HIksnmeDRbgA+EcJKA1YKp0XnIP3X6L87Ki1bwD6
-	rUqkIzfRNIp63a4QmaF+F+as2SQnkd+NawQP672WIeCfqWPWoNhyVTc0Qd53gKjby7bJE9n1uJL
-	YWEen3cSsOANSTJ4x3oOadNrenIIR4c5QGo9+e1LWxN5tF11Z/TJd4VsFvXOA1w72xgLLIlMwwK
-	SUud13A6QAg/mEAMhDhwWmD5B3XjwYalvo82eTrNsMqCzehvkjrLpoIY1sutnXaUr1LEKoyQeoR
-	rHR3G4OlM4TXb30YdGG
-X-Received: by 2002:a05:6a00:8d8c:b0:851:c1f6:948 with SMTP id d2e1a72fcca58-85f448cef3bmr1497817b3a.16.1788341230276;
-        Wed, 02 Sep 2026 02:27:10 -0700 (PDT)
+        bh=eRUAOAdoeg0ACoOZGqt1RM6QAFvC+MmIu2Q8vR/OfzI=;
+        b=PKXyDqkf6VbnIabTAHzLjJVq4JNAhEiCnK0lcWXV4L2nZp/oFBEZ2BR3zlIFmm+QaA
+         GAOUDw4YZSku9pbqjcXRRuHPO98U5+PjZG/wOBfFn5bdE3CIX7kl6Nb0ZTc7DRJ6ZPiY
+         re5BbwC4H2SpHCG3BWyByu1c2wTR87pJ7UDkY9VgZp5eg+BuyQs+tGb6+AnCsZa1vCuY
+         4cqjM6Yvg+rpS86Vtp776VIE0mJv7eGkRyOdNZfLNlgER1SBgjVxCXhfZd5OhlKMX+TR
+         s9aPzll71lJFrvjdSeFInKEl61r7mJ/zR7NTjCH59DN2jgRJHLIfMRlppWm9HaHNJWka
+         cCeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788341234; x=1788946034;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eRUAOAdoeg0ACoOZGqt1RM6QAFvC+MmIu2Q8vR/OfzI=;
+        b=nNkwDggV21VBKXK6tfZR6DaikukWL8SmsudsXwA7AE98nfp2gCTPgLrZR1fsDpG+Bq
+         xscELdWYry+WSX2AOKUAj0WltYusXQqrkL88vW8CnAgawd1kQefqgenRRfYPoPPFD3UK
+         2DCtG8Z4u7PqJavZXS8DS5afQJgwBIydAdyPe84y8kdUJFVTO+TcFjMIG2+0ttVFajuz
+         lSfa61QIumzWqo3WVQeE332o/qDozLVbW2R0XqVhHx77aeruN64VcO4IzR2qsGGnC35X
+         BgLW9qB/yDhHVcc9Ph8st/4soXvOlC+BDZkZii/V/3HfftT2FzDhf5w6Lox5Hs5aPXUj
+         0bTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwiebvbDh9uobTvYLXNObRefoIu8115SymaLv32B5kzJBxxurQr2VpGa3t7STeSvGw4GKwQtwKvSgGmcNA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kCjLUzCfu6T/2AiDWOfNZURy6iJgBjk9xaRKc5Q1TsR8zRegcT
+	Fy4ootyWsmA7g+xYXinx87WtdzEoHmYAb2XoPnyWjqUskjGdM1rLNV0J
+X-Gm-Gg: AYBFou0pwG+hp90bdj3IWJJF0I8nEFebZz/FZiHtbHk539JhwE0A8fUFJ47pvlrgZep
+	UNNsHuR9XZDklT9JMc/9dpqk50Odabx2oVo9O2RJAkDteNsZaKJ1+aLdJatll9O5ia6fgoikq5V
+	XTHx1Ifmq6gkGjbA3Ori9/VGiMpLwQSJJlkbqV5oO8zT1IIBRswZFJUCX9rLuXj4mkP5sO7oXol
+	D46ECTZUNLyVE8mkXHlKEFjNBkOb1hRYYaJ898fMJm38Y9jGzwIaPjXfaXNHXGs1exVYCndyke2
+	8pinKw6DdgrX98fKvAU9rFeHu0uqai7bMOiuypmlJ+CDwXWbh2dRkORsDT+jRMki1BGTMUeHP2t
+	Lq9ad8gVQA9R9V5JGbdwYeA4pwZRNtdwjl83iw2mocZ1RiG36iNTYXnxP8hgGbdrxNvGGFrtCSl
+	PGgcWZ6Wr5/Hjfd90sUmExl5c3KvsTYSNxOOI9PMIXTBsFrjSyVsd62pzx6iKdlhwxqwGqEENfS
+	K3wE7MT+n7jlGFpEGJn
+X-Received: by 2002:a05:6a00:2183:b0:857:7384:b5f6 with SMTP id d2e1a72fcca58-85ed464053cmr5298268b3a.18.1788341233701;
+        Wed, 02 Sep 2026 02:27:13 -0700 (PDT)
 Received: from 192.168.50.3 ([183.193.115.0])
-        by smtp.googlemail.com with ESMTPSA id d2e1a72fcca58-85dc11fae83sm1055963b3a.59.2026.09.02.02.27.06
+        by smtp.googlemail.com with ESMTPSA id d2e1a72fcca58-85dc11fae83sm1055963b3a.59.2026.09.02.02.27.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 02:27:09 -0700 (PDT)
+        Wed, 02 Sep 2026 02:27:13 -0700 (PDT)
 Sender: Weiming Shi <thebestswings@gmail.com>
 From: Weiming Shi <bestswngs@gmail.com>
 To: Johannes Berg <johannes@sipsolutions.net>
@@ -70,10 +72,12 @@ Cc: Eliad Peller <eliad@wizery.com>,
 	Xiang Mei <xmei5@asu.edu>,
 	Weiming Shi <bestswngs@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 1/2] wifi: mac80211: preserve RCU links during batch key removal
-Date: Wed,  2 Sep 2026 17:26:57 +0800
-Message-ID: <20260902092658.792735-1-bestswngs@gmail.com>
+Subject: [PATCH 2/2] wifi: mac80211: fix link STA group key use-after-free
+Date: Wed,  2 Sep 2026 17:26:58 +0800
+Message-ID: <20260902092658.792735-2-bestswngs@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260902092658.792735-1-bestswngs@gmail.com>
+References: <20260902092658.792735-1-bestswngs@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,77 +86,196 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-list_del_rcu() deliberately leaves the removed key list node intact so
-that concurrent ieee80211_iter_keys_rcu() readers can advance to the next
-key. The batch removal paths immediately reuse that same node for a
-private free list, overwriting its next pointer before synchronize_net().
+A group key installed for an MLO link STA is stored in link_sta->gtk[] and
+sdata->key_list. Link STA removal currently frees the link STA without
+removing these keys. A later key teardown then returns -ENOLINK before
+unlinking the key, while its caller still queues the key for destruction.
+This leaves a freed node on sdata->key_list and can also leave key->sta
+dangling.
 
-Add a separate list node for batched key destruction and use it in all
-existing batch removal paths. This preserves the RCU list links until the
-grace period completes.
+Remove a link STA's group keys while the link STA and driver link are still
+present. During full station teardown, collect GTKs from every link
+together with the pairwise keys, unlink all of them, wait for one
+post-unlink network grace period, and then destroy the batch.
 
-Fixes: ef044763a3ca ("mac80211: add atomic uploaded keys iterator")
+Also let removal of an already orphaned key reach the list unlink
+bookkeeping when the link or link STA is gone. Keep -ENOLINK unchanged for
+key installation.
+
+BUG: KASAN: slab-use-after-free in ieee80211_remove_link_keys
+Read of size 8 at addr ffff888028c3c818 by task exploit/5192
+ieee80211_remove_link_keys (net/mac80211/key.c:1114)
+ieee80211_vif_update_links (net/mac80211/link.c:192 net/mac80211/link.c:351)
+ieee80211_vif_set_links (net/mac80211/link.c:408)
+cfg80211_remove_link (net/wireless/util.c:2894)
+nl80211_remove_link (net/wireless/nl80211.c:16312)
+genl_family_rcv_msg_doit (net/netlink/genetlink.c:1117)
+netlink_sendmsg (net/netlink/af_netlink.c:1889)
+Kernel panic - not syncing: KASAN: panic_on_warn set ...
+
+Fixes: ccdde7c74ffd ("wifi: mac80211: properly implement MLO key handling")
+Reported-by: co+36935f8953d6874a@bugs.sh
+Closes: https://lore.kernel.org/linux-wireless/s6BRFbJoyNpjUBu6NC9TdJxvXM9vpQsN1FcY@bugs.sh/
 Cc: stable@vger.kernel.org
 Assisted-by: Codex:gpt-5
 Signed-off-by: Weiming Shi <bestswngs@gmail.com>
 ---
- net/mac80211/key.c | 8 ++++----
- net/mac80211/key.h | 2 ++
- 2 files changed, 6 insertions(+), 4 deletions(-)
+ net/mac80211/key.c      | 55 +++++++++++++++++++++++++++++++++++------
+ net/mac80211/key.h      |  3 +++
+ net/mac80211/sta_info.c |  6 +++++
+ 3 files changed, 56 insertions(+), 8 deletions(-)
 
 diff --git a/net/mac80211/key.c b/net/mac80211/key.c
-index f45e792abede..a69617d8d1c7 100644
+index a69617d8d1c7..b907258829f0 100644
 --- a/net/mac80211/key.c
 +++ b/net/mac80211/key.c
-@@ -1100,7 +1100,7 @@ static void ieee80211_free_keys_iface(struct ieee80211_sub_if_data *sdata,
- 		ieee80211_key_replace(key->sdata, NULL, key->sta,
- 				      key->conf.flags & IEEE80211_KEY_FLAG_PAIRWISE,
- 				      key, NULL);
--		list_add_tail(&key->list, keys);
-+		list_add_tail(&key->free_list, keys);
- 	}
+@@ -475,7 +475,7 @@ static int ieee80211_key_replace(struct ieee80211_sub_if_data *sdata,
+ 		return -EINVAL;
  
- 	ieee80211_debugfs_key_update_default(sdata);
-@@ -1121,7 +1121,7 @@ void ieee80211_remove_link_keys(struct ieee80211_link_data *link,
- 		ieee80211_key_replace(key->sdata, link, key->sta,
- 				      key->conf.flags & IEEE80211_KEY_FLAG_PAIRWISE,
- 				      key, NULL);
--		list_add_tail(&key->list, keys);
-+		list_add_tail(&key->free_list, keys);
+ 	if (link_id >= 0) {
+-		if (!link) {
++		if (!link && !sta) {
+ 			link = sdata_dereference(sdata->link[link_id], sdata);
+ 			if (!link)
+ 				return -ENOLINK;
+@@ -484,7 +484,7 @@ static int ieee80211_key_replace(struct ieee80211_sub_if_data *sdata,
+ 		if (sta) {
+ 			link_sta = rcu_dereference_protected(sta->link[link_id],
+ 							     lockdep_is_held(&sta->local->hw.wiphy->mtx));
+-			if (!link_sta)
++			if (!link_sta && new)
+ 				return -ENOLINK;
+ 		}
+ 	} else {
+@@ -535,7 +535,7 @@ static int ieee80211_key_replace(struct ieee80211_sub_if_data *sdata,
+ 			if (new &&
+ 			    !(new->conf.flags & IEEE80211_KEY_FLAG_NO_AUTO_TX))
+ 				_ieee80211_set_tx_key(new, true);
+-		} else {
++		} else if (link_sta) {
+ 			rcu_assign_pointer(link_sta->gtk[idx], new);
+ 		}
+ 		/* Only needed for transition from no key -> key.
+@@ -1183,23 +1183,57 @@ void ieee80211_free_keys(struct ieee80211_sub_if_data *sdata,
  	}
  }
  
-@@ -1132,7 +1132,7 @@ void ieee80211_free_key_list(struct ieee80211_local *local,
+-void ieee80211_free_sta_keys(struct ieee80211_local *local,
+-			     struct sta_info *sta)
++static void ieee80211_remove_link_sta_keys(struct ieee80211_local *local,
++					   struct link_sta_info *link_sta,
++					   struct list_head *keys)
+ {
+ 	struct ieee80211_key *key;
+ 	int i;
  
  	lockdep_assert_wiphy(local->hw.wiphy);
  
--	list_for_each_entry_safe(key, tmp, keys, list)
-+	list_for_each_entry_safe(key, tmp, keys, free_list)
- 		__ieee80211_key_destroy(key, false);
+-	for (i = 0; i < ARRAY_SIZE(sta->deflink.gtk); i++) {
+-		key = wiphy_dereference(local->hw.wiphy, sta->deflink.gtk[i]);
++	for (i = 0; i < ARRAY_SIZE(link_sta->gtk); i++) {
++		key = wiphy_dereference(local->hw.wiphy, link_sta->gtk[i]);
+ 		if (!key)
+ 			continue;
+ 		ieee80211_key_replace(key->sdata, NULL, key->sta,
+ 				      key->conf.flags & IEEE80211_KEY_FLAG_PAIRWISE,
+ 				      key, NULL);
++		list_add_tail(&key->free_list, keys);
++	}
++}
++
++void ieee80211_free_link_sta_keys(struct ieee80211_local *local,
++				  struct link_sta_info *link_sta)
++{
++	struct ieee80211_key *key, *tmp;
++	LIST_HEAD(keys);
++
++	ieee80211_remove_link_sta_keys(local, link_sta, &keys);
++	if (list_empty(&keys))
++		return;
++
++	synchronize_net();
++	list_for_each_entry_safe(key, tmp, &keys, free_list)
+ 		__ieee80211_key_destroy(key, key->sdata->vif.type ==
+ 					NL80211_IFTYPE_STATION);
++}
++
++void ieee80211_free_sta_keys(struct ieee80211_local *local,
++			     struct sta_info *sta)
++{
++	struct ieee80211_key *key, *tmp;
++	LIST_HEAD(keys);
++	int i;
++
++	lockdep_assert_wiphy(local->hw.wiphy);
++
++	for (i = 0; i < ARRAY_SIZE(sta->link); i++) {
++		struct link_sta_info *link_sta;
++
++		link_sta = wiphy_dereference(local->hw.wiphy, sta->link[i]);
++		if (link_sta)
++			ieee80211_remove_link_sta_keys(local, link_sta, &keys);
+ 	}
+ 
+ 	for (i = 0; i < NUM_DEFAULT_KEYS; i++) {
+@@ -1209,9 +1243,14 @@ void ieee80211_free_sta_keys(struct ieee80211_local *local,
+ 		ieee80211_key_replace(key->sdata, NULL, key->sta,
+ 				      key->conf.flags & IEEE80211_KEY_FLAG_PAIRWISE,
+ 				      key, NULL);
++		list_add_tail(&key->free_list, &keys);
++	}
++
++	if (!list_empty(&keys))
++		synchronize_net();
++	list_for_each_entry_safe(key, tmp, &keys, free_list)
+ 		__ieee80211_key_destroy(key, key->sdata->vif.type ==
+ 					NL80211_IFTYPE_STATION);
+-	}
  }
  
-@@ -1159,7 +1159,7 @@ void ieee80211_free_keys(struct ieee80211_sub_if_data *sdata,
- 
- 	if (!list_empty(&keys) || force_synchronize)
- 		synchronize_net();
--	list_for_each_entry_safe(key, tmp, &keys, list)
-+	list_for_each_entry_safe(key, tmp, &keys, free_list)
- 		__ieee80211_key_destroy(key, false);
- 
- 	if (sdata->vif.type == NL80211_IFTYPE_AP_VLAN) {
+ void ieee80211_delayed_tailroom_dec(struct wiphy *wiphy,
 diff --git a/net/mac80211/key.h b/net/mac80211/key.h
-index 826e4e9387c5..f5a97213a559 100644
+index f5a97213a559..e4ee89de9438 100644
 --- a/net/mac80211/key.h
 +++ b/net/mac80211/key.h
-@@ -63,6 +63,8 @@ struct ieee80211_key {
+@@ -24,6 +24,7 @@
+ struct ieee80211_local;
+ struct ieee80211_sub_if_data;
+ struct ieee80211_link_data;
++struct link_sta_info;
+ struct sta_info;
  
- 	/* for sdata list */
- 	struct list_head list;
-+	/* for temporary lists during batch removal */
-+	struct list_head free_list;
+ /**
+@@ -167,6 +168,8 @@ void ieee80211_free_keys(struct ieee80211_sub_if_data *sdata,
+ 			 bool force_synchronize);
+ void ieee80211_free_sta_keys(struct ieee80211_local *local,
+ 			     struct sta_info *sta);
++void ieee80211_free_link_sta_keys(struct ieee80211_local *local,
++				  struct link_sta_info *link_sta);
+ void ieee80211_reenable_keys(struct ieee80211_sub_if_data *sdata);
+ int ieee80211_key_switch_links(struct ieee80211_sub_if_data *sdata,
+ 			       unsigned long del_links_mask,
+diff --git a/net/mac80211/sta_info.c b/net/mac80211/sta_info.c
+index 22eba0e6e54c..cebfb2c4c0cc 100644
+--- a/net/mac80211/sta_info.c
++++ b/net/mac80211/sta_info.c
+@@ -3444,10 +3444,16 @@ int ieee80211_sta_activate_link(struct sta_info *sta, unsigned int link_id)
+ void ieee80211_sta_remove_link(struct sta_info *sta, unsigned int link_id)
+ {
+ 	struct ieee80211_sub_if_data *sdata = sta->sdata;
++	struct link_sta_info *link_sta;
+ 	u16 old_links = sta->sta.valid_links;
  
- 	/* protected by key mutex */
- 	unsigned int flags;
+ 	lockdep_assert_wiphy(sdata->local->hw.wiphy);
+ 
++	link_sta = wiphy_dereference(sdata->local->hw.wiphy,
++				     sta->link[link_id]);
++	if (link_sta)
++		ieee80211_free_link_sta_keys(sta->local, link_sta);
++
+ 	sta->sta.valid_links &= ~BIT(link_id);
+ 
+ 	if (!WARN_ON(!test_sta_flag(sta, WLAN_STA_INSERTED)))
 -- 
 2.55.0
 
