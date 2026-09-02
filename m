@@ -1,154 +1,124 @@
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C0B2385D7F
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:02:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788343325; cv=pass; b=XJnwJIi1wndvovxentEJ6j+v1/iU034QO83dqtmDd+PIQypDIGKKCBNPaz4OTCy6b6gk8GLV7qqUgCOXmutwZK7PFPHgNT0vCQTQiu4l0G3R4u3douFGRDINxWBE3/itO05Z0DHHJhle67WIQgYH10Ns+wVtyjxACFd6u0XsJnA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788343325; c=relaxed/simple;
-	bh=BsYSShzm/APLl8qc9BTfD5vA4H/CGzk4/kuElmC6cRY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tsgtFjApE8vMeHIMA0o+JFpLmi8DL6gxFupg+gpeSvLUXzc8j7tirNpksXc3qjRmbNjTf5OFctLRzTgkvihqEoq8RY3ep4kksvq2+YQ34xdO680GjjVAgq27Z5yIJlb6ptMrMwqCovEp06Sy0bTLjDfuOvothSFN/b2tHAoXx5w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=starlabs.systems; spf=pass smtp.mailfrom=starlabs.systems; dkim=pass (2048-bit key) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b=cukFOPpW; arc=pass smtp.client-ip=74.125.224.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=starlabs.systems
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starlabs.systems
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F4C378832
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:02:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788343327; cv=none; b=aTidEzPnjRqIiwU2lVdPU/Z1jK7PUSylAzs9UZx3QPw/2YOdOExo+VRcLsIB6DGe95qhW6cTret1eO6MjEXhCmmFbxuhbcfODYq3QHIjvvw+Ek8H56+ObL497T9m4FDNTP+NeSEVphhg3y4iJPCNNf60ps4t2GS5M89TySK02c4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788343327; c=relaxed/simple;
+	bh=iWowelTfnD/Sqa1CSe4HGlOwOvPpQS09Od9B4ljnPqU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gB4T3JtTpxZ8sy736cWHkU/urMSLvJ2BNaNFsqYtP8J61ZbcZT8gBjWdke9na3yureXhdyoKO4Cq25UqOSOVd3wKh0FEHxZsHJ9YaXnFrSHq2TWMX6p7ccoklzI6IiVxngYhqI4p7J+i8BNpUREnramEjcDgl8+cxuQ5xdwzHFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=eyUfgvu0; arc=none smtp.client-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b="cukFOPpW"
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-66e64e6e3fbso890705d50.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 03:02:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788343322; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fQckl0myAc76yqgT42VBi+EPF6LdFBOGdomYxg9/Ddrxn4NXA9ttiY7ceY7tgXAuR6
-         cyZyOBnVHWhAIPcL5/9b5cYFh/hudUeuIkIIQrpav6cS3lSQPQAyQbuiZyAn6RBOztwX
-         oUh95+em8gojhdjfemhfXbx2YkoroAQTMse0xlpKCW0tGWDI5aYUE3iYmwxclyMqaFMV
-         o3tB656W+H3xJHQe8NnBitAEfZos9ec9zfKvX0UTSpLjn8Hvb6mwqUI2cWn4Arue6aPj
-         0ajGPqiDdTiyoJi87SoiIa8V/cbSu0v6z/lkIlXom1x2Am2PIor40D7s9IfXXwWlgJ/V
-         vNyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=7Yl5QmRxyNgI9FkGfHWferAKBRopNrYR4eAo0FssY70=;
-        fh=QqFXR9r/vB3v4/r4K33bwHxP56UoPCsthLVf7ENyzrU=;
-        b=RtzByYHRO977Odqb9vliiEbwGPQtSWUEbfCNwl0Zyptq2UR/QxZIisizNe5ygps6aO
-         UPKwPzcWW96aJhMmHwM0eOBRx/JTwmipFgmZ+YWrCzJbHI4///aSMcAacQczEPP8MWoZ
-         7GscOs/gZJulw8V/x2iTM0s78JbyZ960FPfsupBnGvxbUTdjsFGrCa9D1AWuKVkraWSL
-         UBfANbqgpb10EkECNReLRcZRkpgohNxAm2oCZxQqZ6bjhxTBe2VxlkALS0MfYUTgsFyK
-         PBB9jmvg2ingbHbX3jEjhE1QkJYCmKmmcqkRbQb4qTF5dzHshQIHKIoAI8tpcTB/pmZS
-         FWkA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="eyUfgvu0"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-69f7fa1c548so1456086a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 03:02:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=starlabs-systems.20251104.gappssmtp.com; s=20251104; t=1788343322; x=1788948122; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7Yl5QmRxyNgI9FkGfHWferAKBRopNrYR4eAo0FssY70=;
-        b=cukFOPpWULYA40IKjHFhEibnktjCVQmYg4ucHFPny96C3aCN3PJGdIQEx9YG1/yfvJ
-         eIMHcbGPdrZlKseIxXrmLDKp+x4O+mGt08pIFeW+Q2p2/O4XsIbaepPsszKo0+q1YKG0
-         YM75CO6VzP8BKdOw6YxIauvwSt4byls0MkqutJxBll9+fXW38v/+JAvn3HUqhtQ2uC3t
-         2BO5iGZADmdpFgpGUGDpXlHgvNgbBzGRSDX2sZWt8dLLfPb95sziFLRIJtFfqu+BVasZ
-         t//3ngPxN/sR1S1Rr+4hXXbyEAy5aDJazyebzk6WN4bL1jUQEdDSN3iORSGHmQ1u+6w5
-         SPoQ==
+        d=suse.com; s=google; t=1788343323; x=1788948123; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4yBTqs5jwRTPYMT0/14DTINpZvY1iV3yr5rmhA0kGvE=;
+        b=eyUfgvu0XngCPEvFM9BGAzCRu3OaC7erAkFmtwCipHWLHLmFLYSNPdG7eBHoYHL/3L
+         9m555sa4wTby34fVR7oNJyF2CjOvUpovBLm5yeJzSvu7B2VwE5kjFv7QQyMvLs9u+PQI
+         2FkKo8Xjn3VLB8XTRaiYR718BlP3M/++JZoYczxDRoXu3GkOeUH3WzTd1aEeWsCOAhpS
+         hVIHk+APt/Zq9jWCTIOs4UxA9YCQhju5PecEi/ESC6lIJNUy+LHHv8h6mlG0k5XKv8lq
+         IwlT75QCNIuhc+n6aJpH0Mby8/zcEvizFipYXTKyTg4++n05JSDTY7bTzMyZUCOuhJbq
+         F0lQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788343322; x=1788948122;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=7Yl5QmRxyNgI9FkGfHWferAKBRopNrYR4eAo0FssY70=;
-        b=ERRKM1C0Qi+or0YTmCv9KGHRG8LQdn3KjPhb7+/+BZd24oE0tvP9rW2OebAxgWKG3b
-         ELxW/fNm171cfhuemApw1o+KQ2bRjNmJKtMtezVGZc90JG/Z48OLt0G12bUpIxuBlZx8
-         5los5kQt8pr4NNpewkwnFHnZHZH1D8Xs/yWq8trBICe/kvvE3Xx/zLmlQVShwigy8pAv
-         frKVvsOOrQMq/4/Pvg1vEcgdSgz6jfFrb/nlIEuS1Q3xbAzdSvlz28Uf4U0NNzkZTrDz
-         6wsnzhdMW7IAtLLKSfbHhoHK2yOB4MoX1RH7tmdvjv0V0FryK0QnDNGsWkZWBxwCiEyY
-         eRuQ==
-X-Gm-Message-State: AFuF++lAz5ya+nqCHwK8gj4KLvbBgSU3qbjR7wnksTW6hpRZ4r2y9PJL
-	KHiGGF1zf5ZwkvgFbg0SQOO7N/KgxPIgaxVSUPNlj/5pUXntUjvQphfzNQXkPeuxiV9R1w+aFgL
-	3ceKq/Jcw1U/dVKshaoHDm/7HduP0t4RkzerQKHJt
-X-Gm-Gg: AYBFou1lfG8i+vsVhV8S27wCB04fEasR27Nv0I1Mel4kvxekKo8l0uDsk2teYUw2NH1
-	+dK6rmK6YcPa1nDRfUbCqqYIWkhXwAwhWwIPbYbqLvZ/D2T/lx7A5ydk6Nmxo0ni5sHuhFFFJos
-	xGLgmMq2479ynCNuisDPT/yP3BE7N0iayoD/TYUN/M3eynbXhLVntg1lv0pbqa3HHgCguvs8j+Y
-	ectQA36/dWw6DI8njA1GgmgJG+00RFSUfZR62l5OUs/02se3u2m2aTpDn3FCdnmHDvDyghVTYyF
-	OvbF6aKlmHbUNRgDkuqfcaUMguE4tePV1ZGZKQ5iBLMkESj0EKGCKYN4DNcbqCwpIKwq34k3N1x
-	j
-X-Received: by 2002:a05:690e:1514:b0:66f:7c64:9d47 with SMTP id
- 956f58d0204a3-66f9bd4991dmr1118782d50.23.1788343321975; Wed, 02 Sep 2026
- 03:02:01 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788343323; x=1788948123;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4yBTqs5jwRTPYMT0/14DTINpZvY1iV3yr5rmhA0kGvE=;
+        b=p8s1E6GHAC3hEuwFBaB3FuojdDGhZUQ6UEsUi2JmSepBSNIcWftmO1+9/EZiZwSyVV
+         ccIAFpS+BGmxiTZzir2zgFTbFsts+6UkNhOytCC4Ms7tSuq2jf8zDTuzXPPZpleNxrSf
+         VyoRaP7/C56ytLRc2uMEJH+gEBpqdQd8UEA1Tcxi0eNpR+gtQLErkDFCUuLgTCr/Lb3T
+         WfAk15ZyZ9zeRPAbSxrZV/o8TIUdMaWpsJBWC6g2vsBSlSib0Bro8pUR4PvFzsH4DZJC
+         CreiHuY5gY1526NqbNrMO8L3mAGgTmUup7Sf35mx3rdBJ0ZBmMaXEGgU/fQ4FwBePpPt
+         ut7g==
+X-Forwarded-Encrypted: i=1; AKwUvBwSMYQSc+H382+F02WfCJz9WUOmAfb8afrU3deFQZ1whH8FxrptddULUbCeT0aWR5dh7ST/sejuuvl40Gs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kuk7OMA+IMYKo+h9D3qkG3cgKGzRQ0Qe6r654X4PQDEJ/5XnXr
+	J/Jlp1YFsvmdPXD9S5fHdZORXi+E9IoVZgYVss9xl6lMXLw4jerqcdyb2iAxAJD26m8=
+X-Gm-Gg: AYBFou2I6e9sYDluRt8G6DmctFxwFKJ+vWX4BIqJlKxdFFDZq7JLvDfSAwJvyzsqH9K
+	S6DOGENXltCBqkeAe+sggGzQQ1Q/WDAMTSCj7AZFYJIzcw4fHow0RPF10LAgd6d6w4NMjbC9OgF
+	uKZ52W6B7DG5FiJYQWkQ04LQhmgW7KkjKL8ukfHVtTEPTa/w7EPoPB9JKZya4hBF9nx9dcAZb2J
+	b3Da2e9m5fBGnYvAHTVeNLCZmHOqRfexwqLXLlMQ3Uzt4HWl71mIyFGIzEkhDXHxd/pgj3xLvYk
+	GS+dDxaHvClnpIgtBN78NfQnnHfvPmOyJ0iuRzDpDGBM6aALkdF0hy9CfoLxGnzC9r50eu0Hpvj
+	KUMFqRO4tqMGp5vWh9d97UMaHbE7I15TFQmFL0sDsPos3Q7V0khOE+3mvQsqcWYRTgBngg6hsg4
+	y0EOGK0aqlPlHsy1xj5rrUHOlazeqa6CkyTzEEDPqDLG7RchORgp3wHMhLxiUGdw==
+X-Received: by 2002:a05:6402:46d0:b0:6a5:f692:9c3a with SMTP id 4fb4d7f45d1cf-6a6830397e0mr2543398a12.1.1788343323467;
+        Wed, 02 Sep 2026 03:02:03 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-484492ce5e5sm4975275f8f.36.2026.09.02.03.02.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 03:02:02 -0700 (PDT)
+Date: Wed, 2 Sep 2026 12:02:00 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>
+Subject: Re: [PATCH printk v3 0/2] nbcon irq_work fixes
+Message-ID: <apf0GKgd5vxBAkOl@pathway.suse.cz>
+References: <20260901093245.344455-1-john.ogness@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788284852.git.sean@starlabs.systems> <apfz3lf1RIfAkKYS@google.com>
-In-Reply-To: <apfz3lf1RIfAkKYS@google.com>
-From: Sean Rhodes <sean@starlabs.systems>
-Date: Wed, 2 Sep 2026 11:01:50 +0100
-X-Gm-Features: AcwNN1XY2WlZI7b41cj9pFZjq4mCyoo_3nH6T_KZHZYXfCYS3mXFpBitd3ECMtg
-Message-ID: <CABtds-0w2b0P6SGoAZGHJe-4usmG6B8SUP1ufRQyp0+9UFcF3g@mail.gmail.com>
-Subject: Re: (subset) [PATCH v14 0/5] coreboot CFR firmware attributes
-To: Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Hans de Goede <hansg@kernel.org>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones" <luke@ljones.dev>, 
-	Denis Benato <denis.benato@linux.dev>, Prasanth Ksr <prasanth.ksr@dell.com>, 
-	Jorge Lopez <jorge.lopez2@hp.com>, Mark Pearson <mpearson-lenovo@squebb.ca>, 
-	"Derek J. Clark" <derekjohn.clark@gmail.com>, Joshua Grisham <josh@joshuagrisham.com>, 
-	Will Deacon <will@kernel.org>, Douglas Anderson <dianders@chromium.org>, 
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>, Huacai Chen <chenhuacai@kernel.org>, 
-	Chen-Yu Tsai <wenst@chromium.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	platform-driver-x86@vger.kernel.org, Dell.Client.Kernel@dell.com, 
-	Brian Norris <briannorris@chromium.org>, Julius Werner <jwerner@chromium.org>, 
-	Javier Martinez Canillas <javierm@redhat.com>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Danilo Krummrich <dakr@kernel.org>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
-	Titouan Ameline de Cadeville <titouan.ameline@gmail.com>, 
-	Laxman Acharya Padhya <acharyalaxman8848@gmail.com>, Yidi Lin <yidilin@google.com>, 
-	Kees Cook <kees@kernel.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>, 
-	chrome-platform@lists.linux.dev, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Arnd Bergmann <arnd@arndb.de>, Eric Biggers <ebiggers@kernel.org>, 
-	Luca Weiss <luca.weiss@fairphone.com>, Michal Simek <michal.simek@amd.com>, 
-	Sven Peter <sven@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901093245.344455-1-john.ogness@linutronix.de>
 
-Thank you :)
+On Tue 2026-09-01 11:37:41, John Ogness wrote:
+> Hi,
+> 
+> This is v3 of a series to address some irq_work issues with nbcon.
+> Initially motivated as a workaround for hardware-related regressions
+> reported [0], it turns out that the workaround is actually a nice
+> improvement for nbcon deferred printing in general.
+> 
+> v2 is here [1].
+> 
+> The changes since v2:
+> 
+> - On nbcon_free(), perform the irq_work flush before stopping the
+>   kthread printer.
+> 
+> - Rework the commit message of patch 2/2 so that reducing interrupts
+>   is the primary motivation and the Tegra workaround is a secondary
+>   "benefit". I really want the Tegra workaround information to stay
+>   in the commit message because it is historically significant.
+> 
+> John Ogness
+> 
+> [0] https://lore.kernel.org/lkml/f3757a75-0ba1-4558-bf57-f19ab7e59a4c@nvidia.com
+> [1] https://lore.kernel.org/lkml/20260828140218.232439-1-john.ogness@linutronix.de
+> 
+> John Ogness (2):
+>   printk/nbcon: Flush nbcon_irq_work in nbcon_free()
+>   printk/nbcon: Change nbcon_irq_work to IRQ_WORK_LAZY
+> 
+>  kernel/printk/nbcon.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 
-On Wed, 2 Sept 2026 at 11:01, Tzung-Bi Shih <tzungbi@kernel.org> wrote:
->
-> On Tue, Sep 01, 2026 at 06:48:01PM +0100, Sean Rhodes wrote:
-> > Move the firmware attributes class helper out of platform/x86, rename the
-> > coreboot-table firmware driver directory from google to coreboot, and add a
-> > coreboot CFR firmware attributes driver.
-> >
-> > Changes in v14:
-> > - Rebase on current upstream master after Linux 7.3-rc1, preserving the
-> >   intervening coreboot table bounds and CBMEM no-map changes.
-> > - Drop the standalone include-order cleanup. Replace the affected relative
-> >   includes directly in the firmware attributes helper move, as requested by
-> >   Tzung-Bi.
-> > - Split the DRM coreboot framebuffer dependency update from the firmware
-> >   directory and Kconfig rename so it can receive a DRM Acked-by separately.
-> > - Keep the CFR driver and its runtime behavior unchanged from v13.
-> >
-> > [...]
->
-> Applied to
->
->     https://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git for-firmware-next
->
-> [2/5] firmware: Rename google firmware directory to coreboot
->       commit: 44e33a5aaa2de3f5cf2701d6f4b0a7c63d4fe602
->
-> Also created an immutable branch "ib-coreboot-rename-7.4"[1] for patch 3
-> and patch 5 which build-time depend on it.
->
-> Thanks!
->
-> [1] https://lore.kernel.org/all/apfyaxKEEJz20wRC@google.com
+JFYI, the patchset has been comitted into printk/linux.git,
+branch for-7.3-irq-work-fixes.
+
+I am going to give it few days in linux-next. Then I will create
+a pull request for 7.3 unless any problems got reported.
+
+Best Regards,
+Petr
