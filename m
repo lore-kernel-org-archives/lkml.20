@@ -1,131 +1,131 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CFA54A3F08
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:48:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C5F330B3F
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:48:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788360497; cv=none; b=Oc2jBkgSNVxqkUK2bMGB3dId6RKoV0O/CtWGeevkMDpWu+O9+FxjnyL5AQGxUvCMj09sO2d4B5Iew3kI0lasu51DnAK1GhDQM/0d7KggiyZARN3vxFDmNNeVneoTMx9SMfhBExylPl6MQp93OfClad8z24+LLFEQ87Gt3k5XOz8=
+	t=1788360524; cv=none; b=DSdPiUv91TJFmYSAOjBLqnUAMq//UZOcQLufdjUnGrsLtVMjJiHttipIU0nG76RaNJ+22f+2phZkxNxOy/P+cWbjlHn0Uyhsu57S+/qQxOJ7eZ/IDnipkIfzYqJHtWLglZafWuqRPdmDZAZplC2nFi5pERiCIEDkv4UpVL8Z4m4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788360497; c=relaxed/simple;
-	bh=KBvGyZndRFNH7A+aRyxm6OCUlXxf5CVdNPV3tEt7/zA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=H0kWnBTnBUBYVUQLfaqZkzN+L6DZztiFTsgwStT7Rxv2lnMQ0DYC4FURIvqqCuKrC03Aa7QEqNfYylfSJy5HKDvMWFGvJJNL813/op3tAhGKEbAAPu48xyogMolQO463brDp6Ru0/kQsSe9Io/W5iqrIg8aSD2eNFtSNtAQfsi4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tk9/ioTh; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788360524; c=relaxed/simple;
+	bh=zP3AGMJL7B4Bo7qCYDIswEXSaOUb1jOQWhFwZ1GLeBk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JS4OTfgylzySCuQaXTyqPjjFEAXALWNFiYpNMf/DVh8kIjm6WtbqaPtO5BqJMQbFAVao+NNuXaLbZ35BmxZO68apP9zH6Eu8tLl69YuceNuseVUwAnQT3Fz04RBv0rEHUT2n2i0PBnnnwQn43RJDT9aTOTWiTSMw8/GCsItmdS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=mXliq9So; arc=none smtp.client-ip=209.85.219.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tk9/ioTh"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-ca12086c06eso975605a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:48:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="mXliq9So"
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-90e8e70fa02so14714516d6.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:48:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788360496; x=1788965296; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=igrO6BmbZGa/2QiOILMtmo7WB0Pb5Pir6y+0YnlM150=;
-        b=Tk9/ioThzceOrw92g8VPJy72PUOwz+x57e+N7oQ0hFI5ms8enJEb8qSbIISDBGTE4M
-         f8iVcN6gBHcEZ+HZlAae3HmG2bKPVilR++U/nfoot0qBJXSRscKKilaL6xZioP32609S
-         GeBhDaaOCKA6SKbh562trFNBOQ9Ngdb1OTrkchCZYvvJjKTv3hm1A3hKRL2Q94jmy+5D
-         D5+VAvOear71VKLoOOzkPR7FqGe6NQgggP5Scwn4qHdTFEMCWheUxCpDlSj7Yu7xjJ6x
-         nU/rc4WzAtUpnNFeIUB6nhGZB9uJ9enIujumfH148UNNNoqlGypySwBIBzRLI2Xu4Fcb
-         AIrQ==
+        d=rowland.harvard.edu; s=google; t=1788360520; x=1788965320; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/1/fXMNRLMn3t6QVeQ3hSYPZWIjUdxGd7Svrk7PTW4U=;
+        b=mXliq9SokX+OnqRWa2tcG9tkOzQ5sapeS3GPSDuxNgX7O5nFkqLvhIY6oXZm/bpopo
+         5rIb65m2teGanOXx6ktowFsXyD0TiXPetgKOHL803GiNkHPsUQ5x7zG0tvUtVG1iRKPX
+         4dt1/qCwAT0LNMV92HDW6ZfWsHQiKleWnY4WyxtJzUJCEyHR5RDezsMf8biD6V3Xoe2k
+         AgoRJuQVtc6ybmldq6YfAhmz9infa2M98Y1FpQyjtMSWah5ISsbSnM0ar0Uy8BKKf4Sf
+         Mq4LEI67Popc4MLO/F0UMulc2Igkne8S6TEKKijctxpdnUMfSrPPnogN6PkOAv8vgW74
+         khIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788360496; x=1788965296;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=igrO6BmbZGa/2QiOILMtmo7WB0Pb5Pir6y+0YnlM150=;
-        b=iIJwkA4DglpKuqvGqMPc2O2AYe8N97As/4B0+pNC8NpfXolcgQyxe76C58aQHiYb9O
-         BR8OJeuuneEtliCuMO++sfehYnE12ZDbKA2LL68trKinlHY693lUPRBH6yJSLZs3ACXC
-         JanBieK2rPTBf0LH9uu8OD/PzXBOuT3iuZUxMJdwhw6kJcYEDSe7lrqQLFKJG3EjRbqz
-         bW8fIImUV9YbLOYsPndRitkSWHMogqUxajoWWrOtG1zuuErTJXc5u2V+a84OYqMcF2k8
-         8/Qe3gZqQKWPDu7hEv0PWSVB2CK1fjTKZMsb2vxXo82MhxbBfR798B3SLjBGQKyp8MRl
-         X5FA==
-X-Forwarded-Encrypted: i=1; AHgh+RrcvYOxNvCDOGBt3v61YZhskQa4FVRMjrqUH992aa8TWo6FPT69Er2+6yp6fFZLKJH95gNNbS9ZoYkHONQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/7GMFSHjow+0l7YgMhre2lgnMTC4FUynH+puM+wQb7JSgx96r
-	OreNTONxf351f21TRAR6ebcSe1fyCWgChfVn13xAHbMWRMBHorzsGdgOYmBNtV1vOsM=
-X-Gm-Gg: AR+sD11CVttjHZj+k5T2Z7bilcXft1A0T9uu3MERpNDxicUyfTEYgl0YVYKSJAiG36h
-	ULSVvLgiRuU2cVDCy4O6sMgEqZhhewh7VRrbBvz0VrElu4dX5kOFotU3gx+WTOCFpvinhpt1W0g
-	OBSfiRjxNUjQmbRKpWdOiLs+i5YOuUH1iNJCRJC2eLnDbzmxj4hIvLF5zPqkE+DlS00/+As3wxC
-	+N63AQceF3qtD3s+pKEtTuRQayELqMYICTvm+/6nkaAHil6LCzwuvNkuSZmk2ZkI2AhfT5JmaKr
-	2ZZJzuD8bwz995GrCVkCoIWOdP6/dZTnhVDGTTFxcjmL24gTmy5eTu0cGhZdJnv+4EQtepnymlV
-	3BytIpS2L+O5E4oOeDtS/lTgGT530jgrls4vGT75LY6ZyAjTrnL9xFUaFmOrdfaamE/CQK0ArJo
-	rAz8eiaFl0H+9ZKR82BXnD0ant3xac2gqH4oVRB04U6wL4VxBo69tyNcsJ62APOnjZ20eHldJmn
-	BGxWAvV5SvmH1PEC6qG/JesLuJ+kHyI0RzsHGucE/u1a/M=
-X-Received: by 2002:a05:6a20:d52b:b0:3d2:2011:d184 with SMTP id adf61e73a8af0-3d9afd1cf93mr9852517637.14.1788360495601;
-        Wed, 02 Sep 2026 07:48:15 -0700 (PDT)
-Received: from [127.0.0.1] ([2400:70e0:b000:0:be24:11ff:fe0b:281d])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc34cee275csm1169201a12.14.2026.09.02.07.48.12
+        d=1e100.net; s=20251104; t=1788360520; x=1788965320;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/1/fXMNRLMn3t6QVeQ3hSYPZWIjUdxGd7Svrk7PTW4U=;
+        b=QkDmFjkUuLvRBizEWCTtGP7ZhepnL0m+W82pOlXvSqeUaagEprZzl6hUqQVU6Jtt9Y
+         SONt/0odgxP4ItSusWTXqem00kOgl8vli6WsPeg4M39sOjFjtHL+7JRedxyNcZXeFNlf
+         5dWOTJPwa3UdU8xpe1zlUwqgmrE94+Spu4Axwwtr9wyKCOX5Blzaf/wSy3PMDgoD5S7Y
+         2XmP958SHQ3hY4kT1bsdqNgK/Wh4yqRO8jVzfEZGlcC79HkJXR95fsX8KvdRpVA1kNYy
+         rxzi6Or9IuLJH+JXa3NLgosmALpRDIzysEauKlgB+Ju+GAGduhr6GNQKRsBDms3fnrmi
+         Q3pg==
+X-Forwarded-Encrypted: i=1; AKwUvBy+BXpmZZfsogS2UByKynrR7Z1g9OHhQ4gbim0CTQig17BVJHDIRUU2mveh35HhxpSS10ZMyQ561jsBgGw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kajwGwnpA3bSrLWHdmxWcSpC747L5SCdNL/qkUcEw5IHjTu72O
+	CwyY4Kg5GMWu6434If46NLRwqIKAKctyS9d1zUUGTmoHgOnZIEd0XzDd7BErLMpaxw==
+X-Gm-Gg: AYBFou1LnNURdL5nLEWskQFIg1RLWDKgp6s5kBpWJhYb5nlhrjHrpN4lpCbkxwoeG5G
+	eHJpy069AXPHia4Ss3A3TX44nkYF2trRwSExx0LdOziCL0TgpbH4cMxujM6jm9Pm61p9x6PC4hC
+	veA3oA+yKGnobJ1q6MXoRdBqZMD7mnf5rRPUz8P3BXVEiBoFebUrbKvNUV2Cxp5O407aMkTJ+sR
+	P3E/ds9fLLTPiMK/ittqZO6SnqrfYuwF3MkVH/9ytSwyN/oq7y/zlV+cOlCy81kYLlFJIkXgcnX
+	IN7c1MfeuIY6OQO0ympg5DI9Vc6Lt2YuU2hlQHgGlW4a6QEqQK2/t14S/elvC1R2AtxDwgPmqe4
+	U/SUZ4+1YabE+xTWZsZsvdEhu9wMNX07v9eAlridDJs31FS92kY+0jM0XlUxKtkjVOne/I6R+xh
+	cjjmzkNxb7W8bEEIYQr9xMzV1zAAABkrFnRhkSG95hJldFLNF6Th5paukxdgsd5Mn+xtovjH7IW
+	lLMWVY=
+X-Received: by 2002:a05:6214:460b:b0:90e:945e:61d2 with SMTP id 6a1803df08f44-90eb6c5e9a9mr73341796d6.15.1788360519862;
+        Wed, 02 Sep 2026 07:48:39 -0700 (PDT)
+Received: from rowland.harvard.edu ([140.247.181.15])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9eec7608sm19396886d6.26.2026.09.02.07.48.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 07:48:15 -0700 (PDT)
-From: Felix Gu <ustc.gu@gmail.com>
-Date: Wed, 02 Sep 2026 22:48:09 +0800
-Subject: [PATCH] spi: mxic: fix ps_clk leak in runtime resume
+        Wed, 02 Sep 2026 07:48:38 -0700 (PDT)
+Date: Wed, 2 Sep 2026 10:48:37 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Daniel Palmer <daniel@thingy.jp>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/5] usb: ehci: support non-standard port status
+ registers
+Message-ID: <c3125487-c9af-4dba-886e-5f9467120b7b@rowland.harvard.edu>
+References: <20260902-gemini-usb-fotg2-v2-0-0057408495d8@kernel.org>
+ <20260902-gemini-usb-fotg2-v2-1-0057408495d8@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-mxic-v1-1-76806325826d@gmail.com>
-X-B4-Tracking: v=1; b=H4sIACg3mGoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDSwND3dyKzGRdg2SDRPO0pOREIyNDJaDSgqLUtMwKsDHRsRB+cWlSVmp
- yCUivUm0tAEaPaCNoAAAA
-X-Change-ID: 20260901-mxic-0c0a7fbca221
-To: Mark Brown <broonie@kernel.org>, 
- Boris Brezillon <bbrezillon@kernel.org>, 
- Mason Yang <masonccyang@mxic.com.tw>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Felix Gu <ustc.gu@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788360492; l=1048;
- i=ustc.gu@gmail.com; h=from:subject:message-id;
- bh=KBvGyZndRFNH7A+aRyxm6OCUlXxf5CVdNPV3tEt7/zA=;
- b=7szDc4NAg3wvG6W0sQN9j7/g27Sh9eKLAEhxAo1JXz1LxCXrzoEkK5pL8iCM7Z5IuSJOcTXHp
- 8MODiqXnJK4C9OJiPfIZkpEXHuZlm9Qd1uTf4b+J/dUNcjd1PA9OTxG
-X-Developer-Key: i=ustc.gu@gmail.com; a=ed25519;
- pk=fjUXwmjchVN7Ja6KGP55IXOzFeCl9edaHoQIEUA+/hw=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902-gemini-usb-fotg2-v2-1-0057408495d8@kernel.org>
 
-mxic_spi_runtime_resume() enables ps_clk before calling
-mxic_spi_clk_enable(). If the latter fails, ps_clk was not
-disabled.
+On Wed, Sep 02, 2026 at 08:11:32AM +0200, Linus Walleij wrote:
+> Some EHCI implementations place the port status registers outside the
+> standard operational register layout.
+> 
+> Add a per-controller port status base and use a helper for all PORTSC
+> accesses, while preserving the standard location by default.
+> 
+> Suggested-by: Daniel Palmer <daniel@thingy.jp>
+> Assisted-by: LLM
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
 
-Unwind ps_clk with clk_disable_unprepare() before returning
-the error.
+For this and the other two patches...
 
-Fixes: b942d80b0a39 ("spi: Add MXIC controller driver")
-Signed-off-by: Felix Gu <ustc.gu@gmail.com>
----
- drivers/spi/spi-mxic.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+> diff --git a/drivers/usb/host/ehci.h b/drivers/usb/host/ehci.h
+> index d7a3c8d13f6b..765338c2eb88 100644
+> --- a/drivers/usb/host/ehci.h
+> +++ b/drivers/usb/host/ehci.h
 
-diff --git a/drivers/spi/spi-mxic.c b/drivers/spi/spi-mxic.c
-index e3c85e5191e3..481edd4b35cb 100644
---- a/drivers/spi/spi-mxic.c
-+++ b/drivers/spi/spi-mxic.c
-@@ -744,7 +744,13 @@ static int mxic_spi_runtime_resume(struct device *dev)
- 		return ret;
- 	}
- 
--	return mxic_spi_clk_enable(mxic);
-+	ret = mxic_spi_clk_enable(mxic);
-+	if (ret) {
-+		clk_disable_unprepare(mxic->ps_clk);
-+		return ret;
-+	}
-+
-+	return 0;
- }
- 
- static const struct dev_pm_ops mxic_spi_dev_pm_ops = {
+> @@ -278,6 +279,17 @@ static inline struct usb_hcd *ehci_to_hcd(struct ehci_hcd *ehci)
+>  
+>  /*-------------------------------------------------------------------------*/
+>  
+> +static inline u32 __iomem *ehci_portsc(struct ehci_hcd *ehci,
+> +				       unsigned int port)
+> +{
+> +	if (ehci->port_status)
+> +		return ehci->port_status + port;
+> +
+> +	return &ehci->regs->port_status[port];
+> +}
 
----
-base-commit: 89c07d98716a13454ec3fd9f97689e812cc71bd4
-change-id: 20260901-mxic-0c0a7fbca221
+Can you introduce a new Kconfig symbol (or symbols), which the FOTG
+config entry would select, and then generate the "if" statement only
+when the new symbol is set?  For example:
 
-Best regards,
---  
-Felix Gu <ustc.gu@gmail.com>
+#ifdef CONFIG_EHCI_NONSTANDARD_PORT_STATUS
+	if (ehci->port_status)
+		return ehci->port_status + port;
+#endif
 
+A similar approach could be used in accessors for the other items you're 
+changing.
+
+This way other architectures won't pay the price of doing the
+unnecessary test all the time.
+
+Alan Stern
