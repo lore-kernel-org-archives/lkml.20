@@ -1,253 +1,452 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD4D4A0F11
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:14:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788358478; cv=pass; b=eA/kjDcntcxuYAvFljH7X6ik67pl4ReX5xdyOWpxq16LTUquWc99+PKQTLHJ0HA7hnQ/shgy/Zbh/aDS+ZYh/4otbBs96ls3YgeqYBEGBN1Ot4q2o/4iV1ZC0ApiWpRGEVE3bFbU++n7X+Ga2SKNhnJS029gx1WBXP+Gq3aPqHk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788358478; c=relaxed/simple;
-	bh=cdAE1a6vG9C5ULJiRkOdqZgP3psLeL7eFGyxPIwl2S8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JUbpPSP8dA9ma34unPDs+Zk+jquHnd1pxMzM5z8NigBtnb0BW/TIxbbofv61IZKeo1bQ1lxS6lSfBo2/d0ixYiSQb4VeKVVic+ZE3ZfEHBO9j2jFaeijHVZOOldz6rg7aMD8Q4Ns0zLBv39wdRFTNr7OGMPUXR8jmpIh1GmJLyw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sJF0mgP8; arc=pass smtp.client-ip=209.85.208.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DCD449C4B8;
+	Wed,  2 Sep 2026 14:15:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788358511; cv=none; b=Z1PV/6YltHYNmpsqOwb0eE1oo2aoPryFU2e4F3PfCQJhlvr2p0x2KvUBgFanStBYlmlAZpllzMbn6GRQmIJl4yHiWLfwE6GPfW1Yu0NYPWoiHKDaUfLXDFSG99BzHF03aKu3EtoB7+T3leD8k7BXGD0lC1/OFlc6c2QuYvBMKKg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788358511; c=relaxed/simple;
+	bh=h9vkmUP5EGUBSLgig4/4D6vS7DsBEOgu4kGFiyDG8DE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l8AW3PcmejYRyFqNX0Nqt/aoUNSNTWSM4hMpYyzxedZykAcdKIHgBpX8ueWGXV6Ie1mGehJmArvr7jieT19NwYVZ/pua2uAwli4JIWJt3W5BznV+vgfKa/TOzSCGgnCoIWqEPmmkGfTzJ5scWmf96VawQACZxjhhXBvtL+kpbx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ZFJpPptC; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=7GfKVNXF; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=u4+ObZDT; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=GDl3pLPQ; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sJF0mgP8"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a0de062db5so2011579a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:14:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788358474; cv=none;
-        d=google.com; s=arc-20260327;
-        b=joGGFzJjfJQohMjdxvKSwG0OhpMUmYym3j5ApRsyqaUsO087HIrb1elGbKXpRmtIu9
-         85vkDKadhf0tVvORNQqgPL01/OhP1rtkI5OOs0yueabzvs99w/BuRTZ+Ipn1dl3IIYTe
-         0CVKgH/UQW79GbJccoKuOUn3URZ0QQutYQqjXJrDQ9r+zv+1/Ae4kNNqUpX6FnTrWxue
-         bgcm7eNebYFTuoIMcUV2YBuZh4SfCAclLXLGt4Lvh7XXmvkwJc3iu+Lv46jR0Sl0jafF
-         vQXrm5crq6y/088EfyXtW1usj+AxWbm6LKtSn6mlKQJKj4gk0BNRYYC8o5zGjievkiQh
-         Mf+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=z1Gb9svefZexXgI3MSllPyHbPKRof4ikpCQHMZNBOag=;
-        fh=CNcfh/v2/KYBdZKaIK9dbgfaoIHes4UlZTfioCi93BE=;
-        b=RgjqSp7Mx3AnHB0T/UuF6gZOkhycUTRJ3eicwvNDZa64qFEzd+vA0lEZSxgnTkPasy
-         bEbZ1aKdQHqnUt1BqdpaJA2OJdOvEoF237VeUIqZE6kePHWEe0e/MLFYXcP4sxZbVkJ5
-         aUgkRmKpeBXXYHJYoFp5wN/BICspyQc0x3B5+GnChpRB59R2isWQLTcjH0NmLkyH1/mw
-         uxKz0+/Wo8OKbiFeV5KJtXiQFy8yR08MYqypmsbP4SM8fla/ItOp9+hk98YEMP/sglMa
-         BhtiyUOAatqMa6c3v86u+zA/ZKRXkasMb5ifzhg5OjByIfvSUAgjbq4qBSaX1Zgm3R1r
-         jt+w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788358474; x=1788963274; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=z1Gb9svefZexXgI3MSllPyHbPKRof4ikpCQHMZNBOag=;
-        b=sJF0mgP8xNI2Q8N/WkXuyZcnO0CBDtRhtL01R4ujdEFMdPpBGx80H5Y7UyQYmgYNCC
-         H+aM0MsE+h+zNpKeIZg94gcuQ0xG19JEaf7bNeUMsrcEV0BjMEYG+Cuyfk2XtIwJ1fT+
-         bVe821pA3DVx3zxCOQF39rkVjK9AvnoRqxrrIfAYM2+M4C9prei1PF4WWtBGdb4/DizB
-         vTNt1N5Tb9zm0N51NyO+qisNNqRYq7a0bkUdzvRBa5VZmj5psqlVWz3+ss+H03CiGoyw
-         uHA9tykX8+i/gFPoqK4iDgt5MZKvYbRQEsBf+JqlGs4dXrT+tE0qoLwFDcv8IdFV7dbC
-         F+LQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788358474; x=1788963274;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z1Gb9svefZexXgI3MSllPyHbPKRof4ikpCQHMZNBOag=;
-        b=TAOI9dBmq3gtUdJjQ8yuFB1JvbR65IT+42kuoXGL1LacwxQFU9os84OYoizPokgNCy
-         ZyimhSy1qJWZj/OCGHt1w1G1LWUCvBF7lz6fcy332kaeWtgaMUF3OG0n6iDNE7Njx5sp
-         lrK5AhZBoXVSipDfMePEz5F6Q29+bPGnOv1GJHHHOzGv1yLuUHlukVJ2zWb2tTsLa70q
-         hfcWKkI3/lDEQmihxHObhUUCcTDmkLq4ZUPe8kTYh1QXkBslIrtePb6G6QVXraCWy+mc
-         Ayj17VkiPOuIt9bPfRqJb7LP4cEC1sdeaJ7+SVzSM5Yig8em3OWQqUYEgUBW/JOW0TVH
-         nqdA==
-X-Forwarded-Encrypted: i=1; AKwUvBzYazDiG0mrr1ids35W87PzR+ATApkLrpQ//sZglH01qr1JUkO+MCVCyLeSD9lJP2DdMm7QPZ94bQsn3z4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kYPe+szN4Pbofi0n6fraKQ2PAIEaLhZ0IU4WElFkhXrJsZO5AW
-	R618UPjCLfFPKjsnd9AaMDk9g68F4qnFAllB3vvfx6mPT83+IsRjmfMbNtei6EXOBB81bY1l4qu
-	n6dnKgDDJo5biTqwgiUFPZAIKJq03gZI=
-X-Gm-Gg: AYBFou0SiylTlNb2IHhOq4UVfyVgevLJ0YQLZO176sRwKna4OMu+cLyWZf3PD5zzcMM
-	x/1Tvv+OfKBATx1CilaA8KaGRe+J7iYH2KxvcYK3jrSrnWON3+UrqMIgdDMTga3rJvIwkNbBDIS
-	w+YuGXYaUiVd2/TSmJLbpr5KY9cJ8dJmA1kmnGjkKoDr6rpHTXI0NQl2XWaM4zf++SH72U6SjFf
-	8cs9b6qVNRt5M9Szd0D5RQa/kjxPCt/VxhyADvmLTprGdvSfQhlOAirJkuWHjmZMDZquteA2Z0P
-	pbpwbgMyCiyggntuxQw4bqa0BHFngz22vRetlDb/bUlziWI19s9lErN973zb
-X-Received: by 2002:a05:6402:20c6:20b0:6a6:8b46:4973 with SMTP id
- 4fb4d7f45d1cf-6a68b464ac4mr1842114a12.7.1788358473392; Wed, 02 Sep 2026
- 07:14:33 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ZFJpPptC";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="7GfKVNXF";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="u4+ObZDT";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="GDl3pLPQ"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 91E8521D04;
+	Wed,  2 Sep 2026 14:14:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788358502; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WeD5rKAor0C3Yp71Uu2rUH9EwKLBs3JKF97nLFBeTbk=;
+	b=ZFJpPptC0g7IJ7lmg1tWzecyub+ZmW9QTu1ej7vODLYlmhauo8bStVERHaHP19sTYyC6lU
+	F8RLNYJfWDozzqzSRKX5wvFWOZY12RDwFxO//0s6gdeWcmDmH6iXS91pTU0OrxvnMMaCv5
+	M3Y5/h+Ey+1xKKZCQyqYxXUa8d0pv6k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788358502;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WeD5rKAor0C3Yp71Uu2rUH9EwKLBs3JKF97nLFBeTbk=;
+	b=7GfKVNXFwyOMTk5ngcMx2fZxDIdfok3aOFRdkmTfO11dCyBli4SePPXh4iwkr3Qq4LKcTk
+	o01ct2JX0J4H4WDA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=u4+ObZDT;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=GDl3pLPQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788358498; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WeD5rKAor0C3Yp71Uu2rUH9EwKLBs3JKF97nLFBeTbk=;
+	b=u4+ObZDT5SVpBJ0vg/pTzgOT5ntKHvL5L9OY+Zaq9rJTBxnnQE5mL7fGhs79X+PVaICrif
+	tDi7gudcHD5/j5fWXwiR0G24nhz6NTNH7zAisif6x0q71qoBdyk6CoG8ih1DLc8USDh70X
+	98t/Y4SAqlorfZC3bdXaqy2EpOdn2UA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788358498;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WeD5rKAor0C3Yp71Uu2rUH9EwKLBs3JKF97nLFBeTbk=;
+	b=GDl3pLPQzilPpm72NlkgGFTFSRy0bZQyveb9AEOwHu+xy5mj19ODnfiTCz+TCJRKiJiGLq
+	XQFJQRaTZOHhQtCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6FC6313736;
+	Wed,  2 Sep 2026 14:14:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id TMhTG2IvmGrUBwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 02 Sep 2026 14:14:58 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 1E6DDA13B5; Wed, 02 Sep 2026 16:14:54 +0200 (CEST)
+Date: Wed, 2 Sep 2026 16:14:54 +0200
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Christoph Hellwig <hch@lst.de>, 
+	Seth Forshee <sforshee@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+	linux-security-module@vger.kernel.org, Mimi Zohar <zohar@linux.ibm.com>, 
+	linux-integrity@vger.kernel.org, Ilya Dryomov <idryomov@gmail.com>, ceph-devel@vger.kernel.org, 
+	Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, Miklos Szeredi <miklos@szeredi.hu>, 
+	Amir Goldstein <amir73il@gmail.com>, linux-unionfs@vger.kernel.org, 
+	Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 05/27] fs: port i_{g,u}id_into_vfs{g,u}id() to const
+ mnt_idmap
+Message-ID: <bjeeledz4ycna2xtjdhwgmfcfvqc3d22cg2s5pyra2greyienn@ehbyy5t46w44>
+References: <20260901-work-idmap-const-v1-0-54ccd48e100b@kernel.org>
+ <20260901-work-idmap-const-v1-5-54ccd48e100b@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260810122758.183765-1-puranjay@kernel.org> <20260810122758.183765-2-puranjay@kernel.org>
- <20260826144636.3IRUXeFV@linutronix.de> <CANk7y0hbwXL7nBDgjTgrneBejEgGrsZnc02RztG-aSBEEvAcwQ@mail.gmail.com>
- <20260902082657.yPEhNFlo@linutronix.de>
-In-Reply-To: <20260902082657.yPEhNFlo@linutronix.de>
-From: Puranjay Mohan <puranjay12@gmail.com>
-Date: Wed, 2 Sep 2026 15:14:20 +0100
-X-Gm-Features: AcwNN1VcZ0Pb1fdH9gP2Tb1Pv8VYUhDajHrWJ9SzT4ipxs3lXYiu2AFNy3-3ems
-Message-ID: <CANk7y0gMh6McuLnFwxGO-nH_g3TnstwTK2rtT5pq=b8qq9ykKQ@mail.gmail.com>
-Subject: Re: [PATCH v4 1/6] rcu: Make call_rcu() safe to call from any context
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Lai Jiangshan <jiangshanlai@gmail.com>, "Paul E. McKenney" <paulmck@kernel.org>, 
-	Josh Triplett <josh@joshtriplett.org>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Frederic Weisbecker <frederic@kernel.org>, Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
-	Joel Fernandes <joelagnelf@nvidia.com>, Boqun Feng <boqun@kernel.org>, 
-	Uladzislau Rezki <urezki@gmail.com>, Davidlohr Bueso <dave@stgolabs.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Zqiang <qiang.zhang@linux.dev>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Matt Fleming <mfleming@cloudflare.com>, 
-	"Harry Yoo (Oracle)" <harry@kernel.org>, linux-kernel@vger.kernel.org, rcu@vger.kernel.org, 
-	bpf@vger.kernel.org, linux-rt-devel@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901-work-idmap-const-v1-5-54ccd48e100b@kernel.org>
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 91E8521D04
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[20];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,zeniv.linux.org.uk,suse.cz,lst.de,kernel.org,paul-moore.com,linux.ibm.com,gmail.com,szeredi.hu];
+	RCVD_COUNT_THREE(0.00)[3];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim,suse.cz:email,suse.com:email];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Flag: NO
+X-Spam-Score: -4.01
 
-On Wed, Sep 2, 2026 at 9:26=E2=80=AFAM Sebastian Andrzej Siewior
-<bigeasy@linutronix.de> wrote:
->
-> On 2026-09-01 14:53:56 [+0200], Puranjay Mohan wrote:
-> > On Wed, Aug 26, 2026 at 3:46=E2=80=AFPM Sebastian Andrzej Siewior
-> > > > +/*
-> > > > + * Defer whenever interrupts are disabled, since a callback-list o=
-peration may
-> > > > + * be in flight on this CPU.  Not before the scheduler is up: irq_=
-work is not
-> > > > + * usable that early, and rcu_init() itself calls call_rcu().
-> > > > + */
-> > > > +static inline bool should_rcu_defer(void)
-> > > > +{
-> > > > +     return IS_ENABLED(CONFIG_RCU_DEFER) && irqs_disabled() &&
-> > > > +            rcu_scheduler_active !=3D RCU_SCHEDULER_INACTIVE;
-> > > > +}
-> > >
-> > > Why does the description say that the defer part is for usage from NM=
-I
-> > > and the test here has irqs_disabled() instead of in_nmi()?
-> >
-> > We defer for both irq disabled sections, hard irq, and in_nmi() and
-> > checking for irqs_disabled() covers all three.
->
-> But it is wrong to talk about NMI and do this for other reasons not
-> mentioning why this was needed/ made sense.
-> Can this be fixed?
-> Also what is the reasoning for doing it from any IRQ disabled region?
+On Tue 01-09-26 14:14:30, Christian Brauner wrote:
+> Convert to const struct mnt_idmap.
+> 
+> A mount's idmapping is immutable. The only thing that is allowed to be
+> modified afterwards is the reference count and that is hidden behind
+> mnt_idmap_get() and mnt_idmap_put(). Everything else only ever reads
+> from the idmapping. This is the same model that struct cred uses and the
+> idmapping is also rather sensitive.
+> 
+> So make the idmap argument const wherever we can. The conversion is done
+> from the bottom up so callers can continue to pass a non-const pointer
+> to a const parameter until the conversion is finished.
+> 
+> No functional changes.
+> 
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-So, the main reason for this patchset is to make call_(s)rcu() work
-from BPF programs, and these BPF programs can run from any context
-like an NMI perf event interrupt or maybe attached to a function
-through ftrace which is in the call chain of call_rcu() itself.
-call_rcu() takes locks with irqs disabled or it modifies lists
-non-atomically with irqs disabled. This means that a BPF program that
-runs from NMI with the lock already taken will deadlock, or if it runs
-between these non-atomic list modifications, it will corrupt the
-lists. A BPF program can also synchronously re-enter call_rcu() if it
-is attached to a function in the call chain of call_rcu() that is
-called with a lock taken. So, all these cases are detected with
-irqs_disabled() and on detection we do stuff that doesn't require
-taking any locks and is safe even if re-entered.
+Looks good. Feel free to add:
 
-> > >
-> > > > +
-> > > >  enum rcutorture_type {
-> > > >       RCU_FLAVOR,
-> > > >       RCU_TASKS_FLAVOR,
-> > > > diff --git a/kernel/rcu/tree.c b/kernel/rcu/tree.c
-> > > > index 21b6ce1dffb63..3bf3a250f9de8 100644
-> > > > --- a/kernel/rcu/tree.c
-> > > > +++ b/kernel/rcu/tree.c
-> > > > @@ -3206,6 +3204,103 @@ __call_rcu_common(struct rcu_head *head, rc=
-u_callback_t func, bool lazy_in)
-> > > >       local_irq_restore(flags);
-> > > >  }
-> > > >
-> > > > +/*
-> > > > + * Re-issue deferred callbacks straight to the enqueue so they can=
-not defer
-> > > > + * again.  ->defer_lock serializes the drainers: this CPU's irq_wo=
-rk,
-> > > > + * rcu_defer_flush() and rcutree_migrate_callbacks().
-> > > > + */
-> > > > +static void __rcu_defer_drain(struct rcu_data *rdp)
-> > > > +{
-> > > > +     struct llist_node *node, *next;
-> > > > +     unsigned long flags;
-> > > > +
-> > > > +     if (!IS_ENABLED(CONFIG_RCU_DEFER))
-> > > > +             return;
-> > > > +
-> > > > +     raw_spin_lock_irqsave(&rdp->defer_lock, flags);
-> > > > +     llist_for_each_safe(node, next, llist_del_all(&rdp->defer_hea=
-d)) {
-> > > > +             struct rcu_head *head =3D (struct rcu_head *)node;
-> > >
-> > > Why do you need the lock. This is still not clear to me despite the
-> > > comment. You can do llist_del_all() towards another list and then fee=
-d
-> > > it into rcu_do_enqueue() one by one. And you use the LAZY part.
-> >
-> > Because rcu_barrier() can call this for each cpu and at the same time
-> > rcu_defer_drain() can call it too, so this would cause a race where
-> > the irq work can remove the callbacks (llist_del_all) and before it
-> > can enqueue them, rcu_barrier will see that the list is already empty
-> > and will not wait for these callbacks. We want the llist_del_all() and
-> > rcu_do_enqueue() to happen atomically so rcu_barrier() can work
-> > correctly.
->
-> So you collect a bunch of callbacks and spent time re-arranging
-> everything with irqs off.
-> What is wrong with keeping it in the llist and consuming it like the
-> regular rcu_segcblist?
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-I don't understand your last point, all the collection and delayed
-addition into rcu_segcblist is because it is not safe to do it
-directly as I explained above.
+								Honza
 
->
-> > >
-> > > > +
-> > > > +             /* Bounds a node self-linked by a double call_rcu(). =
-*/
-> > > > +             head->next =3D NULL;
-> > > > +             rcu_do_enqueue(head, head->func, false);
-> > > > +     }
-> > > > +     raw_spin_unlock_irqrestore(&rdp->defer_lock, flags);
-> > > > +}
-> > > =E2=80=A6
-> > > > @@ -4231,6 +4330,9 @@ rcu_boot_init_percpu_data(int cpu)
-> > > >       rdp->rcu_onl_gp_state =3D RCU_GP_CLEANED;
-> > > >       rdp->last_sched_clock =3D jiffies;
-> > > >       rdp->cpu =3D cpu;
-> > > > +     init_llist_head(&rdp->defer_head);
-> > > > +     raw_spin_lock_init(&rdp->defer_lock);
-> > > > +     rdp->defer_work =3D IRQ_WORK_INIT_HARD(rcu_defer_drain);
-> > >
-> > > Why is this IRQ_WORK_INIT_HARD() instead, say, IRQ_WORK_INIT_LAZY()? =
-Is
-> > > there a requirement that the RCU callback needs to complete asap and =
-not
-> > > be delayed to the next tick? This would give kind of the LAZY part.
-> > >
-> >
-> > In discussions with Paul, we concluded that we need HARD because in
-> > low memory situations delaying rcu callbacks can be problematic. Given
-> > that we are already deferring the callbacks, it would be nice to have
-> > them enqueued asap. But if there are downsides to this we may change
-> > it later.
->
-> It does not look like you defer them for long at all. Every callback
-> enqueued in an IRQ-off region will be immediately re-enqueued to the
-> regular list the moment interrupts are enabled again.
-> Except on architectures which don't implement irq-work interrupts where
-> it will be delayed to the next HZ tick. And the next HZ tick does not
-> sound like a long time either.
-
-Yeah, I get your point, and when a CPU goes offline will its LAZY irq
-works be drained or left in the queue? Because we want to make sure
-this irq work is executed before a CPU goes offline.
+> ---
+>  fs/exfat/file.c                       |  2 +-
+>  fs/fat/file.c                         |  2 +-
+>  fs/internal.h                         |  2 +-
+>  fs/namei.c                            |  2 +-
+>  fs/smb/server/ndr.c                   |  2 +-
+>  fs/smb/server/ndr.h                   |  2 +-
+>  fs/smb/server/smb2pdu.c               |  2 +-
+>  fs/xattr.c                            |  2 +-
+>  fs/xfs/xfs_itable.c                   |  2 +-
+>  fs/xfs/xfs_itable.h                   |  2 +-
+>  include/linux/fs.h                    |  6 +++---
+>  security/integrity/ima/ima.h          | 10 +++++-----
+>  security/integrity/ima/ima_api.c      |  2 +-
+>  security/integrity/ima/ima_appraise.c |  2 +-
+>  security/integrity/ima/ima_main.c     |  2 +-
+>  security/integrity/ima/ima_policy.c   |  4 ++--
+>  16 files changed, 23 insertions(+), 23 deletions(-)
+> 
+> diff --git a/fs/exfat/file.c b/fs/exfat/file.c
+> index a2a9ee1a2004..0530803f71e8 100644
+> --- a/fs/exfat/file.c
+> +++ b/fs/exfat/file.c
+> @@ -143,7 +143,7 @@ static long exfat_fallocate(struct file *file, int mode,
+>  	return err;
+>  }
+>  
+> -static bool exfat_allow_set_time(struct mnt_idmap *idmap,
+> +static bool exfat_allow_set_time(const struct mnt_idmap *idmap,
+>  				 struct exfat_sb_info *sbi, struct inode *inode)
+>  {
+>  	mode_t allow_utime = sbi->options.allow_utime;
+> diff --git a/fs/fat/file.c b/fs/fat/file.c
+> index 1c835ca5f21a..0b8b493d06e4 100644
+> --- a/fs/fat/file.c
+> +++ b/fs/fat/file.c
+> @@ -493,7 +493,7 @@ static int fat_sanitize_mode(const struct msdos_sb_info *sbi,
+>  	return 0;
+>  }
+>  
+> -static int fat_allow_set_time(struct mnt_idmap *idmap,
+> +static int fat_allow_set_time(const struct mnt_idmap *idmap,
+>  			      struct msdos_sb_info *sbi, struct inode *inode)
+>  {
+>  	umode_t allow_utime = sbi->options.allow_utime;
+> diff --git a/fs/internal.h b/fs/internal.h
+> index 87ac96c3e29e..72244e5f4e57 100644
+> --- a/fs/internal.h
+> +++ b/fs/internal.h
+> @@ -299,7 +299,7 @@ int filename_setxattr(int dfd, struct filename *filename,
+>  int setxattr_copy(const char __user *name, struct kernel_xattr_ctx *ctx);
+>  int import_xattr_name(struct xattr_name *kname, const char __user *name);
+>  
+> -int may_write_xattr(struct mnt_idmap *idmap, struct inode *inode);
+> +int may_write_xattr(const struct mnt_idmap *idmap, struct inode *inode);
+>  
+>  #ifdef CONFIG_FS_POSIX_ACL
+>  int do_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
+> diff --git a/fs/namei.c b/fs/namei.c
+> index 20a6534ea3ef..603d43e4a961 100644
+> --- a/fs/namei.c
+> +++ b/fs/namei.c
+> @@ -1407,7 +1407,7 @@ int may_linkat(struct mnt_idmap *idmap, const struct path *link)
+>   *
+>   * Returns 0 if the open is allowed, -ve on error.
+>   */
+> -static int may_create_in_sticky(struct mnt_idmap *idmap, struct nameidata *nd,
+> +static int may_create_in_sticky(const struct mnt_idmap *idmap, struct nameidata *nd,
+>  				struct inode *const inode)
+>  {
+>  	umode_t dir_mode = nd->dir_mode;
+> diff --git a/fs/smb/server/ndr.c b/fs/smb/server/ndr.c
+> index 58d71560f626..7e546c22e284 100644
+> --- a/fs/smb/server/ndr.c
+> +++ b/fs/smb/server/ndr.c
+> @@ -338,7 +338,7 @@ static int ndr_encode_posix_acl_entry(struct ndr *n, struct xattr_smb_acl *acl)
+>  }
+>  
+>  int ndr_encode_posix_acl(struct ndr *n,
+> -			 struct mnt_idmap *idmap,
+> +			 const struct mnt_idmap *idmap,
+>  			 struct inode *inode,
+>  			 struct xattr_smb_acl *acl,
+>  			 struct xattr_smb_acl *def_acl)
+> diff --git a/fs/smb/server/ndr.h b/fs/smb/server/ndr.h
+> index f3c108c8cf4d..646568c42e4d 100644
+> --- a/fs/smb/server/ndr.h
+> +++ b/fs/smb/server/ndr.h
+> @@ -14,7 +14,7 @@ struct ndr {
+>  
+>  int ndr_encode_dos_attr(struct ndr *n, struct xattr_dos_attrib *da);
+>  int ndr_decode_dos_attr(struct ndr *n, struct xattr_dos_attrib *da);
+> -int ndr_encode_posix_acl(struct ndr *n, struct mnt_idmap *idmap,
+> +int ndr_encode_posix_acl(struct ndr *n, const struct mnt_idmap *idmap,
+>  			 struct inode *inode, struct xattr_smb_acl *acl,
+>  			 struct xattr_smb_acl *def_acl);
+>  int ndr_encode_v4_ntacl(struct ndr *n, struct xattr_ntacl *acl);
+> diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+> index a8046f477d54..0789200d602f 100644
+> --- a/fs/smb/server/smb2pdu.c
+> +++ b/fs/smb/server/smb2pdu.c
+> @@ -3604,7 +3604,7 @@ static int smb2_create_sd_buffer(struct ksmbd_work *work,
+>  }
+>  
+>  static void ksmbd_acls_fattr(struct smb_fattr *fattr,
+> -			     struct mnt_idmap *idmap,
+> +			     const struct mnt_idmap *idmap,
+>  			     struct inode *inode)
+>  {
+>  	vfsuid_t vfsuid = i_uid_into_vfsuid(idmap, inode);
+> diff --git a/fs/xattr.c b/fs/xattr.c
+> index d58979115200..c08f188748a9 100644
+> --- a/fs/xattr.c
+> +++ b/fs/xattr.c
+> @@ -100,7 +100,7 @@ xattr_resolve_name(struct inode *inode, const char **name)
+>   *
+>   * Return: On success zero is returned. On error a negative errno is returned.
+>   */
+> -int may_write_xattr(struct mnt_idmap *idmap, struct inode *inode)
+> +int may_write_xattr(const struct mnt_idmap *idmap, struct inode *inode)
+>  {
+>  	if (IS_IMMUTABLE(inode))
+>  		return -EPERM;
+> diff --git a/fs/xfs/xfs_itable.c b/fs/xfs/xfs_itable.c
+> index 159295c63e8f..a4cf1effa5e6 100644
+> --- a/fs/xfs/xfs_itable.c
+> +++ b/fs/xfs/xfs_itable.c
+> @@ -63,7 +63,7 @@ want_metadir_file(
+>  STATIC int
+>  xfs_bulkstat_one_int(
+>  	struct xfs_mount	*mp,
+> -	struct mnt_idmap	*idmap,
+> +	const struct mnt_idmap	*idmap,
+>  	struct xfs_trans	*tp,
+>  	xfs_ino_t		ino,
+>  	struct xfs_bstat_chunk	*bc)
+> diff --git a/fs/xfs/xfs_itable.h b/fs/xfs/xfs_itable.h
+> index 2d0612f14d6e..c0567bfc30fb 100644
+> --- a/fs/xfs/xfs_itable.h
+> +++ b/fs/xfs/xfs_itable.h
+> @@ -8,7 +8,7 @@
+>  /* In-memory representation of a userspace request for batch inode data. */
+>  struct xfs_ibulk {
+>  	struct xfs_mount	*mp;
+> -	struct mnt_idmap	*idmap;
+> +	const struct mnt_idmap	*idmap;
+>  	void __user		*ubuffer; /* user output buffer */
+>  	xfs_ino_t		startino; /* start with this inode */
+>  	unsigned int		icount;   /* number of elements in ubuffer */
+> diff --git a/include/linux/fs.h b/include/linux/fs.h
+> index 959c747ef75a..cec5de83d882 100644
+> --- a/include/linux/fs.h
+> +++ b/include/linux/fs.h
+> @@ -1439,7 +1439,7 @@ static inline void i_gid_write(struct inode *inode, gid_t gid)
+>   * Return: whe inode's i_uid mapped down according to @idmap.
+>   * If the inode's i_uid has no mapping INVALID_VFSUID is returned.
+>   */
+> -static inline vfsuid_t i_uid_into_vfsuid(struct mnt_idmap *idmap,
+> +static inline vfsuid_t i_uid_into_vfsuid(const struct mnt_idmap *idmap,
+>  					 const struct inode *inode)
+>  {
+>  	return make_vfsuid(idmap, i_user_ns(inode), inode->i_uid);
+> @@ -1491,7 +1491,7 @@ static inline void i_uid_update(struct mnt_idmap *idmap,
+>   * Return: the inode's i_gid mapped down according to @idmap.
+>   * If the inode's i_gid has no mapping INVALID_VFSGID is returned.
+>   */
+> -static inline vfsgid_t i_gid_into_vfsgid(struct mnt_idmap *idmap,
+> +static inline vfsgid_t i_gid_into_vfsgid(const struct mnt_idmap *idmap,
+>  					 const struct inode *inode)
+>  {
+>  	return make_vfsgid(idmap, i_user_ns(inode), inode->i_gid);
+> @@ -2173,7 +2173,7 @@ extern loff_t vfs_dedupe_file_range_one(struct file *src_file, loff_t src_pos,
+>  				 (inode)->i_rdev == WHITEOUT_DEV)
+>  #define IS_ANON_FILE(inode)	((inode)->i_flags & S_ANON_INODE)
+>  
+> -static inline bool HAS_UNMAPPED_ID(struct mnt_idmap *idmap,
+> +static inline bool HAS_UNMAPPED_ID(const struct mnt_idmap *idmap,
+>  				   struct inode *inode)
+>  {
+>  	return !vfsuid_valid(i_uid_into_vfsuid(idmap, inode)) ||
+> diff --git a/security/integrity/ima/ima.h b/security/integrity/ima/ima.h
+> index 10214f73ca1e..b502854f28ee 100644
+> --- a/security/integrity/ima/ima.h
+> +++ b/security/integrity/ima/ima.h
+> @@ -423,7 +423,7 @@ static inline void ima_process_queued_keys(void) {}
+>  #endif /* CONFIG_IMA_QUEUE_EARLY_BOOT_KEYS */
+>  
+>  /* LIM API function definitions */
+> -int ima_get_action(struct mnt_idmap *idmap, struct inode *inode,
+> +int ima_get_action(const struct mnt_idmap *idmap, struct inode *inode,
+>  		   const struct cred *cred, struct lsm_prop *prop, int mask,
+>  		   enum ima_hooks func, int *pcr,
+>  		   struct ima_template_desc **template_desc,
+> @@ -437,7 +437,7 @@ void ima_store_measurement(struct ima_iint_cache *iint, struct file *file,
+>  			   struct evm_ima_xattr_data *xattr_value,
+>  			   int xattr_len, const struct modsig *modsig, int pcr,
+>  			   struct ima_template_desc *template_desc);
+> -int process_buffer_measurement(struct mnt_idmap *idmap,
+> +int process_buffer_measurement(const struct mnt_idmap *idmap,
+>  			       struct inode *inode, const void *buf, int size,
+>  			       const char *eventname, enum ima_hooks func,
+>  			       int pcr, const char *func_data,
+> @@ -454,7 +454,7 @@ void ima_free_template_entry(struct ima_template_entry *entry);
+>  const char *ima_d_path(const struct path *path, char **pathbuf, char *filename);
+>  
+>  /* IMA policy related functions */
+> -int ima_match_policy(struct mnt_idmap *idmap, struct inode *inode,
+> +int ima_match_policy(const struct mnt_idmap *idmap, struct inode *inode,
+>  		     const struct cred *cred, struct lsm_prop *prop,
+>  		     enum ima_hooks func, int mask, int flags, int *pcr,
+>  		     struct ima_template_desc **template_desc,
+> @@ -489,7 +489,7 @@ int ima_appraise_measurement(enum ima_hooks func, struct ima_iint_cache *iint,
+>  			     struct evm_ima_xattr_data *xattr_value,
+>  			     int xattr_len, const struct modsig *modsig,
+>  			     bool bprm_is_check);
+> -int ima_must_appraise(struct mnt_idmap *idmap, struct inode *inode,
+> +int ima_must_appraise(const struct mnt_idmap *idmap, struct inode *inode,
+>  		      int mask, enum ima_hooks func);
+>  void ima_update_xattr(struct ima_iint_cache *iint, struct file *file);
+>  enum integrity_status ima_get_cache_status(struct ima_iint_cache *iint,
+> @@ -519,7 +519,7 @@ static inline int ima_appraise_measurement(enum ima_hooks func,
+>  	return INTEGRITY_UNKNOWN;
+>  }
+>  
+> -static inline int ima_must_appraise(struct mnt_idmap *idmap,
+> +static inline int ima_must_appraise(const struct mnt_idmap *idmap,
+>  				    struct inode *inode, int mask,
+>  				    enum ima_hooks func)
+>  {
+> diff --git a/security/integrity/ima/ima_api.c b/security/integrity/ima/ima_api.c
+> index 122d127e108d..3c5a23b4a2ff 100644
+> --- a/security/integrity/ima/ima_api.c
+> +++ b/security/integrity/ima/ima_api.c
+> @@ -188,7 +188,7 @@ void ima_add_violation(struct file *file, const unsigned char *filename,
+>   * Returns IMA_MEASURE, IMA_APPRAISE mask.
+>   *
+>   */
+> -int ima_get_action(struct mnt_idmap *idmap, struct inode *inode,
+> +int ima_get_action(const struct mnt_idmap *idmap, struct inode *inode,
+>  		   const struct cred *cred, struct lsm_prop *prop, int mask,
+>  		   enum ima_hooks func, int *pcr,
+>  		   struct ima_template_desc **template_desc,
+> diff --git a/security/integrity/ima/ima_appraise.c b/security/integrity/ima/ima_appraise.c
+> index ced2e131b061..6b21db789ef1 100644
+> --- a/security/integrity/ima/ima_appraise.c
+> +++ b/security/integrity/ima/ima_appraise.c
+> @@ -71,7 +71,7 @@ bool is_ima_appraise_enabled(void)
+>   *
+>   * Return 1 to appraise or hash
+>   */
+> -int ima_must_appraise(struct mnt_idmap *idmap, struct inode *inode,
+> +int ima_must_appraise(const struct mnt_idmap *idmap, struct inode *inode,
+>  		      int mask, enum ima_hooks func)
+>  {
+>  	struct lsm_prop prop;
+> diff --git a/security/integrity/ima/ima_main.c b/security/integrity/ima/ima_main.c
+> index ab1e53b3210d..8d9c92dc8825 100644
+> --- a/security/integrity/ima/ima_main.c
+> +++ b/security/integrity/ima/ima_main.c
+> @@ -1095,7 +1095,7 @@ static int ima_post_load_data(char *buf, loff_t size,
+>   * has been written to the passed location but not added to a measurement entry,
+>   * a negative value otherwise.
+>   */
+> -int process_buffer_measurement(struct mnt_idmap *idmap,
+> +int process_buffer_measurement(const struct mnt_idmap *idmap,
+>  			       struct inode *inode, const void *buf, int size,
+>  			       const char *eventname, enum ima_hooks func,
+>  			       int pcr, const char *func_data,
+> diff --git a/security/integrity/ima/ima_policy.c b/security/integrity/ima/ima_policy.c
+> index f79d07bb63c6..89d197d99383 100644
+> --- a/security/integrity/ima/ima_policy.c
+> +++ b/security/integrity/ima/ima_policy.c
+> @@ -575,7 +575,7 @@ static bool ima_match_rule_data(struct ima_rule_entry *rule,
+>   * Returns true on rule match, false on failure.
+>   */
+>  static bool ima_match_rules(struct ima_rule_entry *rule,
+> -			    struct mnt_idmap *idmap,
+> +			    const struct mnt_idmap *idmap,
+>  			    struct inode *inode, const struct cred *cred,
+>  			    struct lsm_prop *prop, enum ima_hooks func, int mask,
+>  			    const char *func_data)
+> @@ -757,7 +757,7 @@ static int get_subaction(struct ima_rule_entry *rule, enum ima_hooks func)
+>   * list when walking it.  Reads are many orders of magnitude more numerous
+>   * than writes so ima_match_policy() is classical RCU candidate.
+>   */
+> -int ima_match_policy(struct mnt_idmap *idmap, struct inode *inode,
+> +int ima_match_policy(const struct mnt_idmap *idmap, struct inode *inode,
+>  		     const struct cred *cred, struct lsm_prop *prop,
+>  		     enum ima_hooks func, int mask, int flags, int *pcr,
+>  		     struct ima_template_desc **template_desc,
+> 
+> -- 
+> 2.53.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
