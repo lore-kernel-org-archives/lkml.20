@@ -1,236 +1,254 @@
-Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com [209.85.167.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 357CC3E44E7
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 20:13:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C22A3E0082
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 20:14:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788380001; cv=none; b=HrbigUOFOC2r0iEFB0ynfQ8KpJYSh0qN73BrxcyWz2K7OTuXRbf11/bzbufxL0xE+JJt8PrX6uBfddHq1fIzDDEHDpKXzMOY5QLXW4DtnQnHGdkF2UewYslSIOZk1eQeJ+JrDBoRWx8DRxIICY+I6fUJFlMAQylRIdEDOakYyQg=
+	t=1788380058; cv=none; b=WRDCQyqq259Pl7QmiFkTDV63XnB3UDrjOPlMLNzw+fnUlvPK3Bdl5HSb0cMfEHCzb7Vqxcue+bjjvErodd4rglyooPv/9kCt7bprDa+3+zZOFMOKFp8kONJRvruRYLSLX3TYNWqMAupf084zzydS5znFDxE03mpMJv+pv5yy4q4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788380001; c=relaxed/simple;
-	bh=gBn7jCjW9/1RWJD8NyT5yfQPPWsYf3qMJi0i9yM1c48=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JInfmzTYnerHHu7Mn42/bffuiN+k6z8qs2otF8LHdDK94OCdM0X/unjzDyzxMesvTb7RyK9JSIk8oi+L/o+vVYTX4GwRISwTL05ycuLwZqRwVc5IxAJBSFAxF0HCnwCVZJXCG3T0MjTMBdpZvw9ySuyeFFwnLtHz06bpa/wKbz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=DUOZ8VQI; arc=none smtp.client-ip=209.85.167.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1788380058; c=relaxed/simple;
+	bh=O8F/6eJiOdRYEh2ZnCUskPgWVAFeDbTYgTCNYj+mo8Y=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=fTFeiWzjpWt8u80e5Lsyw89KLIGubPMFtFE2q9sltRhVkvr7XZvWANGfSvM/NqxmSnJ7Lnz54X3+yQnlpYGl+TvEX5FDC3ZwGHpSImtPx4dxAtjpkB4o3wtHH0F58NQbRgQPOjNMNkMOKN/pqk+zoe3GeSuyhGnXFOFcybVaTbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=lpm2mECD; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="DUOZ8VQI"
-Received: by mail-oi1-f169.google.com with SMTP id 5614622812f47-4b28d9537bcso238567b6e.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 13:13:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788379998; x=1788984798; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LK9aotORi87rRhUj6UK1F5F8i5HbF9lJJNEH2vwmoh8=;
-        b=DUOZ8VQICwiwhVLAY+mpuOzr91bQI56li5yAzKb3IGSV72GE3S5JBKdNCKdP9vmASq
-         +ED7oykENRyJBSbekPGNIjpbtF72/y90RehMQ5SWF0g7VJ8+10d9NPHrwS3WfK9GWA3N
-         A0yGuK2JLLqK6cV3fnEw+uKqTxmiuiCdzSI+3BTLNHQQyvhBzd4ODrCBWQDgPPOYikvW
-         3kvlM4JGJlVVm7uN2TcLN6+Z88d8Zt+Pmyn6S0abiz/YpCJ0lcIDHZdjrryEOLJ9kbny
-         j36ghvqwGWlIP/KShv+/iT1Rh4LuhIoT8MbckAQSmwop9TMDON4WINGrFuIBGn4OjX4B
-         EAfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788379998; x=1788984798;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LK9aotORi87rRhUj6UK1F5F8i5HbF9lJJNEH2vwmoh8=;
-        b=Yrws15cer+AcD/RFzihJ0UvMRnLiTqK8H+NnG+y7g9XqdTjC2BBFa1JcUlJ86VpCar
-         Vy8C0H7Zv+1rKzylTmVTOTfrJozvWTho9pq3fqZAPMBBo+HQd0EZ5pvwwiHxsn+1dEwZ
-         dIMSuyxCCOcXgieppxSympW+5h1gQWjNaGi2y1rLCx02c4h9NRnUVc4KTZt4oFfeby3w
-         m/idq8wKZ2WNjeZs+Df/6T8nQmo4c5NeYJjFG0D3uh+CHCmLuA9uVeQN5kDE+eB5uAfz
-         0tHjHS5cyGOObZRQEzlyFxIw1SIOOSG65UYfvZntR8gltTz93js+FhCvnK2MiTj3QGB+
-         oijg==
-X-Forwarded-Encrypted: i=1; AHgh+RoNx0AMkBZ+PURMslr19vuXE9Te+qaSl8sULMvXsTZuV/CIfXWi6RC5a0VshtdYhl52T5psu+wSpWjAJ20=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNfPQkWf41+Gup0NOLfzDjOr8r9l6zf7wKepuHN6M5ZlTPXQn/
-	cl8cC1RwtTUOqg/mGFedfckFDIUtEGn3CYjCGGFTeGwc7mCFxEikjNBjAKORTEqSWVY=
-X-Gm-Gg: AR+sD10U9kXDRFa0LmvjFuZT4WMLFN33JYWDH7m4Btjn691lms6UN7YDAUp5wK7YCnz
-	QXS25KRWLJUIU8yBNyGMa1v1dVGqWU1OzzZS7IqG4TZYN5EsjOrIgejoUhUiC7ExILbT/8p8jE9
-	Ps1KlJc11xJtc4C0TeAKvTaI47HFvnl0rvOE3hAJQgKcdSxXcZt5u43LGlG1lDlIb+6Uu7Z3zs9
-	AdyfDtzQHOZVkGsUmX+VxxEIx4cVtCX6RENfn8rhpiNmRYxK8MwUtm1GPi1ZPeHTOzBHS0IcO8O
-	/Tc8K4w2nY4L7+wZhnW0GQRy6t+YeRkHfNWmDr/bWkAOAYOMlhcymRv0SdSuj5oCzq2dkY0xyO1
-	gq3z6RDn1U3TVjVzadquCgX3r/3plvQ0EUFUdX9daP7v67OcTmP5m0Iysk+fKTVwhRy33Ak0+ld
-	tChm856BzRCTE0rjpJEKMM/vSLXaRS5qBabpnXQMNzP+3cg2zWfbUBkKEPzK5gApfzpd2AW7o2O
-	x7jUmToV+4GK+LPpIZ1xSIN6ziAAOUDGxE5cHxP
-X-Received: by 2002:a05:6808:f89:b0:496:976:acad with SMTP id 5614622812f47-4b7d9e50996mr1248833b6e.1.1788379997955;
-        Wed, 02 Sep 2026 13:13:17 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:518a:9db8:615b:293f? ([2600:8803:e7e4:500:518a:9db8:615b:293f])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b698a38f62sm2719950b6e.7.2026.09.02.13.13.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 13:13:17 -0700 (PDT)
-Message-ID: <33e466d8-962b-44a3-bc32-7afb00821428@baylibre.com>
-Date: Wed, 2 Sep 2026 15:13:16 -0500
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="lpm2mECD"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682I1cpn726397;
+	Wed, 2 Sep 2026 20:14:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=vOx4tc
+	Qvro1eM7A4lRZSKqXvPfVUtTIPbWFZwRZg64k=; b=lpm2mECDR5aBuTCve9GQPF
+	llMN90hFFLGgjCg1WFRS+y16wuTmf1DVJnQzs5xrX8h+XGTcDMw8mqCed7PzVanu
+	sqQml696+jdjN4fiwMT71gbZOs6Qc08ZW5BtuOo3En3TCpuwiiLVs8iG+lV1iQnU
+	RwJEOA+FxPS/vznaOlwVb04p/oMVnmoz+RNLa9RmWK6QBYPUo5BQ4w+0yDKhym0i
+	mxsMi7yEEtiLUE28ipO30/jzI1hJUE/fopsKKBi1tgoY6T8f19GAm+inUyxvkEHF
+	UWm1sYrm1uqYH7r8T9d9xY4lm/k5WXDABZcWbfL+f+wcLFmFL/T7dpExQSBiexqA
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbpx5s7n1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 20:14:11 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 682KBGfp012636;
+	Wed, 2 Sep 2026 20:14:10 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gcbygkywx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 20:14:10 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 682KE6st10879348
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 2 Sep 2026 20:14:06 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9C09620040;
+	Wed,  2 Sep 2026 20:14:06 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7C73A20043;
+	Wed,  2 Sep 2026 20:14:04 +0000 (GMT)
+Received: from aboo.ibm.com (unknown [9.36.18.93])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  2 Sep 2026 20:14:04 +0000 (GMT)
+Message-ID: <032f834f0f6147649d9a29ec17ac62551dbf5142.camel@linux.ibm.com>
+Subject: Re: [PATCH] powerpc/entry: Fix double accounting of user time on
+ interrupt entry
+From: Aboorva Devarajan <aboorvad@linux.ibm.com>
+To: Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: Christophe Leroy <chleroy@kernel.org>, linux-kernel@vger.kernel.org,
+        Ritesh Harjani <ritesh.list@gmail.com>,
+        Madhavan Srinivasan
+ <maddy@linux.ibm.com>,
+        linuxppc-dev@lists.ozlabs.org,
+        Mukesh Kumar
+ Chaurasiya <mchauras@linux.ibm.com>
+Date: Thu, 03 Sep 2026 01:44:03 +0530
+In-Reply-To: <95913fca-5631-40ff-abed-4afad99722e6@linux.ibm.com>
+References: <20260902050628.2553909-1-aboorvad@linux.ibm.com>
+	 <95913fca-5631-40ff-abed-4afad99722e6@linux.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/6] spi: support simultaneous assertion of multiple CS
-To: Jonathan Santos <jonath4nns@gmail.com>
-Cc: Jonathan Santos <Jonathan.Santos@analog.com>, linux-spi@vger.kernel.org,
- linux-kernel@vger.kernel.org, nuno.sa@analog.com,
- michael.hennerich@analog.com, broonie@kernel.org,
- marcelo.schmitt1@gmail.com, andriy.shevchenko@intel.com
-References: <cover.1786973376.git.Jonathan.Santos@analog.com>
- <e8870b405f29cc89439701d1fcc7e88781aaab22.1786973376.git.Jonathan.Santos@analog.com>
- <e2016946-83e8-46f5-975d-634a219417e7@baylibre.com>
- <aojo2zHCrBPmt9S/@JSANTO12-L01.ad.analog.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <aojo2zHCrBPmt9S/@JSANTO12-L01.ad.analog.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=PPc/P/qC c=1 sm=1 tr=0 ts=6a988393 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
+ a=opBZN2_kVkm32md8eYUA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: kdUp5yMMC6YSYQDO8nSVRAi8OQm0_HHK
+X-Proofpoint-ORIG-GUID: YfOAApO53ATYyMFSuGLlbDc3fzKihqZp
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE3NyBTYWx0ZWRfX6tCxOhQZZkpq
+ 3lbtPSG59kuNVMmxxWO1+sxjtX1ChkvdIHLjmPkSLlM+J9AcfRnOZDK0ABUrkuntc5i+Nz4vL73
+ jW9x7T6TYBT9fUjmSncdEnNSbnwAx6U=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE3NyBTYWx0ZWRfX9uK5SAzl3BoU
+ R5OMEpilG6gbt4dSJlRJacbProDdxSSjTyAmEo9K9btTlLW7MMuTm9QA6WoApT1upYCBVGquVZi
+ eZEJi6B0HuS+NQ8UBp6Tc6A2iq3qMkjpR6uoMG9asrANXb4dcLJQGn2Trgpun3+6l8Bf8uCxzmJ
+ NCsq+PtVB21iuzviAfGpnzY6pk5qy5kF/d+SXjs6uh2KcGdr0hlh5HKp2a9z1PEJStBYVPEK7Jm
+ p8eblFlQre97rIzEovm4mkZbmy/RlucvNPRLWY9owo1ZIK9380vjqSHUcUUSjIZXYOuvCOoZ8R+
+ fk74dsGY0i5ywQR4kV0/Oq/otZYJMvSe+LfuSHoZxXvzCbV+8wo7Jbl39WEB74/+NbRuMM11sFS
+ 9UyFEHBD4CH6BGcTxaMHvE+Pp6EOuehwCdxGfo4/AILWtpPBbt8vLyI5lJT73rrLmX0PzmYpdW8
+ jo1oN4YfEAi9lG4znfg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_04,2026-09-02_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609020177
 
-On 8/21/26 7:10 PM, Jonathan Santos wrote:
-> On 08/18, David Lechner wrote:
->> On 8/17/26 6:32 PM, Jonathan Santos wrote:
->>> Some SPI controllers allow multiple CS lines to be toggled at the same
->>> time. The existing code always used CS index 0 when tracking the last
->>> active CS in spi_set_cs(), and unconditionally set cs_index_mask to
->>> BIT(0) when parsing DT, both forcing the single CS usage.
->>>
->>> Modify spi_set_cs() to iterate last_cs[] using each logical CS index
->>> instead of always reading index 0. Modify of_spi_parse_dt() to build
->>> cs_index_mask from all parsed CS entries rather than hardcoding BIT(0),
->>> so the controller correctly identifies which CS lines belong to a device
->>> when asserting them simultaneously.
->>>
->>> Board info, ACPI, and ancillary device paths are not updated here.
->>> Board info would require an API change to accept an array of CS values
->>> and is left for a follow-up when we have a use case for this. Ancillary
->>> devices are by design single-CS, so multi-CS is not a current use case for
->>> them. ACPI represents the CS as a 64-bit integer with no established
->>> convention for encoding multiple CS indices yet, so any extension there
->>> would require a separate specification effort.
->>>
->>> Acked-by: Nuno Sá <nuno.sa@analog.com>
->>> Signed-off-by: Jonathan Santos <Jonathan.Santos@analog.com>
->>> ---
->>> Changes in v3:
->>> * None.
->>>
->>> Changes in v2:
->>> * Include Summary describind why the other SPI paths were not addressed
->>>   here.
->>> ---
->>>  drivers/spi/spi.c | 9 +++++----
->>>  1 file changed, 5 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
->>> index d9e6b4b87c89..55fb96fea243 100644
->>> --- a/drivers/spi/spi.c
->>> +++ b/drivers/spi/spi.c
->>> @@ -1090,7 +1090,7 @@ static void spi_set_cs(struct spi_device *spi, bool enable, bool force)
->>>  	spi->controller->last_cs_index_mask = spi->cs_index_mask;
->>>  	for (idx = 0; idx < SPI_DEVICE_CS_CNT_MAX; idx++) {
->>>  		if (enable && idx < spi->num_chipselect)
->>> -			spi->controller->last_cs[idx] = spi_get_chipselect(spi, 0);
->>> +			spi->controller->last_cs[idx] = spi_get_chipselect(spi, idx);
->>>  		else
->>>  			spi->controller->last_cs[idx] = SPI_INVALID_CS;
->>>  	}
->>> @@ -2594,10 +2594,11 @@ static int of_spi_parse_dt(struct spi_controller *ctlr, struct spi_device *spi,
->>>  		spi_set_chipselect(spi, idx, cs[idx]);
->>>  
->>>  	/*
->>> -	 * By default spi->chip_select[0] will hold the physical CS number,
->>> -	 * so set bit 0 in spi->cs_index_mask.
->>> +	 * Set cs_index_mask to indicate which logical CS indices are active.
->>> +	 * Each bit corresponds to a logical CS index in the spi->chip_select array.
->>>  	 */
->>> -	spi->cs_index_mask = BIT(0);
->>> +	for (idx = 0; idx < rc; idx++)
->>> +		spi->cs_index_mask |= BIT(idx);
->>>  
->>>  	/* Device speed */
->>>  	if (!of_property_read_u32(nc, "spi-max-frequency", &value))
->>
->> I have the same concern that sashiko calls out here.
->>
->> Existing users of multi-cs (not including spi-mem) follow the pattern
->> that a SPI device gets registered with the CS at index 0 and they later
->> create an auxiliary using the additional CS. This would cause the main
->> device to now assert both CS. Not what we want to happen.
-> 
-> Indeed, enalbing all CS for those cases would cause problems (like you
-> describe below). AD4080 would be an example.
-> 
-> The devicetree property seems to be a good ideia to fix this and simpler
-> to execute, but the composite device is interesting.
-> 
->>
->> If I understood (and remember) the previous explanations of this series
->> correctly, we have a different case for this one.
->>
->> We want a main device that acts as a single composite device that asserts
->> all 4 CS at the same time. Then we also need 4 auxiliary devices that
->> only assert one CS at a time for configuring the individual chips.
->>
->> So it seems to me like we need a new DT property or some way to be able to
->> tell the difference to decide whether we just use the first CS here or all
->> of them.
->>
->> Perhaps another possibility would be to leave this code the way it is and
->> do it this way instead:
->> - The SPI device passed to the IIO driver is just the first chip (one CS)
->> - The IIO driver then registers auxiliary drivers for the other 3 chips
->>   (also 1 CS each)
->> - These 4 devices will be used individual to handle configuration.
->> - The IIO driver registers a separate composite device that has the
->>   multiple lanes and and multiple CS. Whether this using the same
->>   auxiliary mechanism with additional parameters or something new
->>   probably doesn't matter too much.
->> - In this way of doing things, it would not make sense to have the
->>   spi-rx-bus-width property in the devcietree since as far as the
->>   devicetree is concerned, these are more-or-less 4 separate devices
->>   (from the SPI point of view).  Instead, this new composite device
->>   registration function would be the one setting the number of lanes
->>   based on the number of chip selects.
->>
-> 
-> My initial idea was to use the main device as the "composite" because it
-> holds the hw description, therefore the multi-lane would be handled by
-> the existing flow (that's why the spi-rx-bus-width property was
-> mandatory). This way each ancillary device would take the lane index
-> from the main device. Using the main + 3 ancillaries for individual
-> access and the new composite for simultaneous is a great alternative,
-> but removing the spi-rx-bus-width kind of excludes the information that
-> we are using multiple lanes for this device. Unless we document that 
+On Wed, 2026-09-02 at 12:37 +0530, Shrikanth Hegde wrote:
 
-I don't think it hides it. How the chip handles multi-lane is described
-by the compatible string itself. So it will be up to the IIO driver to
-call the composite device creation function with the appropriate parameters
-to tell it that in this case we need to assert all 4 CS in order to get
-a 4-lane device. I don't think we need any extra devicetree description
-for this.
+Hi Shrikanth,
 
-> "number of CS = number of lanes" on multiple-data-lanes.rst, the 
-> assumption is:
-> 
-> spi-rx-bus-width = <1>
-> spi-rx-lane-map = <1>
-> 
-> Also, it would make more sense to take the lane description from the
-> main device described in the DT considering cases like non-default
-> mapping. Or at least take it into consideration.
+> Hi Aboorva.
+>=20
+> On 9/2/26 10:36 AM, Aboorva Devarajan wrote:
+> > Since the switch to generic entry, an interrupt taken from user mode
+> > accounts user time twice: once in arch_interrupt_enter_prepare() and
+> > again in arch_enter_from_user_mode(), which irqentry_enter() invokes
+> > for the same interrupt:
+> >=20
+> > =C2=A0=C2=A0 arch_interrupt_enter_prepare()
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 account_cpu_user_entry()
+> > =C2=A0=C2=A0 irqentry_enter()
+> > =C2=A0=C2=A0=C2=A0=C2=A0 arch_enter_from_user_mode()
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 account_cpu_user_entry()
+> >=20
+> > account_cpu_user_entry() accumulates the time spent in user mode
+> > since the last return to user space, so the second call charges the
+> > same interval again.
+> >=20
+> > With CONFIG_VIRT_CPU_ACCOUNTING_NATIVE=3Dy this roughly doubles the
+> > reported user time of any workload that takes interrupts. On a
+> > pseries LPAR, ps/top show ~200% CPU for a single-threaded CPU-bound
+> > loop, and time(1) reports user time about twice the elapsed time.
+> >=20
+>=20
+> Could you please run mpstat with 50% or less loading workload like stress=
+-ng
+> and document the difference in changelog.
 
-I think if we put the CS lines in a logical order, we don't need any
-mapping. For example:
+Sure, will add it in v2.
 
-CS | Lane
----+-----
-0  |  0
-1  |  2
-2  |  1
-3  |  3
+1. On the same pseries LPAR, taskset -c 6 stress-ng --cpu 1 --cpu-load 50:
 
-Would just be:
+Without the patch, the reported %usr is inflated, while with the patch
+it is close to the expected 50%.
 
-reg = <0>, <2>, <1>, <3>;
+Without Patch:
+06:43:09 AM  CPU    %usr**   %nice    %sys %iowait    %irq   %soft  %steal =
+ %guest  %gnice   %idle
+06:43:10 AM    6   69.74     0.00    0.00    0.00    0.00    0.00    0.00  =
+  0.00    0.00   30.26
 
-	
+With Patch:
+06:29:33 AM  CPU    %usr**   %nice    %sys %iowait    %irq   %soft  %steal =
+ %guest  %gnice   %idle
+06:29:34 AM    6   48.51     0.00    0.00    0.00    0.99    0.00    0.00  =
+  0.00    0.00   50.50
+
+2. Single-threaded CPU-bound workload:
+
+taskset -c 100 python3 -c 'while True: pass' (executed for ~3 seconds)
+
+Without patch:
+TIME         ELAPSED %CPU
+00:00:06       00:02  209
+
+With patch:
+TIME         ELAPSED %CPU
+00:00:03       00:03  104
+
+>=20
+> > Remove the accounting from arch_interrupt_enter_prepare() and rely on
+> > arch_enter_from_user_mode(), which runs for both syscalls and
+> > interrupts. The duplicate account_stolen_time() call is removed the
+> > same way.
+> >=20
+> > Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
+> > Signed-off-by: Aboorva Devarajan <aboorvad@linux.ibm.com>
+> > ---
+> > Verified on a pseries LPAR (CONFIG_VIRT_CPU_ACCOUNTING_NATIVE=3Dy),
+>=20
+> Usual default is VIRT_CPU_ACCOUNTING_GEN, selected by NO_HZ_FULL.
+> Most distros usually enable NO_HZ_FULL=3Dy.
+>=20
+> At hindsight, I don't see the issue dependency on it. But better to be su=
+re.
+
+It is only observed with CONFIG_VIRT_CPU_ACCOUNTING_NATIVE.
+
+account_cpu_user_entry() updates utime only with NATIVE accounting.
+With CONFIG_VIRT_CPU_ACCOUNTING_GEN or tick-based accounting, it is
+an empty stub and therefore a no-op.
+
+So kernels using CONFIG_VIRT_CPU_ACCOUNTING_GEN or tick-based accounting
+are not affected.
+
+> > 7.3.0-rc1, single-threaded CPU-bound loop:
+> >=20
+> > Before:
+> >=20
+> > =C2=A0=C2=A0 $ python3 -c 'while True: pass' &
+> > =C2=A0=C2=A0 $ sleep 3; ps -p $! -o pid,etime,time,pcpu
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PID=C2=A0=C2=A0=C2=A0=C2=A0 ELAPSE=
+D=C2=A0=C2=A0=C2=A0=C2=A0 TIME %CPU
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 4980=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ 00:03 00:00:06=C2=A0 210
+> >=20
+> > After:
+> >=20
+> > =C2=A0=C2=A0 $ python3 -c 'while True: pass' &
+> > =C2=A0=C2=A0 $ sleep 3; ps -p $! -o pid,etime,time,pcpu
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PID=C2=A0=C2=A0=C2=A0=C2=A0 ELAPSE=
+D=C2=A0=C2=A0=C2=A0=C2=A0 TIME %CPU
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 4951=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ 00:03 00:00:03=C2=A0 105
+> >=20
+> > =C2=A0 arch/powerpc/include/asm/entry-common.h | 6 ++++--
+> > =C2=A0 1 file changed, 4 insertions(+), 2 deletions(-)
+> >=20
+> > diff --git a/arch/powerpc/include/asm/entry-common.h b/arch/powerpc/inc=
+lude/asm/entry-common.h
+> > index c5adb5006361..984294e62568 100644
+> > --- a/arch/powerpc/include/asm/entry-common.h
+> > +++ b/arch/powerpc/include/asm/entry-common.h
+> > @@ -222,8 +222,6 @@ static inline void arch_interrupt_enter_prepare(str=
+uct pt_regs *regs)
+> > =C2=A0=20
+> > =C2=A0=C2=A0	if (user_mode(regs)) {
+> > =C2=A0=C2=A0		kuap_lock();
+> > -		account_cpu_user_entry();
+> > -		account_stolen_time();
+> > =C2=A0=C2=A0	} else {
+> > =C2=A0=C2=A0		kuap_save_and_lock(regs);
+> > =C2=A0=C2=A0		/*
+> > @@ -426,6 +424,10 @@ static __always_inline void arch_enter_from_user_m=
+ode(struct pt_regs *regs)
+> > =C2=A0 #endif
+> > =C2=A0=C2=A0	kuap_assert_locked();
+> > =C2=A0=C2=A0	booke_restore_dbcr0();
+> > +	/*
+> > +	 * User and stolen time is accounted here for every entry from
+> > +	 * user mode. The interrupt prepare hooks must not account again.
+> > +	 */
+> > =C2=A0=C2=A0	account_cpu_user_entry();
+> > =C2=A0=C2=A0	account_stolen_time();
+> > =C2=A0=20
+> >=20
+> > base-commit: fb442a6673ff1046bf67754957d95880fdb394b5
+
+Thanks,
+Aboorva
