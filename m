@@ -1,80 +1,50 @@
-Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com [209.85.215.227])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8830F3876B2
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 20:44:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E1BB33A9FF;
+	Wed,  2 Sep 2026 20:46:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788381867; cv=none; b=dCDIgqtv8IUfYedSnLTADvm5YMEe2pAomSc3sc6tvyhrtsziH8cuDwm5/MEeIaHvgiiJfLbl/bd3XESUolhtAvxW+obLkXk1JHaf74mNx0m/GMf6GngsJ6pp04zSV/fG3c033ZNdfmFg180JnJQBMrAI88I9ScbBBk/YODLaUdw=
+	t=1788381969; cv=none; b=YCNjBdvtesgRkc88swXiovpbFD9Q2lPmifNkpp9FWvAPeYoWuyR5OD+g6+SkNxXyaM3sRcK5MQVZjvzbixjxZSPCxO2xYAU9c6yu7cUiclOE0jsS8HQW3zUhiUbTXZBrh7uRIn/oj862vRUnDtjG0eZNbNPfP4jZC31FrtZTjbQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788381867; c=relaxed/simple;
-	bh=t4ZEzWp1y1W9VaBiAdoym+vJF/RLWhP7llUrcF76EdI=;
+	s=arc-20240116; t=1788381969; c=relaxed/simple;
+	bh=/vtCuOsydTOxETyWwFyCM3riLJvYW2UNVDOQEkh91GY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iIvOftZ36Mp8tEBNnbiNvot9QMAW2D6Aqe5aY7nZPjnGmLSFt8LCPWLYH5s+F8QVLUPdCBhJMzWbfw6yRSMf8PTAaZLcH3SIQpmJPq8M1ZlQtp+e6CyzjhjeKFj+MgNmR5p+zxiApq4eQYxoh3MrDs/ZmV7/XAGHa3QbtoP9XQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=XVQzb6Tn; arc=none smtp.client-ip=209.85.215.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	 In-Reply-To:Content-Type; b=VgQxN2VPEvwIN4rNEexw/UAbau3J7RagxPi+B0WQIdmVrF+KJX2qD0r2whIi7on8PHhf6smUs2WhzF7aYnXSErQBFw6hdt4V7ZqUIkXjGlm5geGEU4zkH84il9Z6doURxVijkG2pbukP6L21edTLwtA65zte6LuJqzhQMJARK00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=B2PF410O; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="XVQzb6Tn"
-Received: by mail-pg1-f227.google.com with SMTP id 41be03b00d2f7-cc147d86bebso351398a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 13:44:25 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788381865; x=1788986665;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=PD094jSE9LfhMHsvJNe0MdQ7eQ98KtiXjUQDqdbLmUE=;
-        b=oekTypehvSmMzMfw6DDjsMwNSBknz1Fmd116PecnCLgMJLOUmuHzFib184z9ixWsV2
-         dHEqCOmQ1ZlFKw2Bq0ivE53f+KeUawjY56HZMEdvJ3G83RzrKHfzwjarWdtqE8CVyELq
-         uL09/uB9mn93BnF1n/eNMY/nLNDcdkBxBsteQzuLz/gHnZ8lXoGbJNo3lq4L0sFlus5F
-         2VrfjoL1qAp2OyVLmk8uYo6vONlgnq1QelviEcHJXcnR4LydBpa9O/RhmuSIqzmDuScq
-         NI1iL4Zxroc+5A759Y8O1dLba5c4pqs1eyDNB1WldGvqbH77Fk0P96t94Pr+qwVHvoee
-         Dqag==
-X-Forwarded-Encrypted: i=1; AKwUvBzI8iHk8qr45MU6cCcJuPmh/Tg8TwI9I4DApRUbpDw5d7Wob1l4W+pBrMQqnAdj7v8HTWBszwtEzNCIzl0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lCGIN/8LTSczWOPgTsu5aDJrnI4HkKQR2QZAcdUgLEFaiUjm/m
-	nSD2PJr/9TxXrX7keLi8MnifiTSQBFhauYPZOMDZWSO08J8ovdWihnjT1UxlrUS0o3nNgUapiXp
-	hw9aT/Fm7m/US293o+qDF1Ij24lZjjyhXydW0HRifoPN9LcbPvMHZKZFvQNtVoyimD0ONNyva/2
-	nV+ZcFakpOpahJauXjFzLGDHTKAp6jyu3O5l5ipyNVVzpa3ng8JCjqHopCHy0HeD+Yb4FnLjn2K
-	d2RcbbdzyA5R3XDjc0LmdQr
-X-Gm-Gg: AYBFou0bKUfGQnLSKuMPUCSi13q0EiRhNyIPhSQfB1MThbwexscjjlUpD5rb76CYboe
-	9lCGsiu6XBsgGxF8THbRe4iZCambhtOwMcwbVZrQihN2LnB6hq9wVDgGZGIxGGti34KK9FmQbyT
-	L1EbcZ6R9KYINcW28URXenm+rCz0nYXU9CODkx3fCu3S1S3ADzQPpvNaRmQWL324EkjrfXSO3Fx
-	X6tVALPmmXZJnJf0rsKZNFywd6rt/QNhbh9UmzjcKDjs7NeaPyOVzF8WKQBP3Qq0qUw177OEK+r
-	zCiybb2Fn0BCUs9lh517IQjVIKaViVXl2hTCQcYyZxlbbh/IjtEibuAgc1epPASqVhLLBX7RxRP
-	TDRDScgcfp3SHG9ULF1nZHJTXYBhDXCBzGO4Ray4oCoUQT7WJdxvvfntWCBSaQjlBkTx22MBEHO
-	wn4Dlt4kmryrYjlDfGkAYjOmcvs+lcXeDor7ifl5A8
-X-Received: by 2002:a17:90b:2e46:b0:38f:a81:15b1 with SMTP id 98e67ed59e1d1-39b08653554mr1802302a91.19.1788381864595;
-        Wed, 02 Sep 2026 13:44:24 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
-        by smtp-relay.gmail.com with ESMTPS id 5a478bee46e88-33258cbda19sm11275eec.11.2026.09.02.13.44.24
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 02 Sep 2026 13:44:24 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1cade6b71so281521a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 13:44:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1788381862; x=1788986662; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PD094jSE9LfhMHsvJNe0MdQ7eQ98KtiXjUQDqdbLmUE=;
-        b=XVQzb6TnVQN9NYDcHInTlkNuvhdPZyaPRUdK8js1PqYN9IMvrJrIXNSJm9USjKmdJG
-         GbmsVNN7+h4QMc66SiLah71IWrd+QIkGzrccAFoET+cZUJQB+kxazM3ygA7WRh7jJWME
-         G1UatDltCCG6xwA2BjL9p2ZvGbFne/0X6hodE=
-X-Forwarded-Encrypted: i=1; AKwUvBwbmtqH6WkA1ccsknFeQpXsM8oeCKUfR8NSLBDMnsMirt7atyJPs2ArPHiM9ap+8/MQJPcOEkePw8OHaKs=@vger.kernel.org
-X-Received: by 2002:a17:90a:d446:b0:395:c3f7:2895 with SMTP id 98e67ed59e1d1-39b07f2f50amr1792410a91.7.1788381862372;
-        Wed, 02 Sep 2026 13:44:22 -0700 (PDT)
-X-Received: by 2002:a17:90a:d446:b0:395:c3f7:2895 with SMTP id 98e67ed59e1d1-39b07f2f50amr1792375a91.7.1788381861863;
-        Wed, 02 Sep 2026 13:44:21 -0700 (PDT)
-Received: from [10.211.247.235] ([192.19.50.250])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3325534cd65sm635205eec.6.2026.09.02.13.44.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 13:44:21 -0700 (PDT)
-Message-ID: <e84774ae-b49d-4df5-923d-ae2cde480aaf@broadcom.com>
-Date: Wed, 2 Sep 2026 13:44:27 -0700
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="B2PF410O"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788381967; x=1819917967;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=/vtCuOsydTOxETyWwFyCM3riLJvYW2UNVDOQEkh91GY=;
+  b=B2PF410OJGKJLBmS/zHCPbPtF+4duCzDSyA6OrHq0iq2WmzovY3pPFlZ
+   c3JFVN7veugLOJFx8M4YI0qKvtHN4wJPKDYUK6GZ3wVzTuA/P5don9VE3
+   GQlxGQLGaejqrykPpyUp3u3Nk2MGjMl0v8nkFkpVJy7/Rz5QRn0crY3ps
+   ZDFbIcdIwbkxJddyi6Bjd23TOn+Nv/1sDOEUxp+UyCQg2m1AmCaLO3Q2k
+   NkC1CqbhxVWnBJOKHaqm+IDXLW2+VjrWg2UNQrTU4dmOqKMQKdCZBWBGp
+   OpgIuJ/W91a2khYTZjI4DlihPMgDw5+v6YRDOXt/GVW0wlmg5zcaY8yqG
+   w==;
+X-CSE-ConnectionGUID: FljH8xdBRV2O89uRizLVOw==
+X-CSE-MsgGUID: rWZ/GV7mQzieo/C2v/IqJg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="88776961"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="88776961"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 13:46:06 -0700
+X-CSE-ConnectionGUID: 3r1FCCkLSvyVJEfxycNp/A==
+X-CSE-MsgGUID: 0K90+9HKRkOQqWOJaR/iiA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="268191963"
+Received: from cjhill-mobl.amr.corp.intel.com (HELO [10.125.110.134]) ([10.125.110.134])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 13:46:05 -0700
+Message-ID: <09924551-558d-4c9b-afb7-1e592cb640a3@intel.com>
+Date: Wed, 2 Sep 2026 13:46:04 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,93 +52,88 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] drm/vmwgfx: Treat zero SVGA_REG_CURSOR_MAX_DIMENSION
- as unset
-To: fausten <yunfeng.li.nb@gmail.com>, dri-devel@lists.freedesktop.org,
- zack.rusin@broadcom.com
-Cc: bcm-kernel-feedback-list@broadcom.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- linux-kernel@vger.kernel.org
-References: <ef11cc4a-fbaa-415a-bda1-2ac491f3b5e2@broadcom.com>
- <20260830151619.2452307-1-yunfeng.li.nb@gmail.com>
-From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+Subject: Re: [PATCH RFC v3 14/21] x86: mm: carve out the generic compile-time
+ folded pgtable case in effective_prot()
+To: Yeoreum Yun <yeoreum.yun@arm.com>, Russell King <linux@armlinux.org.uk>,
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, Andrew Morton <akpm@linux-foundation.org>,
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Tianrui Zhao <zhaotianrui@loongson.cn>,
+ Bibo Mao <maobibo@loongson.cn>, Anup Patel <anup@brainfault.org>,
+ Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, Dave Hansen <dave.hansen@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jonas Bonn <jonas@southpole.se>,
+ Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
+ Stafford Horne <shorne@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ loongarch@lists.linux.dev, linux-mips@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-mm@kvack.org, kvm@vger.kernel.org,
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-openrisc@vger.kernel.org
+References: <20260902-dummy_ptxp3-v3-0-5d8f5b17c25c@arm.com>
+ <20260902-dummy_ptxp3-v3-14-5d8f5b17c25c@arm.com>
+From: Dave Hansen <dave.hansen@intel.com>
 Content-Language: en-US
-In-Reply-To: <20260830151619.2452307-1-yunfeng.li.nb@gmail.com>
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ xsFNBE6HMP0BEADIMA3XYkQfF3dwHlj58Yjsc4E5y5G67cfbt8dvaUq2fx1lR0K9h1bOI6fC
+ oAiUXvGAOxPDsB/P6UEOISPpLl5IuYsSwAeZGkdQ5g6m1xq7AlDJQZddhr/1DC/nMVa/2BoY
+ 2UnKuZuSBu7lgOE193+7Uks3416N2hTkyKUSNkduyoZ9F5twiBhxPJwPtn/wnch6n5RsoXsb
+ ygOEDxLEsSk/7eyFycjE+btUtAWZtx+HseyaGfqkZK0Z9bT1lsaHecmB203xShwCPT49Blxz
+ VOab8668QpaEOdLGhtvrVYVK7x4skyT3nGWcgDCl5/Vp3TWA4K+IofwvXzX2ON/Mj7aQwf5W
+ iC+3nWC7q0uxKwwsddJ0Nu+dpA/UORQWa1NiAftEoSpk5+nUUi0WE+5DRm0H+TXKBWMGNCFn
+ c6+EKg5zQaa8KqymHcOrSXNPmzJuXvDQ8uj2J8XuzCZfK4uy1+YdIr0yyEMI7mdh4KX50LO1
+ pmowEqDh7dLShTOif/7UtQYrzYq9cPnjU2ZW4qd5Qz2joSGTG9eCXLz5PRe5SqHxv6ljk8mb
+ ApNuY7bOXO/A7T2j5RwXIlcmssqIjBcxsRRoIbpCwWWGjkYjzYCjgsNFL6rt4OL11OUF37wL
+ QcTl7fbCGv53KfKPdYD5hcbguLKi/aCccJK18ZwNjFhqr4MliQARAQABzUVEYXZpZCBDaHJp
+ c3RvcGhlciBIYW5zZW4gKEludGVsIFdvcmsgQWRkcmVzcykgPGRhdmUuaGFuc2VuQGludGVs
+ LmNvbT7CwXgEEwECACIFAlQ+9J0CGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJEGg1
+ lTBwyZKwLZUP/0dnbhDc229u2u6WtK1s1cSd9WsflGXGagkR6liJ4um3XCfYWDHvIdkHYC1t
+ MNcVHFBwmQkawxsYvgO8kXT3SaFZe4ISfB4K4CL2qp4JO+nJdlFUbZI7cz/Td9z8nHjMcWYF
+ IQuTsWOLs/LBMTs+ANumibtw6UkiGVD3dfHJAOPNApjVr+M0P/lVmTeP8w0uVcd2syiaU5jB
+ aht9CYATn+ytFGWZnBEEQFnqcibIaOrmoBLu2b3fKJEd8Jp7NHDSIdrvrMjYynmc6sZKUqH2
+ I1qOevaa8jUg7wlLJAWGfIqnu85kkqrVOkbNbk4TPub7VOqA6qG5GCNEIv6ZY7HLYd/vAkVY
+ E8Plzq/NwLAuOWxvGrOl7OPuwVeR4hBDfcrNb990MFPpjGgACzAZyjdmYoMu8j3/MAEW4P0z
+ F5+EYJAOZ+z212y1pchNNauehORXgjrNKsZwxwKpPY9qb84E3O9KYpwfATsqOoQ6tTgr+1BR
+ CCwP712H+E9U5HJ0iibN/CDZFVPL1bRerHziuwuQuvE0qWg0+0SChFe9oq0KAwEkVs6ZDMB2
+ P16MieEEQ6StQRlvy2YBv80L1TMl3T90Bo1UUn6ARXEpcbFE0/aORH/jEXcRteb+vuik5UGY
+ 5TsyLYdPur3TXm7XDBdmmyQVJjnJKYK9AQxj95KlXLVO38lczsFNBFRjzmoBEACyAxbvUEhd
+ GDGNg0JhDdezyTdN8C9BFsdxyTLnSH31NRiyp1QtuxvcqGZjb2trDVuCbIzRrgMZLVgo3upr
+ MIOx1CXEgmn23Zhh0EpdVHM8IKx9Z7V0r+rrpRWFE8/wQZngKYVi49PGoZj50ZEifEJ5qn/H
+ Nsp2+Y+bTUjDdgWMATg9DiFMyv8fvoqgNsNyrrZTnSgoLzdxr89FGHZCoSoAK8gfgFHuO54B
+ lI8QOfPDG9WDPJ66HCodjTlBEr/Cwq6GruxS5i2Y33YVqxvFvDa1tUtl+iJ2SWKS9kCai2DR
+ 3BwVONJEYSDQaven/EHMlY1q8Vln3lGPsS11vSUK3QcNJjmrgYxH5KsVsf6PNRj9mp8Z1kIG
+ qjRx08+nnyStWC0gZH6NrYyS9rpqH3j+hA2WcI7De51L4Rv9pFwzp161mvtc6eC/GxaiUGuH
+ BNAVP0PY0fqvIC68p3rLIAW3f97uv4ce2RSQ7LbsPsimOeCo/5vgS6YQsj83E+AipPr09Caj
+ 0hloj+hFoqiticNpmsxdWKoOsV0PftcQvBCCYuhKbZV9s5hjt9qn8CE86A5g5KqDf83Fxqm/
+ vXKgHNFHE5zgXGZnrmaf6resQzbvJHO0Fb0CcIohzrpPaL3YepcLDoCCgElGMGQjdCcSQ+Ci
+ FCRl0Bvyj1YZUql+ZkptgGjikQARAQABwsFfBBgBAgAJBQJUY85qAhsMAAoJEGg1lTBwyZKw
+ l4IQAIKHs/9po4spZDFyfDjunimEhVHqlUt7ggR1Hsl/tkvTSze8pI1P6dGp2XW6AnH1iayn
+ yRcoyT0ZJ+Zmm4xAH1zqKjWplzqdb/dO28qk0bPso8+1oPO8oDhLm1+tY+cOvufXkBTm+whm
+ +AyNTjaCRt6aSMnA/QHVGSJ8grrTJCoACVNhnXg/R0g90g8iV8Q+IBZyDkG0tBThaDdw1B2l
+ asInUTeb9EiVfL/Zjdg5VWiF9LL7iS+9hTeVdR09vThQ/DhVbCNxVk+DtyBHsjOKifrVsYep
+ WpRGBIAu3bK8eXtyvrw1igWTNs2wazJ71+0z2jMzbclKAyRHKU9JdN6Hkkgr2nPb561yjcB8
+ sIq1pFXKyO+nKy6SZYxOvHxCcjk2fkw6UmPU6/j/nQlj2lfOAgNVKuDLothIxzi8pndB8Jju
+ KktE5HJqUUMXePkAYIxEQ0mMc8Po7tuXdejgPMwgP7x65xtfEqI0RuzbUioFltsp1jUaRwQZ
+ MTsCeQDdjpgHsj+P2ZDeEKCbma4m6Ez/YWs4+zDm1X8uZDkZcfQlD9NldbKDJEXLIjYWo1PH
+ hYepSffIWPyvBMBTW2W5FRjJ4vLRrJSUoEfJuPQ3vW9Y73foyo/qFoURHO48AinGPZ7PC7TF
+ vUaNOTjKedrqHkaOcqB185ahG2had0xnFsDPlx5y
+In-Reply-To: <20260902-dummy_ptxp3-v3-14-5d8f5b17c25c@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On 8/30/26 8:16 AM, fausten wrote:
-> The cursor plane code validates cursor dimensions against
-> SVGA_REG_CURSOR_MAX_DIMENSION before every cursor update, and
-> rejects the update with -EINVAL if the cursor is larger than the
-> reported maximum.
-> 
-> However, this register is only available on hardware versions 18
-> and above, which introduced cursor MOBs. Older hardware (e.g. a
-> VMware Fusion guest with SVGA version 2) returns 0 for it.
-> In that case every cursor update is rejected,
-> and the log is spammed with:
-> 
->   [drm] Cursor dimensions (64, 64) exceed device max 0
-> 
-> The visible symptom is that the hardware cursor never appears at
-> all on VMware Fusion guests (SVGA version 2), making the mouse
-> pointer invisible even though the input devices work fine.
-> 
-> Treat a reported maximum of 0 as "not implemented" and skip the
-> dimension check in that case, restoring the pre-existing behaviour
-> of accepting the cursor.
-> 
-> Tested on VMware Fusion with an SVGA version 2 device where the
-> cursor previously did not show up.
-> 
-> Fixes: d5ed8749168a ("drm/vmwgfx: enforce cursor size limits for MOB cursors")
-> Signed-off-by: Yunfeng Li <yunfeng.li.nb@gmail.com>
-> ---
->  drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 12 ++++++++----
->  1 file changed, 8 insertions(+), 4 deletions(-)
-> 
-> ---
-> Changes in v3:
-> - Use an explicit cursor_max_dim > 0 comparison (Maaz).
-> - Fix the comments: the register requires cursor MOBs which exist
->   only on hw version 18 and above; it is not Fusion-specific
->   (Maaz).
-> 
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-> index d1e7df500..3d4660684 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-> @@ -237,8 +237,10 @@ static int vmw_cursor_mob_get(struct vmw_cursor_plane *vcp,
->  	mob_max_size = vmw_read(dev_priv, SVGA_REG_MOB_MAX_SIZE);
->  	cursor_max_dim = vmw_read(dev_priv, SVGA_REG_CURSOR_MAX_DIMENSION);
->  
-> -	if (size > mob_max_size || vps->base.crtc_w > cursor_max_dim ||
-> -	    vps->base.crtc_h > cursor_max_dim)
-> +	/* Cursor MOBs, and thus this register, exist only on hw version 18+. */
-> +	if (cursor_max_dim > 0 &&
-> +	    (size > mob_max_size || vps->base.crtc_w > cursor_max_dim ||
-> +	     vps->base.crtc_h > cursor_max_dim))
->  		return -EINVAL;
->  
->  	if (vps->cursor.mob) {
-> @@ -748,8 +750,10 @@ int vmw_cursor_plane_atomic_check(struct drm_plane *plane,
->  		u32 cursor_max_dim =
->  			vmw_read(vmw, SVGA_REG_CURSOR_MAX_DIMENSION);
->  
-> -		if (new_state->crtc_w > cursor_max_dim ||
-> -		    new_state->crtc_h > cursor_max_dim) {
-> +		/* Cursor MOBs, and thus this register, exist only on hw version 18+. */
-> +		if (cursor_max_dim > 0 &&
-> +		    (new_state->crtc_w > cursor_max_dim ||
-> +		     new_state->crtc_h > cursor_max_dim)) {
->  			drm_warn(&vmw->drm,
->  				 "Cursor dimensions (%d, %d) exceed device max %u\n",
->  				 new_state->crtc_w, new_state->crtc_h,
+Thanks for making those changes and adding the helper to generic code.
 
-This patch bricked my testing VM, investigating..
-
-
--- 
-Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+Acked-by: Dave Hansen <dave.hansen@linux.intel.com>
