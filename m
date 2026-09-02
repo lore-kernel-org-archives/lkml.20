@@ -1,24 +1,25 @@
 Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022133.outbound.protection.outlook.com [52.101.96.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E2634EF04;
-	Wed,  2 Sep 2026 02:02:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CBB133D6E6;
+	Wed,  2 Sep 2026 02:02:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.133
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788314571; cv=fail; b=V9OUjOanYxHs08FAbCpAswt+envp1SB6Y+PW6pKAVN9caqDKbMVcwtqXOGIZ/lJ8euYHurs95WgHm4FvJh1+mEhcZxuRJe6P1IGhdWzOkhPSq58ntvMhLuMiEEKNUbK1qc5dvxeumMrvAUh8vrEHDmN9oWSTia5noD9BuY4+Sbo=
+	t=1788314579; cv=fail; b=Qo9G9qbbXSEFl4z2jAmqFBE3PvfUmVg6+hnCkWD1xeZM9ljSHamOtJ/RiVIHb3VBhhEpcC2zGTDH+qCA/CLP/8V+I4L3Sk0HKrYoWwadY5LFM4M0MOCY3VzuGpbexBDEFW2P2YHNpHrS/enieQAVKmV+MJEH3YYfX0s/M1X7v4k=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788314571; c=relaxed/simple;
-	bh=ju3uQ3alenXQAxhVvhFPsLyNjouTwFfW3J8Jcc8oGKE=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=c6EuA/K/mBOSDG+zA0Mo2slW3UkFrzaAjewBLb2DHj3liMPEIXOqS5HsCp7A6/7giNUk5aQG9akv8NQrPOX5DtgGurDsEgRjKpmkyXUTzobDRPl9UUUeFRZhLS6LLnb36tcgPdrZDRR/mMsw000e4Cqp/MD6M3Uv3Xgezz+GhtM=
+	s=arc-20240116; t=1788314579; c=relaxed/simple;
+	bh=ezFZDn+nK4eT6xnu4pbaxxWnX6V0BhOXHsCclREqiRE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=aRbN7FORVZtHbo+JitbYUDu2IyV+iez+hJe0kIqz4tEJWvrvPlZG1XR8gAWdU9UKBeRGwi9SbOtebNTxAzquT3fMPKoqX1Ae+gWKfrQJkvMKMtdpVb+3dv7YEz0lj7Bw0QklyzOY8LJD3kO0z55mH2NSKuRlwokZMDQQKewv1mI=
 ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.96.133
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x/03a3zAbazBNmlDUcO9wEwvTF+LN7aNaHLS9c+ILUvZ3CzON95C6kwhqDJd66jsZ8fh+pzpk4Zg6Utqnt7pqv2XzbeL8JWO47Rc6Hs3QXl20Xj1a59MeEs2kzxnfJIztdeey9Gvq/qIKz0SjY0aZEY6A6CAmPA7fHqXT8WI57DU0hf4RbN7OrNy+Z7/VAuxDt/izXCWwEjwHtGNw8ZmY78dMkXEcAlBZatyRqCj6NcKoyUi/D5Rx7K3XfJsaWNt2FfJTvctxqOWpnlSFjxjVGULR+4VdpD9mMUoY67QbPACqjqpED2nl98iC1wSFT9L3Ni0Sp4Xoq4B/ezAXfvJqQ==
+ b=CgAJaHQsq34k7gDX4OuFkWM5uOjhogWIrEs43oFxd9GXP2vPoPUcZyi9MUtSNcFBwOnWJ1d+Sm5/xfL0rPZIfE9tzi2als8EYxGyJUZjAJrd05cSFG3acGfdsipeNvytldIAz9hUonXAf3+ZXiFQi+j78NG4VmS+LQDMbpYl+s+w91tdHT3EBh5Y1XLuEbN1u6L7kDoKjHN416qV0Yl9fhadHpjHrXVtQdcuIGBT91eIe8BkaDp1cBPfG0Ix3dXvn2Us04KtKI4sHzJjwtOeo/HVeB1adOv+AugCykskOYX9xnEi33Nv1RrFUgs7LXxN22IwdIuEv0Wh6DQnG4NKLw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=TLOjcMhFgO9J2rCo8kfa5KwNoKn1A0NDubKbqYbNMQw=;
- b=aZ8X0ImXmP05BxucSJzQO+bZq4cDrMFqgmdb7wMk4MFmgJMI++Bpoaz3+2Hnol50/BlLwIO4LAgFAdWUQNn/pWFfBmoul5tzkBWCqoMfYEen/eAbHqPicO3XziEeoe2bFjXNOL3AymVc1dInIAdlA+n7x4u/zdUqM01eZg6aMpeW//nNQUcsPJIklxnq+Y6YPoG0bUKeuzw4V+Md8W3VK5V0+oI8khaoTH7ZpK8wz/NaBucvghrS34fY9JA1lanXt4DWKClIdqQPE6fMKD8vwKqSyBCd2mxZTQU1kqd3EnAY5lvz8hDiS6FFtMo4Uuy5uSBoCXwLH/V4cCsQjep39A==
+ bh=1nHxhrK5XASI/i8SjDEdO/bffHrIEYRR+FQg8rh1rpg=;
+ b=dcEvrh+v9c0ZC8G4Bkf2++/1wq2MTptU86vKO+QeZcqktJ3urxxVuGyivm/58KYvbwPV+6SjWpYlxYsIvFpHiYSo5uZAJezTbzdmblHOkRS+sMDamvjoP1bYrbZBJUqaPOdnBQLcsbHvcHuxEC5pN4SL7KMycV+eYOMSKP210E9TkOV3JxxRehSc5ClfImsWJjOnyDliIRExnnznYc1lMwUHXRrKAGjMnzuP8CDhHTFy1hEi/YflBD/5ZBD0oMFHGkyykf7Pyf/59lJWZNDbSzlnPPQIHbSI0NMano5tqIJTlndOQbwhPZihGQkUPM4bAfX2xRls7k39eyaVcZN1Pw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
  dkim=pass header.d=atomlin.com; arc=none
@@ -28,11 +29,11 @@ Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
  by LOAP123MB8292.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:43b::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 02:02:39 +0000
+ 2026 02:02:42 +0000
 Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 02:02:39 +0000
+ 02:02:41 +0000
 From: Aaron Tomlin <atomlin@atomlin.com>
 To: tony.luck@intel.com,
 	bp@alien8.de,
@@ -49,14 +50,16 @@ Cc: x86@kernel.org,
 	nick.lange@gmail.com,
 	linux-edac@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] x86/mce: Fix timer list corruption and avoid redundant polling
-Date: Tue,  1 Sep 2026 22:02:11 -0400
-Message-ID: <20260902020234.149814-1-atomlin@atomlin.com>
+Subject: [PATCH v2 1/2] x86/mce: Do not reinitialise mce_timer structure on CPU restart
+Date: Tue,  1 Sep 2026 22:02:12 -0400
+Message-ID: <20260902020234.149814-2-atomlin@atomlin.com>
 X-Mailer: git-send-email 2.55.0
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20260902020234.149814-1-atomlin@atomlin.com>
+References: <20260902020234.149814-1-atomlin@atomlin.com>
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN1PR12CA0021.namprd12.prod.outlook.com
- (2603:10b6:408:e1::26) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+Content-Type: text/plain
+X-ClientProxiedBy: BN9PR03CA0301.namprd03.prod.outlook.com
+ (2603:10b6:408:112::6) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -66,115 +69,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LOAP123MB8292:EE_
-X-MS-Office365-Filtering-Correlation-Id: 231f62cc-1863-41ef-c030-08df089643f2
+X-MS-Office365-Filtering-Correlation-Id: e0aabd8b-3041-4bb1-e1ba-08df089645c1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|10067099003|56012099006|6133799003|18002099003;
+	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|10067099003|5023799004|56012099006|6133799003|18002099003|22082099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	/ySSuqYgFbjLL8Icz1nZvYKlVO7Aok3erKv0K0buMRTkznx8o3I1VIvOsRhEKpuel8jtJUjvz1S5ViZbjEedrqMl4o4lKjczHEtbZjW13GsP1NJRjxJVh6XiHIXlKeY0HChM73yflGpGvDZNsO1JGx3r79Spdxg7RaP4jZ/7IY5zCExSYxvt1S/amozbr200bqIECZCvED7kg6NNzwA3Zl2HtQexEAJWv4Lg1kSvxHg+9Q3PMtqmCxBfhxHF2tXJkwloUYzGW9C4H4J5R69fS5F1JMqdxde0bjJcQ81szZQV0B2uDSAsYPqLoL6g7yfSwXT0SgCrEHxJTGr/3jF4dSTTQoDAEu0iBqpd+E/hCqHWVKjpfTRnKX0KUTt+wzW7vwZ4qbOkBkaS6hOAEjk2eSHYBvCFllkBZ3kw0qUaiPSyUrkAgGpQ3GQj6lmG+AsjFS6p1luZry2I9JLYaFP4z4s/ruK86WvU/kwYYgMlr3KTAYlKgp3fgYPOqjWnl4qJayA/oq9XQ3lTwWOSizBN+9qxltWIdUaAF95LrJD2Pmw/ZMDVfI34i3N9hq/RcrZjiPrVE1roKdXwU4wTNWCPYZknlFZRFlMTmHEBjnKdDUVM5YDjIJ4Wd7eAwGAvpl5KhiqOozWFNT6vMErpys0rFowcjSVi16kZ1xf4Sh2OtyA=
+	pslnUu837cQiKBDohKstHBZQKdsGulhPT55XdmsRmhC6Zsa4V1vZTWW5Dwv7ExmMX0D12seStqcEZEKSh8IsEW6nc0k+eJVbMJuHx9/j0gOw4bD5E1Y09TQv6SyLhaY7yj4ugYjVu2OYcdrUPYl2/B2OZPr1ctVVQndUGeNiqHmVvDdn8qfIY4IDGuOCiFAMoBtVC+2iF1hLp6cj1QvVGvNJbnK8D56SuVCc9z0LGeij3mCgpGwn46GrVaoQyJNgDxDhsIDAZAC1vMEjHPtpE3Sh5fBbUK2mwa5JRh0ZUPt+yHqc0waBebZKM87wio4zyiYe5MGO/2GXvU4vJbB9A+1hGZMceWo1Ke/fSOKxxMzZfgYuNw2/bqccwyQNXiCDStOToi7L7ddcN++HDPycO1lFEjuzIlLyx5kGHKM4gEcolbjlduc9Gvhx1IW+lHFOvUA/s4scZzBJZ0sYebvOfJpHtGUbMU1i863PAYkc8CTkKmLx0k5UNlOCSTz2tMi9sFZNA/iG3ygXc7u28Bt1DRk5SfXHvEYjWZHDr6CnActyct7ujhdt0WWSFBcQzjm4neVQFgAbdNRc8eB7aTqWyjy4BRcmg584D5KaAGJqBOaYgQnMChnHqKD7i6a9J6NEY1bCQr7Lk08NDvjeOcc1U4VnvNxA7FhpfuKKhNlIxU8=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(10067099003)(56012099006)(6133799003)(18002099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(10067099003)(5023799004)(56012099006)(6133799003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UTVtWHBHa21EYUVZdy9kenorOHZSTTM3YnVCMTI1c0t0QnN6czI0NW52TENY?=
- =?utf-8?B?NUY3SUJ1TnJMaXZiQlJ1TUd5MXlxNVdOTjVhalJBYUJtRHltYW9zblJYL3hE?=
- =?utf-8?B?ZmRTZnBZZElyNWpZZUFBQ3ZWNGFvdndpaEJWdVVLNnE0TmMySURXVzZxUHF6?=
- =?utf-8?B?REdXTXdOaStoWmU0WU1STllJRWpQMW9YYkc0NDE4YmNvSTh2R21hZkhwYjh4?=
- =?utf-8?B?OHluNk9nNjJDVnBHMWRFYUhYeDdhbHRqdHM4ZklUS3N4eGs3elF1Y29vQURu?=
- =?utf-8?B?M2xwU2FIRDlpQ2ZaSm5vZ0ZWczZuVWtHYm0zZ3Jwc2hMMnBYUDMwOWNJYVdK?=
- =?utf-8?B?QVczcnpLVlZFdkQveG1OYVlDUUFRbjZDNFdpVEFtb2VPZVZZTFE3cTlQSitX?=
- =?utf-8?B?cDhKcFAzSjVMbGRrQnFJTDd5N2xhYW5NbTNZV1g5dmhlZXBEZGtmNHM5Sk4v?=
- =?utf-8?B?RUV1RElJekVlV28wWHZFcFYrbXdwWmt0WlBkV0Jpa21lNklndnY5QW5xYlpz?=
- =?utf-8?B?OEVOam4xWXluVnJJMmdGOERVck9pamZJWXU3Z1hkbWR1MWNWQ0RSMlArbThR?=
- =?utf-8?B?R3JIamJWTC9OZGFLc2tWSzJzd21iZ0VLbnpvVVhFZjhyZkRGMGFLYUJqNkhM?=
- =?utf-8?B?ejlTd2sxbVZNTDEyaldMWHMzeWsvT1krT1RzblF1MGhnZHlPWmJJTklSeHpM?=
- =?utf-8?B?dUorNG45S3p3ZzVoUHp4K3h0cGtEUXkveHFoYlpGKzdYOTZmc0E3VlNUaFFX?=
- =?utf-8?B?TWdXdUlkTFFTdFZBTDZEUGNvVXlUa1ZJdnFrWklYREszUWRPSEFkaFhsQzZC?=
- =?utf-8?B?T2VmVnQrVzh2QmpPVlRuMDkwcG9iMC90OTlNS2ZNMVpHZENhMERjZ0dycUpH?=
- =?utf-8?B?L05nZjBxMElTN0ovQTBrZFliZFR5ZXp3amlVK2RIcGVIQkdNQ09HaTdpWWdx?=
- =?utf-8?B?NEFRblBnbnllTDg2SWpXVmVwMUF4WFhOYTlkcGJHYUYwZWloRkUzdUQzY3Iw?=
- =?utf-8?B?MmJjTEV2ZGtBWVR3YWdYWi9HOHhUYVlKTlA0QWdveWZmazh2N3NCbndzek5H?=
- =?utf-8?B?dzRtWXdsM2tRRW8rYjBEWS9Jd1lMeTFRUUxCU2JDTjhJV1UyNTZNRlNrV1I2?=
- =?utf-8?B?VDNWMm03SllucDNiM0hYbFd2dW5tNU8reCtZZ2I3Tm1yUmtZYWlGRkhyU20v?=
- =?utf-8?B?T1FxMHZXRndVWEFWekExY2pqZzJsYzZlcnN0clBnS3hOOUYzUzVvWElFL1Q2?=
- =?utf-8?B?OFlsdzZ3MXJsTzdnSUtsWWlUWkZGWnBTV251NSt3anJKTmsvRFhLNDN2OC9Q?=
- =?utf-8?B?SUhHejhPSGtteFpzaC9lRnVPQ2VmSVo3NHZvNWVrS1MzbVY3V1BVZzljUENO?=
- =?utf-8?B?ZCtxcTV5dWM3Y3FNbkNTZmRXc1ZvaHpSTXM4NWtWQ3MwU2RrSUtvcUJ6TG5V?=
- =?utf-8?B?d2VzZkx6eUR1Tnc0QktoL2h5cHR2UWpsMGkzaml0QkJENHJBYUF0RmZDVEN5?=
- =?utf-8?B?a1FnS3EzeVhmb0lkdG1VU280ZEFRV2MxNFdNbjVHRVRFRVViVWd6MlhOa3Zw?=
- =?utf-8?B?ekxjdjZJT0NvVjlOcWZCWWdNcm5xZ1ZBcnBLSUd2MXVoT3pvek9FYStWOUJQ?=
- =?utf-8?B?cjRBQWVXS2tUbThSSUUzNTF4ZFJwaWNsNkFRSk5LNm8reGRPUC8yUjVKQ09M?=
- =?utf-8?B?ajhxMlM3Wm1oZFVDOHdxRUZMNU9SZGxLdHlUM212WFIrejVGdVRCZUpiSzBJ?=
- =?utf-8?B?cXJIY1RJWXlidTBxeGxMQUhGOEk1eXBjZDJtc1doMG5wSGFLK0RKVThWckhm?=
- =?utf-8?B?ZDJ3MnhFOVZKdjhwUHYwSnNTRjQ5V2hCZU1xbjZkdlJsaWpGU1dIam9lVEdJ?=
- =?utf-8?B?aVU3aHVjZzI3ODdxd1U3VElReng0aDI1emdtYlRCTEd6KzR2RFB1aXE0K0F5?=
- =?utf-8?B?L25vZXVGNUYrVTg4N0hUQmVBdmxxclhFdFI0aGk2YlFHUlFzamtBb0o4UGJS?=
- =?utf-8?B?eFpndWx3Z21hWGtiVlpiOS9waTZkejBuWFc4MWgrTWM1bEhGTnlOWWM3K0dt?=
- =?utf-8?B?bjZPaGVja0Q4c1B5UU1HaDZlbEcvYlNmQ2ZUUjBnT2tMeGZtemhhOUJscWU3?=
- =?utf-8?B?U3dieXI2Mnp6RythdjdPUXhxTjJpbytPNVozMDg4Q2xZSlBHMjFtM1BlZW9o?=
- =?utf-8?B?TnBBeVFvelBGL3FNRVJNaEprcUh6SzZ4SEcvandscUJnQlJwTzQzdW16cEI5?=
- =?utf-8?B?dGc3eUtwb3Z5NW9RWCt2Q2dSNmZObkRSSGcxbnY4cnFMRDRHTFQ1R29hM1M0?=
- =?utf-8?B?SlpqR1gyVjViVTF6cnV2T29FUThucjZhWHc2UlVScXd4aGJQYXp3UT09?=
+	=?us-ascii?Q?FZ0sIavcPV9uwwERzNed1SZz83jGv5LknSZsAOtc07ty29rVtvidPkKthcXY?=
+ =?us-ascii?Q?5UzrV+Y1PzzXCwZmDSHOdOUuxIWWm+NIttJPb8+l7HCgdNhcDOKX6+as33si?=
+ =?us-ascii?Q?3hZ3aBT7rhIEVfInVtkYGXX5FYxcVp6n67ZUZQC3OxXflT7ykww40TuOpKNL?=
+ =?us-ascii?Q?Cdjo1FCH6vJJecWUvuvDknW+6TaMxlUfyHFwrb+T/5e7ORSkUYVzgR4fsQMA?=
+ =?us-ascii?Q?TWUxEcm7QJ+7pq39RAd8ID7Bt/N+tzB4JHlprajAIRGnoDOm8KY3mN5dONIF?=
+ =?us-ascii?Q?ktSJuLqgOgTCuMHOZ2jU4BGTKZJQWF5CjzyX39/qINqKtpd9ZkKPLKRAHyfd?=
+ =?us-ascii?Q?1Tpz/EX/wsF62vGl0HFHiyhvbt/T6D2FwmqRh4TnZqz7yvjSQF4hN3YzSW91?=
+ =?us-ascii?Q?RCjWXeMsEy/O25e5nqujokPqW+S+ucCD3ZWT41TllqOWKK3vnqf4Yt6hHAoJ?=
+ =?us-ascii?Q?zGICen+uheLhJhbivBZ5XocpX7xQ8BQJKxEcbR96OPFUjyYu6X8+dmqbHO0Z?=
+ =?us-ascii?Q?5j1KU/gHJ2LOs8B8hyGxnZiXvUlkHj9Q3Hi21lQpKqRNl03nQVTYS2c7iyaI?=
+ =?us-ascii?Q?5BLvZfaTkUkltsEWJmG7taXmgTs1Vafe0xJlAIWRZ7Wz5YH6imD+wFJdw8Oi?=
+ =?us-ascii?Q?s6Kx3JYboIzGtgSAG8Su5ZscT5CAcW9ro4Z84fbs5dENgcBkvQnejhRP2+W7?=
+ =?us-ascii?Q?i77MqzWFH9TwID7fAI9ZQVFKuHTLIgFncNycWro/X3ndCZu6i8UIU1RKrIE5?=
+ =?us-ascii?Q?Fdqqr01kQKLQ/CknwW8Xc5pCwLGtxrAfQbw2DlCyTsEWvUyOig6nWuT2LT5y?=
+ =?us-ascii?Q?wPtkupokmtGlzdpPH5pfbBwgq2YBWxWc8Wsol2XC9dzZ/pkcx2AKTRmE40l3?=
+ =?us-ascii?Q?jBHAQ24+KYZZThX+zR2sGtUBLjl2SEQj1kRnAlwEEu8IynxVuKotQzqL6mom?=
+ =?us-ascii?Q?U8xlo608ry0h8DqtJ87I2XfCeOrZgMwRaGt5ry6ZdFKIg6dJS9OckbkF6QhK?=
+ =?us-ascii?Q?GA0GG8yVWRWDTuzMm9Bo08qHG5kRkpobfYrjPjBtVGeR36nFtGTlDJRs3NC9?=
+ =?us-ascii?Q?mK7IJhkXX4hSXSV+d4dqQVawPIKjweKqdvKGVSOLvEh3jcDsOTOQzQ+wd/tS?=
+ =?us-ascii?Q?tZf6dThVdnUQP5t5m0WwyKX2o0OWXmNTI7xSmcsFiKkjoZ2l3w/+U+WyMrMl?=
+ =?us-ascii?Q?iZ1G90BpEw/A1XTizGlJ03esfBlwXVLvpgonpgT7r9uaocSYt7cHezrhEBNy?=
+ =?us-ascii?Q?X8zZrwtRj6dgiv8TTlHds8E7PgH5Kl5aUGj2y7HXaOrZRmvHRUU0yOODmlNp?=
+ =?us-ascii?Q?2aaCO5QxRuyzHuJdWq1Ez47CHZATJ3RMvlKdSWqWhpId2I78rO4wz6PYzPCz?=
+ =?us-ascii?Q?Wm6YWKtjgAMgA6RpwewsodrKEIpK3L14byQmKEu+46KJp8IH1zMu20L0Ac/w?=
+ =?us-ascii?Q?qP+ZnH5Ph60JOWCdlXYjGxdOruOUhaq6sx9PNI3lu4p3gL31brKdMGo6yBI6?=
+ =?us-ascii?Q?+U31ZXO5quZY8S7p/qC52/HhCSvDNLPIzQsUI+W4TjA/dgJYJLEuXJhh5EHS?=
+ =?us-ascii?Q?2cl3Kgfms9nzq4Y2HE0+bRDTri/yvsuL13ncicqDGbwsURUJetaAxZhjAmF+?=
+ =?us-ascii?Q?JsJ1kAQxsK7HEYBv1+oRrTPAcKbBIn97MDDrddz+i7s6ohF1XrvHwFPOGqff?=
+ =?us-ascii?Q?ZWtcQ5CeZb4oeEZ8130hntpPujxhu15hFuK7PfZUbtRUq4BJMtWebTAu6m+b?=
+ =?us-ascii?Q?7+8inr+PWw=3D=3D?=
 X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 231f62cc-1863-41ef-c030-08df089643f2
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0aabd8b-3041-4bb1-e1ba-08df089645c1
 X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 02:02:39.0372
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 02:02:41.9312
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xg35JoVZKV+S+m0sLE6kg5CYX6ylmIrYXDUX27hU9YLJpc4Vf2hUAaj5IZX3MIkEFXn6+iftZ74q80rDIMbg2g==
+X-MS-Exchange-CrossTenant-UserPrincipalName: L8yspJ1aqJAsDnSKvc8YZiZ+x+mqXJXr1LlP4+cvK6SDOdWF4IEURcOnGS8AyAmfNlqjzKHCK90PVCa0ZZ18WQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOAP123MB8292
 
-This series addresses two distinct issues within the x86 Machine Check
-Architecture (MCA) timer subsystem: a race condition during runtime CPU
-reconfiguration that can corrupt the kernel timer wheel, and redundant
-periodic software polling of banks that never log corrected errors.
+During early CPU initialisation, mcheck_cpu_init() invokes
+__mcheck_cpu_setup_timer(), which initialises the per-CPU mce_timer
+descriptor via timer_setup(t, mce_timer_fn, TIMER_PINNED).
 
-Patch 1 fixes a concurrency race between sysfs configuration updates
-(mce_restart()) and asynchronous CMCI interrupts. When mce_restart() runs,
-a concurrent CMCI interrupt can arm mce_timer on a remote CPU before the
-restart IPI arrives. By removing the redundant timer_setup() call from
-__mcheck_cpu_init_timer(), Patch 1 ensures that mce_timer descriptors are
-not re-initialised while actively linked in the timer wheel, avoiding
-potential linked-list corruption and kernel crashes.
+However, __mcheck_cpu_init_timer() is also called at runtime during
+sysfs reconfiguration (via mce_cpu_restart() and mce_enable_ce()),
+redundantly re-initialising mce_timer with timer_setup().
 
-Patch 2 implements Tony Luck's suggested approach by recognising that banks
-without CMCI support on modern Intel platforms (such as the PCU bank) never
-report corrected or UCNA errors (per Intel SDM Vol 3B §18.5). It clears
-these non-CMCI banks from mce_poll_banks and ensures mce_timer is never
-armed when mce_poll_banks is empty. Additionally, it integrates a
-housekeeping check (HK_TYPE_TIMER) so that on legacy platforms or
-polling-only configurations where mce_poll_banks is non-empty, routine
-polling is restricted to housekeeping CPUs, sparing isolated nohz_full
-cores from timer interrupts. This eliminates polling timer jitter across
-all CPUs in steady state on modern hardware while preserving full polling
-capabilities and isolation guarantees.
+This introduces a race condition against asynchronous CMCI interrupts.
+When mce_restart() runs, it invokes mce_timer_delete_all() before
+broadcasting an IPI to execute mce_cpu_restart() on all CPUs. If a
+hardware CMCI interrupt fires on another CPU before the IPI is serviced,
+the CMCI handler triggers storm tracking and arms mce_timer via
+mce_timer_kick(true), enqueuing it in the active timer wheel.
 
-Thank you.
+When mce_cpu_restart() runs subsequently in IPI context,
+__mcheck_cpu_init_timer() calls timer_setup(), which invokes
+__init_timer() on the already-queued timer. This clears the timer's
+internal list pointers (entry.next and entry.pprev) whilst it remains
+linked in the active timer wheel bucket, causing linked list corruption,
+softirq lockups, or kernel panics during timer expiration.
 
-Changes since v1:
+Fix this by removing the redundant timer_setup() call from
+__mcheck_cpu_init_timer(). The timer is already initialised once during
+CPU setup; runtime restart paths only need to arm it via
+mce_start_timer().
 
- - Fixed a pre-existing race condition in mce_restart() by removing the
-   redundant timer_setup() call in __mcheck_cpu_init_timer(), preventing
-   active timer wheel linked-list corruption
+Fixes: 26c3c283c5b0 ("x86: mce: Split timer init")
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+---
+ arch/x86/kernel/cpu/mce/core.c | 1 -
+ 1 file changed, 1 deletion(-)
 
- - Non-CMCI banks are cleared from mce_poll_banks in cmci_claim_bank(),
-   and should_enable_timer() verifies bitmap_empty(mce_poll_banks) before
-   checking HK_TYPE_TIMER
-
- - Link to v1: https://lore.kernel.org/lkml/20260901151138.132950-1-atomlin@atomlin.com/
-
-Aaron Tomlin (2):
-  x86/mce: Do not reinitialise mce_timer structure on CPU restart
-  x86/mce: Avoid arming periodic polling timer when not required
-
- arch/x86/kernel/cpu/mce/core.c  |  8 +++++++-
- arch/x86/kernel/cpu/mce/intel.c | 11 ++++++-----
- 2 files changed, 13 insertions(+), 6 deletions(-)
-
+diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
+index ab469605fc89..765e8103b0d2 100644
+--- a/arch/x86/kernel/cpu/mce/core.c
++++ b/arch/x86/kernel/cpu/mce/core.c
+@@ -2091,7 +2091,6 @@ static void __mcheck_cpu_init_timer(void)
+ {
+ 	struct timer_list *t = this_cpu_ptr(&mce_timer);
+ 
+-	timer_setup(t, mce_timer_fn, TIMER_PINNED);
+ 	mce_start_timer(t);
+ }
+ 
 -- 
 2.55.0
 
