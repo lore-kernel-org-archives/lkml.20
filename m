@@ -1,152 +1,182 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D4B54AA1F6
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:26:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD334AA3EE;
+	Wed,  2 Sep 2026 16:27:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788366420; cv=none; b=pJYB/sZX9IT/cJa9d3lt06iX8jwOf9+8haNElI60e6EryRV4SOCzwNhaoN1ZcpFMs+4igXWcyRoARFNhdbYb9krgglb1KkQncNIV+vC0IALrgMHNx9V/CB9Xr6IGmjaXsG2bwFEludYBXkUuXmRwE89ep8FXP3jQdr9AVlyNZwU=
+	t=1788366424; cv=none; b=EiLWjh3X7g5jnpOkxj3Vn3lVKPjmJEZTimpQnOTGel13+LaHxFBaj4MEWtNVCMem8lOHDytoEZ448sRDi88tdMc+4hxA7lxXycQOj8LqjFISMgKO31rotO+bdAKD+j13R//daYLUEdjuXf+xMbdpksqEqiJGCO3A3WvewFG7bn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788366420; c=relaxed/simple;
-	bh=4V75VXPdJsV3etEtmOB92/leTElAobw81eFBDOD25Qg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ih9EnoOFhneC4QV2bWDL+PVYcxFdeMPlMPXnPg3XWSbURxSvUfD6Xcw+mNfNqDKQzVF92xR64BLfsW9BdWqmq3XJIXEIefXV1w7MiNt4VCQp12Qx3vAK75boQMz56MT6Z5JeM1M8Ll8Ha3KcmjkixDAih4d8VjHoTd01wXgdc5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DgsmkQRr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CixwYZLR; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788366424; c=relaxed/simple;
+	bh=/W+HCXUAYcEaIUTD7JbFlsq8cAool1Pwqm3670xJMKM=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=gSdSd2dp4suRCgcn7lt8Vk3hBdegTueyZjEc6bS9k9P+1EuWHSiAq6tKf2dSY+iYF+O3p/S8S007is6WLr1KEBmYVe3aEw/GPM/3RiLiabQbbLmlQ6VHYdcp61JdBDyf0eeJl3TtWtl4MryKTcIVv2uVCjlwJHxT5ei79869GBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mfJiS+QB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DgsmkQRr";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CixwYZLR"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682FZYxS770198
-	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 16:26:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	d8GmeZDaBEbzaZ8I2SDdKZrPLXHH/1Qk7o9QmMFbE1o=; b=DgsmkQRrhtcjid92
-	Znhb87lnm8+WWhMHrKl4p0WyNyWqrewdrlmVza5UDPrH3MYl7DzjF0C5lZw/PaTl
-	7uPGMMKDlh4SX7v7smfmyUSh5QKzh1vMweZWqXs96TeLjLkMTScAcpGCMWdxACeG
-	wTE2fEdTBY+znffYJ9zbVlrpQifwrWgPgPjLhcf/xlw2SMnCoOPAfk2J6ZCsvpNO
-	tStY44Kh7xJWgj6Ee+rMgVHoMBKusCib/w1SGWRASmLXsqkTxc1lpg5BzIPY+TGl
-	znGPSYtEAWTCtaenIXJnlJ5vp3swrQrhKAkZE5H6ZeeIgCK62gjPvfUZZwnWIbz+
-	DomOCw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gemja0qtc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 16:26:58 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93494b1e35cso27930285a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:26:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788366417; x=1788971217; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d8GmeZDaBEbzaZ8I2SDdKZrPLXHH/1Qk7o9QmMFbE1o=;
-        b=CixwYZLR9k6smMlHWjCX/ZevKjROHm5IN3GUmqU5xeWTkiPcKkBFQvfsq4nIVqfWdq
-         771AZYmZopyf+D9ExsNCwDeJ174aQBxqQW0Z7xpVoe1xeoP52gXz3lstMlwp3bJX9oVx
-         pM3wOXKH8T3BrN0B79ZhA4jyiS7Y2YAIUVadn4UkfMTegYL0sycqyYKEl3abBF6TXsl1
-         tGEqdEb37xbPTeADROkccGDryB6AxbItn8g0qEl7H3j3O7msePmnRW7cekVXRy0ZfQKN
-         /cHOApfZUbtC8Mu1iQfjAmJVXiYH2NdvJzrylu+ShIUjdtv6/fnFFH5nMik3MCyyuJ3B
-         RJhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788366417; x=1788971217;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=d8GmeZDaBEbzaZ8I2SDdKZrPLXHH/1Qk7o9QmMFbE1o=;
-        b=eJ2xLFO80jn23iO7313d22DXYzgR9ml1Km1SsnCZpMw4dralcfsBGkLQM9Xfod8oSR
-         rQEZ2zp5lH2hrQTO322izzvI1yyOC4u24SKgyKjj6n4ytJHZLkRmqaF8HtA9HgLne/S1
-         iZWX/SLfiWMz1wx0SUTz8NRPalcNFKOKKsR7q9sllyAXLBgf5LI/7QZPQ+VsTO3xcsls
-         rgqoUQXTndOjSFBpQLDa5GWRVZc6nKJq2vNI74M0KbohoHFSv+Kos4oEqkFRLLdC0lIQ
-         YY13eLiCW6PJ92iq3LfDC3NOfZNtGqX1RGycRUYeu/h7I7VNAdXssmX7rlMFFWCVPTFe
-         IrmQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rr3Y0ReoI0DfB+qCeamUTrbR0DfgbaHKIt/uIZDcFYHH68XN6lz0qO8E8TisSSUtCrkIXO4Vp5Vt0GeMhc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfTuJrRpaAcRzzq0ebKh9sC4Gc93S936F9/jjL4dC/m4fs53dr
-	NixzafW7dypJ2Pr7GRuVWrGG0G94js8jfjBy2zriV0K713N1ZQ43OYS0pWDden8r329XirAc3tD
-	QWqTB46Qz+iTqqZz10yhs51PRklWTYwSjbKSbVDFWOdaniFVLNDed4t+2Fm+lVYwxztI=
-X-Gm-Gg: AR+sD121vBiKytkPpuJgiNCETPfHRVrbqgJlQQ+e8kWFjAp/uI0Fv/Fqnh6+JKVFcpd
-	In6RnB4Qz/RBvtPjzKEbpbuBknRd12kRAQLGJ8SpFJsgRM/RX8jCedK4eKn+1wVgeN8J2i4w2Ng
-	t5YkUFwaQbKQ5NitygLG0RWuBVPnh6DXCdu8vBK0rHMxfCMkz+D+2IX1zqABqMm35qlg2F+LS0C
-	x+qBuQnKQvdWNVGezIG0fc09wLiFHVTsFjY3UoIzSNN+VbL24ydqjlepe09ZpdsH/lyt5yGKjFG
-	ds730195A2wNLh/8yYvZPdOAzdK/OEZ9gUE1gxRAzRtTVTno4uHGbPz04xHABmLrZiXC6fFsGAj
-	t8afzcz1enEt1WNT2BC2WhQ==
-X-Received: by 2002:a05:620a:236:b0:939:6c5f:9a8e with SMTP id af79cd13be357-9396c5f9b56mr101499685a.0.1788366417449;
-        Wed, 02 Sep 2026 09:26:57 -0700 (PDT)
-X-Received: by 2002:a05:620a:236:b0:939:6c5f:9a8e with SMTP id af79cd13be357-9396c5f9b56mr101466285a.0.1788366412214;
-        Wed, 02 Sep 2026 09:26:52 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25cffc70fdsm163297566b.4.2026.09.02.09.26.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 09:26:51 -0700 (PDT)
-Message-ID: <11ddf6dc-f943-4070-882a-f60733dc4f71@oss.qualcomm.com>
-Date: Wed, 2 Sep 2026 18:26:49 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mfJiS+QB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2407F1F000E9;
+	Wed,  2 Sep 2026 16:27:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788366422;
+	bh=yUN3KA2WI6l9BTUSZf8yukqFe3MKyTp4uxfSCtWpU2s=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=mfJiS+QBeWKoQbJoRUfpPS9bVwsW5UBgWX5OU1BDonPTGEWeD23OViX4jodAdSiPy
+	 QOQZw8+/s+AS4DtLK3DkEkNgffVQT/yaYe/NP0OBemOsMlhBjcDE10dYCl+O9n9OL7
+	 VM27ny665KsRYCt48KJEKvAJ2Abza2QB/FW6sAIFgg0SgDxErQDg6DhzofKhYGqFXo
+	 0qAONqbL/rE94QWtj9tnmTzOyIRY2/URfv22DMfLZ7KWQ15TLA6v8+6HqTqms+N2Sw
+	 JQRJqr8uYg780SWreKFXuFpGMl1nfmnRrOESn+7fKX8rfLBLlEV9aT4LKMi50W3lNZ
+	 THtp7u9ERitmg==
+Subject: Re: [net-next,01/10] net: dsa: microchip: add the number of pins to
+ chip infos
+From: netdev-bot+sashiko@kernel.org
+To: bastien.curutchet@bootlin.com
+Cc: woojung.huh@microchip.com, UNGLinuxDriver@microchip.com, andrew@lunn.ch,
+ olteanv@gmail.com, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, richardcochran@gmail.com, pascal.eberhard@se.com,
+ miquel.raynal@bootlin.com, thomas.petazzoni@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Wed, 02 Sep 2026 16:27:01 +0000
+Message-ID: <178836642168.3394541.11659278736400588749@kernel.org>
+In-Reply-To: <20260831-ksz-perout-v1-1-14202db763b3@bootlin.com>
+References: <20260831-ksz-perout-v1-1-14202db763b3@bootlin.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V5 3/3] arm64: dts: qcom: monaco-evk: Add SDHCI support
- for eMMC via overlay
-To: Monish Chunara <monish.chunara@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Sarthak Garg <sarthak.garg@oss.qualcomm.com>,
-        Pradeep Pragallapati <pradeep.pragallapati@oss.qualcomm.com>,
-        Nitin Rawat <nitin.rawat@oss.qualcomm.com>,
-        Shiraz Hashim <shiraz.hashim@oss.qualcomm.com>
-References: <20260826112456.482982-1-monish.chunara@oss.qualcomm.com>
- <20260826112456.482982-4-monish.chunara@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260826112456.482982-4-monish.chunara@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: Z-9Uvzatg8oxfKbQUf6yDPQmJZFXwX6i
-X-Authority-Analysis: v=2.4 cv=FeAHAp+6 c=1 sm=1 tr=0 ts=6a984e52 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=sfNJ4pVXpVnTwTOAvM0A:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE0NSBTYWx0ZWRfX2wAFObBTW/W/
- wKEtUgticPmZbxOutPQadKOvWB45msoX2rQDCExLdtzk0E6g/Vea3B3ZlL/sVvHEX1rMdOqGEDh
- cT52noJi0dfCmDCtzd2kZbd2kphQbwg=
-X-Proofpoint-ORIG-GUID: Z-9Uvzatg8oxfKbQUf6yDPQmJZFXwX6i
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE0NSBTYWx0ZWRfX1dBFyhILDelD
- 2Pqw7N4QnJuSGqcPDHtVn5P1mkRKYa68RypmPAejBW1IBDP2lRFfB34GAMwumnUAJc0zQI2+m0f
- 94xmUfwtOc5Oqi/8bUy0kEMViIVM/CkZSPBFcEQI3ae99byxXfSUSACJhBavu2YCd4dbslLTHTm
- YeVstc2EJ8SaaZcalhOXvd/Xjw2fm74wHz+4NwjDwv3lLhYBLlgbUAYk2mPTgwV1XCYwJ86cv4D
- 1gOi+m9WVZ70im59EtFWMo6ena+/7wEH1xLDsQqR8NbBAS4lVNFg8A75HUJrl6+aiKvQI+jpkYf
- Eq5uFwtV9MSrHL3nrqoznKQxUDVHJ0nOd4Qi27g+MKoUQzqaDMQ0tezfOMqK2HMiwpDMzb8iVsb
- SViEDekl5Sqo6q7Vjfb/aE1S30SmBbmvyJDIruENsndX/+Wa3seJyaJjerXEUNPGCDt1/MBRQrO
- M/fW4awW7EdV5yqHLYA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_04,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 impostorscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
- priorityscore=1501 bulkscore=0 phishscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020145
 
-On 8/26/26 1:24 PM, Monish Chunara wrote:
-> Enable the SDHCI controller for eMMC functionality on the Monaco EVK
-> using a device tree overlay.
-> 
-> Signed-off-by: Monish Chunara <monish.chunara@oss.qualcomm.com>
-> ---
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-Konrad
+- [High] Incomplete conversion of the PTP pin count to per-chip data
+  silently disables PTP pin/periodic-output support on every PTP-capable…
+
+--
+
+net: dsa: microchip: add the number of pins to chip infos
+
+This adds an n_pins field to struct ksz_chip_data and makes
+ksz_ptp_clock_register() take the PTP pin count from the per-chip info
+instead of the KSZ_PTP_N_GPIO constant.  Only the KSZ8563 entry in
+ksz_switch_chips[] is given an .n_pins value.
+
+> diff --git a/drivers/net/dsa/microchip/ksz_common.c b/drivers/net/dsa/microchip/ksz_common.c
+> index 1a9d6f83a0232..55d1e3e3c5299 100644
+> --- a/drivers/net/dsa/microchip/ksz_common.c
+> +++ b/drivers/net/dsa/microchip/ksz_common.c
+> @@ -1194,6 +1194,7 @@ const struct ksz_chip_data ksz_switch_chips[] = {
+>  		.ptp_capable = true,
+>  		.wr_table = &ksz8563_register_set,
+>  		.rd_table = &ksz8563_register_set,
+> +		.n_pins = 2,
+>  	},
+>  
+>  	[KSZ8795] = {
+
+[Severity: High]
+Is KSZ8563 the only entry that needs .n_pins?  Grepping ksz_switch_chips[]
+at this commit, KSZ8563 is the only entry carrying the new field, while
+these other entries also have .ptp_capable = true and no .n_pins:
+
+  KSZ9477, KSZ9563, KSZ8567, KSZ9567, LAN9370, LAN9371, LAN9372,
+  LAN9373, LAN9374
+
+For those entries the designated initializers leave n_pins at 0, so
+ksz_ptp_clock_register() now advertises caps.n_pins = 0 where it
+previously advertised KSZ_PTP_N_GPIO (2) and filled in 2 pin
+descriptors.  Does this drop PTP pin and periodic output support on
+those switches?
+
+The KSZ8463 entry also has no .n_pins here, and ksz8463_setup() in
+ksz8.c reaches ksz_ptp_clock_register() when dev->irq > 0:
+
+drivers/net/dsa/microchip/ksz8.c:ksz8463_setup() {
+	...
+		ret = ksz8463_ptp_irq_setup(ds);
+		if (ret)
+			goto free_girq;
+
+		ret = ksz_ptp_clock_register(ds);
+	...
+}
+
+The commit message says KSZ8463 "has 12 pins that can be used as
+periodic outputs", but this commit gives that entry n_pins == 0 rather
+than 12.  Was the KSZ8463 initializer meant to be part of this patch?
+
+> diff --git a/drivers/net/dsa/microchip/ksz_ptp.c b/drivers/net/dsa/microchip/ksz_ptp.c
+> index 39cc70d65900b..c92936bf78d3d 100644
+> --- a/drivers/net/dsa/microchip/ksz_ptp.c
+> +++ b/drivers/net/dsa/microchip/ksz_ptp.c
+> @@ -1050,14 +1050,14 @@ int ksz_ptp_clock_register(struct dsa_switch *ds)
+>  	ptp_data->caps.do_aux_work	= ksz_ptp_do_aux_work;
+>  	ptp_data->caps.enable		= ksz_ptp_enable;
+>  	ptp_data->caps.verify		= ksz_ptp_verify_pin;
+> -	ptp_data->caps.n_pins		= KSZ_PTP_N_GPIO;
+> +	ptp_data->caps.n_pins		= dev->info->n_pins;
+>  	ptp_data->caps.n_per_out	= 3;
+>  
+>  	ret = ksz_ptp_start_clock(dev);
+>  	if (ret)
+>  		return ret;
+>  
+> -	for (i = 0; i < KSZ_PTP_N_GPIO; i++) {
+> +	for (i = 0; i < dev->info->n_pins; i++) {
+>  		struct ptp_pin_desc *ptp_pin = &ptp_data->pin_config[i];
+>  
+>  		snprintf(ptp_pin->name,
+
+[Severity: High]
+When dev->info->n_pins is 0, does this silently register a clock with no
+usable pins?  The loop body never runs, so pin_config[] stays empty, and
+the PTP core takes an early return instead of reporting an error:
+
+drivers/ptp/ptp_sysfs.c:ptp_populate_pin_groups() {
+	...
+	if (!n_pins)
+		return 0;
+	...
+}
+
+That removes the pinN sysfs files and PTP_PIN_GETFUNC/PTP_PIN_SETFUNC
+support, and ptp_find_pin() iterates over info->n_pins so it can only
+return -1:
+
+drivers/ptp/ptp_clock.c:ptp_find_pin() {
+	...
+	for (i = 0; i < ptp->info->n_pins; i++) {
+	...
+}
+
+which makes every periodic output request fail here:
+
+drivers/net/dsa/microchip/ksz_ptp.c:ksz_ptp_enable_perout() {
+	...
+	pin = ptp_find_pin(ptp_data->clock, PTP_PF_PEROUT, request->index);
+	if (pin < 0)
+		return -EINVAL;
+	...
+}
+
+so REG_PTP_UNIT_INDEX__4 is never programmed on those chips.  Meanwhile
+caps.n_per_out is still hardcoded to 3, advertising three periodic
+outputs with zero pins.
+
+Checking the end of the series (c35b10618e5929c5a72f7e06b0bad4a4027caf11),
+only KSZ8463 (.n_pins = 12) and KSZ8563 (.n_pins = 2) are initialized;
+KSZ9477, KSZ9563, KSZ8567, KSZ9567 and LAN9370..LAN9374 still leave
+n_pins at 0, and after "net: dsa: microchip: add the number of periodic
+signals to chip infos" they get n_per_out == 0 as well, so this is not
+picked up later in the series.
+
+Would it work to initialize .n_pins for every ptp_capable entry, or to
+fall back to 2 in ksz_ptp_clock_register() when the field is 0?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260831-ksz-perout-v1-0-14202db763b3%40bootlin.com
