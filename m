@@ -1,42 +1,31 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA952E8B64
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:13:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+Received: from hqu.edu.cn (hqu.edu.cn [210.34.240.11])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 869151E98E3;
+	Wed,  2 Sep 2026 03:14:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.34.240.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788318812; cv=none; b=TnE6flnN7ZueZbqGYLRjqsgi2VWhLS1Gq2sWz8Y+0LXpnIP3pxqp8Qdqi9fOrtHkQmQfB5KDOA8w9vIKrxAh2k2o8N3KoalVraHmjRAlDZK54vWkMJCsyv6thor+ECN98OTzSS9EAxQRqs854AQJTGn7JJDt/39MSF1f0xezGHk=
+	t=1788318857; cv=none; b=giYh1aq/EmxUlJrs5aDJs2ofukGf8OzBoD6KcMRkp7Fj12BiRZfLm5y2r0l0aqyxF2QznnvciamRrGD4Tm0J45xD+EGJGyfYXh3aT+ndB8MneezDtbAmPm6E4WOmdbzzjqS/FcBKhE+ekrSsa+IFKfLxbIsJxPGwqbH12Qiwm/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788318812; c=relaxed/simple;
-	bh=ZCFXqD0qH+frJd8FQxXIN9FL/o/eJwoHGHcxHsrk2GI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qLUKD6UGN5m2lNt8fL7Hisb5Fvp1LKMpU+aiXA9NMTQGajPlkTxxkhpvUHd/iFuAWMvOdr6En64RM5G9MieZ4Kp7AXBh3Vihb7HvaPoFc1KH8j+he5uMAfUQjdkF0wsqfhXmZrJ4nTvjI7+PIeeMxWURdkHFn8D/1THA4itx7dk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=gM0QXyEC; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="gM0QXyEC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Xd
-	Olvnf0kNLdmnj7QhhCR0Qpd7tZIaYX8X0Qtv2j1ls=; b=gM0QXyEC+cBDkj+xBQ
-	PxOl9R32S26qR4laebtgHMsPbH+/KrZ7lwIqUUOsH+7gEXFKGHcxN4EfS8Oshf9c
-	CGxnu9gZQu/oqnriKLiTq896cBOnMhO1l/IGUN+DOGnMpzJIyFBiWeHlglkZ2Xbf
-	8F4SaqNdw25qrHOgwknzyVs7I=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgDnrxQilJdqv626OA--.15776S2;
-	Wed, 02 Sep 2026 11:12:35 +0800 (CST)
-From: oushixiong1025@163.com
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
+	s=arc-20240116; t=1788318857; c=relaxed/simple;
+	bh=jFHv3W2G7YXo76CgZ/Be7FLQW6T2KPEoP89YguzR63U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=a00IRnxh4wd3A3S6m8g0DIyFgg7sfPPtcrUAmHeKQk1unKRtbjuFtJBYXZpiamhBqqi2NhpJV8G63hYBYCePRpIvqVrvr2VmhL6SeAx8pW9h0hCPJqxCEPzHNSVC2m2hjtjCRR9ijmcpOvi04dHYChfwql0Cbi/nSnmF8qULBUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.hqu.edu.cn; spf=pass smtp.mailfrom=stu.hqu.edu.cn; arc=none smtp.client-ip=210.34.240.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.hqu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.hqu.edu.cn
+Received: from raspberry-nas (unknown [27.42.228.181])
+	by cmweb (Coremail) with SMTP id C_Ai0gAXe9qClJdq6ygFAA--.10449S2;
+	Wed, 02 Sep 2026 11:14:11 +0800 (CST)
+From: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
+To: linux-wireless@vger.kernel.org
+Cc: pkshih@realtek.com,
 	linux-kernel@vger.kernel.org,
-	Shixiong Ou <oushixiong@kylinos.cn>
-Subject: [PATCH] drm/modeset-helper: Add blend mode property to the legacy primary plane
-Date: Wed,  2 Sep 2026 11:12:32 +0800
-Message-Id: <20260902031232.165532-1-oushixiong1025@163.com>
-X-Mailer: git-send-email 2.25.1
+	YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
+Subject: [PATCH v3] wifi: rtw88: use firmware MAC address as fallback
+Date: Wed,  2 Sep 2026 11:14:08 +0800
+Message-ID: <20260902031408.4155609-1-raspberrykan@stu.hqu.edu.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260902024622.4149279-1-raspberrykan@stu.hqu.edu.cn>
+References: <20260902024622.4149279-1-raspberrykan@stu.hqu.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,62 +33,62 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgDnrxQilJdqv626OA--.15776S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7WFy5ArW7Cw4DJrW3ZFW5Jrb_yoW8CryrpF
-	sxCFZ8tw1rtFs3Ja4rC392ya15Wan3Ga48Kry2q3sI93ZxKry3Arn8Gr17KFy7Jr4xJr1a
-	g39rAr1DZF1UuaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jFa0PUUUUU=
-X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC-QOtvGqXlCNMxAAA3t
+X-CM-TRANSID:C_Ai0gAXe9qClJdq6ygFAA--.10449S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kr18tw4fur1kJF47tr1fJFb_yoW8XF1xpa
+	y8JaySkFnrJr45ua1fWa1S9F1rGan3JayUAr9Yy3s09rn8XryFvrWDKF9Fvr1jgFWDZF42
+	yr15tr9rKFZ0vF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUym14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r1j
+	6r4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCF04k20xvY0x0EwIxG
+	rwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
+	vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IY
+	x2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26c
+	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAF
+	wI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUywZ7UUUUU=
+X-CM-SenderInfo: ysvskiyqsqlko6vw3hxktxhvlgxou0/1tbiAQAQBGqVmGMDTgAJsV
 
-From: Shixiong Ou <oushixiong@kylinos.cn>
+Some devices provide the Wi-Fi MAC address through firmware instead of
+storing a valid address in the Wi-Fi chip efuse.
 
-The primary plane created by drm_crtc_init() exposes ARGB8888, which
-has an alpha channel, but never gets a "pixel blend mode" property, so
-drm_mode_config_validate() warns for every driver using this helper
-(radeon, gma500, legacy amdgpu DCE). Advertise only
-DRM_MODE_BLEND_PREMULTI, the mode userspace always assumed when the
-property was absent.
+This is the case on the Xiaomi Mi Box 4, which uses an Amlogic S905L
+SoC and an RTL8723DS Wi-Fi chip. The Wi-Fi MAC address is stored in the
+S905L efuse rather than the RTL8723DS efuse and is provided to the
+device through firmware.
 
-Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
-Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+Try to read the MAC address from firmware before falling back to a
+randomly generated address.
+
+Signed-off-by: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
 ---
- drivers/gpu/drm/drm_modeset_helper.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Changes in v3:
+- Add Xiaomi Mi Box 4, Amlogic S905L and RTL8723DS hardware details
+  to the commit message.
 
-diff --git a/drivers/gpu/drm/drm_modeset_helper.c b/drivers/gpu/drm/drm_modeset_helper.c
-index e54584da4c3d..4c59e82af2f1 100644
---- a/drivers/gpu/drm/drm_modeset_helper.c
-+++ b/drivers/gpu/drm/drm_modeset_helper.c
-@@ -23,6 +23,7 @@
- #include <linux/export.h>
+ drivers/net/wireless/realtek/rtw88/main.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
+index cd9254370fcc..0f23498b5c96 100644
+--- a/drivers/net/wireless/realtek/rtw88/main.c
++++ b/drivers/net/wireless/realtek/rtw88/main.c
+@@ -2060,8 +2060,11 @@ static int rtw_chip_efuse_info_setup(struct rtw_dev *rtwdev)
+ 	efuse->ext_lna_5g = efuse->lna_type_5g & BIT(3) ? 1 : 0;
  
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_blend.h>
- #include <drm/drm_client_event.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_framebuffer.h>
-@@ -160,6 +161,17 @@ int drm_crtc_init(struct drm_device *dev, struct drm_crtc *crtc,
- 	 */
- 	primary->format_default = true;
+ 	if (!is_valid_ether_addr(efuse->addr)) {
+-		eth_random_addr(efuse->addr);
+-		dev_warn(rtwdev->dev, "efuse MAC invalid, using random\n");
++		if (device_get_mac_address(rtwdev->dev, efuse->addr)) {
++			eth_random_addr(efuse->addr);
++			dev_warn(rtwdev->dev,
++				 "failed to get valid MAC address, using random\n");
++		}
+ 	}
  
-+	/*
-+	 * safe_modeset_formats[] includes ARGB8888, which has an alpha
-+	 * channel. Advertise the blend mode userspace has always assumed
-+	 * for such planes when the "pixel blend mode" property was absent,
-+	 * to satisfy drm_mode_config_validate().
-+	 */
-+	ret = drm_plane_create_blend_mode_property(primary,
-+						   BIT(DRM_MODE_BLEND_PREMULTI));
-+	if (ret)
-+		goto err_drm_plane_cleanup;
-+
- 	ret = drm_crtc_init_with_planes(dev, crtc, primary, NULL, funcs, NULL);
- 	if (ret)
- 		goto err_drm_plane_cleanup;
+ out_disable:
 -- 
-2.25.1
-
-
-No virus found
-		Checked by Hillstone Network AntiVirus
+2.53.0
 
