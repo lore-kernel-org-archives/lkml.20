@@ -1,85 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C9247FAE7;
-	Wed,  2 Sep 2026 12:14:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8E13B5318
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:14:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788351244; cv=none; b=VFBIjRPMo6bj+EffZCYb85/Q406Tt5Bcf6+t0Yxr9pNP9+Wh67xt7wvSZX9pCTowogtBvbC3TNiHgn3/kAqbOjnRbdacedHb4gWhRkuZHuM9Gi9Q6LBKlEzL5LkSXNIXW4vAUWVwqj2Q2DB2hZCZnz5BWlxn2sCE2Hpc3lIRm14=
+	t=1788351283; cv=none; b=hVZpcS3xFeNBbcHaYCpHWai36XqI9XxIzesOry7Bs7fy+NQCfkne0YMAxaKKTZ8iBCkskTBZCTZWPHBWTkWaBrJnRNoLYW9+wYnuqW5HdDgdg01eTEScKY1jk7WYWmiHKw+d2RjYOwmDM3iYPI9Jov6uJ9dcn3quNBAqZFAwooc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788351244; c=relaxed/simple;
-	bh=ZDcOggslxCVkJ8daW/g8vyDbXApQQ0+Iaaqgg/9yIdQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=r+c0WPJsW+BJDrByfzBLTz9zbTYsxDtoBY87GuHAAnml8mcHsSlwpd9o1h8sbAGtcX/qwhC98WFR4ZJmtv19ZaH7P/ZLoLT2QxHvrkRVOsoa5OvV4PbPxGXqn4yMb5jSxM+fGcjqo2RuJXZqQk8j+QWeoW3gmma9if54xRem4I8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bj4L9/Bu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788351283; c=relaxed/simple;
+	bh=4Qglmckg5ZZOC4FNuS9plcraHgT9WetBEDqCdkvpzIQ=;
+	h=From:Message-ID:Date:MIME-Version:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=XddFvZlwBdKVYDbabO0xOjkcX8q3IM6VmPUdPRBsi6NqWaFItI07OT/QbvT3DAk4AkoIGur+1XaRU9EuwyjofgH+S9sWsZc8bn/BOayoWZqOhylFjUlFqMF3PKoInzkNoSyyWPBLGivZ2w26E1OHNAJwp78PrGifk0/7ORMCmWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qDES0Utt; arc=none smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bj4L9/Bu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB8FF1F000E9;
-	Wed,  2 Sep 2026 12:13:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788351240;
-	bh=ajQ5Fb8+rIem6vBhUF78M4psB5Abho1rTJe15gUk4K4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bj4L9/Bu3HfhCcrFa5F6oBAnckAeIIqCUz/xSXVfc9nDR9+ozeUGRIVEVMyTSwOHc
-	 sAlyC1UhLF1VigIiWYoOu11tunhyve+q79nUH1nNbVAGMnb6twlAYbY0flY2X5a9pv
-	 KSVShCz8XGnKzqBgw7FQGBhNAKonAL18M4rB9JSxhy3DP4GvRFbyHAGIbYUkP4VCmx
-	 Qvn3r6c0A8HbBCPmz5ZezISbAU2A8zE0K/62Bt8W/sg0N2y7euxB5lT3rVaZL1HkeF
-	 ZBn0orzK6uIsSLzNvuzK5The3evJHhQAsjAEiSAenay1dhrP5Im+Wg95Qg196NGisl
-	 6gH0feS1Telig==
-From: Christian Brauner <brauner@kernel.org>
-To: Christian Brauner <brauner@kernel.org>,
-	David Howells <dhowells@redhat.com>
-Cc: Marc Dionne <marc.dionne@auristor.com>,
-	linux-afs@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/4] afs: Miscellaneous fixes
-Date: Wed,  2 Sep 2026 14:13:53 +0200
-Message-ID: <20260902-hirnbotenstoff-lernen-haselnuss-96e280463c84@brauner>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260902121024.3328255-1-dhowells@redhat.com>
-References: <20260902121024.3328255-1-dhowells@redhat.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qDES0Utt"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c2533d83e3bso132755166b.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:14:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788351278; x=1788956078; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F/JVKCwTpBvW1MaS3JQ86ucWRa6O3vTXyHiZVvmohp0=;
+        b=qDES0Utt0CZI0iv+P+sgYdjhW4dEYISulRW9H73cnMOgU7jMvXc/Ms3pByM/68yU74
+         cjFsCFALvCAtSkOULDO5sa2dxtWBMKIevwYHor2MJZiz9hkFtcee3teFQJt9OzUEyCbm
+         dSMlHXTXq2DfFmtMchrPSM7JNSWHKk4iSn2N06cmH/YhVcwSVV2BMUNpMZLKlo7eO22I
+         AXDX0kDUUcMqXUACZU3vbSCfnfW3RSXkppCdh0tkUjI2ANnZJMr5v0xGbHt98cKrK9bj
+         BCHPMZDzNAvDCZDdV7F17OI1De6dmd2kTrzWomA+X6auDuXu4S4BchqqMGtLsEXqMEiD
+         uckA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788351278; x=1788956078;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=F/JVKCwTpBvW1MaS3JQ86ucWRa6O3vTXyHiZVvmohp0=;
+        b=PlaY+7G+2rh5CFUHm0X3v+YwmpR1cZn6iWs2untOnZIZU8yJ9YzVOzVqjGWkrm/O4T
+         pn1/e6n5Q3a35WUf1/bHqg1v3Hek3d/LaQrjol2Xer1WXelH61BmZ1ztuIRXW3HpVuRq
+         czYFncP2AIMlJDU61PcBat77DnxdqfcO7F2UoJEodJzPosYdp3RoBLCFY2DWOwD19wtO
+         06vQOShA7wdMAgox6Am38FnupDVebD5JB6a4ooaC6W92y+3BOWjRi50/M8C2Me6bhWGv
+         kiXd3IfodCVBUMF2oKAr6eTPA3NT2ISwb2aVCKd+s8T8L6kadTCzuZfSxzUgc55wqflR
+         h/NQ==
+X-Forwarded-Encrypted: i=1; AKwUvByIHoeuu4AMG9RlX0ZxrImD57oHeuD15+D1TtOaS+FYWWIxVCQkShDFjGuH6PnLASt+A4QzNxY0kBVazUQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4DLgwpF5qTPOAVFX4yIwXIdy13tNEMiBCcE3A3Woq39wI1kSd
+	EpjHjP5eatHTzuVJDvPgDYMmv4SqnXmEgHKl52y+mhpffxPcc9fEX24J
+X-Gm-Gg: AYBFou2W5UVQ/7rrPHW0tRIzCXNe/G3FPFn4PX3VgFUZ7r7uCpgvjWvoXnwP53B8Zik
+	IJ5dc3ru01rbRcrdoRI38lEHyj2DC8kiBX4UQ45TY5Gz/w+BjOzymP2lShmEjksMKQnd8Nl7bxh
+	7pb/aRndcBkCOeEYJzfojeyW0MByU/ZdCCZRYFh0PaniqyJQGveW6GaCR5mi+Lyz/8QvZ8Cf9JQ
+	1FZYkQRBmwq6qkf4y3OtXzqdvd3co6bg7Lp1W2veeMw80e2Vncigci2bRj/s4LDNNTv+E+AcoIX
+	uYuBnZ1QeDvCYDXLRHymipyiE7tx+ViwCWQ/RbSytLoC7DwwqzrupHKu2q0sSkKtU5EDF6nFg0j
+	HqMftUZHidw47qFN2hCCUlcde1Ebx1Ml0IReo/gO0XuXtNo0KXGO2lt5stmoH+EpDqn46HE4281
+	pPVe0alDNieTIzeuTqKtks6GSDVMEF94OL66+utlIzVuoydg47IL6Vh7xbRVMnd1cL
+X-Received: by 2002:a17:907:3e8f:b0:c21:3fa7:5a6f with SMTP id a640c23a62f3a-c25d554fea1mr275552166b.24.1788351277323;
+        Wed, 02 Sep 2026 05:14:37 -0700 (PDT)
+Received: from [10.45.18.37] ([15.248.3.93])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25d002f2absm124158266b.17.2026.09.02.05.14.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 05:14:36 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: Paul Durrant <paul@xen.org>
+Message-ID: <d182ef29-a049-4013-95ce-07405f13167a@xen.org>
+Date: Wed, 2 Sep 2026 13:14:34 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1415; i=brauner@kernel.org; h=from:subject:message-id; bh=ZDcOggslxCVkJ8daW/g8vyDbXApQQ0+Iaaqgg/9yIdQ=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTNEGbmWFJodjtvuQ2HTqH06vlT18omSJ+2ZeF5u3XVt R0SM6IaOkpZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACYiqsXIsPSawr6fvRtLVf44 Ta8v+7L3462FES+uVxrIBXRYVdxk+8TwV4TDUX9fwH25sLoV8842XcnVa1R52potdsG/8lRERos 4KwA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 12/13] KVM: pfncache: use a dedicated invalidation
+ sequence for cache refresh
+To: David Woodhouse <dwmw2@infradead.org>, seanjc@google.com,
+ pbonzini@redhat.com
+Cc: joao.m.martins@oracle.com, boris.ostrovsky@oracle.com,
+ ankur.a.arora@oracle.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, hpa@zytor.com, x86@kernel.org,
+ syzbot+208f7f3e5f59c11aeb90@syzkaller.appspotmail.com,
+ syzkaller-bugs@googlegroups.com, suryasaimadhu369@gmail.com, lkp@intel.com,
+ nicoyip.dev@gmail.com, frn1furkan10@gmail.com, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, imv4bel@gmail.com
+References: <20260831213632.81023-1-dwmw2@infradead.org>
+ <20260831213632.81023-13-dwmw2@infradead.org>
+Content-Language: en-US
+In-Reply-To: <20260831213632.81023-13-dwmw2@infradead.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, 02 Sep 2026 13:10:18 +0100, David Howells wrote:
-> Can you pick up these miscellaneous AFS fixes, please?  Three were found by
-> Sashiko[1][2] and one was a posted patch.
+On 31/08/2026 22:26, David Woodhouse wrote:
+> From: David Woodhouse <dwmw@amazon.co.uk>
 > 
->  (1) Fix missing kunmap in afs_dir_search_bucket().
+> The gfn_to_pfn_cache refresh path guards against mmu notifier
+> invalidations which complete while it has dropped gpc->lock for the
+> HVA->PFN lookup: hva_to_pfn_retry() samples kvm->mmu_invalidate_seq
+> and retries if it changed, or if mn_active_invalidate_count is still
+> elevated.
 > 
->  (2) Fix double-unmap of directory block.
+> That is insufficient for HVA-based caches. mmu_invalidate_seq is only
+> advanced by kvm_mmu_invalidate_end() when the invalidated range
+> overlaps a memslot, and an HVA-based cache (e.g. the Xen shared_info
+> page mapped with KVM_XEN_ATTR_TYPE_SHARED_INFO_HVA) need not be backed
+> by any memslot at all. An invalidation of the cached HVA which starts
+> and ends entirely within the lookup window is thus invisible to the
+> retry check: mn_active_invalidate_count is back to zero and the
+> sequence never moved. The refresh then publishes a mapping of a page
+> which has already been freed, and the next reader dereferences it:
 > 
-> [...]
-
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
-
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
-
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
-
-[1/4] afs: Fix missing kunmap in afs_dir_search_bucket()
-      https://git.kernel.org/vfs/vfs/c/950ae84b5cc9
-[2/4] afs: Fix double-unmap of directory block
-      https://git.kernel.org/vfs/vfs/c/e3cfd3eb7d5b
-[3/4] afs: Fix incorrect free in candidate cleanup in afs_lookup_server()
-      https://git.kernel.org/vfs/vfs/c/044d596094af
-[4/4] afs: Clear stale peer app data after address list changes
-      https://git.kernel.org/vfs/vfs/c/ba0623fc19a4
+>    BUG: KASAN: use-after-free in kvm_xen_shared_info_init+0x3c6/0x440
+>    Read of size 4 at addr ffff8880599c2900 by task syz.2.383/7257
+> 
+> Since gfn_to_pfn_cache_invalidate_start() deliberately skips caches
+> which are not currently valid (including one whose refresh is in
+> progress, as the refresh clears the valid flag before dropping the
+> lock), the retry check is the only line of defence, and it must fire
+> for *any* invalidation, not just those hitting a memslot.
+> 
+> Add a dedicated kvm->gpc_invalidate_seq, incremented by every
+> kvm_mmu_notifier_invalidate_range_end() under mn_invalidate_lock
+> before mn_active_invalidate_count is decremented, and check it in
+> hva_to_pfn_retry() instead of mmu_invalidate_seq. Incrementing in
+> range_end() in the same critical section as the in-progress count
+> also closes the variant where the cache is activated with the
+> contested HVA only after invalidate_range_start() has run.
+> 
+> The same bug is also reachable through the per-vCPU vcpu_info cache
+> (KVM_XEN_VCPU_ATTR_TYPE_VCPU_INFO_HVA), where the stale mapping is
+> then dereferenced by kvm_setup_guest_pvclock() on the next KVM_RUN:
+> 
+>    BUG: KASAN: use-after-free in kvm_setup_guest_pvclock+0x5bf/0x660
+> 
+> This intentionally makes refresh retry on *unrelated* mmu notifier
+> events; restoring precision (and reworking the GPC locking more
+> generally) is left for a subsequent series.
+> 
+> Reproducers: https://david.woodhou.se/xen_shinfo_race.c
+>               https://david.woodhou.se/vcpu_info_race.c
+> 
+> Suggested-by: Sean Christopherson <seanjc@google.com>
+> Reported-by: syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com
+> Closes: https://lore.kernel.org/all/6a0c5f2c.a00a0220.2c7954.0000.GAE@google.com/
+> Tested-by: syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com
+> Reported-by: syzbot+fb7c2dd166d3ea63df2a@syzkaller.appspotmail.com
+> Closes: https://lore.kernel.org/all/6a426dd2.854d4ab9.360e1d.0008.GAE@google.com/
+> Fixes: b9220d32799a ("KVM: x86/xen: allow shared_info to be mapped by fixed HVA")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> Assisted-by: Claude:claude-mythos-5
+> ---
+>   include/linux/kvm_host.h |  2 ++
+>   virt/kvm/kvm_main.c      | 10 ++++++++++
+>   virt/kvm/pfncache.c      | 18 +++++++++---------
+>   3 files changed, 21 insertions(+), 9 deletions(-)
+> 
+Reviewed-by: Paul Durrant <paul@xen.org>
