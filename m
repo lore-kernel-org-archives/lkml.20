@@ -1,140 +1,227 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F06D8386C3D
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:46:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40649369D6F
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:47:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788374788; cv=none; b=TdAAHnqShV4ZLbx01Lb4ttanTkIFB+O0EpxXYbMopWarAO2nKkrDFCzWf37KpJnlaNtMOoS5AqkyVhlp4wdSC47jLfIQnDeWf2fcEJdVq30SMS0Q0b4CEGWtmslNeKZVHi732eoovqhtuy9NzcSH0H0q+UFpw9lA0oMNpA2I1d8=
+	t=1788374856; cv=none; b=ZxYpDHh1BAnIthP3pwi0J9MSbwWkkwwnFD+fJYw8RO9gQDnO9qSidQpkFAl9X/w9ie37N+9Y8G3C+C44zOE4suLhy2+kTeIFMSDnRKjwbdGN5TfmHgJDpaYGbYx0iMTdcQejY5Gfh39tU87orRRmisdyL1a3FlUiwiL6rEFC89A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788374788; c=relaxed/simple;
-	bh=yygwotQtyWeWeoFbS6x/XaiiBa01Fa535pcusnuGMbs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=XaZV3Glb+yhNNZpRhvOVyFp8KnijbwjJ+B2HQUdYgRlIOO5zCYOJl6MNmRp+6Cbr2t/JqtGlwCSVdFZymXf//8fcLNAu5hTIEDVUc4mXDHw/AF4FfC1yW2vFc86ZL9LlLMqYPt2hvrr41SxItVy6Zc0SyJgjiAsmBEBFFV6xC5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=b9OgO00j; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1788374856; c=relaxed/simple;
+	bh=EKFYkxW33JQakAeWcdMhEomjNk4xgLKTRBDk38OiwiQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xi+wKomp0eLXQacXQtqai31tBsiIMpbJKo8BDnGHynLSgCue4h6CZiMVcurfx86m4ndfr5Lu8pwhpVq87R5lvqbBk7bBPucG0F0eGR+GY6xcPkVmG1PYW4SqBGHeiKSjKTN3SIjdx3S9/nrkM6G1EeneS/3qaUSjYNKI0CKvxFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=AFCKenhk; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="b9OgO00j"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-485538d3499so1015326f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 11:46:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="AFCKenhk"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49b8ce9b733so10800465e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 11:47:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788374785; x=1788979585; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wuAtzw2j6ol/nKID6h+TTCRJxAaTJJD8KprJBxaZGcU=;
-        b=b9OgO00jb4Xd5kYJbVsGnVM4BUM5xyHyDq65xYi9Y3jdd40BOt3AjaH4mPntl/C/B9
-         2FoCJ6WJ3wuXiFue9qEV1DStBjBVdxEb4GgeX0zpAMjdUAsWhEjZhFCUojh3q3kD+A3v
-         KSoUIJRdX/uNHaKLhcGjyDQpeiD9d4oE0xJPBm2NOoBflHpM/BEFfi1FmPmXk6R6Uf7E
-         MxJtzX6f/JDr0l2ureaHEgrATs1159FFP2HZ+VxC5DmRO++Hcq+MTejWHyBmuWpaEprZ
-         SM60cHppgjalcahFhwBPxX/YNRL3JVePWRa4/78FPzNLLkRuQBZvwWEl9VSW32Oo0FA4
-         1I2Q==
+        d=suse.com; s=google; t=1788374852; x=1788979652; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IdCJ7DhUlcSYo5R128c9LaTPAZTDWZg8qrvo1ipn3/A=;
+        b=AFCKenhkUuhZMDVClNVR+mQwMovkD+fOyQIeToFLjgXHkw/v7jaixe2GYZImeCFR1t
+         eDK4cy8eSbh+sDwcN8anJfAzgbHqW6HrL+g6c2nnpbM33ZzdI39Rj29CbnSdNT9Hfre6
+         aQeeWG7044G8sdWLTABpZ7gVZIlkQxj9Ml+b5tQKU+/523OUVhX/4eqqiEOZMDeznApp
+         N6PrPVitkLZqhh7i9XHdEQ3eAKOcD7gB1Nn373NEctcyY3zHBeanuawi0C8S1yiz2l0c
+         tH/MGNqbM7YVqmXF8lOQVNrQOP7TKqDwWk4p6sGzel4Rnt//CsZoa2ZS9KPK2Vts/31I
+         v0Ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788374785; x=1788979585;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1788374852; x=1788979652;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wuAtzw2j6ol/nKID6h+TTCRJxAaTJJD8KprJBxaZGcU=;
-        b=NcBtnY6llgCKHPR78n3gcL2Phu7BEaL9u3N4o4XKuVC16Q7EIFIx3ccu2CpmJLOLNh
-         AbalifgmKICdGa9jq/ZX6ZcX3Wtr+ds+w4PRYiaq8xTb6BVjtNvp44DJfFQAwZ0Ltobl
-         LfvpZ91LfK/WiY/vKLlChE5ahWLZkPQBZfmQPVa8l/sWH8Y/MjCn16d084Xz3NtfbhmI
-         ZcdLFVt3K4HlE09RQ1BSO92ZcofMViO/bYo8oSHEwEdKHS4nw7e1zJMrb0ix4HwfX6QU
-         AMl2t+spCuLqi49IiQe2kxOLug8LHqfo6VOeYgJJ+loRDSyV7fhHkAaj3I3livBDNGts
-         Q4pg==
-X-Forwarded-Encrypted: i=1; AKwUvByQ8/sA9Rko/E1Y/eTmDIoEB9wwKacGZdyvqOhkQi9wFFzyrx5buSJv42IvX1ewOn9tr39vHFsmCnCIkvY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mPRtRIQ1B8U1AI0Qm0oke7Ec4tZbjxjU0g6uJ0e9i9286LJXB+
-	pNDxzG/OaoWTnaEPTygWn0tlFga3A0UFUQiTOMLGlkx3oJBYSnOUMf93xxMw3OyIatI=
-X-Gm-Gg: AYBFou0j+sOu6TFZwML7nqStDUkmLgA+wXkE/svqjyOk8vX1A8DZYA4rnKrkWLmg3oA
-	lKlMDG2SoE0wIwA4CwObLJ4xn432ZsgPuJZOfSS+T4t3QfLcYtKAu7cibmxQTlQX2Wl+ixESbAG
-	zkgO9G9OkV7GyNj1iuLGHF0uGbm+FGCZ0iX4jw0S9CAbnrRh1jIyAvBumyE0ecy2/2UGAy0dLdn
-	eiTHLxT1MqRGa1r35lYi6Cl5Lr3IcqU/mQOwuDbbO8sQj6ummveQkuOQrT/c1QLAOYKdiKeLmyY
-	iz5/hmYvO/NxwZspIJOO0OKKA33HEm2d7FZ4WUkbleOUvH6Utkb4ILOdxta1SL2hHYhJajbHrvr
-	xqFlKvCbAjuJZFoh4C9nnVOiJeNPf/AL3XHaHw8wP03yIXzaBUOAEf75kQhlz2ZaDJkPYcyuSG2
-	AnOvytdsutvFyKZ7ySBLevJrKSAeCUZ/dPftdwZ9/i+qp3FLXEs6NwJdITe0cL9TKImJc9Iv3MT
-	dc878s=
-X-Received: by 2002:a05:6000:240c:b0:484:4817:85db with SMTP id ffacd0b85a97d-48488f10241mr11800333f8f.14.1788374785193;
-        Wed, 02 Sep 2026 11:46:25 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448eea961sm8160630f8f.28.2026.09.02.11.46.24
+        bh=IdCJ7DhUlcSYo5R128c9LaTPAZTDWZg8qrvo1ipn3/A=;
+        b=sQkB0c8p4fomZfI00SJECND4mN7rmgg+tDNxb5LENrqrojWAXEWOq/AMscM2bqIzM6
+         od+nhYM5Epv3jGgCU50tsnsBYaRUVARQlO/btHVD6ZqjFmeUkadGzOoYJEYNSjHXXKnA
+         5bRIwmvlLMaVy0n8Np6S024ohZTQbOPh++MK+EmcdxwX1E6DLB85ft/Klf7SbDehewWg
+         7UXda713RGZABcgKUJ/dLtPhtkdWk/ZNa2uGcg0Z4ExVmvZHexQuAiqpmLwp7fcMSJcm
+         aFhOdqvA9Hu7rxcaONLdmV9V14wywwv4I7BY2mKJOp6Em6OuZLA6z6LOnJCnevbMmRzf
+         cWnA==
+X-Forwarded-Encrypted: i=1; AKwUvBzg0MiyXX9HZv8uAlF+EWq1v+TD9Ur45fieoyqWyx23qKhWoA/vyVfWoBSFBfS38HjAZDWslxDOLPzYXVI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lHeYdTCvNeMMIZ3sngJ5EBx5aP760y/co1W6UGzTVbRk4pxpFG
+	2W88Ana/KGHPSE8O6VF7rox1KJp3AQmLRJfURcWwkh+VoZM7gCLx8f6hyCa/YgjO1jY=
+X-Gm-Gg: AYBFou1eW5i+q4aO1jWhpakVIVcvHXtVSm1cJ5PnE2+NAz6DPIDTrBOuCkvItrSPIuj
+	wqk9aneJIzWKzEoeNyK+xVDSo9jr1oL4LomgAybbmG+N1sXsY6oQcUgmNwg/tSkMqm58aT+V+/S
+	HnI6HC6nSvo06E3NSOIn0SgBW/zIVDcmBlgOR4zDndfpZzBwGp1aI4W5+jg+VupwSbg7WgQJoIp
+	oC7vyqDeqHTGsT/SIOxDPnaGAX5wRgK8xruIwzLzl1Hsoo18JaMVtU4PeEaL01bzZdLPMS78cAR
+	gTeKNMqy6PhCJUuVKe4OtJN++z+WvrbnoRBgXEDBbosj7dx0XOHXGWb36QRGij3OMTh6bpOjzc2
+	CH0fU5JOYW7dZtv1I/fSAF7SXA0f8HqwtUf+s7xpdrBFRFwwpWcKzmSOkDDKWVARCZjAlLBAD/I
+	vxo+6+HhqzUaQZMf8BHBLkvGrrjf7DVvCtFkJfcIVnUjt7JVWMG7Hl/33LiukVeGkDjTUnu0zfS
+	A==
+X-Received: by 2002:a05:600c:3b25:b0:49c:cfae:34d2 with SMTP id 5b1f17b1804b1-49ce55fb5f7mr127189595e9.4.1788374852065;
+        Wed, 02 Sep 2026 11:47:32 -0700 (PDT)
+Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5d2019sm11290985e9.2.2026.09.02.11.47.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 11:46:24 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: wens@kernel.org
-Cc: Andre Przywara <andre.przywara@arm.com>, Lee Jones <lee@kernel.org>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark
- Brown <broonie@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, mfd@lists.linux.dev
-Subject: Re: [PATCH RESEND v6 4/5] mfd: axp20x: Add support for AXP318W PMIC
-In-Reply-To: <CAGb2v66Uz6hCQaf5Nk5Eup8wQ+Xo9tuAqm0+ZH9J5CbT0zyAPg@mail.gmail.com>
-References: <20260812-axp318-regulator-v6-0-d6b84b55c000@baylibre.com>
- <20260812-axp318-regulator-v6-4-d6b84b55c000@baylibre.com>
- <CAGb2v66Uz6hCQaf5Nk5Eup8wQ+Xo9tuAqm0+ZH9J5CbT0zyAPg@mail.gmail.com>
-Date: Wed, 02 Sep 2026 20:46:23 +0200
-Message-ID: <1jjyp38pa8.fsf@starbuckisacylon.baylibre.com>
+        Wed, 02 Sep 2026 11:47:31 -0700 (PDT)
+Date: Wed, 2 Sep 2026 20:47:29 +0200
+From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
+To: Tao Cui <cui.tao@linux.dev>
+Cc: Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Shuah Khan <shuah@kernel.org>, cgroups@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, Ziyang Men <ziyang.meme@gmail.com>, 
+	Tao Cui <cuitao@kylinos.cn>
+Subject: Re: [PATCH v5] selftests/cgroup: add PSI pressure trigger and
+ validation tests
+Message-ID: <aphkAGKpg3dgFc6c@localhost.localdomain>
+References: <20260902040725.877155-1-cui.tao@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="k7dsd4vdmhwtmf2v"
+Content-Disposition: inline
+In-Reply-To: <20260902040725.877155-1-cui.tao@linux.dev>
 
-On dim. 23 ao=C3=BBt 2026 at 21:17, Chen-Yu Tsai <wens@kernel.org> wrote:
 
->>
->> +enum axp318_irqs {
->> +       AXP318_IRQ_DCDC1_V_LOW,
->> +       AXP318_IRQ_DCDC2_V_LOW,
->> +       AXP318_IRQ_DCDC3_V_LOW,
->> +       AXP318_IRQ_DCDC4_V_LOW,
->> +       AXP318_IRQ_DCDC5_V_LOW,
->> +       AXP318_IRQ_DCDC6_V_LOW,
->> +       AXP318_IRQ_DCDC7_V_LOW,
->> +       AXP318_IRQ_DCDC8_V_LOW,
->> +       AXP318_IRQ_DCDC9_V_LOW,
->> +       AXP318_IRQ_DIE_TEMP_HIGH_LV1,
->> +       AXP318_IRQ_DIE_TEMP_HIGH_LV2,
->
->> +       AXP318_IRQ_PEK_SHORT,
->> +       AXP318_IRQ_PEK_LONG,
->
-> The order of these two are reversed.
->
->> +       AXP318_IRQ_PEK_FAL_EDGE,
->> +       AXP318_IRQ_PEK_RIS_EDGE,
->
-> And these two as well.
+--k7dsd4vdmhwtmf2v
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v5] selftests/cgroup: add PSI pressure trigger and
+ validation tests
+MIME-Version: 1.0
 
-Applied everything except this is last one.
-AFAICT, the IRQ above are not inverted ... but it is slightly confusing
-because the regmap_irqs orders it the other way
+Hello Tao.
 
-Thanks for the detailed review=20
+On Wed, Sep 02, 2026 at 12:07:25PM +0800, Tao Cui <cui.tao@linux.dev> wrote:
+> +/* PSI triggers are written with a trailing NUL the kernel parser expects. */
+> +static ssize_t write_trigger(int fd, const char *trigger)
+> +{
+> +	return write(fd, trigger, strlen(trigger) + 1);
+> +}
 
->
-> Once all these are fixed,
-> Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
->
->
-> ChenYu
->
->> +       AXP318_IRQ_GPIO1_INPUT =3D 20,
->> +       AXP318_IRQ_GPIO2_INPUT,
->> +       AXP318_IRQ_GPIO3_INPUT,
->> +       AXP318_IRQ_WDOG_EXPIRE =3D 24,
->> +};
->> +
->>  enum axp717_irqs {
->>         AXP717_IRQ_VBUS_FAULT,
->>         AXP717_IRQ_VBUS_OVER_V,
->>
->> --
->> 2.47.3
->>
+Hyrum's law. It all works for me: NUL, \n or just write(2) the exact
+length of the string.
+For conventionality, I'd prefer the simple literals and plain strlen() +
+0. (I reckon cg_write() cannot be used because of FD access.)
 
---=20
-Jerome
+> +
+> +static int pressure_open(const char *resource)
+> +{
+> +	char path[PATH_MAX];
+> +	int fd;
+> +
+> +	snprintf(path, sizeof(path), "/proc/pressure/%s", resource);
+> +	fd = open(path, O_RDWR);
+> +	if (fd < 0)
+> +		ksft_perror(path);
+
+This outputs:
+| # /proc/pressure/irq: No such file or directory (2)
+| #      SKIP      /proc/pressure/irq unavailable
+
+I.e. similar message is printed twice.
+Since strace is a companion of cgroup selftests, I'd keep this helper
+silent.
+
+> +	return fd;
+> +}
+> +
+> +FIXTURE(psi)
+> +{
+> +	char root[PATH_MAX];
+> +	char *cg;
+> +};
+> +
+> +FIXTURE_SETUP(psi)
+> +{
+> +	int psi_fd;
+> +
+> +	if (cg_find_unified_root(self->root, sizeof(self->root), NULL))
+> +		SKIP(return, "cgroup v2 isn't mounted");
+> +
+> +	/* PSI must be enabled (CONFIG_PSI=y, not disabled on the cmdline). */
+> +	psi_fd = open("/proc/pressure/memory", O_RDONLY);
+> +	if (psi_fd < 0)
+> +		SKIP(return, "PSI unavailable (CONFIG_PSI=n or psi=0)");
+> +	close(psi_fd);
+> +
+> +	self->cg = cg_name(self->root, "psi_trigger_test");
+> +	if (!self->cg)
+> +		SKIP(return, "failed to allocate cgroup name");
+> +	if (cg_create(self->cg))
+> +		SKIP(return, "failed to create cgroup: %s", strerror(errno));
+
+Why are these two SKIPs (not failures)?
+
+> +TEST_F(psi, cgroup_trigger_fire)
+> +{
+> +	char *cpupress;
+> +	struct pollfd pfd = { .events = POLLPRI };
+> +	long ncpus;
+> +	int fd;
+> +	int i;
+> +
+> +	cpupress = cg_control(self->cg, "cpu.pressure");
+> +	ASSERT_NE(NULL, cpupress);
+> +	fd = open(cpupress, O_RDWR);
+> +	free(cpupress);
+> +	ASSERT_GE(fd, 0);
+> +	pfd.fd = fd;
+> +
+> +	/*
+> +	 * 1usec threshold over a 2s window: any CPU stall fires it. The 2s
+> +	 * window is the smallest unprivileged users are allowed to arm.
+> +	 */
+> +	ASSERT_GT(write_trigger(fd, "some 1 2000000"), 0);
+
+The selftest rarely can be run as unprivileged user (even test cgroup
+creation needs privileges), so this comment is irrelevant. (But it's
+fine to test with that value.)
+
+On the more abstract level -- I was playing with this and thinking about
+a value that'd test both sides, i.e. false triggers as well as false
+non-triggers. I'd find that to be the half of the window and the number
+of tasks should be then (3*ncpus + 1) / 2.
+Or perhaps test two thresholds, one tiny like you did and one maximum
+(whole window) with same amount tasks but expect trigger, no trigger
+respectively.
+
+
+> +
+> +	ncpus = sysconf(_SC_NPROCESSORS_ONLN);
+> +	if (ncpus == -1)
+> +		TH_LOG("sysconf(_SC_NPROCESSORS_ONLN): %s", strerror(errno));
+> +	ASSERT_NE(-1, ncpus);
+
+Same as messages from pressure_open() above. Simply assert.
+
+> +
+> +	/* ncpus+1 hogs guarantee CPU contention inside the cgroup. */
+> +	for (i = 0; i < ncpus + 1; i++)
+> +		ASSERT_GE(cg_run_nowait(self->cg, hog_cpu, NULL), 0);
+> +
+> +	ASSERT_EQ(1, poll(&pfd, 1, PSI_POLL_TIMEOUT_MS));
+> +	ASSERT_NE(0, pfd.revents & POLLPRI);
+> +	close(fd);
+> +}
+> +
+> +TEST_HARNESS_MAIN
+
+All in all, this looks so much better than the initial version, well
+done. Just a few polishing touches.
+
+Michal
+
+--k7dsd4vdmhwtmf2v
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCaphvPRsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+AiKJwD+PqtkHd3blRPy13sFyLqF
+8DxwZSomQ1H3UCKVICDOT/8A/A56P4uCIa6DGF+2hWa4rtwuRod+M+rCD4tqo/Cf
+mVQH
+=xP5B
+-----END PGP SIGNATURE-----
+
+--k7dsd4vdmhwtmf2v--
