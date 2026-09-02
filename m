@@ -1,281 +1,145 @@
-Received: from mta1.migadu.com (out-223.mta1.migadu.com [95.215.58.223])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B1A147DFA8
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:54:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E949477985;
+	Wed,  2 Sep 2026 11:55:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788350066; cv=none; b=swPBsnQUr6fScyi5+fIP5l0JjFs5antpcnR9ut73/PxUu8tJ+3ZF3PnVa7w/Ply3roYh37S6eYPZ5hfCpjAyIrRkTUvDb2cBLR1NJEKHpKFhmzeQpEuy8Nt8xXnuUfaPdPSZcQgOCdpvb6U+3CzDOFzykTQJc3Jqca3pxyAaRwg=
+	t=1788350184; cv=none; b=usbS6l1g8cjDBUfJYd4R4/BUG+QAmDKIPE0xHoRCSj8sHOIhP3gn6VVaoaUTa7dI1hpWchm2/fLvOoW3CKbehNVhm+8rbVfMTfuYP2p9SZ202KveOU7I/V+NVjhriWjUS60GLhync90bjP46KT8KaDmqncHXI+5iyeiPNU3HGIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788350066; c=relaxed/simple;
-	bh=aQYGC2wvAvGiMyomsHHwCWz//Ge7ZRLzGnThPXs7Oqg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NICItrCMldnIFzkjrHGwmWxm1wK6Yn0WHY+mIANQamFZ2lL0nXH06tNKO0yvrW5++F5HFHkBij61LmG96oIy51pp4eCgQVOD2zBwZz+yu9x40qwp6j5cxMw4607p+0OtkUWz0Mm4J0A5y4Kd8PQbNkSYfcBizPaCKSSe4GXRspU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Zf+n0EJ5; arc=none smtp.client-ip=95.215.58.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788350184; c=relaxed/simple;
+	bh=o/2hWz9cYSsj1g9n+IKiZF+6EPFNa85rk6eAvu3wqoI=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mlJU0dEH95DlSdvVjmNFMxWPGjiVUlqmn+AcsSxmx/On6faDk7vuKd4AVirDgv1nARRMF4HTSDOlAdj2J+yscYiTSwdIRe1GgWtEGwcY8EFK0wwZChSQmVjwbDFkhjx5fE3T+WGI+YYjrTdB43gxr3uRToUNGCFgwmUpJruS8BI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=ra9H0Yvc; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=CoezHoSo; arc=none smtp.client-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Zf+n0EJ5"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=aQYGC2wvAvGiMyomsHHwCWz//Ge7ZRLzGnThPXs7Oqg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788350053; v=1; x=1788954853;
- b=Zf+n0EJ5V6m3x1JihKJwQNG4oUU6SnoXcosU6zy0/MoqOTpNxLPVq5dv3OjEPcmRbU8hY2qT
- xCRfziNELbygx3GU1oYdvznqKgA9ruERqiClQokAYRh6SLpLicAOpMlkV25FvyAtn5e3jh1sTnR
- MyJx/pJU0BNIJ7uv3Q7LbDog=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ec51bc7ccc9a418b;
-	Wed, 02 Sep 2026 11:54:13 +0000
-X-Mizu-Trace-ID: ec51bc7ccc9a418b
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <a6bff161-0d6c-467e-99a8-2062f123a6f8@linux.dev>
-Date: Wed, 2 Sep 2026 13:54:12 +0200
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="ra9H0Yvc";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="CoezHoSo"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.stl.internal (Postfix) with ESMTP id CF8BC1D000D6;
+	Wed,  2 Sep 2026 07:55:52 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Wed, 02 Sep 2026 07:55:53 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1788350152; x=1788436552; bh=T8Ta5dWC3i
+	BQKIe7qAuLecVMVEjIkycgwE+Mr3w9bDo=; b=ra9H0Yvc06w8a4i2Mr9PN+fn6A
+	5/f71qutVXClxp8cj/DQrWjSGdNyN0GJ1AgahqpDaeIwDFFUXqTbPl/xyzUBixiS
+	pC/8kQqs6ogixbMC1YEPqNtWmrquW3kKIPmeEg0D+kxOMmV81WxJVHRDSXLzUfXa
+	X381eos3ezytpkdkdrJeuUdyzIZCSc+mAjzXaVB3NKNRbxzV/BvZl+jgaJtZtNLZ
+	eyj2VhzRKiIzNbtT1fhfzRflo1sE9AF2UGNpmHYiCYRKwWHfbb37QMOiIjKalx/V
+	soa+ikfy6xgXbrqnkQiNXGtCwPitLtAqMq4LyjjsaZrnIfwh4Gge5c1dw5Dw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1788350152; x=1788436552; bh=T8Ta5dWC3iBQKIe7qAuLecVMVEjIkycgwE+
+	Mr3w9bDo=; b=CoezHoSoD19NrdrpilCXpNReX7RE96MFFFphDn4XWH5dS5QZ89C
+	hNqacLnh32Ub4mKnXK5tbPLsxGkWAm6lDSuz7pGcdhq6J7fF5ns8Gg+IgwvbLEm/
+	4AWQC5NmZpXhbEp8PzIBChDCjXmsJEZ4Xlo0jMCKDFzz0ZX0ci83hFXABZe1Klqf
+	qgM9frxjGNRVUFDolE5feaUOUv/vPMk2VOjjPxJUPpCE3kmXkXnDVgg2jK9bvsOD
+	q2FgFYtQTrNdXYMIOOZqF6+VZVFZvvnz48DHvx4X5Z7LxHdYF2ZI/e7Og4K0zqBb
+	TOuDl4jq4og2SbZVpdla34llsOJAPKwBYCQ==
+X-ME-Sender: <xms:yA6YavaUMuF3aTBncCSjFYNIFWb7KxQb7VVygQN4ZthXEQK4mKvjWQ>
+    <xme:yA6Yajm4pivoUPPvBSM4wjKobq3p-7bwWvkEJVK2aAfNjTvLup7Z28psPY1BACnSO
+    mmNGIzMkc8SkIrFA6S0r0L_x5t5DTfb3nOehxYPWyib5pZpAg>
+X-ME-Received: <xmr:yA6YalUudsE68TE07Rj_x6kAYehz1dZSOi9NXCrzNSEji021mZTIHMgjjLPOgJmnVAbWTX9iZUosAFC0RBDAWteVGQGzZ1JMnJa5IBbFJJk>
+X-ME-Proxy-Cause: dmFkZTFe488197dB6Kik+J0Fs7xaGaBq5nNfTkYsjiWm9HfNozAMDVGdAgxUgOIiADB8Ll
+    CHhgKEkZSuR1+dCHfrf0f20PU4fd+cYta99XPtep9/mBv9tqyy0VkUrCWj6pQcI/cNFo7C
+    gs3JGCFUPhZ9h4WOluGPu/wrrzh4J/LGGMGfqnlyNNgyazV+QgUSUBfChGTlqa7ZM37zco
+    2fgefX2SQV94ZqSd72WCc6NudRzhoJlZQ6QMMN1KlOZ0SfaWQeZGcqibcG9LdHSH143J4r
+    3sm5gLtJX+puYCqsUh9gGVMGRQYv3jVnuNqo99bW6sJOPqR3BODxE6UmZCNy+KX1hkf3Zz
+    W8JmuXTectD6FjtDckpY8DK7HKlgcXqQ3p3JQRR4POTnMNtkKg8sUh/acwNe0pgw6TL+un
+    gMmXzpbOhOvQliQBudC/lNWxKWB0nlWugR0xI6iUYjuNyevu1iiv5uKQ4cSReUtcSZo5vI
+    duNC0EPxawBJ9ADrt42y/+MvWGw9CjXWGJXLroEFW7AwzEVgQSpaIZF2lynoFRGPDxxcmZ
+    R+ZtzoMBE4IgZcexAEyrtqOKHCSR0C24vb1Vsqv97K3i2qM+BPpRsl9CIxe3RClpeFEj6J
+    yjN3b+u+lHVse6bmVg/3i4cCoS5E7lNmPQ/iJUSlFivzHFGMMSZ80wACj+4w
+X-ME-Proxy: <xmx:yA6YalJXbJcQ8Hw2U3s7TeOp9t3bIg4PoMtGKCre9OADACUUqe5hhA>
+    <xmx:yA6YalttqE3fwQoIwpYoe8MiPorA046m5b3G9ocPq_940y0RhPx6EQ>
+    <xmx:yA6Yaq3Rul0ox9wyG3RuMzSgQtYT8gG_KqfE-OieM8HZgLgDI6vvxQ>
+    <xmx:yA6YatNFJFUFLGyXBL9O4vTJChbmrD-MoQxCScChJO_XORiejELPNg>
+    <xmx:yA6Yaknp1r1vYNNpzbMna-fqvzvzGYVwoyi1c0el68GjgPsHbsg2QbRX>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 2 Sep 2026 07:55:52 -0400 (EDT)
+Date: Wed, 2 Sep 2026 13:54:08 +0200
+From: Greg KH <greg@kroah.com>
+To: Jingbo Xu <jefflexu@linux.alibaba.com>, xiang@kernel.org,
+	chao@kernel.org, linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3] erofs: add sysfs feature entry for xattr prefixes
+Message-ID: <2026090258-zealous-oyster-2874@gregkh>
+References: <20260902015039.54190-1-jefflexu@linux.alibaba.com>
+ <2026090256-impart-headstand-7d29@gregkh>
+ <apgAHPzvGe4bEPJx@XiangdeMacBook-Pro.local>
+ <2026090249-rework-vividly-5abb@gregkh>
+ <apgLrJqst_kGUq1D@XiangdeMacBook-Pro.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] platform/x86: asus-wmi: fix FA401 series keyboard
- sleep strobe
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Idotoho Reimon Simanjuntak <idotohors@gmail.com>
-Cc: Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones"
- <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>,
- platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-References: <20260902032353.16106-1-idotohors@gmail.com>
- <b8cdf49b-91d4-2e86-a8ea-04d1db119225@linux.intel.com>
-Content-Language: en-US
-From: Denis Benato <denis.benato@linux.dev>
-In-Reply-To: <b8cdf49b-91d4-2e86-a8ea-04d1db119225@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apgLrJqst_kGUq1D@XiangdeMacBook-Pro.local>
 
+On Wed, Sep 02, 2026 at 07:42:36PM +0800, Gao Xiang wrote:
+> On Wed, Sep 02, 2026 at 01:38:16PM +0200, Greg KH wrote:
+> > On Wed, Sep 02, 2026 at 06:53:16PM +0800, Gao Xiang wrote:
+> > > Hi Greg,
+> > > 
+> > > On Wed, Sep 02, 2026 at 07:36:13AM +0200, Greg KH wrote:
+> > > > On Wed, Sep 02, 2026 at 09:50:39AM +0800, Jingbo Xu wrote:
+> > > > > Let /sys/fs/erofs/features/xattr_prefixes advertise that this kernel
+> > > > > supports the EROFS_FEATURE_INCOMPAT_XATTR_PREFIXES on-disk format.
+> > > > > 
+> > > > > Fixes: 6a318ccd7e08 ("erofs: enable long extended attribute name prefixes")
+> > > > > Cc: <stable@vger.kernel.org> # 6.4+
+> > > > > Reviewed-by: Gao Xiang <xiang@kernel.org>
+> > > > > Signed-off-by: Jingbo Xu <jefflexu@linux.alibaba.com>
+> > > > > ---
+> > > > > changes since v2:
+> > > > > - add Reviewed-by tag (Gao Xiang)
+> > > > > - update list in Documentation/ABI/testing/sysfs-fs-erofs
+> > > > > (https://sashiko.dev/#/patchset/20260901062243.109172-1-jefflexu%40linux.alibaba.com)
+> > > > > ---
+> > > > >  Documentation/ABI/testing/sysfs-fs-erofs | 2 +-
+> > > > >  fs/erofs/sysfs.c                         | 2 ++
+> > > > >  2 files changed, 3 insertions(+), 1 deletion(-)
+> > > > 
+> > > > Why is adding a new feature a stable thing?
+> > > 
+> > > It's not a new feature (Also, this patch has 3 lines diff):
+> > > This is a bugfix to address the missing part of
+> > > commit 6a318ccd7e08 ("erofs: enable long extended
+> > > attribute name prefixes"") since every on-disk features
+> > > should be shown in `/sys/fs/erofs/features/*` according to
+> > > the definition of:
+> > > 
+> > > What:           /sys/fs/erofs/features/
+> > > Date:           November 2021
+> > > Contact:        "Huang Jianan" <huangjianan@oppo.com>
+> > > Description:    Shows all enabled kernel features.
+> > > ...
+> > > 
+> > > IOWs, this sysfs entry should be part of commit 6a318ccd7e08
+> > > to indicate this feature is supported since Linux 6.4+
+> > 
+> > Ok, but as this has not been present for a very long time, did anyone
+> > even notice and need this now in stable kernels?  :)
+> 
+> I think Jingbo needs it (btw, I'm no longer in Alibaba Cloud
+> anymore).
+> 
+> Also it would be better to port this into stable kernels so
+> that users can get the supported on-disk features in a more
+> unique obvious way.
 
-On 9/2/26 11:42, Ilpo Järvinen wrote:
-> On Wed, 2 Sep 2026, Idotoho Reimon Simanjuntak wrote:
->
->> The FA401 series accepts the TUF keyboard RGB power-state command but does
->> not advertise the device through the normal DSTS presence probe. Register
->> the state attributes for this series and re-assert keyboard brightness in
->> the PM prepare callback so the EC enters S0ix with the correct state.
->>
->> Without the brightness re-assertion, the display server blanks the keyboard
->> before the kernel suspend path runs, leaving the EC with brightness=0 and
->> preventing the sleep strobe from activating. Because kbd_led_wk may already
->> be zeroed by the display server at prepare time, always re-assert level 3
->> (max) brightness when sleep backlight is enabled.
->>
->> Use a quirk flag (kbd_rgb_state_quirk) set via DMI match table rather than
->> ad-hoc dmi_match() calls. Cache power-state flags from sysfs writes and
->> initialize the cache to the default enabled state during probe, so the
->> workaround also applies before userspace writes the attribute. Do not add
->> a module parameter; the sysfs power-state setting is authoritative.
->> Use the standard dev_pm_ops .prepare callback rather than overloading the
->> Ally-specific LPS0 ops. Define self-documenting macros for the TUF RGB
->> state bitfields at file scope.
->>
->> Signed-off-by: Idotoho Reimon Simanjuntak <idotohors@gmail.com>
->> ---
->> Changes in v2:
->>  - Cache RGB power state flags from sysfs writes instead of attempting DSTS read.
->>  - Initialize state flags to enable all modes during driver probe.
->>  - Move TUF_RGB_STATE_* bitfield macros to file scope.
->>  - Drop module parameter in favor of DMI quirk + sysfs control.
->>  drivers/platform/x86/asus-nb-wmi.c | 14 +++++++
->>  drivers/platform/x86/asus-wmi.c    | 61 +++++++++++++++++++++++++++++-
->>  drivers/platform/x86/asus-wmi.h    |  1 +
->>  3 files changed, 75 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
->> index aeb461b16..fb06013ca 100644
->> --- a/drivers/platform/x86/asus-nb-wmi.c
->> +++ b/drivers/platform/x86/asus-nb-wmi.c
->> @@ -155,6 +155,11 @@ static struct quirk_entry quirk_asus_z13 = {
->>  	.tablet_switch_mode = asus_wmi_kbd_dock_devid,
->>  };
->>  
->> +static struct quirk_entry quirk_asus_fa401 = {
->> +	.wapf = 0,
->> +	.kbd_rgb_state_quirk = true,
->> +};
->> +
->>  static int dmi_matched(const struct dmi_system_id *dmi)
->>  {
->>  	pr_info("Identified laptop model '%s'\n", dmi->ident);
->> @@ -163,6 +168,15 @@ static int dmi_matched(const struct dmi_system_id *dmi)
->>  }
->>  
->>  static const struct dmi_system_id asus_quirks[] = {
->> +	{
->> +		.callback = dmi_matched,
->> +		.ident = "ASUSTeK COMPUTER INC. FA401",
->> +		.matches = {
->> +			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
->> +			DMI_MATCH(DMI_BOARD_NAME, "FA401"),
->> +		},
->> +		.driver_data = &quirk_asus_fa401,
->> +	},
->>  	{
->>  		.callback = dmi_matched,
->>  		.ident = "ASUSTeK COMPUTER INC. Q500A",
->> diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
->> index a65090429..a0b678272 100644
->> --- a/drivers/platform/x86/asus-wmi.c
->> +++ b/drivers/platform/x86/asus-wmi.c
->> @@ -129,6 +129,18 @@ module_param(fnlock_default, bool, 0444);
->>  #define ASUS_SCREENPAD_BRIGHT_MAX 255
->>  #define ASUS_SCREENPAD_BRIGHT_DEFAULT 60
->>  
->> +/* TUF RGB power state bitfields for DEVS(ASUS_WMI_DEVID_TUF_RGB_STATE) */
->> +#define TUF_RGB_STATE_CMD		0xbd
->> +#define TUF_RGB_STATE_SAVE		BIT(8)
->> +#define TUF_RGB_STATE_BOOT		(0x03 << 16)
->> +#define TUF_RGB_STATE_AWAKE		(0x0c << 16)
->> +#define TUF_RGB_STATE_SLEEP		(0x30 << 16)
->> +#define TUF_RGB_STATE_KEYBOARD		(0xc0 << 16)
->> +#define TUF_RGB_STATE_ALL_MODES		(TUF_RGB_STATE_BOOT | \
->> +					 TUF_RGB_STATE_AWAKE | \
->> +					 TUF_RGB_STATE_SLEEP | \
->> +					 TUF_RGB_STATE_KEYBOARD)
->> +
->>  #define ASUS_MINI_LED_MODE_MASK		0x03
->>  /* Standard modes for devices with only on/off */
->>  #define ASUS_MINI_LED_OFF		0x00
->> @@ -308,6 +320,8 @@ struct asus_wmi {
->>  	u32 nv_temp_target;
->>  
->>  	u32 kbd_rgb_dev;
->> +	u32 kbd_rgb_state_flags;
->> +	bool kbd_rgb_state_valid;
->>  	bool kbd_rgb_state_available;
->>  	bool oobe_state_available;
->>  
->> @@ -1120,8 +1134,13 @@ static ssize_t kbd_rgb_state_store(struct device *dev,
->>  				 const char *buf, size_t count)
->>  {
->>  	u32 flags, cmd, boot, awake, sleep, keyboard;
->> +	struct led_classdev *led;
->> +	struct asus_wmi *asus;
->>  	int err;
->>  
->> +	led = dev_get_drvdata(dev);
->> +	asus = container_of(led, struct asus_wmi, kbd_led);
->> +
->>  	if (sscanf(buf, "%d %d %d %d %d", &cmd, &boot, &awake, &sleep, &keyboard) != 5)
->>  		return -EINVAL;
->>  
->> @@ -1138,6 +1157,9 @@ static ssize_t kbd_rgb_state_store(struct device *dev,
->>  	if (keyboard)
->>  		flags |= BIT(7);
->>  
->> +	asus->kbd_rgb_state_flags = flags << 16;
->> +	asus->kbd_rgb_state_valid = true;
->> +
->>  	/* 0xbd is the required default arg0 for the method. Nothing happens otherwise */
->>  	err = asus_wmi_evaluate_method3(ASUS_WMI_METHODID_DEVS,
->>  			ASUS_WMI_DEVID_TUF_RGB_STATE, 0xbd | cmd << 8 | (flags << 16), 0, NULL);
-> Interesting, is this using TUF_RGB_STATE_CMD as literal? Perhaps you 
-> should expand this into a patch series and make that conversion in 
-> preparatory patch.
->
->> @@ -5153,7 +5175,6 @@ static int asus_wmi_add(struct platform_device *pdev)
->>  
->>  	asus->egpu_enable_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_EGPU);
->>  	asus->dgpu_disable_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_DGPU);
->> -	asus->kbd_rgb_state_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_TUF_RGB_STATE);
->>  
->>  	if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_MINI_LED_MODE))
->>  		asus->mini_led_dev_id = ASUS_WMI_DEVID_MINI_LED_MODE;
->> @@ -5166,6 +5187,19 @@ static int asus_wmi_add(struct platform_device *pdev)
->>  		asus->gpu_mux_dev = ASUS_WMI_DEVID_GPU_MUX_VIVO;
->>  #endif /* IS_ENABLED(CONFIG_ASUS_WMI_DEPRECATED_ATTRS) */
->>  
->> +	/*
->> +	 * FA401 series accepts the TUF RGB-state DEVS command but does not
->> +	 * advertise the device through DSTS. Keep the normal DSTS probe for
->> +	 * other models and force registration when the quirk is set.
->> +	 */
->> +	asus->kbd_rgb_state_available =
->> +		asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_TUF_RGB_STATE) ||
->> +		asus->driver->quirks->kbd_rgb_state_quirk;
->> +	if (asus->driver->quirks->kbd_rgb_state_quirk) {
->> +		asus->kbd_rgb_state_flags = TUF_RGB_STATE_ALL_MODES;
->> +		asus->kbd_rgb_state_valid = true;
->> +	}
->> +
->>  	asus->oobe_state_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_OOBE);
->>  
->>  	if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_THROTTLE_THERMAL_POLICY))
->> @@ -5396,11 +5430,36 @@ static int asus_hotk_restore(struct device *device)
->>  
->>  static int asus_hotk_prepare(struct device *device)
->>  {
->> +	struct asus_wmi *asus = dev_get_drvdata(device);
->> +
->>  	if (use_ally_mcu_hack == ASUS_WMI_ALLY_MCU_HACK_ENABLED) {
->>  		acpi_execute_simple_method(NULL, ASUS_USB0_PWR_EC0_CSEE,
->>  					   ASUS_USB0_PWR_EC0_CSEE_OFF);
->>  		msleep(ASUS_USB0_PWR_EC0_CSEE_WAIT);
->>  	}
->> +
->> +	/*
->> +	 * The display server may blank the keyboard backlight before the
->> +	 * kernel suspend path runs. Re-assert brightness and power-state
->> +	 * flags so the EC enters S0ix with the correct state. Always use
->> +	 * level 3 (max) because kbd_led_wk may already be zeroed by the
->> +	 * display server at this point, and the sleep strobe requires a
->> +	 * non-zero brightness to activate.
->> +	 */
->> +	if (asus && asus->driver->quirks->kbd_rgb_state_quirk &&
->> +	    asus->kbd_rgb_state_available && asus->kbd_rgb_state_valid &&
->> +	    (asus->kbd_rgb_state_flags & TUF_RGB_STATE_SLEEP)) {
->> +		u8 brightness = 0x80 | 0x03; /* level 3 (max) + light-on bit */
->> +
->> +		asus_wmi_set_devstate(ASUS_WMI_DEVID_KBD_BACKLIGHT,
->> +				      brightness, NULL);
->> +		asus_wmi_evaluate_method3(ASUS_WMI_METHODID_DEVS,
->> +					  ASUS_WMI_DEVID_TUF_RGB_STATE,
->> +					  TUF_RGB_STATE_CMD | TUF_RGB_STATE_SAVE |
->> +					  asus->kbd_rgb_state_flags,
-> This makes things more confusing overall.
->
-> One should use FIELD_PREP() consistently for bitfields where a shift is 
-> needed but here you write a pre-shifted value. In the other place, this 
-> driver shifts (which should be converted to FIELD_PREP()) while making the 
-> evaluate call.
-Hi Idotoho!
+Ok, that makes more sense, sorry for the noise!
 
-I tried to change the ASUS TUF interface for leds moving it to asus-armoury once,
-I dropped it in the end, but I got these defines and bitfields right: you can reuse
-my code code if you want, just leave the interface in asus-wmi.
-
-Also about this restore the backlight setting before entering sleep: do we really
-want the kernel to decide to override a userspace decision to shine some leds
-in s2idle? My understanding is that if this is a userspace "missing feature"
-(the ability to configure what happens to LEDs upon entering s2idle) it is the
-userspace that has to be improved, not for the kernel to force a decision.
-
-Best regards,
-Denis
->> +					  0, NULL);
->> +	}
->> +
->>  	return 0;
->>  }
->>  
->> diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/x86/asus-wmi.h
->> index 5cd4392b9..69d224774 100644
->> --- a/drivers/platform/x86/asus-wmi.h
->> +++ b/drivers/platform/x86/asus-wmi.h
->> @@ -52,6 +52,7 @@ struct quirk_entry {
->>  	 */
->>  	int no_display_toggle;
->>  	u32 xusb2pr;
->> +	bool kbd_rgb_state_quirk;
->>  };
->>  
->>  struct asus_wmi_driver {
->>
+greg k-h
