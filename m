@@ -1,145 +1,95 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 12D1E346774;
-	Wed,  2 Sep 2026 12:09:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FEA847DD7A
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:09:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788350997; cv=none; b=lBW8uO3qYTtXj2sFnl5kjQBHCKrYyNqqea00BdJbN5sgIDZBZKDF4/mTlT70tttX2gXcXxjT2AIN1RvUNKx1EByxPuTlvSsDYD9FMXCldRPEFbuICir0r+3Dd99n5hvVKCkPPx9Ro4c7QS5l+qA3wuh9FGYsDB8oW+9jlHOb4Qg=
+	t=1788350999; cv=none; b=N+/6S0wnPzQ4CV13K1lQtj6gbCXbtAHkLDtStdv9Lcwmy3B4E5f65pMvX1014Tinih+Iy2xEsdu/eJtX2Gsipo5/oPzSXaoZfoNvJdbBVIfQZeYe8TV5LW+TXAiFXTp4a5mthz9GLizkraSJ1X7MSjVTJXj+Cw3r9uFISzPoTx0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788350997; c=relaxed/simple;
-	bh=pUsAF+NKDxZAuOCu2xwNuQnOqeW4ovfuiE8VNrQZxHY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pEK6TnX/PAroagvGbMvLNW1SIFoYsNBdhlqlC8PEO2ZOeG18KD9yIGYZEdB6PH73yKS6IrJWMyfN936V+W7qqxBOSPOZms4NVMxZWXsoLYZFMI8N9J+68U4LVLHj9DsMSsvksMCHJjKeoW+VA3Un7spSHGXHD1mughNykKkH9Kk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=aW7k6H1g; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788350999; c=relaxed/simple;
+	bh=UF8B5DVnStRck5sMzmDzOwCOV+E4FmHURou880UH9z0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E/3zQFTAbIynkJofSRkWkQDwAgPtHGDA4m6syhHV8TvUaOYer9ko/rbgmZRNrJWIEdLScEMWgWp5Yf9WDE3R93DZkd93J97bT3swi040tbrnFPgP7mSqRyOJwNz7qPx7GXsWieLTzYJQlSFirAfvZKBraGZ9zFEMh5QYzq5V92U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CQFuAyuN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="aW7k6H1g"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5793C1682;
-	Wed,  2 Sep 2026 05:09:46 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 187013F882;
-	Wed,  2 Sep 2026 05:09:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788350990; bh=pUsAF+NKDxZAuOCu2xwNuQnOqeW4ovfuiE8VNrQZxHY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=aW7k6H1gR9hzfnUh1tz9Of7F89UvN9scnUZbNsi2t6A5hay2+g9HovUPxDmZqj+7J
-	 YX2XUCiwDEnyufUi/0QdRQZuYlN/dypKriQjNvpLsrL3kq6knvnJLnHJD1gqA7A8Vu
-	 IBUvhRE24MLrCs6NV1/IlnuQMc64aI4d1hbkIuT0=
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-Date: Wed, 02 Sep 2026 13:09:35 +0100
-Subject: [PATCH v4 1/3] kselftest: mm: prevent random failure of huge page
- split for khugepaged
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CQFuAyuN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B35051F00A3D;
+	Wed,  2 Sep 2026 12:09:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788350996;
+	bh=jIXfuktxBX9npVbn29PNwEDcICMHnTCbs+iOm5eKoxw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CQFuAyuNHerDnWsaFITNdyKdYk0CDRDVo85WOXqItPK45gd2qprMEyHWZtia5OZSD
+	 F+oNuD69Rox5filuXKINVTARp9sP3eAtoharI+a3M2Rss1fvn2x2VqC6o2bnFRH5lX
+	 sWfvLXb1DLtYNwb7jeTUmS/hQ/87QH/5c2hyMiXPXNLunXSDqWjqqIHT7fx0mtt1cb
+	 p1IfB55BWUQcWZ/99vYKL/i24P6KmHe42oWKm5A/Bq3divRGIFn/AZs9yj28TGXlGE
+	 TBOPKGpJU+vTbGBPFq8cP7Iz3+tYBQsIeMQbIxlczwpxE4pmP+9v23ctQP2IEoPg8k
+	 nC6gFCN9OuuFA==
+Date: Wed, 2 Sep 2026 15:09:47 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Eli Billauer <eli.billauer@gmail.com>
+Cc: David Laight <david.laight.linux@gmail.com>,
+	Arnd Bergmann <arnd@arndb.de>, Brad Warrum <bwarrum@linux.ibm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Ritu Agarwal <rituagar@linux.ibm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH 2/4] char: xillybus: replace __get_free_pages() with
+ kmalloc()
+Message-ID: <apgSCyj-h2xVc2ss@kernel.org>
+References: <20260830-char-misc-v1-0-05e2ce44f291@kernel.org>
+ <20260830-char-misc-v1-2-05e2ce44f291@kernel.org>
+ <f6001085-9234-4025-ff34-6cc4a66c293a@outbound.gmail.com>
+ <20260831123937.32255a49@pumpkin>
+ <apaF1HUtJnstuUN4@kernel.org>
+ <1729fb06-6beb-f8ef-3e71-47fc3f00345d@outbound.gmail.com>
+ <apcPg_y-HsMki7we@kernel.org>
+ <9a3d6a08-339c-3315-cc81-46907d0836ad@outbound.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-fix_split-v4-1-85f03905f7b1@arm.com>
-References: <20260902-fix_split-v4-0-85f03905f7b1@arm.com>
-In-Reply-To: <20260902-fix_split-v4-0-85f03905f7b1@arm.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
- Kevin Brodsky <kevin.brodsky@arm.com>
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Yeoreum Yun <yeoreum.yun@arm.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2707; i=yeoreum.yun@arm.com;
- h=from:subject:message-id; bh=pUsAF+NKDxZAuOCu2xwNuQnOqeW4ovfuiE8VNrQZxHY=;
- b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqmBIG+FE6+7XlWbhEWVG74JauIQOW9hAlYcR6g
- GGYuvk9XL+JAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCapgSBgAKCRBt1cPRWsUx
- MxCKDACXbSM/L+bTkLJMqPzk1LV+saJ5txv8ckKPghKNpOFx2JvGS6r1L2WaA0/GmfGD+iqAwUj
- u5J8xpzcj9qOi/NzHmXiLM/i7s7a+PkuZq+rZgzbcUX14z/enXwloDzXKywlCpyW0UvJPgPBdjQ
- QYCArgJ/F3luAO+g3ciMlAqrphnxFGWIptVVTVLvo3JgtBkC4+XAILexAxXHrI5J6T8dCyUx7A0
- bHOIKjfeze7prPgPaZs6kSQVef988xUoRm2ZE5yQcX6pct8wRSS1hbGpGzF8clYJkd0Zxt4piIH
- VKspVT1bxsZ/liTHAQYHx3Cs9zaE3y1OuKvgwYyJeYHTy24q115MISG+E0STomQCUpac4+00rqK
- 0i7iY8Pmte+GsNZutcp0ZpxFsCqiwUh1lja0MDxXXrvtoVArlMfTx0JfjH+cBFbNBKVzJR1Vzw6
- NeRTEK6JBTg6r8QjtqXGBSgvHSQMlxiwo/ekhoX7KDKQlmkm/d4JHERrhVrUARjgvQWu8=
-X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
- fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9a3d6a08-339c-3315-cc81-46907d0836ad@outbound.gmail.com>
 
-There're some random failure for split_huge_page_test when khugepaged
-collapses pages into pmd again which had split by the test.
+On Wed, Sep 02, 2026 at 01:41:54PM +0200, Eli Billauer wrote:
+> On 01/09/2026 19:46, Mike Rapoport wrote:
+> > > * Does vmalloc() guarantee that non-pageable physical RAM is allocated when
+> > > it returns?
+> > It's not pageable in the sense of demand paging. Some architectures lazily
+> > synchronize vmalloc page tables and this can cause page faults that will
+> > take care of the page table synchronization.
+> > 
+> 
+> Thanks for this clarification.
+> 
+> This sounds like a showstopper to me. Immediately after the allocation of
+> these buffers, data from the USB device can arrive at 400 MB/s. If the data
+> flow is throttled as a result of handling page faults while trying to write
+> the data to these buffers, this could lead to an overflow in the USB
+> device's own RAM buffers. This is because the USB device is an FPGA, where
+> RAM is an expensive resource.
+> 
+> So using vmalloc() may result in a malfunction in the data transport where
+> the __get_free_pages() would have been successful. This outweighs the
+> benefit of a somewhat higher probability of success in allocating very large
+> buffers, and surely the improved aesthetics of the kernel code.
 
-Prevent the khugepaged's collapses for split page by setting the
-mapped pmd-huge-page with MADV_NOHUGEPAGE before split.
-
-Suggested-by: Kevin Brodsky <kevin.brodsky@arm.com>
-Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
----
- tools/testing/selftests/mm/split_huge_page_test.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
-
-diff --git a/tools/testing/selftests/mm/split_huge_page_test.c b/tools/testing/selftests/mm/split_huge_page_test.c
-index 86a603692826..4bbad892bc57 100644
---- a/tools/testing/selftests/mm/split_huge_page_test.c
-+++ b/tools/testing/selftests/mm/split_huge_page_test.c
-@@ -168,6 +168,14 @@ static char *allocate_zero_filled_hugepage(size_t len)
- 	return result;
- }
+kmalloc() still works, just like __get_free_pages()
  
-+static void madv_nohuge(void *addr, size_t len)
-+{
-+	if (!madvise(addr, len, MADV_NOHUGEPAGE))
-+		return;
-+
-+	ksft_exit_fail_msg("MADV_NOHUGEPAGE failed, err=%d\n", errno);
-+}
-+
- static void verify_rss_anon_split_huge_page_all_zeroes(char *one_page, int nr_hpages, size_t len)
- {
- 	unsigned long rss_anon_before, rss_anon_after;
-@@ -180,6 +188,9 @@ static void verify_rss_anon_split_huge_page_all_zeroes(char *one_page, int nr_hp
- 	if (!rss_anon_before)
- 		ksft_exit_fail_msg("No RssAnon is allocated before split\n");
- 
-+	/* Prevent khugepaged from collapsing the pages. */
-+	madv_nohuge(one_page, len);
-+
- 	/* split all THPs */
- 	write_debugfs(PID_FMT, getpid(), (uint64_t)one_page,
- 		      (uint64_t)one_page + len, 0);
-@@ -227,6 +238,9 @@ static void split_pmd_thp_to_order(int order)
- 	if (!check_huge_anon(one_page, 4 * pmd_pagesize, 4, pmd_pagesize))
- 		ksft_exit_fail_msg("No THP is allocated\n");
- 
-+	/* Prevent khugepaged from collapsing the pages. */
-+	madv_nohuge(one_page, len);
-+
- 	/* split all THPs */
- 	write_debugfs(PID_FMT, getpid(), (uint64_t)one_page,
- 		(uint64_t)one_page + len, order);
-@@ -275,6 +289,9 @@ static void split_pte_mapped_thp(void)
- 		goto out;
- 	}
- 
-+	/* Prevent khugepaged from collapsing the pages. */
-+	madv_nohuge(thp_area, thp_area_size);
-+
- 	/*
- 	 * To challenge spitting code, we will mremap a single page of each
- 	 * THP (page[i] of thp[i]) in the thp_area into page_area. This will
-@@ -542,6 +559,8 @@ static int create_pagecache_thp_and_fd(const char *testfile, size_t fd_size,
- 		ksft_test_result_skip("Pagecache folio split skipped\n");
- 		return -2;
- 	}
-+	/* Prevent khugepaged from collapsing the pages. */
-+	madv_nohuge(*addr, fd_size);
- 	return 0;
- err_out_close:
- 	close(*fd);
+> Regards,
+>    Eli
+> 
 
 -- 
-2.43.0
-
+Sincerely yours,
+Mike.
