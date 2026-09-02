@@ -1,71 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36BF434CFAB;
-	Wed,  2 Sep 2026 07:49:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CF413998AE;
+	Wed,  2 Sep 2026 07:49:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788335358; cv=none; b=asGY4N5lr0sAsk7mThzf4Us5QVL5yGAYN1FOQPlnvcduKhJGFUyk994chfDv9yqOO37sAMRJuanJPRPt0zYYEkqQVlPGIutS8lM/cL0WP2iFZrVakeg5HYIGdgX0vAUOTygG6F3ITrQ4BT2XVDKI4nhVpXO6A0Ibn/0bJxCth4w=
+	t=1788335370; cv=none; b=mGo7hXfVvykveNHNYmy5MfaZAY8vJpJnfQ/qI2R30R7aiZIW8eA3F+2+zKj9GO+eP/Uj/ASfkN0h6wyAHigLa1NwugXF68Bf/N/0L3ijXaRHU7Xg7tTtVwdPSV8ODb39Gx+AB+N8J0Ifz+Kp/cJsWEmL9U5cGJzZWHu99xEwp80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788335358; c=relaxed/simple;
-	bh=03qe3iU0xHajNwJ/JkU7x9IQhvLwEB8ffAtvkb7VM7E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Iexy9RdsnFL5I/bdfQ52U/wsQ9L83ahMlI+mLFgd5X0gXYMuk5IlctrAlJITg5I6I2hYx9q3axUNsGNUlxYvQWMR/n/sXSt4UhXtZKf69YusmRiktKX8uU1jWzydHZmJw8SYFYZx5oqp51XcwareEMPmX70hewK8FBXGnM+7jIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MSPWSuLF; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MSPWSuLF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77D951F000E9;
-	Wed,  2 Sep 2026 07:49:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788335357;
-	bh=s8Eo7ol2MpLclIW3Ma0lRro98Gdwdec1Kmfw5HO+SmE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MSPWSuLF0lYksTPJltML1tzWwBvAzoU3G0OLlXcxLHJudeMCYu0pz7AAKTRNFo8P4
-	 dYTbe3ZKOIskvQ/bUCgRa1IvxwEylNKBnDC1CHAINh14B2tNsSYgl1mwtC7XpEP5kR
-	 kfhZg9aG+5KRSN3dPxx0s0S82VRhqqelwRqLujr0sRF9mdh3OxaeacsG24S+GJ7m19
-	 8cCovTzAJz27XGWm8V1YeHiQDdyxLfUn4sk5al0nuXxjpBKg09KQPCZMvqG174J4BI
-	 T5t5Tm3PKlo3OfVlKo4fV38yoPzN/zwAdVfK41k6pZTbcmFGAriexNvfoYlP2bPW81
-	 yoNTW7O4KWm1g==
-Date: Wed, 2 Sep 2026 13:18:51 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Saurabh Anand <saurabh.anand@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Clark <robin.clark@oss.qualcomm.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
-	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
-	Ritesh Kumar <quic_riteshk@quicinc.com>, Vishnuvardhan Prodduturi <quic_vproddut@quicinc.com>, 
-	Mani Chandana Kuntumalla <quic_mkuntuma@quicinc.com>, Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Subject: Re: [PATCH 1/4] phy: qcom: qmp-combo: delay Type-C mux switch while
- DP PHY is initializing
-Message-ID: <37cs3ejjaldogjlh3oyhzxgedl2w2s6qk7sercwem5j23vdtb4@2dzhapohcgda>
-References: <20260824-qcom-dp-typec-reconnect-fixes-v1-0-2825e5bf8a96@oss.qualcomm.com>
- <20260824-qcom-dp-typec-reconnect-fixes-v1-1-2825e5bf8a96@oss.qualcomm.com>
+	s=arc-20240116; t=1788335370; c=relaxed/simple;
+	bh=+1/D6f2NxafMslNqlKAGyx9tIFvz2vbLG7i9pjd7mqw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rOD6HsbItHhDf0DDb6OZCFkGhhnp7HD4DLAhtWZq/AqzO8LpPDo3Yr7lO0DOlp1u25PtJoiLPOsH29MEapvlGhoUF8ecAimDRJqbFmEefSBoKeC9brbh4K9SCPzeO5BkbyYArwJms5Wa2DYitWv0HG8QTA3Strv0culMfEY2exE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: cc904adaa6a211f19a56ed5b684f684d-20260902
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+	HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED
+	SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS
+	DMARC_NOPASS, CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS
+	GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:1db8b9f7-2434-446a-bb2b-b06786e8dd33,IP:15,
+	URL:0,TC:0,Content:-5,EDM:-20,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACT
+	ION:release,TS:-10
+X-CID-INFO: VERSION:1.3.19,REQID:1db8b9f7-2434-446a-bb2b-b06786e8dd33,IP:15,UR
+	L:0,TC:0,Content:-5,EDM:-20,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-10
+X-CID-META: VersionHash:7db8b62,CLOUDID:48c77bd802e5ea91e7bcb88572b3abc2,BulkI
+	D:26090215491983ZS9DE2,BulkQuantity:0,SF:10|38|66|78|102|127|136|850|865|8
+	98,TC:nil,Content:0|15|50,EDM:-19|2|-100,IP:-2,URL:0,File:nil,RT:nil,Bulk:
+	nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,B
+	RE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: cc904adaa6a211f19a56ed5b684f684d-20260902
+X-User: yijiangshan@kylinos.cn
+Received: from localhost.localdomain [(116.128.244.171)] by mailgw.kylinos.cn
+	(envelope-from <yijiangshan@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 2011002584; Wed, 02 Sep 2026 15:49:17 +0800
+From: Jiangshan Yi <yijiangshan@kylinos.cn>
+To: peterhuewe@gmx.de,
+	jarkko@kernel.org
+Cc: jgg@ziepe.ca,
+	ross.philipson@oracle.com,
+	stefanb@linux.ibm.com,
+	linux-integrity@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	13667453960@163.com,
+	Jiangshan Yi <yijiangshan@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] tpm: Fix auth session leak in tpm2_get_random() error path
+Date: Wed,  2 Sep 2026 15:48:39 +0800
+Message-Id: <20260902074839.417419-1-yijiangshan@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260824-qcom-dp-typec-reconnect-fixes-v1-1-2825e5bf8a96@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 24, 2026 at 04:58:04PM +0530, Saurabh Anand wrote:
-> The Type-C mux switch guard only checked dp_powered_on, which is set in
-> qmp_combo_dp_power_on(). However there is a race window between
-> qmp_combo_dp_init() and qmp_combo_dp_power_on() during which dp_init_count
-> is non-zero but dp_powered_on is still false. A Type-C orientation change
-> arriving in this window would proceed with the mux switch while the DP PHY
-> is mid-initialization, corrupting the PHY state.
-> 
-> Extend the guard to also block the mux switch when dp_init_count is
-> non-zero, covering the full period from dp_init through dp_power_on.
-> 
-> Signed-off-by: Saurabh Anand <saurabh.anand@oss.qualcomm.com>
+When tpm_buf_fill_hmac_session() fails in tpm2_get_random(), the error
+path returns without calling tpm2_end_auth_session(), leaking the auth
+session. All other error paths in the function handle this correctly.
 
-If this patch fixes a race condition, it should have a Fixes tag.
+Fixes: 3d9e043dab0a ("tpm-buf: Memory-safe allocations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+---
+ drivers/char/tpm/tpm2-cmd.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-- Mani
+diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
+index 48cec39995fe..96e0e06bbbf0 100644
+--- a/drivers/char/tpm/tpm2-cmd.c
++++ b/drivers/char/tpm/tpm2-cmd.c
+@@ -281,8 +281,10 @@ int tpm2_get_random(struct tpm_chip *chip, u8 *dest, size_t max)
+ 		}
+ 		tpm_buf_append_u16(buf, num_bytes);
+ 		err = tpm_buf_fill_hmac_session(chip, buf);
+-		if (err)
++		if (err) {
++			tpm2_end_auth_session(chip);
+ 			return err;
++		}
+ 
+ 		err = tpm_transmit_cmd(chip, buf,
+ 				       offsetof(struct tpm2_get_random_out,
+-- 
+2.25.1
+
