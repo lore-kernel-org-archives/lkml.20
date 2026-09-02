@@ -1,111 +1,63 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5DDE0485CC1;
-	Wed,  2 Sep 2026 14:28:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9495449ED6;
+	Wed,  2 Sep 2026 14:29:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788359298; cv=none; b=pb2oBn6AuS+hOHU8z05YleN9ESVFgCqCIc9gWBXVpZ9dqreMrd/UhU5hY1cSBNG2krzfQPiNpwLW6eOGumS+ZR90FC1YPNFP9vowWn8HGbRcZbTctUIYXPGARZTWn7QAJvw/2VAP3fybpaehWkMBP5TTBdnYyxyqoEVr8BjrhEg=
+	t=1788359371; cv=none; b=VkUN3YCQntxW5UMSSBaqZp26/0ZowBnvFMHZb3+gPcF9lPf0r/NfalRucV+uS+VUXKpaI5OPYBlIFxF9isTvvflpmg6+rapx02hIW8WWKaGDKjpJxbAcMyVdk6mTSfcPMNZh9QYECADSxCzFbqi8tbJAN+QGk3Gph4lbCShh/LI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788359298; c=relaxed/simple;
-	bh=vbTH9s3/Ul9URmPb77ibABQUHQKlxUKRIAYaw6elQlk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d2K3BvX0IN40ohGlcRkph2B6OKFSNZEHBvLzqgrA1329VL94We61ZPERiYTlsYomAkGWZfeyjAI8wyIFb3GJGx4bVuhIVIsn0msA2TKNNx+woLw9BMV4ksnX0WMD8TxCqlkAf4FjoPe79fDaFIAmBZwSUov5UvYQRdU/MJN3OSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=g1zVRjgG; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1788359371; c=relaxed/simple;
+	bh=eFvTesQXbbnIOgn4z5XSLRkHMDaLaDmWWkgjyX/iymc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A75dxcFgCRA5tnAxoveYSRR+fBGcpSTns9Lp5k51YEDVYzFC48O4pyXItzj9UYkdj7lm2oeBvrWGo14/ymjVZqtOHHNu44GoCVuJcPxkh3+T37OhwMOxG0le2SZmHYEWRnRxTgTdqweFb0QvO/wZZlWJn+Y+S6IKcrnKFmYs+T4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=As1F1XUL; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="g1zVRjgG"
-Received: from [100.96.96.2] (unknown [52.179.129.152])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 5F7CE20B712B;
-	Wed,  2 Sep 2026 07:27:38 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5F7CE20B712B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788359260;
-	bh=RsO9jOUjp4ZqsgNR1mF+Sy/j1D4ROE1fJderrlIJWwM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=g1zVRjgGrvdjBsGRigSkQBTxrfFVM/bmlWG4MrVdKmqbq76M5J6rZ6I78/1cZnd76
-	 9iqadtW3UX6Og1YjMOKekkuW/XsxbZWNVlG5/ziwC1+SnrRgrkXmSQ12M5BYcXISOq
-	 XkDQojmsOwG/h0JhoV+ofx7T0q5Yt1nRZTBU3WpU=
-Message-ID: <7f233e48-69d8-4132-8cc6-a24908fe304e@linux.microsoft.com>
-Date: Wed, 2 Sep 2026 10:28:11 -0400
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="As1F1XUL"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=wcVmGicm0g4KKWFpQ8yskMFXBwKdhxtZU/RkcZob2Rs=; b=As1F1XUL6njlMjWJtzZoRP2ohp
+	3dTorhM2Eyv5eYWhDcNYo6es4kxWTdxtvfsdwbkAwlCteFx+mmWv8F1zYUpxuH5Ud2Rz7zQopjN6o
+	2n6JoSfImcDkHOGftgjh7r34CwoJPCevSh4AnGU9Jt+jfcNDq9feM9oOCbyFhmOak6jA=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x1lxP-002X7Q-WD; Wed, 02 Sep 2026 16:28:56 +0200
+Date: Wed, 2 Sep 2026 16:28:55 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: javen <javen_xu@realsil.com.cn>
+Cc: hkallweit1@gmail.com, nic_swsd@realtek.com, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, maxime.chevallier@bootlin.com, horms@kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	daniel@makrotopia.org, linux@armlinux.org.uk,
+	enelsonmoore@gmail.com, daniel@thingy.jp
+Subject: Re: [PATCH net-next v9 0/7] r8169: add support for phylink
+Message-ID: <f8376f65-f3df-4488-9ded-d97541734fcd@lunn.ch>
+References: <20260831053745.1197-1-javen_xu@realsil.com.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 06/12] drivers: hv: Add VSM boot driver and enable
- VTL1 at the partition level
-To: Wei Liu <wei.liu@kernel.org>
-Cc: kys@microsoft.com, haiyangz@microsoft.com, decui@microsoft.com,
- tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, hpa@zytor.com, ardb@kernel.org,
- ilias.apalodimas@linaro.org, James.Bottomley@hansenpartnership.com,
- javierm@redhat.com, lszubowi@redhat.com, francescopompo2@gmail.com,
- tgopinath@microsoft.com, x86@kernel.org, linux-hyperv@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-efi@vger.kernel.org
-References: <20260901165647.3160413-1-tgopinath@linux.microsoft.com>
- <20260901165647.3160413-7-tgopinath@linux.microsoft.com>
- <20260902011615.GE2583463@liuwe-devbox-debian-v2.local>
-Content-Language: en-US
-From: Thara Gopinath <tgopinath@linux.microsoft.com>
-In-Reply-To: <20260902011615.GE2583463@liuwe-devbox-debian-v2.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831053745.1197-1-javen_xu@realsil.com.cn>
 
-
-
-On 9/1/2026 9:16 PM, Wei Liu wrote:
-> On Tue, Sep 01, 2026 at 09:55:20AM -0700, Thara Gopinath wrote:
->> Linux VBS (LVBS) uses Hyper-V's Virtual Secure Mode to run a small
->> trusted kernel in VTL1 alongside the regular VTL0 kernel, so that
->> security-sensitive state (e.g. hypervisor-enforced code integrity,
->> credential isolation) can live behind a higher-privilege boundary
->> that VTL0 compromise cannot cross. Bringing that up from Linux
->> requires the VTL0 kernel to drive the VSM setup itself.
->>
->> Add drivers/hv/hv_vsm_boot.c as the entry point for that sequence.
->> This first step handles partition-level VTL1 enable only:
->>
->>   - Probe VSM / VP-register privileges and SynIC availability before
->>     doing anything.
->>   - Pin init to the VTL0 boot CPU so VTL1 comes up on the same CPU
->>     (later patches rely on this).
->>   - Read HV_REGISTER_VSM_PARTITION_STATUS, and if VTL1 is not already
->>     enabled, issue HVCALL_ENABLE_PARTITION_VTL with MBEC and confirm
->>     by re-reading the register.
->>
->> Signed-off-by: Thara Gopinath <tgopinath@linux.microsoft.com>
->> ---
-> [...]
->> +static int __init hv_vsm_boot_init(void)
->> +{
->> +	cpumask_var_t mask;
->> +	unsigned int boot_cpu;
->> +	int ret;
->> +
->> +	if (!vsm_arch_has_vsm_access())
->> +		return 0;
->> +
->> +	/*
->> +	 * Copy the current cpu mask and pin rest of the running code to boot cpu.
->> +	 * Important since we want boot cpu of VTL0 to be the boot cpu for VTL1.
->> +	 * ToDo: Check if copying and restoring current->cpus_mask is enough
->> +	 * ToDo: Verify the assumption that cpumask_first(cpu_online_mask) is
->> +	 * the boot cpu
+On Mon, Aug 31, 2026 at 01:37:38PM +0800, javen wrote:
+> From: Javen Xu <javen_xu@realsil.com.cn>
 > 
-> Can we get closures on these todos?
-> 
-> I see a bunch of todos in other patches, too. It would be good to close
-> them as well.
+> This series patch adds support for phylink. RTL8116af is a fiber mode
+> card, link status and speed can not be read from standard phy reg. So
+> we read link status and speed from serdes reg by pcs. So as RTL8127atf.
 
-Sorry about those. Most of them are remnants from the when the dev work was
-started and are closed or taken care of. I will ensure that these are fixed
-and the comments are edited properly in the next revision.
+I think there is still too much code accessing the PHY, but lets get
+this merged, so it is easier to see what is left, and figure out how
+it can be cleaned up.
 
-Warm Regards
-Thara
-> 
-> Wei
-
-
+	Andrew
