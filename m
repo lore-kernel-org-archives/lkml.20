@@ -1,102 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCE9B29ACFD;
-	Wed,  2 Sep 2026 19:37:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86408381EB5;
+	Wed,  2 Sep 2026 19:37:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788377876; cv=none; b=gX5/VHWosD7e7BEsDw53ie0x99h5ToMG6xrufjKekLYLZ2n7x/hgUDFmdCnr01aW2RWAjEeIDdGKvvjhznCe00hdkI7uGmK4J4Owa0vmD4Jncugx1YOdMWq0pMhyKOCUQFUWoFQD5zEX9LyUwi89z2IYF65Jof1xUXS/UcF3bDQ=
+	t=1788377877; cv=none; b=gUUdB7uuxw6wIrswl5m2G84K2u6G3EJ+SgKJBSbtGmcIrfEvTXeZH0XhMSROGVGhfCOm8woLdBF8kZgINfyNX7x7dTHfB7j3zvPbCv+F5jfqzykmyRKZ/lzgBPPOF/TvGqQCxPm87GG/03HR9ZU7NACtWfbm1UeUDNuxdhbONn4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788377876; c=relaxed/simple;
-	bh=HuWuCObhAJ4M8DDwLtt2gimxUt9sl2WhAv6nAaGDSXI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IpFcufBvP+Hw49isZo3VKvZVz2pyF60jSXADuvibWEr5J27ion+XJeEvroT7h8e9rUBOevCWPyzpPICzNmSu8A0vw7TOZRuiEiYomA/Y4N1ue9L5VzDuiRRwHNrAQ768NPz5ZxqW7vHqei89RvbeP/PibpEkROoe0koVY/utSzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XOHSuC76; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788377877; c=relaxed/simple;
+	bh=8E18SqwHY4di/oWmHZ1yDYszCmQ16MuqpzXqo/0VDPo=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=l06xdDQb3foguN/tMOh+J24lO+nZBiE8N8C/+sOXyeGx0oHJxILMPyAYwTOsmliEHE41C+mPh9BCPxZb9/Wc5PRdxVCNimCkU6u211BZI8KnyddyNH7+VCe6B+Ze7x+YPqcxbqzJMkCqOsgLOeZpp2ZzklbynkQ6qg8sjL+yVVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DLfdBK29; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XOHSuC76"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 194E41F00A3E;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DLfdBK29"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C6B91F00A3D;
 	Wed,  2 Sep 2026 19:37:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788377862;
-	bh=NfnAMEvrg4Gwqwur0dkgpZW4W2Hv33GecGAJAxMbpSk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XOHSuC762BoGFmqqwQjlm3xT5W0X6OKQe/tI2C/WNkJlMd/ylxJ2jlpBwnlTf8/88
-	 7vbHcvqMr1+RIQ/nkrGXMevro8RVtPbn19K1Ruzllv8MlHz/E4QDFMNqy0WvmUatCA
-	 CDQMMk36nh5f5SRgE69lY45+QlpW6KSprKJLLlEI63J02GGqdlv4zG7Bp3uGZnrJTU
-	 gliVUMqoKaMu//BDqwFIJ7VFPFyYrRJhJdefErFmkm48v9UHxnzLEMRy6ISV66gRLL
-	 ezE4HREEWNe+I3GON0u83RXTrvyHAsbOIcysoduz6260FxTAUsUW1dr6ZXf0krLQwM
-	 lBIDVD43cwSVw==
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-To: Linux ACPI <linux-acpi@vger.kernel.org>
-Cc: Linux PM <linux-pm@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Peixin Xie <peixin.xie@linux.spacemit.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Lukas Wunner <lukas@wunner.de>,
- Ilpo =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Linux PCI <linux-pci@vger.kernel.org>, Bjorn Helgaas <helgaas@kernel.org>,
- Hans de Goede <hansg@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject:
- [PATCH v2 3/6] ACPI: scan: Combine two conditionals in acpi_bus_attach()
-Date: Wed, 02 Sep 2026 21:30:00 +0200
-Message-ID: <8743568.T7Z3S40VBb@rafael.j.wysocki>
-Organization: Linux Kernel Development - Intel
-In-Reply-To: <5144065.31r3eYUQgx@rafael.j.wysocki>
-References: <5144065.31r3eYUQgx@rafael.j.wysocki>
+	s=k20260515; t=1788377859;
+	bh=0m5c9E83vdybP/p7zVB+DFv5Yx8r/Uoa+vVZSN9z+hA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=DLfdBK29zgDQ0e3MbZdP9tRqsGg78mpCf1NYzxNv5n7w0vaEYNa54ji4cIeTEbJmn
+	 HkFELowOAC0DdI2sbxMwDN2NiNlhdATGDrvkILoSsIQM2SLeNTJtTn+YT/PylFbWHT
+	 ZqD+MW1pBCYthQVSLciwXzJVSffa+a0arLTq3+pwVloRq9Sk+1np4YxJeDOmzvvALS
+	 L8eDcgK2afs8BoVxduC9Uan0XxhrMs+Mcd+7+tK3ZR046EbpBbfdNctY/Dl72QjsX5
+	 ENlbys58NTICpdUdPAcwkzzUUeiKS0eDhnccxJCznCNjp24W2vrBSevzKR7UMG+yQw
+	 DbgwgY/hT51rg==
+Date: Wed, 02 Sep 2026 09:37:39 -1000
+Message-ID: <d819e8358fffc09015feffad57794f7c@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Wanwu Li <liwanwu@kylinos.cn>
+Cc: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
+ Changwoo Min <changwoo@igalia.com>, sched-ext@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] sched_ext: Fix NULL sched deref in kfunc sub-sched
+ error paths
+In-Reply-To: <20260902170751.256434-1-liwanwu@kylinos.cn>
+References: <20260902153640.144791-1-liwanwu@kylinos.cn>
+ <20260902170751.256434-1-liwanwu@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="UTF-8"
 
-From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+Hello,
 
-There are two conditionals in acpi_bus_attach() that can be combined,
-which slightly reduces the overhead and makes the code a bit easier
-to follow, so do that.
+On Thu, Sep 03, 2026 at 01:07:51AM +0800, Wanwu Li wrote:
+> Neither wrapper requires a contrived @p. Tasks that are never enabled --
+> kthreads and tasks of other classes under SCX_SWITCH_ALL=n -- keep
+> p->scx.sched NULL indefinitely; and a task handed over from
 
-No intentional functional impact.
+This isn't accurate. p->scx.sched is set for every non-idle task on root
+enable and on fork regardless of sched class. The only tasks with NULL
+p->scx.sched are the ones past sched_ext_dead() and the idle tasks. The new
+comments repeat the same claim with "managed by another scheduler".
 
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
----
+> Keep the "error out @p's scheduler" attribution -- it is what every other
+> kfunc error path does (select_cpu_from_kfunc()'s cross_task,
+> scx_kf_arg_task_ok()) and it is correct for the callers that take this
 
-v1 -> v2:
-   * Reverse checks to avoid multiple negations (Andy)
-   * Rebase on top of the new [2/6]
+Both of those error out the calling program's scheduler, not @p's. The
+compat wrappers are the only ones using @p's scheduler and only because
+they don't have @aux.
 
-Link to the v1:
-https://lore.kernel.org/linux-pci/2021470.taCxCBeP46@rafael.j.wysocki/
+> +	 * which scheduler called us, so error out @p's scheduler -- but read
+> +	 * it under RCU (@p's locks aren't held here) and fall back to @sch if
 
----
- drivers/acpi/scan.c | 9 ++-------
- 1 file changed, 2 insertions(+), 7 deletions(-)
+@p's locks are held when called from ops.select_cpu() or ops.enqueue(). The
+ext.c comment's "aren't necessarily held" is the right wording.
 
-diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
-index 4586f1798685..7208cc515866 100644
---- a/drivers/acpi/scan.c
-+++ b/drivers/acpi/scan.c
-@@ -2370,13 +2370,8 @@ static int acpi_bus_attach(struct acpi_device *device, void *first_pass)
- 	if (ret < 0)
- 		return 0;
- 
--	if (ret > 0 && !device->flags.enumeration_by_parent) {
--		acpi_device_set_enumerated(device);
--		goto ok;
--	}
--
--	if (device->pnp.type.platform_id || device->pnp.type.backlight ||
--	    device->flags.enumeration_by_parent)
-+	if (device->flags.enumeration_by_parent ||
-+	    (!ret && (device->pnp.type.platform_id || device->pnp.type.backlight)))
- 		acpi_default_enumeration(device);
- 	else
- 		acpi_device_set_enumerated(device);
--- 
-2.51.0
+> +		scx_error(scx_task_sched_rcu(p) ?: sch,
+> +			  "__scx_bpf_select_cpu_and() must be used");
 
+As the fallback only triggers for tasks already past sched_ext_dead() (or
+idle tasks), tearing down the root scheduler doesn't make sense. How about
+adding a flag to the root sched and printing a warning once instead?
 
+Thanks.
 
-
+--
+tejun
