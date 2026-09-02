@@ -1,200 +1,160 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011067.outbound.protection.outlook.com [40.107.208.67])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F06C53AFAE4;
-	Wed,  2 Sep 2026 20:53:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788382430; cv=fail; b=MHUN4KzWZhxIENF6SqCwPDq29F5cM38JUClghTsbTw8GpPB6HBydB5tX9n49G/ZVXzsUoHN2udsl4oVaFk4tsndkvnSeNzN2SedseQMEiXaWQMdXF6V+gYiuqwB+iKGNuWJJATQbS0Gnc/cmA77ZbFqze12Qa6lXZd8jfuVZXLI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788382430; c=relaxed/simple;
-	bh=KUdEwm6uaD731430p4gHL7ZZIqaaTtwfpZ5E7UmcF9U=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=UZ7lagclSubOJh46A1wisnJeKDsf+latuRJB5z2XiCJ+Y8dtvTprtwhfg4XI82ZZXrGPNVPe5KRcYRIOsFM5Dg8cjcUkcwAMiIaTDKO2KW+9Gv4Oou5sfGEn2yrY97R3894weVzxOp4GsVbny0Lppo7b7lyb9BMTw8diO+APbwY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=eW+nsVVP; arc=fail smtp.client-ip=40.107.208.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E75FF13E02A;
+	Wed,  2 Sep 2026 20:54:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788382456; cv=none; b=VF0naD/b+LhRCIbr2fZeKhAx+BNhgAxkQetHmCVNO2tWtx3suK/XMwTDsnKi4gueVfpT7gaUv97SvFD9tq1Yb2mjIWvNU1CYozYECJ+ImbDU6S/7VowlH4Wfb3vcbJGsk3iqjlS8gU19X+QGOX0JJTCjc/SiMHpxHJtt2XHdaak=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788382456; c=relaxed/simple;
+	bh=DiaO3sKQDwbEcY7wgTykD2z2H6p+BzoiIkc+y28+2hE=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=iuGz2FzzmTmv3R1CAIW0XdO6eCDDkQZFDu1GNiR7Af8LM/VsM8DE4I1ueuaONWZ4Trd/omvtTfpCms71hxLa6bIhlWNvGUldCs+0NhSwyo9OGLclFflfS/cOaFPQZefF3WIoWHPxH113SHjoVIGge0dRBB4AVsaZOulx3xuWQPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=VEL7jLfI; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=wnWUyyQH; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="eW+nsVVP"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YcWaqw1DEcVH52jg8rlcpNUKOrQ6fVFYlEvKyEDYgWvI4yy+Fm/ND3GasCxhYOnoGdnVWiQ25DHfGBoovpHr3bhSKtDoEywOrf7yzgE87am2ZAr3igVCPArTBOt51NhOxq4Fm+LJZD9AoXs2L4HWNw3OXjTjOHn+v5rkB6gAY47kKSkzemJrqylZGjX3JkvXWWPy8JvtnJte43PTSqeFcDXLIkZ7nn42XekYuusHJ5JQHn1Cu5OL2uR+GkkpYo9889W7oGWhWZbZ3dcd77pe75zyvDOvpFL5/YOYmwPdtMqN0FnGJe41kmWYQR0Gor7OmVJvBzK0XSg1l8w2tQ2jRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DijA54VFPXlTKBxki7phButKARQuXP/awBkaO7+ICPs=;
- b=q2C2qJkCi1YkqDCPKRDzgF49U8p5BunN3WCm4mrbCTBG7LgYmQIfEt9ROx/YTUWz0bRfg3BtbQD6sR9dbfvFAgY1ahohoTD9qYGfg95IEyOw81HRHSLmvo60KbOngSZvxH2X0DgyVg5mGhqjV6yf+zDxg1EvkDG6YmVHDIpv8m8sVUM/kNDmKILLRe4OzsfXMH287ShY+tkdEoKVnTus6P566EdQrk89adUXtNJjJlQGS/vz0U+CAJTzNYC1NXjqXUrD2dqZw8yV4JglVjgCvdTfwKa44hWWOZBVXcaftpw93Bg4fVUtJ9hqnEfoAq41HDrsyGLo/dKN1Lvpw+HM9Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DijA54VFPXlTKBxki7phButKARQuXP/awBkaO7+ICPs=;
- b=eW+nsVVPWZ1WjvJvZZvP81Ss6cVzTLkS6OOjGG45GK7Pk8MWPV9BbwrQQ9Oa3UKuBcx5wNYzpQa1Zqi1rQopn3fkD9dMuPYpPadcmhsEKCF+mcNCgLeA8XkZ3i+wioeAUqfAl3saMko5mI/VkwQaewMcGQKXP10kP7xdNaJj2tA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by SJ0PR12MB6783.namprd12.prod.outlook.com (2603:10b6:a03:44e::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 20:53:46 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 20:53:45 +0000
-Message-ID: <318bc76c-2fc9-484f-b009-1f21fbdd4d49@amd.com>
-Date: Wed, 2 Sep 2026 15:53:42 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] thunderbolt: Do not warn when a reset clears ring
- interrupts
-Content-Language: en-US
-To: Mika Westerberg <mika.westerberg@linux.intel.com>,
- "S, Sanath" <sanath.s@amd.com>,
- "Natikar, Basavaraj" <basavaraj.natikar@amd.com>
-Cc: linux-usb@vger.kernel.org, andreas.noever@gmail.com, westeri@kernel.org,
- YehezkelShB@gmail.com, linux-kernel@vger.kernel.org,
- Andrei Rusu de Castro <arc@empyreal.works>
-References: <20260902-thunderbolt-cover-2fdc1c1b@empyreal.works>
- <20260902-thunderbolt-1-c48cd6e7@empyreal.works>
- <20260902125010.GK106095@black.igk.intel.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20260902125010.GK106095@black.igk.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH0PR08CA0009.namprd08.prod.outlook.com
- (2603:10b6:610:33::14) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="VEL7jLfI";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="wnWUyyQH"
+Date: Wed, 02 Sep 2026 20:54:06 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788382448;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YA3vmUUuMSNvIsyIoKfGoM2BdqEXxaWchuU++smEJB4=;
+	b=VEL7jLfI+Drb6fHGx+jrj5rPpOaKe5bCx0UcDRKuBqGdbakoHKebGEwxRVbsNwvV9Y2vNh
+	UOfLSZWB9/jm+dlpuMRBxkwppwpwta97gqfXZen0NvBICM6PZneN7/XXR72G/zv//Y+mbN
+	GIXPNj0DoNErJebA9EKDNQo3SEQANHMCHkJWBEEJwGLbZV+K6fOtZK2Rb5ELVAK9hHmGAI
+	somvqw9z/AJvcz4024THqt3QRZAmpG6uqyiJnSbrhgiHucsGumR4u1IO0FpOUzHn/4wsIE
+	yf5roEAkmYGNzlQ0Afe5wvK0SRHeFv48TH0d3/ijfEfFz4//Bi0iJr4W4/yeQw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788382448;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YA3vmUUuMSNvIsyIoKfGoM2BdqEXxaWchuU++smEJB4=;
+	b=wnWUyyQHhKCpGnRLF2IYCY+PMB7yAFMiIOGP4sw+l8Z79XyxWRHDmRJdH01LKxP4ue7Bx+
+	8iPkyOZST8jIMJBQ==
+From: "tip-bot2 for Jun Miao" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: x86/sgx] x86/sgx: Report RCU-Tasks quiescent state in EPC
+ sanitization loop
+Cc: Kai Huang <kai.huang@intel.com>, Fan Du <fan.du@intel.com>,
+ Jun Miao <jun.miao@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>, Challvy Tee <challvy.tee@gmail.com>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260902013653.690506-1-jun.miao@intel.com>
+References: <20260902013653.690506-1-jun.miao@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|SJ0PR12MB6783:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5b99417a-1f43-4b3d-9a7a-08df093447ab
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|56012099006|4143699003|6133799003|10067099003|18002099003|22082099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	FF7Atl4i3CNZ65jYZ5hhXrz6WlM6Whvq1hM0zB3SwhnQcJ/F/cyHvYkQmpKS+QdMq47LMBoAzcZTD12eWmw8vmGpcRzJT5aym7JXahZ8vVKWVnpCoiO+nnRV+uM/eZqEUN77Ar0ktCTeBecUlUIrvqVRRrvzLn3szjb6Zbjyvj8Jxgct3xAK597d+ZX8ItOiOQvG9aodbWEW/F5oAkQBRGRqJuZK2GOh6vh/RLgyohzeQCTXHgdhtkdL/VyV94WolBEpEE3SInzZTwAHViKSN9XIC814YX5ZB7mdwG3fLnDy3OVUTPnloN/QmlR93rKEI9VxA2ry8c3cL0WC6cDWVB4FYPDvU/Iqs9O0x8d8FkFR/pFdqUb3Rg4K0lxG71jhNkpLOs4ojVBNa515PhQdRgZywVXVPJA3rAcRsT0JZCrVeLKmXadPHaAELqxAruA9OCE0TRC71+gLlUrsrXH6oSSunI3Yam1sDcyla6DQYkqxji/O5IFN8pIk+lXy8EIOg7jx1JX0U/xtEyPF86t4re3aEMBTxKg/Q75QzwQ3kRSMzsg33/q72Ee/w6QtjPKJ4aPUo3dwKJe0gPgiTcrTzXfBh3Vnu84TqpANPOqLODvqn5jzeGDzgrgmxRLzdi1mQsLVQxGhwQi6vbyKXUouPhB5KJIY/i+vz1p+GZ1KU1Y=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(56012099006)(4143699003)(6133799003)(10067099003)(18002099003)(22082099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?T3VOSHdtY0tVWXZpc3FJdTdWN2ViRlJFYVY0b3liVDZKWTI3czNGRTVWODl6?=
- =?utf-8?B?OVRXOG5RSTNvQkVOV3NqempkVG9NMmZyV2JZQzdNWVV5S0IyeFhBRWVwNEVu?=
- =?utf-8?B?RFdMNzZHUTRyTnRDazNSK1U3MGJ1YTVwVXFCZmtrUmhUTGRKdzVwdGZQNVNz?=
- =?utf-8?B?SFo1NkhMUTkvODVaV0tnRHJvTVZ3dkd3WXpoWlJjTXM1c3ZGMUJzQmFwT1JS?=
- =?utf-8?B?RXgzc244VzZDUVFXL3UyUmFsbnNnbG9JZEh6bVNmWnhzaXN6ZlB4bmRBMHZO?=
- =?utf-8?B?MDJDajZ1UHo5a3Rid1hUNGVwTVZDalVQaTBwWVBxMTRYVjFFbmRJU3MxVWJk?=
- =?utf-8?B?WWtLdllCY1pobWFwU1podjhnNHIwSXFIdC9jZkNRM0N2aitpME9yQkxRb252?=
- =?utf-8?B?WVZVUjVOZEJZOHRoRFlHMDRGZVJXaXEvTzNSclZPbU80Nkg1Ky90Wlh5V21z?=
- =?utf-8?B?emxDRThCWkNkQU1Na0swclE5Rmg3M3M2ZWRHQTVzQU9PeWhNTkw4MjhubnNW?=
- =?utf-8?B?VjkyRlR5VzVtb005RmVib3RiSG1JeCtwODdtbXcrMlpqNlJHaDZyMDFLVmNT?=
- =?utf-8?B?SWFpYk12MzdmVXhqYjJSL1JPTXdmMHBubDl1SnI5V3M4S2FVaTRubGxGZVJF?=
- =?utf-8?B?VHczOSs2SWhRZXl0V2lLWFhNYnB3a3oybVRTNDRkclZCOFpVODBtMi9pckUx?=
- =?utf-8?B?OWgxWjNCMWlNZ1hoUW1WNlRIdHBPanRxV0JjRXRFcU1nTWhUWXVZUVF3ZjVq?=
- =?utf-8?B?b2FGaWhtZEFQdnhIQ3VJMkx1bnpndkVlNHFyL2sybTdORUJjVm1pWUZ1Mm5D?=
- =?utf-8?B?NnkyZisxNzBvaHIxamE5NE1ndlhhT0htMW92UjdCVXZ1bEc0blBkcVpKRjgz?=
- =?utf-8?B?OHNsbmgrRlZGUktuMytEY3UzVndtVEwxZ3BoaWRsKytFaUxla3RBQlFoa0hR?=
- =?utf-8?B?ZGhKb3BqMGJFQ1pxN3JuaVpIMC9FKzkyZ2xIb3VtandlaUwwQW1tRFM2T3p3?=
- =?utf-8?B?QkRHOGJNM3pvVitaWnhVYlhGU25vSENZQmtWcnBPQ1V3R2lLbjQ3S0xlRnNG?=
- =?utf-8?B?M3NnSU9tbC92OENyVXh5TjNMSGcrc1RrS2swZU50N2hVWjNzNnlLd1Z4Ky9P?=
- =?utf-8?B?SnFVeHRxNkx0STRXNkduQ2dHZUNKNTFWMUdGZTd5Yzdzbkk1cks4S09IeFl1?=
- =?utf-8?B?QzhJUWxVRHJPc0hqc3NVbW9OZUszTW5Ka2o1dncxUGNiL0s1bnZRV0w0Z0hU?=
- =?utf-8?B?cDRqRkVRYXFkdy9mK1dReDM1Z0ZySTVrVmZSK3lwQjBZTUMyTjdJN2lxOEJo?=
- =?utf-8?B?bm5FdUMzKzRWeVJWNGlHdDFRVGxFbGtvQkVsMUp0Q0VOQnpJUUthbG5UekE1?=
- =?utf-8?B?MEhsZ1hEakErNDdUbjlIMzNHV0I3cVBvOEo2UkExZU8wc2NWL256U0M0T3li?=
- =?utf-8?B?Tmk4N1dveHJrWVRQaUUvR2JpZUtUM1hJVWhRV3ZzRjRWZ0tNZEpOS0h5K2F6?=
- =?utf-8?B?OHZ6QkUrVmt1U0xwVUNUamRYNjdDZFlpM3B5SGdkaWpTRjQ4Z0FXdkVKbnhx?=
- =?utf-8?B?UExFOTg5aDdDeFM1bVFhUC9TSTFpNFhiSUFsODhpMmUwSDdDR0I1WU1qUEVv?=
- =?utf-8?B?NHZLV3FnSW1Ub0JpK0kyTXJ4TUV5dllGVFBiSUtGNDk3K0dPTGhJZGpLZEVX?=
- =?utf-8?B?cGdUem93QUY3Y1d3THBjY0U0UDNCT0htS0Z4ZlRSSzFTR00wTHFLMWdLcXc4?=
- =?utf-8?B?cmYydVhjYytnaW12bEQ4TnBVbE1ZK1cvUnhaSC9QRVVoMWpiN3haNklCZE8z?=
- =?utf-8?B?WXlldE5icHhkTlM4SHdKNHlWek1hTU1kVnA2bEZ4RHRtUXhvRHBzOHdlbTho?=
- =?utf-8?B?ZE5MQlZxRnV2eXI0TCtOMnBuWWxLTzJHeXZoVkM2bit0ZTZHczhFZFFQTFRl?=
- =?utf-8?B?bFljNFF0RU1ra1ZSZnZzMENHSnBNcWZxWlo5NUlDOWlldXZnakpIVVdmQU1H?=
- =?utf-8?B?SkF3UUdTemRHRFhNWGtVa0JrVGk1ME5ncUFQMmpCSjV5T3EyZ2VINjdxb0lO?=
- =?utf-8?B?U2E3d2w5eTFiclZad2cxN3A0M2Fud0Z0WUYvaVlBeWlHVUFLTTNJcWFYRnJL?=
- =?utf-8?B?Zm9nakY4UFNYaXdqNXV1UWZoRFNCQUY3ZXNsS0xneWR3d0Vuam5XVWZHMVVs?=
- =?utf-8?B?dkdHZC9sdE1yRUt1S1NRaTkxYVBmdGdJWWRHNjJIWXBuYnpqWGZPQTk1SllM?=
- =?utf-8?B?U2kvU1RNMkdsRlFzODU0S1RzUzhDTEFia2RPb1pLb0ZNVmdMUUZpMnZQeWlN?=
- =?utf-8?Q?3IyC7IjwcXMGDWOMWw?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5b99417a-1f43-4b3d-9a7a-08df093447ab
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 20:53:45.7614
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OLPKZ2RMle/imATrWqae3D437BFcTWF2BmM/KXCk7yaoVZIIgflf3puXY7OA5RNYKTYen1k+qRs2+6YI+CJCGQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6783
+Message-ID: <178838244658.3717435.4281468135223095765.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
+The following commit has been merged into the x86/sgx branch of tip:
 
+Commit-ID:     993b65a2fc6f3b2d61428ed2f2d10f94e94e6f3c
+Gitweb:        https://git.kernel.org/tip/993b65a2fc6f3b2d61428ed2f2d10f94e94=
+e6f3c
+Author:        Jun Miao <jun.miao@intel.com>
+AuthorDate:    Wed, 02 Sep 2026 09:36:53 +08:00
+Committer:     Dave Hansen <dave.hansen@linux.intel.com>
+CommitterDate: Wed, 02 Sep 2026 13:52:59 -07:00
 
-On 9/2/26 07:50, Mika Westerberg wrote:
-> +Mario
-> 
-> Hi,
-> 
-> On Wed, Sep 02, 2026 at 12:34:13PM +0000, Andrei Rusu de Castro wrote:
->> The AMD DMA-teardown quirk resets the host interface before USB4NET
->> stops its service rings. The reset clears ring interrupt bits while the
->> rings remain logically running. When tb_ring_stop() later disables the
->> interrupt, the register update is a no-op and emits a dev_WARN() splat.
-> 
-> Yes it should not do that. It's too "big hammer" and we should avoid that
-> if possible. There is also the deadlock that resulted this series:
-> 
-> https://lore.kernel.org/linux-usb/20260825214237.4179813-1-juan.martinez@amd.com/
-> 
-> But that still kills the whole host interface if there are other users,
-> like USB4STREAM using the rings at the same time. I suggested that we do
-> the reset when the rings are idle and while they are not and we have spare
-> rings we hand off those instead:
-> 
-> https://lore.kernel.org/linux-usb/20260902054800.GI106095@black.igk.intel.com/
-> 
-> We still need confirmation from AMD if this even solves the problem or is
-> it hanging the whole host interface and not just a single ring.
+x86/sgx: Report RCU-Tasks quiescent state in EPC sanitization loop
 
-I'll let Sanath and Basavaraj double check this on the affected failure 
-case.
+When the kernel boots from kexec, the EPC pages may have a stale state.
+The kernel sanitizes all EPC pages to reset them to a clean state before
+their first use in any enclave.  The EPC size could be several GBs and
+resetting them could take a significant amount of time.  Because of that,
+the kernel performs the reset in a loop through a kernel thread ksgxd() at
+early boot, and there's a cond_resched() after resetting each EPC page.
 
-I believe think that the whole host interface hangs when this condition 
-happens.  Another way to mitigate it can be to force a power state 
-transition though.  If we can force the router into D3 and back out it 
-should reset the condition that could lead to a host interface hang.
+This is fine in most cases, but becomes a problem when there's other kernel
+code waiting for an RCU-Tasks grace period but the cond_resched() in
+ksgxd() never triggers rescheduling.  Because cond_resched() doesn't report
+a quiescent state when it doesn't trigger rescheduling, the thread that is
+waiting for an RCU-Tasks grace period will wait until all EPC pages are
+reset.
 
-> 
->> The path teardown order is required. Stopping a ring first clears its
->> descriptor base and unmaps its frame buffers, so pending path traffic
->> can no longer drain and some host routers never clear their pending bit.
->>
->> Keep the warning for genuine software-state drift. Increment a host
->> interface generation after each eligible reset and sample it when an
->> interrupt-backed ring starts. Excuse a redundant disable only when that
->> ring crossed a reset. Duplicate enables, duplicate disables without a
->> reset, rings started after a reset, ineligible resets, and double
->> software stops retain their existing warnings.
->>
->> The generation sample precedes interrupt enable while holding the NHI
->> lock. A reset racing with ring start is therefore observed as newer than
->> the sample and attributed to that ring.
->>
->> Source and call-graph analysis identified the reset and
->> ring-teardown ordering. The change was compile-tested; KUnit coverage is
->> added separately. It has not run on affected peer-host XDomain hardware
->> because the attached USB4 device is a hub and does not form that path.
-> 
-> This looks pretty much like LLM generated so if that's the case you should
-> add proper assisted-by.
-> 
-> Anyways I don't think we want to do this just yet if we can avoid resetting
-> the host interace behind everyones back.
+For instance, BPF LSM subsystem can invoke synchronize_rcu_tasks() at
+kernel boot time.  A VM with a large EPC assigned and BPF LSM enabled can
+take a long time to boot, with a call trace triggered:
 
-The resetting host interface /should/ only really happen when unplugging 
-the cable.  If it's happening in more cases, that's not intended at least.
+    rcu_tasks_wait_gp: rcu_tasks grace period number 1 (since boot) is
+	130631 jiffies old.
+    INFO: task systemd:1 blocked for more than 122 seconds.
+    ...
+    task:systemd  state:D stack:0  pid:1  tpid:1  ppid:0  flags:0x00000002
+    Call Trace:
+    ...
+    schedule_timeout+0x157/0x170
+    wait_for_completion+0x88/0x150
+    __wait_rcu_gp+0x17e/0x190
+    synchronize_rcu_tasks_generic+0x64/0x60
+    ...
+    synchronize_rcu_tasks+0x15/0x20
+    register_ftrace_direct+0x31f/0x350
+    ...
+    bpf_trampoline_link_prog+0x33/0x60
+    bpf_tracing_prog_attach+0x3c5/0x5f0
+
+Replace cond_resched() with cond_resched_tasks_rcu_qs() which explicitly
+reports quiescent state regardless of whether actual rescheduling is
+triggered.  Resetting all EPC pages in ksgxd() isn't performance critical
+so the extra cost of cond_resched_tasks_rcu_qs() isn't a problem.
+
+Tests showed this reduced the VM kernel boot time from ~50s to ~700ms.
+
+Co-developed-by: Fan Du <fan.du@intel.com>
+Fixes: e7e0545299d8 ("x86/sgx: Initialize metadata for Enclave Page Cache (EP=
+C) sections")
+Suggested-by: Kai Huang <kai.huang@intel.com>
+Signed-off-by: Fan Du <fan.du@intel.com>
+Signed-off-by: Jun Miao <jun.miao@intel.com>
+Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
+Reviewed-by: Kai Huang <kai.huang@intel.com>
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Tested-by: Challvy Tee <challvy.tee@gmail.com>
+Link: https://github.com/systemd/systemd/issues/40423
+Link: https://patch.msgid.link/20260902013653.690506-1-jun.miao@intel.com
+---
+ arch/x86/kernel/cpu/sgx/main.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/arch/x86/kernel/cpu/sgx/main.c b/arch/x86/kernel/cpu/sgx/main.c
+index 4505f80..a5f2aab 100644
+--- a/arch/x86/kernel/cpu/sgx/main.c
++++ b/arch/x86/kernel/cpu/sgx/main.c
+@@ -106,7 +106,13 @@ static unsigned long __sgx_sanitize_pages(struct list_he=
+ad *dirty_page_list)
+ 			left_dirty++;
+ 		}
+=20
+-		cond_resched();
++		/*
++		 * cond_resched() only schedules when TIF_NEED_RESCHED is set.
++		 * During this boot-time loop that condition may not happen for a
++		 * long time, so report an RCU-Tasks quiescent state explicitly.
++		 * Therefore, change cond_resched() to cond_resched_tasks_rcu_qs().
++		 */
++		cond_resched_tasks_rcu_qs();
+ 	}
+=20
+ 	list_splice(&dirty, dirty_page_list);
