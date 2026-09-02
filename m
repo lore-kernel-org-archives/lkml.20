@@ -1,175 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14625411FBB
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 22:08:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD70549E5D8;
+	Wed,  2 Sep 2026 22:11:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788386910; cv=none; b=qSLp3riz5GdPagOZDvEKXj3gOXqHlYT47pTiYRXw6pc8D4v7Pt+Vn1vks1dfJU/7amDP7uuG3GKsEGBLSCit4iliELxIKLN874s6je+RXFp0DHQG/383gHZV3Xgl3oRCZe5OvGD3Ebg5bEenLcgN9PXAT+vFLgQUt/ppt5bSNmY=
+	t=1788387085; cv=none; b=LLs8EmAnnN8oJdsWY+uemsaA8unzCdm7tFp8jRATep1xkwaPQk7yKsONYJdXHB1pDtl3dV/SKSpu3PzKV0BElpLjUpyo1jcG1IqmEymzTc7cg1iwKPnusQhQpkp51FB9+PwqcYwELedoZcCfEkt2ctGOy8kG6r/AIHx0dqt5FYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788386910; c=relaxed/simple;
-	bh=zioYbL0Tm0xOiVWZ/OcM1/hzX9Tycdl6ykoK3iDZOzQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aSoHIpuJSxGpXPaySTnjuOYdGonILpcu4kBbxzSux043lR2gPIiapMZw0qxA7cvY6tvEOGUMFFrE/bOoJyLcCODitD8qObkn98kwKvlxIezAzWv+ZqOuqd4Ot878Yeh+zfJyzYzAC1OrDB7FRWWxtD3yVRdTwSp0HUpiIgz6jEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fuHhDc5P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788387085; c=relaxed/simple;
+	bh=w0FIq/wI9cmtotdcX6hqBoQu50S6JMTM4GMSBTcF+Fo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=RoiUGGRbjtxLyhelKKIzPFr2IfdjCLddodK70Ka+jUENTb4BcrX3wBEIi/AkSxRGh6YwfX9M+T52RaXYLFw1kB49ej6J7yFVwIFJ5mY/FYBV685jpJhg95xIfCAKPIMwYgFRd3U7FMkaMsVKqpHS3w9XDy2uhEBxtat9l6HKWNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=VF1eNTSc; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fuHhDc5P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 741F71F00ADF
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 22:08:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788386901;
-	bh=HXwkquCI6LmZGWEehEfPtdKpLqHe4vbF/JANGMpvusI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=fuHhDc5PRndfYJsjaoKrh8YW800YD8LXwVGaGjOJXcXGwNjSeoF9s4w0hwDqtCsm5
-	 nzzZnan34vN4n5y2ECh93wTNq7TWWLslr/MtcZUQzJliTV+NfudrZc0/vaQqqaobpX
-	 EuvpAT7B+IBHv+Af/963EbQqd5ZtRMBFhXL/Hx9DyGAn0cOl386ZU4koJjBi6QKEzH
-	 0GWkkCZuICrlSjG3Jsm+jPMlRa1G+xOhviGR6qzNvUALo4uIUXZeevQlqPPI9iBYno
-	 fyxPTEx/Z+V1IyjhyU6oLhRY2Lv0CbSSczmVVDjm8Uj/Fc2N6YhvvKfSSqdXd2tr2U
-	 XsQ6duomzawlw==
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-936e393176fso135572885a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 15:08:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByZoO6Q/leZBjut2Vwha8J4uWscGgWqImejmu+NXTTBL/iMgL9G+eGtLlmxUKsmpN+0x08yyJHhsteGppw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kxRbDo9oICttaly6nUJrdat6AWBpd5vKduo7WKMyoSWBJAxwub
-	DcSwCnKK87OOi1jpvsRVFLjKEUwlRkjTM3Q03xVweICMUNJcTokK8QFvXa0wWSFaQMwdCTdYp6/
-	FzRv6LBXDRjS6H+jqgMwKQugrbgkYLyI=
-X-Received: by 2002:a05:620a:3196:b0:936:31c9:6c57 with SMTP id
- af79cd13be357-93960cd1611mr870285685a.7.1788386900768; Wed, 02 Sep 2026
- 15:08:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="VF1eNTSc"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 2474B1A1969;
+	Wed,  2 Sep 2026 22:11:18 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E5D255FF79;
+	Wed,  2 Sep 2026 22:11:17 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C99CF11C79331;
+	Thu,  3 Sep 2026 00:11:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788387073; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=NK7cau63fcqdFZfa3C4RbEfYEu8jP3q+rhw7IrsO4Sg=;
+	b=VF1eNTScexkHbdmcNVIeyFk0zlEOfCXdz3GDJ8fpVaiwQzzfEKAVGX6RIzjlIEi6tjPgVD
+	r6cVq+4j4amKHlJpZZRFQ/Hw7iQYGNwiVkqIZlYmnyKE6kZBIxk699DP4LcJ4IQiZq2W6r
+	M9CVy8w6zcpFUn9Yv7oSPDhCuHChvPAm+3wpstuQ46crJ5/wrdwBQjQRVkqZIdUvmU6bBa
+	bozBNc+wMYFFXnw7X0M73rLXgzjmXnR8IneOJglXN1+KaRNKNg4HxTdbH9237YZLUWmnBY
+	If1+BWanHmTgdQLovq10y1TRKSNkj/Y6cLRr1xftfRDDUmZLf5Qup3pSCVRnKg==
+From: Diogo Ivo <diogo.ivo@bootlin.com>
+Date: Thu, 03 Sep 2026 00:11:00 +0200
+Subject: [PATCH 1/2] ASoC: dt-bindings: realtek,rt5677: Add clock property
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260829074204.45304-1-baohua@kernel.org> <20260829074204.45304-3-baohua@kernel.org>
- <apfZQE1X6zGAsBb_@fedora> <CAGsJ_4z=A3EGajzL8F5H+0fwyzh3qqMNACEzo20J83m+T8bbZw@mail.gmail.com>
- <apf3ivSCu9kQfM9F@fedora>
-In-Reply-To: <apf3ivSCu9kQfM9F@fedora>
-From: Barry Song <baohua@kernel.org>
-Date: Thu, 3 Sep 2026 06:08:09 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4zfDJ2+qG-NHQoSi=KOPdsfi3YHL63gZytDGUhW1HOpvQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XFDhZ-DAqDQEdt5t8zknTH46vTp3nSSajFNh_qOLjujxTdo9wNIES4DYc
-Message-ID: <CAGsJ_4zfDJ2+qG-NHQoSi=KOPdsfi3YHL63gZytDGUhW1HOpvQ@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] mm/mglru: make retry logic explicit in isolate_folios()
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: akpm@linux-foundation.org, linux-mm@kvack.org, axelrasmussen@google.com, 
-	baolin.wang@linux.alibaba.com, chenridong@xiaomi.com, david@kernel.org, 
-	hannes@cmpxchg.org, kasong@tencent.com, lianux.mm@gmail.com, 
-	linux-kernel@vger.kernel.org, ljs@kernel.org, lyugaofei@xiaomi.com, 
-	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, 
-	stevensd@chromium.org, wangzicheng@honor.com, weixugc@google.com, 
-	yuanchu@google.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-rt5677-mclk-v1-1-b71a5a3533f9@bootlin.com>
+References: <20260903-rt5677-mclk-v1-0-b71a5a3533f9@bootlin.com>
+In-Reply-To: <20260903-rt5677-mclk-v1-0-b71a5a3533f9@bootlin.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Animesh Agarwal <animeshagarwal28@gmail.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ Diogo Ivo <diogo.ivo@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1265; i=diogo.ivo@bootlin.com;
+ h=from:subject:message-id; bh=w0FIq/wI9cmtotdcX6hqBoQu50S6JMTM4GMSBTcF+Fo=;
+ b=owEBbQKS/ZANAwAKAQa+fFtWXslFAcsmYgBqmJ75msUIt7jf5fCQNhewHQ1AmpZ6Ps7Q3BsUT
+ 7keSKFUQvGJAjMEAAEKAB0WIQTma35o1i1081e8B2UGvnxbVl7JRQUCapie+QAKCRAGvnxbVl7J
+ RYvUEACYX5nGiAuyG9UpC57wHI7D9sX5i4BeNf20EfQYWkgdm11q9hEERhyidk8orUdW9k+ONS2
+ e7V/v/aWC8cCQlhjD968PKPnclsS854epMOoasAhPj3g/ctiSo3ZjiZj3UspXMC79t3IVCsKgtr
+ B5JDtk/7lS1rNMeWSyKCloMXtglVbK3Y/Zmg3oM6PFci+n0T8AgF+95cKQ3DBADEn6+btne6I5d
+ i7XSZbG+LX06Yung86tqcQO4L5oM4fn56sBf2Iq1a8h82IA0Rd9tm/o+vUHmiNuCwYdhsgf9wPU
+ W52td3eAenfCkSfBbQLJyhSlK/g2nzm7e0ECtWCga3AUk5lMRIkp8+IM79502v5J6P642/ky/SC
+ b6TuN/jz8Hys65O/ZvsB+G4VFy2d1lBe/iMH1aYBQ8zxtamIXRVvydNH0hOJDaesi1LOyqHF46x
+ A0wKJFnirDnD/9DDiAlUlQD6QwE//rx0Zkn1BuP2UzmTYuDIvgdH3aFKul2gm+CnmxBfZSdj6Nu
+ MIWaxCvgUA6W7Zpgr2ZpyuqPns0YvIUhAStXJPco4Ng1T9rj5lBFtk14+kwzdwUcKLRO4XJdPtO
+ aVaDSu2NQlNCBUTpndbcPzkwo3o3DR/3ECG7mjal2rMetLTddholaLYgQ/3yDwi894Q/HCienVo
+ iqdbn7CHtA31NlQ==
+X-Developer-Key: i=diogo.ivo@bootlin.com; a=openpgp;
+ fpr=E66B7E68D62D74F357BC076506BE7C5B565EC945
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Sep 2, 2026 at 6:17=E2=80=AFPM Baoquan He <baoquan.he@linux.dev> wr=
-ote:
->
-> On 09/02/26 at 05:20pm, Barry Song wrote:
-> > On Wed, Sep 2, 2026 at 4:07=E2=80=AFPM Baoquan He <baoquan.he@linux.dev=
-> wrote:
-> > >
-[...]
->
-> Hi Barry,
->
-> Agreed on the one-line change for the (1, 200) case - I traced it and it
-> now matches mainline exactly (no extra third scan). I personally prefer
-> the for (attempt =3D 0... ) style because I feel that makes logic clearer=
-,
-> while everybody truly has different code taste, LOL, just a weak opinion.
->
-> For 0/201: my concern is that on no-swap systems (swappiness 0 is
-> file-only), the same-type retry when the first scan is busy may be a
-> no-gain run if the file generation is dominated by protected/ineligible
-> folios - the retry re-scans the same sort results. But if you see a case
-> where the retry does isolate folios on the second pass for single-type
-> reclaim, keeping it for consistency is defensible. Do you have such a
-> case, or should we drop the retry for 0/201?
->
+Add a clock property as the RT5677 codec can be fed an
+external clock signal.
 
-201 only applies to proactive reclamation. I believe the retry helps
-avoid having an outer loop. For 0, I ran a kernel build test on x86
-with swap disabled:
+Signed-off-by: Diogo Ivo <diogo.ivo@bootlin.com>
+---
+ Documentation/devicetree/bindings/sound/realtek,rt5677.yaml | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-# free
-               total        used        free      shared  buff/cache   avai=
-lable
-Mem:        23991248     1315020    20554564      331312     2121664    220=
-99256
-Swap:              0           0           0
-
-#  time systemd-run --scope --unit=3Dkernel-build -p MemoryMax=3D1500M
-make ARCH=3Darm64 \
-        CROSS_COMPILE=3Daarch64-linux-gnu- vmlinux -j20 1>/dev/null 2>/dev/=
-null
-
-With the following patch for counting:
-
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index bf2786c7247d..e8d5603cd56e 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4913,6 +4913,28 @@ static inline bool is_single_type_reclaim(int swappi=
-ness)
-               swappiness =3D=3D SWAPPINESS_ANON_ONLY;
- }
-
-+#include <linux/proc_fs.h>
+diff --git a/Documentation/devicetree/bindings/sound/realtek,rt5677.yaml b/Documentation/devicetree/bindings/sound/realtek,rt5677.yaml
+index ae27ae78b1b2..e9fb97a48445 100644
+--- a/Documentation/devicetree/bindings/sound/realtek,rt5677.yaml
++++ b/Documentation/devicetree/bindings/sound/realtek,rt5677.yaml
+@@ -44,6 +44,14 @@ properties:
+   '#gpio-cells':
+     const: 2
+ 
++  clocks:
++    items:
++      - description: phandle and clock specifier for codec MCLK.
 +
-+static atomic64_t tried_isolated;
-+static atomic64_t tried_not_isolated;
-+static int reclaim_stats_show(struct seq_file *m, void *v)
-+{
-+       seq_printf(m, "tried_isolated: %lld\n",
-+                  atomic64_read(&tried_isolated));
-+       seq_printf(m, "tried_not_isolated: %lld\n",
-+                  atomic64_read(&tried_not_isolated));
++  clock-names:
++    items:
++      - const: mclk
 +
-+       return 0;
-+}
-+       return 0;
-+}
-+static int __init reclaim_stats_init(void)
-+{
-+       proc_create_single("reclaim_stats", 0444, NULL,
-+                          reclaim_stats_show);
-+
-+       return 0;
-+}
-+fs_initcall(reclaim_stats_init);
-+
- static int isolate_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
-                          struct scan_control *sc, int swappiness,
-                          struct list_head *list, int *isolated,
-@@ -4928,6 +4950,13 @@ static int isolate_folios(unsigned long
-nr_to_scan, struct lruvec *lruvec,
-        scanned =3D scan_folios(nr_to_scan, lruvec, sc,
-                              type, tier, list, isolated);
+   realtek,pow-ldo2-gpio:
+     maxItems: 1
+     description: CODEC's POW_LDO2 pin.
+@@ -127,6 +135,8 @@ examples:
+             interrupts = <3 IRQ_TYPE_LEVEL_HIGH>;
+             gpio-controller;
+             #gpio-cells = <2>;
++            clocks = <&osc>;
++            clock-names = "mclk";
+             realtek,pow-ldo2-gpio = <&gpio 3 GPIO_ACTIVE_HIGH>;
+             realtek,reset-gpio = <&gpio 3 GPIO_ACTIVE_LOW>;
+             realtek,in1-differential;
 
-+       if (tried) {
-+               if (*isolated)
-+                       atomic64_inc(&tried_isolated);
-+               else
-+                       atomic64_inc(&tried_not_isolated);
-+       }
-+
-        total_scanned +=3D scanned;
-        if (*isolated) {
-                *isolate_type =3D type;
+-- 
+2.55.0
 
-I got:
-
-# cat /proc/reclaim_stats
-tried_isolated: 12096
-tried_not_isolated: 23061
-
-So we see some cases where the retry gets isolated folios, while in
-others we still encounter promoted or protected folios. But my gut
-feeling is that even if we don't retry and instead go back to the outer
-loop for another iteration, we'll still encounter those folios, since
-they are still on the LRU. We would just reach those folios in a more
-costly way.
-
-Thanks
-Barry
