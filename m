@@ -1,76 +1,40 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2A65493653
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:40:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA998471404
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:41:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352861; cv=none; b=dJr/8mCd7SUoXcSu62FGMIqBeFKMgl1W5/zdGUq7+iiqk39nKS0+lK6ikE18H603Ogxkt+KK3mzEpSVtlpqZRMf7SJ8RLid//KfGiZ1ciROzZsTUpdjurZzMLvdMXo6yxhJZQxuPSvKR3aPdj9DIIysunjk8w4OUqdObuwU7Zf4=
+	t=1788352876; cv=none; b=tDCQ9JEITHgnSiNqsKYen/r8S2QHKTQH1f1HPbntGc/ByU/BjUOp7v3V8zARBXCJ8xd++iL9Z4PK4NrDuqT5icPyv8oE9newCUS4dFfArsGRjLJkcbDiHXaBp5OXC7LgbJT9BHGOV3aR4Uj9wCMS/JY0vrdTtdpkoPq2Mxg32S4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352861; c=relaxed/simple;
-	bh=69ncB8hBajtEa8HDapr1rxkd8n/GxAyhRCT8Oborio4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z8efxEUH60kTPoLGjTO7xre6reD/d1Vuz0dA9iDpMbX/fSxpWd6mQiXcLLDYqqOWb4QlqUtz96n3a/ZLAM5toLCyS2ZNrkJPaBmV7iaIAhIW7LFzxXwTOybW6dna1xlKlhGtHsR+2P8K0hUfbkcQWH4HekGLBdgBii0PjbpvTiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QL07uXIK; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788352876; c=relaxed/simple;
+	bh=KaPsbpcvVQswWwzAhO+0povn4bTp/xVzNTLdjwbsh8E=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=R4PfBihyekFt8Fla9vIb5FSWWCCzmn4pIWdqpv+Qr4JmteIdCi20j8FK1gpVe5fTdLdJ5TsB/kczOkOv0RXYO2o2VR/06v5ijmlEn/tp7x0KfFX0N62xFuzaeejSZGXI2NZO+vE0J6TK9ZqqcxApQV7INBHilRjzrBdI9d2pO0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=ik/h+d1+; arc=none smtp.client-ip=115.124.30.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QL07uXIK"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3966791a6eeso1231414a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:40:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788352859; x=1788957659; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z+i1+hLinUt3Q2bK2ZT3Wc0emmUMZr61lAfSOzdane8=;
-        b=QL07uXIKeHZgy+eT7hNC39PGCw9CxqidJDdTdLfROj9P22mXs5mETheHi2CmZnvHF0
-         HRud3iv6Z0prAGUZR7Sd8xy0R9zzl8Scx2VgI5gtTgEbKNcqCq2FVTPL1cmCy5X1zte0
-         48Y3gStBNWIJYj8hzUu+abuE7ZnfEBTwKLArm9xM/1iJegrBzKpkXXWDVP9J298pypM7
-         EiWYrTgB8rLej8BK/T4ORYb3/8nSSQTM0/r9FbUENcyZGgYQ0b9pQcDG+k2Idpv19y0+
-         gf6K4muorfIv59mNoUV3ujgPRiCjL7ZhMMHeV0Z8pWyvxWtuTZAicvDWBF+Ym/UB11lF
-         QJ6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788352859; x=1788957659;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z+i1+hLinUt3Q2bK2ZT3Wc0emmUMZr61lAfSOzdane8=;
-        b=h8CKxeYk2LHydQR/o/9eCEH2rqPQh5NuuPHC0r7bdV7ucDQDwdEmGnOQZ80epidQsP
-         +N5NZ2/ILlugA5VRKnxE04jiKGkIXq6zO19gCu7K0bTeQ8ZRY+coYmwDiSv4Ou7GpfrN
-         NU/07Ki6Bs7G7MQjJWHx6PrvDQBNW7pjXPOFa0nadkMcgy4z/ALnFskSY9Tp5Vbu5THR
-         vcQGf/czbezMJHiBKIfJ6sme1sE0uyDF1S7aooBhl1SLj0eghIDkpZ9tNjtXpTJtGS3r
-         nL2C9SFi7TSsEc8E3mG65SjB7GhVA2ULji2weSD3f40Mb4Gi8H8qyde38k3Jt0rvAQyJ
-         yS1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzFi17om0DMVD9toV+W55zOB9n45KETmw3KisyALAdEtSrZu6dFjKyzYmqTKzN+J7Ljm5nB/1kUlbYl2Kg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhwU+khg8zrQz2dmCMZFtyCs4Ori34hdJbEsAcICvViG8Uz6Bi
-	OVXfHEUj3kFWqWzXPvuQigArLFUaK7gE/0Viv42IrQR7KIMfHoZyPOuF
-X-Gm-Gg: AYBFou33bFslW5/SzG8IybQq3+99zBaN0PQj0sAntpdUsMBlmzPFJgeywAcMwEcuJPK
-	XfTjYJHDIaCwuJbwBiveSkXOFGHxK3NCgcXWQRMVjtpJ0CBt+3zN5pNMw9l3/+W6kR2TftN49ns
-	IkXK7teGbxLKFw0rp2wAutZ2JadMDRaStq0fwUDZGa0A7NSgDlmJGTDG2Myzk9ONEmU6Iadcgre
-	6bS4FkR3Ha1rgGCmpOqNaAzlsH8D5lOuhEVZ5CPs7/KsZ9/fb0S1L1cF9jCwnjVMtvlJK70CCvX
-	dkOKi34zY/WE5EURf+oJvhmBU0h+OLvasp4z3puvoLS1YnKnV/G5ATBBhyS2zgFROM7xMiwtXGM
-	jJYPsa/8zskMNr1UNiEXP98+pcdJgCL1DTukfZkWatOXJdwbmLs9Av8acuhGILZmLs8F9A6NtEA
-	5yS3/GjBjZumByHz4/yWZ+XeYZwUTO2fBwuCtgJwBNJd5jkc9YRHCGc3bDYBdp1p5aKBCIipHjz
-	P80nd8sC30SIO6pMxCWe7dF30qXJiBhHA==
-X-Received: by 2002:a17:90b:4407:b0:398:9bd4:d13 with SMTP id 98e67ed59e1d1-39aee219427mr6732990a91.18.1788352858942;
-        Wed, 02 Sep 2026 05:40:58 -0700 (PDT)
-Received: from localhost.localdomain ([180.101.244.71])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990bd21e9dsm11879576a91.4.2026.09.02.05.40.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 05:40:58 -0700 (PDT)
-From: henrymei <ljp1205831794@gmail.com>
-X-Google-Original-From: henrymei <henrymei@tencent.com>
-To: linux-mtd@lists.infradead.org
-Cc: miquel.raynal@bootlin.com,
-	richard@nod.at,
-	vigneshr@ti.com,
-	linux-kernel@vger.kernel.org,
-	Aohan Mei <henrymei@tencent.com>,
-	TencentOS Corvus AI <corvus@tencent.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] mtd: inftl: validate MediaHeader partition geometry before allocating tables
-Date: Wed,  2 Sep 2026 20:40:19 +0800
-Message-ID: <20260902124044.3942821-1-henrymei@tencent.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="ik/h+d1+"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788352871; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=IjSwswSbVJ59LUR4S1FB7rVUxhTmzFzHw6cz0sTJxRo=;
+	b=ik/h+d1+zC0FjEgFsXep6iknJkixus7wdNP97QLnz4EobHhoAJHZKCrss5jcUpQYDiqDnTkvTna9yRt2Qp6MjFWUoQlY2J4HW3b4+IMBhnJ6q9c3a0LQbaQtI5Mhxu92IRfoZOcXhhZuq+VLWw5p14jx1CCTk1O8Z7mW3de6ynA=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R531e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XACjwKa_1788352870;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XACjwKa_1788352870 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 02 Sep 2026 20:41:10 +0800
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Heming Zhao <heming.zhao@suse.com>
+Cc: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ocfs2: allow xattr bucket entries to span multiple blocks
+Date: Wed,  2 Sep 2026 20:41:09 +0800
+Message-Id: <20260902124109.27775-1-joseph.qi@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,101 +43,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Aohan Mei <henrymei@tencent.com>
+ocfs2_validate_xattr_bucket() limits the entry array to the first
+bucket block, but the write path stores entries across the whole
+OCFS2_XATTR_BUCKET_SIZE region.  With 512-byte blocks a bucket spans
+eight blocks, and a bucket filled with small xattrs places its last
+entries past offset 512.  Reading such a bucket back errors out:
 
-find_boot_record() trusts the on-flash INFTL MediaHeader partition
-fields without validating their relationship to each other or to the
-device geometry.
+  OCFS2: ERROR (device loop0): ocfs2_validate_xattr_bucket: Invalid xattr bucket 86072: entry count 32 exceeds maximum 31
+  On-disk corruption discovered. Please run fsck.ocfs2 once the filesystem is unmounted.
+  OCFS2: File system is now read-only.
 
-The sanity check
+This is reproducible by setting ~33 xattrs with 100-byte values on a
+file on a blocksize-512 volume; fsck.ocfs2 reports the resulting
+image clean.
 
-	if ((ip->lastUnit - ip->firstUnit + 1) < ip->virtualUnits)
+Check the entry count against the full bucket region instead.  The
+per-block bounds checks for names and values stay as they are, since
+ocfs2_bucket_align_free_start() keeps each name+value pair within a
+single block.
 
-is evaluated in unsigned 32-bit arithmetic.  With lastUnit < firstUnit
-the subtraction wraps to a huge value and the check passes.  Control
-then reaches:
-
-	inftl->nb_boot_blocks = ip->firstUnit;    /* loop bound */
-	inftl->nb_blocks      = ip->lastUnit + 1; /* table size */
-
-so PUtable/VUtable are allocated with lastUnit + 1 entries while the
-boot-block marking loop writes firstUnit u16 entries:
-
-	for (i = 0; i < inftl->nb_boot_blocks; i++)
-		inftl->PUtable[i] = BLOCK_RESERVED;
-
-A crafted MediaHeader (e.g. firstUnit=7000, lastUnit=3) turns a
-kmalloc_array(4, 2) 8-byte allocation into a ~14 KB out-of-bounds
-write:
-
-	BUG: KASAN: slab-out-of-bounds in find_boot_record
-	Write of size 2 ... 0 bytes to the right of allocated 8-byte region
-
-The MediaHeader unit itself is also marked through PUtable[block]
-without verifying that block lies within the described extent.
-
-Reject inconsistent partition geometry (lastUnit < firstUnit, or
-lastUnit beyond the device) as each partition entry is scanned, and
-reject a boot record that lies outside the extent of the selected
-partition.  The existing virtualUnits check then subtracts values
-that can no longer underflow.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: TencentOS Corvus AI <corvus@tencent.com>
-Cc: stable@vger.kernel.org
-Assisted-by: CodeBuddy:Kimi-K3
-Signed-off-by: Aohan Mei <henrymei@tencent.com>
+Fixes: 2cf82b46d5e4 ("ocfs2: validate external xattr entries when reading metadata")
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 ---
- drivers/mtd/inftlmount.c | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+ fs/ocfs2/xattr.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/mtd/inftlmount.c b/drivers/mtd/inftlmount.c
-index 87e246a6f488..b0f01db95280 100644
---- a/drivers/mtd/inftlmount.c
-+++ b/drivers/mtd/inftlmount.c
-@@ -192,6 +192,23 @@ static int find_boot_record(struct INFTLrecord *inftl)
- 				 ip->lastUnit, ip->flags,
- 				 ip->spareUnits);
- 
-+			/*
-+			 * Reject inconsistent partition geometry before it is
-+			 * used: lastUnit < firstUnit would make the
-+			 * (lastUnit - firstUnit + 1) check below underflow,
-+			 * and lastUnit must stay within the device as it later
-+			 * bounds the PUtable/VUtable allocations.
-+			 */
-+			if (ip->lastUnit < ip->firstUnit ||
-+			    ip->lastUnit >= inftl->nb_blocks) {
-+				pr_warn("INFTL: Media Header "
-+					"Partition %d sanity check failed:\n"
-+					"        firstUnit %d lastUnit %d "
-+					"(nb_blocks %d)\n",
-+					i, ip->firstUnit, ip->lastUnit,
-+					inftl->nb_blocks);
-+				return -1;
-+			}
- 			if (ip->Reserved0 != ip->firstUnit) {
- 				struct erase_info *instr = &inftl->instr;
- 
-@@ -233,6 +250,18 @@ static int find_boot_record(struct INFTLrecord *inftl)
- 			return -1;
- 		}
- 
-+		/*
-+		 * The boot record unit must lie within the described
-+		 * extent; it is later marked through PUtable[block].
-+		 */
-+		if (block > ip->lastUnit) {
-+			pr_warn("INFTL: Media Header "
-+				"Partition %d sanity check failed:\n"
-+				"        boot record unit %d beyond "
-+				"lastUnit %d\n",
-+				i, block, ip->lastUnit);
-+			return -1;
-+		}
- 		inftl->nb_boot_blocks = ip->firstUnit;
- 		inftl->numvunits = ip->virtualUnits;
- 		if (inftl->numvunits > (inftl->nb_blocks -
+diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
+index 34f102db2a0e..c73628484b50 100644
+--- a/fs/ocfs2/xattr.c
++++ b/fs/ocfs2/xattr.c
+@@ -1153,7 +1153,13 @@ static int ocfs2_validate_xattr_bucket(struct ocfs2_xattr_bucket *bucket,
+ 	struct ocfs2_xattr_header *xh = bucket_xh(bucket);
+ 	u16 xattr_count = le16_to_cpu(xh->xh_count);
+ 	size_t region_size = (size_t)sb->s_blocksize * bucket->bu_blocks;
+-	size_t entries_limit = sb->s_blocksize;
++	/*
++	 * The entry array grows up from the header across the whole
++	 * bucket region, so it may extend beyond the first bucket block
++	 * when the blocksize is smaller than OCFS2_XATTR_BUCKET_SIZE.
++	 * Name/value pairs, however, always live within a single block.
++	 */
++	size_t entries_limit = region_size;
+ 	size_t nv_limit = sb->s_blocksize;
+ 	size_t max_entries;
+ 	int i, ret;
 -- 
-2.43.7
+2.39.3
 
