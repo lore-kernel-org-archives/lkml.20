@@ -1,117 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F181335DA40;
-	Wed,  2 Sep 2026 10:01:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43BFD430CD3;
+	Wed,  2 Sep 2026 10:01:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788343273; cv=none; b=fmk0ZULQesiaWPnx+WlHAFe2qTzaO6A7Ep3Sc2wft5J75coDQPHATaqXIKDvs7ZTlah5PfINR2v9x3vgH7b1fRd6ORRyry1hVZyMfoAW2bB6n3R9eySyZBoyo7rIstXbQVn3z2CFfS6OC7Gt1AYycA/ebt4VSEfj6VVMWNAyXuI=
+	t=1788343283; cv=none; b=HOUrrcqAs3IZ4fluPnnu7ZOiUKv3qdQyZe3+c9V4EBfTZgssPDawfrepNh/QYniON0PumCrf358UrSII9jPH9/uxNjCJ3vG5NuHg1zkBSTBxSgxbNli9pGYB8Zxo0l2Lk7Pxk944EV3SyHdi8Yc6dzBMLkDWBf9gaGJbEyeCeqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788343273; c=relaxed/simple;
-	bh=M1Jp5Yqv9sTJzACp1OJRm3fmoMoh673N0vfc7vJ7c4E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CSPFxvq4O7UXlC4AEBFLp3VJGGuy9H4I1kwZLh/r5N6mWnaOzRf3iD1b8sSledWG7GMjehLigr/3bVdEO5kbNY+2Iz4rs/kzA6xhD51Nhx6B2AkSMQlDzc6xeCc3vPeGvOVRO8OOv39+vEmCBPWo5kX9DBz0lchXb2eYBGMaSU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qqlws4aA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788343283; c=relaxed/simple;
+	bh=n39eUgVDD5l2zyp5goXnb/ODSDiV8FhVFdZbdUdNpLY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=Qb/4klJUQG1ogOSLy6FdVKPkmz03pR/erSaPi17oclaqKtQIgyQ70EMJWeV5UkykIG6GYSzn0I6LP7wbXgDBvFU0e+aQ2VN0tc1BBksBnR3KZ45/vx1DV7mK1XLXJcikZ9Sx+4c3/8tLKXU+xYShYn0vdezIccyZb7YIEuEVHmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=1OKXC1Wl; arc=none smtp.client-ip=113.46.200.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qqlws4aA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D0F01F000E9;
-	Wed,  2 Sep 2026 10:01:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788343271;
-	bh=JdEFNEFd6qnIQmo/1jVIW3kFkM34fEdFx/LiDE8lR40=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Qqlws4aAxSkJgzdjHqVT+U3d2ls3xLmWueQKWissaxiKrbbJe4G+ObjeMgOu2jEvp
-	 o7sAi0WJrc2uJbFtkus5Es3+auFodJkroDNqLGLxt677AI69sr9LmyisBXhHhjA4fB
-	 wZreCss/tnM4JCSmtjNH8B0xx280xfKqpG+UftLXdjtrPVYYxOQT4X7RRng4EA3udV
-	 jKGjdXVCZdFrtGIhgGTUR5AkpH30QAoS0r1NdwhOL6cAflH42CVop4pz//S7rFpLXH
-	 bJDOP6iBnUG8irgyzsFxQGFkBoezXf8wZa6CFHUwfVmNl01P2rQcYqMQYIZAV5eAwR
-	 9neuGXIR7PTaQ==
-Date: Wed, 2 Sep 2026 10:01:02 +0000
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Sean Rhodes <sean@starlabs.systems>
-Cc: linux-kernel@vger.kernel.org, Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Corentin Chary <corentin.chary@gmail.com>,
-	"Luke D. Jones" <luke@ljones.dev>,
-	Denis Benato <denis.benato@linux.dev>,
-	Prasanth Ksr <prasanth.ksr@dell.com>,
-	Jorge Lopez <jorge.lopez2@hp.com>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Joshua Grisham <josh@joshuagrisham.com>,
-	Will Deacon <will@kernel.org>,
-	Douglas Anderson <dianders@chromium.org>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	platform-driver-x86@vger.kernel.org, Dell.Client.Kernel@dell.com,
-	Brian Norris <briannorris@chromium.org>,
-	Julius Werner <jwerner@chromium.org>,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Titouan Ameline de Cadeville <titouan.ameline@gmail.com>,
-	Laxman Acharya Padhya <acharyalaxman8848@gmail.com>,
-	Yidi Lin <yidilin@google.com>, Kees Cook <kees@kernel.org>,
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	chrome-platform@lists.linux.dev,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Arnd Bergmann <arnd@arndb.de>, Eric Biggers <ebiggers@kernel.org>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	Michal Simek <michal.simek@amd.com>, Sven Peter <sven@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Drew Fustini <fustini@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev
-Subject: Re: (subset) [PATCH v14 0/5] coreboot CFR firmware attributes
-Message-ID: <apfz3lf1RIfAkKYS@google.com>
-References: <cover.1788284852.git.sean@starlabs.systems>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="1OKXC1Wl"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=5muCGImxQEXCs9mgbU84wjK603R7oDB3KGXYhDYZoIc=;
+	b=1OKXC1WlAcuXvATuYy9843J+ts23aqDRPtEBmymokcm2wcDFN7n+VLXs5YlFtuuOI17YRGOle
+	AE1kaDyBL8Psb6qsvqP6GD+2KaR9IZFlJSaA9VKKZKh4vJ8pLjxN4lSw5BvQVM6ddEVaTK1WC49
+	5AuTsqZ1V1GNz92YBNN1IQA=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hZdHw4T64znTwN;
+	Wed,  2 Sep 2026 17:50:04 +0800 (CST)
+Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
+	by mail.maildlp.com (Postfix) with ESMTPS id C74E54057A;
+	Wed,  2 Sep 2026 18:01:17 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Wed, 2 Sep 2026 18:01:15 +0800
+Message-ID: <d12302b0-f0b3-4df6-963c-bf25b6e720c7@huawei.com>
+Date: Wed, 2 Sep 2026 18:01:14 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1788284852.git.sean@starlabs.systems>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 12/17] x86/crash: Use num_possible_cpus() for
+ elfcorehdr size
+To: Sourabh Jain <sourabhjain@linux.ibm.com>, <catalin.marinas@arm.com>,
+	<will@kernel.org>, <mark.rutland@arm.com>, <chenhuacai@kernel.org>,
+	<kernel@xen0n.name>, <maddy@linux.ibm.com>, <mpe@ellerman.id.au>,
+	<npiggin@gmail.com>, <chleroy@kernel.org>, <tglx@kernel.org>,
+	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <akpm@linux-foundation.org>, <baoquan.he@linux.dev>,
+	<rppt@kernel.org>, <pasha.tatashin@soleen.com>, <pratyush@kernel.org>,
+	<ruirui.yang@linux.dev>, <kees@kernel.org>, <thuth@redhat.com>,
+	<gshan@redhat.com>, <jic23@kernel.org>, <james.morse@arm.com>,
+	<ardb@kernel.org>, <leitao@debian.org>, <yeoreum.yun@arm.com>,
+	<coxu@redhat.com>, <tangyouling@kylinos.cn>, <hbathini@linux.ibm.com>,
+	<adityag@linux.ibm.com>, <ionut.nechita@windriver.com>,
+	<liaoyuanhong@vivo.com>, <seanjc@google.com>, <fuqiang.wang@easystack.cn>,
+	<makb@juniper.net>, <piliu@redhat.com>, <ebiggers@kernel.org>,
+	<jbouron@amazon.com>, <mclapinski@google.com>, <me@linux.beauty>,
+	<graf@amazon.com>, <bgwin@google.com>, <robh@kernel.org>,
+	<takahiro.akashi@linaro.org>, <palmer@rivosinc.com>, <x86@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
+	<kexec@lists.infradead.org>, <linux-fsdevel@vger.kernel.org>,
+	<linux-mm@kvack.org>
+References: <20260826092541.3905933-1-ruanjinjie@huawei.com>
+ <20260826092541.3905933-13-ruanjinjie@huawei.com>
+ <99b1121d-4277-4764-8c3a-b3f6d9a47ab0@linux.ibm.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <99b1121d-4277-4764-8c3a-b3f6d9a47ab0@linux.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ dggpemf500011.china.huawei.com (7.185.36.131)
 
-On Tue, Sep 01, 2026 at 06:48:01PM +0100, Sean Rhodes wrote:
-> Move the firmware attributes class helper out of platform/x86, rename the
-> coreboot-table firmware driver directory from google to coreboot, and add a
-> coreboot CFR firmware attributes driver.
+
+
+在 2026/9/2 14:14, Sourabh Jain 写道:
+> Hello Jinjie,
 > 
-> Changes in v14:
-> - Rebase on current upstream master after Linux 7.3-rc1, preserving the
->   intervening coreboot table bounds and CBMEM no-map changes.
-> - Drop the standalone include-order cleanup. Replace the affected relative
->   includes directly in the firmware attributes helper move, as requested by
->   Tzung-Bi.
-> - Split the DRM coreboot framebuffer dependency update from the firmware
->   directory and Kconfig rename so it can receive a DRM Acked-by separately.
-> - Keep the CFR driver and its runtime behavior unchanged from v13.
->
-> [...]
+> This patch makes the below patch redundant..
+> https://lore.kernel.org/all/20260826073527.21487-2-
+> ionut.nechita@windriver.com/
+> 
+> I suggest dropping the first patch from the above series and including
+> the second patch from that series in this patch series with the updated
+> comment.
 
-Applied to
+Agreed. This approach makes sense to me.
 
-    https://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git for-firmware-next
+I will update it in v4.
 
-[2/5] firmware: Rename google firmware directory to coreboot
-      commit: 44e33a5aaa2de3f5cf2701d6f4b0a7c63d4fe602
+> 
+> - Sourabh Jain
+> 
+> 
+> On 26/08/26 14:55, Jinjie Ruan wrote:
+>> Use num_possible_cpus() instead of CONFIG_NR_CPUS to calculate the
+>> elfcorehdr buffer size, matching what crash_prepare_elf64_headers()
+>> already uses for the actual header content.
+>>
+>> This avoids over-allocation when the system has fewer possible CPUs
+>> than the compile-time limit, and aligns x86 with PowerPC.
+>>
+>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>> ---
+>>   arch/x86/kernel/crash.c | 6 +++---
+>>   1 file changed, 3 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
+>> index a3bf786286d4..afe2aea19f47 100644
+>> --- a/arch/x86/kernel/crash.c
+>> +++ b/arch/x86/kernel/crash.c
+>> @@ -369,9 +369,9 @@ int crash_load_segments(struct kimage *image)
+>>        * maximum CPUs and maximum memory ranges.
+>>        */
+>>       if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
+>> -        pnum = 2 + CONFIG_NR_CPUS + CONFIG_CRASH_MAX_MEMORY_RANGES;
+>> +        pnum = 2 + num_possible_cpus() + CONFIG_CRASH_MAX_MEMORY_RANGES;
+>>       else
+>> -        pnum += 2 + CONFIG_NR_CPUS;
+>> +        pnum += 2 + num_possible_cpus();
+>>         if (pnum < (unsigned long)PN_XNUM) {
+>>           kbuf.memsz = elf64_phdr_size(pnum);
+>> @@ -429,7 +429,7 @@ unsigned int arch_crash_get_elfcorehdr_size(void)
+>>       unsigned int sz;
+>>         /* kernel_map, VMCOREINFO and maximum CPUs */
+>> -    sz = 2 + CONFIG_NR_CPUS;
+>> +    sz = 2 + num_possible_cpus();
+>>       if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
+>>           sz += CONFIG_CRASH_MAX_MEMORY_RANGES;
+>>       sz *= sizeof(Elf64_Phdr);
+> 
 
-Also created an immutable branch "ib-coreboot-rename-7.4"[1] for patch 3
-and patch 5 which build-time depend on it.
-
-Thanks!
-
-[1] https://lore.kernel.org/all/apfyaxKEEJz20wRC@google.com
