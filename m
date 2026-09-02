@@ -1,102 +1,150 @@
-Received: from mta1.migadu.com (out-252.mta1.migadu.com [95.215.58.252])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB32147A887
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:42:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.252
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788363734; cv=none; b=AapqozgYk0Z2KKBW0bWNcO4eb4EJNn5m/cC1cQzc/BsPANJfwA1H5aZu8UKMiyuJRvhHOr+kcgTl52hX4OAectCTYdufTU8o0qMXSbLR5aEpLjr71mebvKT9mafbKUMvm6yVZmeH5lJQuOGV1GBxRQSDRsct7kt+8Su7SBESuQI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788363734; c=relaxed/simple;
-	bh=oQAtHMDdxLMd+IseQsUdtJ1A0k1c1Qwn3qdXWbS3Pqk=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 015294A92F3
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:42:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788363750; cv=pass; b=olsdMhakdxwlt2xKLuqYvH/nqAHFcQvKQ/avczWkk48zzjcwRsEzHS5Tmm7mbzPoxAxP4QNSQ+fEi3AtQM//QhlWJiZpLRSzeJ2Tv89Qh/O3oKHounP/xiUa+MyaTTk8CFnri0xd4zvBXkp0BvebD4IEVpvqwtaiXmkyuJxCKY0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788363750; c=relaxed/simple;
+	bh=dKUkyYSlGemiYZjxJlpUqWXDIRLiW1uIMdxPwxiexlA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e2PokPTeoAKT+wqsVXRBjvPpQCN2t2Fvdi0mHlo4iEInOUH020ah8kG5mlFTG2zcx9wz3Kn/nz8WJGiFAbCXCK7fEeV1sF+iu+8FuEWK7VLmt1nRmWLzTIarNewLWKvWdRqn6HyXwJIjK2P9wHKDoEnShsZiCA4JvnG9ZN5P6qI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=SlqLN419; arc=none smtp.client-ip=95.215.58.252
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=Cd/C3P3SsPvTEtvbegmyKZashhPxFPuFYpd75Vf3p973AQKKSm22phJKl2ZG/MPsuL/Od3E4LUay+1JArts/kYbYAqYKBAad98D5dGEBE9GpYMza0ckMHEeMKnyVXITWLoJUeM7p3ESRiuecz83/7Gh8FSXix6NVRZj7BBPGYdo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=GgzBWjSj; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="SlqLN419"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=oQAtHMDdxLMd+IseQsUdtJ1A0k1c1Qwn3qdXWbS3Pqk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788363729; v=1; x=1788968529;
- b=SlqLN419V7SAOO7h/q10ToEfqiyIKMDWnOdnKgt3nykFlWoPEYGDqVyh4B7NVSjDZhVuzjxu
- GGZfg8V5A83a+Q9rMQOsxZ0bDoWFk9AsIM53ZWjLZb0z8k04ReVb0nMTHbJQ8ewdSbSv0dVI4bA
- r+5lGc0xunNsHGxrMj6Tf6o8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6b5cc0fcc14a6291;
-	Wed, 02 Sep 2026 15:42:09 +0000
-X-Mizu-Trace-ID: 6b5cc0fcc14a6291
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 2 Sep 2026 08:42:07 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: kasong@tencent.com
-Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
-	Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Chris Li <chrisl@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Ridong Chen <ridong.chen@linux.dev>, Lian Wang <lianux.mm@gmail.com>, Yu Zhao <yuzhao@google.com>, 
-	Zi Yan <ziy@nvidia.com>, Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Kairui Song <ryncsn@gmail.com>
-Subject: Re: [PATCH v5 1/6] mm/memcontrol: move the lru_zone_size sanity
- check to the reader side
-Message-ID: <aphDtvu4xDCW3cOK@linux.dev>
-References: <20260902-mglru-flags-cleanup-v5-0-9db761d779ef@tencent.com>
- <20260902-mglru-flags-cleanup-v5-1-9db761d779ef@tencent.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="GgzBWjSj"
+ARC-Seal: i=1; a=rsa-sha256; t=1788363708; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=KKYTpyvzXnKrdt6KvMTEbGbOo4gux76GHpJ6d6KpryVWj3IIBihg7Vet0aTQWvMZdEWeCuRNJzOckZlBQbQ0nRP7mDdraijXn08Cs1pW83IjHdW3064oFAXLsBGUv2jJjJsSYyaijwwaLTMQNwt7ja1XhRVlb3mWOLwMBtmVceg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788363708; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=bL1rhEjtVjVACmuqzxzHnLDDgrtS/yEaQZfQmL0QZMU=; 
+	b=RllbzE30L8NwMzcBdCXAmkwRskRdMABY+DhU67E6PLrERFhU05rEx3NcR5nvBC9OSTM4ozu+zKLQxgb73FvdebX3UQAoPAP859EF9xGb/abeU7/6WvB8qI23+e4pSdnWgHCdZr65uFfdydPRJ2qVHz44NPhOzKT3+n5a7aZw/y0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788363708;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+	bh=bL1rhEjtVjVACmuqzxzHnLDDgrtS/yEaQZfQmL0QZMU=;
+	b=GgzBWjSjl2aBmgpYJvfU7VkcQM3dbPtSOP2106t2MU9Leg530c4VpjMd9xlIhaau
+	bry3j6gIsVFCkkSVlH5+H+1LZ+tucHtuMJ3L+aVkIr+VXaDIztjTxqAibUl4ihg8smF
+	M8DEaRyuYQI7MERTcJQtaka+b+dQh6frkZ5+/9ug=
+Received: by mx.zohomail.com with SMTPS id 1788363705301608.302088977019;
+	Wed, 2 Sep 2026 08:41:45 -0700 (PDT)
+Date: Wed, 2 Sep 2026 16:41:40 +0100
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Faith Ekstrand <faith.ekstrand@collabora.com>, 
+	"Marty E. Plummer" <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
+	Eric Anholt <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+	Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	Collabora Kernel Team <kernel@collabora.com>, Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v7 08/17] drm/panfrost: Split subsystem init/reset from
+ interrupt enablement
+Message-ID: <aphDm1vDtk2Pei3i@sobremesa>
+References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
+ <20260828-claude-fixes-v7-8-72a13b2c125d@collabora.com>
+ <20260901150804.75ce2f47@fedora-21.home>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260902-mglru-flags-cleanup-v5-1-9db761d779ef@tencent.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260901150804.75ce2f47@fedora-21.home>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.352.18
 
-On Wed, Sep 02, 2026 at 05:50:54PM +0800, Kairui Song via B4 Relay wrote:
-> From: Kairui Song <kasong@tencent.com>
+On 01.09.2026 15:08, Boris Brezillon wrote:
+> On Fri, 28 Aug 2026 21:56:48 +0100
+> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
 > 
-> Instead of using an unsigned long and checking the counter value at
-> the updater side, turn the counter into a signed long and check at the
-> reader side. This reduces overhead and simplifies the code.
+> > Because MMU interrupts are only enabled when the device is reset, it
+> > happened that after DRM device registration, the very first job targeting
+> > the tiler heap BO would always time out. The reason is the reset sequence
+> > is only part of PM runtime resume, which is not called explicitly at driver
+> > probe time, and an actual reset work item manually triggered after a HW
+> > error.
+> > 
+> > I have attempted a somewhat drastic solution, which is completely
+> > decoupling GPU/MMU/JM subsystem initialisation and reset from interrupt
+> > enablement, so that we can handle IRQ toggling a bit more flexibly.
+> > 
+> > To this end:
+> > - Ensure every subsystem with its own IRQ has an 'enable interrupts'
+> > method, and that it doesn't enable them anywhere else.
+> > - Force IRQ masking at MMU reset time. Up until, now, panfrost_mmu_reset()
+> > was clearing the MMU IRQ suspension bit, but at no point that is set during
+> > the reset sequence.
+> > 
+> > Then manually enable all interrupts when the device is fully initialised at
+> > probe time, right before DRM device registration, or after the reset
+> > sequence is complete. Also disable all interrupts at device remove time,
+> > so that their IRQs can be sync'ed right before tearing the device down.
+> > 
+> > Fixes: 635430797d3f ("drm/panfrost: Rework runtime PM initialization")
+> > Fixes: 876b15d2c88d ("drm/panfrost: Fix module unload")
+> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+> > ---
+> >  drivers/gpu/drm/panfrost/panfrost_device.c | 40 ++++++++++++++++++++++--------
+> >  drivers/gpu/drm/panfrost/panfrost_device.h |  3 ++-
+> >  drivers/gpu/drm/panfrost/panfrost_gpu.c    | 19 ++++++++------
+> >  drivers/gpu/drm/panfrost/panfrost_gpu.h    |  2 ++
+> >  drivers/gpu/drm/panfrost/panfrost_job.c    |  7 +++---
+> >  drivers/gpu/drm/panfrost/panfrost_mmu.c    |  9 +++++--
+> >  drivers/gpu/drm/panfrost/panfrost_mmu.h    |  2 ++
+> >  7 files changed, 56 insertions(+), 26 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > index 9e02fb5f73c8..99f7da2180f9 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > @@ -226,6 +226,27 @@ static int panfrost_pm_domain_init(struct panfrost_device *pfdev)
+> >  	return err;
+> >  }
+> >  
+> > +void panfrost_device_enable_int(struct panfrost_device *pfdev)
+> > +{
+> > +	panfrost_gpu_enable_interrupts(pfdev);
+> > +	panfrost_mmu_enable_interrupts(pfdev);
+> > +	panfrost_jm_enable_interrupts(pfdev);
+> > +}
+> > +
+> > +static void panfrost_device_enable_hw(struct panfrost_device *pfdev)
+> > +{
+> > +	panfrost_device_enable_int(pfdev);
+> > +	panfrost_devfreq_resume(pfdev);
+> > +}
+> > +
+> > +static void panfrost_device_disable_hw(struct panfrost_device *pfdev)
+> > +{
+> > +	panfrost_devfreq_suspend(pfdev);
+> > +	panfrost_jm_suspend_irq(pfdev);
+> > +	panfrost_mmu_suspend_irq(pfdev);
+> > +	panfrost_gpu_suspend_irq(pfdev);
 > 
-> commit ca707239e8a7 ("mm: update_lru_size warn and reset bad lru_size")
-> added a sanity check for memcg counter underflow: lru_zone_size is
-> unsigned, so an underflow wraps it around and returns an enormously
-> large number, then the memcg shrinker loops almost forever as the
-> calculated number of folios to shrink is huge. It also checked if a
-> zero value matches the empty LRU list, so the positive and negative
-> deltas had to be handled separately. However that emptiness check was
-> already removed by commit b4536f0c829c ("mm, memcg: fix the active list
-> aging for lowmem requests when memcg is enabled"), so handling the
-> deltas separately is no longer needed.
-> 
-> The remaining update-side check is costly and cannot really catch the
-> leak it is after anyway. It runs on every LRU folio, and if a folio was
-> removed without updating the counter while other folios remain on the
-> LRU, the WARN only triggers much later, from a likely innocent
-> callsite. While readers are much rarer than writers, only the reclaim
-> and reparenting paths read it, once per batch.
-> 
-> Checking at the reader side instead leaves the update path a plain
-> addition, and puts the warning where the value is actually consumed.
-> 
-> Note this changes the behavior on underflow: the correction is removed
-> and a negative value is kept. A massive leak of the LRU size counter
-> would indicate that something else has gone very wrong, and one should
-> fix that leaking site instead. Besides, the original behavior might
-> cause false positives, or make things worse if the accounting happens
-> after the actual insertion: the value is not leaked, just delayed, so
-> force-fixing it would cause a bigger problem. The warning now only kicks
-> in when a consumer actually uses it, in which case the reader gets zero.
-> 
-> Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
-> Reviewed-by: Barry Song <baohua@kernel.org>
-> Signed-off-by: Kairui Song <kasong@tencent.com>
+> Hm, I think I'd prefer if those suspend/resume_irq() were hidden in
+> some subcomponent panfrost_<subcomp>_suspend,resume() helpers. And
+> then we just have to resume/suspend component in the right order
+> instead of treating IRQs as a standalone object (enabling/disabling
+> only makes sense if the subcomponent handling those interrupts is
+> resumed/suspended).
 
-Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+I thought it would only make sense to enable interupts for a given subsystem
+when all the other subsystems are also resumed or initialised. This was prompted
+by Sashiko warning of the possibility of spurious interrupts causing a handler
+to be run when one of the subsystems it touches on hasn't yet been initialised.
+
+Adrian Larumbe
