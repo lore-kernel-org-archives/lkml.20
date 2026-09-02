@@ -1,113 +1,281 @@
-Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com [209.85.222.44])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211D53AA507
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:10:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86DC3914EE;
+	Wed,  2 Sep 2026 07:11:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788333059; cv=none; b=RZu1EhkKPuwZuECXSYvimxlKx3qikKiqku1husWKzkZMR3DrOfAj3Z+UViYr9kVDPnognIQYdFyVUmmv/AzYZjIqeCABUu+8Cah8GOTknUJEvqXkVk9z+rHaC8ImDmcRio2LwWjPMAwh7nI2HHyzTd3zbAAfEx7askuGaBgPqkU=
+	t=1788333104; cv=none; b=h9/WCSdHICmQHHfcGQN1F3VvsMSWIVnagX1faUa+f/un0lryoL4oQBWkhE7mU45hnBPRewofNnXcYI6kA2soLM81dJrsLRSud+jIjgwH+Uh3nsB7vIkM4Lyle1FtjOwCHR4CxNNIpZqFURkcx/J37kDsnr0otAhdTQDFRY9Ac38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788333059; c=relaxed/simple;
-	bh=fzWNt8m6dV7XJ26M3vj5sYnnsx+91P3uMd2jJYIJ1HU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XQjpSZrjTwwtsSE1zrtN65Jz4YobxWQzQbi9+i84AyTPYWCM/p3FD+cyA9ia4Te8yuJsNvkQdQ7Mc+IaGDe/CaiOvbEBspPPLxxkQCqFezSFo0vYE4U0GxdKzTR9uJ0mDmTk31CM5gDS7YjQsWfVHgb8+C50qW5TXJUQeqnYEvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-97cad2f51edso186906241.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 00:10:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788333057; x=1788937857;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=S6z6L7vVC/89R/jl0HvM4yW8bp8VIuMDT6yh78Uqavs=;
-        b=RZWmg218yyL15l5cLI1orPInuLfmxI1vlvwAv4m6YGLsK4WyoAg56STuLyL2DJ7DIN
-         1JqMH0BIPYt/PzAK1oq2heGKqargtA9U8QTsI6xBQYeJ/mHqQmADZpUj8P3+dKB4042z
-         OjKI3SyFj+pKBhJTQvu6oJKBDtJL/bQ4est+Nexb6v3LPq1uNzwfZMe8AcCcThggR78i
-         Y6aEvZrGVEwtFqrHeheBmcqQcqYnkwSL+ZJGzZr+Aa3Wqf9cdpdcTkEwdlf2Cbm0vYWP
-         Y4gmrqxagnthfNeOEqNAlOWy+gDikDq/TsvmhGTP4aUDS86zbmYRiGbTETYRlofy3M1S
-         JH6w==
-X-Forwarded-Encrypted: i=1; AKwUvBxZdBQo3AyVZ2Q/lCtFDAu+42A6Mqha1NK+coNYYc/7xbZkIWVD8m8U5jsZHBm6RHu3a4/TqbDyUYRQ9YE=@vger.kernel.org
-X-Gm-Message-State: AFuF++maJ/1cxFdRo8WCsxyGtU3PtSXxIzvxFwzV2WrDRxYz+zrfDBKp
-	UrkguHr9pHcESuEQpqkCOGN40tK0G6nVt0v4sbq5gmczV/SDFIsYXli3JQR1vOdb
-X-Gm-Gg: AYBFou2flUFnnb5KC3Qv/Pjl0bJKL9rzhF1B7Meo3/WMWEpSCEKW3rqZAQp/Fcn7+ZL
-	XUlPCv+8MPwZHlhX8pVD2jGt6buiU3Mc8mZGNTFZNHbcPlB+iesBYed04g9ISWTZWkrybSQ/s4g
-	xf4Y/4jxJdYu8PYveRJz2Eyba0J2gHQbZQF21/MZWCh2wJBBSd2ACfoDd5OuLPjlyH+GIRQsJPJ
-	KhGFua84VaVthIOUHO9Wm2thvG5s/9DbamCeDDV7ZWYXbb2OzXaJsDNjtYhA48Z/caUNRTaw/+M
-	1FI95EFVn4H1uf+7VZLg+wGY+j49jJ2xUsOBUnU5Znuw4BQAYdQ6ZPPoB4OZ8nmUqmcov1vpHBb
-	rR8ONtPgU7sc6+VX+xfHDdWneU6gLRrAWwb9+rWddCFkbDimuASQNXLpjFgMyqXP06SjCAfcPZ/
-	EFlyZINdy/ay+2/AZWUH3+IcMPxMMd1nrRsVyLJ4XuuDgV/wF6xIIdGBKdUtKqoBlxjPWxALdWS
-	lVCekBbgpRgQ/ifxlQEycEW8FT8UA==
-X-Received: by 2002:a05:6102:158c:b0:784:b9ec:913f with SMTP id ada2fe7eead31-78a1f1e91famr847342137.5.1788333056957;
-        Wed, 02 Sep 2026 00:10:56 -0700 (PDT)
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com. [209.85.221.175])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a19f8f68esm1519748137.0.2026.09.02.00.10.56
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 00:10:56 -0700 (PDT)
-Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5c675de8e1dso308044e0c.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 00:10:56 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz3qfPMZX41o5Qtocz4CI5XC1Jn5XlKgtl/ebFRBae0lDto8+b8uU3Mfpq/SSk2V3psgKxxKOTX+37/uVY=@vger.kernel.org
-X-Received: by 2002:a05:6102:38c6:b0:785:3211:f5e4 with SMTP id
- ada2fe7eead31-78a1f1c3849mr970255137.4.1788333056097; Wed, 02 Sep 2026
- 00:10:56 -0700 (PDT)
+	s=arc-20240116; t=1788333104; c=relaxed/simple;
+	bh=GV6M4cdU6qGF0k2bEfa0CLsqFP4nNxHbu59ZoT9VHG4=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FVuiRYTumxC8LaPTKZ+kZhAj1WJMTUn3g5Oik5B2y22kyWwYCPbHN8Uqma+lXSMTT1quMAEm9chtRiRyB0Wk8rCiFvTsYJSVRjCNKThHBxFZM+wDFjhouxABqhlSfx61rzwIDsv8k4Xbt/CRU2kaxDSrM8pD8MGZC9CJKUrlxFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=KiEXrVGS; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=jGvh4fX3; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=m6OdI7YS; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=QTn1zXGN; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="KiEXrVGS";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jGvh4fX3";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="m6OdI7YS";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QTn1zXGN"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 82E161F8C3;
+	Wed,  2 Sep 2026 07:11:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788333096; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hznd+LNCBrhd+1iZfo6p7nZyidViG6hmD5KLN07B/WI=;
+	b=KiEXrVGSdL5yLNPu8UTkw5ctwH5FwBu2KmXsPHljKbBNtFW6sQkZlhVbuDgAuXHVPFLRlR
+	kA7VNUF0t2DiSvA0U2s2DaO2ezJnO6EaduxCkI7udX7X4Cl0yMKtAP/me6xbp1G+qfOBnJ
+	puiCfppBsnJXKKhvkLG1G9o4BgMr4DI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788333096;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hznd+LNCBrhd+1iZfo6p7nZyidViG6hmD5KLN07B/WI=;
+	b=jGvh4fX3PNhJk+C7OwUiMfJ1JO67Bd9wwACTIt/z8Cjr/zdY/XwYDU/Ep27e4f9O+O7H9z
+	k2jE19DZj0NFnCBw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788333092; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hznd+LNCBrhd+1iZfo6p7nZyidViG6hmD5KLN07B/WI=;
+	b=m6OdI7YSI8hVIJjIqU6zXUQYd8EUu+vzzRpqS9APAFm41hcRZkF/RcnPUeXZlFVzO3CDyG
+	j8o7drnT3cr9bpFYynPeyokZ7ZpOIS3XdwgiN/wUudlD1ypVYzwXRvvS0MrCj11p4Em356
+	ZGJIE08ZC1NBnqP22lOdh8r05SVitOc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788333092;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hznd+LNCBrhd+1iZfo6p7nZyidViG6hmD5KLN07B/WI=;
+	b=QTn1zXGNy3TenmUtj1ejbp2LCsQpcLhScYNChSGe7RKx622d8o/DibWR5fQaKYWNxpJ34r
+	B+J8nD5ofJEK4kCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3573513736;
+	Wed,  2 Sep 2026 07:11:32 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 79W9CyTMl2qSVwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 02 Sep 2026 07:11:32 +0000
+Date: Wed, 02 Sep 2026 09:11:31 +0200
+Message-ID: <87ecfcb00s.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Qingyu Zhang <usupergate@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [BUG] ALSA: ump: NULL deref of legacy_rmidi after parse sets parsed
+In-Reply-To: <CAPBHdakPAZfcP9PTKHiTQMHeEi8g7Xemg_UOByZAqKx6epxJ3A@mail.gmail.com>
+References: <CAPBHdanmknKKhhc+5r8jPsnyZW8LYVq0qpzfEVrvjL3i5sNuJQ@mail.gmail.com>
+	<87mru0b1z3.wl-tiwai@suse.de>
+	<CAPBHdakPAZfcP9PTKHiTQMHeEi8g7Xemg_UOByZAqKx6epxJ3A@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260826122742.153643-1-biju.das.jz@bp.renesas.com>
- <20260826122742.153643-4-biju.das.jz@bp.renesas.com> <CAMRc=MfAdTMb_4ii=up-ESwc322YYjzseyvAxshM6vUcEGfxcQ@mail.gmail.com>
-In-Reply-To: <CAMRc=MfAdTMb_4ii=up-ESwc322YYjzseyvAxshM6vUcEGfxcQ@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 2 Sep 2026 09:10:45 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXmn7B_UOb8f2j0_BOx3d55nA0-0Auay-HLFYWtziS+6Q@mail.gmail.com>
-X-Gm-Features: AcwNN1Wg6VVOr5E8CpOD13jdheZdgLtuCw94APvhRsqrd_GzRtCymguaJxx7oSs
-Message-ID: <CAMuHMdXmn7B_UOb8f2j0_BOx3d55nA0-0Auay-HLFYWtziS+6Q@mail.gmail.com>
-Subject: Re: [PATCH v5 3/4] power: sequencing: Add Renesas RZ/G3L Power Ready driver
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Biju <biju.das.au@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Magnus Damm <magnus.damm@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Level: 
+X-Spam-Score: -3.30
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	FREEMAIL_TO(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
 
-Hi Bartosz,
+On Wed, 02 Sep 2026 08:58:34 +0200,
+Qingyu Zhang wrote:
+> 
+> Dear Takashi,
+> 
+> Thank you for your email. The formatted patch with the Signed-off-by
+> tag is attached; please check.
 
-On Tue, 1 Sept 2026 at 18:15, Bartosz Golaszewski <brgl@kernel.org> wrote:
-> On Wed, 26 Aug 2026 14:27:25 +0200, Biju <biju.das.au@gmail.com> said:
-> > From: Biju Das <biju.das.jz@bp.renesas.com>
+The Signed-off-by tag must be with a real name (or a known identity).
+Please resubmit with the corrected tag.  And, at best, not as an
+attachment to this thread, but a new thread via git-send-email or
+such.
+
+
+thanks,
+
+Takashi
+
+> 
+> Yours,
+> Ian
+> 
 > >
-> > Add a power sequencing driver for the Renesas RZ/G3L PWRRDY module,
-> > which signals power readiness for various IPs (USB, DSI, CSI etc.) on the
-> > SoC. The driver binds as an auxiliary device to the parent SYSC driver,
-> > using its regmap to toggle the SYS_PWRRDY_N register bits, and exposes
-> > {usb,dsi,csi}-pwrrdy pwrseq targets.
+> > On Wed, 02 Sep 2026 04:07:30 +0200,
+> > Qingyu Zhang wrote:
+> > >
+> > > Hello,
+> > >
+> > > ump_legacy_set_rawmidi_name() snprintf()s into ump->legacy_rmidi->name
+> > > when ump->parsed is true, but parsed is set at the end of
+> > > snd_ump_parse_endpoint() *before* snd_ump_attach_legacy_rawmidi().
+> > > A UMP packet in that window NULL-derefs.
+> > >
+> > > Type: null-pointer dereference
+> > >
+> > > * Summary
+> > >
+> > > snd_ump_parse_endpoint() always does:
+> > >
+> > >        error:
+> > >                ump->parsed = true;
+> > >                ...
+> > >
+> > > ump_handle_ep_name_msg():
+> > >
+> > >        if (ret && ump->parsed) {
+> > >                ump_set_rawmidi_name(ump);
+> > >                ump_legacy_set_rawmidi_name(ump);  /* rmidi may be NULL */
+> > >        }
+> > >
+> > > ump_legacy_set_rawmidi_name():
+> > >
+> > >        rmidi = ump->legacy_rmidi;
+> > >        snprintf(rmidi->name, ...);   /* no NULL check */
+> > >
+> > > This runs from snd_ump_receive() on the USB input URB complete path
+> > > (in interrupt).
+> > >
+> > > * Affected
+> > >
+> > > 37e0e14128e0. Needs CONFIG_SND_UMP, CONFIG_SND_UMP_LEGACY_RAWMIDI,
+> > > CONFIG_SND_USB_AUDIO, a MIDI 2.0 gadget or device. KASAN.
+> > >
+> > > The natural window is parse-done vs attach. The QEMU PoC widens it
+> > > with a kprobe on snd_ump_receive (poc/widen_ump.c) plus dummy_hcd
+> > > configfs midi2, because the un-widened window is short.
+> > >
+> > > * Reproduction
+> > >
+> > >        # dummy_hcd + configfs usb_gadget midi2.usb0 (see poc/run.sh)
+> > >        # with widen_ump.ko: force parsed=1, legacy_rmidi=NULL on receive
+> > >
+> > > KASAN: null-ptr-deref in snprintf from ump_legacy_set_rawmidi_name
+> > > <- ump_handle_ep_name_msg <- snd_ump_receive <- input_urb_complete.
+> > > Then "Fatal exception in interrupt".
+> > >
+> > > * Expected
+> > >
+> > > legacy_rmidi helpers no-op until attach has stored the pointer.
+> > >
+> > > * Actual
+> > >
+> > > IRQ-context NULL deref.
+> > >
+> > > Please consider the suggested patch
+> > >
+> > > Thanks.
+> > >
+> > > Suggested patch:
+> > > ```
+> > > diff --git a/sound/core/ump.c b/sound/core/ump.c
+> > > index d183c8a000bd..3d1a2ed3b476 100644
+> > > --- a/sound/core/ump.c
+> > > +++ b/sound/core/ump.c
+> > > @@ -1335,6 +1335,8 @@ static void update_legacy_names(struct
+> > > snd_ump_endpoint *ump)
+> > > {
+> > >     struct snd_rawmidi *rmidi = ump->legacy_rmidi;
+> > >
+> > > +    if (!rmidi)
+> > > +        return;
+> > >     update_legacy_substreams(ump, rmidi, SNDRV_RAWMIDI_STREAM_INPUT);
+> > >     update_legacy_substreams(ump, rmidi, SNDRV_RAWMIDI_STREAM_OUTPUT);
+> > > }
+> > > @@ -1343,6 +1345,8 @@ static void ump_legacy_set_rawmidi_name(struct
+> > > snd_ump_endpoint *ump)
+> > > {
+> > >     struct snd_rawmidi *rmidi = ump->legacy_rmidi;
+> > >
+> > > +    if (!rmidi)
+> > > +        return;
+> > >     snprintf(rmidi->name, sizeof(rmidi->name), "%.68s (MIDI 1.0)",
+> > >          ump->core.name);
+> > > }
+> > > ```
 > >
-> > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-
-> What is the merge strategy here? Are patches 2 and 3 independent from 1 and 4
-> at build time?
-
-I think so: one can safely select a non-existing symbol in Kconfig.
-
-So once you're happy with this patch, I can take patches 1 and 4
-through renesas-devel.
-
-Thanks!
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+> > Thanks for the report.  The suggested code change looks good.
+> > Could you submit a patch in the proper format for upstreaming
+> > (especially with your Signed-off-by tag)?
+> >
+> >
+> > thanks,
+> >
+> > Takashi
+> From: Ian <usupergate@gmail.com>
+> Date: Mon, 31 Aug 2026 17:00:00 +0800
+> Subject: [PATCH] ALSA: ump: do not touch legacy_rmidi before it exists
+> 
+> snd_ump_parse_endpoint() sets ump->parsed on every exit, including
+> error, before the caller attaches the legacy rawmidi device.
+> ump_handle_ep_name_msg() then treats parsed as "legacy_rmidi is live"
+> and calls ump_legacy_set_rawmidi_name(), which snprintf()s into
+> ump->legacy_rmidi->name. If a UMP packet arrives in that window
+> (IRQ path from snd_ump_receive), legacy_rmidi is still NULL
+> (KASAN null-ptr-deref in snprintf).
+> 
+> Guard the legacy helpers. parsed only means endpoint info was
+> parsed, not that legacy_rmidi exists.
+> 
+> Fixes: 37e0e14128e0 ("ALSA: ump: Support UMP Endpoint and Function Block parsing")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ian <usupergate@gmail.com>
+> ---
+> diff --git a/sound/core/ump.c b/sound/core/ump.c
+> index d183c8a000bd..3d1a2ed3b476 100644
+> --- a/sound/core/ump.c
+> +++ b/sound/core/ump.c
+> @@ -1335,6 +1335,8 @@ static void update_legacy_names(struct snd_ump_endpoint *ump)
+>  {
+>  	struct snd_rawmidi *rmidi = ump->legacy_rmidi;
+>  
+> +	if (!rmidi)
+> +		return;
+>  	update_legacy_substreams(ump, rmidi, SNDRV_RAWMIDI_STREAM_INPUT);
+>  	update_legacy_substreams(ump, rmidi, SNDRV_RAWMIDI_STREAM_OUTPUT);
+>  }
+> @@ -1343,6 +1345,8 @@ static void ump_legacy_set_rawmidi_name(struct snd_ump_endpoint *ump)
+>  {
+>  	struct snd_rawmidi *rmidi = ump->legacy_rmidi;
+>  
+> +	if (!rmidi)
+> +		return;
+>  	snprintf(rmidi->name, sizeof(rmidi->name), "%.68s (MIDI 1.0)",
+>  		 ump->core.name);
+>  }
