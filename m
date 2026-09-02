@@ -1,75 +1,79 @@
-Received: from mta0.migadu.com (out-34.mta0.migadu.com [91.218.175.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E9A2F5498
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:53:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F91E3A6B6D;
+	Wed,  2 Sep 2026 07:53:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788335584; cv=none; b=l+P9rLkTDh3mmleBMimnHcTqNEpQEHfwDH03c2WAxTgEpKhDLPQGvuzpgyJ+/bfyPsTzQnPcgCOS11v5IfR4gxDrPdL7O+DjQ55tpsB3rJXe652aI/HyuUFSQE7M19Dt1wB/ykO0tl9lzzTycrutquJB7x1TGpp7uKEap9oMhVY=
+	t=1788335594; cv=none; b=jmP4qWMU3DGKFc2T369FfGv91+87ncTqJfu9/dNJhVCLsbmPlURB4A9DweTxsxPE2uiqEjwCB2VI45NmjXdo2Ugu65Duo9DSPoWcAAjxG3fiPEgQiOJKCbJqehQifiXROaWRJADvuJryyGXQ/Xdyyz/FJwv84zMyzLiwaLElrzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788335584; c=relaxed/simple;
-	bh=0hHJnYnmmxdQnBE62IYdnAJ07bnulKayv319f4QreN8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kCosDGgjAa2zUl+abcBZfKZnfcy9qEoJmuVjKUPpPSWLoDI85SYsFyI5mgFqoM1iEw7ONCJLQlthpBjHsMDdQY1Dr3bnrzWVQeoa/qYWfyU+4vOwU3SBfwpukFM2OtZQuxEIDmrIEIl3flgc2tv6KiQQurUFhz422jzDhPpK9ks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=h5C88ewj; arc=none smtp.client-ip=91.218.175.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788335594; c=relaxed/simple;
+	bh=kETPZPU/C41/ijPKc4L/UB9khx1Jkgm9WprJggkRlFs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TYrGved2s3iGVQ9LLBOu+KhKeC9nBah98+C757zkQGg8zxAqA72Dp0stR2317uHLqC3Ou1sMBT6PN8B9obhp2POpup+85myDYk3xIRXzru+/wufuzEUcEhLZEdhmss5KYOyVuNrB0znEPrQz7y0qmU3fDstJEc/tQAUIGsRh2NE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YeUwKnO0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="h5C88ewj"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=0hHJnYnmmxdQnBE62IYdnAJ07bnulKayv319f4QreN8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788335580; v=1; x=1788940380;
- b=h5C88ewjebrJQ0/5pVDc1dLFW+XBCB0TsoGdQLRvhE2TQML95IzWJGOi1eWO9+DjbR3dmhtK
- bQEklHB1Xj1y3GQk1nFulbOwsC8Jt/d144UoqBD40yVJxA2Yz9XrEzaHNem6h9i96xQjV7Kx28B
- bLmwKErP6VOw/ZQDso8gFnBs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 711dfb84e95fb698;
-	Wed, 02 Sep 2026 07:53:00 +0000
-X-Mizu-Trace-ID: 711dfb84e95fb698
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <a4c0f3b9-4df0-4538-903e-b7af4fb0e32f@linux.dev>
-Date: Wed, 2 Sep 2026 15:52:54 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YeUwKnO0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A152C1F000E9;
+	Wed,  2 Sep 2026 07:53:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788335592;
+	bh=8tmcnWUPyIMUbTM/uIlg1zfn7rYpCy3xO2rspCYwIYU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YeUwKnO0aqAduF+uSSsSAmOGd/c2NJbpyp5zAMHi+oXtgRnWF9VRdFmwiKhlWzUHg
+	 nldT/19uLnIos8sIHSv98f9k9FweM/xZEvaciZvX0vclTGFKi4JdHX4VHan28BGUYy
+	 UqDwlaicU+KdKdOGPgEw0vRH4p6ehgakJYq9M/l8BQ1XxbfYln6YVIOhxHuoa9J2c0
+	 tC0wl49PBWwUDF+mLZNDHURn+eJeQDincAO1W7P2onaX/MaSgJ7oeWoWZWhIorXrKF
+	 SPybOKpwGREVSdAJc4O9DE+RKL2Lhdn5Ivc+t4BMFgoxmGay3rIj+NJ8HiSUIMv+hc
+	 pFWyt3v+h138A==
+Date: Wed, 2 Sep 2026 13:22:52 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Richard Zhu <hongxing.zhu@nxp.com>, Frank Li <Frank.Li@nxp.com>, 
+	Zhijian Han <hanzhijian1991@gmail.com>
+Cc: Richard Zhu <hongxing.zhu@nxp.com>, 
+	Lucas Stach <l.stach@pengutronix.de>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, linux-pci@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	sashiko-bot@kernel.org
+Subject: Re: [PATCH v4] PCI: imx6: fix resource leaks in probe error paths
+Message-ID: <kyuxfl6wmsytudadd2dazw7norz25mpsk6bjsfxsj2cpo7yj3h@eujfdbehavzm>
+References: <20260824150454.3511203-1-hanzhijian1991@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cachefiles: Fix path of the "debug" module parameter in
- help paragraph
-To: netfs@lists.linux.dev, linux-kernel@vger.kernel.org
-Cc: dhowells@redhat.com, brauner@kernel.org
-References: <20260620131425.8210-1-zenghui.yu@linux.dev>
-Content-Language: en-US
-From: Zenghui Yu <zenghui.yu@linux.dev>
-In-Reply-To: <20260620131425.8210-1-zenghui.yu@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260824150454.3511203-1-hanzhijian1991@gmail.com>
 
-On 6/20/26 9:14 PM, Zenghui Yu wrote:
-> The correct path of the "debug" module parameter should be
-> /sys/module/cachefiles/parameters/debug. Fix it.
+On Mon, Aug 24, 2026 at 11:04:54PM +0800, Zhijian Han wrote:
+> imx_pcie_probe() leaks both pwrctrl devices and power domains on failure:
 > 
-> Signed-off-by: Zenghui Yu <zenghui.yu@linux.dev>
-> ---
->  fs/cachefiles/Kconfig | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> - imx_pcie_attach_pd() attaches the "pcie" and "pcie_phy" power domains
+>   and adds device links to them, but nothing detaches the domains on
+>   probe failure or deferral, so they leak.
 > 
-> diff --git a/fs/cachefiles/Kconfig b/fs/cachefiles/Kconfig
-> index c5a070550ee3..1f0ec7d287b9 100644
-> --- a/fs/cachefiles/Kconfig
-> +++ b/fs/cachefiles/Kconfig
-> @@ -17,7 +17,7 @@ config CACHEFILES_DEBUG
->  	help
->  	  This permits debugging to be dynamically enabled in the filesystem
->  	  caching on files module.  If this is set, the debugging output may be
-> -	  enabled by setting bits in /sys/modules/cachefiles/parameter/debug or
-> +	  enabled by setting bits in /sys/module/cachefiles/parameters/debug or
->  	  by including a debugging specifier in /etc/cachefilesd.conf.
->  
->  config CACHEFILES_ERROR_INJECTION
+> - A failure of devm_pm_runtime_set_active_enabled() returns directly
+>   without destroying the pwrctrl devices.
+> 
+> - A partial failure inside imx_pcie_attach_pd() leaks the power domains
+>   that were already attached.
+> 
+> Add imx_pcie_detach_pd() to detach the power domains in reverse order of
+> acquisition and call it from the probe error paths.  Add
+> DL_FLAG_AUTOREMOVE_CONSUMER to the device links so the driver core
+> removes them automatically when probe fails, instead of tracking and
+> deleting them manually.
+> 
+> Reported-by: sashiko-bot@kernel.org
+> Link: https://lore.kernel.org/all/20260822013640.182C01F000E9@smtp.kernel.org/
+> Fixes: 2c5768344f88 ("PCI: imx6: Move pci_pwrctrl_create_devices() to imx_pcie_probe()")
+> Signed-off-by: Zhijian Han <hanzhijian1991@gmail.com>
 
-ping?
+Frank, Richard, can I get your review for this patch?
+
+- Mani
