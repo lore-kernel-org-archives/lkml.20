@@ -1,194 +1,124 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB9241168B;
-	Wed,  2 Sep 2026 21:24:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4BD04ACC85
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 21:24:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788384256; cv=none; b=pjkLprSunLIHpwU+IAJJBHMX8vPCqyBRuMTmvU54lAbbzPetYjZ3qjlQAsYm25aU+bCWJMQYyqNAXhgIVlBkGz7bLeLxcO3yvRzV31YvxfyJ/GUmk2wevchqzpdADBiITyHygnDeIh2XHZk/5cQZF06UiRviUal1lzePrxa7GcA=
+	t=1788384272; cv=none; b=NiRcSbIoU2i1kFknM3EziLDlgBRiHKmK3xXo8dantE32o97Lk50hdr+NujJo1RE1QHiygyaYpD19ab7j3NqGZ80utBalu951/RgffKshRQRH3PV2pLP1YhpDyH2In1iYK216e1ketkiZuG0371rimvs6W+xPYWuhEmnbCovth0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788384256; c=relaxed/simple;
-	bh=EIYUOMUuFfVPzOXzfY5JHb/TW2WSq/PkUFIT084qqxI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kAao9Iw19OYV5if/u9cVypN2DrH/u1bPYtftFrZhUfn6eVsJ3HCnj/Y2cE4T/0MvvmMB20cups03YLHpfrAD9/pTZLSgzP7rhe6KpkdTU2mruBoKEVH2S0k+/eLdwLy+5F56bBvs02NTdomd80+ftXJ0JGVeoLB9JwcoQRqfwkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=JOurh/Gk; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788384272; c=relaxed/simple;
+	bh=v/HpaKadoYW3H3dqFWTG0yyc6tDzyTXTA/JVahq5GtY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jauUfGZVJhhbDX8+lKwFDxIYjWpJW2UW2GpY0RKW4lfVy2niRfDN28OfXf40QY16P28jOMz/dxuRaagKUJLU06AnD2hiPjEiAep+eJCmn1/vOuvDWzd61g/Fd/PsuZysiTlVuqEYj3lZPa3bUm7gsePeIPWx4k6gTJHDn6N6pjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jevK2SmG; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="JOurh/Gk"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682KW4Lb1049322;
-	Wed, 2 Sep 2026 21:24:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=jgA8r6HOYLo5NgvJU
-	ow5NjWaY0Sn1DM1UKfiiXLJ3DI=; b=JOurh/GkMYn+vnm2mE37gTQqzxbhAnLiU
-	5zGZRqqy+acNsT8AgOPZZR0BddhhAGgIMkiLa3cF4b4kvkAnvlm/nhoemqCI/49X
-	B/KGcF3BOz+3EDPrb1rV35h9VYDp+egUYQ2EtubZIxOGl6azTRDT8yQ0cWwiYyAs
-	lbBw0Kk2xeMGjeLyQXG5WpmL9ArwoV2Q1FEmt7x4zZFkgia95j1p2tCLKopo+U4Q
-	kmhamrQpTiCYoE13yGB0ZzC/NuKHSzg/KabT+pZB96T0H4g1wx03olUHZe93BunS
-	dBA87w2Pmi+hIW2YMwNMROjB4Nbnm5aFyp4SnqJzjIjZaJXg3lr7A==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq551mrt-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 21:24:07 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 682LBEDi019727;
-	Wed, 2 Sep 2026 21:24:06 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gcceyc9qb-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 21:24:06 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 682LO3lE46334374
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 2 Sep 2026 21:24:03 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2983D2004B;
-	Wed,  2 Sep 2026 21:24:03 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C1A6F20040;
-	Wed,  2 Sep 2026 21:24:02 +0000 (GMT)
-Received: from li-d2cd37cc-2ca3-11b2-a85c-84ed3706e5a0.ibm.com (unknown [9.87.158.224])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  2 Sep 2026 21:24:02 +0000 (GMT)
-From: Ilya Leoshkevich <iii@linux.ibm.com>
-To: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: David Laight <david.laight.linux@gmail.com>, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Ilya Leoshkevich <iii@linux.ibm.com>
-Subject: [PATCH v4 1/2] s390/ebcdic: Add character classes for the ASCII subset of EBCDIC
-Date: Wed,  2 Sep 2026 23:20:17 +0200
-Message-ID: <20260902212400.674450-2-iii@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260902212400.674450-1-iii@linux.ibm.com>
-References: <20260902212400.674450-1-iii@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jevK2SmG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788384263; x=1819920263;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=v/HpaKadoYW3H3dqFWTG0yyc6tDzyTXTA/JVahq5GtY=;
+  b=jevK2SmGKzmwC6T94Fc944XCL0t5LtWgLYcwh0XgSL9mweC03I+Y/5Xl
+   Wi+EoF4aF7DNtjAYWhEiO0QZ/a65ETsYo9ceWgJRhydRC0NHHch5MgloW
+   bGX10HwXh0fzWXRapzAfi3720Novu5vMG0Acdqmhn4gcDh2hDfkUVh11k
+   D466aDUGhBRCt+nR6dwOnmZ/Ng1k1SaJYN98czTCpbC2E2NuDGneXk1Dt
+   x4M3UPPw8z/3Zb+oC2002RIsv139er7FeJg5VVz7M6cXUEXKYtkUOaYDB
+   6ihei2b1fZB99U7Qc/EAWyh9wVZTxy+JO8XHAP7YSMQNUy/nIdp0MJxpl
+   g==;
+X-CSE-ConnectionGUID: tVyCSjXyT0CdmiiZiKkb/g==
+X-CSE-MsgGUID: m8+pLrsMRq6UcfgUaER4HQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="100372379"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="100372379"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 14:24:18 -0700
+X-CSE-ConnectionGUID: sI421YcMQImxK8T+gQpzyQ==
+X-CSE-MsgGUID: q5GxC6zgTxKPT6gbx4G9HQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="266925085"
+Received: from cjhill-mobl.amr.corp.intel.com (HELO [10.125.110.134]) ([10.125.110.134])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 14:24:17 -0700
+Message-ID: <97887aeb-4454-4cb9-91ad-d0477d3ea5dd@intel.com>
+Date: Wed, 2 Sep 2026 14:24:16 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE4NiBTYWx0ZWRfX94lQgPw1SmCD
- 8hMoSDP/n3bN8j9hX6Ls9E9LzuO3BE+zYzT/zjcaE/maQlcAtZ0Kge9O1ZIB10Tp7Mj4ddwpvrl
- /k4xrbea91Khe/gDo4SlX9Pp2yR6TcTvb8PMuf9ddVnvqApdO0R81mbcsE83rwp5NXIrmZ+DmTh
- UV5SSf4VgqnvfLdaqMPscFwX2WQcRWMbUgPfI9fpiK+/Aw5a34woUZ4UkwktJHPhO5Twu7dAflq
- m4hSc2NWDYFF+dw0MH2+U3ZgTP67DSxQtnA815DN/TMpKLk2oxe5QF4w0+vPXaEJ/RUftvZDpFl
- tEhxXKs9gw4dWF4d9BU3+S09Pzx8zMwbN0kooUt8lB0DSlj3+L/vrqTh9xZx82Vh1pIQGdMaDhL
- K8xQEzM8Y58PaOrBHWs8jjV7bGLaQHjUkyDQqRW1K+IcwkchciCTfNZkGrb3eZT5y6PmsZ7Cbhc
- Zl1g0knJ5GXYp/c84bg==
-X-Proofpoint-ORIG-GUID: yy4GExU2H3sdcFt1gciTjcKT1GgY8ET_
-X-Authority-Analysis: v=2.4 cv=CNgamxrD c=1 sm=1 tr=0 ts=6a9893f8 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=8pif782wAAAA:8 a=VnNF1IyMAAAA:8
- a=lou5dwPg_VZd3XMStWsA:9
-X-Proofpoint-GUID: vqNzDz0GMpDrlKJYUgdeK2lnMKejTL4m
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE4NiBTYWx0ZWRfX3dKOIly3AUdL
- lmk6FGEsXsoqvCWU/2KbY3Oxl1ORBS7YQiic1JhcritbiLSj05F75lHdNliX0Gx1j9Vyn59e7Rb
- QtaatBpsjl/zy/HTECX04Jn8HmyzPF8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_05,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 clxscore=1015 impostorscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020186
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/2] x86/crash: reserve elfcorehdr for CONFIG_NR_CPUS,
+ not CONFIG_NR_CPUS_DEFAULT
+To: "Ionut Nechita (Wind River)" <ionut.nechita@windriver.com>,
+ x86@kernel.org, kexec@lists.infradead.org
+Cc: tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, hpa@zytor.com, akpm@linux-foundation.org,
+ baoquan.he@linux.dev, rppt@kernel.org, pasha.tatashin@soleen.com,
+ pratyush@kernel.org, ruirui.yang@linux.dev, eric.devolder@oracle.com,
+ hbathini@linux.ibm.com, sourabhjain@linux.ibm.com, ruanjinjie@huawei.com,
+ brads@mainlining.org, linux-kernel@vger.kernel.org
+References: <20260901071041.16311-1-ionut.nechita@windriver.com>
+ <20260901071041.16311-2-ionut.nechita@windriver.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <20260901071041.16311-2-ionut.nechita@windriver.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add _ctype-like array for EBCDIC characters. Mark only those that also
-exist in ASCII, loosely based on invariant subset of EBCDIC [1], but
-with cent, broken bar, not sign, and plus-minus sign, left out.
+On 9/1/26 00:10, Ionut Nechita (Wind River) wrote:
+> Assisted-by: LLM
 
-[1] https://en.wikipedia.org/wiki/EBCDIC#Code_page_layout
+This seems a _bit_ opaque and imprecise. Could you take a quick look
+through:
 
-Signed-off-by: Ilya Leoshkevich <iii@linux.ibm.com>
----
- arch/s390/include/asm/ebcdic.h |  6 +++++
- arch/s390/kernel/ebcdic.c      | 40 +++++++++++++++++++++++++++++++++-
- 2 files changed, 45 insertions(+), 1 deletion(-)
+https://docs.kernel.org/process/generated-content.html
 
-diff --git a/arch/s390/include/asm/ebcdic.h b/arch/s390/include/asm/ebcdic.h
-index 7164cb6584355..78d2e37e985d3 100644
---- a/arch/s390/include/asm/ebcdic.h
-+++ b/arch/s390/include/asm/ebcdic.h
-@@ -10,6 +10,7 @@
- #ifndef _EBCDIC_H
- #define _EBCDIC_H
- 
-+#include <linux/ctype.h>
- #include <linux/types.h>
- 
- extern __u8 _ascebc_500[256];   /* ASCII -> EBCDIC 500 conversion table */
-@@ -18,6 +19,11 @@ extern __u8 _ascebc[256];   /* ASCII -> EBCDIC conversion table */
- extern __u8 _ebcasc[256];   /* EBCDIC -> ASCII conversion table */
- extern __u8 _ebc_tolower[256]; /* EBCDIC -> lowercase */
- extern __u8 _ebc_toupper[256]; /* EBCDIC -> uppercase */
-+extern const __u8 _ebctype_asc[256]; /* EBCDIC -> character classes */
-+
-+#define __ismask_ebc_asc(x)	(_ebctype_asc[(int)(unsigned char)(x)])
-+#define isprint_ebc_asc(c)	((__ismask_ebc_asc(c)&(_P|_U|_L|_D|_SP)) != 0)
-+#define isspace_ebc_asc(c)	((__ismask_ebc_asc(c)&(_S)) != 0)
- 
- static inline void
- codepage_convert(const __u8 *codepage, volatile char *addr, unsigned long nr)
-diff --git a/arch/s390/kernel/ebcdic.c b/arch/s390/kernel/ebcdic.c
-index 0e51fa537262b..815b90ef520c0 100644
---- a/arch/s390/kernel/ebcdic.c
-+++ b/arch/s390/kernel/ebcdic.c
-@@ -392,10 +392,48 @@ __u8 _ebc_toupper[256] =
- 	0xF8, 0xF9, 0xFA, 0xFB, 0xFC, 0xFD, 0xFE, 0xFF
- };
- 
-+/*
-+ * ASCII subset of EBCDIC -> character classes
-+ */
-+const __u8 _ebctype_asc[256] = {
-+	_C,     _C,    _C,    _C,    _C,    _C|_S, _C,    _C,	/* 0x00-0x07 */
-+	_C,     _C,    _C,    _C|_S, _C|_S, _C|_S, _C,    _C,	/* 0x08-0x0f */
-+	_C,     _C,    _C,    _C,    _C,    _C|_S, _C,    _C,	/* 0x10-0x17 */
-+	_C,     _C,    _C,    _C,    _C,    _C,    _C,    _C,	/* 0x18-0x1f */
-+	_C,     _C,    _C,    _C,    _C,    _C|_S, _C,    _C,	/* 0x20-0x27 */
-+	_C,     _C,    _C,    _C,    _C,    _C,    _C,    _C,	/* 0x28-0x2f */
-+	0,      0,     _C,    _C,    _C,    _C,    _C,    _C,	/* 0x30-0x37 */
-+	_C,     _C,    _C,    _C,    _C,    _C,    0,     _C,	/* 0x38-0x3f */
-+	_S|_SP, 0,     0,     0,     0,     0,     0,     0,	/* 0x40-0x47 */
-+	0,      0,     0,     _P,    _P,    _P,    _P,    _P,	/* 0x48-0x4f */
-+	_P,     0,     0,     0,     0,     0,     0,     0,	/* 0x50-0x57 */
-+	0,      0,     _P,    _P,    _P,    _P,    _P,    0,	/* 0x58-0x5f */
-+	_P,     _P,    0,     0,     0,     0,     0,     0,	/* 0x60-0x67 */
-+	0,      0,     0,     _P,    _P,    _P,    _P,    _P,	/* 0x68-0x6f */
-+	0,      0,     0,     0,     0,     0,     0,     0,	/* 0x70-0x77 */
-+	0,      _P,    _P,    _P,    _P,    _P,    _P,    _P,	/* 0x78-0x7f */
-+	0,      _L|_X, _L|_X, _L|_X, _L|_X, _L|_X, _L|_X, _L,	/* 0x80-0x87 */
-+	_L,     _L,    0,     0,     0,     0,     0,     0,	/* 0x88-0x8f */
-+	0,      _L,    _L,    _L,    _L,    _L,    _L,    _L,	/* 0x90-0x97 */
-+	_L,     _L,    0,     0,     0,     0,     0,     0,	/* 0x98-0x9f */
-+	0,      _P,    _L,    _L,    _L,    _L,    _L,    _L,	/* 0xa0-0xa7 */
-+	_L,     _L,    0,     0,     0,     0,     0,     0,	/* 0xa8-0xaf */
-+	_P,     0,     0,     0,     0,     0,     0,     0,	/* 0xb0-0xb7 */
-+	0,      0,     _P,    _P,    0,     0,     0,     0,	/* 0xb8-0xbf */
-+	_P,     _U|_X, _U|_X, _U|_X, _U|_X, _U|_X, _U|_X, _U,	/* 0xc0-0xc7 */
-+	_U,     _U,    0,     0,     0,     0,     0,     0,	/* 0xc8-0xcf */
-+	_P,     _U,    _U,    _U,    _U,    _U,    _U,    _U,	/* 0xd0-0xd7 */
-+	_U,     _U,    0,     0,     0,     0,     0,     0,	/* 0xd8-0xdf */
-+	_P,     0,     _U,    _U,    _U,    _U,    _U,    _U,	/* 0xe0-0xe7 */
-+	_U,     _U,    0,     0,     0,     0,     0,     0,	/* 0xe8-0xef */
-+	_D,     _D,    _D,    _D,    _D,    _D,    _D,    _D,	/* 0xf0-0xf7 */
-+	_D,     _D,    0,     0,     0,     0,     0,     _C,	/* 0xf8-0xff */
-+};
-+
- EXPORT_SYMBOL(_ascebc_500);
- EXPORT_SYMBOL(_ebcasc_500);
- EXPORT_SYMBOL(_ascebc);
- EXPORT_SYMBOL(_ebcasc);
- EXPORT_SYMBOL(_ebc_tolower);
- EXPORT_SYMBOL(_ebc_toupper);
--
-+EXPORT_SYMBOL(_ebctype_asc);
--- 
-2.55.0
-
+and try to err a bit more on the side of transparency for the next one?
