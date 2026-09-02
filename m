@@ -1,205 +1,158 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010028.outbound.protection.outlook.com [52.101.193.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68FBA4AA013;
-	Wed,  2 Sep 2026 16:41:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788367281; cv=fail; b=TT6HtJhyQKIytaT1dGZyGTmmP2vU5IZ9BNVh1yMNyXVWt47P2UJjjNECm6wAviwepC7RGi+QFh4BQcV1Viaxwc7XzLi5eUJE+WXvjTakYzT8XGKmdO9a/o4/Iyks64KPU88AehvXYYCdxVJE2FUKbgL1nLC93MM50AuStWq7cGM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788367281; c=relaxed/simple;
-	bh=5mQr5VFnELFhewAyxS51nhzplhS7+FZUqQCbzizsFF8=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=P83Tt3t1TYLVXnRcJ0/cOewbmkBauMlh0FtBPwClUwbteifrxVEZYb7qc3exhb07eVvYATVMTY3alJ7YNVQCwuGZcQXaEM/oiqDNZsOKtmpdoXyeqNjH8xJBG2n+p/6mGvR/olMl3iBRwbJivnNdow6byX306Tbf3aLb8pg6KL8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=qhgv6329; arc=fail smtp.client-ip=52.101.193.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7768A4AC14C
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:41:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788367287; cv=none; b=ogNxT9N2EbTfWB7UtY6c55Ynv0POQAFkKP9oF1Vgw2kM7pgAlGFb0Ocnl76isF47OPM7fVZhaAm+f9e0lNznFXTBdhWADt7K6WoF1Pnez1W8CWKUx7k4M50OqEkPuq3egjSU7JcnzySj/CgucB2Ypm7Oi1Z4dpL2zrx8wag/z7I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788367287; c=relaxed/simple;
+	bh=zsFbTSNS49K5fTTJHxNrCzc+5y/Ob23CZWVIBOZR8bM=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=D45Mh10zFfBWSc0tJUxpNxOnzWZ77NrMXxw+Q8ARnU0i+OzaF1w4HMrKdbNxz92DiPW8s2hNKzr/pfUX7HG7dkdw1ipf5WQO2qxLWubRnBuQ/mwoQk4vYMMMtJ+8pCG7K1yGyDhOn7WjNflr+OG3oiYwPo0YLYw+Pt4ozIYTeEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ggzqIERf; arc=none smtp.client-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="qhgv6329"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v+7KoJcPMIEWUVPwXRRsRGEEizIMDRykJ3BpBwvNSAiwjwkwtzkuisOryv4OR8XdcXlVU6OksZVOoVYlcgmq9/pGRJKaisbBx2nSj27dQ9sCcYENBNDaRC5qMFplK9h7/P/pByAMuJ1NiQIEdm9OKFAMrgRcHo+Fpf84th9gTSAR+Tj7O0YCnYoPd8LBNbr/tT16UyvmuUV1aB3jA58MmhpuGjEFp0bGInf1krj3tS/b61I9YexORi+zTHCy3MdeIjWcpxmdbEn/Z67ht8brPBkpxAvIliXtDlDn4klkO/OTFgG15nQgjJHhVkJXbzpnc9XLIpBPYMrhB7nn5lVgxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xftvjPCm+T5iMKs81lqZK6BF5KbIl1o3U7HEfGQVAmU=;
- b=UBgPrxnQyy7OPWCk3Lcy7wJNfxItkA/ib26KhhxQbd1IDjPf6K9F1b2l25Qf+rvLc4pa7x5oTZUscoQmVaWgKK6wPit1a/zG9vS74brny13tpU4a9lAcV24nZAiwcHEe3grpU0/1kopltErcfpxjak5I4yDBQfRgQqJD6ZWDLvK8i1rUXBn6VEQ42F3pkNTxZxR6hVFWwG7Jc1YZ/7rZFJUWLmGvt/5vV4uIttz3HLWqoyCH70DsJRfQKC1KlBdUR1AyBQlQ1f84PdyinlnQHhK5eLFpHV78tTVfgXeFVCGvs+vVmxlwvdI4SFHIy0VZA0oIg1zPV4RXUV9+DnUCmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.233) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xftvjPCm+T5iMKs81lqZK6BF5KbIl1o3U7HEfGQVAmU=;
- b=qhgv6329rzf6dMrLfeEz6K18bFiqe8FcfBh26DvzPzDOCpKJlQeUzHqYqIRUO/oLIP2TtFiEVFbk+J9arfSnogwDZf6cIb6QlhNyEi7L7rDc5aN0SsUA9/vSUWkjspr1pUWEB3KcwEOXC0eWKL7tRWrwI0hv2oncOSVNbYs1+AvfIxQsFJkn+pe60o5CvjqVOVrMf+AD2XeGbm23LWQbEGdHoJqawiAO0YppYAUbgli/nG8wuKnHaY4TTAR4f2oC21ay2VDQCCpfk21UN1wv2DFbPeZ26S7tmblVJCX76ybpoAzNL9MnrdRQRqvPSXhgbridn8OE2Ljsu9rBKp5wsQ==
-Received: from PH5P220CA0007.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:34a::12)
- by SJ0PR12MB6944.namprd12.prod.outlook.com (2603:10b6:a03:47b::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 16:41:12 +0000
-Received: from SN1PEPF0002529E.namprd05.prod.outlook.com
- (2603:10b6:510:34a:cafe::4) by PH5P220CA0007.outlook.office365.com
- (2603:10b6:510:34a::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
- Sep 2026 16:41:11 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.233)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.233) by
- SN1PEPF0002529E.mail.protection.outlook.com (10.167.242.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 16:41:11 +0000
-Received: from drhqmail202.nvidia.com (10.126.190.181) by mail.nvidia.com
- (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
- 2026 09:40:43 -0700
-Received: from drhqmail202.nvidia.com (10.126.190.181) by
- drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 2 Sep 2026 09:40:42 -0700
-Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com
- (10.126.190.181) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Wed, 2 Sep 2026 09:40:37 -0700
-From: Tariq Toukan <tariqt@nvidia.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
-CC: Akiva Goldberger <agoldberger@nvidia.com>, Edward Srouji
-	<edwards@nvidia.com>, Gal Pressman <gal@nvidia.com>, Kees Cook
-	<kees@kernel.org>, Leon Romanovsky <leon@kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-rdma@vger.kernel.org>, Maher Sanalla
-	<msanalla@nvidia.com>, Mark Bloch <mbloch@nvidia.com>, Or Har-Toov
-	<ohartoov@nvidia.com>, Parav Pandit <parav@nvidia.com>, Patrisious Haddad
-	<phaddad@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>, Shay Drori
-	<shayd@nvidia.com>, Simon Horman <horms@kernel.org>, Tariq Toukan
-	<tariqt@nvidia.com>
-Subject: [PATCH net 4/4] net/mlx5: LAG, reload IB reps of LAG master before the rest
-Date: Wed, 2 Sep 2026 19:37:16 +0300
-Message-ID: <20260902163716.3656279-5-tariqt@nvidia.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20260902163716.3656279-1-tariqt@nvidia.com>
-References: <20260902163716.3656279-1-tariqt@nvidia.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ggzqIERf"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cfa55c9430so12892005ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:41:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788367285; x=1788972085; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=frOgBPC40pi3x0hlZEdVguNDXI4epigXANzoQJEvIq8=;
+        b=ggzqIERfnYqfyjD2bm7L5TbCW6KCFqJus+e/puWiC5uApz1fMJ/I3KTADeAweOgaSd
+         wpp6W2deaMzxC+aRKPvRMLA2kyP+KTkkMj9QSnM4+RT2Z6Ym51ZygLCife1CLkEi7DS7
+         WmX7YFk6EV77Ko3NeATTpI9oaz19i+EzF7RZJeKg5Dp6yXG0XVRmcqSk7XWWkX26KLHo
+         r4/Qce2NBjkjTIqw0BhE4yaIgKx2dFtyIn1cQxdiiP2UCs8YfTy0qk8kQ5WqdRrMFug1
+         JKf9cpAtPYALd8/EdhipStUi2zgsP59QE0FUfA5WZNarUJF3GYBEi3ocAGEHd14NKRWR
+         7dFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788367285; x=1788972085;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=frOgBPC40pi3x0hlZEdVguNDXI4epigXANzoQJEvIq8=;
+        b=XnwQRPW32pEAK5Knpd+AbUidlgX7B2Aw3RiSVrfuI7wlKLTUMYAjksbn1QhO6fBpKa
+         69f3zR2jvBdUIcYM+oXHc2UaKeeWzCZPpiVsifQOkCn4dLCTlpEYn2yFypgTNLzejtO+
+         xblFJoj3gShlnQT/0p0QPS1PjSQqK9vVpX9h0CqviPEDXEWpNeFKlExl31enw70zQl0Z
+         UWy/Phr9BVP11u6zbpBgL5K7Oj6VYr1pRFOt5Xmx3Fdbb0IImmUeQXx3c45vQW/+VEC9
+         mCfKwhFX2H4oCbrDyxEHVWbV25iL1A+QicNM0CKg8UjvPYIS7L8+u/RzXqPAizdH56mT
+         4i6w==
+X-Forwarded-Encrypted: i=1; AKwUvBx5+VHO5+kcHwJ8dlu+ABhpG6Cu4o1lPyJxPDkEX1lO11dl+6M6J6slWoJU2QZ2U/ucB2uFWzZpcaIOasE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPHr7aFTNFFVTK6JAcm1RGPoFGpYloxwOQ2KDzRaOdBQzO4Oo6
+	ZnsEkX6HhGzrBhQLBFmOZ4uRDGLPiOKkGeCnIt3SGMhyoz5Q4Xznz6K/XbDeE5FddiIS4ubAuHs
+	vYzUnHg==
+X-Received: from pjbbh12.prod.google.com ([2002:a17:90b:48c:b0:381:171e:961c])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2d4f:b0:37f:e1b6:4c7d
+ with SMTP id 98e67ed59e1d1-39aedf1aec2mr9689222a91.6.1788367284482; Wed, 02
+ Sep 2026 09:41:24 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Wed,  2 Sep 2026 09:41:03 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002529E:EE_|SJ0PR12MB6944:EE_
-X-MS-Office365-Filtering-Correlation-Id: 700b4b53-59d8-4839-6fe9-08df0910ff0d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|376014|82310400026|23010399003|7416014|10067099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	0t0TPXqbA+Q8FrhyLGifx7Wv3Nu3BDKADIpYLPFavAHrqo7t1tFVwvIqs41m2GE12ICiDcgt8MyuVoD9cAiY0mXG7Lstujpuu2Z49/53hNK/fCbjn3aTyrDptN23ADUrJrIPWkTlnmtPCymE1G9AfOlJ6kvhHyD4dd+WtuuRdYyuSemzBEVQ2a9DpvyTYOPXn2tjbwMNyvA0VDVLpDFjPT7MsTak5Abww0CRzO+wqWvUhIieVJdFZqiQGRxzuV8zrXN4pMwQfzjz2XOSkTeeZJ2dJ9LtYpXOdhExis7tn+22SFk5ejvKXOfHjojMcZ//sCH7U5eETDpor8URT/DjLbUz05QWyn5+Ta9QdMQKVxYMlJdy0ZsWlVM2hVYPP8Vr9Jn53C3I8C/toQrj4YU3D6jKsYvdOM5kFVidHPcWcUq9BrbtoiDIB5k5bPzWXcoKMVHDlSsvA1NlSUTtppWPjzeX6LJMHCd3g0K+fZysqlLK7P+oO36f8yH4t6otmbw5a9HcGojs7owK4J+Th1PzqEPUjyT9upL6CL/dwkuxgshv14d/xK+jM/h5WY6AwL6o2OhNYP6ZBQvwu2QiFzx77WbjniCdX4Y5iW4vM9kmxt4tmmsrOljUWllWTKoUsukQocYfkktYgFHki3obyyjRwu1n84GhAQBue/zK6XvZpK1U5mfBGqy35jYWUxKpxkJx4EDKXVOzzibr7N2luvJ8lw==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026)(23010399003)(7416014)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	sY2r71yshw+yYzpK+hVew3pw9tzLxsBD9puiMiUFnhCz+uhFA03RnixmBpQICf7GaYtCKHNe+4HqcwtgmCNy5S/vEVTJZY/dbfpOgx+XSdwXkvWbWGI8SZMRAJV3TI/5b+yN9cAsXNhwMprNDfnepRc/S1yadraL3gRJWvCsmAHHBOlyFRGMeR0sEf6S4NKkWr54NJKI1hrbL2a41/6l6ooiPFKrVa2DAGdlx5eTa2EySWQ5PgldWDyaGoJRU2Sg+ZTaXk25ln/kUFKx+fDcUxVMN1agzrDl7nTHAC8eUsNTjocYk0b0zXMnXjPB/delStciSYIHqxQ0WUUIxllQhEkMG94uyVrlS3mXVKCgs1+apvcnZsvwvvBNw7BHbeYRQfFDSP/NMqPJP5jL5vEHp+CUTNnit4ZhgSWYJ/o6VWzkQUW4hAiqTBOAxz0+UD1t
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 16:41:11.2081
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 700b4b53-59d8-4839-6fe9-08df0910ff0d
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF0002529E.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6944
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.966.g6673acef38-goog
+Message-ID: <20260902164123.2546762-1-seanjc@google.com>
+Subject: [PATCH v2 00/20] KVM: selftests: PPC pre-enabling
+From: Sean Christopherson <seanjc@google.com>
+To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>, 
+	Huacai Chen <chenhuacai@kernel.org>, Anup Patel <anup@brainfault.org>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>
+Cc: Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Atish Patra <atish.patra@linux.dev>, 
+	Alexandre Ghiti <alex@ghiti.fr>, David Hildenbrand <david@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	kvmarm@lists.linux.dev, kvm@vger.kernel.org, loongarch@lists.linux.dev, 
+	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Itaru Kitayama <itaru.kitayama@fujitsu.com>, 
+	Nicholas Piggin <npiggin@gmail.com>, Ritesh Harjani <ritesh.list@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Shay Drory <shayd@nvidia.com>
+This is a big pile of cleanups and refactoring to prepare for PPC support in
+KVM selftests.  PPC has paging modes that require multi-page page tables, and
+those page tables need to be naturally aligned.  The original proposal was to
+plumb in an @align param to the page allocators[*], but I didn't love the idea
+of adding another rarely used param to the allocators.
 
-In a shared-FDB LAG the master device creates the bond IB device; the
-other LAG members do not create their own, they populate a port inside
-the master's IB device. mlx5_lag_reload_ib_reps_unlocked() reloaded the
-members' IB reps in iteration order, with no guarantee the master is
-reloaded first. When a non-master member is reloaded before the master,
-it tries to populate its port in an IB device that has not been
-recreated yet.
+v2:
+ - Collect tags. [Itaru, Bibo]
+ - Use 0x180000 as the min GPA for page table pages on LoongArch, instead of
+   changing every other arch to use 0x200000. [Sashiko, Bibo]
+ - Opportunistically move the vGIC LPI stress test's global "gpa_base" variable
+   into setup_memslot(). [Sashiko]
 
-Hence, reload the master's IB reps first, then every other member.
+v1: https://lore.kernel.org/all/20260826230511.972824-1-seanjc@google.com
 
-Fixes: 2b204cdb1206 ("net/mlx5: LAG, use xa_alloc to manage LAG device indices")
-Signed-off-by: Shay Drory <shayd@nvidia.com>
-Reviewed-by: Akiva Goldberger <agoldberger@nvidia.com>
-Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
----
- .../net/ethernet/mellanox/mlx5/core/lag/lag.c | 44 ++++++++++++++-----
- 1 file changed, 32 insertions(+), 12 deletions(-)
+[*] https://lore.kernel.org/all/df86b5ccdbdafc3509d9538bd5e6796737bab2db.1781093720.git.ritesh.list@gmail.com
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c b/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
-index aee5ce471eba..4984c812268c 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
-@@ -1263,25 +1263,45 @@ void mlx5_lag_remove_devices(struct mlx5_lag *ldev)
- 	mlx5_lag_remove_devices_filter(ldev, MLX5_LAG_FILTER_PORTS);
- }
- 
-+static int mlx5_lag_reload_ib_reps_idx(struct mlx5_lag *ldev, int idx,
-+				       u32 flags)
-+{
-+	struct lag_func *pf = mlx5_lag_pf(ldev, idx);
-+	struct mlx5_eswitch *esw;
-+	int ret;
-+
-+	if (pf->dev->priv.flags & flags)
-+		return 0;
-+
-+	esw = pf->dev->priv.eswitch;
-+	mlx5_esw_reps_block(esw);
-+	ret = mlx5_eswitch_reload_ib_reps(esw);
-+	mlx5_esw_reps_unblock(esw);
-+
-+	return ret;
-+}
-+
- static int mlx5_lag_reload_ib_reps_unlocked(struct mlx5_lag *ldev, u32 flags,
- 					    u32 filter, bool cont_on_fail)
- {
--	struct lag_func *pf;
-+	int master_idx = mlx5_lag_get_dev_index_by_seq_filter(ldev, MLX5_LAG_P1,
-+							     filter);
- 	int ret;
- 	int i;
- 
-+	if (master_idx < 0)
-+		return -EINVAL;
-+
-+	ret = mlx5_lag_reload_ib_reps_idx(ldev, master_idx, flags);
-+	if (ret && !cont_on_fail)
-+		return ret;
-+
- 	mlx5_lag_for_each(i, 0, ldev, filter) {
--		pf = mlx5_lag_pf(ldev, i);
--		if (!(pf->dev->priv.flags & flags)) {
--			struct mlx5_eswitch *esw;
--
--			esw = pf->dev->priv.eswitch;
--			mlx5_esw_reps_block(esw);
--			ret = mlx5_eswitch_reload_ib_reps(esw);
--			mlx5_esw_reps_unblock(esw);
--			if (ret && !cont_on_fail)
--				return ret;
--		}
-+		if (i == master_idx)
-+			continue;
-+		ret = mlx5_lag_reload_ib_reps_idx(ldev, i, flags);
-+		if (ret && !cont_on_fail)
-+			return ret;
- 	}
- 
- 	return 0;
+Nicholas Piggin (1):
+  KVM: selftests: Use goto instead of do-while to retry finding unused
+    physical pages
+
+Sean Christopherson (19):
+  KVM: selftests: Use MEM_REGION_PT memslot instead of '0' for s390
+    regions/segments
+  KVM: selftests: Use the common minimum GPA for page tables on
+    LoongArch
+  KVM: selftests: Use vm_alloc_page_table() to allocate LoongArch page
+    tables
+  KVM: selftests: Rename "num" param to "nr_pages" for physical page
+    allocators
+  KVM: selftests: Extend page allocator to support naturally aligned
+    allocations
+  KVM: selftests: Make the single-page allocator APIs static inline
+  KVM: selftests: Use the innermost page allocator API in the memslot
+    perf test
+  KVM: selftests: Use the innermost page allocator API in s390's IRQ
+    routing test
+  KVM: selftests: Add a wrapper API to allocate multiple page table
+    pages
+  KVM: selftests: Initialize vm->memslots[] with invalid memslots during
+    creation
+  KVM: selftests: Add APIs to override memory region types with custom
+    memslots
+  KVM: selftests: Add TEST_EXTRA memory region type for "special"
+    memslots
+  KVM: selftests: Use TEST_EXTRA region in arm64's vGIC LPI stress test
+  KVM: selftests: Use TEST_EXTRA region in x86's smaller MAXPHYADDR test
+  KVM: selftests: Use TEST_EXTRA region in set memory region test
+  KVM: selftests: Take the memory region type, not memslot, in page
+    allocators
+  KVM: selftests: Use TEST_ASSERT(), not assert(), in
+    vm_get_mem_region()
+  KVM: selftests: Automatically pick min_gpa for allocations based on
+    region type
+  KVM: selftests: Add arch hook to force page tables to be naturally
+    aligned
+
+ .../selftests/kvm/arm64/page_fault_test.c     |  18 ++-
+ .../selftests/kvm/arm64/vgic_lpi_stress.c     |  21 ++-
+ .../testing/selftests/kvm/include/kvm_util.h  | 106 +++++++++++++--
+ tools/testing/selftests/kvm/include/x86/smm.h |   2 +-
+ .../selftests/kvm/lib/arm64/processor.c       |   4 +-
+ tools/testing/selftests/kvm/lib/kvm_util.c    | 127 +++++++++++-------
+ .../selftests/kvm/lib/loongarch/processor.c   |   5 +-
+ .../selftests/kvm/lib/riscv/processor.c       |   4 +-
+ .../selftests/kvm/lib/s390/processor.c        |   7 +-
+ .../testing/selftests/kvm/lib/x86/processor.c |  15 ++-
+ .../testing/selftests/kvm/memslot_perf_test.c |   3 +-
+ tools/testing/selftests/kvm/s390/cmma_test.c  |  19 +--
+ .../testing/selftests/kvm/s390/irq_routing.c  |   2 +-
+ .../selftests/kvm/set_memory_region_test.c    |   8 +-
+ .../x86/smaller_maxphyaddr_emulation_test.c   |   9 +-
+ 15 files changed, 221 insertions(+), 129 deletions(-)
+
+
+base-commit: 76671054f9a1ff6abb976583cd8da37650acdc97
 -- 
-2.44.0
+2.55.0.966.g6673acef38-goog
 
