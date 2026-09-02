@@ -1,63 +1,63 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3F23E835F
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:05:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1AAC3E7BA8
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:05:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788336334; cv=none; b=nveCN2SXSSCS66tdTOJ9yv42wkCPV75tcBpNN/VgkO++h/88/KAqaV52BHeyXHjNnpeWorSuv6wp/z7bV51eFQLHk0vHHiHe+8q5FT5hprAK4obM4CznkQ1SJJmygi51tKYydfTVO5jk04TurA3oQEt1p05YJ4q3/VGJ4GPtG9w=
+	t=1788336335; cv=none; b=Yqv/VgbVUujTyejiUrG44ESruavQa/DXogY+4CchHhPedtLGvImiMEqks68fVAoDkZ+BSF2aePbMfi82z7ywf/oEv58MMqfOQVSnUxcnViVN0jo2z/M8Tss15dSsfyIhbuDFFt0bm9rlO6nHZb6qJ00ylkXwuc+9QzhDP0DTLAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788336334; c=relaxed/simple;
-	bh=itnWdfTO7rPTGSzm2C6vlZj2LyTW+V62TosmP2CtgTM=;
+	s=arc-20240116; t=1788336335; c=relaxed/simple;
+	bh=zY1FtHsFvhZmr1r51XZIN6gnDmySfJ2JQJfMaOFqjAk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VU+uBlIk5DkevCl21hC8X+3h9mp7SIfst9FKHZKjF6CORgweCKu31exACTR02vL0Gu9IQP6fuUmmxyAXxhM4TS4rAgecK9AgNPqqsJmQpLb19m3EN3Zd5wWr1DRfWql58kLCq+WO4uRg6jZKWylX4AnrUkMPELC7yERXT0BK/oM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=RsKOUk+e; arc=none smtp.client-ip=209.85.128.47
+	 MIME-Version; b=IKWML9DaHmuq72EPkaX6HORD2VphZzSH7Vb4BsNIdLxaO/2pEJtWpb6ZQosmDtBeBCcP1mLsZ/Rtg19M/9ZDXlYiBeQZ1R0WcCufjAOgvodF9rdaJg1J+UV/uPPrxjTReA5/El8PE7tV5dPcdKkhoI0y8bSY/Ga9em2pLZqU1Ak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=iXBbEivX; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="RsKOUk+e"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49b8eeb3ff2so5902565e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 01:05:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="iXBbEivX"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so6562535e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 01:05:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1788336331; x=1788941131; darn=vger.kernel.org;
+        d=lex.la; s=google; t=1788336332; x=1788941132; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0ODrjT6kBXUsW+2D292UeajaaIrcYqKeGJo03Hcn0Jc=;
-        b=RsKOUk+eCIVoLXIEkrvcp5bFSs69wkyJyQdm6hX147S5MQumP3jVXnMO/vTs4CgnBk
-         vDU+BBdqpVhI9R1E1fDOlzWEDlpj5ZH7NNwyybW04xiVDo9y1zLR9Ug0S0EmsCp52z3M
-         GqCO8YOgMOWepxdkg4LIYJBWNs+i1lN4xefIJpP1BoZHWKa0cu/LxKtmsXsIUb0jL0Sq
-         FwcFGyZ0b3iKYa4vBRgUcZMiAzA6n8t+j+yM/CWE3MLIlcWVGyn/ucHB+2pckitiRick
-         iu5s497lzvJJLAE9nZsEvd+A/gQBNl/RfwNVwssPhbb2RJV2eFUJ/VTvQN67RH7aM933
-         JVYA==
+        bh=s4Vc4iq3TPgEkaMSVSCPjErXwdDQEeK6K78XniZIP9s=;
+        b=iXBbEivX1+W+t529Rcjtz2c1XlKsEPS1jM75ZGnaN97tQYy0wwnN3l95l23pqFjTqP
+         k1MKKExp5uEsra3gF3Iv1LonhRrGyM+6GNQ8xWhcY1Jb5QIj34W5vXjDDY5oj7WFl1RM
+         DlO6IJAFf7KjC6jk9xx4qAKfywZw5RUHaz3nvjFoOdF9NhDZpSa/wXd99qXpThvc/Ne5
+         nA1/pZCUUJhlZB6IrSJQDJ4+djSNLwA0skALx53fnatGrhb1H5a1k1l8CXRxRCu1sg+/
+         t50D4erNFHONFn1IEKsU+DrSrpamyCcaIGIzl7NzfBeWIVSy0qHpQvb8G6NP6bB7krkF
+         VPvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788336331; x=1788941131;
+        d=1e100.net; s=20251104; t=1788336332; x=1788941132;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0ODrjT6kBXUsW+2D292UeajaaIrcYqKeGJo03Hcn0Jc=;
-        b=OIzVYL/dp3TgPZTGnAD2dbmEr49ERbPDBlFOgV4ipWyazirXCcsutfP/83vAlynutN
-         8CTgtQZXLxP6JO08+gHOzOgvu9+QvO6EqDsdGTkGSsZ/CUCDo+kNjzW5x/rCwDirHJpD
-         q/6agtretx9IwzvngQAEwIGQhR0uVHgFavVAoQutvK0XizQ/uCTPQaKuFgqFgehA4qU8
-         loQ6ZCFw5F22kEj0euV6dxFBooiHQiHaXJSVkQ0Wp/e3nEg7naa1kvhaqeHnN3PO69vL
-         S/YFVgzUXn2pjZ46xU6a0MWN0XOmE+kk9AL2xd3DtrZGt5e9imygml08WxWsVLW5m8Y7
-         6MbA==
-X-Forwarded-Encrypted: i=1; AHgh+RpVR6h7PsDxAJnh8JOcHVoppWKmANoC+qYIty23ngP6kBf2Ktx5UI21Qy/jgPLjBApFb49qBgXTovbCcjc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kDCmdWh83xrDwOI24MTvVwbcWdQrCBvn5864iGbM4blHaFxReQ
-	x/i3hsHFVQf8WfibdOY4Rvkw/GMoczG6R8v/tswd1alKWkct3TtAo4fMuOQTddbiIeE=
-X-Gm-Gg: AR+sD12OzDCtSm0aWP3WKCb9EctFvEc1U2uDXoitAwkiSsyYsFeCGIMQsg69eoGuTb+
-	uhgBk7vJMa6yYBuvExonJaLxDBxqXkjPtpCxPWUSPIhIFXS8JuOqfidMgmfHkwhcWIC6YH9nBlU
-	qkOe/wQ3CuINXuMZd0lRQ+bKX38F4xJizBBHYfCwafVqBZz0AgaOstLA17mmpd3fvD6Tq4nQ9Sj
-	ef9QI9vGMBXjg09NQIyDKsWDAldtfuwLexwvpggDMk4No9alg3LtfWJWitNdv4aKAE+SomJMP63
-	RrhD264Cm/2bH63nwodYgjCtIx1ptz/snHpm/WP4Q4uD7bZUJRFiu3hsJS4W9/X56ZQWhwK774g
-	vcqAbihvj0HAxlbJhGzDi9FVaiI9CSDsMEqcmSXgOyPq2aRv5J/x59pbm1Bum7LVuAAeA9jmaa7
-	UUpPsdmZXoxkeRRrx7YNorUWyxPldseLNcuIz1qao=
-X-Received: by 2002:a05:600c:1d11:b0:49c:c0d4:53d9 with SMTP id 5b1f17b1804b1-49ce582a54amr49962495e9.14.1788336331049;
-        Wed, 02 Sep 2026 01:05:31 -0700 (PDT)
+        bh=s4Vc4iq3TPgEkaMSVSCPjErXwdDQEeK6K78XniZIP9s=;
+        b=rpmklD4VOrij1apqvrDYjAL75iZyHXI6KCN8DEPCTIwMwci6Rgm8MgU1ifRyXl8ZE7
+         6LRYEmWH7xN4D7EjxvMvZf1Y2WhuCKzjuTotQG6t6Waf4L831mEz6MUGuH+KWugaoBpl
+         BUS6UGbeXHjZVUff7pUgEP0HLw3iCVEwYoA10YSstJJKcNvZbisLXYz3dtCab3hfT0px
+         HbdkvLiOiS1LPIhmeQYJEqM4v+tzEUDJ62/BSdPmPixfTjIKuhEJEbpBCR6YqCDVp1yo
+         556s4IKnAmeWzGvSgrVAxAMjqBbQ0awEeos9wYSAM9djcqCw4sTOVDTnyGa9BFe6OW0D
+         qaaw==
+X-Forwarded-Encrypted: i=1; AHgh+RonziL8KIeKdM8oXNUdLc+yecDp/bYQTLg5bMTLyLXaTksACvMFO9Q4+RzUZQUqCWj8NVvOB7ZtXDHuwVs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kNMgz0/825EDQ4KjTo0/3OE6RXaRdcIWUyL31H3JT2XLKcOB86
+	s4xkgojr5HBwYzf01D3H+0ZTHleHaxW8P46D1C1zLjcIJtviycyiPDzl5QkWuAAYPhI=
+X-Gm-Gg: AR+sD13XKJYTorEWNdd3iML8oiEd0yU9bgQkOJT17k0D616PDv6tCe/5KZAvocykKbw
+	rdgEZQUdkBcP1ptlJ/7OssdkzrfkaJQwjFHzHRPDHbB8hNJXxCYlZ3NM7g2ZeluWII95sFc7cBM
+	kBVJieUDcMe1OwfmVGs8/z0KGtIvIo4b8n+ZmX6MOzmO3DXcnP0BrjML3HttEAe5Giupil9JnJ7
+	70qngKLpQgssEX4hyXssaDB4RHvd6ses0qEV3G0bXNngp9wCggal5iVroEI5/4sGFZtG3JhJxQU
+	multhcI7g5PjChdRztBIsKXpwrBP9m+dPfkPFHrZXVkwCfjzxeeM5SeUPwnVdlUdN6ykrTtwL5m
+	uGQtJf7cvYo8nRLwzZGb6TA6y6yx69S4jYclP5pfaVbONFIxweTgUkJU4Y/DObzGJlF3bW+K8r4
+	PAHTcWZTQiGB72IgnrtZyaGUD8KOaGFX/0vIVJQLA=
+X-Received: by 2002:a05:600c:8a17:20b0:49c:d818:8771 with SMTP id 5b1f17b1804b1-49ce5808d4dmr37954585e9.7.1788336332155;
+        Wed, 02 Sep 2026 01:05:32 -0700 (PDT)
 Received: from remote-01 ([84.17.55.226])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce7dd5154sm17766875e9.2.2026.09.02.01.05.30
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce7dd5154sm17766875e9.2.2026.09.02.01.05.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 01:05:30 -0700 (PDT)
+        Wed, 02 Sep 2026 01:05:31 -0700 (PDT)
 From: Aleksei Sviridkin <f@lex.la>
 To: "Th\u00e9o Lebrun" <theo.lebrun@bootlin.com>
 Cc: Conor Dooley <conor.dooley@microchip.com>,
@@ -70,9 +70,9 @@ Cc: Conor Dooley <conor.dooley@microchip.com>,
 	Vineeth Karumanchi <vineeth.karumanchi@amd.com>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net 1/2] net: macb: zero the link settings taprio reads back
-Date: Wed,  2 Sep 2026 08:05:27 +0000
-Message-ID: <20260902080528.2211468-2-f@lex.la>
+Subject: [PATCH net 2/2] net: macb: reject an unknown link speed in the taprio setup
+Date: Wed,  2 Sep 2026 08:05:28 +0000
+Message-ID: <20260902080528.2211468-3-f@lex.la>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260902080528.2211468-1-f@lex.la>
 References: <20260902080528.2211468-1-f@lex.la>
@@ -84,13 +84,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-phylink_ethtool_ksettings_get() fills only what the current link mode
-provides. With no PHY attached it writes port and supported; on a fixed
-or in-band link it also writes speed and duplex, but only if
-base.rate_matching already reads RATE_MATCH_NONE, a field it never
-writes itself and so takes from the caller. The ethtool core zeroes the
-structure on every path into the op, so its callers never notice; the
-taprio path passes a stack variable and reads a speed nobody wrote.
+speed is a u32, so SPEED_UNKNOWN arrives as 0xffffffff and passes the
+"speed <= 0" check. A taprio schedule installed while the link is down
+then has its hardware interval limit derived from that value, a limit
+that rounds to 1 ns, and the first entry fails with a misleading
+"exceeds hardware limit". Name the case instead of relying on the
+sign.
 
 Fixes: 89934dbf169e ("net: macb: Add TAPRIO traffic scheduling support")
 Assisted-by: LLM
@@ -100,18 +99,18 @@ Signed-off-by: Aleksei Sviridkin <f@lex.la>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 76ee4f506033..a43855db1e45 100644
+index a43855db1e45..81530b9257b2 100644
 --- a/drivers/net/ethernet/cadence/macb_main.c
 +++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -4297,7 +4297,7 @@ static int macb_taprio_setup_replace(struct net_device *netdev,
- 	struct macb_queue_enst_config *enst_queue;
- 	struct tc_taprio_sched_entry *entry;
- 	struct macb *bp = netdev_priv(netdev);
--	struct ethtool_link_ksettings kset;
-+	struct ethtool_link_ksettings kset = {};
- 	struct macb_queue *queue;
- 	u32 queue_mask;
- 	u8 queue_id;
+@@ -4324,7 +4324,7 @@ static int macb_taprio_setup_replace(struct net_device *netdev,
+ 	}
+ 
+ 	speed = kset.base.speed;
+-	if (unlikely(speed <= 0)) {
++	if (unlikely(speed == SPEED_UNKNOWN || !speed)) {
+ 		netdev_err(netdev, "Invalid speed: %d\n", speed);
+ 		return -EINVAL;
+ 	}
 -- 
 2.53.0
 
