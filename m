@@ -1,120 +1,162 @@
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-38.ptr.blmpb.com (va-2-38.ptr.blmpb.com [209.127.231.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A456D3E9C2B;
-	Wed,  2 Sep 2026 08:34:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 274AD367280
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:35:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788338076; cv=none; b=CNS4Iejgj+gWaSZNy6Xxhr7iO/2rNvg1p4Et6lGTkd5UeWV5ioMbJyiz9A7vkDxITHBdDM+n0hoy29g1hzBLL4JmEQqh4mMss27bptMz11YnD/LGBEBojZ2onXMgSdBWBekC3+op+BAbh86fhIbObMPA1+/ug1JF68UbWw1Uf+k=
+	t=1788338114; cv=none; b=aBR6rp45p7+feyKB3wNxFCPORqwRT7c2gE4onEAsKbHqD0z2qJ4ZjN9DrtAfFIMm0iu2J6+iLZq7YTYfQzJfc5Hq7Q9KyLA1b2bEjJy5ZfwrcLT3yjwe/QkcBVpQyAMogKkDTx4pl19lIRXKyhEzXkwIcWR7+n/nErA+1rCXksM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788338076; c=relaxed/simple;
-	bh=pnNUS8mWmhzCdDTdxo+urlGVuBOjkXrjTonoFRnkpRU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pPe2Vok0agKl2cO82BEb28+5T/0Y0dwk6md+SGPdgvjsNVwZkswuBr3/ybs8w1PrQLUKMgUfyX434xZbLiCWiPZ7f/m13iJGahCAmZsD46MvnYqXOISQBlNMUJbRdDKEYsK3Rgkjn3OhaeWIZRpb3Eq0qr5ITW/Co6sx/bfPPKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=LLW6JXV9; arc=none smtp.client-ip=178.238.236.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	s=arc-20240116; t=1788338114; c=relaxed/simple;
+	bh=0Tuz00AeJ2DG8gLiKYZMXO5jtS+JnNqL2fME1NZNvmU=;
+	h=From:Subject:Message-Id:Content-Type:To:Mime-Version:Cc:Date; b=qiKfiWtX/f6nBkmFUwXvaRN817NwiNJx9AkTepH7RgbdugUzP+xPCkE08OVAu3twVmdoTuQn5P2GTv1gvl9sETIJI+lR8COHCSJdtLUzh21GCSdevUSdZB4RvKylhelxsemFwHkybM+Lph5mb6fhxgZwptI5aEldFlgLY1vFvFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com; spf=pass smtp.mailfrom=picoheart.com; dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b=OY6sZyRk; arc=none smtp.client-ip=209.127.231.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picoheart.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="LLW6JXV9"
+	dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b="OY6sZyRk"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=l7XpSW2eb4oLDc6eE3Z9RgxOJk8x+ZF6XYRM954FsY8=; t=1788338074; x=1789547674; 
-	b=LLW6JXV9d9CdSdAtLT9EJs5pNQNukJ2+yOjs1X4HAAAXz457Sz3AENr8sj5tEdHH1yhhdQ/+s/K
-	oIynr71bxeEaZXu4bKo3TTi1DFVi2y33nlVWC1FmIc/T4sLBnrw9dsVdiyE7uWMHflIAIjGJbuxCt
-	evM3Ic3GGPQKAq6DaaoiyN+OTNZxLMx+K96MtT2WSB5xHZNWBVkjrjKI6Vwg/jetov1Z5cTGldSsz
-	7v6fPIiN1Q6+5tM18YeTXH8bQPstFWQqXGKvmLlKwx+RbRkKplZHufWllZWkVjFDg5Ur/gWIL2lUm
-	abZgCYg0VJImy721W0nN580W95+bzcVK3vwg==;
-Date: Wed, 2 Sep 2026 10:34:25 +0200
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
-Cc: Tero Kristo <kristo@kernel.org>, Michael Turquette
- <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
- <bmasney@redhat.com>, Tony Lindgren <tony@atomide.com>, Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>, =?UTF-8?B?VGjDqW8=?= Lebrun
- <theo.lebrun@bootlin.com>, =?UTF-8?B?R3LDqWdvcnk=?= Clement
- <gregory.clement@bootlin.com>, linux-omap@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, hns@goldecilo.com
-Subject: Re: [PATCH v2 0/2] clk: ti: mux: resolve parent clocks by DT index,
- not by name
-Message-ID: <20260902103425.2cf41f15@kemnade.info>
-In-Reply-To: <20260902082639.69643254@kemnade.info>
-References: <20260727-mathieu-wdt-clock-theo-v2-0-c048a6394436@bootlin.com>
-	<20260902082639.69643254@kemnade.info>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+ s=feishu2604151535; d=picoheart.com; t=1788338094; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=wD9RsUO9lSPScERFohkjXD33MGWV4xKAf1UmItB58WI=;
+ b=OY6sZyRk8hVXuV3bclp/Y8HIul8+Ic907idxBrDqUK85wrgKrsmt+VPFqgnWUgWnDDgZO8
+ Ik+hcC2jgXOrI63FDib9/ixl0R2Yy5PmjaLWwLVmJdAAFO2VSrTRIGvyEVE/oB1J3l8wUc
+ hqEjwbev6dZ0diSr3d+W1PQjxdhx1er4SLVE1YoZWwIUq6x4NnDq8eHmavgTbhv/ffbl2o
+ iDGGjXSWyVfWdowdwmjMqg6qGuJR9mtLmZZY6+0PYtx1qEEUjqXTHpA4R3a600Jld9+j0S
+ zUtthVM5GFZBQM4Lx9UOER/fYsudHjsqc2nwA0QB1SQcdzszO4uuaoQLmvoasw==
+X-Original-From: Yufan Dou <douyufan@picoheart.com>
+Received: from 5CG30262N9-QAP.localdomain ([58.250.122.114]) by smtp.feishu.cn with ESMTPS; Wed, 02 Sep 2026 16:34:51 +0800
+From: "Yufan Dou" <douyufan@picoheart.com>
+Subject: [PATCH] ACPI: RISC-V: CPPC: Implement cpc_read_ffh_fb_ctrs()
+Message-Id: <20260902083450.2348-1-douyufan@picoheart.com>
+X-Lms-Return-Path: <lba+26a97dfac+881763+vger.kernel.org+douyufan@picoheart.com>
+Content-Transfer-Encoding: 7bit
+X-Mailer: git-send-email 2.53.0
+Content-Type: text/plain; charset=UTF-8
+To: "Sunil V L" <sunilvl@ventanamicro.com>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>, "Len Brown" <lenb@kernel.org>, 
+	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
+	"Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, 
+	<linux-acpi@vger.kernel.org>, <linux-riscv@lists.infradead.org>, 
+	<linux-kernel@vger.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Cc: <yuchao.46@picoheart.com>, <zhanjie9@hisilicon.com>, 
+	<yang.yicong@picoheart.com>, <geshijian@picoheart.com>
+Date: Wed,  2 Sep 2026 16:34:50 +0800
 
-On Wed, 2 Sep 2026 08:26:39 +0200
-Andreas Kemnade <andreas@kemnade.info> wrote:
+On RISC-V, each cpc_read_ffh() for a CSR-type FFH register sends a
+separate IPI to the target hart via smp_call_function_single().
+cppc_get_perf_ctrs() therefore samples the delivered and reference
+counters in two separate IPIs, at two different instants. The skew
+between the two sampling points distorts the delivered/reference
+ratio and thus the frequency reported by cpufreq.
 
-> Hi,
-> 
-> this seems to produce on OMAP3 (DM3730), even with the init fix.
-> 
-> [    0.000000] clocksource: 32k_counter: mask: 0xffffffff max_cycles: 0xffffffff
-> , max_idle_ns: 58327039986419 ns                                                
-> [    0.000030] sched_clock: 32 bits at 33kHz, resolution 30517ns, wraps every 65
-> 535999984741ns                                                                  
-> [    0.013488] clk: failed to reparent gpt1_fck to omap_32k_fck: -22            
-> [    0.019805] Failed to initialize '/ocp@68000000/target-module@48318000/timer@
-> 0': -19                                                                         
-> 
+Implement the cpc_read_ffh_fb_ctrs() hook to read both CSR counters
+back-to-back in a single IPI, which narrows the sampling window to a
+few instructions and halves the number of cross-CPU calls. This
+improves the accuracy of the reported frequency in the same way as
+the arm64 implementation of the hook, which reads both AMU counters
+in a single counters_read_on_cpu() call.
 
-created a backrace with that -EINVAL:
-[    0.030975]  clk_fetch_parent_index from clk_core_set_parent_nolock+0x7c/0x18
-[    0.031005]  clk_core_set_parent_nolock from clk_set_parent+0x6c/0x18c       
-[    0.031036]  clk_set_parent from of_clk_set_defaults+0x304/0x6e8             
-[    0.031066]  of_clk_set_defaults from dmtimer_systimer_setup+0x5c/0x1cc      
-[    0.031127]  dmtimer_systimer_setup from dmtimer_clkevt_init_common+0x78/0x10
-[    0.031158]  dmtimer_clkevt_init_common from dmtimer_clockevent_init+0x80/0x8
-[    0.031188]  dmtimer_clockevent_init from dmtimer_systimer_init+0x114/0x134  
-[    0.031219]  dmtimer_systimer_init from timer_probe+0x68/0xf4                
-[    0.031250]  timer_probe from start_kernel+0x19c/0x370                       
-[    0.031280]  start_kernel from 0x0                                           
+SBI-type FFH registers still fall back to individual reads, since
+pairing them would not reduce the number of SBI calls on the target
+hart.
 
-Maybe something is not ready yet for using indexes instead of names there.
+Testing was performed while CPU1 was kept busy with:
 
-> Regards,
-> Andreas
-> 
-> On Mon, 27 Jul 2026 09:41:39 +0200
-> Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com> wrote:
-> 
-> > This commit aims to solve an issue I've been describing a few months ago
-> > on AM335x SoC [1]. I believe using the parent_data field of
-> > clk_init_data structure is now the preferred way to convey that data,
-> > and it should be more reliable than string comparisons.
-> > 
-> > [1]: https://lore.kernel.org/all/DI4RUFQNSSNP.2QMSSQWJW9I2O@bootlin.com/
-> > 
-> > Signed-off-by: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
-> > ---
-> > Changes in v2:
-> > - Also use clk_parent_data structure in composite.c.
-> > - Rebase on v7.2-rc5.
-> > - Link to v1: https://lore.kernel.org/r/20260715-mathieu-wdt-clock-theo-v1-1-da65bba1828b@bootlin.com
-> > 
-> > ---
-> > Mathieu Dubois-Briand (2):
-> >       clk: ti: mux: resolve parent clocks by DT index, not by name
-> >       clk: ti: composite: resolve parent clocks by DT index, not by name
-> > 
-> >  drivers/clk/ti/composite.c | 26 ++++++++++++++------------
-> >  drivers/clk/ti/mux.c       | 20 +++++++++++---------
-> >  2 files changed, 25 insertions(+), 21 deletions(-)
-> > ---
-> > base-commit: f5098b6bae761e346ebcd9da7f95622c04733cff
-> > change-id: 20260713-mathieu-wdt-clock-theo-f0c5ba58e258
-> > 
-> > Best regards,  
-> 
-> 
-> 
+  # stress-ng --cpu 1 --taskset 1
 
+On a CPU with cpuinfo_max_freq of 3000000 kHz:
+
+Before:
+
+  Maximum observed cpuinfo_cur_freq: 3201369 kHz
+  Maximum observed error:            +201369 kHz (+6.71%)
+
+After:
+
+  Maximum observed cpuinfo_cur_freq: 3009646 kHz
+  Maximum observed error:              +9646 kHz (+0.32%)
+
+The maximum observed error is reduced by 95.2%.
+
+Signed-off-by: Yufan Dou <douyufan@picoheart.com>
+---
+ drivers/acpi/riscv/cppc.c | 47 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
+
+diff --git a/drivers/acpi/riscv/cppc.c b/drivers/acpi/riscv/cppc.c
+index 42c1a9052470..2ca98fa69e9a 100644
+--- a/drivers/acpi/riscv/cppc.c
++++ b/drivers/acpi/riscv/cppc.c
+@@ -85,6 +85,20 @@ static void cppc_ffh_csr_write(void *write_data)
+ 	data->ret.error = -EINVAL;
+ }
+ 
++struct sbi_cppc_fb_ctrs_data {
++	struct sbi_cppc_data first;
++	struct sbi_cppc_data second;
++};
++
++static void cppc_ffh_csr_read_fb_ctrs(void *read_data)
++{
++	struct sbi_cppc_fb_ctrs_data *data = read_data;
++
++	cppc_ffh_csr_read(&data->first);
++	if (!data->first.ret.error)
++		cppc_ffh_csr_read(&data->second);
++}
++
+ /*
+  * Refer to drivers/acpi/cppc_acpi.c for the description of the functions
+  * below.
+@@ -125,6 +139,39 @@ int cpc_read_ffh(int cpu, struct cpc_reg *reg, u64 *val)
+ 	return -EINVAL;
+ }
+ 
++int cpc_read_ffh_fb_ctrs(int cpu, struct cpc_reg *reg1, u64 *val1,
++			 struct cpc_reg *reg2, u64 *val2)
++{
++	struct sbi_cppc_fb_ctrs_data data;
++	int ret;
++
++	if (WARN_ON_ONCE(irqs_disabled()))
++		return -EPERM;
++
++	/* Only CSR counters can be paired within a single IPI. */
++	if (FFH_CPPC_TYPE(reg1->address) != FFH_CPPC_CSR ||
++	    FFH_CPPC_TYPE(reg2->address) != FFH_CPPC_CSR)
++		return -EOPNOTSUPP;
++
++	data.first.reg = FFH_CPPC_CSR_NUM(reg1->address);
++	data.second.reg = FFH_CPPC_CSR_NUM(reg2->address);
++
++	ret = smp_call_function_single(cpu, cppc_ffh_csr_read_fb_ctrs,
++				       &data, 1);
++	if (ret)
++		return ret;
++
++	if (data.first.ret.error)
++		return data.first.ret.error;
++	if (data.second.ret.error)
++		return data.second.ret.error;
++
++	*val1 = data.first.ret.value;
++	*val2 = data.second.ret.value;
++
++	return 0;
++}
++
+ int cpc_write_ffh(int cpu, struct cpc_reg *reg, u64 val)
+ {
+ 	struct sbi_cppc_data data;
+
+base-commit: 89a312991dc6e638a36adc43ccb91dbc25504c04
+-- 
+2.34.1
