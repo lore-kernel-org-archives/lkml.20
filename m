@@ -1,165 +1,126 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE0F848C405
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:51:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788353480; cv=none; b=WDe5SjX9OWmYa9Nss1YAThFYAgAuEVsQJNIvR3kfQ+E2v52ka8Hy6Pyyij3LtmpXGk01K4ZpehM/gVfxnR3kD66PxUs7//oPRebl1219SquMI6duzSX/zgjPyrJRQmFwnnBrwqAg3nAA4W8uCKX4jIhmpuxEsMW6LlQlcbauKxw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788353480; c=relaxed/simple;
-	bh=W4D7/W2k+BSdwJB8CAQRLqP+yRKUwspIb60rY3Piwq4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=O5JIwtt0QD9o4uliLatvL2NdT3Tuc8zPIWfFH9SRacJnfClWP3+Myy9QCSsJ4h6lLT69C1J61aXxfYmZXjjJurttRaktOmcK9WvtNKPp6ZB5mEISMMpT/YZxGstU0DIA+2DP3AIOXRg09fYn8LYH0O+vNspWDIlhUOn6Wn3lVp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IeCQpOtD; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFCB49483B
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:51:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788353486; cv=pass; b=ZWvWzpVh0HmK9hBMu7fFswb2lldmuDnJ7qTAto2uVrAVpLcdzpkPxfGNF6dXovLY+Eu9ooNGTGOyjZDaWb3mLl798sTlXG3R+p9rQYGJESI/Cbj9ieVvtOfMFvitgE9OoQaOdfzLGqPniZ5PWfgCb3ha34LoW+nXqKjtJbhilkw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788353486; c=relaxed/simple;
+	bh=K+swk/Ji08AFq0DopEKTbabw+5YxSqNaLFc8HIYssWA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=a8Qhyh1OG0W/F/uhCG4IbiEj6Z38o7St9Ju+3k3KXAc361Vjs35+SwNm8FZBNe0GrqmEhMseqlz4OHRTitmSidAJxl0Vb8NkwQXbAbntki74AFN4/PJEYx1XBR1kZYQsYg+3CW7I89TCpiQkjUJiecafnOS3zXtHPvY0rpHBogc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=LIbh+SCH; arc=pass smtp.client-ip=209.85.128.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fireburn.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IeCQpOtD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788353477;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=3oN8zgeumJ1UNLlIK4k6dgXD1250gt/Lp6ENGOeDJvg=;
-	b=IeCQpOtDxKyR+LGn/CIi3LYc/VMzuugmbVTvYsvGRvoPk20u/nby5AHPJwrZB1ftw2EpZk
-	8iQnF6qgW0Bc9kSYOGO/KlrOAiD1bEn6/4YK9cQmoEMi6yzAeHWC8rfBHihoE3TwIQT+YH
-	VBMtArCKplRotn9Xq+Dt37/9hrhwKXA=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-680-NaH4OXWeNWGM2c64l3jraA-1; Wed,
- 02 Sept 2026 08:51:14 -0400
-X-MC-Unique: NaH4OXWeNWGM2c64l3jraA-1
-X-Mimecast-MFC-AGG-ID: NaH4OXWeNWGM2c64l3jraA_1788353472
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id F26261933E82;
-	Wed,  2 Sep 2026 12:51:11 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.158])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id B5F927E5;
-	Wed,  2 Sep 2026 12:51:07 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Al Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <christian@brauner.io>
-Cc: David Howells <dhowells@redhat.com>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Jeffrey Altman <jaltman@auristor.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	linux-afs@lists.infradead.org,
-	openafs-devel@openafs.org,
-	linux-cifs@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 0/2] vfs, afs, bash: Fix miscomparison of foreign user IDs in the VFS
-Date: Wed,  2 Sep 2026 13:50:49 +0100
-Message-ID: <20260902125054.3380685-1-dhowells@redhat.com>
+	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="LIbh+SCH"
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8565d77c277so14066107b3.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:51:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788353483; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MT1hqieT/p0eTvcyogDTy6pY7ABpNWf1W6xb0B0JewEqfs8vN3GR/LnB4HLfGUh1ej
+         AC6bGjNS3syKef0DoEKpUFdg/xxvuaHHc0hJHaEoEwDJvsitnjSUNT4GX3dW0IEClg+m
+         chZPEKb6f+G5YHA0YqLR4rwX/4O+DMLm4l/gV7r2C1V04DBcs0tVYLi59fzXkAR/IpSh
+         zbh9Vn9lrdfE+kznzNYL3e/xM9ywjI3X4NCtVJfohnbUONh0eJc6om6dvozDl2aV73Lz
+         wSy3jYzz6uA/0cC99m0Yjk4MXaqZHnm1/XnfchFrLKGTkMSbwvHDsUDrNcqWqAR6rEPO
+         sdAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=aoJYi83K5jDu2HW69kc7UQzbMHQ0VncPovaw06vhQ9Q=;
+        fh=WVfYjTsygc6AawGWkh6UO94PYMhGHCBled8rpaYLVxk=;
+        b=SigkYqXJVIzVuA4eG6DlFCsgHyfrx1R1YaKHA+3ciHnJFmIBENQ6j75M2Fu5zCyw7l
+         SF2oeWrKRkBlGFzpkMNdgDDdM5l18FCuj0D959ZMulWL9K/3DA7cWiNAiRrcpOpuBPZV
+         Syha+OhCr7wQbNLUStvCHY/2lEfDhVDht30mHRMC8HvcFWcXSqHaMFdGDp0/b1WGRgBP
+         odHC7wDdXsL69Ixv1US6SZcD00HG5051W1V4DtkqzYqWG9bRd92FAZy7/6rHUcdjdwPR
+         +GtZzJudpIYksjE4tqtMZXQXocePy6PdfrNW2nQhUUcBsGrAV/ubONY4uphV5ajX4JD5
+         ItKg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1788353483; x=1788958283; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aoJYi83K5jDu2HW69kc7UQzbMHQ0VncPovaw06vhQ9Q=;
+        b=LIbh+SCHe7Kztt3Gfwy6XNZRmIF5lVKD4PG+iataVenLJfPDr5z03HhSI04Wr/bCJc
+         0t3oxvLMaIZz7StbZVoROXT8P5QTA3rwm2GBXopaD1kSBeMGO8U17Aoy9uyPoTwKkCAf
+         B4TBje2UUyztxGNpX6C/Zqp0tNxZ75sQdk/uoC3w6GEf/5ASeSuhypVYMKlAvx1nOwsc
+         lE3EQ5kYgnBYsxv6TQpTaH9T5LqSE9Ul+iF2ULn83JDY4S9hdJZ9lRaYRX8me7Q4cvp+
+         1j7uTyDSFs6tJs9F+gFRm8p6WGpiuUZm8VNbeiGPHnvA9xfDKnvJ1CvKtUzhTES6r3OP
+         /Htg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788353483; x=1788958283;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=aoJYi83K5jDu2HW69kc7UQzbMHQ0VncPovaw06vhQ9Q=;
+        b=PARQ5OaGhAWBnIYEsV9oJzPqL+yp0phPfe+eoLSogHQi/f2QoMyrY42gMm4wMJwups
+         IGSj7IZCZv5Bf9K3Q9QXZglrdgYpobTqvcvL7IJPQDxH16ubmW24UptTZuCpTcWYC4NB
+         jPJyt4Rf64HcxcB4R/DE4ywodROGRW0B9fnf8r6KroVsmFmw08VT997CVHQnQ/Pj8cj3
+         8KmW+2kaCteZ/OyAGJdqlaLQGHtvIK5ZE6sBLebakZwVa3JBe/FPQ8BjMd8Whcu/kf53
+         nZUJVvPlUCp/RopcSVrfQ7+IOU7nvqCCM+4I4nhPhmHtHqHEtiLCdN0zAYgSpFoIdYG7
+         X9Vw==
+X-Forwarded-Encrypted: i=1; AKwUvBwAqilmFf8n+q4ElzVUfbR9gUrbV8BaiSlYXLquTVvS3PB9R8f3CgLksYP/fdtlmtOEUztEFX8mDraKDB8=@vger.kernel.org
+X-Gm-Message-State: AFuF++ki+Sqiw0/MolYvs89VWzt47D/kVbSqbCLfK6NZFiBFIRNxxpNX
+	Kh9pCYXqhHDy4g49DePj1h/JcJOqVvFR+0aXqsDw6Fdh5WRSbrFal708NC+1/dSjETXQ+JhhD2X
+	7YXNuPKn13jvPHLDR21u6iCvzwVtkrXv9BSOZv7WP
+X-Gm-Gg: AYBFou2NLwX+rEcDTom3uYaOiAM2FknD5qk7lH4C/+ODNunRmdqgx19Ok4aYrbsbNec
+	hZ48zqp49i5CdyleRQ3EZDEoe/PYtw0raKSGon2LFLjPmW3ICQ8AifbkcMP7fY0j5W6OCwXySMe
+	tbfBL0AtIftoEXKp8QNjaBBUQE1/4fphCP0JMb4nw0tsUZnEhSeNKPyJ3Bd2xfUbcQYQTUbMP1e
+	uk0nBP7jInTyC8+Y+joxV7ramjwJg0BElLOkcf1nPNuqjtVrBL0R5kOJVXA/lFnUAo1Iu8T5dCO
+	xgZSzHL9bhiDS4aco/tZFh6qAgHc4cFoVWj/5QprgGVOAK1nDIdLiRilSdC8ngDTRhpZ28FfjOo
+	0oGXtOuyfQc48rkvpo9vKxeh5Pzx72F6k8No=
+X-Received: by 2002:a53:ad4e:0:b0:66c:c638:8e88 with SMTP id
+ 956f58d0204a3-66f9b8b0f42mr1278753d50.2.1788353482983; Wed, 02 Sep 2026
+ 05:51:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+References: <20260826163004.3365-1-mike@fireburn.co.uk> <20260826163004.3365-2-mike@fireburn.co.uk>
+ <20260826220918.GB3382628@google.com> <CAHbf0-H-nZzg=kGkN-yrUdfUUrruyN0x2inQjhXxOy4RAauDOg@mail.gmail.com>
+ <20260831170546.GA239479@google.com>
+In-Reply-To: <20260831170546.GA239479@google.com>
+From: Mike Lothian <mike@fireburn.co.uk>
+Date: Wed, 2 Sep 2026 13:51:11 +0100
+X-Gm-Features: AcwNN1UyIQqRoEjaX8v-C9V9M526WfqSWSvyF5UWK9e5ESZpZjZxqm_sdht5to4
+Message-ID: <CAHbf0-H5pVMz=Vk55K2mNHiA+cYL5Sg3i8aqmqtPR5tYOMjsCA@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] rust: crypto: add AES-128, AES-CMAC, SHA-256, and
+ HMAC bindings
+To: ebiggers@kernel.org, linux-crypto@vger.kernel.org
+Cc: ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net, 
+	bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, 
+	aliceryhl@google.com, tmgross@umich.edu, dakr@kernel.org, 
+	daniel.almeida@collabora.com, tamird@kernel.org, acourbot@nvidia.com, 
+	work@onurozkan.dev, lyude@redhat.com, gregkh@linuxfoundation.org, 
+	lina+kernel@asahilina.net, mmaurer@google.com, ljs@kernel.org, 
+	joelagnelf@nvidia.com, bqe@google.com, linux-kernel@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Al, Christian,
+On Mon, 31 Aug 2026, Eric Biggers wrote:
+> I'm not currently planning to make the crypto library expose AES
+> functions that take raw keys, since computing the AES round keys is
+> fairly slow and most users use their AES keys multiple times.  So in
+> this case I guess keep planning to use the sequence that is already
+> supported: aes_prepareenckey() + aes_encrypt() + memzero_explicit().
+> For CTR mode, use aes_prepareenckey() + aes_ctr() + memzero_explicit().
 
-Here's a pair of fixes that deal with some places the VFS mishandles
-foreign user ID checks.  By "foreign" I mean that the user IDs from the
-filesystem do not belong in the same number space as the system's user IDs.
-Network filesystems are prime examples of this, but it may also impact
-things like USB drives or cdroms.
+I'll drop the rest of the AES from this patch and leave the one
+remaining caller, the HDCP 2.2 dKey derivation, a single ECB block on
+aes_prepareenckey() + aes_encrypt() + memzero_explicit()
 
-Take AFS as example: Whilst each file does have a numeric user ID, the file
-may be accessed from a world-accessible public-facing server from some
-other organisation with its own idea of what that user ID refers to.  IDs
-from AFS may also collide with the system's own set of IDs and may also be
-unrepresentable as a 32-bit UID (in the case of AuriStor servers).
+> But if you're using either key multiple times you should call
+> aes_prepareenckey() just once and cache the result, as that is what it
+> is for.
 
-Further, kAFS uses a key containing an authentication token to specify the
-subject doing an RPC operation to the server - and, as such, this needs to
-be used instead of current_fsuid() in determining whether the current user
-has ownership rights over a file.
 
-Additionally, filesystems (CIFS being a notable example) may also have user
-identifiers that aren't simple integers.
+Thanks for the review.
 
-Now the problem in the VFS is that there are a number of places where it
-assumes it can directly compare i_uid (possibly id-mapped) to either than
-on another inode or a UID drawn from elsewhere (e.g. current_uid()) - but
-this doesn't work right.
 
-This causes the write-to-sticky check to work incorrectly for AFS (though
-this is currently masked by a workaround in bash that has now been removed
-as of bash-5.3) whereby open(O_CREAT) of such a file will fail when it
-shouldn't.
-
-Two patches are provided:
-
- (1) Add a pair of inode operations, one to compare the ownership of a pair
-     of inodes and the other to see if the current process has ownership
-     rights over an inode with an IOP flag to control access to them.
-
-     Usage of this is then extended out into the VFS, replacing comparisons
-     between i_uid and i_uid and between i_uid and current_fsuid().  The
-     default, it the inode ops are unimplemented, is to do those direct i_uid
-     comparisons.
-
- (2) Fixes the bash workaround issue with regard to AFS, overriding the
-     checks as to whether two inodes have the same owner and the check as
-     to whether the current user owns an inode to work within the AFS
-     model.
-
-kAFS uses the result of a status-fetch with a suitable key to determine
-file ownership (if the ADMINISTER bit is set) and just compares the 64-bit
-owner IDs to determine if two inodes have the same ownership.
-
-Note that chown may also need modifying in some way - but the system call as
-it stands can't necessarily supply the information required (for instance, an
-AuriStor YFS ID is 64 bits, but chown can only handle a 32-bit integer; CIFS
-might use a GUID).
-
-The patches can be found here:
-
-	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=afs-sticky-2
-
-Thanks,
-David
-
-Changes
-=======
-ver #4)
-- Rebased on v7.3-rc1.
-
-ver #3)
-- Fixed afs patch to provide ops for afs symlinks too.
-
-ver #2)
-- Rebased on v7.2-rc4.
-- Added an IOP_ flag for a faster check of whether the new inode ops are
-  supported.
-
-David Howells (2):
-  vfs: Allow filesystems with foreign owner IDs to override UID checks
-  afs, bash: Fix open(O_CREAT) on an extant AFS file in a sticky dir
-
- Documentation/filesystems/vfs.rst |  21 ++++
- fs/afs/dir.c                      |   2 +
- fs/afs/file.c                     |   2 +
- fs/afs/inode.c                    |   1 +
- fs/afs/internal.h                 |   3 +
- fs/afs/security.c                 |  46 +++++++++
- fs/afs/symlink.c                  |   2 +
- fs/attr.c                         |  58 ++++++-----
- fs/coredump.c                     |   2 +-
- fs/inode.c                        |  11 +-
- fs/internal.h                     |   1 +
- fs/locks.c                        |   7 +-
- fs/namei.c                        | 161 ++++++++++++++++++++++++------
- fs/remap_range.c                  |  20 ++--
- include/linux/fs.h                |   7 +-
- 15 files changed, 273 insertions(+), 71 deletions(-)
-
+Mike
