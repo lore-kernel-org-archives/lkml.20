@@ -1,68 +1,68 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2F747A873
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BCAB476040
 	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:42:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788349352; cv=none; b=IXIiUVMlo51m1+oPwtBWIj33pKZs1gJmhNoTI5XgeO9O7Fbp9f+ZZ6QxjZUgDx6mxmfAZVIA8yyyrY9HhqlxxN/Z0wOS5E6nwlsQiep1mlQQpYJylrZHI2sctLkHWg+y/6in1CTfCYsn2dyS/A8QKuQLE0AZt15aIk0OGshCAyo=
+	t=1788349351; cv=none; b=gvqNJaYPAGoUlTMsB75Pumd80ZFTIpuNm9XYm2alR77Fj5riGJhrS+4Re6ol8HPtwqbDy7Cc6s1WzDQBw/vamJmHPeAhglqra67jcxN3N0UzB7xHJcBVfzB8fsU696ueN80D3d7iXwFs+E6rJ8T74ksHwQMvhUv/zDrpkiGOdZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788349352; c=relaxed/simple;
-	bh=NfyudVlM1yxKj5OTCD08HZwEQLKw64XdIbJ0S9NfQl4=;
+	s=arc-20240116; t=1788349351; c=relaxed/simple;
+	bh=0YfZ6I8/xNI370aVrOszFzEznLcSoEqSHveLG9FC+Xk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Kc1+11sx76XQltvCdFKA9KOmSd62xm4hcdjdmnCUIxxuqkH7Qp6nGAnkyIOfytQX2lls8QlvdsvrJdSZRAv2Iaqk5IsVxVqN/Im8WgO9FBxFWLVj9IQ1MK0MHeyNtTHqmAy36EsjHEgfsYzEUhuej8xhxKZw5DNLvLUqog0WpJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K5jz9n29; arc=none smtp.client-ip=209.85.128.51
+	 In-Reply-To:To:Cc; b=ScFhzygfOiFGCL7yYJkpj3X/AHFNBSnytpN2/+/abFuYtCVa4ArqYbGEIIdkATS4kUq85c3pc+nhCjm+hmTb5TzRRJaJbynIuSzhgRvjTql8PXRF3P/II8t64bYq1T0r9YALySVaUbEg1GQfeGn6sx3lLPd/TWakgbBh7bRTSYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b82Tp/lX; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K5jz9n29"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso9881705e9.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b82Tp/lX"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4957eefd361so6249115e9.1
         for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:42:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788349348; x=1788954148; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788349347; x=1788954147; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XyxU90qE2pDTOzsNo7+C4R6hGdb1tidiljFavckLhOQ=;
-        b=K5jz9n29INtUEqSS97sa3DSNz0S+sH9cInbVshmil0CJISCe23pU1Bqa24wrEwqNMS
-         8Pqp3FGKaZDtBpeutCkOwwtKp1N3VTwi1ySWYyn0mkX5es8udaV342fh7XdknDV7AX+y
-         pKhjGPf6/ZD7DlGtMoV0tkLdTl1XP0zd+fjfP5NKhpwG9jqnqGSzp6enD6qVCdMbGg7P
-         SoyIqiaNT/65fHl2K1xH2m9+3s8+5lEZp3g4bOhkK3Qlnhgt2vNcblCfJE0tTOWmCoMQ
-         2ngms8q61LXHyVxaL+yAd5yAl16j5W28NLiBWm0iWQpMHspDb/Aoc63rWcyDbpYVVPhL
-         Cxzw==
+        bh=tNaIMy3FNUffxv5Y47n7ZPK6WMtaZg+3IuJCsW/mzGY=;
+        b=b82Tp/lXgLcznDS/HjsGDU9Ko3ygh7w+HD6ig7ZkW3bSxsxEC5an7kiqeMe5fCAuJk
+         JDLO3Nc22yKib636FvVlsvCINHY21o9Lbgkjj2EvCdc6U6rnEEhbCoB881DotVDXQs9c
+         vju5q+98sWloz6OnU7WdCdgfICUK5Mx89s7y1dERG3dt7JQCzMCt3ge/uoaRz0BJlhVw
+         NINOyzqZRQbexTYKtVfzgqbFEBEAzJzQuNkg5IrfPMFPx2jGLil0h3H7KR9wbwYAjWtz
+         0+uEiXvz04WsF91rPrdCsG2JfdImmIWq4X82yf42sylNx1osT8hewEbbc0vHcc7qRZEi
+         cq8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788349348; x=1788954148;
+        d=1e100.net; s=20251104; t=1788349347; x=1788954147;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XyxU90qE2pDTOzsNo7+C4R6hGdb1tidiljFavckLhOQ=;
-        b=f8JDm2B4fg5Gq6Wp5aab/oW2VxNgL7RybStIw/0TCBqrKv5yoMl/qraVW6vmSGCZPB
-         z3ulYOBKyuqe8QrxVphfci5mGgbDuPkJDCmu3xKG8h0Eh0W1tgp6+Vyn574+8YcJk5Ah
-         54KzgJ6Zt3GWnnDs0EA2ee636rTgGnltI9gyNo6EOyHKn4/ElmWwDH/1ikuI0+eZdDji
-         E9jwkethRYQTkR6YdkAQv40MYDinSCa6je8ndmYd849+D0MrIKBEPwtcKNE2yxqjEJuM
-         CzQduxBULVpjXP7gtEcF9zpB0lhRMfBDfrtjec63sUo1BWTcQhUN8g6HLnNU+JDALoQD
-         IJ5Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqITunrt8+iwDanxsLWr8MCxisp/VlHc8d52m/rx8REMRVZh8KPTEmyJZfc/gn0YFze8WwDcDlHyqX60Es=@vger.kernel.org
-X-Gm-Message-State: AFuF++lZMVDT2deK4SelThZDas23ux6Ud6DwOOdQhjFkx7pqv3HewwRa
-	Ar4oQqnNLxTeUiZ9PsAyq6SkA0K1I4lcAHbAx93+/JPQMbkAMvtkY2UH
-X-Gm-Gg: AR+sD11i9tuGw9t1hEZA1SWIkV5q3unIb8so6SYYpiR4xh9NLJ2jUYAKn2ONjgrWs7a
-	Gl+mzmz8hcSEi+i/8xIDBmpBZXuwABoxfaPRvpH4Hkj24ZEKy8XVVO6PmK0dHZB4BhqTg8buiU1
-	9OXfl1OjIOIauwY7vSBf4HkMS33g45UZfl/mKfCPX2CU2LoNOa5sBDqJRorzXN1/ZIE1rMZNfS2
-	VM+q/7XVQJk8b1BBO4saFz0Z9dOYqouaijdNi7KrgKxmsFBnuPKfpQHOpAbn+uJHo7hKp2d2+BF
-	HFcN5H1r6GABloqYPNLReV2IzigS05fP8y0HjoN1E1jw3oW0K2jQcTdv+uJiR8NCvpu1ni8Z6Cp
-	VeZj8EoW6Ko1vWUVLSZ7mBNZ9IQMdS23fvYJJeZHVOnG1IIVEU7G7MycY1dllFvnqKUbvYcOlIh
-	6rAtCgmCet6GUok/MNhsaUv5WnGYaGd3fP6ITRP9X6gSooYzIqvAVczwNxCHJBvIACpVE719X/0
-	Ddnwchc5Viv0mcfCj1F/e2zB6KiL8Q1hrQm7G3EKoqwbJc9rvGpL+kkBRJ7nPo=
-X-Received: by 2002:a05:600c:4e86:b0:49a:77c1:d246 with SMTP id 5b1f17b1804b1-49ce5852589mr70729315e9.15.1788349347944;
-        Wed, 02 Sep 2026 04:42:27 -0700 (PDT)
+        bh=tNaIMy3FNUffxv5Y47n7ZPK6WMtaZg+3IuJCsW/mzGY=;
+        b=UPEp7mEjHF8qu1kzSwbiRTQCnGBmhysjMpCpXQeop7gmPkivYZsH2mI1TyLpZSPFvt
+         n8AQ5/N8gbMmLHGivcpqVr7aJJTrRQuPf30+sOotuIwJDl0osU0EZJA2iHVnpH9x4B3e
+         tj/NtN1PhIT8gMRMYK1Y2wn2tGPRUOATXA6+ty6FQyXX+ekefl5s5VdzM8rKdNuFLMKb
+         wwTdanqfCI9TrDC1r6/zs31Dx0FNkMiMTgeqop4JY3mHQwQNTS1vKG8VVNiG/Ym1M/fy
+         PigGrtSlFdbMigKDjN5ZRfbXmwKhxUzqO4meHFLoj3BTMz7ejRhjwd3okQ2Qc91pnubm
+         e7OQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoHnW2DUYaJbUSlfxFu6RBxlGLvQ9Ff9Yk7Ixxlm8wn9+j6uUu1ULawz2cZ5aLLq7vdzV+Nx7cmvWTmj80=@vger.kernel.org
+X-Gm-Message-State: AFuF++m73St/7qSdAHE3UydE9oF2YWTDarjNFJ5X03VUEVqfRSEP35ms
+	+uXUbYis1WYJ8TWfFK+dMjm4A4+T/iVMlv6HVmE66Fz34S1c5WAeC47b
+X-Gm-Gg: AR+sD13gXdr2lnWmyzR4vrI7rLB9bTBFWzybqQxTr3buBHeT8y0N6jHzEMSzMIyOw3J
+	hBRL4eybjzw7bdvDeoXemrgAIZmkEGK+Wle9weHa055vtLJUDQky9R57QWP7T0UQCgQY9CTJlLU
+	rGJ7qbAycF+jddIVmgnXBNvBrZOZ9NvRSXLQMdWXF+2l2WbWyHNYhBNlVhY8xHQ7ZCk9IrkwCDg
+	knk6BZ+GdMwDNubTQMgyw89b9wwK3FpmZ4E2aGKS0QJl3MN04VCNYr8Cset2TUKr8VOsuJmnEGy
+	P3d0OoGkBASoF/jqNLIkFStMrcNpqyGnNXr5Hm2kWlfH2MclhnigXXSfWzHIZIRmjRXKjKHv7su
+	JFa28Bw5gU+5euTfqT+w/cfEfq/r2UQdwyDgTlFX11VhQZRgJrkQtxI0sFpeTFEwPkvrsN/xR8T
+	brICbuZHm57RlaGZaaf3+UQAQ/Pc9vUpKE74HzmRbTH0OoV5dXd/cslDTQOtPiidhuW4LIMy1Zm
+	sythGEkCI5fQkqMvifCMDDHy7fwGvOelhy8G3rbVnZ0GAIsGyseYvID6myKsso=
+X-Received: by 2002:a05:600c:3f08:b0:49c:e1ed:26b1 with SMTP id 5b1f17b1804b1-49ce5850cefmr77892325e9.16.1788349346888;
+        Wed, 02 Sep 2026 04:42:26 -0700 (PDT)
 Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5952560sm40390935e9.3.2026.09.02.04.42.26
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5952560sm40390935e9.3.2026.09.02.04.42.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 04:42:27 -0700 (PDT)
+        Wed, 02 Sep 2026 04:42:26 -0700 (PDT)
 From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Date: Wed, 02 Sep 2026 13:41:40 +0200
-Subject: [PATCH RFC 2/2] of: property: fw_devlink: Follow PWM nexus maps
+Date: Wed, 02 Sep 2026 13:41:39 +0200
+Subject: [PATCH RFC 1/2] of: property: fw_devlink: Follow GPIO nexus maps
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-fw-devlink-nexus-ready-v1-2-68fe1996e78a@toradex.com>
+Message-Id: <20260902-fw-devlink-nexus-ready-v1-1-68fe1996e78a@toradex.com>
 References: <20260902-fw-devlink-nexus-ready-v1-0-68fe1996e78a@toradex.com>
 In-Reply-To: <20260902-fw-devlink-nexus-ready-v1-0-68fe1996e78a@toradex.com>
 To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
@@ -93,132 +93,256 @@ X-Mailer: b4 0.13.0
 
 From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
-PWM consumers use of_parse_phandle_with_args_map() to resolve specifiers
-through pwm-map properties. fw_devlink instead parses the pwms property as
-a direct phandle reference, so it records the nexus node as the supplier
-rather than the mapped PWM provider.
+GPIO consumers use of_parse_phandle_with_args_map() to resolve specifiers
+through gpio-map properties. fw_devlink instead parses GPIO properties as
+direct phandle references, so it records the nexus node as the supplier
+rather than the mapped GPIO provider.
 
-A nexus is a translation node, not the PWM provider, and need not be
+A nexus is a translation node, not the GPIO provider, and need not be
 populated as a device. The resulting fwnode link can therefore remain
 unresolved and indefinitely defer the consumer while
 device_links_check_suppliers() waits for the nexus.
 
-Use the map-aware parser for pwms so fw_devlink resolves the same provider
-as the PWM consumer API. Direct PWM references continue to work because the
-map-aware parser returns the original provider when no pwm-map property is
-present.
+Use the map-aware parser for all supported GPIO property spellings. This
+makes fw_devlink resolve the same provider as the GPIO consumer API. Direct
+GPIO references continue to work because the map-aware parser returns the
+original provider when no gpio-map property is present.
 
-Add OF unittest coverage for mapped and direct PWM suppliers.
+Add OF unittest coverage for mapped and direct GPIO suppliers, including
+the deprecated singular and unprefixed property spellings.
 
-Fixes: e71e46a6f19c ("pwm: Add support for pwm nexus dt bindings")
+Fixes: 7f00be96f125 ("of: property: Add device link support for interrupt-parent, dmas and -gpio(s)")
 Reported-by: Leonardo Costa <leonardo.costa@toradex.com>
 Link: https://lore.kernel.org/all/juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4jbauradujrre@gc5nbdhhixaf/
 Tested-by: Leonardo Costa <leonardo.costa@toradex.com>
 Cc: stable@vger.kernel.org
 Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 ---
- drivers/of/property.c                       | 11 ++++++++++-
- drivers/of/unittest-data/tests-phandle.dtsi | 16 ++++++++++++++++
- drivers/of/unittest.c                       |  4 ++++
- 3 files changed, 30 insertions(+), 1 deletion(-)
+ drivers/of/property.c                       | 38 +++++++++++-----
+ drivers/of/unittest-data/tests-phandle.dtsi | 33 ++++++++++++++
+ drivers/of/unittest.c                       | 67 +++++++++++++++++++++++++++++
+ 3 files changed, 128 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/of/property.c b/drivers/of/property.c
-index 380df0861ab9..d5e89beb17f9 100644
+index 72cf12907de0..380df0861ab9 100644
 --- a/drivers/of/property.c
 +++ b/drivers/of/property.c
-@@ -1331,6 +1331,15 @@ static struct device_node *parse_##fname(struct device_node *np,	  \
- 	return parse_prop_cells(np, prop_name, index, name, cells);	  \
+@@ -1311,6 +1311,19 @@ static struct device_node *parse_prop_cells(struct device_node *np,
+ 	return sup_args.np;
  }
  
-+#define DEFINE_SIMPLE_NEXUS_PROP(fname, name, stem)			  \
-+static struct device_node *parse_##fname(struct device_node *np,	  \
-+					const char *prop_name, int index) \
-+{									  \
-+	if (strcmp(prop_name, name))					  \
-+		return NULL;						  \
-+	return parse_nexus_prop(np, prop_name, index, stem);		  \
++static struct device_node *parse_nexus_prop(struct device_node *np,
++					    const char *prop_name, int index,
++					    const char *stem_name)
++{
++	struct of_phandle_args sup_args;
++
++	if (of_parse_phandle_with_args_map(np, prop_name, stem_name, index,
++					   &sup_args))
++		return NULL;
++
++	return sup_args.np;
++}
++
+ #define DEFINE_SIMPLE_PROP(fname, name, cells)				  \
+ static struct device_node *parse_##fname(struct device_node *np,	  \
+ 					const char *prop_name, int index) \
+@@ -1361,6 +1374,15 @@ static struct device_node *parse_##fname(struct device_node *np,	     \
+ 	return parse_suffix_prop_cells(np, prop_name, index, suffix, cells); \
+ }
+ 
++#define DEFINE_SUFFIX_NEXUS_PROP(fname, suffix, stem)			     \
++static struct device_node *parse_##fname(struct device_node *np,	     \
++					const char *prop_name, int index)    \
++{									     \
++	if (!strends(prop_name, suffix))				     \
++		return NULL;						     \
++	return parse_nexus_prop(np, prop_name, index, stem);		     \
 +}
 +
  /**
-  * parse_suffix_prop_cells - Suffix property parsing function for suppliers
+  * struct supplier_bindings - Property parsing functions for suppliers
   *
-@@ -1426,7 +1435,6 @@ DEFINE_SIMPLE_PROP(extcon, "extcon", NULL)
- DEFINE_SIMPLE_PROP(nvmem_cells, "nvmem-cells", "#nvmem-cell-cells")
- DEFINE_SIMPLE_PROP(phys, "phys", "#phy-cells")
- DEFINE_SIMPLE_PROP(wakeup_parent, "wakeup-parent", NULL)
--DEFINE_SIMPLE_PROP(pwms, "pwms", "#pwm-cells")
- DEFINE_SIMPLE_PROP(resets, "resets", "#reset-cells")
- DEFINE_SIMPLE_PROP(leds, "leds", NULL)
- DEFINE_SIMPLE_PROP(backlight, "backlight", NULL)
-@@ -1438,6 +1446,7 @@ DEFINE_SIMPLE_PROP(pses, "pses", "#pse-cells")
+@@ -1416,7 +1438,7 @@ DEFINE_SIMPLE_PROP(pses, "pses", "#pse-cells")
  DEFINE_SIMPLE_PROP(power_supplies, "power-supplies", NULL)
  DEFINE_SIMPLE_PROP(mmc_pwrseq, "mmc-pwrseq", NULL)
  DEFINE_SUFFIX_PROP(regulators, "-supply", NULL)
-+DEFINE_SIMPLE_NEXUS_PROP(pwms, "pwms", "pwm")
- DEFINE_SUFFIX_NEXUS_PROP(gpio, "-gpio", "gpio")
+-DEFINE_SUFFIX_PROP(gpio, "-gpio", "#gpio-cells")
++DEFINE_SUFFIX_NEXUS_PROP(gpio, "-gpio", "gpio")
  
  static struct device_node *parse_pinctrl_n(struct device_node *np,
-diff --git a/drivers/of/unittest-data/tests-phandle.dtsi b/drivers/of/unittest-data/tests-phandle.dtsi
-index 163ef07be16d..7cb3e19554b6 100644
---- a/drivers/of/unittest-data/tests-phandle.dtsi
-+++ b/drivers/of/unittest-data/tests-phandle.dtsi
-@@ -85,11 +85,19 @@ gpio_provider: gpio-controller {
- 					#gpio-cells = <2>;
- 				};
+ 					   const char *prop_name, int index)
+@@ -1436,8 +1458,10 @@ static struct device_node *parse_gpios(struct device_node *np,
+ 	if (strends(prop_name, ",nr-gpios"))
+ 		return NULL;
  
-+				pwm_provider: pwm-controller {
-+					#pwm-cells = <3>;
-+				};
+-	return parse_suffix_prop_cells(np, prop_name, index, "-gpios",
+-				       "#gpio-cells");
++	if (!strends(prop_name, "-gpios"))
++		return NULL;
 +
- 				test_nexus: nexus {
- 					#gpio-cells = <2>;
-+					#pwm-cells = <3>;
- 					gpio-map = <0 0 &gpio_provider 1 0>;
- 					gpio-map-mask = <0xffffffff 0>;
- 					gpio-map-pass-thru = <0 0xffffffff>;
-+					pwm-map = <0 0 0 &pwm_provider 1 0 0>;
-+					pwm-map-mask = <0xffffffff 0 0>;
-+					pwm-map-pass-thru = <0 0xffffffff 0xffffffff>;
- 				};
- 
- 				gpio-compat-consumer {
-@@ -111,6 +119,14 @@ gpio-direct-consumer {
- 				gpio-singular-consumer {
- 					test-gpio = <&test_nexus 0 0>;
- 				};
-+
-+				pwm-consumer {
-+					pwms = <&test_nexus 0 1000 0>;
-+				};
-+
-+				pwm-direct-consumer {
-+					pwms = <&pwm_provider 1 1000 0>;
-+				};
- 			};
- 		};
- 	};
-diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-index 487f3b629a73..508ebc7581c8 100644
---- a/drivers/of/unittest.c
-+++ b/drivers/of/unittest.c
-@@ -759,6 +759,7 @@ static void __init of_unittest_fw_devlink_supplier(struct device_node *tests,
- static void __init of_unittest_fw_devlink(void)
- {
- 	const char *gpio_supplier = "gpio-controller";
-+	const char *pwm_supplier = "pwm-controller";
- 	struct device_node *tests;
- 
- 	tests = of_find_node_by_path("/testcase-data/phandle-tests/fw-devlink-tests");
-@@ -773,6 +774,9 @@ static void __init of_unittest_fw_devlink(void)
- 	of_unittest_fw_devlink_supplier(tests, "gpio-direct-consumer", gpio_supplier);
- 	of_unittest_fw_devlink_supplier(tests, "gpio-singular-consumer", gpio_supplier);
- 
-+	of_unittest_fw_devlink_supplier(tests, "pwm-consumer", pwm_supplier);
-+	of_unittest_fw_devlink_supplier(tests, "pwm-direct-consumer", pwm_supplier);
-+
- 	of_node_put(tests);
++	return parse_nexus_prop(np, prop_name, index, "gpio");
  }
  
+ static struct device_node *parse_iommu_maps(struct device_node *np,
+@@ -1452,8 +1476,6 @@ static struct device_node *parse_iommu_maps(struct device_node *np,
+ static struct device_node *parse_gpio_compat(struct device_node *np,
+ 					     const char *prop_name, int index)
+ {
+-	struct of_phandle_args sup_args;
+-
+ 	if (strcmp(prop_name, "gpio") && strcmp(prop_name, "gpios"))
+ 		return NULL;
+ 
+@@ -1464,11 +1486,7 @@ static struct device_node *parse_gpio_compat(struct device_node *np,
+ 	if (of_property_read_bool(np, "gpio-hog"))
+ 		return NULL;
+ 
+-	if (of_parse_phandle_with_args(np, prop_name, "#gpio-cells", index,
+-				       &sup_args))
+-		return NULL;
+-
+-	return sup_args.np;
++	return parse_nexus_prop(np, prop_name, index, "gpio");
+ }
+ 
+ static struct device_node *parse_interrupts(struct device_node *np,
+diff --git a/drivers/of/unittest-data/tests-phandle.dtsi b/drivers/of/unittest-data/tests-phandle.dtsi
+index 554a996b2ef1..163ef07be16d 100644
+--- a/drivers/of/unittest-data/tests-phandle.dtsi
++++ b/drivers/of/unittest-data/tests-phandle.dtsi
+@@ -79,6 +79,39 @@ consumer-b {
+ 				phandle-list-bad-args = <&provider2 1 0>,
+ 							<&provider4 0>;
+ 			};
++
++			fw-devlink-tests {
++				gpio_provider: gpio-controller {
++					#gpio-cells = <2>;
++				};
++
++				test_nexus: nexus {
++					#gpio-cells = <2>;
++					gpio-map = <0 0 &gpio_provider 1 0>;
++					gpio-map-mask = <0xffffffff 0>;
++					gpio-map-pass-thru = <0 0xffffffff>;
++				};
++
++				gpio-compat-consumer {
++					gpios = <&test_nexus 0 0>;
++				};
++
++				gpio-compat-singular-consumer {
++					gpio = <&test_nexus 0 0>;
++				};
++
++				gpio-consumer {
++					test-gpios = <&test_nexus 0 0>;
++				};
++
++				gpio-direct-consumer {
++					test-gpios = <&gpio_provider 1 0>;
++				};
++
++				gpio-singular-consumer {
++					test-gpio = <&test_nexus 0 0>;
++				};
++			};
+ 		};
+ 	};
+ };
+diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
+index e255f54f4d76..487f3b629a73 100644
+--- a/drivers/of/unittest.c
++++ b/drivers/of/unittest.c
+@@ -10,6 +10,7 @@
+ #include <linux/dma-direct.h> /* to test phys_to_dma/dma_to_phys */
+ #include <linux/err.h>
+ #include <linux/errno.h>
++#include <linux/fwnode.h>
+ #include <linux/hashtable.h>
+ #include <linux/libfdt.h>
+ #include <linux/of.h>
+@@ -710,6 +711,71 @@ static void __init of_unittest_parse_phandle_with_args_map(void)
+ 	}
+ }
+ 
++static void __init of_unittest_fw_devlink_supplier(struct device_node *tests,
++						   const char *consumer_name,
++						   const char *supplier_name)
++{
++	struct device_node *consumer, *supplier;
++	struct fwnode_handle *consumer_fwnode;
++	struct fwnode_link *link;
++	unsigned int link_count = 0;
++	bool found = false;
++	int rc;
++
++	consumer = of_get_child_by_name(tests, consumer_name);
++	supplier = of_get_child_by_name(tests, supplier_name);
++	if (!consumer || !supplier) {
++		pr_err("missing consumer %s or supplier %s\n", consumer_name, supplier_name);
++		goto put_nodes;
++	}
++
++	consumer_fwnode = of_fwnode_handle(consumer);
++	fwnode_links_purge(consumer_fwnode);
++	rc = fwnode_call_int_op(consumer_fwnode, add_links);
++	if (unittest(!rc, "failed to add links for %pOF: %d\n", consumer, rc))
++		goto purge_links;
++
++	/*
++	 * fwnode_link_lock is private to the driver core. These test nodes are
++	 * isolated and no one should modify their links now, so it is safe to
++	 * inspect the supplier list without the lock here.
++	 */
++	list_for_each_entry(link, &consumer_fwnode->suppliers, c_hook) {
++		link_count++;
++		if (link->supplier == of_fwnode_handle(supplier))
++			found = true;
++	}
++
++	unittest(link_count == 1, "%pOF has %u suppliers, expected 1\n", consumer, link_count);
++	unittest(found, "%pOF is not linked to supplier %pOF\n", consumer, supplier);
++
++purge_links:
++	fwnode_links_purge(consumer_fwnode);
++put_nodes:
++	of_node_put(consumer);
++	of_node_put(supplier);
++}
++
++static void __init of_unittest_fw_devlink(void)
++{
++	const char *gpio_supplier = "gpio-controller";
++	struct device_node *tests;
++
++	tests = of_find_node_by_path("/testcase-data/phandle-tests/fw-devlink-tests");
++	if (!tests) {
++		pr_err("missing fw_devlink test data\n");
++		return;
++	}
++
++	of_unittest_fw_devlink_supplier(tests, "gpio-compat-consumer", gpio_supplier);
++	of_unittest_fw_devlink_supplier(tests, "gpio-compat-singular-consumer", gpio_supplier);
++	of_unittest_fw_devlink_supplier(tests, "gpio-consumer", gpio_supplier);
++	of_unittest_fw_devlink_supplier(tests, "gpio-direct-consumer", gpio_supplier);
++	of_unittest_fw_devlink_supplier(tests, "gpio-singular-consumer", gpio_supplier);
++
++	of_node_put(tests);
++}
++
+ static void __init of_unittest_property_string(void)
+ {
+ 	const char *strings[4];
+@@ -4533,6 +4599,7 @@ static int __init of_unittest(void)
+ 	of_unittest_dynamic();
+ 	of_unittest_parse_phandle_with_args();
+ 	of_unittest_parse_phandle_with_args_map();
++	of_unittest_fw_devlink();
+ 	of_unittest_printf();
+ 	of_unittest_property_string();
+ 	of_unittest_property_copy();
 
 -- 
 2.43.0
