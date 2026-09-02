@@ -1,106 +1,113 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com [209.85.216.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1AF450911;
-	Wed,  2 Sep 2026 22:54:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B3841DE13
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 22:57:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788389674; cv=none; b=nglQFbCLanb6KUpNSV8FK/KhjoA2hAYRrIQOhXMYwHPknXXpu/r8bUU25LmU0yZ1kGwXaaCAc1SzAMdkgRFao90oH66qCs/qP2sg9PEUNhyiKq/917JABhEKcBbkGtjzwxUw1wfvvzh+E5VeQ9nb171dqSgCg9UMbYdSlwpaeIY=
+	t=1788389841; cv=none; b=OQNVLGtfXwDRB1IBnzzmPTeRmnBSnhbVmObdpdzkIjybS/Mi4KjBSRrEispZSIjwqr51F9SH5xFx61bip6CALdmyQEofX7JANmUK1wReWD+thX03P26Pw+3OGVp3aEcnfiiWZ1MbEbD7BByOg6NoMv+J+1eo3PxtsUF5o4ZOKnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788389674; c=relaxed/simple;
-	bh=UsF0ka6JQJB52yMGxTjsFQSKOLo4iowxPUK1+eAGX70=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KArdmkZrVo3OzXRdb2uOXqtgDE/3J4scC5s8C/5HjwgOgnJn1itCeyh2NpJhnVQncpy3ANXKLtPeRPVcVQU2Cjf7wGRg5dYgpU4YnBH4Gjq6e4Irv5o3X5JLDk9c2FhAQFSQTv03C+AplZoh2nNB++shuy7y9F6IYwedti/rM2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=hjEhu5Be; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1788389841; c=relaxed/simple;
+	bh=o1vlXcLANFy7ZzKd9CG3z8Rv1Gnisjb6ZUbt68YBI0M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V5oxJPKw9MCJUYoNi3YZaAb8+HNmRkmQeX7NQjs6pduMutnj7OeZ8oI93NfcG5yTik78C6NMo4APHe9btLEMbs1os7vH3AUIWUtvsCGjIvsqmwjnuqBxHTjUu5lLh52zr5g0OhZgxRyOsHi9SpgYNxeJqWxYiL4QiHapk40oIzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=J9cUgpDH; arc=none smtp.client-ip=209.85.216.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="hjEhu5Be"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788389661;
-	bh=UsF0ka6JQJB52yMGxTjsFQSKOLo4iowxPUK1+eAGX70=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=hjEhu5BewWnQ8GNU+sykpkxRHoAjvI4z6S47LruS2zoJOCX2G+HQDamW0Naez/0tY
-	 C9kQJCN8n5aWnR5XRIyuQP7za9/HyL9EDFwFyKsk1IdQgD+a5rZLtUq4Z88xWvEx6z
-	 sV/CjSimjRKmR0ZhtKCbgPY5mC8U6QxyFjb2uM1MoHxRNJAjvic21IGvGH+/twMxDb
-	 2DWRXmoX1MhlCASD+/austkZXn7sf0sWVxWk7y7z6aoOdRLznDI+MpK9deKyS3TBy2
-	 c85lXmSxs63n1WCfXavc8nly4GqqYVrQDO4emoprTK9whUi9Q966AShU2AImzl7N9/
-	 oPYM8+tiw5ujQ==
-Received: from localhost (unknown [100.64.0.241])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7B9C117E0914;
-	Thu, 03 Sep 2026 00:54:21 +0200 (CEST)
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 03 Sep 2026 01:54:21 +0300
-Subject: [PATCH v4 14/14] arm64: dts: rockchip: Add RK3588 VOP2 resets
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="J9cUgpDH"
+Received: by mail-pj1-f100.google.com with SMTP id 98e67ed59e1d1-38ecc48b3deso233941a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 15:57:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1788389834; x=1788994634; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TXye3s8M7BBJFOvpLi+6gbf2riGSXQocruinG92HPCg=;
+        b=J9cUgpDHOI/FpeFFt2dKxL1oyBGP8FA9jN2/7Zm9Chy534yn8+XfnFl5PQXD3eSOJx
+         q3G6+Be1xOa/okr2QjeJsRwENV5LXQbt5uGYH6qC3/va1Qqje6R0JNj1peeF5coC3WIL
+         2lnHfmN7f2UMmkfoCQOt4wKlOKcghCIIo3/swP7BtMpTu6Le3ggGWxMlP/rPgOBvBnom
+         SlOoNbx5nXDOeJQ9tRIcMPKtUOno25STK+nHPQWvnJfK96lj987pxEgJWOqvhJmv9K2m
+         9c8paPzcb3bmOqEGOUi7c1knEjMBaIQ+WM1YsbwIrzaTgmiwaMCx2KcZkwAtUnQfe0p3
+         JZng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788389834; x=1788994634;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TXye3s8M7BBJFOvpLi+6gbf2riGSXQocruinG92HPCg=;
+        b=mDb6y73KdjHVHy6FmgzXGy4LfWU7qkBMlOzCfW0keBImBL/nbfgnLSYVYpLqT24K6I
+         BTvM3I4xh7MoFcmPWhxEaS0fNycuymDVUZY0YsREbWtcN1bYvEAp2+DTxFmWXRZE+ErJ
+         hVfBXK6C5Mjl8438T9xjpW5YOlQl8Un/EZG4qPholC/ozNQULIZdMXhjFdlftJ82pE6M
+         hAOJiRmHyWtrcMM+3yQS2atv6CyvYGXiU06APKB8bhqkb+tLcpVTabcz9lSvJzllTnoC
+         4QV/g1hFH4BbEPovDtQtUJy5DsbBorlyMiVfTw8BFvscz+PkoLJg5vR0MLvKZur8uCye
+         n/mg==
+X-Forwarded-Encrypted: i=1; AKwUvBweLG//piaj4CuJcl213pBy90cfgFFixtlpZ6eN/6LNA3NSrESMrjMSErb/3i0uwqeDOdv3Cd2S97jxB1Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzd1PKWxHoUDBSrq8ghIzU1l2zVqi4PEsf+TOqO+6a6o7DCALl
+	tncs87oNXOGlLgq5O0TCqP+mkBBXI1esD/ClgaBHJwFrUnKJmaA6XlGoTSERBs8GZFHGxN1VT1W
+	EjVdn+pTuEMqbindfyPnEDtDu7jdM/xjHt3GN
+X-Gm-Gg: AYBFou2hJENvivGei3epYrN97+BwvVVrSC73/yEtQBe1qYYDcon8+KGNRX00I3jtf8m
+	bFJ0HMqzLZPLmziXIHwT1AyNgGvu/gZHxIVYLoJjT7dzW3qAyjvQjG4giJl6nLSmxN5Wpqa5557
+	PtHsM0vzpn7PMI2EwkIJlEJYPigPqJ6wgUEEMg4nAVWpnhVItmzoM+E2O6yjdBATly7MNF8P8Hi
+	YVjJvcSlKFJLnj8PfygZNHRrnEHfphCRGq+I3ZTdyoGjr9Q3o9PRsU6qnwVQ9OwQ/iobhsEhEkz
+	sbiwWj0HS1P3JJ/0tki2l3ZQWy2QuFvqJKeO/Bxkp2RECuCPxm/N20W26NzPqd3206qjor4gu2J
+	+K3KdcLe5nVSnjPd0jMCZQ1xE7EK9RVSt
+X-Received: by 2002:a17:90b:39ae:b0:381:77cd:38ca with SMTP id 98e67ed59e1d1-39aee1b3eebmr7025118a91.4.1788389834421;
+        Wed, 02 Sep 2026 15:57:14 -0700 (PDT)
+Received: from c7-smtp-2026.dev.purestorage.com ([208.88.159.128])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-39b0e6550bbsm187875a91.7.2026.09.02.15.57.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 15:57:14 -0700 (PDT)
+X-Relaying-Domain: purestorage.com
+Received: from dev-csander.dev.purestorage.com (bond0.slc5-n17m28-k8s.dev.purestorage.com [IPv6:2620:125:9025:20::a31:41f])
+	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 564F54001C;
+	Wed,  2 Sep 2026 16:57:13 -0600 (MDT)
+Received: by dev-csander.dev.purestorage.com (Postfix, from userid 1557716354)
+	id 46D07E40404; Wed,  2 Sep 2026 16:57:13 -0600 (MDT)
+From: Caleb Sander Mateos <csander@purestorage.com>
+To: Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>
+Cc: Joanne Koong <joannelkoong@gmail.com>,
+	linux-nvme@lists.infradead.org,
+	io-uring@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Caleb Sander Mateos <csander@purestorage.com>
+Subject: [PATCH v2 0/2] io_uring passthru: set result on blk-mq request completion
+Date: Wed,  2 Sep 2026 16:57:06 -0600
+Message-ID: <20260902225708.2379840-1-csander@purestorage.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-dw-hdmi-qp-yuv-v4-14-fb45bf4147eb@collabora.com>
-References: <20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com>
-In-Reply-To: <20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Daniel Stone <daniels@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>, 
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-Add the missing reset properties to VOP2 on RK3588.
+io_uring NVMe passthru currently receives the NVMe status and result in
+the blk-mq request completion callback nvme_uring_cmd_end_io() but
+doesn't post the io_uring CQE until the io_uring task work callback
+nvme_uring_task_cb(). The status and result must be plumbed through
+struct nvme_uring_cmd_pdu, taking up 16 bytes of the 32 available.
 
-Co-developed-by: Andy Yan <andy.yan@rock-chips.com>
-Signed-off-by: Andy Yan <andy.yan@rock-chips.com>
-Tested-by: Igor Paunovic <royalnet026@gmail.com>
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
----
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Store the status and result on the io_uring request in
+nvme_uring_cmd_end_io() instead of nvme_uring_task_cb() so it doesn't
+need to be passed through struct nvme_uring_cmd_pdu.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index 376ad04e0786..574264b9cd9c 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -1651,6 +1651,18 @@ vop: vop@fdd90000 {
- 			      "pll_hdmiphy0";
- 		iommus = <&vop_mmu>;
- 		power-domains = <&power RK3588_PD_VOP>;
-+		resets = <&cru SRST_A_VOP>,
-+			 <&cru SRST_H_VOP>,
-+			 <&cru SRST_D_VOP0>,
-+			 <&cru SRST_D_VOP1>,
-+			 <&cru SRST_D_VOP2>,
-+			 <&cru SRST_D_VOP3>;
-+		reset-names = "axi",
-+			      "ahb",
-+			      "dclk_vp0",
-+			      "dclk_vp1",
-+			      "dclk_vp2",
-+			      "dclk_vp3";
- 		rockchip,grf = <&sys_grf>;
- 		rockchip,vop-grf = <&vop_grf>;
- 		rockchip,vo1-grf = <&vo1_grf>;
+v2:
+- Keep io_uring_cmd_done{,32}() wrappers to reduce changes in uring_cmd
+  implementations (Joanne)
+
+v1: https://lore.kernel.org/io-uring/20260827185722.3234622-1-csander@purestorage.com/
+
+Caleb Sander Mateos (2):
+  io_uring/cmd: split io_uring_cmd_set_res() from io_uring_cmd_done()
+  nvme/ioctl: call io_uring_cmd_set_res32() in ->end_io()
+
+ drivers/nvme/host/ioctl.c    | 19 +++++++++----------
+ include/linux/io_uring/cmd.h | 23 +++++++++++++++++------
+ io_uring/uring_cmd.c         | 33 ++++++++++++++++++---------------
+ 3 files changed, 44 insertions(+), 31 deletions(-)
 
 -- 
 2.55.0
