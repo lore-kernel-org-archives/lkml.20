@@ -1,148 +1,81 @@
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1B5481A81
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:24:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 347AA42122E;
+	Wed,  2 Sep 2026 12:24:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788351867; cv=none; b=doJFYcQa7j60FHZR62dzFsOQkgv1BUEKD7ch+XciQKUbOTUxuhprhK7VPpKzH02NoMvVqI4Uuse0cdQZSfxr5G9AmarEkdNw/vRQj5A1fLbVs2F3cK1Cxpi6I92qzI0GfxWFyw1TFUCaLz29VZm9EA8UDlU8Vy3W3DADPS+eSJ4=
+	t=1788351895; cv=none; b=KqyFhR82tTfqrWC320rCsAXuaDDS+zYPueQEdxOCgeyEpJfeyjMW2j1EX+g2Tbg9lG/nN72hFq691bVOKdbPBI137+j2/r4pMkJteHWKGnT/sc5k+58YeanWhR9RTbNjB45BjWOyuyIMo5tCnZM3trahJaBuJGLZ/YaawGR5exY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788351867; c=relaxed/simple;
-	bh=oTS+YDDaFxN0Q1LeraRZY2cqh7z1qPcDOqRuWiPId8c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DIZzNF77lO3FEKYL79N8WmVBGWWfvunpbzErd5jGgej+5yhrGk/CePbq+6i8S6A70k2kDjFsGmzoTLVdKPGwtcwmks9hLC0a2lsw5XzDJR6nCFnJO582ZeXnIJFj4Io0bDtuNByWfpBjKgSqppkI7OfGh5IdjpSFyqjm1LAGuUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i1npwNWd; arc=none smtp.client-ip=74.125.224.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788351895; c=relaxed/simple;
+	bh=ej4p0qa74jnkFOGU5Qewu1Sjfz4nOHxMv+LHJ8EzW14=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=s0JUJlcNIyBEPIg4j+aSrfnRQfKwsuw+Vf9x+TP4Ttpee1g0NRhzlwbVk8dla8s/8gjm+Nvmh6MCTlr9iUDBTPW4gaelcFBxIFge5QbGFQGAG0z0Oqkx3/OIsV4kSxYJlaBwvtT9SGEOMOUMpUvwnHGLC7ZnAOpE23DwWbsIUNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=ppkuMep4; arc=none smtp.client-ip=216.40.44.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i1npwNWd"
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-66c7e3a2332so1136202d50.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:24:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788351864; x=1788956664; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RArsbmdfySTb2QuEZZ7/chE2iY/l9of1tF9d4mgeG4M=;
-        b=i1npwNWdvZF4/I5c+zZI5K67z+RM+Lp3cgwEwKCj3BgMGBas0ycNS3CJBb4aKO4a+T
-         GrGiYCT8yNkaWnOqRaHPpGn0ksP6kwQXthNLrY/Xmwd0uBNDV8rRR4qnxkaXY/ra0jkd
-         kgFDAkOyaOWTQMiy1Re+kKDknchky683AhHs97ZjUrxcWttoGGFsp9moja/6HF0GQmnR
-         fWsvbjSzcGMACARrBmIlt2jLQ7hKruCxznTNk1U+waQGjWIn2DDxCnIovrX5cUIxKduM
-         M6e+iIEQ0Uh2hT7aVb/x7CDdd7cvUzyvD/GLUTzS+rWQBveOzYTVsOSTsaeQe5004Hw1
-         SZ+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788351864; x=1788956664;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=RArsbmdfySTb2QuEZZ7/chE2iY/l9of1tF9d4mgeG4M=;
-        b=WT0v33SYP3zwzDLS+Pfkg+r0KA8yQNebZpjh3MYCGbOxZZPd40zJ3gqt8uGi/dGDp5
-         dd85oNJ0NPOQP4p/pfwCVPW0n7W5s65quUz6LlWazngRuB4pZN7N2JNJaSapBoFoRWuX
-         DWaapbiZ6QCSCIdhiwk0IWxCYpIpteMOx+g5mbRzjz8rlKXgFm7rWUsxkN4/L4CVjfWO
-         F2P0CQTaSa0K4vKbPljI4h4ExrbeI2CY0aSg3ZreMd4nhc78yUCsjG0dzEKjPn0k4vgw
-         7F2y1EkXhzw6HYM26G8vuuh8B1V91LzB8bdExAq2+JhgJdiaCyx9TxXa98oCxvWX44a0
-         ruUA==
-X-Forwarded-Encrypted: i=1; AKwUvBxapIIVn/YwtnuUmXr0ST7rCn8swUwIyXpGpyZQOKN1JqiH/QKTUcZE3oZxPdpii6DQOvAxs99ZeKq4O6Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFCTXxJn+kiDWhiLfUa5hrg4tVcPptaeujANpBp26wqGkhL+OH
-	7NWhyMWjGeyG3Vn5NNTQmgHgtHm4vmNJgyPJ+/ITsXvEV4JY38CWtxZp
-X-Gm-Gg: AYBFou1drTfREH/m4SQtCBcBLMhzVFDm+PVhywuDUKfz5wxGvVakADmLRtXUEtVLs9c
-	CJNq2sbQjP+UIttxUt9s0Q2/nUOo6dZ9m7iod40CMu+fFZTA0MIdgZ0sXEhyuAHFTNh+UN5X5F7
-	zhj+mUbwUE0/Cl923zE1beuXbVk/iobbpwfdezxOpQk42GHz7u0J6LTX3HtQbH1DOna4NRrPuqo
-	qnTqivWJdy+ufh2voNTdjt0El3XCrEFgxv+aq3ksyEsVxOapSUNrW8uGThOJiZnlgkMa4Pz0oLI
-	JBmYZHGdZdKCZ/ITJ8SQyMPvM/GGaUufw5MM3ixSk9Mbf0NpxSklzHWrFeZbsV3AilcmMBg61Io
-	vvQ/qm6YSm907qhvcIAxMAjT8jglphcSvrBdbeBcci0ajNXqZaRoGM3IE3ZN8vGT6kwTcITjcgi
-	rTABeaaoxByNKXt0HHC1+RH9TdYVPg2SJ4B99w4YAJliPt7K+5WgJikkfzfy7/SgCAkuGHbDaAa
-	m/7oJIamKk4QmxeLjmadQ==
-X-Received: by 2002:a05:690e:b83:b0:668:180c:bf6a with SMTP id 956f58d0204a3-66f9bc3fc3dmr1314531d50.37.1788351863969;
-        Wed, 02 Sep 2026 05:24:23 -0700 (PDT)
-Received: from zenbox ([2600:1700:18fb:6011:f78:4c8c:a6cc:a58e])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66f98697fbasm1721817d50.18.2026.09.02.05.24.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 05:24:23 -0700 (PDT)
-Date: Wed, 2 Sep 2026 08:24:23 -0400
-From: Justin Suess <utilityemal77@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: bpf@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 14/15] selftests/bpf: Test the LSM policy object
- kfuncs with Landlock
-Message-ID: <apgTQKnhwMyFdQcr@zenbox>
-References: <20260831145858.3869191-1-utilityemal77@gmail.com>
- <20260831145858.3869191-15-utilityemal77@gmail.com>
- <20260831195327.1282C1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="ppkuMep4"
+Received: from omf11.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay06.hostedemail.com (Postfix) with ESMTP id 38BD3A2D70;
+	Wed,  2 Sep 2026 12:24:52 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf11.hostedemail.com (Postfix) with ESMTPA id 2E8092002C;
+	Wed,  2 Sep 2026 12:24:50 +0000 (UTC)
+Date: Wed, 2 Sep 2026 08:25:50 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Lee Jones <lee@kernel.org>
+Cc: Greg KH <gregkh@linuxfoundation.org>, Vincent Donnefort
+ <vdonnefort@google.com>, stable@vger.kernel.org, mhiramat@kernel.org,
+ linux-trace-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com,
+ kernel-team@android.com, linux-kernel@vger.kernel.org
+Subject: Re: STABLE REQ: [PATCH v5 06/10] tracing: Fix subbuf resize races
+ with trace_pipe_raw readers
+Message-ID: <20260902082550.4644fe91@gandalf.local.home>
+In-Reply-To: <20260902082141.00583dfc@gandalf.local.home>
+References: <20260813131152.3589632-1-vdonnefort@google.com>
+	<20260813131152.3589632-7-vdonnefort@google.com>
+	<20260901123444.GA1350131@google.com>
+	<20260901094656.487b278f@gandalf.local.home>
+	<20260902082717.GM2943942@google.com>
+	<2026090230-entryway-acquaint-d12e@gregkh>
+	<20260902095744.GN2943942@google.com>
+	<2026090221-riverbank-overlay-704c@gregkh>
+	<20260902115944.GS2943942@google.com>
+	<20260902082141.00583dfc@gandalf.local.home>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260831195327.1282C1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout01
+X-Rspamd-Queue-Id: 2E8092002C
+X-Stat-Signature: 1px7os6pxgffm8pa9bxe3ascm1amsno7
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18VmYHVcSK8qCijeiH9Xv0m2nzQycbwqjw=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=ej4p0qa74jnkFOGU5Qewu1Sjfz4nOHxMv+LHJ8EzW14=; b=ppkuMep46KNbWgKUxRUeLSRe++AJdx/skL1WVV5WPZZP3EDCjUTyTLrNV5yWEQOGSzHXgxep65E+HiZ7Ss2CioAzIgBsxmXe+x/LyT0+qyRaWMlVlpG2f9nRN0k0Nhp6ZjM7qrAIG6pvmrI/JxNo1dASC8FGVg5f1qxxxaw3t7E=
+X-HE-Tag: 1788351890-601368
+X-HE-Meta: U2FsdGVkX19pZWjB+gdQpmznQcfOz7UQ49dQknVK5f+wC6C4T3Z6LhYbWrN5JKQSe9fUXtSImFvjMyQlfyq8cjhI2arASpgeSTLWHGogJQfjneOoVTTR2CePGbzN5ihZHrek11h1KHffJseO75ZuudkwEAG4rlOWUsmCgEHKX4eO1V7UZzDg11JN+ESz7N2qQw0GPWWwhPNI/MzLa73ve97IQnzzcGKliUkg6H7ir11538+tq3fJdM+Q4gbWZBFUC6LIFbaa0V5xvKggnoEs2HlzPcaPUkse57T8RC165J6jgS4PcO6nKHusYlGpa4rC/4o5PsVCQmdfJLJoc6KaI+oa3nxsnDE7e1ws+Shg/IPLaia6uzaXS+NF+NdP/XrS
 
-On Mon, Aug 31, 2026 at 07:53:26PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] File descriptors leak on the error path in test_restrict_binprm_discard().
-> --
-> 
-> commit 7fa3010dd885254cc82b6aa2f6f254ee83a13717
-> Author: Justin Suess <utilityemal77@gmail.com>
-> 
-> selftests/bpf: Test the LSM policy object kfuncs with Landlock
-> 
-> This commit adds tests for LSM policy object kfuncs interacting with Landlock.
-> It tests execution confinement, audit log flags, and concurrent application
-> using a syscall program and BPF RCU lock management.
-> 
-> > diff --git a/tools/testing/selftests/bpf/prog_tests/lsm_policy_landlock.c b/tools/testing/selftests/bpf/prog_tests/lsm_policy_landlock.c
-> > new file mode 100644
-> > index 0000000000000..9270b39f5e3a7
-> > --- /dev/null
-> > +++ b/tools/testing/selftests/bpf/prog_tests/lsm_policy_landlock.c
-> [ ... ]
-> > +static void test_restrict_binprm_discard(void)
-> > +{
-> > +	struct policy_test_env env;
-> > +	char garbage_path[] = "/tmp/lsm_policy_garbage_XXXXXX";
-> > +	int garbage_fd, pipe_fds[2];
-> > +	char buf = 0;
-> > +	pid_t pid;
-> > +
-> > +	if (setup_env(&env))
-> > +		goto out;
-> [ ... ]
-> > +	if (!ASSERT_OK(pipe(pipe_fds), "pipe"))
-> > +		goto out_unlink;
-> > +
-> > +	/*
-> > +	 * Cannot use spawn_exec_child(): the same process must test its
-> > +	 * write access after the failed exec.
-> > +	 */
-> > +	pid = fork();
-> > +	if (!ASSERT_GE(pid, 0, "fork"))
-> > +		goto out_unlink;
-> 
-> [Severity: Low]
-> Does this code leak the file descriptors created by pipe() if fork() fails? 
-> 
-> If fork() fails here, the code jumps directly to the out_unlink label, and it 
-> appears neither pipe_fds[0] nor pipe_fds[1] are closed before exiting the
-> function. 
-> 
-> The spawn_exec_child() helper function introduced in this same commit properly 
-> closes both descriptors on fork failure. Should similar cleanup be added here?
->
-Will fix.
+On Wed, 2 Sep 2026 08:21:41 -0400
+Steven Rostedt <rostedt@goodmis.org> wrote:
 
-I think that's sashiko's only nit for this patchset.
+> There's even been times that I *removed* a Cc to stable because I did not
+> think it was worth the backport. Of course, I still keep the Fixes tag,
+> which means it will likely be backported anyway. But that's up to the
+> stable maintainers to decide ;-)
 
-https://sashiko.dev/#/patchset/20260831145858.3869191-1-utilityemal77@gmail.com
+The big difference between a commit with the Fixes tag and a Cc to stable
+verses one with the Fixes tag without the Cc stable, is that the one with
+Cc stable will give me a "FAILED" message if it fails to apply. One with
+just the Fixes tag and no Cc stable, will not generate that message to me
+if it doesn't apply back to the version with the Fixes commit sha.
 
-The BPF CI AI review bot didn't run on this since the patchset can't
-based on a bpf tree until it catches up to the recent Landlock changes.
+I do like to know what I marked as stable and fails to apply. Unfortunately
+I don't have the time to go fix them. But I keep them in a mail folder in
+case I need to do it one day.
 
-Justin
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260831145858.3869191-1-utilityemal77@gmail.com?part=14
+-- Steve
