@@ -1,95 +1,169 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76D4049C4D5
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:21:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A5338CFFA
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:23:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788373318; cv=none; b=MYV8RESz77/8P5jJt/BgAgfR+fBgR8xgpJ5ZJI/bNgwu7RJqIKHvvXTBifSkKIL27MhFPp7IYyGxCpmR7plb0gfs2aPoAL4ns/0c5tteF6jzBLP+MtMwQ2D5qevgISp9UWi7PdX17nJqIzgTYrKhNxwoal801w7Ss3LT63ld1L8=
+	t=1788373386; cv=none; b=LunzxYrOUYaBBxgVijeCPQciDyLmkLAZolacec8Ee6wOaRW+RKIolpXv1QL3xZUr61yQVkNtEtdRHdIFH44LI0YV0VIxe7424M0C+f+eizmZajFBDrwRYkxhAECqVyonEnpZdSb7zL0VV45FxxU59i2CUCEHiIrU7HUW7Bpwqfo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788373318; c=relaxed/simple;
-	bh=3X+93BwJddB9py4mR0joP3nCeAIwwXvBE0mNLCtpoZs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y+a3jy6TKOhDefQIA52+Ri39Ax2dnNaislQBAix6Oi/utQ6TGplyTXgVZGM5WnEH66Uk2qy18BeNOS3LQADRtarbwmRTW938MsWwJUN9lT5lhy+QDoPFrElBkFCUyJMAZSIe7256B6YJMGnZBizXpomHgGGiCYRY03rTgbUjjRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZLN7+Glu; arc=none smtp.client-ip=209.85.216.45
+	s=arc-20240116; t=1788373386; c=relaxed/simple;
+	bh=5M98h9LgBz5BhAzDN3vhK3FYBzMg0TL7AH+B/YkN7wg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JDGmuOP4sf3pz+bivpJfBXaWVb9y6hjJx9T9/T54b9ZpiV6mf2/Vg5CUJ4vaTP5VyahkkEBz31WelIY0EZM2kd9TYW4ykeNkamYlo5/76ZdxeSIz22zv8ZAHniAS7RedNcEJHpAg1Vvz4cJtOYchnDH4N9yRNye9OFXWYUAzx/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=en27mFQO; arc=none smtp.client-ip=209.85.128.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZLN7+Glu"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-382ef647e20so1725275a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 11:21:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="en27mFQO"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so11730885e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 11:23:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788373317; x=1788978117; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788373383; x=1788978183; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=3X+93BwJddB9py4mR0joP3nCeAIwwXvBE0mNLCtpoZs=;
-        b=ZLN7+Glu0LAZLx4xENIFnaGDODayMt0YjSdScOghFVRndDk6Vj7Sn/0WNAPXLrGCDt
-         x4ZQKdEE5aWnPZQIv6ZZnSM04U9E432L8S0bHCcyf1UkOuwIxwP3iOxnpMlu+6FSUX9y
-         187KVISIEdxeVoqRVPR01djwX4RqaCh+CsILqdvTkUpUGWecipSpO/A7ipnoGSOfpyIR
-         gUuvUbjATw+A91JfgIvHIQ6xUBPyGQ9+aiFqZl6FITJbahRw3YilZYi8r632wuzBoWo2
-         VKSgwddynbUQ76R7qVYw21purvFYvFZRuVq/KmH/zZ2j9eUeUUovotv1FJ55B4y6oldo
-         AlCw==
+        bh=bghS+F6/3V7iNdu+BDTLXG9swQB37KksL6iykdp8MRk=;
+        b=en27mFQOVSiqEAmWKqzBlDcoWC/E6utr/EHAk3XmBgZVp4kbmbnmL6fZS40AvVVAaZ
+         +/XJacK8Tc8IUKxCa8v1KS31uTz4tUmSnL6sVZqlD/hTZC2+JjNmxSRe9QW5eyR4IuI8
+         N9FzV38Mrs7iV8XJkGdoe999n1ruSEl196L+2RRJ9FIqY3MMaLagkKK2L0hi36c4oap/
+         rwFn+Mi2JupjWJmXYUhu+8Q+6IIBNGiQb1OCzBCucaAQ5fd5nbV7NqlQOyRhJY9y+aFf
+         FD1N5IGzg/kd6uxPN7x+hy6K5zHJpcVO/95dK30CTxVVNKlZmKsVvk+jRFW4I/m8x/5t
+         xvNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788373317; x=1788978117;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788373383; x=1788978183;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3X+93BwJddB9py4mR0joP3nCeAIwwXvBE0mNLCtpoZs=;
-        b=mOm+LgeEvrCR+HUc7hEYOsW5lkda5hr/3oB76nwjzaT2qzuCwwgTg38KPGRYfqdu27
-         VBC307xf+Wu58jk1dYo7tlp3fMOenLhcew38cl1pwUBZcYI36ICAw15Ghm5OSl5RrzA6
-         r2U5yv1ZXZ1v25K/rQ+vba43bcYOBVRkEB8g1cPOizvFktP0FYaam9yCykAXTJKX/8GZ
-         tedB/cCyqyTyC8XlLakHa0OUJX1uNC5sc1Axj85fMJPkIiMqUgy79JO+/EiDFsCfSuQc
-         8zq+ajPsM9Os5ZZysbAE+fTgi1w1iiU+SsuDk7Cs2XZtxU+YGbH0NzBAO7lQIBXePaZP
-         yivw==
-X-Forwarded-Encrypted: i=1; AKwUvBxEpUPCI227XLnjqFp6X0jnoA5jMCUr4qM8qahpTfIVNtiNEw0gZIkr47FomZjq8N7u3hjZx/j2oR50RjM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nzxBnYUVgm4kgU9YOf8Glm+9IgldgH/p1rMtt8NWT+30HqK+Wz
-	I7FLPhp/tOQ1zWLxUzEEFOIyXw2nEtj18FpYaCIZKG8wguv1d4QpoIYX
-X-Gm-Gg: AYBFou3jl+mU5jZ70vBd/NAyf5GZpXoktD2wFxzM+jZq6rP+34GYLQWnPI/RxjQsHCT
-	oVckxGAj8gaDWUaDhZnL9JzaAwYbjLPvH3YRe3zUYz/lmPoyPX2FKLlzHUjjZU1pDsET8nwZLFM
-	jYbE+HQrIGRzhJQPFXIIlfaZjvfsjS2rC51Q82zKRjEYyyHw9pzgLvYff/Omh2zWW/TB+SmzBi/
-	wvjItPrUGoMrH/kb/7XLhuzL+IcQkqfAy5cvxax4EYkGqSlpTFw7i+mpxFGe2NXUTxIyNROF4HO
-	kWLJt8X4r8+SEkOCE/vN/BDXaxGMx35tRazpaCMdVXJjRr343cadSgJ/XkI8WwQKU941m0zhqF4
-	BKoJxK/Uiz8njki0yM91bMDfvlw+hM3A9Bv167eWxqDskX28ksmKz9+oNlh7H4YhopsQmcCa+zW
-	RWxB8q4pb7G+4JHwwsZdgHpRbklZ6S+LDNlkKA3EWXNSY14cPk3oaZZ6Sm352cKtEn4y3Cnky4y
-	X/AVQK5zzqAZrdzvqSglMrerjmFxNQ9lNt73g==
-X-Received: by 2002:a17:90b:5109:b0:399:e97:8d5a with SMTP id 98e67ed59e1d1-39aee152d79mr10767129a91.25.1788373316382;
-        Wed, 02 Sep 2026 11:21:56 -0700 (PDT)
-Received: from localhost ([2409:40c4:d:5c19:7852:60e7:cc2f:a6de])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f079f7d77sm8745198eec.12.2026.09.02.11.21.55
+        bh=bghS+F6/3V7iNdu+BDTLXG9swQB37KksL6iykdp8MRk=;
+        b=fZ2vzx392pM5mUvqzlSMjwsqb4YJP0tOUs01o/0dn7DH4agn+I19+HeM4E8JaHVkFC
+         ilqrMiB3N0YvVbIPH15wTFZ58XBkKAMxy+SB2pQ5/VwQom4BgfdRAC2/AvjqRcVgfqAR
+         nisNNye6dJPjQssXxhMOyY6CPzEZyBYUOuUrh/KeKqFY2t+Q7kHK4Em46M488XNByDR/
+         hd1i2RHy06DHUSuJZmirL9zNUYORiIYSqsX7s7bcWq7+Xifs8SQt1zZwsqfo6h4kqFJs
+         oxPy5fM3DI8uR1TzyeHGkEo/10gR5yblygK3mbWe/tElRKHPtXOvOwOuWjshvOmuA6lc
+         CcdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwkJokpYPyIWms0bqKeE8obf4ScvORdWM2guS82AJx1E7/dnT6jUIH86ETbdM2J+fTdCcjAobG241w6tsk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kecVo+CWns2QcNx69z6JuKnyL7xxYhyk+oDYMbdg5rn2Zdw8Vi
+	tUgKavryDBre/wUT71gSG0p9RUjeQ68LVB2wmOJZR0Z5lQDKUd8GhvR7EyAUOjBa
+X-Gm-Gg: AYBFou2m580+XAxFQ5lQJhpPR0IHEsPK5gJ+wl7eVjDzkikJ1vzAVRGlo2Uk7aNs/gu
+	6OFnWz2ZGluUXQhAmTSA9dZkfe2TxDQic3ADjyjQ+gJxg4lOfWH+XiQhzk53ZX36y0Hq+rh1ijK
+	+Ebf9g62m0wJ3OFWIlwMo1ISAYf8O5rDcXF25Zx0hLa9pMGFk/yw5XXQBvguutmQV29EQs2zizS
+	CcJKwvvOJp0cW6ptmyYBnU/e/aVTXy0YBr/jDPWPL424FxUg0Md2Hlw8+itZDhgvpmSNy8IWBr+
+	vC8x8X3/833t04XGiFnfvpnibeEz/9mcRRjMfSwtzM6lk1uQax/UtmAJzZ/5jRpLc7peCDBe5ee
+	wPUJyy5m5HkZAW0E0AecViYbXehhOehJSBo7t9ynHGwdJaj9y/pCoZ8QbkdZP5xy9aUDZIlphCj
+	KRPyqCeY4gTcea7ew013LEL98va5P9Wz6SEgoXYh4UQhJ0Iei5Uh3FW4fJMpx5i0+AMRs9+cCC4
+	a9s75hFvJEdCaObo9fs91AqIA==
+X-Received: by 2002:a05:600c:8b05:b0:499:b65d:124f with SMTP id 5b1f17b1804b1-49ce5823d9dmr152107355e9.11.1788373382397;
+        Wed, 02 Sep 2026 11:23:02 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce554d52esm47864385e9.3.2026.09.02.11.23.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 11:21:55 -0700 (PDT)
-Date: Wed, 2 Sep 2026 23:51:51 +0530
-From: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-To: Mathias Nyman <mathias.nyman@linux.intel.com>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Michal Pecio <michal.pecio@gmail.com>, Mathieu Fluhr <mathieu.fluhr@gmail.com>, 
-	Mario Limonciello <mario.limonciello@amd.com>, Thorsten Leemhuis <regressions@leemhuis.info>, 
-	regressions@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] xhci: drop 120ms U3 LFPS wake retry wait from
- runtime resume
-Message-ID: <apg16LtZ-ru9MIBQ@eggarch>
-References: <20260831190349.29590-1-lovekeshsolanki00@gmail.com>
- <20260831190349.29590-2-lovekeshsolanki00@gmail.com>
- <a6a8526f-4b6f-46f7-9d02-05bfe3efcd48@linux.intel.com>
- <apbrp8EaJoIfEg5X@eggarch>
- <1be8e57f-9abe-4b34-bc09-e7934a2fa1bc@linux.intel.com>
+        Wed, 02 Sep 2026 11:23:01 -0700 (PDT)
+Date: Wed, 2 Sep 2026 19:23:00 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Vasileios Almpanis <vasilisalmpanis@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrey Smirnov
+ <andrew.smirnov@gmail.com>, David Woodhouse <dwmw2@infradead.org>, "Gustavo
+ A. R. Silva" <gustavoars@kernel.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] ihex: Fix 16 bit truncation in ihex_binrec_size()
+Message-ID: <20260902192300.65202e38@pumpkin>
+In-Reply-To: <3552bfc7-ac6e-4133-95f9-69b4e96a5005@gmail.com>
+References: <20260902-ihex-v1-1-67fdbf8d97ff@gmail.com>
+	<20260902163151.59ffe47f@pumpkin>
+	<3552bfc7-ac6e-4133-95f9-69b4e96a5005@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1be8e57f-9abe-4b34-bc09-e7934a2fa1bc@linux.intel.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 02, 2026 at 03:10:41PM +0300, Mathias Nyman wrote:
-> It's possible PCI side or pm core already provides some easy way for xhci driver to check this.
-> This specific issue is currently not on my todo list, yet.
-Alright, would you like to me to work on this? I could look into
-that side and possibly come up with an approach.
+On Wed, 2 Sep 2026 18:35:28 +0200
+Vasileios Almpanis <vasilisalmpanis@gmail.com> wrote:
 
-Thanks,
-Lovekesh
+> On 9/2/26 5:31 PM, David Laight wrote:
+> > On Wed, 02 Sep 2026 12:21:19 +0200
+> > Vasileios Almpanis <vasilisalmpanis@gmail.com> wrote:
+> >  
+> >> ihex_binrec_size() returns uint16_t while computing be16_to_cpu(p->len) +
+> >> sizeof(struct ihex_binrec), so record lengths of 65530 and above wrap.
+> >> __ihex_next_binrec() uses the result as the offset to the next record. A
+> >> length of 65530 gives an advance of zero, so ihex_validate_fw() spins on
+> >> the same record forever. Lengths of 65531 to 65535 advance by 4 or 8
+> >> instead of 65544, so a 14 byte image passes validation while its first
+> >> record claims 65535 bytes of payload. emi26_load_firmware() passes it to
+> >> emi26_writememory(), which kmemdup()s 65535 bytes out of a 14 byte buffer
+> >> producing the following splat:
+> >>
+> >>    BUG: KASAN: vmalloc-out-of-bounds in kmemdup_noprof+0x3b/0x50
+> >>    Read of size 65535 at addr ffffc90000075006 by task kworker/11:1/174
+> >>    Workqueue: usb_hub_wq hub_event
+> >>    Call Trace:
+> >>     <TASK>
+> >>     kasan_check_range+0x10f/0x1e0
+> >>     __asan_memcpy+0x23/0x60
+> >>     kmemdup_noprof+0x3b/0x50
+> >>     emi26_writememory+0x29/0xd0
+> >>     emi26_probe+0x2d1/0xb64
+> >>
+> >> Return size_t so neither the addition nor the following ALIGN() can wrap.  
+> > The ALIGN() can't wrap, the u16 value is promoted to 'int' before anything
+> > is done with it.
+> > What it does save is the pointless '&= 0xffff' after the add.
+> >
+> > Since the result is added to a pointer it will need promoting to 'long'.
+> > But the compiler can assume that adding sizeof(*p) will zero the high
+> > bits and nothing extra is generated.
+> > (Not that this is a super-hot path...)
+> >  
+> >> Fixes: 9fb4ab4d3dd6 ("ihex: Simplify next record offset calculation")
+> >> Cc: stable@vger.kernel.org
+> >> Signed-off-by: Vasileios Almpanis <vasilisalmpanis@gmail.com>
+> >> ---
+> >>   include/linux/ihex.h | 2 +-
+> >>   1 file changed, 1 insertion(+), 1 deletion(-)
+> >>
+> >> diff --git a/include/linux/ihex.h b/include/linux/ihex.h
+> >> index b824877e6d1b..0da1c4e3e693 100644
+> >> --- a/include/linux/ihex.h
+> >> +++ b/include/linux/ihex.h
+> >> @@ -21,7 +21,7 @@ struct ihex_binrec {
+> >>   	uint8_t data[];
+> >>   } __attribute__((packed));
+> >>   
+> >> -static inline uint16_t ihex_binrec_size(const struct ihex_binrec *p)
+> >> +static inline size_t ihex_binrec_size(const struct ihex_binrec *p)
+> >>   {
+> >>   	return be16_to_cpu(p->len) + sizeof(*p);  
+> > I'd always put those in the other order - matching the memory contents.
+> > (But changing it would be churn.)
+> >
+> > David  
+> Hi David,
+> 
+> Thanks for taking the time to review my patch.
+> I had already posted a v2 before your mail arrived.
+> https://lore.kernel.org/all/20260902-ihex-v2-1-30bb117cfc77@gmail.com/T/#u
+> So the problem in this case is the fact that I misplace where the wrap 
+> happens.
+
+The wrap happens in the function return - as you said.
+But there isn't a second wrap 'opportunity' in the ALIGN().
+
+> Do you think it makes sense to send a v3 to fix the commit message?
+
+Probably doesn't matter that much.
+
+David
+
+> 
+> Kind regards,
+> 
+> Vasileios Almpanis <vasilisalmpanis@gmail.com>
+> 
+
