@@ -1,110 +1,281 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mta1.migadu.com (out-223.mta1.migadu.com [95.215.58.223])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B58A47CC69
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:53:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B1A147DFA8
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:54:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788350018; cv=none; b=ugE1+zR4kSvDdXv9xfF9/2IAJL6EDh4egwYkIlVtmCX5EPyX1CRoASLHQOTTwFj9JxbeleZ1g6Q73ZLrzmloKaG38sr57OvEFdjUsPza0iVvLU5JcA1hg++K+6/PAcmlJMfA8OBGXOGz7LHFK2O09RrUDRuxocRVmu72BZXi+k8=
+	t=1788350066; cv=none; b=swPBsnQUr6fScyi5+fIP5l0JjFs5antpcnR9ut73/PxUu8tJ+3ZF3PnVa7w/Ply3roYh37S6eYPZ5hfCpjAyIrRkTUvDb2cBLR1NJEKHpKFhmzeQpEuy8Nt8xXnuUfaPdPSZcQgOCdpvb6U+3CzDOFzykTQJc3Jqca3pxyAaRwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788350018; c=relaxed/simple;
-	bh=kQyWTKL+sEk361d+eKwwxIfLx9+6yokYO0HYcuHWLNg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sWDtlGbQ1xWIRXaanO+2+YNbBeHEV1LM2sONX7YLyN1qinH3hJNTEO6w3IJUJuWH3WJBUNMGvACpg4xTeZpydm6S7xVQ/relLV35dZDm2ZgB0rqfnUZRneA0F50fzf5rPCgPUZxXAdy07f2U3Us9a5+f4hDLvCr7Bhhw5APAtIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bns+FcVl; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788350066; c=relaxed/simple;
+	bh=aQYGC2wvAvGiMyomsHHwCWz//Ge7ZRLzGnThPXs7Oqg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NICItrCMldnIFzkjrHGwmWxm1wK6Yn0WHY+mIANQamFZ2lL0nXH06tNKO0yvrW5++F5HFHkBij61LmG96oIy51pp4eCgQVOD2zBwZz+yu9x40qwp6j5cxMw4607p+0OtkUWz0Mm4J0A5y4Kd8PQbNkSYfcBizPaCKSSe4GXRspU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Zf+n0EJ5; arc=none smtp.client-ip=95.215.58.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bns+FcVl"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d01663d816so7812555ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:53:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788349999; x=1788954799; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kQyWTKL+sEk361d+eKwwxIfLx9+6yokYO0HYcuHWLNg=;
-        b=Bns+FcVl4cBip5L8Ge7Ze2kHDKakek3TNswqeS7JuFoBSX1rkWVDXVv4qz7SzgTfpN
-         iW4+12PLYkACGhxO87QyRQ/D/hxqMX/6U2MEsPeaC27H5kkhQjbu6nKeyLORyrDqt9ND
-         ci9PEC5Ko7iL2kC5UDIm5fIqYIPUDWUE7Q22VNRHF+4y+j8oTBqIIpJZDLFj9y61j7NU
-         99TTcUS3ypk4chghOSCm/Rj4W5LN85hkMbhAPM8lqlPSo0QH6AZy39huyzNh6IavPjN6
-         /fcygmcmcRPF5QcOTw1Y2drwXsVvtv8t9sIWD9jsIVlxpv1w9ldyqwEFgaOFDu9hbTX8
-         n1xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788349999; x=1788954799;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kQyWTKL+sEk361d+eKwwxIfLx9+6yokYO0HYcuHWLNg=;
-        b=sg+r24qpKGRJykB3Zd/4Bic+FLMkYNhTXNHjuwAsRZEz7CuPIZBJe6neDeEgcIf+do
-         XHpqwlsgveimgrrJD0tHfdx8YXj7iQsRhNmWTb3yDnshbpBQBof6Ut9DFb5fvwt3N7mw
-         M2jHZAzmZGA9SABBOEciDLIRnOYiFSc4xldD2Tofg/T87eeoextY0+aDeU7pwGv4ka+o
-         pbWw8fQk55T28t4QQpzasy4x3FyFTgHrxP4EGAeJkQV5j1XgTrc7hB/xXpOjn1YO6qGc
-         E2aDVOT4gpl0iaeCG9HXmHz+46xd3iAEKPGJiBIxjLwfb/ATZB0R59cXq4eUrtpXMrNW
-         t5Tg==
-X-Forwarded-Encrypted: i=1; AKwUvByN9rKwyqk1QpOBWbep99pua0EZ9+ReusibaWzWKLKfE3MP1Dh79spM0pUb93+LtvDCQtojh5e4qwERVSc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mWJpt+t4Cn3pL9Z50dGAALylLtqQCFPIOm/2RyXsIxsiEHB1xM
-	6szSCS3A+eG69EqXCG+8Eriys1I7V/MFMiIXI5MY+Pqi+SHHS7IDNEvq
-X-Gm-Gg: AYBFou3qY67CQpDTS3cLTqXDk0ATPJDt93vNAALMM/vHwlQjRHYM4eaIQ8tGY+/EZoZ
-	tVv5yLLRgKnhzOMMNVDriZiP6YJ+14/jkoMbR1IpUnCl7dBTYxH4/zCgsDOj+tqSa6lqIJdgGlK
-	8nLQIhHqkCj/kh/WgpgrD5cmYOxElG6PEHE1ff8zkQ2FV9AAArGpPYNA4oiS6cBYMUr2XOuKF9K
-	taJ49BzLNAYRklMVb2V37bsx4aPh6oN42721MoZY7/cdTgJjqmi+7FnA9krUHG28gaF+cgbjIdf
-	xWUDCp0car4hsvIDWaGg9ejQmIYGj5Wbw07Ey7TLpw/EQR8U+rOsYoJkhwgq23IO3vBEFBOBbOs
-	qaEl+0TeQWidK/NZUXndVVFRIo1hwfOM/XkgMmiiMM4CrcaGmAJy1PAr1uj/GF1DDVAoawkXsSc
-	ps39HJQgurS+DYuzhbQC1sOr4cAwb0hXFbSAE3hY0VarfxUMljib2uYU0nAldCWf1GCXEkrQujH
-	w4=
-X-Received: by 2002:a17:90b:17cf:b0:398:d286:344d with SMTP id 98e67ed59e1d1-39aee178e92mr6171529a91.22.1788349999114;
-        Wed, 02 Sep 2026 04:53:19 -0700 (PDT)
-Received: from amd.ban-spse ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1430e9ec9a3sm8352811c88.3.2026.09.02.04.53.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 04:53:18 -0700 (PDT)
-From: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
-To: kuniyu@google.com
-Cc: hangbin.liu@linux.dev,
-	liuhangbin@kylinos.cn,
-	dsahern@kernel.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	shuah@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests: net: ipmr: Avoid memcpy() from NULL in nl_add_rtattr()
-Date: Wed,  2 Sep 2026 11:52:54 +0000
-Message-ID: <20260902115254.3544355-1-nagachaithanya9911@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CAAVpQUDd-HeM4XTufJsBchZq_Lb0in188aawzZUYPjRAGEzZjQ@mail.gmail.com>
-References: <CAAVpQUDd-HeM4XTufJsBchZq_Lb0in188aawzZUYPjRAGEzZjQ@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Zf+n0EJ5"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=aQYGC2wvAvGiMyomsHHwCWz//Ge7ZRLzGnThPXs7Oqg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788350053; v=1; x=1788954853;
+ b=Zf+n0EJ5V6m3x1JihKJwQNG4oUU6SnoXcosU6zy0/MoqOTpNxLPVq5dv3OjEPcmRbU8hY2qT
+ xCRfziNELbygx3GU1oYdvznqKgA9ruERqiClQokAYRh6SLpLicAOpMlkV25FvyAtn5e3jh1sTnR
+ MyJx/pJU0BNIJ7uv3Q7LbDog=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ec51bc7ccc9a418b;
+	Wed, 02 Sep 2026 11:54:13 +0000
+X-Mizu-Trace-ID: ec51bc7ccc9a418b
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a6bff161-0d6c-467e-99a8-2062f123a6f8@linux.dev>
+Date: Wed, 2 Sep 2026 13:54:12 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] platform/x86: asus-wmi: fix FA401 series keyboard
+ sleep strobe
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Idotoho Reimon Simanjuntak <idotohors@gmail.com>
+Cc: Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones"
+ <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>,
+ platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+References: <20260902032353.16106-1-idotohors@gmail.com>
+ <b8cdf49b-91d4-2e86-a8ea-04d1db119225@linux.intel.com>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <b8cdf49b-91d4-2e86-a8ea-04d1db119225@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026 at 11:49:46PM +0000, Kuniyuki Iwashima wrote:
-> It's not flagged since NULL is passed via nl_add_rtattr(), not directly
-> to memcpy().
+
+On 9/2/26 11:42, Ilpo Järvinen wrote:
+> On Wed, 2 Sep 2026, Idotoho Reimon Simanjuntak wrote:
 >
-> Also, the behaviour will be well-defined with N3322 in C2y.
+>> The FA401 series accepts the TUF keyboard RGB power-state command but does
+>> not advertise the device through the normal DSTS presence probe. Register
+>> the state attributes for this series and re-assert keyboard brightness in
+>> the PM prepare callback so the EC enters S0ix with the correct state.
+>>
+>> Without the brightness re-assertion, the display server blanks the keyboard
+>> before the kernel suspend path runs, leaving the EC with brightness=0 and
+>> preventing the sleep strobe from activating. Because kbd_led_wk may already
+>> be zeroed by the display server at prepare time, always re-assert level 3
+>> (max) brightness when sleep backlight is enabled.
+>>
+>> Use a quirk flag (kbd_rgb_state_quirk) set via DMI match table rather than
+>> ad-hoc dmi_match() calls. Cache power-state flags from sysfs writes and
+>> initialize the cache to the default enabled state during probe, so the
+>> workaround also applies before userspace writes the attribute. Do not add
+>> a module parameter; the sysfs power-state setting is authoritative.
+>> Use the standard dev_pm_ops .prepare callback rather than overloading the
+>> Ally-specific LPS0 ops. Define self-documenting macros for the TUF RGB
+>> state bitfields at file scope.
+>>
+>> Signed-off-by: Idotoho Reimon Simanjuntak <idotohors@gmail.com>
+>> ---
+>> Changes in v2:
+>>  - Cache RGB power state flags from sysfs writes instead of attempting DSTS read.
+>>  - Initialize state flags to enable all modes during driver probe.
+>>  - Move TUF_RGB_STATE_* bitfield macros to file scope.
+>>  - Drop module parameter in favor of DMI quirk + sysfs control.
+>>  drivers/platform/x86/asus-nb-wmi.c | 14 +++++++
+>>  drivers/platform/x86/asus-wmi.c    | 61 +++++++++++++++++++++++++++++-
+>>  drivers/platform/x86/asus-wmi.h    |  1 +
+>>  3 files changed, 75 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
+>> index aeb461b16..fb06013ca 100644
+>> --- a/drivers/platform/x86/asus-nb-wmi.c
+>> +++ b/drivers/platform/x86/asus-nb-wmi.c
+>> @@ -155,6 +155,11 @@ static struct quirk_entry quirk_asus_z13 = {
+>>  	.tablet_switch_mode = asus_wmi_kbd_dock_devid,
+>>  };
+>>  
+>> +static struct quirk_entry quirk_asus_fa401 = {
+>> +	.wapf = 0,
+>> +	.kbd_rgb_state_quirk = true,
+>> +};
+>> +
+>>  static int dmi_matched(const struct dmi_system_id *dmi)
+>>  {
+>>  	pr_info("Identified laptop model '%s'\n", dmi->ident);
+>> @@ -163,6 +168,15 @@ static int dmi_matched(const struct dmi_system_id *dmi)
+>>  }
+>>  
+>>  static const struct dmi_system_id asus_quirks[] = {
+>> +	{
+>> +		.callback = dmi_matched,
+>> +		.ident = "ASUSTeK COMPUTER INC. FA401",
+>> +		.matches = {
+>> +			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
+>> +			DMI_MATCH(DMI_BOARD_NAME, "FA401"),
+>> +		},
+>> +		.driver_data = &quirk_asus_fa401,
+>> +	},
+>>  	{
+>>  		.callback = dmi_matched,
+>>  		.ident = "ASUSTeK COMPUTER INC. Q500A",
+>> diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+>> index a65090429..a0b678272 100644
+>> --- a/drivers/platform/x86/asus-wmi.c
+>> +++ b/drivers/platform/x86/asus-wmi.c
+>> @@ -129,6 +129,18 @@ module_param(fnlock_default, bool, 0444);
+>>  #define ASUS_SCREENPAD_BRIGHT_MAX 255
+>>  #define ASUS_SCREENPAD_BRIGHT_DEFAULT 60
+>>  
+>> +/* TUF RGB power state bitfields for DEVS(ASUS_WMI_DEVID_TUF_RGB_STATE) */
+>> +#define TUF_RGB_STATE_CMD		0xbd
+>> +#define TUF_RGB_STATE_SAVE		BIT(8)
+>> +#define TUF_RGB_STATE_BOOT		(0x03 << 16)
+>> +#define TUF_RGB_STATE_AWAKE		(0x0c << 16)
+>> +#define TUF_RGB_STATE_SLEEP		(0x30 << 16)
+>> +#define TUF_RGB_STATE_KEYBOARD		(0xc0 << 16)
+>> +#define TUF_RGB_STATE_ALL_MODES		(TUF_RGB_STATE_BOOT | \
+>> +					 TUF_RGB_STATE_AWAKE | \
+>> +					 TUF_RGB_STATE_SLEEP | \
+>> +					 TUF_RGB_STATE_KEYBOARD)
+>> +
+>>  #define ASUS_MINI_LED_MODE_MASK		0x03
+>>  /* Standard modes for devices with only on/off */
+>>  #define ASUS_MINI_LED_OFF		0x00
+>> @@ -308,6 +320,8 @@ struct asus_wmi {
+>>  	u32 nv_temp_target;
+>>  
+>>  	u32 kbd_rgb_dev;
+>> +	u32 kbd_rgb_state_flags;
+>> +	bool kbd_rgb_state_valid;
+>>  	bool kbd_rgb_state_available;
+>>  	bool oobe_state_available;
+>>  
+>> @@ -1120,8 +1134,13 @@ static ssize_t kbd_rgb_state_store(struct device *dev,
+>>  				 const char *buf, size_t count)
+>>  {
+>>  	u32 flags, cmd, boot, awake, sleep, keyboard;
+>> +	struct led_classdev *led;
+>> +	struct asus_wmi *asus;
+>>  	int err;
+>>  
+>> +	led = dev_get_drvdata(dev);
+>> +	asus = container_of(led, struct asus_wmi, kbd_led);
+>> +
+>>  	if (sscanf(buf, "%d %d %d %d %d", &cmd, &boot, &awake, &sleep, &keyboard) != 5)
+>>  		return -EINVAL;
+>>  
+>> @@ -1138,6 +1157,9 @@ static ssize_t kbd_rgb_state_store(struct device *dev,
+>>  	if (keyboard)
+>>  		flags |= BIT(7);
+>>  
+>> +	asus->kbd_rgb_state_flags = flags << 16;
+>> +	asus->kbd_rgb_state_valid = true;
+>> +
+>>  	/* 0xbd is the required default arg0 for the method. Nothing happens otherwise */
+>>  	err = asus_wmi_evaluate_method3(ASUS_WMI_METHODID_DEVS,
+>>  			ASUS_WMI_DEVID_TUF_RGB_STATE, 0xbd | cmd << 8 | (flags << 16), 0, NULL);
+> Interesting, is this using TUF_RGB_STATE_CMD as literal? Perhaps you 
+> should expand this into a patch series and make that conversion in 
+> preparatory patch.
 >
-> Given there is no real harm and we do not bother revisiting this,
-> there is no need to change that.
+>> @@ -5153,7 +5175,6 @@ static int asus_wmi_add(struct platform_device *pdev)
+>>  
+>>  	asus->egpu_enable_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_EGPU);
+>>  	asus->dgpu_disable_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_DGPU);
+>> -	asus->kbd_rgb_state_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_TUF_RGB_STATE);
+>>  
+>>  	if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_MINI_LED_MODE))
+>>  		asus->mini_led_dev_id = ASUS_WMI_DEVID_MINI_LED_MODE;
+>> @@ -5166,6 +5187,19 @@ static int asus_wmi_add(struct platform_device *pdev)
+>>  		asus->gpu_mux_dev = ASUS_WMI_DEVID_GPU_MUX_VIVO;
+>>  #endif /* IS_ENABLED(CONFIG_ASUS_WMI_DEPRECATED_ATTRS) */
+>>  
+>> +	/*
+>> +	 * FA401 series accepts the TUF RGB-state DEVS command but does not
+>> +	 * advertise the device through DSTS. Keep the normal DSTS probe for
+>> +	 * other models and force registration when the quirk is set.
+>> +	 */
+>> +	asus->kbd_rgb_state_available =
+>> +		asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_TUF_RGB_STATE) ||
+>> +		asus->driver->quirks->kbd_rgb_state_quirk;
+>> +	if (asus->driver->quirks->kbd_rgb_state_quirk) {
+>> +		asus->kbd_rgb_state_flags = TUF_RGB_STATE_ALL_MODES;
+>> +		asus->kbd_rgb_state_valid = true;
+>> +	}
+>> +
+>>  	asus->oobe_state_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_OOBE);
+>>  
+>>  	if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_THROTTLE_THERMAL_POLICY))
+>> @@ -5396,11 +5430,36 @@ static int asus_hotk_restore(struct device *device)
+>>  
+>>  static int asus_hotk_prepare(struct device *device)
+>>  {
+>> +	struct asus_wmi *asus = dev_get_drvdata(device);
+>> +
+>>  	if (use_ally_mcu_hack == ASUS_WMI_ALLY_MCU_HACK_ENABLED) {
+>>  		acpi_execute_simple_method(NULL, ASUS_USB0_PWR_EC0_CSEE,
+>>  					   ASUS_USB0_PWR_EC0_CSEE_OFF);
+>>  		msleep(ASUS_USB0_PWR_EC0_CSEE_WAIT);
+>>  	}
+>> +
+>> +	/*
+>> +	 * The display server may blank the keyboard backlight before the
+>> +	 * kernel suspend path runs. Re-assert brightness and power-state
+>> +	 * flags so the EC enters S0ix with the correct state. Always use
+>> +	 * level 3 (max) because kbd_led_wk may already be zeroed by the
+>> +	 * display server at this point, and the sleep strobe requires a
+>> +	 * non-zero brightness to activate.
+>> +	 */
+>> +	if (asus && asus->driver->quirks->kbd_rgb_state_quirk &&
+>> +	    asus->kbd_rgb_state_available && asus->kbd_rgb_state_valid &&
+>> +	    (asus->kbd_rgb_state_flags & TUF_RGB_STATE_SLEEP)) {
+>> +		u8 brightness = 0x80 | 0x03; /* level 3 (max) + light-on bit */
+>> +
+>> +		asus_wmi_set_devstate(ASUS_WMI_DEVID_KBD_BACKLIGHT,
+>> +				      brightness, NULL);
+>> +		asus_wmi_evaluate_method3(ASUS_WMI_METHODID_DEVS,
+>> +					  ASUS_WMI_DEVID_TUF_RGB_STATE,
+>> +					  TUF_RGB_STATE_CMD | TUF_RGB_STATE_SAVE |
+>> +					  asus->kbd_rgb_state_flags,
+> This makes things more confusing overall.
+>
+> One should use FIELD_PREP() consistently for bitfields where a shift is 
+> needed but here you write a pre-shifted value. In the other place, this 
+> driver shifts (which should be converted to FIELD_PREP()) while making the 
+> evaluate call.
+Hi Idotoho!
 
-You are right, and thanks for the correction. The NULL is laundered
-through the function parameter, so it is not diagnosed at the call site
-the way my changelog claimed. Together with N3322 making this
-well-defined, I agree there is nothing worth changing here.
+I tried to change the ASUS TUF interface for leds moving it to asus-armoury once,
+I dropped it in the end, but I got these defines and bitfields right: you can reuse
+my code code if you want, just leave the interface in asus-wmi.
 
-Dropping the patch.
+Also about this restore the backlight setting before entering sleep: do we really
+want the kernel to decide to override a userspace decision to shine some leds
+in s2idle? My understanding is that if this is a userspace "missing feature"
+(the ability to configure what happens to LEDs upon entering s2idle) it is the
+userspace that has to be improved, not for the kernel to force a decision.
 
-Hangbin, thanks for the review as well; sorry for the churn.
-
-Thanks,
-Chaithanya
+Best regards,
+Denis
+>> +					  0, NULL);
+>> +	}
+>> +
+>>  	return 0;
+>>  }
+>>  
+>> diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/x86/asus-wmi.h
+>> index 5cd4392b9..69d224774 100644
+>> --- a/drivers/platform/x86/asus-wmi.h
+>> +++ b/drivers/platform/x86/asus-wmi.h
+>> @@ -52,6 +52,7 @@ struct quirk_entry {
+>>  	 */
+>>  	int no_display_toggle;
+>>  	u32 xusb2pr;
+>> +	bool kbd_rgb_state_quirk;
+>>  };
+>>  
+>>  struct asus_wmi_driver {
+>>
