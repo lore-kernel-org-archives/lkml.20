@@ -1,125 +1,173 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33EE53FDBE8
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 20:59:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A0CF3FA5FA;
+	Wed,  2 Sep 2026 20:59:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788382767; cv=none; b=EkQOUYmrdgd5WbmSBfy6I+hB7FNHYvLz6Ol/lx7DnR0JkJ0MHNUTPBBaWCrKFyXcmRoTxvjD86lYZp6pnY+rGoZ1hTcBhF7TN/frr3lWLKXcsGpt2GdpY1Zyv33CW514CIJ3SqlXY4g9PyFLt0EFv8Fn2oZj9DU6nQ/aFIY3tJQ=
+	t=1788382760; cv=none; b=eoD0WgeM1SFF0XCHAJZkZxFon9LRw4dcdqRMUNxQM+9l0lTXOCOMHymzGnR9Y1unx8L0zyMunCE9vmn5OkmZ6rub+/lrqM9K59wVhj1uPicX0RaXTREgGWBzA5zREW9TCNSS3Xqko67IlJPPj0kcTmw7iXK9dpNazYLq38O9EGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788382767; c=relaxed/simple;
-	bh=cF6IiUx+BCoe0m+3uvTplcUMQWNqx5NBiPSWA23TLCQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JO4S6GjaCZYHeO+NxfsHLg/Xeui+JDOkRrMD7tv4T4Ro5CD6NTmgsbkKeNpGKyupxKnrCy4TXFR3Oo2HzgqiZ9nLhELOwpyTwFOYqroagMtyw/eMWegg1afqF10VV10JRWPz9lLhGPA5Uct0WT4SurTBEkPq19G8OtfakhUoRFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=V4KKaBt1; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788382760; c=relaxed/simple;
+	bh=8xHUeYDbEoNscvr8B8iXVxMzxcKa4oLLTTVc6hIKl+w=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Z3vi5hY6aQTEYMtwT71la8FJ7ISCZGuAG073mmbYsgFpY5Z4GMR/XSoC/TDBWE7yXij2NTQYKgMzmCl+d9p6wFSQuR1XRDB2juwXBMOZm3n2dnVgxkxj54dCbeCq5XeX3kYexsQUWI7OpsotVRQ0I0VvHVe+6CmmaAKJk6leiRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IkgjQnS0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="V4KKaBt1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788382763; x=1819918763;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=cF6IiUx+BCoe0m+3uvTplcUMQWNqx5NBiPSWA23TLCQ=;
-  b=V4KKaBt1ZyPt4qMGeCylKxVLI6K2jIIoz1p4pG/Lt1oxCFtiUCVXtL49
-   dDrlH5FiCQO2hUX7MUy2d6N5kwfMVE3NnRXqmaRMfKUgcvyXKgpCzPeXz
-   e9PoRy5YiJSxolHPibQJW++kjIs+umEeAOBJFXaX4KUEm6jOLV21DgyZ3
-   dV/i6xwWw+KW5xoxr0BuhnX9KF0hePWKsTeWRi/6Aw88Tx1VNs7kIyTnv
-   fgW1k5RObNNTfTSV/PtJU+nqtFlXDBpfF6IIHHd9A8h+BbgJ1Ce9xD11c
-   vYYslLxgJIuSdAOv2WyDTnw+2n9dpMrAOu5Pfypzw+gYy9g6g3m8LzqOR
-   A==;
-X-CSE-ConnectionGUID: 6pkb2x7ySLiLRaaJl0VOCw==
-X-CSE-MsgGUID: HebQIQndQy+jgpY16XSGrw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="88618497"
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="88618497"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 13:59:19 -0700
-X-CSE-ConnectionGUID: ikwRYlfkQFWAwOzWRoIzTQ==
-X-CSE-MsgGUID: eJoC9yYvSRuQE0aGcQiTIw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="265198010"
-Received: from cjhill-mobl.amr.corp.intel.com (HELO [10.125.110.134]) ([10.125.110.134])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 13:59:17 -0700
-Message-ID: <5026dbec-0b71-4408-a78a-484a4b8e77dd@intel.com>
-Date: Wed, 2 Sep 2026 13:59:15 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IkgjQnS0"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 36109C2BD04;
+	Wed,  2 Sep 2026 20:59:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788382759;
+	bh=8xHUeYDbEoNscvr8B8iXVxMzxcKa4oLLTTVc6hIKl+w=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=IkgjQnS0yBo3LyMtq762PTS27svjrB6+d/ePPL4gf1sgrOT3GLK7lYxBIWtI9CcO+
+	 9jaTfxuPez1lysE1CHB2RSYPlZ2YdsFJx+kEb8FWN3j2XyAAS08Ug2FI2KyLZp+ARP
+	 0u0aEOAK8OSQpDZb3gVla3xZ3/f7EIWpvjbI8JEHoD2WtzbCC6+0iZ6qODLm5u5hyw
+	 txAKnhsLOR3oXPvB/9Fy66BDWiQ1l6fL4RzZ2IAU1+3TJ/fl0QZn1lLeqGJdUj1os+
+	 cMJpOtgf7ANmZZO+aHSDeBz4FBlwINhooSuBWPhxEqDrGT6zF8J7oCn/c+DEGVmP2p
+	 6BIdUAc5hdQ4Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 18A79C624DB;
+	Wed,  2 Sep 2026 20:59:19 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Wed, 02 Sep 2026 22:59:14 +0200
+Subject: [PATCH 3/3] arm64: dts: qcom: sdm670-google: Add NFC support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/3] mm: make persistent huge zero folio read-only
-To: Xueyuan Chen <xueyuan.chen21@gmail.com>, akpm@linux-foundation.org
-Cc: david@kernel.org, ljs@kernel.org, usama.arif@linux.dev, ziy@nvidia.com,
- baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev,
- ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
- lance.yang@linux.dev, kas@kernel.org, rppt@kernel.org,
- catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
- linux-arm-kernel@lists.infradead.org, tglx@kernel.org, mingo@redhat.com,
- bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
- luto@kernel.org, peterz@infradead.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20260901151818.3191443-1-xueyuan.chen21@gmail.com>
- <20260901151818.3191443-2-xueyuan.chen21@gmail.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <20260901151818.3191443-2-xueyuan.chen21@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-sdm670-sargo-nfc-v1-3-bed1cbbffc46@ixit.cz>
+References: <20260902-sdm670-sargo-nfc-v1-0-bed1cbbffc46@ixit.cz>
+In-Reply-To: <20260902-sdm670-sargo-nfc-v1-0-bed1cbbffc46@ixit.cz>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Richard Acayan <mailingradian@gmail.com>
+Cc: Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2123; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=nLoRLzWSD9I8QjZocCX1KJtlPxdBkqwCM/C1ynX9oYU=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqmI4lAGgep8wCBGzhi2XmUy1eTpd8/Zc4BltUq
+ VVVEFJB3t2JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCapiOJQAKCRBgAj/E00kg
+ cmINEACG77+AleMKMB6rN/hKly9BtOeMUj9oRTl0d2+0na6z7eZHh/ihzDX9SpiA6pAFYS2dEqy
+ fbAvi8Wd5/0ILeH3UBAT60VfQPkkcKF2AI8GPXuM/eiWb2ERpiEwp01ztoxbWWlV8XGGIA0Q8d9
+ z728nkurL7iRPObbQ709ae18JWQJrhMwPks48Pz0YS7uaD09F6hyAj/ggmFPC6hDegIc/K5sst8
+ r81ssdbscKNdwmkY6LWMOGCNez4yfuh0DDMBER+7v7WZjoZSkX1gkFtNCFzvBavqEo7YblRZ3WO
+ h/MI3jitl909G45vDKSDSiULcIHdnDvdbDH8vI0ElnJY27F34In8BNA8l6efldyztYvT8DWdzRv
+ Fwda6uRjnOnlUpr692y0Xkx5slvTXYT7Tq8DjZcBM5+/pXHiZGNiRt/V+zu4AY3QwPzdk9zFom9
+ pYIlNqEBJRLNZ/dPkNTnsS972JwGVueHBBUo8BFJkEObHSboXIMFzET59ALPqDSsYiptI3mBgsI
+ cYdIiz9oQqExslxtu2KgtNTC2vB+hject/SvVQmGmIMVUv236/7kHwHZf7GU7a3vFjZYAf+49iN
+ W6fekChjwbJEV1XBPF9m7v+8dlq7FMj1iA7b1KjaTelq6uzcQsl35Rts9JeorzDgwjsS7NRu/ip
+ E7ZnTx7keLk/PSA==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-On 9/1/26 08:18, Xueyuan Chen wrote:
-> +static inline int set_direct_map_ro(struct page *page, unsigned int nr)
-> +{
-> +	return 0;
-> +}
+From: Richard Acayan <mailingradian@gmail.com>
 
-I still really think the stub here needs to return an error *or* the
-thing needs to just be void and tell folks that they can't know whether
-it worked or not.
+The NFC driver can detect and read an NFC tag.
+
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+Co-developed-by: David Heidelberg <david@ixit.cz>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi | 42 ++++++++++++++++++++++
+ 1 file changed, 42 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+index b4854801a5f5e..5c2613e53679c 100644
+--- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+@@ -485,16 +485,35 @@ &gpi_dma1 {
+ &gpu {
+ 	status = "okay";
+ };
+ 
+ &gpu_zap_shader {
+ 	firmware-name = "qcom/sdm670/sargo/a615_zap.mbn";
+ };
+ 
++&i2c3 {
++	clock-frequency = <400000>;
++
++	status = "okay";
++
++	nfc@28 {
++		compatible = "nxp,pn557", "nxp,nxp-nci-i2c";
++		reg = <0x28>;
++
++		interrupts-extended = <&tlmm 44 IRQ_TYPE_EDGE_RISING>;
++
++		enable-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
++		firmware-gpios = <&tlmm 43 GPIO_ACTIVE_HIGH>;
++
++		pinctrl-0 = <&nfc_default>;
++		pinctrl-names = "default";
++	};
++};
++
+ &i2c9 {
+ 	clock-frequency = <100000>;
+ 	status = "okay";
+ 
+ 	synaptics-rmi4-i2c@20 {
+ 		compatible = "syna,rmi4-i2c";
+ 		reg = <0x20>;
+ 		interrupts-extended = <&tlmm 125 IRQ_TYPE_EDGE_FALLING>;
+@@ -686,16 +705,39 @@ ts-irq-pins {
+ 		ts-switch-pins {
+ 			pins = "gpio135";
+ 			function = "gpio";
+ 			drive-strength = <2>;
+ 			bias-disable;
+ 			output-low;
+ 		};
+ 	};
++
++	nfc_default: nfc-default-state {
++		enable-pins {
++			pins = "gpio12";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-pull-down;
++		};
++
++		firmware-pins {
++			pins = "gpio43";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-pull-down;
++		};
++
++		irq-pins {
++			pins = "gpio44";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-pull-down;
++		};
++	};
+ };
+ 
+ &usb_1_hsphy {
+ 	vdd-supply = <&vreg_l1b_0p925>;
+ 	vdda-pll-supply = <&vreg_l10a_1p8>;
+ 	vdda-phy-dpdm-supply = <&vreg_l7b_3p125>;
+ 
+ 	status = "okay";
+
+-- 
+2.55.0
+
+
