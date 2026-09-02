@@ -1,33 +1,32 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 04B1B4AA021;
-	Wed,  2 Sep 2026 16:22:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 49B224AA3F4;
+	Wed,  2 Sep 2026 16:22:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788366157; cv=none; b=P1AIDAYiQ2ytd8ncaMy3DuiSJXkonZAoShApu56U7bnw0UjWu7+lkABNzyAhv9DXeBH+3sYVT2UaBYWREZVWHD48/qeBkqdoqI35oFgIJZRrASh2MffKyvS3LSZ5r9gYmW5feWMQEu1pnfnET4YQUXqSiY4OL2PPF5hczO42sOA=
+	t=1788366163; cv=none; b=Tvh9TnihxDqUk3jfEflBy3MT6lADhfIVt27uYnx1BG3U+jQpsCw4MPLd5ptznzeCByMq/DgRaPMIJFxwpOnAsr/uyZCTbLv7G3hmr7CNkhbXn+OSfvu1ZDBzYQF10Hf2m172O5zEPd4uveVI2T98ljnGj9PqVris3pC4S+4zd6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788366157; c=relaxed/simple;
-	bh=f7So4PD3SpWVkcMTym/ALZ8vV33+GGiW9Tn+04kGdXs=;
+	s=arc-20240116; t=1788366163; c=relaxed/simple;
+	bh=35EstDuMwFTJkXwd8XjJdaRQlR2EtnmI53sCU5QGR1s=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jTLW5OYN8nrdYEinZU7IdI5IMaYI1e/XmfJ9a/3hlelzANh4T9W9himhCBbm0+JtlH/ZYquZt0RHVgYoE2XbwaLNBxj+7skSD4fFyvQprcu0z+B6TBTMp9bmoNoC+WGjdNHcFYwRQfZA83ZPHiuCwa9m8ZTGHjOTFEwQT2kZRAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=pwcrpkTi; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=EhFQfmpoPAqmyn7ShRyP2DLk/LXhKIVOylGQFFBAIOoCSlB1IwX1LUpt8eDvSLcxt+bX6DdnD/+tYjI+JBPsj9BVT0nmF8cJnd3+kLbQe+wchgTCozkZFCfbmbHv3JHyS7SkOfXx17LjViRSPIcE4zjFw/SWv7pyl4XdnSWTwmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=qqWUyDXO; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="pwcrpkTi"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 97372165C;
-	Wed,  2 Sep 2026 09:22:30 -0700 (PDT)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 595503F882;
-	Wed,  2 Sep 2026 09:22:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788366154; bh=f7So4PD3SpWVkcMTym/ALZ8vV33+GGiW9Tn+04kGdXs=;
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="qqWUyDXO"
+Received: from [100.96.96.2] (unknown [52.167.115.14])
+	by linux.microsoft.com (Postfix) with ESMTPSA id ED13E20B7129;
+	Wed,  2 Sep 2026 09:22:01 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com ED13E20B7129
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1788366123;
+	bh=DL4LgKzmMK4nAxsWVXsvmnwn/GSFB1ohXTsW7Q4KrOY=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=pwcrpkTi9XgUFwKtd7d8RetimOzgVqcjPRL0NQ7xqfCWiXec1X48RdCTgwWyfhGrV
-	 b3RmIXXPF7I1HV7pLvAh7Xi5Yf5njXs+9Nzkk8Bhx4BRJBF01z2/k3mEofMu0rkYl6
-	 33K+d7vi9eoLsgjbxGeiWHqmBQn8Vo/gX5FrXtPU=
-Message-ID: <bca22f76-4fc0-4a99-8648-4f148de7246d@arm.com>
-Date: Wed, 2 Sep 2026 18:22:29 +0200
+	b=qqWUyDXO51H2V/XbTG6/ifa4WYin+SOWbYNDEefYkEF21tN/x2SIEsySCd5YcGFNr
+	 u7wMRiEKi84H7lYcH2ETf2ceadiAzDsLlC3ufpZhkYjDCh7E0IhWQMlIa9EbjSG/ak
+	 QPreynUFWxvj6DokkLUcMG7GM7r86X7rf3YxxwOk=
+Message-ID: <4d876bd8-3885-4d65-a272-d846ae0d7d3d@linux.microsoft.com>
+Date: Wed, 2 Sep 2026 12:22:37 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,108 +34,96 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 08/15] arm_mpam: Fix ris_idx type to prevent range
- check bypass on truncation
-To: Yin Li <yin.li@oss.qualcomm.com>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Shanker Donthineni <sdonthineni@nvidia.com>,
- Conor Dooley <conor+dt@kernel.org>, Fenghua Yu <fenghuay@nvidia.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Konrad Dybcio <konradybcio@kernel.org>, James Morse <james.morse@arm.com>,
- Ben Horgan <ben.horgan@arm.com>, Bjorn Andersson <andersson@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-arm-msm@vger.kernel.org, ganapatrao.kulkarni@oss.qualcomm.com,
- trilok.soni@oss.qualcomm.com, devicetree@vger.kernel.org,
- driver-core@lists.linux.dev, Srivathsa L Rao
- <srivathsa.rao@oss.qualcomm.com>, Huang Yiwei
- <huang.yiwei@oss.qualcomm.com>, aiqun.yu@oss.qualcomm.com,
- linux-kernel@vger.kernel.org
-References: <20260811-mpam-resctrl-dt-knp-support-v1-0-ea6397bead59@oss.qualcomm.com>
- <20260811-mpam-resctrl-dt-knp-support-v1-8-ea6397bead59@oss.qualcomm.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20260811-mpam-resctrl-dt-knp-support-v1-8-ea6397bead59@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [RFC PATCH 07/12] drivers: hv: hv_vsm_boot: load secure kernel
+ image from firmware
+To: Wei Liu <wei.liu@kernel.org>
+Cc: kys@microsoft.com, haiyangz@microsoft.com, decui@microsoft.com,
+ tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, hpa@zytor.com, ardb@kernel.org,
+ ilias.apalodimas@linaro.org, James.Bottomley@hansenpartnership.com,
+ javierm@redhat.com, lszubowi@redhat.com, francescopompo2@gmail.com,
+ tgopinath@microsoft.com, x86@kernel.org, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-efi@vger.kernel.org,
+ Stanislav Kinsburskii <skinsburskii@linux.microsoft.com>
+References: <20260901165647.3160413-1-tgopinath@linux.microsoft.com>
+ <20260901165647.3160413-8-tgopinath@linux.microsoft.com>
+ <20260902043732.GF2583463@liuwe-devbox-debian-v2.local>
+Content-Language: en-US
+From: Thara Gopinath <tgopinath@linux.microsoft.com>
+In-Reply-To: <20260902043732.GF2583463@liuwe-devbox-debian-v2.local>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi,
 
-On 8/11/26 15:30, Yin Li wrote:
-> The RIS index is read from device tree as u64 via of_property_read_reg(),
 
-what does it do that using an u64, actually? Do you refer to the reg 
-property of the ris subnode, which has a limit of 0xf in the DT binding? 
-So shouldn't it be an u8 all along, and we fix the types up at the 
-sources, rather than widening everything needlessly to u64?
+On 9/2/2026 12:37 AM, Wei Liu wrote:
+> On Tue, Sep 01, 2026 at 09:55:21AM -0700, Thara Gopinath wrote:
+>> LVBS bring-up requires loading a secure kernel image into VTL1 before
+>> starting it. Add the VTL0-side loader that stages the image in the
+>> memory region reserved by hv_vsm_securekernel, in preparation for the
+>> VTL1 bring-up.
+>>
+>> The image is a 64-bit ELF fetched via request_firmware("vsm_sk"). It
+>> is expected to ship inside the signed UKI/initramfs so it is
+>> authenticated end-to-end via Secure Boot before the loader consumes
+>> it; sourcing it from an unauthenticated location would break the LVBS
+>> trust model.
+>>
+>> The loader validates the ELF header, stages the PT_LOAD segments into
+>> the reserved region and records the entry point as a physical address
+>> for use at VTL1 start time.
+>>
+>> If VSM support has been advertised to the hypervisor but no secure
+>> kernel region was reserved on the command line, panic: LVBS bring-up
+>> is committed at this point and there is no safe way to continue.
+> 
+> This conflicts with the memory reservation patch, in which there is an
+> automatic allocation when no kernel command line is specified.
 
-Cheers,
-Andre
+Ah no.. So securekernel= has to be specified in the command line for
+__setup() to be invoked . It can be left blank without parameters like
+securekernel= or with parameters like securekernel=256M@0x80000000. The
+reservation logic will take care of reserving the correct memory if there
+are no parameters but if there is no command line specified __setup will
+not be  called. The other way of solving this and invoking the reservations
+unconditionally will be to call it from setup_arch like how reserve_crashkernel
+is invoked. I am not sure if we want to do that now ?? What do you think ?
 
-> but was narrowed to u32 when passed to mpam_dt_parse_resource() and
-> further to u8 when passed to mpam_ris_create(). A value exceeding
-> MPAM_MSC_MAX_NUM_RIS could be silently truncated to a small index that
-> passes the range check in mpam_ris_create_locked(), leading to incorrect
-> RIS creation.
+But I will reword this and state that the panic happens if there is no
+securekernel memory allocated (either because securekernel= was not
+specified or because memory reservation itself failed)
+
 > 
-> Widen the ris_idx parameter through mpam_dt_parse_resource(),
-> mpam_ris_create_locked(), and mpam_ris_create() to u64 so the value
-> is preserved until the range check in mpam_ris_create_locked() rejects
-> out-of-range indices.
+>>
+>> Signed-off-by: Stanislav Kinsburskii <skinsburskii@linux.microsoft.com>
+>> Signed-off-by: Thara Gopinath <tgopinath@linux.microsoft.com>
+>> ---
+>>  drivers/hv/hv_vsm.h      |  17 ++++
+>>  drivers/hv/hv_vsm_boot.c | 201 ++++++++++++++++++++++++++++++++++++++-
+>>  include/hyperv/vsm.h     |  21 ++++
+>>  3 files changed, 238 insertions(+), 1 deletion(-)
+>>  create mode 100644 drivers/hv/hv_vsm.h
+>>  create mode 100644 include/hyperv/vsm.h
+> [...]
+>> +
+>> +static void __init hv_vsm_get_sk_mem(void)
+>> +{
+>> +	/*
+>> +	 * The reserved secure kernel region is mandatory once VSM support has
+>> +	 * been advertised. Without it we cannot load the secure kernel and
+>> +	 * bringing up VTL1 is impossible, so fail hard rather than continuing
+>> +	 * in an unusable state.
+>> +	 */
+>> +	if (!sk_res.start)
+>> +		panic("No memory reserved in cmdline for secure kernel");
+>> +
 > 
-> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
-> ---
->   drivers/resctrl/mpam_devices.c | 6 +++---
->   include/linux/arm_mpam.h       | 4 ++--
->   2 files changed, 5 insertions(+), 5 deletions(-)
+> This log line is wrong.
+
+I will fix this 
+
+Warm Regards
+Thara
 > 
-> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-> index cc9fa1d78925..1e082fb60e30 100644
-> --- a/drivers/resctrl/mpam_devices.c
-> +++ b/drivers/resctrl/mpam_devices.c
-> @@ -260,7 +260,7 @@ static int mpam_dt_count_msc(void)
->   }
->   
->   static int mpam_dt_parse_resource(struct mpam_msc *msc, struct device_node *np,
-> -				  u32 ris_idx)
-> +				  u64 ris_idx)
->   {
->   	int err = 0;
->   	u32 class_id = 0;
-> @@ -712,7 +712,7 @@ static int mpam_ris_get_affinity(struct mpam_msc *msc, cpumask_t *affinity,
->   	return 0;
->   }
->   
-> -static int mpam_ris_create_locked(struct mpam_msc *msc, u8 ris_idx,
-> +static int mpam_ris_create_locked(struct mpam_msc *msc, u64 ris_idx,
->   				  enum mpam_class_types type, u8 class_id,
->   				  int component_id)
->   {
-> @@ -799,7 +799,7 @@ static void mpam_ris_destroy(struct mpam_msc_ris *ris)
->   		mpam_vmsc_destroy(vmsc);
->   }
->   
-> -int mpam_ris_create(struct mpam_msc *msc, u8 ris_idx,
-> +int mpam_ris_create(struct mpam_msc *msc, u64 ris_idx,
->   		    enum mpam_class_types type, u8 class_id, int component_id)
->   {
->   	int err;
-> diff --git a/include/linux/arm_mpam.h b/include/linux/arm_mpam.h
-> index f92a36187a52..30461cd71199 100644
-> --- a/include/linux/arm_mpam.h
-> +++ b/include/linux/arm_mpam.h
-> @@ -39,10 +39,10 @@ static inline int acpi_mpam_count_msc(void) { return -EINVAL; }
->   #endif
->   
->   #ifdef CONFIG_ARM64_MPAM_DRIVER
-> -int mpam_ris_create(struct mpam_msc *msc, u8 ris_idx,
-> +int mpam_ris_create(struct mpam_msc *msc, u64 ris_idx,
->   		    enum mpam_class_types type, u8 class_id, int component_id);
->   #else
-> -static inline int mpam_ris_create(struct mpam_msc *msc, u8 ris_idx,
-> +static inline int mpam_ris_create(struct mpam_msc *msc, u64 ris_idx,
->   				  enum mpam_class_types type, u8 class_id,
->   				  int component_id)
->   {
-> 
+> Wei
 
