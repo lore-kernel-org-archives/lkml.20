@@ -1,64 +1,63 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7293B40A93E
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:24:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3357415F0B
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:24:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788341089; cv=none; b=LSOa+/AWBpG5eES+S98B8ffGHJDTsh9IpHZnLxllErB2g95D5KMaFrifUqlfVTwX9XVMgekKh6vMFlIc9OpyKDMEFHnWewHvcfOwSL7earkU3Rqda2UU0tC+InCS1SYrSAFnXClkOFT+GGNVXCA8i4/COo++1FtkwNpZPvN+Ddw=
+	t=1788341091; cv=none; b=T+tXBikr4xbuC8Pl3iBmmSYY6QowNqWgo1jwVkRmmjPOW6w4RKjzYPmD3nEh6UOV3jZq7e3mYe5c/OXBxrT4nXaCK715+3zZhez+SSslaKgklf9OmpyJerV9Vh3mY4vqsYUhWLTdIa9rrtuKZX3udG3o1wCXlwszM/7/Iun8M/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788341089; c=relaxed/simple;
-	bh=htsA+2Ta+xkPsrznDs+1fwd4+8WtuDMyst6whWczVtA=;
+	s=arc-20240116; t=1788341091; c=relaxed/simple;
+	bh=ZdHHIbZJfkxShW+VC/jzQX9xO0bjMsfZ4Uqry3H0ap0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T3aN0GLtC/TNix4gPUxkaO0yuLg+PU926TLKvAHovf2oC0XxVatXozjkAvMTl5yelwlXqYjAX1MAxxOuaRtTsRAg07628hJERVhdoZ6mWY+TzgI//e+Dn1WHX6c5LaJ8cBhu22rY5U4f3YZJjY/45V/QkCtAtG/KuvUc5yLfOC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=grsJoZu+; arc=none smtp.client-ip=209.85.128.50
+	 MIME-Version; b=bryCuLAUHDsjE/Avs+BfHJ992Pp0eDqp+zpob8FCvSuAdlkqs0Aikw0i0d3h6T4SnrkNkIChe0V967Rlkr+5d1YeePxW3FCMy9MUdHwI6cKS84fZHwaeEt9CPsafq05C2LY32jbw8kYv4g1mobSNwdlASorgEj8TS6oELMWhaEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=SHoUGUrm; arc=none smtp.client-ip=209.85.128.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="grsJoZu+"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49ccfbe062eso6347175e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 02:24:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="SHoUGUrm"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-499ac87c92bso8001895e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 02:24:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788341086; x=1788945886; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1788341087; x=1788945887; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=u3fqr5+6od1TZCzN+IFHy0hN1GLZqBToHSX78eyTEKo=;
-        b=grsJoZu+twxEB/SGEz2UDKSlqmfCYXM2GbDBdo6JEZ/m5W1g5MxNkDBi9C7p0ibJMC
-         q0nO4TWsbTWIvH1KIfiUAZ93NecQxVq6YNBhBFMCyGWCRNYjZc2eNagZCSvxkh1aVpN+
-         W/o1iRbY8ppWMo4N0e35e4xmBREaarB2oJOx01PWPkYxQjlAVBedYCx3bszm6PPoeYpW
-         5vxtTKpFmOxTYz9KtG5RjC9SO2hbbI1/DYvcevgb/X/9UtaRboSm6AefZts/bhXioBKM
-         0kQLGgAArSkyWMHCZzCvcI/aVBr1XfWllMVrQr//1HKm7nBlsYofBFNmj3B5XE5NoPcT
-         MLNw==
+        bh=IQeV/8ekaSrKNPDw7JKOOSul0YRAVF11Ftj2jef2Dyg=;
+        b=SHoUGUrmhH5s5DeMHO8lbMtz8qJ6ycnCfApQpx0eETNasHbtoRCO3NaSNT2URCmPm5
+         4o7Y4UaGKSaU8D0fuyuZ7Fc5zPL2Ifrl6p8gvxbC2cqbjvzh6WQvysFpmfnC4YqMqWTD
+         OehE7Gw4xbDBz2aSaa4ydkGDmaqd+O87/iZ2a1eHydQ89HbqPBTXaWrtvjy14W1olh/6
+         pemrGHqsuO9M25p9vBhOWOwWYwy/jCO4k6GFPjUBRG6XA2NqXczzIu0HXYRl0Ekqw2E8
+         CJISLKz0hhAQaLhl0JAeVSDcRXuShes4EG5WoAOWFYBLMCbVzFoNWuaCSyBAUofW43Pv
+         C7Aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788341086; x=1788945886;
+        d=1e100.net; s=20251104; t=1788341087; x=1788945887;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u3fqr5+6od1TZCzN+IFHy0hN1GLZqBToHSX78eyTEKo=;
-        b=UGu12YYFpGTm3EYS+b5QDsU+dOE6SefbQA9JfWGQ8PRslcJmI3F7Jij9oMnKvV5k8E
-         IskHtg6t7qYQo9qDha0pBONSWonE3lx9smTC24U3tqvj3eQor5AZjVuO+Hwh3i1dUCxr
-         OFyP1j87+fw3Zr9mVbIZ79cFiuFXjxAejiowSJGDxqWd2qmcKWf8w4hyzS7DAY32+Irn
-         bSN23Od9oL7W4HzUKGdoNvr+X7EkyjJOHRdhOHOWYK/rdpu5UB0K3l42dupdtQ09CcH0
-         w2yP1w+R7EaUvc8ThhbDCJO91/ZOuckJjJSB209xeqzfJ1WoGPBTsEg5ZPpXHMWf2StI
-         fUvA==
-X-Gm-Message-State: AFuF++kGc+zwRAFcJFYDIepiMfGSFMYjHytgaHvGDWZzXlZH9TJYNL4B
-	FCnG0k9GJZXgWb1QlKwZIrJkilDbUpbs298nnXLZDRpgKdxU37UW2vSujXJTyDcTmCzqRvrOZNg
-	xkk0Yr9w=
-X-Gm-Gg: AR+sD12ptUPbmsFBTEW74AMgp8RtkwmlnubzpXrZRZlJSxOWS+eEeL5KOSIUVbRYwkJ
-	Etagli3AHQ4qg7A4e4NtJ0PGcxz0qDKdA9qRvq8hIix0BcpXG6+b5g2G8g6k36qb0ec752M1HNG
-	PLHKlvyoUaYL5pk1IDzaakifKUatn0dJkqsbssax9NFV6kOuWWbCSDkJV4lQiXtYz7htA+4TiOv
-	Kmjt9JNel/bq9WfVhk/Xp+1KjMJ0t/RC46Drti8cD+HJzXIlH+uTgf7zHGOS5LJ1ACdFvbFSUsK
-	UTF9j5BvEnFpTs5MfqadLP8g+EUfnnVIw3ZOx+lvZCjx1Yp/PA61y1eglgp9G7bH4ob+gkMpmPt
-	BjAzjqsedN0SMgBGBcl0Jqt1bmrlDEyLbizl9g/qkGDMCC79W62I95z2IXEPVcUdbIasJoaxtvw
-	Ns3vnxq9H8kmfn9pLvmATjRqB+J4+mAaQlIRhJ6mvaA1RHEPhpSGPwLMb0TfWOhR9LAlwKmiSFY
-	YUDGgLOCLs=
-X-Received: by 2002:a05:600c:4e4a:b0:49b:9113:e04a with SMTP id 5b1f17b1804b1-49ce55ecde6mr60360315e9.1.1788341085661;
-        Wed, 02 Sep 2026 02:24:45 -0700 (PDT)
+        bh=IQeV/8ekaSrKNPDw7JKOOSul0YRAVF11Ftj2jef2Dyg=;
+        b=MC0bLyUyjijT0as0v7dM1rI0xR9sDLax6FPBUULRYPwIrxLPcY+VQnQzNuJwTvlESM
+         DEwtne/Vc6u3MVn9yXfX0+JQffdEzxVUfL8GVD+rNPtYsql/aHeSHv92X1B+kW4ECa+g
+         kC2wbhj77FBk5esRi0/6HSnkEXsJt1sDNDp6MyUazP/NrrdgW9IrF00o/8YYtJLtamJz
+         +jEHBcNJy4NMKRJ624x42xLgNwe2jcuhZThaUFsicUzn5Ciyagm4vuh2jnt5Ys8g6zwa
+         Y+TEk5ExUaTnDmbtjjqZir5/WlGWrCHpEUyU8GeDAZ3wcbQsg6oTuKZ2tF2HtqdXe1UG
+         ojkQ==
+X-Gm-Message-State: AFuF++lHA04/uvQ1FBXX8ziaWTH1HSIeUIRdmfxVncN51f+t0zW6xa7s
+	H+sH6g3M2YkMfOmZxentnAvEv/xew/EuvRP3CAU9d3jSOTHDo8yHc55EGu6lqB9xSGUNyhDG+Df
+	iPlJ6nms=
+X-Gm-Gg: AR+sD11D5THM49ewkH81ikEFnHqQy6Wf6ymqoyZjIotPFQDYa0wtJ9mzTa9Ga8dfc4t
+	rIJgQytdbK+zI4WppP33zrBp877UQ+iHrxhugGfbYfqtQJyUc6a4mzN07Q3Jy9xh/nfMpgzxWMd
+	3XP+W8hGII2OGp13GvOZ+nFtRlTmJIu7pO9KpPpPtRefpebHKNEuWnah+DDqzK67kRl3t9ZcJyu
+	o2qrCNvvu1evF0OSdEY8v7V6AjCZNkjtEswfDeZmNrMEgm12tW4gGHeh+RiFX6SjgWEqd+CCroP
+	kYigtcVBE+vFiFse0KGjOz8b4rapIcTiSxIt4+z0PK7gALQrSYrqjFzrj7lSD0IXV5QlbmbtXrB
+	/Vy79dg+pJfnbKHggq4SIb6zLr7nonIIVlUM596RwZKeTOqmeRXsjAPTQD7fTUpmfpfLDiYDa92
+	NU+GZU9JUZsAkmUkcK7q8z5xPtg2mbz38SrUpE48/LSMOs3BPZCv8nspeCiaKjpuRCdy2x
+X-Received: by 2002:a05:600c:e558:10b0:49c:e9c1:2819 with SMTP id 5b1f17b1804b1-49ce9c12842mr13261025e9.16.1788341086717;
+        Wed, 02 Sep 2026 02:24:46 -0700 (PDT)
 Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce46422desm52404145e9.1.2026.09.02.02.24.44
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce46422desm52404145e9.1.2026.09.02.02.24.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 02:24:45 -0700 (PDT)
+        Wed, 02 Sep 2026 02:24:46 -0700 (PDT)
 From: Marco Crivellari <marco.crivellari@suse.com>
 To: linux-kernel@vger.kernel.org,
 	linux-doc@vger.kernel.org
@@ -69,14 +68,10 @@ Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>,
 	Shuah Khan <skhan@linuxfoundation.org>,
 	Randy Dunlap <rdunlap@infradead.org>,
 	Michal Hocko <mhocko@suse.com>,
-	Marco Crivellari <marco.crivellari@suse.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Waiman Long <longman@redhat.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	"Paul E. McKenney" <paulmck@kernel.org>
-Subject: [PATCH v3 1/2] doc: Change dynticks-testing repository name
-Date: Wed,  2 Sep 2026 11:24:24 +0200
-Message-ID: <20260902092434.85096-2-marco.crivellari@suse.com>
+	Marco Crivellari <marco.crivellari@suse.com>
+Subject: [PATCH v3 2/2] Documentation/no_hz: Change dynticks-testing repository name
+Date: Wed,  2 Sep 2026 11:24:25 +0200
+Message-ID: <20260902092434.85096-3-marco.crivellari@suse.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260902092434.85096-1-marco.crivellari@suse.com>
 References: <20260902092434.85096-1-marco.crivellari@suse.com>
@@ -91,31 +86,30 @@ Content-Transfer-Encoding: 8bit
 Currently the documentation still mention dynticks-testing.
 
 Recently the repository name and the tool have been renamed
-to cpunoise (see Link tag below), so fix the occurrence and
-the URL.
+to cpunoise (see Link tag below), so fix the URL.
 
-Cc: Valentin Schneider <vschneid@redhat.com>
-Cc: Waiman Long <longman@redhat.com>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>
 Link: https://lore.kernel.org/all/20260815083728.15470-1-marco.crivellari@suse.com/
 Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
 ---
- Documentation/admin-guide/cpu-isolation.rst | 4 ++--
+ Documentation/timers/no_hz.rst | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/admin-guide/cpu-isolation.rst b/Documentation/admin-guide/cpu-isolation.rst
-index 8c65d03fd28c..b9f13a928673 100644
---- a/Documentation/admin-guide/cpu-isolation.rst
-+++ b/Documentation/admin-guide/cpu-isolation.rst
-@@ -353,5 +353,5 @@ Some tools may also be useful for higher level analysis:
-   latency and noise in the system. For example Documentation/tools/rtla/rtla-osnoise.rst
-   runs a kernel tracer that analyzes and output a summary of the noises.
+diff --git a/Documentation/timers/no_hz.rst b/Documentation/timers/no_hz.rst
+index 7fe8ef9718d8..4006cab64079 100644
+--- a/Documentation/timers/no_hz.rst
++++ b/Documentation/timers/no_hz.rst
+@@ -204,9 +204,9 @@ but do not see any change in your workload's behavior.  Is this because
+ your workload isn't affected that much by OS jitter, or is it because
+ something else is in the way?  This section helps answer this question
+ by providing a simple OS-jitter test suite, which is available on branch
+-master of the following git archive:
++master of the following git repository:
  
--- dynticks-testing does something similar to rtla-osnoise but in userspace. It is available
--  at git://git.kernel.org/pub/scm/linux/kernel/git/frederic/dynticks-testing.git
-+- cpunoise does something similar to rtla-osnoise but in userspace. It is available
-+  at https://git.kernel.org/pub/scm/linux/kernel/git/frederic/cpunoise.git
+-git://git.kernel.org/pub/scm/linux/kernel/git/frederic/dynticks-testing.git
++https://git.kernel.org/pub/scm/linux/kernel/git/frederic/cpunoise.git
+ 
+ Clone this archive and follow the instructions in the README file.
+ This test procedure will produce a trace that will allow you to evaluate
 -- 
 2.55.0
 
