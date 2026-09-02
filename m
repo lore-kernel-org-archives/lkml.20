@@ -1,142 +1,127 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A215D2E88A4
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:48:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF8048C8D7
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:48:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788356921; cv=none; b=EPgDh3hj8ez7YjBKtgUZE4K6CWSLu3hPdab3ihOtIY82r1isiNqwB/DxuKmPRODqce6rsSDRNNbRwAXZ9k/ZlPflP5Qg4/JAT2hVM9YsNXZbdJSe7FT2LohBbbSgKS1UQlWLmYhym+3BQ7fykRGONyCkihhZNbPm6qeuc2tduOQ=
+	t=1788356924; cv=none; b=T5tC96S+N+nTUQQLpjMKccwHFH6mCpeBmnq1YIg68uYAEAQRt/zPDkAIfSscnzAVMnh7KaKv5gd4+cBaziejTHE5onnKHy2mP4bYErb3KMIdXpbD/ZUJ7woPjiKsyLOCeF9M0lS3QOCItb29zwFDtgcQJUECOEQHrGKc6rg+iS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788356921; c=relaxed/simple;
-	bh=87Z5OhzR6c8NOsJI5P6GJcp7NU6H5/Cmawvf4H5Lw3I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l++lfuKUsWNA0l5YjwiVER7T/edJ/ZAMNy44EvZQQYESSGEY3iz6OvT0FuANw8/NQl4hwsvJusuOwaNN1L/k2p42xN7SuagbxzMBHzfpDwRQiBWdLSv9sJVz9YqIAzd/2m/t1gySw8AS3bfbDMGrk3lym+wzQr1uwro6NXCEU2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: fbc14782a6d411f19a56ed5b684f684d-20260902
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:d1a90793-1942-4e46-8b27-88fcda1c7dce,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:fdee754c57a0b882c07c64f0f407005e,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|52,EDM
-	:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
-	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: fbc14782a6d411f19a56ed5b684f684d-20260902
-X-User: liwanwu@kylinos.cn
-Received: from [10.42.12.206] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <liwanwu@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 1468981474; Wed, 02 Sep 2026 21:48:31 +0800
-Message-ID: <1d5f2636-a5e3-4b67-bbb9-12922fa0d804@kylinos.cn>
-Date: Wed, 2 Sep 2026 21:48:28 +0800
+	s=arc-20240116; t=1788356924; c=relaxed/simple;
+	bh=YBf/cjrtAqjfwA89wFKBCIBaa8/w9n3rHagvzZRPugM=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=ROTXphIoaeYkT1aEbS3w0MY0jJgbncO3rkhXRHyP2IqXGB0lZ3IlOYBgCQVVZEIXZePaet2NFF4LwQ7N8Rk916E7QCZsIox1NfxE8iWctc3UvmYOcJCVeXeHDvSCMXlpByfj9UzZZTtwPmXuj3moHcPnpci6MNqu/rVdepoJrk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=nZO8BEvT; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="nZO8BEvT"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:Message-ID:Subject:Cc:To
+	:From:Date:MIME-Version:From:Reply-To;
+	bh=58qqfjMVhvSKBno1pG7rNumItbKcnzJgJLj9UyPe5Ps=; b=nZO8BEvTrlQGU9RSC1Gs15aClM
+	IN49e3tBEdMvbHrZybWANDpjiyQoNHg8BocuJU8sWkwPtbEWUweHYLWNHi91jzzkwdZ713XX6iikj
+	jSkNT4Jkam0pPU2zqpYMIaDVk8C7L6dxfAcRSKBZTXwEvQ868fxOg1OZTPkFeejsdFRj3aBQn17Qj
+	EkF2csedkHmH9FGypd2mADsZoD0GfUl5OOQfRiNrmoxPGGMw2E69asm8DhvHnJ4GU5ZU8xdM1WloH
+	OFRy1EB1XCk5KyHR3I492GsqyVP4Mvle3KkjxFIeERi3EketeAIQeQZ3Iwp/OBAetJiinLbJlpF1o
+	dYXUtpfg==;
+Received: from maestria.local.igalia.com ([192.168.10.14] helo=mail.igalia.com)
+	by fanzine2.igalia.com with esmtps 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1x1lK3-00DcvD-D4; Wed, 02 Sep 2026 15:48:15 +0200
+Received: from webmail.service.igalia.com ([192.168.21.45])
+	by mail.igalia.com with esmtp (Exim)
+	id 1x1lK2-00Fbfl-Gp; Wed, 02 Sep 2026 15:48:15 +0200
+Received: from localhost ([127.0.0.1] helo=webmail.igalia.com)
+	by webmail.service.igalia.com with esmtp (Exim 4.98.2)
+	(envelope-from <mfo@igalia.com>)
+	id 1x1lK2-00000005efq-1wbk;
+	Wed, 02 Sep 2026 15:48:14 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] sched_ext: Reject NMI calls to lock-taking kfuncs
-To: Tejun Heo <tj@kernel.org>
-Cc: Andrea Righi <arighi@nvidia.com>, David Vernet <void@manifault.com>,
- Changwoo Min <changwoo@igalia.com>, Emil Tsalapatis <emil@etsalapatis.com>,
- sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <3a9bfba228c46c69408fe1ef392e60f0@kernel.org>
- <20260902023124.1422942-1-liwanwu@kylinos.cn>
- <49faaba5039a29f38ab6f254da6fb8dc@kernel.org>
-Content-Language: en-US
-From: liwanwu <liwanwu@kylinos.cn>
-In-Reply-To: <49faaba5039a29f38ab6f254da6fb8dc@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Date: Wed, 02 Sep 2026 10:48:14 -0300
+From: Mauricio Faria de Oliveira <mfo@igalia.com>
+To: Michael Matz <matz@suse.de>, Borislav Petkov <bp@alien8.de>
+Cc: Richard Biener <rguenther@suse.de>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, Juergen Gross
+ <jgross@suse.com>, Alexey Dobriyan <adobriyan@gmail.com>, Boris Ostrovsky
+ <boris.ostrovsky@oracle.com>, Jan Beulich <jbeulich@suse.com>, Brian Gerst
+ <brgerst@gmail.com>, kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v9 1/5] x86/boot: Remove "cc" clobber from memcmp()
+In-Reply-To: <57b0d188-b256-bde4-43e6-99dae4f59d60@suse.de>
+References: <20260822-pvh-kasan-inline-v9-0-e70ef3b75b6a@igalia.com>
+ <20260822-pvh-kasan-inline-v9-1-e70ef3b75b6a@igalia.com>
+ <20260902023129.GGapeKgVlL2WgHcJcb@fat_crate.local>
+ <57b0d188-b256-bde4-43e6-99dae4f59d60@suse.de>
+Message-ID: <05896397667d66a2969259298bcebb7f@igalia.com>
+X-Sender: mfo@igalia.com
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Spam-Report: NO, Score=-2.1, Tests=ALL_TRUSTED=-3,BAYES_50=0.8,KAM_DMARC_NONE=0.125,KAM_DMARC_STATUS=0.005
+X-Spam-Score: -20
+X-Spam-Bar: --
 
-Hi Tejun,
-
-Thanks for the review. v3 folds in your three points (single
-scx_kf_allowed_ctx() macro with no wrapper, one reject in
-bpf_iter_scx_dsq_new(), unlikely(!sch) in scx_bpf_destroy_dsq()).
-
-Continuing the audit that the sashiko bot kicked off, I swept every
-kfunc exposed to BPF_PROG_TYPE_TRACING through the any / idle / cid
-context-filter sets. I found a second class of problems beyond the
-lock-taking set already covered. The first subclass I plan to fold
-into v4 and want to make sure you agree with the scope.
-
-Three "any"-category kfuncs read scx_locked_rq() on their success path
-and treat a non-NULL return as "the rq lock is already held by me",
-which a false positive under NMI turns into either a data race or a
-wrong result:
-
-  - scx_bpf_task_set_slice() (the sashiko bot's finding) races its
-    direct p->scx.slice write with update_curr_scx()'s RMW of the same
-    field.
-  - scx_bpf_dsq_nr_queued() resolves %SCX_DSQ_LOCAL to
-    (scx_locked_rq() ?: this_rq()) and can therefore report the wrong
-    rq's length.
-  - scx_bpf_locked_rq() hands the interrupted context's rq to the BPF
-    program, which may then operate on it as if the lock were owned.
-
-A second, different subclass I have NOT folded in, and would like your
-guidance on.
-
-scx_bpf_pick_idle_cpu_node() and scx_bpf_pick_any_cpu_node() pass the
-caller's @node and @flags straight through to scx_pick_idle_cpu(). When
-@node != NUMA_NO_NODE and SCX_PICK_IDLE_IN_NODE is not set and no idle
-CPU is found in the starting node, the search falls through to
-pick_idle_cpu_from_online_nodes() (kernel/sched/ext/idle.c:151), which
-writes the per-CPU nodemask per_cpu_unvisited (idle.c:146) under only
-preempt_disable(). preempt_disable() does not mask NMIs, so an NMI that
-lands on a CPU whose interrupted context is mid-way through that loop
-clobbers the scratch nodemask the interrupted context is still
-iterating. Same "irq/preempt-only per-CPU state is not NMI-safe" premise
-behind scx_kick_cpu()'s check, just a scratch buffer rather than a
-lock or a list.
-
-Note this is a wrong-result / lost-scratch race for the interrupted
-struct_ops context, not a hard lockup, and it needs CONFIG_NUMA plus
-per-node idle tracking to be reachable. The non-node
-scx_bpf_pick_idle_cpu()/pick_any_cpu() force NUMA_NO_NODE and never
-reach the scratch, and every cid-set kfunc is an RCU-read lookup, so the
-hazard is confined to those two node-variants.
-
-Should these two issue classes be folded into this series or are they 
-out of scope for now? Looking forward to your suggestion.
-
-Thanks,
-Wanwu
-
-在 2026/9/2 14:44, Tejun Heo 写道:
+On 2026-09-02 10:29, Michael Matz wrote:
 > Hello,
 > 
-> On Wed, Sep 02, 2026 at 10:31:24AM +0800, Wanwu Li wrote:
->> -	if (sch)
->> -		destroy_dsq(sch, dsq_id);
->> +	if (!sch)
->> +		return;
+> On Tue, 1 Sep 2026, Borislav Petkov wrote:
 > 
-> unlikely(!sch) like the other kfuncs.
+>> On Sat, Aug 22, 2026 at 03:33:17PM -0300, Mauricio Faria de Oliveira wrote:
+>> > According to the GCC documentation, conditions in the flags register
+>> > (e.g., "=@ccnz") are output operands [1] and the compiler is aware [2].
+>> > 
+>> > Also, clobbers (e.g., "cc") may not overlap with an output operand [2].
+>> > 
+>> > Thus, remove the "cc" clobber as it is redudant, and overlaps with, the
+>> > "=@ccnz" output operand.
 > 
->> @@ -9756,6 +9755,9 @@ __bpf_kfunc struct task_struct *bpf_iter_scx_dsq_next(struct bpf_iter_scx_dsq *i
->>   	if (!kit->dsq)
->>   		return NULL;
->>
->> +	if (!scx_kf_allowed_ctx(kit->dsq->sched))
->> +		return NULL;
+> Strictly speaking, on x86, the '=@ccXY' constraints are register outputs 
+> into normal random integer registers (though they are of course 
+> initialized in a funny way), while the 'cc' clobber is not a register at 
+> all, but rather a fuzzy idea of "state" in old cc0-based compilers (which 
+> the x86 backend isn't anymore since, ... well, about forever, 1999).  As 
+> such they both really don't conflict and ...
 > 
-> new(), next() and destroy() always run in the same context, so reject in
-> bpf_iter_scx_dsq_new() and drop the checks from next() and destroy(). With
-> kit->dsq left NULL, both are no-ops.
+>> But then I'd expect that gcc would enforce that. I know it can't have it 
+>> when the clobbers contain input or output regs:
+>> 
+>> In function ‘__memcmp’,
+>>     inlined from ‘main’ at memcmp.c:25:6:
+>> memcmp.c:11:9: error: ‘asm’ operand has impossible constraints or there are not enough registers
+>>    11 |         asm volatile("test %3, %3\n\t"
+>>       |         ^~~
+>> 
+>> but with "cc" clobbers it works.
 > 
->> +static __always_inline bool __scx_kf_allowed_ctx(struct scx_sched *sch,
->> +						 const char *who)
+> ... hence there's nothing to report.  In fact what an explicit 'cc' 
+> clobber once meant in cc0 backends (that indiscriminated flag "state") is 
+> manufactured by the non-cc0 backends (all of them now) automatically 
+> whenever an asm has no flag output constraints at all.  (On x86 that means 
+> it adds the "flags" register (internal name for the collection of flag 
+> status bits) to the clobber set automatically when there are no =@ccXY 
+> constraints).
 > 
-> No need to wrap.
+> You can regard all 'cc' clobbers as pure source compatibility, they have 
+> no meaning anymore.  But as they are so ubiquitous (even in our own docu), 
+> they remain recognized.
+
+Michael, thanks for the detailed explanation; that's very nice to know.
+
+Boris, I guess this may be added as clarification in the commit message.
+Would you prefer another version with it?
+
+Thanks,
+
 > 
-> Thanks.
 > 
+> Ciao,
+> Michael.
+
+-- 
+Mauricio
