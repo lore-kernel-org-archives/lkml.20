@@ -1,120 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-222.mta0.migadu.com [91.218.175.222])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E5A476CD8
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:28:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 003CB476CDD
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:28:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788348485; cv=none; b=Nxxd84OHwWm82CxHKnpn1C1Oy6fj0fZoIrZoEhIqXyXefTEW3HaxSrtuoOM0e3J6iOt/dqV40CtEdBg2O4qX8rLSEcneXgAfx7mHTjSakSn1vKmjMzOsESsfPK1r/efJUq4LGQSfbBjduuH+Wz70Rot5slo9TsP0shjWj0RJlDc=
+	t=1788348531; cv=none; b=F1jLbjvRPzQPb/D8PoqAQlyYvqfymKl+jtCrqMtF4FhokgPy6k34vaCN8L0jFIlo17ag68r/1qsuBVJ6oeYPK7N5Nd20p7l455VdqBounkIAjKoaGEEsMIaEA5z2mjHnT4H+4HFwXCl+aTkJJb31Akn9CULrrsYs49bX1sGn/ZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788348485; c=relaxed/simple;
-	bh=/l+qT2GZtfpH3jkbWji2vH6zm0eEwMhdC78X97wO+tU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lMNrvApWYwhXuM4fufiTDSQ7vgQ+xRP28pr1AV6/Z9z82Bjyzb2dHmU/vGB7jtTE1imhTwirLrExFGlrvMSmi1Ev88HUMkqhMV6uLHgSdF7G1TmovW9OjJfS+AKdEzTaVPZXq5WYnNOG2Hn5isu33joedYiQqc8L4WQDcVO/8s8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LTnS4nix; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788348531; c=relaxed/simple;
+	bh=3x2mDZzfQsBjuVb72vf1gz1TkiHlwuxtteD4iYUeP/M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QVRsnBdXJJSByX1EOSzKCjjPE/Itip2tJGz0gfkdTi/aDYZI7PvLF4wnXQRJbHg5IuFTYUL3U3vEgx3wzeKVkSnhKOoNahRMnOuBgJnrZjxmqEUURNQLHx4sVi31t0IAvRlcIY/acx2p0RVtyCV1K4vrZnnKmJnVl9lc4wohJqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nQ21WYE4; arc=none smtp.client-ip=91.218.175.222
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LTnS4nix"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D801D1F000E9;
-	Wed,  2 Sep 2026 11:28:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788348481;
-	bh=jOkWaTR/rl0qR/SlR48VncMxFLhFzReZRLMpk5f2CtI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LTnS4nix+lkxGZFdMT9owY8sNAP2Fm00l2wZiWUZaMK0WnBxMYzlEkKLDz8j741ax
-	 1jTn66jrsywkmyeDPoAedANWTuhkmMGYyMpfyAvVuQMbICNiD5gkvNPhAlBDM1WPob
-	 ggnU7wh3w4MhajY559HTtkxyMOOk+JbV0RduD6OBBvSgl7bocO4W/0MCmbAn6/hweq
-	 qK7mBz9qxZEZj4qv4Q97QUiRMqGCn2Dp0S02CLG/SuujwoKVfPe/Bd9+a1ws6OqD7p
-	 Nn7Yv6ttUysNOgQ34XY0CZFuFalBS0IxW4d2MNMP3pVE8z0HJpPhAFJq5EtmIe4dUF
-	 NnJXShK2uI2fg==
-Date: Wed, 2 Sep 2026 12:27:59 +0100
-From: Harry Yoo <harry@kernel.org>
-To: Hyunwoo Kim <imv4bel@gmail.com>
-Cc: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
-	Hao Li <hao.li@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Suren Baghdasaryan <surenb@google.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/slab: take n->list_lock for the list_add() in
- __refill_objects_node()
-Message-ID: <apgH-QpYrRU1qzX9@nixos>
-References: <apPa-cGLcyt90l-E@v4bel>
- <apQU8wjMlvbKBQgh@dev>
- <apQ7osHcRj3vdJPn@fedora>
- <ae25c193-b95f-40c1-83b6-1c2546467e41@kernel.org>
- <apgE4TWLFGoqoOos@nixos>
- <apgHa1tISzqsnc_C@v4bel>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nQ21WYE4"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=3x2mDZzfQsBjuVb72vf1gz1TkiHlwuxtteD4iYUeP/M=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788348522; v=1; x=1788953322;
+ b=nQ21WYE4+xmg+AqAtI3A69TmEa6SRGTfGkSs4Ph8d7z1/siaBPESE2ClmM7EsWw0mZrt6e6S
+ ON2koRiXa7rcgm4JvloMT+uYidb22nTGoS4IH1uAescbrB3JH+VB7hA+ytjohTExn2FCehDQg8J
+ o1BtsEvZR/bRQl97meFNbEXM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 64bff105bd861d77;
+	Wed, 02 Sep 2026 11:28:32 +0000
+X-Mizu-Trace-ID: 64bff105bd861d77
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b066c25a-d3ff-419f-a0ee-e99070ce0788@linux.dev>
+Date: Wed, 2 Sep 2026 19:28:28 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apgHa1tISzqsnc_C@v4bel>
+User-Agent: Betterbird (macOS/Intel)
+Subject: Re: [PATCH] maple_tree: Annotate lockless pivot reads for KCSAN
+To: "Liam R. Howlett" <liam@infradead.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Andrew Ballance <andrewjballance@gmail.com>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org,
+ linux-mm@kvack.org, Hui Zhu <zhuhui@kylinos.cn>
+References: <20260826074430.1139325-1-hui.zhu@linux.dev>
+ <20260826094147.42e1e71e91a5a537ced30a21@linux-foundation.org>
+ <kpzm3pcwxwnzk5kngcsfcybzst5jtyrdcphd3hcpmoc6dbtswq@atn5yddl23qx>
+ <f33eaa0c730feb9f598738ff79d98cb25b4b2bcd@linux.dev>
+ <ccgj2ukobxzdpypdi45vvapxbot56lsqmqfzzkcyrgnkjetybh@gghifhsc7v4t>
+Content-Language: en-US
+From: Hui Zhu <hui.zhu@linux.dev>
+In-Reply-To: <ccgj2ukobxzdpypdi45vvapxbot56lsqmqfzzkcyrgnkjetybh@gghifhsc7v4t>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 02, 2026 at 08:24:27PM +0900, Hyunwoo Kim wrote:
-> On Wed, Sep 02, 2026 at 12:20:34PM +0100, Harry Yoo wrote:
-> > On Mon, Aug 31, 2026 at 02:55:06PM +0200, Vlastimil Babka (SUSE) wrote:
-> > > On 8/30/26 16:35, Hao Li wrote:
-> > > > On Sun, Aug 30, 2026 at 12:45:17PM +0000, Harry Yoo wrote:
-> > > >> On Sun, Aug 30, 2026 at 04:25:45PM +0900, Hyunwoo Kim wrote:
-> > > > Since introducing a new variable seems unavoidable, what if we temporarily
-> > > > stash this slab in a pointer like below, and then add it to pc.slabs once we
-> > > > acquire the lock.
-> > > > 
-> > > > struct slab *leftover_slab = NULL;
-> > > > 
-> > > > ...
-> > > > ...
-> > > > 	if (__slab_try_return_freelist(s, slab, head, count)) {
-> > > > 		leftover_slab = slab;
-> > > > 		break;
-> > > > 	}
-> > > > 
-> > > > ...
-> > > > ...
-> > > > if (!list_empty(&pc.slabs)) {
-> > > > 	spin_lock_irqsave(&n->list_lock, flags);
-> > > > 
-> > > > 	if (leftover_slab)
-> > > > 		list_add(&leftover_slab->slab_list, &pc.slabs);
-> > > > 	...
-> > > > 	...
-> > > > }
-> > > > 
-> > > > PS: If I recall correctly, Vlastimil's initial patch was actually fine. It was
-> > > > my suggestion to save an extra lock/unlock pair that accidentally led to this
-> > > > trap...
-> > > 
-> > > Ah, thanks for the reminder. This [1] was the original attempt.
-> > > 
-> > > [1]
-> > > https://lore.kernel.org/all/20260421-b4-refill-optimistic-return-v1-1-24f0bfc1acff@kernel.org/
-> > > 
-> > > I wonder if the fix should be to return to that approach and just have
-> > > __slab_try_return_freelist() handle the list_lock. The code would be simpler
-> > > with not "bool locked".
-> > > 
-> > > It should be really very rare that we would end up returning a partial list
-> > > and also have additional slabs to return on pc.slabs? So I think there would
-> > > be no noticeable performance downside to the simpler code potentially ending
-> > > up taking the list_lock twice instead of once.
-> > 
-> > Agreed that it should be rare and not worth the complexity unless
-> > we have data to support that.
-> > 
-> > Hyunwoo, would you please adjust the feedback and post v2?
-> 
-> If you don't mind, could the maintainers handle this patch on your side? 
-> I'd then move to Reported-by:.
 
-I'll post v2 with your Reported-by: then.
-Thanks!
- 
-> Best regards,
-> Hyunwoo Kim
 
--- 
-Cheers,
-Harry / Hyeonggon
+> On 26/08/27 05:35AM, Hui Zhu wrote:
+>>> On 26/08/26 09:41AM, Andrew Morton wrote:
+>>>
+>>>> On Wed, 26 Aug 2026 15:44:30 +0800 "Hui Zhu" <hui.zhu@linux.dev> wrote:
+>>>>   
+>>>>   In RCU mode, replaced maple nodes are marked dead and freed via RCU
+>>>>   after the new node has been published. Arming the RCU free writes
+>>>>   node->rcu.next and node->rcu.func, which share storage with
+>>>>   pivot[0] and pivot[1] (see struct maple_node), while lockless
+>>>>   readers may still walk the dead node. These stores therefore race
+>>>>   with the pivot loads performed by the walkers.
+>>>>   
+>>>>   This is harmless: the writer marks the node dead with an smp_wmb()
+>>>>   before arming the rcu_head, and the walkers re-check ma_dead_node()
+>>>>   after reading the node and restart the walk when the node is dead,
+>>>>   so any pivot read that raced with the rcu_head stores is discarded.
+>>>>   KCSAN cannot see this protocol and reports the plain accesses, so
+>>>>   annotate the lockless pivot reads with data_race() through a new
+>>>>   ma_pivot_rcu() helper.
+>>>>   
+>>>>   Found by fuzzing on a 6.6 kernel; the race still exists on
+>>>>   mainline. No functional change intended.
+>>>>   
+>>>>   
+>>>>   Thanks. AI review suggests that the patch is correct, but incomplete?
+>>>>   
+>>>>   https://sashiko.dev/#/patchset/20260826074430.1139325-1-hui.zhu@linux.dev
+>>>>
+>>> Yes, this is literally every read of numerous pivots on any reader that
+>>> would need something like this. Most code is shared with the writer
+>>> side, so we'll have data_race() annotation where it is not needed there.
+>>>
+>>> I don't like the name of the function and I don't agree that it is worth
+>>> doing, especially half of it. If you notice ma_ functions take a maple
+>>> node as the first argument, but your new function takes an array pointer
+>>> in the node.
+>>>
+>>> The from address does not agree with the sign-off on the patch.
+>>>
+>>> I also don't think a benign race needs a Fixes tag?
+>>>
+>>> It might be worth looking at other ways to calm kcsans down such as the
+>>> type qualifier __data_racy, or maybe the makefile option.
+>> Hi Liam,
+>>
+>> __data_racy is defined as volatile for KCSAN kernels, so the qualifier
+>> has to propagate to every access site: ma_pivots() would return a
+>> volatile pointer, and all the "unsigned long *pivots" locals and helper
+>> parameters in maple_tree.c (about 25 sites) would need the qualifier
+>> too.
+>> It also marks the whole pivot array as racy, while only pivot[0] and
+>> pivot[1] actually overlap the rcu_head.
+> Isn't your change already using the data_racy annotation on more than
+> pivot 0 and 1?  For instance, mas->offset is often passed in and that
+> is likely not 0 or 1.
+
+You're right, and I looked into annotating only pivot[0] and pivot[1],
+which are the only pivots that overlap the rcu_head of a dead node.
+
+The trouble is that the index being read is only known at run time
+(pivots[offset], pivots[mas->offset], ...), so the only way to wrap
+just the pivot[0]/pivot[1] reads in data_race() is a run-time check
+before each read.
+
+For example, mtree_range_walk() would turn from:
+if (pivots[offset] >= mas->index) {
+into:
+unsigned long pivot;
+if (offset < 2)
+     pivot = data_race(pivots[offset]);
+else
+     pivot = pivots[offset];
+if (pivot >= mas->index) {
+These walks are the lockless hot path (every RCU lookup, including
+the page-fault path), so this adds a branch to every pivot read.
+data_race() compiles to nothing without CONFIG_KCSAN, so the annotation
+itself is free in production kernels, but the branch would cost on every
+build.
+I don't want to add branches to this core code just to narrow the
+annotation, and I'd also rather not widen the suppression to pivots that
+never race.
+
+
+Given that, I'm inclined to drop this patch.
+Instead I could add a comment where the rcu_head is armed,
+noting that the pivot[0]/pivot[1] reads on the lockless paths are
+expected to race and that the resulting KCSAN reports are benign,
+so anyone hitting the same report later knows to ignore it.
+
+Does that sound reasonable, or do you have another suggestion?
+
+Best,
+Hui
+
+
+>
+> Fair point about the code churn, though.  I don't need every function
+> being changed to accept a volatile.
+>
+>> The Makefile option (KCSAN_SANITIZE_maple_tree.o := n) is a one-liner,
+>> but it disables KCSAN for the entire file, so any real data race
+>> introduced in maple_tree.c later would go unnoticed.
+> KCSAN has never reported anything real to me and that's why I suggested
+> turning it off.  After speaking with Paul McKenney on the matter I have
+> been convinced to not disable it.
+>
+> I still don't really see a whole lot of value in annotating the code to
+> say a particular race is not an issue - we will have mostly disabled the
+> tool by annotation in the end.  And these are most likely going to be
+> the areas where we have issues if any arise - ie, some special arch
+> corner case that comes up that didn't exist or wasn't in mind during
+> annotation.
+>
+>> Do you think one of these two is still the better choice, or should I
+>> keep the current approach and fix the patch according to your review
+>> comments?
+>>
+> I guess respin it and see how it looks with your current path.
+>
+> Thanks,
+> Liam
+>
