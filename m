@@ -1,91 +1,120 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E27F14746A5
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:41:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64F5A44C667
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:41:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788349265; cv=none; b=iUv982noLw5bAp9+EJOWoCVjpGyRaNl4WduVCH5Ey9Mf8hx9FDAQ7d8AHP/n41YksCaB4dWsIgAdrKoxELGlsgHYfZlxJUUkQO69DV5T8192BoP8sx8FRfzkd1Rl9XITDM0CzVzi6Oz5whO3tf6SSfOBBGQc7LxGHfMLa5C5Ye0=
+	t=1788349320; cv=none; b=NVpxTt5MLs3fzQysfQdiFS+74ym7SHJRnnnxaECN9SQpKz9E6q+kzRjaWVPFD/yNpgFjOOrrG7sIWvkgnSreMsyReQJKk5xQewkf7GZ433bmbSpoWlHgpzzogmrcNc3/l+4CJ5D86RQJpyo2DX11Vd0/4WnNXmgHO3DMMg2gv+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788349265; c=relaxed/simple;
-	bh=tZ8WZ/k6Zoo6yaDvlogrLn1UO8xKN1zl5srsQ+7hiaw=;
-	h=From:In-Reply-To:References:To:Cc:Subject:MIME-Version:
-	 Content-Type:Date:Message-ID; b=qoz88OmLH5MsBCmpL7JphJdDoyXVh4esFzkQrNkUCOVyoEZBTpNIRM8g9gnZ4Rx9GGgSe1XlZFJD9hBd7f2MTkYLBFGk1Gkba22T/DObpn+pmuHI4I7xTR7WkKawnX4nRZgCUB5ZutCaqjdbBimJrtQ3kvR8Yt9F75gIiPQl9c8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=HXM52pDE; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788349320; c=relaxed/simple;
+	bh=NUkzXPlE/P1i9PbYqLhd+wbxgU8sziMrTnTMVFhWLQY=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=H0Def2Yiz3ULO/ldbX6RTfyd5alZaca9qL+H2jF+WGhJ0AeBMFId7m5dIS5IMaEpJKNtDXo6nTpzqWNiL29q9vuZVKdFK1RnIQb6fssKqFg5rJQungctZQNEzmoWm2OXoNrKaqvH4e3RIFYTmHLDHG+hmsdo2ujg0jwb2MMqYdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L+fmQ1FK; arc=none smtp.client-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="HXM52pDE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788349262;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oOqiKlICWLLyhRYARpnrqwN5Xk/vEKKktncz0koYWnM=;
-	b=HXM52pDEqx6qdm4wiQASt6RA+z+/3os3SgwkALo5lzQjcMKFG4jJ+b422oRnMP+LUkhM1D
-	hVG4YIjiBmm/a1fD61txIJnmvgBdPI4W1I5yV7YEApyf55hKmh5nZgGJDfi2j7hEpfomq/
-	35aSGarRE2t88DqiBSgXBfnsvKxfoAo=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-169-q1CL-CErMOSCxWOW00Yk5g-1; Wed,
- 02 Sept 2026 07:41:01 -0400
-X-MC-Unique: q1CL-CErMOSCxWOW00Yk5g-1
-X-Mimecast-MFC-AGG-ID: q1CL-CErMOSCxWOW00Yk5g_1788349260
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D5BB81954216;
-	Wed,  2 Sep 2026 11:40:59 +0000 (UTC)
-Received: from warthog.procyon.org.uk (unknown [10.44.32.158])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4CC0418005BB;
-	Wed,  2 Sep 2026 11:40:57 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <CA+0ovChcGF2nsf0iJNGXM79iGv2fKEqYi4DGQ55aygBcKg2NGQ@mail.gmail.com>
-References: <CA+0ovChcGF2nsf0iJNGXM79iGv2fKEqYi4DGQ55aygBcKg2NGQ@mail.gmail.com>
-To: Farhad Alemi <farhad.alemi@berkeley.edu>
-Cc: dhowells@redhat.com, Marc Dionne <marc.dionne@auristor.com>,
-    falemi@asu.edu, linux-afs@lists.infradead.org,
-    linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [BUG] afs: ERR_PTR dereference in afs_lookup_server() error path
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L+fmQ1FK"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a65e66555cso1297675a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:41:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788349316; x=1788954116; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z8Dfh++0Ud+IxXdfXwfXS9P60ggh+Cfx9Hb6zf15cRc=;
+        b=L+fmQ1FKp5i9mb2xp8Evq6IBJqFzNRK6szBkU6lbvzSmPSjrnVO/ghk3B+Qbvu45vO
+         32JEz8yqGBXkdYDnk64jcd7HGEdBWq1ceMrdSwicy+TsPVSRu4HotKmVel8O3Gd5RE5K
+         Av5fbQf1pycraHAZmWEHIkLrPhvqhc5jI066iNx/1snRnBSGAX3eGTs19kuU04EMMHfg
+         BM5O0vZM71G3oW7FPCi43KBm6bfsl+5D0Jg2jfLOn0sLrV+jEwNM73QfkcAoGHfG6Y5M
+         TqhWwftuyTs6LBe26OjDeILfgmbFZlLT3ZMW5H8S3mSiyQ7iImQ7s7rERTe+eq4ei2iu
+         fJAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788349316; x=1788954116;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z8Dfh++0Ud+IxXdfXwfXS9P60ggh+Cfx9Hb6zf15cRc=;
+        b=soe/GxtGG2DccjZTA6epyedTbXom3U44L/yX+UzbcdN/lyQuTyPObKeQ7JJdiJQeqz
+         /3GAPzmJdwKsO7p8SaHIFrnA9eILKgcx8JL3WZQ31M5rRU6/kzZ27IU08sU6MS/tH4Li
+         kCrKTvsn4xV+Bb71z3sLoBbwvyubs55db2O8GPTfIB9zmJHnJKjIAgBk+OPNtFVcWt49
+         VOz/LF88VzMi+NArAR8ypavHK+WYVpS4vtA7bIn/RN3CTXrRi7C2zypUSfIigZn95sUa
+         Or9HLOQaZ+1+6AhMaqwfcjnhBiCw04OkSda43P5nyjSmAgVpAAqFPpwuFy8fWcVp+NT3
+         y+OA==
+X-Forwarded-Encrypted: i=1; AKwUvBxawMj7H4c0lT41ExE6zp7SWA4hywLvsChFZ8mlygrg6+isw/u6YXzw3Y8jC1ZaOEZpNm1OreKhLQaKD3U=@vger.kernel.org
+X-Gm-Message-State: AFuF++n4uDCY6pfBZ3lKtAJB661ibxB4xMlM+ci6piNTNaE0bjMi9RG0
+	2rlEck3OHubr34HFBNAr7Yqpr4NIk4Sj+4t1j1vyYlEk4ZrWF0MCe8yb
+X-Gm-Gg: AYBFou3pr8Up32UEsraGZ9H/bfEXP1TlNYkG4aJeede8wtxMOaXS5EkujKw5l+8B9ln
+	aL3Ey/XxGuggr4rweVu3XjhVIguqk76TLVc5EG02iEAtkIOxiDTtnK73U/var4TZCQlJsUYnTri
+	0Q4hZCa7iNZhs55LaoOVHO8kGOQSbG4uKmt4gL3/Iz44S9JtP/1wmJDMgsq6obAMulW0YeNGWlR
+	xPi98rX9fmeorY04QUj+GeXnDM71koDaPkc9XRY9UMznPbSgN2lKF7wlGPl6CiQZiDS9HBqQd/P
+	tiC1UWwl8FkT+PxPUa/z5e9/0f1oc+XF3yCZKAhfqu0v8pMjgYJNdvNtM2/y29VBvBzBqhNC6+b
+	f85X04H3pdmvvnxqYnkdlBDZS575R8FhSa8IKUs7v2/kgMIjUO9Mh9tdRYmc5jQwy+/WH4OkJO7
+	K5bqi3d9vrOZfsGV5fWZfLy+UYinrDEICdvQsgKlM7yOMYGPH5f0Y2KGE7h15dLbFfXSvDoi6pJ
+	ttCN+cwBtNXLuS6n8F1kow=
+X-Received: by 2002:a05:6402:3608:b0:6a6:32f5:556f with SMTP id 4fb4d7f45d1cf-6a682ac0a4amr2806106a12.17.1788349316334;
+        Wed, 02 Sep 2026 04:41:56 -0700 (PDT)
+Received: from [192.168.1.89] (c-85-228-45-68.bbcust.telenor.se. [85.228.45.68])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25d044d776sm117567566b.62.2026.09.02.04.41.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 04:41:55 -0700 (PDT)
+Message-ID: <9a3d6a08-339c-3315-cc81-46907d0836ad@outbound.gmail.com>
+Date: Wed, 2 Sep 2026 13:41:54 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <3266509.1788349255.1@warthog.procyon.org.uk>
-Date: Wed, 02 Sep 2026 12:40:55 +0100
-Message-ID: <3266510.1788349255@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+From: Eli Billauer <eli.billauer@gmail.com>
+Subject: Re: [PATCH 2/4] char: xillybus: replace __get_free_pages() with
+ kmalloc()
+To: Mike Rapoport <rppt@kernel.org>
+Cc: David Laight <david.laight.linux@gmail.com>, Arnd Bergmann
+ <arnd@arndb.de>, Brad Warrum <bwarrum@linux.ibm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Michal Simek <michal.simek@amd.com>, Ritu Agarwal <rituagar@linux.ibm.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linuxppc-dev@lists.ozlabs.org
+References: <20260830-char-misc-v1-0-05e2ce44f291@kernel.org>
+ <20260830-char-misc-v1-2-05e2ce44f291@kernel.org>
+ <f6001085-9234-4025-ff34-6cc4a66c293a@outbound.gmail.com>
+ <20260831123937.32255a49@pumpkin> <apaF1HUtJnstuUN4@kernel.org>
+ <1729fb06-6beb-f8ef-3e71-47fc3f00345d@outbound.gmail.com>
+ <apcPg_y-HsMki7we@kernel.org>
+Content-Language: en-US
+In-Reply-To: <apcPg_y-HsMki7we@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Farhad,
+On 01/09/2026 19:46, Mike Rapoport wrote:
+>> * Does vmalloc() guarantee that non-pageable physical RAM is allocated when
+>> it returns?
+> It's not pageable in the sense of demand paging. Some architectures lazily
+> synchronize vmalloc page tables and this can cause page faults that will
+> take care of the page table synchronization.
+> 
 
-> While fuzzing Linux 7.1-rc5 with syzkaller, as part of research at ASU's
-> SEFCOM lab, we hit the crash below. Crash reports can be found here:
+Thanks for this clarification.
 
-Have you tried it with 7.3-rc1?
+This sounds like a showstopper to me. Immediately after the allocation 
+of these buffers, data from the USB device can arrive at 400 MB/s. If 
+the data flow is throttled as a result of handling page faults while 
+trying to write the data to these buffers, this could lead to an 
+overflow in the USB device's own RAM buffers. This is because the USB 
+device is an FPGA, where RAM is an expensive resource.
 
->   BUG: unable to handle page fault for address: ffffffffffffff9f
->   RIP: 0010:afs_put_addrlist+0x43/0x250 fs/afs/addr_list.c:38
->   afs_lookup_server+0xd3f/0x1020 fs/afs/server.c:243
->   afs_alloc_server_list+0x800/0x11a0 fs/afs/server_list.c:82
->   afs_create_volume+0x995/0x1290 fs/afs/volume.c:227
->   afs_get_tree+0x955/0x10b0 fs/afs/super.c:555
+So using vmalloc() may result in a malfunction in the data transport 
+where the __get_free_pages() would have been successful. This outweighs 
+the benefit of a somewhat higher probability of success in allocating 
+very large buffers, and surely the improved aesthetics of the kernel code.
 
-It looks like alist is 0xffffffffffffff9f, but it's not immediately obvious
-how it could be anything other than a valid pointer at that point.
-
-> Our reproducer.c is available upon request.
-
-If I could have that, please?
-
-Thanks,
-David
-
+Regards,
+    Eli
