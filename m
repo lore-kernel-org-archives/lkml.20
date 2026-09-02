@@ -1,124 +1,144 @@
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6216A33FE15
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 04:15:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5522A36495D;
+	Wed,  2 Sep 2026 04:16:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788322551; cv=none; b=Obk/PzFQrp24s/+pNEMyWXjT2h17MmY4LvVaPOXhBy4JDPdCB/Lue6LTs29iX1wff16Z1HiIbeZO5qUbcsmrHfy+LTFWFILUlrmIRg40BqbfXh2Gwyq+zC8DrU5UE+rgM/B3p0p2lMd0h28OqYwYPY78sva5Q9E80Ud7+m7vd70=
+	t=1788322585; cv=none; b=B2NvvuRPfQRf2MaRjiemAigieYtwLnGNRI7DbWgFyXsaPJ6LEvVZpK3g5+KKvl2MKp2FlvtzWhTSXPvfHDkA7uqgbGI8wsYpm97IHQOfe+JHC6UsMwQOxsB91JXQdLL6gg4gk/T0f1tEHF9/ok7/tk7IpzVP2dSnrWVJms1kqC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788322551; c=relaxed/simple;
-	bh=swQwrtneqW1lCA6Ro7jcQDgOBNBe6qaPbKM0GbdLxGA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YUvol6YJWvb28+MkPvJTipL3WfHcj/qZ0UcV9++YLzN1m/PWW0U278JAWlhcqy+Xk5yp9NHF5Ul/dFF+bqsec9GYHhB/PEFQ3oiPgvjE2BNK3/z+BFNblgNODatzMttzR/d8W5oAyo1dSWKDakTMCqjVkKHVU6B59KBZE5+mtho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=hDNyvd41; arc=none smtp.client-ip=54.254.200.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1788322585; c=relaxed/simple;
+	bh=rGmxizZe0kb1uAevymfguatiHBKbE8vPlqYbx1eszQY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WGu+C7tibRSSZkZujslL8Q4BfgJaSajSkl5KV+ciTDjX/kmRtBlYDNGg4NalTi1vHtjhzCXEcrxkoM8Lg7LBEn1zfOxyjdzN693RjZ0jx6WhvhAVAWrxNwbKH+ozr7nSaOJbVHMGgjJZ54FVFbFsnfEIga9GFQZzRzvss1bbbO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZUs5V50K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="hDNyvd41"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1788322528;
-	bh=ikyVSu5ajF0t3gQDlCcAjZGmd7bSIqKr6cIUSfxmQv0=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=hDNyvd41k9nKzU49VoLeKyRxl9OcKjF3nUfu4e4afeAx5cli4cHgGS+Hie9IxlE3z
-	 mWtAGk6pL5Vs5JdblO8GK43QEeyxg0ZlZ1f4PCS8BAYU/NnJfuw8R5WgwHXvZrecZs
-	 VOOk/zcorPPm+SHdqsVPVE2lEWrnee8Ogl41foYk=
-X-QQ-mid: esmtpsz18t1788322511td4e49c66
-X-QQ-Originating-IP: yybJzeV4gPvdNgO8Y/MWgEYDs/42mPsPcy37avh1cu0=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 02 Sep 2026 12:15:09 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 3219973555314656053
-EX-QQ-RecipientCnt: 4
-From: Wentao Guan <guanwentao@uniontech.com>
-To: alexander.usyskin@intel.com
-Cc: hansg@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: [PATCH] mei: vsc: Initialize mutexes and event work before requesting the IRQ
-Date: Wed,  2 Sep 2026 12:15:04 +0800
-Message-Id: <20260902041504.967524-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZUs5V50K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE5DF1F000E9;
+	Wed,  2 Sep 2026 04:16:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788322581;
+	bh=BZLplcC78nW04+rNik0Rv2RsIFoVAuiKuAJHw6vULLA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZUs5V50KLwRoGyMtkB1q+P4WuOZQdIgVCfbYV1lxIu+szOOxUYKyLxRa5oFZwj6Xn
+	 MOFB+A3ho/QCG+1FNcOrk109aBfOPaUKGVFA4Y/udCbbfyS5hp1JBDcQn9Yioo8896
+	 4gGmxHNyvahFFCMylZtWPPNXF9fXaJGyajMIGT0cRUKpe4Zc4QwmDEqvB0vj2/u8iF
+	 9rqtus/lJejBJJnC8xR80EzOn2H0lkIGHH6zMPuUYv7WvO93WwnbuukJmcTAcSVxbI
+	 j5uU2jayAE1ZLy9EzqJS/nZzUItVmAYk0xfBp0SYGdf+1iw64eby9gr9cW84kiUOOA
+	 eVa67NbVMnDHg==
+Date: Wed, 2 Sep 2026 07:16:12 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Li Zhe <lizhe.67@bytedance.com>
+Cc: akpm@linux-foundation.org, apopple@nvidia.com, arnd@arndb.de,
+	balbirs@nvidia.com, bp@alien8.de, dave.hansen@linux.intel.com,
+	david@kernel.org, kees@kernel.org, mingo@redhat.com,
+	muchun.song@linux.dev, tglx@kernel.org, linux-arch@vger.kernel.org,
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, x86@kernel.org
+Subject: Re: [PATCH v11 3/7] mm: add a template-based fast path for
+ zone-device page init
+Message-ID: <apejDEdW95T-tekb@kernel.org>
+References: <20260831111638.76012-1-lizhe.67@bytedance.com>
+ <20260831111638.76012-4-lizhe.67@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NJRsSVeNb6U+L/11doonVY5DpU6ssUkoumEw/0nEHxq/feGX/QGhqQ/k
-	CRnBW8OYehho/aj5lAKn1O5uZOIgDN8vu0ke2jdJCbsNMuAfDfWLaTGCBhq4iBUuqGWdlfI
-	pxkExzNi2Aosrj7h7fJoaie2aJGzWdD2ytByb1eho0BLY/d/8U98VunTKy8U10z9LCIOhVc
-	9NkeODWXFGbeRxIF5ykOnufRzWm+azw4sN/NyvUaTxxI/szOV8Gyt0Ho1ORSh0CaCLspA94
-	7YIVMolTnGm5OA9xR0/hEj9dM2eD/iERG1x8XERBMcicSCdNr2dE+7MT3nyPGqjVUqUdf2l
-	1rdjVvMDDpOTnjEAXCU09gMkZb4h1b6uVwifnU6CSdh6k7JKtDZjJMJoTeSXGnlABUbJbBp
-	XGnau2n/eHR4rc+VG/oFmfWooX2rBMpTsHuuZlU2XbKKLrC4b2+cnLRKAJ4ZDdgwKiDApVq
-	aA1avCkK5miNLjEgl1qdfrGkRLUaMrjhutLsQF2YLzz9acm94GrBtyefJh0XcU1ZCkij/bY
-	VavZJaUBJQGIDzuy/i5192abWWW39J6mnWIZkWfsZSePWSgV5LBa54gFfD93zQPOeGQC6hx
-	+uG7RITrLD/mQNgKvHTZom7blDXrkj0KNcJtn3ZNeicSGfFra7oW8zu/ErMu5lJx+wVYt2n
-	Q1ftPg67k0wrVeZXEFvdHtQhOvNnUYDC4g4eiCaoW1AP/CA55zPVON/GxRrOXQZyaqIfZrt
-	NlrMoCD2HZ8KSyoZzkWo43kZeKGibbuCYBJkbqMVE0mb8mPBLF/6vbquTl9yOoG30kOIknk
-	f4yBMUY2+q+RV0lrrnX4oMr3pLttkB7hBROnsLCvt31Ko9hDXSr/0XwXWzno4Q0ELzIbtx2
-	U7lxNBnhCDhKC85AFmd8T0nNvbny5M1BJhA5z+3ZFaytvXAYqyl0MbNnhra7nRn26WqPpan
-	5YQNbkOHoylRhBC6NAwqZQsU64/EH6DFDMfkdl9oQSWFdygPzS6V5ybvoAsrZm2G2Lllc9h
-	vrFvSVLLCoZMekExfQ00u2jIyF92ugFd/OHqn9/TpcRWrTaxL9
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831111638.76012-4-lizhe.67@bytedance.com>
 
-vsc_tp_isr() schedules tp->event_work, whose handler
-vsc_tp_event_work() unconditionally locks tp->event_notify_mutex, but
-vsc_tp_probe() initializes both mutexes and the work item only after
-request_threaded_irq() has succeeded. A pending wake interrupt during
-probe can therefore schedule an uninitialized work item, which then
-runs mutex_lock() on zeroed, uninitialized mutex state.
+On Mon, Aug 31, 2026 at 07:16:34PM +0800, Li Zhe wrote:
+> memmap_init_zone_device() repeats nearly identical head-page
+> initialization for each PFN. Initialize the first real ZONE_DEVICE head
+> page through the existing path, copy that final state into a reusable
+> template, refresh the PFN-dependent fields in that template before each
+> copy, and copy it into the remaining destination pages.
+> 
+> Use the template path unconditionally. The page_ref_set tracepoint is
+> primarily a debugging aid, while this code is still initializing struct
+> pages before they are handed out. From the perspective of users of those
+> pages, the initialization-time refcount transitions are not part of the
+> observable page lifetime.
+> 
+> This means page_ref_set will no longer observe every initialization-time
+> refcount assignment for copied ZONE_DEVICE head pages. The impact is
+> controlled because the final initialized struct page state is unchanged,
+> and keeping a separate non-template path only for this local tracepoint
+> observability would add complexity to the common path.
+> 
+> This patch accelerates head-page initialization. The pfns_per_compound
+> == 1 case gets the full benefit here, compound tails are handled in the
+> next patch.
+> 
+> Tested in a VM with a 100 GB fsdax namespace device configured with
+> map=dev on Intel Ice Lake server. This test exercises the nd_pmem rebind
+> path (pfns_per_compound == 1).
+> 
+> Test procedure:
+> Rebind the nd_pmem driver 30 times and collect the memmap initialization
+> time from the pr_debug() output of memmap_init_zone_device().
+> 
+> Base(v7.3-rc1):
+>   Average of rebinds for nd_pmem driver: 221.07 ms
+> 
+> With this patch and its prerequisites applied:
+>   Average of rebinds for nd_pmem driver: 155.00 ms
+> 
+> This reduces the average memmap initialization time measured during
+> rebind from 221.07 ms to 155.00 ms, or about 29.9%.
+> 
+> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
 
-Move the mutex_init() and INIT_WORK() calls before
-request_threaded_irq() and destroy the mutexes if IRQ registration
-fails.
+With one nit below
 
-Fixes: de88b02c94db7 ("mei: vsc: Run event callback from a workqueue")
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
----
- drivers/misc/mei/vsc-tp.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
-diff --git a/drivers/misc/mei/vsc-tp.c b/drivers/misc/mei/vsc-tp.c
-index 5ecf99883996b..e2f65e60e4892 100644
---- a/drivers/misc/mei/vsc-tp.c
-+++ b/drivers/misc/mei/vsc-tp.c
-@@ -496,16 +496,16 @@ static int vsc_tp_probe(struct spi_device *spi)
- 	init_waitqueue_head(&tp->xfer_wait);
- 	tp->spi = spi;
- 
-+	mutex_init(&tp->mutex);
-+	mutex_init(&tp->event_notify_mutex);
-+	INIT_WORK(&tp->event_work, vsc_tp_event_work);
-+
- 	irq_set_status_flags(spi->irq, IRQ_DISABLE_UNLAZY);
- 	ret = request_threaded_irq(spi->irq, NULL, vsc_tp_isr,
- 				   IRQF_TRIGGER_FALLING | IRQF_ONESHOT,
- 				   dev_name(dev), tp);
- 	if (ret)
--		return ret;
--
--	mutex_init(&tp->mutex);
--	mutex_init(&tp->event_notify_mutex);
--	INIT_WORK(&tp->event_work, vsc_tp_event_work);
-+		goto err_destroy_mutex;
- 
- 	/* only one child acpi device */
- 	ret = acpi_dev_for_each_child(ACPI_COMPANION(dev),
-@@ -531,6 +531,7 @@ static int vsc_tp_probe(struct spi_device *spi)
- 	free_irq(spi->irq, tp);
- 
- 	cancel_work_sync(&tp->event_work);
-+err_destroy_mutex:
- 	mutex_destroy(&tp->event_notify_mutex);
- 	mutex_destroy(&tp->mutex);
- 
+> ---
+>  mm/mm_init.c | 38 +++++++++++++++++++++++++++++++++++---
+>  1 file changed, 35 insertions(+), 3 deletions(-)
+> 
+> @@ -1093,10 +1106,29 @@ void __ref memmap_init_zone_device(struct zone *zone,
+>  		nr_pages = end_pfn - start_pfn;
+>  	}
+>  
+> -	for (pfn = start_pfn; pfn < end_pfn; pfn += pfns_per_compound) {
+> -		struct page *page = pfn_to_page(pfn);
+> +	if (!nr_pages)
+> +		return;
+>  
+> -		__init_zone_device_page(page, pfn, zone_idx, nid, pgmap);
+> +	/*
+> +	 * Seed the reusable head-page template from the first real struct
+> +	 * page. The normal page-init and refcount helpers must operate on
+> +	 * a real memmap entry rather than a stack object.
+> +	 */
+> +	pfn = start_pfn;
+> +	page = pfn_to_page(pfn);
+> +	__init_zone_device_page(page, pfn, zone_idx, nid, pgmap);
+> +	memcpy(&template, page, sizeof(*page));
+> +	if (pfns_per_compound != 1)
+> +		memmap_init_compound(page, pfn, zone_idx, nid, pgmap,
+> +				     compound_nr_pages(pfn, altmap, pgmap));
+> +	pfn += pfns_per_compound;
+> +
+> +	/* Initialize the remaining head pages from template. */
+> +	for (; pfn < end_pfn; pfn += pfns_per_compound) {
+> +		page = pfn_to_page(pfn);
+> +
+> +		zone_device_page_init_from_template(page, pfn,
+> +						    &template);
+
+Nit: this seems to fit into 80-chars line without wrapping.
+
+>  
+>  		if (IS_ALIGNED(pfn, PAGES_PER_SECTION))
+>  			cond_resched();
+> -- 
+> 2.20.1
+
 -- 
-2.30.2
-
+Sincerely yours,
+Mike.
