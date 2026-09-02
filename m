@@ -1,163 +1,283 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D4864A92C0;
-	Wed,  2 Sep 2026 15:36:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788363429; cv=none; b=ZlMMxec641ufjnvDX8ftOx9bs3gN9bxJep9UnRuNZw7UhYqodZIfFHu6llPuhMkBALB+pDH+LeNJ6lsxV1z4kbwB1xyWY+2WY3K4IEMrbZohVvSlldx4rQDYL8HSbWfu4yNsm4/LXIvVXx/AqzIgv9PcUI8jhnc6Mg9IPCdnhFk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788363429; c=relaxed/simple;
-	bh=CG8/3kCMtjiLTNK0gdJUbxQM90rolvY7/w/XS4Lx25s=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MIk0oYmHsuqdC4KxudZ4orlS1UWap8/bjzSIOrS/QhDsSeESfF3TuWhomDgoN4WxEC5xFhTCrfinb5LkkI+Ss9AhjjuEPGdjtt4xMEEVentxDFnIb9OR8Z2fSpPV3hWzW2zAzPmOfV6/xnzcsKa5tEumwp3unoekpuM05Xz3dCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 1a35cac6a6e411f19a56ed5b684f684d-20260902
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:a1d729e3-57dc-44a3-b4d5-f7b21592b09c,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:e31e44d117130ee6641c1ccc2238a6a5,BulkI
-	D:nil,BulkQuantity:0,SF:102|136|865|898,TC:nil,Content:0|15|50,EDM:5|-100,
-	IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:
-	0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 1a35cac6a6e411f19a56ed5b684f684d-20260902
-X-User: liwanwu@kylinos.cn
-Received: from kylinos.cn [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <liwanwu@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1363887071; Wed, 02 Sep 2026 23:36:44 +0800
-From: Wanwu Li <liwanwu@kylinos.cn>
-To: Tejun Heo <tj@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>
-Cc: liwanwu@kylinos.cn,
-	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] sched_ext: Fix NULL sched deref in select_cpu_and sub-sched error path
-Date: Wed,  2 Sep 2026 23:36:40 +0800
-Message-Id: <20260902153640.144791-1-liwanwu@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7C0390239
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:37:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788363444; cv=pass; b=Go4+wGVwfXFOln4GOusiUC4Y15fPkNRxwBqu7EoE+A+TX1KVjOGtRoeE1ZFJefq63eXADBHlow121/vq+Q47HxpQ4iDVV6Vp+6T9olfpz6rHWDbidIZo22t+d4+kCmWgcX5uS15XCu7PnAYNgeBcmmhFJNQJbRWuLRtYY/YAhis=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788363444; c=relaxed/simple;
+	bh=vwsSNi/l0wcUncHEDwOrU2Jiugq7xfqNBM5xMw1ruLQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VvflqT3EP3lzKuTXPXMUMm8VJ+b6FKO6ZuRQLEJZfiW5Rwr3hZmYvJKPwWIp9/zJcvt0X00C/MoC0+A1alSeR5QRQd5KaT0rrTaNGGlrFl4xpFVVoQR0ZExaFJ8BEi5Ym3+am9cvS41cznjKdEw2CloX+zxtFHEZPuav4d1Al1w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=XmHhJsAU; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="XmHhJsAU"
+ARC-Seal: i=1; a=rsa-sha256; t=1788363386; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Uz3CSDNOwhbSRIQA04r+8Hns5HK1tvvCJCUFFveHWDWqTccAfeFkKWJnGHrB3aJr8IVRm/xTzi47mroc+1eMrvssPPa/pvfIOl59Gq0WJ2W240I6uMeMlaZn7f0Li+UExXqHBEVf7/bnKYvd8Q/fv48FiEYqR1elzsXm4lGQpy8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788363386; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=zrseYKXPJI+lDE/RaHmIqyZ1DcdW9dHQYIB9oIcqUtg=; 
+	b=YxL34Txk2hE12ehq+u2tHWCS8K66Ndr2FSPm9PisvBLqTLLUcgGuxVBMTG6qYVCUV7NAPzElDcw+RYnc2qeGuro4RX47WwyGCB2k8N9zm8VmjjlB9CHsSs2kv/C815U2EmX55ucbL2yp6RXHEVePOMtDum7fi7Pe/aPpNiUYftM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788363386;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+	bh=zrseYKXPJI+lDE/RaHmIqyZ1DcdW9dHQYIB9oIcqUtg=;
+	b=XmHhJsAUA6UpkgcvPTeD1AvtOZnFKm3s1O8rBRm/cMoLiY+9P0Vqr8LRj2llrzay
+	zZH312QemPzCWm1s9WAl3lAlh3GDzRA8+WbkWKIkStmJur4qWOFLvafqCgVd/UaL7Dq
+	NQEhSFlLcEym3H7hl1v08n5QYuwn/Q2L1MzYvLro=
+Received: by mx.zohomail.com with SMTPS id 1788363384002507.3276519476119;
+	Wed, 2 Sep 2026 08:36:24 -0700 (PDT)
+Date: Wed, 2 Sep 2026 16:36:17 +0100
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Faith Ekstrand <faith.ekstrand@collabora.com>, 
+	"Marty E. Plummer" <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
+	Eric Anholt <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+	Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	Collabora Kernel Team <kernel@collabora.com>, Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v7 01/17] drm/panfrost: Move shrinker initialization and
+ unplug one level down
+Message-ID: <aphCaGIbyRbbTYEx@sobremesa>
+References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
+ <20260828-claude-fixes-v7-1-72a13b2c125d@collabora.com>
+ <20260901132802.66d9aba6@fedora-21.home>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260901132802.66d9aba6@fedora-21.home>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.352.18
 
-scx_bpf_select_cpu_and() errors out @p's scheduler when the root scheduler
-has sub-scheds attached:
+On 01.09.2026 13:28, Boris Brezillon wrote:
+> On Fri, 28 Aug 2026 21:56:41 +0100
+> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
+> 
+> > Since the moment we call drm_dev_register() the device should be in a
+> > position to accept jobs, so it's best if the shrinker is already
+> > initialized by then.
+> > 
+> > On top of that, make shrinker functions take an panfrost_device pointer
+> > like other functions in the same sequence and rename them accordingly.
+> > 
+> > Essentially mimic the init/fini behaviour in Panthor.
+> > 
+> > On top of that, remove the config feature check, because it's unnecessary.
+> 
+> I don't think that's accurate anymore (we still have a config check,
+> except it's encoded directly in the panfrost_transparent_hugepage definition),
+> and I think I'd prefer if this change was done in a separate commit.
 
-	scx_error(scx_task_sched(p), "... must be used");
+Maybe I could do it in the commit where I move that module param's handling into panfrost_gem?
 
-scx_task_sched(p) is p->scx.sched, which is NULL for any task that is not
-on an scx scheduler: it is memset() by init_scx_entity() and cleared by
-scx_disable_and_exit_task() -- which sched_ext_dead() runs when a task
-exits. It is also an rcu_dereference_protected() that must be called with
-@p's pi_lock or rq lock held -- neither of which a BPF_PROG_TYPE_SYSCALL
-program holds.
+> > 
+> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+> > ---
+> >  drivers/gpu/drm/panfrost/panfrost_device.c       |  8 +++++++-
+> >  drivers/gpu/drm/panfrost/panfrost_drv.c          |  6 ------
+> >  drivers/gpu/drm/panfrost/panfrost_drv.h          |  4 ++++
+> >  drivers/gpu/drm/panfrost/panfrost_gem.c          | 25 ++++++++++++++----------
+> >  drivers/gpu/drm/panfrost/panfrost_gem.h          |  7 ++++---
+> >  drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |  8 ++------
+> >  6 files changed, 32 insertions(+), 26 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > index 485349faf251..05c40d5a20b5 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > @@ -280,9 +280,14 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+> >  	if (err)
+> >  		goto out_job;
+> >  
+> > -	panfrost_gem_init(pfdev);
+> > +	err = panfrost_gem_init(pfdev);
+> > +	if (err)
+> > +		goto out_perfcnt;
+> >  
+> >  	return 0;
+> > +
+> > +out_perfcnt:
+> > +	panfrost_perfcnt_fini(pfdev);
+> >  out_job:
+> >  	panfrost_jm_fini(pfdev);
+> >  out_mmu:
+> > @@ -304,6 +309,7 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+> >  
+> >  void panfrost_device_fini(struct panfrost_device *pfdev)
+> >  {
+> > +	panfrost_gem_fini(pfdev);
+> >  	panfrost_perfcnt_fini(pfdev);
+> >  	panfrost_jm_fini(pfdev);
+> >  	panfrost_mmu_fini(pfdev);
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> > index 96a66d673ba6..9882a3ede75f 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> > @@ -1003,14 +1003,9 @@ static int panfrost_probe(struct platform_device *pdev)
+> >  	if (err < 0)
+> >  		goto err_out1;
+> >  
+> > -	err = panfrost_gem_shrinker_init(&pfdev->base);
+> > -	if (err)
+> > -		goto err_out2;
+> >  
+> >  	return 0;
+> >  
+> > -err_out2:
+> > -	drm_dev_unregister(&pfdev->base);
+> >  err_out1:
+> >  	pm_runtime_disable(pfdev->base.dev);
+> >  	panfrost_device_fini(pfdev);
+> > @@ -1024,7 +1019,6 @@ static void panfrost_remove(struct platform_device *pdev)
+> >  	struct panfrost_device *pfdev = platform_get_drvdata(pdev);
+> >  
+> >  	drm_dev_unregister(&pfdev->base);
+> > -	panfrost_gem_shrinker_cleanup(&pfdev->base);
+> >  
+> >  	pm_runtime_get_sync(pfdev->base.dev);
+> >  	pm_runtime_disable(pfdev->base.dev);
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.h b/drivers/gpu/drm/panfrost/panfrost_drv.h
+> > index a2277ec61aab..bac0c415d4da 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_drv.h
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_drv.h
+> > @@ -4,6 +4,10 @@
+> >  #ifndef __PANFROST_DRV_H__
+> >  #define __PANFROST_DRV_H__
+> >  
+> > +#if IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)
+> >  extern bool panfrost_transparent_hugepage;
+> > +#else
+> > +#define panfrost_transparent_hugepage false
+> > +#endif
+> >  
+> >  #endif
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
+> > index 3a7fce428898..7b993a089af2 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_gem.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
+> > @@ -15,20 +15,25 @@
+> >  #include "panfrost_gem.h"
+> >  #include "panfrost_mmu.h"
+> >  
+> > -void panfrost_gem_init(struct panfrost_device *pfdev)
+> > +int panfrost_gem_init(struct panfrost_device *pfdev)
+> >  {
+> >  	int err;
+> >  
+> > -	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
+> > -	    !panfrost_transparent_hugepage)
+> > -		return;
+> > +	if (panfrost_transparent_hugepage) {
+> > +		err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
+> > +		if (drm_gem_get_huge_mnt(&pfdev->base))
+> > +			drm_info(&pfdev->base, "Using Transparent Hugepage\n");
+> > +		else if (err)
+> > +			drm_warn(&pfdev->base,
+> > +				 "Can't use Transparent Hugepage (%d)\n", err);
+> 
+> This can probably be turned into:
+> 
+> 		if (err)
+> 			drm_warn(&pfdev->base,
+> 				 "Can't use Transparent Hugepage (%d)\n", err);
+> 		else
+> 			drm_info(&pfdev->base, "Using Transparent Hugepage\n");
+> 
+> since there's no world where drm_gem_get_huge_mnt() would return NULL if
+> drm_gem_huge_mnt_create() returns 0 when CONFIG_TRANSPARENT_HUGEPAGE=y.
+> The pre-existing checks where there to cover CONFIG_TRANSPARENT_HUGEPAGE=n
+> which you already cover by not entering this branch.
 
-The wrapper is reachable from such a program -- scx_kfunc_context_filter()
-allows the select_cpu kfunc group for BPF_PROG_TYPE_SYSCALL -- and the
-program can pass any task, e.g. one obtained with bpf_task_from_pid() that
-exited in between. scx_error() then calls scx_vexit(), which dereferences
-sch->exit_info unconditionally, so passing NULL oopses the kernel.
+Will do, but also write this into the patch that moves the module param into panfrost_gem.c instead.
 
-This was triggered live on a v7.2 based kernel with a
-BPF_PROG_TYPE_SYSCALL program calling the wrapper on an exited-but-not
-reaped task while a sub-scheduler was attached (faulting instruction is
-the scx_vexit() prologue "mov r15,[rdi+0x398]" with RDI=NULL and 0x398
-the offset of sch->exit_info):
+> > +	}
+> >  
+> > -	err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
+> > -	if (drm_gem_get_huge_mnt(&pfdev->base))
+> > -		drm_info(&pfdev->base, "Using Transparent Hugepage\n");
+> > -	else if (err)
+> > -		drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
+> > -			 err);
+> > +	return panfrost_gem_shrinker_init(pfdev);
+> > +}
+> > +
+> > +void panfrost_gem_fini(struct panfrost_device *pfdev)
+> > +{
+> > +	panfrost_gem_shrinker_fini(pfdev);
+> >  }
+> >  
+> >  #ifdef CONFIG_DEBUG_FS
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/panfrost/panfrost_gem.h
+> > index 79d4377019e9..5c823cdbd980 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_gem.h
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
+> > @@ -129,7 +129,8 @@ drm_mm_node_to_panfrost_mapping(struct drm_mm_node *node)
+> >  	return container_of(node, struct panfrost_gem_mapping, mmnode);
+> >  }
+> >  
+> > -void panfrost_gem_init(struct panfrost_device *pfdev);
+> > +int panfrost_gem_init(struct panfrost_device *pfdev);
+> > +void panfrost_gem_fini(struct panfrost_device *pfdev);
+> >  
+> >  struct drm_gem_object *panfrost_gem_create_object(struct drm_device *dev, size_t size);
+> >  
+> > @@ -154,8 +155,8 @@ panfrost_gem_mapping_get(struct panfrost_gem_object *bo,
+> >  void panfrost_gem_mapping_put(struct panfrost_gem_mapping *mapping);
+> >  void panfrost_gem_teardown_mappings_locked(struct panfrost_gem_object *bo);
+> >  
+> > -int panfrost_gem_shrinker_init(struct drm_device *dev);
+> > -void panfrost_gem_shrinker_cleanup(struct drm_device *dev);
+> > +int panfrost_gem_shrinker_init(struct panfrost_device *pfdev);
+> > +void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev);
+> >  
+> >  void panfrost_gem_set_label(struct drm_gem_object *obj, const char *label);
+> >  int panfrost_gem_sync(struct drm_gem_object *obj, u32 type,
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+> > index 2fe967a90bcb..fefae87535d6 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+> > @@ -95,10 +95,8 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+> >   *
+> >   * This function registers and sets up the panfrost shrinker.
+> >   */
+> > -int panfrost_gem_shrinker_init(struct drm_device *dev)
+> > +int panfrost_gem_shrinker_init(struct panfrost_device *pfdev)
+> >  {
+> > -	struct panfrost_device *pfdev = to_panfrost_device(dev);
+> > -
+> >  	pfdev->shrinker = shrinker_alloc(0, "drm-panfrost");
+> >  	if (!pfdev->shrinker)
+> >  		return -ENOMEM;
+> > @@ -118,10 +116,8 @@ int panfrost_gem_shrinker_init(struct drm_device *dev)
+> >   *
+> >   * This function unregisters the panfrost shrinker.
+> >   */
+> > -void panfrost_gem_shrinker_cleanup(struct drm_device *dev)
+> > +void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev)
+> >  {
+> > -	struct panfrost_device *pfdev = to_panfrost_device(dev);
+> > -
+> >  	if (pfdev->shrinker)
+> >  		shrinker_free(pfdev->shrinker);
+> >  }
+> > 
 
-  sched_ext: BPF scheduler "kfunc_subsched_null" enabled
-  sched_ext: BPF sub-scheduler "kfunc_subsched_null" enabled
-  sched_ext: Unassociated program run_select_cpu_ (id 76)
-  BUG: kernel NULL pointer dereference, address: 0000000000000398
-  #PF: supervisor read access in kernel mode
-  #PF: error_code(0x0000) - not-present page
-  Oops: Oops: 0000 [#1] SMP NOPTI
-  CPU: 7 UID: 0 PID: 8201 Comm: kfunc_test_runn Tainted: G W
-  RIP: 0010:scx_vexit+0x25/0xa0
-  Code: ... <4c> 8b bf 98 03 00 00 ...
-  CR2: 0000000000000398
-  Call Trace:
-   <TASK>
-   __scx_exit+0x4f/0x70
-   scx_bpf_select_cpu_and+0xab/0xb0
-   bpf_prog_430ed61a7b66e03a_run_select_cpu_and+0x9c/0xe7
-   ? __x64_sys_bpf+0x2c/0x40
-   bpf_prog_test_run_syscall+0x130/0x2f0
-   __sys_bpf+0x930/0x10d0
-   ? __x64_sys_bpf+0x2c/0x40
-   __x64_sys_bpf+0x2c/0x40
-   do_syscall_64+0xbc/0x460
-   ? rseq_set_ids_get_csaddr+0x81/0x140
-   ? __rseq_handle_slowpath+0xd0/0x130
-   ? switch_fpu_return+0x51/0xd0
-   ? arch_exit_to_user_mode_prepare.constprop.0+0x87/0xb0
-   ? do_syscall_64+0xf3/0x460
-   ? irqentry_exit+0x48/0x740
-   ? clear_bhb_loop+0x40/0x90
-   ? do_syscall_64+0x35/0x460
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
-   </TASK>
-
-Keep the "error out @p's scheduler" attribution -- it is what every other
-kfunc error path does (select_cpu_from_kfunc()'s cross_task,
-scx_kf_arg_task_ok()) and it is correct for the callers that actually take
-this path: the only other callers are the struct_ops select_cpu/enqueue
-ops, where @p is the caller's own task and p->scx.sched is its scheduler.
-Just read it safely: use scx_task_sched_rcu() (valid under the guard(rcu)()
-the wrapper already holds, no @p lock required) and fall back to @sch -- the
-root scheduler, guaranteed non-NULL here -- when @p is not on an scx
-scheduler, which is precisely the case that used to be NULL.
-
-scx_bpf_dsq_insert_vtime() has the same error path but it is not reachable
-with a NULL @p: SYSCALL programs are rejected for its kfunc set and @p is
-always the calling scheduler's own task in the contexts where it runs, so
-it is left unchanged.
-
-The proper endgame for these COMPAT wrappers is removal once the
-deprecation grace period is announced and elapsed; this fix only keeps
-the window from oopsing the kernel until that happens.
-
-Cc: <stable@vger.kernel.org>
-Fixes: a5fa0708cbfd ("sched_ext: Enforce scheduling authority in dispatch and select_cpu operations")
-Signed-off-by: Wanwu Li <liwanwu@kylinos.cn>
----
- kernel/sched/ext/idle.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/sched/ext/idle.c b/kernel/sched/ext/idle.c
-index d2973fb3af6d..014599d82bb0 100644
---- a/kernel/sched/ext/idle.c
-+++ b/kernel/sched/ext/idle.c
-@@ -1142,10 +1142,15 @@ __bpf_kfunc s32 scx_bpf_select_cpu_and(struct task_struct *p, s32 prev_cpu, u64
- #ifdef CONFIG_EXT_SUB_SCHED
- 	/*
- 	 * Disallow if any sub-scheds are attached. There is no way to tell
--	 * which scheduler called us, just error out @p's scheduler.
-+	 * which scheduler called us, so error out @p's scheduler -- but read
-+	 * it under RCU (@p's locks aren't held here) and fall back to @sch if
-+	 * @p isn't on an scx scheduler: a BPF_PROG_TYPE_SYSCALL prog can pass
-+	 * any task and p->scx.sched is NULL for one that has exited or is
-+	 * managed by another scheduler.
- 	 */
- 	if (unlikely(!list_empty(&sch->children))) {
--		scx_error(scx_task_sched(p), "__scx_bpf_select_cpu_and() must be used");
-+		scx_error(scx_task_sched_rcu(p) ?: sch,
-+			  "__scx_bpf_select_cpu_and() must be used");
- 		return -EINVAL;
- 	}
- #endif
--- 
-2.25.1
-
+Adrian Larumbe
