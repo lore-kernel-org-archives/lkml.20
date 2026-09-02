@@ -1,336 +1,253 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B564747209E;
-	Wed,  2 Sep 2026 14:14:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788358442; cv=none; b=FyLfxA+c571tkEZmUkgnw7aoLUjMkEGuQiIUyAi/sM2Hn0Bz37gTcIO+apuzptk+1YjqpQoVmUxXR0mXmaZVLxy1n0LPAhGK0//omU1bPcpWwV3P889VHz95EnSuMg+rxf3R/KmKOjXW7+AapJEiyCxYRGeJVLcpkMsi1CAvhZw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788358442; c=relaxed/simple;
-	bh=3uMwdpGV0rY+hVIYVjGSks7GFCbjTZm7gn+IrNdHCWE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ApT+9tNHh3/1phveavxyfNhOTr69urP7Wac15W12p5U8My7NQOUpoXaqOpWQUli0a6VQJWzYq0T6XVEZ2jFE9z9sAtQ5aIobopD3OBt0o87oJBYIrdRu7KtGLvdaSpdjeZAC0YTdJPP0YVRSVMdNLCGlLKKbHUbIiF20evyr5y0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=AeSeDjYq; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=nK82pSwW; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Cmv5J66o; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=pWp87qb/; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD4D4A0F11
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:14:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788358478; cv=pass; b=eA/kjDcntcxuYAvFljH7X6ik67pl4ReX5xdyOWpxq16LTUquWc99+PKQTLHJ0HA7hnQ/shgy/Zbh/aDS+ZYh/4otbBs96ls3YgeqYBEGBN1Ot4q2o/4iV1ZC0ApiWpRGEVE3bFbU++n7X+Ga2SKNhnJS029gx1WBXP+Gq3aPqHk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788358478; c=relaxed/simple;
+	bh=cdAE1a6vG9C5ULJiRkOdqZgP3psLeL7eFGyxPIwl2S8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JUbpPSP8dA9ma34unPDs+Zk+jquHnd1pxMzM5z8NigBtnb0BW/TIxbbofv61IZKeo1bQ1lxS6lSfBo2/d0ixYiSQb4VeKVVic+ZE3ZfEHBO9j2jFaeijHVZOOldz6rg7aMD8Q4Ns0zLBv39wdRFTNr7OGMPUXR8jmpIh1GmJLyw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sJF0mgP8; arc=pass smtp.client-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="AeSeDjYq";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="nK82pSwW";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Cmv5J66o";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="pWp87qb/"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 56E2A21D58;
-	Wed,  2 Sep 2026 14:13:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788358434; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qlHgscWxwxwAgClcMz0xn8DnlfiNrTDZyuLzM+SNRD0=;
-	b=AeSeDjYqTqBs5LA/YJuoF+FzPqVb8IwAVklveCG1DKIYM2g1uwrrwlUlzLLUE3XBxAh54I
-	lueLTFfpcKI0jTqwOorKvQ7nwVPBWlAOPvsc6B1nkpZaCDuEjYbDiRIgJlDggPEup79wdG
-	8V8NM/x7W4v+kR+v74dId24VBJ7ZzBA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788358434;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qlHgscWxwxwAgClcMz0xn8DnlfiNrTDZyuLzM+SNRD0=;
-	b=nK82pSwWCvwx9jTWLtLgLXMxCjxw5ZA6jwP157477jNACPfB1NRFzMMJ5pFs3w1Ytbn0E6
-	RhscYl6m7c9CWDDg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=Cmv5J66o;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="pWp87qb/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788358430; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qlHgscWxwxwAgClcMz0xn8DnlfiNrTDZyuLzM+SNRD0=;
-	b=Cmv5J66owsdrZ/2IxiL1QLseXY4VBor264SwWQsaqmbOKQQgmwkOBdUIfkcvJSm0ewLRRW
-	6DewxuyXAxwuMT6ZzBI3UDmK4OVrw8sxbddAqDeBz2Vp3zx9ROOXYap1SL0ZZ3eHVL61fz
-	FGf2Ai29l6IWTUl7LBuMwBiL913iqWY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788358430;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qlHgscWxwxwAgClcMz0xn8DnlfiNrTDZyuLzM+SNRD0=;
-	b=pWp87qb/2Xp5Wq64RZ0nnrHWetSuQMlnkBzCPM4T1uY9GjeuBKfqSqjYBwk/sywxYYnZVl
-	M3Lb5YwtiylXceBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 34D85136E6;
-	Wed,  2 Sep 2026 14:13:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id /ynlDB4vmGr5BgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 02 Sep 2026 14:13:50 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id C0FC0A13B5; Wed, 02 Sep 2026 16:13:45 +0200 (CEST)
-Date: Wed, 2 Sep 2026 16:13:45 +0200
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Christoph Hellwig <hch@lst.de>, 
-	Seth Forshee <sforshee@kernel.org>, Paul Moore <paul@paul-moore.com>, 
-	linux-security-module@vger.kernel.org, Mimi Zohar <zohar@linux.ibm.com>, 
-	linux-integrity@vger.kernel.org, Ilya Dryomov <idryomov@gmail.com>, ceph-devel@vger.kernel.org, 
-	Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, Miklos Szeredi <miklos@szeredi.hu>, 
-	Amir Goldstein <amir73il@gmail.com>, linux-unionfs@vger.kernel.org, 
-	Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 04/27] fs: port fs{g,u}id helpers to const mnt_idmap
-Message-ID: <lqvimz2nyu5kjngui76klhrnzsban6uz76fzfzwlhzll2xeaw4@b52qkg4q6jdt>
-References: <20260901-work-idmap-const-v1-0-54ccd48e100b@kernel.org>
- <20260901-work-idmap-const-v1-4-54ccd48e100b@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sJF0mgP8"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a0de062db5so2011579a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:14:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788358474; cv=none;
+        d=google.com; s=arc-20260327;
+        b=joGGFzJjfJQohMjdxvKSwG0OhpMUmYym3j5ApRsyqaUsO087HIrb1elGbKXpRmtIu9
+         85vkDKadhf0tVvORNQqgPL01/OhP1rtkI5OOs0yueabzvs99w/BuRTZ+Ipn1dl3IIYTe
+         0CVKgH/UQW79GbJccoKuOUn3URZ0QQutYQqjXJrDQ9r+zv+1/Ae4kNNqUpX6FnTrWxue
+         bgcm7eNebYFTuoIMcUV2YBuZh4SfCAclLXLGt4Lvh7XXmvkwJc3iu+Lv46jR0Sl0jafF
+         vQXrm5crq6y/088EfyXtW1usj+AxWbm6LKtSn6mlKQJKj4gk0BNRYYC8o5zGjievkiQh
+         Mf+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=z1Gb9svefZexXgI3MSllPyHbPKRof4ikpCQHMZNBOag=;
+        fh=CNcfh/v2/KYBdZKaIK9dbgfaoIHes4UlZTfioCi93BE=;
+        b=RgjqSp7Mx3AnHB0T/UuF6gZOkhycUTRJ3eicwvNDZa64qFEzd+vA0lEZSxgnTkPasy
+         bEbZ1aKdQHqnUt1BqdpaJA2OJdOvEoF237VeUIqZE6kePHWEe0e/MLFYXcP4sxZbVkJ5
+         aUgkRmKpeBXXYHJYoFp5wN/BICspyQc0x3B5+GnChpRB59R2isWQLTcjH0NmLkyH1/mw
+         uxKz0+/Wo8OKbiFeV5KJtXiQFy8yR08MYqypmsbP4SM8fla/ItOp9+hk98YEMP/sglMa
+         BhtiyUOAatqMa6c3v86u+zA/ZKRXkasMb5ifzhg5OjByIfvSUAgjbq4qBSaX1Zgm3R1r
+         jt+w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788358474; x=1788963274; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=z1Gb9svefZexXgI3MSllPyHbPKRof4ikpCQHMZNBOag=;
+        b=sJF0mgP8xNI2Q8N/WkXuyZcnO0CBDtRhtL01R4ujdEFMdPpBGx80H5Y7UyQYmgYNCC
+         H+aM0MsE+h+zNpKeIZg94gcuQ0xG19JEaf7bNeUMsrcEV0BjMEYG+Cuyfk2XtIwJ1fT+
+         bVe821pA3DVx3zxCOQF39rkVjK9AvnoRqxrrIfAYM2+M4C9prei1PF4WWtBGdb4/DizB
+         vTNt1N5Tb9zm0N51NyO+qisNNqRYq7a0bkUdzvRBa5VZmj5psqlVWz3+ss+H03CiGoyw
+         uHA9tykX8+i/gFPoqK4iDgt5MZKvYbRQEsBf+JqlGs4dXrT+tE0qoLwFDcv8IdFV7dbC
+         F+LQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788358474; x=1788963274;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=z1Gb9svefZexXgI3MSllPyHbPKRof4ikpCQHMZNBOag=;
+        b=TAOI9dBmq3gtUdJjQ8yuFB1JvbR65IT+42kuoXGL1LacwxQFU9os84OYoizPokgNCy
+         ZyimhSy1qJWZj/OCGHt1w1G1LWUCvBF7lz6fcy332kaeWtgaMUF3OG0n6iDNE7Njx5sp
+         lrK5AhZBoXVSipDfMePEz5F6Q29+bPGnOv1GJHHHOzGv1yLuUHlukVJ2zWb2tTsLa70q
+         hfcWKkI3/lDEQmihxHObhUUCcTDmkLq4ZUPe8kTYh1QXkBslIrtePb6G6QVXraCWy+mc
+         Ayj17VkiPOuIt9bPfRqJb7LP4cEC1sdeaJ7+SVzSM5Yig8em3OWQqUYEgUBW/JOW0TVH
+         nqdA==
+X-Forwarded-Encrypted: i=1; AKwUvBzYazDiG0mrr1ids35W87PzR+ATApkLrpQ//sZglH01qr1JUkO+MCVCyLeSD9lJP2DdMm7QPZ94bQsn3z4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kYPe+szN4Pbofi0n6fraKQ2PAIEaLhZ0IU4WElFkhXrJsZO5AW
+	R618UPjCLfFPKjsnd9AaMDk9g68F4qnFAllB3vvfx6mPT83+IsRjmfMbNtei6EXOBB81bY1l4qu
+	n6dnKgDDJo5biTqwgiUFPZAIKJq03gZI=
+X-Gm-Gg: AYBFou0SiylTlNb2IHhOq4UVfyVgevLJ0YQLZO176sRwKna4OMu+cLyWZf3PD5zzcMM
+	x/1Tvv+OfKBATx1CilaA8KaGRe+J7iYH2KxvcYK3jrSrnWON3+UrqMIgdDMTga3rJvIwkNbBDIS
+	w+YuGXYaUiVd2/TSmJLbpr5KY9cJ8dJmA1kmnGjkKoDr6rpHTXI0NQl2XWaM4zf++SH72U6SjFf
+	8cs9b6qVNRt5M9Szd0D5RQa/kjxPCt/VxhyADvmLTprGdvSfQhlOAirJkuWHjmZMDZquteA2Z0P
+	pbpwbgMyCiyggntuxQw4bqa0BHFngz22vRetlDb/bUlziWI19s9lErN973zb
+X-Received: by 2002:a05:6402:20c6:20b0:6a6:8b46:4973 with SMTP id
+ 4fb4d7f45d1cf-6a68b464ac4mr1842114a12.7.1788358473392; Wed, 02 Sep 2026
+ 07:14:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901-work-idmap-const-v1-4-54ccd48e100b@kernel.org>
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 56E2A21D58
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,zeniv.linux.org.uk,suse.cz,lst.de,kernel.org,paul-moore.com,linux.ibm.com,gmail.com,szeredi.hu];
-	RCVD_COUNT_THREE(0.00)[3];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim,suse.cz:email,suse.com:email];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.cz:+]
-X-Spam-Flag: NO
-X-Spam-Score: -4.01
+References: <20260810122758.183765-1-puranjay@kernel.org> <20260810122758.183765-2-puranjay@kernel.org>
+ <20260826144636.3IRUXeFV@linutronix.de> <CANk7y0hbwXL7nBDgjTgrneBejEgGrsZnc02RztG-aSBEEvAcwQ@mail.gmail.com>
+ <20260902082657.yPEhNFlo@linutronix.de>
+In-Reply-To: <20260902082657.yPEhNFlo@linutronix.de>
+From: Puranjay Mohan <puranjay12@gmail.com>
+Date: Wed, 2 Sep 2026 15:14:20 +0100
+X-Gm-Features: AcwNN1VcZ0Pb1fdH9gP2Tb1Pv8VYUhDajHrWJ9SzT4ipxs3lXYiu2AFNy3-3ems
+Message-ID: <CANk7y0gMh6McuLnFwxGO-nH_g3TnstwTK2rtT5pq=b8qq9ykKQ@mail.gmail.com>
+Subject: Re: [PATCH v4 1/6] rcu: Make call_rcu() safe to call from any context
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Lai Jiangshan <jiangshanlai@gmail.com>, "Paul E. McKenney" <paulmck@kernel.org>, 
+	Josh Triplett <josh@joshtriplett.org>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Frederic Weisbecker <frederic@kernel.org>, Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
+	Joel Fernandes <joelagnelf@nvidia.com>, Boqun Feng <boqun@kernel.org>, 
+	Uladzislau Rezki <urezki@gmail.com>, Davidlohr Bueso <dave@stgolabs.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Zqiang <qiang.zhang@linux.dev>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Matt Fleming <mfleming@cloudflare.com>, 
+	"Harry Yoo (Oracle)" <harry@kernel.org>, linux-kernel@vger.kernel.org, rcu@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-rt-devel@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue 01-09-26 14:14:29, Christian Brauner wrote:
-> Convert to const struct mnt_idmap.
-> 
-> A mount's idmapping is immutable. The only thing that is allowed to be
-> modified afterwards is the reference count and that is hidden behind
-> mnt_idmap_get() and mnt_idmap_put(). Everything else only ever reads
-> from the idmapping. This is the same model that struct cred uses and the
-> idmapping is also rather sensitive.
-> 
-> So make the idmap argument const wherever we can. The conversion is done
-> from the bottom up so callers can continue to pass a non-const pointer
-> to a const parameter until the conversion is finished.
-> 
-> No functional changes.
-> 
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+On Wed, Sep 2, 2026 at 9:26=E2=80=AFAM Sebastian Andrzej Siewior
+<bigeasy@linutronix.de> wrote:
+>
+> On 2026-09-01 14:53:56 [+0200], Puranjay Mohan wrote:
+> > On Wed, Aug 26, 2026 at 3:46=E2=80=AFPM Sebastian Andrzej Siewior
+> > > > +/*
+> > > > + * Defer whenever interrupts are disabled, since a callback-list o=
+peration may
+> > > > + * be in flight on this CPU.  Not before the scheduler is up: irq_=
+work is not
+> > > > + * usable that early, and rcu_init() itself calls call_rcu().
+> > > > + */
+> > > > +static inline bool should_rcu_defer(void)
+> > > > +{
+> > > > +     return IS_ENABLED(CONFIG_RCU_DEFER) && irqs_disabled() &&
+> > > > +            rcu_scheduler_active !=3D RCU_SCHEDULER_INACTIVE;
+> > > > +}
+> > >
+> > > Why does the description say that the defer part is for usage from NM=
+I
+> > > and the test here has irqs_disabled() instead of in_nmi()?
+> >
+> > We defer for both irq disabled sections, hard irq, and in_nmi() and
+> > checking for irqs_disabled() covers all three.
+>
+> But it is wrong to talk about NMI and do this for other reasons not
+> mentioning why this was needed/ made sense.
+> Can this be fixed?
+> Also what is the reasoning for doing it from any IRQ disabled region?
 
-Looks good. Feel free to add:
+So, the main reason for this patchset is to make call_(s)rcu() work
+from BPF programs, and these BPF programs can run from any context
+like an NMI perf event interrupt or maybe attached to a function
+through ftrace which is in the call chain of call_rcu() itself.
+call_rcu() takes locks with irqs disabled or it modifies lists
+non-atomically with irqs disabled. This means that a BPF program that
+runs from NMI with the lock already taken will deadlock, or if it runs
+between these non-atomic list modifications, it will corrupt the
+lists. A BPF program can also synchronously re-enter call_rcu() if it
+is attached to a function in the call chain of call_rcu() that is
+called with a lock taken. So, all these cases are detected with
+irqs_disabled() and on detection we do stuff that doesn't require
+taking any locks and is safe even if re-entered.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+> > >
+> > > > +
+> > > >  enum rcutorture_type {
+> > > >       RCU_FLAVOR,
+> > > >       RCU_TASKS_FLAVOR,
+> > > > diff --git a/kernel/rcu/tree.c b/kernel/rcu/tree.c
+> > > > index 21b6ce1dffb63..3bf3a250f9de8 100644
+> > > > --- a/kernel/rcu/tree.c
+> > > > +++ b/kernel/rcu/tree.c
+> > > > @@ -3206,6 +3204,103 @@ __call_rcu_common(struct rcu_head *head, rc=
+u_callback_t func, bool lazy_in)
+> > > >       local_irq_restore(flags);
+> > > >  }
+> > > >
+> > > > +/*
+> > > > + * Re-issue deferred callbacks straight to the enqueue so they can=
+not defer
+> > > > + * again.  ->defer_lock serializes the drainers: this CPU's irq_wo=
+rk,
+> > > > + * rcu_defer_flush() and rcutree_migrate_callbacks().
+> > > > + */
+> > > > +static void __rcu_defer_drain(struct rcu_data *rdp)
+> > > > +{
+> > > > +     struct llist_node *node, *next;
+> > > > +     unsigned long flags;
+> > > > +
+> > > > +     if (!IS_ENABLED(CONFIG_RCU_DEFER))
+> > > > +             return;
+> > > > +
+> > > > +     raw_spin_lock_irqsave(&rdp->defer_lock, flags);
+> > > > +     llist_for_each_safe(node, next, llist_del_all(&rdp->defer_hea=
+d)) {
+> > > > +             struct rcu_head *head =3D (struct rcu_head *)node;
+> > >
+> > > Why do you need the lock. This is still not clear to me despite the
+> > > comment. You can do llist_del_all() towards another list and then fee=
+d
+> > > it into rcu_do_enqueue() one by one. And you use the LAZY part.
+> >
+> > Because rcu_barrier() can call this for each cpu and at the same time
+> > rcu_defer_drain() can call it too, so this would cause a race where
+> > the irq work can remove the callbacks (llist_del_all) and before it
+> > can enqueue them, rcu_barrier will see that the list is already empty
+> > and will not wait for these callbacks. We want the llist_del_all() and
+> > rcu_do_enqueue() to happen atomically so rcu_barrier() can work
+> > correctly.
+>
+> So you collect a bunch of callbacks and spent time re-arranging
+> everything with irqs off.
+> What is wrong with keeping it in the llist and consuming it like the
+> regular rcu_segcblist?
 
-								Honza
+I don't understand your last point, all the collection and delayed
+addition into rcu_segcblist is because it is not safe to do it
+directly as I explained above.
 
-> ---
->  fs/ceph/mds_client.h          |  2 +-
->  fs/fuse/dir.c                 | 13 +++++++------
->  fs/fuse/fuse_i.h              |  4 ++--
->  fs/fuse/req.c                 |  8 +++++---
->  include/linux/fs.h            |  6 +++---
->  include/linux/mnt_idmapping.h |  4 ++--
->  6 files changed, 20 insertions(+), 17 deletions(-)
-> 
-> diff --git a/fs/ceph/mds_client.h b/fs/ceph/mds_client.h
-> index 3c62e3c3530b..1ac8a7e08e5c 100644
-> --- a/fs/ceph/mds_client.h
-> +++ b/fs/ceph/mds_client.h
-> @@ -375,7 +375,7 @@ struct ceph_mds_request {
->  	int r_fmode;        /* file mode, if expecting cap */
->  	int r_request_release_offset;
->  	const struct cred *r_cred;
-> -	struct mnt_idmap *r_mnt_idmap;
-> +	const struct mnt_idmap *r_mnt_idmap;
->  	struct timespec64 r_stamp;
->  
->  	/* for choosing which mds to send this request to */
-> diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
-> index 0d297f74c663..7a204f55ca84 100644
-> --- a/fs/fuse/dir.c
-> +++ b/fs/fuse/dir.c
-> @@ -820,7 +820,7 @@ static void free_ext_value(struct fuse_args *args)
->   * If the filesystem doesn't support this, then fall back to separate
->   * 'mknod' + 'open' requests.
->   */
-> -static int fuse_create_open(struct mnt_idmap *idmap, struct inode *dir,
-> +static int fuse_create_open(const struct mnt_idmap *idmap, struct inode *dir,
->  			    struct dentry *entry, struct file *file,
->  			    unsigned int flags, umode_t mode, u32 opcode)
->  {
-> @@ -980,7 +980,7 @@ static int fuse_atomic_open(struct inode *dir, struct dentry *entry,
->  /*
->   * Code shared between mknod, mkdir, symlink and link
->   */
-> -static struct dentry *create_new_entry(struct mnt_idmap *idmap, struct fuse_mount *fm,
-> +static struct dentry *create_new_entry(const struct mnt_idmap *idmap, struct fuse_mount *fm,
->  				       struct fuse_args *args, struct inode *dir,
->  				       struct dentry *entry, umode_t mode)
->  {
-> @@ -1053,7 +1053,7 @@ static struct dentry *create_new_entry(struct mnt_idmap *idmap, struct fuse_moun
->  	return ERR_PTR(err);
->  }
->  
-> -static int create_new_nondir(struct mnt_idmap *idmap, struct fuse_mount *fm,
-> +static int create_new_nondir(const struct mnt_idmap *idmap, struct fuse_mount *fm,
->  			     struct fuse_args *args, struct inode *dir,
->  			     struct dentry *entry, umode_t mode)
->  {
-> @@ -1256,9 +1256,10 @@ static int fuse_rmdir(struct inode *dir, struct dentry *entry)
->  	return err;
->  }
->  
-> -static int fuse_rename_common(struct mnt_idmap *idmap, struct inode *olddir, struct dentry *oldent,
-> -			      struct inode *newdir, struct dentry *newent,
-> -			      unsigned int flags, int opcode, size_t argsize)
-> +static int fuse_rename_common(const struct mnt_idmap *idmap, struct inode *olddir,
-> +			      struct dentry *oldent, struct inode *newdir,
-> +			      struct dentry *newent, unsigned int flags,
-> +			      int opcode, size_t argsize)
->  {
->  	int err;
->  	struct fuse_rename2_in inarg;
-> diff --git a/fs/fuse/fuse_i.h b/fs/fuse/fuse_i.h
-> index c8d4c5f3af7e..a07c75377a30 100644
-> --- a/fs/fuse/fuse_i.h
-> +++ b/fs/fuse/fuse_i.h
-> @@ -1003,7 +1003,7 @@ void __exit fuse_ctl_cleanup(void);
->  /*
->   * Simple request sending that does request allocation and freeing
->   */
-> -ssize_t __fuse_simple_request(struct mnt_idmap *idmap,
-> +ssize_t __fuse_simple_request(const struct mnt_idmap *idmap,
->  			      struct fuse_mount *fm,
->  			      struct fuse_args *args);
->  
-> @@ -1012,7 +1012,7 @@ static inline ssize_t fuse_simple_request(struct fuse_mount *fm, struct fuse_arg
->  	return __fuse_simple_request(&invalid_mnt_idmap, fm, args);
->  }
->  
-> -static inline ssize_t fuse_simple_idmap_request(struct mnt_idmap *idmap,
-> +static inline ssize_t fuse_simple_idmap_request(const struct mnt_idmap *idmap,
->  						struct fuse_mount *fm,
->  						struct fuse_args *args)
->  {
-> diff --git a/fs/fuse/req.c b/fs/fuse/req.c
-> index a01ee743d31e..a133b012d041 100644
-> --- a/fs/fuse/req.c
-> +++ b/fs/fuse/req.c
-> @@ -3,7 +3,8 @@
->  #include "dev.h"
->  #include "fuse_i.h"
->  
-> -static int fuse_fill_creds(struct fuse_mount *fm, struct fuse_args *args, struct mnt_idmap *idmap)
-> +static int fuse_fill_creds(struct fuse_mount *fm, struct fuse_args *args,
-> +			   const struct mnt_idmap *idmap)
->  {
->  	struct fuse_conn *fc = fm->fc;
->  	bool no_idmap = !fm->sb || (fm->sb->s_iflags & SB_I_NOIDMAP);
-> @@ -49,7 +50,8 @@ static int fuse_fill_creds(struct fuse_mount *fm, struct fuse_args *args, struct
->  	return 0;
->  }
->  
-> -static int fuse_req_prep(struct fuse_mount *fm, struct fuse_args *args, struct mnt_idmap *idmap)
-> +static int fuse_req_prep(struct fuse_mount *fm, struct fuse_args *args,
-> +			 const struct mnt_idmap *idmap)
->  {
->  	if (!args->force && fm->fc->conn_error)
->  		return -ECONNREFUSED;
-> @@ -57,7 +59,7 @@ static int fuse_req_prep(struct fuse_mount *fm, struct fuse_args *args, struct m
->  	return fuse_fill_creds(fm, args, idmap);
->  }
->  
-> -ssize_t __fuse_simple_request(struct mnt_idmap *idmap, struct fuse_mount *fm,
-> +ssize_t __fuse_simple_request(const struct mnt_idmap *idmap, struct fuse_mount *fm,
->  			      struct fuse_args *args)
->  {
->  	struct fuse_conn *fc = fm->fc;
-> diff --git a/include/linux/fs.h b/include/linux/fs.h
-> index f9d1e05e8ae6..959c747ef75a 100644
-> --- a/include/linux/fs.h
-> +++ b/include/linux/fs.h
-> @@ -1544,7 +1544,7 @@ static inline void i_gid_update(struct mnt_idmap *idmap,
->   * an idmapped mount map the caller's fsuid according to @idmap.
->   */
->  static inline void inode_fsuid_set(struct inode *inode,
-> -				   struct mnt_idmap *idmap)
-> +				   const struct mnt_idmap *idmap)
->  {
->  	inode->i_uid = mapped_fsuid(idmap, i_user_ns(inode));
->  }
-> @@ -1558,7 +1558,7 @@ static inline void inode_fsuid_set(struct inode *inode,
->   * an idmapped mount map the caller's fsgid according to @idmap.
->   */
->  static inline void inode_fsgid_set(struct inode *inode,
-> -				   struct mnt_idmap *idmap)
-> +				   const struct mnt_idmap *idmap)
->  {
->  	inode->i_gid = mapped_fsgid(idmap, i_user_ns(inode));
->  }
-> @@ -1575,7 +1575,7 @@ static inline void inode_fsgid_set(struct inode *inode,
->   * Return: true if fsuid and fsgid is mapped, false if not.
->   */
->  static inline bool fsuidgid_has_mapping(struct super_block *sb,
-> -					struct mnt_idmap *idmap)
-> +					const struct mnt_idmap *idmap)
->  {
->  	struct user_namespace *fs_userns = sb->s_user_ns;
->  	kuid_t kuid;
-> diff --git a/include/linux/mnt_idmapping.h b/include/linux/mnt_idmapping.h
-> index b16f52d27ba0..6656aea23be2 100644
-> --- a/include/linux/mnt_idmapping.h
-> +++ b/include/linux/mnt_idmapping.h
-> @@ -225,7 +225,7 @@ static inline kgid_t vfsgid_into_kgid(vfsgid_t vfsgid)
->   *
->   * Return: the caller's current fsuid mapped up according to @idmap.
->   */
-> -static inline kuid_t mapped_fsuid(struct mnt_idmap *idmap,
-> +static inline kuid_t mapped_fsuid(const struct mnt_idmap *idmap,
->  				  struct user_namespace *fs_userns)
->  {
->  	return from_vfsuid(idmap, fs_userns, VFSUIDT_INIT(current_fsuid()));
-> @@ -244,7 +244,7 @@ static inline kuid_t mapped_fsuid(struct mnt_idmap *idmap,
->   *
->   * Return: the caller's current fsgid mapped up according to @idmap.
->   */
-> -static inline kgid_t mapped_fsgid(struct mnt_idmap *idmap,
-> +static inline kgid_t mapped_fsgid(const struct mnt_idmap *idmap,
->  				  struct user_namespace *fs_userns)
->  {
->  	return from_vfsgid(idmap, fs_userns, VFSGIDT_INIT(current_fsgid()));
-> 
-> -- 
-> 2.53.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+>
+> > >
+> > > > +
+> > > > +             /* Bounds a node self-linked by a double call_rcu(). =
+*/
+> > > > +             head->next =3D NULL;
+> > > > +             rcu_do_enqueue(head, head->func, false);
+> > > > +     }
+> > > > +     raw_spin_unlock_irqrestore(&rdp->defer_lock, flags);
+> > > > +}
+> > > =E2=80=A6
+> > > > @@ -4231,6 +4330,9 @@ rcu_boot_init_percpu_data(int cpu)
+> > > >       rdp->rcu_onl_gp_state =3D RCU_GP_CLEANED;
+> > > >       rdp->last_sched_clock =3D jiffies;
+> > > >       rdp->cpu =3D cpu;
+> > > > +     init_llist_head(&rdp->defer_head);
+> > > > +     raw_spin_lock_init(&rdp->defer_lock);
+> > > > +     rdp->defer_work =3D IRQ_WORK_INIT_HARD(rcu_defer_drain);
+> > >
+> > > Why is this IRQ_WORK_INIT_HARD() instead, say, IRQ_WORK_INIT_LAZY()? =
+Is
+> > > there a requirement that the RCU callback needs to complete asap and =
+not
+> > > be delayed to the next tick? This would give kind of the LAZY part.
+> > >
+> >
+> > In discussions with Paul, we concluded that we need HARD because in
+> > low memory situations delaying rcu callbacks can be problematic. Given
+> > that we are already deferring the callbacks, it would be nice to have
+> > them enqueued asap. But if there are downsides to this we may change
+> > it later.
+>
+> It does not look like you defer them for long at all. Every callback
+> enqueued in an IRQ-off region will be immediately re-enqueued to the
+> regular list the moment interrupts are enabled again.
+> Except on architectures which don't implement irq-work interrupts where
+> it will be delayed to the next HZ tick. And the next HZ tick does not
+> sound like a long time either.
+
+Yeah, I get your point, and when a CPU goes offline will its LAZY irq
+works be drained or left in the queue? Because we want to make sure
+this irq work is executed before a CPU goes offline.
