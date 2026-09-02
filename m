@@ -1,241 +1,137 @@
-Received: from mail-qt1-f227.google.com (mail-qt1-f227.google.com [209.85.160.227])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4588D448B9E
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 22:57:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D94143F0B0;
+	Wed,  2 Sep 2026 22:58:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788389842; cv=none; b=XNKSf+TVWlGthRljhSiHWQM1vN/exhB36o8A07w5tThpc7mS0jt+ep0z1WYwVsyDi2f16SIiLZT9AZRScq6DEK4VgeSNIZGl8oT7N2MkAPt3z5lWv9zbkRmeOlAx1JhV3ChPADvNFS2AykKa8z6S0r+bqYcUrtSEaBAA1sCDzTc=
+	t=1788389926; cv=none; b=rX7MqKm5fmAl+DIpMve6QDK48Rh2B8kDnsYpnplTwgfVm4UezE7fY+sQXNT/EfIRlzs+7hXU+p+q4H25oc2q5Vxsy0Xw3oKPV/i/SefYtB1YjUhSD7nPCBhRkkH6exT3NlXCL+RYAMgncY9FtNkXpYMtcuBKHDyxLAkSlpFT3HM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788389842; c=relaxed/simple;
-	bh=rtX2yJ0PMTizZR3crUtJBoZuw5bByxWSzKfV5xRCwj0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BJpUNkNzJPDRjAzceCkk/gb+leHlJu7ObjO8omSKCY0W/vGyvLxWJGI848Tk/FmJ+4qRiH05MhaAWAlavrhClX7hZo/85dKb+yMal1Ld5SHY9pXJgkldKRv8EJ3d8j9Dq1AYuDmS9B2v0EI6PsLlbDBCfqMrGBQDh7cw6VnZh+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=cGBlCymC; arc=none smtp.client-ip=209.85.160.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	s=arc-20240116; t=1788389926; c=relaxed/simple;
+	bh=NGROKAGJRcPSkbTlZMu6Ec3q9VqyOJY69b9PTEkaVgo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iercNTvZS7Uwnjw8Qk7Hr8Fwt+gkFd6ghcnKibwym+yn1jvULFBp70GzbBXKu1jB/cZM3b5hG02vWVpmaFRbROk0ByACqL/0GZV9VsSbdAa0uFlAsy5rsNukNBniKPv/VkzvRRjw5v8p8et72ib8UmglD3rnCLWYYJ68jECj/dc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ot0qqSw/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="cGBlCymC"
-Received: by mail-qt1-f227.google.com with SMTP id d75a77b69052e-52fadb7c0a2so3113591cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 15:57:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1788389835; x=1788994635; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KUYT2j/8GNxf6la1oNmocjOMbToIkSTfNNWKQ6vs8go=;
-        b=cGBlCymClNcaO7J0TSkxvoHABuXK4GSb37DKMVkuH6MGrCM1cu6GgHO9q3mno1OE41
-         rLb7Wvhwi3pZHvYqJSaNi8roWJfvkQnBR0VldC8gZS9CHP0yClqTy5i8cqoHytkcvrfb
-         BWMXJezyDJwWeQrePMVKaw5/515/Ar5yZofmP//Zsb0oakdFRLEA+VtrR8k0tw830z1+
-         vKV51v6Eu/0jbRRFB0tkK7VdzbnFFx006yUj72GHPEV3QHUhn18TOyR6280gwXtkv2XH
-         IFNFMnRkp+NSbFTSlFeneA7KLVirakbEg8IZNoMdy56v8cF+gMGWnIFo7g1lOXBQd841
-         XbYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788389835; x=1788994635;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KUYT2j/8GNxf6la1oNmocjOMbToIkSTfNNWKQ6vs8go=;
-        b=azYPLxIJk/KRZ3R0yzdMokjRVakJKOozUSjrke4vaHfwuye7swqK3g+HpO2nfqrWLH
-         pcl1PyvB52fbm6jpyHIvzLGKGPtDFn6KPzGC3/VfvhPOkvYs1L5nHC+p3EyD+UupJWoG
-         eWHqC/4U4IEzYkLi49iS/+K4fuYdQ44Qb9kkhGV4T7qpIzcxxkW4vQQ3SEfShnjaXlr0
-         M180gFKW11I4tGT5SOPE1mTFb7CBS6AeDa8rUDkjcWz9HdB051PfyFfdjCEK7MaKWcKq
-         66eoL9oTP8i7Jw84xUxITkhTvGc07ubldiW0L7OGYxvy8fosC2JVuWrOJXDtUFNwFG1H
-         /rQw==
-X-Forwarded-Encrypted: i=1; AKwUvBz8gTXaoOxFx0K6XrGTc26rBVMN5TMD+8AAp3cGNqGnRs6XXd5y/bJFTV+f2A04zpXF4aibKBVeTWTZTC8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mtpL9WRxEB2PoVR1+EppAS9Ei1ZNb33UX1Y1DbPiJ1vMprDKbi
-	ZOIXwLqBogbeXSdT9qBXsCS9qP5Rw5rQPZ0kcxYLd7axI+oLDB4zvPPpsJz+4qE0RR39IJBClt+
-	rkKBH9tvTqpmNz+M42bnye0y1FpHZ+5SCEIRA7RBMZZ4ro08tgTZC
-X-Gm-Gg: AYBFou1VzkJ8al4ueYp+oOU6AgOT0jKj5l3wLoeIueemyDlh2FqN5/l9rjd9aSJmPtc
-	U72gEXanyyZgLJ+xpJ9JdQy0FsjIfqX65msRZMw6RArNDPUl/SxtqJ/ti5E/fF5c6x/r0tJYgZ4
-	azCj1B0dczW0tKLJEgdJ16qNEFgrD5uTWuIWheMW5mbUqAH4gvbkLc8is86B8LRmAKhtVqR1HJp
-	eaz46fFohhXRsnN6IppuOxvFozg/MckPGUL/yyWENIrnmNxgnpu1BXMAPi7yHIfupFy5iv7enuD
-	pTWFQPSSEIeEB4v0gsStW/oY4n4z3yRPnoSV5j5O+vBZyzxpWJ2d59X04yd0C8fHmvF1mXnkq6N
-	zFJHs3euAYvqp9lys
-X-Received: by 2002:a05:622a:283:b0:52b:4ec6:52c1 with SMTP id d75a77b69052e-53036ce96afmr58594011cf.3.1788389834170;
-        Wed, 02 Sep 2026 15:57:14 -0700 (PDT)
-Received: from c7-smtp-2026.dev.purestorage.com ([2620:125:9017:12:36:3:6:0])
-        by smtp-relay.gmail.com with ESMTPS id d75a77b69052e-5303319dea6sm377761cf.19.2026.09.02.15.57.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 15:57:14 -0700 (PDT)
-X-Relaying-Domain: purestorage.com
-Received: from dev-csander.dev.purestorage.com (dev-csander.dev.purestorage.com [10.112.12.104])
-	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 7C5CD40420;
-	Wed,  2 Sep 2026 16:57:13 -0600 (MDT)
-Received: by dev-csander.dev.purestorage.com (Postfix, from userid 1557716354)
-	id 70CBDE40404; Wed,  2 Sep 2026 16:57:13 -0600 (MDT)
-From: Caleb Sander Mateos <csander@purestorage.com>
-To: Keith Busch <kbusch@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>
-Cc: Joanne Koong <joannelkoong@gmail.com>,
-	linux-nvme@lists.infradead.org,
-	io-uring@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Caleb Sander Mateos <csander@purestorage.com>
-Subject: [PATCH v2 1/2] io_uring/cmd: split io_uring_cmd_set_res() from io_uring_cmd_done()
-Date: Wed,  2 Sep 2026 16:57:07 -0600
-Message-ID: <20260902225708.2379840-2-csander@purestorage.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260902225708.2379840-1-csander@purestorage.com>
-References: <20260902225708.2379840-1-csander@purestorage.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ot0qqSw/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DAB21F00A3A;
+	Wed,  2 Sep 2026 22:58:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788389917;
+	bh=aHfkXpE6IZqb/J2m9EKFTMgu8Bwmhk+NyTMlMZHfuZA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ot0qqSw/9dHcLGTsrnMh0VD1VOJwhuy6KRdhSb4GZojS5Ky+r6X9feMjk2OT/JVns
+	 yoeGuvp0ooqgdqkO4kxcrArRhNi5NV8Z2qN3NA2neoOWex5T3/Q1o/TFVEgO6a6AAW
+	 zFt79XbqOLKpSRs/4LlH7k+QqxVhD7oPvxYyd2cAt+q0ONoKD62sxcbzUISnwSmQ/7
+	 t+k2y2qdZ1cB0qJy3WZBPczHb3n+cwF8NvTC2vWIID0c1U0vADE1dhV2Zyl1oqheFk
+	 kdDxMs5R4+UJGEbk6JEkb3z4d6RQr5seHMqBtwlEFJDV247OTQfESuqd3/yM4cUWit
+	 JWpF4km0oF5ig==
+Date: Wed, 2 Sep 2026 15:58:35 -0700
+From: Wei Liu <wei.liu@kernel.org>
+To: Thara Gopinath <tgopinath@linux.microsoft.com>
+Cc: Wei Liu <wei.liu@kernel.org>, kys@microsoft.com, haiyangz@microsoft.com,
+	decui@microsoft.com, tglx@kernel.org, mingo@redhat.com,
+	bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com,
+	ardb@kernel.org, ilias.apalodimas@linaro.org,
+	James.Bottomley@hansenpartnership.com, javierm@redhat.com,
+	lszubowi@redhat.com, francescopompo2@gmail.com,
+	tgopinath@microsoft.com, x86@kernel.org,
+	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-efi@vger.kernel.org,
+	Stanislav Kinsburskii <skinsburskii@linux.microsoft.com>
+Subject: Re: [RFC PATCH 07/12] drivers: hv: hv_vsm_boot: load secure kernel
+ image from firmware
+Message-ID: <20260902225835.GA2896046@liuwe-devbox-debian-v2.local>
+References: <20260901165647.3160413-1-tgopinath@linux.microsoft.com>
+ <20260901165647.3160413-8-tgopinath@linux.microsoft.com>
+ <20260902043732.GF2583463@liuwe-devbox-debian-v2.local>
+ <4d876bd8-3885-4d65-a272-d846ae0d7d3d@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4d876bd8-3885-4d65-a272-d846ae0d7d3d@linux.microsoft.com>
 
-In preparation for setting the io_uring NVMe passthru CQE results from
-the blk-mq request completion rather than the task work callback, split
-out functions io_uring_cmd_set_res{,32}() from __io_uring_cmd_done().
-io_uring_cmd_done{,32}() now call io_uring_cmd_set_res{,32}() and then
-__io_uring_cmd_done(). This allows __io_uring_cmd_done() to be made
-CQE-size-agnostic, with 3 fewer arguments.
+On Wed, Sep 02, 2026 at 12:22:37PM -0400, Thara Gopinath wrote:
+> 
+> 
+> On 9/2/2026 12:37 AM, Wei Liu wrote:
+> > On Tue, Sep 01, 2026 at 09:55:21AM -0700, Thara Gopinath wrote:
+> >> LVBS bring-up requires loading a secure kernel image into VTL1 before
+> >> starting it. Add the VTL0-side loader that stages the image in the
+> >> memory region reserved by hv_vsm_securekernel, in preparation for the
+> >> VTL1 bring-up.
+> >>
+> >> The image is a 64-bit ELF fetched via request_firmware("vsm_sk"). It
+> >> is expected to ship inside the signed UKI/initramfs so it is
+> >> authenticated end-to-end via Secure Boot before the loader consumes
+> >> it; sourcing it from an unauthenticated location would break the LVBS
+> >> trust model.
+> >>
+> >> The loader validates the ELF header, stages the PT_LOAD segments into
+> >> the reserved region and records the entry point as a physical address
+> >> for use at VTL1 start time.
+> >>
+> >> If VSM support has been advertised to the hypervisor but no secure
+> >> kernel region was reserved on the command line, panic: LVBS bring-up
+> >> is committed at this point and there is no safe way to continue.
+> > 
+> > This conflicts with the memory reservation patch, in which there is an
+> > automatic allocation when no kernel command line is specified.
+> 
+> Ah no.. So securekernel= has to be specified in the command line for
+> __setup() to be invoked . It can be left blank without parameters like
+> securekernel= or with parameters like securekernel=256M@0x80000000. The
+> reservation logic will take care of reserving the correct memory if there
+> are no parameters but if there is no command line specified __setup will
+> not be  called. The other way of solving this and invoking the reservations
+> unconditionally will be to call it from setup_arch like how reserve_crashkernel
+> is invoked. I am not sure if we want to do that now ?? What do you think ?
+> 
 
-Signed-off-by: Caleb Sander Mateos <csander@purestorage.com>
----
- include/linux/io_uring/cmd.h | 23 +++++++++++++++++------
- io_uring/uring_cmd.c         | 33 ++++++++++++++++++---------------
- 2 files changed, 35 insertions(+), 21 deletions(-)
+I see. No need to do that now. Let's see if others have opinions.
 
-diff --git a/include/linux/io_uring/cmd.h b/include/linux/io_uring/cmd.h
-index 331dcbefe72f..67f2ef700c43 100644
---- a/include/linux/io_uring/cmd.h
-+++ b/include/linux/io_uring/cmd.h
-@@ -50,19 +50,21 @@ int io_uring_cmd_import_fixed_vec(struct io_uring_cmd *ioucmd,
- 				  const struct iovec __user *uvec,
- 				  size_t uvec_segs,
- 				  int ddir, struct iov_iter *iter,
- 				  unsigned issue_flags);
- 
-+void io_uring_cmd_set_res(struct io_uring_cmd *, s32 ret);
-+void io_uring_cmd_set_res32(struct io_uring_cmd *, s32 ret, u64 res2);
-+
- /*
-  * Completes the request, i.e. posts an io_uring CQE and deallocates @ioucmd
-  * and the corresponding io_uring request.
-  *
-  * Note: the caller should never hard code @issue_flags and is only allowed
-  * to pass the mask provided by the core io_uring code.
-  */
--void __io_uring_cmd_done(struct io_uring_cmd *cmd, s32 ret, u64 res2,
--			 unsigned issue_flags, bool is_cqe32);
-+void __io_uring_cmd_done(struct io_uring_cmd *, unsigned issue_flags);
- 
- void __io_uring_cmd_do_in_task(struct io_uring_cmd *ioucmd,
- 			    io_req_tw_func_t task_work_cb,
- 			    unsigned flags);
- 
-@@ -105,12 +107,19 @@ static inline int io_uring_cmd_import_fixed_vec(struct io_uring_cmd *ioucmd,
- 						int ddir, struct iov_iter *iter,
- 						unsigned issue_flags)
- {
- 	return -EOPNOTSUPP;
- }
--static inline void __io_uring_cmd_done(struct io_uring_cmd *cmd, s32 ret,
--		u64 ret2, unsigned issue_flags, bool is_cqe32)
-+static inline void io_uring_cmd_set_res(struct io_uring_cmd *cmd, s32 ret)
-+{
-+}
-+static inline void io_uring_cmd_set_res32(struct io_uring_cmd *cmd, s32 ret,
-+					  u64 res2)
-+{
-+}
-+static inline void __io_uring_cmd_done(struct io_uring_cmd *cmd,
-+				       unsigned issue_flags)
- {
- }
- static inline void __io_uring_cmd_do_in_task(struct io_uring_cmd *ioucmd,
- 			    io_req_tw_func_t task_work_cb, unsigned flags)
- {
-@@ -171,17 +180,19 @@ static inline void *io_uring_cmd_ctx_handle(struct io_uring_cmd *cmd)
- }
- 
- static inline void io_uring_cmd_done(struct io_uring_cmd *ioucmd, s32 ret,
- 				     unsigned issue_flags)
- {
--	return __io_uring_cmd_done(ioucmd, ret, 0, issue_flags, false);
-+	io_uring_cmd_set_res(ioucmd, ret);
-+	__io_uring_cmd_done(ioucmd, issue_flags);
- }
- 
- static inline void io_uring_cmd_done32(struct io_uring_cmd *ioucmd, s32 ret,
- 				       u64 res2, unsigned issue_flags)
- {
--	return __io_uring_cmd_done(ioucmd, ret, res2, issue_flags, true);
-+	io_uring_cmd_set_res32(ioucmd, ret, res2);
-+	__io_uring_cmd_done(ioucmd, issue_flags);
- }
- 
- int io_buffer_register_bvec(struct io_uring_cmd *cmd, struct request *rq,
- 			    void (*release)(void *), unsigned int index,
- 			    unsigned int issue_flags);
-diff --git a/io_uring/uring_cmd.c b/io_uring/uring_cmd.c
-index 726a659f38c3..917b32a921e6 100644
---- a/io_uring/uring_cmd.c
-+++ b/io_uring/uring_cmd.c
-@@ -136,40 +136,43 @@ void __io_uring_cmd_do_in_task(struct io_uring_cmd *ioucmd,
- 	req->io_task_work.func = task_work_cb;
- 	__io_req_task_work_add(req, flags);
- }
- EXPORT_SYMBOL_GPL(__io_uring_cmd_do_in_task);
- 
--static inline void io_req_set_cqe32_extra(struct io_kiocb *req,
--					  u64 extra1, u64 extra2)
-+void io_uring_cmd_set_res(struct io_uring_cmd *cmd, s32 ret)
- {
--	req->big_cqe.extra1 = extra1;
--	req->big_cqe.extra2 = extra2;
-+	struct io_kiocb *req = cmd_to_io_kiocb(cmd);
-+
-+	if (ret < 0)
-+		req_set_fail(req);
-+	io_req_set_res(req, ret, 0);
- }
-+EXPORT_SYMBOL_GPL(io_uring_cmd_set_res);
-+
-+void io_uring_cmd_set_res32(struct io_uring_cmd *cmd, s32 ret, u64 res2)
-+{
-+	struct io_kiocb *req = cmd_to_io_kiocb(cmd);
-+
-+	if (ret < 0)
-+		req_set_fail(req);
-+	io_req_set_res32(req, ret, 0, res2, 0);
-+}
-+EXPORT_SYMBOL_GPL(io_uring_cmd_set_res32);
- 
- /*
-  * Called by consumers of io_uring_cmd, if they originally returned
-  * -EIOCBQUEUED upon receiving the command.
-  */
--void __io_uring_cmd_done(struct io_uring_cmd *ioucmd, s32 ret, u64 res2,
--		       unsigned issue_flags, bool is_cqe32)
-+void __io_uring_cmd_done(struct io_uring_cmd *ioucmd, unsigned issue_flags)
- {
- 	struct io_kiocb *req = cmd_to_io_kiocb(ioucmd);
- 
- 	if (WARN_ON_ONCE(req->flags & REQ_F_APOLL_MULTISHOT))
- 		return;
- 
- 	io_uring_cmd_del_cancelable(ioucmd, issue_flags);
- 
--	if (ret < 0)
--		req_set_fail(req);
--
--	io_req_set_res(req, ret, 0);
--	if (is_cqe32) {
--		if (req->ctx->flags & IORING_SETUP_CQE_MIXED)
--			req->cqe.flags |= IORING_CQE_F_32;
--		io_req_set_cqe32_extra(req, res2, 0);
--	}
- 	io_req_uring_cleanup(req, issue_flags);
- 	if (req->flags & REQ_F_IOPOLL) {
- 		/* order with io_do_iopoll() checking ->iopoll_completed */
- 		smp_store_release(&req->iopoll_completed, 1);
- 	} else if (issue_flags & IO_URING_F_COMPLETE_DEFER) {
--- 
-2.55.0
+Wei
 
+> But I will reword this and state that the panic happens if there is no
+> securekernel memory allocated (either because securekernel= was not
+> specified or because memory reservation itself failed)
+> 
+> > 
+> >>
+> >> Signed-off-by: Stanislav Kinsburskii <skinsburskii@linux.microsoft.com>
+> >> Signed-off-by: Thara Gopinath <tgopinath@linux.microsoft.com>
+> >> ---
+> >>  drivers/hv/hv_vsm.h      |  17 ++++
+> >>  drivers/hv/hv_vsm_boot.c | 201 ++++++++++++++++++++++++++++++++++++++-
+> >>  include/hyperv/vsm.h     |  21 ++++
+> >>  3 files changed, 238 insertions(+), 1 deletion(-)
+> >>  create mode 100644 drivers/hv/hv_vsm.h
+> >>  create mode 100644 include/hyperv/vsm.h
+> > [...]
+> >> +
+> >> +static void __init hv_vsm_get_sk_mem(void)
+> >> +{
+> >> +	/*
+> >> +	 * The reserved secure kernel region is mandatory once VSM support has
+> >> +	 * been advertised. Without it we cannot load the secure kernel and
+> >> +	 * bringing up VTL1 is impossible, so fail hard rather than continuing
+> >> +	 * in an unusable state.
+> >> +	 */
+> >> +	if (!sk_res.start)
+> >> +		panic("No memory reserved in cmdline for secure kernel");
+> >> +
+> > 
+> > This log line is wrong.
+> 
+> I will fix this 
+> 
+> Warm Regards
+> Thara
+> > 
+> > Wei
+> 
