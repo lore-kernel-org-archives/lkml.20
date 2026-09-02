@@ -1,91 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-119.mta0.migadu.com [91.218.175.119])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 031B943B6C5;
-	Wed,  2 Sep 2026 10:25:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6718144063B
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:26:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788344739; cv=none; b=OAzvg058Ms2UNeJI8Bq6v494O61OfIH58980iDqkFnT308ROw0SDFISQYCH+G5b/NNptCluG4XbC54YEIvYEpm9+ijfqDrtVUL2GOWiCBIYxWrjp1GRIhxfqYMl4hA3m3aHBSfxDfhDnc9bBPRJhNLEEo207iIVxYm99Si22eqA=
+	t=1788344796; cv=none; b=DrQoJhUhY7BX2hGHRThZbcDVlI6x5e5OBIWH03ezpzrylckYIhCrKGBtrpM2qzicVfuv3cjGcVB/6EzZUvWB06JzuYN7kcUVai0jzhFrTH2LHe9uV6D7nSEB/F21ZojSyC8DTIIWsSVRpxERW6wsEXxeCQfSXA8Orlni9I5zJMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788344739; c=relaxed/simple;
-	bh=1pHVxuhVmZ9w/A7TSdc7iZpLQg3G8aWC8XtVg04bnTY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IYWvD80kOXEyswgYqnKAbBxhdyEvOvOcJlWehkO4ItmyrJ/y9PxuKDDnvfCdXIBiQYuY/10k79i7Z9+Zx9Ex79s1y5HedKUM7uJvHgoCYyBn97wbLa/PFFpNfclOf771KfA0IhZqcfedvu4ViSpwyRK4lmWnV1ISsUd6456O6D4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oLMobxKe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788344796; c=relaxed/simple;
+	bh=kQ4SUfFL7l6CK6D4M0vZTJ4yXI8I7EmpzCUw04y0Mtw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Nxc62zyxryZjF4RZTViXeKLHt9jna6brSBDhBDxwyNn5lBNywhG6nCL6ebkGB3CpdN70sNK/6d7Dt7xN7JJfvLkTeoa1Pr/X4hfxsFrT8RZnvYlLaAq6a9jq0OaQDzAc4G7RG6BAHdonUJqpMqjs6OpbMbTjx33KDRB568cb4Pk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Z4jLufZg; arc=none smtp.client-ip=91.218.175.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oLMobxKe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62E531F000E9;
-	Wed,  2 Sep 2026 10:25:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788344737;
-	bh=LU9mnnATmFmz33p4Rn/kqi1Z83OinK8HAKpwhVZ9w6k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oLMobxKehFsTtuFNc18cuD0TFD9IxIOoRZQSzH+I+CsLedgf86Fxo4LIJTZ6DQ+8a
-	 bcsUnPbi5HXqBdsILbJEWiuZ1SA4oAudKFT97gw0Wims/MZPmhNswBh0DYSDTxT3aM
-	 rS8owgPb6ODQ+ncRKL3OdSdUdXRy2roKlhqDwO4EE0dRQEW4DoBnmauVKkPECrmUoG
-	 YlvQMM92Q81x4w1vyoAw38kExumuCFCpAMx1TJF4wh1PuRr5aNhpu58nJaTM8lS2vW
-	 WQ13uEPvFJy+vAEtNI1+CuPtmSN1W02h9uzNozHyAElKtESNRszMiEiRNApwHUHyt0
-	 4Nb1e+5Ayewag==
-Date: Wed, 2 Sep 2026 11:25:32 +0100
-From: Lee Jones <lee@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Frank.Li@oss.nxp.com,
-	Support Opensource <support.opensource@diasemi.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	"open list:MULTIFUNCTION DEVICES (MFD)" <mfd@lists.linux.dev>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev
-Subject: Re: [PATCH 1/1] dt-bindings: mfd: da9052: allow dlg,da9053-aa
- fallback to dlg,da9052
-Message-ID: <20260902102532.GQ2943942@google.com>
-References: <20260831201522.51294-1-Frank.Li@oss.nxp.com>
- <20260901-devourer-pushover-f26c72688255@spud>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Z4jLufZg"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=kQ4SUfFL7l6CK6D4M0vZTJ4yXI8I7EmpzCUw04y0Mtw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788344791; v=1; x=1788949591;
+ b=Z4jLufZgUef4DIgbPPU1Cyw4/bpI5GGQ4RxQup3T3iPBT/hODAZJ5bWcRfB9J8VMbz9XpKDh
+ zIjuasbPK8qlbmx5JK5IS46/8qBK4/gz9+U55zlXGOSMJpfU93aENvSChlBu2KMEt0zjjLR9cIi
+ 42LJzqKerGkBF9f9/rWnt11c=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b319449c4d0dc839;
+	Wed, 02 Sep 2026 10:26:31 +0000
+X-Mizu-Trace-ID: b319449c4d0dc839
+X-Migadu-Flow: FLOW_OUT
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+To: cgroups@vger.kernel.org,
+	longman@redhat.com,
+	ridong.chen@linux.dev
+Cc: tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	shuah@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: [PATCH v3 1/7] cgroup/cpuset: Factor out child partition validation
+Date: Wed,  2 Sep 2026 18:26:09 +0800
+Message-ID: <20260902102615.79189-2-guopeng.zhang@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260902102615.79189-1-guopeng.zhang@linux.dev>
+References: <20260902102615.79189-1-guopeng.zhang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901-devourer-pushover-f26c72688255@spud>
+Content-Transfer-Encoding: 8bit
 
-On Tue, 01 Sep 2026, Conor Dooley wrote:
+From: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
-> On Mon, Aug 31, 2026 at 04:15:21PM -0400, Frank.Li@oss.nxp.com wrote:
-> > From: Frank Li <Frank.Li@nxp.com>
-> > 
-> > Allow dlg,da9053-aa fallback to dlg,da9052 to fix legacy platform (> 10
-> > years) check_dtbs warnings:
-> >   arch/arm/boot/dts/nxp/imx/imx53-voipac-bsb.dtb: dialog@48 (dlg,da9053-aa): compatible: ['dlg,da9053-aa', 'dlg,da9052'] is too long
-> >         from schema $id: http://devicetree.org/schemas/mfd/dlg,da9052.yaml
-> > 
-> > Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> > ---
-> > Previous try drop dlg,da9052 at
-> > https://lore.kernel.org/imx/20260404-thoughtful-placid-boobook-da26da@quoll/
-> > 
-> > but Krzy have concern about compablity.
-> > 
-> > https://lore.kernel.org/imx/20251107-matrimony-showdown-ba6ce6996b2f@spud/
-> > 
-> > Conor prefer update old dts.
-> 
-> I don't think these devices are actually compatible, so this fallback
-> would be wrong.
-> The data comes from the match data, be that spi or i2c, and there's
-> explicitly different behaviour for the da9052 and da9053aa.
-> I doubt the legacy platform ever worked properly, and this is what should
-> have been explained in the PR that Krzysztof denied not just blindly
-> citing a dtbs_check problem.
-> 
-> Nacked-by: Conor Dooley <conor.dooley@microchip.com>
+compute_partition_effective_cpumask() checks whether each valid child
+partition remains covered by the parent exclusive CPU mask and whether it
+would consume all remaining CPUs of a populated parent.
 
-At first glance this looks like an Acked-by.
+Factor these two checks into child_partition_error() so the same rules can
+be reused when evaluating a proposed parent configuration. This is a
+preparatory refactoring with no intended functional change.
 
-IMHO, this is going to cause issues - please rethink this.
+Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+---
+ kernel/cgroup/cpuset.c | 38 +++++++++++++++++++++++++++++---------
+ 1 file changed, 29 insertions(+), 9 deletions(-)
 
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 8f24171b6055..6994dc75d940 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -2085,6 +2085,26 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+ 	return 0;
+ }
+ 
++/*
++ * Return the error that will invalidate a child partition under a proposed
++ * parent partition configuration.
++ */
++static enum prs_errcode
++child_partition_error(struct cpuset *child,
++		      const struct cpumask *partition_cpus,
++		      const struct cpumask *remaining_cpus,
++		      bool parent_populated)
++{
++	if (!cpumask_subset(child->effective_xcpus, partition_cpus))
++		return PERR_INVCPUS;
++
++	if (parent_populated &&
++	    cpumask_subset(remaining_cpus, child->effective_xcpus))
++		return PERR_NOCPUS;
++
++	return PERR_NONE;
++}
++
+ /**
+  * compute_partition_effective_cpumask - compute effective_cpus for partition
+  * @cs: partition root cpuset
+@@ -2121,6 +2141,8 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
+ 
+ 	rcu_read_lock();
+ 	cpuset_for_each_child(child, css, cs) {
++		enum prs_errcode child_err;
++
+ 		if (!is_partition_valid(child))
+ 			continue;
+ 
+@@ -2129,15 +2151,13 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
+ 		 * partition root.
+ 		 */
+ 		WARN_ON_ONCE(is_remote_partition(child));
+-		WRITE_ONCE(child->prs_err, 0);
+-		if (!cpumask_subset(child->effective_xcpus,
+-				    cs->effective_xcpus))
+-			WRITE_ONCE(child->prs_err, PERR_INVCPUS);
+-		else if (populated &&
+-			 cpumask_subset(new_ecpus, child->effective_xcpus))
+-			WRITE_ONCE(child->prs_err, PERR_NOCPUS);
+-
+-		if (child->prs_err) {
++		WRITE_ONCE(child->prs_err, PERR_NONE);
++		child_err = child_partition_error(child, cs->effective_xcpus,
++						  new_ecpus, populated);
++		if (child_err)
++			WRITE_ONCE(child->prs_err, child_err);
++
++		if (child_err) {
+ 			int old_prs = child->partition_root_state;
+ 
+ 			/*
 -- 
-Lee Jones
+2.43.0
+
