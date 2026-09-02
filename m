@@ -1,45 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A82B30C14A;
-	Wed,  2 Sep 2026 00:27:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A831B3925;
+	Wed,  2 Sep 2026 00:29:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788308855; cv=none; b=HpJbKNKarpgvpErepFZKFOP5oje543EQOe0R01QLqTJ80Nv9fk5MARU+9zwstFdy0ZfoRTh5kDGJHGKdSOMsfFMBohZBwJDhc6SrbsRc5alWjl1fj/Lw4HOZEL//fU7nuTQ9pRNRqsu6eY7rCU5fiUfPs0yMaGy3V37SXN+/uD0=
+	t=1788308985; cv=none; b=IYYRnDiRhFxeFpG+nzqSMEBX7qi3r9/Qa72maqa+Br6PXOBsxFAeLf+Ym+KDN6lyaM8ruXpbjd8LD2AgzjNFDX4v/R1OITJYXF+O1qYBic7Hejhkruz16nRTszZUdp/LKlv0bd/uR30XYlhwdNC3HBcMY0/zeH9HWRFks7GXi0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788308855; c=relaxed/simple;
-	bh=ddJls6Z/ngnt9vZmX1K+spUcI8CLqjuVk9ZoDNPKseY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lF3EuASeVYQGZ47W95+v308uHU2jS4AsYa8M4E0gyL6DUmMrzs9lmvZ1E2Y39e0FRrHMVE1utbkoqM7kSb11/oUhyj7nvw7js3qStFDCOLDaA2/+4mwxCaZMjLqWhONRUpK7bLZWXEjQl/IgVwNERwVT+Bl7A86YiRlD0fEot9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bqyf63ol; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788308985; c=relaxed/simple;
+	bh=QXK/mriWN3GNGcNTGnDeVQKLwQeimxxRSqZx2Fmuf8w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ano3QxTqqx6mB29MpQ66fIi0f7RcReWSe9f5lA26kfL6umQWI63O0NpLr/kS8rrYBZT9pYnfYT2daIQlviaq/qkSG8g248Un0jb8fHo6TUTtWrdThUHmpFxs/TcHSrvz5p6nKhX9hSvqYTDGcBwp8wUow1Qe6AUXTOt2B0IPgxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mzuq4dcn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bqyf63ol"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E916E1F00A3A;
-	Wed,  2 Sep 2026 00:27:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mzuq4dcn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C09191F00A3A;
+	Wed,  2 Sep 2026 00:29:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788308854;
-	bh=dPYnDusm6ZlAINNm2dD6FV62eCx2pxNkpvN0aJrj8uI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bqyf63oliUzCdLSCa2ShHyBHxtNTT/sxl0PpKRYUg0wgdCm+1RksqmlFUexq4GXUF
-	 sX0oaDNLD8cyUfONL3G62kOpS1QRAB4Y8xSj/ZLMh9X6K8b7PoPpgoSKWB9OkjNmfh
-	 2p+nSviFi+R1qQBPfHzy9bMl7t+S+BWcahgF8O6yxb6s9mEsUp0ORv7HpriEBrIAzM
-	 MTmyd7Dx/zbTHGFecODtxBiKRaW4xovLK0r7jjzLjV5cmaOvtEZ60ZaNgFIF882pu9
-	 9W/gOC7hyqT9D58C/CiPhF2EWdYh99cCrBuKoBu+Jv2pTwLqw8uCgmaTu62x2LO9TN
-	 NkUfnM38685mA==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Quanmin Yan <yanquanmin1@huawei.com>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 4/4] mm/damon/sysfs: set next refresh jiffies per sysfs context
-Date: Tue,  1 Sep 2026 17:27:23 -0700
-Message-ID: <20260902002725.108635-5-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260902002725.108635-1-sj@kernel.org>
-References: <20260902002725.108635-1-sj@kernel.org>
+	s=k20260515; t=1788308983;
+	bh=flydqW+8fI41gXJurZxeh+9WwnzAF+RUMSX3VaAilHg=;
+	h=From:To:Cc:Subject:Date;
+	b=mzuq4dcnAQcL2+XvYA2vgmENAURdLjyojKs7TaT6oJUVw/Bvy4KR1JOH7QdgtBLcJ
+	 ZORy271y5mC1bEp6ECzEPWZk+tijUrNouKRuk0s+XJ5wgkTijARHAfibaKSO38OncR
+	 jG1wHH02CcXv4wujD5H89+kJzLx66DLGAv0X/EpWiWzidGdjVKhA+Z7h7hTRe+G0Xb
+	 E8R56m1QaI7oFFeIgzSuf9n+6NMnkd/yG+dJBUote3crVyryFmHBfzv3Sg+yMmI++t
+	 q6ApugnvO5XnZXdZFy+9oeW4viAdHKbKUVkPpRslVmQNonusj0wzs58bd+Z6lwwWKJ
+	 zeW9TOmQTXx4w==
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] dt-bindings: net: nvidia,tegra234-mgbe: Add missing properties
+Date: Wed,  2 Sep 2026 02:30:04 +0200
+Message-ID: <20260902003004.453960-1-thierry.reding@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,71 +50,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When 'refresh_ms' is set, DAMON sysfs interface periodically updates
-auto-tuned parameters and DAMOS stats.  The timestamp for the next
-refresh is initialized when a DAMON context starts, and updated in its
-damon_call() callback function.  That is, each DAMON context updates it.
-However, the timestamp is a global variable that is shared with all the
-contexts.  When there are multiple DAMON contexts having different
-refresh_ms, the update frequency will be changed, depending on the order
-of the contexts.  When there are multiple kdamonds, it will be even more
-chaotic.  Fix the problem by having the timestamp per each context.
+From: Thierry Reding <treding@nvidia.com>
 
-The user impact is not very critical.  It does not leak, corrupt or
-crash.  The update will not be faster or slower than the lowest and
-largest refresh_ms values of the contexts, respectively.  The user can
-also manually ask the updates on demand using kdamond state commands.
-That said, clearly this is a bug and can easily be reproduced.
+Being a DWMAC derivative, the Tegra234 MGBE supports AXI configuration
+nodes named stmmac-axi-config and phandle references to them using the
+snps,axi-config property.
 
-Fixes: 9fd7bb5083d1 ("mm/damon/sysfs: change next_update_jiffies to a global variable")
-Cc: <stable@vger.kernel.org> # 6.18.x
-Signed-off-by: SJ Park <sj@kernel.org>
+While at it, add the 10gbase-r PHY mode.
+
+Signed-off-by: Thierry Reding <treding@nvidia.com>
 ---
- mm/damon/sysfs.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+Changes in v2:
+- move common properties to snps,dwmac-common.yaml
+- link to v1: https://lore.kernel.org/linux-tegra/20260716212001.989872-1-thierry.reding@kernel.org/
 
-diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
-index 3c81b4c91ac0d..dcb739ce0a729 100644
---- a/mm/damon/sysfs.c
-+++ b/mm/damon/sysfs.c
-@@ -1788,6 +1788,7 @@ struct damon_sysfs_kdamond {
- 	struct damon_sysfs_contexts *contexts;
- 	struct damon_ctx *damon_ctx;
- 	unsigned int refresh_ms;
-+	unsigned long next_refresh_jiffies;
- };
+ .../bindings/net/nvidia,tegra234-mgbe.yaml    |  8 ++-
+ .../bindings/net/snps,dwmac-common.yaml       | 66 +++++++++++++++++++
+ .../devicetree/bindings/net/snps,dwmac.yaml   | 52 +--------------
+ 3 files changed, 73 insertions(+), 53 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/snps,dwmac-common.yaml
+
+diff --git a/Documentation/devicetree/bindings/net/nvidia,tegra234-mgbe.yaml b/Documentation/devicetree/bindings/net/nvidia,tegra234-mgbe.yaml
+index 215f14d1897d2..48e4798a039b0 100644
+--- a/Documentation/devicetree/bindings/net/nvidia,tegra234-mgbe.yaml
++++ b/Documentation/devicetree/bindings/net/nvidia,tegra234-mgbe.yaml
+@@ -81,8 +81,9 @@ properties:
+   phy-mode:
+     contains:
+       enum:
+-        - usxgmii
+         - 10gbase-kr
++        - 10gbase-r
++        - usxgmii
  
- static struct damon_sysfs_kdamond *damon_sysfs_kdamond_alloc(void)
-@@ -2213,17 +2214,15 @@ static struct damon_ctx *damon_sysfs_build_ctx(
- 	return ctx;
- }
+   mdio:
+     $ref: mdio.yaml#
+@@ -90,6 +91,9 @@ properties:
+     description:
+       Optional node for embedded MDIO controller.
  
--static unsigned long damon_sysfs_next_update_jiffies;
++allOf:
++  - $ref: snps,dwmac-common.yaml#
++
+ required:
+   - compatible
+   - reg
+@@ -103,7 +107,7 @@ required:
+   - phy-handle
+   - phy-mode
+ 
+-additionalProperties: false
++unevaluatedProperties: false
+ 
+ examples:
+   - |
+diff --git a/Documentation/devicetree/bindings/net/snps,dwmac-common.yaml b/Documentation/devicetree/bindings/net/snps,dwmac-common.yaml
+new file mode 100644
+index 0000000000000..a38ff314b3cd1
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/snps,dwmac-common.yaml
+@@ -0,0 +1,66 @@
++# SPDX-License-Identifier: GPL-2.0
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/snps,dwmac-common.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Synopsys DesignWare MAC common properties
++
++maintainers:
++  - Alexandre Torgue <alexandre.torgue@foss.st.com>
++  - Giuseppe Cavallaro <peppe.cavallaro@st.com>
++  - Jose Abreu <joabreu@synopsys.com>
++
++properties:
++  stmmac-axi-config:
++    type: object
++    unevaluatedProperties: false
++    description:
++      AXI BUS Mode parameters.
++
++    properties:
++      snps,lpi_en:
++        $ref: /schemas/types.yaml#/definitions/flag
++        description:
++          enable Low Power Interface
++
++      snps,xit_frm:
++        $ref: /schemas/types.yaml#/definitions/flag
++        description:
++          unlock on WoL
++
++      snps,wr_osr_lmt:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description:
++          max write outstanding req. limit
++
++      snps,rd_osr_lmt:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description:
++          max read outstanding req. limit
++
++      snps,blen:
++        $ref: /schemas/types.yaml#/definitions/uint32-array
++        description:
++          this is a vector of supported burst length.
++        minItems: 7
++        maxItems: 7
++
++      snps,fb:
++        $ref: /schemas/types.yaml#/definitions/flag
++        description:
++          fixed-burst
++
++  snps,axi-config:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      AXI BUS Mode parameters. Phandle to a node that can contain the
++      following properties
++        * snps,lpi_en, enable Low Power Interface
++        * snps,xit_frm, unlock on WoL
++        * snps,wr_osr_lmt, max write outstanding req. limit
++        * snps,rd_osr_lmt, max read outstanding req. limit
++        * snps,blen, this is a vector of supported burst length.
++        * snps,fb, fixed-burst
++
++additionalProperties: true
+diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+index 2449311c6d28e..c5222c82e27a9 100644
+--- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+@@ -195,18 +195,6 @@ properties:
+       can be passive (no SW requirement), and requires that the MAC operate
+       in a different mode than the PHY in order to function.
+ 
+-  snps,axi-config:
+-    $ref: /schemas/types.yaml#/definitions/phandle
+-    description:
+-      AXI BUS Mode parameters. Phandle to a node that can contain the
+-      following properties
+-        * snps,lpi_en, enable Low Power Interface
+-        * snps,xit_frm, unlock on WoL
+-        * snps,wr_osr_lmt, max write outstanding req. limit
+-        * snps,rd_osr_lmt, max read outstanding req. limit
+-        * snps,blen, this is a vector of supported burst length.
+-        * snps,fb, fixed-burst
 -
- static int damon_sysfs_repeat_call_fn(void *data)
- {
- 	struct damon_sysfs_kdamond *sysfs_kdamond = data;
+   snps,mtl-rx-config:
+     $ref: /schemas/types.yaml#/definitions/phandle
+     description:
+@@ -558,45 +546,6 @@ properties:
+     required:
+       - compatible
  
- 	if (!sysfs_kdamond->refresh_ms)
- 		return 0;
--	if (time_before(jiffies, damon_sysfs_next_update_jiffies))
-+	if (time_before(jiffies, sysfs_kdamond->next_refresh_jiffies))
- 		return 0;
--	damon_sysfs_next_update_jiffies = jiffies +
-+	sysfs_kdamond->next_refresh_jiffies = jiffies +
- 		msecs_to_jiffies(sysfs_kdamond->refresh_ms);
+-  stmmac-axi-config:
+-    type: object
+-    unevaluatedProperties: false
+-    description:
+-      AXI BUS Mode parameters.
+-
+-    properties:
+-      snps,lpi_en:
+-        $ref: /schemas/types.yaml#/definitions/flag
+-        description:
+-          enable Low Power Interface
+-
+-      snps,xit_frm:
+-        $ref: /schemas/types.yaml#/definitions/flag
+-        description:
+-          unlock on WoL
+-
+-      snps,wr_osr_lmt:
+-        $ref: /schemas/types.yaml#/definitions/uint32
+-        description:
+-          max write outstanding req. limit
+-
+-      snps,rd_osr_lmt:
+-        $ref: /schemas/types.yaml#/definitions/uint32
+-        description:
+-          max read outstanding req. limit
+-
+-      snps,blen:
+-        $ref: /schemas/types.yaml#/definitions/uint32-array
+-        description:
+-          this is a vector of supported burst length.
+-        minItems: 7
+-        maxItems: 7
+-
+-      snps,fb:
+-        $ref: /schemas/types.yaml#/definitions/flag
+-        description:
+-          fixed-burst
+-
+ required:
+   - compatible
+   - reg
+@@ -610,6 +559,7 @@ dependencies:
  
- 	if (!mutex_trylock(&damon_sysfs_lock))
-@@ -2271,8 +2270,8 @@ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
- 	}
- 	kdamond->damon_ctx = ctx;
- 
--	damon_sysfs_next_update_jiffies =
--		jiffies + msecs_to_jiffies(kdamond->refresh_ms);
-+	kdamond->next_refresh_jiffies = jiffies +
-+		msecs_to_jiffies(kdamond->refresh_ms);
- 
- 	repeat_call_control->fn = damon_sysfs_repeat_call_fn;
- 	repeat_call_control->data = kdamond;
+ allOf:
+   - $ref: ethernet-controller.yaml#
++  - $ref: snps,dwmac-common.yaml#
+   - if:
+       properties:
+         compatible:
 -- 
-2.47.3
+2.55.0
+
