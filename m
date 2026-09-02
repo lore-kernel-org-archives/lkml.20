@@ -1,141 +1,219 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A5333ADA7;
-	Wed,  2 Sep 2026 01:10:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25E171FCFFC;
+	Wed,  2 Sep 2026 01:10:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788311402; cv=none; b=qP3CJGzEE1ciLQVyOkUXIauVvKKZG2MIVuSEgnckzcgxUcoMgdDljEBOxJ48/yb4kEsc0YL5ADEc3N5gXnS7Dvhv4HTPFwgYiJcsDg5jByaPJBcNELKj44Y+rrb+vnD1RO4ywt+6R/u2n70li4I9b+K4z4r1TPH5Z3tveVr5Oa8=
+	t=1788311433; cv=none; b=M2dKCLcsg2nfnjXAnW5UAsLk7RNffiVY/oUf5dsDhzzrFekVZPy85seVjCBs9nc+kaoazq52PN+bM0ID3LiOQ3qxaCukHormlYnvTVoJEqyIbozjTePwQ93mPvYc0Wjp9QDA/NwwjNXC1LI1366O5R6NO94XdRlwrEhkcupFhGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788311402; c=relaxed/simple;
-	bh=47kEReU2syTRMEdeTg/mQbzkEdr0ZLr49lH9qKTvtpM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nOnvy3ETFsw0xlmjv8BgVCup2Zaz84jwOw9mE1vkUucLOxbVZ0BOejzN/Bq677YSWkkjUp9FG+pa5FWxEN28cLa5hwvf1i3vFpWoQT8DzqPgZ9GmiTAMizkRNmRS/OZK1NYioZ3Eq439SeXF3m5/9cmIpPm56ZjvmmWOgh84Jzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RHGpOVJI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788311433; c=relaxed/simple;
+	bh=rGnOd2CLpQUM4UdgDqDB3NAj6bVtEagO4ScTl/EOyZE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=gSUM9XAmYa6Xi2MvAuK+9GwrRfnk8CJkp6P9MRNeQyyg+4/JAr4a8DUXmPW3opBVwnbsyDxz6GX6vaQ3UAhCZBtciAluWwqK4DqS6Y0SCkGn/aUHCCmKwmlYKmHOQ5hO/nAYGywYko6zr7zrdzc3KusQJXiyAQ1nR6KTHXjevOE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=gxQtifHk; arc=none smtp.client-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RHGpOVJI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 024301F000E9;
-	Wed,  2 Sep 2026 01:09:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788311400;
-	bh=tA79mL88B+qRi5ZjT11ACc06itvpBxYSkq4PBiFRbrw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RHGpOVJIfFkHEUum0NnmjUDi/+L2PQGRZoaEESNG1+dCDQc4BwYSpZskbN0GH/E3e
-	 3fd57Zzz4Yn14BE4hDsk8WoqJxhkQZA1KCEv+vjfXpLqg3BDrhUts4nltT8B88M/fS
-	 LtHnp6B2kajywXNxIVhtfiatwlX8IPEEXY/t/V0PtMpQGIh0B256RPFGXq8FkSBJpW
-	 9tT8FsUc9Du01k+V8IMYNnty+OYYvO1ywEaHa0fGo3flvFK9tocE6BBqMw7R7w0RlD
-	 UBlM+4E7bneWDzYq+l9/YK26hHs8ErNel3Tqa7B2wtrBn+7FNc+IINUppWDkyQbT1R
-	 zaE/zbPnT3d+g==
-Date: Tue, 1 Sep 2026 18:09:58 -0700
-From: Wei Liu <wei.liu@kernel.org>
-To: Thara Gopinath <tgopinath@linux.microsoft.com>
-Cc: kys@microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org,
-	decui@microsoft.com, tglx@kernel.org, mingo@redhat.com,
-	bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com,
-	ardb@kernel.org, ilias.apalodimas@linaro.org,
-	James.Bottomley@hansenpartnership.com, javierm@redhat.com,
-	lszubowi@redhat.com, francescopompo2@gmail.com,
-	tgopinath@microsoft.com, x86@kernel.org,
-	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-efi@vger.kernel.org
-Subject: Re: [RFC PATCH 04/12] firmware: efi: libstub: x86-stub: Enable VSM
- awareness in efi os indications variable
-Message-ID: <20260902010958.GD2583463@liuwe-devbox-debian-v2.local>
-References: <20260901165647.3160413-1-tgopinath@linux.microsoft.com>
- <20260901165647.3160413-5-tgopinath@linux.microsoft.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="gxQtifHk"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=ueZfUdbICpbFc4QJdF1KNCrnQsrHgevLIv0afVFUmZM=;
+	b=gxQtifHkaLPw22BF6n0KMEk10IuxeqmsMYYop/hUPqKEf8knsZeKMkjksoN1EG/Q1sd/O9Di/
+	MWC9d9+IV55CGBmQmL79IAHmaox4lGW98FrA6ZXZh/7XOquukuCJCl9vL3nrYSwO4ytzpow/EiG
+	bZELp1KK04KMfSbcfFS8Feg=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4hZPWl0vM1z1K96m;
+	Wed,  2 Sep 2026 08:59:31 +0800 (CST)
+Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
+	by mail.maildlp.com (Postfix) with ESMTPS id 13A854048B;
+	Wed,  2 Sep 2026 09:10:21 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Wed, 2 Sep 2026 09:10:18 +0800
+Message-ID: <bf0e158e-4bd0-4495-a9e2-983556e4041b@huawei.com>
+Date: Wed, 2 Sep 2026 09:10:16 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901165647.3160413-5-tgopinath@linux.microsoft.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 01/17] kexec: Record allocated CMA pages to fix release
+ size mismatch
+To: Mike Rapoport <rppt@kernel.org>
+CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
+	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <akpm@linux-foundation.org>,
+	<baoquan.he@linux.dev>, <pasha.tatashin@soleen.com>, <pratyush@kernel.org>,
+	<ruirui.yang@linux.dev>, <kees@kernel.org>, <thuth@redhat.com>,
+	<gshan@redhat.com>, <jic23@kernel.org>, <james.morse@arm.com>,
+	<ardb@kernel.org>, <leitao@debian.org>, <yeoreum.yun@arm.com>,
+	<sourabhjain@linux.ibm.com>, <coxu@redhat.com>, <tangyouling@kylinos.cn>,
+	<hbathini@linux.ibm.com>, <adityag@linux.ibm.com>,
+	<ionut.nechita@windriver.com>, <liaoyuanhong@vivo.com>, <seanjc@google.com>,
+	<fuqiang.wang@easystack.cn>, <makb@juniper.net>, <piliu@redhat.com>,
+	<ebiggers@kernel.org>, <jbouron@amazon.com>, <mclapinski@google.com>,
+	<me@linux.beauty>, <graf@amazon.com>, <bgwin@google.com>, <robh@kernel.org>,
+	<takahiro.akashi@linaro.org>, <palmer@rivosinc.com>, <x86@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
+	<kexec@lists.infradead.org>, <linux-fsdevel@vger.kernel.org>,
+	<linux-mm@kvack.org>
+References: <20260826092541.3905933-1-ruanjinjie@huawei.com>
+ <20260826092541.3905933-2-ruanjinjie@huawei.com>
+ <178829364020.3691424.12323275610442178748.b4-review@b4>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <178829364020.3691424.12323275610442178748.b4-review@b4>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ dggpemf500011.china.huawei.com (7.185.36.131)
 
-On Tue, Sep 01, 2026 at 09:55:18AM -0700, Thara Gopinath wrote:
-> Set bit 0 of the Hyper-V private OsLoaderIndications EFI variable
-> during exit_boot() so the bootloader/firmware knows the OS intends
-> to enable VTL1. Without this, VTL1 cannot be brought up from the
-> Linux kernel.
+
+
+在 2026/9/2 4:14, Mike Rapoport 写道:
+> Hi,
 > 
-> The support bit is first checked in OsLoaderIndicationsSupported,
-> and the variable is only written when the VSM bit is not already
-> set.
+>> The CMA pages allocated for a kexec segment are released using the
+>> segment's memsz to calculate the number of pages. However, some
+>> architecture loaders modify the segment's memsz after allocation
+>> (e.g. arm64 subtracts text_offset), causing the release function to
+>> free fewer pages than were originally allocated, leaking the remaining
+>> CMA pages.
+>>
+>> Add a per-segment `segment_cma_pages` array to store the number of
+>> pages actually allocated from CMA. Populate it during
+>> kexec_add_buffer() using the aligned memsz, and use it in
+>> kimage_free_cma() to accurately release all allocated pages.
+>>
+>> This avoids relying on the potentially modified segment->memsz and
+>> prevents silent CMA memory leaks.
+>>
+>> Cc: Andrew Morton <akpm@linux-foundation.org>
+>> Cc: Baoquan He <baoquan.he@linux.dev>
+>> Cc: Mike Rapoport <rppt@kernel.org>
+>> Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
+>> Cc: Pratyush Yadav <pratyush@kernel.org>
+>> Cc: Brian Mak <makb@juniper.net>
+>> Cc: Pingfan Liu <piliu@redhat.com>
+>> Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
+>> Cc: Justinien Bouron <jbouron@amazon.com>
+>> Cc: Li Chen <me@linux.beauty>
+>> Cc: stable@vger.kernel.org
+>> Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%40huawei.com
+>> Fixes: 07d24902977e ("kexec: enable CMA based contiguous allocation")
+>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>>
+>> diff --git a/include/linux/kexec.h b/include/linux/kexec.h
+>> index 0af8ae4fdd087..83c296c0eb6cc 100644
+>> --- a/include/linux/kexec.h
+>> +++ b/include/linux/kexec.h
+>> @@ -349,6 +349,7 @@ struct kimage {
+>>  	unsigned long nr_segments;
+>>  	struct kexec_segment segment[KEXEC_SEGMENT_MAX];
+>>  	struct page *segment_cma[KEXEC_SEGMENT_MAX];
+>> +	unsigned int segment_cma_pages[KEXEC_SEGMENT_MAX];
 > 
-> Signed-off-by: Thara Gopinath <tgopinath@linux.microsoft.com>
-> ---
->  drivers/firmware/efi/libstub/x86-stub.c | 57 +++++++++++++++++++++++++
->  1 file changed, 57 insertions(+)
+> Can we universally use unsigned long for number of pages?
+
+Hi Mike,
+
+unsigned int is used here because the second parameter of
+arch_kexec_pre_free_pages is unsigned int.
+
+static inline void arch_kexec_pre_free_pages(void *vaddr, unsigned int
+pages) { }
+
 > 
-[...]
-> +#ifdef CONFIG_HYPERV_VSM
-> +static void efi_set_hv_os_indications(void)
-> +{
-> +	efi_guid_t guid = HYPERV_PRIVATE_EFI_NAMESPACE_GUID;
-> +	efi_status_t status;
-> +	unsigned long size;
-> +	u32 attr, val;
-> +
-> +	size = sizeof(val);
-> +	status = get_efi_var(efi_HvPrivOsloaderIndicationsSupported_name,
-> +			     &guid, &attr, &size, &val);
-> +	if (status != EFI_SUCCESS) {
-> +		efi_err("Could not read Hyper-V OsloaderIndicationsSupported\n");
-> +		return;
-> +	}
-> +
-> +	if (!(val & HV_OSLOADER_INDICATION_VSM)) {
-> +		efi_info("Hyper-V does not support VSM in OsloaderIndicationsSupported\n");
-> +		return;
-> +	}
-> +
-> +	size = sizeof(val);
-> +	status = get_efi_var(efi_HvPrivOsloaderIndications_name, &guid, &attr, &size, &val);
-> +	if (status != EFI_SUCCESS) {
-> +		efi_err("Could not read Hyper-V OsLoaderIndications\n");
-> +		return;
-> +	}
-> +
-> +	if (val & HV_OSLOADER_INDICATION_VSM) {
-> +		efi_info("VSM is already supported in OsLoaderIndications.");
-> +		return;
-> +	}
-> +
-> +	val |= HV_OSLOADER_INDICATION_VSM;
-> +	size = sizeof(val);
-> +	status = set_efi_var(efi_HvPrivOsloaderIndications_name, &guid, attr, size, &val);
-
-I'm not familiar with the security model, so bear with me.
-
-What happens if the VTL0 kernel doesn't use VTL1 at all? Does that
-become a security issue, that malware can use the VTL1 to hide itself?
-
-Asking this because I think you will want to enable this in the generic
-kernel(s). Not all users have or want to package a secure kernel.
-
-Wei
-
-> +	if (status != EFI_SUCCESS)
-> +		efi_err("Could not set Hyper-V OsLoaderIndications to indicate VSM support\n");
-> +}
-> +#endif
-> +
->  static efi_status_t exit_boot(struct boot_params *boot_params, void *handle)
->  {
->  	struct setup_data *e820ext = NULL;
-> @@ -768,6 +820,11 @@ static efi_status_t exit_boot(struct boot_params *boot_params, void *handle)
->  	if (status != EFI_SUCCESS)
->  		return status;
->  
-> +#ifdef CONFIG_HYPERV_VSM
-> +	/* Indicate to bootloader that we will be enabling VTL1 before exiting boot services */
-> +	efi_set_hv_os_indications();
-> +#endif
-> +
->  	/* Might as well exit boot services now */
->  	status = efi_exit_boot_services(handle, &priv, exit_boot_func);
->  	if (status != EFI_SUCCESS)
-> -- 
-> 2.34.1
+>>  
+>>  	struct list_head control_pages;
+>>  	struct list_head dest_pages;
+>> diff --git a/kernel/kexec_core.c b/kernel/kexec_core.c
+>> index dc770b9a6d053..611b15bb1369e 100644
+>> --- a/kernel/kexec_core.c
+>> +++ b/kernel/kexec_core.c
+>> @@ -560,7 +560,7 @@ static void kimage_free_cma(struct kimage *image)
+>>  
+>>  	for (i = 0; i < image->nr_segments; i++) {
+>>  		struct page *cma = image->segment_cma[i];
+>> -		u32 nr_pages = image->segment[i].memsz >> PAGE_SHIFT;
+>> +		unsigned int nr_pages = image->segment_cma_pages[i];
+>>  
+>>  		if (!cma)
+>>  			continue;
+>> @@ -568,6 +568,7 @@ static void kimage_free_cma(struct kimage *image)
+>>  		arch_kexec_pre_free_pages(page_address(cma), nr_pages);
+>>  		dma_release_from_contiguous(NULL, cma, nr_pages);
+>>  		image->segment_cma[i] = NULL;
+>> +		image->segment_cma_pages[i] = 0;
+>>  	}
+>>  
+>>  }
+>> diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
+>> index 59fb9d71e9d86..bfae3fee7f2f9 100644
+>> --- a/kernel/kexec_file.c
+>> +++ b/kernel/kexec_file.c
+>> @@ -670,7 +670,7 @@ static int kexec_walk_resources(struct kexec_buf *kbuf,
+>>  
+>>  static int kexec_alloc_contig(struct kexec_buf *kbuf)
+>>  {
+>> -	size_t nr_pages = kbuf->memsz >> PAGE_SHIFT;
+>> +	size_t nr_pages = PFN_DOWN(kbuf->memsz);
+>>  	unsigned long mem;
+>>  	struct page *p;
+>>  
+>> @@ -756,6 +756,8 @@ int kexec_locate_mem_hole(struct kexec_buf *kbuf)
+>>   */
+>>  int kexec_add_buffer(struct kexec_buf *kbuf)
+>>  {
+>> +	unsigned long nr_segments = kbuf->image->nr_segments;
+>> +	size_t nr_pages;
+>>  	struct kexec_segment *ksegment;
+>>  	int ret;
+>>  
+>> @@ -763,7 +765,7 @@ int kexec_add_buffer(struct kexec_buf *kbuf)
+>>  	if (!kbuf->image->file_mode)
+>>  		return -EINVAL;
+>>  
+>> -	if (kbuf->image->nr_segments >= KEXEC_SEGMENT_MAX)
+>> +	if (nr_segments >= KEXEC_SEGMENT_MAX)
+>>  		return -EINVAL;
+>>  
+>>  	/*
+>> @@ -789,12 +791,18 @@ int kexec_add_buffer(struct kexec_buf *kbuf)
+>>  		return ret;
+>>  
+>>  	/* Found a suitable memory range */
+>> -	ksegment = &kbuf->image->segment[kbuf->image->nr_segments];
+>> +	ksegment = &kbuf->image->segment[nr_segments];
+>>  	ksegment->kbuf = kbuf->buffer;
+>>  	ksegment->bufsz = kbuf->bufsz;
+>>  	ksegment->mem = kbuf->mem;
+>>  	ksegment->memsz = kbuf->memsz;
+>> -	kbuf->image->segment_cma[kbuf->image->nr_segments] = kbuf->cma;
+>> +	kbuf->image->segment_cma[nr_segments] = kbuf->cma;
+>> +	if (kbuf->cma) {
+>> +		nr_pages = (unsigned int)(PFN_DOWN(kbuf->memsz));
+>> +		kbuf->image->segment_cma_pages[nr_segments] = nr_pages;
+> 		kbuf->image->segment_cma_pages[nr_segments] = nr_pages;
+>> +	} else {
+>> +		kbuf->image->segment_cma_pages[nr_segments] = 0;
+>> +	}
 > 
+> I suggest to rename nr_pages to nr_cma_pages, initialize it to 0 at
+> declaration time and make this
+
+I agree with this.
+
+> 
+> 	if (kbuf->cma)
+> 		nr_cma_pages = PFN_DOWN(kbuf->memsz);
+> 	kbuf->image->segment_cma_pages[nr_segments] = nr_cma_pages;
+> 
+
