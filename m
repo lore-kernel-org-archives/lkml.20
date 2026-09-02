@@ -1,81 +1,88 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96319355F57
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 01:57:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9219F33F8C1
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 01:57:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788314240; cv=none; b=imh6GXsiG24PMNNfJ+LUeZpMFiRp2YnTiSMF9lAe9N70+VPrxkwIqZhJhmKQjZ4kFCrBfjGu27PLh8IrSDcr4bhp4WFEPOJbVVdXbJK3H/eOig3j7wxIcoNg+ofubZz7+kxzN2Erwc6cyxV8jdC4VsLvmNtnHN8uoimrjktnTQk=
+	t=1788314242; cv=none; b=gxGusujAVUHM2Lk2GVVJtmLxM7N/IpiiuotGSgK1g9f8PGEcP/ECwaPhJniZboTWvt476YFLLufokTGQv/iojTp5wY5PqZIr3QHz5hS8NjS3PhmGUni5rEe9+CMPYPwXyldMFuWYlH+8GnlHy3hIN6z9j+Jk+me4PmohHWjmGe4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788314240; c=relaxed/simple;
-	bh=BbAaCQB7dbM5OXIrUKctmQd49Nq9NQDn7kVzcUeO+rY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lEW/z54JFT4hHakMZtWVU3vHpGTeVxUbewXJ4Y3y0w20DY+k6YSbJ9SfdiOt1sBlz0nBXm5IAtgauVliKCFHWoGBoD9G/GHfZhAvp0MzM85gDJJePAgiI6JZtk8MGgjVH5T4IVSXkZ4usxyzG4IIX/TgvENVd9qVYhlLt5AZEaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=dGdZoZ3v; arc=none smtp.client-ip=209.85.214.178
+	s=arc-20240116; t=1788314242; c=relaxed/simple;
+	bh=kjynEym4JkM4qLFWRtB6GBT9eT/13ERJsjb/5ssDOQI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eo4plkNpTojnsUF0asU9F7GQ5oiPkQ4N9DRIjjsdA8iyuYDXrNaV02du+EzJ20xuogttYZE3SUKb+zl2FyzzFZ+A4Q5ohz7ElNfZqsDhaSX4IAjbKg92IaZ8nhTQ6abZ8z4W4CJzxuVODxBCQaEz15nA2eMcJl1oqhrDT+pLL9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=neuNbo44; arc=none smtp.client-ip=209.85.216.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="dGdZoZ3v"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d6fe26ef1cso5141345ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 18:57:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="neuNbo44"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-39927410578so969723a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 18:57:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1788314232; x=1788919032; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=P0K3a0PFyIF8VGBlxiVsFCDBZmt3O9FnRDsP9ifnbj0=;
-        b=dGdZoZ3vFIb2KISyBUB5T/fh31fs22aWPM07ZFxZomzhha79WpdM1ToCux02oMqMMi
-         PgrSNUgoo2WFawWqvjF4XUcGRQTqkBWgVDO3s0YmjGjjK0yIx/6bYAPFu96eNMm2Qw7J
-         2B9qdq01/PufyKEEoi6wB1ajwvL+rYwQS6qdpga7oRlpWiZkLnjyoV0GEfStPk0wI56r
-         RoGWcS36QrdP5Ky6+V5Y23fFPG4hr3lzGBD7Q3YGznPqMajv2c+fpB+I6CClPsKD2Fxe
-         cpIDbD2pP5c/BWd//GMttc6U53p7AYa4ypGKA9XtMmRdUJG7IZelGC7VyJJvf2FxhfI+
-         BppQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788314232; x=1788919032;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1788314234; x=1788919034; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=P0K3a0PFyIF8VGBlxiVsFCDBZmt3O9FnRDsP9ifnbj0=;
-        b=nPSSv+/zKg/fa1FxNX1QuM3GqQ5saurvMjEvO9Q/CEaP7WhhGhfIJMjDg/bdSU3PMN
-         H7WNQ1gjk94AyRuxZXP3SbvYNUT2hXqrqKzjbKqgILE6hKUgrhcIS0LgulPGoTggApxz
-         ixFpO0hlAPkmGSH8rwkz3GK7waUKWFpNZIaTQ/3wiByVspCvcE3w0H8uhJkf19X6wW5T
-         OKTwqI07/2OaFdhmRgDxGaZGNYSSMNu/w350/tN1dnsQMIYvbtCiS4UmJHcWEky6z4eh
-         5314YyV6QPd8hGwQIYUjXFUuMdyUwUkupq2q5JVXoGShqm5Wa9LSEHtN+pxRmfXPzSiN
-         vYYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxEXnPx4OcGu5QyPkCkra0SYwTwVWT2zugqR2V3+IrtSS6SaM/5IJUvNVSREQQfxMRYjK4vrV84K/z/hQk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mtjQqY/sS03AXt9XbSjbdRS16eXeGx7v2a41e/3xXzZqpysdAI
-	9QeyCRWJZsJvjGQmDeQUopDnuq8uIXR1q3vKNOQToYAd2kQLPowvTRLc4ZgDUwp0JhM=
-X-Gm-Gg: AYBFou1WMpzEMRmF2cmBpDMl7BAhr+MO3LpdAqGEo7CtjzIx5gdHZSEXKrGNXTVnaID
-	Ea+9c3DZLGabHSNcav4v5auvFNANCihixgG74fdQncICnXMrdDXEYi8YBgvK2yulMSbuPqUku+/
-	SwVBSftwVJrFtsHMnvx6SiIlyF7KObJBEJBwEUjmTzsOoOJT1RFEjEyrfiwdTsd+XgzHqVJfR70
-	Ryk5SztDgKYlR78SZs9M5L5Ly/RhE+BiMleSoT4vhoBRo6PIp8Uh55IETfBG+lMEA3rpxl0fClV
-	Bd3Z7NFR9vDcZ+tAeQ+lIEUL9wLcl8rvW7GNJ6sEbK5tW4mKIzZ7sxINZlFyF7CJJHT91I5F+gR
-	IToeWlx6KDPl2FD3+uyPqwpA3FCR2qE3yXZ8evjhHS0TKU5L6OZAQoMBSUxPKy8WahvrHyFN7EF
-	2cuVH/QwxHQAoGhcciiA02hGaWSc4ERvfC0+oS78cA/9cmiJmjHro=
-X-Received: by 2002:a17:90b:5384:b0:398:ceef:edbd with SMTP id 98e67ed59e1d1-39aee1bbae0mr2087119a91.18.1788314232120;
-        Tue, 01 Sep 2026 18:57:12 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:6::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d76622csm8876306a91.11.2026.09.01.18.57.11
+        bh=+2ASlAu8y5yvnOMRkejZNi7wm/1MZgn7xMNUrYUfQtI=;
+        b=neuNbo44bMNUajm357LiSzKnzPxriyzf3VQtr1yrdq5+8LYsxqaz7V9REmNxf03Xkz
+         OHqxnbS1CLxomdb//e+Rs7Ip/1t5n3qYfwLabG0J/oHZSxQhf1uWerbrPTeFUBesMSli
+         Kd5K+xcf04yV/xtMzdqBewpFFDfc4CHUdMCKPD0ekp1XeUfj4m3RAqsiTsIp2bJECUsa
+         GgFcTT/CNo9O/CZrUPUCmF7Hp1o0bNx5puZ7SgxfXADOFBMzbI9Hw4m5WIk6+Q/niJhC
+         8ml3F+oYNfBZqvq2TzgCh3CpE+QNttvN5llDk9yBO6OF2hQ1VmJ2pGZSizNkwtRSZwZf
+         s4SA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788314234; x=1788919034;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+2ASlAu8y5yvnOMRkejZNi7wm/1MZgn7xMNUrYUfQtI=;
+        b=hA//jH4YrFGra6BFG0A2vpz7tf+HA+/VrEdqM5I6kal1Rtwk2pTPe6J134Vlu3lIUc
+         aeiHV5yhK7pqyUT603jWJ6s9RLlQsjQdYAmj3/yW6GSiRbqY+SigkeRqdNmRW24tMBeR
+         NpeOIFw0O+EMXOXj8BcAjVTmj1fxiJl9Y0OX+HF67DiNmp/4JHqJg8kekmME1JAzIfG1
+         ioJryWWhA7HFTgbG7xAlKRFZ+6svHOAEgmH2cZQolgKLNhResbnIkYFzdGOvqvvAIS3Y
+         Fm94wIqT91CyqGEd2qmSUbeKd7h3DNgQnHx/8dR9VznJF9zw2IKoPAlDRQFXJ0A0Owvg
+         NtAg==
+X-Forwarded-Encrypted: i=1; AKwUvBzpNnqkfKJPn00TXUXdy2vEq83RreUaNgXJgefjQRQ7JXmHmcYK6zzHZcbmaxv1MaQviYsMXafAOnz4BdY=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0C9H+1WTDir0uefpnSTAef6ZMNKLCYQRyMODtOjeBTO9dHqaf
+	3rgzhlcRoUYqSqGCVA0rQoRpi+i3HHccR2ZGLke/yuHWu7onr84Dynd7Fh03iSN4HHI=
+X-Gm-Gg: AYBFou0szG9aIOIbfwUu8sWqM5zP/T/HvE8be9WEwPdNsVlqPFgXYnCsZAJG8LsZ3hp
+	T46QWj7/Qcly+VEAS1t7qqLZcrD36oZeDdkpZ95I7KDXILKUtxCVFJsrA8ZJnjVPlcMICfF410G
+	8Do6WOEVzh+SJGszABzBKDfLJk73As026Aft/AJU0h8Pt5Druze+fV8F/QSDlzH0Xy7LnR5zTVI
+	WTd1OCI/bmKhVdrZkvsWQ73qLH4Q0O4e6LKZ8ds+vZSAsOQf3T6k+GPVhxvhThcUs4mHIihB/1S
+	Bz7IOmfko9j7WjNhjIorP1IeJyTdOWYVlOtZoEYOJ9HYm5snubgGODbOjQ3zCSfmaNbZ9qI2Qnv
+	BPKVQyR1yVOUgY6y8uYEJYhzKx7LyiNt/bdVd0FhZeyUfyQKrpdv2PMNj/8GxbaUlRCYryhH+U4
+	ek7JISK9dRbAhcenVKfNP/oVE1EvDMIdeZthKbypaBzOqzdaaAJZWy
+X-Received: by 2002:a17:90b:4c52:b0:38e:6aa7:68ad with SMTP id 98e67ed59e1d1-39aedf7c6aemr1801505a91.5.1788314233810;
+        Tue, 01 Sep 2026 18:57:13 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:5a::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae380d7a9sm2252710a91.12.2026.09.01.18.57.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 18:57:11 -0700 (PDT)
+        Tue, 01 Sep 2026 18:57:13 -0700 (PDT)
 From: Joe Damato <joe@dama.to>
-To: netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	michael.chan@broadcom.com,
-	pavan.chebbi@broadcom.com,
+To: netdev@vger.kernel.org,
+	Michael Chan <michael.chan@broadcom.com>,
+	Pavan Chebbi <pavan.chebbi@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Somnath Kotur <somnath.kotur@broadcom.com>
+Cc: horms@kernel.org,
 	kalesh-anakkur.purayil@broadcom.com,
 	colin.winegarden@broadcom.com,
 	rukhsana.ansari@broadcom.com,
 	linux-kernel@vger.kernel.org,
 	raphaelcf@meta.com,
-	Joe Damato <joe@dama.to>
-Subject: [PATCH net v5 0/6] Fix a variety of TPA bugs
-Date: Tue,  1 Sep 2026 18:56:43 -0700
-Message-ID: <20260902015652.2421609-1-joe@dama.to>
+	Joe Damato <joe@dama.to>,
+	Sashiko <sashiko-bot+sashiko@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH net v5 1/6] bnxt_en: Only restore LRO if the device supports TPA
+Date: Tue,  1 Sep 2026 18:56:44 -0700
+Message-ID: <20260902015652.2421609-2-joe@dama.to>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260902015652.2421609-1-joe@dama.to>
+References: <20260902015652.2421609-1-joe@dama.to>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,56 +91,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Greetings:
+With a P5+ device with firmware that reports max_aggs_supported == 0, it is
+possible to make LRO settable by attaching and detaching an XDP program
+even though the device does not support TPA.
 
-I am sending this series as an extension to my v4 [1] which was just 1 patch.
+Fix this by testing BNXT_SUPPORTS_TPA before restoring the feature bit.
 
-Note that patch 5 of this series can now cause the device to fail closed if
-memory is tight; bnxt_init_nic propagates an error that was previously
-swallowed and fails closed instead of succeeding in a degraded state. If the
-maintainers want the device to come up with a partially populated rx_tpa[],
-then patch 5 can be dropped and this series can still be applied
-and will otherwise work as intended.
+Fixes: f0aa6a37a3db ("eth: bnxt: always recalculate features after XDP clearing, fix null-deref")
+Reported-by: Sashiko <sashiko-bot+sashiko@kernel.org>
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260828190900.1767611-1-joe%40dama.to
+Cc: stable@vger.kernel.org
+Signed-off-by: Joe Damato <joe@dama.to>
+---
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-This series addresses a variety of bugs orbiting the TPA code in the bnxt
-driver that Sashiko (or Clashiko or whatever) pointed out and the series ends
-with the patch from the v4 [1].
-
-A lot of the noise generated by the AIs while reviewing my v4 are unrelated
-bugs with different fixes tags that, IMHO, distract a bit from the crash at
-boot that is currently occurring with Thor2 hardware on recent kernels.
-
-That said, I've tried to wrangle this series together which I hope will solve
-most of the important bugs the AIs are feeling something about.
-
-I do not know what other rabbit holes the AIs will find when I submit this
-series, but if there is some reasonable stop-gap that we can get applied to
-fix the crashes on Thor2 (while I iterate on the rest of the bugs at the
-pleasure of the AIs) that would be excellent.
-
-I boot tested this on a Thor1 and a Thor2 machine and there were no crashes at
-boot.
-
-Thanks,
-Joe
-
-[1]: https://lore.kernel.org/all/20260828190900.1767611-1-joe@dama.to/
-
-Joe Damato (6):
-  bnxt_en: Only restore LRO if the device supports TPA
-  bnxt_en: Don't free the live ring's TPA state on queue restart failure
-  bnxt_en: Propagate TPA buffer allocation failures in
-    bnxt_queue_mem_alloc()
-  bnxt_en: Handle buffer allocation failure in bnxt_rx_ring_reset()
-  bnxt_en: Propagate RX ring init failures in bnxt_init_nic()
-  bnxt_en: Bound SW TPA IDs to prevent crashes
-
- drivers/net/ethernet/broadcom/bnxt/bnxt.c | 57 +++++++++++++++++------
- drivers/net/ethernet/broadcom/bnxt/bnxt.h |  2 +-
- 2 files changed, 43 insertions(+), 16 deletions(-)
-
-
-base-commit: 1d2929d0850fff683b8aff051275945e65f082c8
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+index d59bcca73a2b..0e5c2a48f313 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+@@ -5006,7 +5006,8 @@ void bnxt_set_rx_skb_mode(struct bnxt *bp, bool page_mode)
+ 		bnxt_get_max_rings(bp, &rx, &tx, true);
+ 		if (rx > 1) {
+ 			bp->flags &= ~BNXT_FLAG_NO_AGG_RINGS;
+-			bp->dev->hw_features |= NETIF_F_LRO;
++			if (BNXT_SUPPORTS_TPA(bp))
++				bp->dev->hw_features |= NETIF_F_LRO;
+ 		}
+ 	}
+ 
 -- 
 2.53.0-Meta
 
