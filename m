@@ -1,88 +1,80 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53489372EE9;
-	Wed,  2 Sep 2026 16:38:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D85D4A8A2E
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:38:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788367101; cv=none; b=ZrXsBlTo0tdqU3z0X6vVpO0g4jGlgYgv1my+iUGkLjkfdcJYm2c4mfFgbpLGITSK4fr2ysmM3E4Hi/Y7Tfcs6F3XInApxq0KIkF36aLvB90Wkf8661+3yBRcwwHSUujQUcUMwFPJt14Wx/AhemYTdP1KEX6GTOIqv1IluhpT0DA=
+	t=1788367119; cv=none; b=DKnLEqsBtD5Py89MFIBvYN+JEF2xb2MjjmpoJadEmnE9g1eh0LR7o7ax80mbL44fn0axBFfGYIitiNTgc8xidYcfyPrWnQeS/yAca/rM9+rGoGeYUwj7Z8AcOJoStGJ/9x00XNxa/GBRFhts1b7pTZnYjSKBeli/JxG8W3IAECk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788367101; c=relaxed/simple;
-	bh=Jiv/uvDhqSjmO+z4kgraUnXXSwMGtIxdXaplkk1LVxA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u7bt6Va+lHyPLqmNLu9VCO9MjLiRWQzSI9q0u21fKZTlwTAy7v7jLLBvr2IJxRiqM7MFDmgMJHwReT7aTT5UEwR01ZUWD4e/GJh8wlgSFAQY3Z0BZOVCQxgKl010m/LRe8sujCCA6XTM/B9APGxfbGLnaOH8BtJsGqJnZhiyJa4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=VE+2OqCU; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788367119; c=relaxed/simple;
+	bh=NxMI9v2phrbbGIzeB2c7OK0vbCEuQJyy1JafZuyyikk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bCxUEKitlx9XuRQgyHoVAdO9HpisoL18iU+qE7XDIFwKQ1R72dVg7yZny3IGlJkTHB5kEDAwP5ezmb3ZDkps6PGLCmREJtiq4CjnOIaf/O3lH0V6txvM5wlPwibM608VIYMpjcAR/CWnsU99KlhZiM9Hzivo0Wp/JFun7IwWt5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=g5wRj9H4; arc=none smtp.client-ip=216.40.44.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="VE+2OqCU"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=EWeXWohaF0gzugvpU2x0ULJvddgDp8nmDFnaa9FuDxA=; b=VE+2OqCUf6vSFIEBMwIwZnbmys
-	SyX+ZFN9kaqMrOFkZgwR9iqBlTYL1Zaf5B/EiR6GeDy6vKc26LhPHC/+l0m0mHcMOz1aMIA8y6V7s
-	XOIej0TsVotjBXszzgpfsnQC4/MbhFxUjiDunBPGDBbOBrL+tA1sa/W9/kMwdEe+7xk0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x1nyJ-002YOk-MP; Wed, 02 Sep 2026 18:37:59 +0200
-Date: Wed, 2 Sep 2026 18:37:59 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Aleksei Sviridkin <f@lex.la>
-Cc: Thu00e9o Lebrun <theo.lebrun@bootlin.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Vineeth Karumanchi <vineeth.karumanchi@amd.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 2/2] net: macb: reject an unknown link speed in the
- taprio setup
-Message-ID: <cb6da9c8-aea0-4740-9709-d718462481e9@lunn.ch>
-References: <20260902080528.2211468-1-f@lex.la>
- <20260902080528.2211468-3-f@lex.la>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="g5wRj9H4"
+Received: from omf07.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay03.hostedemail.com (Postfix) with ESMTP id 0F494A02C5;
+	Wed,  2 Sep 2026 16:38:35 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf07.hostedemail.com (Postfix) with ESMTPA id 1DC1C2002C;
+	Wed,  2 Sep 2026 16:38:33 +0000 (UTC)
+Date: Wed, 2 Sep 2026 12:39:33 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: David Laight <david.laight.linux@gmail.com>, Linus Torvalds
+ <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, Christoph
+ Hellwig <hch@lst.de>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, Luc Van
+ Oostenryck <luc.vanoostenryck@gmail.com>, Chris Li <sparse@chrisli.org>
+Subject: Re: [PATCH v2] tracing: Make is_signed_type() compatible with
+ sparse
+Message-ID: <20260902123933.5c3c8fa3@gandalf.local.home>
+In-Reply-To: <a5aea1c4-3e29-4bba-8cd2-d4ccbeda008c@acm.org>
+References: <bde573c1a758505339239f08be28788a34dfcb73.1786121949.git.bvanassche@acm.org>
+	<20260831214437.15d6ad34@pumpkin>
+	<a771af57-40ee-433a-be84-9b7c3e6965c5@acm.org>
+	<20260901092043.7feaf5d7@pumpkin>
+	<dca931ff-5995-444c-9f89-6d6cca4e71f3@acm.org>
+	<20260901222909.05d6239f@pumpkin>
+	<1b86ccbf-4e41-4a26-9d22-8bd93bacb043@acm.org>
+	<CAHk-=wi_3xdtBrDgUxw5xtq8a=CdyRJnceo7YJg59wqqdXwiMQ@mail.gmail.com>
+	<20260901192523.0e989b10@robin>
+	<20260902092437.00dfaa25@pumpkin>
+	<20260902093644.5b0e8a64@gandalf.local.home>
+	<a5aea1c4-3e29-4bba-8cd2-d4ccbeda008c@acm.org>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902080528.2211468-3-f@lex.la>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout05
+X-Rspamd-Queue-Id: 1DC1C2002C
+X-Stat-Signature: 8dpc91ncf4wbe6kyk7on4hzjqndfjxwg
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18x2h1qq2MkZwq+1xHnNc5UprXG2huTXoc=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=CjQA8hL4yVjfKdVM7MyuSYsHlfPfe93peDrKhivLbNs=; b=g5wRj9H4hOpGfIWybPjl/re5dkvr50FjxHWTZ36fHywK/L7YegwYfwEkE1IcczO5d5ATcuNOiLaLcvbA2K8WufeBostCOV/1juvmGBr3ujNJlHcFzJUtGb+DPxuXYX4Ok4bAX5Iu+Jk+cSM27ATrrw5kajQOGZ6ayAdlTwoXTFc=
+X-HE-Tag: 1788367113-930345
+X-HE-Meta: U2FsdGVkX1/6+tgG4ghHYOUQmkV9okyzhRLHYdCdpHc5L284QU+dzzrQr/5ft1E/0HqC1vb5u+QHva6GCC+Xi7mtcmep7EItPgMyHnDoR30r8vwtvG3UK2AAwieBSIy/IEPU+YlNFt1XZijMFeSLugC6xPDd9mxwL8UqV97RbXZUXEAbbV7K2ARnjZiA9D5jv5h+orZ+23pcsnujyI6EBbAkzBH5VcCqAPI8q4+l+nYlH7xncFQr2JBt6+pdYk8/sdNHSgZj9nKltJiwwBHzRiR3V/uks+LK9BXbySOdEX8TuMHTNaCeSq/8Q0BZdvHPxdVj6aQZyMqfvqLQOGqIr9ndYAlaQqOf
 
-On Wed, Sep 02, 2026 at 08:05:28AM +0000, Aleksei Sviridkin wrote:
-> speed is a u32, so SPEED_UNKNOWN arrives as 0xffffffff and passes the
-> "speed <= 0" check. A taprio schedule installed while the link is down
-> then has its hardware interval limit derived from that value, a limit
-> that rounds to 1 ns, and the first entry fails with a misleading
-> "exceeds hardware limit". Name the case instead of relying on the
-> sign.
-> 
-> Fixes: 89934dbf169e ("net: macb: Add TAPRIO traffic scheduling support")
-> Assisted-by: LLM
-> Signed-off-by: Aleksei Sviridkin <f@lex.la>
-> ---
->  drivers/net/ethernet/cadence/macb_main.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-> index a43855db1e45..81530b9257b2 100644
-> --- a/drivers/net/ethernet/cadence/macb_main.c
-> +++ b/drivers/net/ethernet/cadence/macb_main.c
-> @@ -4324,7 +4324,7 @@ static int macb_taprio_setup_replace(struct net_device *netdev,
->  	}
->  
->  	speed = kset.base.speed;
-> -	if (unlikely(speed <= 0)) {
-> +	if (unlikely(speed == SPEED_UNKNOWN || !speed)) {
+On Wed, 2 Sep 2026 09:31:41 -0700
+Bart Van Assche <bvanassche@acm.org> wrote:
 
-Can ethtool_validate_speed() be used?
+> $  git grep -nHE '__field.*(blk_opf_t|enum req_op)' include/trace
+> include/trace/events/f2fs.h:1185:		__field(enum req_op, op)
+> include/trace/events/f2fs.h:1186:		__field(blk_opf_t, op_flags)
+> include/trace/events/f2fs.h:1241:		__field(enum req_op,	op)
+> include/trace/events/f2fs.h:1242:		__field(blk_opf_t,	op_flags)
+> include/trace/events/jbd2.h:364:		__field(    blk_opf_t,  write_flags		)
+> include/trace/events/nilfs2.h:207:		    __field_struct(enum req_op, mode)
 
-    Andrew
+Perhaps these should be converted to normal types and assigned with
+__force. There's no reason to have the value in the ring buffer be of a
+__bitwise type.
 
----
-pw-bot: cr
+-- Steve
