@@ -1,180 +1,108 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBFB14A5EA7
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:29:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35594A4995
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:29:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788366550; cv=none; b=ERxKJihwmwPCuIWN8L9MJOwqhb0WqTqZ3BDV+4YzEX9E5uzKzNcCMuU5KTTkJrAk1hj241h9PKrQWUII4HjG/ilIQlvyhzbm0bgmAkfwR8hf8iubKVAfNIboT2G4+v1Qbbdt1BtyKgVD42u3OaDjCWGqa1kl+/8Yl1mCz3y5G3w=
+	t=1788366560; cv=none; b=VmEQACuuhMG4m97zmMusThZVTCuBEljW9qBgNIzGI+bDY1HNInbCEN7gO6IETguTBba1Zs00kpSGbDEWpDBQNqppqXiQIXbEAXO7WAqGwIT4eBG3fqAzwpar/83NOJULIkovy1JWOxWcl9gpgUObI+RxnJa3bxDzYYB41+AK9YM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788366550; c=relaxed/simple;
-	bh=tDojO+9BEVk++M6GICcmNllqJSFAUFCqrnceqbKzFgU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SwGOjT6jTv/jxVCAs7G5cfshlyes9IULDM6Y6SGFJXmYFET3H0pC+KTrOQx/g+Zv5UsCFD2dSPeeresRNeWsHsIujFIbIjXcef3X0n+UlShxJmOxCuhhA/JCgqfxeaWimizGwoXXWgZWWRy1CblrMktsuxmscDU6BsuuVDd/ywk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eKj2fWBW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b+4jpGdh; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788366560; c=relaxed/simple;
+	bh=07wNkN/lOeWwRJbukv6jdoiif6PmME2dJsvO3j8+vJY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VjYG7ti+A9bv9hYAdXH2PdoSsiL2lp6JpcNWfAIdf4FD8dMx9AXNxCOSFaEFab8joQrLZdClczQote3jV/xvleSJ0vJOQfqIlYa90SXeEyOPm3yRpEZggYlJo+S1V8p5DrbyRN/yxRQ32KsRBuojJ6pDYXj8uMmpBoM1hFANeGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=DNryGjUE; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eKj2fWBW";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b+4jpGdh"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682FZG7l2670708
-	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 16:29:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	gaRx+QAw5TNdv7ApNve7Ep0kaU3gmKx1F2L7nke2MOg=; b=eKj2fWBWy3IP9z98
-	ttR00tuafiDEs0vA/78nvcech+E/W/p5nwNGoGphTODCpVY0aYkDT6AGwc+g8x/5
-	2YlGgYWbD1aq3tK1qa2QcK1etDul98uhC1Tj4zBbf/q0oxgesizpYVatPbdUC9RY
-	X0m+dFlMFSoygMr8vPHQht8PdwXI3IzFbQudL244tWMup1IDAsf7eu82no4Rz2E8
-	lrp6S8ebp4SgKcPn1H4A3KtjaXB+0M9akSFJWIAwZtlA3UPY+TOqFdJQXOGgAS7c
-	S/UKTvtQxewPS40HErFXV56+MHB4ISx1nriYqvOCy52iV69mT9tzmfEdt8Bb3Emz
-	pZTHng==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gebsx2wy1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 16:29:07 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9392788b3f8so32392185a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:29:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788366547; x=1788971347; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gaRx+QAw5TNdv7ApNve7Ep0kaU3gmKx1F2L7nke2MOg=;
-        b=b+4jpGdheS9YCzKMPMgOK29mCkEnJDRpirHaXt8TkNMJDjatV+SDOQrZ11dc6VV3O+
-         BEqXfTGlvmzI2WKcePXY8cOo+kr5L5d2HFKJ9fMTgLw3yp4jOdaw2ZkQcKFay/Z+aYUY
-         gXTBZcWOKQRYMMKg2YnmpyCHBwCzajyjzPReSNdpjNh9jZjNcsnggvzynM6zvifIje9t
-         GB7zq6cZB3LW1hAztnhJI3u1aMusOwTtcD8zHe6PRVSfI17tV2lUND5n/pEk62DzAJL9
-         by03Jzb7Zm0PaYSiXgq1ZiPNcqLOPbRDB7qgD1HSJr3XPjo1wZ/mWJp8f7PoYzSfCSPC
-         fabg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788366547; x=1788971347;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gaRx+QAw5TNdv7ApNve7Ep0kaU3gmKx1F2L7nke2MOg=;
-        b=tUeNU+HenSOWYndORvBysxqrgbYo5QizEWzTP/lOdkpKHGjNAWzl+5xBNbpBvP+73V
-         tjTOqFTODYyum35pIGrB6+mWXsevi1kdbWo29bJHiZ01jBsS28l1NJdNLRt4rTs/gZnJ
-         lIKh0t+HO3NwwYmLwhqNgiNu7kE0GjYjpnx5BAvUHs9j25d6PuWxSED1UG5qa4HBfVvd
-         o0fV14jnC3DkmE/HZP0yDajUO+H9ah65wDwcjtVyEJspkcm7zzd2W+bf7revvCfdrMZ7
-         b80NU+ozvxpFZdCg1Wh+SR5Oq66QTyWxr7ben6cIJbb0gQscLW8Wmjphw4BZyP5kUnG2
-         DKmw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp2RVD1YrRCC0wB4XtLt8Qc9tS+BJv0FihFo3ErXG5ofhjHwCVHo2XWxXLeMnfR17UrlrGNWib7JOqrOUg=@vger.kernel.org
-X-Gm-Message-State: AFuF++l3FtuODTsYZwIKTCNNEJV/Jn5UqMNAyFGfDvEvPzhQANwL9CgS
-	dJFG7PsdfIIa7MxHO7wf3TFkmyET0pcg0WBSwPQRCF0mSAik4vLXd9J22bBOgnvYLZoILNpTzmT
-	fBnqbNLqV0uHGAfD1BsR3S1ZY7KTgquSSJIbn8/i9LzVqzOEW02I3hyRnqdE0F+uv1f4=
-X-Gm-Gg: AR+sD13xxOKX6XydD6Efr+HvDGTyvi7hKtozqo7TeFvTy+0uXwr/VLZmmBo2OJ+1cSQ
-	ldutgfjVWFTo0bvjRaGcwoCLOOE3e2N1Izqpd8PImLeg7dcnt1OGZzdk5OaQxIn1OlUl4HlmEVk
-	plSRUVnDANaWeoyu1IkuDGN16u1SfnLCwJXkOAjmas5ElS4PdtCCcDV1qZ5R1G0V+TyxJXNiazK
-	4MmEvnnH96wN3VqU2DLcF3u15QjBkfqHGAAZVRjBrwMdJxS2JtPPde9x1ZqVriFSOjzmbNlpJud
-	gyUwFYx9l0nYXBeOVypX9JRr2HuPjWK9P9P3rnJbB78cy7Lh18+1Rj5XRSz9mFA28N41gCrMSEJ
-	RgvAYVqT5qm9BrA9RqL9G6Q==
-X-Received: by 2002:a05:620a:2704:b0:939:288a:8a0c with SMTP id af79cd13be357-939610b5598mr408221785a.6.1788366546835;
-        Wed, 02 Sep 2026 09:29:06 -0700 (PDT)
-X-Received: by 2002:a05:620a:2704:b0:939:288a:8a0c with SMTP id af79cd13be357-939610b5598mr408217785a.6.1788366546236;
-        Wed, 02 Sep 2026 09:29:06 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a67f932abasm1285886a12.16.2026.09.02.09.29.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 09:29:04 -0700 (PDT)
-Message-ID: <cbca4156-a461-4d01-9576-352f719016eb@oss.qualcomm.com>
-Date: Wed, 2 Sep 2026 18:29:01 +0200
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="DNryGjUE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1788366557;
+	bh=07wNkN/lOeWwRJbukv6jdoiif6PmME2dJsvO3j8+vJY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=DNryGjUExz6UC5CnJUZrVNbrAxYLxqF/bsFTTtfvl0M5hTH92MTRW5C0ZPv0B4pkb
+	 Awc6yqOLuXMFdZ7QM2ZNLwAa4vcgZW0IqnZYx7XA3DGM/tm82lhdkT8eBsYGebujKS
+	 rCWZDZcVDI0AnCk86XDNW+lvEj+XP1Im2BfJiPe/MLOcdw5GH5HDDPlofEmqgHqX2/
+	 YYYA8k51nMXgb9DKnrw6aso/GIJXqaLYEH9ngtK3jFOQZSpStOzCPjQ8ZXGgzKhcA3
+	 /SNQl3Z95boCVkxQocQRTIzPdReKOb3cJydQmdPXK5XrF0/O71SIDQd1nTGVJ2xjtP
+	 LWuzxuY0i8vLA==
+Received: from fedora-21.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4269E17E0DD8;
+	Wed, 02 Sep 2026 18:29:16 +0200 (CEST)
+Date: Wed, 2 Sep 2026 18:29:10 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v7 13/17] drm/panfrost: Skip cache flush/invalidate when
+ enabling perfcnt
+Message-ID: <20260902182910.6d47e05b@fedora-21.home>
+In-Reply-To: <aphECpYnFuwIgzPQ@sobremesa>
+References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
+	<20260828-claude-fixes-v7-13-72a13b2c125d@collabora.com>
+	<20260901153233.261fb14d@fedora-21.home>
+	<aphECpYnFuwIgzPQ@sobremesa>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V5 2/3] arm64: dts: qcom: monaco-evk: Enable SDHCI for SD
- Card via overlay
-To: Monish Chunara <monish.chunara@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Sarthak Garg <sarthak.garg@oss.qualcomm.com>,
-        Pradeep Pragallapati <pradeep.pragallapati@oss.qualcomm.com>,
-        Nitin Rawat <nitin.rawat@oss.qualcomm.com>,
-        Shiraz Hashim <shiraz.hashim@oss.qualcomm.com>
-References: <20260826112456.482982-1-monish.chunara@oss.qualcomm.com>
- <20260826112456.482982-3-monish.chunara@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260826112456.482982-3-monish.chunara@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: oEKHeFdRiSxMI2RZHfWwbTXGTVtKtWKC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE0NSBTYWx0ZWRfX8n8HszmnLGAX
- UIGUb6Z8dk9hUBV5raFmTuC6GlDc0dnafuahUW24YneNcQD5wereoDSU6jNr40SQ7FR3CWmqzRG
- 7cTb1YAfuxbbJF0Qn/BUqRgp1E3ZRcoNnk949jOXzuRm/tOJfn3JG3LGzJZJSMYayaMYifyqOcj
- rLV6YVQBHonvOMqxvCyb9toJNU7cCCvjtgOiXVSshqp+hYqaf4U9Bop7jg2UrCTDT9WzoI3msUQ
- 2XAwwkZhLI+W4vsnNcP5pdU8QJvMANHDtoIEW4bhSSl9dFhCyJLoK/77tBHG5MOsRFvAISpEohJ
- nJ5pr6NAjtrklqR3EEiX6QTASoI1Nb7DJBFQlxomKzaLbR7Z3VeOH4q7n0313nNN5EZ1irjDIzc
- kZhQuONRGM7sRJAkW8CJXXzzQzKmMIKe6atqNQ4VZtti0G3AXG4r28Gm7HkD47F4qiT1BXsYfCw
- EplU5GVi+1VV/O2o69Q==
-X-Proofpoint-GUID: oEKHeFdRiSxMI2RZHfWwbTXGTVtKtWKC
-X-Authority-Analysis: v=2.4 cv=AufeGu9P c=1 sm=1 tr=0 ts=6a984ed3 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=0kTFbZp8cJiOs2Wp4RgA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE0NSBTYWx0ZWRfXziKMUt0beG2I
- x70Eo2fMEpnd7ebCwwibu+8NiYPAoCSM/Fo/bQIR6kulkRLamhh4J7gGGeSrmHN9uA0nesvu4C6
- 88gcZUvpClLh2dgb5QMGeRKWt8ARukY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_04,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 lowpriorityscore=0 impostorscore=0 phishscore=0
- spamscore=0 adultscore=0 suspectscore=0 priorityscore=1501 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020145
+Content-Transfer-Encoding: quoted-printable
 
-On 8/26/26 1:24 PM, Monish Chunara wrote:
-> The monaco EVK board supports either eMMC or SD-card, but only one can
-> be active at a time.
-> 
-> Make the base monaco-evk.dtsi storage-agnostic by removing eMMC-specific
-> configuration from it. This allows storage media selection to be handled
-> through device tree overlays.
-> 
-> Introduce an SD card overlay that enables the SD Host Controller
-> Interface (SDHCI) for SD-based storage on the monaco EVK board.
-> 
-> Signed-off-by: Monish Chunara <monish.chunara@oss.qualcomm.com>
-> ---
+On Wed, 2 Sep 2026 16:43:34 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-[...]
+> On 01.09.2026 15:32, Boris Brezillon wrote:
+> > On Fri, 28 Aug 2026 21:56:53 +0100
+> > Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+> >  =20
+> > > The GPU cache flush/invalidate operation is unnecessary, because at p=
+resent
+> > > all counters are always enabled for all sessions, and there are no pl=
+ans to
+> > > expand the uAPI so as to let UM select specific counter groups.
+> > >=20
+> > > If the above was ever implemented, then different counter groups being
+> > > selected between sessions might leave stale data in the GPU caches, so
+> > > the flush/invalidate would have to be reintroduced. =20
+> >=20
+> > This explanation confuses me. To me, the reason we don't need a
+> > cache-flush has nothing to do with the fact we always enable all
+> > counters, it's just that, either the perfcnt buffer has been freshly
+> > allocated/mapped and the cache has no entry pointing to it, or it's
+> > been written already, and the flush should have happened after the
+> > dump. For the case where the enable happens after a RESET (which you
+> > introduce in one of the remaining commits, I guess), there's no flush
+> > needed either, because the RESET clears all the caches. =20
+>=20
+> This is something I wrote after a chat with Steven about whether removing=
+ this flush/invalidate was fine.
+> If memory serves me right, he expressed his concern that flushing GPU cac=
+hes after a sample might write
+> disabled counter data into system memory, but in that case UM should know=
+ better, and I guess reading off
+> disabled counter data is seen as undefined behaviour in the TRM.
 
-> +&sdhc1_opp_table {
-> +	opp-100000000 {
-> +		opp-hz = /bits/ 64 <100000000>;
-> +		required-opps = <&rpmhpd_opp_low_svs>;
-> +	};
-> +
-> +	opp-202000000 {
-> +		opp-hz = /bits/ 64 <202000000>;
-> +		required-opps = <&rpmhpd_opp_svs_l1>;
-> +	};
-> +};
-
-This only adds to the existing table, not removing the existing
-entries
-
-Based on the previous discussions at
-
-https://lore.kernel.org/linux-arm-msm/de10ed05-a0fc-4f84-83ea-8810270ff2d6@oss.qualcomm.com/
-
-I'm not sure this is intended
-
-Konrad
+That's still 'after a SAMPLE' though. I see no reason why one would
+want to flush things at enable time. To me, the ENABLE step is just
+about resetting the internal counters and activating the counting.
+Those values are not written directly to memory, the SAMPLE operation
+is what transfer those internal counters to the piece of memory you've
+provided, and that's when you want the FLUSH to happen, I think.
