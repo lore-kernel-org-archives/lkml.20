@@ -1,116 +1,348 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A4653F20E8;
-	Wed,  2 Sep 2026 21:11:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 487F53B5E08
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 21:11:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788383467; cv=none; b=m3aQWBZcyEpIZfLoAh52VioO8SB7kldjk5E9iFTkFSOfYQd7OGu1/04DgvjABp4KQUZoryEbVypkPFv86EzkJ33sK/wAw9+83dDcc82YvFjiUaX3aXU1Ibps+matgcBFzvMWxxuAUD6nNo2tIs0M+onVL2D0x0C8avG15WMmM10=
+	t=1788383472; cv=none; b=JJ5EUJGLyNl59x52jhq+T6WJoGH6k9bFdmihr37O748GKGmaE5jz4xfSbaDkalYQHR+PUEv4D6WsHVJzfDKrzBAg2uYXz4HdcB1FO2T7K/4sKt529hzX3918xn44hYO/Xryja3Ym1+yFlROT2ePfcN/2C8TbbQD6c0L/kDAAtsA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788383467; c=relaxed/simple;
-	bh=/px/sBpYdh+WGMs11as/NqGV8Ww6/g0x0snoJ/m5owU=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=IZII/eyTiCYjr2dngOWDa3fbEsT4W6MHrM211XJdvetwhoPSc7D+585a9IEJLMdTpyeyHaqu/bts5xOLF5vaV0WHisb+mrFJkeozaBOK3lBT3VtVkz3Gnrzvl6lO3g7iDW1JvKslD0ZPR0w0NRu2twde0BTJgEIb1ilPvuLVgcw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ZgTYvW/E; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=aASLnCzh; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788383472; c=relaxed/simple;
+	bh=oNimGPcgo8tQhmVwRRd8dupVi84pfUzthcX62wpCfRU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=MV4Gvgl4ZNl8yNSeN1mXdhupuHLYcKmBw1mVmPBmI+cHH2gK15K/+eDe4daTCGP5oH75MpNrz+tz6Ke+jErF7iL3IIhU+fDhtuzqYH6b8d4yVfJfU02qBBhFa9HHIIZfTs/JfPUhQHusZYbvbRJEKUwNAEnSaNOJwOuz5rPzB98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HbHM2mwd; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ZgTYvW/E";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="aASLnCzh"
-Date: Wed, 02 Sep 2026 21:11:03 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788383464;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Rw9eF/yrMJ9UWEFGbd4g7LpWi2u6qFtlLhHJ5QzBDMs=;
-	b=ZgTYvW/EgWSWhQmQzhdDP4+q4eCK8Elzh/LkdljG1oz7Bid2fk4TbZuo9ZVdN0mv7Jh6+G
-	KgdDaFhoVxznZbge7c3aBqunR9dGpzCfv8CCmppE7fsbtcI2L9DhOOyP1bTUg06xL6qi8n
-	iBuJRUqndUDvbl3//2gfA5VxgUpsNwq46QUpTZGaGEinKgKq/u6a2O3f1o1j38BuXSXywj
-	BfVdprESf6ASnvUGlSAVJt8ulzQpsvob9Uu72sJHMPP14ypQonROA3VDKQSp0ovHpEKS8j
-	IGgpQYjaPm6enm2sPE1ao9XK/42Pvwqe0TPZGoM9MZzSgiCVAnHx09geSHf+Vw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788383464;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Rw9eF/yrMJ9UWEFGbd4g7LpWi2u6qFtlLhHJ5QzBDMs=;
-	b=aASLnCzhDKKiwGedAifnX9O0rinLr/p9v+6fUqQyL/J+Dv/6lOQ/sKU23kAOD7TKzxqr3O
-	ibx9PCgdqrwPz/Ag==
-From: "tip-bot2 for Bill Roberts" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: x86/cpu] x86/shstk: Shadow stack enabling write return code change
-Cc: Bill Roberts <bill.roberts@arm.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260707184542.1721085-1-bill.roberts@arm.com>
-References: <20260707184542.1721085-1-bill.roberts@arm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HbHM2mwd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788383470; x=1819919470;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=oNimGPcgo8tQhmVwRRd8dupVi84pfUzthcX62wpCfRU=;
+  b=HbHM2mwdfFwHAr/DG7K4/WC18ViMuDtk9hi3kgvDQzTqbAwj5pQQbmQ2
+   zC7e4nwc0WQidFz9Z2kK5DbjvidVNcSwJvKo5Bg6CCq8G3GTHTJlRnAnm
+   36TKNqKhDD3Qdxhv4D9FQtx+Wj5Z4ge4vb4mi/8gtbX52jSbhjKFm4b7J
+   4PWcxH9rbZTZOq05LkYmJkz4x58ChtR0tAYAAR18P9jos5wguhHnl1xyq
+   ttRn/6qKyFs8URSD41sbY4JhyovCD9bZrBEao8BjUe5JOqwHI9VX06z0t
+   HIo0opoTB/NuegDHWsjji8CiOK+B2NeujojYRaEPEDri/WauPU6ouezZm
+   g==;
+X-CSE-ConnectionGUID: +JZDOJrER6usuyz2wkNL8g==
+X-CSE-MsgGUID: QPIhj6Y+QeWyPXbVQ051LQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="100208241"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="100208241"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 14:11:08 -0700
+X-CSE-ConnectionGUID: XjEVjvTDSOGVUG2TyyoTUw==
+X-CSE-MsgGUID: DKGkOPFCQd6FG1vKBPiwtA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="268977250"
+Received: from unknown (HELO [10.241.243.185]) ([10.241.243.185])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 14:11:08 -0700
+Message-ID: <fac52a49e611f7f6a6637f04a2e44e8c23a260c6.camel@linux.intel.com>
+Subject: Re: [RFC PATCH v2 11/23] sched/cache: Introduce helpers for task
+ migration decisions
+From: Tim Chen <tim.c.chen@linux.intel.com>
+To: Jianyong Wu <wujianyong@hygon.cn>, Ingo Molnar <mingo@redhat.com>, Peter
+ Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot	 <vincent.guittot@linaro.org>, Chen Yu <yu.c.chen@intel.com>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt	
+ <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman	
+ <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek
+ Nayak	 <kprateek.nayak@amd.com>, Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Phil Auld	 <pauld@redhat.com>, Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, jianyong.wu@outlook.com, 	zhongyuan@hygon.cn,
+ huangsj@hygon.cn, wangfengyu@hygon.cn, yingzhiwei@hygon.cn, 
+	justin.he@arm.com
+Date: Wed, 02 Sep 2026 14:11:07 -0700
+In-Reply-To: <20260827122816.756234-12-wujianyong@hygon.cn>
+References: <20260827122816.756234-1-wujianyong@hygon.cn>
+	 <20260827122816.756234-12-wujianyong@hygon.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178838346311.3717435.13754734302325111782.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
 
-The following commit has been merged into the x86/cpu branch of tip:
+On Thu, 2026-08-27 at 20:28 +0800, Jianyong Wu wrote:
+> Cache-aware scheduling makes migration decisions purely based on LLC
+> affinity, allowing moves only toward a task's preferred LLC. This rigid
+> policy cannot handle workloads that do not fit within a single LLC.
+> A better approach is on-demand thread aggregation across LLCs: as the
+> thread count increases, additional LLCs are recruited to host threads,
+> enabling workload scaling at LLC granularity.
+>=20
+> To realize this behaviour, we need to pick the next eligible LLC once
+> currently selected LLCs become saturated.
+>=20
+> Earlier patches have built node-level and LLC-level distance matrices.
+> From these matrices we obtain a node-affinity sequence, and within each
+> node an intra-node LLC-affinity sequence. These sequences provide the
+> priority order used to pick subsequent LLC candidates.
+>=20
+> This patch adds a helper routine to determine whether task migration
+> is permitted. It checks whether the destination CPU resides within the
+> first eligible LLC. Migration is permitted if this condition holds,
+> and vice versa.
+>=20
+> The first eligible LLC is resolved via a two-stage policy. The first
+> stage operates at NUMA-node granularity: we iterate over the
+> node-affinity sequence to find the first node that can accommodate
+> the task. Once such a node is found, the second stage selects the
+> first capacity-available LLC within this node by walking the
+> intra-node LLC-affinity sequence.
+>=20
+> Signed-off-by: Jianyong Wu <wujianyong@hygon.cn>
+> ---
+>  kernel/sched/fair.c | 185 ++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 185 insertions(+)
+>=20
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index dc7bbdb1ab98..cfbd596992ab 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -10610,6 +10610,191 @@ static enum llc_mig can_migrate_llc(int src_cpu=
+, int dst_cpu,
+>  	return mig_llc;
+>  }
+> =20
+> +/*
+> + * Like get_llc_stats but for sched domain that above LLC level.
+> + * Based on get_llc_stats, we can accumulate utilization and cap for
+> + * sched domain in the granularity of LLC.
+> + */
+> +static bool get_span_stats(const struct cpumask *span, unsigned long *ut=
+il_out,
+> +					unsigned long *cap_out)
+> +{
+> +	cpumask_var_t mask;
+> +	int cpu;
+> +	unsigned long util_tmp, cap_tmp, util =3D 0, cap =3D 0;
+> +	struct sched_domain *sd_tmp;
+> +
+> +	if (!span || !util_out || !cap_out)
+> +		return false;
+> +
+> +	if (!alloc_cpumask_var(&mask, GFP_ATOMIC))
+> +		return false;
+> +
+> +	cpumask_copy(mask, span);
+> +	for_each_cpu(cpu, mask) {
+> +		if (!get_llc_stats(cpu, &util_tmp, &cap_tmp)) {
+> +			free_cpumask_var(mask);
+> +			return false;
+> +		}
+> +
+> +		sd_tmp =3D rcu_dereference(per_cpu(sd_llc, cpu));
+> +		cpumask_andnot(mask, mask, sched_domain_span(sd_tmp));
+> +		util +=3D util_tmp;
+> +		cap +=3D cap_tmp;
+> +	}
+> +
+> +	*util_out =3D util;
+> +	*cap_out =3D cap;
+> +
+> +	free_cpumask_var(mask);
+> +	return true;
+> +}
+> +
+> +/*
+> + * Decide if migration should happen on a specific node.
+> + * The node here is an LLC or a NUMA.
+> + */
+> +static enum llc_mig __maybe_unused can_migrate_node(int src_cpu, int dst=
+_cpu,
+> +			struct task_struct *p, bool to_pref)
+> +{
+> +	const struct cpumask *span;
+> +	struct mm_struct *mm;
+> +	unsigned long dst_util, dst_cap, tsk_util =3D 0;
+> +	unsigned long src_util =3D 0, src_cap =3D 0;
+> +	unsigned long acc_util =3D 0, acc_cap =3D 0;
+> +	int node, target_cpu =3D src_cpu;
+> +	int get_src =3D 0;
+> +
+> +	if (!get_llc_stats(dst_cpu, &dst_util, &dst_cap))
+> +		return mig_unrestricted;
+> +
+> +	if (!get_llc_stats(src_cpu, &src_util, &src_cap))
+> +		src_cap =3D 0;
+> +
+> +	if (p) {
+> +		mm =3D p->mm;
+> +		if (mm) {
+> +			if (mm->sc_stat.cpu >=3D 0)
+> +				target_cpu =3D mm->sc_stat.cpu;
+> +		}
+> +		tsk_util =3D task_util(p);
+> +	}
+> +
+> +	dst_util =3D dst_util + tsk_util;
+> +
+> +	if (to_pref) {
+> +		unsigned long dst_pre =3D dst_util - tsk_util;
 
-Commit-ID:     f4cadf2d1ee3a24f259495309b76f98af467004b
-Gitweb:        https://git.kernel.org/tip/f4cadf2d1ee3a24f259495309b76f98af46=
-7004b
-Author:        Bill Roberts <bill.roberts@arm.com>
-AuthorDate:    Tue, 07 Jul 2026 13:45:42 -05:00
-Committer:     Dave Hansen <dave.hansen@linux.intel.com>
-CommitterDate: Wed, 02 Sep 2026 14:06:27 -07:00
+dst_pre was limited to this scope but was used later in a different
+scope.  Should move the declaration to parent scope.
 
-x86/shstk: Shadow stack enabling write return code change
+> +
+> +		if (fits_llc_capacity(dst_util, dst_cap))
+> +			return mig_llc;
+> +
+> +		/*
+> +		 * The destination is over the margin. That is a reason to
+> +		 * refuse a task while the margin can still be met, but not
+> +		 * while every LLC of the node is over it: no placement
+> +		 * satisfies the margin then, and refusing every migration
+> +		 * leaves the imbalance in place.
+> +		 *
+> +		 * Let the task through when the move still lowers the peak,
+> +		 * that is when the source is noticeably heavier than the
+> +		 * destination and carries at least two more tasks worth of
+> +		 * utilization. The second condition keeps the destination
+> +		 * from becoming the heavier side, which would bounce the
+> +		 * task straight back.
+> +		 */
+> +		if (src_cap && util_greater(src_util, dst_pre) &&
+> +		    src_util >=3D dst_pre + 2 * tsk_util)
+> +			return mig_llc;
+> +
+> +		return mig_forbid;
+> +	}
+> +
+> +	for_each_sched_node(target_cpu, node) {
+> +		unsigned long u =3D 0, c =3D 0, nu, nc;
+> +
+> +		/*
+> +		 * The walk starts at the anchor, so the nodes it crosses before
+> +		 * reaching the source say nothing about this migration: the task
+> +		 * does not live there and is not going there. Judging them only
+> +		 * lets an unrelated node with room refuse the move. Start at the
+> +		 * node the task actually sits on.
+> +		 */
+> +		if (!get_src) {
+> +			if (!cpumask_test_cpu(src_cpu, cpumask_of_node(node)))
+> +				continue;
+> +			else
+> +				get_src =3D 1;
+> +		}
+> +
+> +		if (cpumask_test_cpu(dst_cpu, cpumask_of_node(node))) {
+> +			nu =3D 0;
+> +			nc =3D 0;
+> +			for_each_llc_node_span(node, span) {
+> +				get_span_stats(span, &u, &c);
+> +				nu +=3D u;
+> +				nc +=3D c;
+> +				if (cpumask_test_cpu(dst_cpu, span)) {
+> +					if (fits_llc_capacity(u + tsk_util, c))
+> +						return mig_llc;
+> +
+> +					/*
+> +					 * The destination is over the margin,
+> +					 * but so may be the source. Refusing
+> +					 * then leaves the peak where it is:
+> +					 * a LLC at seven tasks stays at seven
+> +					 * while a neighbour in the same node
+> +					 * sits at four, because taking one
+> +					 * more would put that neighbour over
+> +					 * the margin as well.
+> +					 *
+> +					 * Let the task through when the move
+> +					 * still lowers the peak, guarded the
+> +					 * same way as the aggregation path:
+> +					 * the source must be noticeably
+> +					 * heavier and carry at least two more
+> +					 * tasks worth of utilization, so the
+> +					 * destination cannot end up the
+> +					 * heavier side and bounce it back.
+> +					 */
+> +					if (src_cap &&
+> +					    util_greater(src_util, u + tsk_util) &&
+> +					    src_util >=3D u + 2 * tsk_util)
+> +						return mig_llc;
+> +
+> +					return mig_forbid;
+> +				/*
+> +				 * A nearer LLC only justifies vetoing this
+> +				 * migration if the task would actually fit
+> +				 * there, so account for its utilization the
+> +				 * same way the destination branch above does.
+> +				 * Without it a LLC already holding one task
+> +				 * per core still reads as having room and
+> +				 * vetoes every migration towards a farther,
+> +				 * genuinely idle LLC.
+> +				 */
+> +				} else if (fits_llc_capacity(acc_util + nu + tsk_util,
+> +						acc_cap + nc)
+> +						&& fits_llc_capacity(u + tsk_util, c)
+> +						&& !util_greater(u, dst_pre))
 
-The WRSS instruction (the special instruction that writes to shadow stacks)
-cannot be used in userspace unless IA32_U_CET.SH_STK_EN=3D1 (user shadow
-stack is enabled). So the kernel *should* return -EINVAL to userspace if
-it tries to enable it when shadow stack is disabled. However, currently,
-it will return -EPERM. But, that error code doesn't fit the condition as
-the failure is due to an invalid state change request not a permission
-issue.
+Got a compile error here when I try to build the code.  Seems like dst_pre =
+was declared in previous scope above.
+Likely the posted version is slightly different from the tested version.
 
-Investigating userspace call sites, like glibc and criu (checkpoint code),
-they do not rely on this specific error message, nor could a userspace
-effectively utilize this specific return error code to indicate a
-difference in "I cannot enable write because of invalid permissions"
-versus "I cannot enable write because the shadow stack is disabled".
+$ make
+  DESCEND objtool
+  CC      kernel/sched/fair.o
+kernel/sched/fair.c: In function =E2=80=98can_migrate_node=E2=80=99:
+kernel/sched/fair.c:10855:69: error: =E2=80=98dst_pre=E2=80=99 undeclared (=
+first use in this function)
+10855 |                                                 && !util_greater(u,=
+ dst_pre))
+      |                                                                    =
+ ^~~~~~~
+kernel/sched/fair.c:10618:27: note: in definition of macro =E2=80=98util_gr=
+eater=E2=80=99
+10618 |         ((util1) * 100 > (util2) * (100 + llc_imb_pct))
+      |                           ^~~~~
+kernel/sched/fair.c:10855:69: note: each undeclared identifier is reported =
+only once for each function it appears in
+10855 |                                                 && !util_greater(u,=
+ dst_pre))
+      |                                                                    =
+ ^~~~~~~
+kernel/sched/fair.c:10618:27: note: in definition of macro =E2=80=98util_gr=
+eater=E2=80=99
+10618 |         ((util1) * 100 > (util2) * (100 + llc_imb_pct))
+      |                           ^~~~~
+make[4]: *** [scripts/Makefile.build:290: kernel/sched/fair.o] Error 1
+make[3]: *** [scripts/Makefile.build:551: kernel/sched] Error 2
+make[2]: *** [scripts/Makefile.build:551: kernel] Error 2
+make[1]: *** [/home/tim/linux/Makefile:2229: .] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
 
-Signed-off-by: Bill Roberts <bill.roberts@arm.com>
-Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
-Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
-Link: https://patch.msgid.link/20260707184542.1721085-1-bill.roberts@arm.com
----
- arch/x86/kernel/shstk.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Tim
 
-diff --git a/arch/x86/kernel/shstk.c b/arch/x86/kernel/shstk.c
-index 0ca6490..eb690ba 100644
---- a/arch/x86/kernel/shstk.c
-+++ b/arch/x86/kernel/shstk.c
-@@ -490,7 +490,7 @@ static int wrss_control(bool enable)
- 	 * when disabling.
- 	 */
- 	if (!features_enabled(ARCH_SHSTK_SHSTK))
--		return -EPERM;
-+		return -EINVAL;
-=20
- 	/* Already enabled/disabled? */
- 	if (features_enabled(ARCH_SHSTK_WRSS) =3D=3D enable)
+> +					return mig_forbid;
+> +			}
+> +		}
+> +
+> +		/* Don't migrate if this is a good place to live. */
+> +		for_each_llc_node_span(node, span) {
+> +			get_span_stats(span, &u, &c);
+> +			if (cpumask_test_cpu(src_cpu, span)) {
+> +				if (fits_llc_capacity(u, c))
+> +					return mig_forbid;
+> +			} else {
+> +				if (fits_llc_capacity(u + tsk_util, c))
+> +					return mig_forbid;
+> +			}
+> +		}
+> +	}
+> +
+> +	return mig_unrestricted;
+> +}
+> +
+>  /*
+>   * Check if task p can migrate from source LLC to
+>   * destination LLC in terms of cache aware load balance.
