@@ -1,218 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C40A1B6D08;
-	Wed,  2 Sep 2026 04:35:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2503D1B6D08;
+	Wed,  2 Sep 2026 04:37:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788323749; cv=none; b=VplNYFTOyoVwjUODVfyNenisCQxRoGOlbg5+kuOK7dAgaQbEdUkNzf2bnDsWeybtvmnhKOvx06zNDfEV40h76vSPFqfjiUT43EvvfD4cbz0t9N95iGbxSFU57ztaJe00JRrTUfFHfJf8YQykxoWxbYt18PG9/m8s3kCLdVSlizA=
+	t=1788323856; cv=none; b=nEZrob38xPdXOKwPmq59QZHzWsCFdzQ2SUGdr4H6ATV9mkwqkEDnBzxbrm4L69a5dZVtp6oUVE5TzGUG75lRMH976GsiNiJnIMUOlbAdUvQdq1jPWNbkzbjBIahaMkLRBjUlQpZXRntdjCLBrItVi9RYpRivkdIWzuE1sVqaLw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788323749; c=relaxed/simple;
-	bh=0Qdzli+qJp3FOabq/THj8Atm7xH7luM+jagflvB2Src=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fLK3E5hV1wInNh5Rbe0fVwLaIDMQd8A0wBDciSf3LaN8VQgc3bRHlo/E9pgxNWtJeObS2GhCYU/KGrA3NSLod4iTyQkpTvWXAYuAc7k8VquCqyR71z1hu4X4VwGOJK2lQAhUBXm4k3FIm04EkjULaeUbUdooAzj43TfnlFNiG+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=esLXqLgv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788323856; c=relaxed/simple;
+	bh=On8JtaYf4IImvmca0gIWh+FZoLwOzSuPZoMd2NMwLAU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=reWmEccKmqC9GtH7KkL6DK1VDOUGnM+IEW9j+Jz2DwB+EDDOUEG5d9klz0kAk/74rLVhPqyFKduS+H6NcQheSh3l6sCNDAJHe00FpVywtAmV1l5GyVkXc38lzU/j7VeGC8XZJdYY9GcCbgOqJK1qDXU2XVFCNUgSN+fTimpjULI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SPMGKv5b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="esLXqLgv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E08221F000E9;
-	Wed,  2 Sep 2026 04:35:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SPMGKv5b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 029471F000E9;
+	Wed,  2 Sep 2026 04:37:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788323747;
-	bh=3+aNzt7+vR8uvvRPwWe1grwPlvO+Ou8ltA+L0ejnOWs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=esLXqLgvcPxUITP7luIajV9bgLZ5yzoX2XFHM6+gDi/B7h1L3BB5D7dNqDbaeIJ5C
-	 rtmBdRFErxZa78OPVY/dTrbs3ydZ/I/My3uunWpQWBS6Zf/ftpIFivOEu4KLWoCI3m
-	 O3+bJnvsm6L1b40xfBQzp8HpF4bM8Z5GL9+9NNzyC8h0ysUSKqXj+nds+hwphEaZrB
-	 TwV0BOOFIM0xLZT216bnhgSVBeA9i/GwMDNTQ7T0cvdqDGvfehCJsJCBNMNsilhwLa
-	 yI5THRjiwy4FuFqBJ5c9d4kMgHv9+mD98YWr9WXbDck0V/0UX0VkvsTfZ0XrygUrVT
-	 pEYOx+rOKJ1iw==
-Subject: Re: [RESEND,nf-next] netfilter: nf_conntrack_h323: fix double cursor
- advance in decode_int()
-From: netdev-bot+sashiko@kernel.org
-To: l1138897701@163.com
-Cc: pablo@netfilter.org, fw@strlen.de, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, phil@nwl.cc,
- horms@kernel.org, zhaojignmin@hotmail.com, kaber@trash.net,
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Wed, 02 Sep 2026 04:35:46 +0000
-Message-ID: <178832374645.3394541.7615305682823291426@kernel.org>
-In-Reply-To: <20260831013315.95231-1-l1138897701@163.com>
-References: <20260831013315.95231-1-l1138897701@163.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1788323854;
+	bh=d0e0uqOdU6NgWIr+HbAaOHv4zN/M6xLFRJQfCqtOFAs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SPMGKv5bozr5rlRmDdEc63KApPccBUl+lDqSx67y6dYKhpjsJUtIX66Udoh37OhWu
+	 tvRZJWjGIqaSGMOVCtAg/yRTTdJi8m6XpLYZuMzGgH6q+uW9oVmwVLLRERxsK6eQzQ
+	 BwdE5c3iNvtcboLYKrJy8aSslsriFLy2wEk9C8UUYMFG7Syog9hb0bvAlHR6wAr3jA
+	 8gGe6TSlZ3YZOGkPhKBQQAxE/PE9SzAO6dJTBpa5pZZumzHbFJlqm2HgQYVDbzqHz7
+	 cplBF8+tul3cygh/0e22MZ6gX4FDPz9IZ1bCzJ/OM3zQsHLciKIpHVgJbtI/etachG
+	 ccTifozpQpovw==
+Date: Tue, 1 Sep 2026 21:37:32 -0700
+From: Wei Liu <wei.liu@kernel.org>
+To: Thara Gopinath <tgopinath@linux.microsoft.com>
+Cc: kys@microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org,
+	decui@microsoft.com, tglx@kernel.org, mingo@redhat.com,
+	bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com,
+	ardb@kernel.org, ilias.apalodimas@linaro.org,
+	James.Bottomley@hansenpartnership.com, javierm@redhat.com,
+	lszubowi@redhat.com, francescopompo2@gmail.com,
+	tgopinath@microsoft.com, x86@kernel.org,
+	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-efi@vger.kernel.org,
+	Stanislav Kinsburskii <skinsburskii@linux.microsoft.com>
+Subject: Re: [RFC PATCH 07/12] drivers: hv: hv_vsm_boot: load secure kernel
+ image from firmware
+Message-ID: <20260902043732.GF2583463@liuwe-devbox-debian-v2.local>
+References: <20260901165647.3160413-1-tgopinath@linux.microsoft.com>
+ <20260901165647.3160413-8-tgopinath@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901165647.3160413-8-tgopinath@linux.microsoft.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider:
+On Tue, Sep 01, 2026 at 09:55:21AM -0700, Thara Gopinath wrote:
+> LVBS bring-up requires loading a secure kernel image into VTL1 before
+> starting it. Add the VTL0-side loader that stages the image in the
+> memory region reserved by hv_vsm_securekernel, in preparation for the
+> VTL1 bring-up.
+> 
+> The image is a 64-bit ELF fetched via request_firmware("vsm_sk"). It
+> is expected to ship inside the signed UKI/initramfs so it is
+> authenticated end-to-end via Secure Boot before the loader consumes
+> it; sourcing it from an unauthenticated location would break the LVBS
+> trust model.
+> 
+> The loader validates the ELF header, stages the PT_LOAD segments into
+> the reserved region and records the entry point as a physical address
+> for use at VTL1 start time.
+> 
+> If VSM support has been advertised to the hypervisor but no secure
+> kernel region was reserved on the command line, panic: LVBS bring-up
+> is committed at this point and there is no safe way to continue.
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 1
+This conflicts with the memory reservation patch, in which there is an
+automatic allocation when no kernel command line is specified.
 
-- [Medium] Commit message mischaracterizes the impact of the fixed double
-  cursor advance in decode_int().
-- [Low] The patch is a user-visible bug fix to
-  net/netfilter/nf_conntrack_h323_asn1.c but carries no `Fixes:` tag, so…
+> 
+> Signed-off-by: Stanislav Kinsburskii <skinsburskii@linux.microsoft.com>
+> Signed-off-by: Thara Gopinath <tgopinath@linux.microsoft.com>
+> ---
+>  drivers/hv/hv_vsm.h      |  17 ++++
+>  drivers/hv/hv_vsm_boot.c | 201 ++++++++++++++++++++++++++++++++++++++-
+>  include/hyperv/vsm.h     |  21 ++++
+>  3 files changed, 238 insertions(+), 1 deletion(-)
+>  create mode 100644 drivers/hv/hv_vsm.h
+>  create mode 100644 include/hyperv/vsm.h
+[...]
+> +
+> +static void __init hv_vsm_get_sk_mem(void)
+> +{
+> +	/*
+> +	 * The reserved secure kernel region is mandatory once VSM support has
+> +	 * been advertised. Without it we cannot load the secure kernel and
+> +	 * bringing up VTL1 is impossible, so fail hard rather than continuing
+> +	 * in an unusable state.
+> +	 */
+> +	if (!sk_res.start)
+> +		panic("No memory reserved in cmdline for secure kernel");
+> +
 
-Pre-existing issues:
-- [Medium] The RAS timeToLive value decoded by the CONS/DECODE branch is
-  fully remote-controlled (nf_conntrack_h323_types.c:1594/1646 define it…
+This log line is wrong.
 
---
-
-netfilter: nf_conntrack_h323: fix double cursor advance in decode_int()
-
-In the CONS case of decode_int(), get_uint() already advances the bitstream
-cursor, so the following unconditional bs->cur += len consumed the value
-bytes twice.  The patch moves the manual advance into an else branch so the
-bytes are consumed exactly once.  The code change itself looks correct.
-
-A few questions about the changelog and about one pre-existing item in this
-area.
-
->     All fields following such an integer are decoded from a wrong bit
->     position.  This affects the timeToLive field in RAS
->     RegistrationRequest/RegistrationConfirm messages: subsequent fields
->     (e.g. transport addresses) end up being parsed from arbitrary offsets
->     inside the message, so the helper may create expectations based on
->     bogus addresses/ports.
-
-[Severity: Medium]
-Is this description of the impact accurate?
-
-The only fields that reach the CONS plus DECODE branch are the two
-timeToLive entries in _RegistrationRequest and _RegistrationConfirm in
-nf_conntrack_h323_types.c.  Every other CONS integer is SKIP or STOP and
-takes the (unchanged) manual advance path.
-
-In both tables timeToLive is an extension component, so decode_seq() wraps
-it as an open type and resets the cursor after the decoder returns:
-
-net/netfilter/nf_conntrack_h323_asn1.c:decode_seq() {
-	...
-	beg = bs->cur;
-	if ((err = (Decoders[son->type]) (bs, son, base, level + 1)) < H323_ERROR_NONE)
-		return err;
-	bs->cur = beg + len;
-	bs->bit = 0;
-	...
-}
-
-Doesn't that discard the over-advanced cursor, so parsing resumes at the
-correct offset?
-
-Also, the entry immediately following timeToLive in both tables carries
-STOP:
-
-net/netfilter/nf_conntrack_h323_types.c:_RegistrationRequest[] = {
-	{FNAME("timeToLive") INT, CONS, 1, 0, DECODE | OPT,
-	 offsetof(RegistrationRequest, timeToLive), NULL},
-	{FNAME("tokens") SEQOF, SEMI, 0, 0, STOP | OPT, 0, NULL},
-
-decode_seq() returns H323_ERROR_STOP at the STOP son, so no later field is
-decoded at all.  The DECODE'd transport addresses (callSignalAddress,
-rasAddress) are root components parsed before timeToLive.  Can a bogus
-address or port expectation actually be produced by this bug?
-
-The one effect that does escape decode_int() looks like the trailing
-boundary check:
-
-	if (nf_h323_error_boundary(bs, 0, 0))
-		return H323_ERROR_BOUND;
-
-When fewer than len bytes follow the timeToLive value, the doubled advance
-pushes bs->cur past bs->end and DecodeRasMessage() fails, so ras_help()
-takes the accept path and skips the whole RRQ/RCF:
-
-net/netfilter/nf_conntrack_h323_main.c:ras_help() {
-	ret = DecodeRasMessage(data, datalen, &ras);
-	if (ret < 0) {
-		pr_debug("nf_ct_ras: decoding error: %s\n", ...);
-		goto accept;
-	}
-
-That means no TTL based nf_ct_refresh() and no Q.931 expectation timeout
-update for that message.  Could the changelog be reworded to describe this
-spurious out-of-bound decode failure instead of the bogus address/port
-expectation scenario?  As written it reads like a security relevant misparse
-and may drive an urgent stable backport on the wrong grounds.
-
->     Assisted-by: LLM
->     Signed-off-by: Qing Luo <luoqing@kylinos.cn>
-
-[Severity: Low]
-Should this carry a Fixes: tag?
-
-git blame at the baseline shows the unconditional bs->cur += len and the
-surrounding CONS case in decode_int() came in with 5e35941d9901
-("[NETFILTER]: Add H.323 conntrack/NAT helper"), so the defect has been
-there since decode_int() was added.  Since decode_int() is reachable
-remotely through DecodeRasMessage() from ras_help(), stable tooling would
-need the tag to pick the affected trees:
-
-Fixes: 5e35941d9901 ("[NETFILTER]: Add H.323 conntrack/NAT helper")
-
-> diff --git a/net/netfilter/nf_conntrack_h323_asn1.c b/net/netfilter/nf_conntrack_h323_asn1.c
-> index 6830c9da3507..a51275cc4d0f 100644
-> --- a/net/netfilter/nf_conntrack_h323_asn1.c
-> +++ b/net/netfilter/nf_conntrack_h323_asn1.c
-> @@ -336,8 +336,9 @@ static int decode_int(struct bitstr *bs, const struct field_t *f,
->  			unsigned int v = get_uint(bs, len) + f->lb;
->  			PRINT(" = %u", v);
->  			*((unsigned int *)(base + f->offset)) = v;
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but while looking at the value
-produced here: is the decoded timeToLive bounded anywhere?
-
-nf_conntrack_h323_types.c declares it as {INT, CONS, 1, 0, DECODE | OPT} in
-both _RegistrationRequest and _RegistrationConfirm, and get_uint(bs, len)
-with len up to 4 covers the whole u32 range, so v is fully remote
-controlled.
-
-process_rrq() and process_rcf() then copy it straight into info->timeout
-with no upper limit, unlike the default_rrq_ttl module parameter path:
-
-net/netfilter/nf_conntrack_h323_main.c:process_rcf() {
-	if (rcf->options & eRegistrationConfirm_timeToLive) {
-		pr_debug("nf_ct_ras: RCF TTL = %u seconds\n", rcf->timeToLive);
-		info->timeout = rcf->timeToLive;
-	}
-
-	if (info->timeout > 0) {
-		nf_ct_refresh(ct, info->timeout * HZ);
-		...
-			WRITE_ONCE(exp->timeout,
-				   nfct_time_stamp + (info->timeout * HZ));
-
-Does info->timeout * HZ wrap in u32 arithmetic here, and can a peer keep the
-RAS conntrack entry and its Q.931 expectation alive for an arbitrarily long
-time, or wrap the product down to a near-zero timeout?
-
-__nf_ct_refresh_acct() in nf_conntrack_core.c applies no upper clamp on
-extra_jiffies:
-
-	if (nf_ct_is_confirmed(ct))
-		extra_jiffies += nfct_time_stamp;
-
-	if (READ_ONCE(ct->timeout) != extra_jiffies)
-		WRITE_ONCE(ct->timeout, extra_jiffies);
-
-so the helper looks like the only place a bound could be applied.  Note this
-predates the patch: before the change the correct TTL bytes were still read
-and decode_seq() reset the cursor, so the value already reached
-process_rrq()/process_rcf() whenever bytes followed the TTL field.
-
->  		}
-> -		bs->cur += len;
->  		break;
->  	case UNCO:
->  		BYTE_ALIGN(bs);
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260831013315.95231-1-l1138897701%40163.com
+Wei
