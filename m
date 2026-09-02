@@ -1,227 +1,141 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013008.outbound.protection.outlook.com [40.93.201.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40649369D6F
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:47:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788374856; cv=none; b=ZxYpDHh1BAnIthP3pwi0J9MSbwWkkwwnFD+fJYw8RO9gQDnO9qSidQpkFAl9X/w9ie37N+9Y8G3C+C44zOE4suLhy2+kTeIFMSDnRKjwbdGN5TfmHgJDpaYGbYx0iMTdcQejY5Gfh39tU87orRRmisdyL1a3FlUiwiL6rEFC89A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788374856; c=relaxed/simple;
-	bh=EKFYkxW33JQakAeWcdMhEomjNk4xgLKTRBDk38OiwiQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xi+wKomp0eLXQacXQtqai31tBsiIMpbJKo8BDnGHynLSgCue4h6CZiMVcurfx86m4ndfr5Lu8pwhpVq87R5lvqbBk7bBPucG0F0eGR+GY6xcPkVmG1PYW4SqBGHeiKSjKTN3SIjdx3S9/nrkM6G1EeneS/3qaUSjYNKI0CKvxFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=AFCKenhk; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B9B4386C0A
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:48:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.8
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788374932; cv=fail; b=ir5a60nyw8x45vfImKZY6XLgK3BZ/XngUTJVnLiFnMKwLfI1/x2l6AI7pI4oFnr+zaQNJx2hhmDEvAqV7BnsJWOJOqcBDtg/VDZNy6Otwy4nlPvRpSWkk6y55+kIZ77I3Rzc+dIaEWPhBo1ChoqpJMHrFBPajqBy3BKVEx6vvD0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788374932; c=relaxed/simple;
+	bh=a3H0PGdgXul2lLqsvBorhePIh9LAm+3KeDQmk3r2UMw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=RF5PjSAv7Lg+fKgXoNVtQ2lySQld0qev29A2vk5FntbL28MiL9MkrrYCpDu8e2ZmUqRnTFFRSJb/SMQzSPP82LRAliMLy+4k/LNnxGwnifak/HgN0S6Qs+MWIqP3tJDQt9E+DciAhAiXoIASn4a0WAH59FK7SAhtJ0dIm1SxfLA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=kbD2Ojj8; arc=fail smtp.client-ip=40.93.201.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="AFCKenhk"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49b8ce9b733so10800465e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 11:47:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788374852; x=1788979652; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IdCJ7DhUlcSYo5R128c9LaTPAZTDWZg8qrvo1ipn3/A=;
-        b=AFCKenhkUuhZMDVClNVR+mQwMovkD+fOyQIeToFLjgXHkw/v7jaixe2GYZImeCFR1t
-         eDK4cy8eSbh+sDwcN8anJfAzgbHqW6HrL+g6c2nnpbM33ZzdI39Rj29CbnSdNT9Hfre6
-         aQeeWG7044G8sdWLTABpZ7gVZIlkQxj9Ml+b5tQKU+/523OUVhX/4eqqiEOZMDeznApp
-         N6PrPVitkLZqhh7i9XHdEQ3eAKOcD7gB1Nn373NEctcyY3zHBeanuawi0C8S1yiz2l0c
-         tH/MGNqbM7YVqmXF8lOQVNrQOP7TKqDwWk4p6sGzel4Rnt//CsZoa2ZS9KPK2Vts/31I
-         v0Ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788374852; x=1788979652;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IdCJ7DhUlcSYo5R128c9LaTPAZTDWZg8qrvo1ipn3/A=;
-        b=sQkB0c8p4fomZfI00SJECND4mN7rmgg+tDNxb5LENrqrojWAXEWOq/AMscM2bqIzM6
-         od+nhYM5Epv3jGgCU50tsnsBYaRUVARQlO/btHVD6ZqjFmeUkadGzOoYJEYNSjHXXKnA
-         5bRIwmvlLMaVy0n8Np6S024ohZTQbOPh++MK+EmcdxwX1E6DLB85ft/Klf7SbDehewWg
-         7UXda713RGZABcgKUJ/dLtPhtkdWk/ZNa2uGcg0Z4ExVmvZHexQuAiqpmLwp7fcMSJcm
-         aFhOdqvA9Hu7rxcaONLdmV9V14wywwv4I7BY2mKJOp6Em6OuZLA6z6LOnJCnevbMmRzf
-         cWnA==
-X-Forwarded-Encrypted: i=1; AKwUvBzg0MiyXX9HZv8uAlF+EWq1v+TD9Ur45fieoyqWyx23qKhWoA/vyVfWoBSFBfS38HjAZDWslxDOLPzYXVI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lHeYdTCvNeMMIZ3sngJ5EBx5aP760y/co1W6UGzTVbRk4pxpFG
-	2W88Ana/KGHPSE8O6VF7rox1KJp3AQmLRJfURcWwkh+VoZM7gCLx8f6hyCa/YgjO1jY=
-X-Gm-Gg: AYBFou1eW5i+q4aO1jWhpakVIVcvHXtVSm1cJ5PnE2+NAz6DPIDTrBOuCkvItrSPIuj
-	wqk9aneJIzWKzEoeNyK+xVDSo9jr1oL4LomgAybbmG+N1sXsY6oQcUgmNwg/tSkMqm58aT+V+/S
-	HnI6HC6nSvo06E3NSOIn0SgBW/zIVDcmBlgOR4zDndfpZzBwGp1aI4W5+jg+VupwSbg7WgQJoIp
-	oC7vyqDeqHTGsT/SIOxDPnaGAX5wRgK8xruIwzLzl1Hsoo18JaMVtU4PeEaL01bzZdLPMS78cAR
-	gTeKNMqy6PhCJUuVKe4OtJN++z+WvrbnoRBgXEDBbosj7dx0XOHXGWb36QRGij3OMTh6bpOjzc2
-	CH0fU5JOYW7dZtv1I/fSAF7SXA0f8HqwtUf+s7xpdrBFRFwwpWcKzmSOkDDKWVARCZjAlLBAD/I
-	vxo+6+HhqzUaQZMf8BHBLkvGrrjf7DVvCtFkJfcIVnUjt7JVWMG7Hl/33LiukVeGkDjTUnu0zfS
-	A==
-X-Received: by 2002:a05:600c:3b25:b0:49c:cfae:34d2 with SMTP id 5b1f17b1804b1-49ce55fb5f7mr127189595e9.4.1788374852065;
-        Wed, 02 Sep 2026 11:47:32 -0700 (PDT)
-Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5d2019sm11290985e9.2.2026.09.02.11.47.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 11:47:31 -0700 (PDT)
-Date: Wed, 2 Sep 2026 20:47:29 +0200
-From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
-To: Tao Cui <cui.tao@linux.dev>
-Cc: Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Shuah Khan <shuah@kernel.org>, cgroups@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, Ziyang Men <ziyang.meme@gmail.com>, 
-	Tao Cui <cuitao@kylinos.cn>
-Subject: Re: [PATCH v5] selftests/cgroup: add PSI pressure trigger and
- validation tests
-Message-ID: <aphkAGKpg3dgFc6c@localhost.localdomain>
-References: <20260902040725.877155-1-cui.tao@linux.dev>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="kbD2Ojj8"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Mn34NBgvRVmbA5ZwaYTStpy0DIYyEuhvW/Vz6t86wYPa7DvvAsh8+EVRZoPi16TqhRWa2mG7JreiDaED1M20p5t7864v523WdyC0T1kIEKM/VPAYkCW6ux4ipdBfLB60xGWQn14oku3Kzq1mdZHa/1S6gBqk8tG1mfmODQMWcSREekBBsTd7DsLAtSiDyd2FSaoF7WDpPiajZu/3q3Cg/Kd3G+YBDEiBEzUpNwNFET+4UmOJcF4TfZ1eN/JsKkRGROHAP57pFJIpZlLwYrWRCXQf4knxEdQT12GMPlerSSzj6QYAkB6RpH6Y1BCa93RrHoio5i0qLQ8aJRjeFi8QWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=826hHmb600icKHZgtQurBB5kdBuQtJeN9ntTVYP7SGA=;
+ b=Wa0p4rGYyhiiVZclzsdwxIvbJbnSZFPoolr3T1ifz+edi8/+SY+oe297m2gLBaPulPNkVN31EJycTnvIFTQQowVah00KrZus21mr7D7Xt7gj0YS3j6puPJLW8mChd75C9LaL1gHOR46TEoT99tOZAp39zv/iBJSnkl+lAT1sGn6AS8TxFdKaghnPPOKfc8lQJ3tH9dODJs1hUfXj4RKvTW5bD/6SaT8cf6SxTCtuctM1odawstu3/EoMhlFNx7W4hw0CMJI5vdgEWtLQhVj7p7MXIztGBjn2ZKve+kJ4fnxG4e+lKKLvw+b6a82PnbWlHyDrmLzfq3qip+/21t4B3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=826hHmb600icKHZgtQurBB5kdBuQtJeN9ntTVYP7SGA=;
+ b=kbD2Ojj8jiF3f/SnYE0KesIHGHxKuXXFcZ5NLYE3NBUefn/F02vumOO9XA7ADauJxYxhjHaYI2DGUuDo0jWoTinVBKd9Nkz+2wOWVxn6JkRA2IUZMAmIBe1cRN6hBSVgak385P25d9BlPb2n1X3U5jBdi2YgS505rgCqXJe4whg=
+Received: from SA9PR03CA0019.namprd03.prod.outlook.com (2603:10b6:806:20::24)
+ by DSWPR12MB999151.namprd12.prod.outlook.com (2603:10b6:8:36b::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Wed, 2 Sep
+ 2026 18:48:45 +0000
+Received: from SA2PEPF00001509.namprd04.prod.outlook.com
+ (2603:10b6:806:20:cafe::19) by SA9PR03CA0019.outlook.office365.com
+ (2603:10b6:806:20::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
+ Sep 2026 18:48:44 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF00001509.mail.protection.outlook.com (10.167.242.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 18:48:44 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
+ 2026 13:48:44 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
+ 2026 13:48:44 -0500
+Received: from [172.19.68.62] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Wed, 2 Sep 2026 13:48:43 -0500
+Message-ID: <8a526163-0762-4be4-a827-b2c11fef5959@amd.com>
+Date: Wed, 2 Sep 2026 11:48:43 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="k7dsd4vdmhwtmf2v"
-Content-Disposition: inline
-In-Reply-To: <20260902040725.877155-1-cui.tao@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V1 1/2] accel/amdxdna: Disable BO import via flink
+To: Lizhi Hou <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
+	<quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
+	<mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
+CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
+References: <20260902180955.3999242-1-lizhi.hou@amd.com>
+Content-Language: en-US
+From: Max Zhen <max.zhen@amd.com>
+In-Reply-To: <20260902180955.3999242-1-lizhi.hou@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00001509:EE_|DSWPR12MB999151:EE_
+X-MS-Office365-Filtering-Correlation-Id: c74f26b4-4cb4-41ba-b7e6-08df0922d0f6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|376014|82310400026|23010399003|56012099006|11063799006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	ZdT0vBKnUAgxrZ7kRpt5HxMAM2H+X7bNMrxKIPRVrgK2vRzRY17LiTn/se6RNvUuSKvt2MUQaUhIGZuD8LXbACNkvdz1yO6u+PAX4O+M7ZeLICwAUHAmururUsYnLJJ5lk612jFGFmdZCA55gUUgi/XFOs/c0mIryCrHX+WKXC8m8VV7kVwGkO9poM4c5JaQEOEzYphOT+FDyOq9lYS7TMdz/Amk8CDiN4+TwAc690SomESkRDPy91KsOFpMtHUr+p0SOdMHPXTMz5O4B1kSqkkqgVdw7zE4nF5Iiup/teDnq5r5+wAHDd5406RknJwk+efX7e+ntbXa4C8NnbCyiZco4JqM+kVDLxojqfHxGCTReg5KNqfQOMpAEGP/VZUwrARq3hUfscdODGUaBCIfQwcsaxX1QiMjcHxvHwiecxO3Eh6Jh4s/upJRwSrozq1qCGCwcp+wvqNtgqAgJc28pEfs7qL7jlALPF+bt+zJ2v6puplHbifSJdfydw5ia/4wyjTBq2CAeg1u0oeUL/HThddWgFMb4zW6Xdv4Rogg4tbsHTgeeN1r2tskis/NFC8sxnA96DIq8MNpy3vxdhNTAF1vfpMb49tsvzGdGyA7tQ3bLN/U9BXHRE2ZJOy2gV7XtByeRZ5a3C56D3ReF5oD9g9zPrwPT0lJKy16MSnT3N1Vvx4zC9hjt5t4CipsYJml1FeSzJXmvcqUnDr7iDnmpQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(23010399003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	jnHbT5TfEX4Q2H1R0w9EHn93nfSTuRHmf5M3Op91quI5ZG0zrEHacRy2HlrJAlTu4kRRRCzH6J3agBtvu+bfes4HBM/teVrtQJRlLdeCD9UNEyPOuvItM9w8TEk23uaPlHhwcEDdQ9pkby0Zapu8G4qBHYM0gignxYsa4yXNUhm4uHDqPAYTAO3IOHpWKuFCdlM2BOF9euGSFc4SludPxkebDheupKRJTUC6HQEiFTn+AHKP9MIifhATbUrh3Utn9sFdlwQVodwHXT1pR6IFwdu+FbIYhFfCmODLjW5YSg4uFJ89MdoadVDyD4qsUQb45Kn1XmUH182ZCICdJlAfH3eNIPvPO5W4l0Rc+5F0MwRWLONBWqrCKqIypGptKZgWaGTScTOORxxYPgKNVexOQLbdrTKasDT1dy4nXLgLjnCf8LAgJeuguPj6qgmxZU3T
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 18:48:44.8602
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c74f26b4-4cb4-41ba-b7e6-08df0922d0f6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF00001509.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR12MB999151
 
 
---k7dsd4vdmhwtmf2v
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v5] selftests/cgroup: add PSI pressure trigger and
- validation tests
-MIME-Version: 1.0
 
-Hello Tao.
+On 9/2/2026 Wed 11:09, Lizhi Hou wrote:
+> Accessing abo->client in amdxdna_gem_del_bo_usage() may result in a
+> use-after-free when the BO is imported via flink.
+> 
+> Disable flink import by verifing that filp->driver_priv matches the client
+> stored in abo->client before accessing the client.
+> 
+> Fixes: 3cc5d7a59519 ("accel/amdxdna: Add carveout memory support for non-IOMMU systems")
+> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+Reviewed-by: Max Zhen <max.zhen@amd.com>
+> ---
+>   drivers/accel/amdxdna/amdxdna_gem.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+> index 476649685e5a..1353393194e2 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+> @@ -697,6 +697,8 @@ static int amdxdna_gem_obj_open(struct drm_gem_object *gobj, struct drm_file *fi
+>   	int ret;
+>   
+>   	guard(mutex)(&abo->lock);
+> +	if (abo->open_ref > 0 && filp->driver_priv != abo->client)
+> +		return -EPERM;
+>   	abo->open_ref++;
+>   	if (abo->open_ref > 1)
+>   		return 0;
 
-On Wed, Sep 02, 2026 at 12:07:25PM +0800, Tao Cui <cui.tao@linux.dev> wrote:
-> +/* PSI triggers are written with a trailing NUL the kernel parser expects. */
-> +static ssize_t write_trigger(int fd, const char *trigger)
-> +{
-> +	return write(fd, trigger, strlen(trigger) + 1);
-> +}
-
-Hyrum's law. It all works for me: NUL, \n or just write(2) the exact
-length of the string.
-For conventionality, I'd prefer the simple literals and plain strlen() +
-0. (I reckon cg_write() cannot be used because of FD access.)
-
-> +
-> +static int pressure_open(const char *resource)
-> +{
-> +	char path[PATH_MAX];
-> +	int fd;
-> +
-> +	snprintf(path, sizeof(path), "/proc/pressure/%s", resource);
-> +	fd = open(path, O_RDWR);
-> +	if (fd < 0)
-> +		ksft_perror(path);
-
-This outputs:
-| # /proc/pressure/irq: No such file or directory (2)
-| #      SKIP      /proc/pressure/irq unavailable
-
-I.e. similar message is printed twice.
-Since strace is a companion of cgroup selftests, I'd keep this helper
-silent.
-
-> +	return fd;
-> +}
-> +
-> +FIXTURE(psi)
-> +{
-> +	char root[PATH_MAX];
-> +	char *cg;
-> +};
-> +
-> +FIXTURE_SETUP(psi)
-> +{
-> +	int psi_fd;
-> +
-> +	if (cg_find_unified_root(self->root, sizeof(self->root), NULL))
-> +		SKIP(return, "cgroup v2 isn't mounted");
-> +
-> +	/* PSI must be enabled (CONFIG_PSI=y, not disabled on the cmdline). */
-> +	psi_fd = open("/proc/pressure/memory", O_RDONLY);
-> +	if (psi_fd < 0)
-> +		SKIP(return, "PSI unavailable (CONFIG_PSI=n or psi=0)");
-> +	close(psi_fd);
-> +
-> +	self->cg = cg_name(self->root, "psi_trigger_test");
-> +	if (!self->cg)
-> +		SKIP(return, "failed to allocate cgroup name");
-> +	if (cg_create(self->cg))
-> +		SKIP(return, "failed to create cgroup: %s", strerror(errno));
-
-Why are these two SKIPs (not failures)?
-
-> +TEST_F(psi, cgroup_trigger_fire)
-> +{
-> +	char *cpupress;
-> +	struct pollfd pfd = { .events = POLLPRI };
-> +	long ncpus;
-> +	int fd;
-> +	int i;
-> +
-> +	cpupress = cg_control(self->cg, "cpu.pressure");
-> +	ASSERT_NE(NULL, cpupress);
-> +	fd = open(cpupress, O_RDWR);
-> +	free(cpupress);
-> +	ASSERT_GE(fd, 0);
-> +	pfd.fd = fd;
-> +
-> +	/*
-> +	 * 1usec threshold over a 2s window: any CPU stall fires it. The 2s
-> +	 * window is the smallest unprivileged users are allowed to arm.
-> +	 */
-> +	ASSERT_GT(write_trigger(fd, "some 1 2000000"), 0);
-
-The selftest rarely can be run as unprivileged user (even test cgroup
-creation needs privileges), so this comment is irrelevant. (But it's
-fine to test with that value.)
-
-On the more abstract level -- I was playing with this and thinking about
-a value that'd test both sides, i.e. false triggers as well as false
-non-triggers. I'd find that to be the half of the window and the number
-of tasks should be then (3*ncpus + 1) / 2.
-Or perhaps test two thresholds, one tiny like you did and one maximum
-(whole window) with same amount tasks but expect trigger, no trigger
-respectively.
-
-
-> +
-> +	ncpus = sysconf(_SC_NPROCESSORS_ONLN);
-> +	if (ncpus == -1)
-> +		TH_LOG("sysconf(_SC_NPROCESSORS_ONLN): %s", strerror(errno));
-> +	ASSERT_NE(-1, ncpus);
-
-Same as messages from pressure_open() above. Simply assert.
-
-> +
-> +	/* ncpus+1 hogs guarantee CPU contention inside the cgroup. */
-> +	for (i = 0; i < ncpus + 1; i++)
-> +		ASSERT_GE(cg_run_nowait(self->cg, hog_cpu, NULL), 0);
-> +
-> +	ASSERT_EQ(1, poll(&pfd, 1, PSI_POLL_TIMEOUT_MS));
-> +	ASSERT_NE(0, pfd.revents & POLLPRI);
-> +	close(fd);
-> +}
-> +
-> +TEST_HARNESS_MAIN
-
-All in all, this looks so much better than the initial version, well
-done. Just a few polishing touches.
-
-Michal
-
---k7dsd4vdmhwtmf2v
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCaphvPRsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+AiKJwD+PqtkHd3blRPy13sFyLqF
-8DxwZSomQ1H3UCKVICDOT/8A/A56P4uCIa6DGF+2hWa4rtwuRod+M+rCD4tqo/Cf
-mVQH
-=xP5B
------END PGP SIGNATURE-----
-
---k7dsd4vdmhwtmf2v--
