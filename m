@@ -1,215 +1,217 @@
-Received: from out13-75.antispamcloud.com (out13-75.antispamcloud.com [185.201.17.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79BB44A5EA7;
-	Wed,  2 Sep 2026 18:39:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.201.17.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15F7A47D443
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:40:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788374382; cv=none; b=ZhgpfB7NQt/xYKxCQ65qmJJpnSLu4b/am94RecqJQEtXtvjfrDOrm6sJoeWrbjqKnFHMKqgzAGbrKH3ts9a2UmjQzGEXHCOTOBO+igaIduh7LRn3gnZI9k4psPbJAehlCGWtIhWvMe4kOurjq8DYTJ+l+rGptnvb+0i9x3ba7gw=
+	t=1788374406; cv=none; b=sIl9X5FruhjDVZIX+ILI5e5ni1sz4iE7NsCXoV6DMPKP6NXh18Z/07pcUQ0UEiqInPxIfFd2SyZcG3JB+jwehBl52BYwnZKiZdF8WiayzQO/nZrn7rmqdMNgVy/KvMvifCKrBRmtzwhyHFRQxRD7/3+dKgEkzKxKP5to77mgMpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788374382; c=relaxed/simple;
-	bh=04uit+IyxjzsZHVMVacMlzH1JC9Ds+Inwql8nDQiYd0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=U6AmoIKHp5hKm7UYQEKFydsW8cSBBs8n4DGOxjzk18cZSLEDgC9MRHf1BYWsk4l4Ljju+QuCdMIxljJMQ9HGgAuSvx2vadCqe/FQwNAlAHsKySa+hPWEJJ5uI9aXVq171bHDdi9M1Jvm/LHNY1MugasfdZSHsulsuPjn7k/GGLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=reactivated.net; dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b=fELHqsIU; arc=none smtp.client-ip=185.201.17.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=reactivated.net
+	s=arc-20240116; t=1788374406; c=relaxed/simple;
+	bh=v6L+/uGgvk3APDzEHSqyzzlWR/+pfEbRhnJsGgDsfQg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VD20Udge2GKSRSNi2PFZC+VGfRodi/hIpEQZrazVyFwFx7MefU4AP8zLJxBtgLawuvSwtDs6dUC0jVWo1APUdNb1ZdTX5E8oThMSocTFBzgutnt+Rw/DObbDMepEbVWQwVy2v13hjaMaSHGpVJ7MDb5NTwjtS/yuaoNtrDYqsBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=OuRxzQvs; arc=none smtp.client-ip=209.85.222.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b="fELHqsIU"
-Received: from s1041.use1.mysecurecloudhost.com ([192.250.231.249])
-	by mx322.antispamcloud.com with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <dan@reactivated.net>)
-	id 1x1pDa-009oKX-Qv; Wed, 02 Sep 2026 19:57:54 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=reactivated.net; s=default; h=Cc:To:Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=fSeUUKA3nTNwfm5ENMRqiqkBfeuykmsZI1m8L1YBJzE=; b=fELHqsIUWMrHInzAHXuTJQYrEJ
-	S2gGss9JvWFOiUnjKU1DyuvjzfwkbeDzNaBsDE2BpUt1/ox9ifhJ+/7odArQP/35lTWB4pP0hs//O
-	lXxwa1ZA0Mmx1oKUeba40ZUjYOobi8Pp6Phq8XlN4bW9Mb1OXbSXzEFf/pb0p1mcn2o0EQ/W92HJ/
-	aHiXdNvV40UMV5PACfhMcthhzm69VF22yLHblP3qdZiu3Zn614f9JnezGzmAqwuGj+dPmVRMlKVmV
-	DKDCM56xQXaU9S60Ryvk+woe9egO9ASWj+bTkxK9A/JLLv8biqX6mwaMmRcL2m/RzVbTMPpXjyTVs
-	egORjy1Q==;
-Received: from [188.251.249.2] (port=45118 helo=[192.168.1.123])
-	by s1041.use1.mysecurecloudhost.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <dan@reactivated.net>)
-	id 1x1pDQ-0000000F9KQ-0DV1;
-	Wed, 02 Sep 2026 17:57:44 +0000
-From: Daniel Drake <dan@reactivated.net>
-Subject: [PATCH v4 0/5] Add support for Broadcom BCM2712 IOMMU driver
- (Raspberry Pi 5)
-Date: Wed, 02 Sep 2026 18:57:02 +0100
-Message-Id: <20260902-bcm2712-iommu-submit-v4-0-9dbb657578c1@reactivated.net>
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="OuRxzQvs"
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-9309d4ea213so168651985a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 11:40:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788374403; x=1788979203; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oNieo4VVBlamLigtLa1PsLwlHcypSQkvEJk+H+7OF08=;
+        b=OuRxzQvsxzENLQox8enZH/NVrngaV5aKZRhdqJV8hjaLsBVNisGMButgXyGhbSxmMb
+         F+7nikPtKNKSrIMvVDx7crJLzHK26ks5cO0ePA4prisxdLJrspA73O6Jcv5P4krduV7T
+         FUINdogZKaGasnD3qw/bSAdhrqbqEWi3rXXMkHhHYT2KHAutsHv/9XA1bAVRvBSqpBtl
+         AUoDDYSKwydL27saxCogm9JhJoAJeNT4byIfauz17MJ4KrWtlD0JjjSawdaWJH94LkPt
+         jhT2mZS3GiaMSbPOiV3Pp2mUaEKA7yHyuOG5KEuIxqxcp07rwcvPpkgAwawO1loDIi1r
+         Gy4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788374403; x=1788979203;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oNieo4VVBlamLigtLa1PsLwlHcypSQkvEJk+H+7OF08=;
+        b=oOPfZ1rpXIZnfOCIn00zOOWefAqT6d1PlwpfdwzzwSgV3/I15bQCUffNytYIj6uI2t
+         4QSz+IBoMelFjoR10EHVMMlqyvx8Hm/5ubWCsRy+ehfqgKUjK1dB2K8TSMZADyX3uH8L
+         5wWNo3s4MeqE7DUkEV3AJLgtFUkSN7w1N9/cll+Wr4rdlhsAELxcjGhDfD4HJbenLA7f
+         HbbrY5VqINc/RwYneD+Es9NcQf1wIQ4aiVpYlN76wTEodlZYP/W/5ERjidYzDTmHaWg9
+         1B1o30hPBTSEKGowR+WsEONbAqKMVf3nDD6E77xZS91Sb3N39P6pq1DTuFRm+/1o3BzO
+         h5yA==
+X-Forwarded-Encrypted: i=1; AKwUvBwMmjiT0FDPBuXIXpIMS5Ca4QcIOnGEZsGf58jCvuj6DnLp/YY8x0AiVh/Nn4ECwIVOLyggOImJJ4mqecQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mqE4TKpwIurt67JBAqHCG9ouoeBr1DOlJVz2WycZ4KfvXKYfN8
+	8NzZcPetKMXrPg3Nnb4ZCAVQlFf2gt7enFPTXQblL4P/PyXRxQXd5/MrZabOcvHEXVE=
+X-Gm-Gg: AYBFou0h5NqxhDwfn8+8/VKTfvlJBATaFrfgveBepOugssrtMfikfmDzVsBXlipI22x
+	1K+2tmHXXjp17c/r6mfhqu0RH/92GoxjuU2msjqwj9UzH8NeAX9m53bEMhOVybWZcAlGiMQsqSk
+	10BzwxS/mCxpy5aUHEHECEETMzgQtMP6LqgCXhKQAC9f+/uoCMNJ+PNZ0yApKsAZ1wpEErLsWhK
+	sn8LzsJCSMzClrH7f2kh6xgig1FFN9weIuqhBNhnVXU17RbBt1N8ujzuSrBCAleK4FTvXvCmgZ/
+	nMSpnoNjiXwB5DfnKN1aHSRIylC3iqH0rM+/AG484hdpIVG5YKNMJhUVVeuaTRpKEUcRO6hGH78
+	LkrpO2Jd61PcJ5ijERNmThBD4zsR11JRNLdRU5GXPu+qmFS++2RwgjuoAvHDQk6Vvi987P4gYC+
+	T9n9ElnMWOIUNCmT50FaE3lGeuPDsu8wPId5Sz6VeIXOtUceP9amjCBNfM/sMV
+X-Received: by 2002:a05:620a:7086:b0:937:631:4dfc with SMTP id af79cd13be357-93960ffaa7cmr731295885a.42.1788374402764;
+        Wed, 02 Sep 2026 11:40:02 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9395f396f2bsm272551685a.33.2026.09.02.11.40.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 11:40:02 -0700 (PDT)
+Message-ID: <9cc30f76-1fb7-404a-a6d6-84eb3f825e2a@riscstar.com>
+Date: Wed, 2 Sep 2026 13:40:00 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XOy24DIQwF0F+JWJcWPA+YrvofURc8nIwXMBUQ1
- Ciafy9k00pt1JV1Jd9j31jGRJjZ6+HGElbKtMUWxqcDc6uJZ+TkW2YgYBZKArcuQJ+0hXDh+WI
- DFQ4oFr0sOE9uZK36kfBEn3f2+N6yNRm5TSa6tWNbojPFl2BywdT3V8plS9f7F1X21j8Hq+SCa
- 4FSOO8R0LwlNK5QNQX9c8TC+tkKPyhQDyholIBR2cmJwaP+mxq+KQ3TA2polDrJcUAFerHzb2r
- f9y8lXj93dAEAAA==
-X-Change-ID: 20260712-bcm2712-iommu-submit-2e09899e65c4
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Daniel Drake <dan@reactivated.net>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, nick.hollinghurst@raspberrypi.com, 
- james.quinlan@broadcom.com, Jason Gunthorpe <jgg@ziepe.ca>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Get-Message-Sender-Via: s1041.use1.mysecurecloudhost.com: authenticated_id: dan@reactivated.net
-X-Authenticated-Sender: s1041.use1.mysecurecloudhost.com: dan@reactivated.net
-X-Spampanel-Domain: s1041.use1.mysecurecloudhost.com
-X-Spampanel-Username: 192.250.231.249
-Authentication-Results: antispamcloud.com; auth=pass smtp.auth=192.250.231.249@s1041.use1.mysecurecloudhost.com
-X-Spampanel-Outgoing-Class: ham
-X-Spampanel-Outgoing-Evidence: SB/global_tokens (0.00692368605726)
-X-Recommended-Action: accept
-X-Filter-ID: 9kzQTOBWQUFZTohSKvQbgI7ZDo5ubYELi59AwcWUnuU6IoMZj0ku3K1HgThUUXgPtBBzBbzlGD49
- sIXR0NIg/Cu2SmbhJN1U9FKs8X3+Nt06bFpPrNOlRAlE9AVLwR4uGVjKNnzF3nQoDoQtBifM84JL
- M0i5ZAms0EHrvcCaVIOQFUySu9ARleHX62tRH9C5GnT3EFAinyrilm9zau/FuzkQt9Nb4Ml7QXdk
- EetczWBpY9ovdkP9RmEvieRDWoEFGZ7f+7oeClYYrL6OxfWC1jM0MOKiGRkxO3FaI58br05WBb39
- uS1TjWG2Inx+Ts2QrtVmombMJ4e2pn5C0yBMHZ0fE47nEjvubMSTLAkKCKefuLbx+lGq0svfyhth
- j0R6Iny++hg9dJLqN5zmWqF/oHgMZXS6X/fIHYslsKU0yPHM4JpSMI47HiFQBsGlm5AyJ9N3+CB9
- 4aFbAhtG8w3Ly5ZVKmISsN3IhGLWYd0758XIiXx6YYOeazosCcxmb7RWPITtorGl87DPy4ds+UWq
- MS944fSN2oL9lcmwHl4R430gWQeQATOYm6ySgXONX819+8b0aQ27w+hy2d/X8QeMESKGfu1osKm2
- z/Bdw0WxPvopVqK+B3hjSiRP+JZcbkTFzNuDg9qhrek1VDTOXu3/5XoFh6RYK1/+a9o0ZH3bf8f8
- xcFeTwPmaNR5BFrITq53GE8UfvLOtVSfYvM2D2LXw9qhHVjuF0QV44wjOm4hi9B7sw5YCbsONrFQ
- WlQL6bayw8t26zvWPQFaoPrSpXmTFh32t1ZYEmdcjX8wYIo2PJ6ZWoal85B1uSKsQvqgKX57+mzi
- mzSSBDh/9T7i+I1Xis3FgAfjcrAC8tdf23eCIzSdDUG3JlDn+YPgrv/L9kYIY6/c3932aFiFp+4w
- 26sCeFNiLZt/QXQnOBRD+jq1HsIm8VQhYAy23VHBYHJQltbzHyxxk8Sjs3o9/k8nLBnptMQCOWuC
- bp8r+cerZqUKxFfVRXLKIImNTAr8iSBcPgsmF70Rz40u8PylAVmBlaDrHdDswAAELtTYsl4eOccq
- tK3P9P7Dwawiagy4cvFL3pjltGILrmkElozHQFHLOT6kywhk7Qhq1ru3jSBu1ukDxYBdCKDGFJnk
- 5eJFcFklVb9231/E3ahF5MMcDI7KdpjQKdEz/+/QkUVhwSqO+QS+xjCZ3JKVmi72ocgY5kMQSjs7
- CnU3Vkswnvz2sY575f5VZdC7A9EkfupFeybqiokSL/UoBa9Z74L1QD5u7fk/CB2ffOy/knOaqu9M
- jU02vQscbIqmk3QOioOvfgVRYRzDfnj2cyXvG6T1rC4we7GtQUEfApXkqR1zbB61q8XRB6X1AhY+
- C3NKVBiu9E09fH2QcWWDSTfRyaGsL+KZNwpYGCN6yCqJqJMY7uMzxq3+Ecx6Ww+vAj0HbLbveTIz
- fDDueIdjUxTaa0dmGx2m78JeU6J5dQk8TiQJh7U9utxWE7LPn/i77ggylKR9SqeqhKXDH+fel0T7
- gNOckPwEpnIVjB7SPAlbDjazCbhs7qBpykynMlI8ehauFjA7dVMOTKcW5c6UnY64mAykh3LBvXwi
- LIjlrjIuKSKddsFYTaIZy4Zvun7pGU7uz9Qh2BYl/pOFic8JjqapLpwrwdUQz9MPWEmV3jR5NeVa
- JQBh0uawl0Cg8hPs+cRD5TJxNzOPadp3mtqXN3cCIyIm263/n4zqghav48Y+3YiJRbPwEKhVXmMF
- SH7pGU7uz9Qh2BYl/pOFic/qXKRF3uOx1VRdI9vLlOBy9jihx+Za/cV70jOJzN2r4A==
-X-Report-Abuse-To: spam@quarantine16.antispamcloud.com
-X-Complaints-To: abuse@master.antispamcloud.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/5] arm64: dts: qcom: qcs6490-rb3gen2: use pci for device
+ nodes
+To: Rob Herring <robh@kernel.org>
+Cc: andersson@kernel.org, konradybcio@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260901172058.1512508-1-elder@riscstar.com>
+ <20260901172058.1512508-2-elder@riscstar.com>
+ <CAL_JsqJJPdrYArNhbRPTM=scDghLAWe5=0a2+ACNaHe07h6-tw@mail.gmail.com>
+ <d9071ec7-371f-4896-a023-77a07f01f65e@riscstar.com>
+ <20260902165325.GA1440252-robh@kernel.org>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <20260902165325.GA1440252-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi,
+On 9/2/26 11:53 AM, Rob Herring wrote:
+> On Wed, Sep 02, 2026 at 07:51:54AM -0500, Alex Elder wrote:
+>> On 9/1/26 3:05 PM, Rob Herring wrote:
+>>> On Tue, Sep 1, 2026 at 12:21 PM Alex Elder <elder@riscstar.com> wrote:
+>>>>
+>>>> A recent change caused the embedded PCIe endpoints on TC9564 SoCs to
+>>>> be treated by the devicetree code as PCI buses, which is incorrect.
 
-This series adds a driver for the Broadcom BCM2712 IOMMU found on
-Raspberry Pi 5, and hooks up the display controller IOMMU for efficient
-management of graphics memory. This is adapted from the downstream driver
-from Raspberry Pi (original author Nick Hollinghurst), with main changes:
- - In page mapping mode, operate the translation aperture from address 0,
-   with no bypass window. More like a IOMMU and less like a GART.
- - Implement the page table management using generic_pt
- - Support 4MB hugepage mapping in top level page table
- - Implement brcm,iommu-cache as standards-compliant DT property
- - Drop the dma-iova-offset hack, used to work around some issue seen with
-   dma-ranges. This will need to be investigated separately and solved
-   properly. (It's not needed for display controller iommu support included
-   here.)
- - Misc simplifications/standardisations/cleanups
- 
-The IOMMU works strictly with 4KB pages. This means that unfortunately
-when the kernel is compiled with PAGE_SIZE=16KB (the Raspberry Pi 5
-kernel default), 12KB is wasted in each page that is allocated for page
-tables. I plan to address this in followup work.
+I respond below, and have a plan for moving forward.
+>>>> An RB3gen2 system has an "interposer board" that contains a TC9564
+>>>> SoC.  The TC9564 includes a PCIe switch with one upstream port and
+>>>> two downstream (external) ports, plus a third downstream port.  The
+>>>> third port has an embedded PCIe endpoint with two functions, each
+>>>> providing access to a 10 Gbps capable Ethernet interface.
+>>>>
+>>>> The devicetree nodes representing these functions were previously
+>>>> named "pci@" but were renamed in the interest of consistency in
+>>>> commit e806c63ba51a7 ("arm64: dts: qcom: Rename pci@ nodes to pcie@").
+>>>>
+>>>> Unfortunately, of_node_is_pcie() causes nodes named "pcie@" to be
+>>>> treated as PCI bridges, which PCI endpoints are not.  The previous
+>>>> name "pci" matched such nodes as "default-flags" bus type, defined
+>>>> in the of_busses[] array.
+>>>>
+>>>> Rename the PCIe endpoint nodes "pci@" so they are not mistaken for
+>>>> bridge nodes by the devicetree parsing code.  This restores the
+>>>> previous behavior, and allows them to be used for PCI endpoint bus.
+>>>>
+>>>> Fixes: e806c63ba51a7 ("arm64: dts: qcom: Rename pci@ nodes to pcie@")
+>>>> Signed-off-by: Alex Elder <elder@riscstar.com>
+>>>> ---
+>>>>    arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 4 ++--
+>>>>    1 file changed, 2 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+>>>> index a13315bf0fb07..99a985a177a61 100644
+>>>> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+>>>> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+>>>> @@ -954,7 +954,7 @@ pcie@3,0 {
+>>>>                           ranges;
+>>>>                           bus-range = <0x5 0xff>;
+>>>>
+>>>> -                       pcie@0,0 {
+>>>> +                       pci@0,0 {
+>>>
+>>> The kernel should treat either name the same. There may have been some
+>>> reason 'pci' was not included in checks. It could have been that only
+>>> old things are (parallel, plain) 'pci' and anything new is 'pcie'.
+>>
+>> OK.  Does this mean "pci@" and "pcie@" should only represent bridge
+>> devices?  (These devices are all endpoints and erroneously had
+>> device_type = "pci" properties, among other things, so I'm already
+>> fixing that.)
+> 
+> Yes.
 
-It has been tested on Raspberry Pi 5 using a 3D-accelerated graphical
-environment which causes plenty of IOMMU maps & unmaps.
+OK.  This means that these nodes were misnamed, and that should
+be fixed when addressing the broader problem of describing
+these nodes as if they were a PCI bridges rather than endpoints.
+That problem is addressed in this other series:
 
-Thanks for the review comments and discussion. Further feedback and
-testing welcome!
+   https://lore.kernel.org/lkml/20260901013654.1343537-2-elder@riscstar.com/
 
-Changes in v4:
-- Add Jim Quinlan and Florian Fainelli as bindings maintainers
-- Replace MMU register access macros with static inline functions
-- Clear illegal address register and flush caches on blocking domain attach
-- Add __must_hold annotations in TLB helpers
-- Use BIT() macro for MMUC_CONTROL definitions
-- Link to v3: https://lore.kernel.org/r/20260825-bcm2712-iommu-submit-v3-0-7f143e7289b6@reactivated.net
+Lots of reviews on that...  But I'll submit *one more version*
+of it, as described below.
 
-Changes in v3:
-- Switch from a aperture and bypass window GART-like approach
-  to IOMMU-like 0-based translation
-- Add 3 SW bits which seem unused (per the chipset docs); drop patch
-  for NO_SW_BIT handling. This reduces the claimed address space, so I had
-  to tweak a iommu_pt test accordingly.
-- Disallow domain sharing across multiple hardware IOMMU instances
-- Clear and flush local MMU TLB during domain attach
-- Handle unattached domains safely during TLB sync
-- Set cache platform driver data late during probe to prevent race condition
-- Improved handling of cache flush timeouts
-- Use format string for device name in iommu_device_sysfs_add()
-- Use cleanup.h helpers for scope management
-- Expand DT binding descriptions for IOMMU and IOMMUC
-- Add iommus property to HVS display node in DT
-- Drop iommuc back-compat with current RPi DT
-- Link to v2: https://lore.kernel.org/r/20260727-bcm2712-iommu-submit-v2-0-0247b5c03de8@reactivated.net
+>> Do you want me to make a (separate) change to treat "pci" the
+>> same as "pcie"?
+> 
+> Only if it fixes something besides consistency.
 
-Changes in v2:
-- Use iommu_fwspec in xlate & probe_device
-- Add blocked_domain support
-- Simplify page size configuration between iommu driver and format
-- Introduce PT_FEAT_NO_SW_BIT flag to allow formats to explicitly opt-in to
-  a defensive flushing algorithm when no sw bit is available
-- Implement 4MB pages at Level 1; this is more efficient and means the
-  "allow full-table contiguous leaves in unit tests" commit has been
-  dropped because it is no longer needed.
-- Hardcode the aperture in an unused part of the address space, removing
-  it from DT (it's a software-specific decision, not an attribute of the
-  hardware), adding more explanatory comments
-- Use pt_full_va_prefix to have the PT format operate within the aperture
-  space, enabling use of IOMMU_PT_DOMAIN_OPS
-- Add more dt-bindings explanation to brcm,iommu-cache and drop docs
-  around the cache property used in RPi firmware (the driver still supports
-  this however, for fw compat reasons)
-- Correct iommu device address in bcm2712.dtsi
-- Link to v1: https://lore.kernel.org/r/20260712-bcm2712-iommu-submit-v1-0-80e10cdde2ea@reactivated.net
+I have no example of this causing a problem, so I will not
+implement any such change.
 
----
-Daniel Drake (5):
-      iommu_pt: Fix test_pgsize_boundary() failure on narrow-OA formats
-      dt-bindings: iommu: Add Broadcom BCM2712 IOMMU
-      iommu/generic_pt: Add Broadcom BCM2712 page table format
-      iommu: Add Broadcom BCM2712 IOMMU driver
-      arm64: dts: broadcom: bcm2712: Add GPU IOMMU and IOMMU cache nodes
+>>> These are ethernet devices, right? Then the right name is
+>>> 'ethernet@0,0'. If not, then pick something that matches what the node
+>>> is. Both pci and pcie mean the node implements a PCI bus.
+>>
+>> They implement Ethernet devices, yes.  But they are used for
+>> pci-ep-bus (and the Ethernet devices bind to a sub-node), and
+>> that's what's important about these nodes.  What's the right
+>> name?  The dynamically-generated node uses "dev@".
+> 
+> I don't love 'dev', but don't have a better suggestion for it.
 
- .../bindings/iommu/brcm,bcm2712-iommu.yaml         |  54 ++
- .../bindings/iommu/brcm,bcm2712-iommuc.yaml        |  40 ++
- arch/arm64/boot/dts/broadcom/bcm2712.dtsi          |  15 +
- drivers/iommu/Kconfig                              |  15 +
- drivers/iommu/Makefile                             |   1 +
- drivers/iommu/bcm2712-iommu-cache.c                |  84 +++
- drivers/iommu/bcm2712-iommu-cache.h                |   9 +
- drivers/iommu/bcm2712-iommu.c                      | 577 +++++++++++++++++++++
- drivers/iommu/generic_pt/.kunitconfig              |   1 +
- drivers/iommu/generic_pt/Kconfig                   |  10 +
- drivers/iommu/generic_pt/fmt/Makefile              |   2 +
- drivers/iommu/generic_pt/fmt/bcm2712.h             | 288 ++++++++++
- drivers/iommu/generic_pt/fmt/defs_bcm2712.h        |  18 +
- drivers/iommu/generic_pt/fmt/iommu_bcm2712.c       |   6 +
- drivers/iommu/generic_pt/kunit_iommu_pt.h          |   2 +-
- include/linux/generic_pt/common.h                  |   6 +
- include/linux/generic_pt/iommu.h                   |  12 +
- 17 files changed, 1139 insertions(+), 1 deletion(-)
----
-base-commit: 786262be6048deab760f68c8acc2c85607165894
-change-id: 20260712-bcm2712-iommu-submit-2e09899e65c4
+OK.  The only reason I like "dev" is that it matches what the
+dynamic PCI devicetree nodes are named.
 
-Best regards,
--- 
-Daniel Drake <dan@reactivated.net>
+>> Is "ethernet@" still right, if it's also used to access a
+>> clock and a reset and ... via pci-ep-bus?
+> 
+> "ethernet@" belongs on the node that has ethernet-controller.yaml schema
+> applied.
+
+That makes sense and it's actually how it's done in our code
+currently (not all of it is currently out for review).
+
+>> I want to use the right name, I'm just unsure about what that
+>> is, given its use for access via pci-ep-bus.
+> 
+> I don't know if there's a right name here. You just can't use a standard
+> name if the node doesn't implement what the standard name defines.
+> Granted we just have a list in the spec and some names (e.g. pci) imply
+> more that other names.
+
+Here is my plan.
+
+First, I will use "dev@" rather than "pci@" for the names of
+these endpoint nodes--in all of the affected Qualcomm DTS
+files.
+
+Second, rather than doing that as a follow-on to *this* series,
+I will instead post version 3 of the series linked to above,
+adding to the changes made that the names of the nodes will
+get changed as well (for the reasons covered here).  I therefore
+retract this series, because it will be merged into the other one.
+
+==> MANI, KONRAD, ABEL:  I am going to keep your
+     Reviewed-by tags on the new version, because I think it's
+     more likely than not you agree with this change.
+
+     Please just ask me to remove it when I post if you
+     disagree.
+
+					-Alex
+> 
+> Rob
 
