@@ -1,96 +1,81 @@
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0BFE494829
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:03:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.171.160.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 879BB47FAF4;
+	Wed,  2 Sep 2026 12:04:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788350638; cv=none; b=TOrHZRuY+Dx0zMaoPPrQBgoFD1J6y8NzMyp9/YP8h2sB/eCDAljT3TBxBHTfFoqJnRwXNCIi0bNVYVlGhCNXxUwZyfl9iW7MIHfDPFyAE7kGteRz/BcM0o7IQgbfAT8uB3hSL6TK6eaC+0kS/zp1XmLWb8uhvQtDdaGwkS65svA=
+	t=1788350699; cv=none; b=C484QjdnWnGSv3+gaG1psnhBL/6RX0IZgfQdqlgzJ2PHg6/n7SJzG7BVwGLvZY2WLmWlbZNoOVV06BnWG08K81ljHGwp/IzXjOjZLeukai8DmqV1t5rfCbM7cg4dRSfMqLEahPHSQCnTy3YA1f9xE+0Zw4ut0LCJn9o9VxYwy3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788350638; c=relaxed/simple;
-	bh=++p8uTy85uEeC9izhnaYS/TpksOvvZAoLq/oBuBnOQg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=rNcVpZOM77qKklcdO0Y0YOW2Wqpov57pw0C+L0R00ztLBbG0Chhw1LQg6h3x3ILEiBKXPzh8EVI16uNTEBXdaOz383gJT6omgpYKTZWyhBcXnsn4bp7AAaH39USOMLixelro4V90WfZ4p5WUmJH6N0iAym8lqp2GWika8ZCQx1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp; spf=pass smtp.mailfrom=parknet.co.jp; dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=W2ljIJah; dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=rMAe0vfN; arc=none smtp.client-ip=210.171.160.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+	s=arc-20240116; t=1788350699; c=relaxed/simple;
+	bh=mRkUfYStPkFa3gRUiis1yOOBE3gmRIjBScw1ExHohX0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=emD7xPHrfh5XyQoEjkEPgtyG/1pv9GN2RmBxUhFiOP6l3g5EWBDS2Q/5X5ZVF1lA5CVonVR3dDgAonPNLLaieki/DlUomiEhRKxWe9244T4tpxaFo87P48pw1nf0yoZE/ZpT3PsbMoT+K2FnwsupQmMFZGBSMjsRvV733x1FCRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=FiNyV15A; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="W2ljIJah";
-	dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="rMAe0vfN"
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
-	by mail.parknet.co.jp (Postfix) with ESMTPSA id 25DCF26F7698;
-	Wed,  2 Sep 2026 21:03:27 +0900 (JST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114; t=1788350609;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cGVX8VBTDF0lI/R/bwqKMzyHuiRwzt6JsfoSvY2IyZ8=;
-	b=W2ljIJahwYVA3ozS04zW1K4IaO2NoaDNPn3NlBThMPQ2GPpADd0elEIxAVgpSNnlEh0Pg9
-	A765kgY5igOwE7IZYaGbVGPaKsiUpkpPyFWTIOAPs1V/P6wCinVk6VdO+N7GOZQ+4rSpWA
-	+qXhqUUFNCNeiqI43ekj+o+ToVjqFALc8kg0qi4oNF6Xla9MqwlyRYJfOhuA/KKSPSvPiG
-	wgBED/EL9OaQgxCEmPYh23QzMermEwPHcEPWVIbhaUTIZ+KyUdKDuLjbXESrWn5+aGl9pC
-	Xx3i+R2L3h4UB+ov6n47aQFDEGmOlo4VGLM6DuOmSxZsQk0B8QviFpDSqUsnGg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114-ed25519; t=1788350609;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cGVX8VBTDF0lI/R/bwqKMzyHuiRwzt6JsfoSvY2IyZ8=;
-	b=rMAe0vfNRpqz8qRT2aYvd8D3JP1F3GG+H2NpLfQWq7WDR9DKG//Lu4zSFSEcrruu4/uDih
-	Iirketb/aSvXjsCw==
-Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
-	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id A45DAE0025A;
-	Wed, 02 Sep 2026 21:03:26 +0900 (JST)
-Received: by devron.myhome.or.jp (Postfix, from userid 1000)
-	id 90BAF22000B9; Wed, 02 Sep 2026 21:03:26 +0900 (JST)
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: hengyul@cs.unc.edu
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] fat: calculate data area start without overflow
-In-Reply-To: <20260902105716.3972118-1-hengyul@cs.unc.edu>
-References: <20260902105716.3972118-1-hengyul@cs.unc.edu>
-Date: Wed, 02 Sep 2026 21:03:26 +0900
-Message-ID: <87cxuvn9m9.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="FiNyV15A"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=TPpTauZDU0aQOfK5RCZ05OFPP6Wl3wzfzEM2+qWjF9M=; b=FiNyV15A+tiNQttTDwkz1Vq6ah
+	xOXkcsV8HASptVdToC0bRMqhnATO1ZbYcX+Ylt21oGPhF3G3Q9lSLGn+6Ej00iGs5+vxjlkTjZF3h
+	qbUYVEGPqf5PYtw15zq+Tn+dkyuo0Q4Eqc2HM5dxFBVB1Hk0Zc7Ngnv0unxJH0WgGDEk=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x1jhh-002Vuf-2S; Wed, 02 Sep 2026 14:04:33 +0200
+Date: Wed, 2 Sep 2026 14:04:33 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: David Yang <mmyangfl@gmail.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v11 4/5] net: dsa: motorcomm: Add LED support
+Message-ID: <f17be0c1-96a4-4226-9581-a28a07d14a73@lunn.ch>
+References: <20260831044818.4103477-1-mmyangfl@gmail.com>
+ <20260831044818.4103477-5-mmyangfl@gmail.com>
+ <20260901175618.28d81bd6@kernel.org>
+ <CAAXyoMOQf8oK3Z_TQKDmLvCQmgAjUR29VnFSFi+np4RtNNw_bg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAAXyoMOQf8oK3Z_TQKDmLvCQmgAjUR29VnFSFi+np4RtNNw_bg@mail.gmail.com>
 
-hengyul@cs.unc.edu writes:
+> > Would an "echo netdev > /sys/class/leds/<led>/trigger" racing with switch
+> > unbind, or with the dsa_tree_setup() error path, touch a freed
+> > net_device here? Would removing the LEDs per port before the netdevs go
+> > away, or validating dp->user under rtnl_lock, avoid that?
+> >
+> > > @@ -4581,6 +4589,12 @@ static int yt921x_dsa_setup(struct dsa_switch *ds)
+> > >       if (res)
+> > >               return res;
+> > >
+> > > +#if IS_ENABLED(CONFIG_NET_DSA_YT921X_LEDS)
+> > > +     res = yt921x_leds_setup(priv);
+> > > +     if (res)
+> > > +             dev_warn(dev, "Failed to setup LEDs: %d\n", res);
+> > > +#endif
+> > > +
+> 
+> Just a question: I don't see any protection against this in other DSA
+> led drivers, like mv88e6 or qca8k.
 
-> From: Hengyu Liang <hengyul@cs.unc.edu>
->
-> On 32-bit architectures, sbi->fat_length, sbi->dir_start and
-> sbi->data_start are unsigned long. The number of FATs is an 8-bit BPB
-> field, while the FAT32 length is a 32-bit BPB field. Therefore, the
-> calculation
->
->     sbi->fat_start + sbi->fats * sbi->fat_length
->
-> can wrap before data_start is checked against total_sectors.
+Registering the LEDs uses devm_ so the life of the LEDs is the life of
+the chip. The LED trigger does however take a reference on the network
+device, so it should not be possible for it to disappear while the
+trigger is still bound to it.
 
-[...]
-> -	sbi->dir_start = sbi->fat_start + sbi->fats * sbi->fat_length;
->  	sbi->dir_entries = bpb.fat_dir_entries;
->  	if (sbi->dir_entries & (sbi->dir_per_block - 1)) {
->  		if (!silent)
-> @@ -1763,19 +1764,23 @@ int fat_fill_super(struct super_block *sb, struct fs_context *fc,
->  
->  	rootdir_sectors = sbi->dir_entries
->  		* sizeof(struct msdos_dir_entry) / sb->s_blocksize;
-> -	sbi->data_start = sbi->dir_start + rootdir_sectors;
-> +	dir_start = sbi->fat_start +
-> +		mul_u32_u32(sbi->fats, sbi->fat_length);
-> +	data_start = dir_start + rootdir_sectors;
-
-Maybe, since u32 overflow is always bigger than total_sectors, so we
-should use check_*_overflow() instead, and detect early?
-
-Thanks.
--- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+	Andrew
