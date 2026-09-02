@@ -1,50 +1,44 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F21647FAFB
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:06:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 415B5488220
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:06:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788350787; cv=none; b=RPS/MkbIUEM/WSmzbbJKYmDi8Xnr2xIqthnXygWJUNTEKP9oztMxyZN5CCcc1Y6Xg5sMh/Vxfz8+T39IyOSE9fqM/4HOdVleQ3O2o30pi4qZdnzvZfxTsv9LSWjhR5iAf2XE3xuiRAMGABFH1iMiVGCJI2TFQGg89clqC3iU9yI=
+	t=1788350797; cv=none; b=YnOdzbI0f7jXIVUvMoyOKX+jJBK+9LIazEsJ3qT5CNDAHFQrybDd1fWy0PMUwsq+i6aHRARYc/wUTeEASzUSczLh6IGG74BzLrmXsAN59xH1fu7MsbjXz5klCl8j4WQxQ5aWnyRL2EwgeAmrT7M48wmWr/D9HnnEDIDKdTUmxy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788350787; c=relaxed/simple;
-	bh=lvlCLNQVujjMQSIgfLSLh2/buoD99StTZ0GkEqHxmLw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Ik/Zy6ICs3046oJT7w3ho+U5ICwn9rnn/2YOrDHgFXHaTt48lUvesZRLPSe9yfSsymOBIFZyTvqqjeczYWiG4dfjHqMwpTGMkLfO9qlpKIyFrHRwZiB7EnTwIgnAzrg6S2VJHOEusOEmtdo46+fShCG71E2ezLFBdwITtpVgmFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jSHn2dKj; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788350797; c=relaxed/simple;
+	bh=5UCt+d0wqU/WjjUjEZUTVPcpF9m87vBm2+lIg/OdQ8g=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Brc5TiSVpqq8MYjypbgAT1du8mmLwFt58BDhJbHS8lDsfHRUOX2b3exspS7ueCb9VtE/rswcopkF+54Bg04QWNQcG1O18t943ySpN43V5rauKYIhpGZ/yhHYtVDm8qQdaZIpru4xV13shJhJwUEbJyv7hYkYBmmbZFtkoszaeIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=WFXnluX9; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=FdsqZEeI; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jSHn2dKj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788350777; x=1819886777;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=lvlCLNQVujjMQSIgfLSLh2/buoD99StTZ0GkEqHxmLw=;
-  b=jSHn2dKjm9RbSRnuC5lkFBt64OxCfsh3mnLEnmE35SMoGbdX5HA+E7ah
-   THfK2Gj69H9FUro6yVhTQZtYPuFaRrdZHWGxx3G3GArbZQ0HuzI9DE93l
-   Lz/MU8eMmoMH0HJkz7LKTbItWeQSc3Mlck6lZDpG2bXDsJE2MAWp9xcZC
-   olQxbcgaEFlj8w5/AjcNmT4P9mqdYaLaMtdvOtTy4m5f4Lhh4fbDMLjUF
-   4Oz8cyZbZRcdzlYpiV+yq+05iPHOc8bkS2qZw9ZzKIMpe/T9RP1GvTViE
-   Pg4VIkMZ6qGOhuiAybsvN7aLl7dCC43JPz7wkV4SqTSIwPKmmrBgqvppy
-   A==;
-X-CSE-ConnectionGUID: /YFQhjxrQwyM4YxZICYE6Q==
-X-CSE-MsgGUID: kzg/bCdWSRiv2/BPowMhYA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="100160529"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="100160529"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 05:06:12 -0700
-X-CSE-ConnectionGUID: rshzw9rkTeywBEMz8f+hhQ==
-X-CSE-MsgGUID: 1sHQ2pc8SK+MrZBnS3qqqQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="269411651"
-Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 05:06:10 -0700
-From: Alexander Usyskin <alexander.usyskin@intel.com>
-Date: Wed, 02 Sep 2026 15:05:50 +0300
-Subject: [PATCH char-misc-next] mei: csc: add pci error handling
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="WFXnluX9";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="FdsqZEeI"
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788350776;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=D1iUjExZ+5WyJmTn3rZEdbGnudiQsYYMbZ/Kw756+64=;
+	b=WFXnluX9MIdAjjr6pxd626OMY5aFIFBYtufHmkb07Dn3HjPPFAlU2UF5zyYlVf59MxQ0KM
+	XU932YT4UiBOIFE65RZwg29smmx2eg/DR1KxILZbmkrojYJbCUheoVJlP3qAyNdVnu7zcF
+	8mXSo/T8FhUpontpqDsaGkDKyfsvQfGuXP99wiNUFE5UVlDoWZwHCeaYkCfo3yLV8S/Kyj
+	Gwk+xCrBOsManq1exaDgg6K6mS8yhyHhnJuMfQu/6LxKjCcF4zUE7DtVKd7+grPPZXVKTZ
+	mXDHNJ/qtI0rWPQaqVH/J2VlNSMuYp496sgoUDhvYTJgcXZtZuN9LLYMl4EmDg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788350776;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=D1iUjExZ+5WyJmTn3rZEdbGnudiQsYYMbZ/Kw756+64=;
+	b=FdsqZEeIDdW2LQLxJBxCWjeggVX7MzTWnrNw9tCutgxMvPfJxSCQ6BpsXxUEVC39KDL8AU
+	3d1k9EV7G26RktAQ==
+Date: Wed, 02 Sep 2026 14:06:15 +0200
+Subject: [PATCH] vdso/gettimeofday: Clean up read of tz_minuteswest and
+ tz_dsttime
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,199 +46,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-cri_aer-v1-1-b0571c399265@intel.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2M0QpAQBAAf0X7bOusKH5F0rlb7IOjPUnJvzsep
- 2bmhsgqHKHNblA+JcoWEhR5Bm6xYWYUnxjIUG0aQ+hUBsuKZH1dNjSOlfWQ7F15kus/dV+quEp
- 0GPg6oH+eFz4t4RppAAAA
-X-Change-ID: 20260902-cri_aer-2ad6392bb5ad
-To: Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org, Menachem Adin <menachem.adin@intel.com>, 
- Alexander Usyskin <alexander.usyskin@intel.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788350770; l=5374;
- i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
- bh=lvlCLNQVujjMQSIgfLSLh2/buoD99StTZ0GkEqHxmLw=;
- b=pz9UpTaYmuXvlvQuN2KaEBhQTbjQ7QNnPhgXcTGq5WdnkQ5opfGSfdEy+VEHizWm0eVlpNZS5
- GrfpV8SEkH/BGFf+WZfZWo4HhvNDVcp7IrvX09hGwumcL2ejVIh6MY5
-X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
- pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260902-vdso-tz-v1-1-4d37a6b85ff9@linutronix.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSwMj3bKU4nzdkirdJEtLyzQT42Qjk6QkJaDqgqLUtMwKsEnRsbW1AJq
+ zhoNZAAAA
+X-Change-ID: 20260902-vdso-tz-b999f43c24bb
+To: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+ Anna-Maria Behnsen <anna-maria@linutronix.de>, 
+ Nam Cao <namcao@linutronix.de>
+Cc: linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788350776; l=1291;
+ i=thomas.weissschuh@linutronix.de; s=20240209; h=from:subject:message-id;
+ bh=5UCt+d0wqU/WjjUjEZUTVPcpF9m87vBm2+lIg/OdQ8g=;
+ b=hwgTlaS8AQ47urSYzFImT2tawy7ixa8+XpUEqumOO09sJaxbbxO8KqqMeDbyFwIf1RZS6nMCc
+ sEmO9ca4sSKBIJ8o3YHT/F6FTVcM1p8yqY/iishVWqhAFtCAGXHgJv7
+X-Developer-Key: i=thomas.weissschuh@linutronix.de; a=ed25519;
+ pk=pfvxvpFUDJV2h2nY0FidLUml22uGLSjByFbM6aqQQws=
 
-Add PCI error handler callbacks.
-Stop and disable communication when error is detected;
-reset the link and re-enable communication then device is
-restored.
+When these fields got moved from 'struct vdso_time_data' to the new
+'struct vdso_clock', this access was forgotten.
 
-Co-developed-by: Menachem Adin <menachem.adin@intel.com>
-Signed-off-by: Menachem Adin <menachem.adin@intel.com>
-Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+'vd' is not an array, but a pointer to a single structure. The code
+works by accident in its current form as CS_HRES_COARSE is 0.
+
+Replace the incorrect array access with a regular pointer dereference.
+
+Fixes: 886653e36639 ("vdso: Rework struct vdso_time_data and introduce struct vdso_clock")
+Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
 ---
- drivers/misc/mei/init.c    | 33 +++++++++++++++++++--
- drivers/misc/mei/mei_dev.h |  1 +
- drivers/misc/mei/pci-csc.c | 72 ++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 103 insertions(+), 3 deletions(-)
+ lib/vdso/gettimeofday.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/misc/mei/init.c b/drivers/misc/mei/init.c
-index 766f119f7ed0..82444d67db2a 100644
---- a/drivers/misc/mei/init.c
-+++ b/drivers/misc/mei/init.c
-@@ -305,10 +305,8 @@ static void mei_reset_work(struct work_struct *work)
- 		schedule_work(&dev->reset_work);
- }
+diff --git a/lib/vdso/gettimeofday.c b/lib/vdso/gettimeofday.c
+index f7a591aba59f..6e9b03051bee 100644
+--- a/lib/vdso/gettimeofday.c
++++ b/lib/vdso/gettimeofday.c
+@@ -374,8 +374,8 @@ __cvdso_gettimeofday_data(const struct vdso_time_data *vd,
+ 		if (vdso_is_timens_clock(vc))
+ 			vd = vdso_timens_data(vd);
  
--void mei_stop(struct mei_device *dev)
-+static void __mei_stop(struct mei_device *dev)
- {
--	dev_dbg(&dev->dev, "stopping the device.\n");
--
- 	mutex_lock(&dev->device_lock);
- 	mei_set_devstate(dev, MEI_DEV_POWERING_DOWN);
- 	mutex_unlock(&dev->device_lock);
-@@ -318,6 +316,35 @@ void mei_stop(struct mei_device *dev)
- 	mutex_unlock(&dev->device_lock);
+-		tz->tz_minuteswest = vd[CS_HRES_COARSE].tz_minuteswest;
+-		tz->tz_dsttime = vd[CS_HRES_COARSE].tz_dsttime;
++		tz->tz_minuteswest = vd->tz_minuteswest;
++		tz->tz_dsttime = vd->tz_dsttime;
+ 	}
  
- 	mei_cancel_work(dev);
-+}
-+
-+/**
-+ * mei_stop_fast - stop driver, clean bus and disable driver without resetting HW link
-+ *
-+ * @dev: the device structure
-+ */
-+void mei_stop_fast(struct mei_device *dev)
-+{
-+	dev_dbg(&dev->dev, "stopping the device fast.\n");
-+
-+	__mei_stop(dev);
-+
-+	mutex_lock(&dev->device_lock);
-+	mei_set_devstate(dev, MEI_DEV_DISABLED);
-+	mutex_unlock(&dev->device_lock);
-+}
-+EXPORT_SYMBOL_GPL(mei_stop_fast);
-+
-+/**
-+ * mei_stop - stop driver, clean bus and disable driver with resetting HW link
-+ *
-+ * @dev: the device structure
-+ */
-+void mei_stop(struct mei_device *dev)
-+{
-+	dev_dbg(&dev->dev, "stopping the device.\n");
-+
-+	__mei_stop(dev);
- 
- 	mei_clear_interrupts(dev);
- 	mei_synchronize_irq(dev);
-diff --git a/drivers/misc/mei/mei_dev.h b/drivers/misc/mei/mei_dev.h
-index e651b06704a1..79a7c3e63397 100644
---- a/drivers/misc/mei/mei_dev.h
-+++ b/drivers/misc/mei/mei_dev.h
-@@ -736,6 +736,7 @@ int mei_reset(struct mei_device *dev);
- int mei_start(struct mei_device *dev);
- int mei_restart(struct mei_device *dev);
- void mei_stop(struct mei_device *dev);
-+void mei_stop_fast(struct mei_device *dev);
- void mei_cancel_work(struct mei_device *dev);
- 
- void mei_set_devstate(struct mei_device *dev, enum mei_dev_state state);
-diff --git a/drivers/misc/mei/pci-csc.c b/drivers/misc/mei/pci-csc.c
-index 6e1e8008f267..dacbd5e0e9d7 100644
---- a/drivers/misc/mei/pci-csc.c
-+++ b/drivers/misc/mei/pci-csc.c
-@@ -230,6 +230,77 @@ static int mei_csc_pm_runtime_resume(struct device *dev)
  	return 0;
- }
- 
-+static pci_ers_result_t mei_csc_pci_error_detected(struct pci_dev *pdev, pci_channel_state_t state)
-+{
-+	struct mei_device *mdev = pci_get_drvdata(pdev);
-+	struct mei_me_hw *hw = to_me_hw(mdev);
-+
-+	dev_info(&pdev->dev, "error recovery: error detected. state %d\n", state);
-+
-+	scoped_guard(mutex, &mdev->device_lock)
-+		if (mei_me_hw_use_polling(hw))
-+			hw->is_active = false;
-+
-+	mei_synchronize_irq(mdev);
-+	mei_stop_fast(mdev);
-+	pci_disable_device(pdev);
-+
-+	switch (state) {
-+	case pci_channel_io_normal:
-+		return PCI_ERS_RESULT_CAN_RECOVER;
-+	case pci_channel_io_perm_failure:
-+		return PCI_ERS_RESULT_DISCONNECT;
-+	case pci_channel_io_frozen:
-+		return PCI_ERS_RESULT_NEED_RESET;
-+	default:
-+		dev_err(&pdev->dev, "Unknown state %d\n", state);
-+		return PCI_ERS_RESULT_NEED_RESET;
-+	}
-+}
-+
-+static pci_ers_result_t mei_csc_pci_error_slot_reset(struct pci_dev *pdev)
-+{
-+	int err;
-+
-+	pci_restore_state(pdev);
-+	pci_set_master(pdev);
-+
-+	err = pci_enable_device(pdev);
-+	if (err < 0) {
-+		dev_err(&pdev->dev, "Cannot re-enable PCI device after reset. err = %d\n", err);
-+		return PCI_ERS_RESULT_DISCONNECT;
-+	}
-+
-+	return PCI_ERS_RESULT_RECOVERED;
-+}
-+
-+static void mei_csc_pci_error_resume(struct pci_dev *pdev)
-+{
-+	struct mei_device *mdev = pci_get_drvdata(pdev);
-+	struct mei_me_hw *hw = to_me_hw(mdev);
-+
-+	dev_info(&pdev->dev, "error recovery: resume\n");
-+
-+	scoped_guard(mutex, &mdev->device_lock) {
-+		if (mei_me_hw_use_polling(hw)) {
-+			hw->is_active = true;
-+			wake_up_interruptible(&hw->wait_active);
-+		}
-+	}
-+
-+	if (mei_restart(mdev))
-+		return;
-+
-+	/* Start timer if stopped in error */
-+	schedule_delayed_work(&mdev->timer_work, HZ);
-+}
-+
-+static const struct pci_error_handlers mei_csc_pci_error_handlers = {
-+	.error_detected = mei_csc_pci_error_detected,
-+	.slot_reset     = mei_csc_pci_error_slot_reset,
-+	.resume         = mei_csc_pci_error_resume,
-+};
-+
- static const struct dev_pm_ops mei_csc_pm_ops = {
- 	.prepare = pm_sleep_ptr(mei_csc_pci_prepare),
- 	.complete = pm_sleep_ptr(mei_csc_pci_complete),
-@@ -250,6 +321,7 @@ static struct pci_driver mei_csc_driver = {
- 	.probe = mei_csc_probe,
- 	.remove = mei_csc_remove,
- 	.shutdown = mei_csc_shutdown,
-+	.err_handler = &mei_csc_pci_error_handlers,
- 	.driver = {
- 		.pm = &mei_csc_pm_ops,
- 		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
 
 ---
 base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260902-cri_aer-2ad6392bb5ad
+change-id: 20260902-vdso-tz-b999f43c24bb
 
 Best regards,
--- 
-Alexander Usyskin <alexander.usyskin@intel.com>
+--  
+Thomas Weißschuh <thomas.weissschuh@linutronix.de>
 
