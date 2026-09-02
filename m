@@ -1,128 +1,118 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 672A247798B;
-	Wed,  2 Sep 2026 11:58:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8338647F786
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:57:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788350292; cv=none; b=RJeDN2pXdamfXydtViSXDhMOiObLCtx+OHsvV0iuMtR4tPn8/B0UOixuxFsqGKIGa9bBFc3LX3a5UyC9zz1M5cdGXcdwCboi/WNn6Zszf4CaMs4cfS8Uvv501HKD7Swb4Nkt79ucnr0FccObIvtu3Rcxa3vxBzHRYaB8gWotNV4=
+	t=1788350289; cv=none; b=l8TiO0w24ZeUOOY+29JC1BJmvInQBRqMIFC42ZB2VMv+LErVvOjVBdQ6oMaphf7tHdy0e7EolWeXdSesi4RBDvTDRXEh1c1GIu8/q/GfZXTNU6dtp0rMkkpHwCMMQlT5APR4cKLEpkItCaZayeoG9XTmUxsTnNsn+mrF1ELIop4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788350292; c=relaxed/simple;
-	bh=JAI8HuvMrB06U9pngwcLmVHYlvLOsBAW7o0q3zLItzs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QzN/anzdTjsv504sAgD8Rlpq+QEhNeWwnt08NSIXUVEEzfVuQ8BaLX4J4OO4mVtOc8a5RKQU7EN6q2xWHUqY1wItsDqvvXOCenyJuq5WOVx4R0H1YqckJp+GNuZ6FiHxasOWGow/w9kIW7L5PawV+3a/OB8iHItaoTw79Mm1GBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Br0kvwiZ; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788350289; c=relaxed/simple;
+	bh=tO0y75VMEYamnBaS6PAke3LTTxdn7g0wBN/VKE9BEPQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZNGPZZMoIdmqRjJbBKERmfcZ7Yxdpnpt1SADmwRn4RqRR20siV4y0sN33pSI+8fuJKl36BnShex8LPaRJZrkPETx3XKUdXZeDMQPqHYpWv9dxfLRT4xMb+VGqRGIAVuZGBpkGcIc4tjr10/EOFPaJgVv+mIa855YdCdRxvfWolY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FVbQDH6v; arc=none smtp.client-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Br0kvwiZ"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 831ED1684;
-	Wed,  2 Sep 2026 04:58:02 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 09BE23F85F;
-	Wed,  2 Sep 2026 04:57:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788350286; bh=JAI8HuvMrB06U9pngwcLmVHYlvLOsBAW7o0q3zLItzs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Br0kvwiZKirBYwtP8GSbqaahPr9eXVJSF3G6/g+zhRfz9rudpPonCKSJx1zZiDP5I
-	 seMnZ0FIMrBMphvLYpfrg+MO5sigrisjQEeqGAmO+6ELBvPgtEKno0usZoDWmbAedz
-	 z1OTeZdg4q9ETpJggfEcDWTY/b5vPm9214of8Xyc=
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-Date: Wed, 02 Sep 2026 12:56:14 +0100
-Subject: [PATCH RFC v3 12/21] mm/pgtable: redefine PGTABLE_LEVEL enum with
- ascend order from PGD
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FVbQDH6v"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cbe6295f05bso1680545a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:57:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788350275; x=1788955075; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vZVF3OnSwA/qMIPyBbfYfBBIkjgQyRTS9OHeMu2tZqw=;
+        b=FVbQDH6vQua1R7a1Eb5rNlvqJj2KtDJeucyGCU/dX/yJqtlcUodaw1uaZw8jPkpgDV
+         X0wF2nCiJnk30EmIyD/w0HrDcviLQp1oo+rx8Vj9Z9q0M1xfWpiMEu8jClUTbqUsmDTr
+         dlHx/zuMwFxqna3udjgjbUmt6oC/6jrjZ9Kly9ckdI6xCHPcgR2a7JqnHm7r5JJfCPPF
+         ey0FOKFkv+XQ0OAa6eFstzoiYQbxkj8rRJzci6OZfQGuohM+rtZ23GHfVgVbHQjEC0ZI
+         5j+5+lXOAyeDNCyRa7175NHdK4HAQA7KHlelZlgv0LibcAIXXJzZEWqf+GptYp6YscaZ
+         ygHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788350275; x=1788955075;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vZVF3OnSwA/qMIPyBbfYfBBIkjgQyRTS9OHeMu2tZqw=;
+        b=nLd4BzcccakGMJZPHovbvLNkbUL2xdxmlJUTsRHtugPVpTb7yIPz9pqULgsJzhAMiE
+         i0rqWZPyczjupsHQuamOql7aKmAOYtI4z6EcBaKM6vdCDy+mlLhKTH7LN3ok1w9WDVDe
+         rlSmKimNlaEwgx+CQN0bDY2sTg31FZgMe3APEk6jWcmf9Po92TH3fvwy3435yRsEMlP7
+         4bHSCdZWJe/YTq+jSeo4ZZVeVGrruxEAbT/HsqKID5HwIyUOHCbGjJNP8Nob2pSG7lqj
+         /9iqeMklm/hICSZq6HH0D5y3WHOviZmpuakjHA/qLcsPiQI96IE1Yhyi9BJklsZHrddU
+         1vew==
+X-Forwarded-Encrypted: i=1; AKwUvBx3zoxpEvpyvyL0nSaxlktAjO5kNLTAeaTWaqIfyqAEj/rS2CuEjirCVfWf8mDoeA+jn8frIHoPTz5Tras=@vger.kernel.org
+X-Gm-Message-State: AFuF++naanPIEGmYW59MDuGeKh+IaqW4vIOWsPI/jXwxJfS8gdFspR/t
+	+zPUHwOOiE9yvVrxgb+cKmC7TQjVMVTXQFUAxeue9oafENjfBxvvrIhQSwrJ5W+L
+X-Gm-Gg: AYBFou2Na6wTQAWVbzbYgQ4FkBKgZk3VCGMDSkc8L3y1S/c1Jt+TIzN8PR65w1Gwl2g
+	M8b2pkG4GbWoBeGonlcjnUO6NdF7PapGIwiTVGek/4JG45MoCLsUZVxr3B7GTeJnuliuL6zbMvW
+	5uVFt6GUvtm3wcd0fg7ENriDxAJnRrtFIK00UXfZ0oWa6aHmpUIEgq+6KfwdiH6rVnOA3Rz8Uaj
+	c73BDvvXWunvL1L/SKm8feMiHs/YqimMGR8smVITdvL28jPxML9kALpH1Cl4atwT65rUyDC1z2o
+	K9hurp1+HeJiMtbP/1MiJeH9wWthmlrE6sYUOBfy+gf9Y39zbCtYNdQxyZbKQQHNyI3lCnNvOAp
+	+ui+tX//n8c2xGZdu92dfMCvBD/uM/Zp21bvbKN99B+EkutClnWRc5DpQ5Rx0BFi/B48ikdoclN
+	+qdPSTbKMIYz12MuBHCn0+GCObYXAtqtgzH27wb0P0Jq3mKJf9nEp04SWCOaoQ6s2ITktgEblWS
+	ecsOlWVCRJFNBIZajR/oyn/
+X-Received: by 2002:a17:90b:5201:b0:398:ba46:1d9f with SMTP id 98e67ed59e1d1-39af655b35dmr1951709a91.13.1788350275447;
+        Wed, 02 Sep 2026 04:57:55 -0700 (PDT)
+Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae0f28b19sm5919574a91.6.2026.09.02.04.57.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 04:57:54 -0700 (PDT)
+From: Wenjie Qi <qwjhust@gmail.com>
+X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
+To: Chao Yu <chao@kernel.org>
+Cc: Jaegeuk Kim <jaegeuk@kernel.org>,
+	qwjhust@gmail.com,
+	qiwenjie@xiaomi.com,
+	linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net
+Subject: Re: [PATCH v5 04/12] f2fs: cache: introduce writeback thread
+Date: Wed,  2 Sep 2026 19:57:49 +0800
+Message-ID: <20260902115749.692330-1-qiwenjie@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260831092227.739737-5-chao@kernel.org>
+References: <20260831092227.739737-1-chao@kernel.org> <20260831092227.739737-5-chao@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-dummy_ptxp3-v3-12-5d8f5b17c25c@arm.com>
-References: <20260902-dummy_ptxp3-v3-0-5d8f5b17c25c@arm.com>
-In-Reply-To: <20260902-dummy_ptxp3-v3-0-5d8f5b17c25c@arm.com>
-To: Russell King <linux@armlinux.org.uk>, 
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Arnd Bergmann <arnd@arndb.de>, Andrew Morton <akpm@linux-foundation.org>, 
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, Tianrui Zhao <zhaotianrui@loongson.cn>, 
- Bibo Mao <maobibo@loongson.cn>, Anup Patel <anup@brainfault.org>, 
- Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Dave Hansen <dave.hansen@linux.intel.com>, 
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonas Bonn <jonas@southpole.se>, 
- Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
- Stafford Horne <shorne@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-mm@kvack.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-openrisc@vger.kernel.org, Yeoreum Yun <yeoreum.yun@arm.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1223; i=yeoreum.yun@arm.com;
- h=from:subject:message-id; bh=JAI8HuvMrB06U9pngwcLmVHYlvLOsBAW7o0q3zLItzs=;
- b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqmA7nq1z+UGkBh+k3plBTwHn84nfJGlTH4HLv6
- PSsOOGZ/OqJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCapgO5wAKCRBt1cPRWsUx
- M4WQC/4j5E65SCGx3a5/ZzEhrT7FR7As2mIMS9VAlDcEK/fUO+neWKP+3tAec53rUxb4zzYZKQr
- g3mrmjGqQfOQWFk0eMRy2UiUFM9sGnzM+aPCUjoMiPSlvR4ZloQz6B11DzS/1vcE9hCDnTfjvtK
- qVQP7mnCLKp6tqIu24k7YyT7/1M5TwLF9MckxKXher2kNgQyHoOU0A++ZAo8AnP5mdlzo5T2a0H
- yqfNYTL2jA0+vAPusTvh552PMoTvcNMpL10IwhehGblQh3b2mr3AWKiPaiII+C/tvF8CX1S0hYO
- Lsv/z7b/+GbqLVyVEZPDMeZ76r21qIJjSuSzlY3XmUdMaIXYuG5Zh2EeZh0142nK7VIzSEQXJdl
- 1WqI52sg40psqB++3zm3uJk2vkt3ViK3XEvLCey+cs9cs3THb4NBf8ha4nuPMmOFiw6Bt6yHWOk
- PpTMxtIHG90CMyP8nQCuRgq1kKwGXaA+MSt7L4chgHdCIlEnjwejGwdNLXoe7Bqj4d0Sc=
-X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
- fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The PGTABLE_LEVEL enum values appear to be ordered in the opposite direction
-from their intended usage.
+Hi Chao,
 
-Intuitively, higher page table levels should have smaller enum values,
-but PTE is currently assigned 0.
+> if (flags & SB_RDONLY) {
+> 	if (sbi->cache_thread.cache_wb_task) {
+> 		f2fs_stop_cache_wb_thread(sbi);
+> 		need_restart_wb = true;
+> 	}
+> }
 
-For consistency and cleanup, reverse the enum value ordering.
+and later:
 
-Since there is no current user relies on these numbers to be ascending from
-PTE->PGD, so it can be changed to be ascending from PGD->PTE, in the
-direction of the page table walk.
+> err = f2fs_sync_fs(sb, 1);
+> if (err)
+> 	goto restore_gc;
 
-Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
----
- include/linux/pgtable.h | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+The writeback rollback begins at:
 
-diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-index e3c8ab96941c..3186096a6e13 100644
---- a/include/linux/pgtable.h
-+++ b/include/linux/pgtable.h
-@@ -2288,11 +2288,11 @@ static inline bool arch_has_pfn_modify_check(void)
- typedef unsigned int pgtbl_mod_mask;
- 
- enum pgtable_level {
--	PGTABLE_LEVEL_PTE = 0,
--	PGTABLE_LEVEL_PMD,
--	PGTABLE_LEVEL_PUD,
-+	PGTABLE_LEVEL_PGD = 0,
- 	PGTABLE_LEVEL_P4D,
--	PGTABLE_LEVEL_PGD,
-+	PGTABLE_LEVEL_PUD,
-+	PGTABLE_LEVEL_PMD,
-+	PGTABLE_LEVEL_PTE,
- };
- 
- static inline const char *pgtable_level_to_str(enum pgtable_level level)
+> restore_wb:
 
--- 
-2.43.0
+and the GC rollback begins later at:
 
+> restore_gc:
+
+The common option rollback then contains:
+
+> restore_opts:
+> 	sbi->mount_opt = org_mount_opt;
+> 	sb->s_flags = old_sb_flags;
+
+The RW-to-RO path stops `cache_wb_task` and sets `need_restart_wb`, but
+the sync error jumps directly to `restore_gc`.  Since `restore_wb` precedes
+`restore_gc`, this edge does not execute the writeback-thread rollback before
+the old mount options and flags are restored.
