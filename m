@@ -1,151 +1,128 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A980415B6B
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:27:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EF1B3F0AA0;
+	Wed,  2 Sep 2026 09:27:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788341246; cv=none; b=U5OsWMlVAklJ81KtjySjAQITS5Gp9Rjg3+i4TxSZyJLMKtUJZ0LyRq4VaS6OhS+kKpYSL46GbmxUgUnxNWf9cPJ/2Xr0zeqY0W7NRSZoI+DhNBQMiLpMB+r66B0TJpXde109eTMU6ruPVxXFs5KgHItTCu5pfOJmY1eUYMQk2DI=
+	t=1788341247; cv=none; b=XsbiqVozRCc2rFNwMMlBqDhjoV58QChYWecknMx93ftI4Vi30upqNq9UPUOCJ9YqWhvzBkj2QyNVxgTr93/yq2tBXUE4y3hlVGUs7yx8hc9zUKk7Cu4aLtx/tI9DcYF6eD+pEVY6o9WMO+VGPfa6y0tNDTnJ9aP5itr8MXnh6pE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788341246; c=relaxed/simple;
-	bh=4RrWg3YRAeHPQUzHKjgVo28GNnYT956K15imGLTP8yk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZLH9VTaBU/0JxAi/vmaSMu1U50IbnCoFeS8kKZPTRua/gGDCeM314KxpMIKY1az9Vsj10kcbwS/8c8XJf+rVbekflm+jGyx/jImcko7P3qEKzDUuB2HrFl7guxmEhiHLu05KwWMiUM8nH2Qy2QdmWOgutlUGOqsdG5Q8iKOdEj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CVF1nDol; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZRlhJpLX; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788341247; c=relaxed/simple;
+	bh=KPrDvW0fnoXM/spnF4ccGetBZU62mAAZhQ0Hguq+iaE=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=B1YXmk7ckUAVm85HOArYjqYk47DmVJKSOzctk1FwEwVtbsCh3FJJz/GltLMdt/rLSJaQkmP1813p7uL1OGPDOwlNGrZfN08M0/kVVQFp9O5bk6/N9uh0u/YVVlNaG0nKiezJ26IWwPIS9pMb95Sm4r08txgwrfZ2J7puBDDZyjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZStUCRRb; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CVF1nDol";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZRlhJpLX"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6829NEt8463929
-	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 09:27:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	gNLzMLJZKI7OImu+XuzOnLBC17S6dnkYMkkwnpIHzgw=; b=CVF1nDol+hpZwsFS
-	MOgvCBfb1EwOK0kpu/Z3JNm/mxhLAgh54XhaeCGkXwlxAj2rRKgmNudMadzRAUB6
-	6VIahtjrGJKoReOrZVYXLEGFRr340+g4JsWIFwWZl2yCIersIw0MU7Bnw//mavuL
-	OoTVWoM5YAztEdwdxd0tLDEnFQIeZ/iIuIuyGb3gMKKvSXd43IpYyfj5PZ2a24Vt
-	PyLbKWBXkxzhRWd6YLdV0QtDLb/OhlYfmF0+BJplbFO+QH6WDUNfJ51h3pEwYY5U
-	UyToNEgTyeLhWpkb0DJIjqLj5adDzsiqMKWdNWSDFmnc9pGRy0KLjsp4mSavnPiK
-	41ffjQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ge35k3738-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:27:20 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-398fe469aa0so1470310a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 02:27:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788341240; x=1788946040; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gNLzMLJZKI7OImu+XuzOnLBC17S6dnkYMkkwnpIHzgw=;
-        b=ZRlhJpLXs7m2BLsfe5ikECyZQNjqrMn8jUttE8rx9qJyObr/lq6glYak2a81N2C1Dv
-         gkivVdC9B4eOubxt2jmTu1OYQP+UytQAMwLoiWP5yzITcKA3xt372P2x1h1jkCkDvzM3
-         0GxlzVN5AfdKqE6hEE8V09MJV0Q7UuiD/jOt9mxC+Pmmi5ERmhq3el/ITPHg8t/M9tRG
-         y3OOlsOuPDcWq4au6zvYci4yzAVAxWLJLNxDXdknE9fZsWYkBXkrdh71vyPe0OPD9OPN
-         H00AlQt0BRjfkxx/Rfs++Jos8AU4n0Q10lPhl80vnjwndQjV/UflW5g3CyATvX8rntfD
-         0HFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788341240; x=1788946040;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gNLzMLJZKI7OImu+XuzOnLBC17S6dnkYMkkwnpIHzgw=;
-        b=Aqnarzkq8sKraiemVfkUwYBkCgmTTk0BrtTEI7iMCwdqUFNkTW6WZDr3Ewq1pm19IR
-         00r1UR9YSiGVTz3RdtZ7X5LRuOPnG8I959hLdquhKMbGaJrddokcA/zVyIqEYovtR1su
-         ZlwZMwJLPn2xbaOTUwXzIyzwdJitpRJa5kMmggV/AudiK7af4/uwtbTRHrT6ZAaK2X8F
-         dTmrqflfl32vznK58htilEYSanIEHICI/7BpaGxe7oFP8ymC4BUvcO4z1KvnOiO1N+jN
-         wExX611QfxtxumikuMM5dScnnwLOAjqntzCvpbf+aANuapfSXycEXiZjhHC3zX9nRkX4
-         RbnA==
-X-Forwarded-Encrypted: i=1; AKwUvBwassD19xRWlsR9ES80x47omALeQB0NQUV0+qP4/znE3pHneCIsbqbZx4ViLDK4yFJ9/BL7jfHdadl/14o=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7YKz2XiMRyyYAweOiVCxCOZ3H4TqMAIeIy6vLdKbk5Jr313Wq
-	ssu/jySOPLIAN4clA6Sq8uqKmXCzTPfpFncT0yfYq7BPngc/cck45lMKTMkH2mq5lpyryidNGEs
-	yd0hpmd+CSFpHOoPRImH7QRpSr30tBsUjyT8EPLkAqXs8AuVNL1wNf2Qmusw7KvAIh9o=
-X-Gm-Gg: AYBFou3/06aACWn2n57Zrh0JAFc6YXq0Inl66KVAPCtPl4CFibHaUULZd/ZJCKzM7Lt
-	byZ5K9iBUdQanAqn1UMe9xOpNW/Yeq1+3eBbc2rhJ7sLBh7FiG0jw/5L3QHC0j/8ai8WKG6Rq8C
-	L3mYMWYfy/m8B4iugaDmyhTjLxfZU+vM/TQBd4r3r76JOu+d9sbhDlScybYSglAvHz2+Hlp2aMM
-	TcO1p/Pmcw4Tf/taxxRvhglUaW8CXL+8lMePMszO8cUchB9Uu2jh6TSDgQr8uOLpPn6KvM2yziX
-	tB+7gzCH6I6JYeGMhsVx3HJtCuxEn/9X4bMl59jF42jgStyd0cYqLu7rWVnxrymXsrmDjPOaNNf
-	+Z7wIq9AeGeJx8sz7OCnTl5Th+LmMmnQ=
-X-Received: by 2002:a17:90a:f94f:b0:398:bacb:1137 with SMTP id 98e67ed59e1d1-39aee21a4demr5659443a91.19.1788341239433;
-        Wed, 02 Sep 2026 02:27:19 -0700 (PDT)
-X-Received: by 2002:a17:90a:f94f:b0:398:bacb:1137 with SMTP id 98e67ed59e1d1-39aee21a4demr5659371a91.19.1788341239018;
-        Wed, 02 Sep 2026 02:27:19 -0700 (PDT)
-Received: from [10.218.31.125] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1430e9eb4dasm8445304c88.2.2026.09.02.02.27.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 02:27:18 -0700 (PDT)
-Message-ID: <54de34e2-cbe1-4464-b186-3ba242ffe3fd@oss.qualcomm.com>
-Date: Wed, 2 Sep 2026 14:57:13 +0530
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZStUCRRb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788341242; x=1819877242;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=KPrDvW0fnoXM/spnF4ccGetBZU62mAAZhQ0Hguq+iaE=;
+  b=ZStUCRRbDC/yXI09HcQ7V84HOR9wCe5citO9KOnr2ecq767ZH9v6yP10
+   GdBB9tVC39jk5BBvQLAwLg20wv5c5lnEoIn2BoMj2/PTpauHNOQMQFSD8
+   /+4+p1XPtD3e1K0zubsKyzdYHscS19YfV+GAtRobtne6P0yrKCSd3ePWM
+   K9WjPJPquTTAyWfGzVYCQydejX0Zjnw56dudrLyTPJA+g03c/r9nTLaLx
+   cmZFSH6OdCM2bSwZ8zNjD9LRdinc7GSa9D55sptmrGeHP0pMdjh/NarFe
+   VPrsxxYnxUnKwCP++yaVQWBS1wYLN/jGRMx2j4JmziQHjlKH4+2dptXJw
+   g==;
+X-CSE-ConnectionGUID: bgG48WpUSu6ga5ZQDTmj+Q==
+X-CSE-MsgGUID: hSHfFkrzTp2xjj/cvzZHnA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="114336694"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="114336694"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 02:27:20 -0700
+X-CSE-ConnectionGUID: bQypmes+TVyLHiesV3Df/A==
+X-CSE-MsgGUID: uAFY43MYR6eU1d4FFI5Nkw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="263207963"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.185])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 02:27:13 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 2 Sep 2026 12:27:09 +0300 (EEST)
+To: Armin Wolf <W_Armin@gmx.de>
+cc: Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, linux@weissschuh.net, 
+    "Rafael J. Wysocki" <rafael@kernel.org>, lenb@kernel.org, 
+    linux-acpi@vger.kernel.org, alexander.deucher@amd.com, 
+    christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, 
+    amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+    patrik.r.jakobsson@gmail.com, maarten.lankhorst@linux.intel.com, 
+    mripard@kernel.org, tzimmermann@suse.de, jani.nikula@linux.intel.com, 
+    joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com, 
+    tursulin@ursulin.net, intel-gfx@lists.freedesktop.org, 
+    matthew.brost@intel.com, thomas.hellstrom@linux.intel.com, 
+    intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH v3 0/3] platform/wmi: Add aarch64 support
+In-Reply-To: <46bd3385-4bd8-4a98-8ef3-57c29d00361c@gmx.de>
+Message-ID: <c8445c2e-6799-7856-610c-0742248e1c07@linux.intel.com>
+References: <20260724025959.142826-1-W_Armin@gmx.de> <59aadf0f-953c-4b7c-8c92-9dd9bc4f89de@gmx.de> <46bd3385-4bd8-4a98-8ef3-57c29d00361c@gmx.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] tee: qcomtee: Register qcom.tz.tpm service for
- discovery
-To: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
-        Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
-        Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
-        Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-arm-msm@vger.kernel.org, op-tee@lists.trustedfirmware.org,
-        linux-kernel@vger.kernel.org, linux-integrity@vger.kernel.org
-References: <20260831-tpm_qcom_driver-v1-0-6f16fa6924fa@oss.qualcomm.com>
- <20260831-tpm_qcom_driver-v1-1-6f16fa6924fa@oss.qualcomm.com>
-Content-Language: en-US
-From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-In-Reply-To: <20260831-tpm_qcom_driver-v1-1-6f16fa6924fa@oss.qualcomm.com>
+Content-Type: multipart/mixed; boundary="8323328-507380628-1788341229=:1183"
+
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323328-507380628-1788341229=:1183
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA4MiBTYWx0ZWRfX0j+h/SOG0NDd
- ywpapdxQqgXh24rwHGFDfgopbS2ZhFZ02dYx2Aunm71QirZaLNl3AYo3BgOR0pVrKkcTAODv9XF
- zqO7NC5QbTyP8IOmmsRXazpRWtqxaAOnR+NikT3uNiOrhcAWWk/NBpL6qcf434y3pmv4KskjJjn
- ljt5tOsW7wGxHI7KQW/ComfG2OEILos1nb4GSQkIJiuAK4xSWBjBuqbqvrc4XrmBjGNqflSxf+o
- dKTk2rrv6PFxgijJq2O4iRaC1Ikv9dUABXyNZ/qG//6b6WjC2MfGJGvqLuWS7imaZCYjSXN08WC
- L7ShxptCOiIcixayP0sII5HIzv/dxC+JaKjv2H26TPhyV8umpvZ8qlk/EfLOPlG5as5KQ+Qgg5F
- YbWdKhynDqO3JUH+Ddd5Q8UhPXIm7nWrBn2nDrH7m6vhUkioIipxoLiDl4Xx9zfXtDpyKX0sJRJ
- o4Eub2ZQ4TmURx1f6dw==
-X-Proofpoint-GUID: YOdZ0AxrA8Gypvddah_IieaSmnmhVF1M
-X-Proofpoint-ORIG-GUID: YOdZ0AxrA8Gypvddah_IieaSmnmhVF1M
-X-Authority-Analysis: v=2.4 cv=VLrtWdPX c=1 sm=1 tr=0 ts=6a97ebf8 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=3Mugy72lF2TQ84n-Z4MA:9 a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA4MiBTYWx0ZWRfX/EzoRTm9aq3p
- j1OvFlrE9pRNkp9MhjGetPWEkmOEtbHY/xbC7nlLaJtUVX+HgHrFGJOocAVhc8d9EdqgX2VE3fv
- K2ZByKmhqQ9gE8BVGFUNwdO47MstvB4=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_02,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0
- malwarescore=0 adultscore=0 priorityscore=1501 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020082
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-> diff --git a/drivers/tee/qcomtee/qcomtee_msg.h b/drivers/tee/qcomtee/qcomtee_msg.h
-> index ecaf8db67d45..888611b801c8 100644
-> --- a/drivers/tee/qcomtee/qcomtee_msg.h
-> +++ b/drivers/tee/qcomtee/qcomtee_msg.h
-> @@ -106,6 +106,8 @@ union qcomtee_msg_arg {
->  #define QTEE_VERSION_GET_PATCH(x) ((x) >> 0 & 0xfffU)
->  
->  #define QCOMTEE_UEFI_SEC_UID            413
-> +#define QCOMTEE_TPM_UID			489
-There's discussion ongoing in QTEE side on keeping idl with uid 81 and
-not a new idl(uid 489).
+On Tue, 1 Sep 2026, Armin Wolf wrote:
 
-I'll update if needed in my next patch.
+> Am 07.08.26 um 23:03 schrieb Armin Wolf:
+>=20
+> > Am 24.07.26 um 04:59 schrieb Armin Wolf:
+> >=20
+> > > The aarch64-laptops project found out that some Windows-on-Arm
+> > > notebooks contain WMI-ACPI mapping devices (PNP0C14) that work
+> > > exactly like on x86. Those devices however are currently not
+> > > supported by the WMI driver core due to only supporting x86.
+> > >=20
+> > > The first patch removes this restriction and allows the WMI
+> > > driver core to run on all architectures that support ACPI.
+> > > The second patch updates the acpi-video driver to take advantage
+> > > of the improved support for architectures other than x86, and
+> > > the last patch enables the generic WMI BMOF driver to support
+> > > aarch64 as well.
+> > >=20
+> > > All patches have been tested on a ACPI-based aarch64 VM and
+> > > work just fine.
+> >=20
+> > Any thoughts about this series from the GPU driver people?
+> >=20
+> > Thanks,
+> > Armin Wolf=20
+>=20
+> Can i assume that the silence means "looks fine to me"?
 
--- 
-Regards
-Kuldeep
+Hi,
 
+Those subjects may be too generic for the GPU people to realize we're=20
+waiting for their Acks.
+
+I suggest you send non-ML email (private) with a more descriptive subject=
+=20
+to the relevant maintainers asking for them to take look at this series=20
+(I'd have done that myself later this week but you can do it as well).
+Such an email is more likely to be caught in their radar.
+
+> > > Armin Wolf (3):
+> > > =C2=A0=C2=A0 platform/wmi: Remove dependency on CONFIG_X86
+> > > =C2=A0=C2=A0 ACPI: video: Remove CONFIG_X86 handling from nvidia_wmi_=
+ec_supported()
+> > > =C2=A0=C2=A0 platform/x86: wmi-bmof: Move to generic WMI code
+
+--=20
+ i.
+
+--8323328-507380628-1788341229=:1183--
