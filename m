@@ -1,137 +1,280 @@
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C5353594A
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:01:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788318102; cv=none; b=YwLMtFNHQZkB2thOIRL7xqiQbp/NyZfZzYWM6gRKQdGw0cFITG/fcndMT+mELxO1WJb3nY1eqRlEPZbOsV+WaBk5SsuGMR0PE/S5hhZB8unPNj8r3PUgFD7nO/pijUkvfVzLnAexioVKwQXPc7XtBpTH475qpfNsUecI2ahpj4o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788318102; c=relaxed/simple;
-	bh=LJEUhAnoyjzJSNkVaCFeqCg2HVccMOzkT7YsmwE2/oI=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version; b=Lab/JEYVEfwxstNx0B4Vdqg4BfZLm1fe+T1V7Y+dNIiyjhkrmzyYaLgXFluVM9EKmwsOhEpM9Qr8wc6jgsHHHjA9FvWKGKXz83J4Qc2OLLPURlXVUMEC1Ybo1EA2pV01+8XEsdaoQuIZHUK7IeHr1/11ixmGSuwerjwdAVothnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nXrDjdTC; arc=none smtp.client-ip=209.85.215.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C4A22868AB
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:05:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788318302; cv=pass; b=GYo961ZikLSze/uA9a50yK6Ch6DKYBlzP3+7wL1G9DJe9Yxb5vmHnbwNR52TzbyJ5nc3ZMMEUcgWpYEiDaieaAuPOC+OcLM5diW31iX3qdyuq/tiTHRXzFBfPLRFixUaHSlpmb8zPZOpzAOxqsbf2GfYOgl1X1jbSQIYyuL5G04=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788318302; c=relaxed/simple;
+	bh=tKlFUl4gO64Nt8r+Br00nQwMqLEN+ESm9GrlMMPNTqE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=r4WDwYx/GMCrFvLLTgS5YENJcMzHDtKw9430NcvdqWsHSLwBJlENw5PWgihGBKVzWQ563zG5M7ZzoGRnp313iXYgYgCAA97VLfBuexB1YXd7g84k1Fpu9r7vfyYNLeuZS0ZsEzIWpvY/gScfD9A0fETjl/biOgaybvmcfSOi0uI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N9ZH6zSJ; arc=pass smtp.client-ip=209.85.210.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nXrDjdTC"
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cb5b8572b70so647132a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 20:01:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N9ZH6zSJ"
+Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-7f3ece23165so389234a34.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 20:05:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788318300; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hDyXe5RGkUpwbGGfOsUpwCIAC02r6RdCBQPSxaFTXWz2I8h0u7lHjqmAv+CcDqK64F
+         nXQLU3FtZtonC+xhPvZokoTRjjVsI+JYGaUVPRBZlfjCk80KeJaDDnxbBmQ2gtjIN7PQ
+         tla9yJG9b/tQj32sK+YEwk9l6vRVJXcI+FzlL2m0K2WhvaBTUScBfhRDbskKlDdCWo6N
+         uC1hMfFNJoGKwN5AtXsE+H4JUpVqjdkgYkFhdQ1z8CABETTYqEJJ0HFAmjtLfkWNEtOl
+         uFUywL3puk04DQJDrnEGPrBhkKvC6Sh2EfEn0OFebvkD3Css+HcQVeFDGXelhrxZbUyZ
+         iqyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WHsS7SbgSrvO8RKwHoQeoMibGdls6Is6EtcCRwB7f3o=;
+        fh=D88Yv+Sy4ykeylnfrrs2WnbgYDAqpyzldPjLT5a5sQo=;
+        b=glSCnqoH1Gjd7pDLcRPfT1KJboZzVBH2Bi8y1T20ZZsyX80d9ykReIgRu6+yEU+pp6
+         BJeCEl7Z2qMRRgkyH0Q7Acc5ZWyjPwE9mAa0bKH3uEKWFEXLkWzQjCh4MPWl1SW9Y+m0
+         AZ6ujulHzvZwf9Rk4NJjSlERxHWre4OwbfCUkpDwtJrH/Yq9EQujqn6xqY/WAy098aac
+         pLqPDEbRpE3l15jFTeiakCj4gPqrMl9mTgZU5OVNlQeQBIPcUAkrAEc7+fg0FZcxaqod
+         3v3v2vmczgGEvHcrAe8V65Ixx/hb13x0r0XHw8zZmEXsIgsMFKJCPmWgyw5puKXNoC2o
+         oHwg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788318100; x=1788922900; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:reply-to:message-id:date
-         :subject:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JL5neCIsAd5SWi4nKKH1Vrpz0RR6k7HjLj/9VXZAhZI=;
-        b=nXrDjdTCcMSkqcuPCgme3C6GFc/UUrYyN9p7etekeQM2gJbh+vAaASboawps2RAhdp
-         wXwD094R8TWHEp5/kICAaCjFQMQ2AbxJE65lQhY6S4Sf12HYjxhcnuUbwpNNv8yJmqVB
-         FnRDGxBALQwPonOyNDJK43Nb25GNnOmlNXHWRsOuuRmtQGxndAtyXjXPBHYNq3DC1zdl
-         kK9/JG/1q3WPv8gpQ4vaexU1n9Z0CB4hm82XDwPKJ9INXkQxj/+o2Y0Ekq7KA2GDpm3/
-         msDfq3IPK/ACtiImKBf70nF2l5ggiE6UpneoEB5xSv7rVanSwBQT5t8meZUlcRCbvUjC
-         AmYw==
+        d=gmail.com; s=20251104; t=1788318300; x=1788923100; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WHsS7SbgSrvO8RKwHoQeoMibGdls6Is6EtcCRwB7f3o=;
+        b=N9ZH6zSJgNaybLGiwil7uk/6iZR8azlt786fvE1Whe3x3ia4qYUyqrKoaYagWOv4k7
+         J3GGGFjIduze698hR3sLOAXled4Lio0C6rK10Gx8ZwRLIGOdoiylo08gp6GQdZYoDGaf
+         jMiayf1tor1I4NQyziEJV59RuLuzz45KdQXJumYaZ58xTG2sb5YUae8Zimh/8UNU8Izm
+         +XjWSTuLqhUSE22WYSPpBqW7/i2YmIUVCHH9/7hKFN7l84WGi9qwoa9RLj6bvnIKuQPW
+         nXU/E0c0JccxP2YOKzR3YLdOj3b0x5Gq5S7vE75Y/7T004Kmp//AOgjFmT4kXUQYmXgM
+         GE2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788318100; x=1788922900;
-        h=content-transfer-encoding:mime-version:reply-to:message-id:date
-         :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JL5neCIsAd5SWi4nKKH1Vrpz0RR6k7HjLj/9VXZAhZI=;
-        b=OPBgoRJyTzrJpLS15fdKGcJWhdpw5PZa+d/YaAnHDfWre7BdD1KHbLn4tcizec5Qyf
-         O0zbj43DeA6IRDTjExqj4JvloOb1DZawTuxUt1OO092Wn4+9Rys0CVPu4QHKnknsd3L7
-         lxsXNOMbrHhsuJFxM7d1aPbIYiq8UJ1U5/ZlcrylQFrmWgXaUBYJoFflBDJSF1OxC+ks
-         STxTHNCHRSqhHxU3zDoi1mf1Q7hXkiizh3Vyq8sItljk9F+wpgrBfu99oQ7FTq8VBjwQ
-         Wdp5uZUXWeqqslmQmLiezKcCWWT4mDFncJpO8ow8JgNCUbaQzCxU0AJlrtPiIxACH1Ok
-         5h0w==
-X-Forwarded-Encrypted: i=1; AHgh+RpHi5EC5yDx08KIpmycJPEFqZp5MbTn8u1ivYce9LTHBgg2P17z/lEsk/vLB8uJCZ/Ps0ThMwi6yKr/tTk=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8vOgDV99xoumIgKk70gt5oScPVF02NjnhEnv0y190VzYW6fCR
-	mqXqgE/902+/kSJuEaX0VE6G3qnFmesckvS+HpwoXDeyaHDH9HP5NuVi
-X-Gm-Gg: AR+sD12vM1cL7HF8x2nztQjJTsc2+nLCWXT8OW9tZfiNs/EvFqInyKzHpq38A9uz+Pu
-	hrRJfiDLsvs6LlBahIQ0W05NqZuEcpZOFXOpknDxtKDg7l0vsTvV9R2oeUzEhZLpm2bPu24qASu
-	stpQst4z+lXgLgUqojMWQDP2AOKmTAzcOQ0W10phSEZwakN4/Pn9/0hTagGjQKGKzfrD+cG5R9M
-	BwOl1u4Eb/Wbt57yQvappoCAcODKrt1WaAS1/9Pt/1JGjRg/BoGkGzm1t2dXCTvyIL4syCfAeRr
-	u+yxpbOYGyh993UD1f6G+7JRsE+/ZhQ38UDbtxU7E5Gv4Z6Hz1q8+TTzTRi/0Dg9jTnii5ZPlIL
-	w+4ETcTZv8n+0lyxUuV1sBvik98qEu4f37J9XR6nPShS8zbDl+CwV4+nv3VsuUT51izK3NMJzsF
-	+YcHQl4oWTBpW+9mF3p6X/6SxWzCQQonoXjbspQBvNkUxPbqcOKCe69JLnJN22doCs37QwMcrIZ
-	jNIglANQMqFtdf3825wanB4bONJ1m2dRU70V6xItVg=
-X-Received: by 2002:a05:6a20:9f8d:b0:3cc:8344:1213 with SMTP id adf61e73a8af0-3d9ae0c85b3mr3096813637.8.1788318100187;
-        Tue, 01 Sep 2026 20:01:40 -0700 (PDT)
-Received: from localhost.localdomain (c-174-165-208-10.hsd1.wa.comcast.net. [174.165.208.10])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc42e94e160sm102754a12.20.2026.09.01.20.01.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 20:01:39 -0700 (PDT)
-From: Michael Kelley <mhkelley58@gmail.com>
-X-Google-Original-From: Michael Kelley <mhklinux@outlook.com>
-To: kys@microsoft.com,
-	haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	longli@microsoft.com,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	hpa@zytor.com,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/1] x86/hyperv: Avoid using per-cpu output page in hv_apicid_to_vp_index()
-Date: Tue,  1 Sep 2026 20:01:27 -0700
-Message-Id: <20260902030127.581040-1-mhklinux@outlook.com>
-X-Mailer: git-send-email 2.25.1
-Reply-To: mhklinux@outlook.com
+        d=1e100.net; s=20251104; t=1788318300; x=1788923100;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WHsS7SbgSrvO8RKwHoQeoMibGdls6Is6EtcCRwB7f3o=;
+        b=KC+s6qL7Tw33BarD7MDlfCTE2A59XJMJ5stI0hjHhUnopX5foaLBW3h56lxxdsjLir
+         LwOHxg9+OjLQEw1n0GddVPYME1Ywzb0zXLIfZLKJECPand5g/L4K6INZ2YWP+oHJf8eX
+         3zE2LF0XvIZTAPMIfSaahxyFFVPBD4Llne25pIvmYjZ0kb76SDiTAGugucvBexhaAn0S
+         dCSSt5OAASvbnBbxdmINO0hGjfnBtyuCExSReE56uJ1xeFGd+dkZwFqwy0EGUf91iqGG
+         vURzgopn/KcPHYbwu62p62m8Lihq2FI5+lySyTRFNN3UeKSIvXeTvLxgqiIkvVf8Hb5l
+         hN5Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqW6lLvSBPVRB1aG6Lvv9OqnQNkrGndnYTcbRTdobEA5AlhOydK82B5Q27OYW6PiuPREIGDCArwtmjt3lc=@vger.kernel.org
+X-Gm-Message-State: AFuF++navlQ4p6aeXMwRsor83yn91XYoHBbd59TABpbmiCwh1qnoKbYv
+	iBLxUD1rPi+n5sEMs2DWmpgAI5t7938rgSmo0qsKD9JPTCK2H/1gYvVfSeMq0Q5oEYy7aS0bkey
+	70f4fm8xJOnudjDZybqEm0Kvft5cSUXKPG4zK
+X-Gm-Gg: AR+sD13TD9uKNqNst/CHQZGiCKr3BjIj8KcF4i0kw+0mt8IUbNn3ewCyFUqy6Iov7u+
+	Eyd+yUNwWeK4CirVLd0wLzFOyvZ0xBA00zfF5G4vFhemoRbx5WKN/eU3bHVGwl9cM1PEaqICV4Y
+	DdiCP6JPG2c9uUHjl9MQRDr1wRtdxr57ZlXxPQoJJhHCZZ/To+gIei21ZyaCPKADfUY0qC4Wkej
+	FuK70RCwvOcrSYhja98Jp73NEXf+aOSkMDuwHsihduuemchZ6zq0ICCu6tzne7yuzPnGC9qwmIo
+	PlSGLQhCz6Ynk/GfJsvEITVsEjiM+W18VF9pKkPldqMtSzvRER5Izcac2H683z7R/1Ec7l4y5HF
+	oqnmsSYmJfys11mFsEg==
+X-Received: by 2002:a05:6820:810:b0:6b1:a667:f0f5 with SMTP id
+ 006d021491bc7-6b47e0b1e95mr1246806eaf.20.1788318299846; Tue, 01 Sep 2026
+ 20:04:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260831044818.4103477-1-mmyangfl@gmail.com> <20260831044818.4103477-5-mmyangfl@gmail.com>
+ <20260901175618.28d81bd6@kernel.org>
+In-Reply-To: <20260901175618.28d81bd6@kernel.org>
+From: David Yang <mmyangfl@gmail.com>
+Date: Wed, 2 Sep 2026 11:04:22 +0800
+X-Gm-Features: AcwNN1X2ftXlE08zeXRlOv05TQkIJ2IrYAQHyYXEutFuNo5QfdhKFQNOaMCGn_0
+Message-ID: <CAAXyoMOQf8oK3Z_TQKDmLvCQmgAjUR29VnFSFi+np4RtNNw_bg@mail.gmail.com>
+Subject: Re: [PATCH net-next v11 4/5] net: dsa: motorcomm: Add LED support
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>, 
+	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-hv_apicid_to_vp_index() currently uses the per-cpu hypercall input
-and output pages. This function is called when running in VTL2 and
-when running in an SEV-SNP CoCo VM with no paravisor. In the former
-case, the output page is allocated, but in the latter case it is
-not, so the hypervisor stores the output VP index in memory that has
-not been allocated by the guest.
+On Wed, Sep 2, 2026 at 8:56=E2=80=AFAM Jakub Kicinski <kuba@kernel.org> wro=
+te:
+> > @@ -4225,6 +4224,15 @@ static int yt921x_edata_read(struct yt921x_priv =
+*priv, u8 addr, u8 *valp)
+> >       return yt921x_edata_read_cont(priv, addr, valp);
+> >  }
+> >
+> > +static void yt921x_dsa_teardown(struct dsa_switch *ds)
+> > +{
+> > +     struct yt921x_priv *priv =3D to_yt921x_priv(ds);
+> > +
+> > +#if IS_ENABLED(CONFIG_NET_DSA_YT921X_LEDS)
+> > +     yt921x_leds_remove(priv);
+> > +#endif
+> > +}
+> > +
+>
+> [Severity: Medium]
+>
+> Can removing the LEDs only from the DSA teardown callback leave the LED
+> class devices registered after the port netdevs have been freed?
+>
+> net/dsa/dsa.c tears the tree down in this order:
+>
+> dsa_tree_teardown()
+>     dsa_tree_teardown_ports()
+>         dsa_port_teardown()
+>             dsa_user_destroy(dp->user);   /* ends in free_netdev() */
+>             dp->user =3D NULL;
+>     dsa_tree_teardown_switches()
+>         dsa_switch_teardown()
+>             ds->ops->teardown(ds)        /* yt921x_leds_remove() */
+>
+> So between free_netdev() and the dp->user =3D NULL assignment, dp->user i=
+s a
+> dangling pointer while the LEDs are still registered and reachable from
+> sysfs.
+>
+> yt921x_cled_hw_control_get_device() reads dp->user / dp->conduit with no
+> rtnl_lock, no RCU and takes no reference:
+>
+>         if (dsa_port_is_user(dp))
+>                 return !dp->user ? NULL : &dp->user->dev;
+>
+> and ledtrig-netdev dereferences the returned device immediately, with
+> dev_name() in netdev_trig_activate() and to_net_dev() in
+> validate_net_dev().
+>
+> Would an "echo netdev > /sys/class/leds/<led>/trigger" racing with switch
+> unbind, or with the dsa_tree_setup() error path, touch a freed
+> net_device here? Would removing the LEDs per port before the netdevs go
+> away, or validating dp->user under rtnl_lock, avoid that?
+>
+> > @@ -4581,6 +4589,12 @@ static int yt921x_dsa_setup(struct dsa_switch *d=
+s)
+> >       if (res)
+> >               return res;
+> >
+> > +#if IS_ENABLED(CONFIG_NET_DSA_YT921X_LEDS)
+> > +     res =3D yt921x_leds_setup(priv);
+> > +     if (res)
+> > +             dev_warn(dev, "Failed to setup LEDs: %d\n", res);
+> > +#endif
+> > +
 
-Fix this by using the input page for both input and output. The
-hypercall has very small input and output, so sharing the same
-page for both is straightforward. An alternative fix is to
-allocate the per-cpu output page when running in an SEV-SNP CoCo
-guest, but this uses significantly more memory, particularly
-with larger vCPUs counts.
+Just a question: I don't see any protection against this in other DSA
+led drivers, like mv88e6 or qca8k.
 
-Fixes: 86c48271e0d6 ("x86/hyperv: Fix APIC ID and VP index confusion in hv_snp_boot_ap()")
-Signed-off-by: Michael Kelley <mhklinux@outlook.com>
----
-I'm not aware that this bug is causing any real problems because
-SEV-SNP CoCo VMs on Hyper-V are rarely, if ever, used without a
-paravisor. But it was on my list of little clean-ups to do, and
-a recent Sashiko analysis [1] flagged the issue. So the best thing
-to do is just fix it.
+> [Severity: Low]
+>
+> Can this dev_warn() ever be reached? yt921x_leds_setup() in leds.c ends
+> with an unconditional return 0 and drops the result of
+> yt921x_leds_setup_port():
+>
+>         dsa_switch_for_each_port(dp, ds) {
+>                 ...
+>                 yt921x_leds_setup_port(priv, port);
+>                 /* Allow partial configuration: LEDs are optional */
+>         }
+>
+>         return 0;
+>
+> yt921x_leds_setup_port() in turn discards every yt921x_led_setup() return
+> value, so the -EINVAL it produces for port >=3D YT921X_LED_PORT_NUM is al=
+so
+> thrown away.
+>
+> Should the error be propagated, or should this branch in yt921x_dsa_setup=
+()
+> be dropped?
 
-[1] https://lore.kernel.org/linux-hyperv/20260901171238.834601F00A3A@smtp.kernel.org/
+Intended, explained in the response for the previous version.
 
-Changes in v2:
-* Make the new code a bit cleaner by dropping the unnecessary cast
-  to u32 *
+> [Severity: Low]
+>
+> Is yt921x_led_trigger_get() intended to be the inverse of
+> yt921x_led_trigger_set()?
+>
+> TRIGGER_NETDEV_LINK is encoded as the union of the two duplex masks, and
+> this read-back loop ORs in the flags of every entry whose mask bits are a=
+ll
+> set, with no early break. yt921x_led_trigger_set() instead matches the LI=
+NK
+> entry first and breaks once the flags are consumed.
+>
+> So a LED programmed with only BIT(TRIGGER_NETDEV_LINK) appears to read ba=
+ck
+> as LINK | HALF_DUPLEX | FULL_DUPLEX. ledtrig-netdev keeps that value as t=
+he
+> trigger state at activation:
+>
+>         rc =3D led_cdev->hw_control_get(led_cdev, &mode);
+>         if (!rc)
+>                 trigger_data->mode =3D mode;
+>
+> Would /sys/class/leds/<led>/half_duplex and full_duplex then report 1 eve=
+n
+> though only link indication was requested?
 
- arch/x86/hyperv/hv_init.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Yes.
 
-diff --git a/arch/x86/hyperv/hv_init.c b/arch/x86/hyperv/hv_init.c
-index d5edc8530964..2a71c70d7e27 100644
---- a/arch/x86/hyperv/hv_init.c
-+++ b/arch/x86/hyperv/hv_init.c
-@@ -731,7 +731,8 @@ int hv_apicid_to_vp_index(u32 apic_id)
- 	input->partition_id = HV_PARTITION_ID_SELF;
- 	input->apic_ids[0] = apic_id;
- 
--	output = *this_cpu_ptr(hyperv_pcpu_output_arg);
-+	/* Treat input as having 2 APIC IDs so output is 64-bit aligned */
-+	output = (void *)input + struct_size(input, apic_ids, 2);
- 
- 	control = HV_HYPERCALL_REP_COMP_1 | HVCALL_GET_VP_INDEX_FROM_APIC_ID;
- 	status = hv_do_hypercall(control, input, output);
--- 
-2.25.1
+> > +     if (group >=3D YT921X_LED_GROUP_NUM) {
+> > +             dev_err(dev, "Invalid LED reg %u for port %d\n", group, p=
+ort);
+> > +             return -EINVAL;
+> > +     }
+>
+> [Severity: Low]
+>
+> This isn't a bug, but the device tree contract introduced here (a per-por=
+t
+> leds child node, a per-LED reg in 0..2, LEDs only on ports below
+> YT921X_LED_PORT_NUM) is not described in
+> Documentation/devicetree/bindings/net/dsa/motorcomm,yt921x.yaml by this
+> commit.
+>
+> The follow-on patch in the same series, "dt-bindings: net: dsa: yt921x: A=
+dd
+> LEDs definition example", adds the description text and a worked leds
+> example, so this is only a question about ordering within the series.
+>
+> What the schema still does not express is a maximum for reg, so a device
+> tree with led@3 validates cleanly and is rejected only at probe time by t=
+he
+> dev_err() above. Would adding that constraint to the binding be worthwhil=
+e?
 
+I don't see a good notation to impose the constraint (from sibling DSA
+bindings).
+
+> > +int yt921x_leds_setup(struct yt921x_priv *priv)
+> > +{
+> > +     struct dsa_switch *ds =3D &priv->ds;
+> > +     struct dsa_port *dp;
+> > +
+> > +     /* LEDs are always enabled. There is no way to disable them altog=
+ether
+> > +      * (as far as I know).
+> > +      */
+>
+> [Severity: Low]
+>
+> This isn't a bug, just a question about scope: the driver programs only t=
+he
+> per-port registers (YT921X_LED0/1/2_PORTn) and YT921X_LED_PAR_INV, and
+> never reads YT921X_LED_CTRL, YT921X_LED_PAR_PORTS or the parallel/serial
+> mapping registers declared in leds.h.
+>
+> As far as I can tell that is fine, since yt921x_dsa_setup() runs
+> yt921x_chip_reset() (which writes YT921X_RST_HW, described in the code as
+> almost the same as a GPIO hard reset) before yt921x_leds_setup(), so the
+> LED block is back at the parallel mode plus 1:1 mapping default that the
+> commit message names.
+>
+> Is a check of YT921X_LED_CTRL_MODE_M worth adding anyway, or is the reset
+> considered sufficient?
+
+Reset is sufficient.
