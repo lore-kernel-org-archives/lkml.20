@@ -1,126 +1,212 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D93AA4A3D2E
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:59:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788361150; cv=none; b=UZ1pTxsXxgytDnSqWXJ+/30e8JglQnxJPQ8HH8VdCvGs4Scvo2kHkb2Jg4+jecm8mRj3Lcvc82QWUdP/7+/tbyXBJ8CTRt8Xs0/WNNvGy1iypwi+Aw7OVAQyArQPNKu7QCDY70MoEBBbw0ECtuuhtUA0s2DMvtm/ai2FgUvLmGQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788361150; c=relaxed/simple;
-	bh=ELrGD0miyJLias5seN/+vG0DXMBNmip19woOIuaGtG0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZHBtX24UlEB/AJpfJks5ipt7lOOaJrYFauX6gynn8QVCjUSfXSrkxhHED5BE/uYGedr+f4ahmYZWy91JqsobaQDlrbhS+MCJZ8OEnmTURvVe37MmyVQcywGLcrrryXWJb1/b4iJKPgGp404CgSwX0LCAwJNo7CswKg6sO/PGDas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G/AQ0PwR; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E31E4A5EBA;
+	Wed,  2 Sep 2026 14:59:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788361153; cv=pass; b=XOpAAf3j2d5A6VFPcwAyOj7I32OaO2zTsUoK0jY3V/XPEQJzy+jhvLwUdLJ5CCRp1VM1MxlAQS6f2uVOykKq1jFy/fNS4xGUK5toTlfF1OV8hx934J5dQSzkTvu6+r5LzP+l4nx0KO2cBnW7fBDhhM/R/+PHnRIx8WlfxlQPGG0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788361153; c=relaxed/simple;
+	bh=du7i2CkkuXhTACL5xjLwkLIqGU9AdyAp19y9A1xZak4=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=DDvPGacX8hfjKiCZAjy9WcSDXBcD+ABYh+iw7McGqdk6ojXir3UATKUFHqGVU5UArfRgF05bJtFe1oQJ7i3S1ANFQxJYNflLGbvyJj5kiG0r/EQ4i1UbDKwIRuXTcLaIcHDSNy8HmDMABImS+AXqgo5USJAc3a3VxNwU9kpJ7gQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=qACYkUGw; arc=pass smtp.client-ip=136.143.188.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G/AQ0PwR"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso11672775e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:59:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788361143; x=1788965943; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qgs80PN+o6P1wEZ/3GKLDW9lDIEmnf6LbdiE+ajUdKY=;
-        b=G/AQ0PwR1ZsIsag2VABoG8Mb8t4izSeSn1ZQ7F0kuuMjuh9EibpBtXUjME693CRyNT
-         r5dP0zHv4EizzK9zzMumwXcqUGhGLCiaAbsqAQ1zNvwnNtRfytEyLbkhX6kjiflsRFcN
-         B9dN7f4qtIGol4lC+ut2s6aAiNAyq4PVHvHEWvIIXlpHKwWdzbBNnFSbVmuYunrQmYBg
-         TJjb8tP47GdfBHhy+5vTjsjFB1/dykywnaL/10hg+5JtUsqr1YvtEyix4syosxYkboN7
-         yW37tiOU8trvC/O+BGMAWDuNSj0Gpq36Hl4SoZ+h+vPDMe5DXG/ToFNVZG5o5PxflAon
-         kdlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788361143; x=1788965943;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qgs80PN+o6P1wEZ/3GKLDW9lDIEmnf6LbdiE+ajUdKY=;
-        b=JJsPTTQqirijXNDg1mv/zlBHVzIzYeObsrD6ULi3jwFRytkFEC17XpYp0ceHEEPG9b
-         R0Zm21Yr2geoIGQbWRWShbQxrpBPzxWth2avNGTz+0G9Y6UWmUXVlF7noZryK0D6OoLP
-         +3nN9PzycS/qUt5iTn8P2l6TUUHDGbwxkuITk14+GvRaknRiHAoYN1x/RfyPaGSssusE
-         ZB4L5F/QChycUvBhZ22MKpqdm1OAR2WvR7/UaTna5tPy0POWPfcK9xr6NEP3LaKUG3Vn
-         wxqFgPqMldcWaKT0Tr6aIXg4JISV/lF9/TYYpDtntiYxGpEkfzoZ07U5QrG+skBi6m8X
-         65jw==
-X-Forwarded-Encrypted: i=1; AHgh+RqT98CElFIZ9ay5plAvHmZzNwKFWpTvK4DsGKxrnO+0AistVUpMr2MIMHMKFiyS42P/vBX01H98vlREvIo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNN9GFBzCGXz7ApfhpLsjwlLVZDaujQ4zLx5K/6hcD5GNmZl4p
-	DvtBVN/QV8ODdYRCqfXRL5eLwx4wm+/YXBPQJB1QXzDQZOhzmFEIdO6JyeoCUukP0dXj
-X-Gm-Gg: AR+sD10o1c/lH5CFnJYoAXnRiQEDf7o3NQDjeJAu2RNvLDql8xULCIBxkIo2bcpy9yy
-	WpM2pz8W0NG+R1SXrytHbWYBd6hefEMgD/maR643//6wxshFQews38dWWXizI5XBac9RQRfBFB7
-	WwbPDZkbIfQQ7eQtKRc9AaQExx7k1chHhtwEAvAwUl7pM6R5Tj/euu6aaD7bqckyrAC9jWS/0v6
-	Ay68PEiYmf15lB4Ar7g7CGYFxZopdOG7a0cGv7RCb/js7NfSnSxJb9OUXpm9FOTkisTrhOSy0Xo
-	EP0Cb5tO7+7ZpdYX5pJkCz9NW9ol2kLuZYxyVDtGcbN7MU6lOQ2UepCh0fs5cqvQqYlAXuyupnG
-	3RePaKayKft+qlyTuVs3oeGWj9XCK0AK0DL06FQhmWPNzZ7DkBKG++Dv3shDe1QvGKr8UxcBXBY
-	rKVMIAxDz3JZ/L92fdKiSxp9ANgAmdwA6GPtX6vKSz9QTaFuvV4NUBNJ48NffZIe1XtNcchodui
-	rhr0rgbhFyQmCvbEq28eyFlyLGryjzTS2cB3CXVchOecWkzQ/Vaq8eadb7pv+lS/UL+0zbr
-X-Received: by 2002:a05:600c:1385:b0:499:83f1:398 with SMTP id 5b1f17b1804b1-49ce583e8c8mr91203115e9.9.1788361143256;
-        Wed, 02 Sep 2026 07:59:03 -0700 (PDT)
-Received: from chateau ([194.65.85.67])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce0b425sm154191255e9.1.2026.09.02.07.59.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 07:59:02 -0700 (PDT)
-From: Sergey Zagursky <gvozdoder@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Miguel Vadillo <miguel.vadillo@intel.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: ipu-bridge: do not use the CVS device lookup for IVSC
-Date: Wed,  2 Sep 2026 15:57:25 +0100
-Message-ID: <20260902145830.1796405-1-gvozdoder@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <apfI7m2oD-k5GOYN@kekkonen.localdomain>
-References: <20260901194526.6369-1-gvozdoder@gmail.com> <20260901195036.7648-1-gvozdoder@gmail.com> <apfI7m2oD-k5GOYN@kekkonen.localdomain>
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="qACYkUGw"
+ARC-Seal: i=1; a=rsa-sha256; t=1788361100; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=S3QT2xnqapjWCt5br7N62PuBrrk/9qtRhbUZ0tLdJjAkdyn8BujS1mrgqWyhz07dljw/NP7WOK3LteyREHuSegPaB5HM29ePvLQs4r1wudYTm+IrRSBq7gQy8IwMEE1QVvw7mO6P8negJYTImrNpaXiBHH05Hr+vnsaF9DcCyoE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788361100; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=8HO2oXDKMUH/IBYP69UiPRfT2MLlZ9mi40/eACWvXEM=; 
+	b=b92bjwNpEO9fBCluP9ciiZ5sWudULCQpXOFi2mYF4ha9xqOIknar1RRQ4885UiWT33ZunTU/XrFg3p2vfcwW+7xf/qLGjF8cqJOG9OiahalSpCoHfA03PRfmxeLMecwV3em/6GPCWpE+zPbMA+Pb4gweYjN7wKrtrYnEk4nXKKw=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788361100;
+	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
+	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:Cc:Cc:Subject:Subject:From:From:To:To:In-Reply-To:Reply-To;
+	bh=8HO2oXDKMUH/IBYP69UiPRfT2MLlZ9mi40/eACWvXEM=;
+	b=qACYkUGwqEncwBwGhite6gjWfNXt9JXXjby68YUe1+OEKSieU1l/UGTyYe1eVbiE
+	uUD6/jVuQd9uCyHa3zLpJH3HkdbW4TcY7yS9vSmIY7Yg1W9m3LPCzt5WPMLNnSDn2R/
+	Z/LzbdirePQ+PKEk8zcitTJFlU0IiS4moaKyGCpM=
+Received: by mx.zohomail.com with SMTPS id 178836109677887.78200468721616;
+	Wed, 2 Sep 2026 07:58:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 02 Sep 2026 22:58:04 +0800
+Message-Id: <DL4X3G8EL12W.GCHSR93W77W3@pigmoral.tech>
+Cc: "Stephen Boyd" <sboyd@kernel.org>, "Brian Masney" <bmasney@redhat.com>,
+ "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Jernej
+ Skrabec" <jernej.skrabec@gmail.com>, "Samuel Holland"
+ <samuel@sholland.org>, "Philipp Zabel" <p.zabel@pengutronix.de>,
+ <linux-clk@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, "Jerome Brunet" <jbrunet@baylibre.com>
+Subject: Re: [PATCH v2 4/8] clk: sunxi-ng: a733: Add PLL clocks support
+From: "Junhui Liu" <junhui.liu@pigmoral.tech>
+To: <wens@kernel.org>, "Junhui Liu" <junhui.liu@pigmoral.tech>
+X-Mailer: aerc 0.21.0
+References: <20260711-a733-clk-v2-0-974d188cbe0c@pigmoral.tech>
+ <20260711-a733-clk-v2-4-974d188cbe0c@pigmoral.tech>
+ <CAGb2v65KKifCUYUxnZ5Vm=XNqNdiNC1i+U9mgX2djtPkwvtN2g@mail.gmail.com>
+In-Reply-To: <CAGb2v65KKifCUYUxnZ5Vm=XNqNdiNC1i+U9mgX2djtPkwvtN2g@mail.gmail.com>
+X-ZohoMailClient: External
 
-Sakari Ailus wrote:
-> I can confirm there's indeed an issue here. But considering the list
-> contains the CVS device HIDs, doesn't it mean you're returning NULL here
-> for CVS, i.e. not for IVSC?
+Hi Chen-Yu,
+Thanks for your review. I will address the comments in v3.
 
-acpi_match_device_ids() returns 0 on a match, not a boolean:
+On Sun Aug 23, 2026 at 5:38 PM CST, Chen-Yu Tsai wrote:
+> (trimmed recipient list a bit)
+>
+> On Sat, Jul 11, 2026 at 4:12=E2=80=AFPM Junhui Liu <junhui.liu@pigmoral.t=
+ech> wrote:
+>>
+>> Add PLL clock support for the main CCU of the Allwinner A733 SoC. The
+>> structure is mostly similar to the sun55i, with the addition of a
+>> PLL_REF clock that normalizes the hardware-detected DCXO/hosc frequency
+>> (19.2MHz, 24MHz, or 26MHz) into a consistent 24MHz reference for all
+>> subsequent PLLs.
+>>
+>> The behaviors of PLL_AUDIO0 and PLL_AUDIO1 are ported from the vendor
+>> driver. Specifically, PLL_AUDIO0 is configured with SDM parameters to
+>> provide a 22.5792MHz * 4 output, while PLL_AUDIO1 is integrated into
+>> the main CCU without using SDM.
+>>
+>> Tested-by: Jerome Brunet <jbrunet@baylibre.com>
+>> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+>> ---
+>>  drivers/clk/sunxi-ng/Kconfig           |   5 +
+>>  drivers/clk/sunxi-ng/Makefile          |   2 +
+>>  drivers/clk/sunxi-ng/ccu-sun60i-a733.c | 539 ++++++++++++++++++++++++++=
++++++++
+>>  3 files changed, 546 insertions(+)
 
-  int acpi_match_device_ids(struct acpi_device *device,
-                            const struct acpi_device_id *ids)
-  {
-        return __acpi_match_device(device, ids, NULL, NULL, NULL) ?
-               0 : -ENOENT;
-  }
+[...]
 
-so the bare "if (acpi_match_device_ids(adev, cvs_acpi_ids))" is true when
-adev is *not* in the list, which is the IVSC case. Both spellings are in
-tree, e.g. drivers/acpi/scan.c:1800 uses the negated form for "matched"
-and drivers/acpi/x86/utils.c:206 the bare one for "did not match".
+>> +
+>> +/*
+>> + * There is no actual clock output with that frequency (2.4 GHz), inste=
+ad it
+>> + * has multiple outputs with adjustable dividers from that base frequen=
+cy.
+>> + * Model them separately as divider clocks based on that parent here.
+>> + */
+>> +#define SUN60I_A733_PLL_PERIPH0_REG    0x0a0
+>> +static struct ccu_nm pll_periph0_4x_clk =3D {
+>> +       .enable         =3D BIT(25) | BIT(26) | BIT(27),
+>
+> The gate helper sort of expects this to be just one bit. And the three
+> bits here are for the three individual outputs (2x, 800M, 480M). I think
+> you should move the bits to the individual outputs, and use BIT(31) here
+> instead (or just leave out the enable bit for this one).
 
-On this machine adev is INTC10CF, which is not in cvs_acpi_ids[], so the
-early return is taken, the IPU6 probe fails with -ENODEV and is retried
-once the IVSC device exists. With the polarity you read, IVSC would fall
-through to the lookup that returns the driverless INTC10CF:00 platform
-device and the camera would stay dead. It does come up, so the code
-behaves as the changelog describes.
+I will leave out the enable bit for the PLL core and move the three
+output gate bits to their corresponding child clocks.
 
-That said, you had to stop and ask, which says enough about how it reads.
-v2 wraps the match in a named helper so the polarity is visible at the
-call site:
+[...]
 
-  static bool ipu_bridge_is_cvs_dev(struct acpi_device *adev)
-  {
-          return !acpi_match_device_ids(adev, cvs_acpi_ids);
-  }
+>> +
+>> +static const struct clk_hw *pll_audio1_hws[] =3D {
+>> +       &pll_audio1_clk.common.hw
+>> +};
+>> +static SUNXI_CCU_M_HWS(pll_audio1_div2_clk, "pll-audio1-div2", pll_audi=
+o1_hws,
+>> +                      SUN60I_A733_PLL_AUDIO1_REG, 20, 3, 0);
+>> +static SUNXI_CCU_M_HWS(pll_audio1_div5_clk, "pll-audio1-div5", pll_audi=
+o1_hws,
+>> +                      SUN60I_A733_PLL_AUDIO1_REG, 16, 3, 0);
+>
+> Perhaps these should be made fixed? Otherwise the names don't apply corre=
+ctly.
 
-  if (!ipu_bridge_is_cvs_dev(adev))
-          return NULL;
+Agreed. Since the names explicitly describe fixed /2 and /5 divisions,
+I will model these two outputs as fixed-factor clocks and initialize the
+corresponding divider fields accordingly.
 
-No functional change, so I rebuilt it but did not boot it again; the
-functional test in v1 stands:
+[...]
 
-  https://lore.kernel.org/linux-media/20260902145440.1786297-1-gvozdoder@gmail.com/
+>> +       .lock           =3D BIT(28),
+>> +       .n              =3D _SUNXI_CCU_MULT_MIN(8, 8, 11),
+>> +       .m              =3D _SUNXI_CCU_DIV(1, 1), /* input divider */
+>> +       .common         =3D {
+>> +               .reg            =3D SUN60I_A733_PLL_DE_REG,
+>> +               .hw.init        =3D CLK_HW_INIT_PARENTS_HW("pll-de-12x",=
+ pll_ref_hws,
+>> +                                                        &ccu_nm_ops,
+>> +                                                        CLK_SET_RATE_GA=
+TE),
+>> +       },
+>> +};
+>> +
+>> +static const struct clk_hw *pll_de_hws[] =3D {
+>> +       &pll_de_12x_clk.common.hw
+>> +};
+>> +static SUNXI_CCU_M_HWS(pll_de_4x_clk, "pll-de-4x", pll_de_hws,
+>> +                      SUN60I_A733_PLL_DE_REG, 20, 3, 0);
+>> +static SUNXI_CCU_M_HWS(pll_de_3x_clk, "pll-de-3x", pll_de_hws,
+>> +                      SUN60I_A733_PLL_DE_REG, 16, 3, 0);
+>
+> Should we make the values fixed or the divider read-only?
 
-Thanks for the quick review.
+After checking the manual again, I don't think these dividers should be
+fixed or read-only.
+
+The 4X and 3X suffixes appear to be hardware output names rather than
+fixed multiplication factors. The manual describes both P0 and P1 as
+programmable dividers and only gives their default frequencies; it does
+not say that their values must remain fixed.
+
+For example, the default frequencies of DEPLL4X and DEPLL3X are
+1044 MHz and 696 MHz, respectively. If the suffixes represented
+multiples of a common base frequency, 1044 MHz / 4 * 3 would be
+783 MHz, not 696 MHz.
+
+[...]
+
+>> +
+>> +       /*
+>> +        * The PLL clock code does not model all bits, for instance it d=
+oes
+>> +        * not support a separate enable and gate bit. We present the
+>> +        * gate bit(27) as the enable bit, but then have to set the
+>> +        * PLL Enable, LDO Enable, and Lock Enable bits on all PLLs here=
+.
+>> +        */
+>> +       for (i =3D 0; i < ARRAY_SIZE(pll_regs); i++) {
+>> +               val =3D readl(reg + pll_regs[i]);
+>> +               val |=3D BIT(31) | BIT(30) | BIT(29);
+>> +               writel(val, reg + pll_regs[i]);
+>> +       }
+>> +
+>> +       /* Enforce m1 =3D 0 for PLL_AUDIO0 */
+>> +       val =3D readl(reg + SUN60I_A733_PLL_AUDIO0_REG);
+>> +       val &=3D ~BIT(1);
+>> +       writel(val, reg + SUN60I_A733_PLL_AUDIO0_REG);
+>
+> We should also force the divider for all the divN or Nx outputs.
+
+For the reasons above, I plan to force the divider values only for the
+divN outputs, whose names explicitly specify their division ratios, and
+leave the Nx output dividers programmable.
+
+>
+>
+> Thanks
+> ChenYu
+>
+
+--=20
+Best regards,
+Junhui Liu
