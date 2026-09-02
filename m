@@ -1,129 +1,158 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA0C2571A9
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:52:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F348131D362
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:52:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788331955; cv=none; b=Krzvlr9FHZNCyq/JGA1+VqgykxjJ/iS541sG0k5iDAeGfMqWVKlGFVD1JofV14zZRxZBakzAAm8Va3ZwSyteaiyaOSXYU60SW6z533YydQbhwy63bdXuQu6hTtCgbqnDdOVrg0WViXzRc4TZqktGZtAXvgHqmcKd34tum68Cfe0=
+	t=1788331970; cv=none; b=duvL6eOdXpbWBfjxDjIhgNTa6J6bhmwqGkdRog1MkrW5XfYrWGMJYlz6ZNK+lrZhS9JiqdyxU1iWSp/4kSPywf7UknTQwrC1cTSSm4dKTbJtXiZkdTcsMVfcLkxoP6NINeYYBcGgOq3r6hQ0yoLJeYnKYIDMuIrSpl/PmuEPFJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788331955; c=relaxed/simple;
-	bh=SFLNJW3/y68+ywsyqgnt8Epk444+hXcB7QE+xPQLM0U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZnWPcHeOYT7WVtYBind0TLA0Cfqd7c4kyWkP+uR+caL4D4XeV1qsmjO933KsnqMvEBgmH7a2K2lL/vnLTcAM/u7wn8F/mv3HHX6/bN35m6ICIy0L4haI/AXf5hZjvVL0nfwHnV6JohEOwED38TG3vQRFoC2erDgQuslBQmNOVgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bRY4/6G7; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788331970; c=relaxed/simple;
+	bh=tdQPXAEy+8QdspuTOxqFKJnA9qsJ6Jve5TAJj3j51Gg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=myPs7FjdmiV0926yGJ2E6q7hEdMCd9Lf3eFwhBGlvCzWrxeh9wXlOTBabWPN/iFM0z2PZEzQBalUBNIWgvvqPNNx+XFWl53iTwYMScK0dEWY6tUvmf+sX/KsfK8/Y3AJa0CYPzz6Xp5SmPWkpwE6mM1U2RagAGP/eLxK7MILWo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MSp1vqO/; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=aCDAjlz4; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bRY4/6G7"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49b0eab380eso6381275e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 23:52:31 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MSp1vqO/";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="aCDAjlz4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788331956;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=tdQPXAEy+8QdspuTOxqFKJnA9qsJ6Jve5TAJj3j51Gg=;
+	b=MSp1vqO/ZibK6ld1XBbb8ArbgUqz+TbkLcPvPYSRHtg/ocjYynHE5nOX0RvJCTLiezpzkU
+	q0qtsUSA88RqKwQuKNh+jkAihf6ZPrmXeWlrG2xwErI+CX/+8IJnWcBVQzFvZ8T3AKZJVB
+	wD//rJyXO+MD5NduFpHzRkGkVgQMVEk=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-128-b_we6Dg8OQOOvOfi2oWQMQ-1; Wed, 02 Sept 2026 02:52:35 -0400
+X-MC-Unique: b_we6Dg8OQOOvOfi2oWQMQ-1
+X-Mimecast-MFC-AGG-ID: b_we6Dg8OQOOvOfi2oWQMQ_1788331954
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49991beee7aso5744495e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 23:52:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788331946; x=1788936746; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xn4PAkw0tahIVVTtwzVrKulou125O66ZpuD5FdtR8Zg=;
-        b=bRY4/6G7ht49TB7j8RLlE0tMoT8BuZvTf/cPgX2EGAyxjEma51qWv1M1fMwi781NXf
-         xdfvGTV9iMtpg4EcrGsn04/GQjUnxt2pSD+4XV40OpYyLWkp9rRLmzUSgAnxd3Pz4j+q
-         IOLNFVOtzfeP/KDwg7VkEWgrhg6yhVpFYMm/VQrCeBAN9Xv6SgNpm3rYCxs1HVqxbo3E
-         XLFUcaz4rZC9bfzLqGgU9/NweHRK9zKhrMmjc6bLFGgIIeC6xHTJ8jUv9lXfdQtWmgl8
-         ZAduUsSJBqBzZZLDlPYA374aRindxihIVr30zkmgO31yBW+dPbhBEdVu++2TjjbfNR5f
-         J7FA==
+        d=redhat.com; s=google; t=1788331954; x=1788936754; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tdQPXAEy+8QdspuTOxqFKJnA9qsJ6Jve5TAJj3j51Gg=;
+        b=aCDAjlz4ftZsvneFN34rA4lQUiKWl2z3xolxh3a9cjT4knGEHvAGMslDaPcbTTdBpB
+         MWzwLFGBXodqAXwS/mQszHCw/lQNCL3mitv4vOS9UVrarsHFWfCcGAsums1URKuNP9LQ
+         Hk4nr4UrgCN+dQJx2CQ7HxJD9pvTx48cTP4NwevJZlG2ttfqJdl6E+rB2UGRIT/fsGAy
+         yYVOb7EzMnyw7wkdL16ZRxF/VwndqiCW4k55lnegblI7Wqy/Bl731UPYXp8XlOq/JlX0
+         4SXJmbQuRoavivLkzIYZ44hULkyXFbR0uveEYhuv3gQZHiFf+2pzwuvLLw1ZnP+90vgH
+         /C7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788331946; x=1788936746;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xn4PAkw0tahIVVTtwzVrKulou125O66ZpuD5FdtR8Zg=;
-        b=OwirldkIbd7X/9wJdr66/wZT/Q9E9p1y1ga5GLE9hRc6Q0p96F4C7H+cl687SSDaGo
-         RT/lkc/KAYXxY7tOY6FYfcQ3vYOTUxPmMhVc0R8mySfqmkuY7Ifx8NSzuXOmupcU2ypn
-         9tq8Syz3vfESqg4PKZAJh7DSZKawRuClzxyziXfEpUrq1SQV+ES2glySpbkOVQ9tyAYt
-         Pa1YqeGA4VfVSczypO1Y7NFf9Tj8Ucaw/9behyfAAW398CTCkf9bMQI0qF5jrIm7OSSZ
-         jgKuUSdOn8/RXZkM8yMW1fmouTwXAfpp/MpyHDSflDN8bTrvFfBOv7dwbmMyYO+PkaOn
-         dXJg==
-X-Gm-Message-State: AFuF++lgLbj0Lr6TUeRUFzwVIyYuXTbU1X3HFLfVUbcRATLGSm0xd+3x
-	huP3o0gg531PbmJTKJM+AgZ9SzmJZEx0+560C1in7NsaXtgDHjUSdOIO
-X-Gm-Gg: AR+sD122/omXq2xB6bCH1rzQmNqdrAVFIfOQ7//CE85bgkL0/Oja4nXVCH67Av2HLXs
-	KFPyIdPuGE2ocT4gMONkp3w+Ad5CD5b2IVy7jBnYZm6jXd+FMKLU9J5nPKgoPymYwgl+3wYZgJQ
-	eVZkX9V9swfsJQAPBOfDoZNwb122sklTXvACjVylJmN14zc2MQQMnxhvOwL3eD+2UUE32r0uDWP
-	gPWWCJ3e265iFjC2VUBNFSIGr/LN/yaP94YsUml5GhXjeAhRnF+apomP59ax5W7OPzK1suAS7or
-	UWtG3w56heMRWmc3Pnonz6HVk9KHDuanS1yz05+swoaysG5iUS3VPTBFET4FbTUvp+MxmeAdjNt
-	N2GrKFPBAMPFLeMeqCvRBafka8JiSn1RGyoJYv93TnJLHpS1qFkA6d3c3jPFI3vITZxS6tHF3/P
-	7+HU/zj+eZ9/eh9EAJptaMp15pLGLwaGh+JQlINzYGQNJrem/ilR9YjOWYxpG1QHZQhshIfx8YI
-	g==
-X-Received: by 2002:a05:600c:3f0b:b0:49c:ced9:ab7f with SMTP id 5b1f17b1804b1-49ce7c316aemr13532185e9.8.1788331945999;
-        Tue, 01 Sep 2026 23:52:25 -0700 (PDT)
-Received: from [192.168.1.10] ([95.43.220.235])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49cdce10148sm123486195e9.5.2026.09.01.23.52.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 23:52:25 -0700 (PDT)
-Message-ID: <3cd2c640-3ce8-4163-9f7b-3abba46ae072@gmail.com>
-Date: Wed, 2 Sep 2026 09:52:24 +0300
+        d=1e100.net; s=20251104; t=1788331954; x=1788936754;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tdQPXAEy+8QdspuTOxqFKJnA9qsJ6Jve5TAJj3j51Gg=;
+        b=ptO4ecKqiPT0teiFDU9EMgL25jwcL0joReplvPXZiayQYSOmN9pVX8HTnqmHiS6jdv
+         bGLGcj79pGh6XYG4FIgsJCgqeyUta8CCf3ei2Erx0wWgYqtBlXMeC9mnAlkptelo2CA+
+         35jj745jZMn9XPe32oZd75sBuMoajHTnC8gaIhQRpA0AI1Q+7hnZGPo11fw5St5ysCsY
+         48W6QYwNEnu07hqor524fOLGizgJv4k2gqTzX2Q2cUP2urGLVXz11ubMqTtdtONP2HWX
+         pHxKhgmX0NjgTUcliOWxmufqp3Q1+d/7CY4RsH+er/La40FP9lRnPUBa0b+1xe/VI0tu
+         m2+w==
+X-Forwarded-Encrypted: i=1; AHgh+RrzKOxLwUITbC+/m2u0ZAzQNB9I0eakVLbvNclTKoU14eWvuRBUz8qYSAqXeiA4U3WSyp96ZruFZEz+xLs=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6VWWTDxhffWyNXsUWTWZAS6GOwtrX0IeCwpasIkqiFy2Pqy9j
+	lVQpYqTV465BxCzCEaV0Usurr1qcIJRGvBh1YE2vDzWWDMjVM6tgVT7ZavQe13jw1oXueKA67yH
+	x7nGcSJuDGAcIL0HzYHKgo/B+XxfWzilP23vruk6vllgN5P/kEE1GLUbdxwU2ws+0MQ==
+X-Gm-Gg: AR+sD10zDY+1tscyHysfFHjhy4UW/E31GyyLGP7Cn38rs524slhZQodvB0UdZiE3NrR
+	+OpuKh8XET4hKjW7JWOiRk3eVw5AcPBTi+c3D5E9hKkhpW7+wndteYIjgRVI/28S6EYmqKE6JOB
+	3r9bY1uacxUCauHWYgJixMiBizbq3jsK13f4MZpeo8DJ4DaL5XEOlhPmz88893om8VqHmDFB3aN
+	kBB/k1jvI4DeaDqvTazylogKc+D3f9W6JsG891ZnLQirVXhZM9P0C/pePQhicgusEdbPbaeRt3g
+	O6KXQj/4WJB0edKCGl+kgFl5TxZVa8q3TxY/CO6xqfXB/Bt1bgYcr3czZrLjSFCCFqyq4uBgyFp
+	P5Ms4gXXOR41ae02QV3/rXIQOkP+efw==
+X-Received: by 2002:a05:600c:1c29:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-49ce584c93amr42599065e9.16.1788331953838;
+        Tue, 01 Sep 2026 23:52:33 -0700 (PDT)
+X-Received: by 2002:a05:600c:1c29:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-49ce584c93amr42598525e9.16.1788331953447;
+        Tue, 01 Sep 2026 23:52:33 -0700 (PDT)
+Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.135.130])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce4642382sm47964965e9.3.2026.09.01.23.52.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 23:52:33 -0700 (PDT)
+Message-ID: <df6e9168cb06c35e21db7f9d17cfbca6bd87005b.camel@redhat.com>
+Subject: Re: [RFC PATCH 00/20] rv: Add support for BPF monitors
+From: Gabriele Monaco <gmonaco@redhat.com>
+To: Nam Cao <namcao@linutronix.de>, linux-kernel@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org
+Cc: Steven Rostedt <rostedt@goodmis.org>, Wen Yang <wen.yang@linux.dev>, 
+ Tobias Schaffner <tobias.schaffner@siemens.com>, Viktor Malik
+ <vmalik@redhat.com>
+Date: Wed, 02 Sep 2026 08:52:31 +0200
+In-Reply-To: <87se3sakgi.fsf@yellow.woof>
+References: <20260831090524.106845-1-gmonaco@redhat.com>
+	 <87se3sakgi.fsf@yellow.woof>
+Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
+ keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
+ 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
+ Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
+ Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
+ cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
+ T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
+ eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
+ 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: linux-next: build failure after merge of the drm-misc tree
-To: Mark Brown <broonie@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-References: <apbbvQSfUbzYRFaw@sirena.org.uk>
-Content-Language: en-GB
-From: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-In-Reply-To: <apbbvQSfUbzYRFaw@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
+On Tue, 2026-09-01 at 20:35 +0200, Nam Cao wrote:
+> Gabriele Monaco <gmonaco@redhat.com> writes:
+> > Extend the rv userspace tool to load BPF monitors, those can be found i=
+n
+> > specific locations (e.g. /usr/share/rv/bpf_monitors/) and are plain
+> > object files including BTF data.
+> >=20
+> > This type of BPF monitors can be generated from rvgen using the -b flag
+> > just like in-kernel monitors and, after manual adaptation, can be built
+> > and run transparently by the rv userspace tool.
+>=20
+> I am not familiar with BPF. What is the benefit of BPF monitors,
+> compared to the existing DA monitors?
 
+I should definitely have included it in the cover letter.. I'm writing it
+everywhere (will present at LPC) but forgot it here.
 
-On 1.09.26 г. 17:05 ч., Mark Brown wrote:
-> Hi all,
-> 
-> After merging the drm-misc tree, today's linux-next build (x86_64
-> allmodconfig) failed like this:
-> 
-> /tmp/next/build/sound/soc/ti/omap-hdmi.c:408:6: error: no member named 'card' in 'struct hdmi_audio_data'
->    408 |         ad->card = card;
->        |         ~~  ^
-> 
-> Caused by commit
-> 
->     699e5975e2a53 (drm/omap: Report HDMI hotplug events to the ASoC HDMI codec)
-> 
-> I have used the tree from next-20260831 instead.
+Essentially BPF monitors can be pluggable, folks writing their own monitors
+won't need to submit a patch or maintain a separate tree, which is useful f=
+or
+domain-specific models.
+By being pluggable you also don't need to reboot to use a new/updated monit=
+or.
 
-This seems to be due to an interaction between two patches:
-1. 9af2c1d4f847 (ASoC: ti: omap-hdmi: remove unused *card) / 
-875e906efdc4 (ASoC: ti: preparation for Card capsuling)
-2. 699e5975e2a53 (drm/omap: Report HDMI hotplug events to the ASoC HDMI 
-codec)
+Think of being able to distribute a more granular set of rules for RTapp, I
+remember we had conversation along those lines, not all rules apply to all
+contexts and what you send upstream has to be general, what you keep for
+yourself doesn't.
 
-Both (1) patches are in the tree and remove the 'card' member from 
-struct hdmi_audio_data, while (2) was already in transit. Patch (2) only 
-reorders the existing ad->card = card assignment, so it still contains 
-that reference:
+Having monitors in BPF brings also other perks over kernel modules: a whole
+bunch of readily available probe types (uprobes, fprobes, all unexported
+tracepoints that are cumbersome for modules), the map infrastructure for
+allocation is arguably easier and the code is verified when loaded against
+common issues (NULL pointer access, unbound loops, etc.).
 
-+	ad->card = card;
-+
-+	snd_soc_card_set_drvdata(card, ad);
-  	ret = devm_snd_soc_register_card(dev, card);
-  	if (ret) {
-  		dev_err(dev, "snd_soc_register_card failed (%d)\n", ret);
-  		return ret;
-  	}
+That said, I try to mimic as much as possible the in-kernel functionality, =
+but
+some things are not the same (event/error tracepoints).
 
--	ad->card = card;
--	snd_soc_card_set_drvdata(card, ad);
--
-  	dev_set_drvdata(dev, ad);
+These support DA only because BPF loading needs a userspace component and t=
+he RV
+tool doesn't support LTL and HA yet, there shouldn't be any technical reaso=
+n not
+to extend to those in the future.
+
+Gabriele
 
