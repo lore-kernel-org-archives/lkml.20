@@ -1,64 +1,64 @@
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9111547D926
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:02:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B76EF25B0B8
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:02:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788350580; cv=none; b=jsRgBiNEeLooWgLqgYbNkGczX9Vqe0xWwDCAtrLsCziy9NCVAMYcTKMiWNCxC6d4e/rCsFsyp97r2eobbJkSMuLRLRsZ/CMq/4Wzx9Q/6iux2z7LPvegMkLxm/0XAsAFbD34ElJY+UXd3TOwastSf8Gsd6SAf68L69KtwyOAl2E=
+	t=1788350582; cv=none; b=UQZpM7mPtw6nj9lBRqpwKAdxJR31JuAzXcD1Ah/ysmzn3oA7pt8JK7X0au0tGYT9aMcldu4dS0uIQGuh9WCI2oUy3vRH46FR9T6IxudyoULbGzExcffWROJAlbqfkgfnSo4p69Pr4kjeYqGXesDPwF+/3MCAQ4rti2ZWPMJkwGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788350580; c=relaxed/simple;
-	bh=AGaIpcp+iWekGqGY2bGrZVtNl5AoK9nvCgMbIqwXrtA=;
+	s=arc-20240116; t=1788350582; c=relaxed/simple;
+	bh=Yv1k6QGBpWRqhQ1/g8/MLMzjdXKArQtCprJXyb6GIXw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mIwEv/K8+CWXHRxAIVQhwcmcUgXOUNDEhmabteLq0MCw91e7J2cnNvOTuKpn+mYOC4EdDIg6fa4jTq2KLuKiqwiPwjmYg8u5ho7Su5U5t4IafvnQZmtiehsHGJUc0SlHGGeAgynaSZh3OTTFwNvOCABmMvSxViYBB4HXHP2X8ko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P9BFeqfJ; arc=none smtp.client-ip=209.85.210.45
+	 MIME-Version; b=LC6s51blFIwQwgVgmbXDidh+C1w5j3xUu1TN4njvAHX/l1vSROUIBd37146Wbx4o93QEGyLIU96cLzLC6MhwgmTPu/5BsYJXhwTtUZkihN4bPhCq8yL9hDRakUgmBDC07TASxsESNsRfjWyUSGvQtub4AgCbLE470O1WXq7b8MQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O12/WPN0; arc=none smtp.client-ip=209.85.215.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P9BFeqfJ"
-Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-7eb6573bd52so829007a34.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:02:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O12/WPN0"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc1d57602e8so1055248a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:02:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788350570; x=1788955370; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788350567; x=1788955367; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Tv+F4kWm687aqLU+RFHaw3qmL/A9BNH3QtDc0f8Db2k=;
-        b=P9BFeqfJ8CUsZ1g8ik8ZAO8z/s7ygGDrqsoGEg2qtfIEElYNS74xhNR1vpi57Rt20h
-         6CtZOPZetMkB1O/XT7JcGjcTqN9XjYBB4fZO+nEP25uTax7+CtycvAdiHdquqoygFzde
-         hUczakBmPPIJd/p121aYMYEJoATE409LPU0WtXxtHfOTH3uhnTYods+RQcRLuaCc39Nj
-         6Y5407DfvYnBtKYuPuf0hDeg07uDTCqfaXRFq3PtS4sN/26KFqz/YeHUt14pH0zO+TVR
-         UH2uMAd5+P60fJdgxCpaJoG9rYkVFhP8hLCpvyJ3QV34ijjY6iwqC3L/w5zKm6zhhFcN
-         OUJw==
+        bh=ogfkV1olj5BWBHozC4h7H6b+n23WKTMMRGzZ7ZTaUxU=;
+        b=O12/WPN02/v9zNTGHZtm0ArxWL3NQErnElwC1RpgwR3y+7gY9nznwNMKkSndG+2JEg
+         xsIqLDJWDsyqdVEW8ACj2sEs4SYSnByEcwkSCvNTrXJ1iJbIk5Jr+MN73ETrs7T29hty
+         AqzC1NYKinI3+NTW1LoOaMG3M36ju2+V29jCrrOARcJfiRWfysKcz3+0y/T1168QkPOL
+         oD8MgThaPtlcUe5yBxqkjeOMI/YFfHzHxYf5UJ9UFWXWPOJUp/63y8tCYXHZvU6rxhMv
+         oRQpluc44scW+EVu+CjWl3VSqhw3F6NIIucf0wfGDECjr4lAfM3xg9YvuCTmXuP5WXPT
+         FHdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788350570; x=1788955370;
+        d=1e100.net; s=20251104; t=1788350567; x=1788955367;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Tv+F4kWm687aqLU+RFHaw3qmL/A9BNH3QtDc0f8Db2k=;
-        b=UYl1ZhQ9ofisaOcrjbyGEMbnYsPybsF31Fz9aBiEIxIN7rSSXA0xM+vpSjmPTj19RX
-         tfE3z5QkFz3+k/+95bAPg+xQLwrlNIxSMZcvF3yFaxFq84J8wid0PJbo2kOStyGGFyjW
-         cO833pjPfeSfWwbrLi03BMUAlk047+f6+zq85hPnSex6wfFAH3CRoDMRB4kNlkzH84TE
-         K20m6JHzEUNsEzOYZ5JZogCwzS+E8zbqJWCR39d0YPWJGs53f1T/BNUvmgEf4XoLa+FW
-         dHRs8msbPx+1KAQGoq409Zg2r4OCFmd4biayYm/3212qi4T1/76cQPc2G+ux+bRddPcd
-         pkGg==
-X-Forwarded-Encrypted: i=1; AHgh+Rrbmp1Qgo/HfV1fVQ0mY0isrsWz1xTmpbucJwz0j1cN4hZsHuHaADWh2PKfmBkYNNjt+/btKkLSOZN+lPw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nqTl65QRQFJTPWjjFrOsd4wVODnDqcEbVWzF3Gb+Ora8Q26rg6
-	1+d+bPPa+iiq+/2kjWR2ILy9+04fllNSJGzcyS9HTdDUG/w8Rh8sXwjZ
-X-Gm-Gg: AR+sD12w4MGVV2wZGXaya4nQvKKTWSXv7Qcbgm1gh9le9zrGj49bFOXyaXtIY5blXuu
-	XW03bRelXfKVPPm50fumYsqCmE8XVrfN/BAN2xbCblLv1Pv4BQSyw8xjgOi6xmj2mQlqT8MkcE6
-	8rZpk99PNEyyCN/ipm+kXZfy3/+LN/8j3+nA27aJTNUaWlPpheYN2g1o5G/x0AejwghoZCWoG2g
-	9jaorGJJGlLTykiEjvk4BS/Qq7uo5tNxXM9Y4MlltH1b537h/M2sC3u5EblMyquoP9mBtH/h7y0
-	Pm81e9u49bLD/ufmZWaoCEGveODXnwbdJVgyaYVzKAp10L1kXgpAVcqUG8BGL13wWRbJELkZrAZ
-	VCveKfpwThu+Lj0UAgDp4Vu93pdbilKjL/usEnUUzCo/vbgO8e6OOH5ct4AK0eeJntFEE8Gvd4x
-	IxRKhSdMFrSgiPGkXNa68rCcHGSUFkipj18snHS4Ixr2XL0aqq0e0JTdN3aRpLxFp6ljELQnB8f
-	SAGoepS/jrG0lNvzugPDg==
-X-Received: by 2002:a05:6820:c8f:b0:6b1:a0b6:72d9 with SMTP id 006d021491bc7-6b47e6c352emr2967558eaf.25.1788350569690;
-        Wed, 02 Sep 2026 05:02:49 -0700 (PDT)
+        bh=ogfkV1olj5BWBHozC4h7H6b+n23WKTMMRGzZ7ZTaUxU=;
+        b=DK07tGOjXVi9h6BCmMEkHSIl/3ni7+w0ckcmBGlzOZRsa7/GUeALWBKOotoTkbzIe4
+         I8aV27OfhQBWpYunYNifZ0yM+zFCX7O4hbulRtFykZ58eFjhjDOxfB9Z6b1ksUZT/bOG
+         L18m7GzX+806qjCXti6Yrl5tA4eyjqyVZym7UjOzRY4X23YPpUrHr38gy8PT5HPk1bex
+         Q9r829WSAWsJ5DekCzIUZTIUgUJrJRSW9tVMy27Cz0dKHThrNw9Lesazpfj+WbIdozJH
+         FVT5gGug9NpKaHUBWrcTD1LKoAjIY5PzEoTWJFMSqpN440Y/GCZNyViXzacdDYLnqZm4
+         NadQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwvv5VM3ex0XWY6WZ3cH9unk/MGJy+lpAKX6MbiW49PJ+YGq7YLzNVReQo5iu5uNk3eMp+EKII7nLBxTTc=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+9xFXlyyF2R5JjtnWEbeqkfZaqcoY66XM/6lyktUgjjSNwQFE
+	LOJhLDPl6fEpmGZkriblMYLbfp0Z6a2OOFMmwoZQv6qeiK6ZEAZhmV0k
+X-Gm-Gg: AYBFou1u3E4tcn5xxfx2GdtqC8bD77GK418VO4b0cn60l08KdGC+PsTjFQEkuxglW4B
+	3PxbFGPvUCg+c+80d7vvnjx8WvLGQ8Vhlo+41Y6VRzZLBBUQtnXf8SQNqbOQLevkDCgr2VadgLH
+	FYftf/3oxYkoF6+67zdERYkCORLDYq4OG9fGgytiSVziZn1fBJYtBgKgVx8LJIVgZK8t4sE0J0L
+	rDub8bakjwcAJUwk6fRxVaJU8XiGMqw+Y+eM92tNjpST1Fn5BueLxIR/PFd5IQLuP6jz0Z7lERh
+	wABE+p0/j9GLLvb2ilXl3nN7QT1vQrASJ+QbqeYV2BO6uicYbRg51IlW9L4oiDxXcus5n3I/7Kp
+	sV8OZ0RZmz7suriZaV5Bs7fD95rkbmwRp/RACIPqa2U4nnWWwaQoRiT0aM76ixDwzJm7zZNqrp4
+	sjk9wU0l7DKQrs0ni+1eE9dEfvJvtRKXgpX418kkz6bKO4MZZXM2OX+Bn6Yyg/Uq6qPh34yKvmZ
+	6NQ4kGSvsPv/Ta5iMSdYw==
+X-Received: by 2002:a17:90b:6cc:b0:398:9bd5:490d with SMTP id 98e67ed59e1d1-39aee0eafb9mr6572751a91.20.1788350566769;
+        Wed, 02 Sep 2026 05:02:46 -0700 (PDT)
 Received: from volcano9f8e-host.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f079c33e9sm6897044eec.4.2026.09.02.05.02.47
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f079c33e9sm6897044eec.4.2026.09.02.05.02.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 05:02:49 -0700 (PDT)
+        Wed, 02 Sep 2026 05:02:46 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: Sean Christopherson <seanjc@google.com>,
 	Paolo Bonzini <pbonzini@redhat.com>,
@@ -66,9 +66,9 @@ To: Sean Christopherson <seanjc@google.com>,
 Cc: kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org
-Subject: [PATCH 2/2] KVM: selftests: Verify the events half of the sync regs region
-Date: Wed,  2 Sep 2026 17:32:35 +0530
-Message-ID: <20260902120235.18486-3-hemanth.selam@gmail.com>
+Subject: [PATCH 1/2] KVM: selftests: Actually compare sregs and events in sync_regs_test
+Date: Wed,  2 Sep 2026 17:32:34 +0530
+Message-ID: <20260902120235.18486-2-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20260902120235.18486-1-hemanth.selam@gmail.com>
 References: <20260902120235.18486-1-hemanth.selam@gmail.com>
@@ -80,52 +80,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-set_and_verify_various() writes to the regs and sregs halves of the
-kvm_run sync region and checks that KVM picks them up, but it has never
-done the same for events, hence the TODO.
+compare_sregs() and compare_vcpu_events() have been empty since the test
+was written, so the checks that req_and_verify_all_valid() and
+set_and_verify_various() run after every KVM_RUN only ever compared the
+general purpose registers.  KVM could return anything at all in the sregs
+and events halves of the kvm_run sync region and the test would still
+pass.
 
-Mask NMIs through the sync region and verify KVM applies it.  Masking is
-a state change rather than an injected event, and the guest is a tight
-loop that never executes IRET, so nothing can unmask NMIs behind the
-test's back and the check does not depend on timing.
+Fill both in, in the style of compare_regs(): every field of struct
+kvm_sregs, including the segment and descriptor table members and the
+interrupt bitmap, and every field of struct kvm_vcpu_events.  Both sides
+of each comparison come from the same vCPU without it having run in
+between, so they are expected to match exactly.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- tools/testing/selftests/kvm/x86/sync_regs_test.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ .../selftests/kvm/x86/sync_regs_test.c        | 89 +++++++++++++++++++
+ 1 file changed, 89 insertions(+)
 
 diff --git a/tools/testing/selftests/kvm/x86/sync_regs_test.c b/tools/testing/selftests/kvm/x86/sync_regs_test.c
-index c7d1f3cca16e..b417eb0ab0f0 100644
+index ed0c21b427c9..c7d1f3cca16e 100644
 --- a/tools/testing/selftests/kvm/x86/sync_regs_test.c
 +++ b/tools/testing/selftests/kvm/x86/sync_regs_test.c
-@@ -372,10 +372,15 @@ KVM_ONE_VCPU_TEST(sync_regs_test, set_and_verify_various, guest_code)
- 	/* Set and verify various register values. */
- 	run->s.regs.regs.rbx = 0xBAD1DEA;
- 	run->s.regs.sregs.apic_base = 1 << 11;
--	/* TODO run->s.regs.events.XYZ = ABC; */
-+	/*
-+	 * The guest never executes IRET, so masking NMIs is a state change
-+	 * KVM has to hand back unchanged, without needing an event injected.
-+	 */
-+	run->s.regs.events.nmi.masked = 1;
-+	run->s.regs.events.flags = 0;
+@@ -70,13 +70,102 @@ static void compare_regs(struct kvm_regs *left, struct kvm_regs *right)
+ #undef REG_COMPARE
+ }
  
- 	run->kvm_valid_regs = TEST_SYNC_FIELDS;
--	run->kvm_dirty_regs = KVM_SYNC_X86_REGS | KVM_SYNC_X86_SREGS;
-+	run->kvm_dirty_regs = TEST_SYNC_FIELDS;
- 	vcpu_run(vcpu);
- 	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
- 	TEST_ASSERT(run->s.regs.regs.rbx == 0xBAD1DEA + 1,
-@@ -384,6 +389,8 @@ KVM_ONE_VCPU_TEST(sync_regs_test, set_and_verify_various, guest_code)
- 	TEST_ASSERT(run->s.regs.sregs.apic_base == 1 << 11,
- 		    "apic_base sync regs value incorrect 0x%llx.",
- 		    run->s.regs.sregs.apic_base);
-+	TEST_ASSERT(run->s.regs.events.nmi.masked,
-+		    "events sync regs value incorrect, NMIs not masked");
++static void compare_segment(struct kvm_segment *left, struct kvm_segment *right,
++			    const char *name)
++{
++#define SEG_COMPARE(field) \
++	TEST_ASSERT(left->field == right->field, \
++		    "Segment %s." #field \
++		    " values did not match: 0x%llx, 0x%llx", \
++		    name, (unsigned long long)left->field, \
++		    (unsigned long long)right->field)
++	SEG_COMPARE(base);
++	SEG_COMPARE(limit);
++	SEG_COMPARE(selector);
++	SEG_COMPARE(type);
++	SEG_COMPARE(present);
++	SEG_COMPARE(dpl);
++	SEG_COMPARE(db);
++	SEG_COMPARE(s);
++	SEG_COMPARE(l);
++	SEG_COMPARE(g);
++	SEG_COMPARE(avl);
++	SEG_COMPARE(unusable);
++#undef SEG_COMPARE
++}
++
++static void compare_dtable(struct kvm_dtable *left, struct kvm_dtable *right,
++			   const char *name)
++{
++	TEST_ASSERT(left->base == right->base,
++		    "Descriptor table %s.base values did not match: 0x%llx, 0x%llx",
++		    name, left->base, right->base);
++	TEST_ASSERT(left->limit == right->limit,
++		    "Descriptor table %s.limit values did not match: 0x%x, 0x%x",
++		    name, left->limit, right->limit);
++}
++
+ static void compare_sregs(struct kvm_sregs *left, struct kvm_sregs *right)
+ {
++#define SREG_COMPARE(reg) \
++	TEST_ASSERT(left->reg == right->reg, \
++		    "Register " #reg \
++		    " values did not match: 0x%llx, 0x%llx", \
++		    left->reg, right->reg)
++	compare_segment(&left->cs, &right->cs, "cs");
++	compare_segment(&left->ds, &right->ds, "ds");
++	compare_segment(&left->es, &right->es, "es");
++	compare_segment(&left->fs, &right->fs, "fs");
++	compare_segment(&left->gs, &right->gs, "gs");
++	compare_segment(&left->ss, &right->ss, "ss");
++	compare_segment(&left->tr, &right->tr, "tr");
++	compare_segment(&left->ldt, &right->ldt, "ldt");
++	compare_dtable(&left->gdt, &right->gdt, "gdt");
++	compare_dtable(&left->idt, &right->idt, "idt");
++	SREG_COMPARE(cr0);
++	SREG_COMPARE(cr2);
++	SREG_COMPARE(cr3);
++	SREG_COMPARE(cr4);
++	SREG_COMPARE(cr8);
++	SREG_COMPARE(efer);
++	SREG_COMPARE(apic_base);
++#undef SREG_COMPARE
++	TEST_ASSERT(!memcmp(left->interrupt_bitmap, right->interrupt_bitmap,
++			    sizeof(left->interrupt_bitmap)),
++		    "interrupt_bitmap values did not match");
+ }
  
- 	vcpu_regs_get(vcpu, &regs);
- 	compare_regs(&regs, &run->s.regs.regs);
+ static void compare_vcpu_events(struct kvm_vcpu_events *left,
+ 				struct kvm_vcpu_events *right)
+ {
++#define EVENT_COMPARE(field) \
++	TEST_ASSERT(left->field == right->field, \
++		    "Event " #field \
++		    " values did not match: 0x%llx, 0x%llx", \
++		    (unsigned long long)left->field, \
++		    (unsigned long long)right->field)
++	EVENT_COMPARE(exception.injected);
++	EVENT_COMPARE(exception.nr);
++	EVENT_COMPARE(exception.has_error_code);
++	EVENT_COMPARE(exception.pending);
++	EVENT_COMPARE(exception.error_code);
++	EVENT_COMPARE(interrupt.injected);
++	EVENT_COMPARE(interrupt.nr);
++	EVENT_COMPARE(interrupt.soft);
++	EVENT_COMPARE(interrupt.shadow);
++	EVENT_COMPARE(nmi.injected);
++	EVENT_COMPARE(nmi.pending);
++	EVENT_COMPARE(nmi.masked);
++	EVENT_COMPARE(sipi_vector);
++	EVENT_COMPARE(flags);
++	EVENT_COMPARE(smi.smm);
++	EVENT_COMPARE(smi.pending);
++	EVENT_COMPARE(smi.smm_inside_nmi);
++	EVENT_COMPARE(smi.latched_init);
++	EVENT_COMPARE(triple_fault.pending);
++	EVENT_COMPARE(exception_has_payload);
++	EVENT_COMPARE(exception_payload);
++#undef EVENT_COMPARE
+ }
+ 
+ #define TEST_SYNC_FIELDS   (KVM_SYNC_X86_REGS|KVM_SYNC_X86_SREGS|KVM_SYNC_X86_EVENTS)
 -- 
 2.43.7
 
