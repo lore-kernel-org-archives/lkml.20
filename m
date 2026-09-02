@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB1C14AD4D0;
-	Wed,  2 Sep 2026 22:14:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CF836C5BB;
+	Wed,  2 Sep 2026 22:14:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788387278; cv=none; b=ap0u2ZJ8+PgcvvRvcdcUxH54xYWcl5HzQ0l2AtCGo02CO4HJjcSPmCCeAUZXniyPByheMtsn6u41ahOtDPAN16uBs3aWISK2XlgXMdr7/Y3kNIIJjkg+n4FUknqQUT7k5zz/u8Sv/AL86D8vcICvvPzVGYW2dRynxBrOMFJrHdA=
+	t=1788387278; cv=none; b=fG/7Akc0I34FmVHYwDWFYKzTSpPmOJGid0HOWuAbTwi5756V+gCZADUvTTxf0b5KrsazcNXFz3XbPnC/yIoadyQVHMfuR3rdQ2SjA8lvTYKULUgYni9dIn+UBEvFthZL0ENlhwzoAS4WNEoVDtbrmegrlwgThW2MweT44+CVYOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788387278; c=relaxed/simple;
-	bh=1N1zFAyREy66fj/Jh+jau1cc7CodIROS0FWqy5Ii3wY=;
+	bh=FPfZvOGFtpBuQTFJdKv/XQsh3qCEsjzocZqPAv8YOr4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=b8d/pbdYvPGLXHVB46KuLwNZ4C3yGCGfa5u+I/0Le0JrDdoo0njxx8fy7DUUpOHp9XoEqCvSFuNyg73gAHEgyaG9v07OIA0NBulaBJMkjkIg4114LBXo+0B/A3Xg9U0s6lNN7Pikx3VJyx5D5nlA87gvI5RuRlk0oToLUT+cVjA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ny4CnrlY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rvb6IbfVMVgltVrXJch+klXQVXZF2ytXcH2ex+GaGnpewoi4ZnIGOukchFRdmMs53XS562xXnti6j/N5Ix+E0NzjMnK71E15tcTU9UDyahM1KYewaVkiwCMwC4vpvLUeQ12+AcztP/IBlpkinI90llM0hUjCLK3loeO22vzhJlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e9Yni1SN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ny4CnrlY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 366211F00A3E;
-	Wed,  2 Sep 2026 22:14:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e9Yni1SN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C36011F000E9;
+	Wed,  2 Sep 2026 22:14:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788387273;
-	bh=JT9HSu16g+C4kMeFvUJo+VUDLEf9GRg5cbRFzsvXVBQ=;
+	s=k20260515; t=1788387271;
+	bh=LElBelHWJFi4myMfOZBWusPXXcCOWVtvjgM7B1jP4hI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ny4CnrlY2z1AE1wQ/8pkTCeYmE8qyUm6shjm2TaVk/NtGbZlQP+pKbs/14gGi07o7
-	 5rEpgiuQ3/AYV/dJdBAxK4vnCV7WEzTf4Ift9XkOZMrLJFjSKQGZKPS5dwaivdhPH9
-	 +wt+K8wwZ8QgCauqL9kGgckljYX+UAiwQmB9IvwUkke0Jb6BkvIKMYumgnbjlZSsO1
-	 32faKZbvVbbhVo3Y+Dg8m5GbkhTmX83+GdVRM7fHDsykuoqjo5gXAPterFYdQvBx5d
-	 YHXP4RP44GIxrRHK3OwimgG109ukUak/77Fpd+vDrcKq2xn44k9AjoOCDsJEwDw1Fe
-	 W7Ny3jplT0C0A==
+	b=e9Yni1SN2SHWCI6laaP2QjvEo/uhgeaZBtS84RDHul6zGCfZEyJbWC5tCr8+luw9k
+	 4kKDKEGgM2UNAZ/4v9/4mLncaxh6MS8y6Nl8Lal4c3iTNVQBN87CUF3mQMRtPmUJdf
+	 SSDyk0QSchzcIsA8lmB/LpCa1ItVbqpi6GPfSRGLmBrABSmrlwuH7+5XONqjgDC5QF
+	 Mwr8Yso6VDqpK2wh5j1fcX+ooDsXo1Bw6WoodwzaRqi+Mw7bHPWBQXmkq1kkfzQhIN
+	 NB7VCivqFe7E/NUyTfkxyJ77IR3xld2qTfGK0Sbi2ZsYlLO5b0rprJ0kyJSWJXRaDG
+	 g171w6fl57KYw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
@@ -38,12 +38,12 @@ Cc: Sasha Levin <sashal@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	syzbot+5f8f3acdee1ec7a7ef7b@syzkaller.appspotmail.com,
 	Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH 5.10.y] ALSA: aloop: Fix racy access at PCM trigger
-Date: Wed,  2 Sep 2026 18:14:10 -0400
-Message-ID: <20260902-daily-reply-0011-aloop-racy-access-5-10@kernel.org>
+Subject: Re: [PATCH 5.15.y] ALSA: aloop: Fix racy access at PCM trigger
+Date: Wed,  2 Sep 2026 18:14:09 -0400
+Message-ID: <20260902-daily-reply-0010-aloop-racy-access-5-15@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260901103729.70869-1-kmehltretter@gmail.com>
-References: <20260901103729.70869-1-kmehltretter@gmail.com>
+In-Reply-To: <20260901101041.82052-1-kmehltretter@gmail.com>
+References: <20260901101041.82052-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,7 +59,7 @@ Content-Transfer-Encoding: 8bit
 > The PCM trigger callback of aloop driver tries to check the PCM state
 > and stop the stream of the tied substream in the corresponding cable.
 
-Queued for 5.10, thanks.
+Queued for 5.15, thanks.
 
 -- 
 Thanks,
