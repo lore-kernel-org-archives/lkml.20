@@ -1,201 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F44647605F;
-	Wed,  2 Sep 2026 18:01:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D965382299;
+	Wed,  2 Sep 2026 18:03:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788372076; cv=none; b=HajgkRdVKR3COmQ+scdjcAqzZ4pr0dtgCE5DqSjp/UhhBiaWYxQGas8NN+Auh7xOraQxgAOgqvWxnsuF37Fy/xcJo1rUsVQc3kJ7k1MX45ZcejyI5R5gDQNTJdVvCtDdkP82ed0ujJ/gyU9TYPgpMHz8ALmU2rhhh1mg8Pe20Fs=
+	t=1788372226; cv=none; b=gp5ImR+lWct7eYEpvTF4+f8KSJMihVxEcihmnh9rhL/TARxM9Srual0LOnzxZu57lbtLbEh1roX9yD8u+ojeuMHPM3XcaX3erHZvm1cfUhFCaehShfP1yTuLI55sriz+L4CjZTepej7txa3x8dgIFE0uUpoLL5Q0DORLMfeXfXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788372076; c=relaxed/simple;
-	bh=6y4SgQpQz3RLpexZGYRim0KFzXiNKV69KBfjEhHHVH0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rxfRu20I+rJ+oIHJgPM5yvqe/e6EaEDQG7NekddmwtQ2USNwqa2ojyhiC9Cdbe1mtF7qQucdeWRlfNKV+74HHyHe7q5UV6vSf04uBKbpAGEygFQyClnmBZvRophOZNhuVAmPLLEZzjxeVWIexC57z/6qJbTwOhz1tkW4cG1HB4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d1FKV9YY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788372226; c=relaxed/simple;
+	bh=U0DQvdMBxlrrrjlvjwHNoQY0+Gbfmq4eCEwuD81yDYU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rzzobXqNZPdmLH1JfvF52XtM2wOlfmIcurOLX/HlbItnCZkjlpwCCA+ojBVMxwUpyz++eM1D8GPgTsvuofehzDfO8q47HVOtaIsJlmWVf3EdfptLyysmS/w1wtvqvovZxD/dAsGSBO0TbiwEHMDsbXELWiLrHkHDNhzjuH4hCuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YryQdOG6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d1FKV9YY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72A4C1F000E9;
-	Wed,  2 Sep 2026 18:01:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YryQdOG6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA8A41F000E9;
+	Wed,  2 Sep 2026 18:03:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788372074;
-	bh=gKMN/4ga+akQkR+gCUDsGByPhFMGOkvrwnVsmryglD8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=d1FKV9YYgYwhR45HYlw7ao5vs9Wvz7PH7HdW6abQ3+PLbGWWvZo+3YkL2712FNcj3
-	 eFB3FqAWjSUj+yOdKG8HVSn91Hj33qCCBkTf4fY5KlCUwk8LWC/p+mBfsSR5DnKUiv
-	 zhJY6+WmVzQqCI3nQq9Be6MCrPz/Eynxla55ntnaJM6OZU/sEqproc8yvTFMEcQWrQ
-	 eG87GbKzRQfMfugp1SyOaQoerezIFaaZibVV2aRufhYlYB6wVAJNTzBiQo8Z/9TAeJ
-	 6/I5figxrew5gszJrQH9r3n1eOfh3ulOJKEDhuPwsCKtrOg0tOiipteEvSpi0Rzec2
-	 kmSKNsyOBD/9Q==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Wed, 02 Sep 2026 19:00:23 +0100
-Subject: [PATCH 6/6] tools/testing/selftests/mm: add MAP_PRIVATE-/dev/zero
- merge tests
+	s=k20260515; t=1788372225;
+	bh=Uj9/RDwv9k2iRrF8z8+r037C19R/tl/T6HaynuHBg7Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YryQdOG6rCS+CoxXuEhmKqZdD8O0bh7F0WgNxh8InFZjr/iLSM0valYUf4rdXM5E6
+	 Vxe3whVlTKMY0QPvSa04XFtUlbX8YsISoVn3NrW+crTxg88qsYsTr3tnLISd4Kd8Dt
+	 iYtrHEj2YTmG3kJJLChg+lb7XBELtrMweBQCCo7iZ7+muXc64rjY96EBBYmH/+R6ie
+	 NwZVU3R9XH//x33Z0hYhHJPSQgGQgNRvyr5CmG+ouEnbkdMnmMRfgYhJMMsAhhnpiT
+	 jMljJ/6L/ziJe6kbaA5W9kRZrJn7mcUOgv+T88DR0r/Pk39Ub4KzjoNcLcZbgbgdgO
+	 1DQu/IxJCAB5w==
+Date: Wed, 2 Sep 2026 19:03:40 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Yixun Lan <dlan@kernel.org>
+Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Long Wan <long.wan@linux.spacemit.com>, linux-mmc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] dt-bindings: mmc: spacemit,sdhci: Add tx delay
+ property
+Message-ID: <20260902-crept-player-b3f30ab4e6f6@spud>
+References: <20260902-07-k3-sdhci-dts-v1-0-4e7909cf4233@kernel.org>
+ <20260902-07-k3-sdhci-dts-v1-2-4e7909cf4233@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-map-private-dev-zero-v1-6-a578c730cec7@kernel.org>
-References: <20260902-map-private-dev-zero-v1-0-a578c730cec7@kernel.org>
-In-Reply-To: <20260902-map-private-dev-zero-v1-0-a578c730cec7@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4280; i=ljs@kernel.org;
- h=from:subject:message-id; bh=6y4SgQpQz3RLpexZGYRim0KFzXiNKV69KBfjEhHHVH0=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJmpHjNspi7c//R9qnWvN3MzKq2h9cVHb91el5GlePJx
- AUbDF6/6ShlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBEWhMZGa6e/NO3dpKZDHd8
- SbPov0Khpf26ryc8Xx3y77RUo+xE11UMf6XV3rybEF3BPn1ybYZMjtSSYidPjSe/6r7wZV45bLb
- gGxcA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="JPvI9JMjjGIUeUlx"
+Content-Disposition: inline
+In-Reply-To: <20260902-07-k3-sdhci-dts-v1-2-4e7909cf4233@kernel.org>
 
-Assert that MAP_PRIVATE-mapped /dev/zero mappings behave like they are
-anonymous.
+--JPvI9JMjjGIUeUlx
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-We test both unfaulted and faulted/unfaulted merges - each with the regions
-having page offset of 0, which would not merge if the mappings were treated
-as if they were file-backed.
+On Wed, Sep 02, 2026 at 07:03:13AM +0000, Yixun Lan wrote:
+> From: Long Wan <long.wan@linux.spacemit.com>
+>=20
+> Introduce a vendor specific property to configure the step count of TX
+> delay line which should be applied before RX tuning, compensating for
+> board level trace differences. The TX delay line result comes from test
+> out of real board which vary from different hardware layout.
+>=20
+> Signed-off-by: Long Wan <long.wan@linux.spacemit.com>
+> Signed-off-by: Yixun Lan <dlan@kernel.org>
 
-With the recent change that makes them behave as pure anonymous mappings,
-the merges should succeed as their page offsets are equal to their
-anonymous page offsets.
+Everyone seems to have their own custom delays, so what's another..
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- tools/testing/selftests/mm/merge.c | 104 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 104 insertions(+)
+> ---
+>  Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml b/=
+Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
+> index f35bf7ce08dd..3399a2d076dc 100644
+> --- a/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
+> +++ b/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
+> @@ -63,6 +63,16 @@ properties:
+>    pinctrl-1:
+>      description: Optional pinctrl state for 1.8V UHS operation with "uhs=
+" name
+> =20
+> +  spacemit,tx-delay:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 0
+> +    maximum: 255
+> +    description:
+> +      TX delay line setting applied before RX tuning, compensating for
+> +      board level trace differences. This is a delay line step count with
+> +      no fixed time-per-step conversion; determined empirically per board
+> +      specific, used on SD/SDIO hosts.
+> +
+>  required:
+>    - compatible
+>    - reg
+>=20
+> --=20
+> 2.55.0
+>=20
 
-diff --git a/tools/testing/selftests/mm/merge.c b/tools/testing/selftests/mm/merge.c
-index 52b8727b6628..7c528d470404 100644
---- a/tools/testing/selftests/mm/merge.c
-+++ b/tools/testing/selftests/mm/merge.c
-@@ -1362,6 +1362,110 @@ TEST_F(merge, anon_and_page_offset_mismatch_memfd)
- 	ASSERT_EQ(procmap->query.vma_end, (unsigned long)ptr + 5 * page_size);
- }
- 
-+TEST_F(merge, merge_map_private_dev_zero_unfaulted)
-+{
-+	struct procmap_fd *procmap = &self->procmap;
-+	unsigned int page_size = self->page_size;
-+	char *carveout = self->carveout;
-+	char *ptr, *ptr2;
-+	int fd_zero;
-+
-+	if (access("/dev/zero", F_OK))
-+		SKIP(return, "No /dev/zero.");
-+	fd_zero = open("/dev/zero", O_RDWR);
-+	ASSERT_NE(fd_zero, -1);
-+
-+	/*
-+	 * Map two MAP_PRIVATE-/dev/zero VMAs next to one another with offset 0
-+	 * each.
-+	 *
-+	 * With these being made truly anonymous upon mapping, they will
-+	 * merge. If they were file-backed VMAs the page offsets would prevent
-+	 * merge:
-+	 *
-+	 * |-----||------|    |-------------|
-+	 * | ptr || ptr2 | -> |     ptr     |
-+	 * |-----||------|    |-------------|
-+	 */
-+	ptr = mmap(carveout, 5 * page_size, PROT_READ | PROT_WRITE,
-+		   MAP_FIXED | MAP_PRIVATE, fd_zero, 0);
-+	if (ptr == MAP_FAILED) {
-+		close(fd_zero);
-+		ASSERT_TRUE(false);
-+	}
-+	ptr2 = mmap(&carveout[5 * page_size], 5 * page_size,
-+		   PROT_READ | PROT_WRITE, MAP_FIXED | MAP_PRIVATE, fd_zero, 0);
-+	if (ptr2 == MAP_FAILED) {
-+		close(fd_zero);
-+		ASSERT_TRUE(false);
-+	}
-+	close(fd_zero);
-+
-+	/* Assert that they merged. */
-+	ASSERT_TRUE(find_vma_procmap(procmap, ptr));
-+	ASSERT_EQ(procmap->query.vma_start, (unsigned long)ptr);
-+	ASSERT_EQ(procmap->query.vma_end, (unsigned long)ptr + 10 * page_size);
-+}
-+
-+TEST_F(merge, merge_map_private_dev_zero_faulted_unfaulted)
-+{
-+	struct procmap_fd *procmap = &self->procmap;
-+	unsigned int page_size = self->page_size;
-+	char *carveout = self->carveout;
-+	char *ptr, *ptr2;
-+	int fd_zero;
-+
-+	if (access("/dev/zero", F_OK))
-+		SKIP(return, "No /dev/zero.");
-+	fd_zero = open("/dev/zero", O_RDWR);
-+	ASSERT_NE(fd_zero, -1);
-+
-+	/*
-+	 * Map a MAP_PRIVATE mapping of /dev/zero with page offset 0, then fault
-+	 * it in:
-+	 *
-+	 * |-------------------------------|
-+	 * |           faulted             |
-+	 * |-------------------------------|
-+	 */
-+	ptr = mmap(carveout, 15 * page_size, PROT_READ | PROT_WRITE,
-+		   MAP_FIXED | MAP_PRIVATE, fd_zero, 0);
-+	if (ptr == MAP_FAILED) {
-+		close(fd_zero);
-+		ASSERT_TRUE(false);
-+	}
-+	memset(ptr, 'x', 15 * page_size);
-+
-+	/*
-+	 * Unmap the middle:
-+	 *
-+	 * |---------|           |---------|
-+	 * | faulted |           | faulted |
-+	 * |---------|           |---------|
-+	 */
-+	ASSERT_EQ(munmap(&ptr[5 * page_size], 5 * page_size), 0);
-+
-+	/*
-+	 * Map in a new unfaulted mapping in the middle with page offset 0 -
-+	 * this should merge and would not if it were treated as a file rather
-+	 * than pure anon:
-+	 *
-+	 * |---------|-----------|---------|
-+	 * | faulted | unfaulted | faulted |
-+	 * |---------|-----------|---------|
-+	 */
-+	ptr2 = mmap(&carveout[5 * page_size], 5 * page_size,
-+		    PROT_READ | PROT_WRITE, MAP_FIXED | MAP_PRIVATE,
-+		    fd_zero, 0);
-+	close(fd_zero);
-+	ASSERT_NE(ptr2, MAP_FAILED);
-+
-+	/* Assert that they merged. */
-+	ASSERT_TRUE(find_vma_procmap(procmap, ptr));
-+	ASSERT_EQ(procmap->query.vma_start, (unsigned long)ptr);
-+	ASSERT_EQ(procmap->query.vma_end, (unsigned long)ptr + 15 * page_size);
-+}
-+
- TEST_F(merge_with_fork, mremap_faulted_to_unfaulted_prev)
- {
- 	struct procmap_fd *procmap = &self->procmap;
+--JPvI9JMjjGIUeUlx
+Content-Type: application/pgp-signature; name=signature.asc
 
--- 
-2.55.0
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaphk/AAKCRB4tDGHoIJi
+0po+AQCA6PqLcTKT7imRX8EmzXyV4cbV44EdaTRHvitAdUV6IgD/ViMPsvHGYEO1
+7Ph5zn0Vyp3Oo8iHwbyKP3VfMdWVMQg=
+=fS0X
+-----END PGP SIGNATURE-----
+
+--JPvI9JMjjGIUeUlx--
