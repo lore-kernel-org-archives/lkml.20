@@ -1,167 +1,173 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 728AB40B102;
-	Wed,  2 Sep 2026 09:14:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+Received: from invmail4.hynix.com (exvmail4.skhynix.com [166.125.252.92])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D2AD5411FAA
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:15:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=166.125.252.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788340461; cv=none; b=sISETvSWqSSX+kvugsP6KVM835vUi5Q1lKS4is6wWt2Sqghn0SU4BeyAZSPl1haaXqM+lmidzqcECc8Nj2HSKGaSAR2nLLQ7eRTpJBKMHfF++p+hpENJwQNJA/9LIuzMrVC9UJUA1FHtZ6/sW4AGiYWWaidlXH3Nc3T4KyszokU=
+	t=1788340567; cv=none; b=Hgt2UoM4U4P8XznrkO0i+4FmswNBKAIJqKe5UeSFu6rOSvHNRSMP7dNTxucO5KSHi7zZ3ewCIiu+yskhNg7EqixObY4kKejktiXcl283BOTkSoAWBcSNiwENLYyl1WWvl5OWHLz8IR3mDQR8e20iXOaNzc4z6PZVatRjszqvXiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788340461; c=relaxed/simple;
-	bh=1xdldqEAvNlEHgEwwq4NTC9GQw9+uQB1grul/7KiVlI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ww0LekH3wlJjjvxGcTZV4GiVwp0i4Vaekbdk7t3VGezB+chfV696tZQgaa0eMmLD07rzymwxJ+CkigY4OT9xfG/K2Bg8e48SCA6UThes3TBzte0hWOih1HeQqiOoD8irgzpbM+yxIjqEDHnSLiHol+iVCWBm8KnHDrAJBLr8/r0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=aQkac4ba; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="aQkac4ba"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6826VpdB2306852;
-	Wed, 2 Sep 2026 09:14:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=8AqoYC6w7cGqvCApgJVekM9rSN9fLp
-	aJea1c35J8vec=; b=aQkac4baoVBcd/gr3t42BfdcF/bXQtadWq2J6xdTTOVexg
-	bC3jLEAWqZDGaroPEAsIn1Vu2m7B+yiGlqXd8iDESLYgk9ffYsFHkZgujdtaVkN4
-	T5pYJUpMayTGAIRn0OQPCwk8Km1eRV4NugTxdBXoDrDzFYnpuqyeK6jZTzg1LyTD
-	AunH+aGr3X35FHtE1jAsdjgM30cGEvPNFGuvInLbrwoPpnVESgqzRNVOL9qmKwEb
-	xyR1sIOENYLHCMpnTtkZ4t0G5PseHraT49ggFKua5OhLFNGQWTurcBuc3ad2Cxys
-	aOflYHQJ4LEXVgRAkCD08P97RTqmnjFwQ5kLTrBw==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbnudw6rp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 09:13:59 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6829BQ8k022561;
-	Wed, 2 Sep 2026 09:13:58 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gcbyggm81-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 09:13:58 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6829DsqF31654596
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 2 Sep 2026 09:13:54 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4C3CE2004D;
-	Wed,  2 Sep 2026 09:13:53 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E68A62004B;
-	Wed,  2 Sep 2026 09:13:52 +0000 (GMT)
-Received: from osiris (unknown [9.224.76.185])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Wed,  2 Sep 2026 09:13:52 +0000 (GMT)
-Date: Wed, 2 Sep 2026 11:13:51 +0200
-From: Steffen Eiden <seiden@linux.ibm.com>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org,
-        kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
-        Gautam Gala <ggala@linux.ibm.com>,
-        Hariharan Mari <hari55@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>,
-        Hendrik Brueckner <brueckner@linux.ibm.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
-        Nico Boehr <nrb@linux.ibm.com>,
-        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
-        Zenghui Yu <yuzenghui@huawei.com>
-Subject: Re: [PATCH v7 03/23] KVM: Allow KVM implementations to switch off
- MMIO independent of Kconfig
-Message-ID: <20260902091351.438647-B-seiden@linux.ibm.com>
-References: <20260831144802.834315-1-seiden@linux.ibm.com>
- <20260831144802.834315-4-seiden@linux.ibm.com>
- <apdwHcdy2iYRTrww@google.com>
- <87ik4om4x2.wl-maz@kernel.org>
+	s=arc-20240116; t=1788340567; c=relaxed/simple;
+	bh=8IXJhTDjMSkMFSkHIN+c6JLVjvvdcPuLWnYmgnYK5sE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZhZM1l8M0772V/vENO0STQZERDOx6UKwRgXObnSd/v+ty1ITEWFkb5jlifNKJskEEqvM5XZf1xBufOUJDt73bcHjWulI9yx//AU0mpmBk1NU6j/5mF2pprfCAwTqk3FA9T78ru0a7Npce9ws/PGovwoGoGxmqrNAj4lOhmS8PFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sk.com; spf=pass smtp.mailfrom=sk.com; arc=none smtp.client-ip=166.125.252.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sk.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sk.com
+X-AuditID: a67dfc5b-c2dff70000001609-ca-6a97e5c3b9b8
+From: Rakie Kim <rakie.kim@sk.com>
+To: Gregory Price <gourry@gourry.net>
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	ziy@nvidia.com,
+	matthew.brost@intel.com,
+	joshua.hahnjy@gmail.com,
+	byungchul@sk.com,
+	ying.huang@linux.alibaba.com,
+	apopple@nvidia.com,
+	urezki@gmail.com,
+	chenwandun@huawei.com,
+	linux-mm@kvack.org,
+	kernel_team@skhynix.com,
+	Rakie Kim <rakie.kim@sk.com>
+Subject: Re: [PATCH 2/2] mm/mempolicy: stop copying the nodemask in the interleave paths
+Date: Wed,  2 Sep 2026 18:00:44 +0900
+Message-ID: <20260902090047.1944-1-rakie.kim@sk.com>
+X-Mailer: git-send-email 2.52.0.windows.1
+In-Reply-To: <20260829015943.1258774-3-gourry@gourry.net>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87ik4om4x2.wl-maz@kernel.org>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: 1F3pFqBliXsclDESpUMcg1Z2cLb-e86r
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA3OSBTYWx0ZWRfX6JtcG97cfxR6
- M4fLC+5JFLfefyJ1qrpgJw/iXLu2gd2AcQ9igI6kuKVVKwyQXLrdH5RcYRv26yseZUJyufkJwjS
- nujMYVuQXk36dNNw3gVbWXaSK5iesK0HQrdOEftwQ3tMNqDbDpZ7yRzLEjQoYo9rsQbkblu3QeD
- F8QX7BXmfVOlOh///QP+kcohJs1wkIubtCoBsdgc2KETGEc+00lLjjyNzOmUTbGDvUekrc77wTJ
- 7QQ8DLPCsbG2yPHF8+dAEZzCNj0z3v6trPZkmGfPxtyVs2i4QtU/1tp1mBj/8JFGtyjaQa5tqbk
- /1M8eVbP1oVzDt0r2yaL4Dhfx8ClG6elPzAIlyexPsJumZFN62k5+buX6br5va+BTYKb6TluANA
- Ek2Le2C5Fxzjiiduhw3Mzlmn7MvP5WPJQkW+aes9Ds+/UuNGqAN4vMqGjLN8KoF9DmzDoMbPMZ/
- wMWIXwYNxIlLbfMK2vA==
-X-Proofpoint-ORIG-GUID: iQl2bPnGO4GAkYjG_46D3jnneKaByzvI
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA3OSBTYWx0ZWRfX/JFIgWLLDrEv
- 4uA/cRHPETAHaE3tPnGzeVlr8K5IlC35MK//vvD97JgmRLsZjFu/iOg+buJD94SfUKWap44cGIE
- RMXAdoaGiQT56QJLsUNHrsxaREHH7TY=
-X-Authority-Analysis: v=2.4 cv=B92JFutM c=1 sm=1 tr=0 ts=6a97e8d8 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=1XWaLZrsAAAA:8
- a=oAQvYTIzDSDSlRPHBVEA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_01,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 clxscore=1015 suspectscore=0 phishscore=0
- lowpriorityscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609020079
+Content-Transfer-Encoding: 8bit
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrMLMWRmVeSWpSXmKPExsXC9ZZnke7hp9OzDP5vNraYs34Nm8WuGyEW
+	X96tYrJ4vvUXo8XPu8fZLY5vncduse8iUPLyrjlsFvfW/Ge1+NYnbbH6IovF6jUZFrOP3mN3
+	4PXYOesuu0d322V2j5Yjb1k9Fu95yeSxaVUnm8emT5PYPU7M+M3isfOhpce5ixUevc3v2Dw+
+	b5IL4I7isklJzcksSy3St0vgyrix9iN7wS65iguXF7I2MK6R6GLk5JAQMJHY8/ouexcjB5j9
+	9nkBiMkmoCRxbG8MiCkioCrRdsUdpJhZ4CeTxKoZeiC2sECExK/tfSwgNgtQSdO1L+wgNi/Q
+	kNtT57JADNeUWLfxFpjNKWApsbDhApgtJMAj8WrDfkaIekGJkzOfsEDMl5do3jqbuYuRC6j3
+	O5vE5Hs32SEGSUocXHGDZQIj/ywkPbOQ9CxgZFrFKJSZV5abmJljopdRmZdZoZecn7uJERgV
+	y2r/RO9g/HQh+BCjAAejEg+vwYZpWUKsiWXFlbmHGCU4mJVEeK0XTs8S4k1JrKxKLcqPLyrN
+	SS0+xCjNwaIkzmv0rTxFSCA9sSQ1OzW1ILUIJsvEwSnVwJh9s9j4p9nbm7u02hIMGFyezLRv
+	vBwWsi9Qa2nS06kh67m2mL9u2KxfEnO7d2HJ05jZ2h/9kjmnll2eNb156Y3XhXnMH3OuP+5b
+	/FdFMebf2tPtq2VvRjy3v+e9pOCtQUjN7p5Tu4SOvYtZ4Nm+62BDRHsdQ8K3nuhp/kpX83ec
+	9mFNcVj6r0eJpTgj0VCLuag4EQC+qdfZhgIAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrBLMWRmVeSWpSXmKPExsXCNUM9Rvfw0+lZBp+faVjMWb+GzWLXjRCL
+	c1Nms1l8ebeKyeL51l+MFj/vHme3OL51HrvFvotAFYfnnmS1uLxrDpvFvTX/WS2+9UlbHLr2
+	nNVi9UUWi9VrMixmH73H7iDgsXPWXXaP7rbL7B4tR96yeize85LJY9OqTjaPTZ8msXucmPGb
+	xWPnQ0uPcxcrPHqb37F5fLvt4bH4xQcmj8+b5AJ4o7hsUlJzMstSi/TtErgybqz9yF6wS67i
+	wuWFrA2MayS6GDk4JARMJN4+LwAx2QSUJI7tjQExRQRUJdquuHcxcnIwC/xkklg1Qw/EFhaI
+	kPi1vY8FxGYBKmm69oUdxOYFGnJ76lywuISApsS6jbfAbE4BS4mFDRfAbCEBHolXG/YzQtQL
+	Spyc+YQFYr68RPPW2cwTGHlmIUnNQpJawMi0ilEkM68sNzEzx1SvODujMi+zQi85P3cTIzD8
+	l9X+mbiD8ctl90OMAhyMSjy8BhumZQmxJpYVV+YeYpTgYFYS4bVeOD1LiDclsbIqtSg/vqg0
+	J7X4EKM0B4uSOK9XeGqCkEB6YklqdmpqQWoRTJaJg1OqgbGScY1FREF5yh3ZJj8ejimrlnwJ
+	Wdb+amPJ/LOZ9h5vvkQfT6yNN6+/q+mWteCyyUvlFfICzyf+nzttxyU5M5azrWXdH6/qpr17
+	7ptVY1m/tu74a924K9lLvVwaz6S//LTd50jM+WWVzXXNSfcZTV4VbGkqFXx9avEM89nLn25X
+	y41t8BJeXKbEUpyRaKjFXFScCADYa0hKewIAAA==
+X-CFilter-Loop: Reflected
 
-On Wed, Sep 02, 2026 at 09:30:17AM +0100, Marc Zyngier wrote:
-> On Wed, 02 Sep 2026 01:38:53 +0100,
-> Sean Christopherson <seanjc@google.com> wrote:
-> > 
-> > On Mon, Aug 31, 2026, Steffen Eiden wrote:
-> > > Only defining KVM_MMIO is not flexible enough for multi-KVM systems
-> > > where one KVM implements MMIO but others do not. Solve this by
-> > > additionally testing for the non-existence of KVM_NO_MMIO before
-> > > including MMIO code to KVM.
-> > 
-> > Ewwwww.  IIUC, s390 ends up with two KVM modules, i.e. there really are two different
-> > KVMs being built.  Rather than have a KVM_MMIO and NO_KVM_MMIO, I vote very
-> > strongly to drop CONFIG_KVM_MMIO entirely and replace it with __KVM_HAVE_ARCH_MMIO,
-> > a la __KVM_HAVE_ARCH_VM_FREE and others.  Tracking two separate macros is going
-> > to be annoying to maintain, and will definitely be confusing for non-s390 people.
-> > 
-> > It'll mean linking in an emtpy coalesced_mmio.o on s390 when building without arm64
-> > support, but I'm guessing that won't be at all common for s390 builds.
-> > 
-> 
-> I ended-up doing something very similar locally, because I couldn't
-> really make head or tail of the logic while being in holiday mode
-> (which doesn't help). However, I kept the negative logic, so that we
-> don't need to add anything to any architecture but S390 (they are the
-> odd one out here).
-negative makes sense. 
-IIRC KVM/power does select KVM_MMIO most of the times but not always.
-I'll check that.
+Hello Gregory,
 
-> 
-> Untested hack follows.
-> 
-> 	M.
+Thanks for the series.
 
-Thanks!
-I'll verify and integrate it
+On Fri, 28 Aug 2026 21:59:43 -0400 Gregory Price <gourry@gourry.net> wrote:
 
-	Steffen
+> The interleave node selectors copy pol->nodes onto the stack so the mask
+> cannot change while they walk it.  nodemask_t is 128 bytes at
+> MAX_NUMNODES=1024, and two of the three run per folio fault.
+>
+> The copy only buys consistency between the node count and the walk.
+> Drop the consistency and just bounds check the walk instead.
 
-...
+I went through both patches. Resolving the sleeping-allocation
+problem with SRCU rather than patching the allocation site, and
+removing the copies from the fault path along the way, looks like
+the right direction to me.
+
+>
+> If an empty nodelist or weight is perceived, fall back to numa_node_id(),
+> which is what the functions already did when the copy came back empty.
+>
+> weighted_interleave_nid() counts the nodes as we sum the weights. We use
+> that node count to limit the maximum skew a single node can host.
+>
+> interleave_nid() walks with next_node_in() rather than next_node(), so a
+> mask that shrank mid-walk wraps to a node still in the policy.
+>
+> alloc_pages_bulk_weighted_interleave() derives per-node counts from a
+> weight total summed over the mask, so a changing mask can make them exceed
+> the request.  Clamp each chunk to the space left in page_array.
+>
+> A cpuset cookie will not work here: two of these take VMA policies, which
+> mpol_rebind_mm() rebinds under mmap_write_lock(), not mems_allowed_seq.
+>
+> Cost is distribution accuracy during a rebind - but the copy never
+> corrected this anyway, it was just a safety mechanism to prevent div/0
+> and overrunning the alloc request buffer.
+>
+> Remove read_once_policy_nodemask(), now unused.
+>
+> -fstack-usage at MAX_NUMNODES=1024:
+>
+>   weighted_interleave_nid            184 -> 56
+>   interleave_nid                     168 -> 32
+>   alloc_pages_bulk_mempolicy_noprof  360 -> 136
+>
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> ---
+>  mm/mempolicy.c | 86 ++++++++++++++++++++++++++++----------------------
+>  1 file changed, 49 insertions(+), 37 deletions(-)
+>
+> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+
+[...snip...]
+
+> @@ -2675,10 +2676,10 @@ static unsigned long alloc_pages_bulk_weighted_interleave(gfp_t gfp,
+>  	if (!nr_pages)
+>  		return 0;
+>
+> -	/* read the nodes onto the stack, retry if done during rebind */
+> +	/* count the nodes, retry if a rebind happened during the read */
+>  	do {
+>  		cpuset_mems_cookie = read_mems_allowed_begin();
+> -		nnodes = read_once_policy_nodemask(pol, &nodes);
+> +		nnodes = nodes_weight(pol->nodes);
+>  	} while (read_mems_allowed_retry(cpuset_mems_cookie));
+>
+>  	/* if the nodemask has become invalid, we cannot do anything */
+
+[...snip...]
+
+> @@ -2712,9 +2713,13 @@ static unsigned long alloc_pages_bulk_weighted_interleave(gfp_t gfp,
+>  	table = state ? state->iw_table : NULL;
+>
+>  	/* calculate total, detect system default usage */
+> -	for_each_node_mask(node, nodes)
+> +	for_each_node_mask(node, pol->nodes)
+>  		weight_total += table ? table[node] : 1;
+
+I have a minor comment on this part. After this change, everything
+else reads pol->nodes fresh at the point of use - the weight sum
+and the walk both look at the current mask. Only nnodes is still
+the count from this earlier read. If the mask changes in between,
+the loop bound no longer matches the mask the loop is actually
+walking, so the walk can stop short of the pages the weight total
+planned for. Would it be better to count the nodes in the loop
+that sums the weights, the way weighted_interleave_nid() does it
+in this patch?
+
+	nnodes = 0;
+	for_each_node_mask(node, pol->nodes) {
+		weight_total += table ? table[node] : 1;
+		nnodes++;
+	}
+
+[...snip...]
+
+Thanks again for your time.
+
+Rakie Kim
