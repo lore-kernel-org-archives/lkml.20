@@ -1,154 +1,100 @@
-Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC734A093F;
-	Wed,  2 Sep 2026 14:01:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1556330B3F;
+	Wed,  2 Sep 2026 14:02:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788357715; cv=none; b=ciEAB/9PqoYSgKxLCSoZ0KzXAH8jW89Pi5NTyMyso2+Yd1AL6GywCqFsljxQBXZpWgDpLVeh+FRcJesGzUgPltbLU+zE2RdS+gUZAekFoPoPCN9g6SsicfLKZXzEzdsH8Uje3vPhVqgr2jRKiGPQDCK84qRh8DOdNDq+4AWHroc=
+	t=1788357775; cv=none; b=qSk21p4rqUq0MXPAA4dNa4wM4v5WQE2XAJLh0OtpZPHPdeg/eLwV9SrSgCPiQ/kCHeaU6jLDLkf2zniBJIEj1bkRJzeXsh651ho6mWcQxSlOkegvQqDeKRRnoAn98F2IPinsl0oQ7oqprgNUIZ3SoyslNGPMckDK1nmfFH5gGmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788357715; c=relaxed/simple;
-	bh=iph7PtVdpG8fG/LnzuHyoJFqou4SwSKvu3Mw58dozBI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pxyGHCSMA+FTsK7ZF2yRbvEGoPE7Qs21/zaZz9Vk/uW7JpL9Qw5ckkHCG+4BmJWbpm2L1J82L83tICitufczfpLbWbzupJ1omX2jUymow+myNOp0uIDO/6wXv1C2P1M2K9K76xVH8OeZxd6NlG6e5i6J9iDD5DG954bqm/HfMtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=E9tqt/fL; arc=none smtp.client-ip=115.124.30.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788357775; c=relaxed/simple;
+	bh=bQeZhuBtE7GIKGl/Nw50udRZElUfrWZ6myE69EVVgHU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pSzAx1wuX8Ho76iFCg5DJRyHyFaazLfELWSWbThRi5qXPXFhsmYvFHl5BPGjLdtCaTM2N505OZgd8D832Zx1dVUgayggUtmKGbqrilBAjRvFrFZ2b6r6S/0kX8AGTxxjpQygv79CoVOxuR1RBg6fp8I0jCHWCnrBr4JoZulMrkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wl4YHbko; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="E9tqt/fL"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788357709; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=ieuSBZhhWdeU16d5JMGFYFciQmx4AeBNBulSOZwl3X4=;
-	b=E9tqt/fLcycL4Lp4LBMlzIV2CBt9DjfyT9ifpXrRw7etyH82wb1r1SXhl7+5aybIt69JIfqZFC4SMMIdzFZ9FB6Hkcp8Njss+MxLzLkkjR5XHG/cOuARPuK1kecvyUlk3RCeXL0mPC54cOAKlXF+cikWi1Q/KEM74BzA/yDwaNc=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XACojEu_1788357707;
-Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XACojEu_1788357707 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 02 Sep 2026 22:01:48 +0800
-From: fangyu.yu@linux.alibaba.com
-To: sunilvl@oss.qualcomm.com,
-	sunilvl@ventanamicro.com,
-	rafael@kernel.org,
-	lenb@kernel.org,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr
-Cc: fangyu.yu@linux.alibaba.com,
-	guoren@kernel.org,
-	linux-acpi@vger.kernel.org,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org
-Subject: [PATCH] ACPI: RIMT: Enable PCI ACS for root complexes mapped to an IOMMU
-Date: Wed,  2 Sep 2026 22:01:45 +0800
-Message-Id: <20260902140145.42094-1-fangyu.yu@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wl4YHbko"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CFD51F000E9;
+	Wed,  2 Sep 2026 14:02:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788357774;
+	bh=HXQXNKItUfLT79ENmc5mJloa+uh6x0XULw7tLnY0UVM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Wl4YHbkot0kOdwuA7z9pgFJ0CmSBkW8Gdyb303MwRoU5yr8ykvefUZK96MgrI2QDc
+	 mpiE87UQNY1dZicTHzT3/H9k35iZFwhoTYTfwDEecu+G/90SFAYBKHvwi42kc/mEOG
+	 5rfi6oi78YOogpHcEESiDVTOzV8GzcJ9B5jv8cduC1gVsO/GDdjynRBDnI/vx45jNY
+	 1DFPfpURyml8Cjgot1ogfESMt0J8Zjvm9+Loyv7L2ckpBz7TTIAqnxsMZ2I/Y9yGFK
+	 yuykX3Mcto5IL5BfVtOdrJDwmy6B9VeWVgsmbcx+soUPFYwRs7eM7FsYlWiHmZ31ss
+	 8MHRycVoMV/cA==
+Date: Wed, 2 Sep 2026 16:02:51 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Marco Crivellari <marco.crivellari@suse.com>
+Cc: linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Thomas Gleixner <tglx@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Michal Hocko <mhocko@suse.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Waiman Long <longman@redhat.com>
+Subject: Re: [PATCH v3 0/2] doc: Rename dynticks-testing to cpunoise
+Message-ID: <apgsi2GCHfOirYcG@localhost.localdomain>
+References: <20260902092434.85096-1-marco.crivellari@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260902092434.85096-1-marco.crivellari@suse.com>
 
-From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+Le Wed, Sep 02, 2026 at 11:24:23AM +0200, Marco Crivellari a écrit :
+> Hi,
+> 
+> Currently the documentation still mention dynticks-testing.
+> 
+> Recently the repository name and the tool have been renamed to cpunoise,
+> both the patches reflect this change.
+> 
+> The tool announcement can be found at:
+> 
+>   https://lore.kernel.org/all/20260815083728.15470-1-marco.crivellari@suse.com/
+> 
+> Thanks!
+> 
+> ---
+> Changes in v3:
+> - Use "https:" instead of "git:" for the repo URL
+> 
+> Link to v2: https://lore.kernel.org/all/20260831092118.124576-1-marco.crivellari@suse.com/
+> 
+> Changes in v2:
+> - Link to the tool Announcement added in both the patches and cover letter
+> 
+> - Corrected another occurrence reported by Sebastian
+> 
+> Link to v1: https://lore.kernel.org/all/20260831081823.67972-1-marco.crivellari@suse.com/
+> 
+> Marco Crivellari (2):
+>   doc: Change dynticks-testing repository name
+>   Documentation/no_hz: Change dynticks-testing repository name
+> 
+>  Documentation/admin-guide/cpu-isolation.rst | 4 ++--
+>  Documentation/timers/no_hz.rst              | 4 ++--
+>  2 files changed, 4 insertions(+), 4 deletions(-)
+> 
+> -- 
+> 2.55.0
+>
 
-Mirror the ACPI IORT solution used on arm64 (see iort_enable_acs())
-by scanning the RIMT table for PCIe root complex nodes during
-riscv_acpi_rimt_init(), which runs before ACPI PCI enumeration. If a
-root complex node's ID mapping points at an IOMMU node, call
-pci_request_acs() immediately, so pci_acs_enable is already set by
-the time any PCI device is scanned and pci_enable_acs() runs.
+Acked-by: Frederic Weisbecker <frederic@kernel.org>
 
-Only one call to pci_request_acs() is needed regardless of how many
-root complexes are found, so track that with a static acs_enabled
-flag, same as iort_enable_acs() does.
 
-Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
----
- drivers/acpi/riscv/rimt.c | 56 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 56 insertions(+)
-
-diff --git a/drivers/acpi/riscv/rimt.c b/drivers/acpi/riscv/rimt.c
-index e4538fa6c2c8..f22e28c8211e 100644
---- a/drivers/acpi/riscv/rimt.c
-+++ b/drivers/acpi/riscv/rimt.c
-@@ -179,6 +179,42 @@ static struct acpi_rimt_node *rimt_scan_node(enum acpi_rimt_node_type type,
- 	return NULL;
- }
- 
-+#ifdef CONFIG_PCI
-+static void __init rimt_enable_acs(struct acpi_rimt_node *rimt_node)
-+{
-+	static bool acs_enabled __initdata;
-+	struct acpi_rimt_pcie_rc *pci_rc;
-+	struct acpi_rimt_id_mapping *map;
-+	struct acpi_rimt_node *parent;
-+	int i;
-+
-+	if (acs_enabled || rimt_node->type != ACPI_RIMT_NODE_TYPE_PCIE_ROOT_COMPLEX)
-+		return;
-+
-+	pci_rc = (struct acpi_rimt_pcie_rc *)rimt_node->node_data;
-+	if (!pci_rc->id_mapping_offset || !pci_rc->num_id_mappings)
-+		return;
-+
-+	map = ACPI_ADD_PTR(struct acpi_rimt_id_mapping, rimt_node,
-+			   pci_rc->id_mapping_offset);
-+
-+	for (i = 0; i < pci_rc->num_id_mappings; i++, map++) {
-+		if (!map->dest_offset)
-+			continue;
-+
-+		parent = ACPI_ADD_PTR(struct acpi_rimt_node, rimt_table,
-+				      map->dest_offset);
-+		if (parent->type == ACPI_RIMT_NODE_TYPE_IOMMU) {
-+			pci_request_acs();
-+			acs_enabled = true;
-+			return;
-+		}
-+	}
-+}
-+#else
-+static inline void rimt_enable_acs(struct acpi_rimt_node *rimt_node) { }
-+#endif
-+
- /*
-  * RISC-V supports IOMMU as a PCI device or a platform device.
-  * When it is a platform device, there should be a namespace device as
-@@ -509,7 +545,10 @@ int rimt_iommu_configure_id(struct device *dev, const u32 *id_in)
- 
- void __init riscv_acpi_rimt_init(void)
- {
-+	struct acpi_rimt_node *rimt_node, *rimt_end;
-+	struct acpi_table_rimt *rimt;
- 	acpi_status status;
-+	int i;
- 
- 	/* rimt_table will be used at runtime after the rimt init,
- 	 * so we don't need to call acpi_put_table() to release
-@@ -525,4 +564,21 @@ void __init riscv_acpi_rimt_init(void)
- 
- 		return;
- 	}
-+
-+	rimt = (struct acpi_table_rimt *)rimt_table;
-+	rimt_node = ACPI_ADD_PTR(struct acpi_rimt_node, rimt,
-+				 rimt->node_offset);
-+	rimt_end = ACPI_ADD_PTR(struct acpi_rimt_node, rimt_table,
-+				rimt_table->length);
-+
-+	for (i = 0; i < rimt->num_nodes; i++) {
-+		if (rimt_node >= rimt_end) {
-+			pr_err("RIMT node pointer overflows, bad table\n");
-+			return;
-+		}
-+
-+		rimt_enable_acs(rimt_node);
-+		rimt_node = ACPI_ADD_PTR(struct acpi_rimt_node, rimt_node,
-+					 rimt_node->length);
-+	}
- }
 -- 
-2.50.1
-
+Frederic Weisbecker
+SUSE Labs
