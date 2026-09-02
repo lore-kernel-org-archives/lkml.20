@@ -1,94 +1,141 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30E082F7EE0
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 01:06:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A5333ADA7;
+	Wed,  2 Sep 2026 01:10:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788311217; cv=none; b=UDnJkMZ4hwQCLYC8dr+rSvTrFHilgpScLPplQlvZ63XovtjJQJZ3phRZkxllcmQguOXFXVrPVkvbictd4jQJxmQboZEE7QxEslzzZGuYICOglz9BqslD6FK75lmlqiMjLqbS+Iebd+0hak9dgovojrHy8DhWMtZXhrIIQ778Dl8=
+	t=1788311402; cv=none; b=qP3CJGzEE1ciLQVyOkUXIauVvKKZG2MIVuSEgnckzcgxUcoMgdDljEBOxJ48/yb4kEsc0YL5ADEc3N5gXnS7Dvhv4HTPFwgYiJcsDg5jByaPJBcNELKj44Y+rrb+vnD1RO4ywt+6R/u2n70li4I9b+K4z4r1TPH5Z3tveVr5Oa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788311217; c=relaxed/simple;
-	bh=vktDnoMVFzqEI8/NuzDTqrkKE4xBRWOvevvNYuiuevA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fAsizfjmPQFSHYPmc9KDWSILUwwFC2ET9jlmL94f5CfIJutXrY3dCJcIE8f6/Fy3u0ZY7HT4Zc5koLYnGS93CSBlPiZAtgrhUCkB3YYFVPVnKKCExuILYldN0z0QtCRjw73Cl2utA4oaZP0cWd0fc1bk3nhWkYupvcJ+op8K9Ck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Taa7y7hf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788311402; c=relaxed/simple;
+	bh=47kEReU2syTRMEdeTg/mQbzkEdr0ZLr49lH9qKTvtpM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nOnvy3ETFsw0xlmjv8BgVCup2Zaz84jwOw9mE1vkUucLOxbVZ0BOejzN/Bq677YSWkkjUp9FG+pa5FWxEN28cLa5hwvf1i3vFpWoQT8DzqPgZ9GmiTAMizkRNmRS/OZK1NYioZ3Eq439SeXF3m5/9cmIpPm56ZjvmmWOgh84Jzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RHGpOVJI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Taa7y7hf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDF221F00A3F
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 01:06:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RHGpOVJI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 024301F000E9;
+	Wed,  2 Sep 2026 01:09:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788311216;
-	bh=jqxk0sZkbZ9KoV7KU3DYdNlHYVVbXm+ovykDBW729c0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Taa7y7hfdXQCnOe7c032ELYqZstGm3BFQaM6x/+BbLq1aa9zAXvrVXltpBI1Ej+r2
-	 k+UCLz+KXaLmNZptw7mEyktiJUtzdsuuZQc091Hg8kQzZWaNUvV318LScZc8V0+UPq
-	 ERJVAOVa2ZVwe87ysIai6KVv1ofJ2Sgi2WZp29OfAw2HPeKoKRu5T/IaKixJMdlJnY
-	 Yp+kXovm0SMHj8BSP9eojdoIiDSQj4g8rlP8O2fjpVSCt1ii82w6a9vlJxEcRm8yj5
-	 6hgobQRhTWgej2M4ik4tJt4TYlM64g6sXi4RJMJHbWfTTtSkzf2EpqCHilKz3rAgPK
-	 Sz+ifE6Df5sLA==
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c253425b253so55565866b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 18:06:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoRaJrYaXMbLwxT4cxXay8+hGZpaDjNtKZfvkJfmu4N7L3Uy1TBI+vMCJgW/qM8jwsESpLIr+jrcAODL9Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++kYdiBJ1t3v1fGV1i5PkiYYzo8/zsOnfsv927sCpa7xm9QkpnXl
-	gjzkg6a38m2tU5nypCeujYLRhtONnDxJHGT2wCB0n9HaCMHbj5pRye2gzc06qTvaIvad+QxwypA
-	rjQCGSGrbE/br5ggh1NMnA3Y5mRm+gIw=
-X-Received: by 2002:a17:907:94cd:b0:c25:5d2:acf0 with SMTP id
- a640c23a62f3a-c25d5274bdemr64308366b.8.1788311214539; Tue, 01 Sep 2026
- 18:06:54 -0700 (PDT)
+	s=k20260515; t=1788311400;
+	bh=tA79mL88B+qRi5ZjT11ACc06itvpBxYSkq4PBiFRbrw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RHGpOVJIfFkHEUum0NnmjUDi/+L2PQGRZoaEESNG1+dCDQc4BwYSpZskbN0GH/E3e
+	 3fd57Zzz4Yn14BE4hDsk8WoqJxhkQZA1KCEv+vjfXpLqg3BDrhUts4nltT8B88M/fS
+	 LtHnp6B2kajywXNxIVhtfiatwlX8IPEEXY/t/V0PtMpQGIh0B256RPFGXq8FkSBJpW
+	 9tT8FsUc9Du01k+V8IMYNnty+OYYvO1ywEaHa0fGo3flvFK9tocE6BBqMw7R7w0RlD
+	 UBlM+4E7bneWDzYq+l9/YK26hHs8ErNel3Tqa7B2wtrBn+7FNc+IINUppWDkyQbT1R
+	 zaE/zbPnT3d+g==
+Date: Tue, 1 Sep 2026 18:09:58 -0700
+From: Wei Liu <wei.liu@kernel.org>
+To: Thara Gopinath <tgopinath@linux.microsoft.com>
+Cc: kys@microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org,
+	decui@microsoft.com, tglx@kernel.org, mingo@redhat.com,
+	bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com,
+	ardb@kernel.org, ilias.apalodimas@linaro.org,
+	James.Bottomley@hansenpartnership.com, javierm@redhat.com,
+	lszubowi@redhat.com, francescopompo2@gmail.com,
+	tgopinath@microsoft.com, x86@kernel.org,
+	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-efi@vger.kernel.org
+Subject: Re: [RFC PATCH 04/12] firmware: efi: libstub: x86-stub: Enable VSM
+ awareness in efi os indications variable
+Message-ID: <20260902010958.GD2583463@liuwe-devbox-debian-v2.local>
+References: <20260901165647.3160413-1-tgopinath@linux.microsoft.com>
+ <20260901165647.3160413-5-tgopinath@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901024551.528056-1-zenghongling@kylinos.cn>
-In-Reply-To: <20260901024551.528056-1-zenghongling@kylinos.cn>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Wed, 2 Sep 2026 10:06:38 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8dotRFBu18HOZGr6AJn4EfTwj=ZtfwheCTy0H7tbLfFA@mail.gmail.com>
-X-Gm-Features: AcwNN1VIQF3MFhyiXi3o0liM2BjTlHAmpqB7BC2cSPaiZbZ7-OBH0vpghrk95IQ
-Message-ID: <CAKYAXd8dotRFBu18HOZGr6AJn4EfTwj=ZtfwheCTy0H7tbLfFA@mail.gmail.com>
-Subject: Re: [PATCH] ntfs: fix lost volume flag updates in set/clear helpers
-To: Hongling Zeng <zenghongling@kylinos.cn>
-Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	zhongling0719@126.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901165647.3160413-5-tgopinath@linux.microsoft.com>
 
-On Tue, Sep 1, 2026 at 11:46=E2=80=AFAM Hongling Zeng <zenghongling@kylinos=
-.cn> wrote:
->
-> ntfs_set_volume_flags() and ntfs_clear_volume_flags() both read
-> vol->vol_flags outside any lock to compute the new value before handing
-> it to ntfs_write_volume_flags(), which only takes ni->mrec_lock around
-> the actual write. The read-modify-write is therefore not atomic, and two
-> concurrent callers can lose an update: ntfs_sync_fs() may derive a
-> "clean" value from vol->vol_flags while a writer concurrently records an
-> error and sets VOLUME_IS_DIRTY; the locked write then silently
-> overwrites the freshly-set dirty bit. The on-disk volume looks clean
-> despite the recorded errors, so chkdsk will not run on the next mount
-> and corrupted metadata can persist.
-This patch description explicitly identifies ntfs_sync_fs() as the
-problematic caller, but there still remains a racy issue after
-applying this patch.
+On Tue, Sep 01, 2026 at 09:55:18AM -0700, Thara Gopinath wrote:
+> Set bit 0 of the Hyper-V private OsLoaderIndications EFI variable
+> during exit_boot() so the bootloader/firmware knows the OS intends
+> to enable VTL1. Without this, VTL1 cannot be brought up from the
+> Linux kernel.
+> 
+> The support bit is first checked in OsLoaderIndicationsSupported,
+> and the variable is only written when the VSM bit is not already
+> set.
+> 
+> Signed-off-by: Thara Gopinath <tgopinath@linux.microsoft.com>
+> ---
+>  drivers/firmware/efi/libstub/x86-stub.c | 57 +++++++++++++++++++++++++
+>  1 file changed, 57 insertions(+)
+> 
+[...]
+> +#ifdef CONFIG_HYPERV_VSM
+> +static void efi_set_hv_os_indications(void)
+> +{
+> +	efi_guid_t guid = HYPERV_PRIVATE_EFI_NAMESPACE_GUID;
+> +	efi_status_t status;
+> +	unsigned long size;
+> +	u32 attr, val;
+> +
+> +	size = sizeof(val);
+> +	status = get_efi_var(efi_HvPrivOsloaderIndicationsSupported_name,
+> +			     &guid, &attr, &size, &val);
+> +	if (status != EFI_SUCCESS) {
+> +		efi_err("Could not read Hyper-V OsloaderIndicationsSupported\n");
+> +		return;
+> +	}
+> +
+> +	if (!(val & HV_OSLOADER_INDICATION_VSM)) {
+> +		efi_info("Hyper-V does not support VSM in OsloaderIndicationsSupported\n");
+> +		return;
+> +	}
+> +
+> +	size = sizeof(val);
+> +	status = get_efi_var(efi_HvPrivOsloaderIndications_name, &guid, &attr, &size, &val);
+> +	if (status != EFI_SUCCESS) {
+> +		efi_err("Could not read Hyper-V OsLoaderIndications\n");
+> +		return;
+> +	}
+> +
+> +	if (val & HV_OSLOADER_INDICATION_VSM) {
+> +		efi_info("VSM is already supported in OsLoaderIndications.");
+> +		return;
+> +	}
+> +
+> +	val |= HV_OSLOADER_INDICATION_VSM;
+> +	size = sizeof(val);
+> +	status = set_efi_var(efi_HvPrivOsloaderIndications_name, &guid, attr, size, &val);
 
-static int ntfs_sync_fs(struct super_block *sb, int wait)
-{
-...
-        if (!NVolErrors(vol) &&
-            ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY)) {
-                ntfs_warning(sb, "Failed to clear dirty bit in volume
-information flags.  Run chkdsk.");
-                err =3D -EIO;
-        }
+I'm not familiar with the security model, so bear with me.
 
-Sync thread                         Writer thread
------------                                -------------
-1. NVolErrors() =3D=3D false
-                                             2. Set VOLUME_IS_DIRTY
-under mrec_lock
-                                             3. NVolSetErrors()
-4. ntfs_clear_volume_flags()
+What happens if the VTL0 kernel doesn't use VTL1 at all? Does that
+become a security issue, that malware can use the VTL1 to hide itself?
 
-The volume can be left marked clean on disk despite the recorded
-error... Can you update this patch to fix this issue as well?
+Asking this because I think you will want to enable this in the generic
+kernel(s). Not all users have or want to package a secure kernel.
+
+Wei
+
+> +	if (status != EFI_SUCCESS)
+> +		efi_err("Could not set Hyper-V OsLoaderIndications to indicate VSM support\n");
+> +}
+> +#endif
+> +
+>  static efi_status_t exit_boot(struct boot_params *boot_params, void *handle)
+>  {
+>  	struct setup_data *e820ext = NULL;
+> @@ -768,6 +820,11 @@ static efi_status_t exit_boot(struct boot_params *boot_params, void *handle)
+>  	if (status != EFI_SUCCESS)
+>  		return status;
+>  
+> +#ifdef CONFIG_HYPERV_VSM
+> +	/* Indicate to bootloader that we will be enabling VTL1 before exiting boot services */
+> +	efi_set_hv_os_indications();
+> +#endif
+> +
+>  	/* Might as well exit boot services now */
+>  	status = efi_exit_boot_services(handle, &priv, exit_boot_func);
+>  	if (status != EFI_SUCCESS)
+> -- 
+> 2.34.1
+> 
