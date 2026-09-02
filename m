@@ -1,234 +1,193 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012006.outbound.protection.outlook.com [52.101.53.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA483C456F;
-	Wed,  2 Sep 2026 19:29:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.6
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788377366; cv=fail; b=lOJH1AjDa6OSl1zx/+E/SRS8w9sXWoVhOuT+4yOorwgZNQZ0sedXWV+FUBl0ZXnDpuFUuJ5EaLHtJVf6QzDlt9DVGV2KFm9dnb4BD/U4Gyb/gUXGcKSWPRgeN/BFQkkSiOqWxEM+UIZpDUW6l1w32MesCesHRoT9+ZKapquPxk0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788377366; c=relaxed/simple;
-	bh=2Hr+gMurbYm+zkm2jdTK1H7mnCk9k2DvD1QCClhWd78=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Rt99GHqCw2JBBKnXgNCj888qpQ9IeXRl1QFAIyn1/iGGxxaOxHkkODlu9JaB1ooRwb5OCASOWYs4OMUYxvhrXNzWBU0swBp8k4Jw+EFU83J2IJIb4pgaaunZpUjrCRZEfQNby7AMLTphn0SFy7+ONmgQrNG28sOXaWogHV31TM8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=eY95jcn5; arc=fail smtp.client-ip=52.101.53.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08FF3AFD1E
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 19:30:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788377434; cv=none; b=qUiRuLRzMnQ1z0xc6DNlJOoUF7Tfu7OUmLAm/j0aYvcc5IkxnvRtHqNnePs272rMOPAw67Th/07MIrBMFUOw1txtOQf+mJobHGwkhyfwur8WonZ2XuRn+TCaWrmTTwEs4MlsqpOBjqGf3qHmK/5Kj8cCdqNNPaNz4PpMavF9bRs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788377434; c=relaxed/simple;
+	bh=QPIN/gKPbaSLDSkUlr0NinR5rDcxPaXfaMpm7jSHSJk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=smQ8Z5Kvz0v2YoosG5rIUfFpI3/t1d0F3Eu4DaKEZgEaH/37Um7dDxL5Wc0Kk3p/RmK3k9RmQuWwJYGQZBaXJM9SCMxdW29ZqQT0duahhJZfOd/pybCAIElj1UNtrmbm+kz7eS7n9aNJROdYaVBlj65YQiBbJjz49VeFm3coxog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=OETONI60; arc=none smtp.client-ip=209.85.160.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="eY95jcn5"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jEhQTxELSqwLLuvYRmuEAQM7bcCbgFpvE7P27LeCDOVBeHE6OSpXQmT/LS3RMY7pcHKhXpXpB30o3VZFwIlWUGPAG2HmjaSVOgSc4kzcLKdH7GIae2Gjl2KR9nSBnWpOk3UST92qunmGZt1rYBbINyTVDKB39gfDP8U+biR2dWIQCLnPfbTPwN6fIrREnfVhCOltf2MOvf+ds8BTOWzR350LSFuwyo/YQYhaWVVUe+j5OlToClr/c6BUXVcRobtr3EQDgbnmlk88mfv/F7TNmcpXSYoD7NK4mtmpDfbEikhid7jbGgRtlz4ivqMHp7PDPq6vH8WlQ+gViTsjQbH3nA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FsjJyomjRk0V36PnoBRCxZZAaj9kdg4LYoraNZotRQ0=;
- b=I51BlvBNDBeE5gyQcCrJT1clqhQyBYkSWdVuyChx5q5v5KNwIl7kD56bqu1eeazsEjlql8WDSCa5nJMcwPzHPK+8WRvXpNbIZFbev0kbvZXEjQXHc+SkCIjw0uA/2TOfq1kfueyYqPT0Y/TFCM3w6/+ATjcva4PJzaGuWhVuMiqWFa1PVIRAAIPJfUbkXwG1uzfeBsn+gk/EshLvGG7lq6jDHAXmGUvSHHIhiOlVG3uj5SScVIEbUY5ScMuDZAfmIAQ3bsnyXaxCeKe4LL6ujx4u1ydsqPHa2lfJ+Gh96cSpku2WbB4oJQE8OepCOM3eSmFqQYFW9ESgHZTNJGPpMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FsjJyomjRk0V36PnoBRCxZZAaj9kdg4LYoraNZotRQ0=;
- b=eY95jcn5jVQXbNjEkp2Z8efjCUd9zfCNtQOrHuhNJEs3d/Lt/GUiWntAv3FsQGYL09Au6NbEP5Hj9BkKTGgjyikQ6csyrEeIdzJkQhOV6u7tvLH7aoJduDR+Mgae0J8Mk0KvN6vB5yRU8ygSEDFfgggXni6QpENeUewqGeSsPL1iGI8Gda9aPnifPZlG7RpTk8bLuKTeuyIwkmwhrTRudp0hf+gyRjkkLcxyb/C5aM/KY8kS6Tl52OuVJadtaBslAkGc9BMUGnGH+Kqi2HXoX4gLDB6lU1KRJ7TpMDKpyy+gbXELlu0DtK2CVR6NV+xjF1zALDrH2rTdK8dqI5jOLA==
-Received: from CH0PR03CA0069.namprd03.prod.outlook.com (2603:10b6:610:cc::14)
- by DS7PR12MB6095.namprd12.prod.outlook.com (2603:10b6:8:9c::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 19:29:00 +0000
-Received: from DS3PEPF0000C381.namprd04.prod.outlook.com
- (2603:10b6:610:cc:cafe::41) by CH0PR03CA0069.outlook.office365.com
- (2603:10b6:610:cc::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
- Sep 2026 19:29:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- DS3PEPF0000C381.mail.protection.outlook.com (10.167.23.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 19:28:59 +0000
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
- 2026 12:28:22 -0700
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail204.nvidia.com
- (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
- 2026 12:28:22 -0700
-Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.10)
- with Microsoft SMTP Server id 15.2.2562.46 via Frontend Transport; Wed, 2 Sep
- 2026 12:28:17 -0700
-From: Tariq Toukan <tariqt@nvidia.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
-CC: Akiva Goldberger <agoldberger@nvidia.com>, Edward Srouji
-	<edwards@nvidia.com>, Gal Pressman <gal@nvidia.com>, Leon Romanovsky
-	<leon@kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-rdma@vger.kernel.org>, "Liu, Changcheng" <jerrliu@nvidia.com>, "Maher
- Sanalla" <msanalla@nvidia.com>, Mark Bloch <mbloch@nvidia.com>, Or Har-Toov
-	<ohartoov@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>, Shay Drori
-	<shayd@nvidia.com>, Simon Horman <horms@kernel.org>, Tariq Toukan
-	<tariqt@nvidia.com>
-Subject: [PATCH net] net/mlx5: LAG, use local tracker to update active ports
-Date: Wed, 2 Sep 2026 22:27:40 +0300
-Message-ID: <20260902192740.3665435-1-tariqt@nvidia.com>
-X-Mailer: git-send-email 2.44.0
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="OETONI60"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-5303557a6dbso11379931cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 12:30:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1788377417; x=1788982217; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sEAeYa5lQ0rcwMSktfey6PB78GVtQgWknQk9cva6fPk=;
+        b=OETONI60towuEsrBQJRkmdMAIsGqlQim9TJjlpVxplbURwcqeTYlS+IBgoWJ/F8qsY
+         jVtQZEOeBfAaO19QmjOIefkP4kc4MMISWYCs0iRW91rM7LUdpKM6wvBkuPhEnI7FAhBj
+         Ib9WPoC6kdwBkE8FtPoRCTE/IpL2uDyTMbdHdUqxTMq5vIlArjmTQxa8U/Xcp72i1vZk
+         ciW+UbThsFNMuyfZylODh/TRjLOBCWPv4JhueIXbf7dbavAX+AZOJ8x6FMAY+rNm177l
+         DYjan1K9WhSeRVo2pOQ6vWAYddRw6tx7rwxbY5BYfsnlCz7PkvnRZdQbGtv1NHlQU8mk
+         UkCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788377417; x=1788982217;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sEAeYa5lQ0rcwMSktfey6PB78GVtQgWknQk9cva6fPk=;
+        b=LZjIlmmgQFYeg6L7qzw0vrnaRLg7GAbajqWPFiXE2V6KDAt0ml/F3fFMcZ8VLAJZUi
+         LFXQtVM9Y+iCb20P7PWqb/G7Ln3QbHrTV7GGBm+rfXXnIWu2yTqwzLfkz5YPpEB2zxaV
+         W4ITUANmW+AMftfBUc3UmmzZg4+PynHPWEecl5J3RmBjwJKFsBCpcNngNKiEdNiaTbtW
+         HxWqnGInZgBOeKsBfP3AAq0RdiYFA3Zt9Vl0eBxBIHWNxiVsvh3S9xvZqFQpxk7VP7xv
+         HEQjp6gvGN62jDa7DfmejrvflRvPFjVSi+WOQwrxzVq/ZiYy7aBX4N/lIpGFCV/jSiTS
+         jiPA==
+X-Forwarded-Encrypted: i=1; AKwUvBzpdLWZmWlLcIgdhDFS4goqc7mHMsBljkh0uo5Coyq5abOlfz0VLLd1y0gaAHEN5Gy8mpm907xXB+sA2yw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGLQA4CMsPvD1PZn/tIRdIeM6C1AongXpH6L+ZGAKqNnA3fPeu
+	+7OplMtDllW0Zz8t9PZN31f4PKVO5cUHE5HOP9RTNIqDGZLDnYBd2kvYEkznL+PC0B4=
+X-Gm-Gg: AYBFou17BoTu+1YYEH9YBnja1B8968Bd9JhDWnN1DKgY2b+eXIOfFKS0c50felGvYyz
+	mT91k9/QUJIJ1TiGpBuaK6f4F+izrOrVG3YMUxlgZAx1oHQFwTVRZhTRJlYhFVuWpXDnditiwR6
+	+J4D3YiT0TqL02TzL/AxZBCPQ8f2Zo4XcLy/G/Uatbg3NL7j8xCaxoG0Rbru1pSbkOLLtWnhTYs
+	Urm7kEFD0o+RK/vz/xXpfdbihWNwdUYy8finzhCIhWyAJR85hBqkntbhtw4r2CiTO0/9Pi4xt/d
+	IAb2cqpcAEvaV1wR4j28cqBaDNyrBn1qW4969gw5m4NQN2nwXoyCpctEddB/voAhGTIv+VSdIdy
+	L0UopsQ1QBTRlhjslWYU6SkAjTSFrS5UnPOL523j6lb1qp+acYJ2PbNlYbTiUYXvRsWs8oPjfsN
+	3id8Jxzgfd6FHrC38zkN4QvndiWLfzFS911fIpOd2Wt9b/nZn5OQzAk2MY6NueH3TupC3Ao+7Gv
+	YzrWivO/B3kB8lt/eSit4RtTvtwbZsU1aTLw8pKClhXIcX+iQ4epXb8
+X-Received: by 2002:a05:622a:4113:b0:51c:2135:b00a with SMTP id d75a77b69052e-53036d7218fmr97850401cf.40.1788377416278;
+        Wed, 02 Sep 2026 12:30:16 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9eec8099sm25200306d6.30.2026.09.02.12.30.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 12:30:15 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x1qf0-0000000Ez4Y-3Ck6;
+	Wed, 02 Sep 2026 16:30:14 -0300
+Date: Wed, 2 Sep 2026 16:30:14 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: Nicolin Chen <nicolinc@nvidia.com>, linux-coco@lists.linux.dev,
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Alexey Kardashevskiy <aik@amd.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Joerg Roedel <joro@8bytes.org>, Jonathan Cameron <jic23@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Pranjal Shrivastava <praan@google.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Will Deacon <will@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>
+Subject: Re: [RFC PATCH v4 03/16] iommu/arm-smmu-v3: Add initial pSMMU realm
+ viommu plumbing
+Message-ID: <20260902193014.GF2890729@ziepe.ca>
+References: <20260427085344.941627-1-aneesh.kumar@kernel.org>
+ <20260427085344.941627-4-aneesh.kumar@kernel.org>
+ <apM6dOHcEI2ztWS0@nvidia.com>
+ <yq5a8q5lz5yn.fsf@kernel.org>
+ <yq5aecfdnv4i.fsf@kernel.org>
+ <20260901143445.GC56830@ziepe.ca>
+ <yq5a8q5kkoz3.fsf@kernel.org>
+ <20260902121700.GC2890729@ziepe.ca>
+ <yq5aik4nztdt.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF0000C381:EE_|DS7PR12MB6095:EE_
-X-MS-Office365-Filtering-Correlation-Id: 306dab5a-f07d-4f0f-8e0f-08df09287065
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|1800799024|7416014|23010399003|82310400026|6133799003|10067099003|56012099006|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	Pq+KpWSQGufexfsMtju4EX72f6OicGVNuKnKFigoCIYABMViSkEHHjTjHpgI61xL5lX8XfkGApl7S2M/WdCKGKLV8mvojtY61tpulLRE/XWLtY3QgvcgeYPztkPsWoMk1xDtPftkCjK1I68Ldh4zzvLYXktk6viVGfJ2vyfbH1+1oOjoYOQkhNnVJ/PVOoNigBEKzB8T4dfQCxvKRtWhIrrHdHFSrVCWaq5K43a+dD3VKf2JeN3t5jwsN7uZ61nvPLO2Borv5NCAD6E4O8NWvz+E2TVD4OZZ2r3p9a2TLiw62CZXbM7Ei9KkXXecdEykFIoX5sR3lZjmMsLXRIIFOWhKfmWfI7Jbhz5pCQ2wAsK8N7xbytFjsfh6dXE67UQmbYlNoeeS2NkmxtPt7LpBDWZpniKzGEdelEya2qXy77axtMZsQ4DuqQvOT8hdLOTWDHQ8aN0LWyhNCgVXvtCxwkFUIzaGiErEzCtpyLx/svIpieKbMKsjSWLC+QBu25SWtO2M9RSNMItpVz65fIQrperXOpuFkgZNJc3Yw4CQvX4txYvGtJUJ2TLCm1OWQsJaT4dip8Z1JMeB150b2JQsZuqV62B3qnaipmriS9nsGsL40Z62P/EX7ol/ypfnBpYKO9zGJmmGqJV5ZKeoOt8uuOS99/zg3j7oDduWpUYi8NzQSlBMUl61RF9/Q45oSYQYgI4JrSBansuNtGQcGVhftg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(7416014)(23010399003)(82310400026)(6133799003)(10067099003)(56012099006)(18002099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	VIzXe8fhS6Gp3/h+kKDgo/lhsXNDm61lJwM/dTRtvAYtYkjciDaszI99Jrqgia9P+9DJuSPXsoKm9TxzuO6glAQIhnXpmpYEw5h4Igba9PbaNwSaxsNdRSGGM1a0WgJidcZx+6joKsyjN3FVAqazDsmvsf7h5gSoS7exD+OjWzbJSY4FDNFLY2LYs2sE7jL/rSmhpVM7yvEswnOkbmCmnk39ohW9/JCZ8npWMQQne90hAKgyUoRhnwy1FBVBAaJDX8HJELGgnJ1XnfV3qFRa1/SGuH+PBhp0OzRW8D/JzsRoIC4l4fJ3wfTGyQ1IuiLUeqYaGFyjsE9WU8CggYn266mfGZxWXHtkKFpbkgOjdaS0Ff0EQKDohB4AQ4HfAGvXtlEIf2QyuMYm+YDTKTn96apektSqR68BJsHXcaSgwY0E3DekNp4nOamZEBIRiDdI
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 19:28:59.7304
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 306dab5a-f07d-4f0f-8e0f-08df09287065
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF0000C381.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6095
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <yq5aik4nztdt.fsf@kernel.org>
 
-From: Akiva Goldberger <agoldberger@nvidia.com>
+On Wed, Sep 02, 2026 at 06:45:42PM +0530, Aneesh Kumar K.V wrote:
 
-The CREATE_LAG command is handled asynchronously by queuing a work,
-which stores a local copy of ldev->tracker. When the work is processed,
-it is possible that the values of the local copy and ldev->tracker have
-diverged.
+> To reiterate, for this configuration:
+> 
+> - The viommu will use a stage-1 bypass configuration.
+> - A new IOMMU_VIOMMU_TYPE_ARM_REALM_SMMUV3 type will create the viommu.
+>   The psmmu will be activated at this point to avoid creating psmmu
+>   objects early. We will reference-count it to ensure that the same
+>   psmmu is shared across realm guests.
+> - Creating a vdevice will invoke SMC_RMI_PSMMU_ST_L2_CREATE.
+> 
+> I am unclear about the vdev_create suggestion. Creating a vdevice
+> requires an RD, which is created later in the flow above. How do you
+> suggest linking vdevice_alloc to vdev_create?
 
-A single CREATE_LAG command programs two related fields into the
-firmware: the v2p (virtual-to-physical) map, which selects the physical
-egress port for each hash bucket, and the active_port bitmask, which
-tells the firmware which physical ports are currently up so it can
-redirect QP/TIS away from inactive ports. For the firmware to steer
-traffic correctly, both must be derived from the same view of the ports'
-link state.
+I was thinking we'd make sure the KVM is associated with the viommu
+and/or possibly the S2 domain. That was always sort of broadly the
+idea in this space. There are several topics unrelated to CC that
+needed this.
+In any case, when you create the iommufd viommu you should also do
+VSMMU_CREATE which needs the RD. It seems reasonable to assume the RD
+is available during vdevice create.
 
-The v2p map is computed by mlx5_infer_tx_affinity_mapping() from the
-local tracker snapshot, but lag_active_port_bits() called
-mlx5_infer_tx_enabled() on the live ldev->tracker instead. If
-ldev->tracker changed between the snapshot and command execution, the
-two fields reflect different port states: the v2p map may steer a bucket
-to a port that the active_port mask marks as inactive (or vice versa).
-The firmware then receives a self-contradictory configuration and can
-redirect or drop traffic on a port the mapping still points at, until a
-later event happens to reconcile the state.
+[There is an aside here I will mention: several other use cases need
+this idea of an "external" domain where the HWPT would be created but
+not controlled by iommufd or the iommu subsystem. Xen and Hyperv for
+example. There is probably some merit in thinking more about exactly
+what the nested parent domain should be for this viommu, but it isn't
+critical.]
 
-Update lag_active_port_bits so that it receives the local version of the
-tracker from when the work was queued, effectively closing the window
-for injecting an inconsistency.
+> From the RMM's perspective, the sequence is as follows:
+>
+> viommu alloc
+>
+> [   rmm ] SMC_RMI_PSMMU_ACTIVATE            2b400000 8819bb000 > RMI_INCOMPLETE 0 10008
+> [   rmm ]       SMC_RMI_OP_MEM_DONATE       0 881bac098 1 > RMI_INCOMPLETE 2 10004
+> [   rmm ]       SMC_RMI_OP_MEM_DONATE       0 881bac098 1 > RMI_INCOMPLETE 1 10004
+> [   rmm ]       SMC_RMI_OP_MEM_DONATE       0 881bac098 1 > RMI_INCOMPLETE 1 0
+> [   rmm ] L1 StrTab: PA 0x881baa000 VA 0x80003c0000 size 0x2000
+> [   rmm ] CMDQ: PA 0x88066a000 VA 0x80003c2000
+> [   rmm ] EVTQ: PA 0x8815c5000 VA 0x80003c3000
+> [   rmm ] PSMMU 0x2b400000 activated
+> [   rmm ]       SMC_RMI_OP_CONTINUE         0 0 > RMI_SUCCESS 0 0
+>
+> [   rmm ] SMC_RMI_PSMMU_ST_L2_CREATE        2b400000 300 > RMI_INCOMPLETE 0 10004
+> [   rmm ]       SMC_RMI_OP_MEM_DONATE       0 881bac098 1 > RMI_INCOMPLETE 1 0
+> [   rmm ] smmu->strtab_base[12] 0x0 @0x80003c0060
+> [   rmm ] L1STD[12] 0x8819bb007 for SID 0x300: L2 table VA 0x80003d0000 PA 0x8819bb000
+> [   rmm ]       SMC_RMI_OP_CONTINUE         0 0 > RMI_SUCCESS 0 0
 
-Fixes: c5c13b456cb8 ("net/mlx5: Lag, set active ports if support bypass port select flow table")
-Signed-off-by: Akiva Goldberger <agoldberger@nvidia.com>
-Reviewed-by: Shay Drori <shayd@nvidia.com>
-Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
----
- .../net/ethernet/mellanox/mlx5/core/lag/lag.c | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
+What was this one for during viommu alloc?
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c b/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
-index 2285c889c215..c655f6e32e9b 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
-@@ -63,14 +63,15 @@ static int get_port_sel_mode(enum mlx5_lag_mode mode, unsigned long flags)
- 	return MLX5_LAG_PORT_SELECT_MODE_QUEUE_AFFINITY;
- }
- 
--static u8 lag_active_port_bits(struct mlx5_lag *ldev)
-+static u8 lag_active_port_bits(struct mlx5_lag *ldev,
-+			       struct lag_tracker *tracker)
- {
- 	u8 enabled_ports[MLX5_MAX_PORTS] = {};
- 	u8 active_port = 0;
- 	int num_enabled;
- 	int idx;
- 
--	mlx5_infer_tx_enabled(&ldev->tracker, ldev, enabled_ports,
-+	mlx5_infer_tx_enabled(tracker, ldev, enabled_ports,
- 			      &num_enabled);
- 	for (idx = 0; idx < num_enabled; idx++)
- 		active_port |= BIT_MASK(enabled_ports[idx]);
-@@ -79,7 +80,8 @@ static u8 lag_active_port_bits(struct mlx5_lag *ldev)
- }
- 
- static int mlx5_cmd_create_lag(struct mlx5_core_dev *dev, struct mlx5_lag *ldev,
--			       int mode, unsigned long flags)
-+			       struct lag_tracker *tracker, int mode,
-+			       unsigned long flags)
- {
- 	bool fdb_sel_mode = test_bit(MLX5_LAG_MODE_FLAG_FDB_SEL_MODE_NATIVE,
- 				     &flags);
-@@ -108,7 +110,7 @@ static int mlx5_cmd_create_lag(struct mlx5_core_dev *dev, struct mlx5_lag *ldev,
- 			break;
- 
- 		MLX5_SET(lagc, lag_ctx, active_port,
--			 lag_active_port_bits(mlx5_lag_dev(dev)));
-+			 lag_active_port_bits(ldev, tracker));
- 		break;
- 	default:
- 		break;
-@@ -787,7 +789,8 @@ static int mlx5_cmd_modify_active_port(struct mlx5_core_dev *dev, u8 ports)
- 	return mlx5_cmd_exec_in(dev, modify_lag, in);
- }
- 
--static int _mlx5_modify_lag(struct mlx5_lag *ldev, u8 *ports)
-+static int _mlx5_modify_lag(struct mlx5_lag *ldev,
-+			    struct lag_tracker *tracker, u8 *ports)
- {
- 	int idx = mlx5_lag_get_dev_index_by_seq(ldev, MLX5_LAG_P1);
- 	struct mlx5_core_dev *dev0;
-@@ -804,7 +807,7 @@ static int _mlx5_modify_lag(struct mlx5_lag *ldev, u8 *ports)
- 		    !MLX5_CAP_PORT_SELECTION(dev0, port_select_flow_table_bypass))
- 			return ret;
- 
--		active_ports = lag_active_port_bits(ldev);
-+		active_ports = lag_active_port_bits(ldev, tracker);
- 
- 		return mlx5_cmd_modify_active_port(dev0, active_ports);
- 	}
-@@ -868,7 +871,7 @@ void mlx5_modify_lag(struct mlx5_lag *ldev,
- 			idx = i * ldev->buckets + j;
- 			if (ports[idx] == ldev->v2p_map[idx])
- 				continue;
--			err = _mlx5_modify_lag(ldev, ports);
-+			err = _mlx5_modify_lag(ldev, tracker, ports);
- 			if (err) {
- 				mlx5_core_err(dev0,
- 					      "Failed to modify LAG (%d)\n",
-@@ -976,7 +979,7 @@ static int mlx5_create_lag(struct mlx5_lag *ldev,
- 	mlx5_core_info(dev0, "shared_fdb:%d mode:%s\n",
- 		       shared_fdb, mlx5_get_str_port_sel_mode(mode, flags));
- 
--	err = mlx5_cmd_create_lag(dev0, ldev, mode, flags);
-+	err = mlx5_cmd_create_lag(dev0, ldev, tracker, mode, flags);
- 	if (err) {
- 		mlx5_core_err(dev0,
- 			      "Failed to create LAG (%d)\n",
--- 
-2.44.0
+> vdevice alloc
+> 
+> [   rmm ] SMC_RMI_PSMMU_ST_L2_CREATE        2b400000 200 > RMI_INCOMPLETE 0 10004
+> [   rmm ]       SMC_RMI_OP_MEM_DONATE       0 882648098 1 > RMI_INCOMPLETE 1 0
+> [   rmm ] smmu->strtab_base[8] 0x0 @0x80003c0040
+> [   rmm ] L1STD[8] 0x882506007 for SID 0x200: L2 table VA 0x80003cc000 PA 0x882506000
+> [   rmm ]       SMC_RMI_OP_CONTINUE         0 0 > RMI_SUCCESS 0 0
+> 
+> RD gets allocated here
+> 
+> [   rmm ] SMC_RMI_REALM_CREATE              881b03000 8819a1000 > RMI_INCOMPLETE 0 24
+> [   rmm ]       SMC_RMI_OP_MEM_DONATE       0 881605098 9 > RMI_INCOMPLETE 9 0
+> [   rmm ]       SMC_RMI_OP_CONTINUE         0 0 > RMI_SUCCESS 0 0
 
+Why? The VMM needs to create the kvm before starting the iommu stuff.
+
+I would expect that KVM knows it is going to a realm very early on? I
+had assumed the RD would also be created early by KVM?
+
+What triggers RD creation? Why can't the VMM do it earlier?
+
+Your followup said:
+  - The realm is created during viommu allocation, ensuring that the
+    vSMMU can be created here.
+
+Do you mean the SMMUv3 driver triggers RD creation? That feels
+wrong. Did you mean the VMM just does it earlier?
+
+The draft in the next message looks promising, did you discover any
+other gotchas when exploring it?
+
+When you repost this can you take some care to explain the general
+idea of this modelling in the commit messages so AMD and Intel can
+confirm they can use it for both their non-viommu and viommu cases?
+
+Thanks,
+Jason
