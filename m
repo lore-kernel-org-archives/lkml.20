@@ -1,122 +1,90 @@
-Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0001535677D;
-	Wed,  2 Sep 2026 07:54:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DC83264C2
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:54:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788335645; cv=none; b=MogA/5/uqTdG6Ra3rA6jKk2T567lnXfrp+AAEX+JnQojISSZcqH658b1KNGHO4AciIY/LtnQDgrWcKAn+bWUGkgU9L/UPWlNF/YtPXUfXT400fZX58z92Fm/x3NIjcFXpZ3W4f5/e2VwsAYJ6kkel86AKLFKrlHVFvBzvVfR++Q=
+	t=1788335663; cv=none; b=oHk+uvZVftJ8YZ13lazsPiW1fUEvX+jS/+WYTsL+DGKVtrc2tAn0FCRnvFMvs41PXCbYbJARKZMKbI1cUMSHBh+PcfvjHPtZcIYRA7rd3ujhGO+HG9+N8XTBAKbOerso0koFmfdNzLXrn4f0EA9TDbKpmIPNiDCNjdCvmUsSLSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788335645; c=relaxed/simple;
-	bh=h0ZFDLNyQKmMqCI24MP+vrayXKLwsUZ3jLZ7DSrj6w4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nILmPAQbvzenC0XwhakAdO15FSJUuc3RMoF4AYvSnhm1y4ZSGdYeswpOFfPQFud+djz59JA2JhBHR8BhJV3+4lIpyhrxl2htZqeB9APYKUU6sYh9lThHfhX6dWVF4kzyx3PCsB9eO6Ji1r0cWocAbeCZw4cVYI+2+R2QdD8v6E4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=HcYMt0/D; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=PiBt0dZu; arc=none smtp.client-ip=103.168.172.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="HcYMt0/D";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="PiBt0dZu"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.phl.internal (Postfix) with ESMTP id 2F9FFEC0074;
-	Wed,  2 Sep 2026 03:54:03 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-06.internal (MEProxy); Wed, 02 Sep 2026 03:54:03 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1788335643;
-	 x=1788422043; bh=eu4wew0RHn2kFkFjJ7vxD+kWTFHmY+H0jX6dOS1OFlk=; b=
-	HcYMt0/Dv5u/WfkGHM8x3pD9YWVbAF14v36LC6gJeNQSCfbzxM5IQSqgsUlpXh/z
-	AjKtIQ+MM2h3GrlX26fmZtzkHltTKCGP36MrxiW7tS9jfxAWNXWx6oolBlZqO7A0
-	6hnew0EBqSmN6xwBsIJ3R7jNcazIKFYxYMdm38QgM23WEfVFuTKi+c7gKdberF8e
-	CfOJMYjISUbcwlafJqjU9+SGyPthZNIZjxyQgxk1MdJasdCb5IXih5Y0DgyaVwCa
-	rY1cHDKj+2Osi3YJDCk7S4nvwZwLO7wCx6M/tUMqUQzfXbET/NGt5D/cqqacJ0Ed
-	3vlNloIL863TCjZ4iRopkg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788335643; x=
-	1788422043; bh=eu4wew0RHn2kFkFjJ7vxD+kWTFHmY+H0jX6dOS1OFlk=; b=P
-	iBt0dZu/aNOrFvyxtVSqmvHTvwqKom6+wrKi6tZAQJygaiVGk+E3Ev5KIKThVPSw
-	+worGUgqhHwb47bDZ+t3DICXaHm1f++JjG66G3u2BgElQQQQF6Dl7MysDmsTA9gp
-	nne1DH8VjDr4wG2f1vqYhchC6fXvH8vYH69EJN0y5ZXP+xgQ3CmOcmAQhCPD6qXv
-	VKZpBG/vfYLuI+NHMQQrnWRpl2HGlIgqaMgv2+dV/h3DjB/+h9g+Tf+wL1ga0Oda
-	FoRScAiQDhWpwQtmVjoinHDwjxZKOCumaXNnxO36SJU1PLO0rs7vA9dqnmy1km4D
-	2q6dkQh7iwmUi7Vz1DHFg==
-X-ME-Sender: <xms:GtaXah4zjntaUYbQJKT8kHzQ37kVnROfGxQ1xdW7u8SjbhtUIWlceQ>
-    <xme:GtaXaqwGJF2a8Loovf_tsKk91RTvVMLRXTfgbj3Y0FJQeZ7OcU5vrO3eQRkRVMg6E
-    P1q4zuK-0eEHKojM2lTcoijsD2uYz78qW-0_t9ga28TiDkc_RdimM1K>
-X-ME-Received: <xmr:GtaXaj9G-V2EWkAj8tPrjkBnLtFHyWpcP6xWY5oUHk2qYqKPB0pR6Xye585WxRBgosMRA0z3NUZExwwsPxQWwc-T89ks7qu8>
-X-ME-Proxy-Cause: dmFkZTFt64D2s3ZYUHlOw6VXBIqy+HoU8imDm2gWVxcVAGyAyIxblZ9Bqnw3y+88b62TBY
-    PzaQEexsIcVDJRSHrT4DXTV/xSCWMEz+8nbgCkqy5tIlEQoJM/T9YZPmm2lBi6gAMo1JdL
-    qFZkPDwGuJ82ipNgDyOz3F7PzESlLHzIew84UW3oEv8zBXoLxlKgDid35YyJXeHQJ5ZsX8
-    zUL+yHdD5u5HHqvt+AgHwFEPNq9UZnnJTB2lZlOWi49AgVjAM19gEVX9/M4hbguseWYIAj
-    +MLXYOJHrYFd78m6NxqR0ZH/Eq6xlmUeeYB2y9A0YH482PlRowHdBYl4uI+r9Vs/B0UiH6
-    tczqDqFOhlNo6jIow6ZPVs3ake1+DD+G06ORo5byngtKl76gGvsTfD8PL+7ms8gzuh94h8
-    xWpJmxqWquICha3Du/DybyLQby5n0SLgksU+X9mWS38D5ttMTQIpRjNL0dklJw0meosJ/W
-    642OZ1q1QUzqWHK+m2wca3vvxTCMsyALGYvw+L8oNbESajoL1cd/AMOksGtYiCDIvadSuc
-    jfifWBXQGApQbbMCzMPEmhxxELLtYAbwvCiPZwdl0L0wJRhDFTNy3kWljgR6HK5KwyTfrf
-    n2w/HQxrECC2orE4MYAYR3zA9LKvHAgjTWaqd6e/d/RZtddhjy2bQzSsV22A
-X-ME-Proxy: <xmx:GtaXauFsxq_SQAE8RKswaT9yvMxahvlQ7f6wXggm07cZ3dGlwnR8Bw>
-    <xmx:GtaXatA6JhYqJ8rZezFyxJmWYfi2atgnqgQb2-Fnyu04vJH7had2xg>
-    <xmx:GtaXaimBOR9SahpsSdmkBlIcgvvRA1Y7PqXLtfNCcFKojljjXDEE0A>
-    <xmx:GtaXagT2HJ-m-TPcuYTNotHpuwoe_hcYX8swJwOt6FGs4SyAl1ZwXQ>
-    <xmx:G9aXaqvNCfoRJS0b3LwPXfPk1BbURDKopZaLQBweytDvCkpZYBQPrAPs>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 2 Sep 2026 03:54:00 -0400 (EDT)
-Message-ID: <c868e28b-42b5-4b6d-ad6b-1af65848c4eb@pobox.com>
-Date: Wed, 2 Sep 2026 00:53:58 -0700
+	s=arc-20240116; t=1788335663; c=relaxed/simple;
+	bh=RKUC5ToPoclB8VvfzMFi1+TZHCCFFU5HHGjN41y4YGo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=sPCizRzU0/i0W695OSYiztuP18lR0+TGjsecb0B2B0jRzWQ17stPa2iZUocJJ8RUsjfHomA1mgGRDpdlTSD3oupkZeKZJ02gpLUIRASfZwaIQw/XZNeb6SROEPpgMGJTJTALwiga5RC8wHCBm4rhDwD+cdqd/d3wwf3c3toxNF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 7b75e4c4a6a311f19a56ed5b684f684d-20260902
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+	HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED
+	SA_EXISTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
+	CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO
+	GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:c287a63a-ebb8-4164-ace3-fba431d9f755,IP:20,
+	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:20
+X-CID-INFO: VERSION:1.3.19,REQID:c287a63a-ebb8-4164-ace3-fba431d9f755,IP:20,UR
+	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+	elease,TS:20
+X-CID-META: VersionHash:7db8b62,CLOUDID:2a8f46a701415bdbd16dba932fe0963c,BulkI
+	D:2609021554138O6GZT3M,BulkQuantity:0,SF:17|19|38|66|78|102|127|850|865|89
+	8,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:ni
+	l,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:
+	0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 7b75e4c4a6a311f19a56ed5b684f684d-20260902
+X-User: wangxuewen@kylinos.cn
+Received: from localhost.localdomain [(223.70.159.239)] by mailgw.kylinos.cn
+	(envelope-from <wangxuewen@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 830672590; Wed, 02 Sep 2026 15:54:10 +0800
+From: Xuewen Wang <wangxuewen@kylinos.cn>
+To: haver@linux.ibm.com,
+	arnd@arndb.de,
+	gregkh@linuxfoundation.org
+Cc: linux-kernel@vger.kernel.org,
+	Xuewen Wang <wangxuewen@kylinos.cn>
+Subject: [PATCH v1] misc: genwqe: free DDCB wait queues
+Date: Wed,  2 Sep 2026 15:54:05 +0800
+Message-Id: <20260902075405.944687-1-wangxuewen@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 00/71] 7.2.3-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260831133359.055927882@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260831133359.055927882@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 8/31/26 6:33 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.3 release.
-> There are 71 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.3-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+free_ddcb_queue() does not release the per-DDCB wait queues,
+which leaks memory whenever the service layer is released.
 
-Tested on 3 amd64 systems (my DIY home NAS, my Lenovo ThinkPad T14 Gen
-1, and an Apple MacBook Air 13" 2017). Working well, no regressions
-observed.
+Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
+---
+ drivers/misc/genwqe/card_ddcb.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
-
+diff --git a/drivers/misc/genwqe/card_ddcb.c b/drivers/misc/genwqe/card_ddcb.c
+index 969178573940..c7261b5883c5 100644
+--- a/drivers/misc/genwqe/card_ddcb.c
++++ b/drivers/misc/genwqe/card_ddcb.c
+@@ -1103,6 +1103,9 @@ static void free_ddcb_queue(struct genwqe_dev *cd, struct ddcb_queue *queue)
+ 
+ 	queue_size = roundup(queue->ddcb_max * sizeof(struct ddcb), PAGE_SIZE);
+ 
++	kfree(queue->ddcb_waitqs);
++	queue->ddcb_waitqs = NULL;
++
+ 	kfree(queue->ddcb_req);
+ 	queue->ddcb_req = NULL;
+ 
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+2.25.1
+
