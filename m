@@ -1,118 +1,112 @@
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+Received: from mta0.migadu.com (out-108.mta0.migadu.com [91.218.175.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C03F4AC16C
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:41:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB5CA4AC156
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:41:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788367292; cv=none; b=rZgkC7nhaSv8jLYVhy3rztmKaaf/rYiSaDfqE87KprEnec6kW/6Cg9xo8O/XsN6ArpeA3q9OyuMnPoO370AB27j61daooyY+PlqB1bhTcvFA/fGAe3gUWcpDQ8EQhsuZ7bPxBmEVPoNjN/DUsP5hEal/OLUbV516LQ7FAoUPIrI=
+	t=1788367292; cv=none; b=lCxMiqjI48I8qmcUqd5EoRzTKEfeZw7QxjWIdAc3j5dQdqeludBX0gePKZubavB+Uit3g0ISo7hcDNfLN48fH2d+yH58zVXpEY02uxCDho78PcT2AtCrzWaJbMXZzNLYU7UBEnANwgHOMi9r7+85Pznz15Yfsl2n00fk3An6O1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788367292; c=relaxed/simple;
-	bh=PqikAw/eC5X3KNqAbORwNmmWfNDuPm6CNtLB+01JjLA=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=usDLqFTCOIJFvkOfUVQgoqDR8iALJhbbMU8JN7GWGsndRPEczsH54Nq1qrWJSHj6cpiAOxgnjcto0PdAFc3/yzpIXrRmvNtNhJr5cxBSBWZpNqZ7OBOHnvmfUi8BUym0tK2KZHON01mOJmtI1vzqCU/8qr1+eYxt0VYgyGQ0WIs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rNlJHfS5; arc=none smtp.client-ip=209.85.215.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	bh=Ou4zikGxkHmecP2znZ+Jqd5Qm8DfcxsyZmVSinR4NLg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sI2eK4pZGm+6rTPQ9DR5BxiQUBTLzjQmzsHf9g5+sk29QOYJnjEC2utciLNsQZJVCKUvo101FNPMGHHgaSXY8vkNh/5TmTbqW4PmDLU/3owRtVNBl4R3VZpvTCBFGlBB771hUgItyjVlT9o2TiY32sHQR+hCvPggIhdZshM/jv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HRgF1s/T; arc=none smtp.client-ip=91.218.175.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rNlJHfS5"
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc132709c76so2102605a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:41:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788367288; x=1788972088; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=0zhVxUyRpRhnHXbQLMxjoc4Ys+BN3Anj09sDDnw94v8=;
-        b=rNlJHfS5GCdRMQyc4MGrPkI5zixFEmgMHNZH9VCGuzekhMv1wTmnfCUfwou23xfemO
-         MYDDxw4RWNeft27/ZEMROjAogUQnJCQGwrzxI1AoUOX69yF9rYV6oaA2ywp2uwqDhgOP
-         yvwp7gcig9wTX+ZFwXYSzMm/LVUToovPgj64iqf16pGrqrnJKsQxtqEI9iVBml6jr7n6
-         iorcqJfOVbpcILVQbtt731kjlXrn5l1aEYExX87NDIL+qZZB6PS8wmDESwlOlFXjs48V
-         d+pepxEsa5cGlGGYKU/mIIaUZNaxGYeXpTLfyzfA5zMo+b43SQBeHBF6C7+u67OlGSO4
-         l77Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788367288; x=1788972088;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0zhVxUyRpRhnHXbQLMxjoc4Ys+BN3Anj09sDDnw94v8=;
-        b=EbV58YOBnWCIhRxuuoI8KTMIu7Fr9F1nl87gYT8KayswMn5No+CZHHbjQZwr/iHchH
-         QpqkyK4G2582XAq5Ih7PG+tLupodAstLJQmPav2It+60KpwXrSJ3qmTOyMfdY2l+GHnx
-         7aw99uDQsRPsboSUaCfOWpIfQOKtta90Qb1ciATSGxyBfb8X5qShEPJ/6svXKLfJWLXA
-         dGvjm4PVvIWQ9mpBJvRybuAethBSdpUOVxpLjxBK0snAOpSVrYF5R6h5NjL2hpM3+VEQ
-         OSmBEPwzLwacIicjs59r7CmuTdZAzcKj9EN8YqmmdYNXo9SBQ2xW5F0L7KvQ7H9Dm962
-         fdXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwlkJHgM6HVeV8JYVGyLYbuTpWQR5bjeQox1jeNtx2zhq+O6qfcrxadkdWN1JAT0Dpt99SGG84hCZRc5OU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mCgTzW2sgizR5N71zyUvQC1PP0aXolIC6AxjK3p/b9X7OtKz7+
-	oEcodS13dPQQBt61UaL8yfS6aAY5qFvQURJXBsA9FJg2y9Yt12BLgpi/1ce5LXc2QI0o6w9mck3
-	13OpoGQ==
-X-Received: from pgbd10-n1.prod.google.com ([2002:a05:6a02:64ca:10b0:cc4:2728:8938])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:7f82:b0:3cc:2552:ddd7
- with SMTP id adf61e73a8af0-3d9adaba731mr8793167637.5.1788367287815; Wed, 02
- Sep 2026 09:41:27 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed,  2 Sep 2026 09:41:06 -0700
-In-Reply-To: <20260902164123.2546762-1-seanjc@google.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HRgF1s/T"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Ou4zikGxkHmecP2znZ+Jqd5Qm8DfcxsyZmVSinR4NLg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788367284; v=1; x=1788972084;
+ b=HRgF1s/TOMv9wBU5/2ufXbzeUgvcpXKsqefyMOBIEOgbvw/qAW2GsZO9ah7/agCQXgC/8MQl
+ Qfus9sJ6ElMY97V69Z8mFT4WkM07pARQasNfRMFERES9MnSmrPRcolImayGNLu0OTwywaXHKnGB
+ JN1NhzPfCTQm/PKal8nWNusA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 338eeb5a5200f8e7;
+	Wed, 02 Sep 2026 16:41:13 +0000
+X-Mizu-Trace-ID: 338eeb5a5200f8e7
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <75232acb-6c87-4a1b-8f5d-c635a62ecff3@linux.dev>
+Date: Wed, 2 Sep 2026 17:41:10 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260902164123.2546762-1-seanjc@google.com>
-X-Mailer: git-send-email 2.55.0.966.g6673acef38-goog
-Message-ID: <20260902164123.2546762-4-seanjc@google.com>
-Subject: [PATCH v2 03/20] KVM: selftests: Use vm_alloc_page_table() to
- allocate LoongArch page tables
-From: Sean Christopherson <seanjc@google.com>
-To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>, 
-	Huacai Chen <chenhuacai@kernel.org>, Anup Patel <anup@brainfault.org>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
-	Claudio Imbrenda <imbrenda@linux.ibm.com>
-Cc: Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Atish Patra <atish.patra@linux.dev>, 
-	Alexandre Ghiti <alex@ghiti.fr>, David Hildenbrand <david@kernel.org>, linux-arm-kernel@lists.infradead.org, 
-	kvmarm@lists.linux.dev, kvm@vger.kernel.org, loongarch@lists.linux.dev, 
-	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Itaru Kitayama <itaru.kitayama@fujitsu.com>, 
-	Nicholas Piggin <npiggin@gmail.com>, Ritesh Harjani <ritesh.list@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
+To: Nimrod Oren <noren@nvidia.com>, Andrew Morton
+ <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Hugh Dickins <hughd@google.com>,
+ Nirmoy Das <nirmoyd@nvidia.com>, Dragos Tatulea <dtatulea@nvidia.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260901190123.3511535-1-noren@nvidia.com>
+Content-Language: en-US
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <20260901190123.3511535-1-noren@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Now that LoongArch uses KVM_GUEST_PAGE_TABLE_MIN_PADDR for its page table
-page allocations, use the common vm_alloc_page_table() instead of open
-coding the same.
 
-Opportunistically drop the assert that the allocation succeeded, as the
-allocator itself guarantees success.
 
-No functional change intended.
+On 01/09/2026 20:01, Nimrod Oren wrote:
+> When THP is enabled, set_recommended_min_free_kbytes() may raise
+> min_free_kbytes using a heuristic that scales with pageblock_nr_pages.
+> Commit f000565adb77 ("thp: set recommended min free kbytes") added this
+> heuristic to help keep pageblocks free and reduce fragmentation for THP
+> allocations.
+> 
+> The recommendation scales poorly with larger base page sizes. With the
+> default arm64 pageblock sizes, the contribution per eligible zone
+> before applying the existing cap of 5% of low memory is:
+> 
+>   4 KiB pages:   2 MiB pageblock,   22 MiB per zone
+>  16 KiB pages:  32 MiB pageblock,  352 MiB per zone
+>  64 KiB pages: 512 MiB pageblock,  5.5 GiB per zone
+> 
+> Even with that cap, min_free_kbytes can reach excessive levels.
+> 
+> The automatic min_free_kbytes increase predates proactive compaction
+> and many subsequent changes to compaction. Given those changes,
+> increasing min_free_kbytes for THP by default is no longer clearly
+> justified.
+> 
+> Remove set_recommended_min_free_kbytes() and all associated
+> recalculation paths. With this policy gone, min_free_kbytes is
+> controlled only by the page allocator's default calculation and the
+> vm.min_free_kbytes sysctl. Users who want additional headroom may set a
+> higher value via that sysctl.
+> 
+> Link: https://lore.kernel.org/r/20260831075635.2244437-1-noren@nvidia.com/
+> Suggested-by: Michal Hocko <mhocko@suse.com>
+> Signed-off-by: Nimrod Oren <noren@nvidia.com>
 
-Reviewed-by: Bibo Mao <maobibo@loongson.cn>
-Tested-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- tools/testing/selftests/kvm/lib/loongarch/processor.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+Could this negatively affect x86 and arm64 systems using 4 KiB
+pages?
 
-diff --git a/tools/testing/selftests/kvm/lib/loongarch/processor.c b/tools/testing/selftests/kvm/lib/loongarch/processor.c
-index 057a77713542..fcd41bc6fbda 100644
---- a/tools/testing/selftests/kvm/lib/loongarch/processor.c
-+++ b/tools/testing/selftests/kvm/lib/loongarch/processor.c
-@@ -56,9 +56,7 @@ void virt_arch_pgd_alloc(struct kvm_vm *vm)
- 	child = table = 0;
- 	for (i = 0; i < vm->mmu.pgtable_levels; i++) {
- 		invalid_pgtable[i] = child;
--		table = vm_phy_page_alloc(vm, KVM_GUEST_PAGE_TABLE_MIN_PADDR,
--				vm->memslots[MEM_REGION_PT]);
--		TEST_ASSERT(table, "Fail to allocate page tale at level %d\n", i);
-+		table = vm_alloc_page_table(vm);
- 		virt_set_pgtable(vm, table, child);
- 		child = table;
- 	}
--- 
-2.55.0.966.g6673acef38-goog
+This change reduces the free-memory headroom available for
+compaction. That could reduce THP allocation success, especially
+for GFP_TRANSHUGE_LIGHT allocations, which fail quickly rather
+than performing direct reclaim or compaction.
+
+With defrag=madvise, faults in MADV_HUGEPAGE regions may instead
+incur additional synchronous reclaim or compaction latency.
+khugepaged itself will not start later, but it may encounter more
+fragmented memory and perform more work or fail more often.
+
+I think it would be good to provide THP success, fallback, and
+allocation-latency results under memory pressure for x86 and
+arm64 4 KiB systems?
 
