@@ -1,152 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB20386562
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 05:36:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5796387364
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 05:38:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788327385; cv=none; b=SB/ga43mD4G9dpe/T+RqHwLwTEyderLpxJBnDRzm23mTH1zUcqzc1kv4eaw/qcv+xEWEM26UJgKO424XwjE7e8L0qtqLXh+t+3bNbov1uWhqaoz+58QFn9cL5zQPKPr7LC/M1RQWLVQwyce2CBZD6E756SIhK0bW73PdjN3OR54=
+	t=1788327531; cv=none; b=bIRJ8SfZ45eEge4KRaU2yvogXPv2ANID3r5GvJy159eliIUq3NuBHrrwr7W7m7ep7OnzqxxacaBuB7FbW7h3jRb8hN6ZeZfGoVuTlB8s8I0swxw17FLBGDWKnS8tLJP1Zp5riDngZd3NLTxUYr60YsD8O6o5E0Rhb0hcG1PkSfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788327385; c=relaxed/simple;
-	bh=/oM7CPITIMu61rw1LJvq7gvO/E7GxeNGur+pmS4KKFI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DUY/ar2NI90S3snZyT4JMwYThJNLXN+BuIhKfM92E7J9BEgMJTc347f/ndzj/p2l4hK6tgLRxAcPAhR4E6Ug86t0sNr9nQkCldyqKLuG4sY4Fng9xzlkZTsN23qoTEaeP/6F5iIsISaZ2LPBnqP1CM/239H6xaEbRQF25ksPsSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nHZCCKpu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788327531; c=relaxed/simple;
+	bh=NUQmfBTsfdfOM/FNFhgK5L8Lin1Zox5PWwp0gLcDWt0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A37yNDVyOU5DmKCQ+Tn/XGMti1osqKBNYakcyZjCps9rdEm8jlYm75pqmYApe4MuE2/HtdHpbM71MJbnMXExzPaA+oX/KiUdHJQxzB704ZiWTHgHt6YG1Fj5Ns0KnYJODAxkngc44gwuq3RhSouHk7Pk6Lw+OD9NUhXL7l0uB50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KuafMg0J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nHZCCKpu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5F5F1F000E9;
-	Wed,  2 Sep 2026 05:36:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KuafMg0J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 198F81F000E9;
+	Wed,  2 Sep 2026 05:38:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788327383;
-	bh=jyzYoXCRm/+tjQ+fROHfpYCMy4+lHSWupjhgvEHZkcQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nHZCCKpuW66tiUxQ1gIcOIpxpVnZrKV+h5ZBhsjzp1xgyZXNHcoHK8tGhCWmuX0GO
-	 R7sus+SR6/Vz89lpmbKDNygNkKfZDdrUNNkCPJQoQMIiKR9eftMQ8VJF+CTSDKxwR6
-	 Lydg9lzZ2LWwqYQ4PNdhQxgzeNFPOHbCuJdnd8O7gbWkyNhvAOtXMQFqEbRYczJUsM
-	 2+8v6lV6OTFMmTyR8KX1xkRJG3a6wBoysLRpxlJqSbAzSlMEEa53CUFwY1PAa0JrOU
-	 EcUYw8aH2Ns5akkNKgM6mTvuYZrtIr2TQVEKaMfqTQfQphz4IsFWV7C/ZshVUj71c5
-	 8PQADmTkyfjAg==
-Message-ID: <cd25ffa5-5efc-42f1-b145-0c1c6539b4c4@kernel.org>
-Date: Wed, 2 Sep 2026 07:36:17 +0200
+	s=k20260515; t=1788327530;
+	bh=KBqnAWoIinanplzoKsLzNnIGR+eL7oIO2onBeSpcFb8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KuafMg0JVWXS4A0CTRhv0Nyixn0XjiLpRl04Le9SVWS8DeEBozF1qm+cmRIO2Uh5J
+	 +1MEwTRPMHCHRLcgzAc5+XkxyW8rwRFVlaQUGMxO4xyKrqr6EFy5lfbvgtMenBInVH
+	 jupzpD6MRR2W0PiQxqLwuWgzSw6tVs9Zf3kH9eqMs+pZTXNrtCJzKybOlj10hqc/OR
+	 OHyda611n/UO3fBvLFjpuWgcm1Xn+g+r7lR66/HgSeE0Gx3c0NWbNserFLburZsa3L
+	 g5K525APYS5mm0my5JUH98MYsv76BBxxFDRd+fFOEVRluoTU/TbQJzN8RnQ9xUNzNh
+	 4oBaBiNut96ZQ==
+Date: Tue, 1 Sep 2026 19:38:49 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: mingo@kernel.org, juri.lelli@redhat.com, vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/7] sched/core: Simplify/fix time updates
+Message-ID: <ape2abNdAgRCfEtg@slm.duckdns.org>
+References: <20260828101659.812011872@infradead.org>
+ <20260828104018.483560652@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] powerpc/entry: Fix double accounting of user time on
- interrupt entry
-To: Aboorva Devarajan <aboorvad@linux.ibm.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
- Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>
-Cc: Shrikanth Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org,
- Ritesh Harjani <ritesh.list@gmail.com>
-References: <20260902050628.2553909-1-aboorvad@linux.ibm.com>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <20260902050628.2553909-1-aboorvad@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828104018.483560652@infradead.org>
 
+Hello,
 
+On Fri, Aug 28, 2026 at 12:17:01PM +0200, Peter Zijlstra wrote:
+> +static void opt_update_rq_clock(struct rq *rq)
+> +{
+> +	if (!(rq->clock_update_flags & RQCF_UPDATED))
+> +		update_rq_clock(rq);
+> +}
 
-Le 02/09/2026 à 07:06, Aboorva Devarajan a écrit :
-> Since the switch to generic entry, an interrupt taken from user mode
-> accounts user time twice: once in arch_interrupt_enter_prepare() and
-> again in arch_enter_from_user_mode(), which irqentry_enter() invokes
-> for the same interrupt:
-> 
->    arch_interrupt_enter_prepare()
->        account_cpu_user_entry()
->    irqentry_enter()
->      arch_enter_from_user_mode()
->        account_cpu_user_entry()
-> 
-> account_cpu_user_entry() accumulates the time spent in user mode
-> since the last return to user space, so the second call charges the
-> same interval again.
+Yeah, I think this really needs sth like this. That said,
 
-One of them was added by commit 09a9d3a8499d ("powerpc: introduce 
-arch_enter_from_user_mode"), the other one by commit 893082ac769b 
-("powerpc: Prepare for IRQ entry exit"). Would be good to mention it and 
-explain how it went wrong.
+> @@ -6336,18 +6336,12 @@ pick_next_task(struct rq *rq, struct rq_
+>  		 * pick_next_task(). If the current cpu is not the core,
+>  		 * the core may also have been updated above.
+>  		 */
+> -		if (i != cpu && (rq_i != rq->core || !core_clock_updated))
+> -			update_rq_clock(rq_i);
+> +		opt_update_rq_clock(rq_i);
 
+I don't think this is correct. A sibling rq wouldn't necessarily have
+RCQF_UPDATED cleared from whenever it scheduled / ticked the last time, so
+the following pick_task() can run with pretty stale rq clock.
 
-> 
-> With CONFIG_VIRT_CPU_ACCOUNTING_NATIVE=y this roughly doubles the
-> reported user time of any workload that takes interrupts. On a
-> pseries LPAR, ps/top show ~200% CPU for a single-threaded CPU-bound
-> loop, and time(1) reports user time about twice the elapsed time.
-> 
-> Remove the accounting from arch_interrupt_enter_prepare() and rely on
-> arch_enter_from_user_mode(), which runs for both syscalls and
-> interrupts. The duplicate account_stolen_time() call is removed the
-> same way.
-> 
-> Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
+>  
+> -		p = pick_task(rq_i, rf);
+> +		p = pick_task(rq_i, &rf_i);
+>  		if (unlikely(seq != rq->core->core_task_seq ||
+> -			     WARN_ON_ONCE(p == RETRY_TASK))) {
+> -			/* rq lock may have been dropped, clocks invalidated */
+> -			core_clock_updated = false;
+> -			if (!(rq->clock_update_flags & RQCF_UPDATED))
+> -				update_rq_clock(rq);
+> +			     WARN_ON_ONCE(p == RETRY_TASK)))
+>  			goto restart;
+> -		}
 
-Not sure it is the correct commit. Should probably be one of the ones 
-that introduced the wrong call.
+Thanks.
 
-> Signed-off-by: Aboorva Devarajan <aboorvad@linux.ibm.com>
-> ---
-> Verified on a pseries LPAR (CONFIG_VIRT_CPU_ACCOUNTING_NATIVE=y),
-> 7.3.0-rc1, single-threaded CPU-bound loop:
-> 
-> Before:
-> 
->    $ python3 -c 'while True: pass' &
->    $ sleep 3; ps -p $! -o pid,etime,time,pcpu
->        PID     ELAPSED     TIME %CPU
->       4980       00:03 00:00:06  210
-> 
-> After:
-> 
->    $ python3 -c 'while True: pass' &
->    $ sleep 3; ps -p $! -o pid,etime,time,pcpu
->        PID     ELAPSED     TIME %CPU
->       4951       00:03 00:00:03  105
-> 
->   arch/powerpc/include/asm/entry-common.h | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/powerpc/include/asm/entry-common.h b/arch/powerpc/include/asm/entry-common.h
-> index c5adb5006361..984294e62568 100644
-> --- a/arch/powerpc/include/asm/entry-common.h
-> +++ b/arch/powerpc/include/asm/entry-common.h
-> @@ -222,8 +222,6 @@ static inline void arch_interrupt_enter_prepare(struct pt_regs *regs)
->   
->   	if (user_mode(regs)) {
->   		kuap_lock();
-> -		account_cpu_user_entry();
-> -		account_stolen_time();
->   	} else {
->   		kuap_save_and_lock(regs);
->   		/*
-> @@ -426,6 +424,10 @@ static __always_inline void arch_enter_from_user_mode(struct pt_regs *regs)
->   #endif
->   	kuap_assert_locked();
->   	booke_restore_dbcr0();
-> +	/*
-> +	 * User and stolen time is accounted here for every entry from
-> +	 * user mode. The interrupt prepare hooks must not account again.
-> +	 */
-
-Don't polute the code with such a comment. This is to be explained in 
-the commit message. First a comment shall tell what code does, not what 
-it doesn't do. And the comment has no added value, when you see 
-account_cpu_user_entry() is called you already know that.
-
-Here you feel the need to add such comment, but if you had implemented 
-this function yourself and done it right at the first time, would you 
-have felt the need for this comment ?
-
-Have a look at https://docs.kernel.org/process/coding-style.html#commenting
-
->   	account_cpu_user_entry();
->   	account_stolen_time();
->   
-> 
-> base-commit: fb442a6673ff1046bf67754957d95880fdb394b5
-
+-- 
+tejun
