@@ -1,156 +1,153 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E2D146C826
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:54:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 85F604582D1
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:54:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788346457; cv=none; b=gXiknuF7poUxPI+KdzrU0PLdZWyBx5QIdJd4e9NB9Hf3MtpuIUt8PbFt7Ns58sqk4drH0JByUTc0lctaQLlw0o3Aq2rvmZCEBDhgUDly0hvuq/OUqq9oUpWfNjQjHeCvD4WMvt9EHOPauD9KdWfs22TVRqJwpRMEmmkzcQvd8Mc=
+	t=1788346458; cv=none; b=Ra04qQC6ncy/TOy8wAAsbd38IOu62jxgLi8X3VBzBnntc+IYJ9oTiDTmRXaEJg9PbnTo9SCM7HayKrsUSiKn6WiluJXjOwFutq5G1BtQeM0R4t3fuZ1S+CWcjUoflVrVB+mSjLtEzahse2K3aPObNMIUF6QBPgLE4BTTVXd6aZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788346457; c=relaxed/simple;
-	bh=Qbht4x4IzGT/JiczHyNCGNYWVQo4ezwLAuwXfNqwdEc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KrgINfM5N5PvTD1TLfVXhlM9PXxsqfVMOInkIW0tOv6H5WLcPju2qiyl2KAymv09TyXaho6Q4U3lQtpuI0LX7NQJKErEfp0AXGUHSAtiZAkD3HQD75eB/YJYJXbc1TTkZKCjfxE5GIxMqr1SdOIwlupOdDYfFAIiHmuOnz96rP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=eWN9GyoS; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1788346458; c=relaxed/simple;
+	bh=VJhrLZI3tnfJzyrU+XBx+aRk7G0SRkdsT882fdzqnGc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Disposition; b=ffVblfEDO/B44ufJK7ikdw49KGrOBnB2Kn7v5w653PyOunowsjhkfEkeaf9njrOrRYPx8hSoDiXBU5pKTwjjHQkHRxtM3AH3uA+Z1yUH5idE0tLudt2aAfb5CYYddp9mhcu0YUy7Yizy2nHWPkDgXFe+HSUDfJCF9VqNA1lNeJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=tJZtD3zg; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="eWN9GyoS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=wZKm
-	07XhcNsktoC3Api7lsFF1a7aDWq6S9O9xPgdB+E=; b=eWN9GyoSCaucuH2we4Ie
-	njturwef9v0eHVQUYmMM5u3L9C8940gyTvy4k8un5AAPTWrnM7N3JtCS+aBbUmF0
-	76JSyWD4qKEyKoyf6noeahbHaYbIhVZUs2sYxbn6auDkW7dtCR4hpGJZv109DxUG
-	FKtUtJ3z3xNC9NWs8zl31wOZMwi7SkHXai7vlhzW2mIcD3ljPZ8TApReLtqZiTVz
-	EWmZHIzvC27b42ZFK6Eu66e4ew0mzB1AHTdq9hsvDSmjoQy5rvN6DcY2xe4mhzxa
-	4gocBpqGwJ/24mbd5CBxTJK2pyEvTX8BDQSf2EHIazGGF7eIVruNv5C1tMGKhHhC
-	OA==
-Received: (qmail 603002 invoked from network); 2 Sep 2026 12:54:04 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 2 Sep 2026 12:54:04 +0200
-X-UD-Smtp-Session: l3s3148p1@kdWP2n1aqrwujnuD
-Date: Wed, 2 Sep 2026 12:54:04 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Biju <biju.das.au@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-mmc@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v24 03/15] mmc: renesas_sdhi: Add clk_mask field to
- support flexible clock divider widths
-Message-ID: <apgATHptEbhkohZo@shikoro>
-References: <20260820171657.62815-1-biju.das.jz@bp.renesas.com>
- <20260820171657.62815-4-biju.das.jz@bp.renesas.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="tJZtD3zg"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BBDA0165C;
+	Wed,  2 Sep 2026 03:54:06 -0700 (PDT)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8553D3F8C6;
+	Wed,  2 Sep 2026 03:54:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788346450; bh=VJhrLZI3tnfJzyrU+XBx+aRk7G0SRkdsT882fdzqnGc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=tJZtD3zgqQnEuGfs/67Yd+ZWlPXHjKoMT0U3ZR57dmGKpRUmMuHF1P6DufUHsQDhc
+	 dE9KFKVVLrberz98boWoi5FfokmKbRPvi0j9drfEMvYknfwXCrjP9H//8pt77gtBVH
+	 G65T8aXCLl88anRM8TxQgiUP5PGq5sbzBdls3yFI=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Tian Zheng <zhengtian10@huawei.com>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 4/5] KVM: arm64: Add KVM_REQ_RELOAD_STAGE2
+Date: Wed,  2 Sep 2026 11:53:55 +0100
+Message-ID: <apgAQ8p3hkGItkYK@LeoBrasDK>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <c8a6b6ac-aa4a-4cbc-b4f0-8dd6f4f02341@huawei.com>
+References: <20260901171558.2674031-1-leo.bras@arm.com> <20260901171558.2674031-5-leo.bras@arm.com> <c8a6b6ac-aa4a-4cbc-b4f0-8dd6f4f02341@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="GX9/bM/hw9OSTs2Z"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260820171657.62815-4-biju.das.jz@bp.renesas.com>
+Content-Transfer-Encoding: 8bit
 
---GX9/bM/hw9OSTs2Z
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Wed, Sep 02, 2026 at 11:41:39AM +0800, Tian Zheng wrote:
+> 
+> 
+> On 9/2/2026 1:15 AM, Leonardo Bras wrote:
+> > Add a vcpu request to exit guest, reload Stage2, and then come back to
+> > guest.
+> > 
+> > This will be used on future patches that enable S2 HAFDBS and HDBSS, as
+> > they may need to change VTCR bits for enabling/disabling the feature when
+> > the vcpus are still running.
+> > 
+> > Signed-off-by: Leonardo Bras <leo.bras@arm.com>
+> > ---
+> >   arch/arm64/include/asm/kvm_host.h | 2 ++
+> >   arch/arm64/kvm/arm.c              | 8 ++++++++
+> >   2 files changed, 10 insertions(+)
+> > 
+> > diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+> > index 27fe0cd5b2d7..00fe169f239f 100644
+> > --- a/arch/arm64/include/asm/kvm_host.h
+> > +++ b/arch/arm64/include/asm/kvm_host.h
+> > @@ -48,20 +48,22 @@
+> >   #define KVM_REQ_VCPU_RESET		KVM_ARCH_REQ(2)
+> >   #define KVM_REQ_RECORD_STEAL		KVM_ARCH_REQ(3)
+> >   #define KVM_REQ_RELOAD_GICv4		KVM_ARCH_REQ(4)
+> >   #define KVM_REQ_RELOAD_PMU		KVM_ARCH_REQ(5)
+> >   #define KVM_REQ_SUSPEND			KVM_ARCH_REQ(6)
+> >   #define KVM_REQ_RESYNC_PMU_EL0		KVM_ARCH_REQ(7)
+> >   #define KVM_REQ_NESTED_S2_UNMAP		KVM_ARCH_REQ(8)
+> >   #define KVM_REQ_GUEST_HYP_IRQ_PENDING	KVM_ARCH_REQ(9)
+> >   #define KVM_REQ_MAP_L1_VNCR_EL2		KVM_ARCH_REQ(10)
+> >   #define KVM_REQ_VGIC_PROCESS_UPDATE	KVM_ARCH_REQ(11)
+> > +#define KVM_REQ_RELOAD_STAGE2 \
+> > +	KVM_ARCH_REQ_FLAGS(12, KVM_REQUEST_WAIT | KVM_REQUEST_NO_WAKEUP)
+> >   #define KVM_DIRTY_LOG_MANUAL_CAPS   (KVM_DIRTY_LOG_MANUAL_PROTECT_ENABLE | \
+> >   				     KVM_DIRTY_LOG_INITIALLY_SET)
+> >   #define KVM_HAVE_MMU_RWLOCK
+> >   /*
+> >    * Mode of operation configurable with kvm-arm.mode early param.
+> >    * See Documentation/admin-guide/kernel-parameters.txt for more information.
+> >    */
+> > diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> > index 8b080804bc90..1e528d53d093 100644
+> > --- a/arch/arm64/kvm/arm.c
+> > +++ b/arch/arm64/kvm/arm.c
+> > @@ -1164,20 +1164,28 @@ static int check_vcpu_requests(struct kvm_vcpu *vcpu)
+> >   		if (kvm_check_request(KVM_REQ_RESYNC_PMU_EL0, vcpu))
+> >   			kvm_vcpu_pmu_restore_guest(vcpu);
+> >   		if (kvm_check_request(KVM_REQ_SUSPEND, vcpu))
+> >   			return kvm_vcpu_suspend(vcpu);
+> >   		if (kvm_dirty_ring_check_request(vcpu))
+> >   			return 0;
+> > +		if (kvm_check_request(KVM_REQ_RELOAD_STAGE2, vcpu)) {
+> > +			unsigned long flags;
+> > +
+> > +			local_irq_save(flags);
+> > +			__load_stage2(vcpu->arch.hw_mmu);
+> > +			local_irq_restore(flags);
+> > +		}
+> > +
+> >   		check_nested_vcpu_requests(vcpu);
+> >   	}
+> >   	return 1;
+> >   }
+> >   static bool vcpu_mode_is_bad_32bit(struct kvm_vcpu *vcpu)
+> >   {
+> >   	if (likely(!vcpu_mode_is_32bit(vcpu)))
+> >   		return false;
+> Hi Leo,
+> 
+> Thanks for sending this out. I actually implemented a similar request in
+> my v5 HDBSS series to reload VTCR on enable/disable, but I named it
+> KVM_REQ_HDBSS_RELOAD_VTCR.
+> 
+> Without such a request, the new VTCR value only takes effect on the next
+> vcpu_load, which means enable/disable could be delayed indefinitely if
+> the vCPU never goes through a load/put cycle. So I think this request is
+> necessary for HDBSS as well.
+> 
+> Since your KVM_REQ_RELOAD_STAGE2 is more generic, I'd like to rebase on
+> top of your patch and reuse it in v5. Would that work for you? Or do you
+> prefer to keep them separate for now?
+> 
 
-Hi,
+Hi Tian, 
+Thanks for reviewing!
 
-Sashiko found issues with your patch. I curated the list and left only those
-which I see as valid. Please have a look at these issues.
+The main reason for this patch series (at least up to patch #3) was to give 
+you a base for HDBSS, so please rebase as much as you want on top of it.
 
-Thank you and happy hacking,
-
-   Wolfram
-
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
->=20
-> Pre-existing issues:
-> - [High] A very low or zero clock rate from the clock provider causes an =
-infinite loop in `renesas_sdhi_set_clock`.
-> --
->=20
-> --- Patch [3]: [PATCH v24 03/15] mmc: renesas_sdhi: Add clk_mask field to=
- support flexible clock divider widths ---
-> commit 1c7318b14c028686fc8ca703eb8ac2be269937b6
-> Author: Biju Das <biju.das.jz@bp.renesas.com>
->=20
-> mmc: renesas_sdhi: Add clk_mask field to support flexible clock divider w=
-idths
->=20
-> This patch introduces a clk_mask field in platform data to replace a hard=
-coded
-> 32-bit clock mask, supporting 11-bit clock dividers on newer SoCs like the
-> RZ/G3L. It updates renesas_sdhi_set_clock() to use the dynamic mask and s=
-ets
-> up backward-compatible default mask values.
->=20
-> > diff --git a/drivers/mmc/host/renesas_sdhi_core.c b/drivers/mmc/host/re=
-nesas_sdhi_core.c
-> > index f9ec78d699f45..604d886e483c7 100644
-> > --- a/drivers/mmc/host/renesas_sdhi_core.c
-> > +++ b/drivers/mmc/host/renesas_sdhi_core.c
-> [ ... ]
-> > @@ -213,7 +213,7 @@ static void renesas_sdhi_set_clock(struct tmio_mmc_=
-host *host,
-> >  	 * provided for actual_clock in renesas_sdhi_clk_update().
-> >  	 */
-> >  	clk_margin =3D new_clock >> 10;
-> > -	for (clk =3D 0x80000080; new_clock + clk_margin >=3D (clock << 1); cl=
-k >>=3D 1)
-> > +	for (clk =3D host->pdata->clk_mask; new_clock + clk_margin >=3D (cloc=
-k << 1); clk >>=3D 1)
->=20
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does this loop risk an
-> infinite hang if the clock provider returns a very low rate?
->=20
-> In renesas_sdhi_set_clock(), if the clock provider supplies a rate smaller
-> than the maximum divider, the division to calculate the initial clock val=
-ue
-> can evaluate to 0. Since 0 << 1 is still 0, the loop condition
-> new_clock + clk_margin >=3D (clock << 1) will remain permanently true for=
- any
-> strictly positive new_clock value.
->=20
-> Could this prevent the loop from ever terminating, causing an unrecoverab=
-le
-> CPU hang? Should there be an additional safety check (such as clk !=3D 0 =
-or
-> clock > 0) added to the loop condition to gracefully handle misbehaving
-> clock providers?
->=20
-> >  		clock <<=3D 1;
-> > =20
-> >  	/* 1/1 clock is option */
->=20
-> --=20
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260820171657.62=
-815-1-biju.das.jz@bp.renesas.com?part=3D3
-
---GX9/bM/hw9OSTs2Z
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqYAEwACgkQFA3kzBSg
-KbZkdQ//WekvPvNMmpAI/+sU1MP3LrhF8r9ZctmiZbh5vUxaLhcuzGEsqZZgM24N
-AsF1qgTezHxi05aimqv5ycQm8/6XKn7QRt1Ml903RSmXUtH1pheWF8TdGmy4MpKO
-leYDRzmP1I1pUbxc1+c46ISVi6IjbHIXjE2E9HxvslXPNBd1hw3xG+kVYVN1OgvB
-S4uwLIJZ1EcbH3P5kcIUh1UnXgj0kD+Bx4MZ7p7XPrrQLT4E995mq1DJWA0cvnX7
-5JrK6Yd4FqFtVsV0/ze0necPcv/dkCeNaPl6pnlHAqJOSgIDmaAvkJM4Pkyc41xf
-KV0L3ZTOTaquZBgNsuXk7mUznfJfP1Iai3XIAyllnsDtmQMBAZ/8pyTuJc5o4UOv
-Dn5N9nm7KvFfy4WX90x0h4i2+sgmS98qy9CJ77kKshfAt/Qi1xVNefNy/Pg3QT0d
-Jd8vG9SJl3UliPDTkts4Rp6x6MF58UbRDtpsotsKWSlU5u0nh68U+BWEmVU4G2oh
-zGSnlZZFIA+ytp/s6PsM3dIgKWJfMXG8mg1sBmbTdVqqPwOMDWNikZGmzhNW9bNO
-poLBJLm1O0JvLb/zfKrcmc4OpWXRiCbXqqd7dYFZRIzopfxiiGmNCIO6I34je4NQ
-Nt3IY+tId4zxeGYdf9XRGRJ+/Dif1u/yQfHxEvBK1ZvuLs270uc=
-=TeQQ
------END PGP SIGNATURE-----
-
---GX9/bM/hw9OSTs2Z--
+Thanks!
+Leo
