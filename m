@@ -1,667 +1,212 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11020099.outbound.protection.outlook.com [52.101.61.99])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3729400DFA
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 21:04:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C74744052DA;
+	Wed,  2 Sep 2026 21:04:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788383073; cv=fail; b=VwPyjIayrCVsakC9IJXQOvRtxvtxNL3urUHABntk3eWTq7F3iBDdiCHXLQbrvJMZ21MeOxltosBZ+QwH3nYb0ursdslulezoDepKWhNIWYOt3PmnDAee7yL6F5GW1UzR8nRq21z73hSTaUUTc+lZv5pNprm8kxWq8UaHw3Hk/qs=
+	t=1788383076; cv=fail; b=PpLnmLle7KqCHRXLUBiCtl3HMPpgSBvO4FnkXS8QQ8XjxZtE9afUKtcRLOFyrfgNig/5HVaIdnue5p9DqpX8F1wBKDmweqRnesceyeJnz6i95yqT4wV0E1jgs7x3JUma439JpVNgyGa+Ej7voxSxVZzh3xi2zvZV0L+59FXJMRs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788383073; c=relaxed/simple;
-	bh=mo0KI0xtBvdhjR/xoYz6CbRJ7l6wHYdQFCTi/TsXVbs=;
-	h=Message-ID:Date:From:Subject:To:Cc:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=GuRpQxPcjpkFFUjPIqYaZckIHFmi9FP63R2VuTFzt2md3nPlnXuzZaC5wOTvQgOdS4YGEuI5403RbaGFP4fBQgjVQYS3PtmoCtoQehHMcCGCggbV509AsjQRKVbH6B7wWW4aURw3Igf03I2RquFCcxLdCGWqlXzORuZ7yzJzXLg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=os.amperecomputing.com; spf=pass smtp.mailfrom=os.amperecomputing.com; dkim=pass (1024-bit key) header.d=os.amperecomputing.com header.i=@os.amperecomputing.com header.b=SKJfPK9T; arc=fail smtp.client-ip=52.101.61.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=os.amperecomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=os.amperecomputing.com
+	s=arc-20240116; t=1788383076; c=relaxed/simple;
+	bh=1HjQ35qv6KvcgWFPKmfKPsZRtb++HREm6CKVuCLNulg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=Wx8sS7VUHAcvg0LCY3amqMIctqdtThOFSbTlU0GJnvdzjO3/lnKQVLUM/17LMfw2pZamWw0DmGF5otRdn2J8obSddJucpr3gPIIxjW9uVV9LgRulTgr91udCxYjNpNpvIdNLl+MJnwTmu1wRvZYqwLJdfxjR/N68LyKD1K+MXoM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=MDb5Jyt+; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=mStBxIF5; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=os.amperecomputing.com header.i=@os.amperecomputing.com header.b="SKJfPK9T"
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="MDb5Jyt+";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="mStBxIF5"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 682KH4xD3234069;
+	Wed, 2 Sep 2026 16:04:31 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=69pwRY2y5A/4drEHBOG1LsmDerzyca6dh66d4yF95
+	0s=; b=MDb5Jyt+oE0YC7FXTCH9b95PMCI+kteP/GWUX710sBaOqEkKOqaKYeyuk
+	3YGevCaOHxW1Qqmb0DUHUnnzsVDsldxjMN5nUQ23LyA72WyZzTTkg/vXnhcmCArS
+	eSVJ59Di3YKHan38Id8rBW5Fy6f2ltY44+hlaYblRpxwup0uXWWbq5RT++EnpYKT
+	p0gEvIFLkPNUBhKizBzoGmlRDtVl+QrP2kg/KdnIn7p0GZ3HPOfl25TuUzU/GN9X
+	/Qb/RK5YdF0xXuneIwr4ic2yZGvUwr4JYjWOx2h3aUzHj8/AIfSd6U5gtYxe1Qim
+	miIQH2J+EhbtRuvqachzPz2MctdCA==
+Received: from ph0pr06cu001.outbound.protection.outlook.com (mail-westus3azon11011047.outbound.protection.outlook.com [40.107.208.47])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4ge7gqfaf0-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 16:04:30 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=A8DMJpy9/l2cY8NrnUFL1i3kTZVpYqaGnHFfLtdkO1FV2bgU1bG9vrgS8JQBLZlyx3UeqFsIDtzWyzuYI2xUMYzvu53sn+rfNsg8+Dn702Pc9ewcwiEy9DVsERDERXwKd/UngFtq7SjIA2j5kNUL8vv9v9Qt+dJf3i2MqBWs9BBmO3mc04mj9rkNzfe3vuGBgWGP6UKYigZw2yjjrCnO/huv9jme4exx4FDQfkmnUJazZ01GiCW5foBJaO3cr9izCODt8xOHt1xVpiGxm2SVLOy9WRU4LKBeCagSs0Nu5iEvH18wqGgOFS6YUsG0ACMF8dDl5U38H0znXVW5HpoAag==
+ b=cO3q3yxYJVFQITL4CBjqa2SngowUSFZgQchXSLIbzj+Nce4k2NXWTvzDn9plYO7jj5ca+OcS0PQLDA2tlBHsxJM4CbZTXXTW5CfEuE1vjxazOkHeEZkuZybA060qcd/WlHy/su37sMNkqtB3oQ8zOzn2zdhZbnCkOVJw+uASNhqgad7y2EAIOZ8KAt9kMmHjdKB6k+68iGX0ibHVxcIwnKxVhegUL2xtt63vpGhnJx63PAy2OKqCEewguIte+FWL38TABd43PdUIwr99zEdKE84yXvQPEPilZ9zo1MdUM0EfIaz9E6EKiElH1znAUBSK1mBSgVcixkVzWE1JA0vaFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qJ2suCguM5lzL3bZ9tFqiTyZTRiCMFpmZv1RaIrLjgQ=;
- b=ID+OuAsWSwhTJdK+v/NGOSahiatn/vQiy7rBW7hdZlx8VOwi5o+x4WISC5b9TBTxd1pKzgEDaoLkGs70LEQc1nBhXCknFhoufIfDMB7o7o8qhzeVTttp4lUeiYAGRf5Fa+GywQr4sb9O0YiNf7rakND7DEwc/7ygrk3PMmvEbJga3Qzma+2rZg05UfuRxzv6iUcrA7EkcxX9VHneVZbEErs+i513JID8WxKjDUBPk/LobJLNtw6FMU2HdbRSTsGDiUwLlulvgxeSNR+w92N/EO1zvp10GFWT4B6zi6KmaYfb86c4o6fAkrOisS4/yzmJkJe1oS4FI9vk8u7J8HRZpw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=os.amperecomputing.com; dmarc=pass action=none
- header.from=os.amperecomputing.com; dkim=pass
- header.d=os.amperecomputing.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=os.amperecomputing.com; s=selector2;
+ bh=69pwRY2y5A/4drEHBOG1LsmDerzyca6dh66d4yF950s=;
+ b=bOWkMrA9WJfk2k43nitRfiVOktOt/6GePxHSXVwNYumzPWkHhVDYzYrngbeTfRNjCWK6oG5AMPtrVhHZxULSbfBGAmfF2Gye973m981BLdzVlw4/5MTR2bL2yI8tYLXUU6C1dPvgNrTdEIRUm/MfxcbEryEyTbn9Mau0oQSiJW4Y53CUZhpAt5JxzowkyXsnDM4s0xBZlZTzjvXmToRhEoB+leI6BD6794rcfc/tK3UF1GH4KbkL15C0jy5ePnRHdR8sbk0VZnW/WF11AIdmA/IOG4N8owrvz++PYdmAvPfelKSYzheOj+C0qOGaFxk7+YkHTtOxNEPylvJJnMsHvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qJ2suCguM5lzL3bZ9tFqiTyZTRiCMFpmZv1RaIrLjgQ=;
- b=SKJfPK9TRwuBbHWr3NfOuJHMWmuY2N636VeZa35F9/ElCClMDKMylb/bgApH7+bjFnwbFdooGrWIrMEYi7+ozsi01nmc3aqBbJqBbvd6DxUVd0aofMEdWbcHQ+gkM2WDMo0KdSRUX/NRuh0akd1XJz62IJZ4ACn2j5Ys31hop48=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=os.amperecomputing.com;
-Received: from CH0PR01MB6873.prod.exchangelabs.com (2603:10b6:610:112::22) by
- PH8PR01MB994612.prod.exchangelabs.com (2603:10b6:510:3b3::22) with Microsoft
+ bh=69pwRY2y5A/4drEHBOG1LsmDerzyca6dh66d4yF950s=;
+ b=mStBxIF5ReF19qTc7kDcWSIYh413HGkWHZZt9uxrT4PrpW4K212brVxLdlQOSUAyZOBZXjUixzIhIn7FsCPqdel1QLdyiuHdZNPVqy0buez51o6VQJzkynDvkLmHl7uGu75DyT+ZPUvgps9Rgz/xpMtncKtE+VjwFDlh7iiYozw=
+Received: from DS1PR04CA0024.namprd04.prod.outlook.com (2603:10b6:8:243::18)
+ by PH8PR10MB998088.namprd10.prod.outlook.com (2603:10b6:510:40c::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Wed, 2 Sep
+ 2026 21:04:28 +0000
+Received: from DS1PEPF00017099.namprd05.prod.outlook.com
+ (2603:10b6:8:243:cafe::44) by DS1PR04CA0024.outlook.office365.com
+ (2603:10b6:8:243::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
+ Sep 2026 21:04:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ DS1PEPF00017099.mail.protection.outlook.com (10.167.18.103) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.7; Wed, 2 Sep 2026 21:04:26 +0000
-Received: from CH0PR01MB6873.prod.exchangelabs.com
- ([fe80::46eb:64a3:667c:c1a0]) by CH0PR01MB6873.prod.exchangelabs.com
- ([fe80::46eb:64a3:667c:c1a0%7]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 21:04:25 +0000
-Message-ID: <ea42bc79-5c60-4437-a8ed-8803f4cf4e6d@os.amperecomputing.com>
-Date: Wed, 2 Sep 2026 14:04:22 -0700
-User-Agent: Mozilla Thunderbird
-From: Yang Shi <yang@os.amperecomputing.com>
-Subject: Re: [RFC v2 PATCH 0/16] Optimize this_cpu_*() ops for non-x86 (ARM64
- for this series)
-To: Usama Anjum <usama.anjum@arm.com>, cl@gentwo.org, dennis@kernel.org,
- tj@kernel.org, urezki@gmail.com, catalin.marinas@arm.com, will@kernel.org,
- ryan.roberts@arm.com, david@kernel.org, akpm@linux-foundation.org,
- hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com
-Cc: linux-mm@kvack.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260715180455.515692-1-yang@os.amperecomputing.com>
- <afe6eac4-c8db-4ec7-98be-1c7cb0d3c1de@arm.com>
-Content-Language: en-US
-In-Reply-To: <afe6eac4-c8db-4ec7-98be-1c7cb0d3c1de@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SJ0PR03CA0189.namprd03.prod.outlook.com
- (2603:10b6:a03:2ef::14) To CH0PR01MB6873.prod.exchangelabs.com
- (2603:10b6:610:112::22)
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 21:04:28 +0000
+Received: from DLEE212.ent.ti.com (157.170.170.114) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 2 Sep
+ 2026 16:04:13 -0500
+Received: from DLEE208.ent.ti.com (157.170.170.97) by DLEE212.ent.ti.com
+ (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 2 Sep
+ 2026 16:04:13 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE208.ent.ti.com
+ (157.170.170.97) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Wed, 2 Sep 2026 16:04:13 -0500
+Received: from [127.0.1.1] (uda0506412.dhcp.ti.com [128.247.81.196])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 682L4DL11301748;
+	Wed, 2 Sep 2026 16:04:13 -0500
+From: Kendall Willis <k-willis@ti.com>
+Date: Wed, 2 Sep 2026 16:04:12 -0500
+Subject: [PATCH v2 3/3] arm64: dts: ti: k3-am62p: use ti,am62-m_can
+ compatible for m_can devices
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260902-smth-v2-3-b3678ca44c7b@ti.com>
+References: <20260902-smth-v2-0-b3678ca44c7b@ti.com>
+In-Reply-To: <20260902-smth-v2-0-b3678ca44c7b@ti.com>
+To: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
+        "Tero
+ Kristo" <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
+        "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+CC: <s-kochidanadu@ti.com>, <a-kaur@ti.com>, <s-tripathi1@ti.com>,
+        <vishalm@ti.com>, <k-willis@ti.com>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788383053; l=1447;
+ i=k-willis@ti.com; s=20251230; h=from:subject:message-id;
+ bh=1HjQ35qv6KvcgWFPKmfKPsZRtb++HREm6CKVuCLNulg=;
+ b=yMhXDHsOELpAy/0Le3VAqb/WP65srGYPfyRhfWmr69cmViKV6/yYnLOcpNUuEq2e4IuPJ256S
+ IvsE17KHEIKA+LBVGCsIyd0aOBhaixHCXLVzHp/Fd4vBUmx0jVZhDcN
+X-Developer-Key: i=k-willis@ti.com; a=ed25519;
+ pk=fQiPVFwmogfDAKdaAKq163RWSfgHZVE/MrsDzp0Xo1k=
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH0PR01MB6873:EE_|PH8PR01MB994612:EE_
-X-MS-Office365-Filtering-Correlation-Id: b8bc5907-42f0-4d8b-9da6-08df0935c533
-X-MS-Exchange-AtpMessageProperties: SA
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017099:EE_|PH8PR10MB998088:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1e5d1dcb-cede-43b0-038c-08df0935c6f3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|921020|10067099003|11063799006|4143699003|56012099006|18002099003|55112099003|6133799003|3023799007|22082099003;
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|22082099003|56012099006|10067099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	m3V4N+ypQr8qpKyjCoJmxQ9hBrfPqprKWrKHg1fxsKKNMlWqL9vfyBs+/jim/5ECfWgN2ygojH5vyg3w7lYjdiTMer+53mf+xbylzV/jRofJQ750y0nd+uWshn2agDVDvW8EqV6xqgdrpgvCb9uz4ICxJT8qrmuwIoVMy1MAj9Xkhp8m2lf3IU2xlr92DV6CKu1eY2yEe1MQBedRxkgIrE+NOQmyh3yF8TzUS6z3fZtKwMa5kVU5l41wxQdtAsFomNdxd+uzp/zXxfCAC5+SNZMt6lUqUHIXn2NIQVqe1W3cgRPYXdvMzRoz34ObSmfR4WNpky2jPJ1+Eylq3VewXkaECrUIZElJvNW+NP1b3n/Q4wjaNewXXSnKNY30hf6JgjM2PB6BSTJyjuRxuoyeoONytTvXm1/IScR8M6sEdwrMNMNumioHBML8tm606KxDFbe/tE2naet3LjITE0El8CklhsUK75/PapbAwwpUsD4u23dNPd2qk5k8ntj77jWjr4QFoEsruw0vypOUMvni2zSE1mpTFTx5tFNtvGzJocm+D9uq9xWIGkYZHllJPAGZ0WE66IsWoOoVdFZbchw9RbrBMn+pZKAodx9ldR9hePPW6z61UFwZPzYkpdlgmaFtQVmaRkLjyix10Yw8gEYxgKX1nSZrpdoE+XVHkTdlqzbikCuAsa0S4g905ncaWeZu1ueiverl+H0exopxPhB31A==
+	RJNFfzK7hovxz/g55fUEwU/uO0UcL78u04dcdIWvtGZpVb4jMk8zrK+5NcYQNacOtU0KQexb5sf9hKSX9VImxff8pMy32L474hsjAxc46E7RTexKzhDWoTjokmT6gbnYDrSztRHKK8DQ1Tbbar5a7+4pk3o+2fmVqvAWa2dxPUE+WYYFYtXTKvqlL8OjMp9SgKxKvBJ+LqsYiDxgFNUmbF5XEQh/A4xZiDXKPmf0kh3g/JBtTjxw0g1ClmCQ8beGosWAYIT9N4swErcRioOac5pbqcB3nWRZ/V7E3AoVZO3p1nA3K2CR8fMZvUVA+Wgeg2M6AMKLjK4znLuxMmwvKqzDy8LydcTz5xaibafEXZA8p4jQbqPvSWmOVJU1SwST8mEbS+PowFbHibPwh04zAo6f1OWammfBpYSbM/llI7RSqTnR4iSpBaMAQPv7vxQrrXUyFllheeuZkVBlQo+wEWbkzy+hWYOdzXz4F+LKdr5FLyOV4mMfvJTFHfv9cguVqc4SWVc0NG516AvZ/mQauqjKxJWSOj4PMnlaFaEPto9sQKFcZ3biZbLiL3bpvVi8wkVP/Dmtg5M7vNjO82u4g+XmWok2Aob6tK/LnUQjFcFqIZq0wpd6G26l2mFAYa7ohB3n4GmKNih/g7es+SoR3w5nbHNMBGNc7++AKQG1WI1hQ7At5XMX4JNb4BIV2lbhCBloyj+NnN+Mp0psl9codQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR01MB6873.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(921020)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(55112099003)(6133799003)(3023799007)(22082099003);DIR:OUT;SFP:1102;
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(22082099003)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QmQ4MStFR0RkcDRycUhmK2FjZ3MwUWFidDU3TnFYUlgyVGdFRTNxYTlpRmUx?=
- =?utf-8?B?SGdQdUQ0YlRsclcwMmZrVDFpNlBTNU5sdXFmcmZuc3UvNDh1UytjaVhPRXJs?=
- =?utf-8?B?WVpGWUVuM0dpbDdWTjJocTBhNHNTOGFGaUptSXdPcWE2TnVXS1QvUDAwNUp3?=
- =?utf-8?B?bEFHL1drMFZWOERHeWgybDdFSG9WdHI3bGpYTWZBL0ZlVy9DL2VLVi95OEFz?=
- =?utf-8?B?RHRjMnJzTE1ocTBHUFNHZytPTHRrSGREL0RtL2dLbGpPeUYxU1ZNMnlpdEx3?=
- =?utf-8?B?bUFKNjJKVnNlZnV3cXZUVGoxWS9xQmhJSFRCVCtLaGgyYStONEhqUXQ1YkZJ?=
- =?utf-8?B?ckt6TllLR1NDL3BSbFhKeEZGWm5ibjhVU1pIcjBLZGxkTS9MZ2xZQ29XQ1hs?=
- =?utf-8?B?bXJhNmM3dlB2NFJBQlRRUTc5VkxRMFFleUs3cExXdk8vdmdicFFESmdYYkZM?=
- =?utf-8?B?K0pDQ3VjZlFXWmg5bDdoNkZOWmxOOThIZncxbmpvTW45elRqaWphTWk3L0lt?=
- =?utf-8?B?N3JNQzJCdWVUNzJDNEZEdnVqYk8rcHJ3LzNVMm1kbk1ZOUJJcVB6c2RHMlA4?=
- =?utf-8?B?amJTbU5aTk9uQ0JVa3N5bm0yeFQvNFFUdXdGc3o1WkNMc0tqbG5DWVNMc1kx?=
- =?utf-8?B?ZGhSZWZ2NnhLWDFUM29FYUlETnB5bkNrd3VteTBVMzdRZDJPYnVtQkxNdHA2?=
- =?utf-8?B?UENwL01sUkVidEJqTmFRaFZzR1N1QTRIWGk2cDlCcGRTNHplelhxbVFwTFNE?=
- =?utf-8?B?cENjZjloYmdlbkdmU2dyMjgyZXoyVUhqWGJQKzNBSFhtRUU1eW1yL3lBeEZ4?=
- =?utf-8?B?Q0FESGZpQVdndm5GNkxPZW9ld0g0MGFkTUpMcDBIaGZmZmRkOFNIMldwaGZs?=
- =?utf-8?B?N3E2VmZnVGxkb0dPbnBoWGxTdXhyMUwxS3ZnSHIwY2t4aDlSbDBFSHJMU25F?=
- =?utf-8?B?a2Mxd25Fa2dHSE12bTFBNy83OFNMSDZEeGRERFVNUG9CWU5uSFB1ZmM2dTd2?=
- =?utf-8?B?OTFsanlVbndXN3VPTm11S3ZOQWJnSnhTdzh6MlAxOVdVajlpa0J4VWRXa2Q3?=
- =?utf-8?B?ckhiZEpUU0ptOUliZHlMbUE1Mk91K3hBdVpCUzNOS05iektGdmVEZnh4am9a?=
- =?utf-8?B?YWV0Ukw0dnNxTmk2K0hTN29hcWJScXVxeGhPRE1ZZ200WHMwZ2cxeTBDLzV4?=
- =?utf-8?B?d3hXci9FS1JyZE5IRHhOY25jNkcrRmdteW04ZWVIdjFkdHdNdWovaWtOMkxz?=
- =?utf-8?B?SGlab2YwQkl0SENVNW43emkvWms3bzFRL2czYm43Mjh1MEtWdnRaOFFKWTVY?=
- =?utf-8?B?ay9VbjZlRUkzRlh2SGxneElFUGc0Qjl0eXZCR1hMbnFEZWRRbzZkeE9mOXRL?=
- =?utf-8?B?MFgvaVQ4YlptYkhPN3lhUFhObk96aVVHc3JwNFM3Vi95T1p0L1hmMHkwY2Rp?=
- =?utf-8?B?RGlDRHptSjRkd0dycE40TVlLWnlrdE1pb2NuRzh4Z3dwaXVsbnZUUkt2ZkRD?=
- =?utf-8?B?ZkExME1tSHhqZVhBNUYwemF0M081K1E5ZGFTdGFLMkFJWVJ6ZkdlczNMaWpZ?=
- =?utf-8?B?UWlOTFZsZnhaRm80WWxhUmtTVUgwMGlSM2JFSVBITmM1amNLamd6NmpSTVd6?=
- =?utf-8?B?ZnIxaE1sQVM3a2gweDhqS3Vjd3E3RXZrbU9oZnUwUm8weGxsenNlak04VVMx?=
- =?utf-8?B?eTBSZjVKcXU4eUJzNEZvOWtUT2dxczMyZU9lSGl1TFRlZlBhN2syNlhnQUJ1?=
- =?utf-8?B?aFJ4SXpScGduaW1JTk03b0RQUVZ5aVdVR2Vwc3grNVBrYlVuR0pmUjBEdVhv?=
- =?utf-8?B?OEJNSGhTa25yTE1YaDFlbnRGOVNkVTlDeVRNaElWaWxTMS91S1NZeEFBQ0pI?=
- =?utf-8?B?TCtOdGdYTGVkNU1kNlVtYVBQdHliUDBBbllOUVNCdzh0d0FSZXdFS1hZMFpZ?=
- =?utf-8?B?Mzk2b0hCWERjM0JhSnVFb3h1WU5SSmd6TDZWVTliczNuSGo5RmNrWFJ3cm5M?=
- =?utf-8?B?VUlmK01yVVJXdnVJYXc4YS9yNkVTR25USWxmR1EvenVUak4wSkhFN2dVaDlS?=
- =?utf-8?B?dVFCSGZIMkZreCs5R0pGT0dHY2RQMTU0RkZjR0lxSk5kWXpKazF3NU11cDhz?=
- =?utf-8?B?ek02YzUvTHd5MklJNFlKcUxLNzlVcEltb3NFOXBCc1BMUnpDeVBiaGVTNDhy?=
- =?utf-8?B?encyajNhQUI2L0hCOXR6N0xXOGN4MXUwcTY3ZHVpMTgxTHJxZWJCZmJCUHZJ?=
- =?utf-8?B?U0Ewb3lMeGpmVTErWTFsVFk2MjAwYlZjd205VXNvWUhVazB0Z0dYYzllYmhR?=
- =?utf-8?B?SERwWGppNjhDUXhzSGVGL2VFMGgrWHl0aW1MSVZmaFgyOS85V3JUVU9QUm5H?=
- =?utf-8?Q?YNUUuCvpmNcod4Cs=3D?=
-X-OriginatorOrg: os.amperecomputing.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b8bc5907-42f0-4d8b-9da6-08df0935c533
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR01MB6873.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 21:04:25.8393
+	Pr7H97X8sk2DO3+6maXJ8vGBoknKnXlw1jzosGeBtRp7Euq9c0FKDub/mV4iQEeGa5cA+fVBR1SUYyeEoff8N1C/K5IKBDnAwv/O1NXm48RTPm+0q5rjF1EbYuk2Rnz35119afv41n+dEnO90UsySHUnD2Kjcz9GOJZy2UsRRDQRiHe6+Mt12y7EMpAd7fzbzjGLkbo7qr+qdYNtRip/loO1BDBYNxmcivE5BlBvMLG36DhDtAhe9sB1R2M0DLYta7jX5Oc/aBLhvmHv90Uj5WPSJZbkcDIHENbYlPrfm+gvSz15iVdotetNJA2vZIoBYrLvptnEZrTaJpSavtwVLOzC9e8L1fh1fy76uUoJ4WnwyM9Dl75t9cxjpiQ2f3YRpMVKjlHYKojlWXy0oLZ3BMoXfNSuDPEiOeFiyXELnuBk/lzmhw83tBlQhmLGFv5t
+X-Exchange-RoutingPolicyChecked:
+	gq1Rkm4GJiJOd6ifM2tcW3UTv3FoEjSl/r1bi4wA1eZ5e1YgyLvdZHc/mMo/V1UJAAe6aX571fiE5hpaWk9G9Z5da7PUF8kXWl0eUgtCV/jUqn0l3TF2lzMPRwn7Mec11IJMnJqJlPt3QPaCXpN4mFU0F6yceXOSIwMxeJcwP9Kz/n0+Uc9H1FbknKx7wHkkIJkJwAqkNP/UuxNyCEZOLz6/at3dCh/1w5l5Xme1oihFe13YzmuBnR3uXESruhY1+izDc4skAYy1V0EGppAhIKD6GBEUrYYlGuro5YGBKxVbGlXqI6o5cefYOaIuqi7c1OuqlVqU638fgYo5KdR5Fg==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 21:04:28.4871
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3bc2b170-fd94-476d-b0ce-4229bdc904a7
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VRbsiEmiG51bRbdvpsAE88gLHuW72CxURX0hfUzYUTA9wRzNtnG7DMIFZf6C9VN//YpsnYxV+YtyqQGDkcogP4VP0xwhS0vL7a9NC+M9bug=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR01MB994612
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e5d1dcb-cede-43b0-038c-08df0935c6f3
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF00017099.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR10MB998088
+X-Authority-Analysis: v=2.4 cv=fZ6dDUQF c=1 sm=1 tr=0 ts=6a988f5e cx=c_pps
+ a=xwsl9B6YvhynmxkULKMBWw==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22 a=sozttTNsAAAA:8
+ a=NDy5iHuOC7z36dMLNNsA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: siGlEd7be5H_H4Xr94LP8eKYI4-DddDt
+X-Proofpoint-ORIG-GUID: siGlEd7be5H_H4Xr94LP8eKYI4-DddDt
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE4NyBTYWx0ZWRfXyQHnAWWO4UfL
+ RykjLo5foZR67CPqmX0AySY3uPI3Iu8D4uN5Fvm+LS2KFSOlXw92j7x4+aOCLAzIN+/eI/48IkH
+ GXLjdBZEwOqEmSYILtGap2+UjZdvZ68=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE4NyBTYWx0ZWRfX19UuZAiSSvlJ
+ 2Kf4fcBwqxPotgoM2Vs7rnIUz64vXw/KwIhrcqpSS3xwJ9xTtkfXrD/QLSk9BXk57wmzm18vWBX
+ zFe20qnqAHRExC/SF06qKNFRlYHJC0+XVPt6kKJyBALSqySM++8+I0VIr2akNvv5xVv4RYVwvaE
+ WGLcLYp28CBwpNTeQII9Kvvp4IJT0PiLuXDyYIAnJLxPU2CDEX5JSfzpR2tzQzm/u1XYHmgLVdq
+ yg2s8SnGX4oW5R8RtWNq193OsFOZgo+4oLc+3qauinlIudjyg4grhHNJK7C/O60X5WMcRQyggyi
+ dRdCnEg4u5d1XrcXPOEHLNo3Y5cpX+hbsKOokE9Rb50lOPlZBtvjFFFxV93AbmrBKUvbCe30a3e
+ QUJJjygTDerb/9WZIL+H3002IHVsshkK9dVGcG7LccNw6kz56eiMQZxPeWRmR2gUNWAM6GJg4ky
+ z6cgP1Ki6fnYhQP0ewA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_05,2026-09-02_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 impostorscore=0 priorityscore=1501 malwarescore=0
+ adultscore=0 bulkscore=0 phishscore=0 suspectscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020187
 
+Prepend "ti,am62-m_can" to the m_can device compatible property since
+this compatible adds out-of-band wakeup functionality to the m_can devices.
+The m_can pins can be a wakeup source in the deepest low power states,
+despite being in the MCU domain which is OFF during deeper low power states
+since it has the out-of-band wakeup capability.
 
+Signed-off-by: Kendall Willis <k-willis@ti.com>
+---
+ arch/arm64/boot/dts/ti/k3-am62p-j722s-common-mcu.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-On 9/2/26 4:51 AM, Usama Anjum wrote:
-> On 15/07/2026 7:04 pm, Yang Shi wrote:
->> Hi,
->>
->> This is v2 RFC. In v2 a lot problems found out by Sashiko were fixed and more
->> feature gaps were closed (please see the below changelog for the details).
->> Although there are still some open issues, for example, it just can support
->> 48 bits VA (for 4K and 64K) and 47 bits VA (for 16K), KPTI support has not
->> been solved yet, etc, but I think the delta should be big enough and worth
->> a new RFC to gather comments in order to make sure I'm on the right track.
->>
->> Some more benchmarks were done, for example, some latency related benchmarks
->> that I mentioned at LSFMM because I thought responsiveness should be improved
->> due to the removal of preempt_disable. Collected more PMU counters as well.
->> Please refer to the benchmark section for more details.
->>
->> Look forward to comments.
->>
->>
->> Changelog
->> v2: * Added 3-level and 2-level page table support.
->>      * Tested with 16K and 64K page size. But we just support 48 bits VA (4K
->>        and 64K) and 47 bits VA with 16K for now.  Please refer to the below
->>        "known issue" section for the detail reason.
->>      * Added support for memory hotplug.
->>      * Added support for KASAN (generic).
->>      * Treated percpu and local percpu area address as vmalloc address.
->>      * Fixed build failure for x86.
->>      * Fixed build failure for !CONFIG_NUMA.
->>      * Added KASAN support for local percpu area.
->>      * Some other misc bug fixes found out by Sashiko.
->>      * More code refactor and cleanup.
->>      * Regorganized the patches.
->>      * More benchmarks, refer to benchmark section for more details.
->>      * Rebased to v7.2-rc1.
->>
->>
->> Introduction
->> ============
->> This patch series implemented the LSFMM 2026 proposal for optimizing
->> this_cpu_*() ops on ARM64. For the details of the proposal, Please refer to:
->> https://lore.kernel.org/linux-mm/CAHbLzkpcN-T8MH6=W3jCxcFj1gVZp8fRqe231yzZT-rV_E_org@mail.gmail.com/
->> I didn't repeat it in the cover letter because there is no change to the
->> proposal.
->>
->> The series is based on 7.1-rc1. It is basically minimum viable patches.
->> There are still a few hacks in this series and it may break something,
->> for example, KPTI, SMT machines which shared TLB, etc. But it shoule be
->> good enough for now to demonstrate the core idea. The main purpose of the
->> RFC is to gather feedback, figure out missing parts and risks, and make sure
->> we are on the right track, as well as hopefully it can help the discussion
->> for the upcoming LSFMM.
->>
->> I broke the patches down to arch-dependent and arch-independent parts so that
->> hopefully the interested persons can do experiments on other architectures,
->> for example, S390, easier.
->>
->> A new kernel config is introduced, HAVE_LOCAL_PER_CPU_MAP. The architectures
->> which can support this feature will select it. Allocating and freeing percpu
->> local mapping is protected by this config so that others won't pay the cost.
->>
->>   
->> Known Issues
->> ============
->> 1. KPTI
->> -------
->> We need determine what CPU we are on, then switch to the right page table.
->> Currently arm64 kernel fetches tramp_pg_dir via swapper_pg_dir - fixed_offset,
->> and fetches swapper_pg_dir from ttbr1. But ttbr1 may not hold swapper_pg_dir
->> anymore except CPU #0. So we need to figure out the other way to handle it.
->> Switching to tramp_pg_dir should be easy, but the reverse seems harder because
->> tramp_pg_dir just maps the trampoline vectors.
->> Maybe we can do two steps switch. Switch to swapper_pg_dir at the first step,
->> then switch to per cpu page table (for entry) or tramp page table (for exit).
->> Nobody should call this_cpu_*() at either userspace -> kernel entry stage or
->> kernel -> userspace exit stage.
->>
->> 2. SW PAN
->> ---------
->> Has the similar issue as KPTI. It installs reserved_pg_dir to TTBR0 when running
->> in kernel space, but fetching reserved_pg_dir via swapper_pg_dir - fixed_offset.
->> Maybe we can save the physical address of swapper_pg_dir in a variable, then load
->> it from that variable instead of ttbr1.
->>
->> 3. Shared TLB machines
->> ----------------------
->> Some machines may share TLB between CPUs, for example, SMT machines may share
->> TLB between the two hardware threads in one core.
->> The per cpu page table just can't work with it. Maybe we need a new
->> cpufeature to indicate whether per cpu page table is allowed or not. Then
->> just enable it for not-shared-TLB machines.
->>
->> 4. Don't support all VA bits
->> ----------------------------
->> We just support 48 bits VA (4K and 64K) and 47 bits VA (16K) for now. For 4K
->> and 64K, supporting other VA bits is not hard, we just need to determine the
->> size for percpu and local percpu area.
->> But it is harder for supporting 48 bits VA + 16K page size. We just have two
->> top level kernel page table entries with this configuration, but we assume we
->> just need to sync up kernel page table at the top level for now. We need to
->> sync up kernel page table at the second level in order to support it. I'm not
->> sure whether it is worth it or not.
->>
->>
->> Benchmark
->> =========
->> The benchmarks are done on 160 core AmpereOne machine. The baseline is
->> v7.2-rc1 kernel.
->>
->> 1. Reduction of kernel text size
->> --------------------------------
->> The patchset can reduce at least 11 instructions for this_cpu_*() ops. Both
->> preempt_disable() and preempt_enable() need 4 instructions to manipulate
->> the preempt count, and preempt_enable() needs more instructions (compare +
->> READ + compare) to determine whether reschedule is needed or not.
->> Because this_cpu_*() ops are inlined and called in a lot of places so we
->> can save a lot of instructions.
->>
->> The size of kernel text is reduced by ~184KB with default Fedora kernel
->> config. This also helps reduce kernel icache miss rate and stalled frontend
->> cycles as kernel build benchmark result showed.
->>
->> 2. Kernel Build
->> ---------------
->> Run kernel build (make -j160) with the default Fedora kernel config in a
->> memcg.
->> 13% - 18% sys time improvment
->> 3% - 7% wall time improvement
->>
->> 5% fewer kernel icache miss, 5% fewer executed kernel instructions and
->> 15% fewer stalled frontend cycles for kernel.
->>
->> 3. stress-ng vm ops
->> -------------------
->> stress-ng --vm 160 --vm-bytes 128M --vm-ops 100000000
->> 8.5% improvement
->>
->> 4. stress-ng vm ops + fork
->> --------------------------
->> stress-ng --mmapfork 160 --mmapfork-bytes 128M --mmapfork-ops 500
->> 15% improvement
->>
->> 5. Specjbb
->> ----------
->> The specjbb test latency curves showed the patched kernel has consistently
->> lower p99 latency (the lower the better) than the baseline.
->>
->> 2.5% improvement on max-jOPS and 4% - 5% improvement on critical-jOPS.
->> The specjbb benchmark is quite sensitive to latency and responsiveness,
->> particularly critical-jOPS result. The patches are supposed to improve the
->> responsiveness due to the reduction of preempt-disabled critical sections.
->>
->> 6. MySQL
->> --------
->> 1% - 2% gains on read-only test, 2% - 4% gains on write-only test. Also see
->> 15% decrease on frontend cache stall.
-> tl;dr
-> Comparing GPR approach [1] with this series gives 8 improvements and 3 regressions.
->
-> Fastpath is a Linux kernel performance benchmarking service. The table
-> compares the both patched kernels: positive values are faster, negative
-> values are slower, and (I)/(R) indicate statistically significant
-> improvements/regressions. Unmarked differences are not significant after
-> accounting for confidence and noise thresholds.
->
-> +---------------------------------+--------------------+-----------------+-----------------------+
-> | Benchmark                       | percpu-pgtable [2] |   gpr-fixup [3] |         gpr-fixup [3] |
-> |                                 |    vs baseline [1] | vs baseline [1] | vs percpu-pgtable [2] |
-> +=================================+====================+=================+=======================+
-> | lmbench/lat-mem-rd              |             -0.26% |       (I) 1.24% |             (I) 1.50% |
-> | micromm/fork                    |          (I) 1.10% |       (I) 2.46% |             (I) 1.35% |
-> | micromm/munmap                  |         (I) 18.10% |      (I) 19.78% |             (I) 1.43% |
-> | micromm/vmalloc                 |         (I) 11.92% |      (I) 14.68% |             (I) 2.47% |
-> | mmtests/hackbench               |              0.27% |       (I) 1.09% |                 0.81% |
-> | mmtests/kernbench               |          (I) 1.19% |       (I) 1.18% |                -0.01% |
-> | mmtests/sysbench-cpu            |              0.01% |           0.06% |                 0.05% |
-> | mmtests/sysbench-mutex          |             -0.85% |          -0.14% |                 0.72% |
-> | mmtests/sysbench-thread         |         (R) -4.49% |       (I) 3.02% |             (I) 7.86% |
-> | perf/futex                      |              0.55% |      (R) -2.80% |            (R) -3.34% |
-> | perf/sched                      |          (I) 1.61% |          -0.39% |            (R) -1.97% |
-> | perf/syscall                    |          (I) 1.54% |           0.98% |                -0.55% |
-> | pts/memtier-benchmark           |          (I) 2.37% |       (I) 2.51% |                 0.14% |
-> | pts/nginx                       |              0.42% |           0.96% |                 0.54% |
-> | pts/perl-benchmark              |          (I) 1.83% |       (I) 1.63% |                -0.20% |
-> | pts/pgbench                     |             -0.09% |           0.55% |                 0.65% |
-> | pts/pybench                     |             -0.05% |          -0.07% |                -0.02% |
-> | pts/redis                       |             -0.00% |          -0.04% |                -0.04% |
-> | pts/sqlite-speedtest            |              0.15% |           0.44% |                 0.28% |
-> | repro-collection/mysql-workload |              0.73% |           0.25% |                -0.48% |
-> | schbench/thread-contention      |              0.42% |       (I) 1.04% |                 0.61% |
-> | sockperf/echo-lat-tcp           |          (I) 2.88% |       (I) 1.69% |            (R) -1.16% |
-> | sockperf/echo-lat-udp           |          (I) 3.93% |       (I) 5.11% |             (I) 1.14% |
-> | sockperf/packet-tp-tcp          |             -0.41% |       (I) 1.37% |             (I) 1.79% |
-> | sockperf/packet-tp-udp          |          (I) 1.45% |       (I) 1.49% |                 0.04% |
-> | specjbb/composite               |          (I) 1.39% |       (I) 1.65% |                 0.26% |
-> | speedometer/v2.0                |         (R) -1.04% |      (R) -1.04% |                 0.00% |
-> | speedometer/v2.1                |             -0.10% |           0.10% |                 0.20% |
-> | syscall/getpid                  |             -0.98% |           0.52% |             (I) 1.51% |
-> | syscall/getppid                 |             -0.43% |           0.14% |                 0.57% |
-> | syscall/invalid                 |          (I) 3.06% |       (I) 3.56% |                 0.48% |
-> +---------------------------------+--------------------+-----------------+-----------------------+
->
-> [1] v7.2
-> [2] v7.2-percpu-pgtable (this series)
-> [3] v7.2-percpu-gpr [1] (Based on email review, we fixed SDEI to restore x26
->      instead of corrupting x22, and adjusted this_cpu_write() helpers to
->      avoid GCC overflow warnings.)
->
-> The constraints/workarounds for the per-CPU page-table series were supplied as
-> this Kconfig fragment for all the different runs.
->
-> CONFIG_EXPERT=y
-> CONFIG_ARM64_4K_PAGES=y
-> CONFIG_ARM64_VA_BITS_48=y
-> CONFIG_ARM64_VA_BITS_39=n
-> CONFIG_ARM64_VA_BITS_52=n
-> CONFIG_ARM64_PA_BITS_48=y
-> CONFIG_ARM64_PA_BITS_52=n
-> CONFIG_UNMAP_KERNEL_AT_EL0=n
-> CONFIG_ARM64_SW_TTBR0_PAN=n
-> CONFIG_KASAN=n
->
-> [1]https://lore.kernel.org/all/20260804170503.3513916-19-mark.rutland@arm.com/
+diff --git a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-mcu.dtsi b/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-mcu.dtsi
+index 5288c959f3c1aecfde363f9e2440253545591171..d26d6b6d0cf46a19bde9f58769b3eb8c86c836ab 100644
+--- a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-mcu.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-mcu.dtsi
+@@ -154,7 +154,7 @@ mcu_rti0: watchdog@4880000 {
+ 	};
+ 
+ 	mcu_mcan0: can@4e08000 {
+-		compatible = "bosch,m_can";
++		compatible = "ti,am62-m_can", "bosch,m_can";
+ 		reg = <0x00 0x4e08000 0x00 0x200>,
+ 		      <0x00 0x4e00000 0x00 0x8000>;
+ 		reg-names = "m_can", "message_ram";
+@@ -169,7 +169,7 @@ mcu_mcan0: can@4e08000 {
+ 	};
+ 
+ 	mcu_mcan1: can@4e18000 {
+-		compatible = "bosch,m_can";
++		compatible = "ti,am62-m_can", "bosch,m_can";
+ 		reg = <0x00 0x4e18000 0x00 0x200>,
+ 		      <0x00 0x4e10000 0x00 0x8000>;
+ 		reg-names = "m_can", "message_ram";
 
-Hi Usama,
-
-Thank you for running the benchmarks. I'm done some benchmarks and 
-wrapped up the results too. I did run some same benchmarks as yours, 
-like perf bench and kernel build. I also did some profiling for some 
-benchmarks and did some investigation about where the performance 
-difference came from. This is why the work took longer than I expected 
-in the first place.
-
-
-Test Environment
-===========
-Hardware
---------
-1P AmpereOne machine with 192 cores, 512GB memory.
-
-Kernel
-------
-v7.2 based.
-I applied the first 6 patches from Mark's v2 series, which are some 
-common micro optimization IIRC, on top of my percpu page table series. 
-I'm not sure whether they can make measurable difference or not, but I 
-think I'd better do it because we were benchmarking some subtle 
-difference (4 instructions difference in some hot path) so we can have 
-some apple to apple comparison.
-
-4K page size + 48 VA bits.
-
-Result Analysis
--------------
-I use ministat (https://github.com/leahneukirchen/ministat), which is a 
-small tool to do the statistics legwork on benchmarks, to process the 
-benchmark results. It should help us rule out the misleading noises.
-
-The ministat output looks like:
-     N           Min           Max        Median           Avg Stddev
-x   10         46998         48366         48192     47986.333  499.14714
-+   10         48438         49333         49030     48952.333  304.42711
-Difference at 95.0% confidence
-     966 +/- 531.791
-     2.01307% +/- 1.10821%
-     (Student's t, pooled s = 413.415)
-
-I use the percpu page table series as baseline, which is shown as "x" 
-row in ministat output. The "+" row is Mark's series. The column "N" 
-means the number of samples (basically equals to the number of run 
-iterations). Other columns are quite self-explained. But I will just 
-show the percentage reported by ministat in this email.
-
-
-Benchmarks
-========
-I have done some different benchmarks which cover from macro to micro 
-benchmarks and different type of applications (kernel build, Java, 
-database, networking, etc). They are:
-   - Kernel text size (just compare the kernel text size for the two 
-kernels)
-   - Kernel build
-   - Specjbb
-   - MySQL (sysbench)
-   - Memcached (via Mellanox NIC)
-   - iperf (localhost)
-   - perf bench
-   - will-it-scale (page fault and mmap)
-
-Because we are benchmarking some subtle code difference, so all the 
-benchmarks were run multiple times (the number of iterations depend on 
-benchmarks duration and variance) and a couple of reboots in order to 
-rule out reboot by reboot spread (I did see some significant reboot by 
-reboot spread for some test cases). I also bind the tests to some 
-specific CPUs if they don't use all CPUs in order to minimize the 
-core-to-core latency variance and scheduler interference.
-
-Basically I didn't see measurable difference for the most benchmarks 
-listed above (ministat showed no difference), I think this aligned with 
-your results too. But some benchmarks showed regressions for Mark's 
-series. Please see the below for the details (just the regressed 
-benchmarks).
-
-Kernel text size
--------------
-With the same kernel configuration (the default Fedora config), the 
-kernel text size for the percpu page table series is 92K smaller than 
-Mark's series. This is kind of expected because all this_cpu ops are 
-basically inlined and are called quite frequently, so even small 
-difference could make big impact.
-
-
-Kernel build
-----------
-Ran kernel build with "make -j192" in a memcg with cold page cache. 
-"Drop cache" is called for each run before building kernel.
-
-I did 5 runs. The percpu page table series has roughly 2% better sys 
-time (the smaller the better).
-Difference at 95.0% confidence
-     966 +/- 531.791
-     2.01307% +/- 1.10821%
-     (Student's t, pooled s = 413.415)
-
-And slightly better wall time.
-Difference at 95.0% confidence
-     2.2 +/- 1.92934
-     0.553877% +/- 0.485735%
-     (Student's t, pooled s = 1.32288)
-
-
-perf sched pipe
--------------
-Bind two threads to CPU 78 and 79 (randomly picked) in order to avoid 
-core-2-core latency variance and some scheduler overhead. I did 200 
-runs. The percpu page table series is better. I didn't see measurable 
-difference with process mode.
-
-Throughput (The bigger the better)
-Difference at 95.0% confidence
-     -24549.2 +/- 4900.32
-     -9.73769% +/- 1.78314%
-     (Student's t, pooled s = 25001.6)
-
-Latency (The smaller the better)
-Difference at 95.0% confidence
-     0.377888 +/- 0.0753446
-     9.37686% +/- 2.01494%
-     (Student's t, pooled s = 0.384411)
-
-
-perf futex wake-parallel (wake up one thread from 192 waiters)
-------------------------------------------------------
-The result shows the wake up latency. I did 1000 runs. It is the smaller 
-the better.
-Difference at 95.0% confidence
-     0.0009767 +/- 0.000134466
-     17.0749% +/- 2.53593%
-     (Student's t, pooled s = 0.00153406)
-
-The histograms showed obvious long tail latency from Mark's series for 
-both perf bench pipe and perf futex wake-parallel.
-
-I also did some profiling for the above two benchmarks. The profiling 
-showed the percpu page table series has lower overhead in schedule(). I 
-got the profiling with pseudo NMI which has extra overhead, it may 
-distort the profiling a little bit. The profiling showed 
-finish_task_switch() as the hot spot. But it actually doesn't do too 
-many things other than enabling IRQ. This is a typical misleading 
-profiling due to not supported NMI on ARM64. But anyway both profiling 
-results (w/ pseudo NMI and w/o it) show the overhead is in schedule().
-
-
-perf bench fork
--------------
-The result is the smaller the better. I did 20 runs. And the profiling 
-showed the percpu page table series spent less time in 
-__percpu_add_case_64().
-Difference at 95.0% confidence
-     48.5027 +/- 4.16055
-     1.93944% +/- 0.167849%
-     (Student's t, pooled s = 6.50039)
-
-
-will-it-scale/page fault
---------------------
-All the page fault micro benchmarks from will-it-scale were run with one 
-single thread and bound to the same CPU in order to minimize the 
-overhead from page allocator and all the VM locks (for example, lru 
-lock, zone lock, etc). I did 100 runs for each test case. The result is 
-the bigger the better.
-
-page_fault1 (Anon page fault)
--------------------------
-The percpu page table series is slightly better.
-Difference at 95.0% confidence
-     -13391.9 +/- 944.563
-     -1.67893% +/- 0.117849%
-     (Student's t, pooled s = 3407.69)
-
-page fault2 (CoW page fault)
-------------------------
-The percpu page table series is slightly better.
-Difference at 95.0% confidence
-     -4736.52 +/- 438.185
-     -1.16333% +/- 0.10686%
-     (Student's t, pooled s = 1580.83)
-
-page fault3 (tmpfs page fault)
--------------------------
-The percpu page table series is slightly better.
-Difference at 95.0% confidence
-     -21667.9 +/- 1352.51
-     -1.91305% +/- 0.1186%
-     (Student's t, pooled s = 4879.44)
-
-The profiling for all the page fault benchmarks showed the percpu page 
-table series spent less time in __percpu_add_case_64().
-
-
-will-it-scale/mmap
-----------------
-Like page fault tests, the mmap benchmarks were run with one single 
-thread and bound to the same CPU in order to minimize the overhead from 
-VM locks. I did 50 runs for each. The results are the bigger the better.
-
-mmap1
-------
-The percpu page table series is better.
-Difference at 95.0% confidence
-     -15916.4 +/- 6094.58
-     -3.53615% +/- 1.32214%
-     (Student's t, pooled s = 15509.2)
-
-mmap2
-------
-The percpu page table series is better.
-Difference at 95.0% confidence
-     -14662.4 +/- 9359.95
-     -3.91005% +/- 2.44462%
-     (Student's t, pooled s = 23588.6)
-
-
-Thanks,
-Yang
-
->> Regression test
->> ===============
->> 1. memcg creation
->> -----------------
->> Create 10K memcgs. Each memcg creation needs to allocate multiple percpu
->> variables, for example, percpu refcnt, rstat and objcg percpu refcnt.
->>
->> Consumed 2112K more virtual memory for percpu “local mapping” and a few
->> more mega bytes consumed by per cpu page tables.
->> No noticeable regression was found for elapsed time.
->>
->> 2. fork test
->> ------------
->> stress-ng --fork 160 --fork-ops 10000000
->> fork() needs to allocate multiple percpu variables, for example, rss
->> counters and mm_cid_cpu.
->>
->> Roughly 1% regression was found. However stress-ng fork test has quites
->> small address space, the real life workloads typically have much larger
->> address space and do more complicated works. The stress-ng mmapfork
->> benchmark saw 15% improvement.
->>
->>
->> The organization of patches
->> ===========================
->> The refactor and prepatory patches (patch 1 - patch 4)
->> Percpu page table support patches (patch 5 - patch 8)
->> Local percpu area support patches (patch 7 - patch 15)
->> Use local percpu area for this_cpu ops (patch 16)
->>
->>
->> Yang Shi (16):
->>        drivers: arch_numa: move percpu set up code to arch
->>        arm64: kconfig: make percpu related configs not depend on NUMA
->>        mm: pgalloc: introduce {pud|pmd}_populate_sync()
->>        vmalloc: pass in pgd pointer for vmap{__vunmap}_range_noflush()
->>        arm64: mm: enable percpu kernel page table
->>        arm64: mm: defined {pud|pmd}_populate_sync()
->>        arm64: mm: sync percpu page table for memory hotplug/unplug
->>        arm64: kasan: sync up kasan shadow area page table
->>        arm64: mm: define percpu virtual space area
->>        mm: percpu: prepare to use dedicated percpu area
->>        arm64: mm: map local percpu first chunk
->>        mm: percpu: set up first chunk and reserve chunk
->>        arm64: mm: introduce __per_cpu_local_off
->>        mm: percpu: allocate and free local percpu vm area
->>        arm64: kconfig: select HAVE_LOCAL_PER_CPU_MAP
->>        arm64: percpu: use local percpu for this_cpu_*() APIs
->>
->>   arch/arm64/Kconfig                   |  12 +++++++---
->>   arch/arm64/include/asm/mmu.h         |   5 ++++
->>   arch/arm64/include/asm/mmu_context.h |   9 +++++++-
->>   arch/arm64/include/asm/percpu.h      |  37 ++++++++++++++++++++++++++++-
->>   arch/arm64/include/asm/pgalloc.h     |  24 +++++++++++++++++++
->>   arch/arm64/include/asm/pgtable.h     |  37 ++++++++++++++++++++++++++---
->>   arch/arm64/kernel/setup.c            |   3 +++
->>   arch/arm64/kernel/smp.c              |  44 +++++++++++++++++++++++++++++++++++
->>   arch/arm64/mm/kasan_init.c           |  47 +++++++++++++++++++++++--------------
->>   arch/arm64/mm/mmu.c                  | 165 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++----------------------
->>   arch/arm64/mm/ptdump.c               |   4 ++++
->>   arch/riscv/kernel/smp.c              |  51 ++++++++++++++++++++++++++++++++++++++++
->>   drivers/base/arch_numa.c             |  51 +---------------------------------------
->>   include/linux/mm.h                   |  11 +++++++++
->>   include/linux/percpu.h               |   4 +++-
->>   include/linux/pgalloc.h              |  13 +++++++++++
->>   include/linux/vmalloc.h              |   3 +++
->>   mm/Kconfig                           |   9 ++++++++
->>   mm/internal.h                        |   5 +++-
->>   mm/kmsan/hooks.c                     |  14 +++++------
->>   mm/percpu-internal.h                 |  14 +++++++++++
->>   mm/percpu-vm.c                       |  94 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
->>   mm/percpu.c                          |  58 +++++++++++++++++++++++++++++++++++++---------
->>   mm/sparse-vmemmap.c                  |   4 ++--
->>   mm/vmalloc.c                         | 138 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++---------------
->>   25 files changed, 712 insertions(+), 144 deletions(-)
->>
->>
->> Thanks,
->> Yang
->>
->>
+-- 
+2.34.1
 
