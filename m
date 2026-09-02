@@ -1,160 +1,128 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006D44756AE;
-	Wed,  2 Sep 2026 13:04:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47F3748663D;
+	Wed,  2 Sep 2026 13:05:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788354259; cv=none; b=cy9tjdGXbufRB13/i4HYvnGIwJeZtXvDwqbYRIzk7CrVoyh8cqA/+lYmxkaWrjMzqUHhcqiP7luKy6EV6jGSaxHXpskZ6tXxBr0aTn44QwbMuKEbEvMv0AXfF2Xkme1bayYpJjs1hPVQQ56GL/wpr0m2MfJgfd3n8AeMh3davfs=
+	t=1788354308; cv=none; b=pwk76g/Wwi/CVKHrhBpbGvOSrtyZyFxgku7XImbSATJf2jeV+eKCQpjKvKzW15/2/jlpLSf9ZLZG/elIuxsBA4MPzZfBIf27/fvDMbFcXIMcFLeu7HHIqZGV/7NMQ08DwENzKqNd4jHaLmU1wxPOqQtWyXARg47QUDn4PU7euuw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788354259; c=relaxed/simple;
-	bh=GpXZI/OqqMDezYCipNWrDDXWztHm06XfE3y96Z95PKI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bZG+JdA5cD6+RPvldEFmDmyHBGuHyDD7SRmF+4NFubjFPy/3Y6LwXb4nNd3y/n8QXmhQxelXj60Zk1iAiVtpKm+dB/kSg/HDudpf0XDwHQ7gQQ1zYqvvvK/vuw+DCweLvCh5gOeFtQZ3n80UBZmxFYJCYRyf0qpM4zFawIctZnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=y452SvEV; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=eSoUn4lY; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=mxL9TFtw; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=UGcH6j5f; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788354308; c=relaxed/simple;
+	bh=nuGiQpVdQXM62iqN7zRrQ1PDjyq0FozVNQtWBQVuEoU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ttz7meYz2IvxLFO5+S1odwvgwKkoeR5g9dRpMeJyeF2ca6xJBa95zWpqhIcoNhoTP6LiYQRpxBWWfdolhkMX8UIqKDa37DlNvwMdO0UOCaNvlbMiJMIEx0enx9uXP3599JjRnN4qchOhk+PKo/04ODlrI+1t3ONVebS/+JLwGkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RI9XTGbG; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="y452SvEV";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="eSoUn4lY";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mxL9TFtw";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="UGcH6j5f"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 9BA8321D36;
-	Wed,  2 Sep 2026 13:04:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788354251; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TrHZoBJ19a7O8e8QOjl851dqqNWBajXpEJqZgdh9rSk=;
-	b=y452SvEVdTKX0bsLSE+CA/QCA92czQY/1HypyIHTu3/MOtasFqgNKxyR6ICbS3xITB61ad
-	9tviZEL7hauN7HPowZ3+/WgkgQZgpBWA+azv3Yz++76QXSrzOK/Ij08jPU6Iq61Bf/vKKL
-	UrRtztVapmx/2Z5TbpPmc1OsLZDX8CQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788354251;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TrHZoBJ19a7O8e8QOjl851dqqNWBajXpEJqZgdh9rSk=;
-	b=eSoUn4lYfb3viW1x0YH/5i4g4+2UeGAbGpI8HphDUu55mfJYtvGOtJZ5x6zhdhmoCVbFzZ
-	NdBw+q7WCqCOXXBA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788354247; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TrHZoBJ19a7O8e8QOjl851dqqNWBajXpEJqZgdh9rSk=;
-	b=mxL9TFtwnRIwfDXrqsRsLHVn6UQyjKQOLbeDGPHKX0o024QeZHnD1vivXiHtZ9Bg8Tk3CZ
-	zUs3NT/ofWet8WGur3TY4GxVUrm9oYFIl6+lLxLHsJxvMOEVKsJXSjMMy5ggKuJiVBTqY+
-	l7d+4zMirVaWv+2LgYN5WYYe2Ksnyzc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788354247;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TrHZoBJ19a7O8e8QOjl851dqqNWBajXpEJqZgdh9rSk=;
-	b=UGcH6j5fYmMfWO6fb/aYaL/Or9NhdXq1+ybuliM7iDVsUh2zCcxAu9hreg+KFQG1YmAWTt
-	JKzpu28JcAvPUVAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 627CB136E6;
-	Wed,  2 Sep 2026 13:04:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id DTSdF8cemGprPwAAD6G6ig
-	(envelope-from <hare@suse.de>); Wed, 02 Sep 2026 13:04:07 +0000
-Message-ID: <f9308891-f421-440e-b4b0-f600362aaafc@suse.de>
-Date: Wed, 2 Sep 2026 15:04:07 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RI9XTGbG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788354307; x=1819890307;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=nuGiQpVdQXM62iqN7zRrQ1PDjyq0FozVNQtWBQVuEoU=;
+  b=RI9XTGbGl2UhS1hUpqpVE744r12j/2PdT9uClFlGseOKiqwa2YG1ACvO
+   qpkWq8mBohZ3IZwbUzxy+/85KaiP61xVfotKeNx8606BnfL0KiBswR8gS
+   zwatYLfV4AOFVd8A480zIG44PgAfaijeBReS2PxhAk+VyfdnVVZQkM0y1
+   mkLoVAzsIMxyqcKk70KximoKQEdcpmJcdAqpeCljXrrPVtca2JCjVIegM
+   XnojAqxq1jZWi+O25ghJAurUd36fpHLTgUOFUrP95Mq5kS3O8Mb81tkPy
+   5CSUwoNe7moOZuacz8Az3RRabfm/tdAX3Ca09Az68hQx8FBDpKYdznCJo
+   w==;
+X-CSE-ConnectionGUID: +JdhoEllTw6myc8hRQIsNQ==
+X-CSE-MsgGUID: fq51iaPMTpuvye66tJL9LA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="88858096"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="88858096"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 06:05:06 -0700
+X-CSE-ConnectionGUID: f4YbeFikTwSzmAXirWXbjg==
+X-CSE-MsgGUID: yRpphcw+T5yDxdF2uEC8wg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="307617041"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.118])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 06:05:01 -0700
+Date: Wed, 2 Sep 2026 16:04:58 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: bcrl@kvack.org, viro@zeniv.linux.org.uk, brauner@kernel.org,
+	jack@suse.cz, tytso@mit.edu, adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com, ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com, yi.zhang@huawei.com, sforshee@kernel.org,
+	akpm@linux-foundation.org, pmladek@suse.com, rostedt@goodmis.org,
+	linux@rasmusvillemoes.dk, senozhatsky@chromium.org, kees@kernel.org,
+	tglx@kernel.org, linux-fsdevel@vger.kernel.org, linux-aio@kvack.org,
+	linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org
+Subject: Re: [PATCH v3 1/8] user_namespace: Use acquire/release for
+ nr_extents synchronization
+Message-ID: <apge-t-tp00Tl9TL@ashevche-desk.local>
+References: <20260902074805.398540-1-ruanjinjie@huawei.com>
+ <20260902074805.398540-2-ruanjinjie@huawei.com>
+ <apgek5EhgjxpDCkh@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/7] block: honor IOCB_NOWAIT in the block device
- buffered read path
-To: Tal Zussman <tz2294@columbia.edu>, Jens Axboe <axboe@kernel.dk>,
- Christoph Hellwig <hch@lst.de>,
- Johannes Thumshirn <johannes.thumshirn@wdc.com>,
- Luis Chamberlain <mcgrof@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- John Garry <john.g.garry@oracle.com>, Christian Brauner
- <brauner@kernel.org>, "Darrick J. Wong" <djwong@kernel.org>,
- Keith Busch <kbusch@kernel.org>,
- "Martin K. Petersen" <martin.petersen@oracle.com>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>
-References: <20260828-blkdev-fixes-v2-0-32f3f40cebed@columbia.edu>
- <20260828-blkdev-fixes-v2-4-32f3f40cebed@columbia.edu>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20260828-blkdev-fixes-v2-4-32f3f40cebed@columbia.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -4.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.993];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sashiko.dev:url,columbia.edu:email,imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:email]
-X-Spam-Flag: NO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apgek5EhgjxpDCkh@ashevche-desk.local>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 8/28/26 3:49 PM, Tal Zussman wrote:
-> blkdev_read_iter() takes inode_lock_shared() unconditionally around
-> filemap_read(). Unlike blkdev_write_iter(), it does not reject
-> IOCB_NOWAIT for buffered I/O, so a non-blocking read, or the buffered
-> tail of a short IOCB_NOWAIT direct read, blocks behind set_blocksize()
-> holding i_rwsem across sync_blockdev().
+On Wed, Sep 02, 2026 at 04:03:23PM +0300, Andy Shevchenko wrote:
+> On Wed, Sep 02, 2026 at 03:47:58PM +0800, Jinjie Ruan wrote:
+> > Replace smp_wmb()/smp_rmb() with smp_store_release()/smp_load_acquire()
+> > when publishing and consuming `nr_extents`. This expresses the
+> > publish/subscribe pattern more clearly and allows architectures with
+> > native acquire/release instructions (e.g. arm64's STLR/LDAR) to avoid
+> > the cost of full one-way barriers (DMB ISHST/ISHLD).
+> > 
+> > No functional change intended.
 > 
-> A preadv2(RWF_NOWAIT) issued while another thread changes the block
-> size with a dirty page cache blocks for as long as sync_blockdev()
-> takes, 4 to 6 seconds on a scsi_debug device with delay=5.
+> Please, locate Cc list...
 > 
-> Use inode_trylock_shared() for IOCB_NOWAIT and return the bytes the
-> direct path already read, or -EAGAIN if none, when the lock is
-> contended, preserving NOWAIT semantics.
+> > Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+> > Cc: Christian Brauner <brauner@kernel.org>
+> > Cc: Jan Kara <jack@suse.cz>
+> > Cc: Seth Forshee <sforshee@kernel.org>
+> > Cc: Kees Cook <kees@kernel.org>
+> > Cc: Aleksa Sarai <cyphar@cyphar.com>o
 > 
-> Fixes: c0e473a0d226 ("block: fix race between set_blocksize and read paths")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://sashiko.dev/#/patchset/20260802-blkdev-fixes-v1-0-a82fc549fd74%40columbia.edu?part=2
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
-> ---
->   block/fops.c | 10 +++++++++-
->   1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
+> ...(all the above)...
 
-Cheers,
+Important remark: this is only about Cc, the regular tags have to be
+in the commit message trailers (such as Reviewed-by).
 
-Hannes
+> > Assisted-by: DeepSeek:DeepSeek-V3
+> > Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> > ---
+> 
+> ...somewhere here. It will have the same effect on the email thread and it will
+> unload the commit message from the unneeded noise.
+> 
+> > v2:
+> > - Add missing load replace in copy_mnt_idmap()
+> > ---
+> >  fs/mnt_idmapping.c      |  5 ++---
+> >  kernel/user_namespace.c | 24 +++++++++++++-----------
+> >  2 files changed, 15 insertions(+), 14 deletions(-)
+> 
+> ...
+> 
+> This comment applies to the whole series.
+> Also note, `b4 trailers` can handle that, you can keep the
+> 
+>   ---
+>   Cc: ...
+> 
+> in the local Git. You can find some details in the subthread here
+> https://lore.kernel.org/lkml/20260123113708.416727-19-bigeasy@linutronix.de/
+
 -- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+With Best Regards,
+Andy Shevchenko
+
+
