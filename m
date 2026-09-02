@@ -1,108 +1,193 @@
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0BE24A99DF
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:20:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF184A3F21
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:20:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788366027; cv=none; b=WJI+NKAx6QW4U2CaQsrbHyEHkkItw1zn4R9F+ezpFgrBbn9XvnSoUewWfS0Zsn6tn7AJh5TTGIPPYewkpoijXeuieCzv0v+WMqqTVWYtykJNOyQw6062gzbpiXrzxAItBvM1t/k9tNrLF7bvbqS5JKtAzpVovRt4IYL/J2QAuCA=
+	t=1788366029; cv=none; b=PaW9PXRHy60pKPgSishat5wRcZEIf8BvhH+2P0GalOOo0VGuVXnTK1RkPRz8hZ3ifSzY8RA7p8NWeLBV95KeKOhLCRGLin8pVb7FS6+Yg8zYcOggp8a28L6iP7RYF8HWGPJFEFGMWMHUFLNloYT2wgtAwlyeyeThUKxKmRi26Hs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788366027; c=relaxed/simple;
-	bh=kirF1Z6H1us8C+w/nRlLFHvxONxvS/UzEcyYUHsaSLA=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=p4ghqo90cYDYJ1+85PYL/4Bg8qJn6bMmud7x8l8qx/iKTtkXfMOXKvI0sdDuUJuU5q12JD5Q6T5BMhncrJDEVECB6SPm85ASLxd/iYgnPvMcgT61WI17oILpTG+pHcPxhIag/ebzb+Lf7fJ2mIumpA2Qs5GCZars4UtUz2DBOec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=APn0ZqVf; arc=none smtp.client-ip=209.85.215.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1788366029; c=relaxed/simple;
+	bh=G6I21MeRcNKDvGWUGb45NsvcT/Pnsh04t8yZ4XvNhHc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hJaZxyjJRSjAulW6JLXX2xR7fronmq0Lvrt7Rb819s3APLeDgHqmD9pShh0w2IuSPJPoamaf06qa90ivElT7822FhOSYYB6ElxUOLGJ9i+x7h4T9cozJmj7V/dh7c0vwbZJpWkTEWUWzkrR4R45FlhbdYETZbGasyIrtpON3wIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Lthxi4Os; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="APn0ZqVf"
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c89704da8c7so1740050a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:20:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Lthxi4Os"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so1730903a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:20:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788366024; x=1788970824; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nmUHQDRJovGy5euybNv8U4I384UlmmpWUQBP5c7RHzY=;
-        b=APn0ZqVf2NzKu9DA1ZSd4dyGrIK2gNQc4BG7tco9uyQFfl+YByZN4lUWNNOKve94uL
-         Ne3yu95UWyseAq2Np15elhcPv4GPk9fiLo37iKAzQDxEtKJnnUTSGWjE1bZOLUwv9hIm
-         ZDX4o41/iNPSxhGSEgrk05bJ2DdPypsB/DJ7DQ6l9efca4KPldLXUczRCvwja4881+V7
-         CS72tggD7ty30ZmcUF+IuUVpWUU0aMH6fvlNwfPtjcqT0AWDJrOG+EC77PJoJ7UXuGgJ
-         pYe5thrKOyXG1y+THPqGmBIS7RC5ZPQwsxjXNy1tjClnVHK21tcaP+CYIak59R9K3jvk
-         MZGA==
+        d=linaro.org; s=google; t=1788366026; x=1788970826; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jf3OMAFii79DvFjzmmOgKmfE+xvffqJHuhaGLaLcFJI=;
+        b=Lthxi4OsLnOZf+WwE9ZuLQoajt10mkYbNOf5kGkd21KArfEl5mC1yGMXP1wbyDozqd
+         HfDDR8S9IA4Boz3sBI4wM2jreNjsxLsjborir4p+dNbp+xGtyz3XgDMENCoSGgV2xQUG
+         hjWHELnVKjpmDP7efNfn9j1EoAmTmtgVwWdnvVkHjf5disO9W0tl1FXLvn9Gkty8316e
+         vyJcvr5RNrpdqaWDIcWf+Lx3kDkHVBwGHEURmHJw9d5GbwXJ6Zw5RdHN5FlPM/pBYlKv
+         rrI/NzRgTQol8VedXEdglrAMLKRBCfEGsFCz8xNKJh1UE7Do2+XuNYx4XffNJqyxdDAw
+         ojHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788366024; x=1788970824;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nmUHQDRJovGy5euybNv8U4I384UlmmpWUQBP5c7RHzY=;
-        b=izCNe+GBdYA3T+BYI+pEs2oQjtbv+zCtEiwmkUO6CHGurNWP19vriUNZxaB7BSk1mM
-         spaf3IpbX1g97k6tzUiM5yxzUntQF+fRuSNEpbzTSo7cVaIsuQpiVk45qYaqndgeOBC+
-         2ZhWwYLABKxZLyBgCRCkH5d6CE5ru0jdQ4Y2wpWV9fzD8/aS5b2YiZwBuIcU1TH6D5DJ
-         /VFuYhS/eHHg/TN9HutPho60Kgc/Qt6GTvewzZdyWfITtVA5bJ5jTZ1JEI/pPkAp9Qfa
-         yjJBw/iKWnG7Y5gDokobF1t8k2wH2s/KYC6jMfIuYWbyivnqNENHCrooY63TmzLDRteX
-         ewhg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr1zch+Mnzsf6m+pHJbcPSof+3Z5X9BZ5fiMjgIMvEmvB0OWN45uJROOiWf5TuoBob5n2NG8xYmT7Z5N1I=@vger.kernel.org
-X-Gm-Message-State: AFuF++nobfTWOlkrE+ewjakhy0zxIqErpwobQ6tzJqMRIQhD/bSEcmqm
-	hh+sBuOjF5VtJsj97MgSe7l/5ZkHrQ4c9h/3pTPJnViSk5G7Nu9d5AC8Oo9ynzMduwisrG1oRwD
-	YTgu55w==
-X-Received: from pgp27-n1.prod.google.com ([2002:a05:6a02:62db:10b0:cbe:e120:3788])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:2d22:b0:3d3:aec2:4dcb
- with SMTP id adf61e73a8af0-3d9b051aa7dmr10390341637.23.1788366023624; Wed, 02
- Sep 2026 09:20:23 -0700 (PDT)
-Date: Wed, 2 Sep 2026 09:20:23 -0700
-In-Reply-To: <20260831144802.834315-24-seiden@linux.ibm.com>
+        d=1e100.net; s=20251104; t=1788366026; x=1788970826;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jf3OMAFii79DvFjzmmOgKmfE+xvffqJHuhaGLaLcFJI=;
+        b=dwPf2Che6b+bVRlzrgqLZs/N5KDkvZ8fIFRbGX3zwm+odbh0mIiS0LeCK+ZFRPrupr
+         avqUuBt1I8RDZEW6030L/m0T+jWSRUc8blZVkNefj0b60MYMmkgaI+VGp9aYxkJgpH9W
+         i/AHIR7YxoQA7KNnw0U+AeylVU8+TU70ok47rWAE9CO85AygbtPf9jUQiXQxJ0lUSlQ8
+         P0fGIofgcEcoZloGyb8fHq/2rOQ9vvjaWisyjWTBACPqaAI0gp/9LsUOYf1EiC/j3/mp
+         D7ZJpx/2+JQiPDZoF/Tj3hp9h8XhPWHwztZvRo5EPjm4HydFbk8z2vrGVs+RUaaqMC9h
+         R7Bg==
+X-Forwarded-Encrypted: i=1; AKwUvByb9++PEjmtxZKR0BKnYy3+3jivgwQlxQZp2cyo87nCMJdS5aEBbuc8/RKu0frVwyHr134QC2j+JOIjl1E=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMcK56b88Int8IgI0N+L4bzY+r/i60s676udlzIsE/8xtWQDO+
+	boVI9Qr6w1/HIsnRg4SxEiBTyEDhD0m2yvWDUqditwiJtB3TeuHa5WT0x+mBSiUvKCU=
+X-Gm-Gg: AYBFou2zuJtSLIMyj+ArkEP17f3MOlYi1tWWbM9OtzQpQkh1PCxFw4BB7oniyzF1haj
+	iaxZgOcSHpPjyMeKTMayHIGmqWUkLMx8e1IErdZzrzjMleQK5PMCfwiFSQr/JN+Av3++okR41z3
+	R0uNMU0tWz6WnlYNFxxjsDKaSvf8O8W6ZsSRlscDAFWeuiKs61n4pqRe6yt0RU8NKgOZceLXgMT
+	eyd+8SoWn9LbgDRzF0+gHMYIrfjEhRSmn/3aaAC9FnMigioX2B5HsqTDcOo73ZixzRf4InKIjGA
+	EHxsz5yxREbJGRm6NUGzXS09iKFyVFveL7LnoYH8cMX63nV9Uk07fcwYGSjEHitWFlw5ARmP2Ln
+	iYljnE7p0KCdaWIr1G5SbAmBD0ZIr6Us6SyKgVd7+BfcYoY7+rmgGTViIVHRMNpTZRDi4ZKAV/6
+	u2VetlGoF4h2MarwEugrky0MRaqDhAhnrMGWhnFqylCXWu4Y7SxfmojynvMYwVbZsh
+X-Received: by 2002:a17:90b:268d:b0:398:ab03:95b2 with SMTP id 98e67ed59e1d1-39aee023191mr10058955a91.10.1788366025577;
+        Wed, 02 Sep 2026 09:20:25 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:fff4:86c5:8d86:9e93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b0861e54csm169061a91.10.2026.09.02.09.20.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 09:20:25 -0700 (PDT)
+Date: Wed, 2 Sep 2026 10:20:22 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Marcel Hofmann <marcel@hofmania.de>, peng.fan@nxp.com,
+	daniel.baluta@nxp.com
+Cc: Bjorn Andersson <andersson@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	linux-remoteproc@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Marcel Hofmann <marcel.hofmann@ingenics-digital.com>
+Subject: Re: [PATCH v2] remoteproc: imx_rproc: allow mappings ending at
+ region boundary
+Message-ID: <aphMxtTvcvTqgqCm@p14s>
+References: <20260827123136.438798-1-marcel@hofmania.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260831144802.834315-1-seiden@linux.ibm.com> <20260831144802.834315-24-seiden@linux.ibm.com>
-Message-ID: <aphMx5hsoXwIpNjt@google.com>
-Subject: Re: [PATCH v7 23/23] KVM: s390: arm64: Add KVM_S390_ARM64 Kconfig and Makefile
-From: Sean Christopherson <seanjc@google.com>
-To: Steffen Eiden <seiden@linux.ibm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Claudio Imbrenda <imbrenda@linux.ibm.com>, David Hildenbrand <david@kernel.org>, 
-	Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>, 
-	Gautam Gala <ggala@linux.ibm.com>, Hariharan Mari <hari55@linux.ibm.com>, 
-	Heiko Carstens <hca@linux.ibm.com>, Hendrik Brueckner <brueckner@linux.ibm.com>, 
-	Ilya Leoshkevich <iii@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
-	Joey Gouly <joey.gouly@arm.com>, Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>, 
-	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>, Oliver Upton <oupton@kernel.org>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Ulrich Weigand <Ulrich.Weigand@de.ibm.com>, 
-	Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>, Zenghui Yu <yuzenghui@huawei.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827123136.438798-1-marcel@hofmania.de>
 
-On Mon, Aug 31, 2026, Steffen Eiden wrote:
-> diff --git a/arch/s390/kvm/Kconfig b/arch/s390/kvm/Kconfig
-> index 8d3ee17a1bcb..9c69ea16031e 100644
-> --- a/arch/s390/kvm/Kconfig
-> +++ b/arch/s390/kvm/Kconfig
-> @@ -53,4 +53,33 @@ config KVM_S390_UCONTROL
+On Thu, Aug 27, 2026 at 02:31:36PM +0200, Marcel Hofmann wrote:
+> From: Marcel Hofmann <marcel.hofmann@ingenics-digital.com>
+> 
+> The address range checks in imx_rproc_da_to_sys() and
+> imx_rproc_da_to_va() use a strict comparison for the exclusive end
+> address of the requested range.
+> 
+> As a result, a valid request that ends exactly at the end of an address
+> translation or mapped memory region is rejected. For a region
+> [start, start + size), a request [addr, addr + len) is contained when:
+> 
+>     addr >= start && addr + len <= start + size
+> 
+> This occurs when a loadable ELF segment fills an entire mapped memory
+> region. This can be produced by a linker script that extends the
+> resource table section to the end of its designated region:
+> 
+>     .resource_table :
+>     {
+>       . = ALIGN(8);
+>       KEEP(*(.resource_table)) /* Resource table */
+>       . = ALIGN(8);
+>       . = ORIGIN(m_rsc_tbl) + LENGTH(m_rsc_tbl);
+>     } > m_rsc_tbl =0x00
+> 
+> This produces a ELF program header like:
+> 
+>     LOAD  0x010000 0xa4220000 0xa4220000 0x01000 0x01000 R   0x1000
+> 
+> In this case, the segment size matches the mapped region size exactly,
+> causing the address translation to fail with:
+> 
+>     bad phdr da 0xa4220000 mem 0x1000
+> 
+> Rework the upper-bound checks to allow ranges ending exactly at the region
+> boundary while guarding against integer overflow. 
+> 
+> Fixes: a0ff4aa6f010 ("remoteproc: imx_rproc: add a NXP/Freescale imx_rproc driver")
+> Signed-off-by: Marcel Hofmann <marcel.hofmann@ingenics-digital.com>
+> ---
+> 
+> Changes in v2: 
+> - Reworked the bounds check to guard against 64-bit integer overflow
+> - Use u64 for offset instead of unsigned integer
+> - calculate offset first and then validate len against remaining region
+>   size
+> 
+> v1: https://lore.kernel.org/r/20260826155123.AEB731F000E9@smtp.kernel.org/
+> 
+>  drivers/remoteproc/imx_rproc.c | 18 +++++++++++++-----
+>  1 file changed, 13 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/remoteproc/imx_rproc.c b/drivers/remoteproc/imx_rproc.c
+> index 745ce52cd822..ea852ca143bb 100644
+> --- a/drivers/remoteproc/imx_rproc.c
+> +++ b/drivers/remoteproc/imx_rproc.c
+> @@ -540,6 +540,7 @@ static int imx_rproc_da_to_sys(struct imx_rproc *priv, u64 da,
+>  	/* parse address translation table */
+>  	for (i = 0; i < dcfg->att_size; i++) {
+>  		const struct imx_rproc_att *att = &dcfg->att[i];
+> +		u64 offset;
 >  
->  	  If unsure, say N.
+>  		/*
+>  		 * Ignore entries not belong to current core:
+> @@ -552,9 +553,11 @@ static int imx_rproc_da_to_sys(struct imx_rproc *priv, u64 da,
+>  				continue;
+>  		}
 >  
-> +config KVM_S390_ARM64
-> +	def_tristate y
-> +	prompt "KVM support for hardware accelerated arm64 guests"
-> +	depends on HAS_IOMEM
-> +	depends on KVM
+> -		if (da >= att->da && da + len < att->da + att->size) {
+> -			unsigned int offset = da - att->da;
+> +		if (da < att->da)
+> +			continue;
+>  
+> +		offset = da - att->da;
+> +		if (offset <= att->size && len <= att->size - offset) {
+>  			*sys = att->sa + offset;
+>  			if (is_iomem)
+>  				*is_iomem = att->flags & ATT_IOMEM;
+> @@ -585,9 +588,14 @@ static void *imx_rproc_da_to_va(struct rproc *rproc, u64 da, size_t len, bool *i
+>  		return NULL;
+>  
+>  	for (i = 0; i < IMX_RPROC_MEM_MAX; i++) {
+> -		if (sys >= priv->mem[i].sys_addr && sys + len <
+> -		    priv->mem[i].sys_addr +  priv->mem[i].size) {
+> -			unsigned int offset = sys - priv->mem[i].sys_addr;
+> +		u64 offset;
+> +
+> +		if (sys < priv->mem[i].sys_addr)
+> +			continue;
+> +
+> +		offset = sys - priv->mem[i].sys_addr;
+> +		if (offset <= priv->mem[i].size &&
+> +		    len <= priv->mem[i].size - offset) {
+>  			/* __force to make sparse happy with type conversion */
+>  			va = (__force void *)(priv->mem[i].cpu_addr + offset);
 
-Is this actually necessary?  I.e. does kvm.ko need to be *loaded* in order for
-kvm-arm64.ko to be loaded?
+This looks sensible.  That said, I would like to see someone on the NXP team
+test this patch in different configuration.
 
-If kvm-arm64.ko does indeed have a hard dependency on kvm.ko, then I think it
-makes sense to not have redundant "select" statements below.  As an outsider,
-it's super confusing because the KVM_S390_ARM64 are incomplete, e.g. are lacking
-things like VIRT_XFER_TO_GUEST_WORK (at least, I assume those are lacking), and
-makes it hard to see what is actually unique to kvm-arm64.ko.
+Thanks,
+Mathieu
 
-If kvm-arm64.ko doesn't have a dependency on kvm.ko, e.g. to initialize hardware
-or something, then this "depends on" should go away.
+>  			break;
+> -- 
+> 2.55.0
+> 
