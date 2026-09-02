@@ -1,209 +1,162 @@
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11013001.outbound.protection.outlook.com [40.107.44.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31BE353A9F
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 02:21:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788315686; cv=none; b=KtRyp1cNhpnRdNTJpEXDfU87Tgs2HpnTljffO0VChswS8JDx2z+8dOafn62wEiElrxm2IT0TezDaYbkTY/z+/uUPnJ399vWv3ev0XW5iZl1wI0Uh0pBK97P57z1HcCsjsyo6A9MyvbkM9qHgUVrGhKEZ1vh6XZzC7tpLFcKo5O4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788315686; c=relaxed/simple;
-	bh=dMv4nlHu8Y249mLMfP00bq7DYL6IzUHigBCjVTtONZg=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=PSpXQf5ck6E+y22mdu7P8sEqpO5Pn0Yuq2rDGIAYENsZooNeGgDbw6xe3nrM8jgJgUbEvqzvvgW9J5t/tZeLMQcwpVF32sagw0Vrd+XUhnx/psAY79G20f9Qn9af0mnjYBXvuiKts4SFFm97uLkRlmLmbMRLYqQC0riq3E9te9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=meLSm2rQ; arc=none smtp.client-ip=209.85.128.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FEC5364949;
+	Wed,  2 Sep 2026 02:23:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.1
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788315788; cv=fail; b=XSb7lYA+kjA9rT8G+j7dhgZFaos9FDqgA7YoE+5B/ZqkBSaNr5pEvXnePUpzhy70Jxa/MpP/hGrXcCmxB121cP68zRfoIJbygERjanBfN/9EkQz2j6JHBORsw3S6iKVKOouq4q92hJHuJb1idM6CRzZu0QCYGPzcxkTMVtUmT/E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788315788; c=relaxed/simple;
+	bh=w1/7xXRkSTL31TV4bz8UouWGfXQ+JgHAIF+zz73cVos=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=BdLqO7JHBxo10SGAYq+RqqT0S8AVFWZVSsgW0oYI6bbae8PRlxAeyCKJg5ulnZ92JavOgoRAPehEN/4Jr2P6UKI97jEWCW+TlS2vlLBPWRa3Gg2u2xXuoaTC9LJchTejYfjopYVExLKF2plenf2EA59Lfvs4/LExgb2HW+5rq5g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=moxa.com; spf=pass smtp.mailfrom=moxa.com; dkim=pass (1024-bit key) header.d=moxa.com header.i=@moxa.com header.b=Cdmkgs79; arc=fail smtp.client-ip=40.107.44.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=moxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=moxa.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="meLSm2rQ"
-Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-85aeb506b78so10838097b3.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 19:21:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788315684; x=1788920484; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GP2nihoXTh44eq0onDqBGjACptMCLq276d/ZwwaKLtA=;
-        b=meLSm2rQNh+3UVY1uUdEjjMfsuClBtztj7u2+Tyeq5hpPRLDsRnLTzMjAFEXNA22Cp
-         OlRM/CrYljMqUZKdlY22Ltu4/786tcDa9kBNMUmHjafmJKGCJMW0FMaXbz7/nia6010A
-         Y00BkzuWN/1i302PQLhgTqjysmRQEEZ6ZSxmDvE7PSJq5i7ughq/fgwIzihqdiBvxlho
-         wTNerakvDwMdKpY0ReezEeR6O2lwFCaxhVkst9NV7Ev3uFskpWIBUvM+9lSELqeI+Dsm
-         zvrum3dxAWwBGqyWXgtNUQd+TSiS8kmT7jWa3WIZs7Ys5r5tXN6i9Ds6yK3CxOKCG/BF
-         yJAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788315684; x=1788920484;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GP2nihoXTh44eq0onDqBGjACptMCLq276d/ZwwaKLtA=;
-        b=EOvbGSwOdMJS/+7rH3AO8CNGcRQTrzwBUntueNXqrWY951RJ0OO+/T2X9Zek7mcl1C
-         LTj3aoipND75acxcmIPnpw4FMZc31KP9vtL+vlfLZcIUomGKZy5HYGjDh+5p0foJxlIT
-         +bIOTy0UorKS3jzK6N+z/l2emDMFT/29F4+jAmE7YPebnFdBF1QsI2TH+w/RkIMPOTDE
-         UfqFqT5WbwWUV29cR9AKkdMGk3+09Fv/2ZRN8s8cM72/Gcj0vK7j1k78LNTWs1vdmeI/
-         1VfW89R72/l/NpMdRfwoigRG/wLk1dbJ0dOWQXOlnb108yTwOqlQyyqT5Sueq2FkgGZs
-         ITJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxGcmCshLkN8WLEJA4hE4MzxqQeBDOWi1lKj0G3gjaq/WWBvl4tNVRC9N0bX3OfgWkO5SmKrvB7PVAxWRw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBZednsEaLhq0+pVbiltbqowGEKjZEm3sB/HM6eVsMScX1YgJb
-	kfL+Vb4R/VzYDdt00UUSltAmNuG2FZAcz9cZxnsLijHKJH/aWbANW003eRn4Ppm90vcRY/m89xz
-	hp1x/ZwDnZUw=
-X-Gm-Gg: AYBFou1JIdVjSyltOIrGoI8MqV0IGztW2E3TGlrr1hcdoJUXfVxYDxj8F8S4ErJpSxT
-	yC7y4MoH2Hdj2yKAHajc8P+jciQwq02vitaOz1GpbrCbiTKz4BRLXgWEeEXns6nfE33WeklKVql
-	YQFt4w6U4/ffRQoTVZbP75SbefmoBrjc2Te83hMmRteC0Y9RBXCBVWq1NhvJzNI9gM/FcO0/cdV
-	Q03uHt4OCAuitO+V/yV5KK2PCGCGJXruB/xAuwg17ahJKxR+jKU3diJMHt/AgdS6Htjg1YEGo52
-	k2XiQWLdUmSsXFmIosmMn8PrNpUOQXrvacep0MS/Q5Qyo6GEud1xGflS1rftn6Du+Oj3uh+SHhJ
-	j/Q0dxvONJ1IupmS2GpPXXpfJ0Di3QgvtLKlKal1ZLKBHRKqpYTaIVhbVFRqO5NX8PsMn7rdpnM
-	xPqtKn3LzryH0vhj3sEAuYLE4RhHVSohAlC8kQo7ZxYru7j+7soAJI+vBGNoqR3wUQHKH5Y2Ndw
-	94dIZENSUznxDoKl5PN4JvNetMeuKymNVk2g5Q7yyusHbge
-X-Received: by 2002:a05:690e:4419:b0:66f:7d51:b5ef with SMTP id 956f58d0204a3-66f9b90a9d6mr365005d50.3.1788315681539;
-        Tue, 01 Sep 2026 19:21:21 -0700 (PDT)
-Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66f986b612esm893663d50.21.2026.09.01.19.21.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 19:21:20 -0700 (PDT)
-Date: Tue, 1 Sep 2026 19:21:05 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-To: Ackerley Tng <ackerleytng@google.com>, 
-    Andrew Morton <akpm@linux-foundation.org>
-cc: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
-    brauner@kernel.org, chao.p.peng@linux.intel.com, david@kernel.org, 
-    jmattson@google.com, jthoughton@google.com, michael.roth@amd.com, 
-    oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com, 
-    rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com, 
-    steven.price@arm.com, willy@infradead.org, wyihan@google.com, 
-    yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org, 
-    suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org, 
-    Paolo Bonzini <pbonzini@redhat.com>, 
-    Sean Christopherson <seanjc@google.com>, Thomas Gleixner <tglx@kernel.org>, 
-    Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-    Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-    "H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
-    Masami Hiramatsu <mhiramat@kernel.org>, 
-    Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-    Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-    Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
-    Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
-    Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-    Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
-    Axel Rasmussen <axelrasmussen@google.com>, 
-    Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-    Youngjun Park <youngjun.park@lge.com>, Qi Zheng <qi.zheng@linux.dev>, 
-    Shakeel Butt <shakeel.butt@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
-    Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
-    John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-    tarunsahu@google.com, Randy Dunlap <rdunlap@infradead.org>, 
-    Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
-    Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-    Michal Hocko <mhocko@suse.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
-    kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-    linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-    linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
-    linux-coco@lists.linux.dev
-Subject: Re: [PATCH v12 18/45] KVM: guest_memfd: Handle lru_add fbatch
- refcounts during conversion safety check
-In-Reply-To: <20260830-gmem-inplace-conversion-v12-18-85e5fd25252a@google.com>
-Message-ID: <bd6c9c74-e374-a9d3-ba1f-8b6f430894fc@google.com>
-References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com> <20260830-gmem-inplace-conversion-v12-18-85e5fd25252a@google.com>
+	dkim=pass (1024-bit key) header.d=moxa.com header.i=@moxa.com header.b="Cdmkgs79"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=olhtQhtOlKuTt4wyaaFUp0MRsHIJNUCj2/A/2WOozMt3/yXtG9zdNZc0w3eu5ZMWnRKlswFYvyAOydIz/I3wV92u4CUtV0rjUDf+5a4OERDfPGzy7IafR6hUxQt3D24B3xoDB+crd+JOHIVeTfPKwNAZTHTqhLe2G7TyivsgtWNaBaV5l4NPXJvmSB1G3g54x44i28V7tkvPr4ZSjavGQ7mhxJzuzLJRWRWhMI9Yqjy27ceSt3pZYeBDIn/OXrCxBP87mymDVT3/YEEbOJzotUuA6E9lNbMfdZpJtoQMdTwTaQZSXzCjaTEwLzmi+2nwU1ofetVOkc3VVZUPKsNFAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gDQdd7NHM5Mwl9FQXHubYYOZlCEhBy+ws5baL8Ry9l4=;
+ b=RxthniFJGtfx1IrV4uV9FQbldQakZKFzrBdgyAMYV9EsKD9DrNfEVUoou3SLjwi7FtpMVBOwK1FqF4nvDcrDlcwdNvcBW9dIEzc05wsGTUIf0Tc/B6qO7H9ESOaKinlfS81ljmrjfQnauYAoeD/X3vOjoMx0Kp/bNkzdGUlZ7LhzSKgmOscs7HK7rT9jeyPlbKhGxdY4DFy0S4M2J3bAiVvJPoeiIER87KWkWcx+Gv8xfdN30WF4kln0qgSG7zaCcWhJbW0ccsCzIN4RrUPbrHHwlGFWbtDZ9j0wQ+I7DBuStZ93V0w44I9L+mcbKJchPqyHFaly1o4Y3q8DS7Mhyg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=moxa.com; dmarc=pass action=none header.from=moxa.com;
+ dkim=pass header.d=moxa.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=moxa.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gDQdd7NHM5Mwl9FQXHubYYOZlCEhBy+ws5baL8Ry9l4=;
+ b=Cdmkgs7975+gXELuldLbFOKZ8r2QchgsF3NlCNoDt0oVNP7IuZ5xCSzolhr40HHmPH5kxhO4IwzkoS+G7ptrDHjys7HtTzwfDSLuJy5Ashs8yTF2QUxzR4T7rAaqIKxzS/J+6pE2ujDKHZj+xJXg+vsvJD4DPW9rQ4xsuZri7Lg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=moxa.com;
+Received: from PUZPR01MB5405.apcprd01.prod.exchangelabs.com
+ (2603:1096:301:115::14) by TY0PR01MB5860.apcprd01.prod.exchangelabs.com
+ (2603:1096:405:19::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 02:23:00 +0000
+Received: from PUZPR01MB5405.apcprd01.prod.exchangelabs.com
+ ([fe80::ae38:e821:cf7d:3717]) by PUZPR01MB5405.apcprd01.prod.exchangelabs.com
+ ([fe80::ae38:e821:cf7d:3717%4]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 02:23:00 +0000
+Date: Wed, 2 Sep 2026 10:22:57 +0800
+From: Crescent Hsieh <crescentcy.hsieh@moxa.com>
+To: Linmao Li <lilinmao@kylinos.cn>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Lukas Wunner <lukas@wunner.de>,
+	Gerhard Engleder <gerhard@engleder-embedded.com>,
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] serial: 8250_mxpcie: probe and console fixes
+Message-ID: <apeIgeYdBag2dvtP@moxa-KabyLake-H>
+References: <20260901041519.114737-1-lilinmao@kylinos.cn>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901041519.114737-1-lilinmao@kylinos.cn>
+X-ClientProxiedBy: SL2P216CA0194.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:1a::19) To PUZPR01MB5405.apcprd01.prod.exchangelabs.com
+ (2603:1096:301:115::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PUZPR01MB5405:EE_|TY0PR01MB5860:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6fdd091a-625f-4ce7-7a48-08df08991bca
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|52116014|376014|366016|1800799024|10067099003|18002099003|22082099003|56012099006|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	wGuLVzyi0pK8eEZXME6+mPQcr+Df5/6F9XHt7BNks0cKn/LgY000UnggOGJEpAz9vzejdxPitcxaWCXNpmFxZ1QbGXIw1JuozGrA85cFWewGbfnSBVefkCpm94b2G+sX3f6ZMfGyPUGXTR8ht1gdnuOMs3PuGLoqlbSHESwv2EIP6NtXhgOcOW1Ud7+p7+f+/1SqEkoA91IvTnsoN1IH/YwJWIHAUvLYMwtb4Sww/MvPwJXK+LwOGAGTqNF5u7T+KFjUp2IN3pD3z0HUduoE+cDZC3+EzAPdv0peqOwkl2jsvBrbbk90UYVkgiFZDtI0sr086R7RxC8uXN0ycgHIVF16VscIcut+zXa0uIIz8xZpgettySvOR2qNb/IwYBuSBlwznGvUQ+L3PVVWC7hql0QeUqEDp5Ml5hRIHR0Pt0TMcLjAfCOblXKF2P/Zv4AoNoqOPU7WvavirG3p9+Qloo3pVzQHz96/iBztL2Z7PRxhPv6XhTfYqwDf3IgU26RCwgNqDBIpfwNRfxzhpJqnbzpjavVSz3XnTTBQY3hJitw4C9tA1VS6V7hDq3Py52p107NsT088v1TULy1nTQ34u3EqgdufpHKYOaS92sUqsLoSkV09P6rXg0708auNOQ9tYQLCG89x4/Hc3/aZ5QHalosZxdYiwWSlbzHtxt0caU0wR3CuoCaEpePaKoVCH4OVM9Ww2iInFPGAe3TP9poCd+E2Z9Z87rfy9ZGl1bkb+yQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PUZPR01MB5405.apcprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(52116014)(376014)(366016)(1800799024)(10067099003)(18002099003)(22082099003)(56012099006)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?9w5CgsLHCT4EiED53TaHdzcaNk2hH8dEn/De3UwiZCo9LYcWu8lgAmVsUYTI?=
+ =?us-ascii?Q?AGQzf0LxLtklLVjvvLiPbQVMg4ay8gNg146uLGT2xe3J1zUx9PscQgLhjjBy?=
+ =?us-ascii?Q?C6XQYjW5tPVNOxK1Aoh9VKmr5Tg48OdxR046l2/aTcui2kzc+sWADAICGalO?=
+ =?us-ascii?Q?jERRN4r6Hj7ZqgYB2l5prphu9RgTDjX9/A0DmdO7SezsyKdXb/VKIMUqUm1d?=
+ =?us-ascii?Q?etDVf6yzr30iq60YmSMCamHwbfQy6RAK31NkZFGfoOixIoLMx4u/Uc/ZFM4H?=
+ =?us-ascii?Q?oQSSPGJ0muTt9MsxUSQbrwSpgAbUhVXXGPngyVhr+XZ9GRrYYMis6GBaOvEL?=
+ =?us-ascii?Q?fteq9YHpMjRidVlZknS4QIytKIiCSyX2PRYWk9beahix6EXYQCPRSaaUioGv?=
+ =?us-ascii?Q?0iM7BohfXp+nI7YEwA3xxfIgv/2S2xDPCVeG3p9+ipOtxsO+T7+CH/fXWmn/?=
+ =?us-ascii?Q?7kYkqAjbSye6XrUUXh1SI+O8RTF1ST36usXqdeB7iwoYEu8Ww7j3kqwm94uA?=
+ =?us-ascii?Q?D4UwOHXJ7L1TAXJ4+K4XwoChiUbzbCOq9osed7uTqcsLSCBpxIhW64jw0hUH?=
+ =?us-ascii?Q?jW5+GTVScUiicoGXf8B4u2b2DUgvvrIA9NJHdNBq+FRzA8l8vScDoAEyhodB?=
+ =?us-ascii?Q?IXB8MF7ZA9opvT0H99TMlKKEV48XWWomTc8F9To4X2CMx8GClZ10xo5z3pae?=
+ =?us-ascii?Q?KGTOPNmi2DKdPJG94pSFJKm5zZYU9tkxh2UwhS2lVHyaVC/Fh1/ehu2LvZkI?=
+ =?us-ascii?Q?2anxxf/jYeGSaE6GTdUjeuDuId3t57eu7nGv7aPYEc7qGj368zAM7ZmpAdAo?=
+ =?us-ascii?Q?nxeSYXSCX8oC31xBkUUnGY7DawnKztzduENyGMAsvKERzeq4P8tq1xAfCNM4?=
+ =?us-ascii?Q?bzaZJ9Q+Ng1OH78ZW/vBhHYXiVL8JY3kCxs7r/1PP9ZO/b20KZhlmtpchXGH?=
+ =?us-ascii?Q?+Sa8T/ku4CbnFrCBCmcPjf/2+EmKc3tHEgHu8sG6rFT6tMEn5+/gIOwZrNo2?=
+ =?us-ascii?Q?wthjAeRxZQKmXZFW9ch5+V3MiKvJkLyQ/UqXaNeKmVI3ejemdXG4a5Thhp8y?=
+ =?us-ascii?Q?D6HIbklkDI0h0Zd33/52qn5/w1sLpQP/WcV1YPK+YkPt4q0nvIi1cWqcuVCL?=
+ =?us-ascii?Q?qWNdy9bsjWxmg/WCZ/K82IP0LSMAY0/B2aGXYN91LTQjRfr0TFBAKsI7SXws?=
+ =?us-ascii?Q?/6PUsvuP2H+vnffSvOQI5q+TcSWYrXuEfJRWLKMXQjRHrnoMHvuOBywDQD9f?=
+ =?us-ascii?Q?XpoOe/eCMBlj31qQKZkuCop5E2YZBxtKrs8mFdAaUC2EtgteFA33M8vNi6Cq?=
+ =?us-ascii?Q?Q0Nvl1uA6nr30oFhTU50mCUTXBKki5Ho14teg8Fypd3j9wc8A5jLHdbbgQFw?=
+ =?us-ascii?Q?xYg1Vx2yI9aWv3eEehZSYnp/POH/izR03xMzIXymgnD04m2kIxNQEpSt2iou?=
+ =?us-ascii?Q?YgDplXSCKauQDlad9mAmWuOdn9wenQGIi6JWXTvM2L1f+VCgREtt6VKGuntp?=
+ =?us-ascii?Q?ckKcjOYU+3/6MipXb13sujuSWOV3Wdz4mnRIxBKsZ56WHAwPHRvAJXpdGd//?=
+ =?us-ascii?Q?Fd0AD5mc/LXRbBe0LkpIm/ioThXb+tHlYoFuLhDkb0ZV9oUMGfnRMWEL/NAw?=
+ =?us-ascii?Q?lyjpN5cDgR4rlTjhkb0UE6aO5AxpUPui5R9oSjhcxa/dvEBjxirfnczBo9gN?=
+ =?us-ascii?Q?x1lek3i6kvNr+cYQjybV5Y7ueiJA1UAKs9RNTdG+KEX2VJxeAtcyQEdXNOuP?=
+ =?us-ascii?Q?NI6/MOJKYsoG16IoDT3wwOAOz9MjFEA=3D?=
+X-OriginatorOrg: moxa.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6fdd091a-625f-4ce7-7a48-08df08991bca
+X-MS-Exchange-CrossTenant-AuthSource: PUZPR01MB5405.apcprd01.prod.exchangelabs.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 02:23:00.2508
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 5571c7d4-286b-47f6-9dd5-0aa688773c8e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6DeLizl0J5ZqTMqpXkUgvdBkst+aVVyxbUDWQkySwIIljWpaVwLfgpZ3lJVQiziDcSVuZyZGlElbqVjw9OhlOLcQ0ZhLZNAARHs321f1M9I=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY0PR01MB5860
 
-On Sun, 30 Aug 2026, Ackerley Tng via B4 Relay wrote:
+On Tue, Sep 01, 2026 at 12:15:16PM +0800, Linmao Li wrote:
+> Three fixes for the Moxa PCIe serial driver, found by reading the code
+> that was split out of 8250_pci.c and extended during the 7.3 merge
+> window.  That code is in mainline now but has not been in a released
+> kernel, so the series is against tty-linus.
+> 
+> Patch 1 fixes a NULL pointer dereference during probe: the serial core
+> calls ->rs485_config() from within serial8250_register_8250_port(),
+> before pci_set_drvdata() has published the board.  It takes a board
+> without RS232 support and SER_RS485_ENABLED still set once
+> uart_get_rs485_mode() has run - on Crescent's ACPI machine the firmware
+> node clears that flag, which is why it does not crash there.
+> 
+> Patch 2 makes removal unregister only the ports that were registered.
+> v1 failed the probe instead; as Andy pointed out that is a behavioural
+> change, and keeping the ports that do work is what pciserial_init_ports()
+> in 8250_pci.c does, so v2 keeps it and restores only the missing count.
+> 
+> Patch 3 stops set_termios() from dereferencing port->state->port.tty,
+> which is NULL when the serial core sets the line up for a console or for
+> kgdboc.
+> 
+> I have no Moxa board here.  Crescent Hsieh tested patch 3 with kgdboc on
+> a CP-168EL-A, and looked for patch 1's crash on a CP-134EL-A; the rest is
+> compile-tested only, W=1 allmodconfig build of drivers/tty/serial/8250/
+> and checkpatch --strict, both clean.
 
-> From: Ackerley Tng <ackerleytng@google.com>
-> 
-> A guest_memfd folio has no outstanding references if guest_memfd holds the
-> only references on it. Any other references on the folio may indicate
-> another user, and guest_memfd cannot convert it to private if there may be
-> an existing host user.
-> 
-> A folio will have outstanding references if it is present in a per-CPU
-> lru_add fbatch. guest_memfd does not actually participate in LRU, but
-> freshly-allocated folios are still added to the lru_add fbatch for batch
-> LRU statistics processing.
-> 
-> A folio may also have extra refcounts if it is on the mlock fbatch.
-> 
-> These two known "usages" of the folio are handled by calling
-> lru_cache_drain_for_folio, which drains both the lru_add and mlock
-> fbatches. After draining, if the refcount is still elevated, then there are
-> truly outstanding references.
-> 
-> If the page may be dma pinned, DMA is using it and hence there are
-> outstanding references. folio_maybe_dma_pinned() can have false positives,
-> but that's only with a significant number of refcounts, at which point
-> draining LRU is not going to move the needle - it can still be concluded
-> that the folio has outstanding references.
-> 
-> If the page is still mapped after guest_memfd tried to unmap it earlier in
-> the conversion process, it also has outstanding references.
-> 
-> Return true and exit early to avoid unnecessary draining in these 2 cases.
-> 
-> Provide a drain status to only drain once ever while processing a batch of
-> folios.
-> 
-> Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-> Suggested-by: David Hildenbrand <david@kernel.org>
-> Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-> ---
->  mm/folio.c             |  2 ++
->  virt/kvm/guest_memfd.c | 30 ++++++++++++++++++++++--------
->  2 files changed, 24 insertions(+), 8 deletions(-)
-> 
-> diff --git a/mm/folio.c b/mm/folio.c
-> index c02dcea9c03c2..50a6dbe55998e 100644
-> --- a/mm/folio.c
-> +++ b/mm/folio.c
-> @@ -33,6 +33,7 @@
->  #include <linux/page_idle.h>
->  #include <linux/local_lock.h>
->  #include <linux/buffer_head.h>
-> +#include <linux/kvm_types.h>
->  
->  #include "internal.h"
->  #include "page_alloc.h"
-> @@ -926,6 +927,7 @@ void lru_cache_drain_for_folio(const struct folio *folio,
->  			*drained = LRU_CACHE_DRAINED_ALL;
->  	}
->  }
-> +EXPORT_SYMBOL_FOR_KVM(lru_cache_drain_for_folio);
->  
->  atomic_t lru_disable_count = ATOMIC_INIT(0);
->  
+The series looks good to me.
 
-I don't mind about the virt/kvm/guest_memfd.c part of it, but I'm finding
-a KVM patchset modifying mm/folio.c there hard to deal with: and notice
-Sean also suggesting to separate this part out.
+For the series:
 
-As you know, I've worked up a patchset "mm/fbatch: drain lru_add_drain()
-and _all()" which finally removes the problem lru_cache_drain_for_folio()
-works around. In the initial version posted a week ago, there was no
-lru_cache_drain_for_folio() in the tree. Now 7.3-rc1 has it, so I
-intended a replacement 13/25 in my series, giving you just an empty
-inline lru_cache_drain_for_folio() stub (and enum lru_cache_drained)
-in linux/swap.h.
+Reviewed-by: Crescent Hsieh <crescentcy.hsieh@moxa.com>
 
-But that won't work for you, if you're adding an EXPORT_SYMBOL_FOR_KVM()
-in mm/folio.c, and of course conflicts with my removals (in context both
-above and below your EXPORT line). It's easy for me to remove what's in
-mm/gup.c and mm/folio.c, but I cannot remove what is not yet there.
+The additional pre-existing issues identified by Sashiko are independent
+of this series. I will investigate them further and determine the
+appropriate follow-up fixes.
 
-I've wasted hours on this, hoping not to trouble either of you; but
-seeing now that I shall have to rebase anyway (an unrelated mlock fix),
-I'm electing to take the only clean way out: I'm going to submit this
-mm/folio.c part of your patch to Andrew tonight (with a shorter Cc list!),
-in the hope that it can be accelerated into 7.3-rc2 (or at least get an
-mm-stable stable base-commit id) which we can both work off independently.
-
-Whether that's acceptable to Ackerley and to Andrew, I don't know
-(just as we don't know when either of our patchsets will go further),
-but let me try.
-
+--
 Thanks,
-Hugh
+Crescent Hsieh
