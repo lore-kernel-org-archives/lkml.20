@@ -1,206 +1,135 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0FF649F10E;
-	Wed,  2 Sep 2026 13:59:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ABE84A0909
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:59:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788357571; cv=none; b=UEXlY51ntmCiO+ZEYNpao2HTV18FILNs/OXoFiTG9e2LsP1E6IqIqj6XDH8mU7UBoN6SzdDDSsINQHX+zMW9cfbSuE5QVx47A4RHWF0Hs6/hMpguyEDyXwDyLnUv2ghalV79MwoPzX1jUYXu2N6tjmFdX+/3x29keQ2tbR08Phs=
+	t=1788357574; cv=none; b=hYZZBJ7r0Czn6YRNAfLM9VAXls2vGc+JAoQw9pFe6rDMQdto6yNvXwYchzeIhT+BwAM0t9pk6m4oR300r85hlL8IoP+cUz5DkBdnR9lR+kxQpVhBvzEYuhHlz8wtMserBkUS2fglqfUSi4nFQ0GAvnLgU3u416GN6cMD2DQmg5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788357571; c=relaxed/simple;
-	bh=pMyYDxzrPb59jFMMQfEL/Tdh+aR/P6cYuwOMBNX8HFw=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XsglvSCqOaILSdDFugyEP1W/JmgawiuPNqjUn6QF0iC9DTGUAWV5jpJc6XkKlhXqk57nX2MNR1ac+7fLO2vY7GRwr9m3OZPPF4VkCYIBsrHCckkjXqBm0AMQKp7rEdxtc718tWWy+LVtGAYESWUjcgKxGlJnqdT6/T3LwWgDKlI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=oQz7LKUU; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=qxhOuuay; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=CwlHai41; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=+mGLHEVb; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788357574; c=relaxed/simple;
+	bh=/9eZmU2D0hbNHb92ePV2OaMpbatPpO6xeRcbdoGIcR4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M6WT1/kJLwi5D2p96uehn63wqMBPsjJbTAFzxBGlxL07lpWLm5cGveqsNxJqWLna7sn6ZNBS3/zJtzXSJ7DBLGclhdt21Pv+ZmK46RV4K0o6lGNpZerHc6wf9jWfmOXYF/piOrnTW4gJtAHunR0liox+SZMc33MdLWnd68TZ6fg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XnA6rvNU; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="oQz7LKUU";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="qxhOuuay";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="CwlHai41";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+mGLHEVb"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 9FE0C21A41;
-	Wed,  2 Sep 2026 13:59:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788357563; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pWe0gmJ4SjiPf3PpINDHKRxR5S0xlSvGe0zONCuRUhA=;
-	b=oQz7LKUU0RRnH1oO2e37HaoytqmntzI/a90dVPUzMFZ06qnBqtXqRegAiSKZgAtc6W5oqm
-	ikiXC+SoLkiyQbBOGD0tOHYFgJZyhGRbn49qp8pnMGC62m21UFoAnvFwtRIbT1vN/2AF+p
-	TChkbpy5Q4g1rstRub6eXTtyYOIVKNM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788357563;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pWe0gmJ4SjiPf3PpINDHKRxR5S0xlSvGe0zONCuRUhA=;
-	b=qxhOuuayiPpM0I9VCIuo+qc0B3Pn+w62nklX2oBDLxwlx5xOvOsZgExEQr2O8VD6GfSuC0
-	404keusGE4bfn6Dg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=CwlHai41;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=+mGLHEVb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788357559; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pWe0gmJ4SjiPf3PpINDHKRxR5S0xlSvGe0zONCuRUhA=;
-	b=CwlHai41ufpnugtQaFrLMoqKRC05/abbaFhvHRqd7ZOR/WD3MvwPWsWj8YF8G+K2g98ubT
-	HkxyCryurxQeXrwncy3w+104upw0PCtgErjXUkQTSiLV7OBmdDsbJphlYfmBTGgyzEK8jA
-	YAQM2FwbEpaPI0+xjibNU6rX15TFSns=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788357559;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pWe0gmJ4SjiPf3PpINDHKRxR5S0xlSvGe0zONCuRUhA=;
-	b=+mGLHEVbdRLIRApwFEfIG8JoD6Gi2frTO4BAJnm/fapb3KnrKS1i11BhJozuOYawK6QwFX
-	RgPl1PbSDU90woBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 502FC13515;
-	Wed,  2 Sep 2026 13:59:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id dkdnErcrmGqOdgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 02 Sep 2026 13:59:19 +0000
-Date: Wed, 02 Sep 2026 15:59:18 +0200
-Message-ID: <87fqzrah55.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Junjie Cao <junjie.cao@intel.com>
-Cc: Takashi Iwai <tiwai@suse.de>,
-	Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	John Keeping <jkeeping@inmusicbrands.com>,
-	linux-sound@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XnA6rvNU"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-39682983a0fso1387734a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 06:59:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788357572; x=1788962372; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hrAS7URR96Vhxqaift3zBbsgPvJL26DLyKnxdnXVft4=;
+        b=XnA6rvNUeg5GKgp5saQqJIwI/nqFJpjDlylEZM/agR/kSXe5e3c6bAVMt1Gvk7VCCf
+         vqBr3XK+fIVZ87BXPBpvtxlKsdyPDqWLZLnJ3108EsAVM4z+sphU+MpLyWQDwz7ZiZTn
+         GzE0CfBpO6a1kMheOlupfokE1Mi90LO7hUL0zm8jo+8MBi5GaOQDYzDbi3IjLCbT1PbL
+         l4KMCI+uHc1qZAw7sIXEArNwsVgnAYG27s7ebDePdgiJbWs/GUCmNJLSkhSCT533fhl4
+         yQa6dsRYkLvH71UcEr2dlq0gvvrc/c8fq1cuxQsueEU3aQAn1eD+6Ul01GcnOAfoxBzn
+         Wj2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788357572; x=1788962372;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hrAS7URR96Vhxqaift3zBbsgPvJL26DLyKnxdnXVft4=;
+        b=Zy3JFRdZLKB4O6PbSpddWmnvHV3XrVXnxWWxY2ab6D+tNGtKnaIont83AcakE3xsbD
+         Jo/5EhXzNWXgiT8hWvR3dt2qEiDQDFpoFu20nvui7XDDD4N1d3wXbmmC6LxVbV1nvvEM
+         zzjCa0hmoDwPT79MEBSCkt4EvCxcK6SLQ1A147k9UzCq6fbeYdGJOJZV7aM2RXcOXPxo
+         M2PtMu2la2UzyvbBOPtRbebzt6LEsuAV/M3AgezYw/QUU61VTGTLVrP01jIvFx7QT/FE
+         2qgwa2xO9P06g+6kXW9L20IWUVRGY/vRww3Z4ysDWRDMT3lkfXzmHLadhrGPJ+HZ+8pz
+         FPFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwb1Z9dvz/heakeu6cZ1XLCj7TENLERpRrXtfsqXE55sQru0bi6Jc7wcIk1W9+J+BxuE761YhOEsQ3kyMs=@vger.kernel.org
+X-Gm-Message-State: AFuF++njUePKtM1r4x8XfC0Y/NwPUvcZm1ZLDCDNEMnCaGMwpBJezVTi
+	9PjWk7O8HOJ+3TCoWPHchLEs+AnsagT3fs2J7RcpBXCFNH4+/tFY6Fsk
+X-Gm-Gg: AYBFou3ch9lbRtzyZ73nNbmN2LrTxGeDdeFa1XHQvsKgz8JjAGY0tCTvgnTJeeBw3rN
+	U9brvsFUZk8F+z3K9NujHG5AZomWfSzBTcyb8n8dT2ssZ/39TomUn/STzI4nfoahXVwXxEXS+sY
+	51dTSD/cCopM0w7GQPUU+eizPUCQttVH6+URkj0tMlWXEo+/FKwTDaNc2KJVvujbG+SIizho7B2
+	6dLjLzUoVofvPX21XybaXWoMJmL3Qat9/165IpDkAQKYmvHCQfP7iW3+U73E+rf1LW6jij5o3hb
+	dDz+pjEpONhd87qQF/7j12g6CFu8Fer0Hdkc+IAN7h2UCmfJxcke8KVbP8M4Ujld1agg2yxz2F4
+	rWoF+eOpVS1/yjFmiE6lr2SvSOnIG/xj4F09+zhX0PC1jn6ctWf5YCoUi7WxAslHVLJDH1HKrDk
+	7h22X28/8L1nmSeMesj/bcr1eQpTzWQS7pBQ7cKeF3mpIqJjuFsaldM+dxHWjWA+Kw4AkQGjreF
+	eCEmiGTfIB46qvY9vcez8Sxy9UPWhvcTjpgi3WIPKETzovzw4FKj96sCcbQPrSRB71Ev9qsvkmZ
+	i0WOplJSDxvjb12BNHj5t9pvaGpKWoIPWrZkq2mUOwo=
+X-Received: by 2002:a17:90a:ec8c:b0:38e:5964:97a8 with SMTP id 98e67ed59e1d1-39aee04ace5mr8324115a91.16.1788357571759;
+        Wed, 02 Sep 2026 06:59:31 -0700 (PDT)
+Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990bd21e9dsm12123595a91.4.2026.09.02.06.59.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 06:59:31 -0700 (PDT)
+From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
 	linux-kernel@vger.kernel.org,
-	Ruslan <ruslan.panasiuk@gmail.com>
-Subject: Re: [PATCH] ALSA: seq: midi: wait for output buffer space on non-atomic delivery
-In-Reply-To: <20260901143803.422827-1-junjie.cao@intel.com>
-References: <871pbddz5k.wl-tiwai@suse.de>
-	<20260901143803.422827-1-junjie.cao@intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+Subject: [PATCH v2] dma-buf: fix stale return value documentation for dma_buf_set_name()
+Date: Wed,  2 Sep 2026 21:59:23 +0800
+Message-ID: <20260902135923.3599022-1-alan.tseng.cs@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -2.01
-X-Rspamd-Queue-Id: 9FE0C21A41
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	URIBL_BLOCKED(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[suse.de,suse.com,perex.cz,inmusicbrands.com,vger.kernel.org,gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid]
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 01 Sep 2026 16:38:03 +0200,
-Junjie Cao wrote:
-> 
-> On Tue, 01 Sep 2026 12:49:43 +0200, Takashi Iwai wrote:
-> > But, the problem is that you can't take long time in
-> > dump_midi() which is called from the sequencer event handler, per
-> > design; the atomic=false there doesn't mean that you are allowed to
-> > block for a too long time like 30 seconds.
-> 
-> Right, dropping this one.
-> 
-> > For working around this problem, we need a basic design change in ALSA
-> > sequencer core, I'm afraid.
-> 
-> Would you take an RFC along these lines, or do you have a different
-> shape in mind?
-> 
-> - event_input gets a way to say "port full": the core parks the event
->   on a per-port FIFO instead of dropping it, copying direct/USRPTR
->   payloads into the sender's pool cells (snd_seq_event_dup(),
->   non-blocking).  While the FIFO is non-empty, further events for
->   that port queue behind it.
-> - The kernel client signals readiness through a new snd_seq_kernel_*
->   call and a work item re-offers the parked cells.  seq_midi would
->   drive that from rawmidi's transmit ack, mirroring the input-side
->   runtime->event hook.
-> - Backpressure stays at the sender's pool, the only place that sleeps
->   today: a blocking writer with parked cells waits for pool space
->   before its next direct dispatch, with ioctl_mutex dropped as
->   snd_seq_cell_alloc() does; poll() already reports pool room.
->   Nothing sleeps inside delivery.
-> - Client exit purges its parked cells from every port, as
->   snd_seq_queue_client_leave() does for queues; port deletion frees
->   the FIFO.
-> 
-> Open points: a SysEx bigger than the rawmidi buffer is consumed
-> partially, so the resume offset has to live in the parked entry or in
-> the driver; one event larger than the sender's pool cannot be parked
-> at all (the limit queued events already have); a broadcast is
-> duplicated per blocked destination.  Drivers that never report "full"
-> keep the current behaviour.
+The kernel-doc for dma_buf_set_name() still documents an -EBUSY return
+for the case where the dma-buf is already attached to devices:
 
-As mentioned, this is no new problem but a known issue (rather from
-the beginning) over decades.  So it's no hurry about the fix time
-frame :)
+  Returns 0 on success. If the dma-buf buffer is already attached to
+  devices, return -EBUSY.
 
-In ALSA sequencer core, the event packet delivery itself must not be
-blocked too long -- so waiting at callback (that happens at the
-delivery) won't work well.  Otherwise this will block the delivery of
-other events.  Although in the case of seq-midi it might work because
-it's handled in a work, the same problem happens for other clients,
-hence we'd have to tackle in ALSA sequencer core side more properly.
+That has not been true since commit e73c317efbf9 ("dma-buf: remove
+restriction of IOCTL:DMA_BUF_SET_NAME"), which dropped the
+dma_resv_lock() and the !list_empty(&dmabuf->attachments) check that
+produced -EBUSY. That commit updated the description paragraph above,
+but left the return value description behind.
 
-My idea has no solid shape yet, but its basic form would be something
-to push-back and re-deliver of event packets.  For a large data like
-SysEx, it should support a partial (re-)delivery, too.
+The only failure the function can report now comes from strndup_user(),
+propagated via PTR_ERR(); every other path returns 0. Document that
+instead, using a Return: section so kernel-doc picks it up.
 
-Instead of blocking the delivery, if the buffer is full, it's pushed
-back, and rescheduled.  Obviously, this reschedule would work only for
-the queued event delivery from the pool.  When it's transferred as a
-direct delivery, it should just fail like the current version.
-And, if the destination client gives some partial success, we'd have
-to record the succeeded size, so that the re-delivery begins from the
-right point, too.
+No functional change.
 
-So far, so good.  The problem surfaced, however, when there are
-multiple destination targets from a client/port; then one (or a few)
-of them might block while others can process fully.  Handling for this
-situation has to be implemented somehow.  I can imagine to extend the
-struct snd_seq_subscribers and struct snd_seq_port_subs_info to track
-the pending events per connection, but not sure whether this can fly
-well...
+Fixes: e73c317efbf9 ("dma-buf: remove restriction of IOCTL:DMA_BUF_SET_NAME")
+Signed-off-by: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+---
+Changes in v2:
+ - Use a "Return:" section so kernel-doc actually parses the return
+   value description; scripts/kernel-doc -none -Wall reported "No
+   description found for return value of 'dma_buf_set_name'" before
+   this change and is quiet after it.
+ - Reference the commit that made the -EBUSY text stale, and add a
+   Fixes: tag for it.
+ - Resend to the dma-buf maintainers and dri-devel; v1 only reached
+   linux-media, where it was marked "Not Applicable".
 
+v1: https://lore.kernel.org/linux-media/20260730003153.4030818-1-alan.tseng.cs@gmail.com/
 
-thanks,
+ drivers/dma-buf/dma-buf.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-Takashi
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index d504c636dc..6ee3c254d7 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -413,9 +413,8 @@ static __poll_t dma_buf_poll(struct file *file, poll_table *poll)
+  * @buf:    [in]     A piece of userspace memory that contains the name of
+  *                   the dma-buf.
+  *
+- * Returns 0 on success. If the dma-buf buffer is already attached to
+- * devices, return -EBUSY.
+- *
++ * Return: 0 on success, or a negative error code from strndup_user() on
++ * failure.
+  */
+ static long dma_buf_set_name(struct dma_buf *dmabuf, const char __user *buf)
+ {
+-- 
+2.43.0
+
