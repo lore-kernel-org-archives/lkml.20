@@ -1,123 +1,120 @@
-Received: from mta1.migadu.com (out-124.mta1.migadu.com [95.215.58.124])
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 293F93EC816
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:49:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788338969; cv=none; b=AYUI6i2raFgvj80pAzwv9NaBxuDp/hso70xqe0vxJl7kGBCnxerIJ202+BHKK4nWQ1/8nwRixbcPkrzbL5hNYLgRbD4nkJxi6A3GVfLyIKZwCX2vls2InvPex1Kcfy5TTHbimKcCIEj3vWsQ6aAfZ2J8JYXr69OPEsshLE5Ny8U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788338969; c=relaxed/simple;
-	bh=5LER9EYvbKs9Qka4Wbjxj3pXZ4EQVA5Hj6MTLn2ZuJc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iH4VHDY5v0z1qvKPqI1WEuXe/33LFyxo3SjkipgFHkN2Xl4I+avSp8DWe/hsiNA8zq9RO7xFSCoMTr74XY4SW5v/ZviZC5qLdaLmOUBKXdeNlLq17zH/YUSO2jbn2s/Dfl8+4Quwo3E++lbxpWRYmghMuyrr36YCuG5aoLAkRQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HApcDrlR; arc=none smtp.client-ip=95.215.58.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A441E3F44D0
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:50:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788339021; cv=pass; b=QWInGiP2NOmUHMgt2de4bE7ISA1tzgt3uhPZ1TP2QDZmQ9hG5AYz4bgsx5sqas8ZAZfMb4xP28t1vpAICbSwoM+4uEcYZ/aInEiyguFvSVYWX1QVJXSrifR/ad4wlixi3dBIOwY58JDhEx6MzL8FoFtf2z8QsCFEJ1jTKBNkNCY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788339021; c=relaxed/simple;
+	bh=sLw53KeXCRX5ku9tFSnggMWYgw3NaH4bhGi+ilx4QqQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GwP4y6XKh7GF/dP1C97CeObC+yafZ6h2QDRQvB+FC2GMO0rjIiDEK1FSgxvrfqOoFjqBzmbT+lsUEqRxmSna1MB5egNjjdiIMr/BhTxvBmO2TEXUv4Ln/YRHeBTbyJdcmnT8NgqhKiomzajPVeb6z3H0D7VckR66+Nbah4cK9ak=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PTP3lM7Z; arc=pass smtp.client-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HApcDrlR"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=5LER9EYvbKs9Qka4Wbjxj3pXZ4EQVA5Hj6MTLn2ZuJc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788338966; v=1; x=1788943766;
- b=HApcDrlRhVWTQw7bl4NI3Wq13MBFOT4DtWXDx3sC4gNwyyo1XQ0JsJ4zqtboJxGTT8TiNClk
- qV2q0ddEnU3wlATcS9cvBAurCkrR/XIC3wXDJ0B2US+hmPzS/nM6pTJCwumto93sPf1/2fUeb5t
- wl5LMbOJ61TOtN4wzlOeLjVE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 488d2f085647059f;
-	Wed, 02 Sep 2026 08:49:25 +0000
-X-Mizu-Trace-ID: 488d2f085647059f
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 2 Sep 2026 11:49:18 +0300
-From: Matti Vaittinen <matti.vaittinen@linux.dev>
-To: Matti Vaittinen <mazziesaccount@gmail.com>,
-	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
-	Matti Vaittinen <matti.vaittinen@linux.dev>
-Cc: Matti Vaittinen <mazziesaccount@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Mehdi Djait <mehdi.djait.k@gmail.com>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 3/3] iio: accel: kionix-kx022a: Fix IPOL macro name
-Message-ID: <542c61177f34fe6f6c0f937021f6b3b7ca51a024.1788336588.git.mazziesaccount@gmail.com>
-Reply-To: Matti Vaittinen <mazziesaccount@gmail.com>
-References: <cover.1788336588.git.mazziesaccount@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PTP3lM7Z"
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a5ded53570so1179579a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 01:50:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788339018; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dxuThdtBHa5+JBokUrZV9GOziT/H/Di7Hn22v5lvBoJXwKKWj/nWgVgSb1EgejBNkA
+         QiZbGsaMUMVRHIsnUKSMPoj0FUIXdWBPVl26fplbi2mX91IBlPKv7op+cNjCFrLzXG+J
+         tVFMFy6mo92YE3khM8UIZZYY1NOtDZ8cGizMg2FjBFgAZCH4SLFcaycoCzlIQyy/8/cV
+         kr2Hnkxiuv9fTPGZLStUyZzRqtCj0t4NJ84oALLHH3uzxrkNJPh1ebacx6uKyIq2bPq1
+         SALonv6HVHDdvD6L4XPoWDyomXftwlQ8RcCxzO6W7igStvC2FFquOvzC/eXRN7tmBd34
+         0tOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=PMzEMVAE4nv1F6Owt1NZP1/SYZY0ERgbfrHrgQDr880=;
+        fh=DLqq/Ysq/o+f1vLRSE2MfTZ+6ac0mR3WmjFWHjlSzbo=;
+        b=dHgaH7drwQ5bgp0z5vqXVEHJtCfjgYTmzdrtKIVFEoXKFRQQwpKc/BYWeZ4+OVAcWf
+         4og60h/bJzBfogEuVT8Gm27cvolZiMQcnhBzcyDOb/YfkBmQMHdzghPEMmzmJkU0l5Iq
+         RI0RWypFaZWTmQd6Ux6quBPjWJHKfNfzQzUsWQhMcNY+zdJ8zXgkpWkyUNP7KJQHSlab
+         Oy8sU/TUGqshidMBam5RjrevIy6gGSGslbmFIChJwc3RF5STcKxamdFX5ZhU4lnT6/yf
+         7JtkLr1Vo2xquxitcbRvXqSF0vHS3c3ssDHie/Vmk4tv4v2VKefAbzFFAFK2Mq5DLZfh
+         74EA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788339018; x=1788943818; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PMzEMVAE4nv1F6Owt1NZP1/SYZY0ERgbfrHrgQDr880=;
+        b=PTP3lM7Zy3Pdw9Dtw60cg8YUdvEMRBzcRWRxdbbRm3nNwk0yMWHw/hXVZ5XXMpElXO
+         vRf9FyhlEQ6NlBq4qJjf9IhlzWl7ZmhdHR+4W+sjaU1/5IWbo+re150A01WUKdGPFIZc
+         isdDN7ExBL/nihXfYcV3hR89GBXjp2O0C4fjkxpYg3f2PjgAMxmsBsJ7FTmhiyBvX0FQ
+         dgT780i9nBbxmmnPOZC9MZxGD5HWTd3RxF+ks9gbbP2Bf8HuEZkHy/kH1YSux/zBeM7/
+         vSkma0bioZqcnpJbSdTC1xGvBzbOu7GJyCvCwBni9HrLHS58552jIU+EP6ySRo/Zu/i9
+         NBWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788339018; x=1788943818;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PMzEMVAE4nv1F6Owt1NZP1/SYZY0ERgbfrHrgQDr880=;
+        b=ZrukIdHK+dEIm7WFvb8DZDNQxYwvHQAted3+9OMcEYiAlFBLhR9nceM3XG7o38EFrp
+         euQh7cSBcdV7ezcdgqjBLf1KMa/ulkSmk9FpKmavXu1gzAxa2vX+Qc9mOG0CFyQffz33
+         +230xGE69vIx4X5w0Pg1oM0q7/NHtpj/JqnR/g6236M+cGA1I9BSv19M3ZTGedlOQoyP
+         8ix/Rnr1P2Nt94xVl98QvG83WkJB64ktzsJAu6wx4tH8Vmz31QKUzCYZrQczNDgnKdkf
+         kH5IGwMwfqq+j3s/j0zZ3a3zfMvAoJKa53rugRj/hZ162AlBQhCTjrAJjvcray7BJDc4
+         QR5A==
+X-Forwarded-Encrypted: i=1; AKwUvBz3vQzK6E0GWKrtT/E32qr7Bab6JJ8ehCYGLKae5sXjYQ7uo1FEc/sfpRg1uSBTbidCITniuV44nl4VzHs=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/NReptyRN+4ld2se4YLAdT/cHHz7nEUw6RSDJx7xiLJQJ++wu
+	GvaNW6c2MEViUg4vN+/QmSvQWp1RomjCOKBfVnknbvutPEjB+gFhA6k/PjJGxYgAjhM2zVeM+DT
+	FN5dKxfUGkDW2cx/L0X38UMu7DowXEmo=
+X-Gm-Gg: AYBFou17k3I13Fm5iU3o7eHpgyY/9LhZpwQXFXKDeaSDHXUB7zTzAXWQvsKRh8EnODR
+	YajlT+zVa19kyZDUZXIsvLkfDqobrQdegVWRzWricZiLK7rso282QQtyaZIjnmFm3NjUc3GJWN2
+	QCgtFdWLuDy5cAN3bCGXgtPulS8JA1qoDxAjknGaDk2g8QL2jt49fVEZKB6tGChvuNSQli1GJMw
+	rzkre5D9VeoYbrBY18nGTQseS7yst5GKGOFy0HtOXRpSBlkA0aOJ3Ch+kRlkT1K/Lu1hOBYvB7y
+	oClKtch4HUTMGHyH5jGGYmjEU7vAX+5MjNvkulorrerMrnZSD4gEyAqbHsgNprXOtoPvwwCdGhr
+	bPWiAOEA3SPBBorQApUDeL3O2MrKQA7c=
+X-Received: by 2002:a05:6402:388d:b0:6a6:32fa:1e9b with SMTP id
+ 4fb4d7f45d1cf-6a682b00f79mr2064313a12.19.1788339017543; Wed, 02 Sep 2026
+ 01:50:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="AiCy6vkZhqDS8qHz"
-Content-Disposition: inline
-In-Reply-To: <cover.1788336588.git.mazziesaccount@gmail.com>
-
---AiCy6vkZhqDS8qHz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <cover.1788277742.git.mattst88@gmail.com> <526219643312193e0705586965703d16a6d4b60e.1788277742.git.mattst88@gmail.com>
+In-Reply-To: <526219643312193e0705586965703d16a6d4b60e.1788277742.git.mattst88@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Wed, 2 Sep 2026 10:50:05 +0200
+X-Gm-Features: AcwNN1UfsVzHiYRlk45W9f-ig8jXrEui6eEwmgDU4LEI15AEUnxVGQlmXTsgTvw
+Message-ID: <CA+=Fv5Svs9qgBZXwjbH4qFBod5DFf3UYo3FG0=ps1NTVimB11g@mail.gmail.com>
+Subject: Re: [PATCH 09/24] alpha: select ARCH_SUPPORTS_INT128
+To: Matt Turner <mattst88@gmail.com>
+Cc: linux-alpha@vger.kernel.org, richard.henderson@linaro.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-=46rom: Matti Vaittinen <mazziesaccount@gmail.com>
+Hi Matt,
 
-The "interrupt polarity high"-macro for KX022A variant is defined as:
-"#define KX022A_MASK_IPOL KX022A_MASK_IPOL1"
+On Tue, Sep 1, 2026 at 5:51=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
+te:
+>
+> gcc supports __int128 on Alpha, and the 64x64 to 128-bit multiply that
+> the users in the scheduler and in lib/ care about maps onto mulq/umulh
+> rather than an out-of-line libgcc helper.
+>
+> Gate the select on CC_HAS_INT128 as the other 64-bit architectures do.
+>
 
-However, the KX022A_MASK_IPOL1 is not defined anywhere, so actually
-using the KX022A_IPOL_HIGH would produce a compile error.
+I tested this on an AlphaServer ES40 with
+CONFIG_ARCH_SUPPORTS_INT128=3Dy. The kernel built and booted
+successfully, and the bits KUnit suite passed, including
+genmask_u128_test:
 
-Fix the define by using correct mask.
+  # bits-test: pass:6 fail:0 skip:0 total:6
+  ok 1 bits-test
 
-Fixes: 7c1d1677b322 ("iio: accel: Support Kionix/ROHM KX022A accelerometer")
-Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
-Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
-
----
-Revision history:
-v2 =3D>:
- - No changes
-v1 =3D> v2:
- - Fixed the commit message where line: "#define KX022A_MASK_IPOL
-   KX022A_MASK_IPOL1" was lost, as git treated it as a comment :)
- - Moved Fixes before SOB
----
- drivers/iio/accel/kionix-kx022a.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/iio/accel/kionix-kx022a.h b/drivers/iio/accel/kionix-k=
-x022a.h
-index 0ed54f584223..a2d122c1e234 100644
---- a/drivers/iio/accel/kionix-kx022a.h
-+++ b/drivers/iio/accel/kionix-kx022a.h
-@@ -65,7 +65,7 @@
- #define KX022A_MASK_IEN		BIT(5)
- #define KX022A_MASK_IPOL	BIT(4)
- #define KX022A_IPOL_LOW		0
--#define KX022A_IPOL_HIGH	KX022A_MASK_IPOL1
-+#define KX022A_IPOL_HIGH	KX022A_MASK_IPOL
- #define KX022A_MASK_ITYP	BIT(3)
- #define KX022A_ITYP_PULSE	KX022A_MASK_ITYP
- #define KX022A_ITYP_LEVEL	0
---=20
-2.55.0
-
-
---AiCy6vkZhqDS8qHz
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCgAdFiEEIx+f8wZb28fLKEhTeFA3/03aocUFAmqX4w4ACgkQeFA3/03a
-ocX/8wf/TZ5VbC5SsQV+t50SQGok6kUP5YW0B5HwYVmlPMGQG6zg5JI6eBPdnKpU
-a4hq0i+SgfZQNdAFRN8qc+1Kr2cXIbkRF0G8S2HTaGr/F0jmcGS+Yfut3Lv5b5yc
-AGVpsjD1WCJmlUVAmuurHyOc8Jgik0Z5KldA97PqneabfhBbrdRYptxQ0WufH2BT
-y4f2gXpxyd41rBwPEc2Qrwn3NDLEDe6dxIsO/qE4mu2EjKVkbCLA3a9I9YdJbjKg
-YlGP6T9G4k9e8Ktkl0gzHSZSGgJJLV018ysV2/1FqA9cGGP3S5Ia7UnOc7UBqR7b
-Byb9mAdPkX1zSjBpSjnbqBxuQW99yg==
-=K/lY
------END PGP SIGNATURE-----
-
---AiCy6vkZhqDS8qHz--
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
