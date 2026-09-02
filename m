@@ -1,134 +1,110 @@
-Received: from mta1.migadu.com (out-196.mta1.migadu.com [95.215.58.196])
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D493E4446FA
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 23:25:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.196
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E346345DF71
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 23:29:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788391550; cv=none; b=OUN9qNCXoVOdbfbkrSf+lz3IfrJ6svC/2x2QTbOZdmOm6XtH8nJ3be32rofbIiI7QBRHrE3adOUdY4biwE1rYFpOXuVauh2TkOLLHusflz7E1ip4XXXGO45f4+J5rH6gLROWf1cAYZ68UHs+mOYQsNV6x/L0RmAtfzlxY4ct44s=
+	t=1788391745; cv=none; b=rdxlyi/e133dskJ1X8cNvxC3tkwxeJFWq4z80FjN4Q+b4lVe8jvvpQ6uznq1b8XKoiDvi7ZJHYmJIymnWk1uUBtn4xfcuMKPf7iffY/vnlRajRVcv1RTm+SxgcKuT5ltnsjNkf6l7VcPPdRbgS7yrWleVzRZ8qWCjEOVnIfEa3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788391550; c=relaxed/simple;
-	bh=lALBiyAX64XwR3a8XgXGZNugf5c3rTzNcg8R24EuTH0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=L+374W1Nr1ZG1a3fd8a7yf0zvpdn9yPyFxSZPP8802fbAyu5mMAo09b3f6Fkqbv1J3omSod+z1zNlOcS4gLuOt+MY0BoWkE12SsbhjEBruEz23Qmx7Y5/id/kbO1+Od6WtOcV55k/0JiftHDEd0Dj8hUlk/OzC0PXya0c2SCwHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=O+z7zh9+; arc=none smtp.client-ip=95.215.58.196
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="O+z7zh9+"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lALBiyAX64XwR3a8XgXGZNugf5c3rTzNcg8R24EuTH0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788391545; v=1; x=1788996345;
- b=O+z7zh9+qD/nCAh7rDFYSQWZH6p81jRPFuR++PhfhEkbfJ6WHjPAWn6s7sQWYhCVg8dK0WEm
- soLtuFOOMhpuXcQur0G/klNul5MmWPPCQiS+jyNJ/lQ0PCAD0ZYbyI5uhCTdIIQi75kDXI1h+TM
- sqwY8KeDeGL3eJyloijQ0FCc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c72107b5a07b5213;
-	Wed, 02 Sep 2026 23:25:35 +0000
-X-Mizu-Trace-ID: c72107b5a07b5213
-X-Migadu-Flow: FLOW_OUT
+	s=arc-20240116; t=1788391745; c=relaxed/simple;
+	bh=YtmR9Vpz/Vf9dJCVGyp6EOjbUsWccdXKNm5yGOIIAKY=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=COTAURNqZ3lya/mR8MVOp9Y9N+TX0DG3qxuhKw325o4wlmzhOPxxIuJZ3rbybrmCY0dS5qXGqqu3EzVHmZhfZQykFKd9w/rMxSM4j4d5dvlIn9nklcvcddkvd7oxdb5+g8TvQsb5syvB16Y5h5GrN7JuKTZVl0HDXiDPzbWO+3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b26d8d2498so1949701b6e.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 16:29:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788391742; x=1788996542;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Yti3fq5dDQlfGKxIs7obF7YC5R9lxUWAtU+qpI+l9uM=;
+        b=ASq/m1nYDuB0laQrcxUwK60K0asNzT58dBTM9yzr0N7a6EvLn2i0QaVIYcigJmBvJZ
+         I1vr9c9ZvTumwpWKsn6ia72wPU6I0vq/mkw0tWDsP+HLQfOGtzNx2XZi8XCKi4xdFa4K
+         7JcRLBS3YVt/ktq43wDUz18R9n+4yJcVjOLO/lymW9j1lkf7lN8rCuR3nFZCo8KM3p9w
+         pKzcv/wseo8HOkenXcGpTiSlpT4oVppgWjsRsB0vWFV/fnGfwPw7+6hkrN+yLck+0S4A
+         CPH0yX0ehd8Xxtu9peNolu9t6RuRg2i3AjaPUO7a256m47+7PdGpKnNlBxpRApJbsf32
+         3vPA==
+X-Forwarded-Encrypted: i=1; AKwUvBwbGEVW27ROExgp3JTy36QuBnI8D/MYijzkylk5U8D3I7hR7BWxx/q8ZSupQ9E1IPTD7i1GPFaZlqSOQP8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwP4BYb8H51zj812vGhKWbkLaXuwgcKtrQB+Jy/q54LyzwbEcO
+	iK5nVL36WsnfO/i8hVgfYOuRvZ6UqX3GZvrjDBtQN9lVJAVF4MwNW7VZUGLdEUp5VaPN83VoqBW
+	yw+nWjKLUFBQxRDmcB3GbfEpUjWfLngXoqiedfd0yBh07MdcMbnuvoxhQQWA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 02 Sep 2026 23:25:35 +0000
-Message-Id: <DL57W17T3VEC.1EJMWXYOB7JFU@linux.dev>
-Cc: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "bpf"
- <bpf@vger.kernel.org>, "Alexei Starovoitov" <ast@kernel.org>, "Daniel
- Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>,
- "Martin KaFai Lau" <martin.lau@linux.dev>, "Eduard Zingerman"
- <eddyz87@gmail.com>, "Song Liu" <song@kernel.org>, "Yonghong Song"
- <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "KP Singh"
- <kpsingh@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>, "John
- Fastabend" <john.fastabend@gmail.com>, "Paul E. McKenney"
- <paulmck@kernel.org>, "Jose Fernandez" <jose.fernandez@linux.dev>, "LKML"
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH bpf] bpf: Keep progs alive until the trampoline image
- calling them is freed
-From: "Florent Revest" <florent.revest@linux.dev>
-To: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-X-Mailer: aerc 0.17.0
-References: <20260819122252.1782790-1-florent.revest@linux.dev>
- <DL27QZ6SEZKT.1CV2HAX4A3WI4@gmail.com>
- <CAADnVQLxi-R1KDUXJJjpq69SpV8UcNJVqBi7uicO=V0WhAvyQA@mail.gmail.com>
- <DL2S878KSOI5.1SZMLIAWMCNUJ@gmail.com>
- <DL3FIBQNP6AU.1HO08FMI292UX@linux.dev>
- <CAADnVQLMm43qJxuiHUuuh51wAL4kH0+fRoaM7YfbZEXT7LHn0A@mail.gmail.com>
- <DL4R2YXF9J8G.203VBANYFFSET@linux.dev>
- <CAADnVQJ+OJKmgaDM9B58g30M_-pkZgGmbDuvEWmrg8U_ZkxbSg@mail.gmail.com>
-In-Reply-To: <CAADnVQJ+OJKmgaDM9B58g30M_-pkZgGmbDuvEWmrg8U_ZkxbSg@mail.gmail.com>
+MIME-Version: 1.0
+X-Received: by 2002:a05:6820:1987:b0:6b1:333b:ffcb with SMTP id
+ 006d021491bc7-6b47c3b5798mr6492309eaf.6.1788391742754; Wed, 02 Sep 2026
+ 16:29:02 -0700 (PDT)
+Date: Wed, 02 Sep 2026 16:29:02 -0700
+In-Reply-To: <20260902230726.7481-1-kartikey406@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a98b13e.9266084e.bf0d7.0012.GAE@google.com>
+Subject: Re: [syzbot] [input?] [usb?] KASAN: slab-use-after-free Read in roccat_disconnect
+From: syzbot <syzbot+c492a9e154f81127551f@syzkaller.appspotmail.com>
+To: kartikey406@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed Sep 2, 2026 at 10:06 PM UTC, Alexei Starovoitov wrote:
-> On Wed, Sep 2, 2026 at 3:15=E2=80=AFAM Florent Revest <florent.revest@lin=
-ux.dev> wrote:
-> >
-> > On Wed Sep 2, 2026 at 5:57 AM UTC, Alexei Starovoitov wrote:
-> > > On Mon, Aug 31, 2026 at 1:58=E2=80=AFPM Florent Revest <florent.reves=
-t@linux.dev> wrote:
-> > > >
-> > > > How about having old trampolines skip freed programs instead of kee=
-ping
-> > > > them alive ?
-> > >
-> > > Isn't it doing it now?
-> > > That was the whole point of patching nop to jmp in a trampoline.
-> >
-> > Just to be sure we're talking about the same thing, you're referring to=
- the
-> > "ip_after_call" patching done in bpf_tramp_image_put, right ?
-> >
-> > My understanding is that this only helps in the case where a task is in=
- the
-> > traced function while a prog is detached. It'd make it skip all fexit p=
-rogs.
->
-> Right. That's the one I meant.
->
-> > But if a task is sleeping in a fexit.s prog for example, it is already =
-past
-> > ip_after_call, so this patching would not prevent it from calling a sec=
-ond,
-> > freed, fexit prog lined up after it in the trampoline, no ? The same si=
-tuation
-> > should happen with a sleeping fentry.s prog followed by a fentry prog.
->
-> Hmm. You mean like fexit prog A called a sleepable kfunc and
-> another prog B is attached to the same trampoline.
->
-> Then the trampoline needs to be freed. ip_after_call patches jmp in,
-> and trampoline proceeds to free progs A and B.
-> B is freed right away.
-> Eventually A's kfunc returns from sleep
-> and jmps back into a trampoline
-> which is not freed yet, since percpu_ref keeps it,
-> but prog B is gone, so it attempts to execute a freed prog B ?
+Hello,
 
-Yep, exactly!
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+INFO: trying to register non-static key in roccat_open
 
-> > I have a reproducer for those scenarios that crashes bpf-next. I will m=
-ake it a
-> > selftest in v2 like Jiri suggested.
->
-> Please narrow down the reproducer (sounds like it's a random stress test
-> at this point) to specific steps.
->
-> If my guess above is correct the reproducer will be short
-> and deterministic.
+INFO: trying to register non-static key.
+The code is fine but needs lockdep annotation, or maybe
+you didn't initialize this object before use?
+turning off the locking correctness validator.
+CPU: 0 UID: 0 PID: 7265 Comm: syz.4.142 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ assign_lock_key+0x133/0x150 kernel/locking/lockdep.c:1000
+ register_lock_class+0xcc/0x2e0 kernel/locking/lockdep.c:1315
+ __lock_acquire+0xaf/0x2e40 kernel/locking/lockdep.c:5128
+ lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5908
+ __mutex_lock_common kernel/locking/rtmutex_api.c:559 [inline]
+ mutex_lock_nested+0x5a/0x1d0 kernel/locking/rtmutex_api.c:578
+ roccat_open+0xf6/0x5d0 drivers/hid/hid-roccat.c:178
+ chrdev_open+0x4dc/0x600 fs/char_dev.c:411
+ do_dentry_open+0x849/0x1420 fs/open.c:996
+ vfs_open+0x3b/0x350 fs/open.c:1101
+ do_open fs/namei.c:4837 [inline]
+ path_openat+0x1448/0x1d60 fs/namei.c:5000
+ do_file_open+0x23e/0x4a0 fs/namei.c:5029
+ do_sys_openat2+0x115/0x200 fs/open.c:1417
+ do_sys_open fs/open.c:1423 [inline]
+ __do_sys_openat fs/open.c:1439 [inline]
+ __se_sys_openat fs/open.c:1434 [inline]
+ __x64_sys_openat+0x138/0x170 fs/open.c:1434
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fdadb7fe159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fdadae5e028 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+RAX: ffffffffffffffda RBX: 00007fdadba85fa0 RCX: 00007fdadb7fe159
+RDX: 0000000000000002 RSI: 0000200000000100 RDI: ffffffffffffff9c
+RBP: 00007fdadb895024 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fdadba86038 R14: 00007fdadba85fa0 R15: 00007ffd1ce9eae8
+ </TASK>
 
-Indeed. When I originally sent this patch my repro was a stress test but wh=
-en I
-found out about the above scenario I could make a short and deterministic r=
-epro
 
-My only question then is, what kind of fix would you prefer in v2: keeping =
-refs
-to progs while the trampoline is alive ? (like in this v1, but I think you
-nacked this approach already ?) or some other creative solution like having
-__bpf_prog_enter*() skip each freed prog individually ? Or maybe something
-else ?
+Tested on:
+
+commit:         89a31299 Merge tag 'cifs-fixes-7.3-rc2' of https://git..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1253ef79580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
+dashboard link: https://syzkaller.appspot.com/bug?extid=c492a9e154f81127551f
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=13f74125580000
+
