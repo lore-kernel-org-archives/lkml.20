@@ -1,133 +1,135 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96241372EC1
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:23:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE2D361954
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:23:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788366190; cv=none; b=DZY4c6OqAlK3sObBAGJuGveS/SgkC1VzicEyjHEdUlYOYAcsuDtBiKbOyxA/1oUkv8tmJnpTRCJUxV9MVT7xKCErIRwoRyIyVUZ+o9S3JQTr4QaIAs2uwd5NeWMkVV6OKGadGwgXTYKvbSXLnPnzwRqJAUG0vLAktlgz4rvjtPQ=
+	t=1788366212; cv=none; b=Y9jQDPzZjPV/y7UeZDou4AGmiiJF+rQwDJMKhXHkVEB3+WUQ1jc/DOx+6iANP/6MAuuQY3N/vyiMnP2lGVpCNcAjKxXCE1Dl1ycAPU01IkTv3kHildOPerJ8uZYkfqcvHlfYSogxSuMbMjOYYve2Cjibr/fqtjMXZemokXTnxFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788366190; c=relaxed/simple;
-	bh=xAJ3jchtl98ZkzCwIOxaDX3nENS8nbEBPJaMMlgBMHs=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BrH3DOs1TI6EtXjjVe39TFWWOFRe4T1FNTJwQhkEWlQWtg8Hgd9wlO9u62oxnrAZRLj4DVoXTr+1jO8SMRVrvQz01dZiSzUePJ7hN6dCXg16any0WaAMBrwVlMm+M4csU7Xxd9JLYa3J3f3wd7KIGrcgmN96i8qYEe3FsH74vY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=QGK4p7SU; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1788366212; c=relaxed/simple;
+	bh=ke+y50zX1ol590mqGNLt8Yk0WHyON5gXDb+wlE118Gw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YzduBcur3E+mzsXLhoM99WMgzNwzhPC997MU4zUpLgZTUeinIvAXCr/VQgqOeHsBYtu8kAIsm0x9InZv9L+wT2GOqyC5qy97QTh6f/UHBRtJ+309v9ypyorxl/7blTLzC/AetkkSnpb9BdkDM0zBOvopOqGa+q8EZNREKpXsBuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=kSb/OV47; arc=none smtp.client-ip=74.125.224.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="QGK4p7SU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788366186;
-	bh=xAJ3jchtl98ZkzCwIOxaDX3nENS8nbEBPJaMMlgBMHs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=QGK4p7SULk8OIFMXPGFdNhVT9PJdgsthD/+stps+EE+0rTEjhj5FZwSBCEJr/thV0
-	 AaG+XXKhtVhOlYFNtniV11BNWK4rB6uBCKCTUNmZTXiEdNvMNubctmBKsq7RxsNAjC
-	 odwVA1XfkN5fpPwmhcHWkOIQ30xTehKnFRA8bZv0ACy8elZ72uDV4i10ZgeZctz2xg
-	 yYbW0PysSR8HpYanvfF/SXh/HZq7VBHn2dUae7YPgp9466P3VwOHrRB3vJobXeshm9
-	 FsdIl4z3tSYAKXpNvYjp3JEKV4mpfTVrqR5fss5/vT0o+fhzK2IYvgmHCnrOX1eJ/Q
-	 Fh2pYbIxvFk0A==
-Received: from fedora-21.home (unknown [100.64.0.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 062C317E0EB0;
-	Wed, 02 Sep 2026 18:23:05 +0200 (CEST)
-Date: Wed, 2 Sep 2026 18:23:00 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v7 11/17] drm/panfrost: Add debugfs knob for manually
- triggering a GPU reset
-Message-ID: <20260902182300.3d4ee154@fedora-21.home>
-In-Reply-To: <aphD4_tNK6w9yc9j@sobremesa>
-References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
-	<20260828-claude-fixes-v7-11-72a13b2c125d@collabora.com>
-	<20260901152726.280f57e0@fedora-21.home>
-	<aphD4_tNK6w9yc9j@sobremesa>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="kSb/OV47"
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-66f96a9d30eso511407d50.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:23:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1788366208; x=1788971008; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+YqXELgsqbWJd3zd9NAsECFpyBD1HQvK/BLYl3TOCsc=;
+        b=kSb/OV474sHqzLsl20tRiq/7JjSF4OOsAFJGdTZYawc6fwEeygiU4KlaaS94nEnaXv
+         fpULCSp1vVHKM7phca1fpGA1dK6mOQPYBhEZth5VKMOFWYejuW3QRFBWnGhLHCvyM/pM
+         80jNOUYpDr+rH14a8qVzXwQfNTWu0jGJ9PwhGak2WmsRJmAH0BLTZxVC5f0jpcOeoTdb
+         h+0JL6B6F9XPxYpqsKAEwO+y/ybjKyprirzg4K3fkQu2qHa7uJXgpN5lT6bskQ7ILgRt
+         By2ubbMcVBMwqjHyh9a9jZongfPnNxRQBgCm+GqjwDYzywPjZUQdS/wc6TmwJCPbtq/j
+         b4mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788366208; x=1788971008;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+YqXELgsqbWJd3zd9NAsECFpyBD1HQvK/BLYl3TOCsc=;
+        b=Og8cJ47UweL+/T+OgyD/GLR0PzdMbOCq+xHPpF0bl9dbITuWuJUs0G5Cwj6t6v2dBs
+         vy3jmpcHxa5TqHUkm4wBMSZ6RcNJDNbxD2C4n9KDHs1PmjjU9nBRtSUL/DHLiVa1C377
+         /8D8H6ParQIsQwKjVr+Eobn3CzWSZYuomn2m7nY7LVf3NjGjcEAMKvOLwVVJcBnXx2qz
+         Hcld6SiS+J2UXT3QUJCyEi/jtPhxdVz0iPu8hLDSUlChdy7gyvCQe7ya08K7Rrj+tsb1
+         27GQbCqZAJfk9vzqPJCMMsYExclBToJ93c5Xq6ZpOkFZJU/lLzb7PsRHrtvu+lztpbhu
+         7tYA==
+X-Forwarded-Encrypted: i=1; AKwUvBxBTCiwmPsmXbL3+LXId5qcrqBkfNQreSYELHz2sc5Wt2RnxV9Lf4Gpi5NUB0yd9dPIn4ejcRl5Vdxha20=@vger.kernel.org
+X-Gm-Message-State: AFuF++l3Z6cNTYkGX/T+cT9DJsXDcXCPzILRqrgRm7KcfoP8qdaM+Pcz
+	XzADkqIUsycaGReOU2SWdmKw6QbnTQla8ZBj678w+jUSNerbyU5Q2PThgUgziXjHFfU=
+X-Gm-Gg: AYBFou3Rw6D+wJ5raeKGtgckzg0529ghKcluULew0RfarB0Cykk8fxGqjz818Nhclfa
+	QWJMp/SGLxeNxNUsbkmskOOuiH6bvoycLs0kjZranL5Gxwi3g2aT3kZ1YgpDI50z0nQY21a6E3D
+	n1sBe0vUbjFj9beMBf2PXli+oM0PE/HdjTNDVe+m1ASWJERQ6Zng0o3qV0XMjbkbT9T+iral332
+	QVK0+D3T/5itxa7qaIlzo6IYzGKJExxWb+HDAuHuyqfjgfqZIM62vbTDMaQugShYyt70mMAGvaH
+	4Z/h1avu40LXymA1SiJc9uqaqCRUsf7i7ooPtHn9lBAuxlm73eIEZCUG0ZqHTBbhlwVj0bsYukL
+	Xp79CFYrFysT3MJGQzdwIWnno4JeIjnA24kMdwU+MjUdKkJczcrtFV07kug7qrAwcDi9qRU3+6+
+	GzoMm3igNtLtvw1jDIoZy2YtXHz6D4U61WKmciwo6FAv1690yBOfxUdIyaxtSl
+X-Received: by 2002:a53:ca4f:0:b0:66e:6231:5735 with SMTP id 956f58d0204a3-66f9bb54ddamr1843674d50.18.1788366208467;
+        Wed, 02 Sep 2026 09:23:28 -0700 (PDT)
+Received: from localhost ([2605:8600:200:1a83:fe59:7385:2855:8588])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-86c17840d87sm20706277b3.27.2026.09.02.09.23.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 09:23:26 -0700 (PDT)
+Date: Wed, 2 Sep 2026 12:23:23 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Nimrod Oren <noren@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Hugh Dickins <hughd@google.com>, Nirmoy Das <nirmoyd@nvidia.com>,
+	Dragos Tatulea <dtatulea@nvidia.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
+Message-ID: <20260902162323.GO3004@cmpxchg.org>
+References: <20260901190123.3511535-1-noren@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901190123.3511535-1-noren@nvidia.com>
 
-On Wed, 2 Sep 2026 16:42:53 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+On Tue, Sep 01, 2026 at 10:01:23PM +0300, Nimrod Oren wrote:
+> When THP is enabled, set_recommended_min_free_kbytes() may raise
+> min_free_kbytes using a heuristic that scales with pageblock_nr_pages.
+> Commit f000565adb77 ("thp: set recommended min free kbytes") added this
+> heuristic to help keep pageblocks free and reduce fragmentation for THP
+> allocations.
+> 
+> The recommendation scales poorly with larger base page sizes. With the
+> default arm64 pageblock sizes, the contribution per eligible zone
+> before applying the existing cap of 5% of low memory is:
+> 
+>   4 KiB pages:   2 MiB pageblock,   22 MiB per zone
+>  16 KiB pages:  32 MiB pageblock,  352 MiB per zone
+>  64 KiB pages: 512 MiB pageblock,  5.5 GiB per zone
+> 
+> Even with that cap, min_free_kbytes can reach excessive levels.
+> 
+> The automatic min_free_kbytes increase predates proactive compaction
+> and many subsequent changes to compaction. Given those changes,
+> increasing min_free_kbytes for THP by default is no longer clearly
+> justified.
+> 
+> Remove set_recommended_min_free_kbytes() and all associated
+> recalculation paths. With this policy gone, min_free_kbytes is
+> controlled only by the page allocator's default calculation and the
+> vm.min_free_kbytes sysctl. Users who want additional headroom may set a
+> higher value via that sysctl.
+> 
+> Link: https://lore.kernel.org/r/20260831075635.2244437-1-noren@nvidia.com/
+> Suggested-by: Michal Hocko <mhocko@suse.com>
+> Signed-off-by: Nimrod Oren <noren@nvidia.com>
 
-> On 01.09.2026 15:27, Boris Brezillon wrote:
-> > On Fri, 28 Aug 2026 21:56:51 +0100
-> > Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
-> >  =20
-> > > This will be of great help when testing potential races between the G=
-PU
-> > > reset sequence and other parts of the code accessing HW registers.
-> > >=20
-> > > Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-> > > ---
-> > >  drivers/gpu/drm/panfrost/panfrost_device.c | 35 ++++++++++++++++++++=
-++++++++++
-> > >  1 file changed, 35 insertions(+)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu=
-/drm/panfrost/panfrost_device.c
-> > > index d8acae9b8cfa..b6a48ae0d3a6 100644
-> > > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> > > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> > > @@ -2,6 +2,7 @@
-> > >  /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
-> > >  /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
-> > > =20
-> > > +#include <linux/debugfs.h>
-> > >  #include <linux/clk.h>
-> > >  #include <linux/reset.h>
-> > >  #include <linux/platform_device.h>
-> > > @@ -600,9 +601,43 @@ EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) =3D {
-> > >  };
-> > > =20
-> > >  #ifdef CONFIG_DEBUG_FS
-> > > +static int reset_get(void *data, u64 *val)
-> > > +{
-> > > +	struct panfrost_device *pfdev =3D
-> > > +		container_of(data, struct panfrost_device, base);
-> > > +
-> > > +	*val =3D atomic_read(&pfdev->reset.pending);
-> > > +	return 0;
-> > > +}
-> > > +
-> > > +static int reset_set(void *data, u64 val)
-> > > +{
-> > > +	struct panfrost_device *pfdev =3D
-> > > +		container_of(data, struct panfrost_device, base);
-> > > +
-> > > +	if (pm_runtime_get_if_in_use(pfdev->base.dev)) { =20
-> >=20
-> > Are you sure it's not pm_runtime_get_if_active() we want here? If use
-> > the _if_in_use() variant and autosuspend is enabled, we might skip a
-> > reset on a device that's active. =20
->=20
-> Do you mean if a driver has brought the RPM count down to 0 and scheduled=
- a deferred suspend?
-> Couldn't manually triggering a reset then somehow race with whatever is b=
-eing done in
-> panfrost_device_runtime_suspend() ?
+Just to summarize my take from the subthread with Zi: the premise of
+this patch is to roll the regression dice on every THP setup out there
+because certain ARM configurations result in a questionable pageblock size.
 
-If a concurrent suspend is happening, _get_if_active() would wait for
-the transition to happen, and return false when the suspend is
-effective. If a suspend was scheduled (rpm ref was zero), it will be
-cancelled, and you'll end up with an RPM ref preventing any suspend from
-happening until you call pm_runtime_put(). So I think we're good.
+I'm not against carefully evaluating and testing out today's need for
+set_recommended_min_free_kbytes() in real world examples. But this is
+not that.
+
+Nacked-by: Johannes Weiner <hannes@cmpxchg.org>
