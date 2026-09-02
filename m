@@ -1,50 +1,64 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612454908AD;
-	Wed,  2 Sep 2026 12:40:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD23E490C13
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:40:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352831; cv=none; b=Lz9b7hhyfPKKGnAvl2Te+cauMuNb8WGvF1rMsfKMDdcLNxK3u6FHBt0XCnX8jsmoy/onGuVKmzoGUqhk9IqKILpLNwxXusbGm9HBOO4a0bH2sJlVIk4WaeBzkGjIERfZwvGyHpvm7WL5R/ibaPVbiMaWguJKOFtUBnNckNTFNZY=
+	t=1788352832; cv=none; b=gN6uDkL2TbYX7P9IJNW5g1p1ubqEcVmYyEtuZezF3cQTLHbY9pKmKsaVSykram5m+PZJmg+2f1eMe0TPceZsEfoInIVFma0pB66emcEOqT67s62514LHhXIxeG1XbgUTlSwKcqJicVAwtDbqKCKt/Vy/a7+XavB2wGbfXV5PwMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352831; c=relaxed/simple;
-	bh=UMI0QfgMfnLxhqN+hUuIEBnQed8SOgoyTb0c5j/oTEQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iTSs8I0aZ11rDZw/NnWC0UN/GRh4Zx3naLn8eSOqh2gKSaYoowpFzWHMvL21JuIFLU+e0yJklp+zRcQ6TI5NUtbvNGVkO8bWFJnlPfQpg/9TSDSVHNub77PWZSROHE2Ln38Scj/oeMQY1NHBlguvlGMvZBsRPIbN91IXB0eMn5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=Fus7J2en; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1788352832; c=relaxed/simple;
+	bh=fDxH/Te0cQFp5ShQesuIMkvuRo5iX/+PNojmEZYHOvE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=F5JFsPLLh3HNZz+Reuie8LRiu1a667ZSvJIGuQUCPqygjeorpdX4is8gmKq7gIFb81BacHhHk7Yn8fkQZh79KXhYhFj5iGsrbWq4GFdXpUPgVLImyT15h4hUsRJfGRNeMLZlrEeG5J+tYLV0CHT2M5qaj5r40EWdVyteotxKTFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Qez3ofS3; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="Fus7J2en"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B9BD311CE48;
-	Wed, 02 Sep 2026 14:40:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1788352822; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=YJo+5nQ0nINBNaxywSOUixu7kVY/MO9oQIxFhCicr3U=;
-	b=Fus7J2enwqruCRbPnjDoUUUhP40Uy3ASz92Ve/vGIRhjx2qab15DuVYHpB3yKKYvPm3vqH
-	Vm676MIUl/Hou0yUJVBuS2+tCEmpu4onyCikaQYO7Hbk5qlo8FJ3EyXl2YvTNZjw1dvG5W
-	rC+kTspa6YkdHr2dLx/UyTy3HdiKDXnH1xcU5bbO1HB0/AT4Ix31FXBoRd7iql6GjOz7ao
-	y28MuKsc/8h3CLuFKNAnqY3y25YlYI/B16Sx5WAqkJvqEg3JmZk5nqbLDiu+6qIR8CsXfO
-	nTXNoFAd9vVEffaHwqjYBzESOBb08Tmn81TVSPXtBUcOJpxgNsg0gZV8pJ2aXw==
-From: Marek Vasut <marex@nabladev.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: fabrice.gasnier@foss.st.com,
-	Marek Vasut <marex@nabladev.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Christophe Roullier <christophe.roullier@foss.st.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
-	Rob Herring <robh@kernel.org>,
-	Yannick Fertre <yannick.fertre@foss.st.com>,
-	devicetree@vger.kernel.org,
-	kernel@dh-electronics.com,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH v6 1/2] dt-bindings: arm: stm32: Document st,stm32mp23/25-syscfg subnodes and cells
-Date: Wed,  2 Sep 2026 14:39:49 +0200
-Message-ID: <20260902124018.606544-1-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Qez3ofS3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788352829;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=POtjo3MS/3gDN7qLigZ6UysW0mOjgCNLxkaaquz7gMg=;
+	b=Qez3ofS35lQSZhknsZ3794srxl7ltZHdMYuh7k3B6He6bxdXhdqNq0WlY8TaCFKk5yvaHN
+	0Qt2K9KPZoOiJyXFYjN/AmNV3zLxRFw/9zRcY3pE8gAA3PkpjwBpXc3dO3M/CZmDdvRO+q
+	467hUnYIIKCqiC3nlfqaRPY+Gc+cg7Y=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-160-YuCptREKN5SRK22hA2CmFw-1; Wed,
+ 02 Sept 2026 08:40:25 -0400
+X-MC-Unique: YuCptREKN5SRK22hA2CmFw-1
+X-Mimecast-MFC-AGG-ID: YuCptREKN5SRK22hA2CmFw_1788352824
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3E6A61953948;
+	Wed,  2 Sep 2026 12:40:24 +0000 (UTC)
+Received: from vschneid-thinkpadt14sgen2i.remote.csb (unknown [10.44.33.19])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D9ADB1955F72;
+	Wed,  2 Sep 2026 12:40:20 +0000 (UTC)
+From: Valentin Schneider <vschneid@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Tomas Glozar <tglozar@redhat.com>,
+	Costa Shulyupin <costa.shul@redhat.com>,
+	Crystal Wood <crwood@redhat.com>,
+	John Kacur <jkacur@redhat.com>,
+	Ivan Pravdin <ipravdin.official@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>
+Subject: [PATCH v5 2/8] rtla/osnoise: Record IPI count in osnoise top
+Date: Wed,  2 Sep 2026 14:39:31 +0200
+Message-ID: <20260902123942.695822-3-vschneid@redhat.com>
+In-Reply-To: <20260902123942.695822-1-vschneid@redhat.com>
+References: <20260902123942.695822-1-vschneid@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,100 +66,188 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-The st,stm32mp23-syscfg and st,stm32mp25-syscfg can have subnodes, which
-represent the USB 2.0 FEMTO-PHY. Document subnodes pattern properties and
-address/size cells.
+Leverage the ipi_send_cpu and ipi_send_cpumask trace events to record the
+count of IPIs sent to monitored CPUs. These interferences are already
+accounted by the IRQ count, but this split gives a better overall picture.
 
-Signed-off-by: Marek Vasut <marex@nabladev.com>
----
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Christophe Roullier <christophe.roullier@foss.st.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Marek Vasut <marex@nabladev.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Yannick Fertre <yannick.fertre@foss.st.com>
-Cc: devicetree@vger.kernel.org
-Cc: kernel@dh-electronics.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
----
-V2: New patch
-V3: Fix the bindings
-V4: - Undo simple-mfd in favor of dedicated SYSCFG SoC driver
-    - Update commit message to match, this used to be patch
-      dt-bindings: arm: stm32: Switch st,stm32mp23/25-syscfg into simple-mfd
-    - Split this from series arm64: dts: phy: st: usb: Add STM32MP2 USB support
-      https://lore.kernel.org/all/20260822074816.548662-1-marex@nabladev.com/
-V5: - Add missing contains: into conditional
-    - Add phy subnodes into required list for stm32mp23-syscfg/stm32mp25-syscfg
-V6: - Reduce the pattern in patternProperties to match only on phy@2400 and phy@2800
-    - Disable address/clock/size-cells/phy@2400/phy@2800 unless compatible
-      with st,stm32mp23-syscfg or st,stm32mp25-syscfg
-    - Disable clocks unless compatible with st,stm32mp157-syscfg or st,stm32f4-gcan
----
- .../bindings/arm/stm32/st,stm32-syscon.yaml   | 30 ++++++++++++++++++-
- 1 file changed, 29 insertions(+), 1 deletion(-)
+This uses the newly added --ipi cmdline option.
 
-diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-index 95d2319afe235..a559f8b03b842 100644
---- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-+++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-@@ -39,6 +39,17 @@ properties:
-   "#clock-cells":
-     const: 0
+Signed-off-by: Valentin Schneider <vschneid@redhat.com>
+---
+ tools/tracing/rtla/src/osnoise_top.c | 116 ++++++++++++++++++++++++++-
+ 1 file changed, 115 insertions(+), 1 deletion(-)
+
+diff --git a/tools/tracing/rtla/src/osnoise_top.c b/tools/tracing/rtla/src/osnoise_top.c
+index 512a6299cb018..7b5ae5336cf08 100644
+--- a/tools/tracing/rtla/src/osnoise_top.c
++++ b/tools/tracing/rtla/src/osnoise_top.c
+@@ -8,6 +8,7 @@
+ #include <string.h>
+ #include <signal.h>
+ #include <unistd.h>
++#include <errno.h>
+ #include <stdio.h>
+ #include <time.h>
  
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 1
-+
-+patternProperties:
-+  "^phy@2[48]00$":
-+    type: object
-+    $ref: /schemas/phy/st,stm32-usb2phy.yaml
-+
- required:
-   - compatible
-   - reg
-@@ -54,13 +65,30 @@ allOf:
-     then:
-       required:
-         - clocks
-+    else:
-+      properties:
-+        clocks: false
-   - if:
-       properties:
-         compatible:
--          const: st,stm32mp25-syscfg
-+          contains:
-+            enum:
-+              - st,stm32mp23-syscfg
-+              - st,stm32mp25-syscfg
-     then:
-       required:
-+        - "#address-cells"
-         - "#clock-cells"
-+        - "#size-cells"
-+        - phy@2400
-+        - phy@2800
-+    else:
-+      properties:
-+        '#address-cells': false
-+        '#clock-cells': false
-+        '#size-cells': false
-+        phy@2400: false
-+        phy@2800: false
+@@ -25,6 +26,7 @@ struct osnoise_top_cpu {
+ 	unsigned long long	irq_count;
+ 	unsigned long long	softirq_count;
+ 	unsigned long long	thread_count;
++	unsigned long long	ipi_count;
  
- additionalProperties: false
+ 	int			sum_cycles;
+ };
+@@ -164,6 +166,8 @@ static void osnoise_top_header(struct osnoise_tool *top)
+ 		goto eol;
  
+ 	trace_seq_printf(s, "          IRQ      Softirq       Thread");
++	if (params->common.ipi)
++		trace_seq_printf(s, "          IPI");
+ 
+ eol:
+ 	if (pretty)
+@@ -218,7 +222,10 @@ static void osnoise_top_print(struct osnoise_tool *tool, int cpu)
+ 
+ 	trace_seq_printf(s, "%12llu ", cpu_data->irq_count);
+ 	trace_seq_printf(s, "%12llu ", cpu_data->softirq_count);
+-	trace_seq_printf(s, "%12llu\n", cpu_data->thread_count);
++	trace_seq_printf(s, "%12llu", cpu_data->thread_count);
++	if (params->common.ipi)
++		trace_seq_printf(s, " %12llu", cpu_data->ipi_count);
++	trace_seq_printf(s, "\n");
+ }
+ 
+ /*
+@@ -275,12 +282,93 @@ osnoise_top_apply_config(struct osnoise_tool *tool)
+ 	return -1;
+ }
+ 
++static void account_ipi(struct osnoise_tool *tool, unsigned long long dst_cpu)
++{
++	struct osnoise_top_cpu *cpu_data;
++	struct osnoise_top_data *data;
++	unsigned long long inc = 1;
++
++	data = tool->data;
++	cpu_data = &data->cpu_data[dst_cpu];
++
++	update_sum(&cpu_data->ipi_count, &inc);
++}
++
++/*
++ * osnoise_ipi_cpu_handler - this is the handler for single CPU IPI events.
++ */
++static int
++osnoise_ipi_cpu_handler(struct trace_seq *s, struct tep_record *record,
++		     struct tep_event *event, void *context)
++{
++	struct osnoise_tool *tool;
++	struct osnoise_params *params;
++	unsigned long long dst_cpu;
++	struct trace_instance *trace = context;
++
++	tool = container_of(trace, struct osnoise_tool, trace);
++	params = to_osnoise_params(tool->params);
++
++	tep_get_field_val(s, event, "cpu", record, &dst_cpu, 1);
++
++	if (CPU_ISSET(dst_cpu, &params->common.monitored_cpus))
++		account_ipi(tool, dst_cpu);
++
++	return 0;
++}
++
++static cpu_set_t cpumask_tmp_cpus;
++
++/*
++ * osnoise_ipi_cpumask_handler - this is the handler for broadcasted IPI events.
++ */
++static int
++osnoise_ipi_cpumask_handler(struct trace_seq *s, struct tep_record *record,
++			 struct tep_event *event, void *context)
++{
++	struct trace_instance *trace = context;
++	struct osnoise_tool *tool;
++	struct osnoise_params *params;
++	struct tep_format_field *field;
++	cpu_set_t *event_cpus;
++	int len;
++
++	tool = container_of(trace, struct osnoise_tool, trace);
++	params = to_osnoise_params(tool->params);
++
++	field = tep_find_field(event, "cpumask");
++	if (!field)
++		return 0;
++
++	event_cpus = tep_get_field_raw(s, event, "cpumask", record, &len, 1);
++	if (!event_cpus) {
++		err_msg("Failed to get cpumask field\n");
++		return 0;
++	}
++
++	CPU_AND(&cpumask_tmp_cpus, event_cpus, &params->common.monitored_cpus);
++
++	/*
++	 * Computing the mask weight is overkill but there is no leaner option
++	 * provided by glibc, e.g cpumask_first() or somesuch.
++	 */
++	if (CPU_COUNT(&cpumask_tmp_cpus)) {
++		for (int cpu = 0; cpu < nr_cpus; cpu++) {
++			if (CPU_ISSET(cpu, &cpumask_tmp_cpus))
++				account_ipi(tool, cpu);
++		}
++	}
++
++	return 0;
++}
++
+ /*
+  * osnoise_init_top - initialize a osnoise top tool with parameters
+  */
+ struct osnoise_tool *osnoise_init_top(struct common_params *params)
+ {
+ 	struct osnoise_tool *tool;
++	int retval;
+ 
+ 	tool = osnoise_init_tool("osnoise_top");
+ 	if (!tool)
+@@ -295,7 +383,33 @@ struct osnoise_tool *osnoise_init_top(struct common_params *params)
+ 	tep_register_event_handler(tool->trace.tep, -1, "ftrace", "osnoise",
+ 				   osnoise_top_handler, NULL);
+ 
++	if (!params->ipi)
++		goto out;
++
++	retval = tracefs_event_enable(tool->trace.inst, "ipi", "ipi_send_cpu");
++	if (retval < 0 && !errno) {
++		err_msg("Could not find ipi_send_cpu event\n");
++		goto out_err;
++	}
++
++	retval = tracefs_event_enable(tool->trace.inst, "ipi", "ipi_send_cpumask");
++	if (retval < 0 && !errno) {
++		err_msg("Could not find ipi_send_cpumask event\n");
++		goto out_err;
++	}
++
++	tep_register_event_handler(tool->trace.tep, -1, "ipi", "ipi_send_cpu",
++				   osnoise_ipi_cpu_handler, NULL);
++
++	tep_register_event_handler(tool->trace.tep, -1, "ipi", "ipi_send_cpumask",
++				   osnoise_ipi_cpumask_handler, NULL);
++
++out:
+ 	return tool;
++out_err:
++	osnoise_free_top_tool(tool);
++	osnoise_destroy_tool(tool);
++	return NULL;
+ }
+ 
+ struct tool_ops osnoise_top_ops = {
 -- 
-2.53.0
+2.55.0
 
