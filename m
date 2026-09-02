@@ -1,111 +1,157 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 549984657F2
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:41:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A30469822
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:41:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788345708; cv=none; b=UOehFrGVzmg/HhzyEnWwZGtMYHMT2V/Q+JPKi5HOd+r4AaPQrQ7ctqKgEQh1dlkD12mrWZ2V9cEAqrAiamCO5qQr+NBh+uhK4jQxZEwFN4Ylg2qjxX+pVSLmkQI6uBzgnY4vC+eM6AmyY/eBTCO+oPM24BN96x2LtxVlgG5QnY8=
+	t=1788345714; cv=none; b=Enm7zivEQoUpH2OBPgPhxroCbE5f13XvQpWSgYXuw/h8/IVXXIS5ASF1H85dRXdIfG1kBBeNH1AjhQtYRBO7Sqdi7BitSiPzhl3VCuhyeoTzzWOjvhF+b9+/evkMhSsOj0xdsi9ikZ6t9UfebXxollR1HzmiLxH20otnGAhA3Us=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788345708; c=relaxed/simple;
-	bh=gE3q2mnuqp4VNjrudaIOU10zmf2ptLy8FzzNkjTFj80=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bLVcoZxd8xZKuw3oqChMxg3B26+qL+YzAeL7KsHaTQUFycxIUZkb4+EdKzTGQyPQgRGZWNeyrZg6l5BqiU1duDdDL4uM7+Qo5aTt/t89G02hatg/XBXQZPGE5JMeFNgOyvjQV9XIqE5AXGA43Or6hUvhAneQZ5VNPVEHw246VIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=3aLE5/+J; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=o0FH9ot0; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788345714; c=relaxed/simple;
+	bh=X1kI7enujw/BKcxgK8l9mNf0YGyaiGCcyKAncN0yXF4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GzEALi0YXr0ZBrpKD7lA2IMrKC8U9uVDwi/cnDhBSCD6mHHHuhwMsRgOGUDEfDnLoAZuJnDGKfTj/C/PWKLQHFF8cSEzyhVuats0OkdpFp7OkSAnsSvSARbYGaNn88TePQOGKV0CUdl4NoxZklagHZpdAkMF/RKiVtMYSC/COTA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OdxwBPOj; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="3aLE5/+J";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="o0FH9ot0"
-Date: Wed, 2 Sep 2026 12:41:43 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788345705;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gE3q2mnuqp4VNjrudaIOU10zmf2ptLy8FzzNkjTFj80=;
-	b=3aLE5/+Jn9kHSSfphKTcjdpJgFAAB6ldENs61d6YnWSU8O51QNwxrMJa5Ci6jfH13Y07DW
-	o2uKkK9kGBynnpJyOAT1VjJpQ0v776RTbgOPYLzB72bhe+86ECX5LQnrxT3mTDflE9meAI
-	UiaztD/cdw472KOdFUhLLWjFGjLzlu4Y/3Dc02wMttwM38daq0htwYk05M5t1185Ys9ui7
-	LbAHj++23iL41iFHD2FLXgeQUQyrc2SDaBzKG/w2344Zz4ezWKt4sJokS4QtWunqJf9Hvd
-	Tuj9a/lmZiujhoXkNsufwdBzuE7+IaAmNTCiGC4QmxuaIsUK9s13sZUzs8IZ9w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788345705;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gE3q2mnuqp4VNjrudaIOU10zmf2ptLy8FzzNkjTFj80=;
-	b=o0FH9ot0MYitBBSOsIppqZaOeaITX1sSjB7A4OqOE6H7yx2LjGC2RoL6OZjnJeFkz527zD
-	6+Ku5WZ/S/jm1WBw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Harry Yoo <harry@kernel.org>, Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Alexei Starovoitov <ast@kernel.org>, Hao Li <hao.li@linux.dev>,
-	Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	syzbot+acf142088e0182172e58@syzkaller.appspotmail.com,
-	ThangNN99 <ngocthang2710.1999@gmail.com>
-Subject: Re: [PATCH] mm/slab: disallow kfree_rcu_sheaf() on PREEMPT_RT again
-Message-ID: <20260902104143.j8BXrjKq@linutronix.de>
-References: <20260831-b4-kfree_rcu_hotfix-v1-1-4f0fb882638b@kernel.org>
- <20260901073339.uyKHXWCX@linutronix.de>
- <47aa459f-27d5-4b2f-9eb9-36ebca63d890@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OdxwBPOj"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-484392e3d33so546436f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 03:41:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788345709; x=1788950509; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5khuFZT81tX7pSug/4+JUOUpnKVo3evkTPVFZ3Cd+Zc=;
+        b=OdxwBPOjd6cSiI/4INa+0peozNc2JeH94Asca4+QeRK0M0F7ECOvN+xWnCLibBC1bb
+         nUxe5wuMdEwakzv0OPYlKlB7fSUw/1ylA7VUmtJs1Qj2ZQBOkWEcD17+LESHoE8lK4CV
+         kPkEgImfKl0ghnziRPLsjBDVUBrMiiWTM2XG0ygtL/jz/fY3fzquJ500DPda61AVpXCK
+         ikj6K9gtdY7RyPo142V5mGcnABbWTyhYKiPtYhfVGZqOOXpx2chFduzs5rCp+nLz9Wgw
+         Lw4uayGRE7lj7RvIpjJT1qehXPpX02pAkIFZK3t6hbFWvWvhPSQK1Pzw22PAHBrhN2JF
+         VBkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788345709; x=1788950509;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5khuFZT81tX7pSug/4+JUOUpnKVo3evkTPVFZ3Cd+Zc=;
+        b=Cd772IxhjyGX6a2PJmfzeykMS4cbUpLjNaK8EZ0T8aQoB+aA430VLGzHXIfNMnTM5H
+         9LB5VT5BI7JZMW1aXtIQ8/esQo50wEgJw+5nYtmInXA0SoskFwQt6lI3vJd/EjIWe0Ef
+         IVUHEuDR6abyD2ak8oz648rxWbGrhca9OahAXYcAsGWmnMsBtJh1AhvjR26ayV/5EJQQ
+         EUjn+2DJsmR/gkW3Fg+8YkqQyj+Xn5SmPeO4zQMH7VVfWd+FfaQ4/SawhXSD/ZIQ3RXs
+         XclMKph0/EwbX3R3uRqTRYrYnrIOYg8wUze4u+D1gHRFxOakwzsVrtd+IT95ZQRMuyOn
+         Iamw==
+X-Forwarded-Encrypted: i=1; AKwUvBxWYECX/0xNWi3nZ1IfxDKDKq4rivULpHTq3AjNTn9PfQHMf/L1qyvJ5gKBjZu5UVA5xodUgUVLD07MGas=@vger.kernel.org
+X-Gm-Message-State: AFuF++l698T9sZFBGxhjgmh2v5dxfN/Tbyo5HDk9nxUBKoGF4IFLeGCi
+	M1DeH0x3+iVzY5wnFMta4r+xGxwzpFqpDA6aHgN9/z8PaHU2ZwkozdQp
+X-Gm-Gg: AYBFou2LMKrfy3ccxU2nGDpsCf34AcpsIjNVEmRcDqHYtdbQtuCcF2Va2AYavEmVC0U
+	4Nrbdvons8Rg7ub0imVtCQbMp/0GgUwL3/Wqon0poFFZaaZVHz6tbSUjkm53ENFO4gTzssKOQ8A
+	P1dmmm40gIwI4WTbQ49N249lCIIgeVV9I/ZVutXf3FTXBuBn92t1Z2VHatThd8q0L+u/mxnx+lm
+	MVFgT3z6YXDELqKMjIhDJ/wVYO2cIIH607xsCRmVC9L+BrDU9i+ZlmO1K1IUoXm1T7q/BfdFr3t
+	M9s/JOZcJQTY28NdjzsggPcl2fpX5G0DUYYTZ9j7ktOTkHFNxyhXuzU4iyR8jawDdTpwGD9Acpp
+	tk2RlZwzjap/c44qXtshekdTiBmNP7ukfk5yOPImuzmpeP3/+/up1+yUMBYNGOlRS+EPfwo556m
+	HHJ8feHaCdan8dueRNllMqkmDWgRjQSmNx81akCgMbTj682XzFyhZCl0iruiIUBw+01s8=
+X-Received: by 2002:a05:6000:2582:b0:482:fbb0:a262 with SMTP id ffacd0b85a97d-484914b94aemr6379556f8f.20.1788345708202;
+        Wed, 02 Sep 2026 03:41:48 -0700 (PDT)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e72df2sm5998947f8f.1.2026.09.02.03.41.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 03:41:47 -0700 (PDT)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mehmet Fide <mehmet.fide@screeningeagle.com>
+Subject: [PATCH rtw-next 0/2] wifi: rtw88: usb: keep bmc traffic from exhausting the TX page pool
+Date: Wed,  2 Sep 2026 12:41:44 +0200
+Message-ID: <20260902104146.3853102-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <47aa459f-27d5-4b2f-9eb9-36ebca63d890@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On 2026-09-01 15:59:09 [+0200], Vlastimil Babka (SUSE) wrote:
-> On 9/1/26 09:33, Sebastian Andrzej Siewior wrote:
-> > On 2026-08-31 18:02:38 [+0200], Vlastimil Babka (SUSE) wrote:
-> >> This partially reverts commit 2a8bb29ec9b2 ("mm/slab: allow
-> >> kfree_rcu_sheaf() on PREEMPT_RT"). It was based on an assumption that
-> >> local_trylock() is safe on PREEMPT_RT from any context.
-> > =E2=80=A6
-> >> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-> > Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-> >=20
-> >> ---
-> >> Incidentally I have posted a RFC [1] that leads to replacing that
-> >> kfree_rcu() from set_cpus_allowed_force() but now after back from
-> >> vacation I need to check the feedback and based on this bug report I c=
-an
-> >> already see it makes the same bad assumption that trylock is fine.
-> >=20
-> > free_to_pcs() has still this trylock.
-> >=20
-> > What I am not so sure how good is that kfree_rcu_nolock() may allocate
-> > memory for the sheaf if there is none around.
->=20
-> Per sashiko review it's actually bad too under the pi_lock, because
-> GFP_NOWAIT means __GFP_KSWAPD_RECLAIM which can mean wakeup_kswapd() and
-> thus also need scheduler locks. And it's not a PREEMPT_RT-only issue...
+From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-\o/
+Hi Ping-Ke, Bitterblue,
 
-> > It could have a pool of X
-> > and if it runs out, it runs out and waits until the clean up process
-> > feeds the used sheafs back. There is fallback and the run out is not the
-> > usual case.
->=20
-> I'd rather not invent new pools, since there's fallback and the sheaf+barn
-> is already a pool. Could be enough to make sure the allocation attempt is
-> safe, i.e. use only __GFP_NOWARN.
+this follows up on the discussion under the v3 routing patch [1]: with
+that patch applied, a single dozing station is still enough to route all
+broadcast and multicast traffic through the high queue, and since the
+chip only drains that queue in the ATIM window after DTIM beacons while
+the frames occupy the shared TX page pool, ordinary chatter empties the
+pool and the AP stops accepting stations. Numbers and the ATIM window
+experiment are in the thread [2]; the short version: at the default 2 TU
+window the queue drains ~3 frames per DTIM, ~40 frames/s of mDNS takes
+the pool from 1803 to 16 pages in about 100 s, and enlarging the window
+to 4 TU or more makes the same storm harmless.
 
-So we avoid the allocation and just add it to the sheaf+barn and this is
-it?
-=20
-Sebastian
+The series follows the order Ping-Ke suggested (bound first, then
+filter):
+
+Patch 1 caps how many frames the driver hands to the high queue with a
+small token bucket set below the measured drain rate; the excess goes
+out on the access category queue right away. This is the guarantee: the
+pool stays healthy under any storm, including ARP/DHCP bursts.
+
+Patch 2 admits only ARP, EAPOL and DHCP to the after-DTIM path, matching
+the vendor driver's default high queue filter, so ordinary chatter never
+reaches the beacon-paced queue and the budget is left for the frames a
+sleeping station actually needs. At runtime the filter is evaluated
+before a token is taken, so chatter does not consume the budget.
+
+Not included: raising REG_ATIMWND. It would add drain capacity, but the
+queue stays unbounded and a wider window costs every PS station awake
+time after each DTIM; if the firmware is fine with a larger window on
+the USB chips I can add it as a separate patch. The mac80211-side
+buffering (IEEE80211_HW_HOST_BROADCAST_PS_BUFFERING) needs a beacon-time
+event; the firmware seems to have one (C2H_BCN_EARLY_RPT, used by the
+vendor driver for TDLS), that is a follow-up once we know it works in AP
+mode.
+
+Tested on a Verdin AM62 AP with RTL8822BU (USB2, 20 MHz, WPA2, one
+Windows client in power save), free page count read at 0x240, on top of
+rtw-next with c710c7c2e038:
+  - baseline (rtw-next as is), one client in power save, ~80 bmc frames/s
+    generated on the AP: free pages 1803 -> 16 within 30 s and pinned for
+    the whole storm, 18 "error beacon valid" / rsvd page failures, and
+    after the storm three reconnect attempts failed (no association
+    until the client left and the pool recovered ~90 s later)
+  - patch 1 alone: 1803 pages throughout the same 180 s storm and a
+    120 s DHCP-port storm, no beacon errors, ping over the existing link
+    6/6, reconnects 3/3
+  - patches 1+2: 1803 pages throughout both storms as well, no
+    beacon errors, ping 6/6, reconnects 3/3; the filter keeps the
+    budget for ARP/EAPOL/DHCP, so the DHCP-port storm is the case where
+    the token bucket actually engages
+  - join/ping cycling without power save (10 cycles): unchanged
+  - with an iPhone (screen off) as the only associated station instead
+    of the Windows client: baseline 1803 -> 17 in 30 s and three join
+    attempts from a second device fail; with both patches 1803
+    throughout and the second device joins 3/3
+  - the same series on an RTL8821CU AP (i.MX8MP, PREEMPT_RT kernel,
+    411 free pages when idle): baseline drops to 16 pages within 30 s
+    and stays there, ping and three join attempts all fail; with the
+    series the count stays at 411 through the multicast storm, dips to
+    357 and recovers during the DHCP-port storm (the budget doing its
+    job), ping 6/6 and joins 3/3. No atomic-context or lockdep
+    complaints on the RT kernel.
+
+[1] https://lore.kernel.org/linux-wireless/20260814053426.2473247-1-mehmet.fide@gmail.com/
+[2] https://lore.kernel.org/linux-wireless/20260901091830.2506562-1-mehmet.fide@gmail.com/
+
+Mehmet Fide (2):
+  wifi: rtw88: usb: bound what the driver feeds the after-DTIM queue
+  wifi: rtw88: usb: only let the frames a dozing station needs use the
+    after-DTIM queue
+
+ drivers/net/wireless/realtek/rtw88/usb.c | 82 +++++++++++++++++++++++-
+ drivers/net/wireless/realtek/rtw88/usb.h |  5 ++
+ 2 files changed, 84 insertions(+), 3 deletions(-)
+
+-- 
+2.54.0
+
