@@ -1,165 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF214A0EF8;
-	Wed,  2 Sep 2026 13:28:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E5649F12D
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:28:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788355717; cv=none; b=kvlICf7go2nHDFMB3Yl9mdRVAdtgbIAHtjOyDHLU+9Z611dqw44kkN5YkcPO+SPxjOzg19P6DnLA3T9dnRSKxl62XABgE58tTSwwo/AJIj7i9d7u/B7M4K6uKOqyZqZrBvJC2vAgFpKiHq/Wxp8vl4MQp6+oUEvw67Iiu0Rbvkw=
+	t=1788355728; cv=none; b=iskTPEM58a8UzbRUxVVPCMimCGnN4nQ9/RX4yBi8Xzq3jBv5Zwr6xk5DWdhZtolvWGtH9cLcK/qFK50vQSxU9BpSGnANWLt788trnC+7odhXRHa7UewFPGWceoyR5PD3j0sFT37OMjQoXUxC1WgXItmt+kJ5S4saw9QSmIp0jIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788355717; c=relaxed/simple;
-	bh=+omDfc9TL/XAqCElB1ECov07Wz53Bjd9L1vrszIACpU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=sB8jlQ9ptcJIB+js2Z/Kuh/mKNTgUHKlL0NnXvILHAryGdDiP8MPd1uzChFLwuYfSWt8CqpoMaHzI3QIfG/fWtG6ESUna82WSWQETWUI38BJPsCWxlu0yMmxzPMFxCipo+SFFLVcJoE94NZL7t5TviNFsfya96yhoGNQv5NtN7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lm0rohuP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788355728; c=relaxed/simple;
+	bh=vqQ9yFom+KAtKBmXnmdPUsCdNv7GT8zmvq1Y31NDaXs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uCkjR2R7STa91qIe79Leg2bCWpKcr2M6ajDBURFmp90Sud10w6sKYw1M2BypQs7M1B5UVmuQ1WHJfXH8JLfMhP/xHeDezoZSFqLAbVkNDfChz+g9fm5ZAG3kOuvtDoDNyvRwQmwwZjb+duqETY6fuGQQlv4g/CH1V3qz8gAdVYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q4M/7d0V; arc=none smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lm0rohuP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07F4C1F000E9;
-	Wed,  2 Sep 2026 13:28:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788355715;
-	bh=dd8siENsqtHhQzXPZF0LKxm97fALr2t5Pd26+e10O2o=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Lm0rohuP6ISavxKdLUcodpGsLZ35LIfEfFgviN75v83FXuw7EgygD65gM6GLUyGZY
-	 gDUftNOffZpkrhrXf4H0OLW7BoSl4QFXeuLj+M3LhJ+ZwIeQvNKdj6pgNPN7GBgZBX
-	 FxiHHsWHlUfTuVSUyMly7Z/1mSWzTOFXHqIYSQJr2rnEa3W3VHxf7OB90QKnZU06y1
-	 lXKYJtPkdUJ9yS6Vkaz+NCBaLnQ6ov27PGmV6JrJU792vLc8lTQEnwEJIHiySCHAhB
-	 lrMc05SplsUftNtFpG7F8+Xk4UOgquQKVu+NPvf3jQho1uRyYd0cmtVRnNRksN4Ci0
-	 5zW+xzYq4enxQ==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-Date: Wed, 02 Sep 2026 15:25:57 +0200
-Subject: [PATCH v5 01/12] rust: xarray: minor formatting fixes
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q4M/7d0V"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc1c3c90074so1001466a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 06:28:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788355727; x=1788960527; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WaieGRt6LOh5thIe/TkyPr91gBSSxoFIo40Umb3lPE4=;
+        b=q4M/7d0V4DHiJegKtwXhmBb3L81BAeT4yvG2kyPwkNXJ+z4NnoE5XFlFHDb0CmI3gc
+         1DlQKXgy+hRnUiPFz9NVGb5/CCaZxXcPbLJ33BBnG84Njx+5SBiEHQiCRFea5vb5SL57
+         JKrdQIE+U/jNOlzb3NowieqjcSmMdmIHDkPcdCj97Wyl8Iu+kH5hdLF44xzQMDoq2TOK
+         MCqO5nQ/fge3WAfLHzH82NqLztjdtOG5PnF6JmlIxtPqnAdNgXOSWVt71BoxZHvsWsbP
+         ibIf2K+LuGg2N0uhcgOHKZKJg27U4HW8njsewi/1jAw1i6mntYHp0tcR6QE/zU3vB4KK
+         kyCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788355727; x=1788960527;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WaieGRt6LOh5thIe/TkyPr91gBSSxoFIo40Umb3lPE4=;
+        b=NR0QP/dfrVQ8FVspwuNFJMspR8N31AQN0NdYAKv0puRLXTJeIfgCItMSkdbDSXyRkj
+         IriKsacUCpkfOdLvUfK2x12I9r/1lEveCHpmM9+ocOvkGe1lPhkNqSUWRVEhv/uwlD38
+         sgLKSJ/zgPZTRmp11nQFP1GpAqoNyC+PUxEliNe0fzCLCAsCCuwt6K394lca6t0HQ4op
+         zgyEmFm3RRnKOEIGoB2HO8cW09BlH7E10CW/JwqM3hMDUh7CD25Q3HUFM7hNKagN7SbF
+         WrN1zODjU0rpcMZcK3JQvC4yWLEcnVl2WctNcF3Ep79pZsYAKGq2SmpZsdU7z1dwPw4W
+         Hpnw==
+X-Forwarded-Encrypted: i=1; AKwUvBzlZizwElkHVpI35tv/lOsyAk8WPIRiXaZlsYvJDrP7oV3p0z2HoDzKIRBPcnJu4ZjQoDMMQgXT+VCktuI=@vger.kernel.org
+X-Gm-Message-State: AFuF++k27Z9LIg11h1WB9OTTv4MLifrTrjLABXfqp5U6O0rCPDThyTUS
+	QhKTq9ndBeglJn9lEZHsd7dQfFKLkHsrYSqBvVEPW0u2wyPgXszznIOO
+X-Gm-Gg: AYBFou1XtjLLAbAszHtSbyJvMmQbZfDFkvlFQscWHTzVI5MDD2WWYZV4LAYHCO/FdXX
+	L3hOfzVq+SqinPqLyhevZRkWRLwrWghx1wZrPgdl2SdQG+vO5KE8kDnTRi+ZveEFbLlcbZsSm/w
+	1dm2TOZqbcRzdaR676Rzol1mZVg56cwz4B352GTs1KwlculTl1Rq3ORfoA7j3H6lONBjIoWon+E
+	2ExhUrnjE95s5mbz6MzyuUluj4Zel4TkzNlk6bjbmmdLySRxPguoWIHBvlvjTDEReWXfko+8Jon
+	Oq60DdhZsJlcGCH0ZUAPnDA0o0Q4B611XPEvxBPZxE2U7ZEY23+9E11t1pN4vY89waPmjZI82OX
+	Pd3fvQg6y6tJ/hbRs+e2R+vvV/CqXK/NgIP64bIUpgaknJ7WhCgyL1cXAWmeS5COjtFF8AbmtY8
+	KdPPk+bq0CL97XLwW4A/dYROrQqtBpCxg15oBnashR9SUsI+6Y5KinFdkwZzRxmAeB7PdNPSKGo
+	YzzEbJggawXwiRo5eupAMWn8SNw7gfawLhz2g==
+X-Received: by 2002:a17:90b:1a8a:b0:385:393e:7124 with SMTP id 98e67ed59e1d1-39aee0e5de8mr6631593a91.14.1788355726490;
+        Wed, 02 Sep 2026 06:28:46 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d7bb9d7sm12149494a91.15.2026.09.02.06.28.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 06:28:45 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <bc51c907-a523-4b99-bf3a-b23c5823fd56@roeck-us.net>
+Date: Wed, 2 Sep 2026 06:28:44 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dt-bindings: hwmon: ti,tmp401: add
+ #thermal-sensor-cells
+To: Krzysztof Kozlowski <krzk@kernel.org>, Vincent Jardin <vjardin@free.fr>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260825-for-upstream-dt-tmp401-vcc-tsc-v2-1-cbc360ec51d9@free.fr>
+ <20260828-weightless-ferret-of-pluck-ef2baa@quoll>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260828-weightless-ferret-of-pluck-ef2baa@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-xarray-entry-send-v5-1-d18adae40708@kernel.org>
-References: <20260902-xarray-entry-send-v5-0-d18adae40708@kernel.org>
-In-Reply-To: <20260902-xarray-entry-send-v5-0-d18adae40708@kernel.org>
-To: Tamir Duberstein <tamird@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Matthew Wilcox <willy@infradead.org>, 
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Harry Yoo <harry@kernel.org>, Hao Li <hao.li@linux.dev>, 
- Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
- Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Andreas Hindborg <a.hindborg@kernel.org>, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
- Daniel Gomez <da.gomez@samsung.com>, 
- "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2371; i=a.hindborg@kernel.org;
- h=from:subject:message-id; bh=+omDfc9TL/XAqCElB1ECov07Wz53Bjd9L1vrszIACpU=;
- b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBqmCQawZH0SGA2p5ke/OiKg/3VhhXiRaJhAB+XD
- XruU96yNTiJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCapgkGgAKCRD6UCkIqsW9
- 0P50D/4iu74xgFGoPRqYXhC28GSw5li89gEWBMELQwbtd37y7DiKm4hsVD/JbvDhAySxNOPcKhY
- 3eKCjD3RcaZfmpBH71/DViwRdJ8tlHt8tTqzlA3ovdM9ck6v7Yfel55OaXcRTHm54+H7BXQSBnD
- 5yMll5okuX3iDijeDKXWdrxUWoJl7hBUEjKK8vybks+uuNFVczRVeXkKwqyT3CyUrHVLn1V4KMP
- RdDBJFxj6OwrIZsiNfcMCudWMQUJG/onFXCx3U68Z+ehIkOob7fgN/VOcJNn2t965Y7sYPUMOoN
- O9//Evx9jynx2ZuRBiF/1UmgahJee8SFUjc9m14llAhhIO+M1PeX6z6hJQJqaldgm9Qdy6jqndD
- OxCyUPALpVpUdvb9XXFJNcxofJxB0BY687RxgRgEu0WztaPZ76QcnNawY2dW0wjdQQhHaHBmrnW
- dWi0dhVHd1pW2zd5mJInLzyJm598EsjCYyAHyRhx0aSmDEhiob9gW7Pwa9K5cGqIOkNu/+2ivLD
- nb3iy7mqO82EfMZUcRabMDSpPI4zLGis+bCLVosrvetRa73KwyXeS9ZIjr4ohalgkD6jn8nnpXR
- O6xbyhDUhDXsje6gCw634mB56nB51QY0Kij2FWVCTRI7wjuNo4UDQtNZJRRWye+JH6AroE8oK/n
- lp4H2sXM7jXm+Mg==
-X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
- fpr=3108C10F46872E248D1FB221376EB100563EF7A7
 
-Fix formatting in xarray module to comply with kernel coding
-guidelines:
+On 8/28/26 03:02, Krzysztof Kozlowski wrote:
+> On Tue, Aug 25, 2026 at 12:13:18AM +0200, Vincent Jardin wrote:
+>> The property is missing, so a board that uses it with a thermal zone fails
+>> with dtbs_check:
+>>
+>>    tmp411@4c (ti,tmp411): '#thermal-sensor-cells' does not match any of the
+> 
+> Cannot find such node.
+> 
+> How can I reproduce this warning? If it is non-reproducible, then it is
+> not a valid reason for a change and instead driver implementing thermal
+> sensor would be the proper reason.
+> 
 
-- Update use clauses to use vertical layout with each import on its
-  own line.
-- Add trailing empty comments to preserve formatting and prevent
-  rustfmt from collapsing imports.
-- Break long assert_eq! statement in documentation across multiple
-  lines for better readability.
+The driver does register thermal zones. Since #thermal-sensor-cells is
+mandatory for using it, I would think that the property is needed.
 
-Reviewed-by: Gary Guo <gary@garyguo.net>
-Reviewed-by: Tamir Duberstein <tamird@gmail.com>
-Acked-by: Tamir Duberstein <tamird@gmail.com>
-Reviewed-by: Daniel Gomez <da.gomez@samsung.com>
-Acked-by: Liam R. Howlett <Liam.Howlett@oracle.com>
-Reviewed-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
-Assisted-by: LLM
-Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
----
- rust/kernel/xarray.rs | 30 +++++++++++++++++++++++-------
- 1 file changed, 23 insertions(+), 7 deletions(-)
+However, not all chips supported by the driver (and this bindings file)
+have more than one channel, so I suspect that the value range might
+need to be "enum: [0, 1]".
 
-diff --git a/rust/kernel/xarray.rs b/rust/kernel/xarray.rs
-index 987c9c0c21989..02f93ae1f92de 100644
---- a/rust/kernel/xarray.rs
-+++ b/rust/kernel/xarray.rs
-@@ -4,20 +4,33 @@
- //!
- //! C header: [`include/linux/xarray.h`](srctree/include/linux/xarray.h)
- 
--use crate::{
-+use core::{
-+    iter,
-+    marker::PhantomData,
-+    pin::Pin,
-+    ptr::NonNull, //
-+};
-+use kernel::{
-     alloc,
-     bindings,
--    build_assert::build_assert,
--    error::{Error, Result},
-+    build_assert::build_assert, //
-+    error::{
-+        Error,
-+        Result, //
-+    },
-     ffi::c_void,
-     types::{
-         ForeignOwnable,
-         NotThreadSafe,
-         Opaque, //
--    }, //
-+    },
-+};
-+use pin_init::{
-+    pin_data,
-+    pin_init,
-+    pinned_drop,
-+    PinInit, //
- };
--use core::{iter, marker::PhantomData, pin::Pin, ptr::NonNull};
--use pin_init::{pin_data, pin_init, pinned_drop, PinInit};
- 
- /// An array which efficiently maps sparse integer indices to owned objects.
- ///
-@@ -50,7 +63,10 @@
- /// *guard.get_mut(0).unwrap() = 0xffff;
- /// assert_eq!(guard.get(0).copied(), Some(0xffff));
- ///
--/// assert_eq!(guard.store(0, beef, GFP_KERNEL)?.as_deref().copied(), Some(0xffff));
-+/// assert_eq!(
-+///     guard.store(0, beef, GFP_KERNEL)?.as_deref().copied(),
-+///     Some(0xffff)
-+/// );
- /// assert_eq!(guard.get(0).copied(), Some(0xbeef));
- ///
- /// guard.remove(0);
-
--- 
-2.51.2
-
+Thanks,
+Guenter
 
