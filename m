@@ -1,116 +1,162 @@
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9621F4A35
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:12:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 022DE1E98E3;
+	Wed,  2 Sep 2026 03:13:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788318784; cv=none; b=URxztMqqG1RJtZDK34xO5YmPgkrDqXluBmc1pFihsr61wFb4mxMUqDln1jBxnmwNK3GD8sRzqijTUod4g/YdBYBwvf+7f2FTiXp5tRno/nu75RJlb38Wfpz5GM9v2Dsg/rwBcjtq17fFyhMnGVcjdV6Y+4HbFSC/T02qwT5ph0U=
+	t=1788318803; cv=none; b=CUavuTtX85YKovcov5NW9XWTeL+ZjbnyXNCVVdYZ8lLL1BHG+8dN6/pQbPCnSSvyBDtb/o+DRqOr0S8lX73QcBZpPRV1SATFif8d+9AtZ5iFTlXBpMK0fipqaOoTxm0ePGjdv6a+ICMQ95qxeq1mSF29AFzZLKE1lUpIhQ9K1WY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788318784; c=relaxed/simple;
-	bh=LIm+O1zUS/wmOM5Qn1gaWKNjxKLHlR5iVHstPsk82fk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GkOyDnP2dxd5Oy6KW5hTCsKy7RDVd0m+uHoYMOdvk1Sgdymgayew9H7fQumF2A1gwawkJ892q60fCTXaHYxLun+Xbg6dWThnW42kDFsuYfY0Iyyt6TpFahnrHtB8H0Ejj+Dh785O0TKOjQciOL7IBoWEPjB4VaRbLTT+H+61adg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=fOAoDWvY; arc=none smtp.client-ip=54.92.39.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="fOAoDWvY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1788318774;
-	bh=h6/5EmycLIcO6NT2x9QwzeRmtzgDcLFqGj/52XEIcm4=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=fOAoDWvYsWUjXwijiZvanQTQjP2UNfFIiy+0XwiJ4g0XUGvvjslCukkYZ6eHnR4Am
-	 jjnvD5XHOaOdvVWbnagBKRu0nrAs1/YXJaC6aXOX6Rhz3rMQLPfCK4xIa1viN29fgs
-	 dzp1ehse3egNFaRDOdQN5dQR7Maam+15jYNQ3mXs=
-X-QQ-mid: zesmtpsz8t1788318769t04f7107f
-X-QQ-Originating-IP: Tp3c8ceN3I4tfWZkFDr/C9B0wsT3VLd0pwwTgHq9rYY=
-Received: from zzz-PC ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 02 Sep 2026 11:12:41 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 16383390424684535128
-EX-QQ-RecipientCnt: 13
-From: zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	linux-mm@kvack.org
-Cc: David Hildenbrand <david@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Rakie Kim <rakie.kim@sk.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Gregory Price <gourry@gourry.net>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	linux-kernel@vger.kernel.org,
-	zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
-Subject: [PATCH v2] mm/migrate_device: fix function name in kernel-doc
-Date: Wed,  2 Sep 2026 11:12:29 +0800
-Message-ID: <13768B0F4A5FC1F5+20260902031229.1821112-1-zhaozhengzhuo@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1788318803; c=relaxed/simple;
+	bh=C+Uo2kt5ZOqlw8/33V+ZcOjMsJv6LTfRgew/gLDOF+s=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=jwOlzWFZKXHG8c2EQN9tCq6OK3PC44bDxRApuoRLwZZI9iFYVoQefkql9IMQF1BmtvDpYwcg1+o25rgSiLtlp81lg/85Ly8pM8nKtmvb/TONzwIdmQo4TTULUi05K8VGlobOnHd47MbgugXJJnI7Rnjftf/2Jaj1K1+y8r3rLQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8CxPtMMjZdqhZsHAA--.21507S3;
+	Wed, 02 Sep 2026 10:42:20 +0800 (CST)
+Received: from [10.130.40.83] (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJAx3c4JjZdq3EcZAA--.53851S2;
+	Wed, 02 Sep 2026 10:42:18 +0800 (CST)
+Subject: Re: [PATCH bpf v1 RESEND] bpf: Fix timer_lockup deadlock using
+ atomic_fetch_inc()
+To: Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>
+Cc: loongarch@lists.linux.dev, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260902005106.22187-1-yangtiezhu@loongson.cn>
+ <DL4FK2P8LMEQ.216J5ZMX9B7VC@gmail.com>
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+Message-ID: <7d0bd14f-d13e-6735-92f3-68f474c66a73@loongson.cn>
+Date: Wed, 2 Sep 2026 10:42:17 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+In-Reply-To: <DL4FK2P8LMEQ.216J5ZMX9B7VC@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: NV9lfpPr0ybc/uwrO8Ga94jitoM95KF/T3zMzFBVlFjlyp5RhCvVJ2qU
-	ES2OhEA2zHu6lVnn+3Sau1wXUSu5qWgxR6DZw4KNx5sD5/mVTDynmm6w6RyFhHBIPT0yio2
-	QcnWibrgGAjf9DnLksgixurBjLFkwHdXV/ztixkEaiRkp26xvp9CpGUL5UrkitmOtv5X+40
-	wJdzi9qjyONIIdjsataM3qJuZ97EGx3CPFPbwfC5D3oWfdCfBWi3EpvyYrPU1dkHtZJ3Ekc
-	6axAaZ4uHtrZTrVX9UF/zjIcUuuHGsq7Wfy665i7n7RqQawWDt5HzjZJlIivMff4M3GItvv
-	aGHPQHPycYQNQjxzeN/i/KIR0LvmNT5Q9RcUS4h4pce5e3N9OEX4zH/q6MqTnmgnhMi+cjg
-	qwNS8IOBC4N1Xk1Xp1iHzqWeJ8yy86dXZZFlzOa01M/lf5/870765eTSA59HfbJU2ONzsrJ
-	IFYXUxt+D7VESAICuT8Egp3EUfpuatj/E1UiIu1fcjpNUTb/vQGVOOEnkfrWkcmfDGvhUER
-	pxWFtQ7nCFDAf+CHc9P0Pr4xzRnHdGAFRgcnk7swgZDVI+y0No6hJT0cz9SMg90LaKmcbgX
-	+dqJYGliDz/m5MPdWWjWdtwuo1Sy0hSFPOPkNecz6qwCxCDMDZz9N8F79l0S8fHqLNkMo+r
-	hjo9lKVn+VoYuzGFCMpbxrv67sy0Sa0+53KFn1yuG4E87WviAqK+c5KhDwZod03sCp+lLop
-	U6DLtdI/qh39fOzqOHSLW69v71rV/aqPIJjMbpklHcEHl3jkfE5Tpw5rw2gP1IOQXpxmrFz
-	BVPuzvZYS/S6qiqJ2aHiY17hFrVr5B5brTMwyPUgZUufOgNpfernDpn+KpewpSFL80/d7S7
-	PuQ73ewIt8EyPujlhBb1LbaMQP+mfVpjA+71E7IvkxTW0cU6CE4g1O6t16HyTRiGtxokiTw
-	GFMz4VrTNTuaEAATRdwxyp9azveNJAxm5er2FUH1IdapSaAE0EYBoQHSAkEOukvw07twEGM
-	V5v8YrH0K/Ofx1nSHTAeEeGhlBTjzmP2FwKrIv4I4VfV2kfQk2yOS3WM8WW77V3k9vqDRHH
-	HU3lsiOLOYMgGObnUsa3EMqHJsNDrr77dZvxY50k7iO+zI26atW+ks=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+X-CM-TRANSID:qMiowJAx3c4JjZdq3EcZAA--.53851S2
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxAF4DZF18GrWkXw4kAw1xXrc_yoWrZr4kpr
+	WxCF47Kr4kXr48Xw1kJa1UuF1F939Yka43Jr4rGr1Uu3W5Kr1YyF409r43WFy5Cws8Jry2
+	yry0q3sagFn8JagCm3ZEXasCq-sJn29KB7ZKAUJUUUUx529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUPFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2kKe7AKxVWUAVWUtwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
+	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWU
+	twAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
+	k0xIA0c2IEe2xFo4CEbIxvr21lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l
+	4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jw0_GFylx2IqxVAqx4xG67AKxV
+	WUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI
+	7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r
+	4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI
+	42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUcApnDUUUU
 
-The kernel-doc for migrate_device_range() says that migrate_vma_setup()
-is similar to itself.  Refer to migrate_device_range() as the subject of
-the comparison, making the distinction between virtual-address-based and
-device-PFN-based migration clear.
+On 2026/9/2 上午9:13, Kumar Kartikeya Dwivedi wrote:
+> On Wed Sep 2, 2026 at 2:51 AM CEST, Tiezhu Yang wrote:
+>> When testing the BPF selftest "sudo ./test_progs -t timer_lockup", there
+>> is a kernel lockup and panic on LoongArch:
+>>
+>>    watchdog: BUG: soft lockup - CPU#1 stuck for 8s! [test_progs:39601]
+>>    Kernel panic - not syncing: softlockup: hung tasks
+>>    ...
+>>    Call Trace:
+>>    ...
+>>    [<9000000000c40e98>] panic+0x44/0x48
+>>    [<9000000000e8b000>] watchdog_timer_fn+0x500/0x520
+>>    [<9000000000dfd9a4>] __hrtimer_run_queues+0xc4/0x530
+>>    [<9000000000dffe90>] hrtimer_interrupt+0x140/0x320
+>>    ...
+>>    [<9000000002ad9e4c>] _raw_spin_unlock_irqrestore+0x8c/0xc0
+>>    [<9000000000dfe9e0>] hrtimer_try_to_cancel.part.0+0x70/0x350
+>>    [<9000000000dfed58>] hrtimer_cancel+0x38/0x80
+>>    [<9000000000f6d944>] bpf_timer_cancel+0x94/0x1e0
+>>    [<ffff80000200fad0>] bpf_prog_108ab87b32f22e44_timer_cb1+0xb0/0xfc
+>>    [<9000000000f6b838>] bpf_timer_cb+0x98/0x170
+>>    [<9000000000dfdaac>] __hrtimer_run_queues+0x1cc/0x530
+>>    [<9000000000dfde94>] hrtimer_run_softirq+0x84/0xd0
+>>    ...
+>>    [<900000000271d9e0>] bpf_test_run+0x1c0/0x5c0
+>>    [<900000000271f548>] bpf_prog_test_run_skb+0x6e8/0xe20
+>>    [<9000000000f39940>] __sys_bpf+0x1690/0x2c50
+>>    [<9000000000f3af28>] sys_bpf+0x28/0x40
+>>    [<9000000002ac2d68>] do_syscall+0x108/0x5e0
+>>    [<9000000000c6a850>] handle_syscall+0xd0/0x170
+>>
+>> In bpf_timer_cancel() of kernel/bpf/helpers.c, it explicitly notes that
+>> "Need full barrier after relaxed atomic_inc" to ensure global visibility
+>> of the cancelling state before performing the lockless dependency checks.
+>>
+>> However, on weakly-ordered architectures such as LoongArch, the current
+>> combination of a relaxed atomic_inc() followed by smp_mb__after_atomic()
+>> fails to guarantee the physical store-load ordering because the latter
+>> currently expands to an empty compiler barrier rather than a hardware
+>> data barrier on LoongArch.
+>>
+>> This allows a subsequent read to bypass the prior write due to store-load
+>> reordering, enabling concurrent CPUs to simultaneously bypass the software
+>> deadlock detection, enter hrtimer_cancel(), and then trigger a severe ABBA
+>> deadlock in the hrtimer core.
+>>
+>> Instead of relying on arch-specific macro implementations which may vary
+>> in strictness, fix this issue directly in the BPF core helper by replacing
+>> atomic_inc() and smp_mb__after_atomic() with a single atomic_fetch_inc()
+>> to provide full ordering natively.
+> 
+> This paragraph is completely bogus. LoongArch's smp_mb__after_atomic() had a
+> bug. The specification in LKMM for smp_mb__after_atomic() is that it should be a
+> full barrier, which can be relaxed if the prior atomic operation already
+> provides the necessary ordering.
+> 
+> As I already said, there is no point in changing or "optimizing" this atomic
+> inc. Just let it be. You will see no measurable difference for this function.
+> 
+> Just accept that it was a bug, and fix the lowering for your arch. Plenty of
+> other logic in the kernel uses this primitive, so I think you folks were just
+> lucky this wasn't hit before by something else.
 
-Fixes: e778406b40db ("mm/migrate_device.c: add migrate_device_range()")
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Signed-off-by: zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
----
-Changes in v2:
-- Drop the redundant second "instead", as suggested by Zi Yan.
+Thanks for your feedback.
 
-Link to v1: https://lore.kernel.org/7D206FC95BDCAA0F+20260901065131.1759298-1-zhaozhengzhuo@uniontech.com/
+I looked into tools/memory-model/Documentation/ordering.txt,
+as it explicitly clarifies, atomic_inc() does not guarantee
+full ordering on weakly-ordered architectures, therefore
+smp_mb__after_atomic() must emit a hardware data barrier to
+comply with the LKMM specification, rather than expanding to
+a plain compiler barrier.
 
- mm/migrate_device.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+I also noticed there are hundreds of smp_mb__after_atomic()
+call sites across the core kernel (kernel/, drivers/, mm/,
+net/, fs/) that currently lack necessary hardware data barriers
+on LoongArch, which have potential risks.
 
-diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-index 009bfa8b212d..0c437004329d 100644
---- a/mm/migrate_device.c
-+++ b/mm/migrate_device.c
-@@ -1398,9 +1398,9 @@ static unsigned long migrate_device_pfn_lock(unsigned long pfn)
-  * @start: starting pfn in the range to migrate.
-  * @npages: number of pages to migrate.
-  *
-- * migrate_vma_setup() is similar in concept to migrate_vma_setup() except that
-- * instead of looking up pages based on virtual address mappings a range of
-- * device pfns that should be migrated to system memory is used instead.
-+ * migrate_device_range() is similar in concept to migrate_vma_setup(), except
-+ * that instead of looking up pages based on virtual address mappings, a range
-+ * of device pfns that should be migrated to system memory is used.
-  *
-  * This is useful when a driver needs to free device memory but doesn't know the
-  * virtual mappings of every page that may be in device memory. For example this
--- 
-2.50.1
+So please disregard this bpf patch, I will send a v2 patch to
+remove the definition of __smp_mb__{before,after}_atomic() in
+arch/loongarch/include/asm/barrier.h, so that these two macros
+can automatically fall back to the generic definition in
+include/asm-generic/barrier.h:
+
+#ifndef __smp_mb__before_atomic
+#define __smp_mb__before_atomic()	__smp_mb()
+#endif
+
+#ifndef __smp_mb__after_atomic
+#define __smp_mb__after_atomic()	__smp_mb()
+#endif
+
+Thanks,
+Tiezhu
+
