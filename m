@@ -1,138 +1,84 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mslow3.mail.gandi.net (mslow3.mail.gandi.net [217.70.178.249])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDDBD46DFF2;
-	Wed,  2 Sep 2026 10:59:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9905F44BC92;
+	Wed,  2 Sep 2026 11:00:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.178.249
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788346773; cv=none; b=lhghaKho9wVxbNfr5BScKBXOinHimh1IVcLTXEcsumAbDfKoHrnwZ3J3wWxweyPtvP300+17uR071imPB3tLr2KsWx+vEFekRK4DbDl11JD6OAE7O2Ov2XUkjKNGNA4n+kkHyXkzcEekXCAxSdeVnSdHOt9CKhMdqgI1C30vmFw=
+	t=1788346829; cv=none; b=Hdp54jkwnnni+QHzrgw0DdJyrpclqccuukZie1z9Khwb1z01Qfv66cCg4TVBjJhUkygZirk8i3zvHXfzIxzqVkux2bYfhY+pOyhPF5ZXMetFHU5Qr/G6Wwx5/KBPjTDFeKioFDLR22Ugb4ctgXBFEPVlpr97URtK1VklcXfky/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788346773; c=relaxed/simple;
-	bh=pg0LYMIyU+sE7DDwn0sMAkqi37VFHBxypuTEOrZ453M=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=OND6smRaOYp6YOzVRXt8TtqAnOSjPkJf8/+yN8ZCtCBX0XihXEUarYevARyb1r5lWsWo60pz1mZTymveF45SA8bu5uLE0dAeSX1bh0ppKElznjJ7iNtc4Qx9ye7uJmPs6A7ro+Y+TiQgu6zPI4a1M5XiyQbMRZRuJ+nfScq/sFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=XiRRLWam; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ywP97OOx; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788346829; c=relaxed/simple;
+	bh=CN1unyH/hIb+Y8YiaPvwEJCnakyQmFPwizdxVbaRSV0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ALOt+M3PI2G0Fb3wksJpEBfiwWl3QSRVcb//D2ARmpMKNR+7/kjyCXHd6pQ7BuWRcMzcs1rkZnD+nJPzQMnvoTh4ZdASZqj5tJASe02I6TNZmsyjYoOE6jYn7K0YRKBAIHJfBskboWv3lPAnZFDWgMf4mVaTIPdOWYJ4IXbLL10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io; spf=pass smtp.mailfrom=gtucker.io; dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b=HsrqOuKS; arc=none smtp.client-ip=217.70.178.249
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gtucker.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="XiRRLWam";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ywP97OOx"
-Date: Wed, 02 Sep 2026 10:59:27 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788346769;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
+	dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b="HsrqOuKS"
+Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net [217.70.183.201])
+	by mslow3.mail.gandi.net (Postfix) with ESMTP id 1CBE7583620;
+	Wed,  2 Sep 2026 09:37:42 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 9E9CC3EC34;
+	Wed,  2 Sep 2026 09:37:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gtucker.io; s=gm1;
+	t=1788341854;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=hz7EINkdLTJpbuAz07w+kzRNZ91yn9rQHUTydAFsWmQ=;
-	b=XiRRLWam/BdKIqGz4Y+O0cJenj9Ktp6gkASG+d5r4XyoWCjyN0TEkq10plil7AdEfqHkbO
-	49O3khK6ecHes7kjlXgZgyP9W7N7vkwJ5mNRlMeLoIDr6EVKR9lryjQtTtJ/+t5VMwummZ
-	bxiyX1e8MYD8n26HcYmsL+zWJBb8LgpXhIm3ipIWPKw41vlgy/8+5Ojn4CMIE/UCqZhxQX
-	0rUIB0RPZnSxm3daC9i+5inQFbytk3xBwI9HlmCfMpe2iE7MXfTlETAyUz8Z0icF+bEdJM
-	dXT4xN7zGYZTFCpa7uVRyJ1XDW1+h0DhyceSZaIdWljRaurp4Bg9KJlQCeZBrg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788346769;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hz7EINkdLTJpbuAz07w+kzRNZ91yn9rQHUTydAFsWmQ=;
-	b=ywP97OOx+e7h8gVRD+THlwc0zsXDz5QbXEfIcAEWpMWUStSxxwTJWcok3o0g9HHVQ81aPD
-	5OIOlJgDaE4ZdwDw==
-From: "tip-bot2 for Mark Rutland" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: sched/core] sched: dynamic: Fix preemption model strings
-Cc: Jinjie Ruan <ruanjinjie@huawei.com>, Mark Rutland <mark.rutland@arm.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260902101637.232129-1-mark.rutland@arm.com>
-References: <20260902101637.232129-1-mark.rutland@arm.com>
+	bh=G1+QrDuN7d/J1hIpiEah3cLGmlih4zk6g8I3G9jEmS8=;
+	b=HsrqOuKSjlK+/HVReCnOiiq8ptX1fxavY6kKvmZ2cjQmNHFaFwhcAGvD9+aoIYmevL1qrd
+	GyAVnH1ahdFnWBEpX9kH6dSO7OhIPOWy/lD1fXUpbVkjLHyOgpQUpzYvItYKW+tQOLNa6G
+	PFjXri2X8VdlBrAf1OwpMcXlCKLvoB3wwq5l99Z1cZXcyRDKrY08CzXyp1lbxTGwUVs6Tp
+	FFPPqL8zR1o4kBVo2rm22VnSDFDeX0OkoZuyltrn2a+NlwQ6BAdwctkN9zgiAFKcfKSGV8
+	1ya7SD2rwB4aGfMD612BSX2nPUTCxwoPaM3QKplUnR556/k8hpNdH3jAYUbuFg==
+Message-ID: <f90aa8e8-abc4-477f-ab52-839e42eadf70@gtucker.io>
+Date: Wed, 2 Sep 2026 11:37:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178834676769.3717435.18409512288803533130.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] Documentation: dev-tools: update container.rst
+ with config file
+To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>
+Cc: =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Nick Desaulniers <ndesaulniers@google.com>, Miguel Ojeda <ojeda@kernel.org>,
+ linux-doc@vger.kernel.org, workflows@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
+ kernelci@lists.linux.dev, automated-testing@lists.yoctoproject.org
+References: <570dac1c8d7a2befb5578cdd8a2ed63b3769c4c8.1788340031.git.gtucker@gtucker.io>
+ <adc9eeb418f026ba2b18c4b2aa1e52443bf6f210.1788340031.git.gtucker@gtucker.io>
+Content-Language: en-GB
+From: Guillaume Tucker <gtucker@gtucker.io>
+Organization: gtucker.io
+In-Reply-To: <adc9eeb418f026ba2b18c4b2aa1e52443bf6f210.1788340031.git.gtucker@gtucker.io>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-GND-Sasl: gtucker@gtucker.io
+X-GND-Cause: dmFkZTF9QjDxzIdrhTfD1WLDC2OkkzEhLpazCn/BC9x7TeIdF79s9sf4dKq1Asdkp0WYf4CviRn4UsoJdKkBWavV87Jvp2QSFU8TM3I3AeLJEl0u1IvNe9lYJsHepNnyTb/Cm1G5YCw7fJRMrqPk72ltvTJsURd5ummtwW6uZiFlUGd0adhnwWc5oL8raOL4ND1K3wwWFhE0/UfdoqWI7aFUEXG+HcjQuSZvG0LryZC5KN/pCn5x4TnAb/9bqTASmJsG0lOFbqRF2EdPlL9Jn2MDJWCeDQIiFvRa7i13mczooTnN6cr6saq61Q0C5P/7X+xnDBZ8zu0SQT9VV5nY2Drmpfu2RPuRWQxje5+roogoeIB5cPAzh5ecLBipDd6Xw0xiavZdd+qnIaNbKIGGXJmoulsDFOTEVbOv9HapQEbDJ0kM++GJyZTouHPwk9k4nV4VfWZJm9n7OYRxPgtxMGV284ldydigaaVgQ9W9oujb6bxXXG1YCWk44wiHkEJG0yOrsRPiftJYA0Uqzk8udb0jYfiAkLg7xWWRvoEHNIz9Gg1ji62gKjb+5Hez2LpRkZQg8BGU2hF3WnX5F1ZsaMF4T8ZydZAHcjpiS1M9lIBDnakW5+Jv76WZeWzraliacqf0j2QsQWMRTMB2N3U24Aw3aeNyNz0tYu4ig+v+IxE1KeJ+yA
+X-GND-State: clean
+X-GND-Score: -100
 
-The following commit has been merged into the sched/core branch of tip:
+On 02/09/2026 11:07, Guillaume Tucker wrote:
+>  ``-r, --runtime RUNTIME``
+>  
+>      Container runtime name.  Supported runtimes: ``docker``, ``podman``.
+> @@ -53,8 +63,8 @@ Available options:
+>  
+>      User id to use inside the container.
+>  
+> -    If the ``-g`` option is not specified, the user id will also be used for
+> -    the group id.
+> +    If the ``-g`` option is not specified and no group id is defined in the
+> +    configuration file, the user id will also be set as the group id.
 
-Commit-ID:     ef9293b3b797228fead10b55ed6bfb99bb7976b4
-Gitweb:        https://git.kernel.org/tip/ef9293b3b797228fead10b55ed6bfb99bb7=
-976b4
-Author:        Mark Rutland <mark.rutland@arm.com>
-AuthorDate:    Wed, 02 Sep 2026 11:16:37 +01:00
-Committer:     Peter Zijlstra <peterz@infradead.org>
-CommitterDate: Wed, 02 Sep 2026 12:54:21 +02:00
+This chunk didn't apply cleanly on top of v7.2 so I've resent the
+series after a rebase on v7.3-rc1.  The rebase was trivial though.
 
-sched: dynamic: Fix preemption model strings
+Guillaume
 
-We recently removed the enum values 'preempt_dynamic_none' and
-'preempt_dynamic_voluntary', but forgot to update preempt_modes[]
-accordingly. Due to this, preempt_model_str() and sched_dynamic_show()
-produce incorrect output, with the wrong preemption model string in
-backtraces, and empty output for /sys/kernel/debug/sched/preempt.
-
-Update preempt_modes[] to account for the removed enum values. Given
-that CONFIG_PREEMPT_DYNAMIC now depends on CONFIG_ARCH_HAS_PREEMPT_LAZY,
-and given that only 'preempt_dynamic_full' and 'preempt_dynamic_lazy'
-remain, sched_dynamic_show() no longer needs to skip any model strings.
-
-Fixes: 9650ce11f2e3 ("sched: dynamic: Simplify preempt model accessors")
-Reported-by: Jinjie Ruan <ruanjinjie@huawei.com>
-Signed-off-by: Mark Rutland <mark.rutland@arm.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://patch.msgid.link/20260902101637.232129-1-mark.rutland@arm.com
----
- kernel/sched/core.c  |  2 +-
- kernel/sched/debug.c | 10 ++--------
- 2 files changed, 3 insertions(+), 9 deletions(-)
-
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 545f494..5a61650 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -7960,7 +7960,7 @@ static inline void preempt_dynamic_init(void) { }
- #endif /* CONFIG_PREEMPT_DYNAMIC */
-=20
- const char *preempt_modes[] =3D {
--	"none", "voluntary", "full", "lazy", NULL,
-+	"full", "lazy", NULL,
- };
-=20
- const char *preempt_model_str(void)
-diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
-index 9883e4c..fda10b3 100644
---- a/kernel/sched/debug.c
-+++ b/kernel/sched/debug.c
-@@ -280,16 +280,10 @@ static ssize_t sched_dynamic_write(struct file *filp, c=
-onst char __user *ubuf,
-=20
- static int sched_dynamic_show(struct seq_file *m, void *v)
- {
--	int i =3D (IS_ENABLED(CONFIG_PREEMPT_RT) || IS_ENABLED(CONFIG_ARCH_HAS_PREE=
-MPT_LAZY)) * 2;
- 	int mode =3D READ_ONCE(preempt_dynamic_mode);
--	int j;
-=20
--	/* Count entries in NULL terminated preempt_modes */
--	for (j =3D 0; preempt_modes[j]; j++)
--		;
--	j -=3D !IS_ENABLED(CONFIG_ARCH_HAS_PREEMPT_LAZY);
--
--	for (; i < j; i++) {
-+	/* Stop at NULL terminator */
-+	for (int i =3D 0; preempt_modes[i]; i++) {
- 		if (mode =3D=3D i)
- 			seq_puts(m, "(");
- 		seq_puts(m, preempt_modes[i]);
