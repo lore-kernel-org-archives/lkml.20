@@ -1,115 +1,63 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7584B4A206E
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:15:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788358522; cv=pass; b=OAwxiaeM55S8jU0NlE+4J/VdvtMD23WHYeXZ6uyniBuuJySBmfshbY0qwfZtAhUXwm70zPoGZ1mYSNlC1yROdWJMdgMdMOKoZ7kTJoTmm6l0e2Rg/7N1OojJ9Sd38TlSwFdslNEZlFaiOQ40CukU32JE7DJP8c3JdrMF7t2a6UQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788358522; c=relaxed/simple;
-	bh=6RznMFxVVbC4OvOdC+iBHzOZQOg0QLC2cwLiQWP2ju0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MFm891iRs3XEi7WgOCe2NUhBu9ZxHXgdSEJZrDFWoHCYq/tO15/Q4UofqGZDtLLvUNJCCT4k+wnsZeRFweb4SkpkTKB8aIATgpSdEfbeJX0I5lYm3XMam59yAEo89FKHMJgSa3XZc3PS3+VFxPSb26gMK9Yex2POhLCVh7CbH0g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jpkap8J9; arc=pass smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jpkap8J9"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-484415c8cb1so849357f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:15:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788358517; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cRpTb+2pyE7X+UzEjetUcmD1yWQ2zYjmaHWaCoTs7sLOrOIgT+MxvSOJ9EP6J4lrO0
-         XGLBTUklq9Ws+3S5/LheP8Femx2wjBi4mUSy+cp+2PHQHt2bDdREgD327na1eViH/Qb2
-         ZG7KluQB8Hi7eNHf+PX5EmNL+XuiPgobailf8aQe4YimckyVbhuLESZJfEMOuG11ysgv
-         Ngiw76P0xo5I/zrh6AoifAbSIllhB7ezmJFaZuoROreb2SWsBmN/MyWRU8shxz0QxKdR
-         AoLZen5vqRsOYrs4XyEx4pnB+GlES+Q0TfuwLASwbB0zRMwtkc9szs1MOW39oqwsnrxG
-         +aLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6RznMFxVVbC4OvOdC+iBHzOZQOg0QLC2cwLiQWP2ju0=;
-        fh=b/qeIYt5s6S5oxnDTprBZ33Dn8R8vfpkv7naXOoqqpA=;
-        b=DWke7z7S0wK7KSmDUq3lGW2gnPF5X5S4nAsW66VoNfnWVfVsJbzEcI+kA1l13w94tL
-         ZuLPIYz0ye+Vk9d3bowSudgSvGZWgOk1TfQk/v1IOy/OVyiy9d9fx0lLiarCfRkLCJd5
-         tz8hvoqKZT+cYwqQwLJFjZU9W7skwetce+caZvvs4RYpJyy1vOwuMmcRfXI3sdwXmVfA
-         X27ufSfC48ZFzt9nWplrpqvQoWOMMl7tAZkTQVFNwkBvfDJgg0XQb5xMaWMN4cEEXp3i
-         QJit+0iEt8+nemhXzxH1astHjHSf46v9kRB0Jfw/buZ6XKEQXBf6uGEOKzZAb5hYQqeK
-         uSUg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788358517; x=1788963317; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6RznMFxVVbC4OvOdC+iBHzOZQOg0QLC2cwLiQWP2ju0=;
-        b=Jpkap8J9ExStRRFINrcF9j44vFHZFIsCw7zQMjyDU6joqOAY4wmYP4aUgp/4z6IAw1
-         BjOylq6/D9vCpW7kusBxY0jtKXUcKdaTDfXMqCCkTTTMZgj9MSlCRRfuRT6QpZoT8iRC
-         LM1akb571KmwGEc4EDpvRZDLA8K8zXR8dewg2WqPq9nYui+1Q5UznyucAtAVxBQTiT1t
-         7RMT+XYolo8xuV2kEwjfM/K+vyrG7trWdaY1UFRY6PUUqpKI+mwuX/fWt1mtMD8ayfyB
-         7gVkjcrwWc3f5pDX69lZyV95XVVqaKwohsNSZWNRhw+XW0GF9s7ZrRfM4x+TWkQCXXIH
-         f5gQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788358517; x=1788963317;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6RznMFxVVbC4OvOdC+iBHzOZQOg0QLC2cwLiQWP2ju0=;
-        b=GU4zfB35prow9CyuRDbMW/1C45FhBLtcTs4OqGzphhPDIwulojFHBwRmWCXlexVbBW
-         XUSe1lSjnIY5GsthZXd6XSkqV2HZFKDheuYYMUmurQRdo0oeLTdZEn1SvqbSSRySLxYG
-         MTRTgn9ckEoL6LVkvU9x0jWbZMFhIUulLTnsjiwMj/oACwR/uR56QEjed2mzs68pAX58
-         jq5j8bKQftIqHJLG/9k8DwdwnRpGBpzbENi1unYwcpmjKNtBJbI4w5olS7848LCzuY7C
-         YkSJcd/NWM652zGKDMe3L9CJZtJR/tzy8VL8rFTvKy+uYf6tKoVL6bnxURa62gGO6BWk
-         UAAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxosTeLXEz7HhwzJVrZGkZ2aQUFgkkqX8WzHWQ0wa8rbHW4ljAAat+lzqMzE/rOHy1fzP83GP+8+2mY7kw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nduvF3HorNq9lE1j3XCqDP315tjG9Ig99HQd3Chch/lC31Cdi8
-	fmycvX5ZtkRbEMlU0Kdsd8cu5+6NC5xIiBOIpo/PC9DLH5Zlyy9fFr4pSE9Ttf2qCF30Gznlin9
-	kFeR5sQI12weon9MEa7Zf4cB9V0yug3Y=
-X-Gm-Gg: AYBFou2lZ2BLy/riKPdUHRDCZExfqzQKE/S3aHVvOuPwbMeWG3an+7h0Qa52JfcKN6d
-	gDEtU4wepuImApesEsz4AkxiQ98ivnYywn2Kpzo2ek+iVNsh54LdzcsDHTsGl5Ry69AsfW71h8K
-	K2hHQTTGZZ/Mf1tFb7WMbv7NF4QCFvXjugYiQ11KToKCsp5cE+/J2embvrEQUu9wEs+ionwF9cE
-	iJPzegpKtrQMCAl05Hlyc/2v9la17oVaVNQ93NXYaBBxJ1229mLbItLMEc/xOK4b5tq2MtfRTuU
-	tSyT4J/HRDd/Hn6ExKy3Eeyq5LhyEPLYuvNCrPIUzQu60PmAsgDDW6SL7Ws1Zi595IhdY5P0oEZ
-	Crg==
-X-Received: by 2002:a05:6000:196f:b0:481:98d:b24 with SMTP id
- ffacd0b85a97d-484913b9a8dmr7353105f8f.19.1788358517128; Wed, 02 Sep 2026
- 07:15:17 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E8335203C;
+	Wed,  2 Sep 2026 14:15:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788358534; cv=none; b=tP1G7qda0TfwAPwwLqULL1XF8F3pqoZNvSgUVHqz5Or+FV91mWhQGrb6ck/1rlSmXq5YVPzYqbuwxq7G7oZ7hcNFCDnRgp/EDFg1yw3EU05ubOXjyb7U+ABVg7wkUCU0VmDUnwT7IPnL3AEFfaoK+rZGTz4xxOVR2QbDl5vU3co=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788358534; c=relaxed/simple;
+	bh=2KB2m+gDk/p4vhyDeC61/AYwoCwA5nATQLIcXaUUn1U=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=VeAk757v5Ub0gY3VpzI81AYtG2OBxj/MUlQbi1EJf/NGRo6t60BoIN5WzqKAgPFAkEXiu1UPjynzZrP82+2x2q3cTcKtODiOyDYtEjeBwt7C+ZUekE5FOwlGYtJUwrUZo79eIljUv3pToyQXi7UzWlqRBwCWUIGOiZK80m8ppME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF34A1F000E9;
+	Wed,  2 Sep 2026 14:15:26 +0000 (UTC)
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+To: leoreis.costa@gmail.com, fra.schnyder@gmail.com, francesco@dolcini.it, 
+ frank.li@nxp.com, l.stach@pengutronix.de, lpieralisi@kernel.org, 
+ kwilczynski@kernel.org, mani@kernel.org, robh@kernel.org, 
+ bhelgaas@google.com, s.hauer@pengutronix.de, kernel@pengutronix.de, 
+ festevam@gmail.com, hongxing.zhu@oss.nxp.com
+Cc: linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ imx@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Richard Zhu <hongxing.zhu@nxp.com>, stable@vger.kernel.org
+In-Reply-To: <20260813095003.356062-1-hongxing.zhu@oss.nxp.com>
+References: <20260813095003.356062-1-hongxing.zhu@oss.nxp.com>
+Subject: Re: [PATCH v2] PCI: imx6: Move clock enable after core reset
+ assertion
+Message-Id: <178835852653.83808.12038237867062064510.b4-ty@b4>
+Date: Wed, 02 Sep 2026 16:15:26 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827094509.1016740-1-hebaoquan@kylinos.cn> <20260827094509.1016740-8-hebaoquan@kylinos.cn>
-In-Reply-To: <20260827094509.1016740-8-hebaoquan@kylinos.cn>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Wed, 2 Sep 2026 10:15:06 -0400
-X-Gm-Features: AcwNN1WAKxDXLmAG1e0SeJ_cyeDzb_A4NqukLANh0VTS2ERN4dof1j2brfMyzmk
-Message-ID: <CAKEwX=P53GAmyPeBQ29XaHnGw5qpKkiKiBEwuhdRKdkMPT0GSg@mail.gmail.com>
-Subject: Re: [PATCH 07/16] mm, swap: add xswap grow trigger on cluster allocation
-To: Baoquan He <hebaoquan@kylinos.cn>
-Cc: linux-mm@kvack.org, akpm@linux-foundation.org, chrisl@kernel.org, 
-	kasong@tencent.com, baohua@kernel.org, youngjun.park@lge.com, 
-	hannes@cmpxchg.org, yosry@kernel.org, shikemeng@huaweicloud.com, 
-	chengming.zhou@linux.dev, baoquan.he@linux.dev, david@kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.15.2
 
-On Thu, Aug 27, 2026 at 5:45=E2=80=AFAM Baoquan He <hebaoquan@kylinos.cn> w=
-rote:
->
-> When cluster_alloc_swap_entry() fails to find a free cluster and
-> the xswap device still has room to grow, expand the mapped range
-> by XSWAP_GROW_CLUSTERS clusters.
->
-> Since xswap is always SWP_SOLIDSTATE, no locks need to be dropped
-> before calling xswap_map_clusters(), global_cluster_lock is never
-> held on this path.
 
-What about local_lock()? I believe we're still holding
-percpu_swap_cluster's local lock as we invoke xswap_map_clusters()?
-Would this lead to issues :/
+On Thu, 13 Aug 2026 17:50:03 +0800, hongxing.zhu@oss.nxp.com wrote:
+> Commit 610fa91d9863 ("PCI: imx6: Assert PERST# before enabling regulators")
+> inadvertently moved clock enablement before core reset assertion, breaking
+> PCI device initialization on i.MX6Q Apalis platforms with
+> ASM1061/ASM1062 SATA controllers connected.
+> 
+> NOTE: It is not 100% clear if the issue is specific to the ASM1061/ASM1062
+> device or on the specific power-up sequence (reset vs cold-power-on).
+> 
+> [...]
+
+Applied, thanks!
+
+[1/1] PCI: imx6: Move clock enable after core reset assertion
+      commit: 16929741a622eb345057e41c7b335d9b297890e1
+
+Best regards,
+-- 
+மணிவண்ணன் சதாசிவம்
+
+
