@@ -1,200 +1,672 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9859369D72;
-	Wed,  2 Sep 2026 17:08:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 430D0369D72
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:08:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788368885; cv=none; b=PKn5wbpczjETB5s3ZhmXrulUSxtrXUt8L1YIIKKnTjnmEMz8T0LD4d7rto/f+qxOUPgKOSFlA7TMeO88BjNoiMOGQpv+hOZpZ2J70q5DyRMTL4R26z5RKHa0vB/IFL7QoJT+WVYJ77wuDTMAfkjIBxzbjfIeHK0lyzcVd5bHrPM=
+	t=1788368890; cv=none; b=AZ2iYRVvay9PP4mtsM2Wol7EjKnoIWbOTiDz05Xhdx6Lz/idL5v4DmPs+/4hUSlTUe7nAmVQG70JwNMUWMBS7yqOP3TwLtKi3QR6Ys4UsiOFeec156l0V9JK3vL/2M3CPvPueod4ONlpD43bjh0HagJ6JCM4Zji1qg4ktHRtYVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788368885; c=relaxed/simple;
-	bh=eCn7F+broTaEae20rMz/DqPUMU0WFOkDFFoSuv/hBik=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=LGjHppvUF5vJOOr9vos96K5xAoyOxefFWA9/26w9uo0LCeMSbx/ZNB9PeCXUVGHyxPCYv4NlxKJnD5cuSW7rhydccPeyUJF+Nm6elWfCOpKkcN/tYQU22gBKikBAqBRsLdoF1trhVrRKq64bIjzTk1Z2TGn+8gZFcJoFmH40VB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: d78c393ca6f011f19a56ed5b684f684d-20260903
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:d3ce66d6-4c88-4a38-9acc-95b1be91bf53,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:e8bbfc6a371588ae186ee2ff3d0d7e09,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|136|865|898,TC:nil,Content:0|15|50,EDM:5
-	|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
-	:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: d78c393ca6f011f19a56ed5b684f684d-20260903
-X-User: liwanwu@kylinos.cn
-Received: from kylinos.cn [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <liwanwu@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 276297971; Thu, 03 Sep 2026 01:07:56 +0800
-From: Wanwu Li <liwanwu@kylinos.cn>
-To: Tejun Heo <tj@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>
-Cc: liwanwu@kylinos.cn,
-	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] sched_ext: Fix NULL sched deref in kfunc sub-sched error paths
-Date: Thu,  3 Sep 2026 01:07:51 +0800
-Message-Id: <20260902170751.256434-1-liwanwu@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260902153640.144791-1-liwanwu@kylinos.cn>
-References: <20260902153640.144791-1-liwanwu@kylinos.cn>
+	s=arc-20240116; t=1788368890; c=relaxed/simple;
+	bh=JnknEmahrVju07jazUHIYGf6cC1gFbzgcgf5A1GCE5Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=My0ljdQDFQ91B26aGNpOe6BbjYsmdaBS7nQyeOdwFToFnteQKX5gs9AzJyd9b8/oucC77UZ2zMl+Xf48d5QQtGR+GJBDUWky6NsP5PG8pp10M/EGp2Rcv4o89Wc7tpLRGSifwyVRmzNwyuJR0rTKb1/0S+BCxY1hT210Ug3GQH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ocw8X7S5; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ocw8X7S5"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d53197d8b5so12150325ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:08:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788368887; x=1788973687; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Qt1jr7QAlD4Hl2AR8Dx75FzaqLrnvA6qwE10LUR2JjE=;
+        b=ocw8X7S5uCuOM+3aGa49ZjlbFaBRFGWj+aVsaQrVLb0ADIraNRkc6VZECdhLesqugr
+         T4PaC2pS/W/6gZQzitRptovYs7lr+Le/8SHNGlpF7VOB6dHSDjyYOLs7sYzCMOrc097h
+         NdCMVwdiaOJFh0Ljzy07i9bIKcztwYquKAD89s5WlwWHdm4+7+/gsTlGFxt40AhCmmnK
+         VjYBqe0+eF0iOKbNawp3b3L+MbOpx8K882XRiraa/Ez4N7NEKK/niDfYHmAq+35Z2mo3
+         3nvY3BjIk99tb5K4/mowuWfI1Balx9S2Nuh4sawLKw1QUZ9FSiPBEWlECl3XGp1AIseE
+         WJIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788368887; x=1788973687;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Qt1jr7QAlD4Hl2AR8Dx75FzaqLrnvA6qwE10LUR2JjE=;
+        b=acM5Q/G239XUXFOlyVBzuK/jwYULJRN5bnEuPgAHdNZI3EZkPo3uahouRoWPjy+ksG
+         Dg3pPhpDBs5rbxrMqXVB6NE5kCozdTs8mgXoZhz4p8joidsHD8R4RNpHZdHdnOJLRlS9
+         /t/udRrMqVww80/1uJaLlh2fvsYezb4ppUyQMUNcsCp9TLRTMN51N7UaA6iAO1CmgpWK
+         Ujg5ZxFkrZ1/INhMNE9M4V0hFKVkaD1W0mQyDNKSckcCbi/RnLSeA+dRJIvVVoaSAVxK
+         LR8cclburheHGv6V9MiaFMxFrd5++SbX333uxYKzi11V/9ju4IFEYdzH0GKT7F2bNP97
+         5SfQ==
+X-Forwarded-Encrypted: i=1; AKwUvByooARQlYZ8gpjAQ9f0vnpyXYw5Q7oPK6D9eE+Rw9TKcf7vStwZPpb/JpUOGsDB3WR9qxb/19PG0RhSmS0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kY45dbfINGu6YD74kOUAZfXuIG15q1xc7r5CdnJGtymiyxzAh1
+	395Z8DsfiTRt+025s+nuCctlNaw2u8iJwxdXUEHoKpgk3wpB2bJEmofX
+X-Gm-Gg: AYBFou2JhJoE5jmkrTMtEsM4NieUQs4VV5OwoA6Rt5caaK+42X8TK8OZlB2hJLUBp9M
+	egYDfnCeeKJPMqWV1iWv46IpUoPyBtd+3ve4C0m3nTjUlWhtsozFfXxwMxxc824H6OFQE55ROHp
+	OoRZ3zyjfvB17/xapEFSWmfUqALucMX3eBM3c7sxWB++zdzI2xM3f9fQ9H+Y+CXFEiio1QizGYY
+	VFVDY7JjtOX0gcuu/IGgIJlD3+OidmggFBK/bqCKCF55wF4938e1D+IoUxAoOTevzMC0//026f8
+	40l52cFy5JFuzMlKafC7KFePZG5D1Sa61+xQeGa6frObRJAxx6w4PfzeHiWBeTuwu79a0XhZGhd
+	G27fXtjO2KwEGntIurt3HBzxwLmNI9cy2K9IXK6OsQ1HX6LaLCN0Ld48AQe4Z7uNnPuBggw44ch
+	Ind5zWhyt8tC7xE49G3ALzath/dZJTOjSQYX+AlZajH1g1CuDs26zvG27/w2v9SA2hstYJ24QnB
+	YMYYuFN1RSJKuBO1IRwBTi95qXJ/yZeYHjy0HxUzf/2pd53ThT4h6XSU7uaUEAkHjE=
+X-Received: by 2002:a17:902:e946:b0:2d9:51b7:c0bc with SMTP id d9443c01a7336-2daec71e48emr97289655ad.12.1788368886763;
+        Wed, 02 Sep 2026 10:08:06 -0700 (PDT)
+Received: from [10.198.0.120] (wnpgmb02ydw-ds01-112-62-45.dynamic.bellmts.net. [204.112.62.45])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dadd4d5e8esm16053475ad.81.2026.09.02.10.08.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 10:08:06 -0700 (PDT)
+Message-ID: <531be24a-bad0-40f6-8e30-3d4da565afcb@gmail.com>
+Date: Wed, 2 Sep 2026 12:08:03 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Betterbird (Linux)
+Subject: Re: [BUG] SPD5118 Intermittent MR11 Corruption During Suspend/Resume
+To: Armin Wolf <W_Armin@gmx.de>, Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <1a8ea9da-1ac1-4312-a8ca-ea4a9f35093f@gmail.com>
+ <ee284272-0da0-45b6-a3be-c76822e5d54f@roeck-us.net>
+ <014b9438-e9b7-4be1-b816-002e83a068a0@roeck-us.net>
+ <37132c40-aa82-4df1-b5ce-337601f3c085@gmail.com>
+ <3c4e9f59-5272-48cf-a4a0-eeefcba955a9@roeck-us.net>
+ <763a8b30-8548-4ff0-a1e9-8e74bbfe9b02@gmail.com>
+ <6e8761aa-67ef-4624-834d-4b9d0ce729d6@roeck-us.net>
+ <9753ed80-5666-42a6-b04c-99b9ef9326fe@gmail.com>
+ <5c17ea39-c479-4f88-adc6-9a86f3dfb96a@roeck-us.net>
+ <d80cf68e-a6cb-4b0b-807e-313be29ca8ae@gmail.com>
+ <49cafd78-2468-4b43-a376-a8b2e2de2c19@roeck-us.net>
+ <11de1daa-702e-419e-912a-db37c9f28e92@gmail.com>
+ <67938f6d-d60f-44cf-9b03-fa472c8a8499@roeck-us.net>
+ <65336f12-b821-449b-a637-31972807c676@gmail.com>
+ <a953dcaa-cfff-40c8-85a9-c12601e49e85@roeck-us.net>
+ <9cdf4b63-8f99-4a80-b0be-3f3df69e526e@gmail.com>
+ <46191fa9-fa4a-4c16-b618-2c0c6dc09102@gmx.de>
+Content-Language: en-US
+From: Matthew Bettencourt <matthew.bettencourt@gmail.com>
+In-Reply-To: <46191fa9-fa4a-4c16-b618-2c0c6dc09102@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-The COMPAT kfunc wrappers scx_bpf_select_cpu_and() and
-scx_bpf_dsq_insert_vtime() error out @p's scheduler when the root
-scheduler has sub-scheds attached:
+Hi Armin,
 
-	scx_error(scx_task_sched(p), "... must be used");
+Are you want the acpi.log file or are you asking me to print out all the 
+.dat files?
 
-scx_task_sched(p) is p->scx.sched, which is NULL for any task that is not
-on an scx scheduler: it is memset() by init_scx_entity() and cleared by
-scx_disable_and_exit_task() -- which sched_ext_dead() runs when a task
-exits. It is also an rcu_dereference_protected() that must be called with
-@p's pi_lock or rq lock held, which neither wrapper does. Passing NULL to
-scx_error() reaches scx_vexit(), which dereferences sch->exit_info
-unconditionally, oopsing the kernel.
+$ ls -1 | grep -iE ".dat|acpi.log"
+acpi.log
+dsdt.dat
+ssdt10.dat
+ssdt11.dat
+ssdt12.dat
+ssdt13.dat
+ssdt14.dat
+ssdt15.dat
+ssdt16.dat
+ssdt1.dat
+ssdt2.dat
+ssdt3.dat
+ssdt4.dat
+ssdt5.dat
+ssdt6.dat
+ssdt7.dat
+ssdt8.dat
+ssdt9.dat
 
-Both wrappers are reachable with such a @p. scx_bpf_select_cpu_and() is in
-the select_cpu kfunc group, which scx_kfunc_context_filter() opens to
-BPF_PROG_TYPE_SYSCALL programs. scx_bpf_dsq_insert_vtime() is in the
-enqueue_dispatch group, which ops.enqueue() and ops.dispatch() may call
-with any KF_RCU task: the group has no kf_tasks validation, and
-scx_dsq_insert_preamble() checks task ownership with scx_task_on_sched()
-precisely because @p may be an arbitrary task.
+Thanks,
+Matthew
 
-Neither wrapper requires a contrived @p. Tasks that are never enabled --
-kthreads and tasks of other classes under SCX_SWITCH_ALL=n -- keep
-p->scx.sched NULL indefinitely; and a task handed over from
-bpf_task_from_pid() can exit before the call lands, as its zombie stays
-visible to pid lookups until it is reaped.
-
-One concrete trigger exercised for this changelog: a SYSCALL program
-calling the select_cpu_and wrapper on an exited-but-not-reaped task while
-a sub-scheduler is attached (faulting instruction is the scx_vexit()
-prologue "mov r15,[rdi+0x398]" with RDI=NULL and 0x398 the offset of
-sch->exit_info):
-
-  sched_ext: BPF scheduler "kfunc_subsched_null" enabled
-  sched_ext: BPF sub-scheduler "kfunc_subsched_null" enabled
-  sched_ext: Unassociated program run_select_cpu_ (id 76)
-  BUG: kernel NULL pointer dereference, address: 0000000000000398
-  #PF: supervisor read access in kernel mode
-  #PF: error_code(0x0000) - not-present page
-  Oops: Oops: 0000 [#1] SMP NOPTI
-  CPU: 7 UID: 0 PID: 8201 Comm: kfunc_test_runn Tainted: G W
-  RIP: 0010:scx_vexit+0x25/0xa0
-  Code: ... <4c> 8b bf 98 03 00 00 ...
-  CR2: 0000000000000398
-  Call Trace:
-   <TASK>
-   __scx_exit+0x4f/0x70
-   scx_bpf_select_cpu_and+0xab/0xb0
-   bpf_prog_430ed61a7b66e03a_run_select_cpu_and+0x9c/0xe7
-   ? __x64_sys_bpf+0x2c/0x40
-   bpf_prog_test_run_syscall+0x130/0x2f0
-   __sys_bpf+0x930/0x10d0
-   ? __x64_sys_bpf+0x2c/0x40
-   __x64_sys_bpf+0x2c/0x40
-   do_syscall_64+0xbc/0x460
-   ? rseq_set_ids_get_csaddr+0x81/0x140
-   ? __rseq_handle_slowpath+0xd0/0x130
-   ? switch_fpu_return+0x51/0xd0
-   ? arch_exit_to_user_mode_prepare.constprop.0+0x87/0xb0
-   ? do_syscall_64+0xf3/0x460
-   ? irqentry_exit+0x48/0x740
-   ? clear_bhb_loop+0x40/0x90
-   ? do_syscall_64+0x35/0x460
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
-   </TASK>
-
-Keep the "error out @p's scheduler" attribution -- it is what every other
-kfunc error path does (select_cpu_from_kfunc()'s cross_task,
-scx_kf_arg_task_ok()) and it is correct for the callers that take this
-path with a live task: p->scx.sched is their scheduler. Just read it
-safely: use scx_task_sched_rcu() (valid under the guard(rcu)() both
-wrappers already hold, no @p lock required) and fall back to @sch -- the
-root scheduler, guaranteed non-NULL here -- when @p is not on an scx
-scheduler, which is precisely the case that used to be NULL.
-
-These COMPAT wrappers are scheduled for eventual removal once the
-deprecation grace period elapses, but until then -- and regardless of
-their removal timeline -- they must not oops the kernel on a task they
-are handed; this fix makes the error path safe.
-
-Cc: <stable@vger.kernel.org>
-Fixes: a5fa0708cbfd ("sched_ext: Enforce scheduling authority in dispatch and select_cpu operations")
-Signed-off-by: Wanwu Li <liwanwu@kylinos.cn>
----
-
-Changes v1 -> v2:
- - Extend the same fallback to scx_bpf_dsq_insert_vtime() as suggested
-   by Andrea (and flagged by sashiko-bot); rewrite the reachability
-   argument in the commit message accordingly.
-
- kernel/sched/ext/ext.c  | 9 +++++++--
- kernel/sched/ext/idle.c | 9 +++++++--
- 2 files changed, 14 insertions(+), 4 deletions(-)
-
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 10af28a9f2c0..fdfaa7e9c8f5 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -8943,10 +8943,15 @@ __bpf_kfunc void scx_bpf_dsq_insert_vtime(struct task_struct *p, u64 dsq_id,
- #ifdef CONFIG_EXT_SUB_SCHED
- 	/*
- 	 * Disallow if any sub-scheds are attached. There is no way to tell
--	 * which scheduler called us, just error out @p's scheduler.
-+	 * which scheduler called us, so error out @p's scheduler -- but read
-+	 * it under RCU (@p's locks aren't necessarily held here) and fall
-+	 * back to @sch if @p isn't on an scx scheduler: enqueue/dispatch
-+	 * contexts may pass any KF_RCU task, and p->scx.sched is NULL for
-+	 * one that has exited or is managed by another scheduler.
- 	 */
- 	if (unlikely(!list_empty(&sch->children))) {
--		scx_error(scx_task_sched(p), "__scx_bpf_dsq_insert_vtime() must be used");
-+		scx_error(scx_task_sched_rcu(p) ?: sch,
-+			  "__scx_bpf_dsq_insert_vtime() must be used");
- 		return;
- 	}
- #endif
-diff --git a/kernel/sched/ext/idle.c b/kernel/sched/ext/idle.c
-index d2973fb3af6d..014599d82bb0 100644
---- a/kernel/sched/ext/idle.c
-+++ b/kernel/sched/ext/idle.c
-@@ -1142,10 +1142,15 @@ __bpf_kfunc s32 scx_bpf_select_cpu_and(struct task_struct *p, s32 prev_cpu, u64
- #ifdef CONFIG_EXT_SUB_SCHED
- 	/*
- 	 * Disallow if any sub-scheds are attached. There is no way to tell
--	 * which scheduler called us, just error out @p's scheduler.
-+	 * which scheduler called us, so error out @p's scheduler -- but read
-+	 * it under RCU (@p's locks aren't held here) and fall back to @sch if
-+	 * @p isn't on an scx scheduler: a BPF_PROG_TYPE_SYSCALL prog can pass
-+	 * any task and p->scx.sched is NULL for one that has exited or is
-+	 * managed by another scheduler.
- 	 */
- 	if (unlikely(!list_empty(&sch->children))) {
--		scx_error(scx_task_sched(p), "__scx_bpf_select_cpu_and() must be used");
-+		scx_error(scx_task_sched_rcu(p) ?: sch,
-+			  "__scx_bpf_select_cpu_and() must be used");
- 		return -EINVAL;
- 	}
- #endif
--- 
-2.25.1
+On 9/2/26 11:57 AM, Armin Wolf wrote:
+> Am 02.09.26 um 16:00 schrieb Matthew Bettencourt:
+> 
+>> Hello Guenter,
+>>
+>> > It would be something like
+>> >
+>> > sudo acpidump > acpi.log
+>> > acpixtract acpi.log
+>> > iasl -d *.dat
+>> >
+>> > You'll get a number of.dsl files with cryptic assembler-style
+>> > code and data. Then the digging starts ... you may find something
+>> > like "Name (SMB0, 0x0B00)" in dsdt.dsl. Then we can only hope to
+>> > figure out if ACPI actually accesses it.
+>>
+>> That wasn't as hard as I thought. I got everything decoding I guess, I 
+>> just did a grep on all the dsl files for SMB.
+>>
+>> $ grep -i -rn "SMB" *.ds
+>> dsdt.dsl:295:    Name (SMBB, 0x0B20)
+>> dsdt.dsl:296:    Name (SMBL, 0x20)
+>> dsdt.dsl:297:    Name (SMB0, 0x0B00)
+>> dsdt.dsl:298:    Name (SMBM, 0x10)
+>> dsdt.dsl:311:    Name (SSMB, 0xFED80200)
+>> dsdt.dsl:3352:                                If (SMBB)
+>> dsdt.dsl:3354:                                    CreateWordField 
+>> (CRS, 0xD2, SMB1)
+>> dsdt.dsl:3357:                                    SMB1 = SMBB /* \SMBB */
+>> dsdt.dsl:3358:                                    SMH1 = SMBB /* \SMBB */
+>> dsdt.dsl:3359:                                    SML1 = SMBL /* \SMBL */
+>> dsdt.dsl:3360:                                    CreateWordField 
+>> (CRS, 0xCA, SMBZ)
+>> dsdt.dsl:3363:                                    SMBZ = SMB0 /* \SMB0 */
+>> dsdt.dsl:3364:                                    SMH0 = SMB0 /* \SMB0 */
+>> dsdt.dsl:3365:                                    SML0 = SMBM /* \SMBM */
+>> ssdt4.dsl:4026:            SMB8,   8
+>> ssdt4.dsl:4032:            SMB8 |= 0x40
+>> ssdt4.dsl:4046:            Local1 = SMB8 /* \M477.SMB8 */
+>> ssdt4.dsl:4062:            SMB8,   8
+>> ssdt4.dsl:4065:        SMB8 |= 0x80
+>> ssdt4.dsl:4073:            SMB0,   8,
+>> ssdt4.dsl:4074:            SMB1,   8,
+>> ssdt4.dsl:4075:            SMB2,   8
+>> ssdt4.dsl:4085:                SMB0 = 0x1F
+>> ssdt4.dsl:4100:                Local2 = SMB0 /* \M479.SMB0 */
+>> ssdt4.dsl:4105:                SMB2 = 0x02
+>> ssdt4.dsl:4113:        If (((SMB0 & One) != Zero))
+>> ssdt4.dsl:4124:                SMB1 = 0x3F
+>> ssdt4.dsl:4139:                Local2 = SMB1 /* \M479.SMB1 */
+>> ssdt4.dsl:4144:                SMB1 = 0x02
+>> ssdt4.dsl:4152:        If (((SMB1 & One) != Zero))
+>> ssdt4.dsl:4173:        M460 ("  KER-ASL-CpmSmbusExecutor (Port%d, 
+>> isRead %d, Potcl %d, DevAddr 0x%X, Cmd 0x%X)\n", Arg0, Arg1, Arg2, 
+>> Arg3, Arg4, Zero)
+>> ssdt4.dsl:4179:            M459 ("  KER-ASL-CpmSmbusExecutor return 
+>> 0x80\n", Zero)
+>> ssdt4.dsl:4186:            M459 ("  KER-ASL-CpmSmbusExecutor return 
+>> 0x81\n", Zero)
+>> ssdt4.dsl:4201:            M459 ("  KER-ASL-CpmSmbusExecutor return 
+>> 0x82\n", Zero)
+>> ssdt4.dsl:4212:                M460 ("  KER-ASL-CpmSmbusExecutor 
+>> return 0x83, Length %d\n", Local2, Zero, Zero, Zero, Zero, Zero)
+>> ssdt4.dsl:4223:            M460 ("  KER-ASL-CpmSmbusExecutor return 
+>> 0x84, Local4 %d\n", Local4, Zero, Zero, Zero, Zero, Zero)
+>> ssdt4.dsl:4230:            SMB0,   8,
+>> ssdt4.dsl:4231:            SMB1,   8,
+>> ssdt4.dsl:4232:            SMB2,   8,
+>> ssdt4.dsl:4233:            SMB3,   8,
+>> ssdt4.dsl:4234:            SMB4,   8,
+>> ssdt4.dsl:4235:            SMB5,   8,
+>> ssdt4.dsl:4236:            SMB6,   8,
+>> ssdt4.dsl:4237:            SMB7,   8,
+>> ssdt4.dsl:4238:            SMB8,   8
+>> ssdt4.dsl:4249:            Local6 = SMB2 /* \M47A.SMB2 */
+>> ssdt4.dsl:4250:            SMB2 = (Local6 & 0x7F)
+>> ssdt4.dsl:4257:                SMB2 = Local6
+>> ssdt4.dsl:4267:            M459 ("  KER-ASL-CpmSmbusExecutor return 
+>> 0x85\n", Zero)
+>> ssdt4.dsl:4275:                SMB2 = Local6
+>> ssdt4.dsl:4286:            M459 ("  KER-ASL-CpmSmbusExecutor return 
+>> 0x86\n", Zero)
+>> ssdt4.dsl:4294:            SMB0 = 0x1F
+>> ssdt4.dsl:4295:            SMB4 = ((Arg3 << One) | Arg1)
+>> ssdt4.dsl:4296:            SMB3 = Arg4
+>> ssdt4.dsl:4297:            SMB2 = (Arg2 << 0x02)
+>> ssdt4.dsl:4298:            Local1 = SMB2 /* \M47A.SMB2 */
+>> ssdt4.dsl:4303:                    SMB5 = DerefOf (Local7 [One])
+>> ssdt4.dsl:4308:                    SMB6 = DerefOf (Local7 [0x02])
+>> ssdt4.dsl:4309:                    SMB5 = DerefOf (Local7 [One])
+>> ssdt4.dsl:4315:                    SMB5 = Local2
+>> ssdt4.dsl:4319:                        SMB7 = DerefOf (Local7 [Local1])
+>> ssdt4.dsl:4327:                SMB5 = Local2
+>> ssdt4.dsl:4330:            SMB2 = ((Arg2 << 0x02) | 0x40)
+>> ssdt4.dsl:4350:                Local2 = SMB0 /* \M47A.SMB0 */
+>> ssdt4.dsl:4355:                SMB2 = 0x02
+>> ssdt4.dsl:4358:                    SMB2 = Local6
+>> ssdt4.dsl:4369:                M459 ("  KER-ASL-CpmSmbusExecutor 
+>> return 0x87\n", Zero)
+>> ssdt4.dsl:4379:                SMB0 = 0x08
+>> ssdt4.dsl:4390:                        DATB = SMB5 /* \M47A.SMB5 */
+>> ssdt4.dsl:4396:                        Local0 [0x03] = SMB6 /* 
+>> \M47A.SMB6 */
+>> ssdt4.dsl:4397:                        Local0 [0x02] = SMB5 /* 
+>> \M47A.SMB5 */
+>> ssdt4.dsl:4403:                        Local2 = SMB2 /* \M47A.SMB2 */
+>> ssdt4.dsl:4404:                        Local2 = SMB5 /* \M47A.SMB5 */
+>> ssdt4.dsl:4416:                            Local0 [Local1] = SMB7 /* 
+>> \M47A.SMB7 */
+>> ssdt4.dsl:4424:        Local1 = (SMB0 & 0x1D)
+>> ssdt4.dsl:4426:        SMB0 = 0x1F
+>> ssdt4.dsl:4429:            SMB2 = Local6
+>> ssdt4.dsl:4439:        M460 ("  KER-ASL-CpmSmbusExecutor return St: 
+>> 0x%X, Len %d, Data: 0x%X, 0x%X, 0x%X, 0x%X ...\n", STAT, LEN, DerefOf 
+>> (Local0 [0x02]), DerefOf (Local0 [
+>> ssdt4.dsl:4497:            M460 ("  KER-ASL-CpmReadSmbusByte (%d, 
+>> 0x%X, 0x%X) = 0 Smbus Access Disable\n", Arg0, Arg1, Arg2, Zero, Zero, 
+>> Zero)
+>> ssdt4.dsl:4506:            SMB0,   8,
+>> ssdt4.dsl:4507:            SMB1,   8,
+>> ssdt4.dsl:4508:            SMB2,   8,
+>> ssdt4.dsl:4509:            SMB3,   8,
+>> ssdt4.dsl:4510:            SMB4,   8,
+>> ssdt4.dsl:4511:            SMB5,   8,
+>> ssdt4.dsl:4512:            SMB6,   8,
+>> ssdt4.dsl:4513:            SMB7,   8,
+>> ssdt4.dsl:4514:            SMB8,   8
+>> ssdt4.dsl:4525:            Local6 = SMB2 /* \M409.SMB2 */
+>> ssdt4.dsl:4526:            SMB2 = (Local6 & 0x7F)
+>> ssdt4.dsl:4533:            SMB8 |= 0x10
+>> ssdt4.dsl:4536:            Local1 = SMB8 /* \M409.SMB8 */
+>> ssdt4.dsl:4546:                SMB0 = 0x1F
+>> ssdt4.dsl:4549:                Local1 = SMB0 /* \M409.SMB0 */
+>> ssdt4.dsl:4554:                SMB2 = 0x02
+>> ssdt4.dsl:4567:                SMB2 = Local6
+>> ssdt4.dsl:4576:            M460 ("  KER-ASL-CpmReadSmbusByte (%d, 
+>> 0x%X, 0x%X) = 0 ERROR 1\n", Arg0, Arg1, Arg2, Zero, Zero, Zero)
+>> ssdt4.dsl:4587:                SMB1 = 0x3F
+>> ssdt4.dsl:4590:                Local1 = SMB1 /* \M409.SMB1 */
+>> ssdt4.dsl:4595:                SMB1 = 0x02
+>> ssdt4.dsl:4608:                SMB2 = Local6
+>> ssdt4.dsl:4617:            M460 ("  KER-ASL-CpmReadSmbusByte (%d, 
+>> 0x%X, 0x%X) = 0 ERROR 2\n", Arg0, Arg1, Arg2, Zero, Zero, Zero)
+>> ssdt4.dsl:4624:            SMB0 = 0x1F
+>> ssdt4.dsl:4625:            SMB4 = ((Arg1 << One) | One)
+>> ssdt4.dsl:4626:            SMB3 = Arg2
+>> ssdt4.dsl:4627:            SMB2 = 0x08
+>> ssdt4.dsl:4628:            Local1 = SMB2 /* \M409.SMB2 */
+>> ssdt4.dsl:4629:            SMB2 = 0x48
+>> ssdt4.dsl:4639:                    Local1 = SMB0 /* \M409.SMB0 */
+>> ssdt4.dsl:4644:                    SMB2 = 0x02
+>> ssdt4.dsl:4647:                        SMB2 = Local6
+>> ssdt4.dsl:4656:                    M460 (" KER-ASL-CpmReadSmbusByte 
+>> (%d, 0x%X, 0x%X) = 0 ERROR 3\n", Arg0, Arg1, Arg2, Zero, Zero, Zero)
+>> ssdt4.dsl:4662:                Local1 = SMB0 /* \M409.SMB0 */
+>> ssdt4.dsl:4672:                SMB0 = 0x08
+>> ssdt4.dsl:4679:                Local4 = SMB5 /* \M409.SMB5 */
+>> ssdt4.dsl:4683:        SMB0 = 0x1F
+>> ssdt4.dsl:4684:        SMB8 |= 0x20
+>> ssdt4.dsl:4687:            SMB2 = Local6
+>> ssdt4.dsl:4696:        M460 ("  KER-ASL-CpmReadSmbusByte (%d, 0x%X, 
+>> 0x%X) = 0x%X Success\n", Arg0, Arg1, Arg2, Local4, Zero, Zero)
+>> ssdt4.dsl:4705:            M460 ("  KER-ASL-CpmWriteSmbusByte (%d, 
+>> 0x%X, 0x%X, 0x%X) = 0 Smbus Access Disable\n", Arg0, Arg1, Arg2, Arg3, 
+>> Zero, Zero)
+>> ssdt4.dsl:4714:            SMB0,   8,
+>> ssdt4.dsl:4715:            SMB1,   8,
+>> ssdt4.dsl:4716:            SMB2,   8,
+>> ssdt4.dsl:4717:            SMB3,   8,
+>> ssdt4.dsl:4718:            SMB4,   8,
+>> ssdt4.dsl:4719:            SMB5,   8,
+>> ssdt4.dsl:4720:            SMB6,   8,
+>> ssdt4.dsl:4721:            SMB7,   8,
+>> ssdt4.dsl:4722:            SMB8,   8
+>> ssdt4.dsl:4733:            Local6 = SMB2 /* \M410.SMB2 */
+>> ssdt4.dsl:4734:            SMB2 = (Local6 & 0x7F)
+>> ssdt4.dsl:4741:            SMB8 |= 0x10
+>> ssdt4.dsl:4744:            Local1 = SMB8 /* \M410.SMB8 */
+>> ssdt4.dsl:4754:                SMB0 = 0x1F
+>> ssdt4.dsl:4757:                Local1 = SMB0 /* \M410.SMB0 */
+>> ssdt4.dsl:4762:                SMB2 = 0x02
+>> ssdt4.dsl:4775:                SMB2 = Local6
+>> ssdt4.dsl:4784:            M460 ("  KER-ASL-CpmWriteSmbusByte (%d, 
+>> 0x%X, 0x%X, 0x%X) = 0 ERROR 1\n", Arg0, Arg1, Arg2, Arg3, Zero, Zero)
+>> ssdt4.dsl:4795:                SMB1 = 0x3F
+>> ssdt4.dsl:4798:                Local1 = SMB1 /* \M410.SMB1 */
+>> ssdt4.dsl:4803:                SMB1 = 0x02
+>> ssdt4.dsl:4816:                SMB2 = Local6
+>> ssdt4.dsl:4825:            M460 ("  KER-ASL-CpmWriteSmbusByte (%d, 
+>> 0x%X, 0x%X, 0x%X) = 0 ERROR 2\n", Arg0, Arg1, Arg2, Arg3, Zero, Zero)
+>> ssdt4.dsl:4832:            SMB0 = 0x1F
+>> ssdt4.dsl:4833:            SMB4 = (Arg1 << One)
+>> ssdt4.dsl:4834:            SMB3 = Arg2
+>> ssdt4.dsl:4835:            SMB2 = 0x08
+>> ssdt4.dsl:4836:            Local1 = SMB2 /* \M410.SMB2 */
+>> ssdt4.dsl:4837:            SMB5 = Arg3
+>> ssdt4.dsl:4838:            SMB2 = 0x48
+>> ssdt4.dsl:4848:                    Local1 = SMB0 /* \M410.SMB0 */
+>> ssdt4.dsl:4853:                    SMB2 = 0x02
+>> ssdt4.dsl:4856:                        SMB2 = Local6
+>> ssdt4.dsl:4865:                    M460 (" KER-ASL-CpmWriteSmbusByte 
+>> (%d, 0x%X, 0x%X, 0x%X) = 0 ERROR 3\n", Arg0, Arg1, Arg2, Arg3, Zero, 
+>> Zero)
+>> ssdt4.dsl:4871:                Local1 = SMB0 /* \M410.SMB0 */
+>> ssdt4.dsl:4881:                SMB0 = 0x08
+>> ssdt4.dsl:4892:        SMB0 = 0x1F
+>> ssdt4.dsl:4893:        SMB8 |= 0x20
+>> ssdt4.dsl:4896:            SMB2 = Local6
+>> ssdt4.dsl:4905:        M460 ("  KER-ASL-CpmWriteSmbusByte (%d, 0x%X, 
+>> 0x%X, 0x%X) Success\n", Arg0, Arg1, Arg2, Arg3, Zero, Zero)
+> 
+> Interesting, can you share the whole output of acpidump?
+> 
+> Thanks,
+> Armin Wolf
+> 
+>> On 9/1/26 10:19 PM, Guenter Roeck wrote:
+>>> Hi Matthew,
+>>>
+>>> On 9/1/26 19:14, Matthew Bettencourt wrote:
+>>>> Hello Guetner,
+>>>>
+>>>> I believe I implemented the print port correctly, below is the dmesg 
+>>>> and piix4_sb800_port_sel() function.
+>>>>
+>>>>  > Another idea might be to decode the ACPI data and see if there is 
+>>>> anything
+>>>>  > in there which accesses the SMBus controller.
+>>>>
+>>>> I have no problem grabbing the ACPI data or whatever is needed, just 
+>>>> might need a little bit of guidance on that front. I am OK at c code 
+>>>> with some AI help but never really delved into ACPI.
+>>>>
+>>>
+>>> It would be something like
+>>>
+>>> sudo acpidump > acpi.log
+>>> acpixtract acpi.log
+>>> iasl -d *.dat
+>>>
+>>> You'll get a number of.dsl files with cryptic assembler-style
+>>> code and data. Then the digging starts ... you may find something
+>>> like "Name (SMB0, 0x0B00)" in dsdt.dsl. Then we can only hope to
+>>> figure out if ACPI actually accesses it.
+>>>
+>>>> And one last thing I greatly appreciate all the time and effort you 
+>>>> are putting into this. I would definitely not have been able to get 
+>>>> this far without your help.
+>>>>
+>>> My pleasure.
+>>>
+>>>> --- CMD=0b
+>>>> [19462.122064] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.123074] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.123109] [  T21683] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.124081] [  T21683] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.124115] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.125067] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.125074] [  T21668] spd5118 12-0053: PRE BIT UPDATE: SUSPEND 
+>>>> MR11 (0x0B) -> Cache: 0x00 | Bus: 0x00
+>>>> [19462.125094] [  T21683] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.126064] [  T21683] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.126072] [  T21683] spd5118 12-0051: PRE BIT UPDATE: SUSPEND 
+>>>> MR11 (0x0B) -> Cache: 0x00 | Bus: 0x00
+>>>> [19462.126088] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.127545] [  T21668] i2c i2c-12: [PIIX4 ERROR TRACE TRIGGERED] 
+>>>> result=0
+>>>>                          STEP 1 (PRE-START)    : CNT=08, CMD=0b, 
+>>>> ADD=a7, DAT0=00, DAT1=18
+>>>>                          STEP 2 (START BIT SET): CNT=08, CMD=0b, 
+>>>> ADD=a7, DAT0=00, DAT1=18
+>>>>                          STEP 3 (POST-WAIT)    : STS=00, CNT=08, 
+>>>> CMD=01, ADD=45, DAT0=ff, DAT1=18
+>>>>                          STEP 4 (POST-CLEANUP) : CNT=08, CMD=01, 
+>>>> ADD=45, DAT0=ff, DAT1=18
+>>>
+>>> Now we'll need to know the port number here (or even better at each 
+>>> step),
+>>> so some duplication of piix4_sb800_port_sel() which only reads the port
+>>> number will be needed.
+>>>
+>>> Note that this may not help at all - whatever entity is modifying the 
+>>> registers
+>>> may not change the port number.
+>>>
+>>> Thanks,
+>>> Guenter
+>>>
+>>>> [19462.127556] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.127582] [  T21683] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.128217] [  T21683] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.128240] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.128894] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.128920] [  T21683] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.129561] [  T21683] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.129588] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.130227] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.130255] [  T21683] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.130894] [  T21683] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.130919] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.131560] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.131584] [  T21683] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.132226] [  T21683] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.132249] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.132882] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.132904] [  T21683] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.133555] [  T21683] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.133563] [  T21683] spd5118 12-0051: POST BIT UPDATE: SUSPEND 
+>>>> MR11 (0x0B) -> Cache: 0x00 | Bus: 0x00
+>>>> [19462.133581] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.134238] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19462.134244] [  T21668] spd5118 12-0053: POST BIT UPDATE: SUSPEND 
+>>>> MR11 (0x0B) -> Cache: 0x00 | Bus: 0x08
+>>>>
+>>>> --- CMD=1a
+>>>> [19664.445821] [  T21712] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.446491] [  T21712] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.446531] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.447201] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.447235] [  T21712] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.447890] [  T21712] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.447903] [  T21712] spd5118 12-0053: PRE BIT UPDATE: SUSPEND 
+>>>> MR11 (0x0B) -> Cache: 0x00 | Bus: 0x00
+>>>> [19664.447923] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.448574] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.448581] [  T21668] spd5118 12-0051: PRE BIT UPDATE: SUSPEND 
+>>>> MR11 (0x0B) -> Cache: 0x00 | Bus: 0x00
+>>>> [19664.448601] [  T21712] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.449239] [  T21712] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.449264] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.449886] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.449910] [  T21712] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.451402] [  T21712] i2c i2c-12: [PIIX4 ERROR TRACE TRIGGERED] 
+>>>> result=0
+>>>>                              STEP 1 (PRE-START)    : CNT=08, CMD=1a, 
+>>>> ADD=a7, DAT0=00, DAT1=18
+>>>>                              STEP 2 (START BIT SET): CNT=08, CMD=1a, 
+>>>> ADD=a7, DAT0=00, DAT1=18
+>>>>                              STEP 3 (POST-WAIT)    : STS=00, CNT=08, 
+>>>> CMD=01, ADD=45, DAT0=ff, DAT1=18
+>>>>                              STEP 4 (POST-CLEANUP) : CNT=08, CMD=01, 
+>>>> ADD=45, DAT0=ff, DAT1=18
+>>>> [19664.451414] [  T21712] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.451438] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.452398] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.452423] [  T21712] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.453393] [  T21712] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.453400] [  T21712] spd5118 12-0053: POST BIT UPDATE: SUSPEND 
+>>>> MR11 (0x0B) -> Cache: 0x00 | Bus: 0x00
+>>>> [19664.453417] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.454396] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.454417] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.454883] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.454904] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.455541] [  T21668] piix4_smbus: PORT SEL -> requested=0x00 | 
+>>>> hardware_was=0x00 | writing=0x07
+>>>> [19664.455549] [  T21668] spd5118 12-0051: POST BIT UPDATE: SUSPEND 
+>>>> MR11 (0x0B) -> Cache: 0x00 | Bus: 0x00
+>>>>
+>>>>
+>>>> ---
+>>>> int piix4_sb800_port_sel(u8 port, struct sb800_mmio_cfg *mmio_cfg)
+>>>> {
+>>>>      u8 smba_en_lo, val, prev_port;
+>>>>
+>>>>      if (mmio_cfg->use_mmio) {
+>>>>          smba_en_lo = ioread8(mmio_cfg->addr + piix4_port_sel_sb800);
+>>>>          val = (smba_en_lo & ~piix4_port_mask_sb800) | port;
+>>>>          if (smba_en_lo != val)
+>>>>              iowrite8(val, mmio_cfg->addr + piix4_port_sel_sb800);
+>>>>
+>>>>          prev_port = smba_en_lo & piix4_port_mask_sb800;
+>>>>      } else {
+>>>>          outb_p(piix4_port_sel_sb800, SB800_PIIX4_SMB_IDX);
+>>>>          smba_en_lo = inb_p(SB800_PIIX4_SMB_IDX + 1);
+>>>>
+>>>>          val = (smba_en_lo & ~piix4_port_mask_sb800) | port;
+>>>>          if (smba_en_lo != val)
+>>>>              outb_p(val, SB800_PIIX4_SMB_IDX + 1);
+>>>>
+>>>>          prev_port = smba_en_lo & piix4_port_mask_sb800;
+>>>>      }
+>>>>
+>>>>      /* Always print port state on every function call */
+>>>>      pr_info("piix4_smbus: PORT SEL -> requested=0x%02x | 
+>>>> hardware_was=0x%02x | writing=0x%02x\n",
+>>>>              port, prev_port, val);
+>>>>
+>>>>      return prev_port;
+>>>> }
+>>>>
+>>>>
+>>>> Thanks,
+>>>> Matthew
+>>>> On 9/1/26 8:32 PM, Guenter Roeck wrote:
+>>>>> On 9/1/26 17:57, Matthew Bettencourt wrote:
+>>>>>> Hello Guenter,
+>>>>>>
+>>>>>> These are the only boot up messages I see for SMBus/i2c/piix4
+>>>>>>
+>>>>>> [    1.848113] [    T272] i2c_dev: i2c /dev entries driver
+>>>>>> [    6.093885] [    T727] piix4_smbus 0000:00:14.0: SMBus Host 
+>>>>>> Controller at 0xb00, revision 0
+>>>>>> [    6.093888] [    T727] piix4_smbus 0000:00:14.0: Using register 
+>>>>>> 0x02 for SMBus port selection
+>>>>>
+>>>>> So bus 12 and 13 share the same controller address.
+>>>>>
+>>>>> There is one more thing we can try: Print the selected port before 
+>>>>> and after
+>>>>> the access. The code to access the port number is in 
+>>>>> piix4_sb800_port_sel().
+>>>>> If we are "lucky", we may find that the selected port changed.
+>>>>>
+>>>>> Unfortunately that isn't going to help much since we'd still have
+>>>>> to figure out where that happens.
+>>>>>
+>>>>> Another idea might be to decode the ACPI data and see if there is 
+>>>>> anything
+>>>>> in there which accesses the SMBus controller.
+>>>>>
+>>>>> Thanks,
+>>>>> Guenter
+>>>>>
+>>>>>> [    6.095020] [    T727] i2c i2c-12: Successfully instantiated 
+>>>>>> SPD at 0x51
+>>>>>> [    6.095981] [    T727] i2c i2c-12: Successfully instantiated 
+>>>>>> SPD at 0x53
+>>>>>> [    6.096039] [    T727] piix4_smbus 0000:00:14.0: Auxiliary 
+>>>>>> SMBus Host Controller at 0xb20
+>>>>>>
+>>>>>>
+>>>>>> I don't see anything on bus 13 or 14, I added 10-12 as well for 
+>>>>>> good measure.
+>>>>>> # sudo i2cdetect -y -a 14
+>>>>>>       0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+>>>>>> 00: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 70: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> # sudo i2cdetect -y -a 13
+>>>>>>       0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+>>>>>> 00: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 70: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> # sudo i2cdetect -y -a 12
+>>>>>>       0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+>>>>>> 00: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 10: -- -- -- -- -- 15 -- -- -- -- -- -- -- -- -- --
+>>>>>> 20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 40: -- -- -- -- -- -- -- -- -- 49 -- 4b -- -- -- --
+>>>>>> 50: -- 51 -- 53 -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 70: -- 71 -- 73 -- -- -- -- -- -- -- -- -- -- 7e --
+>>>>>> # sudo i2cdetect -y -a 11
+>>>>>>       0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+>>>>>> 00: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 30: 30 -- -- -- -- -- -- 37 -- -- -- -- -- -- -- --
+>>>>>> 40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 50: 50 -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 70: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> # sudo i2cdetect -y -a 10
+>>>>>>       0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+>>>>>> 00: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>> 70: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>>>>>
+>>>>>>
+>>>>>>
+>>>>>>
+>>>>
+>>>
+>>
+>>
 
