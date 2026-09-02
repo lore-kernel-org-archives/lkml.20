@@ -1,245 +1,124 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81063416870
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:36:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED7EA415F12;
+	Wed,  2 Sep 2026 09:36:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788341785; cv=none; b=Wqu0tZkjGYIReb/KaZpkfQZ3V30aOgRe9tUTZ/Syyc5Z52EVHJE3ZmYRaMb9iFNurHjTRDhkp7Rm4r/+/gLwSS4tupZYApd7QJhWBbtnoBxvBFpbCADfqJIYN833PJZPjsI2zkqz1li1JXqqT4LOe44sDfipAjroHASUq4dgxYc=
+	t=1788341805; cv=none; b=PBdGCtr1mpunJW3mCqi7Henojk5Ax9oxo+qZaJFrsJEW3el/DEN1aGcb7MhQnifCAPga9Rldq9+w16/z2Z8ZFYrhvFHfHSkgTC7NaRTDE0ozopAMK5ho2isLYuxNRJVHeuLzco8Y9e4fCQQOI/GBNHlz6LFWGSg/vYnxeW2E6Eg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788341785; c=relaxed/simple;
-	bh=BRHdmvPvLetVJoA6O66cZxb5vCnNViCoz33PfhdMIDs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=aSW7HwEt3y4XKHNtZem+geBJ1D9cEgYvqbv2hvUY0CS1GtH6HJI2L56vdZTekIReS9ifpNZMz+4S7uAmGj6zUGal3PcJ95fhB09ZXFurKPiZJwOAr+yS1mVedt3xdsDa6efcagM6qlsmj4NiEj9JzkyiKiqj+OTL6OcXPt9NYjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: bf4f3bb0a6b111f19a56ed5b684f684d-20260902
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:8cf952e3-2dc0-4e83-9b64-586c283f70a0,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:4a51ba0777dc56cd1452aa64d8ee7779,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|865|898,TC:nil,Content:0|15|50,EDM:5,IP:
-	nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:
-	0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: bf4f3bb0a6b111f19a56ed5b684f684d-20260902
-X-User: liwanwu@kylinos.cn
-Received: from kylinos.cn [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <liwanwu@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1353554484; Wed, 02 Sep 2026 17:36:17 +0800
-From: Wanwu Li <liwanwu@kylinos.cn>
-To: tj@kernel.org
-Cc: arighi@nvidia.com,
-	changwoo@igalia.com,
-	emil@etsalapatis.com,
-	linux-kernel@vger.kernel.org,
-	liwanwu@kylinos.cn,
-	sched-ext@lists.linux.dev,
-	void@manifault.com
-Subject: [PATCH v3] sched_ext: Reject NMI calls to lock-taking kfuncs
-Date: Wed,  2 Sep 2026 17:36:11 +0800
-Message-Id: <20260902093611.52651-1-liwanwu@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <49faaba5039a29f38ab6f254da6fb8dc@kernel.org>
-References: <49faaba5039a29f38ab6f254da6fb8dc@kernel.org>
+	s=arc-20240116; t=1788341805; c=relaxed/simple;
+	bh=IJsQPXCXr4tULo/Kr+T4U9PvR2F+Bxa4mJndpfFLahI=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=e8VPsXxHFDS0CfFsTC/vjWlnLrLScnBcDM3vWTgGBdrx4/IN444pBFrJJM/GmwRzI16uLKc8husXns2CqD1tjTLvLMVhlEDJZmRuETbHsRb9t7R3BzImRHgd5C3QQUAmEDxDNDCKKk+gab7m0DkjiCBSJ3ibwuqbsIgQfGgxxnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=QtaazmnA; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="QtaazmnA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=hzdTECP9t5LIyo2E0vUpY/6gGoGRTkcWa
+	WyhcWql2BM=; b=QtaazmnAxhXU/D+3vTe4Iqrcy59NbpGrCridhrapie5ranANx
+	GpIlW1O4+bIIfg3LzkVcHvkn7sGxiwjlKzrsAKYEUa8aO3io/oewqDVG0fUWXKxv
+	M+VpJQVB4WYmXiYIgVdXT1f67jom6H3BACYmGAsgKum50mlrGeCSsL1AwE=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwD3vwYL7pdqsC0AAA--.205S2;
+	Wed, 02 Sep 2026 17:36:11 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH net-next 1/3] dt-bindings: net: snps,dwmac: Add
+ UltraRISC DP1000 compatible
+From: Jia Wang <wangjia@ultrarisc.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Jia Wang <wangjia@ultrarisc.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20260901-press-buckwheat-92d17a6b8f71@spud>
+References: <20260901-dwmac-ultrarisc-v1-0-f19454814bcf@ultrarisc.com>
+ <20260901-dwmac-ultrarisc-v1-1-f19454814bcf@ultrarisc.com>
+ <20260901-press-buckwheat-92d17a6b8f71@spud>
+Date: Wed, 02 Sep 2026 17:35:59 +0800
+Message-Id: <178834175975.2396555.15844573323623267538.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788341760; l=1199;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=IJsQPXCXr4tULo/Kr+T4U9PvR2F+Bxa4mJndpfFLahI=;
+ b=FhRrP1spsli67vfelFfH5l5ReVYzalYwTUSaLAmXskj0j6X7q6LaTFqsaqbE8YWpo4WzfNtzq
+ neSovR/+f44BUhgBp9xCxluV4qTzg79/jxc/XfExbnnJd9Dcz7kre9j
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-CM-TRANSID:AQAAfwD3vwYL7pdqsC0AAA--.205S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrZw4xGw15JFy7Ar45uFW3KFg_yoWkWFc_AF
+	47C3WDAF4kWF1FqayDAF4xJFn8GrsxWF4kCws8Jr1DZ34Fy3yDGas3tryrZ3yfCF47uFn3
+	Wrs3JryjyFnFkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbTkFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJV
+	WxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wrylc2xSY4AK6svPMxAIw28IcxkI7VAKI48JMx
+	C20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAF
+	wI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20x
+	vE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxK
+	x2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI
+	0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0pRBuWLUUUUU=
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAREWqVJKMAYABGsf
 
-commit e06ece82d7b0 ("sched_ext: Report NMI kicks with scx_error()") made
-scx_bpf_kick_cpu() reject NMI calls, and its cover letter describes the
-reachability: sched_ext kfuncs in the "any" category "are callable from
-tracing progs that can attach to functions running in NMI", and an unlucky
-call from there "could deadlock the machine". The fix in that series made
-the error/exit path lock-free so scx_error() is safe to call from NMI. That
-closes the *error* path of every kfunc, but not a kfunc's own
-business-logic lock acquisition on its success path.
+On 2026-09-01 18:46 +0100, Conor Dooley wrote:
+> On Tue, Sep 01, 2026 at 09:27:30AM +0800, Jia Wang wrote:
+> > The UltraRISC DP1000 GMAC is based on a Synopsys DesignWare MAC.
+> > 
+> > Allow its SoC-specific compatible in the common DWMAC compatible list.
+> > 
+> > Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> > ---
+> >  Documentation/devicetree/bindings/net/snps,dwmac.yaml | 1 +
+> >  1 file changed, 1 insertion(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > index 2449311c6d28..2ed4564ae99d 100644
+> > --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > @@ -119,6 +119,7 @@ properties:
+> >          - starfive,jh7110-dwmac
+> >          - tesla,fsd-ethqos
+> >          - thead,th1520-gmac
+> > +        - ultrarisc,dp1000-gmac
+> 
+> This should not be a standalone patch, rather merged with the other dt
+> one.
+> 
 
-The remaining lock-taking kfuncs that scx_kfunc_context_filter() exposes to
-BPF_PROG_TYPE_TRACING have the same hazard: if an NMI lands on a CPU whose
-interrupted context already holds the lock, the kfunc's raw spinlock
-acquisition spins forever and hard-locks the CPU:
+Thanks, I will squash this change into the DP1000-specific binding patch
+in v2.
 
- - scx_bpf_destroy_dsq()                    -> dsq->lock
- - scx_bpf_dsq_reenq()                      -> rq's deferred_reenq_lock
- - scx_bpf_cpuperf_set() / scx_bpf_cidperf_set() -> rq->lock
- - scx_bpf_sub_grant() / scx_bpf_sub_revoke()     -> pshard lock
-   (via the shared sub_cap_preamble())
- - bpf_iter_scx_dsq_next() / bpf_iter_scx_dsq_destroy() -> dsq->lock
-   (the reject is placed in bpf_iter_scx_dsq_new(), which is otherwise
-    lockless, so next() and destroy() are no-ops while it leaves kit->dsq
-    NULL)
+Best regards,
+Jia Wang
 
-As things stand, there is no scenario for reenqueueing, iterating a DSQ,
-setting a performance target or granting sub-caps from NMI. The guards
-defend against a buggy or malicious BPF program turning an "any"-category
-kfunc into a machine-wide hard-lockup through the door that
-scx_kfunc_context_filter() already opens. This matches the intent of
-scx_bpf_kick_cpu()'s NMI check, which the commit cited above added not to
-enable an NMI use case but to surface such a bug as a clean abort.
+> >  
+> >    reg:
+> >      minItems: 1
+> > 
+> > -- 
+> > 2.34.1
+> > 
 
-Route all of them through a new scx_kf_allowed_ctx() helper and reuse
-scx_bpf_kick_cpu()'s existing in_nmi() check - now shared with its cid
-equivalent scx_bpf_kick_cid() through scx_kick_cpu() - so the rule is
-stated once and the coverage is auditable from one place. scx_error() is
-already NMI-safe (commit f883dbb64ca5 ("sched_ext: Make exit claiming
-lock-free")), so the reject-abort cannot deadlock the lock acquisition.
-Kfuncs with an error return report -EDEADLK, the situation being avoided.
 
-Read-only members of the reachable sets (dsq_peek, dsq_nr_queued,
-cpuperf_cur/cap, sub_caps, the idle cpumask helpers and the cid lookups)
-take no scheduler lock on the path a tracing program reaches them, and were
-audited to that effect; they are correctly left unguarded. The select_cpu
-kfuncs do take pi_lock, but scx_kfunc_context_filter() only exposes the
-any/idle/cid sets to BPF_PROG_TYPE_TRACING, and struct_ops run in task
-context, so no lock-taking path here is reachable from NMI.
-
-Link: https://lore.kernel.org/r/20260901095652.1009104-1-liwanwu@kylinos.cn
-Acked-by: Andrea Righi <arighi@nvidia.com>
-Signed-off-by: Wanwu Li <liwanwu@kylinos.cn>
----
-V2 -> V3:
- - Collapse the __scx_kf_allowed_ctx() inline + scx_kf_allowed_ctx() macro
-   into a single macro that takes the function name implicitly (Tejun Heo).
- - Guard DSQ iteration once in bpf_iter_scx_dsq_new(); drop the redundant
-   checks in bpf_iter_scx_dsq_next()/destroy() (Tejun Heo).
- - Use unlikely(!sch) in scx_bpf_destroy_dsq() (Tejun Heo).
-
-v2: https://lore.kernel.org/r/20260902023124.1422942-1-liwanwu@kylinos.cn
-v1: https://lore.kernel.org/r/20260901095652.1009104-1-liwanwu@kylinos.cn
-
- kernel/sched/ext/ext.c      | 30 +++++++++++++++++++++---------
- kernel/sched/ext/internal.h | 16 ++++++++++++++++
- kernel/sched/ext/sub.c      |  3 +++
- 3 files changed, 40 insertions(+), 9 deletions(-)
-
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 10af28a9f2c0..3f8bde1dbb4c 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -9518,14 +9518,8 @@ void scx_kick_cpu(struct scx_sched *sch, s32 cpu, u64 flags)
- 	struct rq *this_rq;
- 	unsigned long irq_flags;
- 
--	/*
--	 * The per-cpu kick list is guarded only by local_irq_save(), which does
--	 * not mask NMIs, so kicking from NMI could corrupt it and is unsupported.
--	 */
--	if (unlikely(in_nmi())) {
--		scx_error(sch, "scx_bpf_kick_cpu() called from NMI");
-+	if (!scx_kf_allowed_ctx(sch))
- 		return;
--	}
- 
- 	local_irq_save(irq_flags);
- 
-@@ -9693,8 +9687,13 @@ __bpf_kfunc void scx_bpf_destroy_dsq(u64 dsq_id, const struct bpf_prog_aux *aux)
- 
- 	guard(rcu)();
- 	sch = scx_prog_sched(aux);
--	if (sch)
--		destroy_dsq(sch, dsq_id);
-+	if (unlikely(!sch))
-+		return;
-+
-+	if (!scx_kf_allowed_ctx(sch))
-+		return;
-+
-+	destroy_dsq(sch, dsq_id);
- }
- 
- /**
-@@ -9731,6 +9730,9 @@ __bpf_kfunc int bpf_iter_scx_dsq_new(struct bpf_iter_scx_dsq *it, u64 dsq_id,
- 	if (unlikely(!sch))
- 		return -ENODEV;
- 
-+	if (!scx_kf_allowed_ctx(sch))
-+		return -EDEADLK;
-+
- 	if (flags & ~__SCX_DSQ_ITER_USER_FLAGS)
- 		return -EINVAL;
- 
-@@ -9857,6 +9859,9 @@ __bpf_kfunc void scx_bpf_dsq_reenq(u64 dsq_id, u64 reenq_flags,
- 		return;
- 	}
- 
-+	if (!scx_kf_allowed_ctx(sch))
-+		return;
-+
- 	/* not specifying any filter bits is the same as %SCX_REENQ_ANY */
- 	if (!(reenq_flags & __SCX_REENQ_FILTER_MASK))
- 		reenq_flags |= SCX_REENQ_ANY;
-@@ -10244,6 +10249,9 @@ __bpf_kfunc void scx_bpf_cpuperf_set(s32 cpu, u32 perf, const struct bpf_prog_au
- 	if (unlikely(!sch))
- 		return;
- 
-+	if (!scx_kf_allowed_ctx(sch))
-+		return;
-+
- 	scx_cpuperf_set(sch, cpu, perf);
- }
- 
-@@ -10269,6 +10277,10 @@ __bpf_kfunc s32 scx_bpf_cidperf_set(s32 cid, u32 perf,
- 	sch = scx_prog_sched(aux);
- 	if (unlikely(!sch))
- 		return -ENODEV;
-+
-+	if (!scx_kf_allowed_ctx(sch))
-+		return -EDEADLK;
-+
- 	cpu = scx_cid_to_cpu(sch, cid);
- 	if (cpu < 0)
- 		return cpu;
-diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
-index 27bbf5e04d90..ca8ebb11f03c 100644
---- a/kernel/sched/ext/internal.h
-+++ b/kernel/sched/ext/internal.h
-@@ -2091,6 +2091,22 @@ extern struct scx_sched *scx_enabling_sub_sched;
- #define scx_error(sch, fmt, args...)						\
- 	scx_exit((sch), SCX_EXIT_ERROR, 0, fmt, ##args)
- 
-+/*
-+ * Tracing progs can call kfuncs from NMI. Kfuncs that take scheduler locks or
-+ * touch the kick lists, which are only protected by irq masking, can't run
-+ * there, so abort the scheduler instead. scx_error() is NMI-safe.
-+ */
-+#define scx_kf_allowed_ctx(sch)						\
-+({										\
-+	bool __allowed = true;							\
-+										\
-+	if (unlikely(in_nmi())) {						\
-+		scx_error((sch), "%s called from NMI", __func__);		\
-+		__allowed = false;						\
-+	}									\
-+	__allowed;								\
-+})
-+
- /**
-  * scx_root_protected_live - Root sched for paths that only run while live
-  *
-diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
-index 0554448835bd..78349acd0a67 100644
---- a/kernel/sched/ext/sub.c
-+++ b/kernel/sched/ext/sub.c
-@@ -2265,6 +2265,9 @@ static s32 sub_cap_preamble(u64 cgroup_id, u64 caps, const struct bpf_prog_aux *
- 	if (unlikely(!parent))
- 		return -ENODEV;
- 
-+	if (!scx_kf_allowed_ctx(parent))
-+		return -EDEADLK;
-+
- 	if (!scx_is_cid_type()) {
- 		scx_error(parent, "sub-cap kfuncs require a cid-form scheduler");
- 		return -EOPNOTSUPP;
--- 
-2.25.1
