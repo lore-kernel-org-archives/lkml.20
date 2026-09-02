@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B887738DC53;
-	Wed,  2 Sep 2026 05:47:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A8B138E8B9;
+	Wed,  2 Sep 2026 05:47:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788328079; cv=none; b=NQqc9Qa2f9eC5Xf6Oy1AhOMyb0KBRsN3lI7XLDSSt7ouFlaYWRlFaNW5JsfUnHeTwD9Ebt7oByCldCQg5576WiSt9RhUEYJG5HdkyzVTt+n1uTmyy8fDd7suOstqZ3d0LF4I3NA1onFHvnqrznhxwc0f4e6Q+wG+ZlD9jBfF/O0=
+	t=1788328079; cv=none; b=lsLBfnMJzwF0yq/HRu3prc6oX+mUoaKOgPX8iOvG/d2s01Qbap50jVzTCUNxRZ39FVPJ1DvAy2+79iOSGOW3Lg1OTTJQZ2FnUOqL6naKS8WZmxrd+S2JDg2WYVY7+t0mBmT10c2MCIqcfkKCRVJXu8P/rxq+6W0Og/OxkV8/H2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788328079; c=relaxed/simple;
-	bh=bhY4KhIyu4gwy+axujpyt57DuX8kkNxrt1KBoU8TmQo=;
+	bh=HbRbHRXJKLR5v8dTl/LSDMwKCFClK2aYCYBJgtV6g70=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LWkml9wue9SeCRLsC9EBq25q20t1+yS4YdNYJ5YaJ3h9EG4oUPw3y9IR5b/8IuVzysuurk1/fubC8hcRRleVMwY3sivk1JLeKYe9DhSVf9dt6WNmGSRfdObFPrI8CNPQOCasWQnNhIB3HzGGzcBpWc2s2Xncss34gcfYe7rYZP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EgyR80sS; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tw+aqWfeAf55zWHW6CZJkTce5CwtRibE3GVa3Nrz4DHODR0KfH5/N3V7TE/5PUYISbXayVFBHtGOdu99re/IYYEwEf3qBJsyDuYOAh9ED0jcBXzse2yS/ypMv0xkDdQjCjng+K/MG+HLLLNt7UcbWysFGBo08b+V0g9r2TDM/Z8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ERR+va7v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EgyR80sS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 362531F000E9;
-	Wed,  2 Sep 2026 05:47:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ERR+va7v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CFF01F00A3F;
+	Wed,  2 Sep 2026 05:47:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788328077;
-	bh=KnjoWKXYy9mV4JP4a4wfsis0KbFL9ZmPOgZcY5kWfCo=;
+	s=k20260515; t=1788328078;
+	bh=jEqn658128UTd1o8tS5ZjT5LQQ6f3vfRE5EdtC108ZE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EgyR80sSVGZeqAZxZ92XTLPu7/ygW+YWlw9SJ+T3xdyG+MrPAYVWAuYYwIacpddeN
-	 ICh6gf/gejLtS8LofSIiOs75v5RelfALnKuSTdO+mg6SJaV32cPRkcd13FUyqBAxf/
-	 Pv+s+G0edkJ9J5bb/2vAGl7ahKfGV0EtXZJYfZ4G9Pi66X+L5ufr7fg9IH4bLJmeaC
-	 sLkfJlOzM2CyPwilF+7Gzmp1lMdmfcu8sMtW3BX8gr/EQhZBx/8AZJ0Of6E2kq+Osq
-	 1m/H436xwi8JcRP2gFLyszGHhqFdrIfWXlT/+J2DxX5dO9+dfm/MAlrQLDS1D3wMOo
-	 kaIsW99KfflpQ==
+	b=ERR+va7v7jV6syjvn8R/yUBvyK/UxNaRaNVakcrmAmMgw9hQqXPpDw1mb5jZ5LYx8
+	 TtN4CIzctFX1QXt5wHf49T7bWKsSfUJpb/1GU34Jl1i3mRYi+WhAIFpfPz071elkku
+	 C0v/ygGvwhHF23venbP+e7sMEzvp6WiC9Ns3KNDFueKGan1dYypMzz/AyXZNht+RwK
+	 iVEveqQLS/Zwp4ROh3IW8ytBFCiPVqIKpLKsjjNQtB+klPSWSEHgM/B7Luzy8vybWa
+	 fi/m9nROPRr6+/7KpCblcDNz8mT+iKNT89DuO3321p1eSA6pb9TPBrUkl6l2/gLfvl
+	 NQH+rzise8OVg==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: SJ Park <sj@kernel.org>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <davidgow@davidgow.net>,
+	Shuah Khan <shuah@kernel.org>,
 	damon@lists.linux.dev,
-	kunit-dev@googlegroups.com,
 	linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 08/12] mm/damon/tests/core-kunit: test overlapping ranges for set_regions()
-Date: Tue,  1 Sep 2026 22:47:41 -0700
-Message-ID: <20260902054747.99370-9-sj@kernel.org>
+Subject: [PATCH 10/12] selftests/damon/sysfs.sh: test hugepage_mem_bp quota goal
+Date: Tue,  1 Sep 2026 22:47:43 -0700
+Message-ID: <20260902054747.99370-11-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260902054747.99370-1-sj@kernel.org>
 References: <20260902054747.99370-1-sj@kernel.org>
@@ -50,36 +48,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 954157679ec3 ("mm/damon/core: disallow overlapping input ranges
-for damon_set_regions()") disallowed passing overlapping input ranges to
-damon_set_regions().  Add a kunit test case for the overlapping input.
+DAMON sysfs quota goal target_metric file now accepts 'hugepage_mem_bp'
+input.  Test it is accepted in fundamental DAMON sysfs file operation
+selftest.
 
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/tests/core-kunit.h | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ tools/testing/selftests/damon/sysfs.sh | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index 3cbbbcbfbef8f..a4164ac489a61 100644
---- a/mm/damon/tests/core-kunit.h
-+++ b/mm/damon/tests/core-kunit.h
-@@ -612,6 +612,17 @@ static void damon_test_set_regions(struct kunit *test)
- 			{.start = 42, .end = 21},
- 			}, 1, 1,
- 			(struct damon_addr_range[]){}, 0, -EINVAL);
-+	/*
-+	 * Regions resulting in same region after alignment should return
-+	 * -EINVAL.
-+	 */
-+	damon_test_set_regions_for(test,
-+			(struct damon_addr_range[]){}, 0,
-+			(struct damon_addr_range[]){
-+			{.start = 10, .end = 20},
-+			{.start = 20, .end = 30},
-+			}, 2, 4096,
-+			(struct damon_addr_range[]){}, 0, -EINVAL);
- }
- 
- static void damon_test_update_monitoring_result(struct kunit *test)
+diff --git a/tools/testing/selftests/damon/sysfs.sh b/tools/testing/selftests/damon/sysfs.sh
+index ddebde6edabe4..b66593c9ac471 100755
+--- a/tools/testing/selftests/damon/sysfs.sh
++++ b/tools/testing/selftests/damon/sysfs.sh
+@@ -210,6 +210,7 @@ test_goal()
+ 	ensure_write_succ "$fpath" "active_mem_bp" "valid input"
+ 	ensure_write_succ "$fpath" "inactive_mem_bp" "valid input"
+ 	ensure_write_succ "$fpath" "node_eligible_mem_bp" "valid input"
++	ensure_write_succ "$fpath" "hugepage_mem_bp" "valid input"
+ 	ensure_write_fail "$fpath" "foo" "invalid input"
+ 	ensure_file "$goal_dir/nid" "exist" "600"
+ 	ensure_file "$goal_dir/path" "exist" "600"
 -- 
 2.47.3
