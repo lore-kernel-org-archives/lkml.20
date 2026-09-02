@@ -1,121 +1,117 @@
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+Received: from mail-qt1-f226.google.com (mail-qt1-f226.google.com [209.85.160.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A5BA3EC69C
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 21:01:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F9A33F1643
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 21:02:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788382920; cv=none; b=cDclztjYtO2Z+vJSnTNVeB8fL2kt/GTEfq3QB5rPD5kSvPczdXy/R21FpgmzNk4xrGME40oFIWMevC5KBVhqoUd/FbNFtTFexvE4Es1ahRULeTOJFll09BAihyc7qW56hfbpZ4lLhlF3yuUctLtN8W4b0Mpa7uq02v2yexuiIh0=
+	t=1788382958; cv=none; b=TW4GXwhcQ7ldJomXPOSY8mfxNnK2SXWmpg/rnxbY9BvkKnWuuHZ9mrTzN0ywnZxtYTdQuuUtX2hF+8tRVlZTUeGf0BoAfm41dS1wkRlrXW8khGkR+r8Im8qM/MuwNU2Jex7YagC3L9nHciITb8XTorSCb+EG/mHy2IXY4A8pPTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788382920; c=relaxed/simple;
-	bh=gq4kjcf/C/dd4dpRmzn9Mq+VpkBb4cxOn+4FIo7f0E8=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=YCg1qzBtZF56ejVADZqbNY+hlB+16cG/TU3FeMSaVlmHYS6zfQF6nn6wuoukM3WK7DdArY0xZehzfBHBUxFS16LQT/P5QBwhLqQbVYtoqri+t7DANyrRWC4oaFMddWEwb1nkuk1Fo6xPz06Y458VWqmXgZw2OsmdNfHb36T2DHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ndesaulniers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=D9Uyu8Uh; arc=none smtp.client-ip=209.85.216.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ndesaulniers.bounces.google.com
+	s=arc-20240116; t=1788382958; c=relaxed/simple;
+	bh=3TFWsmk4nygEarMrcHgUjqJqHhwx0C2YZ3wDVLywR6o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iremb36wFf5d2hMunB9oyh5RqrhmEJLEXikgrUbIIwG1LE6aqlDSYI6Myb79Nk0S5gqC3ql6ZeL2P754kdSo/pDwslsBHjbK9Qp/MROArINJKxKqJoe/09YPuu6sJ5LO6afFsTQ+DKS0ZeldCy7HfJ08a4mFrLdJUTbcv7UdyCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=FqpCHKve; arc=none smtp.client-ip=209.85.160.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="D9Uyu8Uh"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38f57e31b6eso1827738a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 14:01:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="FqpCHKve"
+Received: by mail-qt1-f226.google.com with SMTP id d75a77b69052e-530144b6ef2so2443441cf.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 14:02:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788382916; x=1788987716; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=I8LP+AgpfQU95pkQ4A0U0JkV/VZeB+yKww2C95uXxms=;
-        b=D9Uyu8Uhw1X7aBf7NQVRkSHZ1umibqMZCzcIKQJI3sWB5wgYuyC2L9SMcbI6FwhCAb
-         HDLrK4vWG6xq6+2qiRg6UjQtwo+M7/7+CT3kNqwo1YCIH2v+RjBG148V7qUaVzqe8m9J
-         eHr9qhut/Kndx3L0Rs8iIRSrv5rXBx9r84lA0Uammu7FVflSYDDkq8Te+CVWKLYrXhKE
-         Bq2jQa+Ngh8Gqf0DFCXQqp7hoNRA+CzjQIiBc3OjG5yOp3FIkeHPXsOwJKHz2+W1OXNN
-         sKQr5ptbRz8gKT+Ih1Y0kkyGu+w4C7qPGvHltXx25Myyk9xTOBjVyX0GZBgzG29JA5nL
-         wkIQ==
+        d=purestorage.com; s=google2022; t=1788382953; x=1788987753; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+MelvgAVPAD2i6TwFcxxB4mgOswGwKZ4Gv+Vrn4dDTU=;
+        b=FqpCHKve8DY8s37O/bqYL//ry4uXHCHV1G6EA60Yr2MU+qkDOyTbA9GA+Pfc3gBgBN
+         AgCyxiHM0qYZG5R4eWMuqKHZPolE2vxsIKmjTHzbw1Rp/Y0XF3NSj5oQBDRV2LLRhlxH
+         GHIaxE/W/d51Rc5kLRaIKsEOqu/K/VQGK4Ack62rUvKz25oSH2kuSZm0AYB9w+OVKLEL
+         WnZkm7cXCQ8TaPxAgnRviDXcexelch0Rkr9Go//BqanThBuKshzm5xP8iy6bIHPVRmpI
+         HeCzsdXTNxAlJYSGwDEkssu9MAF2QY/7/VjvNmmRnlEBrc2YN9NaBT6ua+mZ7ZPYFGTU
+         njmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788382916; x=1788987716;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I8LP+AgpfQU95pkQ4A0U0JkV/VZeB+yKww2C95uXxms=;
-        b=gbXKX28BOarQL8Vj0X/hyN1LRKPq/QLD79b+lm23NmsZaPPbsRS9Uxz10crzsHgkH1
-         y2CNcwdMFTAnfZqEQzj1ox8tZrfAIfMtYMxvEH46pbVdBADItyY/+BLBmnFoc4c3vPrV
-         0ZiA+9VThua9l2u2zQPPoyx8unezZZsoELtIGkf+/zX6KijFfY7g1gXqqHcRdWT1jJgt
-         fGgUxJWVtq+dLr7j3CbCMCmbpqOi4Vi2KBkfuNT1oP+Tusvs/2GnMFNhi17b+SLgQBzA
-         +VZ08Jo3NJwq+1Sdhkow3wVm2qyF67P1pcGQtPWOcQTirbdmGlBcR2iQfaFNJ46H2BRj
-         7FXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzQKgvJp04uHt+ar1db9SZhEUU+1ZlGR84xPsl4PU8rYPcdEgxE7QrRwaMq807sMvYuzGx3jylZUlnP334=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYzdmiK7JwCX1S+dXCD92FDpIE2A9fdlzSDLhYW1WvS993a6mP
-	x/apPBVLUA/zM11wbYADrtASHzAOFRKH/36p14n6bce6UOI+5T4H/y7l1ybrTLZsrZTTkaMUd9R
-	f3JQLUj6GP5R9Vln7lfduVQ7etisBsA==
-X-Received: from dlg33.prod.google.com ([2002:a05:7022:7a1:b0:13b:8289:9a55])
- (user=ndesaulniers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:4a8e:b0:38f:18f9:785 with SMTP id 98e67ed59e1d1-39aedf73060mr10160241a91.8.1788382916176;
- Wed, 02 Sep 2026 14:01:56 -0700 (PDT)
-Date: Wed, 02 Sep 2026 14:01:53 -0700
+        d=1e100.net; s=20251104; t=1788382953; x=1788987753;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+MelvgAVPAD2i6TwFcxxB4mgOswGwKZ4Gv+Vrn4dDTU=;
+        b=EMIT7H+QOJLu3c5X8KnQ2iNcp83dPU0ibgyv3ZkRkGjgoiDgRejFukQCcQUeiYJNo9
+         HCIKVVTHOOp+HA2Brr4DvmV0GZYUbCLOT2w8QSB8bEmV2sq9SoRw2IB6Q4dQizqJrGvj
+         +TLbf2mUddaF6WiQP1973xLJqKev7iraSf3xsE9wynd9pvwEmWIt8TqUZj0uPHsZJ68C
+         ekW+K8Iz7Xp9mIKEPbg01Vo8muudWOHCsdr+vLqYIGdg6F2VllEzIonZNevkuWfw+sWx
+         +Bg9G11GQEqwMy+YTiJW1HiWroA0qt36BKDSU3B9231oIAPu/qxlfVIm6zRa472AXqF2
+         ua1w==
+X-Forwarded-Encrypted: i=1; AKwUvBy4sq9KfnFKABFe7SQJOQy4/4dhGjuYuSijeMGPPK9Wy5AhKo9NUyTH7zoasB/CadSSeyR0dWp3vhjkS3U=@vger.kernel.org
+X-Gm-Message-State: AFuF++kggeMzcX88oJwflw5lr/J5lq4HyIcvsa95kBesWaTsaATUrwkD
+	kX6t64hrM5UR3a49Ch1Rwk+u9KaFaEBvDcrbppzctPjCVwGpPd52qHl/De3rqzt+Ui9GxbsG/8h
+	nATbaPlqN+BbtN777mzNU3P322zL2B3Ff9XSgILUN5S+4EK0AwmP4
+X-Gm-Gg: AYBFou1v8BueccWO91I7tr/I6rjGGhRanTOxWPSGCb1I4zNL4BMBEYKQJp59BKnLdw0
+	jQFKteUw/wNcAguJZRFcN4ouICBtmgSQS6wtpdTuLes+zJMNLhRAFwfKLWKXIeZbL2UObIDrvms
+	pqsyXvfThtw9jV34MayYyf637XlzO206G2jlQU5gRnqGAXJOImr2vc/Wc1m3ZRtztP06EP2b00i
+	j0WhDNfUMZUB1slM5WuS4HBVe2/QVfuTq7Oy/Hy1/AC4BqEp5F7qws1pdxf355YpLE/aVyihY9D
+	fGr6a/ZP2my1iiCX579vjauNHsIITERZsfXZ4g8mggP68r0R7/Bs+XO0rtR9BTIYSl+Z4XGFade
+	ZifDvjibwU+/VRjWX
+X-Received: by 2002:a05:622a:2c9:b0:52e:3991:84c8 with SMTP id d75a77b69052e-53036b97d16mr55677421cf.2.1788382924707;
+        Wed, 02 Sep 2026 14:02:04 -0700 (PDT)
+Received: from c7-smtp-2026.dev.purestorage.com ([2620:125:9017:12:36:3:6:0])
+        by smtp-relay.gmail.com with ESMTPS id d75a77b69052e-530331dcdc0sm359051cf.28.2026.09.02.14.02.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 14:02:04 -0700 (PDT)
+X-Relaying-Domain: purestorage.com
+Received: from dev-csander.dev.purestorage.com (bond0.slc5-n17m28-k8s.dev.purestorage.com [IPv6:2620:125:9025:20::a31:41f])
+	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id D182240347;
+	Wed,  2 Sep 2026 15:02:03 -0600 (MDT)
+Received: by dev-csander.dev.purestorage.com (Postfix, from userid 1557716354)
+	id C6726E40404; Wed,  2 Sep 2026 15:02:03 -0600 (MDT)
+From: Caleb Sander Mateos <csander@purestorage.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: Caleb Sander Mateos <csander@purestorage.com>,
+	sashiko-bot@kernel.org,
+	io-uring@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] io_uring/rw: keep CQE flags on iopoll requests when adding kbuf flags
+Date: Wed,  2 Sep 2026 15:01:59 -0600
+Message-ID: <20260902210200.2336720-1-csander@purestorage.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAMCOmGoC/x3MTQ5AMBBA4avIrDWposRVRKTawfhtWkQi7q6x/
- BbvPeDREXqoogccXuRp3wKSOAI9qm1ARiYYBBeSl0IyPaKe/aH03C7LtbZ7N5lztSzjMk8xMYW SBkJtHfZ0/+e6ed8PJSl6GmkAAAA=
-X-Change-Id: 20260826-checkstack_llvm_objdump-40653e1d7a6d
-X-Developer-Key: i=ndesaulniers@google.com; a=ed25519; pk=O0COsmvrvggwIeEq7bAuRbULbXScoJmbNMYaRi6RFIw=
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788382914; l=1872;
- i=ndesaulniers@google.com; s=20260611; h=from:subject:message-id;
- bh=gq4kjcf/C/dd4dpRmzn9Mq+VpkBb4cxOn+4FIo7f0E8=; b=EJh/KS2VLyFue0lj8LwiVxwj/XEC0g8ttHV+j4VKiPE2AWW1oeq3VQ3mETSpw0OAgRgjfZHZs
- jZp5vWI0QPzAa+MnNVYC8CPcWGQbP5tiyluG2VQF1RdSy9sN8O1JfTc
-X-Mailer: b4 0.14.3
-Message-ID: <20260902-checkstack_llvm_objdump-v1-1-edb4eca5f163@google.com>
-Subject: [PATCH] scripts/checkstack.pl: support llvm-objdump disassembly for x86
-From: Nick Desaulniers <ndesaulniers@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>, Nathan Chancellor <nathan@kernel.org>
-Cc: Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
-	Nick Desaulniers <ndesaulniers@google.com>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-When running `make LLVM=1 checkstack`, OBJDUMP is set to llvm-objdump.
-llvm-objdump outputs disassembly with instruction size suffixes (such as
-subq/addq/subl/addl), tabs/whitespace differences, spaces after commas,
-and trailing comments (e.g. `# imm = 0x...`).
+io_do_iopoll() assigns the result of io_put_kbuf() to the request's CQE
+flags upon completion. This overwrites any CQE flags that may have been
+set by the opcode-specific layer. (For example, if __io_uring_cmd_done()
+had set IORING_CQE_F_32, it would be cleared.) Switch the = to an |= so
+the kbuf flags are added to the existing CQE flags rather than replacing
+them. io_req_rw_complete() does the same with the io_put_kbuf() result.
 
-Because scripts/checkstack.pl used rigid regular expressions specifically
-tuned to GNU objdump format (e.g. requiring exactly four spaces, no
-suffix, and no space after comma), checkstack.pl failed to match any
-stack adjustment instructions and yielded no output when using
-llvm-objdump on x86.
-
-Update the regular expressions for x86 to match optional suffixes,
-variable whitespace, and trailing comments.
-
-Assisted-by: LLM Gemini
-Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
+Fixes: e26dca67fde1 ("io_uring: add support for IORING_SETUP_CQE_MIXED")
+Reported-by: sashiko-bot@kernel.org
+Link: https://sashiko.dev/#/message/20260827191705.D53C91F000E9%40smtp.kernel.org
+Signed-off-by: Caleb Sander Mateos <csander@purestorage.com>
 ---
- scripts/checkstack.pl | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ io_uring/rw.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/scripts/checkstack.pl b/scripts/checkstack.pl
-index 14ce31f732ee..f8011e789a9b 100755
---- a/scripts/checkstack.pl
-+++ b/scripts/checkstack.pl
-@@ -66,8 +66,10 @@ my (@stack, $re, $dre, $sub, $x, $xs, $funcre, $min_stack);
- 		#c0105234:       81 ec ac 05 00 00       sub    $0x5ac,%esp
- 		# or
- 		#    2f60:    48 81 ec e8 05 00 00       sub    $0x5e8,%rsp
--		$re = qr/^.*[as][du][db]    \$(0x$x{1,8}),\%(e|r)sp$/o;
--		$dre = qr/^.*[as][du][db]    (%.*),\%(e|r)sp$/o;
-+		# or
-+		#       0: 48 81 ec e8 05 00 00          subq   $0x5e8, %rsp
-+		$re = qr/^.*[as][du][db][ql]?\s+\$(0x$x{1,8}),\s*\%(e|r)sp/o;
-+		$dre = qr/^.*[as][du][db][ql]?\s+(%.*),\s*\%(e|r)sp/o;
- 	} elsif ($arch eq 'm68k') {
- 		#    2b6c:       4e56 fb70       linkw %fp,#-1168
- 		#  1df770:       defc ffe4       addaw #-28,%sp
-
----
-base-commit: 502d45774af09f1c681c754c4b7cdfb5d7f72fd9
-change-id: 20260826-checkstack_llvm_objdump-40653e1d7a6d
-
-Best regards,
+diff --git a/io_uring/rw.c b/io_uring/rw.c
+index 95106dd1d7eb..f2bbb0b1c30a 100644
+--- a/io_uring/rw.c
++++ b/io_uring/rw.c
+@@ -1371,11 +1371,11 @@ int io_do_iopoll(struct io_ring_ctx *ctx, bool force_nonspin)
+ 		if (!smp_load_acquire(&req->iopoll_completed))
+ 			continue;
+ 		list_del(&req->iopoll_node);
+ 		wq_list_add_tail(&req->comp_list, &ctx->submit_state.compl_reqs);
+ 		nr_events++;
+-		req->cqe.flags = io_put_kbuf(req, max(req->cqe.res, 0), NULL);
++		req->cqe.flags |= io_put_kbuf(req, max(req->cqe.res, 0), NULL);
+ 		if (!io_is_uring_cmd(req))
+ 			io_req_rw_cleanup(req, 0);
+ 	}
+ 	if (nr_events)
+ 		__io_submit_flush_completions(ctx);
 -- 
-Nick Desaulniers <ndesaulniers@google.com>
+2.55.0
 
