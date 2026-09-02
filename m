@@ -1,134 +1,218 @@
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFCB3378D82
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:46:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC66C4A99A9
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:46:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788371167; cv=none; b=XRfQBWWnHLoT4XrSH1q1wvIN1uZoyFX9JqXS6G0Lgemoa4fT2gejJQTP648YMfgX5/o0bLjTupO7Fo5NOopyVOawYMj6S9t6/U78HkFGPXLQVNJzx2PmbknB44Ff1jOw/uglk1+tglaJ1a1UsGpudhRLqAYOYVfy/XQ04IEFvks=
+	t=1788371177; cv=none; b=QBxSbpY/A+Vy3C3uBvguqfwH+lWXcprs/HIQoIP6lrT72FggXoi8yIoYKfBUsQXchU5jVbUxa7/ldcIn1TQqvvKIFU8y4eMzauRKpxifMZvC6SDJ34hhpputa66RPLcP76hGA/KL+qL7g+HClU79qHBrVUDlrwKsZKXssvBbtfc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788371167; c=relaxed/simple;
-	bh=ukYqhyi0RGuOSajWaOkTQRPODSNPDMI/uvdyQNdZhaQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q3d22PCP3XGyaOqK38ArfN7my1PuVMl47Xmte/h9Jo+A7dYJ4ZSSXKwbSSp69ww3nqv30i03MUpmWME8mZ8euAsWWjF6/ElSds/sWubtrVLfKdrT9DpeIzOVEMsaIGHVI1+Vb0qA6FPGHOCWgLPKbt2jbeov2NUgHf284MzXqhQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=MS5P6Fdx; arc=none smtp.client-ip=209.85.219.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1788371177; c=relaxed/simple;
+	bh=+sTdVZfENDqBtNpC+99ucxRw41qdmkEyCF+9NNjHqxo=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Hz148nKNbsi4nfB21jZUeYtIgnAh/LgW4rjg0MXDpFKm6U5RV0N2qG5MYC7mPxjf8qFlf4lzqcBJQMS4ag0YAQZ4WMSP5OCxK/SbJlEo/4wC/nfYa8zGiqcvJa1ljWAFvXstLKL1QCPNTljmj2FokGbRfBlDKT/N5VYnUR8ed+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=gQ5qdhLJ; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="MS5P6Fdx"
-Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-90f9f8553e0so9870036d6.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:46:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1788371165; x=1788975965; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ezr6Kp9rH9+35ejy6kYQ0m2wIG/3JEQzG3offk+MEvQ=;
-        b=MS5P6FdxRTf6zZMhQdQyRdyCYJgoZHjc+ksJJWvMOaQdqxglDX+yxi/yZD7mioXPLX
-         tinPOUIPNe4cwKb1skSYehRaoBNvQksly4nD3FYSKBf2p+yEM+Cf6Qx0GxpBS1ZfNAKD
-         65Bg27dO99juvhMITqqGWJugJFBF/6rnSdoFrSu87+juUCmCYuUo2jV90QcGVyc/A17I
-         A9Cs7klleg/fgNhuFzm8uUd/6kXEBxuMzgLsyf5OIzFQzOpJiCkNiJ8cyB5u2EIABZDB
-         ohKUoHMIld6Z5OIjs77jo+R7syxC4oQEIF6UZcrFKDWgirEn6ZXesTjWOvf813r7nFXp
-         6Nqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788371165; x=1788975965;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ezr6Kp9rH9+35ejy6kYQ0m2wIG/3JEQzG3offk+MEvQ=;
-        b=LzIZ3B811tU7UHpRgh3dlfIgFx6eo/OhFWeKaSzsOuKrZnj9PvMandD0amuKz52Cwi
-         8xeLloSLw04SbkNdHbNuy7te4QA/40OeN0DLIh0nXCkGIIarzJqoi9OAsg7Bep0fv8rn
-         bz/wYXHwQjfLXCifHL+0Ht7Yby0xKfZXE2AciD3U5tdw+LpuRaLMhmnZ2nQhqg75dsEH
-         Pc6M/He+q5sSUcty80wBpN7QllugI8dUSBv9jBtOfeJpgfpIzi34cofqayugA3IDUZaS
-         p6rAXYsD1ZrAbw4BxJ3Yp4lUC4R8aKNqkLZevooqDxZnIbRnYPpUx5ZQaGWpAWA9mD6R
-         5c1w==
-X-Forwarded-Encrypted: i=1; AKwUvBwVOrsnldt4xhjdVlq0x92THNlPmX53pe74mcw5aDqZB9LhE14qDWfggc75X1DOtnqsnYtFtJccHq9jipc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKVwmwEQFjr2cmnlZYVzHx5ClohHXqePKwhz2LXaxg2rpJlU9Y
-	4x3PudKkJmqm2TJ+WxKd3QSZTyQk8r4fDo+A9CE5SR/qoQDNytmJMue4tbQWXy5rQoc=
-X-Gm-Gg: AYBFou1chdzHP3v0R7ucCjlAg3LgCFzzAOd8S2t9QsFDYEuKZqV9Zhcy9DsMAyqg2mg
-	Tf9Qmxo4aMFCh8FS56jhicmwwfk0nGuKcq/kFnSNyAPvTtNnPXzyWQXx1hc/V5ifNJRdyZxGRFW
-	eRM/c2MYvJNwN1AqV/anc2Cki6/Ow2dUdX9RagBw2OqwT4iSQlRxnQSIkDMYcHuQRdpW6iltkuV
-	/iuj71ZG96R6X9GaD/kClrBbMnH2f73/3cK9wXV7XIj9eGe6OnOcexHu9jyGg+2tO9RV6B1wpjs
-	1Kmar72K2ZJULUMo8vs6tHPL1YphqLJpXAxbbZTc6/1ZNYH9n68I1iVnj3ksU+rc8Ab9/KzwBYv
-	pXzEmegwFFE7GC8tzhTe42QVQP2VV5mr7TyPHfezcuV2uv8wFaYT12YKepedNjtahtLMEc3XZHP
-	yJgh+nxAKXu7KzYw3p2Jn7m3JJKFZTe+mGUG2FgOQ6omiCJA2PVhAcZShS5LzWS+cls9CLX7PL2
-	Lp34PGciDv+zibXBuZsIZihwCrmB7CBPvQpd9t1wj6kRYwyPBFHT8FA
-X-Received: by 2002:a05:6214:2a84:b0:910:3453:7d8a with SMTP id 6a1803df08f44-91034538000mr9552376d6.31.1788371164336;
-        Wed, 02 Sep 2026 10:46:04 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9ee41b5dsm23518966d6.21.2026.09.02.10.46.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 10:46:03 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1x1p2B-0000000Emsa-0EzE;
-	Wed, 02 Sep 2026 14:46:03 -0300
-Date: Wed, 2 Sep 2026 14:46:03 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Leon Romanovsky <leon@kernel.org>, David Hu <dhu@x6u.co>,
-	sumit.semwal@linaro.org, alex@shazbot.org, ankita@nvidia.com,
-	chriscli@google.com, david.laight.linux@gmail.com,
-	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
-	jmoroni@google.com, kevin.tian@intel.com, kpberry@google.com,
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
-	sashiko-bot@kernel.org, stable@vger.kernel.org,
-	viursachi@google.com, xuehaohu@google.com
-Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
-Message-ID: <20260902174603.GE2890729@ziepe.ca>
-References: <20260901170849.4052816-1-dhu@x6u.co>
- <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
- <20260902073936.GR24140@unreal>
- <aed39f83-6340-4fe9-890c-6d5f340c97d6@amd.com>
- <20260902083232.GT24140@unreal>
- <aae19599-2ba8-41fd-b3a9-b1f80107f563@amd.com>
- <20260902095338.GU24140@unreal>
- <65dc4ca1-6882-490d-baad-3e0abd708af3@amd.com>
- <20260902105919.GV24140@unreal>
- <7471c6e1-fbba-4430-a196-3f57a73505b7@amd.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="gQ5qdhLJ"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682HVSnq657455;
+	Wed, 2 Sep 2026 17:46:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=vu7j0y
+	zmTOGaqxfg2o7HwfP5mkZLcVehRDr5ia1Lahc=; b=gQ5qdhLJv7ptphHsAK/ph3
+	2AsURYl8aLEchRnCuNTCaTAfm5OZTOw9DZcJbHTl083bd/zp31NULl+1dfICw6hh
+	l70zmKnyIevBHnhhWBmyztLX0cW5/dHEOfJSJsQ1PtiY4iXi0AbqwPHzGvDLdsz+
+	rMiEkz5FKZQ2Y6egWnskh9w7/sDgN2dbPOmslqNMRRJANarTrEjR/KSRxVLpOc13
+	/Utopa3O6uLAxiHInTJllXp9yrev0oMiwonCQvgmZ81ykdVFOzcEXQYYXkQrmBY/
+	XBCYp5usniEDSBZEzpQr+A7FyptTNNwPbErZ8SGhDIU9vT2zzueXteldDTDDOItw
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq550dek-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 17:46:09 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 682HfH9l010093;
+	Wed, 2 Sep 2026 17:46:08 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gecjakquc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 17:46:08 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 682Hk4kb42991956
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 2 Sep 2026 17:46:04 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7BC612004E;
+	Wed,  2 Sep 2026 17:46:04 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9AA5A20043;
+	Wed,  2 Sep 2026 17:46:01 +0000 (GMT)
+Received: from aboo.ibm.com (unknown [9.84.236.55])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  2 Sep 2026 17:46:01 +0000 (GMT)
+Message-ID: <a0d95277e5771dc74afdc8058448b4e89c3a2cd7.camel@linux.ibm.com>
+Subject: Re: [PATCH] powerpc/entry: Fix double accounting of user time on
+ interrupt entry
+From: Aboorva Devarajan <aboorvad@linux.ibm.com>
+To: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+        Mukesh Kumar Chaurasiya	
+ <mchauras@linux.ibm.com>,
+        Christophe Leroy <chleroy@kernel.org>,
+        Shrikanth
+ Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org,
+        Ritesh Harjani
+	 <ritesh.list@gmail.com>
+Date: Wed, 02 Sep 2026 23:15:59 +0530
+In-Reply-To: <ape0GY5__P-_DdxF@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+References: <20260902050628.2553909-1-aboorvad@linux.ibm.com>
+	 <ape0GY5__P-_DdxF@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7471c6e1-fbba-4430-a196-3f57a73505b7@amd.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE1NCBTYWx0ZWRfX0slba/WoLBhi
+ 1O/s7anqt+zkcyHlIbQAIBAnRNWaCVhlToxD3H0YvZqhiC832XEzRiRAoAwRV9HNNcR9onHIc9Q
+ W/PxTWqi4V0dcZVdZYP4xP8A/K/TyGCTw+ZEOXeMinxpOUmuuepsCWPHk7Hp6CbAhaSmC5ptwto
+ 21UeEmH8qbd4AWi1v1clqXvL36bHASZsBL0+AhaGyeUXBNs9LNpvpbMMi9HsG8I4CRv6GSzIHdP
+ oMO7ArCQZCeyvxoix9Is04a/jsE6IDhAi+mrKHAQ4kVPMVK4eHyn1fkvtTHO6VjZ5lVyGv5bk32
+ cfjRn58OPXQkEPZiDpKS9YPHaS79vPlaLsAgELbP/iu1IZp9KXLQkAuJTcYr+fihQAu3Pc99PG4
+ ZyrZTlFLJ5gbDILe8Zx8U522ceEobBjWo9HZuYdSRbA4BOjGd8RFhPqJTtcmvvcy9d2DLjBBYTr
+ PmKc1cJTEw4Y+yRll+Q==
+X-Proofpoint-ORIG-GUID: PgKkCeLkdDR6JociuO39dQ1V_Lu8THJL
+X-Authority-Analysis: v=2.4 cv=CNgamxrD c=1 sm=1 tr=0 ts=6a9860e1 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
+ a=pGLkceISAAAA:8 a=1y1RV8LzgxBv0SgG8zUA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: BdSw1y9abjrdkpAw_OCicYoARwWrzMHT
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE1NCBTYWx0ZWRfXx8BLKiz+JSHl
+ Mt8/WUSiTitrD/gCTiG3TrvhR3IDMT1+DCnpoMh+i7EB/4EXj3aOCNSXqyDNzrf/RMOXlV6GyP1
+ VDS2geuapp4uV2I/CnEbCtY6WDuSAFg=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_04,2026-09-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 clxscore=1015 impostorscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020154
 
-On Wed, Sep 02, 2026 at 03:34:18PM +0200, Christian König wrote:
-> On 9/2/26 12:59, Leon Romanovsky wrote:
-> ...
-> >> The PCI_P2PDMA_MAP_BUS_ADDR is not supported by DMA-buf and as
-> >> far as I can see is a complete dead end.
-> > 
-> > Maybe you mean DRM, but VFIO works perfectly with
-> > PCI_P2PDMA_MAP_BUS_ADDR flow in DMA-buf.  What am I missing?
-> 
-> Well not quite.
-> 
-> The approach PCI_P2PDMA_MAP_BUS_ADDR takes is fundamentally tied to
-> only map a physical CPU address into a PCI address and doesn't take
-> into account that in a lot of configurations the CPU can't access
-> all resources.
+On Wed, 2026-09-02 at 11:01 +0530, Mukesh Kumar Chaurasiya wrote:
 
-It is called PCI P2P. If the flow only uses PCI devices it should
-always work because it relies on PCI spec things that happen outside
-the CPU.
+Hi Mukesh,
 
-It does not try to solve the general embedded problem of arbitary
-communication between blocks inside a SOC, scale up networks, and so
-on.
+> On Wed, Sep 02, 2026 at 10:36:28AM +0530, Aboorva Devarajan wrote:
+> > Since the switch to generic entry, an interrupt taken from user mode
+> > accounts user time twice: once in arch_interrupt_enter_prepare() and
+> > again in arch_enter_from_user_mode(), which irqentry_enter() invokes
+> > for the same interrupt:
+> >=20
+> > =C2=A0 arch_interrupt_enter_prepare()
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 account_cpu_user_entry()
+> > =C2=A0 irqentry_enter()
+> > =C2=A0=C2=A0=C2=A0 arch_enter_from_user_mode()
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 account_cpu_user_entry()
+> >=20
+> > account_cpu_user_entry() accumulates the time spent in user mode
+> > since the last return to user space, so the second call charges the
+> > same interval again.
+> >=20
+> > With CONFIG_VIRT_CPU_ACCOUNTING_NATIVE=3Dy this roughly doubles the
+> > reported user time of any workload that takes interrupts. On a
+> > pseries LPAR, ps/top show ~200% CPU for a single-threaded CPU-bound
+> > loop, and time(1) reports user time about twice the elapsed time.
+> >=20
+> > Remove the accounting from arch_interrupt_enter_prepare() and rely on
+> > arch_enter_from_user_mode(), which runs for both syscalls and
+> > interrupts. The duplicate account_stolen_time() call is removed the
+> > same way.
+> >=20
+> > Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
+> > Signed-off-by: Aboorva Devarajan <aboorvad@linux.ibm.com>
+> > ---
+> > Verified on a pseries LPAR (CONFIG_VIRT_CPU_ACCOUNTING_NATIVE=3Dy),
+> > 7.3.0-rc1, single-threaded CPU-bound loop:
+> >=20
+> > Before:
+> >=20
+> > =C2=A0 $ python3 -c 'while True: pass' &
+> > =C2=A0 $ sleep 3; ps -p $! -o pid,etime,time,pcpu
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PID=C2=A0=C2=A0=C2=A0=C2=A0 ELAPSED=C2=
+=A0=C2=A0=C2=A0=C2=A0 TIME %CPU
+> > =C2=A0=C2=A0=C2=A0=C2=A0 4980=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 00:03=
+ 00:00:06=C2=A0 210
+> >=20
+> > After:
+> >=20
+> > =C2=A0 $ python3 -c 'while True: pass' &
+> > =C2=A0 $ sleep 3; ps -p $! -o pid,etime,time,pcpu
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PID=C2=A0=C2=A0=C2=A0=C2=A0 ELAPSED=C2=
+=A0=C2=A0=C2=A0=C2=A0 TIME %CPU
+> > =C2=A0=C2=A0=C2=A0=C2=A0 4951=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 00:03=
+ 00:00:03=C2=A0 105
+> >=20
+> > =C2=A0arch/powerpc/include/asm/entry-common.h | 6 ++++--
+> > =C2=A01 file changed, 4 insertions(+), 2 deletions(-)
+> >=20
+> > diff --git a/arch/powerpc/include/asm/entry-common.h b/arch/powerpc/inc=
+lude/asm/entry-common.h
+> > index c5adb5006361..984294e62568 100644
+> > --- a/arch/powerpc/include/asm/entry-common.h
+> > +++ b/arch/powerpc/include/asm/entry-common.h
+> > @@ -222,8 +222,6 @@ static inline void arch_interrupt_enter_prepare(str=
+uct pt_regs *regs)
+> > =C2=A0
+> > =C2=A0	if (user_mode(regs)) {
+> > =C2=A0		kuap_lock();
+> > -		account_cpu_user_entry();
+> > -		account_stolen_time();
+> Yeah, that's dual accounting the time.
+>=20
+> Thanks for the fix.
+> > =C2=A0	} else {
+> > =C2=A0		kuap_save_and_lock(regs);
+> > =C2=A0		/*
+> > @@ -426,6 +424,10 @@ static __always_inline void arch_enter_from_user_m=
+ode(struct pt_regs *regs)
+> > =C2=A0#endif
+> > =C2=A0	kuap_assert_locked();
+> > =C2=A0	booke_restore_dbcr0();
+> > +	/*
+> > +	 * User and stolen time is accounted here for every entry from
+> > +	 * user mode. The interrupt prepare hooks must not account again.
+> > +	 */
+> I think this comment is very specific to the current problem. We already
+> have a commit history to explain this, I guess we can remove this
+> comment.
 
-So, yes, it does not solve every problem DMA buf faces, but no it is
-not a "Dead end" as it 100% solves PCI to PCI communication which is
-still a very common use case.
+Agreed, I will drop it in v2.
 
-DMA buf users that are exporting from a PCI device, over PCI MMIO
-should be using this API. It is the only way to do PCI to PCI
-communication correctly in the kernel.
+>=20
+> With that,
+>=20
+> Reviewed-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
 
-Jason
+Thanks.
+
+>=20
+> Thanks,
+> Mukesh
+> > =C2=A0	account_cpu_user_entry();
+> > =C2=A0	account_stolen_time();
+> > =C2=A0
+> >=20
+> > base-commit: fb442a6673ff1046bf67754957d95880fdb394b5
+> > --=20
+> > 2.54.0
+> >=20
