@@ -1,174 +1,132 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0E9647DD4B
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:56:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788357374; cv=none; b=ctoR6M6Y5KMB9D/eGCYCJRMqgqBWlJN27OrDw2sYg2GXFi6xpDGWRvU2XrxJ9877rfgkr1xF++na29Evvwg/mH3tJp7hG47E7cBconnIVmwqYXTcdbxmbvzhJAaKGZB2B94fWfAhk0btfirX7NduJ8td60+smRPethjsih4vHrw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788357374; c=relaxed/simple;
-	bh=S2v10Jpc+KT+ABsxPSBblM3oR15HWludxkic5eqROT0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FQcrWjKd2guBur3HZbD7VdZhxrqK7d2pNeOmj4sFPlQjs04gIMrRgWN6qjBgRHzpdDQUwhXzAzRAmM7T4xa3MuDODOIeZZPVeCDAaEd9FIEReazgJe6qK9TRRy+cZRbeBjHbU9A1Y7iAl+7NcvSUvSJRtvz68lD6qDqBQPUAAb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=GuVp7hMc; arc=none smtp.client-ip=209.85.218.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F084137AE
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:56:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788357401; cv=pass; b=lWo/S9ggK2wPY+bWGcTXV/LPobZzmhQSQIsSXm3ubBskUmzwZVAP9FV9uPR/F+qIi4fu5lJCOv5+v25fSO0TULwbumb/hNRfuVVLaQfpAfdXuL6RsZsLVVMlOsUxH7/iOasaE58Y1BXReKZZ13O/aFLFET+VC+8XAPLMwfViSyw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788357401; c=relaxed/simple;
+	bh=3VYLtTaJwqhBkFJ/+VLw9cOEsUxwoITcwncAVYxc7xQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ru+1DNIhwH5pEDI0NRmj6+TJf0Yp451MjbAB2pLK4wnSGOh5XZP5TZfdSObb74yThe/LFVUo9XbPHn77M7nOq1ioj2hX8kaWhdi1Yfg6N+SoA6va2lTdeoRjQnYysvBxdfD8d9K2L657QiVxSqe3fQzB6GMTwrnP43rENFHgwBY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y4Map6u8; arc=pass smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="GuVp7hMc"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c169ae1cb26so367626966b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 06:56:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y4Map6u8"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-52f9fc510e1so23799411cf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 06:56:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788357399; cv=none;
+        d=google.com; s=arc-20260327;
+        b=d9D0OygLQREydx8IAXMFH7QK1JGF1HdJSYuHsVkHYG6Q7l2vfmobToyMZU/JCcvcMA
+         LAG8RrTS4wfidY6UbnuyTxPtcUIgG2KF1HMnipv4YDdQYsxkOB/vaVtBTxOcqoMw0clj
+         g/ad3nz78ASfdTP+siW2V8LrmhlJOTJ12PTxRzKm72Al4wwPgYVNaFn15KFlbcKxfkY1
+         xNAyeXhpH03lvYjS9XRz5lj9c6t4fpFA4O3/awfhFXc5MP2mWpCaa5JmmJLrrj5bQ7Vx
+         g4FohVbkhmsKOuc5KxfDi+U8Fy8sDsRdoagnGtKh8Ok5V/wiodlyVkGDJYJR0MRoAUx/
+         6OUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0CRFQR3Mb2niPDQEp+TLlDEHDUH+D0OPRI9VaaMlrEU=;
+        fh=pk5TBKithaVLk1RoNqBqxu/BlJb83adM/W0vELz62n0=;
+        b=Re8vzqGWoWi3Hx948CEFVYaQj8SEiYIKkpNUf/fpEyg28+U7BU69jtbl0lvrBOR37H
+         WjQq6NQQQo+05NWjcJ/i/4N8X+cGDU8h0UYN6Ae/s6g+e8guvVQWKJpVNVHqefSWd8or
+         5eMEbz0squWWwe/VWkE4/2HTJga65bN1+DKKWwiVkPuyopKfrLcZKzg4bGcrjSD6ftcJ
+         oZUWAoh7iD0UVhqH11Rj39aL01PXHZSnrPu+YsC3uakCdFddTQtPT1QyO4X+/eAQRrNz
+         gOdwK4tBrjXoce9dDryTRTL9m2rSG6uWq2YtEGCZWtr7W/mP6qSo5/wsKBlIvRDR5o7R
+         Gitg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788357371; x=1788962171; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HzTSP1VerAgUKbe8KO4iSf2T699TUXzKoWe3KwKSiDU=;
-        b=GuVp7hMc+ZQwpRqcBLbeL8fFh2OGcD+0sbiFqyHB29Iz+UQ0oXa/U6vxPV33SrhF2/
-         pliwCiMN77cGacbMpWCHzqumyJvmfbMRE1W842dUAlIjjHwGlmiJ8C/w+RplU8OZPD9F
-         lf7zMxYFrGZlZIzC8l1mXHSNlXHhpxV0Pv6zciyfgUHDjW74TGIZS92OM6P0HicSWorT
-         FBjviNPHhvjF8fE+P67vmcp+F3etn2UWQzDIMFuQVXs8zEy49KM0+DeieRbyfq2rgUqF
-         nSjhAoVd8HGOOMzRNw41B+xRKG2cb0dQq8PWByMO4Y+40rWWaurEyTz1myRW/ap7VKvb
-         KbKw==
+        d=gmail.com; s=20251104; t=1788357399; x=1788962199; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0CRFQR3Mb2niPDQEp+TLlDEHDUH+D0OPRI9VaaMlrEU=;
+        b=Y4Map6u8aX1ROOuPj4Gv2I2YKqz+Nufn2hAmXIQrcnrmyPZAAb2CSaTZc0OHeTRldD
+         +0kPD0yJ6pa2scPBZdZGUHrPyjV44wNmtN8Rlm1bT7OeRfn1jjUtvlkLFLNgUZwkPBNt
+         0K/VI8A9fPuk2TL/ijsuBWxY0jyhhIOBcbQ7YO0KpW9l++tueRJUgN6X0Swy++gwtQii
+         aqu7wz0aJ6cUKz+sWJ5nuuqKzIoWGBnvmp1e0yzDUwn3TSdz8d0YYv8nmhoxVZh1pXBD
+         g8wXuNaufn03tJaANXtxkIYWjtDTD3Gm1a8O23hVnACKRqdROail51FKDwhn1DnwdaFs
+         Q86Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788357371; x=1788962171;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HzTSP1VerAgUKbe8KO4iSf2T699TUXzKoWe3KwKSiDU=;
-        b=G4T4GMuodyMdwJNtrD8zZQj9aKItmWn2MBF7euEGorQM4c62WCPqYREn6dPAXByvEX
-         y9q6nbYtC1lqNhmE+smpTw0qHOf7FGSbYqG9Czh78GXPmRJPh+Rhf+VfcG3+V2y23fej
-         jQW5SLWLIxkjC8dtDrCiw7nH8QEFR4b1G3AQk5ETTEuzeDU1jCXJredOumlwsvv2FFP3
-         AS8K4vk1HpWBtVJ/LzFEEnbYTY5kwK8r3ma9yNIPE5W3Uxnw4UXcRee3RCPuTJwbPKmX
-         OW1FpJ2KvF+9d6tEkPDJEMebI4G5ouB3HvtUDm3yP/Jk/HmptH5RjAEYM7ClSVobB6ch
-         OLFg==
-X-Forwarded-Encrypted: i=1; AKwUvBwNSapoTADYzk5EqkwKHy75IURLu4vm4NW3L+iETvQr8nIphvEYBgWs20Lqy2F4jSiqVZY/lEfuQ1uR5x8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nVr5PdiPBwaLncksFYFknP/mssRo/1ArD9R8UgEXz9cT5XoxzV
-	NH8BWQX3tL29WT6patcFgjZxWN+WP4jj2mpbPHN/Lqegyr1kgJUtQb450+lkWDFaZ08=
-X-Gm-Gg: AYBFou3l5o415atgn24hOXxdopAL8emRKc4SQ491UbHs1u2MWjsds0MGK8/wc8vH06h
-	fLHoNyNr3OrZWU55csIn3ZfrxU63sP3gTKrJJcm2ArfeOhR8xmFK7ujMyprJ26Z4e69G5ZzsseS
-	e/Nvvv+BuuuznZTX5Q0s0duZhW5j3R8+mM1gBozgjCF9bVZhDTX6OIMuLQUBJ9dDn0gPERUk8/A
-	QsGt5+6HMAifaC37u9lnlNscUd60XNurXNb4+8g55ZgfzvOlIYIb+y4if31EMRRXHcRljZZiodu
-	5NB+aleNfcIERoUamvCyZnDNZxMXsb7VVqDT//gczoEJj93rEWDJuHaVhgoijK4tfgQwUKkyVSQ
-	xRcC7hYMWBAQp7OgtWP0BjjYmxXXbVcW2GBXKLG9h8j+by3U0E5hhzET4mQOA8f6W1SXBvNbKYT
-	INFlxFcrpNyUVVwhuNex6jO226AmDzvyKip/ae5da1EWk5Bg0BbYj6tmFqh5MbQqlB92CvhFg=
-X-Received: by 2002:a17:907:3fa6:b0:c1c:2218:f317 with SMTP id a640c23a62f3a-c25dc9bedbcmr195324866b.2.1788357370921;
-        Wed, 02 Sep 2026 06:56:10 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25cffc7116sm136119566b.9.2026.09.02.06.56.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 06:56:09 -0700 (PDT)
-Message-ID: <7a29717b-dc62-4421-b783-7b78e4375268@riscstar.com>
-Date: Wed, 2 Sep 2026 08:56:05 -0500
+        d=1e100.net; s=20251104; t=1788357399; x=1788962199;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0CRFQR3Mb2niPDQEp+TLlDEHDUH+D0OPRI9VaaMlrEU=;
+        b=jarKVSrgLmoX9fjwAL6/n4tX1IXiafuqorcVP31CQjS7GcBk2cKK+Qig2Jf1CVWEF8
+         j992urDqYf8cp+6LenWMLCm9oZnRE4KHxlmooaSrF5s73vT/x419inmTmj8xrEGZDcyI
+         rwFzMdpo0dhUOe3VkDTY2NBO2nfWfR6wdeVdLo0Ednw3+3esXkK05pDe4diEqfj8K8Zc
+         5FCp3mmJt+N8VE6KgS9PjpLq6aBRRJ1AsM8gV8Cz8DX8FDVOq+YXbdR9zuevCj/5yifW
+         KfNQRMfC0V3O8768NRVcDmnZYBbTQ7rfmD734hS/5gEZdMfE+ISOubHX+sBlEnuWu28y
+         ylIg==
+X-Forwarded-Encrypted: i=1; AHgh+RoIC3e2Ugy0Q93VVSbWd1/MHjUhCGwl75doI+X7B17g3qW+4MSDxokDxrACIsqpm3ocZznpJhTxkr9Uuk8=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6vMaeDYFumAxjc31rjetizvFVJ/XhqW0g1WBVF6ZCazD1bQo6
+	vEhMMGYrEYcAbjB756oBqWHDtt6s5AtwILZWE03L9FLjsrSNkR5h6WcxJd7hSPNksblQ8+Ki1af
+	jJWThCHmzqa2PRjxY4gLoGrJayr3MRUJcNgXBnJQ=
+X-Gm-Gg: AR+sD136k6sCJPJuGc074pHaS/e/+Emx5KcDz7/D+JLK/AqNBENyP5qfDVioYfA0gwj
+	0GRkVajVzJStcPe1yfFfHn81FrGBr9DXg1lazmm8PJJh86rbMYmHbX9wAhv3X8S2VAIMP8o91S4
+	0mHnPcT1OEE81aHi1VjS3B3HmU9tfvRTVcPN87pLuLPZzu97R8n7JXndiNbCkOBlmS2PG2YK8IG
+	RAV0nlbvbvWrf1AFwPyfdIEUtD7I2tdACyRqaV0vFIj/MBv/aTnJzxu1k4NkkYa8tVx8jWX9cns
+	dB/8Jw6nvC+h+0JbOrLHMJDA1a3PrT3MLD8dglEHutGJc3evzxPJmJYCnTPXR+wE5JB2pntVXZ+
+	jNChX5plypXca0eBmw1E3LhRMkT9m0VOS2Xpw5LchTLwYJiiG53SspZqA6Wg=
+X-Received: by 2002:a05:622a:2485:b0:52d:9ab4:7775 with SMTP id
+ d75a77b69052e-5303a5f69e1mr41934341cf.21.1788357399342; Wed, 02 Sep 2026
+ 06:56:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG] PCI: spacemit-k1: port C probe hard-hangs a CPU with one
- endpoint on Milk-V Jupiter
-To: Manivannan Sadhasivam <mani@kernel.org>, spacemit@lists.linux.dev,
- Bruno Banelli <bbanelli@gmail.com>,
- Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Cc: linux-pci@vger.kernel.org, linux-riscv@lists.infradead.org,
- Yixun Lan <dlan@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Krzysztof Wilczynski <kwilczynski@kernel.org>, Rob Herring
- <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Uwe Kleine-Koenig <u.kleine-koenig@baylibre.com>,
- Javier Martinez Canillas <javierm@redhat.com>, linux-kernel@vger.kernel.org
-References: <20260825052249.66921-1-bbanelli@gmail.com>
- <c24pt2ls62rxxg77xjbng7dmiflgdjlqd3mkoxehc2rvjgh7ai@dcxvmau3ykmt>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <c24pt2ls62rxxg77xjbng7dmiflgdjlqd3mkoxehc2rvjgh7ai@dcxvmau3ykmt>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260902005603.18836-1-giovannamccds@gmail.com>
+In-Reply-To: <20260902005603.18836-1-giovannamccds@gmail.com>
+From: Daniel Pereira <danielmaraboo@gmail.com>
+Date: Wed, 2 Sep 2026 10:56:27 -0300
+X-Gm-Features: AcwNN1Unj2hIsnWg8Lup2FQvddLg12grYYtpwimwjYRqmT9ER-P6eHVEKKPmRcQ
+Message-ID: <CAMAsx6e9brK=RQrOdXDeR2zN_g3PJLLnqB+h83=VhKLH5xn5Lw@mail.gmail.com>
+Subject: Re: [PATCH v2] docs: translations: pt_BR: translate coding-assistants.rst
+To: Giovanna Macedo Cox <giovannamccds@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/2/26 8:42 AM, Manivannan Sadhasivam wrote:
-> On Tue, Aug 25, 2026 at 07:22:49AM +0200, Bruno Banelli wrote:
->> Hi,
->>
->> On a Milk-V Jupiter, probing the PCIe controller at ca800000 (port C, the
->> card slot) permanently wedges the CPU that runs the probe when one
->> particular add-in card is installed.  The CPU stops responding to NMI, and
->> because the probe is asynchronous, kernel_init() then blocks forever in
->> async_synchronize_full() and the machine never finishes booting.
->>
->> The same card, in the same slot, on the same board, does *not* hang the
->> vendor 6.6 kernel -- it reports "Phy link never came up" and boots normally.
->> Six other cards do not hang mainline either.  So whatever the electrical
->> cause, this looks like a robustness problem in pcie-spacemit-k1: an endpoint
->> should not be able to hang a host-side DBI register access.
->>
->>
->> HARDWARE
->> --------
->>    Milk-V Jupiter v1.1, SpacemiT M1 (socinfo: CPU[M1-8571] REV[C] DRO[130]),
->>    16 GiB LPDDR4X.
->>    Firmware: stock vendor U-Boot 2022.10 (k1-bl-v2.2.9), unmodified.
->>    Port B (ca400000, M.2) has a Samsung PM9B1 NVMe and works throughout.
->>    Port C (ca800000) is the card slot -- an x8-length connector, silkscreened
->>    PCIE_X2, wired x2.
->>
->>
->> REPRODUCED ON
->> -------------
->>    v7.1 and v7.2, riscv defconfig (plus PHY_SPACEMIT_K1_USB2, USB_DWC3,
->>    SPACEMIT_K1_TSENSOR, IGB, IGC, NVMe/ext4 built in).
->>    gcc 13.3.0 (cross) and gcc 16.2.0 (native, Debian sid).
->>    Identical failure in all combinations.  Not a regression -- port C has
->>    never worked with this card on mainline.
->>
->> Command line:
->>    console=ttyS0,115200 earlycon root=/dev/nvme0n1p2 rootwait rw
->>    swiotlb=65536 clk_ignore_unused pd_ignore_unused
->>
->>
->> SYMPTOM
->> -------
->> Port C prints its address ranges and then never speaks again.  (Log below is
->> from a run with port B disabled in DT, so nothing is interleaved.)
->>
->>    [ 1.290074] spacemit-k1-pcie ca800000.pcie: host bridge /soc/pcie-bus/pcie@ca800000 ranges:
->>    [ 1.297283] spacemit-k1-pcie ca800000.pcie:       IO 0x00b7002000..0x00b7101fff -> 0x0000000000
->>    [ 1.312783] spacemit-k1-pcie ca800000.pcie:      MEM 0x00a0000000..0x00afffffff -> 0x00a0000000
->>    [ 1.326753] spacemit-k1-pcie ca800000.pcie:      MEM 0x00b0000000..0x00b6ffffff -> 0x00b0000000
->>    [22.348490] rcu: INFO: rcu_sched detected stalls on CPUs/tasks:
->>    [22.351764] rcu:     4-...0: (12 GPs behind) idle=051c/1/0x4000000000000000 softirq=43/43 fqs=1908
->>    [22.367040] Sending NMI from CPU 2 to CPUs 4:
->>    [32.367049] After 10 seconds, these CPUS still haven't responded to the NMI: 4
->>
->> The CPU ignoring an NMI for ten seconds is why I read this as an MMIO access
->> that never receives a completion rather than a spin or a deadlock.
->>
->>
->> LOCALISATION
->> ------------
->> I added a dev_info() before each step of k1_pcie_init() (patch at the end of
->> this mail).  The last marker port C prints is the one immediately before the
->> first DBI access:
->>
->>    [1.347050] spacemit-k1-pcie ca800000.pcie: K1DBG 1 toggle_soft_reset
->>    [1.362635] spacemit-k1-pcie ca800000.pcie: K1DBG 2 enable_resources
->>    [1.370918] spacemit-k1-pcie ca800000.pcie: K1DBG 3 first DBI write (vendor/device ID)
->>    <nothing further>
-> 
-> Sounds weird that an endpoint is causing DBI write hang.
-> 
-> Can Alex or someone from Spacemit look into this issue?
+Em ter., 1 de set. de 2026 =C3=A0s 21:56, Giovanna Macedo Cox
+<giovannamccds@gmail.com> escreveu:
+>
+> Translate coding-assistants.rst into Brazilian Portuguese
+> and add it to the pt_BR process documentation index.
+>
+> Assisted-by: LLM
+> Signed-off-by: Giovanna Macedo Cox <giovannamccds@gmail.com>
+> ---
+> Changes in v2:
+> - Change trailer Assisted-by for the new pattern
+> - Fix translation errors
+> - Link to V1: https://lore.kernel.org/r/20260830234515.63131-1-giovannamc=
+cds@gmail.com/
+>
+>  .../pt_BR/process/coding-assistants.rst       | 60 +++++++++++++++++++
+>  .../translations/pt_BR/process/index.rst      |  1 +
+>  2 files changed, 61 insertions(+)
+>  create mode 100644 Documentation/translations/pt_BR/process/coding-assis=
+tants.rst
 
-I think Yixun Lan or maybe Troy Mitchell should investigate.
+Hi Giovanna,
 
-I have not done anything on the Milk-V Jupiter and have no
-access to any board of that type.
+    I've reviewed the patch and tested it locally. The translation reads ve=
+ry
+  well and the placement in the index.rst is perfectly aligned with the ori=
+ginal
+  English documentation. It applies cleanly and builds without any
+Sphinx errors.
 
-					-Alex
+Thanks !
 
-> - Mani
-> 
-
+    Reviewed-by: Daniel Pereira <danielmaraboo@gmail.com>
