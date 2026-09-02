@@ -1,90 +1,161 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E04370ACC;
-	Wed,  2 Sep 2026 07:46:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7172DF156;
+	Wed,  2 Sep 2026 07:47:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788335182; cv=none; b=EIyqLIx1QIZsTQRmZU9Im/Exnm+bOf7oykek3dnUcRkDl7NkgvmMASd5oLq2j2caTTRVZDLLb8OhMkYdYV5v1zWKM8HBeJMGkFHVgiKAjvw1VUYrFOy7H7YzB1zSOLAB+RVjATUClRjg078EiV+BhBEDHZ+AtJMFKcdonUnUTKs=
+	t=1788335227; cv=none; b=HiH2TXgnnFSQXIOxCcslVk5fsuqL+N/x0airQWxsJ03kxy2y/Y2VLFhfH1UBtO8EZKe4q5kAHzpQ1esG+P5CIqH67qhiS7KWVwIlnbw4L7umgYiDOv4QFHN0PINFrMsFRxydin7g3a0JgwCJB9mqKPyhnf8MRawEnNYdcWIwMmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788335182; c=relaxed/simple;
-	bh=29czV3fjjxBVQbNXJgxEZMzYgZW1biCPklSbU1r9VFU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=EMrJ3SSibZwJEy69wtA2y4mdf3h0ccWbOTI21/csZoDRXPQDSkp333ixZeSTXPZjFNFasmcvKGHl8ai1rnKDTZnz6K8XXQQ4qDfbS21eSc2Sg/A10KN1DvUchTW+/PATe3/2nz3qP3V1RiZw7AYBcErW1uCwJmoMi+LkJrvSO/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Do35rUN1; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=a7XGseWt; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788335227; c=relaxed/simple;
+	bh=GRZlElthwAaKzvZ/FHWHV1BMeCYeXxgkQIz3UzAzEsc=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qGOWtjEdEkbwm6nmi9I8WDklJH8OMtFQb2n5oHrRXlH2iSxGepJVbKCaD0OqNeZS5+en1MNZ/4FdF7zmtBEjGtP11vrLZm7A6Bb1yPoCWoOAcYGmVhhUg9qiu7dRqKhUnajglEBLc0wZj1V0KhO1Nl5reHKXB4puN1M6XUxPYP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kmWx0i1N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Do35rUN1";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="a7XGseWt"
-From: Nam Cao <namcao@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788335178;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=29czV3fjjxBVQbNXJgxEZMzYgZW1biCPklSbU1r9VFU=;
-	b=Do35rUN1QqwaRhpAx6tTLLF9UE2JChbAdvhVfGYDAMbMcKcY6hcoZ3n08k2h5PqH6cbSTE
-	iOYaz1TQEF016iyZag5zi8yBnZzdz/fDFNVTWe+cD15T0SVXrRT8EGvvR0/LLWDwsk9YGN
-	Ag/V+ftFNkdsAxR72nv+zqFk8g2qAHgPxhEdu6FoSyVCSAt2NEhTlKnKVBdMsoqwurvJph
-	NvQGbIoWfOe55EgGxbUYbEAakDm7OAaCkzMXdh/k6+KoFFP5j2yhgFgZyX4ZNmy+SJpdRP
-	XGa8kLAPH6kIGD9UfXUV0cTUi5FDxJOQpOiz5FVH7Gh57U19czXmyfRTNirBgg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788335178;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=29czV3fjjxBVQbNXJgxEZMzYgZW1biCPklSbU1r9VFU=;
-	b=a7XGseWtGRSYJDkNDkn2iqJSSLEAeTU7RbPPZ84zWJsrP5ylW7MHFCI8zUwh6Ym886g1ys
-	AZX52ao/WlUmHlCw==
-To: Gabriele Monaco <gmonaco@redhat.com>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org
-Cc: Steven Rostedt <rostedt@goodmis.org>, Wen Yang <wen.yang@linux.dev>,
- Tobias Schaffner <tobias.schaffner@siemens.com>, Viktor Malik
- <vmalik@redhat.com>
-Subject: Re: [RFC PATCH 00/20] rv: Add support for BPF monitors
-In-Reply-To: <df6e9168cb06c35e21db7f9d17cfbca6bd87005b.camel@redhat.com>
-References: <20260831090524.106845-1-gmonaco@redhat.com>
- <87se3sakgi.fsf@yellow.woof>
- <df6e9168cb06c35e21db7f9d17cfbca6bd87005b.camel@redhat.com>
-Date: Wed, 02 Sep 2026 09:46:17 +0200
-Message-ID: <8733vsw0xi.fsf@yellow.woof>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kmWx0i1N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D9C31F000E9;
+	Wed,  2 Sep 2026 07:47:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788335226;
+	bh=HMrRYkbF5OZt+EYuQBRlyrF86w/zMKZa5CwvbhvSVgQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=kmWx0i1NgJvsbl7HVHwHOHUrzI7dPQ8T/ayJKlDyUU/WXndfT4LTsi34pD8oCMJwW
+	 LCeYnse+v9023DMTMpO3TYaWx2TztOJTuP1Knjb3yiuj4ZweZqdFJ3b6dvOsIed9ZL
+	 MFc2q9nn7rferIqHBLii9tMX8z0IJmfR32q1fVDwW9cGyQcY/i+iz5AFUi0oW55rAo
+	 BAcd2sMaWjXJ8IPb/iP9toIkpV2PYNDruENhzsi9SGxXH/ouzmwATwuUz77HR6r1QO
+	 EsLNO5rwzI+IL7qBCE+IpMe324knTkP44Y92J2raQrqhy9Eli2Y/SBLf+I9H2/htTp
+	 WeDczrwosL6+w==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x1fgV-00000003lmO-22FI;
+	Wed, 02 Sep 2026 07:47:03 +0000
+Date: Wed, 02 Sep 2026 08:49:36 +0100
+Message-ID: <87ld9km6sv.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Steffen Eiden <seiden@linux.ibm.com>
+Cc: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Andreas Grapentin <gra@linux.ibm.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	David Hildenbrand <david@kernel.org>,
+	Friedrich Welter <fritz@linux.ibm.com>,
+	Fuad Tabba <tabba@google.com>,
+	Gautam Gala <ggala@linux.ibm.com>,
+	Hariharan Mari <hari55@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Hendrik Brueckner <brueckner@linux.ibm.com>,
+	Ilya Leoshkevich <iii@linux.ibm.com>,
+	Janosch Frank <frankja@linux.ibm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Nico Boehr <nrb@linux.ibm.com>,
+	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+	Oliver Upton <oupton@kernel.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Will Deacon <will@kernel.org>,
+	Zenghui Yu <yuzenghui@huawei.com>
+Subject: Re: [PATCH v2 03/20] arm64: sysreg: Define OSLSR_EL1_OSLK_MASK
+In-Reply-To: <20260901092552.231001-A-seiden@linux.ibm.com>
+References: <20260831145536.913567-1-seiden@linux.ibm.com>
+	<20260831145536.913567-4-seiden@linux.ibm.com>
+	<87v78pmmtz.wl-maz@kernel.org>
+	<20260901092552.231001-A-seiden@linux.ibm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: seiden@linux.ibm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org, agordeev@linux.ibm.com, gra@linux.ibm.com, arnd@arndb.de, catalin.marinas@arm.com, borntraeger@linux.ibm.com, imbrenda@linux.ibm.com, david@kernel.org, fritz@linux.ibm.com, tabba@google.com, ggala@linux.ibm.com, hari55@linux.ibm.com, hca@linux.ibm.com, brueckner@linux.ibm.com, iii@linux.ibm.com, frankja@linux.ibm.com, joey.gouly@arm.com, nrb@linux.ibm.com, oss@nina.schoetterlglausch.eu, oupton@kernel.org, pbonzini@redhat.com, suzuki.poulose@arm.com, svens@linux.ibm.com, Ulrich.Weigand@de.ibm.com, gor@linux.ibm.com, will@kernel.org, yuzenghui@huawei.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Gabriele Monaco <gmonaco@redhat.com> writes:
-> I should definitely have included it in the cover letter.. I'm writing it
-> everywhere (will present at LPC) but forgot it here.
->
-> Essentially BPF monitors can be pluggable, folks writing their own monitors
-> won't need to submit a patch or maintain a separate tree, which is useful for
-> domain-specific models.
-> By being pluggable you also don't need to reboot to use a new/updated monitor.
->
-> Think of being able to distribute a more granular set of rules for RTapp, I
-> remember we had conversation along those lines, not all rules apply to all
-> contexts and what you send upstream has to be general, what you keep for
-> yourself doesn't.
->
-> Having monitors in BPF brings also other perks over kernel modules: a whole
-> bunch of readily available probe types (uprobes, fprobes, all unexported
-> tracepoints that are cumbersome for modules), the map infrastructure for
-> allocation is arguably easier and the code is verified when loaded against
-> common issues (NULL pointer access, unbound loops, etc.).
->
-> That said, I try to mimic as much as possible the in-kernel functionality, but
-> some things are not the same (event/error tracepoints).
->
-> These support DA only because BPF loading needs a userspace component and the RV
-> tool doesn't support LTL and HA yet, there shouldn't be any technical reason not
-> to extend to those in the future.
+On Tue, 01 Sep 2026 10:25:52 +0100,
+Steffen Eiden <seiden@linux.ibm.com> wrote:
+> 
+> On Tue, Sep 01, 2026 at 08:51:04AM +0100, Marc Zyngier wrote:
+> > On Mon, 31 Aug 2026 15:55:18 +0100,
+> > Steffen Eiden <seiden@linux.ibm.com> wrote:
+> > > 
+> > > Define the missing mask for the OLSK field of OSLSR_EL1 which is
+> > > required to safely write a value to that field.
+> > > 
+> > > Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+> > > ---
+> > >  arch/arm64/include/asm/sysreg.h | 1 +
+> > >  1 file changed, 1 insertion(+)
+> > > 
+> > > diff --git a/arch/arm64/include/asm/sysreg.h b/arch/arm64/include/asm/sysreg.h
+> > > index 1c5c4df260be..5a439853b721 100644
+> > > --- a/arch/arm64/include/asm/sysreg.h
+> > > +++ b/arch/arm64/include/asm/sysreg.h
+> > > @@ -200,6 +200,7 @@
+> > >  #define OSLSR_EL1_OSLM_NI		0
+> > >  #define OSLSR_EL1_OSLM_IMPLEMENTED	BIT(3)
+> > >  #define OSLSR_EL1_OSLK			BIT(1)
+> > > +#define OSLSR_EL1_OSLK_MASK		BIT(1)
+> > 
+> > Just move the required sysregs to the sysreg file, with the full bit
+> > description. This will sort this once and for all.
+> 
+> You mean to the tools/syreg file to generate the descriptions?
+> 
+> I wanted to do that but OSLSR has a split field (OSLM in bit 3 and 0)
+> which the generation tooling cannot handle. (right?)
 
-Cool. I also wanted to do something like this, for these exact same
-reasons. Let me look at your patches..
+Composite fields are nothing new. We have those everywhere (page
+tables, for a start).
 
-Nam
+> 
+> Now that I am rethinking this:
+> 
+> I could move the stuff to the tools/sysregs and in addtion define the
+> OSLM field here manually but this time using the generated constansts.
+> probably sth. like: 
+> 
+> #define OSLSR_EL1_OSLM_MASK		(OSLSR_EL1_OSLM0_MASK | OSLSR_EL1_OSLM3_MASK)
+> #define OSLSR_EL1_OSLM_NI		OSLSR_EL1_OSLM0_NI
+> #define OSLSR_EL1_OSLM_IMPLEMENTED	OSLSR_EL1_OSLM3_IMPLEMENTED
+> 
+> Shall I do this?
+
+Yes. Except that OSLM3 should really be OSLM1, being bit 1 of the OSLM
+field. And it would make a lot more sense to express NI and
+IMPLEMENTED in terms of the two bits, just like the JSON describes it:
+
+OSLSR_EL1       [2,0,1,1,4]     MRS
+# Reg cond: IsFeatureImplemented(FEAT_AA64)
+Res0    63:4
+UnsignedEnum    3       OSLM
+UnsignedEnum    0       OSLM
+        0b00    VAL_00
+        0b10    VAL_10
+EndEnum
+UnsignedEnum    2       nTT
+EndEnum
+Field   1       OSLK
+
+Thanks,
+
+	M.
+
+-- 
+Jazz isn't dead. It just smells funny.
