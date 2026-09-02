@@ -1,156 +1,178 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com [209.85.222.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85BA3176EE;
-	Wed,  2 Sep 2026 00:55:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B05C31F98E
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 00:56:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788310509; cv=none; b=PYDnXrugmMMgOs7DQwXauGoXmHMj+I2I095qUdiapYLUvvcfBeif5DdNgFqV+wtTpJouKo3d0SCn7EHmnjcvvkfoPcf6aY9OgCVBNzxAf4xCAT6yd+6+ERk7+M2MYcO4PKg88gdf6wOpTH8g1B4aOy7x5jqyj+/lqyZUtP25sHI=
+	t=1788310581; cv=none; b=sizgghCf8BzgnTnOiGGgG0ngtCa42coqJjzaCZB6Pn6nPhxT3ILKqrK0ZFjzxzqqKqSC36Nz92frxTyLjXblX/GqNL4zFBM8sUlDR4mnLGNCT+CFyTy4uhY2+ooJRKvWHEk95F8es/tlLLtIhRj2ToIhr6sX9362VFhd5LF4NXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788310509; c=relaxed/simple;
-	bh=rQQWXROtXEPolbL3+WmQ76ec5bRrNQnToMx7O28pmXE=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=PFES8+czhYu/bPYecAH3YwoA20HSoPkhe/7ZkvOl8lWajVGB53yt/OArz/a/AT7EpfLuQ6PHbqqhWccA1BTnVIvcfIbG21rC8scGVfDIVVZYyTTwKsKHasdidnusYIb0h1S/8R+EQNTofzcHcCukh3GsI087qBXpyhwsYJS6YPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=S+VOXujc; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788310581; c=relaxed/simple;
+	bh=d7cWym8GiqZJAsG40QVKThsxlp6hXKwXuUFOc7+ukYk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=HDXh1GfkyNVA2l+xRUxypBY/MkqJwQ6WnWjE4P+BO4oMcQiaQLyHsUkhXA3s5z7h0gB7u5fohbdkeV6E72jqq9hux/Nz2v2kBY7uG22SVCd4Jnz7FBuYhGEJViRWevGvczM4Kj0OZB98dqCEUN4MBGGuG/+NhawzWEGZBsmaBLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E2Zleaxk; arc=none smtp.client-ip=209.85.222.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="S+VOXujc"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681KWWT9354836;
-	Wed, 2 Sep 2026 00:54:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=BCSQKB
-	VO5LU27JLC1hpqQFvXR9CV1TehM4jZhukoXTA=; b=S+VOXujcw9DjXIc9CAiBPf
-	IfF0KfmbS6ZheS5sfxd/prbi6ggjZb2Jwet/pRd/BGAV0MnDY/77OdKw1d0km2HQ
-	c8PFbso4YYgkAWDxctyzNsKU4wQenjo/HV5RhEMQbaOxm9qc79+6cLy4jENZ8yop
-	wDpEr/NlGojpIxWlEyzEWUFqZzkYNKA2YjKS2w67lbsYgbIKg8qXKik7p7lsihup
-	zeN1FTBv/+T+xT2ZvSdu13KZJKvBKcIAyRDIADbist7Mgacw9T+QIRZ34DGlIYI+
-	VpazB2rLROhHvdnMn3nHzPxUOUX4wonIxzrOHc09RXMZAOBnsjgMT/moGVezvcvw
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq3rbdmg-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 00:54:49 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6820QKSK026824;
-	Wed, 2 Sep 2026 00:54:48 GMT
-Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gca4w6yhp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 00:54:48 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
-	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6820sloR13042200
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 2 Sep 2026 00:54:47 GMT
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2F4C958050;
-	Wed,  2 Sep 2026 00:54:47 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3974658045;
-	Wed,  2 Sep 2026 00:54:46 +0000 (GMT)
-Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.87.106])
-	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  2 Sep 2026 00:54:46 +0000 (GMT)
-Message-ID: <35ae5c9fd60874127d15f5fedb84c0a90e56eca4.camel@linux.ibm.com>
-Subject: Re: [PATCH] ima: allow users to specify the pcr index with
- IMA_MEASURE_PCR_IDX
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: Julian Braha <julianbraha@gmail.com>, roberto.sassu@huawei.com,
-        dmitry.kasatkin@gmail.com, paul@paul-moore.com, jmorris@namei.org,
-        serge@hallyn.com
-Cc: eric.snowberg@oracle.com, linux-integrity@vger.kernel.org,
-        linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260824162215.1572367-1-julianbraha@gmail.com>
-References: <20260824162215.1572367-1-julianbraha@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 20:54:45 -0400
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E2Zleaxk"
+Received: by mail-ua1-f50.google.com with SMTP id a1e0cc1a2514c-97cbbdfc2e0so197103241.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 17:56:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788310577; x=1788915377; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tiVFAkorF9lFs+sLXpfvZyw5OEmX56UI3CjqJwbxhXU=;
+        b=E2ZleaxkXM0UeMGSDpKyPPR1Sk7k/GkXuRjqGqF+nK+axUiyCu4pKHl811sfTStAEK
+         9WqcrBNXCPa6iJ/FIxcgN3lpzy6AoTZHDYhYV8s6Giv5WczFjK3AHLyaK8kPJ25QXhrM
+         19SMxKKYgbtpBnN6fbKT9rOXocOBy6LKOEKiT6a1mqVFi1F+agq/K+K6BCFwyfU1UUgd
+         lirRLJN3w3WlhKHiFFf6CgI4PUI/0XDaKeZue37NH5FmHRtqI260Ng83hbg4G5f7Stme
+         W+spkAEx8wEZD3a6ZwLWwkcFOo070jSzKID4Fci4iJv3lFPBQazE51NF0AubL4l6K/Q6
+         onZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788310577; x=1788915377;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tiVFAkorF9lFs+sLXpfvZyw5OEmX56UI3CjqJwbxhXU=;
+        b=PFAyoCT4M7wIqPT0N+kzTXhcHkiGTPyxUEv4p0HUeZed+6Ak10cKYG3773UyFmuwpK
+         jXoHnd7KWUakGBj90hmnG4XRS1uHLHTODiunpX3ryrkSSErKAPlTT/0F57t1K5pwHUbK
+         Mh/ljsEMh0LuevvdpwqBGHI+IlnSS1PinvUw1TUBQBZ7cCt/k5ISL1FLuT14cVU1Ic56
+         8fYj4Qj/So/11ZLB1DDhSJulHviA67ch1O9AJoWWoQoT53FPASMOz36gyuxu+pb2O881
+         bSJ2Gq5dj4ToiT3cdU5PdZYeaH56mnzpmHEt7ewr+SDCJXJqBsb63kOi3hJJdemjBv6Q
+         x+Mw==
+X-Forwarded-Encrypted: i=1; AKwUvByunI6mL5rHIx8lTm6sZbd3h28xxU+16V55FQIu7044y1zwY0CyGCwDtajw1p/3WHeKMAz/ndEQ7ruXpSE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lpm0fChZAkz7BHRZ5zYC2PBoEzYE7tD4HQ50jjCA2P/f9jWjvx
+	0YfrVXWgz6f9fS2XbzT1rGzkYINAvSYiKxKjiNQYcdD1hgmK57BFRiQn
+X-Gm-Gg: AYBFou0N2AmQEQMCI+zzIGwN/BWJ30EQdcNuf2n5XZWNc2Nmlhv9/b9tWiG3lgZW+kZ
+	3P50TxtUnxuCVzIQcclCCgaMovbYyosJKI6eFvLguZhySM0C4qG+1qCFTTdIFqVq0o5u4hCgXjQ
+	l9Ng0uPyUPYa1BD8e59FvhW0msu7OBGAegFtYJPLNlWcogNadTyuxWuEmkfqHmij/9jYTnInt9J
+	qP18xdX2pS8F2V85jf4X6An8jjgdi5lSOej/LmRpyVn+ZmUTZZoD+xc/54N6qnsbBrCYl3U2UvG
+	xkuIY85OqCdjLY3RsCEq4kqZ0fl9Ki6dEb5Lpp6JkYYTylaDQX1q8F7W6XRN7bhHxDIQ5afho9M
+	PXvtkzZqiVVIHdzpxtlUhHzexBaP7Zb/tv5K4NaM2AXyyrsKCP+iafDUyBuYmqBv16IGfowoDbB
+	aje+gFO5iS41fNH8IRtkRhJ0NRHhQf5Y+sxaE/E438D+hW8ao6gFpOEWsz8VQBQ1N4r72Lmw==
+X-Received: by 2002:a05:6102:5490:b0:783:79ac:9dc3 with SMTP id ada2fe7eead31-78a1f2df152mr381604137.10.1788310577405;
+        Tue, 01 Sep 2026 17:56:17 -0700 (PDT)
+Received: from pop-os ([2804:14c:daa2:8daa:574f:5cf:6f39:859e])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a1a251ca6sm1095624137.4.2026.09.01.17.56.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 17:56:17 -0700 (PDT)
+From: Giovanna Macedo Cox <giovannamccds@gmail.com>
+To: Daniel Pereira <danielmaraboo@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Giovanna Macedo Cox <giovannamccds@gmail.com>
+Subject: [PATCH v2] docs: translations: pt_BR: translate coding-assistants.rst
+Date: Tue,  1 Sep 2026 21:56:01 -0300
+Message-ID: <20260902005603.18836-1-giovannamccds@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=EIc2FVZC c=1 sm=1 tr=0 ts=6a9773d9 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=cuzdW0VFpDOfPp0CwCYA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDAwMyBTYWx0ZWRfX6bhuzGfolJq0
- /RB2Syow7w1TDWIorthN3CY73kKLPhQ59eNxVDx3WpMVk+eh+yfIauhnBA60W7gvbyAp4gmjp3i
- BlrDLvlz6KhvEnC1o2hv/5FGwNqh0jg6ynqH7f/+JTV4FB+BpLFiRhTosYB7xivjclug8FsdWdD
- W/YyWAAIclPUcaFHjVQEIe8hCi8Z38rRsY7GJtqFIwVxaJk43vC8tjaf3+XPMrA11EOUEB9pwGF
- xI1hY+E9Ka2PvwMNH+k/nLpis131PSpamDE9MZakqMnVMM3nzukbJd1xslWPDKcXJrLoWjXqoDv
- rXm3zZxDPKf8orwBILw/Q7WWhGXmCnqcJF1ChCizQKGXzB7l6fdmmLX9NRbkErssjf3GuMV/7D8
- zFqdzPIZkf2JpC+DZawffbtcY37aDcLI8ESWG4nfUQxh/3cz7l70XT0FDX7GLG73Pa+TAFZnoN7
- hyAfOR9iuvg6V+bMGTA==
-X-Proofpoint-GUID: sny8BGHa00BGvO7ry_uvDL7XDYIGxeaR
-X-Proofpoint-ORIG-GUID: btMsHG92T1r6fmUTgAshUvsd9mkuXLeg
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDAwMyBTYWx0ZWRfX1F4uml2URZOk
- 49a+Nq5KxupP07u8QYD0iyjelfJjjBuPNAn0yMvdtJpxQPpYkL2c8FxbmleUj1t2+iG+Ppe58pt
- zoXeOGFFH20uqPJRPbETwWJ3ZM6mqLE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_06,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
- phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020003
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, 2026-08-24 at 17:22 +0100, Julian Braha wrote:
-> The IMA_MEASURE_PCR_IDX option is currently not visible in the kconfig
-> frontend, so it always uses its default, 10. This means that the
-> 'range 8 14' is dead code, and users are unable to specify the pcr index
-> value.
->=20
-> In a previous discussion, Mimi explained that users should be able to use
-> this config option to specify the pcr index. [1]
->=20
-> Let's add a prompt for users to specify the pcr index, when EXPERT is
-> enabled.
->=20
-> This dead range was found by kconfirm, a static analysis tool for Kconfig=
-.
->=20
-> Signed-off-by: Julian Braha <julianbraha@gmail.com>
-> ---
-> Link: https://lore.kernel.org/all/1feff118-4afa-4b9c-86f1-271a7a88208f@gm=
-ail.com/T/#mc4efa2491b4937eb7c9e532c29ffba516a70e662 [1]
-> ---
->  security/integrity/ima/Kconfig | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/security/integrity/ima/Kconfig b/security/integrity/ima/Kcon=
-fig
-> index b3a9f86809b0..2d5bb19ea6ac 100644
-> --- a/security/integrity/ima/Kconfig
-> +++ b/security/integrity/ima/Kconfig
-> @@ -46,6 +46,7 @@ config IMA_KEXEC
-> =20
->  config IMA_MEASURE_PCR_IDX
->  	int
-> +	prompt "PCR Index for Aggregate" if EXPERT
->  	range 8 14
->  	default 10
->  	help
+Translate coding-assistants.rst into Brazilian Portuguese
+and add it to the pt_BR process documentation index.
 
-Thanks, Julian.  The existing Help says, "If unsure, use the default 10."  =
-Could
-we make this recommendation stronger?  AI suggested:
+Assisted-by: LLM 
+Signed-off-by: Giovanna Macedo Cox <giovannamccds@gmail.com>
+---
+Changes in v2:
+- Change trailer Assisted-by for the new pattern
+- Fix translation errors
+- Link to V1: https://lore.kernel.org/r/20260830234515.63131-1-giovannamccds@gmail.com/
 
-	  IMA_MEASURE_PCR_IDX determines the TPM PCR register index
-	  that IMA uses to maintain the integrity aggregate of the
-	  measurement list. Most attestation tooling expects PCR 10.
+ .../pt_BR/process/coding-assistants.rst       | 60 +++++++++++++++++++
+ .../translations/pt_BR/process/index.rst      |  1 +
+ 2 files changed, 61 insertions(+)
+ create mode 100644 Documentation/translations/pt_BR/process/coding-assistants.rst
 
-	  The default is almost always what you want. Only change
-	  this if you know what you are doing.
+diff --git a/Documentation/translations/pt_BR/process/coding-assistants.rst b/Documentation/translations/pt_BR/process/coding-assistants.rst
+new file mode 100644
+index 000000000..2055af34a
+--- /dev/null
++++ b/Documentation/translations/pt_BR/process/coding-assistants.rst
+@@ -0,0 +1,60 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++IA Assistente de código
+++++++++++++++++++++++++
++
++Esta documentação fornece um guia para ferramentas de IA e desenvolvedores que
++usam IA como assistente para contribuir para o kernel do Linux.
++
++Ferramentas de IA que ajudam desenvolvedores do Linux kernel devem seguir os
++padrões de desenvolvimento do kernel:
++
++* Documentation/process/development-process.rst
++* Documentation/process/coding-style.rst
++* Documentation/process/submitting-patches.rst
++
++Para guias e conteúdo sobre códigos gerados por assistentes de IA veja:
++
++* Documentation/process/generated-content.rst
++
++Licenças e Requisitos Legais
++============================
++
++Todas as contribuições devem estar de acordo com os requisitos de licença do
++kernel:
++
++* Todo código deve ser compatível apenas com GPL-2.0
++* Use identificadores SPDX de licença apropriados
++* Veja Documentation/process/license-rules.rst para mais detalhes
++
++Assinatura e certificado de origem do desenvolvedor
++===================================================
++
++Agentes de IA NÃO DEVEM adicionar tags Signed-off-by. Apenas pessoas
++podem legalmente certificar o Certificado de Origem do Desenvolvedor (DCO).
++A pessoa que envia é responsável por:
++
++* Revisar todo código gerado por IA
++* Garantir conformidade com os requisitos de licença
++* Acrescentar sua própria tag Signed-off-by para certificar o DCO
++* Assumir toda responsabilidade pela contribuição
++
++Atribuições
++===========
++
++Quando ferramentas de IA contribuírem para o desenvolvimento do kernel,
++a atribuição adequada ajuda a rastrear a função da IA no processo de
++desenvolvimento. Contribuições devem incluir a tag de assistência seguindo este
++formato::
++
++    Assisted-by: LLM [FERRAMENTA1] [FERRAMENTA2]
++
++* ``[FERRAMENTA1] [FERRAMENTA2]`` são ferramentas de análise especializada
++    opcionais (Exemplo: coccinelle, sparse, smatch, clang-tidy)
++
++Ferramentas básicas de desenvolvimento (git, gcc, make, editors) não são
++listadas.
++
++Exemplo::
++
++  Assisted-by: LLM coccinelle sparse
+\ No newline at end of file
+diff --git a/Documentation/translations/pt_BR/process/index.rst b/Documentation/translations/pt_BR/process/index.rst
+index eda2a3fc5..6c68ac496 100644
+--- a/Documentation/translations/pt_BR/process/index.rst
++++ b/Documentation/translations/pt_BR/process/index.rst
+@@ -59,6 +59,7 @@ Estas são as regras pelas quais tentamos viver na comunidade do kernel
+    Modelos de Maturidade para Contribuição no Kernel Linux <contribution-maturity-model.rst>
+    Declaração sobre Drivers do Kernel <kernel-driver-statement>
+    Estilo de gerenciamento do kernel Linux <management-style>
++   Assistentes de código <coding-assistants>
+    Conclave (Continuidade do projeto) <conclave>
+ 
+ Lidando com bugs
+-- 
+2.55.0
 
-Thanks,
-
-Mimi
