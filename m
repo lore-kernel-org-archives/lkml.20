@@ -1,136 +1,114 @@
-Received: from mta1.migadu.com (out-42.mta1.migadu.com [95.215.58.42])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0F3C39FCDB
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:44:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3687E47D936
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:46:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788349480; cv=none; b=GsrdKdh3O6NTrFxOkYp7XjeTnKV0PX80HlzXP3Ywn0qQmHY+7n6azAtD+HW3f8nQAx4I6dwVI7Lm/YhsyrWb6ySfe1zSbipDiMPZfohNThJfgCiRFVtQuSeL4XW/KJb841lXtPLNhM5E/lz4i5ytmqHaVYf8xu7kEql6vrB2pUI=
+	t=1788349574; cv=none; b=RrERXE86LPNNDd3AvrrsLdW4Tek1i6jiKI+NAkiJ/oXMtnEu78gRUgJNjg1Niu8O0ERxqgOfZ5M5zYtM6LGgaewh9nTzWChjlmG/xP/KCvtZVzofluGnWeLXol1p6jeBtxAVRsnM9d9cD6fV87v1YeKVFUlIUD2MuwbYxX0/c/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788349480; c=relaxed/simple;
-	bh=FQ3fwj4HF3bn+KhRvieo4GqR7LJ+Nrb7IZb14BFcNNo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lqWC6IzZSTR23F4ieYahnCjqBD/Als14VRrb9/JMHnApyObJULdNI2+rSdttnLGCfdjMPmd2rIdmTZPtBNW8YmEoIR+2QXyX7/SV7DXdpTtqdXXaPf2vnPvGfIGfZMJLqW/b1TqUPuqGgcAhp5SMeksIbj09htv13UcoP66tZ9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=IULNUPg0; arc=none smtp.client-ip=95.215.58.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="IULNUPg0"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=FQ3fwj4HF3bn+KhRvieo4GqR7LJ+Nrb7IZb14BFcNNo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788349475; v=1; x=1788954275;
- b=IULNUPg0nHXswditelk/BOCU+pa3bBLxp5InD7yhF3hLPkFdYMUF89ZLtaeOa4AQ1ITHmLRI
- 2+Ly92fai4lHHg84v1RdKrxXiGxVUtCuY3toqYfXa/rjScbnzE5/34Lj0sQFEJwH83P57+v1IqO
- qNR21SzIiED2K3s+MwztcUS4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7b46bf04467625a6;
-	Wed, 02 Sep 2026 11:44:35 +0000
-X-Mizu-Trace-ID: 7b46bf04467625a6
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <2def1a1a-cb47-4435-bc8a-e787672022ae@linux.dev>
-Date: Wed, 2 Sep 2026 19:44:23 +0800
+	s=arc-20240116; t=1788349574; c=relaxed/simple;
+	bh=GrBIm0BKS+Mu7/OLWlqezUi4tFJ6U0Srqj6VjLPOZaE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Iu0KTePkk79NEEtsKgWbxWg/ZuJj5+liXu7OuC+9TC2X+ke8Hp66+UAmXgiTQk7JUHMDD2Tt2HuTSiraDiZ65KnvkMa7XnXHuFkI2Qkwchdfk7XCsoExIrnnbiV6j3Ybqo0lf06B9OwaFd2Poci43d9jLs1HBNq4SdH5abXajIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-398a4dcf289so1149842a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:46:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788349566; x=1788954366;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=XEAVGW99jRYpfKK+i5q1QjOfB2bMJtHxW0mUFyR7MIM=;
+        b=Qeq3bczF8UkfRDmkIfCwoZ1ZO53ikyoudWvd16EbqM7sHi9gfkKdHLcn7Y4/Jenid/
+         XDRx/Y6L2sAuy3L3aMpw0v+HWDKFUq7tDdU9dvFPq3WfjioDZGNm54km4AB/owMCCyFY
+         oq3YZS1GHONag2wm3usZUtx6Zm3QgAYT8PQH/got8WYMH/q8zwNPYBdTpzsjpfc8f23C
+         17dTimnl2lLKG+5bMXIVou57bZ1UefFL1dofKJ9255a7Qb6MFnbTuGoVIagVaVwa3KQs
+         IOQilA67yWd1qRfPfNnJm0YULUbNH6eJLgyjoDfJYAHB+hc6FMxYEHLc/DyjdFBgQnhc
+         1bIA==
+X-Forwarded-Encrypted: i=1; AKwUvBxlqOxzvgF1oFSciSJH7WdvoVZM6C/LdRas+DiyxQrk394jmwp1M1C2ePd7OLjttfWbQ5BZVNFIz4qf/+k=@vger.kernel.org
+X-Gm-Message-State: AFuF++kIVjIDsoaD8UTpuc16oTKLaaPIiT5yIP5yjJVFc84SWrb/Qu8p
+	MeRgN9EUSOPtK+Kd+YG2G5wzZUDnbSR1Trl/qZHryGoiokb/XHZkqPxHlsvwlih0
+X-Gm-Gg: AYBFou2IcVc+Mmu+okC35meNJ0JW5gVpLK0MWOMT+WSAiMXt5zXNwAiwT895K41apwm
+	i4PoKkZ5isCy8tcT+qAPEIJ1Zct1oBiU3tWiaAvkJC7OQUsg6lE3DdwSEHC4TgE5tDi/95xYd5x
+	5pdsy+eTMjibDz3aY/LdZX7rfknnJiks5dDowk0vDkyKddumr6belCR7cMnjJejvP+x61c2ZmCf
+	U/leVTZT/wGDQKYnyZic4ES8yvmE/I0zO+7nC2jDt2Zcylah9VbSCaH28L+hMJpRYGZgyD6dcBK
+	k3KcnrXun10jwfqzS9YNvgt8ofGSWikUXRZJINWgSs9+LX6RrACw6TxmqT6EdUGy1/bRhGW98Uq
+	fddzIW7QcUDSMuyKrKE+GbZT/DYt0vm63EfMpwvrsacFyxWLjKnUfKjOLY0/KnhVuK2K1pgZFYW
+	Iw0ugEi3yIX141yIBDiT48Ovi24Dk0IAdfxQJnBIitmtWs4SpUnvdywkyqNpBb5jF1OhfRQ+TWF
+	1z5x81vdbt4LWTtU7JxnKXPr5bbaQ==
+X-Received: by 2002:a17:90b:3d81:b0:398:c150:e7b3 with SMTP id 98e67ed59e1d1-39aedf5d923mr6530964a91.4.1788349566257;
+        Wed, 02 Sep 2026 04:46:06 -0700 (PDT)
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com. [209.85.214.177])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae8ccdecdsm1087728a91.2.2026.09.02.04.46.05
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 04:46:06 -0700 (PDT)
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d7195706f1so9952195ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:46:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxJ1vWLNVjYNIy1Koq5ZIuHuO1YoPXX7gK77kSI7uvlfxKVwvbNcUAAG+wBY+75gNptPZylJsOdV2SyjYg=@vger.kernel.org
+X-Received: by 2002:a05:6102:faa:b0:785:bfc7:26f5 with SMTP id
+ ada2fe7eead31-78a1f33dfd3mr1197143137.12.1788349174855; Wed, 02 Sep 2026
+ 04:39:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/shrinker: fix bogus set_shrinker_bit() with
- cgroup.memory=nokmem
-To: Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Muchun Song <muchun.song@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Kairui Song <kasong@tencent.com>, Johannes Weiner <hannes@cmpxchg.org>,
- linux-kernel@vger.kernel.org
-References: <20260902073800.305481-1-jiayuan.chen@linux.dev>
- <5753d853-df04-4918-9852-c23842c66428@linux.dev>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <5753d853-df04-4918-9852-c23842c66428@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260809200429.843212-1-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260809200429.843212-1-marek.vasut+renesas@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 2 Sep 2026 13:39:23 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUCRF_r3TXCRYZs_-AAn9WL36HUF4_VjGs4Y8Y4T2uRTA@mail.gmail.com>
+X-Gm-Features: AcwNN1XYp2AmohzI9M0wS5P-4B-ztdbPdhzMYLGxaK77VTrG86b4xj0U-T2WG1g
+Message-ID: <CAMuHMdUCRF_r3TXCRYZs_-AAn9WL36HUF4_VjGs4Y8Y4T2uRTA@mail.gmail.com>
+Subject: Re: [PATCH v5] arm64: dts: renesas: r8a779g0: Add GICv3 ITS and
+ update PCIe nodes
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, Marc Zyngier <maz@kernel.org>, 
+	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-
-on 9/2/26 7:34 PM, Usama Arif wrote:
+On Sun, 9 Aug 2026 at 22:04, Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+> This SoC implements GIC600 with GICv3 ITS and PCIe host mode on this
+> SoC can use it. Add GIC ITS node into GIC node, update interrupt-map
+> and add msi-map into PCIe controller node.
 >
-> On 02/09/2026 08:37, Jiayuan Chen wrote:
->> With cgroup.memory=nokmem, shrinker_memcg_alloc() bails out early and
->> never allocates an id, so shrinker->id keeps the 0 it got from the
->> kzalloc() in shrinker_alloc(). __list_lru_init() then copies that 0
->> into lru->shrinker_id, where it looks like a valid bit index.
->>
->> Nothing calls expand_shrinker_info() on nokmem either, so
->> shrinker_nr_max stays 0 and every memcg ends up with an empty map
->> (map_nr_max == 0).
->>
->> deferred_split_folio() hands a real memcg to __list_lru_add()
->> regardless of whether the lru is memcg aware, so the first THP queued
->> in a cgroup does set_shrinker_bit(memcg, nid, 0) and trips the bounds
->> check:
->>
->> WARNING: mm/shrinker.c:212 at set_shrinker_bit+0x7d/0x90, CPU#126
->> Call Trace:
->>   <TASK>
->>   deferred_split_folio+0x18c/0x220
->>   map_anon_folio_pmd_nopf+0xdd/0x130
->>   map_anon_folio_pmd_pf+0x14/0xb0
->>   do_huge_pmd_anonymous_page+0x1a1/0x620
->>   __handle_mm_fault+0xea9/0x10d0
->>   handle_mm_fault+0xe5/0x320
->>   do_user_addr_fault+0x1cc/0x870
->>   exc_page_fault+0x81/0x1b0
->>   asm_exc_page_fault+0x27/0x30
->>   </TASK>
->>
->> Harmless, the WARN_ON_ONCE() is what keeps the out of bounds unit[]
->> read from happening, but the id should not look valid in the first
->> place. Clear it before returning.
->>
->> Two other spots could paper over this: drop the id in
->> __list_lru_init() when nokmem turns memcg_aware off, or make
->> deferred_split_folio() pass NULL like list_lru_add_obj() does. Both
->> leave shrinker->id lying around for the next caller, so fix it where
->> the id is handed out.
->>
->> Fixes: fafaeceb89a5 ("mm: switch deferred split shrinker to list_lru")
->> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
->> ---
->>   mm/shrinker.c | 2 ++
->>   1 file changed, 2 insertions(+)
->>
->> diff --git a/mm/shrinker.c b/mm/shrinker.c
->> index a70aab124a0e..7ec2a9704f6f 100644
->> --- a/mm/shrinker.c
->> +++ b/mm/shrinker.c
->> @@ -227,6 +227,8 @@ static int shrinker_memcg_alloc(struct shrinker *shrinker)
->>   {
->>   	int id;
->>   
->> +	shrinker->id = -1;
->> +
->>   	if (mem_cgroup_disabled())
->>   		return -ENOSYS;
->>   	if (mem_cgroup_kmem_disabled() && !(shrinker->flags & SHRINKER_NONSLAB))
+> The GIC ITS does have master interface to issue transactions to RAM.
+> The interface does support cacheable transactions, however, it does
+> not support shareable attribute, because the AXI port signals are tied
+> to inactive in this implementation. Therefore, add "dma-noncoherent"
+> DT property into the GIC ITS subnode.
 >
-> Thanks for the fix!
+> The GIC redistributor does not have cacheable/shareable, therefore
+> add "dma-noncoherent" DT property into the GIC node.
 >
-> I think the initialization would look better in shrinker_alloc()?
+> Co-developed-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+> Signed-off-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
+LGTM, so
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.4.
 
-Well, we have to add macro if we move it to shrinker_alloc()
+Gr{oetje,eeting}s,
 
+                        Geert
 
-     shrinker->flags = flags | SHRINKER_ALLOCATED;
-     shrinker->seeks = DEFAULT_SEEKS;
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-+#ifdef CONFIG_MEMCG
-+        shrinker->id = -1;
-+#endif
-
-
-No strong preference for me :)
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
