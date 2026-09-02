@@ -1,72 +1,76 @@
-Received: from mx0a-00154904.pphosted.com (mx0a-00154904.pphosted.com [148.163.133.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCC9B471D03;
-	Wed,  2 Sep 2026 11:49:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.133.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E9BA47F2F6
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:50:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788349768; cv=none; b=BnniWMMx33as+u5pvCLrbDxHXR3O/JKsrRvgyoiN1WOZg1CCP9BC8k22zFDehXzhaEYFaxvbXWo3mygdTj66b/34s86cz5Icq1n8uFabPEHBTo5Cdax2EJ5gHzHVp8kvQpBwaLTO1TVfp5vs0Rpr4a/6hSX6ptkYirXJL2PyAOk=
+	t=1788349813; cv=none; b=DdmC6SDqAJtwdC8jgfv6PtPlyPX2YmGP1XdYBj7idQX7BiNZNQIdWgDFkzwJ/tvO2T6JcL7+RaAMWYTXPF8eagO4yUP7HDIbl6LYxwV4YFLn5wEBbemwbYvF0ZhI/q6yM2msBoYco5WyXRoBCceqfEUQvcmyN5DnjDBQ2UoimXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788349768; c=relaxed/simple;
-	bh=r8bozCi9uh1JOKgd4eXVO5kQidR78n/zyBCPOqgHeB8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IBJTZRQ9VhbPI6fykjn1kPQudkPILad3j80fevt1/VcgltLfU6oEGXZVUCvVlkTtK2TibmeTlcSN343hz7f1pKHf5aLbQNPpnYqBHSD1QDA0iW7joupCH5r+UVibwtyqX1nQ4RxGfTCvZGK5EmOm1Z3hq2LO2vSq4TPxsYxj9Jw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dell.com; spf=pass smtp.mailfrom=dell.com; dkim=pass (2048-bit key) header.d=dell.com header.i=@dell.com header.b=AabdiF5U; dkim=pass (2048-bit key) header.d=dell.com header.i=@dell.com header.b=AVMyJ575; arc=none smtp.client-ip=148.163.133.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dell.com
+	s=arc-20240116; t=1788349813; c=relaxed/simple;
+	bh=rcPjaCxjt4CqChPDbRtD9fLW1IyZqlZXFp1Fz2irvHo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NIEvxtgNOucMEk1I+YR+YPgp0RnSMjDwjbyKwm8akB9d1LwBD4vWGWep6UsD7TOIxTQ5jN1qVvnVoplPuazXr8qmXH2BhVz734kvBkpFiRqdwUHk+5gfEnQl7h+P2BdfpH8v0CfQqRp0GzahAOqM1wuH0UtXP3lMy8E6roAn2dE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=czkdSIGI; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dell.com header.i=@dell.com header.b="AabdiF5U";
-	dkim=pass (2048-bit key) header.d=dell.com header.i=@dell.com header.b="AVMyJ575"
-Received: from pps.filterd (m0170393.ppops.net [127.0.0.1])
-	by mx0a-00154904.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6829M748417200;
-	Wed, 2 Sep 2026 07:49:18 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dell.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=smtpout1; bh=ZQrQfKrSOSMgwDlamBv2nnKeQLetsylZZkc8
-	g60AoP0=; b=AabdiF5UJL6Yy8wFxFj4Ijz0Ai5Tn1VzxNT2cxkEu2ZlkPOBGAUU
-	HnNBP6VnrUbw8LEKk/UiGLiUhNUkwzFwKejrYXVlGpQILGxD50XvA/yC3BRhTWUs
-	ynMCa61LwVCC2hw+5gVPd9pJQMIvG5Dv8yXeVPhBJRPBDjsJpe4pLcN80pQ5nTtt
-	VzFrQ9CBPCLCMr3g+mgmfVx8AY0bcWOiGgtkmXcr+uq5luau1LI5qA3mnsur8Aki
-	e8P7EoezZC59upNwyiUA7vuOwdgnDhsxnmZlzWTXx7Qfe3wRguWMQn8SYepVxMOC
-	VlF9OgMYnyarhZAtTKMsXe1OGiDaNSoYxA==
-Received: from mx0a-00154901.pphosted.com (mx0b-00154901.pphosted.com [67.231.157.37])
-	by mx0a-00154904.pphosted.com (PPS) with ESMTPS id 4gbtrg98ga-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 07:49:18 -0400 (EDT)
-Received: from pps.filterd (m0089484.ppops.net [127.0.0.1])
-	by mx0b-00154901.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682Ax2vK922456;
-	Wed, 2 Sep 2026 07:49:17 -0400
-Received: from esapsmtpat10.us.dell.com (esapsmtpat10.us.dell.com [143.166.211.153])
-	by mx0b-00154901.pphosted.com (PPS) with ESMTPS id 4gejhd8mrd-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=FAIL);
-	Wed, 02 Sep 2026 07:49:17 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="czkdSIGI"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso9495735e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:50:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=dell.com; i=@dell.com; q=dns/txt; s=smtpdev1;
-  t=1788349758; x=1819885758;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=ZQrQfKrSOSMgwDlamBv2nnKeQLetsylZZkc8g60AoP0=;
-  b=AVMyJ5751BrLr9vbwlqRanJ+pgepFyn3658mUmlgFFJHHURqttNBMFTv
-   ZWzZQmD8svoxQlIUXHRNhBfKDs6NEf09RJDKhfdq0IY0YB8giZXsZqZh0
-   +53PTR9qzmQOG2zQRC58DK1uousD9Z0IvnAQrRR3ncBZ/6muYNf4dCK0p
-   8nPBrAZenNLDlV+CF+lQW6bYiYvB4t9Ad4P9YrQ/RmYOAETVWCAPuNr7q
-   KatYwKWyQXsVwYi8b1td9Mt1IGu51y6YT8HK6ezeL+slR+pOdVFHB0Hna
-   4LOtHaWwfQ/2cF90FWsZQE5QVdB6TP/UvS0lVR9cAsRYgYW/KWDWOO84Z
-   w==;
-X-CSE-ConnectionGUID: TfZjxlnwRvijWguHmZABtQ==
-X-CSE-MsgGUID: QONU9Ld3SK6bo5dJoqqiNQ==
-X-LoopCount0: from 10.94.14.196
-X-MS-Exchange-CrossPremises-AuthAs: Internal
-Received: from w-96j1th4.apac.dell.com (HELO W-96J1TH4.blr.amer.dell.com) ([10.94.14.196])
-  by esapsmtpat10.us.dell.com with ESMTP/TLS/TLS_AES_256_GCM_SHA384; 02 Sep 2026 11:49:16 +0000
-From: Prabhakar Pujeri <prabhakar.pujeri@dell.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>
-Cc: Len Brown <lenb@kernel.org>, linux-acpi@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Prabhakar Pujeri <prabhakar.pujeri@dell.com>
-Subject: [PATCH] Documentation: ACPI: EINJ: Update stale driver source reference
-Date: Wed,  2 Sep 2026 11:49:12 +0000
-Message-ID: <20260902114912.6690-1-prabhakar.pujeri@dell.com>
-X-Mailer: git-send-email 2.53.0
+        d=gmail.com; s=20251104; t=1788349803; x=1788954603; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KQYhF3JRqYQ4KMxSdHkJy21dirNqkSr4/Y/EOxbYYiE=;
+        b=czkdSIGImZsA+QX6Hd8JQzj3yIowP8njwux0xWSHfO8znKMPT5tgSmJRSAeezNWua0
+         2nBlEFuwpTNFGdjPV/tQ80exhRGeu1BLo/UwWEPTcxgVvMfaYdqehDN8+ZU0WJL77Zt6
+         bbFK3+x/IemNYEg5l4MCaxC1ntGJjw8THGEaz7Ye+YhCRW3YR1o+Fb68jm/tQa6mK1/c
+         IOzbALtTnsTO3bJJ24oIsrrh0gBILje+CXoyY2f8ita5C4quB95wPSvyJBfVGBqnXqif
+         ZIuBVLOIUoeGQF/jFOVqL8OaZDRVuxD5UFnbBBboLuv4AldJCQpicF4OhqwWmG0w2ufx
+         uHSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788349803; x=1788954603;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KQYhF3JRqYQ4KMxSdHkJy21dirNqkSr4/Y/EOxbYYiE=;
+        b=otvzdm+SG7fqfVgvaT4iZafywojbHOD/Zy6jLZcp9drbRztY4242LqJsPru2epQZjZ
+         FuGsAT3bw/3qJWnOxRKLgsmQ34ZypYadkmyabyz1h+5Jz6spCOYBxbI6CeCJu9U4Ohhv
+         FdRmH98j78/nYPgNUW4KJejeKclIdsUp+hJbAUqdIj+xpJEIjc2lxWlvf7qwh7vpjaWQ
+         ZuAmz/cQj6APH9hN3/HOizHH3hwlHzwArduEa7drCKmKndNA5xYaC0dfdKuh0W9OPXgV
+         8mAdUjOE09q4RuIYHcajH2X/vxRlUNe6xgVuJ1l6aALFpe4XE7DabfwYPFTtNznHSbVg
+         bg+A==
+X-Forwarded-Encrypted: i=1; AHgh+RoJeqULtrRkdsCVKpbEJIlvf8tAq9uBkCdZMc1phCauRn+NhmwEPr4LlVuzXQmsaHSLBf35ctHNfVzKxjs=@vger.kernel.org
+X-Gm-Message-State: AFuF++m1jV+vnW+EnkU3ygq2bFPNARZfOZ1OW9ToTUrGNbb3xW1rTQpY
+	zVS3/UGvDVUJZK8t6GDRAolIumzJE6cXyEMSF/2rXCPGLz3KArJ8h9r5
+X-Gm-Gg: AR+sD13QH2zRfyXT3c/kUokiflCRaLVF1J6/s1oF2C3a9QclMChXclxnjXf9Qr0+v+y
+	iuGXHfljAwCKDAe/+l9WElNULTsMeim57n0rMoCK+gVVyw72yOggAj3g048TSv+g2F+PJtqktKH
+	wOSic2i+OzXNEg4mPP73wo1n/JdhYi8gYtLmetxTyF8p7uoiQTOQ/pMdUY6uaWuH58dOOM3VzBl
+	8YNrbar4i0M2WdqTEzTdhYL5tQcYtynpxRy7afQCUIkwuO82MQ9AfQ4lY6fvv/eBekWcgbusAYD
+	ikhz56kMjISGevG9hyR+HexEdTgVG0a2DdHh9gAqjJndXE1AYZqjSsGlIcYP5ECp/UvCR/j7z4H
+	3Tn8nB8EXYtdl2Y7qEiCfPyttZBEVK0hfV/KpAGDrAdDRbc/DtP3z7Xoglqf6TfqBTgsfIRs6nu
+	g7W9cmw4uhypuakb0UmYGu47DeODVkRmRd8+lhIRKce6qxVIxjjc95/s5nrAHyndoqlExl1FVAM
+	p9jXKl3sJwC/n2ekut4dW4aacEs9yXwsN1wRIfieTHSWswwYfN2HvhXJ8u6ZA==
+X-Received: by 2002:a05:600c:8b05:b0:498:943:ccc0 with SMTP id 5b1f17b1804b1-49ce5817bfemr91781575e9.6.1788349802440;
+        Wed, 02 Sep 2026 04:50:02 -0700 (PDT)
+Received: from drago.hgw.local ([2a00:1d34:e871:1c00:d71:a9eb:b721:e4dc])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce551bf7asm33475835e9.2.2026.09.02.04.50.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 04:50:01 -0700 (PDT)
+From: Deniz Aydogan <denizaydogan1902@gmail.com>
+To: lizhi.hou@amd.com,
+	amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Deniz Aydogan <denizaydogan1902@gmail.com>
+Subject: [PATCH v2] accel/amdxdna: add NULL check for job->cmd_bo
+Date: Wed,  2 Sep 2026 14:49:59 +0300
+Message-ID: <20260902114959.9553-1-denizaydogan1902@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260829080016.10002-1-denizaydogan1902@gmail.com>
+References: <20260829080016.10002-1-denizaydogan1902@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,71 +78,44 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_02,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 bulkscore=0 suspectscore=0 spamscore=0
- adultscore=0 clxscore=1011 priorityscore=1501 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020105
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDEwNCBTYWx0ZWRfX9rD5xp7nVHaz
- hsQi50oQJ/MeuquPwi8ySxW9gX9aKENWdvOTNPcH6VxpyxCBaBDN5EU5l9yCLsawyO2zBG/topg
- PrHEp+xPbD8oFVasSe7KqiclOTbZITL7uPgb7IpV9smMWbdpNDM7HEmM1SrSnjjWcKdTv4k5+16
- Teh0TWGvB1LCMcQHvAMzHuUKKyp1CW5I4GKdEhUItsq5Nh9se69Jxl218nOT9nrXNzrjZYEt7AA
- K8SITExfWkgu2SK7IGkrDejO2KFuHw6DSXiBGzgL92/lI6oG359x/RUOxOkQ+zOmKOPUT7MoIKe
- BD/ULYBRdPvFi5YGfY8Q/M+w5utR4kG4VoREuX4zK4+6NqDwpTLtpdpS9oyK7LoeKzTktjfDn4g
- VNnz5QHFU4isg8xbpEQ+q/iWImn3gpk4vbdi0iR1eerauvtLPfXb1X5G4I9Cm6zhU2szzDc/Djm
- EuFWjOX2A9HcXWrbE/w==
-X-Authority-Analysis: v=2.4 cv=SeXHsPRu c=1 sm=1 tr=0 ts=6a980d3e cx=c_pps
- a=Z2e5DKjA+8LiMDv5v6mwwA==:117 a=zctdXvwhg3EK6xEvKeLW8g==:17
- a=VdqzKS8jKosA:10 a=ke5jqHz-1hQA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=6gNNCFAoQcIphELLPWWu:22 a=2Lpba0WeoN7BYVdwMO11:22 a=iLNU1ar6AAAA:8
- a=0cIJ9W-BkcCEToZRgK4A:9 a=hlJyneSgMmFPbskH-t2w:22
-X-Proofpoint-GUID: AvVxTOOfOV8evQabP7pnKt864inRECXh
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDEwNCBTYWx0ZWRfX0XQ0X4CJLys7
- IIQAlKIhzHdF+X7rZXZpriUCj/tkjSKGgGK7egAfv3udyQXTqN5Y+DewWIFSDweM3FSMLDl9DSX
- 3gNLPh1fLmNbAYGWiRuYmsz3EPc6d4U=
-X-Proofpoint-ORIG-GUID: AvVxTOOfOV8evQabP7pnKt864inRECXh
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 malwarescore=0 clxscore=1015 priorityscore=1501
- suspectscore=0 adultscore=0 phishscore=0 impostorscore=0 spamscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609020104
 
-The EINJ implementation was split when CXL protocol error injection
-support landed: einj-core.c holds the core logic, einj-cxl.c the
-CXL-specific part, and apei-internal.h the shared plumbing. The old
-drivers/acpi/apei/einj.c does not exist anymore, so the documentation
-points readers at a nonexistent file.
+amdxdna_cmd_submit() leaves job->cmd_bo as NULL for internal driver
+commands that use AMDXDNA_INVALID_BO_HANDLE. The cleanup paths in
+amdxdna_cmd_submit() error handling and amdxdna_sched_job_cleanup()
+call amdxdna_gem_put_obj(job->cmd_bo) unconditionally.
 
-Point them at the actual files instead.
+Although drm_gem_object_put() handles NULL, adding an explicit check
+makes the code more robust and easier to reason about.
 
-Signed-off-by: Prabhakar Pujeri <prabhakar.pujeri@dell.com>
+Signed-off-by: Deniz Aydogan <denizaydogan1902@gmail.com>
 ---
- Documentation/firmware-guide/acpi/apei/einj.rst | 6 ++++--
+ drivers/accel/amdxdna/amdxdna_ctx.c | 6 ++++--
  1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/firmware-guide/acpi/apei/einj.rst b/Documentation/firmware-guide/acpi/apei/einj.rst
-index 7d8435d35..70fa59bd9 100644
---- a/Documentation/firmware-guide/acpi/apei/einj.rst
-+++ b/Documentation/firmware-guide/acpi/apei/einj.rst
-@@ -180,8 +180,10 @@ function are specified using param1::
- 	| segment |   bus  | device | function | reserved |
- 	+-------------------------------------------------+
- 
--Anyway, you get the idea, if there's doubt just take a look at the code
--in drivers/acpi/apei/einj.c.
-+Anyway, you get the idea, if there's doubt just take a look at the code:
-+drivers/acpi/apei/einj-core.c holds the core logic, while CXL-specific
-+handling lives in drivers/acpi/apei/einj-cxl.c and the shared plumbing
-+in drivers/acpi/apei/apei-internal.h.
- 
- An ACPI 5.0 BIOS may also allow vendor-specific errors to be injected.
- In this case a file named vendor will contain identifying information
-
-base-commit: 89a312991dc6e638a36adc43ccb91dbc25504c04
+diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
+index 31a414c3f..21f0560e6 100644
+--- a/drivers/accel/amdxdna/amdxdna_ctx.c
++++ b/drivers/accel/amdxdna/amdxdna_ctx.c
+@@ -575,7 +575,8 @@ void amdxdna_sched_job_cleanup(struct amdxdna_sched_job *job)
+ 	trace_amdxdna_debug_point(job->hwctx->name, job->seq, "job release");
+ 	amdxdna_pm_suspend_put(job->hwctx->client->xdna);
+ 	amdxdna_arg_bos_put(job);
+-	amdxdna_gem_put_obj(job->cmd_bo);
++	if (job->cmd_bo)
++		amdxdna_gem_put_obj(job->cmd_bo);
+ 	dma_fence_put(job->fence);
+ 	mmdrop(job->mm);
+ }
+@@ -676,7 +677,8 @@ int amdxdna_cmd_submit(struct amdxdna_client *client,
+ put_bos:
+ 	amdxdna_arg_bos_put(job);
+ cmd_put:
+-	amdxdna_gem_put_obj(job->cmd_bo);
++	if (job->cmd_bo)
++		amdxdna_gem_put_obj(job->cmd_bo);
+ free_job:
+ 	if (job->mm)
+ 		mmdrop(job->mm);
 -- 
 2.55.0
 
