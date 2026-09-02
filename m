@@ -1,132 +1,115 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 976254A92D6
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:32:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AB88E377EDC;
+	Wed,  2 Sep 2026 15:33:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788363147; cv=none; b=LvVlX7CFUWxJmGUHS7Sb0qnmuNcY3n1Yc3b6LhZ/aTPjRoDI9GvzPMLDM7BZn0BooW7K+HvogWcyZoJyJdeB9mkl4GcFd+KSJ4UAe0PXVg/Rz836HdZZQVNHy5hvAeo3xs8eefgpO3Zib2PPJ8ae3+VVYYmxC11z462h8i7aXCI=
+	t=1788363197; cv=none; b=DXkmeq4PrPC1k+YzIW3gP8oUnss2K6A3+R75oqKK5Jjhy++2FrdhpTs+n1y7lKF+dhImQ4GkhmDDmMP5f/6c/O22D6s3g7ZtfnvwwxtIFJesx4L2/PksE7AQKw+r5flG8/1GSEgKX92mzx86Ca8Ifl+9ascuwOUwoEzHKF0ZC2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788363147; c=relaxed/simple;
-	bh=qLHWnBEOFjUrpzfP4yE/vh+2VmaJi14XWXyewY/A7BM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JlVNPeg6JKdEK4Puc48JXYKi6EuqTtkeJSkZ27DLxMpGYkrnJU7bN4TdX8cI4bLpRpaE/OjjePNM0Nr6a3UuXaLzxoCh6rsmZzhuzi0ed6TQTIz4/AMkVd6BPTSliyvKk1A16bVMQmO09sQrJyMOHzpiuz/2eezg7rMPTER2i9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gHcpWy5C; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788363197; c=relaxed/simple;
+	bh=q6zM+dYnk3uLre3h3ADt28YxAVcvVSD58NOOSL5QC9c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gOGNaeKSEjgqKSg6N21fJ7xhnAXgJipWCZYFKzKk3CyF+yckebErWwrPqvez4j6K2bdfq7uffnIJiu6/iDMFLOMxZm/WEFZ6gRFwi0RB2fPfATlF2+0A4SxIjabXvUVfy5Cd+5+jORMb68+U4YcXL/4aNCxIEbp/nkzExvJR4Lk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=WS8Athyv; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gHcpWy5C"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2ce98cb8165so14263165ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 08:32:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788363145; x=1788967945; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=J6CFSQBR//cpcDAomOpl3DbC5UldpOdeC10IA56wysg=;
-        b=gHcpWy5CV926sWiV4tBkkXxqpiDnx6+fFCwHKABJp4EU4O8gqMiOFOAXk0b87chAIH
-         r7MbOXZGLC/DLXRltGs3eJ48vqkWskDMI5R7oDFLx2IMpwKC+DYjcdCv1uySrILy7QPO
-         tCZyZIE6YtX2241L5kg2QQnfHUPRbUjMRazR0HTooPIGDvTioJryC4O3N62Ny/CyCgfl
-         iWtK+qtD2JmcI/OlMQwVAV/Gzrk6SCJgw+t6Oy7NI4qVHZkx2/B3y5E/sftHZRRnXTyO
-         jvdadV9XP98zyNQYwVvEqZcqj38En8gJTLMfjg79st8UOLNEC+jkCEZVsd2ARa8Q9iQT
-         5evQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788363145; x=1788967945;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=J6CFSQBR//cpcDAomOpl3DbC5UldpOdeC10IA56wysg=;
-        b=i8ZFIiwLWXznepcvFDlKukKItLiRPf89am+VMm6qjuU3fpkYtPflG4grXA3DQd0sQw
-         42GPgbJdLEjYzdXuTZzXTThLbQ6KXNxVoK/yzI11KpwusKzv15N5QY7Q8Jm3UXcTmiST
-         1G9lBgeFuBBIZIeL09r51sGkk8nujd9nzCuLAvVGO/QnOaF11BOIOA3bJAPhYwz1QuX9
-         kCxpVI5vnvOm4YenxAdeDZ06NRnf0g3CLRD1UrAmqNbOF+2AKMLi/kX8JXCrwANHnai8
-         ExKebS03jxI9TJpIwirl6kIbMBphmLj4j18jTMjeMQnoubuI1OF/ddHBreqhsMmxof7C
-         y9bw==
-X-Forwarded-Encrypted: i=1; AKwUvBzHNVrQ1VkD1B4elggcfORJMI04/Pd2K41QTmQlEq+YIiznu1W+reixfj+2jroDQ1fDFrfnRb6LTIOVzwM=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2u/NgkHfsFaUykBGt3rPDDg9wzIQkafM77pL/NBNoq39OFJuG
-	Z/nCK23kYFkvhwmZE0C4P4jkjJL3L5XzgfSW7IB6lwfI7FIC5SpxBGzf
-X-Gm-Gg: AYBFou3q+JxOvYXxFbQMpeFa0tV6g/sVJLOIZoOxVnzZv7s1ohIaKaa3qyjIFC+ZsgJ
-	BY8JHdyiKRu5wOk/UipQUSf5cKGYd5//grQ4dv4/VawtTnxDEog77vJnknP0ci5OZ3eHdILD5qp
-	Vn9N6nmlknj06KR06WI1AlBd+1M8dw2CKtg5Mty/Qpklxya4Hfm48XODknNzPxEgD7xFnRSFJx4
-	vVFJo5XYk1ULLuwnHklcWItFY3H52Gz6DhweCXmIko7dlhbK/usDjoDZhYEYCLvHF/85fINoRsV
-	YGgtjxKLxZu1bBXinsQkRLzycfON87iA+NoaP/+SIZS0p4clXX6nKup2Zx3r0zcFDqeAx0S/+Ys
-	LvQBkrA3GYmyG8+dzl8bY0ceUkLs4QlcBjh4j1MAi4Vy5m46N1tinWX9bGn3NzohG6BXJOsb9DX
-	ZT8DSKfsXcObTnB3I4cbtDSTB3r2Ua3q6kCTVJqw4neUxJq4BqJnvIgGoBQeg=
-X-Received: by 2002:a17:903:1245:b0:2d7:1cbd:9ceb with SMTP id d9443c01a7336-2daf1342881mr28557975ad.12.1788363144243;
-        Wed, 02 Sep 2026 08:32:24 -0700 (PDT)
-Received: from gmail.com ([185.220.238.35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2daf43d41e2sm6944815ad.60.2026.09.02.08.32.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 08:32:23 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
-To: SJ Park <sj@kernel.org>
-Cc: Kunwu Chan <kunwu.chan@linux.dev>,
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WS8Athyv"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 54457165C;
+	Wed,  2 Sep 2026 08:33:05 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 617873F673;
+	Wed,  2 Sep 2026 08:33:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788363189; bh=q6zM+dYnk3uLre3h3ADt28YxAVcvVSD58NOOSL5QC9c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WS8AthyvSC51Gh9K86037JTsHB1psTeejY/5kultKBFvtj7oe0q+D7TIKNenFT8nc
+	 eoFvY/dbmoQu0N0cwiE4XiGbyOAkj/cxXEpIKIIqfUbk4nke4IwKXcWG980TMbr2YN
+	 wQ45cdapU18X9zzjx5MKX1qsQ4eFw1qfjjmpCBQI=
+Date: Wed, 2 Sep 2026 16:33:04 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: Re: [PATCH 04/12] mm/damon/core: validate number of probes in valid_probe_params()
-Date: Wed,  2 Sep 2026 23:32:15 +0800
-Message-ID: <20260902153216.4034305-1-kunwu.chan@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260902054747.99370-5-sj@kernel.org>
-References: 
+	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/3] kselftest: mm: prevent random failure of huge
+ page split for khugepaged
+Message-ID: <aphBsGKJkpSphK8h@e129823.arm.com>
+References: <20260902-fix_split-v4-0-85f03905f7b1@arm.com>
+ <20260902-fix_split-v4-1-85f03905f7b1@arm.com>
+ <apg7FNLtFO3Ea5qC@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apg7FNLtFO3Ea5qC@gremlin>
 
-On Tue,  1 Sep 2026 22:47:37 -0700 SJ Park <sj@kernel.org> wrote:
-
-> Each DAMON context is allowed to have only up to DAMON_MAX_PROBES
-> probes.  The central place for validating DAMON probe parameters,
-> damon_valid_probe_params(), is not validating the upper limit, though.
-> Do the validation.
+On Wed, Sep 02, 2026 at 04:15:17PM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Wed, Sep 02, 2026 at 01:09:35PM +0100, Yeoreum Yun wrote:
+> > There're some random failure for split_huge_page_test when khugepaged
+> > collapses pages into pmd again which had split by the test.
+> >
+> > Prevent the khugepaged's collapses for split page by setting the
+> > mapped pmd-huge-page with MADV_NOHUGEPAGE before split.
 > 
-> Signed-off-by: SJ Park <sj@kernel.org>
-> ---
->  mm/damon/core.c | 7 +++++++
->  1 file changed, 7 insertions(+)
+> Maybe worth saying that MADV_NOHUGEPAGE doesn't immediately split anything, just
+> prevents future khugepaged collapses?
 > 
-> diff --git a/mm/damon/core.c b/mm/damon/core.c
-> index 4d28eb033fc4a..c010f686d033e 100644
-> --- a/mm/damon/core.c
-> +++ b/mm/damon/core.c
-> @@ -1420,6 +1420,13 @@ static bool damon_valid_probe_params(struct damon_ctx *ctx)
->  	unsigned char max_probe_hits;
->  	struct damon_probe *probe;
->  	unsigned int wsum, wsum_to_add;
-> +	int nr_probes;
-> +
-> +	nr_probes = 0;
-> +	damon_for_each_probe(probe, ctx)
-> +		nr_probes++;
-> +	if (nr_probes > DAMON_MAX_PROBES)
-> +		return false;
-
-Hi SJ,
-
-Thanks for the explanation.
-
-I agree that `DAMON_MAX_PROBES` is better enforced in the core layer,
-so that all callers share the same validation path without duplicating
-the limit in the sysfs layer.
-
-Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
-
-Thanks,
-Kunwu
-
->  
->  	if (!damon_has_probe_weights(ctx))
->  		return true;
-> -- 
-> 2.47.3
+> >
+> > Suggested-by: Kevin Brodsky <kevin.brodsky@arm.com>
+> > Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
 > 
+> LGTM, thanks, with a few nits above/below (sorry! :P)
+> 
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> 
+> > ---
+> >  tools/testing/selftests/mm/split_huge_page_test.c | 19 +++++++++++++++++++
+> >  1 file changed, 19 insertions(+)
+> >
+> > diff --git a/tools/testing/selftests/mm/split_huge_page_test.c b/tools/testing/selftests/mm/split_huge_page_test.c
+> > index 86a603692826..4bbad892bc57 100644
+> > --- a/tools/testing/selftests/mm/split_huge_page_test.c
+> > +++ b/tools/testing/selftests/mm/split_huge_page_test.c
+> > @@ -168,6 +168,14 @@ static char *allocate_zero_filled_hugepage(size_t len)
+> >  	return result;
+> >  }
+> >
+> > +static void madv_nohuge(void *addr, size_t len)
+> 
+> Maybe call it disable_khugepaged() to make it explicit that's what this is doing
+> rather than eliminating any THP pages in the range?
+> 
+> > +{
+> 
+> Maybe a comment here like:
+> 
+> 	/*
+> 	 * Disables khugepaged from collapsing THPs in range, existing THP
+> 	 * pages remain.
+> 	 */
 
-Sent using hkml (https://github.com/sjp38/hackermail)
+Okay :) I'll modify in the next-round. Thanks!
+
+[...]
+
+-- 
+Sincerely,
+Yeoreum Yun
