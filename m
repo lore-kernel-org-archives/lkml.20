@@ -1,87 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABCDE78F3A;
-	Wed,  2 Sep 2026 08:10:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDF6330C606;
+	Wed,  2 Sep 2026 08:10:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788336621; cv=none; b=hKy4X04+kkyo9eP0onfbJKERmVog4tdDZGBsJKVq4nTfWRhVwfSNnhkKIzHWGPTHuRSwqFyx7zCy7BdbY9cKZ0mo4DMNrr/CxRkTNtU1N0cdhTBesvUlAY28BkT0f/SZluc+NKXu0WoORiqoc0JVYLgV26ngpNnOf18T+1IxIiI=
+	t=1788336624; cv=none; b=NMe3mS2ksqouo5yjBwuPa9CUt0WN5y5yOIELctksvD7KkESN1XdKG93AWabwRo/SPhyURqnjO/sbpn3HoEUMTKTBjFlv3+2/ySdQl69fThU9A0zjc5RzgGt7bYKIZtcF1OhxcCbdGOG+UlcevP3YqZ4G4FJMoc7GXHIdPI0TJbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788336621; c=relaxed/simple;
-	bh=DXWq8zxGd1oUXBpDYZRfBgWyt8SHN5Iotedx30lle0o=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=bNSQO/o4raVaT9TzCo1KzumUGTA7uFJrPnRzG/1POOACHdCDw5E490iNz0Pi9nrF+bhSleGWXBQWqzQYDSOyMP1jxggKTrtZvRtTwQJ90/T1QOGFyo3f6umRMh/4EQTBbSsIa0Kx08CGWeRJ3tZfjtWRAljh5Lff68qV/572ItA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hnjdeSs/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788336624; c=relaxed/simple;
+	bh=XKMcISq6WvTLICvhduajMvfPQ6PfVxV1JboFKHz2ydQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IreI6i1chwKCRmQrix1Z7XVDqWb5YbCKQt2jxpUd8oA1we/tKtctCkKgCTvDURvWhf2vCRdDyyxfYliLCWZGiPMQconVf6CYWkp9qZAw65vbjFfdX4/6IBt+EcExfYQJEPDZfq+AXVHRQHrwdFQr2k5DbfkVD1U5Wc3BHRd2SPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=rm1X7tqu; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hnjdeSs/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED9961F000E9;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="rm1X7tqu"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 10CE34E414D1;
+	Wed,  2 Sep 2026 08:10:17 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id BC0F06053C;
 	Wed,  2 Sep 2026 08:10:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788336620;
-	bh=KVRjFVx2THf+2ab6VEX/XQsEUUMQI8nKJ9zQDxApLGE=;
-	h=From:Subject:Date:To:Cc;
-	b=hnjdeSs/p4PWgxfb+1oVsPk4hv29rMGmEMQa1vgOsY7FgAN1zhG7T3q9tZvhSc7yY
-	 kSfJHQFL7NDeYDjK1mADjQQF9wO85gLX3iKV4AalgnH7qx830JWnU/4p9ofbD9PjQq
-	 n2NAbtjBlNzAo+Td4zTW/raE0/oK3t/YWkyjqitIz7sPHdXXoZOVLyRHPJM7KhVekt
-	 DjQ8+RoTMJ0xStk+bA3SAKsUw1634VGU1rLWGNFwIuCkZ+nO4PbtlANHkvvcd/JFBm
-	 96ujyMjiLUVPsY+oSq9y/hGY9KRpgVt7iQK51Zf8xeIJ1w2yBkYHPQXdf4Vt3nGLMB
-	 OVjFGjhaDMI0g==
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Subject: [PATCH v2 0/2] docs/core-api: memory-allocation: add
- k[mz]alloc_obj() and clarify kmalloc
-Date: Wed, 02 Sep 2026 11:10:10 +0300
-Message-Id: <20260902-docs-memalloc-guide-v2-0-218c1a4dcb80@kernel.org>
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 66A3511C792EE;
+	Wed,  2 Sep 2026 10:10:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788336615; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=YUTgwGPsz/G8YVkdcuR946dpfwYBYz1f/gwExtavfow=;
+	b=rm1X7tquNlI43uAjIBLL4+zHyeyVr0yx+4YYJ+38AcnqmmjP5pSNNtPJ9XTSn18O/NCzZL
+	h1nuqH/lGibMgWA1sBbga9kDPSXqFtCOuK41zusjMUqQFZAERFrhZru51qEF8m2UEz3/JH
+	UdutglbNqXVxYActnp1sI0mvTi9SIVXp/ShLYmrtoD1AB23eA/dOCuXbzIFjvTDi7mOn1P
+	oQ/ss3mtRv/WryHLV1Rp/GRezb8r4VFA7EBthK/RjSCYOuyTmsNZsMOg5k2vNFoLKQY+Kf
+	tQRjqhcAEWWLg6eT3DSpl+bUnn4Q8sbPYTCc4rELErFKQgMuyp83Qg0w6M/SoQ==
+Message-ID: <b609cf54-2e37-4c43-80c9-ae3d013cc4a8@bootlin.com>
+Date: Wed, 2 Sep 2026 10:10:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: phy: dp83848: check phy_read() return value in
+ config_init()
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>, Andrew Lunn
+ <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Alvaro Gamez Machado <alvaro.gamez@hazent.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260902065828.1031113-1-donggeunyoo.kernel@gmail.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260902065828.1031113-1-donggeunyoo.kernel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32Oyw6CMBBFf8V0bZXWysOV/2FY9DHCKLRmCkRD+
- Hcp7l2ee2dO7swiEEJkl93MCCaMGPwKcr9jttW+AY5uZSYzmWflSXAXbOQ99LrrguXNiA64s8q
- ZSjmnq5ytny+CO743663+cRzNA+yQVOnC6AjckPa2TVEgbNAfex0HoNS3GIdAn23WJJLn/4JJ8
- IyfVVGI0spCWXF9AnnoDoEaVi/L8gW04Dyu6QAAAA==
-X-Change-ID: 20260831-docs-memalloc-guide-dc4db94dda96
-To: Jonathan Corbet <corbet@lwn.net>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>, 
- Mike Rapoport <rppt@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
- SJ Park <sj@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>, 
- Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
-X-Mailer: b4 0.17-dev
+X-Last-TLS-Session-Version: TLSv1.3
 
-Update hte memory-allocation guide to describe k[mz]alloc_obj() and
-clarify description of kmalloc() size limitations.
+Hi,
 
-And when I realized that get_maintainers.pl does not list any of mm
-people for that patch I added the MAINTAINERS update as well :)
+On 9/2/26 08:58, Donggeun Yoo wrote:
+> dp83848_config_init() reads BMCR to detect whether auto-negotiation is
+> enabled, but does not check the phy_read() return value. On an MDIO read
+> failure phy_read() returns a negative errno, which is then used directly
+> in a bitwise test; the auto-negotiation state is left undefined while
+> config_init() still reports success.
+> 
+> Check the return value and propagate the error.
+> 
+> Fixes: b718e8c8f4f5 ("net: phy: dp83822: use BMCR_ANENABLE instead of BMSR_ANEGCAPABLE for DP83620")
+> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
----
-v2 changes:
-* update kmalloc limit phrasing as Vlastimil suggested
-* make sure changelog matches the changes for MAINTAINERS update
-* fix grammar and spelling
-* add tags, thanks everyone!
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-v1: https://patch.msgid.link/20260831-docs-memalloc-guide-v1-0-547718c274c1@kernel.org
+Maxime
 
----
-Mike Rapoport (Microsoft) (2):
-      docs/core-api: memory-allocation: add k[mz]alloc_obj() and clarify kmalloc
-      MAINTAINERS: add memory related docs in core-mm/ to MM - MISC section
-
- Documentation/core-api/memory-allocation.rst | 30 +++++++++++++++++++++-------
- MAINTAINERS                                  |  2 ++
- 2 files changed, 25 insertions(+), 7 deletions(-)
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260831-docs-memalloc-guide-dc4db94dda96
-
---
-Sincerely yours,
-Mike.
+> ---
+> Only compile-tested; I do not have DP83848-family hardware.
+> 
+>  drivers/net/phy/dp83848.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/net/phy/dp83848.c b/drivers/net/phy/dp83848.c
+> index d88b1999d596..e65651ac567a 100644
+> --- a/drivers/net/phy/dp83848.c
+> +++ b/drivers/net/phy/dp83848.c
+> @@ -117,6 +117,9 @@ static int dp83848_config_init(struct phy_device *phydev)
+>  	 * we check initial value of BMCR Auto negotiation enable bit
+>  	 */
+>  	val = phy_read(phydev, MII_BMCR);
+> +	if (val < 0)
+> +		return val;
+> +
+>  	if (!(val & BMCR_ANENABLE))
+>  		phydev->autoneg = AUTONEG_DISABLE;
+>  
+> 
+> base-commit: 70f3995830d3f1e79faa14eb0605914f778feca9
 
