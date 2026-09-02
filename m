@@ -1,191 +1,243 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012041.outbound.protection.outlook.com [40.107.209.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25C194ACC88;
-	Wed,  2 Sep 2026 16:48:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788367683; cv=fail; b=Zie7kRLa7ENFKCQpTNvbA5fCCx0FDt017A70PsL2mAwhD+z3ZOHMqyRlXbo084cAdTdzQAxgrCxJOijtd9NUR5RkA6qw5X4kn6dCqktWB+5/HDbqDzWUgPGOd+jDIRmWEwDoSqSoeVQy8iaVgiM3Fck1HzaJYPDacFhWpnGn+Bg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788367683; c=relaxed/simple;
-	bh=o8liquoPgyQMv7VEAD66g4mCaQ8bDgn6BwqdYxwew34=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OjXwsepAbgHKj0zSDClJtDhVdG6Q3Qdprq5AtHDBfMS+bLYRanxm/ULBdymdPmr5uHM5iZDufOGvRXC+RPLsoSC9FW2UFVc12GJ8oGPBIXLghf3bHYLqbJ6qrD5c9Lgiz5OdG4z4ryYjcKuDb8/AFu585u2oPj3qIgs6Qlf8cCc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=r+475SHL; arc=fail smtp.client-ip=40.107.209.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3D4BB4A64D1;
+	Wed,  2 Sep 2026 16:48:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788367707; cv=none; b=auaLOrPY2M/Fk60f5C0EQo7VvS1tNFDcxstsH4M1/sE2LYwmHeQRHQ1nxf0ddilJ425b7PhnYRLZgBFhsYf6UmBPcB4qtb34MjDVgqlAroYdBUcC7jLzY9bJNLjWfzBWfrKTtlehXDH9kJ30PENfQJhZJkntNYsL4pSsqniDVrM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788367707; c=relaxed/simple;
+	bh=U+OH94B40NoTGV5hu0mRvJHuyvI3dakCwtDknNYstOA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CMQkQUAUTqAvNptWv4AOHwG8eUvH3Sz/a7y1nGjQAfY0K/gs3D6kw0n6QRDa+Srz629m/oSyutaKoVKU+ZoRuN4XRUUPZvPR2CFvX78AsQZhBJV4leChcMKpzhciawK7OnV9pFmocvEijgjSpWQXybXViHMWDbgVuU4jbuE2kt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=GnvXWjox; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="r+475SHL"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XnDVKDZhYGdWmQfVOGj2aivUonwlanqyapzgsRchqSUp9KCxEa3bq3VHgPVVU6auRhDAe0UExBtIftSx2h40liokRfnsLOMy1YzkRxPpKQZ0U8mhLxjmhqCXmgPmA81gRlaEKazcppRu/amPaNOO67FZ8sB8Q+grYZvw3RLfTPZnDA5PlP6/ARBdSvu10PimmRlEkhQE2sTq56/j/mrPLJQaAkjC1Ny+ofPjmiZc6yiv+JgMuByPG1SSIYfLUb5SOhGgKvs06Uie+hm1r5AaICtVLZtwwpoCHiC6qkpz6DN3u4PDFJuwjYQWBXzabEdhMiEn9KHjT9MS9GboUqhfIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5mdoGrb0cWFdGzpkjl/Wrt7hgSr2nisP9rrhCMRkVng=;
- b=MOc9ueWrArtSGR1KXBRJOociBRtRrFFN9Dmf6qztFHq7LO4EAcOqHpxkUTqJBVQAFouYK9rLp3ECasa1eZ0ytbz2Rklb4YGatuqvAeJ8St6Ih45P/lTmQNVtfPwwVNP69V9CfgwJObL4X4iBveFeWu04gt3XC+QxMMwmsBeN9wyXFe7ZRCFLo0yvmIIyp7Xp3E2Hx8CwkZQWhxnYgTLWMfs8o3v0wj8mVEM5zSFnn+zF3KnJNZE5y3k2nvL1ltcgwj15LQ/hGaLyJopwDtvvKpnzsHldjOtj1CXKk2rlVq5mkAjHvZYOwMAvnD3we5Nq7Q0RBwIwpvbJp6mB2gMu5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5mdoGrb0cWFdGzpkjl/Wrt7hgSr2nisP9rrhCMRkVng=;
- b=r+475SHL8AP3oPz5XiYEsza+IBIflMulG+w5CHFmoUMKKKneSVTWQjkzjaLvVEB5y11nHCG71b15tUf+PZ9XNgCzAExgSRhfK5HD7Q+KNaorie0RzwKGeIb9m9ZcRCjNSeMTEzFvPW6NeqXrCirVw+27cdkoNS6fZ9uxUUkucki6jXBKZ9R7l3TTZ7gtGyeSVfsGLv2L0lWz4Eui2pekXjpuwq1k1gmQP7BLyFcl0HFRCL1LQ8W+YWKnJQBUf/ztyyG4TqcboSrgK6I5DFuCQcqZM/xVStSXWhCdX0HArzI0C9brnVt4ulyAZpI07pkwEyxiuEJ6QTsPz9lOsEocLQ==
-Received: from BN9P223CA0021.NAMP223.PROD.OUTLOOK.COM (2603:10b6:408:10b::26)
- by CH0PR12MB8578.namprd12.prod.outlook.com (2603:10b6:610:18e::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Wed, 2 Sep
- 2026 16:47:53 +0000
-Received: from BN7PEPF00000093.namprd03.prod.outlook.com
- (2603:10b6:408:10b:cafe::57) by BN9P223CA0021.outlook.office365.com
- (2603:10b6:408:10b::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Wed, 2
- Sep 2026 16:47:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.232)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- BN7PEPF00000093.mail.protection.outlook.com (10.167.245.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 16:47:52 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
- 2026 09:47:24 -0700
-Received: from drhqmail202.nvidia.com (10.126.190.181) by
- drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 2 Sep 2026 09:47:23 -0700
-Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com
- (10.126.190.181) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Wed, 2 Sep 2026 09:47:19 -0700
-From: Tariq Toukan <tariqt@nvidia.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
-CC: Dragos Tatulea <dtatulea@nvidia.com>, Eran Ben Elisha <eranbe@nvidia.com>,
-	Gal Pressman <gal@nvidia.com>, Jianbo Liu <jianbol@nvidia.com>, "Leon
- Romanovsky" <leon@kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-rdma@vger.kernel.org>, Mark Bloch <mbloch@nvidia.com>, Moshe Shemesh
-	<moshe@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>, Shahar Shitrit
-	<shshitrit@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>, Yael Chemla
-	<ychemla@nvidia.com>
-Subject: [PATCH net 3/3] net/mlx5e: Fix reporting support for all RS FEC variants
-Date: Wed, 2 Sep 2026 19:46:34 +0300
-Message-ID: <20260902164634.3657606-4-tariqt@nvidia.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20260902164634.3657606-1-tariqt@nvidia.com>
-References: <20260902164634.3657606-1-tariqt@nvidia.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="GnvXWjox"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CC6061682;
+	Wed,  2 Sep 2026 09:48:20 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 07F7F3F882;
+	Wed,  2 Sep 2026 09:48:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788367704; bh=U+OH94B40NoTGV5hu0mRvJHuyvI3dakCwtDknNYstOA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=GnvXWjoxcxOtSQbkJLQQ3GnOKnrJ9nFr10cfwUtCgJWT/roaoVtAf1/mEvzgvikQ5
+	 RXVLekBW58kpBfbq00LwbRmlPLU/+FVDFDSMj4JxcQvr3vN8VaI7ommpT64lB9niJ6
+	 AjsG8nFfQXvSizHpPhebOyU19vy801Vi2MdIplc0=
+Date: Wed, 2 Sep 2026 17:48:14 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+	Tianrui Zhao <zhaotianrui@loongson.cn>,
+	Bibo Mao <maobibo@loongson.cn>, Anup Patel <anup@brainfault.org>,
+	Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Jonas Bonn <jonas@southpole.se>,
+	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
+	Stafford Horne <shorne@gmail.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-mips@vger.kernel.org,
+	linux-arch@vger.kernel.org, linux-mm@kvack.org, kvm@vger.kernel.org,
+	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+	linux-openrisc@vger.kernel.org
+Subject: Re: [PATCH RFC v3 15/21] x86: mm: skip collapse_pud_page() when
+ CONFIG_X86_DIRECT_GBPAGES disabled
+Message-ID: <aphTTqhf3yO74JoO@e129823.arm.com>
+References: <20260902-dummy_ptxp3-v3-0-5d8f5b17c25c@arm.com>
+ <20260902-dummy_ptxp3-v3-15-5d8f5b17c25c@arm.com>
+ <fa4acc56-9742-4a5e-abd4-7491ad426940@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF00000093:EE_|CH0PR12MB8578:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1ff1265c-f255-49f9-5655-08df0911ee51
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|376014|82310400026|23010399003|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	fBrzqR4iEZsLyqTybNCsV+mtg3wilQBPMAsH51Cbins8Rgjo9NbEXNVJaRxXQsOp2/tgbz8EuunBiEZHo8O1aMDAuuaFSLHFZZ9f+ptBSuUCf72eS6Hv64zJQZMUO2wzRDPmLhoNFlZCpy5aNuXBeHHJ9eEaUatXwj8vap7wTWb82ZpTKnzMfr+xlKVEcuyyAEprr7D+vsWqzPuCofgf5yAlatPmRTc9dZyht3qYUUykD7rxPgF1m19yk0nHjO+fNZmRnmhhAG/AsYswG5/9q/0NhIZ3JmCYw79SGK5SMa1SVH23A7RLbJgqYWY6dpPpxqzIoCC6v8xzxiGxmRylob/lAsM/ZyTSQIbJ75zVCwHakMZdqZDIPWmrU7pZu6Efd9mxQ8mzMxioBXMRnykXux6DqEC2zPGstgCqK5PqM7CDONJjizzAdQiaxNqlOFRhHg9YELL821qvQFCJMoTaI7Z9fI3J6BM/UuMQG9Qf67w43H4ssQ8UcNuyb4aucaEcpXL/noEO4ISSnGO4U/Qika0gMQ5nnj0Qb6gbRSEa3Rltggh05iHvubYFe48lGprsFhvj+a28RYnK2Jei7jo8tXfgXfwHUTXYUY14XkVodUAit9aCSxgF++/X7w/pWAl5KOcH5dAjnEDR9fFsvbaqUS9BulimH+wGEg44mVap/NYiFYJg+D51EPQD7cRxrQQPXlj+37evsNF9jvuxnp6ytg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026)(23010399003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	yQsBTO/y59W8yGeoNyhmLQqcuAxvvjw9iCqcGl8b2ACZzAoSgSp27YZ7ZFZsm4dbikIdT6zZS+nZHMXOtMP+1tXw7xHA5/md08HA+Xp0i/aOzJJsN9nPAaDw/4FX6l25Fu8iwNDB1o/5BFbEc/yYB/ZvzrRtJXOq7gBmR+aPi7TAIgDgfr1SiBcXMDGKKb64MeKqVS5+h1lexqwVueiiyytKuLMZCFLL3sqUmH7mJcUWHSGk/guqVPt39N44U+gBIsF49Q52zkDrKYXBYkgCP2/AlvfWvO154UMdz4ZoZ/ezhfHKH6km6kvM4usjwt8/dy1J1GXD2GiHdrA3lWzxvis35tGNHh7F7VMUruYd2O7yob99WT4xb1LJs72m/o0RoU3XbZuTxMEOc/b8mG1lfPT9zlxPSWM38dCFlYByBvFwB3r9+ElXZ5UOt3sA/baH
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 16:47:52.4976
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ff1265c-f255-49f9-5655-08df0911ee51
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN7PEPF00000093.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8578
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fa4acc56-9742-4a5e-abd4-7491ad426940@intel.com>
 
-From: Shahar Shitrit <shshitrit@nvidia.com>
+Hi Dave,
 
-get_fec_supported_advertised() populates the FEC modes reported as
-supported to userspace. The MLX5E_ADVERTISE_SUPPORTED_FEC macro only
-checked MLX5E_FEC_RS_528_514, causing devices that support only the
-other RS variants (RS_544_514_INTERLEAVED_QUAD or RS_544_514) to not
-advertise RS as supported to ethtool at all.
+> On 9/2/26 04:56, Yeoreum Yun wrote:
+> > The behaviour of pXd_page() will change with generic compile-time folded
+> > page tables by disallowing its use and triggering a compile-time error
+> > when it's used improperly, ensuring that the actual pXd_page() is used
+> > instead.
+> > 
+> > To prepare fot that, skip collapse_pud_page() when
+> > CONFIG_X86_DIRECT_GBPAGES is disabled.
+> 
+> Nit: this doesn't explain how the change actually fixes anything or what
+> the specific problem being solved is.
+> 
+> I think you want to say something along the lines of:
+> 
+> 	collapse_pud_page() uses pud_page() in a way which will soon
+> 	trigger a compile-time error on configs that have a folded pud.
+> 
+> 	The code which will generate that error is actually unreachable
+> 	on those configs because 'direct_gbpages' is always 0 there.
+> 	However, the compiler does not know that because
+> 	'direct_gbpages' is a normal integer from a separate compilation
+> 	unit.
+> 
+> 	Make the compiler aware when most of collapse_pud_page() is
+> 	unreachable by adding a Kconfig check. This ensures it will not
+> 	trip the errors when they are introduced. It probably also trims
+> 	the kernel image down a wee bit too as a side benefit.
 
-Introduce MLX5E_FEC_RS_MASK covering all three RS bit positions,
-update the macro to accept a bitmask directly rather than a single
-enum value, and pass MLX5E_FEC_RS_MASK for the RS entry.
+Yes.. Sorry for my poor commit message.
 
-Fixes: b5ede32d3329 ("net/mlx5e: Add support for FEC modes based on 50G per lane links")
-Fixes: 4e343c11efbb ("net/mlx5e: Support FEC settings for 200G per lane link modes")
-Signed-off-by: Shahar Shitrit <shshitrit@nvidia.com>
-Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
-Reviewed-by: Yael Chemla <ychemla@nvidia.com>
-Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
----
- drivers/net/ethernet/mellanox/mlx5/core/en/port.h    |  4 ++++
- drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c | 12 ++++++------
- 2 files changed, 10 insertions(+), 6 deletions(-)
+> 
+> Maybe I should just merge something like the attached patch. I think it
+> would solve your problem and make things generally cleaner too.
+> 
+> There is an existing variable (direct_gbpages) that says whether the
+> kernel can and should use 1G pages in the direct map. It is driven
+> by a bunch of other machinery. At least:
+> 
+>  1. Hardware support for 1G pages
+>  2. Kconfig support for 1G direct mappings
+>  3. Kernel command line overrides
+> 
+> Most code just checks the 'direct_gbpages' variable itself. But this
+> prevents compiler optimization in cases where 1G mappings are
+> compile-time disabled (via X86_DIRECT_GBPAGES).
+> 
+> Add a helper to replace 'direct_gbpages' checks. Check the Kconfig
+> option and base CPU support before looking at the variable.
+> 
+> This lets the compiler optimize things better, especially
+> collapse_pud_page() where most of the function can now be optimized
+> away.
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en/port.h b/drivers/net/ethernet/mellanox/mlx5/core/en/port.h
-index fa2283dd383b..53dbdf77bcce 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en/port.h
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en/port.h
-@@ -66,4 +66,8 @@ enum {
- 	MLX5E_FEC_LLRS_272_257_1 = 9,
- };
- 
-+#define MLX5E_FEC_RS_MASK (BIT(MLX5E_FEC_RS_528_514) | \
-+			   BIT(MLX5E_FEC_RS_544_514_INTERLEAVED_QUAD) | \
-+			   BIT(MLX5E_FEC_RS_544_514))
-+
- #endif
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c b/drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c
-index f285ad88b6d5..3ed59ced0407 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c
-@@ -1002,9 +1002,9 @@ static u32 pplm2ethtool_fec(u_long fec_mode, unsigned long size)
- 	return 0;
- }
- 
--#define MLX5E_ADVERTISE_SUPPORTED_FEC(mlx5_fec, ethtool_fec)		\
-+#define MLX5E_ADVERTISE_SUPPORTED_FEC(fec_mask, ethtool_fec)		\
- 	do {								\
--		if (mlx5e_fec_in_caps(dev, 1 << (mlx5_fec)))		\
-+		if (mlx5e_fec_in_caps(dev, fec_mask))			\
- 			__set_bit(ethtool_fec,				\
- 				  link_ksettings->link_modes.supported);\
- 	} while (0)
-@@ -1030,13 +1030,13 @@ static int get_fec_supported_advertised(struct mlx5_core_dev *dev,
- 	if (err)
- 		return (err == -EOPNOTSUPP) ? 0 : err;
- 
--	MLX5E_ADVERTISE_SUPPORTED_FEC(MLX5E_FEC_NOFEC,
-+	MLX5E_ADVERTISE_SUPPORTED_FEC(BIT(MLX5E_FEC_NOFEC),
- 				      ETHTOOL_LINK_MODE_FEC_NONE_BIT);
--	MLX5E_ADVERTISE_SUPPORTED_FEC(MLX5E_FEC_FIRECODE,
-+	MLX5E_ADVERTISE_SUPPORTED_FEC(BIT(MLX5E_FEC_FIRECODE),
- 				      ETHTOOL_LINK_MODE_FEC_BASER_BIT);
--	MLX5E_ADVERTISE_SUPPORTED_FEC(MLX5E_FEC_RS_528_514,
-+	MLX5E_ADVERTISE_SUPPORTED_FEC(MLX5E_FEC_RS_MASK,
- 				      ETHTOOL_LINK_MODE_FEC_RS_BIT);
--	MLX5E_ADVERTISE_SUPPORTED_FEC(MLX5E_FEC_LLRS_272_257_1,
-+	MLX5E_ADVERTISE_SUPPORTED_FEC(BIT(MLX5E_FEC_LLRS_272_257_1),
- 				      ETHTOOL_LINK_MODE_FEC_LLRS_BIT);
- 
- 	active_fec_long = active_fec;
+Yeap. I've tested with your patch and it works for me!
+Thanks!
+
+Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
+Tested-by: Yeoreum Yun <yeoreum.yun@arm.com>
+
+> 
+> ---
+> 
+>  b/arch/x86/include/asm/pgtable.h     |   14 ++++++++++++++
+>  b/arch/x86/kernel/cpu/common.c       |    2 +-
+>  b/arch/x86/kernel/machine_kexec_64.c |    2 +-
+>  b/arch/x86/mm/init.c                 |    2 +-
+>  b/arch/x86/mm/pat/set_memory.c       |    4 ++--
+>  5 files changed, 19 insertions(+), 5 deletions(-)
+> 
+> diff -puN arch/x86/include/asm/pgtable.h~direct_gbpages-compiletime arch/x86/include/asm/pgtable.h
+> --- a/arch/x86/include/asm/pgtable.h~direct_gbpages-compiletime	2026-09-02 06:53:57.835733398 -0700
+> +++ b/arch/x86/include/asm/pgtable.h	2026-09-02 08:17:01.434727771 -0700
+> @@ -1163,6 +1163,20 @@ static inline int pgd_none(pgd_t pgd)
+>  #ifndef __ASSEMBLER__
+>  
+>  extern int direct_gbpages;
+> +static inline bool direct_gbpages_enabled(void)
+> +{
+> +	/* Check the direct map config option: */
+> +	if (!IS_ENABLED(CONFIG_X86_DIRECT_GBPAGES))
+> +		return false;
+> +
+> +	/* Check the CPU feature: */
+> +	if (!cpu_feature_enabled(X86_FEATURE_GBPAGES))
+> +		return false;
+> +
+> +	/* Check the command-line and early setup variable: */
+> +	return direct_gbpages;
+> +}
+> +
+>  void init_mem_mapping(void);
+>  void early_alloc_pgt_buf(void);
+>  void __init poking_init(void);
+> diff -puN arch/x86/mm/init.c~direct_gbpages-compiletime arch/x86/mm/init.c
+> --- a/arch/x86/mm/init.c~direct_gbpages-compiletime	2026-09-02 06:55:01.004094924 -0700
+> +++ b/arch/x86/mm/init.c	2026-09-02 08:20:36.759992562 -0700
+> @@ -251,7 +251,7 @@ static void __init probe_page_size_mask(
+>  		__default_kernel_pte_mask &= ~_PAGE_GLOBAL;
+>  
+>  	/* Enable 1 GB linear kernel mappings if available: */
+> -	if (direct_gbpages && boot_cpu_has(X86_FEATURE_GBPAGES)) {
+> +	if (direct_gbpages_enabled()) {
+>  		printk(KERN_INFO "Using GB pages for direct mapping\n");
+>  		page_size_mask |= 1 << PG_LEVEL_1G;
+>  	} else {
+> diff -puN arch/x86/kernel/cpu/common.c~direct_gbpages-compiletime arch/x86/kernel/cpu/common.c
+> --- a/arch/x86/kernel/cpu/common.c~direct_gbpages-compiletime	2026-09-02 06:57:47.935849397 -0700
+> +++ b/arch/x86/kernel/cpu/common.c	2026-09-02 06:57:57.299617535 -0700
+> @@ -2660,7 +2660,7 @@ void __init arch_cpu_finalize_init(void)
+>  		 * Right now we don't do that with gbpages because there seems
+>  		 * very little benefit for that case.
+>  		 */
+> -		if (!direct_gbpages)
+> +		if (!direct_gbpages_enabled())
+>  			set_memory_4k((unsigned long)__va(0), 1);
+>  	} else {
+>  		fpu__init_check_bugs();
+> diff -puN arch/x86/kernel/machine_kexec_64.c~direct_gbpages-compiletime arch/x86/kernel/machine_kexec_64.c
+> --- a/arch/x86/kernel/machine_kexec_64.c~direct_gbpages-compiletime	2026-09-02 06:57:58.462712975 -0700
+> +++ b/arch/x86/kernel/machine_kexec_64.c	2026-09-02 06:58:05.219267514 -0700
+> @@ -257,7 +257,7 @@ static int init_pgtable(struct kimage *i
+>  		info.kernpg_flag |= _PAGE_ENC;
+>  	}
+>  
+> -	if (direct_gbpages)
+> +	if (direct_gbpages_enabled())
+>  		info.direct_gbpages = true;
+>  
+>  	for (i = 0; i < nr_pfn_mapped; i++) {
+> diff -puN arch/x86/mm/pat/set_memory.c~direct_gbpages-compiletime arch/x86/mm/pat/set_memory.c
+> --- a/arch/x86/mm/pat/set_memory.c~direct_gbpages-compiletime	2026-09-02 06:58:43.518414555 -0700
+> +++ b/arch/x86/mm/pat/set_memory.c	2026-09-02 06:59:27.252015369 -0700
+> @@ -130,7 +130,7 @@ void arch_report_meminfo(struct seq_file
+>  	seq_printf(m, "DirectMap4M:    %8lu kB\n",
+>  			direct_pages_count[PG_LEVEL_2M] << 12);
+>  #endif
+> -	if (direct_gbpages)
+> +	if (direct_gbpages_enabled())
+>  		seq_printf(m, "DirectMap1G:    %8lu kB\n",
+>  			direct_pages_count[PG_LEVEL_1G] << 20);
+>  }
+> @@ -1340,7 +1340,7 @@ static int collapse_pud_page(pud_t *pud,
+>  	pmd_t *pmd, first;
+>  	int i;
+>  
+> -	if (!direct_gbpages)
+> +	if (!direct_gbpages_enabled())
+>  		return 0;
+>  
+>  	addr &= PUD_MASK;
+> _
+
+
 -- 
-2.44.0
-
+Sincerely,
+Yeoreum Yun
