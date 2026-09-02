@@ -1,157 +1,189 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A37C37883E
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:34:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB9283EA96A;
+	Wed,  2 Sep 2026 08:34:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788338058; cv=none; b=MKzvR+qMEJ+rVpnIZQN2LDHPJ/MTdR181ibmVLMHKYPzJmw/Z9GjZrU00w0Pb77as1VqEMo9yeYW0n8nBz2e0IRonUCnJ0WzFoblnyWjW8rBMbj3CqJyjStxfjV9YEmTbhCQIxP21DR7VVJilmRcr72j2NNbhHhOO37kBHEY9jg=
+	t=1788338065; cv=none; b=euz9ALrjGqMcidLwFNFCPJFhgaSuekFy67xGOP2oOpeSirJBl/8vT0CY9PJwLt+t5YZA3fNAWgfFhtF/j26nKmQJHcMtjQdeu5hG3IIbtOygsVNW/VIVpbmAFQNJodcaj5qHEKaIbtC/XVY/Hz1xgM7qggRyU4Xo2EDHLICdU3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788338058; c=relaxed/simple;
-	bh=nQSMfLXooTdM45Aimk7uiT9RoDYsM7bG1cJP54C7pfM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=CCAGDS+eeziHd97jUHQxbrZpTqtmEu9tGf3nSd0orPL5VfEyMDLMgHNx06eDqlt+X+9Yi+n6g4Kp30VQVQZfMTI9v9HLaNcITH7vS0G2bq/+r93enMoNayry30HewRn7Tmw/JuuWG5gk76KmZRnZomXCIQuJX1TEeOXFs6x0eUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TToWNUaI; arc=none smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788338065; c=relaxed/simple;
+	bh=2WkzidgcjnYJCDkNKBnP5TegDiC3HVXnM7QsW+hJHg8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ZNRQITn0erNJYeiqPj2VXSulQe8eNAQJBvi6fZ2Xx2L4ZOJ/1YyGbKsrlD9a1SCgrSngDKdiBBHPUISuFgoLMqplUXbHuI0UAcAo0DFR2k8MF0K1+IcVtjFlAwY5+yvYGPoBn2AWe4bylcX4m1NKFfjcabxhZ2Q1CGSD9yBq00k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=W/9uXJzj; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TToWNUaI"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8558c0b26a8so639254b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 01:34:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788338056; x=1788942856; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=MxYlVCLZdHbqd24Lf2nyCsb+xngw/v49TM27dJoKKB8=;
-        b=TToWNUaIzVpT43/eIGmJ+sOviGw2SfZ8QptGM38+SAOSxmkvqNYz8eIbdmJFYn83uq
-         /nVkVStUn4g8joTePTsh8Vhe7/ZU56dDVpDZt9lunDTEGQVeEvFFsQ1F5zUZMfNq8RPI
-         Sql79FsEQrRb7iocvyoVGgxqGuZhJ2ouDWef80ihihUijrsru8/94BV6Ed8N1g2ywXVZ
-         pVxlhLQoHme9sGYw8MiQVtvh1d2qt43rvP+H3FT6meqhJr27FrGwKE0f0k6UCCDtXV17
-         KcQ7wt+2aGc967l3KYLxSJrJVdgIRhvlD45vkTBLmBWOkKLN1TleIHOEBPFr782WxLTg
-         2F1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788338056; x=1788942856;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=MxYlVCLZdHbqd24Lf2nyCsb+xngw/v49TM27dJoKKB8=;
-        b=H/XJxZ8X0r3vstX3Zxw6kIGPBIGTHFac8Bn0hKnzs1h1tFW2VlD0eIkTOUcL2fPsbX
-         I1/V5Ig/LjnJgP47Ubtna5cFtxuJRUFUfIvfiKGGr+pZbs8IulohvSQd+1nDlRwDnwgV
-         Emh5hCmtHkQxmU9nxsJw1sMZUQnG0GFYzrGJowmWxByFkTIgItu8X01v9u6WmoyG+sTp
-         57dxuEO0HEYb3jhWxhcXPY96LTrZ8u6h30wLzWlbHJZEzWc27MOPx8ruE/qshjttLYF3
-         T4oRgh33obzaoCa7A6HVttOLQsWMVnoXu4c5lKIz0osBGDK9x27oQame/ptEU3Ue6Wsb
-         VPKw==
-X-Forwarded-Encrypted: i=1; AHgh+RqLqA6mvDrDhVqC/WDdcaJ81isU5AzXRyAo3Euav6DaLsFSN6FmhH0RlwD5+DpVxfgtJ0LAaYbcj9ZQEXM=@vger.kernel.org
-X-Gm-Message-State: AFuF++k6GDI68hqkV2rvfiOGK1kNaOsCHK367+AHXDypkJMXKQJrY+GM
-	8sG6Aat+Txx2aKjkg5mmmCgidc7o7L4JvainwDqiPV3jgHWMzqbnAolEhBB0z4pt
-X-Gm-Gg: AR+sD11EuWMRZvpmFd1zfBrvEGtAiWsYA6EObofi9vrt3nrH/ocwUmEIM0CB72pbpuN
-	0kuAC+YvLsp1xKU1rzeO/vGbmMZXj0RWFrOes6emt5xIw8ZcuxnSupLnAhIk/ulkdh5XhGjGXYX
-	2LkgspWShNOQtH+/xpKYhQ5pT6a3p7Y3GRNLqgOVrxg+AJ1oamXOdbO4Z4tZk1r3acpfIyAsqfN
-	qENPyP0rx/6aJGWUCc1z7aqQKKQLbo1FwZd45GMKtT0Vas3BIHHOS0oTAPob0qMMc03LYY1mXOC
-	uMXMOSG2+OCaRc4/5z/wPR5/P57Fijatv0N4npJIH10HYJspUAz5pfYHVzJnsRHNzZ0MHlUKR9Q
-	0pFBo9RGaggRtOGfpqwA6QyWObamhelXgrUVM/moTC/2YIRm8apcT5wL7F6HaAK8tnrmziGqL8E
-	9f9P32CK9jL4YMRgoi4TzvLMYRi/FOcSTHnOBn3Rj6EjMAjPaIja37wadz53gqCQe2NiET8y8=
-X-Received: by 2002:a05:6a20:a124:b0:3d3:af85:eb99 with SMTP id adf61e73a8af0-3d9af3f35b9mr4310867637.27.1788338056366;
-        Wed, 02 Sep 2026 01:34:16 -0700 (PDT)
-Received: from [163.43.103.131] ([163.43.103.131])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc34d0022c7sm726419a12.15.2026.09.02.01.34.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 01:34:15 -0700 (PDT)
-From: Yuya Kusakabe <yuya.kusakabe@gmail.com>
-Date: Wed, 02 Sep 2026 17:34:13 +0900
-Subject: [PATCH net-next] seg6: reallocate the skb head on L2 encapsulation
- only when needed
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="W/9uXJzj"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=TaW7OlLvdAso7FjT/g6CTSjBBSyjti7MbS4f2Vr7Pqk=; b=W/9uXJzj1odwnp0zUC1vEjEupV
+	CnCwwoaOQTJaky9lGJsDJN9YP9juIwUeKTz8W/XXTUaYwIRFRpmc0fbNzKMb7+i/Bz2vJK5iItnMM
+	YTBFfTkkMBXUTwRu+WhOA2Ed5m7wdS87mj4N6mlJ3tDZd30kmapsfRtlWVFaO1+ps7ZDLz9buhJDL
+	oFD5+V49glrUWrGOd+zxoiGqhIRMiPU2OUPxE4oPv9/LYAC2ztb/F6H3JcCcMpwfIGm7mETYC0fji
+	ewBjIx84XrPhBC8I+uRy6qn3H16Gp925++e+6ZPuvZZ8f5RSWDiWBOoQkRS5cH1pSC4RdqV3ZCUhl
+	DKO0vaqA==;
+Received: from sslproxy06.your-server.de ([78.46.172.3])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <nora.schiffer@ew.tq-group.com>)
+	id 1x1fyx-000KR5-0J;
+	Wed, 02 Sep 2026 10:06:07 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy06.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <nora.schiffer@ew.tq-group.com>)
+	id 1x1fyw-0006It-1l;
+	Wed, 02 Sep 2026 10:06:06 +0200
+From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux@ew.tq-group.com,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Nora Schiffer <nora.schiffer@ew.tq-group.com>
+Subject: [PATCH 1/2] ARM: dts: imx7-tqma7: correctly specify PMIC voltage constraints
+Date: Wed,  2 Sep 2026 10:05:37 +0200
+Message-ID: <9a916f24b610cc60e0efd13296f281e00b41391e.1788335665.git.nora.schiffer@ew.tq-group.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-seg6-l2cow-v1-1-e823ce216454@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAITfl2oC/yWM0QqCQBBFf0XucwPrGIr9SvSg66gjscbOVoL47
- 231eDics8MkqhguxY4oLzVdQ4byVMDPXZiEdMgMdly71jGZTDXd2a9vaprBV313Lrli5OARZdT
- tN7siSKIgW8Ltb+zZL+LT94Xj+AAFIu4leAAAAA==
-X-Change-ID: 20260902-seg6-l2cow-77dc3ba41232
-To: Andrea Mayer <andrea.mayer@uniroma2.it>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Yuya Kusakabe <yuya.kusakabe@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1990;
- i=yuya.kusakabe@gmail.com; h=from:subject:message-id;
- bh=nQSMfLXooTdM45Aimk7uiT9RoDYsM7bG1cJP54C7pfM=;
- b=owEBbQKS/ZANAwAIASrX0XUqXRtNAcsmYgBql9+FlANzp9nxfyrPzdLUPJx3pqGmrdCXoEf+4
- riHCgA2duKJAjMEAAEIAB0WIQTaB7usAfxNKMeqa6Yq19F1Kl0bTQUCapffhQAKCRAq19F1Kl0b
- TWa+D/4mWf99a/uWnnddkAbdfKxfimeoxmhbibYJ6ey7R67XQsLRX/ixjAbjAd0O2sTvdusSLZJ
- tkFR+vKXbc9mONJuiiu03A+LigfUAjgWU6N/hLrYMXH3XUpwNr21QBqxW2Hpg5OYUSTfFTJFzB9
- b42plVdTTu7gWGpvNzrPABaGz5n699ULJZliilMYag2bPGKrt+StlDO2W9IHl2vVvuVig9452RP
- YQlxObylwpy5UgTtdHCmPs+2gIKSPoLnFVt02RMZnIZvezw7CXS8gOHVdwcZXvla9C2WrPbPPgF
- WV/AFIKRwBoMpsAljygK2rPnisqIRswwGAJyOkU08/5EI+91uSqraLpKfGfRw5o4YfGVd/or/Db
- c6tG9MR/hRG8WuHhzSlHBXAJTESbQtpeL/LtrIUh4uB8J6SaMjeoeQc5gwwa4qUG8eHau8uxOHu
- C+aBlQ4dMy6XcxTjXlOQd15MsbWrR4A0m7yv0pcGCLbGBfS1UW3xaI4yJngOHRv6fbA9LFH/++t
- LU8Z4yekS1NHl9r/kKpM++iKCCpK6GYUwpzefDQSp189+72BhNWJkW168GXFr/GqFaErqvkiYX8
- vh75ZEL80UtyqdoObGxbAmj3Yd4r+1MOlEFu5hGYEbz2i3TRxBwCrBnhRNBYJS7OjXwWbpoSROQ
- PY30aMtKkEi/6nQ==
-X-Developer-Key: i=yuya.kusakabe@gmail.com; a=openpgp;
- fpr=DA07BBAC01FC4D28C7AA6BA62AD7D1752A5D1B4D
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28111/Wed Sep  2 08:24:01 2026)
 
-The L2 encapsulation modes of the seg6 lwtunnel reallocate the skb head
-on every packet, where the IPv6 encapsulation modes reallocate only when
-they have to. This site only has to fit skb->mac_len before its
-skb_push(); the outer header that follows is already covered by
-__seg6_do_srh_encap()'s own skb_cow_head(). On a forwarding path neither
-reallocation is necessary: ixgbe leaves 206 bytes of headroom, against
+regulator-(min|max)-microvolt refer to the supported voltages according
+to board design, not the possible range of the regulators themselves.
+Update the configuration for the TQMa7x's PMIC and also add a comment
+regarding the PMIC's VCC_SD switching feature.
 
-  14 (skb->mac_len) + 40 (ipv6hdr) + 24 (SRH with one segment)
-  + 16 (LL_RESERVED_SPACE, via dst_dev_overhead()) = 94
-
-for the whole encapsulation.
-
-The cost is amplified by CONFIG_INIT_ON_ALLOC_DEFAULT_ON, which many
-distributions enable: every new head is zeroed in full, and that memset
-alone accounts for 16% of the datapath profile.
-
-Use skb_cow_head() instead, matching the IPv6 encapsulation modes.
-
-Throughput at 0.5% packet loss, 64-byte frames forwarded through one
-2.30 GHz core (Xeon E5-2650 v3, ixgbe 82599ES), offered by TRex and
-binary-searched over 10 runs of 10 s:
-
-  Before: 660.7 kpps
-  After:  991.3 kpps
-
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Yuya Kusakabe <yuya.kusakabe@gmail.com>
+Fixes: a80a1af6ec8a ("ARM: dts: tq imx7 common board support")
+Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
 ---
- net/ipv6/seg6_iptunnel.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi | 40 +++++++++++++----------
+ 1 file changed, 23 insertions(+), 17 deletions(-)
 
-diff --git a/net/ipv6/seg6_iptunnel.c b/net/ipv6/seg6_iptunnel.c
-index 61c6a27bf202..a6556efd8e0b 100644
---- a/net/ipv6/seg6_iptunnel.c
-+++ b/net/ipv6/seg6_iptunnel.c
-@@ -446,8 +446,9 @@ static int seg6_do_srh(struct sk_buff *skb, struct dst_entry *cache_dst)
- 		if (!skb_mac_header_was_set(skb))
- 			return -EINVAL;
+diff --git a/arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi b/arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi
+index e1f740edfb763..7f49c80fef4c6 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi
++++ b/arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi
+@@ -46,8 +46,8 @@ pfuze3000: pmic@8 {
  
--		if (pskb_expand_head(skb, skb->mac_len, 0, GFP_ATOMIC) < 0)
--			return -ENOMEM;
-+		err = skb_cow_head(skb, skb->mac_len);
-+		if (unlikely(err))
-+			return err;
+ 		regulators {
+ 			sw1a_reg: sw1a {
+-				regulator-min-microvolt = <700000>;
+-				regulator-max-microvolt = <3300000>;
++				regulator-min-microvolt = <1000000>;
++				regulator-max-microvolt = <1225000>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 				regulator-ramp-delay = <6250>;
+@@ -55,34 +55,33 @@ sw1a_reg: sw1a {
  
- 		skb_mac_header_rebuild(skb);
- 		skb_push(skb, skb->mac_len);
-
----
-base-commit: c8ea08ba34f2a2e9bfb18ff3d69eb2d69b324f49
-change-id: 20260902-seg6-l2cow-77dc3ba41232
-
-Best regards,
---  
-Yuya Kusakabe <yuya.kusakabe@gmail.com>
+ 			/* use sw1c_reg to align with pfuze100/pfuze200 */
+ 			sw1c_reg: sw1b {
+-				regulator-min-microvolt = <700000>;
+-				regulator-max-microvolt = <1475000>;
++				regulator-min-microvolt = <1000000>;
++				regulator-max-microvolt = <1000000>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 				regulator-ramp-delay = <6250>;
+ 			};
+ 
+ 			sw2_reg: sw2 {
+-				regulator-min-microvolt = <1500000>;
+-				regulator-max-microvolt = <1850000>;
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 			};
+ 
+ 			sw3a_reg: sw3 {
+-				regulator-min-microvolt = <900000>;
+-				regulator-max-microvolt = <1650000>;
++				regulator-min-microvolt = <1350000>;
++				regulator-max-microvolt = <1350000>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 			};
+ 
+ 			swbst_reg: swbst {
+-				regulator-min-microvolt = <5000000>;
+-				regulator-max-microvolt = <5150000>;
++				/* Not connected and left unconfigured */
+ 			};
+ 
+ 			snvs_reg: vsnvs {
+-				regulator-min-microvolt = <1000000>;
++				regulator-min-microvolt = <3000000>;
+ 				regulator-max-microvolt = <3000000>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+@@ -95,18 +94,25 @@ vref_reg: vrefddr {
+ 
+ 			vgen1_reg: vldo1 {
+ 				regulator-min-microvolt = <1800000>;
+-				regulator-max-microvolt = <3300000>;
++				regulator-max-microvolt = <1800000>;
+ 				regulator-always-on;
+ 			};
+ 
+ 			vgen2_reg: vldo2 {
+-				regulator-min-microvolt = <800000>;
+-				regulator-max-microvolt = <1550000>;
++				regulator-min-microvolt = <1500000>;
++				regulator-max-microvolt = <1500000>;
+ 				regulator-always-on;
+ 			};
+ 
+ 			vgen3_reg: vccsd {
+-				regulator-min-microvolt = <2850000>;
++				/*
++				 * Specified values refer to 3.3V operation; voltage for 1.8V
++				 * operation is derived from this.
++				 *
++				 * The base board should usually mux GPIO1_IO08 to SD1_VSELECT for
++				 * automatic switching of SD card IO voltage.
++				 */
++				regulator-min-microvolt = <3300000>;
+ 				regulator-max-microvolt = <3300000>;
+ 				regulator-always-on;
+ 			};
+@@ -118,13 +124,13 @@ vgen4_reg: v33 {
+ 			};
+ 
+ 			vgen5_reg: vldo3 {
+-				regulator-min-microvolt = <1800000>;
++				regulator-min-microvolt = <3300000>;
+ 				regulator-max-microvolt = <3300000>;
+ 				regulator-always-on;
+ 			};
+ 
+ 			vgen6_reg: vldo4 {
+-				regulator-min-microvolt = <1800000>;
++				regulator-min-microvolt = <3300000>;
+ 				regulator-max-microvolt = <3300000>;
+ 				regulator-always-on;
+ 			};
+-- 
+TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht München, HRB 105018
+Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
+https://www.tq-group.com/
 
