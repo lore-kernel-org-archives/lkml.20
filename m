@@ -1,100 +1,176 @@
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F00623E51F4
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 23:48:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E9CD37204A
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 23:48:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788392905; cv=none; b=JGr4/8lmmpnE1opiQjfHQjjESPuXWgHR7PPakr/9fGvhnOqZx6tqEJRGVZCGdtpx4Pr48cj+Md8gsHTP514W9mLidTYzxfAdn+t+/jIqq3OlTGbafzSfBc/8hi8EsmXh3+1Jp2oVnRQkXRpk+uP9jXV6m/vOm5ZJNTKk6PONsmM=
+	t=1788392918; cv=none; b=hXZNsZstWcI9o1K0mbvHHn+rhU0fd0IqXV/HNGYCeu2J56Q/jXfNG9Rcux8VYf83kZr+TfJeYnhZEeKJXnKvl7VQWLBli/1oU9RmM4lbtUzy59hjOxFVSiOZbpRkYosRGjKQTivMP1pURli33GYmMBFY3l626GFCWazz/K7V4eY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788392905; c=relaxed/simple;
-	bh=ChURomuOnORI847v97u/pFZOv9VDFxC8S3QptbUYh9E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cH2MYrT1zHCGmiarSgdqZwIy6FqPjK0CL4vNV+5qTKiC0sDnqUMynFzbcpXpEms1A5k+WcixYotJf6IZKqCs8tZEPOa40a9OlWgcWSXgW4XrF+m7OCNwQyrUU5mK8agu6qtI549J9gpfUza34GQV3vkZMqXiGdBSpOR5s8Yx/Ik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=nOUApy5F; arc=none smtp.client-ip=209.85.160.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="nOUApy5F"
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-51bfad59921so18354211cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 16:48:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1788392900; x=1788997700; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Jkgrm/ILoyMvWJ0vGraMeyhwgPKQ2+DFDrLrUyj3wEU=;
-        b=nOUApy5FMxsCxs2b7hYinc7YdJQs2ZcjqYNbeZppF/eF2+/67zwSAgmloEFcpDue02
-         P54nFYf296qVrmJJuegcSdiHs68XuhQSMHCyGDtg63nDfvdscI6xcT3ItSF++RiEE9ca
-         /8FZvgxzQB1kQo2bIAiVHcDxvJ1dTCNcXSASfUT7Bzf1RppaVK9UBSuwRDezXg7KOoMS
-         xpTrOhaLHaQegQB4jmpU/Bp8lhna/7m6+sllQ10Ur3ubyf+7QU7b+Jx2yd8LdkhM8Hy0
-         bJBCpvthkD2RoAM4IMrtPlXjmBHXcT04VKzvkSyyyG19dcr8Uq9tcnsHb98DDJTbSpBK
-         UNZw==
+	s=arc-20240116; t=1788392918; c=relaxed/simple;
+	bh=o3HsFeQw1RRyMRRsQQkYpLCVx8+G1m4vFCYryGoS/Xo=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=iqINI+kJd/isBD3BjW5xLpf/TS9oNUKyXvk7wlMSahiL2932Id6m9s4wtjeN+Rd2Hzx7Cyz77f+1ycPLskeazyhLkGG4Bq9SHMZQEACt1pGN8dfeUjC3KACjtUiiO8ZLUVzyPq5jD85ATSBoJGVWTbBGrxvC8Ib0At9preV5z1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b28d9952a5so1953489b6e.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 16:48:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788392900; x=1788997700;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Jkgrm/ILoyMvWJ0vGraMeyhwgPKQ2+DFDrLrUyj3wEU=;
-        b=WN9yo6GWvmcLnQpjYFOrMLhtDTQu8+6NBy6Qq6U9qj16iKfXEvJdGx2AFsq4kT613w
-         sxvSOzp4QV9pMYYfchN8QRkyKPguSWlvSft0lj6gIRTJGiEEfSxP3uGUiEFsBbtMQzfJ
-         hy0/EF8YvzBXeutzzHh7EaqtrqnCS+ZC3jEgR6+S/h8tggiJpWriF5FLXhRhYIlmeDh7
-         /CXTGveYXsUIVl/4zssw37TJ1zSaUI3EYy4lIm7TcT771XcbwMGfhAf4lq6ZBKwGq1Ja
-         3eWgF5M1/fyNNEglxiqkEV2H4LdvAQLm7RrgGckmL253y7oD7igF91uvvnsAkQk6HwTH
-         qG0w==
-X-Gm-Message-State: AFuF++lFDD6MPf823S2P8DtA6wQgiKwyqeoqg7C5yBrmOiPboDfJMBOt
-	CRb0q9YeHKJnk6pftSFcDbZtQMlp5+GUKrCIAgOJ+bUYlnRaNqWNL/tlJj4sMTSpoOQ=
-X-Gm-Gg: AYBFou2orO6ts8qdf/vCKK6UhpuVhKjX28vsklE/M9/D9JY7bncjOXGeJ3l5A5kN1yF
-	5gl36sXhqFAL0uPpvJ5tx70ImcYKoEKnHFIROwwXDvW8GpRXK7XnyCCz5SfNExEVYJwdkGgJd6A
-	drUkN39UU8/IjshgN2Ob3ThQm0wPcLK5SgNqalvEy4E3VaR3gmYYn7ye/+AH5NZW/oS5/OioKWA
-	oQ8Q1AO/XoQ5bVNdn9oYJclZ4F5y40B4X1MFwfNNhzFCAHYB+/Xq/bpD+3g0b5Pp+Z1qbj2tFkZ
-	DuLRsHmCASSRd5gcBmo76ef/vSO2jpTLEGKRzU+Puk+3UkYmYoCLRO2oz1HuA/dBUVoFBpmIHnC
-	LnBTiZP//NyVn8YwCczoa8TmumPrfKV+gq5U9/ztTxUoTsCMkpTHwsuSxuGaU6qFeuX5Cxw1IpQ
-	ZzLEIGUJ741I5CvV2eAx+XdSNWxN9Idkad8ER//9UZoQDU7SotsIXqLd9+N/lsmMeL/IYNjTKUn
-	If9dl9Q6TxwNV93U+HnjfUZofUYQoC9mfvGjq8kCX2X
-X-Received: by 2002:a05:622a:3cb:b0:530:27a1:88be with SMTP id d75a77b69052e-53036d141b3mr104316971cf.30.1788392900530;
-        Wed, 02 Sep 2026 16:48:20 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53033277f37sm31280861cf.30.2026.09.02.16.48.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 16:48:20 -0700 (PDT)
-Date: Wed, 2 Sep 2026 19:48:18 -0400
-From: Gregory Price <gourry@gourry.net>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, liam@infradead.org, 
-	vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
-	brendan.jackman@linux.dev, hannes@cmpxchg.org, ziy@nvidia.com, balbirs@nvidia.com
-Subject: Re: [PATCH 1/2] mm: refactor find_next_best_node to
- find_next_best_node_in
-Message-ID: <api1Y0neGeB2ukQO@gourry-fedora-PF4VCD3F>
-References: <20260902215853.156267-1-gourry@gourry.net>
- <20260902215853.156267-2-gourry@gourry.net>
+        d=1e100.net; s=20251104; t=1788392915; x=1788997715;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=khu+90EbyKakPh+AEzLpxA1wJEZkV3aMHoPKv1nM4nE=;
+        b=VIZP+XcDiCQxecoIyCDuW9uT9vuyKpj0HWO4WD6YCCUDof2/yPiSEu6kpH5kn/zeOx
+         p6lUBVwBtOzMtlDoGtvqqBqbcJvdmaUvOwXPyozTmItutBFM0u2tHSLkn9EtQFboy3Yj
+         V/v9eUK82icgtuQYRhLTkuv4xyQChaHGewZb0w45IzEB+vlJejs1i5DU8PhraoZagqky
+         YzJp7tJGew4TnQ+6AaX5euK8EjvNa7wOI5eeJ4mPPUmaiVXHKKF88SyQq2aCOuRnVM0w
+         +lf7MT0Oq80tEVDz49qme7aFjSylmLouhOxA9CFcfhOfyxWpZAozww1HzAkWOYBvhWIt
+         urDg==
+X-Gm-Message-State: AFuF++mNrtjnqvMI5KtX/NdmMxQI2l8WhLly2edgqNQzMtogEP/QEjh9
+	qDDURqPsYtmKbIUcfcGbUyAC7yKls5f1mFLK4wuRXolXyIAb1lwx3CGq7weEJR98FEBpM2GHz9s
+	zyNVknNnK3IhExHzEfVaGBN5xfQvW85w9mAZg7tz2Y/sZSSAudq4iULVO5qk=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902215853.156267-2-gourry@gourry.net>
+X-Received: by 2002:a05:6820:1693:b0:6b3:5475:4861 with SMTP id
+ 006d021491bc7-6b480a48973mr5533031eaf.18.1788392915098; Wed, 02 Sep 2026
+ 16:48:35 -0700 (PDT)
+Date: Wed, 02 Sep 2026 16:48:35 -0700
+In-Reply-To: <6a987197.9266084e.bf0d7.000d.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a98b5d3.2e567484.299ffc.0004.GAE@google.com>
+Subject: Forwarded: [PATCH] HID: roccat: fix use-after-free and
+ uninitialized-mutex races
+From: syzbot <syzbot+c492a9e154f81127551f@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 02, 2026 at 05:58:52PM -0400, Gregory Price wrote:
-> find_next_best_node() picks the next-closest node for a fallback list
-> from the full N_MEMORY set. Refactor it into find_next_best_node_in(),
-> which takes an explicit candidates nodemask.
-> 
-> This enables building fallback lists with non-N_MEMORY candidates.
-> 
-> No functional change: every caller still selects from N_MEMORY.
-> 
-> Signed-off-by: Gregory Price <gourry@gourry.net>
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Just realized this should carry an Ack from Balbir
+***
 
-Acked-by: Balbir Singh <balbirs@nvidia.com>
+Subject: [PATCH] HID: roccat: fix use-after-free and uninitialized-mutex races
+Author: kartikey406@gmail.com
 
-see - https://lore.kernel.org/linux-mm/62bf02dc-dab1-41bf-8204-eb3566628b93@nvidia.com/
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+
+
+roccat_disconnect() dropped devices_lock between reading device->exist
+and later checking device->open to decide whether to free the device,
+letting a concurrent roccat_release() free it first and turning the
+later check into a use-after-free. Fix by keeping the whole lookup,
+state update, and free-or-keep decision inside one devices_lock
+critical section.
+
+roccat_connect() also published the device via devices[minor] and
+device_create() before initializing device->readers_lock and
+device->cbuf_lock, letting a racing open() on the newly created node
+take an uninitialized mutex. Fix by completing all initialization
+before publishing the device.
+
+Reported-by: syzbot+c492a9e154f81127551f@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=c492a9e154f81127551f
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+---
+ drivers/hid/hid-roccat.c | 34 +++++++++++++++++-----------------
+ 1 file changed, 17 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/hid/hid-roccat.c b/drivers/hid/hid-roccat.c
+index 4f15eb951039..00499d6fa748 100644
+--- a/drivers/hid/hid-roccat.c
++++ b/drivers/hid/hid-roccat.c
+@@ -316,6 +316,14 @@ int roccat_connect(const struct class *klass, struct hid_device *hid, int report
+ 	if (!device)
+ 		return -ENOMEM;
+ 
++	init_waitqueue_head(&device->wait);
++	INIT_LIST_HEAD(&device->readers);
++	mutex_init(&device->readers_lock);
++	mutex_init(&device->cbuf_lock);
++	device->hid = hid;
++	device->exist = 1;
++	device->cbuf_end = 0;
++	device->report_size = report_size;
+ 	mutex_lock(&devices_lock);
+ 
+ 	for (minor = 0; minor < ROCCAT_MAX_DEVICES; ++minor) {
+@@ -324,37 +332,30 @@ int roccat_connect(const struct class *klass, struct hid_device *hid, int report
+ 		break;
+ 	}
+ 
+-	if (minor < ROCCAT_MAX_DEVICES) {
+-		devices[minor] = device;
+-	} else {
++	if (minor >= ROCCAT_MAX_DEVICES) {
+ 		mutex_unlock(&devices_lock);
+ 		kfree(device);
+ 		return -EINVAL;
+ 	}
+ 
++	device->minor = minor;
++
+ 	device->dev = device_create(klass, &hid->dev,
+ 			MKDEV(roccat_major, minor), NULL,
+ 			"%s%s%d", "roccat", hid->driver->name, minor);
+ 
+ 	if (IS_ERR(device->dev)) {
+-		devices[minor] = NULL;
+ 		mutex_unlock(&devices_lock);
+ 		temp = PTR_ERR(device->dev);
+ 		kfree(device);
+ 		return temp;
+ 	}
+ 
+-	mutex_unlock(&devices_lock);
++	/* Only publish once fully initialized, so roccat_open()/
++	* roccat_disconnect() never see a half-built device. */
++	devices[minor] = device;
+ 
+-	init_waitqueue_head(&device->wait);
+-	INIT_LIST_HEAD(&device->readers);
+-	mutex_init(&device->readers_lock);
+-	mutex_init(&device->cbuf_lock);
+-	device->minor = minor;
+-	device->hid = hid;
+-	device->exist = 1;
+-	device->cbuf_end = 0;
+-	device->report_size = report_size;
++	mutex_unlock(&devices_lock);
+ 
+ 	return minor;
+ }
+@@ -369,15 +370,12 @@ void roccat_disconnect(int minor)
+ 
+ 	mutex_lock(&devices_lock);
+ 	device = devices[minor];
+-	mutex_unlock(&devices_lock);
+ 
+ 	device->exist = 0; /* TODO exist maybe not needed */
+ 
+ 	device_destroy(device->dev->class, MKDEV(roccat_major, minor));
+ 
+-	mutex_lock(&devices_lock);
+ 	devices[minor] = NULL;
+-	mutex_unlock(&devices_lock);
+ 
+ 	if (device->open) {
+ 		hid_hw_close(device->hid);
+@@ -385,6 +383,8 @@ void roccat_disconnect(int minor)
+ 	} else {
+ 		roccat_free_device(device);
+ 	}
++
++	mutex_unlock(&devices_lock);
+ }
+ EXPORT_SYMBOL_GPL(roccat_disconnect);
+ 
+-- 
+2.43.0
 
