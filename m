@@ -1,137 +1,147 @@
-Received: from mta1.migadu.com (out-107.mta1.migadu.com [95.215.58.107])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4688D2F12DA
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 02:43:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.107
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B672F12DA;
+	Wed,  2 Sep 2026 02:44:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788317016; cv=none; b=PBTxKxoqIS5H/FnuX6djaj8k1zxUy8kkx4Pp+4LS3A2t8S3XFKCbWaq5TVT3Tiu5Y0GTcaFBHesXR2c+ldsjddVa6v9ses0OiSicn/ji3/C+E68cgY/aqdzAucZcK5AEAKb6wii/QOoNqMq7Hf5VjKEJZ8ZUeBvCBH5GNxasNl8=
+	t=1788317080; cv=none; b=QynFdPHrOaz8hZjM5q4p89v7lS/o3EJbkbG/ZGNq5SC4W1U8V/g2kmV6A5MI7jsaUO8qDGUrPTp0GpLthbp7LIlAnw96n69ddZE0rYXdpjpagqXGR0CncWxqgU7CWoF4lBGbGlqvDkNz/uaUM4rvobXOXOF5+Wz02FjjD40AZm4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788317016; c=relaxed/simple;
-	bh=Xe69XlRqZvTK+JNk8vfsg5yxOFqf3N37qunP2dh1jsg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XfCLeAYv3qUH0a3NlIy/GliEQoLLD1crt84tb3eQnF2KAOFTXdtUlxUAxdTH5D8BYcmW38Ne0D/rlchOw1EbAHYqrdCRL+HrB775V36yJpr6mvOepKscuxW9QK+v5Cz3LrZKTnxF27Gtq3jfLMPF9k0DeSg1JKjSvB4W6YbNl7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YalEne44; arc=none smtp.client-ip=95.215.58.107
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788317080; c=relaxed/simple;
+	bh=mV863BZqmQh0jLKMjUwihEvc9fKL/uc+ODR/WZc6tZ4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Nm/KalyupJ5yYzpU71ZPIqkbnn/6nFxChWQdkEGmWnyjLnuTn7yU7n3pg1skeAuX0gpOflV6EnfHhmCceNVRXlSoDEPy69GeDHNLb94bHuPfm20fQ8SR25vmCHFwQw4Gwu6nR7RDmuQB9em4bzaNRVQpzaQcFhrWrzQu8tCobWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Qh2n4eQG; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YalEne44"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Xe69XlRqZvTK+JNk8vfsg5yxOFqf3N37qunP2dh1jsg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788317011; v=1; x=1788921811;
- b=YalEne445hcaTJ4q+Isg+riH1aAY/F9aK3YrsvI1pMxodr7kjhJWqx3DuPosYWvbV5dRhxbw
- 4WklRgBh2cXrU+rkyyq7z2SN/TzNkxOXHhgz5Pyo4b7/30lDHRYc7SBHXKYkquRHq/fZbNSaw24
- cYuthBa30KWG2lbdwFeFJgeE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6cc57476be4b74c8;
-	Wed, 02 Sep 2026 02:43:21 +0000
-X-Mizu-Trace-ID: 6cc57476be4b74c8
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <e3d21597-83bf-4637-a460-85ad757f524a@linux.dev>
-Date: Wed, 2 Sep 2026 10:43:14 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Qh2n4eQG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788317079; x=1819853079;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=mV863BZqmQh0jLKMjUwihEvc9fKL/uc+ODR/WZc6tZ4=;
+  b=Qh2n4eQGgnz3UV/7pTq9+DFVsnOAkWYgs3kWWHSnR/sMPu0RcRHgpHlC
+   jSp/EONqQtPoOnjlf/svdVyc1mHCRHjyZgNEV3A/ichP0gPaqcwJYbb/n
+   YYoq5O6RzPSPnqgvwB3M3xzxZT2v16gyboOPW4uKe/VS5FG/fe0KQDhYL
+   KE40q39/7NRgQKJCX9Hl84sFq2lQBKMHHj8R0Uc0crihlUVjHbFBRBq1h
+   oS4mCZC1Abp3uKHb+eKj4pvvWLzmUIWi7l19AAux+l53Vlgq3V2F13BAO
+   9B37+pBIWfA4OKa/FXIpMAkwnuGJ0is8uXDWuoELIJhu3iC41E08GlBLG
+   Q==;
+X-CSE-ConnectionGUID: VX96hs1HSsy+Ol/u1xC/ug==
+X-CSE-MsgGUID: yQwW0DTWTnyZHvPut1NV6g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="106282872"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="106282872"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 19:44:38 -0700
+X-CSE-ConnectionGUID: Jcsu4giPSW+3+ywPOuJzIg==
+X-CSE-MsgGUID: fUtSNZKzQk+uXWSqQl/blA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="272775470"
+Received: from chang-linux-3.sc.intel.com (HELO chang-linux-3) ([172.25.66.174])
+  by orviesa003.jf.intel.com with ESMTP; 01 Sep 2026 19:44:38 -0700
+From: "Chang S. Bae" <chang.seok.bae@intel.com>
+To: pbonzini@redhat.com,
+	seanjc@google.com
+Cc: kvm@vger.kernel.org,
+	x86@kernel.org,
+	linux-kernel@vger.kernel.org,
+	chang.seok.bae@intel.com
+Subject: [PATCH v7 00/20] KVM: x86: Enable APX for guests
+Date: Wed,  2 Sep 2026 02:17:44 +0000
+Message-ID: <20260902021804.718676-1-chang.seok.bae@intel.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] irqdomain: Delete irq_domain_add_linear()
-To: Dongliang Mu <dzm91@hust.edu.cn>, "Jiri Slaby (SUSE)"
- <jirislaby@kernel.org>, tglx@kernel.org
-Cc: linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>,
- Alex Shi <alexs@kernel.org>
-References: <20260901070450.255507-1-jirislaby@kernel.org>
- <d1025540-8eee-441c-9e7e-c0aada663a0f@hust.edu.cn>
-Content-Language: en-US
-From: Yanteng Si <si.yanteng@linux.dev>
-In-Reply-To: <d1025540-8eee-441c-9e7e-c0aada663a0f@hust.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+Dear KVM maintainers,
 
-在 2026/9/1 15:32, Dongliang Mu 写道:
->
-> On 9/1/26 3:04 PM, Jiri Slaby (SUSE) wrote:
->> 7.3-rc1 is free of calls to irq_domain_add_linear(), so it can be
->> deleted at last.
->>
->> According to Dongliang Mu, the paragraph in the Chinese docs is now
->> obsolete. So drop it completely.
->>
->> Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
->> Cc: Thomas Gleixner <tglx@kernel.org>
->> Cc: Radu Rendec <radu@rendec.net>
->> Cc: Alex Shi <alexs@kernel.org>
->> Cc: Yanteng Si <si.yanteng@linux.dev>
->> Cc: Dongliang Mu <dzm91@hust.edu.cn>
->
-> Reviewed-by: Dongliang Mu <dzm91@hust.edu.cn>
+This respin is primarily a rebase onto v7.3, with the following minor
+changes:
 
-Reviewed-by: Yanteng Si <si.yanteng@linux.dev>
+ * Patch 8: Adjust the core API usage from static_cpu_has() to
+   cpu_feature_enabled().
+ * Patch 2: Fix an unintended code comment change that was previously
+   leaked to next patch.
 
+Please let me know if there are any remaining issues that should be
+addressed. I'm trying to figure out the next steps for the series.
+
+Otherwise, I would appreciate your consideration for picking up this.
+
+References:
+
+ * Repo: git://github.com/intel/apx.git apx-kvm_v7
+ * KVM unit test: https://lore.kernel.org/20260420212355.507827-1-chang.seok.bae@intel.com
+ * V6: https://lore.kernel.org/kvm/20260729191656.598771-1-chang.seok.bae@intel.com/
 
 Thanks,
+Chang
 
-Yanteng
 
->
->>
->> ---
->> [v2] drop the whole paragraph (Dongliang Mu)
->> ---
->>   .../zh_CN/core-api/irq/irq-domain.rst          |  4 ----
->>   include/linux/irqdomain.h                      | 18 ------------------
->>   2 files changed, 22 deletions(-)
->>
->> diff --git 
->> a/Documentation/translations/zh_CN/core-api/irq/irq-domain.rst 
->> b/Documentation/translations/zh_CN/core-api/irq/irq-domain.rst
->> index aaefeda0e164..7317cf5355c9 100644
->> --- a/Documentation/translations/zh_CN/core-api/irq/irq-domain.rst
->> +++ b/Documentation/translations/zh_CN/core-api/irq/irq-domain.rst
->> @@ -90,10 +90,6 @@ irq_domain映射的类型
->>   映射的优点是固定时间查找IRQ号，而且irq_descs只分配给在用的IRQ。 
->> 缺点是该表
->>   必须尽可能大的hwirq号。
->>   -irq_domain_add_linear()和irq_domain_create_linear()在功能上是等价的，
->> -除了第一个参数不同--前者接受一个Open Firmware特定的 'struct device_node' 
->> 而
->> -后者接受一个更通用的抽象 'struct fwnode_handle' 。
->> -
->>   大多数驱动应该使用线性映射
->>     树状映射
->> diff --git a/include/linux/irqdomain.h b/include/linux/irqdomain.h
->> index 73c25d40846c..3ba75a4ed3da 100644
->> --- a/include/linux/irqdomain.h
->> +++ b/include/linux/irqdomain.h
->> @@ -752,24 +752,6 @@ static inline void 
->> msi_device_domain_free_wired(struct irq_domain *domain, unsig
->>   }
->>   #endif
->>   -static inline struct irq_domain *irq_domain_add_linear(struct 
->> device_node *of_node,
->> -                               unsigned int size,
->> -                               const struct irq_domain_ops *ops,
->> -                               void *host_data)
->> -{
->> -    struct irq_domain_info info = {
->> -        .fwnode        = of_fwnode_handle(of_node),
->> -        .size        = size,
->> -        .hwirq_max    = size,
->> -        .ops        = ops,
->> -        .host_data    = host_data,
->> -    };
->> -    struct irq_domain *d;
->> -
->> -    d = irq_domain_instantiate(&info);
->> -    return IS_ERR(d) ? NULL : d;
->> -}
->> -
->>   #else /* CONFIG_IRQ_DOMAIN */
->>   static inline void irq_dispose_mapping(unsigned int virq) { }
->>   static inline struct irq_domain *irq_find_matching_fwnode(struct 
->> fwnode_handle *fwnode,
->
+Chang S. Bae (19):
+  KVM: x86: Extend VCPU registers for EGPRs
+  KVM: VMX: Save guest EGPRs in VCPU cache
+  KVM: x86: Support APX state for XSAVE ABI
+  KVM: VMX: Refactor VMX instruction information access
+  KVM: VMX: Refactor instruction information decoding
+  KVM: VMX: Remove unused control-register access defines
+  KVM: VMX: Refactor register index retrieval from exit qualification
+  KVM: VMX: Support instruction information extension
+  KVM: nVMX: Propagate extended instruction information
+  KVM: x86: Support EGPR accessing and tracking for emulator
+  KVM: x86: Handle EGPR index and REX2-incompatible opcodes
+  KVM: x86: Support REX2-prefixed opcode decode
+  KVM: x86: Reject EVEX-prefixed instructions
+  KVM: x86: Guard valid XCR0.APX settings
+  KVM: x86: Add APX to supported XCR0
+  KVM: x86: Expose APX foundation feature to userspace
+  KVM: x86: Expose APX sub-features to userspace
+  KVM: x86: selftests: Add APX state and ABI test
+  KVM: x86: selftests: Add APX state handling and XCR0 sanity checks
+
+Sean Christopherson (1):
+  KVM: x86: Move KVM_SUPPORTED_{XCR0,XSS} into kvm_x86_vendor_init()
+
+ arch/x86/Kconfig.assembler                    |   5 +
+ arch/x86/include/asm/cpuid/api.h              |   1 +
+ arch/x86/include/asm/kvm_host.h               |  19 ++
+ arch/x86/include/asm/kvm_vcpu_regs.h          |  50 +++++
+ arch/x86/include/asm/vmx.h                    |  22 +-
+ arch/x86/kvm/Kconfig                          |   4 +
+ arch/x86/kvm/cpuid.c                          |  27 ++-
+ arch/x86/kvm/cpuid.h                          |   2 +
+ arch/x86/kvm/emulate.c                        | 121 +++++++----
+ arch/x86/kvm/kvm_emulate.h                    |  21 +-
+ arch/x86/kvm/reverse_cpuid.h                  |   6 +
+ arch/x86/kvm/svm/svm.c                        |   8 +-
+ arch/x86/kvm/vmenter.h                        |   1 +
+ arch/x86/kvm/vmx/nested.c                     |  75 +++----
+ arch/x86/kvm/vmx/nested.h                     |   2 +-
+ arch/x86/kvm/vmx/vmcs12.c                     |   1 +
+ arch/x86/kvm/vmx/vmcs12.h                     |   3 +-
+ arch/x86/kvm/vmx/vmenter.S                    |  31 ++-
+ arch/x86/kvm/vmx/vmx.c                        |  28 ++-
+ arch/x86/kvm/vmx/vmx.h                        |  77 ++++++-
+ arch/x86/kvm/x86.c                            |  92 +++++++--
+ tools/testing/selftests/kvm/Makefile.kvm      |   1 +
+ .../selftests/kvm/include/x86/processor.h     | 120 +++++++++++
+ tools/testing/selftests/kvm/x86/apx_test.c    | 191 ++++++++++++++++++
+ tools/testing/selftests/kvm/x86/state_test.c  |   3 +
+ .../selftests/kvm/x86/xcr0_cpuid_test.c       |  19 ++
+ 26 files changed, 802 insertions(+), 128 deletions(-)
+ create mode 100644 tools/testing/selftests/kvm/x86/apx_test.c
+
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.53.0
+
