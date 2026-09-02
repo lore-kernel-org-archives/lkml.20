@@ -1,103 +1,221 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB7A49F106;
-	Wed,  2 Sep 2026 13:28:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1577E44AB8A;
+	Wed,  2 Sep 2026 13:28:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788355692; cv=none; b=Wsee1Udb5DSEyrG155Rk71egob9yPnPy07TcZ8fbj16cfgU9PAQf6BB2/oOR9gb6oeYEt7i1hJ0RZgrVSCLIV/W0fk/Jd0GEjPg4Pzuq3lNJBwoF3upkJNj4VKVPkCxVCvNUtE5Cz1WZ2a2tpXxVO2y8dGWHadj01xv5NfMdC8I=
+	t=1788355692; cv=none; b=bSg66Yaw4usI2vGYYVwalbfTMWeQxbrnj2K3RrBB73+QN79qiiOLv6GXWkvYOmF96ZrxwUnsZH4mPEG/xPXOFGcyxauCmcetHvCH9k5xLbRACOlGrLI/29F8wpb0LJO9vdJlBXRJpkOwQiGX1IjncOgxZmi59l5NlDj7r9trSg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788355692; c=relaxed/simple;
-	bh=n7uS+1u7Rz2/XZgUfmmvueShfkKIx2EpODxPDs9Q0PM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FErArfLKaMPTlILx1sl4NR991EZcDKobaX3L97gGHRJvekhWaZ0knPpiEtEHCbHV4i5P7YQl2doJVPzb6UUf/4zSSnt07qihxo5Ly9YzT4gXis3wLIHT85ihVVf80o3ZkwSNKbe+U6NZjj5gk0O08PbpR5ynRXeETz33Lxl+2xU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TUuLh4nC; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	bh=2P+u2evSNuuMf4FBE5dnzxmrTE45UpvZNO/XGsFxtzk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=hgO3khOshxpzexf6WyzUHpgABXoEPe2AhPzRyc0iijEAqao7zFgFXSdOaEXzoacaHKhPGpCCsepPD23MIvQSey8MmbgVqFcXiit1zeNu8wvgvGjWRlHTMfEp6w9Yv5+kJHOcsIVGqacfGDWwvQ0Rs6dN2s49zJsSmkp4rbSfE5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YXqN/kIe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TUuLh4nC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788355691; x=1819891691;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=n7uS+1u7Rz2/XZgUfmmvueShfkKIx2EpODxPDs9Q0PM=;
-  b=TUuLh4nCOWTwZ5S1WlE28cu+c0HmYcDbL9Vs36oakjVeQImp+rpA7aU2
-   lMTtRhGHbMR8dSGyOgbrtOXqlLOrzqhmQtDsuIRi+NLZJMRUUCERcFZNu
-   xJ8DjysN6bnizlsNCautN9YavHJgqbheoR1gKMK4jaAn3I/PCfVpBsng1
-   M735rXgUJktaXkOsNzu19oYKyasdguhTF0ncYCtwrB0OCc8SxAm0FRAU9
-   jDxMOYuvNyxXNcD0fsg8hmOsNTlK8dO/SCiAYiXgPOgrk1TT/0CEdFdj1
-   hriM4gXim/ZlGzCL+vc/mupRRSIHi8Y9O9vmgdKmlqmKi62mVeSOIPpgz
-   A==;
-X-CSE-ConnectionGUID: bqoyLpTiTKWNVcUnFN3SAQ==
-X-CSE-MsgGUID: jN2FHzhaQsyGurnbGw4zkQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="89022336"
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="89022336"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 06:28:01 -0700
-X-CSE-ConnectionGUID: c1CjdiMYQGWXSu0ksEXn8w==
-X-CSE-MsgGUID: EMLDa0vOTu6Ra1EETDiLgA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="273576745"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.118])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 06:27:58 -0700
-Date: Wed, 2 Sep 2026 16:27:55 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
-	sakari.ailus@linux.intel.com, bingbu.cao@amd.com,
-	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
-	andy@kernel.org, hansg@kernel.org, gregkh@linuxfoundation.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 00/16] media: Add Yoga Book camera support
-Message-ID: <apgkWxmlYyWFfHjT@ashevche-desk.local>
-References: <cover.1788286339.git.mauriziocasciano7@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YXqN/kIe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F2BF1F000E9;
+	Wed,  2 Sep 2026 13:28:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788355691;
+	bh=VS9LQdp7NkiQgnxIwqzDIraeCmzg3HvYohE2ygTY9TU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=YXqN/kIeNaq+lJzMUoBaz8Kp/YKh+8m+uwOyVd1GpVg9fcelm2bjLuRMOiZgpTXRa
+	 X7PDoN8gF/M0QkLGlNi3utM0B9qHJd5hru4Zn6q1SLXNxLoudl/9mNMwo0zpR8rUTC
+	 8oQv6zu8D4IYIDmz4xrseArNbIskD96HZr2rHUSZYfDFdEhZklp6I4eu19G6dFfSC+
+	 mahtDTJywL8A4eLKkKCm2Hl3nkFOUWB2VcONEk9aEacaWZaDiHgZ8w1+CK0kUecT7I
+	 obKAZR7KyWJDi5slZvofnpFHKPOUv04vGzyyhKXB7A+SaLM13JyJYscUGhX2WppEr/
+	 OAkX3fE7rryjg==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+Date: Wed, 02 Sep 2026 15:26:02 +0200
+Subject: [PATCH v5 06/12] rust: xarray: add `find_next` and `find_next_mut`
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1788286339.git.mauriziocasciano7@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-xarray-entry-send-v5-6-d18adae40708@kernel.org>
+References: <20260902-xarray-entry-send-v5-0-d18adae40708@kernel.org>
+In-Reply-To: <20260902-xarray-entry-send-v5-0-d18adae40708@kernel.org>
+To: Tamir Duberstein <tamird@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Matthew Wilcox <willy@infradead.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Harry Yoo <harry@kernel.org>, Hao Li <hao.li@linux.dev>, 
+ Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
+ Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Andreas Hindborg <a.hindborg@kernel.org>, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5938; i=a.hindborg@kernel.org;
+ h=from:subject:message-id; bh=2P+u2evSNuuMf4FBE5dnzxmrTE45UpvZNO/XGsFxtzk=;
+ b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBqmCQeZh+yM/Lo9ujPEXm7kNCxhZn06Kgb64T24
+ Hz94PDsAXGJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCapgkHgAKCRD6UCkIqsW9
+ 0D28EACu5MO7rnm5jy8eTjtmuVUmSYK+/hF/m9SvPkSmDggfcQXwjphQFoCr7jQejjUOgk7ggmq
+ yGYXHIBX+K8e26yBI9+7plMGEvv0yWJDNkLr4IVi4GLoHKwltxM1xgSD4rkI9WoFOSMmKHTzqVP
+ 7zojUxmZy7xDeUScIqIjL+2s8fTP+Fs+5fbojtQ+fC4ZOw7cXvbGACxDAGUUdCnaJJ8/ucw3RIA
+ H0PmMspSofYJNXHDA5bJq/ox2EmHUHVNczPp5y0YxL8/HTBrn0ZAkS6jrQAWfud0PY244gHY+dc
+ QCbi6+jMMsJUli+SZjAo0LXL6axlD51AoGLW6WeTm8Jjlzw47WknY0X01QrLdoO/noXs47TlN+C
+ CDtjAyCQ7hS08Mhmhbu0K99y32hLVegyR54hxE/O3RhE1r0uGHygQEBLI9DhG65Mf/j5ZrrfFOa
+ MYz2eaciQTsIKzghYIBdRbq8tysHzC0nLqpZgA1rceS/zjsp+HGncK77Uw3VF4YRPfsEdBoTFc7
+ INUZ9u2NQxevOsVLwZU2YqG4g3DseAhxtJBFUx+UKIq4uO5uZKnK+bbhVpwGxDOKiCGoR82+95X
+ 7UdmA4bFSoQ7NjUEN/K9C7nNm3GDEXx0D3EpxjB87XReQrNzhNe+wICVgGiuwt8RCML79ZV17sA
+ cw7CTQA0lGs+y/A==
+X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
+ fpr=3108C10F46872E248D1FB221376EB100563EF7A7
 
-On Tue, Sep 01, 2026 at 09:04:22PM +0200, Maurizio Casciano wrote:
-> Hi,
-> 
-> This series adds the sensor, bridge, AtomISP and lens-actuator support
-> needed by the front and rear cameras of the Lenovo Yoga Book YB1-X91.
-> 
-> It covers the OV8858 19.2 MHz clock and Cherry Trail gain programming,
-> OV2740 288 MHz link frequency and manual white balance, firmware IDs and
-> IPU bridge data, AtomISP raw capture and CSI-2 timing, and the WV517S lens
-> actuator.
-> 
-> Changes in v6:
-> - In patch 2, replace the arithmetic MHz expressions with direct Hz
->   constants, as requested by Andy Shevchenko.
-> - Give the supported input clocks distinct names:
->   OV8858_XVCLK_FREQ_24MHZ and OV8858_XVCLK_FREQ_19_2MHZ.
-> - No other code changes from v5.
-> 
-> Validation:
-> - Strict checkpatch over all 16 patches: no errors or warnings.
-> - W=1 object build of drivers/media/i2c/ov8858.o.
-> - Sparse C=2 check of drivers/media/i2c/ov8858.c.
+Add methods to find the next element in an XArray starting from a
+given index. The methods return a tuple containing the index where the
+element was found and a reference to the element.
 
-> - Front and rear cameras previously validated on the Yoga Book with real
->   raw Bayer capture.
+The implementation uses the XArray state API via `xas_find` to avoid taking
+the rcu lock as an exclusive lock is already held by `Guard`.
 
-Can you confirm it still works? Because word 'previously' makes me a bit
-worrying. In v7 it might be even more changes, so please make sure it still
-works as expected.
+Assisted-by: LLM
+Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+---
+ rust/kernel/xarray.rs | 101 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 101 insertions(+)
+
+diff --git a/rust/kernel/xarray.rs b/rust/kernel/xarray.rs
+index a14f874ad630..9993783fc854 100644
+--- a/rust/kernel/xarray.rs
++++ b/rust/kernel/xarray.rs
+@@ -219,6 +219,22 @@ fn load(&self, index: usize) -> Option<NonNull<c_void>> {
+     }
+ 
+     /// Provides a reference to the element at the given index.
++    ///
++    /// # Examples
++    ///
++    /// ```
++    /// # use kernel::{prelude::*, xarray::{AllocKind, XArray}};
++    /// let xa = KBox::pin_init(XArray::<KBox<u32>>::new(AllocKind::Alloc1), GFP_KERNEL)?;
++    /// let mut guard = xa.lock();
++    ///
++    /// // Expanding an empty `Alloc1` array stores an internal zero entry at
++    /// // index 0. It must not be visible through the API.
++    /// guard.store(5, KBox::new(0xcafeu32, GFP_ATOMIC)?, GFP_ATOMIC)?;
++    /// assert_eq!(guard.get(0), None);
++    /// assert_eq!(guard.find_next(0).map(|(i, v)| (i, *v)), Some((5, 0xcafe)));
++    ///
++    /// # Ok::<(), kernel::error::Error>(())
++    /// ```
+     #[inline]
+     pub fn get(&self, index: usize) -> Option<T::Borrowed<'_>> {
+         let ptr = self.load(index)?;
+@@ -234,6 +250,67 @@ pub fn get_mut(&mut self, index: usize) -> Option<T::BorrowedMut<'_>> {
+         Some(unsafe { T::borrow_mut(ptr.as_ptr()) })
+     }
+ 
++    fn load_next(&self, index: usize) -> Option<(usize, NonNull<c_void>)> {
++        XArrayState::new(self, index).load_next(usize::MAX)
++    }
++
++    /// Finds the next element starting from the given index.
++    ///
++    /// # Examples
++    ///
++    /// ```
++    /// # use kernel::{prelude::*, xarray::{AllocKind, XArray}};
++    /// let mut xa = KBox::pin_init(XArray::<KBox<u32>>::new(AllocKind::Alloc), GFP_KERNEL)?;
++    /// let mut guard = xa.lock();
++    ///
++    /// guard.store(10, KBox::new(10u32, GFP_ATOMIC)?, GFP_ATOMIC)?;
++    /// guard.store(20, KBox::new(20u32, GFP_ATOMIC)?, GFP_ATOMIC)?;
++    ///
++    /// if let Some((found_index, value)) = guard.find_next(11) {
++    ///     assert_eq!(found_index, 20);
++    ///     assert_eq!(*value, 20);
++    /// }
++    ///
++    /// if let Some((found_index, value)) = guard.find_next(5) {
++    ///     assert_eq!(found_index, 10);
++    ///     assert_eq!(*value, 10);
++    /// }
++    ///
++    /// # Ok::<(), kernel::error::Error>(())
++    /// ```
++    pub fn find_next(&self, index: usize) -> Option<(usize, T::Borrowed<'_>)> {
++        self.load_next(index)
++            // SAFETY: `ptr` came from `T::into_foreign`.
++            .map(|(index, ptr)| (index, unsafe { T::borrow(ptr.as_ptr()) }))
++    }
++
++    /// Finds the next element starting from the given index, returning a mutable reference.
++    ///
++    /// # Examples
++    ///
++    /// ```
++    /// # use kernel::{prelude::*, xarray::{AllocKind, XArray}};
++    /// let mut xa = KBox::pin_init(XArray::<KBox<u32>>::new(AllocKind::Alloc), GFP_KERNEL)?;
++    /// let mut guard = xa.lock();
++    ///
++    /// guard.store(10, KBox::new(10u32, GFP_ATOMIC)?, GFP_ATOMIC)?;
++    /// guard.store(20, KBox::new(20u32, GFP_ATOMIC)?, GFP_ATOMIC)?;
++    ///
++    /// if let Some((found_index, mut_value)) = guard.find_next_mut(5) {
++    ///     assert_eq!(found_index, 10);
++    ///     *mut_value = 0x99;
++    /// }
++    ///
++    /// assert_eq!(guard.get(10).copied(), Some(0x99));
++    ///
++    /// # Ok::<(), kernel::error::Error>(())
++    /// ```
++    pub fn find_next_mut(&mut self, index: usize) -> Option<(usize, T::BorrowedMut<'_>)> {
++        self.load_next(index)
++            // SAFETY: `ptr` came from `T::into_foreign`.
++            .map(move |(index, ptr)| (index, unsafe { T::borrow_mut(ptr.as_ptr()) }))
++    }
++
+     /// Removes and returns the element at the given index.
+     pub fn remove(&mut self, index: usize) -> Option<T> {
+         // SAFETY:
+@@ -359,6 +436,30 @@ fn load(&mut self) -> Option<NonNull<c_void>> {
+         // SAFETY: `xa_zero_to_null` only inspects the value of `ptr`.
+         NonNull::new(unsafe { bindings::xa_zero_to_null(ptr) }.cast())
+     }
++
++    fn load_next(&mut self, max: usize) -> Option<(usize, NonNull<c_void>)> {
++        loop {
++            // SAFETY: `self.state` is a valid `xa_state` by the type invariant. By the same
++            // invariant, `self.state.xa` aliases the xarray reachable through `self.guard`,
++            // whose lock we hold.
++            let ptr = unsafe { bindings::xas_find(&raw mut self.state, max) };
++            if ptr.is_null() {
++                break None;
++            }
++
++            // Unlike the normal API, `xas_find` does not filter out internal entries. Arrays
++            // created with [`AllocKind::Alloc1`] store `XA_ZERO_ENTRY` at index 0 when they
++            // are expanded from empty. Skip zero entries and continue the search, like the
++            // `xas_retry` loop in `xa_find` does. Retry entries cannot be observed here
++            // because they require concurrent modification of the array, and we hold the
++            // lock.
++            //
++            // SAFETY: `xa_zero_to_null` only inspects the value of `ptr`.
++            if let Some(ptr) = NonNull::new(unsafe { bindings::xa_zero_to_null(ptr) }) {
++                break Some((self.state.xa_index, ptr));
++            }
++        }
++    }
+ }
+ 
+ // SAFETY: `XArray<T>` has no shared mutable state so it is `Send` iff `T` is `Send`.
 
 -- 
-With Best Regards,
-Andy Shevchenko
+2.51.2
 
 
