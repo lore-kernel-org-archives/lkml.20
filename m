@@ -1,247 +1,327 @@
-Received: from mta0.migadu.com (out-19.mta0.migadu.com [91.218.175.19])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E09B3463B91
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17BEB46AA68
 	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:04:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788347050; cv=none; b=WEsjrlQvfhbYiDLVkldBN99QdRV4z6VU64Ku64nwCaHIVEYuzW7MdzDvjPZ3XDUfwawDhu9M6hTxIZCqTre9+gV8eksf0fD+c27/vJTtdPQL9BGCRft5Xz+7k00kCCipoUkre5fXn+NSgliQmxiqeYNUna1N4mWMJRTIQfn9OaE=
+	t=1788347050; cv=none; b=UGZauuHjKKcyILov9cU8Li4SLmHL/2mI4JO0l9khB2PqRYmwLXaTWdUXRUwVBAL0EuKARAFHyRkpKId57z7el5c9W+o7hBJIprAKodPCayKBlSsDZ8vjz8RPDbjm/qfLmtRnt4LH8cJhkWmmq4+m0PMLrQiIA3IVm9vYRjlNsnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788347050; c=relaxed/simple;
-	bh=boIFzYTONzPjf+AA8M8c6ELFTdsgpE88c0fvNdrnXTM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b59eZlf4efQjlwZYKd2Z+QdQlfQM0T6IKSjYNrm+5yW3m27+4BARrs2YDdc3ytD/oPgja4VYdFMhWIApds/4P+GsgcYnJ5a08Ebl8QceqFh9ZZfErvKsMucl/IVkMJAyDatc3sY2kMqXDl7bf60gS6OFcw3/Q8Zbilrb925cLJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HMZvCZ5e; arc=none smtp.client-ip=91.218.175.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	bh=InWdAuxyFhGUYL2HTGnHaN6Eysn7z8PAuhLPW+fSIWY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=UMSJmCt6i28cndmoNeI89Pxlvy3+dbZL8+gxgGwdOt6HC9rYm+3FnNzrF4bRyNX13FzgP2+nt2IIxRsxmeALiag5T9fSb/ciNTSalFBuc8NA81mbnvf06fJ8VGVuQNnNywdhPdvLsQfMujVBMgLEw4iYG4dy/esBvHJTKeieCNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=ZlLGf51W; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HMZvCZ5e"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=boIFzYTONzPjf+AA8M8c6ELFTdsgpE88c0fvNdrnXTM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788347045; v=1; x=1788951845;
- b=HMZvCZ5eEeU1lUVybsBVcRqPH1B7HD2NidZv1OwcsnAlvhP3THSDZMv/JiCIeCAmJl4Yicl4
- GNkY4HaQ27zrh/jo8ASGLeiPdThVFafsYmO9iL8zecKx5/TDec+VeYSrap9g72dOrMNBLC82QtZ
- 9ygp/Q2WYJaHf/Hg0x7l50Qk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 1656e6b9af72c2cb;
-	Wed, 02 Sep 2026 11:04:05 +0000
-X-Mizu-Trace-ID: 1656e6b9af72c2cb
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 2 Sep 2026 14:04:00 +0300
-From: Matti Vaittinen <matti.vaittinen@linux.dev>
-To: Matti Vaittinen <mazziesaccount@gmail.com>,
-	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
-	Matti Vaittinen <matti.vaittinen@linux.dev>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-rtc@vger.kernel.org
-Subject: [PATCH v3 02/10] dt-bindings: rohm,bd*: Ref common ROHM bindings
-Message-ID: <14c3341d84941e13a4b41420e115e016f377d662.1788346553.git.mazziesaccount@gmail.com>
-Reply-To: Matti Vaittinen <mazziesaccount@gmail.com>
-References: <cover.1788346553.git.mazziesaccount@gmail.com>
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="ZlLGf51W"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49556f97a9dso6763745e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:04:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1788347046; x=1788951846; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=mGpDj/ts2TvIc7WC65F3OWBSjwCUTru8TXHzW2dzmkQ=;
+        b=ZlLGf51WtuNahQQaShSAeTAAZs4ZTbdn5NpVPaQSfvAMSIjfkz28rW+chll42sCDuy
+         BsrVr/fnh00ghWtEvv+z6sIOWO8w7dszdWT7AMgdLckNYNpFG2dMxqYLjr+jZS638c18
+         NNSE1meMacZtALdSSTP9Hg5Eiz8CI6D5c2tqj0EehprE5cbK9GDhbPdNyAKZa2yH5kkd
+         QYRmpalrZMFfACsUTI9CincD9i3glujJh6cFoySAOpejKCnkV+b+oBJdW58HjTPzCwHn
+         wSeliG1wS2YdFX5TQKeTWbSIEh5ZAESbkBLE+DaXjhnmhlPBixICozhF8yed2DK5ScPs
+         yGZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788347046; x=1788951846;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=mGpDj/ts2TvIc7WC65F3OWBSjwCUTru8TXHzW2dzmkQ=;
+        b=YH8EbhuUQGVHuWEudezpZvpcNlWrTI5Zq8JUM1a2WFBr5AP4gnNg6Igg7GauWv8Gmq
+         o5rFN9uq1G9FWz2Loy4BjLxHvanYIG9Zc0PpOj50TPzI6QRszlUIl+i5XPVlI6s4TtAR
+         KkJA4J/117/hhaW7/GCd5ml3OAecIK29NYTKV7NLH0u5iqCfx7PuL4PUbYmD6Y9r6alZ
+         LQnU/w+24XUSWOHlXUkDe8CVCchQhmMFdIdfAxJzehd5qApJm1w99aLdKJhamRQeWVaY
+         C+5NIAf2MJa7zD8nsEvIKnS3nNbzmz8qoBoxYOI36osbXiTHKPjd/5Z822v5bKPlZb10
+         Xr/Q==
+X-Gm-Message-State: AFuF++mcDj5zhtly21fN6bMJGRxQrCgbY8MXATBZ9P/4CK6Xhl1lL7Ux
+	28dBsEmv4AYJiQ11cF00D0/sHV62DHPkyjra1pjgdJMsglAfLN2RGMhZyITFKASZOI4=
+X-Gm-Gg: AR+sD119/42PhZfCTGY1qcRHi1OrGBsJVnCvniBknw2klg4cnaZUjS7vs9t64peI/u9
+	O+MXRSsqVJJvg3lyjoOsiQNr1P6URjnEs6rRqB6jPn6SOCzPvEvamsMH6NbdfYyqp6AFMfgUaQq
+	+MP4HAaRudLY/9O8q0LMsjuGaheVpzqGwEyu1g6f2EABXwP/CjY2/Av9h46MWnsR6fdb9BOSd1Y
+	NBE2myXpa2j1EFIV1bKZFrW9AOEFj3DNPHrQJJGEeuWYY4ldvnezZpxaHqwlQFn5Z/A8nXVIy06
+	5TISwLSt9H6H5QEptXvZpSVP2pIRu3PBTkMThbvMXm6N72eiHS2FalDddluZiyTCghs2qjhYBFQ
+	Q5jLQ6EonCNkqxXbsB2Exnx652TJWCNLOaCkfgeqNoMuDJAXOIQL5U94cizT7+psF9bI5oLwIWg
+	sQ1ww5VaBQ/LMTfq9cqzXbldGa2DmRKyOaT+UW0CFv8TTpGc1QwMAdx/p5LPR/ott5zuawFdLav
+	ZDpvWWXmSMFr51xy66h64rRKOQG23ln/LpOsTydBA==
+X-Received: by 2002:a7b:c3da:0:b0:49c:d293:70c8 with SMTP id 5b1f17b1804b1-49ced887bfcmr5783815e9.3.1788347045902;
+        Wed, 02 Sep 2026 04:04:05 -0700 (PDT)
+Received: from alchark-surface.localdomain (bba-2-51-220-108.alshamil.net.ae. [2.51.220.108])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce0b425sm140373575e9.1.2026.09.02.04.04.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 04:04:04 -0700 (PDT)
+From: Alexey Charkov <alchark@flipper.net>
+Date: Wed, 02 Sep 2026 15:03:48 +0400
+Subject: [PATCH] nvmem: Drop a layout's cells when it is unregistered
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="NafCu4dhMD20aIpu"
-Content-Disposition: inline
-In-Reply-To: <cover.1788346553.git.mazziesaccount@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-nvmem-layout-unreg-v1-1-2d16bebeb518@flipper.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrDuQTlCwVyldJDrqSI0lP6KId
+ zfV5bd4b4fAXjjAq9jB8yJBZpfxfBTQDMb1jNJmAymqVK0I3TLxhF+zzSlicp57pFYZqzXpurS
+ Qw5/nTtZr+v7cDsmO3MT/CY7jBCAmijZ2AAAA
+X-Change-ID: 20260902-nvmem-layout-unreg-2d0ab332395b
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
+ stable@vger.kernel.org, Alexey Charkov <alchark@flipper.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7797; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=InWdAuxyFhGUYL2HTGnHaN6Eysn7z8PAuhLPW+fSIWY=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTNYJpnNl3CQ+LlsyWBvUmbHbO/HmW2n5XEW3GDZZv5M
+ cm6m7kLOiayMIhxMViKKbLM/bbEdqoR36xdHh5fYeawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
+ QyMdYx0jBi5OAZhqnRBGhhf3k3fc3xG27j33PBnppS672WPni+4WbZhRX6HWJXKir5qRofuRjXT
+ CPjE35TKfx7vXHw6wePNMdmOhG/9frxVXlp9Q5AYA
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
---NafCu4dhMD20aIpu
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Layout drivers add cells carrying a read_post_process callback, and
+sometimes private data, which belong to the layout driver itself.
+Since layouts became regular devices, that driver may be a module,
+unbound and unloaded independently of the nvmem provider, yet
+nvmem_layout_unregister() drops nothing: the cells stay registered in
+the core along with their now dangling callback pointer, as do the
+sysfs attributes referring to them. Reading such a cell afterwards,
+through sysfs for instance, calls into freed module text.
 
-=46rom: Matti Vaittinen <mazziesaccount@gmail.com>
+Nothing prevents that unload either. The module reference taken in
+of_nvmem_cell_get() is released by nvmem_cell_put() as soon as a
+consumer is done with the cell, so once the consumers have probed the
+layout module is free to go. Layout drivers cannot clean up after
+themselves, as the core exports no way to remove a cell.
 
-The commonly used ROHM PMIC bindings were added into
-rohm,pmic-pins.yaml. Keeping commonly used properties in one file can
-ease both the maintaining the bindings and the reviewing process.
+Record the layout which populated each cell and drop those cells again
+when the layout is unregistered. As the sysfs attributes point at the
+cell entries, take the "cells" attribute group down before freeing them
+and rebuild it afterwards for the cells which remain. This also stops
+the cells of a failed add_cells() from being left behind, and releases
+the device_node references those cells hold.
 
-Reference the common bindings from rohm,pmic-pins.yaml, instead of
-declaring them from the scratch for every PMIC using them. Keep the PMIC
-variant specific information (like supported pin functions) in PMIC the
-specific files, so unsupported values won't be allowed.
+Fixes: fc29fd821d9a ("nvmem: core: Rework layouts to become regular devices")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260901160339.C57051F000E9@smtp.kernel.org/
+Cc: stable@vger.kernel.org
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
+---
+ drivers/nvmem/core.c      | 114 +++++++++++++++++++++++++++++++++++++++++++---
+ drivers/nvmem/internals.h |   2 +
+ 2 files changed, 110 insertions(+), 6 deletions(-)
 
-Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
+index 0556d140170a..c9a977c52c61 100644
+--- a/drivers/nvmem/core.c
++++ b/drivers/nvmem/core.c
+@@ -35,6 +35,7 @@ struct nvmem_cell_entry {
+ 	int			nbits;
+ 	nvmem_cell_post_process_t read_post_process;
+ 	void			*priv;
++	struct nvmem_layout	*layout;
+ 	struct device_node	*np;
+ 	struct nvmem_device	*nvmem;
+ 	struct list_head	node;
+@@ -517,11 +518,42 @@ static int nvmem_populate_sysfs_cells(struct nvmem_device *nvmem)
+ 	if (ret)
+ 		return ret;
+ 
++	nvmem->sysfs_cells_attrs = attrs;
++	nvmem->sysfs_cells_pattrs = pattrs;
+ 	nvmem->sysfs_cells_populated = true;
+ 
+ 	return ret;
+ }
+ 
++static void nvmem_destroy_sysfs_cells(struct nvmem_device *nvmem)
++{
++	struct attribute_group group = {
++		.name	= "cells",
++	};
++	unsigned int i;
++
++	guard(mutex)(&nvmem_mutex);
++
++	if (!nvmem->sysfs_cells_populated)
++		return;
++
++	/*
++	 * Removing the group waits for any read in flight, after which nothing
++	 * refers to the cell entries through their attributes any more.
++	 */
++	device_remove_group(&nvmem->dev, &group);
++
++	for (i = 0; nvmem->sysfs_cells_pattrs[i]; i++)
++		devm_kfree(&nvmem->dev, nvmem->sysfs_cells_pattrs[i]->attr.name);
++
++	devm_kfree(&nvmem->dev, nvmem->sysfs_cells_attrs);
++	devm_kfree(&nvmem->dev, nvmem->sysfs_cells_pattrs);
++
++	nvmem->sysfs_cells_attrs = NULL;
++	nvmem->sysfs_cells_pattrs = NULL;
++	nvmem->sysfs_cells_populated = false;
++}
++
+ #else /* CONFIG_NVMEM_SYSFS */
+ 
+ static int nvmem_sysfs_setup_compat(struct nvmem_device *nvmem,
+@@ -529,10 +561,20 @@ static int nvmem_sysfs_setup_compat(struct nvmem_device *nvmem,
+ {
+ 	return -ENOSYS;
+ }
++
+ static void nvmem_sysfs_remove_compat(struct nvmem_device *nvmem)
+ {
+ }
+ 
++static int nvmem_populate_sysfs_cells(struct nvmem_device *nvmem)
++{
++	return 0;
++}
++
++static void nvmem_destroy_sysfs_cells(struct nvmem_device *nvmem)
++{
++}
++
+ #endif /* CONFIG_NVMEM_SYSFS */
+ 
+ static void nvmem_release(struct device *dev)
+@@ -571,6 +613,15 @@ static void nvmem_device_remove_all_cells(const struct nvmem_device *nvmem)
+ 		nvmem_cell_entry_drop(cell);
+ }
+ 
++static void nvmem_device_remove_layout_cells(struct nvmem_layout *layout)
++{
++	struct nvmem_cell_entry *cell, *p;
++
++	list_for_each_entry_safe(cell, p, &layout->nvmem->cells, node)
++		if (cell->layout == layout)
++			nvmem_cell_entry_drop(cell);
++}
++
+ static void nvmem_cell_entry_add(struct nvmem_cell_entry *cell)
+ {
+ 	scoped_guard(mutex, &nvmem_mutex)
+@@ -844,33 +895,84 @@ static int nvmem_add_cells_from_legacy_of(struct nvmem_device *nvmem)
+ 	return nvmem_add_cells_from_dt(nvmem, nvmem->dev.of_node);
+ }
+ 
++/**
++ * nvmem_layout_register() - Register a layout and populate its cells
++ *
++ * @layout: nvmem layout, as handed to the layout driver's probe callback
++ *
++ * Runs the layout's add_cells() callback and takes ownership of the cells it
++ * adds, so that nvmem_layout_unregister() can drop them again. Meant to be
++ * called by a layout driver from its probe callback.
++ *
++ * Return: 0 on success, a negative error code otherwise.
++ */
+ int nvmem_layout_register(struct nvmem_layout *layout)
+ {
++	struct nvmem_device *nvmem = layout->nvmem;
++	struct nvmem_cell_entry *cell;
++	struct list_head *pos, *last;
+ 	int ret;
+ 
+ 	if (!layout->add_cells)
+ 		return -EINVAL;
+ 
++	scoped_guard(mutex, &nvmem_mutex)
++		last = nvmem->cells.prev;
++
+ 	/* Populate the cells */
+ 	ret = layout->add_cells(layout);
+-	if (ret)
++
++	/*
++	 * Claim whatever the layout has just appended, including on failure, so
++	 * that it can be dropped again when the layout goes away. Cells added
++	 * by anyone else, before or after this, are left alone.
++	 */
++	scoped_guard(mutex, &nvmem_mutex) {
++		for (pos = last->next; pos != &nvmem->cells; pos = pos->next) {
++			cell = list_entry(pos, struct nvmem_cell_entry, node);
++			cell->layout = layout;
++		}
++	}
++
++	if (ret) {
++		nvmem_device_remove_layout_cells(layout);
+ 		return ret;
++	}
+ 
+-#ifdef CONFIG_NVMEM_SYSFS
+-	ret = nvmem_populate_sysfs_cells(layout->nvmem);
++	ret = nvmem_populate_sysfs_cells(nvmem);
+ 	if (ret) {
+-		nvmem_device_remove_all_cells(layout->nvmem);
++		nvmem_device_remove_all_cells(nvmem);
+ 		return ret;
+ 	}
+-#endif
+ 
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(nvmem_layout_register);
+ 
++/**
++ * nvmem_layout_unregister() - Unregister a layout and drop its cells
++ *
++ * @layout: nvmem layout to unregister
++ *
++ * Drops the cells which nvmem_layout_register() has populated, as they refer
++ * to the layout driver and must not outlive it. Meant to be called by a layout
++ * driver from its remove callback.
++ */
+ void nvmem_layout_unregister(struct nvmem_layout *layout)
+ {
+-	/* Keep the API even with an empty stub in case we need it later */
++	struct nvmem_device *nvmem = layout->nvmem;
++
++	/*
++	 * The cells this layout added hold a read_post_process callback, and
++	 * possibly private data, belonging to the layout driver, which may be a
++	 * module on its way out. Drop them, taking their sysfs attributes down
++	 * first as those point at the cells, then publish what remains again.
++	 */
++	nvmem_destroy_sysfs_cells(nvmem);
++	nvmem_device_remove_layout_cells(layout);
++
++	if (nvmem_populate_sysfs_cells(nvmem))
++		dev_warn(&nvmem->dev, "failed to rebuild cell attributes\n");
+ }
+ EXPORT_SYMBOL_GPL(nvmem_layout_unregister);
+ 
+diff --git a/drivers/nvmem/internals.h b/drivers/nvmem/internals.h
+index 4e610deeaa7b..9345364f6ed7 100644
+--- a/drivers/nvmem/internals.h
++++ b/drivers/nvmem/internals.h
+@@ -36,6 +36,8 @@ struct nvmem_device {
+ 	struct nvmem_layout	*layout;
+ 	struct nvmem_operations	*ops;
+ 	void *priv;
++	const struct bin_attribute *sysfs_cells_attrs;
++	const struct bin_attribute **sysfs_cells_pattrs;
+ 	bool			sysfs_cells_populated;
+ };
+ 
 
 ---
-Revision history:
- v3:
-  - No changes
- v2:
-  - New patch
----
- .../bindings/mfd/rohm,bd71815-pmic.yaml       |  9 +++---
- .../bindings/mfd/rohm,bd71828-pmic.yaml       |  9 +++---
- .../bindings/mfd/rohm,bd72720-pmic.yaml       | 29 +++----------------
- 3 files changed, 12 insertions(+), 35 deletions(-)
+base-commit: 8b72f6626dc39b9e7e82b2721d4f7c3b86286012
+change-id: 20260902-nvmem-layout-unreg-2d0ab332395b
 
-diff --git a/Documentation/devicetree/bindings/mfd/rohm,bd71815-pmic.yaml b=
-/Documentation/devicetree/bindings/mfd/rohm,bd71815-pmic.yaml
-index 4fc78efaa550..0a67de054674 100644
---- a/Documentation/devicetree/bindings/mfd/rohm,bd71815-pmic.yaml
-+++ b/Documentation/devicetree/bindings/mfd/rohm,bd71815-pmic.yaml
-@@ -15,6 +15,9 @@ description: |
-   for LED and a 500 mA single-cell linear charger. Also included is a Coul=
-omb
-   counter, a real-time clock (RTC), and a 32.768 kHz clock gate and two GP=
-Os.
-=20
-+allOf:
-+  - $ref: rohm,pmic-pins.yaml#
-+
- properties:
-   compatible:
-     const: rohm,bd71815
-@@ -44,11 +47,7 @@ properties:
-   clock-output-names:
-     const: bd71815-32k-out
-=20
--  rohm,clkout-open-drain:
--    description: clk32kout mode. Set to 1 for "open-drain" or 0 for "cmos".
--    $ref: /schemas/types.yaml#/definitions/uint32
--    minimum: 0
--    maximum: 1
-+  rohm,clkout-open-drain: true
-=20
-   rohm,charger-sense-resistor-micro-ohms:
-     minimum: 10000
-diff --git a/Documentation/devicetree/bindings/mfd/rohm,bd71828-pmic.yaml b=
-/Documentation/devicetree/bindings/mfd/rohm,bd71828-pmic.yaml
-index 09e7d68e92bf..e5043dec990d 100644
---- a/Documentation/devicetree/bindings/mfd/rohm,bd71828-pmic.yaml
-+++ b/Documentation/devicetree/bindings/mfd/rohm,bd71828-pmic.yaml
-@@ -15,6 +15,9 @@ description: |
-   single-cell linear charger. Also included is a Coulomb counter, a real-t=
-ime
-   clock (RTC), and a 32.768 kHz clock gate.
-=20
-+allOf:
-+  - $ref: rohm,pmic-pins.yaml#
-+
- properties:
-   compatible:
-     oneOf:
-@@ -49,11 +52,7 @@ properties:
-   clock-output-names:
-     const: bd71828-32k-out
-=20
--  rohm,clkout-open-drain:
--    description: clk32kout mode. Set to 1 for "open-drain" or 0 for "cmos".
--    $ref: /schemas/types.yaml#/definitions/uint32
--    minimum: 0
--    maximum: 1
-+  rohm,clkout-open-drain: true
-=20
-   rohm,charger-sense-resistor-micro-ohms:
-     minimum: 10000
-diff --git a/Documentation/devicetree/bindings/mfd/rohm,bd72720-pmic.yaml b=
-/Documentation/devicetree/bindings/mfd/rohm,bd72720-pmic.yaml
-index b094542339e8..52d0f6e4ef0f 100644
---- a/Documentation/devicetree/bindings/mfd/rohm,bd72720-pmic.yaml
-+++ b/Documentation/devicetree/bindings/mfd/rohm,bd72720-pmic.yaml
-@@ -15,6 +15,9 @@ description:
-   and a 3000 mA switching charger. ICs also include a Coulomb counter,
-   a real-time clock (RTC), GPIOs and a 32.768 kHz clock gate.
-=20
-+allOf:
-+  - $ref: rohm,pmic-pins.yaml#
-+
- # In addition to the properties found from the charger node, PMICs
- # use properties from a static battery node. Please see the:
- # Documentation/devicetree/bindings/power/supply/battery.yaml
-@@ -80,10 +83,7 @@ properties:
-   clock-output-names:
-     const: bd71828-32k-out
-=20
--  rohm,clkout-open-drain:
--    description: clk32kout mode. Set to 1 for "open-drain" or 0 for "cmos".
--    $ref: /schemas/types.yaml#/definitions/uint32
--    maximum: 1
-+  rohm,clkout-open-drain: true
-=20
-   rohm,charger-sense-resistor-micro-ohms:
-     minimum: 10000
-@@ -103,14 +103,6 @@ properties:
-     $ref: /schemas/leds/rohm,bd71828-leds.yaml
-=20
-   rohm,pin-fault_b:
--    $ref: /schemas/types.yaml#/definitions/string
--    description:
--      PMIC has an OTP option to use fault_b-pin for different
--      purposes. Set this property accordingly. OTP options are
--      OTP0 - bi-directional FAULT_B or READY indicator depending on a
--      'sub option'
--      OTP1 - GPO
--      OTP2 - Power sequencer output.
-     enum:
-       - faultb
-       - readyind
-@@ -119,14 +111,6 @@ properties:
-=20
- patternProperties:
-   "^rohm,pin-dvs[0-1]$":
--    $ref: /schemas/types.yaml#/definitions/string
--    description:
--      PMIC has 4 different OTP options to determine the use of dvs<X>-pins.
--      OTP0 - regulator RUN state control.
--      OTP1 - GPI.
--      OTP2 - GPO.
--      OTP3 - Power sequencer output.
--      This property specifies the use of the pin.
-     enum:
-       - dvs-input
-       - gpi
-@@ -134,11 +118,6 @@ patternProperties:
-       - pwrseq
-=20
-   "^rohm,pin-exten[0-1]$":
--    $ref: /schemas/types.yaml#/definitions/string
--    description: PMIC has an OTP option to use exten0-pin for different
--      purposes. Set this property accordingly.
--      OTP0 - GPO
--      OTP1 - Power sequencer output.
-     enum:
-       - gpo
-       - pwrseq
---=20
-2.55.0
+Best regards,
+--  
+Alexey Charkov <alchark@flipper.net>
 
-
---NafCu4dhMD20aIpu
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCgAdFiEEIx+f8wZb28fLKEhTeFA3/03aocUFAmqYAqAACgkQeFA3/03a
-ocXAbQf/Qhh2rVBCFE5RSUkIKcIrGJuDA7vzUcILuYXekdV4WthPMndaoCU7iMji
-yUd8cxeWsL9j2v6LspHDsIdKjcAR+y6tnW/1uOSSjsTIL1w6e8LprJAmXfwkKcgq
-npON08qeC56A0+HGpfP37G9fmhj45cC9Z7EZ9t+2p/jcQOntm2NhLIm81OAPJeQy
-k/rOtBCkBaWDIABHf4tIyj6kq7Q+SXzED0HpWaONdwGLf6l45LJrUpLS3YobNK7O
-iapYdgvyPWi4oQMlgoOWOcu5Lc6Z9P2X6vJkJtV498jeXtPVcWCm9HtPCrMR170/
-cKZX6c6aVPwJaLYt5j5HgVQKxl66gg==
-=T/Zy
------END PGP SIGNATURE-----
-
---NafCu4dhMD20aIpu--
