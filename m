@@ -1,170 +1,129 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010034.outbound.protection.outlook.com [52.101.84.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B8C36F438;
-	Wed,  2 Sep 2026 18:42:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.34
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788374564; cv=fail; b=g/H1kGHQ38Pe2+ye+jTXvXTXBuAxmCsYlNZU2mD5BRJ8QkZPLy5j8q8akYvtxlhcPfEd8G2ODw4sDX/W1YoHAPUPDwirnS5Nf6Gt4B8xLpJJQNz0gpbm1vXuq0qflaxm5Hb7bthAtS2IbG5spUdcPnJb9bZPka9LHKUMuuwg444=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788374564; c=relaxed/simple;
-	bh=X5kZDo4kcwJLgsl41nYcGZjqFvj+36+j6N+rdkRy7UU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ptnpml3ev6hiqgeZQX5CEcqtjoJ06n9ZXrvA/ljjqTdYncbdl/VNngNMwioFECbekUqf6qDsz5RB05c7NbXcFQE9R/ykvS1RyZ8ThMBqEk0dDdFzEaUBYWzVCQI9AHtcQ1bp8Hx9uDh/+gwjhbXEAi/qG0eIL15EC27JJJ2T4Vw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=XqbUf6wh; arc=fail smtp.client-ip=52.101.84.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B111377A88
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:43:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788374639; cv=none; b=ngKMoloCRSEUBFyPl5RPTdT+qAhwglkh6IFCKLP4UeKAGssq6L2xaR1vO3Tg/UXembcE3urSso/mo0yb/4SgtccN0ijTVAomWwgFj6mRgrXUGU+B/e3x5+VgQXLOn6GCyUoYiR0sdZ2PuhOdsvETpJQ/9gLbnJUJncnhIJQzwDg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788374639; c=relaxed/simple;
+	bh=I8gng2i3lmLspHzQZSXxzctVXLA/Y9KmGoTqYty8al0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=puRyr6WkCSoLf4D1s5OFblKLPy0EgAMqk8hIYIn/RhRHk7LiBNVcr8ZKmED6OX5zUt+a+x84Tj422om0QNHqwVCv1A2ZJ/tdssLHhkOPsanbLoYz6s6iZkpeZfERqYpafL/9SMyCS9ZbVoiy/Rses2kfnhwDfkLho923P16+9TY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EJoL1tTu; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="XqbUf6wh"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aAXdKR+ja7YIFsftACmQzBMq8ChnothK9Hufi7jy0j+2IiVGIwImPP2M83LkhAGUOFfEqjwo7xYOk8sUwfft+kMvlh6XSsuvJgR469Ja7Z2T/NrFnsckLNUdhOPC4hCOCxvk/3zkwJaQdHlkcnKy2N/5MZ1mca/ny360Hjfq8soXNTncMyZhbH1HIrMf6q4CTcrUsy8BRxxWHVeRInOVyP38dCWHT9230r755aNRW8/tVF2mGa2DbY0gBMl+0DOfv75O9OdWY2tyowZk94YW060AAYNduUNSw+NmItT33hJtowjLPh8pOOUa7cDbAcG40V9V+9VWXjM4J+gWJY42Qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2AxKRJ976rnY9y389//E4Lfcx3DtH9zicjDAgXU7mrg=;
- b=WO5Vic2zhwRsJrJk7otwwyTZLIvxVPRMWA1vn48TDm6grxUBqkg/C4Fs0/UoRWqrXCUIcUv0vR/rwGt1znoQYBX0Il3b83sLUQ4XCaWlZ/tjoG74AXdvuIsT1WUeneHz7xypi3xDhVCFl+m4Csv/It36muhge+HDfcsfCvp4msyMuPzD6hvZKuJ/Fukgwhv+a94n1fDpZhVF/9UExlwFeI9BzUwH2WY5cdVwqfE+wJ5zR4iitIWpghURIFWJ03CKwJvPxR4MUowjTLLdQ/ScwGgj5euKe8MJfcyWT38nuTxOmOqOGmAQAD/syHMH0ZSrbg8gl0HqSWxwO0DHMB2x/w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2AxKRJ976rnY9y389//E4Lfcx3DtH9zicjDAgXU7mrg=;
- b=XqbUf6wh5WHV0WKq69MiPKWhEu/1yIY7tcKsQXvRKOScV9qFpVNIkLL8G0tQxK+8zgnJ/qobR0NbP7VomC+q+3L2bN0DtRE2qVlHEti0gEWgTcIExRDn628/pmtbB7aalJ26PclFZzY+m1xDXWu2dXlt4Ef2+Kd0aoVFLZgeJ2CyRABhICkcoQM4Lw1lMDl8nqRVUMEJkrviDN/IbLBN/i6aFdxvRZ/IODZy2yfBFP4DJaIW6yjJ8jrIPhl6v+y2OznflUvd5JWTyKYYQqjaH6A2q2mZ/27ZOa7G6u3ldDs2h7B1OcbvxLv6+/TRIB3x/NXeS7EiCMqr759MWC/F2g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS8PR04MB8040.eurprd04.prod.outlook.com (2603:10a6:20b:2a9::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 18:42:39 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 18:42:39 +0000
-From: Frank.Li@oss.nxp.com
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	frank.li@nxp.com,
-	s.hauer@pengutronix.de,
-	festevam@gmail.com,
-	hongxing.zhu@oss.nxp.com
-Cc: Frank Li <Frank.Li@nxp.com>,
-	kernel@pengutronix.de,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux@ew.tq-group.com
-Subject: Re: [PATCH v2 0/3] arm64: dts: imx9x: Fix PCIe memory window overlap with System RAM
-Date: Wed,  2 Sep 2026 14:42:28 -0400
-Message-ID: <178837449498.2056904.10575566728674151756.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260821054334.1277088-1-hongxing.zhu@oss.nxp.com>
-References: <20260821054334.1277088-1-hongxing.zhu@oss.nxp.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH0PR07CA0021.namprd07.prod.outlook.com
- (2603:10b6:510:5::26) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EJoL1tTu"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38511175ad3so1497430a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 11:43:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788374637; x=1788979437; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7hhLcfaaN6lTj7tOkHbTxkSZPJoatM6bB6WXeeH31i8=;
+        b=EJoL1tTudFcxX8WN8QxQsEzic2nIhlp7ppzYy4IjHgu0agZK0CUNSSTWpkZwCacP85
+         YU0slDS53hwuj+ph8dYVnT8m7lvpSktvJR+CoAiFVXjXFV+fUX6Pjf3eXHubH3Gu2Ft0
+         vDffykx+yCcaolo+P6cioVIIZHbonP8g9f3UYxMVrR+rYKGjADkre0Q8++PXJM0Ytk6p
+         Ee6xf8qQ/rnbTgmI7T+7h1XYC9My0DTBjfb/OUqGiysz/7tQCDmQZU0AHglx23BEVOZq
+         WSbhMJfNO0l79D4xaAcU8GQ4ycfmTjCRL/ATkOWB+RaTtFLhX/Ud9p0ABud1PTvdBrsh
+         Gkvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788374637; x=1788979437;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7hhLcfaaN6lTj7tOkHbTxkSZPJoatM6bB6WXeeH31i8=;
+        b=OfiEG4pzpeTm1YSh4AxYLbKtxAawO4OBn6CcHq8Rg4vF+UdJDkrVg1PR3hW3tMNjqc
+         eA5RrcO1alhu2Vnb7xt4TkXXSRFD5px6ybwBfHQC96wZznOpPC+sP3OZLz7WX3PjzROX
+         la9h9MmtTnkuGodBr/UQ2msjr/vFjpMIhEdSrvWIwICPEMRAmFvfi7ny7lh91fr1NKfZ
+         5Y3QuXwDtv+Ln0pu6U8uoG9Oyr6RZiOHdsHxO5g3mMWvCW6e2iqIZvCrSsypWOgQ3HIj
+         NxxcOEK+D5+LUzSAaUQ3pkgysj5LSaDM0i/j77MaWD3/BnbnIRij7Y21wBti5VYzNzmx
+         yfQA==
+X-Forwarded-Encrypted: i=1; AKwUvBwEkt1Jz0l3QQhhOh+vCKm1RWQwl8ZKVcVpH5ksWbyZ0PPwhIgFYm04JJmUDLV54jXwMIIO7sTsBNBEVag=@vger.kernel.org
+X-Gm-Message-State: AFuF++kSVtkhnwXewuBowvQkqh6V2u2oVnCVktGwUW9g2rMqVu5sjdaw
+	BRDHk/XdYIseqytLZ8lRU97E1FtgqDD6ennuFlvJacUFPAmwSYm8nPvmgxvF3umy
+X-Gm-Gg: AYBFou32Y9y4Vcp0fSqAl8CGTJYoM1qjEDxKDWYpYdMZQGMrNvw9YJy3BiCqiYqZvB2
+	Lk6jDQdQrUY6vexWBYg/gilmu/q+SJxsAqYrNJ7/iZzQbGXIfVrXVKE4C/LJjv9Vz/LY5jC/SIG
+	P/cOWUkaTiWyacBB1oko+8VVs+u4fnPTXyyDYerZG2l0Cj+/XBShxf4W51hwPcwsxOF/qcVKiWk
+	KCYLZH/ijMG+ZhU/JEnkZtlrQGySLHfWFtqN6Ga/4EQoy/CgKCujIAovNN+mtms9BDtLZqz2RVl
+	n2YlqsvsSOZC0ULssIjgwvdy3CMvosbtzMXjd4QI43umagzrY/0HAI4wo7sc2DSnBLJQQ0gTqHb
+	cUcMfxEobT5G1d68/77Y0XYdCTS6E+/jDyc03/i3agChra2cUxwMvnwlwgc8Ds8IK5UGzS04/68
+	w7ugOakzAEnWzQA8GXFqLaLYzur+YVvh47w6S8boT3B9Z5xgundrSs/XJlOF8ANCBmutOTh+vtJ
+	0Cn7sIdo0vvK9z+syXfAlkeT0U=
+X-Received: by 2002:a17:90a:e7c9:b0:398:9bd4:d12 with SMTP id 98e67ed59e1d1-39aee219f45mr9553381a91.17.1788374637221;
+        Wed, 02 Sep 2026 11:43:57 -0700 (PDT)
+Received: from localhost ([2409:40c4:d:5c19:7852:60e7:cc2f:a6de])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae8ccdecdsm1678251a91.2.2026.09.02.11.43.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 11:43:56 -0700 (PDT)
+Date: Thu, 3 Sep 2026 00:13:53 +0530
+From: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
+To: Mathias Nyman <mathias.nyman@linux.intel.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Michal Pecio <michal.pecio@gmail.com>, Mathieu Fluhr <mathieu.fluhr@gmail.com>, 
+	Mario Limonciello <mario.limonciello@amd.com>, Thorsten Leemhuis <regressions@leemhuis.info>, 
+	regressions@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] usb: hub: use shorter 120ms post resume hold for SS
+ root hubs
+Message-ID: <aphpX-0WxWQOR4mQ@eggarch>
+References: <20260831190349.29590-1-lovekeshsolanki00@gmail.com>
+ <9f8fae96-0865-4b0e-9650-00e92e324f9e@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB8040:EE_
-X-MS-Office365-Filtering-Correlation-Id: 029fa718-0a25-4232-dd0f-08df0921f68d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|366016|376014|19092799006|1800799024|18002099003|22082099003|11063799006|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	gUBc+xkqALyJjlPk/P1al+oEJkX5QqDooOn6EXJ4BtP0j7sUcif1KPx/BvJBf6keY9OEQ+TOt1ijM0JGoQUL+KJhJZAQToVLXLuBdg2fQgCvtcDXJuojK3Z8nzBC9KoFhRBQm9j50odoRpW2rhDn3DEN/UT3N1tcAmrw/fY3kMGZBkvtKuu4bYadYuBDHkJIpgMqt3tiWaKS5/4GBW4NNrTG66UWloRM40eIVytedPky4+mj/mJ1SdGoRJ5NNfIrGSCZzenAXfyXEDNrtr9czG5iTvBynzSXh/O3fiP8OJiK2gvEYdxKaGA3lSnf6f/+/12Z2JMhbm05ak1ZEismANquPhYogv5gBiKx9JkOTDfCTfQ74uCm8af7pCgOkBFxStc5OfEdE9P7lk9SxLoRpYMVYPIsy7IogEQWx0zDMAAyNJvkI4w/wtUkTuE/QiaT/soJ9P6EQtcOLMTZ2jnt6ngPnMUdESWWu2g54JjPfP8QVdqb6AARLygWGFZ8xx5/bu9R15GZ1Zi+qIr/hQE2MLCtlMaROzIKGqReEdp7Wc+a0zL3p9kWy7W3alnNVCyABRs93HOeXuvqm+rxauvRpB2w5IkDLwhNRRd6niPpQ4Hv0cbm6l5wQ4IfBmIsfdyOsIKL7XItC2y6wwIUi0npaHqT6CSn3jIZMOmvAeKeriA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(376014)(19092799006)(1800799024)(18002099003)(22082099003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?a1R4QUJBam1xakVBaGFNeG9oSk9Cd2dTektjeXpYbG1Mc2doeUtXUjhWV2k5?=
- =?utf-8?B?RWVjQkhsNmFyeXJqczd5ZzdnUkFyK2J0WWpDWVdyUlZXRmJDVmJSei9EZ0sy?=
- =?utf-8?B?Y0R5bXkvMGxlOXorYmVYTVFlSVNieS9kRGh2dE10dWRVdm9zZzhWcHZSN0Zq?=
- =?utf-8?B?NjFVVkxLVG0wS2pEWm1MdER2bWREZC82eVQ3dXp1OHpMRHg0S2JMd09xR1U5?=
- =?utf-8?B?ZTZqRWtvc08vSi9ydU9YZzRTZHdRQ3dxWEdVT0VEUlR0WEd5Q1k2VFlaNHJN?=
- =?utf-8?B?S2RYc0dDQ0xRZ2ppbUp0QjdiQjhRWjloUi9HYkdPcWdOaldoZE9qMHgzdnNQ?=
- =?utf-8?B?T3hSMUtVT1BDZ21aZHN1elFkejJrc3NnL09BVnJveFNqT2JMbHBHQnpMRzBX?=
- =?utf-8?B?ZG1XRFRRaDU1UDk4OXQxcnNNVmtpbVhYd2Y5NDBmb0xlejFBeEMycU9UaDZj?=
- =?utf-8?B?dk82YUE4SDJaL010aDZqMlIrOWptZXRSUXVqaFlWcHVTdHhZaHZOZEh5ZG8x?=
- =?utf-8?B?ZERveVNmSG9DTWcvUDI1MEk2YUNUTk5EZEJoNjlvTmV4WWtrSnMxT21hczhY?=
- =?utf-8?B?RVZRTnptZmJEcXlCcDRJNXJrUGlVUDRwVnkvQURHUEFpTlpsMTNtWG5pK3pP?=
- =?utf-8?B?a0YxYy94VGRhWDdlR3pZUW5sWDRxcm9abDNidFI5WnoydXB2d3FWN3gwOVVP?=
- =?utf-8?B?M0h6ZkZnZURmK0w1TFJTZ3ZGdURpY1Y0QndHZGZlVlNWOHo5aTBuK05mN0VG?=
- =?utf-8?B?WHliazgraiszQ01oNEFLcEErdGdob2VHMytINVZMbi9NUE1rdWdzK2hGcnBq?=
- =?utf-8?B?UTJPK2hKYkx5d3lCamwxTG10YnJRNW5WUlc2Z2RLUUVDblZYdnd2cHowcVRW?=
- =?utf-8?B?bklBT2JKM2c3YmtMeHF4N3ZQM1I0ZXNwMnI5TklNV0o0MlRYM2pSLy9Lejg4?=
- =?utf-8?B?NC9vczhNemwwZUxXQmlNU3kzeXUwVzhjdnlGclMrdjNBSjZ1dHhJYVJkNDVK?=
- =?utf-8?B?cXR1bnJ3WVI1U05kWFJGa2l2SzNKRlJYRzhiOGZRazBJOEUwN2pBNi9qejJj?=
- =?utf-8?B?WFA4cGdnb3NvS1BueGIzT01sb3BCTVMySmk1K1d2RUlaWEpDbVlKcTVUc2p2?=
- =?utf-8?B?V21LSE9Lbnh0UmpMMytoVDh5UVpFbGtTRGV0QjBmd1k5WEVSTzY4WHlFdy95?=
- =?utf-8?B?SnB3YUtHK1lrYnYvdkNwYitXZVA2Znpva1lEWEZpdW9STS9Gc0V2cXM0V0tS?=
- =?utf-8?B?QWMyWEo1K1hibGNaYm8yTTFqUkRHN3o3alNqbGNPckxLay9jcWRQa1haNTNO?=
- =?utf-8?B?bWR1MkNDQ0t4UEhXaUQvbnkyYnBZbjRwbHplUzlscmFaSVRoWnkwS3FYODJi?=
- =?utf-8?B?c3V2dzAyTXdNUlQrT09lc0MzbVUxaW5lMmxWODVLSnphQWJ5NmVWK3hTT3ZB?=
- =?utf-8?B?T2M1RW5vbVBvalk4TnBqUU42NDk1NVJ5cjNlb1NWelNCNkJtd0tVeVFXUHho?=
- =?utf-8?B?bVR0dzhaVFF1a2ltdmZFZjN1NnNrSWFFWUw1a1N1alRINzN5WDY1b1lxay9o?=
- =?utf-8?B?dEFJeStRckRNMWhvNGdxdnhGZ3pGQmdSNHljL0c0aGt4djd4VnZJRFlPeHVZ?=
- =?utf-8?B?VkhwbXRZdVdVT3hZQVNSczMvaVFaMXpxZnFCQWViQkU0alpDcFozNGJ4TzY0?=
- =?utf-8?B?UXhFa2FTd3l6VmErNm54dUdPbGQySkovV2RWVHdHYnljS3BSanBSNDRpRXdW?=
- =?utf-8?B?V1JkaEJxV05PZkxBdit2bkpXSmVVbHVDclhzV1k3RTE1eDEyTTRhWFNKNDQ1?=
- =?utf-8?B?c2R1YmxZTWx2YmdDZlduOUduY0J2eHh3WmVWeHZxRk5kUkhKM25vTGo0Umlr?=
- =?utf-8?B?eXFyQkh2Z2ZMYWVaOGR5ZkhRSXZPN1M4N2xyRlppeFBLNytXRzVTUkVDWlB4?=
- =?utf-8?B?dDFFZzdDM0pPVVR0V3d5VFEwazlSanRWeTVObTNjaGtMSkJVTW9WVnJRQlN5?=
- =?utf-8?B?dS9jTEx0a1RydVJoYk82Ny9wNVRSclcvY1hzT1dMdldBbzA5dFI3N2laMFZR?=
- =?utf-8?B?OExTNG55T1Y5dWFsWUF4R3ZhR0RhaG4zV1ZEQ2FORWFSMHFXYWpieFZXUkxD?=
- =?utf-8?B?QXBpUlFUYXcyL3ZkeGwyMTZIV1dIa1RzVnJTdGNWektidGhJdDQ4a09vTDNS?=
- =?utf-8?B?eUpzR2o1V04vMU9HT0xpZFRBYkFwQ3k0ZVFGTG5OZUFWazNpcExkZC83T2Vj?=
- =?utf-8?B?aExHWkVFRDF2NnRqVDlCRk9Uajc3cWFhSHI5NzdUOWZsM2N4R0w2Zm8xYmtj?=
- =?utf-8?B?cU9PYkROa0N2TE1SbzNVVlRRWklnM0V0bVVkaGZaZmhlUkw3UW5YcitPOE5U?=
- =?utf-8?Q?JvVDy7d3hV18EM2UfgefxDpDqpQL20fGwQliz?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 029fa718-0a25-4232-dd0f-08df0921f68d
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 18:42:38.8634
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xXAeOviwmvA8XUKl0M/CyXV4geIyCM+HTOTMMsWD9rtIsmYMte6JT3WCULFlSM0bs9mN0WxooFfyDo19lIaATrGEnHTE3SDxfFFeVl5YXieUDsAOpoo2cMJxOh0PAOIu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8040
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9f8fae96-0865-4b0e-9650-00e92e324f9e@linux.intel.com>
 
-From: Frank Li <Frank.Li@nxp.com>
+Thanks for the feedback,
 
+On Wed, Sep 02, 2026 at 04:29:40PM +0300, Mathias Nyman wrote:
+> I'd highlight the fact that this patch mitigates the AMD platform issue.
+> 
+> Maybe begin commit message with something like
+> 
+> "Holding a USB3 hub PM runtime reference for 200ms at hub resume triggers a
+>  AMD platform issue. Users running Android adb report crashes after adb has
+>  been polling and waking up the USB subsystem once a second for some time.
+>  Vendors are working on a solution. Disabling USB runtime PM is one way to
+>  prevent this issue, but it is also proven that reducing the hold time to 120ms in
+>  resume also mitigates it. See Link for more details.
+> 
+>  Reducing the hold time to 120ms for the USB3 roothub is in itself a valid change
+>  and optimization as the current 200ms is excessive...
+> "
+I will re work the commit message in v2 along those lines. But if the
+mention of the commit 8f5b7e2bec1c is removed, should I keep the Fixes
+tag or remove it as well?
 
-On Fri, 21 Aug 2026 13:43:31 +0800, hongxing.zhu@oss.nxp.com wrote:
-> This patch series fix PCIe non-prefetchable memory window overlap with
-> system DRAM on i.MX9 series SoCs (imx95, imx94, and imx943).
->
-> The current address 0xe0000000 conflicts with DRAM regions. Sashiko
-> reports the potential issue in previous review:
->
-> The fix relocates the PCI bus address to 0x10000000, a reserved and safe
-> range. The other PCI bus address and window size remain unchanged.
->
-> [...]
+> I'd do minor changes to the original code comment above the first #define,
+> and just add the second define right after it
+> 
+> /*
+>  * modified original comment
+>  */
+> #define USB_SS_PORT_U0_WAKE_TIME	200  /* ms */
+> #define USB_SS_RH_PORT_U0_WAKE_TIME	120  /* ms */
 
-Applied, thanks!
+I could change it to something like:
 
-[1/3] arm64: dts: imx95: Avoid 32-bit PCIe window System RAM overlap
-      commit: 9094eb07b3e236233dbaac61ed30cc65be9e9c6c
-[2/3] arm64: dts: imx94: Avoid 32-bit PCIe window System RAM overlap
-      commit: 775ebd246092294432895f8e9bd48e3f0a56714a
-[3/3] arm64: dts: imx943: Avoid 32-bit PCIe window System RAM overlap
-      commit: fff67007ad5403966092006867fe9926aaedda0d
+/*
+ * Give SS hubs 200ms time after wake to train downstream links before
+ * assuming no port activity and allowing hub to runtime suspend back.
+ * Root hubs have no upstream hub whose wake propagation needs to be
+ * accounted for, so they need less time, use 120ms for them.
+ */
+#define USB_SS_PORT_U0_WAKE_TIME	200  /* ms */
+#define USB_SS_RH_PORT_U0_WAKE_TIME	120  /* ms */
 
-Commit message add discuss link and "Avoid hit this as a P2P transfer[1]."
+If everything else's fine, I'll send a v2 with these changes.
 
-Best regards,
---
-Frank Li <Frank.Li@nxp.com>
+Thanks,
+Lovekesh
