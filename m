@@ -1,174 +1,183 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010004.outbound.protection.outlook.com [52.101.46.4])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9018443E4D;
-	Wed,  2 Sep 2026 10:28:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.4
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788344931; cv=fail; b=coZp34FsyDncfbu/rSGH6Dgmt37JQ9Nd1WRl5xzfNrUVYh6gg8qwtwjlQb7wF45Z2LpKLdtxshE4rVA7lAMKkA67sPiU4rtkNoI9Dwq8S0oTT4WnsYfuIq+3QO+T0jtz2eD1O7/hfARLWz3lqGbMv03qvGByKXqhVyUTGJHBzwo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788344931; c=relaxed/simple;
-	bh=nV4pQXveoiCjtzHkKUdZYIxY/KI85Z733WvJ/IgOSQU=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=uK62a1zBjL036u0O+nBhHoQqaAZ804qGtZ8BTDL61NzU48rRQxQ50uJOIq6SMHV3ONRZa7T8gbG3524FGg5XhAPnfZM4mLluLukgSNuc1fQhZ/2Ygl4iy5twgAYEBoDzkYkQ5zIoyhr4Szk8ewoJlvI01LQz45d0pRKCmmAzF24=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=4KYw6mDX; arc=fail smtp.client-ip=52.101.46.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BC8448B88
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:29:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788344949; cv=none; b=sjdOwD9sbIXJT91sJbYaxzV/mb+2OPNQpewVINNVLqnEGG915dnQykCBbLu0DfTouLq9TTrroFuKLSFeDq4ULu6tYnS1lcisyLiwaYSQgZ9fjQP38uYhiQGDZgYuDp5O4bD0GyhteHoUdQnUC9s6WJ2Z+1MlhPvay8w2pTS+mRU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788344949; c=relaxed/simple;
+	bh=D8ZSpMUPIDCNW+TKfznVVt3G/+Z1IAgE/rX07jvs3Ps=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Aix9KypOeOpLQ6Eml9rpFt2V10sMW8UwlSoRkTK2IN4vTttwXbEcxnnQniOlisfOdRCzp3wNke0XrCYrnPQww+j7eTrQlGmqfwN1ymDl/bANPh2DjdvimbE1YNFCiJ4988+dEq7L/UHAHtzMWcEovz/FTsjkmiLG9OMKXMdpQr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TuWlE+PE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aAg2QRPY; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="4KYw6mDX"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CFYhFpi+sPu/kYZNKCgR9qPkiJX4zz2NBi3pBDpsK20xVtUgI1pSrbOrBwUTW+ueTMhoFRzWFGXs4MVOEsy6PE1NYJ9kSzCBKdzy3+K3+4QLUatPWJTaxY1y8qhIKlzDV4UMU+18rnGiWXBjdc+Xw3os4eplVUdZua9bRmq1OslBGNHLaolxWY+TLX7ehrF/ZSj+gry7atK6cKdAr2H2TVLVktFVM7DIJ+D68VqA8pPf6puWZTP7+S6jik6KNgZohLN5jykHvZdCYYtVmy7os/n7KbFKQwsPlD4m8r/eAz5zytfrAxdJqFGk36QrYyGNT2IUtMuywLGKxDwd+b7d5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=muGewAMUgpq3XbHTr//6RsU6PIB+RVdkno0iiUO23ts=;
- b=NCNrDGwKMqOe0z+20ZrC1220rDkZKyBdePH8DoD+8MzJtRF5XRQysbznfnIEAJio6+u+FKRL6aVtYYuBZrNazsG9akkMOdk2T7LsZ7oO6YQRWd3OT2ZS+FyDPJZ0ecA+O/q1VTvE1MPWdonpEQeSuRoElQze5QjZyA0HeZBSxYQrbzpLVSeKFtUAXI2OVuS4uayJMxCzZM3Im1eObVm9xQKZ0pglkF3EHCTI0J9bXGk16VZpDsGZPzs7+VWL8v9IdZEyFKnd4ngvJi0wfqYUw5o6n+fqxFlCdTdVmdnspJp8R5OL81APkNhBeZKGVJ/3PEPJQQMcsIr6gCAtK8ETsQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=bootlin.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=muGewAMUgpq3XbHTr//6RsU6PIB+RVdkno0iiUO23ts=;
- b=4KYw6mDX/B5vGG+UA4Fsqu6hTPRCvTKkdunyOM4BwuQa050e7H6cDOTYPgjtQF1vMgNOjPYHZbjSl0YswPIsRxpWXnarKNhDmqVKzUIxS6UqNwvMtxEd6gGQSW7G5DcEK+a5z2ExQWFjkah3XNTxgRnxBO3IDWallTWamPdvxmw=
-Received: from SJ0PR03CA0212.namprd03.prod.outlook.com (2603:10b6:a03:39f::7)
- by BY5PR12MB4227.namprd12.prod.outlook.com (2603:10b6:a03:206::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 10:28:41 +0000
-Received: from SJ1PEPF000037B4.namprd05.prod.outlook.com
- (2603:10b6:a03:39f:cafe::af) by SJ0PR03CA0212.outlook.office365.com
- (2603:10b6:a03:39f::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
- Sep 2026 10:28:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF000037B4.mail.protection.outlook.com (10.167.244.196) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 10:28:41 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
- 2026 05:28:40 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
- 2026 05:28:40 -0500
-Received: from xhdvineethc40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Wed, 2 Sep 2026 05:28:37 -0500
-From: Vineeth Karumanchi <vineeth.karumanchi@amd.com>
-To: <theo.lebrun@bootlin.com>, <conor.dooley@microchip.com>,
-	<andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-	<kuba@kernel.org>, <pabeni@redhat.com>
-CC: <vineeth.karumanchi@amd.com>, <git@amd.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH net] net: macb: fix NULL pointer dereference on unbind with fixed-link
-Date: Wed, 2 Sep 2026 15:58:36 +0530
-Message-ID: <20260902102836.2019355-1-vineeth.karumanchi@amd.com>
-X-Mailer: git-send-email 2.44.4
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TuWlE+PE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aAg2QRPY"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682AR4Rx1287361
+	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 10:29:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	TdOfQSqLmWJ7y3AMgqR+vy4CjQvTB1wFH1GkCyGK4vc=; b=TuWlE+PEE0fHl+Q+
+	Z7tHB0FNlZLyis+6uv07INbF2nYVZdRoJ+svY5ACNrl0dQ7DqE00o7BlnrLI/Asu
+	s38/IVguMpGDQid9B7Whs1FHbi2SlIWEkyQbHU2UWz6lj15k02oN/3xh0zZepY0/
+	7I3rpZBQRUd5tn7LiQOGnkG4HPE2ea4EjhtRpjt3Wbiim26QShD+YcjVTQTtKdGm
+	dKb96JQS2tZeuufTmb200IGGDYSSHbR3aYRdC2jKt5zQjkuRl+3Lw+BNQmdEU7aR
+	uwsfJmrM7P+viUve9DEi+tnQYkN/Vs8gS3oi3soF7vXC4XfaH5WCAD5WqCtyRjwN
+	DcDtsw==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gej2c8079-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:29:03 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-9375d92d0caso19103685a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 03:29:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788344942; x=1788949742; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TdOfQSqLmWJ7y3AMgqR+vy4CjQvTB1wFH1GkCyGK4vc=;
+        b=aAg2QRPYeQSSnJ/pnIBzxmkITRiXqqFk/TFtiyYYVZH3BZn1Zvpa6ZmtxUeTsAAV4C
+         8OP2i8zxKGYxblf23Ug/ygPUW2WW/x05L58OqSTNjtRQB/j/PrREHoAB8RFlKX/TsMOZ
+         HIKB0TJBJdM87qF2SCS5B5P3cw7JhsSF01ylczEKslhydvDzAqIdLYh6wp8opH1IL4Bx
+         oGwMGUNu1+i3nyC30DXtaWoOmVJ09052PiIchsYTkxUYt53OGvF+YztYXHrYRZ7rJsC/
+         ZruXnbbH2gYRsXWgj4D4ACN0+4ksc7pdSw9svAKcqasJW8F9nZmY+t/c+ZLs/By2VL+y
+         +WTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788344942; x=1788949742;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TdOfQSqLmWJ7y3AMgqR+vy4CjQvTB1wFH1GkCyGK4vc=;
+        b=WmlbYi7ieX54hRp/DS3T+vDs7gMzI9HVw0OZPn8CS5uuulM9AzhWIuAcYfWzXcG4z/
+         HY4nC1mgZesct221GoCDt+vCIZSJ8rNP0umJhHAxM6UayGgqWHLdTRrq4wmuQvzSEr5U
+         ffKOwRQEybNHkqT7nxCOOMDP3PJMSExb9iH+rf1Jx9JDMGQGwTc0TA5Q9sGntx5KNZeD
+         249xNybwJKzLOaB3g63DWo5EuWtrjuvqphIMQ9XW6rfqVLwnTmrzUL30+NHJ9QbFrm1K
+         EHGuIpi4a04feFNYZYSk70cxk6XSWGbaEtQFsc5PVWvHi2O46ZSFhloj2QpWz99ILpgZ
+         zhag==
+X-Forwarded-Encrypted: i=1; AHgh+RrR3Y4u6tLxMm6dOekU1EiVZBRPl4/Tx5XD8HTI4PaH1EAXH4vmzVd6qEvVXX6Jiy/np855ezaLJR48+tM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lCImQeMSbHfIVVm9DX+Ar9PxiUtAXtip3V8/jxhIQc57JGq0RU
+	QSeh7JqqaKzzcopKcc9CZoxJnDgRyw+bC6KNgTlQ4uBG7nE6OY8DC9XTuNOM47AFyUo7Q5CZRUs
+	CF7q8sD3lFZZpnuvL4S0XQ1BFdh7+se8pWtLNOgLPWb433E2PjwIN/Ujvh7ByNdKRv7g=
+X-Gm-Gg: AR+sD12WPQ0WYGqO4ylToqXTTEhNODdK//Nxv0AkqL9lJ2mPIxgGWOhGyvVy4O9qcxQ
+	NQe19hQkh8OTjg8OqGIA28azkD3KrxAIOd26p650Szl0842uriCXV8gcEcguz3aepDKYOqgcby/
+	cBDdu2SFgzKVVx5uQPPPzSjiGoUGFzQuydUy6nKpdXskgBI9qGVeOC26n7ofisqc324ssLwwdcB
+	uqPgISNIaJXCqS+KzNFcplruXsaIzr/cnjlW8WYZ6MyEQK1g8ZDxVN2pl3X6K4IQdNBAL+47Lfi
+	hkjBagTyoD56C0aB0P20c/Qs904aFRvDmXM3ORRTjDp9DuMZ/Cy15AP8TNbNF0caEa7sd+u9QXE
+	PygpeqLiXA5HxLvSy1Pdl+A==
+X-Received: by 2002:a05:620a:4623:b0:939:48e9:51a1 with SMTP id af79cd13be357-93960e1e27bmr241294685a.2.1788344942228;
+        Wed, 02 Sep 2026 03:29:02 -0700 (PDT)
+X-Received: by 2002:a05:620a:4623:b0:939:48e9:51a1 with SMTP id af79cd13be357-93960e1e27bmr241292085a.2.1788344941785;
+        Wed, 02 Sep 2026 03:29:01 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25d002dcbesm109123366b.16.2026.09.02.03.28.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 03:29:01 -0700 (PDT)
+Message-ID: <3d31f750-750b-4561-96a3-d265b632da6d@oss.qualcomm.com>
+Date: Wed, 2 Sep 2026 12:28:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037B4:EE_|BY5PR12MB4227:EE_
-X-MS-Office365-Filtering-Correlation-Id: f8b70442-294a-4d31-ef2a-08df08dcf559
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|376014|23010399003|82310400026|10067099003|56012099006|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	p/8EObetm8wbEHvlVKDTNvsylx5mZsCTcxYwaary2egurhDeYjC0pr2LjxD0+KZeJDfkTYdinZRtsSG2c1kwJKSkEkkZsZrQt86cj5X6gviH4aNldwFr5I6SvXJK+81y374zOv34aJRNtkbVYQE6o7nzNOdvUJeasx93Lv5aPLkhsDOVxNP7uKs0NqlW9MBcPBk+iU74CwpkDJRhHgxNzJIMMEMyEKm4qx/5o4amUhe0ec1mc8iSupp43gKSAHOQvjpp8D0f4/CAhtmCoernjhjsvrcpavvnp+NWDZX5GPWrV+5/cgsIqGigsrF2G/HPR+u0LLJFVy3WCuncReH7l1D8+joT/fmMDn9CpgV26FXv4yAyNhSPqoWu6nPr5vZ+XNtxjhWXUN3HlhGo6DQdj2UKp3Kvqoz92B1rTYjrIyqsckfiDHO16G0AiT5BHC8sLgsPxdTHVKBuhi3Y/yiiGlS5ZQ6AA8+MLfKiJg3/pnAyPaQc/dPTINWkHnBq63aPcyCLvgZ/Dzqu7/g6XxhHEt4Q+0ep3Op13KGPVoAsSjVeDH9nsXkr70soD8xDGl0q72NZCbcvifbjllT+PdxNPvkcJ3dpLKl6nPS0En+zpKFsn+WsQIrNQINOk1cxMioxUaGc2cp94B2C5krZqBSiCWUTqxF6SVEwZTfUc+n9njC4fFG6/fDfgCIFHeh3BVK7xNM2yVWPvhPHgeLH4uqeoA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(23010399003)(82310400026)(10067099003)(56012099006)(18002099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	dQrqnL10nuuRq/N1vwUAL1pdZrjBA4IawWIi0gio+NPJ7oI4BDjM2wHwXr8ltekzahW1jSJ7Nz/PoElOcHy34OuOgYlKtGAGCPDjIaWFRLI6ia2yM4OriZxOKCPlbcoDCgVJjaBeD0+XAxTm15y964QS1dHeXMxcSzyTua/3QYQkUbzuzQEvUirC9wiCZnDtFvlUaZUyEi3HVTwbzEbA3ugGxhs9/N96agpjpC7+aTHsAGVfDBsg1oJjZs2NtI1lWyYGk/1de3ZrBGG9OHfTz9EM6IhrgTPPIujFO/uBo3cub9RxpmlrvliE5XnGLDqgFigrKM3PmFQPcq5WVXoFHFyLiDdrBTwEtQCOyG5RuKTaM7tJTutcrevZcTG76twLv4nh0zEgLaDvoiy55Zi2MAjV5BrsmiSWDVgl+kfx7oYw3WopW/FDlU8q3kmXee5a
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 10:28:41.1391
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f8b70442-294a-4d31-ef2a-08df08dcf559
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000037B4.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4227
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 5/5] usb: dwc3: qcom: Modify interrupt handling for
+ eUSB2 Phy targets
+To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-usb@vger.kernel.org
+References: <20260826-eusb2-interrupt-v6-v6-0-ae2601cfa80c@oss.qualcomm.com>
+ <20260826-eusb2-interrupt-v6-v6-5-ae2601cfa80c@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260826-eusb2-interrupt-v6-v6-5-ae2601cfa80c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA5MiBTYWx0ZWRfXwuJ45sS5OCEY
+ 4c8/liuXoNFGma11WnsgV2qXNPsckhTUsFpJ31TO8w6kXT9NyDbF0WvCC8DrVCmHaN9Q2amV4Wu
+ 902cg/pUyR5SUxXRLPbqHZ8zueeSXuE=
+X-Authority-Analysis: v=2.4 cv=G+ss1dk5 c=1 sm=1 tr=0 ts=6a97fa6f cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=FycFWezSpWEMHrBiXq0A:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-GUID: e-C18WttAXu0HjXHPzdhPq1iTgbWX37o
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA5MiBTYWx0ZWRfX6VYEwelTLxKr
+ TtdFMa+mYobdocY4ENHDjq1/bQQz/cgREulU43FEAxuPuWD079hdqeOwC9EneLT4YZTnXqxsOu2
+ DaTuEO/ILM/98t2oSRKqFTwZgZvJrJDI4FX848DpCNkp0hf2LQ35vJUeK9E34ZRxB8qJ36FPA9y
+ hr7+JSq7J+Ew3Gx1WOyqPxpZboklw/O9p8p0UpVgJSN0wRCFuFDqRN8iX94sXw7qC+lF18t/eNW
+ PjxFMx4CqVR0KbuCEyPPuWe1LTCxBHC4q4FKuwsG9aMNOQotV/7ikX9m+FDc3CyF0dnRmiIpli+
+ uNV2hJXrWNcVRWcSS+lQki8Ql6WPD6ujSe3kqpUD2n8jg0kCoShaPcOLzmXSi8602W3MmPBqEst
+ SSonn+cqpzlZ3nl3sNeWEZboIi80iXA90gS/0tEU20haoqT5IGjLP3RmmasgS2yO4h31Avw6CWJ
+ 7sRBJT8jDkC0lMHqf/A==
+X-Proofpoint-ORIG-GUID: e-C18WttAXu0HjXHPzdhPq1iTgbWX37o
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_02,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 malwarescore=0 suspectscore=0 bulkscore=0
+ impostorscore=0 lowpriorityscore=0 phishscore=0 adultscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020092
 
-When the device tree describes a fixed-link and has no "mdio" child
-node, macb_mii_init() returns early without allocating the MDIO bus,
-leaving bp->mii_bus as NULL.
+On 8/26/26 7:02 PM, Krishna Kurapati wrote:
+> eUSB2 targets handle wakeup interrupts differently depending on device
+> speed when operating in host mode.
+> 
+> According to the eUSB2 specification, remote wakeup signaling in host
+> mode is detected via different data-line assertions based on the
+> connected device speed.
+> 
+> When a low-speed device is connected, the host repeater drives eD+ to
+> logic '1' upon detecting a K-state on the USB lines during remote wakeup
+> (eUSB2 specification, Section 5.5.14).
+> 
+> When a full-speed or high-speed device is connected, the host repeater
+> drives eD- to logic '1' upon detecting a K-state on the USB line during
+> remote wakeup (eUSB2 specification, Sections 5.5.15 and 5.5.18).
+> 
+> Since the eUSB2 PHY's "DP" and "DM" interrupt lines monitor the eD+ and
+> eD- line states, query the phy type and configure the wakeup interrupts
+> accordingly.
+> 
+> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+> ---
 
-Two cleanup paths then dereference this NULL bus:
+[...]
 
-1. On driver unbind, macb_remove() unconditionally calls
-   mdiobus_unregister(bp->mii_bus), which oopses:
+> +	phy = devm_of_phy_get_by_index(dev, dev->of_node, 0);
+> +	if (IS_ERR(phy)) {
+> +		if (PTR_ERR(phy) != -ENODEV) {
+> +			ret = dev_err_probe(dev, PTR_ERR(phy),
+> +					    "failed to get usb2 phy\n");
+> +			goto clk_disable;
+> +		}
+> +		phy = NULL;
+> +	}
 
-  Unable to handle kernel NULL pointer dereference at virtual address 00000000000004a8
-  pc : mdiobus_unregister+0x14/0xa4
-  lr : macb_remove+0x38/0xa4
-  Call trace:
-   mdiobus_unregister+0x14/0xa4 (P)
-   macb_remove+0x38/0xa4
-   platform_remove+0x20/0x30
-   device_release_driver_internal+0x1c8/0x224
-   unbind_store+0xb4/0xbc
+Looks like we don't have a devm_of_phy_optional_get_by_index()..
 
-2. On the probe error path in macb_probe(), reached when
-   macb_mii_init() has succeeded but a subsequent step fails, the
-   err_out_unregister_mdio label runs the same unconditional cleanup.
+> +	qcom->has_eusb2_phy = phy && (phy_get_type(phy) == PHY_TYPE_EUSB2);
 
-mdiobus_unregister() and mdiobus_free() do not guard against a NULL
-bus, so guard the calls in both macb_remove() and the probe error
-path.
+phy_get_type() and generally all PHY APIs accept nullptrs just fine,
+no need for the first check
 
-Fixes: d0c3601f2c4e ("net: macb: Avoid 20s boot delay by skipping MDIO bus registration for fixed-link PHY")
-Signed-off-by: Vineeth Karumanchi <vineeth.karumanchi@amd.com>
----
- drivers/net/ethernet/cadence/macb_main.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 76ee4f506033..88eebe187eac 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -5971,8 +5971,10 @@ static int macb_probe(struct platform_device *pdev)
- 	macb_free_tieoff(bp);
- 
- err_out_unregister_mdio:
--	mdiobus_unregister(bp->mii_bus);
--	mdiobus_free(bp->mii_bus);
-+	if (bp->mii_bus) {
-+		mdiobus_unregister(bp->mii_bus);
-+		mdiobus_free(bp->mii_bus);
-+	}
- 
- err_out_phy_exit:
- 	phy_exit(bp->phy);
-@@ -6001,8 +6003,10 @@ static void macb_remove(struct platform_device *pdev)
- 		unregister_netdev(netdev);
- 		macb_free_tieoff(bp);
- 		phy_exit(bp->phy);
--		mdiobus_unregister(bp->mii_bus);
--		mdiobus_free(bp->mii_bus);
-+		if (bp->mii_bus) {
-+			mdiobus_unregister(bp->mii_bus);
-+			mdiobus_free(bp->mii_bus);
-+		}
- 
- 		device_set_wakeup_enable(&bp->pdev->dev, 0);
- 		cancel_delayed_work_sync(&bp->tx_lpi_work);
--- 
-2.43.0
-
+Konrad
