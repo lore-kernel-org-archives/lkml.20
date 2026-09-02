@@ -1,114 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EF4D4A8417;
-	Wed,  2 Sep 2026 15:15:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CF1B4A6CF7;
+	Wed,  2 Sep 2026 15:16:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788362158; cv=none; b=kjx0xVeRXtVL3zJKFNQa0wvbyFs7AiNfLJ5m0O9pxgtGbi6cCEFUrTdosETRXnuVo8nK9NiH/r8+kiFapteIV4QNK1rYXTEPGKQpac6fNlVASSPvyNtz7s/e0D5f6oiibdEYMnfjYPpYzdECjNEiviOKjSn7qaArCjL0ZiqgKy0=
+	t=1788362195; cv=none; b=BEzj1wSbPkgGAQJ2R+BYycPM3WPbH5RsckUc8jUiVCMEwvtLc3DDOlA5xJHU2HO+IgBgkvZ3rNsjkN76s/K6O+V2juASGScLPr0dVVeO2VvQiE+CsoPX/7ht0B0YkW1VKh0d8PJpvPa8zatagQT8Gp21pkOBfqEvY2hstfpTNRs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788362158; c=relaxed/simple;
-	bh=C7GlblV3lduW5pRJ+8PzT7e2DgNLYOtJRCEzpWBM+xA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ppKpGfFGwB230p8WMuqLj6Q2u30LRkWLllSozg/rGahJHwZU602CwKDY8W90jMPSZlwQdgIobMKY0aMGKjmJlCuG4z2iCamTtt7BxKorK3uqbAXu1EuVK/jnRF8v2l2TYT1mmhaqZQxOEMMLNoaSJEAg9/hC+Y3VnVd63u+HO8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iKE/XKpp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788362195; c=relaxed/simple;
+	bh=KsyQ1rPRmvCHtzOCo63ii5xx5ue86O70GfpjScs7JMI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QYNJhx551J93l3sG5UVlWSXv5qvMJYB98sRf/Q9LKxPn7+h+Rb5ilj/9Wqz35jHPJ+U57tJP3iVmE3fc2aAEh7qNDnYWMmh6euKRuUhAcO46Kqo5U9zzr1kpb5esVCDbQO19jxgCS4jI/1EuG+/wROqZ3+GJX4/fVpDGqrdjTw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oXZ31SXF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iKE/XKpp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99CEF1F000E9;
-	Wed,  2 Sep 2026 15:15:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oXZ31SXF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EE8D1F000E9;
+	Wed,  2 Sep 2026 15:16:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788362155;
-	bh=vE/Cggwy78pImngvxsbAxzUqhSZmdOdF6pnB66mIkJk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iKE/XKppWbSzjEt/knKYntQMNUjU3xxyGzG/qqWR+NjqD77xwNrloFoFmpEUo0H42
-	 roqpGnzg/ZLZSqyjVveOpTZCbABjNrSjLZSWz7qyeQNTfHZT+bzmgpID1DYDQ/kCtX
-	 aehIQzFzOxyaKZX8vE86cvy1wKe8GVf2THmdarEShk9FErMaLsEroyi1y7nSTrZGkM
-	 mTb6qKQSPEah//6s9yXgPifJZ9QYU7LkeavHkqOkGj1b8M2cOMO5TmoUkoyR0pt++p
-	 wiPnM9goFqsFH7vGYwOKMYLBeb1N6bnbPenlz7dGCKZxumg8CeTDclFwx39Bk33cAp
-	 16Ex83MlBaJiA==
-From: SJ Park <sj@kernel.org>
-To: Gutierrez Asier <gutierrez.asier@huawei-partners.com>
-Cc: SJ Park <sj@kernel.org>,
-	Lian Wang <lianux.mm@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH v4 1/3] mm/damon: Introduce DAMOS_QUOTA_HUGEPAGE auto tuning
-Date: Wed,  2 Sep 2026 08:15:48 -0700
-Message-ID: <20260902151548.88735-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <9ac2a10f-1551-410e-a9c0-173a1daeb1ab@huawei-partners.com>
-References: 
+	s=k20260515; t=1788362193;
+	bh=+rQ7EcvByoK4DZLWp9NFal1KQajz/7yVumEJS4KpGI0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oXZ31SXFQeKa7qgBq6JYStg/0PJqGBLSHHohhrgz32lgk+c/BNuaqzvv3VETRiUog
+	 J6ypkPHFnqifKoYj7ko/uPMsMQt8oDeQ6tkbdn2/Idw8/3gHz812zI0Sq5PIwz5Tr0
+	 qK89oRDxGrxDas/68u3QtmLXYmUVsIlXmgIt0oBtSo4/cMHq7pwdCs0F6mMY9ktWez
+	 g1W5VS5jLlM2mpaBbVds1crSoi5BGSXqP4RZbNXpHr4qjTL6BQCtpKkZbbj+fEgsd0
+	 pBjCEhNDU7Bu6CrdoLsCTBxUmNyiFaCoo3Y7GYFP42ghQ/9UeLsrUiuEGg8ftDgQ7j
+	 cjSH4pHVNNRKA==
+Date: Wed, 2 Sep 2026 16:16:26 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
+	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/3] kselftest: mm: prevent random failure of huge
+ page split for khugepaged
+Message-ID: <apg9nqZFSosFyg4E@gremlin>
+References: <20260902-fix_split-v4-0-85f03905f7b1@arm.com>
+ <20260902-fix_split-v4-1-85f03905f7b1@arm.com>
+ <apg7FNLtFO3Ea5qC@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apg7FNLtFO3Ea5qC@gremlin>
 
-On Wed, 2 Sep 2026 18:03:39 +0300 Gutierrez Asier <gutierrez.asier@huawei-partners.com> wrote:
+On Wed, Sep 02, 2026 at 04:15:17PM +0100, Lorenzo Stoakes (ARM) wrote:
 
-> Hi SJ and Lian,
-> 
-> On 9/1/2026 5:23 PM, SJ Park wrote:
-> > Hi Lian,
-> > 
-> > On Tue,  1 Sep 2026 14:58:35 +0800 Lian Wang <lianux.mm@gmail.com> wrote:
-> > 
-[...]
-> >> Second, the metric is global while a DAMOS scheme can target one process.
-> > 
-> > Actually it can target multiple processes if those are in single DAMON context.
-> > 
-> >> THPs from other processes or NUMA nodes can satisfy the target or dilute the
-> >> monitored process's changes.  Is this intentional?
-> > 
-> > I think it is intentional.  The user should have the control on collapsing
-> > hugepages, or believe the uncontrolled collapse mechanisms.
-> > 
-> >> If so, documenting the
-> >> scope and testing a background THP workload may be useful.
-> > 
-> > More documentation and testing are always welcome :)
-> > 
-> >>
-> >> The temporal results approach the 10% and 25% targets, while the consistent
-> >> results overshoot the 10% target to about 20% and 45%.  I would describe this
-> >> as control-response data.  TPS, latency, TLB, fragmentation and collapse CPU
-> >> data could further show the workload benefit and cost.
-> > 
-> > Yes, those would be helpful.  That's not mandatory for this simple change in my
-> > opinion, though.  I would let Asier decide whether and when to make and share
-> > such data.
-> The idea of this patch was to introduce auto tuning. I think I submitted thebenchmark results when I sent the DAMOS_COLLAPSE feature.
-> 
-> Anyway, it shouldn't take long for me to get more data. I think it may be useful
-> for people to know the actual results in real application.
-> 
-> SJ, what's the best place to publish all those data? I believe you have more
-> experience sharing this data and which platform is the most useful one.>>
+> Maybe call it disable_khugepaged() to make it explicit that's what this is doing
+> rather than eliminating any THP pages in the range?
+>
+> > +{
+>
+> Maybe a comment here like:
+>
+> 	/*
+> 	 * Disables khugepaged from collapsing THPs in range, existing THP
+> 	 * pages remain.
+> 	 */
+>
 
-I'm never an expert in visibility :)  But if I should recommend, I get three
-places off the top of my head.
+Oh and with these changes you can delete all of the:
 
-First, you could simply share the data with plain mail on DAMON and wider
-kernel mailing lists like linux-mm@ and linux-kernel@.
+	/* Prevent khugepaged from collapsing the pages. */
 
-Second, if the data is matured, sharing those in conferences like LPC,
-OSSummit, FOSDEM or DAMON (nano) Conference would be nice.
+Comments below as they will be implied by the name and explained by the comment
+:)
 
-Third, if you prefer text, LWN or personal blogs like medias could also be good
-places.  I also maintain DAMON porject blog [1].  Kunwu and Lian actually
-contributed an article to the blog before.  If you want to submit an article
-there, let me know.
+Thanks!
 
-[1] https://damonitor.github.io/posts/
-[2] https://damonitor.github.io/posts/tlb_flush_policy/
+> > +	if (!madvise(addr, len, MADV_NOHUGEPAGE))
+> > +		return;
+> > +
+> > +	ksft_exit_fail_msg("MADV_NOHUGEPAGE failed, err=%d\n", errno);
+> > +}
+> > +
+> >  static void verify_rss_anon_split_huge_page_all_zeroes(char *one_page, int nr_hpages, size_t len)
+> >  {
+> >  	unsigned long rss_anon_before, rss_anon_after;
+> > @@ -180,6 +188,9 @@ static void verify_rss_anon_split_huge_page_all_zeroes(char *one_page, int nr_hp
+> >  	if (!rss_anon_before)
+> >  		ksft_exit_fail_msg("No RssAnon is allocated before split\n");
+> >
+> > +	/* Prevent khugepaged from collapsing the pages. */
+> > +	madv_nohuge(one_page, len);
+> > +
+> >  	/* split all THPs */
+> >  	write_debugfs(PID_FMT, getpid(), (uint64_t)one_page,
+> >  		      (uint64_t)one_page + len, 0);
+> > @@ -227,6 +238,9 @@ static void split_pmd_thp_to_order(int order)
+> >  	if (!check_huge_anon(one_page, 4 * pmd_pagesize, 4, pmd_pagesize))
+> >  		ksft_exit_fail_msg("No THP is allocated\n");
+> >
+> > +	/* Prevent khugepaged from collapsing the pages. */
+> > +	madv_nohuge(one_page, len);
+> > +
+> >  	/* split all THPs */
+> >  	write_debugfs(PID_FMT, getpid(), (uint64_t)one_page,
+> >  		(uint64_t)one_page + len, order);
+> > @@ -275,6 +289,9 @@ static void split_pte_mapped_thp(void)
+> >  		goto out;
+> >  	}
+> >
+> > +	/* Prevent khugepaged from collapsing the pages. */
+> > +	madv_nohuge(thp_area, thp_area_size);
+> > +
+> >  	/*
+> >  	 * To challenge spitting code, we will mremap a single page of each
+> >  	 * THP (page[i] of thp[i]) in the thp_area into page_area. This will
+> > @@ -542,6 +559,8 @@ static int create_pagecache_thp_and_fd(const char *testfile, size_t fd_size,
+> >  		ksft_test_result_skip("Pagecache folio split skipped\n");
+> >  		return -2;
+> >  	}
+> > +	/* Prevent khugepaged from collapsing the pages. */
+> > +	madv_nohuge(*addr, fd_size);
+> >  	return 0;
+> >  err_out_close:
+> >  	close(*fd);
+> >
+> > --
+> > 2.43.0
+> >
+>
+> --
+> Cheers, Lorenzo
 
-
-Thanks,
-SJ
-
-[...]
+--
+Cheers, Lorenzo
