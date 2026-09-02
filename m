@@ -1,39 +1,43 @@
-Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
+Received: from mail-4397.protonmail.ch (mail-4397.protonmail.ch [185.70.43.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B51347FB1C
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:31:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9693247FB1C
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:31:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352278; cv=none; b=OVCMDjRQ6bL/heAhu9gcCTz6nQVhRGrfzptXmSN314ontKKjwA42Hm8WYi6kEZyeirbBUy0ZOiie+5PTxNBwey2IZ52IYqxFaLcplhbSEQmLmjqtBG+7guZhTCBmq3KYGxiUM8/gr2od9Wk/21H2LXxJTPtjIqB81uVwcVjeYHY=
+	t=1788352289; cv=none; b=sGOcDJhu1wa50LGjguIAI3LUdoh8ZANIf1J6ofkMz/tTqCFr8jyy9Oth+2cyw2dUjABxyjN9LqyYD5Iq2yHcDmqAlE5QjHOag1Rj7Aa61r288F0QQN5pyFeLlQgJZsud34Dh08H0kxFN07bdIXNVNuRNDCgkTi9Jsi8DGbZjSXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352278; c=relaxed/simple;
-	bh=vzQswhFxPN4EWJHWN1VVDXS4QWb3TXLwrlRGynd7pPM=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=IBcj0z78Q3EJKD6hJlrQNCxjOWwFV6/YwlTfAb1Q+M0YeE8rYUYRS3rhLe52E4ueesnmfuAK9x1Kx4A6n2YhE/a6+RfSP15kTNuCmLp2VDVkW2TXN20aOr5NooJpasJec2oW+RZ/BWv6iQ3EPnK6FVH6pqoGhu/Akdzr2XmMqDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=empyreal.works; spf=pass smtp.mailfrom=empyreal.works; dkim=pass (2048-bit key) header.d=empyreal.works header.i=@empyreal.works header.b=BGEGXopu; arc=none smtp.client-ip=185.70.43.20
+	s=arc-20240116; t=1788352289; c=relaxed/simple;
+	bh=ffr9F+zdAaXdbRtETH1x0W5b8++Do3zcr9KpWm4QvpY=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=iSflb9CXDj5H4d00+1IAUDRHu97Qs/zeJIMxYPGyQJcgw3qYEyg4q+XaFcPBbKJwu1Nn/lY7bd5VDvhi3BTNwG8KkgUio2fDXxV1wdMf+/EAAxKZi47qD88Ya0y+QyL3gjTCWYZMIUmy8lsq+WaI/nqf1xOH5HjYwGlUEwQT00Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=empyreal.works; spf=pass smtp.mailfrom=empyreal.works; dkim=pass (2048-bit key) header.d=empyreal.works header.i=@empyreal.works header.b=NLcjPR/e; arc=none smtp.client-ip=185.70.43.97
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=empyreal.works
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=empyreal.works
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=empyreal.works header.i=@empyreal.works header.b="BGEGXopu"
+	dkim=pass (2048-bit key) header.d=empyreal.works header.i=@empyreal.works header.b="NLcjPR/e"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
-	s=protonmail2; t=1788352272; x=1788611472;
-	bh=OKxNGCoL9yieoK3Ws2lDA86IF7zj6L6ly9tSa8jimQE=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=BGEGXopu67VBpaYnmqAVSucBFOZgRwPKzh1KMjIQqQUd9/0XoKfiWJof1ngxOhZMJ
-	 J1VIwNjg9z+nsUM5jmjKSefRnn/yVzYjQHcyyhISrgoJBPOcNrqk2nltUk4UuJDfj+
-	 KoN3u1BIowUCfyTHAJZJxCRAjS0R1rjHlbyubq7Sb5rhy+HtSSGk1zjZNMcgVvKz/7
-	 CswyitX/tXuW9alxZKCyGUXWQOXoPi49DK0alBqBfmZJBFpxgETJPlvIm7Uxszh1nO
-	 3g7dU35oS1I5z79bDg4ET9WGP80K5LhsVI6afIROzzusO1s8w+Gy0Ms2MOk1hDHVUD
-	 iEzq3xSqtpx2g==
-Date: Wed, 02 Sep 2026 12:31:05 +0000
+	s=protonmail2; t=1788352283; x=1788611483;
+	bh=CIXG5k8Z42Dvwo3n4OTF/HGNzdZ5644vv8fHSBN0grA=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=NLcjPR/eJiF/NWaCblNVUCHSx42EIQ+gVQE5iBYmjcMD8iqT1gXzRvZgMTC8I8t/p
+	 OSwwhIQtizzDJ/7oIoC9dEj2cbu3uJ8rZ8uBrJ6hMtHVVMg45o/g5+33tLcKyCuooq
+	 4/MyeS6+RPvBFmpWHDc99YqYCS1KP3tuLvD8H8fMuASOeTwDwtw+sQDiT3A/hAU5T+
+	 /tEgGi8civO5EUoTipF4ZLnpTBP7YXyNiCksIcLAb7nzJBabTBQfXy4uFZyY3nFj1Q
+	 m1z33G9gx/FOqlgFKcG8surWSxMAsfCyBcDz9RMFQ0aUa/y9qT1ytJrOrmH/Tkucri
+	 8jPzRJVKA30Iw==
+Date: Wed, 02 Sep 2026 12:31:17 +0000
 To: amd-gfx@lists.freedesktop.org
 From: Andrei Rusu de Castro <arc@empyreal.works>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com, mario.limonciello@amd.com, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, chen-yu.chen@amd.com, ray.wu@amd.com
-Subject: [PATCH 0/4] drm/amd/display: fix brightness ownership through power module
-Message-ID: <20260902-brightness-cover-abf809f2@empyreal.works>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com, mario.limonciello@amd.com, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, chen-yu.chen@amd.com, ray.wu@amd.com, stable@vger.kernel.org
+Subject: [PATCH 1/4] drm/amd/display: keep custom brightness curve in userspace domain
+Message-ID: <20260902-brightness-1-fd468d7a@empyreal.works>
+In-Reply-To: <20260902-brightness-cover-abf809f2@empyreal.works>
+References: <20260902-brightness-cover-abf809f2@empyreal.works>
 Feedback-ID: 182420409:user:proton
-X-Pm-Message-ID: e25d1b5c28e864151b6e2d411f4edd74bae9fadd
+X-Pm-Message-ID: d3c1787a7ff7f8453ae90f24a3b3e0855c107f25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -43,50 +47,229 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Linux passes PWM eDP brightness through two owners. The display manager
-maps the request into the firmware range and applies the ATIF custom
-curve. The power module then derives a percentage from that hardware
-value and applies the same curve and range again. A non-zero firmware
-minimum consequently prevents zero from reaching the panel minimum.
-The split also leaves the custom-curve disable policy and final PWM mask
-attached to the wrong owner.
+convert_brightness_from_user() expects convert_custom_brightness() to
+reshape a value in the userspace [0..max] domain before the caller maps
+it once into the firmware [min..max] domain.
 
-Patch 1 keeps pre-power-module custom-curve output in the userspace
-domain, which also fixes affected stable kernels. Patch 2 covers that
-conversion with a non-zero firmware minimum. Patch 3 passes zero-anchored
-millipercent into the power module and moves the panel policy, curve,
-range, trace units, and final effective-PWM mask to that owner. Patch 4
-covers ordinary PWM, forced PWM, AMD-AUX fallback, true AUX, multiple
-panels, endpoints, interior values, clamping, and invalid ranges.
+Commit 8dbd72cb7900 ("drm/amd/display: Export full brightness range to
+userspace") instead made convert_custom_brightness() call
+scale_fw_to_input(min, max, ...). That helper adds min and scales by the
+firmware span, entering the firmware domain before the caller applies
+the same span and minimum again.
 
-The complete series passed all 85 AMD backlight UML KUnit cases on the
-current base and after clean application to Linux 7.3-rc1. It was built
-into one kernel, booted on two Strix Halo systems, and produced the same
-AMDGPU module on both. An instrumented physical panel test observed:
+With the default PWM range, min is 3084 and max is 65535. A zero request
+through any custom curve consequently returns 6023 instead of 3084, so
+the darkest 2939 firmware levels are unreachable.
 
-  request 0     -> 0 millipercent      -> PWM 3084  -> success
-  request 65535 -> 100000 millipercent -> PWM 65535 -> success
+Keep the curve result in [0..max]. scale_fw_to_input() then becomes the
+inverse of scale_input_to_fw(), and the caller remains the sole owner of
+the userspace-to-firmware conversion. The linear path is unchanged.
 
-The panel visibly reached minimum and maximum brightness, then returned
-to its starting level. No fatal kernel event followed. The true AUX path
-was covered by KUnit but was not available for a physical test. The
-existing LUT-unaware hardware readback inverse is unchanged.
+A later patch removes this helper from the PWM power-module path because
+the power module owns that curve. AUX panels continue to use it, and
+stable kernels predating the power-module refactor still require this
+correction on PWM panels.
 
-Andrei Rusu de Castro (4):
-  drm/amd/display: keep custom brightness curve in userspace domain
-  drm/amd/display: test custom brightness with non-zero minimum
-  drm/amd/display: pass userspace brightness to power module
-  drm/amd/display: test power module brightness input domain
+Commit 6fd83a1c2cde ("drm/amd/display: Scale custom brightness curve from
+full range") fixed the corresponding input-side domain error. This
+completes the output side of the same conversion.
 
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   6 +-
- .../display/amdgpu_dm/amdgpu_dm_backlight.c   |  59 ++-
- .../display/amdgpu_dm/amdgpu_dm_backlight.h   |   5 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   |   3 +-
- .../tests/amdgpu_dm_backlight_test.c          | 447 +++++++++++++++++-
- .../drm/amd/display/modules/inc/mod_power.h   |   1 +
- .../gpu/drm/amd/display/modules/power/power.c |   2 +
- .../drm/amd/display/modules/power/power_abm.c |   6 +-
- .../amd/display/modules/power/power_helpers.h |   1 +
- 9 files changed, 494 insertions(+), 36 deletions(-)
+Source and arithmetic analysis identified the duplicate
+domain conversion. KUnit coverage for a non-zero firmware minimum is
+added separately.
 
+Fixes: 8dbd72cb7900 ("drm/amd/display: Export full brightness range to user=
+space")
+Cc: stable@vger.kernel.org # 6.17.x: 6fd83a1c2cde: drm/amd/display: Scale c=
+ustom brightness curve from full range
+Cc: stable@vger.kernel.org # 6.17.x
+Cc: stable@vger.kernel.org # before 7.3 this code is in amdgpu_dm.c; drop t=
+he header and test hunks
+
+Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
+---
+ .../display/amdgpu_dm/amdgpu_dm_backlight.c   | 13 ++++----
+ .../display/amdgpu_dm/amdgpu_dm_backlight.h   |  3 +-
+ .../tests/amdgpu_dm_backlight_test.c          | 30 +++++++++----------
+ 3 files changed, 22 insertions(+), 24 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+index e61bbc310f33..424b33573a73 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+@@ -112,16 +112,15 @@ static inline u32 scale_input_to_fw(int max, u64 inpu=
+t)
+ =09return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max);
+ }
+=20
+-/* Rescale from [0..AMDGPU_MAX_BL_LEVEL] to [min..max] */
+-static inline u32 scale_fw_to_input(int min, int max, u64 input)
++/* Rescale the firmware curve's [0..AMDGPU_MAX_BL_LEVEL] back to userspace=
+ [0..max]. */
++static inline u32 scale_fw_to_input(int max, u64 input)
+ {
+-=09return min + DIV_ROUND_CLOSEST_ULL(input * (max - min), AMDGPU_MAX_BL_L=
+EVEL);
++=09return DIV_ROUND_CLOSEST_ULL(input * max, AMDGPU_MAX_BL_LEVEL);
+ }
+=20
+ STATIC_IFN_KUNIT
+ void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps=
+,
+-=09=09=09       unsigned int min, unsigned int max,
+-=09=09=09       uint32_t *user_brightness)
++=09=09=09       unsigned int max, uint32_t *user_brightness)
+ {
+ =09u32 brightness =3D scale_input_to_fw(max, *user_brightness);
+ =09u8 lower_signal, upper_signal, upper_lum, lower_lum, lum;
+@@ -179,7 +178,7 @@ void convert_custom_brightness(const struct amdgpu_dm_b=
+acklight_caps *caps,
+ =09=09=09=09=09=09    (brightness - lower_signal),
+ =09=09=09=09=09=09    upper_signal - lower_signal);
+ scale:
+-=09*user_brightness =3D scale_fw_to_input(min, max,
++=09*user_brightness =3D scale_fw_to_input(max,
+ =09=09=09=09=09     DIV_ROUND_CLOSEST(lum * brightness, 101));
+ }
+=20
+@@ -194,7 +193,7 @@ u32 convert_brightness_from_user(const struct amdgpu_dm=
+_backlight_caps *caps,
+ =09if (!get_brightness_range(caps, &min, &max))
+ =09=09return brightness;
+=20
+-=09convert_custom_brightness(caps, min, max, &brightness);
++=09convert_custom_brightness(caps, max, &brightness);
+=20
+ =09/* Rescale 0..max to min..max */
+ =09return min + DIV_ROUND_CLOSEST_ULL((u64)(max - min) * brightness, max);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+index 07b75064847c..90bed0ea5d00 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+@@ -67,8 +67,7 @@ ssize_t panel_power_savings_store(struct device *device,
+ int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
+ =09=09=09 unsigned int *min, unsigned int *max);
+ void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps=
+,
+-=09=09=09       unsigned int min, unsigned int max,
+-=09=09=09       uint32_t *user_brightness);
++=09=09=09       unsigned int max, uint32_t *user_brightness);
+ u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *ca=
+ps,
+ =09=09=09=09 uint32_t brightness);
+ u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps=
+,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backligh=
+t_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_=
+test.c
+index 7ca17f803f9d..1fb171fdbc3c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
+c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
+c
+@@ -1033,7 +1033,7 @@ static void dm_test_custom_brightness_no_data_points(=
+struct kunit *test)
+=20
+ =09caps.data_points =3D 0;
+=20
+-=09convert_custom_brightness(&caps, 3084, 65535, &brightness);
++=09convert_custom_brightness(&caps, 65535, &brightness);
+=20
+ =09/* No data points =E2=86=92 no-op */
+ =09KUNIT_EXPECT_EQ(test, brightness, saved);
+@@ -1057,7 +1057,7 @@ static void dm_test_custom_brightness_debug_mask_disa=
+bles(struct kunit *test)
+ =09/* Set the disable flag */
+ =09amdgpu_dm_set_dc_debug_mask(amdgpu_dm_get_dc_debug_mask() | DC_DISABLE_=
+CUSTOM_BRIGHTNESS_CURVE);
+=20
+-=09convert_custom_brightness(&caps, 3084, 65535, &brightness);
++=09convert_custom_brightness(&caps, 65535, &brightness);
+=20
+ =09/* Should be no-op due to debug mask */
+ =09KUNIT_EXPECT_EQ(test, brightness, saved);
+@@ -1100,14 +1100,14 @@ static void dm_test_custom_brightness_exact_match(s=
+truct kunit *test)
+ =09 */
+ =09brightness =3D 32896;
+=20
+-=09convert_custom_brightness(&caps, min, max, &brightness);
++=09convert_custom_brightness(&caps, max, &brightness);
+=20
+ =09/*
+ =09 * Exact match: lum=3D50, brightness_scaled=3D128
+-=09 * result =3D scale_fw_to_input(min, max, DIV_ROUND_CLOSEST(50*128, 101=
+))
+-=09 *        =3D scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(6400, 101))
+-=09 *        =3D scale_fw_to_input(0, 65535, 63)
+-=09 *        =3D 0 + DIV_ROUND_CLOSEST(63 * 65535, 255) =3D 16191 (approx)
++=09 * result =3D scale_fw_to_input(max, DIV_ROUND_CLOSEST(50*128, 101))
++=09 *        =3D scale_fw_to_input(65535, DIV_ROUND_CLOSEST(6400, 101))
++=09 *        =3D scale_fw_to_input(65535, 63)
++=09 *        =3D DIV_ROUND_CLOSEST(63 * 65535, 255) =3D 16191 (approx)
+ =09 */
+ =09KUNIT_EXPECT_TRUE(test, brightness !=3D 32896);
+ =09KUNIT_EXPECT_TRUE(test, brightness < 32896);
+@@ -1146,13 +1146,13 @@ static void dm_test_custom_brightness_below_first(s=
+truct kunit *test)
+ =09 */
+ =09brightness =3D 12850;
+=20
+-=09convert_custom_brightness(&caps, min, max, &brightness);
++=09convert_custom_brightness(&caps, max, &brightness);
+=20
+ =09/*
+ =09 * Below first data point: lum =3D DIV_ROUND_CLOSEST(40 * 50, 100) =3D =
+20
+-=09 * Then: scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(20 * 50, 101))
+-=09 *      =3D scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(1000, 101))
+-=09 *      =3D scale_fw_to_input(0, 65535, 10)
++=09 * Then: scale_fw_to_input(65535, DIV_ROUND_CLOSEST(20 * 50, 101))
++=09 *      =3D scale_fw_to_input(65535, DIV_ROUND_CLOSEST(1000, 101))
++=09 *      =3D scale_fw_to_input(65535, 10)
+ =09 * The output should be significantly less than input.
+ =09 */
+ =09KUNIT_EXPECT_TRUE(test, brightness < 12850);
+@@ -1190,7 +1190,7 @@ static void dm_test_custom_brightness_interpolation(s=
+truct kunit *test)
+ =09 */
+ =09brightness =3D 32125;
+=20
+-=09convert_custom_brightness(&caps, min, max, &brightness);
++=09convert_custom_brightness(&caps, max, &brightness);
+=20
+ =09/*
+ =09 * The function should interpolate between data points and produce
+@@ -1233,7 +1233,7 @@ static void dm_test_custom_brightness_above_last(stru=
+ct kunit *test)
+ =09 */
+ =09brightness =3D 56533;
+=20
+-=09convert_custom_brightness(&caps, min, max, &brightness);
++=09convert_custom_brightness(&caps, max, &brightness);
+=20
+ =09/* Output should differ from input (remapped via curve) */
+ =09KUNIT_EXPECT_TRUE(test, brightness !=3D 56533);
+@@ -1271,7 +1271,7 @@ static void dm_test_custom_brightness_single_data_poi=
+nt(struct kunit *test)
+ =09 */
+ =09brightness =3D 16448;
+=20
+-=09convert_custom_brightness(&caps, min, max, &brightness);
++=09convert_custom_brightness(&caps, max, &brightness);
+=20
+ =09KUNIT_EXPECT_TRUE(test, brightness < 16448);
+=20
+@@ -1309,7 +1309,7 @@ static void dm_test_custom_brightness_lower_lum_zero(=
+struct kunit *test)
+ =09 */
+ =09brightness =3D 32125;
+=20
+-=09convert_custom_brightness(&caps, min, max, &brightness);
++=09convert_custom_brightness(&caps, max, &brightness);
+=20
+ =09/* Should remap; result should differ from input */
+ =09KUNIT_EXPECT_TRUE(test, brightness !=3D 32125);
 
