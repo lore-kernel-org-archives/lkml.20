@@ -1,204 +1,111 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011058.outbound.protection.outlook.com [52.101.70.58])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57C873161A2;
-	Wed,  2 Sep 2026 08:04:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.58
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788336260; cv=fail; b=usDhX5CqG2y1xcPcDi4g7EfSeVJZmDmGomEFCY1pjJFAxevlzvIKg676+pvmtcuEqBs18HZdPEoGwREu1bBeLnCL2oaik8bxOsZjUZWFFnrie0n3L4g8/N6AwnYgiGOWXg2PBK3Yr8cbSVKGAMGLWNQtdpUKHIXMHfC52ffvbXc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788336260; c=relaxed/simple;
-	bh=yan31QHvJihkubQlUthsQSO25MHB+Mr+AV/xk81V0iw=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=m9JkHL7oF3TPQfn7s7ZQAZ98XfgV6FToz6mZ7b1BPaT4yyMgAxU9DCRei+z+0gVQucvzwAE9PmPB+ZEuGr9kOUCUTCklPqfagIsLKH1VbGsZDW4csNC3iqlKmCnbQe4ndM1suzhJD+5QKCu31jAEwmCahIN4oL+uq+zuSBRG7Kw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=n0nASsg7; arc=fail smtp.client-ip=52.101.70.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="n0nASsg7"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZKK/r4rvZeVDRwPjLQv64B7ayT9x9F0USkvT28+y3FBkUNjPBtLfmTC39i9qU7lkBpvZaQXKuEmTfCiNnfGUogiTWiyfqXayR2Mc02GJeLHT9JFPfJPV/bHiFa5d5BvDdn2mhtsQ4+OzKXcJ4iG3cY7m/o7F92nZYs8sv4jdp/IPnm9dp6beDoERadFecfU+15eD2XUi8Tunwu9cI3RfXFPDe0oaGyhyFODz1wuhMvhyh8PErkHc0CBPIjlg/55/Gg059gSzsd2ZRkVCMWzow9e9PtgsfwaSrQG6tEDaFdiHN1HGyr+WjtcchdlGXLE+8juI+5knpccMdvfkBRVwDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mIWT8NjT9D+AaSquZYEzdoAy7u3WlsN+G01rdybEXW8=;
- b=hJrg0w7SS88/Hso5TM8U2mV+ovQR++H//NsrhTonRJFlzBQ5a7klc58uo6oiV85uzcLoof5TL0G7fn5pqSydAzqNYeqNEEGAkbQ9PZWZFWJpv1hKcRxydPVQXxceYsfAIVi8BpxQj5hbjUlyM/czHSdurMyR8xNSJjmJ2xMxb0p6syHMVzpoE841xxhV3uQP/bBmMkGkDnAEISzqHPuza4erj6FJjNHSbde5s07DjLgnh9fjyCNmZo9MY6ZtzHLD1Xp1mvfdgsMhifK+EtZcb7mu3261ULcp9ltEdVEw2JE3Euv69WNEb/A4IgrwxRTNETdy8cqnhHAjTVtW2V+70Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mIWT8NjT9D+AaSquZYEzdoAy7u3WlsN+G01rdybEXW8=;
- b=n0nASsg7Z3kt8piLueMfTqxLoJ9V/xOdI87t1VMQ+U2l0gW9p8azRwkm5sFv/Oc+8EK6E+qTl/rZPi8xgzPSWirTlclotQi7TLHiHgzJRwns20h34Mj2Aebx7U09nKeDhS5tlR91ttucaJM3ivIpXua9JWqm6IlQok2xh21pYwQb8LtV0f+bTwDK5YiX41Ejw3pYyiyDCogMMCR5gBDhuVQE9T0bzr8kc+yZVzUCAEGiTFCHarrEIAqRvqsw2qpovT50+H14Wcb6ZmVAw9rWvP3NnYlvP7l54QS5KaSTU4RWxcanFjxnHKPx7Ne+wIJPD/n9UPLQoBjHWNHb2pNkVA==
-Received: from GV2PR04MB12019.eurprd04.prod.outlook.com
- (2603:10a6:150:30c::14) by VI0PR04MB602228.eurprd04.prod.outlook.com
- (2603:10a6:800:363::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 08:04:15 +0000
-Received: from GV2PR04MB12019.eurprd04.prod.outlook.com
- ([fe80::ed75:bac1:2554:5cbe]) by GV2PR04MB12019.eurprd04.prod.outlook.com
- ([fe80::ed75:bac1:2554:5cbe%4]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 08:04:14 +0000
-From: Hongxing Zhu <hongxing.zhu@nxp.com>
-To: Manivannan Sadhasivam <mani@kernel.org>, Frank Li <frank.li@nxp.com>,
-	Zhijian Han <hanzhijian1991@gmail.com>
-CC: Lucas Stach <l.stach@pengutronix.de>, Lorenzo Pieralisi
-	<lpieralisi@kernel.org>, =?iso-8859-2?Q?Krzysztof_Wilczy=F1ski?=
-	<kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Frank Li
-	<frank.li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring
-	<robh@kernel.org>, Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio
- Estevam <festevam@gmail.com>, "linux-pci@vger.kernel.org"
-	<linux-pci@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "imx@lists.linux.dev"
-	<imx@lists.linux.dev>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "sashiko-bot@kernel.org"
-	<sashiko-bot@kernel.org>
-Subject: RE: [PATCH v4] PCI: imx6: fix resource leaks in probe error paths
-Thread-Topic: [PATCH v4] PCI: imx6: fix resource leaks in probe error paths
-Thread-Index: AQHdM9n70fwYf+Kx3kGly/dGwwi8S7a6+GgAgAABnEA=
-Date: Wed, 2 Sep 2026 08:04:14 +0000
-Message-ID:
- <GV2PR04MB12019F7317287AC3FCAD939F58CB72@GV2PR04MB12019.eurprd04.prod.outlook.com>
-References: <20260824150454.3511203-1-hanzhijian1991@gmail.com>
- <kyuxfl6wmsytudadd2dazw7norz25mpsk6bjsfxsj2cpo7yj3h@eujfdbehavzm>
-In-Reply-To: <kyuxfl6wmsytudadd2dazw7norz25mpsk6bjsfxsj2cpo7yj3h@eujfdbehavzm>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR04MB12019:EE_|VI0PR04MB602228:EE_
-x-ms-office365-filtering-correlation-id: e0918223-ba3f-4db6-cc0a-08df08c8c7cb
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|19092799006|366016|376014|7416014|1800799024|10067099003|4133799003|56012099006|11063799006|4143699003|18002099003|22082099003|5023799004|38070700021;
-x-microsoft-antispam-message-info:
- DW/RNTYOB5V5UhqCYekDOWJ4E59iS3OnzK7DcUVGo66yY8/N4z1Pn6ylrpQLk2Pc8K6i6sS/81cqi4yb1rMW1XwZEbfiZSAiXbryK+w1P9NucLLfej+UT6dP7CF7wFiR7pl1iIQKCLQC+cO9kfhagykoih5WwNvwcRAOf18+eqxwTON14dXdkxYCLkvhGYq7+tMnOBJ4hkHsd7G7XdKjGPFPmMfH5JZxuDeeEWaJvb9azUL9hOs3G/wql6SeATVRb7qHGQHIfyIxZ+TLrhhC/EPro+J3gcljgTllELrLbMTIoq4jdwUKNL+FWB49XVOQ29l1hS/+YPnVlUgDbCvw9Yiz2WfkqwkmdxM4lO34vFhf7lyfZI1fuCxxcFI48X0oIIdQZDZTkFxocvD4uDeJfGWPu+cVmlWHMHbDEnrVbkx/2gtjay/MPluFtw9DjP3FIS67aXga8LXBfrTwTSJD3xqKKKGdK3t2P0h9WSuCL3HLvpLEJ3kWwBOXX19MKkedAPdf3u2SAS2w2JwqfYk3v1nDcxPdfxVG6iit7DWjNRlbTXWpgu01Hju2TzHsSw9+/RKZmb9+QB5KKxaAXWAt+SFEhXR0yYy4Q8G3BGNLPMyg/LAH3yWTIDtXKkDJEr42jZO8LEDeH7s1Yxc94W9XVbxMTGr0pXLP2dhf69pJdz2zlRB/XonkW3ZXqjLVqUtsFhgaEAf9qrTUQh+LNuV/eRA4nhF67Wp8btagIAk84UE=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12019.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(366016)(376014)(7416014)(1800799024)(10067099003)(4133799003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003)(5023799004)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-2?Q?3QkhT4rCgmIeGK+6JPUAm4sKGW485PHorgvlv2UMcT0rZ3wDPeYUgG+wyl?=
- =?iso-8859-2?Q?luPyXH5NA3lxumgU6plzaIWqbZTg4PEg/TimxYS7HsLQIfUJBDncC5h+xa?=
- =?iso-8859-2?Q?5SuKK/jWrPRR3pFTF5AkRiZMjgu4SxsxbN1b6ESGAlN+6aSupU87IBRzc+?=
- =?iso-8859-2?Q?F2A0LYVUQUeTkVyk1Ljn7in2WPioSSObFMB989EwrZaWtpZJR7QJKrKvRo?=
- =?iso-8859-2?Q?rX97iBzWWq13yihXp2XQxmMKKEMnTcdF89w2rYa9MCN6hrWgrq24OWuQD6?=
- =?iso-8859-2?Q?dVZDHkaAUD1dV7TiwJE+yggjqaaa/msbKo596O8EFDet6Np9wk30nt9wxL?=
- =?iso-8859-2?Q?8RijImu9fAfrR8YNMFlkxsF+w5c89ImNILba7fASle52lIddc2tjx+iEiQ?=
- =?iso-8859-2?Q?KWl9S6YIHT6DwqN/9PvKOrn5apXIslfol4HxoPh2DYeywV817C1B4DDAeG?=
- =?iso-8859-2?Q?Q2ivNiAa3yv93kk9ZmvJAI6IW5LjDMAUgLaoITDijBBnzl4xtHgZlHfzum?=
- =?iso-8859-2?Q?cIZg2k89VHjFUQ4FHPT8CEBrQx66wi3wUybJ+79qivUpkA9zzqMMenxxCw?=
- =?iso-8859-2?Q?Hw88pMbZ58+AuLXXcImoVJy1OtVks6w/NkSPH6W6bqXrSfm1N/8cAQYpvR?=
- =?iso-8859-2?Q?MZPVHbAN0jZ6pCME+n1q1bLR+tmBWLaOtH2hB1NFwiTheU85UFtq3A/2zt?=
- =?iso-8859-2?Q?+wCofmEC82fQzWqldnims10BgjowunfOavg/400VZhD25IXtdGofUaLfdU?=
- =?iso-8859-2?Q?BIQkLOASEdiVGvjJjkF8fM3Y12cuoBbhCTLJpINjWghrmSF1m/MvtrMLTQ?=
- =?iso-8859-2?Q?BH9RofLXCofwOsBhP8WNNBPvCEzRQeeBiILp27gWu2Dyl0hR6bbLOAzpkp?=
- =?iso-8859-2?Q?8fK+8vAcrDKP0YHgQMVqgHRFsddoDslwHuotT2CWIDOXjKShsCM3QfxwRY?=
- =?iso-8859-2?Q?yiAVriCjEB1Q796drCwxd3av/JTrL8NbKysUVwbFxEFpWo9KalGcFYiVw3?=
- =?iso-8859-2?Q?FPa9uIYbTdzM/7f7l3q1/K/jZng8LmrjDqa3xG2BSCUvUaESFtfDVqpr/V?=
- =?iso-8859-2?Q?nBEk5jq3wTiUHHcyUyXcPfLOSusDM0qIj8xRN7JENaOd7qYYIvYS6G5eRe?=
- =?iso-8859-2?Q?Fg0sazlXec0HpIxxA7TFrgComOf6RO8fRnlBORpglFVUmZchKGs+fcvwEU?=
- =?iso-8859-2?Q?5KlL6nkzmzVGMtVtq1XYQiXJQXas19xJvep+fR/hwz+qWsblMY40TBaGfn?=
- =?iso-8859-2?Q?hk3OJWFyIKbEBQJg8ivmhwgkOBfi4gYHHK8+WPeUPsGkGeV9KaQZykQTfN?=
- =?iso-8859-2?Q?7zLZPw0KMEBMcrjgPuhJKtLQ+I59/fXiKSP7hPLxQVXHtjQrZFDc9J28E/?=
- =?iso-8859-2?Q?vPsIXSsujbriupcBBSdBU86W/eED1OXZ2IzEWti7xoL5qS0Cw+20+tGndE?=
- =?iso-8859-2?Q?JQfWewmc+bZdoT4TDV3Du1/6AfLnG+BcYsNHmbHm67/bSZvEChYoisfLMx?=
- =?iso-8859-2?Q?lIM7FFYI4nPQS6krYBFqIpxDahl5rA0WNZg5iLaUf/zKBMbvw2SJ46s4nF?=
- =?iso-8859-2?Q?bca7Z//MoS+0NBJL4vJmHBsCztGfkLaHHjXpZ8J0emRZfd0oZAcm00fz5i?=
- =?iso-8859-2?Q?p0l2fQRJQjQqsNRnRYbylSbPOMDbaLrOuKOZ574p7YoTeyZv+YU9GStptp?=
- =?iso-8859-2?Q?p0R2vvngJX3GdqaReJAXBdvwB8sfvfD7s/gJz8t7VfHeQDi3FPkuTAP+1r?=
- =?iso-8859-2?Q?1yeT0LC894RfH0zCRy8yfHEyU3AV9f8Co2rtpyg2h2kRnY?=
-Content-Type: text/plain; charset="iso-8859-2"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A7E5A328B7B;
+	Wed,  2 Sep 2026 08:04:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788336297; cv=none; b=cLSS/AKgXjII7tJGnQ9T523Huo36nOaYTAyOGBywZbpyjFumZu+n9mIfao92WCzA8jfIyNkmTVEZnPr2kEWhrko2JKFFIo9SaygH7sr83HY5d1SXZ3nRImqbU5QaAEgdWfP6E9udSLCItF6fLuM6gx0ocQk2JKRk1vuDa5wsty4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788336297; c=relaxed/simple;
+	bh=iaX4bSY8tECv0GJk95N9F797wm7D0nwMhGAYdtcSszs=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=mqf7SA6Dhae1BagEPDunCsGeyKxb6m39Pbpr8qF8pVWI4vXjuyF/lWSDNOgctACRowrpP/NtU3lgHhskNcPyaRKgQyKmk/n1ujcB6K01k8WkHSDScZc/mDNyov0Ew5a5mKTBYX1z3RSixQUjBB1AFI62W4Mst3+o9J0FLp+2l28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.62])
+	by gateway (Coremail) with SMTP id _____8AxHNKl2Jdq_K8HAA--.21730S3;
+	Wed, 02 Sep 2026 16:04:53 +0800 (CST)
+Received: from [10.20.42.62] (unknown [10.20.42.62])
+	by front1 (Coremail) with SMTP id qMiowJDxRs2g2Jdq9mwZAA--.41017S2;
+	Wed, 02 Sep 2026 16:04:50 +0800 (CST)
+Subject: Re: [PATCH v2 0/2] LoongArch: KVM: Fix kvm_loongarch_env_init() error
+ path
+To: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>,
+ zhaotianrui@loongson.cn, chenhuacai@kernel.org
+Cc: kernel@xen0n.name, lixianglai@loongson.cn, kvm@vger.kernel.org,
+ loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260817115847.2705791-1-nagachaithanya9911@gmail.com>
+ <20260902070724.3459457-1-nagachaithanya9911@gmail.com>
+From: Bibo Mao <maobibo@loongson.cn>
+Message-ID: <0fa4066b-81b5-d0e9-36f1-9f0cbadf1e2c@loongson.cn>
+Date: Wed, 2 Sep 2026 16:04:32 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12019.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0918223-ba3f-4db6-cc0a-08df08c8c7cb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Sep 2026 08:04:14.7910
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0qGoFsENAs+EAfK8QNIUz0p7f1OD8rUp2BvpAPSw6NPfrmZudr8lbmfC3g6EEVe2Vxf2pFVHF9qTsnIh9zVIWA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB602228
+In-Reply-To: <20260902070724.3459457-1-nagachaithanya9911@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxRs2g2Jdq9mwZAA--.41017S2
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBj93XoW7KryfWw1DJF17Cry8Gw48AFc_yoW8uFyUpF
+	y3uws8Kr4kKr1fArZIka4Duas8Xr4fGr4aqa42y345Cws8Xry0vr18tr9rZFyqv3y8GFW0
+	qr1Sg34YgF1UZagCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
+	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE
+	14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCYjI0SjxkI62AI1c
+	AE67vIY487MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
+	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8Zw
+	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
+	67AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
+	0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8cz
+	VUUUUUU==
 
 
-> -----Original Message-----
-> From: Manivannan Sadhasivam <mani@kernel.org>
-> Sent: Wednesday, September 2, 2026 3:53 PM
-> To: Hongxing Zhu <hongxing.zhu@nxp.com>; Frank Li <frank.li@nxp.com>;
-> Zhijian Han <hanzhijian1991@gmail.com>
-> Cc: Hongxing Zhu <hongxing.zhu@nxp.com>; Lucas Stach
-> <l.stach@pengutronix.de>; Lorenzo Pieralisi <lpieralisi@kernel.org>; Krzy=
-sztof
-> Wilczy=F1ski <kwilczynski@kernel.org>; Bjorn Helgaas <bhelgaas@google.com=
->;
-> Frank Li <frank.li@nxp.com>; Sascha Hauer <s.hauer@pengutronix.de>; Rob
-> Herring <robh@kernel.org>; Pengutronix Kernel Team
-> <kernel@pengutronix.de>; Fabio Estevam <festevam@gmail.com>; linux-
-> pci@vger.kernel.org; linux-arm-kernel@lists.infradead.org;
-> imx@lists.linux.dev; linux-kernel@vger.kernel.org; sashiko-bot@kernel.org
-> Subject: Re: [PATCH v4] PCI: imx6: fix resource leaks in probe error path=
-s
->=20
-> On Mon, Aug 24, 2026 at 11:04:54PM +0800, Zhijian Han wrote:
-> > imx_pcie_probe() leaks both pwrctrl devices and power domains on failur=
-e:
-> >
-> > - imx_pcie_attach_pd() attaches the "pcie" and "pcie_phy" power domains
-> >   and adds device links to them, but nothing detaches the domains on
-> >   probe failure or deferral, so they leak.
-> >
-> > - A failure of devm_pm_runtime_set_active_enabled() returns directly
-> >   without destroying the pwrctrl devices.
-> >
-> > - A partial failure inside imx_pcie_attach_pd() leaks the power domains
-> >   that were already attached.
-> >
-> > Add imx_pcie_detach_pd() to detach the power domains in reverse order
-> > of acquisition and call it from the probe error paths.  Add
-> > DL_FLAG_AUTOREMOVE_CONSUMER to the device links so the driver core
-> > removes them automatically when probe fails, instead of tracking and
-> > deleting them manually.
-> >
-> > Reported-by: sashiko-bot@kernel.org
-> > Link:
-> > https://eur01.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flor=
-e
-> > .kernel.org%2Fall%2F20260822013640.182C01F000E9%40smtp.kernel.org%2
-> F&d
-> >
-> ata=3D05%7C02%7Chongxing.zhu%40nxp.com%7C8285e77d3eaf45f25a0608df08
-> c73e1
-> >
-> 2%7C686ea1d3bc2b4c6fa92cd99c5c301635%7C0%7C0%7C6392393239841792
-> 60%7CUn
-> >
-> known%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwM
-> CIsIlAiOi
-> >
-> JXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=3Dgcw
-> b63Hn
-> > dHcOrDQnwD37rUN%2F0EUDcnIZOOGrZ7Ylzio%3D&reserved=3D0
-> > Fixes: 2c5768344f88 ("PCI: imx6: Move pci_pwrctrl_create_devices() to
-> > imx_pcie_probe()")
-> > Signed-off-by: Zhijian Han <hanzhijian1991@gmail.com>
->=20
-> Frank, Richard, can I get your review for this patch?
-Apologies for missing this earlier.
-Reviewed-by: Richard Zhu <hongxing.zhu@nxp.com>
 
-Best Regards
-Richard Zhu
->=20
-> - Mani
+On 2026/9/2 下午3:07, Chaithanya Lagisetty wrote:
+> kvm_loongarch_env_init() leaves everything it has already acquired behind
+> when one of the IPI/EIOINTC/PCH-PIC/DMSINTC device registrations fails, and
+> kvm_loongarch_init() does not call kvm_loongarch_env_exit() on that error,
+> so nothing else cleans up either.
+> 
+> v1 unwound only the memory and the perf callbacks. Bibo Mao pointed out
+> that the device registrations should be undone through wrapped unregister
+> helpers, so patch 1 adds those and patch 2 uses them to unwind the error
+> path in reverse order of registration. Patch 2 also uses them in
+> kvm_loongarch_env_exit(), so that the device ops are unregistered on normal
+> teardown as well.
+> 
+> Link: https://lore.kernel.org/all/20260817115847.2705791-1-nagachaithanya9911@gmail.com/ [v1]
+> 
+> v2:
+>   - Add unregister helpers as suggested by Bibo Mao
+>   - Unwind device registrations in reverse order
+>   - Use unregister helpers in kvm_loongarch_env_exit()
+>   - Split into two patches, so the fix only uses the helpers
+>   - Reword commit message to avoid implementation-specific details, and
+>     retitle from "memory leak" to "resource leak"
+> 
+> Compile-tested only, no LoongArch hardware: loongson64_defconfig with
+> CONFIG_KVM=m and CONFIG_KVM=y, W=1, each patch built individually, no new
+> warnings.
+> 
+> Chaithanya Lagisetty (2):
+>    LoongArch: KVM: Add unregister helpers for the KVM interrupt devices
+>    LoongArch: KVM: Fix resource leak in kvm_loongarch_env_init() error
+>      path
+> 
+>   arch/loongarch/include/asm/kvm_dmsintc.h |  1 +
+>   arch/loongarch/include/asm/kvm_eiointc.h |  1 +
+>   arch/loongarch/include/asm/kvm_ipi.h     |  1 +
+>   arch/loongarch/include/asm/kvm_pch_pic.h |  1 +
+>   arch/loongarch/kvm/intc/dmsintc.c        |  5 ++++
+>   arch/loongarch/kvm/intc/eiointc.c        |  5 ++++
+>   arch/loongarch/kvm/intc/ipi.c            |  5 ++++
+>   arch/loongarch/kvm/intc/pch_pic.c        |  5 ++++
+>   arch/loongarch/kvm/main.c                | 32 +++++++++++++++++++++---
+>   9 files changed, 52 insertions(+), 4 deletions(-)
+> 
+For this series:
+Reviewed-by: Bibo Mao <maobibo@loongson.cn>
+
