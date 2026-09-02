@@ -1,164 +1,244 @@
-Received: from mta1.migadu.com (out-250.mta1.migadu.com [95.215.58.250])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 638C8377EC5
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:07:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.250
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788336463; cv=none; b=E0cLGnnULbjLy7KvhXAw9tsf0Qn5P8eamTjbLyBX71lkMFphe7W1WaYwR68Kmdj8/BwefFDMIwcP2r05fVU6VPrLInuoAL4BY+kCwET64fclCQ3+roXzBFAQiYStnloErJJ5tmxgacJSFYC6yRRegx2UPualjAb1W/9vttedmao=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788336463; c=relaxed/simple;
-	bh=T/bumzJM3d5jlXTPAtKTEE9Yljf9oHesSte5DKZj6XA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mJ8+AISqXVYVtJ1IfyrVOmO6d+5zqq2eUhn83drbLZy2o1pok+czom+ztgThynGGfIGxlMvORyH0AU4+VJe8kXnrymv1y7sef7ltD4N+w9P4Ky48GoLv3Sy/1xHi8q/lYRT9UA20+55EflBz+RTA0PcCWSI9s5EJSR+3J+1ZgBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=EcQgRXCb; arc=none smtp.client-ip=95.215.58.250
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D52152DB791
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:08:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788336519; cv=fail; b=LcJ2WeghMi1DitOt1jYVnyQkWiFjI5COMBuSGiK73UAiabsWSdSKRk/XGQbWmx8hLrM5RMob9HR8tKwO0JoQCj1mRhWhfKTh2I/ahRnuHdmxpPZ33spK+Exp94E8iItnN2rpM2iTQndhjbnlhQQ9vWdczhZccYrPc5WoDcOr4r8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788336519; c=relaxed/simple;
+	bh=tfkaCFYOx2x4hh5/MdjKUDNak7UZO4m1mi673lRIhis=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=ZlK7kGgIZm38H9VS194bYR9+/Fzh70zTzQ6qpCa42iA+zFgu7iaTflhCFiXk7HYkZfqh3Cl6dZGHrDhdrB2f7kfqXbKpSceOYfiAKcRTmBaIt3c2hV1oFz0RL5xSmHW2zhX8wmgwHBd96M4UWhXGwZDuyLY6XrAHB+9oj4DHWFc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=b+nfiAPs; arc=fail smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="EcQgRXCb"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=T/bumzJM3d5jlXTPAtKTEE9Yljf9oHesSte5DKZj6XA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788336459; v=1; x=1788941259;
- b=EcQgRXCbdcbNsVTkmiBnxh3gV+M+mA8kkNE15MVHsgACvfMHePuwLu801PkU9UsleVthyb8L
- lI5kC1HTkrnbZm+GVhSjq9kbCftJTb4vg8bFgpa67K+Kikx/D3nEe/OuHeq0hHGEdCv57jzGcC3
- 3FFNnwPBqB6u/WqHrU5wZaSg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id f6d858a2dbb51460;
-	Wed, 02 Sep 2026 08:07:39 +0000
-X-Mizu-Trace-ID: f6d858a2dbb51460
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 2 Sep 2026 16:07:28 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: "Barry Song (Xiaomi)" <baohua@kernel.org>
-Cc: akpm@linux-foundation.org, linux-mm@kvack.org, axelrasmussen@google.com,
-	baolin.wang@linux.alibaba.com, chenridong@xiaomi.com,
-	david@kernel.org, hannes@cmpxchg.org, kasong@tencent.com,
-	lianux.mm@gmail.com, linux-kernel@vger.kernel.org, ljs@kernel.org,
-	lyugaofei@xiaomi.com, mhocko@kernel.org, qi.zheng@linux.dev,
-	shakeel.butt@linux.dev, stevensd@chromium.org,
-	wangzicheng@honor.com, weixugc@google.com, yuanchu@google.com
-Subject: Re: [PATCH v2 2/2] mm/mglru: make retry logic explicit in
- isolate_folios()
-Message-ID: <apfZQE1X6zGAsBb_@fedora>
-References: <20260829074204.45304-1-baohua@kernel.org>
- <20260829074204.45304-3-baohua@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="b+nfiAPs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788336517; x=1819872517;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=tfkaCFYOx2x4hh5/MdjKUDNak7UZO4m1mi673lRIhis=;
+  b=b+nfiAPsBdEfJ0vHc3i0/dTSqrs3wBJg5CTWgHmZ/ANX02TS0ddhJdGs
+   G2l50FiQHLhJSzpXRAF3pw4q1jV+6LB2+XfILq8/ZkIzdAKR7/FvFfTnB
+   Gv2m0XcH0Q38REK/Gm6jPIqSvP1JGYA4E0nIp/r30092uJt3FATdRxTi8
+   N8GuSlQYouZmBVpi3pjgeM9gv1mJi0nVoqVZFB0rPklNVFOa0XEWdmk5g
+   JVOtMLhSxaG4AEH5WJtIBX3tCFqtliYtP/PFbyEXQcelCNSAO1r5Nsbjt
+   xbCgYc4FtHfyT3u2nfD4gXo/EBzZiQ6pEaLBDU7PuEf38E24CCUZK//we
+   w==;
+X-CSE-ConnectionGUID: 1UO2d6Q3TJSdQ6PWQKP3ig==
+X-CSE-MsgGUID: E3vDjWL7Rt+/DhscSpLi/g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="114329349"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="114329349"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 01:08:36 -0700
+X-CSE-ConnectionGUID: rnd4N/G+T/q9572YWakKHA==
+X-CSE-MsgGUID: kZqaFZTxQaGDZg2diJwetg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="268035277"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 01:08:36 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 2 Sep 2026 01:08:35 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Wed, 2 Sep 2026 01:08:35 -0700
+Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.60) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 2 Sep 2026 01:08:34 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Oeo2cOGiqahSzlsRtK1xCnI6s7n6A2dZ4nvn+K6vmmR5e58fHHufPTr0RZCanvZOY8TdGIrV/p7pGS0ebP9SRbQraaGlFgTr0zrH6s3n2PWaOZVT41muT3xnQY2b3NjaRHPV9qtDVl8M35gcCBS9YWdorF99X/SsYuB/8R5V+Ffp87of4E0tDXcMOMrGqammvtLA3kwOIH5dRH/hV2p4xED0l1b3sLcEhj4XcEyc/vfykPRySH1f8bY7Wdwm/WbvvjsnV2xbnZgHESki7TGnM7WhdkFV8hmH1Dgc4jFJgEhuBxO+rFuFk8G3SyF69dCnMieFvw8huwYd6bCPDTVsxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cVPCUwhK5hYjfPnHBNPjzUqxH3SNTvRnavZJ0hAqz70=;
+ b=xsFf699tOQm4jf4EHNLvJq4N6ioSLNJSLjSj+8s0vYJPROgNXmRNJdf1mHsvIF3/FUhpd87ECPLG9HCYE92z3WYmxkzSK05fMSfpb7YHpfdvq8ChwDR8XX7eYobvUd0ci7/20z67chOWdPRs6BuYJg7rjknjbcNNQSXaX3qiViOkiGrFVMK2LLPA5Vp/nCXYLeqSyJoshf5F8Sasf+tEKqxPVCdKO3pDbwYaInaYX4HLTBrUEQ6FzI7eQmWluOojfx3/ydHPsbUU1zRiPjCGNtt9QP5O/7c7NdjBk/vxFU4e0GcCjOPx4R9zsPUfNGuzw/ENlFkdfhLIXvaulU2sYA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by DM3PPF1FCD3EAF0.namprd11.prod.outlook.com (2603:10b6:f:fc00::f12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 08:08:18 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 08:08:18 +0000
+Date: Wed, 2 Sep 2026 01:08:16 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Nathan Bourgeois <iridescentrosesfall@gmail.com>, Dave Airlie
+	<airlied@gmail.com>
+CC: Dave Airlie <airlied@gmail.com>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
+	<thomas.hellstrom@linux.intel.com>, <intel-xe@lists.freedesktop.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Rodrigo
+ Vivi" <rodrigo.vivi@intel.com>, Christian =?iso-8859-1?Q?K=F6nig?=
+	<christian.koenig@amd.com>, Matthew Auld <matthew.auld@intel.com>, "Simona
+ Vetter" <simona@ffwll.ch>
+Subject: Re: [PATCH] drm/xe: Fix unnecessary host-side population of ttm_tt
+ on non-TT resources
+Message-ID: <apfZcEF8IlDak/As@gsse-cloud1.jf.intel.com>
+References: <20260820031901.1018324-1-iridescentrosesfall@gmail.com>
+ <aoczaCuoaZfUkfm5@gsse-cloud1.jf.intel.com>
+ <CAMpTW2cxRrG4oJ0HrRoKhHrVHxWO01-L+QDoWMLCAUaSfw75sA@mail.gmail.com>
+ <CAMpTW2fxFRrpn1b5WGYBrtLLMfUo_fmx9s2D0b552GJp-sF5qg@mail.gmail.com>
+ <8b7001c68c94491095f41d2a3dff45090c0a95cf.camel@linux.intel.com>
+ <aoeUdfrPX+0ZnZMr@gsse-cloud1.jf.intel.com>
+ <CAPM=9twBded3B553KYzwDtVd0NbhbAwbiVDGw_bdrmBnOKgtKA@mail.gmail.com>
+ <CAMpTW2eXS9tBzppJvvfZ-FiwoJ5MKOAdB9sqYgCDPVQ_+___ZA@mail.gmail.com>
+ <ao+acQG/wyZYNYfW@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ao+acQG/wyZYNYfW@gsse-cloud1.jf.intel.com>
+X-ClientProxiedBy: SJ0PR13CA0045.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c2::20) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260829074204.45304-3-baohua@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|DM3PPF1FCD3EAF0:EE_
+X-MS-Office365-Filtering-Correlation-Id: 67098c33-f3c0-4131-1fbe-08df08c958f1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|10067099003|6133799003|56012099006|4143699003|22082099003|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: Hwls0FAXkiQ82FsfdMgnZm35x9homPpizpJBjs1Eu+eO/VgzzbWVVx4uT4f81/qbRpaZ7aZywIhzfQphXjP+fF+apHJEhBARTSl5YUmB4BdV9PcXDGnC7UOPhswP94Odc0g1y2PeaSBDin51o58HuP1Knvod3iUehQpkxE8UyHptqQMLnP48l1v6j5IoULxF9gyrtfwpjL3m/rVXBn1xlR2WoK12OZ2IHSXhM870NqFhQ2BIfRS6Xo+CWWhx3Eg9fSPnos2By5eRLLFlzvl93ch7H3GZ8bQo5vKdFQDd9gl7abHRCa6S/eEM/fR96F3ZjONWAP/rZ8j3HH4K9r1QBN3D8mXxtBgxqq9mMbMXXQ+CichNC3GKL8YcdSFQGRF0Xc5beHx+//JEE1l6nvaA2ZVMO74fb3OOFyD5NEfK1YCeXtJaXU1xhnwDLl3F9RUFonLZNXGO+HOuVTtkI4B4kB0aE/t78Lq3TB51NN58zK/Wej/khke94XhSTQ1dSzWzza2C4dg+B0d6tu4DBQ6/c05/phE/QvW4SkeXFyPohifokeCCySmjgakYllCkXCVcKckSdcuidf3bAAy4P4c9GoYVssXCUH8Ib09NMBFzA1xu/cLJRa+WyIiLJAie832f
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6522.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(10067099003)(6133799003)(56012099006)(4143699003)(22082099003)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZlJTV0xNTDFyeTZsNTJ6M0FxblRFNGNFVmo5Zm92R0ExVHlZbGJ6MG5nMmZi?=
+ =?utf-8?B?eXhpME9nU0VaS1k1YmlNcWpiRmI5Ry9DMXJLWW83WUl3R05YVnZIQVpyRjYy?=
+ =?utf-8?B?RGZsRG9PdDR4NVA2a054dHJLdDJNV0xKTkx1SkowYVkvL2tTSVQzblVLYWU5?=
+ =?utf-8?B?MStwUmZXazM0Z1h1U1V3MzRYbTJrQzFaRVUrUWFWNGtKaXlEMkFtWkFyckN2?=
+ =?utf-8?B?bUlKTVo1Vm9ZYlZMc2FINHlxTkVvYkpwTWorSFdDbmxNdUFreVV3Q3JPNGxw?=
+ =?utf-8?B?ZGRaR0UyVnZnVlFxeE5DWWNLY1VxQXA1YmFZZW1Qck01WFRBYnA1RDluWkNV?=
+ =?utf-8?B?WVp1bmxIVGh0RUl2bGZIdUlIQVRzRkc1a3lDZ2lwSy9Qb2E1U2pIOU5ZL3NL?=
+ =?utf-8?B?dGVFUGYvejZock9MZ3c2eEZReFJrV1V3b1RjWGlrVHlzVitBUFNuRzZBdmdB?=
+ =?utf-8?B?YWJ5dk8zZ0d0NFl1VTNNZzhtcXJuaEZNdi9LSm1PSjlNVSt3MnR5VkE5MVlh?=
+ =?utf-8?B?OGdLVVh0SGVLNDlxMU02Umg4blJUeXY4WTFaWnREZWEwWVNFbWlmV2ZUaXJ3?=
+ =?utf-8?B?eHdya3k2cHhkS1gzYzZadzA5bldYWk92dENtclBjS3hsVXhTTjBRaTh4dGJC?=
+ =?utf-8?B?cm5WVXM1QTF0N0ptbWtFOHRJcUJoRWlDWk9mN0t2eTJPZTdBaXl2MlMyYnFW?=
+ =?utf-8?B?ZmRaQkQwb3dHYlg4UEwrTWhpUGJQcGx3TUFLQTRncStqUVJkNGRzVGxtZld2?=
+ =?utf-8?B?aWNzb3dmWkI1ZmVuVHl1TmRwV2crVkxrQ2hZMWN6QkphdUlBcUs5bThWbWNU?=
+ =?utf-8?B?U0NOUE1WMkxKOXFGS0wvcmh6OUw3cnhPWlBkeHV2c0dDN3BQSzcrUDFxSFM5?=
+ =?utf-8?B?VFpKUXIxWlcvNjhKNWdwQ3A1MHMzOVFQWGhMdWdpQVFlMkZqdmdxYnhHZHFo?=
+ =?utf-8?B?NTYxaVF5T3RjZFJCMlhYOHczalNrMDFJeDFXcmQrZHd3cmpBWDl2MVlsVklL?=
+ =?utf-8?B?NjV2bFUzQklLbjZQbElmMUdOaEJGd1Z1cm8rblVnT2hrQXFNV2VpaG5xUVBj?=
+ =?utf-8?B?YUh6Wk9sZXlBeEtidHFmdEh5Q1pUWGZEbGEyYyt3cHg0WHBMTDk1UU04UXhn?=
+ =?utf-8?B?NVl5SDRJenZlMUI4M2JvVk1LdzU5N0F0cTA5ZzcxOUc0OHRwWFF1V05lTVhG?=
+ =?utf-8?B?Y3lZR0FSdVZQVjRkTEx3K2VFTGtXZTF4MythcXB3NGxTandScER0Tkt4Wkc4?=
+ =?utf-8?B?c09ORk9tQ1VLV282MFZBRklRWkNiODhoOVJXVEtsOVRYSnRERWkrZUZaR2Fv?=
+ =?utf-8?B?WDBQcHU1VzY0V3ROeWhLd2JMR3VUMDgrK21FYUxNa2NKWXcxMHVpWXVxdXAz?=
+ =?utf-8?B?TittTUJTMzZBMDZjYjJnUkNSWHRjR1hhd1JpQTFSWXZMNGNmRW5sVlpjRjZ1?=
+ =?utf-8?B?bGpndURJWVhSNmVKR2ZVSlMxMFlYaGYwRDRPbmpiRm5naHJzdEhxVlVhMlFN?=
+ =?utf-8?B?eTRuMnpodWJzMjZlREt2WnVxdE50d1RzQzZMd2huN3dXSTBSK2hZM2VvN2Ux?=
+ =?utf-8?B?aXpNUmdoWkFLYVJab1BOdHhhVkFmcTY4cjZ6WEJ6cmtjcitUNTNMRW1zYXRw?=
+ =?utf-8?B?STc4NU05cmhySklnS3o5MVMwK3hKSDVXbS9PazRLM1o1VTViSzhTRnlXK29n?=
+ =?utf-8?B?Zk1udVloQkJoc1h3UVh2eDZvOC9EeXcyTUdNR2Q5NGxTL1VjS2k1c1lnUyt3?=
+ =?utf-8?B?TmwxSHQydXBCYjRLMXFwNEpib3cwWGttMC9ibjhCRVh0cGx4SkMxczY4aUpi?=
+ =?utf-8?B?NmhTVGxTS2RUeElOYnFOeWZkMGpJcGQ4a002Ryt2alZZdmdqdnhlS1pvaTZD?=
+ =?utf-8?B?NHJvM0pMZnF0TmVzOTdNaHV6TWZYaDN5VzV6Q2RTTGcyMUNjdmZnL0ZSMTZx?=
+ =?utf-8?B?Y2JPdDEvTzBDTk9GbFNhT1BhbU1mUm9NWGlGUHZza0VoZEFEUUVoaXJuWVQ5?=
+ =?utf-8?B?WXVHN2lkSE96eTBycmY3Zm01N1JwdytlU29sWDlCYUpwTTFVZyt1VzlwZWtF?=
+ =?utf-8?B?V3dUVU5oTmpXUWZhM203REU3MFI5SlNhOXJRWWpwT0I2RmFoWjZ5UjJmQm9M?=
+ =?utf-8?B?SEgyTWVadzdDRXlEVUNyd25nQkJxeVdydHFNaHowanM4MnJCUUt6czQ4anhN?=
+ =?utf-8?B?TW1DbC9CSEZVOUJ2TmMvS094Z1ZIUDVBTG92RU02NjdEMXE5Q0FBMG9EdGlQ?=
+ =?utf-8?B?RkVYazR4MUIzN3o3RWloN2FxTGpSelQ5Sy9XbVkxQUhaMXlLc2FPU3NTYVdk?=
+ =?utf-8?B?bmNlak9ITWEveUNUUjhZWjlnNHF4emlCWEFib1hxM21hOGg0V0pjOVZhWTI3?=
+ =?utf-8?Q?5D7+acfqdnJmq8AI=3D?=
+X-Exchange-RoutingPolicyChecked: rHdvmtQ1ap0i9W+VCSvl/qVrpAXEk/doo0AggbFLrm1Mk0PutMgKTutbU25UHzJXWS8K406qHB8Wsm7uqmVWeC68zt8Ng7uSh8nWDeML9zRSkmfd9ipbxRWI2tMRe4dkMenIXalFCEX/qGQ5tkcOUOdEoLhTKy+YAQy60+m7t7bKvQpyV02y7BlIsQDVluALkODzEQj2lOguy9RXY4FD65tafzkuFuH3K3O7JwFNG4kl/+w31Zp3gI3d0KXQ1A9EkfPPFAHMvM2APnP9qtayQgTsqdjLZMhF7W2qOpeRPIm9GgipmpCrccfgeJfWwBGqRisDIyImzNtZ90ooJUjDEg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67098c33-f3c0-4131-1fbe-08df08c958f1
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 08:08:18.5656
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gKnyx405R4HtTu2gDYoqdWKRp8TX+BBbcxwlGaSmX9a7Ge4z42l57a4D8zoTw7gnpdC6roLS+FRD+csC30covA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPF1FCD3EAF0
+X-OriginatorOrg: intel.com
 
-Hi Barry,
+On Wed, Aug 26, 2026 at 07:01:21PM -0700, Matthew Brost wrote:
 
-On 08/29/26 at 03:42pm, Barry Song (Xiaomi) wrote:
-> The existing mainline code retries the same type once in a rather
-> subtle way. `for_each_evictable_type()` may provide one more iteration,
-> allowing the same type to be retried if we scanned some folios but
-> failed to isolate any due to protections, promotions, or races. This
-> patch makes the retry behavior explicit.
+Dave ping. Question below.
+
+> On Thu, Aug 20, 2026 at 10:34:49PM -0400, Nathan Bourgeois wrote:
+> > > Shouldn't we just be calling xe_bo_validate() here instead of
+> > > ttm_tt_populate? (With the correct xe_validation_guard() wrapping).
+> > 
+> > > Yes, this might be a better solution, making ttm_bo_setup_export()
+> > > completely unnecessary.
+> > 
+> > If ttm_bo_setup_export() is unnecessary, I'm happy to change the patch
+> > or make a new patch. I will attempt to implement and test this locally.
+> > 
+> > > This part looks good as different patch from what I'm assuming will be a
+> > > TTM fix.
+> > 
+> > Regarding this, what do you recommend I do, assuming the patch
+> > remains local to drm/xe? I'm still learning the ropes of contributing.
+> > 
 > 
-> Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
-> ---
->  mm/vmscan.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
 > 
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 35a233623368..718f59ffc688 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -4852,6 +4852,7 @@ static int isolate_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
->  	bool type_fallback_allowed = !is_single_type_reclaim(swappiness);
->  	int type = get_type_to_scan(lruvec, swappiness);
->  	int total_scanned = 0, scanned, tier;
-> +	bool tried = false;
->  
->  retry:
->  	tier = get_tier_idx(lruvec, type);
-> @@ -4871,9 +4872,18 @@ static int isolate_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
->  	 */
->  	if (!scanned && type_fallback_allowed) {
->  		type = !type;
-> +		tried = true;
->  		type_fallback_allowed = false;
->  		goto retry;
->  	}
-> +	/*
-> +	 * We scanned some folios but failed to isolate any due to promotions,
-> +	 * protections, or races. Retry once to avoid a larger loop.
-> +	 */
-> +	if (scanned && !tried) {
-> +		tried = true;
-> +		goto retry;
-
-Seems patch 1 and 2 makes not minor difference than mainline kernel on
-behaviour.
-
-1, if swappiness is 0 because no swap, it will run two times if
-(scanned != 0). This is not corner case, but usually seen on some
-systems w/o swap device. The 2nd no gain run could decrease efficiency.
-
-static int get_swappiness(struct lruvec *lruvec, struct scan_control *sc)
-{       
-	...                
-
-        if (!sc->may_swap)
-                return 0;
-	...
-}
-
-2, for swappiness (0, 200), the behavious is minor changed.
-
-Mark one scan_folios() result as one of:
-      iso     *isolated > 0
-      empty   scanned == 0 && !*isolated
-      busy    scanned > 0  && !*isolated
-
-mainline:  T(busy) -> T(empty)         -> return   (2 scans, no fallback)
-v2:        T(busy) -> T(empty) -> !T(...)        (a 3rd scan_folios())
-
-Maybe we can go like below:
-
-static int isolate_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
-                          struct scan_control *sc, int swappiness,
-                          struct list_head *list, int *isolated,
-                          int *isolate_type, int *isolate_scanned)
-	...
-
-      for (attempt = 0; attempt < 2; attempt++) {
-              int scanned = scan_folios(nr_to_scan, lruvec, sc, type,
-                                        get_tier_idx(lruvec, type), list, isolated);
-
-              total_scanned += scanned;
-              if (*isolated) {
-                      *isolate_type = type;
-                      *isolate_scanned = scanned;
-                      return total_scanned;
-              }
-              if (attempt)                /* already retried / fell back once */
-                      break;
-              if (scanned)
-                      continue;           /* retry the same type once */
-              if (single_type)
-                      break;              /* no fallback for 0 / anon-only */
-              type = !type;               /* empty: fall back to the other type */
-      }
-
-      return total_scanned;
-}
-
-This preserves mainline for 1..200 exactly, keeps the intended 0/201
-same-type retry, and cannot produce a third scan. Just personal opinion.
-
-> +	}
->  
->  	return total_scanned;
->  }
-> -- 
-> 2.34.1
+> For Xe I believe Thomas and I aligned a xe_bo_validate with a correct
+> xe_validation_guard is the Xe preferred solution in the existing
+> design... But a question to Dave below before I commit to anything.
 > 
+> > Nathan
+> > 
+> > On Thu, Aug 20, 2026 at 9:08 PM Dave Airlie <airlied@gmail.com> wrote:
+> > >
+> > > > Yes, this might be a better solution, making ttm_bo_setup_export()
+> > > > completely unnecessary.
+> > > >
+> > > > It's also a bit odd that, in flows where we don't have backing storage
+> > > > on export, we populate with pages and charge the system memory cgroup,
+> > > > only to move the data to VRAM when the import attach is triggered,
+> > > > resulting in a copy and a change in cgroup charging.
+> > > >
+> > > > I guess the question is why was ttm_bo_setup_export() introduced over
+> > > > just a validation at export?
+> > > >
+> > >
+> > > I'd like to think I had an answer for that, but I don't. Likely
+> > > because I wasn't thinking about VRAM charging at all, and just
+> > > worrying about making sure we had populated some pages for system
+> > > memory ones, so the other side couldn't DoS us.
+> > >
+> 
+> Dave:
+> 
+> We don't charge any cgroups yet, right? This would only come into play
+> once a version of [1] merges, correct?
+> 
+> What would prevent the pages populated for a TTM BO from being
+> immediately reclaimed and discarded? I'm fairly certain Xe's shrinker
+> could do exactly that, since we don't pin those pages. This seems to
+> imply that we'd need to store the cgroup associated with the TTM BO at
+> creation time and charge allocations to that cgroup, regardless of which
+> task ultimately triggers the page allocation.
+> 
+> Another option, instead of validating, is to revert
+> ttm_bo_setup_export() entirely and rethink the overall approach as part
+> of [1].
+> 
+> Matt
+> 
+> [1] https://patchwork.freedesktop.org/series/169831/
+> 
+> > > Dave.
