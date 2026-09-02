@@ -1,246 +1,160 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f9.google.com (mail-pz2-f9.google.com [74.125.228.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8873E2AA1;
-	Wed,  2 Sep 2026 07:33:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D6A23E49E2
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:33:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788334382; cv=none; b=iyPylx0J+gqGLS0skpzt8h9pAXFCkNc65gBoTPY/ma1lr32yHAed+MSnxSTZPkBpAixub0xtQnE84kE4ODOWsfCPLjMLTjkFbes5etxFPHKvHbpMEv29yFDQXrhVYuTxNWECo8+FRNJ/LbRhLXuLjTtTRnBQKbQ3z2mZFeOMldQ=
+	t=1788334384; cv=none; b=pGwr7S7hTEKxLu4OcptDAvqquRb8iy2ll90gwWkrocPVdEX5lvVpUj01D6W1PnjvjX06atYNSLs2YCk0BziPE5ATJKgUV14WmwOBMQ7LXL3nc9gESwGMeFfOXPLOfZ6Z7k9Q+d5wtsEuhyPgLwsthgLY4uIynclS8bIcWS3Tt6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788334382; c=relaxed/simple;
-	bh=GSjO5tAIB7VGelSuEXkDHr2vH4d3/1bGioX0B8qrcXs=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=bMIJvTq99PZomBzGv4WYYXq7JjbVnLkfbrGA2CHKXCChNjm7ceVmW/QDIyt2z6vTwFHBObiQirQtIhv9i3DR4LBK6KX6dfcixKoRiIi6EmmztIGiN7xBnAoySJFUzltfdIPxW81T9u2PSnfzPawtj+PlJ7BN2Wa+V3bBIJqB2HE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=CZKp55MN; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=H0QubGNL; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788334384; c=relaxed/simple;
+	bh=MwmyZtqdZD7M055LKAyuxJR4s3W7xYxs2ORY+R5rg40=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Uh895YUM6BtWV+9ht1jQc9HtH2Sru+2iEq06iQXn8mn69pMNX4enkrQ6fxDXCxxw/05Ee878iU6C9hb9/lVcURCfuNDwssusdTyTi1fNJy9RuHYEwRvbghULOazMhlQgwAiGFTcLQdbQn3Gdzh9xHdfx0ybjoPM5N7Jh+YqZvGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sVFCzm6C; arc=none smtp.client-ip=74.125.228.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="CZKp55MN";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="H0QubGNL"
-Date: Wed, 02 Sep 2026 07:32:57 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788334379;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Qaq6Ozvd9kYKHAhw7AWsnmpFQIyCiRHSkKSayY7g9aE=;
-	b=CZKp55MNNZRdjBr+KeZSGkLfqbXT1O3UTcr47koY9vnYbHcqTuCJ3uUT1Bsyfw+azlCqPd
-	dWCRaOL8ZZH3aZJLZ6mMaLPptKlJXEPwyHrYcBeZwKn6HfyDF1MVjNN+1FqV/hd97/+cpF
-	0tVqjm2HxPgREZMYM/L3M+pFyqRStGdjiSC4rYiLUo4dryO4JwICeD6JRobY5XTmWTdNHB
-	mj9bJSBmPtCiICiYVhUSia7Z5hCeOXOwrfO7roWE7c769Ng0DoZ9K5cn+TWFNAAKdnD2kv
-	O80IZpRtdDBsaaf1WL5Lzeunr9VRwaYNmqDKrJ5HZiMyfaBF7XFTqQWHBvI7BQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788334379;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Qaq6Ozvd9kYKHAhw7AWsnmpFQIyCiRHSkKSayY7g9aE=;
-	b=H0QubGNLhOJdJmBLRSClHg7n0aTvOERqJK6YbAGxxpsWH0C26heUwmZNFgqLN/jqo1QegE
-	V60Yo68Sg17cb5CA==
-From: "tip-bot2 for Eric Dumazet" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: locking/urgent] locking/lockdep: Invalidate stale class_cache
- entries for zapped classes
-Cc: syzbot+2d770620059281e225a4@syzkaller.appspotmail.com,
- Eric Dumazet <edumazet@google.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260824155129.676096-1-edumazet@google.com>
-References: <20260824155129.676096-1-edumazet@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sVFCzm6C"
+Received: by mail-pz2-f9.google.com with SMTP id 41be03b00d2f7-cc1cb94b583so255027a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 00:33:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788334382; x=1788939182; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c+6c1mxNeRcK5OGJwTOV8Umz+CvUvEErlItanMxKc4I=;
+        b=sVFCzm6CI1pAxHh3GkZxyOqpJIGzxlUz655GI+/zu2HUScQIzsSebsy4FfZ2MQuXqy
+         M0+MGmWAVOmPD+CybcowInAXZtiXm/Zc29iY3Qaq5futOwbZv0fYJZxvmeK4dZQj9400
+         xiPnxkS86BSQx8HvbreMzeykNIUukdUT2S2fbiGSIVn/2akzATxcVti3rCQg+/WBsV1M
+         mItWNIX4157IbogqGzGHObLsJwXoqquxKvLsyShKGxzR1IaE33kl1PAauLw0eh1UpLIS
+         R7vXUNnvrGVgI+VM8kOuBFeMTmZP+csAn7Ksd3I+CM/Tm4Ytg1Vki1yXC3DQvjMeOxdl
+         81BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788334382; x=1788939182;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c+6c1mxNeRcK5OGJwTOV8Umz+CvUvEErlItanMxKc4I=;
+        b=gXazZILdkD5R6NZHtPXTKH3EXBQQPVstif9GdNAF9k3mtr9IuNGzWXlHVnadWWgGFU
+         tj9tXKSD5Fpsp+pizYGOohHCE6JXzyUrX2mrTxNeWr7hPCe5dPdFeitJFgrIvpwfbJb9
+         oVNcO/JAadGkxoGp109oW4Yz3NJxfi9HoBg36wkgJwpZS/yRdbZTtbr3qntxMkHNL/vx
+         f4CQA3oyHVVLcu/AJ/O/EmFli87SMXFV94X4cbRwy7l+oW/sz8Crb8JJ4ZyClT57wZne
+         RYuB6IIdU8aRYSX9yYSMX84RkE1/FpAdPxwms4w5l23u2UjLC2ueLhlV6/HLpJtZeo2N
+         JA2w==
+X-Forwarded-Encrypted: i=1; AKwUvBxpPG/kSH9EkXPsjDzRc0TM5sbVNtak1n/Tm6l2+Ow7o/FlXNYEYq6y+fFRpmCwsDcvW931dNWuaFpTBMU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kWxjRNddfKSFU14y2bJpE3wGxL/rKHC05xyKcXqdUoB2gyPqHx
+	z+P566XNGIebsUu0oEvHs7+batdwjwLiN+WaDy4NNPiFFatkOwzcw3hJ
+X-Gm-Gg: AYBFou3salqkd1s5J5MIcsLPiOyFhfmcyePDeZyEaLCpC0eJJg6t2IHcjh/KFsHgNL5
+	KXVdTRB7eVSFHo3DDUtM19RXSS1wjuJuUidZ8rNY57DtQi/NXIicQ6g4nWI5tSlUJoeiXc57j6C
+	sLkCXW+jdVBdaEx/GDosA0Uhtjs5QXH8lcrdEWjE4BZgYWTY9k+cHuEaFK+F1IO70Oc3cj0IJxo
+	B0s4LJmkYShbt52mOMVvAVdwjN6Mebz0TsqewBUE7bjw3AJ1PwJK2ceUK2qJE2AVAFTN0TKtwWz
+	vTeP+2+Mo6ffZEHmBLqBoJ21+UJFS5HyS9cs3eanS1nRJJPqKJB7ArL5Pgvrmb3JQ/l92UrK4Jf
+	Fnk5ZOfPKTY1SHJaY1JO81YDN8Lgprnsevr7VabKenWj98TzqWzvFBuwAiToLNN3YvdqGDSsH+J
+	iIkC4Kq2PIJj0MVlarChEXv91dvtTNbjOBgLmj7sl6UBiGkv2cke+0HOrubBFHxBR8NM50tN/z
+X-Received: by 2002:a05:6a00:330a:b0:857:74ae:ad76 with SMTP id d2e1a72fcca58-85ed4e09b6fmr5077449b3a.26.1788334382541;
+        Wed, 02 Sep 2026 00:33:02 -0700 (PDT)
+Received: from intel.company.local ([122.11.210.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db2adcbedsm926914b3a.20.2026.09.02.00.32.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 00:33:02 -0700 (PDT)
+From: Wandun Chen <chenwandun1@gmail.com>
+To: catalin.marinas@arm.com,
+	will@kernel.org,
+	chenhuacai@kernel.org,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	robh@kernel.org,
+	saravanak@kernel.org,
+	akpm@linux-foundation.org,
+	baoquan.he@linux.dev,
+	rppt@kernel.org,
+	pasha.tatashin@soleen.com,
+	pratyush@kernel.org,
+	m.szyprowski@samsung.com
+Cc: mark.rutland@arm.com,
+	kernel@xen0n.name,
+	alex@ghiti.fr,
+	hpa@zytor.com,
+	ruirui.yang@linux.dev,
+	robin.murphy@arm.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	kexec@lists.infradead.org,
+	linux-mm@kvack.org,
+	iommu@lists.linux.dev
+Subject: [PATCH v6 07/10] of: reserved_mem: add dumpable flag to opt-in vmcore
+Date: Wed,  2 Sep 2026 15:31:13 +0800
+Message-ID: <20260902073116.802752-8-chenwandun1@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260902073116.802752-1-chenwandun1@gmail.com>
+References: <20260902073116.802752-1-chenwandun1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178833437727.3717435.4595107264514888193.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The following commit has been merged into the locking/urgent branch of tip:
+From: Wandun Chen <chenwandun@lixiang.com>
 
-Commit-ID:     02c6be7d675b21d81f0ba3a524346850a8c0e3bf
-Gitweb:        https://git.kernel.org/tip/02c6be7d675b21d81f0ba3a524346850a8c=
-0e3bf
-Author:        Eric Dumazet <edumazet@google.com>
-AuthorDate:    Mon, 24 Aug 2026 15:51:29=20
-Committer:     Peter Zijlstra <peterz@infradead.org>
-CommitterDate: Wed, 02 Sep 2026 09:18:03 +02:00
+Add a 'dumpable' flag to struct reserved_mem to decide whether a
+reserved area should be included in the kdump vmcore. Non-dumpable
+regions are later marked MEMBLOCK_NODUMP;the filtering itself happens
+in memblock, keeping the arch kdump code independent of the DT API.
 
-locking/lockdep: Invalidate stale class_cache entries for zapped classes
+Most reserved regions are owned by devices and do not contain data
+useful for kernel crash analysis, so dumpable default to false.
+Reusable CMA regions are different: their pages are handed back to the
+buddy allocator and may contain key data for crash analysis, so set
+dumpable to true in rmem_cma_setup().
 
-syzbot reported a lockdep splat hitting DEBUG_LOCKS_WARN_ON(1) in
-hlock_class() due to an invalid class_idx:
+The dumpable flag is also used to check /memreserve/ entries for overlap
+with other dumpable regions.
 
-  WARNING: kernel/locking/lockdep.c:238 at __lock_acquire+0x382/0x2cf0 kernel=
-/locking/lockdep.c:5203
-  Workqueue: wg-crypt-wg0 wg_packet_tx_worker
-  RIP: 0010:hlock_class kernel/locking/lockdep.c:238 [inline]
-  RIP: 0010:check_wait_context kernel/locking/lockdep.c:4870 [inline]
-  RIP: 0010:__lock_acquire+0x389/0x2cf0 kernel/locking/lockdep.c:5203
-  Call Trace:
-   <IRQ>
-   lock_acquire+0x106/0x350 kernel/locking/lockdep.c:5886
-   _raw_spin_lock+0x2e/0x40 kernel/locking/spinlock.c:173
-   tcp_tsq_handler+0x29/0x200 net/ipv4/tcp_output.c:1291
-   tcp_tsq_workfn+0x384/0x410 net/ipv4/tcp_output.c:1325
-   ...
-
-When a lock class is zapped (e.g. during module unload or key
-unregistration), zap_class() clears the class's bit in
-lock_classes_in_use and removes it from the class hash table.
-However, existing lockdep_map instances embedded in data structures
-may still retain a pointer to the zapped class in their class_cache[]
-array.
-
-When __lock_acquire() subsequently runs on such a lock, it finds
-lock->class_cache[subclass] !=3D NULL, skipping register_lock_class()
-and assigning hlock->class_idx to the index of the zapped class. When
-check_wait_context() or hlock_class() inspects the held_lock, it finds
-!test_bit(class_idx, lock_classes_in_use) and warns. Furthermore, if
-the zapped slot is subsequently re-allocated to an unrelated lock key,
-the stale class_cache entry would erroneously match the unrelated
-class (ABA issue).
-
-Add lock_class_cache_is_valid() to validate that the cached class is
-within lock_classes bounds, still allocated in lock_classes_in_use
-(using uninstrumented arch_test_bit() in __always_inline context so it
-is safe in noinstr contexts like match_held_lock()), and that
-class->key matches the expected subkey (taking lockdep_set_subclass()
-overrides into account). Also use READ_ONCE()/WRITE_ONCE() when
-accessing class_cache[].  If the entry is invalid or stale, fall back
-to register_lock_class() / look_up_lock_class().
-
-Fixes: a0b0fd53e1e6 ("locking/lockdep: Free lock classes that are no longer i=
-n use")
-Closes: https://lore.kernel.org/netdev/6a8c66dc.4d75e56a.c9a88.0050.GAE@googl=
-e.com/T/#u
-Reported-by: syzbot+2d770620059281e225a4@syzkaller.appspotmail.com
-Assisted-by: Gemini:gemini-3.1-pro
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://patch.msgid.link/20260824155129.676096-1-edumazet@google.com
+Suggested-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
+Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
 ---
- kernel/locking/lockdep.c | 50 ++++++++++++++++++++++++++++++++-------
- 1 file changed, 42 insertions(+), 8 deletions(-)
+ include/linux/of_reserved_mem.h | 1 +
+ kernel/dma/contiguous.c         | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
-index 25d77d4..763f798 100644
---- a/kernel/locking/lockdep.c
-+++ b/kernel/locking/lockdep.c
-@@ -963,6 +963,34 @@ look_up_lock_class(const struct lockdep_map *lock, unsig=
-ned int subclass)
- 	return NULL;
- }
-=20
-+static __always_inline bool lock_class_cache_is_valid(const struct lockdep_m=
-ap *lock,
-+						      const struct lock_class *class,
-+						      unsigned int subclass)
-+{
-+	unsigned int class_subclass;
-+
-+	if (!class)
-+		return false;
-+
-+	if (unlikely(class < lock_classes || class >=3D lock_classes + MAX_LOCKDEP_=
-KEYS))
-+		return false;
-+
-+	if (unlikely(!arch_test_bit(class - lock_classes, lock_classes_in_use)))
-+		return false;
-+
-+	if (unlikely(!lock->key))
-+		return false;
-+
-+	class_subclass =3D subclass ? subclass : class->subclass;
-+	if (unlikely(class_subclass >=3D MAX_LOCKDEP_SUBCLASSES))
-+		return false;
-+
-+	if (unlikely(READ_ONCE(class->key) !=3D lock->key->subkeys + class_subclass=
-))
-+		return false;
-+
-+	return true;
-+}
-+
- /*
-  * Static locks do not have their class-keys yet - for them the key is
-  * the lock object itself. If the lock is in the per cpu area, the
-@@ -1395,9 +1423,9 @@ out_unlock_set:
-=20
- out_set_class_cache:
- 	if (!subclass || force)
--		lock->class_cache[0] =3D class;
-+		WRITE_ONCE(lock->class_cache[0], class);
- 	else if (subclass < NR_LOCKDEP_CACHING_CLASSES)
--		lock->class_cache[subclass] =3D class;
-+		WRITE_ONCE(lock->class_cache[subclass], class);
-=20
- 	/*
- 	 * Hash collision, did we smoke some? We found a class with a matching
-@@ -4957,7 +4985,7 @@ void lockdep_init_map_type(struct lockdep_map *lock, co=
-nst char *name,
- 	int i;
-=20
- 	for (i =3D 0; i < NR_LOCKDEP_CACHING_CLASSES; i++)
--		lock->class_cache[i] =3D NULL;
-+		WRITE_ONCE(lock->class_cache[i], NULL);
-=20
- #ifdef CONFIG_LOCK_STAT
- 	lock->cpu =3D raw_smp_processor_id();
-@@ -5022,12 +5050,15 @@ EXPORT_SYMBOL_GPL(__lockdep_no_track__);
- void lockdep_set_lock_cmp_fn(struct lockdep_map *lock, lock_cmp_fn cmp_fn,
- 			     lock_print_fn print_fn)
- {
--	struct lock_class *class =3D lock->class_cache[0];
-+	struct lock_class *class =3D READ_ONCE(lock->class_cache[0]);
- 	unsigned long flags;
-=20
- 	raw_local_irq_save(flags);
- 	lockdep_recursion_inc();
-=20
-+	if (!lock_class_cache_is_valid(lock, class, 0))
-+		class =3D NULL;
-+
- 	if (!class)
- 		class =3D register_lock_class(lock, 0, 0);
-=20
-@@ -5119,8 +5150,11 @@ static int __lock_acquire(struct lockdep_map *lock, un=
-signed int subclass,
- 	if (DEBUG_LOCKS_WARN_ON(subclass >=3D MAX_LOCKDEP_SUBCLASSES))
- 		return 0;
-=20
--	if (subclass < NR_LOCKDEP_CACHING_CLASSES)
--		class =3D lock->class_cache[subclass];
-+	if (subclass < NR_LOCKDEP_CACHING_CLASSES) {
-+		class =3D READ_ONCE(lock->class_cache[subclass]);
-+		if (!lock_class_cache_is_valid(lock, class, subclass))
-+			class =3D NULL;
-+	}
- 	/*
- 	 * Not cached?
- 	 */
-@@ -5323,9 +5357,9 @@ static noinstr int match_held_lock(const struct held_lo=
-ck *hlock,
- 		return 1;
-=20
- 	if (hlock->references) {
--		const struct lock_class *class =3D lock->class_cache[0];
-+		const struct lock_class *class =3D READ_ONCE(lock->class_cache[0]);
-=20
--		if (!class)
-+		if (!lock_class_cache_is_valid(lock, class, 0))
- 			class =3D look_up_lock_class(lock, 0);
-=20
- 		/*
+diff --git a/include/linux/of_reserved_mem.h b/include/linux/of_reserved_mem.h
+index 49da515859f2..99c0f3ccc297 100644
+--- a/include/linux/of_reserved_mem.h
++++ b/include/linux/of_reserved_mem.h
+@@ -15,6 +15,7 @@ struct reserved_mem {
+ 	phys_addr_t			base;
+ 	phys_addr_t			size;
+ 	void				*priv;
++	bool				dumpable;
+ };
+ 
+ struct reserved_mem_ops {
+diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
+index 66093460584e..caa6a5c66bd0 100644
+--- a/kernel/dma/contiguous.c
++++ b/kernel/dma/contiguous.c
+@@ -567,6 +567,7 @@ static int __init rmem_cma_setup(unsigned long node, struct reserved_mem *rmem)
+ 		dma_contiguous_default_area = cma;
+ 
+ 	rmem->priv = cma;
++	rmem->dumpable = true;
+ 
+ 	pr_info("Reserved memory: created CMA memory pool at %pa, size %ld MiB\n",
+ 		&rmem->base, (unsigned long)rmem->size / SZ_1M);
+-- 
+2.43.0
+
