@@ -1,76 +1,82 @@
-Received: from mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C633D35B634
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 02:05:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C08B435E1AF
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 02:05:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788314715; cv=none; b=t4BVQANXZ9UIAnrs6KWRb/zV0HNpFr6h69hBMwIuIkFQwyweq8Fo/lWaLxkD3n0MNFkbdxI1tW3BlKHSxQlYCbJpEDw2vaxzHLP3Zikxrua/y0PQfk20EKhaqmW1b/oEpqR35MJroLCToAQ9dc9P4uGz2ske315hNt0dEkUWcYE=
+	t=1788314764; cv=none; b=ctm5bKLMW8G5GmYYFoo8SEqGO1/nW37ko9IgA4H961ayxk0ddSbctTd7JagpXZef5hmkPn9MklSAhFTFaiIa+IKkptpPUstFwYC46/alzMFumnQ86fAWOIc/+ZoiB1rVM35rCQ2ZK1pLL1GgulC6KC2e1v9B3u3MSuSw/RN4JgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788314715; c=relaxed/simple;
-	bh=Wlz/5VXkhApLlA9u9ijOUa86PSR5+pOptPOZ9KM254c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NsCmC7M7qaIhgnKC0S0bN5lj5qCkaZlxZK+XBofSIf8m0rLRMQASoi+dOe5nY1zHR5PjNgc7+KdSxBjNy0u0FejkQ9jvJegHSNsv6ktbT2aFsAyqRkblrF8dPV1Mzx+bEwJFlhLHNtqRf8u5xixLmh9mKKn2KpuxZucCuauKdmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=u7lmO78u; arc=none smtp.client-ip=91.218.175.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788314764; c=relaxed/simple;
+	bh=KzB8SvtJKYDJkCMkE4z8SGagC+3bi7pXbxHhhkcgcRE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mrQKHIgfcgSqtbK1BNAn9ZNaH5FPTO3pmM6LQxT8pAmwLRjuczpTNFSz6gghIjOvz7Px/TPhn8rFcuC9FG3ZS9/maRSwYhz6Yj+r5ajqiXlhwGWZftKJroAbsw+L2KpZdOAOpQ4IGTzPCqgQGuzUy5+9NlSNkObKyQnqyBzZauc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=fEPA2HZb; arc=none smtp.client-ip=115.124.30.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="u7lmO78u"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Wlz/5VXkhApLlA9u9ijOUa86PSR5+pOptPOZ9KM254c=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788314708; v=1; x=1788919508;
- b=u7lmO78ucruYdWv3XoBwRHm2zzwC9LRJ4ykhR3LPIS9NAvflRZnLq/OFs3a0szPg4U9XXl72
- IvL5MHJSXXHxvZuqOue/UZWQRAeyuJLmDfhFoP5zQedUtHrVi1v2Qvpm5P9wB6mmt0KGnA94wtf
- VdpSabC64t8Sg/sYlXWICSJM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 44a516d30585d350;
-	Wed, 02 Sep 2026 02:04:58 +0000
-X-Mizu-Trace-ID: 44a516d30585d350
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 2 Sep 2026 10:04:43 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	Hangbin Liu <liuhangbin@kylinos.cn>
-Subject: Re: [PATCH net-next 2/2] selftests: netdevsim: add speed testing
-Message-ID: <apeEO4xDjja7yd5U@fedora>
-References: <20260831-nsim_speed-v1-0-7a651ee65738@kylinos.cn>
- <20260831-nsim_speed-v1-2-7a651ee65738@kylinos.cn>
- <20260831150642.68f28691@kernel.org>
- <apZzvvEQPNHTT26c@fedora>
- <20260901080641.45d02005@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="fEPA2HZb"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788314755; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=KzB8SvtJKYDJkCMkE4z8SGagC+3bi7pXbxHhhkcgcRE=;
+	b=fEPA2HZbTabcM0NdbKdK3QxIcDFqWPcQGYWYDUk8JUi/ytcLPw5QxEOF49aAaEeTGrSvkuz8/PlksiazWtZA/JM7lY6E18n2O3iI87JLw8Dq2eilu0O71nPjqAaU2/ZwEDvtyvrqWdaMQUndgeCvqCig/nwEvUEolQ8ba0eZJvY=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=cp0613@linux.alibaba.com;NM=1;PH=DS;RN=3;SR=0;TI=SMTPD_---0XAArS-Z_1788314749;
+Received: from DESKTOP-S9E58SO.localdomain(mailfrom:cp0613@linux.alibaba.com fp:SMTPD_---0XAArS-Z_1788314749 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 02 Sep 2026 10:05:54 +0800
+From: Chen Pei <cp0613@linux.alibaba.com>
+To: Drew Fustini <fustini@kernel.org>
+Cc: linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 5/8] riscv_cbqri: resctrl: Add cache allocation via capacity block mask
+Date: Wed,  2 Sep 2026 10:05:47 +0800
+Message-ID: <20260902095109.reply2.cp0613@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <apdMvKYegtdEWntp@gen8>
+References: <20260729-dfustini-atl-sc-cbqri-dt-v6-0-7c22b05d461b@kernel.org> <20260831100216.reply.cp0613@linux.alibaba.com> <apdMvKYegtdEWntp@gen8>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901080641.45d02005@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026 at 08:06:41AM -0700, Jakub Kicinski wrote:
-> On Tue, 1 Sep 2026 14:42:06 +0800 Hangbin Liu wrote:
-> > On Mon, Aug 31, 2026 at 03:06:42PM -0700, Jakub Kicinski wrote:
-> > > On Mon, 31 Aug 2026 11:28:11 +0800 Hangbin Liu wrote:  
-> > > > Add a script for netdevsim speed test. Make sure the speed and duplex
-> > > > could be changed. And the speed can't be larger than the max speed.  
-> > > 
-> > > nak, this is not a meaningful test  
-> > 
-> > OK, I thought we should add selftests for new features. And there are
-> > netdevsim ethtool tests like ethtool-pause.sh. Since you think this test
-> > is meaningless. I will drop it in next version.
-> 
-> to be clear - the entire patch set, not just the test.
+Hi Drew,
 
-OK... Thank you for the clarification. I will drop this patch set.
+Thanks for the quick pointer.
 
-Regards
-Hangbin
+To clarify our report: we were not testing the series on a new core. We
+backported v6 onto a 6.6 LTS tree, whose resctrl core still predates
+dbc58f7eec40 ("x86/resctrl: Generate default_ctrl instead of sharing
+it"): struct rdt_resource still carries a default_ctrl member there and
+resctrl_get_default_ctrl() merely returns that stored value, so an
+uninitialized default_ctrl shows up as cbm_mask=0 / L3:0=0 exactly as
+we observed.
+
+> I think you may be looking at an older version. The function in this
+> patch is:
+>
+> static void cbqri_resctrl_control_init(struct cbqri_resctrl_res *cbqri_res)
+>
+> struct rdt_resource no longer has a default_ctrl member. Commit
+> dbc58f7eec40 ("x86/resctrl: Generate default_ctrl instead of sharing
+> it") removed it and derives the value instead.
+
+Right - on the new core the value is derived, so the series needs no
+initialization. Our report came from a backport of v6 onto a 6.6 LTS
+tree, whose older resctrl core still requires the driver to initialize
+default_ctrl; that is a porting issue on our side and has been handled
+in our tree. Sorry for the noise.
+
+> I will send v7 today as I have now rebased on v7.3-rc1. It is already
+> available as a branch [2]. Please give that a try and let me know of
+> any problems.
+
+We will give the v7 branch a try on our QEMU and on the FPGA board,
+and report back with results. Thanks again for maintaining this series.
+
+Best regards,
+Pei
