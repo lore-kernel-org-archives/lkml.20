@@ -1,69 +1,88 @@
-Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF6B39A05D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6223F3955EA
 	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 19:28:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.139.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788377337; cv=none; b=PkyIvGd02aFGJnnv3LsYlhs8zPZXH+Glikxv5Ngh9m9Tq3cK8CCjVZEplgPXnNMGDwhhxm1Q97Y6x6TcCXs2a0XulaGTiwzj6cUJogeQZWZzVu7I0K3pQ0Xb7oVYa6eO1w7XDK+2SWHcxrcuq3kI/O9zxUH1jG1q/s+sbBwUSwM=
+	t=1788377336; cv=none; b=kXIOq/4z8uzkMAA2viJrKGMZ2D66NE5cYUb230tkboF+oh4tiBpqTMy0MOg2i3KMy0FEIP/VWqzh4j+/DOw9ZoVzheHWK3barTiY922iFhbQ0xVicgXd4lSQPnqgSXHHNV8aOX4v4nbXL3Kqav0ZTiSLpyw+W2LzwqZSg2RYmqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788377337; c=relaxed/simple;
-	bh=PN7g6f8q4rSe1aDYWdm44A7DdQCKh0cTB6fHIX0phH0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=j9JIwyhrfPWC0J8cFfVGCVkzamSWunYR5AOQuGj+5wSRFXC85Aih2YcozvOcrmJN78uxvOsPt3k55c1DnTXKXXh+eR1ReK+jAdizw8d0JkG6Z9wMagz5GUBrV62YvamEeJxRajk0JOxyZoNfvGPU3dJKSqJaz34GQcCkRYrFiJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IpiRoY3f; arc=none smtp.client-ip=209.85.161.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788377336; c=relaxed/simple;
+	bh=qY55MTnqibpTPmaITCcOknY/TskrjruIzBjhjSvoJq8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=OnzGuD+WqTVY+tAcH1PCxhGUqLngOveQVRHPxt/bX50WiIOfKXb+dYnbKlGkJ/fk86mpaauZOKoP4JXtL2N5ZyLgx10qTfBYyquWhcd+EGgDhU64wdTPb+O2qxJ6h2xEOF2wVx6CJzdfHs4RWwEC3LGA15XyuHhMeOQEduNYQmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=VcbRIp4J; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=bL5qUXmz; arc=none smtp.client-ip=148.163.139.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IpiRoY3f"
-Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-6b1a1a442c1so888306eaf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 12:28:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="VcbRIp4J";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="bL5qUXmz"
+Received: from pps.filterd (m0167075.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682J6mM6805268
+	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 15:28:38 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=zKnV
+	zljslWEn654S8LhmKqCkQWwfR1ZqpbkHiEttZS4=; b=VcbRIp4JVvQ/3ejpIWPP
+	caZTh/F5tjCRdvFZ/W4BJovJXlZKNdSkFZS17kv8udRIKw5cuUQxZvRHb38IW5OD
+	LQ/GwWFWKi14Q98Qqt8pl4Zi9ZCNICDsIn/zbyYdpBtISVYL0Kby7OOydvSI8Pjq
+	GO3ILRPBcard5zQIfPI+Q3RZTHtYbgkFru8pWAOQ2/f00YWwHgWwXMiHVG6WqiF1
+	vGSEFzCpH0/td4+0cbc7Ng5fnIRrgQ2h2PEalAq4fw+Evle7D/vWnFNjVTZDpYqL
+	96MXSyd8+P0h/PSauYCwlgtRfq/U5iCS3XyTMdzODvpYYJft8/oEVhN+Yx+GC131
+	4Q==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4gesp0g56g-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 15:28:38 -0400 (EDT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e5e38fbc5so283430185a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 12:28:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788377317; x=1788982117; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=BW8pn0cJ7xlLT4nbmLaz0pA0nlL+jRYhrPKHSPcS2Ws=;
-        b=IpiRoY3ffPrZpoo5zhUDtQ9c8tQsIQN1qbdqskpBzHRsO6BxSmWIW80qfd4TNgppdp
-         +OBeRW9sCLPIQ5aQjXV9E8Ta5aSVVKspDUm2Le8nfkvkHCQ6nymqk/J1Jlthw6K5mmTz
-         ZMBSShTvBtU5NiGEDAwdc6D3D7uHLzB8nOPigvx5ScgCu74BZSmX0IW7pJQ7De4yPJOW
-         PSGZivWXRJlH0AMouG12fwm7BN1HpN1pHe9lf7c6qRQabC4V05iKYQcpaoIPVKe5qX6m
-         EudN5KMRYxLisiorC2sa+tW0/jcm0uxeKVBbe8pVrae2PGqgkXwYQTGWb78Yq39SEKIc
-         k4QQ==
+        d=columbia.edu; s=lionmail; t=1788377318; x=1788982118; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zKnVzljslWEn654S8LhmKqCkQWwfR1ZqpbkHiEttZS4=;
+        b=bL5qUXmz9DdFE5srnZUpOpIqHLn5noxag+qtCYuKk6KQ3tg5kP5zywaYX3u31lUKT7
+         lP8sS5xZscmfNQPY4CHuWcYR0RTGMUfxvMMF7nnd8ccOYoWgJNApeGJ50poYV5qqcVP/
+         eHjopj78fAL2Y5YavNSRJ2lbqUc8/4VkO69mD3cN5gsKvJGo+BOSH81xrrpAZL3hck/Y
+         ks4TX6QWVkXz0aeGsfhXlK9j4EiDKHit4BNnMYRb1L6gcGM86TVH9MKy0RPKea1Rpm5r
+         2PgDV4IjQT4NO0iM1ubOSg+hQR0dLMyBNtxHvJbBjm1TRXKwreMyMfys8440xfGNqw23
+         UClA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788377317; x=1788982117;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=BW8pn0cJ7xlLT4nbmLaz0pA0nlL+jRYhrPKHSPcS2Ws=;
-        b=QiFmDebcyfJXKFSMGXABvPs678srglO6KLvVLfGci7n9kRKqOon/uwiJ5LYZyBF61C
-         pjVZgyylmoseRe6EaLNBRyi6q1k0ScIbY5zJRlxIpQkJz/b2PytFar50hIhDohREQQ6u
-         VyavvivHmEd9NkjNdGImS1TfQX1TIKXmbYaMxq8mXsOL/mWZV4KYfUG/c2ZQdQx1YYxk
-         UJKnXCj3/aBxzGaTA0YoFQljysTb3gCyC+G8rJ55Teo9bzjyDJ3Tx2ABloJvoFm2wlpt
-         eAtcc8dKeX9MEv0s980UXi/eFs0FKebQJVavseIHCwtllwNIMa/Y7ZBBQU/onOVibdAk
-         8blQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqLwvmGcQQ7mE+pMMxcTlWRdYnrN4L4YWnDxOJlOWghOwqMKPe9Ma3QukcbVigA34h4DKDeC2yii0vWxh0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mj9qmvg1xTogYRkbsD4ee4Qbr6bsra21fAVWyqAr2ed4JYGPln
-	A9fCxVQLnnVzFW9vDFsiVIK6S+cZZ8oatb3VPBaZJnvYcROslgFM78IE
-X-Gm-Gg: AR+sD13tuo0CghNDus4IvVFPlVJjrrxugmLMxLZna6j+hh698NXbYg1A63+9XnmS8zg
-	QNcdGjubSQaow3QfvACG0LdCDzo9p7oS6fDf7TeeBuHRP+XOvaMRdERbnf6+HdTOv6zcJ+WXY+g
-	eSiuhjw79g7nZMu8ZasryWKWFHtDpR0Uw2k80rpkotJwul8p3h9p+xViDmv5Hd9f+bwTOWRdMDp
-	ZHwcFoUmiOhxGao3Rd0uVxVAxULzcpGS1GWArlNqr2i6nTqXbKlas9Hf2SX0XmGZvDxAgDXYIy8
-	4pToWT7idgpeH5vIt8x3JdoCGAIB772FZAXismxkPBTWVX4+B0do6Ym+T2ACSjuQj7p/1wvOudc
-	V8uJvJqM3lAGy+eiPqysjam9mGdtGveyyiXmU6TCETM+8SshXVEST/DQmqyib9Y5+cT9Q4VeTVx
-	gKjN8Zgi+qfaHNd9W4MAEztdJnJJ3OahAx7yExnr8LjAASXe6UO5stL97ao3DtY6szO1UEZpv/5
-	fBHCTyoykkqiybKt8AJgwRxEXHWGo0fjCouAHIIrTRb79B7twNjG/v6pvGC97u0gJM0rhczLBFS
-	m/onPQeU+M4xudJVcPNKO6uQdYtPlXnvJKFB8qrV77uYcigwlX8aIvhegGZ1bW/FSY5DlXW+iR2
-	ghlblY5iW3q4T27ziyvM=
-X-Received: by 2002:a05:6820:4c83:b0:6b1:be9f:ce6c with SMTP id 006d021491bc7-6b47ecca88cmr6183827eaf.4.1788377316798;
-        Wed, 02 Sep 2026 12:28:36 -0700 (PDT)
-Received: from [127.0.1.1] (184-96-151-165.hlrn.qwest.net. [184.96.151.165])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-46f30baa0d4sm4932181fac.6.2026.09.02.12.28.34
+        d=1e100.net; s=20251104; t=1788377318; x=1788982118;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zKnVzljslWEn654S8LhmKqCkQWwfR1ZqpbkHiEttZS4=;
+        b=AoxeJjNd5Y1qSU1US2umj4Q9IQI0u8sT2wnG650+R0qwC6pFb9qxxxKbyKy31wy443
+         wMgrTrkUay2D0gej3ntyz/vwB0crP73v1PbS0EmB8mwwo2lnmnGY6zT1ZhomJdd+dKgu
+         MlrUqkuo4mLgG8AXYrtgpeX4kuAtd6Hezv8oGW2++1IfM1MCeMDgjJL9RKYHwUFBaPkM
+         rN7ZIn7NjxoTVSg7spTgDS3B4QKNXidANlY0P9dshQ8/KVz0Wc5rvZVkq596RPSA+OiJ
+         Bc2cHCXES4MTm9WjvjkIlhzg6Sh5gOCmKAR1tpbdVS8Ac0y/pr6fiTUTRGR7YaXHEPJq
+         yLkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw+0c3/popI/Z2AUyk+v+H3RMoAbvGqzNky9ALwA6X1/R9xsuUqJrYajg+lL3TPMMJ8JgBoejeMx/vDF98=@vger.kernel.org
+X-Gm-Message-State: AFuF++m/8ThHp5g/PoY6ko2K9iyAkl5A7K39wxh7Q4hZn6xY5f2v7cZx
+	pZQBptw0w1Lzq6WHAGE17h1jVKbx9OOpRS1SwIwzT7e3ke58GgsvZ65Bx70hjXMSWP5+aDEqeZc
+	75/BM+hoK/R+UCw8DU5V0La4jOyTLUns62WsJu/AhnW1XF6KVZCHFt1YmqrlK7w==
+X-Gm-Gg: AYBFou1G/1q2tel/jPkpgVlpO0AvkXyeBMZw60mZXjp3DqGM5NZLoFoqxXH3jNmqO8/
+	JerbsQgItYveZ2xur9j2LWlf/qt/MbLkoU2zes7o5dXrS4rlW/2Wbw8mQucnitg4AMmbaNvP0QG
+	jE8m09mANgSBY/zLfo0KD9XW1MgEL/+IGORBndhJBUr6oNZOGQHdlaBAh8b0+cJmtOpn6ClbgQv
+	LUMQ6GEy9STLsGaGs9VmDKEP0tkFf9Zj0kCqApvdE4E/79DAAQiDexz1BBYEyMQtV7hniS9d+4b
+	FMCdeykPojAxM5S97iq/0/R1cmtaUF+rOOsn+g7I1SiTbSyaFBFI+aQ55ulJzqeg/sM6lTYdlEr
+	4A4RUdUm1cEmrK7xWTVGNL2eAEl/LoIjzfDcfBa6GqPOQ7Ke/8gRczQ==
+X-Received: by 2002:a05:620a:4448:b0:936:a407:98bb with SMTP id af79cd13be357-9396f65f15cmr67782485a.9.1788377314169;
+        Wed, 02 Sep 2026 12:28:34 -0700 (PDT)
+X-Received: by 2002:a05:620a:4448:b0:936:a407:98bb with SMTP id af79cd13be357-9396f65f15cmr67750685a.9.1788377310673;
+        Wed, 02 Sep 2026 12:28:30 -0700 (PDT)
+Received: from [127.0.1.1] (nat-128-59-178-193.net.columbia.edu. [128.59.178.193])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9eec85a0sm25420936d6.29.2026.09.02.12.28.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 12:28:35 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Subject: [PATCH v8 0/2] mfd: add X-Powers AC200 support
-Date: Wed, 02 Sep 2026 13:28:23 -0600
-Message-Id: <20260902-submit-ac200-mfd-v8-0-2aa06720b8ac@gmail.com>
+        Wed, 02 Sep 2026 12:28:30 -0700 (PDT)
+From: Tal Zussman <tz2294@columbia.edu>
+Date: Wed, 02 Sep 2026 15:27:56 -0400
+Subject: [PATCH 10/11] mm: memcontrol: constify mem_cgroup_swappiness() and
+ mem_cgroup_get_max()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,108 +91,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XO3YrCMBAF4FeRXDuSBJNOvfI9ZC/yqyOmlaYbF
- Om7b+oKCgpeHjjznbmxHAYKmW0WNzaEQpn6rgZcLpg7mG4fgHzNTHKpOQoB+dcmGsE4yTmk6AG
- t8drzNkhUrJ6dhxDpcid3P/+53hyDG2dnbhwoj/1wvW8WNfcePG+f/KXyfQR/7UwiB0VAUcDBR
- iMiKoFW4nafDJ1Wrk9sHir6hfr0adEVcMoK2UqH6/YNaL4BTQXQch2Vkmbtm1dgmqY/Bjsxtk4
- BAAA=
-X-Change-ID: 20260811-submit-ac200-mfd-8bad6d09e285
-To: Lee Jones <lee@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- James Hilliard <james.hilliard1@gmail.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, 
- "Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>, 
- Andre Przywara <andre.przywara@arm.com>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, linux-sunxi@lists.linux.dev, 
- mfd@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
+Message-Id: <20260902-folio_memcg-const-v1-10-e2c1da22246d@columbia.edu>
+References: <20260902-folio_memcg-const-v1-0-e2c1da22246d@columbia.edu>
+In-Reply-To: <20260902-folio_memcg-const-v1-0-e2c1da22246d@columbia.edu>
+To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+        Roman Gushchin <roman.gushchin@linux.dev>,
+        Shakeel Butt <shakeel.butt@linux.dev>,
+        Muchun Song <muchun.song@linux.dev>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+        Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+        Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+        Youngjun Park <youngjun.park@lge.com>,
+        David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+        "Liam R. Howlett" <liam@infradead.org>,
+        Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+        Suren Baghdasaryan <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>,
+        Axel Rasmussen <axelrasmussen@google.com>,
+        Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+        "Matthew Wilcox (Oracle)" <willy@infradead.org>
+Cc: cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+        Tal Zussman <tz2294@columbia.edu>
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788377294; l=2036;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=qY55MTnqibpTPmaITCcOknY/TskrjruIzBjhjSvoJq8=;
+ b=XBJ1VxJgkZ7z5/jJpbpfdgQJ9HTXTIu58edJVRrSCFJGK7C1hYYjRFweIITZPR6353Ht7J0S6
+ Agk9F/63QbZCBLqPgyFB2x5VwRDyz/DAkCE+H1xfhE5G+ha32Pkhl9f
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Proofpoint-GUID: c90ipugFmwOwc9INhnrexvJyBD9sU1Zq
+X-Authority-Analysis: v=2.4 cv=PqejqQM3 c=1 sm=1 tr=0 ts=6a9878e6 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=XwBYxoxBwSosfWEfMcqm5A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=HpS3TJQ9O3Ob1ozEcmik:22
+ a=LvCEVWXYBYKFGHUOtEoA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE3MiBTYWx0ZWRfX2mqeDgGsAPAW
+ 13XAzIa4rlOYm7H4fbq+TfGugJXkKZwP/YDvKyduKITDuhnOkcKVWRKUb04TDGKU2gBHBOvjKhX
+ UWp0JUfFA38zt5kS9nJIxTQWMrZL++OsfX7L6vH30jSkL8V4OLhb
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE3MiBTYWx0ZWRfX/FD1S5W0XwPj
+ P/YZS0T/aTkrpSyMMTbFiJBCR4dOp4NWXTV0mxoccVZ3FYrFH74rb48hjvdEKWfXuNm0lg3Hh3X
+ Je4C4IXIVYG1zr+7FwMUPqtM05T0MWOeB9KN9VjDdf8L2+guqHB9r5rnkrEupjvZcVtfZemfkTU
+ 63HVLs5QfLtI6DzVtOo5XQS0EfyZzVtWV87c1wMEj9E3x2kaGGvQK3DUjTV/s9XjO8PoUXu7rWp
+ EmDcXf0MuV3drEDloD3zR1h2dHEXa8/Qxnx/tCSyTfyh7FVE6pCf/W12KUbbizK2EGSAHoGApa9
+ G4HF+sMn7VHKNZU6vKWp7Z59sQBUy9IrCsyjJh+EFP5ol+1LRFklprlvuNjV0qr/SYxYuBOgwIO
+ E1foqpZ2BD0VhFNPesXuhdzehx5D4fQHB8wad0wExrq/AFV6UURHw2n9SAEX4SYdpHWqGGxHQz7
+ Ds0HlO9viJbtaGtO8Ag==
+X-Proofpoint-ORIG-GUID: c90ipugFmwOwc9INhnrexvJyBD9sU1Zq
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11894
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 impostorscore=10 priorityscore=1501 malwarescore=0
+ lowpriorityscore=10 bulkscore=10 suspectscore=0 spamscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020172
 
-The X-Powers AC200 is an I2C-controlled mixed-signal companion IC with
-a paged register map shared by its audio, video, RTC and Fast Ethernet
-PHY functions.
+Both only read swappiness and the memory limits. Constify them.
 
-Add the parent binding and an I2C provider which enables and rate-locks
-the shared input clock, initializes the paged regmap and controls the
-common reset. Audio, video and RTC functions can be added as MFD
-children.
-
-The current regmap consumer is the separately submitted AC200/AC300
-Ethernet PHY series:
-
-  https://patch.msgid.link/20260818-submit-acx00-of-dynamic-v1-v9-0-b8c8d9ad0d83@gmail.com
-
-The PHY remains enumerated on MDIO, its primary management bus. Its
-AC200 package node follows the x-powers,ac200 phandle for ancillary I2C
-register access, adds a managed device link and obtains the regmap with
-dev_get_regmap(). This series and the PHY series can be merged in either
-order; AC200 Ethernet support requires both.
-
-This work builds on earlier AC200 work by Jernej Skrabec and Andre
-Przywara:
-
-  https://github.com/jernejsk/linux-1/commits/ac200-v4
-
-Public AC200 documentation is linked from:
-
-  https://linux-sunxi.org/AC200
-
-Validation included an x86_64 W=1 object build, dt_binding_check, and a
-combined W=1 build with the PHY series. On AC200 hardware, the provider
-and PHY completed 100 overlapping bind cycles while preserving both
-device links and recovering a 100 Mbps full-duplex link.
-
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 ---
-Changes v7 -> v8:
-- identify the PHY series as the current regmap consumer
-- describe future MFD children and the MDIO/I2C split
-- store the regmap directly as driver data  (suggested by Lee Jones)
-- reset the chip from the remove callback  (suggested by Lee Jones)
-- drop the revision log and inherited-driver attribution  (suggested by Lee Jones)
-- add Krzysztof's Reviewed-by tag to the binding
-- rebase on the current MFD for-mfd-next branch
-- Link to v7: https://patch.msgid.link/20260811-submit-ac200-mfd-v7-0-8b06f552a4d7@gmail.com
+ include/linux/memcontrol.h | 4 ++--
+ mm/memcontrol.c            | 2 +-
+ mm/swap.h                  | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-Changes v6 -> v7:
-- drop the managed external-syscon helper and AC200 syscon registration
-- leave the regmap attached to the I2C provider for direct device lookup
-- reduce the MFD series from three patches to two
-- Link to v6: https://patch.msgid.link/20260811-submit-ac200-mfd-v6-0-c5b1292c8498@gmail.com
+diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+index 10a197886f31..2d5e43dbec4d 100644
+--- a/include/linux/memcontrol.h
++++ b/include/linux/memcontrol.h
+@@ -902,7 +902,7 @@ static inline void mem_cgroup_handle_over_high(gfp_t gfp_mask)
+ 		__mem_cgroup_handle_over_high(gfp_mask);
+ }
+ 
+-unsigned long mem_cgroup_get_max(struct mem_cgroup *memcg);
++unsigned long mem_cgroup_get_max(const struct mem_cgroup *memcg);
+ 
+ void mem_cgroup_print_oom_context(const struct mem_cgroup *memcg,
+ 				struct task_struct *p);
+@@ -1332,7 +1332,7 @@ unsigned long mem_cgroup_get_zone_lru_size(const struct lruvec *lruvec,
+ 	return 0;
+ }
+ 
+-static inline unsigned long mem_cgroup_get_max(struct mem_cgroup *memcg)
++static inline unsigned long mem_cgroup_get_max(const struct mem_cgroup *memcg)
+ {
+ 	return 0;
+ }
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 2b8705a88f6a..e28b2a4f278d 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -1878,7 +1878,7 @@ void mem_cgroup_print_oom_meminfo(struct mem_cgroup *memcg)
+ /*
+  * Return the memory (and swap, if configured) limit for a memcg.
+  */
+-unsigned long mem_cgroup_get_max(struct mem_cgroup *memcg)
++unsigned long mem_cgroup_get_max(const struct mem_cgroup *memcg)
+ {
+ 	unsigned long max = READ_ONCE(memcg->memory.max);
+ 
+diff --git a/mm/swap.h b/mm/swap.h
+index 0b5d507739bc..94714d9dd003 100644
+--- a/mm/swap.h
++++ b/mm/swap.h
+@@ -82,7 +82,7 @@ enum swap_cluster_flags {
+ 
+ extern int vm_swappiness;
+ 
+-static inline int mem_cgroup_swappiness(struct mem_cgroup *memcg)
++static inline int mem_cgroup_swappiness(const struct mem_cgroup *memcg)
+ {
+ #ifdef CONFIG_MEMCG_V1
+ 	if (!cgroup_subsys_on_dfl(memory_cgrp_subsys) &&
 
-Changes v5 -> v6:
-- split the MFD work from the independently mergeable networking series
-- put the merge routing and shared DT design at the start of the cover letter
-- rebase on the MFD for-mfd-next branch
-- Link to v5: https://patch.msgid.link/20260809-submit-acx00-of-dynamic-v1-v5-0-bfa1f8518b28@gmail.com
-
-To: Lee Jones <lee@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: mfd@lists.linux.dev
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-
----
-James Hilliard (2):
-      dt-bindings: mfd: x-powers: Add AC200
-      mfd: ac200: Add X-Powers AC200 support
-
- .../devicetree/bindings/mfd/x-powers,ac200.yaml    |  49 ++++++++
- drivers/mfd/Kconfig                                |  11 ++
- drivers/mfd/Makefile                               |   1 +
- drivers/mfd/ac200.c                                | 136 +++++++++++++++++++++
- 4 files changed, 197 insertions(+)
----
-base-commit: 9d0e4b1ae5b045a2c92b0b9a1c3b268191c219d9
-change-id: 20260811-submit-ac200-mfd-8bad6d09e285
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+-- 
+2.39.5
 
