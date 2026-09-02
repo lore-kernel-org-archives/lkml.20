@@ -1,130 +1,65 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2381C4A99BA
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:52:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C90A74A99AE;
+	Wed,  2 Sep 2026 15:52:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788364333; cv=none; b=YdEOJJnYJAy5bySon6UF4agNulMubaXol8EO3j+WClWajR2ayrLtSKezSgF/kDqjM3/XoNtcqK0B6cRDoTnVshQ/HXCuQD7Sl+8Cp2pkDVUBJv2JRphl4/W44F/Nz1JpizZkGbeplAgBA5EN6raYdwcS0ew9lKl1OFw57/r/4po=
+	t=1788364367; cv=none; b=ds1nIPXdgbB7vk1fHUHBvIKBrYgegPgpj/rxbobk875uTwoXtfwWVqtheG58O6KR4CzyEuhQYHZzO8p9RNKd3C6c0qBZNUB/d9SPkrdojfmntpFMsvLmxeiHnq4xLmeBfmz9mc9MFDVZYVDxM9/93NdAz/DqPHYziY74Huf5IYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788364333; c=relaxed/simple;
-	bh=u0F+cf+SpjCMmA0DNgC8SzeM30dQqvuZhdzJX4hfMdI=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JbtsOKcub3mh8J2GUTU1X5cwSjEHKy/VNzlD9MUPwdLTuageTcHzFBshPF7z2cAwJNqTdMHEP1lvUcZnPSVQlLcDcFGZiD14f0GzOC6F1tv8UDctjrgVW5TkSV+gOctkeGnTdfwa4AwSL42kkmv4cIzhJufrno2BNliRS55ae9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L7frCOZH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788364367; c=relaxed/simple;
+	bh=cc6ojcZlqjJYce0Pa+ZraMbBHc4qHtxHKN35Mxl3fQk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Rk6pvXZ+TDsJnm98ZTWOxDQilSXqU0h61IL28RHEfJg/xTfL60liU3FIW2x+BGiHBEsU5KN8Hazyt5X82tEos+yRZVKD+rdNrLtab0OBFgQUsCaApkETeQL0Av6XDV1cy89Dbf5fcygt7XXeqStFW4758qP0E32FJPMFqcg9o9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bPZHiTHe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L7frCOZH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 070611F00A3A;
-	Wed,  2 Sep 2026 15:52:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bPZHiTHe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2A3B1F00A3D;
+	Wed,  2 Sep 2026 15:52:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788364330;
-	bh=CtwLV0ZxcRbhB3k9lm4oQ7bIei29ZB06qlm+X3wrhWE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=L7frCOZHBDZgspABs25rR9/5PzJbIOD/Wi5/zPdK9aT7HMa0AdbHS5M02p6CMLJli
-	 9gBkIOsJteCdyOVJEvPUE0SH9YzUKod2Rc/2iCSzm1kckKIf81idDCwpguBsiqudpl
-	 +fsFwhRl7sXwC5bgUh3KLt6jeTwDao2jmHJ+gifBP5/X5AYaD6qv61QU793a5uSEsz
-	 wWZGBHYIVBYSOBjG4l5iOYRbYy8ZCeBPUbiurVnSjGtK54WEXJNtuc54v8hcK1Z0Ju
-	 1Uwh16XMCxuA90jJoHg4c836nke6280oDHQJFZF1P6L1PoZw4SOO4Ilvbn3sCL+HoY
-	 nUvy8D18QLW8A==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x1nFv-00000003xHP-3iCe;
-	Wed, 02 Sep 2026 15:52:08 +0000
-Date: Wed, 02 Sep 2026 16:54:41 +0100
-Message-ID: <87fqzrmywu.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Jiangshan Yi <yijiangshan@kylinos.cn>
-Cc: lpieralisi@kernel.org,
-	tglx@kernel.org,
-	radu@rendec.net,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	13667453960@163.com
-Subject: Re: [PATCH] irqchip/gic-v5: Install root IRQ handler last in gicv5_init_common()
-In-Reply-To: <20260902143255.182786-1-yijiangshan@kylinos.cn>
-References: <20260902143255.182786-1-yijiangshan@kylinos.cn>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1788364365;
+	bh=uxnfMUaRrewY6o+IJUTm/G07b42rypfCR5Ewb6tmgmU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bPZHiTHerXYuyKsaGFSaZOdJh//Iqw3TgkW9n1zdRZysg2C7hTaz4nm1m2hOsnQG1
+	 i/QyZbEx430+kTRM3NJOrlyv4T/eRPLtcfeJiMYpgkHfbI+b+MEyfqRBF4QTofyMeW
+	 bLMhXikDW/egLKGSw2FdlcHAab6/Z9Tq7FCYPBKrTy5FkZtyN0HCr5QGGS8ODmYD20
+	 s3BUEzKiLZEfutgIpL5sJgzojiSK5TqnsO8sxldNX/QlpoDtMnqYWAjx7cpElbU/yX
+	 814Al5cvOwvHLnEUSommOzg3vH8mINx/5xDYD9qweQ4UV94sGAmXipMG/EjXJgj6rh
+	 t4t8+k/YGk+7A==
+Date: Wed, 2 Sep 2026 17:52:32 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+Cc: James.Bottomley@hansenpartnership.com, martin.petersen@oracle.com, 
+	konrad.dybcio@oss.qualcomm.com, linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH V2 0/2] ufs: ufs-qcom: Fixes and optimizations for
+ Qualcomm UFS Controller
+Message-ID: <3p2bb3jeh5vbltgz2zqjjrvzjyhvntk7jkrycmxhedojc3skub@zliooqk76qz4>
+References: <20260825145203.265579-1-nitin.rawat@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: yijiangshan@kylinos.cn, lpieralisi@kernel.org, tglx@kernel.org, radu@rendec.net, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 13667453960@163.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260825145203.265579-1-nitin.rawat@oss.qualcomm.com>
 
-On Wed, 02 Sep 2026 15:32:55 +0100,
-Jiangshan Yi <yijiangshan@kylinos.cn> wrote:
+On Tue, Aug 25, 2026 at 08:22:01PM +0530, Nitin Rawat wrote:
+> This patch series introduces few fixes and performance optimizations
+> for the Qualcomm UFS host controller driver to improve performance
+> and to align with Qualcomm UFS hardware programming sequence.
 > 
-> set_handle_irq() is irreversible: once installed, handle_arch_irq
-> points at gicv5_handle_irq, which dereferences the PPI/SPI/LPI
-> irqdomains.  If gicv5_irs_enable() fails afterwards, the error path
-> calls gicv5_free_domains() while handle_arch_irq still references
-> those domains.
-
-I don't think that's a massive problem. If you can't enable the IRS,
-you can't do much at all. Your system is already completely dead.
-
->
-> Move set_handle_irq() after gicv5_irs_enable() so the handler is
-> only installed once all fallible steps have succeeded.  Drop the
-> no-op set_handle_irq(NULL) in the error path, which never worked
-> because set_handle_irq() returns -EBUSY once a handler is set.
-
-That is a reasonable cleanup.
-
->
-> Fixes: 183750b276c2 ("irqchip/gic-v5: Fix gicv5_init_common() error paths")
-> Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
-> ---
->  drivers/irqchip/irq-gic-v5.c | 8 +++-----
->  1 file changed, 3 insertions(+), 5 deletions(-)
+> The series addresses below issues:
+> 1. Hardware programming sequence alignment for UFS controller v6.2
+> 2. Performance tuning for sequential read workloads.
 > 
-> diff --git a/drivers/irqchip/irq-gic-v5.c b/drivers/irqchip/irq-gic-v5.c
-> index ac2d423b1723..37184942dc11 100644
-> --- a/drivers/irqchip/irq-gic-v5.c
-> +++ b/drivers/irqchip/irq-gic-v5.c
-> @@ -1166,21 +1166,19 @@ static int __init gicv5_init_common(struct fwnode_handle *parent_domain)
->  	if (ret)
->  		goto out_int;
->  
-> -	ret = set_handle_irq(gicv5_handle_irq);
-> +	ret = gicv5_irs_enable();
->  	if (ret)
->  		goto out_int;
->  
-> -	ret = gicv5_irs_enable();
-> +	ret = set_handle_irq(gicv5_handle_irq);
->  	if (ret)
-> -		goto out_handle;
-> +		goto out_int;
 
-Under which circumstance can this fail? There should be none. So if
-this ever returns an error, we should immediately stop with a panic.
-No need to clean anything up, just die on the spot.
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
->  
->  	gicv5_smp_init();
->  
->  	gicv5_irs_its_probe();
->  	return 0;
->  
-> -out_handle:
-> -	set_handle_irq(NULL);
->  out_int:
->  	gicv5_cpu_disable_interrupts();
->  	gicv5_free_domains();
-
-Thanks,
-
-	M.
+- Mani
 
 -- 
-Jazz isn't dead. It just smells funny.
+மணிவண்ணன் சதாசிவம்
