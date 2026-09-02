@@ -1,78 +1,66 @@
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03D4D499F36
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:05:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822DC49B216;
+	Wed,  2 Sep 2026 13:06:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788354308; cv=none; b=crZPq/ywTKYtjfYq0rwPUwJB4m+DHtR7390COoeL2vhL+cbgG15irTI6LvMDXXnZx7QDE0yYGkL7hMO/5V6NL7EnKuAFMva3xBgi+o/bCzdhpv+aqzuXfObsolHHLJgZC+THHKC6RGltgyUHTMQpGBXJWanjoQhy+KzllMQZsCI=
+	t=1788354382; cv=none; b=lxZQbJ5fkWKw+evJzLaqIbU13oi/xBRBz4OjuFNTLg/XxZ6N/lVTlAOR+NVMY5GNPY1Hn0jY0tbZpFy3Y+ekYJ8kf3wBokbLpiFF3jhFdbixuuZm0Umxw1/lPdEJdsIod0YjjoIQcHtlabrOoUmHMym5NZC/+B2dlJnxuci7k/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788354308; c=relaxed/simple;
-	bh=tXPS8UNC1v9DuiaMuucFPopWOOVVCFMSW8Cp05LqM9U=;
+	s=arc-20240116; t=1788354382; c=relaxed/simple;
+	bh=+bxePfsNVSHSfzlBF3Gm2+qPdi9o4VeP/MfRydTR3BY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lG+1WggA3wKFXXzyxidMxc3gsDQv6XJjtSIAINzRxLrbJ5hs11oR01fAJ2VWvD0drbT7nYEIjzDT4MnLPoFDzVhWRi2RSLqa7STpVNCb5TF0LyEbS9KfI3rSWy2eXMwM7BHoQWu19+YTRO5/fGm5db+OYO7em1lS8OaUZx5ty9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eOagKBvH; arc=none smtp.client-ip=209.85.160.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=tisYFnmXqov97C6M0UrPqKoy5tHoPcQCG18V+k7w31Z5yPSfws61w6KbNBL4BcetzcxARgpY6G5AMGhcrAuKoi0J5sHpcJyfAOix0FbwFAQq/PXqHlRsvQK87x3VftZPmICP9qdinf+b5xWy0jqruEgkAsFjfPkU+2TkgA4Vamg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gjcZz021; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eOagKBvH"
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-52fa9c055b5so28844541cf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 06:05:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788354306; x=1788959106; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5mfL9J76Lwd5/7wRAvKdCeJfAtdDB4Im8NEaXbTZIxw=;
-        b=eOagKBvHy0cclBYONDE3LGTtd+vdB8AwKE3s9NxdR+/EQMuK0x6NrTu3wszdVu1Bol
-         zbe5JEnZy5AgBBD5Hb8rCiaaDPPgiAVLL5SNwtQmGXn1xwyMsnG2tNUHR2C6oeI6cUW9
-         XcyPb6nnrDKWenRtmyQw7WK+YNbeiYJHRhIGCnrViDQ6GrbT2eylP5CyhofwKTl1xsjS
-         P2VTWtf+vJIzVi0sYa2hsePyb/4T4Ko/e7OLbi0spr0GFw5I/52uJoY0owhwvcKNZwHD
-         /oSSoa/Ch2B90fkHjPQ/OVYkk+QEJAplJEF3dQFuAMf6FjFgwXWs+fiFQpzo1Ri6Y/Gu
-         9AIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788354306; x=1788959106;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5mfL9J76Lwd5/7wRAvKdCeJfAtdDB4Im8NEaXbTZIxw=;
-        b=Mgmz7v4geGYxg2SZ6oM6hHNqUHczwcYpa6tV6LD4/JzU78dmN36NiWlNmxVztgdOcP
-         LpNin5tDD/IPHwH878unOFc+K3aXmQd4Is4uscLw8Stk0PPG7zTxBWxq991mCq/teMil
-         q7jtKYmdCJqxOc4XNofdB4KSMH5hBPzEB9c4eUUcnMgi+dRyN3DBGUgpKpG3062EHnsI
-         T6nTdG2gj/bRfT+rgJAeVLlBXId/NFovP0XPI91s7AMFcliaXRmMmf/PzQcXzw25+FWN
-         PU9EGDKuTJlCNVEyEH3MjGimFYI1ytiKT/dhiWFoEzjRTHeB0UIcodqNtd/H/8/AVUE4
-         A3gA==
-X-Forwarded-Encrypted: i=1; AKwUvBy3JmCRIJbiW1lF7yivrvcgVrMT+9NB/lk75EH/d6CYB4aLnp1251RJhhn1KvdfDt2vhFVOVbw7T46f4Ow=@vger.kernel.org
-X-Gm-Message-State: AFuF++luu9K7Wb+D/e/cLKOTHtdezEsXEKKjWFnxmbe7jWpD+X2Vkg7W
-	s0eQI+RYFIirem8duIvbbRonDNc9rFa0hqNDqPNWD9G3qzGs+Mpvd/uS
-X-Gm-Gg: AYBFou06EndCZGNhPf5dI1x8Lw2KLVuXMADazj5FLmnLlUGnQ0IvIN43U3RYpp2GHFz
-	SOQncxJmcG9vHEeHNahB8lgxG0kVmhtQpSj8z0SyWx7jnchXvNfgnXUFMIlV0Ryvjsuy2qwN6oE
-	Y0GHC7JTNnPny+6R2qAjP6BIW/bcV83IDCA1w4v550VBEXnDVEtw8ZMMt6OvYH4lBJLfNmOns/c
-	7dK3sCbij4tK1MP4+dlXyWKYSwh/XTM/iSCxJwRY1jPLNaZUIQa3Qq/hEUd4W+RSkE2kEHvdbsE
-	INqciUujfhLVYyAmJCXx8g9Id9/dolGFpd44BHGMvFZoQMglrS3VO693pOh/Wcpdj8Ed6trN04R
-	1uslTdKFG4N5FtIn7dbii6ZUNxpsXWe3oeRQP1ZNA/f2j8z/kJOP0ZVTK2K4xb7TbDM3zT1t8KH
-	9A25gvJCkYpALrRfMVo80DzTfnTo87QPc3EKMEtN4+3sMVEc0Gz5CuMDkPYpMsRyUBJUNaVVvNa
-	yPgidDw7XX8Tlpoze6Psg==
-X-Received: by 2002:ad4:5962:0:b0:8fe:57d4:69cd with SMTP id 6a1803df08f44-9102eabaebamr26390076d6.14.1788354305529;
-        Wed, 02 Sep 2026 06:05:05 -0700 (PDT)
-Received: from zenbox ([2600:1700:18fb:6011:f78:4c8c:a6cc:a58e])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9ee3bc37sm18005506d6.20.2026.09.02.06.05.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 06:05:05 -0700 (PDT)
-Date: Wed, 2 Sep 2026 09:05:03 -0400
-From: Justin Suess <utilityemal77@gmail.com>
-To: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
-	kpsingh@kernel.org, paul@paul-moore.com, mic@digikod.net, viro@zeniv.linux.org.uk, 
-	brauner@kernel.org, kees@kernel.org
-Cc: gnoack@google.com, jack@suse.cz, song@kernel.org, 
-	yonghong.song@linux.dev, martin.lau@linux.dev, m@maowtm.org, bpf@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Casey Schaufler <casey@schaufler-ca.com>
-Subject: Re: [PATCH v2 01/15] lsm: Add the LSM policy object lifetime hooks
-Message-ID: <apgX1HKQ7b973YV-@zenbox>
-References: <20260831145858.3869191-1-utilityemal77@gmail.com>
- <20260831145858.3869191-2-utilityemal77@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gjcZz021"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788354380; x=1819890380;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=+bxePfsNVSHSfzlBF3Gm2+qPdi9o4VeP/MfRydTR3BY=;
+  b=gjcZz02129cvi1Y8dqqiCSzbsr95oOci9FWLqCinj6SzzGKVeM8DfZJ3
+   LUrY0gDMd+gn4oV3oLSy5mCQv+MOSZA/vWl0DBNMwzR2WNugYYEt7UbOw
+   lWjtVmHqqq8YfKYPaENUv2Hb230HbxTWcIDDVHtwpZQYzG+iRA1s9bSIk
+   Yr6+hsjmqkYKpSMilU+LWWiQgcMO6o7SMN3iAxjcUiHG7bH41NZAeiIm8
+   /hnShgm78jBzApp6DPY9hqKLM/VnhwlIJSimO2er0vCQiLac7tJxlgCZS
+   taQLjQ956onKvllHfJB+2XwJiRiBMS5aEYWTQTnggZujbq9lxXxi77qI6
+   Q==;
+X-CSE-ConnectionGUID: DU7yH6xWTY6oO3PSoB97PA==
+X-CSE-MsgGUID: yo1RMJeKRX6enF9tr/qKqQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="88687357"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="88687357"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 06:06:20 -0700
+X-CSE-ConnectionGUID: lVYCjvFGRDWgAblnbTd9OQ==
+X-CSE-MsgGUID: sQ20yggwS6qFjAbH976YjQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="268098503"
+Received: from lkp-server01.sh.intel.com (HELO bfac249b2189) ([10.239.97.150])
+  by orviesa010.jf.intel.com with ESMTP; 02 Sep 2026 06:06:17 -0700
+Received: from kbuild by bfac249b2189 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x1kfO-000000002jG-30ZC;
+	Wed, 02 Sep 2026 13:06:14 +0000
+Date: Wed, 2 Sep 2026 21:06:09 +0800
+From: kernel test robot <lkp@intel.com>
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Elad Nachman <enachman@marvell.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] net: prestera: avoid overreading a short firmware tail
+Message-ID: <202609022030.0pnwZKgS-lkp@intel.com>
+References: <20260830142404.37663-1-pengpeng@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,127 +69,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260831145858.3869191-2-utilityemal77@gmail.com>
+In-Reply-To: <20260830142404.37663-1-pengpeng@iscas.ac.cn>
 
-On Mon, Aug 31, 2026 at 10:58:43AM -0400, Justin Suess wrote:
-> Add struct lsm_policy_object, the identity an LSM embeds in a policy
-> object it shares with BPF programs, and the three hooks managing such
-> an object's lifetime:
-> 
->   policy_object_from_fd(fd, &object)
->   policy_object_get(object)
->   policy_object_put(object)
-> 
-> The object records the owning LSM's LSM_ID_* value.  The BPF kfuncs
-> built on these hooks dispatch each call on an object to the one LSM
-> matching its lsmid, which resolves the containing object with
-> container_of(); the framework never interprets an object beyond its
-> lsmid.  The type field discriminates between the owning LSM's own
-> policy object kinds and is private to it, with 0 reserved as "unset"
-> so a zeroed, untagged object fails every type check.
-> 
-> from_fd has no object to route by: the fd refers to a file set up
-> through the owning LSM's own userspace interface, so the fd itself
-> identifies its LSM.  The framework offers the fd to every
-> implementation in turn; an LSM declines a fd that is not one of its
-> policy objects with -EOPNOTSUPP, and any other error is a definitive
-> translation failure.
-> 
-> The hooks back referenced BPF kptrs, which imposes the same lifetime
-> contract on every implementation: from_fd returns a reference on a
-> live object, get acquires with inc-not-zero semantics and fails with
-> -ENOENT once the count dropped to zero, put may be called from
-> contexts that cannot sleep (BPF drives it from map destructors), and
-> the containing object is freed only after an RCU grace period, as
-> programs load policy object kptrs from maps under RCU and may examine
-> an object concurrently with its last put.
-> 
-> The hooks are excluded from the "bpf" LSM's attachment points.  The
-> object-routed hooks are unreachable there, as LSM_ID_BPF policy
-> objects cannot exist; for from_fd, whose walk visits every
-> implementation, a BPF program cannot fill the object out parameter,
-> so an attachment returning 0 would hand the caller an uninitialized
-> pointer.
-> 
-> Cc: Paul Moore <paul@paul-moore.com>
-> Cc: Casey Schaufler <casey@schaufler-ca.com>
-> Signed-off-by: Justin Suess <utilityemal77@gmail.com>
-> ---
->  include/linux/lsm_hook_defs.h |  4 ++++
->  include/linux/security.h      | 11 +++++++++++
->  kernel/bpf/bpf_lsm.c          |  3 +++
->  3 files changed, 18 insertions(+)
-> 
-> diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
-> index 65c9609ec207..d7684407737a 100644
-> --- a/include/linux/lsm_hook_defs.h
-> +++ b/include/linux/lsm_hook_defs.h
-> @@ -452,6 +452,10 @@ LSM_HOOK(int, 0, bpf_token_create, struct bpf_token *token, union bpf_attr *attr
->  LSM_HOOK(void, LSM_RET_VOID, bpf_token_free, struct bpf_token *token)
->  LSM_HOOK(int, 0, bpf_token_cmd, const struct bpf_token *token, enum bpf_cmd cmd)
->  LSM_HOOK(int, 0, bpf_token_capable, const struct bpf_token *token, int cap)
-> +LSM_HOOK(int, -EOPNOTSUPP, policy_object_from_fd, int fd,
-> +	 struct lsm_policy_object **object)
-> +LSM_HOOK(int, -EOPNOTSUPP, policy_object_get, struct lsm_policy_object *object)
-> +LSM_HOOK(void, LSM_RET_VOID, policy_object_put, struct lsm_policy_object *object)
->  #endif /* CONFIG_BPF_SYSCALL */
->  
->  LSM_HOOK(int, 0, locked_down, enum lockdown_reason what)
-> diff --git a/include/linux/security.h b/include/linux/security.h
-> index 153e9043058f..5e423bea080e 100644
-> --- a/include/linux/security.h
-> +++ b/include/linux/security.h
-> @@ -168,6 +168,17 @@ struct lsm_prop {
->  	struct lsm_prop_bpf bpf;
->  };
->  
-> +/*
-> + * Identity of a policy object an LSM shares with BPF programs,
-> + * embedded in the LSM's own object.  @lsmid identifies the owning
-> + * LSM; @type discriminates that LSM's policy object types, with 0
-> + * reserved as "unset".
-> + */
-> +struct lsm_policy_object {
-> +	u64 lsmid;
-> +	u32 type;
-> +};
-For some clarity:
+Hi Pengpeng,
 
-lsm_policy_object is just a handle to a refcounted lsm-private struct.
+kernel test robot noticed the following build errors:
 
-It can't be forged / created manually because it's a trusted kernel
-pointer, so the only way to get it is through policy_object_from_fd.
-And you cannot mutate any part of it from BPF.
+[auto build test ERROR on 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72]
 
-But it's what enables the generic model. Calling it a "policy object"
-may be short sighted though, that term is heavily overloaded in the LSM
-space. I don't want to prescribe any restrictions on what an LSM can use
-it for, after all some LSM have no notion of "policy" at all or have a
-different meaning for it.
+url:    https://github.com/intel-lab-lkp/linux/commits/Pengpeng-Hou/net-prestera-avoid-overreading-a-short-firmware-tail/20260830-222403
+base:   08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+patch link:    https://lore.kernel.org/r/20260830142404.37663-1-pengpeng%40iscas.ac.cn
+patch subject: [PATCH] net: prestera: avoid overreading a short firmware tail
+config: x86_64-allyesconfig (https://download.01.org/0day-ci/archive/20260902/202609022030.0pnwZKgS-lkp@intel.com/config)
+compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260902/202609022030.0pnwZKgS-lkp@intel.com/reproduce)
 
-For SELinux, this "lsm_policy_object" could be an sid, for AppArmor an aa_label,
-for Smack a label, etc. The intention was to allow writing programs that
-don't care about any details of a particular LSM.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609022030.0pnwZKgS-lkp@intel.com/
 
-Justin
-> +
->  extern const char *const lockdown_reasons[LOCKDOWN_CONFIDENTIALITY_MAX+1];
->  
->  /* These functions are in security/commoncap.c */
-> diff --git a/kernel/bpf/bpf_lsm.c b/kernel/bpf/bpf_lsm.c
-> index 1433809bb166..d06744d72e04 100644
-> --- a/kernel/bpf/bpf_lsm.c
-> +++ b/kernel/bpf/bpf_lsm.c
-> @@ -56,6 +56,9 @@ BTF_ID(func, bpf_lsm_xfrm_decode_session)
->  #endif
->  BTF_ID(func, bpf_lsm_ismaclabel)
->  BTF_ID(func, bpf_lsm_file_alloc_security)
-> +BTF_ID(func, bpf_lsm_policy_object_from_fd)
-> +BTF_ID(func, bpf_lsm_policy_object_get)
-> +BTF_ID(func, bpf_lsm_policy_object_put)
->  BTF_SET_END(bpf_lsm_disabled_hooks)
->  
->  /* List of LSM hooks that should operate on 'current' cgroup regardless
-> -- 
-> 2.55.0
-> 
+All errors (new ones prefixed by >>):
+
+>> drivers/net/ethernet/marvell/prestera/prestera_pci.c:603:18: error: call to undeclared function 'get_unaligned'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     603 |                 writel_relaxed(get_unaligned((u32 *)(buf + i)),
+         |                                ^
+   1 error generated.
+
+
+vim +/get_unaligned +603 drivers/net/ethernet/marvell/prestera/prestera_pci.c
+
+   589	
+   590	static int prestera_ldr_send(struct prestera_fw *fw, const u8 *buf, size_t len)
+   591	{
+   592		size_t write_len = ALIGN(len, sizeof(u32));
+   593		size_t i;
+   594		int err;
+   595	
+   596		err = prestera_ldr_wait_buf(fw, write_len);
+   597		if (err) {
+   598			dev_err(fw->dev.dev, "failed wait for sending firmware\n");
+   599			return err;
+   600		}
+   601	
+   602		for (i = 0; i + sizeof(u32) <= len; i += sizeof(u32)) {
+ > 603			writel_relaxed(get_unaligned((u32 *)(buf + i)),
+   604				       prestera_ldr_wr_ptr(fw));
+   605			prestera_ldr_wr_idx_move(fw, 4);
+   606		}
+   607		if (i < len) {
+   608			u32 last = 0;
+   609	
+   610			memcpy(&last, buf + i, len - i);
+   611			writel_relaxed(last, prestera_ldr_wr_ptr(fw));
+   612			prestera_ldr_wr_idx_move(fw, 4);
+   613		}
+   614	
+   615		prestera_ldr_wr_idx_commit(fw);
+   616		return 0;
+   617	}
+   618	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
