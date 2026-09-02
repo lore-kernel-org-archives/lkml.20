@@ -1,116 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0990047CA80;
-	Wed,  2 Sep 2026 11:59:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1774483BC4
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:02:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788350402; cv=none; b=j++o4+ybGc2tuxH9V6lbgRPopgVB41btOG2ca5aFiXIIZ4d6vk+B1riAM7+0WRIHxfD2IZWKRnWMwRh+n2777rjnjTND9Snsc2UdUrINUoRf9/jKEdYYw0yEgWsVXLyfynEsR9c7irhHuwjGmNWBfv9yTt0yJinx0hsTCcuRd2M=
+	t=1788350578; cv=none; b=kTNNuG3Yk0YuyIWpWJZjcIhP5EnOgNjdw0ENTWfPMqayc101CfIR8otGBKA7eteg7JdqntP9QfDEnQEyLYwwNFOUKEGRUlJms+Qu28S70SKbagMZczkRtO9eLn5qejD6njBfSsi2hlg7cBEnCuALGYzCoa/w5Hwg1CJIeoivS2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788350402; c=relaxed/simple;
-	bh=kd+Yyc7NYCeNgqH4h5WwvcyPFp8KPW7JVTHUROcl4h0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IAkk11q9c9FWtXdjMi7c0buNReBWJ8FDT6j7cji01AkrlSYUj1WgTt8Myeuf2kHr7p2IqEEMo04tMdEyWQWg4zIRpWlKhfckrSVRabSMyphFQ563kFQb5n11x4Wa017b660lS9AloUoIP4VInqVyOQi0IroGUG4pS2M+T9yEjNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ai0rW35e; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788350578; c=relaxed/simple;
+	bh=m0JjFRX4svUQp6KRJp+je69oUc0P9aiIdfo5Oe4XjWI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ALWV4w2/alkqakIWZyJf78RjhJRbG5GsuJ8uzj3QqTJCPSCLLNl0akRSXnYS4FYamyMeN+TFR6BijasnzXqaq3nhNP9BVS3KBmY5WQAIIWEcYtPXszAY1uHxZH7HIrDHTPz3egE9vFbDlQDSM51iwLDmI2Yjtz8DKFfwxle/SHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QlfLTDO6; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ai0rW35e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F6EC1F000E9;
-	Wed,  2 Sep 2026 11:59:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788350389;
-	bh=+GMRGtPJF0kOjxkPGpdOGJ/QQcsY+spD3Byr8n5Cdoo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ai0rW35e84q7etisLcAs5i6HERQJohghziR7l5ol5kcffn5Qoh7e/xvcAQFHAGgVA
-	 Ds837SY2DJ8Kd6gXpX3FcjK9T+gRmse6EwTAvKVx/9HoF54ONBIhpeqG4PiTzZt6Yr
-	 aKve9vr+z4VMKeVXRZA4x3EcUxekF9sL+9Ax2vdSKSZWJgcJsyKde9IqfYId5PnYJi
-	 L/T33YLulOGN82Bh45wOzUkBzc8iD3z9XrlPK9xo370FUzRpokrVBFN9YRN1tng9sg
-	 u8fyKUbbzFCEDUQ2ECTDHKu0CIQZ7c9jKD4jC3M+JY1QzzdwCo5kBYhSGlx2kq/6RU
-	 UPhlqJc9/0g+g==
-Date: Wed, 2 Sep 2026 12:59:44 +0100
-From: Lee Jones <lee@kernel.org>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Vincent Donnefort <vdonnefort@google.com>, stable@vger.kernel.org,
-	mhiramat@kernel.org, linux-trace-kernel@vger.kernel.org,
-	mathieu.desnoyers@efficios.com, kernel-team@android.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: STABLE REQ: [PATCH v5 06/10] tracing: Fix subbuf resize races
- with trace_pipe_raw readers
-Message-ID: <20260902115944.GS2943942@google.com>
-References: <20260813131152.3589632-1-vdonnefort@google.com>
- <20260813131152.3589632-7-vdonnefort@google.com>
- <20260901123444.GA1350131@google.com>
- <20260901094656.487b278f@gandalf.local.home>
- <20260902082717.GM2943942@google.com>
- <2026090230-entryway-acquaint-d12e@gregkh>
- <20260902095744.GN2943942@google.com>
- <2026090221-riverbank-overlay-704c@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QlfLTDO6"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cbedd5aece4so1663702a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:02:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788350561; x=1788955361; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=I6Md0+LJRDnI+rQO3Uvm4S5xh/BVG8Mf7Z6azFky85k=;
+        b=QlfLTDO67GnAgA09KgHd6vVHj7fliwjQQUyglyoEwayG/r08elxySkq1ekNgPwn104
+         WnThyK3v1QSVmvvxQncA2DWyIl+u0II8cQQtJzuwu9VY1Utz4DUQcI7MbDqdoO4S3sQO
+         Uw2FH0WJ/NKQn0wnYIY0ltAtrZluB9lPkb+4R6pFhCO8zTrgUu8+5yFjN4Qp1ZeOOLuX
+         zdY6YLyG9uk6BMBfXs0+EkjbFzUXum/KcHZWbwuqf8ETW0itqwZPm2nbXX9B5Ymq91dH
+         nJLSfeuctDorDS3nZ5a9NlWFtSxltVlq2JYlZvGd3+FmgygTIxOGTnmA4NAnMNn5BOSf
+         LB8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788350561; x=1788955361;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=I6Md0+LJRDnI+rQO3Uvm4S5xh/BVG8Mf7Z6azFky85k=;
+        b=iqyH+BDSPrjzxXZ96n8bmOhVoClvhBk7LI66Gn5Nzg/+Qk0loaYefTFXhvv42NATM1
+         wJbqUest7An4a2xfeholZQ1DlCSVw/Db1Im16qs5AUWv9fhF/KnYpL0UGpsn5w1ArQqU
+         fXzEdFK/zSDDAYCzTzPlR2zTMNkUpIm9zDf7/9bl2JAADKr1LJLbT+RkGqA+q+XUVenG
+         ScwbQeG94QHyorITYbW9c640ONRuRx7V8s4yM7CypEk9pmjy2AEt9mHrONYcswDPWd6F
+         qfssul/VnPNOABdwao86yADe0Kldf1CqtrW0lElJnASQi5Gn0XT/ctJU7M5d1M+snVfy
+         MHwA==
+X-Forwarded-Encrypted: i=1; AKwUvBxu1A+DSHwRvaKbQVHEV7EKlA4T9sr963h92BcghOb/7bdstFRajad6CLDiKbA1N5Rz4qVISFAOsLarTm4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lN/ES08qFdGC2x1vfipMHohRCuJzRLY9PM1rk+/tiTZlda6PaA
+	w8Gxqqh08YXX4QQEfKoAkaM23cIrSno8SAMOOVfQLTG8jLEnLuTUkj5L
+X-Gm-Gg: AYBFou3UFAa4Q6wBy/Jech9PrnCGl6U8occnXBi2mUOlnuNbrQpuB8VTexR3cj3wM7N
+	F7MYnw2oy/+sblq8YO5RW9munVKZCAj1Rp/xVmg54K9P7FCdDGp6xt+aCLSYx31IHVmLAlV9eUi
+	V9TohH4j3KnEz86hlSn0/oxu3gT7Wwqs60YiJxDss3idbzHGGJO6YLmVX0adQGb7o4WRH3TlLQj
+	T3Vme07TA68RNK8iDxGbWj5fUoYRfMh3O9RR0LavN8RaZWw1kQIwt4D5O4fBFHnz5rMswUWNUbK
+	c3Qe8hzJswNvpcGwld80edHCx+XM8QrFa9iI1C8myDHkBaCwutol7G3xojw4tD3eWHzuHAnqtiS
+	9dcUXWs+plGELR5qtoaNZxSuuwStHIvLa9oKXYJvF6aApPG7zJEdaSku6HYhYceBysygRyx9tbi
+	k4DUdRYv+8x5+kGv0XMugPN2yCQKkWNPpJ4iLk10xDu2JtRI+7IGL88jST53HGUeQA5v6iKKYqU
+	xZh2/nzTW0=
+X-Received: by 2002:a17:90b:3c09:b0:398:c0a2:8f8e with SMTP id 98e67ed59e1d1-39af64f9205mr2885148a91.26.1788350560968;
+        Wed, 02 Sep 2026 05:02:40 -0700 (PDT)
+Received: from volcano9f8e-host.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f079c33e9sm6897044eec.4.2026.09.02.05.02.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 05:02:40 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Shuah Khan <shuah@kernel.org>
+Cc: kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH 0/2] KVM: selftests: Verify sregs and events in sync_regs_test
+Date: Wed,  2 Sep 2026 17:32:33 +0530
+Message-ID: <20260902120235.18486-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026090221-riverbank-overlay-704c@gregkh>
+Content-Transfer-Encoding: 8bit
 
-On Wed, 02 Sep 2026, Greg KH wrote:
+sync_regs_test has never actually checked the sregs and events halves of
+the kvm_run sync region.  compare_sregs() and compare_vcpu_events() have
+had empty bodies since the test was written, so the checks run after
+every KVM_RUN only ever compared the general purpose registers, and the
+events half was never written to at all, hence the standing TODO in
+set_and_verify_various().
 
-> On Wed, Sep 02, 2026 at 10:57:44AM +0100, Lee Jones wrote:
-> > On Wed, 02 Sep 2026, Greg KH wrote:
-> > 
-> > > On Wed, Sep 02, 2026 at 09:27:17AM +0100, Lee Jones wrote:
-> > > > On Tue, 01 Sep 2026, Steven Rostedt wrote:
-> > > > 
-> > > > > On Tue, 1 Sep 2026 13:34:44 +0100
-> > > > > Lee Jones <lee@kernel.org> wrote:
-> > > > > 
-> > > > > > Could we have this applied to Stable please:
-> > > > > > 
-> > > > > > 8a5f63637890 ("ring-buffer: Fix subbuf resize race with ring buffer readers")
-> > > > > 
-> > > > > It's marked for stable so it should automatically be backported (if it
-> > > > 
-> > > > Where was it marked for Stable?
-> > > 
-> > > It has:
-> > > 	Cc: stable@vger.kernel.org
-> > > in the patch itself.  It is in my queue to get to, along with over 1000+
-> > > other patches that people decided to tag for stable and yet wait for the
-> > > -rc1 merge window to get to Linus.
-> > 
-> > Am I losing the plot?  The patch that I replied to [0] did not Cc:
-> > Stable.  If it had, I wouldn't have made the request.
-> > 
-> >   From: Vincent Donnefort <vdonnefort@google.com>
-> >   To: rostedt@goodmis.org, mhiramat@kernel.org,
-> >   	 linux-trace-kernel@vger.kernel.org
-> >   Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com,
-> >   	 linux-kernel@vger.kernel.org,
-> >   	Vincent Donnefort <vdonnefort@google.com>
-> >   Subject: [PATCH v5 06/10] tracing: Fix subbuf resize races with trace_pipe_raw readers
-> > 
-> >   [...]
-> > 
-> >   Fixes: bce761d75745 ("ring-buffer: Read and write to ring buffers with custom sub buffer size")
-> >   Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
-> 
-> 
-> I'm lost, I was referring to the above git id that was asked about,
-> sorry.
+Patch 1 fills in both comparison helpers.  Patch 2 exercises the events
+half by masking NMIs through the sync region and verifying KVM applies
+it.
 
-Ah, so Steven must have added it to the commit on application.
+To confirm the new checks catch something rather than merely passing,
+the same faults were injected before and after the series on an AMD
+host:
 
-That makes sense now.  As you were!
+  fault injected                      before    after
+  sregs.cr4 mismatch                  ignored   caught
+  sregs.cs.dpl mismatch               ignored   caught
+  events.interrupt.shadow mismatch    ignored   caught
+  KVM_SYNC_X86_EVENTS left clean      n/a       caught
 
-> > > It will get there eventually...
-> > 
-> > This wasn't an urgent request or a request to expedite.  Take your time.
-> 
-> Back to the never-ending-queue...
+Every corruption goes unnoticed before the series and is reported after
+it, e.g.
 
-Enjoy!
+  x86/sync_regs_test.c:128: left->cr4 == right->cr4
+  Register cr4 values did not match: 0x41221, 0x41220
+
+Unmodified, the test passes 20/20 consecutive runs with the series
+applied, each patch builds and passes on its own, and the remaining x86
+selftests are unchanged either way (61 passed, 24 skipped, with
+set_sregs_test failing identically before and after for unrelated
+reasons).
+
+Hemanth Selam (2):
+  KVM: selftests: Actually compare sregs and events in sync_regs_test
+  KVM: selftests: Verify the events half of the sync regs region
+
+ .../selftests/kvm/x86/sync_regs_test.c        | 100 +++++++++++++++++-
+ 1 file changed, 98 insertions(+), 2 deletions(-)
 
 -- 
-Lee Jones
+2.43.7
+
