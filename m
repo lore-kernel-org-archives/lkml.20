@@ -1,148 +1,133 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 107473290B0
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 04:42:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1748E13AF2
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 04:42:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788324132; cv=none; b=Ms2nDzeTEJ767nDneyZSVQw7LO6A9UYk/MQvX8SBaxSMWRllfL6nnqjOM0n/lqdj8eVyjMI5M+b8KM8YsB9d1ZLQLjYe9SXWYte1v/yaREzPutJ/wiaFCd1Mvik56dkraLD1C8EnYjymundb7AOSSKgJkqPZxSgjjRsBKg9r/70=
+	t=1788324159; cv=none; b=M4m5CQMt5f0+fn0x3geQeAoigXVIYiJGYbdZj5eQiPmg59dwjw6TCPffmjXvB6LqhIgvGzJxYJSIr1C0rrsK+bHaflrPPFTUFC7wycjvkPb//cbzRYzx69dQa5Ka5GGtrwSA2spWCJz58FwC6Dpbg/uihmR4L07dEftg1kQr5gs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788324132; c=relaxed/simple;
-	bh=LXFqGSPU6uxrVcsyBUi9g49Ou8b7JGqIdU5mSeZDps4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=X9GEp3wWZnw0/Y0kmMyzmtCjnKeWIwqtU5gF6cseObf+W+L1j2tTxnAmLmg6tLipOOzbjM93zNS67pqofyaRQlqujAV3u8hY4SA5pFkN7xAaqzS3olQ6m9UPYwchSKT+5LoN6EmAGN7T6QiRLV999MfmoZ5yzj5Yt5BWAItKx7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Azo8Y4Ov; arc=none smtp.client-ip=209.85.128.51
+	s=arc-20240116; t=1788324159; c=relaxed/simple;
+	bh=+sQjzs5GJoXwuRBHuC+lUm9JDrE1H7apLMAsW9pyFcE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YIrknbouhthyxnivezfWbP3n9iX22PtPzh9D3NbsSIxHpquZxSMcl2SYxeVtO9z8YR3kAMg5+iIVGX8hFf1VYAGFnft+G1p5V7vNUtoEmgypYaBKKe97i7Lxup++Snk1nZNP79SAn3tH7bYdlutW9/EVzos6rlVPoweZ3XiWCvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=METp9Wlt; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Azo8Y4Ov"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso7908255e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 21:42:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="METp9Wlt"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-495590dde14so5272435e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 21:42:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788324129; x=1788928929; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ai11qm4QGJgktgxHSdbSgMC+yqSgpeOZ79fxhBHEcOg=;
-        b=Azo8Y4OvukdbtyFWidxRB+MJxUIjfQmOTOuOLMspmQ2mm9IMoZa+jludRRzZDC+Jmw
-         V4kzA5jStt7FKxDusSU0bp9ZzXAY8PH+7uDAlM9FJRXfYWLfq1eQF9NBXekwmEYZv9L8
-         K60IW998iIKZXnd1ivPsKqEePbZnlf7M0uFo3dmxbZN7MVJ1uiOWnA797g6UmooZEPaC
-         bprbBattHBmXwzU0Xl3wCk0IwPgEm6Pj7jb7DhWY2UyHWhS2fUFWRDkKHHUWfrNXTzzU
-         4aRBvtWSfTbCThvIwyziq782VHxH45fqtCMdL7rBAGToiiIIFxk9ln2t6kv0SqtI0l4k
-         D0TA==
+        d=gmail.com; s=20251104; t=1788324156; x=1788928956; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JtWKIpNLXlriEGn93C9K9TziWn2g7UFHuiQX5OgZJiw=;
+        b=METp9WltQOP0TVQYiDvT0ZWooCcBS0gf0IVme7NqChEgjPA2sjMvpQU0A427ng8wED
+         Sm0pvgIrZap0lYTXLuhOMgbKNO+nel8ULQOtv7MYJb8IWaiWQc6Xr0MZJcdEp8i6imhD
+         K6/bhqtOY0UBNAcuywMs/5R7/Qj1eDjCoeqTRMGMjNZQu5OiE4fYxzRAZXjGi7upD+93
+         J3DM+iusIHPojUR8/SWY9fbEI8QSN3nyYQp1qHelVrFHmY5YLH5/TJepVjQ3LSjd1wWY
+         wi6837AavEsk3VDgbKi6bRgFByaxzJ/u7wuj67PHktmfju+Qx4USOQRYfUiU1/czsNer
+         zETg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788324129; x=1788928929;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ai11qm4QGJgktgxHSdbSgMC+yqSgpeOZ79fxhBHEcOg=;
-        b=ndiQYG2eNYf2642CohovUJTod5Owf13GL4wETJ5d8kQ9NbFfC6DrfDmdE6/NKG9NJ+
-         FlVZoxL4wNw4rh7QQeoksGGg3jqhIuRwxpYdKMX9omqgNZA8jmPq4UGgcTemLjHwnveJ
-         liT4wK4+90jA+wwMZUfVNFJkmvRb5nkJlQx+E+BxEiWfhcZ5C4405WX5bCIekWEMATt7
-         EQS8IpB09ZUXid1tdZ4SOEdJg5ueSYra0FLzyyqv2KYgq9Vk9b0fh1ywlNFG9wP34Lfs
-         rwdryPJcY3iM2VsHJVu398Eb/CAOQvVVUJqYxQe2BI/tNxo/rELiMKpvWEYWwvCmydaG
-         volA==
-X-Forwarded-Encrypted: i=1; AHgh+RpT3KyrYFoGGXdCNG/GkNAl2yD7gb32vpmlxwtoCi8dmthTFWRoeHliFmazRRDV0StVHLWYVOekntH5FWA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nd8qO1znQfM6OSWdWaLJ5b3x40zNXc56gRnuVmezG+85wdr1sy
-	4CKg4k29LWP5P7e6b4/TuL4i/8kmo7SVFJ7XjdgH238CEGMCq7mS0Cjl
-X-Gm-Gg: AR+sD10cEfIS/2bVLYAjUoLZmjbWODe/npsTdd5ZqvnoiIyitwIFSVl/BlLxkTwNpj7
-	rJ/pDPRYxEQ7uWrbMWCn3IMmm7QKHSft7Lz/2DKf+QkW3o1rAg2isL3VMRGslmitVq3uW5kF7mY
-	a3DutadC3IKIYPOULdQ5ArK9O8L7LICA8gOdbQAk67EqwEkGXa3NoyTRo4gL0q2somTxYcMTHLM
-	bKwWS6IxjQjLoUHxLpoBH/QWV2bUTH3B178GBvLZAmglT1V/94BAeX21WnZPwBj8LtiVy7qF9Hd
-	oDdAno5kG4dhpJhrgYtjRsG6hRVJ2q/8Xan6JYP3zmJIUTuSj+HRaYPJaRSDJutdD8VlgzQtVPD
-	TRRfvqbW505wIOEJtQiGJ2snLa++onCeg3fQjCnRXx2atAPGibv9w+hKKShxyLfKGdaJOtAoCOM
-	b+G1BaW87kITDxsB8e7cwF2NAspp9p2+mw+/q9zsFHARU8/9n3bJY7DVWz8/npGV/haZlfh7ZFp
-	c83Vg==
-X-Received: by 2002:a05:600c:1da1:b0:499:9eb8:a1d7 with SMTP id 5b1f17b1804b1-49ce5842935mr37954975e9.9.1788324129258;
-        Tue, 01 Sep 2026 21:42:09 -0700 (PDT)
-Received: from foxbook (bfk5.neoplus.adsl.tpnet.pl. [83.28.48.5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce171c3sm125809605e9.8.2026.09.01.21.42.07
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Tue, 01 Sep 2026 21:42:08 -0700 (PDT)
-Date: Wed, 2 Sep 2026 06:42:04 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Julian Oes <julian@oes.ch>
-Cc: oneukum@suse.com, gregkh@linuxfoundation.org, johan@kernel.org,
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
-Subject: Re: [PATCH v2] USB: serial: generic: recover from a stalled bulk-in
- endpoint
-Message-ID: <20260902064204.1a47cd73.michal.pecio@gmail.com>
-In-Reply-To: <20260901231355.114733-1-julian@oes.ch>
-References: <746c4df4-abd5-4e04-9edc-3ff8f17506bf@suse.com>
-	<20260901231355.114733-1-julian@oes.ch>
+        d=1e100.net; s=20251104; t=1788324156; x=1788928956;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JtWKIpNLXlriEGn93C9K9TziWn2g7UFHuiQX5OgZJiw=;
+        b=h04Wq4E7KC6Zkzqv2gJhVWDDuxjJqVcBr6FspHI91yfCHO5iiwfp6EoTNpwlTtOCW9
+         SwHqoqkd11Lr9GbHTnki+7aOAZZnGHclWKzfQfskVe58QmrpAZWZzdh1sy3LnEFtGTkl
+         XQFD+xG44BBtdaVC29/54AuaxIUTCPP0C1BDEdsmXKpS4F44sVADIy1B+rmC2AuXJC8h
+         GLKZSG5Cnp3+XKUqbdkUO/+kI3077W3Wf1Re7Lc++vMp36wmeSoVXe0uSe/jcSl+UUZX
+         x1XYMQvYRtoh06LhWm8NBFigbFvtbvczo2hkBQi8qBTR8KBBUbR08ebsOvhxVT6O2Psr
+         nrPg==
+X-Forwarded-Encrypted: i=1; AHgh+RpoAYU6hrSZbHoUa5FUablkWUxfIqt3XoyNOZJ9x/s09f58f7Or+7wQj2wj32lG3GyVubwgx9/O2ynwxPA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfkrZW0ZAzGy5um7f/LDzlL1beuzLzsECbS1DwYozyZjze7BmQ
+	gc3TdEEdBb1OSgroCUnFc3P/uR245mAfGT5hWfoGsWxftpmAzXWGYzGS
+X-Gm-Gg: AR+sD10Jb16sEE8VarLV+EHodKHQvGO/sLSWKB2x3RPndeXnmkztnNqxiHEinLt13Xq
+	fdoa7ebBfcm2/St7RW0gE/Vi9a6Hwl/EqPE6XXnIlexrWBqXcMbc952DnKpw5xk2MeTLVXwMEbp
+	6VkJWYh83n1B5eWsDIZYTHqziPB9MbsTTyC54JcjYSoZQABpfzMQMB+lnGHsW4gZX8vNtICRdtz
+	HaMmD+P+aRoDK9KlcLqXMZJ632Q9NcZ9SdK2hlbBaf+BMVn+NyeEafeAPXVi6RuMHp1UzdIydm+
+	ymNh+KdDdaejEpAk1chXm2S04Azh1kyyMkb89DZ6KozphyfI8lWlAqwevIhl8OA1j0E2F4J+/rq
+	7l2XL8mpgTmSeIejaW96tbDUftjNWK+10ucxxUcBq75B7xgP0hpXFsW4Nqvxjc2/CvFKBDG5O8x
+	VxlhBfPDSgVw//3R7MDk8JRReBN12ZzMIqR4FRtXOCQZgdtixmSeCWvA41z6UD/p8tDynP2uLcF
+	JFAT6zRSY8pBDMrj2xpo9JL0rpL6Cg=
+X-Received: by 2002:a05:600c:3b11:b0:49c:dca4:94c with SMTP id 5b1f17b1804b1-49ce5843baemr32203165e9.13.1788324156118;
+        Tue, 01 Sep 2026 21:42:36 -0700 (PDT)
+Received: from fedora-tap.advaoptical.com ([82.166.23.19])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce10153sm127274165e9.4.2026.09.01.21.42.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 21:42:35 -0700 (PDT)
+From: Sagi Maimon <maimon.sagi@gmail.com>
+To: netdev@vger.kernel.org
+Cc: vadim.fedorenko@linux.dev,
+	richardcochran@gmail.com,
+	kuba@kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	linux-kernel@vger.kernel.org,
+	Sagi Maimon <maimon.sagi@gmail.com>
+Subject: [PATCH net-next v12 0/2] ptp: ocp: add TAP CPLD support for ADVA TimeCard X1
+Date: Wed,  2 Sep 2026 07:42:30 +0300
+Message-ID: <20260902044232.21188-1-maimon.sagi@gmail.com>
+X-Mailer: git-send-email 2.47.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Wed,  2 Sep 2026 11:13:53 +1200, Julian Oes wrote:
-> On Tue, Sep 01, 2026 at 10:28:08AM +0200, Oliver Neukum wrote:
-> > But why do you get a port stalling?
-> > It seems your hardware is quite broken.  
-> 
-> Maybe, yes, but as I wrote to Greg, I believe I have seen this (or
-> similar stalls) over the years in the past with various hardware.
-> Maybe it's just me but if it is not, it would be nice to fix it for
-> others too.
+The ADVA TimeCard X1 (PCI device 0x0410) carries a Lattice MachXO3 CPLD
+on the TMC I2C bus.  This series adds access to it and an update path
+through the kernel firmware-upload subsystem.
 
-What you are probably seeing is USB 2.0 hub(s) returning STALL
-handshake when a transaction attempt with downstream low/full-speed
-device fails three times. See USB 2.0 section 11.17.1 page 364.
+The card has two I2C controllers.  Linux registers only the one at
+0x00150000, normally routed to the config EEPROMs; the one at 0x00120000
+belongs to the on-card MicroBlaze and is routed to the TMC or M.2 bus as
+its firmware selects.  A request/grant handshake re-routes the host
+controller onto the TMC bus, where the PCA9548 and the CPLD behind its
+channel 0 live.  Everything here is built on that handshake.
 
-If that's the case, the device endpoint isn't actually halted and you
-would see the traffic resume if you simply ignored the error and kept
-resubmitting until communication is restored.
+Patch 1 adds the arbitration and the read-only interfaces on top of it.
+Patch 2 adds the flashing.
 
-That being said, calling usb_clear_halt() is indeed the only recovery
-supported by USB specs, both for -EPIPE and -EPROTO or similar. Linux
-has traditionally ignored this and things are quite broken sometimes,
-particularly with xhci-hcd, even if you call usb_clear_halt().
+v11: https://lore.kernel.org/netdev/20260811135720.109580-1-maimon.sagi@gmail.com/T/#u
 
-I suppose you can try this and see how it works, and if you run into
-xhci-hcd bugs we could try to fix them too. The -EPIPE case is easier
-because drivers don't rely on out of spec behavior of the USB stack.
+Changes since v11 - all from Vadim's review of the ISC command path:
 
-Related discussion: (gonna need *a lot* of popcorn for that one)
-https://lore.kernel.org/linux-usb/261996a8-7ad4-4df2-a469-f6602da71255@suse.com/
+ - adva_x1_i2c_xfer() takes the opcode as its own argument and assembles
+   the message in a scratch buffer taken once per bus claim, so the
+   opcode and its arguments are copied exactly once and a firmware upload
+   costs one allocation instead of one per 16-byte page.  The bound check
+   lives here now, against the scratch size.  Patch 1.
+ - adva_x1_cpld_write() takes just the opcode; the per-command argument
+   bytes come from adva_x1_cpld_args(), a switch-case helper returning a
+   pointer to the static data.  This drops the seven per-caller argument
+   arrays, including the dis_args duplicated between prepare() and
+   cleanup().  Patch 2.
+ - Commands whose arguments are all zero (RESET_ADDR, SET_DONE, DIS_CFG,
+   REFRESH) pass NULL and the transfer sends zeros, so the zero3 arrays
+   are gone.
+ - Comment fix: the LCMXO3LF-2100 IDCODE is 0xe12bc043 (0x612bc043 is the
+   4300-LUT part).  Patch 1.
 
-Alan Stern tried to come up with some solution in USB core, but not sure
-how far that got.
+No functional change: the byte sequences on the wire are unchanged, and
+CPLD programming was verified on an ADVA TimeCard X1.
 
-It seems there is only one risk of usb_clear_halt() in such cases:
-- you send a packet to an OUT endpoint
-- and the device accepts it but you never receive the ACK
-- even after re-sending three times
-- you call usb_clear_halt() and queue the same packet again
-- the device may accept the packet twice
+Sagi Maimon (2):
+  ptp: ocp: add TAP CPLD access for ADVA TimeCard X1
+  ptp: ocp: add TAP CPLD firmware upload for ADVA TimeCard X1
 
-The recommended solution is to query the device by class-defined means
-to determine whether it has received the apparently lost packet or not,
-or to put it into some known and desired state. Common problem: nobody
-knows how to do that with given device.
+ Documentation/ABI/testing/sysfs-timecard |  24 +
+ drivers/ptp/Kconfig                      |   2 +
+ drivers/ptp/ptp_ocp.c                    | 693 ++++++++++++++++++++++-
+ 3 files changed, 715 insertions(+), 4 deletions(-)
 
-(And the same could happen in IN direction if you usb_clear_halt() after
-a successful transfer, but drivers are unlikely to do that).
 
-> > Your conceptual mistake is seeing the recovery from stall
-> > as an indivisible process. It is not, as it has two parts.
-> > Once your port is in a stall, you should send the feature
-> > request to unblock the halt. There is no reason to cancel the
-> > feature request if you close a port. You just need to refrain
-> > from resubmitting the read URB.  
-> 
-> That makes sense. I'll try to fix that for v3.
+base-commit: c29b37ed7a4d9856ed758a82282456d69cee2ed1
+-- 
+2.47.0
 
-Yes, if you are going there, just clear the halt and reset everything
-unconditionally. Then the pipe will be ready for new transfers.
-
-One note about rate limiting: it would perhaps make sense to perform
-the first attempt ASAP and only slow down for retries. But arguably
-anything at all is better than just giving up like now.
-
-Regards,
-Michal
