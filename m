@@ -1,139 +1,140 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D02EC35AC11;
-	Wed,  2 Sep 2026 17:52:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0756332628
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:52:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788371564; cv=none; b=j8FEb3cXkMXuJjz6xiwFScvJbvck/VrmYRYzhUchXal/c25VBTbH7B4bfeyrq2DfjR0PvfJcVhA/bMdIcAdVzwW97GpKcXOChC9TjbWHS3fgt3IRiE9qF4XH3hiUSkIMvZVDqD20fbPL/acNt2U7ciUCNnCs48r7glSvlzk0MM8=
+	t=1788371577; cv=none; b=r7kEnpxFC5Ptf+uwsl1n59o6f5AZEZ4WXJz+daIBp9Xvp2R4xVRIT+pFj4Hhp/oeKlCKcNq+U9HECp0/Xl3Dgj/EFpFxQhKmK6uV2gl90uA4FrNqArp+cqQBEcQChi1rR2hWLhQDyZ5CAKeZ7CdZ4lwURSULXd2F2fnuVeTgLsQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788371564; c=relaxed/simple;
-	bh=YVNtSg2MyyFvAtx+ywzZAiw3i0NgncKT5WbHKGDdgNo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ufkpnfzknmAo43f3obMiMwfewYh9CQryb1n7FbTjYnwd1LWy7Snnd4sgvqudf3EmuPkSQexbIbOdjCW9kdUaVD8fh5nDVWHp117pwpjHu5TvzMSimiGiP4DZnqCmGIvwViD/110C3XKIG+/F4V8y1LUgJK0yLWRQbmP7E4FOFr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
-Received: by linux.microsoft.com (Postfix, from userid 1202)
-	id B469A20B712B; Wed,  2 Sep 2026 10:52:05 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com B469A20B712B
-From: Long Li <longli@microsoft.com>
-To: Long Li <longli@microsoft.com>,
-	Konstantin Taranov <kotaranov@microsoft.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	"K . Y . Srinivasan" <kys@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	shradhagupta@linux.microsoft.com,
-	Simon Horman <horms@kernel.org>,
-	ernis@linux.microsoft.com,
-	stephen@networkplumber.org,
-	shirazsaleem@microsoft.com
-Cc: netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v3] net: mana: Clear RDMA teardown and suspend state in mana_rdma_probe()
-Date: Wed,  2 Sep 2026 10:51:53 -0700
-Message-ID: <20260902175153.3410560-1-longli@microsoft.com>
-X-Mailer: git-send-email 2.43.7
+	s=arc-20240116; t=1788371577; c=relaxed/simple;
+	bh=Op3pEBC74wC9sWP9+NxhIXNFQ44q9dB5/PdUhfkeL0M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UYqyqQkUvmSWfkXL5cuLdzHKgG41eLucNeA93XypUFjWZBtr06lXSPY36/i1tJucqIJxQdup1EGxgvEoRnRLdDaztawIdHFhflOrqau0Tl4aRyDwoU0lRQaR5XcGeLDpS7GuoSoskd8YXNJpGTe5h3OL9oBNf8YJip+0ulcINSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Lo2lBxwh; arc=none smtp.client-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Lo2lBxwh"
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c2531f453eeso194142666b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:52:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1788371574; x=1788976374; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dqcEgnSp496NGWBXKeWsq6JvKnN2nbWQ3UmoRMRb+5w=;
+        b=Lo2lBxwhPKjouN9heyah2Je19T+aaDpt0W5KXI7E0ZrdMVsqI5OMUpjTP2EcCmKnOP
+         DlfLhvVRqQ3mKUQrk+bPuQcb6u+CcBv40GS+bidBCRc4HP8CEXVaXV0Bzw2pGb+SuxTp
+         jaobuYvokdyx+VlRmD5MK46H3gAfJpiGcfg8c=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788371574; x=1788976374;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dqcEgnSp496NGWBXKeWsq6JvKnN2nbWQ3UmoRMRb+5w=;
+        b=SBazoLfNYyWEC79JH8qGSGhWDxKCuUHxFBSV8zWTQtMFN1nGNEyFfSaCyKKjsFnk3I
+         PPz+k0kxmSDAEzdax4XGWzXdKQcYzIql0htJ3EvY6O856NJXtkcqbqfnKIka1uJ8Q4uU
+         mehSss6hAwS0Pykj/QhStl+xkXfTHetPZALSVfvSZ4q+8hv2+d+SbK+69VvVB40BEuQ5
+         gxo1OJZmy1NTicxWMoha7IvvFBUj9V6fct1lfl3Pq4uY26fbyHcERlR6A8Sj7ZKrUUCB
+         Nn+6UeSVrFgqlKej0m2Q6suq4D/KmK/5hYXnlLGUgHNaOuA6MbRrsiK5m8gtMtZMEQdG
+         d0Yg==
+X-Forwarded-Encrypted: i=1; AKwUvBwkD3h4UiFavLyz/YLNklVF9yyn0dqyggOOvJdND0FiafJiydVKDcZBU6ifQMp+gAdl7cJtdyfVCROP+Dc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLy6iyGFQSqK2NUC+HC+WSt5aXieNZeRN3hgai2g5GZpszNgRD
+	2oXYZ8s/3psxt0AuPZjFMiFKT5P2qaJSqu6G0h5+zXmOn8wTUO6H+k8F+TO5a2wCsN/xIK1I/Fe
+	ilVDb6w==
+X-Gm-Gg: AYBFou2ruOnBH1tS5uYTUGtEZ6LM/vfHFuQD7lZXNdlp47XmOxOmMwBHN66S/RzKFK0
+	viNWgYaLLc+RnzXxQsRQe2LHf3GRa+bVGVlQwjqcPdJj7VnuFwc5S282d4Hp5sI05oyI1IMxVtm
+	gbTXYsC2QkqU9hQMFX2yn93p8e93jYfn9cNFs+zzdB9HGO1sBSfVKlkr9EwFiuL/f1gMgAe/+th
+	ST5No/DeoWucAKadoZBZorORjJEL8PTizedjy/OWFtiN70lI98jYvXFgVs2ANrwBsc/VSE77IJs
+	TOb78dVBkCJqx4D7Vv6MPApyUcg98U2S7QW6WTjDJ8whvAvxHXTbqKbo6ky6EURpIJ6oBaagNA9
+	c7zSxnefCD0JfeHmDXMMu6LI0rrKpspdZnhH/vnrqlc5QbzqUwoMC9btz8+l5GUvnGhqK3id8nn
+	TWMMG+gRAvCEFXFvcKl81By/Mhp8LdYpqLg5ub/BoycDm0kmfOJE5gxqBBjcbprqwej8vijxqc6
+	UJd8TOJhdD1mxNQSBPYOHqHoSU=
+X-Received: by 2002:a17:907:1c92:b0:c20:23f8:99a5 with SMTP id a640c23a62f3a-c25d54b7f64mr418667766b.15.1788371573576;
+        Wed, 02 Sep 2026 10:52:53 -0700 (PDT)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com. [209.85.128.41])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25d039c9fasm168355266b.31.2026.09.02.10.52.51
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 10:52:51 -0700 (PDT)
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49cdc81f40eso9826325e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:52:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwP2O+4QS/QYY7w2nFyietwNRTt6/9/j4A4sBrV7IBFs/RQo9QQCbbN2A/0usZfvrO1+pp8x/zy6AccEl4=@vger.kernel.org
+X-Received: by 2002:a05:600c:1987:b0:49b:4d64:bbc4 with SMTP id
+ 5b1f17b1804b1-49ce58211demr106617935e9.8.1788371569940; Wed, 02 Sep 2026
+ 10:52:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260901-edp-id-boe-v1-1-f5e2c44255f7@oss.qualcomm.com>
+In-Reply-To: <20260901-edp-id-boe-v1-1-f5e2c44255f7@oss.qualcomm.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 2 Sep 2026 10:52:38 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=UXC4VyCdohiRVj52bavaQtesW13uyyXj-Li-ij7vo4Vg@mail.gmail.com>
+X-Gm-Features: AcwNN1W_4cKZwuAryLEB2kcdCtNaHsnbG0L3B66rdonHzP6OA6JFUqslcE83jio
+Message-ID: <CAD=FV=UXC4VyCdohiRVj52bavaQtesW13uyyXj-Li-ij7vo4Vg@mail.gmail.com>
+Subject: Re: [PATCH] drm/panel-edp: Add support for BOE panel used in KD116N36-30NB-A001
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-mana_rdma_remove() sets gd->rdma_teardown to stop
-mana_rdma_service_handle() from acting on servicing events, but nothing
-ever clears it. A hardware service reset (GDMA_EQE_HWC_RESET_REQUEST)
-goes through mana_gd_suspend() -> mana_rdma_remove() and mana_gd_resume()
--> mana_rdma_probe(), so from the first reset onwards every
-GDMA_EQE_HWC_SOC_SERVICE event returns early and RDMA suspend/resume
-servicing is silently dropped for the life of the device.
+Hi,
 
-gd->is_suspended has the same problem: it is set when servicing removes
-the adev and is cleared only by a matching resume. A reset while RDMA is
-suspended re-adds the adev but leaves is_suspended set, so a later resume
-event calls add_adev() on top of a live gd->adev and leaks it. This is
-currently masked by the rdma_teardown bug.
+On Tue, Sep 1, 2026 at 2:14=E2=80=AFAM Yongxing Mou
+<yongxing.mou@oss.qualcomm.com> wrote:
+>
+> Add the BOE 0x0b21 panel entry used in the K&D Technology
+> KD116N36-30NB-A001 eDP LCM, place the EDID here for subsequent
+> reference. Timing values come from the KD116N36-30NB-A001 spec.
+>
+> 00 ff ff ff ff ff ff 00 09 e5 21 0b 00 00 00 00
+> 01 1e 01 04 a5 1a 0e 78 0a 24 10 97 59 54 8e 27
+> 1e 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+> 01 01 01 01 01 01 b2 39 80 d4 70 38 4b 40 30 20
+> 36 00 04 8c 10 00 00 1a 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 1a 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fe
+> 00 51 56 31 31 36 46 48 42 2d 4e 38 31 0a 00 b3
+>
+> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/panel/panel-edp.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/pa=
+nel-edp.c
+> index 2b455369ed70..591e0ed03612 100644
+> --- a/drivers/gpu/drm/panel/panel-edp.c
+> +++ b/drivers/gpu/drm/panel/panel-edp.c
+> @@ -2060,6 +2060,7 @@ static const struct edp_panel_entry edp_panels[] =
+=3D {
+>         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0af2, &delay_200_500_e50_p2e80, =
+"NE140QDM-NX2"),
+>         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b09, &delay_200_500_e50_po2e200=
+, "NV140FHM-NZ"),
+>         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b1e, &delay_200_500_e80, "NE140=
+QDM-N6A"),
+> +       EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b21, &delay_200_500_e80, "QV116=
+FHB-N81"),
+>         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b34, &delay_200_500_e80_d50, "N=
+V122WUM-N41"),
+>         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b43, &delay_200_500_e200, "NV14=
+0FHM-T09"),
+>         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b56, &delay_200_500_e80, "NT140=
+FHM-N47"),
 
-Clear both in mana_rdma_probe(). On the reset path mana_rdma_remove()
-has closed the gate and drained the service workqueue, so clear
-is_suspended first and re-open the gate with smp_store_release(), paired
-with smp_load_acquire() in the handler, so the handler cannot observe an
-open gate with a stale is_suspended. On the initial probe path the gate
-was never closed and both flags are already clear.
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
 
-This does not order gd->adev, which add_adev() publishes afterwards. A
-servicing event arriving in that window is still dropped, as it is in
-mainline today on the initial probe path; closing it needs probe and the
-handler to be serialized and is left to a separate change.
+Pushed to drm-misc-next:
 
-Fixes: 505cc26bcae0 ("net: mana: Add support for auxiliary device servicing events")
-Signed-off-by: Long Li <longli@microsoft.com>
----
-Changes in v3:
-- Reword the comment and commit message so they only claim what holds:
-  the "gate is still closed" justification applies to the reset path,
-  not to the initial probe path where gc is zeroed and the gate was
-  never closed. Note that the release/acquire pair orders is_suspended
-  but not gd->adev. Reported by the AI review of v2.
-- No functional change.
-
-Changes in v2:
-- Target the net tree explicitly in the subject prefix; v1 omitted it and
-  the netdev CI guessed net-next, where the Fixes: tag is not evaluated.
-- CC Shiraz Saleem, the author of the commit named in the Fixes: tag, as
-  reported by netdev/cc_maintainers.
-
-v2: https://lore.kernel.org/all/20260828001202.2110938-1-longli@microsoft.com/
-v1: https://lore.kernel.org/all/20260826235940.1869565-1-longli@microsoft.com/
----
- drivers/net/ethernet/microsoft/mana/mana_en.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-index 7a1ac853e3abcd28c4a1e5c6987ec631a18ad840..d8e847df7a44b2758b428d49b2b060bfd94b0e58 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-@@ -3983,7 +3983,8 @@ static void mana_rdma_service_handle(struct work_struct *work)
- 	struct device *dev = gd->gdma_context->dev;
- 	int ret;
- 
--	if (READ_ONCE(gd->rdma_teardown))
-+	/* Pairs with the smp_store_release() in mana_rdma_probe(). */
-+	if (smp_load_acquire(&gd->rdma_teardown))
- 		goto out;
- 
- 	switch (serv_work->event) {
-@@ -4279,6 +4280,21 @@ int mana_rdma_probe(struct gdma_dev *gd)
- 	if (err)
- 		return err;
- 
-+	/* Clear the state left by a previous mana_rdma_remove() so servicing
-+	 * events are handled again after a reset cycle.
-+	 */
-+	gd->is_suspended = false;
-+
-+	/* Publish is_suspended before re-opening the gate, so the handler
-+	 * cannot observe an open gate with a stale is_suspended.  Pairs
-+	 * with the smp_load_acquire() in mana_rdma_service_handle().  This
-+	 * matters on the reset path, where mana_rdma_remove() closed the
-+	 * gate and drained the workqueue; on the initial probe path the
-+	 * gate was never closed and both flags are already clear.  It does
-+	 * not order gd->adev, which add_adev() publishes below.
-+	 */
-+	smp_store_release(&gd->rdma_teardown, false);
-+
- 	err = add_adev(gd, "rdma");
- 	if (err)
- 		mana_gd_deregister_device(gd);
--- 
-2.43.0
-
+[1/1] drm/panel-edp: Add support for BOE panel used in KD116N36-30NB-A001
+      commit: e7dee5c0ff819034092befc1cdba2e008a5c5ee3
