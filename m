@@ -1,444 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6081416851;
-	Wed,  2 Sep 2026 10:18:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A2F39D6D6
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:19:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788344337; cv=none; b=mJ8oKss8VpRgT65e/1vKKnYWPBWvU9QW5N32f801wuXfPFvUnkAONyyaVwf+FuuJgmOJwVS6vGzYFhAVEkp6wpxxNEqbWPxJajUh1suA2WegBYn0EWFA1ah8Qb7p6jtPDpW9mg0ON4MGmvraCfLk2MqjsSYDcU9rIjb4TxABJbQ=
+	t=1788344345; cv=none; b=M3FvpPGe3FijPAjE3vB7QpsmmOy1GFXtHUWytwWwmdSLPk++fVvGvrIF3wAnzDKgzfMMpyRoBXjk2wK4W0of9wL7/3FJhVEGJ9lgIyuzE81TmOegSxruLJT6VdpuAaMc7uxE4AwBhTnSaujH1cFT608k43EtixIiyG2n/iaoNdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788344337; c=relaxed/simple;
-	bh=nxDtJ3voWfLVljumrp1EK5iG1Ymz6qvnCkXN1KBc6ME=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=aHJw1nmAkPyfOQV51v1MoHmQtH6ZoODsPini0oLBw/9Gc+Sk5+VBQwsOwGezfxnxAjbopI/bk+4rLSVidQGupkz8WQmYpENCOGPCnkEW2SA181jLemRCe977tl3EsAinYt8C19RHskRNkzI2bZePNQOa7JMyVGKRR/+9RyU1y7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eDQMXmRr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788344345; c=relaxed/simple;
+	bh=9vMnaYYXwgmlr6LeOgseKM/hj4llNkR4VX3Uph3TBcM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fkcr+VLqXDG5dGKDBe3WfP0jcOH46zQKlaxxGjkESYJzyHcD+gUZ2QKRdSit27pQQp8o/joZGtVMWySs+J8hdaTAOTNiOhvQ3ZMm0zMiG9xGLOzP8qG8x8MrAM3lKgqfBtsn35ooNjziAPVyZP8G7THzHYnzPOmh2BiS0zBJERc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AhIV1m1v; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RSv6qmPO; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eDQMXmRr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B9051F000E9;
-	Wed,  2 Sep 2026 10:18:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788344335;
-	bh=lluYSS7v2uXJQ8D2Kp1xFmd0Ggc+FK10HqR8kKP/x/Q=;
-	h=Date:From:To:Cc:Subject;
-	b=eDQMXmRr8FsWk66QqxFbPr1tbmiYvcFrVzcOE1chS/PO9D9Fr2YSKKD++ES/NNYVr
-	 I90p9jETLvloHeefu6lIWgdQqEbm0dVDbiOXH8t7xtMWFax9cmkxQgqf4K1GdlvEvP
-	 WtP67erw31GWZeKF4cjpOTY8xJTeXMQ8y5Jl+bbPDPz+XRQ0hCUgp9Ek0GQtcRrdmH
-	 KQv/tUQ/UOuWL0JsTTae3beKiI8fgw2loABzPpP4mB/4+9dlKY3nJVW/TXv/EX48ZD
-	 KNWYjiiOYApS0kNFxVM6KEh0TgnNSOyuQyKcDDe0ZzdajfGFBTY5Z/Ntk6EQF1oZ08
-	 p93v4aR2u0FLA==
-Date: Wed, 2 Sep 2026 11:18:52 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Eric Dumazet <edumazet@google.com>, Gregory Price <gourry@gourry.net>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the mm-nonmm-unstable tree with the mm
- tree
-Message-ID: <apf4DALeG-acsE8t@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AhIV1m1v";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RSv6qmPO"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6829NTHP464572
+	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 10:19:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	+gTiCzv3zvd/vBxiup9r8p45zBvqIEwioYb96j/Z4UM=; b=AhIV1m1vzEpXbxwg
+	JJvQLKVeiBVVvl1382fV6QDrX+c1qgIuvnO7HKrF6pdZ948I2tVR9dBc7BoHUllS
+	IYGnU1buZ1mW9e5Sbn0+rFdjWn+E7hiPDP4wUaH2ve93bWZnfPYngxHg2NtDDC0o
+	y1Lx70RGzHh79yX9jZSCxodQ2MjalaYly1LYazZVGU2+ikVl9BNHt/LzfTV5z0G2
+	cTZ7z7TARUcwHjkEPZJVH3XNMugf/tIs4k2iPyqtoyvk5dOZHK8JWWR+/WcRPTLp
+	ued/frzgTtWWZCg1ywfTQX97OnUtEnZVc4Q6mrsBUxMHCqxkIFjIYT9OANcu9rjs
+	VH0uSA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ge35k3dm8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:19:03 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9349ba88188so21216785a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 03:19:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788344342; x=1788949142; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+gTiCzv3zvd/vBxiup9r8p45zBvqIEwioYb96j/Z4UM=;
+        b=RSv6qmPO7Q5D2SLtjPu7rB7nbNRi4GwPnBA+Ytq9fJf+pbznlPvKRxOvhV1Fi8MAFM
+         4Q/G1WOLAMaSCJgffawCfIrGhtki/dYWJtjdkAw3QD7ZFwHhRyqqqpEHH+2rHV4BY1Wx
+         sB0udENdcwx0fWF08r8nFj/eMD8V8ZIuA2HBrzuuz+96eud321e4Ij0v8lPyKM81uDST
+         uXMhOkwDe8jXDQDJVyDqwBDZjWwIlJh1lFksvmnGPI9GhAf9wWYrA4dXMplZBMx8ot6J
+         /XzO9OwXoeETQKcGmXdF+Sb415e6HGRlxMNsNX+MD8dvU3QSF3KAkVhEd901vjmfJHAG
+         eqNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788344342; x=1788949142;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+gTiCzv3zvd/vBxiup9r8p45zBvqIEwioYb96j/Z4UM=;
+        b=g5QgM1hrdpCaFZY5UWUzhvi+NXHsLXxtUMA2nZfX/xR16L6oY7Q8qqhsLCJewhdgOD
+         NDtqhQMPLM86mo27NR0hpv1/tpL9cC7am/mV6D9Xz3FMPHTsqgDcip1vT9SU5FuAtLqY
+         jl1bUR2E8BJ1bZwXlD3nWPs58ZifKaaxYWgQxCVFOHgsr5POiBc/VSWKcraQow+ESHjb
+         YtZrUrdZIpG+0HYEN9YIx0a3D1661pj3y3uKaCY5rC4MjxeVsmSwThF/EcoHDPsMlOo2
+         ZTm84/WMXeL/CGQQ6XihCzPHw3WSsMyHjtHYrGwdJCX4sCbrGWuDPIhzXqMkoV9I2QIU
+         S3VA==
+X-Forwarded-Encrypted: i=1; AHgh+RpJee5eebmNfqTwW8q3OvQoUgXZcsKdmnHtcxOyr339BygS0yiXe7WIrLrMjB6QIUjkoMD3UN6+eRy+rno=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+JiXwwkfU42aCOwI6rlidpTHH1ZbBsjUbxoJF6hVKXNojK9At
+	KXbxWmfCshvrxMM9U+udNkE51vLW4tX2HjC3UVDN3VvD6BjLTSwoOf6hMNAxDCmtb73yoI8fT6B
+	6yQhcYSm9IQB2JjLKN+Cvzj0T4LEui5e9fzdl9sebaqyDeezVXVQplUemFHNY1iR5CdE=
+X-Gm-Gg: AR+sD12O+ZRttVLnShWV0K277cxh5sMVMB1crRYGWIF8fB0gCh9p8oiouJ92Wio3/Uu
+	EqVyIMt5t56SGDMaw6zP5coI3HhkY5z1WEhtUEyuXSyi6jZqPK+AGbrdEdGCgNZ5wjaBW+qHI/O
+	3C4b6OzkuyKKDHIQx1ksLKMibuoyg9GKW6MBfjVD9cuhp0b4HVXuqRxXykvpFtjsev8SJt6LVfK
+	ZcoTbcHknH4T2XleOrEgtK44+0kP2jwKavQ5WBg5weLDsr/ftcBtPnD7dqGRbdxnT4E/KNN/uRz
+	er/xs8I0roTFYVx0XMI83aiYOla3G/5THhChBADaU/7P/tt1o/cIYcwDlZ13rPwXp3SDKXYAAqn
+	OhB+4eAFWWVCZ/0UnqrFHjw==
+X-Received: by 2002:a05:620a:6501:b0:92e:6485:f640 with SMTP id af79cd13be357-9396101bfa1mr220042685a.4.1788344342529;
+        Wed, 02 Sep 2026 03:19:02 -0700 (PDT)
+X-Received: by 2002:a05:620a:6501:b0:92e:6485:f640 with SMTP id af79cd13be357-9396101bfa1mr220039385a.4.1788344342101;
+        Wed, 02 Sep 2026 03:19:02 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25d041d4a8sm107060266b.54.2026.09.02.03.19.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 03:19:01 -0700 (PDT)
+Message-ID: <a2775821-3f3f-4d78-a1f7-a27f4865df8c@oss.qualcomm.com>
+Date: Wed, 2 Sep 2026 12:18:59 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="i8Dr5CYepe3zQNsO"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: Add Talos Lyra EVK SoM platform
+To: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Monish Chunara <quic_mchunara@quicinc.com>,
+        Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
+        Sayali Lokhande <sayalil@qti.qualcomm.com>,
+        Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+References: <20260901-lyra_upstreaming-v1-0-e3a76dc9e21c@oss.qualcomm.com>
+ <20260901-lyra_upstreaming-v1-2-e3a76dc9e21c@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260901-lyra_upstreaming-v1-2-e3a76dc9e21c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA5MCBTYWx0ZWRfX1T+cUf9AOwfo
+ czb0qV+8OWeDW10fGoeVbhYp/ldDoVNywwCiZ67cTLpZRu+RhpVQ2kte3udqGCXN1wGWrL+TYVg
+ WwDA1HiQuq+0drD1dEI0wBu9LnHgcuGRUI17/8mSOYzCsD6CeXdYhBaMwZEhOSeImPW4FKCjWo2
+ uSBT5NrPKY53LLY0zioMT+tbqtKhc6krmeouiWcvyYsgYLi27TKVe8LrMpCSnArdRruZRPdBa9A
+ nC89+/aT03B9olUw5G17/HdD7b4rvemI/ez1+R8ahlZaLHUsGkuQyG8nfNgu4Fz2K6srg1Kc1oi
+ xKqNvkOn8OFDKtiA26wTI0hcr3Cjs0LYcbg9HjZ4iqBcPZ9bc7792xgDEwt433qp1QDFHrHhgSj
+ s1xo0G1DhddY4b37cvsggh3wfoa8CVGfrC3Jb7eHuAjsEHyVR/mQH35D6mxjPqTjhKtsXpV6hqo
+ o3EugVmnBpJYUR6/FHw==
+X-Proofpoint-GUID: mTapx5qE47w7kRQlJobcrXnsUtOdxtgW
+X-Proofpoint-ORIG-GUID: mTapx5qE47w7kRQlJobcrXnsUtOdxtgW
+X-Authority-Analysis: v=2.4 cv=VLrtWdPX c=1 sm=1 tr=0 ts=6a97f817 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=3T-LA-ZRmt1pDai6GWAA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA5MCBTYWx0ZWRfX34OKoxBlxZLt
+ 3vBUgZ5ohY6t7rGrWsiPXA+UHYzN+V9S0YGox4YvtH1sf3RgLeyh9qdXT2Irj5XIFSlGBJ0Je1m
+ KOYy5eBJBaGimwxX/MaygQYFM+feqlg=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_02,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0
+ malwarescore=0 adultscore=0 priorityscore=1501 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020090
 
+On 9/1/26 3:44 PM, Avaneesh Kumar Dwivedi wrote:
+> Introduce the device tree for the QCS615-based Talos Lyra EVK SoM.
+> Lyra EVK SoM a compact compute module integrating the QCS615 SoC,
+> PMIC, and essential connectivity, designed to mount on carrier boards.
 
---i8Dr5CYepe3zQNsO
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+[...]
 
-Hi all,
+> +&gcc {
+> +	clocks = <&rpmhcc RPMH_CXO_CLK>,
+> +		 <&rpmhcc RPMH_CXO_CLK_A>,
+> +		 <&sleep_clk>;
+> +};
 
-Today's linux-next merge of the mm-nonmm-unstable tree got a conflict in:
+This is a NOP override
 
-  mm/mempolicy.c
+[...]
 
-between commits:
+> +&rpmhcc {
+> +	clocks = <&xo_board_clk>;
+> +};
 
-  61f04edb01700 ("mm/mempolicy: fix sleeping allocation in alloc_pages_bulk=
-_weighted_interleave()")
-  5da38ed988084 ("mm/mempolicy: use SRCU for the weighted interleave state")
+Likewise
 
-=66rom the mm tree and commit:
-
-  540e583b66d64 ("mm/mempolicy: fix sleeping allocation in alloc_pages_bulk=
-_weighted_interleave()")
-
-=66rom the mm-nonmm-unstable tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --combined mm/mempolicy.c
-index 2ad0a5f18280a,79053ece02cd4..0000000000000
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@@ -112,7 -112,6 +112,7 @@@
-  #include <linux/printk.h>
-  #include <linux/leafops.h>
-  #include <linux/gcd.h>
- +#include <linux/srcu.h>
- =20
-  #include <asm/tlbflush.h>
-  #include <asm/tlb.h>
-@@@ -158,7 -157,6 +158,7 @@@ static const int weightiness =3D 32
-   */
-  struct weighted_interleave_state {
-  	bool mode_auto;
- +	struct rcu_head rcu;
-  	u8 iw_table[];
-  };
-  static struct weighted_interleave_state __rcu *wi_state;
-@@@ -170,24 -168,6 +170,24 @@@ static unsigned int *node_bw_table
-   */
-  static DEFINE_MUTEX(wi_state_lock);
- =20
- +/* Readers that sleep while walking iw_table hold this instead */
- +DEFINE_STATIC_SRCU_FAST(wi_srcu);
- +
- +static void wi_state_free_rcu(struct rcu_head *head)
- +{
- +	struct weighted_interleave_state *state =3D
- +		container_of(head, struct weighted_interleave_state, rcu);
- +
- +	kfree_rcu(state, rcu);
- +}
- +
- +/* Retire through both flavors: sleeping readers use SRCU, the rest RCU */
- +static void wi_state_retire(struct weighted_interleave_state *state)
- +{
- +	if (state)
- +		call_srcu(&wi_srcu, &state->rcu, wi_state_free_rcu);
- +}
- +
-  static u8 get_il_weight(int node)
-  {
-  	struct weighted_interleave_state *state;
-@@@ -286,7 -266,10 +286,7 @@@ int mempolicy_set_node_perf(unsigned in
-  	rcu_assign_pointer(wi_state, new_wi_state);
- =20
-  	mutex_unlock(&wi_state_lock);
- -	if (old_wi_state) {
- -		synchronize_rcu();
- -		kfree(old_wi_state);
- -	}
- +	wi_state_retire(old_wi_state);
-  out:
-  	kfree(old_bw);
-  	return 0;
-@@@ -679,8 -662,6 +679,8 @@@ static void queue_folios_pmd(pmd_t *pmd
-  		return;
-  	}
-  	folio =3D pmd_folio(pmdval);
- +	if (folio_is_zone_device(folio))
- +		return;
-  	if (is_huge_zero_folio(folio)) {
-  		walk->action =3D ACTION_CONTINUE;
-  		return;
-@@@ -2199,15 -2180,34 +2199,15 @@@ unsigned int mempolicy_slab_node(void
-  	}
-  }
- =20
- -static unsigned int read_once_policy_nodemask(struct mempolicy *pol,
- -					      nodemask_t *mask)
- -{
- -	/*
- -	 * barrier stabilizes the nodemask locally so that it can be iterated
- -	 * over safely without concern for changes. Allocators validate node
- -	 * selection does not violate mems_allowed, so this is safe.
- -	 */
- -	barrier();
- -	memcpy(mask, &pol->nodes, sizeof(nodemask_t));
- -	barrier();
- -	return nodes_weight(*mask);
- -}
- -
-  static unsigned int weighted_interleave_nid(struct mempolicy *pol, pgoff_=
-t ilx)
-  {
-  	struct weighted_interleave_state *state;
- -	nodemask_t nodemask;
- -	unsigned int target, nr_nodes;
- +	unsigned int target, nnodes =3D 0;
-  	u8 *table =3D NULL;
-  	unsigned int weight_total =3D 0;
-  	u8 weight;
-  	int nid =3D 0;
- =20
- -	nr_nodes =3D read_once_policy_nodemask(pol, &nodemask);
- -	if (!nr_nodes)
- -		return numa_node_id();
- -
-  	rcu_read_lock();
- =20
-  	state =3D rcu_dereference(wi_state);
-@@@ -2215,40 -2215,22 +2215,40 @@@
-  	if (state)
-  		table =3D state->iw_table;
- =20
- -	/* calculate the total weight */
- -	for_each_node_mask(nid, nodemask)
- +	/* calculate the total weight and the node count */
- +	for_each_node_mask(nid, pol->nodes) {
-  		weight_total +=3D table ? table[nid] : 1;
- +		nnodes++;
- +	}
- +
- +	/* the mask is empty */
- +	if (!weight_total) {
- +		rcu_read_unlock();
- +		return numa_node_id();
- +	}
- =20
-  	/* Calculate the node offset based on totals */
-  	target =3D ilx % weight_total;
- -	nid =3D first_node(nodemask);
- -	while (target) {
- +	nid =3D first_node(pol->nodes);
- +
- +	/*
- +	 * The target was calculated in a separate loop, and a concurrent
- +	 * rebind can change the total number of nodes.  Clamp this loop to
- +	 * a single pass (nnodes) to keep the walk bounded by node count.
- +	 */
- +	while (target && nnodes-- && nid < MAX_NUMNODES) {
-  		/* detect system default usage */
-  		weight =3D table ? table[nid] : 1;
-  		if (target < weight)
-  			break;
-  		target -=3D weight;
- -		nid =3D next_node_in(nid, nodemask);
- +		nid =3D next_node_in(nid, pol->nodes);
-  	}
-  	rcu_read_unlock();
- +
- +	/* the mask emptied under the walk */
- +	if (nid >=3D MAX_NUMNODES)
- +		return numa_node_id();
-  	return nid;
-  }
- =20
-@@@ -2259,21 -2241,18 +2259,21 @@@
-   */
-  static unsigned int interleave_nid(struct mempolicy *pol, pgoff_t ilx)
-  {
- -	nodemask_t nodemask;
-  	unsigned int target, nnodes;
-  	int i;
-  	int nid;
- =20
- -	nnodes =3D read_once_policy_nodemask(pol, &nodemask);
- +	nnodes =3D nodes_weight(pol->nodes);
-  	if (!nnodes)
-  		return numa_node_id();
-  	target =3D ilx % nnodes;
- -	nid =3D first_node(nodemask);
- -	for (i =3D 0; i < target; i++)
- -		nid =3D next_node(nid, nodemask);
- +	nid =3D first_node(pol->nodes);
- +	for (i =3D 0; i < target && nid < MAX_NUMNODES; i++)
- +		nid =3D next_node_in(nid, pol->nodes);
- +
- +	/* the mask emptied under the walk */
- +	if (nid >=3D MAX_NUMNODES)
- +		return numa_node_id();
-  	return nid;
-  }
- =20
-@@@ -2613,7 -2592,6 +2613,7 @@@ static unsigned long alloc_pages_bulk_i
-  		struct mempolicy *pol, unsigned long nr_pages,
-  		struct page **page_array)
-  {
- +	unsigned int cpuset_mems_cookie;
-  	int nodes;
-  	unsigned long nr_pages_per_node;
-  	int delta;
-@@@ -2621,16 -2599,7 +2621,16 @@@
-  	unsigned long nr_allocated;
-  	unsigned long total_allocated =3D 0;
- =20
- -	nodes =3D nodes_weight(pol->nodes);
- +	/* count the nodes, retry if a rebind happened during the read */
- +	do {
- +		cpuset_mems_cookie =3D read_mems_allowed_begin();
- +		nodes =3D nodes_weight(pol->nodes);
- +	} while (read_mems_allowed_retry(cpuset_mems_cookie));
- +
- +	/* if the nodemask has become invalid, we cannot do anything */
- +	if (!nodes)
- +		return 0;
- +
-  	nr_pages_per_node =3D nr_pages / nodes;
-  	delta =3D nr_pages - nodes * nr_pages_per_node;
- =20
-@@@ -2665,10 -2634,10 +2665,10 @@@ static unsigned long alloc_pages_bulk_w
-  	unsigned long nr_allocated =3D 0;
-  	unsigned long rounds;
-  	unsigned long node_pages, delta;
- -	u8 *weights, weight;
- +	struct srcu_ctr __percpu *scp;
- +	u8 *table, weight;
-  	unsigned int weight_total =3D 0;
-  	unsigned long rem_pages =3D nr_pages;
- -	nodemask_t nodes;
-  	int nnodes, node;
-  	int resume_node =3D MAX_NUMNODES - 1;
-  	u8 resume_weight =3D 0;
-@@@ -2678,10 -2647,10 +2678,10 @@@
-  	if (!nr_pages)
-  		return 0;
- =20
- -	/* read the nodes onto the stack, retry if done during rebind */
- +	/* count the nodes, retry if a rebind happened during the read */
-  	do {
-  		cpuset_mems_cookie =3D read_mems_allowed_begin();
- -		nnodes =3D read_once_policy_nodemask(pol, &nodes);
- +		nnodes =3D nodes_weight(pol->nodes);
-  	} while (read_mems_allowed_retry(cpuset_mems_cookie));
- =20
-  	/* if the nodemask has become invalid, we cannot do anything */
-@@@ -2691,7 -2660,7 +2691,7 @@@
-  	/* Continue allocating from most recent node and adjust the nr_pages */
-  	node =3D me->il_prev;
-  	weight =3D me->il_weight;
- -	if (weight && node_isset(node, nodes)) {
- +	if (weight && node_isset(node, pol->nodes)) {
-  		node_pages =3D min(rem_pages, weight);
-  		nr_allocated =3D __alloc_pages_bulk(gfp, node, NULL, node_pages,
-  						  page_array);
-@@@ -2709,18 -2678,25 +2709,18 @@@
-  	me->il_weight =3D 0;
-  	prev_node =3D node;
- =20
- -	/* create a local copy of node weights to operate on outside rcu */
- -	weights =3D kmalloc(nr_node_ids, gfp & GFP_RECLAIM_MASK);
- -	if (!weights)
- -		return total_allocated;
- -
- -	rcu_read_lock();
- -	state =3D rcu_dereference(wi_state);
- -	if (state) {
- -		memcpy(weights, state->iw_table, nr_node_ids * sizeof(u8));
- -		rcu_read_unlock();
- -	} else {
- -		rcu_read_unlock();
- -		for (i =3D 0; i < nr_node_ids; i++)
- -			weights[i] =3D 1;
- -	}
- +	/* The page allocator may sleep, pin the weight table with SRCU */
- +	scp =3D srcu_read_lock_fast(&wi_srcu);
- +	state =3D srcu_dereference(wi_state, &wi_srcu);
- +	table =3D state ? state->iw_table : NULL;
- =20
-  	/* calculate total, detect system default usage */
- -	for_each_node_mask(node, nodes)
- -		weight_total +=3D weights[node];
- +	for_each_node_mask(node, pol->nodes)
- +		weight_total +=3D table ? table[node] : 1;
- +
- +	/* the mask emptied since it was counted */
- +	if (!weight_total)
- +		goto out;
- =20
-  	/*
-  	 * Calculate rounds/partial rounds to minimize __alloc_pages_bulk calls.
-@@@ -2731,15 -2707,11 +2731,15 @@@
-  	 */
-  	rounds =3D rem_pages / weight_total;
-  	delta =3D rem_pages % weight_total;
- -	resume_node =3D next_node_in(prev_node, nodes);
- -	resume_weight =3D weights[resume_node];
- +	resume_node =3D next_node_in(prev_node, pol->nodes);
- +	if (resume_node >=3D MAX_NUMNODES)
- +		goto out;
- +	resume_weight =3D table ? table[resume_node] : 1;
-  	for (i =3D 0; i < nnodes; i++) {
- -		node =3D next_node_in(prev_node, nodes);
- -		weight =3D weights[node];
- +		node =3D next_node_in(prev_node, pol->nodes);
- +		if (node >=3D MAX_NUMNODES)
- +			break;
- +		weight =3D table ? table[node] : 1;
-  		node_pages =3D weight * rounds;
-  		/* If a delta exists, add this node's portion of the delta */
-  		if (delta > weight) {
-@@@ -2755,8 -2727,6 +2755,8 @@@
-  		/* node_pages can be 0 if an allocation fails and rounds =3D=3D 0 */
-  		if (!node_pages)
-  			break;
- +		/* a rebind can invalidate the counts: never overrun page_array */
- +		node_pages =3D min(node_pages, nr_pages - total_allocated);
-  		nr_allocated =3D __alloc_pages_bulk(gfp, node, NULL, node_pages,
-  						  page_array);
-  		page_array +=3D nr_allocated;
-@@@ -2767,8 -2737,7 +2767,8 @@@
-  	}
-  	me->il_prev =3D resume_node;
-  	me->il_weight =3D resume_weight;
- -	kfree(weights);
- +out:
- +	srcu_read_unlock_fast(&wi_srcu, scp);
-  	return total_allocated;
-  }
- =20
-@@@ -3694,7 -3663,10 +3694,7 @@@ static ssize_t node_store(struct kobjec
- =20
-  	rcu_assign_pointer(wi_state, new_wi_state);
-  	mutex_unlock(&wi_state_lock);
- -	if (old_wi_state) {
- -		synchronize_rcu();
- -		kfree(old_wi_state);
- -	}
- +	wi_state_retire(old_wi_state);
-  	return count;
-  }
- =20
-@@@ -3760,7 -3732,10 +3760,7 @@@ static ssize_t weighted_interleave_auto
-  update_wi_state:
-  	rcu_assign_pointer(wi_state, new_wi_state);
-  	mutex_unlock(&wi_state_lock);
- -	if (old_wi_state) {
- -		synchronize_rcu();
- -		kfree(old_wi_state);
- -	}
- +	wi_state_retire(old_wi_state);
-  	return count;
-  }
- =20
-@@@ -3804,7 -3779,10 +3804,7 @@@ static void wi_state_free(void
-  	rcu_assign_pointer(wi_state, NULL);
-  	mutex_unlock(&wi_state_lock);
- =20
- -	if (old_wi_state) {
- -		synchronize_rcu();
- -		kfree(old_wi_state);
- -	}
- +	wi_state_retire(old_wi_state);
-  }
- =20
-  static struct kobj_attribute wi_auto_attr =3D {
-
---i8Dr5CYepe3zQNsO
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqX+AsACgkQJNaLcl1U
-h9Dlpgf/fg0RGlOZGIvEtjTtjN00RY4qVMcqJqah0fIx0g05frSk30vtopF3czUY
-DrfVVU75A/dY+RD1Y2GKNYShVwz7ZGy3ujeJybR1gtF1zFxHSLypUE88RO+bg2Ne
-isBdgtrpIGqimLJmTPi1SyVit02St68jVOwx73l6cvylRzsztsLmSj//3IjMGh5P
-lAvj5QP6AI2P796kQ7hMgRPvUB6scNs522TFVgWCjTvtFLkIJ0mSf7yj7/mVILnm
-JBqd16rIv1rPGmYQ1yI0EnHTfwW9qi1gp5N3W+3YqIPZmSNESxYrCTIqQmHldy1I
-IiQ2YXhYWcuqkKRIszwMUvrhYCpS7Q==
-=/dK/
------END PGP SIGNATURE-----
-
---i8Dr5CYepe3zQNsO--
+Konrad
