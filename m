@@ -1,120 +1,129 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mta0.migadu.com (out-184.mta0.migadu.com [91.218.175.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80CCA4398FD
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:15:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB13A439916
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:15:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788344136; cv=none; b=iFuG5sZ0qx77QK2Qx3W8k9Jt4FWSLcHGXoJxy1WNrMn7Og7uvnh5MrSjBhlJaqNLClOKdCENcmNt2n0naQMJvGYlNeGhYEMKXnEGS1T3dVFrk5H1Dx2t84FKzp6or3BREP8o9RBzgLsXNB6/GRxZNOTj2rKQ3JF+1iyrVWHrl0I=
+	t=1788344138; cv=none; b=CyFUGkWHXXAe4AHq4Wl3m0/XbQLgoa7MQCWYkJGIw8kVWTa6GJFQJzp5G0oaDNcB5jd46cSZy/XWWUiO6rbFNR6QRo1blK0Z3hiV7mbyuk3Un+OKU7HCYEfQdMfAib8c+Z3XsaRXC2t/QFq3f0pTHLzPT1FT+nwD7+1gwosUjI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788344136; c=relaxed/simple;
-	bh=CQGqaHstw50mvsxoLWvDW59yPPK1sfLS3F7EUEGmbcE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aUd7Ip65AEQAJPxPSOu4UQdSkh7p5g7v/bQohPp7fXNBFopL5DBodVIvz7Cz6xSNraWod9WxCzcAt99qnP9N8SbYfT8P2RwBB+eELtMVz71pJpkcew912AJrY8Dye3xRxdNsKOxHmolVNU+yHWpx4v34pgmlmk59ESfUGBVj8x4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=YlAK+Kzh; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	s=arc-20240116; t=1788344138; c=relaxed/simple;
+	bh=04L/X7xS4hxtsBnAxJ/MGousDzROfCvyRKvzwSCrUzE=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=mhZQXqhruf5mrO20nbhQ/tTk3jOh5f4sM0zp8sHqn7nGTN+B9glPsNzGJQ8T4dxY1M+U/qnjX171QXKEUjqj6YqJqwNRqthUdQTmyyDKaF22bjldmxx0OhAstJ9PjFZ7W9fhaQB5cRB/G2567xe4flPasPp9zXb9m4wfaHjnIPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=axr7OYgo; arc=none smtp.client-ip=91.218.175.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="YlAK+Kzh"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49b8687630fso6545765e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 03:15:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1788344132; x=1788948932; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vA/vjABT1jnzam7kJz2zSU4WQLgLEnlH7iz/BFpMd5E=;
-        b=YlAK+Kzho1JrBx69SQlHxmCGwOZ1adz9pDR8f61580ZG4iJ5eyrXFmeL7BvIMC9mpj
-         68AIrVfacE1dSJU/DZ0jZ1L7Tpk15HcrG0yZ8N/sEPvVipTheM/w1q42HcAwa6k/j87q
-         2jSCNbPsgb+Ckr+zTFxSmAgIglTY+OP6msDuc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788344132; x=1788948932;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vA/vjABT1jnzam7kJz2zSU4WQLgLEnlH7iz/BFpMd5E=;
-        b=PTY5xoVNwpbQ6Yd2y1D/duClZLTbDXwNvVOf1zD1mwfor6LHEwp+ivzmh0LMSS8fQ/
-         ofZWPH95tgXXbsOVDoVEwf/eFTUJfh1MVZ+1600lEoIncK4DDLrvWqUy9muQJ4IbA+qJ
-         OanEXnxX+gsnuSwIop9lNNHZ1Lcyj+Ab9ZYYU98oTRMV7Nj6K/1sIB9sIYtSsg/+QSvs
-         VNXSVnVe8YuUbl9siFlXDcmjy+Z0PAsKxt5O73GqKf4EIgXuUHPPInjdq20iBRl7GjiK
-         l/u6B1/RPzJ/2BA4gNBPd5LwyqWbU9Dg3LHAeiRKU7w6PTcUSxr0hm1oyF58t9F/i2QU
-         R8Mg==
-X-Gm-Message-State: AFuF++kqbjTAgqXxpHIV35a+aBhSZDy6BXdbXESkwq4J7aI/TOUhmZSr
-	y0o5LARzv4VM8hQYjrECOaHk0q+VKbykf0OYlp6eQ4QnRKkjgNIYS22kHiL2wjKeaPR7yRuFGOT
-	dkgfsCxM=
-X-Gm-Gg: AR+sD101j9rSyzv8ER6Cq/VFy6j4njZNA8sIWFJ9wgYArs34E5bhvNtBXVF3lVei96E
-	IFIAVXqvoxsqUuHAtcO6oTaVotXre1vqOjX2Oik7UIMW6wQu1TODNZDrwCIJbCivczsHonnrdve
-	d2vUbFICDM2S0Cnuxtfbdy6vQ0y7LpztHq/1+W/YJs81faIhszqEPQFFAMQVw+IcqB0ZNlBYIie
-	W4Rqj+hGg5t9/CCFwEcM7uorUMj7fkNuyMJ00g8H9cyjdDJIB680MoAifzH8DLX3sLd9eRAEXWl
-	Mc6D0Yt2KU07lgOUrniBhWHAVviIi/vrv36EnTzu0xZSEyG8j/j/iZIbvKNV5v0tmsOLfn92chk
-	KC0LyZ8evrGYq2RnSSF/tqSoWVF+HC4nWZbWNBFPDVXCeSuv3h0zMcx3XKhyXRNW7fWUO6ydu+g
-	mImYRxNHtGceV/Q0d1e0ikz+6ZxLV1BfPmByk5oU+FoEbzPsC6s9x9GE58pLjBzcwgi5FuGqyjI
-	ybt0XHK2W+iVK+A+6SpTQth5TdkyY6VPAU2VCtmBzQC33MnFvAbGOWNFWZ/CZEuw+7/dn326wr2
-	8LaBW4omiejHHl3u7DtqeJvH8sBE++QjSYXNUboNraRLdkzIGxUBQwuJh79jVA==
-X-Received: by 2002:a05:600c:310e:b0:49c:e3ad:41d3 with SMTP id 5b1f17b1804b1-49ce55906cfmr48006695e9.0.1788344132449;
-        Wed, 02 Sep 2026 03:15:32 -0700 (PDT)
-Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it (host-87-9-102-148.retail.telecomitalia.it. [87.9.102.148])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdd73f7a4sm139618475e9.12.2026.09.02.03.15.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 03:15:30 -0700 (PDT)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Cc: linux-amarula@amarulasolutions.com,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Peng Fan <peng.fan@nxp.com>,
-	Sebin Francis <sebin.francis@ti.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	linux-clk@vger.kernel.org
-Subject: [PATCH v12 1/3] clk: scmi: fix SSC permyriad conversion
-Date: Wed,  2 Sep 2026 12:07:33 +0200
-Message-ID: <20260902101515.167819-2-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260902101515.167819-1-dario.binacchi@amarulasolutions.com>
-References: <20260902101515.167819-1-dario.binacchi@amarulasolutions.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="axr7OYgo"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=04L/X7xS4hxtsBnAxJ/MGousDzROfCvyRKvzwSCrUzE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788344133; v=1; x=1788948933;
+ b=axr7OYgoniGjTEMPhDsn5K2Cq4SJlEL4FxrOLHGv5gPzkoj9OxdbMCrzaqUBkqbRATQkPwFx
+ yKLKW5BZOJicBn7yVFKM3VIfUpG/2Jn7qx1tG+SQ804LX51qum9z1QjGZtJWIN+zfzNKwTb9V6m
+ ZtMHhT+jFY+6Vot7J+VBja6w=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id cec16e1254e83e61;
+	Wed, 02 Sep 2026 10:15:20 +0000
+X-Mizu-Trace-ID: cec16e1254e83e61
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 02 Sep 2026 10:15:19 +0000
+Message-Id: <DL4R2YXF9J8G.203VBANYFFSET@linux.dev>
+Cc: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "bpf"
+ <bpf@vger.kernel.org>, "Alexei Starovoitov" <ast@kernel.org>, "Daniel
+ Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>,
+ "Martin KaFai Lau" <martin.lau@linux.dev>, "Eduard Zingerman"
+ <eddyz87@gmail.com>, "Song Liu" <song@kernel.org>, "Yonghong Song"
+ <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "KP Singh"
+ <kpsingh@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>, "John
+ Fastabend" <john.fastabend@gmail.com>, "Paul E. McKenney"
+ <paulmck@kernel.org>, "Jose Fernandez" <jose.fernandez@linux.dev>, "LKML"
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH bpf] bpf: Keep progs alive until the trampoline image
+ calling them is freed
+From: "Florent Revest" <florent.revest@linux.dev>
+To: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+X-Mailer: aerc 0.17.0
+References: <20260819122252.1782790-1-florent.revest@linux.dev>
+ <DL27QZ6SEZKT.1CV2HAX4A3WI4@gmail.com>
+ <CAADnVQLxi-R1KDUXJJjpq69SpV8UcNJVqBi7uicO=V0WhAvyQA@mail.gmail.com>
+ <DL2S878KSOI5.1SZMLIAWMCNUJ@gmail.com>
+ <DL3FIBQNP6AU.1HO08FMI292UX@linux.dev>
+ <CAADnVQLMm43qJxuiHUuuh51wAL4kH0+fRoaM7YfbZEXT7LHn0A@mail.gmail.com>
+In-Reply-To: <CAADnVQLMm43qJxuiHUuuh51wAL4kH0+fRoaM7YfbZEXT7LHn0A@mail.gmail.com>
 
-The spread_bp field of struct clk_spread_spectrum holds the modulation
-depth in permyriad (1/100 of a percent), as documented in
-clk-provider.h and in the assigned-clock-sscs binding. The i.MX SCMI
-OEM extension expects an integer percentage in extConfigValue[7:0].
+On Wed Sep 2, 2026 at 5:57 AM UTC, Alexei Starovoitov wrote:
+> On Mon, Aug 31, 2026 at 1:58=E2=80=AFPM Florent Revest <florent.revest@li=
+nux.dev> wrote:
+> >
+> > On Mon Aug 31, 2026 at 2:43 AM UTC, Kumar Kartikeya Dwivedi wrote:
+> > > On Sun Aug 30, 2026 at 3:21 PM CEST, Alexei Starovoitov wrote:
+> > > > On Sun, Aug 30, 2026 at 3:41=E2=80=AFAM Kumar Kartikeya Dwivedi
+> > > > <memxor@gmail.com> wrote:
+> > > >>
+> > > >> Overall, looks good to me. Thanks for the fix!
+> > > >>
+> > > >> Acked-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+> > > >>
+> > > >> Note for whoever applies this: please add Reported-by: tag for Sec=
+hang as well.
+> > > >> Optionally, wordsmith the commit log with the suggestion above.
+> > > >
+> > > > Hold on. I don't think we can proceed with this fix.
+> > > > It defeats the point of fexit jmp patching and keeps progs
+> > > > pinned until a sleepable kernel function that were attached to
+> > > > will return. Which means that the tracing prog attached to "unlucky=
+" kernel
+> > > > function that sleeps for an hour will stay pinned for an hour.
+> > > > Let's think of a different way of fixing the race.
+> > >
+> > > I don't have background on the original commit being fixed, but is th=
+at really
+> > > realistic? Or worrisome even if it happens in practice, since worst c=
+ase the
+> > > program refcounts remains raised for that duration?
+> > >
+> > > We have similar worst case for programs too (e.g. using bpf_copy_from=
+_user on
+> > > user controlled buffer in, say, LSM progs). At least here we won't be=
+ extending
+> > > any RCU flavored GP.
+> > >
+> > > That said I will think about alternative fixes in the meantime, if we=
+ accept the
+> > > premise that we don't want to pin program references in the image and=
+ keep their
+> > > lifetimes decoupled.
+> >
+> > How about having old trampolines skip freed programs instead of keeping
+> > them alive ?
+>
+> Isn't it doing it now?
+> That was the whole point of patching nop to jmp in a trampoline.
 
-The conversion divides spread_bp by 10000 instead of 100, so any valid
-configuration is truncated to 0 (or to 1 for a 100% spread) and the
-hardware is silently programmed with no spread at all.
+Just to be sure we're talking about the same thing, you're referring to the
+"ip_after_call" patching done in bpf_tramp_image_put, right ?=20
 
-Divide by 100 to correctly convert permyriad to percent.
+My understanding is that this only helps in the case where a task is in the
+traced function while a prog is detached. It'd make it skip all fexit progs=
+.
 
-Fixes: 77369b1e6a37 ("clk: scmi: Add i.MX95 OEM extension support for SCMI clock driver")
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
----
+But if a task is sleeping in a fexit.s prog for example, it is already past
+ip_after_call, so this patching would not prevent it from calling a second,
+freed, fexit prog lined up after it in the trampoline, no ? The same situat=
+ion
+should happen with a sleeping fentry.s prog followed by a fentry prog.
 
-(no changes since v1)
-
- drivers/clk/clk-scmi-oem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/clk/clk-scmi-oem.c b/drivers/clk/clk-scmi-oem.c
-index be11d359b4ec..3e56e91ae68c 100644
---- a/drivers/clk/clk-scmi-oem.c
-+++ b/drivers/clk/clk-scmi-oem.c
-@@ -44,7 +44,7 @@ scmi_clk_imx_set_spread_spectrum(struct clk_hw *hw,
- 	 * extConfigValue[24]    - Enable/Disable
- 	 * extConfigValue[31:25] - Reserved
- 	 */
--	val = FIELD_PREP(SCMI_CLOCK_IMX_SS_PERCENTAGE_MASK, ss_conf->spread_bp / 10000);
-+	val = FIELD_PREP(SCMI_CLOCK_IMX_SS_PERCENTAGE_MASK, ss_conf->spread_bp / 100);
- 	val |= FIELD_PREP(SCMI_CLOCK_IMX_SS_MOD_FREQ_MASK, ss_conf->modfreq_hz);
- 	if (ss_conf->method != CLK_SPREAD_NO)
- 		val |= SCMI_CLOCK_IMX_SS_ENABLE_MASK;
--- 
-2.43.0
-
+I have a reproducer for those scenarios that crashes bpf-next. I will make =
+it a
+selftest in v2 like Jiri suggested.
