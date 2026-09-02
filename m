@@ -1,133 +1,199 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012007.outbound.protection.outlook.com [40.93.195.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A04C386567
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 05:21:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788326502; cv=none; b=aWP6Kjq/F34NgvlcbY4quMwpNQv0/RJ0nEx6d7K34Am9vf9eAtw9bmn3JEuhMJVwrCpYD2EIA69mWQYs+1XepdrRUDaCI9/FXmDNdS5Jz7+BG021ZKZmBbDU39DPEdDEbS0RFbE/BZjIakFHGI5lpaCMIiEE53bbRivRJr/t9as=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788326502; c=relaxed/simple;
-	bh=Rhc5FHXC9zWJK8LXgHnAbIqBwTamgzTfAaU6cucS/50=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kQ07Ff+yZzGNrgFcGgSzQuiMnXpE2esWE4G4dsjLdeNOmlEpm+MBxPj7Xw4mBAlW//F4mHK5Iqs2AqV/k4d2wX6IlcBTx5kIMt7MfkHU2EFhuqkSIkNA5BBfGKl5Pr0yxsrhz/jVjUu8il+fuab/UCNnj+PnqgYoGoXHZHiH+RA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EtxY6ZhP; arc=none smtp.client-ip=209.85.215.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C234838655D;
+	Wed,  2 Sep 2026 05:21:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788326508; cv=fail; b=Dy1VH1GzCvqCamF3sV4VSDp8OMWADiGSquF+9o0gcPLplMyZDQcrDhlAtRqYN1oh6EjggvruzUYqjuCMFAWOpY8p/jGKA12tRQVR/F4nHSXMF1PEXgqQQICSdJaR+Rjs5+8t/dpA0RY3jyIBflv9rvUiw3prs3GRviA8V5omjoY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788326508; c=relaxed/simple;
+	bh=GkgFGCK1Zu8MtmFsxYrRjOqRSF9HERX64nxJBTW30ME=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=KU1Yh89yHWT3f1YcU88v1hX0j6Pb6AL9d+2No9BVOJ7Qtd0oRZPy92D7nG/QTysmf3Z+VewelTTWFR3wyUo/FWQ1+u6Eh3jnPfrwF8/0J93um1glzVoTaLcwoIzhVRZBueC9uWuyB9pxlz4SqaU9ZqBRzrITtETKKd8Bk5/7Nbg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=LWwnADBB; arc=fail smtp.client-ip=40.93.195.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EtxY6ZhP"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-c96c92c0980so445092a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 22:21:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788326500; x=1788931300; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pRhdOtnB24Vt7kyfqTpsWsi9boNwnxaSeXytL8/XR20=;
-        b=EtxY6ZhPv3NwNLhqstfrrfvT0lYUa8/FRaurybaqvPCzSsOcZW5Hv71Ui2rBYUHcR0
-         4ldct3JSQNDHTO03yAOll6Vsm+slx+McUBMfU2mGzA19EBahE2JbLJqxeUx9vN+iVh2i
-         7jh4LQHpvkczvXAQ1nlxr0NQyluszGtkhEFH9wdaP86bVZyOZYWo09yzyImyslhoC2DV
-         kn7Suu7wkfJgPM6Eqd7cMNKB4u+Z2LtVpBrmmH97s/zzSU4dztEeLA6lC01jQ/YjsaJ8
-         ci5VhpVrJmCLY2hOtJu35lu8xs9iZ4bPc4YkQf6x/1xCgD3ak/QcOUm1QnwfwET2hVmt
-         cyfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788326500; x=1788931300;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pRhdOtnB24Vt7kyfqTpsWsi9boNwnxaSeXytL8/XR20=;
-        b=Gnbp9c2utDxoQvEAyIF5ojt7QCxcgH+yS1anTUfN/bkHt7QfnTIOUsVmSv1tDCQWSD
-         OsDw7aurGZfo9SZ2sJ8WaTM2KCkMKfsVu8nplneYqFbjyP5Gkd4lOD0uT5o+9iBGaec5
-         dgwrc12pb61BGaEO1ozZAMta4AmQ+23WQ2cJARBPKa0etzN9lSJ+k0OZCIDZuegp/sGe
-         2enF8iNikehVenpjr4W013powehhAFAoRvb3JtZtMfR2p5k6r3D1x3tdJZ76xljKhikI
-         +KME7fr2Xb+ad367qpeu+5uWJYiLdfE7heNTgl9b71s1s9V2P4XDzQJnU5g37p6z9HRZ
-         dlnw==
-X-Forwarded-Encrypted: i=1; AKwUvBwjx19uuPFyX6Ak7Oz9udIdmOQnsx/6Hx3JyJdrx4fWFGsv7giSqzYzJCLTk2h/vMmU9k41u0QltLV+6xA=@vger.kernel.org
-X-Gm-Message-State: AFuF++msUlfQg7C7JcVtm42KU1/GGPiDZ5YY3F0dDRhrjQaRu4L1BXR1
-	BUPKgO8nhryNsbPEeIh72wXyUbs59x0x6aYPdtwUglB/4E0Ypuii1pdU
-X-Gm-Gg: AYBFou1j3i3SXbO8JU8JlRZ3gjmnljJRSFfGNkcq9kbBfv9JWhaHo+OUwxzEhlM8RGB
-	TFVRysUaS3vQ16qEZuwR5x18lV80vOklmKl7cgyYF1kpY+nI3NBCvHQ/bwbJ6Do0dwlcIhC8LBH
-	k5muq1x2lN7yojpNliJOPwM2tjj6jkoFLuCgEhU2Oye460BPc7emU0mqLnKn7DYz5m/vTjiw/9h
-	zJ85kZZb0MWbMSauT1/BOpcMP9hdH9NUwY8850A42ryB9pS2N99ubylwDY7tfUMuZbpxpVB5G74
-	vTS95IEzoTgYxG78+RRIz69bLIFCswkeopPNb+3uVHhE2RcyBUo/XEx7UL7tvLRsEHHtokc210K
-	AIro0bySoEA1lQoYp1cEJVjmvZOSFuvtjeld/IX3r1MMw9DRZYQDtSmEs6TjjLnCAL6vyf7tyoN
-	N7iHiuBmTgm7KfKc+2FbWENdw2ZBZMN6SDnw7BYzNQQYRalBnPsF7hRAgMMTk8
-X-Received: by 2002:a17:90b:3c04:b0:398:d6e8:f84e with SMTP id 98e67ed59e1d1-39aedf5571fmr3835629a91.9.1788326500382;
-        Tue, 01 Sep 2026 22:21:40 -0700 (PDT)
-Received: from tradnomic.. ([2601:646:8300:7570:1bf0:3629:a2e2:397f])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae3c1d85bsm3478024a91.13.2026.09.01.22.21.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 22:21:39 -0700 (PDT)
-From: Rafael Alejandro Diaz Cruz <rafad900@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rafael Alejandro Diaz Cruz <rafad900@gmail.com>,
-	syzbot+4a5c87a01894ca37f25c@syzkaller.appspotmail.com
-Subject: [PATCH usb-next v1] USB: gadget: Fix UAF on refcount inside gadgetfs_bind()
-Date: Tue,  1 Sep 2026 22:21:37 -0700
-Message-ID: <20260902052137.3824591-1-rafad900@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="LWwnADBB"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=o7xTKR+o2mQrqnlcDz+bCv7ZX8f7DYWfD0s4XDNObcvIielWKGpVPHsSYVMjapb0ga3tKREghJVCQJ9Bv017uSg0hrxMv00ibwygahA/FPqc0atktbkXyWumeAAj6yTlyPElu2stUXWGqHq2Ofgc7Us4gUjJg+I7ZUGFPccB7zal7Gz+BTNiUkX1FEYZnLjO9987Q14qBktjz9opGM60DtsOAsDqTeFEF7/fLnpPpjVsZkd/N+6PKPI+qHFpF2QxaVmfsm/HxGqbfikWfoz8i2aA2kn3osAUig7m0bYucy91CTRqXs8bThrzfQBDvkLaT6WXDlmIS6v/NwtBYPRCoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zdej3ABdWvxQ0OxpaVkq6VKM/3tYDRi5CwZ88LOWXNE=;
+ b=rpkenbD64nL/0D6Er9J8bg1Tx6RHHx9GZOnyR13wEpf+pmtHOEP+ovMfFVC1j91Oh6SkRsdcd0OOCMPhb8iNemn7ClREpFI71m2ZDgKV8kJhQxdfqn4ihJzKX4p/XFkpNnob2fHlJxuA7K13Lkyk4YHOw7C/jI1xJ2M/Tciw4iqbsi0MCa0fNgYm7b0xpGgvwB1DyU/Y0tB+8swM6nwEuv2JPWTob/gOKV97stZHYbA3lQ2CjB0xODSI2y6xcoX+MH5xBS5YgUVOOgHo3g35zrKIPffK9pgQ/7N+lumoheMDCktumAc8rAebO/ACgTOmt6occq9050poF86mMCiqzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zdej3ABdWvxQ0OxpaVkq6VKM/3tYDRi5CwZ88LOWXNE=;
+ b=LWwnADBBuoeBQ7TfNDi1wNRcYQsdT5CVk/72x6EnnpGDb62tHxRkrw/EP7DvJZAHQaUVfemHVO6V9CvR7V5CtO+vYgLDRQ2fFtNOo92jYqAfqOcT+eVJi2I7DNA1ieeWor6KgwJByKkGMhBscGkWFKdr6zLN9gRfVVTnT4dvOUKA8hJ5pBO0AagQ7ci473FpAqSOgrgZgliT8YdR8z4yMOTfCt9XKIbXbzmKBRfefWxIIwVASLYeH7qzoLXqnyR9G916X0miuZ5kuVL1JynleRdsvZJgfrCmmLf48qmG58zLITQnvpmXja5EpApKu4tcUebflW5+rQKIojy4d9NMeQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com (2603:10b6:208:37c::22)
+ by MW3PR12MB4345.namprd12.prod.outlook.com (2603:10b6:303:59::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 05:21:42 +0000
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28]) by MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28%4]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 05:21:40 +0000
+Date: Wed, 2 Sep 2026 15:21:34 +1000
+From: Alistair Popple <apopple@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Dave Airlie <airlied@gmail.com>, nova-gpu <nova-gpu@lists.linux.dev>, 
+	M Henning <mhenning@darkrefraction.com>, Alice Ryhl <aliceryhl@google.com>, 
+	Alexandre Courbot <acourbot@nvidia.com>, Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	Eliot Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v5 05/11] drm: nova: Add an info ioctl
+Message-ID: <apetgjQ9zWpJATj3@nvdebian.thelocal>
+References: <20260828033531.1117754-1-apopple@nvidia.com>
+ <20260828033531.1117754-6-apopple@nvidia.com>
+ <DL373JA1ZANX.21L51RTEUQ2UG@kernel.org>
+ <apZCTUYiN5FHCkCm@nvdebian.thelocal>
+ <CAPM=9twQxnx5DDkjwXWi-vXM4kqUQQdPaL+=1ASS0tpf2GmnYw@mail.gmail.com>
+ <apZbKc5xMQ1yTBTu@nvdebian.thelocal>
+ <DL3SXIIA4FID.2V3K5YC91RM3V@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DL3SXIIA4FID.2V3K5YC91RM3V@kernel.org>
+X-ClientProxiedBy: SY5P282CA0011.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:208::20) To MN0PR12MB5977.namprd12.prod.outlook.com
+ (2603:10b6:208:37c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB5977:EE_|MW3PR12MB4345:EE_
+X-MS-Office365-Filtering-Correlation-Id: be380f47-7f43-4328-1ff4-08df08b2118f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|23010399003|6133799003|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	bn2es/ZJnkZscYWlnOD3rVGI/PyqirgE7FidTNMz64dsGc1ZrCwEBSbD4jT4nLa0IJbOLztsOG5jOa3rSjsyKMVA3IaCgJp3OEnOPYXAtMg2z7IqmHeYu52YRWZdq+Hdtn3n3ZOIuJh0qjBcgNFJbEcBn+SaKg7F9MdbpaBdxCch4s/QFl3WYSBK/tcPRJaEJGn1OVgtCTNvrUztyRRoDIkDCljEUqgXy4K9/J2ISizNJSRFH4h3IhoviPoQq2P8/RNpgmTgjee5b6tZtSi/hGUFKugSKCpfDQuKjZjik4grozrHIyIENKFkFDzhqigKOwNQH55hnUSOGfm4IdT356LHdBZiseuMPrRHQjnu/lZylbaQkh3xq0yD5lvU3SlRwp/241ouJ+eOEmaTEl+sZhze3nVLSmTgjL65nnn9PKClzEctu5R4bhRyDcL7EFtIjM9FHp4PjVQME12q6/WjgVHECKXzv6sqsYSQxn4qQBz6wF9B8W0WbvwTryqtcBZScV8AZdS9Y48THcvsOzXCXkpNXD4Q53Ee2b+Pxl82sXg3Dv8k+5s42KHxcFlRSTyok0WAA/UcFF1SgJo9vVRb279LLfjVvDHM+5fKboJMRCQSSHCP6RbS6W0/cz/9vFU+um7yD770lIk1oewtOGzQgyDUoA1WRkxjmeSxECHdoY8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5977.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(6133799003)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?O0Ol37qRtdTa+9SFKp0pAdZ2YwgWuXWbdazzhYccasjylKHd/TJxpU4HwCdt?=
+ =?us-ascii?Q?HKJHDbOFVsw87LXdSuZ18yR07g7Umf+mIj++JK6aLhSD1zXmNfqg71aGJYIK?=
+ =?us-ascii?Q?iGXep6xylA4zO9SCVBHXYkv6SR5XaDw1gS1wsc+jDY+Dk/+FrJ7hBd9i0hck?=
+ =?us-ascii?Q?I7/MFsUwOlbPemA/aw0tpuHyb0tZeX7tAc7pWC36IIJF13QDqVHWGRwiDGQJ?=
+ =?us-ascii?Q?acSbhmULEF1YLZakGcCwJZiXmQ5JeXUGG/t1/pq7/bp2tTVu76GvdpnLhQNu?=
+ =?us-ascii?Q?b53xx5l8aO2KARKmZbn97ZphhE7d2UgWz5kxhH8j7vFjIIZo4YyXu+WKTzok?=
+ =?us-ascii?Q?aiEZxVg0BVPdd/2ZtTWBKS+MWE0w28vkKWIAecE24oH4GRkq932VY0JxNJkJ?=
+ =?us-ascii?Q?Z6BpyK4WE4IjLzeN8MuZVkDr1GIrTpRwOqRRLE6Z/93GhKYPfs3XLC7GE98S?=
+ =?us-ascii?Q?pOxFxz/SZ1RItRWtN612aHJCsi+2U/9I3ocIHstlcvAW0CJffMTYcpiecVJb?=
+ =?us-ascii?Q?ISHvIfcN3j30WRZIP5M21CFXIG7D5/ueo1e3Ulj50wUbA1iI7oRYP0uTgLRx?=
+ =?us-ascii?Q?+dw472x7NZYKk+eTNRI+fcfJR+YHGgeYEXtip8F+uoSx5shKEZ7u+pnOVyFk?=
+ =?us-ascii?Q?7U3CGmZuellnkYBFpO9IaMEBjfZHlm0+L4n7iuKJiep61WbiIvaVhD0ZS3za?=
+ =?us-ascii?Q?RyJ1H4jUhQINfTr3beJZGyBa8sDL5iyDzLtf12qsOaPuJWrLosywu8p+ocnB?=
+ =?us-ascii?Q?RFd2AHvE0+v+J44T9LHl/TvnX7CwlTKBA5tEppd0o8ZLsGTfqi4MGOdwUEqy?=
+ =?us-ascii?Q?jNU3X0aL6/biEVchoFzDFegROnz92uHby8m8KZFb/eBAWvi/o9UK4SKWIG+z?=
+ =?us-ascii?Q?ntpRnBLyyyNDJfKjrtPK2VfI0q091syZZjBY1fi2v7mNrlsPUm6FitFbGBSQ?=
+ =?us-ascii?Q?wfnk6/t8tgLkG328szW77o328l4Hv77TAz0veplAtBqrieFVN+Rd5x98cGAF?=
+ =?us-ascii?Q?6kHFaOtdAdodIGTthgm5xHXf2flhur/5SKSura8mZZXFl0cJVHKqw6QyVviU?=
+ =?us-ascii?Q?YTXb55QpCfNaSnd3DlLaHmvoKIFTXbUXYM6snypfb6Iy891OTYql0gKNLY7P?=
+ =?us-ascii?Q?esnzyEQcg7H9+QefqRiUORKD1g+7ucGPzpNBVtUcWltq/29ir5kemecB1iGz?=
+ =?us-ascii?Q?rssBJOzrFUTNDq/0Rou+v6qxMiI5KqPVpsOPcZlLvdgIetLwWPbLsVuPQkgU?=
+ =?us-ascii?Q?5zeECS1DXBfVqXovBzluY2yiWni2ajdC/Jw+i01ljZMNKNQ+XQIt+rx74i7Q?=
+ =?us-ascii?Q?ccxgYpu8bfOsG87VXqHvoeUKdk8lu8/H8VsG3w/5IihI9UwkGUjEwRn14wtq?=
+ =?us-ascii?Q?2Dm249uusBv7ox9mX/p8nnHRuwiWm8pK0g8e/090NC6Uyb3fgsnBNLGroGoN?=
+ =?us-ascii?Q?U00+6y7TydcVwnXauK+ksZO7mdExxegOSLE913BRihBBtTcMBHALQz+57i1d?=
+ =?us-ascii?Q?rc0VcxgiMhhDUEiwUMEp/EzPjlTbq4PV5vbgwsTRhC6e/lk4QyMrKMSi3ys/?=
+ =?us-ascii?Q?FmmzP9ntfVg2v1id/vxWEkGPOSqlilb4OLoMi/owPeO3zljtexiah1PFkQ8E?=
+ =?us-ascii?Q?YF/zb3Rj0NfRCSlCPCjzHZPsI0v4LrFGHj4N7MrrlBDO5GVZ5B5R2yxxujs9?=
+ =?us-ascii?Q?fBnPXc4TSOcrE9rHTa4N+j/FViIpzA1U9yRRfychQ+6NqlKxZH2VkvqTOLQT?=
+ =?us-ascii?Q?vVu6zkuSsw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: be380f47-7f43-4328-1ff4-08df08b2118f
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5977.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 05:21:40.3093
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WuF0i6OaQgdg5P0rT4X/RSLaHyd2QBDT0WYF+yvCxMgOQchfUKDpgx1UAR0iTfMiNqLlrMObeEpvw8GV3sbwYA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4345
 
-The UAF is triggered by the syzkaller reproducer which
-forces kmalloc failure inside of usb_ep_alloc_request().
+On 2026-09-01 at 17:29 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
+> On Tue Sep 1, 2026 at 7:09 AM CEST, Alistair Popple wrote:
+> > On 2026-09-01 at 14:50 +1000, Dave Airlie <airlied@gmail.com> wrote...
+> >> > >
+> >> > > We should make the NovaCoreApi just provide an accessor for &Spec and make every
+> >> > > subsequent method we need public. Otherwise we end up with endless forwarding
+> >> > > methods. We can also add as_raw() methods to the specific types as needed.
+> >> >
+> >> > Ok. This is where I don't have a good instinct for what we think should be an
+> >> > accessor/forwarding method vs. where we should just expose the underlying data
+> >> > structure and required methods to API users.
+> >> >
+> >> > In the past it seems there's been some resistance to exposing nova-core or gsp
+> >> > data structures like this which is why I added the forwarding methods. In future
+> >> > we're going to have other data-structures that NovaCoreApi will need to access
+> >> > so it would be good to understand what we should do here so we can keep things
+> >> > somewhat consistent.
+> >> 
+> >> We can expose structure defined in nova-core, we cannot expose
+> >> structures defined in gsp bindings or firmware.
+> 
+> Yes, those structures are not even exposed to the nova-core layers we are
+> dealing with here.
+> 
+> There are the structures abstracting firmware interfaces, but despite exposing
+> trivial cached values, they should not exposed to nova-drm either.
+> 
+> Instead nova-drm should call into nova-core and ask it to do things on its
+> behalf.
+> 
+> More in general, the same is true for any other device resources. For instance,
+> we also should not expose the pci::Device or the pci::Bar to nova-drm, but again
+> provide a higher level API.
+> 
+> > All the fields of self.gpu are structures defined as rust native structures in
+> > nova-core. Their values may be decoded or derived from GSP responses, but by
+> > design none of the raw structures from gsp bindings live in self.gpu AFAIK.
+> 
+> We could indeed expose all values from struct Gpu directly and control
+> everything through visibility, but ...
+> 
+> >> In theory we can internally between core/drm but I'd really really
+> >> like to keep that boundary as the limits of GSP for auditability
+> >> purposes.
+> 
+> ... exposing struct Gpu and controlling everything through visibility still
+> means that we could easily miss some device resource being exposed directly to
+> nova-drm, which also includes GSP abstractions.
 
-This will cause the following error path to execute:
+The individual fields would still need to be explicitly marked as `pub`, so it's
+not like just exposing the top-level data structure suddenly exposes all these
+device resources without them being explicitly marked as accessible.
 
-if (!dev->req)
-        goto enomem;
-// ...
+> So, I think we should provide accessors for the major structures that we
+> intentionally want to expose (so we have an obvious boundary), but not for every
+> single fields inside them.
 
-enomem:
-	gadgetfs_unbind (gadget);
-	return -ENOMEM;
-
-In normal case, get_dev() will be called to increment
-refcounter from gadget->dev->count but in error case,
-this increment is skipped and gadgetfs_unbind() will
-decrement it via put_dev().
-
-Going down the error path leads to a refcount imbalance
-which will cause UAF in close()/umount() operations
-due to refcount dropping below 0.
-
-Fix this by moving get_dev() above the error paths so
-that refcounter is incremented before the put_dev()
-call.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: syzbot+4a5c87a01894ca37f25c@syzkaller.appspotmail.com
-Link: https://syzkaller.appspot.com/bug?extid=4a5c87a01894ca37f25c
-Signed-off-by: Rafael Alejandro Diaz Cruz <rafad900@gmail.com>
----
- drivers/usb/gadget/legacy/inode.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
-index 3e2bce7543d4..181b19e7fc2f 100644
---- a/drivers/usb/gadget/legacy/inode.c
-+++ b/drivers/usb/gadget/legacy/inode.c
-@@ -1679,6 +1679,7 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
- 	}
+Sure, I don't really mind either way. I just figured that's what the point
+of Rust visibiity was, to provide a simple boiler-plate free way of saying a
+type/method/field was used externally. But will switch this to using accessors
+for major data structures instead given that seems preferred.
  
- 	set_gadget_data (gadget, dev);
-+	get_dev(dev);
- 	dev->gadget = gadget;
- 	gadget->ep0->driver_data = dev;
- 
-@@ -1696,7 +1697,6 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
- 	spin_lock_irq(&dev->lock);
- 	dev->state = STATE_DEV_UNCONNECTED;
- 	spin_unlock_irq(&dev->lock);
--	get_dev (dev);
- 	return 0;
- 
- enomem:
--- 
-2.43.0
+> This is also why I said that we can expose an accessor for struct Spec, which I
+> think serves as a good example.
 
+Ok, so just to double check are you happy with an accessor to return
+gsp_static_info as well?
+
+Thanks.
+
+ - Alistair
