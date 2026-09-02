@@ -1,63 +1,65 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F275F4A8FFC
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:53:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A259C4A92E2
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:53:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788364385; cv=none; b=sgFUt9IsqesIkd5piRnY6UdwigqQEjLqP0kBE2jvuUAM4EEj3Ee/x1XHEvxCv8GsXu6dSOvqFNN4d2HVlE67jMWNfIsR0dWhFOkwsI4rAtRttKw8FgNpHs6yFcDPYE7Wrbu2EHAE7BfHW9MZ6XoryfDzd8BSzBuu4d8Yvirn+ug=
+	t=1788364391; cv=none; b=WR7mGesCO8sPR+lzXRX6B51Kc75oXmqNbrv9wJ9C/6sOssRZBi+drZZKYpxdL1nnz52CynGEqvG5htrB0puO+ttvVihwJS6Q/l2WBipbHyC3wzcW1fTA/CXZrq0aSytoNyqVjyj8lplGN1PG46kvX86DIPeKiDwHA03ahdXBfEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788364385; c=relaxed/simple;
-	bh=6MAfs2y3VwcdK/z+jm64GnqxD/YmkCOafRbcTEg6efA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VsiOiG4dvolyMsE3CusBUXJL/Bd20Sxr91r4AkrTiRd4bvxGN4yI98+jJ+xi8SJjl3ALpovXyM42xsQDJuGZGrQfat/0rK3q4iGU8z+ulMu82VK568lmMFCr9f0Nn6mGBjHG3apTHv+sEkVcyk9l8oAWFVEelK+sfIPK9KfBEc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QXdUqObA; arc=none smtp.client-ip=209.85.216.47
+	s=arc-20240116; t=1788364391; c=relaxed/simple;
+	bh=niWMNYAoSSIPRDvcwTx/WASXtbc4shJCv6p3XnfHClk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ez+M6pQk8tsdxGVzA1fJ5mI0GInRlbWKcoSS4jSkE5kLjFjxjh5dBDtXxJD9nc5vekoqk09DOHYfuzGfoHw66D27vrsOCS7c6SXcgJ9jA2ojebCnQVcFybtU+3TYRg7Z6cQ4PcqKfuR4vKC1cxIOXc32ABLXWu62g16CZepsBDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AB+4avu3; arc=none smtp.client-ip=209.85.216.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QXdUqObA"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-38e58034d05so1066801a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 08:53:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AB+4avu3"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38e041ea211so1211530a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 08:53:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788364383; x=1788969183; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JJjiilOnreU5ZYIm7PKJOLTqjb9QBJthxd9KEc/39Ok=;
-        b=QXdUqObAQnbwD82KnPUo4idzS0caVDHlIgTB84x9LSrlVr+R1vLtf0PC82WsSjdh13
-         RPRefYMQcbSU2p6Lk4S1uka9yx3xYncZrrl7fEc8XpoXgG95b79bWPXVqTumPv3a4agy
-         wQynb25MroQs0KTXGndcwJdjOdD2SQIfaoUuUzA3OyahKKlGTIEfYv6wlb9uevh3fXRG
-         MlqIFofZhgCXM5W/A8PUjfwGN9VcLnbATFGnqEXZvYRwoF4eEmKIQ2vETswvraAs2IF+
-         OQgRpuPVEiARWHk1gkxG63U1NHRQkD945PzbCrlozTmgG++IT/xalqhY0iWPUkgeghyQ
-         05Tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788364383; x=1788969183;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788364388; x=1788969188; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JJjiilOnreU5ZYIm7PKJOLTqjb9QBJthxd9KEc/39Ok=;
-        b=gU6zYhZCNx7vknjCvixm9tUvu7WGw4oCxFyX9IuqCCvUqbhkvNXCXTDdg/yQtkoHC/
-         MUqAUaYQs7/hoVbxTtGU1rwAj632xRZAdk9veTDaTYtWe8np0Xm3witbI1N5W3VEamvj
-         Bw9fhEzFdtuAynitnMmHhHsLGUkyGew0AJn0GZaMDS4eFs64NGMuNrx4a/MbO458Xegv
-         s42fy6iIhGKNjhsWJSTQApOw/W61tuEoQpgB1dVcdDAhRz3KbO6XINtTzE6F7aH3UR1w
-         gfPtpo7QhAMOpezNToubz+9G1SwNc0t+kin8u3A8X3ogtDW/zCiQiHuMBXZfV0P3BPKm
-         9MuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzcul13tbG0YAPwcA9W1MEOvopXorDFqwGQrHBA4CEtn+d7m5+VrN5SUuOWM7rx3235rhIVgRIXP3qAfxs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nvho5DqwXyFbWJ7BznRZVpNUNTaA13L+ROFeyfrs5VZ60UH4nU
-	xdBew5FM+gK4y94xiW6nbsveQI10cXaBZ5MiUtbfJ39b5bLs/FNhX+I6
-X-Gm-Gg: AYBFou0WAeyLqCdw1mxd1tmWpkE+eFlkAFD77T9uL0NGdlFeWAAfLyN0KOGC5ctymeM
-	/HQTU83xCAiMsI9ZZ2Cqymfi7MQpFvzxC/MUznTgYFVmmhLQwYM6YTFzRTBHa6H/JieZS6P1hD5
-	IYq1WTkF3nwJWJMcHXU01BYaqH3CLmNBhfq06NTagHuVwKzFTr3ZwXNzv7zX1XcNXWAAPgY0f/X
-	fybVLO/VcM/+vaabt/E0IdaJgRbK1N8n0Z9H0ZBUmeCyOel7Xn4fIYLI0x7se/UTf77ZsRbF+mj
-	v9pqGz8e6WocZrXXA43GMlqd9mJtbq4tvRemCUxuGZxOKW3vmBTv7BtmIPPcQthUvhFBgZx84Q/
-	DWQ0umOUq3kzpBeq4lkU3qG4nn5F/QVHBBT69yMz3SkJCFCLx5pz5oDwYpbPrPMkmFUunjFdeM7
-	m5SRGnJczs+DE1XeZWLNNC4vRPG/Ux4SllAI8JCLzXHowvcEZinzmpTeGjZzVP/m57Spc+R8QH0
-	GWAl5tk5XP4fh36lANL
-X-Received: by 2002:a17:90b:164d:b0:398:c16e:69d3 with SMTP id 98e67ed59e1d1-39aedeb9aecmr8965073a91.1.1788364382919;
-        Wed, 02 Sep 2026 08:53:02 -0700 (PDT)
+        bh=W2B03qGyBn5GerSLqkqb+n8I5hTh+M7uQWiMJp/J/sk=;
+        b=AB+4avu3ojciQkGP1jm4IPbiF7u7thpWV0iQT/io8WfIjmunrgMiusMMIvF4XPjQwt
+         AeqTRG7W+FGAl5r+MQrV5T+VszN1u3/nn5B+PVQcVDgrJ0cPzDbXpZWIwqLCj0o6CV4t
+         LJuZ6DS4OJhNveKYQv2Pzf2jQsqpnRS/yjJJHXPsKuO1XSYWat2z+ipK1lfXIFRB6eE3
+         WM7FvxuLp5iIW4HcD5StErdYMA6ZRZfrdxgFamgi7613oP4e5YlXZht1OwQHKNS3vozr
+         Jfwtc1Skeq4FXhXyuMs/7d2FFkZKOfV8PKpXNVZAjTMAhsFkIuz/CQt/k6wJcH48iH6o
+         FdXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788364388; x=1788969188;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=W2B03qGyBn5GerSLqkqb+n8I5hTh+M7uQWiMJp/J/sk=;
+        b=SuDx3xnY45ishxdQPAEkztH1klxwJ7mVAZjelr/+mHAok6RAsF4YjkgRm8rwGmjsoN
+         pZ+B52K6RGzKBR7k1VYU1fdn9JtAk24Om37AXiNgutlShr8QinopNRwgBqIe08/XlU/q
+         NM4ScEp35Ho/fARAHmJKP6bQg+Dro8GrkSHhGR/RCui75CYMr+5svY2rgjCskfc7efYx
+         xtsf1b52RCp8OkIHL7kwrjtj2f3epsmGdhcw0ocMqppOc5/JzQmeD1wyvqm8tUhHPlXs
+         64o9hduHOYAEgW1MhOFzyWIn7VaRCPNwH7V2tDhUOlt36jHSIRQZL7Tkpl4zqW9CRrW5
+         +CYA==
+X-Forwarded-Encrypted: i=1; AKwUvBwr6rRzXNwsGp11tnYMaK35EAR+cDOql+71sPrZiksvtETqgQ+/DGXhI3ZEw/H4f+scMF6eFS1YB7rL0a4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kzoA55L0hPO7FNmY+j37g57QiFLQuFj+3wxqM9WniNwJ5G2s6b
+	E5N3V1Uz0CbddxhHVropztxoE8ikd8b2oWf2c7eS9Tv2rXD9Ms4GMskG
+X-Gm-Gg: AYBFou2pTy+Kn6ERFX1vXxyEClfyz8Y2CeaTuy+BRv8KUq5iHOJP9o0L+xfj3rMO8vC
+	WEsuiAjsKsFy/z5rOKl5gxs3bk/XTh+MFOT8pV7bUKmDZi9xPRHJTeZj/iGVZEQrJ8QeWTrI4sW
+	GdBw+59lHUbFNc7wl0zbx3sKZbcxAtrgkwfRXaJacndG+PQAQtdArfh0rF0PX5m62NVUStMItXX
+	1bZPQXDQomr+6GcAS9/qD21vwU5NE8RsMoUHo/j9JcTzgK2Jrii9Cak73MWavftfDh12NkjJgua
+	k5i1Q1udA+nnsM3o46EjlDmHLjjIhP+2ToDYO2+8wgTzIGQnsQ06K/GbENEuhzTJc/rQFair7Ap
+	viuW5jQiFZF8qzvC+cgV9AWXOKKImUME4yCSPHMtAm6l/lpH79A+YIqF473CdYUN0f/lU11NWMd
+	crdJpdXRtpKx/rTAXkVoj7U8kT0jYNhwil0SH+BzhEg1ZfutRLyIbZj2ukea6N1m523Ig/3fOcY
+	awnZHwAVXL8e6I+lJX2
+X-Received: by 2002:a17:90b:35c8:b0:393:194d:5366 with SMTP id 98e67ed59e1d1-39aedf43130mr8854636a91.10.1788364387970;
+        Wed, 02 Sep 2026 08:53:07 -0700 (PDT)
 Received: from 192.168.50.3 ([183.193.115.0])
-        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-39ae8f1448esm1683187a91.4.2026.09.02.08.52.58
+        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-39ae8f1448esm1683187a91.4.2026.09.02.08.53.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 08:53:02 -0700 (PDT)
+        Wed, 02 Sep 2026 08:53:07 -0700 (PDT)
 Sender: Weiming Shi <thebestswings@gmail.com>
 From: Weiming Shi <bestswngs@gmail.com>
 To: "David S. Miller" <davem@davemloft.net>,
@@ -71,10 +73,12 @@ Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	David Ahern <dsahern@gmail.com>,
 	Xiang Mei <xmei5@asu.edu>
-Subject: [PATCH net v2 0/1] net/sched: defer qdisc freeing after failed creation
-Date: Wed,  2 Sep 2026 23:52:30 +0800
-Message-ID: <20260902155231.2149915-1-bestswngs@gmail.com>
+Subject: [PATCH net v2 1/1] net/sched: defer qdisc freeing after failed creation
+Date: Wed,  2 Sep 2026 23:52:31 +0800
+Message-ID: <20260902155231.2149915-2-bestswngs@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260902155231.2149915-1-bestswngs@gmail.com>
+References: <20260902155231.2149915-1-bestswngs@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,35 +87,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is v2 of the qdisc failed-creation lifetime fix posted by Kyle Zeng
-and David Lee [1].  The public reproducer is available in a follow-up
-message [2].
+An RTM_NEWQDISC request can make clsact bind a populated shared ingress
+block during ->init(), publishing an embedded mini_Qdisc to lockless
+readers.  If the same request has an invalid TCA_RATE, estimator setup
+fails after ->init(); the unwind removes the pointer but synchronously
+frees its containing qdisc while tc_run() may still hold it.
 
-When clsact binds a populated shared ingress block, ->init() can publish
-an embedded mini_Qdisc before qdisc_create() completes.  A later invalid
-TCA_RATE makes estimator setup fail.  The unwind removes the published
-pointer but frees the containing qdisc synchronously while tc_run() can
-still hold it.
+Retire failed qdiscs through the same RCU helper as normal destruction.
+Inline the synchronous free into the callback now that no direct callers
+remain.
 
-The fix itself is unchanged: failed qdiscs are retired through RCU.
-
-With the public reproducer from [2], the vulnerable kernel reports a
-KASAN UAF in tc_run(), with the free in qdisc_create().  The same test
-completes without a KASAN report on v2.
-
+Fixes: 51ab2994c387 ("net: sched: allow ingress and clsact qdiscs to share filter blocks")
+Reported-by: Xiang Mei <xmei5@asu.edu>
+Link: https://lore.kernel.org/netdev/20260805102505.740806-1-david.lee@trailofbits.com/
+Assisted-by: OpenAI-Codex:gpt-5.6
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+---
 Changes in v2:
 - inline qdisc_free() into qdisc_free_cb()
 - use qdisc_free_rcu() for normal and failed-construction teardown
-- retain Fixes: 51ab2994c387 as requested
-- credit the earlier security-list reporter
-
-[1] https://lore.kernel.org/netdev/20260805102505.740806-1-david.lee@trailofbits.com/
-[2] https://lore.kernel.org/netdev/CAC_etQFk%3DtGLvbHPmQwOyrYWgRtDru3dSw4T7sZ-9hvVMy_J-g@mail.gmail.com/
-
-Weiming Shi (1):
-  net/sched: defer qdisc freeing after failed creation
+- use the precise 51ab2994c387 Fixes tag requested on the v1 thread
+- credit the earlier security-list reporter and link the public v1
 
  include/net/sch_generic.h |  2 +-
  net/sched/sch_api.c       |  2 +-
  net/sched/sch_generic.c   | 20 ++++++++++----------
  3 files changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/include/net/sch_generic.h b/include/net/sch_generic.h
+index cbc248776511..f35bd06a6bad 100644
+--- a/include/net/sch_generic.h
++++ b/include/net/sch_generic.h
+@@ -793,7 +793,7 @@ void qdisc_offload_query_caps(struct net_device *dev,
+ struct Qdisc *qdisc_alloc(struct netdev_queue *dev_queue,
+ 			  const struct Qdisc_ops *ops,
+ 			  struct netlink_ext_ack *extack);
+-void qdisc_free(struct Qdisc *qdisc);
++void qdisc_free_rcu(struct Qdisc *qdisc);
+ struct Qdisc *qdisc_create_dflt(struct netdev_queue *dev_queue,
+ 				const struct Qdisc_ops *ops, u32 parentid,
+ 				struct netlink_ext_ack *extack);
+diff --git a/net/sched/sch_api.c b/net/sched/sch_api.c
+index 65b35528d125..795accd1bb33 100644
+--- a/net/sched/sch_api.c
++++ b/net/sched/sch_api.c
+@@ -1382,7 +1382,7 @@ static struct Qdisc *qdisc_create(struct net_device *dev,
+ err_out3:
+ 	qdisc_lock_uninit(sch, ops);
+ 	netdev_put(dev, &sch->dev_tracker);
+-	qdisc_free(sch);
++	qdisc_free_rcu(sch);
+ err_out2:
+ 	bpf_module_put(ops, ops->owner);
+ err_out:
+diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
+index ef2b4bf51564..71630b795f9d 100644
+--- a/net/sched/sch_generic.c
++++ b/net/sched/sch_generic.c
+@@ -1086,21 +1086,21 @@ void qdisc_reset(struct Qdisc *qdisc)
+ }
+ EXPORT_SYMBOL(qdisc_reset);
+ 
+-void qdisc_free(struct Qdisc *qdisc)
++static void qdisc_free_cb(struct rcu_head *head)
+ {
+-	if (qdisc_is_percpu_stats(qdisc)) {
+-		free_percpu(qdisc->cpu_bstats);
+-		free_percpu(qdisc->cpu_qstats);
++	struct Qdisc *q = container_of(head, struct Qdisc, rcu);
++
++	if (qdisc_is_percpu_stats(q)) {
++		free_percpu(q->cpu_bstats);
++		free_percpu(q->cpu_qstats);
+ 	}
+ 
+-	kfree(qdisc);
++	kfree(q);
+ }
+ 
+-static void qdisc_free_cb(struct rcu_head *head)
++void qdisc_free_rcu(struct Qdisc *qdisc)
+ {
+-	struct Qdisc *q = container_of(head, struct Qdisc, rcu);
+-
+-	qdisc_free(q);
++	call_rcu(&qdisc->rcu, qdisc_free_cb);
+ }
+ 
+ static void __qdisc_destroy(struct Qdisc *qdisc)
+@@ -1127,7 +1127,7 @@ static void __qdisc_destroy(struct Qdisc *qdisc)
+ 
+ 	trace_qdisc_destroy(qdisc);
+ 
+-	call_rcu(&qdisc->rcu, qdisc_free_cb);
++	qdisc_free_rcu(qdisc);
+ }
+ 
+ void qdisc_destroy(struct Qdisc *qdisc)
+-- 
+2.55.0
+
