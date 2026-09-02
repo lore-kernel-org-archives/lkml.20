@@ -1,47 +1,47 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3030837883C
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:09:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B044AD7C5
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:09:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788368945; cv=none; b=p+FlmteF/+PEy4+16hMmd5NC+0QexN2PpmZoj0SZmvW1hQlgXQHOXGHRmEu5K2XrOgcP/WzcU+bT3Dq5jU9i+vNCb5P7DZnXCtNAhV1bpEzEy5v0md5t+LKunxCRBAiEcWwp+/JEY7kxMSBgVdf5Yv6S1JhCu+Hurisvfb3Oz2s=
+	t=1788368949; cv=none; b=eGrwkvnj4CcXj+VgbN3IhJPhS/tR+bt9C1BULJB7sHeBpg7AYcVTl+i7e/89MiMO6Jg4hPH+6vGIyzTztBr/sudSC1cx4H6oPvIWWOoeb8NID20bxfOWDwYQaMibODwrrDMDsJTf7weCGZ3ana8NVogf52lwKTWUkZc/5k7bbgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788368945; c=relaxed/simple;
-	bh=IWHexqUg6916nspV1VRDVgr5pFAZ+u0l6fG7BM3sYa0=;
+	s=arc-20240116; t=1788368949; c=relaxed/simple;
+	bh=JNrK/0ub6m0FDk0x2dT/rnm7U5smWJV1A0KGzkCWXGk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r2Hj25/ELcsE/SuLKP7nPUHv3FTdf0F8P3N96MU/eOvAs3vwYjM5fjDDbvlfgUM0OBVyrxtF3xsk085Hjo+B9KQMvl2LCVhu6IDDOhZ1Unpyd2+z4kyrAprcIenFip6RxfL9hNFt3L20eQMENrJIOPR+DyEY6Ka5UWAaM5JVMDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XBacqY77; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version; b=uyyJm5ggchN39vSRzjmOCF5jeU8T6LGLrFX6MX/gOg6h7S5Ua8LKbuIKYwbEYKPzxoWuqsvF//shlnuJpTCSQwDk11sn2iGZJXnDOYvM1cGwdJofMt13RYFBPEZU5i2chMPdpvPwmm/3DjHjpvUG1FR6JbUCSomPgcDJZ8sTvSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=I4dJTas9; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XBacqY77"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="I4dJTas9"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788368942;
+	s=mimecast20190719; t=1788368946;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=FxOEy23CdjWO+tWUfg0nkvoqJt9R/kFtS/CvH38ECoU=;
-	b=XBacqY77se7lcLapxnvPc6BnJn3r66s9qPqv3gyUsfMxMWK+Akr09GQmy6VhRIJnxA3gd/
-	JRNluBOKts7urWBd4l49CIc2fBRAk9KQlnmVDcHzYOJ8qeQfYXdeDghSWeTPJHu4qEhb1m
-	TOXdSKTAGH7y5fCZo5WROY1gYldszZY=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+	bh=OLtaBWF2S8xYQupQu7qrCH159MdeXfdQdbvdeZt1vZM=;
+	b=I4dJTas9LBJwaCjjy4L9cGlCeACIzSgmQ+zm5sKOdjb24UI72rhe/RBiaesXWFuUu+QSe6
+	Xj9RhGj02UDeOJEEg5KQ3DSLoCqW2bTc8qBybm3fzV1KA1i2PYbPyggZv83kh0gi19OQCh
+	+yfpC2K2wiz/2DrHYekQHYNWCP+/5qQ=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-278-BT5SXAruNeqn80UTKMXMYQ-1; Wed,
- 02 Sep 2026 13:08:58 -0400
-X-MC-Unique: BT5SXAruNeqn80UTKMXMYQ-1
-X-Mimecast-MFC-AGG-ID: BT5SXAruNeqn80UTKMXMYQ_1788368936
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-659-3OijcrHXP6-6pAt_90kFWA-1; Wed,
+ 02 Sep 2026 13:09:02 -0400
+X-MC-Unique: 3OijcrHXP6-6pAt_90kFWA-1
+X-Mimecast-MFC-AGG-ID: 3OijcrHXP6-6pAt_90kFWA_1788368939
 Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 05CC31954223;
-	Wed,  2 Sep 2026 17:08:56 +0000 (UTC)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id AB3701834507;
+	Wed,  2 Sep 2026 17:08:59 +0000 (UTC)
 Received: from djeffery-thinkpadp1gen3.rmtusga.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id B49031955D8D;
-	Wed,  2 Sep 2026 17:08:52 +0000 (UTC)
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 65E4A1955D8D;
+	Wed,  2 Sep 2026 17:08:56 +0000 (UTC)
 From: David Jeffery <djeffery@redhat.com>
 To: driver-core@lists.linux.dev,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -64,9 +64,9 @@ Cc: linux-kernel@vger.kernel.org,
 	"Martin K . Petersen" <martin.petersen@oracle.com>,
 	"Pasha Tatashin" <tatashin@google.com>,
 	David Jeffery <djeffery@redhat.com>
-Subject: [PATCH 2/9] driver core: prevent device_add() during system shutdown
-Date: Wed,  2 Sep 2026 13:07:27 -0400
-Message-ID: <20260902170734.95504-3-djeffery@redhat.com>
+Subject: [PATCH 3/9] driver core: warn should device_move try to move a need_parent_lock device
+Date: Wed,  2 Sep 2026 13:07:28 -0400
+Message-ID: <20260902170734.95504-4-djeffery@redhat.com>
 In-Reply-To: <20260902170734.95504-1-djeffery@redhat.com>
 References: <20260902170734.95504-1-djeffery@redhat.com>
 Precedence: bulk
@@ -78,107 +78,41 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-From: Tarun Sahu <tarunsahu@google.com>
+Currently, no device has need_parent_lock set and is moved by
+device_move. need_parent_lock is only set by the usb bus and very
+few device types ever use device_move.
 
-In Async device shutdown, device_kset->list lock is released to handle
-asynchronisation and hold again to get entry from device_kset->list.
-Which will leave window when device_add can try to add the device to
-device_kset list and temper with ongoing shutdown process. New added
-device can be async type or sync type and might also introduce new
-dependency which can cause device_shutdown path to deadlock. S is
-waiting C to finish but C is never scheduled as it was added recently
-from device_add path. And C can only be scheduled when main loops
-continue to reach to C which is waiting on S.
+Add a warning to device_move to catch should it ever be used on a
+device with need_parent_lock set. The combination would break
+the immutable relationship needed between parent and child for
+need_parent_lock when locking and unlocking both.
 
-So, When a system enters shutdown (SYSTEM_HALT, SYSTEM_POWER_OFF, or
-SYSTEM_RESTART), new devices should not be allowed to be added.
-Adding system_state check (system_is_shutting_down()) to avoid
-device_add incase of these states of the system. And use srcu so the
-device shutdown operation can synchronize device_add and ensure any
-device_add in progress is finished.
-
-Signed-off-by: Tarun Sahu <tarunsahu@google.com>
+Suggested-by: Tarun Sahu <tarunsahu@google.com>
 Signed-off-by: David Jeffery <djeffery@redhat.com>
 Tested-by: Laurence Oberman <loberman@redhat.com>
 ---
- drivers/base/core.c | 30 +++++++++++++++++++++++++++++-
- 1 file changed, 29 insertions(+), 1 deletion(-)
+ drivers/base/core.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/drivers/base/core.c b/drivers/base/core.c
-index 83263e3fa5d4..bce555dd74f6 100644
+index bce555dd74f6..e8a62c8f0ad3 100644
 --- a/drivers/base/core.c
 +++ b/drivers/base/core.c
-@@ -47,6 +47,22 @@ static bool fw_devlink_drv_reg_done;
- static bool fw_devlink_best_effort;
- static struct workqueue_struct *device_link_wq;
- 
-+/**
-+ * system_is_shutting_down - Check if system state is not active.
-+ *
-+ * When system state is not active and in shutdown state, new devices
-+ * should not be allowed to be added.
-+ *
-+ * If system_state is SYSTEM_HALT || SYSTEM_POWER_OFF || SYSTEM_RESTART
-+ * this function will return true.
-+ */
-+static inline bool system_is_shutting_down(void)
-+{
-+	return system_state == SYSTEM_HALT ||
-+	       system_state == SYSTEM_POWER_OFF ||
-+	       system_state == SYSTEM_RESTART;
-+}
-+
- /**
-  * __fwnode_link_add - Create a link between two fwnode_handles.
-  * @con: Consumer end of the link.
-@@ -3614,6 +3630,9 @@ static int device_private_init(struct device *dev)
- 	return 0;
- }
- 
-+
-+DEFINE_STATIC_SRCU(device_add_srcu);
-+
- /**
-  * device_add - add device to device hierarchy.
-  * @dev: device.
-@@ -3647,13 +3666,20 @@ int device_add(struct device *dev)
- 	struct device *parent;
- 	struct kobject *kobj;
- 	struct class_interface *class_intf;
--	int error = -EINVAL;
-+	int idx, error = -EINVAL;
- 	struct kobject *glue_dir = NULL;
- 
-+	idx = srcu_read_lock(&device_add_srcu);
-+
- 	dev = get_device(dev);
+@@ -4705,6 +4705,14 @@ int device_move(struct device *dev, struct device *new_parent,
  	if (!dev)
- 		goto done;
+ 		return -EINVAL;
  
-+	if (unlikely(system_is_shutting_down())) {
-+		error = -ESHUTDOWN;
-+		goto done;
-+	}
++	/*
++	 * device_move() should not be used on devices with need_parent_lock
++	 * set. Concurrent reparenting will violate the immutable
++	 * relationship needed while locking and unlocking both parent and
++	 * child.
++	 */
++	WARN_ON(dev->bus && dev->bus->need_parent_lock);
 +
- 	if (!dev->p) {
- 		error = device_private_init(dev);
- 		if (error)
-@@ -3803,6 +3829,7 @@ int device_add(struct device *dev)
- 	}
- done:
- 	put_device(dev);
-+	srcu_read_unlock(&device_add_srcu, idx);
- 	return error;
-  SysEntryError:
- 	if (MAJOR(dev->devt))
-@@ -4877,6 +4904,7 @@ void device_shutdown(void)
- 
- 	wait_for_device_probe();
- 	device_block_probing();
-+	synchronize_srcu(&device_add_srcu);
- 
- 	cpufreq_suspend();
- 
+ 	device_pm_lock();
+ 	new_parent = get_device(new_parent);
+ 	new_parent_kobj = get_device_parent(dev, new_parent);
 -- 
 2.55.0
 
