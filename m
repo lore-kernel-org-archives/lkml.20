@@ -1,83 +1,71 @@
 Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DC283B71BB
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 20:33:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3163128030E
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 20:40:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788381213; cv=none; b=hasYfA2akTttOad5tcFV3XeE8m+Cy3ETxrI6pMXejx/MspsWjC3eZq5jf94XV9nVxCvKEDOe3qBJhvkNvBk69LwSUo/hhcw1PaRN/I+la2mpYLf6g2U9Iq8eUzrV9eGc2CHSj3bMFglhiBqbwPjTpzcG7jyAy5+5aYp7hINZzOY=
+	t=1788381605; cv=none; b=ld0epdMtjs13iDRxY2EGl7uNUIIg/hGLCZAlvWVsWHLZisYMytZry5sGC9GgjKS/GxLwB4+uX2DF4WufTKCijmpQqvp2IqfEmO5qekWIsAbNjboNmOEIkOuiMxbZNbDhcY3MZu+7dl09DyVWSgd+dnYKsocHRFVa7eXu04Pl9aE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788381213; c=relaxed/simple;
-	bh=TKQE0Yy3foDPlcmNS1BnEh/QhnxXKzqDxPCqTlGXzls=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Hhrjmr65yq6Fh2T++c4tYwR97IpdBiTvRHyBFW8Xv8AjUekwUcBff+tOadE82BWWlStfEzVptREsoIq9ZPMR6kEIWePPPcfFbSntJyXatqj+1kJkhdUe24iPRE3wTE/gUWfRuIcavuQyHaN3ADdlULunkF3N+P4NCX2QAQZ3xro=
+	s=arc-20240116; t=1788381605; c=relaxed/simple;
+	bh=/JQg3RwNfZt5RiPmrCXnh3bn/wWO9A++LIx/bcLvaCE=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=T+rUil6jDyjOqU82r9er1Q58Ddtv6bbERczqh/7SfFfXQpJTnJyccZy3I13SSDa7yf+WncDzA1Yd5ADLcegoYA0a+/k7bZfgycVFUgWnTdqHyaBiCkgyVlIwbQ23hkUH8SBKeBSldSxuGsMhSR9MCdbM8YzXWgTc0p8tvCk5oEw=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b1478e3546so1034631eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 13:33:32 -0700 (PDT)
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b1b27d7ab2so1728135eaf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 13:40:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788381211; x=1788986011;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y9poOxTJtGZ13dtkoCYfv5SN403qG7VA+AweL/ra9Xg=;
-        b=kJVJwuAUaTc2fY5yAMrn3r5L5t9l5Qjq2S2R4V/uLvXDbZMVJ90ZPl6b58phPrsnKL
-         6GABakx5iGWdXour/TOQOV1JFDO9RxurOQPpi4M7N3MRcLqyUBdqTZJj2u8MdbSMjlK6
-         cuI8TQIk45qggf4LOkk8sDKJbmB/+o66j9/zG0mFalxHWx1EMoo7CzTnzFzK608K1kLw
-         p86czaA7hikCGCq4KltGeAbWT6uUk4zle9lfQclq2Bh6tsxI0j23mfWf3+kPwMyngDLW
-         a1SFoGe6AkAWYjgXSbig7KPOtJG84BCjd1uZTk3EFhhveXpbJ9xzir6cRC83AdSYDn3g
-         Upmg==
-X-Gm-Message-State: AFuF++nMKPgZRtMZ2IikQ9thhCtK/FWoZLRY/cMhQK/kx7N7zXxA1dQ4
-	tQod8ODPYmz+p1T6Ve+uLhJbXI34FQd3/rWVbyuu/aDxfnZTusLVBUMKyRbdBJ/EIufk6RYKKAo
-	Mgt5u84ur8aWMkmVxo4FZBiwkHRDcYarkPy7w10X3wBGxvvEI1Eml7W4o92s=
+        d=1e100.net; s=20251104; t=1788381603; x=1788986403;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=SiYmHX+eBkOTAY/K0qwKDw6easd/JAqJvWIHq5nl8TE=;
+        b=nXhoYspppRDPidYZyuuonTdHlczjperfqUOJUoeQyKz/VQRRRIm4dmjqB/eAJ9r4GB
+         To2KptwXCSIblR/RGPmCFDF1q5SHTmBPh5iccz9GIesvJ5/AkI2nkB6ENqzSxKfE7nhK
+         2BERRQInlvvXs78+co8b1qO5mRaONz89aVP9BMAphmLmBtUE+485p+qGdcscYzaDB2Jl
+         JMp/naK7quRX26bnu089I2TiWZK3467XZrW3TIF3MKINQrbkomcLVQDEu3KKKzbU5WAv
+         wULSQA2bmmy5JNdAJ3PpnntCNuH6pHbjaXSI+3O16Kz7UujcMQkOIBG7iJ0RHEyzGhHK
+         /wog==
+X-Gm-Message-State: AFuF++kRPK1cIgmu6+zIcXaJ4bVFCuzcxF2lBs8y9FhMEZBaquDmsE9J
+	ki3bLrYPfRWPKjzZPTB9m9AR8zuCBOAuRCwz1i66Du09nUrbhQ2kzy1Ax/qhFIwe6d8GThwvcIh
+	udnPec1AQy9o/s/Exan6+1tERqiWP2gk5U9+j5T/mrPZKmqB0buarZA2S7uk=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:2d0b:b0:6b1:4e36:fb80 with SMTP id
- 006d021491bc7-6b47fd3531bmr6466900eaf.15.1788381211511; Wed, 02 Sep 2026
- 13:33:31 -0700 (PDT)
-Date: Wed, 02 Sep 2026 13:33:31 -0700
+X-Received: by 2002:a05:6820:610:b0:6b1:bbc0:b69d with SMTP id
+ 006d021491bc7-6b47cccb1dcmr5553500eaf.15.1788381603042; Wed, 02 Sep 2026
+ 13:40:03 -0700 (PDT)
+Date: Wed, 02 Sep 2026 13:40:03 -0700
+In-Reply-To: <apiC5snJsq1LNSdz@user>
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a98881b.9266084e.bf0d7.000f.GAE@google.com>
-Subject: [syzbot] Monthly mmc report (Sep 2026)
-From: syzbot <syzbot+listf1b540672df393834e95@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, ulf.hansson@linaro.org
+Message-ID: <6a9889a3.27a413cd.1e878c.000f.GAE@google.com>
+Subject: Re: [syzbot] [ext4?] general protection fault in __bh_submit
+From: syzbot <syzbot+41453ea05ab61c075f1f@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, pavankumaryalagada@gmail.com, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
-Hello mmc maintainers/developers,
+Hello,
 
-This is a 31-day syzbot report for the mmc subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/mmc
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-During the period, 4 new issues were detected and 0 were fixed.
-In total, 4 issues are still open.
-There is also 1 low-priority issue.
+Reported-by: syzbot+41453ea05ab61c075f1f@syzkaller.appspotmail.com
+Tested-by: syzbot+41453ea05ab61c075f1f@syzkaller.appspotmail.com
 
-Some of the still happening issues:
+Tested on:
 
-Ref Crashes Repro Title
-<1> 2725    Yes   BUG: sleeping function called from invalid context in mmc_free_host
-                  https://syzkaller.appspot.com/bug?extid=0e06aa1bdc6495bac24b
-<2> 113     No    WARNING: suspicious RCU usage in cancel_delayed_work_sync
-                  https://syzkaller.appspot.com/bug?extid=9c1988bc953fca2086a3
-<3> 12      No    WARNING in mmc_free_host
-                  https://syzkaller.appspot.com/bug?extid=82a0a7de6d84867d030e
+commit:         8b72f662 Add linux-next specific files for 20260901
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=15a88b49580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=f0b8b8ff36ff67e1
+dashboard link: https://syzkaller.appspot.com/bug?extid=41453ea05ab61c075f1f
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=148d4125580000
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
-
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.
+Note: testing is done by a robot and is best-effort only.
