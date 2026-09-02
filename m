@@ -1,47 +1,49 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-233.mta1.migadu.com [95.215.58.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 423EB2DC792;
-	Wed,  2 Sep 2026 04:06:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7E92D5C7A
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 04:07:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788322012; cv=none; b=CA3ZDbKPyyyAfV1L58sFWyK0jagH1A4U4PoTjm5amh86tb9bF7OchJwHN/xhsrg8cxwUDQl2TeK9pwS3OsC9UfMm56PXdfy/y4bwYW2CFyg234F2hB8ZiGque+VmLBLwU9aAlaZFZaHW4eoeM3oEQjjMwgj88SbGd9l2W3HFNzk=
+	t=1788322061; cv=none; b=a01uJnI8cyBp0o+lEJ7InS5A6Rahkq2oJ1jhXc27nY3Xt6aYtCjS+KUFWJbbTHsZr5M6j4GgBdVsVOljE9M08ppVAC6Uyx0E7ne4f65oV9xfRVISGOeNlDXjyaJJG9Hb0CPWW04f9tXk2acfY/QL15Y2gbZD7YfTYzNha32/TvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788322012; c=relaxed/simple;
-	bh=XTHG5wJj5NGKqwrE2Y7mCf0nsNqjmH3ry1IzuYt2aic=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=h04acVqLXyOF6eMdLYzkeFOQfCIVZj+kxiElUD0OE0fM4Kdd+Z0F/pU16fgfS7zOnEvNQ0H/7y17Nivjofim/VgGm09Xy81QYXam4MI/tJERy5Y/XWgXQfkv5LYPntCw5be7znPu/FnadBd48mZ9ulxfl3rN+kej1jjnm2AUGZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WZ1AADmm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788322061; c=relaxed/simple;
+	bh=qJB20Yzk+AUshddwLoq6R361vicAbl+aeZupgeNLCv8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PoGsJOvQbF7yM9iqYbG1ntTbDpI3N4C0/mOzfPwsIhxe9gi/HR8PXjLfXsO7s6GBlzkUo5qhgWs4rRjM4Yry7sjygWlD/+FwA4bQ4uYVKypM/FAidKYAgH0RLhcWf05nVNMKsBltnW23HtE93YaInYazKQ5FtAeqmgN3N2823lM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YBLlTeur; arc=none smtp.client-ip=95.215.58.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WZ1AADmm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A27D81F000E9;
-	Wed,  2 Sep 2026 04:06:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788322011;
-	bh=rCDBGWhjOow6BVaXEWKL/bvhPOmCcwouuBw7qgvnDDI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WZ1AADmmQSSKkceQoWmcRuNr2I+ritEKK0lzbaH2WL8WAtsQRXEA/HP/1V8mTLmA4
-	 wY9glCWTT9p+9d5dc10HVqE3WbWRdPCriT4WIU46oMIVfv/hsHYGOuvvWH2Ehbzv2c
-	 T4zotcImWkaRHriM4rztuOff+Szmh1twI+Xs3XaM4NC1Ja+1sU4PUEK3jPAdsMIU6+
-	 vqlM/Sd/wF7jDMqQrJEDfPoVKoEB1IaamSynXftgSEe1Ax8mgFUblaS1Jckrt3Bvgw
-	 KVq0umxJ5deFr4I8vpZCO83MgKUIYiqS7iVOqcvdZlC1UJag7Bb8sVJ2wUQISczts4
-	 YnhepOW6Ry6yg==
-From: SJ Park <sj@kernel.org>
-To: Nathan Gao <zcgao@amazon.com>
-Cc: SJ Park <sj@kernel.org>,
-	akpm@linux-foundation.org,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YBLlTeur"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=qJB20Yzk+AUshddwLoq6R361vicAbl+aeZupgeNLCv8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788322057; v=1; x=1788926857;
+ b=YBLlTeuriqFxU20b8jowCEW9qdxRfgBsg59G0T4IInntEfAF3YNDC/ARslov3s5KeI1WON2u
+ pfqP7Aaqoz+eWjsoUmnyBZFSnRoozDHwsAlz3FMEzF2Eouo8mpJkNPGwWSipRD2Dh3wzSzS+7wj
+ Ck9lDfQIifx5XmN/n/pRUTsM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id cf81a2ab71b2ab0d;
+	Wed, 02 Sep 2026 04:07:37 +0000
+X-Mizu-Trace-ID: cf81a2ab71b2ab0d
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: Michal Koutny <mkoutny@suse.com>,
+	Suren Baghdasaryan <surenb@google.com>
+Cc: Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Shuah Khan <shuah@kernel.org>,
+	cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	baolin.wang@linux.alibaba.com,
-	david@kernel.org,
-	ryan.roberts@arm.com
-Subject: Re: [PATCH v4] mm/damon/ops-common: use a page-aligned address in damon_ptep_mkold()
-Date: Tue,  1 Sep 2026 21:06:42 -0700
-Message-ID: <20260902040643.83720-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260902031655.84721-1-zcgao@amazon.com>
-References: 
+	Ziyang Men <ziyang.meme@gmail.com>,
+	Tao Cui <cuitao@kylinos.cn>,
+	cui.tao@linux.dev
+Subject: [PATCH v5] selftests/cgroup: add PSI pressure trigger and validation tests
+Date: Wed,  2 Sep 2026 12:07:25 +0800
+Message-ID: <20260902040725.877155-1-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,109 +52,308 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Tue, 1 Sep 2026 20:16:55 -0700 Nathan Gao <zcgao@amazon.com> wrote:
+From: Tao Cui <cuitao@kylinos.cn>
 
-[...]
-> Triggered by the full 7.1/7.2 kernel selftest suite on arm64 (EC2
-> c/m6g.4xlarge). The kernel sometimes crashes at or shortly after the
-> DAMON test.
-> 
-> What the overrun does depends on the page that happens to follow the
-> page table, so there is no single signature. If that page is read-only,
-> the write faults in the sampling path itself:
-> 
->   Unable to handle kernel write to read-only memory at virtual address ffff0003c5d2d000
->     FSC = 0x0f: level 3 permission fault
->     CM = 0, WnR = 1, TnD = 0, TagAccess = 0
->   CPU: 10 UID: 0 PID: 3487 Comm: kdamond.2
->   pc : contpte_test_and_clear_young_ptes+0x70/0xc0
->   lr : damon_ptep_mkold+0x1e8/0x1f8
->   Call trace:
->    contpte_test_and_clear_young_ptes+0x70/0xc0 (P)
->    damon_mkold_pmd_entry+0x150/0x170
->    walk_pmd_range+0x110/0x2b0
->    walk_pud_range+0x10c/0x208
->    walk_pgd_range+0x134/0x258
->    __walk_page_range+0x98/0x1b0
->    walk_page_range_vma_unsafe+0x90/0x148
->    walk_page_range_vma+0x28/0x40
->    damon_va_walk_page_range+0x114/0x2b8
->    damon_va_prepare_access_checks+0xec/0x1a8
->    kdamond_fn+0x534/0x770
->    kthread+0x128/0x138
->    ret_from_fork+0x10/0x20
-> 
-> Otherwise the page is writable, the PTE_AF clearing succeeds silently
-> and the damage only surfaces later, in whatever happened to own the
-> page, so the backtrace is unrelated to DAMON and differs between runs.
-> 
-> Pass a page-aligned address to the ptep_test_and_clear_young() call in
-> damon_ptep_mkold(), which is the only place DAMON can reach
-> contpte_test_and_clear_young_ptes() from. Nothing else sees the aligned
-> address, and r->sampling_addr itself is left as is, so the sampling and
-> region bookkeeping semantics are unchanged.
+The cgroup selftests have no PSI coverage. Add test_psi.c: per-resource
+trigger smoke tests (one trigger per fd, IRQ full-only), a
+cgroup.pressure hide/show toggle test, and a CPU-pressure trigger test
+using over-subscription. Skips when PSI is disabled or a resource is
+absent.
 
-Thank you for finding this nasty bug and sharing this great fix, Nathan.  Also
-appreicate again for your revisioning efforts that accepted my humble and picky
-revisioning requests.
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
 
-> 
-> Fixes: 6f0e1142173a ("arm64: mm: support batch clearing of the young flag for large folios")
-> Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Cc: David Hildenbrand (Arm) <david@kernel.org>
-> Cc: Ryan Roberts <ryan.roberts@arm.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Nathan Gao <zcgao@amazon.com>
+---
+Changes since v4 (Suren Baghdasaryan review):
+- Report pressure_open() errors with ksft_perror() instead of a raw
+  fprintf.
+- Create the test cgroup in FIXTURE_SETUP() so that setup and teardown
+  are symmetric, and drop the per-test creation and the NULL guard in
+  the teardown.
+- Factor the identical bodies of proc_trigger_io/memory/cpu into
+  test_psi_write(); the helper takes _metadata so that its ASSERTs
+  attribute to the calling test, following the seccomp selftests
+  precedent.
+- Drop the now-unneeded NULL init of self->cg and the stale stdbool.h
+  include left over from the restructuring.
 
-Reviewed-by: SJ Park <sj@kernel.org>
+Changes since v3 (Suren Baghdasaryan review):
+- Convert to the kselftest harness: each case is a TEST_F(psi, ...)
+  with the cgroup root/PSI availability checks in FIXTURE_SETUP() and
+  the teardown (kill hogs, destroy cgroup) in FIXTURE_TEARDOWN(),
+  which also removes the "ret"/"created" bookkeeping.
+- A trigger that does not fire within the poll timeout is now a FAIL
+  instead of a SKIP: ncpus+1 hogs with a 1usec threshold must stall,
+  so a timeout indicates a real problem.
+- Treat a poll() timeout and a poll() error uniformly via ASSERT.
+- Check sysconf(_SC_NPROCESSORS_ONLN) only for -1 and report
+  strerror(errno); declare variables one per line; for(;;) {}.
+- Make hog_cpu() die with the runner via PR_SET_PDEATHSIG so an
+  interrupted run does not leave orphaned hogs pinning every CPU.
 
-> ---
-> V3 -> V4:
-> - Align only the address that is passed to ptep_test_and_clear_young(),
->   rather than @addr for the whole of damon_ptep_mkold(), so the
->   mmu_notifier_clear_young() call keeps seeing the sampled address (SJ)
-> 
-> V2 -> V3:
-> - Move the alignment into damon_ptep_mkold(), instead of aligning in
->   damon_va_mkold() and damon_va_young().  The ptep_test_and_clear_young()
->   call in damon_ptep_mkold() is DAMON's only path to
->   contpte_test_and_clear_young_ptes(), so damon_ptep_mkold() is the
->   closest place in DAMON to the function that requires an aligned
->   address (SJ)
-> 
-> V1 -> V2:
-> - Align inside damon_va_mkold() and damon_va_young() rather than aligning
->   r->sampling_addr itself, so that sub-page sampling addresses remain
->   possible for future non-PTE access check primitives (SJ)
-> - Point Fixes: at 6f0e1142173a instead of 3f49584b262c, since the
->   unaligned address was harmless before that commit (SJ)
-> - Describe how the issue was noticed and what it does to the kernel (SJ)
-> 
-> v3: https://lore.kernel.org/all/20260901201001.33271-1-zcgao@amazon.com/
-> v2: https://lore.kernel.org/all/20260831221151.50561-1-zcgao@amazon.com/
-> v1: https://lore.kernel.org/all/20260827193821.46115-1-zcgao@amazon.com/
+Changes since v2 (Suren Baghdasaryan, Michal Koutny review):
+- Restructure the trigger test into per-resource cases (io, memory, cpu,
+  irq) so a failure points at the specific resource; irq is skipped when
+  /proc/pressure/irq is absent.
+- Spawn the CPU hogs with cg_run_nowait() instead of open-coding fork(),
+  and arm the trigger with a 2s window so unprivileged users can set it.
+- Address the remaining review comments on cleanup and robustness:
+  guard teardown with a "created" flag, use cg_read_strcmp() instead of
+  atoi(), report strerror() on errors, and fix the unused-parameter and
+  sign-compare nits.
 
-FWIW, I insisted on this version to make clear the intention of this pin point
-important fix.  I still believe this minimum and clear change is better as the
-hotfix.
+Changes since v1 (Michal Koutny, sashiko review):
+- Keep trigger tests smoke-level; switch the firing test from memory to
+  CPU pressure; drop churn_memory().
+- Keep the runner out of the cgroup; add PSI/IRQ skip-guards and a
+  .gitignore entry.
 
-Meanwhile, to v3, Baolin mentioned it would be prefered to keep page alignment
-from callers.  As I replied to the comment, that makes sense to me.  And it
-seems some DAMON code has unnecessary unaligned address usages that could be
-problem in future.  I will try to revisit such DAMON code and fix/improve as a
-followup.  As a result, the resulting code might more look like v3 or v2.  If
-you are interested, please feel free to send patches, too.
+v1: https://lore.kernel.org/all/20260724025826.504586-1-cui.tao@linux.dev/
+v2: https://lore.kernel.org/all/20260728083742.2359320-1-cui.tao@linux.dev/
+v3: https://lore.kernel.org/all/20260813133723.1663605-1-cui.tao@linux.dev/
+v4: https://lore.kernel.org/all/20260824085913.546741-1-cui.tao@linux.dev/
+---
+ tools/testing/selftests/cgroup/.gitignore |   1 +
+ tools/testing/selftests/cgroup/Makefile   |   2 +
+ tools/testing/selftests/cgroup/config     |   1 +
+ tools/testing/selftests/cgroup/test_psi.c | 191 ++++++++++++++++++++++
+ 4 files changed, 195 insertions(+)
+ create mode 100644 tools/testing/selftests/cgroup/test_psi.c
 
-This patch is applied to damon/next [1] tree.  If this patch is not added to
-mm.git in short term (~2 days?), I will ask mm.git maintainer (Andrew Morton)
-to pick this.  So, no action from your side is needed for now.  If it seems I
-also forgot doing that or you cannot wait for my action, please feel free to
-directly ask that to Andrew.
+diff --git a/tools/testing/selftests/cgroup/.gitignore b/tools/testing/selftests/cgroup/.gitignore
+index 952e4448bf07..ce2b907c57ea 100644
+--- a/tools/testing/selftests/cgroup/.gitignore
++++ b/tools/testing/selftests/cgroup/.gitignore
+@@ -8,5 +8,6 @@ test_kill
+ test_kmem
+ test_memcontrol
+ test_pids
++test_psi
+ test_zswap
+ wait_inotify
+diff --git a/tools/testing/selftests/cgroup/Makefile b/tools/testing/selftests/cgroup/Makefile
+index e01584c2189a..a8c69e37332a 100644
+--- a/tools/testing/selftests/cgroup/Makefile
++++ b/tools/testing/selftests/cgroup/Makefile
+@@ -16,6 +16,7 @@ TEST_GEN_PROGS += test_kill
+ TEST_GEN_PROGS += test_kmem
+ TEST_GEN_PROGS += test_memcontrol
+ TEST_GEN_PROGS += test_pids
++TEST_GEN_PROGS += test_psi
+ TEST_GEN_PROGS += test_zswap
+ 
+ LOCAL_HDRS += $(selfdir)/clone3/clone3_selftests.h $(selfdir)/pidfd/pidfd.h
+@@ -32,4 +33,5 @@ $(OUTPUT)/test_kill: $(LIBCGROUP_O)
+ $(OUTPUT)/test_kmem: $(LIBCGROUP_O)
+ $(OUTPUT)/test_memcontrol: $(LIBCGROUP_O)
+ $(OUTPUT)/test_pids: $(LIBCGROUP_O)
++$(OUTPUT)/test_psi: $(LIBCGROUP_O)
+ $(OUTPUT)/test_zswap: $(LIBCGROUP_O)
+diff --git a/tools/testing/selftests/cgroup/config b/tools/testing/selftests/cgroup/config
+index 39f979690dd3..8a3ef479e83d 100644
+--- a/tools/testing/selftests/cgroup/config
++++ b/tools/testing/selftests/cgroup/config
+@@ -4,3 +4,4 @@ CONFIG_CGROUP_FREEZER=y
+ CONFIG_CGROUP_SCHED=y
+ CONFIG_MEMCG=y
+ CONFIG_PAGE_COUNTER=y
++CONFIG_PSI=y
+diff --git a/tools/testing/selftests/cgroup/test_psi.c b/tools/testing/selftests/cgroup/test_psi.c
+new file mode 100644
+index 000000000000..281abfaf09d6
+--- /dev/null
++++ b/tools/testing/selftests/cgroup/test_psi.c
+@@ -0,0 +1,191 @@
++// SPDX-License-Identifier: GPL-2.0
++#define _GNU_SOURCE
++#include <errno.h>
++#include <fcntl.h>
++#include <poll.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <unistd.h>
++#include <sys/prctl.h>
++#include <linux/limits.h>
++
++#include "../kselftest_harness.h"
++#include "cgroup_util.h"
++
++#define PSI_POLL_TIMEOUT_MS	5000
++
++/* PSI triggers are written with a trailing NUL the kernel parser expects. */
++static ssize_t write_trigger(int fd, const char *trigger)
++{
++	return write(fd, trigger, strlen(trigger) + 1);
++}
++
++static int pressure_open(const char *resource)
++{
++	char path[PATH_MAX];
++	int fd;
++
++	snprintf(path, sizeof(path), "/proc/pressure/%s", resource);
++	fd = open(path, O_RDWR);
++	if (fd < 0)
++		ksft_perror(path);
++	return fd;
++}
++
++FIXTURE(psi)
++{
++	char root[PATH_MAX];
++	char *cg;
++};
++
++FIXTURE_SETUP(psi)
++{
++	int psi_fd;
++
++	if (cg_find_unified_root(self->root, sizeof(self->root), NULL))
++		SKIP(return, "cgroup v2 isn't mounted");
++
++	/* PSI must be enabled (CONFIG_PSI=y, not disabled on the cmdline). */
++	psi_fd = open("/proc/pressure/memory", O_RDONLY);
++	if (psi_fd < 0)
++		SKIP(return, "PSI unavailable (CONFIG_PSI=n or psi=0)");
++	close(psi_fd);
++
++	self->cg = cg_name(self->root, "psi_trigger_test");
++	if (!self->cg)
++		SKIP(return, "failed to allocate cgroup name");
++	if (cg_create(self->cg))
++		SKIP(return, "failed to create cgroup: %s", strerror(errno));
++}
++
++FIXTURE_TEARDOWN(psi)
++{
++	cg_killall(self->cg);
++	cg_destroy(self->cg);
++	free(self->cg);
++}
++
++/*
++ * /proc/pressure/<resource> accepts exactly one trigger per file
++ * descriptor. Verify that a "some" trigger arms and that a second
++ * trigger on the same fd is rejected with EBUSY.
++ */
++static void test_psi_write(struct __test_metadata *_metadata,
++			   const char *filename)
++{
++	int fd;
++
++	fd = pressure_open(filename);
++	ASSERT_GE(fd, 0);
++	ASSERT_GT(write_trigger(fd, "some 150000 2000000"), 0);
++	ASSERT_EQ(-1, write_trigger(fd, "full 150000 2000000"));
++	ASSERT_EQ(EBUSY, errno);
++	close(fd);
++}
++
++TEST_F(psi, proc_trigger_io)
++{
++	test_psi_write(_metadata, "io");
++}
++
++TEST_F(psi, proc_trigger_memory)
++{
++	test_psi_write(_metadata, "memory");
++}
++
++TEST_F(psi, proc_trigger_cpu)
++{
++	test_psi_write(_metadata, "cpu");
++}
++
++/*
++ * irq only tracks "full", so a "some" trigger must be rejected while a
++ * "full" trigger arms. irq is optional -- it only exists with IRQ-time
++ * accounting -- so a missing /proc/pressure/irq is SKIP, not FAIL.
++ */
++TEST_F(psi, proc_trigger_irq)
++{
++	int fd;
++
++	fd = pressure_open("irq");
++	if (fd < 0)
++		SKIP(return, "/proc/pressure/irq unavailable");
++
++	ASSERT_EQ(-1, write_trigger(fd, "some 150000 2000000"));
++	ASSERT_GT(write_trigger(fd, "full 150000 2000000"), 0);
++	close(fd);
++}
++
++/*
++ * cgroup.pressure gates visibility of the per-resource *.pressure files
++ * inside a cgroup: writing 0 hides them, writing 1 shows them again.
++ * Drive one hide/show cycle and check that memory.pressure appears and
++ * disappears along with it.
++ */
++TEST_F(psi, cgroup_pressure_toggle)
++{
++	char buf[BUF_SIZE];
++
++	ASSERT_EQ(0, cg_write(self->cg, "cgroup.pressure", "0"));
++	ASSERT_EQ(0, cg_read_strcmp(self->cg, "cgroup.pressure", "0\n"));
++	ASSERT_LT(cg_read(self->cg, "memory.pressure", buf, sizeof(buf)), 0);
++
++	ASSERT_EQ(0, cg_write(self->cg, "cgroup.pressure", "1"));
++	ASSERT_EQ(0, cg_read_strcmp(self->cg, "cgroup.pressure", "1\n"));
++	ASSERT_GE(cg_read(self->cg, "memory.pressure", buf, sizeof(buf)), 0);
++}
++
++/*
++ * A child that burns CPU forever; stopped by cg_killall() on teardown.
++ * It also dies with the runner, so an interrupted run (e.g. Ctrl-C
++ * during poll()) does not leave orphaned hogs pinning every CPU.
++ */
++static int hog_cpu(const char *cgroup, void *arg)
++{
++	prctl(PR_SET_PDEATHSIG, SIGKILL);
++	for (;;) {}
++	return 0;
++}
++
++/*
++ * Arm a "some" trigger on a cgroup's cpu.pressure, oversubscribe the
++ * cgroup with more spinning hogs than there are CPUs, and check that the
++ * trigger fires once the cgroup stalls on CPU.
++ */
++TEST_F(psi, cgroup_trigger_fire)
++{
++	char *cpupress;
++	struct pollfd pfd = { .events = POLLPRI };
++	long ncpus;
++	int fd;
++	int i;
++
++	cpupress = cg_control(self->cg, "cpu.pressure");
++	ASSERT_NE(NULL, cpupress);
++	fd = open(cpupress, O_RDWR);
++	free(cpupress);
++	ASSERT_GE(fd, 0);
++	pfd.fd = fd;
++
++	/*
++	 * 1usec threshold over a 2s window: any CPU stall fires it. The 2s
++	 * window is the smallest unprivileged users are allowed to arm.
++	 */
++	ASSERT_GT(write_trigger(fd, "some 1 2000000"), 0);
++
++	ncpus = sysconf(_SC_NPROCESSORS_ONLN);
++	if (ncpus == -1)
++		TH_LOG("sysconf(_SC_NPROCESSORS_ONLN): %s", strerror(errno));
++	ASSERT_NE(-1, ncpus);
++
++	/* ncpus+1 hogs guarantee CPU contention inside the cgroup. */
++	for (i = 0; i < ncpus + 1; i++)
++		ASSERT_GE(cg_run_nowait(self->cg, hog_cpu, NULL), 0);
++
++	ASSERT_EQ(1, poll(&pfd, 1, PSI_POLL_TIMEOUT_MS));
++	ASSERT_NE(0, pfd.revents & POLLPRI);
++	close(fd);
++}
++
++TEST_HARNESS_MAIN
+-- 
+2.43.0
 
-[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
-
-
-Thanks,
-SJ
-
-[...]
