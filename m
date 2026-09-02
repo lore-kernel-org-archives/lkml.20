@@ -1,70 +1,68 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF962390C8E;
-	Wed,  2 Sep 2026 22:12:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BC2341D4F3;
+	Wed,  2 Sep 2026 22:14:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788387136; cv=none; b=FFNpBlmyATbyZi53ea1YB6dH87jxItpal63wQpJQYuW+y4cX5eUIozCXr0ynQY0j+rj/YZTWfWMwT1BQh4DQArQxgsRUbkF0wlInLS/bMf8nHhqKh+s5jG+vf06eFaPkBON9yQ4w5ue5rZLKpBcJ8nfJoKGNU0nd1/2U/J9GaYo=
+	t=1788387272; cv=none; b=pWGb0tKzyIc5HZrEhNONKWftJPcbEeVXWYBaZxk+8blgf0YeNCrYidK0+k0zy90kiBlLqvktnt/SDplM9dFh9/qqoPIsIHzgdBTrXPFdhDMoe2LAp/gFK8donw8m7EfO504twnJS0+5zsovO1C6QCcAS8cX8g49fPLBTjB53tTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788387136; c=relaxed/simple;
-	bh=lBRo0dtFcGZoLsHqwG1x8Z7YpfuSx379Id0Q97B6c50=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RCoYwzWaCf5flA1BMlK081lr0o3uPFXuF7xSrOsse1kfOLOVgtk+rKVP5kjtyPCKpta605c2sAM+56WOc+eUWrL0uHxe+p8Cyr0Ij6ZLKCj5pQyN71MPH2ntKrhmuNKjrZZ8WxhXThxz3vDppgO6r1mtfS8N511klD1sz9ogYW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Alcyj74s; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788387272; c=relaxed/simple;
+	bh=mEGxaygLEVF+0pFwWFu7necal/VkHZ96PXEvCXDTTBI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BMjQiCJp1KFuXxarakiPPDbQgaPkI9HJMyuBvEmZ7W5hNf/iE2dG7tlrKPQbKRUwNHt6OaljXSLSSOjZCCbtp8V4yHto/NPw6HRk5lZHMQgYUEOBOWBT0SekIqt+yQf2ZsRu/D9zePHsrDoe+DAAuAfq/On68bqBvIHbhVEJG44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hyeb32ql; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Alcyj74s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EC561F000E9;
-	Wed,  2 Sep 2026 22:12:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hyeb32ql"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CEE91F00A3D;
+	Wed,  2 Sep 2026 22:14:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788387128;
-	bh=tg7zC0YvIqt87WX64Kb8dFLAU/T4AqeU8cWYntG0MUc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Alcyj74sTAGIUKrzpdX7RXIevv7KPHJ471XZlqZ4FKGF8kSPgvwlpYqqLqb+LiC4S
-	 zUoOvaJyBU6nSYWdpnQSO84qved4hVW3Q2lfyWTBs39c6XsBi8Mr4HaEz35Ke6bTlL
-	 d46qHBte0SL4yXVEO5tGSipLL4z0St9EfUYVQHiIIYdptZNeYDmhZT6wxNXPKeGIvb
-	 pjp6+dlDTpvUZ73EsgTqOIRC9jMbePjqp756ffAePwxHMh79ZLchPNKwfgEaj1e48E
-	 MrDu7LrhzjL+0TfAGcvGd9Ld9DTNeO8hZOX/fIhBEEDCqhkgIkE+OLYNyMTeUgKufE
-	 k/bVucW3m7IdQ==
-Date: Wed, 2 Sep 2026 15:12:07 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Kyle Hendry via B4 Relay
- <devnull+khendry.reliablecontrols.com@kernel.org>
-Cc: khendry@reliablecontrols.com, =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?=
- <clement.leger@bootlin.com>, Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit
- <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo
- Abeni <pabeni@redhat.com>, Lad Prabhakar
- <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] net: pcs: rzn1-miic: Verify port number from dtb
-Message-ID: <20260902151207.671c55f5@kernel.org>
-In-Reply-To: <20260902-rzn1-miic-fix-array-v3-2-3f7dccffaf5a@reliablecontrols.com>
-References: <20260902-rzn1-miic-fix-array-v3-0-3f7dccffaf5a@reliablecontrols.com>
-	<20260902-rzn1-miic-fix-array-v3-2-3f7dccffaf5a@reliablecontrols.com>
+	s=k20260515; t=1788387267;
+	bh=ZmMoe4LxxlhmDnwmcXUyGO7LsP2v+nJ/KvbYpZVDDHk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Hyeb32ql4z4cMIWCfHXpyttOam8g/A41304yT9nZEr4o+YskmGJDIfJraoBt8PhNG
+	 8yA+go3YboVx9vIdY9ye7R+gj+fHnPecBGTOqxcupFhF3GPiYMzH4cN1YlhiU6l6JB
+	 +UVpFaM3NCFPtRbED+gWn3LWfRn57AMHAbvHyjUM61dwYQ6QjziaqOs17qULfhB+91
+	 ZEDbJxPn2oIOL5q+5xgDuIFYylT/g8YR1BLzUwT57HsyODwVu8FHRQng8h6oTL+FGj
+	 r1bN7V+4UfO4IutiMXZgLqaEHpgDB+N3It8j5AnDVkYpNiquIqSa5XFrc/8jwJwSrR
+	 /EEM1B+1JxM9Q==
+From: Sasha Levin <sashal@kernel.org>
+To: Vincent Donnefort <vdonnefort@google.com>,
+	stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	rostedt@goodmis.org,
+	mhiramat@kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	mathieu.desnoyers@efficios.com,
+	kernel-team@android.com,
+	linux-kernel@vger.kernel.org,
+	Lee Jones <lee@kernel.org>
+Subject: Re: STABLE REQ: [PATCH v5 06/10] tracing: Fix subbuf resize races with trace_pipe_raw readers
+Date: Wed,  2 Sep 2026 18:14:05 -0400
+Message-ID: <20260902-daily-reply-0006-tracing-subbuf-resize-7-2@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260901123444.GA1350131@google.com>
+References: <20260901123444.GA1350131@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Wed, 02 Sep 2026 11:37:36 -0700 Kyle Hendry via B4 Relay wrote:
-> +		if (port < miic->of_data->miic_port_start || port > miic->of_data->miic_port_max) {
+> Concurrent subbuffer resizes may crash trace_pipe_raw readers or leak
+> uninitialized memory to userspace due to stale size values.
+>
+> Fixes: bce761d75745 ("ring-buffer: Read and write to ring buffers with custom sub buffer size")
+> Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+>
+> Not sure if this is the latest version or not?
+>
+> I see review comments, but no v6.  Anyway, no matter, it'll do.
 
-Please wrap this at 80 chars, some for previous patch
+Queued for 7.2, thanks.
 
-> +			dev_err(miic->dev, "Port number out of range: %d\n", port);
-> +			kfree(dt_val);
-> +			return -EINVAL;
-
-coccicheck says:
-
-drivers/net/pcs/pcs-rzn1-miic.c:691:1-33: WARNING: Function "for_each_available_child_of_node" should have of_node_put() before return around line 698.
-
-> +		}
 -- 
-pw-bot: cr
+Thanks,
+Sasha
