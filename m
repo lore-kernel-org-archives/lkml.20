@@ -1,66 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C854A9D54;
-	Wed,  2 Sep 2026 16:06:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A8F44A9D48
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:07:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788365188; cv=none; b=i+cKTM5otg2vucvJTjGmxwiz+2TMlSwm+Nm32KDW7yRn2YgQCmlqHMD/5qWA/bg8O2SJO064U4KVl/0+RE5BOJcl/E22J+UL7AT9put/W/i729m0jgn31VAs+jV+2rWBP/N+OohIctJU+aVVZca97V9t6stJpL15dp9ohIma/Nk=
+	t=1788365230; cv=none; b=sRr4C7EM1Q9phokC2B+nsoOqp7BhkJlWPSmB8MNLz6HtkjRNfleDy4b4iIfNuIi+kVxDabPQsbrG5w8tNjfOEWf4sWBadMb2YALClLoLUZauYlDZswHqclPdF36osuRhAhlXpALPD4XnAgmCOEdDvwzuuAKEo6JWkw8AoB0poU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788365188; c=relaxed/simple;
-	bh=NQJJEJebziK927aHUUh1It/mDKFdKS6tX9mRgw8Xjjk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C/RaE49duvWzkyRSvmiYqozBtQJncbt7LyCHOOdOIseop21F2PbpjYxdc7hOv/qXOY0GKFShON1nwvQ3Ts8YANQNdM+fbraB4h5iUsZoIygFv8NNz0oVFNwcqkrzjgPrUntIgesH1wv7TGGR/Xzi3YGUdc/i5xcN2k2T+4GeI9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a0gK+Hzj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788365230; c=relaxed/simple;
+	bh=byZTt5R6BjpzTu8+p8/eAxBr5GXUWYt9qNckwpzaZvs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qrxTijcJ4v9wvhkhIzWGh08JYudYjai9G1BlCdLzdo39AWr2uyHby4PyDMsL7mS1taQ9MjY/fr1GLJTpVS83xvyZvzecrRY7ICU5inLjZwUNP/FOcHpV1Lxs63T8E7/KpxUA20HimvtnDn34KjAq+I7Dqw9RpyEZRdRSGoIV0GU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xp4exYyY; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a0gK+Hzj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B69471F000E9;
-	Wed,  2 Sep 2026 16:06:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788365185;
-	bh=6mPM2QrK3+k4qQZbJgrxtRptJibEjDw1XeLRQM0tPpM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a0gK+HzjYGWpxOA2Y9GFMa0ZRamanNJZEIbJPcOvqOlx27aaU6fVjq2PwAo9+Y3rj
-	 QA9D+rrM7JdjXIrmf+uxjEP9E+oRyR1Jl2KeJ6r1qtWS39YV4KF72ujCkTO5AnjEvP
-	 91T1pEIj7mxajMhmY1o2yWWTU/eJZd+gUuMyMweqrGcdwhjz8wgqG6AQu2Ga/ZioOF
-	 c+eOzgB2f+uKTm5xMdU6bZRSH+zM/zY+8xOC8+gktkbeymk2mtk6MOPyxgKpObDo2y
-	 hf7c2DvQEJLeIWrpwuBfxc9l5uF0JqcUng1PRWtlWBIpAh5FJacPGXvH/A27y/FaeO
-	 u0C8O+ll03O4A==
-Date: Wed, 2 Sep 2026 18:06:13 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-actions@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: actions: Replace spaces indentation with
- tabs
-Message-ID: <cd5h5yvpxnp3h2vagf2x64nesjani2hxxkklbx7hyrpo6z45ut@7l5mpkcpn5jy>
-References: <20260829194140.108124-3-krzysztof.kozlowski@oss.qualcomm.com>
- <20260829194140.108124-4-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xp4exYyY"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so11569155e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:07:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788365226; x=1788970026; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0jnVwXo8Qv+75toQ73l7dAA+32JWKJPezOLtyqrUA2Q=;
+        b=Xp4exYyYpT5tyUME3p1PWfQsqIkGqo/wS46qQm98CwI4mVFkw/z1IphW+NUjRhWG60
+         4ltumy3caJ8tkGAGusoxicYN6AxRcLTXNvPWhR4rrwFWc3nuYVozXTFAGf37EAa6cAMS
+         dCuG1Fmd25PmXM8DwhfXr1GzN38/Ken7yy1NrxH6yUsFf9V0C81ZsXyLqXNxizGmtMnU
+         lhogqrx+4GskOwp+SyP44dAuj7OqZEx/Q9kzmcz82WGcGzbeD787LfxANiFJa5wXb2Ym
+         Bb7dA9Xdo6kUti1V11rMUrbBn18nCD+b8DeKcAzuDCKGGIWGxLcSauTOZxa3fiWZ9d2A
+         9QTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788365226; x=1788970026;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0jnVwXo8Qv+75toQ73l7dAA+32JWKJPezOLtyqrUA2Q=;
+        b=ZPMLZjpwCof7hwZgSsYtgRDGEaxSg5wdsfB2E/ZePm9al5JHRSp1Ps9KvuIjGf/NlQ
+         EGw4MO4vshAQWbjMwf9POFUQ8q+q6tquGkYyfh0ifcMyCmwaVRbzlhU6gMdFI+w5htjH
+         yV6zNJK2N532ZtEa75Y53fz2kgXbDJtBFfrjq0XFj/9F+A2I2EmdS83O3YA460Yw1W5S
+         hAFWK209rxsf2nMLm452DM4CsxNTiyFw3XVRbFAmP6xsHtLjvEV+j8+qbtIhbKPkqFg0
+         oRl8P0i6ArWFxjjFBmaqMe3LF5oPaQjBM6dTSQgPkPEhcAzVMA+wF4uIvqj7xB04vwqp
+         AFuw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro8gFZuNW2kGsf5M0hCVaYF4oRUvEGnqR/LcspXWRcV2cjco3g1P/n2UcYfAxQbDNTwA3RcO2U8WtdWjgs=@vger.kernel.org
+X-Gm-Message-State: AFuF++k7DN5ZfXyAwajdVZQUEv0Q5I9FRIbIrslP5EBnU8aPEY1Kc6od
+	QGi0lCtftRWOb+R/EQm1OxQLeVjWFndIajpJ8L6uu1pIUw9aqsZBTpsJ
+X-Gm-Gg: AR+sD132o7Q6p86zo0El+QtQLCYf9c+zcg2aYNc1UJFkWfogjDWF5g5FR/7W6zguKEl
+	iZXBJSTWe/XY5V+JEvtS2kP2dB4I1X0kp0I8la8eQnlSkqJtUPrwzJ041e96fzOdH3C8mrJdD+d
+	8IUb+mDl5Tyc8EXhSBE2BIFOSltSjgU6SSemjAso9oS+kugSiegXgNJXMfSMhS22yETAqUairbV
+	XFtvzdD6eapBDMLB18iho5q4d0I9TQTqKbOF20LbDjsL1/tH9jYOeACqP0QioFvwXy82WaBPGXO
+	DYkaiHdPdCw1jzueIMgyPbZDWPT96nBbhQji8mLKTepT/VuSqI5RK3S9egBAzExkMnCOZPShUb/
+	DJj2WxvucE5xW11FPP9LGXgUe7T6/5eDpCC6hJCFme82NO+BS9LivSZ42xVmak+hJwi8nef7XDs
+	+6rPPR0RylKbYdQbWwhCxHcIpiwfutGjpJMZRdgeLka3NmLFk529l3YLcPxhbt+OVovAt90s/qw
+	T8eraasuCamJUBPszXDsLkGZA==
+X-Received: by 2002:a05:600c:45c4:b0:499:79b9:e220 with SMTP id 5b1f17b1804b1-49ce5816186mr109276985e9.10.1788365226253;
+        Wed, 02 Sep 2026 09:07:06 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5d476esm2206255e9.1.2026.09.02.09.07.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 09:07:05 -0700 (PDT)
+Date: Wed, 2 Sep 2026 17:07:05 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Eric Biggers <ebiggers@kernel.org>, Andrew Morton
+ <akpm@linux-foundation.org>, linux-raid@vger.kernel.org,
+ linux-kernel@vger.kernel.org, x86@kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH RESEND] xor: add missing vzeroupper to AVX code
+Message-ID: <20260902170705.213d432d@pumpkin>
+In-Reply-To: <20260902133706.GA21538@lst.de>
+References: <20260831212248.213805-1-ebiggers@kernel.org>
+	<20260902133706.GA21538@lst.de>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260829194140.108124-4-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sat, Aug 29, 2026 at 09:41:42PM +0200, Krzysztof Kozlowski wrote:
-> Replace excessive spaces for aligning indentation into tabs.  This will
-> be reported by dt-style-check ("[mixed-indent-chars] too many space
-> characters in indent (more than 7)").
+On Wed, 2 Sep 2026 15:37:06 +0200
+Christoph Hellwig <hch@lst.de> wrote:
+
+> On Mon, Aug 31, 2026 at 02:22:48PM -0700, Eric Biggers wrote:
+> > Since the AVX optimized XOR code uses YMM registers, execute vzeroupper
+> > before returning from it.  This is needed to avoid degrading the
+> > performance of any later SSE code that may happen to be executed.
+> > 
+> > Fixes: ea4d26ae24e5 ("raid5: add AVX optimized RAID5 checksumming")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+> > ---
+> > 
+> > This didn't get taken through the x86 tree.  Andrew, it seems you're
+> > taking patches to lib/raid/.  Can you apply this one?  
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Can we do kernel_avx_{begin,end} instead of having to open code
+> and document this everywhere, please?
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+In which case I think you want the vzeroupper in kernel_avx_begin().
 
-Please take it through ARM SoC tree.
+Actually, for some cpu at least, you need vzeroupper in kernel_fpu_begin()
+even if the code only uses the SSE registers.
 
-- Mani
+See: https://stackoverflow.com/questions/41303780/why-is-this-sse-code-6-times-slower-without-vzeroupper-on-skylake
+Basically, on Skylake, all SSE hit a penalty if any ymm high bits might be non-zero.
+Don't know what has changed since...
 
--- 
-மணிவண்ணன் சதாசிவம்
+I don't have the Intel optimisation manual downloaded (ok, I might have
+it but have NFI where), and the link on that page is broken.
+
+David
