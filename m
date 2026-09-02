@@ -1,45 +1,59 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E7BF4A484B;
-	Wed,  2 Sep 2026 15:43:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788363812; cv=none; b=JgvHO+B9F65f210dNaWmtmHr55F6Yfgt2K9A9SCsoOsicpGYkPyQKU1ry/70RVNKcdNrEVRiq1bLNrhTt6ArB0+6z4AtEX+CDbDenL2zDS7XGn0iO2isjZDTtj6+XfwTS3s1pAD7tc/VnmFogcBMUfcV7q519tx2DP4CPvzRZH4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788363812; c=relaxed/simple;
-	bh=4Lh7BYDQ6oaS2gNgV+CxhrxaAiriuKMCOtvHvate3ik=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6EFD3DDDD9
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:43:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788363820; cv=pass; b=PdyqIDXTzo5MrA+NOWqplGXXX8n2jH+0liYVJ2X14L/Gl/9vSUEsgBwnT4tdOz67A2wG4gg5Yue+uvch1kuSyxGAtSwXcu9Kr9jYWU0kdGYgDFpiD1ebURZh1Y/dhmkySl1nLJiAKpC1QkpSbWM5Nbg8aMGrj79W3QQ18iUr4e8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788363820; c=relaxed/simple;
+	bh=IYWIL1PFKzXT2KfvIdWSt702A4hyZEBAhQKET+oVrfk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g/5F/Yee7dNR2EUk4Eafl7yMFzaDa3YfjfFPhjFHkz3KI/YPhdyMKO8AwJPDqrDJXacr54M4JOuzfykVQPfKLBLCGE75EyxRjXmK4PBbNPuDwEjYItoTfenJftLefJhMBlYJq2ZyhqVtXond5TX7QSTe/a3uK8UXZCf1fT91DIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P/fbPbcR; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=uupnIAXw3Z6JTpvV9fhGKug7Zwfo8McHxmFSTNtkcaw1BwWrpepkeu75dD/R7urjlWoiwPh2VAO3oRdJTY0uS8sJ+GWEk04ugNz3MLFBiVxopSnvgcXMlIQSDgq4q7k4/vt/i+hodaX5JDHmry3SxftP7gVOBLi/YIZmH0g2v6M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=CaVVrtb4; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P/fbPbcR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1F7F1F000E9;
-	Wed,  2 Sep 2026 15:43:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788363809;
-	bh=Les5VFlgbFgzqXPR7vn/kSwqh4mo5FfhVa/8f8euHIw=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=P/fbPbcRr7uZKjGVu5bNsAq8BGUNVoHEUUOU3+8AwJAfOIDK3x67xt9TduO8uqpD1
-	 yXzMDc5R5olri9FV5gzq/+IFKT2el+lIoniOjUAZNY95zNDMJjmkeXHUq0ox9/vc88
-	 Hv3wTlJaw38PEcIPsyupP4eEg8guWNyAzXCpyXIXzr94M3iMpuOeeI9JnklVu1WrZk
-	 kFcEXQPTOgnbFtjKvZaJmOAuvTd0MOfP46zfoMn0GwvVzC8wk/X3Vbx7YlXJsnFFhR
-	 4DF8Qnynp0ayuqPBJWQmgT0sP3LX7v0DHwSE3VPdvRwK0b2tOLbroLGYe/9W+xaHwN
-	 fio3M3eYEMc1g==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 90DE0CE0503; Wed,  2 Sep 2026 08:43:29 -0700 (PDT)
-Date: Wed, 2 Sep 2026 08:43:29 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: KunWu Chan <kunwu.chan@gmail.com>
-Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] srcutiny: Enable atomic SRCU flavor tracking
-Message-ID: <b099065c-5808-4eb6-9dba-fcba9a2ef9ea@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260901074815.3145037-1-kunwu.chan@linux.dev>
- <d991297a-9bd4-4da2-89cd-002b6f2a3305@paulmck-laptop>
- <CAN_Opa81BaWxkdRyoHQBcMLbOt-n7f-4cUmxxstage1MSOu1Hw@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="CaVVrtb4"
+ARC-Seal: i=1; a=rsa-sha256; t=1788363780; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=mhY+Byip9E6ub3/2RISN6a4JsxdL5kXw3uZ5IwjI+I89U849LZE4onJNwi5fTGOXhdeDf4dyi+UXN3qxWGRKJ09vCoP/tRrCdaD1YQuvJXzuymZ+/Kq7+V1XvPqAVZohhAa9WgN4snPRc37qr6Yglr7n5VoosLse5BWcC/z/ORI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788363780; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=wPkVNY6HgR4EPSBYmFwbo6fY/dHsnL8uz2ZRlRYszDA=; 
+	b=jOU9DL6W4rN13Ip0B2h84iIbs+z9GVrL/X5GY60L5v/RCpUj8JsuF2qOgXVj25gBvoMxYkoICIQ4eBhHokG5/fcsyD7GobdJu3xuaZWmjNcNqzAXqLK4mP/fnfOMpal1/x6Sz8Edu8syBC2l3vl0+7QQii0tWQ8F/ACjHC4w0gc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788363780;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+	bh=wPkVNY6HgR4EPSBYmFwbo6fY/dHsnL8uz2ZRlRYszDA=;
+	b=CaVVrtb4VS8WYT0rxLcoar38w1ysf+FSD30rorVya3zOZhQxXo51CuN1mOI4MPJc
+	i74o08aBsjAMc/FkIpO/ca9E72YuVHH/yFIPdT38SYjsTTKpemr9uxoxDVtloOlRKzD
+	zWbBprs/Yq1YwqUEG1vukBAq3nvJTQe0CbKM2o5I=
+Received: by mx.zohomail.com with SMTPS id 1788363778748606.1071272860789;
+	Wed, 2 Sep 2026 08:42:58 -0700 (PDT)
+Date: Wed, 2 Sep 2026 16:42:53 +0100
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Faith Ekstrand <faith.ekstrand@collabora.com>, 
+	"Marty E. Plummer" <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
+	Eric Anholt <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+	Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	Collabora Kernel Team <kernel@collabora.com>, Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v7 11/17] drm/panfrost: Add debugfs knob for manually
+ triggering a GPU reset
+Message-ID: <aphD4_tNK6w9yc9j@sobremesa>
+References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
+ <20260828-claude-fixes-v7-11-72a13b2c125d@collabora.com>
+ <20260901152726.280f57e0@fedora-21.home>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,201 +63,87 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAN_Opa81BaWxkdRyoHQBcMLbOt-n7f-4cUmxxstage1MSOu1Hw@mail.gmail.com>
+In-Reply-To: <20260901152726.280f57e0@fedora-21.home>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.352.18
 
-On Wed, Sep 02, 2026 at 05:18:50PM +0800, KunWu Chan wrote:
-> On Wed, Sep 2, 2026 at 1:11 AM Paul E. McKenney <paulmck@kernel.org> wrote:
-> >
-> > On Tue, Sep 01, 2026 at 03:48:15PM +0800, Kunwu Chan wrote:
-> > > From: Kunwu Chan <kunwu.chan@gmail.com>
-> > >
-> > > Set srcu_reader_flavor to SRCU_READ_FLAVOR_ATOMIC in the Tiny SRCU
-> > > atomic initialization paths, so that the entry-point checks added by
-> > > the previous commit can identify atomic SRCU domains.
-> > >
-> > > For static initialization, add a flavor parameter to
-> > > __SRCU_STRUCT_INIT() and pass SRCU_READ_FLAVOR_ATOMIC through
-> > > DEFINE_SRCU_ATOMIC() and DEFINE_STATIC_SRCU_ATOMIC().
-> > >
-> > > For dynamic initialization, initialize srcu_reader_flavor to zero in
-> > > init_srcu_struct_fields() for the generic initialization path, and
-> > > set it to SRCU_READ_FLAVOR_ATOMIC in init_srcu_struct_atomic().
-> > > Handle both CONFIG_DEBUG_LOCK_ALLOC and non-debug initialization paths.
-> > >
-> > > Enable srcu_check_read_flavor() for Tiny SRCU, matching the Tree SRCU
-> > > behavior, so that readers can verify that the requested flavor matches
-> > > the SRCU domain.
-> > >
-> > > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
-> >
-> > Much better!  Please see below for additional questions and comments.
+On 01.09.2026 15:27, Boris Brezillon wrote:
+> On Fri, 28 Aug 2026 21:56:51 +0100
+> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
 > 
-> Thanks Paul for the detailed reply.
+> > This will be of great help when testing potential races between the GPU
+> > reset sequence and other parts of the code accessing HW registers.
+> > 
+> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+> > ---
+> >  drivers/gpu/drm/panfrost/panfrost_device.c | 35 ++++++++++++++++++++++++++++++
+> >  1 file changed, 35 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > index d8acae9b8cfa..b6a48ae0d3a6 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > @@ -2,6 +2,7 @@
+> >  /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
+> >  /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
+> >  
+> > +#include <linux/debugfs.h>
+> >  #include <linux/clk.h>
+> >  #include <linux/reset.h>
+> >  #include <linux/platform_device.h>
+> > @@ -600,9 +601,43 @@ EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) = {
+> >  };
+> >  
+> >  #ifdef CONFIG_DEBUG_FS
+> > +static int reset_get(void *data, u64 *val)
+> > +{
+> > +	struct panfrost_device *pfdev =
+> > +		container_of(data, struct panfrost_device, base);
+> > +
+> > +	*val = atomic_read(&pfdev->reset.pending);
+> > +	return 0;
+> > +}
+> > +
+> > +static int reset_set(void *data, u64 val)
+> > +{
+> > +	struct panfrost_device *pfdev =
+> > +		container_of(data, struct panfrost_device, base);
+> > +
+> > +	if (pm_runtime_get_if_in_use(pfdev->base.dev)) {
 > 
-> >
-> > > ---
-> > >  include/linux/srcutiny.h | 39 +++++++++++++++++++++++++++++----------
-> > >  kernel/rcu/srcutiny.c    |  1 +
-> > >  2 files changed, 30 insertions(+), 10 deletions(-)
-> > >
-> > > diff --git a/include/linux/srcutiny.h b/include/linux/srcutiny.h
-> > > index 2b293336525a..9dce4b5aa084 100644
-> > > --- a/include/linux/srcutiny.h
-> > > +++ b/include/linux/srcutiny.h
-> > > @@ -40,7 +40,7 @@ void srcu_drive_gp(struct work_struct *wp);
-> > >  void srcu_tiny_irq_work(struct irq_work *irq_work);
-> > >  void srcu_defer_drain(struct irq_work *irq_work);
-> > >
-> > > -#define __SRCU_STRUCT_INIT(name, __ignored, ___ignored, ____ignored) \
-> > > +#define __SRCU_STRUCT_INIT(name, __ignored, ___ignored, flavor)              \
-> > >  {                                                                    \
-> > >       .srcu_wq = __SWAIT_QUEUE_HEAD_INITIALIZER(name.srcu_wq),        \
-> > >       .srcu_cb_tail = &name.srcu_cb_head,                             \
-> > > @@ -49,6 +49,7 @@ void srcu_defer_drain(struct irq_work *irq_work);
-> > >       .defer_cbs = LLIST_HEAD_INIT(name.defer_cbs),                   \
-> > >       .defer_iw = { .node = { .u_flags = IRQ_WORK_HARD_IRQ },         \
-> > >                     .func = srcu_defer_drain },                       \
-> > > +     .srcu_reader_flavor = flavor,                                   \
-> >
-> > Don't we also need to define srcu_reader_flavor?  Or is this patch
-> > supposed to be applied on top of your previous one?
-> 
-> Yes, this is intended to be applied on top of the previous one [1].
-> [1] https://lore.kernel.org/rcu/20260831074937.2380914-1-kunwu.chan@linux.dev/
-> 
-> > >       __SRCU_DEP_MAP_INIT(name)                                       \
-> > >  }
-> > >
-> > > @@ -57,29 +58,43 @@ void srcu_defer_drain(struct irq_work *irq_work);
-> > >   * Tree SRCU, which needs some per-CPU data.
-> > >   */
-> > >  #define DEFINE_SRCU(name) \
-> > > -     struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, name)
-> > > +     struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, 0)
-> > >  #define DEFINE_STATIC_SRCU(name) \
-> > > -     static struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, name)
-> > > +     static struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, 0)
-> > >  #define DEFINE_SRCU_FAST(name) DEFINE_SRCU(name)
-> > >  #define DEFINE_STATIC_SRCU_FAST(name) \
-> > > -     static struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, name)
-> > > +     static struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, 0)
-> > >  #define DEFINE_SRCU_FAST_UPDOWN(name) DEFINE_SRCU(name)
-> > >  #define DEFINE_STATIC_SRCU_FAST_UPDOWN(name) \
-> > > -     static struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, name)
-> > > -#define DEFINE_SRCU_ATOMIC(name) DEFINE_SRCU(name)
-> > > +     static struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, 0)
-> > > +#define DEFINE_SRCU_ATOMIC(name) \
-> > > +     struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, SRCU_READ_FLAVOR_ATOMIC)
-> > >  #define DEFINE_STATIC_SRCU_ATOMIC(name) \
-> > > -     static struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, name)
-> > > +     static struct srcu_struct name = \
-> > > +             __SRCU_STRUCT_INIT(name, name, name, SRCU_READ_FLAVOR_ATOMIC)
-> > >
-> > >  // Dummy structure for srcu_notifier_head.
-> > >  struct srcu_usage { };
-> > >  #define __SRCU_USAGE_INIT(name) { }
-> > >  #define __init_srcu_struct_fast __init_srcu_struct
-> > >  #define __init_srcu_struct_fast_updown __init_srcu_struct
-> > > -#define __init_srcu_struct_atomic __init_srcu_struct
-> > > +#define __init_srcu_struct_atomic(ssp, name, key) \
-> > > +({ \
-> > > +     int __ret = __init_srcu_struct(ssp, name, key); \
-> > > +     if (!__ret) \
-> > > +             (ssp)->srcu_reader_flavor = SRCU_READ_FLAVOR_ATOMIC; \
-> > > +     __ret; \
-> > > +})
-> > >  #ifndef CONFIG_DEBUG_LOCK_ALLOC
-> > >  #define init_srcu_struct_fast init_srcu_struct
-> > >  #define init_srcu_struct_fast_updown init_srcu_struct
-> > > -#define init_srcu_struct_atomic init_srcu_struct
-> > > +#define init_srcu_struct_atomic(ssp)                                 \
-> > > +     ({                                                              \
-> > > +             int __ret = init_srcu_struct(ssp);                      \
-> > > +             if (!__ret)                                             \
-> > > +                     (ssp)->srcu_reader_flavor = SRCU_READ_FLAVOR_ATOMIC;\
-> > > +             __ret;                                                  \
-> > > +     })
-> > >  #endif // #ifndef CONFIG_DEBUG_LOCK_ALLOC
-> > >
-> > >  void synchronize_srcu(struct srcu_struct *ssp);
-> > > @@ -148,7 +163,11 @@ static inline void synchronize_srcu_expedited(struct srcu_struct *ssp)
-> > >  void srcu_barrier(struct srcu_struct *ssp);
-> > >
-> > >  static inline void srcu_expedite_current(struct srcu_struct *ssp) { }
-> > > -#define srcu_check_read_flavor(ssp, read_flavor) do { } while (0)
-> > > +#define srcu_check_read_flavor(ssp, read_flavor) \
-> > > +     ({ \
-> > > +             u8 __f = (ssp)->srcu_reader_flavor; \
-> > > +             WARN_ON_ONCE(__f && !(__f & (read_flavor))); \
-> > > +     })
-> >
-> > Why not make this a static inline function, along with
-> > __init_srcu_struct_atomic() and init_srcu_struct_atomic() above?
-> > That should simplify the code.
-> 
-> Thanks. I’ll rework the initialization helpers as static inline
-> functions as suggested.
-> 
-> > >  /* Defined here to avoid size increase for non-torture kernels. */
-> > >  static inline void srcu_torture_stats_print(struct srcu_struct *ssp,
-> > > diff --git a/kernel/rcu/srcutiny.c b/kernel/rcu/srcutiny.c
-> > > index 22f7716cbb0e..873b30ccf563 100644
-> > > --- a/kernel/rcu/srcutiny.c
-> > > +++ b/kernel/rcu/srcutiny.c
-> > > @@ -42,6 +42,7 @@ static int init_srcu_struct_fields(struct srcu_struct *ssp)
-> > >       ssp->srcu_gp_running = false;
-> > >       ssp->srcu_gp_waiting = false;
-> > >       ssp->srcu_atomic_gp_flag = 0;
-> > > +     ssp->srcu_reader_flavor = 0;
-> > >       ssp->srcu_idx = 0;
-> > >       ssp->srcu_idx_max = 0;
-> > >       INIT_WORK(&ssp->srcu_work, srcu_drive_gp);
-> > > --
-> > > 2.43.0
-> >
-> > One of the purposes of Tiny SRCU is to be tiny, and one could argue
-> > that Tiny SRCU already has too much diagnostic code.  Should we include
-> > these patches at all?  If we should, shouldn't they be under something
-> > like CONFIG_PROVE_RCU?  Should some of the existing Tiny SRCU debugging
-> > code also be under something like CONFIG_PROVE_RCU?
-> >
-> > Thoughts?
-> 
-> I agree that Tiny SRCU should keep its core as small as possible, so I think
-> it is worth reconsidering how much diagnostic machinery we want to add here.
-> 
-> For srcu_reader_flavor, I did have some hesitation when adding it.
-> Tiny SRCU did not previously have the concept of a reader flavor; I
-> mainly added it
-> to distinguish Tiny Atomic SRCU, following the approach used by Tree
-> SRCU. If we still
-> need state for this purpose, perhaps a one-bit flag would be sufficient.
-> 
-> One question is whether the flavor checking really needs to be part of
-> srcutiny.c.
-> I think there are two somewhat different cases:
-> 1: checking for invalid API usage, where the purpose is to detect or
-> stop misuse;
-> 2: defensive handling of an invalid call, where we redirect to a safe
-> implementation,
->     like in synchronize_srcu.
-> 
-> The first case seems more like diagnostic functionality and could
-> potentially be handled
-> in the common SRCU API layer under CONFIG_PROVE_RCU. The second case affects
-> runtime behavior and should remain independent of CONFIG_PROVE_RCU.
-> 
-> This makes me wonder whether the common flavor validation could live in srcu.h,
-> as part of the common SRCU interface, rather than adding more checking
-> logic to srcutiny.c.
-> That could centralize the validation and keep the Tiny SRCU
-> implementation easier to follow,
-> although it would add another wrapper layer, such as a macro or static inline.
+> Are you sure it's not pm_runtime_get_if_active() we want here? If use
+> the _if_in_use() variant and autosuspend is enabled, we might skip a
+> reset on a device that's active.
 
-Another approach is to let the checking in Tree SRCU cover this.
-That way, the only misuses of the atomic SRCU API that are missed are
-those that appear only in CONFIG_SMP=n code.  And right now, there isn't
-any such uses.  There might be in the future, but perhaps this is quite
-unlikely.
+Do you mean if a driver has brought the RPM count down to 0 and scheduled a deferred suspend?
+Couldn't manually triggering a reset then somehow race with whatever is being done in
+panfrost_device_runtime_suspend() ?
 
-							Thanx, Paul
+> > +		panfrost_device_schedule_reset(pfdev);
+> > +		flush_work(&pfdev->reset.work);
+> > +		pm_runtime_put(pfdev->base.dev);
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +DEFINE_DEBUGFS_ATTRIBUTE(panfrost_reset_debugfs_fops,
+> > +			 reset_get, reset_set,
+> > +			 "0x%08llx\n");
+> > +
+> > +static void panfrost_reset_debugfs_init(struct drm_minor *minor)
+> > +{
+> > +	debugfs_create_file("reset", 0600, minor->debugfs_root,
+> > +			    minor->dev, &panfrost_reset_debugfs_fops);
+> > +}
+> > +
+> >  void panfrost_device_debugfs_init(struct drm_minor *minor)
+> >  {
+> >  	panfrost_gems_debugfs_init(minor);
+> >  	panfrost_sched_debugfs_init(minor);
+> > +	panfrost_reset_debugfs_init(minor);
+> >  }
+> >  #endif // CONFIG_DEBUG_FS
+> > 
+
+Adrian Larumbe
