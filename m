@@ -1,64 +1,76 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9601493632
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:40:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2A65493653
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:40:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352859; cv=none; b=kIBxWxYnVXYAu2m/tfdzwtoPHvPwdnJWGui0ErV2s5irnkgUw8Psdxa7RHQo853k11wR/3WwOPQYgF7/yK7by8akZ7gcG6ZM/oY6NHkH3EL51nO43Va2rCGNittee8ajDNmhZHCZDN58O+IjbnfSZX+AiXCq+QgM823ZzaX6BYI=
+	t=1788352861; cv=none; b=dJr/8mCd7SUoXcSu62FGMIqBeFKMgl1W5/zdGUq7+iiqk39nKS0+lK6ikE18H603Ogxkt+KK3mzEpSVtlpqZRMf7SJ8RLid//KfGiZ1ciROzZsTUpdjurZzMLvdMXo6yxhJZQxuPSvKR3aPdj9DIIysunjk8w4OUqdObuwU7Zf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352859; c=relaxed/simple;
-	bh=xyTZtukQ0nTIad9odCB2JAq1OSBUbce1d5b+4Bs6x8A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=agVUdFqfwxXMoOvrudaNVzoeDM9A/clywELps24R+ze35//1Ry3W7Rbf1e9+y2BIxaxDp+c0Zg6ojSyUJidqrorBZhs6HbDQszmrkxdS8Lai6AObU2BE2jRWJL5lOASsjQYKw09PbZQcSbbCVYLPcn505BZtYqd2MfojGvsvwKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KaGeGK7q; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788352861; c=relaxed/simple;
+	bh=69ncB8hBajtEa8HDapr1rxkd8n/GxAyhRCT8Oborio4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z8efxEUH60kTPoLGjTO7xre6reD/d1Vuz0dA9iDpMbX/fSxpWd6mQiXcLLDYqqOWb4QlqUtz96n3a/ZLAM5toLCyS2ZNrkJPaBmV7iaIAhIW7LFzxXwTOybW6dna1xlKlhGtHsR+2P8K0hUfbkcQWH4HekGLBdgBii0PjbpvTiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QL07uXIK; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KaGeGK7q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788352856;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hioaiPo7qfRBBdUI+++gzH6e7JfDnvI7QypkLOQkxAg=;
-	b=KaGeGK7qIm36fyLQUeeMTyrxAZsiFuBAJRJoZxlMofDhpbKkj4QgKSqlzqnwFaA7/VVEbY
-	RLKW6vIObYWn0wWU1mW+1WyXtQmZS7RcV2ZwGFrj+wHPL/jkX8d4vpFoJ8pl0ymQ9UnvLb
-	8Kb/0rTwmTu1R09Cqw3LRl5UBm1Mp88=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-592-evUGaa1zP3ujXCvI2C7LBQ-1; Wed,
- 02 Sept 2026 08:40:52 -0400
-X-MC-Unique: evUGaa1zP3ujXCvI2C7LBQ-1
-X-Mimecast-MFC-AGG-ID: evUGaa1zP3ujXCvI2C7LBQ_1788352850
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4B4B31921EEA;
-	Wed,  2 Sep 2026 12:40:50 +0000 (UTC)
-Received: from vschneid-thinkpadt14sgen2i.remote.csb (unknown [10.44.33.19])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4FEB51955F72;
-	Wed,  2 Sep 2026 12:40:46 +0000 (UTC)
-From: Valentin Schneider <vschneid@redhat.com>
-To: linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Tomas Glozar <tglozar@redhat.com>,
-	Costa Shulyupin <costa.shul@redhat.com>,
-	Crystal Wood <crwood@redhat.com>,
-	John Kacur <jkacur@redhat.com>,
-	Ivan Pravdin <ipravdin.official@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>
-Subject: [PATCH v5 8/8] rtla/osnoise: Trace IPI events when recording a trace file
-Date: Wed,  2 Sep 2026 14:39:37 +0200
-Message-ID: <20260902123942.695822-9-vschneid@redhat.com>
-In-Reply-To: <20260902123942.695822-1-vschneid@redhat.com>
-References: <20260902123942.695822-1-vschneid@redhat.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QL07uXIK"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3966791a6eeso1231414a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:40:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788352859; x=1788957659; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z+i1+hLinUt3Q2bK2ZT3Wc0emmUMZr61lAfSOzdane8=;
+        b=QL07uXIKeHZgy+eT7hNC39PGCw9CxqidJDdTdLfROj9P22mXs5mETheHi2CmZnvHF0
+         HRud3iv6Z0prAGUZR7Sd8xy0R9zzl8Scx2VgI5gtTgEbKNcqCq2FVTPL1cmCy5X1zte0
+         48Y3gStBNWIJYj8hzUu+abuE7ZnfEBTwKLArm9xM/1iJegrBzKpkXXWDVP9J298pypM7
+         EiWYrTgB8rLej8BK/T4ORYb3/8nSSQTM0/r9FbUENcyZGgYQ0b9pQcDG+k2Idpv19y0+
+         gf6K4muorfIv59mNoUV3ujgPRiCjL7ZhMMHeV0Z8pWyvxWtuTZAicvDWBF+Ym/UB11lF
+         QJ6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788352859; x=1788957659;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z+i1+hLinUt3Q2bK2ZT3Wc0emmUMZr61lAfSOzdane8=;
+        b=h8CKxeYk2LHydQR/o/9eCEH2rqPQh5NuuPHC0r7bdV7ucDQDwdEmGnOQZ80epidQsP
+         +N5NZ2/ILlugA5VRKnxE04jiKGkIXq6zO19gCu7K0bTeQ8ZRY+coYmwDiSv4Ou7GpfrN
+         NU/07Ki6Bs7G7MQjJWHx6PrvDQBNW7pjXPOFa0nadkMcgy4z/ALnFskSY9Tp5Vbu5THR
+         vcQGf/czbezMJHiBKIfJ6sme1sE0uyDF1S7aooBhl1SLj0eghIDkpZ9tNjtXpTJtGS3r
+         nL2C9SFi7TSsEc8E3mG65SjB7GhVA2ULji2weSD3f40Mb4Gi8H8qyde38k3Jt0rvAQyJ
+         yS1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzFi17om0DMVD9toV+W55zOB9n45KETmw3KisyALAdEtSrZu6dFjKyzYmqTKzN+J7Ljm5nB/1kUlbYl2Kg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhwU+khg8zrQz2dmCMZFtyCs4Ori34hdJbEsAcICvViG8Uz6Bi
+	OVXfHEUj3kFWqWzXPvuQigArLFUaK7gE/0Viv42IrQR7KIMfHoZyPOuF
+X-Gm-Gg: AYBFou33bFslW5/SzG8IybQq3+99zBaN0PQj0sAntpdUsMBlmzPFJgeywAcMwEcuJPK
+	XfTjYJHDIaCwuJbwBiveSkXOFGHxK3NCgcXWQRMVjtpJ0CBt+3zN5pNMw9l3/+W6kR2TftN49ns
+	IkXK7teGbxLKFw0rp2wAutZ2JadMDRaStq0fwUDZGa0A7NSgDlmJGTDG2Myzk9ONEmU6Iadcgre
+	6bS4FkR3Ha1rgGCmpOqNaAzlsH8D5lOuhEVZ5CPs7/KsZ9/fb0S1L1cF9jCwnjVMtvlJK70CCvX
+	dkOKi34zY/WE5EURf+oJvhmBU0h+OLvasp4z3puvoLS1YnKnV/G5ATBBhyS2zgFROM7xMiwtXGM
+	jJYPsa/8zskMNr1UNiEXP98+pcdJgCL1DTukfZkWatOXJdwbmLs9Av8acuhGILZmLs8F9A6NtEA
+	5yS3/GjBjZumByHz4/yWZ+XeYZwUTO2fBwuCtgJwBNJd5jkc9YRHCGc3bDYBdp1p5aKBCIipHjz
+	P80nd8sC30SIO6pMxCWe7dF30qXJiBhHA==
+X-Received: by 2002:a17:90b:4407:b0:398:9bd4:d13 with SMTP id 98e67ed59e1d1-39aee219427mr6732990a91.18.1788352858942;
+        Wed, 02 Sep 2026 05:40:58 -0700 (PDT)
+Received: from localhost.localdomain ([180.101.244.71])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990bd21e9dsm11879576a91.4.2026.09.02.05.40.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 05:40:58 -0700 (PDT)
+From: henrymei <ljp1205831794@gmail.com>
+X-Google-Original-From: henrymei <henrymei@tencent.com>
+To: linux-mtd@lists.infradead.org
+Cc: miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com,
+	linux-kernel@vger.kernel.org,
+	Aohan Mei <henrymei@tencent.com>,
+	TencentOS Corvus AI <corvus@tencent.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] mtd: inftl: validate MediaHeader partition geometry before allocating tables
+Date: Wed,  2 Sep 2026 20:40:19 +0800
+Message-ID: <20260902124044.3942821-1-henrymei@tencent.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,214 +78,102 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-IPIs can now be monitored and accounted by osnoise top. When that is
-the case, also record them when saving a trace file.
+From: Aohan Mei <henrymei@tencent.com>
 
-To match what is being recorded by the tool for its own analysis, event
-filters are applied to the events recorded to the trace output.
+find_boot_record() trusts the on-flash INFTL MediaHeader partition
+fields without validating their relationship to each other or to the
+device geometry.
 
-Signed-off-by: Valentin Schneider <vschneid@redhat.com>
+The sanity check
+
+	if ((ip->lastUnit - ip->firstUnit + 1) < ip->virtualUnits)
+
+is evaluated in unsigned 32-bit arithmetic.  With lastUnit < firstUnit
+the subtraction wraps to a huge value and the check passes.  Control
+then reaches:
+
+	inftl->nb_boot_blocks = ip->firstUnit;    /* loop bound */
+	inftl->nb_blocks      = ip->lastUnit + 1; /* table size */
+
+so PUtable/VUtable are allocated with lastUnit + 1 entries while the
+boot-block marking loop writes firstUnit u16 entries:
+
+	for (i = 0; i < inftl->nb_boot_blocks; i++)
+		inftl->PUtable[i] = BLOCK_RESERVED;
+
+A crafted MediaHeader (e.g. firstUnit=7000, lastUnit=3) turns a
+kmalloc_array(4, 2) 8-byte allocation into a ~14 KB out-of-bounds
+write:
+
+	BUG: KASAN: slab-out-of-bounds in find_boot_record
+	Write of size 2 ... 0 bytes to the right of allocated 8-byte region
+
+The MediaHeader unit itself is also marked through PUtable[block]
+without verifying that block lies within the described extent.
+
+Reject inconsistent partition geometry (lastUnit < firstUnit, or
+lastUnit beyond the device) as each partition entry is scanned, and
+reject a boot record that lies outside the extent of the selected
+partition.  The existing virtualUnits check then subtracts values
+that can no longer underflow.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+Cc: stable@vger.kernel.org
+Assisted-by: CodeBuddy:Kimi-K3
+Signed-off-by: Aohan Mei <henrymei@tencent.com>
 ---
- tools/tracing/rtla/src/common.c      |  2 +-
- tools/tracing/rtla/src/common.h      |  2 +-
- tools/tracing/rtla/src/osnoise.c     | 72 +++++++++++++++++++++++++++-
- tools/tracing/rtla/src/osnoise.h     |  4 ++
- tools/tracing/rtla/src/osnoise_top.c | 36 ++------------
- 5 files changed, 80 insertions(+), 36 deletions(-)
+ drivers/mtd/inftlmount.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-diff --git a/tools/tracing/rtla/src/common.c b/tools/tracing/rtla/src/common.c
-index 8c7f5e75b2ec8..2f6cf83475550 100644
---- a/tools/tracing/rtla/src/common.c
-+++ b/tools/tracing/rtla/src/common.c
-@@ -205,7 +205,7 @@ int run_tool(struct tool_ops *ops, int argc, char *argv[])
+diff --git a/drivers/mtd/inftlmount.c b/drivers/mtd/inftlmount.c
+index 87e246a6f488..b0f01db95280 100644
+--- a/drivers/mtd/inftlmount.c
++++ b/drivers/mtd/inftlmount.c
+@@ -192,6 +192,23 @@ static int find_boot_record(struct INFTLrecord *inftl)
+ 				 ip->lastUnit, ip->flags,
+ 				 ip->spareUnits);
  
- 	if (params->threshold_actions.present[ACTION_TRACE_OUTPUT] ||
- 	    params->end_actions.present[ACTION_TRACE_OUTPUT]) {
--		tool->record = osnoise_init_trace_tool(ops->tracer);
-+		tool->record = osnoise_init_trace_tool(params, ops->tracer);
- 		if (!tool->record) {
- 			err_msg("Failed to enable the trace instance\n");
- 			goto out_free;
-diff --git a/tools/tracing/rtla/src/common.h b/tools/tracing/rtla/src/common.h
-index 045253230fcf2..421e06e10f3f1 100644
---- a/tools/tracing/rtla/src/common.h
-+++ b/tools/tracing/rtla/src/common.h
-@@ -178,7 +178,7 @@ int osnoise_set_workload(struct osnoise_context *context, bool onoff);
++			/*
++			 * Reject inconsistent partition geometry before it is
++			 * used: lastUnit < firstUnit would make the
++			 * (lastUnit - firstUnit + 1) check below underflow,
++			 * and lastUnit must stay within the device as it later
++			 * bounds the PUtable/VUtable allocations.
++			 */
++			if (ip->lastUnit < ip->firstUnit ||
++			    ip->lastUnit >= inftl->nb_blocks) {
++				pr_warn("INFTL: Media Header "
++					"Partition %d sanity check failed:\n"
++					"        firstUnit %d lastUnit %d "
++					"(nb_blocks %d)\n",
++					i, ip->firstUnit, ip->lastUnit,
++					inftl->nb_blocks);
++				return -1;
++			}
+ 			if (ip->Reserved0 != ip->firstUnit) {
+ 				struct erase_info *instr = &inftl->instr;
  
- void osnoise_destroy_tool(struct osnoise_tool *top);
- struct osnoise_tool *osnoise_init_tool(char *tool_name);
--struct osnoise_tool *osnoise_init_trace_tool(const char *tracer);
-+struct osnoise_tool *osnoise_init_trace_tool(struct common_params *params, const char *tracer);
- bool osnoise_trace_is_off(struct osnoise_tool *tool, struct osnoise_tool *record);
- int osnoise_set_stop_us(struct osnoise_context *context, long long stop_us);
- int osnoise_set_stop_total_us(struct osnoise_context *context,
-diff --git a/tools/tracing/rtla/src/osnoise.c b/tools/tracing/rtla/src/osnoise.c
-index 4ff5dad013b10..ae6e5f03e828f 100644
---- a/tools/tracing/rtla/src/osnoise.c
-+++ b/tools/tracing/rtla/src/osnoise.c
-@@ -1178,10 +1178,56 @@ struct osnoise_tool *osnoise_init_tool(char *tool_name)
- 	return top;
- }
+@@ -233,6 +250,18 @@ static int find_boot_record(struct INFTLrecord *inftl)
+ 			return -1;
+ 		}
  
-+/*
-+ * osnoise_init_ipi_filters - Initialize event filtering for IPI events
-+ */
-+int osnoise_init_ipi_filters(struct osnoise_tool *tool,
-+				    struct common_params *params,
-+				    bool *filters_enabled)
-+{
-+	char filter[MAX_PATH];
-+	int retval;
-+	/*
-+	 * If tracing on a subset of possible CPUs, leverage the kernel filtering
-+	 * infrastructure to only generate events on traced CPUs.
-+	 * Older kernels (pre v6.6) may have the IPI events but not the ability
-+	 * to filter them, so allow that to fail gracefully.
-+	 */
-+
-+	snprintf(filter, ARRAY_SIZE(filter), "cpu & CPUS{%s}\n", params->cpus);
-+	retval = tracefs_event_file_write(tool->trace.inst,
-+					  "ipi", "ipi_send_cpu", "filter",
-+					  filter);
-+	if (retval < 0) {
-+		debug_msg("Could not set ipi_send_cpu CPU filter\n");
-+		*filters_enabled = false;
-+		return 0;
-+	}
-+
-+
-+	snprintf(filter, ARRAY_SIZE(filter), "cpumask & CPUS{%s}\n", params->cpus);
-+	retval = tracefs_event_file_write(tool->trace.inst,
-+					  "ipi", "ipi_send_cpumask", "filter",
-+					  filter);
-+	if (retval < 0) {
 +		/*
-+		 * If we managed to set up the previous filter but not
-+		 * this one, something's really wrong
++		 * The boot record unit must lie within the described
++		 * extent; it is later marked through PUtable[block].
 +		 */
-+		err_msg("Could not set ipi_send_cpumask CPU filter\n");
-+		*filters_enabled = false;
-+		return -1;
-+	}
-+
-+	*filters_enabled = true;
-+	return 0;
-+}
-+
- /*
-  * osnoise_init_trace_tool - init a tracer instance to trace osnoise events
-  */
--struct osnoise_tool *osnoise_init_trace_tool(const char *tracer)
-+struct osnoise_tool *osnoise_init_trace_tool(struct common_params *params,
-+					     const char *tracer)
- {
- 	struct osnoise_tool *trace;
- 	int retval;
-@@ -1196,6 +1242,30 @@ struct osnoise_tool *osnoise_init_trace_tool(const char *tracer)
- 		goto out_err;
- 	}
- 
-+	if (!params->ipi)
-+		goto done;
-+
-+	retval = tracefs_event_enable(trace->trace.inst, "ipi", "ipi_send_cpu");
-+	if (retval < 0 && !errno) {
-+		err_msg("Could not find ipi_send_cpu event\n");
-+		goto out_err;
-+	}
-+
-+	retval = tracefs_event_enable(trace->trace.inst, "ipi", "ipi_send_cpumask");
-+	if (retval < 0 && !errno) {
-+		err_msg("Could not find ipi_send_cpumask event\n");
-+		goto out_err;
-+	}
-+
-+	if (params->cpus) {
-+		bool unused;
-+
-+		retval = osnoise_init_ipi_filters(trace, params, &unused);
-+		if (retval < 0)
-+			goto out_err;
-+	}
-+
-+done:
- 	retval = enable_tracer_by_name(trace->trace.inst, tracer);
- 	if (retval) {
- 		err_msg("Could not enable %s tracer for tracing\n", tracer);
-diff --git a/tools/tracing/rtla/src/osnoise.h b/tools/tracing/rtla/src/osnoise.h
-index 340ff5a64e6e4..81a704c361ec0 100644
---- a/tools/tracing/rtla/src/osnoise.h
-+++ b/tools/tracing/rtla/src/osnoise.h
-@@ -63,6 +63,10 @@ int osnoise_enable(struct osnoise_tool *tool);
- int osnoise_main(int argc, char **argv);
- int hwnoise_main(int argc, char **argv);
- 
-+int osnoise_init_ipi_filters(struct osnoise_tool *tool,
-+			     struct common_params *params,
-+			     bool *filters_enabled);
-+
- extern struct tool_ops timerlat_top_ops, timerlat_hist_ops;
- extern struct tool_ops osnoise_top_ops, osnoise_hist_ops;
- 
-diff --git a/tools/tracing/rtla/src/osnoise_top.c b/tools/tracing/rtla/src/osnoise_top.c
-index afab2f341a1e9..87d28865515b5 100644
---- a/tools/tracing/rtla/src/osnoise_top.c
-+++ b/tools/tracing/rtla/src/osnoise_top.c
-@@ -392,7 +392,7 @@ osnoise_ipi_cpumask_handler(struct trace_seq *s, struct tep_record *record,
-  */
- struct osnoise_tool *osnoise_init_top(struct common_params *params)
- {
--	bool ipi_filters_enabled = false;
-+	bool ipi_filters_enabled;
- 	struct osnoise_tool *tool;
- 	int retval;
- 
-@@ -424,41 +424,11 @@ struct osnoise_tool *osnoise_init_top(struct common_params *params)
- 		goto out_err;
- 	}
- 
--	/*
--	 * If tracing on a subset of possible CPUs, leverage the kernel filtering
--	 * infrastructure to only generate events on traced CPUs.
--	 * Older kernels (pre v6.6) may have the IPI events but not the ability
--	 * to filter them, so allow that to fail gracefully.
--	 */
- 	if (params->cpus) {
--		char filter[MAX_PATH];
--
--		snprintf(filter, ARRAY_SIZE(filter), "cpu & CPUS{%s}\n", params->cpus);
--		retval = tracefs_event_file_write(tool->trace.inst,
--						  "ipi", "ipi_send_cpu", "filter",
--						  filter);
--		if (retval < 0) {
--			debug_msg("Could not set ipi_send_cpu CPU filter\n");
--			goto no_filter;
--		}
--
--
--		snprintf(filter, ARRAY_SIZE(filter), "cpumask & CPUS{%s}\n", params->cpus);
--		retval = tracefs_event_file_write(tool->trace.inst,
--						  "ipi", "ipi_send_cpumask", "filter",
--						  filter);
--		if (retval < 0) {
--			/*
--			 * If we managed to set up the previous filter but not
--			 * this one, something's really wrong
--			 */
--			err_msg("Could not set ipi_send_cpumask CPU filter\n");
-+		retval = osnoise_init_ipi_filters(tool, params, &ipi_filters_enabled);
-+		if (retval < 0)
- 			goto out_err;
--		}
--
--		ipi_filters_enabled = true;
- 	}
--no_filter:
- 
- 	/*
- 	 * If no filtering is available and we're tracing all CPUs, we can still
++		if (block > ip->lastUnit) {
++			pr_warn("INFTL: Media Header "
++				"Partition %d sanity check failed:\n"
++				"        boot record unit %d beyond "
++				"lastUnit %d\n",
++				i, block, ip->lastUnit);
++			return -1;
++		}
+ 		inftl->nb_boot_blocks = ip->firstUnit;
+ 		inftl->numvunits = ip->virtualUnits;
+ 		if (inftl->numvunits > (inftl->nb_blocks -
 -- 
-2.55.0
+2.43.7
 
