@@ -1,152 +1,218 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD34F48CD71
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:56:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788375408; cv=none; b=kXvO3pRC+LciL4HXHRVvxhwn3DBKKMngjVIZAt9nn2WPCjJwFUFJIA53ZbpJ1v7A/GjoBTbZGx/Vqv3TnmFLRTYmb+W0Nk4ZaX607590PIZPy40JaSbgGELFwYvaZblSdBVdOgGSESnt7yVUdf2XADQllsY70vvg80zMqMb/TYQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788375408; c=relaxed/simple;
-	bh=Bl6Z+yhon446XPiSec64jLZfYGcpfzZ7kRoEQk6o8wY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vAbRT5z74JMt1WsF6xNcXUn6lEwOzm0kj4I0XaPVroFEO1J3KYwRNzm3Z82AXs/ZNLac5Mi8hUA0sELYDekvOK/ZK+Z/mRRiJuc3gY0a8uvzqyMNoX2JXEZt5UKGUkPtLd2wPTXnpW+Log9kquuUeT4wv/nN2/lvnXBGrg3zvuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=cOQBfnTl; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CEF33603DD
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:57:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788375440; cv=pass; b=utb2d/ykin3HsFHewFw5uOZE0VJWj3hHtXthcNOCPzxedg9FlD+CJoX268v0HMmiHPMP9B8fsVeC5y+GHEujwzzygIgDn17Qw/5PDaUs1amUsJA9eliknvglny6horJUYEgI73W5nv4Isva9PzGSpPgUpz3bSSz6RI4WnUFbcRs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788375440; c=relaxed/simple;
+	bh=kAhdATwx3WIHbGB0k07lcKXBFcbhBGOux02j6uV4eeI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cm77M7Z7stCGjJ3WCvDqvEFH66cJoGjqgAQKluvUkZVtl6YigO5/WhblFGfEDDgZBCfZZCc/q0P7lP1MXBHCG6IlbmEMdhtTWPoD26J6CxEJOTFlXOQfQQI2ihqnAbqJE48YLz57tVGrN3CwOND1/iwtGXvoTEDTSiYbsjmLRK4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W2ZbxSCZ; arc=pass smtp.client-ip=209.85.167.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="cOQBfnTl"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-485538d3499so1026169f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 11:56:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W2ZbxSCZ"
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b4a0e5aefeso1557535e87.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 11:57:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788375436; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rN5IfCP0HVwnZlwKCVunx0HZdESLoxPUWkhNQ7/UBMgFjmZweg6VkEXkxlOIE8VHXo
+         99aC/WIZnYXcIIrrtjzusXQSK1crRsOf2AsQNCeSj3vXbLewXyg30Y1mJ7rQCZmw7i+3
+         DP/IrkZ1JsZpV7IbIf3goUmB5z1IarEYONsvZSQWHyx76G7nWhrV1gFDgH7uDDXl98Mn
+         ZdXaCYr1NO67BWzUlLuqGWGeN7K8dNnMvBzAlWMGO7PmGSOckMm2CWkJ3NhFR+MtqZFW
+         Ty//caEJ14WVkF142+VWRRdQDSjph3ntGSsUX+mR+h3Vue4N+Htwb/ZytfCd90LlN1G0
+         gLSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=So64Ro6SpTwfGQ7jkVS9du9c9Dq+a9Y0lq1VIThiEm0=;
+        fh=1TwKF3kD4AbsCIcxM92R2tG7PgdiI61ugysjJH0xjIc=;
+        b=Mx91jnnm0JPDYRpYlHkQgQHzMl+bl+GilGH8rFwSFk2MqWLJNMBh542Bn6GCkIYy8u
+         7TzOTaas9C39lFLeXR86DEpaWIDyTriYMbzLyzFi7R7Twbt0sTSEhJ+6aJAeKZPWpduP
+         y5BtT88MqnKsPMFAHoZUDCA64kbvS++WrP6xmL1AbTj5Ii246Fxi+lZ39B3ko9jzD2nL
+         DkUni9LbUDZ1TDaFxPFSUjAsUriRXQJxfKy7GmYsi9FWrDk+IFJsXYI5ywrHK9bjbKbY
+         jJWl2gLLdT5FEfNmIHYb26Incn6Zfz1Z9Pqw9iFu5O2LCuBq7zu5OzNQYmSwAYZ6apAe
+         NP7w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788375405; x=1788980205; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788375436; x=1788980236; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Ce9zziXevwzztTUtUBuzSZewu7sUb5iK8933/ZqFADI=;
-        b=cOQBfnTlbQ9OfuOLJJcn435IH5QOTVq0jNGYIVjOUXKTRxSWgBjM4dMxjFlOj1DpFr
-         JHnCG5UepMh99Y4Xy9jlXrs3zuHi/FtdlLBMrlpIidVgtUOrl+Biq2McrTueYgCeyOjS
-         XjdkU4CW8CYtXVTnu4N/PLe+UdXnelB1reDrxVy8BPnLeqcFDr5Euy0AhJjd2zOMzqLG
-         LOYg3vyUdKXX+vRhFrg+JoE3hHp4IdCAGMaYeM4fzv9vjYmidr6sGo3MWPt7phnLIV9B
-         p+m0q27SQ9GP/VnLhUHhsPR6ueN12+mfkgdfpQ8/9Kk03fY00GLVp6VvahWAot8P8ulO
-         ohAA==
+        bh=So64Ro6SpTwfGQ7jkVS9du9c9Dq+a9Y0lq1VIThiEm0=;
+        b=W2ZbxSCZFNowL1O1sWHqd3OtI2VjYB9ruJrjdhX2XLEPFlVdoOxsvZ7Yg2nxGBtZ0n
+         V3R16md3xBulofqhsidQHvvAQ/CU6z6VHNzRI9Mi4UVg7BMCxCPxuo96BMqMlOG7M2ZM
+         g1hFf5byhBw08WA1BLmVOOkoCiakWlTZ2p3J9yIv/fivzv5dwVaEk2oOy/aFMsNlZ60d
+         TBL+lVjSskEbr3umXcUHZVmTXmT4jLZ7VnKGsdQlAyYehcruNl17mNUszsDD5ttRcFbX
+         GQLdTZSUE8Jjt3XGakY4H6Rf2kbYDkcbqb4f05mpsIQXnS3zWvfwGgC5zBo8J6bTfzTS
+         6Uow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788375405; x=1788980205;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788375436; x=1788980236;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ce9zziXevwzztTUtUBuzSZewu7sUb5iK8933/ZqFADI=;
-        b=H/0QROnK+xTzJeGG7lvUVcoBkc+gDMFv8kJMex5SogqKhwZTm7hGhO5NITH9lp+m1p
-         Wt1UL6bV8b4kgG9wYRo5ujoFNQkqIkW6jMh4u67niK/r3G4nY/zEEYRl6GtTtjXzxnwj
-         breR6IKwg57FGszrLISts9tW4Lmf4+wCIQRtTsaeFkLr53TmZPnMl5OWACwoCzHo9OkS
-         FeF6soQE/9mCFQJx43Zm37XohBQreCVEo32rMCSHiLXJKo0lboOFV9RTPOfjvEPYghqf
-         7iFgDlMX3fUIm/XAAGssuoydMPNmvPKuSeStHo/3N8gTEbozoI5Qy5Glx7PQKsbDplbP
-         jULw==
-X-Forwarded-Encrypted: i=1; AKwUvBynwQdLbZuGr5namBhqS++EB2Kk9zguy3kqgnopBPbpy9ywhe1+JHygL7EkwwLlojm7eumfOEI01mve468=@vger.kernel.org
-X-Gm-Message-State: AFuF++loo3WofDqT99UcFlFEUDNOJW5GMaNg0F1GAZIonC2ucgciCDUu
-	F0w9sewPsHkBQC9mWy4YMx2qekor3ynxSSIoCxh6Y3vslzzvUj1hJEaqf3xT08GJpEk=
-X-Gm-Gg: AYBFou2XqSmq5Nr82ujtn+CNRAtrsYDOyzYSIoaWkPb5BsiEkHiKxPTXZ9BD5AOnzka
-	RKui2sm8VzRR+ktlsSX7O76I0OUoFHiR1LdQYAi9A02JvvK81n+Da+utJ/ro18Efxy96NCJ3MS0
-	ZVQuIw72vtxsAo0HIc5ve6O3i9yqvw6VGQua6XHL79Lm09wucZbuLobZIG/fn1tzOJUVDzNuIW8
-	ktNsIRUH0soRgyPOkfY4XWMp2m9VnYAbIa+Vlwbh1BD712Qw3pNljfwlViRa4Khz/bdN3BUdNxx
-	tJgQ9Ss33AHh55HrKpJ2T/hytlluJZ4Bx4cZvRZQxXgmH4sPnCGkwjNkilnGwbMzIRNo/+6YLd4
-	ypjm75Wd7HU/52bHGOwxBWKpvYEpw16RaFxy3rbgoYhrQL4GH1rlo6b93b/2ciV8p50lYmkMrLc
-	7yhWZehbWImyas3DmaXutMhJG9qa6UMBD+gOGqZGSm8yHSONwp8HPQ7qn+kCDT/Cw=
-X-Received: by 2002:a05:6000:27db:10b0:484:f26c:b9f3 with SMTP id ffacd0b85a97d-484f26cbc06mr9882672f8f.28.1788375404776;
-        Wed, 02 Sep 2026 11:56:44 -0700 (PDT)
-Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448ed3716sm8647593f8f.22.2026.09.02.11.56.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 11:56:44 -0700 (PDT)
-Date: Wed, 2 Sep 2026 20:56:42 +0200
-From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
-To: Shaojie Sun <sunshaojie@kylinos.cn>
-Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Christian Brauner <christian@brauner.io>, Pavel Tikhomirov <ptikhomirov@virtuozzo.com>
-Subject: Re: [PATCH] cgroup: namespace: replace BUG_ON() in copy_cgroup_ns()
- with WARN_ON_ONCE()
-Message-ID: <aphwXq5bEQwKhqx2@localhost.localdomain>
-References: <20260902101856.225493-1-sunshaojie@kylinos.cn>
+        bh=So64Ro6SpTwfGQ7jkVS9du9c9Dq+a9Y0lq1VIThiEm0=;
+        b=BXPHfJ/m5frD2OM19kNlN8TeEBYWqj4uxl+DYiCfWc/RTqFmAok3oJRsAhvVReaR05
+         Y1cDZBZzx7NSfQS9S41Q5nJKCbsuorYEBtNoRBBc+P6gQeAXGRe0DSDJJ5jfBRYI8FKS
+         bMAxD+uqhQ1iQ5yt7+OT4kPTQcHdYuVcRBnYq+06mxDtKGIKHRWXBtH76ASHej6AEqbK
+         NfTJnyAtaHAT/GZYXBsFvdJ+mEe3HaPcuiBDqlNiWVMHmtG94Mta4fG3hSJYwQedTzNF
+         KGqR6RnXpSB1b2mVNj2sW9bv//chBrO3+35bkMcxstXoeryfPeRKDmPc5pN6onfwz72w
+         wjAA==
+X-Forwarded-Encrypted: i=1; AKwUvBwa3DhO5m+q/ib/jtp+tr/ZVN4ZSDOKPTRy05pP8xxlXQC0LECdGi+zlFzgPDJgAdNHrXdiGBA7/OpAAX8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nK9+PajvCPwZy0JxQUlgWQ7jMp3S5F4lETBceefKaS4MkbkkHf
+	ZXTwiSRhNCfalsznzqFw68FtE4p9ZNnhVX7m4SpvqhDeQiRJAhyoMKYpQ7ckFn4ZII+VHy4oA+m
+	doMmLX8TleuuZBY+zKLl2fHrjThg7wOk=
+X-Gm-Gg: AYBFou1V4ZRNISNf7Ix8UOiqyhJsbPgqdeTufAktWcCGABfrylIkwd5cdU949EYbfQH
+	z/jnvAswPkuIOuAgdHguOrIig8kFjO/mfHeKGjPKiZNuwSppD3NJFCZBYfvMsHHiEL6BwB7ktAA
+	9iEyqh3e9o9U5L0PK3upyhIRBFuZrV9152JA+10T7Ld/ms9SqpDJpMV/vOpbc+H4HOyxjBRU5v1
+	p0quak0yxWsAguwuFhUFjRZDcwVbsd+5zM22JNuIJF9M5OMd8IgHnF4tZQooNqKBc9ld7HNDuYU
+	a7Ptvag5sdwjY40S6Huqgr0nEM7ZCFBMoyLNTSu+Fz8oftQ=
+X-Received: by 2002:a05:6512:3e1a:b0:5b5:e8d5:7fff with SMTP id
+ 2adb3069b0e04-5b60834e1c3mr1882892e87.8.1788375436183; Wed, 02 Sep 2026
+ 11:57:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ybus6cnw3pbkpvuz"
-Content-Disposition: inline
-In-Reply-To: <20260902101856.225493-1-sunshaojie@kylinos.cn>
-
-
---ybus6cnw3pbkpvuz
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
+References: <cover.1788277742.git.mattst88@gmail.com> <CA+=Fv5Tze+34x+pZDeWb0kjeDsY15yd+pAh7weS3kai7mr9TXA@mail.gmail.com>
+In-Reply-To: <CA+=Fv5Tze+34x+pZDeWb0kjeDsY15yd+pAh7weS3kai7mr9TXA@mail.gmail.com>
+From: Matt Turner <mattst88@gmail.com>
+Date: Wed, 2 Sep 2026 14:57:02 -0400
+X-Gm-Features: AcwNN1Wpg9XeJvBCH5t7ntVx1yYgoN82DInM_VUfflO5wpHt-MDCBRbtr8P-ECQ
+Message-ID: <CAEdQ38FoUPzftf9vDcJK8L38j+cDzTyxdL+Fj-3oAQHmmOxaOA@mail.gmail.com>
+Subject: Re: [PATCH 00/24] alpha: catch up on architecture Kconfig options
+To: Magnus Lindholm <linmag7@gmail.com>
+Cc: linux-alpha@vger.kernel.org, richard.henderson@linaro.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] cgroup: namespace: replace BUG_ON() in copy_cgroup_ns()
- with WARN_ON_ONCE()
-MIME-Version: 1.0
 
-Hi Shaojie.
+On Wed, Sep 2, 2026 at 2:54=E2=80=AFPM Magnus Lindholm <linmag7@gmail.com> =
+wrote:
+>
+> Hi Matt,
+>
+> On Tue, Sep 1, 2026 at 5:50=E2=80=AFPM Matt Turner <mattst88@gmail.com> w=
+rote:
+> >
+> > Alpha is missing a long list of Kconfig options that other architecture=
+s
+> > have picked up over the years, some of them for no better reason than
+> > nobody having gone through the list.  I diffed the select statements in
+> > every other arch/*/Kconfig against arch/alpha/Kconfig and worked throug=
+h
+> > what turned up.  This series is the result: two fixes it depends on, an=
+d
+> > the options that are either free or close to it.
+> >
+> > The patches are ordered from least to most contentious, so the front of
+> > the series can be applied on its own if the tail needs discussion.
+> >
+> > Patches 1-2 are fixes.  arch_irqs_disabled_flags() only reported
+> > interrupts as disabled at IPL_MAX, but PALcode enters handlers at the
+> > IPL of the interrupt being delivered, so a device or timer handler
+> > answered that interrupts were enabled.  handle_irq() also called
+> > irq_to_desc() before irq_enter(), running generic code with the preempt
+> > count still saying task context and RCU not yet watching.  Both matter =
+on
+> > their own; patches 23 and 24 are what made them visible.
+> >
+> > Patches 3-11 are one-line selects with no Alpha code behind them:
+> > instrumentation (UBSAN, gcov, kmemleak), EDAC, and four properties Alph=
+a
+> > has always had but never declared (LL/SC atomics, hardware multiply,
+> > __int128, the existing asm/compiler.h, and the non-overlapping user and
+> > kernel address spaces).
+> >
+> > Patches 12-17 add a small amount of code: an empty thread_struct
+> > whitelist, _PAGE_SPECIAL on a free PTE bit, the page table check helper=
+s,
+> > and then the three things that follow from those - the page table helpe=
+r
+> > self test, lockless GUP, and the early memtest.  Note that early_memtes=
+t()
+> > is called from arch_mm_preinit() rather than paging_init(), because Alp=
+ha
+> > calls paging_init() from setup_arch(), before parse_early_param() has s=
+een
+> > the memtest=3D option.
+> >
+> > Patches 18-20 change something visible.  Unhandled user faults now prin=
+t
+> > the usual message under the debug.exception-trace sysctl.  .eh_frame is
+> > discarded: gcc emits it for Alpha regardless of
+> > -fno-asynchronous-unwind-tables, it was allocated in the loaded image, =
+and
+> > nothing consumes it, since the stack trace code scans for text addresse=
+s
+> > rather than unwinding DWARF.  That is worth about 1.1MB.  With that and
+> > the relocation sections placed explicitly, the kernel links with no
+> > orphans left, so the last of the three asks the linker to say so.
+> >
+> > Patches 21-24 are the ones I expect to draw comment.  Patch 22 adds a
+> > uapi header, so the perf register numbering is an ABI decision.  Patch =
+23
+> > is SPARSE_IRQ: without it Marvel carries a 12.6MB static irq_desc[] in
+> > .data for 32768 possible interrupts, of which a real ES47 uses 87, and
+> > the kernel links at a fixed address just above the console reservation
+> > where that 12.6MB is the difference between fitting and not.  Patch 24
+> > instruments the entry assembly for lockdep hardirq tracking.
+> >
+> > Tested with gcc 17 under QEMU (-M clipper -smp 2, an ALPHA_GENERIC buil=
+d)
+> > with PROVE_LOCKING enabled: no splats, early_memtest passes all four
+> > patterns over the free memblock ranges with nothing reserved,
+> > debug_vm_pgtable validates with no warning, a vmsplice() of an anonymou=
+s
+> > mapping through pin_user_pages_fast() returns the right data, and an
+> > unhandled SIGSEGV prints the new trace line.  Patch 23 was tested on an
+> > AlphaServer ES47.
+> >
+> > Not included, and worth mentioning: ARCH_HAS_KCOV.  A kernel with
+> > KCOV_INSTRUMENT_ALL boots and runs, but CONFIG_KCOV_SELFTEST panics.  T=
+he
+> > self test deliberately arms kcov with no coverage area so that any
+> > instrumented function reached from interrupt context faults, checking
+> > that nothing escapes the window before the preempt count says hardirq.
+> > On Alpha something does.  Patch 2 fixes one such site; the panic surviv=
+es
+> > it, so the entry paths need an audit first.
+> >
+>
+> Thanks for taking the time to do this! This is a nice collection of patch=
+es.
+> I've started on the review and testing, I will keep at it.
+> As general feedback for the series, I noticed that several of the
+> corresponding architecture feature matrices still list Alpha as TODO.
+> The Alpha entries should be changed to "ok" for:
+>
+>   ARCH_HAS_GCOV_PROFILE_ALL
+>   HAVE_DEBUG_KMEMLEAK
+>   ARCH_HAS_PTE_SPECIAL
+>   ARCH_HAS_DEBUG_VM_PGTABLE
+>   HAVE_PERF_REGS
+>   HAVE_PERF_USER_STACK_DUMP
+>
+> These correspond to patches 4, 5, 13, 15, and 22.  It would probably be
+> best to include each documentation update in the patch which enables the
+> corresponding feature.
 
+Oh, definitely. Thanks for catching that.
 
-On Wed, Sep 02, 2026 at 06:18:56PM +0800, Shaojie Sun <sunshaojie@kylinos.c=
-n> wrote:
-> copy_cgroup_ns() uses BUG_ON() to guard against a NULL old_ns. The
-> condition cannot currently be triggered by any caller, and the sole
-> caller, create_new_namespaces(), already checks the return value with
-> IS_ERR() and unwinds correctly.
->=20
-> Replace the BUG_ON() with WARN_ON_ONCE() and return -EINVAL instead,
-> consistent with the policy of not killing the whole machine for a
-> recoverable programming error.
+> It would also be helpful if the next revision were rebased onto
+> v7.3-rc1 and applied cleanly on top of my Alpha GENERIC_ENTRY v5 series.
+> I am currently testing only the patches which applied successfully.
+>
+> Alpha GENERIC_ENTRY v5 series is available here:
+> https://lore.kernel.org/linux-alpha/20260902184058.198679-1-linmag7@gmail=
+.com/T/#t
 
-Do you plan to tackle other namespaces too? (Adding their guys to Cc:)
-
-It'd be good to have some consistency across them if this is going to be
-touched. (I see that some simply don't care whereas others have the same
-BUG_ON(). I might personally prefer the former)
-
-Regards,
-Michal
-
-
->=20
-> Signed-off-by: Shaojie Sun <sunshaojie@kylinos.cn>
-> ---
->  kernel/cgroup/namespace.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/kernel/cgroup/namespace.c b/kernel/cgroup/namespace.c
-> index ea4ee13936be..13930955c254 100644
-> --- a/kernel/cgroup/namespace.c
-> +++ b/kernel/cgroup/namespace.c
-> @@ -53,7 +53,8 @@ struct cgroup_namespace *copy_cgroup_ns(u64 flags,
->  	struct ucounts *ucounts;
->  	struct css_set *cset;
-> =20
-> -	BUG_ON(!old_ns);
-> +	if (WARN_ON_ONCE(!old_ns))
-> +		return ERR_PTR(-EINVAL);
-> =20
->  	if (!(flags & CLONE_NEWCGROUP)) {
->  		get_cgroup_ns(old_ns);
-> --=20
-> 2.50.1
->=20
-
---ybus6cnw3pbkpvuz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCaphxZxsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+Aj71gEAiXb5ZRIcP6X8Mw+2xR1l
-CoKcPIu+bFvoeVnYWEwuERIA/26K3m+2Kyeo61hpHTBgSt3V2OeB8wHqvgGpCIFM
-pVoB
-=09pG
------END PGP SIGNATURE-----
-
---ybus6cnw3pbkpvuz--
+Perfect, I will do it!
