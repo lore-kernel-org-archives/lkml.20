@@ -1,120 +1,209 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64F5A44C667
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:41:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D947F4772AA;
+	Wed,  2 Sep 2026 11:42:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788349320; cv=none; b=NVpxTt5MLs3fzQysfQdiFS+74ym7SHJRnnnxaECN9SQpKz9E6q+kzRjaWVPFD/yNpgFjOOrrG7sIWvkgnSreMsyReQJKk5xQewkf7GZ433bmbSpoWlHgpzzogmrcNc3/l+4CJ5D86RQJpyo2DX11Vd0/4WnNXmgHO3DMMg2gv+0=
+	t=1788349337; cv=none; b=Sm1RIyRBL103rbwgZInqjPleuq4j1cc8a4PyVJv3mYiYW6sY/NLOl11syUbQjZVSmQiJdh7fJhrpSCpdFwwyez4crx24/cbHeFVlgi20s2gck1xt/3BsZjxn9MzNbD3dH3HHzxBJ7Mr5jqI5fdMohPB0ChZCuHc6pdEhmUTQXKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788349320; c=relaxed/simple;
-	bh=NUkzXPlE/P1i9PbYqLhd+wbxgU8sziMrTnTMVFhWLQY=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=H0Def2Yiz3ULO/ldbX6RTfyd5alZaca9qL+H2jF+WGhJ0AeBMFId7m5dIS5IMaEpJKNtDXo6nTpzqWNiL29q9vuZVKdFK1RnIQb6fssKqFg5rJQungctZQNEzmoWm2OXoNrKaqvH4e3RIFYTmHLDHG+hmsdo2ujg0jwb2MMqYdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L+fmQ1FK; arc=none smtp.client-ip=209.85.208.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788349337; c=relaxed/simple;
+	bh=AKUnfdhcTKHUJXot2dXdtcpFnmAAQLkTtfgBy/UsLGQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sFdz/IPySMVO1UVkVcXxou+BtZGka1/NOvmmc/VJF9zNqnoeZ3ZA41aUNI9O2Ezjxc+YpUUxK+CmrofDYnRnuhDJEzoSudPEYeKfuhHpsdZSJP5Rjl5ioG3A0mAZ1yLZpD3W27X5Srqymr0cOhP++9rC8+eC2cs9hmqKOPKMMw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=L3udpVzc; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L+fmQ1FK"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a65e66555cso1297675a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:41:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788349316; x=1788954116; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z8Dfh++0Ud+IxXdfXwfXS9P60ggh+Cfx9Hb6zf15cRc=;
-        b=L+fmQ1FKp5i9mb2xp8Evq6IBJqFzNRK6szBkU6lbvzSmPSjrnVO/ghk3B+Qbvu45vO
-         32JEz8yqGBXkdYDnk64jcd7HGEdBWq1ceMrdSwicy+TsPVSRu4HotKmVel8O3Gd5RE5K
-         Av5fbQf1pycraHAZmWEHIkLrPhvqhc5jI066iNx/1snRnBSGAX3eGTs19kuU04EMMHfg
-         BM5O0vZM71G3oW7FPCi43KBm6bfsl+5D0Jg2jfLOn0sLrV+jEwNM73QfkcAoGHfG6Y5M
-         TqhWwftuyTs6LBe26OjDeILfgmbFZlLT3ZMW5H8S3mSiyQ7iImQ7s7rERTe+eq4ei2iu
-         fJAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788349316; x=1788954116;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z8Dfh++0Ud+IxXdfXwfXS9P60ggh+Cfx9Hb6zf15cRc=;
-        b=soe/GxtGG2DccjZTA6epyedTbXom3U44L/yX+UzbcdN/lyQuTyPObKeQ7JJdiJQeqz
-         /3GAPzmJdwKsO7p8SaHIFrnA9eILKgcx8JL3WZQ31M5rRU6/kzZ27IU08sU6MS/tH4Li
-         kCrKTvsn4xV+Bb71z3sLoBbwvyubs55db2O8GPTfIB9zmJHnJKjIAgBk+OPNtFVcWt49
-         VOz/LF88VzMi+NArAR8ypavHK+WYVpS4vtA7bIn/RN3CTXrRi7C2zypUSfIigZn95sUa
-         Or9HLOQaZ+1+6AhMaqwfcjnhBiCw04OkSda43P5nyjSmAgVpAAqFPpwuFy8fWcVp+NT3
-         y+OA==
-X-Forwarded-Encrypted: i=1; AKwUvBxawMj7H4c0lT41ExE6zp7SWA4hywLvsChFZ8mlygrg6+isw/u6YXzw3Y8jC1ZaOEZpNm1OreKhLQaKD3U=@vger.kernel.org
-X-Gm-Message-State: AFuF++n4uDCY6pfBZ3lKtAJB661ibxB4xMlM+ci6piNTNaE0bjMi9RG0
-	2rlEck3OHubr34HFBNAr7Yqpr4NIk4Sj+4t1j1vyYlEk4ZrWF0MCe8yb
-X-Gm-Gg: AYBFou3pr8Up32UEsraGZ9H/bfEXP1TlNYkG4aJeede8wtxMOaXS5EkujKw5l+8B9ln
-	aL3Ey/XxGuggr4rweVu3XjhVIguqk76TLVc5EG02iEAtkIOxiDTtnK73U/var4TZCQlJsUYnTri
-	0Q4hZCa7iNZhs55LaoOVHO8kGOQSbG4uKmt4gL3/Iz44S9JtP/1wmJDMgsq6obAMulW0YeNGWlR
-	xPi98rX9fmeorY04QUj+GeXnDM71koDaPkc9XRY9UMznPbSgN2lKF7wlGPl6CiQZiDS9HBqQd/P
-	tiC1UWwl8FkT+PxPUa/z5e9/0f1oc+XF3yCZKAhfqu0v8pMjgYJNdvNtM2/y29VBvBzBqhNC6+b
-	f85X04H3pdmvvnxqYnkdlBDZS575R8FhSa8IKUs7v2/kgMIjUO9Mh9tdRYmc5jQwy+/WH4OkJO7
-	K5bqi3d9vrOZfsGV5fWZfLy+UYinrDEICdvQsgKlM7yOMYGPH5f0Y2KGE7h15dLbFfXSvDoi6pJ
-	ttCN+cwBtNXLuS6n8F1kow=
-X-Received: by 2002:a05:6402:3608:b0:6a6:32f5:556f with SMTP id 4fb4d7f45d1cf-6a682ac0a4amr2806106a12.17.1788349316334;
-        Wed, 02 Sep 2026 04:41:56 -0700 (PDT)
-Received: from [192.168.1.89] (c-85-228-45-68.bbcust.telenor.se. [85.228.45.68])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25d044d776sm117567566b.62.2026.09.02.04.41.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 04:41:55 -0700 (PDT)
-Message-ID: <9a3d6a08-339c-3315-cc81-46907d0836ad@outbound.gmail.com>
-Date: Wed, 2 Sep 2026 13:41:54 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="L3udpVzc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788349333; x=1819885333;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=AKUnfdhcTKHUJXot2dXdtcpFnmAAQLkTtfgBy/UsLGQ=;
+  b=L3udpVzc8kUiW9buVNsDWDXx6ZjNrvzdDZv2sYgGehAXjK6tOu6qygpb
+   8PdYhmANl7kx58zfkmeHoV+7cd1zY4Ipqjy3ph4isUjRbIVjYsOScjx99
+   CRdFbKV7IRK9DaJLrejmh9WamKcDROR14QnWrXEbT8cTtzvtKB8pE0MU1
+   kDscZgEPaDXPm9zMmVZ6l8XJ2jJevlR+6u2gTtrJzQ+OR4vkWe+Ui95Wk
+   ibnqbHGG0OLzpmIi0V8fZ8eWaYy5TLsnhQMP+jkbm/izKkUs8CbduXDKv
+   2139EJuiFebhkCbCUk7eISkoynnheoW67LAztO/fARiWtzOsfMiPNUDu7
+   w==;
+X-CSE-ConnectionGUID: ZknQff7/SgikOblBqkGFmw==
+X-CSE-MsgGUID: l9q+ONUsQu26FHIwEI1DEg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="88562027"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="88562027"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 04:42:09 -0700
+X-CSE-ConnectionGUID: kmkujtPYRVmiDJ3O91nOow==
+X-CSE-MsgGUID: 3S70Y/nwTLGcaoS1NGpj7w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="268840869"
+Received: from lkp-server01.sh.intel.com (HELO bfac249b2189) ([10.239.97.150])
+  by orviesa008.jf.intel.com with ESMTP; 02 Sep 2026 04:42:06 -0700
+Received: from kbuild by bfac249b2189 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x1jLv-000000002XK-31kx;
+	Wed, 02 Sep 2026 11:42:03 +0000
+Date: Wed, 2 Sep 2026 19:41:07 +0800
+From: kernel test robot <lkp@intel.com>
+To: Bowen Yu <yubowen8@huawei.com>, linuxarm@huawei.com,
+	liudingyuan@h-partners.com, andi.shyti@kernel.org,
+	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, zhanjie9@hisilicon.com,
+	prime.zeng@hisilicon.com, wanghuiqiang@huawei.com,
+	xuwei5@huawei.com, yubowen8@huawei.com, zhangpengjie2@huawei.com
+Subject: Re: [PATCH v2] i2c: hisi: Add I2C bus recovery support
+Message-ID: <202609021937.s2FqKDO3-lkp@intel.com>
+References: <20260901063116.3438094-1-yubowen8@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-From: Eli Billauer <eli.billauer@gmail.com>
-Subject: Re: [PATCH 2/4] char: xillybus: replace __get_free_pages() with
- kmalloc()
-To: Mike Rapoport <rppt@kernel.org>
-Cc: David Laight <david.laight.linux@gmail.com>, Arnd Bergmann
- <arnd@arndb.de>, Brad Warrum <bwarrum@linux.ibm.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Michal Simek <michal.simek@amd.com>, Ritu Agarwal <rituagar@linux.ibm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Matthew Wilcox <willy@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linuxppc-dev@lists.ozlabs.org
-References: <20260830-char-misc-v1-0-05e2ce44f291@kernel.org>
- <20260830-char-misc-v1-2-05e2ce44f291@kernel.org>
- <f6001085-9234-4025-ff34-6cc4a66c293a@outbound.gmail.com>
- <20260831123937.32255a49@pumpkin> <apaF1HUtJnstuUN4@kernel.org>
- <1729fb06-6beb-f8ef-3e71-47fc3f00345d@outbound.gmail.com>
- <apcPg_y-HsMki7we@kernel.org>
-Content-Language: en-US
-In-Reply-To: <apcPg_y-HsMki7we@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901063116.3438094-1-yubowen8@huawei.com>
 
-On 01/09/2026 19:46, Mike Rapoport wrote:
->> * Does vmalloc() guarantee that non-pageable physical RAM is allocated when
->> it returns?
-> It's not pageable in the sense of demand paging. Some architectures lazily
-> synchronize vmalloc page tables and this can cause page faults that will
-> take care of the page table synchronization.
-> 
+Hi Bowen,
 
-Thanks for this clarification.
+kernel test robot noticed the following build warnings:
 
-This sounds like a showstopper to me. Immediately after the allocation 
-of these buffers, data from the USB device can arrive at 400 MB/s. If 
-the data flow is throttled as a result of handling page faults while 
-trying to write the data to these buffers, this could lead to an 
-overflow in the USB device's own RAM buffers. This is because the USB 
-device is an FPGA, where RAM is an expensive resource.
+[auto build test WARNING on andi-shyti/i2c/i2c-host]
+[also build test WARNING on linus/master v7.3-rc1 next-20260901]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-So using vmalloc() may result in a malfunction in the data transport 
-where the __get_free_pages() would have been successful. This outweighs 
-the benefit of a somewhat higher probability of success in allocating 
-very large buffers, and surely the improved aesthetics of the kernel code.
+url:    https://github.com/intel-lab-lkp/linux/commits/Bowen-Yu/i2c-hisi-Add-I2C-bus-recovery-support/20260901-143116
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/andi.shyti/linux.git i2c/i2c-host
+patch link:    https://lore.kernel.org/r/20260901063116.3438094-1-yubowen8%40huawei.com
+patch subject: [PATCH v2] i2c: hisi: Add I2C bus recovery support
+config: csky-randconfig-r064-20260902 (https://download.01.org/0day-ci/archive/20260902/202609021937.s2FqKDO3-lkp@intel.com/config)
+compiler: csky-linux-gcc (GCC) 13.4.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260902/202609021937.s2FqKDO3-lkp@intel.com/reproduce)
 
-Regards,
-    Eli
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609021937.s2FqKDO3-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/i2c/busses/i2c-hisi.c:249:12: warning: 'hisi_i2c_get_bus_recovery_res' defined but not used [-Wunused-function]
+     249 | static int hisi_i2c_get_bus_recovery_res(struct hisi_i2c_controller *ctlr,
+         |            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/i2c/busses/i2c-hisi.c:222:13: warning: 'hisi_i2c_unprepare_recovery' defined but not used [-Wunused-function]
+     222 | static void hisi_i2c_unprepare_recovery(struct i2c_adapter *adap)
+         |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/i2c/busses/i2c-hisi.c:210:13: warning: 'hisi_i2c_prepare_recovery' defined but not used [-Wunused-function]
+     210 | static void hisi_i2c_prepare_recovery(struct i2c_adapter *adap)
+         |             ^~~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/i2c/busses/i2c-hisi.c:197:13: warning: 'hisi_i2c_recovery_set_scl' defined but not used [-Wunused-function]
+     197 | static void hisi_i2c_recovery_set_scl(struct i2c_adapter *adap, int val)
+         |             ^~~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/i2c/busses/i2c-hisi.c:189:12: warning: 'hisi_i2c_recovery_get_sda' defined but not used [-Wunused-function]
+     189 | static int hisi_i2c_recovery_get_sda(struct i2c_adapter *adap)
+         |            ^~~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/i2c/busses/i2c-hisi.c:181:12: warning: 'hisi_i2c_recovery_get_scl' defined but not used [-Wunused-function]
+     181 | static int hisi_i2c_recovery_get_scl(struct i2c_adapter *adap)
+         |            ^~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+vim +/hisi_i2c_get_bus_recovery_res +249 drivers/i2c/busses/i2c-hisi.c
+
+   180	
+ > 181	static int hisi_i2c_recovery_get_scl(struct i2c_adapter *adap)
+   182	{
+   183		struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
+   184		u32 reg = readl(ctlr->iobase + HISI_I2C_TRANS_STATE);
+   185	
+   186		return !!(reg & HISI_I2C_TRANS_STATE_SCL_LEVEL);
+   187	}
+   188	
+ > 189	static int hisi_i2c_recovery_get_sda(struct i2c_adapter *adap)
+   190	{
+   191		struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
+   192		u32 reg = readl(ctlr->iobase + HISI_I2C_TRANS_STATE);
+   193	
+   194		return !!(reg & HISI_I2C_TRANS_STATE_SDA_LEVEL);
+   195	}
+   196	
+ > 197	static void hisi_i2c_recovery_set_scl(struct i2c_adapter *adap, int val)
+   198	{
+   199		struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
+   200		u32 reg;
+   201	
+   202		reg = readl(ctlr->sctrl_addr);
+   203		if (val)
+   204			reg |= HISI_I2C_CTRL_SCL_OUT;
+   205		else
+   206			reg &= ~HISI_I2C_CTRL_SCL_OUT;
+   207		writel(reg, ctlr->sctrl_addr);
+   208	}
+   209	
+ > 210	static void hisi_i2c_prepare_recovery(struct i2c_adapter *adap)
+   211	{
+   212		struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
+   213		u32 reg;
+   214	
+   215		reg = readl(ctlr->sctrl_addr);
+   216		reg |= HISI_I2C_CTRL_SCL_CFG_EN | HISI_I2C_CTRL_DAT_CFG_EN |
+   217			   HISI_I2C_CTRL_CLK_OE | HISI_I2C_CTRL_SCL_OUT;
+   218		reg &= ~HISI_I2C_CTRL_DAT_OE;
+   219		writel(reg, ctlr->sctrl_addr);
+   220	}
+   221	
+ > 222	static void hisi_i2c_unprepare_recovery(struct i2c_adapter *adap)
+   223	{
+   224		struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
+   225		u32 reg;
+   226	
+   227		reg = readl(ctlr->sctrl_addr);
+   228		reg &= ~(HISI_I2C_CTRL_SCL_CFG_EN | HISI_I2C_CTRL_DAT_CFG_EN);
+   229		writel(reg, ctlr->sctrl_addr);
+   230	
+   231		/*
+   232		 * Invokes the specific ACPI method "_RST" to trigger a soft reset
+   233		 * of the I2C controller to help the I2C controller recover from
+   234		 * the abnormal state after the bus recovery process.
+   235		 */
+   236	#ifdef CONFIG_ACPI
+   237		if (ctlr->acpi_handle && acpi_has_method(ctlr->acpi_handle, "_RST")) {
+   238			acpi_status status;
+   239	
+   240			status = acpi_evaluate_object(ctlr->acpi_handle, "_RST", NULL, NULL);
+   241			if (ACPI_FAILURE(status))
+   242				dev_err(ctlr->dev, "_RST method failed: %s\n",
+   243					acpi_format_exception(status));
+   244		}
+   245	#endif
+   246		hisi_i2c_configure_bus(ctlr);
+   247	}
+   248	
+ > 249	static int hisi_i2c_get_bus_recovery_res(struct hisi_i2c_controller *ctlr,
+   250						 struct platform_device *pdev)
+   251	{
+   252		struct resource *res0;
+   253	
+   254		res0 = platform_get_resource(pdev, IORESOURCE_MEM, 1);
+   255	
+   256		if (!res0 || resource_size(res0) != HISI_I2C_RECOVERY_REG_SIZE)
+   257			return -ENODEV;
+   258	
+   259		ctlr->sctrl_addr = devm_ioremap_resource(&pdev->dev, res0);
+   260		if (IS_ERR(ctlr->sctrl_addr)) {
+   261			ctlr->sctrl_addr = NULL;
+   262			return -ENOMEM;
+   263		}
+   264	
+   265		return 0;
+   266	}
+   267	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
