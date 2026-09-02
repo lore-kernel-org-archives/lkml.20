@@ -1,148 +1,155 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E708B44C667
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:24:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27DC544A3FA
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:25:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788348277; cv=none; b=t7loxZpZAk7uRJ9tBKEOkwogOAJ+7ag6xZlkjWP4rlsNthAhLy7fmuPo44tr5ym77WyGWMqF6WelyIVtVcDSChKxPJWlVmAvCkqP3T5libtxKNOBoe9UM6aFX02v8ylsCSppwdTHmXuT2ehUO9N3RIwtmGvu7Co73OURWW+FE5s=
+	t=1788348313; cv=none; b=DSzEqLM8rFfTYUbvlEJelcHOS7J22+cDYRMGzh6qH5T49un/NJsAWKlW5IaHGdHyO8yRoQHIUBlShhHMkWS7L1U/Zvu7vF7JIMy/cpFp22N67ppFhPxi1LznR1Ikv5geuQqJwvpff17mC1HvpJmlf8en9Wo/w5uWr5vyKbDxT7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788348277; c=relaxed/simple;
-	bh=2ng/GTvyy8Ae4BYdp/Dq4dW9sI4ZxKFXpOeNcWCkPg0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j++D4J60oSIKiIufFDWrtJ0ttBONENES0/uQCRaa9llJVFtPK7NjBhFfRXL62EyxECo/KTet6nz4dZDsRClDILV6qrUiArTPjp+P45f7M+YMYNLs/LbPsQvw9lqAPf+d57eYG88eJYsvIrXfRUhk86RZxCT6N4LWW5jD+yVtmqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I+RC5/vf; arc=none smtp.client-ip=209.85.210.169
+	s=arc-20240116; t=1788348313; c=relaxed/simple;
+	bh=lFtxf8JZBoasBd9xvqhcN50c8gfwx5WqOr6trxt5JU0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hN60ETYXsoMHPfrdQYe+Gf4UfI+qBGgNyPGX/CNCRagB05JbWUJykvD79oRVprs1Mx4zRFszppJzJxG8xv1aviNTcp1uy1+BBOPSR6t8w/z3mOZVCrhv9iSaGVRYLgjfoiXUAAH4DrOAExS3QZrLZ7GkqQ86LlbSeuxWnrqllQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bSSvD/LV; arc=none smtp.client-ip=209.85.221.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I+RC5/vf"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-848643382fcso1023723b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:24:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bSSvD/LV"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-482f9309813so942508f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:25:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788348272; x=1788953072; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788348303; x=1788953103; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=EoF4ak3efS2qg2JAezlyYbqCdyBis11tVKnPB5qs/Aw=;
-        b=I+RC5/vfy4i9cuey38pc9kDP1V1sbQss+InqJJkDXJL8gY4W0jH6DiuE/hD+ISY+VG
-         Tu/HNgTj6aq2Jz2rbtqR3KZe6hsTacXGRaNfA6CbUMLZlVQwnuWXi0fA8taUFqvA4Kx1
-         gB1kSb5I9NnA6miK2DqZ9YIaqhjRvVYDsj8r5B7xTuUMvQ9ZcKsxk75hmCQd5e2s+lv+
-         I2CvE3a02oMgRt/BtLdKe9VYRkRRH2MnsWGnvuAMBBoKHCfEC4vBKwqt0Izs1fDkRY1d
-         4ewd7AtO8zof5CE0dw2lysXdW6vIFSECQdrGrYpD0ceHUM1yV0vsmvSFNbzHOrC904yS
-         69hg==
+        bh=qndJplFw7niD9IAJKi5k3Tb9rHK8G3tVrEh0TSYMEcY=;
+        b=bSSvD/LVthgXzLaJ1DoL0vVuokofjLjiJUeNcdCQgnPm9w63xywaYTn3HC4GFcgykS
+         pi1D6RLCVmtPuOpn9iWAJ1b3w46qJjPnlDn2KvNxV7GBAsfpqelkwo3pnog3WRuKCSYk
+         pFCOdrb7OVagFuxZ+5QewSLxQea1glHxoduaeVHknkcdIEtlNZvGAy/QXMQxApBY/8vl
+         k2tho5eraeBLp6QacRk9yaX2oohtS7pLmSxzPeXE8EOx2SNqQKSdLP3gmDNv9ZUfB2zg
+         hrzf3DlgyB6hulvzFc1M6kMVeHtrPyo67zx+CDyGNBYdes1I7hDXNh7RNMMGmHm/jRym
+         lfoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788348272; x=1788953072;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788348303; x=1788953103;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EoF4ak3efS2qg2JAezlyYbqCdyBis11tVKnPB5qs/Aw=;
-        b=VuVVSnxbqicvu9oi5BZmc0vzCKJKCV8v77xQzmHwrSzCFKMMzYbV10OShewd3dzISJ
-         Ra6rIUIcsZ0/A/J0Kf5I4qmxNgvmBJ1cgZkHs5CxawBGudJ/ZU5T/XHNxWGvzva1sWwT
-         sU7cJh7245Nye5YR4of1TVfu1PF3Yp2mYF0/mjjoRxTgJZB5nE115zuGrMmJ/AV6ecZa
-         4kxy6h490vsS7DuLjhwqssc98u0mhEHQ82PDCz03uAaWXSYAVm4Cw6CXWLTUGzIF5vM0
-         kBpbFUYYi9xrrTELz5M7SwcSvDXyfrsyTvdi+KpRuYz9SXz/RbFf1onlujyGYvClpAb6
-         YaYw==
-X-Forwarded-Encrypted: i=1; AKwUvBz/+a0kKQ1usddQHrfLcw/WNFSZLYfUHzhyys3ds7YN4jnV7B5XTLVIEQ3WWWqHhAMRNTg7rRVKAcWTtXU=@vger.kernel.org
-X-Gm-Message-State: AFuF++n37uWMX+Tz4yADstSmZt8I7QmV+6Ja1OHfLa34/Dj6oi+XJ2wj
-	S/2LWwZw1jdyqOEddIpEEasKATbyjdkyeop8eWUaMxs1aCvxuQNTwV2o
-X-Gm-Gg: AYBFou0knkA5sY46cSKBTQj48VZpPW1P1gaerWjd9LSwrHNXGnF+TAnaihFBBmqWBFQ
-	HOZ0FUY+EGnr4BSAsfb9jbAu/U4QKVHGxzT0zQsFxu6NBSh++w3nRSZVRi2lBtz1QaIBKPpWszO
-	dB1T2BsQjKcJikKOEvpOz/ULlKmUAhBSRTo/em5EbDTWDFOIAexxwz6ADv7W+ilUbeVUrZAaSBX
-	VHOu8tV8uv0QFl9UHzNRsvc+IEZzO9CChWibLEDnlwcHNHB2yg4fvTRPHXqd7GOUJ2888ghWxOf
-	Dnan8OsTDwW5IpxPShlj8MmUcHV1xzbnMlNKa7AQM+YjJ6NnXWFzz0r/N+DVHbUgS/nVkuouhO/
-	OxW4p74uoQoZCMrLamSJaAnL5E4JyMzVg2d+lKDZpwd7NToEtDcWP1TW5ipqBN9b1N4SZmheYv5
-	BFNxc6223nnq8lpi2NLYi359ZUTtEHJNd8Z2JPkie0CuQ47k/Qbu07Oes4XW8Pph0F/323uLblm
-	9yJ0mA2
-X-Received: by 2002:a05:6a00:1f11:b0:857:72ba:ff11 with SMTP id d2e1a72fcca58-85ed4c1b6ddmr7146177b3a.25.1788348271985;
-        Wed, 02 Sep 2026 04:24:31 -0700 (PDT)
-Received: from v4bel ([58.123.110.97])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc003a7d6sm1186334b3a.34.2026.09.02.04.24.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 04:24:31 -0700 (PDT)
-Date: Wed, 2 Sep 2026 20:24:27 +0900
-From: Hyunwoo Kim <imv4bel@gmail.com>
-To: Harry Yoo <harry@kernel.org>
-Cc: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Hao Li <hao.li@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Suren Baghdasaryan <surenb@google.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, imv4bel@gmail.com
-Subject: Re: [PATCH] mm/slab: take n->list_lock for the list_add() in
- __refill_objects_node()
-Message-ID: <apgHa1tISzqsnc_C@v4bel>
-References: <apPa-cGLcyt90l-E@v4bel>
- <apQU8wjMlvbKBQgh@dev>
- <apQ7osHcRj3vdJPn@fedora>
- <ae25c193-b95f-40c1-83b6-1c2546467e41@kernel.org>
- <apgE4TWLFGoqoOos@nixos>
+        bh=qndJplFw7niD9IAJKi5k3Tb9rHK8G3tVrEh0TSYMEcY=;
+        b=YVO/QA2ymhfs4aL8oGkZx8dEFQs2xHtWSUsp+w8OhfqyN33MurR3zonkyZLeeHyez9
+         6MmFY0helKUkIw2ReLLveehh8sjzAoz7HQDWphdbqQd/iBjlMvwK6F42nDdksU8Iv2c5
+         sOxZu8hhFiKZwCaXC6dikNPGTmQ3GgxfpQAPNJpglQHL6sV5QN08ujYbeg8ktqlVkAgt
+         LT9/b0VnaroF6C8z8cwBcrEu+ZTEn0NauLK9UcgAXXABjEeezcru2wxJqxH2npWhRkXo
+         52kRImf0c/rXIbAyf5RFlKwcJb7xhMHGYa4J6PvrOPHUCuqTNAsjjf0RYuQByC7cEv4Z
+         MOqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBylWIt1YHQFeVJvg6+bjTstdwNCNv5RaF74oNZI3EMsZ9rZe0E838UvMRLRsqpZJ6uMq81SD8B6DkBiHy4=@vger.kernel.org
+X-Gm-Message-State: AFuF++keBNsHu5Segtbea3aSipbwvMVZFKkaEtGjIPzR0K38vp4Ju6pR
+	SDUEWccQcoIEAPsSxMt5Fk6lmGpgRPKOeW8zIX32V60syZPPCGCyZbLc
+X-Gm-Gg: AYBFou14LvJovQLhDzU6GVIgYDWtN5daur8EKf43w4sVMuokqxF0Ku0slkB5qhL4vnl
+	JI+i6+2g+V/7cSVof0OsGE1gNF4vmAOIgJhLMGtyuASvlwIL9gbXTPvPyOtkKZs6uDWug003MCD
+	y/D+xMYgXTtRslMAY2FIFIyeELYKsNXUs6orrTckoJk34Ye2lUOkgq3L+JQ9ADYfQBGTKYzkfDv
+	tfgrGF/SEywZ1N7JYp+qYFwIrhSI30aJgsxp/ISQEBXvWtutFJglAPzBt0fAhHAFf6TlxK2rpYp
+	2xYxFtMmNeaQASSdFREynY9/mdTprNXxwRqCnvtEXOUJvgtDwyhVp7H16iFDgcO1CSoqdRbyjIh
+	Tk2Z/H1mXNOenaC8uxQU7sVwUXNcPmzmu9x90SSWwPmR2WHToyI4CmSUHjb4Fcjt5ky5lLTs9eD
+	cTuVXgw/H+8Ps34gS31sGcVDFW5WV3/Qhq+xtMIDVW0Xr0WM4TmfbE0UFtHAV+R8ycvS+LuA==
+X-Received: by 2002:a05:6000:2512:b0:47f:fb2e:f63d with SMTP id ffacd0b85a97d-48488f03964mr9001865f8f.9.1788348303315;
+        Wed, 02 Sep 2026 04:25:03 -0700 (PDT)
+Received: from foxbook (bfg95.neoplus.adsl.tpnet.pl. [83.28.44.95])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e72f02sm5619073f8f.3.2026.09.02.04.25.02
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Wed, 02 Sep 2026 04:25:03 -0700 (PDT)
+Date: Wed, 2 Sep 2026 13:24:58 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: co <co+fd80bc5967eb22c3@bugs.sh>, "Mathias Nyman"
+ <mathias.nyman@intel.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] usb: xhci: Fix bounce buffer overflow
+Message-ID: <20260902132458.5de2f031.michal.pecio@gmail.com>
+In-Reply-To: <20260828002440.312ec0b6.michal.pecio@gmail.com>
+References: <D4tcSGerkYkIV1DmaUo1t8TaR5qQElDLkidn@bugs.sh>
+	<20260828002440.312ec0b6.michal.pecio@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apgE4TWLFGoqoOos@nixos>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 02, 2026 at 12:20:34PM +0100, Harry Yoo wrote:
-> On Mon, Aug 31, 2026 at 02:55:06PM +0200, Vlastimil Babka (SUSE) wrote:
-> > On 8/30/26 16:35, Hao Li wrote:
-> > > On Sun, Aug 30, 2026 at 12:45:17PM +0000, Harry Yoo wrote:
-> > >> On Sun, Aug 30, 2026 at 04:25:45PM +0900, Hyunwoo Kim wrote:
-> > > Since introducing a new variable seems unavoidable, what if we temporarily
-> > > stash this slab in a pointer like below, and then add it to pc.slabs once we
-> > > acquire the lock.
-> > > 
-> > > struct slab *leftover_slab = NULL;
-> > > 
-> > > ...
-> > > ...
-> > > 	if (__slab_try_return_freelist(s, slab, head, count)) {
-> > > 		leftover_slab = slab;
-> > > 		break;
-> > > 	}
-> > > 
-> > > ...
-> > > ...
-> > > if (!list_empty(&pc.slabs)) {
-> > > 	spin_lock_irqsave(&n->list_lock, flags);
-> > > 
-> > > 	if (leftover_slab)
-> > > 		list_add(&leftover_slab->slab_list, &pc.slabs);
-> > > 	...
-> > > 	...
-> > > }
-> > > 
-> > > PS: If I recall correctly, Vlastimil's initial patch was actually fine. It was
-> > > my suggestion to save an extra lock/unlock pair that accidentally led to this
-> > > trap...
-> > 
-> > Ah, thanks for the reminder. This [1] was the original attempt.
-> > 
-> > [1]
-> > https://lore.kernel.org/all/20260421-b4-refill-optimistic-return-v1-1-24f0bfc1acff@kernel.org/
-> > 
-> > I wonder if the fix should be to return to that approach and just have
-> > __slab_try_return_freelist() handle the list_lock. The code would be simpler
-> > with not "bool locked".
-> > 
-> > It should be really very rare that we would end up returning a partial list
-> > and also have additional slabs to return on pc.slabs? So I think there would
-> > be no noticeable performance downside to the simpler code potentially ending
-> > up taking the list_lock twice instead of once.
-> 
-> Agreed that it should be rare and not worth the complexity unless
-> we have data to support that.
-> 
-> Hyunwoo, would you please adjust the feedback and post v2?
+High-speed devices with out of spec 1024 byte bulk endpoints exist and
+are allowed by USB core, but xhci-hcd always sets packet size to 512.
+The exact nature of these devices isn't documented, commit fb5ee84ea72c
+("USB: Accept bulk endpoints with 1024-byte maxpacket") only states
+that they "don't work with xHCI host controllers", whatever it means.
 
-If you don't mind, could the maintainers handle this patch on your side? 
-I'd then move to Reported-by:.
+But somebody (or a malicious device) can try, and then the driver will
+allocate a 512 byte bounce buffer for this endpoint and may write up to
+1024 bytes into it if particular scatter-gather URBs are used, because
+xhci_align_td() obtains packet size from the descriptor. Fix this.
 
+As a side effect, TRBs will be aligned to the packet size chosen by the
+driver on all endpoints of all speeds. Alignment serves the xHC, not
+device, so this is fine. Only out of spec devices are affected anyway.
 
-Best regards,
-Hyunwoo Kim
+Reported-by: co+fd80bc5967eb22c3@bugs.sh
+Link: https://lore.kernel.org/linux-usb/D4tcSGerkYkIV1DmaUo1t8TaR5qQElDLkidn@bugs.sh/
+Fixes: f9c589e142d0 ("xhci: TD-fragment, align the unsplittable case with a bounce buffer")
+Cc: stable@vger.kernel.org
+Signed-off-by: Michal Pecio <michal.pecio@gmail.com>
+---
+
+Trivial bug, trivial patch, though only tested for regression with
+an in-spec device, testing with the malicious device would be helpful
+to confirm that memory corruption is gone as expected.
+
+As for actual devices with 1KB packet size, I found that Cypress FX2
+can generate such packets and some HCs receive them, though others
+reject the Configure Endpoint command and usb_set_interface() fails.
+
+So we could support that, but this code really should just use the
+packet size selected by the driver instead of guessing.
+
+Perhaps the same should apply to other users of endpoint_maxp(), but
+those just calculate some TRB fields like TD Size, nothing critical.
+
+ drivers/usb/host/xhci-ring.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
+index b9d005ca5877..fa6684746305 100644
+--- a/drivers/usb/host/xhci-ring.c
++++ b/drivers/usb/host/xhci-ring.c
+@@ -3537,15 +3537,13 @@ static u32 xhci_td_remainder(struct xhci_hcd *xhci, int transferred,
+ 
+ 
+ static int xhci_align_td(struct xhci_hcd *xhci, struct urb *urb, u32 enqd_len,
+-			 u32 *trb_buff_len, struct xhci_segment *seg)
++			 u32 *trb_buff_len, struct xhci_segment *seg, u32 max_pkt)
+ {
+ 	struct device *dev = xhci_to_hcd(xhci)->self.sysdev;
+ 	unsigned int unalign;
+-	unsigned int max_pkt;
+ 	u32 new_buff_len;
+ 	size_t len;
+ 
+-	max_pkt = xhci_usb_endpoint_maxp(urb->dev, urb->ep);
+ 	unalign = (enqd_len + *trb_buff_len) % max_pkt;
+ 
+ 	/* we got lucky, last normal TRB data on segment is packet aligned */
+@@ -3690,9 +3688,8 @@ int xhci_queue_bulk_tx(struct xhci_hcd *xhci, gfp_t mem_flags,
+ 		if (enqd_len + trb_buff_len < full_len) {
+ 			field |= TRB_CHAIN;
+ 			if (trb_is_link(ring->enqueue + 1)) {
+-				if (xhci_align_td(xhci, urb, enqd_len,
+-						  &trb_buff_len,
+-						  ring->enq_seg)) {
++				if (xhci_align_td(xhci, urb, enqd_len, &trb_buff_len,
++						ring->enq_seg, ring->bounce_buf_len)) {
+ 					send_addr = ring->enq_seg->bounce_dma;
+ 					/* TD bounced at least, and last on this seg */
+ 					td->bounce_seg = ring->enq_seg;
+-- 
+2.48.1
