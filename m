@@ -1,193 +1,197 @@
-Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020136.outbound.protection.outlook.com [52.101.196.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527BE4A484A;
-	Wed,  2 Sep 2026 14:52:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.136
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788360743; cv=fail; b=fdF/Gow0Y5bAxtlan0fN+VvMewwVQWE2bYSXsK/dC4L3jJzjYuQr2baxSDhVz9amCgX18mcuPMdcjSJPUoSZWzkH9548sdfDXL4XWs/L2CsbucFF7Ft1bWUWYAEJDmRdmwx4+Ji9AgFiCSAckoVnvIju63JjklBL1Us4VxogJDA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788360743; c=relaxed/simple;
-	bh=PjEjcWmp+455732UxJ1U12D5RS9z9ryhq01hyqCC3ac=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=aDitmcp1clMdes2Jvo1YT2BDEgmValXoJ9S9CS6of7LNNyqdAU9XzGLeH0VM9BS9UIz+ydo+vaGDhDAjxyfSmlkLB7b7V0lzt7WF3hfevgX3HLr55M50t4z+uxr/C7lcoFSV9DpIgCv4KEE7VONCRFRoLWo1lxKuknxab62HPOE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=K3+DZQkh; arc=fail smtp.client-ip=52.101.196.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AD344A440F
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:52:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788360756; cv=none; b=V8RnVp4Aok4rbRJI5FpfACgbMzPjvwWnmTE5WTdmSqlc89zhzoOILbW25DzJ6fhXRgqLRVniX+XioRK6sA91T72lheC8Ohc0wnmXProCGYzISrkm422NZ79YNnwFfBxdMTKviwg3iexYcGWnA0SkKS35GVvA0RUFPfd1YCNs76w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788360756; c=relaxed/simple;
+	bh=/Km/cEE8X7sTdY0vx+XUwewtPG/KY//lKTiuuYD6nDs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kwWDFXWdxfK+qOSH0OoTgAZkmrgRDF9YRLyNlQHRLP4uHKT1pj1urj7dM088GDeXh+2gBONDfwugnRfLHIeShdtNt2jMWZEBmQnDA+0vPLwGL0WcXGS7OMrj7UEjtibZ2Z9GgsMJdMJNoodT8JokTdxEu4PxPp4yAsis5HizBmY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c9w/5mU4; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="K3+DZQkh"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mzFo4fIfcIIx7G6+sp4tqqtnCxaFWn95tzzK+13edoYWxLVbrWGbVvquWo1+gf9Bz65IvWiuOHeAS3TbwwVKxYaq3FyDKGd56MTXQAJdQS++3zOxeLbeW3KsTCs6QdWQBqGylrFxuAgaA0iPJMzVrHlqZJsv4e7Kg5BYzw/U0ZtZK04tVwcytq2zAtKiVwZgzTmHe5fMbg95vKXMGlmnpyXKFUFUb+o6bkGCTk7htBshPrZPHb+uvL6cMP3OthAfUbyWpl45Sf5Je2TflfG8oBNLBlZspXqfYO6bAIg9OhwqQXG0pAo/ze6I1RU+BiLsAeEvm+dhwa5UghVXlGnTrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lmYGgPupStTm+vNCX+nA2mR1Zt/s2S6iTNDPlqp/eSc=;
- b=MrOSCxwn9iaD5Hd9QG2ACthqQvWUM7eg998qtU5JdaTeaJXpasHBS6D86W/WYKk+0BhB+g3SbyzD7sJmtzXkvsqTiQsXpBqa++kfQEcSr0CuQOyxuxMxnVowhWvrhNCRo62fXr8wRuofa79PHt7lk7XcPnlvtTbmrzuGZm1tgdIqSaqAl731XeGeIcdOAwFuY9sPg/ezA1tSUYE/+AXF26DMq425PoQQYL+umBGdIggPbPc8s6Tt+2ZLmfx9kOjuh9MtYwffVHiaEVYV2bklTRkL4XCGpr7hsSKeFt+DDVcfc2IUeSW3X6FvzFBFAfmWAq8OlP246ShAIRM69q1swQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lmYGgPupStTm+vNCX+nA2mR1Zt/s2S6iTNDPlqp/eSc=;
- b=K3+DZQkhka0OdLqiXeU91VBhJRk+scllZ2fagTwYqpX6XDMZK+2zU3D5DLqW6DAktkaUKm2JLdC7go74NAN5kY/ly3gf7OColCw60xSUwAVvhHY0BhNpeHoLJoDYCaG174wARg9PIIcld1dPLjO/HFE1kcUfmuTvjbGXzHDsGfc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LOAP265MB9160.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:499::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 14:52:16 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 14:52:16 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 02 Sep 2026 15:52:15 +0100
-Message-Id: <DL4WZ011ISU6.30MN524IETGKI@garyguo.net>
-Cc: <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <driver-core@lists.linux.dev>
-Subject: Re: [PATCH v2 6/6] rust: workqueue: add ScopedWork for non-'static
- work items
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, <tj@kernel.org>,
- <jiangshanlai@gmail.com>, <aliceryhl@google.com>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
- <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
- <daniel.almeida@collabora.com>, <tamird@kernel.org>, <acourbot@nvidia.com>,
- <work@onurozkan.dev>, <jhubbard@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20260807165252.3849875-1-dakr@kernel.org>
- <20260807165252.3849875-7-dakr@kernel.org>
-In-Reply-To: <20260807165252.3849875-7-dakr@kernel.org>
-X-ClientProxiedBy: LO4P265CA0214.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:33a::9) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c9w/5mU4"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38d489b6b71so1437380a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:52:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788360754; x=1788965554; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eN2mokcnF4HYWxdSoUigLkSMSR4I4I4Fah8FFCa/XVE=;
+        b=c9w/5mU4+VQB94eN55lidGErEApxoEff2QXNMstjosa3JoFo396OT3KvTwSNGiApEq
+         DEzKl3H3yyZBmT1Gyg0cnVkMJm3zda9iLSgS7fyz6rzdsUzscaYXT07M7eTNrmo4vapg
+         xU8bxOpXwTMjU5Hp7W+h9dDZjiA/YnTtTBZQt5WRdBXycvUynJgoGL0Xo2jUkPVUdV7C
+         hKqTgtUbxxQ/eVWshawJkrDHXoHskTt7xCKrG4xgoVXfwTNc/dtwByMDhjx4nH4bgYLk
+         nfq/AvY4IZdcBJvxPELja8QoyhfyvhQtCUoAsS6sXJf0m4GDsiMt+I0oTd1c7puG/0II
+         Nibw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788360754; x=1788965554;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=eN2mokcnF4HYWxdSoUigLkSMSR4I4I4Fah8FFCa/XVE=;
+        b=T+mj01ngZJYr/fzqXuAn9INlUWbJDFDr6ppI06/deP9uN0vEa0qP+BV0cLhz8t7dUg
+         AetuvABViUBArba7o+W97b4ZRtvGT5xo7fGZZZ2kdsCa6T0y5UJCy6cBz2++aUPO4FtM
+         CSPya9Dk2M7i4AhodKsYRn8mRC6Lgv8QJzvFWTexYhRpMSMK7J789aN0hGvtLv4SykY9
+         fm8TUkzQ7X2cJR1k9jEq06Gm+Nz4YBDUkILQk9/IIsB7u/P4qAhfWR6j0wcG8L0WozWN
+         aKbRWXEL7QZRk9WohFkZgWqlUpyDSk5UKHpu50yc20npFtQp+1Qq+bt6z19L0dtHZqCv
+         BUYQ==
+X-Forwarded-Encrypted: i=1; AKwUvByT+Tkj3ebEBPBc/Z3WyYRiF7s/cwFZzVmCXxQi48xkHavltuljrEio7BqnPYeI/NgubczypsfQ1s+bL8w=@vger.kernel.org
+X-Gm-Message-State: AFuF++kapW9GcubBtz3acvCxR+KtC5nJryVBhF4PTxih81htVrfSs/JA
+	CMOAq3tPSC+zUuh5kgTCkpU6c9ub/Cf9qSlomwWiy+WN5pjdszxfRLjZHBFf8A==
+X-Gm-Gg: AYBFou3qrk91pYKnjC1wZc4pNuSX2odMjVB79ugWJyojzq/3bloZN4c2wBvul5IANqe
+	d9T7Hzw0gceUr0mNE/LTyWImJDyRIQhmj0ZZBEn4l12CjnXfYxfONo7hGusiCc+NDSJGYWJFASt
+	BhJCLy+JRoLwztpjmI3ARyDn1I+fWCIg6+VTVUC6WsWk54MqwdSO0b2zovTovauBM9CF17/4VGX
+	Vqls5b6XqMH2xRcyyn8L+8hIM80JEUBZJNyVCp7TEHO5cBwnUaXulotzE3f3YAelinGEJXJif3s
+	9cShyVXW/MTfzD5KaTP7+56YqLQcdc8fvhr1ltJ/QioSNNoMB1EAN0rtgx5PZnOXJgFMdjN92nr
+	uetzRr5iofqSOozMHmOfg1GtIuI+XZX0J99uph4IUi51kqdI5jK4qQTegwCqDW3cGv+e9FAfDpG
+	6W6qKLEbQYUiP9InuSxY9V+iOlz80yGxzuhrudGYYUSgMY8HObbv1SMN7SQkWXgecfkDNnTwQap
+	RhEzx1t7pHbTdaksFv3iNgU/1ZnwHuFzSZypkM=
+X-Received: by 2002:a17:90a:c10e:b0:398:9be8:ea6a with SMTP id 98e67ed59e1d1-39aee27cbf3mr8547234a91.23.1788360754047;
+        Wed, 02 Sep 2026 07:52:34 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d75b540sm12151690a91.10.2026.09.02.07.52.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 07:52:33 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <0de99cfa-7de4-4236-930c-2c037aa1648e@roeck-us.net>
+Date: Wed, 2 Sep 2026 07:52:32 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LOAP265MB9160:EE_
-X-MS-Office365-Filtering-Correlation-Id: 446379a4-81f8-456b-46a0-08df0901c798
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|10070799003|366016|23010399003|376014|7416014|22082099003|18002099003|56012099006|10067099003|6133799003|4143699003|921020;
-X-Microsoft-Antispam-Message-Info:
-	VwzKfyD3LpfA27Ja+ZH8GZjYHeYiYkeQzLSBaYuVLOSyVPepvkfWJ/pv3jb7zbO6iajF2G0R8+PEm8GW/Oj3U5nHyZrdOJ2U8zn1aq0NctYRxMJKYWW45K7SBMzxux/V3kvJILAh+BFH1lP+VsIseB+3BB5FCofEOQu1Bda7ZYLSNN3AZn7Vil1ib5a33abeXoFg9m7saI05fscosAT2657dV+pKUYdMEWOOTiIdJNySF8zRAg1vaqS/Qxdx9ZwVtK4T9YSLDuJBNxPLcBBSmxCOB0EV2hiI9Qb+GIAaeFHtkf7uYnT4B/loa+rPuSRxi4etxwQh7m3i1p3FfrHvDFleY+Qwb+oEpUwOFiX1UuBo0PM6NECJOPtLMXBfsJRfGFugy6eaSsP3eMPh4nY0vzvf8p2yd8ER/oBox67XXilgdbmMqq5cnMnLy11a2wDUX5S4J7vzdJTPBHUN7cLg5DlhxNsrcrHugR1asTrPYWMz/3VvadmDTVlCtBhNT+beX4hJsTzNG5E6dkG2dzqDDl8nhVDd+Ys8JwX2yWVdLSVsQNVgLmZyuRHauU4wOTp7zKHLAQCqH67y0n9bFP6MmQUnLUQfgMAMNv4TTg4fVFNhqnKG7HBIwOwJ1YkhyFUfimoSZGkg/pqgfE3GjbM/LJ+94hVyW1R2nuBVDm/4Gnjj3P6N7DE0ty4gR0KUbylqVvrFp9FQfB+59EGVs6NXeg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(366016)(23010399003)(376014)(7416014)(22082099003)(18002099003)(56012099006)(10067099003)(6133799003)(4143699003)(921020);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RzJ0SmRrY3dKM0s1dTZmcmVoWWhoVU9aRTR0cVgvTlJvaXR1L0FRS3R1WElk?=
- =?utf-8?B?Mm5nWWFvUW5YYTI5d2FQNlJsT3YvaDRrU3o5QnU1TWZRRkdZZ0xmaWtuS0hY?=
- =?utf-8?B?WmthZm1KNWNtNXJML0Fhai83Q1hvcEV1VElnSmZMdk4zTndCNzBpRDFRM2Rs?=
- =?utf-8?B?Q2tydW5yajdXeTB1OVdqS2JMdlV1VVBHMEVRSkh1OTMyZzVVTWhBaXh1KzhS?=
- =?utf-8?B?cFd4R0w0NGppWnN2RWJrK3gwNkJzWk8wTzhzVDl5ZVBqcUc0QWo2T3Rqb1N3?=
- =?utf-8?B?ZjMrM2xGOFVtMnNnV3c0NjdETXJLeGx4YUxKZDltdy9aaitpVjExS0ltTU9Q?=
- =?utf-8?B?V0tyejB0OW9LSEM1TjJHODlJK2d1SHV6UDBnLzJiOXJZRHBrNFJqMVNrblA2?=
- =?utf-8?B?LzJGR1ZwOTBWZFVzdEUwY25Gbm04ZmJWVjZsMkxRZ1ZvTTlqVWpMeXN0alZ2?=
- =?utf-8?B?ODBoTmFxUHNCcVg2dHZOOW5MbEFnMHNNbFBPZnFGeXQ1aXU0YStpdHlpMHRa?=
- =?utf-8?B?UndYbEpMQloyOWtXUThGa3RPN1ZEOUR2Y0tNdlZRWFExUmMvUFhqcTdtdFU5?=
- =?utf-8?B?cE83ditHNUdEQ1BSTHZFWTRkQUt2c1k0N2xrK3J6YUFqZS9hU3BGd0ZuQWp2?=
- =?utf-8?B?cVZRQzMxN3hLVjFNZFNQeGROMTZWUkRRWWZZVkdKeVl1S3JDMm1nTVZzOTg5?=
- =?utf-8?B?dDFwZURtRVlmQlZVK2VhRGo2Z3lldGorMGpiZy84d29zYlVWOEpuVWpEeE1z?=
- =?utf-8?B?eXdpUm0yRGtRa1ZRVzNBNS8zaXpKeHRpQlRmdGNJVE5mRmRyb0luWTZobjNw?=
- =?utf-8?B?NWZKS1dLdGI2bTJHb09DQ0ZKdlZPRlkvaDJNS1VtNHpqWFY0OUV3N2ZGeFlq?=
- =?utf-8?B?Nld5MGp2azY1N3piK1E1aXlobGdiS1pzOTJHSnJGeG9zeXFFZkt3VGx0LzVt?=
- =?utf-8?B?ZTdka1QzaFpaU1BZMDRYbDJ1REZJK3hQNWZ6ajFVWnQ3RjNSakg3U2tJQ2pD?=
- =?utf-8?B?enFoU1c0K1hWTm5qTy9QNG9uTHVwRC9lMUw3ZXoycnJRRnBma1hvZGYvdThr?=
- =?utf-8?B?UFRwbEhoUDJyb3FoZ1A3ZC9vWDRVYkQ4QVV0WFRUcHI3SjI4SmwrOGJaaFVv?=
- =?utf-8?B?Q25NQWlDd1FTeW1YUnlGVDZIcitrRCs3aWZWKzNDcmxvcmpTOTJCdkl0ZkRZ?=
- =?utf-8?B?QitOOVh2RU9qUERZWTNhQUNXV2g3N3NDOThVSk1NdThvUUZzczVYY1VTTHdn?=
- =?utf-8?B?NE1sU3NsTXk5alc5ZFIrOTFsdGxWUWVFL3VBZkorMjNCU3R0M255ekxPeUJx?=
- =?utf-8?B?VnJUdXZFbjZlbUVoZElIcHVENm45UnFFOFlNa2xPQnEraDVXRkc1SVZIUWJN?=
- =?utf-8?B?OXlST29EdmFiUDhoYWtKKzlYWDV6TndSNDBPb0NLSzhNOUtybFJwMElibjhp?=
- =?utf-8?B?R0FmWjFVN0x0ZlJpaE1icDRJdlFqZWl5U0swSlowUXJtWHUzOEliZTIyNnZY?=
- =?utf-8?B?TU9MLzNFNEd2SytIaStuaGVETUNKRDJ2WkdUc1RaY01pdHFaZ1Rxd3UyTnRW?=
- =?utf-8?B?RHhlVndweWROakRhUjFRazh2dFp0NENoSE1VOW0rNGRxNEw4bkdYZklUL1JM?=
- =?utf-8?B?Wk9EZWp3NUNzNlYwUXpUam9YT0pEclhRTG9wVmRRa1Bsa3JHbHBnRzZPd1l0?=
- =?utf-8?B?Z3NBV1JWQW9rSWZmNG5SWkxSeG9oUTBrY2NqbXAwUHM5WE5DUnQ5aWdyb0RC?=
- =?utf-8?B?QS9pK2IwblNFbjEzQnpZdXQxc25mL1Y4VnhTUDkxR1YyT3RDbU52UU9PMFJE?=
- =?utf-8?B?K1VlQXJudkVFQVNlblVuUHNCeVBSKzV1QjZTODBrRnkzT3NLclRqY3NPSXBJ?=
- =?utf-8?B?cHR1VVdzcXBmd0J2Wi9uZUlwYXdYUnU3elg3cEZrQ1U5ckFWUTFpQVBvWUFy?=
- =?utf-8?B?TkMrcjdUc0w2Nm0rQXl5TmRndDhqcC91QXg5STFieXNDQ2tNOTFtQnVrZXBs?=
- =?utf-8?B?emVjQlpXNFRWWG5BVlpqYm95VW9Jb3JPTnZuaUdwOS9OMXZIdFJhMkdlQXVn?=
- =?utf-8?B?RVFPWGNNUDQyazlXUEQzbW5nOVdZWmcxa1hqVk1ER2hmYkxOZmZCYTZvUVg1?=
- =?utf-8?B?SS8zT1RoM2FSTG40QUFXVE9uSXhVNE1rOEt0YTVTbEttTTJ3WVc4eUtZTDNv?=
- =?utf-8?B?aHdncm5xOTR3OTN2YmQybGViNUFHNFoxOHE4djFtMlVIOUhmVGtacUZKQnNo?=
- =?utf-8?B?RThReFV5aHNUTzJQamFhSjJWTWRMaHZldWpDekl1REdXaUxXOU9ZcHQ1a0Ew?=
- =?utf-8?B?YjdyekkycnJQVDFCNVJ4SDdPVFFsS1ljWFVmeWl1VGdncURWMFZIUT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 446379a4-81f8-456b-46a0-08df0901c798
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 14:52:15.9556
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NzjlC80tYFpCIPuR4q1Ae7Bw+peX+n9SdzdM/2IcS8bx7MN8kr/wyVDJn+mo6EGiJjDvBkUyvqUgeJ0fc+KHzw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOAP265MB9160
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG] SPD5118 Intermittent MR11 Corruption During Suspend/Resume
+To: Matthew Bettencourt <matthew.bettencourt@gmail.com>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <1a8ea9da-1ac1-4312-a8ca-ea4a9f35093f@gmail.com>
+ <ee284272-0da0-45b6-a3be-c76822e5d54f@roeck-us.net>
+ <014b9438-e9b7-4be1-b816-002e83a068a0@roeck-us.net>
+ <37132c40-aa82-4df1-b5ce-337601f3c085@gmail.com>
+ <3c4e9f59-5272-48cf-a4a0-eeefcba955a9@roeck-us.net>
+ <763a8b30-8548-4ff0-a1e9-8e74bbfe9b02@gmail.com>
+ <6e8761aa-67ef-4624-834d-4b9d0ce729d6@roeck-us.net>
+ <9753ed80-5666-42a6-b04c-99b9ef9326fe@gmail.com>
+ <5c17ea39-c479-4f88-adc6-9a86f3dfb96a@roeck-us.net>
+ <d80cf68e-a6cb-4b0b-807e-313be29ca8ae@gmail.com>
+ <49cafd78-2468-4b43-a376-a8b2e2de2c19@roeck-us.net>
+ <11de1daa-702e-419e-912a-db37c9f28e92@gmail.com>
+ <67938f6d-d60f-44cf-9b03-fa472c8a8499@roeck-us.net>
+ <65336f12-b821-449b-a637-31972807c676@gmail.com>
+ <a953dcaa-cfff-40c8-85a9-c12601e49e85@roeck-us.net>
+ <9cdf4b63-8f99-4a80-b0be-3f3df69e526e@gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <9cdf4b63-8f99-4a80-b0be-3f3df69e526e@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri Aug 7, 2026 at 5:52 PM BST, Danilo Krummrich wrote:
-> Add ScopedWork<T>, a work item wrapper whose destructor calls
-> cancel_work_sync(), allowing T to carry non-'static lifetimes. Ownership
-> of the data is not transferred to the workqueue; instead, the
-> synchronous cancellation on drop guarantees the work function is not
-> running when the data is freed.
->
-> ScopedWork uses the existing Work/HasWork/WorkItem infrastructure with
-> NonNull<ScopedWorkRef<T>> as WorkItem::Pointer for the callback path,
-> and implements RawWorkItem for &ScopedWork<T> and &ScopedWorkRef<T> for
-> the enqueue path (requiring T: Sync for cross-thread shared access
-> safety).
->
-> Two enqueue paths are provided:
->   - Queue::enqueue_scoped() (unsafe): the caller must ensure the work
->     item is not forgotten.
->   - ScopedQueue::enqueue() (safe): when the work item's lifetime
->     satisfies the queue's 'scope bound.
->
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-> ---
->  rust/kernel/workqueue/mod.rs    |  46 +++-
->  rust/kernel/workqueue/scoped.rs | 442 +++++++++++++++++++++++++++++---
->  2 files changed, 444 insertions(+), 44 deletions(-)
->
-> [snip]
->
-> +impl<T: ScopedWorkItem> ScopedWork<T> {
-> +    /// Creates a pin-initializer for a new scoped work item.
-> +    ///
-> +    /// Use [`new_scoped_work!`] to automatically provide the lock class=
- key.
-> +    #[inline]
-> +    pub fn new<E>(
-> +        name: &'static CStr,
-> +        key: Pin<&'static LockClassKey>,
-> +        init: impl PinInit<T, E>,
-> +    ) -> impl PinInit<Self, Error>
+Hi Matthew,
 
-This should just propagate error and return `E` (you might need the `? E`
-annotation for it).
+On 9/2/26 07:00, Matthew Bettencourt wrote:
+> Hello Guenter,
+> 
+>  > It would be something like
+>  >
+>  > sudo acpidump > acpi.log
+>  > acpixtract acpi.log
+>  > iasl -d *.dat
+>  >
+>  > You'll get a number of.dsl files with cryptic assembler-style
+>  > code and data. Then the digging starts ... you may find something
+>  > like "Name (SMB0, 0x0B00)" in dsdt.dsl. Then we can only hope to
+>  > figure out if ACPI actually accesses it.
+> 
+> That wasn't as hard as I thought. I got everything decoding I guess, I just did a grep on all the dsl files for SMB.
+> 
+> $ grep -i -rn "SMB" *.dsl
 
-> +    where
-> +        Error: From<E>,
-> +    {
-> +        try_pin_init!(Self {
-> +            inner <- Opaque::pin_init(try_pin_init!(ScopedWorkRef::<T> {
-> +                work <- Work::new(name, key),
-> +                data <- init,
-> +            })),
-> +        })
-> +    }
-> +}
+That matches almost exactly the dsdt files on my main system (MSI MAG B650M
+MORTAR WIFI with 9900X). Either I have the same problem (I don't usually
+suspend) or we'll have to find something else to blame. I do see different
+devices on the same bus, though.
 
-Best,
-Gary
+      0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:                         -- -- -- -- -- -- -- --
+10: -- -- -- -- -- 15 -- -- -- -- -- -- -- -- -- --
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+40: -- -- -- -- -- -- -- -- 48 49 4a 4b -- -- -- 4f
+50: UU UU UU UU -- -- -- -- -- -- -- -- -- -- -- --
+60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+70: -- -- -- -- -- -- -- --
+
+[spd5118 is loaded, which explains the UU, and the system has
+4 DIMMs]
+
+Compared to yours:
+
+      0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:                         -- -- -- -- -- -- -- --
+10: -- -- -- -- -- 15 -- -- -- -- -- -- -- -- -- --
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+40: -- -- -- -- -- -- -- -- -- 49 -- 4b -- -- -- --
+50: -- 51 -- 53 -- -- -- -- -- -- -- -- -- -- -- --
+60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+70: -- 71 -- 73 -- -- --
+
+That does make me wonder what you have on 0x71 and 0x73,
+because those are often I2C bus multiplexers. That could mess
+up everything if some entity selects a different bus.
+
+Guenter
 
