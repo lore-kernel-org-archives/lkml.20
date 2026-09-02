@@ -1,101 +1,149 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 808ED2DF13B
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:59:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DBF83AF656;
+	Wed,  2 Sep 2026 07:00:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788332391; cv=none; b=VT42V8CbgdSBqdUlYVgc8UCm5UP5QtBzfVQsDpdlTqaKgoRPHhncPg2lw8ckSAmNQrhhTISAi3zP80x+U5n8pkVjx9ANWnenfV+a6ZmE1iqkPu65XXn2IkQQRi8viy/1DSJj1dreiQXcaHklaSemTrA483jYewLKwe3v9UTz3Yg=
+	t=1788332422; cv=none; b=KQ62vhEfryrLGLkVJGeXMMkXp/Rb9xd41V9sK1TlZNu2/6sIvDdMdwcipBAiN09M1Sqvr1aY3L/b493nagEdSIgP0imhqSUDatiETa3SBVLBSCPnoKCRi6EoWiCGf3hlk6KfAQpVVk6YjRfZllJYgPBlcp/dNT50vJKelExOI+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788332391; c=relaxed/simple;
-	bh=fGcWXD1jgDSNs74DUYfGEtbJQxmdsZpWU/5NnUXB2OI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=kz9XIUc00m6lktl3QTNEn3BhKfC7sjkfsLquqzp537ib4/vITzXr1ZwrRfRg0BvK6fm/tvdG0vjREfSwYYWeGC9W0MfofzK5xvfM/72/b4WUfkOjmrtZmIfueq+18tRGCks7YS1WHuEmKBRor2YCgwUs69NqXBi0M+v28G3uDhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: e099dd40a69b11f19a56ed5b684f684d-20260902
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:00670d97-afbf-429d-b641-216ef744c357,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:cb901616f663613b6eab53a147e65bad,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
-	il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
-	S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: e099dd40a69b11f19a56ed5b684f684d-20260902
-X-User: fuqingshuang@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <fuqingshuang@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1251345178; Wed, 02 Sep 2026 14:59:44 +0800
-From: Qingshuang Fu <fuqingshuang@kylinos.cn>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Andy Whitcroft <apw@canonical.com>,
-	Joe Perches <joe@perches.com>,
-	Herve Codina <herve.codina@bootlin.com>
-Cc: linux-kernel@vger.kernel.org,
-	Qingshuang Fu <fuqingshuang@kylinos.cn>
-Subject: [PATCH] genirq/generic-chip: Set IRQ_DOMAIN_FLAG_DESTROY_GC in irq_domain_alloc_generic_chips()
-Date: Wed,  2 Sep 2026 14:59:39 +0800
-Message-Id: <20260902065939.441981-1-fuqingshuang@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1788332422; c=relaxed/simple;
+	bh=8bj7QNbdM6zlJ+BocDGXs3na7c4GnZFS7071sjJJMhU=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=b2qZ6qesIXdJ2RidmdnqXHXdeg+uF9cQrOv3e4Z0wKBVXndufRgPwcHJGZxY50kujJ+pCA9NdANBFYfDMhYNQPdgt8nd/xqgmpS95ZecZDemcfCdiGASu3cPTKjBH0FEGd9hQXqq9xYZaJBPEZ01KVjsG0rag0TCX9wjwzktjGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=edprlGG5; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="edprlGG5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBE2C1F00A3A;
+	Wed,  2 Sep 2026 07:00:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788332421;
+	bh=6GQWjWiyHMh2NyzpXqt8ZPQBafv2oClqvk7rN86jNY0=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=edprlGG5rdgI2dhNAMIZridLzVabhdXyXnRUiZRQg1vo77kz7/3zA82+1F40pWTAj
+	 s4tgyizJeg9xRGuXD3/CWPs/okWeFAQ8C4kCx0u97J86dHSFvYzmbCYojYM/brpI4o
+	 GMmGG4J82I3NbaI34HrPdHSBhI07+ZLFkencpHTjEU3fUFRWNl2+QynIZ0YLW75g78
+	 4g5MhnsRPZ/gaKIYsGVFEDN5MfB3Trxm29HZYUpSDH0UjKNLTphUR2YGcNIwBFimIs
+	 uV7yi3NDcyzx4SECSrq7SJTJZN9C1zlgVQQRNfv3DpP+L9D9QGhQPWH3wfmxwxoJnE
+	 vdRaQqwNlrsrA==
+Content-Type: multipart/mixed; boundary="===============5269529957093976897=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Message-Id: <594ed4944926f6a7202b016eca03d879d11bfdf09a2cbaea039421ae4ab962c0@mail.kernel.org>
+In-Reply-To: <20260902061451.1416-1-cp0613@linux.alibaba.com>
+References: <20260902061451.1416-1-cp0613@linux.alibaba.com>
+Subject: Re: [PATCH bpf v2] bpf, riscv: Make arena support depend on ZACAS
+From: bot+bpf-ci@kernel.org
+To: cp0613@linux.alibaba.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,memxor@gmail.com,bjorn@kernel.org,puranjay@kernel.org
+Cc: ihor.solodrai@linux.dev,eddyz87@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,pulehui@huawei.com,pjw@kernel.org,palmer@dabbelt.com,guoren@kernel.org,bpf@vger.kernel.org,linux-riscv@lists.infradead.org,linux-kernel@vger.kernel.org,stable@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Wed,  2 Sep 2026 07:00:19 +0000 (UTC)
 
-irq_domain_alloc_generic_chips() allocates generic irq chips and stores
-them via d->gc. However, it does not set the IRQ_DOMAIN_FLAG_DESTROY_GC
-flag on the domain. This means that when irq_domain_remove() is later
-called, the generic chips are not freed because the check for
-IRQ_DOMAIN_FLAG_DESTROY_GC fails, resulting in a memory leak.
+--===============5269529957093976897==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Currently, every caller of irq_domain_alloc_generic_chips(), including
-irq_domain_instantiate() when supplied with dgc_info, must manually set
-this flag. If a caller forgets to do so, the allocated generic chips
-will silently leak on domain removal.
+> diff --git a/arch/riscv/net/bpf_jit_comp64.c b/arch/riscv/net/bpf_jit_comp64.c
+> index 74efe4b138d2..151031e97a24 100644
+> --- a/arch/riscv/net/bpf_jit_comp64.c
+> +++ b/arch/riscv/net/bpf_jit_comp64.c
+> @@ -2128,7 +2128,15 @@ bool bpf_jit_supports_ptr_xchg(void)
+>
+>  bool bpf_jit_supports_arena(void)
+>  {
+> -	return true;
+> +	/*
+> +	 * The arena range tree uses kmalloc_nolock(), which needs
+> +	 * cmpxchg128, provided by ZACAS on riscv.
+> +	 */
+> +#ifdef system_has_cmpxchg128
+> +	return system_has_cmpxchg128();
+> +#else
+> +	return false;
+> +#endif
+>  }
 
-Fix this by setting IRQ_DOMAIN_FLAG_DESTROY_GC in
-irq_domain_alloc_generic_chips() right after d->gc is assigned. This
-ensures that any domain using generic chips will automatically have the
-chips cleaned up when the domain is removed.
+The constraint being checked here is a slab property (kmalloc_nolock()
+requiring cmpxchg128 support), not a JIT property. Fixing it
+per-architecture leaves the identical misleading -ENOMEM on every other
+architecture.
 
-The flag is set using an idempotent OR‑operation, so existing callers
-which already set this flag manually remain unaffected. Even if the
-allocation fails halfway and frees the gc memory in the error path,
-irq_domain_remove_generic_chips() checks d->gc for NULL before
-proceeding, thus no double‑free can occur. Setting the flag here is
-always safe.
+Looking at mm/slub.c, kmalloc_nolock() rejects the request whenever
+the cache lacks __CMPXCHG_DOUBLE:
 
-Fixes: e6f67ce32e8e ("irqdomain: Add support for generic irq chips creation before publishing a domain")
-Signed-off-by: Qingshuang Fu <fuqingshuang@kylinos.cn>
+    if (!(s->flags & __CMPXCHG_DOUBLE) && !kmem_cache_debug(s))
+            return NULL;
+
+and __CMPXCHG_DOUBLE is __SLAB_FLAG_UNUSED (0) whenever the arch
+provides no system_has_cmpxchg128 on 64-bit (mm/slab.h).
+
+Grepping every definition of system_has_cmpxchg128 in the tree gives:
+
+    arm64        constant 1
+    s390         constant 1
+    x86_64       boot_cpu_has(X86_FEATURE_CX16)
+    loongarch    cpu_opt(LOONGARCH_CPU_SCQ)
+    riscv        this patch's ZACAS check
+
+Yet the other bpf_jit_supports_arena() implementations are unconditional:
+
+    arch/powerpc/net/bpf_jit_comp.c      return IS_ENABLED(CONFIG_PPC64);
+    arch/x86/net/bpf_jit_comp.c          return true;
+    arch/loongarch/net/bpf_jit.c         return true;
+
+So on ppc64 kmalloc_nolock() can never succeed for a non-debug cache,
+and arena_map_alloc() returns -ENOMEM unconditionally -- exactly the
+symptom this patch is fixing, with no ZACAS involved. The same holds
+for x86_64 CPUs without CX16 and loongarch without SCQ.
+
+Is a check in generic code (arena_map_alloc() or a slab-provided
+helper) worth considering to fix all affected architectures at once and
+avoid replicating SLUB internals knowledge into each arch JIT hook?
+
+--- Commit message ---
+
+> The arena range tree allocates its nodes with kmalloc_nolock() since
+> commit f8c67d8550ee ("bpf: Use kmalloc_nolock() in range tree").
+> kmalloc_nolock() requires slab caches with cmpxchg128 support
+> (__CMPXCHG_DOUBLE); on riscv cmpxchg128 is provided by the ZACAS
+> extension. On systems without ZACAS every arena map creation fails
+> with a misleading -ENOMEM.
+
+The claim "every arena map creation fails with a misleading -ENOMEM" is
+not exhaustively accurate. Looking at mm/slub.c:
+
+    if (!(s->flags & __CMPXCHG_DOUBLE) && !kmem_cache_debug(s))
+            /*
+             * kmalloc_nolock() is not supported on architectures that
+             * don't implement cmpxchg16b and thus need slab_lock()
+             * ...
+             * kmem_cache_node->list_lock, so kmalloc_nolock() can attempt
+             * to allocate from debug caches by
+             * spin_trylock_irqsave(&n->list_lock, ...)
+             */
+            return NULL;
+
+The condition is an AND: when the cache is a debug cache (slub_debug
+boot parameter, or CONFIG_SLUB_DEBUG_ON=y), kmalloc_nolock() proceeds
+even with no cmpxchg128, so range_tree_set() and the arena.c
+kmalloc_nolock() sites succeed and arena maps can be created today on a
+non-ZACAS riscv64 system. After this change those same systems get
+-EOPNOTSUPP.
+
+That narrowing is arguably desirable (BPF should not depend on a SLUB
+debug-mode escape hatch), but is the changelog accurate about the
+current behavior? Should it note the debug-cache exception, or state
+explicitly that gating on the CPU feature is deliberately stricter than
+kmalloc_nolock()'s minimum requirement?
+
+
 ---
- kernel/irq/generic-chip.c | 1 +
- 1 file changed, 1 insertion(+)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/kernel/irq/generic-chip.c b/kernel/irq/generic-chip.c
-index 2c8bc6ce082e..13b634053a3e 100644
---- a/kernel/irq/generic-chip.c
-+++ b/kernel/irq/generic-chip.c
-@@ -308,6 +308,7 @@ int irq_domain_alloc_generic_chips(struct irq_domain *d,
- 	dgc->gc_flags = info->gc_flags;
- 	dgc->exit = info->exit;
- 	d->gc = dgc;
-+	d->flags |= IRQ_DOMAIN_FLAG_DESTROY_GC;
- 
- 	/* Calc pointer to the first generic chip */
- 	tmp += dgc_sz;
-
-base-commit: 89a312991dc6e638a36adc43ccb91dbc25504c04
--- 
-2.25.1
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33598715943
+--===============5269529957093976897==--
