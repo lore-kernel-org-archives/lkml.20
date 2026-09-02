@@ -1,356 +1,167 @@
-Received: from mta0.migadu.com (out-106.mta0.migadu.com [91.218.175.106])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8600A40BCC2
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:12:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 728AB40B102;
+	Wed,  2 Sep 2026 09:14:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788340335; cv=none; b=dcEWYOZ2FzDg14TkzJNptmfxTo7gOk7tV2OrSsIu2w1f+Pw4ypktcNDJ2JmpMxxn49bR50AmFpLdLHwcTkf5LAAKWrugEbbA/hgdkj9VKXHyCKcDHwSUYBJBGe1x1fM2o3nSHYrjHzlBkLG+KYncila9IyvwgKx1iiljkWV2yNU=
+	t=1788340461; cv=none; b=sISETvSWqSSX+kvugsP6KVM835vUi5Q1lKS4is6wWt2Sqghn0SU4BeyAZSPl1haaXqM+lmidzqcECc8Nj2HSKGaSAR2nLLQ7eRTpJBKMHfF++p+hpENJwQNJA/9LIuzMrVC9UJUA1FHtZ6/sW4AGiYWWaidlXH3Nc3T4KyszokU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788340335; c=relaxed/simple;
-	bh=5xV8ztEnZ6jxijrWoSRKEtSvwmLfTtZ6g4O9lPBwyng=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gmm3gYHJ9hT9WI3aE7XUUbDoTdveZIcz+oBWW45eP92wwHe6OT1jIgHAj5iMcPF+l9CMY1941UMdLFQPY+OGkLgAcm2WnKlHeiV2q502qKZGovP0QKLT8fIs/7y8DcX+SOY3dMvo5HNeTqO55EyTGhLIhgCTYknsFZXS1yEaCfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=WQxnb1Qn; arc=none smtp.client-ip=91.218.175.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788340461; c=relaxed/simple;
+	bh=1xdldqEAvNlEHgEwwq4NTC9GQw9+uQB1grul/7KiVlI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ww0LekH3wlJjjvxGcTZV4GiVwp0i4Vaekbdk7t3VGezB+chfV696tZQgaa0eMmLD07rzymwxJ+CkigY4OT9xfG/K2Bg8e48SCA6UThes3TBzte0hWOih1HeQqiOoD8irgzpbM+yxIjqEDHnSLiHol+iVCWBm8KnHDrAJBLr8/r0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=aQkac4ba; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="WQxnb1Qn"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=5xV8ztEnZ6jxijrWoSRKEtSvwmLfTtZ6g4O9lPBwyng=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788340331; v=1; x=1788945131;
- b=WQxnb1Qnx41b1x+78xshMEChfC+UXbXVFZqzoTxnOXS1g32YwjaSSjXarwoVgj1WVVtSfQYO
- GwLgkq0aOccwOnrQJaSO785zfcSbXQ91d3kjhYXyDbxjrikgh8fqVdCi5bNkDbs5tUCTzJoFXJn
- OFrccp3ocJGBKkQwwDqyrPWI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id fa3c778b352eda0d;
-	Wed, 02 Sep 2026 09:12:11 +0000
-X-Mizu-Trace-ID: fa3c778b352eda0d
-X-Migadu-Flow: FLOW_OUT
-From: "Hui Zhu" <hui.zhu@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Kairui Song <kasong@tencent.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	David Hildenbrand <david@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Cc: Hui Zhu <zhuhui@kylinos.cn>
-Subject: [PATCH RESEND mm-stable v5 2/2] mm/vmscan: throttle MGLRU eviction when isolated folios pile up
-Date: Wed,  2 Sep 2026 17:11:26 +0800
-Message-ID: <b437bf8f3c405fc1ada32b1fd279c13abca2f95f.1788339549.git.zhuhui@kylinos.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1788339549.git.zhuhui@kylinos.cn>
-References: <cover.1788339549.git.zhuhui@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="aQkac4ba"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6826VpdB2306852;
+	Wed, 2 Sep 2026 09:14:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=8AqoYC6w7cGqvCApgJVekM9rSN9fLp
+	aJea1c35J8vec=; b=aQkac4baoVBcd/gr3t42BfdcF/bXQtadWq2J6xdTTOVexg
+	bC3jLEAWqZDGaroPEAsIn1Vu2m7B+yiGlqXd8iDESLYgk9ffYsFHkZgujdtaVkN4
+	T5pYJUpMayTGAIRn0OQPCwk8Km1eRV4NugTxdBXoDrDzFYnpuqyeK6jZTzg1LyTD
+	AunH+aGr3X35FHtE1jAsdjgM30cGEvPNFGuvInLbrwoPpnVESgqzRNVOL9qmKwEb
+	xyR1sIOENYLHCMpnTtkZ4t0G5PseHraT49ggFKua5OhLFNGQWTurcBuc3ad2Cxys
+	aOflYHQJ4LEXVgRAkCD08P97RTqmnjFwQ5kLTrBw==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbnudw6rp-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 09:13:59 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6829BQ8k022561;
+	Wed, 2 Sep 2026 09:13:58 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gcbyggm81-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 09:13:58 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6829DsqF31654596
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 2 Sep 2026 09:13:54 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4C3CE2004D;
+	Wed,  2 Sep 2026 09:13:53 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E68A62004B;
+	Wed,  2 Sep 2026 09:13:52 +0000 (GMT)
+Received: from osiris (unknown [9.224.76.185])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Wed,  2 Sep 2026 09:13:52 +0000 (GMT)
+Date: Wed, 2 Sep 2026 11:13:51 +0200
+From: Steffen Eiden <seiden@linux.ibm.com>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org,
+        kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
+        Gautam Gala <ggala@linux.ibm.com>,
+        Hariharan Mari <hari55@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>,
+        Hendrik Brueckner <brueckner@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
+        Nico Boehr <nrb@linux.ibm.com>,
+        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
+        Zenghui Yu <yuzenghui@huawei.com>
+Subject: Re: [PATCH v7 03/23] KVM: Allow KVM implementations to switch off
+ MMIO independent of Kconfig
+Message-ID: <20260902091351.438647-B-seiden@linux.ibm.com>
+References: <20260831144802.834315-1-seiden@linux.ibm.com>
+ <20260831144802.834315-4-seiden@linux.ibm.com>
+ <apdwHcdy2iYRTrww@google.com>
+ <87ik4om4x2.wl-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87ik4om4x2.wl-maz@kernel.org>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: 1F3pFqBliXsclDESpUMcg1Z2cLb-e86r
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA3OSBTYWx0ZWRfX6JtcG97cfxR6
+ M4fLC+5JFLfefyJ1qrpgJw/iXLu2gd2AcQ9igI6kuKVVKwyQXLrdH5RcYRv26yseZUJyufkJwjS
+ nujMYVuQXk36dNNw3gVbWXaSK5iesK0HQrdOEftwQ3tMNqDbDpZ7yRzLEjQoYo9rsQbkblu3QeD
+ F8QX7BXmfVOlOh///QP+kcohJs1wkIubtCoBsdgc2KETGEc+00lLjjyNzOmUTbGDvUekrc77wTJ
+ 7QQ8DLPCsbG2yPHF8+dAEZzCNj0z3v6trPZkmGfPxtyVs2i4QtU/1tp1mBj/8JFGtyjaQa5tqbk
+ /1M8eVbP1oVzDt0r2yaL4Dhfx8ClG6elPzAIlyexPsJumZFN62k5+buX6br5va+BTYKb6TluANA
+ Ek2Le2C5Fxzjiiduhw3Mzlmn7MvP5WPJQkW+aes9Ds+/UuNGqAN4vMqGjLN8KoF9DmzDoMbPMZ/
+ wMWIXwYNxIlLbfMK2vA==
+X-Proofpoint-ORIG-GUID: iQl2bPnGO4GAkYjG_46D3jnneKaByzvI
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA3OSBTYWx0ZWRfX/JFIgWLLDrEv
+ 4uA/cRHPETAHaE3tPnGzeVlr8K5IlC35MK//vvD97JgmRLsZjFu/iOg+buJD94SfUKWap44cGIE
+ RMXAdoaGiQT56QJLsUNHrsxaREHH7TY=
+X-Authority-Analysis: v=2.4 cv=B92JFutM c=1 sm=1 tr=0 ts=6a97e8d8 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=1XWaLZrsAAAA:8
+ a=oAQvYTIzDSDSlRPHBVEA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_01,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 clxscore=1015 suspectscore=0 phishscore=0
+ lowpriorityscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609020079
 
-From: Hui Zhu <zhuhui@kylinos.cn>
+On Wed, Sep 02, 2026 at 09:30:17AM +0100, Marc Zyngier wrote:
+> On Wed, 02 Sep 2026 01:38:53 +0100,
+> Sean Christopherson <seanjc@google.com> wrote:
+> > 
+> > On Mon, Aug 31, 2026, Steffen Eiden wrote:
+> > > Only defining KVM_MMIO is not flexible enough for multi-KVM systems
+> > > where one KVM implements MMIO but others do not. Solve this by
+> > > additionally testing for the non-existence of KVM_NO_MMIO before
+> > > including MMIO code to KVM.
+> > 
+> > Ewwwww.  IIUC, s390 ends up with two KVM modules, i.e. there really are two different
+> > KVMs being built.  Rather than have a KVM_MMIO and NO_KVM_MMIO, I vote very
+> > strongly to drop CONFIG_KVM_MMIO entirely and replace it with __KVM_HAVE_ARCH_MMIO,
+> > a la __KVM_HAVE_ARCH_VM_FREE and others.  Tracking two separate macros is going
+> > to be annoying to maintain, and will definitely be confusing for non-s390 people.
+> > 
+> > It'll mean linking in an emtpy coalesced_mmio.o on s390 when building without arm64
+> > support, but I'm guessing that won't be at all common for s390 builds.
+> > 
+> 
+> I ended-up doing something very similar locally, because I couldn't
+> really make head or tail of the logic while being in holiday mode
+> (which doesn't help). However, I kept the negative logic, so that we
+> don't need to add anything to any architecture but S390 (they are the
+> odd one out here).
+negative makes sense. 
+IIRC KVM/power does select KVM_MMIO most of the times but not always.
+I'll check that.
 
-The legacy path throttles direct reclaim via too_many_isolated() when
-isolated folios pile up, but MGLRU's evict_folios() isolates folios
-without this check, which can lead to unnecessary swapping, thrashing
-and OOM.
+> 
+> Untested hack follows.
+> 
+> 	M.
 
-Add lru_gen_too_many_isolated() and throttle_evictable_types(), called
-from evict_folios() before the lruvec lock is taken since throttling
-sleeps.
+Thanks!
+I'll verify and integrate it
 
-The check is per lruvec rather than node-wide: reclaimers contend per
-lruvec, and a node-wide check would let isolation in one memcg throttle
-reclaim in another. The threshold is the evictable size of the type
-divided by MIN_NR_GENS, approximating one generation.
+	Steffen
 
-Since isolate_folios() picks the type from refault feedback and may fall
-back to the other one, throttle_evictable_types() collects the types
-that are not over-isolated and have evictable folios, and sleeps only
-when all of them are over-isolated. The mask is passed to
-isolate_folios() to restrict its choice and fallback, so an
-over-isolated type never blocks the other, and isolation never lands on
-a throttled or empty type.
-
-Like the legacy path, kswapd and !writeback_throttling_sane() reclaim
-are exempt, the threshold is raised for GFP_NOIO/GFP_NOFS callers, and
-a dying task fakes progress to exit reclaim quickly.
-
-Tested with threads write-touching a 48MB anonymous working set in a
-16MB memcg backed by swap delayed 50ms via dm-delay. With 192 threads
-the task is OOM-killed without this patch and survives with it. With
-64 threads both kernels survive the 60s run, and the patched kernel
-completes ~22% more touches (301B vs 246B).
-
-Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
----
- include/linux/mmzone.h |   2 +
- mm/vmscan.c            | 170 +++++++++++++++++++++++++++++++++++++----
- 2 files changed, 158 insertions(+), 14 deletions(-)
-
-diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-index 94f9c3ff5416..819b6c059116 100644
---- a/include/linux/mmzone.h
-+++ b/include/linux/mmzone.h
-@@ -580,6 +580,8 @@ struct lru_gen_folio {
- 	/* can be modified without holding the LRU lock */
- 	atomic_long_t evicted[NR_HIST_GENS][ANON_AND_FILE][MAX_NR_TIERS];
- 	atomic_long_t refaulted[NR_HIST_GENS][ANON_AND_FILE][MAX_NR_TIERS];
-+	/* the number of folios isolated from this lruvec and being reclaimed */
-+	atomic_long_t nr_isolated[ANON_AND_FILE];
- 	/* whether the multi-gen LRU is enabled */
- 	bool enabled;
- 	/* the memcg generation this lru_gen_folio belongs to */
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 3936c553c63b..211839d10909 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4151,25 +4151,34 @@ static void set_initial_priority(struct pglist_data *pgdat, struct scan_control
- 	sc->priority = clamp(priority, DEF_PRIORITY / 2, DEF_PRIORITY);
- }
- 
--static unsigned long lruvec_evictable_size(struct lruvec *lruvec, int swappiness)
-+static unsigned long lruvec_type_evictable_size(struct lruvec *lruvec, int type)
- {
--	int gen, type, zone;
-+	int gen, zone;
- 	unsigned long seq, total = 0;
- 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
- 	DEFINE_MAX_SEQ(lruvec);
- 	DEFINE_MIN_SEQ(lruvec);
- 
--	for_each_evictable_type(type, swappiness) {
--		for (seq = min_seq[type]; seq <= max_seq; seq++) {
--			gen = lru_gen_from_seq(seq);
--			for (zone = 0; zone < MAX_NR_ZONES; zone++)
--				total += max(READ_ONCE(lrugen->nr_pages[gen][type][zone]), 0L);
--		}
-+	for (seq = min_seq[type]; seq <= max_seq; seq++) {
-+		gen = lru_gen_from_seq(seq);
-+		for (zone = 0; zone < MAX_NR_ZONES; zone++)
-+			total += max(READ_ONCE(lrugen->nr_pages[gen][type][zone]), 0L);
- 	}
- 
- 	return total;
- }
- 
-+static unsigned long lruvec_evictable_size(struct lruvec *lruvec, int swappiness)
-+{
-+	unsigned long total = 0;
-+	int type;
-+
-+	for_each_evictable_type(type, swappiness)
-+		total += lruvec_type_evictable_size(lruvec, type);
-+
-+	return total;
-+}
-+
- static bool lruvec_is_sizable(struct lruvec *lruvec, struct scan_control *sc)
- {
- 	unsigned long total;
-@@ -4838,15 +4847,128 @@ static int get_type_to_scan(struct lruvec *lruvec, int swappiness)
- 	return positive_ctrl_err(&sp, &pv);
- }
- 
-+/*
-+ * The MGLRU counterpart to too_many_isolated().
-+ *
-+ * too_many_isolated() compares node-wide isolated counts against
-+ * node-wide inactive sizes. It predates per-memcg LRU lists, which
-+ * moved isolation to per-lruvec granularity. MGLRU reclaimers contend
-+ * per lruvec, so this check is per lruvec as well, and isolation in
-+ * one memcg does not throttle reclaim in another.
-+ *
-+ * The legacy threshold, the size of the inactive list, is not usable
-+ * here either: in MGLRU the inactive counters are only a compatibility
-+ * shim - they jump around when swap runs out or a memcg hits its swap
-+ * limit, and proactive aging can inflate them. Compare against the
-+ * total number of evictable pages of the type divided by MIN_NR_GENS,
-+ * approximating the size of one generation - the same unit the
-+ * original MGLRU aging heuristics used.
-+ */
-+static bool lru_gen_too_many_isolated(struct lruvec *lruvec, int type,
-+				      struct scan_control *sc)
-+{
-+	unsigned long isolated, evictable;
-+
-+	if (current_is_kswapd())
-+		return false;
-+
-+	if (!writeback_throttling_sane(sc))
-+		return false;
-+
-+	isolated = atomic_long_read(&lruvec->lrugen.nr_isolated[type]);
-+	evictable = lruvec_type_evictable_size(lruvec, type);
-+
-+	/*
-+	 * GFP_NOIO/GFP_NOFS callers are allowed to isolate more pages, so
-+	 * they won't be blocked by normal direct-reclaimers, forming a
-+	 * circular deadlock.
-+	 */
-+	if (gfp_has_io_fs(sc->gfp_mask))
-+		evictable >>= 3;
-+
-+	return isolated > evictable / MIN_NR_GENS;
-+}
-+
-+/*
-+ * Unlike the legacy path, where the LRU list to isolate from is known
-+ * before isolation, isolate_folios() picks the type from the refault
-+ * feedback and may fall back to the other one. Therefore, instead of
-+ * throttling on a single type, collect the evictable types that do not
-+ * have too many isolated folios, and only sleep when all of them do.
-+ *
-+ * Returns the mask of the types isolate_folios() may isolate from, or
-+ * 0 if reclaim should stop. Also sets @fatal to tell the caller that
-+ * the task received a fatal signal while waiting.
-+ */
-+static unsigned int throttle_evictable_types(struct lruvec *lruvec,
-+					     int swappiness,
-+					     struct scan_control *sc,
-+					     bool *fatal)
-+{
-+	unsigned int allowed;
-+	bool stalled = false;
-+	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
-+	int i;
-+
-+	*fatal = false;
-+
-+	for (;;) {
-+		allowed = 0;
-+		for_each_evictable_type(i, swappiness) {
-+			/*
-+			 * A type with no evictable folios has nothing to
-+			 * isolate. Don't allow it, otherwise reclaim can be
-+			 * redirected to it and spin making no progress, e.g.
-+			 * when the only type with folios is over-isolated.
-+			 */
-+			if (!lruvec_type_evictable_size(lruvec, i))
-+				continue;
-+
-+			if (!lru_gen_too_many_isolated(lruvec, i, sc))
-+				allowed |= BIT(i);
-+		}
-+
-+		if (allowed) {
-+			/* Wake up reclaimers waiting on the isolation to go down. */
-+			wake_throttle_isolated(pgdat);
-+			return allowed;
-+		}
-+
-+		/*
-+		 * All evictable types are over-isolated. Like the legacy
-+		 * path, wait once for concurrent reclaimers to put their
-+		 * isolated folios back; give up if that makes no progress.
-+		 */
-+		if (stalled)
-+			return 0;
-+
-+		stalled = true;
-+		reclaim_throttle(pgdat, VMSCAN_THROTTLE_ISOLATED);
-+
-+		/* We are about to die and free our memory. Return now. */
-+		if (fatal_signal_pending(current)) {
-+			*fatal = true;
-+			return 0;
-+		}
-+	}
-+}
-+
- static int isolate_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 			  struct scan_control *sc, int swappiness,
--			  struct list_head *list, int *isolated,
--			  int *isolate_type, int *isolate_scanned)
-+			  unsigned int allowed, struct list_head *list,
-+			  int *isolated, int *isolate_type, int *isolate_scanned)
- {
- 	int i;
- 	int total_scanned = 0;
- 	int type = get_type_to_scan(lruvec, swappiness);
- 
-+	/*
-+	 * The preferred type may have been excluded by
-+	 * throttle_evictable_types(); start from the other one.
-+	 */
-+	if (!(allowed & BIT(type)))
-+		type = !type;
-+
- 	for_each_evictable_type(i, swappiness) {
- 		int scanned;
- 		int tier = get_tier_idx(lruvec, type);
-@@ -4863,9 +4985,10 @@ static int isolate_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 		/*
- 		 * If scanned > 0 and isolated == 0, avoid falling back to the
- 		 * other type, as this type remains sufficient. Falling back
--		 * too readily can disrupt the positive_ctrl_err() bias.
-+		 * too readily can disrupt the positive_ctrl_err() bias. Only
-+		 * fall back to a type that is not throttled.
- 		 */
--		if (!scanned)
-+		if (!scanned && (allowed & BIT(!type)))
- 			type = !type;
- 	}
- 
-@@ -4888,18 +5011,36 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 	bool skip_retry = false;
- 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
- 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
-+	unsigned int allowed;
-+	bool fatal;
-+
-+	allowed = throttle_evictable_types(lruvec, swappiness, sc, &fatal);
-+	if (!allowed) {
-+		/*
-+		 * We are about to die and free our memory. Like the legacy
-+		 * path, pretend some pages were reclaimed so reclaim
-+		 * unwinds quickly instead of looping back into the
-+		 * throttle.
-+		 */
-+		if (fatal)
-+			sc->nr_reclaimed += SWAP_CLUSTER_MAX;
-+
-+		return 0;
-+	}
- 
- 	lruvec_lock_irq(lruvec);
- 
- 	/* In case folio deletion left empty old gens, flush them */
- 	try_to_inc_min_seq(lruvec, swappiness);
- 
--	scanned = isolate_folios(nr_to_scan, lruvec, sc, swappiness,
-+	scanned = isolate_folios(nr_to_scan, lruvec, sc, swappiness, allowed,
- 				 &list, &isolated, &type, &type_scanned);
- 	nr_isolated = isolated;
--	if (nr_isolated)
-+	if (nr_isolated) {
- 		__mod_node_page_state(pgdat, NR_ISOLATED_ANON + type,
- 				      nr_isolated);
-+		atomic_long_add(nr_isolated, &lruvec->lrugen.nr_isolated[type]);
-+	}
- 
- 	/* Scanning may have emptied the oldest gen, flush it */
- 	if (scanned)
-@@ -4962,6 +5103,7 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 		goto retry;
- 	}
- 
-+	atomic_long_sub(nr_isolated, &lruvec->lrugen.nr_isolated[type]);
- 	mod_node_page_state(pgdat, NR_ISOLATED_ANON + type, -nr_isolated);
- 
- 	if (nr_isolated > total_reclaimed)
--- 
-2.53.0
-
+...
