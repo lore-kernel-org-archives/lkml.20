@@ -1,139 +1,121 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ADD82DC792
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:39:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C85629B78F;
+	Wed,  2 Sep 2026 03:40:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788320380; cv=none; b=FEAzCd1sHudBnXUssGrlmsNNNKEZPSzgI2k/taD6eUSjoqREgUt5MhnEEF8A/HT2t4cqTjt+0R6s69yhYyCCcM+MQBKzGtEoLyEO30Rs3lfD1dYNjDKc+XDzAyPWqsQX5mq4kA6ycdukTILKTQpkXX4DRmd18JR8ya7vhhFxjyk=
+	t=1788320403; cv=none; b=taskjzRDXoCRDG0Z2JDaFMCyJM/Q079edsmehY7qi/OCvdf1pvAnQNQZV8epKjtBXUK+ePNfBRvsnZ+pSeBejNhWSODa37yno4KLKt4xEa9YdZ8surd5oK1VHcDmPp2fp20oRfWWFYEMJxbd/YsLM82YTkm9OlW2Ay5LATwQw4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788320380; c=relaxed/simple;
-	bh=bHwVtyoXVu2TVi4pOCw17jGirueig4po4LiRmrpAKas=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QmigFvHLCt2GU+VI12AKDosmmsjNTTHj0CQidFlbERnSiJaRwGO/lx0v/345wIjPx8GRfJGMzwVIg5U/c2TPwLjbDh29F4+h+AlGDiaf+8zI3fTPiTlIfE1K0FzhTiBZ55E8eRr+9L2E4P1+1PuBVb6bl355B0wuyRm4HJKlKZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=obbS/Zcu; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788320403; c=relaxed/simple;
+	bh=uDYnLfI9Aa5+jJvAV5ND9dJ4A0mwMALtMGM1iG4fnm8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Cdm7rUKWbh4wouLmIJg2iA3TDN0djsrq7F0N6Ca1TN1I1e7G+P5R2qwt9/Lcj/8dn58VGepX4NksTq7SV7X4jqN/oL604B7cVorn3Bq0VsfAPc6lsyF1OVAfa8XBF+4CIYqm4snYr08SrTb6utFEnd08cjt2miyxRk1uaAR0ZGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=YOfzS+lY; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=LxHf1K6a; arc=none smtp.client-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="obbS/Zcu"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d91518a63fso4696815ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 20:39:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788320378; x=1788925178; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fqWDWsxv8wlgt756/7Sn//VhWsyTD+w5jVSYYxwonOo=;
-        b=obbS/ZcumqZis68mMXFl5VYXpDX5sffA5FJUifrA+PxMeGVM/MdBppGFiTvBxkggeP
-         DoFyJfCU8zhmZVN7YZQwSMNoK2repkv/0lPB+lwd2ejdhry8af4UBgyKJAAp9YstN8F/
-         shafxlrEvN0MRLcj5oDqkxP52ylUcWmI9SxST4N/6GYeSZguQOhH8di+MMqW2JPgVadS
-         vELGwzjMw7wuhsVtuJ7Vo7iV+PqXLZUr9ItGBqNXeuJfvGzuBKvZrpMi6blAtT9asB0K
-         JuPa5PL/pVfS7RrhROQxOWbpyf3HPYFD/sZyY+r/qDCIb+YkpW75DBWn0qgRVqk4+Of5
-         hGsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788320378; x=1788925178;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fqWDWsxv8wlgt756/7Sn//VhWsyTD+w5jVSYYxwonOo=;
-        b=LB9iT0ZRQM++NURPW4URLoAAKqc7jDj2y6ryU8fT8USZdTvXBj/uAUBLcpY9OQiQj7
-         rRdplMOcBBIppvAhTnEckE+tqBq5cf+aMkHEUd6V7iBTfK7Yugsd9E3p9zbczstE6KjF
-         i8zjLCGnmzY8qAV+BVoaUMmkPdiNiFBAN9Nbf/x1p5KVnbbgqf6lXYVW6b26b1D4cZ6d
-         n7StoLQrOfZ0eUuuDzkaz2OIYRICr8wp0+LmHEzJf4n7H/Y4WsTMZtr13IqcDKoUq3Mi
-         3gwot9qoVrj55UxePjO6iAMkCJVM708EZbYRRnbelPiuqdhbdqRZei0DcdgFydEeMSo9
-         BwDw==
-X-Forwarded-Encrypted: i=1; AKwUvBwPMO0zuxjBSg/4ZRhRUu0qPBrFZS14Gd5V8xl9EwI4i+NeeCddcQcO7rlDdn7NN9vULDH0nvOZo8/6um0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmrLIC12oupcBpxhszs29NW2Ma946Vi4Zn8dkpIw6dwI+F1rlD
-	zHxE28EWPij0Am4FJBVQPAMGeIrvjnLQUrwMYWoJ9ItA1AdMOWChy14m
-X-Gm-Gg: AYBFou1d01D9gaaB66urLl0HF2/5NQhYPbxX+A20Ccsn4Fe/E8hWarf00xQAdTNYaLe
-	12sMLCmEoKgEeQX41ZkRd0RidY/hcBJM3FtjPr0HeYKDkfuePJwlowNRMRGIs2YCFZq0Et1FSG5
-	nIGTHc8rv/et97hOS7LpNHicLXLyYnF7hnmRpHIi40D7evYxiuClZ9nYp1bf74yWG2XghIjXsZQ
-	8ao5JGhmXQC1PLK1RpA6EzzzqFBqjduKtNr5tq0+PQg+foN56rKncI87t1FJS2mfl9bZUPmdb0W
-	RKyBLFekK9BkEw+UAAB5rD4abwW4764C0Ocf/O7xjhvWH1FJG/yvA1TnbB1xf+IKCFH+tiYtMNp
-	ldKJhfx8GNyZJUNyxkSPfhexc2ie/HkyyeIxGoexAJ/tDn5se7bKXPVPaDOQo1rNGUuX2JtFSH5
-	BmWoDRj7zW0ALOJ4btyys9yb6kEnVDKZ9jfP/yL/AcnlgI1hNehM4Ve3nk1gU3Fb2SQ6g4s0R+
-X-Received: by 2002:a17:903:1a24:b0:2c9:e846:a57e with SMTP id d9443c01a7336-2daec457723mr29222385ad.0.1788320378515;
-        Tue, 01 Sep 2026 20:39:38 -0700 (PDT)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dadd386eefsm5715715ad.28.2026.09.01.20.39.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 20:39:38 -0700 (PDT)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-To: thomas.weissschuh@linutronix.de
-Cc: tglx@kernel.org,
-	luto@kernel.org,
-	vincenzo.frascino@arm.com,
-	david.laight.linux@gmail.com,
-	zhanxusheng@xiaomi.com,
-	linux-kernel@vger.kernel.org,
-	Zhan Xusheng <zhanxusheng1024@gmail.com>
-Subject: [PATCH v4 4/4] vdso/gettimeofday: Assert that the clock id fits the dispatch mask
-Date: Wed,  2 Sep 2026 11:38:01 +0800
-Message-ID: <20260902033801.2912699-5-zhanxusheng@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260902033801.2912699-1-zhanxusheng@xiaomi.com>
-References: <20260902033801.2912699-1-zhanxusheng@xiaomi.com>
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="YOfzS+lY";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="LxHf1K6a"
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 35C227A0095;
+	Tue,  1 Sep 2026 23:40:00 -0400 (EDT)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-10.internal (MEProxy); Tue, 01 Sep 2026 23:40:00 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1788320400;
+	 x=1788406800; bh=In5DW79fO3VDiYySeXS/i8pWpXqOI/SquxDxzES1DEE=; b=
+	YOfzS+lYTlMi2RFVVaGl34gx5usshOZlqNMtsYuW2hWyjsBLAj71tDyZrUu52XmX
+	133ASH2VScdrsssOoRLCmv51ugPBpIbfJAuIawXs99xFtuudAWzl6KwOr5fjQV1c
+	iR5gkxDHcBxxRgftuf0mHcmhGjc/FGPFZNJpPYE9KXBOfWLKTIENIk/h37rUqkcA
+	jSLkFL6pbTrZ/p0RWrhCn/jBzjCmc2XzpwVwJmR6r7Rw6nv9gePYSZGTd0XyUF3j
+	c43sTiAuKrqK3AmWhZIJRWnHBAEa17/soLo3qxbI4vbXQwgsj94auFFXphRXuWa9
+	IutFFaUlmJd6Rtogj3WGyw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1788320400; x=
+	1788406800; bh=In5DW79fO3VDiYySeXS/i8pWpXqOI/SquxDxzES1DEE=; b=L
+	xHf1K6aLkPQ842RbfXHzbWH+hnm3FDLzA1wl6lt/kS0GApLfSMCP1fAZtSFmFLrk
+	pNMZebti6gn2SGzhQgDhDP9sNHGyEZgIc6Mm6ahagRy4IlkzL0njEHH8yX5vKj4W
+	zBHhkEGvU7qpdGymPw8aBiJN6qOixT74rTaz7Fik2j6DMpdmD+Zj2SF8jFRsQRS1
+	gLyPfp5hqVAY8jAGRLs/6vqBGrmkywcoU7+VBFM5AVgoP4mKneF1M4EDEJAI1UVV
+	smyXL4fs5ULcCyq+CjEOkay8+IrKx1BtALYj9z4yQtfluSNLLNKCzMCRucGTrCTP
+	U/vULyoLvy+52GWJRTXoQ==
+X-ME-Sender: <xms:j5qXaj1s4RDioh2T-i0_Bm_7zlXG_J2jDpPHOH5jjQUJQmM6rn6Sww>
+    <xme:j5qXat8yeUE0K7DW_tOKEEuVUWtvuHSEuTTgTUuZC6hMAZ6jE3R6IAbhMSTGRAA9h
+    D0ohSmD7WCd7kYyi00W9vyN82gbzEgX5pW2B9XJIYVK4XHY4zdNrkQ>
+X-ME-Received: <xmr:j5qXavbp9hSIY5jxOqmZVQSTwIeTDR7VxeuMmEakII256xJA2aJBbYOG-zhESIuW2X5Zo5Mp-N5tGQmKtMn4-Vgk-EAopkyY>
+X-ME-Proxy-Cause: dmFkZTF1wNsmtCvWlSNdN+3WxjnlaCDK9VuqrR63ZTkwHJQiWRCqdwXSaYHjyQdVHK7e8Y
+    SYlYLxr5gSTy4JUNJxqE5Ho1jfMLp6ujyl/9tmP+CH8kvVG7vHNfnNu+zuw10fFkOaqIfm
+    bVBClD1g4BAmI/2SEywlYKGk9nAob42tpVnElREDOsneKG/g/XVa0rT8NobPp6Z5G3Mwa5
+    X7hgwWWMYahiFgdLerKXlDqPbbekOS0lD8GYlpqyRi3cc59PDHumJ8KLUroMtoINxuwdtY
+    U6VRY/HU77muts+Qwqjwgp3BApmQ+CjPO6QIBULagHkywwGn/d7yzor9XsVEASD5h0vmT0
+    8WyVgsyR5tIX2s7Cho73jdAKBqHgkGp6SwgavSt3S0PTpclipbWjO35GlHGBVQR1PQWZXZ
+    2HZfAbKk1GH5e8VKT/r5AtMbsErvwsJjcbJnT/1iOSa2drJigYxrRdWuZK6x4hwmWvF1QJ
+    +WP7Pi58EJSKAnBRePVutY7t3s0pULH4PDxNSyz2GcSmkp6P+rxTPqL2lekB5IJyQ6Bx4B
+    MFETIeX28PRkX2p4cwf0RZHSZU1NMdWvoO/RS7KhaMAd/+qJTIaIIoFSqpempsDc8mbpLE
+    TmLt6rFmsUK6Mvus+zHvVmjuIqAVqvaNV1BJ3ScYEm76/KgIRcDVMW6YNmug
+X-ME-Proxy: <xmx:j5qXasyLjxkyStJhpROyWirONZj8I8ydZTN2iWr8ZgVB5dw-rQ-pnA>
+    <xmx:j5qXat-GMx0c_vL11bWjSfd_iZNI9uNnOur42Z24-zUMZg4AfOb7Fw>
+    <xmx:j5qXaoxdDDIgMEXSFefa3ZsSjqmWcYQ4OLeqMhWvLmqaAZkB5PAtCQ>
+    <xmx:j5qXaiu-KRqfmu0lidHe5Pmk4lyADvsir45uG7b55840hr42he2O5g>
+    <xmx:kJqXatpemHSbVppykoKDlOGseZn9Q0AYvdF5aXoAKGGBP1jeNlljWy92>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 1 Sep 2026 23:39:56 -0400 (EDT)
+Message-ID: <fcf6128b-8f6c-46b7-9217-03aa1288298c@pobox.com>
+Date: Tue, 1 Sep 2026 20:39:55 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6 00/91] 6.6.156-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260831133359.468089036@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260831133359.468089036@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+On 8/31/26 6:33 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.6.156 release.
+> There are 91 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.156-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
+no regressions observed.
 
-The clock id dispatch turns the id into a bit in a u32:
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-  if (!vdso_clockid_valid(clock))
-      return false;
-  msk = 1U << clock;
-
-vdso_clockid_valid() admits everything up to CLOCK_AUX_LAST, which is 23,
-so the shift is in range.  Nothing states the dependency though, and
-raising MAX_AUX_CLOCKS past 16 would take CLOCK_AUX_LAST to 32 or beyond
-and make the shift undefined.
-
-Assert it at both dispatch sites.  The condition is on a parameter rather
-than a constant, so it relies on the compiler deriving the range from the
-vdso_clockid_valid() bail-out above it.  gcc 13 and clang 18 both do: x86
-vdso64 and vdso32 build clean, and raising MAX_AUX_CLOCKS to 17 fails the
-assert as intended.
-
-Suggested-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-Reviewed-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
----
-No change since v1.
-
- lib/vdso/gettimeofday.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/lib/vdso/gettimeofday.c b/lib/vdso/gettimeofday.c
-index f7a591aba59f..ef4dcc614489 100644
---- a/lib/vdso/gettimeofday.c
-+++ b/lib/vdso/gettimeofday.c
-@@ -285,6 +285,7 @@ __cvdso_clock_gettime_common(const struct vdso_time_data *vd, clockid_t clock,
- 	 * Convert the clockid to a bitmask and use it to check which
- 	 * clocks are handled in the VDSO directly.
- 	 */
-+	BUILD_BUG_ON(clock >= BITS_PER_TYPE(msk));
- 	msk = 1U << clock;
- 	if (likely(msk & VDSO_HRES))
- 		vc = &vc[CS_HRES_COARSE];
-@@ -438,6 +439,7 @@ bool __cvdso_clock_getres_common(const struct vdso_time_data *vd, clockid_t cloc
- 	 * Convert the clockid to a bitmask and use it to check which
- 	 * clocks are handled in the VDSO directly.
- 	 */
-+	BUILD_BUG_ON(clock >= BITS_PER_TYPE(msk));
- 	msk = 1U << clock;
- 	if (msk & (VDSO_HRES | VDSO_RAW)) {
- 		/*
 -- 
-2.43.0
-
+-Barry K. Nathan  <barryn@pobox.com>
