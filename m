@@ -1,64 +1,54 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EC5C48F858
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:40:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5E0493640;
+	Wed,  2 Sep 2026 12:40:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352836; cv=none; b=UuWIoq+vcJHSeXJqMAgkA7CRcG31BU+dj7AyUj1qerya493m82BoSByO6YnytLR/F9xVvN8DC26jpWPpCdLhRn03fnwgIhvAORKnS7BTd+kI9qZawrqDTXR5yFGURBJ1WXJA0ZA7UZZtIw5xeJAK5y5D8WyntonIWgJY838/CHY=
+	t=1788352836; cv=none; b=aFiygPBF0bBxBsL2n6csV8qyIz0TqG78N+r3Oa6VPRxsC+QwPIv8TI2AIN9mIqYkyssuL2PFJmxUmlrsg+16jQ6WhUwOlebgXKrCUAwfsyVWVnK4xhrdiygIrUaS+GyfEKPq0s5aCUgdr7tu4vC843qRSJxhGGT5j7NRdWym9m8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788352836; c=relaxed/simple;
-	bh=Na7db9/2s80znu/9AE5DCwfjSCJNFyIOryOmFE9wqsM=;
+	bh=qrQ2t7kPVDsS567S90/7tbSfzQYKJ040KSzYlhqNuKM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QDJQJ0b9fuyCRNVQgxcAxYee0qeIKoTYXHyQKQCfd4ckwy1+yAxO/cqjjVrrz9f2bCy5Y2W/lFjo7HsvitFJZsiurx7kUYhhHOPDPYWhkcvIXTrD4GmI8ZFQhyy0UiXaUb8qDkii4AWLSUDZwGp4Wm5UYLa50MLmALn3xag4ecM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=VMOFnRD/; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 MIME-Version; b=EH2OfWhwSo/v+AbKO1p1Dw9ZxHee+a9AZqeFqi5d+OR6VG+U4ftu+5hjlOLH7qiwppaxkMRxva0H4xydww7+qCsrEDLyIDIkNYiDFvyXN4ctesky4wXqqXjITLMncpcsxP2c+Zbid2VYlBaTti+L5u2JgBtVmmFS1MLP0XrKoxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=ie/xkNW5; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="VMOFnRD/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788352833;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XtAUMyjozqDTITd3GB3tSLmdiU/PUp/kO4z4pdtBy74=;
-	b=VMOFnRD/DXPaClQ0AVlSxL5194DJHn01lnfV/qbNusE3RdHyL6Ztpgk64PqBFsg2HibZ9I
-	1rT4uE37e0ARB4T7ulxSXWcliWNbXqLxL2xv6RCA7b3TQT2tbbVfX9RjKK3UtjKQ5GzpCz
-	gQyZt0aUbHB4+WZJYjwZ6tu5uKyQgic=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-590-x6c-OkcsNBWANv3AfSiupA-1; Wed,
- 02 Sept 2026 08:40:29 -0400
-X-MC-Unique: x6c-OkcsNBWANv3AfSiupA-1
-X-Mimecast-MFC-AGG-ID: x6c-OkcsNBWANv3AfSiupA_1788352828
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4D6E7195604B;
-	Wed,  2 Sep 2026 12:40:28 +0000 (UTC)
-Received: from vschneid-thinkpadt14sgen2i.remote.csb (unknown [10.44.33.19])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CE0951955F72;
-	Wed,  2 Sep 2026 12:40:24 +0000 (UTC)
-From: Valentin Schneider <vschneid@redhat.com>
-To: linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Tomas Glozar <tglozar@redhat.com>,
-	Costa Shulyupin <costa.shul@redhat.com>,
-	Crystal Wood <crwood@redhat.com>,
-	John Kacur <jkacur@redhat.com>,
-	Ivan Pravdin <ipravdin.official@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>
-Subject: [PATCH v5 3/8] rtla/osnoise: Leverage IPI event filters when tracing a subset of CPUs
-Date: Wed,  2 Sep 2026 14:39:32 +0200
-Message-ID: <20260902123942.695822-4-vschneid@redhat.com>
-In-Reply-To: <20260902123942.695822-1-vschneid@redhat.com>
-References: <20260902123942.695822-1-vschneid@redhat.com>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="ie/xkNW5"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9927911CE7D;
+	Wed, 02 Sep 2026 14:40:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1788352827; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=0MlWIf/rhQtWIeK3PR/Jn68vrbe6t2nijYn3wmvqbXE=;
+	b=ie/xkNW5efq5r94PiyZTboE9/pa9CusF4qknKZjXw1AcHaaOHX+cU9AUad5IqbqpwZlV2K
+	hth3ZSv+LK0bc7veslnXVEOL+mwwgMaaRLJ+CjFwDufmP6slSoyIbeoN/mCrpdGNSFEPX6
+	8xwPL3fIcjI+Uv4J5vtTdpTetbUYhL5cX+mR3so4mp0NCCKySbtxQyRX2uUbhrqlsFikfh
+	/qBtg6K1w5e0PkiPW9txEDqUAtbahHhY2de+IEs2ce2GIPAZsojg9Vjtl6HOizOYgkGApJ
+	ouzNMMpyc3aV55Su9ZwuAI5dv4o+d5zd8BXCTzCvacu05Glr+/kQAVNkQh0hSw==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: fabrice.gasnier@foss.st.com,
+	Marek Vasut <marex@nabladev.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Christophe Roullier <christophe.roullier@foss.st.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+	Rob Herring <robh@kernel.org>,
+	Yannick Fertre <yannick.fertre@foss.st.com>,
+	devicetree@vger.kernel.org,
+	kernel@dh-electronics.com,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: [PATCH v6 2/2] soc: st: Add STM32MP2 SYSCFG driver
+Date: Wed,  2 Sep 2026 14:39:50 +0200
+Message-ID: <20260902124018.606544-2-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260902124018.606544-1-marex@nabladev.com>
+References: <20260902124018.606544-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,91 +56,134 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+X-Last-TLS-Session-Version: TLSv1.3
 
-Leverage the kernel event filtering infrastructure to only emit IPI events
-if they target CPUs that are being traced, as specified by the -c cmdline
-option.
+Add trivial SYSCFG driver for ST STM32MP25xx, which binds drivers
+to its subnodes. This is currently used to bind USB PHY drivers to
+subnodes described in the SYSCFG DT node.
 
-Note that some post-processing is still required for the ipi_send_cpumask
-event, as the event being emitted means *some* CPUs targeted by that event
-are monitored, but not all of them - userspace has to recompute that
-intersection.
-
-Signed-off-by: Valentin Schneider <vschneid@redhat.com>
+Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Tested-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Signed-off-by: Marek Vasut <marex@nabladev.com>
 ---
- tools/tracing/rtla/src/osnoise_top.c | 38 ++++++++++++++++++++++++----
- 1 file changed, 33 insertions(+), 5 deletions(-)
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Christophe Roullier <christophe.roullier@foss.st.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Marek Vasut <marex@nabladev.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Yannick Fertre <yannick.fertre@foss.st.com>
+Cc: devicetree@vger.kernel.org
+Cc: kernel@dh-electronics.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+---
+V4: New patch
+V5: No change
+V6: - Fix up the SPDX-License-Identifier
+    - Add AB/TB from Fabrice
+---
+ drivers/soc/Kconfig              |  1 +
+ drivers/soc/Makefile             |  1 +
+ drivers/soc/st/Kconfig           | 12 ++++++++++++
+ drivers/soc/st/Makefile          |  1 +
+ drivers/soc/st/stm32mp2-syscfg.c | 33 ++++++++++++++++++++++++++++++++
+ 5 files changed, 48 insertions(+)
+ create mode 100644 drivers/soc/st/Kconfig
+ create mode 100644 drivers/soc/st/Makefile
+ create mode 100644 drivers/soc/st/stm32mp2-syscfg.c
 
-diff --git a/tools/tracing/rtla/src/osnoise_top.c b/tools/tracing/rtla/src/osnoise_top.c
-index 7b5ae5336cf08..353b435fefcf8 100644
---- a/tools/tracing/rtla/src/osnoise_top.c
-+++ b/tools/tracing/rtla/src/osnoise_top.c
-@@ -302,17 +302,13 @@ osnoise_ipi_cpu_handler(struct trace_seq *s, struct tep_record *record,
- 		     struct tep_event *event, void *context)
- {
- 	struct osnoise_tool *tool;
--	struct osnoise_params *params;
- 	unsigned long long dst_cpu;
- 	struct trace_instance *trace = context;
- 
- 	tool = container_of(trace, struct osnoise_tool, trace);
--	params = to_osnoise_params(tool->params);
--
- 	tep_get_field_val(s, event, "cpu", record, &dst_cpu, 1);
- 
--	if (CPU_ISSET(dst_cpu, &params->common.monitored_cpus))
--		account_ipi(tool, dst_cpu);
-+	account_ipi(tool, dst_cpu);
- 
- 	return 0;
- }
-@@ -346,6 +342,11 @@ osnoise_ipi_cpumask_handler(struct trace_seq *s, struct tep_record *record,
- 		return 0;
- 	}
- 
-+	/*
-+	 * Despite already filtering for such an intersection, we need to compute
-+	 * the intersection here as the @cpumask field may contain non-monitored
-+	 * CPUs.
-+	 */
- 	CPU_AND(&cpumask_tmp_cpus, event_cpus, &params->common.monitored_cpus);
- 
- 	/*
-@@ -398,6 +399,33 @@ struct osnoise_tool *osnoise_init_top(struct common_params *params)
- 		goto out_err;
- 	}
- 
-+	/*
-+	 * If tracing on a subset of possible CPUs, leverage the kernel filtering
-+	 * infrastructure to only generate events on traced CPUs.
-+	 */
-+	if (params->cpus) {
-+		char filter[MAX_PATH];
+diff --git a/drivers/soc/Kconfig b/drivers/soc/Kconfig
+index a2d65adffb805..dfe5cec592626 100644
+--- a/drivers/soc/Kconfig
++++ b/drivers/soc/Kconfig
+@@ -24,6 +24,7 @@ source "drivers/soc/renesas/Kconfig"
+ source "drivers/soc/rockchip/Kconfig"
+ source "drivers/soc/samsung/Kconfig"
+ source "drivers/soc/sophgo/Kconfig"
++source "drivers/soc/st/Kconfig"
+ source "drivers/soc/sunxi/Kconfig"
+ source "drivers/soc/tegra/Kconfig"
+ source "drivers/soc/ti/Kconfig"
+diff --git a/drivers/soc/Makefile b/drivers/soc/Makefile
+index c9e689080ceb7..894bd6ebaaa4d 100644
+--- a/drivers/soc/Makefile
++++ b/drivers/soc/Makefile
+@@ -30,6 +30,7 @@ obj-y				+= renesas/
+ obj-y				+= rockchip/
+ obj-$(CONFIG_SOC_SAMSUNG)	+= samsung/
+ obj-y				+= sophgo/
++obj-y				+= st/
+ obj-y				+= sunxi/
+ obj-$(CONFIG_ARCH_TEGRA)	+= tegra/
+ obj-y				+= ti/
+diff --git a/drivers/soc/st/Kconfig b/drivers/soc/st/Kconfig
+new file mode 100644
+index 0000000000000..2a9d6a77be450
+--- /dev/null
++++ b/drivers/soc/st/Kconfig
+@@ -0,0 +1,12 @@
++# SPDX-License-Identifier: GPL-2.0-only
++menu "ST SoC drivers"
 +
-+		snprintf(filter, ARRAY_SIZE(filter), "cpu & CPUS{%s}\n", params->cpus);
-+		retval = tracefs_event_file_write(tool->trace.inst,
-+						  "ipi", "ipi_send_cpu", "filter",
-+						  filter);
-+		if (retval < 0) {
-+			err_msg("Could not set ipi_send_cpu CPU filter\n");
-+			goto out_err;
-+		}
++config SOC_STM32MP2
++	tristate "STM32MP2 SoC family support"
++	depends on ARCH_STM32 || COMPILE_TEST
++	default ARCH_STM32 && ARM64
++	select SOC_BUS
++	help
++	  If you say yes here, you get support for the ST STM32MP2 family
 +
++endmenu
+diff --git a/drivers/soc/st/Makefile b/drivers/soc/st/Makefile
+new file mode 100644
+index 0000000000000..5ca313476ca93
+--- /dev/null
++++ b/drivers/soc/st/Makefile
+@@ -0,0 +1 @@
++obj-$(CONFIG_SOC_STM32MP2) += stm32mp2-syscfg.o
+diff --git a/drivers/soc/st/stm32mp2-syscfg.c b/drivers/soc/st/stm32mp2-syscfg.c
+new file mode 100644
+index 0000000000000..770321a4a6f71
+--- /dev/null
++++ b/drivers/soc/st/stm32mp2-syscfg.c
+@@ -0,0 +1,33 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright 2026 Marek Vasut
++ */
 +
-+		snprintf(filter, ARRAY_SIZE(filter), "cpumask & CPUS{%s}\n", params->cpus);
-+		retval = tracefs_event_file_write(tool->trace.inst,
-+						  "ipi", "ipi_send_cpumask", "filter",
-+						  filter);
-+		if (retval < 0) {
-+			err_msg("Could not set ipi_send_cpumask CPU filter\n");
-+			goto out_err;
-+		}
-+	}
++#include <linux/module.h>
++#include <linux/of_platform.h>
++#include <linux/platform_device.h>
 +
- 	tep_register_event_handler(tool->trace.tep, -1, "ipi", "ipi_send_cpu",
- 				   osnoise_ipi_cpu_handler, NULL);
- 
++static int stm32mp2_syscfg_probe(struct platform_device *pdev)
++{
++	return devm_of_platform_populate(&pdev->dev);
++}
++
++static const struct of_device_id stm32mp2_syscfg_ids[] = {
++	{ .compatible = "st,stm32mp23-syscfg" },
++	{ .compatible = "st,stm32mp25-syscfg" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, stm32mp2_syscfg_ids);
++
++static struct platform_driver stm32mp2_syscfg_driver = {
++	.driver = {
++		.name	= "stm32mp2_syscfg",
++		.of_match_table = stm32mp2_syscfg_ids,
++	},
++	.probe = stm32mp2_syscfg_probe,
++};
++module_platform_driver(stm32mp2_syscfg_driver);
++
++MODULE_AUTHOR("Marek Vasut <marex@nabladev.com>");
++MODULE_DESCRIPTION("ST STM32MP2 SYSCFG driver");
++MODULE_LICENSE("GPL");
 -- 
-2.55.0
+2.53.0
 
