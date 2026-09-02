@@ -1,110 +1,135 @@
-Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
+Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8877E40D57B;
-	Wed,  2 Sep 2026 09:31:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B591B40E8C1
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:32:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788341510; cv=none; b=qPabofMjRLVpAmx+WIlTdE6+o/CjSBsndbEWiF/KzghrRiPrxkY2blCXYol05U3T9/SzDOU7K83VDedU/7DefXHkGqyoOvFec9JffAVkszoV8hhI29vlxTr9d923B7rH8h7m0n2euOyJPLgesRgvwzAUO/ObxquONHxr1ClhymQ=
+	t=1788341533; cv=none; b=l6Xm+zsiqxQ1qQl8y8+jtBUBWS4LhnKgbSC4jwJsI88m5fLGJ34UKe2ocpCVXlEBBtrNYXB+qBkJtk6uzoeCC4bXn+vHgcrQ9xu1NM62NR0qo8614zS0p+oW+chxtr8sqXm4xZDhamT/Hpsu/tjNRwocxv9+cX6i5teKhQslu70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788341510; c=relaxed/simple;
-	bh=ugtBDYJdD5DyhAmButZjBxElaCXhKrXv84O+kv0etJM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EHRgGbtvZGdWoRKzMOoQ7rqPnI1JIsPgg0akSAYs8bWQ9vePo720/nrhzZ/QYJ/88GPYuY5GphibNXzX/pnWB5RMRTJrqP1a4EaU7iRTkzZArIHmpbN6RubPrHYyAAGjpzlDzPIsIUJz/LzYgJDOp5/XKKgvrO4GVaMQqxLEZek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=18.194.254.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip2t1788341474t02b33272
-X-QQ-Originating-IP: DfJlt4hMjpdtOyPap8HbaAi8yVDkdztk3fLVqYXeqbQ=
-Received: from [127.0.0.1] ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 02 Sep 2026 17:31:10 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 11555312155926092198
-EX-QQ-RecipientCnt: 29
-Message-ID: <B4EB99E5B76C9F40+e6fdbdd4-5c05-4b98-867c-29c7178a0d72@radxa.com>
-Date: Wed, 2 Sep 2026 17:31:10 +0800
+	s=arc-20240116; t=1788341533; c=relaxed/simple;
+	bh=aWvNiCwfRw+JxRIysDwQcVLogxZU6YSKDCKPpVaqm3A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hrnlplCmrLpX8r9ATMHzWtPIGK2aMjczeBAQVVBIATAyPNCuQC0mZlv4p/493DnGMGje5G8MDTv/RdeyNeTx8I0IVGiJS6TELCMlk2vKjSXL9flLcX3RtOIkYjTVtu34Yq5/hdjzGeqZkD4fPGwLVBVkcGbqkS4pwJpoPTdwDXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=oql95tJr; arc=none smtp.client-ip=115.124.30.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="oql95tJr"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788341528; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=J+LXdYat0I4QNFciFBu0qyDuz5wb7/kssPEu1T1bfXI=;
+	b=oql95tJrSkUj2Np3Z+ijrFpoTVJ9lrSu6Unxo4lldxNCyv78VOLf7STeOyQMHlUfDZTJ0GGNZnKdU9NswI6ZJUbfbCjtvx0rJ13VuPIWZU4Vak0siq+MD8+dGKVNuSmhxssqv/pcYimyc8asebicjEoUWk8gSXxTBqxo8oLyuFo=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XACEOlh_1788341527;
+Received: from banye.tbsite.net(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XACEOlh_1788341527 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 02 Sep 2026 17:32:08 +0800
+From: Qinyun Tan <qinyuntan@linux.alibaba.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Dave Chinner <david@fromorbit.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Xunlei Pang <xlpang@linux.alibaba.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Qinyun Tan <qinyuntan@linux.alibaba.com>
+Subject: [PATCH v2] mm/list_lru: disable memcg awareness under cgroup_disable=memory
+Date: Wed,  2 Sep 2026 17:32:02 +0800
+Message-ID: <20260902093202.609559-1-qinyuntan@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: sophon@radxa.com
-Subject: Re: [PATCH 1/6] PCI: of: Avoid config reads for disabled bridge nodes
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski
- <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
- Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>
-References: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
- <20260901-q8b-dts-v1-1-7de0b6a73d08@radxa.com>
- <8c2eaba0-c1bd-4db0-bbc8-5ae3b3d9a13c@oss.qualcomm.com>
-Content-Language: en-US
-From: Xilin Wu <sophon@radxa.com>
-Organization: Radxa Computer (Shenzhen) Co., Ltd
-In-Reply-To: <8c2eaba0-c1bd-4db0-bbc8-5ae3b3d9a13c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: ON6lkwODXNJZW8psWSDPXQQvx5jtYx8Gq0DsYERqJ7K2qVNcXc/5FGh0
-	1SonjTmBqxPqIKFWO8q+q6zg7CfAL5syOAY+2UpcOcD7Q5Ghi/chsop4D3V5UoJ3xtMgjCL
-	UMdzpdBJFBPLfTY/wd0XpD0xrs4rTeCHhic/iYDaz5qI74asY9E1pMahsm9AKqJyB8WxWK9
-	L4Fu5uF1Zlp7/4/sTcoqMUew2gZHncapn7wdMaczC2lAlQyLVpn57WDo41caT0YJgxb1vIQ
-	Qz2d6Bow6TxDvrg/My0ZhPpWkYRWPXL/zae7m3UqlMG+ua+OKm78paZcBz3KncrNGq5FW1K
-	6vOQ6ZdI8weYtjVuYpDKSS0Xvt3zQcw5E4sVee8bIBYOPORei6wckxL6weHEzYpG5PyaUor
-	FTfM/zmq/d5OKA1Dn9oABExufdrIb0KPWygPZPRk/IqyiDWgmzq0gDwWwDZe2tw1nyfA7WZ
-	qQOIyVXpJvZdGDZYHFEBtc7b7Mn2x5KeNg6/vPaT8sDIoZmtS9aaGY8KmOSx8g9iQKihBvJ
-	9ZC7WJTvSgto7rr8ajpQ6jKUqd10L3WBacXbfviL6ON0oy/ho/qE7C3XPKZiDghDaeVgHF3
-	CvXYR8aobnImonTN1KMh/zyc106y5jcpjcKyLSd9KDbpjSGGP8q65cN2nCywjA1vRxXCF/z
-	aIA4/B6TTaxELCeIV6tX3bmjwPp/czLM0pWFsuc47hT+amL5PwFKeSmd2qQI4aCW9pPcKJj
-	in8cAL+fPYsrFUdazfmZSMoDGKB3UTsCZF8YzjE74iXf95Mz6TBE57KMXMwkrRpPBX+CHWm
-	cerAYhGhFCH1vlKUOud0uWRQuMycyG7hz2AvE+Wn7Df+sRfEkfp72VbBsO8GrVAMA6iNu+d
-	+mtKhpRzKzEEoxhfGov78gd3fGGr+d4MKR1O7edDM0ICYyJMsE1hkHfUukngXisq8pcU3Lu
-	2Xd0+OM1nbt+6kP5beELz/3cRo+4tYTs1Pa06IQ6Ao1PKIo/OZah5QwtHFXwFJPUArFTKkC
-	xfO85JdtspMn9u07Tf8hndx4k6Y6Wgwy/aj75nxnLeO+uKy5vzGg3WE8Tb55Q0/p9wT3p7r
-	cioUnUhgudG
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: 8bit
 
-On 9/2/2026 4:43 PM, Konrad Dybcio wrote:
-> On 9/1/26 10:47 AM, Xilin Wu wrote:
->> The TC9563 PCI power-control driver powers off external downstream ports
->> whose device tree nodes have status = "disabled".
->>
->> On the Radxa Dragon Q8B, reading the Vendor ID from one of these
->> powered-off port functions during PCI enumeration raises an Arm SError
->> instead of returning an all-ones PCI error response. This prevents the
->> board from completing boot.
-> 
-> I agree with the premise of the patch, but I'd like to understand why
-> that happens - do you have any details?
+__list_lru_init() only collapses a memcg-aware list_lru into plain
+per-node lists when kmem accounting is disabled
+(cgroup.memory=nokmem).  When the memory controller is disabled
+entirely (cgroup_disable=memory), mem_cgroup_kmem_disabled() is
+false, so the lru stays memcg aware even though no object will ever
+be charged to a memcg.
 
-Unfortunately, I don't have further details. The downstream kernel also 
-includes a similar workaround, so I suspect it's related to how the 
-TC9563 chip is designed.
+This is more than a semantic inconsistency.
+folio_memcg_list_lru_alloc() trusts list_lru_memcg_aware() and
+dereferences the folio's memcg, which is always NULL with the
+controller disabled.  The only mainline caller,
+folio_memcg_alloc_deferred(), papers over this with an explicit
+mem_cgroup_disabled() check.  The shmem unused-huge shrinker
+conversion ("mm: shmem: make unused huge shrinker memcg aware") adds
+a second caller without such a guard, so booting with
+cgroup_disable=memory and writing to a huge=always tmpfs oopses:
 
-> 
-> Konrad
-> 
+  BUG: unable to handle page fault for address: 0000000000000488
+  RIP: 0010:folio_memcg_list_lru_alloc+0x41/0xf0
+  Call Trace:
+   <TASK>
+   shmem_get_folio_gfp+0x1cd/0x7c0
+   shmem_write_begin+0x5d/0x100
+   generic_perform_write+0x89/0x2a0
+   shmem_file_write_iter+0x82/0x90
+   vfs_write+0x256/0x410
+   ksys_write+0x61/0xe0
+   do_syscall_64+0x8d/0x460
+   entry_SYSCALL_64_after_hwframe+0x76/0x7e
 
+The faulting address is the offset of mem_cgroup->kmemcg_id,
+dereferenced on a NULL memcg in memcg_list_lru_allocated():
 
+  folio_memcg_list_lru_alloc()
+    list_lru_memcg_aware()               <- true, only nokmem checked
+    memcg = folio_memcg(folio)           <- NULL
+    memcg_list_lru_allocated(memcg, lru)
+      memcg->kmemcg_id                   <- NULL pointer dereference
+
+Check mem_cgroup_disabled() in __list_lru_init() so that all
+list_lrus fall back to plain per-node lists when the controller is
+disabled, matching what the shrinker side already does
+(shrinker_memcg_alloc() bails out on mem_cgroup_disabled()).  This
+makes the mem_cgroup_disabled() check in callers unnecessary rather
+than mandatory.
+
+Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+---
+v2:
+- Drop the comment above the check; the code explains itself (Baolin)
+- Collect Baolin's Reviewed-by
+
+v1: https://lore.kernel.org/linux-mm/20260902032840.30250-1-qinyuntan@linux.alibaba.com/
+
+Applies on top of mm-new.  No Fixes: tag since the commit that makes
+the crash reachable ("mm: shmem: make unused huge shrinker memcg
+aware") is only in mm-new; no stable backport is needed either.
+
+Reproducer, on mm-new booted with cgroup_disable=memory
+(CONFIG_MEMCG=y, CONFIG_TRANSPARENT_HUGEPAGE=y):
+
+  # mount -t tmpfs -o huge=always tmpfs /mnt
+  # echo x > /mnt/f
+
+Discussion: https://lore.kernel.org/linux-mm/20260901115104.2944996-1-qinyuntan@linux.alibaba.com/
+
+ mm/list_lru.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/mm/list_lru.c b/mm/list_lru.c
+index 36662d02ff963..a4522ca93ebcb 100644
+--- a/mm/list_lru.c
++++ b/mm/list_lru.c
+@@ -671,7 +671,7 @@ int __list_lru_init(struct list_lru *lru, bool memcg_aware, struct shrinker *shr
+ 	else
+ 		lru->shrinker_id = -1;
+ 
+-	if (mem_cgroup_kmem_disabled())
++	if (mem_cgroup_disabled() || mem_cgroup_kmem_disabled())
+ 		memcg_aware = false;
+ #endif
+ 
 -- 
-Best regards,
-Xilin Wu <sophon@radxa.com>
+2.43.7
+
