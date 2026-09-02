@@ -1,111 +1,148 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BDE547FB1C
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:09:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CCB142BE03B;
+	Wed,  2 Sep 2026 12:09:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788350985; cv=none; b=Z1Q19KZ3hXOHjr8vCWq/m8kYri9AhkGDTzjeus/I3ud2M7AAs2c5Xk7mTL+wSpALp3kNSLEhRc80O2n1IwyNbw2Ks5f+XHkii2bB4kWT2fnLw3zGYK5EjRVGtV2BAa+VEQuv0rOaDvn/Qg7D4MTHOUAkpz516Tedw6El2Tc3HtU=
+	t=1788350995; cv=none; b=l7NeuyWcl7nm4PQGFz0SmWr5oQxy+iut9Q8hfZ7DF5t/gZVTJRCMlVbVL2xPtICptFyMnWYVSbESDse8CUwSxu/XtL1SHeAQ5quiJBlmiAj79bNdxP62jPkCumBo+05wi8bwta7NnEg9a+3ZRk5R0tE8cFGo66oNdMUJZ2SM1ZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788350985; c=relaxed/simple;
-	bh=GTLCTugw7PjjvVnLCGl/oOTPq/b39jKFstNMsphi4vM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R+X1T+jEPJwrf0Dc83uLaqzww5YJz/43dD4zGxD7fVgSHX8IBZj5uI/cA2mgt1OE+apMZIG57s1PeQW2zekvkZCenjwnFj9tdNK9vK/6wGC6GoigEKYnxFEF7VxodSy+Z9SxIuM2ZdPUATSGyMxW9WwmYwtuu4OXgbuBHwfH1Mo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Fx9WXIjc; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788350995; c=relaxed/simple;
+	bh=H3oSST3gZCk1h4h7AopyovjoN8fmMhkmuMRHfSSBHWo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=W64nH0K3FRg7/q0/xQBiQhcgj2L9FgQDSNg3hKXjGcOHdmuMMO7s2Ektm0gyrX3HcBd+WstyBiuBa5Q2XH4BbL5QO+0HMq/f48aaYOFwwTOgl4sh5lO3rkUfG44vIhmWJv2cm43XwfEQrmhjjU3IeZjKnKwTBb++D1djXeQU2FQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=SLbBBDWA; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Fx9WXIjc"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47f96c5b722so704789f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:09:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788350977; x=1788955777; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cpv4ZZhQaX1kdYbkUZt5Cm50+G2KZgBu15PDYo6wGO0=;
-        b=Fx9WXIjc9tFoB+puGS7uNB+7hiVoiTnw/bXD8PoBgNROG/eDIV0ogbpD7WkdmfIoph
-         eyaCG1UYCyuu/DFeMW46YqPg1Jk1/duzRSRsBJW877JWSksGvz3ze01zhJyoW3pHla2K
-         ffHleycdGK9KpU+lKApuGpLylXbWuneU+bDHTogu+VESouaUAdnSFHnaBsbBVK3qpSzv
-         SknU520PLpW3QZdIObCmM7DR3pCF9fDxz1yLQR6ok5H8WlgVZz449rmoecS/gdAbtwsQ
-         Gxp5SYGpJZuM7ZmOZx5sRDQkK41Jy+bwr/oJVRJp7IFX8UaXEkGNhaKaDQwrEp/MVyf4
-         zOFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788350977; x=1788955777;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cpv4ZZhQaX1kdYbkUZt5Cm50+G2KZgBu15PDYo6wGO0=;
-        b=dQCvFB2dHnVyqEMuyStNqZRDL2TshgWphY/QRJ13c/qol9ZYsvQCddY6hz6wP6NnK7
-         kUKVrj3oohpBERCjd9kRppaG1OCyxax+94AlGLa8z1CHqsI+IdWVy5NzCZjZXnjUBSZj
-         z2mzhvw1Kg1jJ5+KGi3cesFx/gP9i+2HZnBt9wQjY+E+iFMbXv2CvrzXugMk/Oyk7anc
-         7UQEbgV9Wn5wlqSYCeXVf3tILRk+cdOYS+lTLBaq2bFDRuxOgxppBInKcI7BNjEaTq6G
-         fzMSImXSRfiLtRFpxsH+rZ6mXnO5nCO/3qbLDYt8uz8FvFibT9ora+TLmL7d2fQnccfr
-         ZkNw==
-X-Forwarded-Encrypted: i=1; AKwUvBwOyALH0Oto3l7JxyppUbS+xNL9s5K69oPun/iLDkgGdV6xaJPU+Y60J/P5VzVTB5y8NuTb41pJ+aHGGy8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nDXPP8wMRpfolp/EN6TejOFRYSwzTkFmskGZGd0i8UJ4gRN71y
-	AuKe57mMdjAEgrrYksEc9Q89fzz9UatY2zs5vKJlAtyFuEShrASwT5qytled0fy4Bm4=
-X-Gm-Gg: AYBFou36AFmu7gdVHozd/zDSJcjQ6ZkQ75SNUmZ8gCyAeD4NKRSBDdev+p+y++55OvI
-	YbwlSzV3LMwIUZQNKgsKWnY3zhcAd6xrMqVEq8dsjaaL3j9a4E3oPGq8YJfFY4Btmkb88O4Rj7V
-	0h+CqgROy8sFxwOoGtHRqwCzFuCjqXiF4dsFBdUAQNBlrVRVfXqmbZEN1KLsRYeD5n+Kebep2DF
-	fgy0/eYTiXyHvIi6StD3oTDH6CGqTaX58ODpprWtfuM9ncsBWQuvwqGn4tZnKilMoi3gcEjErJj
-	UBtR/6YRGozfiYpMJ1d5U2oOkSGInjkYXmc2cEbtPw2OkpFJj+vK4nnwi9cHqXiAbywRYC13Lmc
-	xbi0vK0l18Y6NQnWk6GsVKHLTr5FhrM3AGzueDtpGK31QOX0yjICx9XFNOi+u8sWk9vcRm6s6kC
-	/SnL+ewx+JsY2xgScqsrBSlLMwAIItj9/Q06dyBWQtJ3c5C81zoRBXZMIoDcCE4ZE2ZPCOLf8rF
-	zWaJHI7ATMs/fVOGCkg1D9l0/9uonX6rhK0hQYp
-X-Received: by 2002:a05:6000:61e:b0:484:36c8:ffde with SMTP id ffacd0b85a97d-4847b625aafmr8604788f8f.0.1788350976883;
-        Wed, 02 Sep 2026 05:09:36 -0700 (PDT)
-Received: from ?IPV6:2001:a61:1304:a201:f0d3:bdff:55cd:3f16? ([2001:a61:1304:a201:f0d3:bdff:55cd:3f16])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e6f604sm6073105f8f.2.2026.09.02.05.09.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 05:09:36 -0700 (PDT)
-Message-ID: <c79e754b-2ef4-49f2-8bb4-60b36ab9a36d@suse.com>
-Date: Wed, 2 Sep 2026 14:09:35 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="SLbBBDWA"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 027E01596;
+	Wed,  2 Sep 2026 05:09:43 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B551C3F882;
+	Wed,  2 Sep 2026 05:09:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788350986; bh=H3oSST3gZCk1h4h7AopyovjoN8fmMhkmuMRHfSSBHWo=;
+	h=From:Subject:Date:To:Cc:From;
+	b=SLbBBDWA3EUzbE1WwPeK8x3Gbuqqw9iCHep+fXzd1Nc47a35ZWjhGcYpUbw2pXq8m
+	 Y4Jo0bYXcAn/DSPom6iKfacxqpAwIzuYftrw3B8myA1ZXxU8bUPXCyhF4L7ec8gkvM
+	 mnSNjeEbT5VdnTBu+aGrT0B5D86hSZLhxmQ/GZkA=
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+Subject: [PATCH v4 0/3] kselftest: mm: fix some failure of
+ split_huge_page_test
+Date: Wed, 02 Sep 2026 13:09:34 +0100
+Message-Id: <20260902-fix_split-v4-0-85f03905f7b1@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [syzbot] [usb?] [input?] KASAN: slab-use-after-free Read in
- k90_record_led_work
-To: Jeffin Philip <jeffinphilip14@gmail.com>,
- syzbot+0b8bff5929865345b29e@syzkaller.appspotmail.com
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-usb@vger.kernel.org, syzkaller-bugs@googlegroups.com
-References: <6a937393.1d9ded08.62e62.0113.GAE@google.com>
- <20260831054632.18179-1-jeffinphilip14@gmail.com>
-Content-Language: en-US
-From: Oliver Neukum <oneukum@suse.com>
-In-Reply-To: <20260831054632.18179-1-jeffinphilip14@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAP4RmGoC/22MQQ6CMBBFr0JmbU1pByisvIcxptQikwglLWk0h
+ Ltb2MjC5Zv57y0QrCcboMkW8DZSIDcmwFMGptfj0zJ6JAbBRcmV4Kyj9z1ML5pZh1jL2hrEVkH
+ aT96m59663hL3FGbnP3s65tv1XyXmjDPdouSmUKYy3UX74WzcAFsjyqOnjp5MnqyQC1GoUmP78
+ 9Z1/QLOmZxp2AAAAA==
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
+ Kevin Brodsky <kevin.brodsky@arm.com>
+Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Yeoreum Yun <yeoreum.yun@arm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3345; i=yeoreum.yun@arm.com;
+ h=from:subject:message-id; bh=H3oSST3gZCk1h4h7AopyovjoN8fmMhkmuMRHfSSBHWo=;
+ b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqmBIFQ9pKXUEX9Pc6r/CDC+Rs2HNX0jTNJYDmF
+ /OOdd7TtwyJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCapgSBQAKCRBt1cPRWsUx
+ MywtC/9Bg5o9hWFGdydX9wGNo5n7LsnG4sMQ15fNjJMi0WkDh4TSAGBs/Lxn03+m84dUsLGXR4t
+ K7rcO6Ziks4LEm9I5x90GerUHeSr0zT6vGSdAJje2xi6GaZcIqfOs4fehIx9I9kx4UYzqxbYy9P
+ QL8KFWv8zaxfPCdkD8ghIOEvgOE8NxgXOJj/U3s2NaEwzsYwMA/MDLzuFrD6NwRonQLxw+25okR
+ 3yViOKvAI31FQMGBvL9XaG5crS4yVrx/QsiI1EXXkHO8JGK4l2LBrXp1XMGDP6HQkaayklWYVSH
+ xKKa8mTETJTz39zQ9TDCHMI9JGc9Co8Cls38xFas2XpUBLbpx4Fu8nCbpct9NEnVH6SYOd6FR/e
+ 8mMnCGAFGRoBOhGxncsqMUsVRdc5jkRX52Zi34jbi3yO6l5OKKrrZxhKbeZv7uhmW2yFawtfwtg
+ 0EphkAqcWVA4ptAbxl5CxeKFKYBTALDm/51JKYCOR74i1YmfvPsQIPomH8MB0rGj8F+ac=
+X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
+ fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
 
-On 31.08.26 07:46, Jeffin Philip wrote:
+split_huge_page_test can fail for the following reasons:
 
-> I believe there is a patch for this already[1], but it has not been merged
-> yet. Was written just as the merge window for v7.3 opened, so might have
-> been the reason for not being merged.
-> 
-> [1]: https://lore.kernel.org/all/20260817072831.139954-1-ccc194101@163.com/
+  1. During the test, khugepaged may collapse previously split pages again,
+     causing intermittent failures.
 
-Looking at this patch the following sequence seems possible:
+  2. Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
+     glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
+     made by memalign(). The underlying VMA may start at a different address
+     from the aligned address returned by memalign(). Moreover, a subsequent
+     madvise(MADV_HUGEPAGE) call does not split the VMA because it already
+     has the same advice.
 
-CPU A				CPU B
+     This causes the test to fail because the check_huge_xxx() helpers
+     incorrectly require the address returned by memalign() to match the
+     VMA start address reported in /proc/self/smaps.
 
-enter k90_brightness_set()
+Address these issues by applying MADV_NOHUGEPAGE after faulting in the
+huge page, preventing khugepaged from collapsing it again, and instead of
+relying on /proc/self/smaps, use /proc/self/pagemap and
+/proc/kpageflags to detect huge-page mappings and large folios:
 
-if (led->removed) [FALSE]
-				Enter k90_cleanup_backlight()
-				drvdata->backlight->removed = true; [TOO LATE]
-				cancel_work_sync(&drvdata->backlight->work); [NOP]
-schedule_work(&led->work); [THIS IS BAD]
+  1. If hpage_size == pmd_pagesize, check PAGE_IS_HUGE instead of
+     using check_large_folios(), since only the mapping type matters.
+     This identifies PMD-mapped huge pages.
+  2. Otherwise, use check_large_folios() to detect large folios. This
+     covers mTHP cases.
+  3. Check the folio flags according to the type of huge page.
 
-Just cancelling the work is not enough.
+Also, current usage of memalign() would result memory area may
+unexpectedly merge with an adjacent VMA, causing tests
+that inspect it through /proc/self/smaps to fail.
 
-	Regards
-		Oliver
+Eliminate this potential source of test flakiness by introducing
+alloc_isolated_mem(), which places guard regions before and after the
+allocated area to prevent unexpected VMA merging.
+
+This patch based on mm-unstable
+
+---
+Changes in v4:
+  - reparse commit message.
+  - introduce alloc_isolated_mem().
+  - make madv_nohuge() helper according to suggestion.
+  - Link to v3: https://lore.kernel.org/r/20260828-fix_split-v3-0-374022586a4b@arm.com
+
+Changes in v3:
+  - change  message in case of failure of madvise() with MADV_NOHUGEPAGE.
+  - fix collapse_single_mthp (mthp_khugepaged:anon) test case failure.
+  - Link to v2: https://lore.kernel.org/all/20260826-fix_split-v2-0-71153c7f579a@arm.com/
+
+Changes in v2:
+  - rebase to mm-unstable.
+  - add message in case of failure of madvise() with MADV_NOHUGEPAGE.
+  - fix wrong setup expected_huge in check_huge_shmem().
+  - Link to v1: https://lore.kernel.org/r/20260820-fix_split-v1-0-ab430c58c7cf@arm.com
+
+---
+Yeoreum Yun (3):
+      kselftest: mm: prevent random failure of huge page split for khugepaged
+      kselftest: mm: replace usage of /proc/self/smaps for check_huge_xxx() helper
+      kselftest: mm: introduce alloc_isolated_mem()
+
+ tools/testing/selftests/mm/pagemap_ioctl.c        |  18 +-
+ tools/testing/selftests/mm/soft-dirty.c           |   6 +-
+ tools/testing/selftests/mm/split_huge_page_test.c |  27 ++-
+ tools/testing/selftests/mm/vm_util.c              | 212 ++++++++++++++++------
+ tools/testing/selftests/mm/vm_util.h              |   3 +
+ 5 files changed, 192 insertions(+), 74 deletions(-)
+---
+base-commit: e3b5239afe1b8f0194db7436b17c33e94c1988c4
+change-id: 20260820-fix_split-f44939ec44b8
+
+Best regards,
+-- 
+Sincerely,
+Yeoreum Yun
 
