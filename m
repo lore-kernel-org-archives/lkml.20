@@ -1,159 +1,137 @@
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B7332FA30
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:36:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788320178; cv=pass; b=LKj2LfHFCZNr8Mz2xloPlXLfOVvw7bww8rLZqYom0hhKUlky0CfaWYraUpD7HEByS6PqCW1Gxf4DbrcAptqHzlWeUMd5Tn3BXFcW/lAUnDVPrx9ZaeOnQEfvnI99YuvpdNHi9EJcnFWmqkZ9ZKUCWWzsVafMAlY1YZCVi49DJWo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788320178; c=relaxed/simple;
-	bh=76NXQShZ73vzhWxjJQ0j7zqbp54gjiB/2hR4sJHXnRk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nWLJbx0kqAludZmRrKsSGg7/RX7J8s5nzIvu1LROXTm5RBtO3R+GjhEPGkmxwYDSpBlwD2inLBWE0D6XONj83NpQ+z7ctwzMIIdsXchhZXz89LnbqJpfBmyH6nbmlNrKVu4/HgFR1hV67PBS1S+OwB06HEq48kWoCooErPpWy/M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KkeglZ/Z; arc=pass smtp.client-ip=209.85.160.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FB329B78F
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:38:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788320290; cv=none; b=D+dqQy2fmjj+ZPwSu8P1DJNFePpZsuh6odjBcxeQTflPzlXhvqXCAbHg7WF8xqBc9T09RKktcncIAltn/FkJ3bUxGsquWVmCJYuo9/kS8H3bT00rXHIKTX/kK+3bk+g0jqD9nlblOz9frqaPP8fluhkfZmyVI6xW5YzIdZbXPhg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788320290; c=relaxed/simple;
+	bh=bVfGwWtzZ6T3TCBjxdmhrFxiH43W2uBIuuy2/mzmyiM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=W70OJAuluh3EmSVcjMulniesJk3D6orwQ0R3oOoWIFwsQ7FcQ6wwy7B/zumIaqsZ5O1Hze9v0wfBgODm6JGz5m+9ENSUws9xKtRI/uZYUcqa9z1FbyFU6Rzhv1QPl2aDb/lCAG7yin3gf0VA+Q2zx84DTxB5YX1VGcD2XfkOnLI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dzdH55/I; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KkeglZ/Z"
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-51c01c79467so188931cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 20:36:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788320175; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ibC2csZJgoedlmQBsrP0g7YFdJyQKtw63jakvTy0dgu4TRN+PlXPhzGCf3cTl2iRcj
-         wZKYtG/xfCuB0yYUrEcD7Jo02WCNXzqw6ahm8gnNO5XaJ1XOe5PZS/lS+1KKBHHcxCrh
-         pG0fSjyMjruQRieeIECXc1I8aPMsLWr8YzFeLjX3XziWS0NgWHLlrpzu6DtjU/qv47XV
-         aqnL9fbcFreNcmqBt+zMqjjG5SLU5H3Z3wFpXJmR6p3jI59cCg5oAxx8cYfA2xqxSjnG
-         YR1lClniu4PBflmFo6zMhigusp+Dr/pKNtXR5k//tpq/xrJDVb+yxD/6Bjb1yER1OzZ0
-         pUTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=76NXQShZ73vzhWxjJQ0j7zqbp54gjiB/2hR4sJHXnRk=;
-        fh=JfmpcuqI9nKWrB7fPYapv4HaQ1rJnvjrAfCL6bx46wQ=;
-        b=WHPTVDMl8uRyYTnIgzyyWoHiSsaf1ybST8jjEDBpSf2Ak7eheSo8/FpcWervRftyuM
-         7ZWsTffkRTYBotZ6494r/UrGupEbVUSPbD5sfv5ID56TDyAZdqON3FYWyQ3rVDUxq0t6
-         nG+UbgeYVwWdSC2Cly+m4K2zC4DZP1DLINEGxhB5RIJVZRP0lfObf2hL2I0UbWxrL2zA
-         otNPVma9h0/Lo0JLC9qM62Dmp/enwV9fZXG/5qFoLTSZf8M1/PdgdGYIMzCtbxTZR3Ac
-         KU2dymqSz0wMzXGmgJ/jPemfVLebEkywABHR9MIg7A78gkAYpeHaSNuZYg9qk3HMaSSZ
-         z2ng==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dzdH55/I"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d91ff7d9acso5352145ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 20:38:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788320175; x=1788924975; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=76NXQShZ73vzhWxjJQ0j7zqbp54gjiB/2hR4sJHXnRk=;
-        b=KkeglZ/ZTSO1YaQfEfX1Foq0beIc4AqiL15dpbfgw3vejcWeupvEQAhjGXoe9fZHCd
-         FwTwL8cebNrVllETNERZTuYX/rUwk6IfRfrBODBiELrwFtuOwYX9VmoMr6Wt2wSW40Vb
-         /RbXfhnYAcjO6ttXgPtYeAVxVCTMAYtJKuXIJh3BA1kHGdj6hxTfyUoTq+gsMNuOG5OR
-         4eCH7cEhiw9kzoYY7HiN0ZDZziYOitn5KRxG25mm6ftEVCn8zX5rRA15IL81DccZZHjz
-         DjIG1uQ2y6U9wbspCH/BwFP3ZjXr+QBisbvT7zYJS01yMbg/R/LTGL32h8Xz708nsOvw
-         pQSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788320175; x=1788924975;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788320288; x=1788925088; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=76NXQShZ73vzhWxjJQ0j7zqbp54gjiB/2hR4sJHXnRk=;
-        b=SP/NbP9Nugif2S6MBpRtlUNKX/n2F3oTfYzIq1FSjH8S81imckzRDTsgQkjUlV2uv6
-         LMowKeC8+9yr1V9ytoyK/rw7bHY2wTgFK90OCCVsQlz4MknGAlHoHz8+/w5VYp+e4T/u
-         PF1ZiPqEZWVwzDul59fvSJvcKFL+fHxq+b7RtPAO+dmskct3RBBKuxqIwpSMFBJoDQy3
-         XNi+jx45vUrWjc+mTtEaADhY34mdWzyegXyATJn9fv5Jfl1kMhpILkP7+jonJ86YmPTU
-         94rryTsqih/EjTkF+b2Aip4PwdO4ieWl3PnMI3dBdyNZ2uKu/yrV6Ub0SV9H9SHRmQdq
-         JpiA==
-X-Forwarded-Encrypted: i=1; AHgh+Romq7ngmsLNLRbpf/SAHxHdyWNpf7WyAZGvrVLaMhy/oTM6NldmVPrteYzJbEt3wWDHNwOohrbszqZzVjk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGpUAYVXpZTAjdWn5Yurzpqhbwu4c03JBJDjrwHLHC7H0U5pz2
-	8sUYykmI9dwX0Jr7l1inv6t4bfWcTy6/RKtY1Ie6jazlyeAT9qN8WX/N3bxM/q1ggk7NH9R1+v4
-	TLVV1aXCSEM8WiN26wMtRVNfqwRjzNMHnIXy7R5TW
-X-Gm-Gg: AR+sD13q7qjMCHl1DKk4TO4lKsdt6WXuvyTsyTAjEvRXcRBFpFg6iPRqZh12vv5LC6D
-	ewwKcVIXJePiHSFwDQv7Ms68Cm7CZ65XvWOo5aGbeIyIgbmcgWJcrikhIIfJF5a51dxFPGAm4OI
-	cZbK6oF+mrVtNka6VdU7p6klWooN0EvGViZQeeqqBYJgjzpoT3NjdUBaLbwBKP9Cb1eEAQvEIC1
-	wpGUXfUKS2VWyFXWLNO8mqedvB7jPUweRzYKX/Dp8GCSCsrgR7jFH2Q5rW4vb3zc6IQAaNZb0EE
-	VLkgmK6ajj7wTCpzKFsGOUKF/aYN6loq00y/dWlEYJ/aoU88jxgJ72hJrr3dJ2nU+tgmEkL8dOB
-	M6fgwKmVwWIlgTXxjRPWuvctOGkm0
-X-Received: by 2002:a05:622a:1b21:b0:50f:b69a:f4a8 with SMTP id
- d75a77b69052e-53035b635edmr5765381cf.7.1788320174962; Tue, 01 Sep 2026
- 20:36:14 -0700 (PDT)
+        bh=T+Msi9Q+pnpxYPThRhUmoayu82MnNSZdN8JYBLhCwNM=;
+        b=dzdH55/IOrlb1oERx9f7ZoYXPZTmZP+Zrtn2STaFNmsvMXXWLogklu0gqIYN8nItUV
+         GfHDOaIGtr7YhPpZ2jJoo+bsCqImdKLv2hHWuZrtFrL4u9rrb/2IH5UMcZIqtgb6kP2u
+         bsSLMU0DgpiHtc6fiMtK5FlxELmtFhR+5jmUedHGPmN282oNFap50Vhw4v2EoiLFJoQ3
+         VtHp/p5gZs2f1Fy77W3vZZLjAmz7djLHoaSGtNQsbx3MdoHFjz3Y2i6v89fGDS3PczaB
+         qooEsOS3dGo/s62em2q0ani9aQ7ot/3RpS04+3zDsOUBvaMda/gQtNkIKBCxxSzV681K
+         Tk4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788320288; x=1788925088;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=T+Msi9Q+pnpxYPThRhUmoayu82MnNSZdN8JYBLhCwNM=;
+        b=PTN9QVsdKvNziC+di0LrXWPoLyJYPUEoNxLEQs3fFF4AbliAe/OIpGaHx0hauupjCv
+         hoW71j4zoSHp/HIeIGVatPssGedCPzxy+9s4/+0OJRLZ8aDCFzlP2lUJiRf1Kb1dsn0p
+         gby+wwebPgPg6iY0sC4pdfzRn6H/Ww2i/eh0SWybE1Pvei95o/DnMIOJpM3A1ebWG84C
+         dliL63HK6ao8IBIqG3qz6AWFw5fU+KEzVAddJawxZYDOtF5PdJdnImPlSCm065fXmcA9
+         ZgBQlz2XnG3ri9OHdZyGeZXKxBCoD4790vj2ZIh1yuh65/ecvoci9JTgB5hW6VanUwAx
+         y1sQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy/lPkhZkEysjbOf70CKpQhg4BdWyvv9xQtJ52ebaROBH/HwrvkFocBBMlcdyaFAnCDhC7Xi1rUhG/OyKk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kpcdAcwP3OBdex/v+cUOGRGquhjahTs0v+P720ZnWoNiksOKlf
+	dhW5Flw8/X17/n9KvxONwJ7Szkdl7QjDC0P4ydeDhTLN/cZVze1EBZJd
+X-Gm-Gg: AYBFou0bt+SxudGYWkkBLkv/bVA5Twecu30/Za9Y6sQS1vLUtblfhnMTk7DYuCOVU++
+	/RBM6L6FVMDgUWNKWYbPkFCIZb2UKqf3e6TA7FRX36/uXEuHLEl0n6o6cZnu7/5SsMENCuI6dNA
+	U0GHpEBh3ojCe7typybV+hMJiUgEgyYohBPkSZB9jiNECOoVLkDmL+2WuMvfmwEBvlAtWXpKjkT
+	9IAW4RIv0AsWgxoRmAxHqqvwL/3xXQkBfozxNy0FEOzyEQsgDpbFwJbMMxZdoSjiLveeSZn7gsT
+	eQRwaXC5EK3gQ03H2jnDDakTcK0aWdriZlXlggGE5uWZVS5egkB3NOTjxepXm8DIJ3qsKndOhjC
+	DK2+MDUHf4uPwPkgkcDPWazfvJut1xaHjYKnZVIyQUqF8B/lClsNdPqwBYjojkyAFdtg4uSVgaH
+	tqcdI8eAKJ8q4AynjJD9OpdWjOJx3BZzU7WSSi+g2tFbZQAlVOEXtzV9sQNJdiaVr/PrQUaebyC
+	CDn8FQ2nws=
+X-Received: by 2002:a17:903:26c3:b0:2d8:d4d3:3fbd with SMTP id d9443c01a7336-2daec74819cmr30243755ad.17.1788320288175;
+        Tue, 01 Sep 2026 20:38:08 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dadd386eefsm5715715ad.28.2026.09.01.20.38.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 20:38:07 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+To: thomas.weissschuh@linutronix.de
+Cc: tglx@kernel.org,
+	luto@kernel.org,
+	vincenzo.frascino@arm.com,
+	david.laight.linux@gmail.com,
+	zhanxusheng@xiaomi.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/4] vdso: Keep the CLOCK_AUX base at full precision
+Date: Wed,  2 Sep 2026 11:37:57 +0800
+Message-ID: <20260902033801.2912699-1-zhanxusheng@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260813002618.3755631-1-tweek@google.com> <39f53732-dc89-43b6-bf50-2ba5c64adf38@iogearbox.net>
-In-Reply-To: <39f53732-dc89-43b6-bf50-2ba5c64adf38@iogearbox.net>
-From: =?UTF-8?Q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>
-Date: Wed, 2 Sep 2026 13:35:56 +1000
-X-Gm-Features: AcwNN1UK8iToxVRYZbB0QJOeCKOrbeItGVVek4Zgwjy2T1K6oHlYjRUdS1Q2Ww8
-Message-ID: <CA+zpnLeAag+YBtD1Pe=8UPc4Veq4k1yGkwtaJacz+vB4mwbFqw@mail.gmail.com>
-Subject: Re: [PATCH bpf-next 0/5] bpf: Introduce LOADER_LOAD_FD
-To: Daniel Borkmann <daniel@iogearbox.net>
-Cc: Paul Moore <paul@paul-moore.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, 
-	Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>, 
-	Jeffrey Vander Stoep <jeffv@google.com>, Ondrej Mosnacek <omosnace@redhat.com>, 
-	Eric Suen <ericsu@linux.microsoft.com>, 
-	Blaise Boscaccy <bboscaccy@linux.microsoft.com>, Sid Nayyar <sidnayyar@google.com>, 
-	Neill Kapron <nkapron@google.com>, Eric Biggers <ebiggers@google.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, KP Singh <kpsingh@kernel.org>, bpf@vger.kernel.org, 
-	selinux@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 18, 2026 at 2:11=E2=80=AFAM Daniel Borkmann <daniel@iogearbox.n=
-et> wrote:
->
-> On 8/13/26 2:26 AM, Thi=C3=A9baud Weksteen wrote:
-> > The bpf subsystem supports a signed-bpf infrastructure to guarantee the
-> > authenticity of programs [1, 2]. While this infrastructure is ideal for
-> > dynamic environments or enterprise deployments where untrusted binaries
-> > are loaded post-boot, it introduces unnecessary complexity for static
-> > platform use cases.
-> >
-> > In the Android ecosystem, platform BPF programs reside exclusively on
-> > read-only partitions that are strictly verified at the block level via
-> > dm-verity. Because the kernel has already guaranteed the authenticity o=
-f
-> > the underlying file, parsing and validating a secondary signature insid=
-e
-> > the BPF subsystem is redundant, complex (because it requires X509 and
-> > PKCS#7 parsing) and necessitates introducing additional signing flows
-> > during build.
->
-> Note that the BPF subsys doesn't implement any X.509 or PKCS#7 parsing,
-> rather we reuse the same mechanism as the module loader has been using.
->
-> > Furthermore, relying on signatures forces the kernel to manage a
-> > dedicated public key keyring. In a decentralized ecosystem comprising
-> > various OEMs and SoC vendors, managing these keys specifically for
-> > infrastructure BPF programs presents an operational hurdle.
->
-> There is no dedicated BPF keyring.. an OEM key built into a kernel image
-> has no additional runtime key management.
->
-> > Thanks to light skeletons, it is possible to embed the loading steps
-> > within a wrapping BPF program (also known as loader). In turns, the
-> > loading of the loader only requires a limited, well-defined number of
-> > steps. This series introduces the bpf command LOADER_LOAD_FD for the
-> > kernel to directly load an ELF file which contains a loader with its
-> > data. By moving the loading within the kernel, the authenticity of the
-> > loader and its content can be guaranteed by existing kernel mechanisms.
->
-> Same issue still holds as described in [0]. Also, this sounds more like
-> convenience for Android offloaded to the kernel.. (you stated redundant
-> given the signature validation and complexity wrt keyring.. so what?
-> don't you have the latter anyway for vendor kernel modules?)
+v3: https://lore.kernel.org/all/20260901020636.1821993-1-zhanxusheng@xiaomi.com
 
-Thanks for the feedback Daniel.
+Changes in v4:
 
-Vendor kernel modules are verified as described in the 'precedent'
-section: there are no signatures per module. Instead the combination
-of dm-verity and SELinux policy ensures the modules' authenticity.
+ - New 1/4 converts __iter_div_u64_rem() to OPTIMIZER_HIDE_VAR() as Thomas
+   asked, so the two helpers do not diverge.  Measured on the x86 vDSO with
+   clang 18: vdso64 text -64 bytes, vdso32 -112.  gcc 13 is unchanged.
+   Neither compiler turns the loop into a division with the new form,
+   checked at both widths.
+ - 2/4 uses the macro too and drops the comment about the memory
+   alternative.
+ - 2/4 no longer claims the vDSO cannot link a division.  It cannot, but
+   this code is on the kernel side, so that was the wrong reason.  The
+   reason the loop is right is that the quotient is never more than one,
+   which also answers David: there is nothing for a reciprocal multiply to
+   save.
+ - 3/4 drops the sentence about the advertised granularity, and says
+   instead that only the sub-second field changes.
+ - Continuation lines aligned under the opening paren.
+ - Picked up the Reviewed-by on 3/4.
 
-> We're not
-> adding yet another scheme/alternative for addressing signed BPF via
-> separate loader mechanism.
+Sorry about the pace of v2 and v3.
 
-I understand your position. Thanks for taking the time to reply.
+The problem 3/4 fixes: the CLOCK_AUX basetime is shifted down to
+nanoseconds and back up, which drops the fractional nanoseconds of
+xtime_nsec, so the vDSO floors the base and the cycle delta separately
+where ktime_get_aux() floors their sum.  The vDSO reading ends up 0 or 1 ns
+below the syscall for the same clock.
+
+Checked under QEMU with an auxiliary clock enabled through
+/sys/kernel/time/aux_clocks/0/aux_clock_enable, comparing CLOCK_AUX via the
+vDSO against the raw syscall at offset 0, at +5.123456789 s, and with
+offs_aux driven negative.  The two agree within read latency in all three,
+and over 100000 interleaved pairs each the vDSO reading is never ahead of a
+syscall reading taken after it.  The 1 ns bias itself is not measurable
+way, a pair of reads costing several hundred nanoseconds.  The argument
+for it is the algebra in 3/4, plus a sweep over (xtime_nsec, delta) which
+puts the 1 ns case at 60% for shift 24.
+
+Zhan Xusheng (4):
+  vdso/math64: Use OPTIMIZER_HIDE_VAR() in __iter_div_u64_rem()
+  vdso/math64: Add and use __iter_div64_u64_rem()
+  vdso/vsyscall: Keep the CLOCK_AUX base scaled
+  vdso/gettimeofday: Assert that the clock id fits the dispatch mask
+
+ include/vdso/math64.h   | 29 ++++++++++++++++++++++++++---
+ kernel/time/vsyscall.c  | 26 ++++++++++----------------
+ lib/vdso/gettimeofday.c |  2 ++
+ 3 files changed, 38 insertions(+), 19 deletions(-)
+
+
+base-commit: 89a312991dc6e638a36adc43ccb91dbc25504c04
+-- 
+2.43.0
+
