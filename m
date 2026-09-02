@@ -1,129 +1,93 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 49B224AA3F4;
-	Wed,  2 Sep 2026 16:22:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94C114A5EB1;
+	Wed,  2 Sep 2026 16:22:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788366163; cv=none; b=Tvh9TnihxDqUk3jfEflBy3MT6lADhfIVt27uYnx1BG3U+jQpsCw4MPLd5ptznzeCByMq/DgRaPMIJFxwpOnAsr/uyZCTbLv7G3hmr7CNkhbXn+OSfvu1ZDBzYQF10Hf2m172O5zEPd4uveVI2T98ljnGj9PqVris3pC4S+4zd6g=
+	t=1788366172; cv=none; b=E+eeX7pwx6clAdVc3MqbsBgcMlSGcKIktRmvhExhr7hkzQs728K9cXH11tASZrfNWw5eMs2pB/erwYjQUxcEs/ZnYz5N+b44qPDc9uMT8tbbxekEIBWdzX+1RkcqUqAhoz3MRugMwvcPmsseMXeDAzcw0b89euDBIjg5d0hnf00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788366163; c=relaxed/simple;
-	bh=35EstDuMwFTJkXwd8XjJdaRQlR2EtnmI53sCU5QGR1s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EhFQfmpoPAqmyn7ShRyP2DLk/LXhKIVOylGQFFBAIOoCSlB1IwX1LUpt8eDvSLcxt+bX6DdnD/+tYjI+JBPsj9BVT0nmF8cJnd3+kLbQe+wchgTCozkZFCfbmbHv3JHyS7SkOfXx17LjViRSPIcE4zjFw/SWv7pyl4XdnSWTwmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=qqWUyDXO; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1788366172; c=relaxed/simple;
+	bh=/NSNlk8CYM1sowJ9sGx64hIZA1Z8hypkSJpOPaK89jk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tlxMzDkLCovV7Q+TB/ZNz/q9gQbBakaHxe237MYohkKEVzPuD5ewrqKtO7jK9gB09vVdq+K50OixST4JlI8nkMB8GMngFYKvIZC63FFwI32fTGurEfJNbjUvlTlkK3rMPfx0TCj79rPBNz+YcFwy3PKeKXH+2LT/kIufbWdNoxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GpY6R44M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="qqWUyDXO"
-Received: from [100.96.96.2] (unknown [52.167.115.14])
-	by linux.microsoft.com (Postfix) with ESMTPSA id ED13E20B7129;
-	Wed,  2 Sep 2026 09:22:01 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com ED13E20B7129
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788366123;
-	bh=DL4LgKzmMK4nAxsWVXsvmnwn/GSFB1ohXTsW7Q4KrOY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qqWUyDXO51H2V/XbTG6/ifa4WYin+SOWbYNDEefYkEF21tN/x2SIEsySCd5YcGFNr
-	 u7wMRiEKi84H7lYcH2ETf2ceadiAzDsLlC3ufpZhkYjDCh7E0IhWQMlIa9EbjSG/ak
-	 QPreynUFWxvj6DokkLUcMG7GM7r86X7rf3YxxwOk=
-Message-ID: <4d876bd8-3885-4d65-a272-d846ae0d7d3d@linux.microsoft.com>
-Date: Wed, 2 Sep 2026 12:22:37 -0400
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GpY6R44M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 589F91F00A3A;
+	Wed,  2 Sep 2026 16:22:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788366171;
+	bh=96LuoZFEU9IQ/+SufORbkPGVMLYFD8TLgV1+4zgBKzM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GpY6R44MYFIXOoc3IW8hfnqcZ+mFVomt41Q2nPT/kqSu1eQ35GgRx/eo0vtUKetkX
+	 0VJdYC9K1OG21cXZ4S4bmMStxzaQKtSmsjOemFtL7VEI5VQA/LOJmdsvUPxlyq8A7s
+	 3nBZFqyho1iW9r7Rq7kV8RFYXVMii+HLMIuaQTbyMbVUIhZjhSrIr1gg4PDgg92w+8
+	 9tW1t4YlwOqWlL5TsmfABQoQsgQWn0VewNpdGjlXF68PjiCOBW9vFdX4Q+h7arShDg
+	 gjPq7OstF0VJSthp5AHi3ppM0Pphg4HX8Q1POaFB4SIEv1ahwf0SQQCjhiRlidwfxr
+	 1xPeMH+kVeIEw==
+Date: Wed, 2 Sep 2026 17:22:46 +0100
+From: Lee Jones <lee@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+	Vincent Donnefort <vdonnefort@google.com>, stable@vger.kernel.org,
+	mhiramat@kernel.org, linux-trace-kernel@vger.kernel.org,
+	mathieu.desnoyers@efficios.com, kernel-team@android.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: STABLE REQ: [PATCH v5 06/10] tracing: Fix subbuf resize races
+ with trace_pipe_raw readers
+Message-ID: <20260902162246.GC2133376@google.com>
+References: <20260813131152.3589632-7-vdonnefort@google.com>
+ <20260901123444.GA1350131@google.com>
+ <20260901094656.487b278f@gandalf.local.home>
+ <20260902082717.GM2943942@google.com>
+ <2026090230-entryway-acquaint-d12e@gregkh>
+ <20260902095744.GN2943942@google.com>
+ <2026090221-riverbank-overlay-704c@gregkh>
+ <20260902115944.GS2943942@google.com>
+ <20260902082141.00583dfc@gandalf.local.home>
+ <20260902082550.4644fe91@gandalf.local.home>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 07/12] drivers: hv: hv_vsm_boot: load secure kernel
- image from firmware
-To: Wei Liu <wei.liu@kernel.org>
-Cc: kys@microsoft.com, haiyangz@microsoft.com, decui@microsoft.com,
- tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, hpa@zytor.com, ardb@kernel.org,
- ilias.apalodimas@linaro.org, James.Bottomley@hansenpartnership.com,
- javierm@redhat.com, lszubowi@redhat.com, francescopompo2@gmail.com,
- tgopinath@microsoft.com, x86@kernel.org, linux-hyperv@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-efi@vger.kernel.org,
- Stanislav Kinsburskii <skinsburskii@linux.microsoft.com>
-References: <20260901165647.3160413-1-tgopinath@linux.microsoft.com>
- <20260901165647.3160413-8-tgopinath@linux.microsoft.com>
- <20260902043732.GF2583463@liuwe-devbox-debian-v2.local>
-Content-Language: en-US
-From: Thara Gopinath <tgopinath@linux.microsoft.com>
-In-Reply-To: <20260902043732.GF2583463@liuwe-devbox-debian-v2.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902082550.4644fe91@gandalf.local.home>
 
+On Wed, 02 Sep 2026, Steven Rostedt wrote:
 
-
-On 9/2/2026 12:37 AM, Wei Liu wrote:
-> On Tue, Sep 01, 2026 at 09:55:21AM -0700, Thara Gopinath wrote:
->> LVBS bring-up requires loading a secure kernel image into VTL1 before
->> starting it. Add the VTL0-side loader that stages the image in the
->> memory region reserved by hv_vsm_securekernel, in preparation for the
->> VTL1 bring-up.
->>
->> The image is a 64-bit ELF fetched via request_firmware("vsm_sk"). It
->> is expected to ship inside the signed UKI/initramfs so it is
->> authenticated end-to-end via Secure Boot before the loader consumes
->> it; sourcing it from an unauthenticated location would break the LVBS
->> trust model.
->>
->> The loader validates the ELF header, stages the PT_LOAD segments into
->> the reserved region and records the entry point as a physical address
->> for use at VTL1 start time.
->>
->> If VSM support has been advertised to the hypervisor but no secure
->> kernel region was reserved on the command line, panic: LVBS bring-up
->> is committed at this point and there is no safe way to continue.
+> On Wed, 2 Sep 2026 08:21:41 -0400
+> Steven Rostedt <rostedt@goodmis.org> wrote:
 > 
-> This conflicts with the memory reservation patch, in which there is an
-> automatic allocation when no kernel command line is specified.
+> > There's even been times that I *removed* a Cc to stable because I did not
+> > think it was worth the backport. Of course, I still keep the Fixes tag,
+> > which means it will likely be backported anyway. But that's up to the
+> > stable maintainers to decide ;-)
 
-Ah no.. So securekernel= has to be specified in the command line for
-__setup() to be invoked . It can be left blank without parameters like
-securekernel= or with parameters like securekernel=256M@0x80000000. The
-reservation logic will take care of reserving the correct memory if there
-are no parameters but if there is no command line specified __setup will
-not be  called. The other way of solving this and invoking the reservations
-unconditionally will be to call it from setup_arch like how reserve_crashkernel
-is invoked. I am not sure if we want to do that now ?? What do you think ?
+Pretty sure this isn't the case anymore.  RIP AUTOSEL.
 
-But I will reword this and state that the panic happens if there is no
-securekernel memory allocated (either because securekernel= was not
-specified or because memory reservation itself failed)
+> The big difference between a commit with the Fixes tag and a Cc to stable
+> verses one with the Fixes tag without the Cc stable, is that the one with
+> Cc stable will give me a "FAILED" message if it fails to apply. One with
+> just the Fixes tag and no Cc stable, will not generate that message to me
+> if it doesn't apply back to the version with the Fixes commit sha.
 
-> 
->>
->> Signed-off-by: Stanislav Kinsburskii <skinsburskii@linux.microsoft.com>
->> Signed-off-by: Thara Gopinath <tgopinath@linux.microsoft.com>
->> ---
->>  drivers/hv/hv_vsm.h      |  17 ++++
->>  drivers/hv/hv_vsm_boot.c | 201 ++++++++++++++++++++++++++++++++++++++-
->>  include/hyperv/vsm.h     |  21 ++++
->>  3 files changed, 238 insertions(+), 1 deletion(-)
->>  create mode 100644 drivers/hv/hv_vsm.h
->>  create mode 100644 include/hyperv/vsm.h
-> [...]
->> +
->> +static void __init hv_vsm_get_sk_mem(void)
->> +{
->> +	/*
->> +	 * The reserved secure kernel region is mandatory once VSM support has
->> +	 * been advertised. Without it we cannot load the secure kernel and
->> +	 * bringing up VTL1 is impossible, so fail hard rather than continuing
->> +	 * in an unusable state.
->> +	 */
->> +	if (!sk_res.start)
->> +		panic("No memory reserved in cmdline for secure kernel");
->> +
-> 
-> This log line is wrong.
+So what happens when you receive the FAILED message?
 
-I will fix this 
+And why are you interested to know how far back a fix can be backported?
 
-Warm Regards
-Thara
-> 
-> Wei
+Personally, I'm _very_ interested in a _small_ number of patches, but
+none of which usually emanate from subsystems I maintain.
 
+> I do like to know what I marked as stable and fails to apply. Unfortunately
+> I don't have the time to go fix them. But I keep them in a mail folder in
+> case I need to do it one day.
+
+We have have such wonderful aspirations.  Maybe we can get around to
+those jobs when AI starts doing our jobs for us!  =;-)
+
+-- 
+Lee Jones
