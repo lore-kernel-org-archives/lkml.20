@@ -1,218 +1,557 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A2BC49CF32;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96FC2434407;
 	Wed,  2 Sep 2026 13:28:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788355700; cv=none; b=hC2Rddp4KZqH395sQ33AGu9i7dwMvmY0kyiJOTb0FJj/IkHDKvIcsdMRumuTkTbouIs2XCU8tgCTZQEr08oCzY+zTUaIUFJRU1ZAdDb6j+EbetsjblB5wDXPexdkFAC6OeZrI3eEzLaoI7CDNaZrz3xHBmxZi4jMz16nj1Tbw+I=
+	t=1788355699; cv=none; b=DB79fb1/+2MsQcbTYn1C689wG9I6hTTneb2Q4RHAjWfFyEfHL6oCfQ+DOD/j8zYsmbbkcOAXM3+YDG0EOo7YNVozs5t1ck03BrxpTSBJ2s7tc40PAYG0laoSLIHozV0bOP7udL3Fs0ewBFpu6o3Gr4e0a3iVbKE8VnquiV4XzNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788355700; c=relaxed/simple;
-	bh=11SnmgIDwFLqzBUODFZdW/kCFQal5zsNNMFfEu/tXqY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UZYVbiKqQv/v1r7e/q1KSPx73xeWuQyeQQDpP9UdfPeDGWZsbxpAVQfHiSyHI5oREh8La1md0KLKrE1P4jlTb/oOizWWDZKmMImNW8chcvoTJ0pP/CIj7Wo8IYQLb4oIii1uKjSyaXSFEmYBc6AU7aPypglQVdghrnZIu579dcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net; spf=pass smtp.mailfrom=gmx.net; dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b=ku69uVXA; arc=none smtp.client-ip=212.227.15.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
+	s=arc-20240116; t=1788355699; c=relaxed/simple;
+	bh=KQvqFkd73+KLhJE+UaIWBrkWmcMkBP46A3dBwLH0V1I=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=XfBFt3l7869bz4U8KrpUmsdSDE3rqRK+JcLRPAV1dSGXZCfbfRe4BT55gl++TPdUJADi2ku8ovXgEINYX0TKpSUbHAF8uECTy9+alJC/CEEBlibfqrslHcT8HHN6Qdpfzq6f8QElKlZmcsczRuAcvgJXAVs93DxcPOXGA3yIYfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DSA2LjIn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b="ku69uVXA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
-	s=s31663417; t=1788355694; x=1788960494; i=wahrenst@gmx.net;
-	bh=Xgmw0ODWvgN1xHHx/5kM7+etCGYDYTNmHhQQVZYhfDg=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
-	 MIME-Version:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=ku69uVXAjNX0T26t6pHcyIbBa275LWq/f9MP+G5RZhAN6BaUZhTyeIiIM9r/nQsG
-	 O9MwmpcsU0+4V8HSb0kl87otwIqN0xYy9+dW5nKT0sPRxNieFWeJWdqgDve+S3dpE
-	 F3Ymrx6gZmqmg6EPhH4L+LlnH6PIVXwBinrvO1AM6Wo7YRh5LXs3zsZY+2NFAQRuo
-	 4BeYKx3CG038SG76iCts1GZGS2yG9qrkWHIwTYoTbKv/n3brvTVlaWE2TuJTlqLKJ
-	 mx9pAB3Mvwi7CLmOU0N1rNxvEO7WNWZPgD/QhaM6Mwq/Y++rbXGQPBs83pAG/HAGd
-	 k3NEgHCZkIskq/PgKA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1N79uI-1wneSn3QNQ-016jus; Wed, 02
- Sep 2026 15:28:13 +0200
-From: Stefan Wahren <wahrenst@gmx.net>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Aswath Govindraju <a-govindraju@ti.com>
-Cc: Christoph Stoidner <c.stoidner@phytec.de>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-can@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Stefan Wahren <wahrenst@gmx.net>
-Subject: [PATCH V3 0/3] arm64: dts: freescale: Add chargebyte Charge Control Y
-Date: Wed,  2 Sep 2026 15:27:57 +0200
-Message-ID: <20260902132801.22056-1-wahrenst@gmx.net>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DSA2LjIn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A23881F00A3A;
+	Wed,  2 Sep 2026 13:28:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788355697;
+	bh=gWLIEeqPSv/ucpXrHg5udp/+YKo5YFuXiXIqJHSm6p8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=DSA2LjInRx7tF+skCryAG5rdkUJluf9h4hq6bSgNqB5si0IxSMv25i0Cm8sHZdlml
+	 +rVmnLEBXPvSgSmTqKcWi0NiCutIynrb4iaMtHSya+Dnr8F+mWrzsssTfkBrOQbuS2
+	 MCwtMZknfQ55t+E4DhtHeuPriH4tY3LHa/RUKnhniJdvaAaHCBiOA2XFgmA6j1JUdw
+	 s2I8s/Jkw+xOXvAXta80b2gshuxuHSOJdxh0N/RxpySeQFoYvdB+HV2lUrsLbFRIA9
+	 XkugaOnbFRjOTI0xaJmkyQfHK6uxa0A/umy19SKUsSBmRfEBmRhejtBHcbJoKH2zsP
+	 p5H+DlqTrskEw==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+Date: Wed, 02 Sep 2026 15:26:07 +0200
+Subject: [PATCH v5 11/12] rust: xarray: add preload API
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:UQVJzyfsVZStUC6P79G8zKHEAFWxMcafWM0EXH0xzZtYvKcAejR
- tP58P5hkr00Xh1lnCNBAK3yjdhtkqlr+xw+zaBAeBZUCElexL4zP4ILwrA2Ly05YzT8P/Py
- hA8V1qIJGUSGzW6FuOyw2QC0Li2bGSW3lkBcR6kVk7/rWLaJ37AQFCIY4b1zif1xNWXpokK
- QYKOPQSe5lB2szwEHJpBg==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:KrGCS/tPURo=;ZbMeiVBxAnCaJm6ywigxBzHoQjl
- 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
- 8nGXX1iyOfs=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-xarray-entry-send-v5-11-d18adae40708@kernel.org>
+References: <20260902-xarray-entry-send-v5-0-d18adae40708@kernel.org>
+In-Reply-To: <20260902-xarray-entry-send-v5-0-d18adae40708@kernel.org>
+To: Tamir Duberstein <tamird@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Matthew Wilcox <willy@infradead.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Harry Yoo <harry@kernel.org>, Hao Li <hao.li@linux.dev>, 
+ Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
+ Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Andreas Hindborg <a.hindborg@kernel.org>, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+ "Liam R. Howlett" <liam@infradead.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=18837;
+ i=a.hindborg@kernel.org; h=from:subject:message-id;
+ bh=KQvqFkd73+KLhJE+UaIWBrkWmcMkBP46A3dBwLH0V1I=;
+ b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBqmCQisXwWcJP4hFSKVWaVPMLw7FprpMsPG0D0r
+ w7W518G/+OJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCapgkIgAKCRD6UCkIqsW9
+ 0IcDEACbok7lfFfJRtX9YoIFrUa7T6ZB2oN/OL5NzGHvbMhMzESzb/FnHv0U/q4uewQaI57Ky4a
+ UZOaGrMDy3YZYQkYmjk38DcD9Cn8iBH5PiDgBGqKEwVXxlnc04fHaDWhmql2lUytXKpaksDMNcO
+ m2n324OQlQ/mA3pstUygOsyA0Q+F307TIHof1F8i+BdXJZz5IfdCFSFleef70w/diSsytJkRI+U
+ +8JJaPHeAeIp+94zvbNdnSzDHC6z1zIGn0we9Fjb0A0oPZCdRom75oEnt3rOL3lojRFM767mkFW
+ 0vvShSLY4V3sE5yTU2Id30gzW/8cisGn5zOEx3vj2VhGGu9tfy2IdJ40GifbXfTzLW/EDEfJwNK
+ I6A4kY6QwvtMDFT9eKbSm0ZCYq8To7/AyqW48JLh8v0/aZfAvXFfUkYrzZHy2782k2QPTUrWA+a
+ ypfo9K05uuLFhV6r3Dqk0/rkeJPPmAJMGTGgVe/iBSjyVIFC3FR6MzSnzIgDS2HCTlVXBXHLhlm
+ F/cWI0HH6h0HN7K7wpOUp8mjce5E3FxynYVtrS1/Mo6Tpy4LTVMICuP/bxMbMXiGf8p0oYiVYJ3
+ jbmscZvUC92Yf66FA246oCxI8Ozby98MG8R7Tbli5eMB6WY7ip6glaurNiTkXM3KPFPvYj9tU8n
+ HRj1q/FyfuD8XUw==
+X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
+ fpr=3108C10F46872E248D1FB221376EB100563EF7A7
 
-This series adds support for the chargebyte Charge Control Y, which is
-an Electrical Vehicle Supply Equipment (EVSE) for MCS (Megawatt
-Charging System) charging stations.
+Add a preload API that allows preallocating memory for XArray
+insertions. This enables insertions to proceed without allocation
+failures in contexts where memory allocation is not desirable, such as
+in atomic contexts.
 
-sashiko reported in the first version of the series [1] that X_nRST_LAN
-is available via GPIO line names, but there is no reset mechanismn in the
-device tree. This finding is valid. Since the reset line feature isn't
-implemented for LAN8651 driver yet, I like to proceed with the current
-version. The LAN8651 handles reset via SPI commands and in rare cases
-we still have the possibility to control the reset from userspace.
-Btw the pin has a pull resistor in hardware, so it's not floating.
+The implementation introduces `XArrayNode` representing a single XArray
+node and `XArraySheaf` as a type alias for a sheaf of preallocated
+nodes.
 
-[1] - https://lore.kernel.org/linux-devicetree/20260818093147.E556C1F000E9=
-@smtp.kernel.org/
+Add the function `xarray_kmem_cache` to provide access to the global XArray
+node cache for creating sheaves.
 
-Changes in V3:
-- add Acked-by's from Conor
-- add missing SD2_VSELECT to default pinctrl of SD interface (reported by =
-sashiko)
-- clarify LAN8651 GPIO usage in device tree (suggested by Frank Li)
-- move X_nRST_LAN into dedicated pinctrl group to make it more self-explai=
-ning
+Update `VacantEntry::insert` and `VacantEntry::insert_entry` to accept
+an optional sheaf argument for preloaded memory. Add a new
+`Guard::insert_entry` method for inserting with preload support. When an
+insertion would fail due to ENOMEM, the XArray state API automatically
+consumes a preallocated node from the sheaf if available.
 
-Changes in V2:
-- drop phy-can-transceiver changes and make MCP2542 compatible to TI TCAN1=
-042
-  as suggested by Marc Kleine-Budde & Frank Li
-- implemented SD2_nRESET as vmmc supply for SD card interface
-  (reported by sashiko)
-- add UHS support for SD card interface
-- dropped downstream property ti,leds-polarity (reported by sashiko)
-- fix GPIO line name of X_LAN_nCS (reported by sashiko)
-- drop unconnected pins (X_TDI, X_TMS_SWDIO, X_TDO) from GPIO line names=
-=20
+Export `radix_tree_node_ctor` and `radix_tree_node_cachep` from C to
+enable Rust code to work with the radix tree node cache.
 
-Stefan Wahren (3):
-  dt-bindings: arm: fsl: Add chargebyte Charge Control Y
-  dt-bindings: phy: ti,tcan104x-can: Document Microchip MCP2542
-  arm64: dts: freescale: Add chargebyte Charge Control Y
+Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+Assisted-by: LLM
+Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+---
+ include/linux/radix-tree.h      |   3 +
+ lib/radix-tree.c                |   5 +-
+ rust/bindings/bindings_helper.h |   3 +
+ rust/kernel/xarray.rs           | 214 +++++++++++++++++++++++++++++++++++-----
+ rust/kernel/xarray/entry.rs     |  27 +++--
+ 5 files changed, 215 insertions(+), 37 deletions(-)
 
- .../devicetree/bindings/arm/fsl.yaml          |   1 +
- .../bindings/phy/ti,tcan104x-can.yaml         |   1 +
- arch/arm64/boot/dts/freescale/Makefile        |   1 +
- .../dts/freescale/imx93-charge-control-y.dts  | 441 ++++++++++++++++++
- .../boot/dts/freescale/imx93-phycore-som.dtsi |   2 +-
- 5 files changed, 445 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm64/boot/dts/freescale/imx93-charge-control-y.d=
-ts
+diff --git a/include/linux/radix-tree.h b/include/linux/radix-tree.h
+index eae67015ce51a..c3699f12b070c 100644
+--- a/include/linux/radix-tree.h
++++ b/include/linux/radix-tree.h
+@@ -469,4 +469,7 @@ static __always_inline void __rcu **radix_tree_next_slot(void __rcu **slot,
+ 	     slot = radix_tree_next_slot(slot, iter,			\
+ 				RADIX_TREE_ITER_TAGGED | tag))
+ 
++
++void radix_tree_node_ctor(void *arg);
++
+ #endif /* _LINUX_RADIX_TREE_H */
+diff --git a/lib/radix-tree.c b/lib/radix-tree.c
+index 1cf0012b15ade..ddd67ce672f5c 100644
+--- a/lib/radix-tree.c
++++ b/lib/radix-tree.c
+@@ -33,6 +33,7 @@
+  * Radix tree node cache.
+  */
+ struct kmem_cache *radix_tree_node_cachep;
++EXPORT_SYMBOL(radix_tree_node_cachep);
+ 
+ /*
+  * The radix tree is variable-height, so an insert operation not only has
+@@ -1566,14 +1567,14 @@ void idr_destroy(struct idr *idr)
+ }
+ EXPORT_SYMBOL(idr_destroy);
+ 
+-static void
+-radix_tree_node_ctor(void *arg)
++void radix_tree_node_ctor(void *arg)
+ {
+ 	struct radix_tree_node *node = arg;
+ 
+ 	memset(node, 0, sizeof(*node));
+ 	INIT_LIST_HEAD(&node->private_list);
+ }
++EXPORT_SYMBOL(radix_tree_node_ctor);
+ 
+ static int radix_tree_cpu_dead(unsigned int cpu)
+ {
+diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
+index 5dda2bb36e3c2..ccbd92880dc88 100644
+--- a/rust/bindings/bindings_helper.h
++++ b/rust/bindings/bindings_helper.h
+@@ -132,6 +132,9 @@ const gfp_t RUST_CONST_HELPER_XA_FLAGS_ALLOC1 = XA_FLAGS_ALLOC1;
+  * see https://github.com/rust-lang/rust-bindgen/issues/3347.
+  */
+ const size_t RUST_CONST_HELPER_XAS_RESTART = (size_t)XAS_RESTART;
++const size_t RUST_CONST_HELPER_XA_CHUNK_SHIFT = XA_CHUNK_SHIFT;
++const size_t RUST_CONST_HELPER_XA_CHUNK_SIZE = XA_CHUNK_SIZE;
++extern struct kmem_cache *radix_tree_node_cachep;
+ 
+ const vm_flags_t RUST_CONST_HELPER_VM_MERGEABLE = VM_MERGEABLE;
+ const vm_flags_t RUST_CONST_HELPER_VM_READ = VM_READ;
+diff --git a/rust/kernel/xarray.rs b/rust/kernel/xarray.rs
+index cf7248bddb8b9..87123ab96a92f 100644
+--- a/rust/kernel/xarray.rs
++++ b/rust/kernel/xarray.rs
+@@ -5,6 +5,7 @@
+ //! C header: [`include/linux/xarray.h`](srctree/include/linux/xarray.h)
+ 
+ use core::{
++    convert::Infallible,
+     iter,
+     marker::PhantomData,
+     pin::Pin,
+@@ -23,12 +24,18 @@
+     bindings,
+     build_assert::build_assert, //
+     error::{
++        code::*,
+         to_result,
+         Error,
+         Result, //
+     },
+     ffi::c_void,
+     fmt,
++    mm::sheaf::{
++        KMemCache,
++        SBox,
++        StaticSheaf, //
++    },
+     types::{
+         ForeignOwnable,
+         NotThreadSafe,
+@@ -36,12 +43,63 @@
+     },
+ };
+ use pin_init::{
++    init,
+     pin_data,
+     pin_init,
+     pinned_drop,
++    Init,
+     PinInit, //
+ };
+ 
++/// Sheaf of preallocated [`XArray`] nodes.
++pub type XArraySheaf<'a> = StaticSheaf<'a, XArrayNode>;
++
++/// Returns a reference to the global XArray node cache.
++///
++/// This provides access to the kernel's `radix_tree_node_cachep`, which is the
++/// slab cache used for allocating internal XArray nodes. This cache can be used
++/// to create sheaves for preallocating XArray nodes.
++pub fn xarray_kmem_cache() -> &'static KMemCache<XArrayNode> {
++    // SAFETY: `radix_tree_node_cachep` is a valid, statically initialized
++    // kmem_cache that remains valid for the lifetime of the kernel. The cache
++    // is configured for `xa_node` objects which match our `XArrayNode` type.
++    unsafe { KMemCache::from_raw(bindings::radix_tree_node_cachep) }
++}
++
++/// An preallocated XArray node.
++///
++/// This represents a single preallocated internal node for an XArray.
++///
++/// This type is `#[repr(transparent)]` as it is cast to and from pointers to
++/// the inner [`bindings::xa_node`].
++#[repr(transparent)]
++pub struct XArrayNode {
++    node: Opaque<bindings::xa_node>,
++}
++
++// SAFETY: A preallocated `xa_node` is opaque storage for the C XArray
++// implementation, which moves nodes between CPUs freely. It is not tied to
++// the thread that allocated it.
++unsafe impl Send for XArrayNode {}
++
++impl kernel::mm::sheaf::KMemCacheInit<XArrayNode> for XArrayNode {
++    fn init() -> impl Init<Self, Infallible> {
++        init!(Self {
++            // SAFETY:
++            // - This initialization cannot fail and will never return `Err`.
++            // - The xa_node does not move during initialization.
++            node <- unsafe {
++                pin_init::init_from_closure(
++                    |place: *mut Opaque<bindings::xa_node>| -> Result<(), Infallible> {
++                        bindings::radix_tree_node_ctor(place.cast::<c_void>());
++                        Ok(())
++                    },
++                )
++            }
++        })
++    }
++}
++
+ /// An array which efficiently maps sparse integer indices to owned objects.
+ ///
+ /// This is similar to a [`crate::alloc::kvec::Vec<Option<T>>`], but more efficient when there are
+@@ -138,15 +196,22 @@ fn iter(&self) -> impl Iterator<Item = NonNull<c_void>> + '_ {
+         let mut index = 0;
+ 
+         // SAFETY: `self.xa` is always valid by the type invariant.
+-        iter::once(unsafe {
+-            bindings::xa_find(self.xa.get(), &mut index, usize::MAX, bindings::XA_PRESENT)
+-        })
+-        .chain(iter::from_fn(move || {
+-            // SAFETY: `self.xa` is always valid by the type invariant.
+-            Some(unsafe {
+-                bindings::xa_find_after(self.xa.get(), &mut index, usize::MAX, bindings::XA_PRESENT)
+-            })
+-        }))
++        Iterator::chain(
++            iter::once(unsafe {
++                bindings::xa_find(self.xa.get(), &mut index, usize::MAX, bindings::XA_PRESENT)
++            }),
++            iter::from_fn(move || {
++                // SAFETY: `self.xa` is always valid by the type invariant.
++                Some(unsafe {
++                    bindings::xa_find_after(
++                        self.xa.get(),
++                        &mut index,
++                        usize::MAX,
++                        bindings::XA_PRESENT,
++                    )
++                })
++            }),
++        )
+         .map_while(|ptr| NonNull::new(ptr.cast()))
+     }
+ 
+@@ -167,7 +232,6 @@ pub fn try_lock(&self) -> Option<Guard<'_, T>> {
+     pub fn lock(&self) -> Guard<'_, T> {
+         // SAFETY: `self.xa` is always valid by the type invariant.
+         unsafe { bindings::xa_lock(self.xa.get()) };
+-
+         Guard {
+             xa: self,
+             _not_send: NotThreadSafe,
+@@ -269,7 +333,7 @@ pub fn get_mut(&mut self, index: usize) -> Option<T::BorrowedMut<'_>> {
+     ///
+     /// match guard.entry(42) {
+     ///     Entry::Vacant(entry) => {
+-    ///         entry.insert(KBox::new(0x1337u32, GFP_KERNEL)?)?;
++    ///         entry.insert(KBox::new(0x1337u32, GFP_ATOMIC)?, None)?;
+     ///     }
+     ///     Entry::Occupied(_) => unreachable!("We did not insert an entry yet"),
+     /// }
+@@ -468,6 +532,45 @@ pub fn store(
+             Ok(unsafe { T::try_from_foreign(old) })
+         }
+     }
++
++    /// Inserts a value and returns an occupied entry for further operations.
++    ///
++    /// If a value is already present, the operation fails.
++    ///
++    /// This method will not drop the XArray lock. If memory allocation is
++    /// required for the operation to succeed, the user should supply memory
++    /// through the `preload` argument.
++    ///
++    /// # Examples
++    ///
++    /// ```
++    /// # use kernel::{prelude::*, xarray::{AllocKind, XArray}};
++    /// let mut xa = KBox::pin_init(XArray::<KBox<u32>>::new(AllocKind::Alloc), GFP_KERNEL)?;
++    /// let mut guard = xa.lock();
++    ///
++    /// assert_eq!(guard.get(42), None);
++    ///
++    /// let value = KBox::new(0x1337u32, GFP_ATOMIC)?;
++    /// let entry = guard.insert_entry(42, value, None)?;
++    /// let borrowed = entry.into_mut();
++    /// assert_eq!(borrowed, &0x1337);
++    ///
++    /// # Ok::<(), kernel::error::Error>(())
++    /// ```
++    pub fn insert_entry<'b>(
++        &'b mut self,
++        index: usize,
++        value: T,
++        preload: Option<&mut XArraySheaf<'_>>,
++    ) -> Result<OccupiedEntry<'a, 'b, T>, StoreError<T>> {
++        match self.entry(index) {
++            Entry::Vacant(entry) => entry.insert_entry(value, preload),
++            Entry::Occupied(_) => Err(StoreError {
++                error: EBUSY,
++                value,
++            }),
++        }
++    }
+ }
+ 
+ /// Internal state for XArray iteration and entry operations.
+@@ -485,6 +588,30 @@ pub(crate) struct XArrayState<R> {
+     state: bindings::xa_state,
+ }
+ 
++impl<R> Drop for XArrayState<R> {
++    fn drop(&mut self) {
++        free_xa_alloc(&mut self.state);
++    }
++}
++
++fn free_xa_alloc(state: &mut bindings::xa_state) {
++    if !state.xa_alloc.is_null() {
++        // SAFETY:
++        // - `xa_alloc` is only set via `SBox::into_ptr()` in `insert()` where
++        //   the node comes from an `XArraySheaf` backed by `radix_tree_node_cachep`.
++        // - `xa_alloc` points to a valid, initialized `XArrayNode`.
++        // - The caller has exclusive ownership of `xa_alloc`, and no other
++        //   `SBox` or reference exists for this value.
++        drop(unsafe {
++            SBox::<XArrayNode>::static_from_ptr(
++                bindings::radix_tree_node_cachep,
++                state.xa_alloc.cast(),
++            )
++        });
++        state.xa_alloc = null_mut();
++    }
++}
++
+ impl<'a, R, T> XArrayState<R>
+ where
+     T: ForeignOwnable + 'a,
+@@ -595,23 +722,50 @@ fn replace(&mut self, new: *mut c_void) -> *mut c_void {
+         old
+     }
+ 
+-    fn insert(&mut self, value: T) -> Result<*mut c_void, StoreError<T>> {
++    fn insert(
++        &mut self,
++        value: T,
++        mut preload: Option<&mut XArraySheaf<'_>>,
++    ) -> Result<*mut c_void, StoreError<T>> {
+         let new = T::into_foreign(value).cast();
+ 
+-        // SAFETY: `self.state` is a valid `xa_state` by the type invariant. By the same
+-        // invariant, `self.state.xa` aliases the xarray reachable through `self.guard`,
+-        // whose lock we hold. `new` came from `T::into_foreign`.
+-        unsafe { bindings::xas_store(&mut self.state, new) };
+-
+-        // All arrays created by this abstraction have `XA_FLAGS_TRACK_FREE` set, so the
+-        // free mark must be cleared for a newly occupied index, as `__xa_store` does.
+-        // This is a no-op if the store above failed.
+-        //
+-        // SAFETY: `self.state` is a valid `xa_state` by the type invariant, and we hold
+-        // the lock on the xarray it refers to.
+-        unsafe { bindings::xas_clear_mark(&self.state, bindings::XA_FREE_MARK) };
++        loop {
++            // SAFETY: `self.state` is a valid `xa_state` by the type invariant. By the same
++            // invariant, `self.state.xa` aliases the xarray reachable through `self.guard`,
++            // whose lock we hold. `new` came from `T::into_foreign`.
++            unsafe { bindings::xas_store(&mut self.state, new) };
+ 
+-        self.status().map(|()| new).map_err(|error| {
++            // All arrays created by this abstraction have `XA_FLAGS_TRACK_FREE` set, so the
++            // free mark must be cleared for a newly occupied index, as `__xa_store` does.
++            // This is a no-op if the store above failed.
++            //
++            // SAFETY: `self.state` is a valid `xa_state` by the type invariant, and we hold
++            // the lock on the xarray it refers to.
++            unsafe { bindings::xas_clear_mark(&self.state, bindings::XA_FREE_MARK) };
++
++            match self.status() {
++                Ok(()) => break Ok(new),
++                Err(ENOMEM) => {
++                    debug_assert!(self.state.xa_alloc.is_null());
++                    let node = match preload.as_mut().map(|sheaf| sheaf.alloc().ok_or(ENOMEM)) {
++                        None => break Err(ENOMEM),
++                        Some(Err(e)) => break Err(e),
++                        Some(Ok(node)) => node,
++                    };
++
++                    self.state.xa_alloc = node.into_ptr().cast();
++
++                    // On allocation failure, `xas_store` leaves `XA_ERROR(-ENOMEM)` in
++                    // `self.state.xa_node`, which makes further operations on the state fail
++                    // immediately without consuming `xa_alloc`. Reset the state so the retry
++                    // walks the tree again, as `xas_nomem` does.
++                    self.restart_at(self.state.xa_index);
++                    continue;
++                }
++                Err(e) => break Err(e),
++            }
++        }
++        .map_err(|error| {
+             // SAFETY: `new` came from `T::into_foreign` and `xas_store` does not take
+             // ownership of the value on error.
+             let value = unsafe { T::from_foreign(new) };
+@@ -619,10 +773,16 @@ fn insert(&mut self, value: T) -> Result<*mut c_void, StoreError<T>> {
+         })
+     }
+ 
+-    /// Consumes `self` and returns the inner `&mut Guard`.
++    /// Consumes `self`, releases any preallocated node held in `xa_alloc`, and
++    /// returns the inner `&mut Guard`.
+     #[inline]
+     pub(crate) fn into_guard(self) -> &'b mut Guard<'a, T> {
+-        self.guard
++        // Suppress the `Drop` impl so we can move `guard` out by hand.
++        let mut this = core::mem::ManuallyDrop::new(self);
++        free_xa_alloc(&mut this.state);
++        // SAFETY: `ManuallyDrop` prevents `Drop::drop` from running, so this is the only place
++        // that consumes `guard`. `state` has no other resources after `free_xa_alloc`.
++        unsafe { core::ptr::read(&this.guard) }
+     }
+ }
+ 
+diff --git a/rust/kernel/xarray/entry.rs b/rust/kernel/xarray/entry.rs
+index c6c5385e6b4f9..bd295358d9751 100644
+--- a/rust/kernel/xarray/entry.rs
++++ b/rust/kernel/xarray/entry.rs
+@@ -3,6 +3,7 @@
+ use super::{
+     Guard,
+     StoreError,
++    XArraySheaf,
+     XArrayState, //
+ };
+ use core::ptr::NonNull;
+@@ -75,7 +76,8 @@ pub fn into_guard(self) -> &'b mut Guard<'a, T> {
+     /// Returns a reference to the newly inserted value.
+     ///
+     /// - This method will fail if the nodes on the path to the index
+-    ///   represented by this entry are not present in the XArray.
++    ///   represented by this entry are not present in the XArray and no memory
++    ///   is available via the `preload` argument.
+     /// - This method will not drop the XArray lock.
+     ///
+     ///
+@@ -90,7 +92,7 @@ pub fn into_guard(self) -> &'b mut Guard<'a, T> {
+     ///
+     /// if let Entry::Vacant(entry) = guard.entry(42) {
+     ///     let value = KBox::new(0x1337u32, GFP_ATOMIC)?;
+-    ///     let borrowed = entry.insert(value)?;
++    ///     let borrowed = entry.insert(value, None)?;
+     ///     assert_eq!(*borrowed, 0x1337);
+     /// }
+     ///
+@@ -98,8 +100,12 @@ pub fn into_guard(self) -> &'b mut Guard<'a, T> {
+     ///
+     /// # Ok::<(), kernel::error::Error>(())
+     /// ```
+-    pub fn insert(mut self, value: T) -> Result<T::BorrowedMut<'b>, StoreError<T>> {
+-        let new = self.state.insert(value)?;
++    pub fn insert(
++        mut self,
++        value: T,
++        preload: Option<&mut XArraySheaf<'_>>,
++    ) -> Result<T::BorrowedMut<'b>, StoreError<T>> {
++        let new = self.state.insert(value, preload)?;
+ 
+         // SAFETY: `new` came from `T::into_foreign`. The entry has exclusive
+         // ownership of `new` as it holds a mutable reference to `Guard`.
+@@ -109,7 +115,8 @@ pub fn insert(mut self, value: T) -> Result<T::BorrowedMut<'b>, StoreError<T>> {
+     /// Inserts a value and returns an occupied entry representing the newly inserted value.
+     ///
+     /// - This method will fail if the nodes on the path to the index
+-    ///   represented by this entry are not present in the XArray.
++    ///   represented by this entry are not present in the XArray and no memory
++    ///   is available via the `preload` argument.
+     /// - This method will not drop the XArray lock.
+     ///
+     /// # Examples
+@@ -123,7 +130,7 @@ pub fn insert(mut self, value: T) -> Result<T::BorrowedMut<'b>, StoreError<T>> {
+     ///
+     /// if let Entry::Vacant(entry) = guard.entry(42) {
+     ///     let value = KBox::new(0x1337u32, GFP_ATOMIC)?;
+-    ///     let occupied = entry.insert_entry(value)?;
++    ///     let occupied = entry.insert_entry(value, None)?;
+     ///     assert_eq!(occupied.index(), 42);
+     /// }
+     ///
+@@ -131,8 +138,12 @@ pub fn insert(mut self, value: T) -> Result<T::BorrowedMut<'b>, StoreError<T>> {
+     ///
+     /// # Ok::<(), kernel::error::Error>(())
+     /// ```
+-    pub fn insert_entry(mut self, value: T) -> Result<OccupiedEntry<'a, 'b, T>, StoreError<T>> {
+-        let new = self.state.insert(value)?;
++    pub fn insert_entry(
++        mut self,
++        value: T,
++        preload: Option<&mut XArraySheaf<'_>>,
++    ) -> Result<OccupiedEntry<'a, 'b, T>, StoreError<T>> {
++        let new = self.state.insert(value, preload)?;
+ 
+         Ok(OccupiedEntry::<'a, 'b, T> {
+             state: self.state,
 
-=2D-=20
-2.43.0
+-- 
+2.51.2
+
 
