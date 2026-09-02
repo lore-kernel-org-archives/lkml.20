@@ -1,297 +1,152 @@
-Received: from mail-4318.protonmail.ch (mail-4318.protonmail.ch [185.70.43.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A19404156C2
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:33:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 407BD3750BC
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:33:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352395; cv=none; b=n9x0o8viyyZxCSTyHc/eO0RPM5jQIiJkoqw04URioarubNt+P9kIcL6yQACxaq1CRA9g03S26y5lUfeBdR6j5ULIXs2zLZ7xIAUzxte2gw5mx/luL+icYnwIiPYXbCoTgu6SB/uxxq/9TpPbAnOg3l4e4gegaQ0mcmz4ePpO7O4=
+	t=1788352418; cv=none; b=TmA2FGsIGDThYkroILhS8V3t5nBcujVp+2V29SDTEyZLfnNnwrIMF1nVYO33S2Xqlrm19AotqM3m0cJvghHb5fYaXIsaQC0w7GW9bidQ8cDvByyTuztBm/seSzBd+HjMAEOx1w7oBaKz4qW7T/B01aeYRYyq+X2dl0XbyAwFfp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352395; c=relaxed/simple;
-	bh=Q+WERAoXcy+fnKWqVT2j7uYLBtUH8F++1rZQvy+rkP0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YF7lhoZGopq6l6jC7d+MiRVtAwN9SKHwY4I5ZfqxWam+sCH55z/VCXrGGzzjyc22B9fhsF0RV/zdLH4xvjvGvq398tcKqCRR2YDru0ee5xy2qQ+1tW+ggcAU8ORcGVZrIoWxVOL1Dw4B/hwCMEwVD7IP/eSj2NKHcTQPPbgS6yA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=empyreal.works; spf=pass smtp.mailfrom=empyreal.works; dkim=pass (2048-bit key) header.d=empyreal.works header.i=@empyreal.works header.b=Sqp15A5H; arc=none smtp.client-ip=185.70.43.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=empyreal.works
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=empyreal.works
+	s=arc-20240116; t=1788352418; c=relaxed/simple;
+	bh=q26wmfkHoN2RZBJDMbLrO8AiXKJ8/61WwheCXs9T6zU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=l7MjOwkHaxunoIYTsWttoQNkCL3KoP+e2ASB3lwj4OCH/ujS7w6XhsVJGXhuXNc2UJYiaWgfROsIiY/nieO2iiyVjfrY84P05BDYwsB5CzfEdRlVBvCX+CsVJ3xm8gcZGGOkNj9g78iLf4+KhMwncs994zySOdQ7T+NU/fJBsmA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hV842OQ0; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=empyreal.works header.i=@empyreal.works header.b="Sqp15A5H"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
-	s=protonmail2; t=1788352385; x=1788611585;
-	bh=czoiifOrjQOOSsp1SWakje73Vk1OJ3PnpNEpueAQcgE=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Sqp15A5HwsyvkJafJtKjiCWipKY5Lm0Dgx7tOPJADdvcYUNCJ4V3xeNy16bUXgoX1
-	 EyAMg7j/uDuL1w0l8f09IFyjGGFA1Nm0NONajtmMqLXAyzIXhjD4XVPhQJ5c2a7cH2
-	 u4EELTxTwc6v6S1o3d/DahMzOzKEoNxWknutf8MgX1MoTe0X3O4UnieZpEyooTsVA0
-	 x9Yi+w0U/iHmEP6tcJ+EhDvqEFNmhe0sE5dajLJO2e4WNIKAbpSihf5pv4AGprDNpH
-	 6BB/8/FlyYzgTUpXEtf5xmLFHDrb9Jgyy+InJu0hFUM+YvkE1UdvWESvKyxYOrQz8B
-	 Vbg8ZpewTbXCA==
-Date: Wed, 02 Sep 2026 12:33:01 +0000
-To: amd-gfx@lists.freedesktop.org
-From: Andrei Rusu de Castro <arc@empyreal.works>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com, mario.limonciello@amd.com, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, chen-yu.chen@amd.com, ray.wu@amd.com
-Subject: [PATCH 4/4] drm/amd/display: test power module brightness input domain
-Message-ID: <20260902-brightness-4-abf809f2@empyreal.works>
-In-Reply-To: <20260902-brightness-cover-abf809f2@empyreal.works>
-References: <20260902-brightness-cover-abf809f2@empyreal.works>
-Feedback-ID: 182420409:user:proton
-X-Pm-Message-ID: b22fbbc5f2b81e94182aea359eb77092d11efe8a
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hV842OQ0"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3990fe066ebso762880a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:33:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788352417; x=1788957217; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=khFd/jDnlTA/XKPvSSegUBessMbx5oK9ggDT+W0TX84=;
+        b=hV842OQ0ZtOqORF0PAq7AswtDIVseCgJuJlgKTfa+TosCHgzfHvPzTQcaJ9nQIe3uj
+         PJZq7fdBQv6ewASW7zOsJkhBnTHmZROoYciD9hTmBgVhb+D6TkHJDqzGCmF/G1MQhScd
+         KsT+gjsqOti3gkmTyM8ab6/vEitiIbRI1AP87OROU4UJqB41LBSv1la1l0gMqw4dxmJZ
+         3T+dEJ2FT6HxHjNlcokhRtjh15j5TIYrN0RF3rV+YRb+pAEsRyO0s2n9XOByGJOIF/x/
+         EqHjAclYwqhmbc0RiEhYWz3U64aEbgExjGx7J9NTok0L7lq/aYejSlgbk2VEmUIbOzQA
+         hcWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788352417; x=1788957217;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=khFd/jDnlTA/XKPvSSegUBessMbx5oK9ggDT+W0TX84=;
+        b=Xr+WCIRZDgyTUpLE18I3f0zUJC2CwF9cJK/GiO4sYhuD5S6lPN9tNxHv+L2IusnXQr
+         dy1gsJ0kQBTf0oHpmiNr/qI2t7HYTsDRp2RiX3TbYqQsINcUa2/xHUaiTs4vsTVGJ3jM
+         Ss+9XMEv/lllJ0y7bebhFSsXNB5372mXqEPGJHt0i+fbXCxOfPsnEXiIGs4hJ5qB3CqV
+         dJNAzwADYyaUOl/OEvLh5UdEgzqrAhBssLteZ/5ayOT/3YxMsI3t+dCgK9LbO5s6syYq
+         XKQgUN0+eA+SyMhba1fT3eSLk4x9YkzGj8XHrHhEgnNn1L8koqCTfr1pkYWPNR2OEQYs
+         hf4A==
+X-Forwarded-Encrypted: i=1; AKwUvBzAyvgR5P69qaXb/vR32+4ZtGP8z9RWU7U1Fq7hgDgkKh+OW0wscCUDMAEuPXfV1HiyP4pZglpwei5G+IM=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5+aU+QE1SKuZPuS98qdOKaxMmT7s/Y+xhXY60Xcl6O5I7I0+P
+	5VjUrCK+2NzkXnyPiVzeXV2EM/VHuB6uoumkUQk59iBYMaTWLuA0wdf8
+X-Gm-Gg: AYBFou0P+niZbobC5qmeRw2aw+aanqCRbgS3BZOAJZlyf3xI3EymG1yWR3FsUa9ANco
+	x78/Yu6Vm8/9fUC/6Plbj/VfPbBgt89eg/nTQ+ge5tGIlrJOopZQ3rWI2DLoYvPA5R3rQe7fhTY
+	4IZ87e48TgN6p/wxax6PdOIuzKCCVHd+a1H6zaDjLH3wPyTJDVDaEg59+a54ecyVzrohSStJhSm
+	NJjVHp89X9aG9Z2tbWOXLie8BNgunzcLa93FtL1lB9mQJIy97TEZDClFFLabLySurG5qf/iRGlB
+	IrBXNnecHC45YjVBtSzzuSs+npfHtCiYSSjhNe83JwX1u0u/Y/01GT2f88k1m+Lmjpwca+MjBdv
+	tsK8wjVx6BgKTeXBosvLpMR0cZo8eUtjCXlYs8wVjjIyk2H3r4SOpiRQNfu1+71LgGODJcm92aK
+	l3YoE+OXW1DMJ1Z7Nx4jawNfBl1r3gpfX7Zi1lqhm4ThnL6U3wRq9g1Vt+i8pV3A==
+X-Received: by 2002:a17:90b:390e:b0:398:9be9:ab8e with SMTP id 98e67ed59e1d1-39aee124474mr5272135a91.19.1788352416561;
+        Wed, 02 Sep 2026 05:33:36 -0700 (PDT)
+Received: from fedora ([223.184.183.166])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d4a1732sm11343190a91.7.2026.09.02.05.33.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 05:33:36 -0700 (PDT)
+From: Sajal Gupta <sajal2005gupta@gmail.com>
+To: rubenru09@aol.com
+Cc: maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	noralf@tronnes.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Sajal Gupta <sajal2005gupta@gmail.com>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH] drm/gud: fix out-of-bounds write in gud_plane_atomic_check()
+Date: Wed,  2 Sep 2026 18:00:57 +0530
+Message-ID: <20260902123254.36987-1-sajal2005gupta@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Exercise the exact value selected for the power module on PWM and AUX
-panels. Cover non-zero and zero PWM minimums, both endpoints, an
-interior value, clamping, invalid caps, and retention of the AUX custom
-curve and source-unit brightness mask.
+The plane property loop uses req->properties[num_properties + i] as write
+index while simultaneously incrementing `num_properties` inside the loop.
+At iteration i, num_properties has also incremented by i, so the write
+is done at `initial_num_properties + 2*i`, skipping every other index and
+advancing by 2 per iteration.
 
-The PWM case carries valid ATIF points to prove that the display manager
-passes the userspace percentage without applying that curve before the
-power module applies its own lookup table. Additional cases prove that
-the brightness mask follows the effective control type: true AUX remains
-unchanged, while ordinary PWM and AUX fallback-to-PWM are masked. The
-selected panel's linear-curve bypass is covered independently.
+With just 2 connector and 32 plane properties the last write happens at
+index 64, one slot past the end of the 64-slot (indices 0–63)
+allocation. A USB device can trigger OOB by advertising the maximum
+number of properties.
 
-The cases were verified under UML KUnit.
+Fix by dropping the redundant `+ i`; num_properties is already the correct
+running index, as gud_connector_fill_properties() fills the preceding
+slots.
 
-Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
+Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20260821071812.16500-1-sajal2005gupta%40gmail.com?part=1
+Signed-off-by: Sajal Gupta <sajal2005gupta@gmail.com>
 ---
- .../tests/amdgpu_dm_backlight_test.c          | 159 +++++++++++++++++-
- 1 file changed, 156 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backligh=
-t_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_=
-test.c
-index a6fa052a8272..e0d46635130b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
-c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
-c
-@@ -23,6 +23,7 @@
- #include "amdgpu_dm_kunit_test_helpers.h"
- #include "amd_shared.h"
- #include "link_service.h"
-+#include "modules/power/power_helpers.h"
- #include "dc/inc/hw/panel_cntl.h"
-=20
- struct dm_backlight_connector_fixture {
-@@ -1019,6 +1020,151 @@ static void dm_test_brightness_from_user_aux(struct=
- kunit *test)
- =09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, max), (u32)ma=
-x);
- }
-=20
-+/* Tests for convert_brightness_for_power_module() */
-+
-+/**
-+ * dm_test_power_module_brightness_invalid_caps - Test invalid PWM range
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_power_module_brightness_invalid_caps(struct kunit *tes=
-t)
-+{
-+=09struct amdgpu_dm_backlight_caps caps =3D {};
-+
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(NULL, 100), 1=
-00U);
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, 100), =
-0U);
-+}
-+
-+/**
-+ * dm_test_power_module_pwm_uses_user_domain - Test PWM input domain
-+ * @test: The KUnit test context
-+ *
-+ * The power module owns the ATIF luminance-to-PWM curve. The display mana=
-ger
-+ * must therefore pass the original userspace percentage rather than first
-+ * converting it to a firmware PWM level.
-+ */
-+static void dm_test_power_module_pwm_uses_user_domain(struct kunit *test)
-+{
-+=09struct amdgpu_dm_backlight_caps caps =3D {};
-+=09unsigned int min, max;
-+
-+=09caps.min_input_signal =3D AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
-+=09caps.max_input_signal =3D AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
-+=09caps.data_points =3D 3;
-+=09caps.luminance_data[0].input_signal =3D 50;
-+=09caps.luminance_data[0].luminance =3D 20;
-+=09caps.luminance_data[1].input_signal =3D 128;
-+=09caps.luminance_data[1].luminance =3D 50;
-+=09caps.luminance_data[2].input_signal =3D 230;
-+=09caps.luminance_data[2].luminance =3D 90;
-+=09get_brightness_range(&caps, &min, &max);
-+
-+=09KUNIT_EXPECT_EQ(test, min, 3084U);
-+=09KUNIT_EXPECT_EQ(test, max, 65535U);
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, 0), 0U=
-);
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, 25700)=
-, 39216U);
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, 32768)=
-, 50001U);
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, max), =
-100000U);
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, max + =
-1), 100000U);
-+}
-+
-+/**
-+ * dm_test_power_module_pwm_zero_min - Test zero-minimum range
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_power_module_pwm_zero_min(struct kunit *test)
-+{
-+=09struct amdgpu_dm_backlight_caps caps =3D {};
-+=09unsigned int min, max;
-+
-+=09caps.min_input_signal =3D 0;
-+=09caps.max_input_signal =3D AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
-+=09get_brightness_range(&caps, &min, &max);
-+
-+=09KUNIT_EXPECT_EQ(test, min, 0U);
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, 0), 0U=
-);
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, max), =
-100000U);
-+}
-+
-+/**
-+ * dm_test_power_module_mask_follows_effective_control - Test mask handoff
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_power_module_mask_follows_effective_control(struct kun=
-it *test)
-+{
-+=09struct set_backlight_level_params params =3D {};
-+=09struct core_power core_power =3D {};
-+
-+=09core_power.bl_prop[0].brightness_mask =3D 3;
-+=09fill_backlight_level_params(&core_power, &params, 0, 0, 3084,
-+=09=09=09=09    BACKLIGHT_CONTROL_PWM, 0, 0, false);
-+=09KUNIT_EXPECT_EQ(test, params.backlight_pwm_u16_16, 3087U);
-+
-+=09fill_backlight_level_params(&core_power, &params, 0, 0, 32896,
-+=09=09=09=09    BACKLIGHT_CONTROL_PWM, 0, 0, false);
-+=09KUNIT_EXPECT_EQ(test, params.backlight_pwm_u16_16, 32899U);
-+
-+=09fill_backlight_level_params(&core_power, &params, 0, 0, 65535,
-+=09=09=09=09    BACKLIGHT_CONTROL_PWM, 0, 0, false);
-+=09KUNIT_EXPECT_EQ(test, params.backlight_pwm_u16_16, 65535U);
-+
-+=09fill_backlight_level_params(&core_power, &params, 0, 0, 3084,
-+=09=09=09=09    BACKLIGHT_CONTROL_AMD_AUX, 0, 0, true);
-+=09KUNIT_EXPECT_EQ(test, params.control_type, BACKLIGHT_CONTROL_AMD_AUX);
-+=09KUNIT_EXPECT_EQ(test, params.backlight_pwm_u16_16, 3084U);
-+
-+=09fill_backlight_level_params(&core_power, &params, 0, 0, 3084,
-+=09=09=09=09    BACKLIGHT_CONTROL_AMD_AUX, 0, 0, false);
-+=09KUNIT_EXPECT_EQ(test, params.control_type, BACKLIGHT_CONTROL_PWM);
-+=09KUNIT_EXPECT_EQ(test, params.backlight_pwm_u16_16, 3087U);
-+}
-+
-+/**
-+ * dm_test_power_module_linear_curve_uses_panel_instance - Test linear byp=
-ass
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_power_module_linear_curve_uses_panel_instance(struct k=
-unit *test)
-+{
-+=09struct core_power core_power =3D {};
-+=09unsigned int backlight_lut[101] =3D {};
-+
-+=09core_power.bl_prop[0].backlight_lut =3D backlight_lut;
-+=09core_power.bl_prop[0].num_backlight_levels =3D ARRAY_SIZE(backlight_lut=
-);
-+=09core_power.bl_prop[1].min_backlight_pwm =3D 3084;
-+=09core_power.bl_prop[1].max_backlight_pwm =3D 65535;
-+=09core_power.bl_prop[1].backlight_range =3D 62451;
-+=09core_power.bl_prop[1].use_linear_backlight_curve =3D true;
-+=09backlight_lut[50] =3D 12345;
-+
-+=09KUNIT_EXPECT_EQ(test, backlight_millipercent_to_pwm(&core_power, 50000,=
- 1),
-+=09=09=0934309U);
-+}
-+
-+/**
-+ * dm_test_power_module_aux_keeps_curve_and_mask - Test AUX conversion pat=
-h
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_power_module_aux_keeps_curve_and_mask(struct kunit *te=
-st)
-+{
-+=09struct amdgpu_dm_backlight_caps caps =3D {};
-+=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
-CURVE);
-+=09caps.aux_support =3D true;
-+=09caps.aux_min_input_signal =3D 1;
-+=09caps.aux_max_input_signal =3D 512;
-+=09caps.brightness_mask =3D 3;
-+=09caps.data_points =3D 2;
-+=09caps.luminance_data[0].input_signal =3D 50;
-+=09caps.luminance_data[0].luminance =3D 20;
-+=09caps.luminance_data[1].input_signal =3D 200;
-+=09caps.luminance_data[1].luminance =3D 80;
-+
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, 200000=
-),
-+=09=09=0981159U);
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask);
-+}
-+
- /* Tests for convert_custom_brightness() */
-=20
- /**
-@@ -1590,7 +1736,7 @@ static void dm_test_curve_from_user_monotonic(struct =
-kunit *test)
- =09for (i =3D 0; i <=3D max; i +=3D 1023) {
- =09=09u32 level =3D convert_brightness_from_user(&caps, i);
-=20
--=09=09KUNIT_ASSERT_GE(test, level, previous);
-+=09=09KUNIT_EXPECT_GE(test, level, previous);
- =09=09previous =3D level;
- =09}
-=20
-@@ -1619,8 +1765,8 @@ static void dm_test_curve_from_user_within_range(stru=
-ct kunit *test)
- =09for (i =3D 0; i <=3D max; i +=3D 1023) {
- =09=09u32 level =3D convert_brightness_from_user(&caps, i);
-=20
--=09=09KUNIT_ASSERT_GE(test, level, (u32)min);
--=09=09KUNIT_ASSERT_LE(test, level, (u32)max);
-+=09=09KUNIT_EXPECT_GE(test, level, (u32)min);
-+=09=09KUNIT_EXPECT_LE(test, level, (u32)max);
- =09}
-=20
- =09KUNIT_EXPECT_LE(test, convert_brightness_from_user(&caps, max), (u32)ma=
-x);
-@@ -2198,6 +2344,13 @@ static struct kunit_case dm_backlight_test_cases[] =
-=3D {
- =09KUNIT_CASE(dm_test_brightness_from_user_zero),
- =09KUNIT_CASE(dm_test_brightness_from_user_max),
- =09KUNIT_CASE(dm_test_brightness_from_user_aux),
-+=09/* convert_brightness_for_power_module */
-+=09KUNIT_CASE(dm_test_power_module_brightness_invalid_caps),
-+=09KUNIT_CASE(dm_test_power_module_pwm_uses_user_domain),
-+=09KUNIT_CASE(dm_test_power_module_pwm_zero_min),
-+=09KUNIT_CASE(dm_test_power_module_mask_follows_effective_control),
-+=09KUNIT_CASE(dm_test_power_module_linear_curve_uses_panel_instance),
-+=09KUNIT_CASE(dm_test_power_module_aux_keeps_curve_and_mask),
- =09/* convert_custom_brightness */
- =09KUNIT_CASE(dm_test_custom_brightness_no_data_points),
- =09KUNIT_CASE(dm_test_custom_brightness_debug_mask_disables),
+Verified with KASAN using a raw-gadget fake GUD device reporting 2
+connector properties and 32 plane properties:
+
+  BUG: KASAN: slab-out-of-bounds in gud_plane_atomic_check+0x1352/0x1ba0
+  Write of size 2 at addr ffff88800d029a9a by task temm/270
+
+  Call Trace:
+   <TASK>
+   kasan_report+0xfa/0x120
+   gud_plane_atomic_check+0x1352/0x1ba0
+   drm_atomic_helper_check_planes+0x2f2/0x9b0
+   drm_atomic_helper_check+0x72/0x140
+   drm_atomic_check_only+0x127b/0x3420
+   drm_atomic_commit+0x124/0x2e0
+   drm_atomic_helper_set_config+0xd9/0x130
+   drm_mode_setcrtc+0xcfd/0x1b20
+   drm_ioctl_kernel+0x167/0x2d0
+   drm_ioctl+0x53f/0xbe0
+   __x64_sys_ioctl+0x137/0x1c0
+   do_syscall_64+0xde/0x4b0
+   </TASK>
+
+  The buggy address is located 0 bytes to the right of
+  allocated 666-byte region [ffff88800d029800, ffff88800d029a9a)
+
+
+ drivers/gpu/drm/gud/gud_pipe.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_pipe.c
+index 5ef887d8485a..54adc401bc1b 100644
+--- a/drivers/gpu/drm/gud/gud_pipe.c
++++ b/drivers/gpu/drm/gud/gud_pipe.c
+@@ -562,8 +562,8 @@ int gud_plane_atomic_check(struct drm_plane *plane,
+ 			goto out;
+ 		}
+
+-		req->properties[num_properties + i].prop = cpu_to_le16(prop);
+-		req->properties[num_properties + i].val = cpu_to_le64(val);
++		req->properties[num_properties].prop = cpu_to_le16(prop);
++		req->properties[num_properties].val = cpu_to_le64(val);
+ 		num_properties++;
+ 	}
+
+--
+2.55.0
 
