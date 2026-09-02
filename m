@@ -1,107 +1,104 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4723463B91
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:20:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AC7137BE70
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:20:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788373212; cv=none; b=iicGTGkSxbf05Yvq8z201cf+eyVz2uAnPl5O8gj8GXxJx2p351bGslX9dAuLLdySLpKWfHG+iouvT9evPA02xhUkIDOZ1VnDUuSxnmS7kZV0dEr4u8SZSFcYZ1tw/iNLo7p3ibsdzC+d2HdyIYsHlJHJAPphhD7T48NYrdEbW7s=
+	t=1788373224; cv=none; b=W7xCdHOWPmndc5BiSutrZBdK0G4G8g78CAbudm1pgU0Dg3cNjcLYU+0t/m3ZSG2vhafKo9wLx3sWRIMStcRqRuRBpaRojRJ1YEMIkvYcnx95c7dX1/7kf+nqktuY27dvkhVzpBGVd31dy0WUUfmTfHISSw/v/m2ZVZlfFK2cCKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788373212; c=relaxed/simple;
-	bh=8uqAF9sA0AD7caLiXfMLUBbYPvbD2TyTLielTqutO6g=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IyjzxorYdJa0Vfb/vftmyq7jmYwlAAbmTGB4DHYoks6qYcDr4PLrTSudXZJOrQE/oeIf+8kuI7+7YvpigHQ+vKsWpqUMd7hEX+QqZ3vuVIKkUXu8n8q1tvBWwjn1BfpytlnNePuD2z7WEDvKt6DhLKiawDB55GrJB1Oi2tjSmHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=yJphigbh; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788373224; c=relaxed/simple;
+	bh=PDljbmVAmHmBFdz2B3yDzPAMdq4slY8O0Urg+YWiVAE=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=b4a1t1xjf88g4zbNdUGaYrDGqizkKQZawbrCOBgIti86aopI0tOsWJm7SBtsyhkFHticYLXR/nehOTUhEc66AUCwZFWF/VsEIzerltNx57X4dcY2mtuY5a3o3imOfnvx5yZ/RKDvMzOWNDBek+pYXWbQ7kKJTGnv0XzA8zjMRpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Zs+U8dK3; arc=none smtp.client-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="yJphigbh"
-Received: from omf19.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay09.hostedemail.com (Postfix) with ESMTP id B36D080328;
-	Wed,  2 Sep 2026 18:20:08 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf19.hostedemail.com (Postfix) with ESMTPA id A3F7820026;
-	Wed,  2 Sep 2026 18:20:06 +0000 (UTC)
-Date: Wed, 2 Sep 2026 14:21:07 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Bart Van Assche <bvanassche@acm.org>, Linus Torvalds
- <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, Christoph
- Hellwig <hch@lst.de>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, Luc Van
- Oostenryck <luc.vanoostenryck@gmail.com>, Chris Li <sparse@chrisli.org>
-Subject: Re: [PATCH v2] tracing: Make is_signed_type() compatible with
- sparse
-Message-ID: <20260902142107.511e71f3@gandalf.local.home>
-In-Reply-To: <20260902190632.16e9c66d@pumpkin>
-References: <bde573c1a758505339239f08be28788a34dfcb73.1786121949.git.bvanassche@acm.org>
-	<20260831214437.15d6ad34@pumpkin>
-	<a771af57-40ee-433a-be84-9b7c3e6965c5@acm.org>
-	<20260901092043.7feaf5d7@pumpkin>
-	<dca931ff-5995-444c-9f89-6d6cca4e71f3@acm.org>
-	<20260901222909.05d6239f@pumpkin>
-	<1b86ccbf-4e41-4a26-9d22-8bd93bacb043@acm.org>
-	<CAHk-=wi_3xdtBrDgUxw5xtq8a=CdyRJnceo7YJg59wqqdXwiMQ@mail.gmail.com>
-	<20260901192523.0e989b10@robin>
-	<20260902092437.00dfaa25@pumpkin>
-	<20260902093644.5b0e8a64@gandalf.local.home>
-	<a5aea1c4-3e29-4bba-8cd2-d4ccbeda008c@acm.org>
-	<20260902123933.5c3c8fa3@gandalf.local.home>
-	<e75964e2-6b46-4594-8bfb-ce0c0ed620a7@acm.org>
-	<20260902190632.16e9c66d@pumpkin>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Zs+U8dK3"
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8553305b7c7so1128000b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 11:20:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788373222; x=1788978022; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RmaVMPSCKzZBNuIatghtEdi40/dchReDiEo53AEsCnw=;
+        b=Zs+U8dK3P8J4Ez2XqXatsSBi/b8kVdXyYp72PQeu8MZltceINWKULjIIj3Nda6Grq+
+         8xw48Z00AvSgkynZhlSYEFagN5UvsB2JG5UuPANLWDu8CsplACY4BQsWW04Kz4f5aV9f
+         wq2FGVcNBBIwH9JznL3UbNUdN7migHbZp/CNmtiJSKFGa9K1IeFrZHzxVALuyxrYuEqh
+         ioQcSdx5Y+78nQ5ex9SHfukhMJMZGNj2isxf1aV6Trn1doq+O+tPPGlgjiFiZ3VXQjEM
+         /nB8juNMNcFemyL99uU/xgdz1/0EjzWRo+EuSlLP6oR8uxv6iiSaSurZuzxRpGxT7jKH
+         e96w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788373222; x=1788978022;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=RmaVMPSCKzZBNuIatghtEdi40/dchReDiEo53AEsCnw=;
+        b=YAOgpqVK3WyOK0xDkt6Pitup8x0pWXwOkukI4vuomHcszD3m5A8Hs7RV6FOLErL48P
+         T76J3IcWOtoa8RiQtZdRmJZs/bchHdCArPyvrOEqhVb75noQmXvvfv+4Pe92IpYtfsXt
+         jxqs8LguXopLmBTWd8QQrn6r8LuWTLe7nFKDyEn5HS3GFGth0M7oEQc+zRpQXbyZmIaT
+         Y4rVaLTMEbvIbP3pwzgNNSmkkcKW/rRtiFQvh5BZbdpr0JmEtizLNsCQn266i1ySObtS
+         jGriiJQpWx022kV7ABqkBAWaPeOkgbhsP5qMxEHoqL54YvLS+uxhUJ4unQjmsgf5bQmf
+         IbxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzM9Hw9/6MvLy7ZsxAUx/g2j+OHHLNVNy27CL5R6xAMtOW0SOEZFyMe45dkzN3lroPhtvyyBzBBoL93B/I=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8PVngxiB4icqLOGbssisyp3bGL2wZjxxFlTDiHfdS72wimqjp
+	dMNdygL5W2PIWQWucI47kNaem330zIY97mTrV63CAJq4XwWgdXDl/rHqXZQGurynomylJW0o8Vr
+	UXWnsXw==
+X-Received: from pfwp50.prod.google.com ([2002:a05:6a00:26f2:b0:848:2e0e:62e])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:600a:b0:857:7317:cff5
+ with SMTP id d2e1a72fcca58-85ed4a290b3mr11036107b3a.22.1788373222222; Wed, 02
+ Sep 2026 11:20:22 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Wed,  2 Sep 2026 11:20:16 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: A3F7820026
-X-Stat-Signature: rnhhpiejy1tp9p3xewxfesbunotawxym
-X-Rspamd-Server: rspamout03
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+u5kvzOuWOYsyYIAw+T1XJqeL5iEnzXsQ=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=GE3DJr1Qcz8gSEgTlewFeEKHIxVZ0c7Vh+i2iwvX1gA=; b=yJphigbhcegGmDa9zovRRDEm1nBa5NWAGzZFwV2c9Yxu+/MpdClCOPDht3U6sW2QBZgY232QJl9BiIrvcpOR0k0nwFCEiVcWIIbnX7BJr1wGUCAVtL8dYG0/vUlUqdRQiR9zKSTjMz4xevKA5Zr8C0BMCtEcBJ16WZHLg2dT3Os=
-X-HE-Tag: 1788373206-442325
-X-HE-Meta: U2FsdGVkX1/CLRaGQZfYd0UWdRau1f4OF+ZmlaRBP9yVjF1+wJAMM0yJzRXOk1WjZKJRF2vFZvVBjER6eMItRvehY+EivcK/4P+Rgzp51fbL+Wqr/L07PLCdkOO3fOoSGtQPD2/miiTV68vqYlv+qOsQZ0h1R7OLD9fuPWXekGswVQz3KpFMF6BVvFsk1yzMZqeeHLanDy39deaer2cEtJ2Fw8prV0qzqrSXQDsOGI4kuttlqE71t87AizU4AnF6G3gF7eSYk03mVsR8tEBjxmuBlfwXZ1uO6lW1z1fKLhAWJzFcNSw/+SYxzBJQy7LOgEBP6kXXXsyYxL1kPkp02wmvVM1/piO0j2A+nBVrRaOXxDlyoY5aEA==
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.970.g62bdec98f9-goog
+Message-ID: <20260902182020.2615443-1-seanjc@google.com>
+Subject: [PATCH v2 0/4] KVM: guest_memfd: Fix binding bugs
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stefan Teodorescu <fane@google.com>, Dennis Tighe <dtighe@google.com>, 
+	Sashiko Bot <sashiko-bot@kernel.org>, Yan Zhao <yan.y.zhao@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 2 Sep 2026 19:06:32 +0100
-David Laight <david.laight.linux@gmail.com> wrote:
+Fix guest_memfd bugs related to binding to a memslot:
 
-> On Wed, 2 Sep 2026 09:44:49 -0700
-> Bart Van Assche <bvanassche@acm.org> wrote:
-> 
-> > On 9/2/26 9:39 AM, Steven Rostedt wrote:  
-> > > On Wed, 2 Sep 2026 09:31:41 -0700
-> > > Bart Van Assche <bvanassche@acm.org> wrote:
-> > >     
-> > >> $  git grep -nHE '__field.*(blk_opf_t|enum req_op)' include/trace
-> > >> include/trace/events/f2fs.h:1185:		__field(enum req_op, op)
-> > >> include/trace/events/f2fs.h:1186:		__field(blk_opf_t, op_flags)
-> > >> include/trace/events/f2fs.h:1241:		__field(enum req_op,	op)
-> > >> include/trace/events/f2fs.h:1242:		__field(blk_opf_t,	op_flags)
-> > >> include/trace/events/jbd2.h:364:		__field(    blk_opf_t,  write_flags		)
-> > >> include/trace/events/nilfs2.h:207:		    __field_struct(enum req_op, mode)    
-> > > 
-> > > Perhaps these should be converted to normal types and assigned with
-> > > __force. There's no reason to have the value in the ring buffer be of a
-> > > __bitwise type.    
-> 
-> There are already a shed load (or two) of __force casts in the defines
-> (further up the same file) that handle some of those fields.
-> They probably go away if the __field() used u32 and any casts added to
-> the TP_fast_assign() expansion instead.
-> 
-> > Yikes. Typecasts in general and __force casts in particular should be 
-> > avoided whenever possible, isn't it?  
-> 
-> Anything __bitwise is pretty much going to need an __force cast before the
-> value can be actually used.
-> But the syntax should have been __force(type, value) so that the compiler
-> doesn't see a cast.
+ - Handle errors when inserting into guest_memfd's binding xarray, e.g. to
+   do the right thing on ENOMEM.
 
-Linus has made it clear that this "fix" will not make any changes to the
-kernel. Sparse simply needs to be updated to figure out that the existing
-code is OK.
+ - Bind a memslot only once the memslot is fully prepared (because it becomes
+   reachable/visible once its inserted into gmem's bindings arraxy).
 
--- Steve
+Patch 4 is a related cleanup to remove a superflous WRITE_ONCE() (unwinding
+the slot update on insertion failure isn't an option if the slot is observable,
+i.e. if the WRITE_ONCE() is actually necessary).
+
+v2:
+ - Fix the binding-too-early bug. [Sashiko]
+ - Explicitly zero the bindings entry on failure to ensure there are no
+   partial entries. [Sashiko]
+
+v1: https://lore.kernel.org/all/20260826165154.766699-2-seanjc@google.com
+
+Sean Christopherson (4):
+  KVM: guest_memfd: Gracefully handle xarray errors when binding a
+    memslot
+  KVM: Use goto to handle errors during memslot preparation
+  KVM: guest_memfd: Establish memslot<=>guest_memfd bindings *after*
+    memslot is ready
+  KVM: guest_memfd: Drop superfluous WRITE_ONCE() when binding a memslot
+
+ virt/kvm/guest_memfd.c | 16 +++++++++--
+ virt/kvm/kvm_main.c    | 63 +++++++++++++++++++++++++-----------------
+ 2 files changed, 50 insertions(+), 29 deletions(-)
+
+
+base-commit: 76671054f9a1ff6abb976583cd8da37650acdc97
+-- 
+2.55.0.970.g62bdec98f9-goog
+
