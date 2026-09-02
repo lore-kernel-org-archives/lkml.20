@@ -1,189 +1,104 @@
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAED8418348
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 22:32:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788388332; cv=pass; b=cEtTyjBQ/zcB0My2uSfc1KgY63HYL7DynNxTh2zOY8bIIGU2cNH2QraTqPmdSMu4EZW7pdFLRsf/GAa/QK31cTnbstaIS7SDY91BrRAdCa2hYlrOcMMiDlQh+1ly4NZ9BI5qBizCREDUqCwFSafz/GAWlj2jL11p2U+PfPmbvrM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788388332; c=relaxed/simple;
-	bh=jpxAoOq2/WdvZ+jP8HvvkFrbkrstugSY6ujuNWoxIHM=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=pEjoFrYStYtXxVPE5SroKDrD2B1GcotIkTY1WoepgWJanhg5WWeTJoxTKWyafodfUWU3L7npAShgJ9pZvTkxs+78jB9avtYdVMXy494r4AeKFMbmeSXCkhA/DQX2+tYgg7Zsk2Ecjvhr2BiixpcSGZbhnB1c9bIyVlxflpjK70Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=orlhDpaw; arc=pass smtp.client-ip=74.125.224.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2C94AFE15;
+	Wed,  2 Sep 2026 22:32:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788388357; cv=none; b=SBaL4EbHVCDZagRgPWIh4QH3g+9PtpTNCHTMA8IGG7NgX+7jMYHFClmm8kZdzDpPGS8JBNjHMhxIZcWvvJZn5gd90cVMzqcjGfmiEHiAj5ySaRGdhDaWNzPlcm5qv0tw6pqTmzcNaalTA/vgiIPeH19Y4sKkpOYwFddd6EiSKes=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788388357; c=relaxed/simple;
+	bh=VQagNx1XMK4MWLhqyV1DQ6Rj9do5580oR+OZM0qvDiM=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 MIME-Version:Content-Type; b=SrGBclmzl/CQ5n0OqwbVM03gcAYW2DiyGbmCQHNs8Qs+UcpDZrc6+sQI9KhIGKwRgSqqtdJHSPrw6mAwAV1Mb5Z/fucBNqx/ixnDz6IxAjT36LSRSUq1B6F3OSF+2Y4qyota7iEt1wZXxqbQsOYUvyzFkaXvycpZqJWLGP+lCO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=E3mVt0H9; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="orlhDpaw"
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-66fa996e65bso412220d50.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 15:32:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788388324; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QTfWvWPz+RB0/3kiJIWZPdcGHvvnwerCqdlbclNVZZeRhf5y8j4KMpWEmywEtKe0Jw
-         zMD+5cIffzIYsv3cEGf3oaqsiFMME0MfPqg0nsYa/IsGD5y5ZoOf5xbh3nFZ6j34HjSd
-         gjfS4WlFTHIkXbTG69/S+FT2MCLUH93PBgI4FbUvfaAQ0OuYPa/bbu6VsTatsDmlKOZ0
-         B5L3SDgwV6KDlxHVoArQckswyVZbIU9QSgviFeuNT7u7TmxoI1oMZTfM7rgkOh9pt41u
-         EqRp0zzs6GXdKnW3mA6IbP+fYKNFrDpODvfA9LrceqqL0saiaAzWImeiM3HujUi4LcPs
-         WB0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=+AGt0gHLT0g+cl7JRWIp/qBg8bwWi3hEDvesCPNnUHA=;
-        fh=NZDX1OTN6aTzT6BxqWjrJGMVVMA5TAi/RwzWl9vn38s=;
-        b=ih10onMoezwDsAjGroxfEVRLbpv84OuSUd95Sx3BSFAM1zqyYT6s8u7qfj/PF9MhSd
-         UTQSUVZlWNRO1k6COxgUb3fveprDeu829zvZEHE377LfIk0RnfjF3iw2Q/FnBgTj+wu0
-         XeJOZmmv8a1nEiz4QGpmxFaJiUK1d1QAEt9HZUgNFsZDM2LMI0glZMEHzICq+ZtwGYPL
-         hsfjlbSFIUeYQ179xrtDIbOix1FUET+xCqw9Mi06YADdQCC7Ed0iNSeNatgNBtqF6ejR
-         fhJQ1vJo1kuhipvEFB7kpVkcKQ61ZZ0lIk2OL2v998tMW/gzXTc30X2/VYJght38Ecmz
-         yJ8Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788388324; x=1788993124; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+AGt0gHLT0g+cl7JRWIp/qBg8bwWi3hEDvesCPNnUHA=;
-        b=orlhDpawa5a34cqwT0bazrxboVJ6VYchM9PoIdgzRKuIeKemNVd6Q0w9Sup6HCEwwB
-         4ikwsMCEp6u/lEOVHNOFRxEleRwMuti+NLiOSIwDnXMannQAsJ7HkUATApL+sXFgCMtg
-         NJ9tKTb4EXBXqTLrbUJItZD2nnuXAwP0bo9lSjc5tLcGVyKK6ceMNaUb7/EbV7SumgiX
-         baNnfv5IlkfcyBMEPKn1O0qfxKfhDl9xIg7345ATb9WzVssVuKwstMlULwvt01zJLAhN
-         0j5JET+fiyT9CEmbHBzS83EZkd5jXdMTYVfpBv+uAdx95ucxvMrWcrgsN8nBxrpZ11oq
-         Ke5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788388324; x=1788993124;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=+AGt0gHLT0g+cl7JRWIp/qBg8bwWi3hEDvesCPNnUHA=;
-        b=NDrFXoZJH9UzO39PzqYVRcy2T1LWrLm7ZQC1/2Z0nQs4TvvuF1/1bk1StqjTWrGIWs
-         0XBxSle0C3RMUc58KxzYqReRweXHjTXlQqxF0+g7AmpoOuRpSbN7ih9Olj6YwrqSpmfw
-         o8HZJ9FXklTkYKBz5szEsON7KR1iMxQ9kA8Pb+pkLheHsBhrxXYRtqkktk3dcTZtwVye
-         a7m6l1qs96HzN01eTOVx9qHrSn/mri+PBJtzFr5A/FXWpDP5J/hwf8s+9u6cE/kImdP+
-         gLl8GRRmP4H2BJHeK9sv2fdeYMROU8oCb2d/kODIEoQQap8TrY+EDdk3/HT2ooIUyGyF
-         9ylQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy6UJbewQrm+dzAps2cPm8UFb5x3IGzr0qqoQ0L3eU1RHBKQWJP1ylkn5MlvuY6Zhkg1YopE8WYCdDNu8I=@vger.kernel.org
-X-Gm-Message-State: AFuF++me+GdWI3RVRd/cRSuEfF/IyZqeXtSr6sKE74aBlfejc5C5lQBZ
-	K7UmZ0bS1AexXueFd2l50B6YRkUrg5K5ldYMJpCXu1BIr8TrbKZPSMpl8RcGvwmEHq/w2R83geX
-	rvEfOQc+NcleDXq+n6OybW82tpLYakFn7j0Ei
-X-Gm-Gg: AYBFou0cWxP9In5UqYteUDCoj+8WbHD47+tRFW+AJtsvDxHV/ELHJFoT8t/5+0f9isN
-	EzFu7F/E6Z1EFy8WP8oMurrPZDFmAxRbJ4r6NrSzVlJmk84gT/rezIi9wxcm3vtlo07j6/tp8b+
-	3YIoLTTtl1CUeE2Ayv59pSicrwq8jMY5tE2c5rENrOSgihMeUb8moge9SCGg290qZbuBA77L7MQ
-	mRnBVx9qpye+Kn+8POf5s0fW+hK6+C2aDbvqhZyN7slXyC62ajBX/Xs8/IXB9Fi0gW415InqJrX
-	elTyunKz0/zw5F/X8+6m58EovKmftcCrd8RUa6Xz0YaZYY5lQ06RCtP4X3s6O5DCuijLbLc=
-X-Received: by 2002:a05:690e:12c4:b0:66d:1913:d40 with SMTP id
- 956f58d0204a3-66f9bb5e1afmr2528594d50.19.1788388323569; Wed, 02 Sep 2026
- 15:32:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="E3mVt0H9"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Date:References:In-Reply-To:Subject:Cc:To:From:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description;
+	bh=IUV13IXwrQN6nECVLH6FjSQYZXk3YksSteM+9KPRI+Y=; b=E3mVt0H9L59upxgjviLBXo8BXf
+	6+KXGgrtYYIhFZWZPXTccel4DQ1w3tb44DXQWBUtvyKeRsOM+xHM4JSxjyS3QJDSW98AhUjZG7GE3
+	Jx6Reo/H1g0EsQAoOy6MNunjQiImr8GdAy4uEE+IGLWaDeK33k9PeRsK1026wb7O1HZ7lddv1PDsE
+	oMN4zvr9rxcZzJzVBETRj3bqiPgzmMY+APE3XcekBT1id0HvXAsDICghunxprEnbkh5Ne8pnCpWi+
+	0w5PA9eCc36OwxEJtcBzUEkTiEUxcGB3EV6GZwSotNDbS8m5/3UwXXFQTc7WOfj/r+D1/o5ynNwOw
+	xOtujkBQ==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1x1tVJ-00000000YRb-0bBN;
+	Wed, 02 Sep 2026 19:32:25 -0300
+Message-ID: <498fd2508ad66ac9d8fd19cbd4b4a02b@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: sorenson@redhat.com, Diego Oliva <diego@bynar.io>, Namjae Jeon
+ <linkinjeon@kernel.org>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N
+ <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, Bharath SM
+ <bharathsm@microsoft.com>, linux-cifs@vger.kernel.org,
+ samba-technical@lists.samba.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/2] smb: client: fix out-of-bounds reads in
+ CIFSSMBRead()
+In-Reply-To: <e5dec57a-0186-4087-9de4-5037f0a09879@redhat.com>
+References: <20260902104207.1820332-1-diego@bynar.io>
+ <e5dec57a-0186-4087-9de4-5037f0a09879@redhat.com>
+Date: Wed, 02 Sep 2026 19:32:24 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Orson Peters <orsonpeters@gmail.com>
-Date: Thu, 3 Sep 2026 00:31:51 +0200
-X-Gm-Features: AcwNN1V60FGAsFXTdLKDMw3TertitPAE8Ih8JeKNL1i5S9CD6ZtphO7QhQuic6g
-Message-ID: <CAJxLxMUGu1-L+O_nAONOwOXnS=cNbNApCWqdthRjd76LThtSPg@mail.gmail.com>
-Subject: [BUG] mm: writes after MADV_FREE get lost in THP pages under cgroup limits
-To: akpm@linux-foundation.org
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Dear reader(s),
+Frank Sorenson <sorenson@redhat.com> writes:
 
-Below is a small user-space C reproducer that, when run with
-transparent huge pages and under cgroup limits, causes writes after
-MADV_FREE to be completely lost. I have reproduced this on
-7.3.0-070300rc1-generic on an AWS c7a.8xlarge machine.
+> On 9/2/26 5:42 AM, Diego Oliva wrote:
+>> CIFSSMBRead() parses the server's READ_RSP without validating either
+>> the length of the response or the DataOffset it carries. A malicious
+>> or compromised SMB1 server can exploit either to read past the end of
+>> the receive buffer, leaking adjacent kernel heap into the caller's
+>> read buffer or oopsing on unmapped memory. SMB1 is not negotiated by
+>> default; reaching this code requires an explicit vers=3D1.0 mount.
+>>
+>> Patch 1 rejects responses too short to contain a whole READ_RSP, so
+>> the header fields can be dereferenced safely. Patch 2 ejects a
+>> DataOffset/DataLength pair that falls outside the received response.
+>
+> Your patch 2 checks that data_offset + data_length fit:
+>
+> +		} else if ((size_t)data_offset + data_length > rsp_iov.iov_len) {
+>
+> but I think you may also need a lower-bound check to make sure
+> data_offset is at least sizeof(READ_RSP):
+>
+> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0} else if (data_o=
+ffset < sizeof(READ_RSP)) {
+>
+> otherwise, the data would overlap the response header itself.
 
+Frank is right.
 
-Best,
+Diego, do you want me to fold this in:
 
-Orson Peters
-
-
-
-// Reproducer showing writes to madvise(MADV_FREE) pages getting lost. Requires
-// THP to be on and cgroup limits.
-//
-//   $ cat /sys/kernel/mm/transparent_hugepage/enabled
-//   always [madvise] never
-//   $ gcc -O2 -o madv_free_repro madv_free_repro.c
-//   $ systemd-run --user --scope -p MemoryMax=2G -p MemorySwapMax=0
--p OOMPolicy=continue -- ./madv_free_repro
-
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/mman.h>
-#include <sys/wait.h>
-
-#define SIZE     (768UL << 20)
-#define PRESSURE (1536UL << 20)
-#define PAGE     4096UL
-
-// Touch PRESSURE bytes in a child so the cgroup has to reclaim the
-parent's buffer.
-// The child volunteers as the OOM victim, so it dies instead of us.
-static void squeeze(void) {
-    pid_t pid = fork();
-    if (pid == 0) {
-        int fd = open("/proc/self/oom_score_adj", O_WRONLY);
-        if (fd >= 0 && write(fd, "1000", 4)) close(fd);
-        for (size_t done = 0; done < PRESSURE; done += 64UL << 20) {
-            void *p = mmap(NULL, 64UL << 20, PROT_READ | PROT_WRITE,
-MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-            if (p == MAP_FAILED) _exit(1);
-            memset(p, 1, 64UL << 20);
-        }
-        _exit(0);
-    }
-    waitpid(pid, NULL, 0);
-    sleep(1);
-}
-
-int main(void) {
-    int bad_rounds = 0;
-
-    for (int round = 0; round < 10; round++) {
-        char *buf = mmap(NULL, SIZE, PROT_READ | PROT_WRITE,
-MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-        if (buf == MAP_FAILED) return perror("mmap"), 1;
-        madvise(buf, SIZE, MADV_HUGEPAGE);
-
-        // Set buffer to 0x5a, again after hinting MADV_FREE.
-        memset(buf, 0x5A, SIZE);
-        madvise(buf, SIZE, MADV_FREE);
-        memset(buf, 0x5A, SIZE);
-
-        // Trigger the bug - on a multi-NUMA region machine simply
-reading the buffer in a hot loop
-        // for 2 seconds also worked, likely due to migration.
-        mprotect(buf, SIZE, PROT_READ);
-        mprotect(buf, SIZE, PROT_READ | PROT_WRITE);
-
-        // Trigger cgroup oom killer.
-        squeeze();
-
-        size_t lost = 0;
-        long first = -1;
-        for (size_t off = 0; off < SIZE; off += PAGE)
-            if (buf[off] != 0x5A) {
-                if (first < 0) first = off / PAGE;
-                lost++;
-            }
-
-        printf("round %d: %6zu of %zu pages are no longer 0x5A",
-round, lost, SIZE / PAGE);
-        if (lost) printf("  (from page %ld, they read 0x%02x)", first,
-buf[first * PAGE]);
-        printf("\n");
-        fflush(stdout);
-
-        bad_rounds += lost > 0;
-        munmap(buf, SIZE);
-    }
-
-    printf("\n%d of 10 rounds lost data that had been written\n", bad_rounds);
-    return bad_rounds != 0;
-}
+diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
+index f3cba16f6e17..f9aff0712794 100644
+--- a/fs/smb/client/cifssmb.c
++++ b/fs/smb/client/cifssmb.c
+@@ -1742,7 +1742,8 @@ CIFSSMBRead(const unsigned int xid, struct cifs_io_pa=
+rms *io_parms,
+                        rc =3D smb_EIO2(smb_eio_trace_read_overlarge,
+                                      data_length, count);
+                        *nbytes =3D 0;
+-               } else if ((size_t)data_offset + data_length > rsp_iov.iov_=
+len) {
++               } else if (data_offset < sizeof(*pSMBr) ||
++                          (size_t)data_offset + data_length > rsp_iov.iov_=
+len) {
+                        /* check that the data lies within the received res=
+ponse */
+                        cifs_dbg(FYI, "%s: bad data offset %u length %u for=
+ response of %zu\n",
+                                 __func__, data_offset, data_length, rsp_io=
+v.iov_len);
