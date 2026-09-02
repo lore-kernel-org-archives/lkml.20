@@ -1,100 +1,191 @@
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+Received: from mail-4318.protonmail.ch (mail-4318.protonmail.ch [185.70.43.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F2143F8DF
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 22:40:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC1E415F2E
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 22:41:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788388855; cv=none; b=VdU2iVM3VD6QupCprIy43Y59NY9X4YitQN9X8BBQ4XkOC+AAvZNxEHxX2EHPognyql546nudelkvYpLOOi4JlmMNIwtYQ3+h/2UnMNiwZxYLSqkTAwgzl16y8wXo0+Jy8PhwhK3Csr2mmU3mESp9hWUDBxHSLN61HMaYDY6lgGI=
+	t=1788388899; cv=none; b=UhmBVM3W+elNXfacOdiMkBBXOw/DGws8ALnjdT6fBDkwzxuZ2l4l2Nw00NfIiv9XKwZyhvOxjTwnngJlPVCk+09lie7A62s6KKBAEN8NwOTqc2lsNwCbrFJegvoMY+bPJv/eNR2Y/vw2t8hUGQiI68LifH+Ty1Yv+aQZp5zL3bg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788388855; c=relaxed/simple;
-	bh=6/ApdvEo054oJD9zxvKZxfV67502RTI/kpp+dFUfCyM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RcwJauaCdojf0VzELSykAM3VN0nd7XaJPApYC1NPehl5t1xmHHtEQT4Do0OKmmR3KQ1TTZW3j4AZFpcx//wff54YPSA28k2Hcivl1Brxna6i/3jzmK3UkCKo5Ra46KDjZ86BcT/mf4TO/raUAyArD+iqCLpjWeelaHOm3nnG0j0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=KbSdRQQp; arc=none smtp.client-ip=199.89.1.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1788388899; c=relaxed/simple;
+	bh=ZBjS7woQMYfEmBSdI7dLzg2h3qKaxjdogln4g+cMSkI=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=pPq5o+afdT9KiyfFTT3SjovGgOAj3h5qcfTSTy7rGNPzz1lvxdhAVTKFerStkksdvmetUO+Voho9e9MT5WL1Pe2g5sHG2H8dMdFAf/SsMY/blphuU8k6QHKV8v8UVfFhsrRJSWBxuYURvH3LR97D8N7kma4Nv3SMjhWkOJotNns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tompkel.net; spf=pass smtp.mailfrom=tompkel.net; dkim=pass (2048-bit key) header.d=tompkel.net header.i=@tompkel.net header.b=fz1eXo8I; arc=none smtp.client-ip=185.70.43.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tompkel.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tompkel.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="KbSdRQQp"
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4hZyNv6NkLzlfvqJ;
-	Wed,  2 Sep 2026 22:40:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1788388828; x=1790980829; bh=6/ApdvEo054oJD9zxvKZxfV6
-	7502RTI/kpp+dFUfCyM=; b=KbSdRQQpwUpt9M978gjHJ1Px1c23kF/N7/110ClU
-	W+Ptx2YC0mx8qIn3ZTDtnz/Oszdkm6zABO9IXdrCepv0axZ3dhg5QLrQ/EEEEkmH
-	VT42pIv+1VtvLh3e2wa73vWVtM+11+xmGIDJppKH7owVbLeuXhNFV/3qX7SOYRY3
-	P7wXXpglrGumlUirSnyub7fxjvGwoKttJ6+NCDy5z12Li/m0W5n+u+u0wFg0NfwK
-	7mwKGYFg4Cp1WIcBUx1KWBsvMhE+PSp8W9xIQ9rbUiFYN7p0UM900cYSUZCheyn3
-	mJa+xZ++UQdUW006uobCJW3VWKogP1eKweO2cN4z1DntXQ==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id L53rch36e4NT; Wed,  2 Sep 2026 22:40:28 +0000 (UTC)
-Received: from [192.168.50.14] (c-73-231-117-72.hsd1.ca.comcast.net [73.231.117.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4hZyNn3CMLzlfvpK;
-	Wed,  2 Sep 2026 22:40:25 +0000 (UTC)
-Message-ID: <cac520d3-6d3e-4695-9d10-ebd14dc4e398@acm.org>
-Date: Wed, 2 Sep 2026 15:40:24 -0700
+	dkim=pass (2048-bit key) header.d=tompkel.net header.i=@tompkel.net header.b="fz1eXo8I"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tompkel.net;
+	s=protonmail3; t=1788388881; x=1788648081;
+	bh=/2QlD36tAAWBD9PwThNBcfNafTFi76VnTnfzwdBDHAU=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=fz1eXo8IXLzaO+01KQXXD+j77vnEu+gD0ivQMbBSIzw99fjONun4F1IPPvOtUPhKi
+	 bUP+9HlVR512uTuG+f0HCHV2rkqt2QEtLX5DIBVvvRf3m/qQyNS0uIK7VC9CsrWszF
+	 yZ5OnfRVnMsmQunY5iXy2t0yMxUz2L9uE+TvqmLqNlHL1PLvkbv6znt1rik6KznLpC
+	 IZf9BtWZoCzLKYnoFUccmB0zFLaQNZNXa2W8M+FOC3VBd40256RtZRHwVCi2qptLOA
+	 Kb+ADoRu2bpWtu5fSEOI59t8Ks6Ym7pRF/IrlYn47BGmzE4h7C/02R4JzaUPkyaqff
+	 zBdv9Slq58rDQ==
+Date: Wed, 02 Sep 2026 22:41:16 +0000
+To: Dave Penkler <dpenkler@gmail.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+From: Tom Keller <tom@tompkel.net>
+Cc: linux-kernel@vger.kernel.org, Tom Keller <tom@tompkel.net>
+Subject: [PATCH v2] gpib: agilent_82357a: Support some 82357B clones
+Message-ID: <20260902224109.2130225-1-tom@tompkel.net>
+Feedback-ID: 45376537:user:proton
+X-Pm-Message-ID: 06417f4c68dfc86161054b518716ee7ec07a0775
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] tracing: Make is_signed_type() compatible with sparse
-To: David Laight <david.laight.linux@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
- linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
- Chris Li <sparse@chrisli.org>
-References: <bde573c1a758505339239f08be28788a34dfcb73.1786121949.git.bvanassche@acm.org>
- <20260831214437.15d6ad34@pumpkin>
- <a771af57-40ee-433a-be84-9b7c3e6965c5@acm.org>
- <20260901092043.7feaf5d7@pumpkin>
- <dca931ff-5995-444c-9f89-6d6cca4e71f3@acm.org>
- <20260901222909.05d6239f@pumpkin>
- <1b86ccbf-4e41-4a26-9d22-8bd93bacb043@acm.org>
- <CAHk-=wi_3xdtBrDgUxw5xtq8a=CdyRJnceo7YJg59wqqdXwiMQ@mail.gmail.com>
- <20260901192523.0e989b10@robin> <20260902092437.00dfaa25@pumpkin>
- <20260902093644.5b0e8a64@gandalf.local.home>
- <a5aea1c4-3e29-4bba-8cd2-d4ccbeda008c@acm.org>
- <20260902123933.5c3c8fa3@gandalf.local.home>
- <e75964e2-6b46-4594-8bfb-ce0c0ed620a7@acm.org>
- <20260902190632.16e9c66d@pumpkin>
- <20260902142107.511e71f3@gandalf.local.home>
- <20260902215019.5d0c930a@pumpkin>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20260902215019.5d0c930a@pumpkin>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 9/2/26 1:50 PM, David Laight wrote:
-> It seems to be an attempt to generate strongly typed integers, but it doesn't
-> stop you mixing up the values between the fields - there is only one kind
-> of __bitwise.
+Some adapters marked as Agilent/Keysight 82357B are clones that
+contain their own firmware. They do not support XFER_STATUS and need
+slightly different initialization. Detect clone adapters that fail a
+firmware load and work around their quirks.
 
-That's wrong. Every __bitwise type is treated as a different type by
-sparse. Otherwise e.g. __le32 and __be32 would be treated as the same
-type by sparse.
+Signed-off-by: Tom Keller <tom@tompkel.net>
+---
+Changes since v1:
+- Keep the exiting init sequence, add a small increase to FAST_TALKER_T1
+  on clones.
+- Clear AWF_NO_FAST_TALKER_FIRST_BYTE on command writes for all
+  adapters.
+ drivers/gpib/agilent_82357a/agilent_82357a.c | 43 +++++++++++++++++++-
+ drivers/gpib/agilent_82357a/agilent_82357a.h |  2 +
+ 2 files changed, 43 insertions(+), 2 deletions(-)
 
-$ git grep 'typedef.*__bitwise.*__[lb]e.*;' include
-include/uapi/linux/types.h:typedef __u16 __bitwise __le16;
-include/uapi/linux/types.h:typedef __u16 __bitwise __be16;
-include/uapi/linux/types.h:typedef __u32 __bitwise __le32;
-include/uapi/linux/types.h:typedef __u32 __bitwise __be32;
-include/uapi/linux/types.h:typedef __u64 __bitwise __le64;
-include/uapi/linux/types.h:typedef __u64 __bitwise __be64;
+diff --git a/drivers/gpib/agilent_82357a/agilent_82357a.c b/drivers/gpib/ag=
+ilent_82357a/agilent_82357a.c
+index 2468a471d..a165f40ac 100644
+--- a/drivers/gpib/agilent_82357a/agilent_82357a.c
++++ b/drivers/gpib/agilent_82357a/agilent_82357a.c
+@@ -567,7 +567,7 @@ static ssize_t agilent_82357a_generic_write(struct gpib=
+_board *board,
+ =09out_data[i++] =3D 0; // secondary address when AWF_NO_ADDRESS is not se=
+t
+ =09out_data[i] =3D AWF_NO_ADDRESS | AWF_NO_FAST_TALKER_FIRST_BYTE;
+ =09if (send_commands)
+-=09=09out_data[i] |=3D AWF_ATN | AWF_NO_FAST_TALKER;
++=09=09out_data[i] =3D AWF_ATN | AWF_NO_ADDRESS | AWF_NO_FAST_TALKER;
+ =09if (send_eoi)
+ =09=09out_data[i] |=3D AWF_SEND_EOI;
+ =09++i;
+@@ -648,10 +648,19 @@ static ssize_t agilent_82357a_generic_write(struct gp=
+ib_board *board,
+ =09=09=09=09return -ECOMM;
+ =09=09=09}
+ =09=09}
+-
+ =09=09return -ETIMEDOUT;
+ =09}
+=20
++=09/*
++=09 * Clone adapters do not answer to XFER_STATUS, so use the
++=09 * bytes_written from the write complete interrupt.
++=09 */
++=09if (a_priv->is_clone_82357b) {
++=09=09mutex_unlock(&a_priv->bulk_transfer_lock);
++=09=09*bytes_written =3D a_priv->write_complete_count;
++=09=09return 0;
++=09}
++
+ =09status_data =3D kmalloc(STATUS_DATA_LEN, GFP_KERNEL);
+ =09if (!status_data) {
+ =09=09mutex_unlock(&a_priv->bulk_transfer_lock);
+@@ -1114,6 +1123,12 @@ static void agilent_82357a_interrupt_complete(struct=
+ urb *urb)
+ =09}
+=20
+ =09interrupt_flags =3D transfer_buffer[0];
++=09if (urb->actual_length >=3D 6 && test_bit(AIF_WRITE_COMPLETE_BN, &inter=
+rupt_flags)) {
++=09=09a_priv->write_complete_count  =3D (u32)transfer_buffer[2];
++=09=09a_priv->write_complete_count |=3D (u32)transfer_buffer[3] << 8;
++=09=09a_priv->write_complete_count |=3D (u32)transfer_buffer[4] << 16;
++=09=09a_priv->write_complete_count |=3D (u32)transfer_buffer[5] << 24;
++=09}
+ =09if (test_bit(AIF_READ_COMPLETE_BN, &interrupt_flags))
+ =09=09set_bit(AIF_READ_COMPLETE_BN, &a_priv->interrupt_flags);
+ =09if (test_bit(AIF_WRITE_COMPLETE_BN, &interrupt_flags))
+@@ -1213,6 +1228,26 @@ static void agilent_82357a_free_private(struct gpib_=
+board *board)
+ =09board->private_data =3D NULL;
+ }
+=20
++static void agilent_82357a_detect_clone(struct agilent_82357a_priv *a_priv=
+)
++{
++=09struct usb_device *usb_dev =3D interface_to_usbdev(a_priv->bus_interfac=
+e);
++=09u8 *ret_data;
++=09int retval;
++
++=09ret_data =3D kmalloc(1, GFP_KERNEL);
++=09if (!ret_data)
++=09=09return;
++=09retval =3D usb_control_msg(usb_dev, usb_rcvctrlpipe(usb_dev, 0), 0xA0,
++=09=09=09=09 USB_DIR_IN | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
++=09=09=09=09 0xE600, 0, ret_data, 1, 100);
++=09kfree(ret_data);
++=09if (retval < 0) {
++=09=09a_priv->is_clone_82357b =3D 1;
++=09=09dev_info(&usb_dev->dev, "Clone 82357B detected (firmware load return=
+ed %i), using vendor quirks\n",
++=09=09=09 retval);
++=09}
++}
++
+ #define INIT_NUM_REG_WRITES 18
+ static int agilent_82357a_init(struct gpib_board *board)
+ {
+@@ -1223,6 +1258,9 @@ static int agilent_82357a_init(struct gpib_board *boa=
+rd)
+ =09int retval;
+ =09unsigned int nanosec;
+=20
++=09if (a_priv->is_clone_82357b)
++=09=09board->t1_nano_sec =3D 819;
++
+ =09writes[0].address =3D LED_CONTROL;
+ =09writes[0].value =3D FAIL_LED_ON;
+ =09writes[1].address =3D RESET_TO_POWERUP;
+@@ -1346,6 +1384,7 @@ static int agilent_82357a_attach(struct gpib_board *b=
+oard, const struct gpib_boa
+ =09case USB_DEVICE_ID_AGILENT_82357B:
+ =09=09a_priv->bulk_out_endpoint =3D AGILENT_82357B_BULK_OUT_ENDPOINT;
+ =09=09a_priv->interrupt_in_endpoint =3D AGILENT_82357B_INTERRUPT_IN_ENDPOI=
+NT;
++=09=09agilent_82357a_detect_clone(a_priv);
+ =09=09break;
+ =09default:
+ =09=09dev_err(&usb_dev->dev, "bug, unhandled product_id in switch?\n");
+diff --git a/drivers/gpib/agilent_82357a/agilent_82357a.h b/drivers/gpib/ag=
+ilent_82357a/agilent_82357a.h
+index 33ac558e5..201316344 100644
+--- a/drivers/gpib/agilent_82357a/agilent_82357a.h
++++ b/drivers/gpib/agilent_82357a/agilent_82357a.h
+@@ -133,12 +133,14 @@ struct agilent_82357a_priv {
+ =09struct mutex bulk_alloc_lock;=09=09// bulk transfer allocation lock
+ =09struct mutex interrupt_alloc_lock;=09// interrupt allocation lock
+ =09struct mutex control_alloc_lock;=09// control message allocation lock
++=09u32 write_complete_count;               // bytes transferred in last wr=
+ite
+ =09struct timer_list bulk_timer;
+ =09struct agilent_82357a_urb_ctx context;
+ =09unsigned int bulk_out_endpoint;
+ =09unsigned int interrupt_in_endpoint;
+ =09unsigned is_cic : 1;
+ =09unsigned ren_state : 1;
++=09unsigned is_clone_82357b : 1;
+ };
+=20
+ struct agilent_82357a_register_pairlet {
+--=20
+2.55.0
 
-Bart.
+
