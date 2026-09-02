@@ -1,172 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9E53264C2;
-	Wed,  2 Sep 2026 07:54:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 275532D59E8;
+	Wed,  2 Sep 2026 07:54:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788335671; cv=none; b=nkaEInAlAygLAQ2nHPT9QHoW906eEJi8pCnPNukCfdTRvC/iwb9fSvw+i1UXOS90PoX5A43zEQga2dIZhsXyN35TtGWOXeFDGACFgeG4AHuFbS8V29LITIkFl8T/evPAb4tnruanHIcgYRt8Mv3vF/OAA4SYnGWIGBW29P4C5EI=
+	t=1788335685; cv=none; b=liKdVuZOJri24zQNbnaBfurtCCth+7DNu8iU+PzYuskEyNpwaVDb71YscNiUJ4J32aJXxnotRTPPMPEnBV4PGE1OqxHVQgQhBcARhLK4nB9m9bwK4+ByK9YHfMLSssbna9es5QEh8XghAM5aNM8RyE4EdA6oSiFzuIvllxfOUuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788335671; c=relaxed/simple;
-	bh=+6iRtT479x+Rui+/ke/RcjzBYNlpdLx0w0ValInX0/k=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=QTTxrAGUXbix5N/Omd62Jx3Gdww/1yAW/+a8JMkE3gW5h+NvjPBKvK3o5JWsfBASXvJviMaUIE3zSZmV/lBolnRAZoYKpcPZwBtRaudO5f7QVVGwLWnrrDrBenlAX4zFgCA8MPGbDr4BJVotMgfklPlH0Zad+UUEV6gjhZFsXLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U0u/+gyB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788335685; c=relaxed/simple;
+	bh=wqylVY9pAKpN/3sbd26H91VqUUWGWsxsH3a0HEHrwuI=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=sjz59J+tKnnxBk3+Th2UW5/gKLSI6h17N6o7IIrZ6zuVjbLI1jx0ibv0tXTJNbC53B66tEjlBOMzMxTgpbRmfXDOo2EnRH8E1sw4GuymLwyqCFRrkNRXgAEWSlcrVMxda34ZoOgYCJ/x2S6H8kNR1Pk/mTYh6M7cW6RhKugk8x0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=S6DPHg3e; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=pYVxPld9; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U0u/+gyB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EDF81F000E9;
-	Wed,  2 Sep 2026 07:54:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788335669;
-	bh=W/NCmJbP7+6fQziptMjAVLT3yF8rXVSjHoR3kv4O6h8=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=U0u/+gyB8DPDHQkXsjldsEyAEQd2s3iKW7WWxntckMTpJA2wO1liM4zm5lo9utn/f
-	 jOEPejtSqt2rwUyhS6qCIuSSugKpcPjTQ7B9SRIPolPsvu1GY/CxCgBhNiHK1pG/Hy
-	 DPGf7uB5eFBHDoZFTSv8CjVolJfFoVz/HkkE+3VpJ22RNRzGQl8EQtAEPMxpujVdjX
-	 F6eRX2/KN/2AjoZBA0uj4TZPYzRA4c8/noH7B6BPkMRqSan8pMxRClneZZL4aiu/Er
-	 WEpgEPyXi1yfcN6+nSBlmPNYFu5L46gPCNZaA3vSZKm7eil2LwW4RfMboQjQzj+rrl
-	 M6paYiu6i2KaQ==
-Message-ID: <1c07afb0-337b-4dec-a6fe-b4bd40e4bdfa@kernel.org>
-Date: Wed, 2 Sep 2026 15:54:26 +0800
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="S6DPHg3e";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="pYVxPld9"
+Date: Wed, 02 Sep 2026 07:54:40 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788335682;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=T2mwFbaJiBJSeom/sRNm9GubPK9erBu9XfgTNazEAK0=;
+	b=S6DPHg3exEgAAA+V7bCFXtEbvW6xnVU2ggQRVLoH+VnhjRdyiP396Zd1f8qFU8HvdfLomq
+	I9VV94KCqj48S6mKD8l5B8d+4JOqaeae8GRaJ1L8teJG+yyoA+NgLxmJIOOZ2ly+Y/JRtV
+	MrdAdVJejdBm2s4NKLObsh8I1axvpAv2vvRMvbWCktM/mYnhc2K511cb918PvZ9p3YcfQE
+	Z46aRdo7Eq8Gq9oeONC5UuVAtKB+0cbwKLxOUnS7q/LE6nDx8enpTSqvqGnZMDvHzpLW4q
+	Mf8m7pzJMM9ujq8TeeYFNBgwZm0zWGewZWy1lrxVMhPIZkPG/VbzWP8r1ydcqQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788335682;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=T2mwFbaJiBJSeom/sRNm9GubPK9erBu9XfgTNazEAK0=;
+	b=pYVxPld9uCYJ45lvPnqi3FInc91X+y4gEndTaFJ4kgYd/muiPV8cLFXah0GaGewlgmGJPw
+	UkYCUhU0IKGEBSDA==
+From: "tip-bot2 for Vladimir Zapolskiy" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: sched/core] sched: Remove unneeded function type cast in
+ do_balance_callbacks()
+Cc: Vladimir Zapolskiy <vz@kernel.org>,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260819080159.105433-1-vz@kernel.org>
+References: <20260819080159.105433-1-vz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>,
- stable@vger.kernel.org, Wenjie Qi <qiwenjie@xiaomi.com>
-Subject: Re: [f2fs-dev] [PATCH v3] f2fs: drop pending discard commands before
- reserving device alias
-To: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com
-References: <20260901201740.4040807-1-daeho43@gmail.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20260901201740.4040807-1-daeho43@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Message-ID: <178833568076.3717435.11504795729616784241.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/2/26 04:17, Daeho Jeong wrote:
-> From: Daeho Jeong <daehojeong@google.com>
-> 
-> When reserving a device alias via f2fs_ioc_reserve_dev_alias(),
-> f2fs_reserve_device_alias() bulk-marks all blocks in the target device
-> range as valid in SIT.
-> 
-> However, if the device was previously in the released state, stale
-> pending discard commands covering that range may still exist in dcc->root.
-> When f2fs_issue_discard_thread later processes those commands,
-> __check_sit_bitmap() detects valid blocks in the discard range and
-> triggers a kernel BUG().
-> 
-> To fix this:
-> 1. Introduce f2fs_drop_discard_cmd_range() to traverse the discard rbtree,
->    drop all pending D_PREP discard commands in the range,
->    and wait for any in-flight discard bios under dcc->cmd_lock.
-> 2. Call f2fs_drop_discard_cmd_range() in f2fs_ioc_reserve_dev_alias()
->    before f2fs_reserve_device_alias().
-> 
-> Reported-by: Wenjie Qi <qiwenjie@xiaomi.com>
-> Fixes: eae3faf210bd ("f2fs: support dynamic reserve/release for device aliasing")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Daeho Jeong <daehojeong@google.com>
-> ---
-> v3: introduce cur to prevent 32-bit overflow.
-> v2: fix use-after-free and 32-bit overflow issues.
-> ---
->  fs/f2fs/f2fs.h    |  2 ++
->  fs/f2fs/file.c    |  1 +
->  fs/f2fs/segment.c | 45 +++++++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 48 insertions(+)
-> 
-> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-> index 511286432483..ae109d3ae571 100644
-> --- a/fs/f2fs/f2fs.h
-> +++ b/fs/f2fs/f2fs.h
-> @@ -4122,6 +4122,8 @@ void f2fs_reserve_device_alias(struct f2fs_sb_info *sbi, block_t addr,
->  bool f2fs_is_checkpointed_data(struct f2fs_sb_info *sbi, block_t blkaddr);
->  int f2fs_start_discard_thread(struct f2fs_sb_info *sbi);
->  void f2fs_drop_discard_cmd(struct f2fs_sb_info *sbi);
-> +void f2fs_drop_discard_cmd_range(struct f2fs_sb_info *sbi,
-> +					block_t start, block_t len);
->  void f2fs_stop_discard_thread(struct f2fs_sb_info *sbi);
->  bool f2fs_issue_discard_timeout(struct f2fs_sb_info *sbi, bool need_check);
->  void f2fs_clear_prefree_segments(struct f2fs_sb_info *sbi,
-> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-> index 29cf82d02c77..0b2d173d9597 100644
-> --- a/fs/f2fs/file.c
-> +++ b/fs/f2fs/file.c
-> @@ -3855,6 +3855,7 @@ static int f2fs_ioc_reserve_dev_alias(struct file *filp)
->  	write_unlock(&et->lock);
->  	clear_inode_flag(inode, FI_NO_EXTENT);
->  
-> +	f2fs_drop_discard_cmd_range(sbi, ei.blk, ei.len);
->  	f2fs_reserve_device_alias(sbi, ei.blk, ei.len);
->  
->  	i_size_write(inode, (loff_t)ei.len << sbi->log_blocksize);
-> diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-> index ac0ed8609c1f..6826cb7ab34d 100644
-> --- a/fs/f2fs/segment.c
-> +++ b/fs/f2fs/segment.c
-> @@ -1873,6 +1873,51 @@ static unsigned int __wait_all_discard_cmd(struct f2fs_sb_info *sbi,
->  	return discard_blks;
->  }
->  
-> +void f2fs_drop_discard_cmd_range(struct f2fs_sb_info *sbi,
-> +					block_t start, block_t len)
-> +{
-> +	struct discard_cmd_control *dcc = SM_I(sbi)->dcc_info;
-> +	struct discard_cmd *prev_dc = NULL, *next_dc = NULL;
-> +	struct rb_node **insert_p = NULL, *insert_parent = NULL;
-> +	struct discard_cmd *dc, *wait_dc;
-> +	u64 cur = start;
-> +	u64 end = (u64)start + len;
-> +
-> +	if (!f2fs_realtime_discard_enable(sbi))
-> +		return;
-> +
-> +next:
-> +	wait_dc = NULL;
-> +
-> +	mutex_lock(&dcc->cmd_lock);
-> +	while (cur < end) {
-> +		dc = __lookup_discard_cmd_ret(&dcc->root, cur,
-> +				&prev_dc, &next_dc, &insert_p, &insert_parent);
-> +		if (!dc)
-> +			dc = next_dc;
-> +
-> +		if (!dc || (u64)dc->di.lstart >= end)
-> +			break;
-> +
-> +		if (dc->state == D_PREP) {
-> +			cur = (u64)dc->di.lstart + dc->di.len;
-> +			__remove_discard_cmd(sbi, dc);
-> +			continue;
+The following commit has been merged into the sched/core branch of tip:
 
-Any chance to limit the loop count to avoid holding cmd_lock lock for
-long time, in case we encounter an extreme fragment scenario, e.g. in
-2gb range, there will be 256k small discards at most?
+Commit-ID:     4248f68fe26da7b741d3b9c6a88a3c5b685377f9
+Gitweb:        https://git.kernel.org/tip/4248f68fe26da7b741d3b9c6a88a3c5b685=
+377f9
+Author:        Vladimir Zapolskiy <vz@kernel.org>
+AuthorDate:    Wed, 19 Aug 2026 11:01:58 +03:00
+Committer:     Peter Zijlstra <peterz@infradead.org>
+CommitterDate: Wed, 02 Sep 2026 09:37:25 +02:00
 
-Thanks,
+sched: Remove unneeded function type cast in do_balance_callbacks()
 
-> +		}
-> +
-> +		dc->ref++;
-> +		cur = (u64)dc->di.lstart + dc->di.len;
-> +		wait_dc = dc;
-> +		break;
-> +	}
-> +	mutex_unlock(&dcc->cmd_lock);
-> +
-> +	if (wait_dc) {
-> +		__wait_one_discard_bio(sbi, wait_dc);
-> +		goto next;
-> +	}
-> +}
-> +
->  /* This should be covered by global mutex, &sit_i->sentry_lock */
->  static void f2fs_wait_discard_bio(struct f2fs_sb_info *sbi, block_t blkaddr)
->  {
+It's a trivial and non-functional change, the removed explicit function
+type cast does not convert the function type of struct balance_callback
+member (*func), and the cast can be removed.
 
+Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Link: https://patch.msgid.link/20260819080159.105433-1-vz@kernel.org
+---
+ kernel/sched/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 4e97766..545f494 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -5143,7 +5143,7 @@ static void do_balance_callbacks(struct rq *rq, struct =
+balance_callback *head)
+ 	lockdep_assert_rq_held(rq);
+=20
+ 	while (head) {
+-		func =3D (void (*)(struct rq *))head->func;
++		func =3D head->func;
+ 		next =3D head->next;
+ 		head->next =3D NULL;
+ 		head =3D next;
