@@ -1,50 +1,85 @@
-Received: from mta1.migadu.com (out-238.mta1.migadu.com [95.215.58.238])
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0568B49C4C7
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:51:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.238
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D46749505F
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:51:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788353513; cv=none; b=C0dmfcAvRLYmNAEwHl1NxQJCfya8hjBVT5sWUsLwqH7FGQ9Yn1QnDdzpM6+RZmn38MZDEIqt1+YLxYWFettABLV8U4wptI4LM+/OrJXTBLwpdn8PL8y8yXCqIOnkxtf5nj7yvvb3jO/2+OvJ/Ww9ALwoXam3zGdpXlTQPZXoYCA=
+	t=1788353519; cv=none; b=sXExyUxdw5HKwpX4Z37pt0KlfcONZwOyW+wgctc/c0Idr27KckCJZNtgJZlBH3zpfm2ZMi2vUMacSihXB+21TX0Vq/K5GprgSdz4G+Yb2hCqszlYLpOYjboIG/kOl0EOujz3UYJXp1/qnNBe0L8m5fuUB+x5r3/2MIuOsfOzenI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788353513; c=relaxed/simple;
-	bh=tpDxEjwAM4Z3tcZlQ8FduIdTuWHyaHUuGyRrq6OnN2s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GXVvNCUvGI6Zl6tu2lRbjyp4sYAzuNqXHTRFig8NM2xYcHSyDLsNnOfhhkRaarIgX89pFszGIRQSnFj2ImHrvQycHmlR7OXuTDEflES35w5ev0V1AvBEMMA+Coo8W8HYo12b6OiOcnHB+hTIvt9dsB1HqQoOyZ5vTgdO7rDY8VM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=X0UDvp9o; arc=none smtp.client-ip=95.215.58.238
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788353519; c=relaxed/simple;
+	bh=jBNvlzUaRiS232EjWIrRtjgtFSrGAKhiDNQV/F9j27Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ldKCZuylq3+d/PvgUqCfFAv+oO0S8Ta9jjNWkitr8OVTgZDGRxf8A12H62FdnZP7XE9NnM+gPUVQJ0tL1qKoDte27G6Wq9XKOb3fBDFAwmtbHG7vWf0Vqmn9D78/9Q7Gbp8vqCZdOhXJESW+JUF/ZHdeAf4NpNv0WLeTKgYzBME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cbG7AaUp; arc=none smtp.client-ip=209.85.222.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="X0UDvp9o"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=tpDxEjwAM4Z3tcZlQ8FduIdTuWHyaHUuGyRrq6OnN2s=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788353508; v=1; x=1788958308;
- b=X0UDvp9owiQsJm/X2vB0jS198NLYIH/HsFxS13fa3tteUr0hmQM6thLpmRPSuLUHhr6ETCir
- oJT4iSMhH0FmxSZceX5y4yr+kg4bs72Jj8UeSnUgEde36ueBGDYzgkYSGU0jaiw3gNv71JXQ27f
- u1qblRCD0ZvzmsdrB9hcXxFs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1a541c8069397e4d;
-	Wed, 02 Sep 2026 12:51:48 +0000
-X-Mizu-Trace-ID: 1a541c8069397e4d
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: linux-fsdevel@vger.kernel.org,
-	jlayton@kernel.org,
-	cel@kernel.org
-Cc: alex.aring@gmail.com,
-	viro@zeniv.linux.org.uk,
-	brauner@kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cbG7AaUp"
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93903d81a82so101149585a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:51:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788353514; x=1788958314; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MjuXSyizsZB4ec8YrEJh10x9e4pUjwQ2Rq3ifalYYck=;
+        b=cbG7AaUpWdHIStdUuRAtca+FgOw0lu3ztURFIktkcYnoxdachXrjrau2AHqNWkVR5z
+         ag9NNeB+fJcXOmO1cDelVdJVAckDxSE9bi2ZZulqe+Jzpqj+PWCESGsDq7HN3w+UJIf5
+         m+x9NqBTCDv4JCGvZfF2dF5Y6YEexhekc9FR/5uQOqR0ulsziTf/8PNGQTB3VCdSs4iL
+         NLxFwKxt8aTcPRipG68h+zyBJC0Q9X3cuerzNNHmLWkFWyWBAmEzWoUtxn8VYObSxTJr
+         tnme+kLIAXDDrFnRvQ9NXPWvKS1MR/dtca7W4Utno6d1FT+YSUEYYkLFKdbcPmP84KPC
+         NaxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788353514; x=1788958314;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MjuXSyizsZB4ec8YrEJh10x9e4pUjwQ2Rq3ifalYYck=;
+        b=gNuW7CqSVtD5NkHkfHGiRoXtn9qiW+jXtzrfWKnccW9Q9xXVE+WiA1hgpXRTy6PVJY
+         XZicE1k4wGFBD683XNHL3yI3BapDIbR9dlm0mH7UpLcKuBfEkkQYGoOWzPvNJljrKObp
+         ho7sLINdMrEOPv/1NHXJ6SKweR5CQ7n5W1CRCuv+z5ZL+JiFv2HrvHu8dIQmcyunWso4
+         YaY8Ni7G0b/qQg3XnPhSD8Cv4Fn8AqT0tYCimrEOSh1cclFxTx+Lb5AhjjPEH/2sduFg
+         3ACduVTcR2QpzuiT0298Aj6QM5IPT+kaCQahXM/igECmlb4CduI3QR9oux+gEm85oRS6
+         7J2Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rr4DwsL5fS8YG9xHIhRv2n7At2IXW3WfdvgVm6+ooLWdyTX88XVpsfFfAVG0z5wL4DZNdhcj9kP71VKWDE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mozKwQotoJ8a0TBv3oPcF/Cwi/4cJ9W+IL2cCCMmbjJKMXAzhe
+	fsaBaj6Z/hlqi6D5Zf/IOJ743GMSwQWxMLzcqkbAFztHoQXpbYituYPQ
+X-Gm-Gg: AR+sD11YUz18vPTIUGDNmpH2C4Dp46jrs45F21i/i3pwL1EIOOtH/YB7UqwLjG3qJaW
+	pKSk2qz/kIXGbujPN+XRmRqOIgtPTm+DqHb6h8iW0v+YhrS/SW1M0ybdp9dVFYetkJtTpvBzZXh
+	QY39/DHyXWPOfoVDBRW645LOA8Bc5UlAgsdIlz9DN1/oq1jyo5+MUaDXoqNUF6OC+QQ1UIyyaER
+	trR0AuTqh7u0y80Cvb84a/YuIJTaSSmEsyuLXzENrNX46+flvFk5OmLd2B9LvOONKO4OOtGcoFs
+	681RDUZRZd5PA4S9saQCUyfVOxAfrH4zKdpJProNU2motoQKqX4pPU8UUNCZNHak3Vm2L9FCa6m
+	q3rWMxHnOD2vSSNvtWgGq5ZyayQPBsZh0jWUcZ+XqTIFYcuuBCEFHyRvTv6m6DfqRE+wULB8lbS
+	5j3+iWO5JKGPOi2/RNTsSIAf8E5AvVdPjM03h8iLxhUsC7S+lVbq0Wqw==
+X-Received: by 2002:a05:620a:90d2:20b0:936:df48:d507 with SMTP id af79cd13be357-93960e05a05mr420981885a.18.1788353514371;
+        Wed, 02 Sep 2026 05:51:54 -0700 (PDT)
+Received: from houminxi ([61.170.217.176])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9395f35d823sm198612785a.25.2026.09.02.05.51.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 05:51:53 -0700 (PDT)
+From: Minxi Hou <houminxi@gmail.com>
+To: netdev@vger.kernel.org
+Cc: aconole@redhat.com,
+	davem@davemloft.net,
+	dev@openvswitch.org,
+	echaudro@redhat.com,
+	edumazet@google.com,
+	i.maximets@ovn.org,
+	i.maximets@redhat.com,
+	kuba@kernel.org,
 	linux-kernel@vger.kernel.org,
-	avagin@openvz.org,
-	khorenko@virtuozzo.com,
-	bcodding@redhat.com,
-	cui.tao@linux.dev,
-	Tao Cui <cuitao@kylinos.cn>
-Subject: [PATCH v2] fs/locks: filter OFD locks from /proc/locks for foreign pid namespaces
-Date: Wed,  2 Sep 2026 20:51:39 +0800
-Message-ID: <20260902125139.975253-1-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	linux-kselftest@vger.kernel.org,
+	pabeni@redhat.com,
+	shuah@kernel.org,
+	horms@kernel.org,
+	Minxi Hou <houminxi@gmail.com>
+Subject: [PATCH net-next v2 2/2] selftests/net/openvswitch: add SCTP flow key test across conntrack NAT
+Date: Wed,  2 Sep 2026 08:51:33 -0400
+Message-ID: <20260902125133.1828572-3-houminxi@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260902125133.1828572-1-houminxi@gmail.com>
+References: <20260902125133.1828572-1-houminxi@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,78 +88,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tao Cui <cuitao@kylinos.cn>
+Conntrack NAT rewrites the packet between the first-pass and recirc
+passes, and OVS re-extracts L3/L4 on the recirculated skb via
+ovs_flow_key_update_l3l4(). Nothing in the suite exercises SCTP key
+extraction on that post-NAT path: the existing nat test drives TCP
+over nc, and the merged SCTP test has no conntrack in the path.
 
-Since Linux 4.9, /proc/locks only shows locks whose owning process is
-visible in the reader's pid namespace.  The check cannot see the
-owner of an OFD lock, though: locks_translate_pid() always returns
--1 for FL_OFDLCK, so an OFD lock held outside of that namespace
-bypasses the filter and is shown with its device/inode numbers and
-byte range, e.g.
+Add test_sctp_nat_connect_v4, reusing the nat4 fixture with the SCTP
+socket pair from the v4 SCTP test: untracked ipv4 traffic hits
+ct(commit,nat(...)),recirc, and the post-recirc flows match
+ct_state(+trk) with the extracted sctp(dst=4443)/sctp(src=4443) ports.
+A probe for the SCTP conntrack sysctl turns a kernel without working
+SCTP conntrack into a skip instead of an opaque timeout. After the
+association succeeds the test pushes a known payload across and
+verifies the listener received it, so a flow-key bug that matches
+handshake packets but breaks DATA chunks is caught too. If ct+nat is
+accepted but the association or DATA fails, the test fails.
 
-    4: OFDLCK ADVISORY  WRITE -1 fd:00:70536961 0 EOF
-
-This was observed on a Kubernetes node: a pod reading /proc/locks
-listed the OFD write lock of an unrelated host process, while the
-POSIX locks of the very same process were correctly hidden.  The
-device/inode pair identifies which host file is locked, the byte
-range discloses where it is actively written, and the
-appearance/disappearance of entries reflects host task activity,
-contrary to the documented per-pidns visibility of /proc/locks
-(proc_locks(5)).
-
-OFD locks record the owner tgid in flc_pid, so use it for the
-visibility decision in locks_show(), mirroring what
-locks_translate_pid() does for POSIX locks.  The pid column is still
-reported as -1 for OFD locks; only the filter decision changes.
-Remote locks keep their negative flc_pid and stay visible as before.
-
-Verified with an OFD and a POSIX write lock held in the initial pid
-namespace while a process in a fresh pid namespace reads /proc/locks:
-the OFD entry is visible without this patch and hidden with it, the
-POSIX entry is hidden in both cases.
-
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-
+Signed-off-by: Minxi Hou <houminxi@gmail.com>
 ---
+v2: rebased onto current net-next, no code changes
+ .../selftests/net/openvswitch/openvswitch.sh  | 86 +++++++++++++++++++
+ 1 file changed, 86 insertions(+)
 
-Changes since v1: keep remote OFD locks (negative flc_pid) visible in
-non-initial pid namespaces, as locks_translate_pid() does for remote
-POSIX locks.
----
- fs/locks.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+diff --git a/tools/testing/selftests/net/openvswitch/openvswitch.sh b/tools/testing/selftests/net/openvswitch/openvswitch.sh
+index 06bd98d80a084..d5acdca0a0ac1 100755
+--- a/tools/testing/selftests/net/openvswitch/openvswitch.sh
++++ b/tools/testing/selftests/net/openvswitch/openvswitch.sh
+@@ -35,6 +35,7 @@ tests="
+ 	icmpv6					icmpv6: ICMPv6 echo type match
+ 	sctp_connect_v4			sctp: SCTP flow key matching
+ 	sctp_connect_v6			sctp6: SCTP flow key matching over IPv6
++	sctp_nat_connect_v4		sctpnat4: SCTP flow key across conntrack NAT
+ 	psample					psample: Sampling packets with psample"
+ 
+ info() {
+@@ -1186,6 +1187,91 @@ test_nat_connect_v4 () {
+ 	return 0
+ }
+ 
++# sctp_nat_connect_v4 test
++#  - SCTP association crosses a ct(commit,nat(dst=...)) translation
++#  - post-recirc flows match ct_state(+trk) plus the extracted SCTP ports
++test_sctp_nat_connect_v4 () {
++	local t="test_sctp_nat_connect_v4"
++	local payload="SCTP_NAT_DATA_OK"
++	local rxfile="${ovs_base}/${t}/sctp-rx.txt"
++
++	modprobe -q sctp 2>/dev/null || return "$ksft_skip"
++	socat -V 2>&1 | grep -q "define WITH_SCTP" || return "$ksft_skip"
++	# SCTP conntrack is compiled into nf_conntrack.ko, so check that
++	# loading it actually exposed the SCTP conntrack sysctls.
++	modprobe -q nf_conntrack 2>/dev/null || return "$ksft_skip"
++	[ -e /proc/sys/net/netfilter/nf_conntrack_sctp_timeout_established ] \
++	    || { info "no SCTP conntrack support - skipping"
++	         return "$ksft_skip"; }
++
++	sbx_add "test_sctp_nat_connect_v4" || return $?
++
++	ovs_add_dp "test_sctp_nat_connect_v4" sctpnat4 || return 1
++	info "create namespaces"
++	for ns in client server; do
++		ovs_add_netns_and_veths "test_sctp_nat_connect_v4" "sctpnat4" \
++		    "$ns" "${ns:0:1}0" "${ns:0:1}1" || return 1
++	done
++
++	ip netns exec client ip addr add 172.31.110.10/24 dev c1
++	ip netns exec client ip link set c1 up
++	ip netns exec server ip addr add 172.31.110.20/24 dev s1
++	ip netns exec server ip link set s1 up
++
++	ip netns exec client ip route add default via 172.31.110.20
++
++	# Check if the ct action can be configured.
++	ovs_add_flow "test_sctp_nat_connect_v4" sctpnat4 \
++		'in_port(1),eth(),eth_type(0x0800),ipv4()' \
++		'ct(commit),recirc(0x1)' &> /dev/null
++	if [ $? == 1 ]; then
++		info "no support for ct action - skipping"
++		ovs_exit_sig
++		return $ksft_skip
++	fi
++
++	ovs_del_flows "test_sctp_nat_connect_v4" sctpnat4
++
++	ovs_add_flow "test_sctp_nat_connect_v4" sctpnat4 \
++		'in_port(1),eth(),eth_type(0x0806),arp()' '2' || return 1
++	ovs_add_flow "test_sctp_nat_connect_v4" sctpnat4 \
++		'in_port(2),eth(),eth_type(0x0806),arp()' '1' || return 1
++	ovs_add_flow "test_sctp_nat_connect_v4" sctpnat4 \
++		"ct_state(-trk),in_port(1),eth(),eth_type(0x0800),ipv4(dst=192.168.0.20)" \
++		"ct(commit,nat(dst=172.31.110.20)),recirc(0x1)" || return 1
++	ovs_add_flow "test_sctp_nat_connect_v4" sctpnat4 \
++		"ct_state(-trk),in_port(2),eth(),eth_type(0x0800),ipv4()" \
++		"ct(commit,nat),recirc(0x2)" || return 1
++
++	ovs_add_flow "test_sctp_nat_connect_v4" sctpnat4 \
++		"recirc_id(0x1),ct_state(+trk-inv),in_port(1),eth(),eth_type(0x0800),ipv4(proto=132),sctp(dst=4443)" \
++		"2" || return 1
++	ovs_add_flow "test_sctp_nat_connect_v4" sctpnat4 \
++		"recirc_id(0x2),ct_state(+trk-inv),in_port(2),eth(),eth_type(0x0800),ipv4(proto=132),sctp(src=4443)" \
++		"1" || return 1
++
++	ovs_netns_spawn_daemon "test_sctp_nat_connect_v4" "server" \
++		socat -u -t 1 SCTP4-LISTEN:4443,fork \
++		OPEN:"$rxfile",creat,append
++	ovs_wait sctp_eps_has server 4443 || return 1
++
++	info "verify SCTP association across NAT"
++	ovs_sbx "test_sctp_nat_connect_v4" ip netns exec client \
++	    timeout 3 socat -u STDIN "SCTP4-CONNECT:192.168.0.20:4443" \
++	    </dev/null || return 1
++
++	info "verify SCTP DATA chunk crosses NAT"
++	ovs_sbx "test_sctp_nat_connect_v4" ip netns exec client \
++	    timeout 3 socat -u STDIN "SCTP4-CONNECT:192.168.0.20:4443" \
++	    <<< "$payload" || return 1
++	grep -q "$payload" "$rxfile" 2>/dev/null \
++	    || { info "server did not receive SCTP DATA payload"
++	         return 1; }
++
++	info "done..."
++	return 0
++}
++
+ # nat_related_v4 test
+ #  - client->server ip packets go via SNAT
+ #  - client solicits ICMP destination unreachable packet from server
 
-diff --git a/fs/locks.c b/fs/locks.c
-index 6e4ff7fcec05..4af1385682e4 100644
---- a/fs/locks.c
-+++ b/fs/locks.c
-@@ -3022,6 +3022,25 @@ static int locks_show(struct seq_file *f, void *v)
- 
- 	cur = hlist_entry(v, struct file_lock_core, flc_link);
- 
-+	/*
-+	 * OFD locks are reported with pid -1, so the filter below cannot see
-+	 * their owner; flc_pid holds the owner tgid, so filter on it.
-+	 * Remote locks keep a negative flc_pid and stay visible as before.
-+	 */
-+	if ((cur->flc_flags & FL_OFDLCK) && cur->flc_pid > 0 &&
-+	    proc_pidns != &init_pid_ns) {
-+		struct pid *pid;
-+		bool visible = false;
-+
-+		rcu_read_lock();
-+		pid = find_pid_ns(cur->flc_pid, &init_pid_ns);
-+		if (pid)
-+			visible = pid_nr_ns(pid, proc_pidns) != 0;
-+		rcu_read_unlock();
-+		if (!visible)
-+			return 0;
-+	}
-+
- 	if (locks_translate_pid(cur, proc_pidns) == 0)
- 		return 0;
- 
+base-commit: d0ec95a8a4e79f2fd6063fc8932415db8c227689
+prerequisite-patch-id: a3848bf8ef3803b528f964b8e866dd3622e5b154
 -- 
-2.43.0
+2.55.0
 
