@@ -1,132 +1,161 @@
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4A1486BB9
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:05:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FCC32B126
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:06:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788357902; cv=none; b=uyzSaIwj5wVoZMWhMe9Y7A942KyoSjIP5hHtL/9kcLYiBVntzMwJSWwlT1dxjDH2KJ9DhzMJIyrWsM/VcmwS3HR7K8VXWCPjfu+X8NF8RKzOApYuqpkR/McZoJfmCcY2wb5UzxlcuTJBlvKJcPfWanVqrpomcBJ4Ul4bAkjWldM=
+	t=1788357983; cv=none; b=IGlLpdSopyCjbn0oTaRJy1vVGrAzCiaOseSYt8mGL7kWmQp7rmxOXVP/ozNRtnJ6YV6sQjs2Z7oAGnG8osh3sAkXs9uR9kTYmnA+S6ewbQxpJJePWoa20Az+enezE403yoIFIsLDKyS33fyZbegNiHVJa7gmvdV9Yk2pxewsmUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788357902; c=relaxed/simple;
-	bh=0yD5N7KjhxtUYTgarMEKtXwQ3YvJGVtnMAneE2LGYbI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C4W3SUp7XQoMokEzwKIxXdEalm33VaPA98JWSHWk8hmgLZkLgT9DYNRED4ZD/RbgEViQsl675hTEjXZ87CwtZ6o8gDLmFSo0wk/JRwSvXqfD+bHKTmuvF40YOTrkz/jejUUjsiuCXxeQByjJf8SG15a0uynCQivq+Zvw2r82KO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=B3zsgfKO; arc=none smtp.client-ip=209.85.219.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1788357983; c=relaxed/simple;
+	bh=bPEh0Z/lnGL26i8mxJWhAdRns6x2B78RqoBO0c4kkQc=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=NnkJOdrJYFLZjPhu/m5giHF82u93G1qQ9F8Pu1KcgITKBZGQ5uHsMcDuJN7irHoZVRrtyJolsSIugr5e0lxr6mGDto9jxq+pPaPtxn2Mui912pCIdw0dJ4Sdl8DCMKF21A1lAZAra3+8R8bI1c1cbj3w+oDRZkpiduWdPCGrJOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=kEApHB3L; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=SjnLnZzJ; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="B3zsgfKO"
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-90e95a18c92so16371586d6.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:05:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1788357899; x=1788962699; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Why+id/p3RNpzcV3QpTHawTDpT4ABQ4KUVboBTGGWGA=;
-        b=B3zsgfKOPQiyVEjSqCb7T8EXPZffzQJJBKGEcM/kpkcrAur2INOHYekY1tvKZUI5C/
-         WqsRvYoFPjr+LQZmjPx+1qDLH1DKCBQH9ifIrHZrnGm512nSDOq4A7Y5J/RLQvixE3dM
-         LMOsK7PEkdhvJrpte/DnDwZKIyJdgZV/O7DeKM6wv2AE6NXa2plESfh95pGq3AaUWGDJ
-         fLCdXttm0imlLRna6dG46/PlgbUrruSj8ktjREKdSG5pYsv/WXBWTcTi69SYYPpaQZNw
-         RedqiFCqdpUWT1QPgjYK/o3XSK9TosES/8I3/y+cMMEmMICfBVMOTNX/yR6ECbGvEx9/
-         vSmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788357899; x=1788962699;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Why+id/p3RNpzcV3QpTHawTDpT4ABQ4KUVboBTGGWGA=;
-        b=EzL/xtCfU+dgnQ9ImMEbIvFnWGa+lOx7YvesBUQOFgGhqPkbnw4+gZVkrMDE+lJFdO
-         5wAafi1Cc/wYTNkdkWQ6f0211BgedZEtkO505wCA0iyFippmKcJtGPk7GZ+2cde9Nzo+
-         EJHxxjXGM23HZUCm3WSvjCPb+Cbk4Jsf7HHuOzadAY1FOOc+D/Hty6Opimq1D33L5XjZ
-         WDv5wYPyGzVoNGZGmyxdpwP3sBUFzCCe5Hht6tKFIfQNgNMoTNo57tQokxlDb5D91DT6
-         QBcuPKkhhNgHNb3CyBycM1Y0zW4Xi9o0pmbxhrStvvc7wcOiOkfplWgr1zSCum+qeSHh
-         k6nw==
-X-Forwarded-Encrypted: i=1; AKwUvByMclz4roM4O+PBB0rD9yp2wlvrI47Meyt2vKdS4S7xOz5QBKD1/G/4zuGPrUIwmNZYq/K39caYAHga1xg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lmE4+HB6I0y6Ah1WywuD94ozLY6uCPICkg8VK2bhjfixpZHY/W
-	aOL4CyI81CaDF0ADcSS3u/IqPkL+ZAaisVrd85PBiEhUEFqSw8J/imOBNq1TOVXLoDc=
-X-Gm-Gg: AYBFou1LKt/yhDytIAiJDMsI6Yxzo/Mu6hwSrEV5rrhuRDQQXL3qUZXlqetDoy6nRgI
-	gdMSbGz8SxPa8Xowmzulr+wAK5IpXbAgCIZUns5NSM6W3lPnmsUKZ6s1Dy6Xk38qpB/zvOP2Mup
-	31phyGt9tIknv4GC+QaPYI+POEwxQfwwEsXPTNQ+HcdbVWIhlMKFkGW2R6Ni/IblQjYOEu2VZt4
-	2lBTZle071ZkvQRJqjoW3PEvQcXYxqCrS2C6yGBfmfabb3c+MtikPTQXFl1hUn6IsL9OpnrhNLc
-	Vfs53oPBoM91avnzxsnf3510W6abuqSnUhOg7osZhPD9D74LDLbMMpeyOvYAO0z7m7GvYtTEII3
-	FYhT28IkyyqwgcM2Ej8MPoL3uVATDMeUBgwWKDuA9kt79bnDh4TUZF2TalYwHjPRibM9uOsEE/w
-	evROuDhl5F8YzHoyeyYWJRGu92tFSR2m8owWjpYKh9D9t/ynRm02P8g12e0el8fxHj1MFVt5JrZ
-	PU4E5+W0WGIvsATnA8P6YAgVXVFKokOwNzxZwuDO0ny
-X-Received: by 2002:a05:6214:b6a:b0:907:bfc0:781e with SMTP id 6a1803df08f44-90eca3d4856mr65248836d6.30.1788357899289;
-        Wed, 02 Sep 2026 07:04:59 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9eec7ffdsm18809156d6.25.2026.09.02.07.04.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 07:04:58 -0700 (PDT)
-Date: Wed, 2 Sep 2026 10:04:57 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Liu Jing <liujing@cmss.chinamobile.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, 
-	matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com, 
-	ying.huang@linux.alibaba.com, apopple@nvidia.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mempolicy: fix div-by-zero in alloc_pages_bulk_interleave
-Message-ID: <apgrrQM5cFWRA4HR@gourry-fedora-PF4VCD3F>
-References: <20260902090245.16411-1-liujing@cmss.chinamobile.com>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="kEApHB3L";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="SjnLnZzJ"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788357974; bh=Yh0jUY/UkhTVKIwfR038cHy
+	Umi536MDRjqIhfBHdV9Y=; b=kEApHB3L3c/2qU7Q4iTJk1lqcnvdFlaCI2FzwKYIgUUiq8y9Yv
+	d71Wynez6A7XQlCwi13FIFsvXC5ui+VYstPiyzkZ0ED9A+sME9W4rJYsTd/DVexZcX+eAfLH2bX
+	JlKcE2wtN1QhXIpuxmfXaO+Ev13m7TupHejZ5Ni0gds863Fx0KM1tsrysWG3Ri0vu0wPadJVOyH
+	3QkBUIZs0dU/ddjEAgzGsEH6fgFsWaehE5Iwa0RyKnfs7IYD7ipuwcvShKAxXJlL7lIJ5Kql8nn
+	nsZPLYj8m5W+cyHqVhQKg8MpZOsxv1zHM/VFVVMUj1vaBiuK3JVxMNWuU1ysC7aGd9Q==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788357974; bh=Yh0jUY/UkhTVKIwfR038cHy
+	Umi536MDRjqIhfBHdV9Y=; b=SjnLnZzJB5zntGpbKnTzVZ8PAALKCHQGdxUjt9BZddML87CET/
+	LNhOo5CqaDZr8KNMlO9ePlKzdptTqczXDxBw==;
+Date: Wed, 02 Sep 2026 15:06:12 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Mark Rutland <mark.rutland@arm.com>
+CC: Will Deacon <will@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
+ James Morse <james.morse@arm.com>, Marc Zyngier <maz@kernel.org>,
+ Ard Biesheuvel <ardb@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/7] arm64: hibernate: dust off the suspend/cleanup rework
+In-Reply-To: <apgsm92KtXA7xh6H@J2N7QTR9R3.cambridge.arm.com>
+References: <20260825205839.14571-1-brads@mainlining.org> <apgpnjnJ4suhHh-v@J2N7QTR9R3.cambridge.arm.com> <B23E199A-2D3D-48B4-A7E9-9664371A7361@mainlining.org> <apgsm92KtXA7xh6H@J2N7QTR9R3.cambridge.arm.com>
+Message-ID: <8294D170-3378-4411-8771-CB7D9ACBC38E@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902090245.16411-1-liujing@cmss.chinamobile.com>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 02, 2026 at 05:02:45PM +0800, Liu Jing wrote:
-> In alloc_pages_bulk_interleave(), nodes_weight(pol->nodes) may return
-> 0 if all nodes in the policy mask have been offlined at runtime. The
-> subsequent division "nr_pages / nodes" triggers a divide-by-zero
-> panic.
-> 
+On 2 September 2026 15:03:07 BST, Mark Rutland <mark.rutland@arm.com>
+wrote:
+>On Wed, Sep 02, 2026 at 02:51:22PM +0100, Bradley Morgan wrote:
+>> On 2 September 2026 14:50:22 BST, Mark Rutland <mark.rutland@arm.com>
+>> wrote:
+>> >On Tue, Aug 25, 2026 at 08:58:32PM +0000, Bradley Morgan wrote:
+>> >> This comes out of the hibernate resume discussion where Will asked if
+>> >> the restored kernel's hyp vectors are reinstalled before we come back
+>> >> from swsusp_arch_suspend() and free the reserved pages. Rather than
+>> >> answer with a one off fix, this series reworks resume to look like a
+>> >> resume from idle, which makes the answer fall out on its own.
+>> >> 
+>> >> The series leans on Mark Rutland's old work for inspiration, he had
+>the
+>> >> same end goal in a branch from back then:
+>> >> 
+>> >>  
+>>
+>>https://git.kernel.org/pub/scm/linux/kernel/git/mark/linux.git/log/?h=arm64/suspend/cleanup
+>> >
+>> >Most of the series seems to be a rebased of those patches, just with
+>> >paraphrased commit messages and my S-o-B lines dropped. As commented on
+>> >patch 4, I do not think that is appropriate.
+>> 
+>> Same question as patch 2
+>> 
+>> If you want your S-O-B added, ok fine, but yeah.
+>
+>As on patch 2, please read the documentation before continuing futher.
+>
 
-now i'm positive this is LLM produced without understanding the
-component.
+Ack.
 
-A policy cannot have an empty nodemask, it can either
-1) have no nodemask (default policy), or
-2) be perceived as empty during a torn-read during a policy remap event
+>> Do you think this series itself is good? 
+>
+>No. At present I think it's in a worse state than it was in my branch,
+>because portions have changed, with no rationale and no clear benefit.
 
-If you are running LLMs to search for surface level bugs and try to
-hot-fix them without taking time to understand the underlying component,
-please at least:
+Sorry. I'm sure the points you will bring up on review will go into V2,
+andthen it should be better then.
 
-1) tell us that
-2) generate reproducers
+>
+>Hence my ask to Catalin and Will to NOT pick this up for now.
+>
+>Mark.
+>
+>> 
+>> >
+>> >I'll take a more in-depth look shortly.
+>> 
+>> thanks!
+>> 
+>> >
+>> >Catalin, Will, for the moment please do not pick these up.
+>> >
+>> >Mark.
+>> >
+>> >> The short answer to the question: yes, but only because the rework
+>makes
+>> >> resume look like a resume from idle. We enter cpu_resume() at the
+>> >highest
+>> >> available EL with the MMU off, and the resumed kernel installs its
+>own
+>> >> hyp stub vectors into VBAR_EL2 through init_kernel_el() before
+>anything
+>> >> else runs, so by the time swsusp_free() releases the trans_pgd copies
+>> >> nothing points at them anymore.
+>> >> 
+>> >> The series is structured so the first patch stands alone as a stable
+>> >> worthy fix for the missing hvc arguments. The rest is the cleanup:
+>the
+>> >> stale init_kernel_el() comment gets corrected, MTE tag pages get
+>freed
+>> >> after save instead of leaking on failed hibernates, the fragile
+>> >> _cpu_resume() calling convention gets split, and the last patch
+>reworks
+>> >> hibernate to use the regular cpu_resume() logic end to end.
+>> >> 
+>> >> Everything object compiles and passes checkpatch and sparse. I could
+>not
+>> >> boot or run a hibernate cycle on real hardware here, so that still
+>wants
+>> >> doing before anyone gets excited.
+>> >> 
+>> >> Bradley Morgan (7):
+>> >>   arm64: hibernate: pass HVC_SET_VECTORS args to the resume hvc
+>> >>   arm64: head: correct comment for init_kernel_el()
+>> >>   arm64: hibernate: free MTE tag pages after saving
+>> >>   arm64: hibernate: fix _cpu_resume() calling convention
+>> >>   arm64: hibernate: use dcache_by_myline_op
+>> >>   arm64: hibernate: only clean to PoC
+>> >>   arm64: hibernate: use regular cpu_resume() logic
+>> >> 
+>> >>  arch/arm64/include/asm/suspend.h  |  1 -
+>> >>  arch/arm64/kernel/head.S          |  6 +--
+>> >>  arch/arm64/kernel/hibernate-asm.S | 87
+>+++++++++++++++++++------------
+>> >>  arch/arm64/kernel/hibernate.c     | 66 +++++++++++------------
+>> >>  arch/arm64/kernel/sleep.S         |  6 +--
+>> >>  5 files changed, 88 insertions(+), 78 deletions(-)
+>> >> 
+>> >> -- 
+>> >> 2.47.3
+>> 
+>> --- Thanks!
+>>
+>https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
 
-these "quick fixes" based on surface level observations are going to hide
-real bugs and just degrade the overall state of the system.
-
-> Add a zero check returning 0 (no pages allocated) when the nodemask
-> is empty, consistent with the guard in
-> alloc_pages_bulk_weighted_interleave().
-> 
-> Signed-off-by: Liu Jing <liujing@cmss.chinamobile.com>
-> ---
->  mm/mempolicy.c | 3 +++
->  1 file changed, 3 insertion(+), 0 deletion(-)
-> 
-> --- a/mm/mempolicy.c
-> +++ b/mm/mempolicy.c
-> @@ -2600,6 +2600,9 @@
->  	unsigned long total_allocated = 0;
->  
->  	nodes = nodes_weight(pol->nodes);
-> +	if (!nodes)
-> +		return 0;
-> +
->  	nr_pages_per_node = nr_pages / nodes;
->  	delta = nr_pages - nodes * nr_pages_per_node;
->  
-> 
-> --
-> 2.43.0
-> 
-> 
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
