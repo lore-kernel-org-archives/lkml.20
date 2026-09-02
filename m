@@ -1,284 +1,120 @@
-Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 748A538229A
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:47:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8AE371885;
+	Wed,  2 Sep 2026 17:48:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788371268; cv=none; b=Lk2H/Y6BfMJEMQ/qtZDEd3HEkOctrmbWChUKa2ZvZWQRRP9FAZn9sYJAN5de5G0dS/6qBBqkr6Yd2QiA8ccnrorpVENf3IbZ7vl3D0SFagTQ7nU73ekaJL5xlU/QiVzkzXz6Swt6mic8/5jweAMIW4Z2WQi16ZgaFR3WDuEjOKA=
+	t=1788371287; cv=none; b=rj6uB8YMlbElNETIH2zV/cTOe3rgyI+eB5A9nf+TJz+opP038ATFVt3HWGPxiGCzN5TuIxn8koo1VUSc5ck3FO2ekA/28kGDim2gr4FVDWK77HboqxlObOQxemyZKTQXu1eq7Me/yyJRmA8bTKBzDL7n+7peSkRckW2GkgURYEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788371268; c=relaxed/simple;
-	bh=l4BWUyVmdw3bRhpu4w/TpdB1tZZEAfrwW7TjVYO4510=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=icM3f7Rh8TTJ80xEtOONJucg97SxGZil8bdAxYxMKxXhjXjYD9Z3HW6y9CoenDkEPxKu9VjDeoOulzm21a/BTraqytbJ6qCdmctHuWvw9x5dImimk2RclmdubiCYjtxsg/SRSAUTc0yVqCXGhKUX88HSQkD/k0k/5FKH5MHKB3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cz+zPtaX; arc=none smtp.client-ip=74.125.227.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788371287; c=relaxed/simple;
+	bh=HGtwWmnQ6QwDDO+DyewXu4HaqP7hG4EurP/lr9Sz1eU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XixhsLQbcWRimGX6lLVK6C+F/CdTXmY6Om2CAp6NbZ+5XSeF/kMf653otY6MKWgjDC5jxcdqli2wCwuwsO8s41sKAU9+V3Jgq+ARfJPxW1+aXh87QS1Pqrplld/0fSpQOpSqsxRWYAq4uFd1uFfRuTGJJSx18qnr10U9YwDKtuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=pXJ51bzM; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cz+zPtaX"
-Received: by mail-pj2-f4.google.com with SMTP id 98e67ed59e1d1-3896ccc93b5so435218a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:47:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788371267; x=1788976067; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9hgiYD9mAy7lLdpoQ7MWx+A7lz5nT32B2WH2DceHLJ4=;
-        b=Cz+zPtaXWApdZ0v6C98cSj5sRMjHcf5hxOqgMLuskIPUpmibhBuyWFUKu1QhnbOgGp
-         WtrlV5CIfGLghePSCCw7QDjOC/9cJ9lKdnZcnUGoBN4/UBhQR2/Px+JhD6T9hbywopUx
-         66mHHpnoT0hLZDJwwKQW5Nqy0kbVPmtDz6iOOTXcbWOUsr7EKXMrRMOYMTWHc94qw9+W
-         Z3PaDinM7hHRm3d6FPR/OzF2LhpS7T1MRcMfo4+f109KpTyksR8TUuRPoq6TWY5YE7h+
-         iIdZMSFvUWPr6gqqgJG3MxWJN4hy4U6h+kjhUeD/JsoYWxouv8tPPRYbUNNdG5/x1xDT
-         VZeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788371267; x=1788976067;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9hgiYD9mAy7lLdpoQ7MWx+A7lz5nT32B2WH2DceHLJ4=;
-        b=ZIb0oeaoBpYEbqkZ7zo2mb3I2kBNgrEQ6eUT5dZxl0HLDCoPYjwnYVya9UTaxBR3l6
-         VqMT6YwCujyjm+uENZgnG+RvlwPKm89YExdcymmFz/Et3mSWDa2aqNvN96eyr+EIIFJH
-         AMuDDnx6y2Y4fIQ6ofCKQ489/3p7SdFoCNptUi/+m2UNWA4XkaBUGzN5+UhopJFpye2M
-         TsSc8WN7X/6tE+RbQpN+zGRcN0CAArgbNwVYElBA4lf25r+yo7RyDuARj63ECIdbpSjI
-         79SvYujuX3MbjSR+8xwgGe2/opDRNscQDur1W1mH6vzJKqsPsAhCEGX21hRcC2IVY+AP
-         l1TQ==
-X-Gm-Message-State: AFuF++kFAPrmn6BDoloNQz/3NSPfw12HbL9j4nZnW+VfY32ad8Bi+XBX
-	XF8N0uomZCzcieEA54vJ9W5tPin9E+J1PYPMp/StEghndpOb5hVR/gBm
-X-Gm-Gg: AYBFou3tJZ6pxoXJl1/YMXFPKcO8VAbBFqsf/CQIZscAommTkA3HdwjXCvBACsD0dIv
-	bEGN0URRVcncTby+sB262af1caoNAk34/0WJp1LfCnkpKWIiY57aK8hHpn4NNSBzkcCf3ru4vn9
-	/k16aumdabWOmSqhFbPGWnN0RccIq9wDtIefAyPf4v9iG3nrlb+boOVbaTJHPdx9N3laDf965cU
-	wqRiDHI7yLFpJ/q0m9Q5F0ecNC+H88UBug5tu2m+qZtXfF1Q+G3sjB6OViTFrb4UEDvUpNv22uB
-	FgvyxndCDAS47Ol51iDVweiFYPNFx9/0MawadOv4ROYyEMZBXb/CWaFyDrKq8tesSh29O3pXnty
-	HoMieAnslyV+TjKsDUijkny8ISwmhT+i4YHeDF+YIkrOzdy7rLd8FlY/QTtxeRFftXgpJ976yf1
-	oFw+h6Bmx/3mLHE+/5lKVaDK693W8N6QS2vnDHsf5hEc+njAUuUf5wEUkIsyq0rR4pmlyFOFWiy
-	yby/cuCLoy2iTWF
-X-Received: by 2002:a17:90b:5908:b0:38e:5b59:c2ff with SMTP id 98e67ed59e1d1-39aedec4caamr10276108a91.3.1788371264027;
-        Wed, 02 Sep 2026 10:47:44 -0700 (PDT)
-Received: from mizar.onca-liberty.ts.net ([182.10.129.37])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b083f04d1sm470584a91.8.2026.09.02.10.47.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 10:47:43 -0700 (PDT)
-From: Idotoho Reimon Simanjuntak <idotohors@gmail.com>
-To: platform-driver-x86@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Denis Benato <denis.benato@linux.dev>,
-	"Luke D . Jones" <luke@ljones.dev>,
-	Corentin Chary <corentin.chary@gmail.com>,
-	Idotoho Reimon Simanjuntak <idotohors@gmail.com>
-Subject: [PATCH v3 3/3] platform/x86: asus-wmi: re-assert FA401 keyboard state before S0ix
-Date: Thu,  3 Sep 2026 00:47:18 +0700
-Message-ID: <20260902174718.16228-4-idotohors@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260902174718.16228-1-idotohors@gmail.com>
-References: <20260902174718.16228-1-idotohors@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="pXJ51bzM"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682HVaOG661164;
+	Wed, 2 Sep 2026 17:47:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=HGtwWmnQ6QwDDO+DyewXu4HaqP7hG4
+	EurP/lr9Sz1eU=; b=pXJ51bzM+v6WL88TWOeaJMkj1nSVlEa101MtzmBfaTneIB
+	B8Ry3a6/fLkuV4E44I15E99NZ7Pa9tYuPex+ARWyywvZOqrWeSatuJck2sLldGDL
+	FLLdjhW/AuHBe0Ve2ovPjbT8LMAFqTWO4Le0cLKhTxShmhYzdqSqYtmt4pux+eFO
+	c9w4YtdIqP5+FQfeWr7Ajw8Zf+lvioZBKEyx9S1AOdCdn/hbL0UvdFyi+VFbQCjl
+	S5i7b/vmqjq1v/2/Nl7nA9W8gI2PxivpgFZabXZs5M0NRZjz2k2w7ONefhNdd1pe
+	6iRKd/ARLvVl4+eg8FLJpTOEzDZEktygdnW35Fxg==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbpx5rd98-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 17:47:35 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 682HQpjI023346;
+	Wed, 2 Sep 2026 17:47:34 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gc9rqkj7y-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 17:47:34 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 682HlV6S44368140
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 2 Sep 2026 17:47:31 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 07A752004E;
+	Wed,  2 Sep 2026 17:47:31 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 90FEC2004F;
+	Wed,  2 Sep 2026 17:47:23 +0000 (GMT)
+Received: from Gautams-MacBook-Pro.local (unknown [9.124.221.176])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Wed,  2 Sep 2026 17:47:23 +0000 (GMT)
+Date: Wed, 2 Sep 2026 23:17:20 +0530
+From: Gautam Menghani <gautam@linux.ibm.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+        Paolo Bonzini <pbonzini@redhat.com>,
+        Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>,
+        Huacai Chen <chenhuacai@kernel.org>, Anup Patel <anup@brainfault.org>,
+        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+        Albert Ou <aou@eecs.berkeley.edu>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
+        Steffen Eiden <seiden@linux.ibm.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Zenghui Yu <yuzenghui@huawei.com>, Atish Patra <atish.patra@linux.dev>,
+        Alexandre Ghiti <alex@ghiti.fr>, David Hildenbrand <david@kernel.org>,
+        linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+        kvm@vger.kernel.org, loongarch@lists.linux.dev,
+        kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+        linux-kernel@vger.kernel.org, Nicholas Piggin <npiggin@gmail.com>,
+        Ritesh Harjani <ritesh.list@gmail.com>, linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH 00/20] KVM: selftests: PPC pre-enabling
+Message-ID: <aphhKDm7Vx7G5ivr@Gautams-MacBook-Pro.local>
+References: <20260826230511.972824-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826230511.972824-1-seanjc@google.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=PPc/P/qC c=1 sm=1 tr=0 ts=6a986138 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=6YN9JvpFNRzmbg3FydkA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: tRZqKKrGtBjHG2Pu3xQZzuOyhRhv077A
+X-Proofpoint-ORIG-GUID: pdLNL2iG2soKTiUHunO9uJiDJ8oxj9S6
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE1NCBTYWx0ZWRfX/3BQiO/4M77n
+ AvjpUycO+mKHAdP0qa39OrRauYjGL+ZXs6GMp+BhV9vuxqhuESJqGvGyxDS/TncOIoaaNebyj2M
+ Mh+XT8fPklmzmBP5n5N6hvz8btd17e0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE1NCBTYWx0ZWRfX7sO1s5aw3bu7
+ yGm8yQcHZ7WA2zwsrkIYdeZcloHnCw+pL5crxFHgEqUiWM+wUus/GNOQ/ZAwb6FjQLOncOp8A86
+ 94yCxLIuXJcEs1s8fHFlHIfo76aNyFoh4QlGJ0Mg/HjdkoTDg99uz3Cx41t/tSng59sXrFCxcMX
+ 9aSG+t+97OyBvbo2meC9X4F15bk3na1rQooBz40mnKd4Trt5E+kWB6Y4mk1lOazlBi5WcQ9xJda
+ SX3oEaIKkegrcRVjJg9T55qxEXJTwuO+3co5WfoC4YNCD6rzXlwpMc5j+JSeRlWHRDM9Un/5kf9
+ KZHm3YyKi0t11rguHeyczHDVWwZ1ehOeBVXz31LmkDWnFTcj2X+/2d5BWmQcgwNwjEJ/LAMcP6T
+ 1ZoI/atPvxfIYGWLuyusfsc18eNXNBHm5c/bJuaj5WtHgPMuR3aqb47eggYeMiaOlkvEFr8Yd4H
+ SzqNL31hLQRftxAg6jg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_04,2026-09-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609020154
 
-On ASUS TUF Gaming FA401 laptops, the display server or graphics driver
-blanks the keyboard backlight (brightness=0) during suspend. When the EC
-enters S0ix with brightness=0, it disables the sleep-strobe effect.
 
-Track the last user-configured non-zero keyboard backlight level in
-asus->kbd_led_last_level, and re-assert it with the light-on bit (0x80)
-along with the configured TUF RGB power state in both .prepare and the
-LPS0 s2idle .prepare hook. Hooking LPS0 ensures the re-assertion happens
-after all devices (including DRM and display managers) have suspended,
-immediately prior to low-power S0 idle entry.
-
-Only re-assert if the TUF sleep flag is active in kbd_rgb_state_flags,
-respecting any user decision to disable sleep LEDs. Initialize default
-flags at probe so the strobe functions out of the box.
-
-Signed-off-by: Idotoho Reimon Simanjuntak <idotohors@gmail.com>
----
- drivers/platform/x86/asus-wmi.c | 68 ++++++++++++++++++++++++++++++---
- 1 file changed, 63 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-index e7b2402c9..03d2af604 100644
---- a/drivers/platform/x86/asus-wmi.c
-+++ b/drivers/platform/x86/asus-wmi.c
-@@ -257,6 +257,7 @@ struct asus_wmi {
- 	int tpd_led_wk;
- 	struct led_classdev kbd_led;
- 	int kbd_led_wk;
-+	int kbd_led_last_level;
- 	bool kbd_led_notify;
- 	bool kbd_led_avail;
- 	bool kbd_led_registered;
-@@ -310,6 +311,7 @@ struct asus_wmi {
- 
- 	u32 kbd_rgb_dev;
- 	bool kbd_rgb_state_available;
-+	u32 kbd_rgb_state_flags;
- 	bool oobe_state_available;
- 
- 	u8 throttle_thermal_policy_mode;
-@@ -344,6 +346,7 @@ struct asus_wmi {
- 
- /* Global to allow setting externally without requiring driver data */
- static enum asus_ally_mcu_hack use_ally_mcu_hack = ASUS_WMI_ALLY_MCU_HACK_INIT;
-+static struct asus_wmi *asus_hotk;
- 
- #if IS_ENABLED(CONFIG_ASUS_WMI_DEPRECATED_ATTRS)
- static void asus_wmi_show_deprecated(void)
-@@ -1146,6 +1149,8 @@ static ssize_t kbd_rgb_state_store(struct device *dev,
- 				 struct device_attribute *attr,
- 				 const char *buf, size_t count)
- {
-+	struct led_classdev *led = dev_get_drvdata(dev);
-+	struct asus_wmi *asus = container_of(led, struct asus_wmi, kbd_led);
- 	u32 cmd, boot, awake, sleep, keyboard;
- 	u32 arg0;
- 	int err;
-@@ -1172,6 +1177,8 @@ static ssize_t kbd_rgb_state_store(struct device *dev,
- 	if (err)
- 		return err;
- 
-+	asus->kbd_rgb_state_flags = arg0;
-+
- 	return count;
- }
- static DEVICE_ATTR_WO(kbd_rgb_state);
-@@ -1944,8 +1951,11 @@ static void do_kbd_led_set(struct led_classdev *led_cdev, int value)
- 
- 	asus = container_of(led_cdev, struct asus_wmi, kbd_led);
- 
--	scoped_guard(spinlock_irqsave, &asus_ref.lock)
-+	scoped_guard(spinlock_irqsave, &asus_ref.lock) {
- 		asus->kbd_led_wk = clamp_val(value, 0, ASUS_EV_MAX_BRIGHTNESS);
-+		if (asus->kbd_led_wk > 0)
-+			asus->kbd_led_last_level = asus->kbd_led_wk;
-+	}
- 
- 	if (asus->kbd_led_avail)
- 		kbd_led_update(asus);
-@@ -2155,6 +2165,7 @@ static int asus_wmi_led_init(struct asus_wmi *asus)
- 
- 	if (asus->kbd_led_avail) {
- 		asus->kbd_led_wk = led_val;
-+		asus->kbd_led_last_level = led_val > 0 ? led_val : ASUS_EV_MAX_BRIGHTNESS;
- 		if (num_rgb_groups != 0)
- 			asus->kbd_led.groups = kbd_rgb_mode_groups;
- 	} else {
-@@ -5146,6 +5157,7 @@ static int asus_wmi_add(struct platform_device *pdev)
- 	asus->platform_device = pdev;
- 	wdrv->platform_device = pdev;
- 	platform_set_drvdata(asus->platform_device, asus);
-+	asus_hotk = asus;
- 
- 	if (wdrv->detect_quirks)
- 		wdrv->detect_quirks(asus->driver);
-@@ -5184,6 +5196,14 @@ static int asus_wmi_add(struct platform_device *pdev)
- 	asus->kbd_rgb_state_available =
- 		asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_TUF_RGB_STATE) ||
- 		asus->driver->quirks->kbd_rgb_state_available;
-+	if (asus->kbd_rgb_state_available) {
-+		asus->kbd_rgb_state_flags =
-+			ASUS_WMI_TUF_RGB_STATE_CMD_ID |
-+			FIELD_PREP(TUF_RGB_STATE_BOOT, 1) |
-+			FIELD_PREP(TUF_RGB_STATE_AWAKE, 1) |
-+			FIELD_PREP(TUF_RGB_STATE_SLEEP, 1) |
-+			FIELD_PREP(TUF_RGB_STATE_KEYBOARD, 1);
-+	}
- 
- 	if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_MINI_LED_MODE))
- 		asus->mini_led_dev_id = ASUS_WMI_DEVID_MINI_LED_MODE;
-@@ -5324,6 +5344,7 @@ static void asus_wmi_remove(struct platform_device *device)
- 	struct asus_wmi *asus;
- 
- 	asus = platform_get_drvdata(device);
-+	asus_hotk = NULL;
- 	if (asus->driver->i8042_filter)
- 		i8042_remove_filter(asus->driver->i8042_filter);
- 	wmi_remove_notify_handler(asus->driver->event_guid);
-@@ -5424,17 +5445,54 @@ static int asus_hotk_restore(struct device *device)
- 	return 0;
- }
- 
-+static void asus_tuf_reassert_sleep_rgb_state(struct asus_wmi *asus)
-+{
-+	if (asus && asus->driver->quirks->kbd_rgb_state_available &&
-+	    asus->kbd_rgb_state_available &&
-+	    (asus->kbd_rgb_state_flags & TUF_RGB_STATE_SLEEP)) {
-+		int level;
-+		u32 arg0;
-+
-+		/*
-+		 * Re-assert keyboard backlight using the last user-configured
-+		 * brightness level (falling back to max brightness) with the
-+		 * light-on bit (0x80) set.
-+		 */
-+		level = asus->kbd_led_last_level ?
-+			asus->kbd_led_last_level : ASUS_EV_MAX_BRIGHTNESS;
-+		asus_wmi_set_devstate(ASUS_WMI_DEVID_KBD_BACKLIGHT,
-+				      0x80 | (level & 0x7f), NULL);
-+
-+		/* Re-assert the last user-configured TUF RGB power state */
-+		arg0 = asus->kbd_rgb_state_flags |
-+		       FIELD_PREP(TUF_RGB_STATE_SAVE, 1);
-+		asus_wmi_evaluate_method3(ASUS_WMI_METHODID_DEVS,
-+					  ASUS_WMI_DEVID_TUF_RGB_STATE,
-+					  arg0, 0, NULL);
-+	}
-+}
-+
- static int asus_hotk_prepare(struct device *device)
- {
-+	struct asus_wmi *asus = dev_get_drvdata(device);
-+
- 	if (use_ally_mcu_hack == ASUS_WMI_ALLY_MCU_HACK_ENABLED) {
- 		acpi_execute_simple_method(NULL, ASUS_USB0_PWR_EC0_CSEE,
- 					   ASUS_USB0_PWR_EC0_CSEE_OFF);
- 		msleep(ASUS_USB0_PWR_EC0_CSEE_WAIT);
- 	}
-+
-+	asus_tuf_reassert_sleep_rgb_state(asus);
-+
- 	return 0;
- }
- 
- #if defined(CONFIG_SUSPEND)
-+static void asus_s2idle_prepare(void)
-+{
-+	asus_tuf_reassert_sleep_rgb_state(asus_hotk);
-+}
-+
- static void asus_ally_s2idle_restore(void)
- {
- 	if (use_ally_mcu_hack == ASUS_WMI_ALLY_MCU_HACK_ENABLED) {
-@@ -5444,20 +5502,20 @@ static void asus_ally_s2idle_restore(void)
- 	}
- }
- 
--/* Use only for Ally devices due to the wake_on_ac */
--static struct acpi_s2idle_dev_ops asus_ally_s2idle_dev_ops = {
-+static struct acpi_s2idle_dev_ops asus_s2idle_dev_ops = {
-+	.prepare = asus_s2idle_prepare,
- 	.restore = asus_ally_s2idle_restore,
- };
- 
- static void asus_s2idle_check_register(void)
- {
--	if (acpi_register_lps0_dev(&asus_ally_s2idle_dev_ops))
-+	if (acpi_register_lps0_dev(&asus_s2idle_dev_ops))
- 		pr_warn("failed to register LPS0 sleep handler in asus-wmi\n");
- }
- 
- static void asus_s2idle_check_unregister(void)
- {
--	acpi_unregister_lps0_dev(&asus_ally_s2idle_dev_ops);
-+	acpi_unregister_lps0_dev(&asus_s2idle_dev_ops);
- }
- #else
- static void asus_s2idle_check_register(void) {}
--- 
-2.55.0
-
++ linuxppc-dev
