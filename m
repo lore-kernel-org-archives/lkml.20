@@ -1,101 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D3384322E1;
-	Wed,  2 Sep 2026 09:57:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B4BB4334DD
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:57:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788343071; cv=none; b=WUDjxzTUl7+b2wnn8OPTNulP8gGhpUm8GMhxuW4aCrZF2OKwBLWiPdTrDecMNNTdjXesPg0zLDrlhh6pt6DzouLB5Qgck6jekVoeOYZDRl67keHu7jnZhbDc/6kedDOGBNxmJJ0+tmsxnLA3qvvvsWjivFbl4zuMl1PI9NIo49A=
+	t=1788343071; cv=none; b=mzxFMzQifg0/SLcAFrQG5j1ZyeOtCPDdNqTqDBS1VcRjdmDhSv1mHGC25xIe8d2P7nhgu65kaZgVEK7IvWz8m5ICvaB4TLlAUzhb0SxnzioZ8DylBsYGikkcamylOP/Rub3xc+r0rUyQbxT/AnRxXCO87E+GFWHWCL/yJPTjytM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788343071; c=relaxed/simple;
-	bh=FmPs1AaC4HTx+4ATgO0Atnqy8ii7miSREtPj7fQifn8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LLKFuC61S27mepvkLVYyor7lG6WbzMUe5Ry1kBzn5Uo1Ew5J+SH2da0i8dI5QOuffa82LlMF1cb+Dn0+oz7hIT5ujmJ8mosROPXNys5ODplAQSLhhklC93jmS1gHCla8z2sgDQElOzeq/80vkRDYpF6Po+h9CU6Fro/J72SHWaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ViFJ1IU2; arc=none smtp.client-ip=100.103.45.18
+	bh=HkXxTB72wQCMpzYwUnwAJU9KwsD3ZJwAbFrv0fPqNd8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=nVjP1xUfjk/R+Cxnsr3oORQYW5WfyaqQ0S9vtKIBDTgcHDPCiUdfwbs51sNd1dUDS0K19n/Z31dimYQBzj6SP8m/RoJ1Nnt+OM+3E1PNUGZtzBHrgCBLiH69N6WkQIfN1iIusngOA9ZUTysIe+oic5e7ZNsph7Y/Fr8W2kHhmKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=GZJeXJ8i; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ViFJ1IU2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B53A1F000E9;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="GZJeXJ8i"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 2AE624E41428;
+	Wed,  2 Sep 2026 09:57:47 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id F28646053C;
 	Wed,  2 Sep 2026 09:57:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788343069;
-	bh=q+9hqza9dyhnBNhxd9WKxgckCAvxjsSs3YHiVEje4Jw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ViFJ1IU2hH+2KHfYSGYtdUuc6hr9bUXkkeevJoRiXmLoNI06xgV/lhgRnrzS/tdLE
-	 IUOfrv20g1snbWGfh+mCHI2mnejYiVSRR/9nDB3YddowNbAlJPLBFhSryDS4HZUC0A
-	 DWbsM+NrjVqyk5nbIxwEmcHuxrGpvQtj/D88MU3+L8RdsGkJBykbujIrqmqLu/2WOH
-	 OqeqhfpnmsqbzPs8qvi9zrUd8yWMn8lgGtvttwPMps1l1BSyYxrp4q+nSDeM/UcKGL
-	 IRP3bhY6oSgMKVLBdQ0IiMnMdTeKAbLmdb5OG48RWeVDUbQmNJP8FfM9YFOJT8d8ko
-	 62UARpYSIbY7w==
-Date: Wed, 2 Sep 2026 10:57:44 +0100
-From: Lee Jones <lee@kernel.org>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Vincent Donnefort <vdonnefort@google.com>, stable@vger.kernel.org,
-	mhiramat@kernel.org, linux-trace-kernel@vger.kernel.org,
-	mathieu.desnoyers@efficios.com, kernel-team@android.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: STABLE REQ: [PATCH v5 06/10] tracing: Fix subbuf resize races
- with trace_pipe_raw readers
-Message-ID: <20260902095744.GN2943942@google.com>
-References: <20260813131152.3589632-1-vdonnefort@google.com>
- <20260813131152.3589632-7-vdonnefort@google.com>
- <20260901123444.GA1350131@google.com>
- <20260901094656.487b278f@gandalf.local.home>
- <20260902082717.GM2943942@google.com>
- <2026090230-entryway-acquaint-d12e@gregkh>
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 866D811C7930A;
+	Wed,  2 Sep 2026 11:57:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788343066; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=OUS3SdUwNSk48tuvVvsVFTUNr9za3nsJwxnsYhhP2sM=;
+	b=GZJeXJ8iMiUM3Th6SL5077DMfUa3ixshGVSaGbC34rgRPTrGQ0ddgOLwleBEiIY3kdFCQh
+	Ai12CFB512rF2A/OoKFRACE1iRYX+5BvvQIxx5Xg2JhMTTKVUyLxnPSG+5nD9+w6z41VC0
+	zer/fR5TY0LnB60XiPY6tw04YXLT8q57XHsfoMTEGtXS+lNJcTUhpI7mVQiACUwJULsQh4
+	2kJNMeU/e7r1Vx5U839u6tS5mPf++HquOyAHkhEVYDh5sGnOqJtC7j+M/DQRiEY0mo56ZK
+	YDxk68jnP61aP+d5MNjemRNEryCUnibFAjWPnaTtYvnoKnDw4fi5YjAy9PnwZg==
+From: "Bastien Curutchet (Schneider Electric)" <bastien.curutchet@bootlin.com>
+Date: Wed, 02 Sep 2026 11:57:33 +0200
+Subject: [PATCH net-next v2 03/10] net: dsa: microchip: use dynamic mask to
+ check pulse width validity
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026090230-entryway-acquaint-d12e@gregkh>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-ksz-perout-v2-3-6f277fcc9e68@bootlin.com>
+References: <20260902-ksz-perout-v2-0-6f277fcc9e68@bootlin.com>
+In-Reply-To: <20260902-ksz-perout-v2-0-6f277fcc9e68@bootlin.com>
+To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Richard Cochran <richardcochran@gmail.com>
+Cc: Pascal Eberhard <pascal.eberhard@se.com>, 
+ =?utf-8?q?Miqu=C3=A8l_Raynal?= <miquel.raynal@bootlin.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ "Bastien Curutchet (Schneider Electric)" <bastien.curutchet@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, 02 Sep 2026, Greg KH wrote:
+The pulse width validity is checked against an hardcoded mask. KSZ8463
+uses a smaller register than other switches so this check won't work for
+it.
 
-> On Wed, Sep 02, 2026 at 09:27:17AM +0100, Lee Jones wrote:
-> > On Tue, 01 Sep 2026, Steven Rostedt wrote:
-> > 
-> > > On Tue, 1 Sep 2026 13:34:44 +0100
-> > > Lee Jones <lee@kernel.org> wrote:
-> > > 
-> > > > Could we have this applied to Stable please:
-> > > > 
-> > > > 8a5f63637890 ("ring-buffer: Fix subbuf resize race with ring buffer readers")
-> > > 
-> > > It's marked for stable so it should automatically be backported (if it
-> > 
-> > Where was it marked for Stable?
-> 
-> It has:
-> 	Cc: stable@vger.kernel.org
-> in the patch itself.  It is in my queue to get to, along with over 1000+
-> other patches that people decided to tag for stable and yet wait for the
-> -rc1 merge window to get to Linus.
+Move the mask as a ksz_ptp_tou_pulse_verify()'s input to allow changing
+it for KSZ8463 case.
 
-Am I losing the plot?  The patch that I replied to [0] did not Cc:
-Stable.  If it had, I wouldn't have made the request.
+Signed-off-by: Bastien Curutchet (Schneider Electric) <bastien.curutchet@bootlin.com>
+---
+ drivers/net/dsa/microchip/ksz_ptp.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-  From: Vincent Donnefort <vdonnefort@google.com>
-  To: rostedt@goodmis.org, mhiramat@kernel.org,
-  	 linux-trace-kernel@vger.kernel.org
-  Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com,
-  	 linux-kernel@vger.kernel.org,
-  	Vincent Donnefort <vdonnefort@google.com>
-  Subject: [PATCH v5 06/10] tracing: Fix subbuf resize races with trace_pipe_raw readers
-
-  [...]
-
-  Fixes: bce761d75745 ("ring-buffer: Read and write to ring buffers with custom sub buffer size")
-  Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
-
-> It will get there eventually...
-
-This wasn't an urgent request or a request to expedite.  Take your time.
-
-[0] https://lore.kernel.org/all/20260813131152.3589632-7-vdonnefort@google.com/
+diff --git a/drivers/net/dsa/microchip/ksz_ptp.c b/drivers/net/dsa/microchip/ksz_ptp.c
+index f80015250e5a..7bf83e0b5918 100644
+--- a/drivers/net/dsa/microchip/ksz_ptp.c
++++ b/drivers/net/dsa/microchip/ksz_ptp.c
+@@ -86,7 +86,7 @@ static int ksz_ptp_tou_reset(struct ksz_device *dev, u8 unit)
+ 			 0);
+ }
+ 
+-static int ksz_ptp_tou_pulse_verify(u64 pulse_ns)
++static int ksz_ptp_tou_pulse_verify(u64 pulse_ns, u32 mask)
+ {
+ 	u32 data;
+ 
+@@ -94,7 +94,7 @@ static int ksz_ptp_tou_pulse_verify(u64 pulse_ns)
+ 		return -EINVAL;
+ 
+ 	data = (pulse_ns / 8);
+-	if (!FIELD_FIT(TRIG_PULSE_WIDTH_M, data))
++	if ((mask & data) != data)
+ 		return -ERANGE;
+ 
+ 	return 0;
+@@ -245,7 +245,7 @@ static int ksz_ptp_enable_perout(struct ksz_device *dev,
+ 				       KSZ_MAX_PULSE_WIDTH);
+ 	}
+ 
+-	ret = ksz_ptp_tou_pulse_verify(pulse_width_ns);
++	ret = ksz_ptp_tou_pulse_verify(pulse_width_ns, TRIG_PULSE_WIDTH_M);
+ 	if (ret)
+ 		return ret;
+ 
 
 -- 
-Lee Jones
+2.55.0
+
