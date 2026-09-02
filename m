@@ -1,227 +1,161 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77BDA4A64D2
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:57:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA6424A64E2;
+	Wed,  2 Sep 2026 14:57:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788361023; cv=none; b=iALBlC2h70mr0HPdhHy4wzLH9nhdLnt+/BXwCSUFAYsIIjpdCuBSYOp3v3a+5NKjre1/hwMongn4Clw929nWJ+AKK7TW1q+6RgB53p9jKUA35DziS4VA3IC68CgPW3ZPzBuYwuEDX+Cqp8GsS4XxTTZf2tXcHXDWEPl4AXO0vSE=
+	t=1788361032; cv=none; b=Ee+hZUaBzVMJPupHUm5Gvtu7T6w6MIFQLl9EQ88hUqsRm/hLdLch3GlxQfOBia+FNAJ9MoIaLp2BmGa++iPK6yujPrkQTw7wf0/NxxqvkD+J9Ouz8TTslqNb/JNgAs7lPgzfiz+zm898r1joLeJzqsmpv/gUQsDkA0Blogd5/nM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788361023; c=relaxed/simple;
-	bh=YXYiQ6MlkwSY9s0/iRzorG5wwX8F6Ons+fpr1FTHCdA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VoXeAevN77678QZZ1u+o/678oJEnhCb8BOHJQ9dXoBYdpI5Hh+ZYvn+SVJU7PxB/v1zhEEaNJ7E39oC3uyTe7SzaOH7+ZruwZrSi9aTjk8rc0/n+Ts0UoVliwm8+XuGUjrBrukUi+ak7Ia9eObf99i0vrMNpiNMaGE/AfoP13Ko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ng05+O7v; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788361032; c=relaxed/simple;
+	bh=EcwD6RySu+Vi2oDqb/Cbh6fRw3TVgFdZSMuq+8Ytg2M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mPbwC4Bej2qL3WuwPOvj0sA6kSMgxNVh6uBRB+0L8p4TWIjK2XivK2mu8+y53URbQ5fbugDaqWfJl3HSMLXNSPsDCdycZKkuAeXkT3RqJ6wCx6dV5ej3Ex81A69LuAJVQVl0rw2Z2hZWWGdxG4hwEZDR2i3jTXMf/ZwH/jiPqdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=dnew6nRR; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=0GCEvP3q; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=j0wxN3AO; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=78uO1DIs; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ng05+O7v"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49b965570d7so9539805e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:57:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788361019; x=1788965819; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZKBfOg4ndfWf72OBMR4MzaBGR2UKb0LfrmxRQ5wr5p4=;
-        b=ng05+O7vLEqirf+5pwkWz4sEc77tcKJTALKYq4rwr0kUqEI309d5lpke6vQF4rhdgH
-         0edv06cHEY4TtsLK7+UVjCYjDYqTZgAIFl+UaWaMD/BKzavwRNFlyzTteTRbrek+Pu25
-         lW/Kqq5SROXhiWH+XgfV3rwuOoc3R/3QxkKNwpmpB0eCtf+eOTheFTUnS60O5T8oLRuM
-         pnFpiqYCvF1IC5BppWIpcNdg5c6os3UB3ZCM8HnWgGeuOgpmISzAD/2wM/fkpV7pa2Tc
-         OgPhAURYyx0633GZ1OxDEvE2i5mYYYy4rM/TwVuKcsb362ENV+akpuW0UfBL4MN3JKR0
-         qKkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788361019; x=1788965819;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZKBfOg4ndfWf72OBMR4MzaBGR2UKb0LfrmxRQ5wr5p4=;
-        b=lTFS82TU1C+1K2IFmAiuwp53mAR/zb9HA4SoOROoeeEAsQvMCbCEy0FHCbCBAaZkNs
-         eR9bra2Vla9AJYjp3hYS4SPq+ysh0YptiOAkbUqGZi/jORw98gvWTMMMU/7NZeUWu66e
-         /h3Vvw2wthA36BZGMMB7hYcMywVkc1YqBz3SbbJoAugwyYUMU27GZ4pnjwqChd8e15i2
-         1GjolDUKBezLv8bYEA+mUMXhoXZBalGudf1yBHVvZQLMTSkPZSbGXt2Je1LcSERdDXLt
-         X1jLRwD4HLyEwuFUIO7PEWgpNRYWIv6HKUb50Qpm97e+oxGhuKgujD6cEXKW+Rzy4lql
-         Y/YA==
-X-Forwarded-Encrypted: i=1; AHgh+RpCtqkV8YjC3s7uX86JSSSi/piUvacg6CmIw/5Dq7DP8HgpPZkelEtqZcClpDZuSo2omsltLkArHNj4ayU=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7LW5MWorzfX6yADEVOzV/qRlifqKAm3vD1IJtfVQ5qmnK9KHz
-	/JDmRtGallb4040NXL1ePGgwWfTlwGmbR2lf3I/+EWKh5B8PPyCTW10=
-X-Gm-Gg: AR+sD11gckYwOrEO3DAiDJZzHJsabxzgycyGofObmiMHSS8zC3NDT9L7yz3Z5UzBlhj
-	hG4tPHE3UTCOiqSEo+pPTe6u5DoLNHG9ysv498dGZkGneBgFGCyeJkNhzZEPdIue/9rJ9qZMjBF
-	lf+TSZEJOZ6+oOIitQFuQTKGXd4xGBBUhkCmzYHLGNRWnC1ihsSesdYhourWE9KKQjTcfP0+a0M
-	VQyTJn2on3ucx4u8P0qsMuqhT/h+cSuYwl6ObkHc7GSsg/H+yvyHPuji/ahNDx1kfkPuXMnB3Vi
-	+sQy/+tejI166qWCEhp9lqtzv/Qv7N/B7NkvqmB/ymc+h7cZHbJgTJ59qnXfMvtAQ3lULU/XDvb
-	k87k8JQi9QpnvZpPx8PzKGFx/zfT3ZBp1y6T2xr5kB1S38dVdw7kcWHgKleMj0VXJFYseD9LcoK
-	pXYLBIqRbdSxlrrVrMcGtpQ0+5ZgCwSnl6KXki4RkptxfUZl4Sl2jhQ8uiHYMY/TpaKUFqm2ops
-	PT3SshXqHWLfO69xc1etlAj81b/ouzRih8kS2u9tcyK3MTUpZ4jM+cPGVAgBKgm/XFIDUOJ
-X-Received: by 2002:a05:600c:3494:b0:49b:9202:6f80 with SMTP id 5b1f17b1804b1-49ce57ee273mr106063775e9.6.1788361018773;
-        Wed, 02 Sep 2026 07:56:58 -0700 (PDT)
-Received: from chateau ([194.65.85.67])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5927b68sm61084215e9.1.2026.09.02.07.56.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 07:56:57 -0700 (PDT)
-From: Sergey Zagursky <gvozdoder@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Miguel Vadillo <miguel.vadillo@intel.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev,
-	Sergey Zagursky <gvozdoder@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: ipu-bridge: do not use the CVS device lookup for IVSC
-Date: Wed,  2 Sep 2026 15:54:39 +0100
-Message-ID: <20260902145440.1786297-1-gvozdoder@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="dnew6nRR";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="0GCEvP3q";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="j0wxN3AO";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="78uO1DIs"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 1C14D21E1D;
+	Wed,  2 Sep 2026 14:56:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788361021; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DTaZRJF7E4m58tGqejqLU6yBS1jXF76V0QMjhTNpg4Q=;
+	b=dnew6nRRFMVUUnPTU9/EgOMTHioW2Im9zA1C+04uczxq7Utx3JpDraGG7gzkXzG/kd/gi+
+	HPloynMmdaN1yn4Dxz90wI89y336ROXi0VlbribVpDR/ktva4faIx4VmPNB2J8mvXl4TBx
+	Lcl4MyBnyjQxbfk7mLken7q1CmDMQ/o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788361021;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DTaZRJF7E4m58tGqejqLU6yBS1jXF76V0QMjhTNpg4Q=;
+	b=0GCEvP3qrP0fKlUWajRZaHdGGoT0BQqsoeJP0GrydZIZ2pLhbCPeCKCn+wRNDYwzsbWCJw
+	T/lFI7ApXD4hF0Bg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=j0wxN3AO;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=78uO1DIs
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788361017; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DTaZRJF7E4m58tGqejqLU6yBS1jXF76V0QMjhTNpg4Q=;
+	b=j0wxN3AORIKe5x2jl87BHtIXAy6f4dUHvX9ZHHJefH8cb24dOoVbg2+vLyeNztiwd55rq7
+	4FtVjWk2JsBc39dRWhEJMsPkDFpqcKjhROQQ/pRW0FDOfnIm/RLHA4zIQ5AAyAGT/e1Nnf
+	8B6KlM9KJc3owZfR+SJYSfeD9A50jBo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788361017;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DTaZRJF7E4m58tGqejqLU6yBS1jXF76V0QMjhTNpg4Q=;
+	b=78uO1DIsTGApubBflfpR3ncPUKEQuHfpKm2hKgyiUtbzFh5P+6n3CUVpXij89iY7gzm5Go
+	nS8UrkX6dcYp7IBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EEEA3136E6;
+	Wed,  2 Sep 2026 14:56:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id aIlBOjg5mGqjMgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 02 Sep 2026 14:56:56 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 8692DA13B5; Wed, 02 Sep 2026 16:56:56 +0200 (CEST)
+Date: Wed, 2 Sep 2026 16:56:56 +0200
+From: Jan Kara <jack@suse.cz>
+To: Theodore Tso <tytso@mit.edu>
+Cc: Jinjie Ruan <ruanjinjie@huawei.com>, bcrl@kvack.org, 
+	viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz, adilger.kernel@dilger.ca, 
+	libaokun@linux.alibaba.com, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
+	yi.zhang@huawei.com, sforshee@kernel.org, akpm@linux-foundation.org, pmladek@suse.com, 
+	rostedt@goodmis.org, andriy.shevchenko@linux.intel.com, linux@rasmusvillemoes.dk, 
+	senozhatsky@chromium.org, kees@kernel.org, tglx@kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-aio@kvack.org, linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org
+Subject: Re: [PATCH v3 0/8] Convert barrier pairs to acquire/release for
+ better performance
+Message-ID: <mamuiutepiyntod2mjigirx4bpn7kadrbtn74i3f4egl5wcg7t@ubixnvgdntie>
+References: <20260902074805.398540-1-ruanjinjie@huawei.com>
+ <apgv5w116frzutwH@mit.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apgv5w116frzutwH@mit.edu>
+X-Spam-Score: -2.51
+X-Rspamd-Queue-Id: 1C14D21E1D
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCPT_COUNT_TWELVE(0.00)[24];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[huawei.com,kvack.org,zeniv.linux.org.uk,kernel.org,suse.cz,dilger.ca,linux.alibaba.com,linux.ibm.com,gmail.com,linux-foundation.org,suse.com,goodmis.org,linux.intel.com,rasmusvillemoes.dk,chromium.org,vger.kernel.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:dkim];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from]
+X-Spam-Flag: NO
 
-Since commit c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU
-bridge driver") the internal camera no longer works on laptops where the
-sensor sits behind an IVSC, for example a Dell XPS 16 9640 (IPU6,
-INTC10CF, ov02c10):
+On Wed 02-09-26 10:19:46, Theodore Tso wrote:
+> On Wed, Sep 02, 2026 at 03:47:57PM -0500, Jinjie Ruan wrote:
+> > 
+> > This series converts some existing smp_wmb()/smp_rmb() barrier pairs to
+> > smp_store_release()/smp_load_acquire() across various subsystems.
+> 
+> I would like to land the ext4 related patches through the ext4 tree,
+> so please detach them from this patch series.  That's because I want
+> to be able to monitor the regression testing before sending a pull
+> request to Linus.
+> 
+> More generally, I think we should be looking at this kind of barrier
+> conversion on a per site basis.  If there is a bug that isn't notice,
+> it can result in a very hard to debug problem.  And if the benefit of
+> speeding up a particular code path isn't particularly that great,
+> maybe the cost vs benefit vs risk calculation might cause us to decide
+> to take a pass on the change.
 
-  intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
-  intel-ipu6 0000:00:05.0: Connected 1 cameras
-  ivsc_csi intel_vsc-92335fcf-3203-4472-af93-7b4453ac29da: mei-csi probed
-      without device fwnode!
+FWIW I believe each patch in this series is standalone so you can just pick
+the ext4 ones yourself. Regarding the benefit, I actually find load_acquire
+/ store_release more self-documenting, what exactly they are protecting, so
+generally I'm in favor of such conversions if they logically make sense
+(i.e., it's really the "prepare some data + store to publish" pattern) -
+which was the case in the patches I've reviewed in this series.
 
-No sensor subdevice is registered, the media graph has no sensor entity
-and userspace finds no camera at all.
-
-ipu_bridge_get_ivsc_csi_dev() first looks for the platform device named
-"intel_vsc" and returns its mei-csi child. That device is created by
-mei_vsc, which on this machine only appears once the LJCA USB bridge and
-its SPI controller have probed, about a second after the IPU6 probe that
-runs the bridge:
-
-  07:59:29.297  platform INTC10CF:00 created (ACPI scan)
-  07:59:41      intel-ipu6 probe -> ipu_bridge_init()
-  07:59:42.391  platform intel_vsc created (mei_vsc)
-
-The commit above added two fallbacks for CVS which match on the ACPI
-companion alone. They are reached for every entry of ivsc_acpi_ids[],
-IVSC IDs included. The IVSC ACPI device has two physical nodes:
-
-  INTC10CF:00/physical_node  -> platform/INTC10CF:00  (no driver bound)
-  INTC10CF:00/physical_node1 -> platform/intel_vsc    (mei_vsc)
-
-so bus_find_device_by_acpi_dev(&platform_bus_type, adev) returns the bare
-platform device. ipu_bridge_instantiate_ivsc() then attaches the IVSC
-software node to that device instead of to the mei-csi client, the bridge
-reports success, and the probe is never retried. mei_csi later probes
-without a fwnode, the CSI-2 link is never described, and the sensor ACPI
-device, which has an honoured _DEP on the IVSC device, is never
-enumerated.
-
-Before those fallbacks existed the lookup returned NULL here, the bridge
-failed with -ENODEV and the probe was retried once the IVSC device had
-shown up.
-
-Restrict the two fallbacks to the CVS IDs. CVS binds a driver to the ACPI
-device itself, so matching on the companion is unambiguous there.
-
-Fixes: c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU bridge driver")
-Link: https://lore.kernel.org/linux-media/20260901194526.6369-1-gvozdoder@gmail.com/
-Cc: stable@vger.kernel.org
-Assisted-by: Claude Code:claude-opus-5
-Signed-off-by: Sergey Zagursky <gvozdoder@gmail.com>
----
-Changes since v1:
-- Wrap the ACPI ID match in a named helper, ipu_bridge_is_cvs_dev(), so the
-  polarity is readable at the call site. acpi_match_device_ids() returns 0
-  on a match, which made the v1 condition easy to misread. No functional
-  change.
-
-v1: https://lore.kernel.org/linux-media/20260901195036.7648-1-gvozdoder@gmail.com/
-
-The functional testing below was done with v1 on the affected machine (Dell
-XPS 16 9640, IPU6 + IVSC + ov02c10) on top of 7.2.2, where
-drivers/media/pci/intel/ipu-bridge.c is byte-identical to v7.2. v2 changes
-only how the same condition is spelled, so I rebuilt it but did not boot it
-again. Without the patch libcamera finds no camera at all; with it:
-
-  $ cam -l
-  1: Internal front camera (\_SB_.PC00.LNK1)
-
-  $ cam -c1 --capture=5
-  202.794954 (30.05 fps) cam0-stream0 seq: 000003 bytesused: 8386560
-  202.828224 (30.06 fps) cam0-stream0 seq: 000004 bytesused: 8386560
-
-The media graph gains the entities that were missing:
-
-  - entity 349: Intel IVSC CSI (2 pads, 2 links, 0 routes)
-  - entity 368: ov02c10 21-0036 (1 pad, 1 link, 0 routes)
-
-and the restored retry is visible in dmesg:
-
-  pci 0000:00:05.0: deferred probe pending: intel-ipu6: IPU6 bridge init failed
-  intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
-  intel-ipu6 0000:00:05.0: Connected 1 cameras
-
-"mei-csi probed without device fwnode!" is gone, ov02c10 binds to
-i2c-OVTI02C1:00, and eight v4l-subdev nodes appear.
-
-This patch is against v7.3-rc1. The version tested on 7.2.2 is the same
-change without the INTC10FA entry, which 7.2.x does not have. Building
-drivers/media/pci/intel/ipu-bridge.c with W=1 produces no new warnings.
-
-Not covered: v2 itself is only compile-tested (no new warnings with W=1);
-I have no CVS hardware, so the CVS path is only reasoned about, not tested;
-and I have not booted v7.3-rc1 itself.
-
-This patch was produced with the help of an AI coding assistant; see the
-Assisted-by tag above and Documentation/process/generated-content.rst.
-
- drivers/media/pci/intel/ipu-bridge.c | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
-
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 1bb3a3e98d6b..a29d4bdb8f02 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -232,6 +232,20 @@ static const struct acpi_device_id ivsc_acpi_ids[] = {
- 	{ "INTC10FA" }, /* NVL */
- };
- 
-+/* The subset of ivsc_acpi_ids[] which are CVS, rather than IVSC, devices. */
-+static const struct acpi_device_id cvs_acpi_ids[] = {
-+	{ "INTC10DE" }, /* LNL */
-+	{ "INTC10E0" }, /* ARL */
-+	{ "INTC10E1" }, /* PTL */
-+	{ "INTC10FA" }, /* NVL */
-+	{ }
-+};
-+
-+static bool ipu_bridge_is_cvs_dev(struct acpi_device *adev)
-+{
-+	return !acpi_match_device_ids(adev, cvs_acpi_ids);
-+}
-+
- static struct acpi_device *ipu_bridge_get_ivsc_acpi_dev(struct acpi_device *adev)
- {
- 	unsigned int i;
-@@ -283,6 +297,17 @@ static struct device *ipu_bridge_get_ivsc_csi_dev(struct acpi_device *adev)
- 		return csi_dev;
- 	}
- 
-+	/*
-+	 * The lookups below match on the ACPI companion alone. That is fine for
-+	 * CVS, which binds a driver to that very device, but not for IVSC: there
-+	 * the ACPI device also has a driverless platform device, which would be
-+	 * returned instead of the mei-csi client. Return NULL for IVSC so that
-+	 * the caller fails and the probe is retried once the IVSC device shows
-+	 * up.
-+	 */
-+	if (!ipu_bridge_is_cvs_dev(adev))
-+		return NULL;
-+
- 	/* Try to locate CVS device on the I2C bus */
- 	csi_dev = bus_find_device_by_acpi_dev(&i2c_bus_type, adev);
- 	if (csi_dev)
+								Honza
 -- 
-2.55.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
