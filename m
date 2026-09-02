@@ -1,75 +1,85 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-192.mta0.migadu.com [91.218.175.192])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 783BD4AE8C5
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:09:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39A914A9D4E
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:09:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.192
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788368972; cv=none; b=EULRWx35Oc+kRiws3a+OTdOHFJrS3R2kpYUn94+zmWwBP+Axx9zuG3LoFS7FfChCXXBjifDUYKyVNf2QvdKuJGjM7rE2zLjO0XGQhXO2Mg+jHmHExGt0w3B3U7JVchaykJk7leapRopfNvnjrkS0EzHr4zRg+2qnqBc7CJTQcuU=
+	t=1788368990; cv=none; b=Ge3qKQoPuqNWtRg68Qaqi4NqK+9sGV1A8R/FBdXX6qhqwxOsv6PAI0boTclrWgoV1QUatBEnyPu/v7+oOWVrN/ul2FVrwycQllvICcE/M5R4X5ANx4I0WA5kCfB5Wq8cvfPgraaQDtYDCMtUx0o4ryU8UQAiuqlrEh1DK+b/cWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788368972; c=relaxed/simple;
-	bh=1XNAjcMfzxS737UbycscQLHar4hJeLnVfG7xL8UK+Sc=;
+	s=arc-20240116; t=1788368990; c=relaxed/simple;
+	bh=ZFXv+XpeuJG4l4p41D/Mf1mufjNw3LILnzU9t7FD6bk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kvMMgbufc5fiPtv9ZSuei04Y/Bc2hq80aUpfBy8a07GYNu7DZ8SGDSsi/BUPs4ptUbYCgIVFLFGehjjJncqQP84aooZP9zp3af954McgWlt9hmEgX4euJV58jIJ/OJNGoydhnn7LHiqkQGKbL0RyJo75P5NxZ0OfdxFUP7aI0A0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GPSZOWUO; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 MIME-Version; b=IwvbUbZCsJoaJ2vo2Yo+s1SopC3rDUSMBxCwkI3/GxbKcimyJomEAB86AnGUjl1vL3WThiRh/7ZimrsUESNjFhTtW105W3zrJlyjY9R3Wk7oLHt5bkYD3Jdrp5E7tf3vQW/Na89NDPX8xV0+a3H7UqAPmeVPCR/2uzzN/OCSWLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=lvdNJSLx; arc=none smtp.client-ip=91.218.175.192
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GPSZOWUO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788368970;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=exa5f/DcwNCR5E0w8unUqAO11f1n98HF5VNU5M/lSuA=;
-	b=GPSZOWUOoeKZiEr4i6EH9qHK5GOkdITE6zpjFsZrany7RBChLtP6yRrfWy6hLPIrJsAuIn
-	4vuX+jsO8HO4YAXSXAum+P2bl/qO1SmzONEziBoVhcoVAPU5assROiNvwoVTzTTkFHGmET
-	CLpj6hSRWXoqTDGukWIqCJZoTE4TJus=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-550-bn1786veOnyAjry3NGuzPg-1; Wed,
- 02 Sep 2026 13:09:26 -0400
-X-MC-Unique: bn1786veOnyAjry3NGuzPg-1
-X-Mimecast-MFC-AGG-ID: bn1786veOnyAjry3NGuzPg_1788368963
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 969BE1953994;
-	Wed,  2 Sep 2026 17:09:23 +0000 (UTC)
-Received: from djeffery-thinkpadp1gen3.rmtusga.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id DEC121955D8D;
-	Wed,  2 Sep 2026 17:09:19 +0000 (UTC)
-From: David Jeffery <djeffery@redhat.com>
-To: driver-core@lists.linux.dev,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	Tarun Sahu <tarunsahu@google.com>,
-	Stuart Hayes <stuart.w.hayes@gmail.com>,
-	Laurence Oberman <loberman@redhat.com>,
-	Bjorn Helgaas <helgaas@kernel.org>,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="lvdNJSLx"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZFXv+XpeuJG4l4p41D/Mf1mufjNw3LILnzU9t7FD6bk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788368986; v=1; x=1788973786;
+ b=lvdNJSLxizyPOscQKhuEV0o2IXL0LtI3PgSRKN7bH1FIVYACdM6AIXni5Y0Rkn5xLbEEFqv/
+ btuCCVtYBeh39J5IKk+b+fm1xuG8iniz9pamIiPeC3kj+0SPFQTmuPVz7h+VnRFkDtf8Rfz4Eo3
+ CdkQYrtBrbFRMeDDIdM8s8dQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id c8ccc08d494f655b;
+	Wed, 02 Sep 2026 17:09:35 +0000
+X-Mizu-Trace-ID: c8ccc08d494f655b
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: Zi Yan <ziy@nvidia.com>
+Cc: Usama Arif <usama.arif@linux.dev>,
+	David Hildenbrand <david@kernel.org>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Gregory Price <gourry@gourry.net>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Kairui Song <kasong@tencent.com>,
+	bhe@redhat.com,
+	vgoyal@redhat.com,
+	dyoung@redhat.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Baoquan He <baoquan.he@linux.dev>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Jan Kara <jack@suse.cz>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Dave Young <ruirui.yang@linux.dev>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	kexec@lists.infradead.org,
-	"Ewan Milne" <emilne@redhat.com>,
-	"John Meneghini" <jmeneghi@redhat.com>,
-	"Lombardi, Maurizio" <mlombard@redhat.com>,
-	"Bart Van Assche" <bvanassche@acm.org>,
-	"John Garry" <john.g.garry@oracle.com>,
-	"Jeremy Allison" <jallison@ciq.com>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	"Pasha Tatashin" <tatashin@google.com>,
-	David Jeffery <djeffery@redhat.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>
-Subject: [PATCH 9/9] scsi: Enable async shutdown support
-Date: Wed,  2 Sep 2026 13:07:34 -0400
-Message-ID: <20260902170734.95504-10-djeffery@redhat.com>
-In-Reply-To: <20260902170734.95504-1-djeffery@redhat.com>
-References: <20260902170734.95504-1-djeffery@redhat.com>
+	linux-doc@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 14/14] mm/page-flags: remove PG_private
+Date: Wed,  2 Sep 2026 10:09:27 -0700
+Message-ID: <20260902170928.2227054-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831-remove-pg_private-v2-14-3668159cd9e8@nvidia.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,70 +87,175 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Like scsi's async suspend support, allow scsi devices to be shut down
-asynchronously to reduce system shutdown time.
+On Mon, 31 Aug 2026 15:25:37 -0400 Zi Yan <ziy@nvidia.com> wrote:
 
-Signed-off-by: David Jeffery <djeffery@redhat.com>
-Signed-off-by: Stuart Hayes <stuart.w.hayes@gmail.com>
-Tested-by: Laurence Oberman <loberman@redhat.com>
-Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
-Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com>
-Reviewed-by: John Garry <john.g.garry@oracle.com>
----
- drivers/scsi/hosts.c      | 2 ++
- drivers/scsi/scsi_sysfs.c | 3 +++
- 2 files changed, 5 insertions(+)
+> folio->private != NULL indicates a folio carries private data, replacing
+> PG_private. All PG_private users are converted. Remove PG_private and
+> reserve the space as __PG_folio for future use.
+> 
+> Also update files in Documentation. hugetlbfs_reserv.rst is outdated and
+> left unchanged. It should be rewritten.
+> 
+> Assisted-by: Claude:claude-opus-4-8
+> Assisted-by: Codex:gpt-5
+> Signed-off-by: Zi Yan <ziy@nvidia.com>
+> To: Andrew Morton <akpm@linux-foundation.org>
+> To: Baoquan He <baoquan.he@linux.dev>
+> To: Mike Rapoport <rppt@kernel.org>
+> To: Pasha Tatashin <pasha.tatashin@soleen.com>
+> To: Pratyush Yadav <pratyush@kernel.org>
+> To: Jonathan Corbet <corbet@lwn.net>
+> To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+> To: Jan Kara <jack@suse.cz>
+> To: David Hildenbrand <david@kernel.org>
+> To: Steven Rostedt <rostedt@goodmis.org>
+> To: Masami Hiramatsu <mhiramat@kernel.org>
+> Cc: Dave Young <ruirui.yang@linux.dev>
+> Cc: Shuah Khan <skhan@linuxfoundation.org>
+> Cc: Lorenzo Stoakes <ljs@kernel.org>
+> Cc: "Liam R. Howlett" <liam@infradead.org>
+> Cc: Vlastimil Babka <vbabka@kernel.org>
+> Cc: Suren Baghdasaryan <surenb@google.com>
+> Cc: Michal Hocko <mhocko@suse.com>
+> Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> Cc: kexec@lists.infradead.org
+> Cc: linux-doc@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-fsdevel@vger.kernel.org
+> Cc: linux-mm@kvack.org
+> Cc: linux-trace-kernel@vger.kernel.org
+> ---
+>  Documentation/admin-guide/kdump/vmcoreinfo.rst |  2 +-
+>  Documentation/filesystems/vfs.rst              |  6 +++---
+>  include/linux/page-flags.h                     | 19 ++-----------------
+>  include/trace/events/mmflags.h                 |  2 +-
+>  kernel/vmcore_info.c                           |  1 -
+>  5 files changed, 7 insertions(+), 23 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/kdump/vmcoreinfo.rst b/Documentation/admin-guide/kdump/vmcoreinfo.rst
+> index 7663c610fe901..5f1df6d080508 100644
+> --- a/Documentation/admin-guide/kdump/vmcoreinfo.rst
+> +++ b/Documentation/admin-guide/kdump/vmcoreinfo.rst
+> @@ -325,7 +325,7 @@ NR_FREE_PAGES
+>  On linux-2.6.21 or later, the number of free pages is in
+>  vm_stat[NR_FREE_PAGES]. Used to get the number of free pages.
+>  
+> -PG_lru|PG_private|PG_swapcache|PG_swapbacked|PG_hwpoison|PG_head_mask
+> +PG_lru|PG_swapcache|PG_swapbacked|PG_hwpoison|PG_head_mask
+>  --------------------------------------------------------------------------
+>  
+>  Page attributes. These flags are used to filter various unnecessary for
+> diff --git a/Documentation/filesystems/vfs.rst b/Documentation/filesystems/vfs.rst
+> index d3a93eec3945f..dec7816303c6a 100644
+> --- a/Documentation/filesystems/vfs.rst
+> +++ b/Documentation/filesystems/vfs.rst
+> @@ -649,8 +649,8 @@ Writeback.
+>  
+>  The first can be used independently to the others.  The VM can try to
+>  release clean pages in order to reuse them.  To do this it can call
+> -->release_folio on clean folios with the private
+> -flag set.  Clean pages without PagePrivate and with no external references
+> +->release_folio on clean folios with folio->private set. Clean pages
+> +without folio->private set and with no external references
+>  will be released without notice being given to the address_space.
+>  
+>  To achieve this functionality, pages need to be placed on an LRU with
+> @@ -674,7 +674,7 @@ filemap_fdatawait_range, to wait for all writeback to complete.
+>  
+>  An address_space handler may attach extra information to a page,
+>  typically using the 'private' field in the 'struct page'.  If such
+> -information is attached, the PG_Private flag should be set.  This will
+> +information is attached, non-NULL 'private' field will
+>  cause various VM routines to make extra calls into the address_space
+>  handler to deal with that data.
+>  
+> diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
+> index 9b585e68127a2..eb2961ed61018 100644
+> --- a/include/linux/page-flags.h
+> +++ b/include/linux/page-flags.h
+> @@ -44,10 +44,6 @@
+>   * Consequently, PG_reserved for a page mapped into user space can indicate
+>   * the zero page, the vDSO, MMIO pages or device memory.
+>   *
+> - * The PG_private bitflag is set on pagecache pages if they contain filesystem
+> - * specific data (which is normally at page->private). It can be used by
+> - * private allocations for its own usage.
+> - *
+>   * During initiation of disk I/O, PG_locked is set. This bit is set before I/O
+>   * and cleared when writeback _starts_ or when read _completes_. PG_writeback
+>   * is set before writeback starts and cleared when it finishes.
+> @@ -105,7 +101,7 @@ enum pageflags {
+>  	PG_owner_2,		/* Owner use. If pagecache, fs may use */
+>  	PG_arch_1,
+>  	PG_reserved,
+> -	PG_private,		/* If pagecache, has fs-private data */
+> +	__PG_folio,		/* Do not use: reserved for folio identification */
+>  	PG_private_2,		/* If pagecache, has fs aux data */
+>  	PG_reclaim,		/* To be reclaimed asap */
+>  	PG_swapbacked,		/* Page is backed by RAM/swap */
+> @@ -576,7 +572,7 @@ FOLIO_FLAG(swapbacked, FOLIO_HEAD_PAGE)
+>  /*
+>   * Private page markings that may be used by the filesystem that owns the page
+>   * for its own purposes.
+> - * - PG_private and PG_private_2 cause release_folio() and co to be invoked
+> + * - folio->private and PG_private_2 cause release_folio() and co to be invoked
+>   */
+>  
+>  static __always_inline bool folio_test_private(const struct folio *folio)
+> @@ -584,17 +580,6 @@ static __always_inline bool folio_test_private(const struct folio *folio)
+>  	return folio->private;
+>  }
+>  
+> -static __always_inline int PagePrivate(const struct page *page)
+> -{
+> -	return !!page->private;
+> -}
+> -
+> -/* no-ops during transition */
+> -static __always_inline void folio_set_private(struct folio *folio) { }
+> -static __always_inline void folio_clear_private(struct folio *folio) { }
+> -static __always_inline void SetPagePrivate(struct page *page) { }
+> -static __always_inline void ClearPagePrivate(struct page *page) { }
+> -
+>  FOLIO_FLAG(private_2, FOLIO_HEAD_PAGE)
+>  
+>  /* owner_2 can be set on tail pages for anon memory */
+> diff --git a/include/trace/events/mmflags.h b/include/trace/events/mmflags.h
+> index 935893e5ea53b..caf090cd6f85e 100644
+> --- a/include/trace/events/mmflags.h
+> +++ b/include/trace/events/mmflags.h
+> @@ -144,7 +144,7 @@ TRACE_DEFINE_ENUM(___GFP_LAST_BIT);
+>  	DEF_PAGEFLAG_NAME(owner_2),					\
+>  	DEF_PAGEFLAG_NAME(arch_1),					\
+>  	DEF_PAGEFLAG_NAME(reserved),					\
+> -	DEF_PAGEFLAG_NAME(private),					\
+> +	{ 1UL << __PG_folio, "folio" },					\
+>  	DEF_PAGEFLAG_NAME(private_2),					\
+>  	DEF_PAGEFLAG_NAME(writeback),					\
+>  	DEF_PAGEFLAG_NAME(head),					\
+> diff --git a/kernel/vmcore_info.c b/kernel/vmcore_info.c
+> index 8614430ca212a..5a417f8a922ab 100644
+> --- a/kernel/vmcore_info.c
+> +++ b/kernel/vmcore_info.c
+> @@ -216,7 +216,6 @@ static int __init crash_save_vmcoreinfo_init(void)
+>  	VMCOREINFO_LENGTH(free_area.free_list, MIGRATE_TYPES);
+>  	VMCOREINFO_NUMBER(NR_FREE_PAGES);
+>  	VMCOREINFO_NUMBER(PG_lru);
+> -	VMCOREINFO_NUMBER(PG_private);
+>  	VMCOREINFO_NUMBER(PG_swapcache);
+>  	VMCOREINFO_NUMBER(PG_swapbacked);
+>  #define PAGE_SLAB_MAPCOUNT_VALUE	(PGTY_slab << 24)
 
-diff --git a/drivers/scsi/hosts.c b/drivers/scsi/hosts.c
-index e72055c1ebbb..75592f41ef39 100644
---- a/drivers/scsi/hosts.c
-+++ b/drivers/scsi/hosts.c
-@@ -272,6 +272,7 @@ int scsi_add_host_with_dma(struct Scsi_Host *shost, struct device *dev,
- 	pm_runtime_set_active(&shost->shost_gendev);
- 	pm_runtime_enable(&shost->shost_gendev);
- 	device_enable_async_suspend(&shost->shost_gendev);
-+	dev_set_async_shutdown(&shost->shost_gendev);
- 
- 	error = device_add(&shost->shost_gendev);
- 	if (error)
-@@ -282,6 +283,7 @@ int scsi_add_host_with_dma(struct Scsi_Host *shost, struct device *dev,
- 	get_device(shost->shost_gendev.parent);
- 
- 	device_enable_async_suspend(&shost->shost_dev);
-+	dev_set_async_shutdown(&shost->shost_dev);
- 
- 	get_device(&shost->shost_gendev);
- 	error = device_add(&shost->shost_dev);
-diff --git a/drivers/scsi/scsi_sysfs.c b/drivers/scsi/scsi_sysfs.c
-index 9480432f650b..52e1e38dc027 100644
---- a/drivers/scsi/scsi_sysfs.c
-+++ b/drivers/scsi/scsi_sysfs.c
-@@ -1387,6 +1387,7 @@ static int scsi_target_add(struct scsi_target *starget)
- 	pm_runtime_set_active(&starget->dev);
- 	pm_runtime_enable(&starget->dev);
- 	device_enable_async_suspend(&starget->dev);
-+	dev_set_async_shutdown(&starget->dev);
- 
- 	return 0;
- }
-@@ -1413,6 +1414,7 @@ int scsi_sysfs_add_sdev(struct scsi_device *sdev)
- 	transport_configure_device(&starget->dev);
- 
- 	device_enable_async_suspend(&sdev->sdev_gendev);
-+	dev_set_async_shutdown(&sdev->sdev_gendev);
- 	scsi_autopm_get_target(starget);
- 	pm_runtime_set_active(&sdev->sdev_gendev);
- 	if (!sdev->rpm_autosuspend)
-@@ -1432,6 +1434,7 @@ int scsi_sysfs_add_sdev(struct scsi_device *sdev)
- 	}
- 
- 	device_enable_async_suspend(&sdev->sdev_dev);
-+	dev_set_async_shutdown(&sdev->sdev_dev);
- 	error = device_add(&sdev->sdev_dev);
- 	if (error) {
- 		sdev_printk(KERN_INFO, sdev,
--- 
-2.55.0
++ kdump maintainers and reviewers.
 
+I believe makedumpfile reads VMCOREINFO. Removing it here, might cause issues
+for older makedumpfile versions at crashdump?
+
+Hopefully kdump folks will be able to comment better.
+
+> 
+> -- 
+> 2.53.0
+> 
+> 
