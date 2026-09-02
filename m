@@ -1,263 +1,170 @@
-Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010034.outbound.protection.outlook.com [52.101.84.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D841386C36;
-	Wed,  2 Sep 2026 18:41:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.38
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788374506; cv=none; b=lB7SskkU0LSokRPc7mPf7+w8GmBL0PpZvPQnEwcjFhZ0kZliKh/KPEaTPCCrfb+++SmZqeNg80/9s4VcPlLEyc9fIoNKJNY66qfco4fSF8cFVsmGh+p9KpYMcv+y+/WBmjR+fch8byJsrzzMPIY8NilJ9ZSz+Van3jHK9rhYa6c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788374506; c=relaxed/simple;
-	bh=cHuW+PoC/Z1Qut9eKmuFeNWun/CMk2X5AcPMdTDPNdc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Pi3uhhXpTSud5dF9JtBlcVM2jSpBa0z+0wdvQ8JP4XKpORgCrJab/tP6r/D/4UKIjMXEM5VZSOfrTwRC+Fx8/gOBD6FRmQqJC2lVUYEVYVEXyIdrlfMRpXCJ24S5lmA41nyQJPxyO0ukAoM7EyK9P6cjue+TMwS4/Cy7YICZV8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co; spf=pass smtp.mailfrom=rbox.co; dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b=F6mOaSIn; arc=none smtp.client-ip=185.226.149.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B8C36F438;
+	Wed,  2 Sep 2026 18:42:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.34
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788374564; cv=fail; b=g/H1kGHQ38Pe2+ye+jTXvXTXBuAxmCsYlNZU2mD5BRJ8QkZPLy5j8q8akYvtxlhcPfEd8G2ODw4sDX/W1YoHAPUPDwirnS5Nf6Gt4B8xLpJJQNz0gpbm1vXuq0qflaxm5Hb7bthAtS2IbG5spUdcPnJb9bZPka9LHKUMuuwg444=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788374564; c=relaxed/simple;
+	bh=X5kZDo4kcwJLgsl41nYcGZjqFvj+36+j6N+rdkRy7UU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ptnpml3ev6hiqgeZQX5CEcqtjoJ06n9ZXrvA/ljjqTdYncbdl/VNngNMwioFECbekUqf6qDsz5RB05c7NbXcFQE9R/ykvS1RyZ8ThMBqEk0dDdFzEaUBYWzVCQI9AHtcQ1bp8Hx9uDh/+gwjhbXEAi/qG0eIL15EC27JJJ2T4Vw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=XqbUf6wh; arc=fail smtp.client-ip=52.101.84.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b="F6mOaSIn"
-Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
-	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.93)
-	(envelope-from <mhal@rbox.co>)
-	id 1x1pAz-00Apwz-F0; Wed, 02 Sep 2026 19:55:09 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
-	s=selector2; h=Cc:To:In-Reply-To:References:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From;
-	bh=2fxNQ3cklJgeh+Wdn7qij4WTU+lRYoEvYB4H1QfnGkk=; b=F6mOaSInNmI/4+IX8kuWbZXR4j
-	bXw7nbZ+2Ow0ksDuY1b0KmeDwmr3ZrlYy7UFaFsJV6Zg31+qRRiIqM9s2GcoWAJBD7fy5f0xpbsQ5
-	rvCZEWJ+ddfkrtcqvtgvOEWrl/hXwdQiUUYNxU3egKq+8lgsAq/fNaQJrcfVCZwgoIvCIzv73Y+IH
-	QLY40ejF/ZUhkcVhVZWwCIy69bQnu/Pkt4VTsKQRG2aIfkbzJjQMGFUif1WY6tYURNtUAOEDkaJoa
-	aVfLOm4AsrBEn9GlTUoPYDVAPqhQXwAHGPqpGmFPDRLAIDLghnw2m3JSQzaU5CWrx1iDeEGOkoMjc
-	sdauiRMw==;
-Received: from [10.9.9.73] (helo=submission02.runbox)
-	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
-	(envelope-from <mhal@rbox.co>)
-	id 1x1pAy-00072p-U0; Wed, 02 Sep 2026 19:55:09 +0200
-Received: by submission02.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.95)
-	id 1x1pAk-0020Qt-QS;
-	Wed, 02 Sep 2026 19:54:54 +0200
-From: Michal Luczaj <mhal@rbox.co>
-Date: Wed, 02 Sep 2026 19:52:15 +0200
-Subject: [PATCH bpf v3 2/2] bpf: Fix reference leak in bpf_sk_assign()
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="XqbUf6wh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aAXdKR+ja7YIFsftACmQzBMq8ChnothK9Hufi7jy0j+2IiVGIwImPP2M83LkhAGUOFfEqjwo7xYOk8sUwfft+kMvlh6XSsuvJgR469Ja7Z2T/NrFnsckLNUdhOPC4hCOCxvk/3zkwJaQdHlkcnKy2N/5MZ1mca/ny360Hjfq8soXNTncMyZhbH1HIrMf6q4CTcrUsy8BRxxWHVeRInOVyP38dCWHT9230r755aNRW8/tVF2mGa2DbY0gBMl+0DOfv75O9OdWY2tyowZk94YW060AAYNduUNSw+NmItT33hJtowjLPh8pOOUa7cDbAcG40V9V+9VWXjM4J+gWJY42Qw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2AxKRJ976rnY9y389//E4Lfcx3DtH9zicjDAgXU7mrg=;
+ b=WO5Vic2zhwRsJrJk7otwwyTZLIvxVPRMWA1vn48TDm6grxUBqkg/C4Fs0/UoRWqrXCUIcUv0vR/rwGt1znoQYBX0Il3b83sLUQ4XCaWlZ/tjoG74AXdvuIsT1WUeneHz7xypi3xDhVCFl+m4Csv/It36muhge+HDfcsfCvp4msyMuPzD6hvZKuJ/Fukgwhv+a94n1fDpZhVF/9UExlwFeI9BzUwH2WY5cdVwqfE+wJ5zR4iitIWpghURIFWJ03CKwJvPxR4MUowjTLLdQ/ScwGgj5euKe8MJfcyWT38nuTxOmOqOGmAQAD/syHMH0ZSrbg8gl0HqSWxwO0DHMB2x/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2AxKRJ976rnY9y389//E4Lfcx3DtH9zicjDAgXU7mrg=;
+ b=XqbUf6wh5WHV0WKq69MiPKWhEu/1yIY7tcKsQXvRKOScV9qFpVNIkLL8G0tQxK+8zgnJ/qobR0NbP7VomC+q+3L2bN0DtRE2qVlHEti0gEWgTcIExRDn628/pmtbB7aalJ26PclFZzY+m1xDXWu2dXlt4Ef2+Kd0aoVFLZgeJ2CyRABhICkcoQM4Lw1lMDl8nqRVUMEJkrviDN/IbLBN/i6aFdxvRZ/IODZy2yfBFP4DJaIW6yjJ8jrIPhl6v+y2OznflUvd5JWTyKYYQqjaH6A2q2mZ/27ZOa7G6u3ldDs2h7B1OcbvxLv6+/TRIB3x/NXeS7EiCMqr759MWC/F2g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AS8PR04MB8040.eurprd04.prod.outlook.com (2603:10a6:20b:2a9::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 18:42:39 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 18:42:39 +0000
+From: Frank.Li@oss.nxp.com
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	frank.li@nxp.com,
+	s.hauer@pengutronix.de,
+	festevam@gmail.com,
+	hongxing.zhu@oss.nxp.com
+Cc: Frank Li <Frank.Li@nxp.com>,
+	kernel@pengutronix.de,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux@ew.tq-group.com
+Subject: Re: [PATCH v2 0/3] arm64: dts: imx9x: Fix PCIe memory window overlap with System RAM
+Date: Wed,  2 Sep 2026 14:42:28 -0400
+Message-ID: <178837449498.2056904.10575566728674151756.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260821054334.1277088-1-hongxing.zhu@oss.nxp.com>
+References: <20260821054334.1277088-1-hongxing.zhu@oss.nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH0PR07CA0021.namprd07.prod.outlook.com
+ (2603:10b6:510:5::26) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-sockmap-lookup-tcp-leak-v3-2-b998b3d49d07@rbox.co>
-References: <20260902-sockmap-lookup-tcp-leak-v3-0-b998b3d49d07@rbox.co>
-In-Reply-To: <20260902-sockmap-lookup-tcp-leak-v3-0-b998b3d49d07@rbox.co>
-To: Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, 
- Willem de Bruijn <willemb@google.com>, 
- Jakub Sitnicki <jakub@cloudflare.com>, 
- Jiayuan Chen <jiayuan.chen@linux.dev>, Joe Stringer <joe@wand.net.nz>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>, 
- Phil Sutter <phil@nwl.cc>
-Cc: Michal Luczaj <mhal@rbox.co>, bpf@vger.kernel.org, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org
-X-Mailer: b4 0.15.2
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB8040:EE_
+X-MS-Office365-Filtering-Correlation-Id: 029fa718-0a25-4232-dd0f-08df0921f68d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|366016|376014|19092799006|1800799024|18002099003|22082099003|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	gUBc+xkqALyJjlPk/P1al+oEJkX5QqDooOn6EXJ4BtP0j7sUcif1KPx/BvJBf6keY9OEQ+TOt1ijM0JGoQUL+KJhJZAQToVLXLuBdg2fQgCvtcDXJuojK3Z8nzBC9KoFhRBQm9j50odoRpW2rhDn3DEN/UT3N1tcAmrw/fY3kMGZBkvtKuu4bYadYuBDHkJIpgMqt3tiWaKS5/4GBW4NNrTG66UWloRM40eIVytedPky4+mj/mJ1SdGoRJ5NNfIrGSCZzenAXfyXEDNrtr9czG5iTvBynzSXh/O3fiP8OJiK2gvEYdxKaGA3lSnf6f/+/12Z2JMhbm05ak1ZEismANquPhYogv5gBiKx9JkOTDfCTfQ74uCm8af7pCgOkBFxStc5OfEdE9P7lk9SxLoRpYMVYPIsy7IogEQWx0zDMAAyNJvkI4w/wtUkTuE/QiaT/soJ9P6EQtcOLMTZ2jnt6ngPnMUdESWWu2g54JjPfP8QVdqb6AARLygWGFZ8xx5/bu9R15GZ1Zi+qIr/hQE2MLCtlMaROzIKGqReEdp7Wc+a0zL3p9kWy7W3alnNVCyABRs93HOeXuvqm+rxauvRpB2w5IkDLwhNRRd6niPpQ4Hv0cbm6l5wQ4IfBmIsfdyOsIKL7XItC2y6wwIUi0npaHqT6CSn3jIZMOmvAeKeriA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(376014)(19092799006)(1800799024)(18002099003)(22082099003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?a1R4QUJBam1xakVBaGFNeG9oSk9Cd2dTektjeXpYbG1Mc2doeUtXUjhWV2k5?=
+ =?utf-8?B?RWVjQkhsNmFyeXJqczd5ZzdnUkFyK2J0WWpDWVdyUlZXRmJDVmJSei9EZ0sy?=
+ =?utf-8?B?Y0R5bXkvMGxlOXorYmVYTVFlSVNieS9kRGh2dE10dWRVdm9zZzhWcHZSN0Zq?=
+ =?utf-8?B?NjFVVkxLVG0wS2pEWm1MdER2bWREZC82eVQ3dXp1OHpMRHg0S2JMd09xR1U5?=
+ =?utf-8?B?ZTZqRWtvc08vSi9ydU9YZzRTZHdRQ3dxWEdVT0VEUlR0WEd5Q1k2VFlaNHJN?=
+ =?utf-8?B?S2RYc0dDQ0xRZ2ppbUp0QjdiQjhRWjloUi9HYkdPcWdOaldoZE9qMHgzdnNQ?=
+ =?utf-8?B?T3hSMUtVT1BDZ21aZHN1elFkejJrc3NnL09BVnJveFNqT2JMbHBHQnpMRzBX?=
+ =?utf-8?B?ZG1XRFRRaDU1UDk4OXQxcnNNVmtpbVhYd2Y5NDBmb0xlejFBeEMycU9UaDZj?=
+ =?utf-8?B?dk82YUE4SDJaL010aDZqMlIrOWptZXRSUXVqaFlWcHVTdHhZaHZOZEh5ZG8x?=
+ =?utf-8?B?ZERveVNmSG9DTWcvUDI1MEk2YUNUTk5EZEJoNjlvTmV4WWtrSnMxT21hczhY?=
+ =?utf-8?B?RVZRTnptZmJEcXlCcDRJNXJrUGlVUDRwVnkvQURHUEFpTlpsMTNtWG5pK3pP?=
+ =?utf-8?B?a0YxYy94VGRhWDdlR3pZUW5sWDRxcm9abDNidFI5WnoydXB2d3FWN3gwOVVP?=
+ =?utf-8?B?M0h6ZkZnZURmK0w1TFJTZ3ZGdURpY1Y0QndHZGZlVlNWOHo5aTBuK05mN0VG?=
+ =?utf-8?B?WHliazgraiszQ01oNEFLcEErdGdob2VHMytINVZMbi9NUE1rdWdzK2hGcnBq?=
+ =?utf-8?B?UTJPK2hKYkx5d3lCamwxTG10YnJRNW5WUlc2Z2RLUUVDblZYdnd2cHowcVRW?=
+ =?utf-8?B?bklBT2JKM2c3YmtMeHF4N3ZQM1I0ZXNwMnI5TklNV0o0MlRYM2pSLy9Lejg4?=
+ =?utf-8?B?NC9vczhNemwwZUxXQmlNU3kzeXUwVzhjdnlGclMrdjNBSjZ1dHhJYVJkNDVK?=
+ =?utf-8?B?cXR1bnJ3WVI1U05kWFJGa2l2SzNKRlJYRzhiOGZRazBJOEUwN2pBNi9qejJj?=
+ =?utf-8?B?WFA4cGdnb3NvS1BueGIzT01sb3BCTVMySmk1K1d2RUlaWEpDbVlKcTVUc2p2?=
+ =?utf-8?B?V21LSE9Lbnh0UmpMMytoVDh5UVpFbGtTRGV0QjBmd1k5WEVSTzY4WHlFdy95?=
+ =?utf-8?B?SnB3YUtHK1lrYnYvdkNwYitXZVA2Znpva1lEWEZpdW9STS9Gc0V2cXM0V0tS?=
+ =?utf-8?B?QWMyWEo1K1hibGNaYm8yTTFqUkRHN3o3alNqbGNPckxLay9jcWRQa1haNTNO?=
+ =?utf-8?B?bWR1MkNDQ0t4UEhXaUQvbnkyYnBZbjRwbHplUzlscmFaSVRoWnkwS3FYODJi?=
+ =?utf-8?B?c3V2dzAyTXdNUlQrT09lc0MzbVUxaW5lMmxWODVLSnphQWJ5NmVWK3hTT3ZB?=
+ =?utf-8?B?T2M1RW5vbVBvalk4TnBqUU42NDk1NVJ5cjNlb1NWelNCNkJtd0tVeVFXUHho?=
+ =?utf-8?B?bVR0dzhaVFF1a2ltdmZFZjN1NnNrSWFFWUw1a1N1alRINzN5WDY1b1lxay9o?=
+ =?utf-8?B?dEFJeStRckRNMWhvNGdxdnhGZ3pGQmdSNHljL0c0aGt4djd4VnZJRFlPeHVZ?=
+ =?utf-8?B?VkhwbXRZdVdVT3hZQVNSczMvaVFaMXpxZnFCQWViQkU0alpDcFozNGJ4TzY0?=
+ =?utf-8?B?UXhFa2FTd3l6VmErNm54dUdPbGQySkovV2RWVHdHYnljS3BSanBSNDRpRXdW?=
+ =?utf-8?B?V1JkaEJxV05PZkxBdit2bkpXSmVVbHVDclhzV1k3RTE1eDEyTTRhWFNKNDQ1?=
+ =?utf-8?B?c2R1YmxZTWx2YmdDZlduOUduY0J2eHh3WmVWeHZxRk5kUkhKM25vTGo0Umlr?=
+ =?utf-8?B?eXFyQkh2Z2ZMYWVaOGR5ZkhRSXZPN1M4N2xyRlppeFBLNytXRzVTUkVDWlB4?=
+ =?utf-8?B?dDFFZzdDM0pPVVR0V3d5VFEwazlSanRWeTVObTNjaGtMSkJVTW9WVnJRQlN5?=
+ =?utf-8?B?dS9jTEx0a1RydVJoYk82Ny9wNVRSclcvY1hzT1dMdldBbzA5dFI3N2laMFZR?=
+ =?utf-8?B?OExTNG55T1Y5dWFsWUF4R3ZhR0RhaG4zV1ZEQ2FORWFSMHFXYWpieFZXUkxD?=
+ =?utf-8?B?QXBpUlFUYXcyL3ZkeGwyMTZIV1dIa1RzVnJTdGNWektidGhJdDQ4a09vTDNS?=
+ =?utf-8?B?eUpzR2o1V04vMU9HT0xpZFRBYkFwQ3k0ZVFGTG5OZUFWazNpcExkZC83T2Vj?=
+ =?utf-8?B?aExHWkVFRDF2NnRqVDlCRk9Uajc3cWFhSHI5NzdUOWZsM2N4R0w2Zm8xYmtj?=
+ =?utf-8?B?cU9PYkROa0N2TE1SbzNVVlRRWklnM0V0bVVkaGZaZmhlUkw3UW5YcitPOE5U?=
+ =?utf-8?Q?JvVDy7d3hV18EM2UfgefxDpDqpQL20fGwQliz?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 029fa718-0a25-4232-dd0f-08df0921f68d
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 18:42:38.8634
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xXAeOviwmvA8XUKl0M/CyXV4geIyCM+HTOTMMsWD9rtIsmYMte6JT3WCULFlSM0bs9mN0WxooFfyDo19lIaATrGEnHTE3SDxfFFeVl5YXieUDsAOpoo2cMJxOh0PAOIu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8040
 
-sk_is_refcounted() is mutable; it depends on sk_state and SOCK_RCU_FREE.
-TC bpf_sk_assign() uses it at assign time to take a reference and lets
-sock_pfree() re-evaluate it at free time. If the socket becomes
-non-refcounted in between, e.g. connect(AF_UNSPEC) + listen() sets
-SOCK_RCU_FREE, the reference is leaked.
+From: Frank Li <Frank.Li@nxp.com>
 
-Freeze the decision at assign time. If the socket is refcounted (i.e. can
-become non-refcounted), take a reference and set sock_pfree_refcounted()
-as the destructor; otherwise stick with sock_pfree(), which effectively
-becomes a no-op destructor. Next, extend skb_sk_is_prefetched() to handle
-both dtors and, for the sake of CONFIG_INET=n, add a specialized
-skb_sk_is_prefetched_noref(). Adapt prefetched-skb treatment in
-__nf_queue() and skb_steal_sock(). The latter changes its contract with
-callers: inet{,6}_steal_sock() must now expect a refcounted TCP_LISTEN
-socket.
 
-Fixes: 7ae215d23c12 ("bpf: Don't refcount LISTEN sockets in sk_assign()")
-Signed-off-by: Michal Luczaj <mhal@rbox.co>
----
- include/net/inet6_hashtables.h |  9 +++++----
- include/net/inet_hashtables.h  |  9 +++++----
- include/net/request_sock.h     |  2 +-
- include/net/sock.h             | 11 +++++++++++
- net/core/filter.c              | 19 ++++++++++++++++---
- net/netfilter/nf_queue.c       | 18 +++++++++---------
- 6 files changed, 47 insertions(+), 21 deletions(-)
+On Fri, 21 Aug 2026 13:43:31 +0800, hongxing.zhu@oss.nxp.com wrote:
+> This patch series fix PCIe non-prefetchable memory window overlap with
+> system DRAM on i.MX9 series SoCs (imx95, imx94, and imx943).
+>
+> The current address 0xe0000000 conflicts with DRAM regions. Sashiko
+> reports the potential issue in previous review:
+>
+> The fix relocates the PCI bus address to 0x10000000, a reserved and safe
+> range. The other PCI bus address and window size remain unchanged.
+>
+> [...]
 
-diff --git a/include/net/inet6_hashtables.h b/include/net/inet6_hashtables.h
-index 2cc5d416bbb5..a310cb91611c 100644
---- a/include/net/inet6_hashtables.h
-+++ b/include/net/inet6_hashtables.h
-@@ -134,10 +134,11 @@ struct sock *inet6_steal_sock(struct net *net, struct sk_buff *skb, int doff,
- 	if (!reuse_sk)
- 		return sk;
- 
--	/* We've chosen a new reuseport sock which is never refcounted. This
--	 * implies that sk also isn't refcounted.
--	 */
--	WARN_ON_ONCE(*refcounted);
-+	/* New reuseport sock is never refcounted; drop the old sk's ref. */
-+	if (*refcounted) {
-+		sock_put(sk);
-+		*refcounted = false;
-+	}
- 
- 	return reuse_sk;
- }
-diff --git a/include/net/inet_hashtables.h b/include/net/inet_hashtables.h
-index 6e2fe186d0dc..1589e9e7ecb2 100644
---- a/include/net/inet_hashtables.h
-+++ b/include/net/inet_hashtables.h
-@@ -474,10 +474,11 @@ struct sock *inet_steal_sock(struct net *net, struct sk_buff *skb, int doff,
- 	if (!reuse_sk)
- 		return sk;
- 
--	/* We've chosen a new reuseport sock which is never refcounted. This
--	 * implies that sk also isn't refcounted.
--	 */
--	WARN_ON_ONCE(*refcounted);
-+	/* New reuseport sock is never refcounted; drop the old sk's ref. */
-+	if (*refcounted) {
-+		sock_put(sk);
-+		*refcounted = false;
-+	}
- 
- 	return reuse_sk;
- }
-diff --git a/include/net/request_sock.h b/include/net/request_sock.h
-index 5a9c826a7092..3fb114fa77de 100644
---- a/include/net/request_sock.h
-+++ b/include/net/request_sock.h
-@@ -113,7 +113,7 @@ static inline struct sock *skb_steal_sock(struct sk_buff *skb,
- 			return sk;
- 		}
- #endif
--		*refcounted = sk_is_refcounted(sk);
-+		*refcounted = !skb_sk_is_prefetched_noref(skb);
- 	} else {
- 		*refcounted = true;
- 	}
-diff --git a/include/net/sock.h b/include/net/sock.h
-index 51185222aac2..fb553697db83 100644
---- a/include/net/sock.h
-+++ b/include/net/sock.h
-@@ -1870,6 +1870,7 @@ void sock_efree(struct sk_buff *skb);
- #ifdef CONFIG_INET
- void sock_edemux(struct sk_buff *skb);
- void sock_pfree(struct sk_buff *skb);
-+void sock_pfree_refcounted(struct sk_buff *skb);
- 
- static inline void skb_set_owner_edemux(struct sk_buff *skb, struct sock *sk)
- {
-@@ -3015,6 +3016,16 @@ static inline void sk_eat_skb(struct sock *sk, struct sk_buff *skb)
- static inline bool
- skb_sk_is_prefetched(struct sk_buff *skb)
- {
-+#ifdef CONFIG_INET
-+	return skb->destructor == sock_pfree ||
-+	       skb->destructor == sock_pfree_refcounted;
-+#else
-+	return false;
-+#endif /* CONFIG_INET */
-+}
-+
-+static inline bool skb_sk_is_prefetched_noref(struct sk_buff *skb)
-+{
- #ifdef CONFIG_INET
- 	return skb->destructor == sock_pfree;
- #else
-diff --git a/net/core/filter.c b/net/core/filter.c
-index 66d83a198ea2..e473ad8c9b3c 100644
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -7989,8 +7989,20 @@ static const struct bpf_func_proto bpf_tcp_gen_syncookie_proto = {
- 	.arg5_type	= ARG_MEM_SIZE,
- };
- 
-+/*
-+ * skb destructor set by TC bpf_sk_assign(), refcounted path only.
-+ * Acts as a "prefetched by bpf, ref taken" marker.
-+ */
-+void sock_pfree_refcounted(struct sk_buff *skb)
-+{
-+	sock_gen_put(skb->sk);
-+}
-+EXPORT_SYMBOL(sock_pfree_refcounted);
-+
- BPF_CALL_3(bpf_sk_assign, struct sk_buff *, skb, struct sock *, sk, u64, flags)
- {
-+	bool refcounted;
-+
- 	if (!sk || flags != 0)
- 		return -EINVAL;
- 	if (!skb_at_tc_ingress(skb))
-@@ -7999,13 +8011,14 @@ BPF_CALL_3(bpf_sk_assign, struct sk_buff *, skb, struct sock *, sk, u64, flags)
- 		return -ENETUNREACH;
- 	if (sk_unhashed(sk))
- 		return -EOPNOTSUPP;
--	if (sk_is_refcounted(sk) &&
--	    unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
-+
-+	refcounted = sk_is_refcounted(sk);
-+	if (refcounted && unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
- 		return -ENOENT;
- 
- 	skb_orphan(skb);
- 	skb->sk = sk;
--	skb->destructor = sock_pfree;
-+	skb->destructor = refcounted ? sock_pfree_refcounted : sock_pfree;
- 
- 	return 0;
- }
-diff --git a/net/netfilter/nf_queue.c b/net/netfilter/nf_queue.c
-index 73363ceedebe..e2e9739c00ac 100644
---- a/net/netfilter/nf_queue.c
-+++ b/net/netfilter/nf_queue.c
-@@ -195,16 +195,16 @@ static int __nf_queue(struct sk_buff *skb, const struct nf_hook_state *state,
- 		break;
- 	}
- 
--	if (skb_sk_is_prefetched(skb)) {
--		struct sock *sk = skb->sk;
--
--		if (!sk_is_refcounted(sk)) {
--			if (!refcount_inc_not_zero(&sk->sk_refcnt))
--				return -ENOTCONN;
-+	/*
-+	 * If the skb was prefetched without taking sock's ref, bump it.
-+	 * Skip sock_pfree-dtor'ed skbs coming from bpf_sk_assign_tcp_reqsk().
-+	 */
-+	if (skb_sk_is_prefetched_noref(skb) && sk_fullsock(skb->sk)) {
-+		if (!refcount_inc_not_zero(&skb->sk->sk_refcnt))
-+			return -ENOTCONN;
- 
--			/* drop refcount on skb_orphan */
--			skb->destructor = sock_edemux;
--		}
-+		/* drop refcount on skb_orphan */
-+		skb->destructor = sock_edemux;
- 	}
- 
- 	entry = kmalloc(sizeof(*entry) + route_key_size, GFP_ATOMIC);
+Applied, thanks!
 
--- 
-2.55.0
+[1/3] arm64: dts: imx95: Avoid 32-bit PCIe window System RAM overlap
+      commit: 9094eb07b3e236233dbaac61ed30cc65be9e9c6c
+[2/3] arm64: dts: imx94: Avoid 32-bit PCIe window System RAM overlap
+      commit: 775ebd246092294432895f8e9bd48e3f0a56714a
+[3/3] arm64: dts: imx943: Avoid 32-bit PCIe window System RAM overlap
+      commit: fff67007ad5403966092006867fe9926aaedda0d
 
+Commit message add discuss link and "Avoid hit this as a P2P transfer[1]."
+
+Best regards,
+--
+Frank Li <Frank.Li@nxp.com>
