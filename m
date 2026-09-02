@@ -1,238 +1,262 @@
-Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011007.outbound.protection.outlook.com [40.107.74.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42E0F4534A9
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:11:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.175
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788361898; cv=none; b=dI1GPNazh1O3cdDnQqGKEICMfd3/qbfXZbdBpoo19Pd7/dTUyBap2o/Jt7cJ15pAsOtKfWOrIAj0Qxa+FWySRSy5dWI87aI1rZnrJvmjTFuhsGIp4kyZPm3CtpAHcNWu7fOaAkhu4atknYxuOBTJRO/27KQL3WmxSMWjh7euiLA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788361898; c=relaxed/simple;
-	bh=gasmKhY5QdVetN3HDkPDfGtkZpKw5F4W6g75o0Q/i88=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fL/LpER2u0rQmc9D7ct096U0ZXGmbnlCNI1N0h+zzKtjWS68vtBD7fcYnUEO0vffLdKFAkYd2+pbSFDrdiqUQE7y8b1Dh080tJ2qlOfcx5sKkfSFTsyjDcf+fZiuWQp5H3pMvbSZ2tY0Gp/SJvxkZSRx9MsPtSDd6l6/DPNLaiU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=NO5yNFam; arc=none smtp.client-ip=209.85.167.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C454A49AD;
+	Wed,  2 Sep 2026 15:11:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788361905; cv=fail; b=O8X+4yeV04gpBE3z3cIV3pH+F53xqrs+BcyXHk2+OMN7rzmwmZVwZ3YGkfes3iCJYpe4QJso3mGdkOxVZ8GeAv74MeL/RmqEc5tSPo32ziG3XJQhQrwbiZiYCajyU5+8QAsJ/hAR7eh0207BUHs3Hr40hH+ChNO9WGzuFv3NqYg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788361905; c=relaxed/simple;
+	bh=x3xOfa70sZ9Nw5dIpvrbVz+65/PhlvJOw3NkCVPqnCU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=BCy/s/3NDjdXmeWcuDt6ShZk5gsXfAbEdAsMBHLTuFuigEdqco+w98iPsqo0pFkzBBCZ32fgW21/YgM/BBs9n+ReyIgGlx2B4OAzh5M791eTY4Pxst/bHREyIgcyqj09jTiYYScWPPzd/y4tfZQcF7IfrFLEf2r7B3EFaP6ibzA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=iZii7XVY; arc=fail smtp.client-ip=40.107.74.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="NO5yNFam"
-Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-4ab89cff9c7so417347b6e.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 08:11:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google09082023; t=1788361894; x=1788966694; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=6d93cyMkw6EMFToYvRlpelXx7oHrvV3y/wNVC9ldZm0=;
-        b=NO5yNFamOQ6Pttf0nW7mE8+rKgtxV0qy1bbOpsBroOmKjhBIYtm5t8iH/EzHb8FBUB
-         qro1YIOd7fYbhpLFdiM3Z8uIPoETf5KGM025b6X9HrfvYaYy97DlnaXcpUUd3aVTkpq+
-         iWrnFwPguea8q+2v3P488gDhjRan/nds+VhMBMzBwoSA6yz8Ueo/ceiAThA8mZF0fKfd
-         47Fi0N39qDeIdaCxdCa7g94C2hmKZAswah3++YFi2u95fPLfjZE1JJMXn8106hqhZOCH
-         pCDG0shvMMdyUanAVm4fHAUFva5XhAnoj1uF9RoRxixDjK3pp5b0jQ8of20/L2vXDJ4Y
-         j/Xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788361894; x=1788966694;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=6d93cyMkw6EMFToYvRlpelXx7oHrvV3y/wNVC9ldZm0=;
-        b=fYBREnEdo11YbjxJpP9nbeOnyAW1BegU9Mg1gKdVUv65MIc8LbGg8WMLdBaBr9XzY9
-         y/28/9SdEGTxXObdS4X5VV7pVQYl+SZ+6NE6PsqX3A3W6KGsjD/8Nd0I1dgSU0fogaL3
-         li6Hlh07r16WLbtetAJEcn7i89dv5vL31Q65qyEmqzFUnzeQSzAKcMeNdEoo9amUa3r+
-         gDik6lmXIMqMAeHHmC6go4X5qD8oCkyBifL6qMphcGo8uQ6z//SGBHe1gvR92PA7QY4+
-         dVZMLpfLRY1p8lXwyCOoaGFS7ssgn+r8mo7EhD150/Qw0WiGjWOdjnOjTl2YP0kJ/x4d
-         CfVA==
-X-Forwarded-Encrypted: i=1; AHgh+Rou9WbqjhpKSZz9ZGrmg4lll53uRBbJN4nnKsTzmw1QT3MJzDQvDJ+jR4C9bznJEPjFoBC9BRhIBHyDgdc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mzDcib+5b0n0XSJiBJpCviHCOpeZPQCpPHDv/c8rg7ElgHmk8C
-	QQ1Vg0lFk9mJZN8mrXNVIHSu0v3giYj/nq7Geb/WqH9TXc+BE5djpLKj55aJnWUBO+lTCRrqeC7
-	6WyS8rvR9wQ==
-X-Gm-Gg: AR+sD11tuRZnTzhPPgB+gXW91gM0EJoPHIex5axc6Uh8rJzYiMSrTs+5kQwBxrY2RZf
-	RdaI+G9TR/qKBH5ojcUOoMHLQdMpLdT+e6i3LHidRdkFG2QwwUOnUrNuM0sedQDA7kedIURdJK6
-	ALQtjM3dSg7IJO4OoPVn+hhhgr4Q5r6xyuxextydlywHVrXl286mpxeQZDmWX6ZPNYJ1JxviMp1
-	PQgWROdTwCL+s49s/e71/lGuJRA80uCJ4wsypAYOhMg/goN0vvpXGol977MJZFKV2rtk8P6I5df
-	4PMnoD8PjPVklc3YVY2UlcpvIzGnRB3lzsjnDRVAv4rlGe5URytUjqt1J+cSTbRC95aA1WuVehv
-	PNeuu09x+OqQ421141pP/AYSg1VSGssby/OkUDTYd7EvKjLOlHOPq+PgQUbQH/P2139I9y9fUdv
-	cGLQUg1dl1j/s885DSnkgEuG/fKSj6Vws0sPxX405PM2cGEa+GVQ==
-X-Received: by 2002:a05:6808:1982:b0:4ae:f5be:fe29 with SMTP id 5614622812f47-4b6bc45eb12mr4432026b6e.5.1788361894525;
-        Wed, 02 Sep 2026 08:11:34 -0700 (PDT)
-Received: from [127.0.1.1] ([2a09:bac6:bf21:2e28::499:53])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b698a38f62sm2044063b6e.7.2026.09.02.08.11.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 08:11:32 -0700 (PDT)
-From: Chris J Arges <carges@cloudflare.com>
-Date: Wed, 02 Sep 2026 10:11:25 -0500
-Subject: [PATCH net] wireguard: wait for per-peer crypto during removal
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="iZii7XVY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Cmwb8EUmz+MXNvm43YiuVFXs+Et4ayCfX0n/k1cAKekomoet2gpjQkfFAaJJwg9xmeacqkctVCpl0Gtawbc8tzdm+Fb4PILCTEaCI0CIotc7qbsfA6bTs6mxlIe6FB4WLMDaoMOp8kQxpgS4rzyAQkpb6qFOUBjqdDy/kdtkKVactG6RsZN0SBUXRIVEJ4tuoKpL/mW/EgW5tJeqNtwz0PFfnMe1VbkSSuU7pvt3yJ8NUyw3ewEpcq1iQIUeB4jhjnQ5vSxIidro+o16MNRUoyJLxnLquviCr/4P83CmpAYlqd7HDhTE/eBibxClQOIbI3XVmACZ8NAnBCH09t5bYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eGuNFcyiAi0Q866OXbMYE1cLUmMrDRYH5bTs+DMw6Ps=;
+ b=ystMkRVoGMg5NAzzSsN1sK8sYAV8F2wZRJI58H/KNs1m88UJJyO9A+UD6d/CjFge2rLFIhvLcRqgHLqQ63TUn2NNQCv/2L1nNLOBNgYzlz8UyKH2sP/cw7SafrwbRnkJ3iWMJe6sHnII7v6sq6RSy5wfmag0gvKpkanl8lZEwIOBu/x3mTBqpHL4d4M17rFKVKY70NT6YmfprGmsG1nPx2tYnAhugIfr8OJWcc3lLyrRDfUBoy11PimYQUPoB6nHIA48Ztf67GQV8wuUwHf2/NaovDqg9fBwy+Pv6ySE2lQt9BXpM66XxU/JF0k66N/dL0qIsH6k+2vjxtfbTjpLMQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eGuNFcyiAi0Q866OXbMYE1cLUmMrDRYH5bTs+DMw6Ps=;
+ b=iZii7XVYsrOqS6UYrdL0zXq5Ccx+sS8AQWfP3caSOiSToTVqkkY03Cxp0+QYbgSyJf6gtWJ7wCcjjB3jdZdcvRWUdB8OMGTqtB7HfOQfjKLQBqTmE3vERWhkrxpcD2NvyRfXUIJ6EnYelRUYamKMRxgEhS2OWL955RilwcSnEHA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
+ by TY7PR01MB16836.jpnprd01.prod.outlook.com (2603:1096:405:32d::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 15:11:39 +0000
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 15:11:39 +0000
+Date: Wed, 2 Sep 2026 17:11:18 +0200
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, tomm.merciai@gmail.com,
+	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 1/9] dt-bindings: display: renesas,rzg2l-du: Document
+ RZ/G3E SoC
+Message-ID: <apg8luaJ3eobK8sm@tom-desktop>
+References: <20260828122113.1426778-1-tommaso.merciai.xr@bp.renesas.com>
+ <20260828122113.1426778-2-tommaso.merciai.xr@bp.renesas.com>
+ <20260902-heavenly-ambrosial-trogon-b7ab03@quoll>
+ <apgsOubuGuvw_0rf@tom-desktop>
+ <CAMuHMdU0y5Dg9tW7fAM3QQHKpAw_+vmjj7v-XeZmrushQgQFAA@mail.gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdU0y5Dg9tW7fAM3QQHKpAw_+vmjj7v-XeZmrushQgQFAA@mail.gmail.com>
+X-ClientProxiedBy: FR3P281CA0001.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1d::10) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+ (2603:1096:405:18d::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-fix-wg-peer-removal-v1-1-7a0190f5cdb1@cloudflare.com>
-X-B4-Tracking: v=1; b=H4sIAJw8mGoC/yWM0Q6CMBAEf4Xcs5dcqTGBXzE+YFnwDBZyrWhC+
- HerPs5mZzZKMEWittrIsGrSORZwh4rCrYsjWPvCVEt9kkYcD/rm18gLYGx4zGs38dEPwTfSi3e
- OirkYyu1XPVNEpst/TM/rHSF/e7TvH90glU58AAAA
-X-Change-ID: 20260901-fix-wg-peer-removal-43fc390d0311
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: wireguard@lists.zx2c4.com, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, kernel-team@cloudflare.com, 
- Chris J Arges <carges@cloudflare.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1788361892; l=5927;
- i=carges@cloudflare.com; h=from:subject:message-id;
- bh=gasmKhY5QdVetN3HDkPDfGtkZpKw5F4W6g75o0Q/i88=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgaxY1IIT5oTohBZJmhnVgJo2HsM7Sv
- 9I0LdJCgpeGX6gAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QKpZG43U/VRAV+Prr2sW0jg3cNIEuCbnlX7R7/cMb4Ldr5itEqZVxNPbqMC463wRbQvSqRslVYr
- rxLj1VgRkpgE=
-X-Developer-Key: i=carges@cloudflare.com; a=openssh;
- fpr=SHA256:Cun99EBiH0EV7wvmfTBF9eDrld2NJx+aD4ScWZ45Q5M
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|TY7PR01MB16836:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3adebf9b-c91f-4d66-7b97-08df09047c96
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|52116014|7416014|376014|1800799024|38350700014|4143699003|5023799004|56012099006|10067099003|11063799006|3023799007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	kmaS9ezE6AQusR88GeNuH+lRkaK8Cnk+1oNMENzdPvV+BobtETALe8DwIZy9Roly+f/oX6wJe7x0VxlRXqUnsRvT3dcNljFsNWhlZNpU29S7v9COfv212Jptq8gnC8F9/j8wP0Bx2dvHvF7YtDLzVmBYIwqoALYNU71L6IWp3mDOL+d6vgcpODKSgHztsxxue5wDDAaaAclBAMW0fn+Ff9rF4+1Y/XMeTdpqpPgZa63hEmyfY6wnRAuH8JtvY3jDPlSC97J9gPqcjgxYlNMUhOCVUHwmQIq/BhDxKNm/3SA6omIn/KL+EtdbSVvWTkS+W7jtDaNX+wP1dAN1c3ymcf1i0zGMc+PVT1h84iwd6MiJCH+p9+yh3tegM2i3HwUnP+94ZDDfTFygGX9/cdqS7VuYwOv4u6reAuzhUxXe56tBn/Yqg6bprIrab+vzwMqaIw2MVUsYVq7iudbtv5o3+gLef6dIqzXlDoSh+PnT7y5BoTqjyLCBsvH0KOP+e8LKJiMy1lOx+xfjh4ruAC+kfK7dDuvTEKD1Dv4ZdibfyuIw4epUcAbTOhz/mjuWCgBloI/AG6ELyibyNrSHdb1UFx+Uv4DgjpWhoVdF4hVtYT9SSgfIbmoZT58eyWMb5YHpVev9aGGZg2wyVgNu06NkM3kX7yqROJzhmbfayW7Pps/dIpNfo6G7TjCS9NSxmPscVT36TQeG0PSioxLHKO7lj5ypF8fMm/QllY5WP8aFbnU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(52116014)(7416014)(376014)(1800799024)(38350700014)(4143699003)(5023799004)(56012099006)(10067099003)(11063799006)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?iR7hl3UcVJBAPSm6pWDU2mKzDBjpZN7EZqbGWB9J84noNwZTQH7ONjZGyaz9?=
+ =?us-ascii?Q?BHqFApQGj03pF9SrdqKWJQtwqJG9v3vpfXdjipb4/Yp4IdundripQebFO+mC?=
+ =?us-ascii?Q?r1YVkCmOK/VzxIlz/PJurPLh2vag7LAgJOH7fGJaf/9QHOTccxIh6a7NkczM?=
+ =?us-ascii?Q?5gT/IuklF8/A9/ovQmifl5vjcq7c1YgOBbklAqP1MTqkTm7tOl705xGQ+6Hc?=
+ =?us-ascii?Q?EPBcRFKyTMfjEys/SDDa8QvPLw/liSBuHG42UPgnpOqZiqWh4F7D0nRG36Bq?=
+ =?us-ascii?Q?jyDTiDzdoPzw6TadEUgu3jiKLxcuD7tUem2KOhlk9B5gD4Smn/ntfKw9GKq2?=
+ =?us-ascii?Q?I3RBXZoQL7EmOLP7RswoFpxO9GT4vTeHEA+Ct0SATg6RtP9IZ2/5DVSvRvkc?=
+ =?us-ascii?Q?EGSYseuNwwr9j9tBMWq68cMCt8EXWQbUUzi6HINrxWNPJebckAA+tZbhfscr?=
+ =?us-ascii?Q?I1y8R1R1jPE9tCqZX1JeLC59l35tvsXQ/lxCKRofMOrW7k0by/HUAjZpoRNo?=
+ =?us-ascii?Q?IyPxvWA4nf35iRjhP26GeHEn+KlvYB90/j3qM0tJzrAgB/ogdgaoef1ZvaUO?=
+ =?us-ascii?Q?fpbA+0KPqFGZkm91fX6wdo4CsKB7UUD6tR0JwJmKg0LbE3BvD6JlUsL8ECN4?=
+ =?us-ascii?Q?xd1IQUEvEyTXds5RavtZbuGcWmhITAeaYwZay8JxfBK3N0Nx3b+uAOLdRtxS?=
+ =?us-ascii?Q?zQ5ajGRuz6vn82ndhgd+NWG8PpLXDgPq+/LCm/30pacfcMw6citnWvJTY7uL?=
+ =?us-ascii?Q?lJk3rhT7MJRekbY6NwtWm2XL0xdOnnl3xYVHl4JblUA6u02Pl+y8aFB/YLpl?=
+ =?us-ascii?Q?3xSTf3E5fYLRy6M8Gj4lBfOlG7QTSPaMHdV3HcHmGfR05TCVjYshGjYxgNcn?=
+ =?us-ascii?Q?2b2wciKxtpUEKzuZMsQCERRo1BZhvWVS0XL2wRfOK7CYgmXoZVT7K9/xc710?=
+ =?us-ascii?Q?B4RPjprMZoL5dOM5UcwRWhdXpNd8Xan74dA/IpyNpy+c/HQn89vCLyxwODM7?=
+ =?us-ascii?Q?1P3rZvxw9yzFGU+CYuJXyf1ovQdz6kmWErnckKDDCGZC6ikHCI+zHvEtlTmD?=
+ =?us-ascii?Q?AIGDVsg6hNmmkiRY1wohn0lvCRiEfwC4A/Zc55EsGgNlIBkJtizFWieQpmMR?=
+ =?us-ascii?Q?pWwwsiba37ElXIBWaunvONUJuXTs5s1nxZgLIO17j33n/+T1fSjmVL7eM+Me?=
+ =?us-ascii?Q?2/h4Px7G4QTS3SHBkHiEjxLNNZXoRTfpx/hyYexd+pGNuPXQHS2bsHO3s+3A?=
+ =?us-ascii?Q?Qm4e2ntRf/unaUXCfpm3do8hCBQgVTVnSN+cgGZHsgLf1+3vhJl/R6RpykIh?=
+ =?us-ascii?Q?h/cMTBr9x/ZZoGJ+mUsSHTfhAsyF+MSd9NFTrkdCj5Ckeflbg+j4w1BlIlC8?=
+ =?us-ascii?Q?3BdxCGTsNuiqy44sB6Q2DnDL+lDbcvKHx9f9mQ+8801fgrsjWDkjLU41NSX8?=
+ =?us-ascii?Q?PliKYbw8HD6cbmzOuCHqSsFyuwgSuqyPmgz6W7UwOfaRu7G5qnNzBQM4aOia?=
+ =?us-ascii?Q?+E3DbcuYuc76vekfjyz7OCD1I4uxVETLNHCS8rXC+dA7TLqqhM7X3bgStb+y?=
+ =?us-ascii?Q?pk1FnsY3aoWra/xeSUqRSd0kcCJsJP7/cRtbFbTdkg0IFiS8hBqgcw2EIZPN?=
+ =?us-ascii?Q?u1AO1sSrZnjojYl0FeOCL0G3m3df6nA8gjwnozDj9WbRrcfR4uBRGBa03LVz?=
+ =?us-ascii?Q?JG/Npj3j/l0SAQ1yPNsyO9eT13F6+ezYs81PZY/ZEDDSCMLVHVLMpe4rEXy0?=
+ =?us-ascii?Q?kUlxGdcGIULcfDVRn10zB8U/q7p0YAV1OuLbVjK2lMzPtBXZIzJi?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3adebf9b-c91f-4d66-7b97-08df09047c96
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 15:11:38.8952
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PUDoOya0Fs3XQoRISLxz77Uy8rqtP1Vg/Qed/krUc/ql3gq7fd2VVQWR5cx209czehDX3TTCFf+RTIbHQG9SF5Y1FXc+L7W7zPLUvcfITFsfWptOdw5XLqfeR55OkRj3
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY7PR01MB16836
 
-Calling peer_remove_after_dead() currently flushes device-wide packet
-crypto and handshake workqueues while holding RTNL. This is problematic as
-unrelated peers can continue adding work onto those queues blocking other
-tasks that want to take the RTNL lock.
+On Wed, Sep 02, 2026 at 04:20:51PM +0200, Geert Uytterhoeven wrote:
+> Hi all,
+> 
+> On Wed, 2 Sept 2026 at 16:03, Tommaso Merciai
+> <tommaso.merciai.xr@bp.renesas.com> wrote:
+> > On Wed, Sep 02, 2026 at 08:37:06AM +0200, Krzysztof Kozlowski wrote:
+> > > On Fri, Aug 28, 2026 at 02:21:04PM +0200, Tommaso Merciai wrote:
+> > > > The RZ/G3E Soc has 2 LCD controller (LCDC), contain a Frame Compression
+> > > > Processor (FCPVD), a Video Signal Processor (VSPD), Video Signal
+> > > > Processor (VSPD), and Display Unit (DU).
+> > > >
+> > > >  - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
+> > > >  - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
+> > > >
+> > > > Add new SoC-specific compatible string 'renesas,r9a09g047-du'.
+> > > >
+> > > > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> 
+> > > > --- a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> > > > +++ b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> > > > @@ -21,6 +21,7 @@ properties:
+> > > >            - renesas,r9a07g043u-du # RZ/G2UL
+> > > >            - renesas,r9a07g044-du # RZ/G2{L,LC}
+> > > >            - renesas,r9a08g046-du # RZ/G3L
+> > > > +          - renesas,r9a09g047-du # RZ/G3E
+> > > >            - renesas,r9a09g057-du # RZ/V2H(P)
+> > > >            - renesas,r9a09g077-du # RZ/T2H
+> > > >        - items:
+> > > > @@ -35,25 +36,51 @@ properties:
+> > > >            - const: renesas,r9a09g077-du # RZ/T2H fallback
+> > > >
+> > > >    reg:
+> > > > -    maxItems: 1
+> > > > +    minItems: 1
+> > > > +    maxItems: 2
+> > > > +
+> > > > +  reg-names:
+> > > > +    items:
+> > > > +      - const: du.0
+> > > > +      - const: du.1
+> > >
+> > > du is the name of the device, thus calling items "0" and "1" is pretty
+> > > pointless - indices already define that. Please drop the reg-names.
+> >
+> > Will drop this in v8.
+> >
+> > > >    interrupts:
+> > > > -    maxItems: 1
+> > > > +    minItems: 1
+> > > > +    maxItems: 2
+> > > > +
+> > > > +  interrupt-names:
+> > > > +    items:
+> > > > +      - const: du.0
+> > > > +      - const: du.1
+> > >
+> > > Same here
+> >
+> > Same, thanks.
+> >
+> > >
+> > > >
+> > > >    clocks:
+> > > > +    minItems: 3
+> > > >      items:
+> > > >        - description: Main clock
+> > > >        - description: Register access clock
+> > > >        - description: Video clock
+> > > > +      - description: Main clock for DU1
+> > > > +      - description: Register access clock for DU1
+> > > > +      - description: Video clock for DU1
+> > > >
+> > > >    clock-names:
+> > > > +    minItems: 3
+> > > >      items:
+> > > >        - const: aclk
+> > > >        - const: pclk
+> > > >        - const: vclk
+> > > > +      - const: aclk1
+> > > > +      - const: pclk1
+> > > > +      - const: vclk1
+> > > >
+> > > >    resets:
+> > > > -    maxItems: 1
+> > > > +    minItems: 1
+> > > > +    maxItems: 2
+> > > > +
+> > > > +  reset-names:
+> > > > +    items:
+> > > > +      - const: resetn
+> > > > +      - const: resetn1
+> > >
+> > > Drop reset-names
+> >
+> > For reset-names, I got the the following comment from Philipp in v7 [1].
+> >
+> > Dropping reset-names would force the driver back to an index-based
+> > lookup, which is what that comment explicitly asked me to avoid.
+> >
+> > [1] https://lore.kernel.org/all/8382e2b9fd07fb1132c26e228b3899336fc1fdd4.camel@pengutronix.de/
+> >
+> > Philipp, Krzysztof, could you agree on which way you'd prefer?
+> > I'll follow whatever you decide.
+> 
+> Until we get a variant with a third interrupt (or reset or reg),
+> which is not related to the number of channels...
 
-Instead, this patch proposes tracking pending crypto handoffs for each
-peer using a counter. After marking the peer dead, synchronize_net()
-prevents new submissions; wait for pending crypto workers to schedule TX
-work or RX NAPI. Then flush only the peer's transmit packet and handshake
-work.
+Right, IMHO names keep the driver flexible enough for such a variant,
+indices don't.
 
-This scopes teardown synchronization to the removed peer and prevents
-unrelated peers from extending the RTNL hold time.
+Kind regards,
+Tommaso
 
-Fixes: e7096c131e51 ("net: WireGuard secure network tunnel")
-Signed-off-by: Chris J Arges <carges@cloudflare.com>
----
- drivers/net/wireguard/peer.c     | 30 ++++++++++++++++--------------
- drivers/net/wireguard/peer.h     |  1 +
- drivers/net/wireguard/queueing.h |  6 ++++++
- 3 files changed, 23 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/net/wireguard/peer.c b/drivers/net/wireguard/peer.c
-index 1cb502a932e0..f7a9c437b5b8 100644
---- a/drivers/net/wireguard/peer.c
-+++ b/drivers/net/wireguard/peer.c
-@@ -14,6 +14,7 @@
- #include <linux/lockdep.h>
- #include <linux/rcupdate.h>
- #include <linux/list.h>
-+#include <linux/wait_bit.h>
- 
- static struct kmem_cache *peer_cache;
- static atomic64_t peer_counter = ATOMIC64_INIT(0);
-@@ -49,6 +50,8 @@ struct wg_peer *wg_peer_create(struct wg_device *wg,
- 	INIT_WORK(&peer->transmit_packet_work, wg_packet_tx_worker);
- 	wg_prev_queue_init(&peer->tx_queue);
- 	wg_prev_queue_init(&peer->rx_queue);
-+	/* Keep this above zero until teardown prevents new packet handoffs. */
-+	atomic_set(&peer->packet_crypt_pending, 1);
- 	rwlock_init(&peer->endpoint_lock);
- 	kref_init(&peer->refcount);
- 	skb_queue_head_init(&peer->staged_packet_queue);
-@@ -105,28 +108,27 @@ static void peer_remove_after_dead(struct wg_peer *peer)
- 	 */
- 	wg_timers_stop(peer);
- 
--	/* The transition between packet encryption/decryption queues isn't
--	 * guarded by is_dead, but each reference's life is strictly bounded by
--	 * two generations: once for parallel crypto and once for serial
--	 * ingestion, so we can simply flush twice, and be sure that we no
--	 * longer have references inside these queues.
-+	/* Lookup removal and is_dead prevent new packets from entering the
-+	 * parallel crypto queues after synchronize_net() waits for pre-existing
-+	 * submission paths. Drop the initial count and wait for existing packets
-+	 * to finish scheduling their serial TX work or RX NAPI processing.
- 	 */
-+	atomic_dec(&peer->packet_crypt_pending);
-+	wait_var_event(&peer->packet_crypt_pending,
-+		       !atomic_read_acquire(&peer->packet_crypt_pending));
-+
-+	flush_work(&peer->transmit_packet_work);
- 
--	/* a) For encrypt/decrypt. */
--	flush_workqueue(peer->device->packet_crypt_wq);
--	/* b.1) For send (but not receive, since that's napi). */
--	flush_workqueue(peer->device->packet_crypt_wq);
--	/* b.2.1) For receive (but not send, since that's wq). */
- 	napi_disable(&peer->napi);
--	/* b.2.1) It's now safe to remove the napi struct, which must be done
-+	/* It's now safe to remove the napi struct, which must be done
- 	 * here from process context.
- 	 */
- 	netif_napi_del(&peer->napi);
- 
--	/* Ensure any workstructs we own (like transmit_handshake_work or
--	 * clear_peer_work) no longer are in use.
-+	/* clear_peer_work was flushed by wg_timers_stop(). Ensure the remaining
-+	 * peer-owned handshake work is no longer in use.
- 	 */
--	flush_workqueue(peer->device->handshake_send_wq);
-+	flush_work(&peer->transmit_handshake_work);
- 
- 	/* After the above flushes, a peer might still be active in a few
- 	 * different contexts: 1) from xmit(), before hitting is_dead and
-diff --git a/drivers/net/wireguard/peer.h b/drivers/net/wireguard/peer.h
-index 718fb42bdac7..64412c67f413 100644
---- a/drivers/net/wireguard/peer.h
-+++ b/drivers/net/wireguard/peer.h
-@@ -37,6 +37,7 @@ struct endpoint {
- struct wg_peer {
- 	struct wg_device *device;
- 	struct prev_queue tx_queue, rx_queue;
-+	atomic_t packet_crypt_pending;
- 	struct sk_buff_head staged_packet_queue;
- 	int serial_work_cpu;
- 	bool is_dead;
-diff --git a/drivers/net/wireguard/queueing.h b/drivers/net/wireguard/queueing.h
-index 79b6d70de236..fdd34f0f15a6 100644
---- a/drivers/net/wireguard/queueing.h
-+++ b/drivers/net/wireguard/queueing.h
-@@ -11,6 +11,7 @@
- #include <linux/skbuff.h>
- #include <linux/ip.h>
- #include <linux/ipv6.h>
-+#include <linux/wait_bit.h>
- #include <net/ip_tunnels.h>
- 
- struct wg_device;
-@@ -161,6 +162,7 @@ static inline int wg_queue_enqueue_per_device_and_peer(
- 	 */
- 	if (unlikely(!wg_prev_queue_enqueue(peer_queue, skb)))
- 		return -ENOSPC;
-+	atomic_inc(&PACKET_PEER(skb)->packet_crypt_pending);
- 
- 	/* Then we queue it up in the device queue, which consumes the
- 	 * packet as soon as it can.
-@@ -182,6 +184,8 @@ static inline void wg_queue_enqueue_per_peer_tx(struct sk_buff *skb, enum packet
- 	atomic_set_release(&PACKET_CB(skb)->state, state);
- 	queue_work_on(wg_cpumask_choose_online(&peer->serial_work_cpu, peer->internal_id),
- 		      peer->device->packet_crypt_wq, &peer->transmit_packet_work);
-+	if (atomic_dec_and_test(&peer->packet_crypt_pending))
-+		wake_up_var(&peer->packet_crypt_pending);
- 	wg_peer_put(peer);
- }
- 
-@@ -194,6 +198,8 @@ static inline void wg_queue_enqueue_per_peer_rx(struct sk_buff *skb, enum packet
- 
- 	atomic_set_release(&PACKET_CB(skb)->state, state);
- 	napi_schedule(&peer->napi);
-+	if (atomic_dec_and_test(&peer->packet_crypt_pending))
-+		wake_up_var(&peer->packet_crypt_pending);
- 	wg_peer_put(peer);
- }
- 
-
----
-base-commit: 70f3995830d3f1e79faa14eb0605914f778feca9
-change-id: 20260901-fix-wg-peer-removal-43fc390d0311
-
-Best regards,
---  
-Chris J Arges <carges@cloudflare.com>
-
+> 
+> Gr{oetje,eeting}s,
+> 
+>                         Geert
+> 
+> -- 
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> 
+> In personal conversations with technical people, I call myself a hacker. But
+> when I'm talking to journalists I just say "programmer" or something like that.
+>                                 -- Linus Torvalds
