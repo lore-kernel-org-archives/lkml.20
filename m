@@ -1,120 +1,95 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F372126D4C3
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:20:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80F63C1F
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:20:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788337214; cv=none; b=VbgzfaIxYzgN4SRWOgj9XaayHoJjiTgjYxvdBwZe1HPt09YKwAvOTU+cniaVP6Gae8DQZPMzhR3X/XPDYQIxHwjfIw8YG2pSf7dWKUCi5Ti2h+4zz/to31jBgjK7nOFC0BLlPQNf0+zwEPHBGBBMiDtpLV7f8Lmu0BVpWrOOp34=
+	t=1788337234; cv=none; b=B8NPnfU8Peo/q+HMKexrYFUrWkC7JxmADmY/T67vuVKX5kPH1eWIP9VXNyqXDlz6ESZO3GGs5FRavA7Zd+26wkZxn2C3RukdTc5P9O2L8xo8HikeifCUdeV9oRiXgz9wGyHs9hVjkJK74bojs7K6mnkc6S0dK6RvuCBhFn1DFkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788337214; c=relaxed/simple;
-	bh=M55R/2cKFReZga6OrjtKFDOsbXYxom0KR7bfzQy7rx0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qsl1PZAff7G/8d8v5PNJ9/seb++XWLHhAB7SYbkuIkqH6a5QXTd7l8n4uJm+q5tz86zehQf7H5JaUx9JuMJIAKYm2zolz3l5pa96cyvyMM+tN8ByQeKM7GvpknQlxrff0F5uyFZEYfCNh9nyB7Nv21QgPw0i1WDTQ169MiKKd00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=lPM2CzwX; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788337234; c=relaxed/simple;
+	bh=J8dWfxEF1RGzMXVMgB/mwWhusdNmDzLztUJD+Kg4nTI=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=uCEGSngrFQdLaip7a45Fdn4URtsHnL7Sxwvf4M82BUOdpLTEyhgMrAFXrA9LExzFjjZWSORybaes3Ly9EcLpWO8WgVMSk8H7on2+mBTAWtDZ+By5/98oOSWfBrWwkhdKtZFSKnBePNN1JvIbz2BZN61W6mcjl97sLNVFgmkSovs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=obSfFDp9; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="lPM2CzwX"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=9L2kS0Z8E+y+zU+XrRyW/JBaPTew5e3REOgQZp/zDuc=; b=lPM2CzwXI8vWcK1LGOjO25K+Oy
-	vN7j7cQXO2DyPJRGdVxUJE8K6qRvJAnfSc0hGtEm5/BAhUO4bLYaTvqe9ziag3XqOK6nYACFsW0K/
-	/M5iVg2rmLOyUzBE9rr9PdpzWAyPa+0Q9jvLGJ5k2Qc3BT9mRfheN6SBresBY1lUZdPDIeK4nSf1o
-	kNdl6S54rCYMtBREqtrk4hG4MSNEP54qhHpnKOtTW0e3nYQsJ77u8cJFR1lsAS5EG0qKWpDRhY14m
-	XfdSpB+pTcmR62EsXddEHbJnlGISafyRYVAXr+NFHLuIasTLPcWfn/xq13t5LoQYsd9Yqt8gWvvTR
-	lO9p6ucw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x1gCM-0000000Bjln-0gat;
-	Wed, 02 Sep 2026 08:19:59 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id E677930026C; Wed, 02 Sep 2026 10:19:55 +0200 (CEST)
-Date: Wed, 2 Sep 2026 10:19:55 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Hongyan Xia <hongyan.xia@transsion.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Jiazi Li <jiazi.li@transsion.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH RESEND] sched: Move some scheduler fields to new static
- branch API
-Message-ID: <20260902081955.GT4120091@noisy.programming.kicks-ass.net>
-References: <20260819080932.11564-1-hongyan.xia@transsion.com>
- <20260819084438.GG1247881@noisy.programming.kicks-ass.net>
- <c29c0e12-8e31-477b-b9ae-162632bf1cfb@transsion.com>
- <20260819092803.GH1247881@noisy.programming.kicks-ass.net>
- <b61b830d-4c6f-4c35-8b8c-1adc4340aaed@transsion.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="obSfFDp9"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id C24051A1932;
+	Wed,  2 Sep 2026 08:20:23 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 913A96053C;
+	Wed,  2 Sep 2026 08:20:23 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EB63E11C792AC;
+	Wed,  2 Sep 2026 10:20:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788337218; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=zXwmUqR80A5WcB1By3Vqky+fSnzgUpYcAnB6V+3H0bA=;
+	b=obSfFDp9c3fLXn9Jdh3sWnB3ocZrKCvN3COLHPLcaFTUvPZGThEQdQolXal845JS1KCC/I
+	386jSjryrGCWCH8ll5Dt+OK2sNJXpqEUNshRlivZu2pzVTF7/PsV5NhaqEJkQl4fWUmB4q
+	Xx5Tq/+o9WKnpELRu8aiqYW8ZIwcEjsG0yxOVgYQ4/+t3D/nmUf4RvR9RY7FVGTKLkoKRP
+	vowcNcW/jdHAsFFxP8knpmG6pu38016t6flYv3sn7hbc7qXjRUOXRs1ogIv8Q4fF0EFpcp
+	eGZEt3RS3ZNi9c2CnBEV+x3YJ27ilq1vTpywTcrY8W+iylgxqK3KQs2qYaCFEw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b61b830d-4c6f-4c35-8b8c-1adc4340aaed@transsion.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v8 5/5] drm/bridge: analogix_dp: Add support for
+ optional data-lanes mapping
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Damon Ding <damon.ding@rock-chips.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sandy Huang <hjc@rock-chips.com>, 
+ Heiko Stuebner <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20260828065153.590802-6-damon.ding@rock-chips.com>
+References: <20260828065153.590802-1-damon.ding@rock-chips.com>
+ <20260828065153.590802-6-damon.ding@rock-chips.com>
+Date: Wed, 02 Sep 2026 10:19:56 +0200
+Message-Id: <178833719638.506564.9767716352967670052.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Sep 02, 2026 at 08:18:04AM +0000, Hongyan Xia wrote:
-> Hi Peter,
+On Fri, 28 Aug 2026 14:51:53 +0800, Damon Ding <damon.ding@rock-chips.com> wrote:
+> Parse the optional 'data-lanes' device tree property to support
+> custom physical lane mapping configuration.
 > 
-> On 8/19/2026 5:28 PM, Peter Zijlstra wrote:
-> > On Wed, Aug 19, 2026 at 09:04:03AM +0000, Hongyan Xia wrote:
-> >> On 8/19/2026 4:44 PM, Peter Zijlstra wrote:
-> >>> On Wed, Aug 19, 2026 at 08:09:38AM +0000, Hongyan Xia wrote:
-> >>>> From: Hongyan Xia <hongyan.xia@transsion.com>
-> >>>>
-> >>>> __cfs_bandwidth_used uses struct static_key directly which is
-> >>>> deprecated. Fix.
-> >>>>
-> >>>> sk_dynamic_* uses static_key_{enable/disable}(), which aren't really
-> >>>> deprecated, but take the opportunity to move to the new static_branch_*
-> >>>> APIs to be consistent.
-> >>>>
-> >>>> No functional change.
-> >>>>
-> >>>> Signed-off-by: Hongyan Xia <hongyan.xia@transsion.com>
-> >>>> ---
-> >>>
-> >>> Your emails are encoded in a Microsoft special quoted-printable that my
-> >>> scripts don't like.
-> >>
-> >> Hmm, this patch was sent through the normal git format-patch and
-> >> send-email flow, which looks okay on my end and via lore. Do you have
-> >> more details so that I can debug and avoid triggering future unhappiness
-> >> in your scripts?
-> > 
-> > I think I fixed the script. But what the thing did was encode '\n' as
-> > =0A=. This is two tokens: "=0A" for the '\n' and then "=$" for a
-> > continuation line.
-> > 
-> > It does this for every line, including the last line. Marking the last
-> > line as having a continuation resulted in no output, it would just eat
-> > the whole message.
-> > 
-> > Marking the last line as having a continuation is well, bonkers. But my
-> > script should now be able to deal with it.  Still, pretty idiotic
-> > behaviour on whoever mangled that.
+> If no valid configuration is found, fall back to the default
+> lane map (0, 1, 2, 3) automatically and keep the driver running.
 > 
-> While working on the latest sched/core, I noticed two of my patches
+> Lane mapping is mainly used for below scenarios:
+> 1. Correct PCB lane swap and differential line routing crossover
+>    without hardware changes;
+> 2. Adapt mismatched lane pin definitions between SoC and eDP panel;
+> 3. Support multiple panel hardware variants on the same board
+>    by configuring data-lanes in device tree only.
 > 
-> d92d1a182dc2d5dc5e4418765739f56bcbde806a, and
-> 087b40fe5934e4b8aa80b29b3debbd6542756ffd
-> 
-> have both changed my name into
-> 
-> Author: Hongyan Xia =0A= <hongyan.xia@transsion.com>
-> 
-> While =0A= is certainly a cute last name, I want to ask if this has 
-> anything to do with the Outlook fix you mentioned last time. If not, 
-> I'll see what else could have gone wrong.
+> [...]
 
-Argh, sorry about that. Sometimes I fail to spot issues like this. Let
-me go rebase those patches and fix.
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
