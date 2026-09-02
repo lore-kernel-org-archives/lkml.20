@@ -1,229 +1,247 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E8325782D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA6723B3C0E
 	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:58:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788332333; cv=none; b=d3cGcumYv/kcnuPPqK3eSi9hRVWaanGhNcD8C3ltIkWyBc0mLanNXF0Isj43tSGtcOeeZNHfl17/L2bNdWmOB07W2oxuGvdBLKh9JEYs+1AM2/qC1d9zJ3ZqwKmLv1ENY09nE/nhxyhz/Eb2iOU4LeaYKd1A2fSdHzpK6ZEe1lU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788332333; c=relaxed/simple;
-	bh=JB1+KjY5+vYTV+zIkk6v6xYOlkH+B8/EqQeR4G77Kkg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B3KZvrnRryhtG29V7cVKSjbXpdo3RQLffzrFyqn/LZMoTMOq2xQq1q1Yyd+QH68rkoGaNu4bFjwN9sao6svtSpXnrSITXPCYSP3f+57eP0uFupKtJQYE6j85GMq4QdQrvX6Ca2r1M4346ppEzVMjaX9QFa1kxSs/ffsqORuSnK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=x/x4teY4; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=DVCweGQ+; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=kwu9MfTh; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=khtdPORJ; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788332334; cv=pass; b=H/Mhnr7Tz+nAUnxzrElqMEXhMtdZH1uhtUnf7Hr7ma3Zhv6Et0+EMENQbm53RXbGBiB2xE9Zu7tMnUZ1Wu64vfjlldJPmFssnFpbdzsYQkKNt5V8Qwfv58TLog1plAWX3WeqvQYxuUpDnosZoSJtNCiO0NGyAQRcUHSobCB+zrg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788332334; c=relaxed/simple;
+	bh=lmdTvrNLyi0GtOLkMEAApwYWiwu+dvXJCi4Wv2yd25Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HCW9avWlEJ67HF4eoiheiKllaIJ9bOig9m6AAC+UjOs7E7vtkEbVToqG7X6gPRXqH1KdzafNA+iCo4M572y+NgCioDdykU8m/qsUorSvwcZkmXPGP913KkzmzJekrkVLbQdKNNtXl8gI/4GvNAe+UBYPDjJs22jLoIW7wJVyqG0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eiUT1cEa; arc=pass smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="x/x4teY4";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DVCweGQ+";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="kwu9MfTh";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="khtdPORJ"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 6798A1F81C;
-	Wed,  2 Sep 2026 06:58:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788332321; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=DlKBREez6j2dQIwUQ17kM/3BAW0lwhltHCFYQUZfVCs=;
-	b=x/x4teY4x/cRBJogqEQ07WIxI4ZUEIXJjgdEmy6uVBV+G7YRbVjmmTAKa6DwlZf9kJSUXn
-	3tUk6ZeE+v65CtguASR4MdawCL+XYiDT1aP7CLap4Cj6OBU6g4yOSj90JDf2kqbBpgcvDB
-	H8puj+1Mk5vxDgdYo+PkO+msPu8V01c=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788332321;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=DlKBREez6j2dQIwUQ17kM/3BAW0lwhltHCFYQUZfVCs=;
-	b=DVCweGQ+QQvfTi2jws6PBnfo2St7D6GLmvHtp6ffihLhwGB6jbtfuRL03PaDpqQXe3SoKI
-	vCiYCSwFxJ8ua0Ag==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788332317; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=DlKBREez6j2dQIwUQ17kM/3BAW0lwhltHCFYQUZfVCs=;
-	b=kwu9MfThlKWl2KkPWmJGNtTVTmO/aZ1LTDy7/CkX0sCnynOmTfsJM+PDZdu2hNy2mCv4YE
-	0+uwi5f8qmyZuO4Af3roIwiIyT2YKFj8BJkmqWjRoauK+VIttZwFm+wsqFdhR3SH8hW2Qm
-	6w8A+W2B605oIG9OE2UFWv75sono6MQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788332317;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=DlKBREez6j2dQIwUQ17kM/3BAW0lwhltHCFYQUZfVCs=;
-	b=khtdPORJjaXVYL1x7uOAGx7xU2DTQN1uv29tl7OXfJ/3aWSc6m0h2hFa/3mUEu18EtyqX3
-	Eu3XmjKmlluiIEAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F3112136E6;
-	Wed,  2 Sep 2026 06:58:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Op5NORzJl2ocSwAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Wed, 02 Sep 2026 06:58:36 +0000
-Message-ID: <ea6ad09c-5292-49a2-8968-5a95e7e5de77@suse.de>
-Date: Wed, 2 Sep 2026 08:58:36 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eiUT1cEa"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-4843750de83so169766f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 23:58:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788332327; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Hhahm7GEG48kt5OAd/gaaDqMlVSU1usL8dq3llWpXzoX/g8rrWOvqyQnMrh4zY7+GP
+         N4nvlRJEwbp0Ruu8LzuZ7+KztqxGhbfOI+3siDuoQXew5c5Hax5oogeQ6Jy16dWwquua
+         RVpRDx0urjdnNqtz9tMu+tQyMqIcCx//u28z0RLaoOPF4OW89a3fA/Vf3IJyiAvq6C7U
+         tTBDMRYjnN2gtCqQ2FbWMD0kLqcu6AnC7+3594stel64n3syyzD3XaKDAwKscN45vlFL
+         8QemNJ2rRs2Fjwof1/fz1iaNveBsMZX8xxJ+vqLLLLJjQHxwWHZ7D0mA4KJkpQCLODJi
+         3qrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=rHvec1B41LTsHg/y2S1IBofbmedh40uYcMY1YS/Yk48=;
+        fh=gPsdYfPJLLFLueM00c/s+FenSW3ZVoElfVBkv01ULPA=;
+        b=N9SDRQ3ZcCXW/xM62CiF1mh/no15bQfHpWifSYXVQNjE7uOBj6ZMMT8VGJz3dlyIRh
+         46iE7dER4MRPy19qzmjzXQsAtNyJ/i9nM+OR4Ux+GuyXN6pRAlAVN02OiyQeXfE5oINx
+         w1iD8RoSjHrulfuaZmaCAti5Q6FDSktnc1Pj6C6VqCLDBaYro2etp5xXxFZP1T8/cVnW
+         7o7qOZ7zirsKGtrOTOfZvirZ2m8yus8Bg8UPBKPsbkoBi4TZZkStrNW/xPTjZNjdbz62
+         p6WuOZr1BtnXbHM+QV7udOljYh7zV/cKjWfD3mLkFHpiLaESGoZbR3L1VfxapOBAhUWG
+         8u8w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788332327; x=1788937127; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rHvec1B41LTsHg/y2S1IBofbmedh40uYcMY1YS/Yk48=;
+        b=eiUT1cEarlrQ1WvjZphP92Aw1ly/HiBwQNemB6uTDs30M/QPu+gaKsaUhmeJ6u9Uto
+         IQeNO/BIXUg2ZYkpaIxtGmHL27sT9b1QXrwPz+i6E+PME2dLL+cLdTeVbIIVmS5BJCHg
+         S2GPyeUkz1kcWOGQssJiheiUHv9JZ1EMyddgeWb24kBtYqKv2A6dirZoh3nCUJm6P0cn
+         4bpt5abvbGHlsMJQC5QlqTDqYSnvfNGhy+uMnWn/ebXhWIxwkO0zcnbszxWwjoWbYxpV
+         xx2LoX7QvmBcdhYIJq1ICZ8fLPTThpDafgEa3yL49SnnjKbiYEXgUfDIK2AJpzRQRVpD
+         dKjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788332327; x=1788937127;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=rHvec1B41LTsHg/y2S1IBofbmedh40uYcMY1YS/Yk48=;
+        b=gQpDuUOuzXfwOyNW3VGA13CzzV9UJ2Yma0vJ8WwzJ+653njs+EiZan9qOpkNm2Qy/O
+         UqDSFdI/jduJjCdUrHMa6k6F7QUFtwBxBHgHFaPZcEZrNcFhKxjkSpWfVMTmjfHjZinl
+         fIH4t6q/nFoJAS8wkmkcCmHwRK6i4RhjHLtU6jdVSzyJfQBuy8AlAjLo78a9pQHqzQxV
+         ZugsQaFh7DSEiLO5jyY83nLTrQH/Yoc2UXToGB9Wn7AFR7l0X6owtFNFVwnTcZxYZetc
+         UnksKmppPSxuTglJpmBnrkit/1bCzVyTLpns4b9Vp1eCY4nf0c2nqJPr/IuYyzIFcdL/
+         KQdA==
+X-Forwarded-Encrypted: i=1; AKwUvBy5+heh4KBkuSUQncmihnKhh1WaAP7TFH9VrsctMvp4hN9hiYGRqA7pPtpjg3tu2lPxVBQQvfSZ1uOb0f4=@vger.kernel.org
+X-Gm-Message-State: AFuF++m2refjW9r9unaGpB3Hub0ghFxtFnYkbRHXJh8d3zQvTeJjOI2D
+	6vQixW143jAoKq9BNRuwwaE1bg1g9BW5B+PlEL0953OxC7ZI6e1fp8GETAUD4o0xGzfRSzWYNLb
+	NtKAZYJBy3D3VghaPyfMY7uSLqWv8sXU=
+X-Gm-Gg: AYBFou14d4H83hSqumDt0XZjLZjnMi90quumqSq36ZjI5eXyxCfIhYVHUGLLuGQDJDt
+	cxmVxN/60j9F/v6Leg1CJl0z3gl5plx54bJafMq6PbySDQSSXBcI5XCy+NKFjrrfBOyaSb/JsUe
+	RymEJQgoXCpmjmOturI3C8fbjl7bfwj6OzlRwKCCrX6mGc6ITzfpSKOD9cWadGwf7tbtKJ0Y8l0
+	2u72hERoR5ZXlzqnjhAoxQOd2xjGMRMqbfCKbUBnClnUuWdfjWhQbkj/nPhcL4QPfEtDKzAMuD1
+	0iuedG3UFM/GwHAXbAAeLwNNVAgoClpdcs/744Cj3eiC
+X-Received: by 2002:a05:6000:2088:b0:484:3fce:18c5 with SMTP id
+ ffacd0b85a97d-484914b920dmr4302153f8f.23.1788332326375; Tue, 01 Sep 2026
+ 23:58:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/panfrost: Rename "panthor" prefixes in debugfs
- identifiers
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel@collabora.com
-References: <20260901-panfrost-prefix-whoopsie-v1-1-138fb4c5a9f4@collabora.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260901-panfrost-prefix-whoopsie-v1-1-138fb4c5a9f4@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -4.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[collabora.com,kernel.org,arm.com,linux.intel.com,gmail.com,ffwll.ch];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo,collabora.com:email]
-X-Spam-Flag: NO
+References: <CAPBHdanmknKKhhc+5r8jPsnyZW8LYVq0qpzfEVrvjL3i5sNuJQ@mail.gmail.com>
+ <87mru0b1z3.wl-tiwai@suse.de>
+In-Reply-To: <87mru0b1z3.wl-tiwai@suse.de>
+From: Qingyu Zhang <usupergate@gmail.com>
+Date: Wed, 2 Sep 2026 14:58:34 +0800
+X-Gm-Features: AcwNN1XLih-ed91UW2Km4yjXZEpOorEbNpVueoqU7zIXItjn8HELpZjPDbQuaRc
+Message-ID: <CAPBHdakPAZfcP9PTKHiTQMHeEi8g7Xemg_UOByZAqKx6epxJ3A@mail.gmail.com>
+Subject: Re: [BUG] ALSA: ump: NULL deref of legacy_rmidi after parse sets parsed
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Jaroslav Kysela <perex@perex.cz>, linux-sound@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: multipart/mixed; boundary="0000000000000def68065a7a9192"
 
+--0000000000000def68065a7a9192
+Content-Type: text/plain; charset="UTF-8"
 
+Dear Takashi,
 
-Am 01.09.26 um 15:39 schrieb Nicolas Frattaroli:
-> When gems debugfs support was copied over from panthor to panfrost, the
-> function and struct names were not adjusted to carry the panfrost
-> prefix instead of the panthor prefix.
+Thank you for your email. The formatted patch with the Signed-off-by
+tag is attached; please check.
+
+Yours,
+Ian
+
 >
-> Rectify this by renaming them. No functional change.
+> On Wed, 02 Sep 2026 04:07:30 +0200,
+> Qingyu Zhang wrote:
+> >
+> > Hello,
+> >
+> > ump_legacy_set_rawmidi_name() snprintf()s into ump->legacy_rmidi->name
+> > when ump->parsed is true, but parsed is set at the end of
+> > snd_ump_parse_endpoint() *before* snd_ump_attach_legacy_rawmidi().
+> > A UMP packet in that window NULL-derefs.
+> >
+> > Type: null-pointer dereference
+> >
+> > * Summary
+> >
+> > snd_ump_parse_endpoint() always does:
+> >
+> >        error:
+> >                ump->parsed = true;
+> >                ...
+> >
+> > ump_handle_ep_name_msg():
+> >
+> >        if (ret && ump->parsed) {
+> >                ump_set_rawmidi_name(ump);
+> >                ump_legacy_set_rawmidi_name(ump);  /* rmidi may be NULL */
+> >        }
+> >
+> > ump_legacy_set_rawmidi_name():
+> >
+> >        rmidi = ump->legacy_rmidi;
+> >        snprintf(rmidi->name, ...);   /* no NULL check */
+> >
+> > This runs from snd_ump_receive() on the USB input URB complete path
+> > (in interrupt).
+> >
+> > * Affected
+> >
+> > 37e0e14128e0. Needs CONFIG_SND_UMP, CONFIG_SND_UMP_LEGACY_RAWMIDI,
+> > CONFIG_SND_USB_AUDIO, a MIDI 2.0 gadget or device. KASAN.
+> >
+> > The natural window is parse-done vs attach. The QEMU PoC widens it
+> > with a kprobe on snd_ump_receive (poc/widen_ump.c) plus dummy_hcd
+> > configfs midi2, because the un-widened window is short.
+> >
+> > * Reproduction
+> >
+> >        # dummy_hcd + configfs usb_gadget midi2.usb0 (see poc/run.sh)
+> >        # with widen_ump.ko: force parsed=1, legacy_rmidi=NULL on receive
+> >
+> > KASAN: null-ptr-deref in snprintf from ump_legacy_set_rawmidi_name
+> > <- ump_handle_ep_name_msg <- snd_ump_receive <- input_urb_complete.
+> > Then "Fatal exception in interrupt".
+> >
+> > * Expected
+> >
+> > legacy_rmidi helpers no-op until attach has stored the pointer.
+> >
+> > * Actual
+> >
+> > IRQ-context NULL deref.
+> >
+> > Please consider the suggested patch
+> >
+> > Thanks.
+> >
+> > Suggested patch:
+> > ```
+> > diff --git a/sound/core/ump.c b/sound/core/ump.c
+> > index d183c8a000bd..3d1a2ed3b476 100644
+> > --- a/sound/core/ump.c
+> > +++ b/sound/core/ump.c
+> > @@ -1335,6 +1335,8 @@ static void update_legacy_names(struct
+> > snd_ump_endpoint *ump)
+> > {
+> >     struct snd_rawmidi *rmidi = ump->legacy_rmidi;
+> >
+> > +    if (!rmidi)
+> > +        return;
+> >     update_legacy_substreams(ump, rmidi, SNDRV_RAWMIDI_STREAM_INPUT);
+> >     update_legacy_substreams(ump, rmidi, SNDRV_RAWMIDI_STREAM_OUTPUT);
+> > }
+> > @@ -1343,6 +1345,8 @@ static void ump_legacy_set_rawmidi_name(struct
+> > snd_ump_endpoint *ump)
+> > {
+> >     struct snd_rawmidi *rmidi = ump->legacy_rmidi;
+> >
+> > +    if (!rmidi)
+> > +        return;
+> >     snprintf(rmidi->name, sizeof(rmidi->name), "%.68s (MIDI 1.0)",
+> >          ump->core.name);
+> > }
+> > ```
 >
-> Fixes: e48ade5e23ba ("drm/panfrost: show device-wide list of DRM GEM objects over DebugFS")
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-> ---
->   drivers/gpu/drm/panfrost/panfrost_drv.c | 14 +++++++-------
->   1 file changed, 7 insertions(+), 7 deletions(-)
+> Thanks for the report.  The suggested code change looks good.
+> Could you submit a patch in the proper format for upstreaming
+> (especially with your Signed-off-by tag)?
 >
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> index 96a66d673ba6..f5f11ad5f9b3 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -794,7 +794,7 @@ static const struct file_operations panfrost_drm_driver_fops = {
->   };
->   
->   #ifdef CONFIG_DEBUG_FS
-> -static int panthor_gems_show(struct seq_file *m, void *data)
-> +static int panfrost_gems_show(struct seq_file *m, void *data)
->   {
->   	struct drm_info_node *node = m->private;
->   	struct panfrost_device *pfdev = to_panfrost_device(node->minor->dev);
-> @@ -845,15 +845,15 @@ static int show_file_jm_ctxs(struct panfrost_file_priv *pfile,
->   	return 0;
->   }
->   
-> -static struct drm_info_list panthor_debugfs_list[] = {
-> +static struct drm_info_list panfrost_debugfs_list[] = {
->   	{"gems",
-> -	 panthor_gems_show, 0, NULL},
-> +	 panfrost_gems_show, 0, NULL},
->   };
->   
-> -static int panthor_gems_debugfs_init(struct drm_minor *minor)
-> +static int panfrost_gems_debugfs_init(struct drm_minor *minor)
->   {
-> -	drm_debugfs_create_files(panthor_debugfs_list,
-> -				 ARRAY_SIZE(panthor_debugfs_list),
-> +	drm_debugfs_create_files(panfrost_debugfs_list,
-> +				 ARRAY_SIZE(panfrost_debugfs_list),
->   				 minor->debugfs_root, minor);
->   
->   	return 0;
-> @@ -915,7 +915,7 @@ static void panfrost_sched_debugfs_init(struct drm_minor *minor)
->   
->   static void panfrost_debugfs_init(struct drm_minor *minor)
->   {
-> -	panthor_gems_debugfs_init(minor);
-> +	panfrost_gems_debugfs_init(minor);
->   	panfrost_sched_debugfs_init(minor);
->   }
->   #endif
 >
-> ---
-> base-commit: 0116f19db5931348c937eafa1f76a9a19bf82c81
-> change-id: 20260901-panfrost-prefix-whoopsie-26300bf2dce9
+> thanks,
 >
-> Best regards,
-> --
-> Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
->
+> Takashi
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+--0000000000000def68065a7a9192
+Content-Type: application/x-patch; 
+	name="0001-ALSA-ump-do-not-touch-legacy_rmidi-before-it-exists.patch"
+Content-Disposition: attachment; 
+	filename="0001-ALSA-ump-do-not-touch-legacy_rmidi-before-it-exists.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mtjqry7w0>
+X-Attachment-Id: f_mtjqry7w0
 
-
+RnJvbTogSWFuIDx1c3VwZXJnYXRlQGdtYWlsLmNvbT4KRGF0ZTogTW9uLCAzMSBBdWcgMjAyNiAx
+NzowMDowMCArMDgwMApTdWJqZWN0OiBbUEFUQ0hdIEFMU0E6IHVtcDogZG8gbm90IHRvdWNoIGxl
+Z2FjeV9ybWlkaSBiZWZvcmUgaXQgZXhpc3RzCgpzbmRfdW1wX3BhcnNlX2VuZHBvaW50KCkgc2V0
+cyB1bXAtPnBhcnNlZCBvbiBldmVyeSBleGl0LCBpbmNsdWRpbmcKZXJyb3IsIGJlZm9yZSB0aGUg
+Y2FsbGVyIGF0dGFjaGVzIHRoZSBsZWdhY3kgcmF3bWlkaSBkZXZpY2UuCnVtcF9oYW5kbGVfZXBf
+bmFtZV9tc2coKSB0aGVuIHRyZWF0cyBwYXJzZWQgYXMgImxlZ2FjeV9ybWlkaSBpcyBsaXZlIgph
+bmQgY2FsbHMgdW1wX2xlZ2FjeV9zZXRfcmF3bWlkaV9uYW1lKCksIHdoaWNoIHNucHJpbnRmKClz
+IGludG8KdW1wLT5sZWdhY3lfcm1pZGktPm5hbWUuIElmIGEgVU1QIHBhY2tldCBhcnJpdmVzIGlu
+IHRoYXQgd2luZG93CihJUlEgcGF0aCBmcm9tIHNuZF91bXBfcmVjZWl2ZSksIGxlZ2FjeV9ybWlk
+aSBpcyBzdGlsbCBOVUxMCihLQVNBTiBudWxsLXB0ci1kZXJlZiBpbiBzbnByaW50ZikuCgpHdWFy
+ZCB0aGUgbGVnYWN5IGhlbHBlcnMuIHBhcnNlZCBvbmx5IG1lYW5zIGVuZHBvaW50IGluZm8gd2Fz
+CnBhcnNlZCwgbm90IHRoYXQgbGVnYWN5X3JtaWRpIGV4aXN0cy4KCkZpeGVzOiAzN2UwZTE0MTI4
+ZTAgKCJBTFNBOiB1bXA6IFN1cHBvcnQgVU1QIEVuZHBvaW50IGFuZCBGdW5jdGlvbiBCbG9jayBw
+YXJzaW5nIikKQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKU2lnbmVkLW9mZi1ieTogSWFuIDx1
+c3VwZXJnYXRlQGdtYWlsLmNvbT4KLS0tCmRpZmYgLS1naXQgYS9zb3VuZC9jb3JlL3VtcC5jIGIv
+c291bmQvY29yZS91bXAuYwppbmRleCBkMTgzYzhhMDAwYmQuLjNkMWEyZWQzYjQ3NiAxMDA2NDQK
+LS0tIGEvc291bmQvY29yZS91bXAuYworKysgYi9zb3VuZC9jb3JlL3VtcC5jCkBAIC0xMzM1LDYg
+KzEzMzUsOCBAQCBzdGF0aWMgdm9pZCB1cGRhdGVfbGVnYWN5X25hbWVzKHN0cnVjdCBzbmRfdW1w
+X2VuZHBvaW50ICp1bXApCiB7CiAJc3RydWN0IHNuZF9yYXdtaWRpICpybWlkaSA9IHVtcC0+bGVn
+YWN5X3JtaWRpOwogCisJaWYgKCFybWlkaSkKKwkJcmV0dXJuOwogCXVwZGF0ZV9sZWdhY3lfc3Vi
+c3RyZWFtcyh1bXAsIHJtaWRpLCBTTkRSVl9SQVdNSURJX1NUUkVBTV9JTlBVVCk7CiAJdXBkYXRl
+X2xlZ2FjeV9zdWJzdHJlYW1zKHVtcCwgcm1pZGksIFNORFJWX1JBV01JRElfU1RSRUFNX09VVFBV
+VCk7CiB9CkBAIC0xMzQzLDYgKzEzNDUsOCBAQCBzdGF0aWMgdm9pZCB1bXBfbGVnYWN5X3NldF9y
+YXdtaWRpX25hbWUoc3RydWN0IHNuZF91bXBfZW5kcG9pbnQgKnVtcCkKIHsKIAlzdHJ1Y3Qgc25k
+X3Jhd21pZGkgKnJtaWRpID0gdW1wLT5sZWdhY3lfcm1pZGk7CiAKKwlpZiAoIXJtaWRpKQorCQly
+ZXR1cm47CiAJc25wcmludGYocm1pZGktPm5hbWUsIHNpemVvZihybWlkaS0+bmFtZSksICIlLjY4
+cyAoTUlESSAxLjApIiwKIAkJIHVtcC0+Y29yZS5uYW1lKTsKIH0K
+--0000000000000def68065a7a9192--
