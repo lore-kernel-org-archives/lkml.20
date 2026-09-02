@@ -1,87 +1,222 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB37D2E7366;
-	Wed,  2 Sep 2026 12:34:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 036AD48A8C4
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:34:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352489; cv=none; b=mxt720GPKVHxN+IIGNCFYnJ3ZDnYZDYoKyciYLTwm8UgSqkTqv7isexegw2hhygmj0uFzb3FON7MbgTKroTeRJcyNzDZR025N3zaz0DjOyM9qXu4DwvXWY0xQRyLfG5K/EAy1dwVatjEBcLCtMbE26FplH/WfdAiXbW08+pgKus=
+	t=1788352493; cv=none; b=DBZSS2xy1098ppX9Ja75LwZNLHmk/ATS0rnzuYaqQKyHubhA54CI9uZzOwl4cv3Ayv93cZHxogY+00xc9FYCjgIuSuBwoXGnmd8DgMZsUrYBpy06N68jKPfWUU8ZUwLL67yovYGRzaKH7rbDefG1ALwTT/EvO0us6/h0erSa4Yg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352489; c=relaxed/simple;
-	bh=QTOz9WuygDUf9f2kuZRKTQxDJxuXW5+qSiq0sqlF5bs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UOlZDxdFdO+9ikV6XcVqa5TAXpPPaXcyBiIAJZDc7IT3b4b4dXbFJYaklFRXVQhMxIgMUDzh8L0/KOOmqbs+rRdFysMHVXNlKdWZ8OvLWxFZvq2LyPIbSccdfdVwYizJE6To5L0EqwS/4ZoSgJcj3Wfpek1M5K6jJpXGmhHWHXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=hp03u8TH; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788352493; c=relaxed/simple;
+	bh=bLm0ySQOMsgpTTTaqr5rs3M4eKG7B8qeNk91g7KG1Vc=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BvuKDZ/C3q/mt69+iOQYcB9+z2QeQRKt2AFNkR06N7ghcbkcfAXhDFSzXhjuRyVUXljV4HFGm24atD1+jkvelpyqO997efNN0OrHjgbacsduikxnh3j5/o0aLmZhA4z/1HJ61E2p6P7H0wzItVQJLK53+mm++3Zn62tFuU+ELPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=empyreal.works; spf=pass smtp.mailfrom=empyreal.works; dkim=pass (2048-bit key) header.d=empyreal.works header.i=@empyreal.works header.b=YxagJdIo; arc=none smtp.client-ip=79.135.106.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=empyreal.works
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=empyreal.works
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="hp03u8TH"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=DqIr+thPrbep/O0pQIu8oOVm6WAFx0khwrPGH8+faaI=; b=hp03u8THC/bL/aO0tZNb/guAdj
-	6JE1X0XikSOzaUI55ijxAp09/JKsp8VYSxaBtCILzK3/necMgjMbyUS8KowWKVI2++f5v2jYh/SFR
-	ft1e9Zn2OCyYQFzftb9gGc0MIseKxQTQiZiDR/nfi2Xv9NdenQD3jOd4KSUxGwsZAgHU=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x1kAc-002W90-LK; Wed, 02 Sep 2026 14:34:26 +0200
-Date: Wed, 2 Sep 2026 14:34:26 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Daniel Golle <daniel@makrotopia.org>
-Cc: "Chester A. Unal" <chester.a.unal@arinc9.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH net-next v5 0/9] net: dsa: mt7530: modernise register
- access and add two DSA ops
-Message-ID: <e3b0d41a-ff23-4dc2-aa8e-3fc279f750fa@lunn.ch>
-References: <cover.1788190568.git.daniel@makrotopia.org>
+	dkim=pass (2048-bit key) header.d=empyreal.works header.i=@empyreal.works header.b="YxagJdIo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
+	s=protonmail2; t=1788352488; x=1788611688;
+	bh=9Np8DWLpuQ1rRZUMmMGF6LiNN8JJ6X6W5GuPnYtHZqI=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=YxagJdIoRy72LJmBqMaPxu3Cs9M2sFB51VyRBp4aY1vW49EfxuKiCaRyHiPW2rqS7
+	 V6v3dxMgisetHy06ygGQQV5uAxcnlT1CE4rfukHrFNMApwzUwe5UqWI1vwqdlXKi6T
+	 pZcNUCxWsdxHbUkeoFoBggSLR3DO65smvTU/45Tt1rpikGES8zfsd+lba9gCj/GGp0
+	 CdUqAbl2nRV9GcuKPyTfLZFnbIMC8xfylLTLrAYB6Rf2RGoQO3KaLvv16i1fOJjRNy
+	 tElasYuHQ/72Xld+mf8u2V2MP9SVZcav+w/fMxsZWkcpLmLhj1nXdK1zzuknAUPfts
+	 6hSPBrFJWfR6w==
+Date: Wed, 02 Sep 2026 12:34:43 +0000
+To: linux-usb@vger.kernel.org
+From: Andrei Rusu de Castro <arc@empyreal.works>
+Cc: andreas.noever@gmail.com, westeri@kernel.org, YehezkelShB@gmail.com, Sanath.S@amd.com, Basavaraj.Natikar@amd.com, linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] thunderbolt: Test ring interrupt warning after host reset
+Message-ID: <20260902-thunderbolt-2-2fdc1c1b@empyreal.works>
+In-Reply-To: <20260902-thunderbolt-cover-2fdc1c1b@empyreal.works>
+References: <20260902-thunderbolt-cover-2fdc1c1b@empyreal.works>
+Feedback-ID: 182420409:user:proton
+X-Pm-Message-ID: 1d297b7de060c95bc1fcd1bc78dba9c3d1aa0054
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1788190568.git.daniel@makrotopia.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 31, 2026 at 04:37:43PM +0100, Daniel Golle wrote:
-> The mt7530 driver carries its own register accessors that predate the
-> regmap conversion and now largely duplicate what regmap already
-> provides, including locking. Most of this series removes that layer.
-> 
-> It first moves the MDIO bus locking into the switch regmap via
-> .lock/.unlock callbacks, matching the PCS regmaps, so any path reaching
-> the regmap is serialised automatically. With the wrappers no longer
-> adding locking, the thin mt7530_mii_* indirection is folded away and the
-> remaining accessors are replaced mechanically with the plain regmap API,
-> using the coccinelle semantic patches included in the commit messages.
-> The two remaining reset polls are converted to
-> regmap_read_poll_timeout() and the then-unused dummy poll machinery is
-> dropped. Open-coded register fields are converted to
-> FIELD_GET/FIELD_PREP. None of this is intended to change behaviour.
-> 
-> The last two patches implement .port_fast_age, which flushes dynamically
-> learned MAC entries on topology changes, and .port_change_conduit, which
-> moves a user port's CPU-port affinity at runtime.
-> 
-> The swallowed MDIO errors Sashiko flagged on v4 5/8 have meanwhile been
-> fixed in tree by "fix swallowed MDIO read errors" and "fix remaining
-> swallowed MDIO access errors", both merged into net-next. This respin is
-> rebased on top of them: regmap_* return values are no longer ignored,
-> which is what most of the semantic patches had to be reworked for.
+Cover the warning decision independently of MMIO by constructing a ring
+and NHI generation pair. Verify that duplicate enables always warn,
+duplicate disables without an intervening reset warn, a disable after a
+reset does not warn, and an update that changed the register never
+warns.
 
-I only had a quick look at the series, but it seems O.K. to me.
+Expose the predicate only in KUnit builds through VISIBLE_IF_KUNIT; it
+remains private in production builds and is not exported outside the
+Thunderbolt module.
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+The cases were verified under UML KUnit.
 
-    Andrew
+Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
+---
+ drivers/thunderbolt/nhi.c  |  4 +-
+ drivers/thunderbolt/nhi.h  |  4 ++
+ drivers/thunderbolt/test.c | 82 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 89 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/thunderbolt/nhi.c b/drivers/thunderbolt/nhi.c
+index f56590100aef..d768a84adaab 100644
+--- a/drivers/thunderbolt/nhi.c
++++ b/drivers/thunderbolt/nhi.c
+@@ -21,6 +21,8 @@
+ #include <linux/string_choices.h>
+ #include <linux/string_helpers.h>
+=20
++#include <kunit/visibility.h>
++
+ #include "nhi.h"
+ #include "nhi_regs.h"
+ #include "tb.h"
+@@ -86,7 +88,7 @@ static void nhi_clear_interrupt(struct tb_nhi *nhi, int r=
+ing)
+  *
+  * Return: %true if the caller should warn about the no-op update.
+  */
+-static bool
++VISIBLE_IF_KUNIT bool
+ nhi_ring_interrupt_should_warn(const struct tb_ring *ring, bool active,
+ =09=09=09       bool unchanged)
+ {
+diff --git a/drivers/thunderbolt/nhi.h b/drivers/thunderbolt/nhi.h
+index f72d6b274501..393bd831375f 100644
+--- a/drivers/thunderbolt/nhi.h
++++ b/drivers/thunderbolt/nhi.h
+@@ -37,6 +37,10 @@ irqreturn_t ring_msix(int irq, void *data);
+ int nhi_probe(struct tb_nhi *nhi);
+ void nhi_shutdown(struct tb_nhi *nhi);
+ void nhi_reset_interface(struct tb_nhi *nhi);
++#if IS_ENABLED(CONFIG_KUNIT)
++bool nhi_ring_interrupt_should_warn(const struct tb_ring *ring, bool activ=
+e,
++=09=09=09=09    bool unchanged);
++#endif
+=20
+ extern const struct dev_pm_ops nhi_pm_ops;
+=20
+diff --git a/drivers/thunderbolt/test.c b/drivers/thunderbolt/test.c
+index 05652ee82fbf..3ccdd967396b 100644
+--- a/drivers/thunderbolt/test.c
++++ b/drivers/thunderbolt/test.c
+@@ -9,6 +9,7 @@
+ #include <kunit/test.h>
+ #include <linux/idr.h>
+=20
++#include "nhi.h"
+ #include "tb.h"
+ #include "tunnel.h"
+=20
+@@ -3095,6 +3096,83 @@ static void tb_test_property_merge(struct kunit *tes=
+t)
+ =09tb_property_free_dir(dir1);
+ }
+=20
++static struct tb_ring *alloc_interrupt_test_ring(struct kunit *test,
++=09=09=09=09=09=09 int nhi_generation,
++=09=09=09=09=09=09 int ring_generation)
++{
++=09struct tb_nhi *nhi;
++=09struct tb_ring *ring;
++
++=09nhi =3D kunit_kzalloc(test, sizeof(*nhi), GFP_KERNEL);
++=09if (!nhi)
++=09=09return NULL;
++
++=09ring =3D kunit_kzalloc(test, sizeof(*ring), GFP_KERNEL);
++=09if (!ring)
++=09=09return NULL;
++
++=09ring->nhi =3D nhi;
++=09atomic_set(&nhi->reset_generation, nhi_generation);
++=09ring->reset_generation =3D ring_generation;
++
++=09return ring;
++}
++
++static void tb_test_ring_interrupt_warn_duplicate_enable(struct kunit *tes=
+t)
++{
++=09struct tb_ring *ring;
++
++=09/* Enabling an already enabled interrupt is always a driver bug */
++=09ring =3D alloc_interrupt_test_ring(test, 7, 7);
++=09KUNIT_ASSERT_NOT_NULL(test, ring);
++=09KUNIT_EXPECT_TRUE(test, nhi_ring_interrupt_should_warn(ring, true, true=
+));
++
++=09/* Including when the host interface was reset in between */
++=09ring =3D alloc_interrupt_test_ring(test, 8, 7);
++=09KUNIT_ASSERT_NOT_NULL(test, ring);
++=09KUNIT_EXPECT_TRUE(test, nhi_ring_interrupt_should_warn(ring, true, true=
+));
++}
++
++static void tb_test_ring_interrupt_warn_duplicate_disable(struct kunit *te=
+st)
++{
++=09struct tb_ring *ring;
++
++=09/*
++=09 * No reset happened while this ring was running, so a redundant
++=09 * disable means the driver lost track of the hardware state.
++=09 */
++=09ring =3D alloc_interrupt_test_ring(test, 7, 7);
++=09KUNIT_ASSERT_NOT_NULL(test, ring);
++=09KUNIT_EXPECT_TRUE(test, nhi_ring_interrupt_should_warn(ring, false, tru=
+e));
++}
++
++static void tb_test_ring_interrupt_no_warn_after_reset(struct kunit *test)
++{
++=09struct tb_ring *ring;
++
++=09/*
++=09 * The ring was started before the host interface was reset, which
++=09 * cleared the ring interrupt bit underneath it.
++=09 */
++=09ring =3D alloc_interrupt_test_ring(test, 8, 7);
++=09KUNIT_ASSERT_NOT_NULL(test, ring);
++=09KUNIT_EXPECT_FALSE(test,
++=09=09=09   nhi_ring_interrupt_should_warn(ring, false, true));
++}
++
++static void tb_test_ring_interrupt_no_warn_when_changed(struct kunit *test=
+)
++{
++=09struct tb_ring *ring;
++
++=09/* An update that actually changed the register never warns */
++=09ring =3D alloc_interrupt_test_ring(test, 8, 7);
++=09KUNIT_ASSERT_NOT_NULL(test, ring);
++=09KUNIT_EXPECT_FALSE(test,
++=09=09=09   nhi_ring_interrupt_should_warn(ring, false, false));
++=09KUNIT_EXPECT_FALSE(test,
++=09=09=09   nhi_ring_interrupt_should_warn(ring, true, false));
++}
++
+ static struct kunit_case tb_test_cases[] =3D {
+ =09KUNIT_CASE(tb_test_property_parse_u32_wrap),
+ =09KUNIT_CASE(tb_test_property_parse_recursion),
+@@ -3141,6 +3219,10 @@ static struct kunit_case tb_test_cases[] =3D {
+ =09KUNIT_CASE(tb_test_property_parse_zero_length),
+ =09KUNIT_CASE(tb_test_property_parse_rootdir_overflow),
+ =09KUNIT_CASE(tb_test_property_merge),
++=09KUNIT_CASE(tb_test_ring_interrupt_warn_duplicate_enable),
++=09KUNIT_CASE(tb_test_ring_interrupt_warn_duplicate_disable),
++=09KUNIT_CASE(tb_test_ring_interrupt_no_warn_after_reset),
++=09KUNIT_CASE(tb_test_ring_interrupt_no_warn_when_changed),
+ =09{ }
+ };
+=20
+
