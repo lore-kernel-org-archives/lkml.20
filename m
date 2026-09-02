@@ -1,155 +1,98 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB8D3EEAEA;
-	Wed,  2 Sep 2026 09:05:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6899A40963A;
+	Wed,  2 Sep 2026 09:05:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788339945; cv=none; b=otVXWDUgW9vItXhYVAzxCDQ6YMyQ5ldy06eqgsCEf9t60avwY7QDYeoJ87pPmm9sZLr0/L2AaNteKfjwsfnu7nZoZCY1nNfWkOA0yChjphj+j2GCFlSR8II2W72janZi505usBFqIECE2FDMHv6Fs/ywpSPb8zU7D8ABCfkIvp8=
+	t=1788339950; cv=none; b=udkFekmA24mnWQgS7OIlcZgWtTlC1APbKIzL3R+t/vW0yC24mbsz40C0/bqSxk44D94JTDtQvUL0KSI02ORY6nHJsGFl12s7roV9fq4cizk3qiLfbzv0DRz3AbEPUEjcjpFNYYpaIh0TjmpHcV+zSar2a9Fmwu0pfEjhgZAmQ/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788339945; c=relaxed/simple;
-	bh=xJptvLafoqlJCdFxLD460ztNZOTFIuuQp8qBTdVne1k=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=pNsYL5CDwGUqE71KEG9R++6DPxn7AwpvKjYBzvivGAwlMpeVXibp+P1z9ZZvIRx2NFHZ6T7zMkOnQ7rTaP4TTw3LyfYrrco2Z46iYTYGGTlD5iRpk4/y8BzoL7CCry2hNzLYjn9xeatFeQ1bb4uJpNaS10WMmJxCjprwB2KWbc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 7498f7aea6ad11f19a56ed5b684f684d-20260902
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:905902a8-6ee9-4b10-87dc-a5497e24eb57,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:7db8b62,CLOUDID:8902889369b8e71bbc23da3248b876df,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50,EDM:-
-	3,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
-	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 7498f7aea6ad11f19a56ed5b684f684d-20260902
-X-User: huangwei@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <huangwei@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 843495116; Wed, 02 Sep 2026 17:05:34 +0800
-From: Huang Wei <huangwei@kylinos.cn>
-To: heikki.krogerus@linux.intel.com
-Cc: gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Huang Wei <huangwei@kylinos.cn>,
-	Alex Bartz <alex@alstergee.com>
-Subject: [PATCH v3] usb: typec: ucsi: do not register UCSI on Lenovo Legion Pro 7 16IAX10H
-Date: Wed,  2 Sep 2026 17:05:31 +0800
-Message-Id: <20260902090531.2134150-1-huangwei@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260826133118.3327816-1-huangwei@kylinos.cn>
-References: <20260826133118.3327816-1-huangwei@kylinos.cn>
+	s=arc-20240116; t=1788339950; c=relaxed/simple;
+	bh=IRgqaVQfpdVTtZGwros05SmBtzySmvzQCq1CQDlR57E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hH3qjRhGuH1RkRMxxaXxgjbMb4u45KiFDgKU1nNMVAyLXX1silnks8KaiREx+C07y5+Rs9MB/HzMa6bN6EJPaELQNKuLENWEb22EVvTAY5EacN71Yf4WKnvQFqOHZNaSJ4XcrZ7ETgkhxhoYpYhPN97ZlIGD4z0R9ShnMCJoCkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DatNZzOu; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DatNZzOu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788339948; x=1819875948;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=IRgqaVQfpdVTtZGwros05SmBtzySmvzQCq1CQDlR57E=;
+  b=DatNZzOuFtJgtOo0VFxpAWPwHi1zuVfguuzv4Q4R3OwbSoMiR0R3Z7zB
+   7TJhmr2r8TG5KDtRcPvA7eJIYUHrqX1wcL6YryEhSPPcgcGPXY+Iri7/f
+   zmZdwUo5vQKKZmj/h+KCVLWYpFKaK1dl9qo+73nXZnLdZMzJaG6agRWX2
+   lscRgbJ7hjlXklz0RH5ow596PYUdueWns5m1YPmpo8G2nUTNL+D36tzB8
+   nYBDX56Ow52NFT9sGKJDIvG8NKEPJi/qJhncvNutR7ymTvqmhABFFzcdX
+   0jlZ1cUauxkz7elEFGKK7x7CvDSnBHvqQvKaRT2Q/xzw8CJRvtIn4Ds5o
+   A==;
+X-CSE-ConnectionGUID: KbFcUGvXQI60JcHMmPpsEg==
+X-CSE-MsgGUID: pQyWWYNDSzK35ZiV2KbLxA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="99388687"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="99388687"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 02:05:47 -0700
+X-CSE-ConnectionGUID: pufbLu4QTLihMWheY9csZw==
+X-CSE-MsgGUID: XFbqF93VS86Z+2MRRRXhoQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="266757516"
+Received: from igk-lkp-server01.igk.intel.com (HELO 05545efcfdd3) ([10.211.93.152])
+  by fmviesa008.fm.intel.com with ESMTP; 02 Sep 2026 02:05:44 -0700
+Received: from kbuild by 05545efcfdd3 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x1guc-0000000009r-1040;
+	Wed, 02 Sep 2026 09:05:42 +0000
+Date: Wed, 2 Sep 2026 11:05:15 +0200
+From: kernel test robot <lkp@intel.com>
+To: Guopeng Zhang <guopeng.zhang@linux.dev>, cgroups@vger.kernel.org,
+	longman@redhat.com, ridong.chen@linux.dev
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, tj@kernel.org,
+	hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: Re: [PATCH v2 6/6] selftests/cgroup: Add CPU release tests for
+ type-change validation failures
+Message-ID: <202609021151.JjV7JZjv-lkp@intel.com>
+References: <20260828095643.13395-7-guopeng.zhang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828095643.13395-7-guopeng.zhang@linux.dev>
 
-The EC firmware of the Lenovo Legion Pro 7 16IAX10H (DMI product name
-83F5) has a broken UCSI implementation: GET_PDOS returns no source
-capabilities, GET_CONNECTOR_STATUS reports an incomplete RDO, and any
-UCSI traffic disturbs the EC's autonomous USB-C Power Delivery
-negotiation. With ucsi_acpi bound, chargers connect only briefly and
-then drop, and voltage_now reads 0; with the driver blacklisted, the
-EC negotiates full PD contracts on its own and charging works normally.
+Hi Guopeng,
 
-The reporter confirmed the issue on BIOS versions Q7CN44WW and
-Q7CN78WW (2026-04); it is unaffected by the BIOS update between them.
-The AMD sibling Legion Pro 7 16AFR10H (product name 83RU) reportedly
-uses the same EC firmware, but it is left out of the quirk until the
-failure is confirmed on that model.
+kernel test robot noticed the following build warnings:
 
-Skip probe on machines carrying the known-broken BIOS versions, which
-is equivalent to the blacklist workaround the reporter verified to
-restore charging. Matching the specific BIOS versions rather than the
-whole platform ensures that a future firmware that fixes UCSI is not
-wrongly skipped.
+[auto build test WARNING on 87d347a8c8545a9234d1dd215023064413284c34]
 
-Reported-by: Alex Bartz <alex@alstergee.com>
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221142
-Tested-by: Alex Bartz <alex@alstergee.com>
-Signed-off-by: Huang Wei <huangwei@kylinos.cn>
+url:    https://github.com/intel-lab-lkp/linux/commits/Guopeng-Zhang/cgroup-cpuset-Respect-child-CPU-ownership-in-type-changes/20260828-175638
+base:   87d347a8c8545a9234d1dd215023064413284c34
+patch link:    https://lore.kernel.org/r/20260828095643.13395-7-guopeng.zhang%40linux.dev
+patch subject: [PATCH v2 6/6] selftests/cgroup: Add CPU release tests for type-change validation failures
+config: x86_64-kexec (https://download.01.org/0day-ci/archive/20260902/202609021151.JjV7JZjv-lkp@intel.com/config)
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260902/202609021151.JjV7JZjv-lkp@intel.com/reproduce)
 
----
-Changes in v2:
-- Add Tested-by tag from Alex Bartz, who verified the quirk on his
-  machine (out-of-tree build, runtime module swap, PD charging held
-  across the reload).
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609021151.JjV7JZjv-lkp@intel.com/
 
-Changes in v3:
-- Use dev_err() instead of dev_info() for the skip message, per Greg
-  Kroah-Hartman and Heikki Krogerus, so the issue stays visible until
-  the firmware is fixed.
-- Scope the quirk to the BIOS versions confirmed broken (Q7CN44WW,
-  Q7CN78WW) instead of the whole platform, per Greg Kroah-Hartman, so
-  a future firmware that fixes UCSI is not wrongly skipped. New broken
-  versions can be added to the table as they are confirmed.
----
- drivers/usb/typec/ucsi/ucsi_acpi.c | 35 ++++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
+All warnings (new ones prefixed by >>):
 
-diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
-index 18286d3e9cc5..2708b5f90718 100644
---- a/drivers/usb/typec/ucsi/ucsi_acpi.c
-+++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
-@@ -173,6 +173,35 @@ static const struct dmi_system_id ucsi_acpi_quirks[] = {
- 	{ }
- };
- 
-+/*
-+ * Platforms with a completely broken UCSI implementation in firmware.
-+ * Do not register UCSI at all on these machines.
-+ *
-+ * The Lenovo Legion Pro 7 16IAX10H (DMI product name 83F5) carries
-+ * broken UCSI firmware in BIOS versions Q7CN44WW and Q7CN78WW; the
-+ * reporter confirmed the issue is unaffected by the BIOS update
-+ * between them. Match only the BIOS versions known to be broken so
-+ * that a future firmware that fixes UCSI is not wrongly skipped; add
-+ * new versions here as they are confirmed.
-+ */
-+static const struct dmi_system_id ucsi_acpi_ignore[] = {
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "83F5"),
-+			DMI_MATCH(DMI_BIOS_VERSION, "Q7CN44WW"),
-+		},
-+	},
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "83F5"),
-+			DMI_MATCH(DMI_BIOS_VERSION, "Q7CN78WW"),
-+		},
-+	},
-+	{ }
-+};
-+
- static void ucsi_acpi_notify(acpi_handle handle, u32 event, void *data)
- {
- 	struct ucsi_acpi *ua = data;
-@@ -199,6 +228,12 @@ static int ucsi_acpi_probe(struct platform_device *pdev)
- 	if (adev->dep_unmet)
- 		return -EPROBE_DEFER;
- 
-+	if (dmi_check_system(ucsi_acpi_ignore)) {
-+		dev_err(&pdev->dev,
-+			"UCSI implementation in firmware is broken, ignoring\n");
-+		return -ENODEV;
-+	}
-+
- 	ua = devm_kzalloc(&pdev->dev, sizeof(*ua), GFP_KERNEL);
- 	if (!ua)
- 		return -ENOMEM;
--- 
-2.25.1
+>> Warning: kernel/cgroup/cpuset.c:2431 function parameter 'owned_cpus' not described in 'validate_partition'
+>> Warning: kernel/cgroup/cpuset.c:2431 function parameter 'owned_cpus' not described in 'validate_partition'
 
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
