@@ -1,224 +1,207 @@
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11021072.outbound.protection.outlook.com [40.107.130.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C0C47F763
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:50:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788349820; cv=none; b=U3mBual47krkko1giqoaTzhL8ATUpZLTwF+d1o2iZU5AjjGq9BC20xwNW/oxGIgQHxg/8KxiHw/dXd7KW4ek6Rdi2c13adbu3UMvFOhnfinY9jW5wqTYWXALFaFvDZukexOVwOo4JT7TYoKK4hLUyCAEPNzJXYMlkub99VBgqKM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788349820; c=relaxed/simple;
-	bh=endY7gqq13GqgdJ/KG96fwZoTEb/cAVplHkhFQcBGpk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hjBta21Jbjuz2V3jmJ/9ijZnCfY6uwrxZ/x6+jMBhMjI/MQcg6C3c+iAgHIUeimk5StlMUV0bl0M+ucvLrUVfN5jPbn/2Dkxvls/CS1E3SBRu6DkTcsYAjMG99lq+DPSwtgkee/2LOhhNsDqnJB7ge63BG6RyGt0Nrhs+tHUTUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-93959320373so79163185a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:50:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788349805; x=1788954605;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=d33A2cRSMy14qLiB29N4dNiBSipjfdSlz1gXIdUUM+M=;
-        b=JhCE5d3I5qRE6HJiNCR9axuk3UM8Hs2cU8wpHfi8T13DcLD0UroG62mq3coE4acwBx
-         38QBfMSRsKSMwAOU3YNeSKH88j1anxdQmcFOcviICdt6ayBFJhQiEKBifqBi8Ig4GCh0
-         efxM6zP917vGgJOv6ZMLt4TKDeu1+XPb3supajUHWwBxTEWD0KH2NOLcPYEmxaMlcCin
-         OCsU1DL58TuV1YirXRmLlX2gtSuoWG8d7P8eapOwNSBGdIp5tp6ZfO2SFAUbGG7TEqb0
-         ZLQYEvqccfH3m1fscesRRw5DGfBm5HfADC1GdjuPe+FfhLUtyPLB1zcVO4AcBmI84otI
-         fFpw==
-X-Forwarded-Encrypted: i=1; AKwUvBy39AXE2QKZQGJMsZQRgkUmOdPg33K7BPX4E8I12WDXC/8XNSHaN1Fg/XXS4M9K/zCMRxZdyRb3QP5mt78=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgNtYPhf+3yaWXU5ghXT1uDBn2w0zL7pMVqrQqAvR9t3ijcUr6
-	3UZkPPTIC6d2+BRWxLvhnzXREj2jL/EMiUhXaA3mfn87YuPGiawtRPEEmISReeQ9
-X-Gm-Gg: AYBFou0E6tlLK7ufAOXT0ZSVoeTxAcpzHg/ALHwEHRcdxdB0S6UxP1oaKLtGwszyWFd
-	vA0AHWK4E/VJBX8z/o0gBKcpYAxVMZ2yhdCvJUJGPFWm7wzzc9pJi9n7dTpZUtZa1N3ePtTd9cz
-	5PAS8KeXKc3L2HJyXBocLuFqmKTpXKp9IQoQACc+orMBCRMiVXf+H0JLzmees1OqJvJsWPpVgd9
-	QKi2A0JExaabhUyMw04LkmyAtPMxLbBL0efdaeVfj3znraw5fGyUA+2R7NXWFcRyONEFNJb7GJ2
-	/PcZ3lxPl3/Z7AX306tZdQ0XC0c1WXFpNK7flpeb4+UPNDq1a2Rx5dd5PxXzjD4isUMT+8VMlTk
-	chPSIYU1ut1L5Q/m0qkGq5atsNA08miPDw3DTqbUNmfsfd3sPQ+LUC28OcxNVnY1mVkwnkBidH3
-	qU9eCtWOIgICh//YkFU5laJbdLC9Li5Vpl+PTjkP60F/cDYyR4wKAR99ICpyYG3W3BRqvKRlBdy
-	++6cC6w+vh/5UFHwGVfkRVZRJrXcPdBtL+0
-X-Received: by 2002:ae9:e517:0:b0:937:2762:ef33 with SMTP id af79cd13be357-9396101d334mr404957285a.41.1788349805029;
-        Wed, 02 Sep 2026 04:50:05 -0700 (PDT)
-Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com. [209.85.219.46])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9395f359ffbsm183933085a.28.2026.09.02.04.50.04
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 04:50:04 -0700 (PDT)
-Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-90e8372bba7so9079896d6.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:50:04 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqnX30F+60Jnwwo/1fiIysvNngalByRl3H9QxdalZJ66HnIBANUJYEaNgGyDBml7uzKL+nJDj5untC2Uic=@vger.kernel.org
-X-Received: by 2002:a05:6102:2997:b0:784:a169:194a with SMTP id
- ada2fe7eead31-78a1f437b62mr1623913137.10.1788349475087; Wed, 02 Sep 2026
- 04:44:35 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17BC447ECF9;
+	Wed,  2 Sep 2026 11:50:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.72
+ARC-Seal:i=4; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788349856; cv=fail; b=cHLNGh8gCTgdiyGbfSc7jL4zcEb4H/q6T4Qfbbzf+h+lbzCjpbvBMDUEou6tOzqHpK36VIeGK+SbTBkEhB4bbsclzw+8tdYMFfZy0rTSmiE66+YuAoWXGD/KVsoDzr7TWKmN2Jk39pTRqhAbvGrnwlPsciXEkxL9+75S1I80QRY=
+ARC-Message-Signature:i=4; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788349856; c=relaxed/simple;
+	bh=pogjFqSkNK6V1GLyXG9mY/NDPlms0CA4f64qamDvD8w=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=kR3IrSoHaVNOWyL0JwnAv5Pp2S4kXvxFfjagpmDqUfDzKemFYIqEcdl37UGXm/5kZ1Q2czv2fYHApjvkSba1Qy/6KxEJxKgbhNerQ/5atyRCgE0eCOG+G1YQK428EP3Opb4wlRKORwbb4JEK5SHucEa7JH69vWpozOTQjxgSK34=
+ARC-Authentication-Results:i=4; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com; spf=pass smtp.mailfrom=solid-run.com; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=sRKgg486; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=sRKgg486; arc=fail smtp.client-ip=40.107.130.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=solid-run.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="sRKgg486";
+	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="sRKgg486"
+ARC-Seal: i=3; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=ZxFSXutITcJXc6efsVbjiuIPZkEA7QR5Pv+odO2jD9q3dV3WcRj/jFPEsTowtUNOrD80QhnABix9RDxczCJl9RT/Cwtatt9dKqQxgNkvMiD2FJPvtPjcOpmM1TZn/KJcNbGZoKDlnSBcUJ8EmkJejO7b1jdhSQ8RKTzx0uTa3Td4z/l1ugLdf5FUlx52pNhQLScF1hqrrWjFgv/w5v+RKNn4tT249Y/F94Z+s+hOjDzGcLiujQAY7e51Cu6h9RYFKXUbtfI39IsEp2OBjg08s+2NiMm2Eo2qM0vGZ4IdI+6uhReDncIvrNEEUEmTXhl8MPeZcSkzQYzY1uFBjBW/Ow==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gq2+vaeahfqJ4r5UB3YwmfOAYpfL7ISpUL6bmcWYeA8=;
+ b=qzzdhv2eSi+mdVq7B5QHSE+9iJwapTOWrU5sbJQFR3eU/DcntdeaZPBD3rAMpMwGQkSLllvFq3cpOZO8KRhtoMVKzTAzfYkFQ60FBPBhMZZDkhnpPRKZ0wlZqVo3zVrBGvD7XcziYlYu7JKkYtpj5yUb2iXFJf/ckQ2pfqJMqCwzqtwUGmO8S9hbKt5o3B1a+jZPOGsash0fdrxQHbJlZmaSfGE23PnHcag5z3IwURPdWr0Tsu8s+dZ+lzp9me4kZXNq9wjoznPx825TS+13j24uDYm7fTnshslT3zji2ZswgMJ9gzjHqgYgL2Ft/Y5GmljdcTnQ4gz00VCJfCFnDA==
+ARC-Authentication-Results: i=3; mx.microsoft.com 1; spf=fail (sender ip is
+ 52.17.62.50) smtp.rcpttodomain=bp.renesas.com smtp.mailfrom=solid-run.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=solid-run.com; dkim=pass (signature was verified)
+ header.d=solid-run.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=solid-run.com] dkim=[1,1,header.d=solid-run.com]
+ dmarc=[1,1,header.from=solid-run.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gq2+vaeahfqJ4r5UB3YwmfOAYpfL7ISpUL6bmcWYeA8=;
+ b=sRKgg486pclGkkDuthWDtAmTy0QLU8l3RPZI5e+yJbe328LcgrCt5Z56Wnyq5jQ09OUcPS3jULTK0GncYKdF3McTFhuf1+6rDgmfnU95ony9R0EtId1gwEgmmWnlHOgRXzcF+9nQh8VWUQfBF83lL9kGFyU2dTus+Rbk8XWnwom9cPzNeg8IIckyYACAD3Zq4cR8AydJ57EMpEJ+s7AOH9qHuThz0NWC6XnfPtwb91ezTveG3IIcc4imPQbxPjv5i9+GCpyEWMOEzMLwqpIoajfZMc9xP6uQuoNWKfjkpHk3prrFpq/ssHaBEalRn09QAuIxeRZaiNyd6gQhxONd8w==
+Received: from AS8PR04CA0018.eurprd04.prod.outlook.com (2603:10a6:20b:310::23)
+ by AS8PR04MB8866.eurprd04.prod.outlook.com (2603:10a6:20b:42d::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 11:50:36 +0000
+Received: from AM3PEPF00009B9B.eurprd04.prod.outlook.com
+ (2603:10a6:20b:310:cafe::a2) by AS8PR04CA0018.outlook.office365.com
+ (2603:10a6:20b:310::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Wed, 2
+ Sep 2026 11:50:36 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 52.17.62.50)
+ smtp.mailfrom=solid-run.com; dkim=pass (signature was verified)
+ header.d=solid-run.com;dmarc=pass action=none header.from=solid-run.com;
+Received-SPF: Fail (protection.outlook.com: domain of solid-run.com does not
+ designate 52.17.62.50 as permitted sender) receiver=protection.outlook.com;
+ client-ip=52.17.62.50; helo=eu-dlp.cloud-sec-av.com;
+Received: from eu-dlp.cloud-sec-av.com (52.17.62.50) by
+ AM3PEPF00009B9B.mail.protection.outlook.com (10.167.16.20) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.8
+ via Frontend Transport; Wed, 2 Sep 2026 11:50:35 +0000
+Received: from emails-5666934-12-mt-prod-cp-eu-2.checkpointcloudsec.com (ip-10-20-5-203.eu-west-1.compute.internal [10.20.5.203])
+	by mta-outgoing-dlp-765-mt-prod-cp-eu-2.checkpointcloudsec.com (Postfix) with ESMTPS id AC4BD812B3;
+	Wed,  2 Sep 2026 11:50:35 +0000 (UTC)
+ARC-Seal: i=2; cv=pass; a=rsa-sha256; d=checkpointcloudsec.com;
+ s=arcselector01; t=1788349835;
+ b=BwRvamIUo75IV81YI+jMMBgSyT6OqvDL9yNb02fqn/DdzVwgbUbl1KhAbNQGa8KcKSiGa
+ PyTutz6fdA/QzEnmiqEVmbwustdsl65CgxSOcXKDGzGDU0YCBFJpS31hy/TJNfJFY5xlyxq
+ jFgdk5U3VAVZDgmN5b5kCoNVsaDChrg=
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed;
+ d=checkpointcloudsec.com; s=arcselector01; t=1788349835; h=from : to :
+ subject : date : message-id : content-type : mime-version;
+ bh=gq2+vaeahfqJ4r5UB3YwmfOAYpfL7ISpUL6bmcWYeA8=;
+ b=PZK2qAMSw3NQi83VNARb9g6EQaHgcaxyCyJhC731fsJwPKXBaxzYUb50qRSYYHTwW4gOw
+ CN1NzQyWX+aleI0+0qUz9979/6XTNeWblvzJhg0D0sDq5+0TuTDeIbMBmLywC+Xj4vtaTER
+ uwzizGc8AD+oDmL1ME3npX26olXQqgg=
+ARC-Authentication-Results: i=2; mx.checkpointcloudsec.com;
+ arc=pass;
+ dkim=none header.d=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gq2+vaeahfqJ4r5UB3YwmfOAYpfL7ISpUL6bmcWYeA8=;
+ b=sRKgg486pclGkkDuthWDtAmTy0QLU8l3RPZI5e+yJbe328LcgrCt5Z56Wnyq5jQ09OUcPS3jULTK0GncYKdF3McTFhuf1+6rDgmfnU95ony9R0EtId1gwEgmmWnlHOgRXzcF+9nQh8VWUQfBF83lL9kGFyU2dTus+Rbk8XWnwom9cPzNeg8IIckyYACAD3Zq4cR8AydJ57EMpEJ+s7AOH9qHuThz0NWC6XnfPtwb91ezTveG3IIcc4imPQbxPjv5i9+GCpyEWMOEzMLwqpIoajfZMc9xP6uQuoNWKfjkpHk3prrFpq/ssHaBEalRn09QAuIxeRZaiNyd6gQhxONd8w==
+Authentication-Results-Original: mx.checkpointcloudsec.com; arc=pass;
+ dkim=none header.d=none
+Received: from MMZPR04MB400504.eurprd04.prod.outlook.com (2603:10a6:190:28::8)
+ by PAXPR02MB8248.eurprd04.prod.outlook.com (2603:10a6:102:247::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Wed, 2 Sep
+ 2026 11:50:26 +0000
+Received: from MMZPR04MB400504.eurprd04.prod.outlook.com
+ ([fe80::2f52:2d22:c7b3:4292]) by MMZPR04MB400504.eurprd04.prod.outlook.com
+ ([fe80::2f52:2d22:c7b3:4292%4]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 11:50:26 +0000
+From: Josua Mayer <josua@solid-run.com>
+Date: Wed, 02 Sep 2026 13:50:10 +0200
+Subject: [PATCH v4 2/7] dt-bindings: pinctrl: renesas,rzg2l-pinctrl: Allow
+ input-enable pinconf
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-rzg2-sr-boards-v4-2-4a456a422fee@solid-run.com>
+References: <20260902-rzg2-sr-boards-v4-0-4a456a422fee@solid-run.com>
+In-Reply-To: <20260902-rzg2-sr-boards-v4-0-4a456a422fee@solid-run.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Benjamin Bara <benjamin.bara@skidata.com>, 
+ Linus Walleij <linusw@kernel.org>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Cc: Jon Nettleton <jon@solid-run.com>, 
+ Mikhail Anikin <mikhail.anikin@solid-run.com>, 
+ Yazan Shhady <yazan.shhady@solid-run.com>, 
+ linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, Josua Mayer <josua@solid-run.com>
+X-Mailer: b4 0.14.3
+X-ClientProxiedBy: FR4P281CA0135.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b9::20) To MMZPR04MB400504.eurprd04.prod.outlook.com
+ (2603:10a6:190:28::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788338320.git.geert+renesas@glider.be> <619a6e41495adfdae3e2e6c0fee97e0550a5c404.1788338320.git.geert+renesas@glider.be>
-In-Reply-To: <619a6e41495adfdae3e2e6c0fee97e0550a5c404.1788338320.git.geert+renesas@glider.be>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 2 Sep 2026 13:44:24 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVstZYufZWdD-ajwg74kU6pWtQE3WueCg-XUw9Lye5DAA@mail.gmail.com>
-X-Gm-Features: AcwNN1UuztEnaQfQ-OMWO4Fx0VqCWe7sLpxq0iVHzvAi1AhVOPaRJUxDUVxmfIc
-Message-ID: <CAMuHMdVstZYufZWdD-ajwg74kU6pWtQE3WueCg-XUw9Lye5DAA@mail.gmail.com>
-Subject: Re: [PATCH v3 07/12] reset: Add reset_control_get_from_provider_exclusive()
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Kevin Hilman <khilman@baylibre.com>, 
-	Vinod Koul <vkoul@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
-	=?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>, 
-	devicetree@vger.kernel.org, arm-scmi@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-TrafficTypeDiagnostic:
+	MMZPR04MB400504:EE_|PAXPR02MB8248:EE_|AM3PEPF00009B9B:EE_|AS8PR04MB8866:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3a0b89c1-b467-4d3a-9b53-08df08e866d3
+X-CLOUD-SEC-AV-Info: solidrun,office365_emails,sent,inline
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|366016|1800799024|23010399003|10070799003|7416014|52116014|376014|3023799007|56012099006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ ybzwNyAP2C/Z5dtlAeyYTTfwTuhawWLKEPn8QFNb9OE/RR2hNK1RFByi/BiWQyIxWLwXoOMkClOMg0XSled6vHTJ1HHz8coPf2iYdzooAe3d/pPBMFh3Y4gRp/BAcTJn2GMPcJDdt9MsKGPrwQK//BWZfIEiBIkA/APd/zsKc2bXaRvNZOc9pTpje7A6IZbN6vLjqjErHNGrLEbFMEJeYX9Jrn5j1gFsSH3M1K0JWiHikOtNPR44zppppgUcVdxnhq1zRCRv979EtuJGC73cNBronQWvGOWvZzUOFgZebB1FioOa9/20zbNv3354pDj+qg3WVV8Hux1+LjbwRr28zuwMkxizbF9Fc7nbTaVgJRMAbmNUQNI4H0M35ny2JjDpHvwshOEhlY/vYHcFnfX2Qhf89Z0R1pLaUCYh9LW4Ft4OflkttR0qjy1N7Pj6APhynp5n5kykQVpPk3mG7SxamZlP0IXfQS49seF1kTn3GXK16QuXqNQf4iGbc9ptuOPsKCJ9X+bgpUTXH07zp8i9R5CcDDhdOxpoRRv5MBH4pb8gXEEB33E3gdNqYroiNrmluZf40d86vWi+kytbtSidEf7l1FPDmjI+dk3YtmIjBCkEI6wB5dlUW7EFfhsnMM/RtulgDHUsc9FrZWaumk9+YQRv8rXtBxjG1IxyshHlKhs=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MMZPR04MB400504.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(10070799003)(7416014)(52116014)(376014)(3023799007)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-Exchange-RoutingPolicyChecked:
+ OPjYAJgzzpEoA6ip5ZvD/+MAL2A511eiUw5DI1zc2z0k3AGg4bqghP8q9Hhluc1ukDv7Or4el6wKGAaCKreE/EI5EbI84hG5ABXemhdnjifkz+aDMCVvIc8gtzd+E0yaZ6Caws3AwnwN870bhb+kqhVVkNqYypF7MHhSA7yD4+mkC0tqXOFpd6UEexjcQvs8O9+XHBeyZFnhgFDucrf1uxom8iwqH5nxGjDaEtLVfsrbm6HMFKX7Mci9I/n2+tjpXDbQe/F8jJQgNAYoPoZD4JrRL2wACElwFrFedD7H3cs9lD3zgxLdyco/DX6vkioe2AUCrDVzp1u7z9uR7VCYtw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR02MB8248
+X-CLOUD-SEC-AV-INT-Relay: sent<mta-outgoing-dlp-mt-prod-cp-eu-2.checkpointcloudsec.com>
+X-CLOUD-SEC-AV-UUID: ee182f6669784929b6cfa0b2c8461498:solidrun,office365_emails,sent,inline:578e1e4ddf8b6fd6dadbc07d47737aab
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RZe1iu5ceRACorPYHm3SU0zGcttA+tc/WjnI+FG+V/+/J+HQKBiz+Jzve8eeIZ1ETLmM5ntMVTj05/BZ+vt9dgjk5oeMaeQMNc6tsc3uFhGCpu1JD6btt2HeVELFVqWFFOIanKlhnJlWUh/vEHR4DP7XpUgSSonHvxPQom0MtZO3Jqua4W3kxEWS5jcuqqTyLbZ/qwjdoBYX2GSFD8tzRpf90uhrdzTbf9x3y3sNGhugofU+/sSRkXPEeWh+U65FY1uySav2VSlmOGmQaDZuqtzOTPnADb0qIT+3hOQZW1aWZ3c8H3lMRyCI/a6jvnrYK/BzIZfO1pCg6cKX9xK6cw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gq2+vaeahfqJ4r5UB3YwmfOAYpfL7ISpUL6bmcWYeA8=;
+ b=etk0paaniFT1f+H+0fR7ZXDFO0LY+KSvK/rccfG2AnUIXi26FIsBefJxaQOWv+TL/rKnuLAK2Ak1RIQDh3sN3/psyBgHkoyYAXGBV6CoY+NAOVj3xdRWb1Ap0CVinZs20g2zhCC9v/GTZLoYIBhszfcZ48sURpUCO4KHRAQrp1aCXtH36GEaaFtGQFUxHuAOBeyNozIy7NKg3Azw37dyZdQLqgJfq6bBjGqkTUftuIx1BSdgRa5whrT13NMy0iAjNSit5Ufodl8nsmWaqvoZIAr7pIool4KWYMvFa4QQKiYeVmoPxx52oCAttP5FW+y3hqGsBXq4RG7g9kOMKLWRig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=solid-run.com; dmarc=pass action=none
+ header.from=solid-run.com; dkim=pass header.d=solid-run.com; arc=none
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM3PEPF00009B9B.eurprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	2553db7a-0926-4436-a868-08df08e860c6
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|14060799003|35042699022|23010399003|82310400026|36860700016|56012099006|10067099003|3023799007|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	ARXkR4Y+qxXAaSift+94evshkUSsZD1Qxd7JFSOnmCTzyNyEoc6rH1UvfnIS6YTU0tghouXbV8KF85fqN+KGKCnHUg7GlSQtwW3Lw2d7Y3WCblwWtZoejHNLUrcD+btrADTwB01ZHi3hjsdNzJGZLNJUwSkfJPFLLjPQpeD784Fa+4VxO2gwjXKw+ib9Y7D0HkJTdGXk8gmpnWOgoQ4hzLjZ+P1luhpFp02xKnp2ND10PXqI1uzRlFaJApZ6Dv6M8Pg3GkgQx053Zl3RaaAtPxgx/E+176Gyrj/ZFM1iqUN8j+9qUKS6osET82l3r5OrnRoOf39GD7U0n10el9qVejrUZTyffcjaDNdE7+Igg3bAK/8HkEK+JcTGn6cE9vP7QjAF9t6/aUnjJf1m5HhJJi2DSIDjK5MQoTTyn6xZEFfmY6sl6nO5ZfinZV0Mn8H7EJGmoCIcuGUH175F04OAhsSkwYAOlHkqoSpszEwYLeaMlv6AyefQT1IZbyfdAtZ24U6HapLoZTfgLvVHcHOs7Ef0mzo7Gq2LZLCrUZ3wb5e0UibDsDmXeQJ8O+7LwfHEIkTvxsGOF1Kdmiq024BZZexJc2MtKDbkDE/0XHbeIAgDmlYI9UeOoxYV217qZbjTM1iEjJn3N+0D8K1SF2YxyJOCehh6ZHzqOenE90mlfFFqYu2+dRCFImGwa34y4tKqVbDOeEEM1TesNXm5JXjPEw==
+X-Forefront-Antispam-Report:
+	CIP:52.17.62.50;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:eu-dlp.cloud-sec-av.com;PTR:eu-dlp.cloud-sec-av.com;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(14060799003)(35042699022)(23010399003)(82310400026)(36860700016)(56012099006)(10067099003)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Ik2XWCdcb8e3nw7dpQm4iJeMDNY12UQMWzAeFHsPg9xAkt1KeixjabCz4y3wWK8xHBGER2Op5AYQ6icDxHGvU17h4thR4uHLGLw94zP5xccuoGHp1nmKlk5jrqS/A6sOug2jJdBh1eata2qHu8njBTiZKQ3B3ZJ+sfNYNfmrKHiveke5V14OP95yKxZPwgX+0Ie0xQlugntpA+DdVIPvfO2hjDQTnrC73ugb9MEaeQumPB1CRoWoj+mk6t5uKYpmSNBZhMgj1B1ls1ZAL4PvGHSgzxnCaNZXMDpCBCkF2OKWIFiNGWQnsOIeDWEWs4NCLeiyZRuLTtdCjUvwcAuJkoH3W4Qb8JlvXpDOr8VhtgEt/kSWvTPmFK2kDKKsRpqrcBziXR076z+7iCX7vNbK6Of0uaeFNfCvmo3wJEpZZYOrs0O1Yi2j9xKsXD3DFxov
+X-OriginatorOrg: solid-run.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 11:50:35.9419
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a0b89c1-b467-4d3a-9b53-08df08e866d3
+X-MS-Exchange-CrossTenant-Id: a4a8aaf3-fd27-4e27-add2-604707ce5b82
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a4a8aaf3-fd27-4e27-add2-604707ce5b82;Ip=[52.17.62.50];Helo=[eu-dlp.cloud-sec-av.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM3PEPF00009B9B.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8866
 
-On Wed, 2 Sept 2026 at 13:30, Geert Uytterhoeven
-<geert+renesas@glider.be> wrote:
-> When stacking two reset controllers, the upper one should go through the
-> proper channels: request exclusive reset controls and use them via the
-> reset_control_*() APIs.  However, unlike the clock subsystem, which has
-> of_clk_get_from_provider(), the reset subsystem does not offer a way to
-> lookup and obtain a reset from a reset provider.
->
-> Hence add a public helper reset_control_get_from_provider_exclusive()
-> to lookup and obtain an exclusive reference to a reset controller, based
-> on the recently introduced __reset_control_get_from_provider() helper.
-> This will be used by the R-Car X5H Module Controller driver.
->
-> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> ---
-> v3:
->   - Replace reset_controller_get_provider() by
->     reset_control_get_from_provider_exclusive(),
->   - Add kerneldoc,
->
-> v2:
->   - No changes.
-> ---
->  drivers/reset/core.c  | 37 ++++++++++++++++++++++++++++++++-----
->  include/linux/reset.h |  8 ++++++++
->  2 files changed, 40 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/reset/core.c b/drivers/reset/core.c
-> index 8af7cd2e8a5029df..6d4c95b3edb18248 100644
-> --- a/drivers/reset/core.c
-> +++ b/drivers/reset/core.c
-> @@ -1141,6 +1141,7 @@ __reset_control_get_from_provider(const struct fwnode_reference_args *args,
->                                   bool gpio_fallback,
->                                   enum reset_control_flags flags)
->  {
-> +       struct fwnode_handle *fwnode = consumer ?: args->fwnode;
->         struct reset_control *rstc = ERR_PTR(-EINVAL);
->         struct reset_controller_dev *rcdev;
->         int rstc_id = -EINVAL;
-> @@ -1154,18 +1155,26 @@ __reset_control_get_from_provider(const struct fwnode_reference_args *args,
->         if (WARN_ON(args->nargs != rcdev->fwnode_reset_n_cells))
->                 return ERR_PTR(-EINVAL);
->
-> -       if (rcdev->of_xlate && is_of_node(consumer)) {
-> -               struct device_node *np = to_of_node(consumer);
-> +       if (rcdev->of_xlate && is_of_node(fwnode)) {
-> +               struct device_node *np = to_of_node(fwnode);
->                 struct of_phandle_args of_args;
->                 int ret;
->
-> -               ret = of_parse_phandle_with_args(np,
-> +               if (consumer) {
-> +                       ret = of_parse_phandle_with_args(np,
->                                          gpio_fallback ? "reset-gpios" : "resets",
->                                          gpio_fallback ? "#gpio-cells" : "#reset-cells",
->                                          gpio_fallback ? 0 : index,
->                                          &of_args);
-> -               if (ret)
-> -                       return ERR_PTR(ret);
-> +                       if (ret)
-> +                               return ERR_PTR(ret);
-> +               } else {
-> +                       of_args.np = of_node_get(np);
-> +                       of_args.args_count = args->nargs;
-> +
-> +                       for (unsigned int i = 0; i < args->nargs; i++)
-> +                               of_args.args[i] = args->args[i];
-> +               }
->
->                 rstc_id = rcdev->of_xlate(rcdev, &of_args);
->                 of_node_put(of_args.np);
-> @@ -1257,6 +1266,24 @@ struct reset_control *__reset_control_get(struct device *dev, const char *id,
->  }
->  EXPORT_SYMBOL_GPL(__reset_control_get);
->
-> +/**
-> + * reset_control_get_from_provider_exclusive - Lookup and obtain an exclusive
-> + *                                            reference to a reset controller.
-> + * @args: Reference to the reset controller provider with all the args like
-> + *       reset number
-> + *
-> + * Returns a struct reset_control or IS_ERR() condition containing errno.
-> + * If this function is called more than once for the same reset control it will
-> + * return -EBUSY.
-> + */
-> +struct reset_control *
-> +reset_control_get_from_provider_exclusive(const struct fwnode_reference_args *args)
-> +{
-> +       return __reset_control_get_from_provider(args, NULL, 0, false,
-> +                                                RESET_CONTROL_EXCLUSIVE);
-> +}
-> +EXPORT_SYMBOL_GPL(reset_control_get_from_provider_exclusive);
-> +
->  int __reset_control_bulk_get(struct device *dev, int num_rstcs,
->                              struct reset_control_bulk_data *rstcs,
->                              enum reset_control_flags flags)
-> diff --git a/include/linux/reset.h b/include/linux/reset.h
-> index 9c391cf0c82298a0..09ee47b27f88d3b1 100644
-> --- a/include/linux/reset.h
-> +++ b/include/linux/reset.h
-> @@ -90,6 +90,8 @@ struct reset_control *__fwnode_reset_control_get(struct fwnode_handle *fwnode,
->                                      const char *id, int index, enum reset_control_flags flags);
->  struct reset_control *__reset_control_get(struct device *dev, const char *id,
->                                           int index, enum reset_control_flags flags);
-> +struct reset_control *reset_control_get_from_provider_exclusive(
-> +                               const struct fwnode_reference_args *args);
->  void reset_control_put(struct reset_control *rstc);
->  int __reset_control_bulk_get(struct device *dev, int num_rstcs,
->                              struct reset_control_bulk_data *rstcs,
-> @@ -173,6 +175,12 @@ static inline struct reset_control *__reset_control_get(
->         return optional ? NULL : ERR_PTR(-ENOTSUPP);
->  }
->
-> +static inline struct reset_control *reset_control_get_from_provider_exclusive(
-> +                               const struct fwnode_reference_args *args)
-> +{
-> +       return NULL;
+The list of allowed pinconf properties already includes input-enable,
+but has omitted input-disable.
 
-As reported by Sashiko, this dummy should return ERR_PTR(-ENOTSUPP)
-instead.
+Both refer to the same hardware property, setting and clearing input-enable.
 
-> +}
-> +
->  static inline int
->  reset_control_bulk_reset(int num_rstcs, struct reset_control_bulk_data *rstcs)
->  {
+Add input-disable to the list.
 
-Gr{oetje,eeting}s,
+Signed-off-by: Josua Mayer <josua@solid-run.com>
+---
+ Documentation/devicetree/bindings/pinctrl/renesas,rzg2l-pinctrl.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-                        Geert
+diff --git a/Documentation/devicetree/bindings/pinctrl/renesas,rzg2l-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/renesas,rzg2l-pinctrl.yaml
+index fb1fe1ea759fc..5089be4770ae5 100644
+--- a/Documentation/devicetree/bindings/pinctrl/renesas,rzg2l-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/renesas,rzg2l-pinctrl.yaml
+@@ -135,6 +135,7 @@ additionalProperties:
+         gpios: true
+         input: true
+         input-enable: true
++        input-disable: true
+         output-enable: true
+         output-high: true
+         output-low: true
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.51.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
