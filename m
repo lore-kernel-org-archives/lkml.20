@@ -1,200 +1,227 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013066.outbound.protection.outlook.com [40.107.159.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C8011DB13A;
-	Wed,  2 Sep 2026 14:56:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.66
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788360969; cv=fail; b=QVGad5gD34vuCVyyXZWZzC1L3F5KW7H/kxMo4zDZvI+u69aaoI66CxXRdefk5LNPbAwYNsDTg1DBRi6aqV0ia4IUm0PfRfe66uPzDQyFwUz/D0EzilNkvSqK7N1NGzAzJRljZNYC5qqgLLqxpAqGVwAJJlotIl2aVwSY5Gfpick=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788360969; c=relaxed/simple;
-	bh=LAsywOAWBfIQhmApv2gQQ6NCdRcJYNQ7YePFPS6x1QY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=uOO4wPxOgMXjvtkLkSAdywPN9yq1GivAwDppH/rPzkfFCFfei5eIr3G/KaBIigE5k15EhqoErWlRVyXbrb+OH1otVTUUqH/8wQ2mKJHlexCK4J3rcHdKmtuLsExONOwLAEoFAmiXFnGsr5bBGVYdCCva2n4qYOj6f6f4Ck/QrSs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=va03Lpf+; arc=fail smtp.client-ip=40.107.159.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77BDA4A64D2
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:57:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788361023; cv=none; b=iALBlC2h70mr0HPdhHy4wzLH9nhdLnt+/BXwCSUFAYsIIjpdCuBSYOp3v3a+5NKjre1/hwMongn4Clw929nWJ+AKK7TW1q+6RgB53p9jKUA35DziS4VA3IC68CgPW3ZPzBuYwuEDX+Cqp8GsS4XxTTZf2tXcHXDWEPl4AXO0vSE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788361023; c=relaxed/simple;
+	bh=YXYiQ6MlkwSY9s0/iRzorG5wwX8F6Ons+fpr1FTHCdA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VoXeAevN77678QZZ1u+o/678oJEnhCb8BOHJQ9dXoBYdpI5Hh+ZYvn+SVJU7PxB/v1zhEEaNJ7E39oC3uyTe7SzaOH7+ZruwZrSi9aTjk8rc0/n+Ts0UoVliwm8+XuGUjrBrukUi+ak7Ia9eObf99i0vrMNpiNMaGE/AfoP13Ko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ng05+O7v; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="va03Lpf+"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sTddvHkU0DXCOICIDi7xxMSwryitO3WitP7F77h5NmIoPSvR3BwSxxn4uSiu7xiaVTZ6sDOY/vZmA9kZsfWSHBGzGAoJOGoh8irxvBzoUpFjB6bdMkDgcjRhNkWREtrEZj2m7F/s/7txUnFTZSTLxFd4j/HYWYPpIBe3Ix+O1uO+kcSyNUQlhe2sJ/DryNVgymVfod5FtSNmy6XOTOl8eeP50A+SIn8t+bPzULAGFYs5eHqc8o41fBi09prhpgkOtAo4RVbCVNjRteT5q7aE/cJJHZWKtTfGz0oFxDR/v9ZbnsF5t80DRsFyQfOexmOdtmKk8EABBzIzGxScX8V09w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gd0NfaRWCwHc3L9hNnl6NW7IdOn/6es8IqptXFqB4cY=;
- b=cKZo6lKjX+OiMQA0L7zLxCvZ2nU62Rb2zlF7X5XZAaA3bUvZbFQK3IPpR4pIENTJn10wwxDc6XyM1pIsALXG+i2QH5NllDl0LF/gS0FpLFnfrcDOCi/OUuGx34aRg0dEvxTRVVhhoMHNZrXXFNMfOhXfzc8EQ6sxzFsNwvZy6K+800w7wWgMAJWSMZAxcTUq3O3yUCATosod9ORw7eLHAxn9GfNal068hxUZqu232DrZPvzIbaFe/DWXYytP7lw+XbJMkyej3CFkvBZuKOG1N1Rk1z8gO914pJ1QmjLc/ZeFyLhHScDVpWQPSdKEw4Gr1f9Ab43TCEKSYI9/wb90WQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gd0NfaRWCwHc3L9hNnl6NW7IdOn/6es8IqptXFqB4cY=;
- b=va03Lpf+XvOpM9GosOkeO7ZoGgdn1SG7mU5NidKHTYhufdBs/XcGyt/BIyHkiLPcM9DMdf7ZjPshD1wUJZ0AN/Ogp6rSokE1Qz3NuDS38+rdcxVG2UulW08rUQnQQYe3By9AX6xJQBZuF25OUPB4bX+Zk8yO8maEvBwm/ocVuQqkPbWMPujQKpx2LA+ppZY3hGq7EAqeA/R5VdIyNBPrnAWZ0Tbz8PdxH6XrtJI8FkRufZMEQghcuiqm0mmhavSPTjgqwoe+Lj+hmU6nm60f0gkRlf1gULpdRC4bjJc3RxPGHv1tdDD1l8dLd1woLETckTVe3q3Ds8W4XTXo75tv2Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by BR0PR04MB591767.eurprd04.prod.outlook.com (2603:10a6:2c8:33::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 14:56:03 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 14:56:03 +0000
-Date: Wed, 2 Sep 2026 10:55:56 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Allen Pais <allen.lkml@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Arnd Bergmann <arnd@arndb.de>, Kees Cook <kees@kernel.org>
-Subject: Re: [PATCH v3 15/34] dmaengine: pch_dma: convert tasklet to
- dmaengine BH
-Message-ID: <apg4_G3SpRXrnAT5@lizhi-Precision-Tower-5810>
-References: <cover.1785183549.git.allen.lkml@gmail.com>
- <cover.1786384168.git.allen.lkml@gmail.com>
- <920e972b55af0bcebe09383f5f00cf5dc75e5cf6.1786384168.git.allen.lkml@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <920e972b55af0bcebe09383f5f00cf5dc75e5cf6.1786384168.git.allen.lkml@gmail.com>
-X-ClientProxiedBy: PH7P220CA0066.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:32c::21) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ng05+O7v"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49b965570d7so9539805e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:57:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788361019; x=1788965819; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZKBfOg4ndfWf72OBMR4MzaBGR2UKb0LfrmxRQ5wr5p4=;
+        b=ng05+O7vLEqirf+5pwkWz4sEc77tcKJTALKYq4rwr0kUqEI309d5lpke6vQF4rhdgH
+         0edv06cHEY4TtsLK7+UVjCYjDYqTZgAIFl+UaWaMD/BKzavwRNFlyzTteTRbrek+Pu25
+         lW/Kqq5SROXhiWH+XgfV3rwuOoc3R/3QxkKNwpmpB0eCtf+eOTheFTUnS60O5T8oLRuM
+         pnFpiqYCvF1IC5BppWIpcNdg5c6os3UB3ZCM8HnWgGeuOgpmISzAD/2wM/fkpV7pa2Tc
+         OgPhAURYyx0633GZ1OxDEvE2i5mYYYy4rM/TwVuKcsb362ENV+akpuW0UfBL4MN3JKR0
+         qKkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788361019; x=1788965819;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZKBfOg4ndfWf72OBMR4MzaBGR2UKb0LfrmxRQ5wr5p4=;
+        b=lTFS82TU1C+1K2IFmAiuwp53mAR/zb9HA4SoOROoeeEAsQvMCbCEy0FHCbCBAaZkNs
+         eR9bra2Vla9AJYjp3hYS4SPq+ysh0YptiOAkbUqGZi/jORw98gvWTMMMU/7NZeUWu66e
+         /h3Vvw2wthA36BZGMMB7hYcMywVkc1YqBz3SbbJoAugwyYUMU27GZ4pnjwqChd8e15i2
+         1GjolDUKBezLv8bYEA+mUMXhoXZBalGudf1yBHVvZQLMTSkPZSbGXt2Je1LcSERdDXLt
+         X1jLRwD4HLyEwuFUIO7PEWgpNRYWIv6HKUb50Qpm97e+oxGhuKgujD6cEXKW+Rzy4lql
+         Y/YA==
+X-Forwarded-Encrypted: i=1; AHgh+RpCtqkV8YjC3s7uX86JSSSi/piUvacg6CmIw/5Dq7DP8HgpPZkelEtqZcClpDZuSo2omsltLkArHNj4ayU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l7LW5MWorzfX6yADEVOzV/qRlifqKAm3vD1IJtfVQ5qmnK9KHz
+	/JDmRtGallb4040NXL1ePGgwWfTlwGmbR2lf3I/+EWKh5B8PPyCTW10=
+X-Gm-Gg: AR+sD11gckYwOrEO3DAiDJZzHJsabxzgycyGofObmiMHSS8zC3NDT9L7yz3Z5UzBlhj
+	hG4tPHE3UTCOiqSEo+pPTe6u5DoLNHG9ysv498dGZkGneBgFGCyeJkNhzZEPdIue/9rJ9qZMjBF
+	lf+TSZEJOZ6+oOIitQFuQTKGXd4xGBBUhkCmzYHLGNRWnC1ihsSesdYhourWE9KKQjTcfP0+a0M
+	VQyTJn2on3ucx4u8P0qsMuqhT/h+cSuYwl6ObkHc7GSsg/H+yvyHPuji/ahNDx1kfkPuXMnB3Vi
+	+sQy/+tejI166qWCEhp9lqtzv/Qv7N/B7NkvqmB/ymc+h7cZHbJgTJ59qnXfMvtAQ3lULU/XDvb
+	k87k8JQi9QpnvZpPx8PzKGFx/zfT3ZBp1y6T2xr5kB1S38dVdw7kcWHgKleMj0VXJFYseD9LcoK
+	pXYLBIqRbdSxlrrVrMcGtpQ0+5ZgCwSnl6KXki4RkptxfUZl4Sl2jhQ8uiHYMY/TpaKUFqm2ops
+	PT3SshXqHWLfO69xc1etlAj81b/ouzRih8kS2u9tcyK3MTUpZ4jM+cPGVAgBKgm/XFIDUOJ
+X-Received: by 2002:a05:600c:3494:b0:49b:9202:6f80 with SMTP id 5b1f17b1804b1-49ce57ee273mr106063775e9.6.1788361018773;
+        Wed, 02 Sep 2026 07:56:58 -0700 (PDT)
+Received: from chateau ([194.65.85.67])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5927b68sm61084215e9.1.2026.09.02.07.56.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 07:56:57 -0700 (PDT)
+From: Sergey Zagursky <gvozdoder@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Miguel Vadillo <miguel.vadillo@intel.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev,
+	Sergey Zagursky <gvozdoder@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: ipu-bridge: do not use the CVS device lookup for IVSC
+Date: Wed,  2 Sep 2026 15:54:39 +0100
+Message-ID: <20260902145440.1786297-1-gvozdoder@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|BR0PR04MB591767:EE_
-X-MS-Office365-Filtering-Correlation-Id: 405c48b9-0fee-4aae-a3da-08df09024f47
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|19092799006|366016|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	59MO635OuRe2pNGDfNmFhCiCzE47kJjmy56BoJizpUp2CwHSX6u9KWbwXkDKAOzI91qrwsb4wI9D+sBXMMmNb6WyBIrzMFnK68U/60koXqDE34D4HZQTQy+hRH9w/xt/slwsezTGmv1z7EifDH6cP0rDBw/kABz9LF37sWbAJ3+3uPOEjqYqLkfDyOKku7G//7Ozwnu/1anijCEz7fvvsqBfFFpfMaXefUWruPoLtmun1eciYNTyjgj1rz6vLiDukYZA7p3lcmhbLqLtg1Zzmt5RctwliW++YUjj6GNGOpOu3r9fRk5THhDQDaTJ7YXYgqGr9OitNlO8z0mCPSi9c8yI94B7TgoAn76Ep/KO+mRgV+bEmztN/QNTtiFsmjEomru76YNEOkCZrPHG3+XUL28nGmmqIJnh2E8qdvWhkQq/5b70B1ikG1hcRrc9VW+HtHfXoWuUuGxdZ5o+3x43qAhQltX7Ijh0TXy4+Kf2gvh2A+6q3YRDLwIqwoEA9HpeGCKf8ONSZOgUuic8t+Dn4KvukX0PT9ooT+tUfdnED60m/nsKhgDpY7PdrQmzU+K8BnHKjkGIwExFtmjKbfTFVh1vIAEXg+MqV3XkGHWnzUMWrLs/Qygyz/KfUyfC/cCKPlT9+vslszIV16GXXuqyL2ue/SzpqE7hkEfDMNZhwaU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(19092799006)(366016)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?iYehQRJTifIH2M6guYN0kXWogeux6R90/XkBPPrTlBvLpgWKNQ0PPHE8L+d4?=
- =?us-ascii?Q?Q6IhefjK7YVT1MR4lB8l3b4fmTJiGAbYzM1lN1yPZEwFXULQKhxZ7K2SzLfx?=
- =?us-ascii?Q?Ft1frF7Z1l16cP7ZDyzythqG7soD1zmZ65Dif9w2ZAJRXc4tt1kQQdiLxK9R?=
- =?us-ascii?Q?raBwnWIpfdD0FZhDxz0X1f1/TWzIzTKP+TergVPdtBYSUk8LL7NiPR8n2Vkh?=
- =?us-ascii?Q?T/3m4szish7aOFCmf7lX67wRSqNkkb4cyzzsoOhFlAtSuT19bCBBSceZp9It?=
- =?us-ascii?Q?Gj8eK6QFALINi7O0HlKfn8gG+Cr1Nuyce+x/sOnaTrnTI6a7a7C1+O2DJlBp?=
- =?us-ascii?Q?0xA/Y0LsJQ8Pfxu63nksdtKPPPN8DT8jiLdgiii26NMO/SnJFldjUSUDEpDa?=
- =?us-ascii?Q?GZ9MXj6lWYyr+YSd4iakJJJdLjyJhdD7j/Yg+J3Xg94Zu7QuMyzEdSypGvVs?=
- =?us-ascii?Q?645z6LLkBxS1PktzPl1tk5XXpsphNHcXXWG4zDrX7A9MdREzmKLEQYiOPYF1?=
- =?us-ascii?Q?VLES/tq6JAXV+C809sHtmmA6NH4WAVGVvwYZZuajd3AQivsD+ddOsKfBzZBe?=
- =?us-ascii?Q?wl7JCSt5+066lZXKhlHjbJUxj1bcppVcwHHjqlJfWPRtBnQPxErhMyujpcxB?=
- =?us-ascii?Q?lExetiim2V3pUKvVY5JQ/jzC/Mkm3tI+sOQTM6p65OUFADGVkK10jhXga9WV?=
- =?us-ascii?Q?zexZNdjRl4ioDna8N18aILfm4GqVRL2Oib5K0psSsl8QzHTIKO9vTJpPyypG?=
- =?us-ascii?Q?PcQ77LWhg3CPPhVvB32f71mkRUl7Hucqo9lFc2yB3JclMU0ujcGy9zSvaepO?=
- =?us-ascii?Q?EZO0P4Oy6cgoZ1scH5j9KDfvwSSbTFv4MT4zWCp4ec3yb9K2x0MXSmyKVjHG?=
- =?us-ascii?Q?R2WfXnZDhG3hudguuPxlClmuwHg3ZOQ9HWhk3xUSU9CmO8eQNTKjCTO55l+m?=
- =?us-ascii?Q?CHsOSkoJGab83jXhwCwGx8dfhK98ibOc9FPWUBHFIVgUhz+ig6aZMeSAwCLQ?=
- =?us-ascii?Q?TQ7bV4eOTzzfm81AmO4QeK87SpnHaP9EI7Q5Is+lFPS564RHqlpYFo9RYmIc?=
- =?us-ascii?Q?+gdi5+kDg+hb/nO/yz9ZvgKCBOwOC4LGNfhxinMcg4mJAw1HL87V9apmPyWl?=
- =?us-ascii?Q?+nTNJKM7d4/NqUSyNy/fVx3GXSsg1I3IVsUwN2rvss0k8c7jew8b5IsqbmJt?=
- =?us-ascii?Q?lJo2iaRxJ9aL0Znxj4uyXytJtLmys6cyg0t/soyVQqk9hemr6iQUAsEomlA/?=
- =?us-ascii?Q?i5Wble+RsUzLfZBi62F/AYTQVyh/ic54NgcgDszEaqS4cGEpfDWFyL+079pw?=
- =?us-ascii?Q?14DMsa1yX5MAfb8GhMWtIfYdHit4fL2QNvpO2/bvHxYwzgzp5jHFw+Xxyilp?=
- =?us-ascii?Q?NOMJQHObbMOtB2mw20OG7fWIYLhBqe/Hd+xVwq/QZLpDRMzEyQ5ZZCfvjUQi?=
- =?us-ascii?Q?fcUCwSMiLjCzHx/St1CqL8PBVPgoKPighljghnV+qCEp0DRSH6/5oZMWGf1s?=
- =?us-ascii?Q?cONO/qje1AMKh9ApwpEoEZJVPn+9+XrUS6DgUIKbDG8Y4PAPqXbblsNJii/T?=
- =?us-ascii?Q?8lQATjJr4kfhHXxuEJwzYXg+hMk/gJuZ3YYDuoSIDFRbLaRfMlnY//MuSH+X?=
- =?us-ascii?Q?uNEF53joxLoE0Q5armi2ZBPWpUD/ti2pVD+bsfcsRIQcdFcxSLKyoEms/EAk?=
- =?us-ascii?Q?vW+deHQLjJCCxW+a+j7c0B9Sh9F4+fax/sVR3xn15Q/NlRvK5kfF3Lir2kN/?=
- =?us-ascii?Q?j27QtxPajkTvzrYn15YbQxJEqnw5lTl9fK9OCISF7aec0KOZoc7K?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 405c48b9-0fee-4aae-a3da-08df09024f47
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 14:56:03.5989
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GDGsiWhfSvZRBkFOlg1kM+leDXz6pCIT2e8zKk0aNjGhfpVp1NeGQoE3oKlbxIavoLg00rRJIrq1P7fKv14wySe4Ei2Vog2pv7oYhoZHSh+vr54g1Prg67OIto7gGuxC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR0PR04MB591767
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 10, 2026 at 11:09:16AM -0700, Allen Pais wrote:
-> Replace the per-channel tasklet with the shared dmaengine BH helper.
-> The handler continues to run in softirq context while dmaengine owns
-> the common scheduling and teardown mechanism.
->
-> Signed-off-by: Allen Pais <allen.lkml@gmail.com>
-> ---
+Since commit c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU
+bridge driver") the internal camera no longer works on laptops where the
+sensor sits behind an IVSC, for example a Dell XPS 16 9640 (IPU6,
+INTC10CF, ov02c10):
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+  intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
+  intel-ipu6 0000:00:05.0: Connected 1 cameras
+  ivsc_csi intel_vsc-92335fcf-3203-4472-af93-7b4453ac29da: mei-csi probed
+      without device fwnode!
 
->  drivers/dma/pch_dma.c | 14 +++++++-------
->  1 file changed, 7 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/dma/pch_dma.c b/drivers/dma/pch_dma.c
-> index bf805f1024f6..eb372aa328a6 100644
-> --- a/drivers/dma/pch_dma.c
-> +++ b/drivers/dma/pch_dma.c
-> @@ -91,7 +91,6 @@ struct pch_dma_chan {
->  	struct dma_chan		chan;
->  	void __iomem *membase;
->  	enum dma_transfer_direction dir;
-> -	struct tasklet_struct	tasklet;
->  	unsigned long		err_status;
->
->  	spinlock_t		lock;
-> @@ -665,9 +664,10 @@ static int pd_device_terminate_all(struct dma_chan *chan)
->  	return 0;
->  }
->
-> -static void pdc_tasklet(struct tasklet_struct *t)
-> +static void pdc_tasklet(struct dma_chan *c)
->  {
-> -	struct pch_dma_chan *pd_chan = from_tasklet(pd_chan, t, tasklet);
-> +	struct pch_dma_chan *pd_chan = container_of(c, struct pch_dma_chan,
-> +						    chan);
->  	unsigned long flags;
->
->  	if (!pdc_is_idle(pd_chan)) {
-> @@ -707,7 +707,7 @@ static irqreturn_t pd_irq(int irq, void *devid)
->  				if (sts0 & DMA_STATUS0_ERR(i))
->  					set_bit(0, &pd_chan->err_status);
->
-> -				tasklet_schedule(&pd_chan->tasklet);
-> +				dmaengine_schedule_bh(&pd_chan->chan);
->  				ret0 = IRQ_HANDLED;
->  			}
->  		} else {
-> @@ -715,7 +715,7 @@ static irqreturn_t pd_irq(int irq, void *devid)
->  				if (sts2 & DMA_STATUS2_ERR(i))
->  					set_bit(0, &pd_chan->err_status);
->
-> -				tasklet_schedule(&pd_chan->tasklet);
-> +				dmaengine_schedule_bh(&pd_chan->chan);
->  				ret2 = IRQ_HANDLED;
->  			}
->  		}
-> @@ -877,7 +877,7 @@ static int pch_dma_probe(struct pci_dev *pdev,
->  		INIT_LIST_HEAD(&pd_chan->queue);
->  		INIT_LIST_HEAD(&pd_chan->free_list);
->
-> -		tasklet_setup(&pd_chan->tasklet, pdc_tasklet);
-> +		dmaengine_init_bh(&pd_chan->chan, pdc_tasklet);
->  		list_add_tail(&pd_chan->chan.device_node, &pd->dma.channels);
->  	}
->
-> @@ -930,7 +930,7 @@ static void pch_dma_remove(struct pci_dev *pdev)
->  					 device_node) {
->  			pd_chan = to_pd_chan(chan);
->
-> -			tasklet_kill(&pd_chan->tasklet);
-> +			dmaengine_kill_bh(&pd_chan->chan);
->  		}
->
->  		dma_pool_destroy(pd->pool);
-> --
-> 2.43.0
->
+No sensor subdevice is registered, the media graph has no sensor entity
+and userspace finds no camera at all.
+
+ipu_bridge_get_ivsc_csi_dev() first looks for the platform device named
+"intel_vsc" and returns its mei-csi child. That device is created by
+mei_vsc, which on this machine only appears once the LJCA USB bridge and
+its SPI controller have probed, about a second after the IPU6 probe that
+runs the bridge:
+
+  07:59:29.297  platform INTC10CF:00 created (ACPI scan)
+  07:59:41      intel-ipu6 probe -> ipu_bridge_init()
+  07:59:42.391  platform intel_vsc created (mei_vsc)
+
+The commit above added two fallbacks for CVS which match on the ACPI
+companion alone. They are reached for every entry of ivsc_acpi_ids[],
+IVSC IDs included. The IVSC ACPI device has two physical nodes:
+
+  INTC10CF:00/physical_node  -> platform/INTC10CF:00  (no driver bound)
+  INTC10CF:00/physical_node1 -> platform/intel_vsc    (mei_vsc)
+
+so bus_find_device_by_acpi_dev(&platform_bus_type, adev) returns the bare
+platform device. ipu_bridge_instantiate_ivsc() then attaches the IVSC
+software node to that device instead of to the mei-csi client, the bridge
+reports success, and the probe is never retried. mei_csi later probes
+without a fwnode, the CSI-2 link is never described, and the sensor ACPI
+device, which has an honoured _DEP on the IVSC device, is never
+enumerated.
+
+Before those fallbacks existed the lookup returned NULL here, the bridge
+failed with -ENODEV and the probe was retried once the IVSC device had
+shown up.
+
+Restrict the two fallbacks to the CVS IDs. CVS binds a driver to the ACPI
+device itself, so matching on the companion is unambiguous there.
+
+Fixes: c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU bridge driver")
+Link: https://lore.kernel.org/linux-media/20260901194526.6369-1-gvozdoder@gmail.com/
+Cc: stable@vger.kernel.org
+Assisted-by: Claude Code:claude-opus-5
+Signed-off-by: Sergey Zagursky <gvozdoder@gmail.com>
+---
+Changes since v1:
+- Wrap the ACPI ID match in a named helper, ipu_bridge_is_cvs_dev(), so the
+  polarity is readable at the call site. acpi_match_device_ids() returns 0
+  on a match, which made the v1 condition easy to misread. No functional
+  change.
+
+v1: https://lore.kernel.org/linux-media/20260901195036.7648-1-gvozdoder@gmail.com/
+
+The functional testing below was done with v1 on the affected machine (Dell
+XPS 16 9640, IPU6 + IVSC + ov02c10) on top of 7.2.2, where
+drivers/media/pci/intel/ipu-bridge.c is byte-identical to v7.2. v2 changes
+only how the same condition is spelled, so I rebuilt it but did not boot it
+again. Without the patch libcamera finds no camera at all; with it:
+
+  $ cam -l
+  1: Internal front camera (\_SB_.PC00.LNK1)
+
+  $ cam -c1 --capture=5
+  202.794954 (30.05 fps) cam0-stream0 seq: 000003 bytesused: 8386560
+  202.828224 (30.06 fps) cam0-stream0 seq: 000004 bytesused: 8386560
+
+The media graph gains the entities that were missing:
+
+  - entity 349: Intel IVSC CSI (2 pads, 2 links, 0 routes)
+  - entity 368: ov02c10 21-0036 (1 pad, 1 link, 0 routes)
+
+and the restored retry is visible in dmesg:
+
+  pci 0000:00:05.0: deferred probe pending: intel-ipu6: IPU6 bridge init failed
+  intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
+  intel-ipu6 0000:00:05.0: Connected 1 cameras
+
+"mei-csi probed without device fwnode!" is gone, ov02c10 binds to
+i2c-OVTI02C1:00, and eight v4l-subdev nodes appear.
+
+This patch is against v7.3-rc1. The version tested on 7.2.2 is the same
+change without the INTC10FA entry, which 7.2.x does not have. Building
+drivers/media/pci/intel/ipu-bridge.c with W=1 produces no new warnings.
+
+Not covered: v2 itself is only compile-tested (no new warnings with W=1);
+I have no CVS hardware, so the CVS path is only reasoned about, not tested;
+and I have not booted v7.3-rc1 itself.
+
+This patch was produced with the help of an AI coding assistant; see the
+Assisted-by tag above and Documentation/process/generated-content.rst.
+
+ drivers/media/pci/intel/ipu-bridge.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index 1bb3a3e98d6b..a29d4bdb8f02 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -232,6 +232,20 @@ static const struct acpi_device_id ivsc_acpi_ids[] = {
+ 	{ "INTC10FA" }, /* NVL */
+ };
+ 
++/* The subset of ivsc_acpi_ids[] which are CVS, rather than IVSC, devices. */
++static const struct acpi_device_id cvs_acpi_ids[] = {
++	{ "INTC10DE" }, /* LNL */
++	{ "INTC10E0" }, /* ARL */
++	{ "INTC10E1" }, /* PTL */
++	{ "INTC10FA" }, /* NVL */
++	{ }
++};
++
++static bool ipu_bridge_is_cvs_dev(struct acpi_device *adev)
++{
++	return !acpi_match_device_ids(adev, cvs_acpi_ids);
++}
++
+ static struct acpi_device *ipu_bridge_get_ivsc_acpi_dev(struct acpi_device *adev)
+ {
+ 	unsigned int i;
+@@ -283,6 +297,17 @@ static struct device *ipu_bridge_get_ivsc_csi_dev(struct acpi_device *adev)
+ 		return csi_dev;
+ 	}
+ 
++	/*
++	 * The lookups below match on the ACPI companion alone. That is fine for
++	 * CVS, which binds a driver to that very device, but not for IVSC: there
++	 * the ACPI device also has a driverless platform device, which would be
++	 * returned instead of the mei-csi client. Return NULL for IVSC so that
++	 * the caller fails and the probe is retried once the IVSC device shows
++	 * up.
++	 */
++	if (!ipu_bridge_is_cvs_dev(adev))
++		return NULL;
++
+ 	/* Try to locate CVS device on the I2C bus */
+ 	csi_dev = bus_find_device_by_acpi_dev(&i2c_bus_type, adev);
+ 	if (csi_dev)
+-- 
+2.55.0
+
