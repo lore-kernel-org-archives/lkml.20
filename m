@@ -1,119 +1,126 @@
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 115F71F5821
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:39:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B8A29B78F
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:39:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788320345; cv=none; b=NxSSM581fLdJRih3JhPcIC1zmGAn5rvp2hiamdUwHIAruy0lcCkhkedAEvzQR5+fsjfy3pljcWnkQySw6tdS8ryrPbOHleVNkzvr1bTPlovq8ydJViYexZuYSWhPpO7rlDgXP2CZZqKZ7yy7G/JOFEZDezT8/vPO2zy0PM00UOs=
+	t=1788320346; cv=none; b=W9FOJ9ZtGil++JaKKxejlv/5wDWoWufU+gfqSOG7hhn86SOdGubN7znU+b4yQv4BQa+pVv/3nYkcEF2vhhHqyS+wkVxkVmmdIfQMxyuP3ywJtVwXzjv0igHlYgd9UWE5OOBJ4G31QtdaZ54J7VVaSN/mpZGsz/rmmMpFvEqQKu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788320345; c=relaxed/simple;
-	bh=+uFjL4M2eOGrovPZjv+gLuSNpHM2F/R0aa1CcnaxvG8=;
-	h=Date:From:To:cc:Subject:Message-ID:MIME-Version:Content-Type; b=CCC6AWg6uf3dkxxfhrdWyyNchN7eJwGJQl5caZy0cpNVCf+oy+9TL96JDvyLNeMoxvX8mQahCPJ5WRd17vU7TDqRhn8FyrU//4SCokF3wE0w3+HzgkDeiMacmNmRuaUu0cEZfnldhcCG0Ix1NvWJNeDBHJRpwHcZcDvD5KcEl2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uiK7moSE; arc=none smtp.client-ip=74.125.224.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788320346; c=relaxed/simple;
+	bh=ymXB/kQ0oxAbSey+LXIW1PCx8yu1EEfH7MZyjtlc8ZQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IW4tco8eGH5n3e3JTa7h4iH9oGUwwsccU2HqmCnXJsccz446+pOCghXkV2Ot6VduGVyQSKVI/i5KsskgyAda/EqqL28aa6KU1G5WiL27jmw6st1WqK+sbT4M4qUMFHEgprbuttuySPeZ98zsvfzoFhiOQVvlbXiGWm/ZeF9asv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BxaE9lxj; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uiK7moSE"
-Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-66c711b7f2aso540801d50.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 20:39:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BxaE9lxj"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d94c868ea5so5498215ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 20:39:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788320343; x=1788925143; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V8fojBHcWDAxPoaYVGsHqqGZ8A1ENNs4lsc009HVd5s=;
-        b=uiK7moSEVYuRQYnHj/S2q6bCVimRCVMDzjtmU0t/bxHLJ26Xqqapzd1zW6WpkNOQR6
-         qxqQl/r/rE4FNNNEcgyvBfzZ88/NjsTawQuMeP134ifZShv0XhdcOLXuEtFQ6nn3ZmvF
-         2msLwRQqooLsTic3eNpMxGcKzQyWS3wfbruX/WOA35ulVWVcuexheeGu+Qsq5P6KGD+z
-         PtnAgI2UerC/Id6cDyCbvNWoK/Q0WQ27HoeGzMUN6WmdoTe8a5p8dcs+9UY8W2c4ASnG
-         lCD3cyFhfas0Key5FfRQGeym3kexkHmHNuWOuEimBQIWe5mQeq8xSAjmMKry3OTbtyL1
-         LBvg==
+        d=gmail.com; s=20251104; t=1788320345; x=1788925145; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=d/F8fpEp4iGHT0skiRxv7WJG5rGIQnzqOxwAlDHs2fo=;
+        b=BxaE9lxjvUSU/1ZvsSGgwu1Lpb5xoHGZn2p1UzqeTMtUnQb+yJycBNoniGjgkAtRYW
+         E0XCdYd+0PtxF8/pI9e/af7+eIhO21GraYDaDM2vAVwCoNHao8xb+yNci7bcq2gupiSc
+         YZUCwgGqeT8qQcQprLa8iqQrhTAH+FkuPwESMsFgwsatrGec2Ny5dSw4uvpJNGgHUap3
+         SjH7YahJCJUk2wVEtvlH8E9Tg8bm6/e6r/PaDNOxKDlrCYa3/at2WpaXR46ZYkclwpdE
+         Xk+62tVnOhFvzu6mfmCPBw2NXlCVs12EYNdN2XW2gDqXk+ZCVz35ccCRGi1jfodUsPyC
+         1uvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788320343; x=1788925143;
-        h=content-type:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=V8fojBHcWDAxPoaYVGsHqqGZ8A1ENNs4lsc009HVd5s=;
-        b=ny6l6WIV18Qtf7gJJypHuZbPeuOETFj0YTfOEOtMnGJiDIAqs9BXm96Wzi9Yr05dkw
-         OXMJwWjjE6R0eaeqkK48E+L5QYAJDxheS6RYp5gU4obUNIC4wEu+gdFcsdiJkCGTp6pf
-         TCr8gSSTkohdc4xpkuY3nVQ/aK5Bb5yerCDMaW+SmHanGuFnsH31cXVur2Kt08lI0iwg
-         2C4REw+BaI4cSCtkC1lZN46nJr1pJjKr1DhYx2nshKywZaYdoGLk6XN+t/ByIA2PdA0E
-         D3xthrZz5mahn6lz6NyJ7tf1srGgO38V++hLiXnilZ92FYmZrbBQ47uQZIklcoWRjezr
-         FnWw==
-X-Forwarded-Encrypted: i=1; AKwUvBxft5ivmZ6CKdtH8oSUfxaWUNB/mzi/lOTm+ZXcS02MszsKLGXv23C51cNItRp5haBwfmb/TNU/MUKeyKo=@vger.kernel.org
-X-Gm-Message-State: AFuF++n3cavSb0KnRgZj+mY6qgAg4PBlOm1Pv0zIgvzhykISD7A63QlW
-	mS0vY/TRI9LrBRLB5ilcSo1yz/TIa0raN3HOvWtb7XNIBJkMrWlbvtgNqkeJFtorKg==
-X-Gm-Gg: AYBFou3NUbmsKe43vc5J0/3vMAxEHFYDZSMz8oYNVT7rWt4fPgKQLCYIHvnKaegO4Po
-	1IgZFwTEqLub2ZtKnRY6XOvbUx5i7DfsaZxV7Hd8FwE1hBuSPpov6GITwnUenVTkuhv3GwE5MlU
-	TRaNbvkEthTNmVE5lj0qYr4D4h1Sifld+oaA5gF3jf9Mrc+Dh6cgiQC5WGB0+ppTm1Mgqvus4iV
-	tl47OpxTGXC+A/t4OlSlXJQt/R3a3WoJ9VNOqThwvtKCeWZBSFwbcnFjGLfoTuTMC7DexNyABiL
-	qVlb1/y54/IomHc7SYYwHQjtvzU/4yIxo1RqtsmSkZIQ9s6LUPKZSCIL0rddK7VPfnaKT57eZGo
-	WBxtLD/txurwoYIc7qWTcoWJB1ajqsMQU4XiUgPjophBgbBvtXbmq/AMcV1+lYJWZllpn+LQpZW
-	J50jKj0r1ovlcCtPlKpKtyIScv7FlmZAQqbldfZgl2/CCGIs5nJEzUpjNsaGIRq0wjb9txKUw+B
-	mAnnnYAm90gcMZU/FTC8Y7Al6Z8lIWMBXzDRpAW2LWvu0nC
-X-Received: by 2002:a53:d017:0:b0:66c:4163:c4e6 with SMTP id 956f58d0204a3-66f9bd4a3e5mr528831d50.26.1788320337604;
-        Tue, 01 Sep 2026 20:38:57 -0700 (PDT)
-Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66f9850c9f9sm1031960d50.4.2026.09.01.20.38.55
+        d=1e100.net; s=20251104; t=1788320345; x=1788925145;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=d/F8fpEp4iGHT0skiRxv7WJG5rGIQnzqOxwAlDHs2fo=;
+        b=F2fTOIKCDlTB/7CluaqPcvqiRnuieMJ5o5drc61HwzxXWWGds4XQK0P+J57iPkayg2
+         QLyEAubfnO/V+MBqc2+ORg/zGoNTMRNsSHEohj39tgazS7pJTsAc8BPeb6QDd4S9t+kR
+         825Gq3c0NjFqRf5etz47KVsmszmswpP6YZyoM6FWyjJrHIcxSlEUHkpK9NPawg4AB7+A
+         Cf+zJvDuvy0EDpvTheNAHwyFEboBK7R6wCZ0A7wOM7cIuzXoIcya4YkUudhJkKu5qshP
+         TTEcmIy4Ggm+5FaFfXBJIhoHGpzdb5DaDDASyDdsm32ja0D8cEbNjxT5OcDDr0Ya6FgX
+         2Dyw==
+X-Forwarded-Encrypted: i=1; AHgh+RqN+IZlqD8y3ws2/Cb87UoxDLsFZ4xZLSKH119v/hrbwD7FNM6xYasxhQtH1TqFk1foMlylnewSjq06sso=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqbLgwfy+7kwsVOOJf4gU25zk6ytM5DSHY2rSSeQuqOG2cHshG
+	as4JshtcD5aMs6aXXHlQIbtoNwGa7LUf+e0gkYQjDvHwp4pVlrD7s+OF
+X-Gm-Gg: AYBFou32kskTKIoquE8aa1gC/HcGdqBatVebqJOvMFlef0hyiEGxi0X5bOsPoWzouBO
+	sFPIEcfTOpL2hFyzJql3IiKSNK85HREtIuw7/bmGAYY7ZsbOmzOrFN8awdLt4q1YXV9Xxjpeibx
+	aR2vKFOn+umsbMo2gLDApA77bGG4aik747t9SxpsxidQLAhbva8h7JCUGVS+lvOJh432fK4Y/Qs
+	TcUCQl+Jk8fs+ClYpE7xY8KwKANGb9a0uQGk1v0VEgJTrg3OXbSb7gDQLPVGV6AAKH90kgb2a8B
+	hzySblAHlwV2+8aWG4Xcbu0fJKhs5my03Uz+JJ5X7sDdOLZqvsEVF8E6SBN/ymXLL1DqdD9ksDK
+	wYr2rdaPvC//onLjWLToQZw4ymGVKMf5Hj21yiFQPKwARs2ckVEL+EYN3BDbh3fvKg0YcLyEqQH
+	QppRkJj/NHx4gBEpNQ+QL7OXKxhhmzIE98LtzhCMk0YgqM5Qs2Qe1dZPugGVD8ScVRlXLU8uu/
+X-Received: by 2002:a17:903:380d:b0:2d9:51bd:534f with SMTP id d9443c01a7336-2daec6fe7c7mr29796515ad.10.1788320344611;
+        Tue, 01 Sep 2026 20:39:04 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dadd386eefsm5715715ad.28.2026.09.01.20.39.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 20:38:57 -0700 (PDT)
-Date: Tue, 1 Sep 2026 20:38:40 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-cc: Ackerley Tng <ackerleytng@google.com>, 
-    Binbin Wu <binbin.wu@linux.intel.com>, 
-    David Hildenbrand <david@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>, 
-    Matthew Wilcox <willy@infradead.org>, 
-    Sean Christopherson <seanjc@google.com>, 
-    Vlastimil Babka <vbabka@kernel.org>, Hugh Dickins <hughd@google.com>, 
-    kvm@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: [PATCH] mm/folio: EXPORT_SYMBOL_FOR_KVM(lru_cache_drain_for_folio)
-Message-ID: <02876cea-5727-2ca4-bead-73659ea6fec4@google.com>
+        Tue, 01 Sep 2026 20:39:04 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+To: thomas.weissschuh@linutronix.de
+Cc: tglx@kernel.org,
+	luto@kernel.org,
+	vincenzo.frascino@arm.com,
+	david.laight.linux@gmail.com,
+	zhanxusheng@xiaomi.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 1/4] vdso/math64: Use OPTIMIZER_HIDE_VAR() in __iter_div_u64_rem()
+Date: Wed,  2 Sep 2026 11:37:58 +0800
+Message-ID: <20260902033801.2912699-2-zhanxusheng@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260902033801.2912699-1-zhanxusheng@xiaomi.com>
+References: <20260902033801.2912699-1-zhanxusheng@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-From: Ackerley Tng <ackerleytng@google.com>
+The loop subtracts because the quotient is tiny at every caller, and the
+asm() keeps the compiler from turning it into a division instead.  It
+offers a memory alternative for the value:
 
-To simplify independent development in the KVM and MM subsystems, now
-export to KVM the lru_cache_drain_for_folio() which MM added in 7.3-rc1.
+	asm("" : "+rm"(dividend));
 
-Link: https://lore.kernel.org/lkml/bd6c9c74-e374-a9d3-ba1f-8b6f430894fc@google.com/T/#u
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Suggested-by: David Hildenbrand <david@kernel.org>
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-Signed-off-by: Hugh Dickins <hughd@google.com>
+clang takes that alternative and spills the value inside the loop, on
+64-bit as well as 32-bit.  OPTIMIZER_HIDE_VAR() is the register-only form
+of the same barrier and is what the rest of the kernel uses for this.
+
+The helper sits on the clock_gettime() path through vdso_set_timespec(),
+so this is measurable: x86 vDSO built with clang 18 loses 64 bytes of
+vdso64 text and 112 bytes of vdso32.  gcc 13 emits the same code either
+way.  Neither compiler turns the loop into a division with the new form,
+checked at both widths.
+
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 ---
-Hoping for 7.3-rc2, which would make my life easier: thanks!
+ include/vdso/math64.h | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
- mm/folio.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/mm/folio.c b/mm/folio.c
-index c02dcea9c03c..50a6dbe55998 100644
---- a/mm/folio.c
-+++ b/mm/folio.c
-@@ -33,6 +33,7 @@
- #include <linux/page_idle.h>
- #include <linux/local_lock.h>
- #include <linux/buffer_head.h>
-+#include <linux/kvm_types.h>
+diff --git a/include/vdso/math64.h b/include/vdso/math64.h
+index 22ae212f8b28..83ebac2e5c1b 100644
+--- a/include/vdso/math64.h
++++ b/include/vdso/math64.h
+@@ -8,9 +8,11 @@ __iter_div_u64_rem(u64 dividend, u32 divisor, u64 *remainder)
+ 	u32 ret = 0;
  
- #include "internal.h"
- #include "page_alloc.h"
-@@ -926,6 +927,7 @@ void lru_cache_drain_for_folio(const struct folio *folio,
- 			*drained = LRU_CACHE_DRAINED_ALL;
- 	}
- }
-+EXPORT_SYMBOL_FOR_KVM(lru_cache_drain_for_folio);
+ 	while (dividend >= divisor) {
+-		/* The following asm() prevents the compiler from
+-		   optimising this loop into a modulo operation.  */
+-		asm("" : "+rm"(dividend));
++		/*
++		 * Prevent the compiler from optimising this loop into a
++		 * modulo operation.
++		 */
++		OPTIMIZER_HIDE_VAR(dividend);
  
- atomic_t lru_disable_count = ATOMIC_INIT(0);
- 
+ 		dividend -= divisor;
+ 		ret++;
 -- 
-base-commiti: cee9395acd8043be0644b25c34bfa86623f2b935
+2.43.0
+
