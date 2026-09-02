@@ -1,183 +1,172 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24BF2494819
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:52:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1943B05B9;
+	Wed,  2 Sep 2026 12:52:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788353563; cv=none; b=oML0NqUv5Yw8igJ+4QMFeTCTKPJDJZgr2TIK2m2w/XsK5A+g7QT3SsXxsLKH7AWpZhA3LzipsA80cqYLcfnggT7QU4QNZf3MVPjP8qbKxkZDEeOt8crwt1CcFElm+kQV8h6GwvCRHIEMQyax5/a8RFvYtJGTvfK2IllMLgRnp4A=
+	t=1788353574; cv=none; b=q43UUDGVQhUKf35o8i0Y9zbYsWxzuOr3lOAaCRuZQtsfdFj/t5b6YJxpUSZDvuCcL9wU1vs+TpG+QZLdVOOvGXlOcRsbcs1AcfTlwYaBMw36lu7ofuK3Z5u3hVaiWTITqDbyWodSr/6zgwsiyVGbRizlvqD5LQsUl5FodBc0HAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788353563; c=relaxed/simple;
-	bh=P3B9n1ngSJPYECqzlUnSk21jaEUvILK91iJ3Q8IaZOI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MdvkibvJVq+3GmmzT2Yt+R7EjY3a9dU3pW05tkzzpQtP73EMGFgrKYqQTCuqhY+w2GlfotjgawwrhpXkg3bfqTogPnSzxyCJNLiodTK33sRuNsAswx6pdqNBghCw9ZsT2bmyErFaQa612uC7ikeOVfCQK6F0QtLB72e9Sj0orfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aeclux+C; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788353574; c=relaxed/simple;
+	bh=iNY2PsrjJ41qPmKkJcbwjcamy3MPcWd9C3cQZ8uQQgA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GAJZj0xGDAHaadYwaJ8zKc8vHRbYuhPeM9T9A7Cd+igtHzm0m+NW8hdA0JNnaud/I+kagA2SYLczIcCGAHDPMIwpX/RARh5XV8EQT+3IGta0JRuZmp/MZz+XHjYgTRo+E14okFpv/qpiS7wsf/Zdc/C8OmU/rXnnEKkPY3QMOL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ZnrE2wjp; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Wms9o4Iy; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=qGTP0gxP; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=p82kxfQc; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aeclux+C"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47f96c5b722so740280f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:52:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788353559; x=1788958359; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=xdaO6fBuGjaq2cQRe9XXSfpY5l3FVnBSWeRbf2wTLJQ=;
-        b=aeclux+CBPIKVw/lnVDOo0P0c4oVnuQGulcIQ19BqW+vresYMXSo0uTiZ1cSUrFLik
-         8C7tKtTDt2fj5GwAaq5eSEwhzAipPzN8Zt14DoUSVcY1k4EfWDMxNV0U5y3prdRlnLA1
-         ruXdHeORbAnl0ZZC5Zarga11OToRJlN9KyhADnJkqxLHwygEo/M4qXKnixY0TMim71a5
-         5czPE1w4bHjx1RwxBXWOlrePTNYj0qhcf3Ifk+IsqM9uRht4PS/X8XyR7MZBSE70XLYc
-         bSA8Tq0M8Ko3nW4tRShNRZJQlEo3QngBPDDuntPDn/QtMst+AfauRq959UCBoMyNqZhD
-         1gwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788353559; x=1788958359;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=xdaO6fBuGjaq2cQRe9XXSfpY5l3FVnBSWeRbf2wTLJQ=;
-        b=VWlJ1l/DWW+a2lrPDF3AkeV0zQcNa8G+kSCYu9VH9qZ1SJI7v1K30zEgidH8uMH9YB
-         rDH0YV7acGSeCXj6dk367gd0iasooKMvvk0Rz35kAsHTpOXC0KoMdsVP2k9k5kRM/wqG
-         jrnkRpMFHPSCh94H6vodwO+KlH/KKX8SrF4M3od6dS70ybtF13rKLLKkk6UT28Mbprd2
-         UyjflWAIrYuElYYWJYwb0qvBNZOxzxMa5lzb2RJdVDQ5Lghqc0kBnDL7XLapwlLc4suX
-         PGNB6lybfOAqTsEAB3/rsrJ8wlWDRJWYI1Y1zP5q4ypKi5ocAr3HaIQ+IRDvnoUfAm5/
-         KzVg==
-X-Forwarded-Encrypted: i=1; AKwUvBzxpq1dY3crzo+kM1SYjpTmr3p9HIWc2cFPUhH9JwgYnTFVd52DreidkT7ITunxzxcSdte/DDRIOvfTxIg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lhq6r/1gmHlm4zqgHjb+Wrcs34vGvgiCT08r0aJmssHWzVjOCW
-	KyMhRv3QRY2EfHEWbCeiAe7oxnEKUztOIEVpG3GLessqT5bqY23z8QtS
-X-Gm-Gg: AYBFou1NFRrRq3r+DF8RH16+WWLmcKvu9JAPB0DViABWushK74Z2wd43nIdVy0uwSAh
-	MPVPptafd5/jzix09Pw5fZj+nQPn4/csfxN0S/q7Y9UMYrsVQ8WnSiqAc9nNXZP6Aycjn79RV/2
-	u1q6+f+v8E6XBnl7yeyAwsmseNOjN/9PoJ3/+xY6F+7gmxoo7SIaR+/n/jwGNHP/343lvk2ha5V
-	1UCmVgq2vNvglpB3wXEarVhWw7CLY6+pATTKFf42LdpftmFzPPAtnPPThd44dsFTvU/YX7vetH7
-	u3kdYIoER1OC1P8b4efrxz7BeKpkbrVw7BGukr0sNPwOiiWOJ49PPjyH4aGHVJQpclcjTcXszl2
-	CMW/vX8sbtOpZ7FrulJR7hsCDh+OjZuffEkBOjFDn0f8Vb0izF4PM2AgHR13/iU/mNaSv6bD3/i
-	m1KjKqJXtl8yggbBOvi+Gzj0g4ZwjXIu6nnfSM/wdFPpT3PcwJnr/u2AafA68GoqmN/0cVRQVvz
-	cC3o8s8/km64NRjn0d2r4hlcwhq
-X-Received: by 2002:a05:6000:2482:b0:484:3d35:5706 with SMTP id ffacd0b85a97d-484914b7e20mr8950452f8f.22.1788353559085;
-        Wed, 02 Sep 2026 05:52:39 -0700 (PDT)
-Received: from [192.168.1.5] ([148.252.128.8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448ed3716sm6543253f8f.22.2026.09.02.05.52.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 05:52:38 -0700 (PDT)
-From: Dale Whinham <daleyo@gmail.com>
-Date: Wed, 02 Sep 2026 13:52:36 +0100
-Subject: [PATCH v2] arm64: dts: qcom: x1-denali: Add volume up/down GPIO
- keys
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZnrE2wjp";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Wms9o4Iy";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qGTP0gxP";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="p82kxfQc"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id B230321CCC;
+	Wed,  2 Sep 2026 12:52:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788353566; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P967ebjBPN7pzqwkyb0E3k3uYf3DEa4qKX5H/x03Qfc=;
+	b=ZnrE2wjpDIlYDUDUWfQ1oFuv/7v/HEY95TYUB4b7IhZn7TaQ19IawybCpwhmRGXXqqDRS1
+	qm83kOlLeMqyETKNLyStpiCtNDPlGwwHT20YnaOn8ta/H/m89InPpNHf5A9VPk4Sr1YVI6
+	Xej2/PtgND6bSVM53ttOSHpAqDF5GIE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788353566;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P967ebjBPN7pzqwkyb0E3k3uYf3DEa4qKX5H/x03Qfc=;
+	b=Wms9o4Iy1ZQQuiU4FQUOnmkP6qbD+M6upjFQ3vwH9DuFZLFEgOdIWZga0bi0Kl9IJNEduo
+	QvOE38G7XQ5vKEBw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788353562; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P967ebjBPN7pzqwkyb0E3k3uYf3DEa4qKX5H/x03Qfc=;
+	b=qGTP0gxPD9C+aeR5UFgqlEiyH2S4KIFOAu334db750ZQeke1+c2KrYdHxTynk7VQU5b/dV
+	JsTC5z/EfV9BcUIifxw929BXI5t00vpJp3wP1tOY+sY0rGhn32y0IfiweCr27bktsOE+MY
+	5UwS/h0NLhaJKS+WG3+XvV48RWee0Sk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788353562;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P967ebjBPN7pzqwkyb0E3k3uYf3DEa4qKX5H/x03Qfc=;
+	b=p82kxfQcA7b4WvyxKPl+lGUt9MhzhP/LyQ2yq8UVoP2QGNncXXoXnJ5xxyUl0wiGvXQHTu
+	ULEqeRMRPzjQOwDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 74F66136E6;
+	Wed,  2 Sep 2026 12:52:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id wcYhHBocmGoYNAAAD6G6ig
+	(envelope-from <hare@suse.de>); Wed, 02 Sep 2026 12:52:42 +0000
+Message-ID: <fbae8643-ae15-4406-8afa-d9701b1f3e39@suse.de>
+Date: Wed, 2 Sep 2026 14:52:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-surface-pro-11-volume-buttons-v2-1-1d893c7b5440@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OTQ6DIBSEr2JY9zWCP9Gueo/GBdCn0qgYHpA2x
- rsX7QW6/DKTb2ZjhM4gsVu2MYfRkLFLAnHJmB7lMiCYZ2ImclHnjWiBguulRlidBc4h2inMCCp
- 4bxeCvlRljqLSqBVLjtVhb96n/9H9mIJ6ofaH9GiMhrx1n/NA5Efv363IgUOKq6YtykLWzX2Yp
- Zmu2s6s2/f9C/fpPPbcAAAA
-X-Change-ID: 20260829-surface-pro-11-volume-buttons-f4b40e25cecb
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Dale Whinham <daleyo@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788353557; l=2560;
- i=daleyo@gmail.com; s=20251214; h=from:subject:message-id;
- bh=P3B9n1ngSJPYECqzlUnSk21jaEUvILK91iJ3Q8IaZOI=;
- b=IaqaduQCaxmFfyKqat/Yx4CdX+AosmjnsVzKJdAcszI6FTzzNjK8qNsgOqqD7lxuRfMpnpwU8
- OusvjmzfxaGA7SSuaA8OSXY8qEipcr8cxUDig8XrvBMz2EJO8GskwIh
-X-Developer-Key: i=daleyo@gmail.com; a=ed25519;
- pk=M4mvgx1TB2TniKaedTDsO3PbLKgFosJuegXRXPbn2Ds=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/7] block: take i_rwsem for the splice read path
+To: Tal Zussman <tz2294@columbia.edu>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>,
+ Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+ Luis Chamberlain <mcgrof@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ John Garry <john.g.garry@oracle.com>, Christian Brauner
+ <brauner@kernel.org>, "Darrick J. Wong" <djwong@kernel.org>,
+ Keith Busch <kbusch@kernel.org>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260828-blkdev-fixes-v2-0-32f3f40cebed@columbia.edu>
+ <20260828-blkdev-fixes-v2-3-32f3f40cebed@columbia.edu>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20260828-blkdev-fixes-v2-3-32f3f40cebed@columbia.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -4.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.997];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:email,columbia.edu:email]
+X-Spam-Flag: NO
 
-Configure gpio6 and gpio8 as volume up and volume down respectively, to
-enable the volume rocker located at the top of the screen.
+On 8/28/26 3:49 PM, Tal Zussman wrote:
+> def_blk_fops wires ->splice_read directly to filemap_splice_read(),
+> which allocates folios based on mapping_min_folio_order() without any
+> lock against set_blocksize(). A splice from a block device can race
+> set_blocksize() raising the minimum folio order and insert a folio that
+> is too small for the mapping. blkdev_read_iter() wraps filemap_read()
+> in inode_lock_shared() for this reason, but the splice path was missed.
+> 
+> Splicing from a block device while toggling the block size between 512
+> bytes and 64K with BLKBSZSET hits this within seconds on a
+> CONFIG_DEBUG_VM kernel:
+> 
+>    page dumped because: VM_BUG_ON_FOLIO(folio_order(folio) < mapping_min_folio_order(mapping))
+>    kernel BUG at mm/filemap.c:858!
+>    Oops: invalid opcode: 0000 [#1] SMP NOPTI
+>    RIP: 0010:__filemap_add_folio+0x51c/0x570
+>    Call Trace:
+>     filemap_add_folio+0x64/0x140
+>     page_cache_ra_order+0x1dd/0x3d0
+>     filemap_get_pages+0x153/0x760
+>     filemap_splice_read+0x13f/0x300
+>     splice_file_to_pipe+0xc0/0xd0
+>     do_splice+0x6a8/0x890
+>     __do_splice+0xb0/0x210
+>     __x64_sys_splice+0x80/0x100
+>     do_syscall_64+0x10e/0x520
+>     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+> Take inode_lock_shared() around filemap_splice_read(), like the read
+> path does.
+> 
+> Fixes: 3c20917120ce ("block/bdev: enable large folio support for large logical block sizes")
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+> ---
+>   block/fops.c | 18 +++++++++++++++++-
+>   1 file changed, 17 insertions(+), 1 deletion(-)
+> 
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Dale Whinham <daleyo@gmail.com>
----
-Changes in v2:
-- Sort the new pin configuration nodes by controller and GPIO number (Konrad)
-- Link to v1: https://patch.msgid.link/20260829-surface-pro-11-volume-buttons-v1-1-ace589343a68@gmail.com
+Cheers,
 
-To: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
- arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi | 36 ++++++++++++++++++++++-
- 1 file changed, 35 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi b/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
-index 7559557610ed..6ed7db0ad53f 100644
---- a/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
-+++ b/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
-@@ -20,9 +20,27 @@ aliases {
- 	gpio-keys {
- 		compatible = "gpio-keys";
- 
--		pinctrl-0 = <&hall_int_n_default>;
-+		pinctrl-0 = <&vol_up_n>, <&vol_down_n>, <&hall_int_n_default>;
- 		pinctrl-names = "default";
- 
-+		key-vol-up {
-+			debounce-interval = <15>;
-+			gpios = <&pm8550_gpios 6 GPIO_ACTIVE_LOW>;
-+			label = "Volume Up";
-+			linux,can-disable;
-+			linux,code = <KEY_VOLUMEUP>;
-+			wakeup-source;
-+		};
-+
-+		key-vol-down {
-+			debounce-interval = <15>;
-+			gpios = <&pm8550_gpios 8 GPIO_ACTIVE_LOW>;
-+			label = "Volume Down";
-+			linux,can-disable;
-+			linux,code = <KEY_VOLUMEDOWN>;
-+			wakeup-source;
-+		};
-+
- 		switch-lid {
- 			gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
- 			linux,input-type = <EV_SW>;
-@@ -984,6 +1002,22 @@ &pcie6a_port0 {
- };
- 
- &pm8550_gpios {
-+	vol_up_n: vol-up-n-state {
-+		bias-pull-up;
-+		input-enable;
-+		pins = "gpio6";
-+		function = "normal";
-+		power-source = <1>; /* 1.8V */
-+	};
-+
-+	vol_down_n: vol-down-n-state {
-+		bias-pull-up;
-+		input-enable;
-+		pins = "gpio8";
-+		function = "normal";
-+		power-source = <1>; /* 1.8V */
-+	};
-+
- 	rtmr0_default: rtmr0-reset-n-active-state {
- 		pins = "gpio10";
- 		function = "normal";
-
----
-base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-change-id: 20260829-surface-pro-11-volume-buttons-f4b40e25cecb
-
-Best regards,
---  
-Dale Whinham <daleyo@gmail.com>
-
+Hannes
+-- 
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
