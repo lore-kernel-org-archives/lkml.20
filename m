@@ -1,76 +1,77 @@
-Received: from mail-qt1-f226.google.com (mail-qt1-f226.google.com [209.85.160.226])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F9A33F1643
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 21:02:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 274E33E49E9
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 21:02:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788382958; cv=none; b=TW4GXwhcQ7ldJomXPOSY8mfxNnK2SXWmpg/rnxbY9BvkKnWuuHZ9mrTzN0ywnZxtYTdQuuUtX2hF+8tRVlZTUeGf0BoAfm41dS1wkRlrXW8khGkR+r8Im8qM/MuwNU2Jex7YagC3L9nHciITb8XTorSCb+EG/mHy2IXY4A8pPTQ=
+	t=1788382969; cv=none; b=MH2UVXgqu9Ls415BYamsm9KDOE4m3hEOMQhD5LeLJu27XQarIzliQ+R0IkbavHuXgLh+o1c+MYYNDTqBeKAyI4z01inNodBL+ElH/Vvw6kJRbLp6wnV16V4VoE1aIu/TLu6pmfufZK8Ca07XIizg9KaQj6CgCqCOD9fMg3suHTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788382958; c=relaxed/simple;
-	bh=3TFWsmk4nygEarMrcHgUjqJqHhwx0C2YZ3wDVLywR6o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iremb36wFf5d2hMunB9oyh5RqrhmEJLEXikgrUbIIwG1LE6aqlDSYI6Myb79Nk0S5gqC3ql6ZeL2P754kdSo/pDwslsBHjbK9Qp/MROArINJKxKqJoe/09YPuu6sJ5LO6afFsTQ+DKS0ZeldCy7HfJ08a4mFrLdJUTbcv7UdyCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=FqpCHKve; arc=none smtp.client-ip=209.85.160.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	s=arc-20240116; t=1788382969; c=relaxed/simple;
+	bh=07ACrW5zkIgUmTwhlib3E6Ezj8EphHq2ybDKAfGthPw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OMYKYaTAfQ4X7C47NGuP9KfqwGgMrMPocfa0RGpnKJ16CMv8WZOftfmOUQ84HBJ5OtVHvggvRXv7x1QB+bSvTbnvQzrKqAZ56b3XOciyUChf2Na/SfxYIAlxpZn9juVJNTSNbMvwVnXoLrKhmpl7eSqEA75pqMG4Y0UNpECAZg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LX7YX9Ux; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="FqpCHKve"
-Received: by mail-qt1-f226.google.com with SMTP id d75a77b69052e-530144b6ef2so2443441cf.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 14:02:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LX7YX9Ux"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d58efc7356so21020775ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 14:02:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1788382953; x=1788987753; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788382962; x=1788987762; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+MelvgAVPAD2i6TwFcxxB4mgOswGwKZ4Gv+Vrn4dDTU=;
-        b=FqpCHKve8DY8s37O/bqYL//ry4uXHCHV1G6EA60Yr2MU+qkDOyTbA9GA+Pfc3gBgBN
-         AgCyxiHM0qYZG5R4eWMuqKHZPolE2vxsIKmjTHzbw1Rp/Y0XF3NSj5oQBDRV2LLRhlxH
-         GHIaxE/W/d51Rc5kLRaIKsEOqu/K/VQGK4Ack62rUvKz25oSH2kuSZm0AYB9w+OVKLEL
-         WnZkm7cXCQ8TaPxAgnRviDXcexelch0Rkr9Go//BqanThBuKshzm5xP8iy6bIHPVRmpI
-         HeCzsdXTNxAlJYSGwDEkssu9MAF2QY/7/VjvNmmRnlEBrc2YN9NaBT6ua+mZ7ZPYFGTU
-         njmQ==
+        bh=6zMLlM2fX1xLcX/WTGlvxUY5Z2fLG31XCRQQllFSHGs=;
+        b=LX7YX9UxGKYOlkuVD7wejO+u1yMkc1RuIjLmvpyYvkEX7WJj0yEupyzlndJj5FZ0lv
+         8WV+AjG4xB++rNFMHkP6NpH0b8xJ8wjZd8Fw/zplxJpgIaskOzxbjviJS564w3zfckzM
+         ceRUmMJCkHOYOx8D9gEEtYsN3iybu+dmmtyggfCVSUowK//4H51XhEGTzfLlBLu7rnLy
+         Nef86vSxl13iUNqaetQJokT0Pw/uKOn11G0xnK6Y9kMoXha2jw0sIS1490pqOvpow3TN
+         52k4SMpd2EBHhU1deV1bGbkmaYkNo/WWMQXk5neZ/eJIf2feWqsvki+H3U1WADA1p2nx
+         Dkaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788382953; x=1788987753;
+        d=1e100.net; s=20251104; t=1788382962; x=1788987762;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+MelvgAVPAD2i6TwFcxxB4mgOswGwKZ4Gv+Vrn4dDTU=;
-        b=EMIT7H+QOJLu3c5X8KnQ2iNcp83dPU0ibgyv3ZkRkGjgoiDgRejFukQCcQUeiYJNo9
-         HCIKVVTHOOp+HA2Brr4DvmV0GZYUbCLOT2w8QSB8bEmV2sq9SoRw2IB6Q4dQizqJrGvj
-         +TLbf2mUddaF6WiQP1973xLJqKev7iraSf3xsE9wynd9pvwEmWIt8TqUZj0uPHsZJ68C
-         ekW+K8Iz7Xp9mIKEPbg01Vo8muudWOHCsdr+vLqYIGdg6F2VllEzIonZNevkuWfw+sWx
-         +Bg9G11GQEqwMy+YTiJW1HiWroA0qt36BKDSU3B9231oIAPu/qxlfVIm6zRa472AXqF2
-         ua1w==
-X-Forwarded-Encrypted: i=1; AKwUvBy4sq9KfnFKABFe7SQJOQy4/4dhGjuYuSijeMGPPK9Wy5AhKo9NUyTH7zoasB/CadSSeyR0dWp3vhjkS3U=@vger.kernel.org
-X-Gm-Message-State: AFuF++kggeMzcX88oJwflw5lr/J5lq4HyIcvsa95kBesWaTsaATUrwkD
-	kX6t64hrM5UR3a49Ch1Rwk+u9KaFaEBvDcrbppzctPjCVwGpPd52qHl/De3rqzt+Ui9GxbsG/8h
-	nATbaPlqN+BbtN777mzNU3P322zL2B3Ff9XSgILUN5S+4EK0AwmP4
-X-Gm-Gg: AYBFou1v8BueccWO91I7tr/I6rjGGhRanTOxWPSGCb1I4zNL4BMBEYKQJp59BKnLdw0
-	jQFKteUw/wNcAguJZRFcN4ouICBtmgSQS6wtpdTuLes+zJMNLhRAFwfKLWKXIeZbL2UObIDrvms
-	pqsyXvfThtw9jV34MayYyf637XlzO206G2jlQU5gRnqGAXJOImr2vc/Wc1m3ZRtztP06EP2b00i
-	j0WhDNfUMZUB1slM5WuS4HBVe2/QVfuTq7Oy/Hy1/AC4BqEp5F7qws1pdxf355YpLE/aVyihY9D
-	fGr6a/ZP2my1iiCX579vjauNHsIITERZsfXZ4g8mggP68r0R7/Bs+XO0rtR9BTIYSl+Z4XGFade
-	ZifDvjibwU+/VRjWX
-X-Received: by 2002:a05:622a:2c9:b0:52e:3991:84c8 with SMTP id d75a77b69052e-53036b97d16mr55677421cf.2.1788382924707;
-        Wed, 02 Sep 2026 14:02:04 -0700 (PDT)
-Received: from c7-smtp-2026.dev.purestorage.com ([2620:125:9017:12:36:3:6:0])
-        by smtp-relay.gmail.com with ESMTPS id d75a77b69052e-530331dcdc0sm359051cf.28.2026.09.02.14.02.04
+        bh=6zMLlM2fX1xLcX/WTGlvxUY5Z2fLG31XCRQQllFSHGs=;
+        b=jcYzHqH83PKqL9Pd4RRHOw0zJQ1R5bb1b8a+gow7PthzwRqgiggj8vl+JFBwE1K7JH
+         OusoYdSjvrnKPstvAVM7Tb/BWryoTcUg3z2oQbnc+nY3bMw+1woRwuIQ3Q4e5UkHG4Xd
+         K+9dy69OJ96sSOTQA1uRa3pxfltJqZeZItNDsGYyg9vzuewx3cOZeJIDYcqxQADfGWnk
+         iy4L7qzytmzITLZsG9/HhN+nPRBqozz6PHTNRJPC11HRVV4lPPaNWEVBKgeuiBckAM6G
+         6jbN8XEyfhKG9/GMG7IydUtJn7vkrg6x99CMEyhql1GXcu6f8aa20XpUoYioabbyvFT8
+         Uw8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw/9q5nXuaYOPMoEB3CdKiZQmIKsfqGi8Jb84KX/Z0E4eMBp2jt8KujJvFlXEP7ReuIjIfq4U1uGv/9FPw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kAhPPOqMSYe6A+nDh2UnrD7OsPpymvEMyHWrbwGjuCZ/wJuAet
+	ylMm9NzsKIIU3J5iHIckWjw4r2qZKoAPL6b5ngiNxR7W9A6F76wlLWID
+X-Gm-Gg: AYBFou3AhsTP7Z5jkfJF65Zp3SlEB5De34sfP4LyRg03nXhGD8MwYAIgXQRHglqChhe
+	dSoeL77K/MC0USyQVapqbXI5ggjm0MRqOPDM6rTAlzDeyo8DKpcDRfrkxpJ9ixkj3qxqaUhBEIR
+	MJNboWiQmcTpCE4f7TDtbyuLAFNyonW/SFE/Xw5pBYMT3FZfRWh0AIJDHiGdgA7MCufIS4dmkyG
+	lPc/Uh8sshgcgV2CcuxSo/QEWGDCuUMjzneX9txYI1iVNgm2Vk6Q+49Tpobr+V5vv8K8IftIamF
+	Z/CpPWDkfMDjYIamyJ8Hnk6SG9ARyrOAuCa9IENPujlSFXtORHAADNSmc+7Liydk9Kq6ykf96e2
+	3nyFPTIhp11Cy1BFPegw8SpEnFUGTx8LWAMhH8m2APOWV3KYUSrkUEKw9NLOS0SLcCJuTNHtt7h
+	FQVPHFeLM+e9inTPdp2sYuH6MdABnDsrYnwiCcDamY0CSBaAasFq315I/o82Z9YDB5VZKfnfWIB
+	DiRgM+KN+kr/2H0ingfCuaiCCPclC2ciaZ3PKYpTxDXGPxhT3rYIzuGv6ANsaNJUWZu5pf6iiRa
+	dV+UHuWhcI/VUNkkIUjf96zgBccoXqK1xtY2sw==
+X-Received: by 2002:a17:90b:2d83:b0:38f:5801:dc0e with SMTP id 98e67ed59e1d1-39aee049464mr12342955a91.15.1788382961730;
+        Wed, 02 Sep 2026 14:02:41 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b083f04d1sm1141515a91.8.2026.09.02.14.02.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 14:02:04 -0700 (PDT)
-X-Relaying-Domain: purestorage.com
-Received: from dev-csander.dev.purestorage.com (bond0.slc5-n17m28-k8s.dev.purestorage.com [IPv6:2620:125:9025:20::a31:41f])
-	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id D182240347;
-	Wed,  2 Sep 2026 15:02:03 -0600 (MDT)
-Received: by dev-csander.dev.purestorage.com (Postfix, from userid 1557716354)
-	id C6726E40404; Wed,  2 Sep 2026 15:02:03 -0600 (MDT)
-From: Caleb Sander Mateos <csander@purestorage.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Caleb Sander Mateos <csander@purestorage.com>,
-	sashiko-bot@kernel.org,
-	io-uring@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] io_uring/rw: keep CQE flags on iopoll requests when adding kbuf flags
-Date: Wed,  2 Sep 2026 15:01:59 -0600
-Message-ID: <20260902210200.2336720-1-csander@purestorage.com>
+        Wed, 02 Sep 2026 14:02:39 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Michal Simek <michal.simek@amd.com>,
+	Esben Haabendal <esben@geanix.com>,
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/ZYNQ ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCHv2 net] net: ll_temac: Return actual error from of_get_mac_address()
+Date: Wed,  2 Sep 2026 14:02:38 -0700
+Message-ID: <20260902210238.283494-1-rosenp@gmail.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -80,38 +81,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-io_do_iopoll() assigns the result of io_put_kbuf() to the request's CQE
-flags upon completion. This overwrites any CQE flags that may have been
-set by the opcode-specific layer. (For example, if __io_uring_cmd_done()
-had set IORING_CQE_F_32, it would be cleared.) Switch the = to an |= so
-the kbuf flags are added to the existing CQE flags rather than replacing
-them. io_req_rw_complete() does the same with the io_put_kbuf() result.
+When of_get_mac_address() fails, return the actual error code (rc)
+instead of the hardcoded -ENODEV. This preserves the original error
+information, which may be more specific (e.g., -EINVAL, -EPROBE_DEFER)
+and helps callers handle the failure appropriately.
 
-Fixes: e26dca67fde1 ("io_uring: add support for IORING_SETUP_CQE_MIXED")
-Reported-by: sashiko-bot@kernel.org
-Link: https://sashiko.dev/#/message/20260827191705.D53C91F000E9%40smtp.kernel.org
-Signed-off-by: Caleb Sander Mateos <csander@purestorage.com>
+Use dev_err_probe() to avoid printing an extra error message in case of
+-EPROBE_DEFER.
+
+Fixes: 8425c41d1ef7 ("net: ll_temac: Extend support to non-device-tree platforms")
+Assisted-by: opencode:big-pickle
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- io_uring/rw.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/ethernet/xilinx/ll_temac_main.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/io_uring/rw.c b/io_uring/rw.c
-index 95106dd1d7eb..f2bbb0b1c30a 100644
---- a/io_uring/rw.c
-+++ b/io_uring/rw.c
-@@ -1371,11 +1371,11 @@ int io_do_iopoll(struct io_ring_ctx *ctx, bool force_nonspin)
- 		if (!smp_load_acquire(&req->iopoll_completed))
- 			continue;
- 		list_del(&req->iopoll_node);
- 		wq_list_add_tail(&req->comp_list, &ctx->submit_state.compl_reqs);
- 		nr_events++;
--		req->cqe.flags = io_put_kbuf(req, max(req->cqe.res, 0), NULL);
-+		req->cqe.flags |= io_put_kbuf(req, max(req->cqe.res, 0), NULL);
- 		if (!io_is_uring_cmd(req))
- 			io_req_rw_cleanup(req, 0);
- 	}
- 	if (nr_events)
- 		__io_submit_flush_completions(ctx);
+diff --git a/drivers/net/ethernet/xilinx/ll_temac_main.c b/drivers/net/ethernet/xilinx/ll_temac_main.c
+index 711ed9c2631b..7a4890e45eb1 100644
+--- a/drivers/net/ethernet/xilinx/ll_temac_main.c
++++ b/drivers/net/ethernet/xilinx/ll_temac_main.c
+@@ -1579,10 +1579,8 @@ static int temac_probe(struct platform_device *pdev)
+ 	if (temac_np) {
+ 		/* Retrieve the MAC address */
+ 		rc = of_get_mac_address(temac_np, addr);
+-		if (rc) {
+-			dev_err(&pdev->dev, "could not find MAC address\n");
+-			return -ENODEV;
+-		}
++		if (rc)
++			return dev_err(&pdev->dev, rc, "could not find MAC address\n");
+ 		temac_init_mac_address(ndev, addr);
+ 	} else if (pdata) {
+ 		temac_init_mac_address(ndev, pdata->mac_addr);
 -- 
 2.55.0
 
