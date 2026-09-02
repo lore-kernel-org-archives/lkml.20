@@ -1,218 +1,121 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC66C4A99A9
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:46:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 692CB374E79
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:47:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788371177; cv=none; b=QBxSbpY/A+Vy3C3uBvguqfwH+lWXcprs/HIQoIP6lrT72FggXoi8yIoYKfBUsQXchU5jVbUxa7/ldcIn1TQqvvKIFU8y4eMzauRKpxifMZvC6SDJ34hhpputa66RPLcP76hGA/KL+qL7g+HClU79qHBrVUDlrwKsZKXssvBbtfc=
+	t=1788371256; cv=none; b=WfmO3EW81PIiDxw+xCHgpH8LbXaXcc+4bUGVpS8LyoXYo5T539/5FUSp2RUws+aHriU6x1uZGiZbhq8ODzyxpYs7DT+pklENdEsAqQfrMicQ8p0DIb6MeN6RmtKsFkyBw3/XSG1f7+LvX0n8VeCJPZuWbtuQ4QSm6lPVMLfV4JA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788371177; c=relaxed/simple;
-	bh=+sTdVZfENDqBtNpC+99ucxRw41qdmkEyCF+9NNjHqxo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Hz148nKNbsi4nfB21jZUeYtIgnAh/LgW4rjg0MXDpFKm6U5RV0N2qG5MYC7mPxjf8qFlf4lzqcBJQMS4ag0YAQZ4WMSP5OCxK/SbJlEo/4wC/nfYa8zGiqcvJa1ljWAFvXstLKL1QCPNTljmj2FokGbRfBlDKT/N5VYnUR8ed+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=gQ5qdhLJ; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788371256; c=relaxed/simple;
+	bh=RSO5hJPt/u6vxLaap4YM1BOcxseAMLB98i5YdofYKNs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hyYI4IvjjCcOkMa5fZznFH/YfDlW53tdh0oEJNuHh+56wsnGF3nECSCS0CZJ5jrjiePKs/NoVwXoEp1KF0OII+pKsDsJKPOfYBfBsiLYQoN2UsL473iqY0ZvF9AtcwVVuEznXCaoaBBRlTu9XGZaTjFs693XeCUsKSUPZPt+K/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EE8GIO/h; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="gQ5qdhLJ"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682HVSnq657455;
-	Wed, 2 Sep 2026 17:46:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=vu7j0y
-	zmTOGaqxfg2o7HwfP5mkZLcVehRDr5ia1Lahc=; b=gQ5qdhLJv7ptphHsAK/ph3
-	2AsURYl8aLEchRnCuNTCaTAfm5OZTOw9DZcJbHTl083bd/zp31NULl+1dfICw6hh
-	l70zmKnyIevBHnhhWBmyztLX0cW5/dHEOfJSJsQ1PtiY4iXi0AbqwPHzGvDLdsz+
-	rMiEkz5FKZQ2Y6egWnskh9w7/sDgN2dbPOmslqNMRRJANarTrEjR/KSRxVLpOc13
-	/Utopa3O6uLAxiHInTJllXp9yrev0oMiwonCQvgmZ81ykdVFOzcEXQYYXkQrmBY/
-	XBCYp5usniEDSBZEzpQr+A7FyptTNNwPbErZ8SGhDIU9vT2zzueXteldDTDDOItw
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq550dek-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 17:46:09 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 682HfH9l010093;
-	Wed, 2 Sep 2026 17:46:08 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gecjakquc-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 17:46:08 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 682Hk4kb42991956
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 2 Sep 2026 17:46:04 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7BC612004E;
-	Wed,  2 Sep 2026 17:46:04 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9AA5A20043;
-	Wed,  2 Sep 2026 17:46:01 +0000 (GMT)
-Received: from aboo.ibm.com (unknown [9.84.236.55])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  2 Sep 2026 17:46:01 +0000 (GMT)
-Message-ID: <a0d95277e5771dc74afdc8058448b4e89c3a2cd7.camel@linux.ibm.com>
-Subject: Re: [PATCH] powerpc/entry: Fix double accounting of user time on
- interrupt entry
-From: Aboorva Devarajan <aboorvad@linux.ibm.com>
-To: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
-        Mukesh Kumar Chaurasiya	
- <mchauras@linux.ibm.com>,
-        Christophe Leroy <chleroy@kernel.org>,
-        Shrikanth
- Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org,
-        Ritesh Harjani
-	 <ritesh.list@gmail.com>
-Date: Wed, 02 Sep 2026 23:15:59 +0530
-In-Reply-To: <ape0GY5__P-_DdxF@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
-References: <20260902050628.2553909-1-aboorvad@linux.ibm.com>
-	 <ape0GY5__P-_DdxF@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EE8GIO/h"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-39266382df6so1256556a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:47:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788371254; x=1788976054; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9ajJdf+X/nuYZVAyiO85HtOmnTDxcjy4YZBTuYBU9do=;
+        b=EE8GIO/hpF7t8arLp5OxtZ+FzhEp+XhRTET/3yVvZP16Ijd2qExS3LV8fAr8sNm8jV
+         GDqaff0BlaJkg0oO6L5XYLL8oQGaEzwB41o6qwOTnYKT8N3YNwsTDyb4wqsIC6FtvoPJ
+         JthULVAUnI/oAvG7HSOF8qWD7cSIE6nK6CxOYpbVF6OLIa0RkFj0OAJesjy3yjhmqghc
+         9p8h5WoLKUzrtMr3SfVwx+osovE2Tf0/Tj0wDfpQopxTOZV+eW9rbJvqwdHOn0iZnEe/
+         S/s0GdMAh7BPzXFXz9cPCouC2fUZavvnmCoow84gM5YV9eOpVO6Oqo4fpNa7stC/UmLP
+         Q+CQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788371254; x=1788976054;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9ajJdf+X/nuYZVAyiO85HtOmnTDxcjy4YZBTuYBU9do=;
+        b=JHoGL8s0OciVACFZ9fokykM4idHvbE9cNamWm7cc8ohMDRt/GtD15rA+eH6a5xWQrZ
+         RRteaNv+0zah4jihhohKxGiz1iQ+10ApCvkR1zDNXnJVCHZQrAT0MTgxT+mmCzoBSJ+w
+         LWlqJ/gXrj44np+c8qPa26kQySX3BkSFaIPo14ZjUKuV6mh+m8tm7Iv9r9ke7YMxzI3H
+         LsqnH2/dzIiFeqaXugGyl2L/GaUhNKI67z1oUKrqnyEMPH/6AY+yZKFxcJXVSbvxtYxM
+         PYV9j1TCaxz5zPyNZzSQBAWBpi6s7Ps5UvtdSrTTGvbB2VeMcEcC9z2zF22ePlPwtz4k
+         hxCg==
+X-Gm-Message-State: AFuF++kvRi8SMqsiB3viQ3NWPfr4IOb/KHFVYlcnSt/JqwcWBK252jKF
+	HH7ZWfksvO7EQQiJAyxg0v2uiM+WH/W5U9AI/GITZnFAL5+gG1GQ+UEl
+X-Gm-Gg: AYBFou3/wjW590HRrTNXP2dDLZe6n8aR4ABu0CSRWLA5+6k04YpHnafSgnIwhXwfZhC
+	TFvrVuTplHm5ptUM1GhnlQWeX4VVu5nD6yyYJy2OiQfETKYurEMOejvp9eoCSG3F4hJt7w0XTve
+	Nw/hhQ25UwwBjxoCEX4vyTKyxFX2I68dmIqFaNHQXoIrW4NlD51U4o7g1g79e12JHPin4+DzWFh
+	4isEf/QrWRMrO+4xfoz1EECFcscuTFJH046b5DmoeNlcVM7QwkOgGanWofM9bGCku4EE8Nj8FPb
+	u3zlrDlulx2/t9J+nFod3l2shaX7dZHY/y9jNZQ2el2+7nVUvE8aOoX1fjbL8cZ+Ix+U+Yqhuuh
+	gdb7M7vN7QKYHlk6e1+b4S767YdbCzptQOeFtzl6mcxu9a3rjZVYOyoTWGLn5owkIbsVHEKaXx5
+	XhH3gbyq99wGfJHWC89P5/9+IWRvM8X+7Zn5aGv+7q1X84GyoyMFTFe8D4u5woQGIYYr+j6/BMT
+	7CYng==
+X-Received: by 2002:a17:90b:4c4e:b0:38e:bbf1:de3f with SMTP id 98e67ed59e1d1-39aee0674ecmr9248404a91.12.1788371254420;
+        Wed, 02 Sep 2026 10:47:34 -0700 (PDT)
+Received: from mizar.onca-liberty.ts.net ([182.10.129.37])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b083f04d1sm470584a91.8.2026.09.02.10.47.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 10:47:33 -0700 (PDT)
+From: Idotoho Reimon Simanjuntak <idotohors@gmail.com>
+To: platform-driver-x86@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Denis Benato <denis.benato@linux.dev>,
+	"Luke D . Jones" <luke@ljones.dev>,
+	Corentin Chary <corentin.chary@gmail.com>,
+	Idotoho Reimon Simanjuntak <idotohors@gmail.com>
+Subject: [PATCH v3 0/3] platform/x86: asus-wmi: fix FA401 series keyboard sleep strobe
+Date: Thu,  3 Sep 2026 00:47:15 +0700
+Message-ID: <20260902174718.16228-1-idotohors@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE1NCBTYWx0ZWRfX0slba/WoLBhi
- 1O/s7anqt+zkcyHlIbQAIBAnRNWaCVhlToxD3H0YvZqhiC832XEzRiRAoAwRV9HNNcR9onHIc9Q
- W/PxTWqi4V0dcZVdZYP4xP8A/K/TyGCTw+ZEOXeMinxpOUmuuepsCWPHk7Hp6CbAhaSmC5ptwto
- 21UeEmH8qbd4AWi1v1clqXvL36bHASZsBL0+AhaGyeUXBNs9LNpvpbMMi9HsG8I4CRv6GSzIHdP
- oMO7ArCQZCeyvxoix9Is04a/jsE6IDhAi+mrKHAQ4kVPMVK4eHyn1fkvtTHO6VjZ5lVyGv5bk32
- cfjRn58OPXQkEPZiDpKS9YPHaS79vPlaLsAgELbP/iu1IZp9KXLQkAuJTcYr+fihQAu3Pc99PG4
- ZyrZTlFLJ5gbDILe8Zx8U522ceEobBjWo9HZuYdSRbA4BOjGd8RFhPqJTtcmvvcy9d2DLjBBYTr
- PmKc1cJTEw4Y+yRll+Q==
-X-Proofpoint-ORIG-GUID: PgKkCeLkdDR6JociuO39dQ1V_Lu8THJL
-X-Authority-Analysis: v=2.4 cv=CNgamxrD c=1 sm=1 tr=0 ts=6a9860e1 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
- a=pGLkceISAAAA:8 a=1y1RV8LzgxBv0SgG8zUA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: BdSw1y9abjrdkpAw_OCicYoARwWrzMHT
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE1NCBTYWx0ZWRfXx8BLKiz+JSHl
- Mt8/WUSiTitrD/gCTiG3TrvhR3IDMT1+DCnpoMh+i7EB/4EXj3aOCNSXqyDNzrf/RMOXlV6GyP1
- VDS2geuapp4uV2I/CnEbCtY6WDuSAFg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_04,2026-09-02_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 clxscore=1015 impostorscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020154
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2026-09-02 at 11:01 +0530, Mukesh Kumar Chaurasiya wrote:
+This series fixes the keyboard sleep strobe effect on ASUS TUF Gaming
+FA401 (A14) series laptops and refactors the TUF RGB state/mode
+interface.
 
-Hi Mukesh,
+The FA401 does not report the TUF RGB state WMI device (0x00100057) via
+standard DSTS probing, yet the EC supports the state flags required for
+the sleep strobe animation. In addition, Modern Standby (S0ix/s2idle)
+entry requires re-asserting the keyboard backlight and power state at
+LPS0 prepare time because display servers and DRM drivers blank the
+backlight to 0 prior to sleep.
 
-> On Wed, Sep 02, 2026 at 10:36:28AM +0530, Aboorva Devarajan wrote:
-> > Since the switch to generic entry, an interrupt taken from user mode
-> > accounts user time twice: once in arch_interrupt_enter_prepare() and
-> > again in arch_enter_from_user_mode(), which irqentry_enter() invokes
-> > for the same interrupt:
-> >=20
-> > =C2=A0 arch_interrupt_enter_prepare()
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 account_cpu_user_entry()
-> > =C2=A0 irqentry_enter()
-> > =C2=A0=C2=A0=C2=A0 arch_enter_from_user_mode()
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 account_cpu_user_entry()
-> >=20
-> > account_cpu_user_entry() accumulates the time spent in user mode
-> > since the last return to user space, so the second call charges the
-> > same interval again.
-> >=20
-> > With CONFIG_VIRT_CPU_ACCOUNTING_NATIVE=3Dy this roughly doubles the
-> > reported user time of any workload that takes interrupts. On a
-> > pseries LPAR, ps/top show ~200% CPU for a single-threaded CPU-bound
-> > loop, and time(1) reports user time about twice the elapsed time.
-> >=20
-> > Remove the accounting from arch_interrupt_enter_prepare() and rely on
-> > arch_enter_from_user_mode(), which runs for both syscalls and
-> > interrupts. The duplicate account_stolen_time() call is removed the
-> > same way.
-> >=20
-> > Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
-> > Signed-off-by: Aboorva Devarajan <aboorvad@linux.ibm.com>
-> > ---
-> > Verified on a pseries LPAR (CONFIG_VIRT_CPU_ACCOUNTING_NATIVE=3Dy),
-> > 7.3.0-rc1, single-threaded CPU-bound loop:
-> >=20
-> > Before:
-> >=20
-> > =C2=A0 $ python3 -c 'while True: pass' &
-> > =C2=A0 $ sleep 3; ps -p $! -o pid,etime,time,pcpu
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PID=C2=A0=C2=A0=C2=A0=C2=A0 ELAPSED=C2=
-=A0=C2=A0=C2=A0=C2=A0 TIME %CPU
-> > =C2=A0=C2=A0=C2=A0=C2=A0 4980=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 00:03=
- 00:00:06=C2=A0 210
-> >=20
-> > After:
-> >=20
-> > =C2=A0 $ python3 -c 'while True: pass' &
-> > =C2=A0 $ sleep 3; ps -p $! -o pid,etime,time,pcpu
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PID=C2=A0=C2=A0=C2=A0=C2=A0 ELAPSED=C2=
-=A0=C2=A0=C2=A0=C2=A0 TIME %CPU
-> > =C2=A0=C2=A0=C2=A0=C2=A0 4951=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 00:03=
- 00:00:03=C2=A0 105
-> >=20
-> > =C2=A0arch/powerpc/include/asm/entry-common.h | 6 ++++--
-> > =C2=A01 file changed, 4 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/arch/powerpc/include/asm/entry-common.h b/arch/powerpc/inc=
-lude/asm/entry-common.h
-> > index c5adb5006361..984294e62568 100644
-> > --- a/arch/powerpc/include/asm/entry-common.h
-> > +++ b/arch/powerpc/include/asm/entry-common.h
-> > @@ -222,8 +222,6 @@ static inline void arch_interrupt_enter_prepare(str=
-uct pt_regs *regs)
-> > =C2=A0
-> > =C2=A0	if (user_mode(regs)) {
-> > =C2=A0		kuap_lock();
-> > -		account_cpu_user_entry();
-> > -		account_stolen_time();
-> Yeah, that's dual accounting the time.
->=20
-> Thanks for the fix.
-> > =C2=A0	} else {
-> > =C2=A0		kuap_save_and_lock(regs);
-> > =C2=A0		/*
-> > @@ -426,6 +424,10 @@ static __always_inline void arch_enter_from_user_m=
-ode(struct pt_regs *regs)
-> > =C2=A0#endif
-> > =C2=A0	kuap_assert_locked();
-> > =C2=A0	booke_restore_dbcr0();
-> > +	/*
-> > +	 * User and stolen time is accounted here for every entry from
-> > +	 * user mode. The interrupt prepare hooks must not account again.
-> > +	 */
-> I think this comment is very specific to the current problem. We already
-> have a commit history to explain this, I guess we can remove this
-> comment.
+Changes in v3:
+- Split the series into 3 patches: preparatory bitmask cleanup, FA401
+  DMI quirk, and S0ix sleep re-assertion (per Ilpo Järvinen).
+- Use FIELD_PREP() and named GENMASK() definitions consistently
+  (per Ilpo Järvinen).
+- Address Denis Benato's feedback regarding userspace policy:
+  * Check the TUF_RGB_STATE_SLEEP flag so the kernel honors any user
+    decision to disable sleep LEDs.
+  * Dynamically track the user's active brightness level
+    (kbd_led_last_level) so the sleep strobe preserves dim/bright
+    preferences rather than forcing max brightness.
+- Hook into ACPI LPS0 s2idle dev ops (.prepare): ensures brightness and
+  state are re-asserted after the display server and DRM drivers blank
+  the screen, immediately prior to S0ix entry.
+Link: https://lore.kernel.org/platform-driver-x86/20260902032353.16106-1-idotohors@gmail.com/ # v2
 
-Agreed, I will drop it in v2.
+Idotoho Reimon Simanjuntak (3):
+  platform/x86: asus-wmi: use named masks for TUF RGB commands
+  platform/x86: asus-wmi: enable TUF RGB state for FA401 via DMI quirk
+  platform/x86: asus-wmi: re-assert FA401 keyboard state before S0ix
 
->=20
-> With that,
->=20
-> Reviewed-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+ drivers/platform/x86/asus-nb-wmi.c |  13 ++++
+ drivers/platform/x86/asus-wmi.c    | 120 +++++++++++++++++++++++++----
+ drivers/platform/x86/asus-wmi.h    |   1 +
+ 3 files changed, 118 insertions(+), 16 deletions(-)
 
-Thanks.
+-- 
+2.55.0
 
->=20
-> Thanks,
-> Mukesh
-> > =C2=A0	account_cpu_user_entry();
-> > =C2=A0	account_stolen_time();
-> > =C2=A0
-> >=20
-> > base-commit: fb442a6673ff1046bf67754957d95880fdb394b5
-> > --=20
-> > 2.54.0
-> >=20
