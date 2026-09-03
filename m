@@ -1,74 +1,85 @@
-Received: from mail3-167.sinamail.sina.com.cn (mail3-167.sinamail.sina.com.cn [202.108.3.167])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94585349CFF
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:20:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 531AC3DEFF1;
+	Thu,  3 Sep 2026 06:21:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788416431; cv=none; b=q5mzjPp5w9apKpVg9k+XI9gG+lwsvEAAX+QH8hEeQg4zIWwTHF8VG/RrHgI+DnPJ2bif0EdwZ+MESpXfSeE6x6nFD4OwdBLtqolQzF1eUwAAv6lv0ym5Hq5g9pI9cl7DZDdBrydYXH9yWSSpRxeGqg6sBZw5iAcPh4azgTgZrgM=
+	t=1788416462; cv=none; b=qZIYCMVekYcq2E9zLkjQiWabqor84mj2MW8RrIS5J/165Ggn15FkQL3jI77TrkLJVTMCngjyuyBVUPHSekswkKStkWu+QShLjKGPEpSXMCo18rdE5BtDzsC/1FJ8+CSFVBB9n4dww0L+zq4ZjiI3cC/IRHPdU8l4CDugiHqQ+lg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788416431; c=relaxed/simple;
-	bh=LqSxqYiLmJzBjhWRcMK/6K6Tt2nLJpYQHOsAVTQAKbk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oMzYef/2rcR++XbVSsOCCNTq0Y8x12mjB9a0VqogRrBV1DEo9LNAgfecHgRFGxYyPhx733LKWvE7G/mdflE+fjYqonQtYNL6IZEU2P2W/W9csC1Wp4QnPmgISlxXorlcvaz8vNaUhT9/zxuzkq6InX7x0usQ/qc54iWgpFKqzAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=maKuZCZa; arc=none smtp.client-ip=202.108.3.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	s=arc-20240116; t=1788416462; c=relaxed/simple;
+	bh=8tbL9/bcgRdu4FrkoAyrRr281K1luwFxGh2zebP2dRo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lr+LrBfEnJg3VIkN3BoeHShO9ulIRh4U9QDUBqwqYoiO4QDzMMr7GyS3P1vruGiLms+FVvp+HqYkusVuSeR8XDmBa/1rwPU57sPE725NRfqyhv4AlDvnggv3Ipxq2S8Ik+cmojZ5BViAGf0tTfvoDXzyGSPui8/+J+C4Li7g0rs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PcsyK+iw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="maKuZCZa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1788416426;
-	bh=15IEfIkJpEjNUZ/friIdMOu0wzTjvH9fZNptG2yvhdk=;
-	h=From:Subject:Date:Message-ID;
-	b=maKuZCZa8+VWS/NMvanYSERwgc1f5AnxVzILRBunYTmfyoxTHcFTbazJqqzDZzx7c
-	 /pry/KMbUXytS7QV9LmBMA2hv/GErVDX2LlcJDyeOTUUpaTL6ro2PAiQtT3mZ5/1sQ
-	 AMjwP0vENFg0NMJisSsg9RW8/LM3VxPjJMzpK9LE=
-X-SMAIL-HELO: lxu-ped-host..
-Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
-	by sina.com (10.54.253.33) with ESMTP
-	id 6A990F6500001906; Thu, 3 Sep 2026 14:10:47 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 6466586685127
-X-SMAIL-UIID: F91EA7994B97459FA1732ADE8B3D34D6-20260903-141047-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: syzbot+df1db6e034b3953e19f5@syzkaller.appspotmail.com
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [autofs?] memory leak in autofs_new_ino
-Date: Thu,  3 Sep 2026 14:10:45 +0800
-Message-ID: <20260903061045.525053-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6a984fda.27a413cd.1e878c.000a.GAE@google.com>
-References: <6a984fda.27a413cd.1e878c.000a.GAE@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PcsyK+iw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7CC61F000E9;
+	Thu,  3 Sep 2026 06:21:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788416460;
+	bh=ezvwsuD+u14PjNnoqia2u/ikHfD23PiSeMOTx59SyOQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PcsyK+iwGOgKA+wkEdVujasyooSN/g8G/3SWmvA0aK4DTO4e5rebZ45LBNCBnw9WQ
+	 zgdF3JXR9mDEJlDBnsRCsoy58th9rFL2q24kSyIJwApAqV6Py9etnC+qjumCE4KL5j
+	 Y8Uj2XmA05pzcW8WRMx7Yjg279fUtFhmfRvB+yE0Q8lwcoo9yD+/iBkv24Se/dwTaW
+	 9O1G44jOT6mBV7tLjQo1+GgfJdx0zZz+zqsrFO8BDnikpR1J8jyGGbKnRsnDi4lqZe
+	 7XU3w9T2KJvuNuzykEf6UHanO8UkGXDzAEDRLgYrnZLNW93HV17ugmY3PcDRPPSEJE
+	 SQ05bco5JpnRA==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1x20ok-00000005jqX-0ZFU;
+	Thu, 03 Sep 2026 08:20:58 +0200
+Date: Thu, 3 Sep 2026 08:20:58 +0200
+From: Johan Hovold <johan@kernel.org>
+To: patchwork-bot+netdevbpf@kernel.org, Jakub Kicinski <kuba@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>, 3chas3@gmail.com, duncan.sands@free.fr,
+	gregkh@linuxfoundation.org, akpm@linux-foundation.org,
+	david@kernel.org, willy@infradead.org, vbabka@kernel.org,
+	accessrunner-general@lists.sourceforge.net,
+	linux-atm-general@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-usb@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH 0/4] USB: replace page allocator calls with kmalloc()
+Message-ID: <apkRyoCr2dNI0bNS@hovoldconsulting.com>
+References: <20260830-usb-v1-0-aa349c302246@kernel.org>
+ <178840081114.3041656.13596134068099743678.git-patchwork-notify@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178840081114.3041656.13596134068099743678.git-patchwork-notify@kernel.org>
 
-From: Edward Aadm Davis <eadavis@sina.com>
+On Thu, Sep 03, 2026 at 02:00:11AM +0000, patchwork-bot+netdevbpf@kernel.org wrote:
+> Hello:
+> 
+> This series was applied to netdev/net-next.git (main)
+> by Jakub Kicinski <kuba@kernel.org>:
+> 
+> On Sun, 30 Aug 2026 11:10:36 +0300 you wrote:
+> > This is a (small) part of larger work of replacing page allocator calls
+> > with kmalloc.
+> > 
+> > My initial intention a few month ago was to remove ugly casts [1], but then
+> > willy pointed out that Linus objected to something like this [2] and it
+> > looks like more than a decade old technical debt.
+> > 
+> > [...]
+> 
+> Here is the summary with links:
+>   - [1/4] USB: usbfs: replace __get_free_page() with kmalloc()
+>     (no matching commit)
+>   - [2/4] USB: cxacru: replace __get_free_page() with kmalloc()
+>     https://git.kernel.org/netdev/net-next/c/a3b4826138d4
+>   - [3/4] USB: speedtch: replace __get_free_page() with kmalloc()
+>     https://git.kernel.org/netdev/net-next/c/534b18813974
+>   - [4/4] USB: serial: wwan: replace __get_free_page() with kmalloc()
+>     (no matching commit)
 
-#syz test: upstream 8d3ae59288f1
+Why were these USB patches applies to net-next?
 
-diff --git a/fs/autofs/inode.c b/fs/autofs/inode.c
-index c1e210cec436..6b15a3717ba7 100644
---- a/fs/autofs/inode.c
-+++ b/fs/autofs/inode.c
-@@ -323,8 +323,10 @@ static int autofs_fill_super(struct super_block *s, struct fs_context *fc)
- 		return -ENOMEM;
- 
- 	root_inode = autofs_get_inode(s, S_IFDIR | 0755);
--	if (!root_inode)
-+	if (!root_inode) {
-+		autofs_free_ino(ino);
- 		return -ENOMEM;
-+	}
- 
- 	root_inode->i_uid = ctx->uid;
- 	root_inode->i_gid = ctx->gid;
+Johan
