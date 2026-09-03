@@ -1,118 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42029305680;
-	Thu,  3 Sep 2026 09:03:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53FD2305680
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:03:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788426223; cv=none; b=R4lNeri0J554POAa02I5psLE1Ea93Rheg1hmVqbtHWulCWTWQhwRf+AKTJ9m83VbkFX+96xcu/gUG7hadBttJzZWpXTCDChu8/Sy735eUXKbfejAXJ1D1qlcGWpZYgUjE1gvQJx+pg/GE5fZSYiTsEZNaL2yXpSpZJul+d1e9iE=
+	t=1788426237; cv=none; b=mXOXKX1yl6ES65J8cVd1/VclNjTRPYeamwRKIlJSHYxqwVZlVicqd1IGoB8Heit3dk0X14AIti2SKmP1f94/B8p0t8l+k68wAmFGSiJMGY8IzYtJ/KkEsKDJAkK2+ts1e+VTlp2w4MU0QpyLf/hF6dAYc/oVQ/25LOpSrD8eGCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788426223; c=relaxed/simple;
-	bh=J9pzeTRSX8tyvwBWC9Qzfg0J5T1NZf6RxNPmwnTgShg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uJi/H9YBws1xccaGrySZD2gukYcRZRzpla7/41HBSCSDZvjU/qXX7i5X0xQdWOyGouvA6YUNW/gnDkFG0MRlgVbLv3JWnaI2P4Vlqofc0o7Gbm3juSSI+EVjshMjynY17omV8FzwktbqZoZ9LNqbFnRzvDShG2KGzNFxrARit9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z1mqeQaC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788426237; c=relaxed/simple;
+	bh=21Vhw8Sf8iEiUuERUCd5l+TZdmvIet77ciwl2zv72TU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=btownyeal5jbV+28cwcabY5PMo9oq7xrvqo83bt9jqbWS6ErCDe0jf4RZMbz+XhUrtd0dNqIfjqjnsy97OJ5c+dYHV/8FN4tPoJUlqr+GObun+VmaCtAVCiJmhfsBVvkNZAYSa/ZmKpXqbe/+LAiQh5XF1YcdrwYZjPQAsQA5i4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ifGobQJ1; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z1mqeQaC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B27B11F000E9;
-	Thu,  3 Sep 2026 09:03:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788426221;
-	bh=Bo3M2wAKIFGdoV6Gsf2EUkbox2lHlAyGcrrY6tZbE4U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z1mqeQaCmxL3aYsFTUE8CtbcZCe4AHQbn4i43ECzq2z9MyBKqR34YxguWHCUukB7u
-	 KTfxwZAmsnroNjhFMedZcoraepMQakoaH3nEnJuf93W6RRegpx4WXd/3Ql/RYVO6YG
-	 D5UiwwKurfmhNIdQLgexx8fNXRgGeRqALukoR/uw3vZNBhxDGQB0dxCk0pEP6V2ZdF
-	 BqjFfC15M2pwrp9L/k1jTPPTW9gKaDG/kKkhEDvPLIodlPSE6cJZvh/9n3rdETwuLe
-	 DQc8sXqCB37+jfdcsX5vyWHJMyU+6omTML/zVlb9Tghfu1a9VkeLaq6WNeL/j5pz0I
-	 i9ZgAs55KnbbQ==
-Date: Thu, 3 Sep 2026 10:03:38 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Christian Loehle <christian.loehle@arm.com>
-Cc: Jassi Brar <jassisinghbrar@gmail.com>, linux-acpi@vger.kernel.org,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mailbox: pcc: Synchronize channel IRQ before unmapping
- shared memory
-Message-ID: <20260903-impetuous-exceptional-python-db8aba@sudeepholla>
-References: <20260828161033.3783599-1-christian.loehle@arm.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ifGobQJ1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Hq
+	+PQvivij3P3MEGYcAKZIRnspRAwgEpPvp+39rTTpk=; b=ifGobQJ1hRZQje/TKP
+	ytN+JRqVpEhbeEzHPc+hpApX079U8hH2meRedfu5VloKIKhzH5CFt7KXVZCzlaRb
+	7rvcY0y2hTyZtjNG23NTxbHb1KOi6lBUxdkItFBTdwOInisUJEDNQYC25tGnQcqW
+	DXdwSaDAIQtFD7gw0LPdC8WqM=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgDXfwfBN5lqWkugOQ--.30928S2;
+	Thu, 03 Sep 2026 17:02:59 +0800 (CST)
+From: oushixiong1025@163.com
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Danilo Krummrich <dakr@kernel.org>,
+	Philipp Stanner <phasta@kernel.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Shixiong Ou <oushixiong@kylinos.cn>
+Subject: [PATCH RESEND] drm/sched: Create faux device for KUnit tests
+Date: Thu,  3 Sep 2026 17:02:56 +0800
+Message-Id: <20260903090256.552317-1-oushixiong1025@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828161033.3783599-1-christian.loehle@arm.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PSgvCgDXfwfBN5lqWkugOQ--.30928S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWr1kGw1kKryktF43JF48Xrb_yoW5urW5pa
+	9rZFWYgrWrtFyDKrW7ua1rZFyfGw4xC347Kr1DK34Y9F1vqFy5tr4DGrW3Jry7ArW7ZFWS
+	vwnIgw47GF4jyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jn2-5UUUUU=
+X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC4gP+DmqZN8P1HgAA39
 
-On Fri, Aug 28, 2026 at 05:10:33PM +0100, Christian Loehle wrote:
-> pcc_mbox_free_channel() unmaps the PCC shared-memory region before
-> mbox_free_channel() invokes the controller shutdown callback. For
-> interrupt-capable extended subspaces, an in-flight handler may
-> consequently access the mapping after it has been invalidated.
-> 
-> Release the mailbox channel first so its IRQ is disabled and synchronized
-> before unmapping the shared-memory region. Serialize PCC channel
-> acquisition and release across this sequence: once mbox_free_channel()
-> makes the channel available, another client must not replace the
-> shared-memory mapping until the old one has been unmapped.
-> 
+From: Shixiong Ou <oushixiong@kylinos.cn>
 
-Breno Leitao has already posted the fix for the unmapping before freeing
-the channel. You just need the mutex guards.
+The DRM scheduler KUnit tests currently pass NULL for the dev field in
+drm_sched_init_args, which causes a NULL pointer dereference in the
+drm_sched_job trace event when it calls dev_name() on sched->dev.
 
-> Fixes: 7f9e19f207be ("mailbox: pcc: Check before sending MCTP PCC response ACK")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
-> ---
->  drivers/mailbox/pcc.c | 26 +++++++++++++++++++++-----
->  1 file changed, 21 insertions(+), 5 deletions(-)
-> 
+Use faux_device_create() to create a fake device for the mock scheduler,
+so the scheduler always has a valid device pointer. This avoids the
+trace event crash without requiring the production code to accept a NULL
+device pointer, which conceptually makes no sense for a scheduler.
 
-I believe after Breno's patch, it can be as simple as below:
+An atomic counter is used to generate unique device names, since
+multiple mock schedulers can exist simultaneously across different
+test suites.
 
-Regards,
-Sudeep
+Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+---
+ drivers/gpu/drm/scheduler/tests/mock_scheduler.c | 14 ++++++++++++++
+ drivers/gpu/drm/scheduler/tests/sched_tests.h    |  2 ++
+ 2 files changed, 16 insertions(+)
 
--->8
-
-diff --git i/drivers/mailbox/pcc.c w/drivers/mailbox/pcc.c
-index 9888dab64639..e5e8caa54cf2 100644
---- i/drivers/mailbox/pcc.c
-+++ w/drivers/mailbox/pcc.c
-@@ -53,6 +53,7 @@
- #include <linux/interrupt.h>
- #include <linux/list.h>
- #include <linux/log2.h>
-+#include <linux/mutex.h>
- #include <linux/platform_device.h>
- #include <linux/mailbox_controller.h>
- #include <linux/mailbox_client.h>
-@@ -113,6 +114,7 @@ struct pcc_chan_info {
- #define to_pcc_chan_info(c) container_of(c, struct pcc_chan_info, chan)
- static struct pcc_chan_info *chan_info;
- static int pcc_chan_count;
-+static DEFINE_MUTEX(pcc_chan_mutex);
-
+diff --git a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+index 14403a762335..cd87e405bb1e 100644
+--- a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
++++ b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+@@ -1,6 +1,8 @@
+ // SPDX-License-Identifier: GPL-2.0
+ /* Copyright (c) 2025 Valve Corporation */
+ 
++#include <linux/device/faux.h>
++
+ #include "sched_tests.h"
+ 
  /*
-  * PCC can be used with perf critical drivers such as CPPC
-@@ -392,6 +394,8 @@ pcc_mbox_request_channel(struct mbox_client *cl, int subspace_id)
- 	if (subspace_id < 0 || subspace_id >= pcc_chan_count)
- 		return ERR_PTR(-ENOENT);
-
-+	guard(mutex)(&pcc_chan_mutex);
+@@ -10,6 +12,8 @@
+  * Test cases are implemented in a separate file.
+  */
+ 
++static atomic_t drm_mock_sched_instance = ATOMIC_INIT(0);
 +
- 	pchan = chan_info + subspace_id;
- 	chan = pchan->chan.mchan;
- 	if (IS_ERR(chan) || chan->cl) {
-@@ -434,6 +438,8 @@ void pcc_mbox_free_channel(struct pcc_mbox_chan *pchan)
- 	struct pcc_chan_info *pchan_info;
- 	struct pcc_mbox_chan *pcc_mbox_chan;
-
-+	guard(mutex)(&pcc_chan_mutex);
+ /**
+  * drm_mock_sched_entity_new - Create a new mock scheduler entity
+  *
+@@ -296,11 +300,20 @@ struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, long timeout)
+ 		.name		= "drm-mock-scheduler",
+ 	};
+ 	struct drm_mock_scheduler *sched;
++	char name[64];
+ 	int ret;
+ 
+ 	sched = kunit_kzalloc(test, sizeof(*sched), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, sched);
+ 
++	snprintf(name, sizeof(name), "drm-mock-scheduler-%d",
++		 atomic_inc_return(&drm_mock_sched_instance));
 +
- 	if (!chan || !chan->cl)
- 		return;
- 	pchan_info = chan->con_priv;
++	sched->faux_dev = faux_device_create(name, NULL, NULL);
++	KUNIT_ASSERT_NOT_NULL(test, sched->faux_dev);
++
++	args.dev = &sched->faux_dev->dev;
++
+ 	ret = drm_sched_init(&sched->base, &args);
+ 	KUNIT_ASSERT_EQ(test, ret, 0);
+ 
+@@ -323,6 +336,7 @@ struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, long timeout)
+ void drm_mock_sched_fini(struct drm_mock_scheduler *sched)
+ {
+ 	drm_sched_fini(&sched->base);
++	faux_device_destroy(sched->faux_dev);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/scheduler/tests/sched_tests.h b/drivers/gpu/drm/scheduler/tests/sched_tests.h
+index 553d45abd057..bbf4da585866 100644
+--- a/drivers/gpu/drm/scheduler/tests/sched_tests.h
++++ b/drivers/gpu/drm/scheduler/tests/sched_tests.h
+@@ -7,6 +7,7 @@
+ #include <kunit/test.h>
+ #include <linux/atomic.h>
+ #include <linux/completion.h>
++#include <linux/device/faux.h>
+ #include <linux/dma-fence.h>
+ #include <linux/hrtimer.h>
+ #include <linux/ktime.h>
+@@ -44,6 +45,7 @@ struct drm_mock_scheduler {
+ 	struct drm_gpu_scheduler base;
+ 
+ 	struct kunit		*test;
++	struct faux_device	*faux_dev;
+ 
+ 	spinlock_t		lock;
+ 	struct list_head	job_list;
+-- 
+2.25.1
+
+
+No virus found
+		Checked by Hillstone Network AntiVirus
 
