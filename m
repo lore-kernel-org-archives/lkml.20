@@ -1,299 +1,143 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013019.outbound.protection.outlook.com [40.93.201.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C16D495057;
-	Thu,  3 Sep 2026 12:02:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788436923; cv=none; b=HIX7NW7xdxir08HeBGAF84G5D00QHdkO9orCpCb682GqZ4aplVFuleMt9ShgVYP1AqvQIVP+cKnOtXE6TZRYoC2GVwnG/aOS10JF3ZrI7CkzZXS3WfQtmDq04uoMqIys2dCiQix4EBpbFe+jdu+jKST7scqGOIGpdMNNv80odhs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788436923; c=relaxed/simple;
-	bh=JGL5jR92UgiJ5qOcl2z3V3h0bD0J9Sqx4CUdlvHMfyk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=phzCEe0oQLUaJ6sRSpIz76/3vb+8t82/gyrZoGtWH1q//5fuHSpdaec6mjk0cwN0jqsvKjaHOqTVDtHcfmB1BOHjJKNmVPBlzlWhFuRuSryyjrCnRoObX89izDneZSV6vru7jUGTuZiNw3ZasBA2TqpY5JadEpBk9VU4B70tDus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=j17K4uX0; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12EFB4A015C;
+	Thu,  3 Sep 2026 12:02:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788436924; cv=fail; b=jH9HsfFi8r0QUVM33PsjYaqhgBjGFdkbUGJkj/xfflp4iPDTFdl7jZyE0Ymjqvr/VEduXWF93Ki6p4DVajDbVzAl9SxFTVQHPacGlxW4Pw2bWVZiETzr4q+lhxmVroseEhcyaQ2U3Hk/QcwkuwRkfrUIQ8Tftl399IzV/LmZg7A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788436924; c=relaxed/simple;
+	bh=zznkR9TE3fGARYeIXWBFs3nt8Dh0BGJnTzgNCH+EL4Q=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Wc19CmUwcAtO3etk+JMMAVToU7jA7kRQfHCu1ApFJTbCPiAytzOwpB+AEOo71wUK39Ahkdr92VeER5rHEmQhmE7xKxT02RIgTB2T1LJopCuOAAYnz6jy+YWUH2dX3QLkSAzPBDnMt49wdgtyaE0wBDyrvqN+R+xrMaUjXzEJZVM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=eUyBn5cm; arc=fail smtp.client-ip=40.93.201.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="j17K4uX0"
-Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683ALF6V1311564;
-	Thu, 3 Sep 2026 08:01:58 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=kl1oO
-	LAynovMTuHwdcsFdulz5errubDS5VG2FFlY2b4=; b=j17K4uX0sRFo3GONw5M53
-	/RgQ5Mk1xHVOWzTNJOjYcZA2Km9BQRRj02d0E/wa5DYUpOZaTS/rkh4Gnhl3h8Ue
-	iqLymsHpE+ALfRDw1uxxwg+e323JoOIUTTfbzxL3A5rHzvqACRjteUvGfCgsJdmH
-	acbNoAVHUkCfz6/2hKK7cIFesugl688ohrOhxiJa5RFH9re3oIFtKZl/eEvQc73J
-	Qis3kinlh/AmnlvuF7dPqbn0cdXq5EIhFmqTqqemAvKD495hRp9mSyNMfxNqxAMM
-	MlHBU5y29jqTo/zP/UGY3ktLYuUPZnNkgTmgn3JQTwybOaB4qRaoksEI2Uq8bL9f
-	w==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4ge0yqt1tn-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 03 Sep 2026 08:01:57 -0400 (EDT)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 683C1ueY003612
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 3 Sep 2026 08:01:56 -0400
-Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
- ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="eUyBn5cm"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wYCz2DgMMl/h/azKAi+g9rFIERlhz+lmL/jbn+23QG7PDaiJMSbRR9rUVyc/hsshz7D6z+vNOWfkHxXbA/I0jcZ+JP3gfnqL0xGXDI8FMMT/Afa0Szg8C5ts1a3E88nHYzE8sPVKgluqP2KKaRfHNnQVAoSjxOsLetAm3rJbLuNzVZpapQoBVCQeIGf+ZDiLc84SBGelT/piyRKhBkFBM9N+NvaDKP2IctNW4b6L2AN6ZpSDQT9AXUHSX6i4E+C+hd2LbN+0S8c06ciibP2H/Njeu1RVEeg++4qoKCdZjdUJz9EfeYSeJq7IIKFlcUF5p7gqfGQWQ4NWXV+aX8m8Cg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w83EfK34fHezYG09hdZ5aYUNzlJ+zuNgSubKcwVWaeI=;
+ b=abmMxx5r2Ura3QQXX9a1mtU3rwRqyh59/vdC5U2cpDaIRCynQh8NOr6rj2DoA3BxxY5UJcisoQafJKECVqSk4+Y0ouwKHzvhBHMRTRFBhNUDENHPJA030kS5+rL1+Sj10yfC6UoOlAhbK3d+KqZ5BB4qynKRzF38XkUguf2jjPhbE96LGM/8acdo6fadLlXcvcufb4OIXdHzojizOVHnOuhC3IGnOxswRb8en6Rk+Iyn2btufLMK7G8H2nlhgmFrdv3pBzIvNY8bKZWTqxNckb7/zcqzeOf1t0NOrkYV6s8H03iUCM2xAZ1BLTmeqevb8L1BCe8RAFWljsXZNuOObQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w83EfK34fHezYG09hdZ5aYUNzlJ+zuNgSubKcwVWaeI=;
+ b=eUyBn5cmxuWb6PBgHauyxnqgoITxTJWBDJhkIFM4F4lalMpt7q3Nru0ELTNF7sN1E4gR1VKBXdfcgTvK80WNa14MYwbePbLX965t8c7xdnFnMn/BIDqi+J4/alSAFDxbRqR5z8FIB9eyNQxL6zzfxiqrvunFpG3TpzZTUxbPDB4=
+Received: from BN9PR03CA0199.namprd03.prod.outlook.com (2603:10b6:408:f9::24)
+ by DS0PR12MB999104.namprd12.prod.outlook.com (2603:10b6:8:2fe::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Thu, 3 Sep
+ 2026 12:01:57 +0000
+Received: from BN3PEPF00022BC6.namprd05.prod.outlook.com
+ (2603:10b6:408:f9:cafe::37) by BN9PR03CA0199.outlook.office365.com
+ (2603:10b6:408:f9::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Thu, 3
+ Sep 2026 12:01:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF00022BC6.mail.protection.outlook.com (10.167.248.219) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Thu, 3 Sep 2026 12:01:56 +0000
+Received: from sriov-SYS-7048GR-TR.xilinx.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Thu, 3 Sep 2026 08:01:56 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
- ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Thu, 3 Sep 2026 08:01:56 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Thu, 3 Sep 2026 08:01:56 -0400
-Received: from HYB-e1y2fvUQ3cx.ad.analog.com ([10.32.225.204])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 683C1eKq016937;
-	Thu, 3 Sep 2026 08:01:52 -0400
-From: Janani Sunil <janani.sunil@analog.com>
-Date: Thu, 3 Sep 2026 14:01:28 +0200
-Subject: [PATCH v6 3/3] gpio: ad7768: Add AD7768 GPIO auxiliary driver
+ 15.2.2562.46; Thu, 3 Sep 2026 07:01:55 -0500
+From: Nikola Prica <nikprica@amd.com>
+To: <bhelgaas@google.com>
+CC: <linux-pci@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<jerry.jiang@amd.com>, <haijun.chang@amd.com>, <andy.zhang@amd.com>,
+	<christian.koenig@amd.com>, Nikola Prica <nikola.prica@amd.com>
+Subject: [PATCH] PCI: Accept AtomicOps already enabled by the hypervisor
+Date: Thu, 3 Sep 2026 14:12:18 +0200
+Message-ID: <20260903121218.4955-1-nikprica@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260903-ad7768-gpio-v6-3-4254ef6c9b38@analog.com>
-References: <20260903-ad7768-gpio-v6-0-4254ef6c9b38@analog.com>
-In-Reply-To: <20260903-ad7768-gpio-v6-0-4254ef6c9b38@analog.com>
-To: Michael Walle <mwalle@kernel.org>, Linus Walleij <linusw@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>
-CC: <linux-gpio@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
-        Jonathan Cameron
-	<jic23@kernel.org>,
-        Andy Shevchenko <andriy.shevchenko@intel.com>,
-        "Janani
- Sunil" <jananisunil.dev@gmail.com>,
-        Janani Sunil <janani.sunil@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788436900; l=5658;
- i=janani.sunil@analog.com; s=20260903; h=from:subject:message-id;
- bh=JGL5jR92UgiJ5qOcl2z3V3h0bD0J9Sqx4CUdlvHMfyk=;
- b=LQSeSnYXCZ9MUW8FfHNB94m0Y5At3JdIlvLjnwLISdXtWxXmyiFU4lXVyEDCpbqstTISwGj+X
- ZZjzYlSZyf5A15gfIEYT/YrS1Y5+F3DGXwtPdyKflSq3p6PchF2hrcm
-X-Developer-Key: i=janani.sunil@analog.com; a=ed25519;
- pk=0UJo4rLJeMHBMco/+wcMHzXI7nV8k1T72+XQlBNV4Rw=
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-GUID: 8xjRcn-RbPRbIZdH969F15jb9joA3WJ5
-X-Authority-Analysis: v=2.4 cv=S93pBosP c=1 sm=1 tr=0 ts=6a9961b5 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=OmVn7CZJonkx5R5zMQLL:22 a=QyXUC8HyAAAA:8
- a=VwQbUJbxAAAA:8 a=gAnH3GRIAAAA:8 a=8fq82CzG31171KfXEYkA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEwNCBTYWx0ZWRfXwDn61fC77rJv
- p3JfGzMj4ru1YgRHlpuiYNWgAyROmN+UFyT92K5noyyCAyJRcdvZZbn0k5KEUFsylK/EosUytJ8
- wbjBK9k1AYcKW9XH1/AZflTixzvH+mke/axwNNcTjAEyrIsUehNGqOivK8KDrSucVB1br9/7GBc
- VWwMxEjcAcrJHWUAP+JYDA1nRJwNP+MgwxsXhVUekxByxpGY8LxaeOKMBJhznnIHmZj5tHfsCwe
- osVhwwmhxEKJjtEJSU8If8uIYNQfOr3eoqPKp9HXqVEcs644xAPoRt/SV4E11BNlaSlCyAbugL+
- S8sTQ9ajxZ8UJsBd5wVrtkhA8ckGE2aWlcWrm38rFDM6VlaguWqkS5Ue9PfDpHb6laokqNdZUX8
- 0/wmXx1ILWar8To11qbS9gShCbrrkLkaP6xM6ESV9T8ETLdrhcWJ/uzbw4+Qw7WwczX9MWkYkDp
- 9nwvwRHtxCUD/8QtWhw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEwNCBTYWx0ZWRfXx1Bu0/Eds1OG
- +LwkCnGiRUYrBJBwQh+4e+x7a8//JCzEFLbNPbgFY+KKLtQjxv3LEJqkiRsRPeP86rF5RSFe2Rt
- 1e21alphm5ZLal/mE4E+kdwETjk80zSGiiRl+vIXa+VFGycpHtM/
-X-Proofpoint-ORIG-GUID: 8xjRcn-RbPRbIZdH969F15jb9joA3WJ5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_03,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 bulkscore=0 clxscore=1015
- lowpriorityscore=0 spamscore=0 suspectscore=0 adultscore=0 phishscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609030104
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC6:EE_|DS0PR12MB999104:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0ae14a2e-c6f7-4786-4a3f-08df09b326f5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|23010399003|376014|36860700016|18002099003|5023799004|56012099006|10067099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	pAvqquTlqsYpjJEBYc82wv28xCk9uIbu0mk4+Z4NrfdMkp8ROgkU6jqJ5UatypfEySPwtdYk34wd63/mw+YeYlNe0xrm2ga3pe7RQtc//syESRMrvKIY/WXdVVImr338FI/GBa2pm1CCYruQu1fY+bBLbYdfULpYnHpoPBY4WUnNZktzPyaFFsGGYvJPYxGxeb0nBaDM5Q5aLw2Us+s2y/vJNP2+4N2+oYJDwMDqPTBNFhCkvl6TYOQvA//0KFyLOYfRWGN4/VfDZ2GVBnIHyOX+GLmwEHEjUu4iK+fQnqvtUdzCCNz804EASOtPccRM5WzXzhOSmFmd2LJHotxyMR9lAzMOE9TUVghsjtn14CAyRxl67qENQYL/jM005gBWd4K7eNDxR3Cx/2W1sKdGdoaJXy6EwX2vE3e56swHE1yCfBXM/HBk8Ak0XBSM53yxvCFsrFzGQLIlgEFUZdf27XGCzFbCiVyInt9vk51sGVla/5OcVSZeEehvnvPlBfAVccT4ZkremGKex+2eAc7NjC2T4wjaaAOO/vBerDovq3dscWh7t+iFt/6/SNNz4KAJcniWsBwx6Mm7opzZiuQCJH8HbOHVhU5tH8FqdgDljzXfY7gSSBQaaxnCeEsXV07m8use9paBldwf/asuMvIz7QcZUS5BR1rnKxlG9LDnWZAm9rB2KywyB67Qh5Iry00Ap7lgw7+Qjn/y/emW/nL2Vg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(23010399003)(376014)(36860700016)(18002099003)(5023799004)(56012099006)(10067099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	w743vpbKjVEAtZLmKkqK3Kj7noYK7bUBT6sfnJoIRZtqcc6Aokx3Zm5Zdu/HpEfuNyK//KeXQz9LIr065n2w5YQ0p32PzpQrlCDDZH1DMXkhhlCgPLhUVO6QXjR6XULv4uV+o6Ar+T0mPnNWvFU3yFZVl/DUcsst7yM8bdF7xXrWgn8HMiFQ3CcfgI0XMJuKrpLb3oCa88IvoK2F6sPsFBFStHP1dZhnmuUn2rNc5uD8p0wLmCx67Q5s0Y+lioqCOyVhqLnVHKgtvz4AgdHva+4jB/v4cRfdzWIK84Jz/ZjGhJBgcvcMCDNU/gq76iD8LC+nGCirF507OHqxY2OpikVGQWikdB43bfCp+oB9En4usljXHSTAanjprvihNYNcsj99cxq8WiFCoBu80nOcrdvBDbAk6Djp7E6AbECp8g/7WW4qzuy4eWzYlxdLJioH
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 12:01:56.6921
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ae14a2e-c6f7-4786-4a3f-08df09b326f5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BC6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999104
 
-The AD7768 provides five GPIOs controlled through registers shared
-with the parent IIO device. Register an auxiliary gpio-regmap driver
-and use the parent device for runtime PM.
+From: Nikola Prica <nikola.prica@amd.com>
 
-The device has separate input-state and output-latch registers. Add a
-reg_mask_xlate() callback that checks the line direction and reads the
-programmed output latch for output lines while retaining input-state
-reads for input lines.
+pci_enable_atomic_ops_to_root() currently fails when no Root Port is
+visible. That is common in passthrough guests (ESXi, Hyper-V): the
+endpoint is assigned to the VM, but the guest topology has no Root
+Port above it.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+In those setups the hypervisor may already have enabled AtomicOp
+Requester Enable on the device. If PCI_EXP_DEVCTL2_ATOMIC_REQ is set,
+treat AtomicOps as already enabled and return success instead of
+failing the Root Port walk.
+
+Signed-off-by: Nikola Prica <nikola.prica@amd.com>
 ---
- drivers/gpio/Kconfig       |  12 +++++
- drivers/gpio/Makefile      |   1 +
- drivers/gpio/gpio-ad7768.c | 122 +++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 135 insertions(+)
+ drivers/pci/pci.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-index a48586bb8edb..07b7f8ab0ccb 100644
---- a/drivers/gpio/Kconfig
-+++ b/drivers/gpio/Kconfig
-@@ -1818,6 +1818,18 @@ endmenu
- menu "Auxiliary Bus GPIO drivers"
- 	depends on AUXILIARY_BUS
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index b2879a6be5f8..7c62c7f31757 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -3768,6 +3768,14 @@ int pci_enable_atomic_ops_to_root(struct pci_dev *dev, u32 cap_mask)
+ 		return -EINVAL;
+ 	}
  
-+config GPIO_AD7768
-+	tristate "Analog Devices AD7768 GPIO support"
-+	depends on AD7768
-+	depends on GPIOLIB
-+	select GPIO_REGMAP
-+	help
-+	  Say yes here to expose the AD7768 utility pins as GPIOs when the
-+	  device tree node is marked as a GPIO controller.
-+
-+	  To compile this driver as a module, choose M here: the module will be
-+	  called gpio-ad7768.
-+
- config GPIO_LTC4283
- 	tristate "Analog Devices LTC4283 GPIO support"
- 	depends on SENSORS_LTC4283
-diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
-index dc9e6d643b5b..ce56e9b3f55d 100644
---- a/drivers/gpio/Makefile
-+++ b/drivers/gpio/Makefile
-@@ -27,6 +27,7 @@ obj-$(CONFIG_GPIO_104_IDI_48)		+= gpio-104-idi-48.o
- obj-$(CONFIG_GPIO_104_IDIO_16)		+= gpio-104-idio-16.o
- obj-$(CONFIG_GPIO_74X164)		+= gpio-74x164.o
- obj-$(CONFIG_GPIO_74XX_MMIO)		+= gpio-74xx-mmio.o
-+obj-$(CONFIG_GPIO_AD7768)		+= gpio-ad7768.o
- obj-$(CONFIG_GPIO_ADNP)			+= gpio-adnp.o
- obj-$(CONFIG_GPIO_ADP5520)		+= gpio-adp5520.o
- obj-$(CONFIG_GPIO_ADP5585)		+= gpio-adp5585.o
-diff --git a/drivers/gpio/gpio-ad7768.c b/drivers/gpio/gpio-ad7768.c
-new file mode 100644
-index 000000000000..cac3a55e738d
---- /dev/null
-+++ b/drivers/gpio/gpio-ad7768.c
-@@ -0,0 +1,122 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Analog Devices AD7768 GPIO auxiliary driver
-+ *
-+ * Copyright 2026 Analog Devices Inc.
-+ */
-+
-+#include <linux/auxiliary_bus.h>
-+#include <linux/bitmap.h>
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/gpio/driver.h>
-+#include <linux/gpio/regmap.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/property.h>
-+#include <linux/regmap.h>
-+
-+#define AD7768_REG_GPIO_CONTROL		0x0E
-+#define   AD7768_GPIO_UGPIO_ENABLE	BIT(7)
-+
-+#define AD7768_REG_GPIO_WRITE		0x0F
-+#define AD7768_REG_GPIO_READ		0x10
-+
-+#define AD7768_NUM_GPIOS		5
-+#define AD7768_FILTER_GPIO		4
-+
-+static int ad7768_gpio_init_valid_mask(struct gpio_chip *gc,
-+				       unsigned long *valid_mask,
-+				       unsigned int ngpios)
-+{
-+	if (ngpios > AD7768_FILTER_GPIO &&
-+	    device_property_match_string(gc->parent->parent, "clock-names",
-+					 "mclk") < 0)
-+		bitmap_clear(valid_mask, AD7768_FILTER_GPIO, 1);
-+
-+	return 0;
-+}
-+
-+static int ad7768_gpio_reg_mask_xlate(struct gpio_regmap *gpio,
-+				      enum gpio_regmap_operation op,
-+				      unsigned int base, unsigned int offset,
-+				      unsigned int *reg, unsigned int *mask)
-+{
-+	struct regmap *regmap = gpio_regmap_get_drvdata(gpio);
-+	int ret;
-+
-+	*reg = base;
-+	*mask = BIT(offset);
-+
-+	if (op != GPIO_REGMAP_GET_OP)
++	/*
++	 * Some hypervisors already set AtomicOp Requester Enable.  If it
++	 * is already set, there is nothing more to do.
++	 */
++	pcie_capability_read_dword(dev, PCI_EXP_DEVCTL2, &ctl2);
++	if (ctl2 & PCI_EXP_DEVCTL2_ATOMIC_REQ)
 +		return 0;
 +
-+	/*
-+	 * AD7768 has separate input-state and output-latch registers. For an
-+	 * output line, report the programmed value from the output latch;
-+	 * input lines continue to use the input-state register.
-+	 */
-+	ret = regmap_test_bits(regmap, AD7768_REG_GPIO_CONTROL, *mask);
-+	if (ret < 0)
-+		return ret;
-+	if (ret)
-+		*reg = AD7768_REG_GPIO_WRITE;
-+
-+	return 0;
-+}
-+
-+static int ad7768_gpio_probe(struct auxiliary_device *adev,
-+			     const struct auxiliary_device_id *id)
-+{
-+	struct gpio_regmap_config config;
-+	struct device *dev = &adev->dev;
-+	struct device *parent;
-+	struct regmap *map;
-+	int ret;
-+
-+	parent = dev->parent;
-+	map = dev_get_regmap(parent, NULL);
-+	if (!map)
-+		return -ENODEV;
-+
-+	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(parent, pm);
-+	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_set_bits(map, AD7768_REG_GPIO_CONTROL, AD7768_GPIO_UGPIO_ENABLE);
-+	if (ret)
-+		return ret;
-+
-+	config = (struct gpio_regmap_config) {
-+		.parent = dev,
-+		.regmap = map,
-+		.label = dev_name(parent),
-+		.ngpio = AD7768_NUM_GPIOS,
-+		.reg_dat_base = AD7768_REG_GPIO_READ,
-+		.reg_set_base = AD7768_REG_GPIO_WRITE,
-+		.reg_dir_out_base = AD7768_REG_GPIO_CONTROL,
-+		.pm_dev = parent,
-+		.reg_mask_xlate = ad7768_gpio_reg_mask_xlate,
-+		.init_valid_mask = ad7768_gpio_init_valid_mask,
-+		.drvdata = map,
-+	};
-+
-+	return PTR_ERR_OR_ZERO(devm_gpio_regmap_register(dev, &config));
-+}
-+
-+static const struct auxiliary_device_id ad7768_gpio_ids[] = {
-+	{ .name = "ad7768.gpio" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(auxiliary, ad7768_gpio_ids);
-+
-+static struct auxiliary_driver ad7768_gpio_driver = {
-+	.probe = ad7768_gpio_probe,
-+	.id_table = ad7768_gpio_ids,
-+};
-+module_auxiliary_driver(ad7768_gpio_driver);
-+
-+MODULE_AUTHOR("Janani Sunil <janani.sunil@analog.com>");
-+MODULE_DESCRIPTION("Analog Devices AD7768 GPIO auxiliary driver");
-+MODULE_LICENSE("GPL");
+ 	root = pcie_find_root_port(dev);
+ 	if (!root)
+ 		return -EINVAL;
 
+base-commit: 89a312991dc6e638a36adc43ccb91dbc25504c04
 -- 
-2.43.0
+2.34.1
 
