@@ -1,79 +1,210 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707BC4A3D35;
-	Thu,  3 Sep 2026 17:21:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E52634F6495;
+	Thu,  3 Sep 2026 17:21:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788456094; cv=none; b=JW1368fXONYYuyTsykOoxamCIACyrq6BJufAtj0H/x5M0cO2xm9qXQax9Y6UYDbsWA4r7bd+Oacn9pHvjEM7S7+TCUXl0wHH+9n74Rv7uN65BEh9IcapmizLgcnPFWsb4L6opnjfgqwrBCE/jaiJUmvgYbMKYIzuzfnkxRCVO+E=
+	t=1788456093; cv=none; b=hddXZHEzQAd0zNCO3obCqMs851rclaDy84ETBYUtTAqvSwHYR6tkMRiKw0gJbNtUngZ4D5MYbuLXyCvMI19QynB6JclyftNEc6zVwkAzVOc6AW+hZsGha39sT+1RlNdmKVF47qMq2V6qsBajJSNz56C4/52KbggsQ9S4QGVE1r8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788456094; c=relaxed/simple;
-	bh=8fLMl2i76QBah764wmDwdNZ3MjXBEOTxUjwIrnRm3ZQ=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=OhlOcxpmLK7Kgz8p2KFs3LygWa+O0bsaLuSj0j0jwwrWUi2aQZm9zcA+uTTqs9Ax9CMygFXQfoClvHmqPcLpDC4lkJyd8Ufln0r1qvuK+13lmtbxv2k9vlwqdAJCk4vZy18Zv1FvWTiCsBAwFPbQvOC9R0gE92RpKZhTXjUwiaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=MIp12bdW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788456093; c=relaxed/simple;
+	bh=F6kUvWhv2fOaTEzKqeV70A1DwKuIIXd90xpkbwhm3Bw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PX7niUhLhG0z4RE9jveHnLOcRlEKUy4UPN4k98MefnEt4aH9MQoptM582wYYevffU4QHQmZCYUwfs3D3pz0KcrCXDVWpBUoGildNreZyACwYC/0/euRfv6Y/onlu8paAHaUPHciRRAJ2PSkNsKV+hfmGpVqD3Ui38dJ/dZV/bE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nZDC/fxN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="MIp12bdW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7007C1F00A3D;
-	Thu,  3 Sep 2026 17:21:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788456092;
-	bh=uofprPFCPxfEf69MnbeHxACRkACv1OeYBLcQOB9jELU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=MIp12bdWHSMU1GrCwa+hfnX1qpV2W3u66ysoCVszd5rb+R79OlF5hj7b+DQN2bazx
-	 eh1MiE9BwStxsnUVkLn6Qwj+C+HT9h+oDHRs+YbMfBdIH7L9CU8kBn95iYGllk36Ac
-	 cfEtMHoLdsrMHgqb734Gi8d2inYB+SVJC68ZZm1A=
-Date: Thu, 3 Sep 2026 10:21:30 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Dave Hansen <dave.hansen@intel.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>, Vernon Yang <vernon2gm@gmail.com>,
- rick.p.edgecombe@intel.com, tglx@kernel.org, mingo@redhat.com,
- bp@alien8.de, dave.hansen@linux.intel.com, david@kernel.org, hpa@zytor.com,
- rmclure@linux.ibm.com, andrew+kernel@donnellan.id.au,
- pasha.tatashin@soleen.com, tj@kernel.org, rppt@kernel.org,
- yu-cheng.yu@intel.com, orsonpeters@gmail.com, linux-kernel@vger.kernel.org,
- x86@kernel.org, linux-mm@kvack.org, Vernon Yang <yanglincheng@kylinos.cn>,
- stable@vger.kernel.org
-Subject: Re: [PATCH] x86/mm: Fix pmd_modify() dropping the dirty bit
-Message-Id: <20260903102130.b5cda1b08f3efd4ab66226e9@linux-foundation.org>
-In-Reply-To: <314f11c1-ce5e-4b36-b296-0ab742550851@intel.com>
-References: <20260903031608.1194238-1-vernon2gm@gmail.com>
-	<aplfcTfjeQUgnrvH@thinkstation>
-	<314f11c1-ce5e-4b36-b296-0ab742550851@intel.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nZDC/fxN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF8111F000E9;
+	Thu,  3 Sep 2026 17:21:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788456091;
+	bh=CQ/Ioi8cg1Z9spDgaEucJfTVU5rzPGYaoYnxsdutm8E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nZDC/fxNM989gXl0VuKe/fr+wc1C2pAx7LT3r+dD2o3EF2TbegtWJD1TXgZLcyBvT
+	 /sRQV7aSLxV1GEBJouj0/jWY/6+G7gPIje2CGB0fsFzCPCIZsSVgnkbYDSylCCobUf
+	 eBAR+3EZsFwUrCp0lJBDEYZQ/0aJiGWwRbYDESieo3pkCkAbC7S3dRqqDDj5ceSHwe
+	 T8vmlgQZfAZRYP6gMkPFNxfbuI1+CVW9uClA5dFdGbfDRMp/F1Sxd8E+hDud12efCy
+	 dzxO7ykPzTx0CClT3093JqyyuokhWnw4VxHTXK6i/uT30pRqpJgBWsbk7Np7dlIl7a
+	 bpTXWnXXgmMew==
+Date: Thu, 3 Sep 2026 18:21:27 +0100
+From: Conor Dooley <conor@kernel.org>
+To: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
+Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, robh@kernel.org, sre@kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: power: supply: add adi,lt8491.yaml
+Message-ID: <20260903-tapered-subsoil-a3ade82e1253@spud>
+References: <20250110080235.54808-1-johnerasmusmari.geronimo@analog.com>
+ <cover.1788432152.git.johnerasmusmari.geronimo@analog.com>
+ <4cf7fe04accbd558c4f0aa3da2f648b8144993be.1788432152.git.johnerasmusmari.geronimo@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="jL9kMH2DoInsHVgP"
+Content-Disposition: inline
+In-Reply-To: <4cf7fe04accbd558c4f0aa3da2f648b8144993be.1788432152.git.johnerasmusmari.geronimo@analog.com>
 
-On Thu, 3 Sep 2026 07:18:54 -0700 Dave Hansen <dave.hansen@intel.com> wrote:
+--jL9kMH2DoInsHVgP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> On 9/3/26 04:54, Kiryl Shutsemau wrote:
-> >> Closes: https://lore.kernel.org/r/CAJxLxMUGu1-L+O_nAONOwOXnS=cNbNApCWqdthRjd76LThtSPg@mail.gmail.com/
-> >> Fixes: bb3aadf7d446 ("x86/mm: Start actually marking _PAGE_SAVED_DIRTY")
-> > Hm. I don't understand why would this commit explicitly exclude
-> > _PAGE_DIRTY from the mask:
-> > 
-> > -       val &= _HPAGE_CHG_MASK;
-> > +       val &= (_HPAGE_CHG_MASK & ~_PAGE_DIRTY);
-> > 
-> > Rick, could you comment? It doesn't look like a typo.
-> 
-> My guess is that it's some remnant from an earlier version of the patch.
-> The asymmetry with pte_modify() vs. pmd_modify() just can't be explained
-> any other way. It _might_ have been some attempt to say, "Hey
-> _PAGE_DIRTY is now a part of the pgprot_t since it's part of the
-> 'permissions' of a shadow stack PTE" that got abandoned.
-> 
-> But I don't see anything wrong with the fix at all.
-> 
-> It does give me pause that this has been losing user data for so long,
-> but it must just be a weird combination of features that few folks use
-> together (huge pages + MADV_FREE).
-> 
+On Thu, Sep 03, 2026 at 06:46:36PM +0800, John Erasmus Mari Geronimo wrote:
+> Add documentation for devicetree bindings for LT8491
+>=20
+> Signed-off-by: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analo=
+g.com>
+> ---
+>  .../bindings/power/supply/adi,lt8491.yaml     | 92 +++++++++++++++++++
+>  MAINTAINERS                                   |  6 ++
+>  2 files changed, 98 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/power/supply/adi,lt=
+8491.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/power/supply/adi,lt8491.ya=
+ml b/Documentation/devicetree/bindings/power/supply/adi,lt8491.yaml
+> new file mode 100644
+> index 0000000000000..bb364b48fee58
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/power/supply/adi,lt8491.yaml
+> @@ -0,0 +1,92 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/power/supply/adi,lt8491.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Linear Technology (Analog Devices) LT8491 Battery Charger
+> +
+> +maintainers:
+> +  - John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
+> +
+> +description: |
+> +  The LT8491 is a buck-boost switching regulator battery charger that im=
+plements
+> +  a constant-current constant-voltage (CCCV) charging profile used for m=
+ost
+> +  battery types, including sealed lead-acid (SLA), flooded, gel and lith=
+ium-ion.
+> +
+> +  Specifications about the charger can be found at:
+> +    https://www.analog.com/en/products/lt8491.html
+> +
+> +allOf:
+> +  - $ref: power-supply.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - adi,lt8491
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  adi,rsense1-micro-ohms:
+> +    description: Resistance value of RSENSE1 in micro ohms.
+> +
+> +  adi,rimon-out-ohms:
+> +    description: Resistance value of RIMON_OUT in ohms.
+> +
+> +  adi,rsense2-micro-ohms:
+> +    description: Resistance value of RSENSE2 in micro ohms.
+> +
+> +  adi,rdaco-ohms:
+> +    description: Resistance value of RDACO1 + RDACO2 in ohms.
+> +
+> +  adi,rfbout1-ohms:
+> +    description: Resistance value of RFBOUT1 in ohms.
+> +
+> +  adi,rfbout2-ohms:
+> +    description: Resistance value of RFBOUT2 in ohms.
+> +
+> +  adi,rdaci-ohms:
+> +    description: Resistance value of RDACI1 + RDACI2 in ohms.
+> +
+> +  adi,rfbin2-ohms:
+> +    description: Resistance value of RFBIN2 in ohms.
+> +
+> +  adi,rfbin1-ohms:
+> +    description: Resistance value of RFBIN1 in ohms.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - adi,rsense1-micro-ohms
+> +  - adi,rimon-out-ohms
+> +  - adi,rsense2-micro-ohms
+> +  - adi,rdaco-ohms
+> +  - adi,rfbout1-ohms
+> +  - adi,rfbout2-ohms
+> +  - adi,rdaci-ohms
+> +  - adi,rfbin2-ohms
+> +  - adi,rfbin1-ohms
+> +
+> +additionalProperties: false
 
-And with heavy reclaim pressure.
+Valid point here from Sashiko.
+pw-bot: changes-requested
+
+Thanks,
+Conor.
+
+> +
+> +examples:
+> +  - |
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        battery-charger@10 {
+> +            compatible =3D "adi,lt8491";
+> +            reg =3D <0x10>;
+> +            adi,rsense1-micro-ohms =3D <5000>;
+> +            adi,rimon-out-ohms =3D <124000>;
+> +            adi,rsense2-micro-ohms =3D <3000>;
+> +            adi,rdaco-ohms =3D <64900>;
+> +            adi,rfbout1-ohms =3D <113000>;
+> +            adi,rfbout2-ohms =3D <10000>;
+> +            adi,rdaci-ohms =3D <7000>;
+> +            adi,rfbin2-ohms =3D <3480>;
+> +            adi,rfbin1-ohms =3D <102000>;
+> +        };
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 2fb1c75afd163..d79187312f789 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -15170,6 +15170,12 @@ F:	Documentation/devicetree/bindings/hwmon/pmbus=
+/adi,lt3074.yaml
+>  F:	Documentation/hwmon/lt3074.rst
+>  F:	drivers/hwmon/pmbus/lt3074.c
+> =20
+> +LT8491 BATTERY CHARGER DRIVER
+> +M:	John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
+> +L:	linux-pm@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/power/supply/adi,lt8491.yaml
+> +
+>  LTC1660 DAC DRIVER
+>  M:	Marcus Folkesson <marcus.folkesson@gmail.com>
+>  L:	linux-iio@vger.kernel.org
+> --=20
+> 2.34.1
+>=20
+
+--jL9kMH2DoInsHVgP
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapmslwAKCRB4tDGHoIJi
+0p/wAP4y5ail7sdOr5N6o2ugaHKRzKPdUSzremMHTa2PyJV+kwD+Phc227sqVBwr
+LCjYWc0OIsWOLsNIpNHfZeVBnrLEnQg=
+=gZI8
+-----END PGP SIGNATURE-----
+
+--jL9kMH2DoInsHVgP--
