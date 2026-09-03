@@ -1,112 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A033B37F010;
-	Thu,  3 Sep 2026 16:22:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A809D4EBAD2
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:22:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788452540; cv=none; b=LW+VK9kXo4u2htOCiNhkgzPT6lqFVQb68tN67hyxiQuJaqDINOGfU6i+Ng/zdvv49Wr0os3bWoEFNYzvLRFKRDle1SS5SPdzXeou9dxF4AemiwF76L4aKgbZCmbD3ehimbh34rIYI5oCVdkWAQC56zhX0K4EEZ2k+o2ECduFY/Y=
+	t=1788452564; cv=none; b=ji/7lwBtKA20y32B/znF+4sd09U/eaKYU94LSNR8azV053N59s7yoFDC+frH3TsPxdy+26+zOpA7N9Nu15XvQqK4DnJ7qIWRf7+nN63K2NRiFpo/DPOiYLcvjP8a0tzfuYeL1e7TABprsb67/RbBJ543POEjE32LEeLgpPo94js=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788452540; c=relaxed/simple;
-	bh=NtV6DTNQjSL3fe+qMVZM6yKpmsHFFyq5lnmYI8IUHvw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PkcaP+aR5szQeL6qs7zpSA6vfyGwY2Ejlb8qCJ8s+a1hYjDPIlRuftinKIG7TIBHbM1RqfHHfbZVuSiWCdScyuB1rICOx5z6mki4seSqpZRiwc93b91spp4pxQ5m2k2yIY21NrYRGdb56g0mU+rcp29VaAL9bHtlWV1QMQlMivM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S3hVbUvD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788452564; c=relaxed/simple;
+	bh=3XggkU1o03ysU4nezevLZDbtm2BbkFAs7cgJg9nFcPI=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=X6vTXFE3TM+jynSSsj5pFjs2z2p7lw57FGkU8I3zzW0TlbuC648yDXcDEnu8jt9VTj1ek1tA9QrY1F7XgQKQWDgjYKZqPMljoX/JTXy65FAUJKWbp7iEFRNAlVTp2htOSuMPLiVu4F57KnURvcTG+f0GVXsQxEPHAgh+4zbbtrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=AcfzbWys; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S3hVbUvD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCDC71F00A3E;
-	Thu,  3 Sep 2026 16:22:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788452539;
-	bh=TxsRDejx17otjIUm9rvKLeqYltuZb6xmTCpPiecrBqo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=S3hVbUvDMyRz5SAWSh0vllOmy45+yJGznnZkMvw/drryIM41/ZoNqK94Ps5yUF6o9
-	 9yON1WKXIZmpxjfa/jC3nji1IkQWcwr3OKtF2IJAPbUck/s4Q1dZy+SIxBMYVFq1Ym
-	 xB1fZNw7HfR9a/jCsocVso3Ht6CmwjjbKHffNUcAsifa1CtYCZKXXsgvqMEB1ysxWP
-	 Q2GfBceXLCvCuPbG64dhgrrAle9U/DIyzcBT+h0D3HFRURPC79lArljAAj5qpiKAaA
-	 bXMuK9MD4hkTHQ00Ux443J83Gy5vMqQoC3quBmbJg3lqFKMTXdOjYv68NI5b8ZzcGI
-	 2FiYHeaihcqfA==
-Message-ID: <c384eb0d-1dce-4639-8546-6f435d56a9e2@kernel.org>
-Date: Thu, 3 Sep 2026 18:22:14 +0200
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="AcfzbWys"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so670905e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 09:22:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788452561; x=1789057361; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NbQ9UdREJ/WWisdiQ1Got7ahhLovVEcdSUeHC5P/jK8=;
+        b=AcfzbWyseWTKtzilxUnHmGGh2WdrbK25F6/b9aR6WF39v/5s7j+fkBrG91wSoiQ2vs
+         NUcAosTNkOQKpbMt6+jd8ZUDZKAeco8eyu6wYmVktox1CPtnSMCu8HEF6TZwQL0CWiKn
+         i9z8W5WUXDzoO9e7VU5nEkKljlN4IUK5OFwzXgMEFp74sSzGzqjOdmyVD+/HtfINzz+O
+         gTCfS/QxZgNdnN2+rOXGVxCt1EwZ8p94Pc34VFnIyzvmyL2Jj+AItllwrKVUX/VH58Vd
+         HqwISUxnaGTgSf4rRPZoARL/9DdaQRm/TwCRQnIthrtIqRqwuEL+bWd19agFf/xU/Q3h
+         +7GA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788452561; x=1789057361;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NbQ9UdREJ/WWisdiQ1Got7ahhLovVEcdSUeHC5P/jK8=;
+        b=Y0Xq0cFvzHwPq0m0CS4fNVl7IGtUXN+KCg2jR1efHs8v2Phm4IwUXsH/tFBt5zpkzB
+         9NqqSSSqM89y1oqJz7YaT2zuV9IlrkDOqR4IhWNxaKOWaFLS4KBIqxu0D5XiFtYLCPzG
+         Jitau4J647w5LhURGd04ybkqwvhXWZtLX6+swpjDWmFIk9pQkJDbVvlafdHtnDduWjG9
+         8BIUpTqf4tWuQdkvJqhLJe6I7l/a6ZavCTUEl/Jh3b82+NJdr4/Rv7eGixU0oC78nt8g
+         zho3uKJDTq+wnlKEZgtXNt4io7Pc72T9CLMcjg3JHeyrCSpF0LcmJG3+3UsUFqQDXHLU
+         8PoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBygBjLlhK4M2agnO+j5iq6lgr88lUKFQTx9ienG8FEW9ql8llJi0HZ6NRgcQ9KqRiuBPEnQvNztuqxaM7g=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/VPOBZtKj0sqICS5rQHrrcAKuozTx2uJu4CMR5Fu3MlLHG2G5
+	TI7vEad3jCSrMkdYtFDEFMTLqDDxIy5ksmL+YxitGTZNHP2vECrRxx9IhdreoDSM8nU=
+X-Gm-Gg: AYBFou2G+7lDXwSiUSiyH17MQlaxkXK/TcsPdAOuwSul7+OfncqRjEW/osqAosyvz75
+	6mrZ/PzWnEMiWWTZQjBJSlZEPAvpHNjAc/WghMLCQ4rFMzqk/DpcTIdP+2q66cCQ++eoDfCYsbV
+	d5pfcRRA7bD544fQexyJ43OMFndbHkbGz2OltdHxO8S7CFMZ1gupgn1h31PnCDuwUkD7FQJ9gm9
+	QwuMbZmK7gyx42q4wRO0BUNeUoTvkBiPSR88IsVnhf8ak8Q/lQESIFg0pJPt9BLAbjf9ijVsh/e
+	QZ+TxmcD2RvtaCY8TNQkkpxvmfTMwvLC0Aa+7QV4l4icxul1mwwgBD4RiwLa4Adb922658oeCI+
+	DmR2ysF40BtFfOAqJciTRh47h1rJrdklvCFZ2AxqY/evgwQMI8GhYqFzYwKgU1DcR4xw/Yoh0eg
+	b6dr+PWh38PUKwOJV2duPt1fatHRtrYLzwe9n8ERoA9syQxxu+SYQv5u8ftPy9sYAlvnHr
+X-Received: by 2002:a05:600c:5309:b0:499:79b9:e220 with SMTP id 5b1f17b1804b1-49cf5bd3418mr25301905e9.10.1788452560717;
+        Thu, 03 Sep 2026 09:22:40 -0700 (PDT)
+Received: from localhost ([194.183.24.73])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5563c6csm110440525e9.4.2026.09.03.09.22.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 09:22:40 -0700 (PDT)
+From: Andrea della Porta <andrea.porta@suse.com>
+X-Google-Original-From: Andrea della Porta <aporta@suse.de>
+Date: Thu, 3 Sep 2026 18:26:19 +0200
+To: Gregor Herburger <gregor.herburger@linutronix.de>
+Cc: Andrea della Porta <andrea.porta@suse.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 2/2] arm64: dts: broadcom: bcm2712-rpi-5-b: add spi0
+ interface
+Message-ID: <apmfqyeWahoR0wab@apocalypse>
+References: <20260811-bcm2712-spi-v1-0-4c1708d354bb@linutronix.de>
+ <20260811-bcm2712-spi-v1-2-4c1708d354bb@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net-next v2 1/2] tools: ynl: Allow cross-compiling ynl and
- associated tools
-Content-Language: fr
-To: "Maxime Chevallier (Netdev Foundation)" <maxime.chevallier@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Donald Hunter <donald.hunter@gmail.com>,
- Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
- Stanislav Fomichev <sdf@fomichev.me>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- thomas.petazzoni@bootlin.com, linux-kselftest@vger.kernel.org
-References: <20260903155524.2241065-1-maxime.chevallier@bootlin.com>
- <20260903155524.2241065-2-maxime.chevallier@bootlin.com>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <20260903155524.2241065-2-maxime.chevallier@bootlin.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260811-bcm2712-spi-v1-2-4c1708d354bb@linutronix.de>
 
-On 03/09/2026 17:55, Maxime Chevallier (Netdev Foundation) wrote:
-> The ynl tool and libraries may be built standalone or through the
-> drivers/net/hw selftest machinery. This may target a different arch, so
-> we need to account for the cross-compiling options such as CROSS_COMPILE
-> or the LLVM-specific variables.
-> 
-> Let's include the tools/scripts/Makefile.include that deals with the
-> CC/AR resolution.
-> 
-> Fixup the ynltool CFLAGS handling to use +=, so that we don't override
-> the ones set in Makefile.include
+Hi Gregor,
 
-Reviewed-by: Matthieu Baerts (Netdev Foundation) <matttbe@kernel.org>
+On 18:04 Tue 11 Aug     , Gregor Herburger wrote:
+> The Raspberry Pi 5 routes the spi0 of the rp1 chip to the pin header.
+> Add the rp1_spi0 node and its pinctrl node to the devicetree to enable
+> the spi interface.
+> 
+> Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
+> ---
+>  arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
+> index 0fc57e72632ed..81aec81c5ce12 100644
+> --- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
+> +++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
+> @@ -69,6 +69,14 @@ usb_vbus_default_state: usb-vbus-default-state {
+>  		groups = "vbus1";
+>  	};
+>  
+> +	rp1_spi0_default_state: rp1-spi0-default-state {
+> +		function = "spi0";
+> +		groups = "spi0";
+> +		bias-disable;
+> +		drive-strength = <12>;
+> +		slew-rate = <1>;
+> +	};
+> +
+>  	rp1_i2c4_default_state: rp1-i2c4-default-state {
+>  		function = "i2c4";
+>  		groups = "i2c4_2";
+> @@ -94,6 +102,14 @@ &rp1_i2c6 {
+>  	pinctrl-names = "default";
+>  };
+>  
+> +&rp1_spi0 {
+> +	pinctrl-0 = <&rp1_spi0_default_state>;
+
+Is there any reason to avoid defining the CS pins as pulled-up gpios
+in the rp1_gpio node and then referencing it in pinctrl-0?
+Something like thie following:
+
+rp1_spi0_cs_default_state: rp1-spi0-cs-default-state {
+	function = "gpio";
+	pins = "gpio7", "gpio8";
+	bias-pull-up;
+};
+
+&rp1_spi0 {
+	...
+	pinctrl-0 = <&rp1_spi0_default_state &rp1_spi0_cs_default_state>;
+	...
+};
+
+
+Many thanks,
+Andrea
+
+> +	pinctrl-names = "default";
+> +
+> +	num-cs = <2>;
+> +	cs-gpios = <&rp1_gpio 8 GPIO_ACTIVE_LOW &rp1_gpio 7 GPIO_ACTIVE_LOW>;
+> +};
+> +
+>  &rp1_usb0 {
+>  	pinctrl-0 = <&usb_vbus_default_state>;
+>  	pinctrl-names = "default";
+> 
+> -- 
+> 2.47.3
+> 
