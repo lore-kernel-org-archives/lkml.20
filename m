@@ -1,130 +1,111 @@
-Received: from mta1.migadu.com (out-202.mta1.migadu.com [95.215.58.202])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2213349480F
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:49:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.202
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 057D44908BC
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:50:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788436153; cv=none; b=XxTpFodfnBIzxpdRBMUsJLqDqtKUtaVqs5SAVeXWgsx4i62fE9Bte1INQHHI+OzJDq+4IaBQ5iv+txFLLRRlJxXIFM3ZSltqa3GgUptOgHZMm8p5B2twgcrLlnvbfAlrLzG7+lJiVp1o1LMZSSYl9DqndY1qwEfn4PUUFvWyBXw=
+	t=1788436264; cv=none; b=mYHD0FhrsOzq5fHFvgwmu+RjkEHJZapsFN8qbfXvTRey01Sv/k4JJ4lGY5CCrWbD8RvmyQVSJd9aZuKXv/tSbXKZq5RxDYUx81X6yuejX+doBtDqkpuCEMzdrR74nZNLmP/FNV1z5AgokxW9BAF/92KreSv5xJx3vaUUIbnPH+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788436153; c=relaxed/simple;
-	bh=77ef0smQwTHv7ciVNhDJeRJa0P6JZyLYvgjHop8xgXY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rYRDVwjXCyJSspqZ19S5bTSB0zjvqKy3KWxIhglnziNVaZff6mm9Pa/yg6nuEwmJfE8S1sQ5zz2O0x6gcj5CvrKyeyNRMZEbuBxRWFGYrWDOrPjRO7JUOWK0kFRQXV7iW/1eDs5CwKqzQqNLJBUW/6xllhM9HhFBfglcwRV1QTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dYDWHIDT; arc=none smtp.client-ip=95.215.58.202
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788436264; c=relaxed/simple;
+	bh=xNHHISyqPXjg7FpKlbhA9xX4vuE2G4pegx1UqDrG7mo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=O5YACtLKv61ercghsRzjs7l/3nN6Bxb0tWi0Hv0k+Ez9Yc+DRV9eTXjl0SS3PhxRMoREkh9/TdhrqAXSKIk6MNDyOcwj8jo2/wKiofHhfaIhIzGesR904DBteh5kr3JCwFKrl4t31DQlthz/yZFwf6l3UGwnbKQeDgceS62Y8No=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=OYX9u3rV; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dYDWHIDT"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=77ef0smQwTHv7ciVNhDJeRJa0P6JZyLYvgjHop8xgXY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788436138; v=1; x=1789040938;
- b=dYDWHIDTEbGhAs2hw9IgZ9BI/vTiXYdWzETIu+pGTJuHqlXPSMQ9DKQqdfvZyDj7T1jvCGX+
- o8HJtG0Pl8pWJMOswA4S6444nK5DvVMHYkEsVZS7CQ4oMTckRBpEt7+SJvioo7rwgAl7TYdvlOS
- EJCmHXCznO90PueLUI6d6Kyk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 10f1446bfee7baed;
-	Thu, 03 Sep 2026 11:48:47 +0000
-X-Mizu-Trace-ID: 10f1446bfee7baed
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <f067f8c9-00f0-484a-adf3-da58fe972bfe@linux.dev>
-Date: Thu, 3 Sep 2026 19:48:36 +0800
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="OYX9u3rV"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0BD381596;
+	Thu,  3 Sep 2026 04:50:46 -0700 (PDT)
+Received: from a081061.blr.arm.com (a081061.arm.com [10.164.19.84])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 3F4A13FA32;
+	Thu,  3 Sep 2026 04:50:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788436249; bh=xNHHISyqPXjg7FpKlbhA9xX4vuE2G4pegx1UqDrG7mo=;
+	h=From:To:Cc:Subject:Date:From;
+	b=OYX9u3rVZbf/7HMtRWU9PE36MB1xZwLL4V5baneauVMSsnB8JWcJmug3RYeXRLopG
+	 imrOYLEEFVgUTcdWMrzGn1D2vFmf//Jc5QDJFOx49Td8U7RKkFUa/oKIAk0qVH6q28
+	 Te4jV0gcy4j/Y46jiobGg8THCPzgaR5kaGZ8tylQ=
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Peter Xu <peterx@redhat.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Sarthak Sharma <sarthak.sharma@arm.com>
+Subject: [PATCH v4] mm/gup_test: safely calculate GUP batch size
+Date: Thu,  3 Sep 2026 17:20:33 +0530
+Message-ID: <20260903115033.162218-1-sarthak.sharma@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] mm/mglru: fix ineffective memory protection for
- non-kswapd reclaim
-To: Barry Song <baohua@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>,
- Muchun Song <muchun.song@linux.dev>, Kairui Song <kasong@tencent.com>,
- Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Chris Down <chris@chrisdown.name>, Tejun Heo <tj@kernel.org>,
- Yu Zhao <yuzhao@google.com>,
- "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
- <cgroups@vger.kernel.org>,
- "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
- <linux-mm@kvack.org>, linux-kernel@vger.kernel.org,
- Ridong Chen <chenridong@xiaomi.com>, stable@vger.kernel.org
-References: <20260903031952.1120321-1-ridong.chen@linux.dev>
- <20260903031952.1120321-3-ridong.chen@linux.dev>
- <CAGsJ_4wKaboESQfUJPi8y4BNJuxpEWG2Prjb44NvFKDV_aeVhw@mail.gmail.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <CAGsJ_4wKaboESQfUJPi8y4BNJuxpEWG2Prjb44NvFKDV_aeVhw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+__gup_test_ioctl() calculates the end of a GUP batch using:
 
+next = addr + nr * PAGE_SIZE;
 
-On 9/3/2026 2:30 PM, Barry Song wrote:
-> On Thu, Sep 3, 2026 at 11:20 AM Ridong Chen <ridong.chen@linux.dev> wrote:
->>
->> From: Ridong Chen <chenridong@xiaomi.com>
->>
->> For MGLRU, memory.min/low is not honored during global proactive reclaim
->> (writing to the root memory.reclaim) and global direct reclaim, because
->> these paths shrink memcgs using stale or effective protection (emin/elow).
-> 
-> Are you sure it should be “stale or effective”?
-> My gut feeling is that we don't need the “or” here.
-> 
+If nr is too large, it can cause next to overflow and wrap around.
+If it wraps, the next > end check is bypassed and a large value
+of nr is passed to the GUP call, even though the pages array was
+allocated according to gup->size. This can lead to out of bounds writes.
 
-My bad. It was a typo. Will remove "or".
+Also, when fewer than PAGE_SIZE bytes remain, the calculated batch
+contains zero pages. The code still calls GUP functions with pages + i,
+which can point past the allocated array.
 
-> [...]
->>
->> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
->> Cc: stable@vger.kernel.org
->> Assisted-by: Claude:claude-opus-4-8
->> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
->> ---
-> 
-> With a few nits:
-> 
-> Reviewed-by: Barry Song <baohua@kernel.org>
-> 
-> [...]
->> diff --git a/mm/vmscan.c b/mm/vmscan.c
->> index b4c9b8f3dfe9..500cc2051d13 100644
->> --- a/mm/vmscan.c
->> +++ b/mm/vmscan.c
->> @@ -5111,7 +5111,13 @@ static int shrink_one(struct lruvec *lruvec, struct scan_control *sc)
->>          struct mem_cgroup *memcg = lruvec_memcg(lruvec);
->>          struct pglist_data *pgdat = lruvec_pgdat(lruvec);
->>
->> -       /* lru_gen_age_node() called mem_cgroup_calculate_protection() */
->> +       /*
->> +        * For kswapd, lru_gen_age_node() has already called
->> +        * mem_cgroup_calculate_protection()
->> +        */
-> 
-> Could be clearer:
-> 
-> /*
->   * For kswapd, mem_cgroup_calculate_protection() has already
->   * been called during the top-down cgroup traversal.
->   */
-> 
+Calculate nr by taking the minimum of the number of pages per call and
+the pages remaining in the address range. Stop processing when no
+pages remain and calculate the end of the batch using this bounded
+value of nr.
 
-Thank you, will update.
+Fixes: 64c349f4ae78 ("mm: add infrastructure for get_user_pages_fast() benchmarking")
+Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
+---
+Sashiko reported the issue fixed by this patch while reviewing the patch
+"mm/gup_test: report actual pinned bytes". That patch has been applied to
+mm-new. Since the two fixes are independent, this revision contains
+only the GUP batch size fix.
 
->> +       if (!current_is_kswapd())
->> +               mem_cgroup_calculate_protection_path(NULL, memcg);
-> 
-> Best Regards
-> Barry
+Changes in v4:
+- Simplify batch clamping logic as suggested by Kiryl
+- Don't call GUP functions for an empty batch
+- Drop the pinned byte reporting patch since it has been applied to mm-new
 
+v3: https://lore.kernel.org/all/20260901083452.115365-1-sarthak.sharma@arm.com/
+
+ mm/gup_test.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/mm/gup_test.c b/mm/gup_test.c
+index 185ba3bb8ed1..1b64e932c4c5 100644
+--- a/mm/gup_test.c
++++ b/mm/gup_test.c
+@@ -139,11 +139,12 @@ static int __gup_test_ioctl(unsigned int cmd,
+ 		if (nr != gup->nr_pages_per_call)
+ 			break;
+ 
++		nr = min_t(unsigned long, gup->nr_pages_per_call,
++			   (end - addr) / PAGE_SIZE);
++		if (!nr)
++			break;
++
+ 		next = addr + nr * PAGE_SIZE;
+-		if (next > end) {
+-			next = end;
+-			nr = (next - addr) / PAGE_SIZE;
+-		}
+ 
+ 		switch (cmd) {
+ 		case GUP_FAST_BENCHMARK:
+
+base-commit: 178b3d97bf1f15f598ea7cc615a40c115e528e1c
 -- 
-Best regards
-Ridong
+2.53.0
 
