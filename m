@@ -1,72 +1,190 @@
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0686D440647
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:33:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9504635F61E;
+	Thu,  3 Sep 2026 07:32:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.96.220.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788420784; cv=none; b=KdA2j3xYUP6vCz5EaFGrdWdZGPgvR/wH2Ieu7efpBzSh6e7SPsogjNDkSPkmJ5ZaK4aw9+NPt/9ts3ISA6E4TxKEsKkqxTFlJTuzuinvdwC+OtEvxsKzQsZaGaKcjxyZfz4bZA8j6XD9dr1pOwlEmnANkygVDJCUy+YpIZ1S9PA=
+	t=1788420782; cv=none; b=uxeLb9Cf7C2Gh9VZyBcM+Krb4rtSR6GVY09HmdqnLpw+gSC48eqSY+1drm7VpUiBwWyv+RT9dpkvwjEwjNBAinqu5fPaqMJi/D+KKmDO3Rgoor3XN/3LwVtBIzYDixGttpjbnC9iCIIE5FcN0FuUfk4oOjVlWWzFvPVL0mQwKoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788420784; c=relaxed/simple;
-	bh=nWmsqPS9FI0LrhgcKaD2/efQz6/CXyeznkML8S8/ouo=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=N/p1DiHSy1GJ5jxHXP0pKlW/Zgjquhimvldco9Q4jT5Vq7cJJyh919tTeQp3NDdpoRAmRNz5UWrn8ibjKPzyHC7Ir/pHcfSRz7TNiwbhjdhuGhaHy9cylQSti4Dwzzbc7+fozmiMxC9wUjU/lsT1azJS79wmlk8COxLNSo+O7tI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7f94a2da216so255325a34.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:33:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788420782; x=1789025582;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=EOjFMMfG7ZQHdZ2PEmpoXhTbohIr8dRdywkr8lfkeoo=;
-        b=rl/cNsGyLdHz6XSQ15JMfWnix8vfOEsoApDoUWVxJtbK2rVjFfG4kfPPUlFPk6O3sw
-         J5XtynmWe8PSdoU7VM3nq2ne127R5rBuBqcf7XdcijoMG8nxUQydywxARsQMsOVlQI2/
-         321iFL8cI4wZfZm72mcUO4tDSxeU1yXegK70mCUX/GouKziZ1u1gg4hAZ4zdMT8mc7FV
-         YSXExWR77RGf+5kL4QrUVsMOq7yw+9Nt9GMjvujKKho+IBTIxg42jzbxJKQfORr4JY1m
-         ewkI8RyDkq6jHj13RieUN7v2M9jQwgIeM5h0ymrgoA5oFaPgNpdyfTrCTuXEnSfDRcAb
-         xK6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwmueKXxbNk1xH61qb5SEIezWLpcrvZjhjapmDsjY1OUit71k7cCbuh3QfKQ8Izx1ZJUD3MXFX+4ELxasQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nlRLzbILXhUrljMdpyDzgUULi9f2GBmv4A8vcopiB8AGJ7DXGU
-	pcdpXrxT9ZlFPaODYsB3fneR8k1kA/K1gQuNwfrya9r0GCkTdOaTP1IdIdAyfmqR/xqsfoeZXJW
-	vQjF/VrZS3/KJ1Mkm2WSzcYzWauUUo9gVKZyoNnHsJJWyoZ70F6JUs5fnClM=
+	s=arc-20240116; t=1788420782; c=relaxed/simple;
+	bh=rxDXIMSCoBOkjZoCKGfH+vbM71Jqs/DjLA1NIsEcEiU=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OjG66+otacm7486tnzvrzXPdAZBqoe7WbgdIyk1l2RuOPEc3423ywaoyxRDGYcCamMqOhlVet6d9Z5MVeH+6CEwIvW+TU0B2Cx7MOg1IakDF659vvqvjmhZYoAroUmIcrX9476hOPn009NdLqjyeV9lGz3hHEfbxOdZtJGpDIT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com; spf=pass smtp.mailfrom=secunet.com; dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b=cB5i5pl8; arc=none smtp.client-ip=62.96.220.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b="cB5i5pl8"
+Received: from localhost (localhost [127.0.0.1])
+	by mx1.secunet.com (Postfix) with ESMTP id 39E30201C7;
+	Thu,  3 Sep 2026 09:32:56 +0200 (CEST)
+X-Virus-Scanned: by secunet
+Received: from mx1.secunet.com ([127.0.0.1])
+ by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id q5baW6b2ggut; Thu,  3 Sep 2026 09:32:55 +0200 (CEST)
+Received: from EXCH-01.secunet.de (rl1.secunet.de [10.32.0.231])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.secunet.com (Postfix) with ESMTPS id 7FEC72058E;
+	Thu,  3 Sep 2026 09:32:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com 7FEC72058E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
+	s=202301; t=1788420775;
+	bh=VYA2mSun53SINAKSK+NMDIUfBNfT1MQXzK7ecPvuByc=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:From;
+	b=cB5i5pl8P15gvLgAIgIH6yek67OYdmBr/hLsOLiYlx8ahEFwLtKwMIvCKxLETEIew
+	 hgVz4lsfHRwEA+q33vGySgH0vId4NiMVdnDQvW4+vjL32+burtq8JxgK7RAXqUmNF6
+	 pI1eyhMo4DE9rfW9sIvvJXvVv7wEHW2Ymi3hgOXa6/ol0ygCTJrNkjXtcDXl80o/47
+	 IIrecm5VJzODHkEBb3COY3j9rFQAWivRTSMXtFM8kh+uZlSAFEajiZ2pgJCASw+Ym0
+	 Tc5EP1/FHmRwa2dxQYo+prm3+/AsBRsCw21JrjsR9g0laEXu823hSKBL4lyS+9jhIK
+	 48IhYhP9OMT7A==
+Received: from secunet.com (10.182.7.193) by EXCH-01.secunet.de (10.32.0.171)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 3 Sep
+ 2026 09:32:54 +0200
+Received: (nullmailer pid 1406827 invoked by uid 1000);
+	Thu, 03 Sep 2026 07:32:53 -0000
+Date: Thu, 3 Sep 2026 09:32:53 +0200
+From: Steffen Klassert <steffen.klassert@secunet.com>
+To: Chengfeng Ye <nicoyip.dev@gmail.com>
+CC: Herbert Xu <herbert@gondor.apana.org.au>, "David S . Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>, Florian Westphal <fw@strlen.de>,
+	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+Subject: Re: [PATCH net] xfrm: retry inexact policy lookup after node
+ reinsertion
+Message-ID: <apkipe4r500gMfwx@secunet.com>
+References: <20260824152057.216329-1-nicoyip.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:f09:b0:6b3:f31f:bd74 with SMTP id
- 006d021491bc7-6b480a4547emr7604732eaf.20.1788420781851; Thu, 03 Sep 2026
- 00:33:01 -0700 (PDT)
-Date: Thu, 03 Sep 2026 00:33:01 -0700
-In-Reply-To: <20260903071128.105757-1-khiemtranzo532001@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9922ad.9266084e.bf0d7.00ee.GAE@google.com>
-Subject: Re: [syzbot] [usb?] general protection fault in bus_remove_device
-From: syzbot <syzbot+87188222c77c0dbbdb4d@syzkaller.appspotmail.com>
-To: khiemtranzo532001@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260824152057.216329-1-nicoyip.dev@gmail.com>
+X-ClientProxiedBy: EXCH-04.secunet.de (10.32.0.184) To EXCH-01.secunet.de
+ (10.32.0.171)
 
-Hello,
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+---
+--- Patch [1]: [PATCH net] xfrm: retry inexact policy lookup after node reinsertion ---
+commit 55045c9b49d306c47b0ee8e568d224e0bca94a3c
+Author: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+xfrm: retry inexact policy lookup after node reinsertion
 
-Reported-by: syzbot+87188222c77c0dbbdb4d@syzkaller.appspotmail.com
-Tested-by: syzbot+87188222c77c0dbbdb4d@syzkaller.appspotmail.com
+This adds a snapshot of the per-bin sequence counter around inexact
+candidate discovery and evaluation in xfrm_policy_lookup_bytype(), and
+retries the whole lookup if the counter changed.  The stated goal is to
+reject lookups that overlap the bydst hlist hop done during node merge and
+reinsertion.
 
-Tested on:
+No Link: tags are present in the commit header.
 
-commit:         940de590 Merge tag 'hardening-v7.3-rc2' of git://git.k..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=163f8b49580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=87188222c77c0dbbdb4d
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=12af8b49580000
+> During concurrent policy insertion and route lookup, KCSAN reported:
+>
+>   BUG: KCSAN: data-race in __xfrm_policy_link / xfrm_lookup_with_ifid
+>   write to ... by task 92 on cpu 0:
+>     __xfrm_policy_link
+>     xfrm_policy_insert
+>     xfrm_add_policy
+>   read to ... by task 91 on cpu 1:
+>     xfrm_lookup_with_ifid
+>     xfrm_lookup_route
+>     ip_route_output_flow
 
-Note: testing is done by a robot and is best-effort only.
+Discovered by: opus-5 � Missed by: sonnet-5, gpt-5-6-sol, sashiko-gemini � Confirmed by: gpt-5-6-sol
+Can this KCSAN report come from the code the patch changes?
+
+__xfrm_policy_link() in net/xfrm/xfrm_policy.c only does this:
+
+	switch (dir) {
+	case XFRM_POLICY_IN:
+	case XFRM_POLICY_FWD:
+	case XFRM_POLICY_OUT:
+		pol->pos = xfrm_gen_pos(net);
+		break;
+	}
+
+	list_add(&pol->walk.all, &net->xfrm.policy_all);
+	WRITE_ONCE(net->xfrm.policy_count[dir], net->xfrm.policy_count[dir] + 1);
+	xfrm_pol_hold(pol);
+
+The only one of those locations that xfrm_lookup_with_ifid() touches is
+policy_count, and it reads it marked:
+
+	if (!if_id && ((dst_orig->flags & DST_NOXFRM) ||
+		       !READ_ONCE(net->xfrm.policy_count[XFRM_POLICY_OUT])))
+		goto nopol;
+
+Documentation/dev-tools/kcsan.rst states that if all concurrent accesses to
+a variable are properly marked, KCSAN will never trigger a watchpoint and
+therefore never report the accesses.  Both sides here are marked, so how
+was this pair reported?
+
+The write side the changelog describes in prose is a different one: the
+bydst hop in xfrm_policy_inexact_node_merge():
+
+	hlist_for_each_entry(tmp, &v->hhead, bydst) {
+		tmp->bydst_reinsert = true;
+		hlist_del_rcu(&tmp->bydst);
+	}
+
+	xfrm_policy_inexact_list_reinsert(net, n, family);
+
+That path is reached via xfrm_policy_inexact_insert_node(), not via
+__xfrm_policy_link(), and it also uses only marked writes
+(hlist_del_rcu(), hlist_add_head_rcu(), hlist_add_behind_rcu()) against a
+reader using hlist_for_each_entry_rcu().  So that pair would not be
+reported by KCSAN either, which suggests the hazard being fixed is a
+logical list-hop ordering problem between correctly marked RCU accesses
+rather than a data race.
+
+Could the changelog be reworded to describe the ordering problem directly,
+and either drop the KCSAN splat or replace it with a report that actually
+corresponds to the accesses this patch guards?  With Cc: stable in place,
+the quoted evidence is what backporters will use to judge the fix.
+
+> diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
+> index 932a313b9460a..5d4e863863dfe 100644
+> --- a/net/xfrm/xfrm_policy.c
+> +++ b/net/xfrm/xfrm_policy.c
+
+[ ... ]
+
+> @@ -2191,12 +2192,18 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
+>  		goto skip_inexact;
+>
+>  	bin = xfrm_policy_inexact_lookup_rcu(net, type, family, dir, if_id);
+> -	if (!bin || !xfrm_policy_find_inexact_candidates(&cand, bin, saddr,
+> -							 daddr))
+> +	if (!bin)
+> +		goto skip_inexact;
+> +
+> +	inexact_sequence = read_seqcount_begin(&bin->count);
+> +	if (!xfrm_policy_find_inexact_candidates(&cand, bin, saddr, daddr))
+>  		goto skip_inexact;
+>
+>  	pol = xfrm_policy_eval_candidates(&cand, ret, fl, type,
+>  					  family, if_id);
+> +	if (read_seqcount_retry(&bin->count, inexact_sequence))
+> +		goto retry;
+> +
+
+Discovered by: opus-5 � Missed by: sonnet-5, gpt-5-6-sol, sashiko-gemini � Confirmed by: gpt-5-6-sol
+Related to the above: this retry can only observe mutations that are
+bracketed by write_seqcount_begin(&bin->count).  The chain updates done by
+xfrm_policy_insert_list() and __xfrm_policy_unlink(), and the counter
+update in __xfrm_policy_link() named in the quoted splat, do not run inside
+any bin->count write section.
+
+So even taken at face value, would this new read_seqcount_retry() have any
+effect on the __xfrm_policy_link() versus xfrm_lookup_with_ifid() pair
+quoted in the changelog?
