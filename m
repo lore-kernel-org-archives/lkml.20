@@ -1,195 +1,138 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4D894252B7;
-	Thu,  3 Sep 2026 10:37:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84F00431A22;
+	Thu,  3 Sep 2026 10:37:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788431864; cv=none; b=oqSCxWw5+p/Ic9JmX5gVtNl4HdxWJtdgvn688pXuZW+RC2dg7Ce83N4VBod76TQh9Wc8xPFAhMsLFGZCMnhsoWbmAp68a9MCvPfcZj7kjT+aW2i0i492XC9tmEGYlU82i2jTpjsBaAt75taabqf5XomE1rl+5CaLFFGYzw4liQ4=
+	t=1788431875; cv=none; b=nynfDDEX3CNa/PYt3JHevmNBNMraRljJldi3GKYZg7GnOfBajaf8HlEKYtgkAamSCStgoyk5L01nM76wN5NtyM963Kz+RMUTFgs7VPIbDS0YhsaXVzYmOBov8b7ow6v8PJsvhviaavuGlFhGaW+XcPDMy2ANCZTlQDWHllkVsoE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788431864; c=relaxed/simple;
-	bh=d7pVmoh4YAVPlHeGt9lkzdIdTs7rddl+iz7P8UwCtWM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lOpI7fEYOVvvkJgGs4rv/jsRRMNMfxYMZ0g71e3HecNF0+d+keYrojHmo5FvQHa/MWa59vD+xdPZYNsTdBDRUpHvLkZ/nxAIgy1+DKH9uEtI6y8g3PZv2Hcno6ZdbM8uMGJocP0HAMkICbehRM8na02N6OEmGqGs2Y0RfPUziYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Q0zahILi; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=6nUSHeYZ; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=FoHQyjQX; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=PaTd2lfB; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788431875; c=relaxed/simple;
+	bh=RVpZN1lKrfRh/Kb7Yb4O6MFbCJ/baBovd4jOM2EwlUY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gusnrUe6CzbeHfm+qDq9+MyOa7c/gSApDbxOa2venvy54Lo03X8k49lENEZcOMpEozVjE/s1E2ab6pUVQq634+bZJMspyuN7JX2bCJhQHkvH5Kt+NI6KHJE1eYeOhniMlD3zQ9+35jJF5Coo5sSPU2DOVqmK6i0+JjCfg1oZAIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lapq4Jcp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Q0zahILi";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6nUSHeYZ";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FoHQyjQX";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="PaTd2lfB"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 65F5E1FE06;
-	Thu,  3 Sep 2026 10:37:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788431855; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=3spEMBBcb7A3nF2O+RZl1CapGCuu2ektNzK7I7TMk6g=;
-	b=Q0zahILiMPfty9y1N4P6Z/BYHfewr0W8CccmQYYx1g3drADR7fJ3ryUor6is1u1Gq6eSva
-	aJOKbRg+Zr3pKXd/SgThMO7JllNiC4iBbxuQy++/s2vBXkxMZxiTUVsjnDl/MlCCBlhFKz
-	vLOFFYWV663PPKWnfAcpVIbQC2Nhl74=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788431855;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=3spEMBBcb7A3nF2O+RZl1CapGCuu2ektNzK7I7TMk6g=;
-	b=6nUSHeYZ4ApzKJJq7Yp9zlwE2VB0OF6HQX6NgS6wqoaKkg3MC9KAKrDYV8Sn3FYDFgiQYB
-	CqWzSfRraBxZJBDg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=FoHQyjQX;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=PaTd2lfB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788431851; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=3spEMBBcb7A3nF2O+RZl1CapGCuu2ektNzK7I7TMk6g=;
-	b=FoHQyjQXb0wZ+OETJrTueh2A+h78RTbB3M38fmJQpvUiamrPPdCwgwhoh/ZUmHDWz+jfX7
-	d4WOs5c1MdchBXWXS6U8hD/fp+WWNSUkeYgI0sbpqM72pc3QFwu0yZxqEe6blSK7RNAmbs
-	pcSD9w6dLGgxpFPoZuFdGfDjBwm8Dxo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788431851;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=3spEMBBcb7A3nF2O+RZl1CapGCuu2ektNzK7I7TMk6g=;
-	b=PaTd2lfBd5N37Hrhi1nWMB+UCtOBB9ZWTsVU0u+EVX1/l/N4ansjOzuPvWyNO23VMtFfJ9
-	2sCOTxd2c8df/sDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 30DD4136D9;
-	Thu,  3 Sep 2026 10:37:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id QtVgCutNmWqiKgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 03 Sep 2026 10:37:31 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: linux-sound@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: rawmidi: Add a proper disconnect handling
-Date: Thu,  3 Sep 2026 12:36:58 +0200
-Message-ID: <20260903103728.1807281-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lapq4Jcp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856F91F000E9;
+	Thu,  3 Sep 2026 10:37:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788431873;
+	bh=LfEUm61UAnFxFCDwYCcGPaECxT78ZX20G6SRen0PmCk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lapq4JcpXh2EdT5CtHGldRjhzK+EeM7FDQ17fM8aayLExDmULweYBoUFvnSTgV/CG
+	 oyH1ZIinJ2W8x2FCDvfAMyqLw7OuDepb81Ei9a6k5Mxo9KIbts6HZuqaju7VriutUz
+	 fu8Lhi0Nx0FDGrjzbCa8pppqq7h37FnceKSX7ULZI6dmHrTVHvDpDTiPrSNYfun2pG
+	 8t484gzCyEJcmpqkGoS+WUBG0JVoQeGLZSZ/4aMsWOfB9prh4NPTXksFAB2hmtgJu6
+	 OMhVJZwriZS/YNlnkkG77YFgSxQYH0foS7EM2igTWJ4nLr2OHIlWm24nn21yNDO1/8
+	 X8VPHQAGUV6Cw==
+Date: Thu, 3 Sep 2026 10:37:51 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Long Wan <long.wan@linux.spacemit.com>, linux-mmc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/4] mmc: sdhci-of-k1: Add TX tuning parameter
+Message-ID: <20260903103751-GKA53903@kernel.org>
+References: <20260902-07-k3-sdhci-dts-v1-0-4e7909cf4233@kernel.org>
+ <20260902-07-k3-sdhci-dts-v1-4-4e7909cf4233@kernel.org>
+ <DL5D12BKMIWN.QUCX18JF8GDU@linux.spacemit.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -3.01
-X-Rspamd-Queue-Id: 65F5E1FE06
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_NONE(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email,suse.de:mid];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCPT_COUNT_TWO(0.00)[2];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <DL5D12BKMIWN.QUCX18JF8GDU@linux.spacemit.com>
 
-The rawmidi core detaches only exposed devices at disconnection, but
-it doesn't deal with the pending bytes or gate the further unexpected
-accesses, leaving naively to each driver dealing with such situations.
+Hi Troy,
 
-Let's try to restrict it in the core side for more safety: introduce
-the disconnected flag to each substream, set it at disconnection call,
-then trigger down &  cancel the pending event work.
+On 11:27 Thu 03 Sep     , Troy Mitchell wrote:
+> On Wed Sep 2, 2026 at 3:03 PM +08, Yixun Lan wrote:
+> > From: Long Wan <long.wan@linux.spacemit.com>
+> >
+> > Instead of setting the TX delay code via hardcoded parameter, configuring
+> > it via device tree property, which make it able to adapt according to
+> > board specific tuning requirement.
+> >
+> > Signed-off-by: Long Wan <long.wan@linux.spacemit.com>
+> > Signed-off-by: Yixun Lan <dlan@kernel.org>
+> > ---
+> >  drivers/mmc/host/sdhci-of-k1.c | 25 +++++++++++++++++++++++--
+> >  1 file changed, 23 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/mmc/host/sdhci-of-k1.c b/drivers/mmc/host/sdhci-of-k1.c
+> > index e6ab40c9a555..6cab06332747 100644
+> > --- a/drivers/mmc/host/sdhci-of-k1.c
+> > +++ b/drivers/mmc/host/sdhci-of-k1.c
+> > @@ -97,6 +97,7 @@ struct spacemit_sdhci_host {
+> >  	struct pinctrl *pinctrl;
+> >  	struct pinctrl_state *pinctrl_default;
+> >  	struct pinctrl_state *pinctrl_uhs;
+> > +	u8 tx_delaycode;
+> >  };
+> >  
+> >  /* All helper functions will update clr/set while preserve rest bits */
+> > @@ -263,6 +264,7 @@ static int spacemit_sdhci_execute_tuning(struct sdhci_host *host, u32 opcode)
+> >  	int max_pass_len = 0, max_pass_start = 0;
+> >  	struct mmc_host *mmc = host->mmc;
+> >  	struct mmc_ios ios = mmc->ios;
+> > +	struct spacemit_sdhci_host *sdhst = sdhci_pltfm_priv(sdhci_priv(host));
+> This is only a minor style suggestion, not a requirement. Would it be
+> clearer to make `sdhst` the first local declaration? That would make the
+> declaration block easier to scan.
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- include/sound/rawmidi.h |  1 +
- sound/core/rawmidi.c    | 16 +++++++++++-----
- 2 files changed, 12 insertions(+), 5 deletions(-)
+somehow I hate to bring extra unnecessary changes..
+but if we want to follow reverse christmas tree style and put struct declaration first,
+then we should also move "int max_pass_len = 0, max_pass_start = 0;" down below
 
-diff --git a/include/sound/rawmidi.h b/include/sound/rawmidi.h
-index 4154035af414..d812f70725bd 100644
---- a/include/sound/rawmidi.h
-+++ b/include/sound/rawmidi.h
-@@ -86,6 +86,7 @@ struct snd_rawmidi_substream {
- 	bool opened;			/* open flag */
- 	bool append;			/* append flag (merge more streams) */
- 	bool active_sensing;		/* send active sensing when close */
-+	bool disconnected;		/* already disconnected */
- 	unsigned int framing;		/* whether to frame input data */
- 	unsigned int clock_type;	/* clock source to use for input framing */
- 	int use_count;			/* use counter (for output) */
-diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
-index 2617bb5b4faf..a9f812bd9b56 100644
---- a/sound/core/rawmidi.c
-+++ b/sound/core/rawmidi.c
-@@ -208,14 +208,14 @@ static int snd_rawmidi_runtime_free(struct snd_rawmidi_substream *substream)
- 
- static inline void snd_rawmidi_output_trigger(struct snd_rawmidi_substream *substream, int up)
- {
--	if (!substream->opened)
-+	if (!substream->opened || substream->disconnected)
- 		return;
- 	substream->ops->trigger(substream, up);
- }
- 
- static void snd_rawmidi_input_trigger(struct snd_rawmidi_substream *substream, int up)
- {
--	if (!substream->opened)
-+	if (!substream->opened || substream->disconnected)
- 		return;
- 	substream->ops->trigger(substream, up);
- 	if (!up)
-@@ -254,7 +254,8 @@ int snd_rawmidi_drain_output(struct snd_rawmidi_substream *substream)
- 
- 	scoped_guard(spinlock_irq, &substream->lock) {
- 		runtime = substream->runtime;
--		if (!substream->opened || !runtime || !runtime->buffer)
-+		if (!substream->opened || !runtime || !runtime->buffer ||
-+		    substream->disconnected)
- 			return -EINVAL;
- 		snd_rawmidi_buffer_ref(runtime);
- 		runtime->drain = 1;
-@@ -537,7 +538,7 @@ static void close_substream(struct snd_rawmidi *rmidi,
- 	if (--substream->use_count)
- 		return;
- 
--	if (cleanup) {
-+	if (cleanup && !substream->disconnected) {
- 		if (substream->stream == SNDRV_RAWMIDI_STREAM_INPUT)
- 			snd_rawmidi_input_trigger(substream, 0);
- 		else {
-@@ -2063,8 +2064,13 @@ static int snd_rawmidi_dev_disconnect(struct snd_device *device)
- 		struct snd_rawmidi_substream *s;
- 
- 		list_for_each_entry(s, &rmidi->streams[dir].substreams, list) {
--			if (s->runtime)
-+			scoped_guard(spinlock_irq, &s->lock)
-+				s->disconnected = true;
-+			if (s->runtime) {
-+				s->ops->trigger(s, false);
-+				cancel_work_sync(&s->runtime->event_work);
- 				wake_up(&s->runtime->sleep);
-+			}
- 		}
- 	}
- 
+I can adjust this if maintainer/others don't mind..
+
+> >  	u8 final_delay;
+> >  	int ret = 0;
+> >  	int i;
+> > @@ -279,11 +281,11 @@ static int spacemit_sdhci_execute_tuning(struct sdhci_host *host, u32 opcode)
+> >  
+> >  	if (mmc->caps2 & MMC_CAP2_NO_MMC) {
+> >  		spacemit_sdhci_set_tx_dline_reg(host, SPACEMIT_TX_TUNING_DLINE_REG);
+> > -		spacemit_sdhci_set_tx_delay(host, SPACEMIT_TX_TUNING_DELAYCODE);
+> > +		spacemit_sdhci_set_tx_delay(host, sdhst->tx_delaycode);
+> >  		spacemit_sdhci_tx_tuning_prepare(host);
+> >  
+> >  		dev_dbg(mmc_dev(host->mmc), "TX tuning: dline_reg=%d, delaycode=%d\n",
+> > -			SPACEMIT_TX_TUNING_DLINE_REG, SPACEMIT_TX_TUNING_DELAYCODE);
+> > +			SPACEMIT_TX_TUNING_DLINE_REG, sdhst->tx_delaycode);
+> >  	}
+> >  
+> >  	spacemit_sdhci_prepare_tuning(host);
+> > @@ -496,6 +498,23 @@ static inline void spacemit_sdhci_get_pins(struct device *dev,
+> >  		sdhst->pinctrl_default, sdhst->pinctrl_uhs);
+> >  }
+> >  
+> > +static void spacemit_sdhci_get_tuning_params(struct device *dev,
+> > +					     struct sdhci_pltfm_host *pltfm_host)
+> > +{
+> > +	struct spacemit_sdhci_host *sdhst = sdhci_pltfm_priv(pltfm_host);
+> > +	u32 val;
+> > +
+> > +	sdhst->tx_delaycode = SPACEMIT_TX_TUNING_DELAYCODE;
+> > +
+> > +	/* Override from DT property */
+> > +	if (!device_property_read_u32(dev, "spacemit,tx-delay", &val)) {
+> > +		if (val <= U8_MAX)
+> > +			sdhst->tx_delaycode = val;
+> > +		else
+> > +			dev_warn(dev, "ignoring invalid tx delay: %u\n", val);
+> Should this warning also report the default delay code that will be used
+> instead?
+> 
+yes, can improve a bit
+
 -- 
-2.55.0
-
+Yixun Lan (dlan)
