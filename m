@@ -1,87 +1,33 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF404BAA1E
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:40:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A33AD4BCADD;
+	Thu,  3 Sep 2026 14:41:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788446463; cv=none; b=gIuovqZF2T85e/Q739UGhSxQZsfvxUqV7ucoKNNyURfUkkcFR5/cI3hC1vQnwFqaXwfNxwuR2sA5Z38NOyqNaKVEcZe6I8moAErr4setIOQIdtQRrlabq+O1o2qbNZl9mhcKQNhFvsBPFPGja70H/LEnKNfVaI97W8Ag/3wsww0=
+	t=1788446499; cv=none; b=YwYRH57Mth6aNsGJGwbH6h1wGhXxSP9A+8XQGCMKPmjs/NtxdWSg/VQoN3W/efQFr+gkin5cMRw1UG4Yp7UtIzwf5rL27f/6pdh7+EhBxwk2Vlf9ySqjVbnROSvpuUk0xR7aWyS6Uj7KUHNIz7ZSAC+s0vGW/PkIm3vqbctn3mk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788446463; c=relaxed/simple;
-	bh=gi9mZjH3jh34DK+gNA1UPkWEDaxFzIUHDuBU6k1qR0U=;
+	s=arc-20240116; t=1788446499; c=relaxed/simple;
+	bh=JhSWgUei4yqB6bcmIX2IASGgLwifRDZi4LiL4Gz4t7A=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mxwxfGDf4vd93i8SdoYaGImyShjoJ2SnX8lY8mX9jeT+zjekxdIJFEKlJ5FRBEsiibJv1ZtigkT7Mlvx720kv8T5dZVj7/DUKR1vfAWWlhJls0R0YBDuBwE9DAIoyQcf2S1Lw1XvOJz3yL1cF9F6CjTqWH4YGME91aMI3frPA1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dBK842fY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZxbUoW4Y; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=rOR741K4kfFlXLmKOtN+22ms/bIoDsPB1UGegyUYOs/s49VQqv9RMBzSRYzYSp2pYu9jAp9LTGIvfvN+Xni1df8PMQw4RuUfNrWopOAaqzOrU5FYae5sX2ZovNmzpmHR+v/7++rq7tSctx5nJCLhZI63wwx1FCT0XCcYt7LaLQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SAVaVQQF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dBK842fY";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZxbUoW4Y"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683DAR1M035590
-	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 14:40:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PgPqH75E2Evg/LBzbjzhxHEEsoKS9CNve/6QYZ72/hU=; b=dBK842fY8gNu9XDN
-	zoQ/UYkuTkfbiLqEi4fBQCgGl9oyBZdCDJmCFcVDFZFjvnJRgMY9MPDQhoNDCwbZ
-	y0mHOy/k4LNRG+bpWh5Df1Wb1ArEMLzE5G4brP2JMUWle0O8Rtgjdhs19Jdfesqg
-	cDG8Oer+Vn53UWUFfedl77YW5MjCY7LOzVoIvj7Xkos6DqbkOI0j/TOqTGcwsXs+
-	chGCtnybaWc+PM7RscvWvIspRJZLCQ7v03uOvljsvfCrHxSLyBHccf188DZwK+DA
-	gExti/F1jJGJsFNp6vObuyiy+HUdCU13YOHDqYuaMxhhi3kNU80Xv1yVmTw4g6PN
-	XbUPMA==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf51m1kn4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 14:40:53 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-73966c839bfso96992137.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:40:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788446452; x=1789051252; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PgPqH75E2Evg/LBzbjzhxHEEsoKS9CNve/6QYZ72/hU=;
-        b=ZxbUoW4YwJJlDwOLWm4FSL2NyKK/vyGbL5t5hnJzOvzj0w4s5y9edXuC4k9eiPlSiy
-         SPw2Dh/hj9Ho6StS4KfcU+ngIwfXCEqCiGdF6aDRowTHWVsd4IXHYi255Lcg/k6O4hrN
-         UF9JCw1e11pZJyOm5r4Psw+4NGzRD3Y/BBMmAbTZnrilt6pcNB8xfBt4t9Oxk255imFB
-         7S26UiSKGovpd5mwSGNk8TSfyGAuP3JWV9Vgp+Fmt4fB0bvOGnhXxHdMJxoKBhFyNrnC
-         1drvGz0Hyc0Jxf+Lpj3PXxUiZ9d/ctNLnXbCH7XQWmTP+hCDcNrPCRv8Sr+PZimTj1Oz
-         Xi+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788446452; x=1789051252;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PgPqH75E2Evg/LBzbjzhxHEEsoKS9CNve/6QYZ72/hU=;
-        b=O3xHVj8WDDDxCxHi90edn2Nh0L+dyr/DSrbHrnLFW/bvcXk9BPuwK5p/XXOxUh/T5a
-         /7OFcoQjHSJR2fTzByHTFD/D/crRRs/yT8qyBdsEhMaauYQ0l+MpRUTfQqelGIgN2v5y
-         /rGa/4XIp58u2XzcOl0tzB3OEYfwOm4FcCrMvZfB057xT0Vj2Ixk7+HZCcV89NfIZEbg
-         9D+Y63fbxQoYROMeIYE81/RUduDPNWPVQk9EWHonlwXESWbxHiwBabRr+mEkkNpNOl0Q
-         KdaJWTpf81J2whVK6lLSF+K1A/I9BGurPbvgdSEF2Pk4397AbiHte5nP3cf9Z+vmDird
-         unFA==
-X-Forwarded-Encrypted: i=1; AKwUvBy+yxyVGHtez87Gn5mD3MbURnPCNW9S7A85AHyNqmLiuiuutNNLe3jG/jgpqB9X7leNbDcJn+9rnUCxvhQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kHfv0jsnoEjFrVwoLXf3ytIKhkQulzt+w1VTB2dwHAVX29+dDV
-	MG7S0NoY0xIlUfnUAGhPKqfRXGQeC7mbsXzMrlkel/M9CzDHmYcX3wK2CQxuKkt51F5FKIR2V3R
-	ZVIJHFViaeIHQAWPegO8vdg5K6piD6Ygqb2HeiUaYN4OFzRNZvAkdtQ0QNyj77Hji8eU=
-X-Gm-Gg: AYBFou1fnmnh3xqp6ejhcxBX9FDVzEovre069JbOLLarcpgR8E0yFa2d2RWllEAU7KL
-	JrfOqIepiZUwSaQ/xXPEcvkTK8O/9XCV3gibFezgW40xCRw0Sjheh8TGk6uawjmAzrwz/P94AvO
-	+Qq/IW5y7DeoUn0euMHc3h3FLuQ4aARgEZRbFfVBGTV/JOtfWQKVrvVIOXeHU9KjKUWvLxEfwIh
-	eZBxFsIi9JEaNiXhXoaNdVVQ+0VnsOaQW7VO9Ttcnyr86P8HbQRh4Vb6uLn4Teozy7Em3Hnao+P
-	l4YM/fRcH5/KcWXgGHTVrSG1mRzO++cCfTuM8pizWwi6Uvxsms/LPiw+0wFpD5VBveM+k1eqEGT
-	8ag+EtP2su4nlImjs/5OAPQ==
-X-Received: by 2002:ac5:c84a:0:b0:5c7:d15b:5f2a with SMTP id 71dfb90a1353d-5c7d2809352mr1626568e0c.2.1788446449939;
-        Thu, 03 Sep 2026 07:40:49 -0700 (PDT)
-X-Received: by 2002:ac5:c84a:0:b0:5c7:d15b:5f2a with SMTP id 71dfb90a1353d-5c7d2809352mr1626554e0c.2.1788446449511;
-        Thu, 03 Sep 2026 07:40:49 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a3705866acsm147251fa.18.2026.09.03.07.40.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 07:40:48 -0700 (PDT)
-Message-ID: <a5d83aa4-7065-47c0-bbda-35063034b0d6@oss.qualcomm.com>
-Date: Thu, 3 Sep 2026 16:40:44 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SAVaVQQF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 719031F00A3F;
+	Thu,  3 Sep 2026 14:41:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788446491;
+	bh=PzZhIe3Q+No1BnEVYJ2mpKzW0HoiA7Ne257cS+OSDa8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=SAVaVQQF/fHOzwY7FRKO1yuARuC1zSlYldW5+IxjWAFwUePBUqcLX/JB5IeQjOI2f
+	 PUM/67YWns4IE6A4DrxElDCRaF4lUN1GKWnv7L1j/gJ7pYhIG4dlpegCtERfVcvmjK
+	 dTeIOvnpKlNSwvXe33JhkGqrtws2WYOppJ4EfRKl8sUCBVn6VkPntgXSxTd3gfcJjR
+	 2dd9AXURFF8zFI077UF6VHOWXgbj5hbxofd/JscHFruDbm8ZAzCksVQXQ37aTMaNXe
+	 TMiEfCu2LsJ0H3X1/YI+f3PoSuRFXRt7ASQys/gAGmjZGQr2HbYsDF2vRqSXnPx2ya
+	 +qsNg7LznMxRg==
+Message-ID: <77453798-713a-4d10-a738-30763e2eb084@kernel.org>
+Date: Thu, 3 Sep 2026 16:41:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,85 +35,119 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] PCI: of: Avoid config reads for disabled bridge nodes
-To: sophon@radxa.com, Bjorn Helgaas <bhelgaas@google.com>,
-        Andrzej Hajda <andrzej.hajda@intel.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Robert Foss <rfoss@kernel.org>,
-        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-        Jonas Karlman <jonas@kwiboo.se>,
-        Jernej Skrabec <jernej.skrabec@gmail.com>,
-        Luca Ceresoli <luca.ceresoli@bootlin.com>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Bartosz Golaszewski
- <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
-        Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>
-References: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
- <20260901-q8b-dts-v1-1-7de0b6a73d08@radxa.com>
- <8c2eaba0-c1bd-4db0-bbc8-5ae3b3d9a13c@oss.qualcomm.com>
- <B4EB99E5B76C9F40+e6fdbdd4-5c05-4b98-867c-29c7178a0d72@radxa.com>
+Subject: Re: [PATCH v3] mm/slab: take n->list_lock in
+ __slab_try_return_freelist() to avoid race
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <B4EB99E5B76C9F40+e6fdbdd4-5c05-4b98-867c-29c7178a0d72@radxa.com>
+To: "Harry Yoo (Meta)" <harry@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>,
+ Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Hyunwoo Kim <imv4bel@gmail.com>, stable@vger.kernel.org
+References: <20260903-slab-fix-aba-v3-1-b44cb6badd54@kernel.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260903-slab-fix-aba-v3-1-b44cb6badd54@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: ZlaDGGp9iIcW20WVYDalXkG0E1eaocB_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEyNyBTYWx0ZWRfX5Z5lWmuiU41k
- ShuAvCELAKDWMTsaxvQt53e4Cyl1bcvmefO5x//JvxWyyGVXgZpkChNBhb3iUsy1IpTdE4QSnwA
- HllSYnqYGHEqE/jiM+rI95bdPSAB2fzeHW+lmqFYQxnx3xYv5TpLvWGCDp3PT3WYHuc/RUg/XMB
- dBwG8qLAy+qipqJ6k19VsJiW5RgnO+X2DsNL5uoqQ1Unv40tj6BNJQosWmpZCueqkg3AUdiYSrj
- YXuakhugqnAAQzkYFqQCJNiCXwbd2AUSVx9lhL0H2Yi7sNurK1+wmJUGHkm73I0bBL/uxaDy/H3
- LieowybGz/TJmBfMHKmeCPLN5XbxLe2luuYKzQM0n3sZaRuhWSReiF5wAd/q4rFiDlgbEIVYUOG
- xmiCkSf0NmXqfdD4VLkvq8HSHaPVkxzNGBxLgYm8ze90ad14jXbExScxU3Z0PJItnNNiXa9R04m
- HvYfpe5RN6JCpFXNmAA==
-X-Authority-Analysis: v=2.4 cv=X8Ji7mTe c=1 sm=1 tr=0 ts=6a9986f5 cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=z2R-DqfiRA8ArFDFZ6YA:9 a=QEXdDO2ut3YA:10 a=ODZdjJIeia2B_SHc_B0f:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEyNyBTYWx0ZWRfX9KWM2KuM+aJ2
- nmKb80purVj/9+5r42AbGtj8DasADSM7h0xyilAxcFGCSIMus8yRmNnkkZv+ubR7iV+jw7jcFHb
- PEjF8MMLOULVbjkZ86zQV8q+bKsSZzU=
-X-Proofpoint-ORIG-GUID: ZlaDGGp9iIcW20WVYDalXkG0E1eaocB_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_04,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
- priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030127
 
-On 9/2/26 11:31 AM, Xilin Wu wrote:
-> On 9/2/2026 4:43 PM, Konrad Dybcio wrote:
->> On 9/1/26 10:47 AM, Xilin Wu wrote:
->>> The TC9563 PCI power-control driver powers off external downstream ports
->>> whose device tree nodes have status = "disabled".
->>>
->>> On the Radxa Dragon Q8B, reading the Vendor ID from one of these
->>> powered-off port functions during PCI enumeration raises an Arm SError
->>> instead of returning an all-ones PCI error response. This prevents the
->>> board from completing boot.
->>
->> I agree with the premise of the patch, but I'd like to understand why
->> that happens - do you have any details?
+On 9/3/26 16:32, Harry Yoo (Meta) wrote:
+> Commit ba7425312607 ("mm, slab: add an optimistic
+> __slab_try_return_freelist()") incorrectly assumed that nobody has freed
+> an object to the slab as long as slab->freelist is NULL and cmpxchg
+> succeeds.
 > 
-> Unfortunately, I don't have further details. The downstream kernel also includes a similar workaround, so I suspect it's related to how the TC9563 chip is designed.
+> However, as reported by Hyunwoo Kim [1], other CPUs might have freed
+> an object to the slab, insert the slab to the partial list, then
+> allocated an object from the slab, and be in the middle of removing
+> the slab from the list under n->list_lock.
+> 
+> Since __refill_objects_node() puts the slab back on pc.slabs
+> outside n->list_lock, it might insert the slab into that list while
+> the slab is concurrently being removed from n->partial.
+> This led to a list corruption [1]:
+> 
+>   list_add corruption. next->prev should be prev
+>   (ffff888100000248), but was dead000000000122.
+>   (next=ffffea000416e410).
+>   kernel BUG at lib/list_debug.c:29!
+>   Oops: invalid opcode: 0000 [#1] SMP NOPTI
+>   CPU: 1 UID: 65534 PID: 144 Comm: poc Not tainted
+>   7.2.0-16172-gcf72cbb39da8-dirty #1 PREEMPT(lazy)
+>   RIP: 0010:__list_add_valid_or_report+0x80/0xd0
+>   ...
+>   Call Trace:
+>    alloc_from_new_slab+0x183/0x300
+>    ___slab_alloc+0x31c/0x890
+>    __kmalloc_noprof+0x3d4/0x800
+>    lsm_blob_alloc+0x2d/0x50
+>    security_msg_msg_alloc+0x26/0x90
+>    load_msg+0x1aa/0x210
+>    do_msgsnd+0x91/0x800
+>    do_syscall_64+0x109/0x5d0
+>    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>   ...
+>   Kernel panic - not syncing: Fatal exception
+> 
+> This is a classic ABA problem where cmpxchg succeeds but the state has
+> changed since __refill_objects_node() took the freelist from the slab.
+> 
+> As Vlastimil Babka mentioned [2], it should be rare to return more than
+> one slab (due to the racy read of slab->counters in
+> get_partial_node_bulk()). Therefore, instead of introducing additional
+> complexity, acquire and release n->list_lock twice in the worst case.
+> 
+> Return the slab directly to the partial list and hold n->list_lock
+> across the cmpxchg and add_partial(). This is similar to the initial
+> version of commit ba7425312607 [3]. This is enough to avoid the race as
+> the list manipulation is serialized by n->list_lock. While at it,
+> bring back unlikely() hint now that the condition is unlikely.
+> 
+> Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
+> Closes: https://lore.kernel.org/linux-mm/apPa-cGLcyt90l-E@v4bel [1]
+> Link: https://lore.kernel.org/linux-mm/ae25c193-b95f-40c1-83b6-1c2546467e41@kernel.org [2]
+> Link: https://lore.kernel.org/all/20260421-b4-refill-optimistic-return-v1-1-24f0bfc1acff@kernel.org [3]
+> Fixes: ba7425312607 ("mm, slab: add an optimistic __slab_try_return_freelist()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Harry Yoo (Meta) <harry@kernel.org>
 
-I'm curious in why the port is still advertised on the bus if
-the i2c interface writes some magic bits to "disable" it on the IC
-side.. but perhaps that's just how that IC behaves and we can't
-do anything about it?
+Added to mm/slab.git slab/for-next-fixes, thanks!
 
-Konrad
