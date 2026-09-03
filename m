@@ -1,137 +1,95 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC477446075
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:13:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D7944B662
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:14:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.114
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788434031; cv=none; b=Nup0iFRZ9PmD3pY86KHU3j/yAX9pEx6Jpw4hv4CgTtldRzK9Huu8uuB1hluLYHuENuADdBTQrB5PJky22ICO/+ZufZaekJcRzNADXrRHxJ5LESN3Tw1huRmjOzLbraTTN9+d5+6wlAYYfR87gNY0Has82GTU/cunxBuQq1fmsy8=
+	t=1788434053; cv=none; b=q1qJa5du5JHz+6jPlt/oilWIAB6gaC72B4fHio5Mfywcm1mVttl9++e+yJFFMkiz9zNQZInoPyaessT2G2hrjx1Pd4opCd5UcVLhgdw+DsvgiRIZG320jYcLeHAXLPvdFWqQcjMhoHIN58MgSBoQbhxJQXZ4uYJA+5u4GJ/vfYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788434031; c=relaxed/simple;
-	bh=hd6vzKJsOJbmZPpx1u6g0M8XRXCofaxgyOa/SVCy7KI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YWflfT7stf8f0A2TO8LXe2WhEg5hptLTBKBJNgl45lvArxT+caswYgGqixhIh7FbsKkHwQDRKNFuqSWjnFNq+fctv8Ia0xI+GBike0nZIfCAfcNstWoAHPaDCv8KmXW6d43/Hfe7xE9P9dBiWYtB5CXmps2IQYX/DK6QZhcNSrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=p4SKM6UA; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788434053; c=relaxed/simple;
+	bh=zYuMzv92FoU1OiGaK9rzR0UfK0Q0VQ3RiBM4FzAhyCY=;
+	h=To:Content-Type:Subject:Date:Content-Disposition:Message-Id:
+	 References:Cc:From:Mime-Version:In-Reply-To; b=UY/UZd9Ly9hrI9WFH/+dqVh1BROolNXgixSgFjxLq00zn+nLSq7cPUBIbS15Y3fezPjs7+nFGeLIu3Msw0qcKlFfFv33L1p9IYXI75XkeJI/thXwbORsK65mgUP9va7894lmx/mT2exaZ6zuXfH8WvkxhaFBnkNAhaLOwM8LONk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=L7dbfm4+; arc=none smtp.client-ip=209.127.230.114
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="p4SKM6UA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Zq
-	2lLvo2jJEdzhkyFKofBzs52vepQTWKLiIjF0jovNo=; b=p4SKM6UA0AgCkruqOD
-	HZiV27VIaO/Wq0Jd9gnIKOUHySulOAKtveztiC7+ZR50qUrha+q+zdTYvKiItcw5
-	+ZN2anh0kXG+7m2CrfJdErbl4Z9iHo8ioPNCliCD+Wbpgi1yqjEfH5j77VYsST7/
-	BJzC5kn/d0VgloWx01dZWeclA=
-Received: from localhost (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgCHjMwvVplq2Ee1Pg--.51302S2;
-	Thu, 03 Sep 2026 19:12:47 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: linux-kernel@vger.kernel.org
-Cc: peterz@infradead.org,
-	juri.lelli@redhat.com,
-	mingo@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	jstultz@google.com,
-	connoro@google.com,
-	Hui Su <sh_def@163.com>
-Subject: [PATCH] sched/rt: Fix RT watchdog accounting for proxy execution
-Date: Thu,  3 Sep 2026 19:12:47 +0800
-Message-ID: <20260903111247.3538976-1-sh_def@163.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="L7dbfm4+"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1788434044; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=gBrOlFzYxGUBzWeuwK2gqXR8iDXV4YIeJP0g/F/U9U4=;
+ b=L7dbfm4+ajPJjtLRgc6HvjIZiyYqNX4fIKPjF/DS/LgMLr+fw4Rw0DY5WCdhD6qC+NqvEj
+ 7hZUnxd4+ZPkx8stUuBZz+p3eyj8lKUfEjHfC4u0aAIDlOi3HQrkZy3IwmfFuNKhh/aH+D
+ Z5A+jDSj7IM1UIYZoYebmDN+F6v0SYBqSqvyBVd+DCfstBMJ032mVZNhLc0JmkK+OANM8F
+ lSPOzEcJ0bVPqcvC3meMiTPj80XSSK7G5Ng6Ibl+6C+eWS1m/gL9F94CB/68YSd1ipWjr7
+ Pe26+73dqyQCVpS27BjT7ofbJLRwXc/gORXyy9zlFqwTTtxzjfJB5x2bLfT3JA==
+To: "Peter Zijlstra" <peterz@infradead.org>
+X-Original-From: Aaron Lu <ziqianlu@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 1/7] sched/core: Fix pick_next_task() self recursion
+Date: Thu, 3 Sep 2026 19:13:35 +0800
+Content-Disposition: inline
+X-Lms-Return-Path: <lba+26a99567a+cebf83+vger.kernel.org+ziqianlu@bytedance.com>
+Message-Id: <20260903111335.GA3594512@bytedance.com>
+References: <20260828101659.812011872@infradead.org> <20260828104018.378378994@infradead.org>
+Cc: <mingo@kernel.org>, <juri.lelli@redhat.com>, 
+	<vincent.guittot@linaro.org>, <dietmar.eggemann@arm.com>, 
+	<rostedt@goodmis.org>, <bsegall@google.com>, <mgorman@suse.de>, 
+	<vschneid@redhat.com>, <kprateek.nayak@amd.com>, 
+	<linux-kernel@vger.kernel.org>, <tj@kernel.org>
+From: "Aaron Lu" <ziqianlu@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgCHjMwvVplq2Ee1Pg--.51302S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXw48Kr1fXr4rJFW3XrW3trb_yoW5WF4Upr
-	Z0gasxJw4DKa4jqas7Zws8u3yrWw1fJ342qr4DJryrArn8KF1Fgr1vqa4avF909ry2vFya
-	vr1vv3y2ya1jyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi_b1UUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwg+hAWqZVi-3KQAA35
+Mime-Version: 1.0
+In-Reply-To: <20260828104018.378378994@infradead.org>
 
-With proxy execution, task_tick_rt() is invoked for the scheduling
-context in rq->donor, while rq->curr identifies the task that is
-actually executing.
+On Fri, Aug 28, 2026 at 12:17:00PM +0200, Peter Zijlstra wrote:
+> It is possible for another sibling to end up in pick_next_task() when:
+> 
+>   pick_next_task()
+>     pick_task()
+>       sched_class::pick_task()
+> 
+> drops the core wide rq->lock. In this case they end up trampling the core wide
+> task selection state, possibly leading to NULL derefs. Detect this case by
+> keeping a local copy of core_task_seq, a value that is incremented on
+> {en,de}queue and schedule.
+> 
+> Since RETRY_TASK is only possible when a higher priority task gets enqueued
+> during the lock break, this must mean core_task_seq will also be incremented
+> and is thus completely covered by the seq number mismatch.
 
-The RT watchdog looks up RLIMIT_RTTIME through its task argument and
-updates that task's rt.timeout and posix_cputimers state. Runtime
-accounting, however, charges execution time to rq->curr, and
-run_posix_cpu_timers() checks current after the scheduler tick. Pass
-rq->curr to watchdog() so these state updates follow the actual execution
-context.
-
-Reset rt.timeout when a non-RT execution task blocks while using an RT
-donor, or resumes with a non-RT scheduling context. This ties the timeout
-lifecycle to the execution and scheduling contexts, handles nested proxy
-chains, and preserves the timeout across scheduler preemption. Native RT
-tasks retain their existing behavior.
-
-Tested with a proxy-execution reproducer using SCHED_FIFO and
-SCHED_RR donors. The unpatched kernel charges rt.timeout to the donor,
-while the patched kernel charges the execution task and delivers SIGXCPU
-to it. Nested proxy chains, blocking and non-RT context transitions,
-scheduler preemption, and donor cancellation were also exercised.
-
-Fixes: 7de9d4f94638 ("sched: Start blocked_on chain processing in find_proxy_task()")
-
-Signed-off-by: Hui Su <sh_def@163.com>
----
- kernel/sched/core.c | 13 +++++++++++++
- kernel/sched/rt.c   |  2 +-
- 2 files changed, 14 insertions(+), 1 deletion(-)
+For the uncookied no-sync fast path, we should check if core wide is
+still uncookied after lock is re-acquired? Something like below, or we
+can pick an uncookied task when sibling picked a cookied one:
 
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index f78275192036..c429e410f6dc 100644
+index cd0149f5f6693..781f751acdb5b 100644
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -6746,6 +6746,11 @@ static bool try_to_block_task(struct rq *rq, struct task_struct *p,
- 		return false;
- 	}
+@@ -6314,6 +6314,14 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
+ 			goto restart;
  
-+	/* End the current proxy execution episode when the owner blocks. */
-+	if (sched_proxy_exec() && !rt_prio(p->prio) &&
-+	    rt_prio(rq->donor->prio))
-+		p->rt.timeout = 0;
+ 		if (!next->core_cookie) {
++			/*
++			 * pick_task() can drop the core rq lock through newidle balance.
++			 * If a sibling established a core-wide cookie while the lock was
++			 * dropped, the uncookied no-sync fast path is no longer valid.
++			 */
++			if (unlikely(rq->core->core_cookie))
++				goto restart;
 +
- 	p->is_blocked = 1;
- 
- 	/*
-@@ -7221,6 +7226,14 @@ static void __sched notrace __schedule(int sched_mode)
- 		rq_set_donor(rq, next);
- 	}
- 
-+	/*
-+	 * End a previous RT proxy interval when a non-RT execution task is
-+	 * selected with a non-RT scheduling context.
-+	 */
-+	if (sched_proxy_exec() && !rt_prio(next->prio) &&
-+	    !rt_prio(rq->donor->prio) && next->rt.timeout)
-+		next->rt.timeout = 0;
-+
- picked:
- 	clear_tsk_need_resched(prev);
- 	clear_preempt_need_resched();
-diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
-index e6e5f8a2caaf..bdcfc4fa8922 100644
---- a/kernel/sched/rt.c
-+++ b/kernel/sched/rt.c
-@@ -2545,7 +2545,7 @@ static void task_tick_rt(struct rq *rq, struct task_struct *p, int queued)
- 	update_curr_rt(rq);
- 	update_rt_rq_load_avg(rq_clock_pelt(rq), rq, 1);
- 
--	watchdog(rq, p);
-+	watchdog(rq, rq->curr);
- 
- 	/*
- 	 * RR tasks need a special form of time-slice management.
--- 
-2.54.0
+ 			rq->core_pick = NULL;
+ 			rq->core_dl_server = NULL;
+ 			/*
 
+We can also do a core_task_seq check above but if sibling picked an
+uncookied task, it's actually OK for this rq to go this fast path so I
+chose to check rq->core->core_cookie here.
