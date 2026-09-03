@@ -1,120 +1,143 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2DC26AF4
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 21:32:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788471166; cv=none; b=LO5YpHbNj1Ruv7+GXDShRJBBibpqccgKWn1osl/fUzR//yCEXHjEEy2q5B+yQD+bEJmZsfkrjStC8uOdY6Rbem+pXaCMEupdwkIpy6dmglCI9d3blyc2zvyfpO99dyXLrWMA6n/IVqhzPrvRqk3w0VYYuxRaCMCjQqEwekX1UkA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788471166; c=relaxed/simple;
-	bh=JgJwkZtnsbHh2zN7kMHW5CB6rzeUkQHmvzBHdfdb3uY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=enj2WucSuyHYaveGXJxfWKCdh3xeh7qwqi7aL4FS2+cArshdVrHYaOAXJ78uO1I3WZsf/oCfiQU/ZUCGvRVmRI2ZL24sGvbdNqugLdlhzTrnpS0yaLgwww9tF3k/cQXMQ20SYLKRJQSmN1T68oVOO+mjhsNGLvXiHlGAbiSGF5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rWVHQvX7; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE95B175A7B;
+	Thu,  3 Sep 2026 21:33:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788471240; cv=pass; b=LylFYxNaNpvdMUt4PFjq0VU9mrK+GX3z54l8eJQWH+fGBWsu4CVav/asvcltND5iN6xt+anlffZ9XNfW/09Jo8tAgPeHHklHnaiDpz5vTrDWqG5upACk0PWKd+s8QVmevn7Crxmpkmerg07gSTndzbY1QmnzsyqV6Xb6SBSjqaY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788471240; c=relaxed/simple;
+	bh=Ba1g9Enw/pSe3C3idkub28I3EbLdqVQfhCWFTdvDvZs=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Y2JANl6H/JtbtcA3ldxbwoKq/82Jr5vha3oMpg5ZCMyram4jBUt91ozk4WYQydoJRqGWOEZFNyxxFNfrUgwo3MDHOT8GMca167b/l4KdnNkuvsiSv/W3LpHRdXP+sU3f1se6utrj3aLy7xaJxDhBX47IVl3jiyaDUFKciLtBh4o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=kNqVLXvt; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=Vla6+HXv; arc=pass smtp.client-ip=85.215.255.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rWVHQvX7"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2cc891373e0so3181145ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 14:32:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788471164; x=1789075964; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1jpsWQtqNEl1O8ST2vTlmcJR/phkOG8gheLQGm0LM9M=;
-        b=rWVHQvX7pXkPl6Z6vn/eHVCxCxFJDL/uxTDhiM0qUwo9mnyYMTTncxqc5OsfTSUIhg
-         hurc83/FQTGvMRdsPSK8/HGRf47gPQKDB+pXE/OZVo4sV0OLscaKdAIw0lQ4aVvVOUeJ
-         Y4adIn56E/QPAEzuOjB+Q02yQ6sBSn6D4iR0gGuCXN838ZuaTNofQe+XlRs28W1kQ10+
-         rvWwI1RPuitWWRcMWN4D3da6/4vmQzvewurbOWyACOIVaVJfVQN+kuRshC5vNmOAinzY
-         BJL0m14DFEWz3X0FQBhsJPopuylQEQThmPFSFtyrpzz1vXfMlVnsW8H4g2d/9sCbOBuK
-         Oe8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788471164; x=1789075964;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1jpsWQtqNEl1O8ST2vTlmcJR/phkOG8gheLQGm0LM9M=;
-        b=G/g0B8buU5ophE64pvHIZMepFkHQ8tsXe1B1Bsm/If2zyoxFPwFDDSqMzbc9uC8mZ5
-         6/dtx0FVnu/XHygPIrQxW4f65CyRB4XtVZESifApj2KQOFZcv+JKpCPT0Ou3J18ciZl3
-         33gaLWzYeoOv/JWzCsL7sRRaAvtEZ619MKh+A68oR05Byo0VKC1++cm92q1LFahYC7cn
-         NjmY9Fn0GdPKVhHc1pIzXRznXB1gVDQr6Jf7+catythgB0xxAO6J/5NsszmrJpzlZk/X
-         AWOq/NI1+TtC4g0Ltq+m4G2ikYuc2ZtFzYrww3YusfyuU2c0lFgW35mNKghKgmkbtrYB
-         87zQ==
-X-Forwarded-Encrypted: i=1; AKwUvBySKrIbo54q2KKyywrcStHOxtji7QH4r47tMBRc8Hd974WGcvl6wFJQnBpCxvjZ/1G2t3A6GJlo8i2ieqU=@vger.kernel.org
-X-Gm-Message-State: AFuF++m04NXKI658Qrfd7fuywH80qpC5PB9inX7gnu5Mhod0IioszXu4
-	Ncah4cyZGV4anc+smiYwJeqRLWuBZPLM3Ez52RRHrEXFbzzFejTsXN3P
-X-Gm-Gg: AYBFou3k/KUvBAQE28KH9zqvJZuWBGryLyIs6TgeD0x/S8G3IJa2Im+fl4WukoFqO31
-	2352wxd6dPz66FgkRsRVzToA3GJewknF9iNY1QtMpLnNEdVohHCFA16a7rYvbd/Ieqt4GmMHJRJ
-	cYoLGF3wIlVH/zQYp0k32/MxqoTV8iJRJe31g41ln3CuQO0iG9TGNKBLEQtAH4uZTB6MrLz2aNE
-	M/bhBLl75qsu0t0bvoRegNcY65BWVage0L5y59hGxYqCy0x9I+Va9UtjSYPLdMtXQgoiVJjHVUt
-	26vkuH6MKDIAuH+sWbDumjTaCIRarM8Xyrc6kfBM9bikCB0RTh/IO+cCserKP3FN9U0pomXLcWZ
-	g7v4yWn91XHvLA8gL2ONlVQMFD+2NObPl6FCC/k0Q8CuxZLTyqpyV5gaADO2qsvWGERN+A7WpRK
-	QmpiCjTyEFAmX0ilB82CNYqfUjN4labylO3lhkorUYfjflkq66RmwQhTDo2n6CLRH1wHq/cYyBv
-	AFWysHGSbIlUKUNtVMm8B65robYIOJk1P+QrxjD8kBGf2VxYVpD3gHGf3Vz5Kr7mOrAF0XpBYfn
-	GV+SRbBRNsKSAqq92E80s6p5MlSQjp/jICb1hQ==
-X-Received: by 2002:a17:903:3c64:b0:2d5:2f49:b3de with SMTP id d9443c01a7336-2db1212f15amr28987405ad.0.1788471164358;
-        Thu, 03 Sep 2026 14:32:44 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14845142sm1296195ad.5.2026.09.03.14.32.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 14:32:43 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Esben Haabendal <esben@geanix.com>,
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/ZYNQ ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv3 net] net: ll_temac: Return actual error from of_get_mac_address()
-Date: Thu,  3 Sep 2026 14:32:41 -0700
-Message-ID: <20260903213241.1040204-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="kNqVLXvt";
+	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="Vla6+HXv"
+ARC-Seal: i=1; a=rsa-sha256; t=1788471224; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=BJtVQFabtLdT7rxKEurlJ9UuTDWEo3rNQHGZM1KK76kARWszuXNMyubRtDI2gRlgWl
+    8uKxDdf5Zzg6Ebwm+wXzLM2yXi+3Fa8hP8j8uolWbAM719iFAluzuunIbvPwx/c20yMh
+    px6oPwRYjkDsvn8E6gw+Jk4rRspBrcm5mYpSqhfeNJ6zhCw8X0WJ3GUSPuhuW0CHIG2r
+    6zxr+DuI+pL4dWXA03tVMANU/n5xWvVRZkUd52oJMAgIMSg3IWGpTIw5icAJpcXjt/le
+    S7HSwhdJWAUj0C3nOZ+A1RmU7selNd4y+O1yCJWYrdlKV1JdgndpuDVAQOufYPWVfCCn
+    ivgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1788471224;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=Ba1g9Enw/pSe3C3idkub28I3EbLdqVQfhCWFTdvDvZs=;
+    b=K+gTdEBgnrVPltb61O/EKE9MyEzmHIPuFqB5O2HsUhYrybnpQ6e/KEYiz0cQ9JZrFu
+    deQxYARe1RMiq3H6ar16o8Kp3xyRMPSKVOfA9RCcBCwBWF9uOg8k6+pvD9+kIjaWNvN6
+    iS0AOoZELDieRagbeev+vIxSzN9T4Tm3LSTjGUylWWC03mP56Ru9ubVoj4FxMjNEyyft
+    2aaxp6+5EVFU1mHIlN4UcFx21oyR17zNxF3GvXw1bCDJovOq88nDhcMa4yCm1SjjQTUU
+    1sTskU1JMFj6DBwcFh9Df3CKP6hoawEacUWz7sLK2iZvBaxlnHaE4SM5tMYpbsUwNmuh
+    Px1A==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1788471224;
+    s=strato-dkim-0002; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=Ba1g9Enw/pSe3C3idkub28I3EbLdqVQfhCWFTdvDvZs=;
+    b=kNqVLXvt2pXbRysADHBXkXPeRwdMUk4mYXGHF7lzqOK+KKhskIfABd7kB+8dBVogwa
+    HSjGbKHBc4zlGebjuB14JMMk4eoKFJXHOpAQqIjqxehDKV61pU4LPaF9FSCg/4YCBWsn
+    KkAwvyP6hWCyfWeDcXEMj7Bvrso3qbBydwRbRRr5APEbxP43lehzS4C2cQ2ZkhI8AmHa
+    xXDNdLcl5NAmkhrK86akK5wYOchjKf1RneV9rHW7BCApbtf8+CsAD9nFk6AjB7ldnAnF
+    I8y+gUdYWOCbBxVGV4u8WDOdxeWL7IAkyOzKQa1vV7YbIytfkrqY+p5TDMb5HftXAbyq
+    lyFg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1788471224;
+    s=strato-dkim-0003; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=Ba1g9Enw/pSe3C3idkub28I3EbLdqVQfhCWFTdvDvZs=;
+    b=Vla6+HXv3bgmPIbVJCnswgALzZeJH3m4GGsuipsGlPmO2GfWPVOIkh+mxP3S9XYL9X
+    hBiivxLJPOq9XRIj4ACQ==
+X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0zNriHg+YfT0rGaZpI+/vCOxdmmyL+9XI5wV29xH6dGGQb9FUYY="
+Received: from p200300c5872968f7abfc5aba940d79be.dip0.t-ipconnect.de
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id ze37e1283LXhzqa
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Thu, 3 Sep 2026 23:33:43 +0200 (CEST)
+Message-ID: <f1e59607ab2f5554993dacf21947024e41278058.camel@iokpp.de>
+Subject: Re: [PATCH 3/3] scsi: ufs: core: Report the current clock frequency
+ to devfreq
+From: Bean Huo <beanhuo@iokpp.de>
+To: Stanley Jhu <stanleyjhu@google.com>, MyungJoo Ham
+ <myungjoo.ham@samsung.com>,  Kyungmin Park <kyungmin.park@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>, "Martin K . Petersen"
+ <mkp@kernel.org>, "James E . J . Bottomley"
+ <James.Bottomley@hansenpartnership.com>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman
+ <avri.altman@sandisk.com>,  Bart Van Assche <bvanassche@acm.org>, Jie Zhan
+ <zhanjie9@hisilicon.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ linux-pm@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bean Huo <beanhuo@micron.com>
+Date: Thu, 03 Sep 2026 23:33:43 +0200
+In-Reply-To: <CAE14pddCf1VhLVC_H-Nv30C4BzK_UO4Eknd27g72d1nAjdBdpA@mail.gmail.com>
+References: <20260831130129.3979454-1-beanhuo@iokpp.de>
+	 <20260831130129.3979454-4-beanhuo@iokpp.de>
+	 <CAE14pddCf1VhLVC_H-Nv30C4BzK_UO4Eknd27g72d1nAjdBdpA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-When of_get_mac_address() fails, return the actual error code (rc)
-instead of the hardcoded -ENODEV. This preserves the original error
-information, which may be more specific (e.g., -EINVAL, -EPROBE_DEFER)
-and helps callers handle the failure appropriately.
+On Tue, 2026-09-01 at 09:33 +0800, Stanley Jhu wrote:
+> On Mon, 31 Aug 2026 15:01:29 +0200, Bean Huo wrote:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 /*
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * target_freq stays 0 until something s=
+cales the controller for the
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * first time. Report nothing rather tha=
+n 0 so devfreq falls back to
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * the frequency it last set.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 if (!cur_freq)
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 return -EINVAL;
+>=20
+> If ufshcd_devfreq_get_cur_freq() returns -EINVAL here, devfreq falls back
+> to devfreq->previous_freq. However, because UFS does not set
+> devfreq_profile.initial_freq, previous_freq is also 0 at boot. On platfor=
+ms
+> with use_pm_opp=3Dtrue, the initial sysfs read or the first transition be=
+fore
+> scaling still ends up seeing 0 Hz.
+>=20
+> Would it be cleaner to initialize hba->clk_scaling.target_freq and
+> devfreq_profile.initial_freq to the max frequency in ufshcd_devfreq_init(=
+)?
+> That way, cur_freq is valid from the start and we wouldn't need to handle
+> the !cur_freq case here.
+>=20
+> Thanks,
+> Stanley Jhu
 
-Use dev_err_probe() to avoid printing an extra error message in case of
--EPROBE_DEFER.
+yes, thanks, that is better. I will do it in v2.
+digging deeper, the problem is a bit wider than the sysfs read. with use_pm=
+_opp,
+ufshcd_init_clocks() already puts the controller at the highest OPP, but no=
+thing
+records that, so target_freq stays 0. Then ufshcd_devfreq_get_dev_status()
+reports 0 Hz, the ondemand governor asks for the maximum frequency, and
+ufshcd_devfreq_target() sees 0 !=3D max and runs a full ufshcd_devfreq_scal=
+e().
+That holds up the queue for up to a second only to set the same OPP and the=
+ same
+gear again. This happens today, without my patch.
 
-Fixes: 8425c41d1ef7 ("net: ll_temac: Extend support to non-device-tree platforms")
-Assisted-by: opencode:big-pickle
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v3: actually use dev_err_probe()
- v2: use dev_err_probe()
- drivers/net/ethernet/xilinx/ll_temac_main.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+Patches 1 and 2 are not affected.
 
-diff --git a/drivers/net/ethernet/xilinx/ll_temac_main.c b/drivers/net/ethernet/xilinx/ll_temac_main.c
-index 711ed9c2631b..ea0f54e4df27 100644
---- a/drivers/net/ethernet/xilinx/ll_temac_main.c
-+++ b/drivers/net/ethernet/xilinx/ll_temac_main.c
-@@ -1579,10 +1579,8 @@ static int temac_probe(struct platform_device *pdev)
- 	if (temac_np) {
- 		/* Retrieve the MAC address */
- 		rc = of_get_mac_address(temac_np, addr);
--		if (rc) {
--			dev_err(&pdev->dev, "could not find MAC address\n");
--			return -ENODEV;
--		}
-+		if (rc)
-+			return dev_err_probe(&pdev->dev, rc, "could not find MAC address\n");
- 		temac_init_mac_address(ndev, addr);
- 	} else if (pdata) {
- 		temac_init_mac_address(ndev, pdata->mac_addr);
--- 
-2.55.0
-
+Kind regards,
+Bean
