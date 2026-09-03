@@ -1,207 +1,203 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012064.outbound.protection.outlook.com [52.101.53.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F78C46D2DD;
-	Thu,  3 Sep 2026 08:55:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.64
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788425726; cv=fail; b=XN35eImN78hbEz5N9HAYPvXGZvEzH5apdWu6IJa6X1oHFpxzHZsqshEqDVN1HyAjwemfKR5aSvFA4qrFi4Yirs5uasz+mvmhl8It0DWJIx6FBthoN94T7MZCyBH40VbeTmuZWULwBr6lb+m3Ql1K/fc2e0ptlCX45IavEyhD0QA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788425726; c=relaxed/simple;
-	bh=dGV6xIC3D8rO81xkhh05x70pdw64GuArb2Dk/aSKZns=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iE2VBVe0yxXyZudhaFuVPp1fMq1h9egi4lz0fxgUw0x6nxrSdDlDhc3ScVb2OkYJsmSvUUj0lxMRKXIHSScl2HsYbYemvfJvUNciVr/RjkYSqBR6KPor5TnqdVTbivaSjlk7RNs2AyZvjGJcpy0ST1StbraA7/dmaUeexxvuG18=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=t6+WXnFz; arc=fail smtp.client-ip=52.101.53.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B045D46E00C
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:55:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788425739; cv=none; b=BOCCFGWbYgfGWkyFYhDvVEglvLq2v/Y/r5wmIv/2d6tkiTdhc0iFVIWjk7OoM7dkv/B9WRgg58BOyScc3yz6g1OZWDl2n+If26lHHtffayaWz/QnRenb5VoYyhxIPwKV2xZ07e6BfIZRBB4KTVA2k1PisLh3LFcP48e0Ijx2xuQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788425739; c=relaxed/simple;
+	bh=YKJfUdy5n6ffaKk39SK9sft7LcFnAbfH3T12ej/97pA=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=PuyLfLhmHWOoFil3OYOpc5DLiYw1EBg23Cj89hNuVJK/BO/Lql5alc5phjjM6KBok/gCii1vkmzZ2nWmxzXRub7O+kjSy6bvpl5b8eHUbOW153zaJWHeEOecVno0tDOOmQdEYMF6cuIEdtmK8LNd/UQZJ6LUf3/JWYICQbn2/7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=UjRro5D9; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="t6+WXnFz"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=J6fkSG2hNTpcKisZV2OaMdx4GSyLm3VJ6pmgyBbsoxB/XpCE351F5LX2mGJPnYmJgkaVQtL6+TIPAJqGVVsxe20Fc+mf6lNFzzo1MK4fFDHY033KHiJUdvOIIuGHbYb0AwHVDRTwmBN1ozrFF1vwzbesEpY3QuXgpogYtyLPOWxscm5yKQboggL/HMeugmhdzNEGv8NyZj2/8FCeTFdDGOJsIjcPykhlI4YDkxn1mFfLZkvCFRuvu4NATutykvveojz+Bvn2E/jBK8973va5eCkPUCdd/Njn0yk/l1foer2rYDcWamhtsTBz66sSJsfzgEhS8f8kV7e8rzH8HwZ0Jg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f0YdwiG3QMmWNUZFOOzMjc6ZblPTs/XtgN+8O7pshMc=;
- b=DYorEdf7d0DetQ4Xv2zcOByFFg/TXmxmnj7XGCV5Uw8jRjl3KW+/P509ORueI4ETU7Besw1P+c251/ZsASR41YeKzrSYD8L5pBLdomwIUB/pnhCAk9UxloH3H4Cre50LlGng/OWtBssMDkM3Rm7azs7O4R1hkuqRBPn3OC44W/BXlrO2eNkeU8H/TlDUHLc8dL6++BNqMXn4+E8jBXlX9zCVaHjZ5NMq8AQK5EUFutOBPScVi1VnNdakpRaYgUl+bjmJxqlIRubfcI0x9TCMxrfun6awcFglqUmxCMdChMzgDI5VzLhSdM4Pf2C1jQySFQB5riGNqsLmeK9zB7HyHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f0YdwiG3QMmWNUZFOOzMjc6ZblPTs/XtgN+8O7pshMc=;
- b=t6+WXnFz099HS7TbqyI0xUVKkITDy3YuhCsX56uQL61W04mA76XZH6HfE3c9l8CQYnV3sen4ei902cbPwYoCioXkc0DX93eBa/jkgnhIde/43FDr5ImyvlCaXRO7gcu66q6JFEjqtjBBZgWK2wQHUnUHglQe2NqpH0DfF4pe2Jaii2JvExHCKXJEj9oknscGSftVnBtag3OU6REaTYqG2ExRik1jfdZAs632kkuiR4gXBdHSVTbYT9wsnyfM3vyg5Zu4xMexI0fvKXkPbAWDD7rR0Qg7potgYDj1s047gyXBx07OHb449ZG14+v6/97Afl/Avyspmju3M4JDk85Mqw==
-Received: from CH0PR13CA0048.namprd13.prod.outlook.com (2603:10b6:610:b2::23)
- by PH7PR12MB5829.namprd12.prod.outlook.com (2603:10b6:510:1d4::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 08:55:18 +0000
-Received: from BN2PEPF0000A803.namprd02.prod.outlook.com
- (2603:10b6:610:b2:cafe::7d) by CH0PR13CA0048.outlook.office365.com
- (2603:10b6:610:b2::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Thu, 3
- Sep 2026 08:55:17 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BN2PEPF0000A803.mail.protection.outlook.com (10.167.245.164) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Thu, 3 Sep 2026 08:55:16 +0000
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
- 2026 01:55:00 -0700
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail202.nvidia.com
- (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
- 2026 01:55:00 -0700
-Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.7)
- with Microsoft SMTP Server id 15.2.2562.46 via Frontend Transport; Thu, 3 Sep
- 2026 01:54:48 -0700
-From: Tariq Toukan <tariqt@nvidia.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Sabrina Dubroca <sd@queasysnail.net>
-CC: Aleksandr Loktionov <aleksandr.loktionov@intel.com>, Alexei Lazar
-	<alazar@nvidia.com>, Alexei Starovoitov <ast@kernel.org>, Allison Henderson
-	<allison.henderson@oracle.com>, Antonio Quartulli <antonio@openvpn.net>,
-	Anubhav Singh <anubhavsinggh@google.com>, Bobby Eshleman
-	<bobbyeshleman@meta.com>, Boris Pismenny <borisp@nvidia.com>,
-	<bpf@vger.kernel.org>, Carolina Jubran <cjubran@nvidia.com>, Chris Mi
-	<cmi@nvidia.com>, Cosmin Ratiu <cratiu@nvidia.com>, Daniel Borkmann
-	<daniel@iogearbox.net>, Daniel Zahka <daniel.zahka@gmail.com>, David Wei
-	<dw@davidwei.uk>, Doruk Tan Ozturk <doruk@0sec.ai>, Dragos Tatulea
-	<dtatulea@nvidia.com>, Gal Pressman <gal@nvidia.com>, Jacob Keller
-	<Jacob.e.keller@intel.com>, Jesper Dangaard Brouer <hawk@kernel.org>, "Jianbo
- Liu" <jianbol@nvidia.com>, John Fastabend <john.fastabend@gmail.com>, "Kees
- Cook" <kees@kernel.org>, Lama Kayal <lkayal@nvidia.com>, Leon Romanovsky
-	<leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
-	<linux-kselftest@vger.kernel.org>, <linux-rdma@vger.kernel.org>, Mark Bloch
-	<mbloch@nvidia.com>, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Patrisious Haddad <phaddad@nvidia.com>, Petr Machata <petrm@nvidia.com>,
-	"Raed Salem" <raeds@nvidia.com>, Rahul Rameshbabu <rrameshbabu@nvidia.com>,
-	"Richard Gobert" <richardbgobert@gmail.com>, Saeed Mahameed
-	<saeedm@nvidia.com>, "Shuah Khan" <shuah@kernel.org>, Shuah Khan
-	<skhan@linuxfoundation.org>, Simon Horman <horms@kernel.org>, Stanislav
- Fomichev <sdf@fomichev.me>, Stanislav Fomichev <sdf.kernel@gmail.com>, Tariq
- Toukan <tariqt@nvidia.com>, Willem de Bruijn <willemb@google.com>, Willem de
- Bruijn <willemdebruijn.kernel@gmail.com>
-Subject: [PATCH net-next V3 10/15] net/mlx5e: shampo: Flush session on PSP mismatch
-Date: Thu, 3 Sep 2026 11:52:10 +0300
-Message-ID: <20260903085215.3691657-11-tariqt@nvidia.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20260903085215.3691657-1-tariqt@nvidia.com>
-References: <20260903085215.3691657-1-tariqt@nvidia.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="UjRro5D9"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so22257165e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 01:55:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1788425735; x=1789030535; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lSve4FkJxmYJyxkKw1zIr74/VC3uYwUbpdZi1aoEPL4=;
+        b=UjRro5D9SFd8INEOr126MoDwl1jtOvp+E6FiNzMcrqm5KFD18HPXnw1KPYtyx4Zo1J
+         H7RAAnW14vekCbko1DLx1/pxCkY7V5JW5b3CTNuFT4dAVw1SJIc+ANtdEIiqBMnUUu1F
+         ah0sSHXZ0JaxB4BrFjMnoEEmek6vNAufCdwgh40/jpsJFSHQ5gT8UYEqzOMA8NAqFwDp
+         oYIBEQe+gVW4zkK3PYjtfEvF/PJNhIkYCTzQnAe1y/zH2mJxbP0cR+1EnS4L+Z4M1SzA
+         Vw8FkxeW2bpctaruOlBmaOIRm3NAARvaIoYzo8NvboOB4m3ubLuRedpVR9C0YimaJkhO
+         ToDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788425735; x=1789030535;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=lSve4FkJxmYJyxkKw1zIr74/VC3uYwUbpdZi1aoEPL4=;
+        b=YomwwzjfCLbixEwz6eJLfwV6+RWRgNJ6pFv+Dl34/dbEqY5V38Cw/MfkRGJIQm/NuI
+         LCnVxjtT74u5fVFIJRFJ2JrYhFE4lRnyAsjxnI3OduS3efH7vZrJEhLlRRldzD0NpaUf
+         sPbr1QPjEdYg6lEE3OgboZkAzSXkoDOkAvQVvHpstwohQo3TmMofUxmtUCGGjQSYCHgO
+         eUtsZfNuuWQ83F1Sr7kddh4dQZxueBiObWiAp0apfN3BopB08A3zrMCpjX08UnWC/Bla
+         Eatnk6ARNw98bidOVJXYJtxlD/0j6xv1C68erYjMzecT/QzmBo0pax61i3tEUcy8BZyJ
+         1ktQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxCn8unzZMe7CNGUzBsXH7gvPwR9AeJaRU3yZNdtMTQDeC0cMnjvHiHseO6p/bFL05sVsM89rfUHMd+F4c=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwCBzjacnjjtwo4trWQBKDOYgjmcb4vP0GCyF95oSzlJkxkNSL
+	7XkXoz87WMLQhvKGcyb1IwiGnZOKz9tuxaqYs9w0BscIs+xD+jAQPe5zj69/6Yr9RN8=
+X-Gm-Gg: AYBFou1rlVtcgv/41kSCPQQS7a2UGhJguOfuOxoH8hXRJhzsAFuIY4zjVOuZLrWdNcA
+	2NsSYwOsknBUSQETsLNDTU+s1I2hPdiazhRB5Jfm/P47t6gVf2CKNV4iXM8oh5epUOU3pDVxxtr
+	0j26iduEqN6BnKB2KOAJZgSIaD9dgFw7iJ1Heca43W283WWpoDWNENOlhCIJS6OLKuviVkLHw3a
+	fyaTxr2GBxUmzXs1ZZWqEmbfBSo5ZA7KYdWNJR4WhBGBq64ui4KJTG62YpThgJRAJCz+Bh3XtMz
+	NJOKa1TgGn3V3yTBkKCtMAw6L6SMTGQCRdjbyCBSWJWIitRB9uh26Dl32WRhBaQKyVA+ItPtNu3
+	tBwHcNN/Pn1sE3jk63t0jfj7Q+hkwjLCgcFg0tPl+scuRW5VMzSOHnReAieDB91Od+L9+FRJJVp
+	0eYstzhJ9QIMHez3kkDqyze/VgvCffKerUO130FAquYzwwFBmdlRvInRMk
+X-Received: by 2002:a05:600c:a00a:b0:49c:f4e1:3135 with SMTP id 5b1f17b1804b1-49cf4e13cb7mr4646545e9.14.1788425734899;
+        Thu, 03 Sep 2026 01:55:34 -0700 (PDT)
+Received: from localhost ([2001:4090:a244:80d4:489b:7642:1b32:84d6])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5dec54sm65075855e9.12.2026.09.03.01.55.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 01:55:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A803:EE_|PH7PR12MB5829:EE_
-X-MS-Office365-Filtering-Correlation-Id: 65849193-d8ca-464c-edcc-08df09991339
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|376014|7416014|1800799024|23010399003|10067099003|11063799006|56012099006|3023799007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	QYV4USBiujBIpWpQUJa5VHye/L4j7+CT6uX1vjMJz/clBgPQ+n8tVs6pZHuGb+cbJLnwQXw1BUIXrHUgCy1SRu+ClJnfFVRbn31xGRPtgFfkf2B3/oIG8m8lZFCnYKECnBBv9PyOj0Yhz0ApnyCal7NJnrj776/3Rdr33Sl+rx5ZgN7UwTUvJpi+REvEwKi2trencxqD2eCX9ve9nfZELO5e8XN8qK+YZ7Jk0cTjTAiH1cAsdRwsQZYCvK4MamG11MClRzVOqRbLyQGMRJvcYBOUeOUSKpemFJq8abpX2CkW3rZ0ZUofnZh8IkIqHbqFkN4/wcvcvljPd7mcBHm41ACwxmsOWIhLdazIGhpzLEKQX4kzgQxrUGoaQummZLk/7bJXh8OSmsnSD5HAyhZOiVqS9beD/DkAdcyiYFMmrw25weOkP+dx7Kd2QFTQPvn+izWOhcVMfRllKRygDPIsNjQlygv/i2DAh9Jai8mdqDIOVfc24iy57gzjRJvgjeIyXFwGyglbcNGBy7Svkv6/pHWuDIO4UiYT1tosDv1uacCuG7uBqcwx2aPYEb2YYIO7cpOZl8Z+cpodqSzucML5I9ejxocwXZUZb/n9EVgPLjQpZoLuFMlbAHoxmzoWfgrKY8vjqnb+o2XP3aSMj9oNu3Y263/K2Kwr1u/jrYd99A4dCBb1TSswgHlV64wyO3RR2f2uD4SWvJWJrfLAETGRlw==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(7416014)(1800799024)(23010399003)(10067099003)(11063799006)(56012099006)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	uavOZnUA250Fw/eAnh9/WNaOgHxIlFwNU4fGhnFVy4fDVsh8FE2VwLqkCdH8RZVZfECUUphn5A9gjCY3OYVyKnQzWvbgNSsm4h6YWQISQo5Ov74gbGO1BnbnS8e6XRRXahXBSem2QAtZ87pMiS1BjgdISqpOGne8PDUXHCX8zxjORQrrgxNhrnUBxzSfbvBjo9fEyEAVx6ZznIsB6VMMMM0q4ZvkG1zW3beZzzzdf2aAqHA+R0fJNdUnncNBB0WDiY+C1xw1rcQ0Fn1736Sac8XL/Ot8SMUvpII9TLqt3U8OkISzrgE4oQfviQs0JamqrcMqFCiZBPNudV0S0yUkhSov34sVeC+hUrvVG/QKWujwE+IaZjIwLLXN/DSYE+JJxexcV3T7XUHR7rJC10TeZ/0P/PGgqhsD+ywmviHYVI2FFzm5vRXbmbSJaWZESUzc
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 08:55:16.5618
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65849193-d8ca-464c-edcc-08df09991339
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A803.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5829
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=5beb2c8dd38bb5ac7bdc9d94a1236578ac7d8d30c9e1c9ad030b45675f0b;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Thu, 03 Sep 2026 10:55:27 +0200
+Message-Id: <DL5K0CZS9PDB.1HD8YBEQOUABU@baylibre.com>
+Cc: <s-kochidanadu@ti.com>, <a-kaur@ti.com>, <s-tripathi1@ti.com>,
+ <vishalm@ti.com>, <linux-can@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 2/2] can: m_can: add ti,am62-m_can compatible with
+ out-of-band wakeup support
+From: "Markus Schneider-Pargmann" <msp@baylibre.com>
+To: "Kendall Willis" <k-willis@ti.com>, "Markus Schneider-Pargmann"
+ <msp@baylibre.com>, "Marc Kleine-Budde" <mkl@pengutronix.de>, "Vincent
+ Mailhol" <mailhol@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Chandrasekar Ramakrishnan" <rcsekar@samsung.com>
+X-Mailer: aerc 0.21.0-146-gb5c16ebe1835
+References: <20260902-temp-v4-0-3896f7d16ce8@ti.com>
+ <20260902-temp-v4-2-3896f7d16ce8@ti.com>
+In-Reply-To: <20260902-temp-v4-2-3896f7d16ce8@ti.com>
 
-From: Cosmin Ratiu <cratiu@nvidia.com>
+--5beb2c8dd38bb5ac7bdc9d94a1236578ac7d8d30c9e1c9ad030b45675f0b
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-Flush SHAMPO session on PSP status change (no PSP -> PSP or vice-versa)
-or on SPI/version mismatch. HW aggregates by 5-tuple but is unaware of
-PSP fields, so sessions must be terminated when security parameters
-change to avoid mixing packets from different PSP associations.
+On Wed Sep 2, 2026 at 11:03 PM CEST, Kendall Willis wrote:
+> In TI AM62X, AM62A, and AM62P SoCs, the M_CAN controller is a part of
+> the MCU power domain which is OFF in the deepest low power states.
+> However, the m_can pins are able to wakeup the system from states where
+> the MCU domain is OFF through its out-of-band wakeup functionality.
 
-The session is also forcefully flushed if non-decapsulated packets are
-received. This could happen if, for example, the decap table could not
-be created so HW GRO is active but there's no decapsulation.
+There are m_can devices in the main domain as well. Does this apply to
+these as well?
 
-Signed-off-by: Cosmin Ratiu <cratiu@nvidia.com>
-Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
-Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
----
- .../net/ethernet/mellanox/mlx5/core/en_rx.c   | 32 +++++++++++++++++--
- 1 file changed, 30 insertions(+), 2 deletions(-)
+>
+> Introduce the ti,am62-m_can compatible with match data to identify the
+> out-of-band wakeup capability for TI AM62 SoCs. During suspend, set the
+> out-of-band wakeup flag when the device is configured as a wakeup
+> source, the "wakeup" pinctrl state is present, and the match data
+> indicates out-of-band wakeup support.
+>
+> Signed-off-by: Kendall Willis <k-willis@ti.com>
+> ---
+>  drivers/net/can/m_can/m_can.c          | 7 ++++++-
+>  drivers/net/can/m_can/m_can.h          | 4 ++++
+>  drivers/net/can/m_can/m_can_platform.c | 5 +++++
+>  3 files changed, 15 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/net/can/m_can/m_can.c b/drivers/net/can/m_can/m_can.=
+c
+> index 16f80607e150e2ca2950616ff2c39b7aa13710b4..0788816d881ef8ba84ad5a84a=
+6d2d3e60517ea7a 100644
+> --- a/drivers/net/can/m_can/m_can.c
+> +++ b/drivers/net/can/m_can/m_can.c
+> @@ -2598,6 +2598,7 @@ int m_can_class_suspend(struct device *dev)
+>  {
+>  	struct m_can_classdev *cdev =3D dev_get_drvdata(dev);
+>  	struct net_device *ndev =3D cdev->net;
+> +	const struct m_can_pdata *pdata =3D of_device_get_match_data(dev);
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
-index 206cf9db3466..90571cb53e32 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
-@@ -2221,6 +2221,33 @@ static bool mlx5e_hw_gro_skb_has_enough_space(struct sk_buff *skb,
- 		return page_size * nr_frags + data_bcnt <= GRO_LEGACY_MAX_SIZE;
- }
- 
-+static bool mlx5e_hw_gro_psp_match(struct sk_buff *skb, struct mlx5_cqe64 *cqe)
-+{
-+#ifdef CONFIG_MLX5_EN_PSP
-+	struct psp_skb_ext *pse = skb_ext_find(skb, SKB_EXT_PSP);
-+	bool is_psp = mlx5e_psp_is_rx_flow(cqe);
-+
-+	if (likely(!is_psp && !pse))
-+		return true;
-+
-+	/* No match on PSP status change (no crypto -> crypto or vice-versa). */
-+	if (unlikely(is_psp != !!pse))
-+		return false;
-+
-+	/* SPI and version are only available in CQE metadata for decap flows.
-+	 * Non-decap PSP cannot be matched here, force a flush.
-+	 */
-+	if (unlikely(!mlx5e_psp_is_decap(cqe)))
-+		return false;
-+
-+	/* No match on security parameters change. */
-+	return pse->spi == mlx5e_psp_get_spi(cqe) &&
-+		pse->version == mlx5e_psp_get_version(cqe);
-+#else
-+	return true;
-+#endif
-+}
-+
- static void mlx5e_handle_rx_cqe_mpwrq_shampo(struct mlx5e_rq *rq, struct mlx5_cqe64 *cqe)
- {
- 	u16 data_bcnt		= mpwrq_get_cqe_byte_cnt(cqe) - cqe->shampo.header_size;
-@@ -2263,8 +2290,9 @@ static void mlx5e_handle_rx_cqe_mpwrq_shampo(struct mlx5e_rq *rq, struct mlx5_cq
- 	}
- 
- 	if (*skb &&
--	    !(match && mlx5e_hw_gro_skb_has_enough_space(*skb, data_bcnt,
--							 page_size))) {
-+	    !(match &&
-+	      mlx5e_hw_gro_skb_has_enough_space(*skb, data_bcnt, page_size) &&
-+	      mlx5e_hw_gro_psp_match(*skb, cqe))) {
- 		match = false;
- 		mlx5e_shampo_flush_skb(rq, cqe, match);
- 	}
--- 
-2.44.0
+The core m_can driver works for all m_can forms, tcan, platform and pci.
+I think it would be cleaner if you parse this in the platform driver and
+set it in m_can_classdev instead. Otherwise of_match_data has to be the
+same for all drivers which is not obvious when you are editing tcan for
+example.
 
+>  	int ret =3D 0;
+> =20
+>  	if (netif_running(ndev)) {
+> @@ -2622,8 +2623,12 @@ int m_can_class_suspend(struct device *dev)
+>  		cdev->can.state =3D CAN_STATE_SLEEPING;
+>  	}
+> =20
+> -	if (!m_can_class_wakeup_pinctrl_enabled(cdev))
+> +	if (m_can_class_wakeup_pinctrl_enabled(cdev)) {
+> +		if (pdata && pdata->out_band_wakeup)
+> +			device_set_out_band_wakeup(dev);
+> +	} else {
+>  		pinctrl_pm_select_sleep_state(dev);
+> +	}
+
+I just noticed these are called even if ret is not 0, so suspend failed.
+This shouldn't happen, but not a problem of your patch. But you could
+add a fix for that.
+
+> =20
+>  	return ret;
+>  }
+> diff --git a/drivers/net/can/m_can/m_can.h b/drivers/net/can/m_can/m_can.=
+h
+> index 4743342b2fba3823819b9e2bc5b085cc0fe6d1e2..486d808bc677482acf446b145=
+0c3a9b6b7405178 100644
+> --- a/drivers/net/can/m_can/m_can.h
+> +++ b/drivers/net/can/m_can/m_can.h
+> @@ -134,6 +134,10 @@ struct m_can_classdev {
+>  	struct pinctrl_state *pinctrl_state_wakeup;
+>  };
+> =20
+> +struct m_can_pdata {
+> +	bool out_band_wakeup;
+> +};
+> +
+>  struct m_can_classdev *m_can_class_allocate_dev(struct device *dev, int =
+sizeof_priv);
+>  void m_can_class_free_dev(struct net_device *net);
+>  int m_can_class_register(struct m_can_classdev *cdev);
+> diff --git a/drivers/net/can/m_can/m_can_platform.c b/drivers/net/can/m_c=
+an/m_can_platform.c
+> index 56da411878af0185ff9cc512e325137428a68255..ae2d89b65fe8da65b1ca73cbf=
+80cd8ee8483e2e8 100644
+> --- a/drivers/net/can/m_can/m_can_platform.c
+> +++ b/drivers/net/can/m_can/m_can_platform.c
+> @@ -218,8 +218,13 @@ static const struct dev_pm_ops m_can_pmops =3D {
+>  	SET_SYSTEM_SLEEP_PM_OPS(m_can_suspend, m_can_resume)
+>  };
+> =20
+> +static const struct m_can_pdata m_can_plat_am62 =3D {
+
+I don't like the pdata name here, this suggests to be platform data, but
+this is of match data instead. Maybe of_data?
+
+Best
+Markus
+
+--5beb2c8dd38bb5ac7bdc9d94a1236578ac7d8d30c9e1c9ad030b45675f0b
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCapk1/xsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlOE
+MgEA8suKsDAHr3gSYHcmzdKhgj4B1EP8BSKlE5dnGrdEz5IBAPey/srPEYR3ifbs
+3kCo0FftLDoUSFKkYXGhEArbs10O
+=uRnq
+-----END PGP SIGNATURE-----
+
+--5beb2c8dd38bb5ac7bdc9d94a1236578ac7d8d30c9e1c9ad030b45675f0b--
