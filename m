@@ -1,167 +1,265 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013015.outbound.protection.outlook.com [40.107.159.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8355B48C8BB
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:19:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788430786; cv=none; b=LsfV1JA1i3cKU162beuyNZp9k+hFwIn75gd7vxHa2ykW8Uc/7WzY01MpzWRsBQDtK4CZ1s1SWv/qd6Krqq2vKlpJ6KtaU9DqYOCfxdH1LYyipnHOJADI3yuCX+wLiL/91LzkxZwfpU5xmXLyzzuNz1JRa9Ve4OirFw0Tg2K8kGE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788430786; c=relaxed/simple;
-	bh=GxTeiwZN7CTGejE/bsamQnbdRvyaVhuispEpqp11CKw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kxI4AZYU86KT2p4BTmnh/UNfLrEwxPno4P07ZoQMbm4EAJNbpwFvd+APkiFAZly3AuOli7vo+42lC8oHqMyCOVCJWQ76RPOxx8sa1NxsWpQjUKbJXM42q34tcgiLASplhYKgHsMIqFa/dJ5Ul6dNQk9DkU9nlozE4aMWL0tHuxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UE/JOkRZ; arc=none smtp.client-ip=209.85.218.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D349F484221;
+	Thu,  3 Sep 2026 10:19:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788430791; cv=fail; b=VIpxk/shSuCtgjEkv6KsXK3VY40g3hgu8JOz2dshcb7SdmfeUnwPufocyuqChdE6c29ijrwALeFFIQQcTNAA8jLbtSpuwbAAbRFs3dI+IDz8NKJ7ieiOW2Gd0UqxrXFt2eWEXWkv/tuc6YEI4HB0dW6f4Sj/2W0J6cHuCEYkHU4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788430791; c=relaxed/simple;
+	bh=PoUpp4I+ldAHpMOFm2FRCfbnPjmqQYCU4GvVStr9kfk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=PW7I7rnzW11priyyabF7ygSuw4QZqwKIXF6oRPWpZgSex+3iW3h96oKwkapM7AXo+hnnUNyTjSZAIL3Ylk5nESu+Xa4Z1B8T+9iey29mGqmEZw44USRw1AP3r6b8Oo0ZUNo4Ou441+lXmIZyOXGjhebvtK0hwhrUumGlQ2bhSXc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=Iq06QDIt; arc=fail smtp.client-ip=40.107.159.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UE/JOkRZ"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c2544ff970dso313958766b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 03:19:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788430773; x=1789035573; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W3+ctbJocyD7cPa19hLn883tfSf+5YYD4Wsi8oERH+o=;
-        b=UE/JOkRZI2w6ytWUVrlZm+g+t433+A0q9lAive0un5EeYQlWmtwQ2vcXwZz2xoCXJo
-         Dtz1uYrcqlaoF1LP5wrLb9aJHsSYi7GqQDc/VJy9Si0pVhhrsgnN58XWaJMEcyweV3jP
-         OZe9R37JzQ7678h70k+oP0I0A1NY+9IQ0eNWgkPCM4TP/IHn3a6HLyHs2FApWCT+/a4E
-         WvQVuFZxYazg/AhnOS/2PeXdWmJmFC+Upz9oPVpjcjtdKWhDDCBNd1nRrllpFuKqjY43
-         xlXl228jlRwXF6Yz8sSFNA8b4Tb3hjOZbUWdtxadLQ9qxTVKIn2iJDQ0fWqtLJKHd+HY
-         TFNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788430773; x=1789035573;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W3+ctbJocyD7cPa19hLn883tfSf+5YYD4Wsi8oERH+o=;
-        b=LGcydA+xgCCBbo9tl2NtjWPfzS8m/pxFn5/N3il977CC+H6DCc8ImPtKZD9f6HysSp
-         j0GQtCZ8VdK7U0TNjdI20oYvAEpP/tFJhtG85D/xJe99yX4f3rKfJDr/xeYwiiPjbnZS
-         /cN+N1MkApkbjHX5h9X6UyPePcv2E85Xbkqz97t7w3fudG2ZgWKLLqV3rAjb1UDK4zOP
-         Jgyq21ZU0s3jihTAQ+GduHB+uTtPx4Y7SFGEJDpCv8Kb4Y3WI70nGeRpr/nQ0aIY2wj6
-         bVPZgFzc1FbeD4TqwzfRZofaHRrYcl8pLvKB1cuMx5nWLQ/4E+EZQIkn7a6gn2vjg8Mw
-         YOKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy78G5khQOTS+2Ibb+v/fvHtsI74I+n2t296nZn7tuYgnqCyKOE0r08Pu47B+AD07iiJ+zBM1+aX6MVUSM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kFhR9OLL/Di0u/cwHg47IVCKQ9ErBq0LfgwGiz3fLHLViIsvOM
-	yGeKHLqcJdNkiStZtSYw3S2kg01ygv6nMg65kaIy+eyJ+7nxVRxPBrMD
-X-Gm-Gg: AYBFou0HrCyoCRTigFafrx0JqHU3e3t5a8TsZ+g4Nx6CDbT+msNSaSpUD+ZFdN8/4OT
-	gnH0SyJeg7kgJDyd38h09wVTJktIdudHkooX7V70uzsSGKnQ7NPGcU5SBVj6cVWn9N9OFcOp1hb
-	YoQ4r7InvU26F2gqmTJravys5MZXAbH3tVVnWy7DBKFm/4gKQUhIFj72bzS4kqbo2/QU2/LL5UH
-	MTNoWf7NYUNweu8UEsgeeejUsW7S0HNGpoJDdUPLEkix3qLLbMvJAaZiKzmbLwXdN9GUBk1NCrI
-	6ODwM5LD7yDSEjk8mTYxFe/bCnHYDKXmADFls9AN+hYb+ZnOnbiXyW82z04J2OeypEampSHpJwY
-	cr7K8zYvhbg1U4oKkoe0Kpg+Pujt7rzvcRTIlN37BhrMtQcFY/OP0YVQC7dATHaIcKGCZTHTbWM
-	Lhgx5rwDjc0+psJ74gR5Hl8GGxj2lrpq9t9qxhoNr7uWnJsnjHB4fpGNrY7HwVZVszkBDC8btgl
-	buyY8AHhR+lUnrq122Q6JD8ZfpSjd3488ifeuqNdZjd+aTSyxdllM+EpzVg
-X-Received: by 2002:a17:907:da16:b0:c1f:29ce:76a1 with SMTP id a640c23a62f3a-c25d550e29emr666393066b.19.1788430772687;
-        Thu, 03 Sep 2026 03:19:32 -0700 (PDT)
-Received: from localhost ([188.234.148.119])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25f41a6019sm78190366b.33.2026.09.03.03.19.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 03:19:32 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: jikos@kernel.org,
-	bentiss@kernel.org
-Cc: tiwai@suse.de,
-	tiwai@suse.com,
-	perex@perex.cz,
-	linux-input@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 0/2] ALSA: usb-audio: the Topping M62's vendor controls
-Date: Thu,  3 Sep 2026 15:19:29 +0500
-Message-ID: <20260903101929.34492-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <87mrty8xf2.wl-tiwai@suse.de>
-References: <87mrty8xf2.wl-tiwai@suse.de>
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="Iq06QDIt"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uyj1l1RIAPwFDURSdrmMQhj1HO18L28jpJhP2QgTWYjIrzZR6bTk7Hwn+Ijjal6M/RAFLTjLuB2MN5TFYPOuKOsbzEFOYqe+aNE0+88uAqIcyvxzuosV/9CE+hZm+EVF/qSfR4YAVc43UwEBHHegfHp8W6G9xuAhXZt/FuEIQJBpa+ewTSO3A1y5wpMGVCQbdFaFDE1SCO6DK874/DW3KAkQy+cpcUX+2k7IKlUXd26kj345gme31zNV1GBtlRu0F4s8pZmjjrIb1GGRXvVYDURSXuuH9Zqc7Fhm9/B76NFY2krVqs+f3obiJNeuuY5RRWV25LPpiahvMQ5uoWwbbg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DWwrRCUaQMd13jrkgTL7dC4SUzFnWzdzuMg8vGXTBg4=;
+ b=OuHLTwwk+EJhVm+GeSvALgcPzAI3z16vVzhzrwiSUu89s1pMDqc7XQS58ETcALvgIKjb4JUoK0MeEtnSPmzA+lDGd3jFWsl7JNCrNvqmGDN4WXg8O6m09koXBwaFQ9ozM/f7rNm7QxAfDZQxR7VzDEiUJyjFrk6MciXnbxpvwsv3cviSjqtyl4282SQXEBndgbVy0jxHv+OFqglW+GIrgPzzV7IxFRiw1R3ra6OYHFz7r8EkIkQ/b8eMn3YJp8v24NBJM/yDE039DGW0LDncUAajYRVpKQdSKrigMv8gyIYsloBgMeuziKCqd7JJc+XJArZ6oDWjyOHQRYgzgxP9Tg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.88) smtp.rcpttodomain=nabladev.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DWwrRCUaQMd13jrkgTL7dC4SUzFnWzdzuMg8vGXTBg4=;
+ b=Iq06QDItacyE0sAXS2zSnqbjKNNxed7Zrvm+q1efHQhjzKUAtrL3MzDI02lL0Ns7UaPsB19rPbbvEuYG9oHoiYyRXRx8SzD/F85H+Q6ZLB8hWIsh0Da2X2In6h1+qvB5o/pED1skocqPBFTdxKBJzDnbpFLnc62tKNXjhQdkUOR4rPGwr5/2dfFAqO5QFwjBhZGX6Vm3SC/vKmDF5UQ9WBbY13idCsyzyYt+XRQK2C9WKYcdSrEIG8r3HByeES/gwQx+y7BtnYh5HIxLqJoejHPjUAU59BgbAaSqVWouaWSVxsgLaJ8FfX9ON5RxXihkKidsEXo/jemZRSX9MEifSA==
+Received: from AS8PR04CA0210.eurprd04.prod.outlook.com (2603:10a6:20b:2f3::35)
+ by GV4PR10MB9596.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:2eb::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 10:19:32 +0000
+Received: from AMS0EPF00000192.eurprd05.prod.outlook.com
+ (2603:10a6:20b:2f3:cafe::98) by AS8PR04CA0210.outlook.office365.com
+ (2603:10a6:20b:2f3::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Thu, 3
+ Sep 2026 10:19:32 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.88)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.88 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.88; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.88) by
+ AMS0EPF00000192.mail.protection.outlook.com (10.167.16.218) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Thu, 3 Sep 2026 10:19:31 +0000
+Received: from ENXDAG1NODE4.st.com (10.75.129.197) by smtpo365.st.com
+ (10.250.44.75) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 3 Sep
+ 2026 12:16:49 +0200
+Received: from [10.48.86.251] (10.48.86.251) by ENXDAG1NODE4.st.com
+ (10.75.129.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 3 Sep
+ 2026 12:19:29 +0200
+Message-ID: <34e63564-0191-406a-973a-eb601292b255@foss.st.com>
+Date: Thu, 3 Sep 2026 12:19:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/2] dt-bindings: phy: Document ST STM32MP25 USB2-FEMTO
+ PHY
+To: Marek Vasut <marex@nabladev.com>, <linux-phy@lists.infradead.org>
+CC: Pankaj Dev <pankaj.dev@st.com>, Krzysztof Kozlowski
+	<krzysztof.kozlowski@oss.qualcomm.com>, Rahul Kumar <rahul.kumar05@st.com>,
+	=?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>, "Alexandre
+ Torgue" <alexandre.torgue@foss.st.com>, Christian Bruel
+	<christian.bruel@foss.st.com>, Conor Dooley <conor+dt@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Neil Armstrong
+	<neil.armstrong@linaro.org>, Patrice Chotard <patrice.chotard@foss.st.com>,
+	Rob Herring <robh@kernel.org>, Rosen Penev <rosenp@gmail.com>, Vinod Koul
+	<vkoul@kernel.org>, <devicetree@vger.kernel.org>,
+	<kernel@dh-electronics.com>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>
+References: <20260902141312.649406-1-marex@nabladev.com>
+Content-Language: en-US
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <20260902141312.649406-1-marex@nabladev.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To ENXDAG1NODE4.st.com
+ (10.75.129.197)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMS0EPF00000192:EE_|GV4PR10MB9596:EE_
+X-MS-Office365-Filtering-Correlation-Id: 83109a49-9883-4d54-d962-08df09a4d856
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|23010399003|376014|7416014|10067099003|3023799007|6133799003|56012099006|22082099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	T5P8j8MN2qKgrfPD4zjR1+GerB0BUGMPn9VKK2aqDT9wu3J48dJ7fb0YmUt1baEA/6pLpCCYC22XJYevnyQceHiNjbtLezo5uFDG7CxStfWaU0WyEj0JsPThkeLvU9xKm2OhBhsyqwYW6zdpkupVtNc+scSepoAlRvJTXrDxNnT0wUDYEKtg+WFPLu3MlZQLkRLC27NOqSqC2j2JbasgvdeLwg74j1SyYIqFb3zDCUOHBPE/AaC6QcPLGU6wmMVzHoJaPc4gvQIHCZUBz9uzmXCyPGm5MGAsDONsX4HgtyQlZm8HdDS7gVlkQw8yKVK1wSRx8fZisuIYykterwW84euTfiPsi2W1FKspOFipiq9UN/JEldNtn3RL8a5FaxLGP2ZEeQ33O9VpZfhcuLZ2saB/263iUZ/L3ETHotJtWrOtgBP4aqrhMSbPyYj60YX/chgoudQNDg5yEUVaV3zS+u2MjOfdZ4SiM2BelL7Da0et8dcO9GahYtBWo7qvTHq9NRirvKU27dqU3rNRY+yFyuJ4Gu/ObLIDn+sJrSIAxWHwGlmyhrpbD+e/Nukvqf1GqYTSs4zi/+/HO9mJIy3647xQRWuvENW925QXDjv4e2TwunE2ALK/8TkciXywdeSndwSm5g3Qk/CIiO1wYVJiIA==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.88;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(23010399003)(376014)(7416014)(10067099003)(3023799007)(6133799003)(56012099006)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	6fUT0CwICTzxUpjQQehgXElTps+XOEYNZUyo2bVPU3cUrddn7q1cywnpvb8zN+C6hRLzcKtEkzfYjxql+MrXbxQSStyxp09qXKF0zzNvBXT6PDVqrG6f6r7RjQ1V3I7pX/Gc+D/VKbD1zl5oyQFxBX0bPKYhlts4R9JQmLAx4XUWx7I7DZ3kutXYqpFFLwPr1mcM5JYUzVJitk/Nkxk19anCLmQOBQD+HcualahiFIP67nDeSiBRLLEtekvWZQD8ZNi9dNOA2fiXldjCA5nUheQVOcsd1+3b339kbHBWtdDD4SR3viGoeSmcCX+G8NBHqmWe28Zv5w3SOfvV8vCdSvc7VvuPijnBh8FP0ddJLL7+9aimNfKPaEiXyGiMzXcbBR5vp9iJeKvEy4RLIR7HcGefJziJC+NTZcDTnwSACkm//X+KN8oGE3YqqnrLI6kT
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 10:19:31.7927
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 83109a49-9883-4d54-d962-08df09a4d856
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.88];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AMS0EPF00000192.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR10MB9596
 
-On Thu, 03 Sep 2026 12:02:57 +0200, Takashi Iwai wrote:
->
-> > Would you rather see this as a driver-local clear, as
-> > HID_CONNECT_DRIVER plus the clear, or as something usbhid ought to
-> > offer to drivers that resynchronise on resume?
->
-> I think it's rather a question to HID people...
+On 9/2/26 16:13, Marek Vasut wrote:
+> From: Pankaj Dev <pankaj.dev@st.com>
+> 
+> Document USB2 PHY for STM32MP25 USB2 controllers, which includes the
+> USB2.0 host-only controller and USB 2.0 part of the DWC3 controller.
+> Two such PHYs in total are present in STM32MP25 SoC, they both are
+> slightly different, therefore they use different compatible string
+> to discern them.
 
-Jiri, Benjamin -- putting it to you then, with enough context to answer
-it without reading the rest of the thread.  The wider design question,
-whether this belongs in a HID driver at all, is settled with Takashi
-upstream in this thread; what follows is narrower than that.
+Hello Marek,
 
-The device is a Topping M62 USB audio interface, 152a:875c.  Its
-analogue gains, output volumes and source selectors are not described
-by the USB Audio Class; they are reached over a vendor protocol on a
-HID-class interface whose report descriptor is a fig leaf -- a Generic
-Desktop application collection, eight usages stretched over sixteen
-unnamed bytes in and out, no report ID -- so hid-generic can only make
-a nonexistent pointer of it.  The plan under discussion is a small HID
-driver that speaks that protocol and hands the values to snd-usb-audio
-as mixer controls.  It wants raw input reports and nothing else: no
-input device, no hiddev.
+I'm not sure if/how this fit with all below tags. For all the
+contributions you've made, you can add my:
+Reviewed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Tested-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 
-The trouble is that asking usbhid for input reports arms the device for
-remote wakeup, and there is no way to ask for one without the other.
-usbhid_open() sets
+BR,
+Fabrice
 
-	usbhid->intf->needs_remote_wakeup = 1;
+> 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Pankaj Dev <pankaj.dev@st.com>
+> Co-developed-by: Rahul Kumar <rahul.kumar05@st.com>
+> Signed-off-by: Rahul Kumar <rahul.kumar05@st.com>
+> Co-developed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Co-developed-by: Clément Le Goffic <clement.legoffic@foss.st.com>
+> Signed-off-by: Clément Le Goffic <clement.legoffic@foss.st.com>
+> Co-developed-by: Marek Vasut <marex@nabladev.com>
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
+> ---
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Christian Bruel <christian.bruel@foss.st.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Manivannan Sadhasivam <mani@kernel.org>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Neil Armstrong <neil.armstrong@linaro.org>
+> Cc: Pankaj Dev <pankaj.dev@st.com>
+> Cc: Patrice Chotard <patrice.chotard@foss.st.com>
+> Cc: Rahul Kumar <rahul.kumar05@st.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Rosen Penev <rosenp@gmail.com>
+> Cc: Vinod Koul <vkoul@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: kernel@dh-electronics.com
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-phy@lists.infradead.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> ---
+> V2: - Fix up Sob/Cdb lines
+>     - Fix up compatible string in example
+>     - Use additionalProperties: false
+>     - Expand description:
+>     - Use clock-cells = <1> to discern OSC and future PLL clock from the PHY
+> V3: - Move clock-cells next to PHY cells
+>     - Fix the bindings
+>     - Fix up Sob/Cdb lines further
+> V4: - Reorder the properties: list, put #...cells at the end, reg after compatible
+>     - Split this from series arm64: dts: phy: st: usb: Add STM32MP2 USB support
+>       https://lore.kernel.org/all/20260822074816.548662-1-marex@nabladev.com/
+> V5: Add RB from Krzysztof
+> ---
+>  .../bindings/phy/st,stm32-usb2phy.yaml        | 68 +++++++++++++++++++
+>  1 file changed, 68 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/phy/st,stm32-usb2phy.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/phy/st,stm32-usb2phy.yaml b/Documentation/devicetree/bindings/phy/st,stm32-usb2phy.yaml
+> new file mode 100644
+> index 0000000000000..c76e94c044e67
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/st,stm32-usb2phy.yaml
+> @@ -0,0 +1,68 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/phy/st,stm32-usb2phy.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: STMicroelectronics STM32 MPU High-Speed USB PHY
+> +
+> +description:
+> +  USB2 PHY block in STM32 is attached to USB 2.0 Host controller and
+> +  USB 2.0 side of DWC3 DRD controller, and provides the USB LS/FS/HS
+> +  connectivity. Both PHYs are the FEMTO-PHY, but their configuration
+> +  bits in the system control register are different for each variant.
+> +
+> +maintainers:
+> +  - Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> +  - Marek Vasut <marex@nabladev.com>
+> +  - Pankaj Dev <pankaj.dev@st.com>
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - st,stm32mp25-usb2phy1
+> +      - st,stm32mp25-usb2phy2
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  vdd33-supply:
+> +    description: Phandle to regulator providing 3V3 power supply to the USB2 HS PHY
+> +
+> +  "#clock-cells":
+> +    const: 1
+> +
+> +  "#phy-cells":
+> +    const: 0
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - resets
+> +  - vdd33-supply
+> +  - "#clock-cells"
+> +  - "#phy-cells"
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/st,stm32mp25-rcc.h>
+> +    #include <dt-bindings/reset/st,stm32mp25-rcc.h>
+> +
+> +    usb-phy@2400 {
+> +        compatible = "st,stm32mp25-usb2phy1";
+> +        reg = <0x2400 0x24>;
+> +        #phy-cells = <0>;
+> +        #clock-cells = <1>;
+> +        clocks = <&rcc CK_KER_USB2PHY1>;
+> +        resets = <&rcc USB2PHY1_R>;
+> +        vdd33-supply = <&vdd33usb>;
+> +    };
 
-and usbhid_start() sets the same on the HID_QUIRK_ALWAYS_POLL path, so
-both roads to hid_start_in() go through it.
-
-This card does not offer remote wakeup: bmAttributes is 0xc0, and
-there is no power/wakeup attribute under its sysfs node, so
-device_can_wakeup() is false.  usb_suspend_both() then refuses
-autosuspend, and not merely for that interface:
-
-	if (w && !device_can_wakeup(&udev->dev)) {
-		dev_dbg(&udev->dev, "remote wakeup needed for autosuspend\n");
-		return -EOPNOTSUPP;
-	}
-
-So binding this driver would forbid runtime suspend to the whole
-device, including its audio interfaces.  An earlier revision of this
-series had to fix runtime suspend once already, and I would rather not
-hand it back.
-
-What makes this feel like the wrong flag rather than an unlucky device
-is that the driver does not depend on the device to wake anything.  The
-card stops reporting to a host it has not heard from, so the driver's
-resume path subscribes again and asks for the whole state; a knob
-turned on the front panel while the host slept is picked up on the way
-back, by asking, not by being told.  A device-initiated wakeup would be
-of no use to it.
-
-Three shapes, and I do not know which you would want:
-
-  (a) the driver clears intf->needs_remote_wakeup after hid_hw_open(),
-      with a comment saying why.  The field is not private -- cdc-acm
-      and usbnet both set it directly -- but clearing it from outside
-      usbhid is unusual enough that I did not want to just post it;
-
-  (b) the same, plus HID_CONNECT_DRIVER instead of HID_CONNECT_HIDRAW.
-      A hidraw open calls hid_hw_open() again and sets the flag back,
-      so (a) only holds if userspace cannot open the device.  That is a
-      real cost here: the hidraw node is how this protocol was read in
-      the first place, and how the parts the driver does not expose --
-      the mixer matrix, the mutes, the EQ -- stay reachable at all;
-
-  (c) something in usbhid, so that a driver which resynchronises on
-      resume can say so once and have both roads to hid_start_in()
-      honour it.  That would cover any driver in this position rather
-      than this one.
-
-Or a fourth I have not seen: is there an existing way to take raw input
-reports from usbhid without arming the device?
-
-I lean to (c) as the honest fix and (a) as what I can post today, but
-this is your subsystem and I would rather ask than guess.
-
--- 
-Mikhail
