@@ -1,180 +1,150 @@
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A38FE4AFE0C
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:27:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099B04AF660
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:27:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788442068; cv=none; b=h0zgRKDBu2hGKEKflDy0qH8d0vV70RpcVytSaqBcrPRTf3o3twJHCI+LUSIFj6WpoDk0WH3L1MI2iouCf0EjIEnaEVTeck4nx5GXW0R3fHGBv1Ttcdn87KW8eXuIHizsr1sW9Jvc3Bu6NCEfe6JKxHrNHQo+rU3iTh2Zp+v2tEs=
+	t=1788442073; cv=none; b=IPZXMN+MsG6VMMi7Niah7GzgNNh8yUcTiikVHbWA/OdKA9ciZo8uP9lmpbAhOVejIO6sBmdnQCpgDl9CJIBTFJmV1y2P6H/kECKyJhaq+jGYYgbY6WQLhhSmkspeY3RzCFHOCjIIot0dSClwVx1HzKNeikt21E43aYRk4nAwr2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788442068; c=relaxed/simple;
-	bh=YPvyN3kfwwpBginyLPvcxEOta7fpjimyqNItqqLCY2c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CtLqT7XMAu4I44GYXDfuhf4fT01qh6hhxU55D7xPQ8LEkPOS0SE8BkMgcvF3rVxfR9t1asopbf+7hHwvIOtf0wy2GdwTA0C5bBtbfFEgedmMd2gEOTcUFLqRdMTTv+GLDGtQ1hCZEgmVH6IcjlWxmfxbTQe/C8wgV7ZGxFnPvXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jnf726Nx; arc=none smtp.client-ip=209.85.215.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788442073; c=relaxed/simple;
+	bh=NCh13W8voqbqpBRjojfXEI4cZ+RsIKEu4Bx8jRwHtqM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z3lbpLEQqSbaGQQyNUR9tPfGvzBbV2zr6M30Itzx/vc3UrNJfHR7jDFIPUeoC40E4v6t6eLvBK6ySGYsgrSsxKeYJbpLkf0eGxUKEFDecM273crVy3qx9s24hSNftjn3nfQxDrKuGA5wMqGllD0KS4k2lRDxg5DZqoOltgDPh3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FDq7yuNR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HWx55Zpo; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jnf726Nx"
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc328b43a56so1729397a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 06:27:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FDq7yuNR";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HWx55Zpo"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683DAEES4093519
+	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 13:27:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=d3RaRG9uz14aExbdtz5RMduc
+	WGOR/YOY//yVm2WHhY0=; b=FDq7yuNRsBxxCzfElqk2kfYKwBz3uzwKCQrlRQ2G
+	FzSjynD8d8ryoTi39sinU9aqSVbK/zAOmU9cjgWdW4pe15ZTmGcd3NACrPKrEz+8
+	GU5UAw46YaOfU1YZhI6R7mz6ESzEc+CbEaNooWe7XurqXz6BUiMmARYqA6OK/pws
+	ww2XkvMZwmBAoQRAqbdpXd0ijDO6IMEob7cTH+JqJJ/XhX9kjfJolPws5DoR9wwC
+	O02ZJd+liJ+wQRXC7kGK/shnvYe8XS1CrjYWVxsw48p615iREHbIY+SdwHZ9Eqzx
+	p/7f6aEk6tb32OsFFzF/1umMkHsDpwF14lxaZOL9Z3XigQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf0gjtac5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 13:27:38 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93909014c85so434140685a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 06:27:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788442050; x=1789046850; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cpNeig/STv3ElkV+GwYqrBBpO1RKTjvMEoB8VPZ2e9M=;
-        b=jnf726Nxy5gNE+m9LHyWLAsYfY0THYZ+y9m2amx97WX68g2MKscjZ1bt+E+CImRKCV
-         /UhH2X3ssZhX6ZP3SrEeMi2pPKahqPDRF459y23+FV1WuqI+UB/piTylc5EDZ2vHVBLr
-         n+22megOz75RdrKRmLMXZ2/zkg/TP3+z7uZyfrXzm0pb9wcuoEgjgbge+Iap1Mo9NKB+
-         JMxOwq8NxLwt+v79nSjhlav7Ebvm8iejHLdGEdVUwIo1pb8RMknIa+fCaQVVMkidhKEO
-         2VkniitHoJ2BAEnksoVE7wKfvdSK0Kcdt0j28K5RhDsCERpCsaWWsXMjmBdRV0AIv6oZ
-         pSlQ==
+        d=oss.qualcomm.com; s=google; t=1788442058; x=1789046858; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=d3RaRG9uz14aExbdtz5RMducWGOR/YOY//yVm2WHhY0=;
+        b=HWx55ZpooMCubZlh4zOduESNK/WsGbTb1wryZ8YkIYfpJa0LaWNkAUTGpkAclN0WzQ
+         +u9WDWBXib5kPMj6ovqoI3WpbFZYf9SXu8EuP3EFokD6ISefc2/K3v5+qNITK4avPrUV
+         zC+/con/RbcxCy5PyZlZPThOFcjef9kFqpsIYEexrI9gYvlAOoUSQxmw7fYJKmRaWhFN
+         OiNt25uGUJimBu1ho1ZlU2zE4dOXqVZVAK46mUWeM2SL2GnGbKIYYUbwzQxjGvfiKxHl
+         NsLTuL0TgbzQv5HSow+sZiPTn7bFrdI47ocb/MV8MCuMYdevo8ntUCmFbKHHB79db/Me
+         9x1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788442050; x=1789046850;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cpNeig/STv3ElkV+GwYqrBBpO1RKTjvMEoB8VPZ2e9M=;
-        b=qaczkYvKhWDxasYYRITLCKK/EgiLE5FyXaQ2ZQtr7P8bjtx5I88nx+itgUQZwO4Y1K
-         +OcuUB1pmJdhHDnEXlgQIxxVZu86+oUFqv7ZCHnGXU9dkRzvGbgKttKsyq7KUsmhqKcP
-         90Bwvi+f2c+XjcOCJq7f+0dt8MPf+/mehV8X7v/82icMOdTGwcs9rS8PZjfooLc3G4Nh
-         RzdpGmX05lRBu04LHw/wgTTFEQ5G23eQKNi0zkLdgp5SSz7fc3t7nuyV1mgDidMtuz0X
-         HDpTc5W4TVltCOEvqj3Dku2PI5STZMG8AsZpmUpRcaQcbLuGIFq12SV677xCRer3jFdw
-         GanQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxGhwrH0RV89NZq0HhlnW0sUNO6ms2Oh2ohVC2MuIB9piIkhuNtTxeAh0/m5K8nsOru81oRrGAZ3DTnn/8=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+KgtYkr/aNFA3fioMzNzYXUuwPT8kY17xWO6l+RBm0I+okTzc
-	3AR6ns+Gj+diIYaWu+fzwy4cqQS5fh2LZKma2X9zX9vKlM/K95TqCPRf
-X-Gm-Gg: AYBFou3Zb7fx1KAGDc2CtoNjHUu0qVI2BcvnNY1W9FnkCIJg8dsGA6KnzCEhwvMw+Gs
-	VxXiX6RMHGs5FbUap3DZwFhTQ7sZzL1YukwDwabFCTIfWtSJ9AiXotrT3FSgE7eFpXE8sl9Uq4p
-	d72gEIE117Mr9JNsUpzTzQTqhuyZrAEp5Clz0oNuWLbo6vhMgrkeBF9hibb7Htud3v4Xqo612Qd
-	e6PQpTRKqQXsvVcunZc9seTKHrh7/7gP9mQ/M0tLAGUVP8GOr0TSItumsfT6flvCrzi7y9Wp0+T
-	MDMQyf1vfJajyLYj8D2tPtbndko3ZvaN8NJxM8gIoIuICFfPwe4auopunLdRP2LZ+eB4wkQFUv3
-	NC4rlH6rlfYpfpIxeIQ9UyqUmk08XinBkKrT9FuU9ukIj1gp4pu1lhi+wHkFO9l+zQbXdg2gIXE
-	qfipsQ+tOF9UWcaGcrvFl7N0EaY6vZZutRZ328uZ1oU0nNvvuDIBwcWjJPgUqY0Du+b8waChkrm
-	BeyZab8fJKP6g==
-X-Received: by 2002:a17:90b:5109:b0:399:e97:8d5a with SMTP id 98e67ed59e1d1-39aee152d79mr20056075a91.25.1788442049502;
-        Thu, 03 Sep 2026 06:27:29 -0700 (PDT)
-Received: from ubuntu.. ([49.205.39.116])
-        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-143199692a6sm10752142c88.12.2026.09.03.06.27.25
+        d=1e100.net; s=20251104; t=1788442058; x=1789046858;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d3RaRG9uz14aExbdtz5RMducWGOR/YOY//yVm2WHhY0=;
+        b=sdcw+VzVf1bwYKUL7WOKUIpdQFHBnVumK4BCIWby1QTT2UD8iVs5TrHTQewPfPBA//
+         +kXPcUrM7hyIKGAKRcLPa997v1VPuMCL1pu9USqOrpzTgXD0pZl5XGVwWRq8dFT3KeXf
+         7Lx7KjDUh+qaPmlqy59bIBXcK8wFEuYmOe+cjYzk9WIL6XLMokp9UHBQv38abEUArC4Q
+         b5TRs7ZqJEs37Nc6zb2ajdLnsMKgl6aU1f6n/O0Ujuo+W/hi8TP0ap6WY2w6v1xM16Tg
+         BYuLiS7UixG3DWNUUnV5mAyxE9fGWtKeaV0In1vqI++4O1gtWZHPJIlsr64RoidklFEg
+         MxHw==
+X-Forwarded-Encrypted: i=1; AKwUvBzJbys9IsQnxOp4TbBYMfNP0EIZkEoD2E80XiT58O49XutCzOKRDX+tcnweTsQKbZmvO/QYvUSh3T0Kauc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kTWyHJ1m5COmDNo6FMFZ1fE2c+LMi7zLYstLttPsrZlZk+6kQz
+	I2KbNNFGwjLOfbeOFfNXVDSd6/NfJkTdJKbHF2DNUhZ69jNOMYwblIaKTuWbKQVezpsBjnUewhV
+	7ces4tUVkrTpo+fNUBKnZpvVHsgBsYQLUwqdOL31IVrstXcLqgCoyE7DIkRJhY/ietwM=
+X-Gm-Gg: AYBFou13giq1TMOWWhNCrPofZ32gDJuuVmE/d6+PoYbj53ctvqsTYA3XxTBSFhyPjnB
+	Uz4Z0b1BGpq5zwMbCM59txdd/LX0XoYnR82jRXe6hxM3NtF4L3SKk4HM3jy3ZZrmwYrNvUyaT9x
+	P3JxxW6VZQAyCMYJEXY/xQpzA2IiaNFJd7TMFYarMLqq9gvGxG/vovaCwmzCVNtwWAzgHIQ8urL
+	Iq8+sjfpbLkvUnGaTfFIwdzglMs2Ut6uuAolKxODtiUyVTXiV7E+42KXJKsXbHiJA1gAxWaXmWY
+	Zy03rdsmBniXRUW0qhphx002SPFXWJAmcEfkQ7h2w9uEqiCuJy2jQfxs/kWYjED4XCYQyhSXmje
+	fCnyxoBwTXeOzIg==
+X-Received: by 2002:a05:620a:8f81:b0:934:aa56:45df with SMTP id af79cd13be357-9397dd0d431mr16736285a.11.1788442057289;
+        Thu, 03 Sep 2026 06:27:37 -0700 (PDT)
+X-Received: by 2002:a05:620a:8f81:b0:934:aa56:45df with SMTP id af79cd13be357-9397dd0d431mr16730585a.11.1788442056748;
+        Thu, 03 Sep 2026 06:27:36 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448ed38cfsm12846442f8f.19.2026.09.03.06.27.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 06:27:28 -0700 (PDT)
-From: Ajith P V <ajithpv.linux@gmail.com>
-To: tung.quang.nguyen@est.tech,
-	jmaloy@redhat.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org
-Cc: netdev@vger.kernel.org,
-	tipc-discussion@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Ajith P V <ajithpv.linux@gmail.com>
-Subject: [PATCH net-next v5] tipc: replace deprecated strcpy with strscpy in tipc_bearer_get_name()
-Date: Thu,  3 Sep 2026 13:27:18 +0000
-Message-ID: <20260903132718.1616159-1-ajithpv.linux@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Thu, 03 Sep 2026 06:27:35 -0700 (PDT)
+Date: Thu, 3 Sep 2026 16:27:34 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Luo Jie <jie.luo@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, quic_kkumarcs@quicinc.com,
+        quic_linchen@quicinc.com, quic_leiwei@quicinc.com,
+        quic_suruchia@quicinc.com
+Subject: Re: [PATCH v3 07/12] clk: qcom: ipq-cmn-pll: Add PON reference clock
+ support
+Message-ID: <unzsymxiequsolb4xfafhqun5wzhk274rxcjke7s432jiae76e@tphl57sv75m3>
+References: <20260814-qcom_ipq5210_cmnpll-v3-0-21c3db378611@oss.qualcomm.com>
+ <20260814-qcom_ipq5210_cmnpll-v3-7-21c3db378611@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260814-qcom_ipq5210_cmnpll-v3-7-21c3db378611@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDExNyBTYWx0ZWRfX6c25b+0tlHRJ
+ d0Vr4X8pCj3t660U/SHUMs4mpZiiaQAxCCxBNf1skgDNJ3dDfSsCJbTjScSFGuerdJ7J1IbUAIl
+ JmjJSv0Kvb83mmggSB53HVKCSlElgyyZ49KgE3x1e/Dn+5vVc4ZVcIpdoxzfnI6goblZNeIHbt2
+ gin8yls/5TFyS2zhVxPew0PmFwA6Pgtme3j6waQ4Bc5RksK0EAlCfl/lFtprnS25DE7zNv2EgaB
+ RGL4ALlTt9S7Ufsuxx3Lt6KxVCetchwNPZnbISrvvmdEwhsVbo5dB12GdqIoTV73ZCMISfEoXz5
+ e/ndjxAc7GRJ2tYGbwOg1Z0Y37Jdy4Ylx820CCp3T9Og34UkIBSmGcLwi5uKmYkrxqsF87WK4h9
+ +mlgaTbovXPzh1NuBRBIBw76P6N6GJlP+211iKtm5sTtkOOD96edR2zPxsX+KFv/oqtDdgiAm3P
+ ZpesqY7e3+vZFjKKUTg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDExNyBTYWx0ZWRfX7jRSLb8FV2jC
+ +idILWbUQvDKu1AktHW8U86Ev8GrkqsptFtvQtYgePC+IvPyYtQD1dDcPTbGnRvWnQm8t1y6zyM
+ BJbCqcQzieHrTdTA2+en3Dk177HHpmE=
+X-Proofpoint-GUID: 5Jj7vCiuGQBxotRJtD2vRZEsK8tFKY2b
+X-Proofpoint-ORIG-GUID: 5Jj7vCiuGQBxotRJtD2vRZEsK8tFKY2b
+X-Authority-Analysis: v=2.4 cv=LZ4MLDfi c=1 sm=1 tr=0 ts=6a9975ca cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=q7XEBjOi5DRkXzmV0jSBjQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=oLdtaUtU7qxJmi1rbcYA:9 a=CjuIK1q_8ugA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_04,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
+ bulkscore=0 priorityscore=1501 impostorscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030117
 
-The `strcpy()` function is deprecated and moving towards code-tree
-elimination. Replacing it with `strscpy()` fixes potential buffer
-overflow vectors by ensuring safe NULL-termination based on the
-destination buffer size limit [1][2].
+On 26-08-14 05:48:17, Luo Jie wrote:
+> The PON (Passive Optical Network) reference clock's parent is
+> cmn_pll_div2 (CMN PLL rate / 2); it is then further divided by a
+> configurable 8-bit divider (1-255). The clock supports two modes:
+> 
+> - UNIPHY mode (CMN_PLL_PON_MODE_SEL = 0): fixed 31.25 MHz output
+> - PON mode   (CMN_PLL_PON_MODE_SEL = 1): parent_rate / divider
+> 
+> The clock output can be independently enabled and disabled via the
+> CMN_PLL_PON_EN bit.
+> 
+> Signed-off-by: Luo Jie <jie.luo@oss.qualcomm.com>
 
-To make the interface safer and more robust for future callers, refactor
-`tipc_bearer_get_name()` to accept a destination buffer length parameter.
-Replace `strcpy()` with `strscpy()` and pass through any potential
-`-E2BIG` truncation error code up to the caller. Update the existing
-caller in `net/tipc/monitor.c` to pass its array size.
-
-Link: https://www.kernel.org/doc/html/latest/process/deprecated.html#strcpy [1]
-Link: https://github.com/KSPP/linux/issues/88 [2]
-
-Signed-off-by: Ajith P V <ajithpv.linux@gmail.com>
----
-v5:
-  - Cleaned up implementation by removing extra `ret` variable as suggested.
-  - Wrapped long lines to fix checkpatch column-limit warning.
-v4:
-  - Avoid hard-coding TIPC_MAX_BEARER_NAME in the function body.
-  - Pass size_t len from the caller down to strscpy().
-  - Forward strscpy()'s -E2BIG error up through the existing int return type.
-  - Updated function documentation comment block.
-v3:
-  - Fix patch title as suggested by Tung Quang Nguyen.
-  - No code changes from v2.
-v2:
-  - Target net-next tree instead of standard net tree as requested by Tung Quang Nguyen.
-  - No code changes from v1.
-
- net/tipc/bearer.c  | 6 ++++--
- net/tipc/bearer.h  | 3 ++-
- net/tipc/monitor.c | 3 ++-
- 3 files changed, 8 insertions(+), 4 deletions(-)
-
-diff --git a/net/tipc/bearer.c b/net/tipc/bearer.c
-index 05dcd2f9e887..65fa18928fe3 100644
---- a/net/tipc/bearer.c
-+++ b/net/tipc/bearer.c
-@@ -195,9 +195,10 @@ struct tipc_bearer *tipc_bearer_find(struct net *net, const char *name)
- /*     tipc_bearer_get_name - get the bearer name from its id.
-  *     @net: network namespace
-  *     @name: a pointer to the buffer where the name will be stored.
-+ *     @len: size of the destination buffer
-  *     @bearer_id: the id to get the name from.
-  */
--int tipc_bearer_get_name(struct net *net, char *name, u32 bearer_id)
-+int tipc_bearer_get_name(struct net *net, char *name, size_t len, u32 bearer_id)
- {
- 	struct tipc_net *tn = tipc_net(net);
- 	struct tipc_bearer *b;
-@@ -209,7 +210,8 @@ int tipc_bearer_get_name(struct net *net, char *name, u32 bearer_id)
- 	if (!b)
- 		return -EINVAL;
- 
--	strcpy(name, b->name);
-+	if (strscpy(name, b->name, len) < 0)
-+		return -E2BIG;
- 	return 0;
- }
- 
-diff --git a/net/tipc/bearer.h b/net/tipc/bearer.h
-index 41eac1ee0c09..9ccc9ffa925a 100644
---- a/net/tipc/bearer.h
-+++ b/net/tipc/bearer.h
-@@ -226,7 +226,8 @@ int tipc_l2_send_msg(struct net *net, struct sk_buff *buf,
- void tipc_bearer_add_dest(struct net *net, u32 bearer_id, u32 dest);
- void tipc_bearer_remove_dest(struct net *net, u32 bearer_id, u32 dest);
- struct tipc_bearer *tipc_bearer_find(struct net *net, const char *name);
--int tipc_bearer_get_name(struct net *net, char *name, u32 bearer_id);
-+int tipc_bearer_get_name(struct net *net, char *name,
-+			 size_t len, u32 bearer_id);
- struct tipc_media *tipc_media_find(const char *name);
- int tipc_bearer_setup(void);
- void tipc_bearer_cleanup(void);
-diff --git a/net/tipc/monitor.c b/net/tipc/monitor.c
-index a94b9b36a700..a8a088fc2a2c 100644
---- a/net/tipc/monitor.c
-+++ b/net/tipc/monitor.c
-@@ -829,11 +829,12 @@ int __tipc_nl_add_monitor(struct net *net, struct tipc_nl_msg *msg,
- {
- 	struct tipc_monitor *mon = tipc_monitor(net, bearer_id);
- 	char bearer_name[TIPC_MAX_BEARER_NAME];
-+	size_t name_len = sizeof(bearer_name);
- 	struct nlattr *attrs;
- 	void *hdr;
- 	int ret;
- 
--	ret = tipc_bearer_get_name(net, bearer_name, bearer_id);
-+	ret = tipc_bearer_get_name(net, bearer_name, name_len, bearer_id);
- 	if (ret || !mon)
- 		return 0;
- 
--- 
-2.43.0
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
