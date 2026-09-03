@@ -1,81 +1,84 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F2BA4BAA17
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:30:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 508174B5CD1
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:30:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445838; cv=none; b=ayO7RX7l/4igQvHe6iFPidodw/nk3kSEefP4C031+aD9PUd+26UXXO0MzAbgllhMqjB/bZwcQh4d3/PmS2lg63KD8+9T6Dg9/fcaneuBAc5pXJghGFJgFbZjLf4rBqNQJC3HDkzSfBOUni3IwnfwOm5nx1c7NVddFB7Qw7Yq1mI=
+	t=1788445845; cv=none; b=Ws/KlvUwr/gV/xVglh4RLVpPC/8ox2ddSDM2Wlthz6v7P4w489z79CLpbMIl7c6+EjfgMgzDaFg96OiVnmpRSOp6JBQQdjwLkvPTg3yOfeHEE9lm8sTAKEdXw+XjyE62h+1BiH7QjrqMI0+BT0d9t3LD6hyKKqCdanmJUrEqfSk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788445838; c=relaxed/simple;
-	bh=vVqU8NJTRxh+VGEkeGhK8rxWKQs9YWWnbRoEi/l2GDY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UwPqdd6W8vUXalWQbAFAO+ogEOKsutiidZh5HKwGe6doWQz/DL1JaDMjoVLYxWqLgiqVcjEd5YE2UvhgN2sQr9lI7CYhTRgpyKVLpdf1qTOnX1RWzzy8ipsRD2SBIiOulFXy9sQX1T1TwdJDHA8/HXemmlZqCIWPeY2NW3Pvl+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=msBViy5s; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788445845; c=relaxed/simple;
+	bh=3R9vIM4cAXIPD4Q/16hXtxH6BOgrzmLkcWxwv41qCrc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=osgP8KQwZTljVs1jN0HOr8yLyCGWPQoFdLlrVgcQlom9I7QitCtLUOshJuLT4xvabbubmlTMQs0EZ2ON4xM1PyDHF3g6Kj0FmE18+XNZmsFdtaaqdNmXmkpI1nOpZrfhl7G13Mj7/xh86emad87qK6RM3qSd8YVQdatReeqlsnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=qMP/9M1J; arc=none smtp.client-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="msBViy5s"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-482e4998d28so1814767f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:30:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="qMP/9M1J"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cbe827e3cb4so2898649a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:30:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788445817; x=1789050617; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mYhl2eFp8EfMt+iovCQKUWiL4an5eim8e/EO9APbOWA=;
-        b=msBViy5sxIIQg33EgcNCg7KqSu5n5Oq3BH7N911+Oy+hx4RvAV1pfGJe3ZV4H8PTmU
-         L+CGwdgnMTHU36sl7wTCYrY8CXGjD/AL8cogsMhre+2xopr9/rxxl8fBZk7iMMyMQN0w
-         eZNDZTVjAXaVPWVSYfxTuHXVvzrsPkeLU7MUWsg0II0etDZuV4dx1VicudAx37n5HsYV
-         hNMRe08aIAbRqkUE5txUEOpKHfiGJMeuQusvY/3/RUDaQxZ8wHQVLRMbSHHOcHz9IQPk
-         MQxzPJ+KbIcgwSdMfp9nizPajZLHGSZdZ4sN3PgmoCU22EAeMLEoTkAVRTPNNVviDFhI
-         ZdYw==
+        d=linaro.org; s=google; t=1788445833; x=1789050633; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VvQUB0nrb39Z1KnOkiEgTk3LEVt0IMBJ5IPyGGTW/6M=;
+        b=qMP/9M1JkvhnuKkdMkTnCzyMEMrpz8+KBwpgXp566zpsrrYjgHvKUx6vIWy0mJs9WL
+         EjUn0ZvSIeaSLElZgP8nS35xW4wExetp+qkDOeSxNNMi0IJwAtTh/hgj08awVRtmzQg/
+         yZ9fVTyOG4X66k7CrMBEM5jf4zxGqgUywhFa0H0ygtc80RNDvp9+70L42UdF7DODAd0S
+         D8Fg3vMIy1wHsnafkcJw1ENshQG4VLexS67/aSfisxzEumzRYpMUd3lPKZMUlKgFE0el
+         GkdqWIjLrrVlhbFBq7dsofAYFG78iGgwNHxLPEm6QzSYSpgnkoZf1H0d5Qcx1yYlm6NO
+         FNxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788445817; x=1789050617;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mYhl2eFp8EfMt+iovCQKUWiL4an5eim8e/EO9APbOWA=;
-        b=mLRbMWCLWIdCtz7y1T4E7hUnsgKrCK3zvUC+sckhcjnBaFUs3Ljy+0Pp7LmrnHiPDP
-         apDEzlgVdLu0otVJ3XmGTVbjkNeo0iIHPqM4EdQpCr/xWOxdgAAtJS1ly6qwosmmRwtd
-         QPFkFoXJCt4NWdkxIRprSj12D/5l05cfkxmuNut13s6JdU7ysNE79CmJffk73B45MAVs
-         TLM6rG2ImnAHVvn/1bsRkx1V/Xdp4exPQ53PaH5v/JJB1OxYWsENYju0TaMEETjON+kh
-         +HFTQzTiMClsj89U6qL9Og6eUA3stFIAnjOk8vlcrhJd76YkWYxsRYQ+ZAay9bgEYrBu
-         0Cgg==
-X-Forwarded-Encrypted: i=1; AKwUvBx9e6A83M7KN8pOM9wv/N7MCwoNZ9g1liwPEnFsvPNU/9DZdpeCVkqu8y1+WD7U4ZVnBKEQ95jQGEKp/8s=@vger.kernel.org
-X-Gm-Message-State: AFuF++lI5DbM1nn5WTuuKshfIpY0VLeHKjcwvuQ5J1IvlUmaP9KzTEB2
-	o93co6R/F0+Eb8OPeN29bsviXNVzWAcpHPQskrXU6l/izBibPKjAbjUuY404FUkymiI=
-X-Gm-Gg: AYBFou21hM7vkJKfiua8cXC2efbA5vXeEV6//pXxP2RP/0x6uuciSuJ2gK18e/Y1BGq
-	OZA8Kiy9qlqyNxLndCSL6V/cRSCPV2ufYlj3SfZehVQvoIKSSy0gBVhkhMohkhip3UMPhREz38r
-	HrDlHtA0OqKL7a47/6gBZphVSk55Mu9rH+xp7L6ONGATvLqFtqgjAtWLobpdIDFnDZEOsY1wjM6
-	E6OlPWpQ+QOVSVkold9u4t/U80y3WmfJYrQc0fvtTwcBUut3jWd7QE8o3ybQHioJVialt0ULFn7
-	ISEsrX5EoVVmgSZcHM/iuap31PVKK4Wj5tncBTDEzutBco85jK8Jh6laC8QzTfEpPAfK1cC8bYe
-	0o/8a31Ovd+1B3YEN62vmTPoynLkoOr22ADrkWEXKjNl3qLUFdDtIs9O3exQjyqgsVMGoBbAbhj
-	LIxJImILw2ZCqc6kN6t0w0ArXoW9DvVr1No2LMXCXGzJzGtMMSVz4yCa2+a3pBISmSxDBtH9KgY
-	2XUkTy7SHQvIlRXQ/jQb1qLd2fCKcV6JUzINg2mP9anFGywXNQsGZrzVSCQVDcBReS+oeM=
-X-Received: by 2002:a05:600c:1c13:b0:499:da8b:1476 with SMTP id 5b1f17b1804b1-49cf5c08c06mr4934245e9.14.1788445816752;
-        Thu, 03 Sep 2026 07:30:16 -0700 (PDT)
-Received: from cdev ([2a02:8071:68c3:bd00::8998])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee7febb4sm80476235e9.14.2026.09.03.07.30.14
+        d=1e100.net; s=20251104; t=1788445833; x=1789050633;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VvQUB0nrb39Z1KnOkiEgTk3LEVt0IMBJ5IPyGGTW/6M=;
+        b=QXzemlMMVrV4pfyIwMyzRLymnAPVTTVGT3e3Pcz2c64AXKG5uvLaoULIwHqAyTBI/8
+         JRWz+m0vTf6e0tN14fxo0O/RzRfHboUo9iNnwX4+2BNsi0+gkDgx//JJVu1HY7ODT/RV
+         /+T3bCMe4dpumVyS4JI0sS4t+gHnLV38bZsTFrDGKFe0W/eObg8geduwHAsLkOsJ8OKh
+         DLtL6t5RJdztrffyfSVkGQNxZl2cqt8+x4F9RUiZzeYBXDde1Ed7kDmBT5AVT9L58wFp
+         rU+oiiRLRMpUYzIujR8//uupYB6LF4SlE/dY5BCWSf7gCevIpqujA4tyZOxeP1x2kaiF
+         ypLA==
+X-Forwarded-Encrypted: i=1; AKwUvBwGpmZu2bPuoQ/O+bmaTXHeUeBTBG4ineFBUVxhdw/oh8I8MsnGYqPIzIM0H2K/CcTj681vggv5+DvKgJo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lFTLMXVfIllLw5SmEU9h9XCVc5jnqPflk+o2kKswew8HhJOv2/
+	KEswYATyvnuzJ4L+CBZOU3AdJPz0mPGAfDd3DS83xyYai1L0xZQ4IzRLCn/6a3RUt6w=
+X-Gm-Gg: AYBFou2Snv9Q+sFBYCtrY0FwKvXuVLVFwo0Dj0c6Vm/UJVUwmOdYC7LdoqTdYWaith8
+	ZRAHCU/R9PE6sQ7VCi+RjeEOEd6IYTTBEZH/LWB1W/T5lJcqhEwNClQidkb85FOax/l+VWqxMEA
+	YUKiU9zRnqqOQVzWZ/tQc7CK6WeXyFobcCd3B++ZyzwG1xw7feoYJPnAu5p3ZR1oRd04PlybLsr
+	g98TLnkdIBAXBI+4RoReVYAmzFlQX7eouXGN0iqeh4gR/EeYDJNt9u48U3566eCXBLFuN0JnDqT
+	XRsgOVh4kq23laxJTsUd8Dl7+Jd7nUaNc2DUaKEMwSwvy9WCt2idJjiX3oM8RkIaxonLfSeS9bZ
+	YIlWypsePHV+A+qYribnMAiZpIWOmOT5Bafr18A+yL6XKXmKgZRrb+SCauJVscBXG8HKMGsPVaV
+	VccmOLfvogdOu4f0gGUKVFJ21WmhDDBou23DHaZ+qbtY87nY1cMOzUTi0=
+X-Received: by 2002:a05:6a21:4613:b0:3c3:7ac4:dac0 with SMTP id adf61e73a8af0-3d9af9ff7a9mr20557828637.13.1788445832582;
+        Thu, 03 Sep 2026 07:30:32 -0700 (PDT)
+Received: from niej-t14p ([112.64.60.233])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc43d42b3b1sm1032759a12.25.2026.09.03.07.30.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 07:30:15 -0700 (PDT)
-From: "Vladimir V. Kondratyev" <vladimirkondratyev2@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com,
-	pmenzel@molgen.mpg.de,
-	chandrashekar.devegowda@intel.com,
-	arnd@arndb.de,
-	kiran.k@intel.com,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lsa.uz@pm.me
-Cc: "Vladimir V. Kondratyev" <vladimirkondratyev2@gmail.com>
-Subject: [PATCH v3] Bluetooth: btintel_pcie: fix stale cache in set_dxstate fallback check
-Date: Thu,  3 Sep 2026 16:29:00 +0200
-Message-ID: <20260903142911.125301-2-vladimirkondratyev2@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260507203426.128975-1-vladimirkondratyev2@gmail.com>
-References: <20260507203426.128975-1-vladimirkondratyev2@gmail.com>
+        Thu, 03 Sep 2026 07:30:31 -0700 (PDT)
+From: Jun Nie <jun.nie@linaro.org>
+To: 
+Cc: Jun Nie <jun.nie@linaro.org>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Teguh Sobirin <teguh@sobir.in>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/msm/dpu: delete timeout timer when encoder is not busy
+Date: Thu,  3 Sep 2026 22:29:42 +0800
+Message-ID: <20260903143004.1026181-1-jun.nie@linaro.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,69 +87,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-btintel_pcie returns -16 (EBUSY) during suspend, causing the entire suspend
-operation to abort on Intel Lunar Lake hardware. The system immediately resumes
-after every suspend attempt:
-  Bluetooth: hci0: Timeout (200 ms) on alive interrupt for D2 entry, retry count 0
-  Bluetooth: hci0: Timeout (200 ms) on alive interrupt for D2 entry, retry count 1
-  Bluetooth: hci0: Timeout (200 ms) on alive interrupt for D2 entry, retry count 2
-  btintel_pcie 0000:00:14.7: PM: pci_pm_suspend(): btintel_pcie_suspend [btintel_pcie] returns -16
-  btintel_pcie 0000:00:14.7: PM: dpm_run_callback(): pci_pm_suspend returns -16
-  btintel_pcie 0000:00:14.7: PM: failed to suspend async: error -16
-  PM: Some devices failed to suspend, or early wake event detected
+There is a spurious timeout error message under the following reproduction
+steps:
+1. Run "modetest -M msm -r" and press CTRL+Z to pause it.
+2. Run "while true; do rtcwake -m mem -s 3 -v; sleep 2; done"
 
-btintel_pcie_set_dxstate() falls back to checking the controller state via
-btintel_pcie_in_d3/d0() when the alive interrupt is missed. However, these
-helpers read boot_stage_cache, which is only updated by the interrupt
-handler. As such, if the interrupt was missed, the cache is stale and the
-fallback check always fails, exhausting all retries and returning -EBUSY,
-causing suspend to abort.
+Resulting error message:
+[  124.018206] [drm:dpu_encoder_virt_atomic_disable:1425] [dpu error]enc35 timeout pending
 
-The fix involves re-reading the hardware register before the fallback state
-check, consistent with btintel_pcie_resume().
+dpu_crtc_commit_kickoff() calls dpu_encoder_kickoff() to set frame busy
+bits, and then arms the frame done timer. If the frame done IRQ fires
+between these two steps, the IRQ handler clears the busy bits before the
+timer is armed. As a result, the timer runs with busy bits already cleared
+and is never cancelled by subsequent IRQ handlers, leading to a false
+timeout warning.
 
-Fixes: e57362f4911b ("Bluetooth: btintel_pcie: Add support for _suspend() / _resume()")
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221481
-Link: https://lore.kernel.org/linux-bluetooth/20260830151550.44687-1-lsa.uz@pm.me/
-Signed-off-by: Vladimir V. Kondratyev <vladimirkondratyev2@gmail.com>
-Tested-by: Sergey Lebedev <lsa.uz@pm.me>
+Delete the pending timer when all busy bits are cleared in the frame done
+callback to prevent false timeouts.
+
+Fixes: 95bbde1d0d07 ("drm/msm/dpu: Start frame done timer after encoder kickoff")
+Signed-off-by: Jun Nie <jun.nie@linaro.org>
 ---
- drivers/bluetooth/btintel_pcie.c | 8 +++++---
- drivers/bluetooth/btintel_pcie.h | 1 +
- 2 files changed, 6 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel_pcie.c
-index fda474406003..e13631e94214 100644
---- a/drivers/bluetooth/btintel_pcie.c
-+++ b/drivers/bluetooth/btintel_pcie.c
-@@ -2777,10 +2777,12 @@ static int btintel_pcie_set_dxstate(struct btintel_pcie_data *data, u32 dxstate)
- 					  BTINTEL_PCIE_CSR_MSIX_HW_INT_CAUSES,
- 					  BTINTEL_PCIE_MSIX_HW_INT_CAUSES_GP0);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 1f20695f81e3..d83d38797331 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -1573,6 +1573,21 @@ void dpu_encoder_frame_done_callback(
+ 			| DPU_ENCODER_FRAME_EVENT_PANEL_DEAD)) {
  
--		/* A hardware bug may cause the alive interrupt to be missed.
--		 * Check if the controller reached the expected state and retry
--		 * the operation only if it hasn't.
-+		/* A hardware bug may cause the alive interrupt to be missed. Refresh
-+		 * boot_stage_cache from hardware, since only the interrupt handler
-+		 * updates it. Finally retry only if the state check still fails.
- 		 */
-+		data->boot_stage_cache = btintel_pcie_rd_reg32(data,
-+							       BTINTEL_PCIE_CSR_BOOT_STAGE_REG);
- 		if (dxstate == BTINTEL_PCIE_STATE_D0) {
- 			if (btintel_pcie_in_d0(data))
- 				return 0;
-diff --git a/drivers/bluetooth/btintel_pcie.h b/drivers/bluetooth/btintel_pcie.h
-index 2db85f71b2f8..f287d1ff8e27 100644
---- a/drivers/bluetooth/btintel_pcie.h
-+++ b/drivers/bluetooth/btintel_pcie.h
-@@ -53,6 +53,7 @@
- #define BTINTEL_PCIE_CSR_BOOT_STAGE_DEVICE_HALTED	(BIT(14))
- #define BTINTEL_PCIE_CSR_BOOT_STAGE_MAC_ACCESS_ON	(BIT(16))
- #define BTINTEL_PCIE_CSR_BOOT_STAGE_ALIVE		(BIT(23))
-+/* Reflects live D-state. Updated by hardware on every D-state transition. */
- #define BTINTEL_PCIE_CSR_BOOT_STAGE_D3_STATE_READY	(BIT(24))
- 
- /* Registers for MSI-X */
+ 		if (!dpu_enc->frame_busy_mask[0]) {
++			/*
++			 * dpu_crtc_commit_kickoff calls dpu_encoder_kickoff to
++			 * mark busy bits, starts the framedone timer next.
++			 * It is possibile that irq happens between the 2
++			 * operations. Thus timer is running with busy bits
++			 * cleared by irq handler and timer will not be deleted
++			 * anymore. Then false timeout introduces unnecessary
++			 * confusion and visual defect.
++			 * delete the timer here to fix it.
++			 */
++			if (atomic_read(&dpu_enc->frame_done_timeout_ms)) {
++				atomic_set(&dpu_enc->frame_done_timeout_ms, 0);
++				timer_delete(&dpu_enc->frame_done_timer);
++			}
++
+ 			/**
+ 			 * suppress frame_done without waiter,
+ 			 * likely autorefresh
 -- 
-2.55.0
+2.53.0
 
