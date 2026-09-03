@@ -1,77 +1,91 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C398C490C1B;
-	Thu,  3 Sep 2026 12:24:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C905E449EA0;
+	Thu,  3 Sep 2026 12:24:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788438283; cv=none; b=alcZ2gW9cMtRzI6IyHyqxzNYKmuBZW/Ln3dxv3n46Uc+9ukt6b1gjGhBSf/zswkbA2Di4WMGIQ46s766qcaulkkWEpIyirq1kTrrL/LyzspFQRtUmdeHWlqKldMQzZLod3+iG7khB+GzUdDr9T9NCeaLzfI+JQLw5nsKlwHzzgQ=
+	t=1788438289; cv=none; b=gjZ9NibbAVZSTT5Av45lkSZmEPXOUjFLEEUhBrwqDrrCOAFbNlj8BxZxVJThg3vCVholQz4BWypQpQkjzPXOAvPGiPQRBnrjbDVlhHAULDo0vy+F3eUNEffO3etFCPweLW0SVOOipmZd5Fom/9GOa3Os1RAq+yHScgfhwbMQTFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788438283; c=relaxed/simple;
-	bh=9DEnXh1ZLlGgNc243B0KvcYmHPzNxZq/epYn5VJSMPk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AR2KlfGPmu7CVOLNT3AGSjsU+lAdrjbg/hccBGlY7tCXCmr2jYro6O1S746TspaNl+AmH34cNmOFYr5TKHcFPBFTI41r0w13ETsUeYW7HgmCcGcHD7+npxV7nNNSVzkVCS3Q8Gpfj90On6jdNccl5Qw39g4gjKaODdKJUqO8/V4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=5o6tujod; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788438289; c=relaxed/simple;
+	bh=Ms+eteCGKpQtgXKqZE6NQzNZKTJtk4Lu4dO7yGhlvAs=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=KbliWNcoSWvTUfz8ZnqAS9FseA8DEmLigph6jIyMoZMcN2imvFwAWxA+8L+2x1iymjA/4Q2VA4fnRzsM5DZud5HsZ2Me0clkb4jA7pQ0bsgLOpkffUXKCVsUyTk2ak0kW0jmmDGaF0v8/k1EJLZ3eorWOAYvVow7nmpS0IkD1HI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=tIZjujDE; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="5o6tujod"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=H5ZZhwockPxWVjGyDcKUGd0wOptVbOXPYmCwFoHMfUs=; b=5o6tujodFE8QR4lh1kEEI8HwQo
-	sKZvUSTrfQF66giRCiXwbKQyMMSBT2I41V6g2GPWcw7x/t5J7b2wobzdVW/fqbKU26WTL+OrQgNzM
-	vWK/KmkviaIwL8XSKUAuPhbQxsvWTBDCXksu2tQMMJTUhiKlzzSsJgeu13fnxQFD5hRg=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x26UY-002ic9-6S; Thu, 03 Sep 2026 14:24:30 +0200
-Date: Thu, 3 Sep 2026 14:24:30 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	kernel@pengutronix.de, linux-kernel@vger.kernel.org,
-	Ahmad Fatoum <a.fatoum@pengutronix.de>,
-	Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH net-next v2 2/2] net: dsa: realtek: rtl8365mb: add EEE
- support
-Message-ID: <1f2253f9-3368-4033-a091-ce424c08af89@lunn.ch>
-References: <20260903092211.2922058-1-o.rempel@pengutronix.de>
- <20260903092211.2922058-3-o.rempel@pengutronix.de>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tIZjujDE"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:42c8:e78d:2576:d7c8:5aa9])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 040592335;
+	Thu,  3 Sep 2026 14:23:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788438194;
+	bh=Ms+eteCGKpQtgXKqZE6NQzNZKTJtk4Lu4dO7yGhlvAs=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=tIZjujDELOifpjlFa1/35X9gehBmCui0PnJq/H0kyshj7YDos2KOsbOvEKohS8LhI
+	 QNGZloEwuJejSPHZSFYFPIFympDBCpAcfza8OF2iEmzteufHSbCttyTKbd063HAxXK
+	 ufRRPq7pw+uH9nmkLx8RBkxoU1PdizqJKeBT9I8o=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903092211.2922058-3-o.rempel@pengutronix.de>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CAPY8ntBpR6vjP4Yd8ErVMuLjLshWb+rpfV=dzRNkhLN=K59rnw@mail.gmail.com>
+References: <20260805-media-starvis2-v1-0-91e8e4eae44f@raspberrypi.com> <20260805-media-starvis2-v1-4-91e8e4eae44f@raspberrypi.com> <178840935437.11722.581815298725172345@freya> <CAPY8ntBpR6vjP4Yd8ErVMuLjLshWb+rpfV=dzRNkhLN=K59rnw@mail.gmail.com>
+Subject: Re: [PATCH RFC 4/4] media: i2c: imx678: Add imx675 support to the driver
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Thu, 03 Sep 2026 17:54:40 +0530
+Message-ID: <178843828099.11722.17500645747204456551@freya>
+User-Agent: alot/0.13.dev35+g4a69c46ca
 
-On Thu, Sep 03, 2026 at 11:22:11AM +0200, Oleksij Rempel wrote:
-> Add EEE support on the integrated-PHY ports, controllable per port via
-> ethtool.
-> 
-> The integrated PHYs have no MMD registers; their EEE registers live in the
-> switch's OCP space. phylib accesses EEE as MMD registers, so add
-> phy_{read,write}_c45 realtek_ops that map those MMD accesses onto their OCP
-> addresses, wired as the user MII bus C45 handlers when the chip provides
-> them (rtl8366rb etc. unaffected).
-> 
-> The hardware manages LPI on its own, so advertise EEE to phylink with
-> no-op mac_{en,dis}able_tx_lpi callbacks. The LPI timer is a single global
-> per-speed register, so .set_mac_eee rejects the per-port TX LPI knobs
-> rather than silently ignoring them.
-> 
-> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Quoting Dave Stevenson (2026-09-03 17:24:19)
+[...]
+> > > +const struct imx678_variant imx675_variant_def =3D {
+> > > +       .name =3D "imx675",
+> > > +       .id_reg =3D IMX678_REG_MODULE_ID,
+> > > +       .id_value =3D 0x296,
+> > > +       .native_area =3D {
+> > > +               .top =3D 0,
+> > > +               .left =3D 0,
+> > > +               .width =3D 2609,
+> > > +               .height =3D 1984,
+> > > +       },
+> > > +       .active_area =3D {
+> > > +               .top =3D 0,
+> > > +               .left =3D 0,
+> > > +               .width =3D 2608,
+> > > +               .height =3D 1984,
+> > > +       },
+> > > +       .pixel_rate =3D 594000000,
+> > > +       .pix_per_clk =3D 8,
+> > > +       .common_regs =3D imx675_common_regs,
+> > > +       .num_common_regs =3D ARRAY_SIZE(imx675_common_regs),
+> > > +       .vmax_default =3D 1984 + 40,
+> >
+> > Same doubt for the VBLANK =3D 40 here as IMX662, although I don't have a
+> > datasheet for IMX675.
+>=20
+> Datasheet lists
+>=20
+> VTTL (1farame line length or VMAX) =E2=89=A5 PIX_VWIDTH + 70
+> Set VTTL to 940 or more.
+> VTTL =E2=89=A5 940
+>=20
+> But verified as working at +40. (I have a module from Soho Enterprises).
+> We can go for the more conservative values if preferred. From memory,
+> on IMX662 it'll lose about 10% (66fps at 40, ~60fps at 70).
+>=20
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Ah if it's tested by you I'm fine with going with 40 for now.
 
-    Andrew
+One nitpick for your next version, maybe define VBLANK_MIN (40) and use that
+along with active_area.height?
+
+Thanks,
+Jai
