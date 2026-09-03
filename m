@@ -1,115 +1,102 @@
-Received: from mta0.migadu.com (out-80.mta0.migadu.com [91.218.175.80])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9332F39448F
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:58:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FCF83F929C;
+	Thu,  3 Sep 2026 06:59:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788418740; cv=none; b=aoXhMW7eE5C7Hc+VSUKz2tNnMFSW2WG24/2P8DmiayhXZoVxv8bBTUADvJhUwaFMvni5XPlA6t5ntkT34l5HhiwRsCiEHX70DC4/LcS3gRdn20eo6MDLYksiTQwxdyrq4xffaPGZXEGKlPUV9jmfeCLiTe0111WH47QHnbiVIsw=
+	t=1788418745; cv=none; b=tssff7g3fAQOyNlwy1kjwvk+pwq4U7/H5BipMyu7ZK71ZC2KXHTSpbL4TyiFtPoyaniyvudHUwvywamF8U2FT45/yTQnpPcjrthwJGPW1cRqq8LHB1b9/W4VHIZTm96IVi8EuGtXqKLAAFDeHKgWhGM4LOKCJElMsgYY9GjjvLM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788418740; c=relaxed/simple;
-	bh=o8BUeq3Tc6Gx1WZx0lieJxRX6+dzsYla4Obyg7G5q/g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PdIWR+UuDKSVKKBNVJIXvp79wKcqa1TGflJX5KGYU90yDM8xU6qCt1TCZX5foe70pLaOCIZZkYhZE2pxlM8WqJiabKVk6WBpunpPsMvBi4OPvOuncFlXDySk8cm+C8fmg0GIwl1aj3L9fRE0tYdon+4r/7mM1PrH39jddlRQcy4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OgzCsGXR; arc=none smtp.client-ip=91.218.175.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788418745; c=relaxed/simple;
+	bh=fFHoj6gAKkFWjGmwc9Pnj0rlvfKC1Wk7kIjSuw78k3k=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Nl+vqKJop9SaLGVpyS6NjBykVlMrYFAJP0wfPigYYYIGyBhOdhQu/dt2s/sa3jAgW+BJfzBOn2XusRV24KFg+Q8bml9RUFQn6lmzmv8fK4d05ZBFkbfDVhA7cty7cvWHeTYttzPwDabWVeuIPbMyTHCXlGTjKNRJpI4BdxJ7+yE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o+OD3rc4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OgzCsGXR"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=o8BUeq3Tc6Gx1WZx0lieJxRX6+dzsYla4Obyg7G5q/g=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788418735; v=1; x=1789023535;
- b=OgzCsGXRz2zEtCr+NoWbRIhw6dzGOqVKT6bG7QZIcF/+vjxcIsayyLWFMwWTgWSDh7SGK0DA
- OgNMpmaki0LdnMRTDfSCD7ukum/ZmWASUk+Zkxq2QXLaFd57Rti7udCE3Ug+Lvbpj99B6orNjcn
- T7ZD1T381nEP+z2uRYJ9YpKM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id d042a3bd066a7172;
-	Thu, 03 Sep 2026 06:58:55 +0000
-X-Mizu-Trace-ID: d042a3bd066a7172
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <0f9653d1-2467-4e32-ae8c-d5cf7bdf92dd@linux.dev>
-Date: Thu, 3 Sep 2026 14:58:42 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o+OD3rc4"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C480CC2BCB8;
+	Thu,  3 Sep 2026 06:59:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788418744;
+	bh=fFHoj6gAKkFWjGmwc9Pnj0rlvfKC1Wk7kIjSuw78k3k=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=o+OD3rc4YPWYSgEGcHBvSUlQ1q9KpCF6VnzV7ZbMCe633Y2rVqntkw42HQ/Rx/HBZ
+	 BqJS9yUMmbhtYKajnPIMsAgHLD0DjGu1pTWsp326SKKoK1qs9JUk/HRC0jX1U8pJSF
+	 +GFlG/DXSnr52fYPmUBuOHIzFVcVZg+h1eVWjzlhzfhiNCN+vuel9wd69xYXT6sWYY
+	 0KCps7pkzt7FjXh5dwfzsjzbG3ov58pM+3XOwWI7rpHpB5Ld2Qv5KDcow4bascHz0N
+	 PpJZDmJ+8yLrp/Q6/g2qd4KWBkMtLoWMHyujNnIZoIBkOz1XCqERdv2bcadtBErXpx
+	 qs3B59mP6cedA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A0A26C624D4;
+	Thu,  3 Sep 2026 06:59:04 +0000 (UTC)
+From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
+Date: Wed, 02 Sep 2026 23:59:01 -0700
+Subject: [PATCH v7 1/2] ceph: wake up i_cap_wq waiters on inode shutdown
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] migrate: Skip hwpoisoned hugetlb folios during migration
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Mel Gorman <mel@csn.ul.ie>,
- Andi Kleen <ak@linux.intel.com>, Muchun Song <muchun.song@linux.dev>,
- Jun'ichi Nomura <j-nomura@ce.jp.nec.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Kaitao Cheng <chengkaitao@kylinos.cn>
-References: <20260701105544.97059-1-kaitao.cheng@linux.dev>
- <20260902193438.232552868db3af5d54ae3fa1@linux-foundation.org>
-From: Kaitao Cheng <kaitao.cheng@linux.dev>
-In-Reply-To: <20260902193438.232552868db3af5d54ae3fa1@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-lazyio-v7-1-18c2afa06352@clyso.com>
+References: <20260902-lazyio-v7-0-18c2afa06352@clyso.com>
+In-Reply-To: <20260902-lazyio-v7-0-18c2afa06352@clyso.com>
+To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Xiubo Li <xiubo.li@clyso.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788418742; l=1160;
+ i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
+ bh=/w+13aDT7byuE64KSZZv8Qvteagzw9g49d8Bw9ILBEg=;
+ b=Wd2gkxu4c96IAMJZwP9U5PTF/BKNol+7CKZej5rUGleR6M7qAg/xDl9TxxEtTCQXWsrOTdbjc
+ YaEEDI20Q3rDLfcN8aYhMXtcg5NzEEd9m/fnHZWRPvNA/nuWUdqsQaO
+X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
+ pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
+X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
+ auth_id=840
+X-Original-From: Xiubo Li <xiubo.li@clyso.com>
+Reply-To: xiubo.li@clyso.com
 
+From: Xiubo Li <xiubo.li@clyso.com>
 
+ceph_inode_shutdown() purges every cap on the inode but never wakes
+i_cap_wq, unlike remove_session_caps_cb() which does so after the same
+kind of purge.  Anyone blocked in ceph_get_caps() is waiting on that
+queue for caps that are now gone for good, so the wait only ends when
+the task is killed.
 
-在 2026/9/3 10:34, Andrew Morton 写道:
-> On Wed,  1 Jul 2026 18:55:44 +0800 Kaitao Cheng <kaitao.cheng@linux.dev> wrote:
-> 
->> Date: Wed,  1 Jul 2026 18:55:44 +0800
-> 
-> Well.
-> 
->> Hugetlb migration does not check whether the source folio contains
->> hwpoisoned memory before trying to move it.  After the folio is unmapped,
->> the move path can reach hugetlbfs_migrate_folio() and then
->> migrate_huge_page_move_mapping(), which copies the source folio into the
->> new folio.
->>
->> That copy uses folio_mc_copy(), so architectures with recoverable
->> machine-check copy support can fail the copy with -EHWPOISON.  However,
->> there is no reason to attempt the move once the source folio is already
->> known to contain poisoned memory.  Architectures without such copy_mc
->> support also fall back to a normal copy, which can consume the poison.
->>
->> Check folio_contain_hwpoisoned_page() after locking the source hugetlb
->> folio and fail the migration with -EHWPOISON before unmapping or copying
->> it.  This covers both a hwpoisoned hugetlb head folio and large folios
->> that only have the has_hwpoisoned summary flag set.
-> 
-> As always: please provide a description of the userspace-visible
-> runtime effects of the bug.
-> 
-> Even better if you can present a reproducer.
-> 
->> Fixes: 290408d4a250 ("hugetlb: hugepage migration core")
-> 
-> Oct, 2010.  So I'm assuming this isn't super-urgent.
-> 
-> otoh, now it's out there and known about, perhaps Bad Guys can find a
-> way of triggering this, so the urgency becomes higher.
+Wake the queue after purging so the waiters get a chance to notice the
+shutdown and bail out.
 
-In the subsequent discussion of the v2 patch, it became clear that the
-current fix can only narrow the race window and cannot fully resolve
-the issue. I do not currently have a complete solution in mind, so this
-issue is blocked for now.
+Link: https://tracker.ceph.com/issues/77594
+Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
+---
+ fs/ceph/inode.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-v2: https://lore.kernel.org/all/20260707090136.52904-1-kaitao.cheng@linux.dev/#t
-
-> Anyway, please consider the Sashiko report
-> (https://sashiko.dev/#/patchset/20260701105544.97059-1-kaitao.cheng@linux.dev)
-> then update the changelog with the above info.  Decide whether we
-> should cc:stable (and describe why) then resend?
-> 
-> Thanks.
+diff --git a/fs/ceph/inode.c b/fs/ceph/inode.c
+index 209e8972287d..619a429f0d45 100644
+--- a/fs/ceph/inode.c
++++ b/fs/ceph/inode.c
+@@ -3323,6 +3323,13 @@ void ceph_inode_shutdown(struct inode *inode)
+ 	}
+ 	spin_unlock(&ci->i_ceph_lock);
+ 
++	/*
++	 * The caps are gone now, so wake up anyone waiting for them -- they
++	 * are never coming back and the waiters need to notice the shutdown
++	 * instead.  remove_session_caps_cb() does the same after purging.
++	 */
++	wake_up_all(&ci->i_cap_wq);
++
+ 	if (invalidate)
+ 		ceph_queue_invalidate(inode);
+ 	while (iputs--)
 
 -- 
-Thanks
-Kaitao Cheng
+2.53.0
+
 
