@@ -1,90 +1,157 @@
-Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+Received: from CWXP265CU008.outbound.protection.outlook.com (mail-ukwestazon11020078.outbound.protection.outlook.com [52.101.195.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB6A4AA575
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:13:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.132
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788441221; cv=none; b=V7BGXLFpvEiYcH6Hw3LhIyBsph/qUhVFAnE0HJLI1Wh5zvk2d3zTlt477ddH5xBMO0ok94othlbvPNOXcXqw5F5/UmLVnCJfAJ58fxTZg2jTQrAEAJKIUjYCg1JvcjGflGPOtCZpD2JtAlnZYvXknLFiB1Dt/7WdmJxjIp6cdEM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788441221; c=relaxed/simple;
-	bh=ODpDPyQlLQZ9GcisqtAFmuv0wByqwZNPY1Y+zGwjuPI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=dTs/KdwX4Y6OiwqgNNwuGcT73V/8Jr69d5IlO+YL4pBzerm8UytxhUPJFymGc/5JTr3I9WoPZObvpdUEQD53f7X3vXQuCoEqdjvYJBeHWIP3WPUP3A8d/vJHssrEHz34Pz9cvfNXr/l3XRTNo6WytPlcWCmes5IyIKo1ZIK5VkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=DByqAHjQ; arc=none smtp.client-ip=115.124.30.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B2C84A92CA;
+	Thu,  3 Sep 2026 13:13:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.195.78
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788441252; cv=fail; b=CHhRtrQpSK3ZNCad+/ID5GgUMq9cpkxTjIubV4aZ3HuHrN3Skq612Wq9sfYvfWvTqV4iQryWMZAnk5WCM116IL9+OKtMLbdabpneYfvOGyzivLLNACQIoMNfbgZL30bg62o7ZY4bhIp1VNEu5bg8oU1BBHilUu1ukAV/JutaAOY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788441252; c=relaxed/simple;
+	bh=c/5khSb/1NVsb3yYGcTWTrNj0ZSokrOQr+7mHSs3pB8=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=C+CVvLhnD2SKvGldif3QJOsn915eipedBR7AOhs9ywLxRW4x67GCbgFHLdWUCVEmEbmjYKgLOeJNu6FZL9pVyjTn9XGRB66sbx81bw4iIQQgwT/IvUdiFIKHXQYrP1sZlR6Uuc5nHmqt10OlN00o9RuPkZDAddPwGGMbtxMqv0I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=xE4kJfps; arc=fail smtp.client-ip=52.101.195.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="DByqAHjQ"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788441195; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=zaJFr6gdl6SHI1QMfo77MGjM21RtsVjuYJkhLmdiGvA=;
-	b=DByqAHjQRmrP2Yx9p3SAV2xGYPM2Op2ClSvb8+p68mhAAdthfxvmcZxPA/XZ9v3NtKvB6D72Uo8cWe++HnDEoweXA7xUQC7ozFoXYpGamNN2q/2eq8N/P9tEq9X26rsjQnuYMkZIjDfBaXTwGzne7OZJJTK84/WkwtDaiLmIcs4=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R871e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XAG2x2N_1788441193;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XAG2x2N_1788441193 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 03 Sep 2026 21:13:14 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Heming Zhao <heming.zhao@suse.com>
-Cc: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] ocfs2: xattr bucket validation fixes
-Date: Thu,  3 Sep 2026 21:13:11 +0800
-Message-Id: <20260903131313.2396208-1-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
-In-Reply-To: <20260902124109.27775-1-joseph.qi@linux.alibaba.com>
-References: <20260902124109.27775-1-joseph.qi@linux.alibaba.com>
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="xE4kJfps"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xxydyY/cOtHuU1kUFswH3l4GTFlECvwmkPpU5f18lso6Oft7hC5D/5Yn3AGjrqNOe9BpPNUQZMpJgGMSuzexAl8S7cAs4DF5dwH6F4x7W+AhQZjJ6LJzoKohEDC9IHZyWKnK8vQW3zsAepEYfQbXHdzBRYaumCYgGkIzNM96r30EKLitHy73eldGIMZTHv4lGXAHMczWq45zGtVwBEYJK8D6JaBBB7dQKRDSGlx//mZtF1XwcpabUbdGSlfc2dn/eiPBKHdXGo8PdkDu6Yg+v+WPJzYE+vw1rRsw263mRc8K8dEzwUgDl3u0IfxHoHw7Gna+h/T7bdfgWdOLOku4sQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=p2+s1yIyoxWcCi42ospVrfd3RZEqCQWybsdShaW0dH8=;
+ b=e7esMeieGue5p8LVEPHftY0qWeHHa+PaFsxIycdMr8FUQjSfciIhU77fkAL7Ozx2hZlKTL6As/FVtIM98M+r6CvHdfpW+vkhy64cnCCECsY8ZVud4tSIR8KqPabss7xbl81/UuslWgfwOz13F9NZvZ2R+Y6HbKJe8GfGWTBOYiHruNRwwNHsWtmogH0oZnhafNleoZtLKGD6AF63Hrepi+zEZG1623YuNhYB6OyHVyQGcBl7ilWJ+J1+RqR83KQuWck2NXW2lhVbwfdOEbSoytHkCU0k9gefcI88ICs8ds1OKuxSzd2mSN+Jk7XXCxKgFSpJcEkQfyHpvMCiQN6/ow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p2+s1yIyoxWcCi42ospVrfd3RZEqCQWybsdShaW0dH8=;
+ b=xE4kJfps1xb0hlv7uTgI5uxLClkedqUmqrFGnQUxijlw+dUuNyHo2gPzkTQmL/Iv0WPmwe8Y9++Uu2+QNt3eJJKUWv44kH7NZZXzaCSaD9yMsJUWn/qADCUlb50j0me1GW9tSKLj3vfLySmbH6W823sLQyZEZ0JUmO/sroafiy4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO4P265MB6666.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2f0::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 13:13:37 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 13:13:37 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 03 Sep 2026 14:13:36 +0100
+Message-Id: <DL5PI0KB8YQN.1PH309MNNLB01@garyguo.net>
+Cc: <driver-core@lists.linux.dev>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH 3/4] samples: rust_dma: separate driver type from driver
+ data
+From: "Gary Guo" <gary@garyguo.net>
+To: "Danilo Krummrich" <dakr@kernel.org>, <abdiel.janulgue@gmail.com>,
+ <daniel.almeida@collabora.com>, <robin.murphy@arm.com>,
+ <a.hindborg@kernel.org>, <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
+ <aliceryhl@google.com>, <acourbot@nvidia.com>, <ojeda@kernel.org>,
+ <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <tmgross@umich.edu>, <tamird@kernel.org>,
+ <work@onurozkan.dev>, <mmaurer@google.com>
+X-Mailer: aerc 0.22.0
+References: <20260830193824.471089-1-dakr@kernel.org>
+ <20260830193824.471089-4-dakr@kernel.org>
+In-Reply-To: <20260830193824.471089-4-dakr@kernel.org>
+X-ClientProxiedBy: LO6P123CA0024.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:313::16) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO4P265MB6666:EE_
+X-MS-Office365-Filtering-Correlation-Id: 30387bd7-bf1b-4821-8220-08df09bd2a36
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|10070799003|366016|921020|4143699003|10067099003|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	Usma513ztTQ6kwjXoSa/yqloLMqXdboYP6gKtPFWgImEdNLI34EZvKXTxZRFj3PBiFn1oe+3OCoXGhkefesHeiOnVOAxIsykn5xXGYa6jD8zICwl3Pf8yKR6yFjToj2dWOL1YiZiqIE9HtJ81hBF3/t9jRYFlHpHspO/dolzlwwmtfAC5xgry1+A/iK/ToM2IMH3SVPGsXFauuo8IhKnc2fvDrqSnIGE4vNXF41y459VkZ5myEEeM9jh5wszRfvV7DTJ1T0HBOjV6CNpOApt8zWuDhNr/c0yNSquNeuE/kt1clw+87yuFdWG6ca7SB82z4lFRlEjKHL5vbMS5DWZEIqTa/C0xJq+ATgsAPcpSCG8uRoNFUV4H26/6Q2IhdPlfe5wZ3PRRO9pF8XOSwooFeeFgZsATuvgFKq0Ct+7Es+LFXyjkfvYl2SYJfZbuVPRX/GoQdvuTh/NsYBAqZsyxvGqdC++I1+kj+TUibYocQuxexaX1WF05CYxgsY5bcVkGSC7eVc8lE8KPJk4nvNpHbJNXVFKgmLEpODFRAeLZTPJB/smxojwQWceICL6MmHz79uvp3JmeGwifuEdn4DW+3LrF4gujFo0XA/BLbcbw0kf713u8mlW7+SdGn5pMqSUc44dt4G5OsILhET06E39nqqN6a94AmJwh7w6GIwjDVKO4GdTWZZnjCKwBlJCl5kcvQnuwX5XGRwaatD5JUOZtA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(10070799003)(366016)(921020)(4143699003)(10067099003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MFNET1k2R1VrY0oxZW9Xc2pkT3dmTysvMm5vbHROWGxDRGxTWXdMcE1SSi9l?=
+ =?utf-8?B?RFN6OFRZRDBqZ250d015K3JZazA5bFI3aTJzZjlYam83YlpDU00weGRZZ09P?=
+ =?utf-8?B?N1VnTzFiSTBJZnN4MXN0R2NjaEV2WG5WWW5RZmlhRTZlcjBvMi9rL2xpZkVl?=
+ =?utf-8?B?UllGRGtwdkZUb25rTmg4dk45bm1kcEdIVHFjUXE2Y1d6V21PdXhCOGJpR21J?=
+ =?utf-8?B?VWpTU3BOMWxEZXVQNXJDMElXTXV1RGo2bk85REFqZGpwUkpIaTRUZHJpUkk5?=
+ =?utf-8?B?K0puVDhqRzRrSkxZR21Ba0tOcmdXdy9zTmxqZzRERS9rQUJqWThYOFdKeXNM?=
+ =?utf-8?B?eFpSU3U5T3NUVmlRWktySjhEZE9oNGI0TXBveHBqUXEwWGVuQWowQzk4YlBj?=
+ =?utf-8?B?Z1pWMThZMG1odER2dHNRTXRNQkdpRU9HUUkxbTh5UGdnb2ZMNkpPZjd0T0Zm?=
+ =?utf-8?B?a0ROTlpZdG5jWEJCdmhYTzVDN3AvZnRNL0lJVDFXeG9zamdFMnpSK2JhS3Rl?=
+ =?utf-8?B?SEZwY3BGOG43dERZei9FNUtSczk2VjJHYy82VmgyVjVzTVFOMlFjQ1ZPNmw1?=
+ =?utf-8?B?M3NPdGhkOGZZRjBpRndJTE9mejd2Ty96MHNKODR0Q1VFMjl1S0RwVElxZk5u?=
+ =?utf-8?B?dDJoNFpneEFibEh5OHlJcEZ5djI3YXJLam4zVEhaV1RRNm5mckNaT2lmZGxU?=
+ =?utf-8?B?aUVSR0hTci9vQjBXODBhQVJFNlp5eGFrWXlQeVgrRHBZSVg3bTEyYmNzUkEy?=
+ =?utf-8?B?S0NUdFlVZ2Y0NVdyTzg1Q3JxMDJWVndBRmtjUkIwUVVqQUh4UFFOWEN1WjJw?=
+ =?utf-8?B?UGwwVUdWbHhqUFQwdVc2TnkvN3lpeWpVQ01wVit4VGVWeHBFUjZSM0FTZVNY?=
+ =?utf-8?B?TDZHRmMyT1hXRnFVRGJPTVNDdmF3VW5ZUXVNME9GWk93MDBGcHhnbjB0UVA1?=
+ =?utf-8?B?d0dqTEpQc2xqMDQ4ZHJPYjNXdXRqVXVVMTAyd1R2NWovT1dLZTVSUkNKZUt4?=
+ =?utf-8?B?aGZIaVhtMVZkNkdYVVNSRUZCazhvdzV3V3NpdGQyQkMxM2NuaVRsdlNBOGlK?=
+ =?utf-8?B?VFhTNVZYek1JU0p4Z1hwN0w3QXZHbVoxQ0REN0QvR2RtemdQQUVZazFJMWVn?=
+ =?utf-8?B?SHRDWlZIRXZwT25HNkJoNHJuNHJzMXVOLzJzMHlNdHk1Y1FXaVl2WWJJdWxL?=
+ =?utf-8?B?bTdQbDNvVjA1UVJxb2JCNU5pbUl4NTdvTlFuL3hPTDdoQXdsdmphQkczY0Ex?=
+ =?utf-8?B?elE5cDUwMFlxbUQyUG1rUjBzVGFheDBmVk1UTTc0cVlwN3RDa2srYVdVL2xv?=
+ =?utf-8?B?akNZV3pOR1cvK2lmM1lVeGNyN0VRUmxjaEprR2hFcmJxT2ZySDI0d1orRDJJ?=
+ =?utf-8?B?QzBNbUpRaG8zSnVTVVQrcnVWaWMwM0hpRTJYMlpwZmFJUzhjZFVrV2kyeG5U?=
+ =?utf-8?B?R0hmbzRmMitMRHpDTEU1U3ltd1JtU1VLNU13MWJnWjBQSWxxUk5obXRxV3Yv?=
+ =?utf-8?B?aUFrVWlGSUI2eDZSeVhzczUrcEk3dURYUWgxVVpSc0I1VTR3Wks4SlBHMHFo?=
+ =?utf-8?B?NmdUYWplbU9Ha2kwZHVmenBiL0VpSkZPZU1BMEZseDNaZFQwa2d4TklJRUxm?=
+ =?utf-8?B?c2hJTzd1M2ZXSHRtcTZKYkd6VmVmMGZSMzJ6WTdLWjgwNFpybitHMDhHcUxX?=
+ =?utf-8?B?STRqVzRnQTEvTTFSaWEyWGJxdEMwS3E0cldJOFBxZHBNcHNGOUlsdUs3YVZF?=
+ =?utf-8?B?R1JQSmhZWnFScHlOZUdkWVl4Uk1iSHBRYzQxeUorZ2JKSEtOb1RNbzhhNy82?=
+ =?utf-8?B?NnhsT3M1STkyeCtSb3NzWlJXY2oyWDNBMzlsTFNEL3BNeUo1cGpWNTJpdWs5?=
+ =?utf-8?B?SnJqblpjTW9ybTJCSnp2amVIekVvaDZIU3JJSHRrSENSS2l4QUdsUTBHN0Fn?=
+ =?utf-8?B?ZUpXM3NiVDg1eVp1MW9uZVFsQ0JDcVpiRjVOK1BWdnI2NW50SDB3RDM1SHZx?=
+ =?utf-8?B?MGZudXI4VHB5QmhlR3lGN213UnNaWURCUkNBSmYvbkV5TGNUeEpEcjFpS1Vx?=
+ =?utf-8?B?VG1GNGFjS2g0L0dCVTdIVU84SXpkWURlTXZKY2VFcXlqOXhTUG9hNWpYcHhO?=
+ =?utf-8?B?Z1hPdVNwUExwd0tWUVhpNHNIVC9VcWlzcGR1ZlRkekVVYUk5L0o3bzA2OUFN?=
+ =?utf-8?B?NkFqWlNDQ055d1hUVWZOMjFZOVc4N3FSYkFoYjRHa0ZOY1VMOEJUSlMxdFRh?=
+ =?utf-8?B?cXpCUHhyOXFFR2tadE9nZ04rbFgyWTVLTUZGRzNlSGkxK0Y4NjFQNlF4QWgv?=
+ =?utf-8?B?OVJBQkxmY0drOVhWaGZycDlRTm1HdStneVJjcjhZUVdRM2pubmVnUT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30387bd7-bf1b-4821-8220-08df09bd2a36
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 13:13:37.2432
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jpB/nYT5f4XQY4nbjRFaiopCklNm/t2D6h511RQs4NTUVpUwDsDXPafg26U6p9f7UVdPP9L4Px0awEUexewH3g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB6666
 
-This series fixes two problems around xattr bucket validation.
+On Sun Aug 30, 2026 at 8:37 PM BST, Danilo Krummrich wrote:
+> Split DmaSampleDriver into a driver type and a separate DmaSampleData
+> struct for the driver's bus device private data, using
+> DmaSampleData<'bound> as the Driver::Data<'bound> associated type.
+>=20
+> Store a &'bound pci::Device<Bound> reference instead of an
+> ARef<pci::Device>, tying the data to the device's bound scope.
+>=20
+> This prepares for adding a lifetime parameter to dma::Coherent, which
+> requires the data type to carry a lifetime.
+>=20
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-Patch 1 fixes a false-corruption failure on blocksize-512 volumes:
-the bucket validator limited the entry array to the first bucket
-block while the write path stores entries across the whole 4096-byte
-bucket region, so a legitimately written, fsck-clean bucket could be
-rejected and force the filesystem read-only.  It also adds an
-alignment check on the bucket block number, since the entry array is
-accessed as one contiguous region and a corrupted xattr tree could
-otherwise point a bucket at blocks straddling a page boundary.
+Reviewed-by: Gary Guo <gary@garyguo.net>
 
-Patch 2 converts two mlog_bug_on_msg() checks in the bucket defrag
-path to ocfs2_error() returns, so that a corrupt bucket holding
-overlapping entries or an inflated xh_free_start marks the filesystem
-read-only and fails the setxattr instead of panicking the kernel.
-
-Both patches have been tested in QEMU: the blocksize-512 reproducer
-(40 xattrs with 100-byte values, previously failing with "entry count
-32 exceeds maximum 31") now passes with a clean fsck.ocfs2 result,
-and the ocfs2 testsuite xattr tests pass 48/48 across blocksize
-combinations.
-
-Changes since v1:
-- v1 was a single patch ("ocfs2: allow xattr bucket entries to span
-  multiple blocks").  The series is now split into two fixes.
-- Patch 1: reject buckets whose first block number is not aligned to
-  the bucket size before validating the entry array; the flat entry
-  access could otherwise read out of bounds for a bucket from a
-  corrupted xattr tree that straddles a page boundary.
-- Patch 2 is new: return an error instead of BUG() when defrag finds
-  inconsistent bucket contents.
-
-Joseph Qi (2):
-  ocfs2: allow xattr bucket entries to span multiple blocks
-  ocfs2: reject inconsistent xattr bucket during defrag
-
- fs/ocfs2/xattr.c | 37 +++++++++++++++++++++++++++++++------
- 1 file changed, 31 insertions(+), 6 deletions(-)
-
--- 
-2.39.3
+> ---
+>  samples/rust/rust_dma.rs | 26 +++++++++++++++-----------
+>  1 file changed, 15 insertions(+), 11 deletions(-)
 
