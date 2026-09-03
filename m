@@ -1,85 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 531AC3DEFF1;
-	Thu,  3 Sep 2026 06:21:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F404A348477
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:21:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788416462; cv=none; b=qZIYCMVekYcq2E9zLkjQiWabqor84mj2MW8RrIS5J/165Ggn15FkQL3jI77TrkLJVTMCngjyuyBVUPHSekswkKStkWu+QShLjKGPEpSXMCo18rdE5BtDzsC/1FJ8+CSFVBB9n4dww0L+zq4ZjiI3cC/IRHPdU8l4CDugiHqQ+lg=
+	t=1788416475; cv=none; b=GkqCIacDIwIEOCt1IRhu6C1jPo9m6HKq042BBVdctny7A5p10VNMDnAp3APuPziBm2GnveBc9mbGwAGKSSSPA0b5rcCZn73iF42Px2vbPFzardWOTqfZQ7ZaNHG0lhrDtoJo83S3cSIHnUsujiZ+r1ltT+QCcP8bOiTsKuVGUOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788416462; c=relaxed/simple;
-	bh=8tbL9/bcgRdu4FrkoAyrRr281K1luwFxGh2zebP2dRo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Lr+LrBfEnJg3VIkN3BoeHShO9ulIRh4U9QDUBqwqYoiO4QDzMMr7GyS3P1vruGiLms+FVvp+HqYkusVuSeR8XDmBa/1rwPU57sPE725NRfqyhv4AlDvnggv3Ipxq2S8Ik+cmojZ5BViAGf0tTfvoDXzyGSPui8/+J+C4Li7g0rs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PcsyK+iw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788416475; c=relaxed/simple;
+	bh=sPNZr/SDHALOIqUyylV3jnL1kuZgieKBXpL0YnXf6dU=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=enOSxWnErdhqFYVXB6Gq2FjBDMnG7NJYEgbncPrBL6QV38iLdHSnm8mdKPqghsW6Dr7/NNNspf+ezCHy82iEkln/xfEoe1DE6bfRJViT7zRFa+yXDf8DzRSweUWhVIBvit1ZEoPSx8a5pbw9gw0vhZAs7f33XswOiYyBPZls9EY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=dyDMGbzC; arc=none smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PcsyK+iw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7CC61F000E9;
-	Thu,  3 Sep 2026 06:21:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788416460;
-	bh=ezvwsuD+u14PjNnoqia2u/ikHfD23PiSeMOTx59SyOQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PcsyK+iwGOgKA+wkEdVujasyooSN/g8G/3SWmvA0aK4DTO4e5rebZ45LBNCBnw9WQ
-	 zgdF3JXR9mDEJlDBnsRCsoy58th9rFL2q24kSyIJwApAqV6Py9etnC+qjumCE4KL5j
-	 Y8Uj2XmA05pzcW8WRMx7Yjg279fUtFhmfRvB+yE0Q8lwcoo9yD+/iBkv24Se/dwTaW
-	 9O1G44jOT6mBV7tLjQo1+GgfJdx0zZz+zqsrFO8BDnikpR1J8jyGGbKnRsnDi4lqZe
-	 7XU3w9T2KJvuNuzykEf6UHanO8UkGXDzAEDRLgYrnZLNW93HV17ugmY3PcDRPPSEJE
-	 SQ05bco5JpnRA==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1x20ok-00000005jqX-0ZFU;
-	Thu, 03 Sep 2026 08:20:58 +0200
-Date: Thu, 3 Sep 2026 08:20:58 +0200
-From: Johan Hovold <johan@kernel.org>
-To: patchwork-bot+netdevbpf@kernel.org, Jakub Kicinski <kuba@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>, 3chas3@gmail.com, duncan.sands@free.fr,
-	gregkh@linuxfoundation.org, akpm@linux-foundation.org,
-	david@kernel.org, willy@infradead.org, vbabka@kernel.org,
-	accessrunner-general@lists.sourceforge.net,
-	linux-atm-general@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-usb@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH 0/4] USB: replace page allocator calls with kmalloc()
-Message-ID: <apkRyoCr2dNI0bNS@hovoldconsulting.com>
-References: <20260830-usb-v1-0-aa349c302246@kernel.org>
- <178840081114.3041656.13596134068099743678.git-patchwork-notify@kernel.org>
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="dyDMGbzC"
+X-UUID: a4da8a92a75f11f1b1788b6acf885367-20260903
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=a6pfM6xEo4INvwse6gyrlBAaMdMxHVhvCkb2KpLjGTA=;
+	b=dyDMGbzChpduyyp3hgO9YdMkrIkQrIfRXn+9v8DU5lf8VMm6AQsV3dlE2iAFOn6LqEAiaJ5uYtsMnZpNi1NmxWSYpNuXUe64xdudGcQYOsDzFssscNXDj37a/WB2G0/IGaCmMBE/KVsnKOjippN0OgrKX9P5GfjoLMyrM7Bcsds=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:edc1a5b4-1d86-409d-9198-18c6d7251014,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:fe4bc50b-079b-435d-86f5-6a8271106506,B
+	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
+	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,
+	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: a4da8a92a75f11f1b1788b6acf885367-20260903
+Received: from mtkmbs09n1.mediatek.inc [(172.21.101.35)] by mailgw01.mediatek.com
+	(envelope-from <justin.yeh@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 371201752; Thu, 03 Sep 2026 14:21:05 +0800
+Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
+ mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Thu, 3 Sep 2026 14:21:04 +0800
+Received: from mtksitap99.mediatek.inc (10.233.130.16) by
+ mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Thu, 3 Sep 2026 14:21:04 +0800
+From: Justin Yeh <justin.yeh@mediatek.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>
+CC: <Project_Global_Chrome_Upstream_Group@mediatek.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<linux-mediatek@lists.infradead.org>, Justin Yeh <justin.yeh@mediatek.com>
+Subject: [PATCH 1/2] regulator: core: Export helpers used by regulator couplers
+Date: Thu, 3 Sep 2026 14:20:46 +0800
+Message-ID: <20260903062056.1024263-2-justin.yeh@mediatek.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20260903062056.1024263-1-justin.yeh@mediatek.com>
+References: <20260903062056.1024263-1-justin.yeh@mediatek.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178840081114.3041656.13596134068099743678.git-patchwork-notify@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-On Thu, Sep 03, 2026 at 02:00:11AM +0000, patchwork-bot+netdevbpf@kernel.org wrote:
-> Hello:
-> 
-> This series was applied to netdev/net-next.git (main)
-> by Jakub Kicinski <kuba@kernel.org>:
-> 
-> On Sun, 30 Aug 2026 11:10:36 +0300 you wrote:
-> > This is a (small) part of larger work of replacing page allocator calls
-> > with kmalloc.
-> > 
-> > My initial intention a few month ago was to remove ugly casts [1], but then
-> > willy pointed out that Linus objected to something like this [2] and it
-> > looks like more than a decade old technical debt.
-> > 
-> > [...]
-> 
-> Here is the summary with links:
->   - [1/4] USB: usbfs: replace __get_free_page() with kmalloc()
->     (no matching commit)
->   - [2/4] USB: cxacru: replace __get_free_page() with kmalloc()
->     https://git.kernel.org/netdev/net-next/c/a3b4826138d4
->   - [3/4] USB: speedtch: replace __get_free_page() with kmalloc()
->     https://git.kernel.org/netdev/net-next/c/534b18813974
->   - [4/4] USB: serial: wwan: replace __get_free_page() with kmalloc()
->     (no matching commit)
+regulator_check_voltage(), regulator_check_consumers(),
+regulator_do_balance_voltage() and regulator_coupler_register() are
+already declared in include/linux/regulator/coupler.h for regulator
+coupler implementations to use, but none of them is exported. That
+limits couplers to being built into the kernel.
 
-Why were these USB patches applies to net-next?
+Export them so that coupler drivers can be built as loadable modules.
 
-Johan
+Signed-off-by: Justin Yeh <justin.yeh@mediatek.com>
+---
+ drivers/regulator/core.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
+index 6a4008f387b5..6b7e613fbaaa 100644
+--- a/drivers/regulator/core.c
++++ b/drivers/regulator/core.c
+@@ -462,6 +462,7 @@ int regulator_check_voltage(struct regulator_dev *rdev,
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL_GPL(regulator_check_voltage);
+ 
+ /* return 0 if the state is valid */
+ static int regulator_check_states(suspend_state_t state)
+@@ -502,6 +503,7 @@ int regulator_check_consumers(struct regulator_dev *rdev,
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL_GPL(regulator_check_consumers);
+ 
+ /* current constraint check */
+ static int regulator_check_current_limit(struct regulator_dev *rdev,
+@@ -4468,6 +4470,7 @@ int regulator_do_balance_voltage(struct regulator_dev *rdev,
+ out:
+ 	return ret;
+ }
++EXPORT_SYMBOL_GPL(regulator_do_balance_voltage);
+ 
+ static int regulator_balance_voltage(struct regulator_dev *rdev,
+ 				     suspend_state_t state)
+@@ -5797,6 +5800,7 @@ int regulator_coupler_register(struct regulator_coupler *coupler)
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL_GPL(regulator_coupler_register);
+ 
+ static struct regulator_coupler *
+ regulator_find_coupler(struct regulator_dev *rdev)
+-- 
+2.45.2
+
