@@ -1,93 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from forward502a.mail.yandex.net (forward502a.mail.yandex.net [178.154.239.82])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5247F35C1B1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E530535E958;
 	Thu,  3 Sep 2026 04:33:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.82
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788410024; cv=none; b=Jtrl3IKso8uiLYgQsO9EAgl8ooICdKQU9zhb5YcYBRuXxtGgp8x7PxRvaLKSY6J6DjU1f7jcxeqzQHOh4odKKRs0Vxc6ge1jknubZQJWfnskOxDPGa2Zt4pBJFOtfmow8F0Uz8fkkG2m74caoF1lJpXpkuetTu+khGWhmuAZg+Y=
+	t=1788410026; cv=none; b=azcTNcKTRC/eJ3q+s8pOD8CnvU3RPy6T/L76FzCxfcs1cRUlED4ESccgAe7seKFCMxsoQazCCfOK/25NeufZG0C+QwDQrpcEI47qy93Kbn4DDRAzwTowwDFLCQ5Tr7J43cAIzJjU5awtSS4HqxQrqZax01B7PLJejMHvc6ccMY4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788410024; c=relaxed/simple;
-	bh=Iv/aOVHNKcEyrVfNyd7rl+2byH4JcTOiLxgZIaGMEs4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mK8xdwNh1pI06886JIaQGxKRsClFp0TcSNVTfszFVoQK3XgwAEBdvz4Jsvmwu+2SDr5698upcXXqFRA+GVSmYaJiCl0/qxdN77sH4Vx1XLVMFT9M4LpB0c2V47vkNFjxO+sL/0127KDWqUvxPKBIcAJiy9fHlz8OHIkQ3gJGCNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xuF17Pl5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788410026; c=relaxed/simple;
+	bh=iMOVNoc6QQyWQMLmkFf9okRPvwyKpS5CBmpd4s0XK8c=;
+	h=From:To:In-Reply-To:References:Subject:MIME-Version:Date:
+	 Message-Id:Content-Type; b=DoWa0RQ8EOsLkKqqbUdwLdZapg/5z4F8/mrB1pmZuhSkbjrinlnFEpQv+m8K4dd41EpKPGwQsSZMIYbvVZVQJ9B7LL854vkQI4jj3uiwzDm3B4PhczUZuR41qj8RvH0LFzwXHBVi6d/3nRzlzxoj7R9c1x4xqK7TwkKOJ4ZXVe0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=fail smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=pNq4XxWd; arc=none smtp.client-ip=178.154.239.82
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=yandex.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xuF17Pl5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44AC71F000E9;
-	Thu,  3 Sep 2026 04:33:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788410022;
-	bh=Zi01ZOXdam5kqLICb3ea6Ff0sByMVwiGXTuOlf0A0tw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=xuF17Pl52fB0vtQymL6F5clgeMTsRzKTLZRdIwJsPJsTOVtbUT6vCf2Yv2qp0uIv8
-	 xpIStyG18yr7cQdwHZcq92DnYhDKJunBnch+OAUKWKCVp0pRqTY9H72DOcxhHKHDTZ
-	 han+w8Liks6H+DLWIXlSJTu4zd39SlyLTnI2Kgmg=
-Date: Thu, 3 Sep 2026 06:31:58 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Tejun Heo <tj@kernel.org>, Christian Brauner <christian@brauner.io>,
-	Meta kernel team <kernel-team@meta.com>,
-	linux-kselftest@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] kernfs: take kernfs_rename_lock for same-parent
- renames too
-Message-ID: <2026090330-cytoplasm-resilient-900b@gregkh>
-References: <20260903040253.670020-1-shakeel.butt@linux.dev>
+	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="pNq4XxWd"
+Received: from mail-nwsmtp-mxback-production-main-217.vla.yp-c.yandex.net (mail-nwsmtp-mxback-production-main-217.vla.yp-c.yandex.net [IPv6:2a02:6b8:c1f:170f:0:640:53dd:0])
+	by forward502a.mail.yandex.net (postfix) with ESMTPS id 805AB83044;
+	Thu, 03 Sep 2026 07:25:52 +0300 (MSK)
+Received: from mail.yandex.ru (2a02:6b8:c0d:28d:0:640:a036:0 [2a02:6b8:c0d:28d:0:640:a036:0])
+	by mail-nwsmtp-mxback-production-main-217.vla.yp-c.yandex.net (mxback) with HTTPS id pPcaiCEvtuQ0-IvYgDXnA;
+	Thu, 03 Sep 2026 07:25:51 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1788409551; bh=rkmexPEIRPA30Syl3rkL+qAosg2qqeH4C7WnUPZjOSg=;
+	h=Message-Id:Date:Subject:To:References:In-Reply-To:From;
+	b=pNq4XxWdgL68/vIf5r5XV2QSXF/mtdj2Rre/Kpg/jyrdCMPZpG8fpb0lBPEzLvAn0
+	 89glJG/1OLjbqdUomz0xYygogFw2LW0eE+IrZHvgudHm584SLDob9ratqcI2Ggy9yN
+	 N/HBoBn480KL8Yd4HV9taP9N2JmQJ1rQSowyaQK4=
+Authentication-Results: mail-nwsmtp-mxback-production-main-217.vla.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+Received: by mail-sendbernar-production-main-93.vla.yp-c.yandex.net (sendbernar) with HTTPS id a3add6233ce9e4d6311702883fad4840;
+	Thu, 03 Sep 2026 07:25:51 +0300
+From: =?utf-8?B?0JPQtdGA0LzQsNC9INCh0LXQvNGR0L3QvtCy?= <GermanAizek@yandex.ru>
+To: Jakub Kicinski <kuba@kernel.org>,
+	Kalle Valo <kvalo@kernel.org>,
+	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+In-Reply-To: <795111788409331@mail.yandex.ru>
+References: <795111788409331@mail.yandex.ru>
+Subject: [PATCH] wifi: mt7601u: add vnd_reset parameter to fix probe failure on Tenda U2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903040253.670020-1-shakeel.butt@linux.dev>
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Thu, 03 Sep 2026 07:25:51 +0300
+Message-Id: <314831788409434@mail.yandex.ru>
+Content-Type: multipart/mixed;
+	boundary="----==--bound.100608.8d3645a2-7ab9-4ba4-91f5-094555084f3a"
 
-On Wed, Sep 02, 2026 at 09:02:51PM -0700, Shakeel Butt wrote:
-> kernfs_rename_ns() only takes kernfs_rename_lock when the rename moves
-> the node to a new parent.  A rename that keeps the same parent, like
-> renaming a network interface, changes kernfs_node::name with only
-> kernfs_rwsem held.  So the lock protects ->__parent but not ->name, and
-> a reader that wants a stable name has to take kernfs_rwsem, the same
-> lock every path lookup needs.
-> 
-> That also makes for a small but real bug.  kernfs_path_from_node()
-> takes kernfs_rename_lock for reading, and kernfs_path_from_node_locked()
-> then reads the name of each ancestor.  It reads each one once, so a
-> single same-parent rename only moves the answer from the old path to the
-> new one, but two of them landing inside one walk build a path that never
-> existed:
-> 
->   CPU0                                   CPU1
->   kernfs_path_from_node() on /a/b/c
->     reads the name of a, gets "a"
->                                          renames a to a2
->                                          renames b to b2
->     reads the name of b, gets "b2"
->     returns "/a/b2/c"
-> 
-> This hits roots without KERNFS_ROOT_INVARIANT_PARENT: sysfs, where the
-> bad path can reach sysfs_warn_dup() and pr_cont_kernfs_path(), and
-> resctrl, which renames a mon group inside its mon_groups directory.
-> cgroup sets the flag, so it skips the lock and reads names under RCU
-> alone; that case needs something else and is not addressed here.
-> 
-> So take the lock in both cases, and let kernfs_rcu_name() accept it the
-> way kernfs_parent() already does for ->__parent.  Same-parent renames
-> are rare, the lock is per filesystem, and the locked section is at most
-> three stores.  It also gives a future rename sequence counter one place
-> to sit that covers every rename.
-> 
-> Fixes: 741c10b096bc ("kernfs: Use RCU to access kernfs_node::name.")
-> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
-> ---
->  fs/kernfs/dir.c             | 28 +++++++++++++++-------------
->  fs/kernfs/kernfs-internal.h |  9 ++++++++-
->  2 files changed, 23 insertions(+), 14 deletions(-)
 
-How was this found and tested?  Did you forget an Assisted-by: tag?
+------==--bound.100608.8d3645a2-7ab9-4ba4-91f5-094555084f3a
+Content-Transfer-Encoding: base64
+Content-Type: text/html; charset=utf-8
 
-thanks,
+PGRpdj48ZGl2PndpZmk6IG10NzYwMXU6IGFkZCB2bmRfcmVzZXQgcGFyYW1ldGVyIHRvIGZpeCBw
+cm9iZSBmYWlsdXJlIG9uIFRlbmRhIFUyPC9kaXY+PGRpdj7CoDwvZGl2PjxkaXY+T24gY2VydGFp
+biBNVDc2MDFVIGFkYXB0ZXJzLCBzdWNoIGFzIFRlbmRhIFUyIGFuZDwvZGl2PjxkaXY+b3RoZXIg
+bmV3ZXIgaGFyZHdhcmUgcmV2aXNpb25zLCBkcml2ZXIgaW5pdGlhbGl6YXRpb24gY29uc2lzdGVu
+dGx5IGZhaWxzPC9kaXY+PGRpdj5kdXJpbmcgcHJvYmUgd2l0aCB2ZW5kb3IgcmVxdWVzdCB0aW1l
+b3V0cyAoLTExMCAvIC1FVElNRURPVVQpOjwvZGl2PjxkaXY+wqAgbXQ3NjAxdSAzLTE0OjEuMDog
+QVNJQyByZXZpc2lvbjogNzYwMTAwMDEgTUFDIHJldmlzaW9uOiA3NjAxMDUwMDwvZGl2PjxkaXY+
+wqAgbXQ3NjAxdSAzLTE0OjEuMDogRmlybXdhcmUgVmVyc2lvbjogMC4xLjAwIEJ1aWxkOiA3NjQw
+IEJ1aWxkIHRpbWU6IDIwMTMwMjA1MjE0Nl9fX188L2Rpdj48ZGl2PsKgIG10NzYwMXUgMy0xNDox
+LjA6IFZlbmRvciByZXF1ZXN0IHJlcTowNyBvZmY6MDlhOCBmYWlsZWQ6LTExMDwvZGl2PjxkaXY+
+wqAgbXQ3NjAxdSAzLTE0OjEuMDogVmVuZG9yIHJlcXVlc3QgcmVxOjAyIG9mZjowOWE4IGZhaWxl
+ZDotMTEwPC9kaXY+PGRpdj7CoCBtdDc2MDF1IDMtMTQ6MS4wOiBWZW5kb3IgcmVxdWVzdCByZXE6
+MDcgb2ZmOjA3MzQgZmFpbGVkOi0xMTA8L2Rpdj48ZGl2PsKgIG10NzYwMXUgMy0xNDoxLjA6IFZl
+bmRvciByZXF1ZXN0IHJlcTo0MiBvZmY6MDIzMCBmYWlsZWQ6LTExMDwvZGl2PjxkaXY+wqAgbXQ3
+NjAxdSAzLTE0OjEuMDogcHJvYmUgd2l0aCBkcml2ZXIgbXQ3NjAxdSBmYWlsZWQgd2l0aCBlcnJv
+ciAtMTEwPC9kaXY+PGRpdj7CoDwvZGl2PjxkaXY+VGhlIGZhaWx1cmUgb2NjdXJzIGJlY2F1c2Ug
+bXQ3NjAxdV9sb2FkX2Zpcm13YXJlKCkgdW5jb25kaXRpb25hbGx5IGNhbGxzPC9kaXY+PGRpdj5t
+dDc2MDF1X3ZlbmRvcl9yZXNldCgpIChNVF9WRU5EX0RFVl9NT0RFX1JFU0VUKSBiZWZvcmUgdXBs
+b2FkaW5nIGZpcm13YXJlPC9kaXY+PGRpdj5jaHVua3MuIE9uIHRoZXNlIGRldmljZXMsIGlzc3Vp
+bmcgdGhpcyB2ZW5kb3IgcmVzZXQgbGVhdmVzIHRoZSBpbnRlcm5hbDwvZGl2PjxkaXY+TUNVIC8g
+RkNFIERNQSBlbmdpbmUgaW4gYW4gdW5yZXNwb25zaXZlIHN0YXRlIGFmdGVyIHRoZSBmaXJzdCBm
+aXJtd2FyZTwvZGl2PjxkaXY+VVJCIGlzIHN1Ym1pdHRlZC4gQXMgYSByZXN1bHQsIHJlYWRpbmcg
+TVRfVFhfQ1BVX0ZST01fRkNFX0NQVV9ERVNDX0lEWDwvZGl2PjxkaXY+KDB4MDlhOCkgaW1tZWRp
+YXRlbHkgdGltZXMgb3V0LjwvZGl2PjxkaXY+SW50cm9kdWNlIGEgYm9vbGVhbiBtb2R1bGUgcGFy
+YW1ldGVyICd2bmRfcmVzZXQnIChkZWZhdWx0OiBmYWxzZSkgdG88L2Rpdj48ZGl2Pm1ha2UgdGhp
+cyB2ZW5kb3IgcmVzZXQgb3B0aW9uYWwuIFdoZW4gdGhlIHZlbmRvciByZXNldCBpcyBza2lwcGVk
+LDwvZGl2PjxkaXY+ZmlybXdhcmUgdXBsb2FkIHN1Y2NlZWRzIGFuZCB0aGUgd2lyZWxlc3MgaW50
+ZXJmYWNlIGluaXRpYWxpemVzIG5vcm1hbGx5LjwvZGl2PjxkaXY+wqA8L2Rpdj48ZGl2Pkxpbms6
+IGh0dHBzOi8vYnVncy5sYXVuY2hwYWQubmV0L3VidW50dS8rc291cmNlL2xpbnV4LytidWcvMTcx
+NjMwMTwvZGl2PjxkaXY+wqA8L2Rpdj48ZGl2Pk1vcmUgaXNzdWVzIHdpdGggVGVuZGEgVTIgYW5k
+IExpbnV4OjwvZGl2PjxkaXY+LSBodHRwczovL3d3dy5vcGVuYS50di92aWV3dG9waWMucGhwP3Q9
+NjM5MTk8L2Rpdj48ZGl2Pi0gaHR0cHM6Ly9hc2t1YnVudHUuY29tL3F1ZXN0aW9ucy8xNDE4ODUw
+L3RoZS1wcm9ibGVtLXdpdGgtd2ktZmktdTI8L2Rpdj48ZGl2Pi0gaHR0cHM6Ly9iYnMuYXJjaGxp
+bnV4Lm9yZy92aWV3dG9waWMucGhwP2lkPTIyNDg1OTwvZGl2PjxkaXY+LSBodHRwczovL3d3dy5y
+ZWRkaXQuY29tL3IvYXJjaGxpbnV4L2NvbW1lbnRzLzFkNmRmdjUvbXQ3NjAxdV91c2Jfd2lmaV9u
+b3Rfd29ya2luZy88L2Rpdj48ZGl2PsKgPC9kaXY+PGRpdj5TaWduZWQtb2ZmLWJ5OiBIZXJtYW4g
+U2VtZW5vZmYgJmx0O0dlcm1hbkFpemVrQHlhbmRleC5ydSZndDs8L2Rpdj48L2Rpdj4=
+------==--bound.100608.8d3645a2-7ab9-4ba4-91f5-094555084f3a
+Content-Disposition: attachment;
+	filename="0001-PATCH-wifi-mt7601u-add-vnd_reset-parameter-to-fix-pr.patch"
+Content-Transfer-Encoding: base64
+Content-Type: text/x-diff;
+	name="0001-PATCH-wifi-mt7601u-add-vnd_reset-parameter-to-fix-pr.patch"
 
-greg k-h
+RnJvbSBjMDNkNzNkMzdkZjQ0MGQwMDQ2ZDY4NDA2ZmRlMmFhMWY2MmZlMGQxIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBIZXJtYW4gU2VtZW5vZmYgPEdlcm1hbkFpemVrQHlhbmRleC5y
+dT4KRGF0ZTogVGh1LCAzIFNlcCAyMDI2IDA3OjE0OjMyICswMzAwClN1YmplY3Q6IFtQQVRDSF0g
+W1BBVENIXSB3aWZpOiBtdDc2MDF1OiBhZGQgdm5kX3Jlc2V0IHBhcmFtZXRlciB0byBmaXggcHJv
+YmUKIGZhaWx1cmUgb24gVGVuZGEgVTIKCndpZmk6IG10NzYwMXU6IGFkZCB2bmRfcmVzZXQgcGFy
+YW1ldGVyIHRvIGZpeCBwcm9iZSBmYWlsdXJlIG9uIFRlbmRhIFUyCgpPbiBjZXJ0YWluIE1UNzYw
+MVUgYWRhcHRlcnMsIHN1Y2ggYXMgVGVuZGEgVTIgYW5kCm90aGVyIG5ld2VyIGhhcmR3YXJlIHJl
+dmlzaW9ucywgZHJpdmVyIGluaXRpYWxpemF0aW9uIGNvbnNpc3RlbnRseSBmYWlscwpkdXJpbmcg
+cHJvYmUgd2l0aCB2ZW5kb3IgcmVxdWVzdCB0aW1lb3V0cyAoLTExMCAvIC1FVElNRURPVVQpOgog
+IG10NzYwMXUgMy0xNDoxLjA6IEFTSUMgcmV2aXNpb246IDc2MDEwMDAxIE1BQyByZXZpc2lvbjog
+NzYwMTA1MDAKICBtdDc2MDF1IDMtMTQ6MS4wOiBGaXJtd2FyZSBWZXJzaW9uOiAwLjEuMDAgQnVp
+bGQ6IDc2NDAgQnVpbGQgdGltZTogMjAxMzAyMDUyMTQ2X19fXwogIG10NzYwMXUgMy0xNDoxLjA6
+IFZlbmRvciByZXF1ZXN0IHJlcTowNyBvZmY6MDlhOCBmYWlsZWQ6LTExMAogIG10NzYwMXUgMy0x
+NDoxLjA6IFZlbmRvciByZXF1ZXN0IHJlcTowMiBvZmY6MDlhOCBmYWlsZWQ6LTExMAogIG10NzYw
+MXUgMy0xNDoxLjA6IFZlbmRvciByZXF1ZXN0IHJlcTowNyBvZmY6MDczNCBmYWlsZWQ6LTExMAog
+IG10NzYwMXUgMy0xNDoxLjA6IFZlbmRvciByZXF1ZXN0IHJlcTo0MiBvZmY6MDIzMCBmYWlsZWQ6
+LTExMAogIG10NzYwMXUgMy0xNDoxLjA6IHByb2JlIHdpdGggZHJpdmVyIG10NzYwMXUgZmFpbGVk
+IHdpdGggZXJyb3IgLTExMAoKVGhlIGZhaWx1cmUgb2NjdXJzIGJlY2F1c2UgbXQ3NjAxdV9sb2Fk
+X2Zpcm13YXJlKCkgdW5jb25kaXRpb25hbGx5IGNhbGxzCm10NzYwMXVfdmVuZG9yX3Jlc2V0KCkg
+KE1UX1ZFTkRfREVWX01PREVfUkVTRVQpIGJlZm9yZSB1cGxvYWRpbmcgZmlybXdhcmUKY2h1bmtz
+LiBPbiB0aGVzZSBkZXZpY2VzLCBpc3N1aW5nIHRoaXMgdmVuZG9yIHJlc2V0IGxlYXZlcyB0aGUg
+aW50ZXJuYWwKTUNVIC8gRkNFIERNQSBlbmdpbmUgaW4gYW4gdW5yZXNwb25zaXZlIHN0YXRlIGFm
+dGVyIHRoZSBmaXJzdCBmaXJtd2FyZQpVUkIgaXMgc3VibWl0dGVkLiBBcyBhIHJlc3VsdCwgcmVh
+ZGluZyBNVF9UWF9DUFVfRlJPTV9GQ0VfQ1BVX0RFU0NfSURYCigweDA5YTgpIGltbWVkaWF0ZWx5
+IHRpbWVzIG91dC4KSW50cm9kdWNlIGEgYm9vbGVhbiBtb2R1bGUgcGFyYW1ldGVyICd2bmRfcmVz
+ZXQnIChkZWZhdWx0OiBmYWxzZSkgdG8KbWFrZSB0aGlzIHZlbmRvciByZXNldCBvcHRpb25hbC4g
+V2hlbiB0aGUgdmVuZG9yIHJlc2V0IGlzIHNraXBwZWQsCmZpcm13YXJlIHVwbG9hZCBzdWNjZWVk
+cyBhbmQgdGhlIHdpcmVsZXNzIGludGVyZmFjZSBpbml0aWFsaXplcyBub3JtYWxseS4KCkxpbms6
+IGh0dHBzOi8vYnVncy5sYXVuY2hwYWQubmV0L3VidW50dS8rc291cmNlL2xpbnV4LytidWcvMTcx
+NjMwMQoKTW9yZSBpc3N1ZXMgd2l0aCBUZW5kYSBVMiBhbmQgTGludXg6Ci0gaHR0cHM6Ly93d3cu
+b3BlbmEudHYvdmlld3RvcGljLnBocD90PTYzOTE5Ci0gaHR0cHM6Ly9hc2t1YnVudHUuY29tL3F1
+ZXN0aW9ucy8xNDE4ODUwL3RoZS1wcm9ibGVtLXdpdGgtd2ktZmktdTIKLSBodHRwczovL2Jicy5h
+cmNobGludXgub3JnL3ZpZXd0b3BpYy5waHA/aWQ9MjI0ODU5Ci0gaHR0cHM6Ly93d3cucmVkZGl0
+LmNvbS9yL2FyY2hsaW51eC9jb21tZW50cy8xZDZkZnY1L210NzYwMXVfdXNiX3dpZmlfbm90X3dv
+cmtpbmcvCgpTaWduZWQtb2ZmLWJ5OiBIZXJtYW4gU2VtZW5vZmYgPEdlcm1hbkFpemVrQHlhbmRl
+eC5ydT4KLS0tCiBkcml2ZXJzL25ldC93aXJlbGVzcy9tZWRpYXRlay9tdDc2MDF1L21jdS5jIHwg
+MTUgKysrKysrKysrKysrKy0tCiAxIGZpbGUgY2hhbmdlZCwgMTMgaW5zZXJ0aW9ucygrKSwgMiBk
+ZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC93aXJlbGVzcy9tZWRpYXRlay9t
+dDc2MDF1L21jdS5jIGIvZHJpdmVycy9uZXQvd2lyZWxlc3MvbWVkaWF0ZWsvbXQ3NjAxdS9tY3Uu
+YwppbmRleCBiYWQ2Y2E4MjEuLmFiZjQ3NjdmMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9uZXQvd2ly
+ZWxlc3MvbWVkaWF0ZWsvbXQ3NjAxdS9tY3UuYworKysgYi9kcml2ZXJzL25ldC93aXJlbGVzcy9t
+ZWRpYXRlay9tdDc2MDF1L21jdS5jCkBAIC0xMCw2ICsxMCw3IEBACiAjaW5jbHVkZSA8bGludXgv
+ZGVsYXkuaD4KICNpbmNsdWRlIDxsaW51eC91c2IuaD4KICNpbmNsdWRlIDxsaW51eC9za2J1ZmYu
+aD4KKyNpbmNsdWRlIDxsaW51eC9tb2R1bGVwYXJhbS5oPgogCiAjaW5jbHVkZSAibXQ3NjAxdS5o
+IgogI2luY2x1ZGUgImRtYS5oIgpAQCAtMjEsNiArMjIsMTQgQEAKICNkZWZpbmUgTUNVX0ZXX1VS
+Ql9TSVpFCQkJKE1DVV9GV19VUkJfTUFYX1BBWUxPQUQgKyAxMikKICNkZWZpbmUgTUNVX1JFU1Bf
+VVJCX1NJWkUJCTEwMjQKIAorc3RhdGljIGJvb2wgdm5kX3Jlc2V0OworbW9kdWxlX3BhcmFtKHZu
+ZF9yZXNldCwgYm9vbCwgMDY0NCk7CitNT0RVTEVfUEFSTV9ERVNDKHZuZF9yZXNldCwgIlBlcmZv
+cm0gdmVuZG9yIHJlc2V0IGR1cmluZyBmaXJtd2FyZSB1cGxvYWQgKGRlZmF1bHQ6IGZhbHNlKSIp
+OworCitzdGF0aWMgYm9vbCBkaXNhYmxlX3VzYl9zZzsKK21vZHVsZV9wYXJhbShkaXNhYmxlX3Vz
+Yl9zZywgYm9vbCwgMDY0NCk7CitNT0RVTEVfUEFSTV9ERVNDKGRpc2FibGVfdXNiX3NnLCAiVW51
+c2VkIGNvbXBhdGliaWxpdHkgcGFyYW1ldGVyIik7CisKIHN0YXRpYyBpbmxpbmUgaW50IGZpcm13
+YXJlX3J1bm5pbmcoc3RydWN0IG10NzYwMXVfZGV2ICpkZXYpCiB7CiAJcmV0dXJuIG10NzYwMXVf
+cnIoZGV2LCBNVF9NQ1VfQ09NX1JFRzApID09IDE7CkBAIC00NTksOCArNDY4LDEwIEBAIHN0YXRp
+YyBpbnQgbXQ3NjAxdV9sb2FkX2Zpcm13YXJlKHN0cnVjdCBtdDc2MDF1X2RldiAqZGV2KQogCW10
+NzYwMXVfd3IoZGV2LCAweDk0YywgMCk7CiAJbXQ3NjAxdV93cihkZXYsIE1UX0ZDRV9QU0VfQ1RS
+TCwgMCk7CiAKLQltdDc2MDF1X3ZlbmRvcl9yZXNldChkZXYpOwotCW1zbGVlcCg1KTsKKwlpZiAo
+dm5kX3Jlc2V0KSB7CisJCW10NzYwMXVfdmVuZG9yX3Jlc2V0KGRldik7CisJCW1zbGVlcCg1KTsK
+Kwl9CiAKIAltdDc2MDF1X3dyKGRldiwgMHhhNDQsIDApOwogCW10NzYwMXVfd3IoZGV2LCAweDIz
+MCwgMHg4NDIxMCk7Ci0tIAoyLjU1LjAKCg==
+------==--bound.100608.8d3645a2-7ab9-4ba4-91f5-094555084f3a--
