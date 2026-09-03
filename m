@@ -1,43 +1,50 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D61B2D7DEA;
-	Thu,  3 Sep 2026 20:48:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C78F53ECBC7;
+	Thu,  3 Sep 2026 20:48:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788468493; cv=none; b=pfViCs6+UxAxUcn+2qjuZqavbrs7AHnoW3dbPmjhQ4nUGiPiYi2fv7jYLNRoMO3WVhU0r180INZcjCq21/YrpnABdszTbSNQqrx1iNn4aNpUiX54DtbXYMeZ41ZPPCqy2VXESABLg2bxxX0Z9kbjB78a3a65qv9Q8NcEkV8ACrw=
+	t=1788468537; cv=none; b=gPcJ/4t65aVlGArKiw/QyUTkSYaC/c5IxknzZ5Vx3nMtt7D3Fsm0hx43eu5az5qLxZ1K98WFbeSW7PimAGha4viXgE6TrviRJZirsLMhjpDbZj64owv3NVcS5u6UxahRf5sdM10wTOGvJ5NHB/ENxEiDXvTpYyKJGgLt5e0FubE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788468493; c=relaxed/simple;
-	bh=EKirA1GfKN9oAPtucJVunXWWMSW4gY0r/1/CeAdcjrc=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=nsBtRL5EMD82eTtSA/UNPSStXWuOzJTc0ofle1T3hHpaSUG6d5n+IBdAJar/Zp1SxwTdnqIkXuG0LKN85QU8Fuhn7CTloebUps5levcYrBlPqckS5sE27gYnCAE9yql2t/f6hD097RaoM6vaNj/p4qenWTHd/Gh9smuY1+YfTpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LJfOBXaw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788468537; c=relaxed/simple;
+	bh=vO5Hl0YM5t5B3BwS9+sV78HZ1FjGZ91qkObHFTgba1Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RqdiWpLB6q+NBAOU7If5SLkZIlVF8c31Xh/r80gHUzd8ncCxiqVIkdqwuAxyG/9cpQinR+6/CP+3V4dprYScmT4Ul2CVyKqtR0+mL1oJjEtjcMB9l3SKGIYr13/bLPN8dHS57fkDKhRB6YKKS5Ge8yUGuwd6S6llwn9Zdtwji3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Rj71mU+H; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LJfOBXaw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06BF41F000E9;
-	Thu,  3 Sep 2026 20:48:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788468484;
-	bh=uw6M+Azz9kgXk2yJeaS4WajyqjXMKOKDk/rPU9QB5Lo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=LJfOBXawep1Q4y00zLVyYKWDymGTOSCA+2VyHTJUPhtgb6C173/oNbToRjmglVAZ5
-	 f3fLNCkekPFZKfFrA26xtEP7u4kuZ4Cu+3ei/6gp/ukPlyenKIERVwZVuJrzJTCT/6
-	 TEATMy7vvcSfxQKkKqV3OyNLiFzu0adQ/EtRNwHiF1xCGbCYz86YbyA0xlkoyRKtcD
-	 lEIVIWTpHw7ryrcJ+EycQZL1bjDSVU+FBTSU4YkfWIeMYylIxHzWU81Ic+UZTTwFAD
-	 9e4DiXcaSk6/FdkgSCzOXcAVge5yYfU4KipR3H5KByNGIiu/ZKrEBwxA5PUz7xGjII
-	 8QCI4EyFpdnOw==
-Date: Thu, 3 Sep 2026 15:48:00 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] PCI/pwrctrl: tc9563: Use gpiod_set_value_cansleep() for
- RESX
-Message-ID: <20260903204800.GA2243889@bhelgaas>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Rj71mU+H"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=Du1gRA36J1zj7kF4LQrKEJ5dJV/B/IFUJjgHMfdrnXY=; b=Rj71mU+HtoUJyHUY+FEf++U/6Q
+	rYCK02wjC/WDCmMc9VfVB9QzKni2praHxmrf21jn82TgYUELJSsod8L1Jc3B29b+XHPcYlH3ZXwpV
+	Yf77Co01UtaFMBAkhwEPUwWcWka6mGSjAWBkEJ5/Hi+S5pHlKE0bol12QXwM5lNjqKPwvTkLSQo69
+	/7TjdM9l4Y3ghRpjEqJOUMKpBZfDZm4LbkpBpWauMEylXGfgqLfZ0QHT8NXssWHt7JnIqgT0OxOy8
+	1PWg15tzA8DAP9kWAn9KJj89dqIfQKsP6im59fKpRxeJCiCod27hGXtbn+jVawxxVGkuJJXzwEcG3
+	oq68VlLg==;
+Received: from [38.23.173.23] (helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x2EMR-00000000aD8-0e8i;
+	Thu, 03 Sep 2026 20:48:39 +0000
+Date: Thu, 3 Sep 2026 16:48:31 -0400
+From: "Liam R. Howlett" <liam@infradead.org>
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Suren Baghdasaryan <surenb@google.com>, dave.hansen@linux.intel.com, Liam.Howlett@oracle.com, 
+	ljs@kernel.org, david@redhat.com, willy@infradead.org, shakeel.butt@linux.dev, 
+	vbabka@kernel.org, jannh@google.com, arve@android.com, cmllamas@google.com, 
+	christian@brauner.io, tkjos@android.com, dsahern@kernel.org, davem@davemloft.net, 
+	gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	netdev@vger.kernel.org
+Subject: Re: [PATCH v6 0/5] mm: Unconditional per-VMA locks and cleanups
+Message-ID: <aalhqe37szvcitr46c4fk6xcjtjjzm4zfm7ltrno2spipvq2q5@7svyjfbegb3s>
+References: <20260813193433.3318288-1-surenb@google.com>
+ <20260829185625.f5ee1b2931818843a78af88d@linux-foundation.org>
+ <apVhzM2501wSiGGg@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,62 +53,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260825-pci-pwrctl-tc9563-use-cansleep-for-resx-v1-1-0dbe7cfd8200@oss.qualcomm.com>
+In-Reply-To: <apVhzM2501wSiGGg@google.com>
 
-On Tue, Aug 25, 2026 at 02:41:31PM +0300, Abel Vesa wrote:
-> The RESX GPIO may be provided by a sleeping GPIO controller, such as an
-> I2C or SPI I/O expander. Calling gpiod_set_value() for such a GPIO
-> triggers the following warning:
+On 26/08/31 11:13AM, Alice Ryhl wrote:
+> On Sat, Aug 29, 2026 at 06:56:25PM -0700, Andrew Morton wrote:
+> > On Thu, 13 Aug 2026 12:34:28 -0700 Suren Baghdasaryan <surenb@google.com> wrote:
+> > 
+> > > v2 version of this patchset [1] was written by Dave Hansen and per his
+> > > request, I'm taking over this series.
+> > > 
+> > > tl;dr: Make per-VMA locks available in all configs. Simplify some
+> > > of the per-VMA lock users now that they can rely on them being
+> > > always available.
+> > 
+> > It's been 2+ weeks so perhaps a refresh-and-remind would be helpful.
+> > 
+> > But it applies well enough and is adequately reviewed so I put it in
+> > there for testing, thanks.
+> > 
+> > AI review might have found a couple of pre-existing binder bugs:
+> > 
+> > 	https://sashiko.dev/#/patchset/20260813193433.3318288-1-surenb@google.com
+> > 
+> > and a small rusty thing which you might wish to attend to.
 > 
->   WARNING: ... drivers/gpio/gpiolib.c:4030 at gpiod_set_value()
+> The binder bug is not actually a bug. When using VM_MIXEDMAP and
+> vm_insert_page(), the vma takes a refcount on the page, so there is no
+> use-after-free even if free_page() is invoked without removing it from
+> the vma.
 > 
-> The TC9563 power-on and power-off callbacks already sleep while enabling
-> or disabling regulators and while waiting for oscillator stabilization.
-> Use gpiod_set_value_cansleep() for RESX so it can be driven without
-> triggering the warning.
+> Adding an INVARIANT: comment to the Rust code SGTM.
 > 
-> Fixes: 4c9c7be47310 ("PCI: pwrctrl: Add power control driver for TC9563")
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 
-Applied to pci/pwrctrl for v7.4 with subject line:
+I think you are correct about no UAF here, but the page isn't exactly
+pinned to the vma - which is what I thought you were saying when I first
+read your reply.  It's sort of misplaced in another vma by an mremap().
 
-  PCI/pwrctrl: tc9563: Allow RESX reset assertion to sleep
+vm_insert_page() will increment the ref count, but if the vma is
+mremap()'ed with the same size vma (ie, not expanding), then move_vma()
+will relocate the pte and the old vma will be closed and set the
+binder's mapped = false without a change to alloc->vm_start.
 
-to focus on the behavioral change.  Let me know if this doesn't
-capture it correctly.
+Binder now thinks there is no mapping but the mapping has an address so
+it can't map anything new.  You could get around it by replacing the
+vma, but I don't think that leads to anything interesting.
 
-> ---
->  drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
-> index fd53a7db9875..1b7718d07d15 100644
-> --- a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
-> +++ b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
-> @@ -481,7 +481,7 @@ static int tc9563_pwrctrl_power_off(struct pci_pwrctrl *pwrctrl)
->  	struct tc9563_pwrctrl *tc9563 = container_of(pwrctrl,
->  					    struct tc9563_pwrctrl, pwrctrl);
->  
-> -	gpiod_set_value(tc9563->reset_gpio, 1);
-> +	gpiod_set_value_cansleep(tc9563->reset_gpio, 1);
->  
->  	regulator_bulk_disable(ARRAY_SIZE(tc9563->supplies), tc9563->supplies);
->  
-> @@ -501,7 +501,7 @@ static int tc9563_pwrctrl_power_on(struct pci_pwrctrl *pwrctrl)
->  	if (ret < 0)
->  		return dev_err_probe(dev, ret, "cannot enable regulators\n");
->  
-> -	gpiod_set_value(tc9563->reset_gpio, 0);
-> +	gpiod_set_value_cansleep(tc9563->reset_gpio, 0);
->  
->  	fsleep(TC9563_OSC_STAB_DELAY_US);
->  
-> 
-> ---
-> base-commit: 4b18edbd8e70f7e6860d56370f13244896d0f95c
-> change-id: 20260825-pci-pwrctl-tc9563-use-cansleep-for-resx-f6e1f65547fc
-> 
-> Best regards,
-> --  
-> Abel Vesa <abel.vesa@oss.qualcomm.com>
-> 
+So we still have a ref count that's okay, but now binder has an
+alloc->vm_start that's stale and a mapped = false which leaves binder in
+a bad state (one might say a bind).
+
+Thanks,
+Liam
