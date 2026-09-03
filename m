@@ -1,67 +1,72 @@
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C6414A3846;
-	Thu,  3 Sep 2026 16:35:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A62CD4052D7;
+	Thu,  3 Sep 2026 16:35:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788453309; cv=none; b=K6iS1LGP7WVxwS/XX1yoSyT6OVlUrtMZp0clqSHc1CcvPeVO36JMs4tvMjWg/Td2UCL1w71z65HuzXxSQ01eXAyx06tKKdZejaBPReZzFJfijp4+DOUSC5NU8QufQj9IVXW9EN0yPhBKHvskYehbi8W8SFiii7d4c1FL8OOd9eQ=
+	t=1788453325; cv=none; b=muG/jWnopVm2seC9UmNwAtAcdDa800DeOL8T5hw8ISD4vV6XZGTGt1xul6Q7aGclg+q7tvo9qXW17vqtW3uIRS3FHGV++erMv8a9OJRPLm0MxSqzgfO8ohuUXDx1of103fX7OulyogD5I1aapFXOi+dTnXSxyRewD1n9tcPn2Fw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788453309; c=relaxed/simple;
-	bh=k5ro6TI+X/hlymQmTV2S9JypG6xvQdKKh4M6ScuMPnc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MCGlrjhI1tBYYWtaX9F/sUGei7zBlAG3vE787OJIRfGTNo41vFo3l2nACEXnrbxUn4K8yg8zcby+639hGS2FD0tQlKhbZLVw8a/b440BASE4JG7N4oHWez8tYpUWAzfVRZ/c9OGLgHbmSY7XdjIjgAS5eXNJfNY7FWimlXo3QDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=2sHoeePs; arc=none smtp.client-ip=216.40.44.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788453325; c=relaxed/simple;
+	bh=4VgcqGwejHpXlI0fhcLml5Ty0iRHkq8/A0Kj2ugtbO4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=STNhTzemhy1ef9LcBK4laCUQ2F8qp8gZdIHiWphRKetAJR9aq0reYcZd/65+9aaP/QL+qa2TL6PQq7NDE262HAOXjQDrwVxeeoBJ2ZCeie8PThHtDwO3d7QYoEvjBFJNNyYrjUV5x+zYhJDUjZvDT28petgbs4hZeXn/V623AR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bJn00D5L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="2sHoeePs"
-Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay02.hostedemail.com (Postfix) with ESMTP id 7984D1205B5;
-	Thu,  3 Sep 2026 16:35:05 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id 8BF1120024;
-	Thu,  3 Sep 2026 16:35:03 +0000 (UTC)
-Date: Thu, 3 Sep 2026 12:36:06 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Peng Donglin <dolinux.peng@gmail.com>, dolinux.peng@gmai.com,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
- pengdonglin <pengdonglin@xiaomi.com>
-Subject: Re: [PATCH v5 0/3] Use BTF to trim return values
-Message-ID: <20260903123606.6e5bc37e@gandalf.local.home>
-In-Reply-To: <20260902235533.ea387f764b51b1b2a8ce8224@kernel.org>
-References: <20260901134604.4052265-1-dolinux.peng@gmail.com>
-	<20260901135715.4812fde9@gandalf.local.home>
-	<f18beeb4-f3df-41eb-9990-5be295a2729b@gmail.com>
-	<20260902235533.ea387f764b51b1b2a8ce8224@kernel.org>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bJn00D5L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D0C51F000E9;
+	Thu,  3 Sep 2026 16:35:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788453324;
+	bh=4VgcqGwejHpXlI0fhcLml5Ty0iRHkq8/A0Kj2ugtbO4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bJn00D5LHCNxJKO8OB0oD4jqtmpIcvs0FKWYL07kd8xyziZ1PcVIVLGJqrrvOyO6X
+	 BmEKRU8wNOCpJepqx4LQvKCaa0mVKE6PkerBqdK04v2t1qGy9cyq3kzmWkhcmBQw2t
+	 sB6E9oujzXL9p3jHW3gPcowbvTnOaQVpB7JmsCOMOGR85OPYgVpk18plFAtGbZGCz1
+	 97uzgbxyhmG+2jWU0YOBSUV7F3jzL2l3gpQ7GsUEPThXoKdF4MsG2yf3XnsnRoGVMz
+	 O8kOFhFN7wAQvwZbu0+RMK2EGNJ+nAvrw0DE16a591UIriRc9/meKuQmdJGJfNzOhZ
+	 /IftCisocxTMA==
+Date: Thu, 3 Sep 2026 17:35:20 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Iwona Winiarska <iwona.winiarska@intel.com>,
+	Guenter Roeck <linux@roeck-us.net>, openbmc@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-hwmon@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>
+Subject: Re: [PATCH v1 1/6] dt-bindings: peci: Add StarFive JHB100 PECI
+ controller
+Message-ID: <20260903-rotten-judgingly-5655b33067a3@spud>
+References: <20260903133408.110847-1-changhuang.liang@starfivetech.com>
+ <20260903133408.110847-2-changhuang.liang@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout01
-X-Rspamd-Queue-Id: 8BF1120024
-X-Stat-Signature: 57epuggdoh1mos475afbm1jya1y4p5ho
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18JigZdIexYP6SmyGbKpHXWh81XpwpiShk=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=v2fYFgHItsVJon5i4uqh44uE7r6moAwhyEs99h7vg+M=; b=2sHoeePsCbrdhe8t7BBqtKAJCRQBr7SVJoO4yJdM2fQWMdfGncV9TeYpT+Et78BJWt2CoW9LIC0m8estZa1vPFiVEYPC9gX04bUKCvwSqiqu2gBjnCghcaH+AjeB0EiE5YI5wY2iUiZ5DvQuR6sV6KRC7I/UTeqVFkMvgg6+Nag=
-X-HE-Tag: 1788453303-2937
-X-HE-Meta: U2FsdGVkX1+gVgNAc60hA4xDTsJpfHncZMbeSDm+R/BoC4VSvdZGvHmuTlxeFP/BUc6WWmaL+sYD+L5IqyJ3rX7ncuDnln0FGjx5F++54wmAthiq+tLPNqtpX4A7cDabnttvC3UyFAR09maikr9URPFUMIX1C4e0WzgTkHhfn+8bHnVwoebhE/Gm7OYIVCfF9PflQhPxmyPiRPy6EKH3Rb3Jj6ZV4v3LywaQULNr8IoMD1giuWI3PfU5I5uRc58rCz9ogfzV0GqBkLKID36tZeiYOlH2X/vQ8NPEShMaFbhCCy3Bv40pwzE48ZstGBBhYPq+x1cp0UD8WGe3dJEAFcYjW2jCFHFZ
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6/hMdV/OsdyQFZVD"
+Content-Disposition: inline
+In-Reply-To: <20260903133408.110847-2-changhuang.liang@starfivetech.com>
 
-On Wed, 2 Sep 2026 23:55:33 +0900
-Masami Hiramatsu (Google) <mhiramat@kernel.org> wrote:
+--6/hMdV/OsdyQFZVD
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> Hmm, shouldn't both the actually applied size and the true size be displayed?
-> e.g.
-> 
-> ret=0x5 (in 8 bytes, true size: 16 bytes)
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-I have to ask. Why do we care? Is there a use for this information?
+--6/hMdV/OsdyQFZVD
+Content-Type: application/pgp-signature; name=signature.asc
 
-If not, ret=0x5 would be sufficient.
+-----BEGIN PGP SIGNATURE-----
 
--- Steve
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapmhyAAKCRB4tDGHoIJi
+0ux/AP91kU+PdujjA6iPz887aHKutbwu6u6M2sBSS0IoEsSS/wD8D6L6UV278fvm
+MgP0qQVpRpxWTJIbBhkO1zR9Kljykw4=
+=K3hZ
+-----END PGP SIGNATURE-----
+
+--6/hMdV/OsdyQFZVD--
