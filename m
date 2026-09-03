@@ -1,36 +1,39 @@
-Received: from mta0.migadu.com (out-97.mta0.migadu.com [91.218.175.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D5E4BB5C9
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:35:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFFB640928C;
+	Thu,  3 Sep 2026 14:35:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788446116; cv=none; b=A7dg2MXB3j+7Vh0kuF6KzhHERMcMyI4aAm1Z49L5eU+Q+lBgJe2V51i76k+Jamogfsw5MbNW+iL3i+bLiCQSYd1DFlOZLWuT2QbHhS6U/gb7BsIC8WqPEpwmkxvIjiEeVVzHuSH6DI6eFzlBeVUdBaR6fePvmjiMgb1006ASHd0=
+	t=1788446123; cv=none; b=cwbrttFMMbM31Ftl5Cc5pMKZ3yuK1c3Xiyg03M8zKEvO4jeumHMLPWWOFFgB/BtRVsP90cmsRshu0MsMDN2u3EP2jh5jJpNZdjxE4kEgnFTIp0mH80xBayEzH2aS4eocFEy+xSUg1qnBIQIxjeol7wL9UAxgtfzICfHFzKQlhDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788446116; c=relaxed/simple;
-	bh=inqB9us+xXArfQYHAZH6ywgaZgA5rW0/tc6FU1d61cU=;
+	s=arc-20240116; t=1788446123; c=relaxed/simple;
+	bh=vkHtOBeqJKuWcc0Hcp4YMAdXb99vMRmxPJnYZQagXaQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iHzRvrNuhjc0faCy9NLpfUnN0qucoNdkk+5WEiJ1ojz3L+9PJzIOAG5nk0tnasqzl+wOnY5gB3Wbf8lxs2rn34BdvPmn62KDt4FnSZ02Y1NWBx8moUCc/oW957BUEQM0pNOTEL0ivcP0R/rxFmRcNxocsRtphNhjtfBoDT4JRys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cJ1nqBmH; arc=none smtp.client-ip=91.218.175.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 In-Reply-To:Content-Type; b=eu4KdTHZic+0tYWL8x4e0wGC3UIi6Q5dPxPA6/dJZ4VAmY1ZOZ89mLwjkbcc8fXTUg0aCqUHooJ34DTn9HVxkXvPjAqatrm24tB+ffsCpijQLhYekgGgZIDbl1FQz0Joz17glwIc4/0tdy/p7VoX4HRM4ccn4dJZAwdvUWBqKJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=uLMvKxzL; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cJ1nqBmH"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=inqB9us+xXArfQYHAZH6ywgaZgA5rW0/tc6FU1d61cU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788446105; v=1; x=1789050905;
- b=cJ1nqBmHMNaSdYNzK3OXaVtBwR/Z1Xlxx8ZUiyBx+vhBuj2+R6fGQ65PopnSpUGA32Elc8/r
- eowR61BTYRSg3tugnePQ+DvrBmoTwnpZnDNu9OwKSy7gHwxHoP/Ek1dArI2vdPSpHBsyo2O4D6L
- BlLIIszt9ktaDidWPELObeoo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 98708903f2b4cbcc;
-	Thu, 03 Sep 2026 14:35:03 +0000
-X-Mizu-Trace-ID: 98708903f2b4cbcc
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <dfc2ac40-a1d8-4ec1-a8b7-fcfd85408b75@linux.dev>
-Date: Thu, 3 Sep 2026 22:34:53 +0800
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="uLMvKxzL"
+Received: from [10.0.0.152] (unknown [10.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 8D18A53405FD;
+	Thu, 03 Sep 2026 16:35:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1788446109;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Q5rOd/Qktib1iQtBnsgey0ILDazMjdhik5E1O2hY1ro=;
+	b=uLMvKxzLjt5vT5r4g2tOrTLKmJtUdqtmFDBbpxjR4ByP9TM1lXcSdScRqzAMWxwP39bPic
+	jH5Jdt5FFuOaRAxtJSYpteXijG2ZXFDphhXOhzi6VyZP/rWNvBOz5d4khi5UhNrKmw5WyV
+	WRQj/SwOLKOZZULZCCrJx7iFXewKZVk=
+Message-ID: <a1038b46-1d37-4563-a51c-f4432b557de1@ixit.cz>
+Date: Thu, 3 Sep 2026 16:35:09 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,60 +41,144 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf 1/2] bpf: Fix out-of-bounds read of sk_protocol in
- bpf_sock_destroy()
-To: bot+bpf-ci@kernel.org, bpf@vger.kernel.org
-Cc: xmei5@asu.edu, daniel@iogearbox.net, john.fastabend@gmail.com,
- sdf@fomichev.me, martin.lau@linux.dev, ast@kernel.org, andrii@kernel.org,
- eddyz87@gmail.com, memxor@gmail.com, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
- ihor.solodrai@linux.dev, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, shuah@kernel.org,
- aditi.ghag@isovalent.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- martin.lau@kernel.org, mason@kernel.org
-References: <20260903125306.299943-1-jiayuan.chen@linux.dev>
- <88d25f82f5261c0a7f12d6e82988bda387f8180c656cd163eec959d327f48769@mail.kernel.org>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <88d25f82f5261c0a7f12d6e82988bda387f8180c656cd163eec959d327f48769@mail.kernel.org>
+Subject: Re: [PATCH] arm64: dts: qcom: sdm845-lg: Enable NFC
+To: Paul Sajna <sajattack@postmarketos.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht
+References: <20260902-sdm845-lg-judy-nfc-v1-1-282173900569@postmarketos.org>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
+ 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
+ lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
+ 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
+ dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
+ F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
+ NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
+ 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
+ AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
+ k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
+ ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
+ AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
+ AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
+ afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
+ loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
+ jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
+ ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
+ VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
+ W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
+ zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
+ QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
+ UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
+ zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
+ 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
+ IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
+ jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
+ FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
+ aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
+ NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
+ AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
+ hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
+ rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
+ qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
+ 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
+ 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
+ 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
+ NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
+ GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
+ yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
+ zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
+ fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
+ ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
+In-Reply-To: <20260902-sdm845-lg-judy-nfc-v1-1-282173900569@postmarketos.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
+On 03/09/2026 04:03, Paul Sajna wrote:
+> Add the i2c and tlmm nodes to support the NXP PN547 NFC chip
+> 
+> Downstream dtsi for reference:
+> https://github.com/LineageOS/android_kernel_lge_sdm845/blob/lineage-22.2/arch/arm64/boot/dts/lge/sdm845-judy/sdm845-judyln_lao_com/sdm845-judyln_lao_com-nfc.dtsi
+> 
+> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+> ---
+>   arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 31 ++++++++++++++++++++++++++
+>   1 file changed, 31 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+> index b030a10009c5..069d1cf3dead 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+> @@ -471,6 +471,25 @@ &gpu {
+>   	status = "okay";
+>   };
+>   
+> +&i2c3 {
+> +	clock-frequency = <1000000>;
+> +
+> +	status = "okay";
+> +
+> +	nfc@28 {
+> +		compatible = "nxp,pn547", "nxp,nxp-nci-i2c";
+> +		reg = <0x28>;
+> +
+> +		interrupts-extended = <&tlmm 63 IRQ_TYPE_EDGE_RISING>;
+> +
+> +		enable-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
+> +		firmware-gpios = <&tlmm 62 GPIO_ACTIVE_HIGH>;
+> +
+> +		pinctrl-0 = <&nfc_default>;
+> +		pinctrl-names = "default";
+> +	};
+> +};
+> +
+>   &ipa {
+>   	status = "okay";
+>   };
+> @@ -551,6 +570,11 @@ &qupv3_id_1 {
+>   	status = "okay";
+>   };
+>   
+> +&qup_i2c3_default {
+> +	drive-strength = <2>;
+> +	bias-disable;
+> +};
+> +
+>   &qup_uart9_rx {
+>   	drive-strength = <2>;
+>   	bias-pull-up;
+> @@ -609,6 +633,13 @@ sd_card_det_n: sd-card-det-n-state {
+>   		function = "gpio";
+>   		bias-pull-up;
+>   	};
+> +
+> +	nfc_default: nfc-default-state {
+> +		pins = "gpio12", "gpio62", "gpio63";
 
-on 9/3/26 10:01 PM, bot+bpf-ci@kernel.org wrote:
->> diff --git a/net/core/filter.c b/net/core/filter.c
->> index 61940e7535523..1bbb72138ac64 100644
->> --- a/net/core/filter.c
->> +++ b/net/core/filter.c
->> @@ -12912,8 +12912,8 @@ __bpf_kfunc_start_defs();
->>    * @sock: Pointer to socket to be destroyed
->>    *
->>    * Return:
->> - * On error, may return EPROTONOSUPPORT, EINVAL.
->> - * EPROTONOSUPPORT if protocol specific destroy handler is not supported.
->> + * On error, may return EOPNOTSUPP, EINVAL.
->> + * EOPNOTSUPP if protocol specific destroy handler is not supported.
->>    * 0 otherwise
-> The EPROTONOSUPPORT -> EOPNOTSUPP correction is right, but the rewritten
-> error list is incomplete. tcp_abort() returns -ENOENT when the socket is
-> already closed (net/ipv4/tcp.c, around the sk_state == TCP_CLOSE check):
->
->      /* Avoid closing the same socket twice. */
->      if (sk->sk_state == TCP_CLOSE) {
->          if (!has_current_bpf_ctx())
->              release_sock(sk);
->          return -ENOENT;
->      }
->
-> That error propagates through sk->sk_prot->diag_destroy(sk, ECONNABORTED)
-> and is reachable from a BPF iterator (destroying a sock the iterator
-> already destroyed, or one closed concurrently). In contrast, EINVAL is only
-> reachable through the narrower tcp_abort_override() path for MPTCP listener
-> subflows.
->
-> Should ENOENT be added to the list?
+if you want to, you could make it more descriptive with -pins,
 
+see
 
-I'd like to describe it as "others" since diag_destroy may change it's 
-return value.
+https://lore.kernel.org/all/20260902-sdm670-sargo-nfc-v1-2-bed1cbbffc46@ixit.cz/
+
+David
+
+> +		function = "gpio";
+> +		drive-strength = <6>;
+> +		bias-pull-up;
+> +	};
+>   };
+>   
+>   &uart6 {
+> 
+> ---
+> base-commit: 32b6ef9a5d0eca44f9cd91f52f4faa89f145a0de
+> change-id: 20260902-sdm845-lg-judy-nfc-5f9e5775393d
+> 
+> Best regards,
 
