@@ -1,138 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CCD04E8DFA;
-	Thu,  3 Sep 2026 19:27:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788463650; cv=none; b=eXJdip4ee1YjQyFw8QtrSgCfuncgAnwidYNIYugRnoNGtV2O4yDO25yq7zBIzhyk66ZLH4YsBHi8Fw0gJc09CnjjaO9W0xxFqOQAntdBEwiIPSwytGuASAfku8HSgTZRjRB1SmxLBtvrDVecgANPThyWVM+R06aileF/4wNJE9g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788463650; c=relaxed/simple;
-	bh=8Vi6ot/w2XeAIsbxCtE6AxvbTPQX/KxDsM0GTN26wSQ=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
-	 References:In-Reply-To; b=KUhMqvN2gF27+7JAIlWqU65mNrqjrfNxkpgPLf1GsXGUcSSbFbS77WzaK631KnJS5N7BChaQyIu2Z1DykPG3bQz0ylodYbzJgsvqXTpcmguZOokWOkz434W01T9g3AePFO4LOpfBho0yYt5bDyi2gIwMh8kSKULaIMaq4CWyGoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UdUnkBMR; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B23CB3E3159
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 19:28:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788463716; cv=pass; b=lAb8g3X/DUhN+G/r7ayEcOA8j+7YGBGEuIRiseLu4SgK5KQPMpxFC0PfhQ3KqibfVD6J2zkYStyo/zM7klsMiIzNAxhUaeUoXMwdKo62EGlRei0wwcg6H163pwf8wEcxn4R8UoAMmoqaNaBybDshwPa1CYHrEC5VxTloncea4oM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788463716; c=relaxed/simple;
+	bh=QKxqZ3eMMR2X39cJ4mp4AJOBcwz2/Hm0JMLEa5hv45w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jF/5BF+BemGdVRVa9efxMnVKHbnnWYrmlrn6vR72IfVKS2SBelNL5gdtlrf4+8UgjFyFcTNEuBEUF4xMfKgyRclpihGT2jgWPnow2pwJ7scHO2C84KiPCKDYqKkXWVhBXshf13tSIhhNapUgYg+1+Z9+SmdDvhGgSoudhWXdr5Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=IHxCsvaB; arc=pass smtp.client-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UdUnkBMR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 845751F000E9;
-	Thu,  3 Sep 2026 19:27:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788463636;
-	bh=eAr15of8ecyt1Pca09E0dTTN32kcaFEN8srD+2g3ffQ=;
-	h=Date:From:Subject:Cc:To:References:In-Reply-To;
-	b=UdUnkBMRt3wIbnqYiG7BF9CW9SRvXXG8ZgYTaapubuENY9Ij1D9RIPBtSjPD36984
-	 6TrttkR/pCt3t6+o81tlkbrVEkpoE5gip/29LcjRaqAzcq9u4BCqNmRjWNGozAM5kT
-	 0Lm2mLzg1AqEzzsWT7OiuvSdDxvd9gPqP7WCuITd8fN4VEnJxdvYVR1cgTbbStb/XQ
-	 vxjZzt6JzPDFeTLICnx6ncHmAJXc++65olinQl0TFJtnwBv6LMYiplorKFx6CqzYEY
-	 zSHENLGiV5uKxmuJoqM9SwtR9rK96ZEnjQwk1BLMVNhyrakvai+extKUToIDd6b3n2
-	 MthvYZIk7Xq6g==
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="IHxCsvaB"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc1bcdb3c4cso246323a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 12:28:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788463708; cv=none;
+        d=google.com; s=arc-20260327;
+        b=T7YqbSEIjqxJ3gL0mRC+DihmUze5dHhXg6tByucSFWOHtQDSizYgSaBPP5MvObsoJD
+         AaclheaUkiMmUsfg3uKytloEU5DxkWHr5yn3Ew7X3nr5gF7eohknwiLoumDpxFCODKbn
+         vjcXrCXwzgI9nfF3QydT0ElgpVUi+rS41oHpj5/ivrLeFgDWhHs1WnrG5MlgriRPF69/
+         QWsbND/fucb1qIqLCUuMIofRX52D28q3/VNe/EdP9qbCeL4ff/CJAfX7Pn7zPTx7rpXV
+         r2cj2bd6jNujgQajiL5Jgf/wziBmVvtb80VBT4GHg8mT/UJOroyoI5ae5rZWUu7yEuB0
+         st7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=QKxqZ3eMMR2X39cJ4mp4AJOBcwz2/Hm0JMLEa5hv45w=;
+        fh=bH++/u1+ypq6mR6DpPDfTHf/pZEusWIjG0LIFr26pkc=;
+        b=LgsuJl2vQHeYSdJRnz7fr50RU08zTS4E3mHjtwwwKJEzFPPQq+NeDHmw047u/tPiDz
+         zWhF1iBMqmYsVRLKceeT+0fQjs2iu31+SaKnmIHZdDCCbk709DXWriiY4L3jdL/92W21
+         6qFKp++zaxW0pWKRjq4qtPL+MTD4ltVJE/KTg5CRMd7FrTOzAgFbKmRxYD4/e3nwhaat
+         dqwP+0V3UsgWkt6JqlrJByz1PJniTzbvTsa6FQsQGoqLhuvnf8v+qdLM6bz4GZJouBeA
+         EdsrBmzfbi6u9+/zibDdS13ULi3BEDwcaSnzUP+TGADcEoqRSeDok26O0OBhm4f7xYjO
+         MUdg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788463708; x=1789068508; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QKxqZ3eMMR2X39cJ4mp4AJOBcwz2/Hm0JMLEa5hv45w=;
+        b=IHxCsvaBn8xIxK2o1/5GqkXTcdPiKYubmDrI4T/kxrBOOuVGa+jzaBcfGVMyQOHWJK
+         TTVWOGkoW0jj3AQ6REnI5C2zHKh/GIAiijcjq0Yq4qzSn2M1D6vixfoTvlOWMEqWZIz1
+         w0NU4xKrdcNsGGD277i7cSWqwfIAwjGKKCb6Ju5cHJu5wlTAyGuKIofRUlDlhb9EbglE
+         6I/6E0f8d+fusjqQDd0xWGd+CKYSdmc5UdQFoXP2IwLEnyp69kpSgjucZ6MGvHdtFqTw
+         rIElbQ6zbsPYsqBzQqodRoEk1/9um0ZxPSJcqp6HSJeJxwxMIWihgUfkEpW3hPCn7kvN
+         d0cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788463708; x=1789068508;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QKxqZ3eMMR2X39cJ4mp4AJOBcwz2/Hm0JMLEa5hv45w=;
+        b=exmEOy5QaiXyzW2pU639lQcz86nTBDLgIp3BR19Hqqc/T0p18kR3Diw1a7IJShgRE8
+         5ph99J2tjkD8vv3GJnAQrRFf1iwM7z5GYL/XeSWVnXwttdgiSrolHLK4dRI6jc3dW6/a
+         ELCl9Ml5PTlhX/MnotoCMF85sF3Jec+40uiR1xFLL2H+z4YNFBDjx7/XMF5KkHTElwWp
+         nmwUp0St97gb4PW1xAPKXA08wMAdEwOGf2WSVVcOW6cKSrZK13Zn1jPvbHGZvSOG2s4/
+         3Tj9bCs/3ZwNpTHCCEyYk2BYaUkZ5rNGvFcd+MuUW264Y5rf4Ok8+Tm/RmDO+fGZMgSz
+         vNIQ==
+X-Forwarded-Encrypted: i=1; AKwUvByJOL4ejBjrAhs435HcIxzbGYOdY5x8eqCBrQkH18Q9+cbj2N+UmOb7zkilYAXKSTT9hAz9PH+cmx1oJYA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqcATZRCmwIPJuo0S+SqCVyjjdj8eAbi67EQ9Dp0xWgFhTvq4G
+	j/H+/LD3tfBcVDrhwxCPig2gqtva1ghyidxEDb6hetWp9aCBah4p9bvV/DsFjgPXo/ZiK0cWp7Y
+	M0IOMlfMUKnt929kf6xYZlvLXdZ3kHY4DvKZDTKd6
+X-Gm-Gg: AYBFou1leLAOYf3v3lJHDzlbUr+u6oieS93zTIgFsBF8GYT75mb00ClgXRoDyXifK6V
+	Jmn69GMV5PuH0rKjY3nXRg3f09NkPZII7PSOH0gedmIKDgXYD3AYKrEJMFdHTUSR+e18o7KU/3M
+	WJGAoMCy/kh2aB4jyzv45HUxv+92aEN5MCzhaENwSqp2/G4WPoLQOAkYOagvr/kLVopXNDDoeh4
+	hTcSPNQ2embTSU9TDwWYA1YCGmZ7ZluMrvriDlNAXKIM7Bc92P4fUuRD2wt+vhqKgjG4lwducQD
+	oGAuL8PTdCwtRsCVxKt0Zm8BKUbnrEUyYNj2Qj2m7dZ9YphFJXzmmFzkMqj2wm1B9Zr6SAomJvm
+	jt34ffDgmjPA+Jdz5oCf18EkUambeyLA/mbHoELlKo0kOmbuaMJpasfy635dW2294sYkT00RH9p
+	/tqr5p8IJKQrQS
+X-Received: by 2002:a17:90b:2784:b0:395:4de5:1054 with SMTP id
+ 98e67ed59e1d1-39b26272bdcmr1062522a91.16.1788463707201; Thu, 03 Sep 2026
+ 12:28:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20260824033331.1084971-1-imv4bel@gmail.com> <20260824033331.1084971-7-imv4bel@gmail.com>
+ <apaAskNL-IvdcR7h@v4bel> <e121d343-9a4a-4f93-86c1-c96dd37f1ae1@redhat.com>
+ <20260901085102.5c58a5b0@kernel.org> <CANn89i+px52TtJy3S9=uHxGj3s-WueguRo1Z_4FxO=02KLmwmQ@mail.gmail.com>
+ <apnHqmYZQ4yzOP4N@v4bel>
+In-Reply-To: <apnHqmYZQ4yzOP4N@v4bel>
+From: Kuniyuki Iwashima <kuniyu@google.com>
+Date: Thu, 3 Sep 2026 12:28:15 -0700
+X-Gm-Features: AcwNN1U6zY6LZ3oh1KYqCMuclwz2vgIWYpsKBP1jBBoFZoxWBAYwuULPqKemveU
+Message-ID: <CAAVpQUAVXFrRuxPCKW_4qqAAdjTpv+arijYODeFMfXshKqajHw@mail.gmail.com>
+Subject: Re: [PATCH net v2 6/8] tcp: fix use-after-free in the lockless
+ listener path
+To: Hyunwoo Kim <imv4bel@gmail.com>
+Cc: Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, davem@davemloft.net, ncardwell@google.com, 
+	dsahern@kernel.org, idosch@nvidia.com, horms@kernel.org, willemb@google.com, 
+	andrew+netdev@lunn.ch, kees@kernel.org, jiayuan.chen@linux.dev, 
+	kerneljasonxing@gmail.com, ij@kernel.org, martin.lau@kernel.org, 
+	shakeel.butt@linux.dev, matttbe@kernel.org, martineau@kernel.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 03 Sep 2026 21:27:11 +0200
-Message-Id: <DL5XG1N71CVV.TOAF6XQY0SW5@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v4 00/16] rust: io: support register projections and
- remove relative registers
-Cc: "Gary Guo" <gary@garyguo.net>, "Alice Ryhl" <aliceryhl@google.com>,
- "Daniel Almeida" <daniel.almeida@collabora.com>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-pci@vger.kernel.org>
-To: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>
-References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
- <20260903192248.2248560-1-dakr@kernel.org>
-In-Reply-To: <20260903192248.2248560-1-dakr@kernel.org>
 
-On Thu Sep 3, 2026 at 9:22 PM CEST, Danilo Krummrich wrote:
-> On Tue, 01 Sep 2026 17:50:24 +0100, Gary Guo wrote:
->> [PATCH v4 00/16] rust: io: support register projections and remove relat=
-ive registers
+On Thu, Sep 3, 2026 at 12:17=E2=80=AFPM Hyunwoo Kim <imv4bel@gmail.com> wro=
+te:
 >
-> Applied, thanks!
+> On Tue, Sep 01, 2026 at 05:57:04PM +0200, Eric Dumazet wrote:
+> > On Tue, Sep 1, 2026 at 5:51=E2=80=AFPM Jakub Kicinski <kuba@kernel.org>=
+ wrote:
+> > >
+> > > On Tue, 1 Sep 2026 10:03:51 +0200 Paolo Abeni wrote:
+> > > > > Looking at this further, unhashing the listener and then calling
+> > > > > synchronize_net() lets the disconnect path handle it. MPTCP needs=
+ a fix
+> > > > > too, though, because it closes and reuses the first subflow direc=
+tly
+> > > > > without going through tcp_disconnect().
+> > > >
+> > > > This looks like a more palatable approach: this patch in the curren=
+t
+> > > > format looked way too invasive to me.
+> > >
+> > > I likely lack context on this, but I was wondering whether we should
+> > > potentially disallow the transitions between listening and data socke=
+ts
+> > > instead of fixing these endless bugs?
+> >
+> > +2 I think I mentioned this at some point.
+> >
+> > Same for IPV6_ADDRFORM : we should not allow transformed socket to
+> > even use tcp_disconnect().
 >
->   Branch: topic/rust-io
->   Tree:   git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/drive=
-r-core.git
+> So.. do you have a plan for this work?
 
-I've pushed this to a topic branch, so 0-day can already do its thing.
-
-> [1/16] rust: io: register: reimplement as proc macro
->       commit: 63b2578517df
->
->       [ Fix typo in module-level doc comment and fix ArrayDef syntax
->         description to match the actual macro syntax. - Danilo ]
->
-> [2/16] rust: mem: add `transmute` with deferred size check
->       commit: 82591c20bcb3
->
->       [ Fix doc heading to use plural "Examples" and add missing closing =
-code
->         block delimiter. - Danilo ]
->
-> [3/16] rust: mem: add `AsRepr` and `AsReprMut`
->       commit: 968f30ade612
->
->       [ Fix grammar in from_repr_unchecked() documentation and rephrase
->         confusing safety comment. - Danilo ]
-
-Miguel, Boqun: Please let me know if you are fine with the two
-rust/kernel/mem.rs patches.
-
-Thanks,
-Danilo
+I'll post a patch to disallow the buggy transformation.
+https://lore.kernel.org/netdev/CAAVpQUAWjBuF1Rgze0Vt_XvkUT=3DAjw-F+Kh+s2iHk=
+38c8iAapg@mail.gmail.com/
 
 >
-> [4/16] rust: io: perform conversions using `AsRepr`
->       commit: 1e707b76716a
-> [5/16] rust: io: support register projections
->       commit: 34b6dc471749
-> [6/16] rust: io: register: allow explicit base type specification
->       commit: 70a122d5a342
+> Or should I send the v3 series first? I am still looking into related
+> problems, and it looks like this series covers most of the "important"
+> ones that have to be handled right away. What is left seems to be the
+> UDP side and other minor problems.
 >
->       [ Remove unnecessary #[allow(unused)] from the 'base' field. - Dani=
-lo ]
 >
-> [7/16] gpu: nova-core: specify base type for registers
->       commit: a07fa2c979c1
-> [8/16] drm/tyr: specify base type for registers
->       commit: 573228e75c33
-> [9/16] samples: rust: pci: specify base type for registers
->       commit: 54b04b9fc0ea
-> [10/16] rust: io: register: make register have a typed base
->       commit: 35c21468c294
-> [11/16] rust: io: register: support fixed offset register without bitfiel=
-d
->       commit: ddeaaa3a0fbb
-> [12/16] gpu: nova-core: use projection for PFALCON and PFALCON2 registers
->       commit: 6d5f14077811
-> [13/16] gpu: nova-core: convert hshub0 from relative register to projecti=
-on
->       commit: 4a7a27bd1947
->
->       [ Split nested import into kernel vertical style. - Danilo ]
->
-> [14/16] rust: io: register: remove relative registers
->       commit: b6af037d9499
-> [15/16] rust: io: register: remove `Register` trait and cleanup macro
->       commit: dfec6f41d053
-> [16/16] rust: io: register: unify handling of register with/without bitfi=
-elds
->       commit: 35423e8fd718
->
-> The patches are in the topic/rust-io topic branch and will be merged into=
- the
-> corresponding target branch soon.
-
+> Best regards,
+> Hyuwnoo Kim
