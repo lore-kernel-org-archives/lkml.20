@@ -1,76 +1,118 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0982A360EEE;
-	Thu,  3 Sep 2026 09:51:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1222C40926C
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:51:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788429093; cv=none; b=sUiHPD5pZeArg/uXaW3bakZCg50xZBTDXJszR+WqsYnNupynUeALnvxbtjS57GJEihq5wF8eAX3I8IrzdM6JiIUPAnkL5sjVqRQTFcJ+qT9pztQB+4mOC4MCZBd0QNRQZVjGC+jbkIkXkYtUU8lCIja22Sthuf+vKqV+e5TGCzs=
+	t=1788429096; cv=none; b=tohk1eilq/J+LynxCON0cT4fpQ/tLsNSQR0kY3ci7PbMKpSOyOuCH190j/Q6XjzglTSITM8Gp3nXJNBqKL4w1se9pvb7Fakq8OCyMcnIClyhhx704TvuUlezlbEqmJNWYAesREaXIlMfBIfr140nzbl3l+gkHY57LU1qdKS5iNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788429093; c=relaxed/simple;
-	bh=tk0XKv/xbGysV5EUHKtP/b5QDrr4+DZ7gZLg8zJWezc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dGR1o2PevC+kYD9ikcdplD8tvs0r52LHbWsAKKIRdQ2Kmz4zCoOcXnoOCJ859La/WG32i5i2eO8wpDgvfYQHYqwKPYZxniO88tX68jYR6cF0V/kOIeu6GcnEEPJDXDJ/AIooi31f4fUMARND/vB2WlLPvmb6HVxdQZvTNmaqKmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=tzqSK2z1; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788429096; c=relaxed/simple;
+	bh=h+bnaJxqhKvgXxpOW81ZgyakGc+5wcEhmw3hz5YU2JQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k6Xvzm9ew0dSoCwU/nUrno3iQ+ZpuPyfgR2V3e9KlQmiAQwlqB7c6se51wIFf6R+Qz+aZl8DdwviS83QJl6ehO/nRFiARfg3/fMzKiC0lRgaasjkEZIrD8Q/auqBlZVeGrYtZrrMlYBloAwsgxk9riE3BKu0SY9s2vcI9PHnhvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G5huG6F6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="tzqSK2z1"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 491F41596;
-	Thu,  3 Sep 2026 02:51:27 -0700 (PDT)
-Received: from [10.1.39.91] (e127648.arm.com [10.1.39.91])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0D7D83F7D8;
-	Thu,  3 Sep 2026 02:51:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788429091; bh=tk0XKv/xbGysV5EUHKtP/b5QDrr4+DZ7gZLg8zJWezc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=tzqSK2z18xeUjfX+79jfyQmlmg+SAhdjvPBRtPQthYdW3zwo3mGY1c9EUA/yUyGCz
-	 mToKxgIDI3896p2/aoXorWi7LPqniyQ3t+Oj/h83s15XvinW81+dMkRFJBURbqlsnL
-	 LvXwCPep94lUoulkaYYGqppkhlpYRaXyPVGXFqg4=
-Message-ID: <3c369451-be95-4c64-9e52-b456f4aa8c42@arm.com>
-Date: Thu, 3 Sep 2026 10:51:28 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G5huG6F6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E0891F000E9;
+	Thu,  3 Sep 2026 09:51:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788429094;
+	bh=K1d1X7CTU5oXDtnyZDKqo+yDP2x2AA29X2d+7rWBvAU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G5huG6F6h5AzuCaARyL9jE5Ryhonmr3ez7aRWq01/M7HOSwftTFBmtEtULML3mxH0
+	 J55V0cARnQg0RA8j5m3C9wDLoRwjAMIJoDkqzdTrZ7TjTcta5VfB8/TMeH7oRVICEA
+	 RbTVNW+eAo7aZz5hX/BtHYmhjOOQLLMdw+lVFdRNRdKcWHkcGloC41ENJzUfmj7Oef
+	 6q3+XPh+C0bJP3TYvgsTxnvDGGZfeYMMlQIUTpii9IBp7Mq86AHGSvTENzPFViplR6
+	 hPcCjdFIhWuUxgKy0Dofg7bAiRtS0S/k0sRoS3zARU2EdJHDCCtox0IFku8MUVK39l
+	 9n3pskS6djpfA==
+Date: Thu, 3 Sep 2026 11:51:31 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Linus Walleij <linusw@kernel.org>, Inki Dae <inki.dae@samsung.com>, 
+	Jagan Teki <jagan@amarulasolutions.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Albert Esteve <aesteve@redhat.com>, Anusha Srivatsa <asrivats@redhat.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
+	Ian Ray <ian.ray@gehealthcare.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v2 01/19] drm: of: move drm_of_find_panel_or_bridge()
+ from drm_of.c to bridge/panel.c
+Message-ID: <aplCttfyxmPhToUq@houat>
+References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
+ <20260903-drm-bridge-every-panel-v2-1-2ab8ee24538e@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mailbox: pcc: Synchronize channel IRQ before unmapping
- shared memory
-To: Sudeep Holla <sudeep.holla@kernel.org>
-Cc: Jassi Brar <jassisinghbrar@gmail.com>, linux-acpi@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260828161033.3783599-1-christian.loehle@arm.com>
- <20260903-impetuous-exceptional-python-db8aba@sudeepholla>
- <20260903-subtle-cornflower-guppy-b64a03@sudeepholla>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <20260903-subtle-cornflower-guppy-b64a03@sudeepholla>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="gkp53kusgh3zbgdw"
+Content-Disposition: inline
+In-Reply-To: <20260903-drm-bridge-every-panel-v2-1-2ab8ee24538e@bootlin.com>
 
-On 9/3/26 10:10, Sudeep Holla wrote:
-> On Thu, Sep 03, 2026 at 10:03:38AM +0100, Sudeep Holla wrote:
->> On Fri, Aug 28, 2026 at 05:10:33PM +0100, Christian Loehle wrote:
->>> pcc_mbox_free_channel() unmaps the PCC shared-memory region before
->>> mbox_free_channel() invokes the controller shutdown callback. For
->>> interrupt-capable extended subspaces, an in-flight handler may
->>> consequently access the mapping after it has been invalidated.
->>>
->>> Release the mailbox channel first so its IRQ is disabled and synchronized
->>> before unmapping the shared-memory region. Serialize PCC channel
->>> acquisition and release across this sequence: once mbox_free_channel()
->>> makes the channel available, another client must not replace the
->>> shared-memory mapping until the old one has been unmapped.
->>>
->>
->> Breno Leitao has already posted the fix for the unmapping before freeing
->> the channel. You just need the mutex guards.
->>
-> 
-> Failed to add the reference to it [1] earlier.
-> 
 
-Thanks, I didn't see that.
-I guess I'll wait until Breno's patch hits linux-next
-or linus' tree and rebase?
+--gkp53kusgh3zbgdw
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH RFC v2 01/19] drm: of: move drm_of_find_panel_or_bridge()
+ from drm_of.c to bridge/panel.c
+MIME-Version: 1.0
+
+Hi,
+
+On Thu, Sep 03, 2026 at 10:11:04AM +0200, Luca Ceresoli wrote:
+> We want to move drm_panel.o from the main drm module to a new drm_panel
+> module, but there is one function in the drm module that calls into
+> drm_panel.c code:
+>=20
+>   drm_of_find_panel_or_bridge() (in drm_of.c, drm module)
+>      -> calls of_drm_find_panel (in drm_panel.c, would-be the new drm_pan=
+el module)
+>=20
+> Avoid this issue by moving drm_of_find_panel_or_bridge() to bridge/panel.c
+> (which is currently in the drm_kms_helper module).
+>=20
+> As a result drm_kms_helper will depend on the new drm_panel module, which
+> is fine because there is no dependency of drm_panel on drm_kms_helper.
+>=20
+> After this change, all drivers using drm_of_find_panel_or_bridge() will
+> have to select DRM_PANEL_BRIDGE (and DRM_PANEL, recursively). Add that for
+> affected drivers. While there, also add DRM_PANEL on drivers selecting
+> DRM_PANEL_BRIDGE.
+>=20
+> No functional changes, just moving code around.
+>=20
+> [AI used to add 'select DRM_PANEL[_BRIDGE]' for affected drivers]
+> Assisted-by: opencode:deepseek-v4-flash-0731
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
+In the previous discussion, I suggested to move it to drm_panel.c
+because it's not really related to the panel_bridge stuff, like, at all.
+And both drm_panel.c and drm_bridge.c are in drm.ko at this point so you
+shouldn't have any issue there.
+
+Also, you don't have to select DRM_PANEL_BRIDGE anymore.
+
+Maxime
+
+--gkp53kusgh3zbgdw
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaplDIQAKCRAnX84Zoj2+
+dk6vAXwO9vOKeJZow147hUdFsI/s8UxS5hxKETOiyZPWrbu+faDqiS5MdVQxCber
+PerzaxcBfjoc29Dn4cN2dHrv1BvfGdeLbaagCNC2F7PI/Iq0C+B5uLN1H2pXvtNa
+rhDNHq+V4w==
+=AlCQ
+-----END PGP SIGNATURE-----
+
+--gkp53kusgh3zbgdw--
