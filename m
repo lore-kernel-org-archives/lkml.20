@@ -1,165 +1,242 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F454BD103
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:57:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FF9E4C042F;
+	Thu,  3 Sep 2026 14:58:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788447479; cv=none; b=AClBFy5ZeeF1Aozc5gEddeEbHGsOOlw4ccpI/fkTJxATTrABmA3TIwLxYpBDV76t/nzs9IUofrxh/8wYDvAMGKS+izhwm+RWq/UiXpx3Aa2zoiNrETX/PnsNMe9oHFX8VCIZXerRiGMa6IwvWXyLuibos7bg50NKYZdAgsrznxs=
+	t=1788447499; cv=none; b=A+ohbkbCmM3r5vXFzXbt+EJXdkqx2eo1jal/GQsTEwrPX5sn6vKp8VRbg9HMfnAeGD21x0Q/BU9RVSVQUNhmPYHC8XvU1NHUrf+kCEPN9r3WXUKYCOzAE4CFJXDQNBI43duv9AuEbF59esFNdzwQTr6DNsmYA2CVInRkauDPvgY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788447479; c=relaxed/simple;
-	bh=qaETQDtnad1TUlbHOP9J7ajTReas+JTL6/GqwIiWxmU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LuWoey2TQu5EqkC9I4C4f0Xi829a/2tp2sDf8Hbf5Fze4sqKBi2j9xF4Ns+iZpkMQf4yPhmrvQT+HQiRul8HVjd2Qh+vug8ojjclJ9/eZZiuU52qztniGK+6DW4jDzRLex+Sx+6jaDySUnLNxdpY8T0kAqWfQF0RWB2x7WkpSnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RuLfyu4h; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788447499; c=relaxed/simple;
+	bh=OdGGL7/uw8ix/rT8+5KDTQ/A+0Ul9UYhbOn8oX/N70M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o7AQTKY83uxJxZTr3s5U92Led58LFWw1W3ZmLeBTopD7JxEoJqvYAL8YiflLhkG3saVRi189QkgXbNOupIco1FjUYpvc6o0CAYuV7fli0r/B10fybm8qvdNT2640L/dfYdQOw93CSU75lu3w2UtNl5Nk4rGt9D8PTk3Y0IsMHQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A2H16TFn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RuLfyu4h"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ccae46de39so3718465ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:57:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788447477; x=1789052277; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CHrg3cDedBMRGb61wI6lrgfnxx6d3yqY2V/Q1s1/JCc=;
-        b=RuLfyu4h+zF5r+ZjsjSPB/AJvlDYUlsDEqmgoaRfbf+bGG8djtJ9oP93KEmUn7fYao
-         2bR3J8sq7uBL/W3vBq5fQeNZP78jW7UE29BEh86+vk8GUIQfCZeaUtRwO6661ZNmtXNO
-         ELa3u0edK1T7LAtPXh6+auDUGLeY+0oh/ItqaSyg7r8lsLNGLxJeil6oA/lql5atyQ8J
-         HqPkEJdpSb2vq7vkkxvZnGCppp78Gtk0jyE3SLFGp7K0qjrnwys6phi7y5XybHx+eghL
-         jw+/XDjH/85l+faKOQGeFx2927ZkHu5IJhaxi4XT3AUBdXgCBwh1BjFRjgggdGJM/3Rw
-         081Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788447477; x=1789052277;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CHrg3cDedBMRGb61wI6lrgfnxx6d3yqY2V/Q1s1/JCc=;
-        b=ASUbRo/ViVzjYWj3hpBqRPbeKcXTCuGmwVeiiNMTTO54y+vxQ+8Ly+xPGRo8qJeRCN
-         gXjnC7QrVMNwQLupVzCNvROXMLokpp8M2aoLJUYutVIu+w/a/a0KQZ2hUh9rrq5bxeA4
-         HrE0zhPxG++Ko3BsOZ85Ks99sBI1azrCnGhzFQByhWg0OBIqSDlwLvOMH7tJPYw+JV+r
-         XfdBKJSas4QHZh61J26feN2dFd2dfz9y8PFSQUdDyguRiRoGT7AUreCWwQhYq98dPLzg
-         7flnE6Vl5tm1W1HJOGqGV9dRfN4SXpq64HmJBp0XApbtbz/QePkvgLgI4sVLRCG+CI92
-         1p+A==
-X-Forwarded-Encrypted: i=1; AKwUvBwyfTN9y1Mm/8YJttyUDlxa8IYQIF8SGGioB7PxGv3XfDYaqeHwit56aRLBk+cJW4C/Lb7Am+xkPFzWJ+s=@vger.kernel.org
-X-Gm-Message-State: AFuF++l38RBqHfON/iAf4xX95UmlcFiSZfGKbIsB25GFPd0i3mlOTle2
-	Xxt3nKlUlTZ0TOm3mZhMblf0ysRHqYVQoUzIHoeOZQ+SdccZFMow21iG
-X-Gm-Gg: AYBFou1AfkqHcjAymVT74U7SZlZe/mOccLkmXMJzPaGHSCvji2JNOTEKZN5xoTuevnO
-	ovboKfeqHK58EQIjE2etata7hEZKPMB6IvSsDSp+z/ry6ccjVFpNrSE0VvzhA9Mps0o0ovKgWDv
-	lcu9W0c3FmkemV2tDL5W8J45fHuwWFdGmQqjrKiWUl+us6W9S5iR4Ob2ngJBUPnlkx4K68ABH5N
-	+GUVtIKYxiF5mDPmEg3fTzRqy09dXqKnKLSnFmeccpPXLXcP2bJRpvgCSWKr75CHXLmL38qpP6h
-	VBCjmkO2M9Tj4/AMYJ+eb3w4cDPe0kcDt4oAQwgHwN5ikSeHKqZlanFUwbH81LxDhUugKjHngwE
-	VoGtVSXjj669Cgk9/lxpQiSfDEsiOttsbszKyQ9llmw3aQiUMLY6T/37lDPHfrBn5xdHE1c1JhB
-	MSehZhUoJyOVya0S1mqhoIu1KAak6mdjUxt3+n9YhXxt2wqBS2fRlxApIkIj/47MNkDlLN2kg3U
-	pkLSuRGmrjBQt5zuF+icI+Mc/iDAvp6HVAX8b8AROR1
-X-Received: by 2002:a17:903:2ca:b0:2da:e5a1:4b8f with SMTP id d9443c01a7336-2daec6d3c49mr123986925ad.2.1788447476665;
-        Thu, 03 Sep 2026 07:57:56 -0700 (PDT)
-Received: from localhost.localdomain ([14.218.78.148])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dafec29a02sm11529805ad.54.2026.09.03.07.57.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 07:57:56 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Florian Westphal <fw@strlen.de>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] xfrm: retry inexact policy lookup after node reinsertion
-Date: Thu,  3 Sep 2026 22:57:34 +0800
-Message-ID: <20260903145735.468999-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A2H16TFn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C60771F00A3D;
+	Thu,  3 Sep 2026 14:58:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788447498;
+	bh=Tq2q0X2TCIg1RYPUl77QjJVvArODC8F8r/cAjMqavk8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=A2H16TFnJdCm3D1ArQxYXYApV1G2CDOst3QP6KYgtT3p1+oW3MTgIxBHK+2gKoN20
+	 Y1BrFO6/DVa1RH/lqFiL+ySdhTs5qmcP/Zb8bCaP8Cw26/e1hbtdjK0QQVJQPDe+HV
+	 VxD9bncCwxGC+o++sSJtGyr8dE+dHD1KtVHm/dESgmtdQBKSnMWDx9GIZ6lXNaZ5M/
+	 W0S2KaMjQv1Ax2S+nC9nPHFxbmw6UMw/i/xBGcQmHsjBzR8aOxtxBrGsTpsMWJICfF
+	 KTPoEabvlKJKpBm25mmjoO2JuYGQk0XAPhQ8yMyoDQ3DbM8ajWNlOOAucAGF1mEqg9
+	 Ijj+11Q1SQvfA==
+Date: Thu, 3 Sep 2026 09:58:14 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Akash Kumar <akakum@qti.qualcomm.com>, Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>, 
+	Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>, Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: Add Talos Lyra EVK board
+Message-ID: <apmK3AKEcEo5AUqI@baldur>
+References: <20260901-lyra_upstreaming-v1-0-e3a76dc9e21c@oss.qualcomm.com>
+ <20260901-lyra_upstreaming-v1-3-e3a76dc9e21c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901-lyra_upstreaming-v1-3-e3a76dc9e21c@oss.qualcomm.com>
 
-An inexact policy lookup first records pointers to candidate hlist heads
-and then traverses the lists.  A concurrent policy insertion can merge
-inexact tree nodes between those operations:
+On Tue, Sep 01, 2026 at 07:14:03PM +0530, Avaneesh Kumar Dwivedi wrote:
+> Add the device tree for the Talos Lyra EVK platform which combines
+> the Talos Lyra EVK SoM and Lyra carrier board.
+> 
+> This device tree adds board-specific peripheral configuration on top
+> of the SoM, including:
+> 
+> - Native DisplayPort output
+> - GPIO expanders on i2c5
+> - SPI-attached TPM (ST33)
+> - USB host and peripheral controllers
+> - Power and reset keys
+> 
+> Co-developed-by: Akash Kumar <akakum@qti.qualcomm.com>
+> Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
+> Co-developed-by: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>
+> Signed-off-by: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>
+> Co-developed-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+> Signed-off-by: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+> Signed-off-by: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
 
-  lookup                         policy insertion
-  ------                         ----------------
-  find inexact candidates
-    save obsolete hlist head
-                                 write_seqcount_begin(&bin->count)
-                                 merge inexact tree nodes
-                                   hlist_del_rcu(&policy->bydst)
-                                   reinsert policy->bydst in survivor
-                                 write_seqcount_end(&bin->count)
-  evaluate saved candidate list
-    miss the moved policy
+Please fix authorship, subject prefix and the top-level compatible. Rest
+looks good.
 
-The merge immediately reinserts the same hlist node into the surviving
-tree node.  RCU keeps the policy alive, but it does not provide a
-consistent view while its list node is moved.  A lookup that selected the
-obsolete list can observe it empty.  A lookup already traversing a moved
-policy can instead follow the next pointer rewritten by the reinsertion.
-Either case can return an incorrect IPsec policy result.
+Regards,
+Bjorn
 
-The per-bin sequence counter already brackets calls to
-xfrm_policy_inexact_insert_node(), including node merges.  The read side,
-however, currently validates the counter only while searching an
-individual rb-tree.  A successful search returns without validation, and
-the later candidate-list traversal is outside that read-side section.
-
-Snapshot the per-bin sequence before discovering candidate heads and
-validate it after evaluating all candidate lists.   Retry the lookup if
-the inexact policy tree changes while it is being searched.
-
-Fixes: 9cf545ebd591 ("xfrm: policy: store inexact policies in a tree ordered by destination address")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
-Changes in v2:
-- (changelog) Drop the unrelated xfrm_policy_count[] KCSAN report.
-
-v1: https://lore.kernel.org/netdev/20260824152057.216329-1-nicoyip.dev@gmail.com/
-
- net/xfrm/xfrm_policy.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
-index 932a313b9460..5d4e863863df 100644
---- a/net/xfrm/xfrm_policy.c
-+++ b/net/xfrm/xfrm_policy.c
-@@ -2157,6 +2157,7 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
- 	struct xfrm_pol_inexact_bin *bin;
- 	struct xfrm_policy *pol, *ret;
- 	struct hlist_head *chain;
-+	unsigned int inexact_sequence;
- 	unsigned int sequence;
- 	int err;
- 
-@@ -2191,12 +2192,18 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
- 		goto skip_inexact;
- 
- 	bin = xfrm_policy_inexact_lookup_rcu(net, type, family, dir, if_id);
--	if (!bin || !xfrm_policy_find_inexact_candidates(&cand, bin, saddr,
--							 daddr))
-+	if (!bin)
-+		goto skip_inexact;
-+
-+	inexact_sequence = read_seqcount_begin(&bin->count);
-+	if (!xfrm_policy_find_inexact_candidates(&cand, bin, saddr, daddr))
- 		goto skip_inexact;
- 
- 	pol = xfrm_policy_eval_candidates(&cand, ret, fl, type,
- 					  family, if_id);
-+	if (read_seqcount_retry(&bin->count, inexact_sequence))
-+		goto retry;
-+
- 	if (pol) {
- 		ret = pol;
- 		if (IS_ERR(pol))
--- 
-2.43.0
-
+> ---
+>  arch/arm64/boot/dts/qcom/Makefile           |   1 +
+>  arch/arm64/boot/dts/qcom/talos-lyra-evk.dts | 137 ++++++++++++++++++++++++++++
+>  2 files changed, 138 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+> index 1c86e7e98f55..9818568912fd 100644
+> --- a/arch/arm64/boot/dts/qcom/Makefile
+> +++ b/arch/arm64/boot/dts/qcom/Makefile
+> @@ -409,6 +409,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-qrd.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-mtp.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-qrd.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk.dtb
+> +dtb-$(CONFIG_ARCH_QCOM)	+= talos-lyra-evk.dtb
+>  
+>  talos-evk-el2-dtbs	:= talos-evk.dtb talos-el2.dtbo
+>  
+> diff --git a/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts b/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
+> new file mode 100644
+> index 000000000000..7974e5bad24c
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
+> @@ -0,0 +1,137 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +/dts-v1/;
+> +
+> +#include "talos-lyra-evk-som.dtsi"
+> +
+> +/ {
+> +	model = "Qualcomm QCS615 Talos Lyra EVK";
+> +	compatible = "qcom,talos-lyra-evk", "qcom,talos-lyra-evk-som", "qcom,qcs615",
+> +		     "qcom,sm6150";
+> +	chassis-type = "embedded";
+> +
+> +	dp0-connector {
+> +		compatible = "dp-connector";
+> +		label = "DP0";
+> +		type = "full-size";
+> +
+> +		hpd-gpios = <&tlmm 104 GPIO_ACTIVE_HIGH>;
+> +
+> +		port {
+> +			dp0_connector_in: endpoint {
+> +				remote-endpoint = <&mdss_dp0_out>;
+> +			};
+> +		};
+> +	};
+> +
+> +};
+> +
+> +&i2c5 {
+> +	clock-frequency = <100000>;
+> +	status = "okay";
+> +
+> +	expander0: gpio@20 {
+> +		compatible = "kinetic,kts1622", "ti,tcal6416";
+> +		reg = <0x20>;
+> +		#gpio-cells = <2>;
+> +		gpio-controller;
+> +	};
+> +
+> +	expander1: gpio@21 {
+> +		compatible = "kinetic,kts1622", "ti,tcal6416";
+> +		reg = <0x21>;
+> +		#gpio-cells = <2>;
+> +		gpio-controller;
+> +	};
+> +
+> +	expander2: gpio@38 {
+> +		compatible = "ti,tca9538";
+> +		reg = <0x38>;
+> +		#gpio-cells = <2>;
+> +		gpio-controller;
+> +	};
+> +
+> +	expander3: gpio@3c {
+> +		compatible = "ti,tca9538";
+> +		reg = <0x3c>;
+> +		#gpio-cells = <2>;
+> +		gpio-controller;
+> +	};
+> +};
+> +
+> +&mdss {
+> +	status = "okay";
+> +};
+> +
+> +&mdss_dp0 {
+> +	status = "okay";
+> +};
+> +
+> +&mdss_dp0_out {
+> +	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000>;
+> +	remote-endpoint = <&dp0_connector_in>;
+> +};
+> +
+> +&pon_pwrkey {
+> +	status = "okay";
+> +};
+> +
+> +&pon_resin {
+> +	linux,code = <KEY_VOLUMEDOWN>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&spi6 {
+> +	status = "okay";
+> +
+> +	tpm@0 {
+> +		compatible = "st,st33htpm-spi", "tcg,tpm_tis-spi";
+> +		reg = <0>;
+> +		spi-max-frequency = <20000000>;
+> +	};
+> +};
+> +
+> +&usb_1 {
+> +	dr_mode = "peripheral";
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_1_hsphy {
+> +	vdd-supply = <&vreg_l5a>;
+> +	vdda-pll-supply = <&vreg_l12a>;
+> +	vdda-phy-dpdm-supply = <&vreg_l13a>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_2 {
+> +	dr_mode = "host";
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_2_hsphy {
+> +	vdd-supply = <&vreg_l5a>;
+> +	vdda-pll-supply = <&vreg_l12a>;
+> +	vdda-phy-dpdm-supply = <&vreg_l13a>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_qmpphy {
+> +	vdda-phy-supply = <&vreg_l5a>;
+> +	vdda-pll-supply = <&vreg_l12a>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_qmpphy_2 {
+> +	vdda-phy-supply = <&vreg_l5a>;
+> +	vdda-pll-supply = <&vreg_l12a>;
+> +
+> +	status = "okay";
+> +};
+> 
+> -- 
+> 2.34.1
+> 
