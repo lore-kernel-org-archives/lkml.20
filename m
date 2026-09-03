@@ -1,135 +1,119 @@
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38CAD4B5CC7
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:39:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788446385; cv=pass; b=fn3OnFk9QmWYcShIqLyP9MPgpzrRcr7HpabOwnfhMuNAxy7/M+VeTIMuKrakIcLrMgrJvQhs5dtH1BtJB1b+mpBD2alT1VlTLA1nb10TMv5E6sGzHSB7f4LbyCnBj+DkMccrg7tUnPCrOenbs9wrwQLQJwzuaPHv7BqGsKMMV4c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788446385; c=relaxed/simple;
-	bh=GRG7VAW4y3EdB7x7u6hb320P3gD15LYx1LfsViKAjRo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 Cc:Content-Type; b=UsulXF0KOvsN3n+fPHujD5UKZPghfaNXTMFJyTkvX7wUiB0YxX6wtDf8KGmNYMKrkn0oEU54ZQ1kRoWhwuoj/MZ8IWh5TMLK54Cw5BHlyZjEDUv+j+LDwv8wWAzZJenbvxGTV/w/VPmKRL1QL+EGUOfBjskGuPbvFrtFfTcgNSw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=DRbNn70k; arc=pass smtp.client-ip=209.85.128.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C6194BB81D;
+	Thu,  3 Sep 2026 14:40:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788446405; cv=none; b=h4zoFvXaj8k3w7hLiLWYBI+TuK+MHvVOyfpTO6FnCKAYu4KFK9yOvdxaQ4ymdIwbig3HR3jxk+YfGryO2EJYya5GcXgeiTFILr0X1N1nqXoMcf2N/hac6aXq+OX5hYNJuHR7UKY2b8di6qRv9bj44bo7gxn56vAEBsRhjYeVaHk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788446405; c=relaxed/simple;
+	bh=xAk7yYw9wHlpOkMNFd+zn1jHV0oYDrRvbsThv1HC2rk=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Yg57AEr2IZABWzuG5NwiyK7+ydcHY9KS6nAPz0gna6zCH7xuLKSqNp1+YUHzrD6GSRpo/Un3erjyVkjGHhdyzanzKlrDoc2nGSmQrvKRTKUI5JaKK15kQzmSGxM1Vms2cTfwOud9II1hS+xByih3ePoOw0dVoKX5AMpVXor62wc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=BTIc9hTy; arc=none smtp.client-ip=67.231.156.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="DRbNn70k"
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-86c0e4dd49cso24980297b3.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:39:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788446375; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jZ1vBfpjF5fBuqZYJsUUogXAIjqoga14taL0fvCJ1NAgNq/Z0I37nYEe4/IpDzaIBw
-         LgPZebGTC/1jzissPy9LG2xqXsk1XbrSi16qFfs6/gSfKfydOFtYsxbsd7xE58+8Ufo6
-         NJd1/4taC5JIf9GEhZmKGHNJAGeF2k+PVNMPXdAqeeIhTklDdArCHDzfFuCfRTFofOXL
-         1Awvy3E4ipu7CTU1Su/WGqgyz4mPDDEmYbSjLQgpPxlnsjB4w/0ypj/nSM40ML8+Ez07
-         hGZTj6TTawUq9FTu/BBFwuDzpcGuEOhajJQylQAU0IrW9dV/47ZgQz2GydCBnD4D+1VQ
-         X5Gg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=cmlPLJyBSVhdlXIs0gcABkaj2xlIPjqFJYx6h3IxpcE=;
-        fh=6Ecyg9CFMaa4OWXMI3fvwweCd4R9IZ8a37B2tFWyclE=;
-        b=ehGfCsfkhyD3HIxleaa5RXngd/6gJXHxAL5E+u8NddiCDf9qw7Rg3nnomi+ZD8wWDk
-         EIeTPn4UjBJ4Kz+4xwWHpbA/chJKg+zFNn9U0DYoIyli7B+rhXJFiDD9umvSSn+E1Cnt
-         DmodA0WtwSAwctSizkKzkgvmMnBPso2kA46Gbtraah8fSV5uOjO5LNTpK10GfKoLuPny
-         ssiRkIYbRwC+c5wCJp28kWbpn8tExyxh6mH/2AojHXUMqjrvqDQ7Qzvxu8DfFsxO43u3
-         t7bD/jjz/meQfwxAAulXsqrQKGD03R3RTpOwzVX9IRJWyPPqjbR1ucODjkDPlaGDZSmB
-         bvcw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788446375; x=1789051175; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:subject:message-id:date
-         :from:in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cmlPLJyBSVhdlXIs0gcABkaj2xlIPjqFJYx6h3IxpcE=;
-        b=DRbNn70k6bjBwzq/69XlK1DKkzE4TZTcMvjla1ycME9l0goStPJ5V1Mf87RQnVjMYl
-         3zRB9hcGBgWrV0o32Vq00EMx80pqHv19h9YRhP8xzRq7peuRot+K4lcVCQ9/qRRz+0Bg
-         wV84qd0a2JEA7ZC/fnqfi9H64zuZ1NVHzq69x9BNjdugNJ73CsF82wkJ8WMOVoF/F/zv
-         yiZsjGtFqmdnadadmJRtgdQqHot/fcgNFFqv8x5VU9oYq6LzsQ+yoLLZvBWvDXWubIL7
-         CBbkRtGMSe28RTbZx1YQ/ndeofRz6rjEftEn05tgZf5rdye5hxaoJzUqRpC9z+XlYwZU
-         ypWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788446375; x=1789051175;
-        h=content-transfer-encoding:content-type:cc:subject:message-id:date
-         :from:in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cmlPLJyBSVhdlXIs0gcABkaj2xlIPjqFJYx6h3IxpcE=;
-        b=aRcqs/maUh+G5sNjCn9OjrGd/NJw7j00FNRMg5FTmYQ1Xx+xL2sw2WgULzj9EHp6TS
-         DEQxBpjrqzvoy2lN/wsKaEjY+IrywNo/qeFTKVKj0ngKz8KxACHiSdMeKER7DUGF+ndU
-         zbTTTp01yNr8vdTkqAqiHBYL8G9Ki2q0Jh5E1hdfqFRMCpiM42m23GoW9pQWhfCckZGG
-         m04kIWrECHXip8RkyVK4T5v9BvbSsv6lS5cCAc3JPyRKBXFNqnez2AMg56UQFx9TuK4G
-         KP7zVqqOnVz0wfkqYpDEGicuOKMdgmClAcJXm8aoI9fKaqmqewPZuKU40XwB9s7M0dGg
-         qX9w==
-X-Forwarded-Encrypted: i=1; AKwUvByQWw5gneL7acbefileg00JfbF8uSoBFvg3m7fi25butyXYZcRK5wZqRg9N4kx8ImboT0qA9YX92f+Dpz0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKoXRemP9iLvjv8mPk3HkzbLHGLJPiaEXLP75wwWzWQQ/pK1BN
-	iym81vyn1rzVONjOiX4ieVi2ootEcjMS56hew640devzuPWzNz+4cSnwyKA7IRKNvuyuz0MNagh
-	ny9SUCkBVoClpu6/8KmpX+r+eLk2dpa1DIwHzhBFa+w==
-X-Gm-Gg: AYBFou0LvXYA7pe/Nj0npN/1RdLbiMNB3T+3qccE/JUTLuYf6T/eaW06gly6zq1pSxs
-	8WeKjwc+kAcaFAopq9N926ndkrvpQTtbR/GytovkKkAskCYOZk+JUHddlAVp4Jfv1takySlq5t6
-	eBxHveU0OJSs7UyYcVJ4zJLWI4NABHFKeTEGQ+WUqjMm4M0mS0yJ8Sn+XFfgruNRvceDmRTWTuj
-	yd1XUUM/53Q33NmihdIPYVe0u3Q/wKVwLJNj48EEPOUtIrLkcscWeFmKyzYf//ZO+4k0dsn8L2c
-	/lQQ6WFi70QF1KcGZfftD3JwLR62VrDHnT8B+GRBnox7wwNRUBdg+7i5Bw==
-X-Received: by 2002:a05:690e:1904:b0:66d:1478:189c with SMTP id
- 956f58d0204a3-66f9bf8d234mt5185180d50.40.1788446374768; Thu, 03 Sep 2026
- 07:39:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="BTIc9hTy"
+Received: from pps.filterd (m0431383.ppops.net [127.0.0.1])
+	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683D6c0V227832;
+	Thu, 3 Sep 2026 07:39:49 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pfpt0220; bh=sDc4adbets5AxfpSI5I3S5R
+	9XJk2wufDTvrEe0jgql8=; b=BTIc9hTyYhHsLrm625jZr+C2qhxpINXTN45uC0s
+	diIIhqIMuHBvoqxGF759RqyrZYiXH6XZM7FCAxp66TlvJ1sDXZinFAUT/Gstt7F7
+	kXWqIYQJ5OqIngLPPOn20Fx9zjyUIzxxcPaSB0nn3WG2xpowUZLalouhQVcnXdDm
+	Av+9UOxeVJ5kZr/mdOtzsiB2qAU9Q5hNuQw6oQ6hR2sy2g56Y8a2gbFf3FDfM/vl
+	I0ZnaEtbp+z/iYur1x4iV/a6++cmAosZn+V7Tmcpr3/2BezeOj88NQMBW9slZhxF
+	5kJoCvv+8z07rWZZp3Id5iLdwjSvQLvDqqS57DHQbApVwQw==
+Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
+	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4gef5b539q-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 07:39:49 -0700 (PDT)
+Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
+ DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Thu, 3 Sep 2026 07:39:48 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
+ (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Thu, 3 Sep 2026 07:39:48 -0700
+Received: from kernel-ep2.caveonetworks.com (unknown [10.29.36.53])
+	by maili.marvell.com (Postfix) with ESMTP id A8BBB3F7052;
+	Thu,  3 Sep 2026 07:39:44 -0700 (PDT)
+From: <nshettyj@marvell.com>
+To: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: Geetha sowjanya <gakula@marvell.com>,
+        Nitin Shetty J
+	<nshettyj@marvell.com>,
+        Sunil Goutham <sgoutham@marvell.com>,
+        "Ratheesh
+ Kannoth" <rkannoth@marvell.com>,
+        Subbaraya Sundeep <sbhatta@marvell.com>,
+        Bharat Bhushan <bbhushan2@marvell.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>
+Subject: [PATCH net] octeontx2-pf: fix invalid aura pointer free
+Date: Thu, 3 Sep 2026 20:09:41 +0530
+Message-ID: <20260903143941.2698880-1-nshettyj@marvell.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903143004.1026181-1-jun.nie@linaro.org>
-In-Reply-To: <20260903143004.1026181-1-jun.nie@linaro.org>
-From: Jun Nie <jun.nie@linaro.org>
-Date: Thu, 3 Sep 2026 22:39:22 +0800
-X-Gm-Features: AcwNN1V9Sc-XWHIXu60lPfwzYFhzqrxq1vJD2g2K6GQFtNs-hV63HQDDwAGV2Hs
-Message-ID: <CABymUCPzN89G6pSH7hG44hRupeMoyA+54BRW+mW6tT_Y21mXCw@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/dpu: delete timeout timer when encoder is not busy
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Abel Vesa <abel.vesa@oss.qualcomm.com>, Maxime Ripard <mripard@kernel.org>, 
-	Teguh Sobirin <teguh@sobir.in>, Christophe JAILLET <christophe.jaillet@wanadoo.fr>, 
-	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEyNyBTYWx0ZWRfX7tJv76KrnfJR
+ FTo8z6Of6X2sA3XbGRZVCEp1xfKz2OrB/gjt/smNCdsCAbtf8j5Xs+jF+O5M3eKMGTd7GPMvzco
+ 3cXVjrO47lhufn7133n+g8UqseuRqGs3HP0nwuDnvLw6P4ZuXFfsrC+7P3gqNPcGr2FEv9STSN0
+ K7BoCAbTpT/in9gsJ3SvfU8Sqt776Y3Bg2pVXbkIUpeDosUP3oQJStFVEBAWdyNK2jfJA9+5D4b
+ d8fe8TE9QJlXCS5UEmCP+EX1758iG/h2bnUkF7YsUer9sfg11mTAQfWc0S5zVDwijmUoPUFDIEd
+ ZuwT1AIraYisJ9cgki4MuJRY/jH9kwDTiDevPzCsIE/BsqXxz6qkuOy9IJ+InpkcLbanb8xAx5s
+ CAV8AXFKDLRYYsumTDqpq50KnNseW8l5TaIXLP/eWRM3W2r3fcnrLV0y9f+WFjuACnUe+/Nfn/0
+ S94RhPN8dGIaAujOl+g==
+X-Proofpoint-GUID: A2JPyXzbd3xMIV1M3k_ezvsCLpLURsAE
+X-Authority-Analysis: v=2.4 cv=e6Y2j6p/ c=1 sm=1 tr=0 ts=6a9986b5 cx=c_pps
+ a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
+ a=qit2iCtTFQkLgVSMPQTB:22 a=M5GUcnROAAAA:8 a=4WQ1D3Iku-DGc2y9b3MA:9
+ a=OBjm3rFKGHvpk9ecZwUJ:22
+X-Proofpoint-ORIG-GUID: A2JPyXzbd3xMIV1M3k_ezvsCLpLURsAE
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEyNyBTYWx0ZWRfX3Lb2PRjY573A
+ bPe4sdebjReeecHWJ55B8S8xagWMHg0aITAEl9k8lNTOueGUWHV5Vw6yVLYxy+FEJ3lUx9V31dd
+ s/5v2BPFgrNUDsJWuEZD9r+nMKovO2w=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_04,2026-09-03_01,2025-10-01_01
 
-Jun Nie <jun.nie@linaro.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=883=E6=97=A5=E5=
-=91=A8=E5=9B=9B 22:30=E5=86=99=E9=81=93=EF=BC=9A
->
-> There is a spurious timeout error message under the following reproductio=
-n
-> steps:
-> 1. Run "modetest -M msm -r" and press CTRL+Z to pause it.
-> 2. Run "while true; do rtcwake -m mem -s 3 -v; sleep 2; done"
->
-> Resulting error message:
-> [  124.018206] [drm:dpu_encoder_virt_atomic_disable:1425] [dpu error]enc3=
-5 timeout pending
->
-> dpu_crtc_commit_kickoff() calls dpu_encoder_kickoff() to set frame busy
-> bits, and then arms the frame done timer. If the frame done IRQ fires
-> between these two steps, the IRQ handler clears the busy bits before the
-> timer is armed. As a result, the timer runs with busy bits already cleare=
-d
-> and is never cancelled by subsequent IRQ handlers, leading to a false
-> timeout warning.
->
-> Delete the pending timer when all busy bits are cleared in the frame done
-> callback to prevent false timeouts.
->
+From: Geetha sowjanya <gakula@marvell.com>
 
-Another option is to wrap the enc_spinlock lock/unlock pair in dpu_encoder.=
-c
-and expose it to dpu_crtc.c to make the sequence of dpu_encoder_kickoff()
-and dpu_encoder_start_frame_done_timer() atomic against the IRQ handler.
-However, this breaks encoder self-containment to some extent. Furthermore,
-initial testing revealed a deadlock involving additional locks beyond
-dpu_enc->enc_spinlock.
+Do not free empty or uninitialized buffer addresses to the aura.
+This avoids freeing bad pointers during receive buffer cleanup.
 
-- Jun
+Fixes: ef6c8da71eaf ("octeontx2-pf: cn10K: Reserve LMTST lines per core")
+Signed-off-by: Nitin Shetty J <nshettyj@marvell.com>
+Signed-off-by: Geetha sowjanya <gakula@marvell.com>
+---
+ drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.h b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.h
+index eecee612b7b2..231fd8586b42 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.h
++++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.h
+@@ -845,7 +845,7 @@ static inline void __cn10k_aura_freeptr(struct otx2_nic *pfvf, u64 aura,
+ static inline void cn10k_aura_freeptr(void *dev, int aura, u64 buf)
+ {
+ 	struct otx2_nic *pfvf = dev;
+-	u64 ptrs[2];
++	u64 ptrs[2] = {0};
+ 
+ 	ptrs[1] = buf;
+ 	get_cpu();
+-- 
+2.48.1
+
