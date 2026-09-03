@@ -1,201 +1,183 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013043.outbound.protection.outlook.com [40.93.201.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF8749F101;
-	Thu,  3 Sep 2026 12:16:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788437787; cv=none; b=RKaFFdcB49uhZ4aaoXKO+jfoF4dzll8VQAv4/AjU9CeHOTS4vi5814DFdyfI9khJLu93PBmPXvvOjF2IDFHEMzoFcR/9RjcTVAFX6paIn4OYmZo/l4zLkWToWj2smXzyL0T/FIkkgUnOn0cx4bvIBOsQZCk0p0iXLi5UbrkiuOo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788437787; c=relaxed/simple;
-	bh=Hl1D/JYZ4zZRYCvc9Al8x/EjgensVebGxTcjxqhTP14=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=V390v8A17ylCTK2CGKR/+k9rjDhp7hk0QhVLQz9P67F6wJ6arDqk/6kE+I3qppHKdVcCMcrDYN5l+7TR+h+jXa2WpSSm6zDWNBcRpbDmKRrwUaScD+91Qv11QiGjinYp18ZeCQLaIPxgQbjKmkTY5y7nQhZTs0lju+6szNEAudA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=TdqGuGEf; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D73CB49F101;
+	Thu,  3 Sep 2026 12:16:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788437795; cv=fail; b=HC9XJqDkMZIAUGJ436SAH3atxOMw74vuT7OwP+m7DWgKFyaitJ33gFVivDR+lFsujsJiLzjoIug3CDrDTMNrWTSXxsuwvT1vBY4JRBGUMAbbilGuGXjdiu2lz2WYm4ecdQMn0AHhRmV3oW20kekuez8u0OSqsdJDbKefHL78N90=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788437795; c=relaxed/simple;
+	bh=Cu+YfKbkK3Elnm649K1imJRrj3klwkpXawp4GXVryog=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=BrDsKU1EpZG6vO6VOePY0iUuRE9uenVpzCxyf9UUuJUx74GMyi2c4iRWhNIe7pBlEykOqlz1MXhpe+H+b7BYCTkVZ/4u00jKm/zxANBwFcberPHPH95yLPQhbZzU5FXyVoLsX9LHaAiXirKRr0expJp2yxl8DPexEwEe25Pgt2o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=pzGe6Nca; arc=fail smtp.client-ip=40.93.201.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="TdqGuGEf"
-Received: from [192.168.1.7] (unknown [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 01A082590;
-	Thu,  3 Sep 2026 14:14:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788437690;
-	bh=Hl1D/JYZ4zZRYCvc9Al8x/EjgensVebGxTcjxqhTP14=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=TdqGuGEf3dvgxoyfrrrjv2UF6wtpod1snTtP+TvEDHv4xpi+cy+96EjANh6/DYK/E
-	 FZVAWSBoHzdguIeHwGYyMRioFYS6qP5O10WwV/RqxfmCk0Tq7Q9YPO8wuBiyzZdEu3
-	 +mwc5hySK/2c/0ZJZ6WR94lOfy4oI5BuH6yIy8+A=
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Date: Thu, 03 Sep 2026 14:16:09 +0200
-Subject: [PATCH 1/2] dt-bindings: media: i2c: Add Mira016 image sensor
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="pzGe6Nca"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iJOrcsHtN8BmJnY6Ty3S9xgdjA55P+Ol6AYnM3pLBAJ1FNnguHdlAIj6qIU5GzVIGFbmf+QydBPSEAaZQGYVypcucsW4AMP5VN9XOSbfwg+YSkgF3uk2ixVUdn8duZM3Kye1TrYIJBnOaVgvU+OWnMb/g3JifrTY2qJvKrbHc0GYcSTjRaOvga8llvS5b10MpYdYcycths9Tf17CZai5WBJvWJz/GvkE+HHGY5mvtMPs1JqUohIxvrIgT3E6jxIyZQF2JLEXp0Y1YwO6W+WQK3JI+NOu0b3oawM5e1353UG9xrd0lH5ztzJUentJOv9cc7cPogFI4vG/WGDaHwyz6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sUlykFTZZ8TnZRebXgBLBGZB0oy2URo/jdNQFJ7FZ98=;
+ b=IaNfGPaS/cdR76waG62olVTBPUgcFr6+HXl34vISJazxeOlPowlKCPsAg9C/foHTgCsNa+Q2/teca2GxgfE4CW11tNY+j4jNuUYxpy6vFtYr5xZ5jzfMwDFpFDb8acFB+fgql47qp+PWWIS/gioDto99Qy+7M5G3mJtvJyw+belQ5aiOllSMCH+R/NeHrgcviT2PPOcZLFnpPTznV2VzKDbEX2zNjAXLPn3paEpkOxY5UtDASeBUxqOEJwrwynqEhqDeBxUgF/Ke3UyIu3EIQFCLFQqJOC2R9aA+t5eCtRIKuAaPK8LqGnenRaD8zxqDDQ88er/+BSPqIJM7XUtufg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sUlykFTZZ8TnZRebXgBLBGZB0oy2URo/jdNQFJ7FZ98=;
+ b=pzGe6NcazwBrtAwXoa+NoGZfppbdkB/ulk1+iQNB+kKWCa5dXIVERQS3LxEMnU9g99csXET30eUBsIma+JiwTIS4iLruSR7IcuR5F9q49x33dR2bQrIxY+paOZddNW51h3ZLzTKoyydXg3r3e6HVvq6FG4FO9xumBuZN6EwsMiWWCs2KozVACY1xZ027TSLCMNVxnGrZgq8QRnPU8zjLuUpHQMLa635E6KQOUfu6Yn2TCjiR8Lgy+oUwYbQdYiNDWFCQetZ59/oz7ePCGiOlV93+5+TpskwGdbWixF7pDoxA/Hi231Kgypr+I+VX2JL/3yFPXl1AsZrM5U+S4HGrNA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by IA0PPF864563BFB.namprd12.prod.outlook.com (2603:10b6:20f:fc04::bd7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 12:16:24 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0382.007; Thu, 3 Sep 2026
+ 12:16:24 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 03 Sep 2026 21:16:20 +0900
+Message-Id: <DL5OA67F0UZB.12K59UK93P4FU@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH v4 06/16] rust: io: register: allow explicit base type
+ specification
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>
+Content-Transfer-Encoding: quoted-printable
+References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
+ <20260901-typed_register-v4-6-5552b1d59525@garyguo.net>
+In-Reply-To: <20260901-typed_register-v4-6-5552b1d59525@garyguo.net>
+X-ClientProxiedBy: OS3P301CA0003.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:604:21d::8) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-mira016-v1-1-af0013ef070d@ideasonboard.com>
-References: <20260903-mira016-v1-0-af0013ef070d@ideasonboard.com>
-In-Reply-To: <20260903-mira016-v1-0-af0013ef070d@ideasonboard.com>
-To: Philippe Baetens <philippebaetens@gmail.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Kieran Bingham <kieran.bingham@ideasonboard.com>, 
- Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3582;
- i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
- bh=Hl1D/JYZ4zZRYCvc9Al8x/EjgensVebGxTcjxqhTP14=;
- b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBqmWUUp7XAQV4mwsBgD4Y6P3MeozYz7AW4YhbJm
- mxsrrq51JuJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCapllFAAKCRByNAaPFqFW
- PO+lEACMjy8h7KOwoBhgsugNlWLkNFygMXU/Wg2bv86HdbKKsmwN0tBNtYiNk6Qsqj+FvxBb/Yb
- dvJ+1T9j0882mDY1PFn6RfOhpzcOukwYmWqUzpk1h6JHtQ+qRIJck/O6KdvU4xJhXXb8NaXliQJ
- n88P/H0LWu8DxnE9Xsl4nISvyMrqo2sqEBeU1SgDu/JHl+0QfvHklk4GTicC9VpvqRlnsUVlCJ4
- 8bt3N2Jd0TN5BLjUXS5zAPqUgCRWwTiPh4d4D6Ld6E9CgidUH/EC7wKDbv4838EmbiEX6vxtmQZ
- xnYAb2dVZDd2kyeiEFzmKAB4zP/adYsbFM1eFKb7Iscw1u6EoOO5ZcjvLXeqodM6qK8lx1FbaiN
- EbPn+9VMgaUqv1V5K3hkdqy6AfplcrqFBT/ML4elx3RFb+kEC3iliKHO2XijvvCoav0mqwuHfBD
- uVS5HIV0Xmi1MR9nr1sbGwl1FVsoFLTUWXg8KjkltByqoV8clT2dXezQ0T2nXltFfkxRIWCBWkL
- mrMYYeFy/koL0+3UzAHEpD2fgRMiy34VS76qPule9USWRhyk8YUoZs+WeJYbairv2xyBk9l2qru
- 4GZ/EPM6b7KmDtuytypdik/fa6RdlkKSgEADGwS6Ch1tubCOKAnOVkN7lJgbq4MUlEL30cADA4k
- QbXaJfEcARHvtZw==
-X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
- fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA0PPF864563BFB:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7df4805a-7878-4bb8-09cc-08df09b52bfb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|10070799003|366016|23010399003|56012099006|10067099003|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	/++JCpq36Eyr++e9F3b3FhFxbRNgWdzCryVeTe790zjW/HWbGjy+gitEAoU8epeVHLxRC1MWTxYFEEqXO2sOYZewYUIzSr8UVhDD02GQKbeihZh3ZBLedmEcj+2noVOXqTCCQ1Zz3rQj4M6xMOfDobhPr6WX11pkIsGCc44FSfuxe/r5/Q+bZWErZ4vEy9UnyGG4E9xMJkXBFZnC6afysqHUWtLyf8c9jfUDZRpxsUSBg7yVJ2Tb9VKCCNkK2MiKIhBnsdfoxhBLQ4Y1HG+0qxqPVLenzCjTxcFzDjW1oNnbygnRKTMdE3wY0H3b8KMDUmuqM9YEqTrHFoHklJssSdQDEXRIMhcsmLG/vS6+ymTtQhmrgQRGDn0mEvjXSPfWagZwQkS1XEcqWW1mDPkIxLqXdYb6UFLa7XRT+lDroLUE5ldrzvA8zbEoOQOKvYH79sggRIOwWuqTJvnwxiPb+nfSE5H0zxMcI/EgNk7BtCWDywKiEBm1Q7fW4QCU05WBUa+oBNkRCVm9hyyuydgomTLB3VAH7INJQJ3toXUQP16sWVKqmB8tohv0ET4TxryVN54AEjMKyeuj/CuYCCvRz14R2X6OIlrXttmBqQOVstC6YL+eeONZWZZYlqQI60rk49jrbTo1qnJTrfRtaiNffBhVXKFZuJXTlPIv3qCk1xs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(10070799003)(366016)(23010399003)(56012099006)(10067099003)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SzNVb0hKQkp5QmdJbmVFOTFxdmh3MFNESU5zYk5DbWhpeWFqUXRWYTRKR2ZQ?=
+ =?utf-8?B?QlNGeVlyQzBLVTFxUVdjVVJVRjUyWUljZ09HSklyVlVxcm9IQzVHOU1MTmFH?=
+ =?utf-8?B?OWpzZ1FsNWpJdmNTemwwRm5NZkY2Wmd2cE1WN3RmUXEyVkdZUkhSUlJDTkM1?=
+ =?utf-8?B?TW1CSGQ3dmZpK2t6c0hXQXZxL3g1ekZwOVZ4Wk50NU5TYzZrTSttVlVxbnF3?=
+ =?utf-8?B?QzNBajVQWW9US2NlbDFCUDJaY1VnaXJYMkZiMHVob3doK2RLcEVsdU04WERu?=
+ =?utf-8?B?eG1IWHhhTGQ1bGFMUzY3cTdHM2JsMFJwZkREMURydHE4MVdabEl4MmtqL3Bv?=
+ =?utf-8?B?RXl1TFBSUCs0aGdpS21lTHNaWm50MU1EM3gyVXAyMjU2eVNXUkdlTFRUREsz?=
+ =?utf-8?B?UVZlcG4yY1hPdjRoUmNzcFpxeTlsZ0E2YTVWbEFCU0dtZERSR3RiZG9tbmZS?=
+ =?utf-8?B?ckhqNHB6VXFMZ0NJSVNtMzRoZ0dSRFh4N2dteS93bWNnM29qYzlwWGxFc2dD?=
+ =?utf-8?B?YUlMdXczQzRnNEhZdjVYSXNDK3U4cGQyUy9CQjRyWW5HK2NQMzdjSzdmUzNk?=
+ =?utf-8?B?NzlMN0VkVUNNbkYycnIzYVNPem56ZUhoL2twZEJCeHc5TlRjRkpHRkR1M2FD?=
+ =?utf-8?B?V0czOVhFSC8zUzVIeXVoMkxvR3daSGdBci9PZmhzOU5RWjBXRFRnbzlmeU5P?=
+ =?utf-8?B?eGRwcGxrY1M5SUpEUE1UVUdoU3FlMFlwOTNuZjI5WWVoY2x3YmNWNFVIVWNU?=
+ =?utf-8?B?cDJvck5CMC9Sb2pRQ3A5UU5YTXJWeDV1cnNoZTRJcklmdEF1b2pxcEwwUjJM?=
+ =?utf-8?B?UWdpa2VQai8yL2NPeFpvSmhGVjEydmJENERQT2RXRlU3SU43MTRNUXpGVFA5?=
+ =?utf-8?B?Qkk0ZzYrZyt0d0FpV3pySUlTUVRzajJSV0dKc0JmR1FnTXVGU0dJc3pxMm5M?=
+ =?utf-8?B?TnRDRjh0SzdNRmdSeFQxMFpSZHcrWU40SmFSVVE1MDBlSmZNNVBGVUk4WTRw?=
+ =?utf-8?B?aE1vdGhHWnRxdTFpM0JRTVNpQ0tpZUQ2QmFmMlhKRjVtVVlUckY3ejErVTdQ?=
+ =?utf-8?B?YW1BRHV6ZUVhd3lMOHgvb0JCVHBocUp4eWxBV1pBb25EV09xVzBSTU5pYWVR?=
+ =?utf-8?B?Q2xNRGNzZ3o3YnMzRzV0TjlEYzZ0YlowdzRmK0xtcGx3TGEzbmE0Z3lwN2lG?=
+ =?utf-8?B?bWthcXNWaXRTQ0g5VVQwcXVURThzbDRkSzJYVk1waFZ6RFVraTErcmxGYjNw?=
+ =?utf-8?B?R2lwcHoxOUUyMnUwaUdIV1FKdm4rTlZyNytuQ0F2R2JERmxaYVZsQndKUWpV?=
+ =?utf-8?B?SE94YTJJOWxueWJiZTkxbmRWektjcklFSUJqQnQrRzYxZFFJL050NitrRGJ5?=
+ =?utf-8?B?VlRCY2xkNkgrZkNLVm4yS0RzdVFaS2pNR1NBV2E2MG9aS2NMMlNWL0dKMGdz?=
+ =?utf-8?B?VmxxaWRYV0JzY0JVd1laZW5LUHFHMithTjd2ZEZ2amVLbi9BYVBGUHNIV1M2?=
+ =?utf-8?B?Zmt6dXVac0g3ek9yb0pHWFNZYk1WZDUwaDdmOG8vcGxCWjFrMXJLMU1oY3hR?=
+ =?utf-8?B?amE4UURmWXBIMFVFVWV3NEFXaHV0Sktyamp2QjdaMFpDaWN0OURHdGRKSXBB?=
+ =?utf-8?B?V3RwSlk1aUsrbE9NaFVMZ3I3dENyS0J3V1JOZTFzNlNiR0hXV2JPYU9MNGcw?=
+ =?utf-8?B?U0Q3ck5IUmhSWWE4OTExMmRrR1JXbFg4eXByT2NHSUdMMmZVUWRaeFoxYURp?=
+ =?utf-8?B?MmJXYS9LOVhJNGNFT3hvV2NTb2xabE9WZHR4N1lkaklPTStlV3h2ejAwdERi?=
+ =?utf-8?B?V3NtZzh1b2UrVVZOZDFMTjlyczV0aVBFSlBRcE5HbDZIQUVPOWVtQ1VRLzFY?=
+ =?utf-8?B?OVhDNENkWFBqS2JzNlBSWWVINFpxRXF2UFpSV1lUOUc3SnRPOERZUWNxUkND?=
+ =?utf-8?B?Qmx0Y3QySHcxNFVlQXR0cWtnRXVHK0JKMXBWS1dsdXpROHRScTV6T1dud2VO?=
+ =?utf-8?B?KzN5VEd1b0k0YnJZb21XVzQ4WG00VENtRE1XdzBTbWl2T0t3dldrYmZDVVpQ?=
+ =?utf-8?B?cjZrKzdFU3JIU2pHOXZvQTRYOHl2RUs0dGZiaDA2dzNMSnpHaUw3RzRLU2dj?=
+ =?utf-8?B?elBlczhBTDRmMHdTc2w0N3RTbm5QNkl2Q1p1Q1R4L3J0a2toUTB6WlAyaU5y?=
+ =?utf-8?B?V0FiT3hxSFVTU3h4STBJMDNOQ0lldC9pdWRwc2p3Q0VNWVE1WkdwM3djWDho?=
+ =?utf-8?B?b2NvWFpiVlR2Ri9QZG11QWgyWWlWSXVjL0ZTWHAwanAzODZGSzNLWHBXWFUw?=
+ =?utf-8?B?bTdoaHRLemZKdGEvQ3JUaU1uVmpyQTllSGQ1M0FKQldqc01VbktCVUNSUGhL?=
+ =?utf-8?Q?P/faOGuOq8XnlYv1cfs5Lgrq7at+6583lziOFuIoP3K6M?=
+X-MS-Exchange-AntiSpam-MessageData-1: DcqJGzfjwp4gCA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7df4805a-7878-4bb8-09cc-08df09b52bfb
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 12:16:24.2886
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VCzJu+CeF9yAEFykEnAp59zvdEsvicGo/9KvBJ2TQIADrqkrcM7PABqd9aXpEzWx3RYTGzR40CJGmADUrHrITQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF864563BFB
 
-Add bindings for the ams OSRAM Mira016 image sensor.
+On Wed Sep 2, 2026 at 1:50 AM JST, Gary Guo wrote:
+> Currently registers work for all untyped I/O regions, which is not ideal.
+> It allows registers defined for device A to work for another device B and
+> there is no safeguarding at all.
+>
+> All users of the `register!` macro know what type it will be operating on=
+,
+> and that type is consistent across the driver. Therefore, add a `base`
+> parameter to `register!`.
+>
+> Currently this parameter is unused in the generated code; it will be used
+> when all users of `register!` is converted to gain the parameter.
+>
+> Signed-off-by: Gary Guo <gary@garyguo.net>
 
-Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
----
- .../devicetree/bindings/media/i2c/ams,mira016.yaml | 95 ++++++++++++++++++++++
- MAINTAINERS                                        |  7 ++
- 2 files changed, 102 insertions(+)
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-new file mode 100644
-index 000000000000..dff51c8a2ede
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-@@ -0,0 +1,95 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/i2c/ams,mira016.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: AMS 0.16 MP NIR enhanced global shutter image sensor
-+
-+maintainers:
-+  - Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-+  - Philippe Baetens <philippebaetens@gmail.com>
-+
-+description:
-+  Mira016 is a 0.16 MP NIR enhanced global shutter image sensor designed for 2D
-+  and 3D consumer and industrial machine vision applications. The sensor is
-+  compliant to the MIPI CSI-2 v1.3 protocol interface and the D-PHY v1.2
-+  physical layer specifications to transmit the image data to the host
-+  processor. It uses one data lane and one clock lane operating up to 1.5 Gbps.
-+
-+allOf:
-+  - $ref: /schemas/media/video-interface-devices.yaml#
-+
-+properties:
-+  compatible:
-+    const: ams,mira016
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  vdd28-supply:
-+    description:
-+      I/O voltage supply, 2.8 volts
-+
-+  vdd11-supply:
-+    description:
-+      I/O voltage supply, 1.1 volts
-+
-+  reset-gpios:
-+    description: Sensor reset (RST_N) GPIO
-+    maxItems: 1
-+
-+  port:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    additionalProperties: false
-+    description:
-+      Video output port
-+
-+    properties:
-+      endpoint:
-+        $ref: /schemas/media/video-interfaces.yaml#
-+        unevaluatedProperties: false
-+
-+        properties:
-+          data-lanes:
-+            items:
-+              - const: 1
-+
-+        required:
-+          - data-lanes
-+          - link-frequencies
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - vdd28-supply
-+  - vdd11-supply
-+  - port
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        mira016: camera-sensor@36 {
-+            compatible = "ams,mira016";
-+            reg = <0x36>;
-+            clocks = <&cam1_clk>;
-+            vdd28-supply = <&cam1_reg>;
-+            vdd11-supply = <&cam_dummy_reg>;
-+            port {
-+                mira016_ep: endpoint {
-+                    data-lanes = <1>;
-+                    link-frequencies = /bits/ 64 <750000000>;
-+                };
-+            };
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e12dc3ca57ab..1c24b05b378b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1454,6 +1454,13 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/iio/light/ams,as73211.yaml
- F:	drivers/iio/light/as73211.c
- 
-+AMS MIRA016 DRIVER
-+M:	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-+M:	Philippe Baetens <philippebaetens@gmail.com>
-+L:	linux-media@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-+
- AMT (Automatic Multicast Tunneling)
- M:	Taehee Yoo <ap420073@gmail.com>
- L:	netdev@vger.kernel.org
+With one nittynit below.
 
--- 
-2.55.0
+> diff --git a/rust/macros/io/register.rs b/rust/macros/io/register.rs
+> index 9b92c8099edd..851335792a46 100644
+> --- a/rust/macros/io/register.rs
+> +++ b/rust/macros/io/register.rs
+> @@ -29,6 +29,7 @@
+>  };
+> =20
+>  mod kw {
+> +    syn::custom_keyword!(base);
+>      syn::custom_keyword!(stride);
+>  }
+> =20
+> @@ -152,22 +153,42 @@ fn parse(input: syn::parse::ParseStream<'_>) -> Res=
+ult<Self> {
+>  }
+> =20
+>  pub(crate) struct RegDef {
+> +    #[allow(unused)]
 
+Now that the field is used, this can go away (also generally I believe
+we prefer to use `expect` to catch such cases).
