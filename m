@@ -1,58 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-69.mta1.migadu.com [95.215.58.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481934EBAD7;
-	Thu,  3 Sep 2026 16:22:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9024EBAFE
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:22:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788452568; cv=none; b=Bvc6QTuMrlUFY/1oD23TL+v4ndpp9mkJlbFcPNK29LxnSC+AmavZUCAUQONK1Y5rF5HSd0EdttfGI3b0Zn2Mf3yEjEFdj22oyC1SnICYIV1RAi7A7Dw+JEnRie8BxTNx3swYzBNkH0pF4Hm7XYx8iZ+IAHEzFAy99lYYgIzNG8U=
+	t=1788452573; cv=none; b=mbM9VL+QJYcoJwSqyEWsxxVEP7z13ag+cIxWKt0wqsJghPltKNsSn+tp/TNLfQsNsFzTrDPJXEixLdD1USqOALweqBkSiyxKBMOlTfNufR/UzmrdyeA/6uuMkKsb/pzChfekuYdGi0hlg7xoZZDJLJXNQsk+1HzmK2yzWy2uzwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788452568; c=relaxed/simple;
-	bh=tJ8ddU5NGCEdNZcy3TvG+t4vYue73F15Wk+3s/ckSXs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=emVMLpRsWZ4xShCVrI6YhmPLjcKXoB09zcdxWK32crPDrOKU8rJiVMDsGzQaLVHKSMYaIlzwdjXgDmt2CnjPpw9kalTyqLoHY/KVetkg4AqFTF+LbdMUsElSiePgW9OaRJgMkbdfnceNT7broEJN65shBNeUlomDgC2ftCqIq0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G6V+x3gv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788452573; c=relaxed/simple;
+	bh=yAWEaoHlzAByy1p/MfIorhvFlDICqbscs9jfE/luEfA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RRLPcBQSCvs0/C3Ge22g2SWMUtAk3CPO3KJRWDIB0m1eVJtajw/ZIIr4ui46Ta2Ysv6zM6a90pAhJeO7kHt/5Efw2p1+TMwMt4dCzVB1Wi/F5KSureGljsfuPfRw6/l3YYBfBcdftN8HW/h/bUZMn075k8znbncYmDBXVTgLcyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jSF5KFdz; arc=none smtp.client-ip=95.215.58.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G6V+x3gv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 551FB1F00A3D;
-	Thu,  3 Sep 2026 16:22:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788452567;
-	bh=gB7TSTNY2WQB1YHsMJEbcoatSMPcBLT82nLlAE7SwvA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=G6V+x3gv0YwS62zDL4CbetsewzHq1a5nyoKDZJrr3ogKvTlUcnBHgS+ABpwHW/Na4
-	 OUhYG1JrB48XBYW4tzQaPb0dXzw7Z2HjtAp/QHwlfnpsLqTcWFMoOKScofuBCOHk6o
-	 8AWapCv2Gvmrpsa/MM/PrYSSQjd7CpIsgiLYtyLIClYhSx61jZCRHo3nZ0O55whLZx
-	 y9bk+eSZtociPx4CCHXV9pgHPohZspTOclG1WvmYSblPKe+i9Pfh4V/no2fwPzGwDh
-	 SroQIbCP4w+E6mCszt0L47XyjU1fd164AS+Vb9AWOqxrS8GesTWvkYAAo1pnIGv5re
-	 gSkG71a0Xyj+w==
-Date: Thu, 3 Sep 2026 21:52:43 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Devendra K Verma <devverma@amd.com>
-Cc: mani@kernel.org, frank.li@kernel.org, den@valinux.co.jp,
-	dmaengine@vger.kernel.org, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, michal.simek@amd.com
-Subject: Re: [PATCH v2] dmaengine: dw-edma: Cosmetic Changes
-Message-ID: <apme09juKX_h8jHF@vaman>
-References: <20260820091314.684871-1-devverma@amd.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jSF5KFdz"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=yAWEaoHlzAByy1p/MfIorhvFlDICqbscs9jfE/luEfA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788452569; v=1; x=1789057369;
+ b=jSF5KFdzCmwXAjJ+rNC6ldOa0QesGJIYvPSEewqiLhRWlBK7Lt8wCdmC0HEG1dEr+YX08mHA
+ Rfn+U7KFijuPxq8ltuobo+jR8H7ttbReKn8smG3Tne5C/U/65KwTqJ/QT83gZge/W8FVyW9n3XP
+ 2rYMRghUIm393B3U3hz9+TeI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d70c4bf5e2bd4b50;
+	Thu, 03 Sep 2026 16:22:49 +0000
+X-Mizu-Trace-ID: d70c4bf5e2bd4b50
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b384b7so7867e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 09:22:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxGKdon0BHKVQPHwldOfRwHY2wwOonp8lD8BzijJsGz/01sa3Nv2RemLBpMgFR3lc3lc8G4Y8x3XxCrpwg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kSh50A6iIr5yAKhKhuSvOledtG7J+nGvmpaaOaFN+Ax/H2/7P4
+	Yx7s4t2EuhukV+vTnMzGLdbOBgJrl2l6d4P5J8x4Vr4qLJ3n1oILoGpyY+CZ6mT0MuqOW8Tm5LD
+	aAWNJeDcIXmGP0ciq04sSh7DkK1lzvMpegTkt09nU
+X-Received: by 2002:ac2:4c51:0:b0:5b4:9dba:7403 with SMTP id
+ 2adb3069b0e04-5b60f977efamr153962e87.13.1788452567982; Thu, 03 Sep 2026
+ 09:22:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260820091314.684871-1-devverma@amd.com>
+References: <20260831163421.272420-1-fuad.tabba@linux.dev> <20260831163421.272420-6-fuad.tabba@linux.dev>
+ <apg7KNpamnpYi-kl@google.com> <aphAO_nmoTzI6Yvf@google.com>
+In-Reply-To: <aphAO_nmoTzI6Yvf@google.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Thu, 3 Sep 2026 17:22:11 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTyQciNWyaMr3rogsz53D_JJQGUXtv5jBJtSd4pajfv+8g@mail.gmail.com>
+X-Gm-Features: AcwNN1XA72CBM17Z_CeCSMDbmKPDC8n6403MdwU3XpedWw0uwZihTsZDnm-yw0s
+Message-ID: <CA+EHjTyQciNWyaMr3rogsz53D_JJQGUXtv5jBJtSd4pajfv+8g@mail.gmail.com>
+Subject: Re: [PATCH 05/17] KVM: arm64: Skip fixed-feature state flush for
+ protected vCPUs
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Quentin Perret <qperret@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 20-08-26, 14:43, Devendra K Verma wrote:
-> o Arranging macros in ascending order as per the bits represented
-> o Cosmetic changes, typo corrections
+On Wed, 2 Sept 2026 at 16:26, Vincent Donnefort <vdonnefort@google.com> wrote:
+>
+> On Wed, Sep 02, 2026 at 04:05:12PM +0100, Vincent Donnefort wrote:
+> > On Mon, Aug 31, 2026 at 05:34:09PM +0100, Fuad Tabba wrote:
+> > > flush_hyp_vcpu() copies the host's mdcr_el2, TWI/TWE and debug state
+> > > into the hyp vCPU on every entry, so for a protected vCPU the host's
+> > > trap configuration overrides the one pkvm_vcpu_init_traps() computed
+> > > at EL2. Move those copies into the non-protected branch, and sync the
+> > > debug state back for non-protected vCPUs only: a protected guest's
+> > > debug registers are hypervisor-owned, and it takes the host's TWI/TWE
+> > > at vCPU load. MDCR_EL2.TDA traps only the guest's own accesses; it
+> > > does not stop the world switch from loading host-supplied breakpoints
+> > > and MDSCR_EL1.
+> > >
+> > > EL2's mdcr_el2 starts from 0, and HPMN == 0 is reserved without
+> > > FEAT_HPMN0. Set HPMN to the CPU's event counter count at vCPU load,
+> > > the value the host's copy carried; a protected guest's PMU accesses
+> > > trap regardless.
+> > >
+> > > Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> > > ---
+> > >  arch/arm64/kvm/hyp/nvhe/hyp-main.c | 31 +++++++++++++++++++-----------
+> > >  arch/arm64/kvm/hyp/nvhe/pkvm.c     |  2 +-
+> > >  2 files changed, 21 insertions(+), 12 deletions(-)
+> > >
+> > > diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+> > > index ca7122b0bccdd..14e847b122abf 100644
+> > > --- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+> > > +++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+> > > @@ -231,7 +231,6 @@ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
+> > >     u8 esr_ec;
+> > >
+> > >     fpsimd_sve_flush();
+> > > -   flush_debug_state(hyp_vcpu);
+> > >
+> > >     /*
+> > >      * If we deal with a non-protected guest and the state is potentially
+> > > @@ -241,7 +240,14 @@ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
+> > >     if (!pkvm_hyp_vcpu_is_protected(hyp_vcpu)) {
+> > >             if (vcpu_get_flag(host_vcpu, PKVM_HOST_STATE_DIRTY))
+> > >                     flush_hyp_vcpu_state(hyp_vcpu);
+> > > +
+> > > +           hyp_vcpu->vcpu.arch.hcr_el2 &= ~(HCR_TWI | HCR_TWE);
+> > > +           hyp_vcpu->vcpu.arch.hcr_el2 |= READ_ONCE(host_vcpu->arch.hcr_el2) &
+> > > +                                                    (HCR_TWI | HCR_TWE);
+> > > +
+> > > +           hyp_vcpu->vcpu.arch.mdcr_el2 = host_vcpu->arch.mdcr_el2;
+> > >             hyp_vcpu->vcpu.arch.iflags = host_vcpu->arch.iflags;
+> > > +           flush_debug_state(hyp_vcpu);
+> > >     } else {
+> > >             hyp_vcpu->vcpu.arch.ctxt = host_vcpu->arch.ctxt;
+> > >     }
+> > > @@ -249,17 +255,13 @@ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
+> > >     /* __hyp_running_vcpu must be NULL in a guest context. */
+> > >     hyp_vcpu->vcpu.arch.ctxt.__hyp_running_vcpu = NULL;
+> > >
+> > > -   hyp_vcpu->vcpu.arch.mdcr_el2    = host_vcpu->arch.mdcr_el2;
+> > >     /*
+> > > -    * HCR_EL2.VSE is host-owned (a pending virtual SError to inject), not a
+> > > -    * trap-control bit, so it must flow to the hyp vCPU alongside TWI/TWE
+> > > -    * for the vSError to be delivered. sync_hyp_vcpu() reflects it back.
+> > > +    * A host-injected vSError is masked by the guest's own PSTATE.A, so it
+> > > +    * applies to protected guests too.
+> > >      */
+> > > -   hyp_vcpu->vcpu.arch.hcr_el2 &= ~(HCR_TWI | HCR_TWE | HCR_VSE);
+> > > -   hyp_vcpu->vcpu.arch.hcr_el2 |= READ_ONCE(host_vcpu->arch.hcr_el2) &
+> > > -                                            (HCR_TWI | HCR_TWE | HCR_VSE);
+> > > -
+> > > -   hyp_vcpu->vcpu.arch.vsesr_el2   = host_vcpu->arch.vsesr_el2;
+> > > +   hyp_vcpu->vcpu.arch.hcr_el2 &= ~HCR_VSE;
+> > > +   hyp_vcpu->vcpu.arch.hcr_el2 |= READ_ONCE(host_vcpu->arch.hcr_el2) & HCR_VSE;
+> > > +   hyp_vcpu->vcpu.arch.vsesr_el2 = host_vcpu->arch.vsesr_el2;
+> > >
+> > >     flush_hyp_vgic_state(hyp_vcpu);
+> > >
+> > > @@ -288,7 +290,8 @@ static void sync_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu, u32 exit_reason)
+> > >     struct kvm_vcpu *host_vcpu = hyp_vcpu->host_vcpu;
+> > >
+> > >     fpsimd_sve_sync(&hyp_vcpu->vcpu);
+> > > -   sync_debug_state(hyp_vcpu);
+> > > +   if (!pkvm_hyp_vcpu_is_protected(hyp_vcpu))
+> > > +           sync_debug_state(hyp_vcpu);
+> >
+> > nit: We can't use the else arm below?
+>
+> or actually could we move the check into sync_debug_state() just like
+> sync_hyp_timer_state() does?
 
-I dont like the title cosmetic changes... maybe split to two and
-describe these.
+Will do, and there's another case of this in the series that gets fixed with it.
 
-Anyhow this doesnt apply and needs rebase
 
--- 
-~Vinod
+/fuad
+
+>
+> >
+> > >
+> > >     if (pkvm_hyp_vcpu_is_protected(hyp_vcpu)) {
+> > >             host_vcpu->arch.ctxt = hyp_vcpu->vcpu.arch.ctxt;
+> > > @@ -329,6 +332,12 @@ static void handle___pkvm_vcpu_load(struct kvm_cpu_context *host_ctxt)
+> > >             /* Propagate WFx trapping flags */
+> > >             hyp_vcpu->vcpu.arch.hcr_el2 &= ~(HCR_TWE | HCR_TWI);
+> > >             hyp_vcpu->vcpu.arch.hcr_el2 |= hcr_el2 & (HCR_TWE | HCR_TWI);
+> > > +
+> > > +           /* HPMN == 0 is reserved without FEAT_HPMN0. */
+> > > +           if (system_supports_pmuv3())
+> > > +                   u64p_replace_bits(&hyp_vcpu->vcpu.arch.mdcr_el2,
+> > > +                                     FIELD_GET(ARMV8_PMU_PMCR_N, read_sysreg(pmcr_el0)),
+> > > +                                     MDCR_EL2_HPMN);
+> > >     } else {
+> > >             memcpy(&hyp_vcpu->vcpu.arch.fgt, hyp_vcpu->host_vcpu->arch.fgt,
+> > >                    sizeof(hyp_vcpu->vcpu.arch.fgt));
+> > > diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> > > index 459bd9eb7e4bc..e85f13233da08 100644
+> > > --- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> > > +++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> > > @@ -102,7 +102,7 @@ static void pvm_init_traps_mdcr(struct kvm_vcpu *vcpu)
+> > >
+> > >     if (!kvm_has_feat(kvm, ID_AA64DFR0_EL1, PMUVer, IMP)) {
+> > >             val |= MDCR_EL2_TPM | MDCR_EL2_TPMCR;
+> > > -           val &= ~(MDCR_EL2_HPME | MDCR_EL2_MTPME | MDCR_EL2_HPMN_MASK);
+> > > +           val &= ~(MDCR_EL2_HPME | MDCR_EL2_MTPME);
+> > >     }
+> > >
+> > >     if (!kvm_has_feat(kvm, ID_AA64DFR0_EL1, DebugVer, IMP))
+> > > --
+> > > 2.39.5
+> > >
+>
+> --
+> Vincent
