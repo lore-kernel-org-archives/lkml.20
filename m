@@ -1,156 +1,124 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B14E4E8DFC
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:17:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788452279; cv=pass; b=mneYgWfl0l8wl7pOd6DhDfPVsF3EMjmLc5x1XlTTMjIUdoKuBjyTNe7azfBloVqm/or5PM0ZoSF/BPl2pK6Q+c9xP8D/KpGTv/+kTQusQqWnejyeYBraYfMeCwty5LJf95FmjHe8fv57Rdkh85Q92ckKFrmbuPDeLY2N3pPFKV4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788452279; c=relaxed/simple;
-	bh=UiSU5I5JUmLO87TdZDzVLLhzpKhCRaf7JoRdchd2ySc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KKrEHBiDeF/r5JTrRIFNwytxFfhzNIbLJb9PjKkxgy/V4o4GcsJmWMo2JCQ5snp/bjOrnIHroqVFB/B83YMFIFeJcF6k+Soj4UvJlNOlfZ/8NE5CPtjzvBysg5JzRb6JAXhOJd/g1xgJ1rcf8UIqASwb86Fn3aopApiC1RpO9p4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hHtdQoBL; arc=pass smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF1064756BC;
+	Thu,  3 Sep 2026 16:18:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788452303; cv=none; b=gW4GkOdbHHzIW8QTeNtc8c+yDf2lA4uusIpdCEVh3d3jJjhwKvL6Ux22EGon4ge4EhCQ2zJDgpk6CIHTzk5VvQ52BwtsTIhs7HzEdvio6IUlWGp9eJLSBwR1z/PSKzRAMqasLIph5X10WQlvb42J88iIsTHNdQr+ypNzZHWd024=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788452303; c=relaxed/simple;
+	bh=kZxRDfKOOymBMs6vUXNLZ7kV/y3LDGCt3tyvW9Y7NCI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Nn/QYMF0vU6tkKiBA/wJnZd2kCDYmwTyKULkkAViWr0QJtwcnZGLJSYETk6yHqF/jkZEPumv4Tsq1wvOe9lcUprmj/k7JUAs3o4KvIcjaqi9eTQNuDnvghsT6lTiEVNRW84D+wLdcEvgymRh7j3SepeEquHCBwPunSTK2bDKRJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hapvbcE5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hHtdQoBL"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2d6f9e2f681so28263225ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 09:17:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788452277; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KOrlVBkUdl7WmtduV5P6NRIeBoPOYhzVkgRw8bMQYBfoAOuHxe8hdycBjOrRONwMlL
-         n1a46VfxwH3IFKNbQdtIN+FMovZRQtYrgJuC2QF4D5Sm6Jyucd3WAFfy+N/F8PfxAncL
-         r2KhSOwChJXTPfvJKKfHJlW4O9SlYD/tFK0JuxvItp4xmqGykRmlRMsZ+ZI1LzcSFa2Z
-         0UfB7c8sXQbgeZ7d/km0tn4ZPd0cFt6TiQQvCOWke50lKEglolMx58PVhoA3lWAgn2C6
-         OFtS/C0eRNgfJPjTLAdAK/tzOrZm4pGp/uzpw9+OKTW76tnMVnEN+zWRoEXPS6uGQE/q
-         roeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=JMQg6yMd/MUyHk+pK+efm+9Svxwg7umvKha59T7EEwQ=;
-        fh=CTcl4c10sFMpg5SKBfsFsEnWW+50rLlmIdmpuwHe7Y4=;
-        b=At+jTo+pUTKsXMHjNyhL+Dc609fIGe+Xt3cnattWiLi4eM2xquE1NeSuoBFUNUuwvv
-         KgoTOHrVzhGqryVuqhRi7hYdcpjPzWagJzi5Y9sXMo8fpxsFmHw8QQrggDfXmeGw4BZ0
-         MGqLlRJe0BBoRTGPB9i6YmKD8cJ4FkTcOzChuDHxL4q9c/5WXWIQj01IrBDlyKyLDd/o
-         DEdmaSH5Nvdbzsvc0xnz0+hm2PIzt3tZIR8L/io8srUvU69ZFbhFLcGAT4auUNa3TxVU
-         bXXC6x445/l4ogYP1Fwf/h3/OOXDSzmNawfDPI81t9/KbfH7VW8rwRvYTeGDshn1Nd4b
-         YDuQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788452277; x=1789057077; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JMQg6yMd/MUyHk+pK+efm+9Svxwg7umvKha59T7EEwQ=;
-        b=hHtdQoBL/5ZRhiiVCvVooRjhEfRUUKvDCk0DR1ecVily/FYx5Na0zYjMTKZoxCU08J
-         QkSHg2aB3AHOfSiPGA6auZprijILQabdtz2MnRAraPA2UCck34/SoGZMaADJ4Q1EmraS
-         U/uGA7WTckFzfrOLAb8Cqpljd7rBAk2LP0GKIuzTr9jKPnIOhT+LkHLEG4YzIBGhRQLf
-         378rZ+jSC5rNJ9W5hQEEyU3wdQGhsjCbQ0aNYGAbb89eok6b2SGcWhA4KfS2R/l+tLaZ
-         7Is8jbeCcn8ml97Xi7okYEpSAhMTDEUxLzyQpM6igww81bdD0DJsxfQOzPjzn884OQdG
-         LTWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788452277; x=1789057077;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JMQg6yMd/MUyHk+pK+efm+9Svxwg7umvKha59T7EEwQ=;
-        b=ioX1PIRXF7qZRHZvep+pe/fpLkqPBf5+V+1ptGarBLywzQY98aPTytPYCqdSR5t3QB
-         X1FwabqRnflkmgjdICdFaRFIdPwQfCXTBNPdHLmG0VnPSNFVx5VOGm9qhnDwZoWsgDWc
-         KxU/qCx34+KZyFM/HJRu6+WzNinSAa1J8sx8h418wrx5l06SEHAriDIhpGHjP89NspRH
-         JOBOKdLtJdNSczmawioj9XIfJMTwBM8xNY8Dza/DLbehrwydxDMqu8bmnge3sjpF9Rqe
-         LSmGISvSZe7pmxM/+VFgWwc4dLjIiOP//xuDzo7TzURAHUyuDLPPfOgTAX5lj04tUxdX
-         8Gtw==
-X-Forwarded-Encrypted: i=1; AKwUvBxOoz9ymcdud9fReRRoXncMONirYI0Shgd7wTMieIkKNk3W13zT/reQAT2GxIZ5IX/GnSGcV/Tm3JI06h8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lt3Se5iCvvM0BQntNZlkKNhGT2wUq7+LVD5rKlFIBeR9tEBwWG
-	AsO2beYE/tuAVKzedU9rbrwDdBZxB317xrr573FDHSbNjzNDUoIvwN3y/1+4MJMMN7CsGX2My2D
-	+3ZCPB8GqkKb/Xld9qgr8MW2MVZ5VyM0=
-X-Gm-Gg: AYBFou2e/d5Su/XucA3SuwgcPJ03aucLtNF6HuKMZX43TP5PXFaTtCa2bFCM5P9GwCh
-	n6BCp4v6QHRXwiYLzG88A2iHRUXijkBG71muKVPAgrz/Tgm/mTn4Xv4OxGk8YhWSwxKjXuILQlL
-	4OkvW0wDN6v/nNHs89ksFBPUxKU6/ntewIHAXl5EqIawxHqjim3zReP0PLCuJYKzFKPJnjXbSsh
-	dLb2j7HKkrjdfXnjjR2b3ExO9Oz7HljeWqCvE1x2VfAXD0s+JRGP+r8ZYt1P/XRCrRVUXCvgho4
-	eWZgGeyPWfhQE2zeiUOrkbF8WgkICq6fqFRtRATI14q7PQ==
-X-Received: by 2002:a17:90b:2f0b:b0:398:9c00:29ed with SMTP id
- 98e67ed59e1d1-39aee1f5fc2mr21806714a91.21.1788452276498; Thu, 03 Sep 2026
- 09:17:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hapvbcE5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C657C1F000E9;
+	Thu,  3 Sep 2026 16:18:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788452301;
+	bh=wS7Gfn04Eu1i3oPxCjH/RuwxmV/hxIJiYf+5nVpOmkQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hapvbcE5miOohbPIaPHvti3o0SLfqrEn9kxtZccj3wcWKS1kvKmc6oQwLpiLCqXz3
+	 ParsSYzjftg5iTJdFDi2+5VQ2tGstV8pP1ZfszpbY27+LJ1PI+Za0MQ5zFi/94eDFK
+	 ZsFh6v0p4hRyU6SPNr2d8V+cbvJ3fLo97rbe8NL2FXIIqoR1JdkSSPfCr1+4S4nZWc
+	 4Q69Zf1lPYbK1WftJZhLOALG0C280aEAojQrB6wR2dLKzbEcCaY0qPvx6CQy4ww3ks
+	 x3RaSgQRBwsSmjYdnBDzthX473BkWwKzCkcclT1s/Xo7JgWuD791VCNosLoRDO8wX4
+	 24bXiF+otOWPw==
+Date: Thu, 3 Sep 2026 17:18:16 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Jeremy Linton <jeremy.linton@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>, Will Deacon <will@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Andre Przywara <andre.przywara@arm.com>
+Subject: Re: [PATCH v9 1/7] firmware: smccc: Add an Arm SMCCC bus
+Message-ID: <20260903-nonchalant-capable-parrot-539c8b@sudeepholla>
+References: <20260805063255.1638614-1-aneesh.kumar@kernel.org>
+ <20260805063255.1638614-2-aneesh.kumar@kernel.org>
+ <178794567779.4159892.8785590655735217125.b4-review@b4>
+ <yq5ay0diyavw.fsf@kernel.org>
+ <20260903125718.GI4157646@nvidia.com>
+ <yq5av78mxv0j.fsf@kernel.org>
+ <20260903154626.GL4157646@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901134604.4052265-1-dolinux.peng@gmail.com>
- <20260901135715.4812fde9@gandalf.local.home> <f18beeb4-f3df-41eb-9990-5be295a2729b@gmail.com>
- <20260902235533.ea387f764b51b1b2a8ce8224@kernel.org>
-In-Reply-To: <20260902235533.ea387f764b51b1b2a8ce8224@kernel.org>
-From: Donglin Peng <dolinux.peng@gmail.com>
-Date: Fri, 4 Sep 2026 00:17:30 +0800
-X-Gm-Features: AcwNN1W6aLBj3SzjJ2sxEu1gH5s3mgGPWuUq6oQ8j1K9R96JYww76XDPhFhrJRs
-Message-ID: <CAErzpmvoN5viidq1kHyYkP8cAfd4C4mAJg3R_SV0pB1O11euYg@mail.gmail.com>
-Subject: Re: [PATCH v5 0/3] Use BTF to trim return values
-To: Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>, dolinux.peng@gmai.com, 
-	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	pengdonglin <pengdonglin@xiaomi.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903154626.GL4157646@nvidia.com>
 
-On Wed, Sep 2, 2026 at 10:55=E2=80=AFPM Masami Hiramatsu <mhiramat@kernel.o=
-rg> wrote:
->
-> On Wed, 2 Sep 2026 11:25:29 +0800
-> Peng Donglin <dolinux.peng@gmail.com> wrote:
->
-> > >>    - Do not print a return value for functions with a void return ty=
-pe.
-> > >>    - Trim integer, enum, struct, and union values to the available r=
-eturn
-> > >>      value width when the BTF type provides suitable size informatio=
-n.
-> > >>    - Format integer, enum, and boolean values according to their BTF
-> > >>      encoding.
-> > >>    - Mark values as "(trunc)" when the return type is wider than the
-> > >>      value captured by the function graph tracer.
+On Thu, Sep 03, 2026 at 12:46:26PM -0300, Jason Gunthorpe wrote:
+> On Thu, Sep 03, 2026 at 08:05:40PM +0530, Aneesh Kumar K.V wrote:
+> > Jason Gunthorpe <jgg@nvidia.com> writes:
+> > 
+> > > On Thu, Sep 03, 2026 at 02:22:51PM +0530, Aneesh Kumar K.V wrote:
 > > >
-> > > Hmm, I really don't like the "(trunc)" If it's the real return type, =
-then
-> > > it should just print what the real size is. No need to state it was t=
-runcated.
-> >
-> > Thanks, I agree. We can remove the "(trunc)" suffix and print the actua=
-l
-> > type information instead, for example:
-> >
-> >      ret=3D0x5[struct:0x10]
-> >
-> > This would indicate that the return type is a struct with a size of 0x1=
-0
-> > bytes.
->
-> Hmm, shouldn't both the actually applied size and the true size be displa=
-yed?
-> e.g.
->
-> ret=3D0x5 (in 8 bytes, true size: 16 bytes)
-
-Thanks, this is a good suggestion. To keep the trace concise, would this wo=
-rk?
-
-  ret=3D0x5 (8/16B)
-
-The suffix shows captured size and true BTF size, only when they differ.
-WDYT?
-
->
-> Thank you,
->
-> >
-> > Would this be acceptable?
-> >
+> > >> I have updated the bus to match devices using func_id.
 > > >
->
-> --
-> Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> > > Did you have any thoughts on how to handle ARM's versioning scheme
+> > > too?
+> > >
+> > > I'm not sure what the rules are but it seems like if the major changes
+> > > then the API is incompatible? So shouldn't every driver advertise a
+> > > supported major, and the major be in the modalias and checked by match
+> > > too?
+> > 
+> > I expect a single driver to handle the RSI features and determine the
+> > version range it supports. I don't think we want multiple drivers, each
+> > handling a different major version of the RMM release. 
+> 
+> I thought the plan was we are only going to support RMM V2 and there
+> will, never, ever be a V3. :) So RMM is maybe a bit different..
+> 
+> > Given that, wouldn't it be sufficient for the driver's probe routine
+> > to check the supported version range and return -ENODEV if it is
+> > unsupported?
+> 
+> It is sufficient, but is that what you want? Every driver needs to
+> manually check these version things, do they? Do we want this
+> duplication? 
+
+Oh yes, we need this whatever you term as "duplication". I would argue
+against terming it as duplications as if you look at the various SMCCC
+based specification, we have zero consistency in how the VERSION command
+is expected to work. The only consistency is returning
+SMCCC_RET_NOT_SUPPORTED if not supported and that's the max a generic
+SMCCC bus code can check. All other details need to be deferred to the
+individual SMCCC drivers.
+
+> Missing a check means FW upgrades might become Linux breaking.
+> 
+
+Are you referring to the SMCCC bus code or RSI in particular above. I don't
+see any issue with SMCCC bus code check as that is the least we can do and
+must not change with future versions of the firmware as well.
+
+
+If it is specific to RSI and the driver supports v2.0 and the firmware
+is upgraded to v3.0, it really depends on what the v3.0 firmware returns
+in these 2 values:
+Lower RsiInterfaceVersion : Lower supported interface revision
+Higher RsiInterfaceVersion : Higher supported interface revision
+
+If lower is also set at v3.0, then I would argue it is firmware upgrade
+issue expecting old kernel with old RSI version supported to work. If
+that returns v2.0, the driver must work IIUC. Aneesh, hopefully I got this
+right ?
+
+-- 
+Regards,
+Sudeep
