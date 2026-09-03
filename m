@@ -1,114 +1,160 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D22E3264DD
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 03:07:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788404863; cv=none; b=IkgObmwA2g7AfCxLGQoTgdklIJOkfmdFHczPC4+/huEI4yVm8l5J24/O751fcd9jpKgVJkFJkeDVGK3LF4oW10qY9RrL2RRctCn+8EMuxGHsMAXYM6JlZhuhq0TWkIugX+1TbR3ggEyeNcezpWcgRU+M2hcKmsN6ivUBZ3JhFSk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788404863; c=relaxed/simple;
-	bh=OwY4526r8NGD41XWfHtfgvXiOTOjUHxMAUau6BxnM24=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bdi7C0NJYWyqjJ3G8GxZoQwL29CKCncSgDKbO+jllkAJUNAztcSYIDAXuO4tn+aBH/EaD4NyvE/rKcBUrom7gAzP1ZNrnsVbZUFDwaiN7HpDN1vEzbgt/WJe6M2YzVJrajuwjITjvnfdgb5UHNfKsVy5O6y46rjeTyd2yuK/H/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=llycUH1B; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D43B81FF7C8
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 03:08:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788404899; cv=pass; b=MTRN7rCQnf0GkJcFIOyF0Hu8DdispbaYRrbfPajFX2DJ8alvoAU4ZuKVAIeY/Caa/WykIaoLsJTWflTDU5qLE+LvXHSdWBrxCJEZC1Y2AptlqEJTvIFAuL9bxfvcxUBTasiO8IU/ct7bZhD7xS/50Qd7t9EHB3FRtz0qsJ7JPSM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788404899; c=relaxed/simple;
+	bh=ZQN9NJXDj89uzGf2iFwIqxTSP9mMueIpc4XZFDO0eY8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=aVgs9H83xkt+t40C/xiGGEsw1KIvABGM408Mtqym7Ry25LAY16JriJgH97Zho9lCxMP4Mfmg2k2JSmFvGQtnZ5jnPvBYmeRo4dy4wDeVq+t0FhONv6hT1ARvaMd//PX4LSZp3tNaimIlSx+LniY64fq2MmtX2SabIUgNuhFIKK4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=L4IuB2P2; arc=pass smtp.client-ip=74.125.224.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="llycUH1B"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d71ae3455aso26964905ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 20:07:42 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="L4IuB2P2"
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-66f78cba2e1so2019484d50.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 20:08:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788404895; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ox1CQfGG2liSjZ5kDypRX3ilBI0z6ExmXCXe0YT8vjNLGhXtJzOanWqcYY/rMAd7yb
+         mCT6D3XV2FGKJTJKbB2X6E5x9lfBNaYScJZoAbF2ivaWt6KuRN0d4m4TApLyIjQSQwfG
+         Bx+eFuEGPa4/+kQmlOojenucjmlbFnNB8eCgi3JKZWWUCa0oi4UQhddAr32X2xF0QDNX
+         l97sDKOqHEyt4+xVQzUC1qGqRA57R7ZmQe2vdDgIuwL+iSgNKSvIxWjfXpe2Jv232QXN
+         0EDFQ3xwa0KAQRrnDOgkhOGCR1ALj2SjB2RO5xnvAVgwUqZVDOAAEaso6HWpKCCCR+lD
+         gR9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=SnzwBfRZpBf2cJeykyMmu4E583GVHfgU8A+PMrUbmFE=;
+        fh=VJL6hCeTIEeti+uQZwWtkHG4Ku+EPSf3XNhLLp+j9bs=;
+        b=AUVGD5obW3699i79BDjQO2Fk0NKFBg+PpcmaGzLJoDTMQVshDA1459d5/qWKntis4u
+         /O+wyVzGY0VHoFY1QYmhZ3HtW87wxy+JuoizsxFo/8hOQjIvVwYaOlSU8KHXDE/g/eR+
+         yTt1qciaVxnsK8EZ/8Sf5ooLm6o4jLrJkENdVsm6C6rHg4uW0bAC1aP5nJSbAHQh1sm7
+         G2RkR2PCD3mlfclugwnnw/qyUKhHx+VJaXtOAhe/NAf6o5E5vnn2VoMMnWa8SQwtpIzH
+         3+Cog0piUIUxDeqXtVbDH1aTWt+oKcSZzjJXjW0938XIJsMRu9JPptcvGy7TeLo5SNOI
+         hyAQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788404862; x=1789009662; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eY3y8kerfRWmrbbQj01Vx2Al4+dxXYV6MW1wD432koI=;
-        b=llycUH1BJ0+H9IcgpXEdPyRAmtKgQfysEGSK4fXklnszKPMZkOLFACclMhQzl8NXAC
-         UsK8Hb5AyKute08DYc2E2N4wp9i1TtAUMP4ZTRbYiqtYpr0yi3BP2fX2kBoP8bfzFW0S
-         3KN9xIv062tfq7MnIo5gq2GMhlPqQugK85bX5+6L1s34MyQ9JfxMZ6rlMtpvT2I1eKXi
-         8uh7Nvnqb15fsQ9BIBzAfwFW1OJJsEkPnd+lFmf6LogOdcJDPYAPcbewsE4CV9BRUzTR
-         9SL/7dCOWhZZUtYUgx89xODgtd1quz5KgkguPuy8KTwXBGYE+H0BjepwUdtZTpGJLc4v
-         StJQ==
+        d=chromium.org; s=google; t=1788404895; x=1789009695; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SnzwBfRZpBf2cJeykyMmu4E583GVHfgU8A+PMrUbmFE=;
+        b=L4IuB2P2bfPMhdVwhT1ESkP/jySNZTWEdvmTRd2KCRZulIL8ZLPJl/1kK7KU2Zeqgc
+         +GaMVXf3mPMcxVxuEgBAGh0AcfuPgHNHI8Mn+138/wx7jQnnpPucgPKYs6duxQpawrwo
+         orWwHYmlMQTmctncyO6+sA9u8AFi0hsnZlsGo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788404862; x=1789009662;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eY3y8kerfRWmrbbQj01Vx2Al4+dxXYV6MW1wD432koI=;
-        b=qF39wrbs6l4aDVMb1q0U6Vgdl6SUWutCnGhBrCcGbKc99IzuqeAgN9A36vMTr4OfzU
-         5e5NmM2t9h0C1mUAQHLy1zgkD6pz/AeWNIzyTkUUy+dvmCKncn/tmVSEAtG5t1IBhlMZ
-         J1VkSMWUtSSXBpntFV0uEu9R8ekdhPgG+jL38jNJdAB1DeCRjYCaiIdLxIlApJzugIK0
-         c7bbsgSdeNmFVW6Nj1VwzO6g6kmoGd03fIoSnj8iXCh0isEh+sXDF9+VF2nr6xgRZexM
-         iPdgWu3F5zZnPvwfivJf8JyOCTTwveAaZtzp/NVNykHr7MCDd01i6RBYGiDYS6WFo5ZV
-         lPTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzSIh2ME0C2MMnHUuxssrXTaM4v8RZTlSHPRRYy4nDxUxqh6JGzcvZ8aGlwZzMLiow1nFkut+3z1fQJrgM=@vger.kernel.org
-X-Gm-Message-State: AFuF++k9M1kRpDj2qVQjj5bM9r/5Dd8w2iPwdbkppJfz6drsldBulPdp
-	DFcY8CrLWQWRsViF6EikuDe1QTdh12wRAavVWAgJACaV/lDctF+gn6092tofnA==
-X-Gm-Gg: AYBFou2B1cXxvZIUin3wKIaVVlDNP22zCFcqWmm/IYPGBqwRWijcltcibKvP9AbQkJt
-	gdd74X8JPjZ/NHphaPiEYezgRJnFKE1H6E0t4NUfG/ZkhG8A2KbDAyE4YVJnExxgDMNVOfXRZZD
-	VOA8n5qZgqQokTUCKSl81JRBUIKRCD1D8ILA1UHCFoFgGXV1TIr+Z+u16BZkCD6yfHCZrwkhlBE
-	NX5hZDqSc1nHw17QJZ7Tt1OoZ6fO1cLGsgvEB6IiOij3gHuhjXyewfC5HJRiuRG/r2CwS9+Jxeu
-	5qt9LBcY8BxtJe+AybTa6PAVZkYcR73+slTzVa5BXFzaocHIx2Bp/s2zCp0Xs9MQP/gtImjxsvg
-	WMx73xX+fPfl5o5ny29F65i4jnFqwxR6sTEbDK24axOI7rWtK5GGn8OR36wwXBB0IMBfN1CMqd7
-	kz3qWf/QJFuVnS115FcBsnjp5M4j6ahgBE6yv+fQb3UTgt4Vt6hE5IjSqG681/oqh+aDvZ6QwKK
-	8JkNa42gDNdn0PJmggTZmE/5Gd2FTc3obD92pXzrQgg7n9IKPeQVo5hURToG6All3FRQ0bDuebo
-	TyQe
-X-Received: by 2002:a17:903:32d1:b0:2d0:cc92:f7ae with SMTP id d9443c01a7336-2daec5df7f9mr112667475ad.3.1788404861588;
-        Wed, 02 Sep 2026 20:07:41 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dafe928217sm2872135ad.37.2026.09.02.20.07.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 20:07:41 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Adrian Ng <adrianhoyin.ng@altera.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: bui duc phuc <phucduc.bui@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Subject: [PATCH] gpio: altera: Fix build failure caused by undeclared 'irq'
-Date: Thu,  3 Sep 2026 10:07:00 +0700
-Message-ID: <20260903030700.132068-1-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1788404895; x=1789009695;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SnzwBfRZpBf2cJeykyMmu4E583GVHfgU8A+PMrUbmFE=;
+        b=gXiEhRB3oIggmJyuO7w6/5uko9oBimLubMhbjB9Plml739ozDEZXtzRwWB55rBfmta
+         OPWqDV/pf64rrDNxqvWWZmHsnw9VL88Q2JAwUPMszZGCGz8QH1hHWWtcj1LJCRHDJYc4
+         vwd/SOhookzOCx9iTzSBwFgrTDx2UR9+PRxt9AAz1+v9WJbHkZb+hwXz2X/TCr+ZzjUq
+         6sSdpAAgAgWZiH4o7a2lr/DidgDAFeb/K7vbKw2R9AcGlovFllQzK3pojsCiFZMXC75t
+         nLc4MwYBCvrajN1TtFTk6pX7fL+mt4d27sUYa0T4OJ9/5nrPwg7gbxmI79Z+8tjxPZ/H
+         cLnA==
+X-Forwarded-Encrypted: i=1; AKwUvByUO/OLXwOIeZ/ZjC58SZkFcsXlbfekIcwWEmfU+VY40N0PjtpDGaSaM0wLI4CbOQArLxmsLTRtViKy6aQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++k8EDHwbKLT63/uTqjmUDef2naqzpIpck8XhsjLkwqa2EC7+Lwq
+	xktk79Zhz9UUU5AYEvFfwGH1AIG3vb69Mxk6HGBAn4FXTn/KbAl3Ma60nMEfnP7ujeCkJtlm0HT
+	JvtUj+1GCK0uRoXZGCR5XhoBTnXLF/5Ab1rpZSNh3
+X-Gm-Gg: AYBFou3pE3NDnmkpUEb8D3EEPafoHLAPt2hjPoKGmnx7bQb02TwwoPsLgmd/ooqPZ8p
+	fNQhCbwBCelG5jqS6WCbEBifk/XXbBHk6JE0ecsWQvSU6Jp74s2+8CacY2MdfZDQLe1Uijw7cSv
+	GrZ5bDhTzTFKxbmK5MT4cqdpzEfP9CzhDd/l/i6RHCPn2rjJwuuS+q/4lcCBWZEdSoLG7jnOGLI
+	7jeLy6ehUY1NFDoOVRqcaNhGMOVW3GSViIVA87kGG5aE2kM6PTOmJJ0zNmNlymR/gJTDrMyVQKV
+	TfuyE+2t5do4ldm+Qzbbh1sjVsEohMq9WdOdRg3U0BV3OstGRuOQuDD83hqDPfIElM7z/KHrb3Y
+	=
+X-Received: by 2002:a05:690e:400f:b0:66d:113a:3928 with SMTP id
+ 956f58d0204a3-66f9bb6f3famr3574226d50.12.1788404894746; Wed, 02 Sep 2026
+ 20:08:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260902200703.2016410-1-mukesh.ojha@oss.qualcomm.com> <20260902200703.2016410-6-mukesh.ojha@oss.qualcomm.com>
+In-Reply-To: <20260902200703.2016410-6-mukesh.ojha@oss.qualcomm.com>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Thu, 3 Sep 2026 11:08:02 +0800
+X-Gm-Features: AcwNN1Wn32BWTc7gvrI5NCynGubfvPlrWgUmvLkoMfGnpAB8yTnTJoIOOvbhgBM
+Message-ID: <CAGXv+5E9zs7LsK=d08NB6QcuHkaPw4GcifuDuMDz0CVB6gB=8A@mail.gmail.com>
+Subject: Re: [PATCH v2 5/6] media: mediatek: vpu: Use devm_of_reserved_mem_device_init()
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Eddie James <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>, 
+	Andrew Jeffery <andrew@codeconstruct.com.au>, Minghsiu Tsai <minghsiu.tsai@mediatek.com>, 
+	Houlong Wei <houlong.wei@mediatek.com>, Andrew-CT Chen <andrew-ct.chen@mediatek.com>, 
+	Tiffany Lin <tiffany.lin@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Joseph Liu <kwliu@nuvoton.com>, 
+	Marvin Lin <kflin@nuvoton.com>, Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+	Maxime Ripard <mripard@kernel.org>, Paul Kocialkowski <paulk@sys-base.io>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	openbmc@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
+	linux-aspeed@lists.ozlabs.org, linux-mediatek@lists.infradead.org, 
+	kernel@collabora.com, linux-staging@lists.linux.dev, 
+	linux-sunxi@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+On Thu, Sep 3, 2026 at 4:08=E2=80=AFAM Mukesh Ojha <mukesh.ojha@oss.qualcom=
+m.com> wrote:
+>
+> Use the devres-managed devm_of_reserved_mem_device_init() instead of
+> the manual of_reserved_mem_device_init()/of_reserved_mem_device_release()
+> pair, letting the device resource manager handle cleanup automatically.
+>
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> ---
+>  drivers/media/platform/mediatek/vpu/mtk_vpu.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/drivers/media/platform/mediatek/vpu/mtk_vpu.c b/drivers/medi=
+a/platform/mediatek/vpu/mtk_vpu.c
+> index 8d8319f0cd22..557bffb2c2f1 100644
+> --- a/drivers/media/platform/mediatek/vpu/mtk_vpu.c
+> +++ b/drivers/media/platform/mediatek/vpu/mtk_vpu.c
+> @@ -888,7 +888,7 @@ static int mtk_vpu_probe(struct platform_device *pdev=
+)
+>         dev_info(dev, "4GB mode %u\n", vpu->enable_4GB);
+>
+>         if (vpu->enable_4GB) {
+> -               ret =3D of_reserved_mem_device_init(dev);
+> +               ret =3D devm_of_reserved_mem_device_init(dev);
 
-Use 'mapped_irq' instead of the undefined 'irq' variable in
-altera_gpio_probe().
+There are non-devm calls before this. Inserting a devm call in here
+messes up the unwind order and leads to confusion. In other words
+this is a bad idea.
 
-The incorrect variable name causes the driver to fail to build with
-an 'irq' undeclared error.
 
-Fixes: 6e6e585b603e4 ("gpio: altera: Handle errors from optional IRQ lookup")
-Reported-by: Mark Brown <broonie@kernel.org>
-Closes: https://lore.kernel.org/all/apgNYDiSiPmNZspF@sirena.org.uk/
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
- drivers/gpio/gpio-altera.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+OOTH, the remove function is missing a release call.
 
-diff --git a/drivers/gpio/gpio-altera.c b/drivers/gpio/gpio-altera.c
-index d22f5be00745..a6ac9356229c 100644
---- a/drivers/gpio/gpio-altera.c
-+++ b/drivers/gpio/gpio-altera.c
-@@ -221,8 +221,8 @@ static int altera_gpio_probe(struct platform_device *pdev)
- 
- 	mapped_irq = platform_get_irq_optional(pdev, 0);
- 	if (mapped_irq < 0) {
--		if (irq != -ENXIO)
--			return irq;
-+		if (mapped_irq != -ENXIO)
-+			return mapped_irq;
- 		goto skip_irq;
- 	}
- 
--- 
-2.43.0
-
+>                 if (ret)
+>                         dev_info(dev, "init reserved memory failed\n");
+>                         /* continue to use dynamic allocation if failed *=
+/
+> @@ -930,7 +930,6 @@ static int mtk_vpu_probe(struct platform_device *pdev=
+)
+>  free_d_mem:
+>         vpu_free_ext_mem(vpu, D_FW);
+>  remove_debugfs:
+> -       of_reserved_mem_device_release(dev);
+>  #ifdef CONFIG_DEBUG_FS
+>         debugfs_remove(vpu_debugfs);
+>  #endif
+> --
+> 2.55.0
+>
+>
