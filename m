@@ -1,69 +1,71 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 760744078D9
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:29:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414EE3EF0C8
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:29:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788427770; cv=none; b=pSwzlTPlphXfcPOeoyulV9ryqAN+PeovRO9f/dEX3oDTBK1qACHnG03GPZxxRDlQ28d8IcmwmAewcZnzwvFR2iPCkHoV3UmQs6At08ZeD6+ZrfX5E9G2s9VOO9DRznW2XxHCywSjRfB9joyXjug8VKGBZFEFx2eVaWUUNB3QDnM=
+	t=1788427775; cv=none; b=bL58cYSZ0jYB+RnRliVxdAkjAJySAJUsJvnKDrDSzmF/SzhI9ABtByGTsFEN3eXzMDdFqW3joXRvJv6vQ+PBSVRS0hIt2RfCzGQWV5Cp6gwOJJHfXVgn/KcvfEF0WxLCuAp9+YDSVmSTs4hDjyfQJ7tYmLn2QvqfKT2XyBJOVyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788427770; c=relaxed/simple;
-	bh=VVIxL7WFu3ypeDcFW8G04axJPx8+slvj9MDcWub/Xh0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MWuObhAFjQ8dYJ9LKKk+LwGenubvAFWjZoT/hcnaVyg2VzXUTkmLrHFc+sLQ/9T3ZAfUj+oMcUzfr7EC82LKJwhzFE4lwKzeqO1QNNFOOf5BLNmfqETDJTYObSOLQbr0/E3sGUqWCdoSu/qKawmkd9Za9w0WhUHUvbNaTsdRDfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GL8aQgeX; arc=none smtp.client-ip=209.85.221.47
+	s=arc-20240116; t=1788427775; c=relaxed/simple;
+	bh=slMj07LDzh+7KKdhde6CDLMQ2ONvmT8oZoEQIoEqyBQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EwnJwbJEHIvHBdTJtAfxwFqbHU+2rvyjvmLZbVmYDrQBHwPAkdr5QQ+57+7tGjHAtgDaWb8rGNjpn2qRGusSLrCO7oNxTybVrBnrj3OXj4bLIPghaLWX9iyncJ6v2qHGWseQDMiE6z/6WtEpCxztNsMbkOcI9E51lacZ8rHX888=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XpoEpwpn; arc=none smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GL8aQgeX"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4843e397f74so1114438f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 02:29:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XpoEpwpn"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-47fe89fb333so1372775f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 02:29:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788427767; x=1789032567; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788427771; x=1789032571; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yvH8fI4JTMlFPTDgmBGA+15V9z5f5he1swOyshmSQfA=;
-        b=GL8aQgeX8wUT3VtGgLJPz699W83TioUIb47/qsqP6Z092u7gvN2rs3FIkadCPp52Uu
-         Hu6Cmu4CxfBZOMwGWEkrzHNT04GSmqmvEEdY4K3vfsLvqEF0ntKkxsiDWTEWrQ4N0c72
-         2zbxxLU/WY1KmZ3I6TKuQ6nS2LaTB7sHJe6gHzihjTt0bkoTp4MlkGEtU4CLJ/4uuxqG
-         bDptW6Fxz3dvhims0Idlh29UNfmz7NtJWWHbC6wX2f072+tF2CVQnjc0O1TvCit+HEYy
-         ki8rjkCKSpVArXGvGjhE1MBEEC/p1clAa3/Athtd/k1HoWiwFP6885jRQ+rare0KRcLc
-         yAfA==
+        bh=iTlhcsnqzkHfBDGujwqi+RIHWDNjq6XrFKufOw7QT0g=;
+        b=XpoEpwpnaisuEWYNzitEQl+0qAU0xS/aS3EsiYQ/z0uHL++798cAXpR/Q9N/g9rtE9
+         UmasRCOxrkt2asK2UZGplffd14VsGirzSpi7dAjKOiz1pSuLrNshMQVKds/9BBN5vgJd
+         wvAM71e3UH1IukJWgxDzTH1fu4w0w0zb9hNX2bpe1ZwZ2MNBoRiD/v5thmdnZ5Se2v9s
+         +M5inA+Am9nMegsGHmdRd9Ox8bAyxUHS6vHQDpu7WxJiMSSI/mcMxcVDLE5U9y3Fb1FK
+         Wh5zp3q767ucbKFTPY8wR2hrYonVVdteULcYYdilfkNqBS2HS/P3S4UtVWcPvqr23tmX
+         AlRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788427767; x=1789032567;
+        d=1e100.net; s=20251104; t=1788427771; x=1789032571;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yvH8fI4JTMlFPTDgmBGA+15V9z5f5he1swOyshmSQfA=;
-        b=JdxxFmEWcwnRuMdHvRJjXVp9eQCSDhaMYaD9QbD2Be41uMDAvftq6d+cDz8Ml9okdg
-         +sw18ZOgqqojnM6z7imPrBlXAXxdklU3AwXBZE2k5amYOoHLvOFSAluxMicAeQ3lBaOC
-         q/4Mh6HvgZqyW4TJNzzH7SRrAixQIYg2Owg/zCT7w3cHDHhrA3KoeSUKI+t/5337arwQ
-         08ahz5IaFY2P/7WtYf+5JTkVCLdCBG5qkE9cXVk+DMPfEJdFM3WjMlHNdNYAzPlEwJNn
-         0pi4+wrnTmCc2dsUQxfF1sYcAKcFL1lzPuoi6QkflaB4wM+FnAvAP1rNUPQhBHDINm2C
-         5w8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwIhuDLYIn8RXsbhY3VAkZpz2ytMfvQbZ4VGfP4a+91NOeM6BdQ22yZkHIRvKLMevpUskT58EpfVLUjxT0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mIgbPPZ9MIT/iTGtRmL0RSWwmv/VR39XOGZn/xDnuYHcFcuRhe
-	gK3woUGr4bacRWarnD2eNqvBod+m+b97wSN5MuQGec1aYAviv5BswkaA
-X-Gm-Gg: AYBFou2xfAs+AmEFF8/9p3gSKdBFiQGuOLkiTa2Kn0oM0k2mdmJ3QLmPFAw7XniFiJU
-	O49iPCldwse6tiPIgltUd4zGpN6/8zNFcUomaSfruxKrCIhDQCFJczMYAtflYuHIGdX8nLqJCcb
-	tfQTBQ7tFkGjRpmrM1jqZNAoa56TF9pkv1zx7zMCN9dc61UVQC2lX9MVztgyiYPrJcQrw+NUXKf
-	Ci4bLZDlgK+YEJ92ukCjFvdBHXgDWPqWDJ3RuPtR7dleirTFS/zAgdVt8rj/B8AES9aXoD73m6g
-	EHmyMzi9eT4ErkJHNMuD2UKmrXTvL/nqwaYPopyP50EmwiX/sT/GPgcKVLsnhl5oQj06L04lSzc
-	pp0E4iJfW8m56+WQIAgrLlL9aKLcJiaoxq/aSOxMw6Wse1TXr4wgTMLwHiFJ0e8w0S3M8Q815K6
-	sOcSZub0aRAe+CO1cD0bLqcIUAqFksV1Wqz8ELWs2+SHPmg30t94Mm3br7VKX1+fcNUTY=
-X-Received: by 2002:a05:6000:655:b0:485:8226:c691 with SMTP id ffacd0b85a97d-4858226c9camr2968663f8f.16.1788427766634;
-        Thu, 03 Sep 2026 02:29:26 -0700 (PDT)
+        bh=iTlhcsnqzkHfBDGujwqi+RIHWDNjq6XrFKufOw7QT0g=;
+        b=HovJNdGfLDCj41xrqfah3VXHmigIi+JtbBf8l+AO9H0zbxVIA+1aZuBbz2D4fwnCPf
+         vk9yGBvXCIoxrtJQOgCqaUOfgPpFQJHvI+W/ZFcWnggR4STtQO69POJMFo2975EXJ/LJ
+         ZiMa2Fs/NXTJtI/72IHO0oBmYnaK1q0VIkQJqlZynJ4blG+Bv32G03Zvp3/unO2CKbfa
+         1JK0TIG151aQH+Ao8SNosYeCrrX/3gBFL8LbJlURufsmB90839wsRxUMn6qTc7wubY/R
+         d/+yR3yxgQYfvH8msUm4rRTO+TpSxhpPezryaX5TPVtWGFd4X7Z1UxcJ61WUbAMPCm6D
+         seYA==
+X-Forwarded-Encrypted: i=1; AKwUvBx/A3NzSyYdxFogGBrNjscUcvvxVvehY83JSNQCghZB+SzEi7mOHJaYcOKJaV+aReTe1jdhg8vY9NV0OH4=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndbfKdLDcuIQPQJGkTjCrpeWqe/gGS14bkKyAX505M9/ECLVjo
+	rWOMPDF7FI9BSEgIXi038C4Sjq8CColWiFoZARlHI6k9NJVkIR/4Ir16
+X-Gm-Gg: AYBFou24iqQYaqidPHprRrpwyi/IYGh0yMS5UIuj1Z97LoMNLfzXZc1FvPEjO4ILnkE
+	rIfC+8XFGS2LwxdLb6aEJigVNTqx8iDJlB3ChkkM/qNRVQqqNw3SEKJHtP304VvwB1RvlpFJJE6
+	ZcrhwIrK3dRDWj4hY27gWJwX/91xJgRwrKG4vTnKcojj0BZ2cOguZjUeC5VotKQMcH0H7fMvren
+	5dhTSbI/rnCbRj7FnoQtpysfrrbNEeQZ1IIvUUNP5T0MbJ9ftKBDDoWzRq/BQVjDDRY8QjvRY0O
+	F7BBa+dZR6d0qrewWL3MF1qj94iw13m1IrcI0ePtpHuPw4WqcyNWyvJCacO8Y9dkOygJqPf9gHo
+	7zOBwdtOms1WyxgISx8J2DTrorFblvMJcYc2WWFv6gFhxa8T3PPSDaKp1mnUksssecLJCyOWFXV
+	h2bxF3l00EFimSKqdLXPN8w+//HQg2hZC8p0KC250NVqVjiJSWzwKF+RuT1LiWvv8xiQI=
+X-Received: by 2002:a05:6000:18a9:b0:482:f724:f4ba with SMTP id ffacd0b85a97d-484913c37dcmr19695539f8f.19.1788427771368;
+        Thu, 03 Sep 2026 02:29:31 -0700 (PDT)
 Received: from SurHub.localdomain ([196.188.114.38])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448eeae34sm13398522f8f.32.2026.09.03.02.29.25
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448ed30c0sm12772159f8f.24.2026.09.03.02.29.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 02:29:26 -0700 (PDT)
+        Thu, 03 Sep 2026 02:29:31 -0700 (PDT)
 From: Abdifatah Suruur <suruurism@gmail.com>
 To: kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: Ioana Ciornei <ioana.ciornei@nxp.com>,
+Cc: Eric Auger <eric.auger@redhat.com>,
+	Mostafa Saleh <smostafa@google.com>,
+	Pranjal Shrivastava <praan@google.com>,
 	Alex Williamson <alex@shazbot.org>
-Subject: [PATCH] vfio/fsl-mc: keep logical vm_pgoff in MMIO region mmap
-Date: Thu,  3 Sep 2026 12:29:22 +0300
-Message-ID: <20260903092922.470-1-suruurism@gmail.com>
+Subject: [PATCH] vfio/platform: keep logical vm_pgoff in MMIO region mmap
+Date: Thu,  3 Sep 2026 12:29:27 +0300
+Message-ID: <20260903092927.502-1-suruurism@gmail.com>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -73,7 +75,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vfio_fsl_mc_mmap_mmio() overwrites vma->vm_pgoff with the physical
+vfio_platform_mmap_mmio() overwrites vma->vm_pgoff with the physical
 frame number of the MMIO region and passes it to remap_pfn_range().
 The VMA is inserted into the device file's mapping->i_mmap interval
 tree keyed by vm_pgoff, which VFIO expects to be the logical file
@@ -87,20 +89,18 @@ leaving stale MMIO mappings behind any revocation attempt.  Keep
 vm_pgoff in the logical VFIO offset space, as vfio-pci does, and pass
 the physical PFN to remap_pfn_range() explicitly.
 
-Fixes: 67247289688d4 ("vfio/fsl-mc: Allow userspace to MMAP fsl-mc device MMIO regions")
+Fixes: fad4d5b1f042a ("vfio/platform: support MMAP of MMIO regions")
 Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
 
 ---
---- a/drivers/vfio/fsl-mc/vfio_fsl_mc.c
-+++ b/drivers/vfio/fsl-mc/vfio_fsl_mc.c
-@@ -369,8 +369,7 @@
- 	if (!region_cacheable)
- 		vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
-
+--- a/drivers/vfio/platform/vfio_platform_common.c
++++ b/drivers/vfio/platform/vfio_platform_common.c
+@@ -559,6 +559,5 @@
+ 	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
 -	vma->vm_pgoff = (region.addr >> PAGE_SHIFT) + pgoff;
 -
 -	return remap_pfn_range(vma, vma->vm_start, vma->vm_pgoff,
 +	return remap_pfn_range(vma, vma->vm_start,
 +			       (region.addr >> PAGE_SHIFT) + pgoff,
- 			       size, vma->vm_page_prot);
+ 			       req_len, vma->vm_page_prot);
  }
