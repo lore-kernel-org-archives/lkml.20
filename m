@@ -1,191 +1,152 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A684F49EC60
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 17:06:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB7B4F4751
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 17:07:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788455220; cv=none; b=tA/thfX+KUBmO2azdN+9DFOyK9jrImHnyrkjBjOffhjBAuqRXe0UPgMRRs/vSlKoylGe/Zn8G9Y0GbeEbgIvMpUVYpenHxGwgOcl+H7QZuIZ5hhot6BSjwReOyAPIXCaQMT0nEQJMdOPx0R+pEe6Gsw1sPN29FgBrzQkNi1Qlt8=
+	t=1788455223; cv=none; b=oLRWntamWRaPJ2PAHRQBZhnek8Ar4iOiIfSfJkkXQiKZz/Txqf1gB8Z5KJ0psTsxBGdHGBupTw30X+uQr11fG6V3eovyFgPoQ/pTlFdl9NL6Q+GgEIZ6glT4VFsMcJl5FCOK9ZCPWJyIfPQTshf5nGGUi+gU4iFtn+zAI2DLVro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788455220; c=relaxed/simple;
-	bh=/tlIv2SGGUkoL2UqKX+4qHVEPNSQGE/X4rdnsJAU7MA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=few+07d9dC8uyfvJLUtOI+6vEHo5rgbUSF1cK8pqffnv5oKklUje2YlvfgFD9zckCfql7EFdJe8p6WRkgETrD6c9D0nyIUuTAtjSlAPWT/rlbB4IJb118mgxGtMlUTp4+i+60LU+0EVbw/+T8oT2Fn25Ac4Qcaf+wSXSSHPeP4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Jy0m5w3V; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788455223; c=relaxed/simple;
+	bh=mwjS1qJDm5Rrnz3Is+AgPi54s75JfFcvKNHxNEqcXXI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=NU6hZ8yxKlHpqkpI7CXDYnysHZOoUEDJQHC/7EpHM0jfYqmQcl5ybhQUVShYXPk94Zn9jFHxv4SlpUn6GrnqmrxtXurMvdGezaFRLdDHMfb4HNV5wySCyDRdrc+7qzSsn58sOq3vB4/1p3SPm+qH6yVUQDI33wPmWORwLsraidA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k4eojBLh; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Jy0m5w3V"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so1192905e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 10:06:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k4eojBLh"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38511175ad3so2421a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 10:07:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788455217; x=1789060017; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lG2K8f3DLSAPU8vIl2cNtziQ9OMdBwPe3JQsdDV9ax8=;
-        b=Jy0m5w3VBqFWYxx1xr9o1/6Rw3l51AJq9Er6X8Sb4LF0+6VUFki2z5GwfwUJi5qaCn
-         +cZ6byxIM743AOgZFjQLJraRo9eP+KS/6BHv1HWjbXq/5pTthF6a7pBxfs4eL+1QNW+5
-         Xo/KZ0L2iQZSF5NxpLIol6RsECQIt319VVBn5P07oQRUjSVS7nUpztoNftHrNOiVWiDc
-         y+pBGJqlSKt4dpV1cFsmNN82DAQ8gQfYjaZbyjSL3K6DVfZOKRyPfixqcWQgfzD3nD1A
-         G/efntZz8j4hdyqZFntAHpwJGKPuQ0ZWmvu1blOZJ50tK4rC2wda2/b/cSbiCqykAB3y
-         Kdxw==
+        d=gmail.com; s=20251104; t=1788455221; x=1789060021; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=FDFcBw+OAGvI9CgN/45/xQaVNM9WgzSnrhfaFNWW050=;
+        b=k4eojBLhh+pbneNtBGsvjINgJp/GGm+GRtPPj6E5JXAqLRTjsajzF16jLY/3n5oMlH
+         9f+GmCAyp5cHVdHNwL4+oDqb1BIvjQQUqqmMlEAoijTZ2z7Kq9usrkS3Q31TxgJ8INbX
+         2rjBt/e6v/0Rr3H+iaernpGme761x2ORJ3zmPaaRvSty72me0HF9QjBrKkj5EyF6MM35
+         TNCE+b5FaxBpTFnEcqXcoIm3J2xbqeANKfzAZu6nqhGAOTX/2ia58GULRGugsTlRqDJq
+         dgc9/EXhByAcN8UuzFElV83wb2n+kPT0CSb7cH/iHQIEbjEyO4dIFDQyLopuhrqR8JEe
+         Z3jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788455217; x=1789060017;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lG2K8f3DLSAPU8vIl2cNtziQ9OMdBwPe3JQsdDV9ax8=;
-        b=J9eRAt7raGlUmu7RlyVE/t/WfyXOD8FjkikN8HsqsCFgdi2CWEkm4YvJqmgm+7N764
-         UYnASCYzE6iTdr8hMobtWHGOb8WVTExNw4uqClnWcQ42ZjO+uD0chHF3oUap3nZbo3YT
-         HOin1a4JiB1Wughf/nKayKuDp5ZJAhl/EP4Of7t7Bj3M2BnrGREQinYdLghKA5IdEJoC
-         be9Gi2e97zPAzL/6WSjBu+AV6jU7PFczOWHwhdrusUIRP/3ngVnvc7g4Nij8ZwElyOGk
-         mEyIEnnM25DNAPehMRuz69NnUOXASLBq5+w6FEBS8G4wnN0DmF3GG7s7rXv+FnV+1mHF
-         Oulg==
-X-Forwarded-Encrypted: i=1; AKwUvBzrMNpJZvFP6WIH6MffZH3B3mNNWuDkizRb1c9dIWqcp9927OQEvUzYsEPByousIbzhJSe/OkO5E6NyxeA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mSFwFQ8cVtgZTBGiWd7AEsJnPMgVWkLdQPcVYbFKQ78RONq2DR
-	a1dJAk8q9bbTVWVhmsTXR0oIuwySliGzGd0XSLK66qLWI/GJV+UEYcbTIY2Rpja4ppdbY1IUPsH
-	oPDFiOA==
-X-Gm-Gg: AYBFou3HTj0ewNxi4dipcOF8KkQSbeI9XCU5CyKLAcuqHbXYflNtY6nrCj4pP/CHZK0
-	Im+cqwxYEhNS+uaseopMsT80zv2cdIg8q6SOGxYFArJz31IEwuYGnAnijP5HRybG6TrCkDZvHfZ
-	Byb4ZwEr4Cc2yYMwRwhCghEq9tId+NUdHn+mRnd2zMHRJU7XyER1Kz1dMCB3pGMVKemRtS5pqOO
-	lFegeq+H2bx6a+hP6HSqUfk0NZHUlGiATTyTXquBLyPpDCtCgXE6U64tR+NJ1aEgdiPq7PtBTN5
-	R4Ue9RxZA6Jp9N5fPFceM+qCWrFVGttbyHdE9QnE6RtwSprW1G1aUIpM+BD5z930zJt+Gb06yAn
-	Lj1vOC8J3tkEv1b4yCtQO4V6BCXW6llYQcqQyG8eCaf5ijHMhoPTnmRXAlb8QnKpBJetpMXMhsk
-	PGKEUUai1JFACge4vagXyjVEssjR+9Nd3h7AT6Pyz9XYsvrPv89ZYLYk9Z8OIhvCOjjy/ljE2Nm
-	tzxgsmf+TTJ3lctEYylkPEkXLwWzde6
-X-Received: by 2002:a05:600d:8487:10b0:49c:f5bf:e8fb with SMTP id 5b1f17b1804b1-49cf5bfea1dmr25552835e9.5.1788455216326;
-        Thu, 03 Sep 2026 10:06:56 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5f912esm86009355e9.4.2026.09.03.10.06.54
+        d=1e100.net; s=20251104; t=1788455221; x=1789060021;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=FDFcBw+OAGvI9CgN/45/xQaVNM9WgzSnrhfaFNWW050=;
+        b=sr3tbXT1rt95k6wdxz49xjeHPthvePIa0qzOSej23C37q7pzh85EOZZrBpXtmfjYBi
+         GtGn7meyBPLZm2EZyUdw8/6kTumahwnphR8Y/WsQv5z93W07oS4g/VVnuTHfszx+Tg0C
+         dX+RPT/Qyux/n5VR4TXG6HOMKfRKD6srgjAMPIpT9ih6WIUjMqBmyvhrxa70ckfBUk6t
+         AohaGeNmJs78JVIpJnkyID3ym3pjIN6K3y8PiyDnHI0kNZyRUdKidWo+4Hbwrh2Xyx3C
+         FO6ajqF4X8kOsMmA1RpB0Kg83nJfMhVxjXrwHmOMv/x9vz8lKguGCNAyt3EOhtu9KQ7O
+         NHfg==
+X-Forwarded-Encrypted: i=1; AKwUvBzcg3zGSZvqslt2S7R9GIfcOgLSO5N402ybUOkPwrUmvZWlB+Z1KqjiEiRfR4xavu1irMD0Pt+ltefJEHs=@vger.kernel.org
+X-Gm-Message-State: AFuF++k3AY72iDWJh5RXOGrP24qxmCOTOFaHWI0CrRZiJK1c9pawV2tW
+	KgQ53z340quTqbyr9JoWeVlouvEvT/XKjWQjnimdr31iubXqy9ALVbx0
+X-Gm-Gg: AYBFou1K8nhfDjdfZERnSefpPIabW4PeaV4H+MtPBfvNQMiPJrkOvyTJ1P3IzM6hsFp
+	4BUsyahAWJyAktsdP4mTRfF2w7va9o+7syC3UJrh3yZroO5pvNjKmnIrSK2qCQNiyHlNnwd3a0n
+	MSAa1I0PfzZF/z9XmPESMln+xXuWLRhPyRWoge4NE1+WS/KwrSx9iPMgVSd8MeogYTPkOjZmt0Y
+	zniHgD3kJzQ208MP3+mbCwbciyQK+8wIQHRKkeJL66GQsiW2HD6Vtf5rpSmyAfVXwdsS7AmWHWL
+	iAqSIabbgruPAC1xSMpCdM3aWUnwO7SUUP8x5F5fQFlTFopHr5Z98W9gCja2CwKl2Hm4l4UhQGT
+	lcIfAZKDeKzjfiPcx1QYrqwUN1wLWL2RTvOg1RKhL+KyQcypbbi06cPCdN99HnDctnOPeaH9NSL
+	GggmUU6WQ/xfYkvr/5FqdZxivaaUOptfvsiWN6DMA79WDmL0xr06YOOwHnJGYZR7MIOA==
+X-Received: by 2002:a17:90b:4407:b0:398:9bd4:d13 with SMTP id 98e67ed59e1d1-39aee219427mr20003360a91.18.1788455221096;
+        Thu, 03 Sep 2026 10:07:01 -0700 (PDT)
+Received: from [100.87.176.22] ([112.133.220.139])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432435648esm891560c88.5.2026.09.03.10.06.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 10:06:55 -0700 (PDT)
-Date: Thu, 3 Sep 2026 18:06:51 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: mhiramat@kernel.org, linux-trace-kernel@vger.kernel.org,
-	mathieu.desnoyers@efficios.com, kernel-team@android.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 3/4] ring-buffer: Cap static ring buffer nr_pages
-Message-ID: <apmpK_QncDwqxE2B@google.com>
-References: <20260901155445.1475405-1-vdonnefort@google.com>
- <20260901155445.1475405-4-vdonnefort@google.com>
- <20260903125621.36cd33b8@gandalf.local.home>
+        Thu, 03 Sep 2026 10:07:00 -0700 (PDT)
+From: Hardik Kumar <hardikxk@gmail.com>
+Date: Thu, 03 Sep 2026 22:34:38 +0530
+Subject: [PATCH] Documentation/gpu: Fix spelling mistakes in todo gpu doc
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903125621.36cd33b8@gandalf.local.home>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-docs-gpu-todo-v1-1-be712c8f67a0@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSwNj3ZT85GLd9IJS3ZL8lHxdY0NDQ7NkMxNTC3MTJaCegqLUtMwKsHn
+ RsbW1AK0AuWhfAAAA
+X-Change-ID: 20260903-docs-gpu-todo-31116c645874
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Hardik Kumar <hardikxk@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788455216; l=2678;
+ i=hardikxk@gmail.com; s=20260827; h=from:subject:message-id;
+ bh=mwjS1qJDm5Rrnz3Is+AgPi54s75JfFcvKNHxNEqcXXI=;
+ b=5IWOsWt9xiohCr8FqZ9h6JG87i/4Ds/tmjR+ndAiXtH1mAt27ALWop+qT8AA+3ER/f4AdBiOL
+ nkusp+c/CarBjOJZhGw4YlrhF9zBSwGWupOkbvtDzFtfSi9Mt8D2CmW
+X-Developer-Key: i=hardikxk@gmail.com; a=ed25519;
+ pk=56yFuFlLHAdRemUZghoGHVCijEX767atrut3dPD0thQ=
 
-On Thu, Sep 03, 2026 at 12:56:21PM -0400, Steven Rostedt wrote:
-> On Tue,  1 Sep 2026 16:54:44 +0100
-> Vincent Donnefort <vdonnefort@google.com> wrote:
-> 
-> > Static ring buffers (i.e. persistent, user-mapped and remote) rely on
-> > the bpage::id field. The number of pages for those ring buffers must fit
-> > into that variable. Enforce this limit on ring buffer creation or
-> > user-mapping.
-> > 
-> > While at it, make buffer_page::id 31 bits. This does not change the
-> > struct buffer_page size.
-> 
-> Let's not add that change to this patch. Especially since this has a fixes
-> tag to it. That change has nothing to do with the fix.
-> 
-> The reason I had it as 30 to begin with was to reserve a bit in case I
-> found another reason for it. If 1<<30 is too small for the number of boot
-> buffer pages, we can always up in another order in the future.
+Fix some obvious typos in the todo.rst doc.
 
-ack
+Correct spellings of incorrect words.
+Fix an article usage.
 
-> 
-> > 
-> > Fixes: be68d63a139b ("ring-buffer: Add ring_buffer_alloc_range()")
-> > Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
-> > 
-> > diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-> > index 28dd76edfecf..c4260d6ecdfc 100644
-> > --- a/kernel/trace/ring_buffer.c
-> > +++ b/kernel/trace/ring_buffer.c
-> > @@ -350,7 +350,7 @@ struct buffer_page {
-> >  	local_t		 entries;	/* entries on this page */
-> >  	unsigned long	 real_end;	/* real end of data */
-> >  	unsigned	 order;		/* order of the page */
-> > -	u32		 id:30;		/* ID for external mapping */
-> > +	u32		 id:31;		/* ID for external mapping */
-> >  	u32		 range:1;	/* Mapped via a range */
-> >  	struct buffer_data_page *page;	/* Actual data page */
-> >  };
-> > @@ -657,6 +657,15 @@ static bool rb_is_static(struct ring_buffer_per_cpu *cpu_buffer)
-> >  	return cpu_buffer->user_mapped || cpu_buffer->remote || cpu_buffer->ring_meta;
-> >  }
-> >  
-> > +static unsigned long rb_static_max_pages(void)
-> > +{
-> > +	/*
-> > +	 * Static ring buffers are using bpage::id and must account for the
-> > +	 * reader page.
-> > +	 */
-> > +	return (1UL << 31) - 1;
-> > +}
-> > +
-> >  struct ring_buffer_iter {
-> >  	struct ring_buffer_per_cpu	*cpu_buffer;
-> >  	unsigned long			head;
-> > @@ -2842,6 +2851,10 @@ static struct trace_buffer *alloc_buffer(unsigned long size, unsigned flags,
-> >  		 */
-> >  		nr_pages = (size - sizeof(struct ring_buffer_cpu_meta)) /
-> >  			(subbuf_size + sizeof(int));
-> > +
-> > +		if (nr_pages > rb_static_max_pages())
-> > +			goto fail_free_buffers;
-> > +
-> 
-> If you want to add something, we could add to the beginning of this
-> function:
-> 
-> 	/* Prevent ridiculously small sizes */
-> 	if (size < PAGE_SIZE)
-> 		return NULL;
-> 
-> to shut up Sashiko about overflows :-p
+Signed-off-by: Hardik Kumar <hardikxk@gmail.com>
+---
+ Documentation/gpu/todo.rst | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-Yeah, I wasn't sure... It's so pedantic, we have no user with a small size :-(
+diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+index 14cf37590..187932554 100644
+--- a/Documentation/gpu/todo.rst
++++ b/Documentation/gpu/todo.rst
+@@ -277,8 +277,8 @@ Various hold-ups:
+ - Need to switch to drm_gem_fb_create(), as now drm_gem_fb_create() checks for
+   valid formats for atomic drivers.
+ 
+-- Many drivers subclass drm_framebuffer, we'd need a embedding compatible
+-  version of the varios drm_gem_fb_create functions. Maybe called
++- Many drivers subclass drm_framebuffer, we'd need an embedding compatible
++  version of the various drm_gem_fb_create functions. Maybe called
+   drm_gem_fb_create/_with_dirty/_with_funcs as needed.
+ 
+ Contact: Simona Vetter
+@@ -303,7 +303,7 @@ everything after it has done the write-protect/mkwrite trickery:
+ 
+       vma->vm_page_prot = pgprot_wrprotect(vma->vm_page_prot);
+ 
+-- Set the mkwrite and fsync callbacks with similar implementions to the core
++- Set the mkwrite and fsync callbacks with similar implementations to the core
+   fbdev defio stuff. These should all work on plain ptes, they don't actually
+   require a struct page.  uff. These should all work on plain ptes, they don't
+   actually require a struct page.
+@@ -465,7 +465,7 @@ be turned into a WARN_ON() or somehow made louder.
+ At the moment, we expect that we may still encounter the warnings in the
+ drm_panel core when using panel-simple and panel-edp. Since those panel
+ drivers are used with a lot of different DRM modeset drivers they still
+-make an extra effort to disable/unprepare the panel themsevles at shutdown
++make an extra effort to disable/unprepare the panel themselves at shutdown
+ time. Specifically we could still encounter those warnings if the panel
+ driver gets shutdown() _before_ the DRM modeset driver and the DRM modeset
+ driver properly calls drm_atomic_helper_shutdown() in its own shutdown()
+@@ -891,7 +891,7 @@ Querying errors from drm_syncobj
+ ================================
+ 
+ The drm_syncobj container can be used by driver independent code to signal
+-complection of submission.
++completion of submission.
+ 
+ One minor feature still missing is a generic DRM IOCTL to query the error
+ status of binary and timeline drm_syncobj.
 
-But that would make sense to fold that into this patch, right?
+---
+base-commit: 66498c75b4f8017f62d720d9b59675bdf3abce91
+change-id: 20260903-docs-gpu-todo-31116c645874
 
-> 
-> -- Steve
-> 
-> 
-> 
-> >  		/* Need at least two pages plus the reader page */
-> >  		if (nr_pages < 3)
-> >  			goto fail_free_buffers;
-> > @@ -2874,6 +2887,10 @@ static struct trace_buffer *alloc_buffer(unsigned long size, unsigned flags,
-> >  		/* The writer is remote. This ring-buffer is read-only */
-> >  		atomic_inc(&buffer->record_disabled);
-> >  		nr_pages = desc->nr_page_va - 1;
-> > +
-> > +		if (nr_pages > rb_static_max_pages())
-> > +			goto fail_free_buffers;
-> > +
-> >  		if (nr_pages < 2)
-> >  			goto fail_free_buffers;
-> >  	} else {
-> > @@ -7836,6 +7853,9 @@ int ring_buffer_map(struct trace_buffer *buffer, int cpu,
-> >  	/* prevent another thread from changing buffer/sub-buffer sizes */
-> >  	guard(mutex)(&buffer->mutex);
-> >  
-> > +	if (cpu_buffer->nr_pages > rb_static_max_pages())
-> > +		return -E2BIG;
-> > +
-> >  	err = rb_alloc_meta_page(cpu_buffer);
-> >  	if (err)
-> >  		return err;
-> 
+Best regards,
+-- 
+Hardik Kumar <hardikxk@gmail.com>
+
