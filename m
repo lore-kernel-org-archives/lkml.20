@@ -1,285 +1,211 @@
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F09C64A49B1
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:59:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788440385; cv=pass; b=pEui4OTMSViYs3mkroVhdICbNY9q4bMdt+2sK7A3SFK9dzUjEYt9/fFrq/K/RiTvQxBWmbP4QYSs/9NlV+KIE4Vxsz5ywYZhvDcETdbpJxPNrapTRXk2Mv3u70cQyoHqJAIsHg+ua0wC+DeGGWUQ1IQfjWaNtiG45O1lMO+h4nw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788440385; c=relaxed/simple;
-	bh=5TaETDwHyv/KzsQgA0oHSepJaIKkOONvRtU7EAtGX+o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BiuIDww8JirzrqjeDDvEm7IY1Glq65O3XC/oOenrzophQa+/ayKiJLV3wENL71wvpOqqOU3ikbADk5xrg5s26g8r7/W0WCZOK70BSw+tNpkxiTl0WxAO3omkRDNCEBmeg3xxEXbA+jLbGW/PCkxdPD630aC7DUT4o8Ppr9SkhkU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UMdoDAIq; arc=pass smtp.client-ip=209.85.167.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7362D4A92DF
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:00:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788440410; cv=none; b=HFh+xOxiKuvSUQzSCj+ZGF2fUU7TOnqTzrCyBGWlxne3qyXJO9S1uNF++qTpu0rLRmgWsclV2EwcTjC0Tuqy4Na7pnXMwYoyTY4/poQG1qi11ApsJ1Ml9ZBnnYiBEUnjlwKwk6HvgAvnLWEHI1tj0T/mzFqm7TrQm2htvHnk0uI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788440410; c=relaxed/simple;
+	bh=4+P9nneWcuishzT1eaSG3vRCHDAcoPq8z8fmuq4UY7U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aI4X3bCbJTBbkc8kc1F+51+f9Z5Gz1GsuAeM0YG72MyPp5WA+NFIWVOosVoUEgGzHqOyYy/MB03d/BlZ6IAtS96Hai4YLtxpHW0loG8dc0g3xziZWRBCv5D6PG8c1NaO+iwe0wV1b5JpZMltJPhOhy5gbAn8KMpHto1Fl60UBHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ic9xycFh; arc=none smtp.client-ip=209.85.210.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UMdoDAIq"
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b28c91fba5so1408100e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:59:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788440377; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WOcTfVRpQax2CKYlkdVGOGfh0jXbr26GdxBRtEiAu4hFAmycz47+6u/wQWB2SqAEGw
-         v2ZVMGKxyV/et5gmOqrOhQX4GsbY7c4zZrBjzyg7fLRZ4K2ku8wkMB6PkA/IaG7ZpPlp
-         zHYIAyV7ftaP9j++M34L2VOQ/kikIS5gF+3K+v1Dty+x4z68YRymdon8Re7vamgURlZ/
-         FDty+LSQJ77pjwBTihB+ka4ypEbk07XfeGfjMJ6frhxK/ccs9o52NoeRVVf0STI+LHeK
-         EVFm0sz/8oXD883aoO2nExO4p6v3ItzwxLI05/Zk+B5z/sCYwiOkvIGwqAN+Wjr1/jqh
-         1guQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BmAdg8/mefR05LTJz5ypL2PwZdELomAbn6h2iC+gq4s=;
-        fh=l1BnBjMmZiHZwPF8tQW+UzPCKZ+3r0W8/yYDzEnKHCM=;
-        b=TsakiUy2kapaSezmwHS7bJ/9gsucM8Fdc1UWL63g71biY48GeW34tRVbZ8kbZ/GZLE
-         boCePtsyeGduUVoIpQGnBb/u0U9GcCSsCU3GV2LejpGVydz7n4uIfgUuGK1sYngTFYpA
-         d0yNnMT57Iw6xoo/MEUa+U0qQd2YxHvzwwzarNd2DMfNFwTrKejpFQhjsp7VuuX1OF+x
-         +lLetKq/i9d/oECC3++rXRIhMWQ7L59TQGc0aVfV5wGgUu7ulG1hE/NUtfewPk5JiR/X
-         vimzdG4fxbbKoxWraiUfPScfgLahNBN8D2JfXF+AO/vFAu5IYrhGw22U12dsIbvXaxY8
-         Jm0g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ic9xycFh"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-84864086bfeso2230013b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 06:00:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788440377; x=1789045177; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BmAdg8/mefR05LTJz5ypL2PwZdELomAbn6h2iC+gq4s=;
-        b=UMdoDAIqD90uzJjNnbs8pwnidIeg31ZcI0U5aaIvY6Czh1TavIxkEXEKey7LC27TAz
-         EiZPGdXuEHwPPkt+9sqnVBTlIJt8tiRWwM/wPQiKQD2i/iIhHRsb4loKambLhpuTJ4Hx
-         vwhXFqygMAwHr9Kto/JmShUfkma+f1eSBBrkZM3q1YVX7QgYjeXd/9JEQ45Ts5fLsxyw
-         I0uuijMvn+0BefZ7dk5fAh6s3djuimMgZIZHbULb1RrMl8UNfIbUdrTAlJRk7ZZNCExx
-         hkRZoKo0xZhxxRVVqTt67MKSq9IKfuovZb5atYt3RQR0HWm8/S+cB8opUs5epxn47ZJT
-         Lxxg==
+        d=gmail.com; s=20251104; t=1788440403; x=1789045203; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ySykvbIWmO4Te6vIVwftEuMOLYpDg3lGaudbSYAL6eg=;
+        b=Ic9xycFh/kSMjnqE+WaTrqY9u8NkqH+XPdI3NZG1Yym2kShoVf7zJmxZ7XJXR9zdsU
+         uLymiEB/j/v7T35j3RoE78eQCveH1+YfL/w0+hWbuYBDrxu8YLek+9i7jRMKzmXzAIjV
+         MYM6ucI/MT3UzjskseGapCDz7p0ZkkJLohMWMg3UIn9kzgUVEt+wPPw1SSoz/SntbeJC
+         vq03oCvU7VrQqaC4ZmnhO/5x7DUlDsUoDzlXfQjnoWH+F7EynOeD/pB78Rbt+Ma9I3Bu
+         Fq+FTEj+Gp+isv3GQyJzAkeVrc6Fj4RXG0rAPK1ZDuDQ1qcNhhHW46BuOHDJ2435XkkA
+         d0eA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788440377; x=1789045177;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BmAdg8/mefR05LTJz5ypL2PwZdELomAbn6h2iC+gq4s=;
-        b=h4qMdv+e6OpelbaW60aueeWsycoShsc60oUl97ZRVIiELnmwosp37Hgoe9P1kgRskx
-         4dMYnd3J3x2fT6M/L3HwLTK9v4LCitNdh/KS+dgcRbEqs+ojjYLgkPpiVp7SmA4PHErD
-         7Z2FOgwVTBGfiPtPlHDBz/hgw2Kgyu1iRfScpoXJNiDFyHhMFgY1b2wujay9GvnZcme5
-         XdZs3+Mrkji9GYzJxIofSkE7/metA7Sv94wcraPK9nEWhIgaZTWAbGb7yrsIg+CrYHrj
-         CE0ieaSxyrkp9vlE9XZAhkBwd8Qkw3TH12KjNjRrIb+hH2mBQYnVsVVJtdztffv07LGX
-         jh8w==
-X-Forwarded-Encrypted: i=1; AKwUvBxhLXFt165E7Of+Gk/jOAJyYbr0WISfinYx2hDbkM0JJFzHUET0SfJ9vyPAMf7vHkNF8irPUVUEZgu+ZUU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kiH9Rh2OF30GRh7thzjtjQ8bADM2pAFrItjSqO6J4I/5mz3U/3
-	M8buRrWSpfBfByxmALC8ZClJ1rEY6ZYW2NTSOwbZSAFZA7OXvsgYa+Cp7C5otoKe1aEtT5AJ+3o
-	lKvM0eE2acoJRrVtHOYaRQ2X/XAgKTZQ=
-X-Gm-Gg: AYBFou1YAIQqUenZNLy5pzcuK5tSldlgNSkOae9HYDeqg81Oeaus8WjLViwuHoP9m3l
-	wQT8ZiWpTsV4WkU369ruq7ivWCmpY8Q97vnzAgjz6ePj4jN4QjsvFul3WNU+WOWcjdPy/ftqGcq
-	A4bSSbuCMsZUo9VK6EBqFQ/CLmdxa5eh/Bvn2c8VNF3oC0wqJ3tfhrwgJ5iYqYumKmRZ3QkcRii
-	A0CxYobG6HVPewc9cpSJH4EGfLK/CaeCpETM+IOVj/+T7/YkDQ6nFKb9hunf4383lYfDJn/zWVm
-	n/ard7Yb/FAVyTw69FwC4PX95VaRh58XUYQwl42lVFu4dsf7QIjgjS9AzETzD7GL2QVHDcUQYB4
-	=
-X-Received: by 2002:a05:6512:450a:b0:5b6:10bc:dc44 with SMTP id
- 2adb3069b0e04-5b610bcdd1fmr687589e87.27.1788440377072; Thu, 03 Sep 2026
- 05:59:37 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788440403; x=1789045203;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ySykvbIWmO4Te6vIVwftEuMOLYpDg3lGaudbSYAL6eg=;
+        b=V+n4anryqOQd8fb9W27yJFBEiFvK0gVoARoLYgiL016o42A+Qg8BmohXOiCBaUbO1c
+         KlgC1+GXrOg97TjAVXf7gxVHcovkzAO5+AJ9oSYzFOwgASjYgaBDnrJ0unt7rCpW7eZM
+         dJ4FxHfSnIaaECq7LAsXpKkIp5rch4s2x9F48pJG//lAkBz235ccsdgucrppuE1A/l2M
+         Hz91zC/kCJVKhCk/9GbQszjG91QdTRTtxmx63FVnOjNnsMM7mA7GKgnwE5J27UDz9Vrv
+         Q7Ke4y7RPviTzLPHVX3opMuEpSw8Ew6xxaFtYIJb5Q6Vv7EhMQUDd2PP1Tyfx6BCLELE
+         XKsQ==
+X-Forwarded-Encrypted: i=1; AKwUvByzsYRSoTay5eUw2duKAjpCQ3vG+A+Ji05kgqh6kbivKTxbYj4jCEgaKpMSTNfLExHOXdK2fw0WmzzvwY4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lmjE/nuSJiC0UMEe78+CZBQBgCCaOU8i4s6iOBRW+GaGPXyDLo
+	ai0mUD59d2+pqmNhWQC45zLSlm18gGFG7V7LrH9SlL1SrjCNEgeXD94v
+X-Gm-Gg: AYBFou2uss7O1g82IdXRbnCcCQd0cDQN9ZpIChnf9tusWB3bI4dJtc+Wsy5U2Lf71Xz
+	2cqjW/4vsN51TddoG/OmWoD80G2TexKFJkRFp13/KwPI/feDWUmNpXgOKhNpa2IrJjdV85C8PD8
+	9UIcCCN+dCkjtt2B4CsLmrvTzHAYvNvH6FjFsr/ESEGqmOV2Ov6XoiiAaJ8vo7qXc5AfULlJ203
+	jJ0rcoJHRRK+Yt86UAddWTngfyzD4UJevveBNsUH5cAJVE7gn5UdwHuYWheLTHX/DyJmjnhASjW
+	Bmo5gmPcY43tQf6odqHyWZomnb0A149mO3bwWn0EmDJvDQd1svyfbOoDqiZd7Px+thF94EG3YPh
+	kOvZu8CN0UHwea7yHA4a4QvTGQjbIFdyvZBuY/uTKCe5ehN/y+wkJ98Of73ObX2QBeRYN3YVIRf
+	VYT0vPm2CLipq6kksk4SCTUPjNVzCv9Qvy3aHr4w93/HoLdVVuXi1Q8IW+kC6lox4BBXl8oDpga
+	yaptFBRu1aE23sXq5wqIXN2
+X-Received: by 2002:a05:6a00:189c:b0:848:4754:28e4 with SMTP id d2e1a72fcca58-85ed3895332mr17366905b3a.15.1788440403103;
+        Thu, 03 Sep 2026 06:00:03 -0700 (PDT)
+Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db23f7bccsm2980946b3a.10.2026.09.03.05.59.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 06:00:01 -0700 (PDT)
+From: Wenjie Qi <qwjhust@gmail.com>
+X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
+To: jaegeuk@kernel.org,
+	chao@kernel.org
+Cc: linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	hch@lst.de,
+	jack@suse.cz,
+	axboe@kernel.dk,
+	tz2294@columbia.edu,
+	baohua@kernel.org,
+	linux-block@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	qiwenjie@xiaomi.com,
+	qwjhust@gmail.com
+Subject: [PATCH v4 0/2] f2fs: enable buffered RWF_DONTCACHE
+Date: Thu,  3 Sep 2026 20:59:51 +0800
+Message-ID: <cover.1788438786.git.qiwenjie@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260830114731.8322-1-wujianyue000@gmail.com> <20260830114731.8322-3-wujianyue000@gmail.com>
- <20260901161329.GI3004@cmpxchg.org> <CAJxJ_jhkM4HHgCi-OsQcoDeDC5_fsejf+u+b5E1n3gNUd=EJmQ@mail.gmail.com>
-In-Reply-To: <CAJxJ_jhkM4HHgCi-OsQcoDeDC5_fsejf+u+b5E1n3gNUd=EJmQ@mail.gmail.com>
-From: Jianyue Wu <wujianyue000@gmail.com>
-Date: Thu, 3 Sep 2026 20:59:23 +0800
-X-Gm-Features: AcwNN1UKIFYH_nhtxWH9JjOWZK6QjiNNdqvySPxc8FL2qtcVQQ5XgTwj5a_O5fo
-Message-ID: <CAJxJ_jgLNTbyXJmerardEfBzbZeR1O0J=5DwDZr1kyp0kN7qHg@mail.gmail.com>
-Subject: Re: [RFC PATCH v4 2/3] mm/zswap: replace the zswap_pools list with a
- fixed pools array
-To: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Chris Li <chrisl@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 2, 2026 at 8:50=E2=80=AFAM Jianyue Wu <wujianyue000@gmail.com> =
-wrote:
->
-> On Wed, Sep 2, 2026 at 12:13=E2=80=AFAM Johannes Weiner <hannes@cmpxchg.o=
-rg> wrote:
-> >
-> > On Sun, Aug 30, 2026 at 07:47:30PM +0800, Jianyue Wu wrote:
-> > > Originally zswap holds its pools on an RCU list whose head also serve=
-s
-> > > as the "current pool". Only a handful of pools are ever live at once,
-> > > since a new pool is only created when the compressor is (re)set and
-> > > pools are reused across compressor switches.
-> > >
-> > > Hold the pools in a fixed ZSWAP_MAX_POOLS-element array so each pool
-> > > has a stable slot number, and track the current pool with a separate
-> > > rcu-protected pointer.
-> > >
-> > > Slot 0 is intentionally left unused (always NULL): a zeroed or
-> > > incorrectly initialized pool index then resolves to NULL and trips a
-> > > WARN rather than silently aliasing a live pool in another slot.
-> > >
-> > > The array keeps the same RCU publish/retire discipline the list had,
-> > > so lookup and teardown stay equivalent. A fully-constructed pool is
-> > > stored into its slot as the last step of zswap_pool_create(), so arra=
-y
-> > > walkers only ever observe a NULL slot or a ready pool. Pool creation
-> > > is serialized by the module-wide kernel param mutex (all built-in
-> > > params share one lock) and otherwise only happens during
-> > > single-threaded init, so no two creators race for a slot.
-> > > zswap_pools_lock still serializes the store against a retiring pool
-> > > clearing its slot in __zswap_pool_empty().
-> > >
-> > > Behavior change: the fixed array bounds the number of simultaneously
-> > > live pools at ZSWAP_MAX_POOLS - 1 (15, since slot 0 is reserved),
-> > > whereas the old list was unbounded. A pool is only live while it is
-> > > the current pool or still has stored pages referencing it, and pools
-> > > are reused across compressor switches, so 15 is far more than any rea=
-l
-> > > configuration needs. Once all slots are occupied, creating a pool for
-> > > a 16th distinct compressor fails: zswap_pool_create() errors and
-> > > returns NULL, and the compressor switch is rejected with -EINVAL
-> > > rather than silently succeeding. The cap can be raised by increasing
-> > > ZSWAP_MAX_POOLS (bounded by the u8 slot index, so up to 256).
-> > >
-> > > Suggested-by: Nhat Pham <nphamcs@gmail.com>
-> > > Suggested-by: Yosry Ahmed <yosry@kernel.org>
-> > > Signed-off-by: Jianyue Wu <wujianyue000@gmail.com>
-> > > ---
-> > >  mm/zswap.c | 97 ++++++++++++++++++++++++++++++++++++++++------------=
---
-> > >  1 file changed, 72 insertions(+), 25 deletions(-)
-> > >
-> > > diff --git a/mm/zswap.c b/mm/zswap.c
-> > > index 0bb30e58950a..b3b5e2887c00 100644
-> > > --- a/mm/zswap.c
-> > > +++ b/mm/zswap.c
-> > > @@ -13,6 +13,7 @@
-> > >
-> > >  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-> > >
-> > > +#include <linux/cleanup.h>
-> > >  #include <linux/module.h>
-> > >  #include <linux/cpu.h>
-> > >  #include <linux/highmem.h>
-> > > @@ -154,12 +155,27 @@ struct zswap_pool {
-> > >       struct zs_pool *zs_pool;
-> > >       struct crypto_acomp_ctx __percpu *acomp_ctx;
-> > >       struct percpu_ref ref;
-> > > -     struct list_head list;
-> > >       struct rcu_work release_work;
-> > >       struct hlist_node node;
-> > > +     u8 idx;
-> > >       char tfm_name[CRYPTO_MAX_ALG_NAME];
-> > >  };
-> > >
-> > > +#define ZSWAP_MAX_POOLS 16
-> >
-> > It's unlikely to happen, but this is a super annoying failure
-> > mode. User would have to kill something, delete shmem/tmpfs, or
-> > swapoff. And it's not obvious which entries are in which pool.
-> >
-> > Wouldn't an idr make more sense?
-> >
-> > > @@ -270,6 +283,31 @@ static void acomp_ctx_free(struct crypto_acomp_c=
-tx *acomp_ctx)
-> > >       acomp_ctx->buffer =3D NULL;
-> > >  }
-> > >
-> > > +/*
-> > > + * Publish a fully-constructed pool into a free array slot.  Pool cr=
-eation is
-> > > + * serialized by the module-wide kernel param mutex (all built-in pa=
-rams share
-> > > + * one lock) and only otherwise happens during single-threaded init,=
- so no two
-> > > + * creators race for a slot.  The pool is complete before it is stor=
-ed, and
-> > > + * zswap_pools_lock still serializes this store against a concurrent=
- retiring
-> > > + * pool clearing its slot in __zswap_pool_empty(), so array walkers =
-only ever
-> > > + * observe a NULL slot or a ready pool.
-> > > + */
-> > > +static int zswap_pool_assign_slot(struct zswap_pool *pool)
-> > > +{
-> > > +     int i;
-> > > +
-> > > +     guard(spinlock_bh)(&zswap_pools_lock);
-> > > +     for (i =3D ZSWAP_FIRST_POOL_SLOT; i < ZSWAP_MAX_POOLS; i++) {
-> > > +             if (!rcu_access_pointer(zswap_pools[i])) {
-> > > +                     pool->idx =3D i;
-> > > +                     rcu_assign_pointer(zswap_pools[i], pool);
-> > > +                     return i;
-> > > +             }
-> > > +     }
-> > > +
-> > > +     return -ENOSPC;
-> > > +}
-> >
-> > It was kind of overdue, but with this now requiring a pool walk as
-> > well, it would be better to factor out a find_or_create function?
-> >
-> > Something like:
-> >
-> > static struct zswap_pool *zswap_pool_find_or_create(char *compressor)
-> > {
-> >         struct zswap_pool *pool, *new_pool =3D NULL;
-> >         u8 id, new_id =3D 0;
-> >
-> > insert_new:
-> >         spin_lock_bh(&zswap_pools_lock);
-> >         idr_for_each_entry(&zswap_pools, pool, id) {
-> >                 if (pool && !strcmp(pool->tfm_name, compressor) && zswa=
-p_pool_tryget(pool)) {
-> >                         if (new_pool) {
-> >                                 pool_put(new_pool);
-> >                                 idr_free(&zswap_pools, new_id);
-> >                         }
-> >                         spin_unlock_bh(&zswap_pools_lock);
-> >                         return pool;
-> >                 }
-> >         }
-> >         if (new_pool) {
-> >                 idr_replace(&zswap_pools, new_pool, new_id);
-> >                 spin_unlock_bh(&zswap_pools_lock);
-> >                 return new_pool;
-> >         }
-> >         spin_unlock_bh(&zswap_pools_lock);
-> >
-> >         new_pool =3D pool_alloc();
-> >         if (!new_pool)
-> >                 ...
-> >         new_id =3D idr_alloc(&zswap_pools, NULL, 1, 256, GFP_KERNEL);
-> >         if (new_id < 0)
-> >                 ...
-> >         goto insert_new;
-> > }
-> Agreed. Hitting the 15-pool cap would be an annoying failure mode, even
-> if it should be rare.
-> I will switch this to an IDR with IDs in the 1..255 range, keeping 0 as
-> the invalid entry value, and factor the lookup/allocation path into a
-> zswap_pool_find_or_create() helper.
->
-> Best regards,
-> Jianyue
+This series enables buffered RWF_DONTCACHE on F2FS for sustained one-pass
+streaming writes, where retaining the written data can displace more useful
+cache.
 
-Hello Johannes,
+Patch 1 marks dropbehind write bios with BIO_COMPLETE_IN_TASK and uses the
+same flag to keep normal and dropbehind folios separate in the IPU and OPU
+paths.  The block layer owns deferral from unsafe completion contexts.
 
-I have this working locally, but I am still testing and some parts still
-need clarification.
+Patch 2 passes FGP_DONTCACHE to the F2FS buffered write folio lookup and
+advertises FOP_DONTCACHE.
 
-1. Could I use xarray here? Similar to idr, can naturally start from 1,
-and zswap already uses xarray for the entry trees.
-i.e. the pool table is an allocating xarray (XA_FLAGS_ALLOC1, ids
-1..255, 0 reserved).
+Tests were run on a Xiaomi phone with 10.7 GiB of kernel-visible memory,
+running Android 16 and Linux 6.12.69 with 4 KiB pages.  /data used F2FS.
 
-2. Compressor updates are already serialized by the param lock,
-and the only other create path is zswap_setup() during init (or when
-enabling zswap). That does not run alongside another creator, so I
-think we can keep the simpler lookup-then-create flow. It is almost
-the same as the original list code, just using the xarray API.
+The performance test wrote exactly 64 GiB per run at 4 KiB,
+8 KiB, 16 KiB, 32 KiB, 64 KiB, 128 KiB, 256 KiB, 512 KiB, and 1 MiB.
+Two counterbalanced rounds ran ascending normal-first and descending
+dontcache-first.  Values below are equal-weight means of both runs; N=2.
+The pwritev2() writer models the streaming workload; it does not show that
+an unchanged Android application already issues RWF_DONTCACHE.
 
-Best regards,
-Jianyue
+Android remained active with displays off.  Each run started after a cache
+reset and at least 120 seconds of cooldown.  Throughput and one-second
+kswapd0/global-memory samples cover the write loop.
+
+Write-loop throughput was:
+
+          normal MiB/s              dontcache MiB/s
+ I/O      r1       r2      mean      r1       r2      mean     change
+ 4K      946.28   935.74   941.01   291.36   309.31   300.33   -68.08%
+ 8K     1077.05  1105.84  1091.45   477.79   479.79   478.79   -56.13%
+ 16K    1126.84  1118.49  1122.67   643.40   652.06   647.73   -42.30%
+ 32K    1150.62  1036.33  1093.48   762.24   751.45   756.84   -30.79%
+ 64K    1144.80  1163.82  1154.31   852.11   851.19   851.65   -26.22%
+ 128K   1166.29  1162.84  1164.57   867.47   865.05   866.26   -25.61%
+ 256K   1153.61  1172.78  1163.19   895.53   885.33   890.43   -23.45%
+ 512K   1173.61  1197.34  1185.48   903.09   903.01   903.05   -23.82%
+ 1M     1126.22  1154.59  1140.41   850.74   894.60   872.67   -23.48%
+
+Average kswapd0 CPU and average global Cached were:
+
+ I/O      kswapd0 CPU, normal/DC        Cached MiB, normal/DC
+ 4K             18.45% / 0%                 4830.15 / 686.56
+ 8K             21.60% / 0%                 4862.35 / 591.48
+ 16K            22.75% / 0%                 4905.47 / 625.07
+ 32K            22.05% / 0%                 4945.82 / 561.59
+ 64K            23.46% / 0%                 4920.77 / 639.78
+ 128K           23.16% / 0%                 4971.37 / 693.26
+ 256K           23.68% / 0%                 4956.93 / 668.60
+ 512K           24.25% / 0%                 4972.22 / 663.92
+ 1M             22.01% / 0%                 5001.09 / 705.30
+
+Other global memory means were:
+
+          MemAvailable MiB       Dirty MiB          Writeback MiB
+ I/O       normal / DC          normal / DC          normal / DC
+ 4K      6513.08 / 6382.31     640.48 / 33.93       37.94 / 0.09
+ 8K      6560.77 / 6529.33     690.89 / 43.57       40.84 / 0.54
+ 16K     6587.46 / 6519.94     789.16 / 62.67       61.58 / 4.64
+ 32K     6571.95 / 6566.74     850.48 / 69.14       67.69 / 9.24
+ 64K     6600.64 / 6559.89    856.97 / 134.28      59.60 / 16.19
+ 128K    6627.03 / 6465.10    873.68 / 137.57      60.57 / 41.50
+ 256K    6615.58 / 6541.09    885.98 / 158.15      61.25 / 29.57
+ 512K    6625.52 / 6534.41    900.65 / 139.07      63.65 / 30.35
+ 1M      6677.09 / 6539.89    909.70 / 187.56      51.58 / 33.46
+
+          Active(file) MiB      Inactive(file) MiB
+ I/O       normal / DC             normal / DC
+ 4K       279.57 / 264.13         4426.38 / 183.12
+ 8K       262.32 / 260.97         4472.62 / 182.19
+ 16K      392.09 / 252.95         4392.78 / 195.82
+ 32K      254.30 / 248.44         4554.18 / 187.34
+ 64K      252.73 / 244.94         4545.40 / 267.28
+ 128K     322.02 / 243.95         4530.63 / 298.91
+ 256K     245.47 / 240.02         4586.64 / 303.92
+ 512K     254.75 / 232.05         4591.17 / 288.27
+ 1M       238.88 / 233.64         4638.81 / 341.00
+
+Dontcache left zero target-file pages resident at every size.  Normal
+retained about 1.19--1.24 million pages.  Normal runs incurred roughly
+15.6 million kswapd page scans and steals per run, while dontcache recorded
+zero.  Direct scan and allocation-stall deltas were zero in both modes.
+
+A controlled explicit-dontcache model issued 64 KiB writes for 120 seconds
+at 64, 128, and 256 MiB/s.  Both modes sustained all three rates in both
+rounds with no final schedule overrun.  Between 0.02% and 0.41% of writes
+completed late, with a maximum schedule lag of 3.3--6.0 ms.  Dontcache left
+zero target pages resident.  This was a controlled model, not an unchanged
+Xiaomi application.
+
+Buffered read throughput was:
+
+ I/O       normal MiB/s   dontcache MiB/s   change
+ 4K          1825.50          1695.10        -7.14%
+ 8K          1901.46          1847.96        -2.81%
+ 16K         1941.60          1872.55        -3.56%
+ 32K         1960.95          1905.92        -2.81%
+ 64K         1951.35          1886.54        -3.32%
+ 128K        1960.03          1915.82        -2.26%
+ 256K        1976.01          1900.41        -3.83%
+ 512K        1973.31          1911.24        -3.15%
+ 1M          2230.91          2007.82       -10.00%
+
+Dontcache left zero source pages resident in all measured read runs.
+
+The normal-I/O control showed read-throughput differences of +0.67%,
+-0.90%, and -2.58%, and write-throughput differences of -1.75%, +0.33%,
+and +2.33%, at 4 KiB, 64 KiB, and 1 MiB respectively.
+
+Changes since v3:
+
+- use the common block task-context completion infrastructure;
+- rebase onto the current F2FS development branch based on v7.3-rc1.
+
+Wenjie Qi (2):
+  f2fs: complete dropbehind write bios in task context
+  f2fs: enable buffered RWF_DONTCACHE
+
+ fs/f2fs/data.c | 27 +++++++++++++++++++++------
+ fs/f2fs/file.c |  2 +-
+ 2 files changed, 22 insertions(+), 7 deletions(-)
+
+-- 
+2.43.0
