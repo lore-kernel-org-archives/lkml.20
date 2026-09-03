@@ -1,93 +1,91 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02007429038;
-	Thu,  3 Sep 2026 08:12:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58DA6449988;
+	Thu,  3 Sep 2026 08:12:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788423161; cv=none; b=eYqmsMHvhIxh5FojO8qodjSUVeCrWFcvP/V/2x9WSD2d1PizEsZ3Rc5mTOHjb677gNTNvfk4kP2hp1TQw/BZPaas6cKzjko8Cn+QwumtsH30xu2YsHhLeazu7Dl0AjrxE2qQB9+eS8f+AA1MUA9Lcx+4FvJfOS+k1Oili1naXdw=
+	t=1788423165; cv=none; b=FDf9VWwPFBZEpt/eQlaXKvtKFtgNUo1bg1JETsexf7B7D1R1qjdcGl8YsiIM+uk47+1JBShnOMewVhBrhA43itzLX5/YF/MaY/c0yFgy3CLKugwzh4j72m17izINE/JF4+36ttYuZsC6w6irf7BNojp1MhVfE2ALPdgaysgtyFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788423161; c=relaxed/simple;
-	bh=05YqIAB3Hi+10tqPXqbRfid7oamabNtLXWeKZGjES44=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cdf5FmRGgmJmWkwDUQ1MAU/2qjxbvDXVOsNrMYVYFgN5J/XHVtHirXW76b+33oFDwDPvSH11yfs19MHuJv//ygtngMXsHMOfXJZ58U9hTXBsmLoU94D0LsfFZkMrwKW9RYcCHgNYVBMoJ92ltWFkmxVigyKrYbRM58CuRpSWXiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=U2t3j1O2; arc=none smtp.client-ip=192.198.163.9
+	s=arc-20240116; t=1788423165; c=relaxed/simple;
+	bh=6w4bfji6hAGZea5dXhSgXU5mFR56zgAIYb4H+KRrPzU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aZOtfwRvcgtTnOeeZYvfGTQOtGHJILxwW+EUZgepvCa0EOdHi50Ui3MSJDk2iep0LIam/A5uJFGr9mEW5E+EyvZO59zXgVMo7ePJVuH8VMNnQ27DgZwJxWrZkq3Clj67Rre66fCpU4Qw2VrlExupgDBtyUSy+cAKbRChujzYYBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FpIYV9AE; arc=none smtp.client-ip=192.198.163.8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="U2t3j1O2"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FpIYV9AE"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788423160; x=1819959160;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=05YqIAB3Hi+10tqPXqbRfid7oamabNtLXWeKZGjES44=;
-  b=U2t3j1O2GFhr0njUETlUgMXlBhLG57r6e0M8NlC+i6uR1Jx7aRk+isPJ
-   0jOIEeU2V9kWNif/2L1Lu9i3RjFls0mJFOzJl9YhO8IIFeBZvAddOk1wu
-   e1YfHWeb6Ce3G2i/U/9ToyehR+xcPC62rfSq0ox4ghVS2wedCaUtwntlG
-   mqW5BztvqCmOb4HqnbHjvn+FVTSY7Qbam97UZ+6N56tbfkXPHsWIwngfm
-   jqPFNWgOW/p3QIE+KuAvvNLkLAHnYa16NTfvzcjPTRhd3dT/e+djimubc
-   W67nmtX4CKNsNXNzKV2cRUZ6dTn8jPgnkXzLjnbbxUqEFiAhDQgkqklNJ
-   A==;
-X-CSE-ConnectionGUID: ZmPAr4pfSo+TiE1t+bSI3A==
-X-CSE-MsgGUID: 6PJUlgEdTe6w1YYbRYOeQw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="99557869"
+  t=1788423163; x=1819959163;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=6w4bfji6hAGZea5dXhSgXU5mFR56zgAIYb4H+KRrPzU=;
+  b=FpIYV9AEQcUhrKPbId7XqRNkm1BwG+/EJMo+vYVdLDQxJkxSP3+RKei+
+   1V9z65vy++ZJ2l/nyk2eCKG/24yrYk82eivTl6NnZW1JPygQUWN0Y5kVt
+   hTwMjBOaS20f9G0TF8uim+vZPEhMWiEY8zql2SJCDGleEzEs+7oLSdryR
+   CjERvROhNKgKN8Y6UZgM7uZd+Zr27YOHuyNZ/R4kUMj/LyFn7xDrYjOHs
+   MpmLBeQiHc76+CpUC4V097mBR+3rNidZlGOm2C3+HkVyiXlFb1uKLmrWH
+   ixz4vOnW4PO8mL56lUXFU6aLui51uSyzeuZbur1l2RJDFd6n5K5osKWXD
+   g==;
+X-CSE-ConnectionGUID: yX4AVdEAToqhLstZ6eODAQ==
+X-CSE-MsgGUID: 2ThAdPDgS5WxuNYpXN88NA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="106416137"
 X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="99557869"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 01:12:38 -0700
-X-CSE-ConnectionGUID: ebcaxZTOTZyQmKhH7pXHsg==
-X-CSE-MsgGUID: VSY9bY4eQY6UKBYeZAoSvw==
+   d="scan'208";a="106416137"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 01:12:43 -0700
+X-CSE-ConnectionGUID: /u1yE0FgQGueLdY6JsPdsA==
+X-CSE-MsgGUID: eSW4BurGRs2Ih0+FrZymiw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="293150793"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 01:12:35 -0700
-Date: Thu, 3 Sep 2026 11:12:33 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Linux ACPI <linux-acpi@vger.kernel.org>,
-	Linux PM <linux-pm@vger.kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Peixin Xie <peixin.xie@linux.spacemit.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Lukas Wunner <lukas@wunner.de>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Linux PCI <linux-pci@vger.kernel.org>,
-	Bjorn Helgaas <helgaas@kernel.org>,
-	Hans de Goede <hansg@kernel.org>
-Subject: Re: [PATCH v2 6/6] ACPI: scan: Take PCI device enumeration into
- account directly
-Message-ID: <apkr8cm-Hg3KZ6HD@ashevche-desk.local>
-References: <5144065.31r3eYUQgx@rafael.j.wysocki>
- <6207934.MhkbZ0Pkbq@rafael.j.wysocki>
+   d="scan'208";a="307852873"
+Received: from unknown (HELO [10.238.2.33]) ([10.238.2.33])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 01:12:40 -0700
+Message-ID: <d04fee8f-6742-469c-9dfa-6afbc44129a6@linux.intel.com>
+Date: Thu, 3 Sep 2026 16:12:37 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6207934.MhkbZ0Pkbq@rafael.j.wysocki>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/4] KVM: TDX: Report CORE_CAPABILITIES as configurable
+To: Kishen Maloor <kishen.maloor@intel.com>, linux-kernel@vger.kernel.org,
+ kvm@vger.kernel.org
+Cc: seanjc@google.com, pbonzini@redhat.com, dave.hansen@linux.intel.com,
+ andrew.cooper3@citrix.com, nik.borisov@suse.com, kas@kernel.org,
+ rick.p.edgecombe@intel.com, xiaoyao.li@intel.com, chao.gao@intel.com
+References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
+ <20260827031837.2863609-3-binbin.wu@linux.intel.com>
+ <73beeef9-3ecf-49fc-87e3-6fa30f8f56d3@intel.com>
+ <d47c8cc6-242b-4ebf-89f2-0909abdaadd5@linux.intel.com>
+ <0c2881c6-3352-486d-be59-e6350fda9ad7@intel.com>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <0c2881c6-3352-486d-be59-e6350fda9ad7@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 02, 2026 at 09:36:54PM +0200, Rafael J. Wysocki wrote:
-
-> The ACPI companions of PCI devices are associated with the corresponding
-> PCI devices before being processed by acpi_scan_attach() and by the time
-> they are passed to attach_subtree(), the PCI devices associated with
-> them have been already enumerated and initialized.
+On 9/3/2026 2:10 PM, Kishen Maloor wrote:
+> On 9/2/26 7:22 PM, Binbin Wu wrote:
+>> On 9/3/2026 1:43 AM, Kishen Maloor wrote:
+>>> On 8/26/26 8:18 PM, Binbin Wu wrote:
+>> ...
+>>
+>> Actually this is the #VE reduction on fixed-1 bit, which changes a previous fixed-1
+>> bit to directly configurable.
+>> There are several cases of this category, i.e. MCA/MCE/MTRR/CORE_CAPABILITIES.
+>> However, CORE_CAPABILITIES is the only case that KVM doesn't support for non-TDX
+>> VMs
+>> I will add these info to the change log.
 > 
-> Accordingly, it is not necessary or even useful to check their status in
-> attach_subtree(), so do not do that.
+> 
+> The cover letter highlights the deprecation case, but it sounds like
+> you hit this now due to #VE reduction. Is further #VE reduction expected?
+> If this is altogether rare, then yeah, added measures aren't necessary.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+No new #VE reductions are expected.
 
