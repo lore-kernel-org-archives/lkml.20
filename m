@@ -1,96 +1,90 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from mailout3.hostsharing.net (mailout3.hostsharing.net [144.76.133.104])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21506446060
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:42:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4849A3B2FCA;
+	Thu,  3 Sep 2026 08:43:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=144.76.133.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788424928; cv=none; b=STLKGyEq6siQ+v5yWU5oCgrr9s4SrSXq6JchKL2tbqPpMLoDPGLx9O6JbZj1iY+5wXju9q0j7ccruhQ1IjqtqjGiEwjmae0rGM7YMKYEyL065nKLqUNVWFViZHDTNJHYuYxA4Hb2lotOuuADhuDjSghRKEoiuuAlvKKr9wMwyqE=
+	t=1788425002; cv=none; b=Cr7DfQfjG9YFhlTPu1NHQgF/UICPQ1HdrV1j4vWHxC7ZxJ43iddImLT0of+fvsSY1ZcoAwxBMGOFBkTMRDEhOKaG8r1uKXXtjvsfQUgR9cebAQnYMRhtd9/GFpqHmwsKUvq/IQkNhMczG61pPKDbWhbUsgHfmiGQdzJkgnVN+hk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788424928; c=relaxed/simple;
-	bh=4Q+YALJEGeW0Ge6c5F9Ij5f0cqsqZsMf9znuKoxCYDE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fM7XBDhpoWlLijJQ0A0STiVyo9yX8FDkeRwOajwBzErVnUR1wsJbhyaY8qX2iTrXDr3/b2ZLRvvOwz/gABmY77fA19pMxx7bagRyd1WFepPqTVLVL9iqtQBntkHe/EbnQXxpyZ9Rw01cLNf1+NOCzqtedM/vyfNG7lYqz+1tF1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ed98YSjA; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ed98YSjA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=ALtFsj6pwnpHxyXfwXGz7hUSU6mpG6oBeDV0R3dmXYU=;
-	b=ed98YSjA7kwQ0gl5xbgG5AnZBFEka676et0+/bXTcL4U/FXKQpRLeOVYIDm/MS
-	txMu/i7PDVIiJIROEFE9Oua/W+exSeYvt73WNWHDvUU3bI6X6N0dW3MFx5pznC7Y
-	dMTo2ES8iw4XcYgPK6g/Dr0nnG2W1VMFAh599dM7Br4fk=
-Message-ID: <eb75911d-30cb-4271-aeee-4a629df8e8c5@163.com>
-Date: Thu, 3 Sep 2026 16:41:29 +0800
+	s=arc-20240116; t=1788425002; c=relaxed/simple;
+	bh=VGWcRq02jO61NDjb0fyieujd+ftQf6pVg1icbTXBPgY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l8BGIg3gyfwir4gqbt73YpSb5ve4h+E9Ln0RbbSF42kDfucJfB889N1IpleJBbdPO4gb15SlgJLXy2WL1sgm2zIcjBSBWlK1irhX3yq3jP9LehJ6Lpze0hEjXsPDM0TVW1op/EMjn+WXKqM1hxHgx3P/0DjuxZXxqRafPe1E2Ws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de; spf=pass smtp.mailfrom=wunner.de; arc=none smtp.client-ip=144.76.133.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wunner.de
+Received: from h08.hostsharing.net (h08.hostsharing.net [83.223.95.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
+	 client-signature ECDSA (secp384r1) client-digest SHA384)
+	(Client CN "*.hostsharing.net", Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
+	by mailout3.hostsharing.net (Postfix) with ESMTPS id D0572CA8;
+	Thu, 03 Sep 2026 10:35:11 +0200 (CEST)
+Received: by h08.hostsharing.net (Postfix, from userid 100393)
+	id 7F098600082C; Thu,  3 Sep 2026 10:35:11 +0200 (CEST)
+Date: Thu, 3 Sep 2026 10:35:11 +0200
+From: Lukas Wunner <lukas@wunner.de>
+To: Terry Bowman <terry.bowman@amd.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>, linux-cxl@vger.kernel.org,
+	Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Shuai Xue <xueshuai@linux.alibaba.com>, Len Brown <lenb@kernel.org>,
+	Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Ben Cheatham <Benjamin.Cheatham@amd.com>,
+	Richard Cheng <icheng@nvidia.com>,
+	Robert Richter <rrichter@amd.com>, linux-pci@vger.kernel.org,
+	linux-acpi@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v19 02/14] cxl/ras: Fix cxl_rch_get_aer_severity() wrong
+ severity register
+Message-ID: <apkxP_fydVjpULaT@wunner.de>
+References: <20260803221810.3685703-1-terry.bowman@amd.com>
+ <20260803221810.3685703-3-terry.bowman@amd.com>
+ <anijY3eTVWSqHLxh@wunner.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] exfat: speed up file creation in large directories
-To: Yang Wen <anmuxixixi@gmail.com>, linkinjeon@kernel.org,
- sj1557.seo@samsung.com, yuezhang.mo@sony.com
-Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260902152455.1273557-1-anmuxixixi@gmail.com>
-From: Chi Zhiling <chizhiling@163.com>
-In-Reply-To: <20260902152455.1273557-1-anmuxixixi@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_____wD3BIi6Mplq9WhYAQ--.13027S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7urWrury5CF1rWFy8Ww1fCrg_yoW8AF17pF
-	s8G34rtrykJ347ZFn3uF18ury3Aw1rGFs5Jr9xuryYyF93ur10kr17K34UXFy7GFyFgr1j
-	qayjqr4UKwnruaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U20PhUUUUU=
-X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC9xu7WWqZMru6sQAA3-
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <anijY3eTVWSqHLxh@wunner.de>
 
-On 9/2/26 11:24 PM, Yang Wen wrote:
-> Negative name lookups and empty-entry allocation can repeatedly scan a
-> directory from the beginning. Bulk creation in a large directory therefore
-> approaches O(N^2).
-> 
-> This series separates the optimization into three independently reviewable
-> steps. Patch 1 adds the Bloom filter used to reject definite name misses.
-> Patch 2 retains and correctly invalidates the next-empty-entry hint. Patch 3
-> adds the LRU and shrinker used to reclaim filters under memory pressure.
-> 
-> Test environment:
->    QEMU TCG multi-thread, 4 vCPUs, 6 GiB RAM
->    4 GiB exFAT image, 32 KiB clusters
-> 
-> Creating 20,000 empty files improved from 589.48 seconds to 5.33 seconds,
-> which is a 110.6-fold speedup.
-> 
-> Changes in v3:
-> - Split the change into Bloom filter, empty-entry hint, and shrinker patches.
-> - Accept filenames containing exactly 255 UTF-16 code units while building
->    the Bloom filter.
-> - Invalidate the empty-entry hint in every path that can free directory
->    entries, preventing stale hints from skipping earlier holes.
-> 
-> Changes in v2:
-> - Move exfat_name_filter_free() to exfat_evict_inode() because
->    ->free_inode() may run from an RCU callback in softirq context.
-> 
-> Yang Wen (3):
->    exfat: add a Bloom filter for negative name lookups
->    exfat: retain the next empty directory entry hint
->    exfat: reclaim name filters under memory pressure
-> 
->   fs/exfat/dir.c      | 279 ++++++++++++++++++++++++++++++++++++++++++++
->   fs/exfat/exfat_fs.h |  23 ++++
->   fs/exfat/inode.c    |   1 +
->   fs/exfat/namei.c    |  58 ++++++++-
->   fs/exfat/super.c    |   9 ++
->   5 files changed, 369 insertions(+), 1 deletion(-)
-> 
+Hi Terry,
 
-This is a much better version than v2.
+You've submitted v20 of this series, but the following
+questions haven't been addressed yet AFAICS.  I'd be
+grateful if you could take a look:
 
-Reviewed-by: Chi Zhiling <chizhiling@kylinos.cn>
+On Sun, Aug 09, 2026 at 05:57:23PM +0200, Lukas Wunner wrote:
+> Am I missing something?  Is a scenario ever conceivable where the RCEC
+> receives a message with different severity than what is inferred from
+> the registers by cxl_rch_get_aer_severity()?
+[...]
+> These so-called Advisory Non-Fatal Errors set one bit in the Correctable
+> Error Status Register (Advisory Non-Fatal Error Status, bit 13) and
+> additionally one or more bits in the Uncorrectable Error Status Register
+> (see the commit for details).
+> 
+> cxl_rch_get_aer_severity() is not able to cope with such errors and
+> will incorrectly infer that the severity is AER_NONFATAL.
+> 
+> Now I *think* this is not a problem because Advisory Non-Fatal Errors
+> are masked by default and the commit only unmasks them on regular PCI
+> devices, not in the RCRB of a CXL device.  Only once bit 13 in the
+> Correctable Error Mask Register is cleared in the RCRB will
+> cxl_rch_get_aer_severity() fail.  Right?
 
-Thanks!
+Thanks,
 
+Lukas
