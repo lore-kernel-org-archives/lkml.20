@@ -1,35 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C932930D3EF;
-	Thu,  3 Sep 2026 07:44:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B08B43D4EE;
+	Thu,  3 Sep 2026 07:45:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788421499; cv=none; b=UP7fheRt2Puz8RFLN0/L0mUdQF+pPmLTDFQmCuewYKWSt6MTRhzWk92ZkbYHNrIZa1u5vzXmiFfgz4trMm9+ZIx6E4mHX8pfyIpQizBi/GI4Ci5mRWWOB9EAbAYod6/l3N+ocT3qL4kyndd03xlwSRZmOnhlJTp4Nvi+G2IR7Yc=
+	t=1788421501; cv=none; b=QEN2qATzxitlZSUKUp0bOgJz7wsXUAj/cL8pr/uqOabYCNKNHoVrJhDp0Ko/i/HAgrT2YT0AOV3YwOh8ZHvEVR1f1Q75RFr2f7KAEO+75GhhD57nzy6wKWdpNoO9HrPhl0ZhFRSQWHpqpAdcsioZFKeOemZ4U2vsp0YvlzZCR30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788421499; c=relaxed/simple;
-	bh=y/o5OuTrKWqV1YTkiUVwt0WfAyCcMx1X3jb67Ioq8Hg=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=qsCs/DOjNubPl28s8ooF1s+HAXsjerTrOOytGllNU+fcyITy8oNr4uMfvyc5tqmL6wnSXdQux73OCJxLbzi38+qoajKqH5XQNSMbw1kceyyfWr1+6iNcCeFy1xgDoNVOZOy1jIHIVM29vEBKZZtvYxPh+JSOOuA0ewB7QmFgv94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ku02frQs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788421501; c=relaxed/simple;
+	bh=PzqR8zTEGYRy1cY8mT4aSeOCftOq/lvsV8KrYPv0nLw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=OdW7zc2Hnfu3v035M1AlqPmUNbNaSD7gx0c8F9GxxFrSiGUFwvHrS+1pL/jLwFnlg8t3zyYcKCOPKDeG3ZMuhiZyZG25RMDW/6DOO6kHW74/rWcssEixE87QmXjcqq532H7frJpKOwLQ68jtWSzCn9nTokcRcG5EnV8sOnjbl/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DgMkB5VW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ku02frQs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5FC21F000E9;
-	Thu,  3 Sep 2026 07:44:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DgMkB5VW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72F0A1F000E9;
+	Thu,  3 Sep 2026 07:44:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788421497;
-	bh=6/S6h4qNNabMqwruC/NSRazKWiKs9Qmq7V4nktpHTNM=;
-	h=From:Subject:Date:To:Cc;
-	b=Ku02frQs4O47y8cy33NkOD63hgWBYprxM6CGhZ+8hIo6jBViK3X4Wn0pDpwWgL7iF
-	 AHYyuBvJHki3KxMMQpEzd7QNkIiVUZk9TaTluqd5dyBbv0hGpX4u+atIYAepO5CiFg
-	 DDP7SZErDXlAdNHwvbLaNThtALfAnPboRrTdYGn3FnmyqrRl4f15gt3ICi6CmAYw06
-	 maNWOBGTEiKz+1pGmUCT7gfnO2D7hEWf8xCIOWSiWOv3ML1/oARosCs+RCxXtpcA4C
-	 XBpt99YqXN0cReRu9iBZ+Z+FEU9PaH55TDTSFBRxThnCCcNlPCziZz++lhfTN9RmRs
-	 xNU/3VWyThqbw==
+	s=k20260515; t=1788421500;
+	bh=tI8RHSkImdO0nj3uMq7x9+u6nJ92+6UzBO5q/OyuHcI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=DgMkB5VWYMSVONIMeM1V5oc8r3XnC5ZdojvF4DWESRc0pUOISZpqyHZMCg3Fyrf1J
+	 st6/eoMG8cwzatR2Ix+CjqqOUBxkE7++Qq1Fa4RkvAH4kflw2P+5NqTZDq0/3B2Nu7
+	 f0oUgtzvRkwMOWINH9JLpDK8OQfNU2oQpH0QW8OxbwSshFbTPPqecY3DUlGr9fCZkM
+	 DrKXiNXIK/pyIRR4XomC2h4pJLChTJ6jg8WlAsaxc7Zx8HylA9kS9fxcxKAuYmdcB8
+	 WC0Neqs/ojkjFviXcTHggA4bHElQwaEXnB55xI9zF0JcOfVOOIlFk+KjsEGsB+UZ2z
+	 t/5K8ZZW6+8ig==
 From: Mattijs Korpershoek <mkorpershoek@kernel.org>
-Subject: [PATCH v5 0/2] Add support for SA8255P in the qcom-qmp-usb phy
- driver
-Date: Thu, 03 Sep 2026 09:44:46 +0200
-Message-Id: <20260903-phy-qcom-qmp-usb-8255-v5-0-e251e22b341e@kernel.org>
+Date: Thu, 03 Sep 2026 09:44:47 +0200
+Subject: [PATCH v5 1/2] dt-bindings: phy: Add sa8255p USB PHY
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,117 +37,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XPTW6DMBAF4KtEXteVGfwz7qr3qLqwzRDcNkDsB
- CWKuHtMuqGKUJdPevM9zY1lSpEye9vdWKIp5jj0JaiXHQud6/fEY1MyAwFaGIF87K78GIYDPx5
- Gfs6eIyjFrUVthQmND5aV2zFRGy8P9+PzN+ez/6JwWrCl0cV8GtL1MTxVS++/janigmODCpxVt
- Wr8+zelnn5eh7Rny8gEa8ZuMVCY2usA2kllEJ+YesUAbDF1Ychg+Vp4ia15YuSakVuMLIyzQlS
- ydV4a/YeZ5/kOzYSccqIBAAA=
-X-Change-ID: 20260708-phy-qcom-qmp-usb-8255-9986907cdbc9
+Message-Id: <20260903-phy-qcom-qmp-usb-8255-v5-1-e251e22b341e@kernel.org>
+References: <20260903-phy-qcom-qmp-usb-8255-v5-0-e251e22b341e@kernel.org>
+In-Reply-To: <20260903-phy-qcom-qmp-usb-8255-v5-0-e251e22b341e@kernel.org>
 To: Vinod Koul <vkoul@kernel.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
 Cc: Maxime Ripard <mripard@kernel.org>, linux-arm-msm@vger.kernel.org, 
  linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Mattijs Korpershoek <mkorpershoek@kernel.org>, 
- Sriram Dash <quic_sriramd@quicinc.com>, 
- Shazad Hussain <quic_shazhuss@quicinc.com>
+ linux-kernel@vger.kernel.org, Mattijs Korpershoek <mkorpershoek@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3776;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2764;
  i=mkorpershoek@kernel.org; h=from:subject:message-id;
- bh=y/o5OuTrKWqV1YTkiUVwt0WfAyCcMx1X3jb67Ioq8Hg=;
- b=owGbwMvMwMUoySu7Jc1P0pTxtFoSQ9ZM1bL9RbmHlzLJ6eV1Vs8VqGMRML/ktTLtZrRbfo7Q6
- +aA1UKdjMYsDIxcDLJiiix6L52Wb5PP2hcsvJYBZhArE8gUBi5OAZiI+GsOhu1HGB79y9GVPyTf
- t9ym69cHlg+Ou/pq1FJsDztJM0jdnra5ag5Db/v8ptAOVynxwkoJsT/FPgIf1p2bNfecklK+w4q
- UaelB0RzTFINn3dn3PPS84acksx8/T2+QPczwrM5uRrD3qYeHL2vMu7Q/mvcnC592xYJw6XRb69
- 2TTl8qcJ23Q5dp2WcV1uSo5J6zjCvYNVcrNS39FC5ULZV0TVzpkDpb5QJ2IxFZ3xXW/Fo5W6++i
- yrcdkrh1x121t/TeII5tq2J/vhDRUTYnZ95rYi0XF3umeeHTjErp3Caf59VWWdfdijryTcpZd5l
- LRouPwKrlP+t5vZis5QtvfizZL3DcsYezm2cU5h3CfgAAA==
+ bh=PzqR8zTEGYRy1cY8mT4aSeOCftOq/lvsV8KrYPv0nLw=;
+ b=owEBbQGS/pANAwAKARkNHbRmThk1AcsmYgBqmSV2SCea7lPzissVJExXmIGAVJc2ZVXbzNb1H
+ vhD6AWRemCJATMEAAEKAB0WIQQu6UKnth9qvlMTrQAZDR20Zk4ZNQUCapkldgAKCRAZDR20Zk4Z
+ Nd7AB/9oJyimK7fPYVgVLN6htoh+EG2H+Gilkkq3kdux/lM8oDpULkpTqGgMjokdkntWubdzOOF
+ eNn/AG55bKrPkkfgQfo43N4qPoqtGgbaEZ9xrLp2h6JLNFgTm/XVlIaxM00WRST8kp/AMTHpk3+
+ r0/fjdAosqITeqWcHJnrlDOipjUnwwjjyzORgvfR+in3AxasQN9NGSBeS0Ue8qDsSrumc3t/znV
+ 9CLhUMOTUhhr0G1Z41VpExq+N314wd+GTlqRwbSCnGkheukUeNWHDRhwwyj4UNzglqzrFKHHnTU
+ a0YhxjTq8zCf0BvvsWVU/8uUIetjknjLWROQuQ+9GqQgyCS1
 X-Developer-Key: i=mkorpershoek@kernel.org; a=openpgp;
  fpr=8234A35B45C0D26B31C1A2DA570338B018144F28
 
-The Qualcomm automotive SA8255p SoC relies on firmware to configure
-platform resources, including clocks, interconnects and TLMM.
-The driver requests resources operations over SCMI using power protocols.
+SA8255p platform abstracts resources such as resets, clocks and
+regulators in firmware. The SCMI firmware exposes multiple protocols to
+control such resources which are identified by protocol_id.
 
-The SCMI power protocol enables or disables resources like clocks,
-interconnect paths, and TLMM (GPIOs) using runtime PM framework APIs,
-such as resume/suspend, to control power on/off.
+For this USB phy, 2 SCMI protocols are exposed by the firmware:
+* power domain management protocol (protocol_id=0x11)
+* performance domain management protocol (protocol_id=0x13)
 
-Power domain "core" controls the GDSC, resets, and TLMM (GPIOs)
-whereas power domain "transfer" controls clocks and interconnects.
+The power domain has 2 indices: 'core' and 'transfer'.
+* core controls the regulators, the clocks and the reset
+* transfer only controls the clocks
 
-Patch 1 adds the binding for sa8255p. Similarly to what has been done
-for I2C [1], this is a separate binding.
+For example, to power on/off the PHY, we should use the 'core' domain.
+To disable data transfer and keeping power enabled, we should use the
+'transfer' domain.
 
-Patch 2 adds the driver change, which is based on a public vendor
-patch from qualcomm [2].
-I did the following changes on top of that:
-* Use devm_add_action_or_reset() for dev_pm_domain_detach_list() instead
-  of implementing a driver .remove()
-* Drop the .lanes struct member since it no longer exists.
-* Re-order some functions
+Add a new binding for the for the Qualcomm QMP Super Speed (SS) UNI PHY
+found in SA8255P.
 
-This has been tested on next-20260706 with a Ride4 SA8775P board that
-has SCMI firmware (which is compatible).
-
-[1] https://lore.kernel.org/all/20260617-enable-i2c-on-sa8255p-v7-1-ad736dbeab57@oss.qualcomm.com/
-[2] https://git.codelinaro.org/clo/le/meta-qti-auto-kernel/-/blob/LY.AU.0.1.0.r1-16800-gen4meta.0/recipes-kernel/linux/files/usb/0011-PENDING-phy-qcom-qmp-usb-Add-support-for-SA8255P.patch
+Note: the performance domain (0x13) exposes opaques values (0xa to 0x11)
+for which we don't have any information. Since it is not mandatory
+for the PHY to be functional, we have ommited it from the bindings.
+We can document it (and make them part of the dt ABI) once we have more
+information.
 
 Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
 ---
-Changes in v5:
-- Move 'core' as first domain, before 'transfer' (Krzysztof)
-- Reworded binding commit message to be more precise about the various
-  domains ('core', 'transfer' and 'perf') (Krzysztof)
-- Dropped Krzysztof review due to the above binding changes
-- Set .num_vregs=0 since regulators are managed by firmware
-- Link to v4: https://patch.msgid.link/20260724-phy-qcom-qmp-usb-8255-v4-0-a90014fab476@kernel.org
+ .../phy/qcom,sa8255p-qmp-usb3-uni-phy.yaml         | 52 ++++++++++++++++++++++
+ 1 file changed, 52 insertions(+)
 
-Changes in v4:
-* bindings: Use additionalProperties: instead of unevaluatedProperties:
-  (Krzysztof)
-- Link to v3: https://patch.msgid.link/20260722-phy-qcom-qmp-usb-8255-v3-0-e789070b48f7@kernel.org
+diff --git a/Documentation/devicetree/bindings/phy/qcom,sa8255p-qmp-usb3-uni-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sa8255p-qmp-usb3-uni-phy.yaml
+new file mode 100644
+index 000000000000..90bedb05cb7f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/phy/qcom,sa8255p-qmp-usb3-uni-phy.yaml
+@@ -0,0 +1,52 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/phy/qcom,sa8255p-qmp-usb3-uni-phy.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm SA8255p QMP PHY controller
++
++maintainers:
++  - Mattijs Korpershoek <mkorpershoek@kernel.org>
++
++properties:
++  compatible:
++    const: qcom,sa8255p-qmp-usb3-uni-phy
++
++  reg:
++    maxItems: 1
++
++  "#phy-cells":
++    const: 0
++
++  power-domains:
++    maxItems: 2
++
++  power-domain-names:
++    items:
++      - const: core
++      - const: transfer
++
++required:
++  - compatible
++  - reg
++  - "#phy-cells"
++  - power-domains
++  - power-domain-names
++
++additionalProperties: false
++
++examples:
++  - |
++    soc {
++        #address-cells = <2>;
++        #size-cells = <2>;
++
++        phy@88e8000 {
++            compatible = "qcom,sa8255p-qmp-usb3-uni-phy";
++            reg = <0x0 0x088e8000 0x0 0x2000>;
++            #phy-cells = <0>;
++            power-domains = <&scmi12_pd 3>, <&scmi12_pd 2>;
++            power-domain-names = "core", "transfer";
++        };
++    };
 
-Changes in v3:
-* Binding changes:
-  * Use a separate binding file (Krzysztof)
-  * Remove 'usb_' prefix from power-domain-names (Krzysztof)
-* Driver changes:
-  * Remove 'usb_' prefix from power-domain-names
-  * Moved sa8255p_usb3_uniphy_cfg before sa8775p_usb3_uniphy_cfg
-* Link to v2: https://patch.msgid.link/20260709-phy-qcom-qmp-usb-8255-v2-0-3b6c26a45788@kernel.org
-
-Changes in v2:
-* Driver changes:
-  * Fix comment typo tranfer -> transfer
-  * Fix print statement to add a missing '(' in the string
-  * Use dev_err_probe() in qmp_usb_domain_attach() to reduce log noise
-  * Fix pm_runtime_put_sync() order in qmp_usb_d0_to_d3 (Sashiko)
-  * Fix runtime PM reference leak on usb_transfer (Sashiko)
-  * Fix runtime PM reference leak on error in qmp_usb_init (Sashiko)
-  * Reorder qmp_usb_d0_to_d3() to mirror init ordering in qmp_usb_exit()
-    (Sashiko)
-  * Reorder qmp_usb_d0_to_d3() to mirror resume ordering in
-    qmp_usb_runtime_suspend() (Sashiko)
-  * Fix error handling in qmp_usb_runtime_resume() (Sashiko)
-* Link to v1: https://patch.msgid.link/20260708-phy-qcom-qmp-usb-8255-v1-0-8d852a9535db@kernel.org
-
----
-Mattijs Korpershoek (1):
-      dt-bindings: phy: Add sa8255p USB PHY
-
-Sriram Dash (1):
-      phy: qcom: qmp-usb: Add support for SA8255P
-
- .../phy/qcom,sa8255p-qmp-usb3-uni-phy.yaml         |  52 ++++++
- drivers/phy/qualcomm/phy-qcom-qmp-usb.c            | 182 ++++++++++++++++++---
- 2 files changed, 212 insertions(+), 22 deletions(-)
----
-base-commit: 32b6ef9a5d0eca44f9cd91f52f4faa89f145a0de
-change-id: 20260708-phy-qcom-qmp-usb-8255-9986907cdbc9
-
-Best regards,
---  
-Mattijs Korpershoek <mkorpershoek@kernel.org>
+-- 
+2.55.0
 
