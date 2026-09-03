@@ -1,106 +1,62 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C4F439A070
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:59:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C216C33C192
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:59:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788429546; cv=none; b=bLijxoHI7GiTEPtwZkgw5OOCOyCvfvkUwENS/CAMVEsDqk/JW9rwTDmB6kJvPyX9vbXsThPtdywO28ecQ2zx/RdSwZnTSDQcIJR69QKwX7HfFoAFbFW0+KmMPBf7RTzMdKmFxJvduCh4ujt+daJhqVfcQUQt2gZpE7l2UiLsN8Y=
+	t=1788429552; cv=none; b=GVuzL9NJY9/O5GY0SZIqld+ziIJhK8f1jCFvmY7ulsQ/j7Ai2hCSRPZUxOwyGd/0yyzXpSvU3wtzyiLqyJdBsEOP/gGgILs9vphmaojn/jjbhLKS2Nu3AeThJTMIPLHYG94UwsFsM0vtOrn67XlwGQ4mAjaFUMbI5kglQ0rYt8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788429546; c=relaxed/simple;
-	bh=+1a8xrRM2EChN9agnwKhCP3ps/8FdfUQGsQaIjJ7bvE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YVrX3GsfKtKcc6jOj7OTwAhT/FYTCDjWWdRwJU65u5QBUZcbMENA26KoNBO/3qqp6Fvwmzry5jOO8pIJmXl0fJR6vB1pMDXtVS6C3tje2FNyVom7cWwrVqZ7bLwhC6WRttagrp67Nf2B/kG7crorddnBa8MmT8iMtkxx9glJ+aE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gmN9K4bM; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gmN9K4bM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87FDE1F000E9;
-	Thu,  3 Sep 2026 09:59:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788429545;
-	bh=9XVO5Ta0IlwuGw85TjZzFhxUBR2MtdsWEcDSl8od1G8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gmN9K4bMBCw6stpsDmiWobIxQ0RvDJfhDW+32XVV1v8CkVtMzM+T29kPYpSM4s5Qr
-	 nUyOZRHo5VoOs7iZ5sYNMCceKd0xlqhj7kgTUpWt+ePe5BCNfRpsp7ZslfVWip7DbW
-	 mH9pEW5/7kDWFbfgJm0umLQxqW4auboR+KbIVH+GgBQlhsgMAUQ/TAjDqkQ+P5UQQE
-	 6a9MNt8vJrQXUoASjZrtA+hYHmkHEKTFl33RkzgxOO+y5Z9BqIkY87fxc2WU5MlZDr
-	 dABQNJEkC1n1uUL+1g3GbYJp0TD6/o6gX4cPs2Z18+UndVDAf9cHOHJCc2JGIf6kLx
-	 p9r/j05v4r3ZA==
-Date: Thu, 3 Sep 2026 11:59:01 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Linus Walleij <linusw@kernel.org>, Inki Dae <inki.dae@samsung.com>, 
-	Jagan Teki <jagan@amarulasolutions.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Albert Esteve <aesteve@redhat.com>, Anusha Srivatsa <asrivats@redhat.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
-	Ian Ray <ian.ray@gehealthcare.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC v2 02/19] drm/bridge: panel: move to a new module
-Message-ID: <aplEZFfrpnRZ7U4O@houat>
-References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
- <20260903-drm-bridge-every-panel-v2-2-2ab8ee24538e@bootlin.com>
+	s=arc-20240116; t=1788429552; c=relaxed/simple;
+	bh=URRyBTHQlZZ6H0/h4+K+vMKMUO5zrg3Dn5ulbGBfn8Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DUmevDlOSroWo6Syh4pAnQlpv73jOBgI8cFdfdOcgVtjeZWAOQ8/U0Tu68xrV58P+1jEBQaujf1A+KP6IrwGMjO/K96zG2cJhLVftAD9VtpLZlOV2awmGSoSzqQZ8E10DDmoNIiSWVv3x83Ff4tgQWO1hXTfbDdxtNhIKTouc80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1018A1F000E9;
+	Thu,  3 Sep 2026 09:59:09 +0000 (UTC)
+From: Geert Uytterhoeven <geert+renesas@glider.be>
+To: Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>
+Subject: [PATCH resend] soc: atmel: Convert to of_machine_device_match()
+Date: Thu,  3 Sep 2026 11:59:06 +0200
+Message-ID: <c3b4f8aceb5f0bc95fa10e6fa469574cfdaa8ee6.1788429505.git.geert+renesas@glider.be>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="e35cytbik5skmzlj"
-Content-Disposition: inline
-In-Reply-To: <20260903-drm-bridge-every-panel-v2-2-2ab8ee24538e@bootlin.com>
+Content-Transfer-Encoding: 8bit
 
+Use the of_machine_device_match() helper instead of open-coding the same
+operation.
 
---e35cytbik5skmzlj
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH RFC v2 02/19] drm/bridge: panel: move to a new module
-MIME-Version: 1.0
+Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+---
+Compile-tested only.
+---
+ drivers/soc/atmel/soc.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-On Thu, Sep 03, 2026 at 10:11:05AM +0200, Luca Ceresoli wrote:
-> Work is in progress for every drm_panel to embed a drm_bridge, which will
-> make the drm_panel code (currently in the drm module) depend on the
-> drm_kms_helper module.
->=20
-> However that would create a dependency loop:
->=20
->  * the panel_bridge code in bridge/panel.c [drm_kms_helper module]
->    already depends on the drm_panel.c code (it manipulates a drm_panel)
->  * additionally, the drm_panel.c code, in order to create a drm_bridge,
->    will depend on the helpers in drm_atomic_helper and drm_probe_helper
->    code [drm_kms_helper module]
->=20
-> Prevent the loop by moving the panel bridge out to its own module.
->=20
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+diff --git a/drivers/soc/atmel/soc.c b/drivers/soc/atmel/soc.c
+index d89f9dcade7d2689..7e60c5681ad0d848 100644
+--- a/drivers/soc/atmel/soc.c
++++ b/drivers/soc/atmel/soc.c
+@@ -404,9 +404,7 @@ static const struct of_device_id at91_soc_allowed_list[] __initconst = {
+ 
+ static int __init atmel_soc_device_init(void)
+ {
+-	struct device_node *np __free(device_node) = of_find_node_by_path("/");
+-
+-	if (!of_match_node(at91_soc_allowed_list, np))
++	if (!of_machine_device_match(at91_soc_allowed_list))
+ 		return 0;
+ 
+ 	at91_soc_init(socs);
+-- 
+2.43.0
 
-Again, in the previous discussion, I suggested that you moved the
-drm_panel code into its own module. If you're doing everything at once,
-it will break, but the only source of breakage you're talking about here
-are introduced by *future* patches, not the current state.
-
-So, what prevented you *in this patch* from moving drm_panel into its
-own module?
-
-Maxime
-
---e35cytbik5skmzlj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaplE5QAKCRAnX84Zoj2+
-dvtvAYDnKu6rquhu1DCTz6Cy0wciLrh0AbLIZ0A/WZT/0I2QkHpX9Vp7+m8lw4AL
-TTy4eqkBf0MIQFG44WvI5gIAYH73n10n2JvmboWwp48OVdWuleRQpOF67iCt7ZEQ
-hkRvB7679g==
-=Fv9N
------END PGP SIGNATURE-----
-
---e35cytbik5skmzlj--
