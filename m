@@ -1,147 +1,90 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A76E14052DC
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:37:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B8BB406818
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:38:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788428280; cv=none; b=pStOdRwEGkGth+PV66fnVxS0DW9a9erhJ8URcNwR/TXf0vP8sIr5OsKLmdYt8MmlGOPr+oKaTkNiIedQ2C+FqpcKwTUwVUTERcUhTt2xyTd491m86OdMPItIM0UukrXsPxWvebpwgN1pkSiCVOtr6lZb4tnDs719cWCLz73ICLs=
+	t=1788428297; cv=none; b=PjKKcPFSrz12k640kAFSfPC63FNUXcq6agWlsjHGT14vmKlZ73SFdIcSwwwvejnMnVvVul/4h8NCjJi0IvTIulYwZweNWdGBrpg11lYgxRHE0Rhj5Ufcj5nn9RYo4H8iMn29FIkyrIZ71ZjXOxyJg/QaNV/6vJnCMHzMH+twGVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788428280; c=relaxed/simple;
-	bh=Fkd399WWImd9KJdZfl07eo+eynmLZQVkJf6NdqrDObA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aBnjq44GvYm+3LS2Bm+fNfYERJ0jU2aX4qnAUnLrW04e/WZHErnK1LzRAIFC7oVpef4BQo5+A3LBUCz4iaNkl8oPuBcHa8cng5h3aA7Cn+wOjyPu8dlbyUt4O8+Y/rEwZ/4ewnLpsvdF73fmNq9RcQrLHPdBUu9BGEKnMtI+h4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=hWdwpaeS; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1788428297; c=relaxed/simple;
+	bh=Q9BId9yytQXtW2g9cbFswwLQG2BZS6hF1a5zfdPjrO4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Dah6wDa9sqjhZNimrtAuFiVeEaYQ7WWn0Jg+Ptk6uUiA0aySFEvlHzSuUBdfYuctxwYb1pRhyn1l6HcKdi26Og9EE950q7mxiLKUur3eynqgr7v/s26kmi5ucxeJ9HVURwdgezosGSF0t0Wnd+Ebn/64XMdxBPQHcAdJffNKIcM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bMG8tSQY; arc=none smtp.client-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="hWdwpaeS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=FSjT
-	ZhC7WnhgkLy/1e6nyfPpclYviSuIuUmpThZjZ1A=; b=hWdwpaeSPBANUJFZ9zjy
-	ieojamlI6bO1mC869hJgGOFmUPV6XlWc0tHzEzTiyL1pmb2P4FaI93aTfk0DXcYe
-	hq7MqQ2g/tpjQuAzp6BwuOLkNuWLs/N++uakZEUm7U/ufEVawfEdv48RGMsq1dGA
-	A/sK3PlZ9l7Yoep/3iwOvETtDIAKj7571FelyksThNRjQ+BwCZaQ17IM0MR4kMJ7
-	Z9BSD7K+bwoIli18RxzTsTBxiljJcf1LmmCnO2BPd/mrWXcu8KsYlF8ElkOeU5G5
-	bdg8Cvhys1S7tzXjjVmdF9UaiQ2WyxTAxJQa3urGgDhSow5gXB6N+ggKbRpqGx+z
-	iQ==
-Received: (qmail 993007 invoked from network); 3 Sep 2026 11:37:56 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 3 Sep 2026 11:37:56 +0200
-X-UD-Smtp-Session: l3s3148p1@Tp4c6JBaIKUujntC
-Date: Thu, 3 Sep 2026 11:37:55 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Biju <biju.das.au@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-mmc@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v24 08/15] mmc: renesas_sdhi: Add
- TMIO_MMC_INTERNAL_DIVIDER flag
-Message-ID: <apk_81IYqxrWZyJK@shikoro>
-References: <20260820171657.62815-1-biju.das.jz@bp.renesas.com>
- <20260820171657.62815-9-biju.das.jz@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bMG8tSQY"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-ca97d139d5fso2029999a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 02:38:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788428295; x=1789033095; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Q9BId9yytQXtW2g9cbFswwLQG2BZS6hF1a5zfdPjrO4=;
+        b=bMG8tSQYmtDhqBaslfZrgbrhxaOpGaGDxy2GP2OIjiF8HYZ2hCrsbAFpRmlcWAx0/n
+         7jdRIUapPgOu3qmWj6vdV40fzKoHoKJ3U32VJkIrWVSZbjk8BilM/GAhQ6j9A3FO45UL
+         CUDLvB8s5V+THAkcAMaRqlBpUfB7YWsvXFxnnLBpQCWGhNeMNn/sefgWtgK0X9cE8e1D
+         M2wyweEpBRZdWkb4KD49S7Oc0aAZyb+BMfge4yLdq55eNWKXtvxoIJFfHjhjRC5ryBZR
+         qz4KkvF6SjVIwz7k0+hyWrQX6VKYPpJzBev99V4SKusJEk3u9w7H3IBisUB4RYfqSIHU
+         pZQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788428295; x=1789033095;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q9BId9yytQXtW2g9cbFswwLQG2BZS6hF1a5zfdPjrO4=;
+        b=FmCnrrjHtz8stN6zAbe09Ng9UBg6zpsB1DnFwC9qBRkVJ1mCFUR2o2zGwAEd4cYQjG
+         XeKNzgtYfy4yPYZ3/pxDJQ07WsfH+p0bNS4mg/M4UUS79DR7kQWlwtsBPxcpVARddk64
+         dK4+e+9zhw2J+t0LHPGfB776t+mgbbJg0+qG15sNXqYU29ttw0flUozoBWTfU47YQPcm
+         xKoXV3mbN9xaN3Ol7RscfgA6ydkgLC9Qcmg0nT6QjdHyyvjWpB15TIKmeGYzwp8ntFtq
+         PjLvE+hEzgn79jV2G3tCpzknLSDO6ZNyDp0EOfKFqdOnihA5Zku639w3zzQbMUlCXxls
+         cOsw==
+X-Forwarded-Encrypted: i=1; AKwUvBxn6WprNpc31qff9d4RyazyzQTQCUTVOBjvB7hO+xe7/sXTV3xou/oVdSCmEvaQ8FN3NLWtF756xfA4tVk=@vger.kernel.org
+X-Gm-Message-State: AFuF++k2Gw5Nekb77wbTu8VXZ++5QolPeLvfquL70r2EgueBGW9DEip+
+	QIHCfgLvW4Gvs69/C5EJVGX1aUv2Cl3IfSBEyTLYuJOw2MjEBffrow6m
+X-Gm-Gg: AYBFou24TptqLD8kmKyIsPvZJoXn9aKE6CHom24umRokoGnS1eBc0CfxGPjNr+yQYYk
+	eMCvWFun7GyOCQ/yNBxNGHbtDBnlGevkJ0/i21gCfKMe1MMRGCHAv3PIGVnuB6S/YMg4TUMUqG0
+	zKog/7+QcvOZjfNdeeM93zTLWL8D24fNoptElTH4TIOkPV49F3oeSWrcFUEVze/Qs6mAcBTUFyi
+	4lQ/Rl3s7B9lt4AmOgk/qfkHkJhZ/5nTnaqAS+TjaR4xnPkcKU6quYp+h/CXG6ieaOftqni9+ly
+	C3/1IA+92JOdIBu6Y5XgOQg0s4oKoC+wNAhTt7Se4DsN5z6078eXsxrCJwhTnEif/jxoQ3275Pb
+	t9c4bPF9VxXc9KapcDXiZsb5bPzbDOAjH/UQFw2AQEFDdKlsu4MkyBo3UnZI9sUirU+fQFUrWuH
+	QT9R2lvBDNRcujq1BXssjfHBcRHcOFhV/WuFetiOTp3UWRlRFmbUSCBsfCjMheBQLd8k9/NWG9r
+	rUx03sNck8tob8DhELbkuJSpA==
+X-Received: by 2002:a17:90b:268d:b0:398:ab03:95b2 with SMTP id 98e67ed59e1d1-39aee023191mr18618479a91.10.1788428295488;
+        Thu, 03 Sep 2026 02:38:15 -0700 (PDT)
+Received: from mi-ThinkStation-K.mioffice.cn ([43.224.245.235])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08ce4221sm5086931a91.14.2026.09.03.02.38.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 02:38:14 -0700 (PDT)
+From: yewentian395 <yewentian395@gmail.com>
+To: Oliver Hartkopp <socketcan@hartkopp.net>,
+	Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: yewentian395 <yewentian395@gmail.com>,
+	linux-can@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] can: isotp: implement N_Ar timeout handling for FC transmission
+Date: Thu,  3 Sep 2026 17:38:09 +0800
+Message-Id: <20260903093809.1894919-1-yewentian395@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <eb5e9618-3dbf-42cb-a635-752ff9fbcb99@hartkopp.net>
+References: <eb5e9618-3dbf-42cb-a635-752ff9fbcb99@hartkopp.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="1HOCjPIa4TORl4Ez"
-Content-Disposition: inline
-In-Reply-To: <20260820171657.62815-9-biju.das.jz@bp.renesas.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---1HOCjPIa4TORl4Ez
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Oliver,
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Medium] Fallback `f_max` and `f_min` initialization fails to account f=
-or the internal clock divider.
-> --
->=20
-> --- Patch [8]: [PATCH v24 08/15] mmc: renesas_sdhi: Add TMIO_MMC_INTERNAL=
-_DIVIDER flag ---
-> commit c4a63c19303286f5b383bdabaa2a3f3827a8c5c5
-> Author: Biju Das <biju.das.jz@bp.renesas.com>
->=20
-> mmc: renesas_sdhi: Add TMIO_MMC_INTERNAL_DIVIDER flag
->=20
-> This commit introduces the TMIO_MMC_INTERNAL_DIVIDER flag to support SoCs
-> like RZ/G3L that have a fixed internal /2 clock divider. It adds a helper
-> function to fold this division into the reported clock rate and uses it in
-> the clock update path.
->=20
-> > diff --git a/drivers/mmc/host/renesas_sdhi_core.c b/drivers/mmc/host/re=
-nesas_sdhi_core.c
-> > index ff428b6187bbd..b5f2ff68db758 100644
-> > --- a/drivers/mmc/host/renesas_sdhi_core.c
-> > +++ b/drivers/mmc/host/renesas_sdhi_core.c
-> > @@ -125,6 +125,27 @@ static int renesas_sdhi_clk_enable(struct tmio_mmc=
-_host *host)
-> >  	return 0;
-> >  }
-> > =20
->=20
-> [Severity: Medium]
-> Since this patch introduces an internal /2 clock divider, should
-> renesas_sdhi_clk_enable() (which is just above this hunk) also be updated
-> to account for it?
->=20
-> If the device tree omits the max-frequency property, f_max defaults to
-> the raw parent clock rate:
->=20
-> drivers/mmc/host/renesas_sdhi_core.c:renesas_sdhi_clk_enable() {
->     ...
-> 	if (!mmc->f_max)
-> 		mmc->f_max =3D clk_get_rate(priv->clk);
->=20
-> 	/*
-> 	 * Minimum frequency is the minimum input clock frequency
-> 	 * divided by our maximum divider.
-> 	 */
-> 	mmc->f_min =3D max(clk_round_rate(priv->clk, 1) / host->pdata->max_divid=
-er, 1L);
->     ...
-> }
->=20
-> For hardware with the internal divider, this advertises double the actual
-> achievable bus frequency. If the clock provider cannot scale up to 4x the
-> requested frequency, the MMC core might negotiate a high-speed mode that =
-the
-> hardware cannot satisfy, resulting in a mode mismatch where the bus silen=
-tly
-> runs at half the expected speed.
->=20
-> Could mmc->f_max and mmc->f_min calculation be adjusted when the
-> TMIO_MMC_INTERNAL_DIVIDER flag is set?
+Just a gentle ping on the frame_txtime addition to rxtimer you
+mentioned. Happy to help with a patch if that saves you time.
 
-Looks valid from a glimpse. Please comment if you think this report
-makes sense or not.
-
-
---1HOCjPIa4TORl4Ez
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqZP/MACgkQFA3kzBSg
-KbazUg/8D5L45wtGNn85UOEWoJ0hr1plRyJQCvAQlwPj9Ngr1mjo8WWHaPmNYRTs
-z1zDKUJQSfs632hnr2C2pwVBIaJ1LCY4Ug4sOwnb/ugCSnkDDTCApbBP++VutDOV
-vzsqZMAFPq9F20pgbVynWjARJLcgwIs72dYVv8dDqL5J6LHModbidopxwxYDlK5t
-vEiPSwoLPpttHqsDnSR3uieh3E6Ty5pFqbyj/+gPbhxk9C3/5caEBuRx10IK7B3f
-Chw6eIAeuZk1y9XKIh4yWysPOCeavfCw33ufA0FvPSgqrKmEewCJk9nqmYoUsLLM
-QWcGWEq5EsKo1E1/8ywW5GsopM0bY6gedl6WWd0bvQSTXpZ7XvLNhhvGb/T8TKYV
-1XE9a2z7OEpyaz86JAfv6zUV5hbQOzMwZOPtI0b49a6fsIK2LXe5xST6i2gonMhX
-JkTdA/0o7jglhu0DvfuQ2kLeoduu+0qYSz0t7m/YDUWawrrfNaxZgtVOEtICx0Zn
-FrXjKQfWKYRjqONsoRlupqF9SSPiJIDFy6BaVbEKw+oSqgZid5SWLXSDYRysK1LL
-PMuw6KvRG4qmw0lFfduKhv6DhxhNqh0LfHvJGQNwv7VnrsToLC7orta5sWvGRXq1
-FEQWRQkyJ9COhcTTt6pjgiwT9s7ncaagbUwIdGqaF+69FjhhmPI=
-=qsww
------END PGP SIGNATURE-----
-
---1HOCjPIa4TORl4Ez--
+Best regards,
+wentian
