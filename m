@@ -1,164 +1,188 @@
-Received: from forward502a.mail.yandex.net (forward502a.mail.yandex.net [178.154.239.82])
+Received: from mail-m3284.qiye.163.com (mail-m3284.qiye.163.com [220.197.32.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E530535E958;
-	Thu,  3 Sep 2026 04:33:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.82
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C57ED2264DB;
+	Thu,  3 Sep 2026 04:34:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788410026; cv=none; b=azcTNcKTRC/eJ3q+s8pOD8CnvU3RPy6T/L76FzCxfcs1cRUlED4ESccgAe7seKFCMxsoQazCCfOK/25NeufZG0C+QwDQrpcEI47qy93Kbn4DDRAzwTowwDFLCQ5Tr7J43cAIzJjU5awtSS4HqxQrqZax01B7PLJejMHvc6ccMY4=
+	t=1788410046; cv=none; b=SiMcGOU+r3c+YfMAPzN/mLekyZ5kIJ12iv3J1Xp7t2IusEXcqQsMIehUaEaaQ0EUDWOwTTwI6rP41wWKQhWt2AXJVIl40/T9eTJ5curti14SnYry3uEq7OY7MUxIppvyGjWkhv0uwlweKMtQQJ++eJfbZZ6VAqkWdrtQSbRzo3k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788410026; c=relaxed/simple;
-	bh=iMOVNoc6QQyWQMLmkFf9okRPvwyKpS5CBmpd4s0XK8c=;
-	h=From:To:In-Reply-To:References:Subject:MIME-Version:Date:
-	 Message-Id:Content-Type; b=DoWa0RQ8EOsLkKqqbUdwLdZapg/5z4F8/mrB1pmZuhSkbjrinlnFEpQv+m8K4dd41EpKPGwQsSZMIYbvVZVQJ9B7LL854vkQI4jj3uiwzDm3B4PhczUZuR41qj8RvH0LFzwXHBVi6d/3nRzlzxoj7R9c1x4xqK7TwkKOJ4ZXVe0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=fail smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=pNq4XxWd; arc=none smtp.client-ip=178.154.239.82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=yandex.ru
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="pNq4XxWd"
-Received: from mail-nwsmtp-mxback-production-main-217.vla.yp-c.yandex.net (mail-nwsmtp-mxback-production-main-217.vla.yp-c.yandex.net [IPv6:2a02:6b8:c1f:170f:0:640:53dd:0])
-	by forward502a.mail.yandex.net (postfix) with ESMTPS id 805AB83044;
-	Thu, 03 Sep 2026 07:25:52 +0300 (MSK)
-Received: from mail.yandex.ru (2a02:6b8:c0d:28d:0:640:a036:0 [2a02:6b8:c0d:28d:0:640:a036:0])
-	by mail-nwsmtp-mxback-production-main-217.vla.yp-c.yandex.net (mxback) with HTTPS id pPcaiCEvtuQ0-IvYgDXnA;
-	Thu, 03 Sep 2026 07:25:51 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
-	t=1788409551; bh=rkmexPEIRPA30Syl3rkL+qAosg2qqeH4C7WnUPZjOSg=;
-	h=Message-Id:Date:Subject:To:References:In-Reply-To:From;
-	b=pNq4XxWdgL68/vIf5r5XV2QSXF/mtdj2Rre/Kpg/jyrdCMPZpG8fpb0lBPEzLvAn0
-	 89glJG/1OLjbqdUomz0xYygogFw2LW0eE+IrZHvgudHm584SLDob9ratqcI2Ggy9yN
-	 N/HBoBn480KL8Yd4HV9taP9N2JmQJ1rQSowyaQK4=
-Authentication-Results: mail-nwsmtp-mxback-production-main-217.vla.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
-Received: by mail-sendbernar-production-main-93.vla.yp-c.yandex.net (sendbernar) with HTTPS id a3add6233ce9e4d6311702883fad4840;
-	Thu, 03 Sep 2026 07:25:51 +0300
-From: =?utf-8?B?0JPQtdGA0LzQsNC9INCh0LXQvNGR0L3QvtCy?= <GermanAizek@yandex.ru>
-To: Jakub Kicinski <kuba@kernel.org>,
-	Kalle Valo <kvalo@kernel.org>,
-	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-In-Reply-To: <795111788409331@mail.yandex.ru>
-References: <795111788409331@mail.yandex.ru>
-Subject: [PATCH] wifi: mt7601u: add vnd_reset parameter to fix probe failure on Tenda U2
+	s=arc-20240116; t=1788410046; c=relaxed/simple;
+	bh=EYKKpem3izchPA7kkaiB3XKQiu2ecNFus7y9Bliuxzs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=ArOqB0cuq2zRszqKDF5vKhxZpFMmq1wqlw1huvKRAiZzBpyfq57QdS0ZZ85JO4WWIYKZaX0iiljHK6l6LXCFv83s5tX9SEoHEKGYl4mNKSmysZ7v5sJwL4yw0ZhryvbBjDGpwpmP92nnQfmNQXQCzIG5aSikF24BS2pdEG+husY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=220.197.32.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
+Received: from localhost.localdomain (unknown [218.94.118.90])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 1ea3ea3ba;
+	Thu, 3 Sep 2026 12:18:40 +0800 (GMT+08:00)
+From: Zhen Ni <zhen.ni@easystack.cn>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Zi Yan <ziy@nvidia.com>,
+	linux-mm@kvack.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zhen Ni <zhen.ni@easystack.cn>
+Subject: [PATCH v2 7/8] tools/mm: Add memory cgroup filtering support to page_owner_filter
+Date: Thu,  3 Sep 2026 12:18:18 +0800
+Message-Id: <20260903041819.1776630-8-zhen.ni@easystack.cn>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20260903041819.1776630-1-zhen.ni@easystack.cn>
+References: <20260903041819.1776630-1-zhen.ni@easystack.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Mailer: Yamail [ http://yandex.ru ] 5.0
-Date: Thu, 03 Sep 2026 07:25:51 +0300
-Message-Id: <314831788409434@mail.yandex.ru>
-Content-Type: multipart/mixed;
-	boundary="----==--bound.100608.8d3645a2-7ab9-4ba4-91f5-094555084f3a"
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0657d85300229kunm7336907a330c7
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDH0tIVkNNHh0YHR8eTU1MTlYVFA
+	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
+	lPT09IVUpLS1VKQktLWQY+
 
+Add filtering capability for page_owner to allow filtering by
+memory cgroup path.
 
-------==--bound.100608.8d3645a2-7ab9-4ba4-91f5-094555084f3a
-Content-Transfer-Encoding: base64
-Content-Type: text/html; charset=utf-8
+Filter page_owner output by cgroup path:
+./page_owner_filter -g /
+./page_owner_filter -g /user.slice
+./page_owner_filter -g /user.slice -c systemd
 
-PGRpdj48ZGl2PndpZmk6IG10NzYwMXU6IGFkZCB2bmRfcmVzZXQgcGFyYW1ldGVyIHRvIGZpeCBw
-cm9iZSBmYWlsdXJlIG9uIFRlbmRhIFUyPC9kaXY+PGRpdj7CoDwvZGl2PjxkaXY+T24gY2VydGFp
-biBNVDc2MDFVIGFkYXB0ZXJzLCBzdWNoIGFzIFRlbmRhIFUyIGFuZDwvZGl2PjxkaXY+b3RoZXIg
-bmV3ZXIgaGFyZHdhcmUgcmV2aXNpb25zLCBkcml2ZXIgaW5pdGlhbGl6YXRpb24gY29uc2lzdGVu
-dGx5IGZhaWxzPC9kaXY+PGRpdj5kdXJpbmcgcHJvYmUgd2l0aCB2ZW5kb3IgcmVxdWVzdCB0aW1l
-b3V0cyAoLTExMCAvIC1FVElNRURPVVQpOjwvZGl2PjxkaXY+wqAgbXQ3NjAxdSAzLTE0OjEuMDog
-QVNJQyByZXZpc2lvbjogNzYwMTAwMDEgTUFDIHJldmlzaW9uOiA3NjAxMDUwMDwvZGl2PjxkaXY+
-wqAgbXQ3NjAxdSAzLTE0OjEuMDogRmlybXdhcmUgVmVyc2lvbjogMC4xLjAwIEJ1aWxkOiA3NjQw
-IEJ1aWxkIHRpbWU6IDIwMTMwMjA1MjE0Nl9fX188L2Rpdj48ZGl2PsKgIG10NzYwMXUgMy0xNDox
-LjA6IFZlbmRvciByZXF1ZXN0IHJlcTowNyBvZmY6MDlhOCBmYWlsZWQ6LTExMDwvZGl2PjxkaXY+
-wqAgbXQ3NjAxdSAzLTE0OjEuMDogVmVuZG9yIHJlcXVlc3QgcmVxOjAyIG9mZjowOWE4IGZhaWxl
-ZDotMTEwPC9kaXY+PGRpdj7CoCBtdDc2MDF1IDMtMTQ6MS4wOiBWZW5kb3IgcmVxdWVzdCByZXE6
-MDcgb2ZmOjA3MzQgZmFpbGVkOi0xMTA8L2Rpdj48ZGl2PsKgIG10NzYwMXUgMy0xNDoxLjA6IFZl
-bmRvciByZXF1ZXN0IHJlcTo0MiBvZmY6MDIzMCBmYWlsZWQ6LTExMDwvZGl2PjxkaXY+wqAgbXQ3
-NjAxdSAzLTE0OjEuMDogcHJvYmUgd2l0aCBkcml2ZXIgbXQ3NjAxdSBmYWlsZWQgd2l0aCBlcnJv
-ciAtMTEwPC9kaXY+PGRpdj7CoDwvZGl2PjxkaXY+VGhlIGZhaWx1cmUgb2NjdXJzIGJlY2F1c2Ug
-bXQ3NjAxdV9sb2FkX2Zpcm13YXJlKCkgdW5jb25kaXRpb25hbGx5IGNhbGxzPC9kaXY+PGRpdj5t
-dDc2MDF1X3ZlbmRvcl9yZXNldCgpIChNVF9WRU5EX0RFVl9NT0RFX1JFU0VUKSBiZWZvcmUgdXBs
-b2FkaW5nIGZpcm13YXJlPC9kaXY+PGRpdj5jaHVua3MuIE9uIHRoZXNlIGRldmljZXMsIGlzc3Vp
-bmcgdGhpcyB2ZW5kb3IgcmVzZXQgbGVhdmVzIHRoZSBpbnRlcm5hbDwvZGl2PjxkaXY+TUNVIC8g
-RkNFIERNQSBlbmdpbmUgaW4gYW4gdW5yZXNwb25zaXZlIHN0YXRlIGFmdGVyIHRoZSBmaXJzdCBm
-aXJtd2FyZTwvZGl2PjxkaXY+VVJCIGlzIHN1Ym1pdHRlZC4gQXMgYSByZXN1bHQsIHJlYWRpbmcg
-TVRfVFhfQ1BVX0ZST01fRkNFX0NQVV9ERVNDX0lEWDwvZGl2PjxkaXY+KDB4MDlhOCkgaW1tZWRp
-YXRlbHkgdGltZXMgb3V0LjwvZGl2PjxkaXY+SW50cm9kdWNlIGEgYm9vbGVhbiBtb2R1bGUgcGFy
-YW1ldGVyICd2bmRfcmVzZXQnIChkZWZhdWx0OiBmYWxzZSkgdG88L2Rpdj48ZGl2Pm1ha2UgdGhp
-cyB2ZW5kb3IgcmVzZXQgb3B0aW9uYWwuIFdoZW4gdGhlIHZlbmRvciByZXNldCBpcyBza2lwcGVk
-LDwvZGl2PjxkaXY+ZmlybXdhcmUgdXBsb2FkIHN1Y2NlZWRzIGFuZCB0aGUgd2lyZWxlc3MgaW50
-ZXJmYWNlIGluaXRpYWxpemVzIG5vcm1hbGx5LjwvZGl2PjxkaXY+wqA8L2Rpdj48ZGl2Pkxpbms6
-IGh0dHBzOi8vYnVncy5sYXVuY2hwYWQubmV0L3VidW50dS8rc291cmNlL2xpbnV4LytidWcvMTcx
-NjMwMTwvZGl2PjxkaXY+wqA8L2Rpdj48ZGl2Pk1vcmUgaXNzdWVzIHdpdGggVGVuZGEgVTIgYW5k
-IExpbnV4OjwvZGl2PjxkaXY+LSBodHRwczovL3d3dy5vcGVuYS50di92aWV3dG9waWMucGhwP3Q9
-NjM5MTk8L2Rpdj48ZGl2Pi0gaHR0cHM6Ly9hc2t1YnVudHUuY29tL3F1ZXN0aW9ucy8xNDE4ODUw
-L3RoZS1wcm9ibGVtLXdpdGgtd2ktZmktdTI8L2Rpdj48ZGl2Pi0gaHR0cHM6Ly9iYnMuYXJjaGxp
-bnV4Lm9yZy92aWV3dG9waWMucGhwP2lkPTIyNDg1OTwvZGl2PjxkaXY+LSBodHRwczovL3d3dy5y
-ZWRkaXQuY29tL3IvYXJjaGxpbnV4L2NvbW1lbnRzLzFkNmRmdjUvbXQ3NjAxdV91c2Jfd2lmaV9u
-b3Rfd29ya2luZy88L2Rpdj48ZGl2PsKgPC9kaXY+PGRpdj5TaWduZWQtb2ZmLWJ5OiBIZXJtYW4g
-U2VtZW5vZmYgJmx0O0dlcm1hbkFpemVrQHlhbmRleC5ydSZndDs8L2Rpdj48L2Rpdj4=
-------==--bound.100608.8d3645a2-7ab9-4ba4-91f5-094555084f3a
-Content-Disposition: attachment;
-	filename="0001-PATCH-wifi-mt7601u-add-vnd_reset-parameter-to-fix-pr.patch"
-Content-Transfer-Encoding: base64
-Content-Type: text/x-diff;
-	name="0001-PATCH-wifi-mt7601u-add-vnd_reset-parameter-to-fix-pr.patch"
+Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
+---
+Changes in v2:
+- Print an error message for an empty -g argument.
 
-RnJvbSBjMDNkNzNkMzdkZjQ0MGQwMDQ2ZDY4NDA2ZmRlMmFhMWY2MmZlMGQxIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBIZXJtYW4gU2VtZW5vZmYgPEdlcm1hbkFpemVrQHlhbmRleC5y
-dT4KRGF0ZTogVGh1LCAzIFNlcCAyMDI2IDA3OjE0OjMyICswMzAwClN1YmplY3Q6IFtQQVRDSF0g
-W1BBVENIXSB3aWZpOiBtdDc2MDF1OiBhZGQgdm5kX3Jlc2V0IHBhcmFtZXRlciB0byBmaXggcHJv
-YmUKIGZhaWx1cmUgb24gVGVuZGEgVTIKCndpZmk6IG10NzYwMXU6IGFkZCB2bmRfcmVzZXQgcGFy
-YW1ldGVyIHRvIGZpeCBwcm9iZSBmYWlsdXJlIG9uIFRlbmRhIFUyCgpPbiBjZXJ0YWluIE1UNzYw
-MVUgYWRhcHRlcnMsIHN1Y2ggYXMgVGVuZGEgVTIgYW5kCm90aGVyIG5ld2VyIGhhcmR3YXJlIHJl
-dmlzaW9ucywgZHJpdmVyIGluaXRpYWxpemF0aW9uIGNvbnNpc3RlbnRseSBmYWlscwpkdXJpbmcg
-cHJvYmUgd2l0aCB2ZW5kb3IgcmVxdWVzdCB0aW1lb3V0cyAoLTExMCAvIC1FVElNRURPVVQpOgog
-IG10NzYwMXUgMy0xNDoxLjA6IEFTSUMgcmV2aXNpb246IDc2MDEwMDAxIE1BQyByZXZpc2lvbjog
-NzYwMTA1MDAKICBtdDc2MDF1IDMtMTQ6MS4wOiBGaXJtd2FyZSBWZXJzaW9uOiAwLjEuMDAgQnVp
-bGQ6IDc2NDAgQnVpbGQgdGltZTogMjAxMzAyMDUyMTQ2X19fXwogIG10NzYwMXUgMy0xNDoxLjA6
-IFZlbmRvciByZXF1ZXN0IHJlcTowNyBvZmY6MDlhOCBmYWlsZWQ6LTExMAogIG10NzYwMXUgMy0x
-NDoxLjA6IFZlbmRvciByZXF1ZXN0IHJlcTowMiBvZmY6MDlhOCBmYWlsZWQ6LTExMAogIG10NzYw
-MXUgMy0xNDoxLjA6IFZlbmRvciByZXF1ZXN0IHJlcTowNyBvZmY6MDczNCBmYWlsZWQ6LTExMAog
-IG10NzYwMXUgMy0xNDoxLjA6IFZlbmRvciByZXF1ZXN0IHJlcTo0MiBvZmY6MDIzMCBmYWlsZWQ6
-LTExMAogIG10NzYwMXUgMy0xNDoxLjA6IHByb2JlIHdpdGggZHJpdmVyIG10NzYwMXUgZmFpbGVk
-IHdpdGggZXJyb3IgLTExMAoKVGhlIGZhaWx1cmUgb2NjdXJzIGJlY2F1c2UgbXQ3NjAxdV9sb2Fk
-X2Zpcm13YXJlKCkgdW5jb25kaXRpb25hbGx5IGNhbGxzCm10NzYwMXVfdmVuZG9yX3Jlc2V0KCkg
-KE1UX1ZFTkRfREVWX01PREVfUkVTRVQpIGJlZm9yZSB1cGxvYWRpbmcgZmlybXdhcmUKY2h1bmtz
-LiBPbiB0aGVzZSBkZXZpY2VzLCBpc3N1aW5nIHRoaXMgdmVuZG9yIHJlc2V0IGxlYXZlcyB0aGUg
-aW50ZXJuYWwKTUNVIC8gRkNFIERNQSBlbmdpbmUgaW4gYW4gdW5yZXNwb25zaXZlIHN0YXRlIGFm
-dGVyIHRoZSBmaXJzdCBmaXJtd2FyZQpVUkIgaXMgc3VibWl0dGVkLiBBcyBhIHJlc3VsdCwgcmVh
-ZGluZyBNVF9UWF9DUFVfRlJPTV9GQ0VfQ1BVX0RFU0NfSURYCigweDA5YTgpIGltbWVkaWF0ZWx5
-IHRpbWVzIG91dC4KSW50cm9kdWNlIGEgYm9vbGVhbiBtb2R1bGUgcGFyYW1ldGVyICd2bmRfcmVz
-ZXQnIChkZWZhdWx0OiBmYWxzZSkgdG8KbWFrZSB0aGlzIHZlbmRvciByZXNldCBvcHRpb25hbC4g
-V2hlbiB0aGUgdmVuZG9yIHJlc2V0IGlzIHNraXBwZWQsCmZpcm13YXJlIHVwbG9hZCBzdWNjZWVk
-cyBhbmQgdGhlIHdpcmVsZXNzIGludGVyZmFjZSBpbml0aWFsaXplcyBub3JtYWxseS4KCkxpbms6
-IGh0dHBzOi8vYnVncy5sYXVuY2hwYWQubmV0L3VidW50dS8rc291cmNlL2xpbnV4LytidWcvMTcx
-NjMwMQoKTW9yZSBpc3N1ZXMgd2l0aCBUZW5kYSBVMiBhbmQgTGludXg6Ci0gaHR0cHM6Ly93d3cu
-b3BlbmEudHYvdmlld3RvcGljLnBocD90PTYzOTE5Ci0gaHR0cHM6Ly9hc2t1YnVudHUuY29tL3F1
-ZXN0aW9ucy8xNDE4ODUwL3RoZS1wcm9ibGVtLXdpdGgtd2ktZmktdTIKLSBodHRwczovL2Jicy5h
-cmNobGludXgub3JnL3ZpZXd0b3BpYy5waHA/aWQ9MjI0ODU5Ci0gaHR0cHM6Ly93d3cucmVkZGl0
-LmNvbS9yL2FyY2hsaW51eC9jb21tZW50cy8xZDZkZnY1L210NzYwMXVfdXNiX3dpZmlfbm90X3dv
-cmtpbmcvCgpTaWduZWQtb2ZmLWJ5OiBIZXJtYW4gU2VtZW5vZmYgPEdlcm1hbkFpemVrQHlhbmRl
-eC5ydT4KLS0tCiBkcml2ZXJzL25ldC93aXJlbGVzcy9tZWRpYXRlay9tdDc2MDF1L21jdS5jIHwg
-MTUgKysrKysrKysrKysrKy0tCiAxIGZpbGUgY2hhbmdlZCwgMTMgaW5zZXJ0aW9ucygrKSwgMiBk
-ZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC93aXJlbGVzcy9tZWRpYXRlay9t
-dDc2MDF1L21jdS5jIGIvZHJpdmVycy9uZXQvd2lyZWxlc3MvbWVkaWF0ZWsvbXQ3NjAxdS9tY3Uu
-YwppbmRleCBiYWQ2Y2E4MjEuLmFiZjQ3NjdmMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9uZXQvd2ly
-ZWxlc3MvbWVkaWF0ZWsvbXQ3NjAxdS9tY3UuYworKysgYi9kcml2ZXJzL25ldC93aXJlbGVzcy9t
-ZWRpYXRlay9tdDc2MDF1L21jdS5jCkBAIC0xMCw2ICsxMCw3IEBACiAjaW5jbHVkZSA8bGludXgv
-ZGVsYXkuaD4KICNpbmNsdWRlIDxsaW51eC91c2IuaD4KICNpbmNsdWRlIDxsaW51eC9za2J1ZmYu
-aD4KKyNpbmNsdWRlIDxsaW51eC9tb2R1bGVwYXJhbS5oPgogCiAjaW5jbHVkZSAibXQ3NjAxdS5o
-IgogI2luY2x1ZGUgImRtYS5oIgpAQCAtMjEsNiArMjIsMTQgQEAKICNkZWZpbmUgTUNVX0ZXX1VS
-Ql9TSVpFCQkJKE1DVV9GV19VUkJfTUFYX1BBWUxPQUQgKyAxMikKICNkZWZpbmUgTUNVX1JFU1Bf
-VVJCX1NJWkUJCTEwMjQKIAorc3RhdGljIGJvb2wgdm5kX3Jlc2V0OworbW9kdWxlX3BhcmFtKHZu
-ZF9yZXNldCwgYm9vbCwgMDY0NCk7CitNT0RVTEVfUEFSTV9ERVNDKHZuZF9yZXNldCwgIlBlcmZv
-cm0gdmVuZG9yIHJlc2V0IGR1cmluZyBmaXJtd2FyZSB1cGxvYWQgKGRlZmF1bHQ6IGZhbHNlKSIp
-OworCitzdGF0aWMgYm9vbCBkaXNhYmxlX3VzYl9zZzsKK21vZHVsZV9wYXJhbShkaXNhYmxlX3Vz
-Yl9zZywgYm9vbCwgMDY0NCk7CitNT0RVTEVfUEFSTV9ERVNDKGRpc2FibGVfdXNiX3NnLCAiVW51
-c2VkIGNvbXBhdGliaWxpdHkgcGFyYW1ldGVyIik7CisKIHN0YXRpYyBpbmxpbmUgaW50IGZpcm13
-YXJlX3J1bm5pbmcoc3RydWN0IG10NzYwMXVfZGV2ICpkZXYpCiB7CiAJcmV0dXJuIG10NzYwMXVf
-cnIoZGV2LCBNVF9NQ1VfQ09NX1JFRzApID09IDE7CkBAIC00NTksOCArNDY4LDEwIEBAIHN0YXRp
-YyBpbnQgbXQ3NjAxdV9sb2FkX2Zpcm13YXJlKHN0cnVjdCBtdDc2MDF1X2RldiAqZGV2KQogCW10
-NzYwMXVfd3IoZGV2LCAweDk0YywgMCk7CiAJbXQ3NjAxdV93cihkZXYsIE1UX0ZDRV9QU0VfQ1RS
-TCwgMCk7CiAKLQltdDc2MDF1X3ZlbmRvcl9yZXNldChkZXYpOwotCW1zbGVlcCg1KTsKKwlpZiAo
-dm5kX3Jlc2V0KSB7CisJCW10NzYwMXVfdmVuZG9yX3Jlc2V0KGRldik7CisJCW1zbGVlcCg1KTsK
-Kwl9CiAKIAltdDc2MDF1X3dyKGRldiwgMHhhNDQsIDApOwogCW10NzYwMXVfd3IoZGV2LCAweDIz
-MCwgMHg4NDIxMCk7Ci0tIAoyLjU1LjAKCg==
-------==--bound.100608.8d3645a2-7ab9-4ba4-91f5-094555084f3a--
+v1: https://lore.kernel.org/linux-mm/20260828031339.1270699-8-zhen.ni@easystack.cn/
+---
+ tools/mm/page_owner_filter.c | 58 ++++++++++++++++++++++++++++++++++--
+ 1 file changed, 55 insertions(+), 3 deletions(-)
+
+diff --git a/tools/mm/page_owner_filter.c b/tools/mm/page_owner_filter.c
+index 516c2d109a6a..8aea7df23eef 100644
+--- a/tools/mm/page_owner_filter.c
++++ b/tools/mm/page_owner_filter.c
+@@ -20,7 +20,7 @@
+ #include <getopt.h>
+ #include <signal.h>
+ 
+-#define MAX_CMD_LEN	512
++#define MAX_CMD_LEN	2048
+ #define TASK_COMM_LEN	16
+ 
+ static void usage(const char *prog)
+@@ -33,12 +33,13 @@ static void usage(const char *prog)
+ 	fprintf(stderr, "  -t, --tgid TGID_LIST  : Thread Group IDs (comma-separated, max 16)\n");
+ 	fprintf(stderr, "  -c, --comm COMM_LIST  : Process names (comma-separated, max 8)\n");
+ 	fprintf(stderr, "                          Supports wildcards: * ? [a-z]\n");
++	fprintf(stderr, "  -g, --cgroup PATH     : Memory cgroup path\n");
+ 	fprintf(stderr, "  -o, --output FILE     : output file (default: stdout)\n");
+ 	fprintf(stderr, "  -h, --help            : show this help message\n");
+ 	fprintf(stderr, "\nExamples:\n");
+ 	fprintf(stderr, "  %s -m handle -o output.txt\n", prog);
+ 	fprintf(stderr, "  %s -n 0,1 -c bash\n", prog);
+-	fprintf(stderr, "  %s -c \"python*\" -t 1\n", prog);
++	fprintf(stderr, "  %s -c \"python*\" -g user.slice\n", prog);
+ }
+ 
+ static int validate_mode(const char *mode)
+@@ -225,6 +226,40 @@ static int validate_comm_list(const char *comm_list)
+ 	return 0;
+ }
+ 
++static int validate_cgroup_path(const char *path)
++{
++	char cgroup_path[512];
++	const char *input_path = path;
++	int is_cgroup_v2 = 0;
++
++	if (!path || strlen(path) == 0) {
++		fprintf(stderr, "Error: Empty cgroup path\n");
++		return -1;
++	}
++
++	if (path[0] == '/')
++		input_path++;
++
++	/* Check if v1 memory controller exists */
++	if (access("/sys/fs/cgroup/memory", F_OK) != 0)
++		is_cgroup_v2 = 1;
++
++	if (is_cgroup_v2)
++		snprintf(cgroup_path, sizeof(cgroup_path),
++			"/sys/fs/cgroup/%s/memory.stat", input_path);
++	else
++		snprintf(cgroup_path, sizeof(cgroup_path),
++			"/sys/fs/cgroup/memory/%s/memory.stat", input_path);
++
++	if (access(cgroup_path, F_OK) != 0) {
++		fprintf(stderr, "Error: Cgroup path '%s': not found or no memory controller\n",
++			path);
++		return -1;
++	}
++
++	return 0;
++}
++
+ int main(int argc, char *argv[])
+ {
+ 	const char *output_file = NULL;
+@@ -244,6 +279,7 @@ int main(int argc, char *argv[])
+ 		{"pid",		required_argument, 0, 'p'},
+ 		{"tgid",	required_argument, 0, 't'},
+ 		{"comm",	required_argument, 0, 'c'},
++		{"cgroup",	required_argument, 0, 'g'},
+ 		{"output",	required_argument, 0, 'o'},
+ 		{"help",	no_argument,	   0, 'h'},
+ 		{0, 0, 0, 0}
+@@ -270,7 +306,7 @@ int main(int argc, char *argv[])
+ 		return 1;
+ 	}
+ 
+-	while ((opt = getopt_long(argc, argv, "m:n:p:t:c:o:h", long_options, NULL)) != -1) {
++	while ((opt = getopt_long(argc, argv, "m:n:p:t:c:g:o:h", long_options, NULL)) != -1) {
+ 		int len;
+ 
+ 		switch (opt) {
+@@ -344,6 +380,22 @@ int main(int argc, char *argv[])
+ 			cmd_len += len;
+ 			break;
+ 		}
++		case 'g': {
++			const char *cgroup_path = optarg;
++
++			if (validate_cgroup_path(cgroup_path) < 0)
++				return 1;
++			const char *path = (cgroup_path[0] == '/') ? cgroup_path + 1 : cgroup_path;
++
++			len = snprintf(filter_cmd + cmd_len, MAX_CMD_LEN - cmd_len,
++				       "%smemcg=/%s", cmd_len > 0 ? " " : "", path);
++			if (len < 0 || cmd_len + len >= MAX_CMD_LEN) {
++				fprintf(stderr, "Error: Command too long\n");
++				return 1;
++			}
++			cmd_len += len;
++			break;
++		}
+ 		case 'o':
+ 			output_file = optarg;
+ 			break;
+-- 
+2.20.1
+
