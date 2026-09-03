@@ -1,51 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1439357CE9;
-	Thu,  3 Sep 2026 03:10:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BFFA35F192;
+	Thu,  3 Sep 2026 03:10:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788405029; cv=none; b=N/YDKy/zInV3KrfuVQgoDClFsJwFwxcdat+TTseePpgzEKxjKhlHLeuhV5YnESJyggYlxEAt2ivH3YYrN9a8wGzuvBu4vQY4MN8LYExl5kxtiz6rhDj3NvNuNuk3kzLOuVjZIRORZYo8u94tsRRVeB4nijkshOCvisY8uxrLj4I=
+	t=1788405033; cv=none; b=H5VJyx7wI4E+bkNwPs81LM3S8KOwAJCJEkQLGePYBRKYoUns0nR8Wz0KBY1FLcM6X43QzySo29MBbnYy7F8/cv7YRfnFOtAOScf+eqWdBa7LNMDM9a2k93NUXwYVDBOtW1vdxau5PvAFCwCAiFyfTasc8sEbj8vyvBtbZ0inwcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788405029; c=relaxed/simple;
-	bh=yDUYyQaFlq8tXXASfcARcljHFMLdm3RuonF8ltHah4c=;
+	s=arc-20240116; t=1788405033; c=relaxed/simple;
+	bh=GC3V6d5LVyN9ZapyIohub5pUzEXZEte0qmAaoPWM6Rs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fosUGkRuVmZxyNpTLWRBDmn8zp+9XxgR9f6Xke9hwCinBxpnPvc/4mMDRxP+/L1QelgKk/BF1jfIKljmGN3ets9xtVGyd2Bjjz4FfjzVGH1KEvhseKlQJUmr08rshqsQK/XT894wSo+pqn9GsGLrqBTxR7LeivDbgXF4mZ88daE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G6OjU7wj; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=O2479u/q8R3cQStpgaIxoegVwyN0kdyHgz+FOxEgEPt5qrjHfrxApFb+whPQkHVHNU8bz9iEX58OZiBNdYDMggs4oXasmz3lgpMzwGp2OLQANflxIGL8aDdJ7SJHY8gkNXNpDPHATfy4kcBiHWDDhgeHwUskH4aZYfZPzC9idm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SDHv8NkN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G6OjU7wj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2535D1F00A3A;
-	Thu,  3 Sep 2026 03:10:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SDHv8NkN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69A551F00A3F;
+	Thu,  3 Sep 2026 03:10:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788405028;
-	bh=caX7x7i80gxUKHQCtZGsBvZac/QLQkNHPvkqj51y0dw=;
+	s=k20260515; t=1788405032;
+	bh=zeX7gtYKN89Liuupi4nVllGGrXh/cbBcQafIcyPbjlo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G6OjU7wjxVazV3ru3gGUnKIkWmYVS+gdbMQdhxxOErXRfEDA1B6RK+7v3exoF91Kf
-	 HRuxTQpPiXgAG99eC2WTC3zhgfrqWaB50z1ctQ4em2YOcQFOhZfOsoasCrije79IH6
-	 r2jKhRk3jl/ro5ECfP8eN2s1G6lTgwrE6gjix3ofwfFR3goxbiWiJ0HpQ4yxosSjOi
-	 PnOTCm0e/JBbkXWfGr4YnjnxQKFZE9ikDNu+3jVD8XZ2FWytO+seOA/kH2iOoVUvj9
-	 x01fZMe9e+LpkYHUr/rhVK0xO4952YJJuMbrxxhodD2emqFyyzw5G/yoHW8SlfPEJF
-	 Gom9TjSXFAT5w==
+	b=SDHv8NkNoU8bG2mcjp7JptwceT+0ZBtXCtVl8Qe6v/zu45TLrxyoyipkY9P7CkUhI
+	 Q7sQRu0vMANOO04OLKpmaifttfzOIYFQoKHNvvF2xy02fZdSrtOcKdmB4vVW6gNKoO
+	 3Mf4U+3dHt2Col2NYEaA9FUOFtp21KaHn1QtSBDKZlJcjVTKTbCTfSj8oTlUJkgJR/
+	 D4j6HFAtAMhBT65giexJP+9FbZE7tkJIDKMySIf4JaCmXwpIlTh8nXxdotB6PZYffr
+	 mXhVl7jjESVXOHttmRqmbT/QG/1MrjOF5flKReYLxSEoWm4hs42y4cfT33iwDGoz9W
+	 sQbvGzeKhNDaA==
 From: "Martin K. Petersen (Oracle)" <mkp@kernel.org>
-To: Satish Kharat <satishkh@cisco.com>,
-	Sesidhar Baddela <sebaddel@cisco.com>,
-	Karan Tilak Kumar <kartilak@cisco.com>,
+To: mani@kernel.org,
+	James.Bottomley@HansenPartnership.com,
+	konrad.dybcio@oss.qualcomm.com,
 	"Martin K. Petersen" <mkp@kernel.org>,
-	Linmao Li <lilinmao@kylinos.cn>
-Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Hannes Reinecke <hare@kernel.org>,
-	Justin Tee <justin.tee@broadcom.com>,
-	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>,
-	linux-nvme@lists.infradead.org,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH 0/2] scsi: fnic: fix NVMe/FC local port setup and teardown
-Date: Wed,  2 Sep 2026 23:10:07 -0400
-Message-ID: <178840472579.670675.9863331512584936736.b4-ty@b4>
+	Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH V2 0/2] ufs: ufs-qcom: Fixes and optimizations for Qualcomm UFS Controller
+Date: Wed,  2 Sep 2026 23:10:11 -0400
+Message-ID: <178840472586.670675.7481898545515362226.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260819114242.3598034-1-lilinmao@kylinos.cn>
-References: <20260819114242.3598034-1-lilinmao@kylinos.cn>
+In-Reply-To: <20260825145203.265579-1-nitin.rawat@oss.qualcomm.com>
+References: <20260825145203.265579-1-nitin.rawat@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,25 +50,24 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On Wed, 19 Aug 2026 19:42:40 +0800, Linmao Li wrote:
+On Tue, 25 Aug 2026 20:22:01 +0530, Nitin Rawat wrote:
 
-> Two small fixes to the NVMe/FC transport path added in commit 5efdd5cf9281
-> ("scsi: fnic: Add the NVMe/FC transport path"), both found by reading the
-> code rather than by hitting them on hardware.  They apply to
-> scsi/for-next, since that code is not in mainline yet.
+> This patch series introduces few fixes and performance optimizations
+> for the Qualcomm UFS host controller driver to improve performance
+> and to align with Qualcomm UFS hardware programming sequence.
 > 
-> Patch 1 initializes struct nvme_fc_port_info in nvfnic_add_lport().
-> dev_loss_tmo is currently left uninitialized on the stack.  The transport
-> does not read it for a local port, so this is hygiene rather than a
-> behaviour fix, and it carries no Fixes tag; nvfnic_add_tport() right below
-> already memsets its own copy.
+> The series addresses below issues:
+> 1. Hardware programming sequence alignment for UFS controller v6.2
+> 2. Performance tuning for sequential read workloads.
 > 
 > [...]
 
 Applied to 7.3/scsi-fixes, thanks!
 
-[1/2] scsi: fnic: initialize the NVMe local port info before registering
-      https://git.kernel.org/mkp/scsi/c/98f0a1422e28
+[1/2] ufs: ufs-qcom: Restore HS/LS link startup mode for Qualcomm UFS controller v6.2+
+      https://git.kernel.org/mkp/scsi/c/a3756f53baf1
+[2/2] ufs: ufs-qcom: Fix sequential read variance
+      https://git.kernel.org/mkp/scsi/c/b2ededcb271b
 
 -- 
 Martin K. Petersen
