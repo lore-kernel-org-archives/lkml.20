@@ -1,64 +1,55 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F85401A08;
-	Thu,  3 Sep 2026 07:29:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A9A14119F3;
+	Thu,  3 Sep 2026 07:29:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788420583; cv=none; b=S5ROqVDom/GAmFGKpvgeOtBCcFOCl4G67OLJgWGTUAAa2Kchqxu7haV1OOuZR+pVg50pOeYQdVm8iLn8LrqNsw7w8tEUXmm7jbXmpTKB7jisLuXp4YjXV4Zq8CnubAPdMh2Ixd0Vmv/swab1nZjnKXMkfUJjh1uND6WbsXboOyU=
+	t=1788420581; cv=none; b=iQHcjsfJaX2WP0IMRE5sqlr9HwTgXD8oE8l94Q+YKYBJlfGGG+WgACAbB/YhZS+5ndVtTZRC1WgHLfI/51DXelLFvOXOCN9fxRolxYFg/Wyas9HypVsMOtJOvBGY069lfZl/rtM7GhgZb4mW3MriT09nJvpaHVWfLBGI9Q34b9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788420583; c=relaxed/simple;
-	bh=ntNNv9GPQyZ5zoh1gSFod1FfmJRGk4zVdhE2dMQEqH4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=oUmKTN5ExVqp9u4yF4XkVTWz7tP+T7ADEXOp/bxleyl6ixNERrIQVH3yJjqdnzeHiXSv/VvEa0d0s71R1GItS860WjsnDOZb8OMnio54IifXOS5BwTarGH02PeGEvetlE3sIhS5irqd8y7RzRSyLV6gOFstWjW2KMNf7r7xRQFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ui/GZHk8; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788420581; c=relaxed/simple;
+	bh=qKNdar3rw/NxENAjemjeEJBAo/H6LYU7D0n6l4s7FM0=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=uZfPqyLwPeazTm3CG4yby07lSLlkKMOekcxSUjVwG0vQ8hXah9NzU5qmGSIibm8Cl3EJvOwU9kKDvl7g2UfMCiRONFP40eY7Z1nWY9Iust0+BtWi8sLI+IqZW3Gjhi2h2ynsuX/OZatKLrKXWNWIQcq4FKMPj13VjPTi3Fwidr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=YaiBl2CU; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ui/GZHk8"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6835lMEP324607;
-	Thu, 3 Sep 2026 07:29:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=tCyoAwMWuX0
-	I9ksGbxmVcYD1c3xcLM9g/jcfIJln9bY=; b=Ui/GZHk8DBhQrVF5f3OwwcQ5LiL
-	SGoACCCXIw8/tFQ0knpBwfVdASygnZySX4im/h7od3YQ6jyku6RnOw/Tm2/RQoD0
-	7oflQQLNGPiaxU1UT5WpeSZ/g3WJEYjWwFq4dnA7ZGzoNMKENkMoW+FCaXsjXcIw
-	cxO4Y/lzNl8JTg0ogzpFfBazJ9ruWgFQ24h/cglNBaHgoiaiS29VpC69p4IEqk0W
-	um/+ebmPNmdTqMyRGPkLXn4Rppzy+0rkyNM4PJsjA1iV5z48WOQjYNn1JQWZI7+h
-	+sPjfXbFAdCRvovGYRTM/NjrUMI2s/6LhoHdu5yS4IUEVzRk8/gB7olQhFQ==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gerdnb33d-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 03 Sep 2026 07:29:18 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6837TDlA4174524;
-	Thu, 3 Sep 2026 07:29:15 GMT
-Received: from hu-hgautam-hyd.qualcomm.com (hu-hgautam-hyd.qualcomm.com [10.147.247.91])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 6837T4OV4174384;
-	Thu, 03 Sep 2026 07:29:15 +0000 (GMT)
-From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>,
-        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Subject: [PATCH v4 08/10] ASoC: qcom: Add QAIF IRQ handling, suspend/resume and platform register
-Date: Thu,  3 Sep 2026 12:58:59 +0530
-Message-Id: <20260903072902.3870009-9-harendra.gautam@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260903072902.3870009-1-harendra.gautam@oss.qualcomm.com>
-References: <20260903072902.3870009-1-harendra.gautam@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="YaiBl2CU"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6837SsxzE3295537, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1788420534; bh=mQq/r51KBnX7DJUQOd04fDEjw2M7VSDiFa2AU4lTGgs=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	b=YaiBl2CUm8KXfl1KRS8lJdxgDA+LtvEhCjN3wC+u6xaHRV3AGHAdaMdBYIhUB+Nlb
+	 pmnApzFwrsm5XhbImGfroEpQ4MkV7VFrU2VLsjsOp0cIRj1J1UC3Tk7ayK8zTTZLZS
+	 Xt9RhgR7EYsRCvGrjP3Q2aO5jZrT9+idqWsemQI+DpRU8vpqhXT+Sy3ZP6DF0C6R/7
+	 K1inTZwaPyn3qB5i7ynz/wt88oXzXmj2CfxghLzelU3v1tQ/YjtLeALeJ8c/eQlrFm
+	 N840T/Jtsb3LV+jZGcDkdpq3g6oBXQcT0vfihBGfwEBu4TvoI7HQGdlUbxIGGe1Bzx
+	 lnQHUMOmoKsyg==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6837SsxzE3295537
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 3 Sep 2026 15:28:54 +0800
+Received: from RTKEXHMBS04.realtek.com.tw (10.21.1.54) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 3 Sep 2026 15:28:53 +0800
+Received: from fc44.realtek.com.tw (172.22.241.7) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server id
+ 15.2.2562.43 via Frontend Transport; Thu, 3 Sep 2026 15:28:53 +0800
+From: Chih Kai Hsu <hsu.chih.kai@realtek.com>
+To: <davem@davemloft.net>, <kuba@kernel.org>
+CC: <netdev@vger.kernel.org>, <nic_swsd@realtek.com>,
+	<linux-kernel@vger.kernel.org>, <linux-usb@vger.kernel.org>,
+	<edumazet@google.com>, <bjorn@mork.no>, <pabeni@redhat.com>,
+	<hsu.chih.kai@realtek.com>, <andrew+netdev@lunn.ch>
+Subject: [PATCH net-next v2 1/8] r8152: refactor r8156_init
+Date: Thu, 3 Sep 2026 15:28:45 +0800
+Message-ID: <20260903072852.58695-2-nic_swsd@realtek.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260903072852.58695-1-nic_swsd@realtek.com>
+References: <20260903072852.58695-1-nic_swsd@realtek.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,450 +57,699 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Authority-Analysis: v=2.4 cv=YcmNIQRf c=1 sm=1 tr=0 ts=6a9921ce cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8 a=o7TJiAN18BN_QPpExZUA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA2NSBTYWx0ZWRfX4c6mQYILUC5l
- 2LYVX3ZzYR2o5upKLugIg5tCjUGAEsBgQFFNNXaTK00hjQQDJxkngIh4OMvsJdSNsQQ6neBnKvf
- 0Umw8h9SXxMUwdSx8+p9a/OTQLu2tdA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA2NSBTYWx0ZWRfXwGPTmx9iPpgw
- ysVHkM7YY5h0aIwreVwljLTTMs6mqm7V3WQHReyXN4kw7ZCvcfeKHs5VDdmPx8ERUS0rX6fBJ2o
- XYOkxlzIuXLEVY+lE93hNnxaEzGLpHQAuVL1Cam/YUtoAtM0/+OK7kUlu2+xzh2xOzQeyQsg+/+
- sw+dlaMnznkOp3sCxkBNj1WzbgP22YhQa3E0UgAWATwfL+Qaxe1IGwwob9CcoRtDcj/Kh4ryjjl
- L+hzmOaqr5fcsCP0WXq1yz5Io13SU6P+mqVTTFnMarK7SdPo193zB12UAVWNkOCWFVSDybvWSd6
- zGiq/picdTS80b4P3r88w47w75ze7OyXKHDUTlrxI6nvbCmoyIxS1vjYoIPI3y9ZEn+q8MJU0aV
- oO0R9Mp9cMCcSwNEbGBcuECNKvkqH9SeU92lxYTjCFxoR/4KXQ3fFmSZ1FuPIQGnHE4oKKqwF4o
- egpZ+UuOoVxqud+9SQg==
-X-Proofpoint-GUID: 6xnt40fqHEvmQFyE3u59QZ3HBuuvrXqH
-X-Proofpoint-ORIG-GUID: 6xnt40fqHEvmQFyE3u59QZ3HBuuvrXqH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_02,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 priorityscore=1501 lowpriorityscore=0
- adultscore=0 phishscore=0 impostorscore=0 spamscore=0 suspectscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609030065
+Content-Type: text/plain
 
+RTL8157 and RTL8159 have different init sequences from RTL8156. Split
+r8156_init into per-chip functions: r8156_init (VER_10/11), r8156b_init
+(VER_12/13/15), r8157_init (VER_16), and r8159_init (VER_17).
 
-Finish the QAIF PCM platform support so streams can be registered, started,
-stopped and serviced by DMA interrupts.
-
-Register the ASoC component, request the QAIF interrupt and add trigger
-handling to enable or disable DMA and its interrupt sources. Dispatch the
-top-level IRQ status to the AIF and CIF DMA handlers, report period elapsed
-events to ALSA, warn on xrun conditions and stop the stream on bus errors.
-
-Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Signed-off-by: Chih Kai Hsu <hsu.chih.kai@realtek.com>
 ---
- sound/soc/qcom/qaif-platform.c | 392 +++++++++++++++++++++++++++++++++
- 1 file changed, 392 insertions(+)
+ drivers/net/usb/r8152.c | 488 ++++++++++++++++++++++++++++------------
+ 1 file changed, 349 insertions(+), 139 deletions(-)
 
-diff --git a/sound/soc/qcom/qaif-platform.c b/sound/soc/qcom/qaif-platform.c
-index 5b5308d824e2..8890d2373354 100644
---- a/sound/soc/qcom/qaif-platform.c
-+++ b/sound/soc/qcom/qaif-platform.c
-@@ -534,3 +534,395 @@ static int qaif_platform_copy(struct snd_soc_component *component,
+diff --git a/drivers/net/usb/r8152.c b/drivers/net/usb/r8152.c
+index 57d04af6368c3..d4289323895e3 100644
+--- a/drivers/net/usb/r8152.c
++++ b/drivers/net/usb/r8152.c
+@@ -78,6 +78,7 @@
+ #define PLA_EEE_TXTWSYS_2P5G	0xe058
+ #define PLA_EEEP_CR		0xe080
+ #define PLA_MAC_PWR_CTRL	0xe0c0
++#define PLA_RMT_WAKE		0xe0c8
+ #define PLA_MAC_PWR_CTRL2	0xe0ca
+ #define PLA_MAC_PWR_CTRL3	0xe0cc
+ #define PLA_MAC_PWR_CTRL4	0xe0ce
+@@ -371,6 +372,9 @@
+ #define MCU_CLK_RATIO_MASK	0x0f0f0f0f
+ #define ALDPS_SPDWN_RATIO	0x0f87
  
- 	return (copied != bytes) ? -EFAULT : 0;
++/* PLA_RMT_WAKE */
++#define RMT_WAKE_EN		BIT(0)
++
+ /* PLA_MAC_PWR_CTRL2 */
+ #define EEE_SPDWN_RATIO		0x8007
+ #define MAC_CLK_SPDWN_EN	BIT(15)
+@@ -417,6 +421,7 @@
+ 
+ /* PLA_INDICATE_FALG */
+ #define UPCOMING_RUNTIME_D3	BIT(0)
++#define PREBOOT_OPTION		BIT(1)
+ 
+ /* PLA_MACDBG_PRE and PLA_MACDBG_POST */
+ #define DEBUG_OE		BIT(0)
+@@ -542,6 +547,7 @@
+ #define RX_AGG_DISABLE		0x0010
+ #define RX_ZERO_EN		0x0080
+ #define RX_DESC_16B		0x0400
++#define RX_END_TRANSFER_EN	BIT(11)
+ 
+ /* USB_U2P3_CTRL */
+ #define U2P3_ENABLE		0x0001
+@@ -4200,6 +4206,22 @@ static u16 r8153_phy_status(struct r8152 *tp, u16 desired)
+ 	return data;
  }
-+
-+static int qaif_platform_irq_op(struct qaif_drv_data *drvdata, int dir,
-+				enum qaif_irq_type irq_type, int idx,
-+				enum qaif_irq_op op)
+ 
++static int wait_autoload_done(struct r8152 *tp)
 +{
-+	const struct qaif_variant *v = drvdata->variant;
-+	struct regmap *map = drvdata->audio_qaif_map;
-+	unsigned int bit = BIT(idx);
-+	unsigned int val = op == QAIF_IRQ_ENABLE ? bit : 0;
-+	u32 per_reg, err_reg, xrun_reg;
++	u16 ocp_data;
 +	int ret;
 +
-+	if (dir == SNDRV_PCM_STREAM_PLAYBACK) {
-+		per_reg = op == QAIF_IRQ_CLEAR ? QAIF_EE_RDDMA_PERIOD_IRQ_CLR_REG(v, irq_type)
-+					       : QAIF_EE_RDDMA_PERIOD_IRQ_EN_REG(v, irq_type);
-+		xrun_reg = op == QAIF_IRQ_CLEAR ? QAIF_EE_RDDMA_UF_IRQ_CLR_REG(v, irq_type)
-+						: QAIF_EE_RDDMA_UF_IRQ_EN_REG(v, irq_type);
-+		err_reg = op == QAIF_IRQ_CLEAR ? QAIF_EE_RDDMA_ERR_RSP_IRQ_CLR_REG(v, irq_type)
-+					       : QAIF_EE_RDDMA_ERR_RSP_IRQ_EN_REG(v, irq_type);
-+	} else {
-+		per_reg = op == QAIF_IRQ_CLEAR ? QAIF_EE_WRDMA_PERIOD_IRQ_CLR_REG(v, irq_type)
-+					       : QAIF_EE_WRDMA_PERIOD_IRQ_EN_REG(v, irq_type);
-+		xrun_reg = op == QAIF_IRQ_CLEAR ? QAIF_EE_WRDMA_OF_IRQ_CLR_REG(v, irq_type)
-+						: QAIF_EE_WRDMA_OF_IRQ_EN_REG(v, irq_type);
-+		err_reg = op == QAIF_IRQ_CLEAR ? QAIF_EE_WRDMA_ERR_RSP_IRQ_CLR_REG(v, irq_type)
-+					       : QAIF_EE_WRDMA_ERR_RSP_IRQ_EN_REG(v, irq_type);
-+	}
++	ret = read_poll_timeout(ocp_read_word, ocp_data,
++				ocp_data & AUTOLOAD_DONE, 20000,
++				10 * USEC_PER_SEC, false, tp, MCU_TYPE_PLA,
++				PLA_BOOT_CTRL);
 +
-+	if (op == QAIF_IRQ_CLEAR) {
-+		ret = regmap_write(map, per_reg, bit);
-+		if (ret)
-+			return ret;
-+		ret = regmap_write(map, xrun_reg, bit);
-+		if (ret)
-+			return ret;
-+		return regmap_write(map, err_reg, bit);
-+	}
-+
-+	ret = regmap_write_bits(map, per_reg, bit, val);
 +	if (ret)
-+		return ret;
-+	ret = regmap_write_bits(map, xrun_reg, bit, val);
-+	if (ret)
-+		return ret;
-+	return regmap_write_bits(map, err_reg, bit, val);
-+}
++		dev_err(&tp->intf->dev, "autoload done timeout\n");
 +
-+static int qaif_platform_pcmops_trigger(struct snd_soc_component *component,
-+					struct snd_pcm_substream *substream,
-+					int cmd)
-+{
-+	struct snd_soc_pcm_runtime *soc_runtime = snd_soc_substream_to_rtd(substream);
-+	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(soc_runtime, 0);
-+	struct qaif_drv_data *drvdata = snd_soc_component_get_drvdata(component);
-+	const struct qaif_variant *v = drvdata->variant;
-+	struct qaif_pcm_data *data = substream->runtime->private_data;
-+	unsigned int dai_id = cpu_dai->driver->id;
-+	enum qaif_irq_type irq_type = qaif_is_cif_port(dai_id) ? QAIF_CIF_IRQ : QAIF_AIF_IRQ;
-+	struct regmap *map = drvdata->audio_qaif_map;
-+	int idx = data->dma_reg_idx;
-+	int ret;
-+
-+	switch (cmd) {
-+	case SNDRV_PCM_TRIGGER_START:
-+	case SNDRV_PCM_TRIGGER_RESUME:
-+	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+		ret = qaif_platform_irq_op(drvdata, substream->stream, irq_type,
-+					   idx, QAIF_IRQ_CLEAR);
-+		if (ret) {
-+			dev_err(soc_runtime->dev, "error clearing irq regs: %d\n", ret);
-+			return ret;
-+		}
-+		ret = regmap_update_bits(map,
-+					 qaif_dmacfg_reg(v, idx, substream->stream, dai_id),
-+					 QAIF_DMACFG_DYNCLK_BIT, QAIF_DMACFG_DYNCLK_BIT);
-+		if (ret) {
-+			dev_err(soc_runtime->dev, "error enabling dma_dynclk: %d\n", ret);
-+			return ret;
-+		}
-+		ret = regmap_update_bits(map,
-+					 qaif_dmactl_reg(v, idx, substream->stream, dai_id),
-+					 QAIF_DMACTL_ENABLE_BIT, QAIF_DMACTL_ENABLE_BIT);
-+		if (ret) {
-+			dev_err(soc_runtime->dev, "error enabling DMA: %d\n", ret);
-+			return ret;
-+		}
-+		ret = qaif_platform_irq_op(drvdata, substream->stream, irq_type,
-+					   idx, QAIF_IRQ_ENABLE);
-+		if (ret)
-+			dev_err(soc_runtime->dev, "error enabling irq regs: %d\n", ret);
-+		break;
-+	case SNDRV_PCM_TRIGGER_STOP:
-+	case SNDRV_PCM_TRIGGER_SUSPEND:
-+	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+		ret = regmap_update_bits(map,
-+					 qaif_dmactl_reg(v, idx, substream->stream, dai_id),
-+					 QAIF_DMACTL_ENABLE_BIT, 0);
-+		if (ret) {
-+			dev_err(soc_runtime->dev, "error disabling DMA: %d\n", ret);
-+			return ret;
-+		}
-+		ret = regmap_update_bits(map,
-+					 qaif_dmacfg_reg(v, idx, substream->stream, dai_id),
-+					 QAIF_DMACFG_DYNCLK_BIT, 0);
-+		if (ret)
-+			dev_err(soc_runtime->dev, "error disabling dma_dynclk: %d\n", ret);
-+		ret = qaif_platform_irq_op(drvdata, substream->stream, irq_type,
-+					   idx, QAIF_IRQ_DISABLE);
-+		if (ret)
-+			dev_err(soc_runtime->dev, "error disabling irq regs: %d\n", ret);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
 +	return ret;
 +}
 +
-+static int qaif_platform_pcmops_sync_stop(struct snd_soc_component *component,
-+					  struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *soc_runtime = snd_soc_substream_to_rtd(substream);
-+	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(soc_runtime, 0);
-+	struct qaif_drv_data *drvdata = snd_soc_component_get_drvdata(component);
-+	struct qaif_pcm_data *data = substream->runtime->private_data;
-+	unsigned int dai_id = cpu_dai->driver->id;
-+	enum qaif_irq_type irq_type = qaif_is_cif_port(dai_id) ? QAIF_CIF_IRQ : QAIF_AIF_IRQ;
-+	int idx = data->dma_reg_idx;
-+	int ret;
+ static void r8153b_ups_en(struct r8152 *tp, bool enable)
+ {
+ 	if (enable) {
+@@ -4218,16 +4240,8 @@ static void r8153b_ups_en(struct r8152 *tp, bool enable)
+ 				  UPS_FORCE_PWR_DOWN);
+ 
+ 		if (ocp_read_word(tp, MCU_TYPE_USB, USB_MISC_0) & PCUT_STATUS) {
+-			int i;
+-
+-			for (i = 0; i < 500; i++) {
+-				if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
+-					return;
+-				if (ocp_read_word(tp, MCU_TYPE_PLA, PLA_BOOT_CTRL) &
+-				    AUTOLOAD_DONE)
+-					break;
+-				msleep(20);
+-			}
++			if (wait_autoload_done(tp))
++				return;
+ 
+ 			tp->rtl_ops.hw_phy_cfg(tp);
+ 
+@@ -4255,16 +4269,8 @@ static void r8153c_ups_en(struct r8152 *tp, bool enable)
+ 				  UPS_FORCE_PWR_DOWN);
+ 
+ 		if (ocp_read_word(tp, MCU_TYPE_USB, USB_MISC_0) & PCUT_STATUS) {
+-			int i;
+-
+-			for (i = 0; i < 500; i++) {
+-				if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
+-					return;
+-				if (ocp_read_word(tp, MCU_TYPE_PLA, PLA_BOOT_CTRL) &
+-				    AUTOLOAD_DONE)
+-					break;
+-				msleep(20);
+-			}
++			if (wait_autoload_done(tp))
++				return;
+ 
+ 			tp->rtl_ops.hw_phy_cfg(tp);
+ 
+@@ -7253,22 +7259,14 @@ static void r8152b_init(struct r8152 *tp)
+ static void r8153_init(struct r8152 *tp)
+ {
+ 	u32 ocp_data;
+-	int i;
+ 
+ 	if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
+ 		return;
+ 
+ 	r8153_u1u2en(tp, false);
+ 
+-	for (i = 0; i < 500; i++) {
+-		if (ocp_read_word(tp, MCU_TYPE_PLA, PLA_BOOT_CTRL) &
+-		    AUTOLOAD_DONE)
+-			break;
+-
+-		msleep(20);
+-		if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
+-			break;
+-	}
++	if (wait_autoload_done(tp))
++		return;
+ 
+ 	r8153_phy_status(tp, 0);
+ 
+@@ -7369,22 +7367,13 @@ static void r8153_init(struct r8152 *tp)
+ 
+ static void r8153b_init(struct r8152 *tp)
+ {
+-	int i;
+-
+ 	if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
+ 		return;
+ 
+ 	r8153b_u1u2en(tp, false);
+ 
+-	for (i = 0; i < 500; i++) {
+-		if (ocp_read_word(tp, MCU_TYPE_PLA, PLA_BOOT_CTRL) &
+-		    AUTOLOAD_DONE)
+-			break;
+-
+-		msleep(20);
+-		if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
+-			break;
+-	}
++	if (wait_autoload_done(tp))
++		return;
+ 
+ 	r8153_phy_status(tp, 0);
+ 
+@@ -7439,8 +7428,6 @@ static void r8153b_init(struct r8152 *tp)
+ 
+ static void r8153c_init(struct r8152 *tp)
+ {
+-	int i;
+-
+ 	if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
+ 		return;
+ 
+@@ -7453,15 +7440,8 @@ static void r8153c_init(struct r8152 *tp)
+ 
+ 	ocp_word_set_bits(tp, MCU_TYPE_USB, 0xcbf0, BIT(1));
+ 
+-	for (i = 0; i < 500; i++) {
+-		if (ocp_read_word(tp, MCU_TYPE_PLA, PLA_BOOT_CTRL) &
+-		    AUTOLOAD_DONE)
+-			break;
+-
+-		msleep(20);
+-		if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
+-			return;
+-	}
++	if (wait_autoload_done(tp))
++		return;
+ 
+ 	r8153_phy_status(tp, 0);
+ 
+@@ -8358,90 +8338,132 @@ static void r8157_hw_phy_cfg(struct r8152 *tp)
+ 	set_bit(PHY_RESET, &tp->flags);
+ }
+ 
+-static int r8159_wait_backup_restore(struct r8152 *tp)
++static void r8156_init(struct r8152 *tp)
+ {
+-	u32 ocp_data;
++	u16 data;
+ 
+-	ocp_data = ocp_read_word(tp, MCU_TYPE_USB, USB_MISC_0);
+-	if (!(ocp_data & PCUT_STATUS))
+-		return 0;
++	if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
++		return;
+ 
+-	return poll_timeout_us(ocp_data = ocp_read_word(tp, MCU_TYPE_USB, USB_GPHY_CTRL),
+-			       ocp_data & BACKUP_RESTRORE, 200, 20000, false);
++	ocp_byte_clr_bits(tp, MCU_TYPE_USB, USB_ECM_OP, EN_ALL_SPEED);
 +
-+	synchronize_irq(drvdata->audio_qaif_irq);
-+	ret = qaif_platform_irq_op(drvdata, substream->stream, irq_type,
-+				   idx, QAIF_IRQ_CLEAR);
-+	if (ret)
-+		dev_err(soc_runtime->dev, "error clearing irq regs: %d\n", ret);
-+	return ret;
++	ocp_write_word(tp, MCU_TYPE_USB, USB_SPEED_OPTION, 0);
++
++	ocp_word_set_bits(tp, MCU_TYPE_USB, USB_ECM_OPTION, BYPASS_MAC_RESET);
++
++	r8153b_u1u2en(tp, false);
++
++	if (wait_autoload_done(tp))
++		return;
++
++	data = r8153_phy_status(tp, 0);
++	if (data == PHY_STAT_EXT_INIT)
++		ocp_reg_clr_bits(tp, 0xa468, BIT(3) | BIT(1));
++
++	r8152_mdio_test_and_clr_bit(tp, MII_BMCR, BMCR_PDOWN);
++
++	data = r8153_phy_status(tp, PHY_STAT_LAN_ON);
++
++	r8153_u2p3en(tp, false);
++
++	/* MSC timer = 0xfff * 8ms = 32760 ms */
++	ocp_write_word(tp, MCU_TYPE_USB, USB_MSC_TIMER, 0x0fff);
++
++	/* U1/U2/L1 idle timer. 500 us */
++	ocp_write_word(tp, MCU_TYPE_USB, USB_U1U2_TIMER, 500);
++
++	r8153b_power_cut_en(tp, false);
++	r8156_ups_en(tp, false);
++	r8153_queue_wake(tp, false);
++	rtl_runtime_suspend_enable(tp, false);
++
++	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, PLA_INDICATE_FALG, PREBOOT_OPTION);
++
++	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, PLA_RMT_WAKE, RMT_WAKE_EN);
++
++	if (tp->udev->speed >= USB_SPEED_SUPER)
++		r8153b_u1u2en(tp, true);
++
++	usb_enable_lpm(tp->udev);
++
++	r8156_mac_clk_spd(tp, true);
++
++	ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL3,
++			  PLA_MCU_SPDWN_EN);
++
++	if (rtl8152_get_speed(tp) & LINK_STATUS)
++		ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_EXTRA_STATUS,
++				  CUR_LINK_OK | POLL_LINK_CHG);
++	else
++		ocp_word_w0w1(tp, MCU_TYPE_PLA, PLA_EXTRA_STATUS, CUR_LINK_OK,
++			      POLL_LINK_CHG);
++
++	set_bit(GREEN_ETHERNET, &tp->flags);
++
++	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_USB_CTRL,
++			  RX_AGG_DISABLE | RX_ZERO_EN);
++
++	ocp_byte_set_bits(tp, MCU_TYPE_USB, USB_BMU_CONFIG, ACT_ODMA);
++
++	r8156_mdio_force_mode(tp);
++	rtl_tally_reset(tp);
++
++	tp->coalesce = 15000; /* 15 us */
+ }
+ 
+-static void r8156_init(struct r8152 *tp)
++static void r8156b_u2phy_backup(struct r8152 *tp)
++{
++	ocp_write_word(tp, MCU_TYPE_USB, 0xd3ce, 0x181b);
++	ocp_write_dword(tp, MCU_TYPE_USB, 0xd3d0, 0x616ccd99);
++	ocp_write_dword(tp, MCU_TYPE_USB, 0xd3d4, 0x08fc8101);
++	ocp_write_dword(tp, MCU_TYPE_USB, 0xd3d8, 0x159b1100);
++	ocp_write_word(tp, MCU_TYPE_USB, 0xd3dc, 0x0a00);
 +}
 +
-+static irqreturn_t qaif_process_dma_irq(struct qaif_drv_data *drvdata,
-+					u32 stat_reg_addr,
-+					u32 clr_reg_addr,
-+					enum qaif_irq_type irq_type,
-+					enum qaif_dma_dir dma_type,
-+					enum qaif_irq irq,
-+					struct snd_pcm_substream **substream)
-+{
-+	const struct qaif_variant *v = drvdata->variant;
-+	unsigned int reg = 0;
-+	int dma_idx, stream_dma_idx, rv, num_dma, stream_offset, array_size;
-+	u32 mask;
-+	struct snd_pcm_substream *ss;
++static void r8156b_init(struct r8152 *tp)
+ {
+ 	u32 ocp_data;
+ 	u16 data;
+-	int i;
+ 
+ 	if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
+ 		return;
+ 
+-	if (tp->version == RTL_VER_16 || tp->version == RTL_VER_17) {
+-		ocp_byte_set_bits(tp, MCU_TYPE_USB, 0xcffe, BIT(3));
+-		ocp_byte_clr_bits(tp, MCU_TYPE_USB, 0xd3ca, BIT(0));
+-	}
+-
+ 	ocp_byte_clr_bits(tp, MCU_TYPE_USB, USB_ECM_OP, EN_ALL_SPEED);
+ 
+-	if (tp->version < RTL_VER_16)
+-		ocp_write_word(tp, MCU_TYPE_USB, USB_SPEED_OPTION, 0);
++	ocp_write_word(tp, MCU_TYPE_USB, USB_SPEED_OPTION, 0);
+ 
+ 	ocp_word_set_bits(tp, MCU_TYPE_USB, USB_ECM_OPTION, BYPASS_MAC_RESET);
+ 
+-	if (tp->version >= RTL_VER_12 && tp->version <= RTL_VER_15)
+-		ocp_word_set_bits(tp, MCU_TYPE_USB, USB_U2P3_CTRL, RX_DETECT8);
++	ocp_word_set_bits(tp, MCU_TYPE_USB, USB_U2P3_CTRL, RX_DETECT8);
+ 
+ 	r8153b_u1u2en(tp, false);
+ 
+ 	switch (tp->version) {
+ 	case RTL_VER_13:
+ 	case RTL_VER_15:
+-	case RTL_VER_16:
+-	case RTL_VER_17:
+ 		r8156b_wait_loading_flash(tp);
+ 		break;
+ 	default:
+ 		break;
+ 	}
+ 
+-	for (i = 0; i < 500; i++) {
+-		if (ocp_read_word(tp, MCU_TYPE_PLA, PLA_BOOT_CTRL) &
+-		    AUTOLOAD_DONE)
+-			break;
+-
+-		msleep(20);
+-		if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
+-			return;
+-	}
+-
+-	if (tp->version == RTL_VER_17 && r8159_wait_backup_restore(tp)) {
+-		rtl_set_inaccessible(tp);
+-		dev_err(&tp->intf->dev, "init failed, backup-restore timed out\n");
++	if (wait_autoload_done(tp))
+ 		return;
+-	}
+ 
+ 	data = r8153_phy_status(tp, 0);
+ 	if (data == PHY_STAT_EXT_INIT) {
+ 		ocp_reg_clr_bits(tp, 0xa468, BIT(3) | BIT(1));
+-		if (tp->version >= RTL_VER_12)
+-			ocp_reg_clr_bits(tp, 0xa466, BIT(0));
++		ocp_reg_clr_bits(tp, 0xa466, BIT(0));
+ 	}
+ 
+-	data = r8152_mdio_read(tp, MII_BMCR);
+-	if (data & BMCR_PDOWN) {
+-		data &= ~BMCR_PDOWN;
+-		r8152_mdio_write(tp, MII_BMCR, data);
+-	}
++	r8152_mdio_test_and_clr_bit(tp, MII_BMCR, BMCR_PDOWN);
+ 
+ 	data = r8153_phy_status(tp, PHY_STAT_LAN_ON);
+ 
+-	if (tp->version >= RTL_VER_16)
+-		r8157_u2p3en(tp, false);
+-	else
+-		r8153_u2p3en(tp, false);
++	r8153_u2p3en(tp, false);
 +
-+	stream_offset = (dma_type == QAIF_DMA_WRDMA) ?
-+		((irq_type == QAIF_AIF_IRQ) ? v->wrdma_start : v->codec_wrdma_start) : 0;
-+	num_dma = (dma_type == QAIF_DMA_WRDMA) ?
-+		((irq_type == QAIF_AIF_IRQ) ? v->num_wrdma : v->num_codec_wrdma) :
-+		((irq_type == QAIF_AIF_IRQ) ? v->num_rddma : v->num_codec_rddma);
-+	if (!num_dma)
-+		return IRQ_NONE;
++	/* Disable Auto Speed up */
++	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_FW_CTRL, AUTO_SPEEDUP);
+ 
+ 	/* MSC timer = 0xfff * 8ms = 32760 ms */
+ 	ocp_write_word(tp, MCU_TYPE_USB, USB_MSC_TIMER, 0x0fff);
+@@ -8449,73 +8471,261 @@ static void r8156_init(struct r8152 *tp)
+ 	/* U1/U2/L1 idle timer. 500 us */
+ 	ocp_write_word(tp, MCU_TYPE_USB, USB_U1U2_TIMER, 500);
+ 
+-	if (tp->version >= RTL_VER_16)
+-		r8157_power_cut_en(tp, false);
+-	else
+-		r8153b_power_cut_en(tp, false);
++	r8156b_u2phy_backup(tp);
+ 
++	r8153b_power_cut_en(tp, false);
+ 	r8156_ups_en(tp, false);
+ 	r8153_queue_wake(tp, false);
+ 	rtl_runtime_suspend_enable(tp, false);
+ 
++	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, PLA_INDICATE_FALG, PREBOOT_OPTION);
 +
-+	array_size = (irq_type == QAIF_AIF_IRQ) ?
-+		QAIF_MAX_AIF_DMA_IDX : QAIF_MAX_CIF_DMA_IDX;
-+	if (stream_offset + num_dma > array_size) {
-+		dev_err(regmap_get_device(drvdata->audio_qaif_map),
-+			"DMA index range %d+%d exceeds substream table %d\n",
-+			stream_offset, num_dma, array_size);
-+		return IRQ_NONE;
-+	}
-+	mask = GENMASK(num_dma - 1, 0);
++	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, PLA_RMT_WAKE, RMT_WAKE_EN);
 +
-+	rv = regmap_read(drvdata->audio_qaif_map, stat_reg_addr, &reg);
-+	if (rv) {
-+		dev_err_ratelimited(regmap_get_device(drvdata->audio_qaif_map),
-+				    "error reading stat reg 0x%x: %d\n", stat_reg_addr, rv);
-+		return IRQ_NONE;
-+	}
+ 	if (tp->udev->speed >= USB_SPEED_SUPER)
+ 		r8153b_u1u2en(tp, true);
+ 
+ 	usb_enable_lpm(tp->udev);
+ 
+-	if (tp->version >= RTL_VER_12 && tp->version <= RTL_VER_15) {
+-		ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_RCR, SLOT_EN);
++	ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_RCR, SLOT_EN);
+ 
+-		ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_CPCR, FLOW_CTRL_EN);
++	ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_CPCR, FLOW_CTRL_EN);
+ 
+-		/* enable fc timer and set timer to 600 ms. */
+-		ocp_write_word(tp, MCU_TYPE_USB, USB_FC_TIMER, CTRL_TIMER_EN | (600 / 8));
++	/* enable fc timer and set timer to 600 ms. */
++	ocp_write_word(tp, MCU_TYPE_USB, USB_FC_TIMER,
++		       CTRL_TIMER_EN | (600 / 8));
+ 
+-		ocp_data = ocp_read_word(tp, MCU_TYPE_USB, USB_FW_CTRL);
+-		if (!(ocp_read_word(tp, MCU_TYPE_PLA, PLA_POL_GPIO_CTRL) & DACK_DET_EN))
+-			ocp_data |= FLOW_CTRL_PATCH_2;
+-		ocp_data &= ~AUTO_SPEEDUP;
+-		ocp_write_word(tp, MCU_TYPE_USB, USB_FW_CTRL, ocp_data);
++	ocp_data = ocp_read_word(tp, MCU_TYPE_PLA, PLA_POL_GPIO_CTRL);
++	if (!(ocp_data & DACK_DET_EN))
++		ocp_word_set_bits(tp, MCU_TYPE_USB, USB_FW_CTRL,
++				  FLOW_CTRL_PATCH_2);
+ 
+-		ocp_word_set_bits(tp, MCU_TYPE_USB, USB_FW_TASK, FC_PATCH_TASK);
+-	}
++	ocp_word_set_bits(tp, MCU_TYPE_USB, USB_FW_TASK, FC_PATCH_TASK);
+ 
+ 	r8156_mac_clk_spd(tp, true);
+ 
+-	if (tp->version < RTL_VER_16)
+-		ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL3, PLA_MCU_SPDWN_EN);
++	ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL3,
++			  PLA_MCU_SPDWN_EN);
+ 
+-	ocp_data = ocp_read_word(tp, MCU_TYPE_PLA, PLA_EXTRA_STATUS);
+ 	if (rtl8152_get_speed(tp) & LINK_STATUS)
+-		ocp_data |= CUR_LINK_OK;
++		ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_EXTRA_STATUS,
++				  CUR_LINK_OK | POLL_LINK_CHG);
+ 	else
+-		ocp_data &= ~CUR_LINK_OK;
+-	ocp_data |= POLL_LINK_CHG;
+-	ocp_write_word(tp, MCU_TYPE_PLA, PLA_EXTRA_STATUS, ocp_data);
++		ocp_word_w0w1(tp, MCU_TYPE_PLA, PLA_EXTRA_STATUS,
++			      CUR_LINK_OK, POLL_LINK_CHG);
+ 
+ 	set_bit(GREEN_ETHERNET, &tp->flags);
+ 
+-	/* RX aggregation / 16 bytes RX descriptor
+-	 * BIT(11) is specific to RTL8159, with unknown meaning
+-	 */
+-	if (tp->version == RTL_VER_17)
+-		ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_USB_CTRL,
+-				  RX_AGG_DISABLE | RX_DESC_16B | BIT(11));
+-	else if (tp->version == RTL_VER_16)
+-		ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_USB_CTRL, RX_AGG_DISABLE | RX_DESC_16B);
++	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_USB_CTRL,
++			  RX_AGG_DISABLE | RX_ZERO_EN);
 +
-+	if (!(reg & mask)) {
-+		dev_warn_ratelimited(regmap_get_device(drvdata->audio_qaif_map),
-+				     "spurious IRQ: stat reg 0x%x status 0x%x mask 0x%x\n",
-+				     stat_reg_addr, reg, mask);
-+		return IRQ_NONE;
-+	}
++	r8156_mdio_force_mode(tp);
++	rtl_tally_reset(tp);
 +
-+	if (regmap_write(drvdata->audio_qaif_map, clr_reg_addr, reg & mask))
-+		return IRQ_NONE;
-+
-+	for (dma_idx = 0; dma_idx < num_dma; dma_idx++) {
-+		stream_dma_idx = dma_idx + stream_offset;
-+		ss = READ_ONCE(substream[stream_dma_idx]);
-+		if (!(reg & BIT(dma_idx)) || !ss)
-+			continue;
-+		switch (irq) {
-+		case QAIF_IRQ_PERIOD:
-+			snd_pcm_period_elapsed(ss);
-+			break;
-+		case QAIF_IRQ_OVERFLOW:
-+		case QAIF_IRQ_UNDERFLOW:
-+			dev_warn_ratelimited(regmap_get_device(drvdata->audio_qaif_map),
-+					     "QAIF DMA xRun\n");
-+			snd_pcm_stop_xrun(ss);
-+			break;
-+		case QAIF_IRQ_ERROR:
-+			snd_pcm_stop_xrun(ss);
-+			dev_err_ratelimited(regmap_get_device(drvdata->audio_qaif_map),
-+					    "QAIF bus error\n");
-+			break;
-+		}
-+	}
-+	return IRQ_HANDLED;
++	tp->coalesce = 15000;	/* 15 us */
 +}
 +
-+static irqreturn_t qaif_aif_irq_handler(struct qaif_drv_data *drvdata, u32 status)
++static void r8157_init(struct r8152 *tp)
 +{
-+	const struct qaif_variant *v = drvdata->variant;
-+	struct snd_pcm_substream **ss = drvdata->aif_substream;
-+	irqreturn_t ret = IRQ_NONE;
++	u16 data;
 +
-+	if (status & QAIF_SUMMARY_BITMASK_AIF_PERIOD_RDDMA)
-+		ret |= qaif_process_dma_irq(drvdata,
-+					    QAIF_EE_RDDMA_PERIOD_IRQ_STAT_REG(v, QAIF_AIF_IRQ),
-+					    QAIF_EE_RDDMA_PERIOD_IRQ_CLR_REG(v, QAIF_AIF_IRQ),
-+					    QAIF_AIF_IRQ, QAIF_DMA_RDDMA, QAIF_IRQ_PERIOD, ss);
-+	if (status & QAIF_SUMMARY_BITMASK_AIF_PERIOD_WRDMA)
-+		ret |= qaif_process_dma_irq(drvdata,
-+					    QAIF_EE_WRDMA_PERIOD_IRQ_STAT_REG(v, QAIF_AIF_IRQ),
-+					    QAIF_EE_WRDMA_PERIOD_IRQ_CLR_REG(v, QAIF_AIF_IRQ),
-+					    QAIF_AIF_IRQ, QAIF_DMA_WRDMA, QAIF_IRQ_PERIOD, ss);
-+	if (status & QAIF_SUMMARY_BITMASK_AIF_OVERFLOW_WRDMA)
-+		ret |= qaif_process_dma_irq(drvdata,
-+					    QAIF_EE_WRDMA_OF_IRQ_STAT_REG(v, QAIF_AIF_IRQ),
-+					    QAIF_EE_WRDMA_OF_IRQ_CLR_REG(v, QAIF_AIF_IRQ),
-+					    QAIF_AIF_IRQ, QAIF_DMA_WRDMA, QAIF_IRQ_OVERFLOW, ss);
-+	if (status & QAIF_SUMMARY_BITMASK_AIF_UNDERFLOW_RDDMA)
-+		ret |= qaif_process_dma_irq(drvdata,
-+					    QAIF_EE_RDDMA_UF_IRQ_STAT_REG(v, QAIF_AIF_IRQ),
-+					    QAIF_EE_RDDMA_UF_IRQ_CLR_REG(v, QAIF_AIF_IRQ),
-+					    QAIF_AIF_IRQ, QAIF_DMA_RDDMA, QAIF_IRQ_UNDERFLOW, ss);
-+	if (status & QAIF_SUMMARY_BITMASK_AIF_ERR_RSP_RDDMA)
-+		ret |= qaif_process_dma_irq(drvdata,
-+					    QAIF_EE_RDDMA_ERR_RSP_IRQ_STAT_REG(v, QAIF_AIF_IRQ),
-+					    QAIF_EE_RDDMA_ERR_RSP_IRQ_CLR_REG(v, QAIF_AIF_IRQ),
-+					    QAIF_AIF_IRQ, QAIF_DMA_RDDMA, QAIF_IRQ_ERROR, ss);
-+	if (status & QAIF_SUMMARY_BITMASK_AIF_ERR_RSP_WRDMA)
-+		ret |= qaif_process_dma_irq(drvdata,
-+					    QAIF_EE_WRDMA_ERR_RSP_IRQ_STAT_REG(v, QAIF_AIF_IRQ),
-+					    QAIF_EE_WRDMA_ERR_RSP_IRQ_CLR_REG(v, QAIF_AIF_IRQ),
-+					    QAIF_AIF_IRQ, QAIF_DMA_WRDMA, QAIF_IRQ_ERROR, ss);
-+	return ret;
-+}
++	if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
++		return;
 +
-+static irqreturn_t qaif_cif_irq_handler(struct qaif_drv_data *drvdata, u32 status)
-+{
-+	const struct qaif_variant *v = drvdata->variant;
-+	struct snd_pcm_substream **ss = drvdata->cif_substream;
-+	irqreturn_t ret = IRQ_NONE;
++	/* Enable SW reset */
++	ocp_byte_set_bits(tp, MCU_TYPE_USB, 0xcffe, BIT(3));
++	ocp_byte_clr_bits(tp, MCU_TYPE_USB, 0xd3ca, BIT(0));
 +
-+	if (status & QAIF_SUMMARY_BITMASK_CIF_PERIOD_RDDMA)
-+		ret |= qaif_process_dma_irq(drvdata,
-+					    QAIF_EE_RDDMA_PERIOD_IRQ_STAT_REG(v, QAIF_CIF_IRQ),
-+					    QAIF_EE_RDDMA_PERIOD_IRQ_CLR_REG(v, QAIF_CIF_IRQ),
-+					    QAIF_CIF_IRQ, QAIF_DMA_RDDMA, QAIF_IRQ_PERIOD, ss);
-+	if (status & QAIF_SUMMARY_BITMASK_CIF_PERIOD_WRDMA)
-+		ret |= qaif_process_dma_irq(drvdata,
-+					    QAIF_EE_WRDMA_PERIOD_IRQ_STAT_REG(v, QAIF_CIF_IRQ),
-+					    QAIF_EE_WRDMA_PERIOD_IRQ_CLR_REG(v, QAIF_CIF_IRQ),
-+					    QAIF_CIF_IRQ, QAIF_DMA_WRDMA, QAIF_IRQ_PERIOD, ss);
-+	if (status & QAIF_SUMMARY_BITMASK_CIF_OVERFLOW_WRDMA)
-+		ret |= qaif_process_dma_irq(drvdata,
-+					    QAIF_EE_WRDMA_OF_IRQ_STAT_REG(v, QAIF_CIF_IRQ),
-+					    QAIF_EE_WRDMA_OF_IRQ_CLR_REG(v, QAIF_CIF_IRQ),
-+					    QAIF_CIF_IRQ, QAIF_DMA_WRDMA, QAIF_IRQ_OVERFLOW, ss);
-+	if (status & QAIF_SUMMARY_BITMASK_CIF_UNDERFLOW_RDDMA)
-+		ret |= qaif_process_dma_irq(drvdata,
-+					    QAIF_EE_RDDMA_UF_IRQ_STAT_REG(v, QAIF_CIF_IRQ),
-+					    QAIF_EE_RDDMA_UF_IRQ_CLR_REG(v, QAIF_CIF_IRQ),
-+					    QAIF_CIF_IRQ, QAIF_DMA_RDDMA, QAIF_IRQ_UNDERFLOW, ss);
-+	if (status & QAIF_SUMMARY_BITMASK_CIF_ERR_RSP_RDDMA)
-+		ret |= qaif_process_dma_irq(drvdata,
-+					    QAIF_EE_RDDMA_ERR_RSP_IRQ_STAT_REG(v, QAIF_CIF_IRQ),
-+					    QAIF_EE_RDDMA_ERR_RSP_IRQ_CLR_REG(v, QAIF_CIF_IRQ),
-+					    QAIF_CIF_IRQ, QAIF_DMA_RDDMA, QAIF_IRQ_ERROR, ss);
-+	if (status & QAIF_SUMMARY_BITMASK_CIF_ERR_RSP_WRDMA)
-+		ret |= qaif_process_dma_irq(drvdata,
-+					    QAIF_EE_WRDMA_ERR_RSP_IRQ_STAT_REG(v, QAIF_CIF_IRQ),
-+					    QAIF_EE_WRDMA_ERR_RSP_IRQ_CLR_REG(v, QAIF_CIF_IRQ),
-+					    QAIF_CIF_IRQ, QAIF_DMA_WRDMA, QAIF_IRQ_ERROR, ss);
-+	return ret;
-+}
++	ocp_byte_clr_bits(tp, MCU_TYPE_USB, USB_ECM_OP, EN_ALL_SPEED);
 +
-+static const struct qaif_irq_map qaif_irq_clients[] = {
-+	{ QAIF_CLIENT_ID_AIF_DMA, QAIF_BITMASK_AIF_RDDMA_WRDMA, qaif_aif_irq_handler },
-+	{ QAIF_CLIENT_ID_CIF_DMA, QAIF_BITMASK_CIF_RDDMA_WRDMA, qaif_cif_irq_handler },
-+};
++	ocp_word_set_bits(tp, MCU_TYPE_USB, USB_ECM_OPTION, BYPASS_MAC_RESET);
 +
-+static irqreturn_t asoc_platform_qaif_irq(int irq, void *data)
-+{
-+	struct qaif_drv_data *drvdata = data;
-+	const struct qaif_variant *v = drvdata->variant;
-+	u32 summary_irq_status;
-+	int rv, client;
-+	irqreturn_t ret = IRQ_NONE;
++	r8153b_u1u2en(tp, false);
 +
-+	rv = regmap_read(drvdata->audio_qaif_map, QAIF_SUMMARY_IRQSTAT_REG(v),
-+			 &summary_irq_status);
-+	if (rv) {
-+		dev_err(regmap_get_device(drvdata->audio_qaif_map),
-+			"error reading from irqstat reg: %d\n", rv);
-+		return IRQ_NONE;
++	if (wait_autoload_done(tp))
++		return;
++
++	r8156b_wait_loading_flash(tp);
++
++	data = r8153_phy_status(tp, 0);
++	if (data == PHY_STAT_EXT_INIT) {
++		ocp_reg_clr_bits(tp, 0xa468, BIT(3) | BIT(1));
++		ocp_reg_clr_bits(tp, 0xa466, BIT(0));
 +	}
 +
-+	if (!(summary_irq_status & QAIF_ALL_CLIENTS_MASK))
-+		return IRQ_NONE;
++	r8152_mdio_test_and_clr_bit(tp, MII_BMCR, BMCR_PDOWN);
 +
-+	for (client = 0; client < ARRAY_SIZE(qaif_irq_clients); client++) {
-+		if (summary_irq_status & qaif_irq_clients[client].mask)
-+			ret |= qaif_irq_clients[client].client_irq_handler(drvdata,
-+									   summary_irq_status);
-+	}
-+	return ret;
++	data = r8153_phy_status(tp, PHY_STAT_LAN_ON);
++
++	r8157_u2p3en(tp, false);
++
++	/* Disable Interrupt Mitigation */
++	ocp_byte_clr_bits(tp, MCU_TYPE_USB, 0xcf04,
++			  BIT(0) | BIT(1) | BIT(2) | BIT(7));
++
++	/* Disable Auto Speed up */
++	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_FW_CTRL, AUTO_SPEEDUP);
++
++	/* MSC timer = 0xfff * 8ms = 32760 ms */
++	ocp_write_word(tp, MCU_TYPE_USB, USB_MSC_TIMER, 0x0fff);
++
++	/* U1/U2/L1 idle timer. 500 us */
++	ocp_write_word(tp, MCU_TYPE_USB, USB_U1U2_TIMER, 500);
++
++	r8157_power_cut_en(tp, false);
++	r8156_ups_en(tp, false);
++	r8153_queue_wake(tp, false);
++	rtl_runtime_suspend_enable(tp, false);
++
++	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, PLA_INDICATE_FALG, PREBOOT_OPTION);
++
++	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, PLA_RMT_WAKE, RMT_WAKE_EN);
++
++	/* Clear Warm RST / Bus RST event flag */
++	ocp_word_clr_bits(tp, MCU_TYPE_USB, 0xcd06, BIT(11));
++
++	if (tp->udev->speed >= USB_SPEED_SUPER)
++		r8153b_u1u2en(tp, true);
++
++	usb_enable_lpm(tp->udev);
++
++	r8156_mac_clk_spd(tp, true);
++
++	if (rtl8152_get_speed(tp) & LINK_STATUS)
++		ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_EXTRA_STATUS,
++				  CUR_LINK_OK | POLL_LINK_CHG);
+ 	else
+-		ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_USB_CTRL, RX_AGG_DISABLE | RX_ZERO_EN);
++		ocp_word_w0w1(tp, MCU_TYPE_PLA, PLA_EXTRA_STATUS,
++			      CUR_LINK_OK, POLL_LINK_CHG);
+ 
+-	if (tp->version < RTL_VER_12)
+-		ocp_byte_set_bits(tp, MCU_TYPE_USB, USB_BMU_CONFIG, ACT_ODMA);
++	set_bit(GREEN_ETHERNET, &tp->flags);
+ 
+-	if (tp->version >= RTL_VER_16) {
+-		/* Disable Rx Zero Len */
+-		rtl_bmu_clr_bits(tp, 0x2300, BIT(3));
+-		/* TX descriptor Signature */
+-		ocp_byte_clr_bits(tp, MCU_TYPE_USB, 0xd4ae, BIT(1));
++	/* RX aggregation / 16 bytes RX descriptor / Bulk In End transfer */
++	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_USB_CTRL,
++			  RX_AGG_DISABLE | RX_DESC_16B | RX_END_TRANSFER_EN);
++
++	/* Disable Rx Zero Len */
++	rtl_bmu_clr_bits(tp, 0x2300, BIT(3));
++
++	/* TX descriptor Signature */
++	ocp_byte_clr_bits(tp, MCU_TYPE_USB, 0xd4ae, BIT(1));
++
++	r8156_mdio_force_mode(tp);
++	rtl_tally_reset(tp);
++
++	tp->coalesce = 15000;	/* 15 us */
 +}
 +
-+static const struct snd_soc_component_driver qaif_component_driver = {
-+	.name		= DRV_NAME,
-+	.open		= qaif_platform_pcmops_open,
-+	.close		= qaif_platform_pcmops_close,
-+	.hw_params	= qaif_platform_pcmops_hw_params,
-+	.hw_free	= qaif_platform_pcmops_hw_free,
-+	.prepare	= qaif_platform_pcmops_prepare,
-+	.trigger	= qaif_platform_pcmops_trigger,
-+	.sync_stop	= qaif_platform_pcmops_sync_stop,
-+	.pointer	= qaif_platform_pcmops_pointer,
-+	.mmap		= qaif_platform_pcmops_mmap,
-+	.copy		= qaif_platform_copy,
-+};
-+
-+int asoc_qcom_qaif_platform_register(struct platform_device *pdev)
++static int r8159_wait_backup_restore(struct r8152 *tp)
 +{
-+	struct qaif_drv_data *drvdata = platform_get_drvdata(pdev);
-+	struct of_phandle_args iommu_spec;
-+	u32 sid;
-+	int ret;
++	u32 ocp_data;
 +
-+	if (!drvdata->variant->alloc_stream_dma_idx ||
-+	    !drvdata->variant->free_stream_dma_idx)
-+		return dev_err_probe(&pdev->dev, -EINVAL,
-+				     "Variant missing mandatory callbacks\n");
++	ocp_data = ocp_read_word(tp, MCU_TYPE_USB, USB_MISC_0);
++	if (!(ocp_data & PCUT_STATUS))
++		return 0;
 +
-+	ret = of_parse_phandle_with_fixed_args(pdev->dev.of_node,
-+					       "iommus", 2, 0,
-+					       &iommu_spec);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret,
-+				     "failed to parse iommus property\n");
-+	sid = iommu_spec.args[0];
-+	of_node_put(iommu_spec.np);
-+	drvdata->smmu_csid_bits = sid & QAIF_CSID_MASK;
-+
-+	/*
-+	 * The DMA base register only holds the low 32 bits of the buffer
-+	 * address, so the coherent buffer must come from the low 32-bit
-+	 * address space.
-+	 */
-+	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret,
-+				     "Failed to set 32-bit DMA mask\n");
-+
-+	drvdata->audio_qaif_irq = platform_get_irq(pdev, 0);
-+	if (drvdata->audio_qaif_irq < 0)
-+		return dev_err_probe(&pdev->dev, drvdata->audio_qaif_irq,
-+				     "Failed to get IRQ\n");
-+
-+	drvdata->qaif_hw_configured = false;
-+	mutex_init(&drvdata->stream_lock);
-+
-+	ret = devm_request_irq(&pdev->dev, drvdata->audio_qaif_irq,
-+			       asoc_platform_qaif_irq, 0,
-+			       "qaif-irq-audio-core", drvdata);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "irq request failed\n");
-+
-+	ret = devm_snd_soc_register_component(&pdev->dev, &qaif_component_driver, NULL, 0);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret,
-+				     "Failed to register platform component\n");
-+	return 0;
++	return poll_timeout_us(ocp_data = ocp_read_word(tp, MCU_TYPE_USB, USB_GPHY_CTRL),
++			       ocp_data & BACKUP_RESTRORE, 200, 20000, false);
 +}
-+EXPORT_SYMBOL_GPL(asoc_qcom_qaif_platform_register);
 +
-+MODULE_DESCRIPTION("Qualcomm Audio Interface (QAIF) PCM platform driver");
-+MODULE_AUTHOR("Harendra Gautam <harendra.gautam@oss.qualcomm.com>");
-+MODULE_LICENSE("GPL");
++static void r8159_init(struct r8152 *tp)
++{
++	u16 data;
++
++	if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
++		return;
++
++	/* Enable SW reset */
++	ocp_byte_set_bits(tp, MCU_TYPE_USB, 0xcffe, BIT(3));
++	ocp_byte_clr_bits(tp, MCU_TYPE_USB, 0xd3ca, BIT(0));
++
++	ocp_byte_clr_bits(tp, MCU_TYPE_USB, USB_ECM_OP, EN_ALL_SPEED);
++
++	ocp_word_set_bits(tp, MCU_TYPE_USB, USB_ECM_OPTION, BYPASS_MAC_RESET);
++
++	r8153b_u1u2en(tp, false);
++
++	if (wait_autoload_done(tp))
++		return;
++
++	if (r8159_wait_backup_restore(tp)) {
++		rtl_set_inaccessible(tp);
++		dev_err(&tp->intf->dev,
++			"init failed, backup-restore timed out\n");
++		return;
+ 	}
+ 
++	r8156b_wait_loading_flash(tp);
++
++	data = r8153_phy_status(tp, 0);
++	if (data == PHY_STAT_EXT_INIT) {
++		ocp_reg_clr_bits(tp, 0xa468, BIT(3) | BIT(1));
++		ocp_reg_clr_bits(tp, 0xa466, BIT(0));
++	}
++
++	r8152_mdio_test_and_clr_bit(tp, MII_BMCR, BMCR_PDOWN);
++
++	data = r8153_phy_status(tp, PHY_STAT_LAN_ON);
++
++	r8157_u2p3en(tp, false);
++
++	/* Disable Interrupt Mitigation */
++	ocp_byte_clr_bits(tp, MCU_TYPE_USB, 0xcf04,
++			  BIT(0) | BIT(1) | BIT(2) | BIT(7));
++
++	/* Disable Auto Speed up */
++	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_FW_CTRL, AUTO_SPEEDUP);
++
++	/* MSC timer = 0xfff * 8ms = 32760 ms */
++	ocp_write_word(tp, MCU_TYPE_USB, USB_MSC_TIMER, 0x0fff);
++
++	/* U1/U2/L1 idle timer. 500 us */
++	ocp_write_word(tp, MCU_TYPE_USB, USB_U1U2_TIMER, 500);
++
++	r8157_power_cut_en(tp, false);
++	r8156_ups_en(tp, false);
++	r8153_queue_wake(tp, false);
++	rtl_runtime_suspend_enable(tp, false);
++
++	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, PLA_INDICATE_FALG, PREBOOT_OPTION);
++
++	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, PLA_RMT_WAKE, RMT_WAKE_EN);
++
++	/* Clear Warm RST / Bus RST event flag */
++	ocp_word_clr_bits(tp, MCU_TYPE_USB, 0xcd06, BIT(11));
++
++	/* Disable FW u1u2 patch option */
++	ocp_byte_clr_bits(tp, MCU_TYPE_USB, 0xb9a6, BIT(0));
++
++	if (tp->udev->speed >= USB_SPEED_SUPER)
++		r8153b_u1u2en(tp, true);
++
++	usb_enable_lpm(tp->udev);
++
++	r8156_mac_clk_spd(tp, true);
++
++	if (rtl8152_get_speed(tp) & LINK_STATUS)
++		ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_EXTRA_STATUS,
++				  CUR_LINK_OK | POLL_LINK_CHG);
++	else
++		ocp_word_w0w1(tp, MCU_TYPE_PLA, PLA_EXTRA_STATUS,
++			      CUR_LINK_OK, POLL_LINK_CHG);
++
++	set_bit(GREEN_ETHERNET, &tp->flags);
++
++	/* RX aggregation / 16 bytes RX descriptor / Bulk In End transfer */
++	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_USB_CTRL,
++			  RX_AGG_DISABLE | RX_DESC_16B | RX_END_TRANSFER_EN);
++
++	/* Disable Rx Zero Len */
++	rtl_bmu_clr_bits(tp, 0x2300, BIT(3));
++
++	/* TX descriptor Signature */
++	ocp_byte_clr_bits(tp, MCU_TYPE_USB, 0xd4ae, BIT(1));
++
++	/* Enable u3phy patch backup */
++	ocp_write_word(tp, MCU_TYPE_USB, 0xb9a2, 0x0448);
++
+ 	r8156_mdio_force_mode(tp);
+ 	rtl_tally_reset(tp);
+ 
+@@ -9846,7 +10056,7 @@ static int rtl_ops_init(struct r8152 *tp)
+ 		tp->eee_en		= true;
+ 		tp->eee_adv		= MDIO_EEE_1000T | MDIO_EEE_100TX;
+ 		tp->eee_adv2		= MDIO_EEE_2_5GT;
+-		ops->init		= r8156_init;
++		ops->init		= r8156b_init;
+ 		ops->enable		= rtl8156_enable;
+ 		ops->disable		= rtl8153_disable;
+ 		ops->up			= rtl8156_up;
+@@ -9885,7 +10095,7 @@ static int rtl_ops_init(struct r8152 *tp)
+ 		tp->eee_en		= true;
+ 		tp->eee_adv		= MDIO_EEE_1000T | MDIO_EEE_100TX;
+ 		tp->eee_adv2		= MDIO_EEE_2_5GT | MDIO_EEE_5GT;
+-		ops->init		= r8156_init;
++		ops->init		= r8157_init;
+ 		ops->enable		= rtl8156_enable;
+ 		ops->disable		= rtl8153_disable;
+ 		ops->up			= rtl8156_up;
+@@ -9907,7 +10117,7 @@ static int rtl_ops_init(struct r8152 *tp)
+ 		tp->eee_en		= true;
+ 		tp->eee_adv		= MDIO_EEE_100TX | MDIO_EEE_1000T | MDIO_EEE_10GT;
+ 		tp->eee_adv2		= MDIO_EEE_2_5GT | MDIO_EEE_5GT;
+-		ops->init		= r8156_init;
++		ops->init		= r8159_init;
+ 		ops->enable		= rtl8156_enable;
+ 		ops->disable		= rtl8153_disable;
+ 		ops->up			= rtl8156_up;
 -- 
 2.34.1
 
