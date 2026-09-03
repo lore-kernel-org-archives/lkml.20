@@ -1,139 +1,114 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 884823DA7D9
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 21:08:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C1B535E958
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 21:09:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788469689; cv=none; b=hM7433aKJHaRcTqX8n5lwpVenDjolMjmMYt2ZN9hOSR2ey6+g3j19v+M+KvALT+Hra2jmMpp6czoyxO/leyPUiheZIi5zeLfR29I1IHLuONtthGE0Q4np4I+pu3WZ2svY5FlrpuW2vI/aJLHhPWIMSy9+uJsZmG489msz3FrUzg=
+	t=1788469801; cv=none; b=rif7fHoC/loiCVhbw9w4qTB4GFv+7U0egkjcmDt29+lqolUmb0pYv3tsuXcgx3em8Pna1WkIdf8JOnq9ZuuTLiy5exjR+kDZmzp2X8ZfsJCm2pojo+x295gR0CaCTgKWgZ9qkuA5PM2JWseEFN227WF1KMxlebpjU5hWWC1SJC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788469689; c=relaxed/simple;
-	bh=EkwA7aGDJfEGjmuteNX1FzlNd7OD3Fs0oBxnoz5r7wQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=HcOrXNt4631WngWXxPCqc4RSDOSJQ/zXj1V5yLHYCS/fmWpuo2M2FAbx9HTqPvOe/RPfSh2UD3R30InoPlzl6o3Knf6HbYsWX8/a4zZ33F+icoUEeBTnQ3rCBjcTP5deeumwDcDEakRqjVKCHNu4vFYUjD61cqpp6geWlGTtJuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hyRb5afD; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788469801; c=relaxed/simple;
+	bh=Or0670Aa5c9tVQk4xYbDTc8zaw5a535xrjioF+KtQ0Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dtjwCkxMED46YKTe624cif11iKfzC3c7SZFjxG7Xi9iABDzmeMoc88TKC2x3COcEwxzS/wr3Zr4f9tsZVPdN088Oj7J3FdamO/BOGgxDea/MXcLDO4bIXrzuc1b2vUJeW+j/vYhSVvGR4URmCNHJNb0i2vsGISiaq/M1bIaR+0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=rHE/PaMW; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hyRb5afD"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-398b3c37877so312085a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 14:08:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788469688; x=1789074488; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n9qMk88WNjm6tym9wKNjhsNjwQfstK6W3opdEkr+jUE=;
-        b=hyRb5afDcndWjRrqjNfYef3ocGoANWp9JC4gtLq0qdTvITjYu+g0G4qgA6LBjXf+vl
-         hxVpt7OVCKRTwDVt4UyM41FX7nSOejp859C1YiSdJmo6Q8H2Uu8u7aHkF3+aL9VYybDx
-         ymOLzQQBh7LMGLgOvwu2Jngf7PPksVn7c1kae/zp2ZESaGPaai3WRp0wz7ogIsNa0+yq
-         BM29J3xiu8twZx+fnzFA2zUL5TgO6XLBq+sVxU/1JpjVLFKn2x3cS1DJJ5i5Xraa5KM9
-         gxMsYFyCQ8VSLChrTD85tvWlwV99hLROVG1s/Eo/zR0QF2D3YlxXQmvHjwcCJ4PXjDsc
-         mBPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788469688; x=1789074488;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n9qMk88WNjm6tym9wKNjhsNjwQfstK6W3opdEkr+jUE=;
-        b=SYqzsE6aQSNw+EVsgd3FLYTkfydLmigBXAC/VIK6vqaV3mpuEcS9ea4/qaBqsH3Yox
-         GeSgrrlKN3VhRrVcAlFApmaRYZqa3s8myzzS6/U0YUxk9ZwZH2FqZb3UieYZFgQ70CKW
-         TAd9ufyZbrarlhhwuebRXjEA3Mcqmyqmjt0Nw0twtsSVd12WiWh2l23Y8SpGdnq0c9LX
-         08fLgKzX53nanl+v+2Ib35VdYwHAabBAfNY5QiWte1o+A1FxEJyqGmpS5J7fGCIZ7a7J
-         rveYDgbuBhPlowmpTtB+eYnxIAlDqKzrtFOfHfHT7Q0aLWAV3MCKvm4SsSFqC44pHPYY
-         R+Cg==
-X-Forwarded-Encrypted: i=1; AKwUvBzvZh6iIDMIIwdTGCA5c5Hxk/71rykPAuaKRC+22ky7q8NN4ql680lOnIRWCSmmxxWpsFAyJKfFnsKbc2I=@vger.kernel.org
-X-Gm-Message-State: AFuF++kVIgs1XDEMPg/Rs1tqbWzCkjEXzLm7IKJTq/DZaTYdA+cuptWc
-	Dwq2HfysTy0k2xRxAoW9WVzyH5b2y+KJMzDWO1zOTlRyJk6FCRvjvI4B
-X-Gm-Gg: AYBFou0OxMr7VjniAQxWow8Mh8egtL3AbGi6t2SIEgZ+03dhZwi6GajjhsvUnn5PslC
-	U02+O+qsK5M40gkW0DyLXsDDBSTW02vlf6wLFzWlgCxrxJXTytfxFxpNNesQbwljSHChPUNdDA5
-	EKFuKy4GvW1PZq02uRzPWsltkEWlxHx0oxGtkgnHaupbuUyGFPHoICZ/yHqMJVHfzxQUR6S9KHj
-	j6L9PH6cqvy5BDlw+6tppso/LiYjY4pd36NjG7mUecK2HO+abQMJIhusH/39QzbtOY+Z48VQGtK
-	W5W4TSZnDwQe3iQuarZtIwrD9w+qFSbbgZnbsoeTuIRVkHkO0pmyH1WPUFvs6Pt9byiZCEaZ2co
-	M63go0mhNRheRY9XOLQp+7oGCz4kmtFvD36CrwvVKJkKArTpD7CdgmQZKRu0LKPKB8N8a6RxSH5
-	JzBO1Cww62/Ek/VLAk8C1XUMkRokV7KCUGL5IrevHreRFVcGt4e4hHSyXGk1D/NqQUp6PGx/+9o
-	MmUyuw/MJ1llQIAkbZm/AZ7N7iDZ6XDmgs=
-X-Received: by 2002:a17:90b:5289:b0:398:e96a:8999 with SMTP id 98e67ed59e1d1-39b261d0d83mr2193919a91.16.1788469687526;
-        Thu, 03 Sep 2026 14:08:07 -0700 (PDT)
-Received: from lza-virtual-machine.localdomain ([223.160.226.115])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c39227sm7023324a91.9.2026.09.03.14.08.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 14:08:07 -0700 (PDT)
-From: Zhian Liang <liangzhan5dev@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Zhian Liang <liangzhan5dev@gmail.com>
-Subject: [PATCH v2] Input: tca8418_keypad -  Add devm cleanup to disable interrupts on unload
-Date: Fri,  4 Sep 2026 05:06:39 +0800
-Message-Id: <20260903210639.22472-1-liangzhan5dev@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260903192942.21906-1-liangzhan5dev@gmail.com>
-References: <20260903192942.21906-1-liangzhan5dev@gmail.com>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="rHE/PaMW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=Jn4fU7y77lECs7I6hTxfYjF0J9XYYojKqt6y7PNxEWI=; b=rHE/PaMWwEQJHJqpiFRbjAmxov
+	H82kIeKRs6/bXHDWJZNT8gfDziefluhXSWk/oBJu/qlFwhCD18Nh3jpgb1kEi3igslJvIgl1cVTk7
+	k6xcPxk3f5gGof/gUfxFZanoLSh3VrFmtnqabn2OiJU17+yWOjWEWXQCJzz1YHRtZ5qp3riHreGUR
+	8ZN0ET0Xg6UWBWpKSjcmvW+Y0SfufXtWdVP+Ii/P3x6FlRnQuwKECbRrqu3Z0o/cljfeES/ZLghaM
+	kx5hpxb3paAjFaq4DWpgMgIamX8cTLBzKYtnJNsCeQVBmsfi5qdrutLeYpQliXhI+HmjGSsnNPHBW
+	/li1+feA==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Johan Jonker <jbx6244@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ =?UTF-8?B?SMO8c2V5aW4=?= BIYIK <boogiepop@gmx.com>
+Subject:
+ Re: [PATCH v2] drm/rockchip: rk3066_hdmi: convert to devm_drm_bridge_alloc()
+ API
+Date: Thu, 03 Sep 2026 23:09:38 +0200
+Message-ID: <4592222.hdfAi7Kttb@diego>
+In-Reply-To: <afde7cfa-bd1e-40d2-9315-d3d88abb7606@gmail.com>
+References:
+ <20260824-drm-v2-1-7f9273c6020b@gmail.com> <2814844.6tgchFWduM@diego>
+ <afde7cfa-bd1e-40d2-9315-d3d88abb7606@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-tca8418_configure() enables TCA8418 interrupts by writing the CFG
-register.  If input_register_device() fails afterwards, probe returns
-an error and devres releases the IRQ handler, but the hardware is
-left with interrupts still enabled.
+Hi Johan,
 
-Fix it by registering a devm action that clears the CFG register
- when the device is released, disabling
-all interrupts on both probe failure and driver unbind.
+Am Donnerstag, 3. September 2026, 22:44:57 Mitteleurop=C3=A4ische Sommerzei=
+t schrieb Johan Jonker:
+> On 9/3/26 17:12, Heiko St=C3=BCbner wrote:
+> > Am Montag, 24. August 2026, 12:21:19 Mitteleurop=C3=A4ische Sommerzeit =
+schrieb Johan Jonker via B4 Relay:
+> >> From: H=C3=BCseyin BIYIK <boogiepop@gmx.com>
+> >>
+> >> The function devm_drm_bridge_alloc() is the new API for allocating DRM=
+ bridges.
+> >> This conversion was missed during the initial conversion of all bridge=
+s to
+> >> the new API.
+> >>
+> >> Signed-off-by: H=C3=BCseyin BIYIK <boogiepop@gmx.com>
+> >> Signed-off-by: Johan Jonker <jbx6244@gmail.com>
+> >> ---
+> >>  drivers/gpu/drm/rockchip/rk3066_hdmi.c | 8 ++++----
+> >>  1 file changed, 4 insertions(+), 4 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/rockchip/rk3066_hdmi.c b/drivers/gpu/drm/=
+rockchip/rk3066_hdmi.c
+> >> index f28d6a883e09..39c65ee07caa 100644
+> >> --- a/drivers/gpu/drm/rockchip/rk3066_hdmi.c
+> >> +++ b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
+> >> @@ -703,7 +703,6 @@ rk3066_hdmi_register(struct drm_device *drm, struc=
+t rk3066_hdmi *hdmi)
+> >>  			 DRM_MODE_ENCODER_TMDS, NULL);
+> >> =20
+>=20
+> >>  	hdmi->bridge.driver_private =3D hdmi;
+>=20
+> Can this be removed?
+> See link/comment below.
 
-Signed-off-by: Zhian Liang <liangzhan5dev@gmail.com>
+that is what I meant. bridge.container holds the same information and
+bridge.private_data is not used in the rk3066_hdmi driver at all.
 
----
-Changes in v2:
-- Fixed typo: tca84818_write_byte -> tca8418_write_byte
-- Fixed typo: tca8418_diable_hw -> tca8418_disable_hw
----
- drivers/input/keyboard/tca8418_keypad.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+So if some future function needs to access the struct rk3066_hdmi it can
+do so via the container field.
 
-diff --git a/drivers/input/keyboard/tca8418_keypad.c b/drivers/input/keyboard/tca8418_keypad.c
-index 36d4a7c38bb1..413b404a08ba 100644
---- a/drivers/input/keyboard/tca8418_keypad.c
-+++ b/drivers/input/keyboard/tca8418_keypad.c
-@@ -270,6 +270,20 @@ static int tca8418_configure(struct tca8418_keypad *keypad_data,
- 	return error;
- }
- 
-+static void tca8418_disable_hw(void *data)
-+{
-+	struct tca8418_keypad *keypad_data = data;
-+	int error;
-+
-+	error = tca8418_write_byte(keypad_data, REG_CFG, 0);
-+	if (error)
-+		dev_warn(&keypad_data->client->dev, "unable to disable interrupts: %d\n", error);
-+
-+	error = tca8418_write_byte(keypad_data, REG_INT_STAT, 0xff);
-+	if (error)
-+		dev_warn(&keypad_data->client->dev, "unable to clear interrupt status: %d\n", error);
-+}
-+
- static int tca8418_keypad_probe(struct i2c_client *client)
- {
- 	struct device *dev = &client->dev;
-@@ -356,6 +370,10 @@ static int tca8418_keypad_probe(struct i2c_client *client)
- 	if (error < 0)
- 		return error;
- 
-+	error = devm_add_action_or_reset(dev, tca8418_disable_hw, keypad_data);
-+	if (error)
-+		return error;
-+
- 	error = input_register_device(input);
- 	if (error) {
- 		dev_err(dev, "Unable to register input device, error: %d\n",
--- 
-2.34.1
+
+> and hdmi->bridge.funcs are redundant by this change?
+>=20
+> Not redundant, just funcs are attached in a common function __devm_drm_br=
+idge_alloc()
+
+that's exactly wat I meant. As they are attached already in the common
+function, there is no need to do it _again_ in rk3066_hdmi_register()
+
+>=20
+> Please advise what changes are needed?
+> RK3066_hdmi is broken since somewhere 2025-05.
+
+So both should be dropped.
+
+Heiko
+
 
