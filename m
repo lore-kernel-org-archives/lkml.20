@@ -1,72 +1,76 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4EF6509EFA
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 19:31:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5951F4FECF1
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 19:31:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788463866; cv=none; b=ZDU9/K8hzxp47YG2xEKZkSmldnxBoUSjkJA/0Vf+ZPKleF//zUDnQidG/poy51ugLmajz0JJicG7pCa23nPXvWtdylNy+H50/P+estOyPujTjWv0Q2YYetGa0kDOQ6/UR3lNRB9/ENR+/fwJTdgZysrjHlSkyJFXSsL13+hv4pk=
+	t=1788463888; cv=none; b=EPwAbQVCyTKnED5+zsvII4Q+Lzv3cUBtzZCxEyY3hokL4U+tkRX+cI/XQlwe6HjuU/8zuvSgjsUfew7PS2FLGjzwnXmKROwDdjuIWsx8NRF4k+a4XeVOy8R8JNoweALH3ikAyc/vTOS3fK2ivkccIZsLA5rFRfIScMVPUXFMZxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788463866; c=relaxed/simple;
-	bh=sPieW/XMxA1aPDsb/aIFP2+oe40K3qdsLeR6duFXD1M=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rLbpIvmP6Odn6jOoJp8qRHS+KpYboveRcgvvYpt1D0FuVsotz1/wbYpOggwak27MgoHpshJfg8qjj0NMEmGmxv0JNus4mW7u2o3jSpO8FVoyYyyyw2DdyTQnWEmGQLWPBBgZLNtEanbAWEYoRdgMm90RUaehl6/a5hV6sqSn5hE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PlZI+peR; arc=none smtp.client-ip=209.85.214.174
+	s=arc-20240116; t=1788463888; c=relaxed/simple;
+	bh=LRIB+Ien8LNhu1QGXr1xo2szN3dRaFD/6agQW0q8qxs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=F9xBXPUFBnKiyEpUhTrVGOVkgblGyPUE6BqjKje4mE/cFcmWLkJLBTEqv825wVTLxbR8D3lXuiQynXAud5UkKxEo8YebiGTuEBIUk77kJFJz0KuT+Ira5Ks3AGB5MeWlbIl2XIPiyYkxHo0/GOXRztlcF41RRtm4OuMNwNqcRzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rwdqi28I; arc=none smtp.client-ip=209.85.214.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PlZI+peR"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d7200b2e15so2257025ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 12:31:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rwdqi28I"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cace91f112so2068335ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 12:31:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788463858; x=1789068658; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=q4u3M0sxZUqmdiAJH52liPLQN2L5yD3cqPXsc6cd89U=;
-        b=PlZI+peRfuXk4I5/ySdd0Jw+g7JFFfPEhKcFzDr5LY4fGc/p/nq2yGnc+8Cq9labhE
-         iipovlvVinCv2XNCiaP7kmIrPi0+rMXCHQQPXIGdgGifn35yRiAubj5VXqeIgyzri0uJ
-         ou/ODXGrTumxV5R94seXyH+VVZ0TqFEfZRd4RZjJjG5folfr/nhDNZxLgfzdwgPx/nt5
-         5feV3V2O4QvcqUrtn12SmpRIhq+TywLfoHumCU+YMi9EKT5MnG6RUp/bKuvjXMDDsDnc
-         9XO9NjCUcXRDsFgA27emnCzJJBAWXikIIhwnWF+3EshxTGUGyNgNOeVwA1jfsiwNqr96
-         /Lyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788463858; x=1789068658;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788463872; x=1789068672; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=q4u3M0sxZUqmdiAJH52liPLQN2L5yD3cqPXsc6cd89U=;
-        b=CSaFyx7C+XtRdI3+vt1feJMXGMIO4ga1QQ3juzgWaZ4Lr8u9KMa4itMY6MjGWAAhMx
-         TZbq0FGqgHXIXdr9FEtxZaWx/gHLh1mrf1r33j49iOp3ATwi3bnpwekWpU7f3x+w++pX
-         zyJRtfjgqSW6UcK4uuPnZEKA1OzJwHOG9jyElYLorA4nQ42ohzW/BQiV2t0BfbDeQDld
-         gKo1/bJBYWCqkv4eEIBiXvrEOSSQ8hQnzE+A2TxIVZ7YyxjRMiSm/cM1Stf2yYAPPcsL
-         y6tk944za8FLij2bglP4zOopPDngZyw2kDiTM8TS5KELXI9KM38IrwwUT5JApGqNmS3y
-         1mpw==
-X-Forwarded-Encrypted: i=1; AKwUvBytaqFGIvyFtOiop4rcpTqd1XAqm8ShFXS0i78/90Wfq53MEGPgpVyt+gvXOW5081m3MHSPFxWOjaphbu8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lMmzC+b6AJyz/vR6sRPMvJj8ZlVWxasj7gD208yhKuSBwC50VY
-	RltXXPUEi+iRKupJsSIoDFVWNzw3shB9tr+DHxPmMDTZrX5po6MTHrCx
-X-Gm-Gg: AYBFou1Nq0r+d7goczqq+HUIrrzWsw4w21+EQ8wWmpmjorRGqGaZHReKB/8gtuc/6cn
-	LUYhIPqTQMPi4ES+jvayWgnUlQ8JONorApB/SQAk2KQGE1/hfui7s2lnVlGVykubGBjOTcgl4Uj
-	0mtk077aYQbPC/m9JypzGhruHZqo/MOO2x4xOc3n2DPWJkmuKpT2NCqS8PXhGryFUtQE1V50nTs
-	eFdTviDtPszQxySYZibdb21gbeRbGZZFFZIXiZx2gx9N105hyon4BeG2tb0u5QpHv9oh/kGogOP
-	PnGyfRwFyP/W0Bf9vFeAZ8RXeQyV94Vc1D4tT3VSwqDUZc4H3Mubd4cxN2B0WI0iLmwNP96+08w
-	JQddZNoTB3XFiaEnmSFX8GiR0N/7Htg5QipMO11+tQgieP8vKctfrmcWJfMlbNNJ8L7Cq+gqxLy
-	wC2PiEHe2LP1UW+/WebajD4yIrvaTMyh1UKzCHrMgZH/wMRjT3RdrhMDXnZ9dmGbErIzA3Bk14d
-	OQ2SxltIhGbI3oDLj/GlVGeciI/Q+I712c=
-X-Received: by 2002:a17:903:3803:b0:2db:117e:cf50 with SMTP id d9443c01a7336-2db125a5895mr20300335ad.4.1788463857912;
-        Thu, 03 Sep 2026 12:30:57 -0700 (PDT)
+        bh=4yIetKXnfU6qQx5OfRzSQNhmvwvEsmpVmmGdbC2BbsE=;
+        b=Rwdqi28IC2n6hedfuQzzuOvAxUHwIrsve3Gvv5hDjjOH8/BdTlPKNocnWSsZ9iHz24
+         Cf+BJGD6z+rNWWJZ5WlUG9TeDcubItwYFJro72JonhFc1nnLyjJ/F9dSmhevIr6UQnIA
+         wJshvg0BFGbf+Y5fSBSkZgfoHksoPLpFYdAYUWKh6V88P39NLoeLhRb+8kJiBMm3cEXr
+         8q/hpredYakkLfqPSedRw2qfHjPHFjAAkwid8sfU4XUlCpGtOl5Fh/FcBVsVcoHPOEET
+         bAuvGHb7GsC34+irRuoncZwGEQ5dvd4T206H1kllv9+yTopMbixMwhS5d+WNqOhPsrOb
+         uhFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788463872; x=1789068672;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4yIetKXnfU6qQx5OfRzSQNhmvwvEsmpVmmGdbC2BbsE=;
+        b=C2JlkhAMaUU3Xen4TrpPm8IY3qKE4eQsaC7JpjxPiY1yUdTPbD/aIgJYwg8IoMg5Yp
+         3FHwSJSbafpOjBlZflEkpxC6anychKvpiAX7YOKX6bjGeOvMmkUCZ1YyKTR984V004z+
+         oJV/M6ySKkWOx8tJWXdI9JDJaGNhIcpMBvxzgXyWtUTLtAgUAIsIACZ4L7uiZ0FiuHYV
+         k/EN3yMMy4m0DztBo92E2NqYsgEIpGFnh6CKYgNqlSynXG2FqCES0Qm6k7oCBpZrWvfY
+         7qv1KN5+QMnW85Yc8Uack5XMTGyJiJosFZ9rN0aXpc/qyxPxvVhJhkw0duRd/Vfa0tKF
+         TczA==
+X-Forwarded-Encrypted: i=1; AKwUvBz9RDmkMA6YGA5YhdbxmCTBHkIdlMz7/H7AYginueb/DfEpFJHYiJPrB5lSQRk4ZPp5vgTfvzfF+u35dwU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nYgb2aETHCf/BCxh4mFS9tlPYAgQPJMICiNCLq+P8yvd8JjvOb
+	D14ZGMJAa7Tcf9S8bciBe26hlKsVoXXNdsrRzRAVfGHZtB2QkaCAWP6e
+X-Gm-Gg: AYBFou100UdzTBrrBtNdV6h2deIcTITascQ4sgyzfJZIVRJHbDxQDKQM5zxJgRhDc2I
+	HR6dp0yx6f/qJUOYZpk/L2duxDLdocn12n4EmFCqmpCX5kNcm56ZEttHQ8Q+PLA1XDXVN2pkhQf
+	sksFFL0J6xH8hlgCbs29Vy1xPddM8L4PAtICQvlWYdyeiKbLVnP5LZLabOfTyFTySw8PvYLpC7T
+	e1apcViN9RtZpLk+vwtS4/Vpf4RrUPd44AOFq26ZzLTGxD3weT7D8SveBe0YfOPEEQzzJoksgCR
+	LP3CILpZc3rRkVgwGaScFrgApmgAzP30Itb3dCZP932ZxXWnnBJOtdV5diiaqSD57F9cfIw2Un6
+	lMd8fmMKRqZcVvKzIUY6FyMg3T7bMdwkufC5X7qYReDFb22TgCqk/UQAfKI0GJsP2BTz7BIWfxC
+	EogkvnSmP3+fD6Fe1CSD8d7jhE7Rw0kkhZ+mrHFGRIp25bArYW9STbQXLVziGqwXTENHiCvoC4/
+	9x5ZgfHo2DajS70eDRuC8vQwKjOSirk/uT1yt9wS8WUPQ==
+X-Received: by 2002:a17:903:1670:b0:2d9:438e:b70d with SMTP id d9443c01a7336-2db1232c88emr19260755ad.1.1788463872345;
+        Thu, 03 Sep 2026 12:31:12 -0700 (PDT)
 Received: from lza-virtual-machine.localdomain ([223.160.226.115])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14ae53ddsm396985ad.78.2026.09.03.12.30.55
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14ae53ddsm396985ad.78.2026.09.03.12.31.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 12:30:57 -0700 (PDT)
+        Thu, 03 Sep 2026 12:31:12 -0700 (PDT)
 From: Zhian Liang <liangzhan5dev@gmail.com>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 Cc: linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Zhian Liang <liangzhan5dev@gmail.com>
-Subject: [PATCH 1/2] Input: tca8418_keypad -  Add devm cleanup to disable interrupts on unload
-Date: Fri,  4 Sep 2026 03:29:41 +0800
-Message-Id: <20260903192942.21906-1-liangzhan5dev@gmail.com>
+Subject: [PATCH 2/2] Input: tca8418_keypad - fix race condition in interrupt handler
+Date: Fri,  4 Sep 2026 03:29:42 +0800
+Message-Id: <20260903192942.21906-2-liangzhan5dev@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260903192942.21906-1-liangzhan5dev@gmail.com>
+References: <20260903192942.21906-1-liangzhan5dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,56 +79,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tca8418_configure() enables TCA8418 interrupts by writing the CFG
-register.  If input_register_device() fails afterwards, probe returns
-an error and devres releases the IRQ handler, but the hardware is
-left with interrupts still enabled.
+There is a race condition in tca8418_irq_handler() where a new key event
+can be lost if it arrives after the FIFO is drained but before the
+interrupt status register is cleared.
 
-Fix it by registering a devm action that clears the CFG register
- when the device is released, disabling
-all interrupts on both probe failure and driver unbind.
+Fix this by re-reading INT_STAT after draining the FIFO and repeating
+the process if K_INT is still asserted. This ensures the FIFO is truly
+empty before clearing interrupts.
+
+The FIFO depth is 10 events, so a loop limit of 16 provides sufficient
+margin while preventing infinite loops in case of hardware misbehavior.
 
 Signed-off-by: Zhian Liang <liangzhan5dev@gmail.com>
 ---
- drivers/input/keyboard/tca8418_keypad.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ drivers/input/keyboard/tca8418_keypad.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/input/keyboard/tca8418_keypad.c b/drivers/input/keyboard/tca8418_keypad.c
-index 36d4a7c38bb1..9f0aace6bd21 100644
+index 9f0aace6bd21..0952370c0636 100644
 --- a/drivers/input/keyboard/tca8418_keypad.c
 +++ b/drivers/input/keyboard/tca8418_keypad.c
-@@ -270,6 +270,20 @@ static int tca8418_configure(struct tca8418_keypad *keypad_data,
- 	return error;
- }
+@@ -212,6 +212,7 @@ static irqreturn_t tca8418_irq_handler(int irq, void *dev_id)
+ 	struct tca8418_keypad *keypad_data = dev_id;
+ 	u8 reg;
+ 	int error;
++	int max_loops = 16;
  
-+static void tca8418_disable_hw(void *data)
-+{
-+	struct tca8418_keypad *keypad_data = data;
-+	int error;
-+
-+	error = tca84818_write_byte(keypad_data, REG_CFG, 0);
-+	if (error)
-+		dev_warn(&keypad_data->client->dev, "unable to disable interrupts: %d\n", error);
-+
-+	error = tca8418_write_byte(keypad_data, REG_INT_STAT, 0xff);
-+	if (error)
-+		dev_warn(&keypad_data->client->dev, "unable to clear interrupt status: %d\n", error);
-+}
-+
- static int tca8418_keypad_probe(struct i2c_client *client)
- {
- 	struct device *dev = &client->dev;
-@@ -356,6 +370,10 @@ static int tca8418_keypad_probe(struct i2c_client *client)
- 	if (error < 0)
- 		return error;
- 
-+	error = devm_add_action_or_reset(dev, tca8418_diable_hw, keypad_data);
-+	if (error)
-+		return error;
-+
- 	error = input_register_device(input);
+ 	error = tca8418_read_byte(keypad_data, REG_INT_STAT, &reg);
  	if (error) {
- 		dev_err(dev, "Unable to register input device, error: %d\n",
+@@ -225,9 +226,19 @@ static irqreturn_t tca8418_irq_handler(int irq, void *dev_id)
+ 
+ 	if (reg & INT_STAT_OVR_FLOW_INT)
+ 		dev_warn(&keypad_data->client->dev, "overflow occurred\n");
++	do {
++		if (reg & INT_STAT_K_INT)
++			tca8418_read_keypad(keypad_data);
++
++		/* Re-read interrupt status to check for new events */
++		error = tca8418_read_byte(keypad_data, REG_INT_STAT, &reg);
++		if (error) {
++			dev_err(&keypad_data->client->dev,
++				"unable to re-read REG_INT_STAT\n");
++			return IRQ_HANDLED;
++		}
+ 
+-	if (reg & INT_STAT_K_INT)
+-		tca8418_read_keypad(keypad_data);
++	} while ((reg & INT_STAT_K_INT) && --max_loops);
+ 
+ 	/* Clear all interrupts, even IRQs we didn't check (GPI, CAD, LCK) */
+ 	reg = 0xff;
 -- 
 2.34.1
 
