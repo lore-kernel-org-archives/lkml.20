@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB47E34DB6D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB3651C84CB;
 	Thu,  3 Sep 2026 05:22:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788412973; cv=none; b=iU1+hkwHLRS8PwR80UbCZQ/IWWFgT0dvxj6BDqWeDxo2dDc7su4JNHDeLq8z0g93xG8YNZS/bTyxWuVs6L80tYuUHtAQHc90iapDpxvfXYTTAeOG/pucE2LeziIDIMS1F897k3EIp9s00jYXRE68NPF1bXt19PzDEgcCq3KyyBI=
+	t=1788412973; cv=none; b=HNdkZJeMig49hMqTD/bf/0d2j7neJhCVz+akN7ILncuLYS0ahniOFaLGD0hVLYje6djGvHxhNvat7MZpQgIAFf29Q02w95IbypPyfkVcYf3TTQaBS89svZNv1/UFqyDXxBLfySwoY42ZfGO5cLg9W9+b1jiQA1tIlQrBkfWROV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788412973; c=relaxed/simple;
-	bh=O6vuoKCQoHoG2GbnoVIEO+PufAG+OYfaUyXLJ2wdgLk=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=n1EXWuWQoTPj49lKRLnocoDc1WgZkvRlFE68OIhC/1vZbp6FukuQaaQrfvscjjbMeTISyOWE2u6CRETK4RURK6nh0qRrI0v0CiFZi21+TOHxa26TarO/PYvb3KDzmsOC6BXkw4GqA+0bCCkSu5e36yZaAwojgaOVgazPLt0xb+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DpO8MuWw; arc=none smtp.client-ip=10.30.226.201
+	bh=DK6eCsjwuQHkUAYad97gdQ+0HLjq5RiXz29EsyvdagQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=MYrU+qG30JU+ErU7Qh7T4QthkGLjPozH8ertF8CZJ0WUKU/pqN4lL8MssycothJ+tFaiLG4L6hKT/LpWUjIzB4Ppat0y7o0NW4SmJaupaqjyFrvUhObpiatyQZ+rruJpFi0Vzja0W7HAWwFOfFdU1ZT6UG/eFZm3Tvbk9xqHA8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NBWMbk+S; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DpO8MuWw"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 626D2C2BCB8;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NBWMbk+S"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7079EC2BCF7;
 	Thu,  3 Sep 2026 05:22:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788412973;
-	bh=O6vuoKCQoHoG2GbnoVIEO+PufAG+OYfaUyXLJ2wdgLk=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=DpO8MuWw2IvvfecBbQi6GXgQdmz5tBwa3Ti+2m2ENff9zEdS1TO692juiIL1ryiBz
-	 fZqqZk+sexvsMzGh3FQscBTGAAokKEoNG5qsqmQ6wsPdBeWB7EH7kZuRyqZpQbuXJ7
-	 2yPPYg9y1HLX/C9Aeitx4lkQxMWJ+M9rPPk8Z+6qHtWNhOu6ZnUsIXF7gSnLGe/RdZ
-	 9FQ+H7yfbyWbt5b+gwwk5CYhi8ABkJUdsTpAEVv0iHqNrI7zVaLsDkEtT0fsBAVsHg
-	 +vQTyBIP8bIjm0MwZhz6dhQpnCaeImgKAQKSjc+lSG9ApqZ+naA+N83uXsqYQDW3Gg
-	 FTEniLLsc0nYQ==
+	bh=DK6eCsjwuQHkUAYad97gdQ+0HLjq5RiXz29EsyvdagQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=NBWMbk+SfPkF5fIKKsyeasILC+5YO7+v0MlJ1QFa9PYJ8mN0f7P7iSjWCby+vlIgJ
+	 A5+7/ZHZz1UCKZTF26YtQ4yRtU60H7tRbHIljr0LW/Khf3phGqW6QmCcVrlWXc1pkt
+	 goPtvTO7oSIRZ4dqpLLhAHb8pzz0kSXunvJiOeeZ43WtcmDHy5hBga53MHmSO+w9T6
+	 J1yv8jM2yQl5iBnMyNQdcvexMUzErzT1herrEADr38tP9Gchs+m01soTusRBOogO1U
+	 xNRapl0hfKAiqe6wmTN+Z0+v37lzqPFg4wkXj9n4JAiLCb9GQJJ21YbChxs9Up2FB7
+	 ec1dHMOC4ydSQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F2A0C624D4;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 50DA5C61DD3;
 	Thu,  3 Sep 2026 05:22:53 +0000 (UTC)
 From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Subject: [PATCH v3 0/2] ir: support IR for Amlogic A9 SoC
-Date: Thu, 03 Sep 2026 05:22:43 +0000
-Message-Id: <20260903-a9-ir-v3-0-cd471c667c15@amlogic.com>
+Date: Thu, 03 Sep 2026 05:22:44 +0000
+Subject: [PATCH v3 1/2] dt-bindings: media: meson6-ir: Add Amlogic A9 IR
+ compatible
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,11 +41,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACMEmWoC/12MwQrCMBAFf6Xs2UiyrUnryf8QDzFN2gXbSCJBK
- f13k4KgHufxZhaINpCNcKwWCDZRJD9nqHcVmFHPg2XUZwbkKLnikumOUWD1oXFX7JRVQkL+3oN
- 19Nw650vmkeLDh9eWTaKs/4UkGGeN4y0a3WrtxElPNz+Q2Rs/QWkk/Pa6j4fFQ4OiV1o6Z369d
- V3fqVH4+9QAAAA=
-X-Change-ID: 20260706-a9-ir-354fb297e716
+Message-Id: <20260903-a9-ir-v3-1-cd471c667c15@amlogic.com>
+References: <20260903-a9-ir-v3-0-cd471c667c15@amlogic.com>
+In-Reply-To: <20260903-a9-ir-v3-0-cd471c667c15@amlogic.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
@@ -56,11 +55,11 @@ Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>, 
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788412970; l=1103;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788412970; l=1145;
  i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=O6vuoKCQoHoG2GbnoVIEO+PufAG+OYfaUyXLJ2wdgLk=;
- b=ek1RQor0splhjxeQQVFAs1R0OdVSOoTglk2DuhmtTqu//HDjzRs9I1bYUYA00XWTiRCM1e3ES
- Q5CSKHqRZAsDT08TVSsVam3GyxlUonGeEaf0rdbbyoyunzbKgPuMgcU
+ bh=rmPAoSNSZx5LMEoeF/b4E+Q1f6fRs3+ubaclp6Z1pc8=;
+ b=UVChLc0NVkl3QVl/QCyOm37lsUQSiO6wBtFhfc+JAn4rEOrdSc3vAXDMIByeP9a0unHRPiU5I
+ ooMhivOj3QvB/Vej7ConQAJmNzWh8J4wgwUvJ3LPt3js9GQqfs9tlxJ
 X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
  pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
 X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
@@ -68,34 +67,37 @@ X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
 X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 Reply-To: xianwei.zhao@amlogic.com
 
-Document the Amlogic A9 IR controller compatible string and
-add the IR controller node for the Amlogic A9 SoC.
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
+Document the Amlogic A9 IR controller compatible string. The A9 IR
+controller shares the same implementation as the Meson S4 IR block,
+so add "amlogic,a9-ir" with "amlogic,meson-s4-ir" as the fallback
+compatible.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
 Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
 ---
-Changes in v3:
-- Align the node of group-remote-input-ao-pins.
-- Link to v2: https://lore.kernel.org/r/20260709-a9-ir-v2-0-42c21d7a6ffc@amlogic.com
+ Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Changes in v2:
-- Rename the IR input pinctrl group and its phandle from remote_pins to remote_input_ao_pins.
-- Link to v1: https://lore.kernel.org/r/20260706-a9-ir-v1-0-4f082ca8aaf1@amlogic.com
+diff --git a/Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml b/Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml
+index 0f95fe8dd9ac..db9387e43eff 100644
+--- a/Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml
++++ b/Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml
+@@ -23,6 +23,10 @@ properties:
+       - items:
+           - const: amlogic,meson-gx-ir
+           - const: amlogic,meson-gxbb-ir
++      - items:
++          - enum:
++              - amlogic,a9-ir
++          - const: amlogic,meson-s4-ir
+ 
+   reg:
+     maxItems: 1
 
----
-Xianwei Zhao (2):
-      dt-bindings: media: meson6-ir: Add Amlogic A9 IR compatible
-      arm64: dts: amlogic: a9: Add IR controller support
-
- .../devicetree/bindings/media/amlogic,meson6-ir.yaml       |  4 ++++
- arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts    |  6 ++++++
- arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi                | 14 ++++++++++++++
- 3 files changed, 24 insertions(+)
----
-base-commit: 4336e970ec6890fbd424128c352564a9c1dd514a
-change-id: 20260706-a9-ir-354fb297e716
-
-Best regards,
 -- 
-Xianwei Zhao <xianwei.zhao@amlogic.com>
+2.52.0
 
 
