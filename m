@@ -1,358 +1,254 @@
-Received: from mta0.migadu.com (out-100.mta0.migadu.com [91.218.175.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011003.outbound.protection.outlook.com [40.93.194.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A066E2FE56F
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 01:12:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.100
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788397977; cv=none; b=BBU9hnf3O6YZMvyCdJ8+0SWwCZ5R1HR+icHaszeSdi4hOtJVs7HU1QuN01td4cGcmvJf+YkRbbsIX6EKtWenrqK9QztnifZ83KUoW0r1U6fXaDudmxfI14peFzntFIE97HyM1/jF6IWW7gsd+It0vdpjEYszL7Gzp0E+QJUlmNQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788397977; c=relaxed/simple;
-	bh=SoCjmJDRTGL4GPTeItrahykbmnY8odwSPEzVpIL1zAI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Of/fjUa3MysoLTMlHOWFclYe3HEmdzrUSPe3TQSpQP2d85DA4dD3FyUyZOBNUvBQaiSX+ceoI53I8iofmUSZZuH4GFbodK4gAN/FdIxDEHJnXGWh4f7NSbSM3mTAimXFFmuTcnKnk4fFGygdd/aI+JfinuVvGTsmG5Nu/KdBpWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nlnRHlPM; arc=none smtp.client-ip=91.218.175.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE131F0E29;
+	Thu,  3 Sep 2026 01:13:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.3
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788397988; cv=fail; b=QVKAknNc04yVRg5sVrANrGs28vd1UVzmF19RRCFgibtDSW6xqWheSPVuXYDcrtUegV/ODOUhKgHYMZANw1yRjK0kTPCxKsGAlj2U+cH+URQQOeqG0CAYaMA7E3ayy932kZRoRy0GhxWjihdAgm6yE+zRAGT+HW/heshLUMMYIX0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788397988; c=relaxed/simple;
+	bh=L0ya/b0KNF+8uk3Hh3bdW5t/6m9LdZBZDSc/kZBDG5c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=p02BC83Q37iHudvZwwIEXnYk/JrjeQuOWRy0PeuHdPyGZoGaVhIsFPw5Gj8uxnYluYEo2T8btSG0PHUrCau2dgg/CRrYxAv9uDHXE8UMXnlZzTn+q+rlvqPmaTHNfwtgMf7nqIT2hiSBNRzvYzB9DduYxclGHvB9Hl9KvlhI57I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ZzaGofF7; arc=fail smtp.client-ip=40.93.194.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nlnRHlPM"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=SoCjmJDRTGL4GPTeItrahykbmnY8odwSPEzVpIL1zAI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788397972; v=1; x=1789002772;
- b=nlnRHlPM2g/PaiahFZx5JmUWN8jKL0YpCA8rSuQ45x4hBCL0k6Yv9cFx62izhD8iO/gGEugt
- e6pMd1QyTMCF0pM8uajzmsnyuaqnEwSz9lvwA9WDyJRR0U01n7U2umDAJHuo5VXibCdlYfPG0Bf
- uuqOWvSNrGqd1pnlRK55wsns=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 468a22590f8604bb;
-	Thu, 03 Sep 2026 01:12:52 +0000
-X-Mizu-Trace-ID: 468a22590f8604bb
-X-Migadu-Flow: FLOW_OUT
-From: Hangbin Liu <hangbin.liu@linux.dev>
-Date: Thu, 03 Sep 2026 09:12:21 +0800
-Subject: [PATCH mptcp-next v2 2/2] selftests: mptcp: convert iptables to
- nftables for mptcp_join.sh
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ZzaGofF7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=A/GZnve6ORx4L5TlvLa0ZBuOdijsuru71bRlp32u0Er59PmpGGAYsaewSVrl4jiNZwT2kD6VNTsCeKk9dDKgxxwOeu3stQ00ZXZzbc+4xbNy+eU9PCv7Wz0eNcIvpRReabt9XqIVY7914xh6txYIyS3Ou8TqGoaOByMxbL6Gpm5xpdKg5Z6uR+5f3cssKYyvgf545GWSH2i2wj5oC6FQOy8UP41FLWWl+hm7bzMgtcV9wmpqo7Q/k2ZCUe+MQdK2PHtb3WsNZjNx4j02Lgh6IihPM9im1u+1a+HEMbUmvelUYkvIciuA/OJ3LFggyGRdUyKC0+DKPX15D/ADULs4Mw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2EFveCLKy5rjMBBS6tdQVl0f1jLMnbLouzK/GyaM09w=;
+ b=JT5UBYTIlX7PAPjzGi1exUUomO3cz5ooWU/WdZ55avt0qP/7l0BjhaaqIjQO2Epr1yWfL9H7gA6sUy+vmUQBD5WO5O14rIiRauMT6yd9ZcNx4TvRFMkgLOI+TWp5SlA4+bCE5i+I758imQyupVEQmY/cNQ5m1h3ZIiw1HbLIjyIaB3pyaspxEnsr32JFiacnbS4rwmCCTxQM1+2d8ipTa+/AYoyd9GW9YsuKNolC18/4XmJKrqoWEvdC9rUeuzOESopM9GOa1gPfC7/8Y/OcjV6sm/9JhXhYwM9VMc7kdagHoSu/Qq06GfS15MkgOGRk50hZZT1EeaTU4P7E1S8xBQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2EFveCLKy5rjMBBS6tdQVl0f1jLMnbLouzK/GyaM09w=;
+ b=ZzaGofF7tFq3uEFcQEJamEVRnaCZP7zb8PRQU4FpmlB29KcG3nJUguAzJ7qQCjLD1H3/JIg1l0bYu65ONqvgO/qRhjjQEGnw1Khbu3qLX3J/sB+7kzJTBuseaNO67sMBepdT35Js5jDXICRKtVg6Wq8yRrNJpwyRUIlQplQouut96ZCmpGNgbGGhoL/uITWtq4hjFEa6nW8lO0oYNxqrHGjvTpm40nB/B4TPuYBXk7Pt5YDKonJNRNuPoOpaXF8npWHnI/GpKJ9Y9I+Gj8MSUiFO3su/EvmavFn+9ASF3wRUPL/63ySNkNGUkDuLHwLwZuTyDUxeMGQ5qB4ZRwaflQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com (2603:10b6:208:37c::22)
+ by CH3PR12MB8259.namprd12.prod.outlook.com (2603:10b6:610:124::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 01:12:57 +0000
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28]) by MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 01:12:57 +0000
+Date: Thu, 3 Sep 2026 11:12:51 +1000
+From: Alistair Popple <apopple@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: nova-gpu <nova-gpu@lists.linux.dev>, 
+	M Henning <mhenning@darkrefraction.com>, Alice Ryhl <aliceryhl@google.com>, 
+	David Airlie <airlied@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	Eliot Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v5 05/11] drm: nova: Add an info ioctl
+Message-ID: <apioGUDamrCur_oR@nvdebian.thelocal>
+References: <20260828033531.1117754-1-apopple@nvidia.com>
+ <20260828033531.1117754-6-apopple@nvidia.com>
+ <DL3WXUPD5JKE.2GZ1CNJH539ID@kernel.org>
+ <DL453EFS03T6.2VGI5TJEQ52QO@kernel.org>
+ <apdvTgAp5eGezO5t@nvdebian.thelocal>
+ <DL4QCAZXM8EU.2K8MLAM00VNTX@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DL4QCAZXM8EU.2K8MLAM00VNTX@kernel.org>
+X-ClientProxiedBy: SY5P282CA0187.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:249::8) To MN0PR12MB5977.namprd12.prod.outlook.com
+ (2603:10b6:208:37c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260903-mptcp_nft-v2-2-66283e4b9c3b@kylinos.cn>
-References: <20260903-mptcp_nft-v2-0-66283e4b9c3b@kylinos.cn>
-In-Reply-To: <20260903-mptcp_nft-v2-0-66283e4b9c3b@kylinos.cn>
-To: MPTCP Linux <mptcp@lists.linux.dev>, 
- Matthieu Baerts <matttbe@kernel.org>, Mat Martineau <martineau@kernel.org>, 
- Geliang Tang <geliang@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Shuah Khan <shuah@kernel.org>
-Cc: Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
- bpf@vger.kernel.org, Hangbin Liu <liuhangbin@kylinos.cn>
-X-Mailer: b4 0.14.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB5977:EE_|CH3PR12MB8259:EE_
+X-MS-Office365-Filtering-Correlation-Id: d993d339-382e-4197-e59a-08df09587d35
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|6133799003|4143699003|56012099006|10067099003|11063799006|3023799007|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	lNfCda2McWfe5O/zBCvx6HeZJ1OKNXLrq7bRJgeokjabJhyJ03WfFY/MCeXe7d5t3EcAL+Crf8KPmIF4OHT6ee3bQdOTqVPe8IuRx6Ok80zzo7d4p+I/larcMMUdnWuMS1so3polyZtjrHkFoTRkfZuIc+UDfj+LSEmzjZJHTW1JZwsG7JNTFbglwdFHH+ZXZgFV7kDPrKpIKBnvDBD9gziq3XgOdhjwji0hCipl0aKN5IWmpH1N7XIwrSfMf8+mbiKEw2DmLYknQhtkWMz9AzPTEtceqD5y397vxKpH8L9aORfV7Ct0RAamXBVamt+WicxY9twK4PfmtBgHJ9DR5kMhC6Vl/Z+8Ogdhc13DJh2iTYeP8iizCgdiDmb1CUjBqxiLbZ4m5y2i+AeP9b7o+xCab8NPi0pXqf041K1NSg8Eq1xy9zUxaLLDLxeGaAiULF1AF7KARZaP7KlY/MsgCAAujBHrdfKvM6cExyywWOhUM1dCifDAh1CbI/T5Dffa5qWcOw4R8q7rTm+jfaLTCl8xdDM6vfBh0c+BYn+FDQNHlmXPD5lJ15jPKtEbAlX6/ShWMMbgtVeA81eEDnKq/31BsHZ4Cjiq8z5ABmqNVVcYyQuQbuMlfmZzkYlC/c5KBy8iY+2zazqDLYmBc372Br/CoIQpnz1bJr7n+pgI8kI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5977.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(6133799003)(4143699003)(56012099006)(10067099003)(11063799006)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?/J/8RJfc9Oktv5S1P475ndgLBZaaSgXRIJpz++dk8oOueBXqQLACfpmngDga?=
+ =?us-ascii?Q?m/ju20lsIm02ycdnWWYCWWDI6vEV6EkGtckXQzqSEtI4HoZblHaX0GfPanlb?=
+ =?us-ascii?Q?9sFbDscTMCKC6er0Eim91NVm5z+g/4V3UVbzaZDMD1GI1e7A/e9eLbyyqCHI?=
+ =?us-ascii?Q?jttGBEnDTHh7RNvUmWNBIDbH42Ei0Z9rkQ+dFbVGHZPkvaU8hwximjBjlE+3?=
+ =?us-ascii?Q?buMqSo6elxJzUzdN33ef5HNaApsX7F1kN2aKmmCG2d8Ss9kdKEHGJVOS3Pt9?=
+ =?us-ascii?Q?0zuOxcQNPvAfbJuTL7NNp0JuVOCHVVUiJRf3WN2OHWpfh7ERHeZd+/uHSutj?=
+ =?us-ascii?Q?hb7KpNHYecSYPhQO4PRJDZm26lSLFLosu9KgqY6x+GkAkTeC3MJ9XR9cV1vh?=
+ =?us-ascii?Q?HYIPjEdY3Dv8qG1tR0fYoPY8wDX4r3UfFrWDwwF7BPVOrHZ+2Y/I3b0E58hU?=
+ =?us-ascii?Q?s6aHPqBkaNi2+9oTFrtx13mXqeoMZPSW6xH2op477emYIFoxr09HtwP6DrQ7?=
+ =?us-ascii?Q?5FaOw0FnYjoBwL1HF+n8ePVyQ+npAeqs5kjARlcx+5+J3rApzxDi33lCmH4a?=
+ =?us-ascii?Q?g7nC9qHV7QPadSZA2JP1717XDod2T6fTPew4g6kZELx9JdlSbUeeonPt6U9A?=
+ =?us-ascii?Q?BNOA5zHtbU7Y2dRu40kL0jV3jb+vsgAZynRBFs1IXEdKscA56FB1KQ8pvz5R?=
+ =?us-ascii?Q?PIlVQrIPjdtBuxLFZYWSyOsvV3kQy0h+OHQ5aQgvtVqr+FL5CNTIDnjKIcKZ?=
+ =?us-ascii?Q?nYoTdU4iJf9sNcHFEvTA4ENLhfrKYrpaMHr2yBdY8jGFfubacJqTNnnHISrl?=
+ =?us-ascii?Q?OHTPeollW1oHZAR/lkDyxkLkt53J7JhQ5NaH1aw8nUoa3yIc/GJt7Jvgh9i7?=
+ =?us-ascii?Q?vSgh7rItPW0tHBsHQRBcs9t4UO0yksQQScCsdXWCjoRyk4vJVZPsJUjQBQRz?=
+ =?us-ascii?Q?4oLU1N4GQexpcquQovztB7Bj1RBgXppXl/KYLDl9Ycg/e9c0Hl3S9sd14Irq?=
+ =?us-ascii?Q?i68R/VGN/Uq09f/NxFdQEIJtgYGlGSmUBgeXeEDlVCB35pvH07pZKWl8VZAa?=
+ =?us-ascii?Q?y7hH3x+C4/ItG3dnJrWn3h/PNYFzlJhLhTLwRykScBU+BfTMuu/2ypSr8VkA?=
+ =?us-ascii?Q?IZmhqO5WCv9Y+32k+az+VfR8K+eYJJxm+2Ne55VLEI7l5neRsFaNYIu1UYEY?=
+ =?us-ascii?Q?E8XYuYlqOfeVTS9kOJeuFvCFiT/EE0ZyMCQD38fd5lrbo1yrMHXT7d2VvKSw?=
+ =?us-ascii?Q?tg/Q0NN/5d57rm7CYNzXA4X2VQulC1MpjsdJcDvxxRaHCwFVSg/XUV/XjPNS?=
+ =?us-ascii?Q?+iNUPnxFNAcF8ufGaGzqS5wabYibt2d9+hK+HYAvr8F5cj/okoL0Q1IuO5O6?=
+ =?us-ascii?Q?IrIHpIPeBtqF3GqopKM9fBa1l5UhCirsl22RebtfHbDgaebtuCo6mtLjeNxY?=
+ =?us-ascii?Q?qpi2OVP27qBAUF6wafxSU8UiJ2QPBEr2EdSOPanm2JBS+l/Gb2jWxQH+gcyv?=
+ =?us-ascii?Q?b3TIzFwZoQQV6rzM7JCtnI6hkvOtJRmgCt4inaqJ9gbB4BeR6aoi1v3RFfgW?=
+ =?us-ascii?Q?VcEukNyPhIayfXkE1XXdJkNo1JYLADO2r/MJs/h+GNffKOm8wKaTfTMDxqgK?=
+ =?us-ascii?Q?bJSjl3PJ+lGmWuvdgZ/oM2YBQJ+k3YZWDgTqBrsnrZMbukzV2h4O82MLSHw+?=
+ =?us-ascii?Q?6uI/Uan1q6jIoYxkDxganq4x6eyu0w5C6pOnWSMnCcHwVw/YjFwToxOO8+xi?=
+ =?us-ascii?Q?6XjsxcymSw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d993d339-382e-4197-e59a-08df09587d35
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5977.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 01:12:57.4001
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wQe/UNqHF0pbgwM4j8vaMo9iH/7VhmGhXD2V3Fo+3bYLD2HtF0ITgau9jxgiYhGKLxfIs30hE/3Q9QHpKSxEgw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8259
 
-From: Hangbin Liu <liuhangbin@kylinos.cn>
+On 2026-09-02 at 19:40 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
+> On Wed Sep 2, 2026 at 4:38 AM CEST, Alistair Popple wrote:
+> > So I'm ok with providing either a decoded architecture and implementation
+> > xor an opaque chip-id. Or alternatively maybe architecture includes the
+> > implementation (ie. we rename the opaque chip_id to architecture). But treating
+> > the implementation and architecture values differently and only providing one
+> > directly doesn't make much sense IMHO.
+> 
+> I think this is you still thinking about this in terms of register encoding.
 
-During conversion, we retain the same table and chain names used by the
-original iptables/ip6tables setup, so rule output is identical to the
-former iptables/ip6tables output.
+No, this is just me trying to figure out what user-space would use the
+architecture value for, as on it's own it's a pretty a useless value from a
+user-space perspective. For user-space to do anything useful it needs to know
+the implementation as well regardless of how that's encoded. It can't for
+example run anything reliably knowing only the arch AFAICT.
 
-The BPF bytecode matching MPTCP add‑addr and remove‑addr suboptions
-is replaced with native nft matching using "tcp option mptcp subtype".
+Originally I thought the point of providing the decoded arch rather than
+chip-id might have been to allow a kernel to support chips with a known arch
+but unknown implementation, because as you rightfully point out the kernel
+doesn't (currently at least) care much about the implementation, so an updated
+user-space could maybe run fine on the same arch, different implementation.
 
-Unlike iptables, nftables cannot match rules based on their full
-specification. Rule handles are captured via "nft -e --handle" so rules
-can be selectively removed during tests.
+But we agreed that wasn't desirable, so now I'm still left figuring out why we
+need to provide an arch value? The chip-id already entirely encapsulates the
+concept, so what can/should user-space use the arch value for?
 
-The config file adds CONFIG_NFT_NUMGEN (replaces iptables statistic nth),
-CONFIG_NFT_REJECT and CONFIG_NFT_REJECT_IPV4 for reject‑related rules.
+> > Except the architecture/implementation tuple is exaclty what user-space needs to
+> > eg. figure out what SM to compile for.
+>
+> It doesn't need an architecture/implementation tuple, it needs a chipid for this
+> lookup. (Although it might be questionable whether userspace should have this
+> lookup table in the first place; see below.)
 
-The iptables/ip6tables check within mptcp_lib.sh is preserved in case
-some users still require it.
+Maybe I could've been clearer here - what I meant is that userspace needs the
+architecture *and* implementation. Whether or not that comes via opaque chip-id
+or some other means doesn't matter to me, what matters is that user-space needs
+both bits of information - the architecture on it's own is not very helpful.
 
-Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
----
- tools/testing/selftests/net/mptcp/config        |   3 +
- tools/testing/selftests/net/mptcp/mptcp_join.sh | 142 +++++++++---------------
- 2 files changed, 55 insertions(+), 90 deletions(-)
+> Both the KMD and the UMD only ever care about the architecture or the chipid.
+> The fact that the chipid is defined by an architecture/implementation tuple is
+> an irrelevant implementation detail not even the kernel cares about.
+>
+> > And to be clear we don't care about the specific encodings in this example. The
+> > point is the SM version can't be looked up from architecture alone, it needs the
+> > implementation as well and if the only way to get that is from opaque chip-id
+> > that's all user-space will look at. Eg:
+> 
+> Again, it doesn't need the implementation, it needs the chipid. Which also your
+> code below correctly considers.
 
-diff --git a/tools/testing/selftests/net/mptcp/config b/tools/testing/selftests/net/mptcp/config
-index 59051ee2a986..0d0a744c4ca8 100644
---- a/tools/testing/selftests/net/mptcp/config
-+++ b/tools/testing/selftests/net/mptcp/config
-@@ -30,6 +30,9 @@ CONFIG_NET_SCH_NETEM=m
- CONFIG_NF_TABLES=m
- CONFIG_NF_TABLES_INET=y
- CONFIG_NFT_COMPAT=m
-+CONFIG_NFT_NUMGEN=y
-+CONFIG_NFT_REJECT=m
-+CONFIG_NFT_REJECT_IPV4=m
- CONFIG_NFT_SOCKET=m
- CONFIG_NFT_TPROXY=m
- CONFIG_SYN_COOKIES=y
-diff --git a/tools/testing/selftests/net/mptcp/mptcp_join.sh b/tools/testing/selftests/net/mptcp/mptcp_join.sh
-index 18ce7136a2b0..7c56680cc422 100755
---- a/tools/testing/selftests/net/mptcp/mptcp_join.sh
-+++ b/tools/testing/selftests/net/mptcp/mptcp_join.sh
-@@ -26,8 +26,6 @@ capout=""
- cappid=""
- ns1=""
- ns2=""
--iptables="iptables"
--ip6tables="ip6tables"
- timeout_poll=30
- timeout_test=$((timeout_poll * 2 + 1))
- capture=false
-@@ -50,6 +48,7 @@ declare -A failed_tests
- MPTCP_LIB_TEST_FORMAT="%03u %s\n"
- TEST_NAME=""
- nr_blank=6
-+nft_handle=""
- 
- # These var are used only in some tests, make sure they are not already set
- unset FAILING_LINKS
-@@ -99,42 +98,6 @@ unset add_addr_tx_nr
- unset add_addr_echo_tx_nr
- unset add_addr_drop_tx_nr
- 
--# generated using "nfbpf_compile '(ip && (ip[54] & 0xf0) == 0x30) ||
--#				  (ip6 && (ip6[74] & 0xf0) == 0x30)'"
--CBPF_MPTCP_SUBOPTION_ADD_ADDR="14,
--			       48 0 0 0,
--			       84 0 0 240,
--			       21 0 3 64,
--			       48 0 0 54,
--			       84 0 0 240,
--			       21 6 7 48,
--			       48 0 0 0,
--			       84 0 0 240,
--			       21 0 4 96,
--			       48 0 0 74,
--			       84 0 0 240,
--			       21 0 1 48,
--			       6 0 0 65535,
--			       6 0 0 0"
--
--# IPv4: TCP hdr of 48B, a first suboption of 12B (DACK8), the RM_ADDR suboption
--# generated using "nfbpf_compile '(ip[32] & 0xf0) == 0xc0 && ip[53] == 0x0c &&
--#				  (ip[66] & 0xf0) == 0x40'"
--CBPF_MPTCP_SUBOPTION_RM_ADDR="13,
--			      48 0 0 0,
--			      84 0 0 240,
--			      21 0 9 64,
--			      48 0 0 32,
--			      84 0 0 240,
--			      21 0 6 192,
--			      48 0 0 53,
--			      21 0 4 12,
--			      48 0 0 66,
--			      84 0 0 240,
--			      21 0 1 64,
--			      6 0 0 65535,
--			      6 0 0 0"
--
- init_partial()
- {
- 	capout=$(mktemp)
-@@ -147,6 +110,18 @@ init_partial()
- 		if $checksum; then
- 			ip netns exec $netns sysctl -q net.mptcp.checksum_enabled=1
- 		fi
-+
-+		for t in ip ip6; do
-+			ip netns exec "$netns" nft add table "$t" filter
-+			ip netns exec "$netns" nft add chain "$t" filter INPUT \
-+				'{ type filter hook input priority filter; policy accept; }'
-+			ip netns exec "$netns" nft add chain "$t" filter OUTPUT \
-+				'{ type filter hook output priority filter; policy accept; }'
-+
-+			ip netns exec "$netns" nft add table "$t" mangle
-+			ip netns exec "$netns" nft add chain "$t" mangle OUTPUT \
-+				'{ type route hook output priority mangle; policy accept; }'
-+		done
- 	done
- 
- 	check_invert=0
-@@ -196,7 +171,7 @@ init() {
- 
- 	mptcp_lib_check_mptcp
- 	mptcp_lib_check_kallsyms
--	mptcp_lib_check_tools ip tc ss "${iptables}" "${ip6tables}"
-+	mptcp_lib_check_tools ip tc ss nft
- 
- 	sin=$(mktemp)
- 	sout=$(mktemp)
-@@ -380,24 +355,18 @@ reset_with_cookies()
- # $1: test name
- reset_with_add_addr_timeout()
- {
--	local ip="${2:-4}"
--	local tables
-+	local ip="${2:-}"
- 
- 	reset "${1}" || return 1
- 
--	tables="${iptables}"
--	if [ $ip -eq 6 ]; then
--		tables="${ip6tables}"
--	fi
--
- 	# set a maximum, to avoid too long timeout with exponential backoff
- 	ip netns exec $ns1 sysctl -q net.mptcp.add_addr_timeout=1
- 
--	if ! ip netns exec $ns2 $tables -A OUTPUT -p tcp \
--			-m tcp --tcp-option 30 \
--			-m bpf --bytecode \
--			"$CBPF_MPTCP_SUBOPTION_ADD_ADDR" \
--			-j DROP; then
-+	nft_handle=$(ip netns exec "$ns2" nft -e --handle add rule \
-+		ip"$ip" filter OUTPUT meta l4proto tcp \
-+		tcp option mptcp subtype add-addr \
-+		drop | head -n1 | awk '{print $NF}')
-+	if [ -z "$nft_handle" ]; then
- 		mark_as_skipped "unable to set the 'add addr' rule"
- 		return 1
- 	fi
-@@ -449,23 +418,17 @@ setup_fail_rules()
- 	check_invert=1
- 	validate_checksum=true
- 	local i="$1"
--	local ip="${2:-4}"
--	local tables
-+	local ip="${2:-}"
- 
--	tables="${iptables}"
--	if [ $ip -eq 6 ]; then
--		tables="${ip6tables}"
-+	nft_handle=$(ip netns exec "$ns2" nft -e --handle add rule \
-+		ip"$ip" mangle OUTPUT oifname ns2eth$i \
-+		meta l4proto tcp \
-+		meta length 150-9999 numgen inc mod 99999 1 \
-+		meta mark set 42 | head -n1 | awk '{print $NF}')
-+	if [ -z "$nft_handle" ]; then
-+		return ${KSFT_SKIP}
- 	fi
- 
--	ip netns exec $ns2 $tables \
--		-t mangle \
--		-A OUTPUT \
--		-o ns2eth$i \
--		-p tcp \
--		-m length --length 150:9999 \
--		-m statistic --mode nth --packet 1 --every 99999 \
--		-j MARK --set-mark 42 || return ${KSFT_SKIP}
--
- 	tc -n $ns2 qdisc add dev ns2eth$i clsact || return ${KSFT_SKIP}
- 	tc -n $ns2 filter add dev ns2eth$i egress \
- 		protocol ip prio 1000 \
-@@ -515,11 +478,10 @@ reset_with_tcp_filter()
- 	local target="${3}"
- 	local chain="${4:-INPUT}"
- 
--	if ! ip netns exec "${ns}" ${iptables} \
--			-A "${chain}" \
--			-s "${src}" \
--			-p tcp \
--			-j "${target}"; then
-+	nft_handle=$(ip netns exec "$ns" nft -e --handle add rule \
-+		ip filter "${chain}" ip saddr "{ ${src} }" \
-+		meta l4proto tcp "${target,,}" | head -n1 | awk '{print $NF}')
-+	if [ -z "$nft_handle" ]; then
- 		mark_as_skipped "unable to set the filter rules"
- 		return 1
- 	fi
-@@ -4315,10 +4277,12 @@ userspace_tests()
- 
- 		# force quick loss
- 		ip netns exec $ns2 sysctl -q net.ipv4.tcp_syn_retries=1
--		if ip netns exec "${ns1}" ${iptables} -A INPUT -s "10.0.1.2" \
--		      -p tcp --tcp-option 30 -j REJECT --reject-with tcp-reset &&
--		   ip netns exec "${ns2}" ${iptables} -A INPUT -d "10.0.1.2" \
--		      -p tcp --tcp-option 30 -j REJECT --reject-with tcp-reset; then
-+		if ip netns exec "${ns1}" nft add rule ip filter INPUT \
-+			ip saddr "10.0.1.2" meta l4proto tcp \
-+			tcp option mptcp exists reject with tcp reset &&
-+		   ip netns exec "${ns2}" nft add rule ip filter INPUT \
-+			ip daddr "10.0.1.2" meta l4proto tcp \
-+			tcp option mptcp exists reject with tcp reset; then
- 			wait_event ns2 MPTCP_LIB_EVENT_SUB_CLOSED 1
- 			wait_event ns1 MPTCP_LIB_EVENT_SUB_CLOSED 1
- 			chk_subflows_total 1 1
-@@ -4393,7 +4357,7 @@ endpoint_tests()
- 		chk_subflow_nr "after new reject" 2
- 		chk_mptcp_info subflows 1 subflows 1
- 
--		ip netns exec "${ns2}" ${iptables} -D OUTPUT -s "10.0.3.2" -p tcp -j REJECT
-+		ip netns exec "${ns2}" nft delete rule ip filter OUTPUT handle "$nft_handle"
- 		pm_nl_del_endpoint $ns2 3 10.0.3.2
- 		pm_nl_add_endpoint $ns2 10.0.3.2 id 3 flags subflow
- 		wait_mpj 3
-@@ -4402,12 +4366,10 @@ endpoint_tests()
- 
- 		# To make sure RM_ADDR are sent over a different subflow, but
- 		# allow the rest to quickly and cleanly close the subflow
--		local ipt=1
--		ip netns exec "${ns2}" ${iptables} -I OUTPUT -s "10.0.1.2" \
--			-p tcp -m tcp --tcp-option 30 \
--			-m bpf --bytecode \
--			"$CBPF_MPTCP_SUBOPTION_RM_ADDR" \
--			-j DROP || ipt=0
-+		nft_handle=$(ip netns exec "${ns2}" nft -e --handle insert rule \
-+			ip filter OUTPUT ip saddr 10.0.1.2 meta l4proto tcp \
-+			tcp option mptcp subtype remove-addr \
-+			drop | head -n1 | awk '{print $NF}')
- 		local i
- 		for i in $(seq 3); do
- 			pm_nl_del_endpoint $ns2 1 10.0.1.2
-@@ -4420,7 +4382,8 @@ endpoint_tests()
- 			chk_subflow_nr "after re-add id 0 ($i)" 3
- 			chk_mptcp_info subflows 3 subflows 3
- 		done
--		[ ${ipt} = 1 ] && ip netns exec "${ns2}" ${iptables} -D OUTPUT 1
-+		[ -n "${nft_handle}" ] && ip netns exec "${ns2}" nft delete rule \
-+			ip filter OUTPUT handle "${nft_handle}"
- 
- 		mptcp_lib_kill_group_wait $tests_pid
- 
-@@ -4482,18 +4445,17 @@ endpoint_tests()
- 
- 		# To make sure RM_ADDR are sent over a different subflow, but
- 		# allow the rest to quickly and cleanly close the subflow
--		local ipt=1
--		ip netns exec "${ns1}" ${iptables} -I OUTPUT -s "10.0.1.1" \
--			-p tcp -m tcp --tcp-option 30 \
--			-m bpf --bytecode \
--			"$CBPF_MPTCP_SUBOPTION_RM_ADDR" \
--			-j DROP || ipt=0
-+		nft_handle=$(ip netns exec "${ns1}" nft -e --handle insert rule \
-+			ip filter OUTPUT ip saddr 10.0.1.1 meta l4proto tcp \
-+			tcp option mptcp subtype remove-addr \
-+			drop | head -n1 | awk '{print $NF}')
- 		pm_nl_del_endpoint $ns1 42 10.0.1.1
- 		sleep 0.5
- 		chk_subflow_nr "after delete ID 0" 2
- 		chk_mptcp_info subflows 2 subflows 2
- 		chk_mptcp_info add_addr_signal 2 add_addr_accepted 2
--		[ ${ipt} = 1 ] && ip netns exec "${ns1}" ${iptables} -D OUTPUT 1
-+		[ -n "${nft_handle}" ] && ip netns exec "${ns1}" nft delete rule \
-+			ip filter OUTPUT handle "${nft_handle}"
- 
- 		pm_nl_add_endpoint $ns1 10.0.1.1 id 42 flags signal
- 		wait_mpj 4
-@@ -4555,7 +4517,7 @@ endpoint_tests()
- 		pm_nl_flush_endpoint $ns2
- 		pm_nl_flush_endpoint $ns1
- 		wait_rm_addr $ns2 0
--		ip netns exec "${ns2}" ${iptables} -D OUTPUT -s "10.0.3.2" -p tcp -j REJECT
-+		ip netns exec "${ns2}" nft delete rule ip filter OUTPUT handle "$nft_handle"
- 		pm_nl_add_endpoint $ns2 10.0.3.2 id 3 flags subflow
- 		wait_mpj 1
- 		pm_nl_add_endpoint $ns1 10.0.3.1 id 2 flags signal
+Right. This is what we had agreed on previously - provide an opaque chip-id
+userspace can use to lookup whatever chip info it needs. You asked for the arch
+value to be provided separately, but I can't figure out what the use-case for it
+is and I don't think we should be adding things to the uAPI that we can't even
+imagine use-cases for. We can always add it to the uAPI later if we do find a
+need, but it's much harder to remove stuff and right now I can't see any reason
+to provide it.
 
--- 
-2.55.0
+Also for a bit of background on this series, which I should have put in the
+cover-letter and will next time, the goal is to get a basic deviceQuery sample
+running. That's why I started with these properties first, as they're what CUDA
+or Mesa need to fully populate their device properties.
 
+> That said, if we know that userspace will never need to do an architecture based
+> check, but always a chipid specific check, it is obviously pointless to expose
+> it in the first place. But otherwise it should just be chipid and architecture.
+
+That is where I ended and what I had originally - lets just provide the opaque
+chip-id. If we provide the chipid why would user-space ever need the arch? What
+can it do with an architecture value that it can't do with the chipid? Again I
+don't think we should be adding things to the UAPI that userspace has no known
+use for.
+
+But it sounds like you might actually be ok with us just providing chip-id?
+
+We already know the full chip-id is needed, so it makes sense to expose that
+now.
+
+> > static uint8_t
+> > sm_for_chipset(enum chip_id chip)
+> > {
+> > 	switch (chip) {
+> > 		case NOVA_GPU_CHIP_GA100:
+> > 			return 80;
+> > 		case NOVA_GPU_CHIP_GA101:
+> > 			return 86;
+> > 		case NOVA_GPU_CHIP_GA102:
+> > 			return 86;
+> > 		case NOVA_GPU_CHIP_GA10B:
+> > 			return 87;
+> > 		...
+> > 	}
+> > }
+> 
+> That looks reasonable and much better than what mesa has, but if we'd ever care
+> about the SM value in the kernel, then the kernel should be the single source of
+> truth for this value and expose it to userspace.
+
+Yes, no problem with this.
+
+> Now, in this case I don't think the kernel really needs the value, but I think
+> the value is provided by GSP through GR_INFO_INDEX_SM_VERSION?
+
+Argh. There is, shall we say, some nuance here :-) HW have not made our lives
+easy and actually figuring out what the version that matters to user-space is
+is not as straight forward as one might like, and may well not match what the
+kernel would want (if it ever needs it).
+
+> Given that, the kernel should query it and provide it via its GPU info structure
+> rather than having userspace invent another lookup table?
+
+It really boils down to how much static config info we want to encode into
+kernel lookup tables vs. user-space lookup tables. I don't this we should be
+filling the kernel with a bunch of static struct lookups just to ship those
+struct definitions to user-space. It seems more reasonable to put that in
+user-space, unless of course the kernel needs it.
+
+So I think your "does the kernel need this" is a reasonable benchmark for
+deciding this.
+
+As I think you're hinting at it would be ideal if GSP or some other firmware
+table could just provide everything in some nice static config table, but I
+don't think that's currently possible and looking at other user-space drivers
+we're certainly not alone there.
+
+ - Alistair
