@@ -1,226 +1,150 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 755AD430CF8
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:31:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C1C34EF0C;
+	Thu,  3 Sep 2026 07:32:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788420715; cv=none; b=q9cKQEmiWklMyWy9s1Q5o9Cisz2Rd54JCSq9znOC8Ew/KGn8vN3/Gr2A6uZxPrKrjMZoT08R7qT7g97GbGRhpOKbrtKzfJlQiZUQN1o+j3lYQOrjjAnHaH8Q4Onh7FjWXeFn4ic5pxWw8Hdpu53SL2+tvuMns/HkjmDEfc+SkNc=
+	t=1788420773; cv=none; b=mpfUN1YMcsxASR2FUz5/m4l3dab7T7DvmLFbaAjjJtgZgRPN/AXN+BgIIh4HfVc3lAo8PyLcgU1sV5qAk/HGnNg+iUqW8NJnkjVoVA/JE7k/RdpdBDn6LpVAqNTOrrYJ9k1EXftGVr91Q1ZgP5PQb/ybW/64QSV8Ok8hSQYe3ZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788420715; c=relaxed/simple;
-	bh=HO1YpOsp7AAqKVPegRZIkVg5ChPOPjxhcr+CFObZK4M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GrAXPQrFc2l6O/Htrny22rodjxik4FtbZ1YKZWcLJBbd84oYdI8bhkH3p94126A25LAeFAigWGxpUVgWh8BovasbXM2woQwq/cmm2T1JW1oSpQc4YCC5CP6DEF+u1jPB7lTmyAWvvo/Nm7FAcW/sltrp6pNlQXQ3VOlLCytYjLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uv4iOdqb; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788420773; c=relaxed/simple;
+	bh=LyHlha4NAVc9yMWTVgErJqUXUygFM89InLtyRIi6bzM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=O1l4dWZUMQVdaaLmxnJkJOxuXtf5deEQ5avREwAFUgtJsTkkpJu+DEFVrvilZS6eAxALPI8XVpdI/1Xj3rbM78KEklRHrOXy3izZrVhwLf6tvdWkG3Af9mpHmr2ouuXBuaq0S9b2Gw8bfZVqcandgHd8PM6Qr/TjuwXG6Bot02s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=Be3mug4n; arc=none smtp.client-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uv4iOdqb"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48431648f33so453837f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:31:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788420709; x=1789025509; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yGVy22n2k2x8Vmi+YjiPo8Onst4nWhBMCSM53hHrhOk=;
-        b=Uv4iOdqbdE7Rkc/n0DeJNIZ4ZC9bY/FQQBfwG4L+UDw/s7iJo6YJNQIRGS356uj4o1
-         dpZOzjJPW9YJUqKN0Xf/8UsFjav9IllHPVYInQD/tM2fMSjxsrOn6VfyXIFOiC+a1nlJ
-         hC61OO6r0W+uzUXgEva92mRTCgQd6cQOtcLwnV68te460qY4J31c8d8bxN6ObsJcHtKq
-         jb4ckwvsjab7u3X+IgmjWSYyl/HLDG5py8FWFM4M1jX9lzrOh3cMPzIs6cQ7x76E4qPK
-         FTx2HlXUhr5PgE/B5OsABtHWoDhN24e50Cltiu8hHw9t3hifaYnKBknM5+P3UVGn0cvO
-         MKoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788420709; x=1789025509;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yGVy22n2k2x8Vmi+YjiPo8Onst4nWhBMCSM53hHrhOk=;
-        b=eDY82ddNHWJe01jyknRm6fUl8jC2rs2GhPtc47fQu6FJd53L5O1dXumVX5y7ee+ZSH
-         UKxY9f9leOCzuZLUmLF8yOe8XCux4I80ZwR5it7ovXmkydV93PkXFsGAVC3MUTzPxlMm
-         Bg4bAKaOZVZqzLNgCLGHXpJgBWEanqGdbv/1GgH1ZyuLoz1rqxAlkVPhQ6SmsHAlaAMl
-         7fgdLh/Lh2TrSJK9NueDpyFYOuEAlbtU6dkeB18klkADx144JF8dg2e5N02BqzUXFJWG
-         9RAcBA91m1KYl7uRLmmJX6FyxbHvc5/hrGGV1YglvklzIQlXoKa/6x3IPheMbm0aY2p2
-         nIIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx2uDhKqidWkYQ2ign/DclXb2W51VB/8p8wCzES37C/KVJuRWdDgrtJYcOiS7giQTSo0m4xUXwYnxVcBbY=@vger.kernel.org
-X-Gm-Message-State: AFuF++n7mrWpxUgEfDOmwE+yAEA4ZsSQClAGTJwRjNKuMGzkk6BHqbaV
-	9+eAd3cRMHNT/FIU1kBEG51cZ8qdkmS4uW0rOi15+NJ5OVFS+isAdlx1
-X-Gm-Gg: AYBFou0dbSjF8OlwM7EOY7I1vOQb+4ill/8iXqpfTHwdiPAZQcFvJ/EPYv/xbqPJl7x
-	oN/KmrFHDnwLPL/n4/RBUyOT63tlPu0tJmi58EzupNt9PWGdiPn3bY/TyfpQLY14PbJojvw9eHK
-	S9oULkdrrp7X8BRGFeaYu/icz458KKK6kqks9waFjGmDc7+fEMJJO0vE7s/MRiZdMLwyDoSS9uy
-	8Rj/63uEmulUaTEVH+SsoP5SLu1H0YXG6Z/IOszJmAaHgGynDLOq0JtaQfiTi7zwFMe2xhqbQL5
-	wuLR4Erx5ZjcQMyIDQR0nWBGwp0xPKMm3byWWtonxB58kX+RXSlP5nSKOqAYWlvPcnMtDlyiWSN
-	nOM1/TZQ9VESE3eAmsh0yxRuxv1fsNwtmEp014e6lVCBHLTAd0qc/0QkN1AG0tI78n06wVLFncJ
-	FPFUBUwTgCbkd337JIbooJWIqojRSWVToQVjI5n3GlhoHLwsmGq5TMiPwFCD4VqJ4nlg==
-X-Received: by 2002:a05:600c:348a:b0:49c:f13e:e4d with SMTP id 5b1f17b1804b1-49cf15a3672mr17202235e9.10.1788420709205;
-        Thu, 03 Sep 2026 00:31:49 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce551bf7asm69369455e9.2.2026.09.03.00.31.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 00:31:48 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>
-Cc: Dong Aisheng <aisheng.dong@nxp.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Jacky Bai <ping.bai@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	imx@lists.linux.dev,
-	linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>
-Subject: [PATCH v4 3/3] gpio: mmio: track the direction of chips without direction registers
-Date: Thu,  3 Sep 2026 09:31:43 +0200
-Message-ID: <20260903073143.2068494-4-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260903073143.2068494-1-mehmet.fide@gmail.com>
-References: <20260903073143.2068494-1-mehmet.fide@gmail.com>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="Be3mug4n"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260903073242euoutp028273f8b6ecd56cd872bd07708e437933~RvzVL078Z1675416754euoutp02g;
+	Thu,  3 Sep 2026 07:32:42 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260903073242euoutp028273f8b6ecd56cd872bd07708e437933~RvzVL078Z1675416754euoutp02g
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1788420762;
+	bh=+wHQNtUzqWMJSc1lx6xZnDlVX8u6lqdGivmRj3Xx4g8=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=Be3mug4nDx3cwq9l0zEJz6bxShgUmWFhNerr8aSB3+JpOhp9ELT8C2JQyOj6fiw4U
+	 63hQQKr92t6934Lz4jr0aWYWf9gs/krroQ4w+aFShXYrTDqv0AAefQ0qxhBjgLrOnp
+	 2H+8ACOP+2hdFtmyQM7P43B6v62oHP8TSEfYlJfI=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260903073242eucas1p1bf766543283c23d9923ef581b9056525~RvzU88Ke02312023120eucas1p1b;
+	Thu,  3 Sep 2026 07:32:42 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20260903073239eusmtip2a4493b60653a6ab9ea0e63ade61f9b93~RvzSMWeKp1596215962eusmtip2K;
+	Thu,  3 Sep 2026 07:32:39 +0000 (GMT)
+Message-ID: <2d0d36ba-db8f-454b-a90b-8eea69e97452@samsung.com>
+Date: Thu, 3 Sep 2026 09:32:38 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH v6 08/10] of: reserved_mem: mark /reserved-memory
+ entries with MEMBLOCK_NODUMP
+To: Wandun Chen <chenwandun1@gmail.com>, catalin.marinas@arm.com,
+	will@kernel.org, chenhuacai@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
+	aou@eecs.berkeley.edu, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, x86@kernel.org, robh@kernel.org,
+	saravanak@kernel.org, akpm@linux-foundation.org, baoquan.he@linux.dev,
+	rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org
+Cc: mark.rutland@arm.com, kernel@xen0n.name, alex@ghiti.fr, hpa@zytor.com,
+	ruirui.yang@linux.dev, robin.murphy@arm.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org, kexec@lists.infradead.org, linux-mm@kvack.org,
+	iommu@lists.linux.dev
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20260902073116.802752-9-chenwandun1@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260903073242eucas1p1bf766543283c23d9923ef581b9056525
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260902073459eucas1p282f20730a9f6dce75cf5a406714b8ed0
+X-EPHeader: CA
+X-CMS-RootMailID: 20260902073459eucas1p282f20730a9f6dce75cf5a406714b8ed0
+References: <20260902073116.802752-1-chenwandun1@gmail.com>
+	<CGME20260902073459eucas1p282f20730a9f6dce75cf5a406714b8ed0@eucas1p2.samsung.com>
+	<20260902073116.802752-9-chenwandun1@gmail.com>
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+On 02.09.2026 09:31, Wandun Chen wrote:
+> From: Wandun Chen <chenwandun@lixiang.com>
+>
+> Mark non-dumpable reserved-memory regions with MEMBLOCK_NODUMP so
+> kdump can omit them from the vmcore.
+>
+> The marking is guarded by CONFIG_CRASH_DUMP so non-kdump kernels do not
+> pay the cost of splitting memblock.memory entries at NODUMP boundaries.
+>
+> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+> Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
 
-A generic chip with GPIO_GENERIC_PINCTRL_BACKEND and no direction
-registers sets the direction through pinctrl but has no get_direction
-callback, so every gpiod_get_direction() call trips the WARN in gpiolib
-and the direction gpiolib reports is whatever it assumed. On a Vybrid
-Colibri module that is 21 backtraces per boot.
+Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
 
-Keep the direction of such a chip in the existing shadow: the direction
-setters update sdir under the chip lock, and get_direction() is the
-shadow-reading path already used for unreadable direction registers.
-That keeps the callback usable in atomic context, which it has to be:
-gpiochip_lock_as_irq() calls it for !can_sleep chips from
-gpiochip_irq_domain_activate(), under the irq descriptor lock.
+> ---
+>  drivers/of/fdt.c             |  1 +
+>  drivers/of/of_private.h      |  1 +
+>  drivers/of/of_reserved_mem.c | 15 +++++++++++++++
+>  3 files changed, 17 insertions(+)
+>
+> diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
+> index a64afc3ded3d..286fd4db6312 100644
+> --- a/drivers/of/fdt.c
+> +++ b/drivers/of/fdt.c
+> @@ -1285,6 +1285,7 @@ void __init unflatten_device_tree(void)
+>  
+>  	/* Save the statically-placed regions in the reserved_mem array */
+>  	fdt_scan_reserved_mem_late();
+> +	fdt_mark_reserve_mem_nodump();
+>  
+>  	/* Populate an empty root node when bootloader doesn't provide one */
+>  	if (!fdt) {
+> diff --git a/drivers/of/of_private.h b/drivers/of/of_private.h
+> index 0ae16da066e2..505735732c13 100644
+> --- a/drivers/of/of_private.h
+> +++ b/drivers/of/of_private.h
+> @@ -187,6 +187,7 @@ static inline struct device_node *__of_get_dma_parent(const struct device_node *
+>  
+>  int fdt_scan_reserved_mem(void);
+>  void __init fdt_scan_reserved_mem_late(void);
+> +void __init fdt_mark_reserve_mem_nodump(void);
+>  
+>  bool of_fdt_device_is_available(const void *blob, unsigned long node);
+>  
+> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+> index 8c9d6395d6a3..f29a07e8fb23 100644
+> --- a/drivers/of/of_reserved_mem.c
+> +++ b/drivers/of/of_reserved_mem.c
+> @@ -677,6 +677,21 @@ static void __init fdt_init_reserved_mem_node(unsigned long node, const char *un
+>  	reserved_mem_count++;
+>  }
+>  
+> +void __init fdt_mark_reserve_mem_nodump(void)
+> +{
+> +	struct reserved_mem *rmem;
+> +	int i;
+> +
+> +	if (!IS_ENABLED(CONFIG_CRASH_DUMP))
+> +		return;
+> +
+> +	for (i = 0; i < reserved_mem_count; i++) {
+> +		rmem = &reserved_mem[i];
+> +		if (rmem->size && !rmem->dumpable)
+> +			memblock_mark_nodump(rmem->base, rmem->size);
+> +	}
+> +}
+> +
+>  struct rmem_assigned_device {
+>  	struct device *dev;
+>  	struct reserved_mem *rmem;
 
-The pad's actual state is read once, in process context, when a line is
-requested: gpiolib calls request() right before get_direction() for a
-new line, so the shadow is seeded there from PIN_CONFIG_OUTPUT_ENABLE
-through the chip's get_config(), which is gpiochip_generic_get_config()
-for the pinctrl backend, and the line reports what the pin controller
-says. Lines pinctrl cannot answer for keep the input default, which is
-what gpiolib assumed before.
-
-Suggested-by: Bartosz Golaszewski <brgl@kernel.org>
-Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
----
- drivers/gpio/gpio-mmio.c | 60 +++++++++++++++++++++++++++++++++++++---
- 1 file changed, 56 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpio/gpio-mmio.c b/drivers/gpio/gpio-mmio.c
-index 7e4b3e8d609f..0709ffaab4de 100644
---- a/drivers/gpio/gpio-mmio.c
-+++ b/drivers/gpio/gpio-mmio.c
-@@ -49,6 +49,7 @@ o        `                     ~~~~\___/~~~~    ` controller in FPGA is ,.`
- #include <linux/log2.h>
- #include <linux/module.h>
- #include <linux/pinctrl/consumer.h>
-+#include <linux/pinctrl/pinconf-generic.h>
- #include <linux/platform_device.h>
- #include <linux/property.h>
- #include <linux/spinlock.h>
-@@ -372,7 +373,17 @@ static int gpio_mmio_dir_in_err(struct gpio_chip *gc, unsigned int gpio)
- 
- static int gpio_mmio_simple_dir_in(struct gpio_chip *gc, unsigned int gpio)
- {
--	return gpio_mmio_dir_return(gc, gpio, false);
-+	struct gpio_generic_chip *chip = to_gpio_generic_chip(gc);
-+	int ret;
-+
-+	ret = gpio_mmio_dir_return(gc, gpio, false);
-+	if (ret)
-+		return ret;
-+
-+	guard(raw_spinlock_irqsave)(&chip->lock);
-+	chip->sdir &= ~gpio_mmio_line2mask(gc, gpio);
-+
-+	return 0;
- }
- 
- static int gpio_mmio_dir_out_err(struct gpio_chip *gc, unsigned int gpio,
-@@ -384,9 +395,19 @@ static int gpio_mmio_dir_out_err(struct gpio_chip *gc, unsigned int gpio,
- static int gpio_mmio_simple_dir_out(struct gpio_chip *gc, unsigned int gpio,
- 				    int val)
- {
-+	struct gpio_generic_chip *chip = to_gpio_generic_chip(gc);
-+	int ret;
-+
- 	gc->set(gc, gpio, val);
- 
--	return gpio_mmio_dir_return(gc, gpio, true);
-+	ret = gpio_mmio_dir_return(gc, gpio, true);
-+	if (ret)
-+		return ret;
-+
-+	guard(raw_spinlock_irqsave)(&chip->lock);
-+	chip->sdir |= gpio_mmio_line2mask(gc, gpio);
-+
-+	return 0;
- }
- 
- static int gpio_mmio_dir_in(struct gpio_chip *gc, unsigned int gpio)
-@@ -601,20 +622,51 @@ static int gpio_mmio_setup_direction(struct gpio_generic_chip *chip,
- 			gc->direction_input = gpio_mmio_dir_in_err;
- 		else
- 			gc->direction_input = gpio_mmio_simple_dir_in;
-+
-+		if (cfg->flags & GPIO_GENERIC_PINCTRL_BACKEND) {
-+			chip->dir_unreadable = true;
-+			gc->get_direction = gpio_mmio_get_dir;
-+			gc->get_config = gpiochip_generic_get_config;
-+		}
- 	}
- 
- 	return 0;
- }
- 
-+static void gpio_mmio_seed_dir_from_pinctrl(struct gpio_chip *gc,
-+					    unsigned int gpio)
-+{
-+	struct gpio_generic_chip *chip = to_gpio_generic_chip(gc);
-+	unsigned long config;
-+
-+	if (!gc->get_config || chip->reg_dir_out || chip->reg_dir_in)
-+		return;
-+
-+	config = pinconf_to_config_packed(PIN_CONFIG_OUTPUT_ENABLE, 0);
-+	if (gc->get_config(gc, gpio, &config))
-+		return;
-+
-+	guard(raw_spinlock_irqsave)(&chip->lock);
-+	if (config)
-+		chip->sdir |= gpio_mmio_line2mask(gc, gpio);
-+	else
-+		chip->sdir &= ~gpio_mmio_line2mask(gc, gpio);
-+}
-+
- static int gpio_mmio_request(struct gpio_chip *gc, unsigned int gpio_pin)
- {
- 	struct gpio_generic_chip *chip = to_gpio_generic_chip(gc);
-+	int ret;
- 
- 	if (gpio_pin >= gc->ngpio)
- 		return -EINVAL;
- 
--	if (chip->pinctrl)
--		return gpiochip_generic_request(gc, gpio_pin);
-+	if (chip->pinctrl) {
-+		ret = gpiochip_generic_request(gc, gpio_pin);
-+		if (ret)
-+			return ret;
-+		gpio_mmio_seed_dir_from_pinctrl(gc, gpio_pin);
-+	}
- 
- 	return 0;
- }
+Best regards
 -- 
-2.54.0
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
