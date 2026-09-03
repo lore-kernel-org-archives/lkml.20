@@ -1,166 +1,117 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3CFF3B2FCA;
-	Thu,  3 Sep 2026 08:32:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C093C5546
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:33:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788424371; cv=none; b=b5UyWU8tYEY/MzEYJU1loQXp5kYwInLxkp/Jxfnirmop0J/VcfIosAIh6WUMUxuIt3tpswh2kWrCyiB/46WjmWtfS+yijj2ZdiWAOi/YOnJpKrrDQUGrYPt/1BtwEhgkZ2ybiPiuPlqLNsqnZGLRkMMQqPqhzexROndiBIF+ZEA=
+	t=1788424386; cv=none; b=KtrJAhE6l7x9GHxfhCmgbeVw8e83wAIqykxhQCc1Te26Tl6SIWHV864yyEEU3yJK86aT4CDxBWoFfrhS4K2sxNzuazUxQ9OGEwQ4YQWi4aquHeMXyMG0RjcXw7MH0BlOOwVr7Ah+hmxmwmAtL3frN1iwNTc6BVi3NgxMUwot3wQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788424371; c=relaxed/simple;
-	bh=706c7XlPLXsRsRqbTT2qHJpv1DQVqFBCKVgS9F9Rtrs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=A5lGMW89wI2FTGyoT8a1Pomrs7um9qjoOIkM3ra/XcWyvsgqSDNCs5hwJb0xqc/4FbFtiWjRodGy0l3L6+Rz3LHYV2mCjccHdbw1LOi/fXKrj0T1mNak3f0QcJMfqjPcae95XsrZ+eCOOfZN7jaKNQQwcZBAtJ2GChCHvTmnw5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xmDQLfyS; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788424386; c=relaxed/simple;
+	bh=C1+RlBHvN9fvzT0b4kNv62X9v1GMI5wMZBpkbnRiPgg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=agNNt+I+VmYtqvd+gLK6e7ZrPYczag7QflgsjZ2yrUwZNtv/rzquBfK8WbjipCvmFPX51VJ43IusP/mNvLwQQrP60IXhM1B5I0qlWqLe2EsZe1T0JWY3m5rCAouzEVt/4mH02ur/GLMdj86R7qCPVr2WRIqxlNZgWm6Z1aF626g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=vUa9quOt; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=pDYT7mMj; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xmDQLfyS"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id ED21F1A195F;
-	Thu,  3 Sep 2026 08:32:46 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id BCFBE602B8;
-	Thu,  3 Sep 2026 08:32:46 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A82EF11C791C9;
-	Thu,  3 Sep 2026 10:32:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788424364; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=IyZA+ecio8dgqAefqnzmsKi9pbcS8BSqqmIH/9UMq/w=;
-	b=xmDQLfySV8a8MBc++crCZBbfP5E4IQF3AUhjAkH7pJHYZhs81ZtmJmArLA4/0O8f+u9NNp
-	FWpMxYVhjvG/sV7K8d8kqYx9eRtJpUzkQjUsZaZDvImEOA8jVPrp3J+09KHvidWEIzThxF
-	o1GzTpj7Pkbqd7EhjL1AlKn7+MAx6xryY0chcP9ouGvAQoS1UINYTI0NHO/ME5ZpDlAYWh
-	NkzB+AEvQrZvH16vItAtNer7BMLl6v5PVRRsoVuS22DK7K+Ldd0GQPFv3uTl3LlJViHMv8
-	FVNgZAI0stK1y6Z4MGFkbsbDiuEJ+BxV2d/vgr1Bg3hCmBF3LstSmarP78PpuQ==
-Message-ID: <0dec5462-f6d5-4ef9-9d02-5fdf7f3090a0@bootlin.com>
-Date: Thu, 3 Sep 2026 10:32:34 +0200
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="vUa9quOt";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="pDYT7mMj"
+Date: Thu, 3 Sep 2026 10:33:01 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788424383;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=C1+RlBHvN9fvzT0b4kNv62X9v1GMI5wMZBpkbnRiPgg=;
+	b=vUa9quOtdWvGrJdQKg9qmPHqIX0hijGLSqebL5wOszU/E+xMyu9t3mO/BgVc22rrwQBzE0
+	2gtj5wZCMj1nMiiKxwnK5qMXwGmtBB2YBp7gL+0Slq4S9V2QyhqRYHlTGjQlxltu3KZqx3
+	KWDuI+MafYFwR5xQdVu7oZRZsTWLfG38XWs0zJGjWOC+GIkSqJQad4NseEvESz1mv+X2MN
+	GVTzjrJbGtMcpNgD27buFrkZeV5sb6a4iPf1BLPXRpwjdXW5AqYHzNJkTi/P6H4isoqjp2
+	iTfDkeW0OaKj2C4QvA5Y4ExsyO7duoV0B58XB0UpvaKT6VQEafBV+DqNzM1wJw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788424383;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=C1+RlBHvN9fvzT0b4kNv62X9v1GMI5wMZBpkbnRiPgg=;
+	b=pDYT7mMjHy+UmJD526epCpQMfULaZm9VG/JxzkXoQyK86LxfyaVsdICQtOpNwZDkryABsO
+	kEso24WTDRccffBg==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Harry Yoo <harry@kernel.org>, Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Alexei Starovoitov <ast@kernel.org>, Hao Li <hao.li@linux.dev>,
+	Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	syzbot+acf142088e0182172e58@syzkaller.appspotmail.com,
+	ThangNN99 <ngocthang2710.1999@gmail.com>
+Subject: Re: [PATCH] mm/slab: disallow kfree_rcu_sheaf() on PREEMPT_RT again
+Message-ID: <20260903083301.2aPFamvg@linutronix.de>
+References: <20260831-b4-kfree_rcu_hotfix-v1-1-4f0fb882638b@kernel.org>
+ <20260901073339.uyKHXWCX@linutronix.de>
+ <47aa459f-27d5-4b2f-9eb9-36ebca63d890@kernel.org>
+ <20260902104143.j8BXrjKq@linutronix.de>
+ <1846af86-cf55-456d-9eca-975a88777a40@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v3 01/10] net: stmmac: move XPCS lifetime
- management to platform drivers
-To: Coia Prant <coiaprant@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Romain Gantois <romain.gantois@bootlin.com>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Russell King <linux@armlinux.org.uk>, Shawn Lin <shawn.lin@rock-chips.com>,
- David Heidelberg <david@ixit.cz>, netdev@vger.kernel.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-renesas-soc@vger.kernel.org
-References: <20260901150111.141037-1-coiaprant@gmail.com>
- <20260901150111.141037-2-coiaprant@gmail.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260901150111.141037-2-coiaprant@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <1846af86-cf55-456d-9eca-975a88777a40@kernel.org>
 
-Hi again,
+On 2026-09-02 16:13:30 [+0200], Vlastimil Babka (SUSE) wrote:
+> >> Per sashiko review it's actually bad too under the pi_lock, because
+> >> GFP_NOWAIT means __GFP_KSWAPD_RECLAIM which can mean wakeup_kswapd() a=
+nd
+> >> thus also need scheduler locks. And it's not a PREEMPT_RT-only issue...
+> >=20
+> > \o/
+>=20
+> More like /o\
 
-On 9/1/26 17:01, Coia Prant wrote:
-> The current XPCS creation logic in stmmac_pcs_setup() is problematic
-> for several reasons.
-> 
-> First, if a device tree specifies a "pcs-handle" but no select_pcs()
-> callback is provided by the platform driver, the created XPCS is never
-> used. The phylink framework requires select_pcs() to actually return
-> the PCS to the core, so the pcs-handle property becomes effectively
-> useless without the matching callback. This is confusing for developers
-> who expect that specifying a pcs-handle in their device tree should be
-> sufficient to enable the PCS.
-> 
-> Second, and more critically, when stmmac_pcs_setup() fails to create
-> an XPCS (either because no pcs-handle is present and no pcs_mask is
-> configured), it falls through to the else branch and leaves
-> priv->hw->xpcs as NULL. This will silently override any XPCS that a
-> platform driver may have already set up during its own initialization,
-> for example in a pcs_init() callback or during probe. The platform
-> driver has no way to prevent this override because the common code
-> runs unconditionally after the platform-specific initialization.
-> 
-> After commit 93f84152e4ae ("net: stmmac: clean up
-> stmmac_mac_select_pcs()"), the common code no longer falls back to
-> priv->hw->phylink_pcs if select_pcs() is not set. This change
-> reinforces that each platform must manage its own PCS life cycle
-> explicitly, but the XPCS creation code in stmmac_pcs_setup() was not
-> updated to match this new expectation, leaving a gap where platform
-> drivers have no clean way to take control of XPCS creation.
-> 
-> Address all of these issues by introducing pcs_init() and pcs_exit()
-> callbacks in plat_stmmacenet_data. These callbacks give platform
-> drivers full control over when and how the XPCS is created, configured,
-> and destroyed. The common stmmac_pcs_setup() and stmmac_pcs_clean()
-> functions are simplified to just call these callbacks, removing the
-> confusing and error-prone XPCS creation logic from the common code.
-> 
-> Platforms that do not need an XPCS simply leave the callbacks as NULL
-> and no change in behavior occurs. Platforms that do need an XPCS can
-> now create it with the exact configuration they require, including
-> wrapping it with custom phylink_pcs_ops when necessary.
-> 
-> Existing platform drivers (intel, rzn1, socfpga) are updated to use
-> the new callbacks by moving their XPCS creation and cleanup logic into
-> pcs_init() and pcs_exit(). In their pcs_exit() implementations, the
-> pointer to the destroyed PCS is explicitly set to NULL to avoid
-> dangling pointer references.
-> 
-> Signed-off-by: Coia Prant <coiaprant@gmail.com>
-> ---
->  .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 44 +++++++++++++++++--
->  .../stmicro/stmmac/dwmac-renesas-gbeth.c      |  7 ++-
->  .../net/ethernet/stmicro/stmmac/dwmac-rzn1.c  |  7 ++-
->  .../ethernet/stmicro/stmmac/dwmac-socfpga.c   |  7 ++-
->  .../net/ethernet/stmicro/stmmac/stmmac_mdio.c | 37 +++-------------
->  5 files changed, 61 insertions(+), 41 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> index f5f9fa67ecd77..fd5f01c8941c1 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> @@ -603,13 +603,47 @@ static void common_default_data(struct plat_stmmacenet_data *plat)
->  	plat->mdio_bus_data->needs_reset = true;
->  }
->  
-> +static int intel_mgbe_pcs_init(struct stmmac_priv *priv)
-> +{
-> +	struct fwnode_handle *devnode, *pcsnode;
-> +	struct dw_xpcs *xpcs = NULL;
-> +	int addr;
-> +
-> +	devnode = dev_fwnode(priv->device);
-> +
-> +	if (fwnode_property_present(devnode, "pcs-handle")) {
-> +		pcsnode = fwnode_find_reference(devnode, "pcs-handle", 0);
-> +		xpcs = xpcs_create_fwnode(pcsnode);
-> +		fwnode_handle_put(pcsnode);
-> +	} else {
-> +		addr = ffs(priv->plat->mdio_bus_data->pcs_mask) - 1;
-> +		xpcs = xpcs_create_mdiodev(priv->mii, addr);
-> +	}
+Yes, true. But it is not longer an RT-only issue.
 
-Sorry I had a second look at that after a good night's sleep, and actually here
-we may regress. The original logic checked for "pcs-handle" presence, then
-for the pcs mask, but if no PCS is found we didn't error out, we returned 0.
+> >> > It could have a pool of X
+> >> > and if it runs out, it runs out and waits until the clean up process
+> >> > feeds the used sheafs back. There is fallback and the run out is not=
+ the
+> >> > usual case.
+> >>=20
+> >> I'd rather not invent new pools, since there's fallback and the sheaf+=
+barn
+> >> is already a pool. Could be enough to make sure the allocation attempt=
+ is
+> >> safe, i.e. use only __GFP_NOWARN.
+> >=20
+> > So we avoid the allocation and just add it to the sheaf+barn and this is
+> > it?
+>=20
+> We don't need to avoid the allocation attempt if it's done in a safe way?
 
-This is making it mandatory to have a PCS. Please handle gracefully the "there's no
-PCS" case :(
+If it safe and does not not increase the free-latency too much then it
+is fine.
+Now that I look at the kvfree_call_rcu(), there a timer, hrtimer,
+workqueue=E2=80=A6 Oh. And a __get_free_page().
 
+> Note the new sheaf can be also served from its kmalloc slab almost
+> immediately, going all the way to page allocator should be very rare.
+> But if we stopped doing that sheaf allocation attemps completely, we could
+> easily end up having long bursts of all kfree_rcu() being deferred.
 
-Maxime
+Sure. If you have memory around then there is nothing wrong with using
+it. In my naive thinking I assumed it should be enough to fill the
+buffers and in times of bursts having plenty of RCU callbacks which are
+throttled.
 
+Sebastian
