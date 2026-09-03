@@ -1,147 +1,92 @@
-Received: from mail-wr2-f11.google.com (mail-wr2-f11.google.com [74.125.225.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B114B3393
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:24:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6D864B66EA;
+	Thu,  3 Sep 2026 14:24:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445453; cv=none; b=UA306g3BU+BqYgE8KXY3NwPVT3E5+IH6AhO10QEeVF9AHr7kJnnOOqsuH2opAMZDkqTZClaG3YdXOu57N0owUhBwtvgsvA6x5WKqpCMo0WW7AveECLMRvu9BqurnTkDGYrpoqxR40LSjtEm78u0vBKsaYP48gFqbKmfy0yVoQxk=
+	t=1788445483; cv=none; b=LgcaWSNsnY1J58NIdT7FSf1rG9PNccSY4wmnDkGvylXbi8PUkbORWNp+r5uJImTSvrvktIDrUtDW582xS1fGJSP1/ZubwJ71kQeFmyWXkISxGeAvqMhB59kkKYL07rZjQt613LvTz2v4t+06THYJKla0Ib/69tvSSOoSqOb/ygw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788445453; c=relaxed/simple;
-	bh=BYb172QhBGqZ+8ILLGzQ7qkpvYTVUP/RAktVNWsoJQo=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=NR5J8nZkKYp5wTBqIbzkvgA3P26+lQUG5xjjJ/ElmwlIM3XNeJDaBazKwioTVKZObJ3XoStGmsP0VU4lxnitRf5zLOYGsCPC2IDbecKAFhCFWaayh7OOTT/UQD/ukgMZnEJ7WDvG1M/dHNzn1cCqHSWhWS1nIKKwXWdgnRpG7rY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dpyyQZm5; arc=none smtp.client-ip=74.125.225.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788445483; c=relaxed/simple;
+	bh=yFr4Dj2zK039tLCHyEAnaXuFZ0aOOs6XSDfsrCAx5fI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=i2RPxlXAMNzsHmt4P363FMAN6u0uI+DOsycIdqCaYdFxArYlvf+VPOl+Vyov5sXzGwrWLbajnf1BrXBCREGQMkfQR/ZTEzfBiYZlPGYbFtdImT+8Vd16AR0yayMwlGqruIsdcpixiDjAp5oPMFnKDh/JWgKMDm2t7ZEKBNf/drY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=l4hUIQxx; arc=none smtp.client-ip=188.68.63.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dpyyQZm5"
-Received: by mail-wr2-f11.google.com with SMTP id ffacd0b85a97d-483960225ccso601759f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:24:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788445437; x=1789050237; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/IoCwLnoguNHd92VH5ak3hPrclc/PbnP0NcTSqJHRPQ=;
-        b=dpyyQZm56OSzc/LkHZVC38rsQvPtxVUD2o/CRDZhwetibbBnXp2ZAxdV61Ehz4vI/P
-         lQdW3J8hhVD7tQSfqdBGO9iK2GtPnxyuA2Gul1rixJ0ySZ8Lyszkd3pfyJR4Te/2YQfB
-         SBr3u0tAZ2gIC8Tks4w+87n3hv6hXBd7TKM7WA277IU6rrB5iHFbdtuirXn0xwwZHohW
-         ROQC1ZPInAXP+5+EWRfXhB9fKz/pFiFHlhq+23wkDXS2v+nTumQDFEijtci38c07666X
-         yarxT+KwF5a2pD55OUDr6x9DikAi1rhxOluFHMqbSTq0ZZmBQ77m1o/ewnDE3aUF6BG+
-         32CQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788445437; x=1789050237;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/IoCwLnoguNHd92VH5ak3hPrclc/PbnP0NcTSqJHRPQ=;
-        b=ioBcJETxVN6XjgmYwGxBJ7FEHVSphoScaNLrsR1vkGvnIqf/rO+uuwgYS9pRFEb3Do
-         u5e0nWF0cSYlVLAcew1uqOKDbpmIR7zjUULapLdXTJIE9m18hIblncAEVTkV/q6tVdly
-         b0vOCDbydK+TxC8/lH55+G12fxYwxR31pqy5xktsMYnuAbpz1YpZPecGDHiY+bdBK58h
-         iGrK0qyAeqrjnkEorDNLgS7u0Tc73/m3TPwpGWKCWCWk6qiPvsLRhp3msy2+1+1CQDgL
-         W4vtNpavtgXRbN6G1TruQ+m6ytddCFRZMcRRzzgDlPiYfVNDydmGmnP9cgbMFOP/Iuo2
-         BIGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwMWSEJWK+s34WC7NJq1QK1AiW5SAiNTFFOMPbsFBC0z6C2YVZoZOJznPHRNWMx4/im8QRELqfVpugPzAA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mPGZXiFp2If8IWn0yDiT6Q9up0DR0lxX45so6iN5yhIgaaYbof
-	G9czJKm5sXyuIjL+GrgrxmUxddtakkoNbi+KAYCSSN01TunZQyRNinfs
-X-Gm-Gg: AYBFou1ZLAkLlzxKwJeqWL0r5ZPWq938bwmSMSFr0hDCgN3AKqX7wTzfKCZsyt/FOV/
-	HhBgdhBV2i4RRtylas6u+trLZqTPIHgFudxiFsTC9XUcpxJCWw8suX5cfYmoNn4l3IhH0TdqHWF
-	Awoh0S0Nx4BOzCsLkdehIogdf4BIZzWfCY7M2w9v2AuzucCNR80BmgoHkbGiYzAVCmoZnklV93G
-	3wNxoQ3+Jt5Ffv0VdLyxfxrzSNKbUosjoB1KWVCTChuj64up27WVSUPBTwW5gDhIZl7o6xQ8M6O
-	OXtXKBEwpjJ6MrXjTTHHp9qkd7jtly0zv3AGwNMDM4W+Q3gUrgnfZf8IMb62N8ip41ej56elbvM
-	Ow/80cXzQLJB4GqrF4buHA39zSNp9gPaNd/r4p5gkOyHoqxErqMiSPwQLS6mQLDSkRSoJYrh8YD
-	IPyKG/ibBe2oZHqbScFPaJ3qwUeY+cILb5WLZkolP0Y6O/o7T5xoEAhc58xXrd6k4EqkZkOZj+k
-	l4PNzErU5SKCBKYj8rPY2LoVXxKhWYTDJcevawun54CkQBTjYqESTXKGtkXufP0IabOJRISyCNf
-	Alw9W/AipicWej/3nYSN+wHlABQ=
-X-Received: by 2002:a05:6000:2282:b0:482:e62e:a528 with SMTP id ffacd0b85a97d-48488f0e579mr26609835f8f.12.1788445437197;
-        Thu, 03 Sep 2026 07:23:57 -0700 (PDT)
-Received: from localhost (nat-icclus-192-26-29-3.epfl.ch. [192.26.29.3])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448ed37c4sm12369281f8f.21.2026.09.03.07.23.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 07:23:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="l4hUIQxx"
+Received: from mors-relay8203.netcup.net (localhost [127.0.0.1])
+	by mors-relay8203.netcup.net (Postfix) with ESMTPS id 4hbML94YWZz8q8X;
+	Thu,  3 Sep 2026 14:24:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1788445473;
+	bh=yFr4Dj2zK039tLCHyEAnaXuFZ0aOOs6XSDfsrCAx5fI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=l4hUIQxxEC5UNYEvqTl4D2HiM0GE16SzQpJ5eIWx9PfDEjLoyJihbcnCta/gn+sI4
+	 Rvi8DfWkjpHVvVHlp2CvbYOtXZVltUwG+KjrgEavEFtuzUj3/6h/nnKdcHIWg91elA
+	 IQC9uxiGqSBpAYlvN+hea9N+yFfD9mAUg4mBb+NDFKHa5fugfYysrNTglyPnZN32ci
+	 pI7aFajm8jkcaVvKDFvkAXStzVdJi3b6y2fxmvZTgiyV5DejCzNhVH3lD6K9SSdKEX
+	 kieehG+hLi1mMEHzr9ros1mvhJNsjMX2Yz/ya0Qu79Ws86G6Al5QqLMwE6cFxQFO22
+	 51+95eqybREDA==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay8203.netcup.net (Postfix) with ESMTPS id 4hbML93sWBz8q8Q;
+	Thu,  3 Sep 2026 14:24:33 +0000 (UTC)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hbML70zjgz8tH0;
+	Thu,  3 Sep 2026 16:24:31 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id CEDCB5FA2D;
+	Thu,  3 Sep 2026 16:24:25 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <4db878f3-1c55-4ecb-93d8-a97a5e0c7a29@leemhuis.info>
+Date: Thu, 3 Sep 2026 16:24:25 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] PCI: Fix BAR resize for devices on a root bus
+To: lizf@honeycomb.io, Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ Jon Nettleton <jon@solid-run.com>, Jon Nettleton <jon.nettleton@gmail.com>,
+ Jacob Martin <jacob.martin@canonical.com>, stable@vger.kernel.org,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>
+References: <20260731-pci-rebar-root-bus-v3-1-6732e233fc99@honeycomb.io>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <20260731-pci-rebar-root-bus-v3-1-6732e233fc99@honeycomb.io>
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 03 Sep 2026 16:23:56 +0200
-Message-Id: <DL5QZUZ3T8C1.1OAICGO0O42FW@gmail.com>
-To: "Utku Erol" <utkuerol71@gmail.com>, <ast@kernel.org>,
- <daniel@iogearbox.net>, <andrii@kernel.org>, <eddyz87@gmail.com>
-Cc: <martin.lau@linux.dev>, <song@kernel.org>, <yonghong.song@linux.dev>,
- <jolsa@kernel.org>, <qmo@kernel.org>, <emil@etsalapatis.com>,
- <ihor.solodrai@linux.dev>, <bpf@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] bpf: disasm: guard print_bpf_insn against BPF_MEMSX |
- BPF_DW
-From: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>
-X-Mailer: aerc 0.21.0
-References: <20260903133434.17860-1-utkuerol71@gmail.com>
-In-Reply-To: <20260903133434.17860-1-utkuerol71@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178844546639.4187522.4861224414337041204@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: CEDCB5FA2D
+X-NC-CID: zORuCAgHZHstxjntIQgw+JFi+TKMTqleiG9N7o8t+oVYOsd+QW4=
 
-On Thu Sep 3, 2026 at 3:34 PM CEST, Utku Erol wrote:
-> print_bpf_insn() renders a BPF_LDX by indexing one of two size tables wit=
-h
-> BPF_SIZE(insn->code) >> 3. For BPF_MEMSX it uses bpf_ldsx_string[], which
-> has only three entries (W/H/B) because a sign-extended doubleword load is
-> not a valid instruction. The LDX branch checks only that the mode is
-> BPF_MEM or BPF_MEMSX; it never rejects BPF_MEMSX | BPF_DW. For that opcod=
-e
-> BPF_SIZE(code) >> 3 =3D=3D BPF_DW >> 3 =3D=3D 3, one element past the end=
- of the
-> 3-entry array:
->
->   UBSAN: array-index-out-of-bounds: index 3 out of range for 'char *[3]'
->   KASAN: global-out-of-bounds: 8-byte read in print_bpf_insn
->
-> The out-of-bounds slot is then dereferenced as %s.
->
-> The disassembler is expected to run on unvalidated instructions. Since
-> commit b9c5d822f677 ("bpf: Add source and instruction diagnostic context"=
-)
-> the diagnostics facility disassembles instruction context from
-> check_subprogs(), before check_insn_fields() has rejected the opcode, so =
-a
-> raw BPF_MEMSX | BPF_DW insn reaches print_bpf_insn on the ordinary
-> bpf_prog_load() path whenever a verifier log is requested (log_level >=3D=
- 1).
->
-> Reject the impossible size the same way the branch already rejects an
-> unexpected mode, keeping the disassembler total for any opcode.
->
-> Fixes: b9c5d822f677 ("bpf: Add source and instruction diagnostic context"=
-)
-> Signed-off-by: Utku Erol <utkuerol71@gmail.com>
-> ---
->  kernel/bpf/disasm.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/kernel/bpf/disasm.c b/kernel/bpf/disasm.c
-> index 50b3ca5149a0..70c2b281cfe9 100644
-> --- a/kernel/bpf/disasm.c
-> +++ b/kernel/bpf/disasm.c
-> @@ -299,6 +299,10 @@ void print_bpf_insn(const struct bpf_insn_cbs *cbs,
->  			verbose(cbs->private_data, "BUG_ldx_%02x", insn->code);
->  			return;
->  		}
-> +		if (BPF_MODE(insn->code) =3D=3D BPF_MEMSX && BPF_SIZE(insn->code) =3D=
-=3D BPF_DW) {
-> +			verbose(cbs->private_data, "BUG_ldsx_%02x", insn->code);
-> +			return;
-> +		}
+On 7/31/26 19:34, Liz Fong-Jones via B4 Relay wrote:
+> From: Liz Fong-Jones <lizf@honeycomb.io>
+> 
+> pci_do_resource_release_and_resize() releases the device BARs that
+> share a bridge window with the BAR being resized, but when the device
+> sits directly on a root bus (pdev->bus->self == NULL) it then skips
+> resource assignment entirely and returns success, leaving the BARs it
+> just released unassigned (IORESOURCE_UNSET).
+>  [...]
+> Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path")
+> Cc: stable@vger.kernel.org
+> Link: https://bugs.launchpad.net/ubuntu/+source/linux-hwe-7.0/+bug/2159596
+Liz Fong-Jones: is this regression fix still needed with 7.3-rc1? I
+assume so. But if it is, I guess it would be good to state that; maybe
+reposting this might be even better, as I fear it might have fallen
+through the cracks.
 
-Already fixed in https://lore.kernel.org/bpf/20260820022020.3450479-2-memxo=
-r@gmail.com.
-At the very least, fetch the latest tree before working on fixes.
-
-pw-bot: cr
-
->  		verbose(cbs->private_data, "(%02x) r%d =3D *(%s *)(r%d %+d)",
->  			insn->code, insn->dst_reg,
->  			BPF_MODE(insn->code) =3D=3D BPF_MEM ?
-
+Ciao, Thorsten
