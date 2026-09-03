@@ -1,127 +1,142 @@
-Received: from mta0.migadu.com (out-15.mta0.migadu.com [91.218.175.15])
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23F214A0144
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:29:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC384A4416
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:30:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788438594; cv=none; b=qbKypcdzi34Bbt+9OebecTPYqWqjKOXiOt5i6hU7hxajpKLvfKSYKLG8Uv0GqYaYp2bD/o9B4t5HSJAEVjGenH8chgULYYc7SFx3HxwnguDNq+sST/KcJUcFsPfUsC3ji4BDzZt0zSGKvr98q6aTHobNn/TSO0giVUyereErD9A=
+	t=1788438653; cv=none; b=emyFTWERhbAUqzlMrhh+qikvgkNX+2XnR40lAaMT8zA357NaXllVHSHrN37h3lbf0iE9O9EmyPloXD/sGH+Zh2uDMYmE9eIS85QpFstgjtumOTPC87DXrI9mHegIGV74/yTjv9xbtEeLDGpjoQAMb7sicQXpomvepQ8pgZrO+KE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788438594; c=relaxed/simple;
-	bh=6Nq0IWr8coVeXmYKR6aG/2ap5/Hef8LaBQg+isnGQ9k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mOEfitqTJAopQZ3NuA3rSjbwCOWv4bwX8c4Li8dp/zkf3+aZkcS9XrLuKYNSKRmdabYnnG2iStnxYD4qrrl9I+og8mPj/N/UoWHXalf+HSfAblhZcKkY+e1weheybFmUMEVNQseLiOIyFEkINnCLi9XF5P+ssTGSBLAR7ldEbZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org; spf=pass smtp.mailfrom=wyuan.org; dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b=eaowOj03; arc=none smtp.client-ip=91.218.175.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	s=arc-20240116; t=1788438653; c=relaxed/simple;
+	bh=gar+pyWL6Mih7nPkrX2CIAkXl8yBYZCdLy9F0hxvmNI=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=dKu8e/7WBGoqpXGp9zCcZaMa5xdY0iHHQCKT8R0rp6Ml8lGniDaaK/DOg9wEAZYQ0XMCPtY/NpRn8J7oBewdqKQnynE3ij+YH0rz6vMJS3COC2uY2Gmn8R5hEibQq6SPP3C9Ej9avK6qzKT1nDQwiSZNrujlYsktmxnF5p1lxYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nsWpYWcb; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b="eaowOj03"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=6Nq0IWr8coVeXmYKR6aG/2ap5/Hef8LaBQg+isnGQ9k=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788438588; v=1; x=1789043388;
- b=eaowOj03aW82iPh1Wzp7Xs9C7mGygdUUbEJ7w43M+tWeUBKsEX3khEhNJ2cyGuJ6JDzv1ohk
- ptOemq0jF1ngn90k9R0OlF7ACRTgPmzAaNcxsOLESU0D4lD5hXo92U/eaY9MGopCwTiICx+VU+Z
- qJYfl+mJQiCHpGpQrcf2ZM7Ejn+p9pGADvuKs2U3+olI0yLrqyd+e40149FL5+dYslBHc3r8jPS
- ttajk9kkjAIqjwaTebpPvFNntzUoMrzlVqCUUJA9DJ10yCDhbzj5Xs0XOCkM3bVgVc2e8+77gM2
- KI3ZuZ3jtlaCIVo6pnanJBg/wvMJURdgpnQHa/IttWgLQ==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e2ef090e33ad1ff1;
-	Thu, 03 Sep 2026 12:29:38 +0000
-X-Mizu-Trace-ID: e2ef090e33ad1ff1
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 3 Sep 2026 20:29:33 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: Nguyen Duc Thinh <ducthinh100812@gmail.com>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, workflows@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/5] Documentation: process: Clean up grammar, tone,
-Message-ID: <aploLWg-i315frp5@wyuan.org>
-References: <20260902084430.17248-1-ducthinh100812@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nsWpYWcb"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c2569aa5116so153662066b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:30:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788438650; x=1789043450; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=444nNZztaKWrtZLx1q7kQKh1w+9LbHm/QlTHTnrzmNI=;
+        b=nsWpYWcbwvv+IouFv/pZrPZX6QSkBOMALtco0Rbs229YpL9djbbNQk1neAGyqtvX6/
+         uQflPbgAJhb52a3WB2e7LmeX4zoRXx9EBcJLIjmoUpAXw056VoAC4C9bVth9LYkyoLat
+         S5QRqIEBrkgWNfcBWHzeN/TM+1JPBKd51Ot4LuPShOZWf3rNZRs6T9tO7RGXdonz9zF2
+         9PdDkIg7iwJLXzfEnSTN0+OJ+GXUQ7aesemedElbX396L0dqyMj0wCRwVDWd9tKrbdwu
+         ODPD3VP2YFgeA+D2ruxwhqwFiBqB8sud+DJ7ptmcGOzvWWWa8FcefAljNshdASh+VtPd
+         E+3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788438650; x=1789043450;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=444nNZztaKWrtZLx1q7kQKh1w+9LbHm/QlTHTnrzmNI=;
+        b=COIINuFRdypIa98pyL7+ejWMxHZOIMTKhbOq5dhqxNTKGVdmp6zwXkYBOmqgUEG9Co
+         lSNK+PK6v4ma8qucxQ98VoPJbqvqLeRPPRQ+lgNycCvCOJlChiS7jHJ/fOcN4QmOegn/
+         JP/XbQcOdBgeWfg9xJSYyU0UGYMya8q+IBCTjzDNPDzGHz+2rQ9pRRTmhC9qy1VcDjJq
+         p+ncmQc9DgSbSMxuXZByIkOLLGXPFn/zefRsav3D0ZFdFxICqU7iQYaTujAZKQSXy4K9
+         wgUVHAPGBe5PEMTsuLcpsGFjwZSmqUuwZ+9hF7AXhc401+Q03tfzi592cKe+Cq2Y9sjT
+         jO5A==
+X-Forwarded-Encrypted: i=1; AKwUvBzzZ2wbX6S+F/wInbisSOzgV1CVNFJMzHyRzhOF4qQjog3sly85mv/meTtBtHpJ3ggFoYW8dhxLGTg3i3w=@vger.kernel.org
+X-Gm-Message-State: AFuF++n4AaQ0JLncupJPKvDWzz1c6d0lQmB7Ifx4d8KkLdSF0Lnfq8Td
+	kCV08W1v/I70I3dDRsNzlyPM+m7VwYNZ2Aagnz4Ux4Ii/dVwqd00pvQC
+X-Gm-Gg: AYBFou0NWJ2R68MYpiIbKVrAj1ZNb67QGucbzIXHZGbg2rnmXdq0WDJeyheG1zT/Def
+	NHeZdVQWPQsXglYQcCllPc5h2pX+Nb0mZ1WgSwDSOz+SgPQwxzmopJyNpNvdmOwa4ivhGV7Q71M
+	8EPDaHpsFZD8eFuF4VoaMCRTihQqRYHFcHse+fs0x9X5Ri71KSVKnVMlwzZrHWvguzLPaiSbgZH
+	+fqDktnIU544Qcy5obr8HDitIhZSGke46lCiG4rsfOiwWjbE3S8YZ0i7ZWqedTyW237FMcr76Ac
+	ImVXECX1P7HMW5oS1kEmxUZFue7vYUKUmy6YcEuauo+Mm4h3NmvAkVDgRUNOdihJ3ed4xQCnc8y
+	NRcS3uWoCXZnPF35BUvCe6gV9omfuLU4Xo/jkikGfVzJOKPDxbXRQVmdWB23xPxGYBYc8p1mL72
+	r/VS8s8lebGOGnChb9pVfUDf9todBlZv94sdvYZVhNwkjRDBmVehG+Ge4lnBvpO/rUN8gkBL7kM
+	9XgY6X9f0iytu74gb1Cixo=
+X-Received: by 2002:a17:907:8323:b0:c25:f7dc:2e0 with SMTP id a640c23a62f3a-c25f7dc0985mr85901366b.33.1788438650154;
+        Thu, 03 Sep 2026 05:30:50 -0700 (PDT)
+Received: from [192.168.1.89] (c-85-228-45-68.bbcust.telenor.se. [85.228.45.68])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a67f895d68sm2265294a12.4.2026.09.03.05.30.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 05:30:49 -0700 (PDT)
+Message-ID: <1d7f8806-f4a0-fda0-a361-a011460ef308@outbound.gmail.com>
+Date: Thu, 3 Sep 2026 14:30:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902084430.17248-1-ducthinh100812@gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+From: Eli Billauer <eli.billauer@gmail.com>
+Subject: Re: [PATCH 2/4] char: xillybus: replace __get_free_pages() with
+ kmalloc()
+To: Mike Rapoport <rppt@kernel.org>
+Cc: David Laight <david.laight.linux@gmail.com>, Arnd Bergmann
+ <arnd@arndb.de>, Brad Warrum <bwarrum@linux.ibm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Michal Simek <michal.simek@amd.com>, Ritu Agarwal <rituagar@linux.ibm.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linuxppc-dev@lists.ozlabs.org
+References: <20260830-char-misc-v1-0-05e2ce44f291@kernel.org>
+ <20260830-char-misc-v1-2-05e2ce44f291@kernel.org>
+ <f6001085-9234-4025-ff34-6cc4a66c293a@outbound.gmail.com>
+ <20260831123937.32255a49@pumpkin> <apaF1HUtJnstuUN4@kernel.org>
+ <1729fb06-6beb-f8ef-3e71-47fc3f00345d@outbound.gmail.com>
+ <apcPg_y-HsMki7we@kernel.org>
+ <9a3d6a08-339c-3315-cc81-46907d0836ad@outbound.gmail.com>
+ <apgSCyj-h2xVc2ss@kernel.org>
+Content-Language: en-US
+In-Reply-To: <apgSCyj-h2xVc2ss@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thanks for Cc'ing me.
-
-On Wed, Sep 02, 2026 at 03:43:58PM +0700, Nguyen Duc Thinh wrote:
-> This patch series performs a thorough pass across several files 
-> in the Linux kernel process documentation directory. The primary focus
-> is to improve readability and maintain a professional tone throughout 
-> the guides for a global developer audience.
-> 
-> Core changes include:
-> - Expanding conversational contractions (e.g., "don't" to "do not").
-
-Is this necessary? I'm not sure.
-
-> - Rectifying minor punctuation oversights and grammatical typos.
-> - Standardizing terminology formatting to elevate professional voice.
-> 
-> Extra notes:
-> - I originally intended to send a 12-patch series to cover the whole
->   directory, but decided to scale it back to these 5 high-quality
->   patches to ensure thorough accuracy and a manageable review cycle.
+On 02/09/2026 14:09, Mike Rapoport wrote:
+>> So using vmalloc() may result in a malfunction in the data transport where
+>> the __get_free_pages() would have been successful. This outweighs the
+>> benefit of a somewhat higher probability of success in allocating very large
+>> buffers, and surely the improved aesthetics of the kernel code.
+> kmalloc() still works, just like __get_free_pages()
 >   
->   Also I want to know the current progress of the patch titled 
->   "Capitalize Git, Quilt, and Mercurial consistently".
 
-It has been applied:
+After these few days of discussion, this is what I make of this topic.
 
-https://git.kernel.org/pub/scm/linux/kernel/git/docs/linux.git/commit/?id=4a0be1a25d98672391e8ad2a0802f08609397274
+The memory allocation in fifo_init() is somewhat ugly, but this driver 
+has been out there for five years, and no complaints from users.
 
-> v2:
->   - Resending the complete 5-patch series together as a single cohesive 
->     thread. (Apologies, the v1 submission suffered a terminal wildcard 
->     argument error that accidentally truncated the transmission 
->     after 1/5).
+The vmalloc() option may be successful sometimes where the current 
+allocation will not. On the other hand, there is a possibility that it 
+will cause real trouble with page faults. Plus, a large allocation with 
+vmalloc() may be a weak spot on a platform to which the kernel is 
+partially or poorly ported.
 
-A better practice is to name it [PATCH v1 RESEND], I guess?
+With __get_free_pages(), there is no doubt that usable memory is 
+allocated right away, and that it will work that way on every single 
+esoteric platform. vmalloc() leaves us with "we're pretty sure there is 
+probably no problem".
 
-> Nguyen Duc Thinh (5):
->   Documentation: process: Clean up grammar, tone, and contractions in
->     core files
->   Documentation: process: Clean up grammar and tone in next guide files
->   Documentation: process: Refine language, tone, and grammar in
->     subsequent files
->   Documentation: process: Refine language, tone, and grammar in
->     subsequent files
->   Documentation: process: Clean up grammar and tone across multiple
->     files
+So I vote against vmalloc().
 
-Output of 'b4 shazam':
+As for replacing __get_free_pages() with kmalloc(), it's a matter of 
+taste. I think that if you're after a buffer that has a power-of-two 
+number of pages, __get_free_pages() is the natural choice, and using it 
+makes it easier for the reader to understand what you're doing. 
+Replacing it with a kmalloc() is confusing in my opinion, and requires 
+that the reader is aware that kmalloc() falls back to __get_free_pages() 
+in this case. So we actually want __get_free_pages(), but call kmalloc() 
+instead and let it fall back to __get_free_pages() so we don't have a 
+cast and don't need to save the order, and assume that everyone knows 
+that this is equivalent.
 
-...
-Applying: Documentation: process: Clean up grammar, tone, and contractions in core files
-Applying: Documentation: process: Clean up grammar and tone in next guide files
-Applying: Documentation: process: Refine language, tone, and grammar in subsequent files
-Applying: Documentation: process: Refine language, tone, and grammar in subsequent files
-Applying: Documentation: process: Clean up grammar and tone across multiple files
-/home/user/Projects/linux/.git/rebase-apply/patch:72: trailing whitespace.
-  License (about which more will be said below).  The author is not a
-warning: 1 line adds whitespace errors.
-/home/user/Projects/linux/.git/rebase-apply/patch:244: trailing whitespace.
-Which is nice, since there is no more insanity in the form of fake-generic
-warning: 1 line adds whitespace errors.
-/home/user/Projects/linux/.git/rebase-apply/patch:261: trailing whitespace.
-   rare cases, an AI assistant capable of finding a bug is capable of fixing it.
-/home/user/Projects/linux/.git/rebase-apply/patch:262: trailing whitespace.
-   Fixes written within the same session used to identify the bug will
-/home/user/Projects/linux/.git/rebase-apply/patch:263: trailing whitespace.
-   generally lead to better and more accurate fixes as the LLM's reasoning
-/home/user/Projects/linux/.git/rebase-apply/patch:282: trailing whitespace.
-- Within two weeks, a representative of this group will communicate the
-warning: 4 lines add whitespace errors.
+So I vote against the kmalloc() thing as well.
 
-Should we handle with whitespace?
+If this patch is part of a larger kernel cleanup, I suppose my votes 
+don't count for much. But for the record, this is my opinion.
 
-Thanks.
+Thanks and regards,
+    Eli
