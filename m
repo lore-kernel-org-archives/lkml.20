@@ -1,112 +1,195 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205FA2931FC;
-	Thu,  3 Sep 2026 22:18:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25D4C4EC670
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 22:20:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788473908; cv=none; b=S8gKajczdctkLCy0Ge4eI4d9h5IcwbmsN7CE6dc61JSnIqu4FZZFG+xj7p5h4r58RuVpvf6UZvvLkNUnqERsqhLFKTg6mlu2HnP4v86sjBFVlr9R9sUNa7Hb8hWlod7ZJAec5rz8cuthd7R3XqAhilh9e9jMrF64cU3RSYS8eMA=
+	t=1788474044; cv=none; b=kebXkmhTPHW80fnzi53JOcApRXNF8FcDNZqxVLF8ICCmq2FXpSjgswEx1NM5JC4GKtDta5mBKNkEViysif/2NujlrALbYQCmlRqDRLqGZo4C523jZGbyvVbUW13uvwGRs2ZHvUcvOokr/dhWeLhQ3myhRSVdt0uZ6jboYD9GAB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788473908; c=relaxed/simple;
-	bh=8/lOmGGroOWUCeWQZ2+XrkPgnDIBRbCiSiamJIAHsdw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lZHf0cBi6a05faLGVwDV1d4MSI71NeYUS+FZPXzyVtbY791BlvaXvcFTZ7WJ2K3VUdGMdZi/PvVp8v3ze4UG7MwR6UikN9zKoFW5E0ZFuX526vJd+oObyP6cPyNT2COTqdNiNtrywBDp7G7DSnWuMWYI8/Mfk0XCr6ZK9eYzWEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=KH6l8mzT; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1788474044; c=relaxed/simple;
+	bh=puDpgV/x7iJdRGy2iRfTHhaCr86DSBFmMYP1WYF7/Ls=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BaSDvAw3F6rNBfxCADSUmzxIEWQivhijMXOAMVG0X09RCS5NLEAgXg4x89RAILZFu+440j754vZWqRjqMRdIlwJvzCMaETJ9HkpBhwwbldK8iEV8TG3sBmg7vl6JC7ag5FAP7VMjREVJhtIEorFb95q3FVMfZ0FunACe18kb2do=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bDOVkusC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="KH6l8mzT"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 0302840E016C;
-	Thu,  3 Sep 2026 22:18:17 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id EnA4fM3i9fr9; Thu,  3 Sep 2026 22:18:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1788473886; bh=NM9c2hEw7ubKXee1wycSh5EQXSvXjN1o+ByzwgLqAsc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KH6l8mzTlUbsxxGwjjMy0HAjPdbAJkp9P4CkL43bleu/kCHBXcyIO2ZT+up1ERtxk
-	 f3GsuCrfzemAMlBnutu8L5zo1zKPqBxx8h2AfzTlNwB/aByPBQFAoDZBKpJIOeeZyJ
-	 q0+omzgGKu+kVPhqoIbkf/wUDXJnEmH9veBLWEbwn6C7OkDyhDgZt5aMd14vUmamWn
-	 hoSOiVSm9IDV5vdzO+Vo0x+rO4C1JKMp7IpgsXi4LQsg32xynGsuUlBLATTJf0xOua
-	 TDi9uJYyHzqRE0d3+SuL6fQvZwiq/y0SIxqJzPLZmugzAnQgm48pUzdM3WHQpvdhlF
-	 DILXCAUr04wdJa8jkXejZCcBeJSaQcCmJ1SLwDSM7v2xvT36iGBz10paxBxaQoasOh
-	 EQn1qeQh9CrnsvcnkALUQVoXlJQDPMLNAoAdsccXgkNCfYDVuw1ic+k1+Ms2UhxSv4
-	 t9ipnbArUk4iYDGltcbylzVnKCKl9DS8Ne4NsO1BK1SYi0LKIMi3SI3nXnafxmOIZz
-	 tmHFYOS26s35U/scCIzNA0fkSA4/yIXKpszh3qrS5HTw8XTBJnk9GOrCxT+2P9u6he
-	 A70Gj5Cj8go28OZ/Kh0tWsH9T0Z1KHWl6O0d3Z4fFjClHsZF0puMuR5r8vOr25tNjk
-	 fWVCo/yT0ModQzf6BNoVnytY=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::46])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id DADD040E01DD;
-	Thu,  3 Sep 2026 22:17:49 +0000 (UTC)
-Date: Thu, 3 Sep 2026 15:17:45 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: tony.luck@intel.com, tglx@kernel.org, mingo@redhat.com,
-	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-	frederic@kernel.org, marco.crivellari@suse.com, neelx@suse.com,
-	sean@ashe.io, chjohnst@gmail.com, mproche@gmail.com,
-	nick.lange@gmail.com, linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 0/3] x86/mce: Fix timer list corruption and avoid
- redundant polling
-Message-ID: <20260903221745.GAapnyCYVOL0qeip6N@fat_crate.local>
-References: <20260903194130.186096-1-atomlin@atomlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bDOVkusC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0C651F00ACA
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 22:20:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788474040;
+	bh=XErCkNZK6G7WBTio0jFGK/QgQh9ypuTGvQI+xaKM77k=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=bDOVkusCuh6f8y5QeSb4ykZg6FHXuAjSpiZHn7v+ni5orAJyTEEE32tJxPty1ECPU
+	 o56o2JVbFh1LQV7VZcpsTwg3YibMKNmVl0MV44R39ih/kUUqwUp0Y/WrjW4EXS1/yR
+	 wxe05MS2sFLrZkoxV11zEdnm1lICtAPDY4WOzSwNlMVu/D4hfpMgsvT59BiiYSAcOZ
+	 3EQGbrMKVVXr4GQ0qcEAYM78I93REq/fCGP6aJ6MZ2E+3xS2OiztiDYP88CU1Neq9l
+	 C8JT7F46EGNwK01XZFFplJFspAdzJ94feyhCcMowe4mVe0rMc+GOz9Dm2cnf2HPUQS
+	 BPze/yPOscSCw==
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a7e0ff423dso1856693a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 15:20:40 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzZuvIC7SFaHRJXKgk6wqPHSxtekNiNc5IpMSdMOvIhu06dnHBHCJHyIVnTn+1aR1eyEdnvZAKr6R9QCdY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mWjaruWfG6PHLBI7iVjswABoODX53jtqcWppDr8DFbQBjEanlt
+	a3qoUDrAdmwn9Fu1nCtNLGNubMXzroxUuqBMssbYJB24Fm5B/RD7neIi9gT5k2xe+HH0tp8rLBZ
+	hqtjFBqK0xbtSh/oOm6DWseh++qNzBbE=
+X-Received: by 2002:a17:907:3f16:b0:c25:f7dc:2d2 with SMTP id
+ a640c23a62f3a-c25f7dc0940mr245742766b.19.1788474039802; Thu, 03 Sep 2026
+ 15:20:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260903194130.186096-1-atomlin@atomlin.com>
+References: <20260903175856.4065099-1-yosry@kernel.org> <apnqonqMBZ2GeGEq@google.com>
+ <CAO9r8zPcvZpy=379oWNY_+p2XZ74On5LPL+53evbRqq5OD1H=g@mail.gmail.com> <apnyKNY_FKFWtDNK@google.com>
+In-Reply-To: <apnyKNY_FKFWtDNK@google.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 3 Sep 2026 15:20:28 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zN2AqpGudeej3VshJek6iy7iaTwO4GgmLSVO0++omHUxA@mail.gmail.com>
+X-Gm-Features: AcwNN1USE5TIY09YYe1eMfDzPC0dWkGMMkhrDqscJ1Fg0-SNpp1bjRgtghuYZWc
+Message-ID: <CAO9r8zN2AqpGudeej3VshJek6iy7iaTwO4GgmLSVO0++omHUxA@mail.gmail.com>
+Subject: Re: [PATCH] KVM: SVM: Trigger new ASID allocation in both VMCBs on
+ pCPU switch
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 03, 2026 at 03:41:27PM -0400, Aaron Tomlin wrote:
-> This series addresses two distinct issues within the x86 Machine Check
-> Architecture (MCA) timer subsystem: a race condition during runtime CPU
-> reconfiguration that can corrupt the kernel timer wheel, and redundant
-> periodic software polling of banks that never log corrected errors.
+On Thu, Sep 3, 2026 at 3:18=E2=80=AFPM Sean Christopherson <seanjc@google.c=
+om> wrote:
+>
+> On Thu, Sep 03, 2026, Yosry Ahmed wrote:
+> > On Thu, Sep 3, 2026 at 2:53=E2=80=AFPM Sean Christopherson <seanjc@goog=
+le.com> wrote:
+> > > >       if (unlikely(svm->current_vmcb->cpu !=3D vcpu->cpu)) {
+> > > > -             svm->current_vmcb->asid_generation =3D 0;
+> > > >               vmcb_mark_all_dirty(svm->vmcb);
+> > > >               svm->current_vmcb->cpu =3D vcpu->cpu;
+> > > > +             svm->vmcb01.asid_generation =3D 0;
+> > > > +             if (svm->nested.initialized)
+> > >
+> > > Isn't conditioning the clear on nested.initialized wrong?  It's stupi=
+dly contrived,
+> > > but I think it can happen?  Even if it can't, I don't see any reason =
+to conditionally
+> > > zero vmcb02.asid_generation.  Either it's buggy or it's a wash in ter=
+ms of performance.
+> >
+> > Oh yeah it's not needed. I thought the generation is only allocated
+> > when svm->nested.initialized, but that's not true it's always there.
+> > So yeah we can just always zero it, and then we can drop the change in
+> > svm_allocate_nested() too, or keep it as hardening (it seems like a
+> > good idea in general)?
+>
+> Definitely keep it as hardening.
+>
+> > >  - vCPUx runs on pCPU A, vmcb02 is active, asid=3D1.
+> > >  - vCPUx migrates to pCPU B, vmcb02 pCPU changes, new asid=3D2.
+> > >  - vCPUz runs on pCPU A and allocates asid=3D2 as well.
+> > >  - vCPUx switches to vmbc01 and disabled nested, but doesn't run, e.g=
+. because
+> > >    userspace stuffs EFER.
+> >
+> > IIUC, here userspace wrote EFER.SVME=3D0..
+> >
+> > >  - vCPUx migrates back to pCPU A, and zeroes vmcb01.asid_generation, =
+but not
+> > >    vmcb02.asid_generation.
+> > >  - vCPUx switches to vmcb02, without running vmcb01, again thanks to =
+userspace.
+> >
+> > ..and here it wrote EFER.SVME=3D1, in which case svm_allocate_nested()
+> > should set svm->nested.vmcb02.cpu =3D -1..
+> >
+> > >  - vCPUx does VMRUN on vmcb02 with asid=3D2.
+> >
+> > ..and we allocate a new ASID here?
+>
+> Oh, right.  Yeesh, that's subtle.  All the more reason to burn with fire.
+>
+> > >  - Two vCPUs end up using asid=3D2 on the same pCPU.
+> > >
+> > > The "svm->current_vmcb->cpu !=3D vcpu->cpu" check is also sketchy, bu=
+t I don't think
+> > > it's outright wrong?
+> > >
+> > > Ugh.  Jumping back a bit, I _was_ going to say that we could revert 1=
+93015adf40d
+> > > and then do:
+> > >
+> > > diff --git arch/x86/kvm/svm/svm.c arch/x86/kvm/svm/svm.c
+> > > index b4845e452e69..4c8e2fcd378e 100644
+> > > --- arch/x86/kvm/svm/svm.c
+> > > +++ arch/x86/kvm/svm/svm.c
+> > > @@ -1310,12 +1310,6 @@ void svm_switch_vmcb(struct vcpu_svm *svm, str=
+uct kvm_vmcb_info *target_vmcb)
+> > >  {
+> > >         svm->current_vmcb =3D target_vmcb;
+> > >         svm->vmcb =3D target_vmcb->ptr;
+> > > -
+> > > -       /*
+> > > -       * Workaround: we don't yet track the ASID generation
+> > > -       * that was active the last time target_vmcb was run.
+> > > -       */
+> > > -       svm->asid_generation =3D 0;
+> > >  }
+> > >
+> > >  static int svm_vcpu_create(struct kvm_vcpu *vcpu)
+> > > @@ -4531,6 +4525,9 @@ static __no_kcsan fastpath_t svm_vcpu_run(struc=
+t kvm_vcpu *vcpu, u64 run_flags)
+> > >         sync_lapic_to_cr8(vcpu);
+> > >
+> > >         if (unlikely(svm->asid !=3D svm->vmcb->control.asid)) {
+> > > +               if (svm->vmcb->control.tlb_ctl !=3D TLB_CONTROL_FLUSH=
+_ALL_ASID)
+> > > +                       svm->vmcb->control.tlb_ctl =3D TLB_CONTROL_FL=
+USH_ASID;
+> > > +
+> > >                 svm->vmcb->control.asid =3D svm->asid;
+> > >                 vmcb_mark_dirty(svm->vmcb, VMCB_ASID);
+> > >         }
+> > >
+> > >
+> > > But after reading the cover letter[*], I can't tell if 193015adf40d w=
+as a bug
+> > > fix for a dirty/clean bits bug, a bug fix for ASID reuse, or an optim=
+ization (I
+> > > thought it was an optimization until reading the cover letter and loo=
+king more
+> > > at commit af18fa775d07 ("KVM: nSVM: Track the physical cpu of the vmc=
+b vmrun
+> > > through the vmcb").
+> > >
+> > > So yeah, hit this with a hammer and defer the proper fix to your clea=
+nup series,
+> > > because I have low confidence that doing a proper fix is the safest a=
+pproach for
+> > > LTS kernels.
+> >
+> > I can send a new version dropping conditioning the reset on
+> > svm->nested.initialized and dropping the change in
+> > svm_allocate_nested(), is this what you had in mind?
+>
+> Keep the change in svm_allocate_nested().  Or just do nothing, I'll happi=
+ly drop
+> the svm->nested.initialized check when applying.
 
-N T Sep 01              Aaron Tomlin ( :2.6K|) [RFC PATCH] x86/mce: Avoid arming periodic polling timer on isolated CPUs
-N T Sep 01              Aaron Tomlin ( :2.3K|) [PATCH v2 0/2] x86/mce: Fix timer list corruption and avoid redundant polling
-N T Sep 02              Aaron Tomlin ( :3.0K|) [PATCH v3 0/2] x86/mce: Fix timer list corruption and avoid redundant polling
-N T Sep 03              Aaron Tomlin ( :3.1K|) [PATCH v4 0/2] x86/mce: Fix timer list corruption and avoid redundant polling
-N T Sep 03              Aaron Tomlin ( :4.0K|) [PATCH v5 0/3] x86/mce: Fix timer list corruption and avoid redundant polling
+You'll need to update the changelog too.
 
-5 submissions on the same topic in 3 days.
+Instead of:
 
-Please stop spamming!
+Additionally, initialize the tracker pCPU for vmcb02 to -1 on nested
+enablement, so that the new ASID allocation in the scenario above
+happens even if EFER.SVME is disabled in L1 before migrating to the new
+pCPU (so asid_generation in vmcb02 is not reset), but enabled before
+returning to the old pCPU.
 
-From: Documentation/process/submitting-patches.rst
+Maybe:
 
-Don't get discouraged - or impatient
-------------------------------------
+Additionally, initialize the tracked pCPU for vmcb02 to -1 on nested
+enablement as hardening, so that a new ASID allocation is always
+triggered when nested is disabled and re-enabled.
 
-After you have submitted your change, be patient and wait.  Reviewers are
-busy people and may not get to your patch right away.
-
-Once upon a time, patches used to disappear into the void without comment,
-but the development process works more smoothly than that now.  You should
-receive comments within a week or so; if that does not happen, make sure
-that you have sent your patches to the right place.  Wait for a minimum of
-one week before resubmitting or pinging reviewers - possibly longer during
-busy times like merge windows.
-
-Pls read the documentation about how you should work with the community:
-
-Documentation/process/
-
-while you're waiting for review.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Let me know if you still wanna fixup when applying or a v2 :)
