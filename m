@@ -1,256 +1,472 @@
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899D54CA276;
-	Thu,  3 Sep 2026 15:11:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448302; cv=pass; b=DNAHKe82TuuwlfgdEqY8WfSFuVD9mQt9Qao+4gmB7p8RAoEE00SSWl/PI58wFoRayvrXb7NL9/nbx395J5KcC9vMU43WqKK9ZstXQJpX4tBCN1MitGJHjjJ+q4a8fy76T9iuc7QUyaVr5htvJ+TfwqxaOLoT5P9Klx5OovInfLo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448302; c=relaxed/simple;
-	bh=v1PmPKoCt8nkso29KKmnve7NuIketKrvKoYM14WDueA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=auvyGbkediwy9/+T8Ov+OoOoNI0hcDQ/+9JronQ8SrfOY7h2dhGEmJevlctV0kxxqDnDZ7RrJaK+GWhQzngeagnNUXe4D8oi+kdp6m0Q/dE2iggY87VyE0hXig56u//t/NjM9Tjc36PX0CVPuyo23y9wZf+p/fE4eoPBf4psYT8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=qT8fsDYj; arc=pass smtp.client-ip=185.185.170.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8710A4C9571;
+	Thu,  3 Sep 2026 15:11:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788448317; cv=none; b=hE0YF/2Mh/FzaEzZqW239fKHpxlZeoB34E5dWQwbk5uaLVfi+UzHINmU+BvXhPPYzd63st5s0/91xmmXC6MUwkejyPp/jrlpxTJtcMprQ3akPsgTXTt3awDZ/ujEeVjkEtDc2s/UAoauEUo/PduXD672XHwCYoUvdjizMQfxdFs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788448317; c=relaxed/simple;
+	bh=o8NY36JZVSzlMYaAWexQhgkC1tW/t4MEMwwQgF1/cBk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ds4AvqGCPRUd+GVz75mcGKDJHEVdwlXzFeNpYL6S4lnq1158sWW8sepSr/SwQYy2/z9AZdhygJ8HIQOPvhIZAHpLT24UmCElyHCRqe34tStnrp0qCO/C94j3HzFC1oatslS93QoKFCYGShKxgYjYK9mfK/Gk2ZMZsZ8NylpmP9o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Y9Q66J5e; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Hxf2BAKR; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=hJmW0UJ7; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=EONIRqUp; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="qT8fsDYj"
-Received: from [192.168.1.195] (unknown [IPv6:2a02:ed04:3581:4::d001])
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Y9Q66J5e";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Hxf2BAKR";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="hJmW0UJ7";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EONIRqUp"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	(Authenticated sender: pav@iki.fi)
-	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4hbNNN3yVSz49Py3;
-	Thu, 03 Sep 2026 18:11:31 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
-	t=1788448293;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 5C4AC21F07;
+	Thu,  3 Sep 2026 15:11:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788448309; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=Z18BtSKIVrhss/X0bbm3YVQE1cHTU3NzWn05WQF3Cwo=;
-	b=qT8fsDYj7XAX8NB2vx+tO/w/ajfsw1aJFuNZGs2r49OxUjkzvL8BHd1ERcW+D1oGoa/3Ey
-	Pz5yPNpNJ7UCbIcZ5GZBjp/g4ITC7x4FwM7bCdsuB6V369VKNdRApEXMSD5f39BjcgYjLy
-	3xqeeREBLSOKlkgPDqBdkpbekCfLtsrTSyLbi8or+EQovC3lxJPiMhktZ1c0G+VirPpIth
-	p0+SCptAHTwlS+JFF664N9a1N6HK0L7/TosT0Mpup3/gYFVcH4JgZl4GV8sZ6akcRBmxib
-	OXYBjNbUHXi1UJiv1I77to6rOx1WbgNhZfVHmOStZOND4EFopQC8nlyJ0C7gjw==
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1788448293;
-	b=CA5um7z12vvlMSMSGsU7f2BUGuf88A/MhdKx755JvnE4MqDmmhf5V4OI03OKJvsjiHhf53
-	US2RJbhsWuQh6+5osEpLAenvyWmXQn4MZECWFKVB7ehIwVcU9gp3NFlUFT/2YAfuT3gd7u
-	TSDXmUQZ9gcRGV9GaSyh1TTd2qoYw9EaHlnPsk9Te6lhfJCbRrM/imP6yiy5VIo0XLc2+3
-	kiFv3UAgXEROX/w4G3m/MJP9TG0OLKZxJBmrOpXoMhnLVqEesYpqsVxd9k1rdftgBGVm7D
-	b8un/xWX4n0Lz1rHykc7G65tcUAMFefUEi0AzopRSQ47RJPaHjUIOELf85xPaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=lahtoruutu; t=1788448293;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	bh=/j/GbaUADvIG+J91qi0EsMYXhXgy+W9e4jS9RD1moM8=;
+	b=Y9Q66J5e6FhMXfcTd5SZi3bqZVYXy3gTdms6LNIiqgAgI7TEOycgu1Yji9bJXYvJCubit/
+	hCit37wzrMTzbS0Nu2CL4UvKdgS6+XzOmAbtM+FHtAOcnf0cLYlDFCZX7Sb9V41D50LQxj
+	TCin05WKpFx7MkkEtR2M7MuOaIr6LKo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788448309;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=Z18BtSKIVrhss/X0bbm3YVQE1cHTU3NzWn05WQF3Cwo=;
-	b=qQPXBChsZIDfmjL8mAEqL7qNwERSr8IJKLBiahfrIvenfbGATRT2UhRncxb+es5LQVwCek
-	70YzFJHTPj8YM43MoL9WIGNya6h9I5STvwIyf1XdCg+g7F/0ot9dju7UZgzblrU6ekDYie
-	q2up2eWrRiBGE7suPJ9wjdqMAFA3evVouViunXaL3MsVyefHd9X2hvYFYOE8V7habqcYQ1
-	F+Q9hw8YZKKtasHngpAxIBYZg+OjMyZ89BtorZ+qz+8zHkl0DI8VfKjGc87B5d40mbp/ae
-	o9F0ABIVTlpU29QhydE2ibvcVocTf9kIrkVzVxrkoFgpUohjQ9lOEKoon/roRw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pav@iki.fi smtp.mailfrom=pav@iki.fi
-Message-ID: <3674f5d34d731403bfa0e680c9e5718237612315.camel@iki.fi>
-Subject: Re: [PATCH v2 1/1] Bluetooth: Fix parent socket UAF in accept queues
-From: Pauli Virtanen <pav@iki.fi>
-To: Zihan Xi <zihanx@nebusec.ai>, linux-bluetooth@vger.kernel.org
-Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz	
- <luiz.dentz@gmail.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Thu, 03 Sep 2026 18:11:29 +0300
-In-Reply-To: <34824eaea68a895a3fe9ed5337248eca1d81f74f.1788259244.git.zihanx@nebusec.ai>
-References: <cover.1788259244.git.zihanx@nebusec.ai>
-	 <34824eaea68a895a3fe9ed5337248eca1d81f74f.1788259244.git.zihanx@nebusec.ai>
-Autocrypt: addr=pav@iki.fi; prefer-encrypt=mutual;
- keydata=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
- bzyGkKh2h8XdrYhtDjw9LmrprPQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	bh=/j/GbaUADvIG+J91qi0EsMYXhXgy+W9e4jS9RD1moM8=;
+	b=Hxf2BAKRvrUKxHxkTL/mvJIFEzjcmohq7RzHhe+LnQmzJRx5VrWPxkTL8Ozfvw9vDCDrqj
+	JOhDj0ckxfYqONBg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=hJmW0UJ7;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=EONIRqUp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788448305; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=/j/GbaUADvIG+J91qi0EsMYXhXgy+W9e4jS9RD1moM8=;
+	b=hJmW0UJ7wWKbEl3lad6r2VbpuFMtXw99gGTmsABY2O2tq+7yyIc0+5YGUPMgwd6V+qdfcX
+	So2a2oXF43KP5mteZys9OrueoY/5qoRgAapOKiXaCVe1LMBoKPr7YsXrKbR6XZZzS/7k/i
+	5i8YKHNmRhQG9dVwwIYlMl7W8bbrfTE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788448305;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=/j/GbaUADvIG+J91qi0EsMYXhXgy+W9e4jS9RD1moM8=;
+	b=EONIRqUpeVa6lNRJ+MP/lGa8nKIoEM6QYsgizol8mPFh5sWFg8PKZuUxio2cfeXOtMyoLB
+	WrEQ38DcT9hbkFDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BCF55136D9;
+	Thu,  3 Sep 2026 15:11:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id u4zOLDCOmWoAQAAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Thu, 03 Sep 2026 15:11:44 +0000
+Message-ID: <9e61d418-f8a6-4261-82e5-3b47df87e8fa@suse.de>
+Date: Thu, 3 Sep 2026 17:11:44 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/gem: Drop ticket arg to lru_scan()
+To: rob.clark@oss.qualcomm.com
+Cc: dri-devel@lists.freedesktop.org,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Steven Price <steven.price@arm.com>, open list
+ <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER for Qualcomm display hardware"
+ <linux-arm-msm@vger.kernel.org>,
+ "open list:DRM DRIVER for Qualcomm display hardware"
+ <freedreno@lists.freedesktop.org>
+References: <20260901164544.642985-1-robin.clark@oss.qualcomm.com>
+ <69a37b53-82e1-40bb-8266-206c3bff6af2@suse.de>
+ <CACSVV03XSo8U+8XR3Z=mQtD_kvHU_G22ne+Mb9yL1VHLc9SLTw@mail.gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <CACSVV03XSo8U+8XR3Z=mQtD_kvHU_G22ne+Mb9yL1VHLc9SLTw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -4.51
+X-Rspamd-Queue-Id: 5C4AC21F07
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[lists.freedesktop.org,collabora.com,arm.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,linux.dev,poorly.run,somainline.org,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[collabora.com:email,suse.de:dkim,suse.de:email,suse.de:mid,suse.com:url,arm.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
 
-Hi,
+Hi
 
-to, 2026-09-03 kello 11:11 +0000, Zihan Xi kirjoitti:
-> Bluetooth children queued on a listening socket store the listener in
-> bt_sk(sk)->parent, but the accept queue did not hold a reference on
-> that parent socket.  The child side can later fetch that pointer and
-> unlink itself from the accept queue while still needing to notify the
-> listener, for example from L2CAP, ISO or RFCOMM teardown/state-change
-> callbacks.
+Am 03.09.26 um 16:09 schrieb Rob Clark:
+> On Tue, Sep 1, 2026 at 11:57 PM Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>>
+>>
+>> Am 01.09.26 um 18:45 schrieb Rob Clark:
+>>> Commit 3392291fc509 ("drm/msm: Fix shrinker deadlock") dropped the only
+>>> use of the ticket arg, but at the time left drm_gem_lru_scan() unchanged
+>>> to avoid conflicts with in-flight panthor shrinker support.  This commit
+>>> is the followup to remove the unused arg.
+>>>
+>>> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+>>> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+>>> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+>> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Could someone take this via drm-misc?
 
-Please revalidate the KASAN crash on current bluetooth-next/master,
-there have been related fixes since v1 of the patch and the v7.2-rc6
-shown in the KASAN crash in the cover letter.
+Merged into drm-misc-next.
 
-With commit d4bfa78fd679 ("Bluetooth: L2CAP: reject accept queue add
-unless BT_LISTEN") in v7.3-rc1 cherry-picked on v7.2-rc6 the POC no
-longer reproduces for me.
+Best regards
+Thomas
 
-***
+>
+> BR,
+> -R
+>
+>>> ---
+>>>
+>>> v2: Drop left over kerneldoc param description, fix panthor spelling
+>>>
+>>>    drivers/gpu/drm/drm_gem.c              | 14 +++-----------
+>>>    drivers/gpu/drm/msm/msm_gem_shrinker.c | 22 ++++++++++------------
+>>>    drivers/gpu/drm/panthor/panthor_gem.c  | 14 ++++++--------
+>>>    drivers/gpu/drm/panthor/panthor_mmu.c  |  5 ++---
+>>>    drivers/gpu/drm/panthor/panthor_mmu.h  |  3 +--
+>>>    include/drm/drm_gem.h                  |  3 +--
+>>>    6 files changed, 23 insertions(+), 38 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+>>> index e3ed684ddcf2..3113b4a53b99 100644
+>>> --- a/drivers/gpu/drm/drm_gem.c
+>>> +++ b/drivers/gpu/drm/drm_gem.c
+>>> @@ -1649,15 +1649,13 @@ EXPORT_SYMBOL(drm_gem_lru_move_tail);
+>>>     * @nr_to_scan: The number of pages to try to reclaim
+>>>     * @remaining: The number of pages left to reclaim, should be initialized by caller
+>>>     * @shrink: Callback to try to shrink/reclaim the object.
+>>> - * @ticket: Optional ww_acquire_ctx context to use for locking
+>>>     */
+>>>    unsigned long
+>>>    drm_gem_lru_scan(struct drm_device *dev,
+>>>                 struct drm_gem_lru *lru,
+>>>                 unsigned int nr_to_scan,
+>>>                 unsigned long *remaining,
+>>> -              bool (*shrink)(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket),
+>>> -              struct ww_acquire_ctx *ticket)
+>>> +              bool (*shrink)(struct drm_gem_object *obj))
+>>>    {
+>>>        struct drm_gem_lru still_in_lru;
+>>>        struct drm_gem_object *obj;
+>>> @@ -1690,20 +1688,17 @@ drm_gem_lru_scan(struct drm_device *dev,
+>>>                 */
+>>>                mutex_unlock(&dev->gem_lru_mutex);
+>>>
+>>> -             if (ticket)
+>>> -                     ww_acquire_init(ticket, &reservation_ww_class);
+>>> -
+>>>                /*
+>>>                 * Note that this still needs to be trylock, since we can
+>>>                 * hit shrinker in response to trying to get backing pages
+>>>                 * for this obj (ie. while it's lock is already held)
+>>>                 */
+>>> -             if (!ww_mutex_trylock(&obj->resv->lock, ticket)) {
+>>> +             if (!ww_mutex_trylock(&obj->resv->lock, NULL)) {
+>>>                        *remaining += obj->size >> PAGE_SHIFT;
+>>>                        goto tail;
+>>>                }
+>>>
+>>> -             if (shrink(obj, ticket)) {
+>>> +             if (shrink(obj)) {
+>>>                        freed += obj->size >> PAGE_SHIFT;
+>>>
+>>>                        /*
+>>> @@ -1727,9 +1722,6 @@ drm_gem_lru_scan(struct drm_device *dev,
+>>>
+>>>                dma_resv_unlock(obj->resv);
+>>>
+>>> -             if (ticket)
+>>> -                     ww_acquire_fini(ticket);
+>>> -
+>>>    tail:
+>>>                drm_gem_object_put(obj);
+>>>                mutex_lock(&dev->gem_lru_mutex);
+>>> diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+>>> index 9d2788f79ace..3514d5c84989 100644
+>>> --- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
+>>> +++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+>>> @@ -102,7 +102,7 @@ with_vm_locks(void (*fn)(struct drm_gem_object *obj),
+>>>    }
+>>>
+>>>    static bool
+>>> -purge(struct drm_gem_object *obj, struct ww_acquire_ctx *unused)
+>>> +purge(struct drm_gem_object *obj)
+>>>    {
+>>>        if (!is_purgeable(to_msm_bo(obj)))
+>>>                return false;
+>>> @@ -114,7 +114,7 @@ purge(struct drm_gem_object *obj, struct ww_acquire_ctx *unused)
+>>>    }
+>>>
+>>>    static bool
+>>> -evict(struct drm_gem_object *obj, struct ww_acquire_ctx *unused)
+>>> +evict(struct drm_gem_object *obj)
+>>>    {
+>>>        if (is_unevictable(to_msm_bo(obj)))
+>>>                return false;
+>>> @@ -133,21 +133,21 @@ wait_for_idle(struct drm_gem_object *obj)
+>>>    }
+>>>
+>>>    static bool
+>>> -active_purge(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket)
+>>> +active_purge(struct drm_gem_object *obj)
+>>>    {
+>>>        if (!wait_for_idle(obj))
+>>>                return false;
+>>>
+>>> -     return purge(obj, ticket);
+>>> +     return purge(obj);
+>>>    }
+>>>
+>>>    static bool
+>>> -active_evict(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket)
+>>> +active_evict(struct drm_gem_object *obj)
+>>>    {
+>>>        if (!wait_for_idle(obj))
+>>>                return false;
+>>>
+>>> -     return evict(obj, ticket);
+>>> +     return evict(obj);
+>>>    }
+>>>
+>>>    static unsigned long
+>>> @@ -156,7 +156,7 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+>>>        struct msm_drm_private *priv = shrinker->private_data;
+>>>        struct {
+>>>                struct drm_gem_lru *lru;
+>>> -             bool (*shrink)(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket);
+>>> +             bool (*shrink)(struct drm_gem_object *obj);
+>>>                bool cond;
+>>>                unsigned long freed;
+>>>                unsigned long remaining;
+>>> @@ -180,8 +180,7 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+>>>                stages[i].freed =
+>>>                        drm_gem_lru_scan(priv->dev, stages[i].lru, nr,
+>>>                                         &stages[i].remaining,
+>>> -                                      stages[i].shrink,
+>>> -                                      NULL);
+>>> +                                      stages[i].shrink);
+>>>                nr -= stages[i].freed;
+>>>                freed += stages[i].freed;
+>>>                remaining += stages[i].remaining;
+>>> @@ -222,7 +221,7 @@ msm_gem_shrinker_shrink(struct drm_device *dev, unsigned long nr_to_scan)
+>>>    static const int vmap_shrink_limit = 15;
+>>>
+>>>    static bool
+>>> -vmap_shrink(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket)
+>>> +vmap_shrink(struct drm_gem_object *obj)
+>>>    {
+>>>        if (!is_vunmapable(to_msm_bo(obj)))
+>>>                return false;
+>>> @@ -250,8 +249,7 @@ msm_gem_shrinker_vmap(struct notifier_block *nb, unsigned long event, void *ptr)
+>>>                unmapped += drm_gem_lru_scan(priv->dev, lrus[idx],
+>>>                                             vmap_shrink_limit - unmapped,
+>>>                                             &remaining,
+>>> -                                          vmap_shrink,
+>>> -                                          NULL);
+>>> +                                          vmap_shrink);
+>>>        }
+>>>
+>>>        *(unsigned long *)ptr += unmapped;
+>>> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
+>>> index 54535bae2b0c..17408f832af3 100644
+>>> --- a/drivers/gpu/drm/panthor/panthor_gem.c
+>>> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
+>>> @@ -1392,8 +1392,7 @@ panthor_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc)
+>>>        return count ? count : SHRINK_EMPTY;
+>>>    }
+>>>
+>>> -static bool panthor_gem_try_evict_no_resv_wait(struct drm_gem_object *obj,
+>>> -                                            struct ww_acquire_ctx *ticket)
+>>> +static bool panthor_gem_try_evict_no_resv_wait(struct drm_gem_object *obj)
+>>>    {
+>>>        /*
+>>>         * Track last locked entry for unwinding locks in error and
+>>> @@ -1479,8 +1478,7 @@ static bool panthor_gem_try_evict_no_resv_wait(struct drm_gem_object *obj,
+>>>        return ret == 0;
+>>>    }
+>>>
+>>> -static bool panthor_gem_try_evict(struct drm_gem_object *obj,
+>>> -                               struct ww_acquire_ctx *ticket)
+>>> +static bool panthor_gem_try_evict(struct drm_gem_object *obj)
+>>>    {
+>>>        struct panthor_gem_object *bo = to_panthor_bo(obj);
+>>>
+>>> @@ -1488,7 +1486,7 @@ static bool panthor_gem_try_evict(struct drm_gem_object *obj,
+>>>        if (dma_resv_wait_timeout(obj->resv, DMA_RESV_USAGE_BOOKKEEP, false, 10) <= 0)
+>>>                return false;
+>>>
+>>> -     return panthor_gem_try_evict_no_resv_wait(&bo->base, ticket);
+>>> +     return panthor_gem_try_evict_no_resv_wait(&bo->base);
+>>>    }
+>>>
+>>>    static unsigned long
+>>> @@ -1503,13 +1501,13 @@ panthor_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+>>>
+>>>        freed += drm_gem_lru_scan(&ptdev->base, &ptdev->reclaim.unused,
+>>>                                  sc->nr_to_scan - freed, &remaining,
+>>> -                               panthor_gem_try_evict_no_resv_wait, NULL);
+>>> +                               panthor_gem_try_evict_no_resv_wait);
+>>>        if (freed >= sc->nr_to_scan)
+>>>                goto out;
+>>>
+>>>        freed += drm_gem_lru_scan(&ptdev->base, &ptdev->reclaim.mmapped,
+>>>                                  sc->nr_to_scan - freed, &remaining,
+>>> -                               panthor_gem_try_evict_no_resv_wait, NULL);
+>>> +                               panthor_gem_try_evict_no_resv_wait);
+>>>        if (freed >= sc->nr_to_scan)
+>>>                goto out;
+>>>
+>>> @@ -1523,7 +1521,7 @@ panthor_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+>>>
+>>>        freed += drm_gem_lru_scan(&ptdev->base, &ptdev->reclaim.gpu_mapped_shared,
+>>>                                  sc->nr_to_scan - freed, &remaining,
+>>> -                               panthor_gem_try_evict, NULL);
+>>> +                               panthor_gem_try_evict);
+>>>
+>>>    out:
+>>>    #ifdef CONFIG_DEBUG_FS
+>>> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+>>> index e10dbd18d8cf..ab070bc74857 100644
+>>> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+>>> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+>>> @@ -3133,8 +3133,7 @@ int panthor_vm_prepare_mapped_bos_resvs(struct drm_exec *exec, struct panthor_vm
+>>>    unsigned long
+>>>    panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
+>>>                             unsigned int nr_to_scan, unsigned long *remaining,
+>>> -                          bool (*shrink)(struct drm_gem_object *,
+>>> -                                         struct ww_acquire_ctx *))
+>>> +                          bool (*shrink)(struct drm_gem_object *))
+>>>    {
+>>>        unsigned long freed = 0;
+>>>        LIST_HEAD(remaining_vms);
+>>> @@ -3160,7 +3159,7 @@ panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
+>>>
+>>>                freed += drm_gem_lru_scan(&ptdev->base, &vm->reclaim.lru,
+>>>                                          nr_to_scan - freed,
+>>> -                                       remaining, shrink, NULL);
+>>> +                                       remaining, shrink);
+>>>
+>>>                mutex_lock(&ptdev->base.gem_lru_mutex);
+>>>
+>>> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.h b/drivers/gpu/drm/panthor/panthor_mmu.h
+>>> index 3522fbbce369..abc36e7204be 100644
+>>> --- a/drivers/gpu/drm/panthor/panthor_mmu.h
+>>> +++ b/drivers/gpu/drm/panthor/panthor_mmu.h
+>>> @@ -52,8 +52,7 @@ int panthor_vm_evict_bo_mappings_locked(struct panthor_gem_object *bo);
+>>>    unsigned long
+>>>    panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
+>>>                             unsigned int nr_to_scan, unsigned long *remaining,
+>>> -                          bool (*shrink)(struct drm_gem_object *,
+>>> -                                         struct ww_acquire_ctx *));
+>>> +                          bool (*shrink)(struct drm_gem_object *));
+>>>    int panthor_vm_prepare_mapped_bos_resvs(struct drm_exec *exec,
+>>>                                        struct panthor_vm *vm,
+>>>                                        u32 slot_count);
+>>> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+>>> index 8a704f6a65c1..ffa607c91aa2 100644
+>>> --- a/include/drm/drm_gem.h
+>>> +++ b/include/drm/drm_gem.h
+>>> @@ -616,8 +616,7 @@ drm_gem_lru_scan(struct drm_device *dev,
+>>>                 struct drm_gem_lru *lru,
+>>>                 unsigned int nr_to_scan,
+>>>                 unsigned long *remaining,
+>>> -              bool (*shrink)(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket),
+>>> -              struct ww_acquire_ctx *ticket);
+>>> +              bool (*shrink)(struct drm_gem_object *obj));
+>>>
+>>>    int drm_gem_evict_locked(struct drm_gem_object *obj);
+>>>
+>> --
+>> --
+>> Thomas Zimmermann
+>> Graphics Driver Developer
+>> SUSE Software Solutions Germany GmbH
+>> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+>> GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+>>
+>>
 
-The design intent AFAICS is that the accept queue of the parent socket
-shall be empty when the parent socket is freed.
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
 
-Otherwise, the child sockets in accept queue would leak.
 
-There must then be parent->sk_state =3D=3D BT_LISTEN check before
-bt_accept_enqueue() and some were missing in v7.2-rc6.
-
-bt_sk(sk)->parent read/write is guarded by lock_sock(sk), and it is set
-to NULL when removed from accept queue.
-
-Dangling bt_sk(sk)->parent should then not occur.
-
-If bt_sk(sk)->parent !=3D NULL is observed under lock_sock(sk), the
-parent socket is valid during that critical section.
-
-The sock_hold/put(parent) in this patch are in lock_sock(sk) critical
-sections, so should be no-ops.
-
-The accept queue items owning reference to parent also should be no-
-ops.
-
-> If the listener is closed concurrently, removing the child from the
-> accept queue can drop the last listener reference before those
-> callbacks call parent->sk_data_ready(parent), leaving a stale parent
-> pointer and a use-after-free.
->=20
-> Take a reference on the parent when a child is queued and drop it when
-> the child is unlinked.  Since unlinking now drops the accept-queue
-> parent reference, take a temporary parent reference in the callbacks
-> that continue to notify the parent after bt_accept_unlink().
->=20
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Reported-by: Vega <vega@nebusec.ai>
-> Assisted-by: Codex:gpt-5.4
-> Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-> ---
-> changes in v2:
->   - rebase onto current bluetooth-next
->   - refresh trailers to the current submission template
->   - retarget author identity to Zihan Xi <zihanx@nebusec.ai>
->   - v1 Link: https://lore.kernel.org/all/65767989c644f8adf52f35334f4034c6=
-6f47881f.1784383243.git.xizh2024@lzu.edu.cn/
->=20
->  net/bluetooth/af_bluetooth.c | 2 ++
->  net/bluetooth/iso.c          | 2 ++
->  net/bluetooth/l2cap_sock.c   | 2 ++
->  net/bluetooth/rfcomm/sock.c  | 2 ++
->  4 files changed, 8 insertions(+)
->=20
-> diff --git a/net/bluetooth/af_bluetooth.c b/net/bluetooth/af_bluetooth.c
-> index 411d66f24393..61a232378e6c 100644
-> --- a/net/bluetooth/af_bluetooth.c
-> +++ b/net/bluetooth/af_bluetooth.c
-> @@ -218,6 +218,7 @@ void bt_accept_enqueue(struct sock *parent, struct so=
-ck *sk, bool bh)
->  	BT_DBG("parent %p, sk %p", parent, sk);
-> =20
->  	sock_hold(sk);
-> +	sock_hold(parent);
-> =20
->  	if (bh)
->  		bh_lock_sock_nested(sk);
-> @@ -266,6 +267,7 @@ void bt_accept_unlink(struct sock *sk)
->  	spin_unlock_bh(&bt_sk(parent)->accept_q_lock);
->  	bt_sk(sk)->parent =3D NULL;
->  	sock_put(sk);
-> +	sock_put(parent);
->  }
->  EXPORT_SYMBOL(bt_accept_unlink);
-> =20
-> diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
-> index 75bfd5938b2e..e709292aa112 100644
-> --- a/net/bluetooth/iso.c
-> +++ b/net/bluetooth/iso.c
-> @@ -286,8 +286,10 @@ static void iso_chan_del(struct sock *sk, int err)
-> =20
->  	parent =3D bt_sk(sk)->parent;
->  	if (parent) {
-> +		sock_hold(parent);
->  		bt_accept_unlink(sk);
->  		parent->sk_data_ready(parent);
-> +		sock_put(parent);
->  	} else {
->  		sk->sk_state_change(sk);
->  	}
-> diff --git a/net/bluetooth/l2cap_sock.c b/net/bluetooth/l2cap_sock.c
-> index b553b6356af8..3720ab2e39ed 100644
-> --- a/net/bluetooth/l2cap_sock.c
-> +++ b/net/bluetooth/l2cap_sock.c
-> @@ -1748,8 +1748,10 @@ static void l2cap_sock_teardown_cb(struct l2cap_ch=
-an *chan, int err)
->  		sk->sk_err =3D err;
-> =20
->  		if (parent) {
-> +			sock_hold(parent);
->  			bt_accept_unlink(sk);
->  			parent->sk_data_ready(parent);
-> +			sock_put(parent);
->  		} else {
->  			sk->sk_state_change(sk);
->  		}
-> diff --git a/net/bluetooth/rfcomm/sock.c b/net/bluetooth/rfcomm/sock.c
-> index 958081adb9b5..a16daa68ecb8 100644
-> --- a/net/bluetooth/rfcomm/sock.c
-> +++ b/net/bluetooth/rfcomm/sock.c
-> @@ -78,11 +78,13 @@ static void rfcomm_sk_state_change(struct rfcomm_dlc =
-*d, int err)
-> =20
->  	parent =3D bt_sk(sk)->parent;
->  	if (parent) {
-> +		sock_hold(parent);
->  		if (d->state =3D=3D BT_CLOSED) {
->  			sock_set_flag(sk, SOCK_ZAPPED);
->  			bt_accept_unlink(sk);
->  		}
->  		parent->sk_data_ready(parent);
-> +		sock_put(parent);
->  	} else {
->  		if (d->state =3D=3D BT_CONNECTED)
->  			rfcomm_session_getaddr(d->session,
-
---=20
-Pauli Virtanen
