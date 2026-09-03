@@ -1,47 +1,37 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68481412BFB;
-	Thu,  3 Sep 2026 07:38:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2783C437457;
+	Thu,  3 Sep 2026 07:38:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788421112; cv=none; b=u6QcuuBILjZ0l85AbwHzc9jN4lCFO6O1QHH7gyymRgDArImHRmL2TpWrYBqAdI9Ah0YtIsEikj7EFRSJd62FHPuxMyF6uH+YKxk9cREZNZtPNGqkiqpuJtQGFuqDdAuOnuhhEYVMoEYPfLsEGuXgAVxv+Q+BTJw6tihk+oK5BKU=
+	t=1788421114; cv=none; b=JPjSHBeyOJVRcMp1aBTxhrXgFgWlwe9In1YGM9nJkENZEJ1E2/AeJZPDEDRnjYw1S4VNq3dA2aDRuvhuepykBSQO753eG1j7IlIUszWKjgrQ0+bttpUsG6cZVqjp4UEEf87SSk3E7VDhxWhmgr4FHJAv1WDCIZ9jy0CKnnIeyA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788421112; c=relaxed/simple;
-	bh=TKhqe2TTfNfj5sVgLqQO7VGrRZqhW+HkUrYx9bVViVM=;
+	s=arc-20240116; t=1788421114; c=relaxed/simple;
+	bh=NcdLhXrPcWFclpxrmSESajR2JcjuoXQBKnYxQjejsnA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rOTgKlsBHq2Vdb1z8f2L2c7YM/9SS5msgzjxRk56x2axVJShoMED6VWX9UYdAmcOR5r9Mu1bGnX6Itl7F5/2UbGM0B3ImsjG7V/GHgwUSiRlTfcnxa6EbrdRUxKIYgD1XHH02rx4pmgAR5Vm/AWO1i1EyjzJvDhw6cYdXYHrzoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=x+m0s4cu; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Nj2wLmGt; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	 In-Reply-To:To:Cc; b=m8x676hth5ISUeQ9NIuEhtPHWkjPDFeIsm09YI+PU7SQvY89WY97QCAS2t2k4oUIiwnyhb3k9PvSkL696pusKTOcSLimllH5dM0zsu8Y8XLn4yCljU47wul7PHNEJVIXfDJUL/ytFhJwQsamANpLa9q0ODT5yl5J7KFid/KeYRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q538lbYM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="x+m0s4cu";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Nj2wLmGt"
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788421102;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U8CGbkM5rrJiQ04yKNrLPdNbiL3kdhf4Yu4nKYrxqKI=;
-	b=x+m0s4cubI0u5x4nwbt3Ocpqr9zmMJkURaPzUeEbCmd2KLjdahM7SpWCjwlB3KBvaMUpsI
-	r6nF0DUH2gLH5DyFdyP0WYWw80AzADIUk0l9GTZymJmKAbZTH5aJokr/QTW0KMp6rcC/ek
-	KkS9qMacbaG1eWkjbU/iIQAOK9lD5Pecp37C9vBnovwslG5ytRgL7DraBPqpjsfUGn+8rF
-	RmqXBWsgBHy4viYX96uGxOhhA+4a5Wom8vBpyzg1Iy4UIJ8E+SThsd6SrODm5P0e/FmFKa
-	ZqAq9TSEmRgpPoZIS/Ubhwbp5OrxeTflPUDxvO/+xQhSAqlz5QMFZjKkSNGnwQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788421102;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U8CGbkM5rrJiQ04yKNrLPdNbiL3kdhf4Yu4nKYrxqKI=;
-	b=Nj2wLmGtD8cL2VneksO3+I9rg2EXatGCeMgFtqN12aWw+kXLquIkEOD57+pgjdfp0KdzGC
-	aFV0rqFeMKOh3gBw==
-Date: Thu, 03 Sep 2026 09:38:20 +0200
-Subject: [PATCH v2 8/8] selftests: vDSO: vdso_test_correctness: Use system
- call wrappers from vdso_syscalls.h
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q538lbYM"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DED9AC2BCFF;
+	Thu,  3 Sep 2026 07:38:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788421113;
+	bh=NcdLhXrPcWFclpxrmSESajR2JcjuoXQBKnYxQjejsnA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=Q538lbYMTTPrnheczeSona+XWJylCJHfafHxKrTAs6wn6r963AeuVg2LObxwoWLPi
+	 G3RuF3VZrDdJxRgfArvgTOh2bFZ7MfVTYMPogyIrMcEN88bNCFRqxdoYEJAHocrsfH
+	 JnzZ6HAjPtzBB4H4yZ3aXGBOvIjhuQGztMZZFUkzQOWTEBIHXNpnWlLTJjNjcsMSDo
+	 2mU55UyAESQmwPyRckQvS4yOPyYMcUNUDr1w1ov/f+2X34CtgDWAKog32/Nu0bUCvU
+	 pZWKl46BYPaH9kCOIlEiy1MlXB9iPChS1kb2ZDeGajtfSrnnc7SFnN/kVeGPh04EA5
+	 7Xqd0eB5sJYCQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C45CAC624DB;
+	Thu,  3 Sep 2026 07:38:33 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Date: Thu, 03 Sep 2026 07:38:30 +0000
+Subject: [PATCH v12 3/3] MAINTAINERS: Add an entry for Amlogic DMA driver
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,132 +39,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260903-vdso-test-types-v2-8-1eec04eb3658@linutronix.de>
-References: <20260903-vdso-test-types-v2-0-1eec04eb3658@linutronix.de>
-In-Reply-To: <20260903-vdso-test-types-v2-0-1eec04eb3658@linutronix.de>
-To: Andy Lutomirski <luto@kernel.org>, 
- Vincenzo Frascino <vincenzo.frascino@arm.com>, 
- Shuah Khan <shuah@kernel.org>, Thomas Gleixner <tglx@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788421097; l=3755;
- i=thomas.weissschuh@linutronix.de; s=20240209; h=from:subject:message-id;
- bh=TKhqe2TTfNfj5sVgLqQO7VGrRZqhW+HkUrYx9bVViVM=;
- b=RNGYbkdLMlxJUvW9wM1o6ytG4ocDq2BW+wgUlla0ytqmzPh2ZVF5RSc04tNh2X2vPWqUoN8gG
- GXlJLCEbWSvCFLOGh7fD+r8HSO+EjAFC3f9CMqJbqHLIJV7AD8dFlMX
-X-Developer-Key: i=thomas.weissschuh@linutronix.de; a=ed25519;
- pk=pfvxvpFUDJV2h2nY0FidLUml22uGLSjByFbM6aqQQws=
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-amlogic-dma-v12-3-f769bc344056@amlogic.com>
+References: <20260903-amlogic-dma-v12-0-f769bc344056@amlogic.com>
+In-Reply-To: <20260903-amlogic-dma-v12-0-f769bc344056@amlogic.com>
+To: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ Frank Li <Frank.Li@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, dmaengine@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-hardening@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788421111; l=791;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=9xq7fFe8x3ZtUEb/et7K+dc4J+CzRRN9hABeSR7Mhcs=;
+ b=ES5hG1QHitnj//S1zRt9r6Ao+jjztMG7eGTlhBv2rhpNdy5sPM+uEQr+E50PWKdWIW+UshcLx
+ kntKVGGN5M6Bw4bjdZF5FYH9Hx5axWyzbQDXKrgxcbycpC+RR4XVbLn
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
 
-Using syscall() is problematic for the reasons outlined in vdso_syscalls.h.
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-Use the wrappers from the utility header instead.
+Add Amlogic DMA controller entry to MAINTAINERS to clarify
+the maintainers.
 
-Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
 ---
- .../testing/selftests/vDSO/vdso_test_correctness.c | 44 +++++-----------------
- 1 file changed, 9 insertions(+), 35 deletions(-)
+ MAINTAINERS | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/tools/testing/selftests/vDSO/vdso_test_correctness.c b/tools/testing/selftests/vDSO/vdso_test_correctness.c
-index 83cb408c5947..76133566d747 100644
---- a/tools/testing/selftests/vDSO/vdso_test_correctness.c
-+++ b/tools/testing/selftests/vDSO/vdso_test_correctness.c
-@@ -21,6 +21,7 @@
- #include "parse_vdso.h"
- #include "vdso_config.h"
- #include "vdso_call.h"
-+#include "vdso_syscalls.h"
- #include "vdso_types.h"
- #include "kselftest.h"
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3e7b2d9e9c24..b4ef8d3f52cb 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1307,6 +1307,13 @@ F:	Documentation/devicetree/bindings/perf/amlogic,g12-ddr-pmu.yaml
+ F:	drivers/perf/amlogic/
+ F:	include/soc/amlogic/
  
-@@ -131,31 +132,6 @@ static long sys_getcpu(unsigned * cpu, unsigned * node,
- 	return syscall(__NR_getcpu, cpu, node, cache);
- }
- 
--static inline int sys_clock_gettime(clockid_t id, struct timespec *ts)
--{
--	return syscall(__NR_clock_gettime, id, ts);
--}
--
--static inline int sys_clock_gettime64(clockid_t id, struct __kernel_timespec *ts)
--{
--	return syscall(__NR_clock_gettime64, id, ts);
--}
--
--static inline int sys_gettimeofday(struct timeval *tv, struct timezone *tz)
--{
--	return syscall(__NR_gettimeofday, tv, tz);
--}
--
--static inline __kernel_old_time_t sys_time(__kernel_old_time_t *tloc)
--{
--#ifdef __NR_time
--	return syscall(__NR_time, tloc);
--#else
--	errno = ENOSYS;
--	return -1;
--#endif
--}
--
- static void test_getcpu(void)
- {
- 	printf("[RUN]\tTesting getcpu...\n");
-@@ -247,8 +223,8 @@ static char const * const clocknames[] = {
- 
- static void test_one_clock_gettime(int clock, const char *name)
- {
-+	struct __kernel_timespec start, end;
- 	struct __kernel_old_timespec vdso;
--	struct timespec start, end;
- 	int vdso_ret, end_ret;
- 
- 	printf("[RUN]\tTesting clock_gettime for clock %s (%d)...\n", name, clock);
-@@ -279,9 +255,9 @@ static void test_one_clock_gettime(int clock, const char *name)
- 	}
- 
- 	printf("\t%llu.%09ld %llu.%09ld %llu.%09ld\n",
--	       (unsigned long long)start.tv_sec, start.tv_nsec,
--	       (unsigned long long)vdso.tv_sec, vdso.tv_nsec,
--	       (unsigned long long)end.tv_sec, end.tv_nsec);
-+	       (unsigned long long)start.tv_sec, (unsigned long)start.tv_nsec,
-+	       (unsigned long long)vdso.tv_sec, (unsigned long)vdso.tv_nsec,
-+	       (unsigned long long)end.tv_sec, (unsigned long)end.tv_nsec);
- 
- 	if (!ts_leq(&start, &vdso) || !ts_leq(&vdso, &end)) {
- 		printf("[FAIL]\tTimes are out of sequence\n");
-@@ -315,7 +291,7 @@ static void test_one_clock_gettime64(int clock, const char *name)
- 
- 	printf("[RUN]\tTesting clock_gettime64 for clock %s (%d)...\n", name, clock);
- 
--	if (sys_clock_gettime64(clock, &start) < 0) {
-+	if (sys_clock_gettime(clock, &start) < 0) {
- 		if (errno == EINVAL) {
- 			vdso_ret = VDSO_CALL(vdso_clock_gettime64, 2, clock, &vdso);
- 			if (vdso_ret == -EINVAL) {
-@@ -331,7 +307,7 @@ static void test_one_clock_gettime64(int clock, const char *name)
- 	}
- 
- 	vdso_ret = VDSO_CALL(vdso_clock_gettime64, 2, clock, &vdso);
--	end_ret = sys_clock_gettime64(clock, &end);
-+	end_ret = sys_clock_gettime(clock, &end);
- 
- 	if (vdso_ret != 0 || end_ret != 0) {
- 		printf("[FAIL]\tvDSO returned %d, syscall errno=%d\n",
-@@ -372,10 +348,8 @@ static void test_clock_gettime64(void)
- 
- static void test_gettimeofday(void)
- {
--	struct __kernel_old_timeval vdso;
--	struct kernel_timezone vdso_tz;
--	struct timeval start, end;
--	struct timezone sys_tz;
-+	struct __kernel_old_timeval start, vdso, end;
-+	struct kernel_timezone vdso_tz, sys_tz;
- 	int vdso_ret, end_ret;
- 
- 	if (!vdso_gettimeofday)
++AMLOGIC DMA DRIVER
++M:	Xianwei Zhao <xianwei.zhao@amlogic.com>
++L:	linux-amlogic@lists.infradead.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/dma/amlogic,a9-dma.yaml
++F:	drivers/dma/amlogic-dma.c
++
+ AMLOGIC ISP DRIVER
+ M:	Keke Li <keke.li@amlogic.com>
+ L:	linux-media@vger.kernel.org
 
 -- 
-2.55.0
+2.52.0
+
 
