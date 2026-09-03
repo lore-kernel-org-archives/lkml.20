@@ -1,145 +1,244 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1057B346E6D
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:01:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 72336346E6D;
+	Thu,  3 Sep 2026 08:01:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788422489; cv=none; b=YV+3XywimNBMiB2AtPipO6aVSaeGpDTqekBkt3JfpUHhzxRLX5q6ZzcHRq18YG0AK7yfiaRElivAI9aBHaEPfdd9/kuC0/GZc7f6PmHFp7MA/6nUlRh2HZvgpFQC2seB34EUqHOO8/E27m4/gpCA67bbKQc/D6GD/shEYwI//gA=
+	t=1788422495; cv=none; b=DhzuW8eg/ItsQ7w7nvQnBsW5Kg/1W6GzWSnV5AsKIr5DW0Or7Jc7Vg1nW5HnIhbEMsx7iaX+6v9rf0FUizEljt4KUU7hfcMdrMzptEqy8GG5AVmrvBZzTXk+FSb5AuTpPjgbYWRb+3tiJcpyMxgirZHnyV/gQpe2uwkr8+FMF6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788422489; c=relaxed/simple;
-	bh=6MRqnVTlxXGBzhgaGNkyW1sNAZ4bxwtiZcZhRiQo8Ko=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D/oNmadqkvoZxMGxYaJkmy28aALO5jgGn1wWzYZEGOS9pXV+sXAo4I6Gyw5Gm2Jo8Ee6i8Ic45ykYpjwhlJ7epBngKVyM5qGRSOBnJrczp6KK/GRGsPhY/UGCrODeTSgLOqtTMkfXC+23ozqIBxlSKZcrM8wddp213mTuYuVrq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EH2KB9XU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AT55MxGo; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788422495; c=relaxed/simple;
+	bh=vpfLl3XOI7rlkVuJq1PgI2vEBKX0lNQYwDmbXu4z21o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Kzu6nisdDDd7jdQyHQETqPPFPUg0SIMEK7GidXJZzJgXDblbg2tbNhcPQ7lPut5cPu1FjLDiHbHxfGv7s/mBhaJUY19GyhUQfwLns5zBiXWs2yJylNcpA8GnMWKIyvuwJ6JWH0/zF5EiC/oUzS9qCMFapu/B9yUwccMftSimLP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=iuf0Zpbh; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EH2KB9XU";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AT55MxGo"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6835lwte4024082
-	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 08:01:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	dmM7iBOQ1i95ug6zS/ezSi0RAiN0WC9qiHtcQPdMu6U=; b=EH2KB9XUXauUdDd6
-	1c/kq/v+kzwIG4Up54zwXz3Pl3REZfAhKegVSni9D1vTSrcbfDPp7ToitnY9WcRe
-	uM3LEQ5Qx/Dj1FI5LoAL3ak15oa3+E1kX1Tt1co5bcSeg21D1YI6IBur8033Ctcy
-	gTimGjm4N9VQYRy+a0TMdFdc+m+mTt4eE6uzc9i8jj0aVFz4eXJuGOb1wj74idCJ
-	4s5IblQHZW/1D5VCtk/xEwMS8/Q74kcEJVNuyW93tUyga7ox52sqVkMnboSpqUBs
-	tmbdHIBF8PuzpdHOLycwD9azE5OrdIw8asH3/nx7lkkaZkFlLnDtnbuwQ0CGZORl
-	DLmq5g==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gemjhc403-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:01:26 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-784f9401a7dso96953137.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 01:01:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788422486; x=1789027286; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dmM7iBOQ1i95ug6zS/ezSi0RAiN0WC9qiHtcQPdMu6U=;
-        b=AT55MxGoWGB7T9b9vc5CVN/BgKHFpmMtTTQsotH+2JYjPbcFqsd4xvQ4dlYHPEV1KE
-         dF15Tgt0bEy8DF5U5p2vYPIV9VrVGMjU/eT7uzSm5BQMSAIGBgAYJvdQZnbKhsau169B
-         GzK5Zkh3/4Zbg4iCVmse8MOZLmQzd3xXQuPRch88Eyl0XSGi2lnKfc45i7o832Xxs3KB
-         n2T8iRWvovkoL/RGbfd2+KOBLUA5RrxVUd4l6uKoo7v1VOB9UHO20DEvL4BjD3IDd1Wj
-         vGxQmJKKOrtAv2kiZt+faUrUEepfiFnYhvwGmi0jlJZqSzNUN8U9vIMCBdEj/Z1SzVwd
-         bHpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788422486; x=1789027286;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dmM7iBOQ1i95ug6zS/ezSi0RAiN0WC9qiHtcQPdMu6U=;
-        b=lPQZA9dDupkYP2uNZfzUu01LIfQhVHKg3ozUKNm0Hw+/POHOyhtwjIvihw9Ij3lVbf
-         bjYko1N8xmXEtRynRhfP3CDEBmoOpksT/2CYb3zeVy81A5cihW58iywXoNFgUD/Z4mlv
-         wyij6Pu7JCfVMKfK4R1+5u1BAwa6QtQ6HU6LrvXVYzOKvF/ImKWOAOita6JN/tFs4HUi
-         X2+n1l9NI68EMg/UHD+/xmWSdMe7oiBsG/eKiT4r4pkxWOAGCgP7+hRUnx+AKbmp/YVa
-         uU5L72KmGWHpfSIx50BlqqQFgwTH1SZaf4/O9eV4lrueR/YVef6Q9y6gjWHfNk3nQ1lq
-         y6XQ==
-X-Forwarded-Encrypted: i=1; AKwUvByZzJajwrzLxVEyQpxMI/F0aIWEEa4M0t0pDQ0RaZNF+JuD4QlBfJQxm0jhLrbzLYK+KGIp7sSljU9SpKo=@vger.kernel.org
-X-Gm-Message-State: AFuF++k6nzXbgeWOsFB7bLoN2W1YqVgJWvUTWjo8Hz1WucAWOKVLS8e8
-	qDJi0SM1ASZXK0RpHIezgHxze/8lOfpYCCHYQzv9U4vzs7HocTpijNB9Lygd2BnzK3Aytjs2E1U
-	iGCvl6TtlegIrQK6kbJqEAru9npiJ5BX6pq8szq4o+DbQqa4Mu3dCFTVheOl7gpV9Y44=
-X-Gm-Gg: AYBFou13glDGw9PISrLTolXn0dLq2eBwx3mNkfbppzSAz2eBAZeCuJ4TAuuMfpsYdc/
-	68bX6doz5OF6MyNSPHpVQ4hYPBT3xwwo7DiAOxYP0tq7Tn3BxfAg4SMP1OHVvMw3NiDtZHWE/70
-	a21AHz2xxOVapba90Ae1ZerMXF5JWZY0Nq9H3q+BU2ipTl238CxuL+kAM4McnKYanJmjaW8UZRR
-	Sr/lek85C4UlKQ3x5DV6xditD7dBXbWyK0kOR2qEApQTEkMnNRaqbdia20pGb9KsLP49Kamcoo0
-	DoeeQXIKFCDTzYc/Sa38kzWmevi7X1hgWrYN32HSkyM9cqUJL2EIFsInjF3qw9wGaFylqbZtRxX
-	zam2LXg+BbfysQEUwo4PV2g==
-X-Received: by 2002:a05:6102:3a06:b0:786:d38d:f7c2 with SMTP id ada2fe7eead31-78a1f29d57amr1512217137.1.1788422486164;
-        Thu, 03 Sep 2026 01:01:26 -0700 (PDT)
-X-Received: by 2002:a05:6102:3a06:b0:786:d38d:f7c2 with SMTP id ada2fe7eead31-78a1f29d57amr1512127137.1.1788422480769;
-        Thu, 03 Sep 2026 01:01:20 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25f424528esm59563266b.59.2026.09.03.01.01.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 01:01:20 -0700 (PDT)
-Message-ID: <f7eb5a26-43e8-479c-b20c-cbf53ce54940@oss.qualcomm.com>
-Date: Thu, 3 Sep 2026 10:01:18 +0200
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="iuf0Zpbh"
+Received: from localhost (unknown [167.220.233.38])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 47F8F20B712B;
+	Thu,  3 Sep 2026 01:00:54 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 47F8F20B712B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1788422454;
+	bh=nBs8WjtPOPK/iPmNWaCpV8vwPsHWUeve/Fx6Ar0apQE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=iuf0ZpbhptHZ3cl4mdiP/4Cs20dPAJkKGF4XqAPMA12nffuZxczgkKZQYjeR2BctP
+	 atftrvhceIwIILopc5hfHxR3bKFtt+w1Riclz+/kBPA03AtigMIzyy5EXQyzlUu+tV
+	 f0nnpBM2QTvdnS0chPp0DGX4fSi9HD5b++yxWaa8=
+Date: Thu, 3 Sep 2026 16:01:29 +0800
+From: Yu Zhang <zhangyu1@linux.microsoft.com>
+To: Michael Kelley <mhklinux@outlook.com>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>, "iommu@lists.linux.dev" <iommu@lists.linux.dev>, 
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>, 
+	"x86@kernel.org" <x86@kernel.org>, "wei.liu@kernel.org" <wei.liu@kernel.org>, 
+	"kys@microsoft.com" <kys@microsoft.com>, "haiyangz@microsoft.com" <haiyangz@microsoft.com>, 
+	"decui@microsoft.com" <decui@microsoft.com>, "longli@microsoft.com" <longli@microsoft.com>, 
+	"joro@8bytes.org" <joro@8bytes.org>, "will@kernel.org" <will@kernel.org>, 
+	"robin.murphy@arm.com" <robin.murphy@arm.com>, "bhelgaas@google.com" <bhelgaas@google.com>, 
+	"kwilczynski@kernel.org" <kwilczynski@kernel.org>, "lpieralisi@kernel.org" <lpieralisi@kernel.org>, 
+	"mani@kernel.org" <mani@kernel.org>, "robh@kernel.org" <robh@kernel.org>, 
+	"arnd@arndb.de" <arnd@arndb.de>, "jgg@ziepe.ca" <jgg@ziepe.ca>, 
+	"jacob.pan@linux.microsoft.com" <jacob.pan@linux.microsoft.com>, "tgopinath@linux.microsoft.com" <tgopinath@linux.microsoft.com>, 
+	"easwar.hariharan@linux.microsoft.com" <easwar.hariharan@linux.microsoft.com>, "mrathor@linux.microsoft.com" <mrathor@linux.microsoft.com>, 
+	"baolu.lu@linux.intel.com" <baolu.lu@linux.intel.com>, "suravee.suthikulpanit@amd.com" <suravee.suthikulpanit@amd.com>, 
+	"vasant.hegde@amd.com" <vasant.hegde@amd.com>
+Subject: Re: [PATCH v4 4/5] iommu/hyperv: Add para-virtualized IOMMU support
+ for Hyper-V guest
+Message-ID: <xgcx7tq47d6wlw7glk7yoka5qr32hxv3rlrdzaw5i2kzs7b7s5@7xdljgmwo77n>
+References: <20260821132654.211730-1-zhangyu1@linux.microsoft.com>
+ <20260821132654.211730-5-zhangyu1@linux.microsoft.com>
+ <BN7PR02MB41489C44F11D14DDCEF925C7D4AC2@BN7PR02MB4148.namprd02.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/2] arm64: dts: qcom: shikra: enable ST33 TPM
-To: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260903-shikra-dtpm-v5-0-e8ea3ac8a135@oss.qualcomm.com>
- <20260903-shikra-dtpm-v5-2-e8ea3ac8a135@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260903-shikra-dtpm-v5-2-e8ea3ac8a135@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: eYbeZgoHDnm7N4cwVX2rXUPV8CkKBWwI
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA3MSBTYWx0ZWRfXwQy9SL30lx0j
- 7YZaUYDEX1gIXNoJfebgJWj+PuLLzx7234zRl4ONa8Nk8DccPqjGHsxmhuQ5evwHRvF4SWPpO17
- cki63Ny4A5Q4vriPhjzHie7M6F/kT3ExSj4OWjmQQjmvP14QWJ2FjbVbdjBp/96KmPStF9Z0gDG
- tGGH7noVrXhf4k2sQjv+dxrREmRTJivrdMqbBNyQeDgO98R0B7LkGmPhQUHa9WVRgizg83AAWPL
- 5pXXVbQqvMcsscVX9Fau2dytfWPpRd+VkbdXNN8hY3zrcXtbUr2DK/iVDXRlNDyFsSNeJl2fbDG
- UcGquT2ttMNqLz503lf1CZCb44Sh2nAFc2t9t9ozQwTlU1s+bv0s3Wv1Y3w4ss/ilftkpEbsqXJ
- nVai0YMRZ3+cvkwSD+VhbwNyrdrPX2r9pnyhNlqgmAGHp4aJHgmVqlGcRLxNZrNDxJbCN0L/AgU
- zCk1hOC/uKMVt11SRkQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA3MSBTYWx0ZWRfX4dvtGnn05m1V
- odYB9Xt+e6Pmum3v3F4NAb0ltLwmd/K58QTmtIMrDajgD6mDk5y025J6STTX1YYH7KTcC8w0LCu
- 2ItlhZhsX09FKh5Ra8nQ6mWftXBjvT0=
-X-Authority-Analysis: v=2.4 cv=ErHiaycA c=1 sm=1 tr=0 ts=6a992956 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=yLgYBEAqgqfNvTdY-4EA:9 a=QEXdDO2ut3YA:10
- a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-ORIG-GUID: eYbeZgoHDnm7N4cwVX2rXUPV8CkKBWwI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_02,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 adultscore=0 malwarescore=0 spamscore=0
- impostorscore=0 priorityscore=1501 lowpriorityscore=0 suspectscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609030071
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <BN7PR02MB41489C44F11D14DDCEF925C7D4AC2@BN7PR02MB4148.namprd02.prod.outlook.com>
 
-On 9/3/26 9:18 AM, Khalid Faisal Ansari wrote:
-> Enable ST33HTPM TPM over SPI5 on the Shikra IoT EVK by adding the
-> required SPI and TPM nodes.
+On Fri, Aug 28, 2026 at 05:22:25PM +0000, Michael Kelley wrote:
+> From: Yu Zhang <zhangyu1@linux.microsoft.com> Sent: Friday, August 21, 2026 6:27 AM
+> > 
+> > Add a para-virtualized IOMMU driver for Linux guests running on Hyper-V.
+> > This driver implements stage-1 IO translation within the guest OS.
+> > It integrates with the Linux IOMMU core, utilizing Hyper-V hypercalls
+> > for:
+> >  - Capability discovery
+> >  - Domain allocation, configuration, and deallocation
+> >  - Device attachment and detachment
+> >  - IOTLB invalidation
+> > 
+> > The driver constructs x86-compatible stage-1 IO page tables in the
+> > guest memory using consolidated IO page table helpers. This allows
+> > the guest to manage stage-1 translations independently of vendor-
+> > specific drivers (like Intel VT-d or AMD IOMMU).
+> > 
+> > Hyper-V consumes this stage-1 IO page table when a device domain is
+> > created and configured, and nests it with the host's stage-2 IO page
+> > tables, therefore eliminating the VM exits for guest IOMMU mapping
+> > operations. For unmapping operations, VM exits to perform the IOTLB
+> > flush are still unavoidable.
+> > 
+> > Guest hibernation and resume are not supported by this initial
+> > implementation. The guest-owned stage-1 page tables reside in guest
+> > memory and are preserved in the hibernation image. However, the image
+> > does not by itself preserve the Hyper-V device-domain objects or their
+> > device attachments, and the current pvIOMMU interface does not define
+> > whether or how Hyper-V restores that state.
+> > 
+> > To identify a device in its hypercall interface, the driver looks up the
+> > logical device ID prefix registered for the device's PCI domain (see the
+> > logical device ID registry in hv_common.c) and combines it with the PCI
+> > function number of the endpoint device.
+> > 
+> > Co-developed-by: Wei Liu <wei.liu@kernel.org>
+> > Signed-off-by: Wei Liu <wei.liu@kernel.org>
+> > Co-developed-by: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
+> > Signed-off-by: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
+> > Signed-off-by: Yu Zhang <zhangyu1@linux.microsoft.com>
+> > Reviewed-by: Jacob Pan <jacob.pan@linux.microsoft.com>
+> > ---
+> >  arch/x86/hyperv/hv_init.c             |   4 +
+> >  arch/x86/include/asm/mshyperv.h       |   4 +
+> >  drivers/iommu/Kconfig                 |   1 +
+> >  drivers/iommu/hyperv/Kconfig          |  16 +
+> >  drivers/iommu/hyperv/Makefile         |   1 +
+> >  drivers/iommu/hyperv/hv-iommu-guest.c | 620 ++++++++++++++++++++++++++
+> >  drivers/iommu/hyperv/iommu.h          |  49 ++
+> >  7 files changed, 695 insertions(+)
+> >  create mode 100644 drivers/iommu/hyperv/Kconfig
+> >  create mode 100644 drivers/iommu/hyperv/hv-iommu-guest.c
+> >  create mode 100644 drivers/iommu/hyperv/iommu.h
+> > 
 > 
-> Signed-off-by: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>
-> ---
+> [snip]
+> 
+> > +
+> > +static int hv_iommu_attach_dev(struct iommu_domain *domain, struct device *dev,
+> > +			       struct iommu_domain *old)
+> > +{
+> > +	u64 status;
+> > +	u32 prefix;
+> > +	unsigned long flags;
+> > +	struct pci_dev *pdev;
+> > +	struct hv_input_attach_device_domain *input;
+> > +	struct hv_iommu_domain *hv_domain = to_hv_iommu_domain(domain);
+> > +	int ret;
+> > +
+> > +	pdev = to_pci_dev(dev);
+> > +	dev_dbg(dev, "attaching to domain %d\n",
+> > +		hv_domain->device_domain.domain_id.id);
+> > +
+> > +	ret = hv_pci_lookup_dev_id(pci_domain_nr(pdev->bus), &prefix);
+> > +	if (ret) {
+> > +		dev_err(&pdev->dev, "no IOMMU registration for vPCI bus\n");
+> 
+> Nit: Given that the device id registration is independent of IOMMUs,
+> this message seems a bit off. Maybe just drop "IOMMU"?
+> 
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+How about making the message more explicit and including the lookup key?
+E.g.,
 
-Konrad
+	pci_domain = pci_domain_nr(pdev->bus);
+	ret = hv_pci_lookup_dev_id(pci_domain, &prefix);
+	if (ret) {
+		dev_err(dev,
+			"no logical device ID registered for PCI domain %04x\n",
+			pci_domain);
+		return ret;
+	}
+
+> > +		return ret;
+> > +	}
+> > +
+> > +	local_irq_save(flags);
+> > +
+> > +	input = *this_cpu_ptr(hyperv_pcpu_input_arg);
+> > +	memset(input, 0, sizeof(*input));
+> > +	input->device_domain = hv_domain->device_domain;
+> > +	input->device_id.as_uint64 = (u64)prefix | PCI_FUNC(pdev->devfn);
+> > +	status = hv_do_hypercall(HVCALL_ATTACH_DEVICE_DOMAIN, input, NULL);
+> > +
+> > +	local_irq_restore(flags);
+> > +
+> > +	if (!hv_result_success(status) &&
+> > +	    hv_result(status) != HV_STATUS_DEVICE_ALREADY_IN_DOMAIN) {
+> > +		hv_status_err(status, "HVCALL_ATTACH_DEVICE_DOMAIN failed\n");
+> > +		return hv_result_to_errno(status);
+> > +	}
+> > +
+> > +	if (domain != &hv_blocking_domain.domain &&
+> > +	    !pdev->ats_enabled &&
+> > +	    hv_iommu_ats_supported(hv_iommu_device->cap) &&
+> 
+> Nit: In other places where the hv_domain is available, 
+> hv_domain->hv_iommu is used instead of directly accessing
+> hv_iommu_device. That's a good practice that limits references
+> to the static variable hv_iommu_device in case future enhancements
+> allow multiple IOMMUs in a VM. I'd suggest doing the same here.
+> 
+
+Good point. Will use hv_domain->hv_iommu.
+
+> > +	    pci_ats_supported(pdev))
+> > +		pci_enable_ats(pdev, PAGE_SHIFT);
+> > +
+> > +	return 0;
+> > +}
+> > +
+> 
+> [snip]
+> 
+> > +
+> > +static struct iommu_device *hv_iommu_probe_device(struct device *dev)
+> > +{
+> > +	struct hv_iommu_endpoint *vdev;
+> > +	struct hv_output_get_logical_device_property device_iommu_property = {0};
+> > +
+> > +	if (!dev_is_pci(dev))
+> > +		return ERR_PTR(-ENODEV);
+> > +
+> > +	if (hv_iommu_get_logical_device_property(dev,
+> > +						 HV_LOGICAL_DEVICE_PROPERTY_PVIOMMU,
+> > +						 &device_iommu_property) ||
+> > +	    !(device_iommu_property.device_iommu & HV_DEVICE_IOMMU_ENABLED))
+> > +		return ERR_PTR(-ENODEV);
+> > +
+> > +	vdev = kzalloc_obj(*vdev, GFP_KERNEL);
+> > +	if (!vdev)
+> > +		return ERR_PTR(-ENOMEM);
+> > +
+> > +	vdev->dev = dev;
+> > +	vdev->hv_iommu = hv_iommu_device;
+> > +	dev_iommu_priv_set(dev, vdev);
+> 
+> This struct hv_iommu_endpoint is set up, but doesn't seem to be
+> used for anything except to free it. Am I missing some reason that
+> it exists?
+> 
+
+Hah! You aren not missing anything. :)
+
+This structure used to carry more per-device state. In v3, it also
+contained hv_domain, which tracked the currently attached domain and
+was used to skip a duplicate blocking domain attach. v4 removed the
+hv_domain field in struct hv_iommu_endpiont, and also the redundant
+ATS cleanup in release_device().
+
+Next, I will remove struct hv_iommu_endpoint, its allocation, the
+dev_iommu_priv_set()/get() calls, the release_device() callback, and
+the corresponding iommu_ops entry. hv_iommu_probe_device() can return
+&hv_iommu_device->iommu  directly.
+
+If future work needs any per-device state, we can introduce the structure
+again. Keeping an unused data structure in the current code is indeed
+not a good practice. Thanks for pointing this out!
+
+B.R.
+Yu
+
