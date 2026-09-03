@@ -1,152 +1,112 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF0454C9548
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:09:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 760A64C954A
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:10:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448174; cv=none; b=dDEv+gjwvoG6q1dug0xCm7PVCbp0XVk0Kquw6xq2XTZFgzBX5UNtVGF0+cwSdO2SGQV7JciQDlbb/v7GD2gpY6umCYrd0ipN0XwRXe4sQAOLjxtgDZQDFvz+n/jkkAObqOrUVJvOuVw/zS6+kNzRJxLpVeFNNEUITFu34aqFe+o=
+	t=1788448216; cv=none; b=BhCX0R/ioJQf/8NeGh8lpUfSbLA/aOqYApx/3Ey6WPqYf0FhW68KVN9LVC0ZlWd56CKDN8DR3HWh/Xrjqkz0U1AFCbKsMwyQccXea1P18vCQVSYPMO5xG6cl0O6U/t+Baf0mrNqsxuMzu7Bc+wct4WO2wt0xrPTr0L2U2PB6/Vk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448174; c=relaxed/simple;
-	bh=WLq5Ho22bmD7v6KZE3c4vo4tWl6YYYaL+ylKWHH1z3U=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=UrYG60QywkvBs+ZV9nf6+vP0S3X6HtUQE1/g9jq+Tq7JK0TSqlX6pDYUZ/qP3kC7Hfj+568lT+FzsDgwhbOpgfwV6COo2rqDXSlxHMdYOHbv7/iulGlPwqn24UJjGuKwsCIsr/IiNHM0QZpovbnGOlXlTJLsseU243puTg/rXuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZbXnyCvN; arc=none smtp.client-ip=209.85.210.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788448216; c=relaxed/simple;
+	bh=8J90Ed2D/rtqP02MQLzuBC5Hms7Bsqc75+pcmBQqAac=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=efUmCzmIt+sLJcBmAgWk9j6XYd9pFf+XgR+c1+eQ2PxdrqRzhbz+0zZroA/hqEBbYPrpwKwbXMIoqi+5xMaJCFy4PuEX6VpcV80j8xhBxkb5aL0cLx2ZzbEqe016IagM4gcJncUMMhzZoDvAnvEINKRfucBl2wnWRQFbmUKwf3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=DeIQCEvM; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZbXnyCvN"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8485b358552so2314149b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:09:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="DeIQCEvM"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so28063235e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:10:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788448172; x=1789052972; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WLq5Ho22bmD7v6KZE3c4vo4tWl6YYYaL+ylKWHH1z3U=;
-        b=ZbXnyCvNln74VouIHm+SJeWD9gifEcSd36Nw4o4hmYS6OdGxlHoUj1ZxPO2pgqVulU
-         oJHsZujnO6830bMb3M8GdtN7ZKRQf1LTrGVofCmSkeXE4iwxztmCsaHuUBFZCm9FW2o8
-         R6mIZVHW61aIJzlXLLoTYiMf0pGGqzW7kr0inDCDnSt9dwzHYGd+ugmtEbbg+8GSCV8V
-         YRdIA2B8ixsr8W4rbBrK3lUKCrJfwC9eFE/0EJ5f6rATLyptm1+TgSVnDlDImulfSW84
-         gRsomebg+XX6eHClARNJkKORBh8ibx9Jc+k7i0+CvFf+5e2JHw7x851f9U2jJgJmjj/k
-         LktQ==
+        d=suse.com; s=google; t=1788448212; x=1789053012; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SkAW4/zjROg/ZMAKrB6BCuRDhmC7IAP5Om0nwRBdBSU=;
+        b=DeIQCEvMN/LygjE4MPesfpylmfThQDyxfZx3FSG0MkLxfSpWE/ACgPp30mWJPkLDm8
+         QN/cR1ABFeaVPqG47iLQblxX+YNWl/WmfeKqBESs2tjdNbTsiYr16Bck7i3T+S9JDHWN
+         mMsdx07Sze8TBuf+pSqSZwOLfwMVflF7QJFlgjWsqmXJF45yY6p+G8WSC5rh9C2akiDf
+         bJT5kBBQvd56hozyCok3igpb52DGEi0Sjhv4rmnGj+Dy8mt2HOklll6697to1Ytk55sR
+         ZLnncSFgqD4BLj1W37znBkVq5dBIi9mTpY6eLzLc2BhJ5UFn/ZtJqV5hp6HhR7gabUBE
+         +4JQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788448172; x=1789052972;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WLq5Ho22bmD7v6KZE3c4vo4tWl6YYYaL+ylKWHH1z3U=;
-        b=qznpozoT8P47kHj/3j+BdtsDuOOPqamDTDMnzYd+b/JPvASGJ7TnK83G4HUZAQZA7+
-         3j+nYbBDAu0YtkZWITfJLfvxnEPIuvowt5lWESvcxGvaFz1sy3UXIOnv1cyU6dD/6R0e
-         mHsGoiqD35pd2A+1m1+IRaLk0RWIGxw3B+zARIL+6dXkP6NaK5wrYloRMhe6lI6twAni
-         dRXWUlMsFQ0RsIMywVLpkC600h5kFZ9yury38dIUSfo5IFxUWkkmD0yqGRbU5UcLBSKO
-         lMv0h0rJkpoHMmoLIvIi9WUVH6k7BrMZfv3OvhCkjwqYDN4pgrLB3BV9nMv80Y3szsOz
-         XxdQ==
-X-Forwarded-Encrypted: i=1; AKwUvByQi9WYwzT/myl4ZML/YC88jN4CTzKwzS529At8iC4kOt9k51FtjKnUpI4buVuYCsAMYMoYmONuQWbeglo=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8+uY6CQUGtDV/5g7s5L7npqiMMFwbFCLq8g0IN/OmeYU1E4Zt
-	ZGFFAKFJF4GIk4At4/9ekO1lT5tsgMHTdWfPBXnxV+3b6waqw379Tkqu
-X-Gm-Gg: AYBFou3s6BlUlVPHMUCtN9gkemxs8+F+B7iTCdwzPDXEoLH43x8KKYUv3PaS0rAIrGx
-	lPOLQXorP6r1JMvXJn4sazAOCS6GIc2fY3B98WT/RiAa2acBIuojpSifr7m1owWZlUY2S6PL+WP
-	IY6RxAnbqsDg61R0LL/yCaq8mXAzaGdzZ65oL3OIO3Fd9QoX32ko/loRwd2f4468XnSojroap+7
-	snjS4AWwlEXtRmnnX6BSEShRp8PPSS4MA51S1RSvxrzFzSK64sATk/+0Q9kwFNkjsvMSJB7ukmK
-	fy3JgSK0pbZULgy97A3t4GdXkDnlEveOo/ehqCybKWbtUJ++gjb3Ww1Mr5WUxHPJJ0yFHU7qF3q
-	AI6Lu88jsBI3PaFUWJDpcOQMwbnK6AmODjKL33s3XSYpovh7vgQyb7w9/xpFBZMde07Isu57VHr
-	GZRNqfqoTfoh75O/tQeJnvjWJVitI6PAlySjRsqFckWgTBTJ7pvl9zJjRVWpdcI5hXXSoQrC2GP
-	2gnxQ==
-X-Received: by 2002:a05:6a00:301f:b0:852:355b:2430 with SMTP id d2e1a72fcca58-85ed23e043emr19151323b3a.10.1788448171946;
-        Thu, 03 Sep 2026 08:09:31 -0700 (PDT)
-Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8614f871fc6sm70289b3a.7.2026.09.03.08.09.26
+        d=1e100.net; s=20251104; t=1788448212; x=1789053012;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SkAW4/zjROg/ZMAKrB6BCuRDhmC7IAP5Om0nwRBdBSU=;
+        b=DKtDXjLHGKmO/7xmKu/2CFMQ3aDd67hDYe1PWYdsLBcdyjviDkRaLcqBtSZGAV2qoj
+         K0XLj0GqZEmfE8gf9O/4HPGzG1vhRPfAHvu8TOAgOt14lcL5yjOFL6/iZ+1nzqxS+KIV
+         5dUbQ3lnZayeSSKlQlArgoEiqHoMM6SCZxUGSNz1S5wlbUQHMOHK0P+ndD6j622OtaX6
+         Auht2it272XVp11Shxp1ZIC3kKnCxal/124rGWiO18tMxGem0nojcjudekEQcXgEMZiw
+         LaUBA1+RmVZebeUm6t3WBV7uBsslIjNGatRXIH7v6SZH723csqLj1UQlPD/5Y4ZFEUr7
+         nWGA==
+X-Forwarded-Encrypted: i=1; AKwUvBy8g1UrsEnUqzv/82oARbHPz6Eir+u4ueG5897evD8uXCZpIVs1wpJB+PgFX6awz9aKHOIK/bhVD/Tg8IM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kTfgBtYY05tY6/KnlnelSEmEkFRP4qCrrMd69bHtD0c5BcPHUW
+	/NTV/JImW/aeXBCGbi81ArbrD9XKP1T6AAH5eG3DtQjaKB74WWeHx7iz7yOMmK0uVu/gYIEbrzQ
+	xrl3MQg0=
+X-Gm-Gg: AYBFou0Xo7xS4j7AW2mmkcew2kbwFRKR813CKcHb2mEz4hvN/4w7vslvyr9drmOVZyh
+	g2vS3Jjs+J4PHivJG6gCEIM73a2RU0Gtnf2tfBDVcmZ1x3EH7lR++G3pzYCcT0XnePiBflQNppp
+	lLWZ1mrmozv/RoKCJVn0y5E2S6ipTAyZ8i1N/rMXJy1tr9YIDGoY1gr+FZC0FGZM2teFEHqxnse
+	1JKb3m9pFtovvsuqBtANh7j5OgqRkvqKtSCY1dv0mmAyMx9v1nd06N/uTKlOAsXKHjPiZ7VWw0l
+	3acj4F/2+aP/lIEH0dgnSeWXeHhYMKfx7Wn8krzTNfwzGcxWAbGFFgZteMX0BVdgLwrWKIofl8S
+	9NqaHLnkq/jwDJi0IQgT1tMT2q4aUFjsEft7mfxpmcvpFzhREjF24vrGUAV+flGUL2oBzfmj3QZ
+	MdlaKXM3PlqS8jsRe9VBU0eika5MPNsABfa/7YQHLc5WXbs+kteg52FlH/umW8+opiIPxsUZKr7
+	jvun4ECFk78sSA=
+X-Received: by 2002:a05:600c:530e:b0:49c:d618:e341 with SMTP id 5b1f17b1804b1-49ce584bb4amr261348025e9.14.1788448212253;
+        Thu, 03 Sep 2026 08:10:12 -0700 (PDT)
+Received: from pathway.suse.cz (nat2.prg.suse.com. [195.250.132.146])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5d6029sm80054035e9.6.2026.09.03.08.10.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 08:09:31 -0700 (PDT)
-From: Bo Zhang <zhangbo0325@gmail.com>
-X-Google-Original-From: Bo Zhang <zhangbo56@xiaomi.com>
-To: akpm@linux-foundation.org,
-	vbabka@kernel.org,
-	david@kernel.org
-Cc: surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	ljs@kernel.org,
-	liam@infradead.org,
-	rppt@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	kasong@tencent.com,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	zhaonanzhe@xiaomi.com,
-	lipengfei28@xiaomi.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 4/4] mm: adjust free_pages to make __zone_watermark_ok() mTHP-aware
-Date: Thu,  3 Sep 2026 23:09:17 +0800
-Message-Id: <20260903150917.4112784-1-zhangbo56@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260825043833.2659350-5-zhangbo56@xiaomi.com>
-References: <20260825043833.2659350-5-zhangbo56@xiaomi.com>
+        Thu, 03 Sep 2026 08:10:11 -0700 (PDT)
+Date: Thu, 3 Sep 2026 17:10:09 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: Xiaochun Li <lixiaochun@open-hieco.net>
+Cc: rostedt@goodmis.org, john.ogness@linutronix.de,
+	senozhatsky@chromium.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] printk: Remove remaining boot consoles when a real
+ console exists
+Message-ID: <apmN0dNBL4anb3Qk@pathway.suse.cz>
+References: <20260821071721.178517-1-lixiaochun@open-hieco.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260821071721.178517-1-lixiaochun@open-hieco.net>
 
-Thanks for the review. (The "defrag_mode & order" bitwise bug was already
-covered in the reply to Xueyuan Chen; it will use "&&" in v2.) Replying to
-the other two points below.
+On Fri 2026-08-21 15:17:21, Xiaochun Li wrote:
+> Boot consoles are temporary and should be removed once a real console is
+> available. However, the late init cleanup currently only unregisters boot
+> consoles that use init section memory. Other boot consoles are expected
+> to be removed when the real preferred console is registered.
+> 
+> This does not cover cases where a real console has registered, but the
+> boot console was not removed because the real console did not become the
+> preferred console. For example, with multiple console= parameters using
+> the same driver, a real 8250 console may be enabled while the early
+> console remains registered. The result is duplicate printk output from
+> both consoles.
+> 
+> In the mailing list discussion, two possible approaches were suggested
+> to fix this problem [1]. This patch implements the first one: during
+> printk_late_init(), check whether at least one real console is already
+> registered. If so, unregister all remaining boot consoles. If no real
+> console exists yet, keep the existing behavior and unregister only boot
+> consoles that reference init section memory, avoiding a period with no
+> console output while waiting for a deferred or modular real console.
+> 
+> Suggested-by: Petr Mladek <pmladek@suse.com>
+> Link: https://lore.kernel.org/lkml/ahBsSW2bB2CRfW-k@pathway.suse.cz/ # [1]
+> Signed-off-by: Xiaochun Li <lixiaochun@open-hieco.net>
 
-1) mTHP count discarded by the percpu_drift_mark fallback
+JFYI, the patch has been comitted into printk/linux.git,
+branch for-7.4-console-registration.
 
-Sashiko says
-
-"The restricted mTHP free_pages count is being compared against
-zone->percpu_drift_mark, which is tuned for the total number of free pages
-... won't this condition almost always evaluate to true under memory
-pressure? If so, it would unconditionally overwrite free_pages with the
-snapshot of NR_FREE_PAGES, bypassing the new mTHP logic entirely."
-
-Right. percpu_drift_mark is calibrated against total free pages. Under
-fragmentation or memory pressure - exactly when pgdat_balanced() matters -
-the >= mTHP-order free blocks shrink relative to total free pages, so the
-mTHP subset drops below percpu_drift_mark and the snapshot overwrites it,
-bypassing the mTHP value. In any case the drift correction shouldn't apply
-to the mTHP path: it reads free_area directly, which is already exact and
-not subject to per-cpu drift.
-
-2) Restricted subset can go negative in __zone_watermark_ok()
-
-Sashiko says
-
-"Since __zone_watermark_unusable_free() includes all order-0 cma and
-highatomic pages across the entire zone, subtracting the global unusable
-total from the heavily restricted subset can push free_pages negative. This
-fails the watermark check permanently and can cause kswapd to spin
-endlessly."
-
-The operand mismatch is a pre-existing pattern, not something this patch
-introduces: the existing defrag_mode path already feeds a subset
-(NR_FREE_PAGES_BLOCKS, only >= pageblock_order) into __zone_watermark_ok()
-the same way, and my mTHP subset (>= order-2) is actually a superset of
-that, so it's larger and less likely to go negative. Going negative would
-require an extreme case - near-zero free blocks of the target order plus a
-non-trivial amount of free CMA/highatomic. If the existing order-9 subset
-path doesn't need special handling here, the order-2 subset doesn't either,
-so I don't plan to change this behavior in the series.
-
-For point 1, the initial free_pages goes through zone_effective_free_pages()
-(three paths: blocks / mTHP subset / total), but the percpu_drift snapshot
-fallback only has two paths and has no mTHP case, so the mTHP subset falls
-into the NR_FREE_PAGES total path and gets overwritten. In v2 I'll make the
-snapshot fallback symmetric with zone_effective_free_pages() so the mTHP
-path stays consistent (the mTHP count is read directly from free_area and
-isn't subject to per-cpu drift anyway). Point 2 is an existing property of
-the subset-based watermark check rather than something specific to this
-patch. Suggestions welcome if a different overall shape is preferred.
-
-Bo
+Best Regards,
+Petr
