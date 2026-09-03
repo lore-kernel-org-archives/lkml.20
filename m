@@ -1,110 +1,174 @@
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010068.outbound.protection.outlook.com [52.101.85.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF763B4E81
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 20:35:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.176
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788467741; cv=none; b=lvxgDgQXALzrvRWxzj5jwerutkdcWCi0OwQ0oD9XWs+rSKRTAlHowgPa4dUUi9KbAL1P16Ygf/AFvrkacYBNOq/vSP/Q8I+mKaP5iz6evmi8oCG/dwAs4B5iSnqDw360gSVP4XfkN4OjOQzWeluxjaEBFKI1N8DUGa8sNhzx7w8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788467741; c=relaxed/simple;
-	bh=9uWd0iWTHtgoOPQrB8sodf7NrxSHcMYqSafeXFsJ/Mg=;
-	h=Date:Message-ID:From:To:Cc:Subject; b=CxKQXhkMi82mwKIvRt32VW5O9gaShlfu1lMsUt2gW9HiG1m6GoxmqYOL0/wrLJL2kjQPsZoKyPNUUiFo1PZCqWYxS2/Lncz3Jx+4QLiVa5UXdUrvMfdJfvDSqPZNC6qFjZEDEnj6XdvArrsoT2dSI7OxPFSC5tB/fdfNSodfaJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=RHQF0cjB; arc=none smtp.client-ip=209.85.222.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87720391851;
+	Thu,  3 Sep 2026 20:36:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.68
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788467788; cv=fail; b=SSY1K+reCFFy0CJfzcLGy+dTVm4ot/rtHX2Vjn11NaExT7pvvOSZ+Yvt77jnobcUf9fhd3jp1E3fSUUT11reJGWO8oRglvWJiILGP4x5XHg8tPJZL08c35nzikI4w6hW6yjkYOowSS6iuw9IVIixAILlzw1jlhpTAwOw0ivB1hg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788467788; c=relaxed/simple;
+	bh=ASGBYOEzsIgiqhW+Kx2mrLdOgaQENAvFK0P+fT23vQ0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=pv99Kt8Y5HBJ4RMb/oif4fzGMcAphcO68PY2OPzglJG520Aem3bKwXYCPtXMTSWF9wYNHGuwigEzBGhBJGE+27YZq5obiemAuaec1E4acFFaJDALSS7gcfwT22KPbf55T1s3VXs3cVGbJLKbLyFGa3dbYEPcOObGt9XUicXzlpM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=fail (1024-bit key) header.d=amd.com header.i=@amd.com header.b=vkFWAKP2 reason="signature verification failed"; arc=fail smtp.client-ip=52.101.85.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="RHQF0cjB"
-Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-938cd95b06eso31739285a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 13:35:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1788467729; x=1789072529; darn=vger.kernel.org;
-        h=subject:cc:to:from:message-id:date:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BgZOKPlak6pP0U7KmyWbsU79GCeGbr4ZhDTeyjd+peY=;
-        b=RHQF0cjBtrfmsK62fMliV4TZPzmAVUhmbKA1iOju8Cp7W+ECT152FENTL6yKbQ5Mqm
-         ANOJnsaEn5ihqrsFfDdNDbKzsYNDuFn+5/hIp+SPxMZfCauOmvxtq956CQrD3mdqh7qy
-         4R+3GTIjFpQnnS9kIcJTq+iizD4IK6riW/LV3wIVeGFh3OlzYnTBwF4Q9GdOd7eat2V5
-         3dCUmlN2GfrLvUF9daY+yA6eiTK4E4jXj+0NkdWakob9xHz5H62012NbKdRxIDdILSiN
-         pHay5oBoC5/0lNC3uihAVkmnenH3KUZ9FP85bg3TPmBXlpyRhfFW9NedQNhYW9krIYHd
-         GgDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788467729; x=1789072529;
-        h=subject:cc:to:from:message-id:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BgZOKPlak6pP0U7KmyWbsU79GCeGbr4ZhDTeyjd+peY=;
-        b=ZjP4Ivw0K/He/DJYnDWagWjK9iLroYkbDigclOpN7KiK0DH5w550uj7aPobrH3ZntW
-         K7K1xg+49t5Cd7Gfby21nI5hnzeEp7yl99ZiD8wRdzs/3O9Yb9JB5icZ+M4BnxTOyXrm
-         nZP5S6V+LTfoC+6GHYIGti2f2wL72LUCfawo4fEnkoK1FuKPAv+fPXe7mjhXsi+THRNg
-         UilZDyN6Lns0SYLvQfAUZHPNekKJ3yJUtgS3S7tuc7ijgJMElgi7v3NqXZ5G9PuST6MY
-         8v/sPXikfWAxydOtDxKV9LU1Q2QWZBSjbtRYMEGnJiU3sSU8n2YNyRy6h5zXhgnuKvNA
-         AePg==
-X-Forwarded-Encrypted: i=1; AKwUvBz2ZkW3EVvKWsnha8nfR5QTc9fgUHMgI2TzzZVB2/nLA7iiWFZwr4bjDKi5v5c0NEbRo2uE8Ctjfnrv+cE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lHAaV/zFtkr0JPbQngJVC4pNC3mOE9M+Nn52eWPh7imx1P4+Vm
-	NbmqHhAER+uaf1bsA/Z69hI8pxWnTJzoenWUfxlMOKgaBIYCg1DBClhCxNG0uixTIg==
-X-Gm-Gg: AYBFou2b26ty7A2xcZfI92mtNSiMMahZlnUvOM5Cr0G+Be7VRzcqSU4AUQEiepPYRm2
-	5HNWowGy7NNOCGx9AdKWlaXljVdRHvAKb69mqTv6tqTjm7fQFFgPQV9dBpuI0oBjyfzh6MBPzwS
-	ofGervRTny7U73xN5AiodaZgW6dGSZj/mEGRCE0r1hvGE+ch6PEBbLmVHBXHsafVfRDq1v4z+zn
-	84NS6XjIIOSHGyCu/BOoRO0iFEpNJFLFm79WLj6V3wgH0ay3gCGAvlffgX4hLEn90Vz/yz55XSI
-	Bl/OwCMwIKaoyuxf7Y0D7UMn/n0U4IbqeKofxC3hg1xcjaVghivrw7EShoXcP9gyfGelYKe+YQC
-	pOq5nUPIyxVEGbVIv0BrkNdPTcSuygGPBqdnrdV6MbWEZel4VHSMsc/BuoJfeI2dfFmmEx62IA1
-	M3N9L66g6Qostot3a7BFqKSvgqMsSVc5QXJM4X8xNV9P7CNFgj0Hevc/bSAgWt7jh0cfpzWPLIz
-	ydXzas54vFVppERtivJ1JY25NPWg+DmuJ2FynPxgSKBzczJFCzKLzka
-X-Received: by 2002:a05:620a:2856:b0:939:cda:46ac with SMTP id af79cd13be357-93981737ffamr29121885a.17.1788467728670;
-        Thu, 03 Sep 2026 13:35:28 -0700 (PDT)
-Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fb70fbdsm50115485a.32.2026.09.03.13.35.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 13:35:27 -0700 (PDT)
-Date: Thu, 03 Sep 2026 16:35:27 -0400
-Message-ID: <8c72adc9e5a9d3ce854fab61ec5f66df@paul-moore.com>
-From: Paul Moore <paul@paul-moore.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: selinux@vger.kernel.org, linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [GIT PULL] selinux/selinux-pr-20260903
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amd.com header.i=@amd.com header.b="vkFWAKP2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wcagXiZevpiNytheVnRHJDtt4rony2L5V8ykKssqPU4m//JMc0yXq4idVG/j8zDX0CKRcWCPsGXzAEhkWbh7JV/0tltwrSWY0eDFWs/Jo1Cl0BSyCFnb7Ia6bxrGPtcn3XfsNM9amY2xo9bomVf47tacDM/gLkg2hkujO37DGyc7I0Sk/O4Yi0jUCb9jQTk5Ix/XfGN99lHfAGW9/477bOtwTy2RJ/n2eyMsPj0QDBnvingNGpNAmYPn7FsOUJ2xhFNDitkO27qCQ9LNopCPneORrGcU7pqpBhciz8R11WbwCb6j+hNjp/oS7AiYDMSbW8pxJ6xDOMvzm3kzNTkNwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gl2HP+rGxrvIJMFXRI39loo7HDG7XFKzlPNE6Mep4Ls=;
+ b=Pq98ciMqZQM+RuqGVuCCVlE7SLbzZa8dRoA/OnVHXE7xNEIwaI0+M9sf93KZNIcCWmlkRCzG8pE/jrUP/z22Z1j4bf3894obL9yl+qoyZzPKxZhcJKH/CgFdopAvQ9f/i3KPPIgzUDp8BF3+VnpaVaXZqAYLVe7eb9UY6DyJ2p7M/TvvnbxIYaAO6ZPBFtOfiXb9ETZB/G5Y9bsWriQLA1HRgfLGSyexxVj27IR+M+g3T4ya1/monS0DyoLCNXngELAkB5ksOBY3M65W/Gx1hk9/coX1RmGTQBw/rgL0lRbEnZSYN4WV7WWOeAwv5Fa7rEITIjKrYlj7J4FkldQxCQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gl2HP+rGxrvIJMFXRI39loo7HDG7XFKzlPNE6Mep4Ls=;
+ b=vkFWAKP2uPlU4F39UbNTo6CeoNynJzNe+2oq126uKxALKRM6uXjbTkC8Q9ei4z3vNpsejF1F1Ror/EL5Q2CMWjlb4Q22bze5x7FZQNZuxVYAjVgGBnl4f27uMy6sjmJdMSf5wKbJz6DtiNyBvwFtOmqgjS6hqGkV9UosSo5zmrw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
+ CY1PR12MB9558.namprd12.prod.outlook.com (2603:10b6:930:fe::13) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.13; Thu, 3 Sep 2026 20:36:13 +0000
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf%3]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 20:36:13 +0000
+Date: Thu, 3 Sep 2026 16:36:09 -0400
+From: Yazen Ghannam <yazen.ghannam@amd.com>
+To: OptoCloud <git@optocloud.no>
+Cc: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, "x86@kernel.org" <x86@kernel.org>,
+	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 3/3] x86/mce/amd: Reset deferred-register state between
+ polling banks
+Message-ID: <20260903203609.GC145182@yaz-khff2.amd.com>
+References: <ZYPjnBLNLY69gIYeH-ING5IhrnA3ryhVQquuPlWhUR-WmKLUFl3z-HRWR6q3zW88Vi9L4IpFrd5WnRhVG0AptFUR4cDvCGTJ782EUQL9u0Y=@optocloud.no>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ZYPjnBLNLY69gIYeH-ING5IhrnA3ryhVQquuPlWhUR-WmKLUFl3z-HRWR6q3zW88Vi9L4IpFrd5WnRhVG0AptFUR4cDvCGTJ782EUQL9u0Y=@optocloud.no>
+X-ClientProxiedBy: BN9PR03CA0478.namprd03.prod.outlook.com
+ (2603:10b6:408:139::33) To DM4PR12MB6374.namprd12.prod.outlook.com
+ (2603:10b6:8:a3::18)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|CY1PR12MB9558:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb7b57c2-0b1d-4546-43a6-08df09fafeee
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|22082099003|18002099003|5023799004|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	2T+J8BZpHXDC7WHRDSLJsry+NSk/pDKqdLXyTBi3dhChoYS7k29E1/FrymaGOhfPlJbbO3spFsf0vJUALClffeMEgomEnlj4u6hMxl9dk86+WQucAnhSGOKf0lNEG3WqPQXuFDH1frYd1jarcWT2hV4zfTgcfL4TuWd1SvHM0Z7clP5K16k18M8/YpOGYa5b1HFBEdKQAiOt7G/qShY7R9h+UUyJCcGMcEkWtMz9TnqEL011p1+Aw4D3QXnVESL8Y6pe1i+/zDoxMUtxEqgpxA0x+/qglgeZPpCughoLXW8SF/lTvpXihHdfM0HSUMB0laQYr20VXM/NFpdjQSfcdrH5PM2vntOAqOtBmDEiq02ATfiW1kagn9hEbRoLKQMBmqut3ln65/Gm3NOGdMDFXKXRDY16Zk16tej/DvQhQ1K+HcAVSUGOJpjj69N7kfQKZTt3uoa7mUyZJ4NrLAp27lQ8uBK1QSer6ocmjcjsJHvHQOQjlP3Ttr0uttofdRhojXiwDUsNxh+hqKEbybjsX/RHFdMjT5JTuxczr6FjQ+wPTRuBqYZafSA03HKBSqlNskN88Ok2DVO2MBNpVhKtefxmZeSnSLwlqezu8OicMMaGFERbWbC+Smc02tIoAFD7OF217Niq02G2KE9w5cqL8QfXu1nWdXTHE+ogFZxR7Q0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(22082099003)(18002099003)(5023799004)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-1?Q?X278XqMhMHEVDh5cpxtd+SkbAwpAL1AUCqByCV/jXbguFAcsq2EvUQXhBY?=
+ =?iso-8859-1?Q?CPU9x2AiuO0tAeDOMGLJ+Cmei/bod7z4dvNoXkQnA/m6EoTbXMjCqKXk04?=
+ =?iso-8859-1?Q?+Fhsea1qOD+m82MVhl6HLAM1wW9eGxBjHwJhk6NBfqr/cgElHaHTEmP17t?=
+ =?iso-8859-1?Q?5gxgjNqgYtopXCF/TeTmYjKWnNIIQ0sv2FJ2SPaWrmO/vGmU2U1qJGP654?=
+ =?iso-8859-1?Q?9dkWg4dh7K/t2BYjWz5vDZYZgE1HVbT5cldokvph/UEjLvOQMLDR14CiII?=
+ =?iso-8859-1?Q?xZL4EoYl+4N9SWZJEsH5SsiRQ/duVD4YneCDkXIMl+/SnlHMW7V4+mHU69?=
+ =?iso-8859-1?Q?hVooJKop5Vu5/r7c3hv7ogINrk9N0gXD747++bH/tZAYGfNdlBlmkcG4lb?=
+ =?iso-8859-1?Q?AaaQQQlu4kcwgsTQa3FZhBD+ZpofZvBa1YxVJdJX9getsjw7hss/wUrNxl?=
+ =?iso-8859-1?Q?KidoJP7RSFmXxeT7hQeLOac6gRWKVJFB5J0YpG95EIHdlXeWpUSc+xQkpq?=
+ =?iso-8859-1?Q?Bm3qqy8EHf/sOq8MUFDYSPYX+MmO1W4GUhwSapzMSr+fcNIVa6AcGaEJ0V?=
+ =?iso-8859-1?Q?YNCqcPsp3oAjWjOBum49t4wbzO67fTST3yGb5yNPWHQAzuKwDG+2OJEwNY?=
+ =?iso-8859-1?Q?S43f5JTwdT4GDW9PoFMmhwAfwRi8UC94Qj8rlA58I5zZxbCltOcV43TyRt?=
+ =?iso-8859-1?Q?ZluniYdcGnFQM4mVWWtXBHHazX9/DQr/uPN2bybxiYwYLNB0mxEWg2MjrH?=
+ =?iso-8859-1?Q?MbVlh8HgY1xVcD88Hr/fjDUA+RrzXRmX9P0ZdxnzExWSsJnnAr0eayX18f?=
+ =?iso-8859-1?Q?kt+jIbM9qWNO855hl6+vbWdx38oZSpJbTOPB7+6/GGasdNdOHDuSOKKlAD?=
+ =?iso-8859-1?Q?yzYDSpAZCE/TWkFtAGxHslyYrRGogZCdCScg4OswCcn9gpxWlX9Q9+M3DW?=
+ =?iso-8859-1?Q?9L6AXJ9EBddZkan9MDdY+itQFuAHHAkdY00XyQHckEe8Bi9OtlJkhZOFkm?=
+ =?iso-8859-1?Q?mz0peQEggUT258Cre5pomteBmg6+wpJJUR7gRlVMT0/hZVEOEceEl1IQzu?=
+ =?iso-8859-1?Q?ESE6cQj8sPwsltINcjL03yCNzKFiywMn9GJZ1J036wlUqVrsqp/+uluEJZ?=
+ =?iso-8859-1?Q?L9wGOekhIGsMPf+hBNqbzBhsmFbNG6uN+G6AknnxftT+DxoLY4epD2O5Z1?=
+ =?iso-8859-1?Q?BD/ugQmhO9TtL4mEjFrrlWp2CKMP8bnDHV1qcubQ5svMn+UKebjvZZNk8B?=
+ =?iso-8859-1?Q?OaafgzVCZ+X41kQtL9yr2v2NDlPItsrCRgyNuNqr87tyYg5Zwx8w08WlT+?=
+ =?iso-8859-1?Q?cudRZET7Oid/mZxvAfKqEGu2u4A+4SONxy5jePGTtMB7c8moK01adLsf6/?=
+ =?iso-8859-1?Q?Pjlm8VO2Fo9IYfCFQOObzyEUWIVbqivUqrQ6LTNriCaOFpp7MUXucXy2DI?=
+ =?iso-8859-1?Q?mA4YqZ7sMILGP4chUn+y2po+jCQNdW6EPppEjDbj/3oWBDmr7yiNN3eeHu?=
+ =?iso-8859-1?Q?bZpPZC7BVjVBPVSqM50CcmgtK16yuSMogMR+gDtSuhHtofyJjA/U5WG2RI?=
+ =?iso-8859-1?Q?nDlAmThnQQQ3p7JxrCzD5W2gDUhdYUY+MB4HZV/EeUE4WqpV5F8+dyQ/L3?=
+ =?iso-8859-1?Q?vCTjgWLQYExWK4ZecbRzqrVYOTtqC89y9q9gK340up5MJb/Y8uMy0xANtB?=
+ =?iso-8859-1?Q?nbSdHR1mTrfqTMMNkQtGrhzwhITGa+i7DZbmvVN1jsfg+fdnHtD0N2OifT?=
+ =?iso-8859-1?Q?tc5QsAI0LRsdIWpgmMaDba+3Rty0A28Vuw+6mIcNiKb50Q?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb7b57c2-0b1d-4546-43a6-08df09fafeee
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 20:36:13.5036
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: otvSGJ1DacAJKOfstD/wEns3JD3XUt/SyJ39rxExgDft71dFqtDJvqbV25oleYGkk50NGA7RCCoBAeU+MsGbHg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9558
 
-Linus,
+On Sun, Aug 30, 2026 at 04:45:25AM +0000, OptoCloud wrote:
+> machine_check_poll() reuses a single struct mce_hw_err while
+> iterating over the MCA banks. smca_should_log_poll_error() sets
+> MCE_CHECK_DFR_REGS in ->kflags when an error was taken from
+> MCA_DESTAT rather than MCA_STATUS. Nothing clears the bit again for
+> the rest of the poll, including on iterations that bail out of
+> should_log_poll_error() early, so every later bank in the same pass
+> inherits it.
+> 
+> A stale MCE_CHECK_DFR_REGS has two effects on a later bank:
+> 
+>   - mce_read_aux() reads MCx_DEADDR instead of MCA_ADDR, so the
+>     address reported for that bank is wrong.
+> 
+>   - amd_clear_bank() returns before writing 0 to MCA_STATUS, so the
+>     bank is logged again on the next poll.
+> 
+> Clear MCE_CHECK_DFR_REGS at the start of each iteration, alongside
+> the other bank-local resets.
+> 
+> Found by code inspection; not reproduced on hardware.
+> 
+> Fixes: 7cb735d7c0cb ("x86/mce: Unify AMD DFR handler with MCA Polling")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Eirik B�e <git@optocloud.no>
+> ---
+>  arch/x86/kernel/cpu/mce/core.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
+> index e4e588d02a18..6ed14ec171f2 100644
+> --- a/arch/x86/kernel/cpu/mce/core.c
+> +++ b/arch/x86/kernel/cpu/mce/core.c
+> @@ -811,6 +811,7 @@ void machine_check_poll(enum mcp_flags flags, mce_banks_t *b)
+>  		m->synd = 0;
+>  		err.vendor.amd.synd1 = 0;
+>  		err.vendor.amd.synd2 = 0;
+> +		m->kflags &= ~MCE_CHECK_DFR_REGS;
+>  		m->bank = i;
+>  
+>  		barrier();
+> -- 
 
-Two SELinux fixes for the next Linux v7.3-rcX release: one to fix how we
-lookup a BPF token's creator label to prevent a possible TOCTOU, and one
-to update Ondrej's email address.
+Same feedback as patches 1 and 2.
 
-Paul
+Additionally, why single out the MCE_CHECK_DFR_REGS flag? Why not just
+reset the entire kflags field?
 
---
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+Thanks,
+Yazen
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
-
-are available in the Git repository at:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/pcmoore/selinux.git
-    tags/selinux-pr-20260903
-
-for you to fetch changes up to 4299767d772d4e498998e32157e45841178ab192:
-
-  MAINTAINERS, mailmap: update email address for Ondrej Mosnáček
-    (2026-09-03 16:24:05 -0400)
-
-----------------------------------------------------------------
-selinux/stable-7.3 PR 20260903
-----------------------------------------------------------------
-
-Ondrej Mosnáček (1):
-      MAINTAINERS, mailmap: update email address for Ondrej Mosnáček
-
-Paul Moore (1):
-      selinux: fix BPF token permission checks
-
- .mailmap                 |    1 +
- MAINTAINERS              |    2 +-
- security/selinux/hooks.c |   36 ++++++++++--------------------------
- 3 files changed, 12 insertions(+), 27 deletions(-)
-
---
-paul-moore.com
