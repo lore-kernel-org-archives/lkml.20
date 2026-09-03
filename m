@@ -1,111 +1,145 @@
-Received: from mail-m1973190.qiye.163.com (mail-m1973190.qiye.163.com [220.197.31.90])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B7B14A8FCE;
-	Thu,  3 Sep 2026 12:52:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.90
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 949574AA01A
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:52:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788439964; cv=none; b=n5bj248lOJHeqaZzUU8B0kQYMwEwe/pVqF2pQItwtvhbACyN5srV8DqTPgSvC8b54eUbvsb6spWS/dbYwregZ+U2Fw3ZLzsXibJz3vRQ1vgjMbY04UKkavuF/xBw1pNQhdChCHunZN/2gY7L5vT5NEUgYh/YWPa6pgsw1d9rzjw=
+	t=1788439974; cv=none; b=XuQFEl64Pv0QTSxD9mLmG1n3vD7J0AHdOFg6zafQmR5F2pra7mOolz9pom9e2BKSVL6KYYnbZ4ts7nHs2Q5UokYGWEYeC2qyYph4G71xq+3kVgPbUenWU+Lex/MquIQiYSSRHoEaxygX2JLxn55NqLO6ylw7X1PVl4XM0LF7BtU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788439964; c=relaxed/simple;
-	bh=Rfitq2P6JryQZmIqbgDP3vJocEqK9V/DTGRq8RvUllU=;
-	h=Content-Type:Message-ID:To:Cc:Subject:MIME-Version:From:Date; b=D7M2Dpyu92ym1nMlflwlAdDjxhFHvJSyubFg7siJUySF3ZIDJsQs3gwKmTLW58imadf4JB3AXVabUfWPs1eP6cq56in0Htaz13QCcwDlHAqlD8SyDu7elSpR3dI+e5leXH8wu/lXw2u2rqCOFZh6uyB3NLdYWmw0yxUfJvC2D0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnics.com; spf=pass smtp.mailfrom=resnics.com; arc=none smtp.client-ip=220.197.31.90
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnics.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnics.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-Message-ID: <AKwAeAA6K9Rj00MOJNTIDqrJ.1.1788439641910.Hmail.zhouruizhe@resnics.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
-	linux-renesas-soc@vger.kernel.org
-Subject: =?UTF-8?B?UmU6UmU6IFtQQVRDSCBuZXQtbmV4dCAxMy8xNF0gbmV0OiByZW5lc2FzOiByc3dpdGNoOiBSZW1vdmUgb2Jzb2xldGUgMzItYml0IERNQSBtYXNrIGZhbGxiYWNr?=
-X-Priority: 3
-X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
+	s=arc-20240116; t=1788439974; c=relaxed/simple;
+	bh=kl+JHwTf7CdX1B+DoxtS4WWX7ZtHIg9LoLTAjy8UQXM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M1KtAmymtrPclM5cN9PAxT6Zt5ArfIGFzQVwuBRTVCAU5GK9we4Qe+4X/eWulJIaxwiv6lBpW9DBpWxmzbz4lUl5JiQ1BAtv/5g/zwo3Lve30ni4P0Hmau4AR7v353Erowvm29OWO1+jSOT3YfUTPHW9ZYx9b96Z1Jm4/d8E+3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=YyN4+jkl; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="YyN4+jkl"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so18677725e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:52:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788439971; x=1789044771; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=O/BVphZoQ/SK9hU1QtOXRTarKJyoDJy/tE9xK1PMEI4=;
+        b=YyN4+jklbOszetvEv2rC/6mDWRgGNOvH5aVbKmD0eQV+owKSY6HOZ1woOxwRzpSeuo
+         nPRm3DehfJWKkvGz6LkrszzL+tSxMvykvcNNCz+KuJlUpo6sQGupM2qR+DCF7xAkIOZP
+         kPXTCn8brzzl7eR8LTfif6ge7vVIGIvyDtF3Z8StqjcZRlyBu3sxz9KY1gBCUsIJyUvV
+         9LphLBRkq0g4vrZA+NX8zghdRjuMiU8AZSzDSjUkQubTehMUKW8+qPzwA4X70rJVvxMD
+         +dur4Yara1pQtKK+GnerPwldV0yYhIuer6/+XRruxsNclPUNOXK0/ZYk75FOM2UsUfh6
+         udRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788439971; x=1789044771;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=O/BVphZoQ/SK9hU1QtOXRTarKJyoDJy/tE9xK1PMEI4=;
+        b=DzNTgFqrXGD9xuJ4zgqv5Rzuf3x6LhIa7iWL0vXbcJTwF2Olpk2LcC3tWzEdg6+qDF
+         C13Ok3nM5rF3nKhOpStEgwo2i+YyHXwOZoVOA3mVNa+8OEfZ8VJA62qpDjt2rDHLy9ak
+         jQyq1noV8mFtWVrLLuMtBfUltZYMEtqtjfpvf+GX+urezL1tbuJ3BEeby4HeqjgHsSES
+         ZgYhXVrFj8Szf24MBWZ43ZseGBQlkhy4tc/DC0Ob1vCyHynA8yAeTGKSU8uIgfJX4Wc2
+         1patczLILC2NIkUKL2wg/VmTDQqUXJ+Fy56z+4l8hcCa/DGNTNKUIyzEyFMreFhCBvFh
+         EsFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwQWrEdsQNggNyIClaBQCV1LxuLe+zd/ORnjMaK0OOR/uyQGKazFryx78sksYKisk/Mg0JMsdZ9HWvtdCY=@vger.kernel.org
+X-Gm-Message-State: AFuF++k2sW1LwUAWvzBxE0/xE37FByuxZ9LUFqxMCJhwBwOcdQ/U4a3X
+	eiOkkkzlREPLvtZX/3m5vumBWgOEkQVDnh8lId0joE9kgkVadJVG2fZqARqI1mPhIDI=
+X-Gm-Gg: AYBFou2mU8N/D6jaovZmkHe70lvVYsmNjaj6jPrTYaxJTIRkTc63b7HcRFMPY3NKmOR
+	Rf7hwMVFLxl9+/U2CG7J1FVj8EZu/u3po7R+yqWtUReeq6fXd6Lg2YleFGJb0GvK8XWAIbCjPxZ
+	I02wro446ANI9oBEcTq4DOYIvTPwya1KMU2327DLf9Sc3QNXKohLA4zI4d3tSoVJUX7gxx3h/rD
+	OJr5mVypoqxdG2wlYTJIy8mHlmwC95qc5asvj7A/aOK89m/DUcnaiPh/DKvHvsDVoWZyj6L9/gP
+	rWXCMw32hkyE/EZynyi2rYbsis10vtTFJ2bS5MnEzW16Pa2DtKvtygvVGq+3Z2CeolMHNNC3vUZ
+	pQeXrAqfnccoyR1HSptQww5aLxUTOUZZnIDNs5Oc3UTCUaM/30k5pM1EB9913k5SNX1GIcWcOS0
+	e3TPYQShBwR84VhkuNO5XGDLTYFqUwj6gNz05cPJAXPdRaqviTTFzEpVYuPGpofhh4pOaZBESwk
+	Or9nNauobTR
+X-Received: by 2002:a05:600c:c4a6:b0:498:952:e276 with SMTP id 5b1f17b1804b1-49ce581142cmr250223635e9.8.1788439970781;
+        Thu, 03 Sep 2026 05:52:50 -0700 (PDT)
+Received: from localhost (109-81-91-122.rct.o2.cz. [109.81.91.122])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5d6029sm71680715e9.6.2026.09.03.05.52.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 05:52:50 -0700 (PDT)
+Date: Thu, 3 Sep 2026 14:52:49 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Nimrod Oren <noren@nvidia.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Hugh Dickins <hughd@google.com>, Nirmoy Das <nirmoyd@nvidia.com>,
+	Dragos Tatulea <dtatulea@nvidia.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
+Message-ID: <apltoauHn-l--8nI@tiehlicka>
+References: <20260901190123.3511535-1-noren@nvidia.com>
+ <20260902162323.GO3004@cmpxchg.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Received: from zhouruizhe@resnics.com( [1.162.139.180] ) by ajax-webmail ( [127.0.0.1] ) ; Thu, 3 Sep 2026 20:47:21 +0800 (GMT+08:00)
-From: =?UTF-8?B?5ZGo552/5ZOy?= <zhouruizhe@resnics.com>
-Date: Thu, 3 Sep 2026 20:47:21 +0800 (GMT+08:00)
-X-HM-Tid: 0aa0674eedfd02eekunma0ee55f326b
-X-HM-MType: 1
-X-HM-NTES-SC: AL0_4z5B86Wr4Tz9jdMF+bhXMdz8H/g99eSjsmp79ug4TtUOfceK239+6Wx8rS
-	Mt4AmfBcwCFqZ+1IZEb/P4yrJDwyzYKKAn04fSFunHm3+bGs3rtiQPvyKmsPAUbztif5Tx7I4KmZ
-	w1GTYpKaVf5zojk2t3Jh6cfGjesrSdGlsnjOA=
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGE1JVh5MTRlNH0sdSx9ITlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKVUpNSVVKSEJVSkNLWVdZFhoPEhUdFFlBWUtVS1VLVU
-	tZBg++
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902162323.GO3004@cmpxchg.org>
 
-CgpIaSBHZWVydCwKVGhhbmtzIGZvciB0aGUgZmFzdCBmZWVkYmFjayEKTXkgbGFzdCByZXBseSBn
-b3QgZ2xpdGNoZWQgdXAgYnkgdGhlIG1haWwgY2xpZW50IHNvIEkgcmVzZW5kIHRoaXMgaW5zdGVh
-ZC7CoApIb3BlIHRoaXMgd29uJ3QgY2F1c2UgdG9vIG11Y2ggdHJvdWJsZS4gSWYgeW91IGRpZCBy
-ZWNlaXZlIG15IGxhc3QgcmVwbHkKYW5kIGV2ZXJ5dGhpbmcgbG9va3MgZmluZSBwbGVhc2UgaWdv
-cmUgdGhpcy4KCkZyb206IEdlZXJ0IFV5dHRlcmhvZXZlbiA8Z2VlcnRAbGludXgtbTY4ay5vcmc+
-CkRhdGU6IDIwMjYtMDktMDMgMTc6NDM6MDMKVG86ICBSdWl6aGUgWmhvdSA8emhvdXJ1aXpoZUBy
-ZXNuaWNzLmNvbT4KQ2M6ICBBbmRyZXcgTHVubiA8YW5kcmV3K25ldGRldkBsdW5uLmNoPiwiRGF2
-aWQgUy4gTWlsbGVyIiA8ZGF2ZW1AZGF2ZW1sb2Z0Lm5ldD4sRXJpYyBEdW1hemV0IDxlZHVtYXpl
-dEBnb29nbGUuY29tPixKYWt1YiBLaWNpbnNraSA8a3ViYUBrZXJuZWwub3JnPixQYW9sbyBBYmVu
-aSA8cGFiZW5pQHJlZGhhdC5jb20+LG5ldGRldkB2Z2VyLmtlcm5lbC5vcmcsbGludXgta2VybmVs
-QHZnZXIua2VybmVsLm9yZyxZb3NoaWhpcm8gU2hpbW9kYSA8eW9zaGloaXJvLnNoaW1vZGEudWhA
-cmVuZXNhcy5jb20+LGxpbnV4LXJlbmVzYXMtc29jQHZnZXIua2VybmVsLm9yZwpTdWJqZWN0OiBS
-ZTogW1BBVENIIG5ldC1uZXh0IDEzLzE0XSBuZXQ6IHJlbmVzYXM6IHJzd2l0Y2g6IFJlbW92ZSBv
-YnNvbGV0ZSAzMi1iaXQgRE1BIG1hc2sgZmFsbGJhY2s+SGkgUnVpemhlLAo+Cj5UaGFua3MgZm9y
-IHlvdXIgcGF0Y2ghCj4KPk9uIFRodSwgMyBTZXB0IDIwMjYgYXQgMTE6MjcsIFJ1aXpoZSBaaG91
-IDx6aG91cnVpemhlQHJlc25pY3MuY29tPiB3cm90ZToKPj4gVGhlIERNQSBBUEkgZ3VhcmFudGVl
-cyBzdXBwb3J0IGZvciBtYXNrcyBvZiAzMiBiaXRzIG9yIHdpZGVyIGFuZAo+Cj5SZWFsbHk/Cj4K
-Pj4gZXhwbGljaXRseSBpZGVudGlmaWVzIHJldHJ5aW5nIGEgMzItYml0IG1hc2sgYWZ0ZXIgYSB3
-aWRlciByZXF1ZXN0IGFzCj4+IGluY29ycmVjdDoKPj4gaHR0cHM6Ly9kb2NzLmtlcm5lbC5vcmcv
-Y29yZS1hcGkvZG1hLWFwaS1ob3d0by5odG1sI2RtYS1hZGRyZXNzaW5nLWNhcGFiaWxpdGllcwo+
-Cgo+QUZBSVVJLCB0aGF0IGlzIG9ubHkgdHJ1ZSBpZmYgdGhlIHdpZGVyIHJlcXVlc3QgaXMgRE1B
-X0JJVF9NQVNLKDY0KS4KCkF0IHRoYXQgc3BlY2lmaWMgbGluayBJIHdpbGwgcXVvdGUgdGhpczog
-IiBkbWFfc2V0X21hc2tfYW5kX2NvaGVyZW50KCkgd2lsbCBuZXZlciByZXR1cm4gZmFpbHVyZSB3
-aGVuIGJpZ2dlciB0aGFuIDMyLiIKU28geWVzLCBJIGJlbGlldmUgdGhpcyBhcHBsaWVzIGZvciBh
-bGwgbWFza3MgPiAzMi4KCj4+PiBSZW1vdmUgdGhlIG9ic29sZXRlIGZhbGxiYWNrIHdoaWxlIHJl
-dGFpbmluZyB0aGUgZXJyb3IgY2hlY2sgc28gdGhhdCBhCj4+IGdlbnVpbmUgRE1BIHNldHVwIGZh
-aWx1cmUgc3RpbGwgYWJvcnRzIGluaXRpYWxpemF0aW9uLgo+Cgo+SGF2ZSB5b3UgdGVzdGVkIHRo
-aXMgb24gYWN0dWFsIGhhcmR3YXJlLCB3aXRoL3dpdGhvdXQgSU9NTVUgc3VwcG9ydD8KCgpObyBJ
-IGhhdmVuJ3QgYXMgSSBzdGF0ZWQgaW4gdGhlIGNvdmVyIGxldHRlci4gQnV0IEkgYWxzbyBiZWxp
-ZXZlIHdoYXQgaXMgaW1wb3J0YW50CmhlcmUgaXMgdGhpcyBjaGFuZ2UgaXMgdHJ5aW5nIHRvIHBv
-aW50IG91dCB0aGF0IGEgZmFpbGVkID4zMmJpdAptYXNrIGRtYSBjYWxsIGlzIGZ1bmRhbWVudGFs
-bHkgbm90IGNvcnJlY3RhYmxlIGJ5IHRyeWluZyBhIHNtYWxsZXIgbWFzay4KVGhlIG1hc2sgcGFz
-c2VkIHRvIHRoZSBETUEgQVBJIGRlc2NyaWJlcyB0aGUgaGlnaGVzdCBhZGRyZXNzIGEgZGV2aWNl
-IGNhbgpyZWFjaC4gSXQgYXNrcyB0aGUgRE1BIGxheWVyIHRvIGtlZXAgbWFwcGluZ3Mgd2l0aGlu
-IHRoYXQgbGltaXQ7IGl0IGlzIG5vdAphIHByb2JlIGFza2luZyB0aGUgcGxhdGZvcm0gd2hpY2gg
-YWRkcmVzc2luZyBtb2RlIHRoZSBkZXZpY2Ugc2hvdWxkIHVzZS4KQSB3aWRlciBtYXNrIGluY2x1
-ZGVzIGV2ZXJ5IGFkZHJlc3MgcGVybWl0dGVkIGJ5IGEgMzItYml0IG1hc2ssIGluY2x1ZGluZwph
-ZGRyZXNzZXMgZnJvbSBhIHBsYXRmb3JtIHRoYXQgb25seSBwcm9kdWNlcyAzMi1iaXQgRE1BIGFk
-ZHJlc3Nlcy4gVGhlIGxpbmtzCkkgcHJvdmlkZWQgaW4gdGhlIGNvdmVyIGxldHRlciBleHBsYWlu
-IHRoYXQuCgo+Cj4+IFNpZ25lZC1vZmYtYnk6IFJ1aXpoZSBaaG91IDx6aG91cnVpemhlQHJlc25p
-Y3MuY29tPgo+PiAtLS0KPj4gIGRyaXZlcnMvbmV0L2V0aGVybmV0L3JlbmVzYXMvcnN3aXRjaF9t
-YWluLmMgfCA3ICsrLS0tLS0KPj4gIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDUg
-ZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9yZW5l
-c2FzL3Jzd2l0Y2hfbWFpbi5jIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvcmVuZXNhcy9yc3dpdGNo
-X21haW4uYwo+PiBpbmRleCA3NTUyMzI5OTRmY2MuLjY0YjgyMWNhMDJmOCAxMDA2NDQKPj4gLS0t
-IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvcmVuZXNhcy9yc3dpdGNoX21haW4uYwo+PiArKysgYi9k
-cml2ZXJzL25ldC9ldGhlcm5ldC9yZW5lc2FzL3Jzd2l0Y2hfbWFpbi5jCj4+IEBAIC0yMTYyLDEx
-ICsyMTYyLDggQEAgc3RhdGljIGludCByZW5lc2FzX2V0aF9zd19wcm9iZShzdHJ1Y3QgcGxhdGZv
-cm1fZGV2aWNlICpwZGV2KQo+PiAgICAgICAgICAgICAgICAgcmV0dXJuIC1FTk9NRU07Cj4+Cj4+
-ICAgICAgICAgcmV0ID0gZG1hX3NldF9tYXNrX2FuZF9jb2hlcmVudCgmcGRldi0+ZGV2LCBETUFf
-QklUX01BU0soNDApKTsKPj4gLSAgICAgICBpZiAocmV0IDwgMCkgewo+PiAtICAgICAgICAgICAg
-ICAgcmV0ID0gZG1hX3NldF9tYXNrX2FuZF9jb2hlcmVudCgmcGRldi0+ZGV2LCBETUFfQklUX01B
-U0soMzIpKTsKPj4gLSAgICAgICAgICAgICAgIGlmIChyZXQgPCAwKQo+PiAtICAgICAgICAgICAg
-ICAgICAgICAgICByZXR1cm4gcmV0Owo+PiAtICAgICAgIH0KPj4gKyAgICAgICBpZiAocmV0KQo+
-PiArICAgICAgICAgICAgICAgcmV0dXJuIHJldDsKPj4KPj4gICAgICAgICBwcml2LT5nd2NhLmlu
-ZGV4ID0gQUdFTlRfSU5ERVhfR1dDQTsKPj4gICAgICAgICBwcml2LT5nd2NhLm51bV9xdWV1ZXMg
-PSBtaW4oUlNXSVRDSF9OVU1fUE9SVFMgKiBOVU1fUVVFVUVTX1BFUl9OREVWLAo+Cj5HcntvZXRq
-ZSxlZXRpbmd9cywKPgo+ICAgICAgICAgICAgICAgICAgICAgICAgR2VlcnQKPgo+LS0gCj5HZWVy
-dCBVeXR0ZXJob2V2ZW4gLS0gVGhlcmUncyBsb3RzIG9mIExpbnV4IGJleW9uZCBpYTMyIC0tIGdl
-ZXJ0QGxpbnV4LW02OGsub3JnCj4KPkluIHBlcnNvbmFsIGNvbnZlcnNhdGlvbnMgd2l0aCB0ZWNo
-bmljYWwgcGVvcGxlLCBJIGNhbGwgbXlzZWxmIGEgaGFja2VyLiBCdXQKPndoZW4gSSdtIHRhbGtp
-bmcgdG8gam91cm5hbGlzdHMgSSBqdXN0IHNheSAicHJvZ3JhbW1lciIgb3Igc29tZXRoaW5nIGxp
-a2UgdGhhdC4KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLS0gTGludXMgVG9ydmFs
-ZHMKPgo=
+On Wed 02-09-26 12:23:23, Johannes Weiner wrote:
+> On Tue, Sep 01, 2026 at 10:01:23PM +0300, Nimrod Oren wrote:
+> > When THP is enabled, set_recommended_min_free_kbytes() may raise
+> > min_free_kbytes using a heuristic that scales with pageblock_nr_pages.
+> > Commit f000565adb77 ("thp: set recommended min free kbytes") added this
+> > heuristic to help keep pageblocks free and reduce fragmentation for THP
+> > allocations.
+> > 
+> > The recommendation scales poorly with larger base page sizes. With the
+> > default arm64 pageblock sizes, the contribution per eligible zone
+> > before applying the existing cap of 5% of low memory is:
+> > 
+> >   4 KiB pages:   2 MiB pageblock,   22 MiB per zone
+> >  16 KiB pages:  32 MiB pageblock,  352 MiB per zone
+> >  64 KiB pages: 512 MiB pageblock,  5.5 GiB per zone
+> > 
+> > Even with that cap, min_free_kbytes can reach excessive levels.
+> > 
+> > The automatic min_free_kbytes increase predates proactive compaction
+> > and many subsequent changes to compaction. Given those changes,
+> > increasing min_free_kbytes for THP by default is no longer clearly
+> > justified.
+> > 
+> > Remove set_recommended_min_free_kbytes() and all associated
+> > recalculation paths. With this policy gone, min_free_kbytes is
+> > controlled only by the page allocator's default calculation and the
+> > vm.min_free_kbytes sysctl. Users who want additional headroom may set a
+> > higher value via that sysctl.
+> > 
+> > Link: https://lore.kernel.org/r/20260831075635.2244437-1-noren@nvidia.com/
+> > Suggested-by: Michal Hocko <mhocko@suse.com>
+> > Signed-off-by: Nimrod Oren <noren@nvidia.com>
+> 
+> Just to summarize my take from the subthread with Zi: the premise of
+> this patch is to roll the regression dice on every THP setup out there
+> because certain ARM configurations result in a questionable pageblock size.
+> 
+> I'm not against carefully evaluating and testing out today's need for
+> set_recommended_min_free_kbytes() in real world examples. But this is
+> not that.
+
+I do hear your concerns Johannes. They are valid but I am not really
+sure wht kind of testing would prove such a change to be safe.
+ 
+> Nacked-by: Johannes Weiner <hannes@cmpxchg.org>
+
+-- 
+Michal Hocko
+SUSE Labs
