@@ -1,183 +1,209 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C351FF7C5
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 00:44:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788396279; cv=none; b=gz1bXI/v47hfKJaZ/yhyXt4bxJdtu/Pbu52bky/h7pqSYP66dZl7ZVdC+LXT+WAQWyIIH5kzoZGLaiTD2XXbk2RX97FoEwd2/6HbckUajTnd/w+d7pA0GYhwUCyNoHadVV+kW/yJ4jhPIuI84b5eJT1RTonBzZAcFF6QWdOx35M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788396279; c=relaxed/simple;
-	bh=+q2nRmIMqouBhmKTnCyfcrc5UQsl75n0NRq5NUaBXHo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T4n+83M/kE/5vlEishaVhvFjHOX0TQe1dKO9YXsMdcADzLPrkcn91aDk5AlO2uM43COS0OzNg8xDLJWx7uVP9kKL/wfuHcv6uWnJCIT/pXHSgzRSuZeOSP8hf64PQY1UYuWqIKFQ2vLI57CEZqUNR8A18oUI8bP3u8W51Q1aQBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=hMwIqT5c; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDAC31ADFE4
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 00:48:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788396509; cv=pass; b=G+1XNQ0w0ys+r4c7w/pr2bv/fPP2JzVtqovgP0PwkoZF9dzPJ3Vc8d9UkPRC1b6WxyU2yUUiFGvU+4EEZekYr/s2gbwmEBsuKiwLGIffC0mz34av6vb1R0BfrwTpxKqsD2kSNHzK8DtV7/TDEh7I47f8/LC0PSSeV4ipLt9/4RM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788396509; c=relaxed/simple;
+	bh=pcMbVHcQmHfSQ80hXIs00Z5K3jn7dtMrGjSap6QOZNE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Gelqy0VhSgWwA07vn6mfxjbAsQRD7FWwxNQ+W9dW3ZH2RRSoeABCmNYsf33ItL6lud7RNOrs5Te41Lsk6FGI8GSUOuulKbHajDl3caE7umk5rFG2YFHffCBJdkSLaumpeBrbkL7z9BUZbUKQvUGN8PvSrir+C0cRe2z35ehEA90=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dYPeR/7u; arc=pass smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="hMwIqT5c"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 0B9C740E02C2;
-	Thu,  3 Sep 2026 00:44:35 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id Puely6-fpXbP; Thu,  3 Sep 2026 00:44:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1788396263; bh=BvTNIxSwVFWHoSIbkK2L5MbPA3hShxFmAoJ2zInYwzw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hMwIqT5cuCP+oIf0IV/d8+XbLuqd8m4CxFbeSw4zhKkPJbZwzCno9lPvRjQ/agCFY
-	 00C8N5o1wE8iNgAmN9+BvSw7/2fXa2efew4Ip/pLc8dn7Z+Zgunu5DDI5id1J0mx76
-	 CxQZ+y3G03k1qu8Wh6cRy2e6XYG9+jvpPP1h8OLZP5fBnL9AjZzEEiry0i/fbRjYYF
-	 WLUhA9kBglpQDmiRXqdDEzR0kzx0mPO1Wd0u8KkiRSUm4KxkX5+ke9FY3py+zIXMMd
-	 972zNMOVtg/V5s3sIE1DQuTIktQ/CS6fF3IHEdcIZr62PyQ2J+O+02PVyeTFfd0C9O
-	 0rCJRi9Ossm5sGd8ebH7nehm+oPEVKGZIQghPNUgHetn6luROQgbYD8QRWF5E+a4Is
-	 Y2SVcpFbIXXhXMk2n7Vp1AjeJ3pyKsz2KIldf5S7Z8+wDfX6nhP2EtWxoo5D5J078b
-	 kE2aafWz/89j+rKuNyum36yY2gzI/2lbRE7o2l/u/cHWL6pN+twj47Kd2iOR76CkZL
-	 9gS1WGZaEzV4z/c8oCh4Ppf92jKs3kQL9YGbFaNmAd5fy9LYnTzN30H5S3otCmFPLl
-	 ieK+D3BJB9IUnwHWou9GmwUfdMZxs1Ae6SF3Flb0iXEysTfZl7uXLCgrSk5w8xD6yF
-	 z7wIcsAHJJdb4P28kzIshRfk=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 0D61340E027F;
-	Thu,  3 Sep 2026 00:44:18 +0000 (UTC)
-Date: Wed, 2 Sep 2026 17:44:15 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Melody Wang <huibo.wang@amd.com>
-Cc: x86@kernel.org, LKML <linux-kernel@vger.kernel.org>,
-	Tom Lendacky <thomas.lendacky@amd.com>
-Subject: Re: [PATCH v1 2/8] x86/sev: Add support for Alternate Injection
-Message-ID: <20260903004415.GLapjC39_OQgXHhS79@fat_crate.local>
-References: <cover.1787973545.git.huibo.wang@amd.com>
- <64561ae475103cbe9743793fd54d083a039a36eb.1787973545.git.huibo.wang@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dYPeR/7u"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38a0c7e841fso2664776a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 17:48:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788396507; cv=none;
+        d=google.com; s=arc-20260327;
+        b=F904A5l7UnInWa/dx78bTJD+NQ6jk5kl8mRoNWbLez1U3dAEfAyLhZx6LaW2cofGxr
+         4yvUT9+57o6uBWUhpP0NPaxtoSxdIApcfvGusEwI2qN1WovGOWmQxpL64CAipZck0lQ0
+         YDb+ApmPMy522SqoYuGcEZamWk2GN2uJYQq3hJpdAUEFwv5sQk4BQJnzTqS+h46MkmTM
+         9H85qUEJgqhAahENlNPDeq0wwcdLEO+ABUFAEWphAh0L8hYWdJgcUpVjIReL0BsQ/tay
+         lNjOscUa7Q7EnP/CPEMCG/dPflKCuvoGS6WKBt+HlLrn3IyFKIQJbtdzcmuu0bJKNcwW
+         RujQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pcMbVHcQmHfSQ80hXIs00Z5K3jn7dtMrGjSap6QOZNE=;
+        fh=alF3D8+mZwnLwJfeqWWYFZJAuS+7RSR4+ifJgVfrGjg=;
+        b=fq6FPuTJ26LikWCi4u7O6JRaXi3CS1if8wpUtyLMurnCP9YsnyXTK4fUyT+D6DY2y9
+         7Uudltmz3YSHdRlJs2LPQdh/6a3O1c+NMAmYTQCuoPPlOjEMyMcY35kY9X3JQbTUWGbj
+         ThpqLS643Og2+f+PRnpG3SHN0mLBzzCWSUmS1CCuOqEHmk0UgT3ga+eQsfM7DfG0fgRI
+         55S2nq8UXcPaQ4c9OpDFBjMhaC197zAmQTMKBd1Eu0voZmzj4rKa6xLL365h/Ts5Bu0N
+         e0GgJOx56OSLlrhK1xN85Jo+ysoB4uNbCqhNBx0XUM6YUhkJ+g9QdYe9J4/8I+rsWhhH
+         986Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788396507; x=1789001307; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pcMbVHcQmHfSQ80hXIs00Z5K3jn7dtMrGjSap6QOZNE=;
+        b=dYPeR/7uEMlrn1zIOPnWEPkg3No2sxKEbTjj5Kyu+4BT9aLyKu1Zcc6EVomS97p7IA
+         mFtS7b2ZZi026IUtk7uQTXN2WWBjijejMW2ebarW+IcuFxKzFVXULBUPP0Ca7s27/tPW
+         PeRo/Ko0jDMS0GhPdwyvHZGsBOG6G2fOaPMoFsPwi7R2FE+tGkBqZhynF9PbA2qffagM
+         SynwLkbXI1ngJdS9clV1RiA2EgcTsj2wb4cTyRJ2cnVhNXmnj49yCH7T95ecoVc5DQn4
+         0zkzYYIjwUMEMWslJlJi+5jC8WNgYtbp9pgNVFfka77JW5wTJaPiA09suy/Aq5JAolNM
+         akCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788396507; x=1789001307;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pcMbVHcQmHfSQ80hXIs00Z5K3jn7dtMrGjSap6QOZNE=;
+        b=QbnCHL6PpaQoHfiM+00ISFt+Siy3GJkn09y0L9qcqcDbbCj81n8dhkumH08PoKXv9l
+         mvm3CCuNCpLFfY/xVx2QBuN/0AsRzkCy/37zBp5m00GJ8IKU7X2NX0BtJ0EMAEOYgC5/
+         GqPaQicgX4P11RPvzkgGvi4nevN0s9cmoJAhitzu9wmhve1JTnmIDkBTP+AMervMSovk
+         Y2zwhd6cpeW+9KcFsWgKmxPMcYl9uPeJ3lhCgf19leAgStp/LeaSqa0SVuH0Sf1tep66
+         pWKOH+3bQJ1uc6NzuR1pG9IsWkY7NVpJ6szZKY8TD54dbFzTb+k/LMZJ98HpXN0LhcXP
+         hPfw==
+X-Forwarded-Encrypted: i=1; AKwUvBy2tez+Vxv/kakMQt0UaR9DMMZpnJ30FyFe8XnwyxCWskCPhNucXEwoApoN1NSw414OHYr9Ed5bLyLOeVA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mJzCjh9E49LdIDq2IPx2O1edW9WUVE9hF9AoOxcTADI9BwNBZk
+	QQbKQIj4xqcP/0GKRDrgfNzTx3DDEMaEeDlaIIAd0SJGQ/PGEqZHTpDDKL28e6X90eRktOGIoST
+	SBYbZxShv872m04kCanNWcXYhUO7nc5I=
+X-Gm-Gg: AYBFou3CTsXeK1k5Ognb8m7T+kMoKss6lJZTjC0yDrVIYHZKsswf2Qe+k+5m2akuDr2
+	saasyG7nGISn/tBWNBdG6roJOQj3Kgtip4InWAkZwSQ5w9Kf8gCHd9C1ZAbb8G/I3V6NI0vhgIc
+	GgwszozfB1ZnOZrH+/drYCmXQ5E3CGPvmjJl/92F6T+2Ph855ZLE5Cyw5UMgVbmnyDjB440fdwt
+	nr+tOflywGvzx2Y/Rp1D5RS31mNi+oNHg6tG8z7PJzqj+GVP/YMKN31VEyvGvXn1a3aH5W8L0vD
+	xncoRHGm3FoDNdwQNf5Nj8M/hCmgP4NoLdwpy0WzjOKYUXOeyru/DWlMy4y+z/AmTvgsQjwafOl
+	DVNqEQKTYI1EbVVAT2cT3BnjGGmdsZfgK/wtkb5EL/gsB72z/uCR7
+X-Received: by 2002:a17:90b:3b81:b0:398:9be5:b41d with SMTP id
+ 98e67ed59e1d1-39aee2650cdmr12358772a91.24.1788396507007; Wed, 02 Sep 2026
+ 17:48:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <64561ae475103cbe9743793fd54d083a039a36eb.1787973545.git.huibo.wang@amd.com>
+References: <20260819122252.1782790-1-florent.revest@linux.dev>
+ <DL27QZ6SEZKT.1CV2HAX4A3WI4@gmail.com> <CAADnVQLxi-R1KDUXJJjpq69SpV8UcNJVqBi7uicO=V0WhAvyQA@mail.gmail.com>
+ <DL2S878KSOI5.1SZMLIAWMCNUJ@gmail.com> <DL3FIBQNP6AU.1HO08FMI292UX@linux.dev>
+ <CAADnVQLMm43qJxuiHUuuh51wAL4kH0+fRoaM7YfbZEXT7LHn0A@mail.gmail.com>
+ <DL4R2YXF9J8G.203VBANYFFSET@linux.dev> <CAADnVQJ+OJKmgaDM9B58g30M_-pkZgGmbDuvEWmrg8U_ZkxbSg@mail.gmail.com>
+ <DL57W17T3VEC.1EJMWXYOB7JFU@linux.dev>
+In-Reply-To: <DL57W17T3VEC.1EJMWXYOB7JFU@linux.dev>
+From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Date: Wed, 2 Sep 2026 17:48:14 -0700
+X-Gm-Features: AcwNN1W8LC8fgwtZ-phigylO3GU4p-vuY6fqVwU-3N3iINKxrRhBVAdkq7Z11_Y
+Message-ID: <CAADnVQJLNW=FqPrWq7MX28iA_Qsw_N1mT923WrVkoqES1ZArjA@mail.gmail.com>
+Subject: Re: [PATCH bpf] bpf: Keep progs alive until the trampoline image
+ calling them is freed
+To: Florent Revest <florent.revest@linux.dev>
+Cc: Kumar Kartikeya Dwivedi <memxor@gmail.com>, bpf <bpf@vger.kernel.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	KP Singh <kpsingh@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
+	John Fastabend <john.fastabend@gmail.com>, "Paul E. McKenney" <paulmck@kernel.org>, 
+	Jose Fernandez <jose.fernandez@linux.dev>, LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Aug 29, 2026 at 03:39:40AM +0000, Melody Wang wrote:
-> The Alternate Injection feature is a method to protect an AMD
-> confidential computing guest from malicious injection attacks. It allows
+On Wed, Sep 2, 2026 at 4:25=E2=80=AFPM Florent Revest <florent.revest@linux=
+.dev> wrote:
+>
+> On Wed Sep 2, 2026 at 10:06 PM UTC, Alexei Starovoitov wrote:
+> > On Wed, Sep 2, 2026 at 3:15=E2=80=AFAM Florent Revest <florent.revest@l=
+inux.dev> wrote:
+> > >
+> > > On Wed Sep 2, 2026 at 5:57 AM UTC, Alexei Starovoitov wrote:
+> > > > On Mon, Aug 31, 2026 at 1:58=E2=80=AFPM Florent Revest <florent.rev=
+est@linux.dev> wrote:
+> > > > >
+> > > > > How about having old trampolines skip freed programs instead of k=
+eeping
+> > > > > them alive ?
+> > > >
+> > > > Isn't it doing it now?
+> > > > That was the whole point of patching nop to jmp in a trampoline.
+> > >
+> > > Just to be sure we're talking about the same thing, you're referring =
+to the
+> > > "ip_after_call" patching done in bpf_tramp_image_put, right ?
+> > >
+> > > My understanding is that this only helps in the case where a task is =
+in the
+> > > traced function while a prog is detached. It'd make it skip all fexit=
+ progs.
+> >
+> > Right. That's the one I meant.
+> >
+> > > But if a task is sleeping in a fexit.s prog for example, it is alread=
+y past
+> > > ip_after_call, so this patching would not prevent it from calling a s=
+econd,
+> > > freed, fexit prog lined up after it in the trampoline, no ? The same =
+situation
+> > > should happen with a sleeping fentry.s prog followed by a fentry prog=
+.
+> >
+> > Hmm. You mean like fexit prog A called a sleepable kfunc and
+> > another prog B is attached to the same trampoline.
+> >
+> > Then the trampoline needs to be freed. ip_after_call patches jmp in,
+> > and trampoline proceeds to free progs A and B.
+> > B is freed right away.
+> > Eventually A's kfunc returns from sleep
+> > and jmps back into a trampoline
+> > which is not freed yet, since percpu_ref keeps it,
+> > but prog B is gone, so it attempts to execute a freed prog B ?
+>
+> Yep, exactly!
+>
+> > > I have a reproducer for those scenarios that crashes bpf-next. I will=
+ make it a
+> > > selftest in v2 like Jiri suggested.
+> >
+> > Please narrow down the reproducer (sounds like it's a random stress tes=
+t
+> > at this point) to specific steps.
+> >
+> > If my guess above is correct the reproducer will be short
+> > and deterministic.
+>
+> Indeed. When I originally sent this patch my repro was a stress test but =
+when I
+> found out about the above scenario I could make a short and deterministic=
+ repro
+>
+> My only question then is, what kind of fix would you prefer in v2: keepin=
+g refs
+> to progs while the trampoline is alive ? (like in this v1, but I think yo=
+u
+> nacked this approach already ?)
 
-" ... a SNP guest... " - simpler.
+I'm worried about holding fexit progs potentially forever.
+There are kernel funcs that enter and never return.
+Attaching to them will pin fexit progs forever.
+While right now it's only the trampoline that gets pinned
+which is 4k.
 
-> the guest to control the interrupt injection.
-> 
-> When this feature is enabled, interrupts are injected with the help of
-> an agent called a Secure VM Service Module (SVSM) which executes in the
-> security realm of the guest and uses Restricted Injection as the sole
-> method to receive interrupts from the hypervisor.
-> 
-> Add support for Alternate Injection enablement.
+> or some other creative solution like having
+> __bpf_prog_enter*() skip each freed prog individually ?
 
-s/ enablement//
+I don't want to add more overhead to __bpf_prog_enter*() wrappers either.
 
-> Signed-off-by: Melody Wang <huibo.wang@amd.com>
-> ---
->  arch/x86/Kconfig                   | 14 ++++++++++++++
->  arch/x86/boot/compressed/sev.c     |  2 +-
->  arch/x86/coco/core.c               |  3 +++
->  arch/x86/coco/sev/core.c           |  2 +-
->  arch/x86/include/asm/cpufeatures.h |  1 +
->  arch/x86/include/asm/msr-index.h   |  4 ++--
->  include/linux/cc_platform.h        |  8 ++++++++
->  7 files changed, 30 insertions(+), 4 deletions(-)
+> Or maybe something
+> else ?
 
-...
+Let's extend ip_after_call concept.
+Instead of using a single NOP after the call to skip fexit progs
+let's add NOPs in front of every invoke_bpf() including fentry and fmod_ret=
+.
 
-> diff --git a/arch/x86/coco/core.c b/arch/x86/coco/core.c
-> index 989ca9f72ba3..aabda3ddc0e2 100644
-> --- a/arch/x86/coco/core.c
-> +++ b/arch/x86/coco/core.c
-> @@ -107,6 +107,9 @@ static bool noinstr amd_cc_platform_has(enum cc_attr attr)
->  	case CC_ATTR_SNP_SECURE_AVIC:
->  		return sev_status & MSR_AMD64_SNP_SECURE_AVIC;
->  
-> +	case CC_ATTR_SNP_ALTERNATE_INJECTION:
-> +		return sev_status & MSR_AMD64_SNP_ALTERNATE_INJ;
+Then on tramp destroy patch all nop-s to jmp epilogue.
 
-Sashiko is complaining here:
+llm-s helped me realize that fentry has the same issue.
+fentry prog A can sleep
+while non-sleepable fentry prog B can detach and things will crash.
 
-| Does this attribute evaluate the host status or the guest status?
-| 
-| The implementation in amd_cc_platform_has() checks sev_status, which 
-| represents the SEV capability of the executing guest. However, the doc comment
-| for CC_ATTR_SNP_ALTERNATE_INJECTION below states it checks if "The host kernel
-| is running with the necessary features". Could the documentation be updated to
-| match the actual implementation?
-
-Because of the comment over CC_ATTR_SNP_ALTERNATE_INJECTION talking about the
-host running with the necessary features, blabla. Yeah, sev_status dumps guest
-bits and the alternate injection bit is set in the VMSA by the SVSM and so
-yeah, maybe we should tone down the "host" speech in the comment...
-
-> diff --git a/arch/x86/coco/sev/core.c b/arch/x86/coco/sev/core.c
-> index cc292d7c6fd1..c54269366278 100644
-> --- a/arch/x86/coco/sev/core.c
-> +++ b/arch/x86/coco/sev/core.c
-> @@ -78,7 +78,7 @@ static const char * const sev_status_feat_names[] = {
->  	[MSR_AMD64_SNP_VTOM_BIT]		= "vTom",
->  	[MSR_AMD64_SNP_REFLECT_VC_BIT]		= "ReflectVC",
->  	[MSR_AMD64_SNP_RESTRICTED_INJ_BIT]	= "RI",
-> -	[MSR_AMD64_SNP_ALT_INJ_BIT]		= "AI",
-> +	[MSR_AMD64_SNP_ALTERNATE_INJ_BIT]	= "AI",
->  	[MSR_AMD64_SNP_DEBUG_SWAP_BIT]		= "DebugSwap",
->  	[MSR_AMD64_SNP_PREVENT_HOST_IBS_BIT]	= "NoHostIBS",
->  	[MSR_AMD64_SNP_BTB_ISOLATION_BIT]	= "BTBIsol",
-> diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
-> index f70ee74b5f92..a53e40a3982c 100644
-> --- a/arch/x86/include/asm/cpufeatures.h
-> +++ b/arch/x86/include/asm/cpufeatures.h
-> @@ -466,6 +466,7 @@
->  #define X86_FEATURE_SNP_SECURE_TSC	(19*32+ 8) /* SEV-SNP Secure TSC */
->  #define X86_FEATURE_V_TSC_AUX		(19*32+ 9) /* Virtual TSC_AUX */
->  #define X86_FEATURE_SME_COHERENT	(19*32+10) /* hardware-enforced cache coherency */
-> +#define X86_FEATURE_ALTERNATE_INJECTION	(19*32+13) /* SEV Alternate Injection */
-
-Sashiko: Does this new feature addition need to be synchronized with the
-kernel tools directory?
-
-Answer: no. We sync those only when needed.
-
-Also, make the comment /* SEV-SNP Alternate ... */
-
-as it is a SNP feature.
-
->  #define X86_FEATURE_DEBUG_SWAP		(19*32+14) /* "debug_swap" SEV-ES full debug state swap support */
->  #define X86_FEATURE_RMPREAD		(19*32+21) /* RMPREAD instruction */
->  #define X86_FEATURE_SEGMENTED_RMP	(19*32+23) /* Segmented RMP support */
-> diff --git a/arch/x86/include/asm/msr-index.h b/arch/x86/include/asm/msr-index.h
-> index 3a8e51a0c9e8..473a3ba86a2d 100644
-> --- a/arch/x86/include/asm/msr-index.h
-> +++ b/arch/x86/include/asm/msr-index.h
-> @@ -721,8 +721,8 @@
->  #define MSR_AMD64_SNP_REFLECT_VC	BIT_ULL(MSR_AMD64_SNP_REFLECT_VC_BIT)
->  #define MSR_AMD64_SNP_RESTRICTED_INJ_BIT 5
->  #define MSR_AMD64_SNP_RESTRICTED_INJ	BIT_ULL(MSR_AMD64_SNP_RESTRICTED_INJ_BIT)
-> -#define MSR_AMD64_SNP_ALT_INJ_BIT	6
-> -#define MSR_AMD64_SNP_ALT_INJ		BIT_ULL(MSR_AMD64_SNP_ALT_INJ_BIT)
-> +#define MSR_AMD64_SNP_ALTERNATE_INJ_BIT	6
-> +#define MSR_AMD64_SNP_ALTERNATE_INJ	BIT_ULL(MSR_AMD64_SNP_ALTERNATE_INJ_BIT)
->  #define MSR_AMD64_SNP_DEBUG_SWAP_BIT	7
->  #define MSR_AMD64_SNP_DEBUG_SWAP	BIT_ULL(MSR_AMD64_SNP_DEBUG_SWAP_BIT)
->  #define MSR_AMD64_SNP_PREVENT_HOST_IBS_BIT 8
-
-Sashiko: Is it necessary to update tools/arch/x86/include/asm/msr-index.h with this
-macro rename as well?
-
-Yeah, we probably should for completeness' sake.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+better ideas?
