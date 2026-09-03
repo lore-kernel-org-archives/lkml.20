@@ -1,300 +1,533 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FFDC1EE7B7;
-	Thu,  3 Sep 2026 02:47:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788403659; cv=none; b=KFNkjolXzw0koonDdUc7yui6hHx8FDEtjPokMS8XN6e1lfHv8++BGSKdSkrJMqCPQZ6iYZdLPId2FKa7pmJacaFQNrT/YrNKivlrVnBaSoph4yzhT8ujydvmMZ8LkQZQJmuY6/4DD1hPLnveVVTgI8wKnwpSBKl8VlF2O+4E2uM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788403659; c=relaxed/simple;
-	bh=OAZ17QYQRxW+6QWkSmNXTqE5PKgfTkl9xj+sYX9MqQI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GMIIPu4N31i11vSzNORwUdXjiLzju2hEzBrjJT2AHf5FnX3pG9Be5UpnnvaqZFGUIvSmHWwOcFD+WnwAheK4sZUiXcaj9+hbZvp2dTN0T7q5LwaY142HxsAfdrZzMtK9izhXetv6FMoIc4iad9HRQEVYRqSZZNscEGAgSEaboc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=KxAwabPQ; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 547E31A9B24
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 02:48:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788403740; cv=pass; b=jTKnJclZC8fc7CJIrJDQYblZEs7LTKXS3ahf3a+JwoirVjgKbHxr1Ng5+aIOQ90UJ/KrdFAdcRYJI7yYav3AsyncCuCXPQcbY3lYykydUVVYVcS9XgBSt9Zg4T+c90o3wRD8TywSlRW1FUV8chnWtPqp78Hgo7HnswSw8HUdF88=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788403740; c=relaxed/simple;
+	bh=dnQWjMZqEmzZ1sNTY4Bt+zK1nOjuolWMZGoiPQkzzeU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Uldjgsc4G+H2U7PpvnSZY+JmC4ueXLQ1rXVoaIwaSMVSHdMaFU9fj7xmmKnHMOEZIBy5+Uc1PM7FsWl+19QtYp/pufu7ENNtZOKqP608bNdUPKEYgKWG9987urwKZ+7bpizILngBTA7KqhnhSreqIuXNdn2WOl8TwAsmIHulgMg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lEkuzcrX; arc=pass smtp.client-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="KxAwabPQ"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682NVrI7290532;
-	Thu, 3 Sep 2026 02:46:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=rOdWMC
-	uL9D3IoUM29DC6JSDTnLDaPAkQ8YMdBLT4Hl0=; b=KxAwabPQQJkhUwwzkrNiOt
-	2og3KtMrwNLWU4jI0lkOPCbJujnac4uxzOYBnfA/85SOK8QF0zHOldNRSyBGUTah
-	t718g4Wjy2VMpOJh02gblveXW5mDZ64wc8FCeZCOfpqTk+ViG6ZWEwrCAxuNBpmN
-	fAyEc0HvPLkXHZcjR5m/ZUNejlPNDNAir52h+c+qAjnADpSmbPRiJSpSx61lA26z
-	8WvYei1XA8DvnVyN0nbcB/Sl6ZitB8CZ2svf/t18PKdKoPvxZ1x9J+2i+NWGChA1
-	7WN7uRqYkWu1884ZgLeaYVShR2iF/YRNziMW/koikkqNkT1JyWjjMIz0uYvotAvw
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbnue2btu-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 03 Sep 2026 02:46:01 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6832fK54026262;
-	Thu, 3 Sep 2026 02:46:00 GMT
-Received: from smtprelay06.wdc07v.mail.ibm.com ([172.16.1.73])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gc9rqntax-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 03 Sep 2026 02:46:00 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
-	by smtprelay06.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6832jwfY12845810
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 3 Sep 2026 02:45:59 GMT
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A65975805D;
-	Thu,  3 Sep 2026 02:45:58 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BB4B758052;
-	Thu,  3 Sep 2026 02:45:50 +0000 (GMT)
-Received: from [9.43.65.145] (unknown [9.43.65.145])
-	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  3 Sep 2026 02:45:50 +0000 (GMT)
-Message-ID: <d52d3775-ded0-4b7a-8315-6e940ba90f4a@linux.ibm.com>
-Date: Thu, 3 Sep 2026 08:15:48 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lEkuzcrX"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c253425b253so275799466b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 19:48:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788403736; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bR0iPLjDQZUt/zWjV2H+z2dWghMJeEKaV5H86DjsAjFlcJUMD6n8fmbjsYVY107zs7
+         x3Fc+0bFfNMP+QTr5cMcg1kowC9s8I453v6ttMQU5JUlOBCd0X+b1gskGf9934SXGgCo
+         CQsAK4BvPjUIRn9pp76x0K2jqBRK7QAKwbvDrlCgoUoqPgNdEteARppoUuGoSnmvnH2d
+         k5dyeEkr5tS2gR8fYhCDDTAO3dUJ/atWPIszJ0TXhOe0/80uWoZLqebb96YNiYxpb/Cx
+         hE9EGOi5OoKWMRRYmeVPh0zNdZEJ6Ao8mrui8k6ddpxhHHyUWPb5fQ5TnB+c0aMHuypZ
+         4PdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tLBodbk7JjzIUryMVPkFMBIyB7ijCUJDvm8uVCLJdsI=;
+        fh=thB6Gu6AHvUIHfsNWTk5uv68Dy/zsw24jTzBd/jw+ZU=;
+        b=brWAZRut9TaBEeQIXysUea2MsNpf/lLF9QnXRueaGCsJKTmE9ybmijr6nrd4qUf0AA
+         7ZXRP/bYbigIFaR87MKWIoT0A3PF8Z/kSSb6+DjRDr6BD645oG5z8513FQCOE8j8CgXz
+         2D8y6VaixoIuw5xyDcyWmb+C+l4w0ojgsafDSe8kBy0M6ZeeeGNsMrOk25bjiTwPzFv/
+         Dtb31h7yEzmS6dpsLp+8Ze8f6NbQB9QYGbmnmOCDww7u3fQA3ufGy4ySHW7cVKqvon3b
+         yS4+6utyp/e4G6PX1BAibS/d5quUZdwUdQKPAwMRbftzQSVXp2kObMPBcrwPcZhrNLho
+         l9cQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788403736; x=1789008536; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tLBodbk7JjzIUryMVPkFMBIyB7ijCUJDvm8uVCLJdsI=;
+        b=lEkuzcrX/r0E6mxzOMZc7xelkXGcY0hiEfTjVHioaAQII7rMnerM19Zh71TGfZwDwd
+         TQbWFgNxnvK2zvHxQNq0WIzWM7zPeaWYOsARymN3xvzD+zmTZGYcaV/nW7RNg36CJGn1
+         4+cEBYxlMywUWWsDH7sAeJI+yby0gSAxix407J+khRKinVF0RsjIcl/SBlwkFc216aq0
+         0UV+yMORpDSzwiN6PFjjZS1HtxWHSKIhUldnsouGSZZx7FYguPRI9AthEf+KBGom9WK0
+         7Skoe4VcxDly7PNBKezKI9OluCMDjxZABal9Kk1CeGXmMiEp+CHnpE8IQMmzFChMlXQg
+         H/vQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788403736; x=1789008536;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tLBodbk7JjzIUryMVPkFMBIyB7ijCUJDvm8uVCLJdsI=;
+        b=C0VjG45IpSR0QjUik6nQnsz1isyZO/RbmXlCJzHh82D/Zf3PlZ/u0oMP/wpUJETU0D
+         cgNm+tu6m6pBPXU/ovD9WOzlfL3W40Cc8t/26hbRq3Oe7GwoeVCde/FxMrXLoTlxBaTo
+         yRFdiORpUO0+E17bbrJn/65kisKFY7BeYz8A7rNMxguvuHZitATS4Xjq4yPeAFHafEeN
+         Sr56w1swvR1cTJk8tGtmdlVi1gKaULN5jDkrGpUSULT8Rfno+vTAf4gNJ2mHrX4Dv8Sl
+         QGeId7ht7QKz1IJEGrq5dcOa60EIZumF7ZHzeV3F5FQ0TI/YG3cj7XWgugNMQrgpRmpN
+         bSwg==
+X-Forwarded-Encrypted: i=1; AKwUvBwWVBdrDYTo1NmgNzYoqyEfs4WWa6VFmZgz3JwRz6hJRDeXUhEBMgSQbU7CH4mLNr3NLCDmODS7AliaM+c=@vger.kernel.org
+X-Gm-Message-State: AFuF++nHiCthaBYpZ4STNr779cbr7Awug+ZKoQVN295YEOhBHd5HIXFB
+	mfrkGXR+glg26i7UOBF+8BRoVV1PNHW8sbOrsmOsmwqblFfxXam73MA7/XI0y9r/vgZdSk0aAs9
+	5cVEDvMcz4iBZAs+ZqJUAMRex4vNnkwU=
+X-Gm-Gg: AYBFou0Jk6iRjCMlLNlwCp0nrv+Ashiu2Ng7g1agj3ndHWuuvZ310aVivY8E6VE0N+T
+	EgB+GQ8homBw3HbkzHyXWM+FnmpSHed5DvZyWi9wMKXEAyFBsunynIeWwZfp5K2b+O+WzLw1yps
+	Tieha4v2DuEmpND06HJS5rjtAxWyoFKL+oi7gHgZtCXB/6xigNL9qlUN8gkQzTPQdCRdKm+QLr5
+	TqIP+StlCV7ezqNeLahqlkrKMKM5sCtui0LDl/EUqqAnd32Fl/4LDf9JAXPBqGVPTKyYlZ0vPK2
+	Se0LdYPogItevMHYI+aFSwb9fU0TmJRYgtS8yr1gUqeu6mXCopmCNK68BAleyMsvFesNIzG08Zl
+	u
+X-Received: by 2002:a17:906:9c93:b0:c16:26c7:6ba8 with SMTP id
+ a640c23a62f3a-c25d5271fb9mr509886866b.6.1788403736382; Wed, 02 Sep 2026
+ 19:48:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 1/2] sched: Document WF_SYNC wakeup placement
- semantics
-To: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap <rdunlap@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Juri Lelli <juri.lelli@redhat.com>,
-        Vincent Guittot <vincent.guittot@linaro.org>,
-        Dietmar Eggemann <dietmar.eggemann@arm.com>,
-        Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
-        Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
-        K Prateek Nayak <kprateek.nayak@amd.com>,
-        Shubhang Kaushik <shubhang@os.amperecomputing.com>,
-        Christopher Lameter <clameter@amperecomputing.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>, linux-doc@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Madadi Vineeth Reddy <vineethr@linux.ibm.com>
-References: <20260825-sched-wf-sync-doc-v1-0-f899edb44ff5@gentwo.org>
- <20260825-sched-wf-sync-doc-v1-1-f899edb44ff5@gentwo.org>
-Content-Language: en-US
-From: Madadi Vineeth Reddy <vineethr@linux.ibm.com>
-In-Reply-To: <20260825-sched-wf-sync-doc-v1-1-f899edb44ff5@gentwo.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: WXcXphI-J6fOOkj6ZMb3t9UiF4pYw6Bg
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDAyMSBTYWx0ZWRfX/F84uaue9/7B
- p6T+lJ+l59UqzAfK8b9qrhDBp7tjENRRBoAfCVgrLCANhJaiyl+2iR0lL7fFdnsyMPXhAw7xJO0
- PuMLoeSeYWPgnUSL4QfHH0F9xvzNcEkCioLHAEyqVfhXx/Fxbtk6n6rXyDRgS9zwhD6CjDlvuKO
- 5GWOPYNPZ4Gsyrp6oa2ip1C/9zNtVdheTgsPOCDz6LFAa+7zwkENA1Uakh8lfa+hJHLQHELAciG
- AriK/Y6g0/thiWi6kzs5akaQZ1hCWr0t9vIeklhb07kQISHCjQVvhVRWdWk0CDGVMQBbqLNlscl
- ZkCWmc8SA5LayJRUZ9jG7AAkRaGz+kGR48fqNWdZW5sX4eUfnGXSLcdiXqSvhQfJ7fHfzQ1jVPA
- 9YVvDc6eGmL5I/0MlwTVo20JXcr2inz4M56Xj6LqoZO6HC5jUk2OeJ2sDdIS/x02zM8wxdWt0l6
- BZ0Q2syVeMRpxUgrIjw==
-X-Proofpoint-ORIG-GUID: s23dK7QRFEvayQq7Vopf86kp4yg8fPIA
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDAyMSBTYWx0ZWRfX1RqK42Z+jbNJ
- pUul5ZHjkLUaXx6GfNCFsPLW8ZAv+THvV1mHgkd01UN0xkLu3LBwfQcSmYdXiZsFKdERbfks9Nl
- T3G4ziyMa9wwFqBDejfdkewxFDz2jt0=
-X-Authority-Analysis: v=2.4 cv=B92JFutM c=1 sm=1 tr=0 ts=6a98df6a cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=PuvxfXWCAAAA:8
- a=TT-myxhzOO4GQJku5wMA:9 a=QEXdDO2ut3YA:10 a=uAr15Ul7AJ1q7o2wzYQp:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_06,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 clxscore=1011 suspectscore=0 phishscore=0
- lowpriorityscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609030021
+References: <20260902141153.93b932ba572b1d3375216cc4@linux-foundation.org> <20260902223124.48962-1-baohua@kernel.org>
+In-Reply-To: <20260902223124.48962-1-baohua@kernel.org>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Thu, 3 Sep 2026 10:48:18 +0800
+X-Gm-Features: AcwNN1XM9Te18M3BnRlh16HF2KsCBVP2a1M5Yd0ROWFwVgcVEIjqGzJrEaqft9o
+Message-ID: <CAMgjq7CW7=OQva9EOM32To244eCXVJmkKUg=ZvGc4qOB9x2JVA@mail.gmail.com>
+Subject: Re: [PATCH v5 0/6] mm/mglru: clean up folio counters and flag usage
+To: "Barry Song (Xiaomi)" <baohua@kernel.org>
+Cc: akpm@linux-foundation.org, axelrasmussen@google.com, 
+	baolin.wang@linux.alibaba.com, baoquan.he@linux.dev, cgroups@vger.kernel.org, 
+	chrisl@kernel.org, david@kernel.org, devnull+kasong.tencent.com@kernel.org, 
+	hannes@cmpxchg.org, liam@infradead.org, lianux.mm@gmail.com, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org, 
+	mhocko@kernel.org, muchun.song@linux.dev, qi.zheng@linux.dev, 
+	ridong.chen@linux.dev, roman.gushchin@linux.dev, shakeel.butt@linux.dev, 
+	vbabka@kernel.org, weixugc@google.com, yuanchu@google.com, yuzhao@google.com, 
+	ziy@nvidia.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 26/08/26 04:16, Shubhang Kaushik (Ampere) wrote:
-> WF_SYNC is supplied by callers that expect the waker to schedule away
-> soon. The fair-class wakeup path uses it as a heuristic, but its
-> placement and preemption behavior is not documented.
-> 
-> Document the current behavior from try_to_wake_up() through
-> select_task_rq_fair(), select_idle_sibling(), and preempt_sync(). In
-> particular, document that WF_SYNC does not bypass wake_wide(), does not
-> make wake_affine()'s target final, and does not require immediate wakee
-> preemption.
-> 
-> This documents existing behavior only. It does not establish a new
-> WF_SYNC placement policy.
-> 
-> Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+On Thu, Sep 3, 2026 at 6:31=E2=80=AFAM Barry Song (Xiaomi) <baohua@kernel.o=
+rg> wrote:
+>
+> I rebased Kairui's series on top of `mm-new`. I guess all we need is to
+> make patch 2 look like this:
+>
+> From 01e2013722443f685d47b42e7d9b11aadef58722 Mon Sep 17 00:00:00 2001
+> From: Kairui Song <kasong@tencent.com>
+> Date: Wed, 2 Sep 2026 17:50:55 +0800
+> Subject: [PATCH 2/6] mm/mglru: introduce helpers for manipulating gen and=
+ refs
+>  flags
+>
+> Instead of doing bit ops on folio->flags.f, introduce helpers for
+> adjusting a folio's refs and generation info, making the code easier
+> to debug and understand.
+>
+> No functional change is intended: some combined atomic operations are
+> split into two, which only creates harmless transient states. There is
+> no measurable performance impact, and some paths even look slightly
+> better in the generated assembly.
+>
+> Acked-by: Qi Zheng <qi.zheng@linux.dev>
+> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Reviewed-by: Barry Song <baohua@kernel.org>
+> Signed-off-by: Kairui Song <kasong@tencent.com>
+> Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
 > ---
->  Documentation/scheduler/index.rst               |   1 +
->  Documentation/scheduler/sched-wake-affinity.rst | 133 ++++++++++++++++++++++++
->  2 files changed, 134 insertions(+)
-> 
-> diff --git a/Documentation/scheduler/index.rst b/Documentation/scheduler/index.rst
-> index 17ce8d76befc1bb1dc289e9243bdca98c9ccb172..ac95c79617fd2c03564ea4a9dad362091b9d1b86 100644
-> --- a/Documentation/scheduler/index.rst
-> +++ b/Documentation/scheduler/index.rst
-> @@ -14,6 +14,7 @@ Scheduler
->      sched-design-CFS
->      sched-eevdf
->      sched-domains
-> +    sched-wake-affinity
->      sched-capacity
->      sched-energy
->      schedutil
-> diff --git a/Documentation/scheduler/sched-wake-affinity.rst b/Documentation/scheduler/sched-wake-affinity.rst
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..6b0dc83da537ad576130ef165a2bb1cf5abd814a
-> --- /dev/null
-> +++ b/Documentation/scheduler/sched-wake-affinity.rst
-> @@ -0,0 +1,133 @@
-> +.. SPDX-License-Identifier: GPL-2.0
+>  include/linux/mm_inline.h | 84 +++++++++++++++++++++++++++++++++++----
+>  include/linux/mmzone.h    |  1 +
+>  mm/folio.c                | 19 +++++----
+>  mm/vmscan.c               | 60 ++++++++++++++++------------
+>  4 files changed, 122 insertions(+), 42 deletions(-)
+>
+> diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+> index 621c8653d8f7..3f4bd5b02b54 100644
+> --- a/include/linux/mm_inline.h
+> +++ b/include/linux/mm_inline.h
+> @@ -142,10 +142,66 @@ static inline int lru_tier_from_refs(int refs, bool=
+ workingset)
+>         return workingset ? MAX_NR_TIERS - 1 : order_base_2(refs);
+>  }
+>
+> -static inline int folio_lru_refs(const struct folio *folio)
+> +/**
+> + * lru_set_gen_flags - Set the LRU generation number to specified folio =
+flags.
+> + * @flags: pointer to the folio flags
+> + * @gen: generation number, between 0 and (MAX_NR_GENS - 1), inclusive.
+> + */
+> +static inline void lru_set_gen_flags(unsigned long *flags, int gen)
+> +{
+> +       BUILD_BUG_ON(LRU_GEN_MASK & LRU_REFS_MASK);
+> +       VM_WARN_ON_ONCE(gen >=3D MAX_NR_GENS || gen < 0);
+> +       /* Store gen offset by 1, zero means the folio is off-list. */
+> +       *flags &=3D ~LRU_GEN_MASK;
+> +       *flags |=3D (gen + 1UL) << LRU_GEN_PGOFF;
+> +}
 > +
-> +==============================
-> +WF_SYNC Wakeup Placement Hints
-> +==============================
+> +/**
+> + * lru_get_gen_flags - Return the LRU generation number from folio flags=
+.
+> + * @flags: folio flags
+> + *
+> + * Returns: A number between 0 and (MAX_NR_GENS - 1), inclusive. Returns
+> + * -1 if the flags indicate the folio is off the list (e.g., isolated).
+> + */
+> +static inline int lru_get_gen_flags(unsigned long flags)
+>  {
+> -       unsigned long flags =3D READ_ONCE(folio->flags.f);
+> +       int gen =3D ((flags & LRU_GEN_MASK) >> LRU_GEN_PGOFF) - 1;
+>
+> +       /* Exclude the legal -1 from the unsigned MAX_NR_GENS comparison =
+*/
+> +       VM_WARN_ON_ONCE(gen !=3D -1 && gen >=3D MAX_NR_GENS);
+> +       return gen;
+> +}
 > +
-> +WF_SYNC is a wakeup flag supplied by callers that expect the waking task
-> +to schedule away soon after waking another task. It is a scheduler hint,
-> +not a CPU-placement request.
+> +/**
+> + * lru_set_refs_flags - Set the LRU referenced count to folio flags.
+> + * @flags: pointer to the folio flags
+> + * @refs: referenced / access count number, between 0 and LRU_REFS_MAX, =
+inclusive.
+> + *
+> + * For MGLRU, PG_referenced holds the first ref, and the extra bits hold=
+ the
+> + * remaining refs. For classical LRU the extra bits are not used, so it =
+can
+> + * also be seen as the refs count never exceeds 1. In both cases, refs =
+=3D=3D 1
+> + * means PG_referenced is set and the extra bits are zero, and refs =3D=
+=3D 0 means
+> + * PG_referenced and the extra bits are all unset.
+> + */
+> +static inline void lru_set_refs_flags(unsigned long *flags, unsigned int=
+ refs)
+> +{
+> +       VM_WARN_ON_ONCE(refs > LRU_REFS_MAX);
+> +       BUILD_BUG_ON(LRU_REFS_MAX !=3D (LRU_REFS_MASK >> LRU_REFS_PGOFF) =
++ 1);
 > +
-> +The synchronous waitqueue helpers pass WF_SYNC to try_to_wake_up(). The
-> +wakeup path adds WF_TTWU before invoking the scheduler. WF_SYNC itself
-> +does not block, yield, or otherwise change the state of the waker.
+> +       *flags &=3D ~LRU_REFS_FLAGS;
+> +       if (!refs)
+> +               return;
+> +       *flags |=3D (BIT(PG_referenced) | ((refs - 1UL) << LRU_REFS_PGOFF=
+));
+> +}
 > +
-> +This document describes the current behavior for the fair scheduler.
-> +Other scheduler classes may ignore WF_SYNC or apply their own policy.
+> +/**
+> + * lru_get_refs_flags - Return LRU referenced / access count from folio =
+flags.
+> + * @flags: folio flags
+> + *
+> + * Reads the LRU referenced count set by lru_set_refs_flags().
+> + */
+> +static inline int lru_get_refs_flags(unsigned long flags)
+> +{
+>         if (!(flags & BIT(PG_referenced)))
+>                 return 0;
+>         /*
+> @@ -155,11 +211,24 @@ static inline int folio_lru_refs(const struct folio=
+ *folio)
+>         return ((flags & LRU_REFS_MASK) >> LRU_REFS_PGOFF) + 1;
+>  }
+>
+> -static inline int folio_lru_gen(const struct folio *folio)
+> +static inline int folio_lru_refs(const struct folio *folio)
+>  {
+> -       unsigned long flags =3D READ_ONCE(folio->flags.f);
+> +       return lru_get_refs_flags(READ_ONCE(*const_folio_flags(folio, 0))=
+);
+> +}
 > +
-> +Wakeup paths
-> +============
+> +static inline void folio_set_lru_refs(struct folio *folio, unsigned int =
+refs)
+> +{
+> +       unsigned long new_flags, old_flags =3D READ_ONCE(*folio_flags(fol=
+io, 0));
 > +
-> +A successful wakeup does not always select a CPU. If the wakee is already
-> +queued, try_to_wake_up() can complete the wakeup through ttwu_runnable().
-> +That path retains the wakee's current runqueue, although it can still
-> +invoke wakeup_preempt().
+> +       do {
+> +               new_flags =3D old_flags;
+> +               lru_set_refs_flags(&new_flags, refs);
+> +       } while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flag=
+s));
+> +}
+>
+> -       return ((flags & LRU_GEN_MASK) >> LRU_GEN_PGOFF) - 1;
+> +static inline int folio_lru_gen(const struct folio *folio)
+> +{
+> +       return lru_get_gen_flags(READ_ONCE(*const_folio_flags(folio, 0)))=
+;
+>  }
+>
+>  static inline bool lru_gen_is_active(const struct lruvec *lruvec, int ge=
+n)
+> @@ -270,7 +339,7 @@ static inline bool lru_gen_add_folio(struct lruvec *l=
+ruvec, struct folio *folio,
+>         gen =3D lru_gen_from_seq(seq);
+>         flags =3D (gen + 1UL) << LRU_GEN_PGOFF;
+>         /* see the comment on MIN_NR_GENS about PG_active */
+> -       set_mask_bits(&folio->flags.f, LRU_GEN_MASK | BIT(PG_active), fla=
+gs);
+> +       set_mask_bits(folio_flags(folio, 0), LRU_GEN_MASK | BIT(PG_active=
+), flags);
+>
+>         lru_gen_update_size(lruvec, folio, -1, gen);
+>         /* for folio_rotate_reclaimable() */
+> @@ -295,7 +364,7 @@ static inline bool lru_gen_del_folio(struct lruvec *l=
+ruvec, struct folio *folio,
+>
+>         /* for folio_migrate_flags() */
+>         flags =3D !reclaiming && lru_gen_is_active(lruvec, gen) ? BIT(PG_=
+active) : 0;
+> -       flags =3D set_mask_bits(&folio->flags.f, LRU_GEN_MASK, flags);
+> +       flags =3D set_mask_bits(folio_flags(folio, 0), LRU_GEN_MASK, flag=
+s);
+>         gen =3D ((flags & LRU_GEN_MASK) >> LRU_GEN_PGOFF) - 1;
+>
+>         lru_gen_update_size(lruvec, folio, gen, -1);
+> @@ -339,7 +408,6 @@ static inline bool lru_gen_del_folio(struct lruvec *l=
+ruvec, struct folio *folio,
+>
+>  static inline void folio_migrate_refs(struct folio *new, const struct fo=
+lio *old)
+>  {
+> -
+>  }
+>  #endif /* CONFIG_LRU_GEN */
+>
+> diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
+> index 84e237f2c17d..775d6279dfea 100644
+> --- a/include/linux/mmzone.h
+> +++ b/include/linux/mmzone.h
+> @@ -500,6 +500,7 @@ enum lruvec_flags {
+>
+>  #define LRU_GEN_MASK           ((BIT(LRU_GEN_WIDTH) - 1) << LRU_GEN_PGOF=
+F)
+>  #define LRU_REFS_MASK          ((BIT(LRU_REFS_WIDTH) - 1) << LRU_REFS_PG=
+OFF)
+> +#define LRU_REFS_MAX           BIT(LRU_REFS_WIDTH)
+>
+>  /*
+>   * For folios accessed multiple times through file descriptors,
+> diff --git a/mm/folio.c b/mm/folio.c
+> index c02dcea9c03c..fb874fe492b2 100644
+> --- a/mm/folio.c
+> +++ b/mm/folio.c
+> @@ -353,26 +353,28 @@ static void __lru_cache_activate_folio(struct folio=
+ *folio)
+>
+>  static void lru_gen_inc_refs(struct folio *folio)
+>  {
+> -       unsigned long new_flags, old_flags =3D READ_ONCE(folio->flags.f);
+> +       unsigned long new_flags, old_flags =3D READ_ONCE(*folio_flags(fol=
+io, 0));
+> +       int refs;
+>
+>         if (folio_test_unevictable(folio))
+>                 return;
+>
+>         /* see the comment on LRU_REFS_FLAGS */
+> -       if (!folio_test_referenced(folio)) {
+> -               set_mask_bits(&folio->flags.f, LRU_REFS_MASK, BIT(PG_refe=
+renced));
+> +       if (!folio_lru_refs(folio)) {
+> +               folio_set_lru_refs(folio, 1);
+>                 return;
+>         }
+>
+>         do {
+> -               if ((old_flags & LRU_REFS_MASK) =3D=3D LRU_REFS_MASK) {
+> +               new_flags =3D old_flags;
+> +               refs =3D lru_get_refs_flags(old_flags);
+> +               if (refs =3D=3D LRU_REFS_MAX) {
+>                         if (!folio_test_workingset(folio))
+>                                 folio_set_workingset(folio);
+>                         return;
+>                 }
+> -
+> -               new_flags =3D old_flags + BIT(LRU_REFS_PGOFF);
+> -       } while (!try_cmpxchg(&folio->flags.f, &old_flags, new_flags));
+> +               lru_set_refs_flags(&new_flags, refs + 1);
+> +       } while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flag=
+s));
+>  }
+>
+>  static bool lru_gen_clear_refs(struct folio *folio)
+> @@ -384,7 +386,8 @@ static bool lru_gen_clear_refs(struct folio *folio)
+>         if (gen < 0)
+>                 return true;
+>
+> -       set_mask_bits(&folio->flags.f, LRU_REFS_FLAGS | BIT(PG_workingset=
+), 0);
+> +       folio_set_lru_refs(folio, 0);
+> +       folio_clear_workingset(folio);
+>
+>         rcu_read_lock();
+>         seq =3D READ_ONCE(folio_lruvec(folio)->lrugen.min_seq[type]);
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index bf2786c7247d..71adf4bf5074 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -863,19 +863,22 @@ static bool lru_gen_set_refs(struct folio *folio, c=
+onst vma_flags_t *vma_flags)
+>         if (!folio_test_referenced(folio) && !folio_test_workingset(folio=
+)) {
+>                 /* Activate file-backed executable folios after first usa=
+ge. */
+>                 if (is_exec_file_folio(folio, vma_flags)) {
+> -                       set_mask_bits(&folio->flags.f, LRU_REFS_FLAGS, BI=
+T(PG_workingset));
+> +                       folio_set_workingset(folio);
+> +                       folio_set_lru_refs(folio, 0);
+>                         return true;
+>                 }
+>
+> -               set_mask_bits(&folio->flags.f, LRU_REFS_MASK, BIT(PG_refe=
+renced));
+> +               folio_set_lru_refs(folio, 1);
+>                 return false;
+>         }
+>
+>         /* Promote on second access */
+> -       if (folio_lru_refs(folio) > 1)
+> -               set_mask_bits(&folio->flags.f, LRU_REFS_FLAGS, BIT(PG_wor=
+kingset));
+> -       else
+> +       if (folio_lru_refs(folio) > 1) {
+> +               folio_set_workingset(folio);
+> +               folio_set_lru_refs(folio, 0);
+> +       } else {
+>                 folio_mark_accessed(folio);
+> +       }
+>         return true;
+>  }
+>  #else
+> @@ -3291,11 +3294,10 @@ static bool positive_ctrl_err(struct ctrl_pos *sp=
+, struct ctrl_pos *pv)
+>   ***********************************************************************=
+*******/
+>
+>  /* promote pages accessed through page tables */
+> -static int folio_update_gen(struct folio *folio, int gen, const vma_flag=
+s_t *vma_flags)
+> +static int folio_update_gen(struct folio *folio, int new_gen, const vma_=
+flags_t *vma_flags)
+>  {
+> -       unsigned long new_flags, old_flags =3D READ_ONCE(folio->flags.f);
+> -
+> -       VM_WARN_ON_ONCE(gen >=3D MAX_NR_GENS);
+> +       unsigned long new_flags, old_flags =3D READ_ONCE(*folio_flags(fol=
+io, 0));
+> +       int old_gen;
+>
+>         /*
+>          * See the comment on LRU_REFS_FLAGS, and activate file-backed
+> @@ -3304,31 +3306,34 @@ static int folio_update_gen(struct folio *folio, =
+int gen, const vma_flags_t *vma
+>          */
+>         if (!folio_test_referenced(folio) && !folio_test_workingset(folio=
+) &&
+>             !is_exec_file_folio(folio, vma_flags)) {
+> -               set_mask_bits(&folio->flags.f, LRU_REFS_MASK, BIT(PG_refe=
+renced));
+> +               folio_set_lru_refs(folio, 1);
+>                 return -1;
+>         }
+>
+>         do {
+> +               old_gen =3D lru_get_gen_flags(old_flags);
+> +               new_flags =3D old_flags;
 > +
-> +For a wakee that is not queued, try_to_wake_up() calls
-> +select_task_rq(). If the wakee has one allowed CPU or migration is
-> +disabled, select_task_rq() bypasses the scheduler-class CPU-selection
-> +method and selects an allowed CPU directly.
+>                 /* lru_gen_del_folio() has isolated this page? */
+> -               if (!(old_flags & LRU_GEN_MASK))
+> -                       return -1;
+> +               if (old_gen < 0)
+> +                       break;
+>
+> -               new_flags =3D old_flags & ~(LRU_GEN_MASK | LRU_REFS_FLAGS=
+);
+> -               new_flags |=3D ((gen + 1UL) << LRU_GEN_PGOFF) | BIT(PG_wo=
+rkingset);
+> -       } while (!try_cmpxchg(&folio->flags.f, &old_flags, new_flags));
+> +               lru_set_gen_flags(&new_flags, new_gen);
+> +               lru_set_refs_flags(&new_flags, 0);
+> +               new_flags |=3D BIT(PG_workingset);
+> +       } while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flag=
+s));
+>
+> -       return ((old_flags & LRU_GEN_MASK) >> LRU_GEN_PGOFF) - 1;
+> +       return old_gen;
+>  }
+>
+>  static int __folio_inc_gen(struct folio *folio, int old_gen, bool *incre=
+ased)
+>  {
+> -       unsigned long new_flags, old_flags =3D READ_ONCE(folio->flags.f);
+> +       unsigned long new_flags, old_flags =3D READ_ONCE(*folio_flags(fol=
+io, 0));
+>         int new_gen;
+>
+> -       VM_WARN_ON_ONCE_FOLIO(!(old_flags & LRU_GEN_MASK), folio);
+> -
+>         do {
+> -               new_gen =3D ((old_flags & LRU_GEN_MASK) >> LRU_GEN_PGOFF)=
+ - 1;
+> +               new_gen =3D lru_get_gen_flags(old_flags);
 > +
-> +Fair-class CPU selection
-> +========================
-> +
-> +For a fair-class wakee, select_task_rq_fair() derives its local sync
-> +state as::
-> +
-> +        sync = (wake_flags & WF_SYNC) &&
-> +               !(current->flags & PF_EXITING);
-> +
-> +Thus, WF_SYNC does not influence wake-affine selection when the current
-> +task is exiting.
-> +
-> +For WF_TTWU wakeups, select_task_rq_fair() first calls record_wakee().
-> +It can then return before wake-affine selection in either of these cases:
-> +
-> +* WF_CURRENT_CPU is set and the waking CPU is allowed; or
-> +* find_energy_efficient_cpu() selects a CPU while the root domain is not
-> +  overutilized.
-> +
-> +Otherwise, the fair scheduler computes::
-> +
-> +        want_affine = !wake_wide(p) &&
-> +                      cpumask_test_cpu(cpu, p->cpus_ptr);
-> +
-> +wake_wide() uses the wakee-flip state maintained by record_wakee() to
-> +identify broad wakeup relationships. WF_SYNC does not override this
-> +classification.
-> +
-> +Wake affinity is considered only when want_affine is true, the domain has
-> +SD_WAKE_AFFINE set, and the wakee's previous CPU belongs to that domain.
-> +wake_affine() considers only two CPUs: the waking CPU and the wakee's
-> +previous CPU.
-> +
-> +With WF_SYNC, wake_affine_idle() can prefer the waking CPU when::
-> +
-> +        rq->nr_running - cfs_h_nr_delayed(rq) == 1
-> +
-> +wake_affine_weight() also adjusts the effective load comparison by
-> +removing the current task's load from the waking CPU and biasing the
-> +previous-CPU effective load.
-> +
-> +The result of wake_affine() is only a candidate. For WF_TTWU wakeups,
-> +select_task_rq_fair() passes that candidate to select_idle_sibling().
+>                 /* folio_update_gen() has promoted this page? */
+>                 if (new_gen >=3D 0 && new_gen !=3D old_gen) {
+>                         if (increased)
+> @@ -3336,11 +3341,12 @@ static int __folio_inc_gen(struct folio *folio, i=
+nt old_gen, bool *increased)
+>                         return new_gen;
+>                 }
+>
+> +               new_flags =3D old_flags;
+>                 new_gen =3D (old_gen + 1) % MAX_NR_GENS;
+>
+> -               new_flags =3D old_flags & ~(LRU_GEN_MASK | LRU_REFS_FLAGS=
+);
+> -               new_flags |=3D (new_gen + 1UL) << LRU_GEN_PGOFF;
+> -       } while (!try_cmpxchg(&folio->flags.f, &old_flags, new_flags));
+> +               lru_set_gen_flags(&new_flags, new_gen);
+> +               lru_set_refs_flags(&new_flags, 0);
+> +       } while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flag=
+s));
+>
+>         if (increased)
+>                 *increased =3D true;
+> @@ -4785,7 +4791,7 @@ static bool isolate_folio(struct lruvec *lruvec, st=
+ruct folio *folio, struct sca
+>
+>         /* see the comment on LRU_REFS_FLAGS */
+>         if (!folio_test_referenced(folio))
+> -               set_mask_bits(&folio->flags.f, LRU_REFS_MASK, 0);
+> +               folio_set_lru_refs(folio, 0);
+>
+>         success =3D lru_gen_del_folio(lruvec, folio, true);
+>         VM_WARN_ON_ONCE_FOLIO(!success, folio);
+> @@ -5017,8 +5023,10 @@ static int evict_folios(unsigned long nr_to_scan, =
+struct lruvec *lruvec,
+>                 }
+>
+>                 /* don't add rejected folios to the oldest generation */
+> -               if (lru_gen_folio_seq(lruvec, folio, false) =3D=3D min_se=
+q[type])
+> -                       set_mask_bits(&folio->flags.f, LRU_REFS_FLAGS, BI=
+T(PG_active));
+> +               if (lru_gen_folio_seq(lruvec, folio, false) =3D=3D min_se=
+q[type]) {
+> +                       folio_set_lru_refs(folio, 0);
+> +                       folio_set_active(folio);
+> +               }
+>         }
+>
+>         move_folios_to_lru(&list);
+> --
+> 2.39.3 (Apple Git-146)
+>
+>
+> >
+> > Thanks.
+>
 
-This document reproduces the implementation literally like want_affine,
-nr_running, helper names. This could quickly go stale with code changes
-and nothing will tell us then. I think the contract doesn't need the
-call flow.
-
-Thanks,
-Vineeth
-
-> +
-> +Idle CPU selection
-> +==================
-> +
-> +select_idle_sibling() first tests whether the candidate CPU is idle and
-> +can run the wakee. If not, it can select:
-> +
-> +* the previous CPU when it is cache-affine and idle;
-> +* a recently used CPU when it is cache-affine and idle;
-> +* an idle SMT sibling; or
-> +* another idle CPU in the relevant search domain.
-> +
-> +On asymmetric-capacity systems, the search uses sd_asym_cpucapacity when
-> +available. Otherwise, it uses sd_llc for the candidate CPU.
-> +
-> +Consequently, WF_SYNC does not guarantee that the wakee runs on the
-> +waker CPU, remains on its previous CPU, avoids migration, or shares a
-> +core with the waker.
-> +
-> +Fair-class wakeup preemption
-> +============================
-> +
-> +WF_SYNC can also affect wakeup_preempt_fair(). The normal fair-class
-> +preemption checks run first. In particular, a non-idle wakee can preempt
-> +an idle entity, and PREEMPT_SHORT can select the wakee before the
-> +WF_SYNC-specific path is reached.
-> +
-> +If the wakee becomes the next buddy after those checks, preempt_sync()
-> +uses WF_SYNC to decide whether to request rescheduling. The wakee must
-> +be earlier than the current entity, and the current entity must have run
-> +for at least the applicable threshold. The threshold is
-> +sysctl_sched_migration_cost, divided by four when WF_RQ_SELECTED is set.
-> +
-> +If those conditions are not met, preempt_sync() returns
-> +PREEMPT_WAKEUP_NONE. Consequently, WF_SYNC neither guarantees nor
-> +prevents immediate wakee preemption. On UP, it can avoid an unnecessary
-> +preemption when the waker is expected to schedule away.
-> +
-> +Semantics and policy
-> +====================
-> +
-> +WF_SYNC is a non-binding hint. It does not guarantee that the wakee:
-> +
-> +* runs on the waker CPU;
-> +* remains on its previous CPU;
-> +* avoids migration;
-> +* shares a core with the waker; or
-> +* immediately preempts the current task.
-> +
-> +The scheduler does not verify that the waker subsequently blocks.
-> +Callers may therefore use WF_SYNC where the waker continues to execute,
-> +or where several wakeups are issued before it schedules away.
-> +
-> +The current policy leaves the locality, parallelism, topology, load, and
-> +capacity tradeoffs to the scheduler. It does not require the wakee to
-> +remain on the waker CPU when that CPU has no other runnable task.
-> +
-> +Any future policy that strengthens WF_SYNC placement semantics must
-> +consider the different call sites, workload patterns, and hardware
-> +topologies that use the flag.
-> 
-
+Thanks a lot! This looks good to me. I tried a rebase locally, which
+resulted in the same thing. I think we can continue the merge with
+this version.
