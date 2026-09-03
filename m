@@ -1,24 +1,25 @@
 Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021140.outbound.protection.outlook.com [52.101.100.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A84D311597;
-	Thu,  3 Sep 2026 01:39:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2379D31716D;
+	Thu,  3 Sep 2026 01:39:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.140
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788399586; cv=fail; b=tTqeM095eDVcTP4TIXjA8SLwY2Tcphr7f2DHpcPzf+3rR3UujgcUOOR5lEWE6y8HPE+tFerQlfecAReMXl8dEYr9+GHuZ7BWMnkwVt58wu46pqtw3n/2AAz96zE3hx+VlRctLZtX8xm+TLNz9Ey8T659tJ3JIaM8MfPsFg8SMIo=
+	t=1788399588; cv=fail; b=W/E5WoKxs+1T754fW0LFTA1xdlOU5TmKqfIusqBzQ3UWFS01iHPojWYmIdhbCKw5PrxBKHdwBMSdBYayHQSlJ0hZ9sEvWPldOfN/Tys4eI4bxwhaE1qP07ekG1Vuf3tN4fmYely5ILGJdROo8/laPSLc2VF+zhPRhRJkwAfymrk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788399586; c=relaxed/simple;
-	bh=i2EUX+g4lmuRnapzgZb4cIZojJ1gN2xsorwd6uMJZL4=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=LsEeqHh03TudY+TYH/SntnqOLjjHPqUx0EbN0LIflI28LHzsf2AeC+5B9lXpT96A0cxH9BaGIHIxrZq4aNixgpDruf1a/eBoOQnc69QWM6SjUvcTZYd4gGEp7+GDNr5HABpgdWgUfNwPph/RB0NO/N7vs+1Sr9S7lhzL9ecXFOc=
+	s=arc-20240116; t=1788399588; c=relaxed/simple;
+	bh=04yEFP4GjbFdJKK0fXJx62XE0XF6lJHBZ8RLw3AXgiU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=CT2T7HKsFvRtW246AlN8PgnS6Tvg9jpods77wPQEr9MiS4nNRqW7PQ6zhvPceO4fprarKEOpCoO8ATcqocYAmV/oUgFn6H0Rph0A0E7YOavsZICKYpfLd/ezbazwmPJdVdrZw142FLzUUFS5sBJVPLjWpksnvgv9HEEFTU5HUUY=
 ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.100.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hNJDWbR2QM2zKYmu6A9OzUEKl67fdXO0tXqcWZr0bmOYE7cLeb7WCXHB7Q7SduJ4dOvDU2v6IwUODDkLvwsqCyRQDYSjalO3f1TMmUCYJQIDqLlwgTzxTupDzuMOBKjCCT+ufwdDerJJQ95N1U6dJJXlah9Cv/wTfkx9R5C2oWYgKQ1WcikuTLj+NBB420wUypwaovvCfsrlzh/IycZsr1/YuzfQVuowRv00Ih0gvtQJMV1EK8QCKHw3u0u8LPjyjDJvd0Oi2jA5WSqmy7zhOG55WV29+JRDXndA8a0OyqE82CGyqwfpdHLOYjlcdPHoDcpeuKS+24oY6jtwIS+fHQ==
+ b=zRUv7tQhpApP81GkdKxA6WZYHGFqickV/eG+utZ3nJC5DBVfRCm/UYCKkY9C5Q7ZvdrhPHZ+1z08Z8MW4OODSVdFphI5hU2u8lLxgnmgN7fOdp8QlQLNWW9gJ6nMUq3KEJ3ioiSE71fmoWTd4ntKXCz0lS9xy7idf2wC8HmgTAsgGSVz5hlJuxDIrhQpocm6RuKmJ5sMzIYI+18buHcuuSZx9GUiZi4c9Taz+t6RBUsfwUf9FN4w62JgEa5zL0TCZ4qrHJpvf39hWPiXHWNgquySu2xBCkbiyapU61+g4xDAeh+nE9q0Cm9Xj+tVqr1vDiooYn/VWaSJiUjQe5WZGw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=4nciEWhORYiQK404+1IJyDAz+qOPMdYHFuiNHy9LK/c=;
- b=U9WAuFodf+3ka9v56PTm33JTesHl6m9XrzekD+qj2Iy5V+MzN7BoMY3ZaVhq++U2v41qp0t1b9hGORas0sVQyLx7A2IQ65iYxNBYVRFQPDd1RDRlZPbZaazrR9PFLGfnj+Nym5xroXEg1aPEzQUwYuXqvW9al0+I5+KIFGyHFrcG425Ul6hJahAxKQhi3lIWn+MjrzcJQdYuv6tm5UR8lyQV552OvNHes5rqnKaSDvMChWxtm/cz9qky00XDS9m4eH2ldwUGZ3LmfBXiPU+s6G0PelHBae8ALqm0k07XcmnKqoztMfRJs6f1aaVrOe0F53TzkQDMJyHsAA5NhR6jKg==
+ bh=UMvUsNqvWFm5VcatlN++Fa+BvkFT3QiqIEnOH1BJJKg=;
+ b=BTw1qbtyOJT41TePifYNKkktJnBdSoZI1PIy9p4lDXzWRzHq0zQvDyV17+xItlCDydcDQ6iKFKFv6K7p9nLkIqJmvY0txvaZArlkgCQGEVwkI8Vy2sbFJGnrPCwa2mxK5X93SgakJZQQrPUg8N4wT2Ew9FW7uBe6KPHfvv2m4+tLkNdAaySuaOzgwVpjRdhidbEw+8bc+ICPhfbg2kWUtiB0NJzYC/xbIc097plq1mUsXBBgAqFMPDYDiYrL6FayQqD5nGO+wP6luJ0R7Uil+Hj6gntEUlnegngJ482jd2QURteUdyy0X1ACwY80G85FcgqXjXkNLsMDBP0zhsIhWQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
  dkim=pass header.d=atomlin.com; arc=none
@@ -28,11 +29,11 @@ Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
  by LO4P123MB6532.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:2aa::5) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Thu, 3 Sep
- 2026 01:39:37 +0000
+ 2026 01:39:43 +0000
 Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 01:39:36 +0000
+ 01:39:43 +0000
 From: Aaron Tomlin <atomlin@atomlin.com>
 To: tony.luck@intel.com,
 	bp@alien8.de,
@@ -49,14 +50,16 @@ Cc: x86@kernel.org,
 	nick.lange@gmail.com,
 	linux-edac@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/2] x86/mce: Fix timer list corruption and avoid redundant polling
-Date: Wed,  2 Sep 2026 21:39:31 -0400
-Message-ID: <20260903013933.172063-1-atomlin@atomlin.com>
+Subject: [PATCH v3 2/2] x86/mce: Avoid arming periodic polling timer when not required
+Date: Wed,  2 Sep 2026 21:39:33 -0400
+Message-ID: <20260903013933.172063-3-atomlin@atomlin.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260903013933.172063-1-atomlin@atomlin.com>
+References: <20260903013933.172063-1-atomlin@atomlin.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: BN9PR03CA0100.namprd03.prod.outlook.com
- (2603:10b6:408:fd::15) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-ClientProxiedBy: BN8PR04CA0045.namprd04.prod.outlook.com
+ (2603:10b6:408:d4::19) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -66,124 +69,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO4P123MB6532:EE_
-X-MS-Office365-Filtering-Correlation-Id: e48daa35-c731-4a4d-cfce-08df095c368e
+X-MS-Office365-Filtering-Correlation-Id: 2483571f-b3f4-44b6-1880-08df095c3aa5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|1800799024|376014|366016|6133799003|56012099006|10067099003|18002099003;
+	BCL:0;ARA:13230040|7416014|23010399003|1800799024|376014|366016|56012099006|5023799004|10067099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	ZgxePK69aWdGdXBdZpiG2bgjISicqbcyV50atFVCoUHjOLUn/lUVOySr5U9xjQ+GQgB8nQxAmWrapqdTXuJdd0i3huMZec58b+OF/QDM3/tB9aMYlbULg5Y2B0qgwz2MdITwt4h5c0zJREuCJ1/MGm4L5/eVHFBidtKRNFloj8cfoGbyC4I5vB5Odkikqe1ykbD68MZmFCj0JacBaSFXc9j6hHLu6hg61n/4h4I4HvzzmhB2fkcWmzd33UexqluiheabEn0Nmfh5R4V2CSQY587YkFCX1vZh65WT3BP5YCPVWv0WU2u2vfm+z1y1gGQgvHHHBahBy16V8TR5eYq+JwPiR5JiwF83hF0Tj1IVI4LsMSYWtBSwqVEynIhr2tCq35ZPa2FFpdRLtve1dn/ehNTIU8wekIZR9E5j1jUfKk1A65gMEzhXx5s5/3X7aVsIwi261FplgSOTwos9A2MreTi6HGLyy0xuwY6yrOlQdFpKr3VlmqQzLM9rPjjiwq8cbT+9ZQnOrnMc+VbX0wRX9oxZ0DU1YLVCgSpsSdf3rEtg96H9s+gp5xJhNr1WoFo5bOWo+v/rMz/RlYGxOx2dMUdwXveqVHbgOLgyc16ZRHXt5WKk0OOM2qFabvwdmqZY2dyFuUt3DCelbgqeMnBqrTH1r3Ark1GI6nk83sa1OC8=
+	vxjKgYIwGZT2cV8KcHzxQJFoIRZ2WEXHseCEvFiAg8Lz98F40FLCnNg7Z0bj+2LQMq+IW/NHxcChXxWY800FrvK77mMSqNjaQvyqbyG23rbT/LUVfM5M7iszATFMHSJNXChR9VDXrPzQIs+B9U013cJNHjcWj26LUz7ft4EKmmih1pIN9gSxnHiKcmf1C2Xbr+ngF05NNvj9aXyy66TuQP/06g88/cI7Arwv7B+iOP2dVyB+StOJtKnk+/gKWoscoLDhcONS+XAJh6MKXlprqfvrBwl2eR6rbcGzApoeDoGjFJoYebJxA+rthVwfo835NTKAePO0vcIGS8BrMOy5OWtnQ/vDhhxeewwn37didSxjol92864wKhs2PYJguiol4lnaJA/BW5ZxRIBpHwhW4W0MLPjxbs6n7EGmbR8tjun/81+2flGC+uTN8/3//18oMdU3U9v7IqZwCz1Cw26BXUBvytLz7MaiYHVjhA7vr9TtrITGqzMpOPjslAQExL2ms3JTkDCRA2IeC2qQ1DA9uQy7GIPy6/CwO7E9SgaRe5j2X4toZxOigcf7jWPNgi0N3HxJar48ZWmcDmfVpNUwNJ3d7lLMLEwNik7Z2lQW8+EXIAqGB1U3P0Q8IPXxqWaAhjBdFvWA7Q15G6AcXDkerirF6AXdbwmy5zu7mAw7LDU=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(1800799024)(376014)(366016)(6133799003)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(1800799024)(376014)(366016)(56012099006)(5023799004)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?7EAla+MnUfaYw6a3ozZ8F6ce7lsYqX/RFgy3bMp0qaqJT6tyO/dyYcEV8OGi?=
- =?us-ascii?Q?ek8pbr1afPDgugO7tit8/GAQ+5B62xyMLaS8d/tNyMWortJ612ssYplQnqXs?=
- =?us-ascii?Q?YtzWkU/2EC+Ug7Y/FM/I139vPtsbmQojpaD8YPArw3SipqbdU9aBdscpr+Xj?=
- =?us-ascii?Q?pD0kkox1STsrxQh4CeWFvHnDbb5P8nPfKKwLogMSOZpthviQGGxXH2Dxs94I?=
- =?us-ascii?Q?GF1IaTAgiAdEVRY1WHUeM9zmljvAKtSSjxMbmdYRamRND19dZT6Fz+fIvBAv?=
- =?us-ascii?Q?Ndb4/Mgfkgtd+7y5j8UCAjTGB1AgydV5QCoAEzYEyybwcla6AgKPvQYkvS2v?=
- =?us-ascii?Q?J8wgqZRfurWrAvB4A9I9/5fwpJqhKpzhenoeGzch5LVVuPp+yMhKGwSrgAdz?=
- =?us-ascii?Q?5pkBe7aNRhLx8kMMDsmk0JLWf9xDfr1ILuTnYqpAVb9GQg2N9vNuAFqElE71?=
- =?us-ascii?Q?RisVtGoxBv4TPX3WGBYLaK3R3JzrT+rTLxDlubvk3GKv9sFxyO0Arx+v07mv?=
- =?us-ascii?Q?qazuO/ijJScsp14TQGqG5TqH/kI5LlAkG74JDZUIIympgyC1e3b5/KSzXAD5?=
- =?us-ascii?Q?oQ+W0V3lbvcZsneMo7iZ+FmqVVz2Na8AVl0cIWLCkLAKtfekPPgNCvkNiTVI?=
- =?us-ascii?Q?rE1CnbLLFYhaOsNWYyaXZqAx6GCtuGFdEy2if9h528hq4oqBLu7NiFXDT563?=
- =?us-ascii?Q?3BhrkvD3QqGfGxLlhxdKolUPuc2Sun4Mk4A4JZvgeAfoesX+VT38v82ZpyHd?=
- =?us-ascii?Q?MMd7Araru+V4fhcqpZ4c177mmXNUP7rXSsJ6ARog/cg0esDr3EpzLuD5CQjo?=
- =?us-ascii?Q?GIOJIc05OpWGh6LZdiDcmJx0VFJo36DJ0SI/ZF1lys3dLrbOiSr9Njw/wEpu?=
- =?us-ascii?Q?3CvlnvSVx0mVTxNtxJ/cUbOlv883Y+dzdQVGCoiIziV4c6RGrdrdRZ6Vhd33?=
- =?us-ascii?Q?TAlNBuUPMfDzFlEP6onpie5BlPhepk0GvscfWUDXNaim+L1lnh/yWA8QheaO?=
- =?us-ascii?Q?PdWaUByfGUM3PYfijKoM8ReEZBXiIuMuKqA/iOBxAnNRTH8lemaYuppGMsBf?=
- =?us-ascii?Q?Xet4dt7oVU8Czwt1s17yo0L6flNGQcu6MxhSFzxU9/6qXQQli9wY7bCajPwk?=
- =?us-ascii?Q?epPOTSA5OEzVT2rd0DVm/6lPd3LiUmSdrkM1PD8dZPHeY0dx/MQtiAefL7PZ?=
- =?us-ascii?Q?IFXD0EYavUA1ImyOhhyK0/RNK54K/ttkjBocaYZxhc0XnAhSwKynFz7dGb8d?=
- =?us-ascii?Q?MuGSKp0PmYxCsne59Bp3vB+IDXIkEs82FPGtofVvtHt6Pi+sOrAxHtC4HxaV?=
- =?us-ascii?Q?tDokMPEj2OoBtfH/60ltuhMTIYMF338JFslOYxrByTgNHAjVTxiLzv3lhlmY?=
- =?us-ascii?Q?5YBnKpV1COqQSbUtLkcH42zUWgaxdnP9CpJmAM93XtdZ2emvyVsDOTb4dteX?=
- =?us-ascii?Q?JjDZGu96ZBFh6hLBLDs83wh2Tm+MgUfbFgAsZcG3rNQLmbE1sXLMol9MHOpY?=
- =?us-ascii?Q?0vJHTxx7a0+PWYkAo7sZTqZQKXLdgqVNFBa8oUIgty9qHB+LjB6nVESW4S2g?=
- =?us-ascii?Q?kXGmqw88ul+9pvZnU+EXT0Y8jaziLtdrFS3mRkv6Iu8sA+W7sWHm38FxLDQn?=
- =?us-ascii?Q?f/GR6zhK0mgchEpHE5LWp5nKPgF9WzLsOyzX3QS1H3oK75QabbBwg7DEqDvY?=
- =?us-ascii?Q?DaJAJOnJluitchdkH1CGp5HzA+IZ/bJg/ojq38rHiLnRhGZk9WntlRmaha6T?=
- =?us-ascii?Q?dIC7tZ20Gg=3D=3D?=
+	=?us-ascii?Q?trQxes8ZreKkwzEvadiMeEZumx79cX1okEx/L4cmAzv36D5EdUd7Ob6ibb5k?=
+ =?us-ascii?Q?ds07H1oI0LnX9eRFcqx5hEct3UjQWNHKjDEMPAUCWp3HXrqvSztpRxFslnRx?=
+ =?us-ascii?Q?BxYu9BTD7jh4F39XzMaAB+Ta3VVXSxR1/DVnwONS73aACrQEHJg7wWbZ11pQ?=
+ =?us-ascii?Q?cN2I81UlUUahiARPNeVGHZ3DpYjx2pVrkPP50CYks9zVBss413npKFEsKnpm?=
+ =?us-ascii?Q?J6d+1SHJIsrWsmY4R92A0Z0IyaXBvpzLkVkDK0KnmCpSlIxiaEcOjSgLZu+5?=
+ =?us-ascii?Q?4vmDwS08mAOxAr7qYWlwbjyToXRyKm7SAUyOnmlVMZAI0LTfww1+0WL9XcJh?=
+ =?us-ascii?Q?rFkH9cBQIIoPpActPpzsbIODYWqZTnXlvha2BPcPhvoCcDZhFzRbqEQm7YJ/?=
+ =?us-ascii?Q?579W5CzQG0Qn2A0Q0uOO9Fjw4jRRhNgY9rTsQBX2ActYjb5zFdhMqOwFOWaN?=
+ =?us-ascii?Q?ZR6Jw238Ii7tXdOPztaawGmSm62lFEizL+LeR6bsDLU2VnZ/NvnHmHjwvQ1I?=
+ =?us-ascii?Q?Ixwl0ouwt9lH5aoWdAYn+pE8htINp847vQj5XeRuQ/xf1pHiie7ZrdpK+LY8?=
+ =?us-ascii?Q?LdGBTjeqN/U8KWcNcEXBjy2Zgc43yrR8ixcaSe2nmtV8bAWEwGXC3tayt6P8?=
+ =?us-ascii?Q?HxLBem8PxwRVVkT3TLsQ0jzU25N9R6h8HWVk2fNKlHEdBQYC7ZuecOULNDXQ?=
+ =?us-ascii?Q?+wwnrOp3J+HuspI+Eeqf3NLBE11PkcdYnyFuA3kA4xNIUyN0V5EFqjJo/e9J?=
+ =?us-ascii?Q?vtrZy1HGKoftFNswdWMxN55+QL32qgb/eiMykZr2Q0EycbzZqlWJSWiHjRLf?=
+ =?us-ascii?Q?5LmDVp040S0jQ41ybAmGKpxecFNJnOckZ0zg7PptYVhOXiyc5HDuDWjK8+D2?=
+ =?us-ascii?Q?2UKUB6tDVEAzLbDPNRv5rbVv3KaGVx2zNs0B4tFSUd/br71rPnVReZSxJJeR?=
+ =?us-ascii?Q?jgtouUjgPaDkyW3bdUbcMnlv3AGKjGkSadcrgmpzXjjsigiph0GKK3cB1Gva?=
+ =?us-ascii?Q?GLfLNE2ySTIa9F9JbdvEpU1++0dF+Ct78V+k0mIR0JYz8jtwXY2F7rvurP9y?=
+ =?us-ascii?Q?wgUwmg3rshCPmnaEGNYr9JIP8BBbb6W7JsNiYXUd2OEYRUwPYStSUxhjFgn1?=
+ =?us-ascii?Q?0BPQD4rcGe6OtY+V10QNzbNeMdP6nSIyYdRRjj+K6mfLBlTvWLi4x8Yt0sL/?=
+ =?us-ascii?Q?5Pj1c9oBtf1QlhPbJmF7ILtjXPhnGCjtn3YcOb2odd4l2EcaRpj7bRuJdM8b?=
+ =?us-ascii?Q?T2FXyRRABUZGRJoB0ks9RlDDWSY8ZXcVuKqCvEL1/vrYMZ+OsGrxPwQcKaFA?=
+ =?us-ascii?Q?TP/jDZhosuufWYG3CmGa2++Xze57AaYVl2QJF6uscVFzY5iaO6iF/OR5jpuT?=
+ =?us-ascii?Q?eSmQPuyjfYePXndz3TwQos1T8mni3mtOSCqi/Sd4gm3h92mePuHNlGoHjzgE?=
+ =?us-ascii?Q?eR6NFRWk+iXWley9xA4LMB80/gouIwF6vOpPHlx5Z0S9rQa1RRY8ZDGTSsCh?=
+ =?us-ascii?Q?D1buoCjnJGc0o49YaJWGOC/3q/XdobLhgutlQwFyEcSKFOmTLYLQqDWnG08w?=
+ =?us-ascii?Q?1A1O5kqv9QOFHWiBompA5YG1GJ7RECtgwu39CdQN9+T1jppeL/rANymIOcwc?=
+ =?us-ascii?Q?BsBd/VwsC3G4ZDLtBWQuaSQx7KiHMOk23QAmVdcf5MCRMJfKso/W/wL9yr+D?=
+ =?us-ascii?Q?KsQvQGMiiHfifnNaGPzhZh2E0Bl+E2HTk6qHXVKC0DmMBEC5IqAtcEfCeUvC?=
+ =?us-ascii?Q?0xrRRSAg+A=3D=3D?=
 X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e48daa35-c731-4a4d-cfce-08df095c368e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2483571f-b3f4-44b6-1880-08df095c3aa5
 X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 01:39:36.8891
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 01:39:43.6253
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: O70WDy1/BN+v9A6Ks9tElOXyvD0uBPy0ZzqrsYQ07NbMkVXxVJ8xxLwgNnjt4Hc2LYqWLqk7uyRFny8kxNnuUQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: FELFslCb/bstMfOUM/fBHqU4WjBTezj5bBIFhy4f+DPAvmygBl3D9iLiYyIQ8smnQObhUyXz3sr1BKoH9X9QqQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P123MB6532
 
-This series addresses two distinct issues within the x86 Machine Check
-Architecture (MCA) timer subsystem: a race condition during runtime CPU
-reconfiguration that can corrupt the kernel timer wheel, and redundant
-periodic software polling of banks that never log corrected errors.
+On x86 platforms, the Machine Check Architecture (MCA) subsystem arms a
+per-CPU, pinned standard timer (mce_timer) to periodically poll hardware
+banks for "silent" corrected machine check errors. Because mce_timer is
+pinned to the local CPU via TIMER_PINNED, the timer core cannot migrate
+its expiration to a housekeeping CPU, causing periodic latency jitter on
+isolated cores.
 
-Patch 1 fixes a concurrency race between sysfs configuration updates
-(mce_restart()) and asynchronous CMCI interrupts. When mce_restart() runs,
-a concurrent CMCI interrupt can arm mce_timer on a remote CPU before the
-restart IPI arrives. By removing the redundant timer_setup() call from
-__mcheck_cpu_init_timer(), Patch 1 ensures that mce_timer descriptors are
-not re-initialised while actively linked in the timer wheel, avoiding
-potential linked-list corruption and kernel crashes.
+On Intel systems supporting Corrected Machine Check Interrupt (CMCI),
+hardware generates an interrupt for banks with CMCI enabled, clearing
+their respective bits in mce_poll_banks. However, for banks where
+MCI_CTL2_CMCI_EN does not stick (such as the Power Control Unit bank),
+Linux historically assumed software polling was required and left the
+bank flagged in mce_poll_banks.
 
-Patch 2 implements Tony Luck's suggested approach by recognising that banks
-without CMCI support on modern Intel platforms (such as the PCU bank) never
-report corrected or UCNA errors (per Intel SDM Vol 3B 18.5). It clears
-these non-CMCI banks from mce_poll_banks and ensures mce_timer is never
-armed when mce_poll_banks is empty. Additionally, it integrates a
-housekeeping check (HK_TYPE_TIMER) so that on legacy platforms or
-polling-only configurations where mce_poll_banks is non-empty, routine
-polling is restricted to housekeeping CPUs, sparing isolated nohz_full
-cores from timer interrupts. This eliminates polling timer jitter across
-all CPUs in steady state on modern hardware while preserving full polling
-capabilities and isolation guarantees.
+Per the Intel SDM (Vol 3B, Section 18.5 "Corrected Machine Check Error
+Interrupt"), if bit 30 of IA32_MCi_CTL2 is zero, no CMCI is available
+for that bank and no corrected or Uncorrected No Action Required (UCNA)
+errors will be reported on that bank. Therefore, polling such banks is
+redundant and wasteful.
 
-Thank you.
+Clear non-CMCI banks from mce_poll_banks in cmci_claim_bank() on
+CMCI-capable CPUs, and amend should_enable_timer() to:
+    1.  Check bitmap_empty(mce_poll_banks) so that mce_timer is never
+        armed when no banks on that CPU require software polling.
 
-Changes since v2:
+    2.  Pin the MCE polling timer to a HK_TYPE_TIMER housekeeping CPU,
+        sparing isolated nohz_full cores from periodic wakeups on
+        systems requiring mce_poll_banks polling.
 
- - Bounded bitmap_empty() in should_enable_timer() to
-   this_cpu_read(mce_num_banks) to prevent initialised upper bits from
-   keeping the timer active (Tony Luck)
+On systems requiring software polling such legacy platforms lacking CMCI
+or when booted with mce=no_cmci, the mce_timer is restricted to
+housekeeping CPUs. While this intentionally leaves core-private banks
+(e.g., L1/L2 caches) on isolated cores exempt from periodic polling to
+guarantee zero timer jitter, housekeeping CPUs continue to harvest
+telemetry from their own banks as well as shared package-level
+resources. Synchronous (#MC) exceptions on isolated cores remain
+entirely unaffected.
 
- - Clarified that on polling fallback systems, restricting mce_timer to
-   housekeeping CPUs leaves core-private banks on isolated cores exempt
-   from polling, while preserving shared platform telemetry
-   (e.g., Memory Controller ECC)
-
- - Link to v2: https://lore.kernel.org/lkml/20260902020234.149814-1-atomlin@atomlin.com/
-
-Changes since v1:
-
- - Fixed a pre-existing race condition in mce_restart() by removing the
-   redundant timer_setup() call in __mcheck_cpu_init_timer(), preventing
-   active timer wheel linked-list corruption
-
- - Non-CMCI banks are cleared from mce_poll_banks in cmci_claim_bank(),
-   and should_enable_timer() verifies bitmap_empty(mce_poll_banks) before
-   checking HK_TYPE_TIMER
-
- - Link to v1: https://lore.kernel.org/lkml/20260901151138.132950-1-atomlin@atomlin.com/
-
-Aaron Tomlin (2):
-  x86/mce: Do not reinitialise mce_timer structure on CPU restart
-  x86/mce: Avoid arming periodic polling timer when no banks require
-    polling
-
-Aaron Tomlin (2):
-  x86/mce: Do not reinitialise mce_timer structure on CPU restart
-  x86/mce: Avoid arming periodic polling timer when not required
-
- arch/x86/kernel/cpu/mce/core.c  |  8 +++++++-
+Suggested-by: Tony Luck <tony.luck@intel.com>
+Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+---
+ arch/x86/kernel/cpu/mce/core.c  |  7 +++++++
  arch/x86/kernel/cpu/mce/intel.c | 11 ++++++-----
- 2 files changed, 13 insertions(+), 6 deletions(-)
+ 2 files changed, 13 insertions(+), 5 deletions(-)
 
+diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
+index 765e8103b0d2..b01ad1a9b455 100644
+--- a/arch/x86/kernel/cpu/mce/core.c
++++ b/arch/x86/kernel/cpu/mce/core.c
+@@ -25,6 +25,7 @@
+ #include <linux/delay.h>
+ #include <linux/ctype.h>
+ #include <linux/sched.h>
++#include <linux/sched/isolation.h>
+ #include <linux/sysfs.h>
+ #include <linux/types.h>
+ #include <linux/slab.h>
+@@ -1759,6 +1760,12 @@ void (*mc_poll_banks)(void) = mc_poll_banks_default;
+ 
+ static bool should_enable_timer(unsigned long iv)
+ {
++	if (bitmap_empty(this_cpu_ptr(mce_poll_banks), this_cpu_read(mce_num_banks)))
++		return false;
++
++	if (!housekeeping_cpu(smp_processor_id(), HK_TYPE_TIMER))
++		return false;
++
+ 	return !mca_cfg.ignore_ce && iv;
+ }
+ 
+diff --git a/arch/x86/kernel/cpu/mce/intel.c b/arch/x86/kernel/cpu/mce/intel.c
+index 4655223ba560..cc7d0dfcf9c7 100644
+--- a/arch/x86/kernel/cpu/mce/intel.c
++++ b/arch/x86/kernel/cpu/mce/intel.c
+@@ -229,16 +229,17 @@ static u64 cmci_pick_threshold(u64 val, int *bios_zero_thresh)
+  */
+ static void cmci_claim_bank(int bank, u64 val, int bios_zero_thresh, int *bios_wrong_thresh)
+ {
+-	struct mca_storm_desc *storm = this_cpu_ptr(&storm_desc);
+-
+ 	val |= MCI_CTL2_CMCI_EN;
+ 	wrmsrq(MSR_IA32_MCx_CTL2(bank), val);
+ 	rdmsrq(MSR_IA32_MCx_CTL2(bank), val);
+ 
+-	/* If the enable bit did not stick, this bank should be polled. */
++	/*
++	 * If the enable bit did not stick, this bank does not support CMCI
++	 * and no corrected or UCNA errors will be reported on this bank
++	 * (SDM Vol 3B 18.5). No polling is needed.
++	 */
+ 	if (!(val & MCI_CTL2_CMCI_EN)) {
+-		WARN_ON(!test_bit(bank, this_cpu_ptr(mce_poll_banks)));
+-		storm->banks[bank].poll_only = true;
++		__clear_bit(bank, this_cpu_ptr(mce_poll_banks));
+ 		return;
+ 	}
+ 
 -- 
 2.55.0
 
