@@ -1,89 +1,81 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 949574AA01A
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:52:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E3983431E6;
+	Thu,  3 Sep 2026 12:53:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788439974; cv=none; b=XuQFEl64Pv0QTSxD9mLmG1n3vD7J0AHdOFg6zafQmR5F2pra7mOolz9pom9e2BKSVL6KYYnbZ4ts7nHs2Q5UokYGWEYeC2qyYph4G71xq+3kVgPbUenWU+Lex/MquIQiYSSRHoEaxygX2JLxn55NqLO6ylw7X1PVl4XM0LF7BtU=
+	t=1788439999; cv=none; b=fnbdzd1DAs8JoPyRE/9HCgcJt5PUOaJICUI6vp+sGHXFdfnvLAB75IEKlDb1TqcVgNBIyA5yd1lAvcK4HrlXUCIOISHWqeTCA+We5V4nOjMxIZu23Eu8HlxpXrxxI1fbvBswoXsHIt5WbKdKA7P9C3gMdg+eNYcfzSd+T6exhXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788439974; c=relaxed/simple;
-	bh=kl+JHwTf7CdX1B+DoxtS4WWX7ZtHIg9LoLTAjy8UQXM=;
+	s=arc-20240116; t=1788439999; c=relaxed/simple;
+	bh=tG43r3ybKL5uUT1O97RFbvlWYx+uuXHDv+04GQeYfAI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M1KtAmymtrPclM5cN9PAxT6Zt5ArfIGFzQVwuBRTVCAU5GK9we4Qe+4X/eWulJIaxwiv6lBpW9DBpWxmzbz4lUl5JiQ1BAtv/5g/zwo3Lve30ni4P0Hmau4AR7v353Erowvm29OWO1+jSOT3YfUTPHW9ZYx9b96Z1Jm4/d8E+3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=YyN4+jkl; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=F8beYgGZvfYfV2Yp9Genx8kwV70nCUN+GB7z+Bbwh7j9Y8T2U1nOHHnWlkCHSNQKbqodn8JJI0/15snFBghaTahn33ipbo6xWSp+sCPs3gTsIDt3b5aKEaGRtm7BK+3DGeB8zcM0ah5MSoCCcvyxw2uQ5wCJ/3n1Gn738EpJRz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cGemzVTj; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="YyN4+jkl"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so18677725e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:52:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788439971; x=1789044771; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=O/BVphZoQ/SK9hU1QtOXRTarKJyoDJy/tE9xK1PMEI4=;
-        b=YyN4+jklbOszetvEv2rC/6mDWRgGNOvH5aVbKmD0eQV+owKSY6HOZ1woOxwRzpSeuo
-         nPRm3DehfJWKkvGz6LkrszzL+tSxMvykvcNNCz+KuJlUpo6sQGupM2qR+DCF7xAkIOZP
-         kPXTCn8brzzl7eR8LTfif6ge7vVIGIvyDtF3Z8StqjcZRlyBu3sxz9KY1gBCUsIJyUvV
-         9LphLBRkq0g4vrZA+NX8zghdRjuMiU8AZSzDSjUkQubTehMUKW8+qPzwA4X70rJVvxMD
-         +dur4Yara1pQtKK+GnerPwldV0yYhIuer6/+XRruxsNclPUNOXK0/ZYk75FOM2UsUfh6
-         udRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788439971; x=1789044771;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=O/BVphZoQ/SK9hU1QtOXRTarKJyoDJy/tE9xK1PMEI4=;
-        b=DzNTgFqrXGD9xuJ4zgqv5Rzuf3x6LhIa7iWL0vXbcJTwF2Olpk2LcC3tWzEdg6+qDF
-         C13Ok3nM5rF3nKhOpStEgwo2i+YyHXwOZoVOA3mVNa+8OEfZ8VJA62qpDjt2rDHLy9ak
-         jQyq1noV8mFtWVrLLuMtBfUltZYMEtqtjfpvf+GX+urezL1tbuJ3BEeby4HeqjgHsSES
-         ZgYhXVrFj8Szf24MBWZ43ZseGBQlkhy4tc/DC0Ob1vCyHynA8yAeTGKSU8uIgfJX4Wc2
-         1patczLILC2NIkUKL2wg/VmTDQqUXJ+Fy56z+4l8hcCa/DGNTNKUIyzEyFMreFhCBvFh
-         EsFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwQWrEdsQNggNyIClaBQCV1LxuLe+zd/ORnjMaK0OOR/uyQGKazFryx78sksYKisk/Mg0JMsdZ9HWvtdCY=@vger.kernel.org
-X-Gm-Message-State: AFuF++k2sW1LwUAWvzBxE0/xE37FByuxZ9LUFqxMCJhwBwOcdQ/U4a3X
-	eiOkkkzlREPLvtZX/3m5vumBWgOEkQVDnh8lId0joE9kgkVadJVG2fZqARqI1mPhIDI=
-X-Gm-Gg: AYBFou2mU8N/D6jaovZmkHe70lvVYsmNjaj6jPrTYaxJTIRkTc63b7HcRFMPY3NKmOR
-	Rf7hwMVFLxl9+/U2CG7J1FVj8EZu/u3po7R+yqWtUReeq6fXd6Lg2YleFGJb0GvK8XWAIbCjPxZ
-	I02wro446ANI9oBEcTq4DOYIvTPwya1KMU2327DLf9Sc3QNXKohLA4zI4d3tSoVJUX7gxx3h/rD
-	OJr5mVypoqxdG2wlYTJIy8mHlmwC95qc5asvj7A/aOK89m/DUcnaiPh/DKvHvsDVoWZyj6L9/gP
-	rWXCMw32hkyE/EZynyi2rYbsis10vtTFJ2bS5MnEzW16Pa2DtKvtygvVGq+3Z2CeolMHNNC3vUZ
-	pQeXrAqfnccoyR1HSptQww5aLxUTOUZZnIDNs5Oc3UTCUaM/30k5pM1EB9913k5SNX1GIcWcOS0
-	e3TPYQShBwR84VhkuNO5XGDLTYFqUwj6gNz05cPJAXPdRaqviTTFzEpVYuPGpofhh4pOaZBESwk
-	Or9nNauobTR
-X-Received: by 2002:a05:600c:c4a6:b0:498:952:e276 with SMTP id 5b1f17b1804b1-49ce581142cmr250223635e9.8.1788439970781;
-        Thu, 03 Sep 2026 05:52:50 -0700 (PDT)
-Received: from localhost (109-81-91-122.rct.o2.cz. [109.81.91.122])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5d6029sm71680715e9.6.2026.09.03.05.52.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 05:52:50 -0700 (PDT)
-Date: Thu, 3 Sep 2026 14:52:49 +0200
-From: Michal Hocko <mhocko@suse.com>
-To: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Nimrod Oren <noren@nvidia.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Hugh Dickins <hughd@google.com>, Nirmoy Das <nirmoyd@nvidia.com>,
-	Dragos Tatulea <dtatulea@nvidia.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
-Message-ID: <apltoauHn-l--8nI@tiehlicka>
-References: <20260901190123.3511535-1-noren@nvidia.com>
- <20260902162323.GO3004@cmpxchg.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cGemzVTj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788439998; x=1819975998;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=tG43r3ybKL5uUT1O97RFbvlWYx+uuXHDv+04GQeYfAI=;
+  b=cGemzVTjhDdm/eKK4bNao3ZNAGnj6P2DnGgCd509ZXfEg/zhh7expQDY
+   aesXNjBG3S1Q0VKb/uRKUdcZxOPi3XRDMvB4ZVbikia/zSiZDklNICZ1E
+   3OGMTrrwZvEPO3KAu+sD8OWGP50UitVu4AfEwJln9ADF515UkGZs3VDUv
+   SQGbzQH6Mkdz0O8sIsoV5oDZRI6zrzOQe0FVr6kayPylqTRYBhl8zPcT+
+   tgUVEozUXzwtdLOxHDDImYtsElbYA0+zMmZWVgP+TMgTbHsd9I6BvHJ9V
+   2fKrrPGK1bFNt6fTxJVxHOS74AS9aztv+85tC20gBsGXNZOMxWr1ewQC0
+   Q==;
+X-CSE-ConnectionGUID: YL9PaXPcQViTXGaVv7CkqA==
+X-CSE-MsgGUID: 2JX6UsMcQ2GFouX/phKIBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="100079188"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="100079188"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 05:53:17 -0700
+X-CSE-ConnectionGUID: EG6UkGFQT6G/iLYPpVG6aQ==
+X-CSE-MsgGUID: Fv19EkL4QhedtceXVGp5ew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="265372033"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 05:53:11 -0700
+Date: Thu, 3 Sep 2026 15:53:08 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: zl020895 <zl020895@163.com>
+Cc: longzhao <longzhao@ambarella.com>, Arnd Bergmann <arnd@arndb.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	soc <soc@lists.linux.dev>,
+	linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	devicetree <devicetree@vger.kernel.org>,
+	linux-clk <linux-clk@vger.kernel.org>,
+	linux-gpio <linux-gpio@vger.kernel.org>,
+	linux-serial <linux-serial@vger.kernel.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	Brian Masney <bmasney@redhat.com>, Lee Jones <lee@kernel.org>,
+	mfd <mfd@lists.linux.dev>
+Subject: Re: Re: Re: [PATCH v5 10/12] serial: 8250: add Ambarella UART driver
+Message-ID: <aplttDenvZHvn0mF@ashevche-desk.local>
+References: <20260818-cv75-v5-v5-0-7bbb12f0360f@ambarella.com>
+ <20260818-cv75-v5-v5-10-7bbb12f0360f@ambarella.com>
+ <aoRpc2RK2_X3CdAi@ashevche-desk.local>
+ <162c0385.2c076.1a018b82fa7.Coremail.zl020895@163.com>
+ <aplcxoINt0YAjvxL@ashevche-desk.local>
+ <709278f9.9699.1a067207b4c.Coremail.zl020895@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -92,54 +84,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260902162323.GO3004@cmpxchg.org>
+In-Reply-To: <709278f9.9699.1a067207b4c.Coremail.zl020895@163.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed 02-09-26 12:23:23, Johannes Weiner wrote:
-> On Tue, Sep 01, 2026 at 10:01:23PM +0300, Nimrod Oren wrote:
-> > When THP is enabled, set_recommended_min_free_kbytes() may raise
-> > min_free_kbytes using a heuristic that scales with pageblock_nr_pages.
-> > Commit f000565adb77 ("thp: set recommended min free kbytes") added this
-> > heuristic to help keep pageblocks free and reduce fragmentation for THP
-> > allocations.
-> > 
-> > The recommendation scales poorly with larger base page sizes. With the
-> > default arm64 pageblock sizes, the contribution per eligible zone
-> > before applying the existing cap of 5% of low memory is:
-> > 
-> >   4 KiB pages:   2 MiB pageblock,   22 MiB per zone
-> >  16 KiB pages:  32 MiB pageblock,  352 MiB per zone
-> >  64 KiB pages: 512 MiB pageblock,  5.5 GiB per zone
-> > 
-> > Even with that cap, min_free_kbytes can reach excessive levels.
-> > 
-> > The automatic min_free_kbytes increase predates proactive compaction
-> > and many subsequent changes to compaction. Given those changes,
-> > increasing min_free_kbytes for THP by default is no longer clearly
-> > justified.
-> > 
-> > Remove set_recommended_min_free_kbytes() and all associated
-> > recalculation paths. With this policy gone, min_free_kbytes is
-> > controlled only by the page allocator's default calculation and the
-> > vm.min_free_kbytes sysctl. Users who want additional headroom may set a
-> > higher value via that sysctl.
-> > 
-> > Link: https://lore.kernel.org/r/20260831075635.2244437-1-noren@nvidia.com/
-> > Suggested-by: Michal Hocko <mhocko@suse.com>
-> > Signed-off-by: Nimrod Oren <noren@nvidia.com>
+On Thu, Sep 03, 2026 at 07:56:17PM +0800, zl020895 wrote:
 > 
-> Just to summarize my take from the subthread with Zi: the premise of
-> this patch is to roll the regression dice on every THP setup out there
-> because certain ARM configurations result in a questionable pageblock size.
-> 
-> I'm not against carefully evaluating and testing out today's need for
-> set_recommended_min_free_kbytes() in real world examples. But this is
-> not that.
+> Thanks for the confirmation. 
+> I will keep 8250_ambarella and update the commit message as you
+> suggested.
 
-I do hear your concerns Johannes. They are valid but I am not really
-sure wht kind of testing would prove such a change to be safe.
- 
-> Nacked-by: Johannes Weiner <hannes@cmpxchg.org>
+No, I mean to go back to the version that modifies 8250_dw.
+
+> At 2026-09-03 19:40:54, "Andy Shevchenko" <andriy.shevchenko@linux.intel.com> wrote:
+> >On Wed, Aug 19, 2026 at 02:31:59PM +0800, zl020895 wrote:
+> >> 
+> >> Thanks for the review.
+> >
+> >> This is Ambarella 8250-compatible IP, not Synopsys DesignWare. We
+> >> first tried 8250_dw after Linus asked us to move to the 8250 library;
+> >> you then told us not to touch 8250_dw and to use 8250_ambarella
+> >> instead. That is what this patch is.
+> >> Background:
+> >> https://lore.kernel.org/r/CAD++jLm6HzEU1TM-c=Vtjv3FJEBecVP7TyxSgq_Q0zF-YwT6NA@mail.gmail.com/
+> >> https://lore.kernel.org/linux-serial/an8KvvHWX0naH3Xw@ashevche-desk.local/
+> >> https://lore.kernel.org/linux-serial/7E774305-3920-4BB7-BA46-E0772D6BED84@ambarella.com/
+> >> I will also switch to uart_read_port_properties() and trim the
+> >> 8250_dw-derived boilerplate.
+> >
+> >Thanks for the register descriptions, it was helpful. After going through them
+> >it seems the v3 as you made it is good enough (sorry for going back and forth).
+> >What it needs is better commit message explaining that while it's not a Synopsys
+> >DW IP, it was made to be quite compatible with that (on register level) and hence
+> >no new driver is required, just a small quirk.
 
 -- 
-Michal Hocko
-SUSE Labs
+With Best Regards,
+Andy Shevchenko
+
+
