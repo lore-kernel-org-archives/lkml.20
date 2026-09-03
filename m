@@ -1,236 +1,138 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E10647F2C6;
-	Thu,  3 Sep 2026 10:11:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B88476CE2;
+	Thu,  3 Sep 2026 10:11:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788430309; cv=none; b=pGc+vw48EOuWxf65pri+VhGcc8qiTW97Dk5i4KJXm/X/+o+9yo2bxSbXsILboOkcj17ye4Xpin5s+9WueoE9A8GOOva99jAH9oDYVHvr0zuXQ5cNuw7WgEWoljlwgVQDy0qhpIFtlF8hNuztDtnpQhOu86PFW7OMpijJPByiQX4=
+	t=1788430314; cv=none; b=Sc9Z0jj/gv9pZ5dPuVBDQnybBW9CVO7AqkA3lX0PrSSUBMBDDgfqc7T5r7rTFltJ1IS/jg4DO8hgSpLupP0KGVi9YI41lvP6aGmNFyq72YNGyP0Nu3h+D/bsQxOZofBHyhZ/49u5TtvkGkmkPsOOwihrJBRV7K7hUlPbhlcguto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788430309; c=relaxed/simple;
-	bh=n7swSSZsXkwQXXf3FTOofI0ze2+k05EVbwqIIR6pqc0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Bg+gRYjrVkJVTHvru41HyRPJPs0sGM2K+pNUfkKhDZvNDjFPmIrLBbgG+YO+pxwr6PgoAMHL0vPPmEoSTAEySM1es/PpGtPMnK12hZTs8uZrGaqIhhI3HBI0z8+izbAgbnECZclFnzj08LT8eIdu4R2ki8lkg8S9HxmN7AwR4mM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=hI/eXiUN; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1788430314; c=relaxed/simple;
+	bh=BN4qunNBubpj0XR3wKSg04dnQbkN+UbGnKV1S5NmCEU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iSG7f1hM1Ved0n/bxX2lnQCHiTZZjeYRs9Uf69cm5u0m3sAWnkNKVYksyyopXw+hQxx9TsRS3hSlcYI65rzTlbQ8xzrZC41+umaOBo767lHc/v/5lgWjtiJdiKGHd4FVEf/9kroO9/Q4QMfjZw2ZIbKsF5UKT+aTX+TvH7A6IBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VBTTOy4Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="hI/eXiUN"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=ndHxkiz4Sw6RUcCan70ObV/pml1LJpVQN+b/i+zeJHo=; b=hI/eXiUNRA9aeMQUV6E5oOPM6k
-	i51i0cVA+1viGBhLr7CqyHzLtNs7QvkUAvl3ixoRsAPDZB5MO3CljPEUaxb6ssh8d8qS/gUpjGA7y
-	zjMmqd809mnD8yU5dkRzVVVC8DeGxj9gL/pSPjl3nwYbbs8tHHLc72O6H1s97j1nFsosgxvsTJH43
-	+Qf+osGcVNID88T6fAgeq9VTc5pmkaeyYqzN/auw2SQYk5W5kFB1kNXJsEZp0yEEjjRzU9WycQ3C4
-	sDE5dAtRfSPm+9e0+jPas8vgNq8vcZiajErKSe/0mLbtwnq3/NQgG4I8rZdjTzX6aZeBi4QuRoEfi
-	NVxDq5kQ==;
-Received: from sslproxy03.your-server.de ([88.198.220.132])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1x24Py-000NXW-1m;
-	Thu, 03 Sep 2026 12:11:38 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy03.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1x24Py-000NxF-01;
-	Thu, 03 Sep 2026 12:11:38 +0200
-Message-ID: <090650a9be0df463b3d8ea49932cafa45c72c26c.camel@ew.tq-group.com>
-Subject: Re: [PATCH 1/2] ARM: dts: imx7-tqma7: correctly specify PMIC
- voltage constraints
-From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team
-	 <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Rob Herring
-	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	 <conor+dt@kernel.org>, linux@ew.tq-group.com, devicetree@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Date: Thu, 03 Sep 2026 12:11:36 +0200
-In-Reply-To: <aphKnnReHQed9ahY@SMW015318>
-References: 
-	<9a916f24b610cc60e0efd13296f281e00b41391e.1788335665.git.nora.schiffer@ew.tq-group.com>
-	 <aphKnnReHQed9ahY@SMW015318>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VBTTOy4Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93E311F000E9;
+	Thu,  3 Sep 2026 10:11:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788430311;
+	bh=ATnn0rFlXTYrVtedHEnWgM8vXFFmNhxFeLJmYOeDXBk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=VBTTOy4Zghb2X+R2qVo4ULeLYQIJvXRTePh93UEcOu76QCZm+hfproMO+r/Nfbqd5
+	 zWGprDLfpTGL9xeX6uOll5EclMwhO2WTri87vDXyT1TFmz6GNgT6oHXr6vevlAgc1s
+	 W5qfqa6hdHIW8jGHtMGQuKFLPPA1E8kdQT4W5dri3GC3+S032rNC0D/txLxmRaMn17
+	 rUF+tNB1CjWzHug8aRT3aAAxcJxFu5sAcJBTouGc0KX0TBs0OVCLcK3ExZKDlHV68L
+	 LE6Qjyj7iTugogz/OPp7Ik18wpw6GlnnV3jDn93TCs+BrUAxb2bG3miEOpzNqG7hVS
+	 m+kgfsrPHg8gA==
+Message-ID: <0082d06b-381d-4001-9ea6-cd3217e437dd@kernel.org>
+Date: Thu, 3 Sep 2026 12:11:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28112/Thu Sep  3 08:22:22 2026)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 09/12] rust: mm: sheaf: allow use of C initialized
+ static caches
+Content-Language: en-US
+To: Andreas Hindborg <a.hindborg@kernel.org>,
+ Tamir Duberstein <tamird@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, Matthew Wilcox <willy@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Harry Yoo <harry@kernel.org>,
+ Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+ David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>
+Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
+References: <20260902-xarray-entry-send-v5-0-d18adae40708@kernel.org>
+ <20260902-xarray-entry-send-v5-9-d18adae40708@kernel.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260902-xarray-entry-send-v5-9-d18adae40708@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, 2026-09-02 at 11:11 -0500, Frank Li wrote:
-> On Wed, Sep 02, 2026 at 10:05:37AM +0200, Nora Schiffer wrote:
-> > regulator-(min|max)-microvolt refer to the supported voltages according
-> > to board design, not the possible range of the regulators themselves.
->=20
-> I think make sense, but any document or mail list can be refer to?
->=20
-> Frank
+On 9/2/26 15:26, Andreas Hindborg wrote:
+> Extend the sheaf abstraction to support caches initialized by C at kernel
+> boot time, in addition to dynamically created Rust caches.
 
-Hi Frank,
+Nit: in C code caches can be also dynamically created :)
 
-I've occasionally seen this being mentioned in reviews like [1] when the
-regulator-min/max was used incorrectly. The binding docs [2] say:
+> Introduce `KMemCache<T>` as a transparent wrapper around `kmem_cache` for
+> static caches with `'static` lifetime. Rename the previous `KMemCache<T>`
+> to `KMemCacheHandle<T>` to represent dynamically created, reference-counted
+> caches.
+> 
+> Add `Static` and `Dynamic` marker types along with `StaticSheaf` and
+> `DynamicSheaf` type aliases to distinguish sheaves from each cache type.
+> The `Sheaf` type now carries lifetime and allocation mode type parameters.
+> 
+> Add `SBox::into_ptr()` and `SBox::static_from_ptr()` methods for passing
+> allocations through C code via raw pointers.
+> 
+> Add `KMemCache::from_raw()` for wrapping C-initialized static caches and
+> `Sheaf::refill()` for replenishing a sheaf to a minimum size.
+> 
+> Export `kmem_cache_prefill_sheaf`, `kmem_cache_return_sheaf`,
+> `kmem_cache_refill_sheaf`, and `kmem_cache_alloc_from_sheaf_noprof` to
+> allow Rust module code to use the sheaf API.
+> 
+> Cc: Vlastimil Babka <vbabka@suse.cz>
+> Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
+> Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+> Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+> Cc: linux-mm@kvack.org
+> Assisted-by: LLM
+> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
 
-  regulator-min-microvolt:
-    description: smallest voltage consumers may set
-
-  regulator-max-microvolt:
-    description: largest voltage consumers may set
-
-which is not as clear as I would like... Right now I don't have a source th=
-at
-feels definitive enough to include it in the commit description.
-
-Best,
-Nora
+Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
 
-[1] https://lore.kernel.org/all/7b23de30-06e3-4f02-a8a5-90791628ceed@gmail.=
-com/
-[2]
-https://www.kernel.org/doc/Documentation/devicetree/bindings/regulator/regu=
-lator.yaml
-
-
->=20
-> > Update the configuration for the TQMa7x's PMIC and also add a comment
-> > regarding the PMIC's VCC_SD switching feature.
-> >=20
-> > Fixes: a80a1af6ec8a ("ARM: dts: tq imx7 common board support")
-> > Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-> > ---
-> >  arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi | 40 +++++++++++++----------
-> >  1 file changed, 23 insertions(+), 17 deletions(-)
-> >=20
-> > diff --git a/arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi b/arch/arm/boot/=
-dts/nxp/imx/imx7-tqma7.dtsi
-> > index e1f740edfb763..7f49c80fef4c6 100644
-> > --- a/arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi
-> > +++ b/arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi
-> > @@ -46,8 +46,8 @@ pfuze3000: pmic@8 {
-> >=20
-> >  		regulators {
-> >  			sw1a_reg: sw1a {
-> > -				regulator-min-microvolt =3D <700000>;
-> > -				regulator-max-microvolt =3D <3300000>;
-> > +				regulator-min-microvolt =3D <1000000>;
-> > +				regulator-max-microvolt =3D <1225000>;
-> >  				regulator-boot-on;
-> >  				regulator-always-on;
-> >  				regulator-ramp-delay =3D <6250>;
-> > @@ -55,34 +55,33 @@ sw1a_reg: sw1a {
-> >=20
-> >  			/* use sw1c_reg to align with pfuze100/pfuze200 */
-> >  			sw1c_reg: sw1b {
-> > -				regulator-min-microvolt =3D <700000>;
-> > -				regulator-max-microvolt =3D <1475000>;
-> > +				regulator-min-microvolt =3D <1000000>;
-> > +				regulator-max-microvolt =3D <1000000>;
-> >  				regulator-boot-on;
-> >  				regulator-always-on;
-> >  				regulator-ramp-delay =3D <6250>;
-> >  			};
-> >=20
-> >  			sw2_reg: sw2 {
-> > -				regulator-min-microvolt =3D <1500000>;
-> > -				regulator-max-microvolt =3D <1850000>;
-> > +				regulator-min-microvolt =3D <1800000>;
-> > +				regulator-max-microvolt =3D <1800000>;
-> >  				regulator-boot-on;
-> >  				regulator-always-on;
-> >  			};
-> >=20
-> >  			sw3a_reg: sw3 {
-> > -				regulator-min-microvolt =3D <900000>;
-> > -				regulator-max-microvolt =3D <1650000>;
-> > +				regulator-min-microvolt =3D <1350000>;
-> > +				regulator-max-microvolt =3D <1350000>;
-> >  				regulator-boot-on;
-> >  				regulator-always-on;
-> >  			};
-> >=20
-> >  			swbst_reg: swbst {
-> > -				regulator-min-microvolt =3D <5000000>;
-> > -				regulator-max-microvolt =3D <5150000>;
-> > +				/* Not connected and left unconfigured */
-> >  			};
-> >=20
-> >  			snvs_reg: vsnvs {
-> > -				regulator-min-microvolt =3D <1000000>;
-> > +				regulator-min-microvolt =3D <3000000>;
-> >  				regulator-max-microvolt =3D <3000000>;
-> >  				regulator-boot-on;
-> >  				regulator-always-on;
-> > @@ -95,18 +94,25 @@ vref_reg: vrefddr {
-> >=20
-> >  			vgen1_reg: vldo1 {
-> >  				regulator-min-microvolt =3D <1800000>;
-> > -				regulator-max-microvolt =3D <3300000>;
-> > +				regulator-max-microvolt =3D <1800000>;
-> >  				regulator-always-on;
-> >  			};
-> >=20
-> >  			vgen2_reg: vldo2 {
-> > -				regulator-min-microvolt =3D <800000>;
-> > -				regulator-max-microvolt =3D <1550000>;
-> > +				regulator-min-microvolt =3D <1500000>;
-> > +				regulator-max-microvolt =3D <1500000>;
-> >  				regulator-always-on;
-> >  			};
-> >=20
-> >  			vgen3_reg: vccsd {
-> > -				regulator-min-microvolt =3D <2850000>;
-> > +				/*
-> > +				 * Specified values refer to 3.3V operation; voltage for 1.8V
-> > +				 * operation is derived from this.
-> > +				 *
-> > +				 * The base board should usually mux GPIO1_IO08 to SD1_VSELECT for
-> > +				 * automatic switching of SD card IO voltage.
-> > +				 */
-> > +				regulator-min-microvolt =3D <3300000>;
-> >  				regulator-max-microvolt =3D <3300000>;
-> >  				regulator-always-on;
-> >  			};
-> > @@ -118,13 +124,13 @@ vgen4_reg: v33 {
-> >  			};
-> >=20
-> >  			vgen5_reg: vldo3 {
-> > -				regulator-min-microvolt =3D <1800000>;
-> > +				regulator-min-microvolt =3D <3300000>;
-> >  				regulator-max-microvolt =3D <3300000>;
-> >  				regulator-always-on;
-> >  			};
-> >=20
-> >  			vgen6_reg: vldo4 {
-> > -				regulator-min-microvolt =3D <1800000>;
-> > +				regulator-min-microvolt =3D <3300000>;
-> >  				regulator-max-microvolt =3D <3300000>;
-> >  				regulator-always-on;
-> >  			};
-> > --
-> > TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, =
-Germany
-> > Amtsgericht M=C3=BCnchen, HRB 105018
-> > Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan=
- Schneider
-> > https://www.tq-group.com/
-> >=20
-> >=20
-
---=20
-TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, Germ=
-any
-Amtsgericht M=C3=BCnchen, HRB 105018
-Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan Sch=
-neider
-https://www.tq-group.com/
