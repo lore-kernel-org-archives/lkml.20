@@ -1,145 +1,267 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 898233D810F
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 19:06:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CAC13E0226;
+	Thu,  3 Sep 2026 19:06:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788462426; cv=none; b=CeOUBneTCIWU9fB5hl/z8nCqhbKzOZUDh1orpLOr8DpfUrVLfxKNpIUjMCg8W4GYua4ECEjjAcVkqw8ycYLPhk6Kus8QoZYrWor7vnZptnX6wethjIkGrPVWsEHtIvGmSasUAvHUCKm+XS97obkcedsCWopqUXgpdoDOWrSD/cE=
+	t=1788462427; cv=none; b=m5V1J+QmKbbufPzQXxVEeVYL8CgJIlMdsGnemoAfQvuXX477AJlor/oGLR12n9AnFGB4TkXw2OcacGQYJZ+AepQNMpVpf3nPmI0Feb8gcNOSB0SyL1Jf7JX3x/mNtbnh7kmRIhTRcf1Ou0Q/PMhEDt4D5lPX6smH9JTu9CZW3cw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788462426; c=relaxed/simple;
-	bh=w7omx3YMyTcaH1ogVGWPdU12UICmtznTiUT+lio+t/Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Yi9T1zS+w+GZs2l+Jg0C4Zs0JrwaOpxs6/f0zSnu/jWesMV6WaKHARPeuUWA4jkExm0cmYwOWK+kB7KeSBc4KHZl2ythUTYDt7/C0JboDG/f4dTopSDugUawjATDN2flDza8b4gd9Nn/7q8J5uXy/0n75Cw6ks/sMjS43Hk7DwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hAj+DXpy; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788462427; c=relaxed/simple;
+	bh=onmgCsziHJQnvL+vxGNSDERIkdIcrfq+DGen62RdF0Q=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=decV08Lnk/9qB0MzlyRhhVTWJ8GH7eDUlHHHgbOdKKzAeV85OsjYVD3Q4tqFnh9t4SeW/BqX8Iu98l0k0PEqKccBEuVaYtxSOt/5/gIQ447bIxorXCqAe3pYJicIIDuf2qMIO3qjrmL8CQ7jb0GCaEivS/cupYBoXlH0YeYFWE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a1c04ctt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hAj+DXpy"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3964dfb5b9aso223929a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 12:06:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788462415; x=1789067215; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dDib65S8CFIQhIYI6LWgQWUD0MUxHEqD0COA8UQlWu0=;
-        b=hAj+DXpyDDMJxJp4v8yTSkHKrs6OumVlKYWzDPOV8GK6Xgbnw5chCk1Vo5n6F9Bc9V
-         0/+Alg7MSkqBFkxeqfDFwpqB9qOTO3Jq5uWPl6ZXswWJKqZdY9QfBwewz084jGRqLZ7c
-         VkjRdiyAkErHpIo46Kt6RQ9H2ZQCHa5N8XrAz0hoqHeRxShRp++6d8DGOvxwb2X5nEQW
-         Bpzb76iFoU/st6yYR02D8zMVT3y1AyU+PH9NWh62FGxkpkEjXxRRrww+YYmS9WTca9lm
-         aGGAYu7BERzwSN4ABs07pX8F6DIMHRIyTWr0V0L2c52KcTmjcph/WuSw1iQglsi1LVqM
-         JBZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788462415; x=1789067215;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dDib65S8CFIQhIYI6LWgQWUD0MUxHEqD0COA8UQlWu0=;
-        b=PIAlkJcAk30Ech1GjuJPtR0eS+oxPM7+7JeZo2Ev1N8VZZwJSqtjmSK9GX2tkxaLCS
-         svMl4+HHJXnl0IC+pzmZC+cWXdXHYtcArrLGGSRNJwzPaHs+e1Q9p5ktsw7Kbw2uRvOA
-         dg1m1JcPx6zy4akFZmMqi8bxcpXQHIT/uefqJkVMck8fLz5Qw7COEptzD0sCeD4bsnfA
-         f1/D7RbnKs/okD7uBfACSYv7JQ3faI/RkTuACqV+cpqKA85bxj+QQ2/mlDFTPobSBbce
-         b0ZkJ9zS47pcrZH0P9NxueSpd9XFsg5WMunklM+818Wcrb/+g6ldwx8iWS/dUkrbfpAw
-         41fA==
-X-Forwarded-Encrypted: i=1; AKwUvBwKzOIN01M0RI2IW3PfPCuBNCbIfNrna4Jox3M65bAHV30PZBnPeeP/XxrnYUqnpmSXgNpA/7Qhp10eqvY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJZAym/mmJSGOdTTIWFD1J7QB9MIGd0KLFW6j0hLCoZZmv9Ydu
-	p/6yElqofjelaKcH3OIV72xGnJrREBrqz5k98f/zXTZYNw0X8ywDTA7j
-X-Gm-Gg: AYBFou3yXNufIJScUVqlRNJ/ckFJqH0l+u0I2iBYyZioAmo9LAnwNdc/gVTwl3NHwbx
-	CtDJaLUO457XVLw+ff4Ksm7tMVOaXTcD7I4ZcyymoRK+Pl3bOzqb4PIi7/Qeu393Aw7gNzRIAlU
-	Lz0La1Rn7Zgb/0ilNhsaTEj90gCTJdrNg0tk9xDIdjkfW2IqzuL0yEI3gnMX0y/u+Y75QVvWDx/
-	vKHyEVdJFHZv0VinzX0dlhJE1iwzJjP3ZxB49mnfhQRzJ3eZiNW20gr3RDJfiz9G3rll5EgXb/2
-	kdeMnLvpsCTorLFCTyOB7aORMM5i9cTk3vzw6VOEU4R8I6h9ls6SfgnLtCfGdbNbnf9S1yjof/M
-	rkqirnxpNAS8reQrEsZx+IAJJ4uhaC1O+qTFBHAYTzG+gSMmmQ3IJcbv1hPtRFR8GpLYdz5jkEd
-	i88nrT+yDRKRtfSylhNkVdONHDrlUdWZEIw/gnx680U08z+Q1L9EgfWSDUey3J
-X-Received: by 2002:a17:90b:2e0c:b0:38d:b36e:9813 with SMTP id 98e67ed59e1d1-39b26169b1fmr1012620a91.11.1788462414813;
-        Thu, 03 Sep 2026 12:06:54 -0700 (PDT)
-Received: from mothership ([2406:7400:43:dc90:37cc:75ad:6506:3043])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885ca07sm982389eec.1.2026.09.03.12.06.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 12:06:54 -0700 (PDT)
-From: Hani B <itshanibee@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hani B <itshanibee@gmail.com>
-Subject: [PATCH for-next] Input: xpad - add support for Flydigi Direwolf 4 paddles
-Date: Fri,  4 Sep 2026 00:36:39 +0530
-Message-ID: <20260903190639.344878-1-itshanibee@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a1c04ctt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5981B1F000E9;
+	Thu,  3 Sep 2026 19:06:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788462412;
+	bh=nbU7Tk7BzdPqNhg/v2vBK8mfcT5KOYleWhIUP9qBNQ0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=a1c04ctt+/QJZ48FMMxJAanIzNfqNRnCsqpm7SQl/O7Y3ThFrK+FbfCjyHojj0AIS
+	 k2UOWbaufk0P9zh+3FyBSW9G4pxLOUUfdHEYoea7xBqNdR3yJCl3IyOctK7bYIe6qr
+	 5M7/M6u2a3mI2GZJQQ7+c2b2RQN4Rw22ZcDsfibSQGtlgUfKmwd6Sv9MrusNzm9xEf
+	 hQQUw6HXWWoTi04VhE2buGIl72sgLZC/Am6TfywOdZ3Xfz2wEsd5zKOzC12n75QIoE
+	 nu2+FEcFiPIe5qyAJGZpIp4kocfO5u/o3wT5aaDAa8FNGHJbKJUPqsBN/0ktS3moaZ
+	 mGurChnXXVyJQ==
+Message-ID: <f666d3a226451d6317fb8a3c7bc0f9db17f38e7e.camel@kernel.org>
+Subject: Re: [PATCH v2] fs/locks: filter OFD locks from /proc/locks for
+ foreign pid namespaces
+From: Jeff Layton <jlayton@kernel.org>
+To: Tao Cui <cui.tao@linux.dev>, linux-fsdevel@vger.kernel.org,
+ cel@kernel.org
+Cc: alex.aring@gmail.com, viro@zeniv.linux.org.uk, brauner@kernel.org, 
+	linux-kernel@vger.kernel.org, avagin@openvz.org, khorenko@virtuozzo.com, 
+	bcodding@redhat.com, Tao Cui <cuitao@kylinos.cn>
+Date: Thu, 03 Sep 2026 15:06:49 -0400
+In-Reply-To: <5eb2ec0a-e6d6-4cae-89fd-6e68f75a64cc@linux.dev>
+References: <20260902125139.975253-1-cui.tao@linux.dev>
+	 <ab253791f92c329865168c4734c9bfe2f8537a5e.camel@kernel.org>
+	 <5eb2ec0a-e6d6-4cae-89fd-6e68f75a64cc@linux.dev>
+Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
+ keydata=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
+ QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The Flydigi Direwolf 4 clones Microsoft's Xbox 360 controller (045e:028e),
-identifies itself via its USB product string, and reports two rear paddles
-(M1 and M2) in byte 19 of its input reports.
+On Thu, 2026-09-03 at 10:10 +0800, Tao Cui wrote:
+> Hi, Jeff
+>=20
+> =E5=9C=A8 2026/9/2 21:03, Jeff Layton =E5=86=99=E9=81=93:
+> > On Wed, 2026-09-02 at 20:51 +0800, Tao Cui wrote:
+> > > From: Tao Cui <cuitao@kylinos.cn>
+> > >=20
+> > > Since Linux 4.9, /proc/locks only shows locks whose owning process is
+> > > visible in the reader's pid namespace.  The check cannot see the
+> > > owner of an OFD lock, though: locks_translate_pid() always returns
+> > > -1 for FL_OFDLCK, so an OFD lock held outside of that namespace
+> > > bypasses the filter and is shown with its device/inode numbers and
+> > > byte range, e.g.
+> > >=20
+> > >     4: OFDLCK ADVISORY  WRITE -1 fd:00:70536961 0 EOF
+> > >=20
+> > > This was observed on a Kubernetes node: a pod reading /proc/locks
+> > > listed the OFD write lock of an unrelated host process, while the
+> > > POSIX locks of the very same process were correctly hidden.  The
+> > > device/inode pair identifies which host file is locked, the byte
+> > > range discloses where it is actively written, and the
+> > > appearance/disappearance of entries reflects host task activity,
+> > > contrary to the documented per-pidns visibility of /proc/locks
+> > > (proc_locks(5)).
+> > >=20
+> > > OFD locks record the owner tgid in flc_pid, so use it for the
+> > > visibility decision in locks_show(), mirroring what
+> > > locks_translate_pid() does for POSIX locks.  The pid column is still
+> > > reported as -1 for OFD locks; only the filter decision changes.
+> > > Remote locks keep their negative flc_pid and stay visible as before.
+> > >=20
+> > > Verified with an OFD and a POSIX write lock held in the initial pid
+> > > namespace while a process in a fresh pid namespace reads /proc/locks:
+> > > the OFD entry is visible without this patch and hidden with it, the
+> > > POSIX entry is hidden in both cases.
+> > >=20
+> > > Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+> > >=20
+> > > ---
+> > >=20
+> > > Changes since v1: keep remote OFD locks (negative flc_pid) visible in
+> > > non-initial pid namespaces, as locks_translate_pid() does for remote
+> > > POSIX locks.
+> > > ---
+> > >  fs/locks.c | 19 +++++++++++++++++++
+> > >  1 file changed, 19 insertions(+)
+> > >=20
+> > > diff --git a/fs/locks.c b/fs/locks.c
+> > > index 6e4ff7fcec05..4af1385682e4 100644
+> > > --- a/fs/locks.c
+> > > +++ b/fs/locks.c
+> > > @@ -3022,6 +3022,25 @@ static int locks_show(struct seq_file *f, void=
+ *v)
+> > > =20
+> > >  	cur =3D hlist_entry(v, struct file_lock_core, flc_link);
+> > > =20
+> > > +	/*
+> > > +	 * OFD locks are reported with pid -1, so the filter below cannot s=
+ee
+> > > +	 * their owner; flc_pid holds the owner tgid, so filter on it.
+> > > +	 * Remote locks keep a negative flc_pid and stay visible as before.
+> > > +	 */
+> > > +	if ((cur->flc_flags & FL_OFDLCK) && cur->flc_pid > 0 &&
+> > > +	    proc_pidns !=3D &init_pid_ns) {
+> > > +		struct pid *pid;
+> > > +		bool visible =3D false;
+> > > +
+> > > +		rcu_read_lock();
+> > > +		pid =3D find_pid_ns(cur->flc_pid, &init_pid_ns);
+> > > +		if (pid)
+> > > +			visible =3D pid_nr_ns(pid, proc_pidns) !=3D 0;
+> > > +		rcu_read_unlock();
+> > > +		if (!visible)
+> > > +			return 0;
+> > > +	}
+> > > +
+> > >  	if (locks_translate_pid(cur, proc_pidns) =3D=3D 0)
+> > >  		return 0;
+> > > =20
+> >=20
+> > First: I think this may be the wrong place to do this. Why not fold
+> > this change into locks_translate_pid()? It seems like we'd have
+> > inconsistent results wrt lock visibility between /proc/locks and
+> > F_GETLK if you do this here.
+> >=20
+>=20
+> Good point. I did consider that.  My hesitation with folding it into
+> locks_translate_pid() is that posix_lock_to_flock() also uses it, so
+> F_GETLK/F_OFD_GETLK would then report a conflicting OFD lock with
+> l_pid =3D 0 instead of the -1 that fcntl(2) documents for OFD locks.
+> That's why I kept the check in locks_show(), where it only affects
+> the /proc/locks view.
+>=20
+> That distinction isn't introduced by this patch, though, since it
+> already exists for POSIX locks: since the 4.9 pid namespace filter, a
+> foreign-namespace POSIX lock that blocks F_GETLK is reported there
+> with l_pid =3D 0 while /proc/locks hides it.  v2 just gives OFD locks
+> the same treatment.
+>=20
+> > Thinking about this some more though, I wonder if trying to hide these
+> > locks is the right thing to do. These locks do exist and they do block
+> > you from acquiring a lock. If you go to look at /proc/locks and don't
+> > see them, that seems confusing.
+> >=20
+> > Would we be better off showing all the locks and reporting the pid as a
+> > negative value for ones acquired in foreign namespaces, like we do for
+> > remote locks?
+>=20
+> That's a reasonable alternative - anonymizing the owner instead of
+> hiding the lock does have precedent (fdinfo follows that model), and I
+> can see the debugging benefit of always showing locks that may block
+> acquisition.  I went with hiding because it preserves the /proc/locks
+> visibility semantics introduced in 4.9 by making OFD locks consistent
+> with POSIX locks.  With only the pid anonymized, the output would
+> still disclose which files are locked and the locked byte ranges of
+> tasks outside the reader's pid namespace.
+>=20
+> If the consensus is that /proc/locks should show all locks with an
+> anonymized pid instead, I'm happy to rework the patch in that
+> direction.
+>=20
 
-Add a probe quirk to detect the controller by string descriptor, expose its
-true vendor and product IDs (0x37d7:0x2414) for userspace recognition, and
-decode rear paddles in xpad360_process_packet().
+I personally think that would be a more useful option. The main reason
+people look at /proc/locks is to debug locking problems. Hiding locks
+like this makes that more difficult.
 
-Signed-off-by: Hani B <itshanibee@gmail.com>
----
- drivers/input/joystick/xpad.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+While we're on the topic:
 
-diff --git a/drivers/input/joystick/xpad.c b/drivers/input/joystick/xpad.c
-index 2da0b7f1722a..f738a409d139 100644
---- a/drivers/input/joystick/xpad.c
-+++ b/drivers/input/joystick/xpad.c
-@@ -401,6 +401,7 @@ static const struct xpad_device {
- 	{ 0x3651, 0x1000, "CRKD SG", 0, XTYPE_XBOX360 },
- 	{ 0x366c, 0x0005, "ByoWave Proteus Controller", MAP_SHARE_BUTTON, XTYPE_XBOXONE, FLAG_DELAY_INIT },
- 	{ 0x3767, 0x0101, "Fanatec Speedster 3 Forceshock Wheel", 0, XTYPE_XBOX },
-+	{ 0x37d7, 0x2414, "Flydigi Direwolf 4", MAP_PADDLES, XTYPE_XBOX360 },
- 	{ 0x37d7, 0x2501, "Flydigi Apex 5", 0, XTYPE_XBOX360 },
- 	{ 0x413d, 0x2104, "Black Shark Green Ghost Gamepad", 0, XTYPE_XBOX360 },
- 	{ 0xffff, 0xffff, "Chinese-made Xbox Controller", 0, XTYPE_XBOX },
-@@ -938,6 +939,12 @@ static void xpad360_process_packet(struct usb_xpad *xpad, struct input_dev *dev,
- 		input_report_abs(dev, ABS_RZ, data[5]);
- 	}
- 
-+	/* paddle handling */
-+	if (data[1] >= 20 && (xpad->mapping & MAP_PADDLES)) {
-+		input_report_key(dev, BTN_GRIPL, data[19] & BIT(3));
-+		input_report_key(dev, BTN_GRIPR, data[19] & BIT(2));
-+	}
-+
- 	input_sync(dev);
- 
- 	/* XBOX360W controllers can't be turned off without driver assistance */
-@@ -1949,6 +1956,12 @@ static int xpad_init_input(struct usb_xpad *xpad)
- 		input_dev->id.product = 0x02a1;
- 	}
- 
-+	if (xpad->udev->product && strstr(xpad->udev->product, "Flydigi Direwolf 4")) {
-+		/* expose true vendor and product id for Direwolf 4 */
-+		input_dev->id.vendor = 0x37d7;
-+		input_dev->id.product = 0x2414;
-+	}
-+
- 	input_dev->dev.parent = &xpad->intf->dev;
- 
- 	input_set_drvdata(input_dev, xpad);
-@@ -2085,6 +2098,15 @@ static int xpad_probe(struct usb_interface *intf, const struct usb_device_id *id
- 	if (xpad_device[i].flags & FLAG_DELAY_INIT)
- 		xpad->delay_init = true;
- 
-+	/*
-+	 * Direwolf 4 enumerates with generic Microsoft Xbox 360 VID/PID
-+	 * in PC mode; detect via product string to enable paddles.
-+	 */
-+	if (udev->product && strstr(udev->product, "Flydigi Direwolf 4")) {
-+		xpad->mapping |= MAP_PADDLES;
-+		xpad->name = udev->product;
-+	}
-+
- 	xpad->packet_type = PKT_XB;
- 	INIT_WORK(&xpad->work, xpad_presence_work);
- 
--- 
-2.55.0
+Should the reader of /proc/locks be able to see locks on superblocks
+that are not reachable from the current mount namespace? It seems like
+if you want real container isolation, then what you really want to do
+is hide those locks.
 
+As a further thought: maybe it's time to think about deprecating
+/proc/locks? It's not extensible, and it's been a source of pain for a
+long time.
+
+We could add something new under /sys, or maybe do something netlink
+based, and extend lslocks to use that when it's available?
+--=20
+Jeff Layton <jlayton@kernel.org>
