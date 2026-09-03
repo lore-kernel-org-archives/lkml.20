@@ -1,58 +1,50 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D4448C8AF;
-	Thu,  3 Sep 2026 11:41:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 568C346AEDD;
+	Thu,  3 Sep 2026 11:42:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788435734; cv=none; b=QEGO7G4QycWGVHl+foEXfWIYc4V3vpGFSPOlU1GRteEF7hBKgR8ulosJoSq5zknC6qTKdSKcP0IW4gdxYHCxyoHThyVZ3j4y48H6IrqlU34jnZVCivBI6xBrw7vajVq/6n+qlT9GqpamK8AtE835h3JTXMq/u8U63vSHLkpZuvI=
+	t=1788435780; cv=none; b=VFVWn0QsASGUDeE9ET/xJ5Zrz3F6eZDcqOLiVcstpR8mEi9Y89xniOzhu+5cPrcvtgvmHtBSVVwLJ6gndG3h07m+h9TE0ZVDucN+rwg3Rwvueges8+kU6NJB3PnTQqajUHz/JwM5KZtJjKtv9jYyv+wWh0P1/79q7kajDzTT5wU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788435734; c=relaxed/simple;
-	bh=l7pMTrcrpxi2soyjIsFC1foglwpNrwXml8OZYOTw2TE=;
+	s=arc-20240116; t=1788435780; c=relaxed/simple;
+	bh=siMXG41iJ3X/vqbf8RYp8LNhM43Y0Ves9W+OMagA4eg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P8Zj3MqBffKTS3HPRd+UU4rbWkNg0f00M8JVKzIZssoRBFNYfPHMwVkV1l7v5VCjIBn1HVR5ugm91OPU2VS2kc2Xotg2rMuaKx17zzzZfIb2pICyW2MzMutIvMeyhPUi4OSfJ2RI3YDxaISG2qHGt8pPAICLs9QCi2wyTkY8eGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=B8ATFYkU; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=QC+Y7+cHAJP8hwPWpRdvHDn5kQ301QqM6IJNzH1HXiAs4eK36Fe9E/JDwFs+bJ0JEYG12bbE5Tvsc2nhg7Co4JqSFMFqMxUCv6jY7KedZpkTnUcG3GCVixHpyuRtK5P3zEzdWeNBoMejvwB15D83o0TsS2Snn1lbhjL/PbApFzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=C4o2G78x; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="B8ATFYkU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788435721; x=1819971721;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=l7pMTrcrpxi2soyjIsFC1foglwpNrwXml8OZYOTw2TE=;
-  b=B8ATFYkUGmNW/dB3341wC3PUHYTyV7q11RoBGtI9ulwGV8JQili3YS8F
-   oAoSeLb2IV/sLsOAwdOKpqk0cGZjSL0/ElZGWH2dWirTJWGqSgJmlxbx+
-   xZ0EbdM7Tf0Y9XFt4JOfGrG2jdfj1QULJjkoMHsXIcnY5YQAPS8QEPMuc
-   bGGka/SNVDBRJVpdJF1uGmmC6yLNxhklp9UTUtbqVmdiwfNawKUCYl6a2
-   27Mm8poxuMfBTfAybTMR2UjSS2amI53uUtL0QmK/f0FOLWZWszJg+eIco
-   ZLrEBVXuoB4UrdNmkmINGJVgtVdX58y0sWGiv0WPsBFn9WYrgZ6AENl3H
-   w==;
-X-CSE-ConnectionGUID: eWwEjzkmR4+j9I7qfTBLlA==
-X-CSE-MsgGUID: fb6cgnbWRcejj1rPXp4sTQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="100272485"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="100272485"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 04:41:58 -0700
-X-CSE-ConnectionGUID: s3afxq93SkCskv9Xgxi6Ww==
-X-CSE-MsgGUID: FJ6bO2apTGKqxxcB+9gzxg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,259,1779174000"; 
-   d="scan'208";a="263502591"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 04:41:56 -0700
-Date: Thu, 3 Sep 2026 14:41:54 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>
-Subject: Re: [PATCH v1 1/1] thermal: sysfs: switch to use scnprintf() to
- suppress truncation warning
-Message-ID: <apldAi15zjgHJO3S@ashevche-desk.local>
-References: <20260817103324.1020212-1-andriy.shevchenko@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="C4o2G78x"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 468011596;
+	Thu,  3 Sep 2026 04:42:41 -0700 (PDT)
+Received: from J2N7QTR9R3.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 65C403F7D8;
+	Thu,  3 Sep 2026 04:42:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788435765; bh=siMXG41iJ3X/vqbf8RYp8LNhM43Y0Ves9W+OMagA4eg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=C4o2G78xVRbsEO8NNa92eegrUnoKRBkTQi5AK6Z+uyRztqM2xYpbSXDOO3g4HxV/d
+	 W90CrGzaqSvWPTyHSZfMLw7Nf3Z27pletfVGLZwuwVUni4e2ZVUjRQ/BQfh4zPbzAP
+	 y2n+SDFMuPdpwTRzFydlZNGoYWT0LHGwitc3+Aa4=
+Date: Thu, 3 Sep 2026 12:42:39 +0100
+From: Mark Rutland <mark.rutland@arm.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: Sven Peter <sven@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>, Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-efi@vger.kernel.org, asahi@lists.linux.dev
+Subject: Re: [PATCH RFC 0/6] PSCI-via-EFI to support firmware and kernel
+ sharing EL2 for Apple Silicon
+Message-ID: <apldL6Ml91GW-tE9@J2N7QTR9R3.cambridge.arm.com>
+References: <20260708-efi-psci-v1-0-9efb3abf0e4c@kernel.org>
+ <9c53cfd7-e193-4441-83ca-7710060225b7@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,24 +53,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260817103324.1020212-1-andriy.shevchenko@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <9c53cfd7-e193-4441-83ca-7710060225b7@app.fastmail.com>
 
-On Mon, Aug 17, 2026 at 12:33:24PM +0200, Andy Shevchenko wrote:
-> Switch the sysfs code to use scnprintf() to avoid warnings about potential
-> truncation of the names of the sysfs attributes. We can't increase the buffer
-> size because the size is the part of an ABI for some reason. Note, with
-> the current size of buffer the affected attributes have a room for up to
-> 1000 names, which ought to be enough for all cases. There is no functional
-> change, as the same limitation was implied before.
+On Thu, Sep 03, 2026 at 01:34:56PM +0200, Ard Biesheuvel wrote:
+> On Wed, 8 Jul 2026, at 09:15, Sven Peter wrote:
+> > This series adds a custom EFI table that points to a PSCI entry point
+> > (plus some other stuff that has to be available before EFI runtime
+> > services are set up) and adds support for this new conduit to the psci
+> > code. We can't directly use the normal EFI runtime path because that one
+> > takes a sleeping lock and we need to be able to call into PSCI from
+> > atomic context during e.g. cpu bringup or during idle.
+> > It also adds support for specifying the specific MAIR attributes for EFI
+> > runtime mappings as defined in the latest UEFI spec since Apple Silicon
+> > is rather allergic to using Device-nGnRnE vs. Device-nGnRE for its MMIO.
 
-I still have the build issues, can we get this applied to v7.3-rcX, please?
+> >       dt-bindings: arm: psci: Add EFI conduit
+> >       arm64/efi: Add and parse custom PSCI EFI configuration table
+> >       efi: Add EFI_MEMORY_ISA_{MASK,VALID}
+> >       arm64/efi: Honor EFI_MEMORY_ISA_MASK for Device-nGnRnE vs -nGnRE
+> >       firmware/psci: Add EFI runtime conduit
+> >       arm64: dts: apple: t8103: Add PSCI and CPU idle states
+> >
+> 
+> I've picked up patches #3 and #4, which are useful in their own right.
+> 
+> I'm not sure if the arm64 maintainers will want to consider this, but
+> I think it's a reasonable compromise, as it puts the abstraction in
+> the right place.
 
-> Fixes: c56f5c0342df ("Thermal: Make Thermal trip points writeable")
+Sorry for the late reply; I've been away almost all of August and I'm
+slowly catching up on things.
 
--- 
-With Best Regards,
-Andy Shevchenko
+As with last time this was proposed (in abstract), I am not happy about
+bodging an EFI conduit into PSCI, given that the manner in which state
+is managed is completely different from SMCCC.
 
+If we need a mechanism for doing hotplug and/or idle without HVC/SMC,
+that's one thing we can consider. I don't think we should pretend that
+it is PSCI.
 
+Mark.
