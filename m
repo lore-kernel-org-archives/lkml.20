@@ -1,68 +1,74 @@
-Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com [216.40.44.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46FE037B027;
-	Thu,  3 Sep 2026 17:32:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0160E4A2061;
+	Thu,  3 Sep 2026 17:33:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788456774; cv=none; b=hr16GeNxlwszfwpzSdpmQjC2BV6dXdGY+1nHhG/UnFIwoehi4HUW7+/FS3bTtkp6K2gf7EMxZ/EaJROfLPTtKfzPLWip4qwVTOE4XBGcelSU1cbHQY/FEkrPO4J4gajowQui5o657gc1ACoa7bvS9iYi6e7moYYc55pkBunADog=
+	t=1788456818; cv=none; b=Z0CtLtoCYgaDtvUPfgG+7pO7uW+IbSGlrSjvr47A14z7k0klIg7GRUixZYbsdZRCvlJPZKjbKltcUcUT4ftz7fZMdUuax7gJm7qnwq+Xy1qzqNUlniD1uQSW2ajD7mdmw1xUqdFLEOe4LjcMt5A6zB93c0GSqOWfNg3XNgh6TTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788456774; c=relaxed/simple;
-	bh=JQGyVHr3ngEUTq6rIhXhcM5YRGBMfek4bFlPFCvkh8U=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Eap5T5PVmciypfxM8HnGBk1yQOspjcS2XsRyFH1MEf0ek+aw06RtvUvzeUnCmsemkCksYY+GaIsgxvq2aUDBHgXxRCNshcXOFRmVK3xme5ckwX++KIHpv9jq7Adwei9x+B9Nm2SBH4zbqFBiSb1I4lBxFitPapMkc6GDYRXgvDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=1AQkHQFa; arc=none smtp.client-ip=216.40.44.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788456818; c=relaxed/simple;
+	bh=dZTg4lEeeVfr3iYJGZj9hD1lsuVFwpsYoPZrmXHTHV8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MRA1wSXq59YID1aXro/ogbesNrf5vL4qt6tstbEX/WAj5AuwwuaoZ/yqgBzSYqQgpesTBsPvTO8ygkmrhJuzykE2HXgKK8xmaaMeyjl7IDgTg3NBrJnJDHoSV3G8Yu+F6i7JaIVdse9O4pQvd/C0PMHsMtCWFA3L2UeNskFyoCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fwxWm5tc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="1AQkHQFa"
-Received: from omf02.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay10.hostedemail.com (Postfix) with ESMTP id 3420DC0633;
-	Thu,  3 Sep 2026 17:32:45 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf02.hostedemail.com (Postfix) with ESMTPA id 5D16080011;
-	Thu,  3 Sep 2026 17:32:43 +0000 (UTC)
-Date: Thu, 3 Sep 2026 13:33:46 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: mhiramat@kernel.org, linux-trace-kernel@vger.kernel.org,
- mathieu.desnoyers@efficios.com, kernel-team@android.com,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 3/4] ring-buffer: Cap static ring buffer nr_pages
-Message-ID: <20260903133346.1bb085bb@gandalf.local.home>
-In-Reply-To: <apmpK_QncDwqxE2B@google.com>
-References: <20260901155445.1475405-1-vdonnefort@google.com>
-	<20260901155445.1475405-4-vdonnefort@google.com>
-	<20260903125621.36cd33b8@gandalf.local.home>
-	<apmpK_QncDwqxE2B@google.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fwxWm5tc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69FA11F000E9;
+	Thu,  3 Sep 2026 17:33:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788456816;
+	bh=dZTg4lEeeVfr3iYJGZj9hD1lsuVFwpsYoPZrmXHTHV8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fwxWm5tcR7T7IHHtX4kIi9TSTTlwPEtxe2Uaj8uKEVR07ib2RxQNnWX1E26r9lRxY
+	 RKa0/P5ZJitcnUIYcWIS8MEz7kJJSH0iB4pJkvKiloKo7haL+Vk3S3Dfwd2T29kPhs
+	 WFi7YaHvUMaOG4LYwHoUy2CnMOnPE0HmdQ4AINMKVTR3ccxhxgKI6Zaezrm5RK4izI
+	 LT50OLJHnLC7DKq35szVFIa074ayCfGQ82dO8uSBBs9gt2rM94OHGopx2cVlVUlUv3
+	 ILg9aAImwEmAiEEp8+Ds9bLZQ2UxRQOoIiIDi3LmfOqOIZ9MkKR46Br08PQddq+1/5
+	 t8CekbFWOuDwA==
+Date: Thu, 3 Sep 2026 18:33:32 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Wayne Chang <waynec@nvidia.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mathias Nyman <mathias.nyman@intel.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH V3 1/3] dt-bindings: usb: Add Tegra264 XUSB host support
+Message-ID: <20260903-hypnosis-janitor-dfa1a86abd6e@spud>
+References: <20260903074539.613220-1-waynec@nvidia.com>
+ <20260903074539.613220-2-waynec@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 5D16080011
-X-Stat-Signature: 8u8fsj5gkpjntgtq413y8k34fwx1mxsw
-X-Rspamd-Server: rspamout07
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18Xqhhf8KUHzrXwLLsltR9aP3xT+QBLMEw=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=QXxAj8w86PLHh3uEPYmgt9bUzmhDhdjkBl16rZ2Kl9g=; b=1AQkHQFaDABhDpM+r3I+/HcipzsJV7UkOcYrvNtguWUqkxF+1ZPaRJYsUqvXWQu8Ng2ZTWROaYMayec1Ttu1My6Ptjgxups9r+UTt2FSaIbKFyj3yijK6KUQTe7DV7V65+BdmrsUW7Amzw+5ZMIVPfemQfoxCxv99FjdHDPWx8o=
-X-HE-Tag: 1788456763-239671
-X-HE-Meta: U2FsdGVkX1/afIZoCGkNRQuMj4Wlh6d8WOQlgZw3jBI11rR0fEAbJeKEOg4l+So2rFqCoyYB9Qq254CDcKZHXYM/fCo+hGV/KGB6g3YqIGNprJLLqC4FCA/8BzSBIydmTQDRU5caG2B7z4y3pDWMjrKtxdmtbckQRvwAv9dly3Ztuka2f5BMVgipOPkb7+eNtnSik3sbcOn1sE/6cPaAhvPIqVyYU/vJEwu390BG4OIWytrHDCfCs8cLBctutAQePS7Mh02y2OywJbEwFhUagNNWKoz1VxAzTXkM9oxZ758e+ro8FWGf+vKVqEbfdZoWmfb3R/oUX5P5/5RkaN7fELOSC10fC2xO2zfd9xivE9JD6fBYojWmAQ==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="9rQpfFsAIg8Zu6yZ"
+Content-Disposition: inline
+In-Reply-To: <20260903074539.613220-2-waynec@nvidia.com>
 
-On Thu, 3 Sep 2026 18:06:51 +0100
-Vincent Donnefort <vdonnefort@google.com> wrote:
+--9rQpfFsAIg8Zu6yZ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> Yeah, I wasn't sure... It's so pedantic, we have no user with a small size :-(
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Yeah, but perhaps it would make sense if an admin accidentally put in a
-very small size (deleted some zeros on the kernel command line?).
+--9rQpfFsAIg8Zu6yZ
+Content-Type: application/pgp-signature; name=signature.asc
 
-> 
-> But that would make sense to fold that into this patch, right?
+-----BEGIN PGP SIGNATURE-----
 
-Yes please.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapmvbAAKCRB4tDGHoIJi
+0rUrAP9Cf2gMnIsdPYtBCWhGjY6oX6CO0S3TRd+c3Idr12badAD8C2F+5pi7oW6Q
+0Dsv5Auq53kuGXs7f3qNkZRTuqJ/lQg=
+=CMO0
+-----END PGP SIGNATURE-----
 
--- Steve
+--9rQpfFsAIg8Zu6yZ--
