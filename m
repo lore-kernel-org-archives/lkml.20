@@ -1,30 +1,30 @@
-Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B94604ACC7E
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:13:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB6A4AA575
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:13:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788441218; cv=none; b=oFmaT6nQsaXb4laUcWGyut/Q7xdbl/T5Uq1JJfWAE82bJDuSL0+nAauQli1j7yYVGiMqZQMA4GpNaqseNHOO4QdvafDD5LMJIaW4jQIjXyKLv3hqQsaQ5KPGtp93Fd46HwF6eF+arxzxlBVqNpm2SSUqLrBlcveicJbu9/iI+Ew=
+	t=1788441221; cv=none; b=V7BGXLFpvEiYcH6Hw3LhIyBsph/qUhVFAnE0HJLI1Wh5zvk2d3zTlt477ddH5xBMO0ok94othlbvPNOXcXqw5F5/UmLVnCJfAJ58fxTZg2jTQrAEAJKIUjYCg1JvcjGflGPOtCZpD2JtAlnZYvXknLFiB1Dt/7WdmJxjIp6cdEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788441218; c=relaxed/simple;
-	bh=ONZsj5jmua+TvKAYv3gjEVEb77OuCLqCK7sd7KWFBb8=;
+	s=arc-20240116; t=1788441221; c=relaxed/simple;
+	bh=ODpDPyQlLQZ9GcisqtAFmuv0wByqwZNPY1Y+zGwjuPI=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=j54qFn68J8vf5i2DVKzmujlj3CHBFczzWbn62BteVJBbzaA28Yg0nOJtW61yPT0wNMEwKu76PT0eXWU9520FF2pbZkpXzjlFGQinJGv7POW6L0uVLV7/4SOYHBURB+x/rXoe82dGxp/b1Sx4yXPs4WtuEJ4o74jHjdEbm30JtzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=x2USygux; arc=none smtp.client-ip=115.124.30.131
+	 MIME-Version; b=dTs/KdwX4Y6OiwqgNNwuGcT73V/8Jr69d5IlO+YL4pBzerm8UytxhUPJFymGc/5JTr3I9WoPZObvpdUEQD53f7X3vXQuCoEqdjvYJBeHWIP3WPUP3A8d/vJHssrEHz34Pz9cvfNXr/l3XRTNo6WytPlcWCmes5IyIKo1ZIK5VkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=DByqAHjQ; arc=none smtp.client-ip=115.124.30.132
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="x2USygux"
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="DByqAHjQ"
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=linux.alibaba.com; s=default;
-	t=1788441197; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=bUd52YBr6WnPR1aGhEESuPmA5WwvLiDROmDwXm5K/s4=;
-	b=x2USyguxRWME1QcrxM+DWwVQhf2ZWuRUxMNuWFPtXFyPSo2Xf9Qajht95WA4n+oS5bfbuwRtMR5qUQUhUM/t6Uf6+b6pg5T3iLFDGHTKWAtnHpJxVo8kN+3nrfebZgWZUlIfKPdb+vFefdOiACj7RE2p5QHlXpOdwn5PrgVOxfk=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XAG2x2o_1788441195;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XAG2x2o_1788441195 cluster:ay36)
+	t=1788441195; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=zaJFr6gdl6SHI1QMfo77MGjM21RtsVjuYJkhLmdiGvA=;
+	b=DByqAHjQRmrP2Yx9p3SAV2xGYPM2Op2ClSvb8+p68mhAAdthfxvmcZxPA/XZ9v3NtKvB6D72Uo8cWe++HnDEoweXA7xUQC7ozFoXYpGamNN2q/2eq8N/P9tEq9X26rsjQnuYMkZIjDfBaXTwGzne7OZJJTK84/WkwtDaiLmIcs4=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R871e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XAG2x2N_1788441193;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XAG2x2N_1788441193 cluster:ay36)
           by smtp.aliyun-inc.com;
-          Thu, 03 Sep 2026 21:13:16 +0800
+          Thu, 03 Sep 2026 21:13:14 +0800
 From: Joseph Qi <joseph.qi@linux.alibaba.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Heming Zhao <heming.zhao@suse.com>
@@ -32,13 +32,12 @@ Cc: Mark Fasheh <mark@fasheh.com>,
 	Joel Becker <jlbec@evilplan.org>,
 	ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] ocfs2: reject inconsistent xattr bucket during defrag
-Date: Thu,  3 Sep 2026 21:13:13 +0800
-Message-Id: <20260903131313.2396208-3-joseph.qi@linux.alibaba.com>
+Subject: [PATCH v2 0/2] ocfs2: xattr bucket validation fixes
+Date: Thu,  3 Sep 2026 21:13:11 +0800
+Message-Id: <20260903131313.2396208-1-joseph.qi@linux.alibaba.com>
 X-Mailer: git-send-email 2.39.3
-In-Reply-To: <20260903131313.2396208-1-joseph.qi@linux.alibaba.com>
+In-Reply-To: <20260902124109.27775-1-joseph.qi@linux.alibaba.com>
 References: <20260902124109.27775-1-joseph.qi@linux.alibaba.com>
- <20260903131313.2396208-1-joseph.qi@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,57 +46,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ocfs2_defrag_xattr_bucket() has two mlog_bug_on_msg() checks that
-assume the name/value pairs in a bucket are disjoint and that
-xh_free_start is not below the compacted region.
+This series fixes two problems around xattr bucket validation.
 
-ocfs2_validate_xattr_bucket() only checks each entry in isolation,
-so a corrupt bucket holding overlapping entries, or one with an
-inflated xh_free_start, passes validation and then hits BUG() in
-defrag when a setxattr triggers it.
+Patch 1 fixes a false-corruption failure on blocksize-512 volumes:
+the bucket validator limited the entry array to the first bucket
+block while the write path stores entries across the whole 4096-byte
+bucket region, so a legitimately written, fsck-clean bucket could be
+rejected and force the filesystem read-only.  It also adds an
+alignment check on the bucket block number, since the entry array is
+accessed as one contiguous region and a corrupted xattr tree could
+otherwise point a bucket at blocks straddling a page boundary.
 
-Defrag works on a linear copy of the bucket and does not touch the
-real blocks before the copy back, so the checks can return an error
-instead of calling BUG().
+Patch 2 converts two mlog_bug_on_msg() checks in the bucket defrag
+path to ocfs2_error() returns, so that a corrupt bucket holding
+overlapping entries or an inflated xh_free_start marks the filesystem
+read-only and fails the setxattr instead of panicking the kernel.
 
-Fixes: 012255961c9e ("ocfs2: Enable xattr set in index btree")
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
----
- fs/ocfs2/xattr.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+Both patches have been tested in QEMU: the blocksize-512 reproducer
+(40 xattrs with 100-byte values, previously failing with "entry count
+32 exceeds maximum 31") now passes with a clean fsck.ocfs2 result,
+and the ocfs2 testsuite xattr tests pass 48/48 across blocksize
+combinations.
 
-diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
-index c71fa7983b73..e6c49adaac8a 100644
---- a/fs/ocfs2/xattr.c
-+++ b/fs/ocfs2/xattr.c
-@@ -4804,16 +4804,22 @@ static int ocfs2_defrag_xattr_bucket(struct inode *inode,
- 			memmove(bucket_buf + end - len,
- 				bucket_buf + offset, len);
- 			xe->xe_name_offset = cpu_to_le16(end - len);
-+		} else if (end < offset + len) {
-+			ret = ocfs2_error(inode->i_sb,
-+					  "Defrag check failed for bucket %llu\n",
-+					  (unsigned long long)blkno);
-+			goto out;
- 		}
- 
--		mlog_bug_on_msg(end < offset + len, "Defrag check failed for "
--				"bucket %llu\n", (unsigned long long)blkno);
--
- 		end -= len;
- 	}
- 
--	mlog_bug_on_msg(xh_free_start > end, "Defrag check failed for "
--			"bucket %llu\n", (unsigned long long)blkno);
-+	if (xh_free_start > end) {
-+		ret = ocfs2_error(inode->i_sb,
-+				  "Defrag check failed for bucket %llu\n",
-+				  (unsigned long long)blkno);
-+		goto out;
-+	}
- 
- 	if (xh_free_start == end)
- 		goto out;
+Changes since v1:
+- v1 was a single patch ("ocfs2: allow xattr bucket entries to span
+  multiple blocks").  The series is now split into two fixes.
+- Patch 1: reject buckets whose first block number is not aligned to
+  the bucket size before validating the entry array; the flat entry
+  access could otherwise read out of bounds for a bucket from a
+  corrupted xattr tree that straddles a page boundary.
+- Patch 2 is new: return an error instead of BUG() when defrag finds
+  inconsistent bucket contents.
+
+Joseph Qi (2):
+  ocfs2: allow xattr bucket entries to span multiple blocks
+  ocfs2: reject inconsistent xattr bucket during defrag
+
+ fs/ocfs2/xattr.c | 37 +++++++++++++++++++++++++++++++------
+ 1 file changed, 31 insertions(+), 6 deletions(-)
+
 -- 
 2.39.3
 
