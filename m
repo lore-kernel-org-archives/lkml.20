@@ -1,192 +1,155 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f77.google.com (mail-oa1-f77.google.com [209.85.160.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E9734BB815
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:55:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEBBC4BB5DC
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:55:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788447339; cv=none; b=cTIwLS6qDIdMk0kOpJDLeeSXZfZot8olGjP6m5gcXRPTd0gJd5Qk3j/1zpzL/nZEx6Wf19f+5VmSNPI46UbK2QIJ0+VpeuKcMK8k4TzY30+DdLkyIS9t6PDyMsFvbsNICw08Lvy3aRk0/Lggte19M2bUrtTM0X6ThMEiaGk71R4=
+	t=1788447355; cv=none; b=CNR41h9XzHyhm5QC+V3WfCwi2dQEpnWZhQ0S8T+o5jzIgzvvEgXU31FTLCDdQZWJ9qp28FRC7znx7F/gu6D7lFfFvrYNLcO1QElZJCyG8QOjqrinGkMEoEUbopp9ceGFD2nzl2U29frd3/h61NLTzOaVOsgCnEGhob7a0fbSBVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788447339; c=relaxed/simple;
-	bh=/LH2B4tdPoyKBq5EQsRZM/0jO8hDJQlMqwUSOQZODEU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DdZ8I/CZ9snjecVX8ddrlzpO8+qwHbf6EByjYCssPYMM9aDCNAliIoJ4xxI5ZRchcr6I7b44W/o/vEX7J0caH3WvREz+rVDiu94SOKqtjBHSOYmOnzGiyjmlMw6tQUWpbCTf2HROkOwqm6Kq2Rky2OrMZ8/NVSo3DsCj0n6N3+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Sw3NEcf0; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Sw3NEcf0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788447337;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=8U+otGqZ4X4lHVqvG0g0N4yJExgb42yXgS3ZaxTrOlE=;
-	b=Sw3NEcf0xJN0pNXa7O+vK0GRbxJcziF01cztIKIIxDi/U3ddrO4QSAX8adbclqLrRp9IAo
-	UioudroS9VjEcslOhNolZF8ZR+A60Xorfgorl/1spQNkwwi4Rffzh4N6F7ylyaXruUf9pb
-	FoqTMZD2wUYNmq7jCK0xRgpbajW/Jfo=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-117-SizS3z2WMpmA6MXGV8OdaA-1; Thu,
- 03 Sep 2026 10:55:30 -0400
-X-MC-Unique: SizS3z2WMpmA6MXGV8OdaA-1
-X-Mimecast-MFC-AGG-ID: SizS3z2WMpmA6MXGV8OdaA_1788447327
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 92F3B195FDD0;
-	Thu,  3 Sep 2026 14:55:25 +0000 (UTC)
-Received: from [100.90.56.12] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2F3227D7;
-	Thu,  3 Sep 2026 14:55:15 +0000 (UTC)
-Message-ID: <19d4feb1-d703-4c62-8622-a6d5e9d6394c@redhat.com>
-Date: Thu, 3 Sep 2026 16:55:11 +0200
+	s=arc-20240116; t=1788447355; c=relaxed/simple;
+	bh=CoRlB6gAX6V1ReavRH4xaLpkAo6ffNhn7w18OCM60bI=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=IdXlR8d3g49rvzH28b78eAFjAq2OO1NlwP/0JNggV9QEQrFXYycOGywR2Waj5LeeFJ3PpgbncLbPnvWyDb9AvR+LwtL00Hi/j9Q6cs3EziK4/zdha/e7klR8NZ/BVw9NY7Wkte9f5iIZxfaPmK9WnV3qYfGSHtrXXyHjsoebhKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f77.google.com with SMTP id 586e51a60fabf-464e69965b8so1492403fac.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:55:53 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788447353; x=1789052153;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Yh2JriY1HIYvSoqEosp4VpGCVknWxb4Ip0izbJulw+c=;
+        b=JdVY1bBI9DSVtkSLvF13nH4kmzv34BQnf9addKd5pfmCIWnVgQ24rPqGG0jqJft8YN
+         TMJsHROeANd8uWsG5p5XfEuUb8OOmZsn6e3AIuP7zqhyeAU5msGjcLbPexGvJRrhaiTB
+         ShJjyTTAaaV1ZsNkmLNPQLkN8itowPmPGmfSQd0JnkU8aXGQO8O/w0d4MbiyjXIAtWWw
+         g7atS2vGSI+y/eH088L1Of5m5SWGIqqLdJu1dS87V81PnA1tGZUjJzG95VTAYNWLzBe4
+         HphnF1/gKwXCajsiEQcVzdkMt61X/PChRY66ld7EZpxw1vmZA6urZb8zVzfSpMVH2TUr
+         Ezjg==
+X-Forwarded-Encrypted: i=1; AKwUvBxV0S3pYOvCCa9/lviZMnaoG/xiaQL7vu9iP2Wl3ItS081AqFmDuGiR273ipi7pZtXd1K60BpefH4l8eO0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nTTAaukr66lkwBsJTjuRr+KSk8WcbB8S1WySMoq/iB8hiQEm1d
+	+K2wfqa6WaIbLSvLaSgyO89g4vMw8aZKyyHxkmdzOtGW48OZ101toNR9X6tBVcpN3IcEBoyj35d
+	2jfPYFVtxBE/rf4lGd87hvkhR5nxsySGTHop4TdySKz1NBqgcCNGbEAmIpJA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 02/23] KVM: Make device name configurable
-To: Sean Christopherson <seanjc@google.com>,
- Steffen Eiden <seiden@linux.ibm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
- Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- David Hildenbrand <david@kernel.org>, Friedrich Welter
- <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
- Gautam Gala <ggala@linux.ibm.com>, Hariharan Mari <hari55@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>,
- Hendrik Brueckner <brueckner@linux.ibm.com>,
- Ilya Leoshkevich <iii@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>,
- Joey Gouly <joey.gouly@arm.com>, Marc Zyngier <maz@kernel.org>,
- Nico Boehr <nrb@linux.ibm.com>,
- Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
- Oliver Upton <oupton@kernel.org>, Suzuki K Poulose <suzuki.poulose@arm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Ulrich Weigand <Ulrich.Weigand@de.ibm.com>, Vasily Gorbik
- <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
- Zenghui Yu <yuzenghui@huawei.com>
-References: <20260831144802.834315-1-seiden@linux.ibm.com>
- <20260831144802.834315-3-seiden@linux.ibm.com> <apdweRfqt4dTxcU9@google.com>
- <20260902075028.231001-D-seiden@linux.ibm.com> <aphLXQL1H2zYZgTi@google.com>
- <20260903114241.33034-C-seiden@linux.ibm.com> <apmEi1NmOUvmUBFP@google.com>
- <apmFClPZ2WcDINmT@google.com> <apmIGgMEN8w-kQAm@google.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Content-Language: en-US
-Autocrypt: addr=pbonzini@redhat.com; keydata=
- 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
-In-Reply-To: <apmIGgMEN8w-kQAm@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+X-Received: by 2002:a05:6820:16ac:b0:6b5:ec2f:3572 with SMTP id
+ 006d021491bc7-6b5ec2f3690mr1539470eaf.35.1788447352818; Thu, 03 Sep 2026
+ 07:55:52 -0700 (PDT)
+Date: Thu, 03 Sep 2026 07:55:52 -0700
+In-Reply-To: <6a9087a4.4d659fcc.734b4.0013.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a998a78.e7659fcc.146146.000a.GAE@google.com>
+Subject: Re: [syzbot] [usb?] general protection fault in keyspan_break_ctl
+From: syzbot <syzbot+473d7477c523b41d4046@syzkaller.appspotmail.com>
+To: adrianox@gmail.com, gregkh@linuxfoundation.org, jirislaby@kernel.org, 
+	johan@kernel.org, kartikey406@gmail.com, linux-kernel@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-usb@vger.kernel.org, 
+	stable@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/3/26 16:45, Sean Christopherson wrote:
-> On Thu, Sep 03, 2026, Sean Christopherson wrote:
->> On Thu, Sep 03, 2026, Sean Christopherson wrote:
->>> On Thu, Sep 03, 2026, Steffen Eiden wrote:
->>>> On Wed, Sep 02, 2026 at 09:14:21AM -0700, Sean Christopherson wrote:
->>>>> And taking things a few steps further, we can solve the MMIO issue in a more
->>>>> elegant way, and eliminate the runtime string building in this patch (after looking
->>>>> more closely, that code needs to be jettisoned no matter what, there's simply no
->>>>> reason to specify the names at runtime since they're separate compilation units).
->>>>>
->>>>> Rather than splatter #defines throughout header files, deal with the bulk of the
->>>>> pain in Makefile.kvm.  By feeding conditionals into Makefile.kvm, the s390+arm64
->>>>> build can easily omit coalesced_mmio.o and async_pf.o, define __KVM_HAVE_ARCH_MMIO
->>>>> programatically without having to change other architectures, and solve the naming
->>>>> stuff.
->>>>
->>>> Yes, this is a great idea. Thank you. I second you, this looks more clean
->>>> and stable than the stuff we came up with :)
->>>
->>> Looking more at arch/s390/kvm/Kconfig and virt/kvm/Kconfig, we might need/want to
->>> to build out infrastructure to handle this sort of thing in a more generic fashion?
->>>
->>> Which probably isn't that much infrastructure?  It's more just changing how arch
->>> code communicates with common KVM?  I.e. instead of providing boolean configs in
->>> virt/kvm/Kconfig, formalize communicating HAVE-type macros through the Makefile.
->>> That might even be a net positive in the long run, as it will make it easier to
->>> provide defaults for the common cases.
->>>
->>> I say that because unless there's magic I'm unaware of these Kconfigs also needs
->>> to be configured per-KVM, not per-kernel:
->>>
->>>    - KVM_MMU_LOCKLESS_AGING, otherwise aging on arm64 will unintentionally be done
->>>      outside of mmu_lock.
->>>
->>>    - KVM_GENERIC_PRE_FAULT_MEMORY, so that arm64 doesn't need to provide a stub
->>>      for something it doesn't support
->>>
->>>    - HAVE_KVM_MSI, because presumably it's needed for arm64 support.
->>>
->>>    - HAVE_KVM_READONLY_MEM, same story as HAVE_KVM_MSI.
->>
->> And in the opposite direction, HAVE_KVM_VCPU_RUN_PID_CHANGE also falls into this
->> category.  That one is probably better handled as a #define in header files?
-> 
-> Continuing the conversation with myself, add in HAVE_KVM_NO_POLL and
-> HAVE_KVM_INVALID_WAKEUPS (which reminds me, valid_wakeup should really be moved
-> into s390's kvm_vcpu_arch).
+syzbot has found a reproducer for the following issue on:
 
-Yes, these three can be handled in a similar way as this in 
-arch/x86/include/asm/atomic64_64.h:
+HEAD commit:    940de590b839 Merge tag 'hardening-v7.3-rc2' of git://git.k..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13537c15580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
+dashboard link: https://syzkaller.appspot.com/bug?extid=473d7477c523b41d4046
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11f19f79580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15ed50f9580000
 
-#define arch_atomic64_xchg arch_atomic64_xchg
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-940de590.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/f3f674f98efb/vmlinux-940de590.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/132222426e71/bzImage-940de590.xz
 
-and then a #ifndef replaces the "#ifdef CONFIG_*".  Do this, and moving 
-vcpu->valid_wakeup to vcpu->arch comes almost for free.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+473d7477c523b41d4046@syzkaller.appspotmail.com
 
->>> Actually, thinking about this more, what I've proposed here, plus the pattern of
->>> #define-ing macros in arch-specific kvm_host.h files, should suffice.  For things
->>> like __KVM_HAVE_ARCH_VM_FREE, it absolutely makes sense to #define the macro in
->>> kvm_host.h since it's very directly tied to an arch callback.  Whereas with KVM_MIO
->>> and KVM_ASYNC_PF, because they enable compilation of C files, it makes sense to
->>> define them in Makefiles.
-Ugh, defining CONFIG symbols in Makefiles sucks.  I don't want KVM to be 
-the one that does things differently *once more*.  I'd prefer to stub 
-out the contents of the .c files instead.
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000013: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000098-0x000000000000009f]
+CPU: 0 UID: 0 PID: 6007 Comm: syz.2.19 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:keyspan_break_ctl+0x8e/0xe0 drivers/usb/serial/keyspan.c:608
+Code: ff ff ff e8 74 88 43 fa 83 fb ff 48 b8 00 00 00 00 00 fc ff df 49 8d bc 24 9c 00 00 00 0f 94 c3 48 89 fa 0f b6 db 48 c1 ea 03 <0f> b6 14 02 48 89 f8 83 e0 07 83 c0 03 38 d0 7c 04 84 d2 75 1d 41
+RSP: 0018:ffffc900067ffc50 EFLAGS: 00010203
+RAX: dffffc0000000000 RBX: 0000000000000000 RCX: ffffffff87c7ae2c
+RDX: 0000000000000013 RSI: 00000000ffffffff RDI: 000000000000009c
+RBP: ffff888013d9a000 R08: 0000000000000005 R09: 00000000ffffffff
+R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
+R13: ffff88804a94d020 R14: ffff88804a94d0c8 R15: 0000000000000007
+FS:  0000000000000000(0000) GS:ffff888096967000(0063) knlGS:0000000056ebd480
+CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+CR2: 00000000ffdb3ff0 CR3: 00000000529f7000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ serial_break+0xcb/0x160 drivers/usb/serial/usb-serial.c:538
+ send_break drivers/tty/tty_io.c:2458 [inline]
+ send_break+0x2ec/0x370 drivers/tty/tty_io.c:2441
+ tty_ioctl+0xa2c/0x1640 drivers/tty/tty_io.c:2733
+ tty_compat_ioctl+0x87/0x420 drivers/tty/tty_io.c:2931
+ __do_compat_sys_ioctl fs/ioctl.c:695 [inline]
+ __se_compat_sys_ioctl fs/ioctl.c:638 [inline]
+ __ia32_compat_sys_ioctl+0x2cf/0x360 fs/ioctl.c:638
+ do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+ __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
+ do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
+ entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+RIP: 0023:0xf702efec
+Code: Unable to access opcode bytes at 0xf702efc2.
+RSP: 002b:00000000ff93915c EFLAGS: 00000296 ORIG_RAX: 0000000000000036
+RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 0000000000005425
+RDX: 0000000000000007 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:keyspan_break_ctl+0x8e/0xe0 drivers/usb/serial/keyspan.c:608
+Code: ff ff ff e8 74 88 43 fa 83 fb ff 48 b8 00 00 00 00 00 fc ff df 49 8d bc 24 9c 00 00 00 0f 94 c3 48 89 fa 0f b6 db 48 c1 ea 03 <0f> b6 14 02 48 89 f8 83 e0 07 83 c0 03 38 d0 7c 04 84 d2 75 1d 41
+RSP: 0018:ffffc900067ffc50 EFLAGS: 00010203
+RAX: dffffc0000000000 RBX: 0000000000000000 RCX: ffffffff87c7ae2c
+RDX: 0000000000000013 RSI: 00000000ffffffff RDI: 000000000000009c
+RBP: ffff888013d9a000 R08: 0000000000000005 R09: 00000000ffffffff
+R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
+R13: ffff88804a94d020 R14: ffff88804a94d0c8 R15: 0000000000000007
+FS:  0000000000000000(0000) GS:ffff888096a67000(0063) knlGS:0000000056ebd480
+CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+CR2: 00000000f7349bcc CR3: 00000000529f7000 CR4: 0000000000352ef0
+----------------
+Code disassembly (best guess), 2 bytes skipped:
+   0:	ff                   	ljmp   (bad)
+   1:	e8 74 88 43 fa       	call   0xfa43887a
+   6:	83 fb ff             	cmp    $0xffffffff,%ebx
+   9:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
+  10:	fc ff df
+  13:	49 8d bc 24 9c 00 00 	lea    0x9c(%r12),%rdi
+  1a:	00
+  1b:	0f 94 c3             	sete   %bl
+  1e:	48 89 fa             	mov    %rdi,%rdx
+  21:	0f b6 db             	movzbl %bl,%ebx
+  24:	48 c1 ea 03          	shr    $0x3,%rdx
+* 28:	0f b6 14 02          	movzbl (%rdx,%rax,1),%edx <-- trapping instruction
+  2c:	48 89 f8             	mov    %rdi,%rax
+  2f:	83 e0 07             	and    $0x7,%eax
+  32:	83 c0 03             	add    $0x3,%eax
+  35:	38 d0                	cmp    %dl,%al
+  37:	7c 04                	jl     0x3d
+  39:	84 d2                	test   %dl,%dl
+  3b:	75 1d                	jne    0x5a
+  3d:	41                   	rex.B
 
-Paolo
 
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
