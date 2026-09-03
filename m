@@ -1,231 +1,133 @@
-Received: from mta1.migadu.com (out-70.mta1.migadu.com [95.215.58.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96E4F4ACC8E
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:53:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BFB14A5ED0;
+	Thu,  3 Sep 2026 12:54:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788440020; cv=none; b=HSzierVJx2QLWWImuNCdei0ITSiGURr0P6gusK1rjiEQuPdPMc5QYir5S2yLxSUNlId44QywS3nGrYHFzbGi/iz9wN+wBI4ifWQGnopiUEeCB6c3ZTDMVmIi8nIO1S2/4kHDcWvOkZnBJWFLasabyhXGfUF6OZ9IJkIOQP0mmi0=
+	t=1788440099; cv=none; b=B1nQ46KK2KV8+NkYkaUJf92bJ7XJCkj/saVI/Rhv/tPzYO10av6rKWcNgfFCjQcAFTsEzbDkmMTOgwZ9GkSa24P0UYQwhyD4fwpTZ3xkkWz4bGll0U9Td+HBxKMvyUzhwJfKVHPN6rfY2n4aTHSySD8Qliv3yD+QgabECHRYYQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788440020; c=relaxed/simple;
-	bh=JptFFqM7LLI6UiMYd4/0OPbkJU1jH/1iiyo2vP8GRPg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Pel7XkdJGi3TYIpB6FAnmKjKzoQc16XdNZvVJZNK+SN2BusXllh0uiQjxqyDhzOCgyxr90TLRF4TGi8QB9ezdWqPt/lf7GTHwzwzRouS/3Ye3zIOvsMiB51rV429JPvSwf1ZP2QzimtFQbPEoMSXe3c1p34qScBUeEn9ISbM72U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rkez+Yba; arc=none smtp.client-ip=95.215.58.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788440099; c=relaxed/simple;
+	bh=sZ3XNWUezqA67lIFCv3P787xp6Cn62FJf9b4Y+C2J34=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P9lMWIOjPMJXjMt4Mueb9MSFm/VsSbr5AHUxXimS80u5JzJM1CeZopKeYBij7mCtCXv4BNdvxBtA4zAcQFGZansTGIWAzPw7qAFiEC48l1aE6mKL/NEnEFrYkJrAsXnhMELwVjhPaJkZyeZZqwzQ0LrA2onBzIsfaxfugbIiLe4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=dW1N8ZPE; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rkez+Yba"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=JptFFqM7LLI6UiMYd4/0OPbkJU1jH/1iiyo2vP8GRPg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788440016; v=1; x=1789044816;
- b=rkez+YbahhD5xSvXlTzgDUvR3R8aScF9yRAKzsaktW3EzyagbkZyu1VG1V+bvUfUNK3MZZQ4
- t2+/3i0XTKXhH7rvZ1GGTYeuB+h9pfMWZGDsGguRjpE4JJVf94PZU0DId7zGqweyqL3f97/I+HR
- v6dsApvy33KOrOxMh9hXz85k=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 21463ba885a2f1b1;
-	Thu, 03 Sep 2026 12:53:36 +0000
-X-Mizu-Trace-ID: 21463ba885a2f1b1
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Aditi Ghag <aditi.ghag@isovalent.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf 2/2] selftests/bpf: Test bpf_sock_destroy() on a TIME_WAIT sock
-Date: Thu,  3 Sep 2026 20:52:49 +0800
-Message-ID: <20260903125306.299943-2-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260903125306.299943-1-jiayuan.chen@linux.dev>
-References: <20260903125306.299943-1-jiayuan.chen@linux.dev>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="dW1N8ZPE"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E63822335;
+	Thu,  3 Sep 2026 14:53:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788440004;
+	bh=sZ3XNWUezqA67lIFCv3P787xp6Cn62FJf9b4Y+C2J34=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dW1N8ZPEGT4AEd6G+yLimxmjYvusVqTRIkihhtwRCgOQT6GLvMgwuCjusNC3zkc2K
+	 KE4cfktigGoXAbSLYc9u0zME5ZAuae1dqB+3By4lXHS8/Tzrwxe/b/PqhTAHUrO3YG
+	 r4dD4C0bCebbiYdwy4RkUWpvT42SwfjRpHcM9Ms4=
+Date: Thu, 3 Sep 2026 15:54:54 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Weijie Yuan <wy@wyuan.org>
+Cc: Nguyen Duc Thinh <ducthinh100812@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, workflows@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/5] Documentation: process: Clean up grammar, tone,
+Message-ID: <20260903125454.GA541154@killaraus.ideasonboard.com>
+References: <20260902084430.17248-1-ducthinh100812@gmail.com>
+ <aploLWg-i315frp5@wyuan.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <aploLWg-i315frp5@wyuan.org>
 
-Add a tcp_timewait subtest. The client shuts down first and the server
-closes after it, so the client sock ends up in TIME_WAIT. A tcp iterator
-then finds the timewait sock by the cookie it inherited from the client
-sock and destroys it. Iterate once more to make sure it is gone.
+On Thu, Sep 03, 2026 at 08:29:33PM +0800, Weijie Yuan wrote:
+> Thanks for Cc'ing me.
+> 
+> On Wed, Sep 02, 2026 at 03:43:58PM +0700, Nguyen Duc Thinh wrote:
+> > This patch series performs a thorough pass across several files 
+> > in the Linux kernel process documentation directory. The primary focus
+> > is to improve readability and maintain a professional tone throughout 
+> > the guides for a global developer audience.
+> > 
+> > Core changes include:
+> > - Expanding conversational contractions (e.g., "don't" to "do not").
+> 
+> Is this necessary? I'm not sure.
 
-Without the previous fix bpf_sock_destroy() reads past the timewait sock
-and KASAN complains.
+It seems a bit pointless to me. Contractions will creep back in as
+patches are merged. We would need e documentation editor in charge of
+ensuring a consistent style, and I think the documentation maintainers
+have far better things to do.
 
-  ./test_progs -a sock_destroy
+> > - Rectifying minor punctuation oversights and grammatical typos.
+> > - Standardizing terminology formatting to elevate professional voice.
+> > 
+> > Extra notes:
+> > - I originally intended to send a 12-patch series to cover the whole
+> >   directory, but decided to scale it back to these 5 high-quality
+> >   patches to ensure thorough accuracy and a manageable review cycle.
+> >   
+> >   Also I want to know the current progress of the patch titled 
+> >   "Capitalize Git, Quilt, and Mercurial consistently".
+> 
+> It has been applied:
+> 
+> https://git.kernel.org/pub/scm/linux/kernel/git/docs/linux.git/commit/?id=4a0be1a25d98672391e8ad2a0802f08609397274
+> 
+> > v2:
+> >   - Resending the complete 5-patch series together as a single cohesive 
+> >     thread. (Apologies, the v1 submission suffered a terminal wildcard 
+> >     argument error that accidentally truncated the transmission 
+> >     after 1/5).
+> 
+> A better practice is to name it [PATCH v1 RESEND], I guess?
+> 
+> > Nguyen Duc Thinh (5):
+> >   Documentation: process: Clean up grammar, tone, and contractions in
+> >     core files
+> >   Documentation: process: Clean up grammar and tone in next guide files
+> >   Documentation: process: Refine language, tone, and grammar in
+> >     subsequent files
+> >   Documentation: process: Refine language, tone, and grammar in
+> >     subsequent files
+> >   Documentation: process: Clean up grammar and tone across multiple
+> >     files
+> 
+> Output of 'b4 shazam':
+> 
+> ...
+> Applying: Documentation: process: Clean up grammar, tone, and contractions in core files
+> Applying: Documentation: process: Clean up grammar and tone in next guide files
+> Applying: Documentation: process: Refine language, tone, and grammar in subsequent files
+> Applying: Documentation: process: Refine language, tone, and grammar in subsequent files
+> Applying: Documentation: process: Clean up grammar and tone across multiple files
+> /home/user/Projects/linux/.git/rebase-apply/patch:72: trailing whitespace.
+>   License (about which more will be said below).  The author is not a
+> warning: 1 line adds whitespace errors.
+> /home/user/Projects/linux/.git/rebase-apply/patch:244: trailing whitespace.
+> Which is nice, since there is no more insanity in the form of fake-generic
+> warning: 1 line adds whitespace errors.
+> /home/user/Projects/linux/.git/rebase-apply/patch:261: trailing whitespace.
+>    rare cases, an AI assistant capable of finding a bug is capable of fixing it.
+> /home/user/Projects/linux/.git/rebase-apply/patch:262: trailing whitespace.
+>    Fixes written within the same session used to identify the bug will
+> /home/user/Projects/linux/.git/rebase-apply/patch:263: trailing whitespace.
+>    generally lead to better and more accurate fixes as the LLM's reasoning
+> /home/user/Projects/linux/.git/rebase-apply/patch:282: trailing whitespace.
+> - Within two weeks, a representative of this group will communicate the
+> warning: 4 lines add whitespace errors.
+> 
+> Should we handle with whitespace?
 
-  #444/1   sock_destroy/tcp_client:OK
-  #444/2   sock_destroy/tcp_server:OK
-  #444/3   sock_destroy/tcp_timewait:OK
-  #444/4   sock_destroy/udp_client:OK
-  #444/5   sock_destroy/udp_server:OK
-  #444/6   sock_destroy/trace_tcp_destroy_sock:OK
-  #444     sock_destroy:OK
-  Summary: 1/6 PASSED, 0 SKIPPED, 0/0 FAILED
-
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
- .../selftests/bpf/prog_tests/sock_destroy.c   | 62 ++++++++++++++++++-
- .../selftests/bpf/progs/sock_destroy_prog.c   | 30 +++++++++
- 2 files changed, 91 insertions(+), 1 deletion(-)
-
-diff --git a/tools/testing/selftests/bpf/prog_tests/sock_destroy.c b/tools/testing/selftests/bpf/prog_tests/sock_destroy.c
-index 9c11938fe597..6ccc7cda410b 100644
---- a/tools/testing/selftests/bpf/prog_tests/sock_destroy.c
-+++ b/tools/testing/selftests/bpf/prog_tests/sock_destroy.c
-@@ -110,6 +110,65 @@ static void test_tcp_server(struct sock_destroy_prog *skel)
- 		close(serv);
- }
- 
-+static void test_tcp_timewait(struct sock_destroy_prog *skel)
-+{
-+	int serv = -1, clien = -1, accept_serv = -1, n;
-+	struct timeval tv = {};
-+	char buf[1];
-+
-+	serv = start_server(AF_INET6, SOCK_STREAM, NULL, 0, 0);
-+	if (!ASSERT_GE(serv, 0, "start_server"))
-+		goto cleanup;
-+
-+	clien = connect_to_fd(serv, 0);
-+	if (!ASSERT_GE(clien, 0, "connect_to_fd"))
-+		goto cleanup;
-+
-+	accept_serv = accept(serv, NULL, NULL);
-+	if (!ASSERT_GE(accept_serv, 0, "serv accept"))
-+		goto cleanup;
-+
-+	/* Active close from the client, then close the server side. Once
-+	 * recv() sees EOF the server FIN has been processed and the client
-+	 * sock is in TIME_WAIT. Block without timeout so a loaded CI box
-+	 * can't race us.
-+	 */
-+	if (!ASSERT_OK(setsockopt(clien, SOL_SOCKET, SO_RCVTIMEO, &tv,
-+				  sizeof(tv)), "clear rcvtimeo"))
-+		goto cleanup;
-+	if (!ASSERT_OK(shutdown(clien, SHUT_WR), "client shutdown"))
-+		goto cleanup;
-+
-+	close(accept_serv);
-+	accept_serv = -1;
-+
-+	/* block until return EOF */
-+	n = recv(clien, buf, sizeof(buf), 0);
-+	if (!ASSERT_EQ(n, 0, "client recv EOF"))
-+		goto cleanup;
-+
-+	/* Run iterator program that destroys the timewait client sock. */
-+	skel->bss->tw_found = 0;
-+	start_iter_sockets(skel->progs.iter_tcp6_timewait);
-+	if (!ASSERT_EQ(skel->bss->tw_found, 1, "timewait sock found"))
-+		goto cleanup;
-+
-+	ASSERT_OK(skel->bss->tw_destroy_err, "destroy timewait sock");
-+
-+	/* The destroyed timewait sock must be gone. */
-+	skel->bss->tw_found = 0;
-+	start_iter_sockets(skel->progs.iter_tcp6_timewait);
-+	ASSERT_EQ(skel->bss->tw_found, 0, "timewait sock destroyed");
-+
-+cleanup:
-+	if (clien != -1)
-+		close(clien);
-+	if (accept_serv != -1)
-+		close(accept_serv);
-+	if (serv != -1)
-+		close(serv);
-+}
-+
- static void test_udp_client(struct sock_destroy_prog *skel)
- {
- 	int serv = -1, clien = -1, n = 0;
-@@ -204,11 +263,12 @@ void test_sock_destroy(void)
- 		test_tcp_client(skel);
- 	if (test__start_subtest("tcp_server"))
- 		test_tcp_server(skel);
-+	if (test__start_subtest("tcp_timewait"))
-+		test_tcp_timewait(skel);
- 	if (test__start_subtest("udp_client"))
- 		test_udp_client(skel);
- 	if (test__start_subtest("udp_server"))
- 		test_udp_server(skel);
--
- 	RUN_TESTS(sock_destroy_prog_fail);
- 
- cleanup:
-diff --git a/tools/testing/selftests/bpf/progs/sock_destroy_prog.c b/tools/testing/selftests/bpf/progs/sock_destroy_prog.c
-index 9e0bf7a54cec..0a8887543218 100644
---- a/tools/testing/selftests/bpf/progs/sock_destroy_prog.c
-+++ b/tools/testing/selftests/bpf/progs/sock_destroy_prog.c
-@@ -7,6 +7,8 @@
- #include "bpf_tracing_net.h"
- 
- __be16 serv_port = 0;
-+int tw_found = 0;
-+int tw_destroy_err = 0;
- 
- int bpf_sock_destroy(struct sock_common *sk) __ksym;
- 
-@@ -100,6 +102,34 @@ int iter_tcp6_server(struct bpf_iter__tcp *ctx)
- 	return 0;
- }
- 
-+SEC("iter/tcp")
-+int iter_tcp6_timewait(struct bpf_iter__tcp *ctx)
-+{
-+	struct sock_common *sk_common = ctx->sk_common;
-+	__u64 *val;
-+	int key = 0;
-+
-+	if (!sk_common)
-+		return 0;
-+
-+	if (sk_common->skc_family != AF_INET6)
-+		return 0;
-+
-+	if (!bpf_skc_to_tcp_timewait_sock(sk_common))
-+		return 0;
-+
-+	val = bpf_map_lookup_elem(&tcp_conn_sockets, &key);
-+	if (!val)
-+		return 0;
-+	/* The timewait sock inherits the cookie of the closed client sock. */
-+	if (bpf_get_socket_cookie(sk_common) != *val)
-+		return 0;
-+
-+	tw_found++;
-+	tw_destroy_err = bpf_sock_destroy(sk_common);
-+
-+	return 0;
-+}
- 
- SEC("iter/udp")
- int iter_udp6_client(struct bpf_iter__udp *ctx)
 -- 
-2.43.0
+Regards,
 
+Laurent Pinchart
