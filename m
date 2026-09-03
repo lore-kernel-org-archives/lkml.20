@@ -1,65 +1,65 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2220638736E
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 05:12:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4BF43890EC
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 05:12:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788412353; cv=none; b=RTd+9i5lVK6Df0uxlquB4n0rBHS9RixTheievMTiPaSQZHQYgI5N82w1ww+kOU3KjtbeyuLG5i4PJMK/lreDvrHsR0X0aKf1WgCYRjS67S98jhmVYSmlCfI2GvPETad1H4yttwb+Sv2i652Vi2o+GAsrb17zlqfd04fX1TtWvcI=
+	t=1788412357; cv=none; b=EPWhAaGYgr+O95DHyhNf+Xww6SAVRCCFcQvBPy+KEA/M8E7fJcCwRGhfxTJV1Wo68i/0GDkLRt3CvZYV4ARTnOXR4KCoCyA4U64wOF7K+3nhafpJevicfUHzxh+x+T47kP8PfdNc1AHjf3EYxiR8I3Z/8sok4w2vlOVAJ//cNww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788412353; c=relaxed/simple;
-	bh=IMMNfAHA925c8xRPeFIaX7picSPtRX32u3H+Rxm6mmY=;
+	s=arc-20240116; t=1788412357; c=relaxed/simple;
+	bh=57WzuTndarJ7qPiYwu6aU9mNYVkBNYV5ZI02Raa7014=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PixcqpEvjwkqu4FUPeyxp0nDr8vsrkl/Ar6OZYsoNImYqNFS/Z7/YBxTGFem8/iff/8YCzPe2BWwlPOkGElSvIk7cXby5Xa/VPvr5H9xCacSjVLCdfS4v5/jsm9NuXjo/YwV5KNBEcUSsWYj3Q0Gc362PhNCxsCCn0zUlv7wWL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NFL8vXf3; arc=none smtp.client-ip=209.85.216.48
+	 MIME-Version; b=cGvACQoYlOwSO4I3yQWN8FF92wvnN5xjZFkaCnRTe/Icw2A4WxJgUcR+wph9/BucUzk+Z+cw0H7NakWHa/G6IYQ+cSHJgV0WM7AJwQLZZRk5MavG5rdBdcBZfrTOeljs9pckBwr64YOQ7T9N4Of1OyMzwfLjp1d3aELb/3CNroA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fjkbw8WG; arc=none smtp.client-ip=209.85.216.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NFL8vXf3"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-398e9698a70so1838629a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 22:12:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fjkbw8WG"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-39266382df6so1766941a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 22:12:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788412351; x=1789017151; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788412355; x=1789017155; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bQlCZdv6KNUR0PACOoD9lgtTeqoM7wiIPRUAOQBrgJY=;
-        b=NFL8vXf3VGaIJZPqkSa0ofqQsno/jCjN0fUr424mibkV4jdAXzx+ctAiGkJyKghWih
-         N0HSqNtIwqUwIFNo+YwbWMjaOLMC/IMA+MeRDS7IfOnUerO2tU+VY1wasyqzG4PSRi55
-         vzMZk3xjycpEzCaEaX+ovc7HLNM1ILrJ2z7E5dluvrAHBLRSfxctJ3csREUCQDKttwYa
-         /6xkWk9HmQpWf7fV0Etqt9CGR7eZgnDKnIwvj7i7LQGulgpaEktByj2ChR8JlqqiDas7
-         DRM+FuS//DGr0ojGHZfd1/Jqj3t0cEpvpNt9rOaW2g3lajD3wYuonSksBs4yMIIZB6hd
-         4LaQ==
+        bh=dEPYMs3oUZAAKTHc6QxaYvJkApkADKiVPKec4AR+Oag=;
+        b=Fjkbw8WGsNJ5twUSwmsaP8oJ1iZ3S20DFcaBFTd+eDYNAQ3BpG2jQaKxKS4DmxUd82
+         fuHQ1dwHnaaiyVhC5Z0VqTI5g6KQyCoJbH5oFd6l/ZD6GSE3YSZirBh3f54uu4o20/CK
+         3QnA8PSCbx0LMoO8TLx2WYzs+IZzCv8eMsnXssId+Xrg5hTD3BX5Jc2tBl2daYilDdo+
+         nUW/NtWzzbbUG/HjRF6GTJvU6Z7wNXN3iZ/dvJC6Tx9S+WJnU0jw8KMWB1/iuEbCuLn1
+         l2NaxhXc/LjzrDJCmS8eqWZ1YUu/3Lzouzqi9gX9Cn3xgHvG9sX1gSBZA4Y9RwLsqcHX
+         PPhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788412351; x=1789017151;
+        d=1e100.net; s=20251104; t=1788412355; x=1789017155;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bQlCZdv6KNUR0PACOoD9lgtTeqoM7wiIPRUAOQBrgJY=;
-        b=eTN3Py+/TNSyKr3av0b/TkoKZPvHRL/5RvmMfGCwAQ5VK6DvPo9iTSDRKnHk1HK4F6
-         +oY14uCpQ6NnLM2fm3chuUQEWc5qQUlc+pHt1py8QSjsrZEL0zJxw0ZoLRpyF5Xj2i/r
-         rsgP/nXp54nA+okJeCljNeaHLsuInh5nVShhc+XpCVzCsJ704i42/yKw/mO6nUymAsWe
-         KX0MKSuZL5+KyU2lHU+H9nrD4y+3j2MLoDhdck/3BXdDrW/wqR6Jxo7zBnwqyaoqi0Y2
-         7r2Ugus4258LQE3U0uiCQArKbkVX/8ljByH5Q3T9xBqCXbowO5/RndxSBdQwvtlqgNE/
-         MbGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzhH1v23W9Dc+x392a8pexD/b9CTkNTJSXAepMFDA4TCe5NV7qKYUT7T4NxKgBUwU8mWt7ViCEbjD9g8TA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lpEA1IBQ3Gx2l7tYVkP0tW32cYNo6Yk7OehrLgalQiMOIfBQ65
-	PKLBF3MBs+6EZoacLn+wOUt/dP3nNSc3Rg1ag+dBcuA4STQbxxnypUWw
-X-Gm-Gg: AYBFou0NyoP4rXZ3XvglZ+5Him1adJ93NpvTqs+Q0CFEHcArKf0nPhoyPQ0F4ERS8S8
-	6xJiLE82hpzrSnZEnq4Tknwx9y8oQ3EJEsmXsqzWqSbyQgNHzTPpjCYQKv52nzcu7aGA1S4cYu9
-	5rHrEZa1FKt3GMjGWVb4lFM2wuo8KbTAElo7YiIt94FGbYzAmfvqetV20GEzH2+nGND3tAkucP/
-	tTKlVEzk5H7vjS4fOtSbzF5iCNuigftGL9M9Qb+HYWkyARhtTBH+tkkLGSHX8g3unOVtv0PGfOM
-	IhX9khqzSfM4d7Yq0Vl+mm75ljFEoZOii61IAWx4I+eGgkqtjm+Gi7cVnu/XCAUWwvmE6W5/E42
-	4hUGaBGU5GAe3LQfri/jWIl0ymsEpIjwU9/yl+ntn/nYouGYQiCdwNdid/wkGvmHLd+3E5VDOGS
-	VzeM1/Np+AS7XuMUOHbwWPbJ42sDRjXNpDsXdKEzcZVlOXR2l1q2RRmZQla63PdLO0B8UEOjo7B
-	HhX1RwdNeudp3w2lQHBT502lmU6lpOoktnjqopoTB5gtIeqRxbVRPvp1XwmdKU+5XSTlDO17daH
-	kWx2
-X-Received: by 2002:a17:90b:5288:b0:398:9bd1:3214 with SMTP id 98e67ed59e1d1-39aee123ff5mr15589958a91.21.1788412351417;
-        Wed, 02 Sep 2026 22:12:31 -0700 (PDT)
+        bh=dEPYMs3oUZAAKTHc6QxaYvJkApkADKiVPKec4AR+Oag=;
+        b=CRoNgB/CPiXIp3ier8z7l5IGJIpWjnHRJKV2djxnImpo9jVR3PzNXFJDAFvPZEIogt
+         RHMklBPql8Ee24EuA5wzeWtAYJdCUyTJM+O31rf4+pg9x2O8wuXMhY3O82DEFf0Vpbpl
+         TKv6/qUmkvfrctZVJmpIVaglK98+h8XgHYnBDNLzBWW9mxBIaFBj0g501VZEQqdGydNc
+         M4Ic3j0X4wrB2pAaYi/Sna293QpW56J/gSpjkpVcoX+9YhQMvaPT6hj6jrgX6UcWyx+x
+         BIL/HtRuuxclBxHSsDD1fwSQBJiqpH1JkF28lzxrt0hDfpsin5QvPGnqk0cZoscK/g/V
+         BK2w==
+X-Forwarded-Encrypted: i=1; AKwUvBzyTqHNxKB5dJX9YXbnEYhN3jbkxmg69tuT3/7m4yudHyrVgWvsLVwQ4Lm0VJNcAixHJaA0iK61aVUepfE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lrWhnQzuK1w2gzqMEoMVPpfhqeFXeogrC1mu27wjeFW77xOVAi
+	6jodYfE0EICWIQuiUZVOU8ZQAkV4S+lZSgREvJOGrB7uSQ+ggIsLzWtOgHzndQ==
+X-Gm-Gg: AYBFou0u1SrWdY1f8OyO9NKyGwo8dGq+ntjEmRHDVEUp3s406wwo1tM7ivbTIipC7mT
+	1s68/HpUSaOtH0TzagxInPc4sM4UPLW8XGJ4SMotsm91Fc5BCUjDktI2lN0b96YOqWZbSER/pPY
+	5X5guDWTJdkSWIdxt8rImRN0e5e5UQ97k5SP51fNY7DV7BFNH2PYw5viogFDI50l9rETbahu7IV
+	pxifQ3EfBSsvu4Mm/Zc/9mDSD31l01S8xiFuDjtK4wM127lKWi7u6JoOVYoYntRtgdpFYeoQJbX
+	3tJ6/Fu9V2Ju3r5n/VTrXM1zmku03t4UUfi50yEpwolGgHFL5jyRYYiCUjWqyLcfj7vVavfbT8z
+	AFR9Mhi7AywnrAGCwhQID6GhBZRatiUR3acBL4e91MLdQnMpLP4KKZGxpIJK3/f5HgxSadVUL0G
+	JLCmxLIqNvlKodLKOFkwVMJ4/hkTRbxdSDYx/IKkZZBlJM9rs2gf701Oo8PniaEG2vbNF+IlAoY
+	ZCKRiENoUXfM5N4OX5QJWk3M9LNA7Wy1MCIhsV0dspLSBYtdEltuzwWrOCGusly3n/to3St8ZbZ
+	jTKu
+X-Received: by 2002:a17:90b:4c05:b0:398:d93a:b343 with SMTP id 98e67ed59e1d1-39aedebf901mr14551384a91.3.1788412355201;
+        Wed, 02 Sep 2026 22:12:35 -0700 (PDT)
 Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b0875ce14sm3218092a91.13.2026.09.02.22.12.28
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b0875ce14sm3218092a91.13.2026.09.02.22.12.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 22:12:31 -0700 (PDT)
+        Wed, 02 Sep 2026 22:12:34 -0700 (PDT)
 From: phucduc.bui@gmail.com
 To: Mark Brown <broonie@kernel.org>,
 	Matthias Brugger <matthias.bgg@gmail.com>
@@ -75,9 +75,9 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>,
 	linux-mediatek@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v4 5/8] ASoC: mediatek: mt8186: Fix MCK error handling
-Date: Thu,  3 Sep 2026 12:11:47 +0700
-Message-ID: <20260903051150.178057-6-phucduc.bui@gmail.com>
+Subject: [PATCH v4 6/8] ASoC: mediatek: mt8186: Fix gpio rollback on adda dl/ul partial failure
+Date: Thu,  3 Sep 2026 12:11:48 +0700
+Message-ID: <20260903051150.178057-7-phucduc.bui@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260903051150.178057-1-phucduc.bui@gmail.com>
 References: <20260903051150.178057-1-phucduc.bui@gmail.com>
@@ -91,68 +91,56 @@ Content-Transfer-Encoding: 8bit
 
 From: bui duc phuc <phucduc.bui@gmail.com>
 
-The mt8186_mck_enable() function returns immediately when a clock
-operation fails, leaving previously enabled clocks active.
+If the second mt8186_afe_gpio_select() call in adda_dl()/adda_ul() fails,
+the first one's state is left applied, leaving CLK/DAT in an inconsistent
+state. Roll back the first select on failure.
 
-Add error paths to disable previously enabled clocks before returning
-the error.
+Also fix a copy-pasted "CLK ON" debug message that should say "CLK OFF"
+in the _dl disable path.
 
-Fixes: 55b423d5623c ("ASoC: mediatek: mt8186: support audio clock control in platform driver")
 Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- sound/soc/mediatek/mt8186/mt8186-afe-clk.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+ sound/soc/mediatek/mt8186/mt8186-afe-gpio.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/mediatek/mt8186/mt8186-afe-clk.c b/sound/soc/mediatek/mt8186/mt8186-afe-clk.c
-index 77a0cbc8ee24..62b008b7caca 100644
---- a/sound/soc/mediatek/mt8186/mt8186-afe-clk.c
-+++ b/sound/soc/mediatek/mt8186/mt8186-afe-clk.c
-@@ -520,7 +520,7 @@ int mt8186_mck_enable(struct mtk_base_afe *afe, int mck_id, int rate)
+diff --git a/sound/soc/mediatek/mt8186/mt8186-afe-gpio.c b/sound/soc/mediatek/mt8186/mt8186-afe-gpio.c
+index aced8e7e920c..1cff2a63ef37 100644
+--- a/sound/soc/mediatek/mt8186/mt8186-afe-gpio.c
++++ b/sound/soc/mediatek/mt8186/mt8186-afe-gpio.c
+@@ -143,6 +143,7 @@ static int mt8186_afe_gpio_adda_dl(struct device *dev, bool enable)
+ 		ret = mt8186_afe_gpio_select(dev, MT8186_AFE_GPIO_DAT_MOSI_ON);
  		if (ret) {
- 			dev_err(afe->dev, "%s(), clk_prepare_enable %s fail %d\n",
- 				__func__, aud_clks[m_sel_id], ret);
--			return ret;
-+			goto ERR_ENABLE_MCLK;
+ 			dev_dbg(dev, "%s(), MOSI DAT ON select fail!\n", __func__);
++			mt8186_afe_gpio_select(dev, MT8186_AFE_GPIO_CLK_MOSI_OFF);
+ 			return ret;
  		}
- 		ret = clk_set_parent(afe_priv->clk[m_sel_id],
- 				     afe_priv->clk[apll_clk_id]);
-@@ -528,7 +528,7 @@ int mt8186_mck_enable(struct mtk_base_afe *afe, int mck_id, int rate)
- 			dev_err(afe->dev, "%s(), clk_set_parent %s-%s fail %d\n",
- 				__func__, aud_clks[m_sel_id],
- 				aud_clks[apll_clk_id], ret);
--			return ret;
-+			goto ERR_SELECT_MCLK;
+ 	} else {
+@@ -154,7 +155,8 @@ static int mt8186_afe_gpio_adda_dl(struct device *dev, bool enable)
+ 
+ 		ret = mt8186_afe_gpio_select(dev, MT8186_AFE_GPIO_CLK_MOSI_OFF);
+ 		if (ret) {
+-			dev_dbg(dev, "%s(), MOSI CLK ON select fail!\n", __func__);
++			dev_dbg(dev, "%s(), MOSI CLK OFF select fail!\n", __func__);
++			mt8186_afe_gpio_select(dev, MT8186_AFE_GPIO_DAT_MOSI_ON);
+ 			return ret;
  		}
  	}
- 
-@@ -537,16 +537,25 @@ int mt8186_mck_enable(struct mtk_base_afe *afe, int mck_id, int rate)
- 	if (ret) {
- 		dev_err(afe->dev, "%s(), clk_prepare_enable %s fail %d\n",
- 			__func__, aud_clks[div_clk_id], ret);
--		return ret;
-+		goto ERR_ENABLE_MCLK_DIV;
+@@ -176,6 +178,7 @@ static int mt8186_afe_gpio_adda_ul(struct device *dev, bool enable)
+ 		ret = mt8186_afe_gpio_select(dev, MT8186_AFE_GPIO_DAT_MISO_ON);
+ 		if (ret) {
+ 			dev_dbg(dev, "%s(), MISO DAT ON select fail!\n", __func__);
++			mt8186_afe_gpio_select(dev, MT8186_AFE_GPIO_CLK_MISO_OFF);
+ 			return ret;
+ 		}
+ 	} else {
+@@ -188,6 +191,7 @@ static int mt8186_afe_gpio_adda_ul(struct device *dev, bool enable)
+ 		ret = mt8186_afe_gpio_select(dev, MT8186_AFE_GPIO_CLK_MISO_OFF);
+ 		if (ret) {
+ 			dev_dbg(dev, "%s(), MISO CLK OFF select fail!\n", __func__);
++			mt8186_afe_gpio_select(dev, MT8186_AFE_GPIO_DAT_MISO_ON);
+ 			return ret;
+ 		}
  	}
- 	ret = clk_set_rate(afe_priv->clk[div_clk_id], rate);
- 	if (ret) {
- 		dev_err(afe->dev, "%s(), clk_set_rate %s, rate %d, fail %d\n",
- 			__func__, aud_clks[div_clk_id], rate, ret);
--		return ret;
-+		goto ERR_SET_MCLK_RATE;
- 	}
- 
- 	return 0;
-+
-+ERR_SET_MCLK_RATE:
-+	clk_disable_unprepare(afe_priv->clk[div_clk_id]);
-+ERR_ENABLE_MCLK_DIV:
-+ERR_SELECT_MCLK:
-+	if (m_sel_id >= 0)
-+		clk_disable_unprepare(afe_priv->clk[m_sel_id]);
-+ERR_ENABLE_MCLK:
-+	return ret;
- }
- 
- void mt8186_mck_disable(struct mtk_base_afe *afe, int mck_id)
 -- 
 2.43.0
 
