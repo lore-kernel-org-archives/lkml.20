@@ -1,67 +1,42 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD8A34EF0C;
-	Thu,  3 Sep 2026 07:27:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79E9F3812EC;
+	Thu,  3 Sep 2026 07:28:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788420475; cv=none; b=OfJYFvFt405Ju04z2MEx4LsiaT4FFFpcPfhvhzbjE7MO2ZeieGz6FD2s9IkxZgaLbfMERCFCptflwDLUSYxLWuPhuQW5NHmg8+MH7w0GxXvNJ6BlwRoWDVwbUR66LeodsLeySpYVkSWqIWgJqXQB3CjEMTzcRCdTlP9AMZdZdkQ=
+	t=1788420485; cv=none; b=RM17xlGKenZvs3l79Q6sVqlXh9ZKlrnuQc62Zbe6ceu1Ewp9eDFs9mrg5eTv+aL1gIIFfoTrxhLdxwWUWPi50I2YAqSVRZ6TQEat+V/ArIxm9VemPG81WjdDmCEIqIyE6ElwIADnyLMpnyp4ieKovecjyWlPM/C27MPzaqb/X0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788420475; c=relaxed/simple;
-	bh=V/voFFq9KQLX7kBDBUKWGRZA+L/ydeYxyLBn3t5+acM=;
+	s=arc-20240116; t=1788420485; c=relaxed/simple;
+	bh=qCPUlHBAagKK70IAA/b5RgaQ+CmDhbIKFHglQpAc/YA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IiUoMkve+iZ3/GpiOJ+a6Je/fDQbxabPL21aB0fTAr6VIlFMU91AQPy+QeZ70LzFJKJa2uH7fgM1ALhAT0f7tNFOXPDWWyBJP9CUNoPYynBcDnO9VjBGgrXDT5jYtIo8MudsYoofMkj92cOSwedronOQmJFudLX0Mq8EqZ446HA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WiRPPJw3; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=HKUez6153Ni3VmcZqpux5d/aCjbBKLzv5a3Rb4jWrAORNnLDXPZuT+dtutHp6OuYd20EiretNgH0SZEvBTEsNZJb+zTgtIE2IH2B69Piupvidr2ZGJR+frtc1mUmGWAnqOi2gMTToyXolDzJE+SZI4iW+xjTd+mm01YDXm3Vik4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IsQF/Nqs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WiRPPJw3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788420474; x=1819956474;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=V/voFFq9KQLX7kBDBUKWGRZA+L/ydeYxyLBn3t5+acM=;
-  b=WiRPPJw3UNlu8a7EGPV7M7mR7/p1NRVG90hD9TgSRXPBOWwgSpODNObO
-   tNHR5KUEwGXLL/y8tZFE4TQb5Umzn9bOFE7lzrx7VabXB9hBinMHcSGDs
-   dp8tHx6E9VfBL73dm5Y77A3n/wg/b1byWzuktI/EgyOuyz8A1aFFrf47u
-   7Z2eRuICJ0+7/DJid+OClg3TT5OQUn2K36n2ZlemwoF1e7Kk+OIxg2tbp
-   KDTcBlzw50I4Vfqr3tlQ159BcAh7jyXc8hUAVWvi+cFI9lSe0lm2Q6t2U
-   FLsmsr89jVpCm9jwiGy2kx4trDncN410193p/p4rmcqQnW2AdfbWZOEf5
-   g==;
-X-CSE-ConnectionGUID: j2zf9v1HS8u/MI1XHuBvWQ==
-X-CSE-MsgGUID: 8D5Z8r1nTrK41ISOVH33Jw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="114434505"
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="114434505"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 00:27:53 -0700
-X-CSE-ConnectionGUID: iNFgh2RaSOidy/gagV86NQ==
-X-CSE-MsgGUID: fhio3FW4Ta2y1jNVcqvh7w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="267043680"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 00:27:50 -0700
-Date: Thu, 3 Sep 2026 10:27:48 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Linux ACPI <linux-acpi@vger.kernel.org>,
-	Linux PM <linux-pm@vger.kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Peixin Xie <peixin.xie@linux.spacemit.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Lukas Wunner <lukas@wunner.de>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Linux PCI <linux-pci@vger.kernel.org>,
-	Bjorn Helgaas <helgaas@kernel.org>,
-	Hans de Goede <hansg@kernel.org>
-Subject: Re: [PATCH v2 3/6] ACPI: scan: Combine two conditionals in
- acpi_bus_attach()
-Message-ID: <apkhdHcu45NnkiNr@ashevche-desk.local>
-References: <5144065.31r3eYUQgx@rafael.j.wysocki>
- <8743568.T7Z3S40VBb@rafael.j.wysocki>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IsQF/Nqs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63C7A1F000E9;
+	Thu,  3 Sep 2026 07:28:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788420484;
+	bh=RQgEmkMwAsWbb4PYDcW5x///C28juV7yABj45P5jroY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IsQF/NqsW5wbCRyqvF31duH9gwbyzLdXK6iV/QOTvWJmlaqfz8z/Ng4jPulxFr30C
+	 ufUtXSfQtmS26Ytyb/E9zAR9teZ/tqUAaMUtKQisjmMwJ7gmk7HiM+9SvLlImUzijU
+	 wsYUohCBjrUOJZRRhbvIOqyZlY2WlxCw4+IPYTGBFdF9qD2V7Nf3Fb3ZipT1UfFGTn
+	 j4o5ukeBAiIuf36oYKceBWR9/Rb14suK9cXZhEjHwZpVg1G86dFXsWNc8mR60DfiuY
+	 o/QqO1/VAOPjYkKbi4gexZU5jgVX/5vnebZzoNvVVdx6kcSxjLMB9qMYo32JTEkfGI
+	 ZiI/IznaOXZwQ==
+Date: Thu, 3 Sep 2026 00:27:59 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Jan Kara <jack@suse.cz>
+Cc: Timothy Day <timday@thelustrecollective.com>,
+	linux-ext4@vger.kernel.org, Jan Kara <jack@suse.com>,
+	Marco Elver <elver@google.com>, Theodore Tso <tytso@mit.edu>,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/8] Support Clang context analysis for ext2
+Message-ID: <20260903072759.GA1750084@ax162>
+References: <20260811160336.782342-1-timday@thelustrecollective.com>
+ <xiymqvu5la6h63umrp6upnzbl3xjjcacuyxg76xp4labnrioyj@xowfpjlhfrzh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,22 +45,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <8743568.T7Z3S40VBb@rafael.j.wysocki>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <xiymqvu5la6h63umrp6upnzbl3xjjcacuyxg76xp4labnrioyj@xowfpjlhfrzh>
 
-On Wed, Sep 02, 2026 at 09:30:00PM +0200, Rafael J. Wysocki wrote:
-
-> There are two conditionals in acpi_bus_attach() that can be combined,
-> which slightly reduces the overhead and makes the code a bit easier
-> to follow, so do that.
+On Tue, Aug 18, 2026 at 11:58:20AM +0200, Jan Kara wrote:
+> On Tue 11-08-26 12:03:28, Timothy Day wrote:
+> > This description is mostly copied from v1:
+> > 
+> > This series adds annotations for Clang's context analysis to ext2.
+> > Clang context analysis was recently added in a series by Marco
+> > Elver [1]. This allows the compiler to validate different
+> > locking patterns at compile time.
+> > 
+> > This series enables context analysis, fixes pre-existing warnings,
+> > and adds new annotations. It is inspired by similar series in the
+> > block layer (NVMe host driver, for example [2]).
+> > 
+> > I'm starting with ext2 since it's smaller and simpler compared to
+> > ext4/btrfs/etc. After ext2, I'd be interested in converting the
+> > other filesystems and infrastructure code in fs/. I think the ultimate
+> > goal would be to enable this by default across all of fs/.
+> > 
+> > The series was built and tested with Clang 23 with
+> > CONFIG_WARN_CONTEXT_ANALYSIS enabled. I based on 7.2-rc7.
 > 
-> No intentional functional impact.
+> Thanks for the patches! They look good to me. Once the merge window is over
+> I'll queue them to my tree. The only thing I'm not fully sure is how much I
+> like the spinlock_init scoped guards - they looked quite confusing to me at
+> the first sight (as much as I understand the convenience, conceptually how
+> can initialization of a global lock be scoped?). I'll sleep over it, maybe
+> I'll change them to just spinlock_init() + scoped_guard for the lock itself
+> or maybe I'll get used to them. Anyway, no action on your side needed :).
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+This series is now in -next, where I see the following warnings (or errors with
+CONFIG_WERROR=y / W=e) with various configurations, such as ARCH=arm
+allmodconfig, when building with LLVM 23.1.0
+
+  fs/ext2/xattr.c:825:6: error: rw_semaphore 'EXT2_I().xattr_sem' is not held on every path through here [-Werror,-Wthread-safety-analysis]
+    825 |         if (WARN_ON_ONCE(!down_write_trylock(&EXT2_I(inode)->xattr_sem)))
+        |             ^
+  include/asm-generic/bug.h:180:2: note: expanded from macro 'WARN_ON_ONCE'
+    180 |         DO_ONCE_LITE_IF(condition, WARN_ON, 1)
+        |         ^
+  include/linux/once_lite.h:30:7: note: expanded from macro 'DO_ONCE_LITE_IF'
+     30 |                 if (__ONCE_LITE_IF(__ret_do_once))                      \
+        |                     ^
+  include/linux/once_lite.h:23:3: note: expanded from macro '__ONCE_LITE_IF'
+     23 |                 unlikely(__ret_once);                                   \
+        |                 ^
+  include/linux/compiler.h:77:22: note: expanded from macro 'unlikely'
+     77 | # define unlikely(x)    __builtin_expect(!!(x), 0)
+        |                         ^
+  fs/ext2/xattr.c:825:20: note: rw_semaphore acquired here
+    825 |         if (WARN_ON_ONCE(!down_write_trylock(&EXT2_I(inode)->xattr_sem)))
+        |                           ^
+
+  fs/ext2/super.c:1149:3: error: calling function 'ext2_rsv_window_add' requires holding spinlock 'EXT2_SB(sb).s_rsv_window_lock' exclusively [-Werror,-Wthread-safety-precise]
+   1149 |                 ext2_rsv_window_add(sb, &sbi->s_rsv_window_head);
+        |                 ^
+  fs/ext2/super.c:1149:3: note: found near match '_res->s_rsv_window_lock'
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Cheers,
+Nathan
