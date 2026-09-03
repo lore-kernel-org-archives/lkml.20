@@ -1,80 +1,88 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 585B949DBAC
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:55:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578C449EC4B
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:55:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788436535; cv=none; b=bK1c+lEULAAxps1iOtGTpwFX7Ncuu/3ZLQFjE09zwekFEu5cQE5nwph2KOTwZGpwHVqTBhLaPmlFabTF6+jnC7CtIgF1M2eOAsyhkLlFu5FDNDFCOjM7Y9I4q1zykr8X6XkLKFdwCxmcWkWL4NIjyLuYBPohEArgGw+QxqUaoCk=
+	t=1788436542; cv=none; b=jsRe/0CP53YoNvKEE2GMKvo2LqLuFcV3SqlzI4puxWMfV/0FO5xsNoUYtBujFLuKCyf/lXBTH+qxEBX26oowtyDPgLV2+7GcN95WpXhBcjFG35NOvRNKpn9L/gBpgCugvInMZfrW14thDjqOv/xsMPg8NkDm2JxPcvlZ3Cc/NPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788436535; c=relaxed/simple;
-	bh=FojhlWYqZBUufn1BDdSyLeFd57efx070/xbYbRX7cvY=;
+	s=arc-20240116; t=1788436542; c=relaxed/simple;
+	bh=DGBqDOeyzfNy+29WumkC3kdwnB2FhZZ+segPy9L+b28=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=I/2S6+Wl1hHyxf96eUpzORwE2QLt2XYA8eMQpu8kohr5sv0wRMlAQ9fmLum187gbZBVggNyarR68SnpWH+0CjfSeZSKlI/Mj0DSPRlQigOCQ93FIv+iriZt9YdA8uqIEHDoCqMoTWfEjMBpekDwDM7SdemMs4hJnJbn+XxSX5yc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ppgLvic9; arc=none smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=hvJU5yvTr0/mm+VJ4JwAL7hhQ9AMZMJ+YWG5ELR514latl0hdMpKEzz3zOnBF7Vq1l2n0x6B4vRkI7qLFLN/2W120V60FzRrA08kyQj5cf9ywbtahNrEcPH8NIA68jBk+qOuW1iHqyNZaS2hMAMykzI6Ay6whP/njD2y+dFsebc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=fheNGpj1; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ppgLvic9"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-851cbd64814so984821b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 04:55:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="fheNGpj1"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-39927410578so3980770a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 04:55:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788436530; x=1789041330; darn=vger.kernel.org;
+        d=nebusec.ai; s=google; t=1788436537; x=1789041337; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VxhvUoRpE34FtOEmH0TWBdjdbN3XpRSicUZUPCPzp8E=;
-        b=ppgLvic9KGRNS6apV0bwD7lKd+TzVAvwEfztSjB0QkfPX60Fw0r1N2T7Pg/+cBpzt0
-         OiWngV6wKv7ccwyVH2CuKBU+WgdyaHC+1YfJ5sHTWq9M2m3s1xOH+5LY1xQ1E8KcwxO0
-         fBRSOnu/BxB8e2icVO4etaDVxmjBMA4/KAOwaMqhYCiDZ1CpSIXjCrThZHHLzoCLpcj6
-         JKMdqQykS479N9eWdLQ7QVWBTkjooaRxxREM1tIkSrFgrQJn7/g+fCBE6uFH03wqy3OP
-         +OoFMAJw9rjHUPot4dxDZqfrZ9MVqOmUvRGWLpph3nZIO21gRE63x0sWmk1+Q1JGzLm4
-         et5A==
+        bh=1i8Z8yZUed8BAdZrDOJbsKwDdPch3XADEoDyC5AXu00=;
+        b=fheNGpj1WPIhb3B98s/v7oSY2M1JDejBAVFPgWwF4/RllwHLGJlZcyZQHYUANcgoHV
+         0uwJ+yuTwit82EvY4vF0wtAfPcqOMKNEUGGDM/uxjlcP6n6E4z2XC4zL7beOO15uMhPz
+         xpbFmpfRsIm8mqGwHAiJhkY9xgOc5F8Dkju1X6CQRUjc5AkHM7VAn2t6qkRUwOYFxQAD
+         zd+d0JSeJ00gPBMABx9GKYqGEiI09afFBjEP8EjwTuAo5edAEGXXt5ZtCdnyqEbsY8UI
+         X/YVMrKJjT2LBis6Tv6rD9stMfy9S/yFFfr6vWDJ9srkv4KMvQL463Fq/svIrk7EFm7T
+         5YZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788436530; x=1789041330;
+        d=1e100.net; s=20251104; t=1788436537; x=1789041337;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VxhvUoRpE34FtOEmH0TWBdjdbN3XpRSicUZUPCPzp8E=;
-        b=EMT+Me/OKHRYTGPfMLmVvhRFcTQzzglT2B16vpFiEEIOGandcWtmJ06C1vUE6+cWH7
-         yMtZUsgzkoTPuboX+btAmTPzCjpKaAweL/jzYVA2Wrd2vQXfRdquTE0X/jscveGS136m
-         to7rQCm6rpXnxMj6ITESy6sjA+KoBQo4w/VjZdMoBmPRNRQ7D0kDxHqhrqPH3OdpKHTd
-         6n3tic0mVTVtbyqDDbOXhNQdiX4SRYVdgh1V16+y7IzgWPDtmZV7YKepdUitMh5d74A8
-         dmg6BuqQfUVXDw4oKmyNLr/nDnVn1XR+X2cDe1iyN5/G4B9xe36b6G9dJ6XoG3wA+Rqe
-         KZMg==
-X-Forwarded-Encrypted: i=1; AKwUvBwuTdslwhiKyECLBAZwakoa0+g2k0f9SEdBPY+4ZA12hpiJHOqzH7SITbNXVSutG+jcUoYsMa+Bo8H6FBo=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+13h07qiLxVl/enNkk9bWU3Mx3sAkIY2oB5AdC563wwqHS9hw
-	k8jideTvqWxslxSBK+RQj+k4IVTNNonYEl44j3/COZNAxPLqH1UYdGkyXT5v4PA1jPI=
-X-Gm-Gg: AYBFou1VFbx/soQxI42FKtc7LbmoweJOH7aBkVoUMnTVexMPP0lBm8ZH0Oh5syQRg6w
-	2ndX/ldwgHNchuNZbbhyhC2AXIVsE+Y11IU+hFBOc7vTDqHC0wZwdZxgC8KOtvulnG/oTa2I3h4
-	7oI1JDbEzh3pNQJRZbLkSUGoZjgZkfb3COVYBZRGaw0P2OjnsDc9zBBVy0IhxG7yAHYLE2vePZU
-	2JwBMSugn1rwB1IYsctYkE5qtZ8v3/9TswAT2EtvZC6wYjpGyhzG6yWsFe3n+l5HYbsGQuANeYD
-	1WAiPQ5/+AkW3F7zbFDQw3b+n/rTpgO/5mCxyjgpWO/pqbeUUfG/rtRiQtoEuPnypVb+xi/ZK2t
-	fhW8NhwDlQNIuFy3XOZZ4tjnBowN7lKZ7CMAfpSPqT7HCyQ42K19rd5VTMYAsNzGOheccxo1xjr
-	s4lICD/q/1e5nFiVg5V2Nnb9xgfWmmnxCE/9UJOtrDufu+ZiHYW1dX299BL7ISyMZ6QdBo+EjrC
-	3m9BprBH13y
-X-Received: by 2002:a05:6a00:4f92:b0:857:73e2:9105 with SMTP id d2e1a72fcca58-85ed94bb426mr15557084b3a.21.1788436530206;
-        Thu, 03 Sep 2026 04:55:30 -0700 (PDT)
-Received: from DESKTOP-M1337NB.localdomain ([211.241.115.168])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc071836bsm2750914b3a.44.2026.09.03.04.55.27
+        bh=1i8Z8yZUed8BAdZrDOJbsKwDdPch3XADEoDyC5AXu00=;
+        b=qMxvomYyr+9HH1dXk1AYJtD0OuhhffAD4SvxdSzAfpzWDtcKp0V7evYr8bwMDe/djd
+         NKibRgJfgM/3+h8K9FpnGExZwvoXILNnLP50Z9dMzVGTOOwyWZagBaRMim4GPi3Kwimk
+         kYPvEBIWy00vdBK1O6LuNC+BkxCfDSrQ1JJSqRLI6KRmhIoqb2Qoc7DhSBsWC/PUxItc
+         nSc4WYSAeqLoMcUkYfCcaB90SPBTjVBHDdZpPRLf0vw39j0oGjd7CLWFanlNvg4FDMKV
+         SdAaITrv3hLG43vin6Sgd2jacGXT7BmNCJE6pi3JyRtBC7I+pTFgtnfL53lEdLT/FYnR
+         nTOA==
+X-Forwarded-Encrypted: i=1; AKwUvBxdCSCDhOByftpcTLAUPapNwp6KH1bpl0QhEgsbxIdEOBPVClsSbTY8nQhwCV3jVDM/Y93bPiXL0EXUqeE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwh/rcCWINmlSuU2vr4+VWYQEt/NAWEVxa9Whds7AT/Fp2ofDq
+	f2p/+bhfoInt0XI4VW5fw/SdT0mMbk52AEeZp2PAET6+5d7K40jD/TjYcRAEU6s1smmK
+X-Gm-Gg: AYBFou07f6RBCX8XvbRssMLswx4MBc9c3GP/H3z7nOj12bamWkJ1alBXTAq68kuWN9h
+	v9PQHrxEjMlloLszIVj3PTr7AfB8SKbss87k5ukrZOmdzTkkBdSos4+O8PkYPQ7bAi/mHW5yRCH
+	yrXXdrByzp1wkiAW/5sTrgJPdalizMy33kPndJUsdCrMXXCn0H6Ox+5FSehXj6UDSFWpK6fEfAP
+	iNFeBGkzwcV7wAgTw7S8sgdeNxLQtCljcJAKbdXGkZGpLhSrajUN8L64l5dfz9FgolWRbcrFn68
+	ygxn1jZxzNZAa2AvjySKCHkgcRQ7UY379rtpUawVK3g2QB7kiZPgRfxC313DQjaPeri6UfiRg4J
+	y4vHeR77JYSCD6GRA/TRkIvmX6zWZh3gbUgX6JYOyTUklJJ36rgZXsjowoDUjOSgEtYbSSj078h
+	SuNXtvP6Fgs6CIArRea/Tc23AVUEEvrvxv6u8/H3+3xKKtCXvyeqTeaq2vh1fUrrFnds/W0UGDq
+	E449VCuJADDVJmjxdMs/bwY9JD7YUU=
+X-Received: by 2002:a17:90a:f94f:b0:398:bacb:1137 with SMTP id 98e67ed59e1d1-39aee21a4demr19811899a91.19.1788436536858;
+        Thu, 03 Sep 2026 04:55:36 -0700 (PDT)
+Received: from b6ad5085b32f.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08bcc090sm5222206a91.4.2026.09.03.04.55.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 04:55:29 -0700 (PDT)
-From: Jonggeun Park <jakejgpark@gmail.com>
-To: ardb@kernel.org,
-	jk@ozlabs.org
-Cc: kees@kernel.org,
-	tony.luck@intel.com,
-	gpiccoli@igalia.com,
-	ilias.apalodimas@linaro.org,
-	linux-efi@vger.kernel.org,
+        Thu, 03 Sep 2026 04:55:36 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: netfilter-devel@vger.kernel.org
+Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Patrick McHardy <kaber@trash.net>,
+	Jan Engelhardt <jengelh@medozas.de>,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	jakejgpark@gmail.com
-Subject: [PATCH v2] efi: vars: commonize the 512-byte name buffer quirk
-Date: Thu,  3 Sep 2026 20:55:16 +0900
-Message-ID: <20260903115516.32495-1-jakejgpark@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260815074844.1330-1-jakejgpark@gmail.com>
-References: <20260815074844.1330-1-jakejgpark@gmail.com>
+	stable@vger.kernel.org,
+	Vega <vega@nebusec.ai>,
+	Zihan Xi <zihanx@nebusec.ai>
+Subject: [PATCH nf v2 1/1] netfilter: nf_dup: disable duplication in user namespaces
+Date: Thu,  3 Sep 2026 11:55:21 +0000
+Message-ID: <34fe34497e78fc763a3f93605e29ce2a3fd7438b.1788425393.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1788425393.git.zihanx@nebusec.ai>
+References: <cover.1788425393.git.zihanx@nebusec.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,93 +91,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Some old UEFI implementations reject GetNextVariableName() calls with
-a name buffer size larger than 512 bytes. Both efivar_init() and
-efi_pstore_read() open-code the same workaround of resetting the size
-to 512 on every iteration.
+nf_dup_ipv4() and nf_dup_ipv6() send a cloned packet through
+ip_local_out() or ip6_local_out(), so the clone can traverse netfilter
+hooks again. A network namespace owned by a non-initial user namespace
+can combine NFQUEUE with TEE or nftables dup and retain the clone until
+a later verdict resumes it. The transient in_nf_duplicate task guard
+has already been cleared by then, so the resumed clone can be
+duplicated again and generate packets without bound.
 
-Move this workaround into efivar_get_next_variable(), which keeps this
-quirk in one place, resolving the TODO in efi-pstore.c.
+There is no sensible use case for packet duplication in a user
+namespace. Skip IPv4 and IPv6 duplication when the network namespace is
+not owned by the initial user namespace. Keep the existing TEE/dup
+behavior in the initial user namespace.
 
-No functional change intended.
-
-Signed-off-by: Jonggeun Park <jakejgpark@gmail.com>
+Fixes: cd58bcd9787e ("netfilter: xt_TEE: have cloned packet travel through Xtables too")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Suggested-by: Florian Westphal <fw@strlen.de>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
 ---
-v2:
-- Move the workaround into the existing efivar_get_next_variable().
----
- drivers/firmware/efi/efi-pstore.c | 10 ----------
- drivers/firmware/efi/vars.c       |  7 +++++++
- fs/efivarfs/vars.c                | 12 +-----------
- 3 files changed, 8 insertions(+), 21 deletions(-)
+changes in v2:
+  - drop the persistent struct sk_buff::nf_duplicated field and nf_copy()
+    change from v1
+  - disable IPv4/IPv6 duplication in network namespaces owned by a
+    non-initial user namespace, as preferred on review
+  - v1 Link: https://lore.kernel.org/all/cover.1787903722.git.zihanx@nebusec.ai/
 
-diff --git a/drivers/firmware/efi/efi-pstore.c b/drivers/firmware/efi/efi-pstore.c
-index a5db3534f..4f2594d08 100644
---- a/drivers/firmware/efi/efi-pstore.c
-+++ b/drivers/firmware/efi/efi-pstore.c
-@@ -164,16 +164,6 @@ static ssize_t efi_pstore_read(struct pstore_record *record)
- 	efi_status_t status;
- 
- 	for (;;) {
--		/*
--		 * A small set of old UEFI implementations reject sizes
--		 * above a certain threshold, the lowest seen in the wild
--		 * is 512.
--		 *
--		 * TODO: Commonize with the iteration implementation in
--		 *       fs/efivarfs to keep all the quirks in one place.
--		 */
--		varname_size = 512;
--
- 		/*
- 		 * If this is the first read() call in the pstore enumeration,
- 		 * varname will be the empty string, and the GetNextVariable()
-diff --git a/drivers/firmware/efi/vars.c b/drivers/firmware/efi/vars.c
-index 3700e9869..0f95fc60d 100644
---- a/drivers/firmware/efi/vars.c
-+++ b/drivers/firmware/efi/vars.c
-@@ -191,11 +191,18 @@ EXPORT_SYMBOL_NS_GPL(efivar_get_variable, "EFIVAR");
- /*
-  * efivar_get_next_variable() - enumerate the next name/vendor pair
-  *
-+ * A small set of old UEFI implementations reject sizes above a certain
-+ * threshold, the lowest seen in the wild is 512. Set the name buffer size
-+ * to 512 on each call.
-+ *
-  * Must be called with efivars_lock held.
-  */
- efi_status_t efivar_get_next_variable(unsigned long *name_size,
- 				      efi_char16_t *name, efi_guid_t *vendor)
+ net/ipv4/netfilter/nf_dup_ipv4.c | 3 +++
+ net/ipv6/netfilter/nf_dup_ipv6.c | 3 +++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/net/ipv4/netfilter/nf_dup_ipv4.c b/net/ipv4/netfilter/nf_dup_ipv4.c
+index 9a773502f10a..c33dae248c47 100644
+--- a/net/ipv4/netfilter/nf_dup_ipv4.c
++++ b/net/ipv4/netfilter/nf_dup_ipv4.c
+@@ -53,6 +53,9 @@ void nf_dup_ipv4(struct net *net, struct sk_buff *skb, unsigned int hooknum,
  {
-+	BUILD_BUG_ON(EFI_VAR_NAME_LEN < 512);
-+	*name_size = 512;
-+
- 	return __efivars->ops->get_next_variable(name_size, name, vendor);
- }
- EXPORT_SYMBOL_NS_GPL(efivar_get_next_variable, "EFIVAR");
-diff --git a/fs/efivarfs/vars.c b/fs/efivarfs/vars.c
-index 6833c3d24..5a01833a6 100644
---- a/fs/efivarfs/vars.c
-+++ b/fs/efivarfs/vars.c
-@@ -391,18 +391,8 @@ int efivar_init(int (*func)(efi_char16_t *, efi_guid_t, unsigned long, void *),
- 	if (err)
- 		goto free;
+ 	struct iphdr *iph;
  
--	/*
--	 * A small set of old UEFI implementations reject sizes
--	 * above a certain threshold, the lowest seen in the wild
--	 * is 512.
--	 */
--
- 	do {
--		variable_name_size = 512;
--		BUILD_BUG_ON(EFI_VAR_NAME_LEN < 512);
--
--		status = efivar_get_next_variable(&variable_name_size,
--						  variable_name,
-+		status = efivar_get_next_variable(&variable_name_size, variable_name,
- 						  &vendor_guid);
- 		switch (status) {
- 		case EFI_SUCCESS:
++	if (net->user_ns != &init_user_ns)
++		return;
++
+ 	local_bh_disable();
+ 	if (current->in_nf_duplicate)
+ 		goto out;
+diff --git a/net/ipv6/netfilter/nf_dup_ipv6.c b/net/ipv6/netfilter/nf_dup_ipv6.c
+index 6da3102b7c1b..a5f6f074a7e9 100644
+--- a/net/ipv6/netfilter/nf_dup_ipv6.c
++++ b/net/ipv6/netfilter/nf_dup_ipv6.c
+@@ -47,6 +47,9 @@ static bool nf_dup_ipv6_route(struct net *net, struct sk_buff *skb,
+ void nf_dup_ipv6(struct net *net, struct sk_buff *skb, unsigned int hooknum,
+ 		 const struct in6_addr *gw, int oif)
+ {
++	if (net->user_ns != &init_user_ns)
++		return;
++
+ 	local_bh_disable();
+ 	if (current->in_nf_duplicate)
+ 		goto out;
 -- 
 2.43.0
+
