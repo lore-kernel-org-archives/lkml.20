@@ -1,161 +1,110 @@
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 206CD371D1F
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 03:42:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3177D3A5440
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 03:43:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788406940; cv=none; b=K0J+tnQqtE7FB7ZTDptuNZZVCTN1havZtdee9RYV34s4kbuggzcEJxIvqhWOhvBpLHmY+4nVt5YkJKdM6/Cd7ivge8wJUYc5eTomgzfwAyIj7PeVInsDDYk4qbm/KpQy+WIAI36awcX+6ekf5U4P+vYV4QTfcpPhIfiu0llYj/I=
+	t=1788407025; cv=none; b=jqSEYZKY7uTDgfmL+QqYq5Xizy/swGKbTtvYL5l15NUKIZnCv8mH67+ic4+d2jDZdQ7VOYRRv+6GdzuG/3wUl12h1xy1/Tcu+2tefpNk7Th7k+RoWNkK71KvfPrIgWsD3k09iKWMYwqT/p24pErTkIQqE0NhCfPg4/khPUSBEp4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788406940; c=relaxed/simple;
-	bh=HZFdnmhKvbO/EyXTARvHYzSbfam9fEPc7knGy9+PFBA=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=u3eIoMfWH/aysqZtwfyi8rT/AEPDy0M7oZneCySVfpFUJlhBKrGlfVE2WfaEzGIojwg8WZHrfzB8Q5zQ87OAmZH4G/PLTVa5UCiKdEsdHPLBj5E97ByyLzB5T6/+i6T1jjJafkGAQU3JZ6P3lZH6RTbvZhIPrtbDsScVJm4begU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6b1afdfb685so1069301eaf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 20:42:18 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788406938; x=1789011738;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=nRbeEjjjyN5LArQb4BBrbdWMAbBc1RjgLdC03rpHMLc=;
-        b=g1yuhlhX+lNcwIWdnx4Pp17NI6iJSz+VFn1ksdeDFIBLcm/odHuWVHR3xvNFI95GFG
-         hCYt3Xsg+Bt1Lz3IezKwe7vNmDSARIZNffiwnHHCaYpBjZCL2sd/MN5CrtBUJ82EiTgv
-         uyR2Daaf2s1R+da+GVLsWj/Xt7HPqw6GMNgIuu5TVqweJJT4Dtp72pYgDb1zNIuzToKu
-         dODgePL50qb6EPv56Fq3sJ1CIrPt/A3Hj/s7IV1G/E296adtLYuWAr+N7Wm+VOXXx4F3
-         /1O02U9KD1DVJUsKKh3uvNO/12QEE0VcQuX+XR7me6uN2RJO5QPq/jatRR5HtKWjgtUt
-         05JQ==
-X-Gm-Message-State: AFuF++mipjcoXe4SD1hAp55Vc2ZL+pQ3lWBpc5BTAJYLZeniQ72MFcwG
-	9HMGIifUbBO7uy+fESYIZeKYO25awuxlAXGD7sXqw8jcvPxx9Rxo5NZj413m/9WUk1FcF6fvG18
-	n+9UEt9cw4fezl1cNMoTS/bQ2NFGQZtDN++etJ1kHWcY/l3KO8eOzPRxBJzY=
+	s=arc-20240116; t=1788407025; c=relaxed/simple;
+	bh=tlD/300mTCgE6kv08vNQaKy92eCVQTGkxSaMGZ++ryA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=GcVtYJGezv6DnHGjoHfem+mkX7Dy58ceTz3jy99KtJYwZAdhe96MAgPtYJeGFnLxNhZoeOic3rRJguaul9Hv6NwxvBWfO6i/mp1GP5qwn/E84Q+jNPzZL8O5GfhXRM3qXxyo/IV7SB/37JQ0ay+uMzlhxk99k5ALh/s+XX5aDYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=X55mDB+o; arc=none smtp.client-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="X55mDB+o"
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20260903034328epoutp02779ed33d0c476c2712b6aa2b27c2a79d~RsrLtiMmY1953319533epoutp02e
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 03:43:28 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20260903034328epoutp02779ed33d0c476c2712b6aa2b27c2a79d~RsrLtiMmY1953319533epoutp02e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1788407008;
+	bh=hxQCmTNMct1DRhOL2zkVSmPzrkHNVIa3V+xEsZNmDLo=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=X55mDB+o3vq/x9sQQI0kgJmccvhvqmrDBVLetGnJ5rysGFps+x9Z5pg7e7DEXHRPL
+	 2/0SyS3NM44wZzXZXqvahQaKVflAHUL/zLeWNphMMxl2hTsWm6SPg144C/7xDZOZAj
+	 sP9cSdln4Wrv0RDmhF5uwlfamEGNLhGR+3orqEH0=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
+	20260903034328epcas5p2d368d9a3526cfa324b3ace3ce9cf3757~RsrLRYlZE1311513115epcas5p2y;
+	Thu,  3 Sep 2026 03:43:28 +0000 (GMT)
+Received: from epcas5p3.samsung.com (unknown [182.195.38.90]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4hb56R0c1hz6B9m5; Thu,  3 Sep
+	2026 03:43:27 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
+	20260903034326epcas5p380022fb00e655b8b4462fe862ccf6c45~RsrJ4OnTk0546505465epcas5p3j;
+	Thu,  3 Sep 2026 03:43:26 +0000 (GMT)
+Received: from [107.122.5.126] (unknown [107.122.5.126]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260903034324epsmtip19d32848c86f1eb6807590d3a4e492a0c~RsrHrhGP81548715487epsmtip1D;
+	Thu,  3 Sep 2026 03:43:24 +0000 (GMT)
+Message-ID: <a258af80-c15c-4adf-84ea-c5b0067e5247@samsung.com>
+Date: Thu, 3 Sep 2026 09:13:13 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4b07:b0:69d:a4f0:4191 with SMTP id
- 006d021491bc7-6b47d9c3984mr8634508eaf.12.1788406938058; Wed, 02 Sep 2026
- 20:42:18 -0700 (PDT)
-Date: Wed, 02 Sep 2026 20:42:18 -0700
-In-Reply-To: <6a9087a4.4d659fcc.734b4.0013.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a98ec9a.e7659fcc.146146.0001.GAE@google.com>
-Subject: Forwarded: [PATCH] tty: protect break handling against disconnect
-From: syzbot <syzbot+473d7477c523b41d4046@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] phy: exynos5-usbdrd: Use dynamic phy_cfg size to
+ prevent OOB access
+To: =?UTF-8?B?xYF1a2FzeiBMZWJpZWR6acWEc2tp?= <kernel@lvkasz.us>
+Cc: akash.m5@samsung.com, alim.akhtar@samsung.com, andre.draszik@linaro.org,
+	dh10.jung@samsung.com, jh0801.jung@samsung.com, krzk@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+	muhammed.ali@samsung.com, neil.armstrong@linaro.org,
+	peter.griffin@linaro.org, pritam.sutar@samsung.com, thiagu.r@samsung.com,
+	vkoul@kernel.org
+Content-Language: en-US
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+In-Reply-To: <20260902000439.25379-1-kernel@lvkasz.us>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20260903034326epcas5p380022fb00e655b8b4462fe862ccf6c45
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260903034326epcas5p380022fb00e655b8b4462fe862ccf6c45
+References: <20260831070309.158069-1-selvarasu.g@samsung.com>
+	<20260902000439.25379-1-kernel@lvkasz.us>
+	<CGME20260903034326epcas5p380022fb00e655b8b4462fe862ccf6c45@epcas5p3.samsung.com>
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
 
-***
+On 9/2/2026 5:34 AM, Łukasz Lebiedziński wrote:
+> I tested this on my Samsung Galaxy A6 (Exynos7870) with this patch applied
+> on top of mainline. I wanted to verify the OOB read first before trusting
+> this fix, so I forced the device tree to request PHY index 1
+> (phys = <&usbdrd_phy 1>;) - this index does not exist for this SoC,
+> because the phy_cfg_exynos7870[] array contains only one entry. I added
+> a temporary pr_info() call after assigning phy_cfg in the probe loop to
+> display the phy_isol/phy_init values using %pS:
+>
+>    i=0 phy_isol=exynos7870_usbdrd_phy_isol+0x0/0x60
+>        phy_init=exynos7870_usbdrd_utmi_init+0x0/0x260
+>    i=1 phy_isol=exynos5_usbdrd_phy_isol+0x0/0x50
+>        phy_init=exynos5_usbdrd_utmi_init+0x0/0xc8
+>
+> For i=1, both function pointers resolve to the exynos5_* variants
+> instead of the exynos7870 ones - the OOB read lands right on
+> the adjacent phy_cfg_exynos5[] array in .rodata. No crash occurs, since
+> these garbage pointers happen to point to valid (though unrelated)
+> kernel functions rather than something invalid.
+>
+> With the patch applied, the same debug print shows the loop correctly
+> stopping at n_phy_cfg=1; i=1 is never reached. Boot and USB both work
+> fine on the actual PHY index (0).
+>
+> Tested-by: Łukasz Lebiedziński <kernel@lvkasz.us>
 
-Subject: [PATCH] tty: protect break handling against disconnect
-Author: adrianox@gmail.com
+Thanks for your testing and update.
 
-#syz test
-Both a timed break (TCSBRK/TCSBRKP) and the unconditional TIOCSBRK/
-TIOCCBRK break_ctl() calls can race against hangup and be issued for a
-tty whose driver data is gone, causing a use-after-free or NULL-pointer
-dereference in the driver.
-
-Check the tty hung-up state before every break_ctl() call in the tty
-core, and return -ENODEV in serial_break() once the device is no longer
-attached, like serial_write() already does.
----
- drivers/tty/tty_io.c            | 19 +++++++++++++++----
- drivers/usb/serial/usb-serial.c |  3 +++
- 2 files changed, 18 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
-index 48569035da56..272f2839acdb 100644
---- a/drivers/tty/tty_io.c
-+++ b/drivers/tty/tty_io.c
-@@ -2429,6 +2429,7 @@ static int tiocgetd(struct tty_struct *tty, int __user *p)
- 
- /**
-  * send_break - performed time break
-+ * @file: file object
-  * @tty: device to break on
-  * @duration: timeout in mS
-  *
-@@ -2438,13 +2439,16 @@ static int tiocgetd(struct tty_struct *tty, int __user *p)
-  * Locking:
-  *	@tty->atomic_write_lock serializes
-  */
--static int send_break(struct tty_struct *tty, unsigned int duration)
-+static int send_break(struct file *file, struct tty_struct *tty, unsigned int duration)
- {
- 	int retval;
- 
- 	if (tty->ops->break_ctl == NULL)
- 		return 0;
- 
-+	if (tty_hung_up_p(file))
-+		return -EIO;
-+
- 	if (tty->driver->flags & TTY_DRIVER_HARDWARE_BREAK)
- 		return tty->ops->break_ctl(tty, duration);
- 
-@@ -2455,7 +2459,10 @@ static int send_break(struct tty_struct *tty, unsigned int duration)
- 	retval = tty->ops->break_ctl(tty, -1);
- 	if (!retval) {
- 		msleep_interruptible(duration);
--		retval = tty->ops->break_ctl(tty, 0);
-+		if (tty_hung_up_p(file))
-+			retval = -EIO;
-+		else
-+			retval = tty->ops->break_ctl(tty, 0);
- 	} else if (retval == -EOPNOTSUPP) {
- 		/* some drivers can tell only dynamically */
- 		retval = 0;
-@@ -2714,10 +2721,14 @@ long tty_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
- 	 * Break handling
- 	 */
- 	case TIOCSBRK:	/* Turn break on, unconditionally */
-+		if (tty_hung_up_p(file))
-+			return -EIO;
- 		if (tty->ops->break_ctl)
- 			return tty->ops->break_ctl(tty, -1);
- 		return 0;
- 	case TIOCCBRK:	/* Turn break off, unconditionally */
-+		if (tty_hung_up_p(file))
-+			return -EIO;
- 		if (tty->ops->break_ctl)
- 			return tty->ops->break_ctl(tty, 0);
- 		return 0;
-@@ -2727,10 +2738,10 @@ long tty_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
- 		 * This is used by the tcdrain() termios function.
- 		 */
- 		if (!arg)
--			return send_break(tty, 250);
-+			return send_break(file, tty, 250);
- 		return 0;
- 	case TCSBRKP:	/* support for POSIX tcsendbreak() */
--		return send_break(tty, arg ? arg*100 : 250);
-+		return send_break(file, tty, arg ? arg * 100 : 250);
- 
- 	case TIOCMGET:
- 		return tty_tiocmget(tty, p);
-diff --git a/drivers/usb/serial/usb-serial.c b/drivers/usb/serial/usb-serial.c
-index 17edc057a311..5f42bfe39212 100644
---- a/drivers/usb/serial/usb-serial.c
-+++ b/drivers/usb/serial/usb-serial.c
-@@ -532,6 +532,9 @@ static int serial_break(struct tty_struct *tty, int break_state)
- {
- 	struct usb_serial_port *port = tty->driver_data;
- 
-+	if (port->serial->dev->state == USB_STATE_NOTATTACHED)
-+		return -ENODEV;
-+
- 	dev_dbg(&port->dev, "%s\n", __func__);
- 
- 	if (port->serial->type->break_ctl)
--- 
-2.51.0
-
+Thanks,
+Selva
+>
