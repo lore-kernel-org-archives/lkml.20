@@ -1,174 +1,285 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C95894A6CC6
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:58:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788440337; cv=none; b=aKAfR0kD5wUQdGDbtiDMgqf5HNbvWR83ESgLvRd3xwGOu2rmHhBvSSYzltCH4wiEw6UpA+Wj2fNlxxF+maN/Xk2L9kc4JNZkXf82II6lTUVvkb53IIuBSto2w6zLgPvPTdW6A751TuTVu/frwdlbaaodaPUmd/reXtr7kdgBFdc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788440337; c=relaxed/simple;
-	bh=kIf/5SJJtGo1RiYkQqnGmcJ4G6mmuPYq6VWJp6j1Gfk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=VCyom8tctwEsYgYbEh35+HbyqBLM8E5xA5JVv5DxqIodRn5MxxF6ZKBaQTStd+Zuy4nUFGOs9hCBrup6sm+fCFJqDPGVxsxSw9KFFUuVhELeGZIG/XDsqgJbCVeOG9usd31f4MZEbVX8IU8wROWkj3Ez/Y0cG8xUa9qYXOaaDzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=SPbgY895; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F09C64A49B1
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:59:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788440385; cv=pass; b=pEui4OTMSViYs3mkroVhdICbNY9q4bMdt+2sK7A3SFK9dzUjEYt9/fFrq/K/RiTvQxBWmbP4QYSs/9NlV+KIE4Vxsz5ywYZhvDcETdbpJxPNrapTRXk2Mv3u70cQyoHqJAIsHg+ua0wC+DeGGWUQ1IQfjWaNtiG45O1lMO+h4nw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788440385; c=relaxed/simple;
+	bh=5TaETDwHyv/KzsQgA0oHSepJaIKkOONvRtU7EAtGX+o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BiuIDww8JirzrqjeDDvEm7IY1Glq65O3XC/oOenrzophQa+/ayKiJLV3wENL71wvpOqqOU3ikbADk5xrg5s26g8r7/W0WCZOK70BSw+tNpkxiTl0WxAO3omkRDNCEBmeg3xxEXbA+jLbGW/PCkxdPD630aC7DUT4o8Ppr9SkhkU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UMdoDAIq; arc=pass smtp.client-ip=209.85.167.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="SPbgY895"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49557167508so23502895e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:58:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UMdoDAIq"
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b28c91fba5so1408100e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:59:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788440377; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WOcTfVRpQax2CKYlkdVGOGfh0jXbr26GdxBRtEiAu4hFAmycz47+6u/wQWB2SqAEGw
+         v2ZVMGKxyV/et5gmOqrOhQX4GsbY7c4zZrBjzyg7fLRZ4K2ku8wkMB6PkA/IaG7ZpPlp
+         zHYIAyV7ftaP9j++M34L2VOQ/kikIS5gF+3K+v1Dty+x4z68YRymdon8Re7vamgURlZ/
+         FDty+LSQJ77pjwBTihB+ka4ypEbk07XfeGfjMJ6frhxK/ccs9o52NoeRVVf0STI+LHeK
+         EVFm0sz/8oXD883aoO2nExO4p6v3ItzwxLI05/Zk+B5z/sCYwiOkvIGwqAN+Wjr1/jqh
+         1guQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BmAdg8/mefR05LTJz5ypL2PwZdELomAbn6h2iC+gq4s=;
+        fh=l1BnBjMmZiHZwPF8tQW+UzPCKZ+3r0W8/yYDzEnKHCM=;
+        b=TsakiUy2kapaSezmwHS7bJ/9gsucM8Fdc1UWL63g71biY48GeW34tRVbZ8kbZ/GZLE
+         boCePtsyeGduUVoIpQGnBb/u0U9GcCSsCU3GV2LejpGVydz7n4uIfgUuGK1sYngTFYpA
+         d0yNnMT57Iw6xoo/MEUa+U0qQd2YxHvzwwzarNd2DMfNFwTrKejpFQhjsp7VuuX1OF+x
+         +lLetKq/i9d/oECC3++rXRIhMWQ7L59TQGc0aVfV5wGgUu7ulG1hE/NUtfewPk5JiR/X
+         vimzdG4fxbbKoxWraiUfPScfgLahNBN8D2JfXF+AO/vFAu5IYrhGw22U12dsIbvXaxY8
+         Jm0g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788440330; x=1789045130; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fUOhnrIRug8NhLOWvB+hNSnIHP5x1LfuWaznHtYn7Ag=;
-        b=SPbgY895cr6WExgVy9G046xElGP7xbC9h3mS0NIGr07A/Xkz6D+ggcCZl9RlUpekTs
-         Cqlty0W59oUb6rUTJrkX3AyrEGw2u6Id+ppWMvrLHBc56543/ya5f576L18jcVGNZmS/
-         jNIgMYRLF0s5KtnIe7VbHJH0PylGJQMF9uQTDcRSrC/Zwk7wz6BapGvgsnMy+qFP4CdI
-         JoQkALurra/Uqn7LJYAd7xjJGcIuhgjCFttVeqnAtwEMMvWyKoC+9lzCIA0p4zr9Hkn2
-         YLHBohwO9u/Ew/RzqDkyHGQHvBpwQajaO1NZsBNzIbwmAmYPF+nFTzzksSkoiDO+eU+u
-         Bt6w==
+        d=gmail.com; s=20251104; t=1788440377; x=1789045177; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BmAdg8/mefR05LTJz5ypL2PwZdELomAbn6h2iC+gq4s=;
+        b=UMdoDAIqD90uzJjNnbs8pwnidIeg31ZcI0U5aaIvY6Czh1TavIxkEXEKey7LC27TAz
+         EiZPGdXuEHwPPkt+9sqnVBTlIJt8tiRWwM/wPQiKQD2i/iIhHRsb4loKambLhpuTJ4Hx
+         vwhXFqygMAwHr9Kto/JmShUfkma+f1eSBBrkZM3q1YVX7QgYjeXd/9JEQ45Ts5fLsxyw
+         I0uuijMvn+0BefZ7dk5fAh6s3djuimMgZIZHbULb1RrMl8UNfIbUdrTAlJRk7ZZNCExx
+         hkRZoKo0xZhxxRVVqTt67MKSq9IKfuovZb5atYt3RQR0HWm8/S+cB8opUs5epxn47ZJT
+         Lxxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788440330; x=1789045130;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1788440377; x=1789045177;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fUOhnrIRug8NhLOWvB+hNSnIHP5x1LfuWaznHtYn7Ag=;
-        b=bSBeJP3E27xPf+fWXOJxig36tbTK+vsYSItRHbzk3vP6NXHvNezp93IvjlCf+yXqZQ
-         ZLktWMJkNCnW7MviadXD9Qi+A+9UB7n81M/mO8OT9lkcoTcpua/R3mmXTfXGNAOW9V73
-         6NRiTXJ9lv5WPewE3Yp+P7WGtUJKntM2jC3qIkMXdqyQC6QWiNJ19wclV5Y4nXkpLf6w
-         UB7T/Wx2fbMIxYaW+Tx2vPY8VLt7ws6X50wvrL0LUW1UJShAJOokTHD7MxRxTCmeh6Ps
-         ZBnL8BQnzlXZIWF3j1yDq+P10aIC17FtDCZmIP16zHdlyEldAoVgEMDo7O/vSggn+eC2
-         qcoA==
-X-Forwarded-Encrypted: i=1; AKwUvBw6Hj6zGthcwXxBPkRkffEO2xV54zzqvKD/zNz8L30wXRSOrPutbbA3ebHe1vvcW+DME8DYuEysZgNbilU=@vger.kernel.org
-X-Gm-Message-State: AFuF++njFd7vnMB0XfZIFYuwMRJFACiB8+a2G5z4inmEFxfh5xY098+W
-	uaRV+QiSxp3xM+HrXy93zkV9a1beKkS+E//GNfp5NPvpvu+n6qQ78dypVBoWP0FjOgY=
-X-Gm-Gg: AYBFou3ZrQuq7dWuqgQj715KPyVJJ2tw5GHUZgc9VF+/eN53N6rkBXjpgI3TnBdP1QI
-	sWFr7LkLyIByrjTwwgabPBOk8trMAzA9RhNFg4hZvRZGKzmbaAC/u25AbXeyOCLtq9s3SCx77mk
-	FsBaJ14iCqoytV0D3ZHmyZHW1vDvgaEI6oWCWJDkk4KciJr7Tvh60QIQeSVXrfPtKKf8zPT7AYK
-	T/u4pddYBd0BBkKoUYIW4yXp6WX+caXDeKCV4W6XI437V1tmTGuKYm9F33jaaw8kQDzDZWRQrWp
-	JLlvIhujsp4tGVXTUc1+6oORNgJ+0SdGOw0ke4pGieHGFQgt78aIYz/A6NalHzNwWxxMe2iKOX0
-	iI0vzs9DMbPAW5Bhy0L0PIj6aH5EKFtStEIBwg606+XDoxfzLlBsarmsfGHr8mo/3QOqUDdeVuE
-	GQXIzO7O2lebQMH7btQSK8QyHl/f7XmJVIP0jNeAe7ioOoPbch+Yk4gzP33rcoO9C68nIc4fEeM
-	bpHaRY=
-X-Received: by 2002:a05:600c:83c8:b0:49c:d52e:d0ea with SMTP id 5b1f17b1804b1-49ce581779dmr225433345e9.4.1788440330042;
-        Thu, 03 Sep 2026 05:58:50 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee6023edsm67989285e9.7.2026.09.03.05.58.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 05:58:48 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: tanure@linux.com, Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Kevin Hilman <khilman@baylibre.com>, Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Jian Hu
- <jian.hu@amlogic.com>, Ronald Claveau <linux-kernel-dev@aliel.fr>, Brian
- Masney <bmasney@redhat.com>, Chuan Liu <chuan.liu@amlogic.com>,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org
-Subject: Re: (subset) [PATCH 0/4] arm64: amlogic: t7: describe the VIM4
- supplies and keep the fabric clocks running
-In-Reply-To: <CAJX_Q+17CLQ_4-rcj0KD6kzPWnChQfD3irCR7-h1bGH9hWiD7A@mail.gmail.com>
-References: <20260829094758.23248-1-tanure@linux.com>
- <178818026093.2318126.3676223463693214854.b4-ty@b4>
- <CAJX_Q+17CLQ_4-rcj0KD6kzPWnChQfD3irCR7-h1bGH9hWiD7A@mail.gmail.com>
-Date: Thu, 03 Sep 2026 14:58:47 +0200
-Message-ID: <1jecfa8pa0.fsf@starbuckisacylon.baylibre.com>
+        bh=BmAdg8/mefR05LTJz5ypL2PwZdELomAbn6h2iC+gq4s=;
+        b=h4qMdv+e6OpelbaW60aueeWsycoShsc60oUl97ZRVIiELnmwosp37Hgoe9P1kgRskx
+         4dMYnd3J3x2fT6M/L3HwLTK9v4LCitNdh/KS+dgcRbEqs+ojjYLgkPpiVp7SmA4PHErD
+         7Z2FOgwVTBGfiPtPlHDBz/hgw2Kgyu1iRfScpoXJNiDFyHhMFgY1b2wujay9GvnZcme5
+         XdZs3+Mrkji9GYzJxIofSkE7/metA7Sv94wcraPK9nEWhIgaZTWAbGb7yrsIg+CrYHrj
+         CE0ieaSxyrkp9vlE9XZAhkBwd8Qkw3TH12KjNjRrIb+hH2mBQYnVsVVJtdztffv07LGX
+         jh8w==
+X-Forwarded-Encrypted: i=1; AKwUvBxhLXFt165E7Of+Gk/jOAJyYbr0WISfinYx2hDbkM0JJFzHUET0SfJ9vyPAMf7vHkNF8irPUVUEZgu+ZUU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kiH9Rh2OF30GRh7thzjtjQ8bADM2pAFrItjSqO6J4I/5mz3U/3
+	M8buRrWSpfBfByxmALC8ZClJ1rEY6ZYW2NTSOwbZSAFZA7OXvsgYa+Cp7C5otoKe1aEtT5AJ+3o
+	lKvM0eE2acoJRrVtHOYaRQ2X/XAgKTZQ=
+X-Gm-Gg: AYBFou1YAIQqUenZNLy5pzcuK5tSldlgNSkOae9HYDeqg81Oeaus8WjLViwuHoP9m3l
+	wQT8ZiWpTsV4WkU369ruq7ivWCmpY8Q97vnzAgjz6ePj4jN4QjsvFul3WNU+WOWcjdPy/ftqGcq
+	A4bSSbuCMsZUo9VK6EBqFQ/CLmdxa5eh/Bvn2c8VNF3oC0wqJ3tfhrwgJ5iYqYumKmRZ3QkcRii
+	A0CxYobG6HVPewc9cpSJH4EGfLK/CaeCpETM+IOVj/+T7/YkDQ6nFKb9hunf4383lYfDJn/zWVm
+	n/ard7Yb/FAVyTw69FwC4PX95VaRh58XUYQwl42lVFu4dsf7QIjgjS9AzETzD7GL2QVHDcUQYB4
+	=
+X-Received: by 2002:a05:6512:450a:b0:5b6:10bc:dc44 with SMTP id
+ 2adb3069b0e04-5b610bcdd1fmr687589e87.27.1788440377072; Thu, 03 Sep 2026
+ 05:59:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260830114731.8322-1-wujianyue000@gmail.com> <20260830114731.8322-3-wujianyue000@gmail.com>
+ <20260901161329.GI3004@cmpxchg.org> <CAJxJ_jhkM4HHgCi-OsQcoDeDC5_fsejf+u+b5E1n3gNUd=EJmQ@mail.gmail.com>
+In-Reply-To: <CAJxJ_jhkM4HHgCi-OsQcoDeDC5_fsejf+u+b5E1n3gNUd=EJmQ@mail.gmail.com>
+From: Jianyue Wu <wujianyue000@gmail.com>
+Date: Thu, 3 Sep 2026 20:59:23 +0800
+X-Gm-Features: AcwNN1UKIFYH_nhtxWH9JjOWZK6QjiNNdqvySPxc8FL2qtcVQQ5XgTwj5a_O5fo
+Message-ID: <CAJxJ_jgLNTbyXJmerardEfBzbZeR1O0J=5DwDZr1kyp0kN7qHg@mail.gmail.com>
+Subject: Re: [RFC PATCH v4 2/3] mm/zswap: replace the zswap_pools list with a
+ fixed pools array
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Chris Li <chrisl@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On jeu. 03 sept. 2026 at 11:05, Lucas Tanure <tanure@linux.com> wrote:
-
-> On Mon, Aug 31, 2026 at 1:44=E2=80=AFPM Neil Armstrong
-> <neil.armstrong@linaro.org> wrote:
->>
->> Hi,
->>
->> On Sat, 29 Aug 2026 10:47:54 +0100, Lucas Tanure wrote:
->> > The Khadas VIM4 has needed clk_ignore_unused to boot reliably. Without=
- it
->> > the board hangs at random, loses storage and corrupts memory, and the
->> > failures move around from boot to boot.
->> >
->> > Six of the SoC's PWM outputs drive the board's voltage regulators: the
->> > always-on domain, both CPU clusters, the GPU, the NPU and the DRAM. No=
-ne
->> > of them were described, so Linux saw the outputs as unused and switched
->> > them off about a second into boot. The regulators then drifted away fr=
-om
->> > the levels the bootloader had set, which is where the corruption and t=
-he
->> > random hangs came from.
->> > Thanks to Chuan Liu from Amlogic for helping me indetify which clocks =
-are
->> > critical.
->> >
->> > [...]
->>
->> Thanks, Applied to https://git.kernel.org/pub/scm/linux/kernel/git/amlog=
-ic/linux.git (v7.3/fixes)
->>
->> [2/4] arm64: dts: amlogic: t7: fix the pin groups of two PWM outputs
->>       https://git.kernel.org/amlogic/c/ae7be5c58a819259e5eb98a3abfa60842=
-478f2ae
->> [3/4] arm64: dts: amlogic: t7: khadas-vim4: add the PWM-driven supplies
->>       https://git.kernel.org/amlogic/c/1e5a53bd16ac501e68463e84023d1bff5=
-43cc696
->> [4/4] arm64: dts: amlogic: t7: fix the pin groups of the vsync PWM
->>       https://git.kernel.org/amlogic/c/406292fd75f95aa3010fec95b5beb5a8b=
-7e3ba3a
->>
->> These changes has been applied on the intermediate git tree [1].
->>
->> The v7.3/fixes branch will then be sent via a formal Pull Request to the=
- Linux SoC maintainers
->> for inclusion in their intermediate git branches in order to be sent to =
-Linus during
->> the next merge window, or sooner if it's a set of fixes.
->>
->> In the cases of fixes, those will be merged in the current release candi=
-date
->> kernel and as soon they appear on the Linux master branch they will be
->> backported to the previous Stable and Long-Stable kernels [2].
->>
->> The intermediate git branches are merged daily in the linux-next tree [3=
-],
->> people are encouraged testing these pre-release kernels and report issue=
-s on the
->> relevant mailing-lists.
->>
->> If problems are discovered on those changes, please submit a signed-off-=
-by revert
->> patch followed by a corrective changeset.
->>
->> [1] https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git
->> [2] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
->> [3] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
->>
->> --
->> Neil
->>
-> Hi,
-> Please don't take this. I will submit a better version.
-> sys_ampipe_nand should not be critical.
-
-Please submit a fixup change on top of what you've already sent, with
-the proper 'Fixes:' tag.
-
+On Wed, Sep 2, 2026 at 8:50=E2=80=AFAM Jianyue Wu <wujianyue000@gmail.com> =
+wrote:
 >
-> Thanks,
-> Lucas
+> On Wed, Sep 2, 2026 at 12:13=E2=80=AFAM Johannes Weiner <hannes@cmpxchg.o=
+rg> wrote:
+> >
+> > On Sun, Aug 30, 2026 at 07:47:30PM +0800, Jianyue Wu wrote:
+> > > Originally zswap holds its pools on an RCU list whose head also serve=
+s
+> > > as the "current pool". Only a handful of pools are ever live at once,
+> > > since a new pool is only created when the compressor is (re)set and
+> > > pools are reused across compressor switches.
+> > >
+> > > Hold the pools in a fixed ZSWAP_MAX_POOLS-element array so each pool
+> > > has a stable slot number, and track the current pool with a separate
+> > > rcu-protected pointer.
+> > >
+> > > Slot 0 is intentionally left unused (always NULL): a zeroed or
+> > > incorrectly initialized pool index then resolves to NULL and trips a
+> > > WARN rather than silently aliasing a live pool in another slot.
+> > >
+> > > The array keeps the same RCU publish/retire discipline the list had,
+> > > so lookup and teardown stay equivalent. A fully-constructed pool is
+> > > stored into its slot as the last step of zswap_pool_create(), so arra=
+y
+> > > walkers only ever observe a NULL slot or a ready pool. Pool creation
+> > > is serialized by the module-wide kernel param mutex (all built-in
+> > > params share one lock) and otherwise only happens during
+> > > single-threaded init, so no two creators race for a slot.
+> > > zswap_pools_lock still serializes the store against a retiring pool
+> > > clearing its slot in __zswap_pool_empty().
+> > >
+> > > Behavior change: the fixed array bounds the number of simultaneously
+> > > live pools at ZSWAP_MAX_POOLS - 1 (15, since slot 0 is reserved),
+> > > whereas the old list was unbounded. A pool is only live while it is
+> > > the current pool or still has stored pages referencing it, and pools
+> > > are reused across compressor switches, so 15 is far more than any rea=
+l
+> > > configuration needs. Once all slots are occupied, creating a pool for
+> > > a 16th distinct compressor fails: zswap_pool_create() errors and
+> > > returns NULL, and the compressor switch is rejected with -EINVAL
+> > > rather than silently succeeding. The cap can be raised by increasing
+> > > ZSWAP_MAX_POOLS (bounded by the u8 slot index, so up to 256).
+> > >
+> > > Suggested-by: Nhat Pham <nphamcs@gmail.com>
+> > > Suggested-by: Yosry Ahmed <yosry@kernel.org>
+> > > Signed-off-by: Jianyue Wu <wujianyue000@gmail.com>
+> > > ---
+> > >  mm/zswap.c | 97 ++++++++++++++++++++++++++++++++++++++++------------=
+--
+> > >  1 file changed, 72 insertions(+), 25 deletions(-)
+> > >
+> > > diff --git a/mm/zswap.c b/mm/zswap.c
+> > > index 0bb30e58950a..b3b5e2887c00 100644
+> > > --- a/mm/zswap.c
+> > > +++ b/mm/zswap.c
+> > > @@ -13,6 +13,7 @@
+> > >
+> > >  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+> > >
+> > > +#include <linux/cleanup.h>
+> > >  #include <linux/module.h>
+> > >  #include <linux/cpu.h>
+> > >  #include <linux/highmem.h>
+> > > @@ -154,12 +155,27 @@ struct zswap_pool {
+> > >       struct zs_pool *zs_pool;
+> > >       struct crypto_acomp_ctx __percpu *acomp_ctx;
+> > >       struct percpu_ref ref;
+> > > -     struct list_head list;
+> > >       struct rcu_work release_work;
+> > >       struct hlist_node node;
+> > > +     u8 idx;
+> > >       char tfm_name[CRYPTO_MAX_ALG_NAME];
+> > >  };
+> > >
+> > > +#define ZSWAP_MAX_POOLS 16
+> >
+> > It's unlikely to happen, but this is a super annoying failure
+> > mode. User would have to kill something, delete shmem/tmpfs, or
+> > swapoff. And it's not obvious which entries are in which pool.
+> >
+> > Wouldn't an idr make more sense?
+> >
+> > > @@ -270,6 +283,31 @@ static void acomp_ctx_free(struct crypto_acomp_c=
+tx *acomp_ctx)
+> > >       acomp_ctx->buffer =3D NULL;
+> > >  }
+> > >
+> > > +/*
+> > > + * Publish a fully-constructed pool into a free array slot.  Pool cr=
+eation is
+> > > + * serialized by the module-wide kernel param mutex (all built-in pa=
+rams share
+> > > + * one lock) and only otherwise happens during single-threaded init,=
+ so no two
+> > > + * creators race for a slot.  The pool is complete before it is stor=
+ed, and
+> > > + * zswap_pools_lock still serializes this store against a concurrent=
+ retiring
+> > > + * pool clearing its slot in __zswap_pool_empty(), so array walkers =
+only ever
+> > > + * observe a NULL slot or a ready pool.
+> > > + */
+> > > +static int zswap_pool_assign_slot(struct zswap_pool *pool)
+> > > +{
+> > > +     int i;
+> > > +
+> > > +     guard(spinlock_bh)(&zswap_pools_lock);
+> > > +     for (i =3D ZSWAP_FIRST_POOL_SLOT; i < ZSWAP_MAX_POOLS; i++) {
+> > > +             if (!rcu_access_pointer(zswap_pools[i])) {
+> > > +                     pool->idx =3D i;
+> > > +                     rcu_assign_pointer(zswap_pools[i], pool);
+> > > +                     return i;
+> > > +             }
+> > > +     }
+> > > +
+> > > +     return -ENOSPC;
+> > > +}
+> >
+> > It was kind of overdue, but with this now requiring a pool walk as
+> > well, it would be better to factor out a find_or_create function?
+> >
+> > Something like:
+> >
+> > static struct zswap_pool *zswap_pool_find_or_create(char *compressor)
+> > {
+> >         struct zswap_pool *pool, *new_pool =3D NULL;
+> >         u8 id, new_id =3D 0;
+> >
+> > insert_new:
+> >         spin_lock_bh(&zswap_pools_lock);
+> >         idr_for_each_entry(&zswap_pools, pool, id) {
+> >                 if (pool && !strcmp(pool->tfm_name, compressor) && zswa=
+p_pool_tryget(pool)) {
+> >                         if (new_pool) {
+> >                                 pool_put(new_pool);
+> >                                 idr_free(&zswap_pools, new_id);
+> >                         }
+> >                         spin_unlock_bh(&zswap_pools_lock);
+> >                         return pool;
+> >                 }
+> >         }
+> >         if (new_pool) {
+> >                 idr_replace(&zswap_pools, new_pool, new_id);
+> >                 spin_unlock_bh(&zswap_pools_lock);
+> >                 return new_pool;
+> >         }
+> >         spin_unlock_bh(&zswap_pools_lock);
+> >
+> >         new_pool =3D pool_alloc();
+> >         if (!new_pool)
+> >                 ...
+> >         new_id =3D idr_alloc(&zswap_pools, NULL, 1, 256, GFP_KERNEL);
+> >         if (new_id < 0)
+> >                 ...
+> >         goto insert_new;
+> > }
+> Agreed. Hitting the 15-pool cap would be an annoying failure mode, even
+> if it should be rare.
+> I will switch this to an IDR with IDs in the 1..255 range, keeping 0 as
+> the invalid entry value, and factor the lookup/allocation path into a
+> zswap_pool_find_or_create() helper.
+>
+> Best regards,
+> Jianyue
 
---=20
-Jerome
+Hello Johannes,
+
+I have this working locally, but I am still testing and some parts still
+need clarification.
+
+1. Could I use xarray here? Similar to idr, can naturally start from 1,
+and zswap already uses xarray for the entry trees.
+i.e. the pool table is an allocating xarray (XA_FLAGS_ALLOC1, ids
+1..255, 0 reserved).
+
+2. Compressor updates are already serialized by the param lock,
+and the only other create path is zswap_setup() during init (or when
+enabling zswap). That does not run alongside another creator, so I
+think we can keep the simpler lookup-then-create flow. It is almost
+the same as the original list code, just using the xarray API.
+
+Best regards,
+Jianyue
