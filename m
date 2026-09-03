@@ -1,210 +1,295 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C51045A2B8;
-	Thu,  3 Sep 2026 11:33:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B993E316B
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:34:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788435236; cv=none; b=okPxorISqzxzT7fStXRhi80adcKWnyQBGGSWyrXic3DuL64E7E5unqXZVCmiQ1Sh0EC4IJjhh9hBdkW//NWze6xXuYnvgTWhw46Sp3MJ8yHnEBPtOaC+UMZRkFtPr0oQRNtbf1RH9WNmKnLT0bF06fYZVMPFDkvhdFr0+ClIhOk=
+	t=1788435266; cv=none; b=Xx4JjajEN5HUjhrIOVHD1PDP+1hwckiZ3nxhDkMKQwoNwe77omrDScAj5+NEU6hEMFXve5ee5ArbbZlqs9Ey1HVOF2Z27C4MUXW83tG8+qov5vu4KBeOHxfhPo9cZHNn5sdJsyUYBnMRpVN8cyeZ16tmUHFaDLY0GfRNumGP8+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788435236; c=relaxed/simple;
-	bh=flXWJj0owEfV1cIimoqzsqxJQ3Z89MxPgvIuA7uh+14=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FiT/SGZq5etlA/NM0KY5mT/xv5e8wtm8j8ejjX7bl8QVZoEAzajubgt1Uw09ICp7duxnCPXka3kWkw53lR81iPQKCYBmJCPwEVLeu43vgOzEkVVXl/hI9lX78m2+fc6Xt5NUl8HavcUp4Fjn+4mJGYVar3EC9P/bHmS4Ot3/yuI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50EC91F00A3E;
-	Thu,  3 Sep 2026 11:33:46 +0000 (UTC)
-From: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
-To: geert+renesas@glider.be,
-	linusw@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	magnus.damm@gmail.com,
-	prabhakar.mahadev-lad.rj@bp.renesas.com
-Cc: claudiu.beznea@tuxon.dev,
-	linux-renesas-soc@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Subject: [PATCH v6 5/5] pinctrl: renesas: rzg2l: Add RZ/G3S support for selecting the I3C power source
-Date: Thu,  3 Sep 2026 14:33:27 +0300
-Message-ID: <20260903113327.1217457-6-claudiu.beznea+renesas@tuxon.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260903113327.1217457-1-claudiu.beznea+renesas@tuxon.dev>
-References: <20260903113327.1217457-1-claudiu.beznea+renesas@tuxon.dev>
+	s=arc-20240116; t=1788435266; c=relaxed/simple;
+	bh=8gu6P8N+v/Vvw+My6H2ERJDqHQ1Ck9J6Mbe3CbcKwlE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=oAfYo+QrOMuohJQ5RJQIXHDS1MFzZ2w2alX17cSA0hP89B2z26fdx+uY9dyTv7jReh083304wja0vRiD55F2ac4dv08fODMMDbSrOdRAqMGSdyCB/PfUgZ1oKaPoYFoOEXK7qadtgZpUEWfzkXJWJZRWjvVWk9U2lOy1NGV0yBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sVqe0eWF; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sVqe0eWF"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso23701895e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 04:34:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788435253; x=1789040053; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=geLMceXZKvAsoq7yccAMfzX5cuhvjtXWXS2+/P3v3EE=;
+        b=sVqe0eWFNXrjnh4dpCxpf5YYvfRf7v9PtoV0gr3jXi80MNZmsrHigGjdkgiGyXGz0N
+         z3ltepE9ksF/L0big3m9BZ0f8CnHTt14zzmcyo7NLWeYeXuBikmnRY9pMokce7G9VlTn
+         eV9tnHENP8X94EBFgiiyVh+fk/q36X1tSvpO7BET7IpHZy7PIB5KmbGOcdm/lsyeo6ZX
+         xFT1sGi2+f5GCgeybYp/xi3mg3vGUo/lAZvdAh7lQJ+8QqU7Ab/0/wWgs4291rkX4Pva
+         zteZ7tuIAzE0qemdLXoUNMxFO1+wbLTRsco3QbT8cTuzufyVKaqpIcuRwqiAEhSa/EJr
+         +K0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788435253; x=1789040053;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=geLMceXZKvAsoq7yccAMfzX5cuhvjtXWXS2+/P3v3EE=;
+        b=CexHoze91zYaBEI1FdNi/zcGK+417Ltb3t1GurHSnC7yQPZhzuRcvy8lBWoHTsXKnH
+         lLUhmDRVFOaoFoNI7AlOgon7NQuhnjLpDBqvEuZ8S8CsvaaxEqsWyVU2v4JiFNlU5LGr
+         PC+4zO+MLpI/R4PKETP8tAqwDt2TqBekuVyum8rFkIFSJuVainUyAzOPgOVEQ05F0Qeh
+         /jQpzpq1Fh9zXrAfdLQc6431ewClQNoiIziXWSxU6ZQuVkTyjDtqTrxf06wfMjsJ6zoP
+         Mp6qKBIoKX2/39aN0qDmy0FjxgMfT6fPfRyyNWp7jrSZMMYkl3U6vzhHvBjhnbJhiXvt
+         g2DQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwJgkX8k5/ESU7lpzdz0rovbw0tmtXy5QNUrTjE8PNXdMpM5gopu6xJQGcbaxtKwWWDJNmrQCt8aK98op8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kFCDdl4SVSfPiJR36da4zwypFu3Oq6JXqO/AbzV1DlXft3Df2s
+	jrPMqpcQTwZUx/EwrFHp501hX38vGUpTHhTsTt/iLe4ZvyMnm1envrLB
+X-Gm-Gg: AYBFou2sluaDxq4e08wg+UT7YubDfLR7fwh4bKSNYiaoQ0bkF7Q/QyVL7yvwJwp4NZc
+	KJb6rizVzFjZEYVdzVPhXwXRsR4HBgRcx748DihbVQHMTKsV5OuAgSo1Fyjy2F+wJvHKg6VnnzM
+	fNzJt6v5/e7TpoFkGsBwavKbw7Fbk+pg5Fn/wTs2swi5gj1v9eCZm5uNgirFo393CPDKiS2MKqo
+	s61qDlU67FX81M/5GMlxsw5RV5D7PkbcM4kf84pylgfHk/Jj1dnep9cTt57sKbD+o5fe8p/VlF0
+	publjgsIL5G997en6eK2fJGQLLoS/4ZMxnjTWLCuZLfhmFkowsk0vNzLdomhKO16akdndnBBd7r
+	y5r4SqAjSqYCjY+wywb1bQz8gTRVrjvbEWR8InAi0gF8eh9RETIkv6aueABo4cyFC1tDiOgEoYU
+	BMN9GPyWD9AUdWDyyiIU+CvJZXi8kyH7zLk1B/OzV2UaGwNQdVk1mC+OdlNOYaCHluT5plYQ==
+X-Received: by 2002:a05:600c:699b:b0:49b:9205:45b3 with SMTP id 5b1f17b1804b1-49ce584c6femr210966645e9.15.1788435252782;
+        Thu, 03 Sep 2026 04:34:12 -0700 (PDT)
+Received: from foxbook (bfg95.neoplus.adsl.tpnet.pl. [83.28.44.95])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5dadddsm75695255e9.9.2026.09.03.04.34.11
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Thu, 03 Sep 2026 04:34:12 -0700 (PDT)
+Date: Thu, 3 Sep 2026 13:34:08 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Edward Adam Davis <eadavis@sina.com>
+Cc: daniel@caiaq.org, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-usb@vger.kernel.org, perex@perex.cz,
+ syzbot+832ce9fa3face1b7d44d@syzkaller.appspotmail.com,
+ syzkaller-bugs@googlegroups.com, tiwai@suse.com, tiwai@suse.de,
+ zonque@gmail.com
+Subject: Re: [PATCH v2] ALSA: caiaq: Decoupling ep1_in_urb in caiaq dev
+Message-ID: <20260903133408.7da4c35f.michal.pecio@gmail.com>
+In-Reply-To: <20260903100410.541828-1-eadavis@sina.com>
+References: <20260903094105.539519-1-eadavis@sina.com>
+	<20260903100410.541828-1-eadavis@sina.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+On Thu,  3 Sep 2026 18:04:10 +0800, Edward Adam Davis wrote:
+> The epq_in_urb object belonging to the caiaq device is coupled within
+> the struct snd_usb_caiaqdev. After usb_submit_urb(epq_in_urb, GFP_KERNEL)
+> executes successfully, epq_in_urb is successfully added to the urbp_list
+> queue of the dummy HCD driver (userspace specifies dummy_hcd as the HCD
+> layer driver for the caiaq USB device).
 
-The Renesas RZ/G3S I3C pins can be powered at either 1.8V or 1.2V. The
-pin controller provides a register to select between these two options.
-Update the Renesas RZ/G2L pin controller driver to allow selecting the
-I3C power source on RZ/G3S SoC.
-
-Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
----
-
-Changes in v6:
-- used bit 23 to define PIN_CFG_IO_VMC_I3C
-- described the I3C power sources according to the new method; due
-  to this didn't collect the Wolfram's Tb tag.
-
-Changes in v5:
-- due to patch 3 from this series:
--- dropped the definitions for PVDD_I3C_1200, PVDD_I3C_1800
--- dropped available_i3c_ps[] array and fill everything in available_ps[]
--- dropped the adjustments from rzg2l_pwr_reg_val_to_ps() and
-   rzg2l_ps_to_pwr_reg_val(), rzg2l_ps_is_supported() and
-   rzg2l_pinctrl_pinconf_set()
--- dropped the tags
-
-Changes in v4:
-- none
-
-Changes in v3:
-- collected tags
-
-Changes in v2:
-- none
-
- drivers/pinctrl/renesas/pinctrl-rzg2l.c | 30 +++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
-
-diff --git a/drivers/pinctrl/renesas/pinctrl-rzg2l.c b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
-index 18656f6d2891..f2e5fffd6e60 100644
---- a/drivers/pinctrl/renesas/pinctrl-rzg2l.c
-+++ b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
-@@ -70,6 +70,7 @@
- #define PIN_CFG_PVDD1833_OTH_ISO_POC	BIT(20) /* known on RZ/G3L only */
- #define PIN_CFG_WDTOVF_N_POC		BIT(21) /* known on RZ/G3L only */
- #define PIN_CFG_IO_VMC_SD2		BIT(22) /* known on RZ/G3L only */
-+#define PIN_CFG_IO_VMC_I3C		BIT(23)
+Sounds like an irrelevant detail. Same crash would happen with any HCD.
  
- #define RZG2L_SINGLE_PIN		BIT_ULL(63)	/* Dedicated pin */
- #define RZG2L_VARIABLE_CFG		BIT_ULL(62)	/* Variable cfg for port pins */
-@@ -256,6 +257,7 @@ static const struct pin_config_item renesas_rzv2h_conf_items[] = {
-  * @oen: OEN register offset
-  * @qspi: QSPI register offset
-  * @other_poc: OTHER_POC register offset
-+ * @i3c_set: I3C_SET register offset
-  */
- struct rzg2l_register_offsets {
- 	u16 pwpr;
-@@ -265,6 +267,7 @@ struct rzg2l_register_offsets {
- 	u16 oen;
- 	u16 qspi;
- 	u16 other_poc;
-+	u16 i3c_set;
- };
- 
- /**
-@@ -272,6 +275,7 @@ struct rzg2l_register_offsets {
-  * @other_poc_pvdd1833_oth_awo_poc: PVDD1833_OTH_AWO_POC mask
-  * @other_poc_pvdd1833_oth_iso_poc: PVDD1833_OTH_ISO_POC mask
-  * @other_poc_wdtovf_n_poc: WDTOVF_N_POC mask
-+ * @i3c_set_poc: I3C_SET_POC mask
-  */
- struct rzg2l_register_masks {
- 	union {
-@@ -281,6 +285,11 @@ struct rzg2l_register_masks {
- 			u8 other_poc_pvdd1833_oth_iso_poc;
- 			u8 other_poc_wdtovf_n_poc;
- 		};
-+
-+		/* RZ/G3S masks */
-+		struct {
-+			u8 i3c_set_poc;
-+		};
- 	};
- };
- 
-@@ -394,6 +403,7 @@ struct rzg2l_pinctrl_pin_settings {
-  * @oen: Output Enable register cache
-  * @other_poc: OTHER_POC register cache
-  * @qspi: QSPI registers cache
-+ * @i3c_set: I3C_SET register cache
-  */
- struct rzg2l_pinctrl_reg_cache {
- 	u8	*p;
-@@ -413,6 +423,7 @@ struct rzg2l_pinctrl_reg_cache {
- 	u8	oen;
- 	u8	other_poc;
- 	u8	qspi;
-+	u8	i3c_set;
- };
- 
- struct rzg2l_pinctrl {
-@@ -504,6 +515,10 @@ static const struct rzg2l_pinctrl_ps_desc available_ps[] = {
- 	RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_WDTOVF_N_POC, RZG2L_IOLH_IDX_1V8),
- 	RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_WDTOVF_N_POC, RZG2L_IOLH_IDX_3V3),
- 
-+	/* I3C I/O voltage domains */
-+	RZG2L_PINCTRL_PS_DESC(1200, 1, PIN_CFG_IO_VMC_I3C, RZG2L_IOLH_IDX_NA),
-+	RZG2L_PINCTRL_PS_DESC(1800, 0, PIN_CFG_IO_VMC_I3C, RZG2L_IOLH_IDX_NA),
-+
- 	/* Software voltage domains */
- 	RZG2L_PINCTRL_PS_DESC(1800, 0, PIN_CFG_SOFT_PS, RZG2L_IOLH_IDX_1V8),
- 	RZG2L_PINCTRL_PS_DESC(2500, 0, PIN_CFG_SOFT_PS, RZG2L_IOLH_IDX_2V5),
-@@ -1202,6 +1217,11 @@ static int rzg2l_caps_to_pwr_reg(const struct rzg2l_register_offsets *regs,
- 			*mask = masks->other_poc_wdtovf_n_poc;
- 		return 0;
- 	}
-+	if (caps & PIN_CFG_IO_VMC_I3C) {
-+		*offset = regs->i3c_set;
-+		*mask = masks->i3c_set_poc;
-+		return 0;
-+	}
- 
- 	return -EINVAL;
- }
-@@ -2573,6 +2593,8 @@ static const struct rzg2l_dedicated_configs rzg3s_dedicated_pins[] = {
- 	{ "AUDIO_CLK1", RZG2L_SINGLE_PIN_PACK(0x2, 0, PIN_CFG_IEN) },
- 	{ "AUDIO_CLK2", RZG2L_SINGLE_PIN_PACK(0x2, 1, PIN_CFG_IEN) },
- 	{ "WDTOVF_PERROUT#", RZG2L_SINGLE_PIN_PACK(0x6, 0, PIN_CFG_IOLH_A | PIN_CFG_SOFT_PS) },
-+	{ "I3C_SDA", RZG2L_SINGLE_PIN_PACK(0x9, 0, (PIN_CFG_IEN | PIN_CFG_IO_VMC_I3C)) },
-+	{ "I3C_SCL", RZG2L_SINGLE_PIN_PACK(0x9, 1, (PIN_CFG_IEN | PIN_CFG_IO_VMC_I3C)) },
- 	{ "SD0_CLK", RZG2L_SINGLE_PIN_PACK(0x10, 0, (PIN_CFG_IOLH_B | PIN_CFG_IO_VMC_SD0)) },
- 	{ "SD0_CMD", RZG2L_SINGLE_PIN_PACK(0x10, 1, (PIN_CFG_IOLH_B | PIN_CFG_IEN |
- 						     PIN_CFG_IO_VMC_SD0)) },
-@@ -3795,6 +3817,8 @@ static int rzg2l_pinctrl_suspend_noirq(struct device *dev)
- 	cache->oen = readb(pctrl->base + pctrl->data->hwcfg->regs.oen);
- 	if (regs->other_poc)
- 		cache->other_poc = readb(pctrl->base + regs->other_poc);
-+	if (regs->i3c_set)
-+		cache->i3c_set = readb(pctrl->base + regs->i3c_set);
- 
- 	if (pctrl->syscon) {
- 		int ret;
-@@ -3837,6 +3861,8 @@ static int rzg2l_pinctrl_resume_noirq(struct device *dev)
- 		writeb(cache->qspi, pctrl->base + regs->qspi);
- 	if (regs->other_poc)
- 		writeb(cache->other_poc, pctrl->base + regs->other_poc);
-+	if (regs->i3c_set)
-+		writeb(cache->i3c_set, pctrl->base + regs->i3c_set);
- 
- 	raw_spin_lock_irqsave(&pctrl->lock, flags);
- 	rzg2l_oen_write_with_pwpr(pctrl, cache->oen);
-@@ -3953,8 +3979,12 @@ static const struct rzg2l_hwcfg rzg3s_hwcfg = {
- 		.pwpr = 0x3000,
- 		.sd_ch = 0x3004,
- 		.eth_poc = 0x3010,
-+		.i3c_set = 0x301c,
- 		.oen = 0x3018,
- 	},
-+	.masks = {
-+		.i3c_set_poc = BIT(2),
-+	},
- 	.iolh_groupa_ua = {
- 		/* 1v8 power source */
- 		[RZG2L_IOLH_IDX_1V8] = 2200, 4400, 9000, 10000,
--- 
-2.43.0
+> When init_card() calls snd_usb_caiaq_send_command() which subsequently
+> fails due to a timeout, and proceeds to call snd_card_free() to release
+> the card, the embedded ep1_in_urb object is also freed. When the dummy
+> HCD driver detects that the URB has been unlinked, it returns the URB
+> (by usb_hcd_giveback_urb()), which triggers [1].
+> 
+> Decouple the ep1_in_urb object from the struct snd_usb_caiaqdev and switch
+> to using a pointer instead. Separately allocate and manage the memory for
+> ep1_in_urb to prevent the release of the snd_card memory object from
+> interfering with it.
+> 
+> midi_out_urb has the same issue as ep1_in_urb and is handled in the same
+> way.
+> 
+> [1]
+> BUG: KASAN: slab-use-after-free in usb_free_urb+0x24/0x120 drivers/usb/core/urb.c:96
+> Write of size 4 at addr ffff88803cee1050 by task ktimers/1/29
+> Call Trace:
+>  usb_free_urb+0x24/0x120 drivers/usb/core/urb.c:96
+>  dummy_timer+0xaac/0x4d50 drivers/usb/gadget/udc/dummy_hcd.c:2019
+>  __run_hrtimer kernel/time/hrtimer.c:2067 [inline]
+>  __hrtimer_run_queues+0x3eb/0xaf0 kernel/time/hrtimer.c:2124
+>  hrtimer_run_softirq+0x1e1/0x2e0 kernel/time/hrtimer.c:2141
+> 
+> Allocated by task 36:
+>  snd_card_new+0x7b/0x110 sound/core/init.c:184
+>  create_card sound/usb/caiaq/device.c:429 [inline]
+>  snd_probe+0x236/0x1af0 sound/usb/caiaq/device.c:544
+> 
+> Freed by task 36:
+>  snd_card_free_when_closed sound/core/init.c:630 [inline]
+>  snd_card_free+0x138/0x1d0 sound/core/init.c:662
+>  snd_probe+0x162b/0x1af0 sound/usb/caiaq/device.c:553
+>  
+> Fixes: 523f1dce3743 ("[ALSA] Add Native Instrument usb audio device support")
+> Reported-by: syzbot+832ce9fa3face1b7d44d@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=832ce9fa3face1b7d44d
+> Tested-by: syzbot+832ce9fa3face1b7d44d@syzkaller.appspotmail.com
+> Signed-off-by: Edward Adam Davis <eadavis@sina.com>
+> ---
 
+Does this submission comply with the rules here?
+https://docs.kernel.org/process/coding-assistants.html
+
+> v1 -> v2: same dealwith midi_out_urb and add missing check
+> 
+>  sound/usb/caiaq/device.c | 39 +++++++++++++++++++++++++++------------
+>  sound/usb/caiaq/device.h |  4 ++--
+>  sound/usb/caiaq/midi.c   |  6 +++---
+>  3 files changed, 32 insertions(+), 17 deletions(-)
+> 
+> diff --git a/sound/usb/caiaq/device.c b/sound/usb/caiaq/device.c
+> index a16e59248480..d0fe954b8133 100644
+> --- a/sound/usb/caiaq/device.c
+> +++ b/sound/usb/caiaq/device.c
+> @@ -192,8 +192,8 @@ static void usb_ep1_command_reply_dispatch (struct urb* urb)
+>  		break;
+>  	}
+>  
+> -	cdev->ep1_in_urb.actual_length = 0;
+> -	ret = usb_submit_urb(&cdev->ep1_in_urb, GFP_ATOMIC);
+> +	cdev->ep1_in_urb->actual_length = 0;
+
+That's one of the first things usb_submit_urb() below would do,
+and has done since forever.
+
+> +	ret = usb_submit_urb(cdev->ep1_in_urb, GFP_ATOMIC);
+>  	if (ret < 0)
+>  		dev_err(dev, "unable to submit urb. OOM!?\n");
+>  }
+> @@ -408,6 +408,10 @@ static void card_free(struct snd_card *card)
+>  #endif
+>  	snd_usb_caiaq_audio_free(cdev);
+>  	usb_put_dev(cdev->chip.dev);
+> +	usb_free_urb(cdev->ep1_in_urb);
+> +	cdev->ep1_in_urb = NULL;
+> +	usb_free_urb(cdev->midi_out_urb);
+> +	cdev->midi_out_urb = NULL;
+
+Is clearing this necessary? (I'm not familiar with ALSA)
+
+>  }
+>  
+>  static int create_card(struct usb_device *usb_dev,
+> @@ -457,22 +461,33 @@ static int init_card(struct snd_usb_caiaqdev *cdev)
+>  		return -EIO;
+>  	}
+>  
+> -	usb_init_urb(&cdev->ep1_in_urb);
+> -	usb_init_urb(&cdev->midi_out_urb);
+> +	cdev->ep1_in_urb = usb_alloc_urb(0, GFP_KERNEL);
+> +	if (!cdev->ep1_in_urb) {
+> +		dev_err(dev, "alloc ep1_in_urb failed.\n");
+
+AFAIK logging on allocation failure is frowned upon.
+
+> +		return -ENOMEM;
+> +	}
+> +	cdev->midi_out_urb = usb_alloc_urb(0, GFP_KERNEL);
+> +	if (!cdev->midi_out_urb) {
+> +		usb_free_urb(cdev->ep1_in_urb);
+> +		dev_err(dev, "alloc midi_out_urb failed.\n");
+> +		return -ENOMEM;
+> +	}
+> +	usb_init_urb(cdev->ep1_in_urb);
+> +	usb_init_urb(cdev->midi_out_urb);
+
+And what would be the point of that?
+
+>  
+> -	usb_fill_bulk_urb(&cdev->ep1_in_urb, usb_dev,
+> +	usb_fill_bulk_urb(cdev->ep1_in_urb, usb_dev,
+>  			  usb_rcvbulkpipe(usb_dev, 0x1),
+>  			  cdev->ep1_in_buf, EP1_BUFSIZE,
+>  			  usb_ep1_command_reply_dispatch, cdev);
+>  
+> -	usb_fill_bulk_urb(&cdev->midi_out_urb, usb_dev,
+> +	usb_fill_bulk_urb(cdev->midi_out_urb, usb_dev,
+>  			  usb_sndbulkpipe(usb_dev, 0x1),
+>  			  cdev->midi_out_buf, EP1_BUFSIZE,
+>  			  snd_usb_caiaq_midi_output_done, cdev);
+>  
+>  	/* sanity checks of EPs before actually submitting */
+> -	if (usb_urb_ep_type_check(&cdev->ep1_in_urb) ||
+> -	    usb_urb_ep_type_check(&cdev->midi_out_urb)) {
+> +	if (usb_urb_ep_type_check(cdev->ep1_in_urb) ||
+> +	    usb_urb_ep_type_check(cdev->midi_out_urb)) {
+>  		dev_err(dev, "invalid EPs\n");
+>  		return -EINVAL;
+>  	}
+> @@ -480,7 +495,7 @@ static int init_card(struct snd_usb_caiaqdev *cdev)
+>  	init_waitqueue_head(&cdev->ep1_wait_queue);
+>  	init_waitqueue_head(&cdev->prepare_wait_queue);
+>  
+> -	if (usb_submit_urb(&cdev->ep1_in_urb, GFP_KERNEL) != 0)
+> +	if (usb_submit_urb(cdev->ep1_in_urb, GFP_KERNEL) != 0)
+>  		return -EIO;
+>  
+>  	err = snd_usb_caiaq_send_command(cdev, EP1_CMD_GET_DEVICE_INFO, NULL, 0);
+> @@ -530,7 +545,7 @@ static int init_card(struct snd_usb_caiaqdev *cdev)
+>  	return 0;
+>  
+>   err_kill_urb:
+> -	usb_kill_urb(&cdev->ep1_in_urb);
+> +	usb_kill_urb(cdev->ep1_in_urb);
+>  	return err;
+>  }
+>  
+> @@ -576,8 +591,8 @@ static void snd_disconnect(struct usb_interface *intf)
+>  #endif
+>  	snd_usb_caiaq_audio_disconnect(cdev);
+>  
+> -	usb_kill_urb(&cdev->ep1_in_urb);
+> -	usb_kill_urb(&cdev->midi_out_urb);
+> +	usb_kill_urb(cdev->ep1_in_urb);
+> +	usb_kill_urb(cdev->midi_out_urb);
+>  
+>  	snd_card_free_when_closed(card);
+>  }
+> diff --git a/sound/usb/caiaq/device.h b/sound/usb/caiaq/device.h
+> index 743eb0387b5f..1c6f34693fa8 100644
+> --- a/sound/usb/caiaq/device.h
+> +++ b/sound/usb/caiaq/device.h
+> @@ -60,8 +60,8 @@ struct snd_usb_caiaq_cb_info;
+>  struct snd_usb_caiaqdev {
+>  	struct snd_usb_audio chip;
+>  
+> -	struct urb ep1_in_urb;
+> -	struct urb midi_out_urb;
+> +	struct urb *ep1_in_urb;
+> +	struct urb *midi_out_urb;
+>  	struct urb **data_urbs_in;
+>  	struct urb **data_urbs_out;
+>  	struct snd_usb_caiaq_cb_info *data_cb_info;
+> diff --git a/sound/usb/caiaq/midi.c b/sound/usb/caiaq/midi.c
+> index c656d0162432..18529484c8dc 100644
+> --- a/sound/usb/caiaq/midi.c
+> +++ b/sound/usb/caiaq/midi.c
+> @@ -43,7 +43,7 @@ static int snd_usb_caiaq_midi_output_close(struct snd_rawmidi_substream *substre
+>  {
+>  	struct snd_usb_caiaqdev *cdev = substream->rmidi->private_data;
+>  	if (cdev->midi_out_active) {
+> -		usb_kill_urb(&cdev->midi_out_urb);
+> +		usb_kill_urb(cdev->midi_out_urb);
+>  		cdev->midi_out_active = 0;
+>  	}
+>  	return 0;
+> @@ -64,9 +64,9 @@ static void snd_usb_caiaq_midi_send(struct snd_usb_caiaqdev *cdev,
+>  		return;
+>  
+>  	cdev->midi_out_buf[2] = len;
+> -	cdev->midi_out_urb.transfer_buffer_length = len+3;
+> +	cdev->midi_out_urb->transfer_buffer_length = len+3;
+>  
+> -	ret = usb_submit_urb(&cdev->midi_out_urb, GFP_ATOMIC);
+> +	ret = usb_submit_urb(cdev->midi_out_urb, GFP_ATOMIC);
+>  	if (ret < 0)
+>  		dev_err(dev,
+>  			"snd_usb_caiaq_midi_send(%p): usb_submit_urb() failed,"
+> -- 
+> 2.43.0
+> 
