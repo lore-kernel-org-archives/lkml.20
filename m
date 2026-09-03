@@ -1,79 +1,85 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F32064B339D
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:15:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 161F84A6CE0
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:17:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444966; cv=none; b=TJiZzJ5Woegeud71W9xeU3e+saylIqtdxDWh0/QMEpZRYDfUdZNGGjhfMjPurwgtW6040WWrBz1LWZXBAEodDV6b0pd4DU4iBfy7/m9m2A7vQIILItw8v6scfu0rzZ1kVM0HeCXw4EdWkqKnDWCoXOsMtVDmw45yKxuBt7VKEaU=
+	t=1788445047; cv=none; b=eDsJIgWoYqsA1a5qcHJPFz2vKKhQP0eUGZOH9abZ6onbmXJVflEnjEpwU7JCj/R8IN059CefgpFB4GnOJmvN+Xq5PFMZPt8y/xwvXnn/SGnDBiK3K2het93oCHq3iw14wm+RcR/jbwog2jyhvbinIvJee+pw+R+CIcYGa1bHMA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444966; c=relaxed/simple;
-	bh=UUoCs3OS1DpEKPOf4QHK0Gnr950LiLZG3z9kQysx8iA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=JMjDaIKM7HJLeKf48x/UHxh7raYKGvxDPVs0/QlqZrdxPqxHYF8QMicOFPCRgQr2fmMtWiPwmPdwn4eoLrqFjBKInfNZFKgI1RxGovXWoL2l8vQ6Nlkazt5a+ILK6GZVndQvGadlzLleO0Fk7ZDMuTgV7L5Y9ptAELeMb+SnKPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cqqz5c/4; arc=none smtp.client-ip=209.85.216.53
+	s=arc-20240116; t=1788445047; c=relaxed/simple;
+	bh=grbSD99wnbBQjbz5a/guFkZGFX6aK7WNXYkMNE/JzbU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sx3hW/UY1kDWTkyshMEyTl8jphtukIlGH8G1qx74/Cf9M9yEhCP4xTcgJ+UIr5G0pQs+nydW/bpTsHvHoaUUwUkXoTY0xjzDQIohqu/dW4mwcxNzJLZtKLJI0Rmg7CyZWNE0dPXDA44evQ2AA8gbataZRI33itU20jrHL/xfe6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QOYurI94; arc=none smtp.client-ip=209.85.161.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cqqz5c/4"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-39266382df6so2195624a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:15:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QOYurI94"
+Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6b1497f0453so1561273eaf.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:17:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788444953; x=1789049753; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788445037; x=1789049837; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JTI3IpCba426eFljnzXJ2cqFQiHThODtSzi4pevtE/Q=;
-        b=Cqqz5c/44snunzLcV09QO2GkN8HQHyV27leGmNheGUk7hu0GeScRFj+k7lBzulgcoP
-         ptTrE6WUEDMyrCAmXSZyivs3MrgHZ2yIxKgAAq8baGpXNTlrClEPDM9EfQSATTW0n+bO
-         3VzhfsN04Fm4Pq2RNTFB41LuwbqvbT7zqh1P856F/FC8wWOHCEE0FYVqzdZjHiUd/FUF
-         F04dBva+GG24/yFuhDItlcyS7+5kPODQRxA731o4eSnxfUxsp4Z5PqZc02RImivOtb/I
-         9j9P6wQ6D9/5v6kj6fZCIPYGj8/nQJLRjdxjQUKSaJ5wGMhMGiUoCn+rqb2ooji63md1
-         onbA==
+        bh=zcCW6+/z3gty5vQ5bRmZgnTdisuOcsWk7AuFt/Gu6MM=;
+        b=QOYurI94eBhCsm7GIovBe1qbVZIqPNiHvos/4RtFCcBOjOZ12nAzHNP14mwKrqYgnH
+         pmAzOfjVcAFAesdrH0FgPpLqafI4FZc+Ex3bDHHM9VmKgpnGv69jftLgt4q2NSh3cvIp
+         xV3v2UYGckSQrno+u6Lf7IS7UkP/LAEtmEMHUuJqBBNn0NEH1gS5f2FgkvQjRJ8DI/je
+         g7fcDC5gniABI9l9Uo0RlCpvC/DeTE16o5QYQ8CVXsLWkbrk4S01gx/dZdS0u9NolutW
+         bWZZQwW/dZIDmqMumyUWAW5xsskT77U6gDRnfhvc/MiVHoeqwF4r4eElOAgn8F9AL/IE
+         g04w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788444953; x=1789049753;
+        d=1e100.net; s=20251104; t=1788445037; x=1789049837;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JTI3IpCba426eFljnzXJ2cqFQiHThODtSzi4pevtE/Q=;
-        b=PPPHTQ6GsKNlFo603Yf7Sr6mUUzF23zFzL9iO68t/Grt5asHOZklCWgIZexdVZGLrd
-         aql8khjUGz8hysrG65JnE2JekZ0A7qpDvb4q9/J6K6J1o/23Jsyp6n2sPJlkm6PYCQnP
-         k7VTwIHyC4a55e2RDw7olmVhK3Bdv6PMkVX9FgPDve0q7P2jEhc1ZxuXNqWigubLuUI/
-         rhb5c7w6PeggtvzI4mIAUZLRPyaIlalD5eYy29yZzki6f4fhWmXpzlXWIcwWEYiuSl6T
-         D8+qYdyxCD/YV9KDOTszM9RUySVHGQaOGxpSwxa+eqSW+0iSpiy52XiDWFYszpEhG/Ov
-         OfmA==
-X-Forwarded-Encrypted: i=1; AKwUvBy70XJJL856cZK6ffaE02B8RWhmuSlYO+CYRYck59XagpezK/nXsSCvAaGGSdIcdoExplGI6WjW8OVSSW0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mlmEBh759tqj38vn1aivJgGBqCIgJzLtH7eiNUXwleHf1QjlKD
-	LrfwHB+FZIooiG55iIWfh97m9FEfVYLXIuN5GVgQEgWQnwKdgETobo5c
-X-Gm-Gg: AYBFou29m/+I3cMQ8aVHkTB4MeKZFPULQPYnUuIrd2KSlVHZExvl8AEAGjGVe/Y0Ht8
-	P4xLUVt2fqo8M5/lloJdil21ISG5MDJIBZ91piTCcBSE71vfPTBBW9/q92uxP92aJyYvArLFGeb
-	mepStl7DYIsUv/aS5hWG9FcNcEfkD38ZGmb4sHjrUsQtd5KLnIiHfqbgiDQcWdwtGPOjIS7VIQd
-	xb061yR6mgBrM/j8ti/rz1t1qEW5gXtLUtlB/ERGkx+awjzZtjt44vpJXGNooqg+dlRY/r14lWh
-	z+aIUU9vhvNwluh9OcOB+uirK3EzS0m+9uyQ6Wqd+PQUwWjPN8p0E0rI3iSiPYB8oeU3RiQtFP/
-	ooAr57aaQlhqXy5WMusyWTpAe5jq+MU3jHIqlRuUU8mwaDayzkGZTxWJxFT2Hl6t6ALMAiATJQ6
-	fksWE5miCWSoeCWA6xW5g12nb55ndvHTCEaEN6nnsENOtYFfTVgreA1LGLoF9sy6Vb0WwLf79zs
-	g0Kkf7dlSTrxd1rKbiqz3XuIQ==
-X-Received: by 2002:a17:90b:3c89:b0:38f:aab1:5148 with SMTP id 98e67ed59e1d1-39aee066dd0mr21177322a91.13.1788444953135;
-        Thu, 03 Sep 2026 07:15:53 -0700 (PDT)
-Received: from XP-PC-huhb1.xiaopeng.local ([98.98.122.134])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b0832b85bsm5793909a91.4.2026.09.03.07.15.43
+        bh=zcCW6+/z3gty5vQ5bRmZgnTdisuOcsWk7AuFt/Gu6MM=;
+        b=QQQzWqhA+7aBbJjc3CViTJwIrglXZTO61Kb2WMkYD7SCVJT/1V55T/qMF6tX1fCc9K
+         Yx2j1tIpKq1zueWAAO4e1tWe4ru27GVTHgUBdKbNDy+QCShSTCeSCUF7yqDR6bjrCZVp
+         FHqfTDGQZc7xBJk++L69UrohNJuxWl7SjxZRVyxjQ6h04bHm7f6HesubmzkREhfDkvJ/
+         CWFZIm7fINvihZQ4gD7EzRbrFALW92J5XhjyOP+NYOR/YKiglUoaXCfoQEmKaZ1dn1hT
+         WJ6Qrfh4WU3oyloOlbOsUKvmgXPu+YU2P6PDr7Y8SZI8rXiszBarT9pHFkpvpV7KC9gF
+         kUbA==
+X-Forwarded-Encrypted: i=1; AKwUvBwb5byPneo5ghDYJEibNc2akNb//xNuMOGZjLUKQu2uZKiBZ9vvaL+Lf690LkB/RfPEDlRpbJ49zmHEu/A=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLbGO9gKZdzFX8uBXn0pdpCcyuiN3HcY+ohYSUGSg4UY4pBmXu
+	ClI73zcrF21pAu63X6PJ8WvvRdZAqfRv2ObiKeL+3BJgLWNYya23rcZk
+X-Gm-Gg: AYBFou0kZ/jzAUAfbzBBceuqZsjAMdX1iMBqRzdoYwOScfvuo5tBkXBmIhlUO1zmIcH
+	CdzieTOI7yTnP/sXFpKBA+8nrCVAMwRFgars02Rdn5d3avKDSbCISIxuAyvVgFoyhZRi6JDd1tw
+	+OIYLogIo+fqVvKNkUyITEtR0xhthgjvt9H7ZKxlj7ADS+YL1outdU11PK07MwCDzgEPZbdhVkn
+	GlEeRm8FIhQif2U+YMCmYZ4zmxUK7CUmXN70Q1Pwyk93jmrGTP+vN+OctMXN2r+fP2OTBMkDM6I
+	fqYUieotsIQ7K7JpkhTkaK3224pvCf43jgSqRdNI3ZGIP4vzCvfnoSWx+H/ens9oWWaVZW/WiXt
+	awzqjpbBZYbo6a9IpqYeym+kiv7TI2vZM3itgNhNiHmDZVvfeMIfHoa8lph+dDlQH8H4QfcU8fD
+	QbWYkprZZUYRQAj9nnr9ZjSieiz6BKDRNaxj48tRD+fM7SBGhViyqmsNF9/XheyAxdBLhSSjLj4
+	brma/YvaE65i1m37uI=
+X-Received: by 2002:a05:6820:a0e:b0:6b1:4fe1:9464 with SMTP id 006d021491bc7-6b47dfac321mr10573094eaf.22.1788445036581;
+        Thu, 03 Sep 2026 07:17:16 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:1b::])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-46f3292c0b0sm7715350fac.12.2026.09.03.07.17.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 07:15:45 -0700 (PDT)
-From: Hongbing Hu <huhb04@gmail.com>
-X-Google-Original-From: Hongbing Hu <huhb1@xiaopeng.com>
-To: laurent.pinchart@ideasonboard.com,
-	hansg@kernel.org
-Cc: mchehab@kernel.org,
-	linux-media@vger.kernel.org,
+        Thu, 03 Sep 2026 07:17:16 -0700 (PDT)
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Nhat Pham <nphamcs@gmail.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Krush Chavan <krushchavan@outlook.com>,
+	"Chengming Zhou" <chengming.zhou@linux.dev>,
+	"Tejun Heo" <tj@kernel.org>,
+	Michal =?ISO-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	"Shuah Khan" <shuah@kernel.org>,
+	linux-mm@kvack.org,
+	cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Hongbing Hu <huhb04@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: uvcvideo: defer cancelled buffer completion until copies finish
-Date: Thu,  3 Sep 2026 22:15:32 +0800
-Message-Id: <20260903141532.6693-1-huhb1@xiaopeng.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260903131141.6368-1-huhb1@xiaopeng.com>
-References: <20260903131141.6368-1-huhb1@xiaopeng.com>
+	kernel-team@meta.com
+Subject: Re: [PATCH v2] selftests/cgroup: account for zswap shrinker writeback
+Date: Thu,  3 Sep 2026 07:17:13 -0700
+Message-ID: <20260903141714.595256-1-joshua.hahnjy@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260902180408.05b925ce05359cd4d7f96894@linux-foundation.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,112 +88,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hongbing Hu <huhb04@gmail.com>
+On Wed, 2 Sep 2026 18:04:08 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
 
-uvc_queue_cancel() returns queued buffers to videobuf2 directly via
-vb2_buffer_done(). This is unsafe because asynchronous memcpy workers may
-still hold a reference on the same uvc_buffer. Once vb2_buffer_done() has
-run, userspace can dequeue and requeue the buffer while the old worker is
-still running, leading to the same list_head being inserted into irqqueue
-twice and corrupting the list.
+> On Wed,  2 Sep 2026 12:45:20 -0700 Joshua Hahn <joshua.hahnjy@gmail.com> wrote:
+> 
+> > The test_no_invasive_cgroup_shrink selftest checks that when a cgroup
+> > has zswapped out more memory than memory.zswap.max, it does not
+> > trigger writeback for other cgroups. To do this, it compares the
+> > writeback count in a control cgroup and makes sure that it is 0,
+> > and then checks the writeback count in an aggressor cgroup who does
+> > expect to see writeback.
+> > 
+> > However, when the zswap shrinker is enabled, the victim cgroup can see
+> > legitimate writebacks not triggered by the aggressor. In some Meta CI
+> > tests, we have seen this failure mode happen.
+> > 
+> > Instead of checking that the victim cgroup has 0 writeback, compare the
+> > writeback values before and after the aggressor runs and check that
+> > the victim cgroup did not perform any additional writeback. Note that
+> > this can still lead to probabilistic failures if writebacks take longer
+> > than 5 seconds, but this should fix the systematic failure case.
+> > 
+> > Fixes: b5ba474f3f51 ("zswap: shrink zswap pool based on memory pressure")
 
-The crash manifests in two ways depending on the drop-corrupted-frames
-module parameter:
+Hello Andrew, I hope you're doing well!
 
-1. With the drop corrupted frames enabled, the old worker's
-   final kref_put reaches uvc_queue_buffer_complete(), sees buf->error set,
-   and calls uvc_queue_buffer_requeue(). This performs list_add_tail() on
-   buf->queue even though userspace has already QBUF'd the same buffer and
-   added it to irqqueue.
+> Thanks.
+> 
+> I do support backporting selftests fixes.  We want selftests to work
+> well in the kernel with which they are shipped.  But, as ever, we
+> should include a clear explanation of the userspace-visible runtime
+> effects of the bug.
+> 
+> Seems the short answer is "false-positive test failures" but we can
+> perhaps do a little better than that.  Quoting the failure messages
+> would be a good way - very recognizable.
 
-2. With nodrop=1, uvc_queue_buffer_complete() calls vb2_buffer_done() a
-   second time. If userspace has already dequeued and requeued the buffer,
-   the second completion exposes it to userspace again, and the next
-   DQBUF/QBUF inserts the still-linked list_head into irqqueue a second
-   time.
+That sounds good to me. Unfortunately it seems like the selftests
+aren't too expressive in terms of why it failed, so this is all that
+I was able to pick up from the selftest logs:
 
-Both cases produce the kind of list_del corruption seen here:
+ok 1 test_zswap_usage
+ok 2 test_swapin_nozswap
+ok 3 test_zswapin
+ok 4 test_zswap_writeback_enabled
+ok 5 test_zswap_writeback_disabled
+ok 6 # SKIP test_no_kmem_bypass
+not ok 7 test_no_invasive_cgroup_shrink
+ok 8 test_zswap_incompressible
+# 1 skipped test(s) detected. Consider enabling relevant config options to improve coverage.
+# Totals: pass:6 fail:1 xfail:0 xpass:0 skip:1 error:0
 
-    list_del corruption. next->prev should be ..., but was ...
-    kernel BUG at lib/list_debug.c:64!
+I'm not too sure how helpful this will be, but maybe it would be better
+to amend the last line of the commit message to say:
 
-Fix the cancel path to remove buffers from irqqueue and drop the queue's
-reference through uvc_queue_buffer_release() (i.e. kref_put()). The final
-VB2 completion then only happens from uvc_queue_buffer_complete() once the
-last async reference is released, so userspace cannot reuse the buffer
-while an old worker still accesses it.
+...
+than 5 seconds, but this should fix the systematic failure case
+and make "not ok test_no_invasive_cgroup_shrink" less likely.
 
-A buffer whose state is already UVC_BUF_STATE_ERROR is forced to complete
-as an error and must not be requeued by the corrupted-frame policy. Normal
-malformed frames are still requeued/dropped as before.
+> > Reported-by: Krush Chavan <krushchavan@outlook.com>
+> 
+> Relatedly, is there a Link:/Closes:?
 
-Fixes: 01e90464e42e ("media: uvcvideo: queue: Support asynchronous buffer handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongbing Hu <huhb04@gmail.com>
----
-v2: corrected author real name in From/SOB per maintainer feedback
+Unfortunately this was detected in our private CI workflow and raised
+by Krush, so I'm not sure if there is anything we can share.
 
- drivers/media/usb/uvc/uvc_queue.c | 30 ++++++++++++++++++++++++++++--
- 1 file changed, 28 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
-index 3c002c8f44..9206e0a355 100644
---- a/drivers/media/usb/uvc/uvc_queue.c
-+++ b/drivers/media/usb/uvc/uvc_queue.c
-@@ -289,10 +289,19 @@ int uvc_queue_init(struct uvc_streaming *stream, struct uvc_video_queue *queue,
-  */
- void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
- {
-+	struct uvc_buffer *buf, *next;
-+	struct list_head local_list;
- 	unsigned long flags;
- 
-+	INIT_LIST_HEAD(&local_list);
-+
- 	spin_lock_irqsave(&queue->irqlock, flags);
--	__uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
-+	while (!list_empty(&queue->irqqueue)) {
-+		buf = list_first_entry(&queue->irqqueue, struct uvc_buffer, queue);
-+		list_del(&buf->queue);
-+		buf->state = UVC_BUF_STATE_ERROR;
-+		list_add_tail(&buf->queue, &local_list);
-+	}
- 	/*
- 	 * This must be protected by the irqlock spinlock to avoid race
- 	 * conditions between uvc_buffer_queue and the disconnection event that
-@@ -303,6 +312,17 @@ void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
- 	if (disconnect)
- 		queue->flags |= UVC_QUEUE_DISCONNECTED;
- 	spin_unlock_irqrestore(&queue->irqlock, flags);
-+
-+	/*
-+	 * Release the queue-owned kref outside the irqlock. The final VB2
-+	 * completion only happens from uvc_queue_buffer_complete() once all
-+	 * asynchronous copy references have been released, preventing userspace
-+	 * from reusing the buffer while an old worker still accesses it.
-+	 */
-+	list_for_each_entry_safe(buf, next, &local_list, queue) {
-+		list_del(&buf->queue);
-+		uvc_queue_buffer_release(buf);
-+	}
- }
- 
- /*
-@@ -356,7 +376,13 @@ static void uvc_queue_buffer_complete(struct kref *ref)
- 	struct vb2_buffer *vb = &buf->buf.vb2_buf;
- 	struct uvc_video_queue *queue = vb2_get_drv_priv(vb->vb2_queue);
- 
--	if (buf->error && !uvc_no_drop_param) {
-+	/*
-+	 * Buffers cancelled from uvc_queue_cancel() are forced to complete as
-+	 * errors. They must not be requeued by the corrupted-frame policy even
-+	 * when buf->error is set.
-+	 */
-+	if (buf->state != UVC_BUF_STATE_ERROR &&
-+	    buf->error && !uvc_no_drop_param) {
- 		uvc_queue_buffer_requeue(queue, buf);
- 		return;
- 	}
--- 
-2.34.1
-
+If there is anything else that I can add to make this clearer, please
+let me know. I hope you have a great day Andrew!
+Joshua
