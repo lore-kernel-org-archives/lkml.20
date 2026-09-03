@@ -1,226 +1,155 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D0933A3E7E
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:59:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83AE337F8CA
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:00:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788422397; cv=none; b=eVwdoXQ8TV/ihFhSOtaBzV8mkHWy9gB+5OgoqUuxcaUM6itZz1cWCktXklPd6znDYtSXi76JKzMgD2lXSgr+hHE6zM0QXd+co72ODHCDuxuta8/w1rVyVkns1qtVRTbCyNdPexv1UUMWD/hqYYAin+5I+IgYla7u9XqBYRqw/f8=
+	t=1788422430; cv=none; b=ta7zfUEvwlswN1GuvyYddf3x7NaYDzsUa1bApFDnLypKWNabhp+XINQSafha03s203lOZvw6eFk7oXOOz4ylQXYopdR2T45E+dm60udbmDACwF5KwXWh0cdeQXeXCgXrHTS1SWnl2iQ2Y1Dugtv5STrC8v1zKBVkd+2EESkopMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788422397; c=relaxed/simple;
-	bh=HO1YpOsp7AAqKVPegRZIkVg5ChPOPjxhcr+CFObZK4M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RhNvQ69qw0o4kmkhU6xkOPxL2vhswK7TxhLEro+qklCEU3dP4hM/7DX2+6jPCyGFQDmozGSAymerPwK74Pih5btRnxNaSBHV6H2iU+uKWhMHk5JgyvUSi1vC/FTPhVH2lIuDtTnCxhKxzf9aUFFh2e4xjWcotc55sPf92Nby5iM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GPH8m/r9; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788422430; c=relaxed/simple;
+	bh=IiSD1Kd6l72CtXC372nsMHFluY1YeXG015CTqpig3DM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZHiDcVYjPI4MmdN5k/v4MKQKBffHMlUoLgAV3/a+OlCbBdI63qY1V7hbKfzJIKGUrqfx1bctNABHkI0FnsX1RB6Kdy4g2qlpj9Wjo08Uj1pJyAqUneZQuGcJtld5N+JDQw/QjEWhy2U28Wnqur9EGtIoeZWB38TVzvdek8YEkMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d7iRT08p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GPH8m/r9"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48444eff835so520609f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:59:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788422394; x=1789027194; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yGVy22n2k2x8Vmi+YjiPo8Onst4nWhBMCSM53hHrhOk=;
-        b=GPH8m/r9a6LdXc4HoKkdURGiP1TZbVE0H4PiVDrEB9D7u9GOrJj7aDYLrJiRzF9bY+
-         d/gDhJdYNZjAQYLKVcs4C8UKQsot0rbUHhVLGxkFBYqI6EfAKabbxqAp+v1+BW8dCkPK
-         c3VMbxHlYKY4Xf4/0ihppQpxI1s0s7vwnsvPa1o3PZSnipGr7qziCSrqSxK121alqZ1x
-         vVNfAepaS4Krz3GIsPSGriawZufV5/SVS6BL8qYCZ6fcau2K6+uF4Kl9LAS24pu8SxkK
-         e2ZNYPuuifvIteg4wdTC1upRhE+2lkkxxSQEMDNxr6nEBTyU8ME82ENCSWe171yKaXcy
-         caHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788422394; x=1789027194;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yGVy22n2k2x8Vmi+YjiPo8Onst4nWhBMCSM53hHrhOk=;
-        b=XGRL4nn7JaIcB831xmQraIn6BSVoOLvG6ypaQ9zKOSmmJs+9KexfWEeouk5mZVjUrc
-         dnNa5vAa1bE6LF3rBUv59kGOdIdMTa5kJS2WiAWgn+H+0lKO94UNMDEwSV/aEmgxkNlD
-         t5K+i5gVSzeWs3WIhdr0zx8X7RHxKiBPohplzNHa7CqovEiR69jkQ26jS4H1rJXVXxxD
-         2uD/+ONP9/IjYQL7fpJhT4BXQG9jP7/+qOvz2Z2IW9UiO35gt8eDVLikoj6l8+Xp4eho
-         RXRwj+12i97jJru7M2p3a1pUILZMZehIJR4wPCsBIEB4+ehpS7usInRF/wv0PYkzaf3q
-         78bg==
-X-Forwarded-Encrypted: i=1; AKwUvBx+XNtVsUvbFWaiMeWpE8on5P+qj7MqQgoJGO9jptgad0gpQFLTo4fcKzh4j72ma03qc3AVt6r+/6rMRmE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lQU61vMtlEZH9OtGlXe4KmGHxvXyu+1aWGmZWypjKlmQHgBN3C
-	j4ZROOIaYGFKUr87olTdT06wSCcCaxX3aJogWfCjAn5O5zyidokkUD00
-X-Gm-Gg: AYBFou3f3WnhotZGwgEJgyU5kA5RGzi8oYnxbnzR7EOTyW7Q6FsWeAavmfWbZkKzyRR
-	q6SgAHnBC5HC0pnbHGRGc442v3vIkZPtD6cP1uR0t8AHf66kqAlgOeHqHWi3pnQC+Lm7sk0KzYj
-	fjaNoymKVbt9xVtesDsKksvdVIQ0SjHAAd0QgPFYv/2tm/mJj1eqj4blCD+MOoZtd/mZl37rKYx
-	jYkhdExeJnB08EwvxKrwS4P2bTcKNdOitatzYKRUW9+G7vvZUgMHAg8I2pIaBHSG+suQw3L3ZId
-	tbbLsJluIojEGet6YqiX7k0EwNcsXWz6ByLDNUibDgGTusDIyjHhhVGdbJnaR5s2g8AUm+rOQJm
-	ri/WJM+QB3yJd9PzFE0ZpnKxM8iSORy+OkhGR5CembVrFo8rChMp+/2fmcCCTWqjXOMsv6zUMBF
-	xrYT/s+m3a1crSIvK3EJPuA6dQaBuOVAJehVQbNRu59uRiwIEVyl1GQacpvk/NRrogUw==
-X-Received: by 2002:a05:600c:621b:b0:499:dbae:86be with SMTP id 5b1f17b1804b1-49ce58352ccmr202005745e9.14.1788422385163;
-        Thu, 03 Sep 2026 00:59:45 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee3b0af8sm52373275e9.0.2026.09.03.00.59.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 00:59:44 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>
-Cc: Dong Aisheng <aisheng.dong@nxp.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Jacky Bai <ping.bai@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	imx@lists.linux.dev,
-	linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>
-Subject: [PATCH v5 3/3] gpio: mmio: track the direction of chips without direction registers
-Date: Thu,  3 Sep 2026 09:59:40 +0200
-Message-ID: <20260903075940.2089367-4-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260903075940.2089367-1-mehmet.fide@gmail.com>
-References: <20260903075940.2089367-1-mehmet.fide@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d7iRT08p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 359B31F000E9;
+	Thu,  3 Sep 2026 08:00:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788422429;
+	bh=mH9xxi+NuX/7rAStj5yokYt3AaeJoJgJZjMceCTL2nE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=d7iRT08pKtrpl+FS8F9XGYWGb54fjKRbJt/wm7yMpEXiokgdrv23tgEn8Dje5lFxB
+	 Xpel97egrz56kjU20xZ4pk4d0TtaQ+G+af792PD36Zccz2MkZQ/aMYkK85gA3YsjAD
+	 BGRwxxvOg7bPL2QDe7W6+cmgR2QlNoOo1+y7Y32T1P4YxFCmmjVSh+Osfiu3ya0Vl3
+	 cjLDlkcxY70ZVR01S80kC9kcUhQt9eQobn7vu5qjlq3+4kGVEXa+xf8vBHOSGTMJfu
+	 BaOO4k16B0EpfQpyBMrlzKbuzQYoQ1cUGKB4mtlyZNUKNNbue7QcTW9+WydcfQpqe7
+	 hgEgZEcEaUr2g==
+Message-ID: <76dd87e0-cd34-4ce2-9586-d7ff019b1fb9@kernel.org>
+Date: Thu, 3 Sep 2026 10:00:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 13/26] mm: introduce freetype_t
+To: Yosry Ahmed <yosry@kernel.org>,
+ Brendan Jackman <brendan.jackman@linux.dev>
+Cc: Brendan Jackman <jackmanb@google.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Zi Yan <ziy@nvidia.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, x86@kernel.org,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>, Will Deacon <will@kernel.org>,
+ rientjes@google.com, patrick.roy@linux.dev,
+ "Itazuri, Takahiro" <itazur@amazon.co.uk>, Andy Lutomirski
+ <luto@kernel.org>, David Kaplan <david.kaplan@amd.com>,
+ Thomas Gleixner <tglx@kernel.org>, Patrick Bellasi <derkling@google.com>,
+ Reiji Watanabe <reijiw@google.com>, Sean Christopherson <seanjc@google.com>
+References: <20260726-page_alloc-unmapped-v3-0-6f5729aa9832@google.com>
+ <20260726-page_alloc-unmapped-v3-13-6f5729aa9832@google.com>
+ <anJmOMqCVugycC9x@google.com> <DKOLND2TRB15.2Y8DKB3ZKEYAY@linux.dev>
+ <aoOomzh1ErtSeKFb@google.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <aoOomzh1ErtSeKFb@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+On 8/18/26 02:35, Yosry Ahmed wrote:
+>> >> +static inline
+>> >> +struct list_head *free_area_list(struct free_area *area, freetype_t type)
+>> >> +{
+>> >> +	int idx = freetype_idx(type);
+>> >> +
+>> >> +	VM_WARN_ON(idx < 0);
+>> >> +	return &area->free_list[idx];
+>> >
+>> > Should we return NULL here if idx < 0 instead of an out of bounds
+>> > access?
+>> 
+>> TBH my descending order of preference is:
+>> 
+>> 1.
+>> 
+>> BUG_ON(idx < 0);
+>> return &area->free_list[idx];
+>> 
+>> 2.
+>> 
+>> if (WARN_ON(idx < 0)) // OR VM_WARN_ON
+>>   return NULL;
+>> return &area->free_list[idx];
+>> 
+>> 3.
+>> 
+>> VM_WARN_ON(idx < 0);
+>> return &area->free_list[idx];
+>> 
+>> 4. 
+>> 
+>> return &area->free_list[idx];
+>> 
+>> But I suspect[0] Vlastimil (and Linus) would order it the exact opposite
+>> way.
+>> 
+>> [0]: https://lore.kernel.org/all/bd36e972-8900-4476-a66b-4dc218b21a4d@kernel.org/
+>> 
+>> And I care more about making Vlastimil (and Linus) happy than this tiny
+>> detail of the code, so I'll defer to him. The current style is a
+>> compromise, but maybe it's just a compromise that makes nobody happy.
+> 
+> I think I prefer #2 (regardless of whether it's WARN_ON() or
+> VM_WARN_ON()), let's see if anyone disagrees.
 
-A generic chip with GPIO_GENERIC_PINCTRL_BACKEND and no direction
-registers sets the direction through pinctrl but has no get_direction
-callback, so every gpiod_get_direction() call trips the WARN in gpiolib
-and the direction gpiolib reports is whatever it assumed. On a Vybrid
-Colibri module that is 21 backtraces per boot.
+#2 can't work with VM_WARN_ON as it returns void. Otherwise if it evaluated
+the cond with DEBUG_VM and hardcoded false otherwise, it would be ideal. I
+don't remember why it's not.
 
-Keep the direction of such a chip in the existing shadow: the direction
-setters update sdir under the chip lock, and get_direction() is the
-shadow-reading path already used for unreadable direction registers.
-That keeps the callback usable in atomic context, which it has to be:
-gpiochip_lock_as_irq() calls it for !can_sleep chips from
-gpiochip_irq_domain_activate(), under the irq descriptor lock.
-
-The pad's actual state is read once, in process context, when a line is
-requested: gpiolib calls request() right before get_direction() for a
-new line, so the shadow is seeded there from PIN_CONFIG_OUTPUT_ENABLE
-through the chip's get_config(), which is gpiochip_generic_get_config()
-for the pinctrl backend, and the line reports what the pin controller
-says. Lines pinctrl cannot answer for keep the input default, which is
-what gpiolib assumed before.
-
-Suggested-by: Bartosz Golaszewski <brgl@kernel.org>
-Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
----
- drivers/gpio/gpio-mmio.c | 60 +++++++++++++++++++++++++++++++++++++---
- 1 file changed, 56 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpio/gpio-mmio.c b/drivers/gpio/gpio-mmio.c
-index 7e4b3e8d609f..0709ffaab4de 100644
---- a/drivers/gpio/gpio-mmio.c
-+++ b/drivers/gpio/gpio-mmio.c
-@@ -49,6 +49,7 @@ o        `                     ~~~~\___/~~~~    ` controller in FPGA is ,.`
- #include <linux/log2.h>
- #include <linux/module.h>
- #include <linux/pinctrl/consumer.h>
-+#include <linux/pinctrl/pinconf-generic.h>
- #include <linux/platform_device.h>
- #include <linux/property.h>
- #include <linux/spinlock.h>
-@@ -372,7 +373,17 @@ static int gpio_mmio_dir_in_err(struct gpio_chip *gc, unsigned int gpio)
- 
- static int gpio_mmio_simple_dir_in(struct gpio_chip *gc, unsigned int gpio)
- {
--	return gpio_mmio_dir_return(gc, gpio, false);
-+	struct gpio_generic_chip *chip = to_gpio_generic_chip(gc);
-+	int ret;
-+
-+	ret = gpio_mmio_dir_return(gc, gpio, false);
-+	if (ret)
-+		return ret;
-+
-+	guard(raw_spinlock_irqsave)(&chip->lock);
-+	chip->sdir &= ~gpio_mmio_line2mask(gc, gpio);
-+
-+	return 0;
- }
- 
- static int gpio_mmio_dir_out_err(struct gpio_chip *gc, unsigned int gpio,
-@@ -384,9 +395,19 @@ static int gpio_mmio_dir_out_err(struct gpio_chip *gc, unsigned int gpio,
- static int gpio_mmio_simple_dir_out(struct gpio_chip *gc, unsigned int gpio,
- 				    int val)
- {
-+	struct gpio_generic_chip *chip = to_gpio_generic_chip(gc);
-+	int ret;
-+
- 	gc->set(gc, gpio, val);
- 
--	return gpio_mmio_dir_return(gc, gpio, true);
-+	ret = gpio_mmio_dir_return(gc, gpio, true);
-+	if (ret)
-+		return ret;
-+
-+	guard(raw_spinlock_irqsave)(&chip->lock);
-+	chip->sdir |= gpio_mmio_line2mask(gc, gpio);
-+
-+	return 0;
- }
- 
- static int gpio_mmio_dir_in(struct gpio_chip *gc, unsigned int gpio)
-@@ -601,20 +622,51 @@ static int gpio_mmio_setup_direction(struct gpio_generic_chip *chip,
- 			gc->direction_input = gpio_mmio_dir_in_err;
- 		else
- 			gc->direction_input = gpio_mmio_simple_dir_in;
-+
-+		if (cfg->flags & GPIO_GENERIC_PINCTRL_BACKEND) {
-+			chip->dir_unreadable = true;
-+			gc->get_direction = gpio_mmio_get_dir;
-+			gc->get_config = gpiochip_generic_get_config;
-+		}
- 	}
- 
- 	return 0;
- }
- 
-+static void gpio_mmio_seed_dir_from_pinctrl(struct gpio_chip *gc,
-+					    unsigned int gpio)
-+{
-+	struct gpio_generic_chip *chip = to_gpio_generic_chip(gc);
-+	unsigned long config;
-+
-+	if (!gc->get_config || chip->reg_dir_out || chip->reg_dir_in)
-+		return;
-+
-+	config = pinconf_to_config_packed(PIN_CONFIG_OUTPUT_ENABLE, 0);
-+	if (gc->get_config(gc, gpio, &config))
-+		return;
-+
-+	guard(raw_spinlock_irqsave)(&chip->lock);
-+	if (config)
-+		chip->sdir |= gpio_mmio_line2mask(gc, gpio);
-+	else
-+		chip->sdir &= ~gpio_mmio_line2mask(gc, gpio);
-+}
-+
- static int gpio_mmio_request(struct gpio_chip *gc, unsigned int gpio_pin)
- {
- 	struct gpio_generic_chip *chip = to_gpio_generic_chip(gc);
-+	int ret;
- 
- 	if (gpio_pin >= gc->ngpio)
- 		return -EINVAL;
- 
--	if (chip->pinctrl)
--		return gpiochip_generic_request(gc, gpio_pin);
-+	if (chip->pinctrl) {
-+		ret = gpiochip_generic_request(gc, gpio_pin);
-+		if (ret)
-+			return ret;
-+		gpio_mmio_seed_dir_from_pinctrl(gc, gpio_pin);
-+	}
- 
- 	return 0;
- }
--- 
-2.54.0
-
+Do the callers all handle NULL safely? In that case #2 has some merit (maybe
+with WARN_ON_ONCE()) otherwise #3
