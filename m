@@ -1,82 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD284B04AF;
-	Thu,  3 Sep 2026 13:46:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 112784A8FF1;
+	Thu,  3 Sep 2026 13:47:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788443200; cv=none; b=WESlmfPmHiDUHIqneYsZJojRIgEKpEZb+fkdA8PVEDLRNqpuncvz5kVRvsMC0M1HotEFK0lczlors7chrwr2TlCcjnEvU2TppbEmkQfAblqxKAGM8qCKsW0r0N7wdxouzyE0iofARhRnjxMoQMDje5wyDrl8Fp6W6fhkXeV3yUQ=
+	t=1788443260; cv=none; b=Ey/q3VMahuNUqAQne4R7Tmd9Zyu6DtoQSnDiCFcIggrr2e3CFVdcMiE+axMKCSB06qRPoKlT9MSuCgBUHBe/wJw/7gLkbzCXUYGBg916nFnjxhg5j0LWaEbulzXyr15YEb5lGRBe2B4NM4ejspd6WRWl0uaETIh/CLst7C9+/jg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788443200; c=relaxed/simple;
-	bh=AKNFgz6y7bWysJZnMRPGzfk1IbXVY+OIBudNGcWmTOc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xy0ADXgm8z8ZPWm3MVBeuBHskvZic4QwoVUJm/hsW6w8y7kpqVIf5jwoZa4AbJQhIMUHia8uyxvrmGv8kbYpVdj6oM9jVmYtuJsOWKAdgtAqIRifepfUHjSlOz5a9THWEhUSxFlEocHfzoJUf4YD/twOmvTHRZJuXwfKSe+qmr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YB6xkOVt; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YB6xkOVt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E3781F000E9;
-	Thu,  3 Sep 2026 13:46:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788443193;
-	bh=1GaOqHUkNtj8r8eALTg+KisHKtjO2dUNcb3JPPBYfYU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YB6xkOVt9oDB5SoTCXGTwsADZjPK8YHbjUkq3uunoCbjHNVj07gp6JsEQtuYnQ5k9
-	 LJxrKBUneNlGhgloYUHq2mgXtyYZusxpL57Iaoo7NwjOiZv6G1uABQGFZqrG0fCsQ/
-	 cFbX9LnJKYNA35+vApsZiEsB0s44jnB2dl877XYBVg/VBL41pxCf0WypQZjZacWe/y
-	 dTEmI3stvPyEcCtOXfDEaFFz52E4pIOS5ui6GirrT/7PKBiIi3XDDjf3Xt7QI9Sjli
-	 quWI61akQNx6sjJPRaMbr43SId7MrOPxZnqyW2rrWZIFN5IXrt+qobwsAMqVAjku42
-	 wZtPlSHQ8EJHQ==
-Date: Thu, 3 Sep 2026 15:46:29 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Kendall Willis <k-willis@ti.com>
-Cc: Markus Schneider-Pargmann <msp@baylibre.com>, 
-	Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol <mailhol@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Chandrasekar Ramakrishnan <rcsekar@samsung.com>, 
-	s-kochidanadu@ti.com, a-kaur@ti.com, s-tripathi1@ti.com, vishalm@ti.com, 
-	linux-can@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] can: m_can: add ti,am62-m_can compatible with
- out-of-band wakeup support
-Message-ID: <20260903-crystal-wrasse-of-trust-a9dbc3@quoll>
-References: <20260902-temp-v4-0-3896f7d16ce8@ti.com>
- <20260902-temp-v4-2-3896f7d16ce8@ti.com>
+	s=arc-20240116; t=1788443260; c=relaxed/simple;
+	bh=fOtcCmlhybCj+7AQr2xFz8CmqmsOUn+94FPHpgWSpfs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=iY+dANcPEQJ83RyQgIlJhu0iVvcAAFvZUhv/bg/fpHnlJJdRHY+2OFWEPYSM17viFfRAdQDNqnT7dHRJTssyooG/pv9Cx8cD5JUo/I2JEsU4nM0b7X7F1/SCmxC1QYVKnToCIzL08XpsKiVLl5JIimNTK2TiZfhUjx8Xm1TROcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E1B61F000E9;
+	Thu,  3 Sep 2026 13:47:19 +0000 (UTC)
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+To: Manivannan Sadhasivam <mani@kernel.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ Mrinmay Sarkar <mrinmay.sarkar@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
+ Rama Krishna <rama.krishna@oss.qualcomm.com>, 
+ Rashmi A N <ayiluri.rashmi@oss.qualcomm.com>
+In-Reply-To: <20260831-skip_suspend-v1-1-ba2d877e22b1@oss.qualcomm.com>
+References: <20260831-skip_suspend-v1-1-ba2d877e22b1@oss.qualcomm.com>
+Subject: Re: [PATCH] PCI: qcom: Skip system suspend/resume for
+ firmware-managed PCIe
+Message-Id: <178844323897.126132.10981127519752342599.b4-ty@b4>
+Date: Thu, 03 Sep 2026 15:47:18 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260902-temp-v4-2-3896f7d16ce8@ti.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.15.2
 
-On Wed, Sep 02, 2026 at 04:03:28PM -0500, Kendall Willis wrote:
-> +struct m_can_pdata {
-> +	bool out_band_wakeup;
-> +};
-> +
->  struct m_can_classdev *m_can_class_allocate_dev(struct device *dev, int sizeof_priv);
->  void m_can_class_free_dev(struct net_device *net);
->  int m_can_class_register(struct m_can_classdev *cdev);
-> diff --git a/drivers/net/can/m_can/m_can_platform.c b/drivers/net/can/m_can/m_can_platform.c
-> index 56da411878af0185ff9cc512e325137428a68255..ae2d89b65fe8da65b1ca73cbf80cd8ee8483e2e8 100644
-> --- a/drivers/net/can/m_can/m_can_platform.c
-> +++ b/drivers/net/can/m_can/m_can_platform.c
-> @@ -218,8 +218,13 @@ static const struct dev_pm_ops m_can_pmops = {
->  	SET_SYSTEM_SLEEP_PM_OPS(m_can_suspend, m_can_resume)
->  };
->  
-> +static const struct m_can_pdata m_can_plat_am62 = {
-> +	.out_band_wakeup = true,
-> +};
-> +
->  static const struct of_device_id m_can_of_table[] = {
->  	{ .compatible = "bosch,m_can", .data = NULL },
-> +	{ .compatible = "ti,am62-m_can", .data = &m_can_plat_am62 },
 
-How exactly having out of band wakeup makes this device INCOMPATIBLE
-with Bosch (in terms of DT compatibility)?
+On Mon, 31 Aug 2026 19:07:02 +0530, Mrinmay Sarkar wrote:
+> For firmware-managed PCIe controllers, all resources, including clocks,
+> regulators, resets, PHYs and link state, are owned and managed by
+> firmware. The host driver must not attempt to manage these resources
+> during system suspend or resume.
+> 
+> Skip the suspend and resume operations for firmware-managed controllers.
+> The associated power domain transitions are handled independently by the
+> genpd framework through its own system suspend/resume callbacks, so no
+> explicit action is required by the PCIe driver.
+> 
+> [...]
+
+Applied, thanks!
+
+[1/1] PCI: qcom: Skip system suspend/resume for firmware-managed PCIe
+      commit: 89d17a6331087a76aea1a3a6c03dc45a19d306f2
 
 Best regards,
-Krzysztof
+-- 
+மணிவண்ணன் சதாசிவம்
+
 
