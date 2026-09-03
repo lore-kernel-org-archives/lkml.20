@@ -1,104 +1,127 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 760BF168BD
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 00:07:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A0C126AC5;
+	Thu,  3 Sep 2026 00:08:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788394065; cv=none; b=twxYQye3nu7ROd10moTq4OZP8cuAQJ9BNLTGLNgv7n5WLaUmuae4TNPw1WiOX0UtAyu7sV7ro4/nmbN/wIgdWVl4iFvRQnqNz1QNmITStZQX+42pnKKeLaEC73I6bw8jLHv1kaI32SLs+vqNqPwigqozt3xe/jaMbYHd5Jfp9as=
+	t=1788394112; cv=none; b=Wp4rMYhrMWWPeM3SB8vNZKRyjpU2YGWKbK/7sPSjeWLbdxFUWjFJm8C2xve6Km/j81z2kcKhACssP0/5w27PCD05X3DhBbaF4PBtfyYBpNRES6zyvseNUMRqm9cPzW5R3pz5ik1woAawl6HRZMKbikvcfRlgXhqHzwKXngC1CZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788394065; c=relaxed/simple;
-	bh=klWcWccjlsQzujJnnvFClpN+Yci0vG0vHnlylSzbLOc=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=HKCN6/kV6izHyKiAC6L51CBLJxZoLnKjl7W0sqBLZbp79AOn5ap8aVHptnHQLPka37B66HAgc4TJ+ZR3q8JNErEPRYcML4STc/b2lkexIsnf0ddSygw5yiaGlqzataSrn8S15oJtFJutw3kpZH7RryXTg+F0B2X0BHjK0dKrjOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=Lu3R+Nwe; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1788394112; c=relaxed/simple;
+	bh=4IWgXvoJwCaMjMBvWmnY5yakz7j3ORyKCxeakBXB0nc=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=Q93NqNOYgTS/AC2o+mEJEQIpEjCbfy3+cGGPC16Lk/lXnV428wqhsuSR6iWWpiBr9mK97uylqQErZ5pHjp1EUG2iy7nbAWUdxK9/E7QiHg8kORQnlHR58fvtefXPN3nQEC0+mHxx0Uu9S8EYEcZaZmb12VUZ81JMScUdXI8tVg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.com; spf=pass smtp.mailfrom=fastmail.com; dkim=pass (2048-bit key) header.d=fastmail.com header.i=@fastmail.com header.b=MIH0ahMO; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=sZX0gfcv; arc=none smtp.client-ip=202.12.124.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="Lu3R+Nwe"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:Message-ID:Subject:Cc:To
-	:From:Date:MIME-Version:From:Reply-To;
-	bh=cmQEOzLtOK6G3QHIoxlsUO75VfltJ8r34O3qt0LsBwY=; b=Lu3R+Nwe9xNhYiSqjlmIy8VM9n
-	xs/JIFHFwMmogdq8SHa/t4oYuVLRDGBgqGYD3CQZAwTMLrDJ50qyUhwkYM/DZ65eoGb2l2LsBHkM0
-	dzwK/TXD62oc9glyRER/Q+xxq94qpiLXRNYPSdrYZrmTjQJqCUd0M7DfgkuQLm7aujBmYjaRpGq8z
-	eoNAu9gyzQyZ3Jve18b1Ro9whdIdsjptohjZDExoYwt26cC7D+a8qkW9YQby5hynDWRbtvSzxJ93I
-	6+dPTx4cxi3Yyajjto+3pJFXeYB9RjyDxolksiSMZO83tKSP7+V0PBomwu0DTaCP+na2cib84j3Qx
-	QvlH8vFw==;
-Received: from maestria.local.igalia.com ([192.168.10.14] helo=mail.igalia.com)
-	by fanzine2.igalia.com with esmtps 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1x1uyy-00E6IP-4K; Thu, 03 Sep 2026 02:07:08 +0200
-Received: from webmail.service.igalia.com ([192.168.21.45])
-	by mail.igalia.com with esmtp (Exim)
-	id 1x1uyx-00GOWm-B9; Thu, 03 Sep 2026 02:07:07 +0200
-Received: from localhost ([127.0.0.1] helo=webmail.igalia.com)
-	by webmail.service.igalia.com with esmtp (Exim 4.98.2)
-	(envelope-from <mfo@igalia.com>)
-	id 1x1uyx-00000005maZ-18xr;
-	Thu, 03 Sep 2026 02:07:07 +0200
+	dkim=pass (2048-bit key) header.d=fastmail.com header.i=@fastmail.com header.b="MIH0ahMO";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="sZX0gfcv"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id F3F037A0064;
+	Wed,  2 Sep 2026 20:08:29 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Wed, 02 Sep 2026 20:08:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1788394109;
+	 x=1788480509; bh=eLwqsaFT/7/jsEC3Jwx/ALIBHbXxlyRexC2ts2yKUqA=; b=
+	MIH0ahMOnwoISX5iyM7WR6aHJfO1cNLQ+fATckZKBZ8ufW9QMn0MpHUSXg+8yu+T
+	aI8sn3aMiG4uDaHod++LLWk4J4pWGKcb8zk0iW5q1iPv/NH7vFgO+G3f4G7qVI/X
+	dyQqMMEz2B5fvRNnumE30lzXHt0amcCPZ9Ay2ZkwY6GJIAsS2HkrbL+bOhGNrK5D
+	kIubjqcdIFB3C4YwF6lj6MA5d5G8XD1jlixJveKOcFiRg1KWxxiXjVem5//Wkbi9
+	a4eijPMu4bi9Exh1htBt+4AOMDlp7IlKdpbJCtiRSaD1JgBIEl0aaJWVkE8hyQub
+	Ofgip1Cgb1tLnsUOZ4GuOA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788394109; x=
+	1788480509; bh=eLwqsaFT/7/jsEC3Jwx/ALIBHbXxlyRexC2ts2yKUqA=; b=s
+	ZX0gfcvPgAutlepq0BBWtI3+uAOqcpYBaW0dQ7goiYx/XsLUnAg7ROq8t5CR4x8f
+	aONDvpG0CaOpxWrLyrS4gBty8Chw84UPMenankLsMcT7vufKsyh2h2Y4Z/vDfYWM
+	HCD6RlsPseUv541y5RrbxYlNh9Zco135k4lFoa473oNXpP8A8B25FcEjf9S4NYhK
+	+VrOl1XWOJY3NzPYd4XhQ+rnpltGP19CEInPFIHw0rLCB9eMij/F6DQzbSlB0/OM
+	qHAiFPPUVxrgZyaq5e5goidEwovYhntBT/0KWUAAHDnwI/sCkSF9s9zZEkgwFDPO
+	WzPw6fLZg8d3iW5qsSsHQ==
+X-ME-Sender: <xms:fbqYalTw-aB8OAGT1sO0P7FdEUOVoS2-obUzlwJDuSwcZIDto9BwPQ>
+    <xme:fbqYajuBU4uJtQXIf2L-RnZyExTw1zfN8beYxZm_rtVC2BJ0aG2hTCEzGU7FeJKTi
+    WSb6M-jd8RNe9raz3BTUyDmbY8n2ygM4MBSKKc86miLLp6FwIJcYaQ>
+X-ME-Received: <xmr:fbqYavE3jSaQLnRJ0HP5Uq1vcAroWNhH2Gl7YquD8xJOU1Y33O4SR54asJuu8La6jX-eZr9E>
+X-ME-Proxy-Cause: dmFkZTE2DRjhSHsxqDc/IeheCF1GLEJmY0Ce8Hm2KpCOC7bFLbKG6aL7bd0kkdKRJn6wgX
+    Jksb66tsv21sAaNmOLea/K7XNcnvENk2I+Mp2/kswqe8VqKyhLY26+lT6Wa3gMAHwF5boA
+    8nS+/bXlhUXHs06yyBmumSyi54cLrhpOys8JDtKs0Kc/WW0MpK5k6t2mVmV5qX1CCKY75U
+    i/EKPcf5wS3wWu+lr6PkA+947/pG6oGFHvtR18nEIpPdWl9W1nbf3g/2QjxKdiLhKg9WAT
+    riuHSNYqARRmIYNqKoc1szuzdBFSCdZWljnUk1ZqP6PVL6BFFdgGc49+aP28HnDjy14GoE
+    RajVwc2XteBK3IXKUxUXpLX3PMb32ixOmDr+waiYx79IMRTxwy5ZFJPoiFQU3vnRyclP8q
+    zDW5RSNMpaU5zMwb2t5iGuUlINXX2BuqIXI3gpYxjMrfZV+oXWNECdBCugNc+T3W5eU+iS
+    Q6KrV2vv5BxteFU1LwZ5Q5D8m2ERYPGbJbib8cxFpYKGJA9auKeE62xotsdZHZw9hj1Vs4
+    +b2q6M9zebz19fII1HmLoJx79msKkYJiYgdoiQCG2l713M6PtcY7FqgUpRD9vYrgWOpXRp
+    tWf/OH71WPhSzDu2lOi2lPfx4JLNWwXwGlsmFIEvH4SXyDDBsLFAVFAFfIcQ
+X-ME-Proxy: <xmx:fbqYaswNMeyx3q2fYWSzltu2NpAtFt_We47KT7ODJMAV4PonuR6pgg>
+    <xmx:fbqYah0kXwxhwp62SVPkAnqXKED5WCY-PbAyeLwUkz_1alCr5_npuQ>
+    <xmx:fbqYakpVfKcHMkA_WOFAue6hosb2Sew2fnTaA_rzNuyy4y2puoMsbQ>
+    <xmx:fbqYamUFb0T2sVqrVPz8L_zw0mUUkdIQKFZt5gUfOGKcwnvTzd-wRQ>
+    <xmx:fbqYaij4BAY3aeipq3v7HYZXG2NedsutiLG6VpRgXFNAC-iXNQD_zbGD>
+Feedback-ID: ia30e4b44:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 2 Sep 2026 20:08:29 -0400 (EDT)
+Date: Wed, 02 Sep 2026 17:08:28 -0700
+From: Jonathan Cameron <jic23@fastmail.com>
+To: Dave Jiang <dave.jiang@intel.com>, linux-cxl@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+CC: dave@stgolabs.net, jonathan.cameron@huawei.com, alison.schofield@intel.com,
+ icheng@nvidia.com, Jonathan Cameron <jic23@kernel.org>,
+ Vishal Verma <vishal.l.verma@intel.com>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_MAINTAINERS=3A_Add_Richard?=
+ =?US-ASCII?Q?_Cheng_to_CXL_subsystem_as_a_Reviewer?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20260902235348.3563444-1-dave.jiang@intel.com>
+References: <20260902235348.3563444-1-dave.jiang@intel.com>
+Message-ID: <8E3BF784-0F86-4591-8599-64A0E0443DD2@fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 02 Sep 2026 21:07:07 -0300
-From: Mauricio Faria de Oliveira <mfo@igalia.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Michael Matz <matz@suse.de>, Richard Biener <rguenther@suse.de>, Thomas
- Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Dave Hansen
- <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
- <hpa@zytor.com>, Juergen Gross <jgross@suse.com>, Alexey Dobriyan
- <adobriyan@gmail.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Jan
- Beulich <jbeulich@suse.com>, Brian Gerst <brgerst@gmail.com>,
- kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v9 1/5] x86/boot: Remove "cc" clobber from memcmp()
-In-Reply-To: <20260903000132.GGapi43JjGh-8sj65Q@fat_crate.local>
-References: <20260822-pvh-kasan-inline-v9-0-e70ef3b75b6a@igalia.com>
- <20260822-pvh-kasan-inline-v9-1-e70ef3b75b6a@igalia.com>
- <20260902023129.GGapeKgVlL2WgHcJcb@fat_crate.local>
- <57b0d188-b256-bde4-43e6-99dae4f59d60@suse.de>
- <05896397667d66a2969259298bcebb7f@igalia.com>
- <20260903000132.GGapi43JjGh-8sj65Q@fat_crate.local>
-Message-ID: <c9dd5e5de8484285b71ae62b98610911@igalia.com>
-X-Sender: mfo@igalia.com
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Spam-Report: NO, Score=-2.1, Tests=ALL_TRUSTED=-3,BAYES_50=0.8,KAM_DMARC_NONE=0.125,KAM_DMARC_STATUS=0.005
-X-Spam-Score: -20
-X-Spam-Bar: --
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-09-02 21:01, Borislav Petkov wrote:
-> On Wed, Sep 02, 2026 at 10:48:14AM -0300, Mauricio Faria de Oliveira wrote:
->> Boris, I guess this may be added as clarification in the commit message.
->> Would you prefer another version with it?
-> 
-> Yeah, I'd actually prefer it in the code itself so that we can find it easier.
-> This file is as good as any.
-> 
-> Something like this:
-> 
-> /*
->  * Summarized explanation that "cc" clobbers don't have a meaning
->  *
->  */
->  
-> and leave the "cc" clobber there but commented out:
-> 
->  /* "cc" ... */
-> 
-> so that we can grep for it easier later.
-> 
-> Thanks!
 
-Sure, will do in the next version.
 
-The rest of this series is OK to you?
-I can wait for further feedback and combine it with this change.
+On September 2, 2026 4:53:48 PM PDT, Dave Jiang <dave=2Ejiang@intel=2Ecom>=
+ wrote:
+>Add Richard as a reviewer for CXL subsystem=2E
+>
+>Cc: Davidlohr Bueso <dave@stgolabs=2Enet>
+>Cc: Jonathan Cameron <jic23@kernel=2Eorg>
+>Cc: Alison Schofield <alison=2Eschofield@intel=2Ecom>
+>Cc: Vishal Verma <vishal=2El=2Everma@intel=2Ecom>
+>Cc: Richard Cheng <icheng@nvidia=2Ecom>
+>Signed-off-by: Dave Jiang <dave=2Ejiang@intel=2Ecom>
 
-Thanks!
+Acked-by: Jonathan Cameron <jonathan=2Ecameron@oss=2Equalcomm=2Ecom>
 
--- 
-Mauricio
+
+>---
+> MAINTAINERS | 1 +
+> 1 file changed, 1 insertion(+)
+>
+>diff --git a/MAINTAINERS b/MAINTAINERS
+>index 3a19da74d00c=2E=2E25d61ce9506a 100644
+>--- a/MAINTAINERS
+>+++ b/MAINTAINERS
+>@@ -6567,6 +6567,7 @@ M:	Vishal Verma <vishal=2El=2Everma@intel=2Ecom>
+> M:	Dan Williams <djbw@kernel=2Eorg>
+> R:	Ira Weiny <iweiny@kernel=2Eorg>
+> R:	Li Ming <ming=2Eli@zohomail=2Ecom>
+>+R:	Richard Cheng <icheng@nvidia=2Ecom>
+> L:	linux-cxl@vger=2Ekernel=2Eorg
+> S:	Maintained
+> F:	Documentation/driver-api/cxl
+>
+>base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
