@@ -1,174 +1,173 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010068.outbound.protection.outlook.com [52.101.85.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87720391851;
-	Thu,  3 Sep 2026 20:36:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.68
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788467788; cv=fail; b=SSY1K+reCFFy0CJfzcLGy+dTVm4ot/rtHX2Vjn11NaExT7pvvOSZ+Yvt77jnobcUf9fhd3jp1E3fSUUT11reJGWO8oRglvWJiILGP4x5XHg8tPJZL08c35nzikI4w6hW6yjkYOowSS6iuw9IVIixAILlzw1jlhpTAwOw0ivB1hg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788467788; c=relaxed/simple;
-	bh=ASGBYOEzsIgiqhW+Kx2mrLdOgaQENAvFK0P+fT23vQ0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=pv99Kt8Y5HBJ4RMb/oif4fzGMcAphcO68PY2OPzglJG520Aem3bKwXYCPtXMTSWF9wYNHGuwigEzBGhBJGE+27YZq5obiemAuaec1E4acFFaJDALSS7gcfwT22KPbf55T1s3VXs3cVGbJLKbLyFGa3dbYEPcOObGt9XUicXzlpM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=fail (1024-bit key) header.d=amd.com header.i=@amd.com header.b=vkFWAKP2 reason="signature verification failed"; arc=fail smtp.client-ip=52.101.85.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0CD64FB9BE
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 20:37:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788467858; cv=none; b=oT/q0AzNIvnXlEYRBLTldahGn+hOHr4X4w/RnZVtPDzUxg3ezuoCw6LOEWgiC5726HMLVxLDYBQcOfoi9uYc5OXuh18AzwlrnxY958HHnuMTL9J7mDf8gZ3dKFFTswt+oJ7MtN9rdEeKep+UD7CwrBEIRQcskEBuivSOLn+oezU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788467858; c=relaxed/simple;
+	bh=Lp/rpmKZfaRLkZH7ZQedQZ1rtoivwaoM23iRcSg0bAo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BHZvhCpMcOut7/HOwis4g+WjLauJ9yKS8xWpkhTe4C+qvS2cyc5SV6j5j4CfGSfT3VKljGosYT+M4/GJwLrhZvRO/bvU+pisyhHdMEhrKH9/HA5smbnsugVFI0spNae74V+4kei/KHDhMItlsZtsWZBoUMzxSZCkyptNtF73gCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gzAYV3Bk; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amd.com header.i=@amd.com header.b="vkFWAKP2"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wcagXiZevpiNytheVnRHJDtt4rony2L5V8ykKssqPU4m//JMc0yXq4idVG/j8zDX0CKRcWCPsGXzAEhkWbh7JV/0tltwrSWY0eDFWs/Jo1Cl0BSyCFnb7Ia6bxrGPtcn3XfsNM9amY2xo9bomVf47tacDM/gLkg2hkujO37DGyc7I0Sk/O4Yi0jUCb9jQTk5Ix/XfGN99lHfAGW9/477bOtwTy2RJ/n2eyMsPj0QDBnvingNGpNAmYPn7FsOUJ2xhFNDitkO27qCQ9LNopCPneORrGcU7pqpBhciz8R11WbwCb6j+hNjp/oS7AiYDMSbW8pxJ6xDOMvzm3kzNTkNwQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gl2HP+rGxrvIJMFXRI39loo7HDG7XFKzlPNE6Mep4Ls=;
- b=Pq98ciMqZQM+RuqGVuCCVlE7SLbzZa8dRoA/OnVHXE7xNEIwaI0+M9sf93KZNIcCWmlkRCzG8pE/jrUP/z22Z1j4bf3894obL9yl+qoyZzPKxZhcJKH/CgFdopAvQ9f/i3KPPIgzUDp8BF3+VnpaVaXZqAYLVe7eb9UY6DyJ2p7M/TvvnbxIYaAO6ZPBFtOfiXb9ETZB/G5Y9bsWriQLA1HRgfLGSyexxVj27IR+M+g3T4ya1/monS0DyoLCNXngELAkB5ksOBY3M65W/Gx1hk9/coX1RmGTQBw/rgL0lRbEnZSYN4WV7WWOeAwv5Fa7rEITIjKrYlj7J4FkldQxCQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gl2HP+rGxrvIJMFXRI39loo7HDG7XFKzlPNE6Mep4Ls=;
- b=vkFWAKP2uPlU4F39UbNTo6CeoNynJzNe+2oq126uKxALKRM6uXjbTkC8Q9ei4z3vNpsejF1F1Ror/EL5Q2CMWjlb4Q22bze5x7FZQNZuxVYAjVgGBnl4f27uMy6sjmJdMSf5wKbJz6DtiNyBvwFtOmqgjS6hqGkV9UosSo5zmrw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
- CY1PR12MB9558.namprd12.prod.outlook.com (2603:10b6:930:fe::13) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.13; Thu, 3 Sep 2026 20:36:13 +0000
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf%3]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 20:36:13 +0000
-Date: Thu, 3 Sep 2026 16:36:09 -0400
-From: Yazen Ghannam <yazen.ghannam@amd.com>
-To: OptoCloud <git@optocloud.no>
-Cc: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, "x86@kernel.org" <x86@kernel.org>,
-	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 3/3] x86/mce/amd: Reset deferred-register state between
- polling banks
-Message-ID: <20260903203609.GC145182@yaz-khff2.amd.com>
-References: <ZYPjnBLNLY69gIYeH-ING5IhrnA3ryhVQquuPlWhUR-WmKLUFl3z-HRWR6q3zW88Vi9L4IpFrd5WnRhVG0AptFUR4cDvCGTJ782EUQL9u0Y=@optocloud.no>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ZYPjnBLNLY69gIYeH-ING5IhrnA3ryhVQquuPlWhUR-WmKLUFl3z-HRWR6q3zW88Vi9L4IpFrd5WnRhVG0AptFUR4cDvCGTJ782EUQL9u0Y=@optocloud.no>
-X-ClientProxiedBy: BN9PR03CA0478.namprd03.prod.outlook.com
- (2603:10b6:408:139::33) To DM4PR12MB6374.namprd12.prod.outlook.com
- (2603:10b6:8:a3::18)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gzAYV3Bk"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4843efcbdb2so213719f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 13:37:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788467849; x=1789072649; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OvK9knuWq5uxHuXSn84mygHm6H7cFKDZ8xVelzi2Vf8=;
+        b=gzAYV3BkYhIh+iLCseZOMdubqUnvHnNVSfeVr5E0CnXiH0Ol95sM0X384++NYsJecL
+         i8aKzbWiOcTHHnkyDxW0KGJRMV6SlHo0lixmw1anLqjUj1o4c32IOJuuHYXHk18AXzcj
+         KvFf1h9Q5Xko6iXGIflyV/Pwr9oU1/emnsknRm6MI4elXiya/hMJ0d61xsKJrxWtOm+q
+         EUzsTS29J/KSxYnk7649AJyGfT7Bak72Dn6yV1wOnMO8SBTRhoSg3zs0epUGjydbqshW
+         0FkK5ZXUA3LMUpAIPV17AwpdZ1CkV3RdyvytUHh89g5BYsUFTrHkdiDoIhqFZ9SJEmy2
+         05nA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788467849; x=1789072649;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OvK9knuWq5uxHuXSn84mygHm6H7cFKDZ8xVelzi2Vf8=;
+        b=Eis1vCCshLvKmqvtCPDV2yLP1wW0ysp8pXzf/zKxADaNOexlpcSigUT+3RoAINCHRT
+         8ne5lVvf6IWHBPoZBC33tRDtmcFTYT1ErPfI3QDc0p5RnYDVFX0f7AMfmrFM1oPwtrx5
+         g8q5PhhNKDipztVtfg2qOnlX73/dJvJLO3pYO0WHpyOMmo3vBEARAXTn1AuwrZkMCFXg
+         SVIlwGBtl+qQeCw9OP10Kx5aceOJekfqMy9nqyFIaCoIfbv4ZJfg7WZDqhgdj191ZBFH
+         WCWDEfJCNnggsdVnKLKKVEnEVL6TZ9WHCzmuSIt2qeCp7nwJ1ENbsA1Heu/U4KJSnHYg
+         zigA==
+X-Forwarded-Encrypted: i=1; AKwUvBz4MeeChAj5KW8+nWnEhC/t7WDtJY+/DkHClWAu0lmpMrjLaGwzGEP66sS1LjoahbIpJpACG6v3a2CrVXU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kdyhdXaEb3+iAYNsSEbKzunfNcskoijX7dqpvlgOLtvMXQUOFA
+	I7/YfcV3j3drn25six1Qe8uXRG2gaMFEZDzJ4F7AKOcNYLBBy3IzwEj8
+X-Gm-Gg: AYBFou1w+mXcN69EYpGxlrFFwqEknAya9OQWajxL5e5KKk+JYAjSLFTpOPNl30RjsRo
+	qJMKoP2JpyZBibZeH+8V6yU521SJrevUt+7YChaFh0u4ACpQhwy0GUQCfuaEskQh9zzrQrjMksG
+	PHqesi3PMcoUYOHej6Kc4nhEFF5pH1d0hkRTLPmsnrLjlaxgTXVkAMjHHuoUU0D+aO2hZnE2+E2
+	2HBl/llZM5AruE2756gFwx8KZ7uQUBmgtKI7e7qYQR/+41tcN7OiD2POnOHsmYnfOi96OsHK+ef
+	bNqn6YzC8b7qfKlvWlW/ibhWQ8OON8hzgWn1cOzk2H7p3Bzaho5oCl63trgiaJcAbj4r8USm0H0
+	KaYDdL6BRU2eTlsSEoLoD7FhMEmQK/XFFpfJXXriXKZ4/4jcREZzoNj9FWg2fmT/tqQi+wkxHxF
+	7cOWf5DCsMtNTiAEBnFBvbnQujw62KrmAgfcEtch3UHCyaCn/qzustzmYAg9FnXeIzSdGR+ka9U
+	FtG2DjHOKJdeciWPljGSKpP6viklwzYaxP15cI1TFHS6UYfFoRnD6hxkIGFgaihVcSdUfKuQX24
+	pEXa7QGRbwxhqX8tr7xdney4g9Wkg3ixKQT2IndorDQwIwNRHcxcShjIk+YnqvDNjslDOOTFtlq
+	J2JJj
+X-Received: by 2002:a05:6000:26d3:b0:481:5b58:c589 with SMTP id ffacd0b85a97d-485870935eamr2874884f8f.10.1788467848463;
+        Thu, 03 Sep 2026 13:37:28 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-a979-9501-3df6-d7fa-8a5a-06c5.310.pool.telefonica.de. [2a02:3100:a979:9501:3df6:d7fa:8a5a:6c5])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588394fa1sm1005070f8f.8.2026.09.03.13.37.26
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 03 Sep 2026 13:37:27 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Vlastimil Babka <vbabka@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Hao Li <hao.li@linux.dev>,
+	Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	linux-hardening@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: [PATCH v3 0/5] slab: ZERO_SIZE_PTR alignment and ERR_PTR hardening
+Date: Thu,  3 Sep 2026 22:37:15 +0200
+Message-Id: <20260903203720.63689-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|CY1PR12MB9558:EE_
-X-MS-Office365-Filtering-Correlation-Id: cb7b57c2-0b1d-4546-43a6-08df09fafeee
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|22082099003|18002099003|5023799004|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	2T+J8BZpHXDC7WHRDSLJsry+NSk/pDKqdLXyTBi3dhChoYS7k29E1/FrymaGOhfPlJbbO3spFsf0vJUALClffeMEgomEnlj4u6hMxl9dk86+WQucAnhSGOKf0lNEG3WqPQXuFDH1frYd1jarcWT2hV4zfTgcfL4TuWd1SvHM0Z7clP5K16k18M8/YpOGYa5b1HFBEdKQAiOt7G/qShY7R9h+UUyJCcGMcEkWtMz9TnqEL011p1+Aw4D3QXnVESL8Y6pe1i+/zDoxMUtxEqgpxA0x+/qglgeZPpCughoLXW8SF/lTvpXihHdfM0HSUMB0laQYr20VXM/NFpdjQSfcdrH5PM2vntOAqOtBmDEiq02ATfiW1kagn9hEbRoLKQMBmqut3ln65/Gm3NOGdMDFXKXRDY16Zk16tej/DvQhQ1K+HcAVSUGOJpjj69N7kfQKZTt3uoa7mUyZJ4NrLAp27lQ8uBK1QSer6ocmjcjsJHvHQOQjlP3Ttr0uttofdRhojXiwDUsNxh+hqKEbybjsX/RHFdMjT5JTuxczr6FjQ+wPTRuBqYZafSA03HKBSqlNskN88Ok2DVO2MBNpVhKtefxmZeSnSLwlqezu8OicMMaGFERbWbC+Smc02tIoAFD7OF217Niq02G2KE9w5cqL8QfXu1nWdXTHE+ogFZxR7Q0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(22082099003)(18002099003)(5023799004)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?X278XqMhMHEVDh5cpxtd+SkbAwpAL1AUCqByCV/jXbguFAcsq2EvUQXhBY?=
- =?iso-8859-1?Q?CPU9x2AiuO0tAeDOMGLJ+Cmei/bod7z4dvNoXkQnA/m6EoTbXMjCqKXk04?=
- =?iso-8859-1?Q?+Fhsea1qOD+m82MVhl6HLAM1wW9eGxBjHwJhk6NBfqr/cgElHaHTEmP17t?=
- =?iso-8859-1?Q?5gxgjNqgYtopXCF/TeTmYjKWnNIIQ0sv2FJ2SPaWrmO/vGmU2U1qJGP654?=
- =?iso-8859-1?Q?9dkWg4dh7K/t2BYjWz5vDZYZgE1HVbT5cldokvph/UEjLvOQMLDR14CiII?=
- =?iso-8859-1?Q?xZL4EoYl+4N9SWZJEsH5SsiRQ/duVD4YneCDkXIMl+/SnlHMW7V4+mHU69?=
- =?iso-8859-1?Q?hVooJKop5Vu5/r7c3hv7ogINrk9N0gXD747++bH/tZAYGfNdlBlmkcG4lb?=
- =?iso-8859-1?Q?AaaQQQlu4kcwgsTQa3FZhBD+ZpofZvBa1YxVJdJX9getsjw7hss/wUrNxl?=
- =?iso-8859-1?Q?KidoJP7RSFmXxeT7hQeLOac6gRWKVJFB5J0YpG95EIHdlXeWpUSc+xQkpq?=
- =?iso-8859-1?Q?Bm3qqy8EHf/sOq8MUFDYSPYX+MmO1W4GUhwSapzMSr+fcNIVa6AcGaEJ0V?=
- =?iso-8859-1?Q?YNCqcPsp3oAjWjOBum49t4wbzO67fTST3yGb5yNPWHQAzuKwDG+2OJEwNY?=
- =?iso-8859-1?Q?S43f5JTwdT4GDW9PoFMmhwAfwRi8UC94Qj8rlA58I5zZxbCltOcV43TyRt?=
- =?iso-8859-1?Q?ZluniYdcGnFQM4mVWWtXBHHazX9/DQr/uPN2bybxiYwYLNB0mxEWg2MjrH?=
- =?iso-8859-1?Q?MbVlh8HgY1xVcD88Hr/fjDUA+RrzXRmX9P0ZdxnzExWSsJnnAr0eayX18f?=
- =?iso-8859-1?Q?kt+jIbM9qWNO855hl6+vbWdx38oZSpJbTOPB7+6/GGasdNdOHDuSOKKlAD?=
- =?iso-8859-1?Q?yzYDSpAZCE/TWkFtAGxHslyYrRGogZCdCScg4OswCcn9gpxWlX9Q9+M3DW?=
- =?iso-8859-1?Q?9L6AXJ9EBddZkan9MDdY+itQFuAHHAkdY00XyQHckEe8Bi9OtlJkhZOFkm?=
- =?iso-8859-1?Q?mz0peQEggUT258Cre5pomteBmg6+wpJJUR7gRlVMT0/hZVEOEceEl1IQzu?=
- =?iso-8859-1?Q?ESE6cQj8sPwsltINcjL03yCNzKFiywMn9GJZ1J036wlUqVrsqp/+uluEJZ?=
- =?iso-8859-1?Q?L9wGOekhIGsMPf+hBNqbzBhsmFbNG6uN+G6AknnxftT+DxoLY4epD2O5Z1?=
- =?iso-8859-1?Q?BD/ugQmhO9TtL4mEjFrrlWp2CKMP8bnDHV1qcubQ5svMn+UKebjvZZNk8B?=
- =?iso-8859-1?Q?OaafgzVCZ+X41kQtL9yr2v2NDlPItsrCRgyNuNqr87tyYg5Zwx8w08WlT+?=
- =?iso-8859-1?Q?cudRZET7Oid/mZxvAfKqEGu2u4A+4SONxy5jePGTtMB7c8moK01adLsf6/?=
- =?iso-8859-1?Q?Pjlm8VO2Fo9IYfCFQOObzyEUWIVbqivUqrQ6LTNriCaOFpp7MUXucXy2DI?=
- =?iso-8859-1?Q?mA4YqZ7sMILGP4chUn+y2po+jCQNdW6EPppEjDbj/3oWBDmr7yiNN3eeHu?=
- =?iso-8859-1?Q?bZpPZC7BVjVBPVSqM50CcmgtK16yuSMogMR+gDtSuhHtofyJjA/U5WG2RI?=
- =?iso-8859-1?Q?nDlAmThnQQQ3p7JxrCzD5W2gDUhdYUY+MB4HZV/EeUE4WqpV5F8+dyQ/L3?=
- =?iso-8859-1?Q?vCTjgWLQYExWK4ZecbRzqrVYOTtqC89y9q9gK340up5MJb/Y8uMy0xANtB?=
- =?iso-8859-1?Q?nbSdHR1mTrfqTMMNkQtGrhzwhITGa+i7DZbmvVN1jsfg+fdnHtD0N2OifT?=
- =?iso-8859-1?Q?tc5QsAI0LRsdIWpgmMaDba+3Rty0A28Vuw+6mIcNiKb50Q?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cb7b57c2-0b1d-4546-43a6-08df09fafeee
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 20:36:13.5036
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: otvSGJ1DacAJKOfstD/wEns3JD3XUt/SyJ39rxExgDft71dFqtDJvqbV25oleYGkk50NGA7RCCoBAeU+MsGbHg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9558
+Content-Transfer-Encoding: 8bit
 
-On Sun, Aug 30, 2026 at 04:45:25AM +0000, OptoCloud wrote:
-> machine_check_poll() reuses a single struct mce_hw_err while
-> iterating over the MCA banks. smca_should_log_poll_error() sets
-> MCE_CHECK_DFR_REGS in ->kflags when an error was taken from
-> MCA_DESTAT rather than MCA_STATUS. Nothing clears the bit again for
-> the rest of the poll, including on iterations that bail out of
-> should_log_poll_error() early, so every later bank in the same pass
-> inherits it.
-> 
-> A stale MCE_CHECK_DFR_REGS has two effects on a later bank:
-> 
->   - mce_read_aux() reads MCx_DEADDR instead of MCA_ADDR, so the
->     address reported for that bank is wrong.
-> 
->   - amd_clear_bank() returns before writing 0 to MCA_STATUS, so the
->     bank is logged again on the next poll.
-> 
-> Clear MCE_CHECK_DFR_REGS at the start of each iteration, alongside
-> the other bank-local resets.
-> 
-> Found by code inspection; not reproduced on hardware.
-> 
-> Fixes: 7cb735d7c0cb ("x86/mce: Unify AMD DFR handler with MCA Polling")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Eirik Bøe <git@optocloud.no>
-> ---
->  arch/x86/kernel/cpu/mce/core.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
-> index e4e588d02a18..6ed14ec171f2 100644
-> --- a/arch/x86/kernel/cpu/mce/core.c
-> +++ b/arch/x86/kernel/cpu/mce/core.c
-> @@ -811,6 +811,7 @@ void machine_check_poll(enum mcp_flags flags, mce_banks_t *b)
->  		m->synd = 0;
->  		err.vendor.amd.synd1 = 0;
->  		err.vendor.amd.synd2 = 0;
-> +		m->kflags &= ~MCE_CHECK_DFR_REGS;
->  		m->bank = i;
->  
->  		barrier();
-> -- 
+The kmalloc entry points promise ARCH_KMALLOC_MINALIGN alignment but
+return (void *)16 for zero-size requests. Patch 1 aligns the sentinel
+to that promise.
 
-Same feedback as patches 1 and 2.
+Patch 2 limits ZERO_OR_NULL_PTR() to NULL and ZERO_SIZE_PTR. Patch 3
+handles ERR_PTR explicitly in kfree() and hardened usercopy, without
+giving ERR_PTR special meaning to other users such as krealloc(). The
+old helper did not match ERR_PTR values either; patch 3 addresses the
+adjacent hardening concern raised during review.
 
-Additionally, why single out the MCE_CHECK_DFR_REGS flag? Why not just
-reset the entire kflags field?
+If backported, patches 1 and 2 should be taken together.
 
-Thanks,
-Yazen
+Patch 4 adds zero-size KUnit coverage; patch 5 adds ERR_PTR KUnit,
+LKDTM, and kselftest coverage, which is why Arnd, Greg, Shuah, and
+linux-kselftest@vger.kernel.org are newly copied on v3.
 
+Tested on 940de590b839:
+
+  - GCC 15.2 UML slub_test: 10 passed, 2 skipped, including
+    test_zero_size_alloc and test_kfree_err_ptr; NULL and ZERO_SIZE_PTR
+    produced no warning, and the expected kfree(ERR_PTR) warning was
+    suppressed and counted
+  - GCC 15.2 matched x86_64 builds immediately before and after patch 3:
+    kfree grew by 15 bytes; __check_object_size gained a 13-byte
+    comparison on its normal path and a 23-byte cold abort path
+  - GCC 15.2 x86_64 defconfig with HARDENED_USERCOPY: build and normal
+    QEMU boot passed; the committed LKDTM selftest matched the distinct
+    ERR_PTR diagnostic after reaching usercopy_abort()
+  - Clang 21.1.8 armv5 UBSAN_ALIGNMENT: no alignment-assumption or
+    slab.h report; generated code retains the exact comparison and
+    single evaluation
+  - GCC 15.2 MIPS64 big-endian noncoherent build passed with
+    ARCH_KMALLOC_MINALIGN equal to 128
+  - Microchip SAM9X75 hardware (armv5, ARCH_KMALLOC_MINALIGN=32):
+    ZERO_SIZE_PTR was 0x20; zero-size allocation, ksize(), and free
+    passed with no boot splats
+  - Raspberry Pi 400 hardware (arm64, Cortex-A72,
+    ARCH_KMALLOC_MINALIGN=8): ZERO_SIZE_PTR remained 0x10; the ERR_PTR
+    KUnit and hardened-usercopy rejection paths passed with no boot
+    splats; the revised diagnostic was retested under x86_64 QEMU
+
+---
+v2 -> v3:
+
+  - document why patch 2's sentinel-derived low-address window in hardened
+    usercopy was incidental
+  - add new patch 3 to warn and return when kfree() receives an ERR_PTR
+    and reject ERR_PTR values in hardened usercopy
+  - replace patch 4's pointer-cast static assertion with a run-time KUnit
+    expectation
+  - add new patch 5 with KUnit and LKDTM coverage for patch 3
+
+v2: https://lore.kernel.org/r/20260811141240.62519-1-kmehltretter@gmail.com
+v1: https://lore.kernel.org/r/20260808105622.62026-1-kmehltretter@gmail.com
+RFC: https://lore.kernel.org/r/20260712120728.96628-1-kmehltretter@gmail.com
+
+Karl Mehltretter (5):
+  slab: align ZERO_SIZE_PTR to ARCH_KMALLOC_MINALIGN
+  slab: check for ZERO_SIZE_PTR by exact match
+  slab: handle ERR_PTR values in kfree and hardened usercopy
+  slab: test zero-size allocations in slub_kunit
+  slab: test ERR_PTR handling in kfree and hardened usercopy
+
+ drivers/misc/lkdtm/usercopy.c           | 27 +++++++++++
+ include/linux/slab.h                    | 20 ++++++--
+ lib/tests/slub_kunit.c                  | 61 +++++++++++++++++++++++++
+ mm/slub.c                               |  3 ++
+ mm/usercopy.c                           |  3 ++
+ tools/testing/selftests/lkdtm/tests.txt |  1 +
+ 6 files changed, 112 insertions(+), 3 deletions(-)
+
+
+base-commit: 940de590b839f71d6dc846160534bf202401b8b7
+-- 
+2.53.0
