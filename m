@@ -1,322 +1,107 @@
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB0CA35A925
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 05:36:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6A81D9A5F;
+	Thu,  3 Sep 2026 05:37:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788413820; cv=none; b=Ta5wNnszbDUThhikerfRf0UiuiqZvlUwoNWu8Jtgs7CxMSuazx/kxEdfzMd1P+vWGRwLOm+Mt/MGXTMFKFGTdmWcQLBr9wP2Jhvl3D9f9sZL1YdP19OQCk8jMnaUP2PrilOtlFSlMVH2YWEOXvraKju6TEQo7d36BD0GQxEmlIE=
+	t=1788413835; cv=none; b=W7wQ3B/YMjkHmDG+a5zhyDLiX0Siwrj7AEDUiEmYfGo0vbgc0eUNMHpCwQqH7Yo5bNhpKDPWk7xArgdxdOafY5/0HKXc9HahUL1Vff0zzMF8+CfN6bbf6c95DQ/cAsSk4xdJogwsGWmjE7E6r9ssbozIfAp7EnWr8eV2o5CRy6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788413820; c=relaxed/simple;
-	bh=PK8h2Qhb8w0psiZtjT30OxK5ZdXMs+MXu0UGCnkZKtw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VifxQs+i1W2N6ll7Pg6Zv7p6Akpk69ifjujerkCAXFpifaiI6yFwiiRCzzpG/DozBy2rjLwA/74dzjM93mYRrj3X5kSdSVn+PGHKt8Ra4xeiaSp0fJCxSs7IUN7VFlAaBn6/sgE+3sFOc1XILaDn0Gn8CDjs/30dEpRRH9x9Giw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=dWm6RHvE; arc=none smtp.client-ip=185.125.188.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	s=arc-20240116; t=1788413835; c=relaxed/simple;
+	bh=Z8tTZlVgL94I8CKtvPZwYNu164VkXj+v272ZBtYpEVI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XcIxvXGm7P4ogUZgRJ9E3i0VhkZ9J7lVigbQKHLb62ZDvwsPsKJWEdiH3PXc28tCr8AG3AR8zvxgb2BO6Bsv9dEmxwrxAfrQIyaK2RO7wAV6KhkLRimMEUhFwn3R54AoUEQKkurfHWp/ynvkCCv4YiPoV4lzGSKGD7RBDXGBGnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=S9cPRXCR; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="dWm6RHvE"
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 59FA13F457
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 05:36:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1788413817;
-	bh=4ovXtS9Z1Hg+r1ECf/l05eveZaTg6lE74jTKbQxW7Is=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type;
-	b=dWm6RHvEXbOsN7qZ0Mojp78n1jOx73GNbEz5dgNBw1OPIB6Us8azukk14V2fBrMMw
-	 LwURg6CniD76gxXVUgh68ItP1YPwYWoUhHo9UlArcF58MELcGisE/9HWVrJsvdlidU
-	 fupq4KpdYBaQTi24W3DSbqzHMmjNySD6f0AWG4Up9/8q+Jv9AJgEHCyKmkFa2BWWbp
-	 w8jNa2x/N7SdV+ll8qvwtEyBaC+Hjx6ZfcvQa79b5A7vi6CM42mrfcecmqne7cVsQN
-	 uKqCCVRY5VagwqpbRqlb88L3+2yS2VUPKiczGDE17aNnwXJ3qxRidD9KJIen+qTT/b
-	 AnL5wLSyZ21RpZdmVYkmU3rsZIVYhnYsexkIwfs0LP53ecqPqXuQPoHTHEEWTU9vsx
-	 KWazNoWC9AYt0iWnvqcBMGY+eRoJG2zfRYL9y+9QNAFWAZA2R07YHrx1mQNt4wNZTx
-	 +yuuESO802V8HDpWb9xurLyR3eWZOs3pO9SG27Yisq5pvSXUHVsdFwk1Btq6DaJO/F
-	 RQ99Uj8lad0SA5qeYkWHcweVoilpWcvRy1Oq/6oGya04pG9dI9scyWO3KpqvjWJTwP
-	 H9CROwDZsjwSeJ81JuIJvnyed/7njGodqoz8rql88tQcmyIeZrH8rwYH3aH6iyd2Qc
-	 t4qnoZt9NSbN9pNZ+nYNsJUo=
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e1118e4abso3694405a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 22:36:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788413816; x=1789018616;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:from:content-language:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=4ovXtS9Z1Hg+r1ECf/l05eveZaTg6lE74jTKbQxW7Is=;
-        b=DRHA7reCffHNjzBxYQDD8ErZ7fSo8w6gf9aWAPeTjZfebAMvrDe9asUGKMFdXWKWVz
-         MR0uRahbotfHRnPn73Bsr7idXpc5c+CRflLbCYIhavlaVaoIC4wbkKtwIhrplA9g5mSa
-         r/EDX1Lss69vhKKuGsU8pZqvkRH1sCAoeYK6gwTaKdhawjM8RJNQV0yR/ZhajOWed8Wk
-         Mt/3zIC3aIItfO2jNfLsbTdN3PmwM5+tbiiv5TEvIQhECLgAX0+FYmSuWtdqyUEJz/EX
-         uE3VB5Rn+gB3kNYqXLx8gfRg1j3ghaDHN5du/dvJax2knS54qITFnhKAhvJn592wasNi
-         WsPA==
-X-Gm-Message-State: AFuF++nHF9dEC56qcZsUcjmbALXYMcbHnjB7X0PyhnPzz4bGbLRxFknJ
-	/EoHAUan3tGrgRnL7VViGcrdVCinw6UbHs3hK/b+QcBoblz6jxq5n6QdOd10U1VQ+S85cK7QBIR
-	Uy8CRJw0G5nJ9IfYuZLkuRqm9hOKBGfD31PT6C+hkAZGpQj6cagW4nGejT7lkUvm4whEXuruO3q
-	01GJL/iA==
-X-Gm-Gg: AYBFou3i1rnKsvpvX5nU9obON6xEv01Jo8VeFQVU9ExT8Ur4nGub5i/0h7j4qZBKpBB
-	+U3Cbg/6tXV8fTg220h0qAFxEXiUma3e0EpoNbQ7gabyECh66mInVDCdRbK1oDV8R2Zp2Evw+Rn
-	F9/bcjgSS7LLoFFaOHnHQeF1XxA9LB3ZlYREx+lTebIqzBRcrqYNv+5L+FwnXI1qQuy9Hoj4suo
-	CQVZUr4EtySqgo/Yatc3cq9X1XAtvmqy+afA5/Zda+k1O2kbtOglAjhZll0W3+pyye0akPOEbVE
-	czVrONhyW6YfjZib7pLFqHTTG0aN+wpGc4bV0ftVNUaijGGtBtfzmVZMo1e7XhzVuck6TmfKVsz
-	1DZ9DfemhUtNlliY=
-X-Received: by 2002:a17:90b:3b52:b0:396:d28e:bd8 with SMTP id 98e67ed59e1d1-39aedf61001mr14085101a91.3.1788413815811;
-        Wed, 02 Sep 2026 22:36:55 -0700 (PDT)
-X-Received: by 2002:a17:90b:3b52:b0:396:d28e:bd8 with SMTP id 98e67ed59e1d1-39aedf61001mr14085051a91.3.1788413815324;
-        Wed, 02 Sep 2026 22:36:55 -0700 (PDT)
-Received: from [192.168.192.72] ([50.47.147.90])
-        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-39b087b59a0sm3017681a91.17.2026.09.02.22.36.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 22:36:54 -0700 (PDT)
-Message-ID: <4b9fe55f-090e-4e82-b48b-61b2790335e6@canonical.com>
-Date: Wed, 2 Sep 2026 22:36:53 -0700
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="S9cPRXCR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788413833; x=1819949833;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Z8tTZlVgL94I8CKtvPZwYNu164VkXj+v272ZBtYpEVI=;
+  b=S9cPRXCRWdyDIFJWmuz8/S9D6dNNcvnja/ODkYZ1pWZx/47hVyz50q+y
+   ULZ/7jxE21I1KleXiBYfV650S5ks3zFfameKiWMCmdn0n9qNhj24gF9/u
+   mMkvM4dzjblw0qRPLe0D3aSeExa2mOIet6dNskzHzzbCGh5vphsmEEQ+l
+   kv4t0MO7unqN9T3s+Q2fwKD+XByB76dy5S6wmSNzefNdc71jB4aDrplU6
+   foCptiea3AgOcuJretWVZwvQ9wSf79bEcNYSVsBlSEzF/aWojhx0O0lUj
+   dZkx0VHepR67YFsiCIP1DxB/dvdVIm4NiVQRm1ykydidO1CMj707uaeZb
+   A==;
+X-CSE-ConnectionGUID: Ivt/SXntSlaaKGKwlL8qAw==
+X-CSE-MsgGUID: g5zx/hfWT5GyClE/2NiA+Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="99481577"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="99481577"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 22:37:12 -0700
+X-CSE-ConnectionGUID: oOHZDl1MSbyzQWqEsSxWtw==
+X-CSE-MsgGUID: Zi7mP9elRdGdQNg5DAAXmg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="266365243"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 22:37:10 -0700
+Date: Thu, 3 Sep 2026 08:37:07 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
+	sakari.ailus@linux.intel.com, bingbu.cao@amd.com,
+	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
+	andy@kernel.org, hansg@kernel.org, gregkh@linuxfoundation.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 00/16] media: Add Yoga Book camera support
+Message-ID: <apkHg_No1Dwtn6jB@ashevche-desk.local>
+References: <cover.1788360629.git.mauriziocasciano7@gmail.com>
+ <apj7LiYzFEIByPvV@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/7] LSM: Implement x array functions for secmarks
-To: Casey Schaufler <casey@schaufler-ca.com>, paul@paul-moore.com,
- linux-security-module@vger.kernel.org, pablo@netfilter.org, fw@strlen.de,
- phil@nwl.cc
-Cc: linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
- coreteam@netfilter.org, jmorris@namei.org, serge@hallyn.com,
- keescook@chromium.org, penguin-kernel@i-love.sakura.ne.jp,
- stephen.smalley.work@gmail.com, selinux@vger.kernel.org
-References: <20260902220150.18586-1-casey@schaufler-ca.com>
- <20260902220150.18586-3-casey@schaufler-ca.com>
-Content-Language: en-US
-From: John Johansen <john.johansen@canonical.com>
-Autocrypt: addr=john.johansen@canonical.com; keydata=
- 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 lT9Q
-Organization: Canonical
-In-Reply-To: <20260902220150.18586-3-casey@schaufler-ca.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apj7LiYzFEIByPvV@ashevche-desk.local>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 9/2/26 15:01, Casey Schaufler wrote:
-> Implement, but don't use (yet) the functions required to use
-> xarray indexes in secmarks.
+On Thu, Sep 03, 2026 at 07:44:30AM +0300, Andy Shevchenko wrote:
+> On Wed, Sep 02, 2026 at 04:53:29PM +0200, Maurizio Casciano wrote:
+> > 
+> > This series adds the sensor, bridge, AtomISP and lens-actuator support
+> > needed by the front and rear cameras of the Lenovo Yoga Book YB1-X91.
+> > 
+> > It covers the OV8858 19.2 MHz clock and Cherry Trail gain programming,
+> > OV2740 288 MHz link frequency and manual white balance, firmware IDs and
+> > IPU bridge data, AtomISP raw capture and CSI-2 timing, and the WV517S lens
+> > actuator.
 > 
-> Signed-off-by: Casey Schaufler <casey@schaufler-ca.com>
-
-minor nit below
-
-> ---
->   include/linux/lsm_secxa.h |  19 ++++---
->   security/Makefile         |   1 +
->   security/lsm_secxa.c      | 109 ++++++++++++++++++++++++++++++++++++++
->   3 files changed, 121 insertions(+), 8 deletions(-)
->   create mode 100644 security/lsm_secxa.c
+> > Changes in v7:
+> > - In patch 2, keep digital gain independent of the external clock and
+> >   expose the manual red and blue gains as separate controls, as requested
+> >   by Sakari Ailus. Keep green at unity and accumulate register-write
+> >   errors across the three manual white-balance channels.
+> > - Move the 24 MHz PLL and global timing registers out of the common mode
+> >   tables into revision- and lane-specific arrays. Select both 19.2 MHz and
+> >   24 MHz clock programming explicitly when starting a stream.
+> > - Clarify the patch 2 assistance disclosure as
+> >   `Assisted-by: LLM [Codex] [Sparse]`.
+> > - No changes to patches 1 and 3 through 16.
 > 
-> diff --git a/include/linux/lsm_secxa.h b/include/linux/lsm_secxa.h
-> index 926257d4730c..84b06c093460 100644
-> --- a/include/linux/lsm_secxa.h
-> +++ b/include/linux/lsm_secxa.h
-> @@ -7,19 +7,22 @@
->   #ifndef __LINUX_LSM_SECXA_H
->   #define __LINUX_LSM_SECXA_H
->   
-> -#ifdef CONFIG_NETWORK_SECMARK
-> +#ifdef CONFIG_SECURITY
->   
-> -#include <linux/security.h>
-> -#include <linux/skbuff.h>
-> +struct lsm_prop;
->   
-> -static inline void secxa_set_secmark(struct sk_buff *skb, u32 secxa)
-> -{
-> -	skb->secmark = secxa;
-> -}
-> -#else /* CONFIG_NETWORK_SECMARK */
-> +int secxa_from_lsmprop(struct lsm_prop *prop, u32 *secxa);
-> +int secxa_get_lsmprop(struct lsm_prop **pro, u32 secxa);
-> +
-> +#endif /* CONFIG_SECURITY */
-> +
-> +#ifdef CONFIG_NETWORK_SECMARK
->   
->   struct sk_buff;
->   
-> +void secxa_set_secmark(struct sk_buff *skb, u32 secxa);
-> +#else /* CONFIG_NETWORK_SECMARK */
-> +
->   static inline void secxa_set_secmark(struct sk_buff *skb, u32 secxa)
->   {
->   }
-> diff --git a/security/Makefile b/security/Makefile
-> index 4601230ba442..e93be00bb6ae 100644
-> --- a/security/Makefile
-> +++ b/security/Makefile
-> @@ -8,6 +8,7 @@ obj-$(CONFIG_KEYS)			+= keys/
->   # always enable default capabilities
->   obj-y					+= commoncap.o
->   obj-$(CONFIG_SECURITY) 			+= lsm_syscalls.o
-> +obj-$(CONFIG_NETWORK_SECMARK)		+= lsm_secxa.o
->   obj-$(CONFIG_MMU)			+= min_addr.o
->   
->   # Object file lists
-> diff --git a/security/lsm_secxa.c b/security/lsm_secxa.c
-> new file mode 100644
-> index 000000000000..ccbe78095d70
-> --- /dev/null
-> +++ b/security/lsm_secxa.c
-> @@ -0,0 +1,109 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +
-> +/*
-> + * Implement functions supporting an x array for LSM properties.
-> + *
-> + * Copyright (C) 2026 Casey Schaufler <casey@schaufler-ca.com>
-> + */
-> +#define pr_fmt(fmt) "secxa: "fmt
-> +
-> +#include <linux/xarray.h>
-> +#include <linux/export.h>
-> +#include <linux/security.h>
-> +#include <linux/lsm_secxa.h>
-> +#include <linux/skbuff.h>
-> +
-> +/*
-> + * An Xarray of lsm_prop structures.
-> + */
-> +struct xarray secxa_xa;
-> +
-> +/**
-> + * secxa_init - initialize the xarry of lsm_prop structures.
-> + */
-> +static int __init secxa_init(void)
-> +{
-> +	xa_init_flags(&secxa_xa, XA_FLAGS_ALLOC1 | XA_FLAGS_LOCK_BH);
-> +
-> +	return 0;
-> +}
-> +core_initcall(secxa_init);
-> +
-> +/**
-> + * secxa_get_lsmprop - get the lsm_prop associated with a secxa
-> + * @pro: destination for the lsm_prop pointer
-> + * @secxa: index to look up
-> + *
-> + * Find the lsm_prop associated with @secxa and place a pointer
-> + * to it in @pro.
-> + *
-> + * Returns 0, or -EINVAL if the mapping can't be found.
-> + */
-> +int secxa_get_lsmprop(struct lsm_prop **pro, u32 secxa)
-> +{
-> +	struct lsm_prop *lp;
-> +
-> +	if (!secxa)
-> +		return -EINVAL;
-> +
-> +	lp = xa_load(&secxa_xa, secxa);
-> +	if (!lp)
-> +		return -EINVAL;
-> +
-> +	*pro = lp;
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(secxa_get_lsmprop);
-> +
-> +/**
-> + * secxa_from_lsmprop - get the secxa associated with a lsm_prop
-> + * @prop: lsm_prop pointer
-> + * @secxa: result
-> + *
-> + * Find the secxa associated with @prop. If there is none, create it.
-> + *
-> + * Returns 0, or an error if the mapping cannot be created
-> + */
-> +int secxa_from_lsmprop(struct lsm_prop *prop, u32 *secxa)
-> +{
-> +	struct lsm_prop *lp;
-> +	unsigned long il;
-> +	u32 index = 0;
-> +	int rc;
-> +
-> +	xa_for_each(&secxa_xa, il, lp) {
-> +		if (!memcmp(prop, lp, sizeof(*prop))) {
-> +			*secxa = il;
-this needs an explicit cast to (u32) to avoid some warnings
-on some architecture + warning flags combinations
+> Wait at least a few days before sending a new version.
+> 
+> There will be a v8 as far as I can tell, but send it next week after all comments
+> were addressed (or settled down).
 
-> +			return 0;
-> +		}
-> +	}
-> +
-> +	lp = kzalloc(sizeof(*lp), GFP_ATOMIC);
-> +	if (!lp)
-> +		return -ENOMEM;
-> +	*lp = *prop;
-> +
-> +	rc = xa_alloc_bh(&secxa_xa, &index, lp, xa_limit_31b, GFP_ATOMIC);
-> +	if (rc) {
-> +		kfree(lp);
-> +		return -EINVAL;
-> +	}
-> +
-> +	*secxa = index;
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(secxa_from_lsmprop);
-> +
-> +/**
-> + * secxa_set_secmark - add LSM information to a secmark
-> + * @skb: buffer with the secmark
-> + * @secxa: index of the information to add
-> + *
-> + * If the secmark in @skb is not set, set it to @secxa.
-> + */
-> +void secxa_set_secmark(struct sk_buff *skb, u32 secxa)
-> +{
-> +	if (!skb->secmark)
-> +		skb->secmark = secxa;
-> +}
-> +EXPORT_SYMBOL(secxa_set_secmark);
+To collect given tags use `b4` tool.
+
+And general comment about AI, try to do some work yourself, AI does not
+guarantee 100% correct results.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
