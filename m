@@ -1,65 +1,65 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A104142E013
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:33:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26DC3FC5B5
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:33:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788420800; cv=none; b=Mh8tGxvJqTt5DecKqfrY0Xlfl1WBmEDJBbTpt09q0kjAzn3jKotI8WUSL5itKeeM7daOkyv9Q51jvOrpjuU/Km8IQWyXw0D8TRX2lFXwgvQQYoLp51PJrcvxbpKtZuXb2/OvJECuGKky2ZDvyXUk0O24svkSq+OX3YoXH2ces9M=
+	t=1788420806; cv=none; b=RRwgkYDpIpvIe/2+0KBLj9NgSE5asE9uULHHb98QEqkEA6NBJcxC5JnU5kc8tIAanbJGowfbEV/fIw5CYp5NTcczUR8dDKpn62A0aficj48SjuyPMyI77yYOKAGY9fEKuTtgLsC64TxGcj0As/PDGLZwiggRPwNFFwlA6Kn/jRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788420800; c=relaxed/simple;
-	bh=5qMEuy5eGy/JVQD+dpqf2Q/66DUF3xuDuOpkz4CMcPI=;
+	s=arc-20240116; t=1788420806; c=relaxed/simple;
+	bh=vc9oGAqRaMzb6Xdaj+3NGIpap5QZHwRnk2S+pTd4Ur0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=N5HPRu42ti9DnNHWiLfoABCJx21WbfJ3efLCtPTCsxa2VQWwFm7wcAYIYGVA0rrPGiq+2DP1GoYmzURCALunAsNVswZGVGhOf/tcq/1pOmVAJWBiTFSfCligNJikA7zf4vFDVtd93rC/KybkNX5zURCdvijWhHurqRzcRrFNsro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GEurpcjX; arc=none smtp.client-ip=209.85.216.52
+	 MIME-Version; b=QxYsd9T6BzJbmNjolKF4u+FoZTUR1gljkJGHY+uKpi4vm8N5332fXYHFN8tt2YMKLwwgagPCdopqt3/hiea2QymEFrbUO2B3MLE9iHun9N54tJBBPMZB6NaHesmvRpcQMEJ+uuZIAfUdy++Q0S0oA5G8KtaIZdCxoTNIUcuGr5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gXRQ+ot8; arc=none smtp.client-ip=209.85.216.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GEurpcjX"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38d489b6b71so2476979a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:33:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gXRQ+ot8"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38511175ad3so2085466a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:33:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788420799; x=1789025599; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788420804; x=1789025604; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fQhuxUhRanThkxdEOXasCJ4w6JBVmta7BprVKmAc0/A=;
-        b=GEurpcjX52Ed2vWWK4CVPakHBMV2l3QjDELSaX/KTPh77hIS3XvtwyistVfUrIkRuD
-         Qh4oidMzQ5+CvFcPioFoLxkHxkB6nCS6CKv4KJOjz9gS1yA6Icg0YBskyywgDV/iS7Ho
-         yb3qTaAv05w0ci4KUQLKEm4n7L90vklfDX+A0Rn10lll3IkK5GlICQBQ+nTdfr+h5E4g
-         JrtlU3IL0xS6P2hWaQT9V2IDAEsYZTMqWWefl7xFZmLgcsEqOrHQelsyIrRt0ctOWR8X
-         O5Nn1JcRx0QOq6LuIq26fyEntC1aFENTiKVm0I7KMfjCYgiXNKKjIyHeZ2ijqxpr7on4
-         S0pg==
+        bh=vwKd+TdvIX9ZItYpiwc95hBpIK2+IZI68PvC5hF8oBU=;
+        b=gXRQ+ot8xrnODpfz1oRU3OnQE6YKCLOZFFWUun64wvWG1Qd/SV1XbeOBvHjFSUwdQN
+         MIw7JW3scVPQVv+bhdAVTtUnv1WFC4GkkFCBzn7gMI4C8W1gbSXiAMZGa9+H0jhoa2Ys
+         oAQQhjKU/1nP2fkRJur38BsS2WXfCXou3RF8f4XVhY5Nde4Y5ory/VEObNee23KJdFqm
+         vJSMolBQHjCF9MAR7RQI1O/84uCRW20Xvf04KYO0sAPQIKaThLySwbd46kgtrFVjZ0l4
+         xdgQo0Ift7I5rZmBzQDZKTBrF2OwrTGi9MQV0Oh1H6pMQycsfFUcJFliLGlgCialR2FF
+         mYrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788420799; x=1789025599;
+        d=1e100.net; s=20251104; t=1788420804; x=1789025604;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fQhuxUhRanThkxdEOXasCJ4w6JBVmta7BprVKmAc0/A=;
-        b=GFXGqXhZRAxt0yj22Rgq5E9IgJuE30SS33QGPe77er+2V5hFrH/Vah+fyZIg/s+Qfw
-         IOq2jr56Pqr7WeVWcXhV3DCTwovLSWTdHkOxy4pe8h11Us6MLxMkFwc98mbwoSujRYKp
-         cVm+MasM5dD39zaVIHCEA4D7WoxKhU1QGFf+lq3ye5XiWnRazGD7kj+xgr4WN3H9xI9T
-         co5sscObYS5G30DQ8yS0AC4GTUZX7lree7TMas0A6h+G0agztKmysuvvJVD7mQ2LWk46
-         VdybRywO0FRlxCyS307Pu4P/jPzivB2Nc3NuO6NfFJmpFvAXT3m+ZDRfnjkAYpDI/Vft
-         Mt3w==
-X-Forwarded-Encrypted: i=1; AKwUvBz6OA70YkfMR6Ckq4Z60kmdTCiwwPP1RejjnJPUnoYyvzQnTwuidO7Ae/kJ7NOdioKD+j5RbmQT4o2cpoY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mBn7cnCyYvPRWzk9T/eMD15O1FF9KkXAdezErJs4Fe2xSCacPE
-	+WwZ6APA61KXgc7m2sVWtd3iNUIRC0psxrB/VmkTsOCfv4RXZSpMUfwY
-X-Gm-Gg: AYBFou01tjya5KISHd/GGar9Y4wM19y0rb3fpja9Pg66dc8HX5YpToQNtRP6bfG402Q
-	dpedLerg0m6BlneZOTsJZzXBDZ/Jw3i5QVHkp20IxiOGBmnk+KkHX5Yt53LQbK5YcHNFyBgUS2e
-	WQitJ2syyNkbXJQo9RfM+DsNm2maZucXyPYymW+CpgvIie393jijlXGms7eY85LoNC4GPoLGigk
-	beQmIq8b3/mIFG5ZZV2JfSPd6VcLc8CWzWPIWSdyiqrZnWkLFfVioYP5Iy51+Hz22EmkgDg4sYG
-	H6vJpfzteWnhjVRQvWUjGs5RdpZehPZ6aA8SmOipCeOep/j9JT+KDSTKfjMsOONm+DChoexq0+X
-	OREOx043QtTMxQqDbwpajtxy/JsNIELlT9lqwTx10m+t9rt7b5D1u4MvWMfneXikUDFzXrXAL3P
-	7JHNuBk0GMntlXnECTo1ASmkfKrTwBwep5guclFgrqx13rCO4Lzj/FdAR7Kw8+7N1Q3Hi4VNybP
-	3sFxWe65/m+5NxkzW0+Ed7qr1TzhkagdvYbJiZzGBbNxZ32uUCpaQ0JkkVnb/jRrjnFJfHeFG8k
-	C/vE
-X-Received: by 2002:a17:90b:2604:b0:38e:c7b0:84ad with SMTP id 98e67ed59e1d1-39aedce056cmr16042015a91.0.1788420798943;
-        Thu, 03 Sep 2026 00:33:18 -0700 (PDT)
+        bh=vwKd+TdvIX9ZItYpiwc95hBpIK2+IZI68PvC5hF8oBU=;
+        b=X9RW3i5nuKIuRibtF7YNGH4CvfMplFosn+KJe28WZOIvhtf6tFj5RQaFWmQVfFFkwG
+         KO6a0zFnN/pKaks4tRaDS7AGNOOTrAPiB2V6CHPUOMttWzscrkylshP9T5JIoiRzKInW
+         j+2VO3MOLnkLTqKii2VyPBNsL3zSH6cRGTgj4FiHqCLe3+FQ+TB4ntgofXyF6BkbuMnA
+         4Q4uP5NkSnY5H+Hh8iEbFm48SvdPKrmW+DLVHKGEeYaApOdwD6O1qc8dzhZ8q8DCKFSq
+         eFw9+mpRzWpPChndQ567+fSKZgoLqBzCX0785uehhlzmA4cFQ2JU9VtGFZK+keA1cGW2
+         4HhQ==
+X-Forwarded-Encrypted: i=1; AKwUvByyV02iD0sTVXinngM9iEYz1OgATgaLVK9gXGFwRvg8SqxJs1A6Je4JTJ4uiU8ejUDwOFaZ8JB1TICHraU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhubHKAW8hBm+wLNHDXdPY71Fy8ez95yQbStSaDZjqcoHmk1BT
+	lAA2heHvyJM1cVwgOk/GqwgYXzStImXXverDIAbb7h5aCvktC5AlU22Kp/YDJA==
+X-Gm-Gg: AYBFou0MmEyZjZeq71vFHpKyJAh1bMhSvaMwYbAx6DU+is/hQSRFuvxOFmOl9FITs1k
+	4Lx5Cscu3bsytPy6o/NTyiufR5ch1BwX7GckSV7k16WeBb07o9Hmwhjkn4RCub6z9L4GqJ7PaSs
+	ZRBOLHI52YpyYq/DcRAAM4uAtfJAFTghzSveGgL4fe/w7ml7w42mu/Z5te3IwgVcpuh9q+9dUXc
+	o9wfbRN0F7Yg83mvZ9fkeVdARZmHtEXJnmi3ovijxVCicQvk/CimFbZvSxqHR5VodNFp9Jb4Lca
+	2V+m++1qJYc2wXfm3IOyNzf+tcDylBEvlH3mV43M3PawbEvIEAfJRVmkge0dwIOIJo5poP8ugoF
+	xmIyWYWo3rDMFPNfT0+bkojJmzM+xbvQyG8QcA9T7J9gylpXiKNfMv/d7j6jgnfbgnOgQBEW7tJ
+	tJt5/aHZpaxfiAxzlxrC3FpNwzKGpBhSJvF0p+DIMbWNORtgP/mrdDm1Y4SlGoLTzi6kSPUJUeH
+	XnTZZvSBAQrDb7EMDCNsM2yqZa2k53+SGFz6jB7Fjt0MK3VcMaogUH3OPYBdXldfp67v7edbkau
+	e4xz
+X-Received: by 2002:a17:90b:3d84:b0:392:ca3b:370a with SMTP id 98e67ed59e1d1-39aedf7cc2cmr17489022a91.2.1788420804175;
+        Thu, 03 Sep 2026 00:33:24 -0700 (PDT)
 Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08624f11sm3606813a91.11.2026.09.03.00.33.15
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08624f11sm3606813a91.11.2026.09.03.00.33.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 00:33:18 -0700 (PDT)
+        Thu, 03 Sep 2026 00:33:23 -0700 (PDT)
 From: phucduc.bui@gmail.com
 To: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -75,9 +75,9 @@ Cc: Andre Przywara <andre.przywara@arm.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH net-next v5 1/3] net: xilinx: axienet: Propagate errors from optional IRQ lookup
-Date: Thu,  3 Sep 2026 14:32:50 +0700
-Message-ID: <20260903073252.339250-2-phucduc.bui@gmail.com>
+Subject: [PATCH net-next v5 2/3] net: xilinx: axienet: Handle optional IRQ return value correctly
+Date: Thu,  3 Sep 2026 14:32:51 +0700
+Message-ID: <20260903073252.339250-3-phucduc.bui@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260903073252.339250-1-phucduc.bui@gmail.com>
 References: <20260903073252.339250-1-phucduc.bui@gmail.com>
@@ -91,37 +91,33 @@ Content-Transfer-Encoding: 8bit
 
 From: bui duc phuc <phucduc.bui@gmail.com>
 
-platform_get_irq_optional() returns a positive IRQ number on success or
-a negative error code on failure. For an optional IRQ, -ENXIO indicates
-that no optional IRQ is available, while other errors should be propagated.
+lp->eth_irq is assigned from platform_get_irq_optional(), which returns
+a non-zero interrupt number on success or a negative error number on
+failure. Errors other than -ENXIO are handled before this check,
+so -ENXIO is the only error value that can reach this point.
 
-Propagate all error codes returned by platform_get_irq_optional() other
-than -ENXIO.
+Check for a negative value instead of treating 0 as an undefined IRQ.
 
-Another call to platform_get_irq_optional() in the same function already
-handles the return value this way. Apply the same error handling to this
-call site for consistency.
-
-Fixes: d6349e3e14c7 ("net: axienet: Mark eth_irq as optional")
+Fixes: 522856cefaf0 ("net: axienet: Add optional support for Ethernet core interrupt")
 Reviewed-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
 Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- drivers/net/ethernet/xilinx/xilinx_axienet_main.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/net/ethernet/xilinx/xilinx_axienet_main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-index 1722b7038f34..207aecb5f8b9 100644
+index 207aecb5f8b9..3927ababf833 100644
 --- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
 +++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-@@ -2975,6 +2975,8 @@ static int axienet_probe(struct platform_device *pdev)
- 			dev_err(&pdev->dev, "could not determine irqs\n");
- 			return -ENOMEM;
- 		}
-+		if (lp->eth_irq < 0 && lp->eth_irq != -ENXIO)
-+			return lp->eth_irq;
+@@ -3052,7 +3052,7 @@ static int axienet_probe(struct platform_device *pdev)
+ 		ndev->ethtool_ops = &axienet_ethtool_ops;
+ 	}
+ 	/* Check for Ethernet core IRQ (optional) */
+-	if (lp->eth_irq <= 0)
++	if (lp->eth_irq < 0)
+ 		dev_info(&pdev->dev, "Ethernet core IRQ not defined\n");
  
- 		/* Reset core now that clocks are enabled, prior to accessing MDIO */
- 		ret = __axienet_device_reset(lp);
+ 	/* Retrieve the MAC address */
 -- 
 2.43.0
 
