@@ -1,116 +1,243 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22515364052
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:21:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788430920; cv=pass; b=YwQ+qXaTZXgyl3qxdVO66A299+p4GWjLlbXee+vJTyLQjXrx8XLzxuVaQ1G6nKW8l5q7h2dLm72ok5/Ss0ARr7qwno5sZBS2MVLEvhmGEskHJBK2jZEygThPwPCNOgVDZfoOGhAhAUIXrEuklPjC9843MLTHqgsqm3OygQlA1OU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788430920; c=relaxed/simple;
-	bh=P4+9tq4vAAjVPRHdvKBfHH7h2AESuICOL0EhPXygHGE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kulMTlkpI3ubGKd6aJmbu+/biAlw+tkoBLemNBfTqz1ge+j8DX+i8N3K9+L8L3FTi1368c8sq045c/PQFCksClHNX8a5iN8uvpSlruIhCOWR9kdjYJSnn1aBRY+0IgjBzVj2qFiLKDo1dpOS1kIA8RzrEOns9PZsMCN5G+YxSCA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ulyfsPV3; arc=pass smtp.client-ip=209.85.160.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAAE7407570
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:22:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788430939; cv=none; b=FviYebf4xQ6Pbg/lZBit0ZBlhj6/hES7Wr6peBWOATviP7bC3ghLvW9sMpeE4OAPGWuEVCdROg3MAIXmHjZPJzm+TmhUTwBmoGSeScxpI6EB1+y0H0ZJVesrzv5WV+JISWUc0wu5FtHwmSzUlyxuHjD+TJFkLi4J/kjLLOU/5rA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788430939; c=relaxed/simple;
+	bh=XCHYFZbPnyjmI2m4mse/I77d+mTxQUvAhdQCkyzCmGU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=r6luXhKlJBOKk9w5+I0emzeUEkGUBVNK7efZ1lNSG7zBql3x+I2v4senjpZL9gOwFvxsa6jvnPKuB9jV7osfpqsgIUSC7TWUbRhG+Qvyf2MV302eeY62rzJQUTB6qlMR+xz2iwEka6UCgBAXdH/LP5zxzEjGEw2ssTwQnw4AwQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U8Zjwm0s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ulyfsPV3"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-530187593e0so12467761cf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 03:21:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788430918; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eSg3yIWgtN13Np/SP1Mle72YjZgnY9lQtLqa5uiFD6hi0xpsAUd3KB4HYoXZmSAu0a
-         aTL7YdhuNCRNsPIUy3DfVajRyjFy60vx8TFQr1JXi0rgx6JKBc9OmotcBegy1FiypMxZ
-         nqlluOnpMBXTpx2byr1GQrSFOndx52bNCJWu2F7FTLmdf1QsO7MGYTVlXQRwMQIZc+H6
-         j5R63tStP2SWAF9YW+6x+aisCfhc21qMvNEs1IrfmY1+PqcharZx/f0BoG2tljrlm86g
-         Mz+MOJHsa5DnPKj3JnFqk80QX5hQSZzqotIZ4cqAiymkc6JVIPdJBrSTI9CBUCEi/Set
-         6RTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=P4+9tq4vAAjVPRHdvKBfHH7h2AESuICOL0EhPXygHGE=;
-        fh=duCsuO8njpMI0nTCr8rpSZ3HQzcb7L9th8ifFDaZNp8=;
-        b=sAaJpA/a5AoedHSnb3vS5RsHa8hGsqZ+iKdf5FGnX4QrjeQGANavEWw63CkYpWmpW3
-         W9tzRJMqLmLwDXJKOj+2TuPleARxOFqRgnwUEy6gL8DN+IPj7qwcQqDhoUhF9+qWztkN
-         gS0k1NAEfztTj+dJ1duy+SNUOWKOMZnKAdsq1IHRJozc/1tW75xuFGLvxzDiGX9vYHGy
-         7eRZBZ4VPwuP7m7UA/SkGwmwBnx33/OvPrCYVXCLahauK9ehq3my12unbYFdL3AfpqTY
-         Pibq8IE6flDFZKORndsQhW0suH5ndvpD6UY/Za6uUTUIltnOlbqkZIEixJB5Q1VUYbEO
-         dAbw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788430918; x=1789035718; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=P4+9tq4vAAjVPRHdvKBfHH7h2AESuICOL0EhPXygHGE=;
-        b=ulyfsPV3w1UNrdg0uBAfp5j1RJMh3ZmWDgpfBF1v3h+Nd/jRwefVdGOWPt4oEYmdxM
-         EwpKZ5W31aBHdncElFkMuDxp+7K8jiPW7def32iIiM4a7w/3Rlj+/xFj329rQ9OaHcfG
-         HM+pGFuVMegaF7GrbnANXoSkiAvKF9uX9+hK2Soc8MxMyZWRQZloFfPRj+uZqtUvO9bE
-         p3HT7KSppMxr6MXOk3KWReTS2g0WYOLJ8a/LrIkwZyIhF1Q+eo9QL2mrUySoRwjkb12Z
-         niTg7FGcBXNAvcD4mww9UDevR6sg+lGhQm/pI74ZNUj5FUNvufyHe2UJ6lnqTKI+EEZY
-         g9Rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788430918; x=1789035718;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=P4+9tq4vAAjVPRHdvKBfHH7h2AESuICOL0EhPXygHGE=;
-        b=Oqy9wMfS67hitycRJu8R8yso8WdP9tOz2WYYgb5oXfT288t+lXPLuj/S42F4UcEf57
-         1TTTGjO8LjPjEEzDY+E2p1/Ly3VZNdzPccKf1qsEgpI9g+tjWZPxR4qFlYIDG2UoMsF+
-         uDNaFyY3TmMrqx5hLJrMpICHevU/zS0BimkuABTURZSVYfoLlCyPT17F3lYlYlQdOGU4
-         uWC1lnN8Md0r6qvWvTVOiasAHYvtnZ7pnNrvCU+jw75Bh2CQDipS/KgOE6XGtGTxEMcM
-         g9iNvDv8FlHn58riIuBJGkxkCi4oGX6i/qURdssNdUloR1D93qCfdGLtVY1HokJpvdGN
-         iiUg==
-X-Forwarded-Encrypted: i=1; AKwUvByMBBbzO7MWrf0QdWjgMoWJLnqh7Q38OjJaxm6XwbZTT4iqTMfjOV+JxzhKJl4Lu+jAtQGRO0H0XK8BfR4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nkQcjSYlz/H6TgFw/qdg5e8tPhdwyAM2jOilOgG8IsJvzyqVxr
-	IVeclQAozbN1GisH8o0fgD9LLV90NP+PSepJy5AHUj9cNDgAcCzAoH+v3YvuSadPRd/qCyZbg2D
-	xfJTaZHcuKs2WhIhnJgd5gPHNYmnapuFC/qNPotba
-X-Gm-Gg: AYBFou3SMzzR2cOhKr6XE4kQXIOCFNO9gFSBlAdiRkZEbbp8RyFMXi2T+/3ZEE1unaK
-	Im1bvMTMykIaCqXMhqQgdlAOV56JPINw7RoHqetAEK15lNIr6LZ009n1am5nFQxOE2gLFoke4dS
-	CwZqoMOYj4NTSCVROPFJ3ZUF6h6xk9OW6zIEd2mnlak9vqZaaWsf4VnJ/pBT4GLe4j+wdTr7n9S
-	rE20kcsmOFfMryyE27gGyACQPC2dJNN8QZh0TAAF08YJDkO/3Cx2a8UGvHu7lyaQP7TZSxNdz1o
-	HCGxgzZHEfIx5tUp8KknZjeZT4Yun1/Uva8Iez01zdWOpu1/r7/lnbRa+sFBgzEz9Yc8m9OWdWj
-	fbsBERKs9KBatLRcCdNH0zX1XkRFGhIdN6LjVSyHOARxv/8WADyEs/xKfeg==
-X-Received: by 2002:a05:622a:50a:b0:530:42e5:f39d with SMTP id
- d75a77b69052e-530480b1408mr19378771cf.25.1788430917133; Thu, 03 Sep 2026
- 03:21:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U8Zjwm0s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04C3F1F000E9;
+	Thu,  3 Sep 2026 10:22:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788430937;
+	bh=nPec+8FroZakd8/xtdqsN1t+JoYELhFhTVkg3y1NsYo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=U8Zjwm0sni2XbTsU5qAzoDKqQUPllGyfp9lx0A08uWo8tfgiM+DfrucMB+Mv6qlAt
+	 yeDThp78Ij9kM7pIKHq/5L4I9kl1fS/2xSYcFNVhFdSNAy6bFzGvlDmJzTcMbpuJXn
+	 GeM3tJ++zzE4I4a0teg9KT1um1LcBhzFLhMzubifP8e6n6+UWzDOqml2/l+In9HKH/
+	 EgxX/wJT+4PRi8VqCoL7/+TYo/5udldmXHjWxKQ2vZIwZ+K9j+NqDFO56BLxuzMsIJ
+	 Dp8sSkQ5LuxMU2MIm/RBy0KKhJtEKY+SQ2uEGyIAEh+137sftzIuqAvIMhtuXoP845
+	 jl9rLaKilZjMw==
+Date: Thu, 3 Sep 2026 12:22:14 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Linus Walleij <linusw@kernel.org>, Inki Dae <inki.dae@samsung.com>, 
+	Jagan Teki <jagan@amarulasolutions.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Albert Esteve <aesteve@redhat.com>, Anusha Srivatsa <asrivats@redhat.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
+	Ian Ray <ian.ray@gehealthcare.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
+ drm_panel
+Message-ID: <aplG-skzq-TPfFZQ@houat>
+References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
+ <20260903-drm-bridge-every-panel-v2-5-2ab8ee24538e@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903101256.8879-1-zhangcoder@yeah.net>
-In-Reply-To: <20260903101256.8879-1-zhangcoder@yeah.net>
-From: Eric Dumazet <edumazet@google.com>
-Date: Thu, 3 Sep 2026 12:21:45 +0200
-X-Gm-Features: AcwNN1UaxWHjBGorfpe-qoeZHxV6U5nAMpcdRNcRwFemhMVTs0uB5zgu4XYySUY
-Message-ID: <CANn89i+LS8aefxHe7MvV7DZ7kSWrLPQpfB-OHa76O_jm8_fbYA@mail.gmail.com>
-Subject: Re: [PATCH net-next v2] tcp: fix mdev comment in tcp_rtt_estimator()
-To: Ziran Zhang <zhangcoder@yeah.net>
-Cc: Neal Cardwell <ncardwell@google.com>, "David S . Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="4hpbtqrwcomowwmy"
+Content-Disposition: inline
+In-Reply-To: <20260903-drm-bridge-every-panel-v2-5-2ab8ee24538e@bootlin.com>
+
+
+--4hpbtqrwcomowwmy
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
+ drm_panel
+MIME-Version: 1.0
 
-On Thu, Sep 3, 2026 at 12:13=E2=80=AFPM Ziran Zhang <zhangcoder@yeah.net> w=
-rote:
->
-> The old comment "mdev =3D 3/4 mdev + 1/4 new" only describes the
-> common case. However, when RTT decreases and |rtt - srtt| > mdev/4,
-> the code applies a finer gain of 1/32 instead of 1/4, resulting in:
-> mdev =3D 31/32 mdev + 1/32 * new.
->
-> Express both cases with a unified formula using variable
-> gain g.
->
-> Signed-off-by: Ziran Zhang <zhangcoder@yeah.net>
+On Thu, Sep 03, 2026 at 10:11:08AM +0200, Luca Ceresoli wrote:
+> Adding a drm_panel does currently not add a panel_bridge wrapping
+> it. Usually the panel_bridge creation happens later, when some other driv=
+er
+> (e.g. the previous bridge or the encoder) calls *_of_get_bridge() and the
+> following element in the pipeline is a panel.
+>=20
+> This has some drawbacks:
+>=20
+>  * the bridge API is currently the best practice to access various
+>    components of the pipeline, especially with complex cards where bridges
+>    can be combined in different ways on different hardware
+>  * the panel_bridge is not created in the context of the driver of the
+>    underlying physical device (the panel driver), but of some other driver
+>  * that other driver is not aware of whether the returned drm_bridge
+>    pointer is a panel_bridge created on the fly, a pre-existing
+>    panel_bridge or a non-panel bridge
+>  * removal of a panel_bridge requires calling drm_panel_bridge_remove(),
+>    but that other driver doesn't know whether this is needed because it
+>    doesn't know whether it has created a panel_bridge or not
+>=20
+> Other drivers call [a variant of] drm_panel_bridge_add(), which also has
+> some of the above drawbacks.
+>=20
+> So far the current approach was working mostly because devm and drmm ensu=
+re
+> the panel bridge would be dealloacted at some later point. However with t=
+he
+> upcoming implementation of bridge hotplug and dynamic bridge lifetime this
+> will get more complicated.
+>=20
+> Switch to the new approach: embed a drm_bridge inside every drm_panel,
+> which behaves just like the current drm_panel_bridge.
+>=20
+> Do this by copying and adapting the code from bridge/panel.c, using
+> function names that are more suitable within drm_panel.c and doing the
+> minimal adaptation needed.
+>=20
+> Currently drm_bridge and drm_panel have independent refcounted
+> allocation. As they now become a single struct, just change
+> drm_panel_get/put() to get/put the bridge. As a result, the refcount for a
+> drm_bridge embedded in a drm_panel is:
+>=20
+>   bridge.refcount =3D=3D number of drm_bridge_get() calls
+>                    + number of drm_panel_get() calls
+>                    - number of drm_bridge_put() calls
+>                    - number of drm_panel_put() calls
+>=20
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-We asked you to leave this comment as it is. Thank you.
+So there's a lot to unravel, and I wished you had split it, but I can't
+find a good way to split it either.
 
-pw-bot: rejected
+> This patch is new in v2, and replaces "drm/bridge: panel: add a
+> panel_bridge to every panel" which was based on a different approach.
+> ---
+>  drivers/gpu/drm/drm_panel.c | 258 ++++++++++++++++++++++++++++++++++++++=
++++---
+>  include/drm/drm_panel.h     |  33 ++++--
+>  2 files changed, 266 insertions(+), 25 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
+> index f8f6082e637f..9b86195f9f66 100644
+> --- a/drivers/gpu/drm/drm_panel.c
+> +++ b/drivers/gpu/drm/drm_panel.c
+> @@ -22,15 +22,19 @@
+>   */
+> =20
+>  #include <linux/backlight.h>
+> +#include <linux/debugfs.h>
+>  #include <linux/err.h>
+>  #include <linux/export.h>
+>  #include <linux/module.h>
+>  #include <linux/of.h>
+> =20
+> +#include <drm/drm_atomic_helper.h>
+>  #include <drm/drm_crtc.h>
+> +#include <drm/drm_modeset_helper_vtables.h>
+>  #include <drm/drm_of.h>
+>  #include <drm/drm_panel.h>
+>  #include <drm/drm_print.h>
+> +#include <drm/drm_probe_helper.h>
+> =20
+>  static DEFINE_MUTEX(panel_lock);
+>  static LIST_HEAD(panel_list);
+> @@ -46,6 +50,18 @@ static LIST_HEAD(panel_list);
+>   * take look at drm_panel_bridge_add() and devm_drm_panel_bridge_add().
+>   */
+> =20
+> +static inline struct drm_panel *
+> +drm_bridge_to_panel(const struct drm_bridge *bridge)
+> +{
+> +	return container_of(bridge, struct drm_panel, bridge);
+> +}
+> +
+> +static inline struct drm_panel *
+> +drm_connector_to_panel(const struct drm_connector *connector)
+> +{
+> +	return container_of(connector, struct drm_panel, connector);
+> +}
+> +
+>  /**
+>   * drm_panel_init - initialize a panel
+>   * @panel: DRM panel
+> @@ -86,6 +102,7 @@ void drm_panel_add(struct drm_panel *panel)
+>  	mutex_lock(&panel_lock);
+>  	list_add_tail(&panel->list, &panel_list);
+>  	mutex_unlock(&panel_lock);
+> +	drm_bridge_add(&panel->bridge);
+>  }
+>  EXPORT_SYMBOL(drm_panel_add);
+> =20
+> @@ -97,6 +114,7 @@ EXPORT_SYMBOL(drm_panel_add);
+>   */
+>  void drm_panel_remove(struct drm_panel *panel)
+>  {
+> +	drm_bridge_remove(&panel->bridge);
+>  	mutex_lock(&panel_lock);
+>  	list_del_init(&panel->list);
+>  	mutex_unlock(&panel_lock);
+> @@ -370,13 +388,198 @@ int drm_panel_get_modes(struct drm_panel *panel,
+>  }
+>  EXPORT_SYMBOL(drm_panel_get_modes);
+> =20
+> -static void __drm_panel_free(struct kref *kref)
+> +static int drm_panel_bridge_connector_get_modes(struct drm_connector *co=
+nnector)
+> +{
+> +	struct drm_panel *drm_panel =3D drm_connector_to_panel(connector);
+> +
+> +	return drm_panel_get_modes(drm_panel, connector);
+> +}
+> +
+> +/**
+> + * drm_bridge_set_connector_orientation - Set the connector panel
+> + * orientation from the bridge that can be transformed to drm_panel.
+> + *
+> + * @bridge: The drm_bridge for a drm_panel.
+> + * @connector: The connector to be set panel orientation.
+> + *
+> + * Returns 0 on success, negative errno on failure.
+> + */
+> +int drm_bridge_set_connector_orientation(const struct drm_bridge *bridge,
+> +					 struct drm_connector *connector)
+> +{
+> +	struct drm_panel *panel =3D drm_bridge_to_panel(bridge);
+> +
+> +	return drm_connector_set_orientation_from_panel(connector, panel);
+> +}
+> +EXPORT_SYMBOL(drm_bridge_set_connector_orientation);
+
+I don't think we should create new ones. Just move the code from
+bridge/panel here and remove it there. The only thing left will be the
+panel_bridge_add() variants that become almost trivial now, and you can
+cleanup the drivers in later patches.
+
+This also allows to get rid of all the symbol renaming, which isn't
+great in itself, but also the existing names were good so it's hard to
+come with better ones.
+
+Maxime
+
+--4hpbtqrwcomowwmy
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaplKVQAKCRAnX84Zoj2+
+dgFsAYCcTMOOQhPr9OTZmkc6rWK9eZPvodMVaikEOyG4zm9OYqIalLkovi+u8Thj
+AS0ouGEBewe+D+pUd87EXhPtJs7N2S1s+LY1gaPBKQQapphINewDZVG1/fjAgXR8
+29Nmc0CKHQ==
+=Su7e
+-----END PGP SIGNATURE-----
+
+--4hpbtqrwcomowwmy--
