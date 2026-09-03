@@ -1,108 +1,144 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD3E37AA87
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:02:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74FFB3F6C2D
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:02:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788418931; cv=none; b=e4kvuoSFPqi+j8gLlcXOo8qm3vApiMx/r2sC3DdH4T99a7LbKhCAFt46CdZ7QQmWPvigYL5Ea44/nqPk7VXvgiUh7UkIo2yXgTm15qd5iwwYffVdb/CRz5Gav442uQd86nymyFLL42jdZx7J/7u3bUOUfIXrrxSCE/Y0FKdzRrs=
+	t=1788418936; cv=none; b=DzPTY4twsS6MW7paJUo2YDZoGxfsh+JCoXbYXCvtJuZi4kMn3XFivAuqYS/Ev4cm2bZLwJ75/vDpEyveIelQSNoV+9DFiDTDVBCGrrU8siRUrRpTy74lMAhI170pikHtaTa41rFadaqkD2MVp925T4YcdxmzPOuVWqbHL+CcU2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788418931; c=relaxed/simple;
-	bh=URiiWCSYW0GjTxFe0It1760y7ZZo93z00xWsGdIXJ5o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OXLr6KyuVEC+Wzp2pazTPCLm+KxDBGfGGTCkk5oMj5o0rXivlxDN7pF3HM9/9TnO4PPNW4Mp78JciX4lrlpOlOmu8NZP2UZERyzbI0oRC00FRHpxgbNT6w86VtSX8UKKVJ6ffYCRRnemddCy5oKxeRu6rw4rKgjRvuGUoWyvp9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fwpwk+Af; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fwpwk+Af"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-398b3d66515so2584962a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:02:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788418929; x=1789023729; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WQWNPytw1GI5Bz7KWMVobnDn5jK6I/E1tnjkaIqtCQI=;
-        b=Fwpwk+Af00Ygg/YnI1dO+pv59/fFkuMvNM5X6m9U06WKRnWNnKS+2bRXHSN0UUBiow
-         tS6F15Ny7neuSncGdwpLseDCUIASSVZufeCZdkjmoFjaJfJHBfxzNqPYwzEeB5EtbUHE
-         f5Ut7w15/TmZpKbfET9nAL10KPgH1dYnPMqolAx1LHIKKQYg7/kAHJ4IsgPsZ3/CNDBs
-         gp2C3yDseussGd9y13b1vwgVuGPIYvseuXOTiGjjYk/BgiB+kSMdy8Zp1q8Fcix2f2Xq
-         FUVfXcP1A/N2L6C7IGvYDUrQ6HIb4daqPMIaN5iiDjfG/o0CQ8XbVDIVKPw1X7CcpOkF
-         JJFQ==
+	s=arc-20240116; t=1788418936; c=relaxed/simple;
+	bh=1zrndBMCoB1/nJ5b5eZMsgfZfNy3fJTZrFqv1j8aowE=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=JMolE2DWVR5Vl/eg+oNv+Ig0T4XJSH3/q7Pvqz2kdzAvw1xE10tVV+cTx1J+Xo9xTMR/5hJNqWTIPIQFu9/qkyTCDUvybz9EhSaB1TiAzF1BNxJ1/h34IEzI0MpaVmuAjDTCJvlKQP23fmGNtZ6Da4FK6arp98Dc/Y8xUDDSFps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6b34ad165e3so973484eaf.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:02:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788418929; x=1789023729;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WQWNPytw1GI5Bz7KWMVobnDn5jK6I/E1tnjkaIqtCQI=;
-        b=tJWCQbrtt9fIx9dHBegof9Fj3Pog+I2Rve+X4nuwJguHcBlIF0xOl1oX53QZmDvfXS
-         HZYaxy2Wf/Kd9HgnpqLvo+1CmHY19zqAHd00pxBRt8ypWQNdUA+3/78zK46GMs2AGgLl
-         lkQ1doDrZgW5YiFIVfTWGEoQaDNmqS1+fyeMzRDKbgHlxO+9YpYegtmEk9hVXYfNlCYU
-         RWvubfFr7ZXNCilYxJ5Wk4qFaoURm+dcDp1VJOJzt1gtGjekuoEhZMh9Gf0ebk495yTO
-         LDUUrsyYlDbMCEF6NevZrNrO3v3/WDfXNdHjRGv7RfrBykGRsxK8rNdRHCOX/hLhQRIF
-         N5Bg==
-X-Forwarded-Encrypted: i=1; AKwUvBy+nNW28G2Xeq5TxixcoEAEXQLK3XHgRp+gRbcIT5hbeWjrM9MK4QCBxRuFopNwspj3C33dq6wzNOwK9lc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kc4lWQJfQsd9nbP6ZvSpzgZvkxFN1bUxHdHEiEK4PthU69lX5l
-	tTzvslft2WPO2SLHVySISvSTDXWVI9odyuvNGsIT6n6wvBzH3HXsbGcO
-X-Gm-Gg: AYBFou1W/aKxBKC/V4Uj5CBwqry8cMiVVGzSgyTdbqnw+/vwyg+SowR/tmqGdPVkvJZ
-	RqmTsXWQFnt9nsDf8p2fVED8okP+a+cLMDhpqTDC94zgPQR6qYfvvOoZ+uZAK31s+c1+foEtErq
-	32GDSLGWITeka9lRNpmU/8sHFNHg/3cd2pxq+KhewxiKQw0e1kTIcM10tIxX8dKmnI0aKDJL2so
-	+ajg0mP+jnukniwzX9MUshVWq/UOWj9e+OIdIY7BYVQeqpquoa+tfGEVLgwJZcK5Ibi5kzIN0ud
-	zLwipPvTvMwJjnNd/dTy9Y/2xqE6vIiI3MEKRLA0Rg+fRd06OhnbPsZGW/pKnPBqqBCrcSZ1X4/
-	uOqFOla4nMdachPvp9JpF61VolOWuNOJIh7jeayL/cSGxs9I7JYQWSJOsh5auSegjnqe7TtpiqJ
-	K8iW3V6wc/lWrNlOQorqlD56G7RAwRSgBWHxSmB9s+iKaYAGh/ksuDqf+AMl48q4QbixDuSMOIa
-	wrAGhgiDXZXV/gVsl0UcQ==
-X-Received: by 2002:a17:90b:33c4:b0:38e:9045:bac0 with SMTP id 98e67ed59e1d1-39aedf644damr13780688a91.5.1788418928606;
-        Thu, 03 Sep 2026 00:02:08 -0700 (PDT)
-Received: from localhost (115-70-157-242.ip4.superloop.au. [115.70.157.242])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b0832b85bsm3439567a91.4.2026.09.03.00.02.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 00:02:08 -0700 (PDT)
-Date: Thu, 3 Sep 2026 17:02:04 +1000
-From: Tsz Shan Chan <tsz.chan.dev@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Subhajit Ghosh <subhajit.ghosh@tweaklogic.com>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Tsz Shan Chan <tchan@jacques.com.au>
-Subject: Re: [PATCH] iio: light: apds9306: fix default sampling frequency
- definition
-Message-ID: <apkag8drdFFofWFT@fedora-1>
-References: <20260903-apds9306-v1-1-3f892aa4f156@jacques.com.au>
- <apkWlzZZIIzVDz4C@ashevche-desk.local>
+        d=1e100.net; s=20251104; t=1788418932; x=1789023732;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=x+DkPBC7sLvsI8CSasjNZz0BIAT9izCKfXnwLRQ22iM=;
+        b=I2u7mdO94N7H1H7SmnsGukbixBT+oRFfI0QqQNYfVdAImkWXgZwTqXanO88gXlC+oh
+         xNzAcb11W8u7O14hQ6EAV3F7S2TSDXPdnBUhPGOUBU3g7yxQN3ki7q1Pw0dNAliS8vec
+         rZ4JaYgQinfYJYa3vnnkQT5pTCM1fZghyymr8tKloFrckMCb8a9ZRCwQsS6I9UAHujjt
+         FScsLWYcPllHUomGfrF1/1FJf4qcai7vcaWmJzrLkyXIGWiK1Z2Sja6aCs1fvBKEhsaz
+         P1C8YMCHQHs+EoYQWXzJTBnIPP5uZo5N6dn7cD9VmrOi57l5lBdsUODGgBA0xEj+MErt
+         B6Ow==
+X-Gm-Message-State: AFuF++kpWpQtLubw2kx9jlpIdFDPkYU9ZxwR8LZ0rB9mxfDy2BRUscsu
+	B9trxt2YhFq9Ug9gZGPy4eg+8N1DuEVqLtOOp/DsStqX4wCPF2MzmjK0uYdPSsPeHuSgm+wP9lO
+	NF3coFgwHbGGWPe+6PmHtR6MjyCBdiih0/F88LZM1MzxOaRDyoSaTo2Zsj5w=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apkWlzZZIIzVDz4C@ashevche-desk.local>
+X-Received: by 2002:a05:6820:221d:b0:6b1:4280:9e18 with SMTP id
+ 006d021491bc7-6b47f81bf62mr8144253eaf.13.1788418932470; Thu, 03 Sep 2026
+ 00:02:12 -0700 (PDT)
+Date: Thu, 03 Sep 2026 00:02:12 -0700
+In-Reply-To: <6a85e576.f7a79266.2f965f.003f.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a991b74.e7659fcc.146146.0003.GAE@google.com>
+Subject: Forwarded: Re: [PATCH] usb: core: fix GPF on disconnect when
+ interface claimed before registration
+From: syzbot <syzbot+87188222c77c0dbbdb4d@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 03, 2026 at 09:41:27AM +0300, Andy Shevchenko wrote:
-> On Thu, Sep 03, 2026 at 03:38:47PM +1000, Tsz Shan Chan wrote:
-> > APDS9306_SAMP_FREQ_10HZ is defined as 0.
-> > 
-> > According to the datasheet (page 11, ALS_MEAS_RATE), bits[2:0] set the
-> 
-> Can you add a Datasheet link? (Or at least the version and name)
-> 
-> > measurement rate:
-> > - 000: 25ms  (40Hz)
-> > - 001: 20ms  (20Hz)
-> > - 010: 100ms (10Hz)
-> > 
-> > Change APDS9306_SAMP_FREQ_10HZ from 0 to 2 to write the correct value
-> > for 10Hz.
-> 
-> > Fixes: 620d1e6c7a3f ("iio: light: Add support for APDS9306 Light Sensor")
-> > 
-> > Signed-off-by: Tsz Shan Chan <tchan@jacques.com.au>
-> 
-> No blank lines in the tag block (at the end of the commit message).
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-I'll add the datasheet link and remove the blank line in v2 commit
-message. Thanks.
+***
+
+Subject: Re: [PATCH] usb: core: fix GPF on disconnect when interface claimed before registration
+Author: khiemtranzo532001@gmail.com
+
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+master
+
+diff --git a/drivers/usb/core/driver.c b/drivers/usb/core/driver.c
+index f63004417..59e74872b 100644
+--- a/drivers/usb/core/driver.c
++++ b/drivers/usb/core/driver.c
+@@ -562,7 +562,6 @@ int usb_driver_claim_interface(struct usb_driver *driver,
+        if (!iface->authorized)
+                return -ENODEV;
+
+-       dev->driver = &driver->driver;
+        usb_set_intfdata(iface, data);
+        iface->needs_binding = 0;
+
+@@ -580,11 +579,19 @@ int usb_driver_claim_interface(struct usb_driver *driver,
+        else
+                pm_runtime_set_active(dev);
+
+-       /* if interface was already added, bind now; else let
+-        * the future device_add() bind it, bypassing probe()
+-        */
+-       if (device_is_registered(dev))
++       if (device_is_registered(dev)) {
++               dev->driver = &driver->driver;
+                retval = device_bind_driver(dev);
++       } else {
++               /*
++                * Interface not yet registered: record the claim without
++                * setting dev->driver.  usb_set_configuration() will call
++                * device_bind_driver() explicitly after device_add(), which
++                * skips ->probe() and attaches knode_driver so
+teardown is safe.
++                */
++               iface->claimed = 1;
++               iface->claimed_driver = driver;
++       }
+
+        if (retval) {
+                dev->driver = NULL;
+diff --git a/drivers/usb/core/message.c b/drivers/usb/core/message.c
+index 75e2bfd74..73c630750 100644
+--- a/drivers/usb/core/message.c
++++ b/drivers/usb/core/message.c
+@@ -2269,8 +2269,23 @@ int usb_set_configuration(struct usb_device
+*dev, int configuration)
+                if (ret != 0) {
+                        dev_err(&dev->dev, "device_add(%s) --> %d\n",
+                                dev_name(&intf->dev), ret);
++                       intf->claimed = 0;
++                       intf->claimed_driver = NULL;
+                        continue;
+                }
++               if (intf->claimed) {
++                       intf->dev.driver = &intf->claimed_driver->driver;
++                       ret = device_bind_driver(&intf->dev);
++                       if (ret) {
++                               dev_err(&dev->dev,
++                                       "device_bind_driver(%s) --> %d\n",
++                                       dev_name(&intf->dev), ret);
++                               intf->dev.driver = NULL;
++                               intf->condition = USB_INTERFACE_UNBOUND;
++                       }
++                       intf->claimed = 0;
++                       intf->claimed_driver = NULL;
++               }
+                create_intf_ep_devs(intf);
+        }
+
+diff --git a/include/linux/usb.h b/include/linux/usb.h
+index 1da4ad161..0ec743e76 100644
+--- a/include/linux/usb.h
++++ b/include/linux/usb.h
+@@ -266,6 +266,8 @@ struct usb_interface {
+        unsigned needs_binding:1;       /* needs delayed unbind/rebind */
+        unsigned resetting_device:1;    /* true: bandwidth alloc after reset */
+        unsigned authorized:1;          /* used for interface authorization */
++       unsigned claimed:1;             /* driver claimed before device_add() */
++       struct usb_driver *claimed_driver;      /* driver for deferred bind */
+        enum usb_wireless_status wireless_status;
+        struct work_struct wireless_status_work;
+--
+2.34.1
