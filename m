@@ -1,82 +1,90 @@
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3510447F799;
-	Thu,  3 Sep 2026 17:30:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2511DCB24
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 17:30:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788456653; cv=none; b=GUFb/bAD2P8vQ6ZKRapfAlKc0HBtKx6vUVLlmHj/McOacqP+6t7vfjX+d6Jlt28wyAQjLIFFZuaIkmbBSG/ywQ/rnrw9gk43GAtnFBQuski0i5yNvYX6Y3/q+LmKeWjeMBI4TSAC7+GdFiRJMnjlb47UStTw6Eg530qUUGXEaoE=
+	t=1788456653; cv=none; b=UIlMeR0D8C7r7Imo8bK9QWwIuNuYC1vWdkglPlf3V63cV0ZW+voW9tN9XX9FM15Vd7wgAnGVenk5y+8LWGsrmu5+qmhIWw5i7Sqmci6N7cnq5yF9g42JHpFcyVfbFK10CxFHPeSO9AqKVol/Ovx0Yh5F17Ep2VQdA44YPkE01yA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788456653; c=relaxed/simple;
-	bh=MgMZfjHtJWGskJ7iDZWmY8Oed8R/GMs4VyOX/TuiH1U=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BXDWUTA0UWLlqLKNmt3sml6ulvLuqMwzJuQRRJIiDRk5akh/VpVBdrYHhrLpdG+1fvw8U5ojdBVJhnfmrzXfoF8Ykbva4jkGJ2gGGAmEC3qNGl0DbksEJ+UDLDnTX1XkNSGPAQPFknVncdfQh4ZmOiI1k3NppLoPwzr59OVBw/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=qqcyYnkg; arc=none smtp.client-ip=216.40.44.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	bh=Dzc9SmRCYrSygjOqnWfwfupjNMmopTee8uOKZ6yp6Qc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tBpGb2klW1zXyG1xc0IK+ldOmN3Ro/8tC7qknmMtoaZgG2EZfObP/3JouE+00rpmbfCSP1WgvI+mtOdh4549q/9mmqpYSrQoP+CiRN3dXK+UmDl20XZHMWAdT1VFD6MmsQKDEWQlMfwYNhoslCe5PFA6NFtVL9tNpEXIfiOCufo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eWNG0ak2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="qqcyYnkg"
-Received: from omf15.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id 3D481A4684;
-	Thu,  3 Sep 2026 17:30:48 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf15.hostedemail.com (Postfix) with ESMTPA id 362BB1B;
-	Thu,  3 Sep 2026 17:30:43 +0000 (UTC)
-Date: Thu, 3 Sep 2026 13:31:46 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Russell King <linux@armlinux.org.uk>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-rt-devel@lists.linux.dev, linux-perf-users@vger.kernel.org,
- loongarch@lists.linux.dev, Mark Rutland <mark.rutland@arm.com>, Ian Rogers
- <irogers@google.com>, Peter Zijlstra <peterz@infradead.org>, "Luis Claudio
- R. Goncalves" <lgoncalv@redhat.com>, Catalin Marinas
- <catalin.marinas@arm.com>, James Clark <james.clark@linaro.org>, Huacai
- Chen <chenhuacai@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, Oleg
- Nesterov <oleg@redhat.com>, Alexander Shishkin
- <alexander.shishkin@linux.intel.com>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Waiman Long <longman@redhat.com>, WANG
- Xuerui <kernel@xen0n.name>, Will Deacon <will@kernel.org>, Clark Williams
- <clrkwllms@kernel.org>
-Subject: Re: [PATCH v2] ARM, ARM64, LONGARCH: Delay HW BP notification to
- task_work()
-Message-ID: <20260903133146.07095885@gandalf.local.home>
-In-Reply-To: <apmknG55qFAn8EPf@shell.armlinux.org.uk>
-References: <20260814085118.OPEA_Ssn@linutronix.de>
-	<20260903160710.vVf4gEL2@linutronix.de>
-	<apmknG55qFAn8EPf@shell.armlinux.org.uk>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eWNG0ak2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59ADF1F00A3D;
+	Thu,  3 Sep 2026 17:30:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788456652;
+	bh=8qcSue7NW9lsO+Qcr747wyeFK6VBjumXUztD7ofp5DQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eWNG0ak2XLf2D4ua9SXJI/whF9UG+rwhXJNwDLeMnWrkUWjM5rfzxjJ2/ahX1MoS1
+	 7YvaLmVwN1e4Q+Wp1p5kZW8R+bQkR4k6IZAgIYwwJ6JmQFdcl/m81EL1FWOqvDxhdq
+	 KDaxbtLC7k0D/ZExVCRWrOqSPj3plvTDL1wLe+yt+ATlxjpsGi4LZyXhlRtVdm2Tsm
+	 68/rr+mAokcw+X5AnN3crAW+/z3ioeUIeXw9uiMafnNvFkBSAbwGkqRwsUHE1Ia/SV
+	 jn6xVr5f9PJb/B0uuU8Nx1s4fbbeR6WdLpGGsD4422yWcMroOR41V1DCtCAyTdLNeV
+	 n1/KuZvVK8/kg==
+Date: Thu, 3 Sep 2026 07:30:51 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Hui Su <sh_def@163.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	John Stultz <jstultz@google.com>,
+	Johannes Weiner <hannes@cmpxchg.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] sched/cputime: Account cgroup fields to the scheduling
+ context
+Message-ID: <apmuywWz3c0keI2i@slm.duckdns.org>
+References: <5733b51108eda90c1bda98a68d58b5e6ccbc24ec.1788433334.git.sh_def@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: q5rtu1fiqy3jfjswxfikew81wiyencsm
-X-Rspamd-Server: rspamout06
-X-Rspamd-Queue-Id: 362BB1B
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19SQN1/iG251VKiSvCm90J/LH6Jif8jlZI=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=MgMZfjHtJWGskJ7iDZWmY8Oed8R/GMs4VyOX/TuiH1U=; b=qqcyYnkg3p5F+UTVr/cgexJ1tZY0fAWBiki/WGjHsZ4h16riO0oLZP/UfGe0xdxU3KW71p1uZSD7oYxxFDSgdWxLofSFJMJqQc/uaEYXNDRZWgh/UmAbFyYg8nP9CFLA5mBn8hJD5OJy3yIsgkoNMnzTnL7skByDfjwMvD2e0vM=
-X-HE-Tag: 1788456643-677296
-X-HE-Meta: U2FsdGVkX18UDoUfH7MFH18LwOE6g10qW7dTkby7HjdB9X7BAG5qm8DxHVQQTPdtxGKneSZa9RInj6HuOfgU1jrR8yX6yW3K7fnvEf1/MlRgMD8jOUBQx2YsgQNEjrBWUvVSNqdIiYbJjJkh1E2120a+kJoPNZZT/6uir5B8TTX2BRq8V1KcQNPBobM5W6B+YvVAD/4d87POi8pasBUVzpHtLQvIraki2FkTv9BVPzITzzujsbAHvurHpIl46Ow6Cp6gV9QxwlxCX/VatqdB+E3ir7R0pC9W2Vd/V6ov65gCFH6Ja9hHLtsOf44MNChOQq5BQmWAckwdYllkNqTRN9/3dNiQVT0GA4ajriVWf566cpaX5UWqBgeoslbvLntd
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5733b51108eda90c1bda98a68d58b5e6ccbc24ec.1788433334.git.sh_def@163.com>
 
-On Thu, 3 Sep 2026 17:47:24 +0100
-Russell King <linux@armlinux.org.uk> wrote:
+Hello, Hui.
 
-> What do you expect to happen with this? Which arch maintainer should
-> apply this patch that affects three different independently maintained
-> architectures?
+On Thu, Sep 03, 2026 at 07:07:12PM +0800, Hui Su wrote:
+> Proxy execution separates the scheduling context from the execution
+> context. Scheduler runtime accounting charges cgroup time to the donor,
+> while tick and vtime accounting use the execution task when updating
+> cgroup fields.
+> 
+> When the donor and execution task belong to different cgroups, this can
+> charge cpu.stat usage to the donor cgroup while charging cpu.stat user
+> and system fields to the execution task's cgroup.
+> 
+> Before this fix, a reproducer with donor and execution tasks in separate
+> cgroups showed the donor cgroup gaining usage time while the execution
+> cgroup gained system time.
 
-Looks like the patch should be broken up into a 4 part series.
+When these numbers are presented to the userspace, the user/sys split is
+calculated out of usage_usec, so at least the presented numbers should be
+coherent no matter what.
 
-One to add the ARCH_NEED_PERF_HW_NOTIF code to the generic code.
+> Account cgroup fields to the scheduling context as well. Separate
+> per-CPU cpustat accounting from cgroup field accounting so the former
+> continues to follow the execution context while the latter follows the
+> scheduling context.
 
-Then one for each architecture to add the code needed to set that.
+I don't think it makes sense for cgroup's usage times to deviate from how
+thread's get reported. Threads follow execution context. All cgroup numbers
+should too. If you're worried about usage_usec not agreeing with e.g.
+bandwidth control results, we can show donation time separately, but let's
+worry about that later.
 
-Then the architecture maintainers could ack their patch and the perf
-maintainer can pull it all in.
+Thanks.
 
--- Steve
+-- 
+tejun
