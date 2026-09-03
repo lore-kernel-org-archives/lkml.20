@@ -1,44 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C92754DF4D3;
-	Thu,  3 Sep 2026 20:26:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38C183C3F6B;
+	Thu,  3 Sep 2026 20:27:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788467183; cv=none; b=jwceB6bdlFO94cynfmsdFDKVcsxxtRh0X7LaRLNsPncUg6ZAAhDDUZsghr6II6+MOybIqZQpqLF06hAFSN9Ewn0Z5cUzt2uMNf4PMD++FDkQ9rsfnwiyL8n5/OSV/J6o6kKiHzrZToxhNjj6CauCX8dl3cpc/gCtL1z5vXcPBw0=
+	t=1788467244; cv=none; b=Rj2jEUTVW64vPx5M05PHY5fVGvxTjL9H+FYD5YdCIsefcOQ9PEj/r6wiAcfeykl6so8UV9lPoTVnjPCsJJ6FBLGqCnX8xf0Ql9NFa/bvyOxh7QDqiIbkW17I5K525SmS4z1CM7aRtKjjZNRC11ctFEL9w+Cjk8IxNmEwxcRTRsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788467183; c=relaxed/simple;
-	bh=09MHZ5B8NwaJeNDtQtwQamcZ5qyNv3VCJqjodHpedH0=;
+	s=arc-20240116; t=1788467244; c=relaxed/simple;
+	bh=l91/UGkIDrl42dnGZ8e+BDegYiQ2Y+Zc+gpuFCj9TVE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mYqz0/9esBtnlsN7niugV/b+Xb+Z6MEQ3SOyjCzB9WuAHchYzTZcdg056nX6uNSHYCWli5QeFn7UA/0XzWnN4wer7b3n37GLlJXjpmL4iIuUtyHs9xVXSivkDhEHnhLLbPq3H05XLxj61V3i+JMMNV5S8Kh2KapeEdexePyZJKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PWgQrnJb; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=b8UkrJB8d9K2hhdQHxKigWIezRZb3VKRDQXuyJlNr06jIr5edUoHqDanpFJgdobIBImxQgmXSUjzvW6Ne3hwTSVqnqHhq+9OCwJB2ik650DLOzOjalZUjfrkcKZjJtlIsL5dd1hTkr3TihkZdLcNm4G7d7+jufPFFHPNDMYj0D8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UEOKV5xL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PWgQrnJb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B6EF1F000E9;
-	Thu,  3 Sep 2026 20:26:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UEOKV5xL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C6571F000E9;
+	Thu,  3 Sep 2026 20:27:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788467168;
-	bh=Kn+BrQDF1tpL6NihpVkXwRuv3+9c2tqI66dX8xw+xLs=;
+	s=k20260515; t=1788467225;
+	bh=elkp0fXEfvHG6ANCalHkLSTiGly333WXYxFdC6tJUZg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PWgQrnJbzG1Vcn7hcRs+ndmjjvosFxPtabrYQ2iiqybuoszWpGKXkb0Jw+laCaIGq
-	 gsjVBPsR/6s9GTFIiSO0pIMiiJuC/Ul3Ym0OkmTHWzb5rSZz448I3OjC1O+jVDUw5X
-	 sZmrqJE+aGKSo8q4/uouXsVzT45JTCS2o7Yhahxj//oLMzQClTBF+jVptGKL6UlF9Z
-	 X3XqMFj/bu7eW2jGQEVCxJX4xZOzuo9l/6kNy1YY6yBhQA+m+jT+F4hkT31XSZWX7G
-	 K/lmnm965rKlypr9A8SrJGoN8fA6xBKzja0gexB2jrBz/4K0570Rq9Mtd8XSM5TsVE
-	 mSfHJsbnTA2ew==
-Date: Thu, 3 Sep 2026 10:26:07 -1000
-From: Tejun Heo <tj@kernel.org>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Christian Brauner <christian@brauner.io>,
-	Meta kernel team <kernel-team@meta.com>,
-	linux-kselftest@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] kernfs: fix up the unlocked attribute reads on the
- creation paths
-Message-ID: <apnX34sTUnMngU5k@slm.duckdns.org>
-References: <20260903040253.670020-1-shakeel.butt@linux.dev>
- <20260903040253.670020-3-shakeel.butt@linux.dev>
+	b=UEOKV5xL2pQxlkjJ1XVy7dMHYWTQqpMC63KRwDOArms6ZDlYnhluOig5OX27kLFPV
+	 0B4mLTol/O9bYfPMciSNSfxJy8nc1tpWePKtvbI7WaPKsVZYjXrYDK1D6j/Hq8vUze
+	 k6F8kZyhE7jrM+vVLxGsqy3vmWkbYMsyiL5gY/qUhgm6zt4FBBUv5Xc3c5XtIGz7Oc
+	 J756KeB4ZdWJUuo10pBpcGt5lv5tosWkL6OuxngnDtMmGrsIwKwrR2+hfQai6fGgK+
+	 9Zl5vBTazLyddJLAE9DCDia5KNbHPpyAoJLLwErRoaQjRJMlApJO5OvQqDoaSWfPNK
+	 pFhHfK2hr7zCw==
+Date: Thu, 3 Sep 2026 13:27:00 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Guillaume Tucker <gtucker@gtucker.io>
+Cc: Jonathan Corbet <corbet@lwn.net>, Miguel Ojeda <ojeda@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>, linux-doc@vger.kernel.org,
+	workflows@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kbuild@vger.kernel.org,
+	automated-testing@lists.yoctoproject.org,
+	"kernelci@lists.linux.dev" <kernelci@lists.linux.dev>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>
+Subject: Re: [PATCH 1/2] scripts: add TOML config to container tool
+Message-ID: <20260903202700.GA3790602@ax162>
+References: <7d8ba914cd174d716340bb2b88723bef0f330627.1787565460.git.gtucker@gtucker.io>
+ <apG3hwaPA8f7SJeI@levanger>
+ <b45e7864-928c-4b3c-aa62-64f4f63d85c7@gtucker.io>
+ <ed43b869-6fd4-4b00-8fd2-e9dd9aaf3349@gtucker.io>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,56 +51,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260903040253.670020-3-shakeel.butt@linux.dev>
+In-Reply-To: <ed43b869-6fd4-4b00-8fd2-e9dd9aaf3349@gtucker.io>
 
-On Wed, Sep 02, 2026 at 09:02:53PM -0700, Shakeel Butt wrote:
-> Two creation paths read a live node's attributes without holding
-> kernfs_iattr_rwsem, which kernfs_iop_setattr() takes for writing.  They
-> do not want the same fix.
+On Wed, Sep 02, 2026 at 12:26:29PM +0200, Guillaume Tucker wrote:
+> So to recap, here's what I would suggest:
 > 
-> kernfs_create_link() copies the target's ia_uid and then its ia_gid
-> into the new link.  A chown of the target between the two reads leaves
-> the link with the old uid and the new gid, an owner the target never
-> had, when copying the target's owner is the whole point.  Read both
-> fields under the rwsem.
+> * keep Python 3.10 for this series, continue discussion about minimum
+>   and optional version numbers tree-wide in other threads
 > 
-> kernfs_new_node() reads the parent's ia_gid for S_ISGID inheritance,
-> and that one does not care which value it gets: the node does not exist
-> yet, so nothing orders a racing chown against the creation either way.
-> Taking the rwsem there would only serialize creation under a set-gid
-> parent against a chown of that parent, to pick between two answers that
-> are both right.  Mark the field read data_race() instead.
+> * drop registry config file option in v4 then add it in a follow-up
+>   series along with image name validation and parsing using regex
 > 
-> The pointer that leads to it is a different matter: __kernfs_iattrs()
-> publishes kernfs_node::iattr with try_cmpxchg(), so there is no
-> unmarked write for that read to pair with, and both sides read it with
-> READ_ONCE() like the rest of fs/kernfs does.
-> 
-> The Fixes tag is for the symlink half.  kernfs_create_link() has read
-> the pair without a lock since it started copying the target's owner at
-> all; only the name of the lock its writer takes has changed since.  The
-> data_race() is a marking rather than a fix.
-> 
-> Fixes: 488dee96bb62 ("kernfs: allow creating kernfs objects with arbitrary uid/gid")
-> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+> * leave TypeError exceptions as-is in this series, improve user
+>   experience and error handling altogether in another follow-up
 
-Acked-by: Tejun Heo <tj@kernel.org>
-
-> +		if (attrs) {
-> +			/*
-> +			 * Unlocked on purpose: the gid is inherited onto a
-> +			 * node that does not exist yet, so nothing orders a
-> +			 * racing chown against this creation, and either
-> +			 * value is correct.  The pointer above needs no such
-> +			 * marking, __kernfs_iattrs() publishes it with
-> +			 * try_cmpxchg().
-> +			 */
-> +			gid = data_race(attrs->ia_gid);
-
-Nit: READ_ONCE() is likely the better fit as it's an intentional lockless
-read whose value is used.
-
-Thanks.
+Sure, I think this sounds fine. I tend to ignore existing issue comments
+from Sashiko when it comes to accepting a series, I would always prefer
+them to be handled in a separate series.
 
 -- 
-tejun
+Cheers,
+Nathan
