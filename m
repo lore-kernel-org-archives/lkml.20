@@ -1,122 +1,125 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C0E442B2E
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:40:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788424836; cv=pass; b=KkmHG5z1o3OhpeylNGmGy9OMJeGXWtQty0AYu8xf5/44cw156jCQUmugatJLMQRRY8jVpp3t78Sn3nIuOPN6TwmYXaBl5uRKF07S5LQDmpMfq9ILvDof+MjuFgthALqqzHsanLicMoZD8rnIwcgl+RXVqfdXOCP3djl3Az77xMA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788424836; c=relaxed/simple;
-	bh=38BlAFziRJRovARe8JKhiAbQAS/6opVLEcnEue1dsAA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VIecMqdM25MuMgioB2+lo4bMUJQy0Gb2YWEJ2ynKPSk1hrJK4dHtQI4vZxTW09mULyc3fnRADc+Jazj4+dSlMQmuiPMb1xEOJkUpBNOnrq68osYh0Ng6r8/ojN30tglHtEw2CZgZBVa9PdJBglmAtQH0AYrXtVmXBiUeTxD5yFs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=FqHXjw+g; arc=pass smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9816144A3F1
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:40:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788424839; cv=none; b=DsNY2Ye+s+HLRDYkhxAc0td7TfxzFwfStG5NRs5Kd4EbRjlQaSFBuTzYfCFko42jEfvpowS9rUx7Ybg6EU0D2Uf1PR5spv05mUxRcI6e2tUR3P8cSyF+cocJFrmiMnMQ0o3GsW/nGhK/ij6BNMWBakQ6a3DQd7r5sdzcYUvKNfE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788424839; c=relaxed/simple;
+	bh=DTYHCLNC20I3NT3Q6EauukS8X36P4w2ZaBG+yVpyd6k=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ky7GgPoIE1GzTa7WZdfWfOivxo3ABlkDs4IfY9s1zIbfMeAQdAJBMipkCJ3SHg6Mi/bCrdr5QIK2/Wb0jaumOWPiC1JyKHslhm0X4ruWR0FkjqlSa6tRJDQCrke3as1v8URflZZwhVWf3NA2/lp9SdplzKCHEHig4A3gI5uISSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Km/AVnQp; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="FqHXjw+g"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-84f38f3b36eso1774788b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 01:40:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788424833; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RZVQ1IKNepZuyLkheiU3/v7DVDTyKe2rowpgBIkscdL8OIW+moWuGO5kaMzQfVu+1a
-         80TaNGfIEbmYG9hoRrySPBbtNsMs6Ch5tPpOKNPRu2jv4F/nTQp4hksRphzuHHgLpH2A
-         TuBEZn8ax6PjgqZAVfFDjcDLBBjZBoyl++oFXQo0K9mUQQKa/X6DdVPyo+MeYq6uelqI
-         QXYaNXC8UyTBmeNpiA4/cl96kDVizcHH2pOeneP3fT4CPtwebsOkHAtp1xQNqao6WGfC
-         3VT3970fMYLzC8bDfz1upqP6LlkDst7C3muFyQRyp+wjbLwfxrQEzC0l19o5EdM7E0yp
-         7/jA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=38BlAFziRJRovARe8JKhiAbQAS/6opVLEcnEue1dsAA=;
-        fh=JJx1wwYrb2rnWI+yfOZwyOBjTXld53q5h/P/EVt3T9o=;
-        b=RYBsTS5LRWiJgSf4qL8B1WFxdtgratMrBRCT9s2ZltHiJYABY5KwKccAmJF1gWAjz/
-         IB69EIBl0rfjhhPoN6enaMImfmlbj1W8YzCYjqPpie+FimRCCf16bzA4rzJdwDfzMPgo
-         yDYOB4OCDTwihKz5MWt7s35hxrvWFjTzMOMceZHSCstl+z0ZLBr/SMf9zBmatQnE8+Qk
-         Nw1U5J0nodRHIJZBA2FVZDlQ0OGi6fL4SYwUWnFDnNnFaLQRVzNOJYC0zLd3g6a4Hx7P
-         TnkVYgviifWsoj2UR9HaZr+JqBAIOko4CZwIZDR4a3ZB/5152isvO5MuelYnwbddhVQY
-         2BhA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Km/AVnQp"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso22115175e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 01:40:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=berkeley.edu; s=google; t=1788424833; x=1789029633; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788424836; x=1789029636; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=38BlAFziRJRovARe8JKhiAbQAS/6opVLEcnEue1dsAA=;
-        b=FqHXjw+gP26NvhFNMvNKivkaVsXxicY1DBNu5LHNRMIOHsCQZnzLsEEMO0NgiNyEPY
-         8jgoCn1O27S+TomujvAjfLvtT3IBM0dtj+saBVXKXT3lWhJB5ijIGKI37I+XLYOMXHYF
-         21ozc3hWILrhhKIVoz91tagXMwqH7lH0QfK9cpFHTqxXoJKdmUwj/VQM5qKS7/AnpdJ6
-         Fbeqj/CioGcIEO2M/R1eguLTOQf0hK6Met/hcUQlBQTETtdf/oVPPZPoeDL6uZNgLn2d
-         2MXcV2wwF2e7y2DCX3goQDU60/qhkqekp+CvAFzQBNrBX7Jmny6yosnE/G6vVHv1V53o
-         WPOw==
+        bh=z2kd8yy098YwLOhAkPABv3/vm8TT/oYlA03PQA2FRSg=;
+        b=Km/AVnQpob5weZI+CSD8nsN8XCzqYUKP/IOGOoEXXRj6HqO+MOQK6bC+NcYVr0Ut87
+         1YYpdhRgQc1Q6X7Xe737LsYydC3GPnCp+bQc8ksc2EgzohaGGCl6P87lz9qKik+jZcHA
+         sLQrfrDUTPQ8Fr3KZr5kjlYRscPVeI7m5a9ivHZmSmVyovjzvPBHwn6/kdYBOFZrjS19
+         rxtOEL1rNejTr5t9iJW6MjfElzpx+rVHmBg+Q52N7tA1op2eBMcYbWxuJJ0lYYQF8sgf
+         vq3xCyguf9NrwdZuRmSGYQ5OL4tX/FCrGwLSR8I97Yl1w6C/lHes8VMMq+QXlK0gqgue
+         2GPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788424833; x=1789029633;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788424836; x=1789029636;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=38BlAFziRJRovARe8JKhiAbQAS/6opVLEcnEue1dsAA=;
-        b=sgmxmPrV/J6NP1eSlcDckUcJeldgyS0Xa7E281WfcCkyVLnXDmRgIrQx5fr9K3Kc6G
-         9zZ24hikD6aExd2IXVFFs3aScV007Xz/FucIsDOCReX+aWRmX72H14jwImZMIci/Lr59
-         C4g3FxKX2+a/EqkY7Sv09aJBE8fCj5VPNiT1pzjCcBfk0ISUjQpZmcqGqLfYNhkvpJ5h
-         f/M3nbVkQu/Mxnv9+IVyHGSOfgz4mOueRi8dFh3WmZPQNwVzggRcgan7k3iEWe/k6z1Q
-         PEg3RtO6F2EeXeFvOhZMEGFYaKYe+dxECgm17QNlXWMUFyo6rdRYPqZH7KaChf5q7prU
-         7cEA==
-X-Forwarded-Encrypted: i=1; AKwUvBz6khf6nfz0mS5w69fdMj5RlHxbssCpnN3Y483+g/kXXF4YekEbFVHOQ+3epXAzviXwn3ro9WVD2+CgmfM=@vger.kernel.org
-X-Gm-Message-State: AFuF++loC2RrtkjenUqAt+jDZtWj855NmhdZ3ZTcG6n+8a9/Iuvc9QMg
-	endNYmaBFx3y3QtLT+YKyh5Gi3t13RL3B1D53JcJDqtJVIN3TiXzOCJC94wxhQcJOIPeRAbplYN
-	Nrdg4vWmLknhWHvODK+GuygFXz+2mAo3zxycmpX7x3UPMYT194zSQsd+WTNE=
-X-Gm-Gg: AYBFou2H+0MtFXiKp4r64yolCd/mFhzLFmZtH3pn5KpUvcgLaBlH8xzRY00JYwNq0VN
-	SlIVXcu79+9eoCliUVhPjdDNeuKvYCWTty2IcIcgp+nh1OG03R5yi1Y/4StVEA/bhKOuT1X2MON
-	eQF+W7qjfblhIV0vrDbNtZinXD2rGR7q2bv0gCW1au8gdlu01g5TYLa+0rh5T7dE/Ezjrc3M/Va
-	VU9uHCDzLIn77vuf1MLwd/eZmf35shL0jVPC4Hz6g9G9lSiUynxTt0Zo4HuXwde1a0Zkr3uvx+1
-	MkjkShzBGnMg66qJet9QsOjj2VU+VnUtgRDfhZEtUcOWhCWRDSavn0btLWnb/mq0j815jSNNDVL
-	EK8ueaJlPWKuEdUfP3MyLHUsA4j9Z/50=
-X-Received: by 2002:a05:6a00:4f88:b0:85a:bc69:bfc4 with SMTP id
- d2e1a72fcca58-85eced14290mr14693883b3a.0.1788424831665; Thu, 03 Sep 2026
- 01:40:31 -0700 (PDT)
+        bh=z2kd8yy098YwLOhAkPABv3/vm8TT/oYlA03PQA2FRSg=;
+        b=MvjFNmnM4cef6I7Q4zIJpw+k8NH0pUgskH3c+VvxHtm2gss44lcUyQ48aUCmMKm8zJ
+         RoXhNjsg8wUpPaEt/nVkoQwWkiq//X08fj2dpale2EqLUu1/U3fC4gJya3pzCcCiTvcq
+         jehdoX5hou1OzI34+YSKju+NCjWsYMvd7RVyMnay7q+tCBulPXz8F1PW4AJgiU2FCKUi
+         VdGjIaB23cW+KVeeJvxWlP3iLpjnJImzcJqi5AmhYuSstFtGN4rj1Vbe111+6dgAVneT
+         ex6ojoDLo15nRGsh3Cg6ewypZR4FyLhZzHBdmOwu6EIAy7Z5WJMUl3sq6yL2oYItRtaN
+         m9iw==
+X-Forwarded-Encrypted: i=1; AKwUvBwtkAuUxCPkPhGvIrfTZlT5Dvg5biQenHOkvf5QoB+dFNMM+AuA5IYNrUx5J00Ozv1YhqLbgSIY6yE2aQg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lKA+pyHOU48sbebcraZOD7Y/1zh20B9dHyrtYcBvvbqcAfViQM
+	XcIiroejzW2XAQoERIiYb/QxTCX+DjIN2LHQkOYQ9FTLhTKOjAA9UZ6X
+X-Gm-Gg: AYBFou1Ap/cmzjdboA9mInXAgKwRg3Ic1UuuB598T4ZTGg0z7ns1ley2LzqiUJ9WpdP
+	xjPkjxJyJGp02xR9o2C70n4eCjb/dhi5wNhpo+m1LuBGHJmA1RHKtMoF6e+224+cX30LNbnm9Y0
+	8062pYtmzHq+OZQCV29BQQFuzHFvY6aNZjIdJhU/tqefhA3BK5RX1OXDpMiu0RGlKbIBJie1avt
+	X0o6vMNfbL2ptoay2THgRKs7nGrARBzzeDKVCOShj0Qm4ldL+GbpXKtPRrrQeAoSYlktEeLMjAe
+	7tqmqQ41De9EsdzaE9z3H6gl1D6kGo7KWqLxvcj9nMGTGXE3E+2Y7cO8vTrmB6KFx6/M8YbX8IB
+	ytv44KhnABdb/a327tIgcElItxnyKMXcMqaT9R75uC+B2sNzoXrgicl5S38ymdjBw/5EPKZzgWq
+	qXgMaJC6iwTAYVGWgAPL0WiK6zCTtNmjgkACjOp6Gx9zqs0LcUt0NbPznisCrKOXMEgVGpyWdZB
+	Fgdzb0/Jsl2oi5Qg21pNzSusUHgjB5PJLUv
+X-Received: by 2002:a05:600c:1da1:b0:499:9eb8:a1d7 with SMTP id 5b1f17b1804b1-49ce5842935mr226059755e9.9.1788424835605;
+        Thu, 03 Sep 2026 01:40:35 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce47b9817sm99477295e9.1.2026.09.03.01.40.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 01:40:35 -0700 (PDT)
+Date: Thu, 3 Sep 2026 09:40:34 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Borislav Petkov <bp@alien8.de>
+Cc: Mauricio Faria de Oliveira <mfo@igalia.com>, Michael Matz
+ <matz@suse.de>, Richard Biener <rguenther@suse.de>, Thomas Gleixner
+ <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Dave Hansen
+ <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
+ <hpa@zytor.com>, Juergen Gross <jgross@suse.com>, Alexey Dobriyan
+ <adobriyan@gmail.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Jan
+ Beulich <jbeulich@suse.com>, Brian Gerst <brgerst@gmail.com>,
+ kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v9 1/5] x86/boot: Remove "cc" clobber from memcmp()
+Message-ID: <20260903094034.489b64bb@pumpkin>
+In-Reply-To: <20260903000132.GGapi43JjGh-8sj65Q@fat_crate.local>
+References: <20260822-pvh-kasan-inline-v9-0-e70ef3b75b6a@igalia.com>
+	<20260822-pvh-kasan-inline-v9-1-e70ef3b75b6a@igalia.com>
+	<20260902023129.GGapeKgVlL2WgHcJcb@fat_crate.local>
+	<57b0d188-b256-bde4-43e6-99dae4f59d60@suse.de>
+	<05896397667d66a2969259298bcebb7f@igalia.com>
+	<20260903000132.GGapi43JjGh-8sj65Q@fat_crate.local>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828180322.730419-1-longman@redhat.com> <ba138f23-6972-44c8-8ce5-80de1f50891c@linux.dev>
- <85411b3f-bcbd-4a7e-99a5-49a465ca2df8@redhat.com> <CA+0ovCg3BcogTUuqZwboEaZW41dkcsAV3nWjENOHc5ZFGaEarA@mail.gmail.com>
- <fda9189a-93d1-44bc-8c69-766c687c0ed5@redhat.com>
-In-Reply-To: <fda9189a-93d1-44bc-8c69-766c687c0ed5@redhat.com>
-From: Farhad Alemi <farhad.alemi@berkeley.edu>
-Date: Thu, 3 Sep 2026 01:40:18 -0700
-X-Gm-Features: AcwNN1W9RlsfS8Yl1rcEPlrdH_DskMpwHeha43CLjrJglDGsBCBPibFIsGMnlDo
-Message-ID: <CA+0ovCgvhWff6M=ta8wr8RSTNUhPcxfL5UyGQMi2bxo5LQorEA@mail.gmail.com>
-Subject: Re: [PATCH] cgroup/cpuset: Handle cpu hotplug race in guarantee_active_cpus()
-To: Waiman Long <longman@redhat.com>
-Cc: Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-I do not mind at all! As long as the Tested-by tag doesn=E2=80=99t imply
-exhaustive testing for soundness and completeness, please feel free to
-add it. Thanks for asking!
+On Wed, 2 Sep 2026 17:01:32 -0700
+Borislav Petkov <bp@alien8.de> wrote:
 
-On Wed, Sep 2, 2026 at 8:29=E2=80=AFPM Waiman Long <longman@redhat.com> wro=
-te:
->
-> On 9/1/26 4:55 PM, Farhad Alemi wrote:
-> > Apologies for the delay in response. Upon our run, the patched kernel
-> > 388b607d107c07aaade04c7f22f344cab6bdccd3 no longer panics when facing
-> > the attached reproducer.
->
-> Thanks for verifying the patch. Would you mind if I added the following
-> Tested-by tag to the patch?
->
-> Tested-by: Farhad Alemi <farhad.alemi@berkeley.edu>
->
-> Thanks,
-> Longman
->
->
+> On Wed, Sep 02, 2026 at 10:48:14AM -0300, Mauricio Faria de Oliveira wrote:
+> > Boris, I guess this may be added as clarification in the commit message.
+> > Would you prefer another version with it?  
+> 
+> Yeah, I'd actually prefer it in the code itself so that we can find it easier.
+> This file is as good as any.
+> 
+> Something like this:
+> 
+> /*
+>  * Summarized explanation that "cc" clobbers don't have a meaning
+>  *
+>  */
+>  
+> and leave the "cc" clobber there but commented out:
+> 
+>  /* "cc" ... */
+> 
+> so that we can grep for it easier later.
+
+Why would you need to?
+Apart from a scan to just remove them all...
+
+David
+
+> 
+> Thanks!
+> 
+
