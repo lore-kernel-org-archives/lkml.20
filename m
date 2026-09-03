@@ -1,188 +1,161 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D973EEAC3
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 19:13:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788462848; cv=pass; b=hex5vKFhgXfqHCtg7mJWqVNbw9m4B8ya5ZFoHjL+d7d1BxYJApmhhMB/GjvOGZ/stqBlXaGY/yq2hTl9BNBDYaHw2XXHyaZ9VTeVJaj10VDpPP4VSxMZ9YGikXk90MxWyN5We9gnwJtAuC02s5IDb3BTgVB8P8gPyBK34vqcBNc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788462848; c=relaxed/simple;
-	bh=LQ5MmxlCmAkfvdFvXrKZhXx7Fex14wUm+MceK68pFDs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qE9bgYJY1Xo3LyWJL3ZDkzW16qRVBjtj73epmBHXqFej0PldylHjWmhp+vF8l7Btz2/thYRtZzc1251/Ndt/NLim2eQhO2FtPw5E2I5CoJ8OopWVPwIrqcPx6jdc88bsloz8f2zSBNgtL3bklIwoYs/U0hR5+vJUi//F9bDDuT4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cwdSFHGU; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Thmv5YVP; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72FEA3EC69F;
+	Thu,  3 Sep 2026 19:15:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788462915; cv=none; b=jcnqH3AmPVdkKY9y8mkDqf5cu+giMbZPWe+dsSxiTQP0i1lE7FNPhL2T4LQYnbZ/bie4JKN/4dmM9OdJZDTkwYMk6lz7y2vHxqH5Wi6+koR1hdU5PR3Swb29QaQrmAT4lXkgLgl17TBTnsArjOakwZ4xzOeAv61voGaiectS3AI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788462915; c=relaxed/simple;
+	bh=xuzsxDeOafq0Ti4HnnWpCY33USgpWDwRA70AF6qUObU=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=HiMRuPDPuerMaH8lv6IDXE9mKa34/aIAIqMnUQ2Jr8e7/BAWSscy1Pm+4eHh2kAU6BpQU4hrJ2w35WzJcV5jpea5y2H9nrN5aruG1M3HsvhfEvxkIwyYKJHCxbhlBjn8rE/fpygkT+BC5LPT0aMuAFsrFOPqeumPIkcBpfpBxj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bkBmIA6I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cwdSFHGU";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Thmv5YVP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788462825;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ftgzyujbx9F68uHjOCU1/tri9c4N8S6xaXNJtzq3Flg=;
-	b=cwdSFHGUB5A4gw2DrXzNUj8QNSk5NRzKQXNlNBKl5gcyW8AbIIsQ3VXAg8cy9jZEkGboev
-	VknJLN50cEM5kARqRg1jo4r1mWl/2NBSuDGwQxOClWnRO3NdwiFK8kvJm5GYS7U6Pqm3C6
-	7FyygcPNYD+HUEUocketHZue9RCBi+g=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-67-ELgMDda9NEeAjcDdyLfxpw-1; Thu, 03 Sep 2026 15:13:44 -0400
-X-MC-Unique: ELgMDda9NEeAjcDdyLfxpw-1
-X-Mimecast-MFC-AGG-ID: ELgMDda9NEeAjcDdyLfxpw_1788462822
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-484357599a4so110267f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 12:13:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788462822; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mm3mLV1GloLpHqYwrc9GV3SIEa6f3ZCZ1ldjpZ71GPJjhcmuzRRRVFy9RjUVonJF8u
-         sG+ujTRkFgUfDKZ7zINn12RY63TAoYn9lvQqMwcOvCXHUkHhEjvctEUzDmkPU6JdDW5B
-         eq54/3n5zljkHrGVUYfvgZN5nF12LaIHnaTbSF4K8NrSaO9chTHlfG4et2wNfBJhRKlZ
-         tCFDUUFOmeA4fRQOetXOv/KFIyWKA9xBJW0rNFlyIQRiw6hqzcGP4uj2PcWbT00hLojO
-         v1Ox2W8X3GIvJnU7AuO4YlmpTMGr0Ss5CPf5rAqEpM/EhRVSaf6nu7XVlUMuIE80uMUh
-         ypCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ftgzyujbx9F68uHjOCU1/tri9c4N8S6xaXNJtzq3Flg=;
-        fh=D24Fk8JrAoy/T+Plg0PZXrPWxSiRyP5c/ET+s+mX1rs=;
-        b=Dx8gsa/0o0lXzLHtNlRjNwPAjM9ccYcZsIWJmitW/DzpKjpDKSC64TjL+e4ZpW16bj
-         jc3jJFVLSuHFK3jRccv8tQ/UQ//uwik6DC5EolddtDNnERSMoWyifEVtNbAS8P2Z0Ncs
-         bS+TWQ6AQLzOctcsZlEAdmzEhVG7lV+6Bw1eDRfRbrlCkZYhTQ0F8d+1Cg8wrAyCFW+J
-         dsbabptKx9HNxBrtN/+3TiugkzAf91Vyk9MNGTSJs8EwNeHedkpIFoKD1KmSsmbEiWKd
-         3PQRoeDoe6u/kdlHrNmaGAjdPtsDwiTth9Cg2Wc8CyswoAZaru6dWkyGSahj/DIN/Zjh
-         IE6g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788462822; x=1789067622; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ftgzyujbx9F68uHjOCU1/tri9c4N8S6xaXNJtzq3Flg=;
-        b=Thmv5YVPhjH2NQjhg3KY4IemgkxPsePHBJBeBi7rTC106HNgb5heT7m9wpoAoJjOuG
-         qwW88eJsTnYYau4nRA2i53lzw1EKdCBb1nqmVwg6JMKmXDhJQz4R142OshQ2p980YDyt
-         Cb6JL1xwSgWjIQYtHCK0EYGs+e6JSWTtjiDvI1Vl0+a3wBzYaOGNeEBPq0B4Xl4zvEzD
-         +rDksf5ytzrnhAdZp2QRMLbYsDhnb509GcMbJGJc0S0Ilroqo8x9DKwsgJ8lRPzoL0ai
-         MfStRG+qKVP3yN5Z8MhJVNiIOCy11tPpPerRmiMZC5Jp8JCNss/fdOmvcgArevWbQF82
-         W6fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788462822; x=1789067622;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ftgzyujbx9F68uHjOCU1/tri9c4N8S6xaXNJtzq3Flg=;
-        b=sKwVRm1dSiEYwdQI7LAsrUAsK9Fix7gstmN5SA8Le2kDaC8+HZCf0QQlbKm549wJUm
-         Oq0jh7x1SrAscDBiUF8RXYzU4RM2azahNnlwQ24Z6vY1fyDHGcs94RxcFelDf+c22anA
-         wEQZ2rF1t/Xzap3wDQjpt8eWTC8VTSQlQkolSRkAa+hrm2sZdAH0/atP8Vtrt+iPM/XK
-         z73Ag5q1ciUwkABU7FstgIp/yZPrhc5lN80S6zIfPfnlpoD8/uEiUSBtxG4rjvBa0Kk8
-         ic4gvPVvjOBoQBzd2nIFWw6l1SONikV/Dbip4CWeLdTXFc5EdoZFVCew9tyvC6MnHHtV
-         Fe/g==
-X-Forwarded-Encrypted: i=1; AKwUvBzfRkJb8AMseZg/LyYqff3S/hnGsfJYEgJ5ngWj0izRLvPkYcy6x/sH7tB5FSYWO6xSI2BBFrxV1yDhzuc=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6qTNlXWjBxYdbHEFYR6xXe//MR3ucHHnZh7+PkEHcCRpcuV7k
-	T+J3d4RJTeT5zRWck9AqRAreP+ehG0dSN0XqcfGRA1oisdwnhEg2PfrEri4Tn7i643ogkHGfNmW
-	19AUSgk5G4j5+dctZ00HTznPfCta2SNCuRWZRGVDNzpgo2cSXlQTigHfjb4nJc3UIau9hZPlV0O
-	plBQd59dT+M1hRZNyC35N05d6F+Gs6OAOFSlcVn8Km
-X-Gm-Gg: AYBFou3eHoyEuG4Fs65Fuol2mdq0wZa8zH82VUwYcy4mHHNzAxmdTlklvrRtWqdu6Jb
-	E6XnlZ7PuGL51AdwdQoE+qt3WHhozqWJRE7T/KB9/Ap65AnB+tUm3ZBV6NgLpVi6OPY2brQd3xD
-	T05AROSg6kTHS4oXuw8nu3bJRopZNA92lkxiite2Ndf3c+92LLYLJL0gPPNuv7aG+RT0Cw7yiz/
-	0Fgqwew+q+3cgLovVsK+NEcwa7KcFJsgdmpRxoUDjhv3zS4n39T5Hp7k69I
-X-Received: by 2002:a05:6000:2084:b0:482:f0ee:1390 with SMTP id ffacd0b85a97d-48587289c5bmr2438673f8f.22.1788462822415;
-        Thu, 03 Sep 2026 12:13:42 -0700 (PDT)
-X-Received: by 2002:a05:6000:2084:b0:482:f0ee:1390 with SMTP id
- ffacd0b85a97d-48587289c5bmr2438609f8f.22.1788462821985; Thu, 03 Sep 2026
- 12:13:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bkBmIA6I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7F5B1F000E9;
+	Thu,  3 Sep 2026 19:15:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788462901;
+	bh=l/h1spr7oCSCPxVLTRo/K7YmaSon0D9KsuwTbmf5ZfU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=bkBmIA6ILwlQpNme5JS5EtFPVi62NQlEcXpwy2hm/QEqG2zxHptl5nSmkiV6pO1RQ
+	 7uBTO+6RuLvrFEZ14OkdKu3qnohkHzOoKcj0VZ5yMFNLZAYzvfn7SBN51JfH+Dxsbc
+	 i9MiJgxKMLBZJaT7SeKkv76kOavMEP7S5ZTJVzxYyQt2snbKBU6WJRuhHxp63Wu035
+	 B+ROO0L5zXBaiGUew/dPpIISDgNxk0suVnFgolCYuJllWGIwG2ecQbxljSi8J410AX
+	 9UNEJrJrmzNX4T/++pcNSJFEO9NpfVePaTwhiulHpC9UtjRO86KmG28YUmpt2/5yuF
+	 PAzuVyrMqvXqA==
+Subject: Re: [v10,net-next,1/2] net/sched: mqprio: pass qdisc handle to
+ offload drivers
+From: netdev-bot+sashiko@kernel.org
+To: rkannoth@marvell.com
+Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ andrew+netdev@lunn.ch, ast@kernel.org, daniel@iogearbox.net,
+ davem@davemloft.net, edumazet@google.com, hawk@kernel.org, horms@kernel.org,
+ jhs@mojatatu.com, jiri@resnulli.us, john.fastabend@gmail.com, kuba@kernel.org,
+ pabeni@redhat.com, sdf@fomichev.me, sgoutham@marvell.com
+Date: Thu, 03 Sep 2026 19:15:00 +0000
+Message-ID: <178846290039.3394541.11839642753647294558@kernel.org>
+In-Reply-To: <20260831131014.2639581-2-rkannoth@marvell.com>
+References: <20260831131014.2639581-2-rkannoth@marvell.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831144802.834315-1-seiden@linux.ibm.com> <20260831144802.834315-3-seiden@linux.ibm.com>
- <apdweRfqt4dTxcU9@google.com> <20260902075028.231001-D-seiden@linux.ibm.com>
- <aphLXQL1H2zYZgTi@google.com> <20260903114241.33034-C-seiden@linux.ibm.com>
- <apmEi1NmOUvmUBFP@google.com> <apmFClPZ2WcDINmT@google.com>
- <apmIGgMEN8w-kQAm@google.com> <19d4feb1-d703-4c62-8622-a6d5e9d6394c@redhat.com>
- <apmYPMMPCNzK9ZEA@google.com>
-In-Reply-To: <apmYPMMPCNzK9ZEA@google.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Thu, 3 Sep 2026 21:13:28 +0200
-X-Gm-Features: AcwNN1VM-0Sta_usKYpoIMa4PlVb-9vByCd46nQw98qW4Zt-Pg_0xPWbP_VjwBM
-Message-ID: <CABgObfZL-qNSaNkNZDj0Kk41zw6UZ30vkSxc6T8wb-pOKab9Wg@mail.gmail.com>
-Subject: Re: [PATCH v7 02/23] KVM: Make device name configurable
-To: Sean Christopherson <seanjc@google.com>
-Cc: Steffen Eiden <seiden@linux.ibm.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Claudio Imbrenda <imbrenda@linux.ibm.com>, David Hildenbrand <david@kernel.org>, 
-	Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>, 
-	Gautam Gala <ggala@linux.ibm.com>, Hariharan Mari <hari55@linux.ibm.com>, 
-	Heiko Carstens <hca@linux.ibm.com>, Hendrik Brueckner <brueckner@linux.ibm.com>, 
-	Ilya Leoshkevich <iii@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
-	Joey Gouly <joey.gouly@arm.com>, Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>, 
-	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>, Oliver Upton <oupton@kernel.org>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Sven Schnelle <svens@linux.ibm.com>, 
-	Ulrich Weigand <Ulrich.Weigand@de.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Will Deacon <will@kernel.org>, Zenghui Yu <yuzenghui@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 3, 2026 at 5:54=E2=80=AFPM Sean Christopherson <seanjc@google.c=
-om> wrote:
->
-> On Thu, Sep 03, 2026, Paolo Bonzini wrote:
-> > On 9/3/26 16:45, Sean Christopherson wrote:
-> > > > > Actually, thinking about this more, what I've proposed here, plus=
- the pattern of
-> > > > > #define-ing macros in arch-specific kvm_host.h files, should suff=
-ice.  For things
-> > > > > like __KVM_HAVE_ARCH_VM_FREE, it absolutely makes sense to #defin=
-e the macro in
-> > > > > kvm_host.h since it's very directly tied to an arch callback.  Wh=
-ereas with KVM_MIO
-> > > > > and KVM_ASYNC_PF, because they enable compilation of C files, it =
-makes sense to
-> > > > > define them in Makefiles.
-> > Ugh, defining CONFIG symbols in Makefiles sucks.
->
-> Sure, but IMO wrapping entire files in an #ifdef that comes from an arch =
-header
-> sucks more.  And technically, these aren't CONFIG symbols.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-True it wouldn't be -DCONFIG_ (fortunately). But even if technically
-correct is the best kind of correct...
+Critical: 0 · High: 0 · Medium: 0 · Low: 2
 
-> > I don't want KVM to be the. one that does things differently *once more=
-*.
->
-> Too late :-D
->
-> arch/arm64/kvm/hyp/nvhe/Makefile:ccflags-y :=3D -D__KVM_NVHE_HYPERVISOR__=
- -D__DISABLE_EXPORTS -D__DISABLE_TRACE_MMIO__
-> arch/arm64/kvm/hyp/vhe/Makefile:ccflags-y :=3D -D__KVM_VHE_HYPERVISOR__
+- [Low] Concern that the new `u32 handle` member of `struct
+  tc_mqprio_qopt_offload` (include/net/pkt_sched.h:168) is added with no…
+- [Low] The new `handle` member of `struct tc_mqprio_qopt_offload` is
+  populated by only one of the two in-tree producers of that structure.
 
-Sure, VHE/nVHE is fair game because the nVHE case is in the same boat
-as vDSO, arch/*/boot, and so on.
+--
 
-Looking at a grep for (cflags|CFLAGS).*\-D most are -DDEBUG,
--DDISABLE_BRANCH_PROFILING, -DDEFAULT_SYMBOL_NAMESPACE, etc. and in
-most cases they seem like a bad idea. Don't do it for KVM please;
-requiring -D for all architectures and for random pieces of config,
-when you can put it in asm/kvm_host.h, is just as bad if not worse.
+net/sched: mqprio: pass qdisc handle to offload drivers
 
-Paolo
+This adds a u32 handle member to struct tc_mqprio_qopt_offload and fills it
+from sch->handle in both mqprio_enable_offload() and mqprio_disable_offload()
+so that offload drivers can tell mqprio setup, teardown and qdisc replace
+apart.  The second patch in the series consumes the field in the octeontx2
+driver.
 
-> And I think there's value in deliberately being different, because CONFIG=
-s are
-> kernel-wide things, whereas the thingies in question are KVM-local macros=
-.  I.e.
-> IMO, having the behavior stand out is a good thing.
->
-> > I'd prefer to stub out the contents of the .c files instead.
->
+> diff --git a/include/net/pkt_sched.h b/include/net/pkt_sched.h
+> index 90d3e7943b19a..9f8694ecd4363 100644
+> --- a/include/net/pkt_sched.h
+> +++ b/include/net/pkt_sched.h
+> @@ -165,6 +165,7 @@ struct tc_mqprio_caps {
+>  struct tc_mqprio_qopt_offload {
+>  	/* struct tc_mqprio_qopt must always be the first element */
+>  	struct tc_mqprio_qopt qopt;
+> +	u32 handle;
 
+[Severity: Low]
+This isn't a bug, but could the new member get a short comment describing
+its contract, next to the existing "struct tc_mqprio_qopt must always be
+the first element" note?
+
+The struct is driver facing and shared, and nothing here states that
+handle carries the owning mqprio qdisc handle, that it is never
+TC_H_UNSPEC when the command comes from sch_mqprio, or what a value of 0
+means for a consumer.
+
+>  	struct netlink_ext_ack *extack;
+>  	u16 mode;
+>  	u16 shaper;
+> diff --git a/net/sched/sch_mqprio.c b/net/sched/sch_mqprio.c
+> index 6ced7008ef5c8..adc1393f84eaa 100644
+> --- a/net/sched/sch_mqprio.c
+> +++ b/net/sched/sch_mqprio.c
+> @@ -39,6 +39,7 @@ static int mqprio_enable_offload(struct Qdisc *sch,
+>  	struct net_device *dev = qdisc_dev(sch);
+>  	struct tc_mqprio_qopt_offload mqprio = {
+>  		.qopt = *qopt,
+> +		.handle = sch->handle,
+>  		.extack = extack,
+>  	};
+>  	int err, i;
+
+[Severity: Low]
+Should sch_taprio also fill this field?  struct tc_mqprio_qopt_offload is
+embedded in struct tc_taprio_qopt_offload, and taprio_enable_offload()
+populates the embedded copy member by member:
+
+net/sched/sch_taprio.c:taprio_enable_offload() {
+	...
+	offload->cmd = TAPRIO_CMD_REPLACE;
+	offload->extack = extack;
+	mqprio_qopt_reconstruct(dev, &offload->mqprio.qopt);
+	offload->mqprio.extack = extack;
+	taprio_sched_to_offload(dev, sched, offload, &caps);
+	mqprio_fp_to_offload(q->fp, &offload->mqprio);
+	...
+}
+
+The object comes from the kzalloc in taprio_offload_alloc(), so
+offload->mqprio.handle stays 0 (TC_H_UNSPEC), which is a value the
+sch_mqprio path never produces.
+
+Several drivers feed that embedded sub-struct into the same handler they
+use for TC_SETUP_QDISC_MQPRIO:
+
+  felix_vsc9959.c    vsc9959_qos_port_tas_set() -> ocelot_port_mqprio()
+  enetc_qos.c        enetc_setup_tc_taprio()    -> enetc_setup_tc_mqprio()
+  am65-cpsw-qos.c    am65_cpsw_setup_taprio()   -> am65_cpsw_setup_mqprio()
+
+am65_cpsw_setup_mqprio() memcpy-caches the whole struct, so it would cache
+handle == 0 on the taprio path and a real handle on the mqprio path for the
+same hardware state.
+
+No current consumer is affected: the only reader added by this series is
+octeontx2, and otx2_setup_tc() handles TC_QUERY_CAPS, TC_SETUP_BLOCK,
+TC_SETUP_QDISC_HTB, TC_SETUP_QDISC_MQPRIO and TC_SETUP_ROOT_QDISC only, so
+it never sees a taprio-produced struct.
+
+Would it be better to set offload->mqprio.handle from sch->handle in
+taprio_enable_offload() as well, or to document in pkt_sched.h that the
+field is only meaningful for TC_SETUP_QDISC_MQPRIO issued by sch_mqprio,
+before drivers start keying committed state off it?
+
+> @@ -79,7 +80,9 @@ static int mqprio_enable_offload(struct Qdisc *sch,
+>  
+>  static void mqprio_disable_offload(struct Qdisc *sch)
+>  {
+> -	struct tc_mqprio_qopt_offload mqprio = { { 0 } };
+> +	struct tc_mqprio_qopt_offload mqprio = {
+> +		.handle = sch->handle,
+> +	};
+>  	struct mqprio_sched *priv = qdisc_priv(sch);
+>  	struct net_device *dev = qdisc_dev(sch);
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260831131014.2639581-1-rkannoth%40marvell.com
