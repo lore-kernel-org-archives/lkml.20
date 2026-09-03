@@ -1,466 +1,174 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE1F34750B
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 04:20:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64F4C2EEE84;
+	Thu,  3 Sep 2026 04:20:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788409225; cv=none; b=LzGh9v1dea767F5+UvP1wRM1V3lS4GaG3u4fn0wtCD6dOpqh0eDiKAQCtdfnNYcq7FFA6/Wa9PP82YfQfeV4uBVluGxE+qXsOBuGcpkEMmv/9D3uxlxXmnTWJQZm5PWb9/AGYNGP9+KB8Z3GZKDJip+iq2NpTtuMzS1WSJuEWn4=
+	t=1788409257; cv=none; b=MPyO3+mMnzBujCAMcKipKePkZ1bI1RNstk2Qhedw2E9yoS5sFKbZHAKzISGpcD+RpwHCwso1k/J9RUw1KgOO0d2Zh7ir8aonxdivhH/4zYgerpeq1Yet8muKxcKyeTqaVb256AEzIknXVoPQeVuE37Qp/6ooNVT8FXiXo+47QgQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788409225; c=relaxed/simple;
-	bh=C/PK3HXag8qXRH9c8xtWWdW2fXSrtfEg8KKZFjgxe+0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=W8DdkaoYiFlLnv5BjMjoUhvBuF3EjRz1k21FBQ+fJAszLeH5389zQAMIYJ4w5SU9ZU1JL2akcBUj/E9b/BGWBAYoLDeLFcPYam3ydcOwcuP29VdWcUJmjmLVSJKxVmKK1uMKwW8Ua550T6el+qkkVxw3Q5vsS9UfBrSl0i5LIAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bOxjTYaD; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=JCw6H9/e; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788409257; c=relaxed/simple;
+	bh=/+wkP9zKixQROnTHNdDgFC3KT4/BqYKEnxcltLAnChY=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=ejSjT6Y9KafliIn/8lZ8ItHSWHCge8KTbgtkP08He8lUu+pilxCx+O6paB+uZ1eWY5pGOUw2ywnvesXMaQUJxhJgS6z9W4jvNoumawPpnrFGs1cw8BffTFZceeVsaLo6Kerd1Uho+6cV1Vuy7oVpDjin7R70g/iWxNifZZESmUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=bGX+7tqi; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bOxjTYaD";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="JCw6H9/e"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788409219;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3P7NpmOmk2ABCw8iJwdV/KiXhnMi3Qc07wbIF+3iCtE=;
-	b=bOxjTYaDHZWqBpu7TtwLXU2a9r0YSapRkixzb1IvYvRYnE72RmR8B73rAWLUcNkR6zeOI9
-	2GQPtK/RCVwQB5Pxb6+cw9s180v52NdlhkOE7lmjLoQt2DVYnPTL+fxPb4loVVrlKwBHxk
-	uyAq0lrj3qeru4iCgetE6CL9sprKQLw=
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
- [209.85.215.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-2-UKmYAasxMiGbp_z-n0ZBOQ-1; Thu, 03 Sep 2026 00:20:18 -0400
-X-MC-Unique: UKmYAasxMiGbp_z-n0ZBOQ-1
-X-Mimecast-MFC-AGG-ID: UKmYAasxMiGbp_z-n0ZBOQ_1788409217
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cb48f41343aso634236a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 21:20:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788409217; x=1789014017; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3P7NpmOmk2ABCw8iJwdV/KiXhnMi3Qc07wbIF+3iCtE=;
-        b=JCw6H9/eN/2PmymynK2rfPy9mZR3QWhfPIsUSvP7VskhtHa20t0vBZm6841NrHgbRx
-         vSc2IzAUfPAJ1tm7infF+dguk+tvLp4VTNsUT8iMkMPDO1L9PM3+aQWKO1yxNUp1Go1N
-         9b+BesVjKYCzwjpxy/tW5hkHJLB8VkJpWEYZ2uEuZt1uExzfkuH6lHOGs3WZOFWkxwOX
-         CsBfbK1d7H/8veYfQmmVSRqB4vyQ3+aBejVwTPk3HQEuqSo/Ec0hva5NxTNE6EV4GVZT
-         CMu896EnEl9qjG4jL3ebBs0vzuC6EADwxbhT6VUZSr3mp5zs/2O34nu349CKu4G08Qw7
-         bG8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788409217; x=1789014017;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3P7NpmOmk2ABCw8iJwdV/KiXhnMi3Qc07wbIF+3iCtE=;
-        b=jpWYG6yqF0LnH2DIxSjlHHz6+sCag/ijUH9IvZfW32WSaIiOV5c+R1CWfZdLpZ1Y2j
-         uTtz2/sWHQWTYZ5sn0FWGQSU2RN+D2KWTFwVMkogQDSejs3iZ/QRY1DJrz/VGS6c8wih
-         w3yIYQOOu4zL/KQci9dgxOv5HSv6V4UvmR2idYjTILWfxx+Qjufn/7tiaLhr1ASdyMSN
-         HPMTp+G1rbKmk052+L8Uh2hHLhjfWoHnxwEqwl3+gBZPcmXAlNqz5VQUpxIW8L8GvWSc
-         llXqnGc7PaD6tVAh5KnAvc7v6rYbt+110cv7z6RDO+NPuhvfLpd1NPE9zUH3w1B8ARYG
-         wYUw==
-X-Forwarded-Encrypted: i=1; AKwUvBwYZzGHzzIrtcYiquocOeMN3Px2hurwWUHGdjCOTXXsqa9i77ponpKswyoGzT4y/6AX6dBc11C01RaWZXw=@vger.kernel.org
-X-Gm-Message-State: AFuF++luuYYcuXiOZA2I3mH0ZAgrxd4zCLmKqqDyC7P6qCYYYj55XXEg
-	QB7o5rcsajk9/THz0sGsXpsFe5S7PBvsCP1kqAEPMqPjJmhEtggH62/EKMIot8cWtepLQElzxon
-	KzAk76Q8hZJssqpytA4+b0N1pCEbljHiUvGze6cRHUzYtYoLYdx7mSM3ITFID4jirE7gJDdjMng
-	==
-X-Gm-Gg: AYBFou39CZKATouijGgTB/aoX/exa3uXw3JWMOd1MWRQkGGad/WBLe24D3qtYEWEGSB
-	odgmv1EFLAEnQUXTJhZxLqU912x8J8OVnm1DDAQr+hJdUT8g6uYXc65SHY3cNizTNxm8rKoqlnT
-	vfq9GTPw7dmnoLR0yPUxjOwlcdXo/wE1DVOYALUtaIAbkxAcSue/rmGWnn7bl6sWVu7MLiuZk5i
-	pxjI84er+RQ2i65cyGiACdMJMJ+Hv57FW9sdG2QNopdbTk46+jNi68cNhrPycWO3+mIrr/Nq8W8
-	PPK7fHawWyNxNNcTXDgsQicD7k1BpFW+qX1DBYhR0IYNlwWYHPntJWv15omV/fxpVhs1TTbV5Rh
-	M/6gTYrae3NVSMiWFn/Swnzld5qsLRaMbfSIYvKkGzg==
-X-Received: by 2002:a17:90b:5242:b0:381:10a3:8b10 with SMTP id 98e67ed59e1d1-39b08046aaamr3997746a91.14.1788409216752;
-        Wed, 02 Sep 2026 21:20:16 -0700 (PDT)
-X-Received: by 2002:a17:90b:5242:b0:381:10a3:8b10 with SMTP id 98e67ed59e1d1-39b08046aaamr3997701a91.14.1788409216155;
-        Wed, 02 Sep 2026 21:20:16 -0700 (PDT)
-Received: from [192.168.68.51] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33253672941sm2617105eec.3.2026.09.02.21.20.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 21:20:15 -0700 (PDT)
-Message-ID: <551014ec-eafc-4a63-92f1-6efcf1ca4db1@redhat.com>
-Date: Thu, 3 Sep 2026 14:20:01 +1000
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="bGX+7tqi"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:42c8:e78d:2576:d7c8:5aa9])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id A98C5874;
+	Thu,  3 Sep 2026 06:19:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788409160;
+	bh=/+wkP9zKixQROnTHNdDgFC3KT4/BqYKEnxcltLAnChY=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=bGX+7tqiRSxUvxZc9DQPDLtUbOomTTLOMiqhZqF/w2OLImZntO0wdO5LNb83nLLqW
+	 QhFz3FHgjKVX1di2tnCRweLme1ZJTy+fCflLgdfMGhPAGpLQR57vC+WQ0aMlCCwR50
+	 cHq8ihpQSBM4RQB1JJIIzeu9B3NTIRnc4OawgqrA=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 14/45] KVM: arm64: CCA: Add basic infrastructure for
- creating a realm
-To: Suzuki K Poulose <suzuki.poulose@arm.com>,
- Steven Price <steven.price@arm.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
- Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>,
- Oliver Upton <oliver.upton@linux.dev>, Zenghui Yu <yuzenghui@huawei.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Joey Gouly <joey.gouly@arm.com>, Alexandru Elisei
- <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>,
- Fuad Tabba <tabba@google.com>, linux-coco@lists.linux.dev,
- Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
- Shanker Donthineni <sdonthineni@nvidia.com>, Alper Gun
- <alpergun@google.com>, "Aneesh Kumar K . V" <aneesh.kumar@kernel.org>,
- Emi Kisanuki <fj0570is@fujitsu.com>, Vishal Annapurve
- <vannapurve@google.com>, WeiLin.Chang@arm.com,
- Lorenzo Pieralisi <lpieralisi@kernel.org>
-References: <20260803134403.80630-1-steven.price@arm.com>
- <20260803134403.80630-15-steven.price@arm.com>
- <c9608c82-d4ff-4c0f-8f7b-1793ed205566@redhat.com>
- <56aa7422-ded5-449c-ba62-e7e56d229587@arm.com>
-Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <56aa7422-ded5-449c-ba62-e7e56d229587@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260805-media-starvis2-v1-3-91e8e4eae44f@raspberrypi.com>
+References: <20260805-media-starvis2-v1-0-91e8e4eae44f@raspberrypi.com> <20260805-media-starvis2-v1-3-91e8e4eae44f@raspberrypi.com>
+Subject: Re: [PATCH RFC 3/4] media: i2c: imx678: Add imx662 support to the driver
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>
+Date: Thu, 03 Sep 2026 09:50:46 +0530
+Message-ID: <178840924662.11722.12680340547715469059@freya>
+User-Agent: alot/0.13.dev35+g4a69c46ca
 
-On 9/3/26 1:11 AM, Suzuki K Poulose wrote:
-> On 01/09/2026 05:07, Gavin Shan wrote:
->> Hi Steve,
->>
->> On 8/3/26 11:43 PM, Steven Price wrote:
->>> Introduce the skeleton functions for creating and destroying a realm.
->>> The IPA size requested is checked against what the RMM supports.
->>>
->>> The actual work of constructing the realm will be added in future
->>> patches.
->>>
->>> Signed-off-by: Steven Price <steven.price@arm.com>
->>> ---
->>> Changes since v15:
->>>   * Remove realm->params and only temporarily allocate the page when the
->>>     realm is being created.
->>
->> [...]
->>
->>> ---
->>>   arch/arm64/include/asm/kvm_emulate.h | 24 +++++++++++
->>>   arch/arm64/include/asm/kvm_rmi.h     | 63 ++++++++++++++++++++++++++++
->>>   arch/arm64/kvm/arm.c                 | 12 ++++++
->>>   arch/arm64/kvm/mmu.c                 | 18 +++++++-
->>>   arch/arm64/kvm/rmi.c                 | 56 +++++++++++++++++++++++++
->>>   5 files changed, 171 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/arch/arm64/include/asm/kvm_emulate.h b/arch/arm64/ include/asm/kvm_emulate.h
->>> index 5bf3d7e1d92c..e26d6755279f 100644
->>> --- a/arch/arm64/include/asm/kvm_emulate.h
->>> +++ b/arch/arm64/include/asm/kvm_emulate.h
->>> @@ -688,4 +688,28 @@ static inline void vcpu_set_hcrx(struct kvm_vcpu *vcpu)
->>>               vcpu->arch.hcrx_el2 |= HCRX_EL2_EnASR;
->>>       }
->>>   }
->>> +
->>> +static inline bool kvm_is_realm(struct kvm *kvm)
->>> +{
->>> +    if (static_branch_unlikely(&kvm_rmi_is_available))
->>> +        return kvm->arch.is_realm;
->>> +    return false;
->>> +}
->>> +
->>> +static inline enum realm_state kvm_realm_state(struct kvm *kvm)
->>> +{
->>> +    return READ_ONCE(kvm->arch.realm.state);
->>> +}
->>> +
->>> +static inline void kvm_set_realm_state(struct kvm *kvm,
->>> +                       enum realm_state new_state)
->>> +{
->>> +    WRITE_ONCE(kvm->arch.realm.state, new_state);
->>> +}
->>> +
->>> +static inline bool kvm_realm_is_created(struct kvm *kvm)
->>> +{
->>> +    return kvm_is_realm(kvm) && kvm_realm_state(kvm) != REALM_STATE_NONE;
->>> +}
->>> +
->>>   #endif /* __ARM64_KVM_EMULATE_H__ */
->>> diff --git a/arch/arm64/include/asm/kvm_rmi.h b/arch/arm64/include/ asm/kvm_rmi.h
->>> index 57d24b244c95..cefd00b76806 100644
->>> --- a/arch/arm64/include/asm/kvm_rmi.h
->>> +++ b/arch/arm64/include/asm/kvm_rmi.h
->>> @@ -6,12 +6,75 @@
->>>   #ifndef __ASM_KVM_RMI_H
->>>   #define __ASM_KVM_RMI_H
->>> +#include <linux/arm-smccc-rmi.h>
->>> +
->>> +/**
->>> + * enum realm_state - State of a Realm
->>> + *
->>> + * Mirrors the RMM's Realm lifecycle states where they are meaningful to KVM,
->>> + * with REALM_STATE_DYING being a KVM-internal state used to prevent further
->>> + * requests while teardown is in progress. KVM does not track REALM_SYSTEM_OFF
->>> + * or REALM_ZOMBIE separately as they naturally lead to teardown.
->>> + */
->>> +enum realm_state {
->>> +    /**
->>> +     * @REALM_STATE_NONE:
->>> +     *      Realm has not yet been created. rmi_realm_create() has not
->>> +     *      yet been called.
->>> +     */
->>> +    REALM_STATE_NONE,
->>> +    /**
->>> +     * @REALM_STATE_NEW:
->>> +     *      Realm is under construction, rmi_realm_create() has been
->>> +     *      called, but it is not yet activated. Pages may be populated.
->>> +     */
->>> +    REALM_STATE_NEW,
->>> +    /**
->>> +     * @REALM_STATE_ACTIVE:
->>> +     *      Realm has been created and is eligible for execution with
->>> +     *      rmi_rec_enter(). Pages may no longer be populated with
->>> +     *      rmi_data_create().
->>> +     */
->>> +    REALM_STATE_ACTIVE,
->>> +    /**
->>> +     * @REALM_STATE_DYING:
->>> +     *      Realm is in the process of being destroyed or has already been
->>> +     *      destroyed.
->>> +     */
->>> +    REALM_STATE_DYING,
->>> +    /**
->>> +     * @REALM_STATE_DEAD:
->>> +     *      Realm has been destroyed.
->>> +     */
->>> +    REALM_STATE_DEAD
->>> +};
->>> +
->>>   /**
->>>    * struct realm - Additional per VM data for a Realm
->>> + *
->>> + * @rd: Kernel mapping of the RMM-managed Realm Descriptor (RD) granule
->>> + * @sro: Preallocated SRO state context for Realm MMU operations
->>> + * @state: The lifetime state machine for the realm
->>> + * @ia_bits: Number of valid Input Address bits in the IPA
->>>    */
->>>   struct realm {
->>> +    void *rd;
->>> +    /*
->>> +     * Reused by RTT map/unmap SRO commands. Those commands are only
->>> +     * issued from Realm stage-2 map/unmap paths while kvm->mmu_lock is
->>> +     * held for write, including Realm fault handling where
->>> +     * kvm_fault_lock() takes the write side, so concurrent use is
->>> +     * serialized.
->>> +     */
->>> +    struct rmi_sro_state *sro;
->>> +    enum realm_state state;
->>> +    unsigned int ia_bits;
->>>   };
->>>   void kvm_init_rmi(void);
->>> +u32 kvm_rmm_ipa_limit(void);
->>> +
->>> +int kvm_init_realm(struct kvm *kvm);
->>> +void kvm_destroy_realm(struct kvm *kvm);
->>>   #endif /* __ASM_KVM_RMI_H */
->>> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
->>> index b961c22fce3d..c4d906861736 100644
->>> --- a/arch/arm64/kvm/arm.c
->>> +++ b/arch/arm64/kvm/arm.c
->>> @@ -266,6 +266,13 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
->>>       bitmap_zero(kvm->arch.vcpu_features, KVM_VCPU_MAX_FEATURES);
->>> +    /* Initialise the realm bits after the generic bits are enabled */
->>> +    if (kvm_is_realm(kvm)) {
->>> +        ret = kvm_init_realm(kvm);
->>> +        if (ret)
->>> +            goto err_uninit_mmu;
->>> +    }
->>> +
->>>       return 0;
->>>   err_uninit_mmu:
->>> @@ -328,6 +335,8 @@ void kvm_arch_destroy_vm(struct kvm *kvm)
->>>       kvm_unshare_hyp(kvm, kvm + 1);
->>>       kvm_arm_teardown_hypercalls(kvm);
->>> +    if (kvm_is_realm(kvm))
->>> +        kvm_destroy_realm(kvm);
->>>   }
->>>   static bool kvm_has_full_ptr_auth(void)
->>> @@ -488,6 +497,9 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
->>>           else
->>>               r = kvm_supports_cacheable_pfnmap();
->>>           break;
->>> +    case KVM_CAP_ARM_RMI:
->>> +        r = static_key_enabled(&kvm_rmi_is_available);
->>> +        break;
->>>       default:
->>>           r = 0;
->>> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
->>> index 6c941aaa10c6..8b9efa8a3539 100644
->>> --- a/arch/arm64/kvm/mmu.c
->>> +++ b/arch/arm64/kvm/mmu.c
->>> @@ -904,10 +904,14 @@ static struct kvm_pgtable_mm_ops kvm_s2_mm_ops = {
->>>   static int kvm_init_ipa_range(struct kvm_s2_mmu *mmu, unsigned long type)
->>>   {
->>> +    struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
->>>       u32 kvm_ipa_limit = get_kvm_ipa_limit();
->>>       u64 mmfr0, mmfr1;
->>>       u32 phys_shift;
->>> +    if (kvm_is_realm(kvm))
->>> +        kvm_ipa_limit = kvm_rmm_ipa_limit();
->>> +
->>>       phys_shift = KVM_VM_TYPE_ARM_IPA_SIZE(type);
->>>       if (is_protected_kvm_enabled()) {
->>>           phys_shift = kvm_ipa_limit;
->>
->> get_kvm_ipa_limit() and variable 'kvm_ipa_limit' have been exposed through
->> KVM_CAP_ARM_VM_IPA_SIZE for both normal and realm VMs in this series. However,
->> the IPA limit determined by the feature-register-0 in TF-RMM, which is returned
->> by kvm_rmm_ipa_limit(), can be different from 'kvm_ipa_limit'.
->>
->> This brings confusion to VMM like qemu, where the request to create a realm VM is
->> rejected if the requested IPA size exceeds the limit, exposed by the host through
->> KVM_CAP_ARM_VM_IPA_SIZE. So the host needs to return correct IPA limit through
->> KVM_CAP_ARM_VM_IPA_SIZE for realm VM somewhere in this series?
-> 
-> You're right that the limit exposed by the KVM_CAP_ARM_VM_IPA_SIZE
-> doesn't tell the VMM about the limit imposed by the RMM. The only way
-> to expose this is via an ioctl() on the KVM VM fd. But the VM fd is
-> created with an argument (type), which on arm64 unfortunately specifies
-> the IPA Size. So, this is kind of a chicken and egg problem. Or the
-> VMM can create a dummy Realm VM (with default IPA size of 0) and then
-> run the cap.
-> 
-> On the other hand, given the Realm creation is measured, if the Realm
-> can't be created with the "IPA Size" requested by the user, then there
-> is no point in creating the Realm VM.
-> 
-> So, we decided that this failure condition was alright.
-> 
-> This was mentioned in one of the versions of the series, but got lost
-> in the revisions.
-> 
-> If there is interest in getting this exposed, we could do something
-> like the above. Or, the other option is limit the IPA size of the VM
-> that can be created to RMM IPA limit, when we explicitly choose the
-> KVM mode to be CCA (this is something that is coming in the next
-> version)
-> 
+Hi Dave,
 
-I was even wandering if KVM_CAP_ARM_RMI can be extended to return the limit.
-For example, KVM_CAP_ARM_RMI is renamed to KVM_CAP_ARM_REALM_IPA_SIZE. 0 is
-returned if Realm VM isn't supported. Otherwise, the IPA size enforced by
-TF-RMM through the feature-register-0 is returned.
+Quoting Dave Stevenson (2026-08-05 21:39:18)
+> IMX662 is a 1080p Starvis 2 sensor that follows the same programming
+> pattern as IMX678, so add it to the newly parameterised driver.
+>=20
+> FIXME: Update the common registers based on the Sony spreadsheet.
+>=20
+> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> ---
+>  drivers/media/i2c/imx678.c | 64 ++++++++++++++++++++++++++++++++++++++++=
+++++++
+>  1 file changed, 64 insertions(+)
+>=20
+> diff --git a/drivers/media/i2c/imx678.c b/drivers/media/i2c/imx678.c
+> index 40ba6661b366..9083f2744510 100644
+> --- a/drivers/media/i2c/imx678.c
+> +++ b/drivers/media/i2c/imx678.c
+> @@ -673,6 +673,47 @@ const struct imx678_variant imx678_variant_def =3D {
+>         .hmax_min =3D imx678_min_hmax_4lane,
+>  };
+> =20
+> +static const struct cci_reg_sequence imx662_common_regs[] =3D {
+> +       { IMX678_REG_WDMODE, 0x00 },
+> +       { IMX678_REG_MDBIT, 0x01 },
+> +       { IMX678_REG_XXS_DRV, 0x00 },
+> +};
+> +
+> +static const u16 imx662_min_hmax_4lane[] =3D {
+> +       [IMX678_LINK_FREQ_297MHZ] =3D 990,
+> +       [IMX678_LINK_FREQ_360MHZ] =3D 990,
+> +       [IMX678_LINK_FREQ_445MHZ] =3D 990,
+> +       [IMX678_LINK_FREQ_594MHZ] =3D 990,
+> +       [IMX678_LINK_FREQ_720MHZ] =3D 990,
+> +       [IMX678_LINK_FREQ_891MHZ] =3D 990,
+> +       [IMX678_LINK_FREQ_1039MHZ] =3D 990,
+> +       [IMX678_LINK_FREQ_1188MHZ] =3D 990,
+> +};
+> +
+> +const struct imx678_variant imx662_variant_def =3D {
+> +       .name =3D "imx662",
+> +       .id_reg =3D IMX678_REG_MODULE_ID,
+> +       .id_value =3D 0x296,
+> +       .native_area =3D {
+> +               .top =3D 0,
+> +               .left =3D 0,
+> +               .width =3D 1937,
+> +               .height =3D 1101,
+> +       },
+> +       .active_area =3D {
+> +               .top =3D 0,
+> +               .left =3D 0,
+> +               .width =3D 1936,
+> +               .height =3D 1096,
+> +       },
+> +       .pixel_rate =3D 222750000,
+> +       .pix_per_clk =3D 3,
+> +       .common_regs =3D imx662_common_regs,
+> +       .num_common_regs =3D ARRAY_SIZE(imx662_common_regs),
+> +       .vmax_default =3D 1096 + 40,
 
-With above extension, the existing KVM_CAP_ARM_VM_IPA_SIZE is dedicated to
-query the IPA size for the regular (or normal) VM, while KVM_CAP_ARM_REALM_IPA_SIZE
-is used to get the IPA size for the Realm VM. VMM needs to decide which one
-is to be used.
+From the IMX662 SRM I see the following constraints for minimum:
 
-Another option could be splitting @arg in kvm_vm_ioctl_check_extension() into
-two parts: (a) Indicator of the scope; (b) Specific capability. For (a), it
-could be categorized into: (1) 0, global and not specific to any types of VMs;
-(2) 1, indicating the capability is associated with a regular (normal) VM; (3)
-2, indicating the capability is associated with a Realm VM. With this extension,
-VMM uses ioctl(kvm_fd, KVM_CHECK_EXTENSION, (2UL << 48) | KVM_CAP_ARM_VM_IPA_SIZE)
-to retrieve the IPA size of Realm VM that is enforced by TF-RMM. Besides, I'm not
-sure if pKVM can be benefited from this splitting in long term.
+    VTTL >=3D PIX_VWIDTH + 70
+    VTTL >=3D 820
+
+And the table giving round FPS numbers like 30/60/90 assumes VMAX =3D 1250.
+
+Did you manually verify that setting blanking to 40 also works?
 
 Thanks,
-Gavin
->>> @@ -957,9 +961,18 @@ static void stage2_destroy_range(struct kvm_pgtable *pgt, phys_addr_t addr,
->>>   static void kvm_stage2_destroy(struct kvm_pgtable *pgt)
->>>   {
->>> +    struct kvm *kvm = kvm_s2_mmu_to_kvm(pgt->mmu);
->>>       unsigned int ia_bits = VTCR_EL2_IPA(pgt->mmu->vtcr);
->>> -    stage2_destroy_range(pgt, 0, BIT(ia_bits));
->>> +    /*
->>> +     * Realm RTTs are inaccessible to the host and may contain stale data
->>> +     * after the RMM has released them. The non-root RTTs are explicitly
->>> +     * destroyed through RMI before the RD is destroyed; only the root PGD
->>> +     * pages remain to be freed here.
->>> +     */
->>> +    if (!kvm_is_realm(kvm))
->>> +        stage2_destroy_range(pgt, 0, BIT(ia_bits));
->>> +
->>>       KVM_PGT_FN(kvm_pgtable_stage2_destroy_pgd)(pgt);
->>>   }
->>> @@ -1001,6 +1014,8 @@ int kvm_init_stage2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu, unsigned long t
->>>           return -EINVAL;
->>>       }
->>> +    mmu->arch = &kvm->arch;
->>> +
->>>       err = kvm_init_ipa_range(mmu, type);
->>>       if (err)
->>>           return err;
->>> @@ -1009,7 +1024,6 @@ int kvm_init_stage2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu, unsigned long t
->>>       if (!pgt)
->>>           return -ENOMEM;
->>> -    mmu->arch = &kvm->arch;
->>>       err = KVM_PGT_FN(kvm_pgtable_stage2_init)(pgt, mmu, &kvm_s2_mm_ops);
->>>       if (err)
->>>           goto out_free_pgtable;
->>> diff --git a/arch/arm64/kvm/rmi.c b/arch/arm64/kvm/rmi.c
->>> index 247c4f033945..528b01d5d71d 100644
->>> --- a/arch/arm64/kvm/rmi.c
->>> +++ b/arch/arm64/kvm/rmi.c
->>> @@ -5,6 +5,8 @@
->>>   #include <linux/kvm_host.h>
->>> +#include <asm/kvm_emulate.h>
->>> +#include <asm/kvm_mmu.h>
->>>   #include <asm/kvm_pgtable.h>
->>>   #include <asm/rmi_cmds.h>
->>>   #include <asm/virt.h>
->>> @@ -14,6 +16,60 @@ static bool rmi_has_feature(int reg, unsigned long feature)
->>>       return !!u64_get_bits(rmi_feat_reg(reg), feature);
->>>   }
->>> +u32 kvm_rmm_ipa_limit(void)
->>> +{
->>> +    return u64_get_bits(rmi_feat_reg(0), RMI_FEATURE_REGISTER_0_S2SZ);
->>> +}
->>> +
->>> +void kvm_destroy_realm(struct kvm *kvm)
->>> +{
->>> +    struct realm *realm = &kvm->arch.realm;
->>> +    size_t pgd_size = kvm_pgtable_stage2_pgd_size(kvm->arch.mmu.vtcr);
->>> +
->>> +    if (!kvm_realm_is_created(kvm)) {
->>> +        kfree(realm->sro);
->>> +        realm->sro = NULL;
->>> +        return;
->>> +    }
->>> +
->>> +    kvm_set_realm_state(kvm, REALM_STATE_DYING);
->>> +
->>> +    if (realm->rd) {
->>> +        phys_addr_t rd_phys = virt_to_phys(realm->rd);
->>> +
->>> +        if (WARN_ON(rmi_realm_terminate(rd_phys, realm->sro)))
->>> +            return;
->>> +
->>> +        if (WARN_ON(rmi_realm_destroy(rd_phys, realm->sro)))
->>> +            return;
->>> +        free_delegated_page(rd_phys);
->>> +        realm->rd = NULL;
->>> +    }
->>> +
->>> +    if (WARN_ON(rmi_undelegate_range(kvm->arch.mmu.pgd_phys,
->>> +                     pgd_size)))
->>> +        return;
->>> +
->>> +    kvm_set_realm_state(kvm, REALM_STATE_DEAD);
->>> +
->>> +    /* Now that the realm is destroyed, free the entry-level RTTs. */
->>> +    kvm_free_stage2_pgd(&kvm->arch.mmu);
->>> +
->>> +    kfree(realm->sro);
->>> +    realm->sro = NULL;
->>> +}
->>> +
->>> +int kvm_init_realm(struct kvm *kvm)
->>> +{
->>> +    struct realm *realm = &kvm->arch.realm;
->>> +
->>> +    realm->sro = kmalloc_obj(*realm->sro);
->>> +    if (!realm->sro)
->>> +        return -ENOMEM;
->>> +
->>> +    return 0;
->>> +}
->>> +
->>>   static int rmm_check_features(void)
->>>   {
->>>       if (kvm_lpa2_is_enabled() &&
->>
-> 
-
+    Jai
+> +       .hmax_min =3D imx662_min_hmax_4lane,
+> +};
+> +
+>  struct imx678_model_info {
+>         enum imx678_type type;
+>         const u32 *codes;
+> @@ -703,6 +744,26 @@ static const struct imx678_model_info imx678_autodet=
+ect_info =3D {
+>         .auto_detect_mono =3D &imx678_aamr_info,
+>  };
+> =20
+> +static const struct imx678_model_info imx662_aaqr_info =3D {
+> +       .type =3D IMX678_COLOR,
+> +       .codes =3D codes_bayer,
+> +       .num_codes =3D ARRAY_SIZE(codes_bayer),
+> +       .variant =3D &imx662_variant_def,
+> +};
+> +
+> +static const struct imx678_model_info imx662_aamr_info =3D {
+> +       .type =3D IMX678_MONOCHROME,
+> +       .codes =3D codes_monochrome,
+> +       .num_codes =3D ARRAY_SIZE(codes_monochrome),
+> +       .variant =3D &imx662_variant_def,
+> +};
+> +
+> +static const struct imx678_model_info imx662_autodetect_info =3D {
+> +       .variant =3D &imx662_variant_def,
+> +       .auto_detect_colour =3D &imx662_aaqr_info,
+> +       .auto_detect_mono =3D &imx662_aamr_info,
+> +};
+> +
+>  static const char * const imx678_supply_name[] =3D {
+>         "avdd",  /* Analog (3.3V) supply */
+>         "dvdd",  /* Digital Core (1.1V) supply */
+> @@ -1470,8 +1531,11 @@ static const struct dev_pm_ops imx678_pm_ops =3D {
+>  static const struct of_device_id imx678_of_match[] =3D {
+>         { .compatible =3D "sony,imx678-aamr", .data =3D &imx678_aamr_info=
+ },
+>         { .compatible =3D "sony,imx678-aaqr", .data =3D &imx678_aaqr_info=
+ },
+> +       { .compatible =3D "sony,imx662-aamr", .data =3D &imx662_aamr_info=
+ },
+> +       { .compatible =3D "sony,imx662-aaqr", .data =3D &imx662_aaqr_info=
+ },
+>         /* for non-conforming DTs that rely on runtime check */
+>         { .compatible =3D "sony,imx678", .data =3D &imx678_autodetect_inf=
+o },
+> +       { .compatible =3D "sony,imx662", .data =3D &imx662_autodetect_inf=
+o },
+>         { /* sentinel */ }
+>  };
+> =20
+>=20
+> --=20
+> 2.34.1
+>
