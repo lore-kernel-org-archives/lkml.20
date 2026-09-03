@@ -1,72 +1,109 @@
-Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
+Received: from mta0.migadu.com (out-20.mta0.migadu.com [91.218.175.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 464AA3D16EF
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:10:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 435BD2D5C83
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:10:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788423004; cv=none; b=FER3n6hae02nNja7Fx9Fpv0gBqZZpfVbd0Nni9B8O1ttMfpamjhJR/ngh8NmZQCsE5bLB6QyET4SYYIBpf4RI+pu7IqXCjjskrTnqQgdWaq9yaOvwK/uo+jKjCPQiZNFW1Ap4jU/6RBz2AtUaJT7/VLZtpQInJCjx2LQqHszWm4=
+	t=1788423030; cv=none; b=T8FgkTogvxTLsuP/+sPZQSvD96Ni5mOAagfCcvcf2tdgMZ/44P2lU/RP/B+oZEUqV6ixeS/9XudWMLzcEtKQAcd/QTjCKs+hXYxItruzDCXjUbpkugOcHnTw6+Uz1JfcWOpocvPqDs+eVy5jiVliwCaK7qOLlNmF0fLad4iZ4Vc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788423004; c=relaxed/simple;
-	bh=FNfMYXWRcuIGBhACrXQlzjtqeD2Dsc0r9mIQ76DBkoE=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=CMp9vL6ukljAIFVZHQ+HLx2oRUHo9I3AeIrM1CFF9RNnypubB4lDkARPPjlB6Oq3KjEyJaAqRB4fBdxUX7VFgSdQ68vLslFtirqgWA5XYsIWvaoAufrukZkMuz4lSvzliS7IwX4byhvhsNP1qkOOw/UfP1NvgyO6I48tGIitkOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6b13266fab6so1846610eaf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 01:10:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788423002; x=1789027802;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=tjfLZIVz8IVIz8V2f55JHPzhnJkxgQUaGqaYWI0J4Lk=;
-        b=tRyQsF3KRaq1jpdTmvhmxAxKS7Gg4sENEXog2XcrgUFwhNUFKCNmdssM1MXBFU8151
-         ALjQzK4tU/04Y3cZH2kgHxqmr5P7eoPhwc0eu2kNyDWvwhyQ/L1DQyM9d2LEHAd4A0wf
-         yuzg2xH8R5zVk4YWGfXIWH1lcflSMoCSPzc4j3v+xDq/AxppfAWeFoEFv1ml+2I152Xx
-         CtjHWOgO7lKU/BBRkoCLC9sJwqUo6dAWizXRjg80eS2Q1LO6RBXFa0XbKyI9ybYVvmXB
-         r6l470CGf3YoUB0pdZuzeKUCbWIHVW5qblEyc7PyLDu9a2IUiFeodkSOYmDBGrKaqQAA
-         4ulg==
-X-Forwarded-Encrypted: i=1; AKwUvBz4DFUPDPT0ZxmE6+zIIcI5tJW6EDGviO+WkANJqrdcUgiDY2Bq42HwaYpqgQ8GVM4CsKYAiSzPiLWkJ6Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++mzKXwlhEzcYeeRmdnjbUDFJNSbSIOyEnyEqA+b4Q4VCpbJ/968
-	dkQYBHvEtWtTfkvGDfhYFUej7LA0JlaWS70uncRpOT8qArrgRrmhzkYMUmeb8CR0sxEAbymWMoj
-	cm5f1k2UvHlLIo8+Ts+eThtrC1VbA2N5h8SxX55P2X81vgECVPb0ez+8ZqEI=
+	s=arc-20240116; t=1788423030; c=relaxed/simple;
+	bh=WNzNi+Fi0D5M1zjbayGX6xW2DqCZ/1Xp7MKHBohSweI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=dPnoOYQsB0ZqKXyB0cmeVl+Wq3UOOBh86Czg96NJ/V21MYAzPVqck0CLqG0rhjmV4fomQeAH8LC+aN5VR/nFrHzcqw3r5ZlcmFXBxF4+OZcXJnZgnaNJ4kC66FP8EvRfoFNb+7npqMfA7EGcdZucmSQIIP5MNtpNPcpl4CdiLgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GQD8tP/F; arc=none smtp.client-ip=91.218.175.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GQD8tP/F"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=WNzNi+Fi0D5M1zjbayGX6xW2DqCZ/1Xp7MKHBohSweI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788423026; v=1; x=1789027826;
+ b=GQD8tP/Fps39edsyug1FRq0lqQzYSVCetrxyhyBqXCW8HoIjMaXk2TTN3C+UWkQY3o1oX4q5
+ IK0iUDtDDTYAtetmYwFvRhZ6QEeaCJSW3h3dpwC5HNlYu67uOy1bkP0yNUFBPOgxWBs8vINtnTc
+ nBcq1E/2ZF2QXWhr+o9SBJQM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ec4dce2f0100e021;
+	Thu, 03 Sep 2026 08:10:20 +0000
+X-Mizu-Trace-ID: ec4dce2f0100e021
+X-Migadu-Flow: FLOW_OUT
+From: Hangbin Liu <hangbin.liu@linux.dev>
+Date: Thu, 03 Sep 2026 16:10:09 +0800
+Subject: [PATCH net v2] bonding: fix slave_cnt leak on XDP error paths
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1515:b0:6b3:b9d1:f629 with SMTP id
- 006d021491bc7-6b481e29d9fmr8438023eaf.31.1788423002056; Thu, 03 Sep 2026
- 01:10:02 -0700 (PDT)
-Date: Thu, 03 Sep 2026 01:10:02 -0700
-In-Reply-To: <227725e6-8242-40a3-980d-2f721a1c2c64@yandex.ru>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a992b5a.e7659fcc.146146.0007.GAE@google.com>
-Subject: Re: [syzbot] [input?] [usb?] KASAN: slab-use-after-free Read in roccat_open
-From: syzbot <syzbot+d632e93ffcd1452bc61e@syzkaller.appspotmail.com>
-To: dmantipov@yandex.ru, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-bond_slave_cnt-v2-1-02e27304ca36@kylinos.cn>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12NwQqDMBBEf6XsuSkxrRp76n8UkRg3dalsSiKhI
+ v57Q449vhnmzQ4RA2GE+2mHgIkiec6gziews+EXCpoyg5KqkVq2YvQ8DXExCQfLq9AaW21rJ83
+ YQR59Ajr6FuETGFfoczhTXH3YykmqSlV8nVT/vlSJSlwb7OrR3Uzj3OO9LcQ+XixDfxzHD08oE
+ ieyAAAA
+X-Change-ID: 20260807-bond_slave_cnt-88e78c5f0ab9
+To: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Jussi Maki <joamaki@gmail.com>, 
+ Nikolay Aleksandrov <razor@blackwall.org>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Hangbin Liu <liuhangbin@kylinos.cn>
+X-Mailer: b4 0.14.3
 
-Hello,
+From: Hangbin Liu <liuhangbin@kylinos.cn>
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+When bond_enslave() succeeds up to the XDP setup stage, slave_cnt is
+already incremented. If XDP setup subsequently fails, the error paths
+jump directly to err_sysfs_del, bypassing the slave_cnt decrement.
 
-Reported-by: syzbot+d632e93ffcd1452bc61e@syzkaller.appspotmail.com
-Tested-by: syzbot+d632e93ffcd1452bc61e@syzkaller.appspotmail.com
+This causes slave_cnt to drift upward on each failed enslaving attempt,
+which would lead to unbalanced traffic distribution with round-robin
+mode.
 
-Tested on:
+Fix it by moving the slave_cnt increasement after XDP setup.
 
-commit:         940de590 Merge tag 'hardening-v7.3-rc2' of git://git.k..
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=114b1f79580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5bf18a904921512b
-dashboard link: https://syzkaller.appspot.com/bug?extid=d632e93ffcd1452bc61e
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=104870f9580000
+Fixes: 9e2ee5c7e7c3 ("net, bonding: Add XDP support to the bonding driver")
+Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+---
+Changes in v2:
+- move the slave_cnt increasement after XDP setup (Nikolay Aleksandrov)
+- balance-xor mode is not affected, not mention it (Nikolay Aleksandrov)
+- Link to v1: https://lore.kernel.org/r/20260902-bond_slave_cnt-v1-1-36e95bf4a6ff@kylinos.cn
+---
+ drivers/net/bonding/bond_main.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Note: testing is done by a robot and is best-effort only.
+diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+index 947d92a669b6..f3290aee50d1 100644
+--- a/drivers/net/bonding/bond_main.c
++++ b/drivers/net/bonding/bond_main.c
+@@ -2284,7 +2284,6 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
+ 		}
+ 	}
+ 
+-	WRITE_ONCE(bond->slave_cnt, bond->slave_cnt + 1);
+ 	netdev_compute_master_upper_features(bond->dev, true);
+ 	bond_set_carrier(bond);
+ 
+@@ -2339,6 +2338,8 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
+ 
+ 	bond_xdp_set_features(bond_dev);
+ 
++	WRITE_ONCE(bond->slave_cnt, bond->slave_cnt + 1);
++
+ 	slave_info(bond_dev, slave_dev, "Enslaving as %s interface with %s link\n",
+ 		   bond_is_active_slave(new_slave) ? "an active" : "a backup",
+ 		   new_slave->link != BOND_LINK_DOWN ? "an up" : "a down");
+
+---
+base-commit: 70f3995830d3f1e79faa14eb0605914f778feca9
+change-id: 20260807-bond_slave_cnt-88e78c5f0ab9
+
+Best regards,
+-- 
+Hangbin Liu <liuhangbin@kylinos.cn>
+
