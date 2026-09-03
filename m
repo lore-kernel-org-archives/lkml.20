@@ -1,167 +1,126 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 92D1D3AFD02;
-	Thu,  3 Sep 2026 07:47:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from mta1.migadu.com (out-181.mta1.migadu.com [95.215.58.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B321412BFB
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:47:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788421672; cv=none; b=STXIMaj696DB0b52UB0A1hBqnT6gSeD9x+txJFZ0XKEJ5Ymn9N2cqAtmSOyWSEE2QPfaKU2VS095EhvA11uFRcvqPVn0/4ELLc8YohB+lXeEXHzLV8kYHnEMUAp7OF0QH5zTgAetOWbFH1gfIjFbvvR5JLM8TVEVNq25o6P58eA=
+	t=1788421677; cv=none; b=Mk3zmTx1rmpiRwR6LOwgR3R+qe4KXjPraEvEodxGJ3wirqUb4kPawcMRWuhlcXFRLoTI2xAEEn7ZR0zuFRXP7MOfJcHmGPtfBQgtOAQZhSwYRrVpV8zzETmkxvIzmRiMAOAgyZH4RNy1ctVXm4Wd3UJED76Mt+fanp/ek5+VHhM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788421672; c=relaxed/simple;
-	bh=DybwMHnu9HH3kbXlnUcPstvbk79t201Lu98vpXdj4uE=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=kKTfkSYPHT44sbvHMywGbi7NDahCiZpudsV5wUBJrHKx4b+cIcqOH2/996jImKGKWh4CGKDU8oWlJd63HdfNMtO0RoztkRtSGZzWKZ1uFNxxh+P+OQfSHSjQvlA5eApMQVZrLJOTotk3yg+HKU1NWwY/WhGf2iJQTogu6qQUoD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=XIksORlv; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
+	s=arc-20240116; t=1788421677; c=relaxed/simple;
+	bh=imCkeXbS8TdnEfLcrGpGKahoCmkpvuvbQG4Dqv/gX6E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ISwRv7I6pSCaeyEp1RdwUGguWG5ddjykYogbJZCYH4hQQO2biFq+AYMF8naNzg4V1br4gJX1E4V71bHpyp86VB8QPPOz6IjGt49qkPy9IfjUyNHL4gcJgK4aIu35dFQ25LFAfMZtRfkd5pB79ff9iW9YU4gatObf8MyC+a+PhSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=CgtdVYUO; arc=none smtp.client-ip=95.215.58.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="XIksORlv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	References:Date:Message-Id; bh=XWP5fc4YMZTsJ2HevoqYoNs057Br9v2hg
-	14ZFf8XlCw=; b=XIksORlvpCW8Qp157igN4uvjHDCx7UroW+HtKw7U6vHU4GKE7
-	CrMGn6wsWAv70Fkrqz0cqrEwTEP0iJ46FYZVE2DpMZlPZIJkuw1OwsvMt8FIipyz
-	AS2haRt2DEHQVuX+gkFHyOUKOhQRDmsJkMVLPDk8VGxDZRB5UQ/S+IL/GY=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwD3vwYDJplq5jUAAA--.234S2;
-	Thu, 03 Sep 2026 15:47:15 +0800 (CST)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="CgtdVYUO"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=imCkeXbS8TdnEfLcrGpGKahoCmkpvuvbQG4Dqv/gX6E=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788421672; v=1; x=1789026472;
+ b=CgtdVYUO2LFrjoRgf8Q6Y3bDJUCREwlhkMtDZT062+n7rAHVCM5O+8I/c5cclcZtMovhp18P
+ kgGM2P0wien3EfOQ87/YoPxVdotNYXvaPaPhwQ2DxiDkIpN8h2pgNpEyIHq56wX+c8H89ARTJaC
+ nww0MtVtJDIzTICJXj1zC8ls=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5c9fc66824390f15;
+	Thu, 03 Sep 2026 07:47:52 +0000
+X-Mizu-Trace-ID: 5c9fc66824390f15
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <e046eddf-3c2b-42a9-b201-c919ebb217ac@linux.dev>
+Date: Thu, 3 Sep 2026 13:17:34 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH net-next 3/3] net: stmmac: Add UltraRISC DP1000 GMAC
- support
-From: Jia Wang <wangjia@ultrarisc.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Jia Wang <wangjia@ultrarisc.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
- Jose Abreu <joabreu@synopsys.com>, netdev@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org
-In-Reply-To: <910be156-b631-4b62-972a-79d9a9e38697@lunn.ch>
-References: <20260901-dwmac-ultrarisc-v1-0-f19454814bcf@ultrarisc.com>
- <20260901-dwmac-ultrarisc-v1-3-f19454814bcf@ultrarisc.com>
- <910be156-b631-4b62-972a-79d9a9e38697@lunn.ch>
-Date: Thu, 03 Sep 2026 15:47:04 +0800
-Message-Id: <178842162417.2701756.3296149694160507506.b4-reply@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788421624; l=2832;
- i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=DybwMHnu9HH3kbXlnUcPstvbk79t201Lu98vpXdj4uE=;
- b=MTwdQIZFMkbeENF4A3judwSQZ9jZW/LS8/4WqBqpP51EXKsVSTV1O35Wdj31d9QzgGdwSGhEW
- WDM3zfrjERlD1bVKIuFiLEpxKaocgEZ4bgWhaExPvNWV7vILKknfe3/
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-CM-TRANSID:AQAAfwD3vwYDJplq5jUAAA--.234S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXr45ZrW8CF17Ary3GrW5Awb_yoW5Xw4rpF
-	ZrCFW3tFyDGr13Ka97Xw4DZFWIvr1xKrW7tr18tw1ayasIvr93X3WkK3y5u3Z7AFWDuw12
-	ya1jvFZrua90qFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9l14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I
-	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
-	xVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
-	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
-	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
-	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRNJ5oDUUUU
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQASEWqXx6QADgALsZ
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] MAINTAINERS, mailmap: use Aditya Garg's linux.dev account
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ Aditya Garg <gargaditya08@proton.me>
+Cc: Aditya Garg <aditya.garg@linux.dev>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+References: <20260723100136.14467-1-aditya.garg@linux.dev>
+ <27a31a37-688d-427b-a0ba-c3133db19c97@suse.de>
+ <txsiv43u7qv-Pc_dRDdbgiUHVP54rhl5g-xLzQU457o0E29MYkL9FX-zdozYxVySvTed10VduLizWQw3zNDJTGxTIfFLX71G3U_Kj3qnJao=@proton.me>
+ <47df26aa-a160-4306-84f0-510584c3e8e0@suse.de>
+Content-Language: en-US
+From: Aditya Garg <aditya.garg@linux.dev>
+In-Reply-To: <47df26aa-a160-4306-84f0-510584c3e8e0@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 2026-09-01 15:48 +0200, Andrew Lunn wrote:
-> > --- /dev/null
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-ultrarisc.c
-> > @@ -0,0 +1,54 @@
-> > +// SPDX-License-Identifier: GPL-2.0-only
-> > +/*
-> > + * UltraRISC DWMAC platform driver
-> > + *
-> > + * Copyright (C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
-> > + */
-> > +
-> > +#include <linux/module.h>
-> > +#include <linux/phy.h>
-> > +#include <linux/platform_device.h>
-> > +
-> > +#include "stmmac_platform.h"
-> > +
-> > +static int ultrarisc_dwmac_probe(struct platform_device *pdev)
-> > +{
-> > +	struct plat_stmmacenet_data *plat_dat;
-> > +	struct stmmac_resources stmmac_res;
-> > +	struct device *dev = &pdev->dev;
-> > +	int ret;
-> > +
-> > +	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
-> > +	if (ret)
-> > +		return dev_err_probe(dev, ret, "failed to get resources\n");
-> > +
-> > +	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
-> > +	if (IS_ERR(plat_dat))
-> > +		return dev_err_probe(dev, PTR_ERR(plat_dat), "failed to parse DT parameters\n");
-> > +
-> > +	plat_dat->phy_interface =
-> > +		phy_fix_phy_mode_for_mac_delays(plat_dat->phy_interface, true, true);
-> > +	if (plat_dat->phy_interface == PHY_INTERFACE_MODE_NA)
-> > +		return dev_err_probe(dev, -EINVAL, "unsupported phy interface mode\n");
-> > +
-> > +	return devm_stmmac_pltfr_probe(pdev, plat_dat, &stmmac_res);
-> > +}
-> > +
-> > +static const struct of_device_id ultrarisc_dwmac_match[] = {
-> > +	{ .compatible = "ultrarisc,dp1000-gmac" },
-> > +	{ }
-> > +};
-> > +MODULE_DEVICE_TABLE(of, ultrarisc_dwmac_match);
-> > +
-> > +static struct platform_driver ultrarisc_dwmac_driver = {
-> > +	.probe = ultrarisc_dwmac_probe,
-> > +	.driver = {
-> > +		.name = "ultrarisc-dwmac",
-> > +		.pm = &stmmac_pltfr_pm_ops,
-> > +		.of_match_table = ultrarisc_dwmac_match,
-> > +	},
-> > +};
-> > +module_platform_driver(ultrarisc_dwmac_driver);
-> > +
-> > +MODULE_DESCRIPTION("UltraRISC DWMAC platform driver");
-> > +MODULE_LICENSE("GPL");
-> 
-> This looks to be 90% identical to dwmac-sophgo.c.
-> 
-> Do you expect any further changes to this driver? Is everything
-> supported? Are there more clocks? A GPIO for WoL?
-> 
-> I'm just wondering if the common code should be pulled out, or even
-> dwmac-sophgo.c made generic so it can handle all plain boring devices
-> which have RGMII delays and not a lot else.
-> 
 
-The probe boilerplate is indeed largely similar because both drivers
-use the common stmmac platform helpers. However, their platform-specific
-requirements differ: Sophgo requires additional TX clock handling and
-other configuration, while DP1000 requires fixed TX and RX delay
-handling. ACPI support under development is also intended to use the
-UltraRISC glue driver.
 
->       Andrew
+On 9/3/26 1:16 PM, Thomas Zimmermann wrote:
+> Hi
 > 
+> Am 03.09.26 um 08:57 schrieb Aditya Garg:
+>> Hi
+>>
+>>> Am 23.07.26 um 12:01 schrieb Aditya Garg:
+>>>> From: Aditya Garg <gargaditya08@live.com>
+>>>>
+>>>> Due to non standard IMAP and SMTP protocols by Proton Mail, the account
+>>>> was giving trouble. Since my linux.dev account has been approved, all
+>>>> communication related to Linux development shall now be done there.
+>>>>
+>>>> Signed-off-by: Aditya Garg <aditya.garg@linux.dev>
+>>> Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> Can someone please merge this. I am still receiving mails on my old email which I do not use for dev work anymore.
+> 
+> Done now. The update will go out with the next drm-misc-fixes.
 
-Best regards,
-Jia Wang
-
+Thanks a lot
+> 
+> Best regards
+> Thomas
+> 
+>>
+>>>> ---
+>>>>    .mailmap    | 3 ++-
+>>>>    MAINTAINERS | 2 +-
+>>>>    2 files changed, 3 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/.mailmap b/.mailmap
+>>>> index 501d858cb..baea6ba4d 100644
+>>>> --- a/.mailmap
+>>>> +++ b/.mailmap
+>>>> @@ -19,7 +19,8 @@ Abhinav Kumar <quic_abhinavk@quicinc.com> <abhinavk@codeaurora.org>
+>>>>    Ahmad Masri <quic_amasri@quicinc.com> <amasri@codeaurora.org>
+>>>>    Adam Oldham <oldhamca@gmail.com>
+>>>>    Adam Radford <aradford@gmail.com>
+>>>> -Aditya Garg <gargaditya08@proton.me> <gargaditya08@live.com>
+>>>> +Aditya Garg <aditya.garg@linux.dev> <gargaditya08@live.com>
+>>>> +Aditya Garg <aditya.garg@linux.dev> <gargaditya08@proton.me>
+>>>>    Adriana Reus <adi.reus@gmail.com> <adriana.reus@intel.com>
+>>>>    Adrian Bunk <bunk@stusta.de>
+>>>>    Ajay Kaher <ajay.kaher@broadcom.com> <akaher@vmware.com>
+>>>> diff --git a/MAINTAINERS b/MAINTAINERS
+>>>> index 1ab873685..f32e63428 100644
+>>>> --- a/MAINTAINERS
+>>>> +++ b/MAINTAINERS
+>>>> @@ -7970,7 +7970,7 @@ F:    drivers/gpu/drm/sun4i/sun8i*
+>>>>
+>>>>    DRM DRIVER FOR APPLE TOUCH BARS
+>>>>    M:    Aun-Ali Zaidi <admin@kodeit.net>
+>>>> -M:    Aditya Garg <gargaditya08@proton.me>
+>>>> +M:    Aditya Garg <aditya.garg@linux.dev>
+>>>>    L:    dri-devel@lists.freedesktop.org
+>>>>    S:    Maintained
+>>>>    T:    git https://gitlab.freedesktop.org/drm/misc/kernel.git
+>>> -- 
+>>> -- 
+>>> Thomas Zimmermann
+>>> Graphics Driver Developer
+>>> SUSE Software Solutions Germany GmbH
+>>> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+>>> GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+> 
 
