@@ -1,199 +1,284 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011037.outbound.protection.outlook.com [40.93.194.37])
+Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022141.outbound.protection.outlook.com [52.101.101.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468073F326F;
-	Thu,  3 Sep 2026 19:20:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE164F55C9;
+	Thu,  3 Sep 2026 19:22:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.141
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788463265; cv=fail; b=SuO96eZ/TRiHYMBsusjw3O8ZbE7sg6EJXLc1FhX0BhZ0a/EuOh7wv7iMYGxgH9DB8iFViROFxJCl9wdOyB4izPsTMojrw4Im8Qg+mErQh2affSgs6gWsHy2OPIWXZr2zoO5UgXthoTUiDIBJ1F0HDdfJqqxyclvNH8Ve9fmuCkY=
+	t=1788463332; cv=fail; b=DLfVbmUQjmngxXBNSlyW0nhbE5MhP7MFlrWr/5p6/ZBs8SZPX0WlVThA2k9pnqo2djLAZzEjGhH0UuwOEo67AGKmJ1ge5KoihN4G0Tk6OK4F4HnPjTOUKUfQH85u7gpDSFIeWvsFT7AWLt2B2wdGUYFZaWVJ416sMNQrBuD4+B8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788463265; c=relaxed/simple;
-	bh=WSty7POrxHuubrjL8qc1l/sbNrq/qcsPIXgEGlGr5gY=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qK24F/ZZNtkQa2BUgQT6+p+KPYP1PaIALVtBYqgDzpRKdnEkbSt1t9N8pOPlczJ/aYGv4hypjpqEAkbjqjeIEn6O0RlyVnqUPZmrXzsjUMwijns1EAGKxFIFoNH+d2qj20/jYwbjZ2FT9dNZ+JFxowdlbrx7isvYfCyCE0s5zs0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=iNmrbOks; arc=fail smtp.client-ip=40.93.194.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1788463332; c=relaxed/simple;
+	bh=BwI8boB+nWUV0iiqRW6iyDy+82Auv6kwY0ttC1RnTxI=;
+	h=From:Date:Subject:Content-Type:Message-Id:To:Cc:MIME-Version; b=Pjaw8spmL+2Geqz/fyBMrBwwchqBGuEkK65+rhhH4zohA87yxbs9MYJem6pygVWpeUKGjRiRkfNxn3jL811X78fGbqnkbMH1durt8dO51dgZKaKS4JSxRtzbYJR/dLHsBOowghoZ8PLKyR7yB2xRnSsJBWdzeqD8muSjdwRgcc4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=ftSphIFB; arc=fail smtp.client-ip=52.101.101.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="iNmrbOks"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="ftSphIFB"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bx5uN9NY3MVZSah/IPmEeI/Zl7Y77666qRZvJco70kGaLhldm95jiEk/CkuWVIhFPNZvu3vEfhmxiuSaBM891kzPEAXURTjINbR6hAl/XHGtNaQdDDonDcUJGjScbb4iOTbJVsXHAhKrO3Tf9R6wSJEZVK6DX8N86J/gy6Z+LaOblj7kOo9cSXamxS5xm6U1dl1zggYdYZU63aqRE/0XzFG9u7fYomgGEFcXayYXFL3PcnQtt+98WJmotW0ZBAi0DonmPKZ1JFC0dAfTVbuIjkGUuV/oriXqLJ2roPLYMLf4hQaSHJ4tMMQVoj99v4l/ngWKXnM2KZqytrRSXYjkLA==
+ b=AJC3MGst4UbHP9K54+vzG73khcJYQvYBRG9TBFZdYwEG8NErAlf6XJZZvv58/DKhthIVyqp4pNP1Zec3gRREeXokrv4SVNVZ1PLmSmIbOyi71UE5DyFSxbGQT1Ep2jn7r4ZI04jaEhz8YiQ8dreRQh+HFvG76CL32h2HyZlsavBN2qvaxi+2slWmrWmVDDIMvxdDPqywAnc1mkq3TKrq/afbGAVSrQe9E1Q8wG4J2t5mw+ZKwbajf8YZhoudlGQ1zQVZY742qPwnXCe2O835U7IHFqTa7UfEwd5UekyNg18glRIBUZNJcHQSsDVapVzdCAlXM/xXcdYs2zPMfmV1Jw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WD9x1z3wiPM1Ga8e66LGCp0v3Bpu/rav0mT0ZgphOjk=;
- b=GFmtn8T00Li56PATTZUTRwBzb6qsxNNZnlQAjsv5rKeHspRIOaA9VHdhC+0FUMVHcuvlehIc+1KkAsA7eG1XYtwuqtoYkL+34xi7aCshWXDYlYf+Eyah5aveYQWzrh9NlbFNdrh2DoS2k+Vn4XYKn/tCYfWVhxDOCeZg69+Zo7MAc3caDL14qtrKgxaL/WqyK5U1c3/eLc8jhmU2SxlZYjaqqCU2r+SnoH5prVHy/7S0fo1czvuhBE0td2QJUmafDjLDrMZGWX1AbKI4EI/joQy+c32m44zEejjOQTRlo1ea7du1ZTfE6W8jC0Kj4H0O+mmG/gABuIMGIm8Cc4t76g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=b7EqUwOMuyEeou55AjjA91uClN5whdb5PeAAmb2eMng=;
+ b=yY/RJiWi9NwWthdcFbOSd/fJhMR7SglnntvNHvibStl6J3EqrNgvYGKlSo2yCysfMsoB8n12ocvcAVBXs6vYbmz36BfXZLE94RJ37UgORWAObbjgNcaG+8yoCVHXoG9svcmAgE4pQ44HHUPoVZ+IFo32bgs6fhkHlpJBvj3DTKtTlBk91OoIWUoZRZagHEZrSuXr98QV4QDEJexklhLlNsnId74wUcPzucksnL6QuxcyaZcys+WMt6GRxhdbIp0pM64yiE99vIoXk7/jrYu4VnKYPKYDVO1QO86WD4WQQ1pVa0CNsSazw8lGirVNlsfsFKRT2tcZqs7Ka0Rk7BZgtw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WD9x1z3wiPM1Ga8e66LGCp0v3Bpu/rav0mT0ZgphOjk=;
- b=iNmrbOksaFI+cgihyoFaVGA0oaCaBgcoxV0ZhE8JqQqYMGnWQVQs/c/URhzcCgzUH8xHxblJzRwqMUIqFSPHsYrmdK61cjGra23Hwe4LZB+5krOKf2nXMI59u4h5GWJ7VYWNJi86nHIP/+3zVh0yxT0UKAmDAt1T0MaBoocBEVWAAJ7Lbnewn+fx0mmm91w/WH0iDcM3fu76vdVNAjUiYTC65MuGv8T4RHkU9oXHJ9JsGImVZtefNT11slOHbWK177BsVJwHMGEHekf3Ww3YRSoUDyvRXYxhTGdCZFF44HrAPjUlyz36/tAfg5saMyOGz0Y4trhkTgAh1oBXLyrq/g==
-Received: from BN1PR14CA0007.namprd14.prod.outlook.com (2603:10b6:408:e3::12)
- by CY8PR12MB7243.namprd12.prod.outlook.com (2603:10b6:930:58::6) with
+ bh=b7EqUwOMuyEeou55AjjA91uClN5whdb5PeAAmb2eMng=;
+ b=ftSphIFBAkRszkcgqysZ3b+sITHGMrdMS/gvEjZ+fewm17+4eZ/9paqjEJ3dPNlrW7fxSsVEv6sWlYvUvLVRPK0HoYiRf7A3f++maiU5vAdNFIRaCbdXOleLJxq39c1oCMn7KzeCzTU10fdfJ64GxRRjLrJ9nZxKexiCAu9GYKk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO6P265MB6265.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2b0::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 19:20:47 +0000
-Received: from BN2PEPF0000449D.namprd02.prod.outlook.com
- (2603:10b6:408:e3:cafe::a) by BN1PR14CA0007.outlook.office365.com
- (2603:10b6:408:e3::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Thu, 3
- Sep 2026 19:20:46 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BN2PEPF0000449D.mail.protection.outlook.com (10.167.243.148) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Thu, 3 Sep 2026 19:20:46 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
- 2026 12:20:18 -0700
-Received: from vdi.nvidia.com (10.126.231.37) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
- 2026 12:20:17 -0700
-From: Chris Babroski <cbabroski@nvidia.com>
-To: <andi.shyti@kernel.org>, <linux-i2c@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <cbabroski@nvidia.com>, <davthompson@nvidia.com>
-Subject: [PATCH v1 2/3] i2c: mlxbf: Use GENMASK()/FIELD_PREP() for GW fields
-Date: Thu, 3 Sep 2026 15:20:00 -0400
-Message-ID: <20260903192001.114263-3-cbabroski@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260903192001.114263-1-cbabroski@nvidia.com>
-References: <20260903192001.114263-1-cbabroski@nvidia.com>
+ 2026 19:21:56 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 19:21:56 +0000
+From: Gary Guo <gary@garyguo.net>
+Date: Thu, 03 Sep 2026 20:21:44 +0100
+Subject: [PATCH v2] rust: doctest: add source map script
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-rustdoc-sourcemap-v2-1-d5b1abf3dc83@garyguo.net>
+X-B4-Tracking: v=1; b=H4sIAMfImWoC/yWOyw6CMBBFf4V0bbEU5eHK/zAuShmgCq2ZaQ2G8
+ O9SWJ7JvWfuwgjQALFbsjCEryHj7AbylDA9KNsDN+3GTApZiFrkHAP51mlOLqCGSX14VoiuFpc
+ OyqpjW++D0Jl5dz6eB1NoXqB9FMVEowh4g8rqIZ5GY8PMLcz+PCnygDEzGPIOf/uwbxZdx4Yik
+ 9vDq8zTXFR5WUue8V7h7/4GtDCmDnv2XNf1D+iJtGHaAAAA
+X-Change-ID: 20260903-rustdoc-sourcemap-160f904fe78f
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
+ Rae Moar <raemoar63@gmail.com>
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788463314; l=4613;
+ i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
+ bh=BwI8boB+nWUV0iiqRW6iyDy+82Auv6kwY0ttC1RnTxI=;
+ b=bJUwPPe9tNDJP7jcsHWvIOxa66Eej3bClEvISlW1xN2HP4DWEwqKZ1pjGr6WeTJwO4p/qL96g
+ JVhYkLcfFT5DSI9W0vU4hzOWWPkMKXaZC+oQvjmSscHkF8GkluM0HvA
+X-Developer-Key: i=gary@garyguo.net; a=ed25519;
+ pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
+X-ClientProxiedBy: OL1P279CA0021.NORP279.PROD.OUTLOOK.COM
+ (2603:10a6:e10:13::8) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000449D:EE_|CY8PR12MB7243:EE_
-X-MS-Office365-Filtering-Correlation-Id: 86e7bcd0-4b8a-4246-c731-08df09f074ba
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO6P265MB6265:EE_
+X-MS-Office365-Filtering-Correlation-Id: 791199b6-f77d-4196-56f5-08df09f09e48
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|376014|23010399003|18002099003|22082099003|56012099006|10067099003|11063799006;
+	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|10070799003|366016|921020|6133799003|10067099003|3023799007|18002099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	PGWULStsDr3V0tcLb1ddWwe6Sk2AMu2Qf/qm2U0yweFysroVrVaKOtne9zjYU6zwV2Co54pUHrs0EbjQfzcOyAc+JYB+WqLxmytXvf9HbXjoxlfnXQBFiNcFYRbsBLrJMi4K3qOelhgokGwwdWQvdPki0vTRK//zSP7NvL00ncOlMTgqt02rx2k3To32LLfaS/RqQ1siSOxVYY4ljtYbyTx+5yZx4RD1ngCfyi0CjKO8BkA/5b9fgW3NV8amyCsVsUYsBBbyM76ZrgZD0OgAv4rj5ClguyMeonF9PaB9fRqM9RI+aPhx/OWVXU3w3amVrMspNWcbnv+zcaaRCncs0g6szZ6+vurtGHYmOeyhUK9IblIkexTzJ4sSplqjBEcOH/s1zClJr+ztmYsNbJcLWN9LVkWXspU2izTmdCFzY+C6RHL9hJ1Og+ditkXa4zu/vIFRviDIZ6Anz7eetp3czG9wNLWxyuL3VoeSS+8/CQa8vWxwpD/NKuZ4rqknEXsK95eOeSXeQue77UKz1AjPUZucC/qKkVUqVNofXI3d+e+9bNldM8+iAedgkTMBS1q5i+4fwOAczrLSCBU6RMiwMRzqClghl8SPvr5u46v8hAgay5vJ8NQHjrgE1gLC+izmH2AUrShelovxHnRBWxAsodLcEhXTjVwdNKckwy3R0wcdo3fXAxOLeTQ5/qr09pT0hc2+olVUHp9Bg0x9EQvp2Q==
+	4kfX/V2pGbW4iW06Ul1D/FBEA5kCMQ3vT/JxotTyGKnYppwQBeviU5HwimGNk8BiEdirEJ29RvzJtm5cTDgONE3M1+MCX1EvyAFyJJWCpGzrxHbfC6xJprzrWi/IRx4u+HuS9hZpWTbiFrVh66xAVTIGd1gAiBcsTt7CrKJhDR1d0jdWjBekxMoivczGx7FRuEoNTCG85KUdN4fVOKtg8dSblzpcD5dTWf6yKaJT87fBwp8TrQEQF//zWJcOySMjPXxHF6wSIytE/4wZwapoQcbGfDwYO7ikZL0DQ6QKUcr2g1PijoBgBbLfCol++P7cAq34DnGJFI0NM8+7jEf7C3eL+uJ+oFNf90168fqGuuZ25+iTDJsjznwupVuR8cECUpWNfLeV3x1gE0uwGsLfC4x19A922/dxC3yDKv5iaT2C+2lfrtiEKIvSYAcA1RVtAbB5vS5pFgcbuhopuvDPvKEiSI0bKHCnTTNgMeLjkjqIpnc7US2GiTAlUnv6q2+Raco9+ddB4cTWo7q1puYYodlc5tpPaHad+bsMmeXvk6sBdjvX0SjBEM0hkRtipvnlVKiu28oCmLur4exTIFriSRRr6Tli3SzYnMsUs0DU8fTElNJ0TOM+JTXinCp3Kpr6zK4Zgo6JhIsd34cbKnnJeMNe8V3vaMP3S4SIowqrR+I=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(23010399003)(18002099003)(22082099003)(56012099006)(10067099003)(11063799006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(10070799003)(366016)(921020)(6133799003)(10067099003)(3023799007)(18002099003)(56012099006);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	t/9iVWhQ0Y5SoTMuSUo6c6G7EnKV3o4y19HqwsKPHSzuuxsYgS7a2TqKH5RD+YxZOkK2OjY4oAxux1VSWP2QpUL/XrpGpjK9pz7/WZ0KCDPB9xmPjSsQ2T6/yWyjWAN0nSo8z0zYeBxgij/40k8dEsIKn2jSmec6YPYZ4/55cQPcEk3yCsZ8pAcUucTrd/3g330S3o6ToBni9CGT6K7BEFVPeoHP9X7veoXqt+JJm0c9nzz9Mkh4YdnDM1rNaX6Bm1jxr4Abe4iZtFnRf0yXtDT6AdpTsM0gL93HnUUOtXh3W/6zHzEoaoaN9JDi2EWmMQaQ703bvL3JLKauVMZrq5ChsDQVyG8GYDek2Eq+rKBuyz1Qn/EclHneiBdqIpx/q6tRE1qpyTunhLwHYEwsd00Rgb+0qbaq/feHvu4dQrxfZuVE5GUfucqQJlJTYIxu
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 19:20:46.3197
+	=?utf-8?B?MkErZUhZOG5GNEdLaStDdUprTEJsOXJUeU91OHFFbUZtQzd4VS9tRVhWK0hl?=
+ =?utf-8?B?NjRObUNqdGtpekxUQzZQZExYeUtQVUprZlZBRDhwU255aFB5N3d1ckRhZXhq?=
+ =?utf-8?B?WUVUNjhpYzlWOVAxWmxsVU9wMVFXZ1BibytUSldZQUFjZ0JPNHloUW9Ka3A4?=
+ =?utf-8?B?cTdrWlBLU2UrN1RYU1c2bjJhbDJicG03UzFmcDZHLzdNM0Izd3lYdnYrRmlj?=
+ =?utf-8?B?MHdPT3BiNDVyb3FaVXczbjlPSm1STldkVDV0VlM3MkFtM3ZRQWdLMi9iZ21i?=
+ =?utf-8?B?ZWRsVS9WRXhRMGZLMmk1REZxbWJ3aloyL2ZYQzYwMGhqQmpuWTZaS2FlNFpk?=
+ =?utf-8?B?N1dXeG5HUm1UcC8vUklwanMrZk9oWHpnSHpOMnE5NE1RRjBWQUd4OHdNaGNx?=
+ =?utf-8?B?NkJGV3prVHBMNmlXNk01R2JpRGVLTVNHT3F1ejluOXk0RkpPUi9JcHpnd3dW?=
+ =?utf-8?B?aDhINDFaTHdrS1lHZk5jSlhiNnR1MWM3RFRnKzR4SS9ydGc1Z2hwMDAzdkw0?=
+ =?utf-8?B?K2ZaWTZPaEZTcXpKRlRxLzdiTjZnQThHVFBXK3N4R1BZcGswY1gxNjdyT2pB?=
+ =?utf-8?B?ZWlrQk55RGhFNHRDMGNObTE3aWExVjdPQjFZUUpHWm5qckRSaGF6QnBsbTFj?=
+ =?utf-8?B?VjJnT2s0dTdFWnMzazVZZHlkWEg1QjRObm1GV2pjWTFNQ3dqT2RDZ0xNcEVI?=
+ =?utf-8?B?YVlBblAzTHI3eWZjTjRpd01OTnJTeTVLM2Y3SEtOa1RkWFdyL3U5MjFWamdu?=
+ =?utf-8?B?RUZIbFJyS1hHRm1LdWhLYWVyQWZOYmloRFBrR0hkMlhmejRIc0tucFYxTUZX?=
+ =?utf-8?B?K09GOUp6TFNHNmlCSEJGYi94S0N4akZNcEp1MDdhT3hMRjVlN000TWxRcjl6?=
+ =?utf-8?B?a0FwTmtjQktKMm1rS2d0ejVIaDFuVmNERTJUbFBvVGg0RGFKN0VzaENYZEF5?=
+ =?utf-8?B?Tnl6V3duTzgzcGhLb1Bva3gwMDJYaEg3c0dheVhYSjh0UGthaXpOM1RzYVZC?=
+ =?utf-8?B?NExZaGJzZGJMek5UOE9UMkJpRU00bmtXeTE4MGUxaFRhQk9iUmhpOWcxWVdv?=
+ =?utf-8?B?RFZSOTQ4U1QzYWI5Z3pyZ3QrTHNBN21FUkppUk43bEhwWjRxeVNRNUY1VDdJ?=
+ =?utf-8?B?RHNxbGNTTHNZc2I1QzY4ZXQwL3RYNEVxcUhJUTJJb2owRVl5RDdtbk05aHhj?=
+ =?utf-8?B?RmY3V3hBM2hhOUF6cFVDRGR1K1RMYVpnNTU5dGd5M2R5b3RpWkRGYWtKNWty?=
+ =?utf-8?B?NHhMSm9ONml1OERudVI0NDVBdFZjUUtLTWI5OUVPeEVKdnQyOWZxZTFrMG81?=
+ =?utf-8?B?T3luSGdiUXhaVzVxdVNFTnREMXpYQm9uZDhERldnVEREbG9wREMzS2pHRVFT?=
+ =?utf-8?B?amdSd1gzc3ZCV1llMTdRZTZKTDc0VkRZN3JMb0kyc1F4ZC9BNFMwZzhTd3RM?=
+ =?utf-8?B?bk9WYW9JNkFqb1lWOGR3UmVORW1RUjJjOElvRTJSa3dFQUpQbVdYVk9tWGJ3?=
+ =?utf-8?B?eDUzUFk4S0ErVnNRSi93ZEt2VmJ6ZU9HYXBFVnhSMFF4eTQrMy9YTWFOTEVo?=
+ =?utf-8?B?WHlVcVZrQk1kTi9aWTNNQ29xUUdwWEZkTTRqVFZxbzlVelhFQTRwcHJ4OVRP?=
+ =?utf-8?B?ZVVpZ0JEWlZQVzZrRzVqUlRnakJqRnIxWWFVa3BNZXUrT1dPdU5vUlU2aDVZ?=
+ =?utf-8?B?RHZYa2JUWkIyL3lqVHZ5VGt5bXJ0RnVyUGttUzlmdThUYnArZ1I5THRwem9V?=
+ =?utf-8?B?bXBwZ1pneTZkZzRQT3REbDZxZjE5eGZMazNwSkhFNkF6UTVBcFdRRk5IaWd5?=
+ =?utf-8?B?QzJTMWJRRHNVQ3F5R1VoVktIN2RuV2dTZCtSTjkxdXdma3ZaaVpwWTUrQzVH?=
+ =?utf-8?B?b1E0S04xeUxEZkFsYk5mQ2NqM05BMStsbFd4UjkzZmJ1S1AxZ1lrYUxLVXNv?=
+ =?utf-8?B?N0lXaGFPdUhLdjBUTFFEeFZpS0tSRC95UFBDYXFZYzF1Z1grTnNybTNaWStr?=
+ =?utf-8?B?ZTlSa01qMGhnQUlYdnNXT2U2U3krZ3F4L2VRSnBZbERXUFk3OUhtb0ZlOHh2?=
+ =?utf-8?B?RklzWHorMVJFMGRBZFBMWGdZdjVyTDhhSzJGcTRBODJFTW5BMm1EZmtNc2ZG?=
+ =?utf-8?B?RDFaSld1T3g5UklNekFBSndqNWhMY3pRSE9FT2R4MUZLZjRUbTRINnBEUGZa?=
+ =?utf-8?B?RzRSWmR2eVJYem9UcVI1dlh0MmY2WVBaSERMNkt5MXEvUjMzbzBUUzFtSUh3?=
+ =?utf-8?B?QnEvR2cxdDVEWkhDbjN4RHdJeWJwcmg1YitRNXcvNzFPR3VPWFBFT0RFWGhQ?=
+ =?utf-8?B?bjBha3NtUC8yYnZlY3BtYnU3aTdON0Juem9CSVRXRDVoWlF1WlJMQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 791199b6-f77d-4196-56f5-08df09f09e48
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 19:21:56.3388
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 86e7bcd0-4b8a-4246-c731-08df09f074ba
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000449D.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7243
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QbWjfxeZ2BecoZxo8daf4gjD+Yc+lwAx5bTVmJZnBkvH/awgU5DQOTq8rnzEdNdQH1loPKAMaOT+YN9AlxIJWg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P265MB6265
 
-Replace the explicit shift amounts and rol32() calls used to build the
-master and slave gateway control words with GENMASK()/FIELD_PREP().
-This makes the field widths explicit and matches the style used
-elsewhere in the kernel for register field access.
+Quite often when updating abstractions there will be some documentation
+that needs updating, but the build process is not very developer friendly
+as it just gives out something like
+"rust/doctests_kernel_generated.rs:12345:42" and it is a hassle to find
+where the documentation actually is.
 
-Also change the single-bit master GW PARSE_EXP and SEND_PEC control
-bits to be set with a plain conditional OR instead of rol32(), since
-moving a boolean into position via a mask is no longer needed.
+Add a script as rustc wrapper, which translates the error message by
+appending a "(generated from original_file:original_line:col)" message to
+the original source info emitted by rustc.
 
-Signed-off-by: Chris Babroski <cbabroski@nvidia.com>
+This is the result of an example diagnostics:
+
+    error: test
+        --> rust/doctests_kernel_generated.rs:4490:1 (generated from rust/kernel/build_assert.rs:96:1)
+         |
+    4490 | compile_error!("test");
+         | ^^^^^^^^^^^^^^^^^^^^^^
+
+Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- drivers/i2c/busses/i2c-mlxbf.c | 30 +++++++++++++++++-------------
- 1 file changed, 17 insertions(+), 13 deletions(-)
+Changes in v2:
+- Fixed SPDX header.
+- Detect tty with stderr instead of stdout.
+- Match doctest anchors more loosely without hardcoding i32.
+- Link to v1: https://patch.msgid.link/20260612160523.3083792-1-gary@kernel.org
+---
+ rust/Makefile                      |  6 ++++
+ scripts/rustdoc_test_map_source.py | 73 ++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 79 insertions(+)
 
-diff --git a/drivers/i2c/busses/i2c-mlxbf.c b/drivers/i2c/busses/i2c-mlxbf.c
-index 93fc9f0ba72c..2d2dc234db7a 100644
---- a/drivers/i2c/busses/i2c-mlxbf.c
-+++ b/drivers/i2c/busses/i2c-mlxbf.c
-@@ -219,7 +219,12 @@
- #define MLXBF_I2C_MASTER_BUSY_BIT         BIT(30) /* Busy bit. */
- #define MLXBF_I2C_MASTER_START_BIT        BIT(29) /* Control start. */
- #define MLXBF_I2C_MASTER_CTL_WRITE_BIT    BIT(28) /* Control write phase. */
-+#define MLXBF_I2C_MASTER_WRITE_MASK       GENMASK(27, 21) /* Control write bytes */
-+#define MLXBF_I2C_MASTER_SEND_PEC_BIT     BIT(20) /* Send PEC byte when set to 1 */
- #define MLXBF_I2C_MASTER_CTL_READ_BIT     BIT(19) /* Control read phase. */
-+#define MLXBF_I2C_MASTER_SLV_ADDR_MASK    GENMASK(18, 12) /* Slave address */
-+#define MLXBF_I2C_MASTER_PARSE_EXP_BIT    BIT(11) /* Control parse expected bytes */
-+#define MLXBF_I2C_MASTER_READ_MASK        GENMASK(10, 4) /* Control read bytes */
- #define MLXBF_I2C_MASTER_STOP_BIT         BIT(3)  /* Control stop. */
+diff --git a/rust/Makefile b/rust/Makefile
+index da1a7409d984..23f603d1356e 100644
+--- a/rust/Makefile
++++ b/rust/Makefile
+@@ -406,6 +406,12 @@ quiet_cmd_rustdoc_test_kernel = RUSTDOC TK $<
+     $(objtree)/scripts/rustdoc_test_gen FORCE
+ 	+$(call if_changed,rustdoc_test_kernel)
  
- #define MLXBF_I2C_MASTER_ENABLE \
-@@ -232,12 +237,6 @@
- #define MLXBF_I2C_MASTER_ENABLE_READ \
- 	(MLXBF_I2C_MASTER_ENABLE | MLXBF_I2C_MASTER_CTL_READ_BIT)
- 
--#define MLXBF_I2C_MASTER_WRITE_SHIFT      21 /* Control write bytes */
--#define MLXBF_I2C_MASTER_SEND_PEC_SHIFT   20 /* Send PEC byte when set to 1 */
--#define MLXBF_I2C_MASTER_PARSE_EXP_SHIFT  11 /* Control parse expected bytes */
--#define MLXBF_I2C_MASTER_SLV_ADDR_SHIFT   12 /* Slave address */
--#define MLXBF_I2C_MASTER_READ_SHIFT       4  /* Control read bytes */
--
- /* SMBus master GW Data descriptor. */
- #define MLXBF_I2C_MASTER_DATA_DESC_ADDR   0x80
- #define MLXBF_I2C_MASTER_DATA_DESC_SIZE   0x80 /* Size in bytes. */
-@@ -288,7 +287,7 @@
- #define MLXBF_I2C_SLAVE_ENABLE \
- 	(MLXBF_I2C_SLAVE_BUSY_BIT | MLXBF_I2C_SLAVE_WRITE_BIT)
- 
--#define MLXBF_I2C_SLAVE_WRITE_BYTES_SHIFT 22 /* Number of bytes to write. */
-+#define MLXBF_I2C_SLAVE_WRITE_BYTES_MASK  GENMASK(28, 22) /* Number of bytes to write. */
- #define MLXBF_I2C_SLAVE_SEND_PEC_SHIFT    21 /* Send PEC byte shift. */
- 
- /* SMBus slave GW Data descriptor. */
-@@ -643,14 +642,19 @@ static int mlxbf_i2c_smbus_enable(struct mlxbf_i2c_priv *priv, u8 slave,
- 		command |= MLXBF_I2C_MASTER_STOP_BIT;
- 	if (read) {
- 		command |= MLXBF_I2C_MASTER_ENABLE_READ;
--		command |= rol32(len, MLXBF_I2C_MASTER_READ_SHIFT);
-+		command |= FIELD_PREP(MLXBF_I2C_MASTER_READ_MASK, len);
- 	} else {
- 		command |= MLXBF_I2C_MASTER_ENABLE_WRITE;
--		command |= rol32(len, MLXBF_I2C_MASTER_WRITE_SHIFT);
-+		command |= FIELD_PREP(MLXBF_I2C_MASTER_WRITE_MASK, len);
- 	}
--	command |= rol32(slave, MLXBF_I2C_MASTER_SLV_ADDR_SHIFT);
--	command |= rol32(block_en, MLXBF_I2C_MASTER_PARSE_EXP_SHIFT);
--	command |= rol32(pec_en, MLXBF_I2C_MASTER_SEND_PEC_SHIFT);
++# When building rustdoc tests, instead of using the actual RUSTC_OR_CLIPPY, use a wrapper to build
++# so we can convert line number in diagnostics.
++ACTUAL_RUSTC := $(RUSTC_OR_CLIPPY)
++%/doctests_kernel_generated.o: private RUSTC_OR_CLIPPY = \
++	PYTHONDONTWRITEBYTECODE=1 ACTUAL_RUSTC=$(ACTUAL_RUSTC) $(PYTHON3) $(srctree)/scripts/rustdoc_test_map_source.py
 +
-+	if (block_en)
-+		command |= MLXBF_I2C_MASTER_PARSE_EXP_BIT;
+ # We cannot use `-Zpanic-abort-tests` because some tests are dynamic,
+ # so for the moment we skip `-Cpanic=abort`.
+ quiet_cmd_rustc_test = $(RUSTC_OR_CLIPPY_QUIET) T  $<
+diff --git a/scripts/rustdoc_test_map_source.py b/scripts/rustdoc_test_map_source.py
+new file mode 100644
+index 000000000000..673021bedf4c
+--- /dev/null
++++ b/scripts/rustdoc_test_map_source.py
+@@ -0,0 +1,73 @@
++# SPDX-License-Identifier: GPL-2.0
 +
-+	if (pec_en)
-+		command |= MLXBF_I2C_MASTER_SEND_PEC_BIT;
++import sys
++import re
++import os
++import subprocess
 +
-+	command |= FIELD_PREP(MLXBF_I2C_MASTER_SLV_ADDR_MASK, slave);
- 
- 	/* Clear status bits. */
- 	writel(0x0, priv->mst->io + MLXBF_I2C_SMBUS_MASTER_STATUS);
-@@ -1888,7 +1892,7 @@ static int mlxbf_i2c_irq_send(struct mlxbf_i2c_priv *priv, u8 recv_bytes)
- 
- 	/* Prepare control word. */
- 	control32 = MLXBF_I2C_SLAVE_ENABLE;
--	control32 |= rol32(write_size, MLXBF_I2C_SLAVE_WRITE_BYTES_SHIFT);
-+	control32 |= FIELD_PREP(MLXBF_I2C_SLAVE_WRITE_BYTES_MASK, write_size);
- 	control32 |= rol32(pec_en, MLXBF_I2C_SLAVE_SEND_PEC_SHIFT);
- 
- 	writel(control32, priv->slv->io + MLXBF_I2C_SMBUS_SLAVE_GW);
--- 
-2.34.1
++LOCATION_REGEX = re.compile(r"\.location: (.*):(\d+)")
++ANCHOR_REGEX = re.compile(r"static __DOCTEST_ANCHOR: .+ = .* \+ (\d+) \+ (\d+);")
++SOURCE_INFO_REGEX = re.compile(r"(rust/[\w/.-]+\.rs):(\d+):(\d+)")
++
++
++def transform(file, line):
++    with open(file, "r") as f:
++        lines = f.readlines()
++
++    line_idx = line - 1
++
++    # Find the last location and anchor before the erroring line
++    real_path = None
++    orig_line = None
++    anchor_line = None
++
++    for i in range(line_idx, -1, -1):
++        if real_path is None:
++            match = LOCATION_REGEX.search(lines[i])
++            if match:
++                real_path = match.group(1)
++                orig_line = int(match.group(2))
++
++        if anchor_line is None:
++            match = ANCHOR_REGEX.search(lines[i])
++            if match:
++                anchor_line = i + int(match.group(1)) + int(match.group(2))
++
++        if real_path is not None and anchor_line is not None:
++            break
++
++    new_line = orig_line + (line_idx - anchor_line)
++    return real_path, new_line
++
++
++def main():
++    actual_rustc = os.environ.get("ACTUAL_RUSTC")
++    args = sys.argv[1:]
++
++    # We redirected Rust output so it is not TTY anymore.
++    # Add `--color=always` back to preserve the color behaviour.
++    if sys.stderr.isatty() and not any(arg.startswith("--color") for arg in args):
++        args.append("--color=always")
++
++    result = subprocess.run([actual_rustc] + args, stderr=subprocess.PIPE, text=True)
++
++    def replacer(match):
++        orig = match.group(0)
++        file = match.group(1)
++        line = int(match.group(2))
++        col = int(match.group(3))
++
++        if file != "rust/doctests_kernel_generated.rs":
++            return orig
++
++        new_file, new_line = transform(file, line)
++        return f"{orig} (generated from {new_file}:{new_line}:{col})"
++
++    if result.stderr:
++        sys.stderr.write(SOURCE_INFO_REGEX.sub(replacer, result.stderr))
++
++    sys.exit(result.returncode)
++
++
++if __name__ == "__main__":
++    main()
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260903-rustdoc-sourcemap-160f904fe78f
+
+Best regards,
+--  
+Gary Guo <gary@garyguo.net>
 
