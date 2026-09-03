@@ -1,155 +1,91 @@
-Received: from mail-oa1-f77.google.com (mail-oa1-f77.google.com [209.85.160.77])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEBBC4BB5DC
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:55:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB404B2025;
+	Thu,  3 Sep 2026 14:56:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788447355; cv=none; b=CNR41h9XzHyhm5QC+V3WfCwi2dQEpnWZhQ0S8T+o5jzIgzvvEgXU31FTLCDdQZWJ9qp28FRC7znx7F/gu6D7lFfFvrYNLcO1QElZJCyG8QOjqrinGkMEoEUbopp9ceGFD2nzl2U29frd3/h61NLTzOaVOsgCnEGhob7a0fbSBVU=
+	t=1788447391; cv=none; b=RB4TqKQL6loyw52NjgeIqDW9Zj+SZ1Ig3UJh7zB7SKc5irANwBc+zxy5bIig4lOMiiJn4UhMM9Orwltk3XU9YrBQzwfbR8fpWyPymip4b2nD5/5XRf5fKhhZJ7nO6xnJGnD2s2II05V5i3iDe5n/3UrMWvUEfNjuw37EsBfFBZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788447355; c=relaxed/simple;
-	bh=CoRlB6gAX6V1ReavRH4xaLpkAo6ffNhn7w18OCM60bI=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=IdXlR8d3g49rvzH28b78eAFjAq2OO1NlwP/0JNggV9QEQrFXYycOGywR2Waj5LeeFJ3PpgbncLbPnvWyDb9AvR+LwtL00Hi/j9Q6cs3EziK4/zdha/e7klR8NZ/BVw9NY7Wkte9f5iIZxfaPmK9WnV3qYfGSHtrXXyHjsoebhKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f77.google.com with SMTP id 586e51a60fabf-464e69965b8so1492403fac.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:55:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788447353; x=1789052153;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Yh2JriY1HIYvSoqEosp4VpGCVknWxb4Ip0izbJulw+c=;
-        b=JdVY1bBI9DSVtkSLvF13nH4kmzv34BQnf9addKd5pfmCIWnVgQ24rPqGG0jqJft8YN
-         TMJsHROeANd8uWsG5p5XfEuUb8OOmZsn6e3AIuP7zqhyeAU5msGjcLbPexGvJRrhaiTB
-         ShJjyTTAaaV1ZsNkmLNPQLkN8itowPmPGmfSQd0JnkU8aXGQO8O/w0d4MbiyjXIAtWWw
-         g7atS2vGSI+y/eH088L1Of5m5SWGIqqLdJu1dS87V81PnA1tGZUjJzG95VTAYNWLzBe4
-         HphnF1/gKwXCajsiEQcVzdkMt61X/PChRY66ld7EZpxw1vmZA6urZb8zVzfSpMVH2TUr
-         Ezjg==
-X-Forwarded-Encrypted: i=1; AKwUvBxV0S3pYOvCCa9/lviZMnaoG/xiaQL7vu9iP2Wl3ItS081AqFmDuGiR273ipi7pZtXd1K60BpefH4l8eO0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nTTAaukr66lkwBsJTjuRr+KSk8WcbB8S1WySMoq/iB8hiQEm1d
-	+K2wfqa6WaIbLSvLaSgyO89g4vMw8aZKyyHxkmdzOtGW48OZ101toNR9X6tBVcpN3IcEBoyj35d
-	2jfPYFVtxBE/rf4lGd87hvkhR5nxsySGTHop4TdySKz1NBqgcCNGbEAmIpJA=
+	s=arc-20240116; t=1788447391; c=relaxed/simple;
+	bh=wzzd5jw33wkjZtC109avsburcPrqcYErj0QbOakwpHo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rZomJmLGFoYrvbNGOtbYCJTONNbMLOQNderYwn8iLwVUYqBzCrQvLc51k9Cj1t97Te088shfSeVbhFNccD3mMlFSwht3NYhCtjvJJ4kDIFDFlV9XvMzh9dbfbQfhvNXDidlA+kct8BrkWtvyKAUj+QwPeo3UG/kc08X3tJbo6RM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ViQUwL4F; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ViQUwL4F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 492811F00A3A;
+	Thu,  3 Sep 2026 14:56:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788447389;
+	bh=OUrfZKleKlwNM52WhHDvMJ9I6+0BXXB1WoEyHW0Vqks=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ViQUwL4FKTXbo+4jhCaek2i5/dA62YQmGMe+stAWoHoahit8PwHBubRHjsz581ByV
+	 pRB5UBUfJft3CnFTHTqwdp7tr51PJC+PU1JnJUR9HUQowL3okXxuW6g5u4Bfq7PIkR
+	 ucASn8tNmm3cKsJ8H34OX68KcEKD5gcodd+chqqMZT5XKouO/0A+2GZBomi+9kUhYj
+	 eSQYs0cqQ282V46exrIJOjRGPK25ScCPHIK78IlQoDzNEd1HSZVIr0jIy8BNEUhzmy
+	 CH6eL1lZ0x5sWx6UJVWl/ChoZqPK10/fdE8dapdt629FszbaRjTj6nap4cr8z9HFXK
+	 bhZptfRr4ZGqw==
+Date: Thu, 3 Sep 2026 09:56:26 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+Subject: Re: [PATCH 1/3] dt-bindings: arm: qcom: Add Talos Lyra EVK board
+Message-ID: <apmKZl-KaCDg1qmg@baldur>
+References: <20260901-lyra_upstreaming-v1-0-e3a76dc9e21c@oss.qualcomm.com>
+ <20260901-lyra_upstreaming-v1-1-e3a76dc9e21c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:16ac:b0:6b5:ec2f:3572 with SMTP id
- 006d021491bc7-6b5ec2f3690mr1539470eaf.35.1788447352818; Thu, 03 Sep 2026
- 07:55:52 -0700 (PDT)
-Date: Thu, 03 Sep 2026 07:55:52 -0700
-In-Reply-To: <6a9087a4.4d659fcc.734b4.0013.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a998a78.e7659fcc.146146.000a.GAE@google.com>
-Subject: Re: [syzbot] [usb?] general protection fault in keyspan_break_ctl
-From: syzbot <syzbot+473d7477c523b41d4046@syzkaller.appspotmail.com>
-To: adrianox@gmail.com, gregkh@linuxfoundation.org, jirislaby@kernel.org, 
-	johan@kernel.org, kartikey406@gmail.com, linux-kernel@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-usb@vger.kernel.org, 
-	stable@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901-lyra_upstreaming-v1-1-e3a76dc9e21c@oss.qualcomm.com>
 
-syzbot has found a reproducer for the following issue on:
+On Tue, Sep 01, 2026 at 07:14:01PM +0530, Avaneesh Kumar Dwivedi wrote:
+> Add the qcom,talos-lyra-evk compatible string for the Talos Lyra EVK
+> board, which pairs the Talos Lyra EVK SoM with a common carrier board.
+> 
+> Signed-off-by: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+> Signed-off-by: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
 
-HEAD commit:    940de590b839 Merge tag 'hardening-v7.3-rc2' of git://git.k..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=13537c15580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
-dashboard link: https://syzkaller.appspot.com/bug?extid=473d7477c523b41d4046
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11f19f79580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15ed50f9580000
+Retain Nirmesh's authorship.
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-940de590.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/f3f674f98efb/vmlinux-940de590.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/132222426e71/bzImage-940de590.xz
+> ---
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+> index ff8a35df7862..ff7775dcb954 100644
+> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+> @@ -1056,6 +1056,13 @@ properties:
+>            - const: qcom,qcs615
+>            - const: qcom,sm6150
+>  
+> +      - items:
+> +          - enum:
+> +              - qcom,talos-lyra-evk
+> +          - const: qcom,talos-lyra-evk-som
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+473d7477c523b41d4046@syzkaller.appspotmail.com
+I don't think there's value in claiming compatibility with the som, just
+add qcom,talos-lyra-evk to the node above.
 
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000013: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000098-0x000000000000009f]
-CPU: 0 UID: 0 PID: 6007 Comm: syz.2.19 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:keyspan_break_ctl+0x8e/0xe0 drivers/usb/serial/keyspan.c:608
-Code: ff ff ff e8 74 88 43 fa 83 fb ff 48 b8 00 00 00 00 00 fc ff df 49 8d bc 24 9c 00 00 00 0f 94 c3 48 89 fa 0f b6 db 48 c1 ea 03 <0f> b6 14 02 48 89 f8 83 e0 07 83 c0 03 38 d0 7c 04 84 d2 75 1d 41
-RSP: 0018:ffffc900067ffc50 EFLAGS: 00010203
-RAX: dffffc0000000000 RBX: 0000000000000000 RCX: ffffffff87c7ae2c
-RDX: 0000000000000013 RSI: 00000000ffffffff RDI: 000000000000009c
-RBP: ffff888013d9a000 R08: 0000000000000005 R09: 00000000ffffffff
-R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
-R13: ffff88804a94d020 R14: ffff88804a94d0c8 R15: 0000000000000007
-FS:  0000000000000000(0000) GS:ffff888096967000(0063) knlGS:0000000056ebd480
-CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
-CR2: 00000000ffdb3ff0 CR3: 00000000529f7000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- serial_break+0xcb/0x160 drivers/usb/serial/usb-serial.c:538
- send_break drivers/tty/tty_io.c:2458 [inline]
- send_break+0x2ec/0x370 drivers/tty/tty_io.c:2441
- tty_ioctl+0xa2c/0x1640 drivers/tty/tty_io.c:2733
- tty_compat_ioctl+0x87/0x420 drivers/tty/tty_io.c:2931
- __do_compat_sys_ioctl fs/ioctl.c:695 [inline]
- __se_compat_sys_ioctl fs/ioctl.c:638 [inline]
- __ia32_compat_sys_ioctl+0x2cf/0x360 fs/ioctl.c:638
- do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
- __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
- do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
- entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-RIP: 0023:0xf702efec
-Code: Unable to access opcode bytes at 0xf702efc2.
-RSP: 002b:00000000ff93915c EFLAGS: 00000296 ORIG_RAX: 0000000000000036
-RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 0000000000005425
-RDX: 0000000000000007 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:keyspan_break_ctl+0x8e/0xe0 drivers/usb/serial/keyspan.c:608
-Code: ff ff ff e8 74 88 43 fa 83 fb ff 48 b8 00 00 00 00 00 fc ff df 49 8d bc 24 9c 00 00 00 0f 94 c3 48 89 fa 0f b6 db 48 c1 ea 03 <0f> b6 14 02 48 89 f8 83 e0 07 83 c0 03 38 d0 7c 04 84 d2 75 1d 41
-RSP: 0018:ffffc900067ffc50 EFLAGS: 00010203
-RAX: dffffc0000000000 RBX: 0000000000000000 RCX: ffffffff87c7ae2c
-RDX: 0000000000000013 RSI: 00000000ffffffff RDI: 000000000000009c
-RBP: ffff888013d9a000 R08: 0000000000000005 R09: 00000000ffffffff
-R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
-R13: ffff88804a94d020 R14: ffff88804a94d0c8 R15: 0000000000000007
-FS:  0000000000000000(0000) GS:ffff888096a67000(0063) knlGS:0000000056ebd480
-CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
-CR2: 00000000f7349bcc CR3: 00000000529f7000 CR4: 0000000000352ef0
-----------------
-Code disassembly (best guess), 2 bytes skipped:
-   0:	ff                   	ljmp   (bad)
-   1:	e8 74 88 43 fa       	call   0xfa43887a
-   6:	83 fb ff             	cmp    $0xffffffff,%ebx
-   9:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
-  10:	fc ff df
-  13:	49 8d bc 24 9c 00 00 	lea    0x9c(%r12),%rdi
-  1a:	00
-  1b:	0f 94 c3             	sete   %bl
-  1e:	48 89 fa             	mov    %rdi,%rdx
-  21:	0f b6 db             	movzbl %bl,%ebx
-  24:	48 c1 ea 03          	shr    $0x3,%rdx
-* 28:	0f b6 14 02          	movzbl (%rdx,%rax,1),%edx <-- trapping instruction
-  2c:	48 89 f8             	mov    %rdi,%rax
-  2f:	83 e0 07             	and    $0x7,%eax
-  32:	83 c0 03             	add    $0x3,%eax
-  35:	38 d0                	cmp    %dl,%al
-  37:	7c 04                	jl     0x3d
-  39:	84 d2                	test   %dl,%dl
-  3b:	75 1d                	jne    0x5a
-  3d:	41                   	rex.B
+Regards,
+Bjorn
 
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+> +          - const: qcom,qcs615
+> +          - const: qcom,sm6150
+> +
+>        - items:
+>            - enum:
+>                - sony,pdx213
+> 
+> -- 
+> 2.34.1
+> 
