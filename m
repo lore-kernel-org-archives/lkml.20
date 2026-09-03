@@ -1,210 +1,72 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 178143E172D
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:00:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 668F63803F1
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:01:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788418847; cv=none; b=bpSLWPDjsSIsj8UVsEoHMfFldG39qblEUjwZ+AhvhaXcMYSFe3kN88XaGN39Dkrtk60HEhi4r/pxe0O4wkKN8Ykzf4LFewoY0dsXYJqheefHqVzzFZJuyT4URkFpJZAPXRKUuo1MLrVWY+DaEuY4c1cvxxZm9FkD47VOVn41/Hw=
+	t=1788418870; cv=none; b=PA5YeIdfgSQqQ4hXxSBED3uzlo/cyOMvmvynKkgv/bIdt36FgTQkt/TM0ymCPKyUAsJkcdGtdVqZnFiVCqFu3UVvt2TFiuCA5hCrABz5I97vXfHF5gnB1LWNb9n0xIoT1RVT26oNCStgeI4AOViOqWD97iDAZsRjeinwe/GZQTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788418847; c=relaxed/simple;
-	bh=HfSAyLNGvAfTt040f/crFsUGn1kbwdcfpl1RSRwclb8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d0z7c2DOsrA+Mei15rwzjySQOYh+ONwc7kUtBGvyJ5dgJhu2PQUMDKJJoqbpaMRvOuOlYvpXUXY5MIwAOe0Aj8nE0O3Q33P7QyFADyk3x2WSPBtDSuqHrP4VJS4YtsdE6ItwpJjfJEU8Cf9+mnSbOkOrQA12vSGiAwv23coItZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ca0ZmIHp; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Hv15/f+/; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=yIrtd9u2; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=gFDhiFRU; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ca0ZmIHp";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Hv15/f+/";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="yIrtd9u2";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gFDhiFRU"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 0F6D41FDB8;
-	Thu,  3 Sep 2026 07:00:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788418837; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=sAG9cDrf6xBo+FEbVMo3Fg8Oo+JsskIBDIN13dkCH/M=;
-	b=ca0ZmIHp/jfxgiC/j0cQM3dO+U/j2f6SzVC8r42KASK1ryPTVaNerbEUx5q04GpeSDDGBS
-	FtaI2grx0B9hFYF2FAH9b/+2kDW5rk3LjvB5PR0vvHFAGSiZveS+QDC2lKAjwdUZdQxi/a
-	F3fmZtn+yKBcgxHzpbnZ6Gwg1vpBumo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788418837;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=sAG9cDrf6xBo+FEbVMo3Fg8Oo+JsskIBDIN13dkCH/M=;
-	b=Hv15/f+/CcrJiMZr7ujsNyEs7l2J10Gnzo7WAjBLQc9T2GDM0Cj9rRGRfZlG6lMZ7ZPM+N
-	4MErsL9DuYzlsGBA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788418833; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=sAG9cDrf6xBo+FEbVMo3Fg8Oo+JsskIBDIN13dkCH/M=;
-	b=yIrtd9u2rTlpIKJK6bqWO6CF1l2zjjdnIA/PbX98J9QrASGIC9ibEvd/QBFLpw1eyqMBo0
-	TS3ZKhNtxPMOn7njzyPmMO94bBqKFcxaWab0W4A2ZC2Aipfs+o+JANQsrXUs1bOQI63611
-	BqfKqLFI7bamXqycRU+tuvp4iMfhSJs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788418833;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=sAG9cDrf6xBo+FEbVMo3Fg8Oo+JsskIBDIN13dkCH/M=;
-	b=gFDhiFRUVPzGy2O/Po1f68k+be6dAC/J6rLnJE7bf4flFFqj0J6gPd1WoCGp6F5P3vipDx
-	TP3I9V+GiyRwcYCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7C6E313736;
-	Thu,  3 Sep 2026 07:00:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 9wTrHBAbmWqTTgAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Thu, 03 Sep 2026 07:00:32 +0000
-Message-ID: <12087ae2-972a-48fd-932a-89772597f59c@suse.de>
-Date: Thu, 3 Sep 2026 09:00:31 +0200
+	s=arc-20240116; t=1788418870; c=relaxed/simple;
+	bh=H3j+aa3b4VSeroird65KyWfqNS3LX+l4/bZnRmMqUaA=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=JznMU7HVY7Y4IEUUhgLWe5ofiD6MnRSfrp41KXOgPmLGLhpJmiUjnp1yFh1aId9cVFXgpbZqUaZsT4IYwDyAxyGRczfZiUA0P3OBP9X0bKe+sN7C4TUaArGxMuJjnm5Oyl73MjWkqjr4XfRQ48mkj/wdnEXwGg7MJQCwI/XbQf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b37733badcso2670522b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:01:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788418864; x=1789023664;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=KM9hpns+6dVqH1JEmnHwwgkp02V9J8JMlo4+iX+Xt7s=;
+        b=LQX0qo5I5tJk0ncspcxYnctaevnsixAcW4OqZxIaglDjZ1Vk0UsvWoB7grHrFhwpHX
+         bAKaDT5NKk1IpasUCJFPk5wq63jinBP4wyoB3IDj0k7pTLO6QxZu0T9sY8u0+b1d8SKR
+         SF/3I75A/e8iYYoF9veceBjkJ8+N2J3x8EY30y1gVnNs7PWB4uRv9C9DwAe8jMDZ7h8S
+         RAssBWKy5hNbAeNg8J/bpZOe6cuY+0z9budkeZPdTblKqc+IKxUQ4IX1p0Aa/RAgn/Qb
+         PfXv4nwa/jGE3DliMwPnJdzqiURcHDxpwHIq6K9FGIiW6UXSZ3thI2F+8I+ss7UGkN0F
+         StJA==
+X-Forwarded-Encrypted: i=1; AKwUvByBJV4/Y9R/AwL98PNHJAUcN5/hS1JKybgpNgrs/iq0WwuKZyIx1q4APPQ2+cyv70SpYT+a6oYIWM3Un1k=@vger.kernel.org
+X-Gm-Message-State: AFuF++nXTDLME/3sA5NB2L4O0GEK4WTT8gjhSsySYE5jusDTSdqpNGe6
+	uIa0jRvhIrXd8b4blRKGC/FaPYXXQozkwPBuG0tYC1v0n0lXQ2zQmkSO60/Uo4IhR5TE9nix1O+
+	sL2+rZ+LxUZzyW9i9DDW4Bap9GHyj9PtMZAFPX4m4A21j7IQDgNZSe08TdDE=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] drm/vboxvideo: create blend mode property on
- planes
-To: Qinyun Tan <qinyuntan@linux.alibaba.com>, dri-devel@lists.freedesktop.org
-Cc: airlied@redhat.com, jfalempe@redhat.com, kraxel@redhat.com,
- dmitry.osipenko@collabora.com, hansg@kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
- leandro.ribeiro@collabora.com, daniels@collabora.com,
- pekka.paalanen@collabora.com, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260901083234.1828755-1-qinyuntan@linux.alibaba.com>
- <20260901083234.1828755-5-qinyuntan@linux.alibaba.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260901083234.1828755-5-qinyuntan@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spam-Score: -4.30
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.993];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[alibaba.com:email,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid,suse.com:url]
+X-Received: by 2002:a4a:e90a:0:b0:6b1:a5c7:58ff with SMTP id
+ 006d021491bc7-6b47efddd71mr8852323eaf.26.1788418864029; Thu, 03 Sep 2026
+ 00:01:04 -0700 (PDT)
+Date: Thu, 03 Sep 2026 00:01:04 -0700
+In-Reply-To: <CAEe5be5eVOiD2fQwwqumNhpUORUABt07oFPzD9sh01sQ14iPDg@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a991b30.9266084e.bf0d7.00bf.GAE@google.com>
+Subject: Re: [syzbot] [usb?] general protection fault in bus_remove_device
+From: syzbot <syzbot+87188222c77c0dbbdb4d@syzkaller.appspotmail.com>
+To: khiemtranzo532001@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot tried to test the proposed patch but the build/boot failed:
+
+failed to apply patch:
+error: corrupt patch at line 30
 
 
 
-Am 01.09.26 um 10:32 schrieb Qinyun Tan:
-> Since commit 860e748bddcc ("drm: ensure blend mode supported if pixel
-> format with alpha exposed"), drm_mode_config_validate() warns when a
-> plane exposes an alpha pixel format but not the "pixel blend mode"
-> property. Both the vboxvideo primary and cursor planes expose ARGB8888
-> and trip this on driver load.
->
-> VirtualBox draws the cursor through the host windowing system, which
-> treats the guest-supplied pointer shape as straight
-> (non-pre-multiplied) alpha: the host frontend loads the pixels
-> verbatim into an unpremultiplied ARGB image before handing them to the
-> host cursor APIs. This corresponds to DRM_MODE_BLEND_COVERAGE. Expose
-> a "pixel blend mode" property advertising only DRM_MODE_BLEND_COVERAGE
-> to make these semantics explicit and silence the warning. The primary
-> plane's alpha channel is ignored by the host (opaque blit) and it is
-> the bottom-most plane anyway; advertise the same value there for
-> consistency.
->
-> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
-> Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
+Tested on:
 
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-> ---
-> v2: advertise DRM_MODE_BLEND_COVERAGE instead of PREMULTI after
-> checking how the VirtualBox host composites the pointer shape.
->
->   drivers/gpu/drm/vboxvideo/vbox_mode.c | 4 ++++
->   1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/gpu/drm/vboxvideo/vbox_mode.c b/drivers/gpu/drm/vboxvideo/vbox_mode.c
-> index 8e4e5fc9d3c5a..3c41238a82685 100644
-> --- a/drivers/gpu/drm/vboxvideo/vbox_mode.c
-> +++ b/drivers/gpu/drm/vboxvideo/vbox_mode.c
-> @@ -15,6 +15,7 @@
->   
->   #include <drm/drm_atomic.h>
->   #include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_blend.h>
->   #include <drm/drm_edid.h>
->   #include <drm/drm_fb_helper.h>
->   #include <drm/drm_fourcc.h>
-> @@ -540,6 +541,9 @@ static struct drm_plane *vbox_create_plane(struct vbox_private *vbox,
->   
->   	drm_plane_helper_add(plane, helper_funcs);
->   
-> +	drm_plane_create_blend_mode_property(plane,
-> +					     BIT(DRM_MODE_BLEND_COVERAGE));
-> +
->   	return plane;
->   
->   free_plane:
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
+commit:         940de590 Merge tag 'hardening-v7.3-rc2' of git://git.k..
+git tree:       upstream
+kernel config:  https://syzkaller.appspot.com/x/.config?x=1d67342c314f228d
+dashboard link: https://syzkaller.appspot.com/bug?extid=87188222c77c0dbbdb4d
+compiler:       
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=10707c15580000
 
