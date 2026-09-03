@@ -1,78 +1,36 @@
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-139.mta1.migadu.com [95.215.58.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3594400DE8
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:40:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D37574052A2
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:40:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788428422; cv=none; b=YTMlTx18HO+UyjZzoPcDowaC45rGkW3bqBfPGJk12wc4P90G07E9M4jlezVJFwEd/YRaih/EbE6QjDKFUTs6lWvCE8RA8sd946Bm/aysadMSofJVOH8p60+OT9dlZ2S3aNzk4cMkwJ+cHpBag0E3I9gUMXoLiZKZXwmgNXAa07Q=
+	t=1788428426; cv=none; b=XZKYfuSUJp8QV1ZEmxUNz7NEDE96zHy2QWTlo9F6PYZ3WGfrrd7w0Nv7VJCvI0AGhGiz9V/w9t9TjcX34qYdI+Jon7lf5Aw1RarH6QAmnqXvldB50Yxom49sH+0vk8n3xhPzcfqTwiy9UNZhCCieVBXkMnQtw7SOx/pitNvIR44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788428422; c=relaxed/simple;
-	bh=RVY5KRyKZZG2Y+gJh7LxXAAi3xdCkxmVkaTQ446fAwo=;
+	s=arc-20240116; t=1788428426; c=relaxed/simple;
+	bh=li0QtrKSoF1w5akDTx2Tm8g+pJQlMKfNm+NiL9GmhYQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Nb29wi5uxBxctKf8oWLQ5yp5LCN3H98MvsPVXa9fAoXv78LPcPPW2O1ONOOQT+vgwG4RMZk0faD+1xq1nbe3s2HYlne/b97jbdArSDKgrtv/4oG7BxohU4U8sV8XOof0le4h7tf0zKcFF/f3ZGT7rnsf3H2TeSC+1YPQi+Xy23I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=NnRYiOAu; arc=none smtp.client-ip=185.125.188.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	 In-Reply-To:Content-Type; b=AQDPFKZEJa8oM+g4D0E7pLOMTJKNKDptdF6SB3WyFmqrVBoq+qkbN8yJgzpNbnzvbowbdB5Ch/SOcf0/3FhcJlJUTa8hSHidP8ZIJd6GDsd6e+vZDVqF1PhFKMrdBTIr0o8Aoe4pn/cv9z9pFi/XJKrW3rRTiUAmJaBGZ5s8a5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=eZhWx7wB; arc=none smtp.client-ip=95.215.58.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="NnRYiOAu"
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 396F044B9C
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:40:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1788428418;
-	bh=UnqC0vVCveGL8BfKzx1mgmJlLA7UfcDCGVJE34qJcis=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type;
-	b=NnRYiOAuXVs6LhpWCvOWLJrBbVsxRoNOg7vP6ovVcsk2+3/xgnbwIsChB4ygUKSCh
-	 DWA7ub5zMoKCQPmeG9UZCfpBZ2o8IgaB0peccHwHvpoRExG+ZHdwuJp1rXQ0rACXWk
-	 1EXJkcvmbp/BP16cmmY7YOCnN8wOuF03qk4Jv0cCZI1GN0LkUkDJBaJLUu8nUBR+Vc
-	 d6nW7/+FT5Izq1w6aLj4a+kuHsueUbF2z2Od/hD9k3ZlVne/+tky3gnqDRrf4dRZ3r
-	 KZwvm1WgSEC0qERLzS3NQSKO0YJMq81x+FMkqHGFvnNryGalbGw5CDMR/oKcfbRvCY
-	 OD/wcg5VC9X91BSf0F+vn9AXHUKNWVTDnQvGeR0tNN24xQ89qFYy5FgNHPKbyvs56x
-	 K/5k9VA2WrJdAW5Shz7HAp55L6RylKo06dquDNuAuSlXrAOVInQRipOyh7bEVKahSu
-	 zjUKIgPSL1y6+07MQjBdKnaVQ5O3P8gcl6C/O58Lv/AZLCdt1gGYQ1e3FMT6S9LCf4
-	 72loptRoEQZwqpbsI6al7Q7WTAklN27ZjHowKEHhXJU1tIU75v2SOZ2iEid/BWKWo2
-	 79ATPPMPbJiMOOEBQQDXwDmwljkaP9k2daI86LfJbhGuRPqklxu8jbngRnEVrMBfnd
-	 sWVOomGJCGFTsmiZL3kKn3yU=
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-84e4ef486c7so867301b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 02:40:18 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788428417; x=1789033217;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:from:content-language:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=UnqC0vVCveGL8BfKzx1mgmJlLA7UfcDCGVJE34qJcis=;
-        b=ogYLsXCYrg9TIzMMkxZae2PhKqaGx45sVqusTxwtSIl6iSNCKankjfZWNM3cfklKkh
-         l9U85ZCH6/jKKyDES9Gyx45WHukX3YOXdJ1CHuSCJHrR3Eaakqx8ww9Wy3WUnuicNB9K
-         C2XYq5GwnxAELZJPs/4ZrOBgI/oRZEAnuDRNAJJVAxQ9XUETTLiqmmMOcf+ZK7c+3P+g
-         FVHBiDejwQ75idVf7QnchPuBk5iMhSKZxl3/2O3NXgq7/H+aBiZEq6Lscl9bXYZ4/0E8
-         SyetDZ6E2ssKCtqF5FWntXv4dd/1ime2Im9FpX3AR0541evTCKG9eVxyznIKTXkED1rA
-         uQAA==
-X-Gm-Message-State: AFuF++l/F8rb6+K8V9NKTveqF2r/LY8P7FonW3W8IlkKdA10ymGnukL+
-	mRvpPRujFaOatM2GMARYb0jU3kkXOgJ9mdnP8a2BdAMad/LaVFJAMz8871fsJ4LCQQLr2WBtqci
-	aC/+li6EM3KEFscxHIIYgxkzcLQnPUBZZUHhTwaJhyeXkCAFcgJI14ZaB5kNuamAhQnjBMCEzst
-	XmEbaCng==
-X-Gm-Gg: AYBFou2Lr0hgNuSYZgeDduV7eLtHW7sPw957xXJmEKcUJdo/GuUpUY7wepaPgbjVBuD
-	PiNxtpM+Edus1TXK6XTraJx7yKnn3apJIAmeV/uUa27YvRrqUE9gq5ibRfLCm9WkUu5uyW6HKbb
-	AVRgxqjbTRNO2ND971aT7+454/1GJdCXgD7cYRfWYPtZ37+x7Z1PE13uAJOQh9CR+MAjdYgvPlG
-	AGFvcJRHtApBwAqMiq2+ZQF9KZ86V/tjjLyqvX+9bQC9hoIeYV3Ls2ZR2Cli0Jl3C5JB/VmUff+
-	gEr6QLYOLQNaTiOVRVioGmctXVhR5nGOmVwUHTkAEzguiRvnq7qwUI6JeEK58ZCivLPg/JgTwRe
-	FNW0HH129QTz2ZDY=
-X-Received: by 2002:a05:6a00:6c8d:b0:848:48d0:934 with SMTP id d2e1a72fcca58-85ffe10a034mr4079628b3a.18.1788428416583;
-        Thu, 03 Sep 2026 02:40:16 -0700 (PDT)
-X-Received: by 2002:a05:6a00:6c8d:b0:848:48d0:934 with SMTP id d2e1a72fcca58-85ffe10a034mr4079592b3a.18.1788428416154;
-        Thu, 03 Sep 2026 02:40:16 -0700 (PDT)
-Received: from [192.168.192.72] ([50.47.147.90])
-        by smtp.googlemail.com with ESMTPSA id d2e1a72fcca58-85db24f20besm2739047b3a.7.2026.09.03.02.40.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 02:40:15 -0700 (PDT)
-Message-ID: <5502dfbf-29cb-4ed3-b635-44d3bda80d60@canonical.com>
-Date: Thu, 3 Sep 2026 02:40:14 -0700
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="eZhWx7wB"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=li0QtrKSoF1w5akDTx2Tm8g+pJQlMKfNm+NiL9GmhYQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788428422; v=1; x=1789033222;
+ b=eZhWx7wBHRR/Ph6P+nMqRG2JBBF2FineSMg+Bv+q5CrDf3Ro2+/s6+6VgP40BUccRsQwIAZG
+ DBVT/SsPyhYgIUC9/V54ohrKnpH33QJdX4Y6gS96vrddGPYmUWG1DwVzqUax3LorqYamD7QVotG
+ oHrExYWk6z/1O3+2I88ZxRW0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9f4276aec2f9c0a2;
+	Thu, 03 Sep 2026 09:40:22 +0000
+X-Mizu-Trace-ID: 9f4276aec2f9c0a2
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <7735a43a-98f4-4402-8bb7-790bee064f7f@linux.dev>
+Date: Thu, 3 Sep 2026 17:40:13 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,192 +38,75 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/7] LSM: Two hooks for manipulating struct lsm_prop
-To: Casey Schaufler <casey@schaufler-ca.com>, paul@paul-moore.com,
- linux-security-module@vger.kernel.org, pablo@netfilter.org, fw@strlen.de,
- phil@nwl.cc
-Cc: linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
- coreteam@netfilter.org, jmorris@namei.org, serge@hallyn.com,
- keescook@chromium.org, penguin-kernel@i-love.sakura.ne.jp,
- stephen.smalley.work@gmail.com, selinux@vger.kernel.org
-References: <20260902220150.18586-1-casey@schaufler-ca.com>
- <20260902220150.18586-4-casey@schaufler-ca.com>
-Content-Language: en-US
-From: John Johansen <john.johansen@canonical.com>
-Autocrypt: addr=john.johansen@canonical.com; keydata=
- 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 lT9Q
-Organization: Canonical
-In-Reply-To: <20260902220150.18586-4-casey@schaufler-ca.com>
+Subject: Re: [PATCH net v2] tls: fix the open record check in the max payload
+ size setsockopt
+To: Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org
+Cc: John Fastabend <john.fastabend@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Sabrina Dubroca <sd@queasysnail.net>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Simon Horman <horms@kernel.org>, Wilfred Mallawa <wilfred.mallawa@wdc.com>,
+ linux-kernel@vger.kernel.org
+References: <20260901072927.128688-1-jiayuan.chen@linux.dev>
+ <2ba43d6b-f521-415e-a4a1-64b313051c88@redhat.com>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <2ba43d6b-f521-415e-a4a1-64b313051c88@redhat.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/2/26 15:01, Casey Schaufler wrote:
-> security_update_lsmprop() updates the property of the
-> specified LSM in the @dest structure with that in the @src.
-> 
-> security_secctx_to_lsmprop() sets the @prop field associated
-> with the LSM specified to the value of the passed security
-> context.
-> 
-> LSM specific implementations of these hooks to follow.
-> 
-> Signed-off-by: Casey Schaufler <casey@schaufler-ca.com>
 
-lgtm
+在 9/3/26 5:06 PM, Paolo Abeni 写道:
+> On 9/1/26 9:29 AM, Jiayuan Chen wrote:
+>> @@ -862,6 +876,7 @@ static int do_tls_setsockopt_tx_payload_len(struct sock *sk, sockptr_t optval,
+>>   static int do_tls_setsockopt(struct sock *sk, int optname, sockptr_t optval,
+>>   			     unsigned int optlen)
+>>   {
+>> +	struct tls_context *ctx;
+>>   	int rc = 0;
+>>   
+>>   	switch (optname) {
+>> @@ -881,9 +896,17 @@ static int do_tls_setsockopt(struct sock *sk, int optname, sockptr_t optval,
+>>   		rc = do_tls_setsockopt_no_pad(sk, optval, optlen);
+>>   		break;
+>>   	case TLS_TX_MAX_PAYLOAD_LEN:
+>> +		/* Take tx_lock like the sendmsg paths do, the socket lock is
+>> +		 * dropped while a sender waits for memory, with no record open.
+>> +		 */
+>> +		ctx = tls_get_ctx(sk);
+>> +		rc = mutex_lock_interruptible(&ctx->tx_lock);
+>> +		if (rc)
+> Why using the interruptible variant? the blocking lock just after will
+> still ignore signals, and this sockopt will now surprisingly fail if a
+> signal happens at the wrong time.
+>
+> /P
 
-Reviewed-by: John Johansen <john.johansen@canonical.com>
 
-> ---
->   include/linux/lsm_hook_defs.h |  4 ++++
->   include/linux/security.h      | 16 ++++++++++++++++
->   security/security.c           | 32 ++++++++++++++++++++++++++++++++
->   3 files changed, 52 insertions(+)
-> 
-> diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
-> index 65c9609ec207..679c40a8e127 100644
-> --- a/include/linux/lsm_hook_defs.h
-> +++ b/include/linux/lsm_hook_defs.h
-> @@ -305,7 +305,11 @@ LSM_HOOK(int, 0, ismaclabel, const char *name)
->   LSM_HOOK(int, -EOPNOTSUPP, secid_to_secctx, u32 secid, struct lsm_context *cp)
->   LSM_HOOK(int, -EOPNOTSUPP, lsmprop_to_secctx, struct lsm_prop *prop,
->   	 struct lsm_context *cp)
-> +LSM_HOOK(void, LSM_RET_VOID, update_lsmprop, struct lsm_prop *dest,
-> +	 struct lsm_prop *src, int lsmid)
->   LSM_HOOK(int, 0, secctx_to_secid, const char *secdata, u32 seclen, u32 *secid)
-> +LSM_HOOK(int, -EINVAL, secctx_to_lsmprop, const char *secdata, u32 seclen,
-> +	 struct lsm_prop *prop)
->   LSM_HOOK(void, LSM_RET_VOID, release_secctx, struct lsm_context *cp)
->   LSM_HOOK(void, LSM_RET_VOID, inode_invalidate_secctx, struct inode *inode)
->   LSM_HOOK(int, 0, inode_notifysecctx, struct inode *inode, void *ctx, u32 ctxlen)
-> diff --git a/include/linux/security.h b/include/linux/security.h
-> index 153e9043058f..19adc19eb9af 100644
-> --- a/include/linux/security.h
-> +++ b/include/linux/security.h
-> @@ -576,6 +576,11 @@ int security_secid_to_secctx(u32 secid, struct lsm_context *cp);
->   int security_lsmprop_to_secctx(struct lsm_prop *prop, struct lsm_context *cp,
->   			       int lsmid);
->   int security_secctx_to_secid(const char *secdata, u32 seclen, u32 *secid);
-> +int security_secctx_to_lsmprop(const char *secdata, u32 seclen,
-> +			       struct lsm_prop *prop, int lsmid);
-> +
-> +void security_update_lsmprop(struct lsm_prop *dest, struct lsm_prop *src,
-> +			     int lsmid);
->   void security_release_secctx(struct lsm_context *cp);
->   void security_inode_invalidate_secctx(struct inode *inode);
->   int security_inode_notifysecctx(struct inode *inode, void *ctx, u32 ctxlen);
-> @@ -1581,6 +1586,11 @@ static inline int security_lsmprop_to_secctx(struct lsm_prop *prop,
->   	return -EOPNOTSUPP;
->   }
->   
-> +static inline void security_update_lsmprop(struct lsm_prop *dest,
-> +					   struct lsm_prop *src, int lsmid)
-> +{
-> +}
-> +
->   static inline int security_secctx_to_secid(const char *secdata,
->   					   u32 seclen,
->   					   u32 *secid)
-> @@ -1588,6 +1598,12 @@ static inline int security_secctx_to_secid(const char *secdata,
->   	return -EOPNOTSUPP;
->   }
->   
-> +static inline int security_secctx_to_lsmprop(const char *secdata, u32 seclen,
-> +					     struct lsm_prop *prop, int lsmid)
-> +{
-> +	return -EOPNOTSUPP;
-> +}
-> +
->   static inline void security_release_secctx(struct lsm_context *cp)
->   {
->   }
-> diff --git a/security/security.c b/security/security.c
-> index 71aea8fdf014..1dec0037370b 100644
-> --- a/security/security.c
-> +++ b/security/security.c
-> @@ -3965,6 +3965,13 @@ int security_lsmprop_to_secctx(struct lsm_prop *prop, struct lsm_context *cp,
->   }
->   EXPORT_SYMBOL(security_lsmprop_to_secctx);
->   
-> +void security_update_lsmprop(struct lsm_prop *dest, struct lsm_prop *src,
-> +			     int lsmid)
-> +{
-> +	call_void_hook(update_lsmprop, dest, src, lsmid);
-> +}
-> +EXPORT_SYMBOL(security_update_lsmprop);
-> +
->   /**
->    * security_secctx_to_secid() - Convert a secctx to a secid
->    * @secdata: secctx
-> @@ -3982,6 +3989,31 @@ int security_secctx_to_secid(const char *secdata, u32 seclen, u32 *secid)
->   }
->   EXPORT_SYMBOL(security_secctx_to_secid);
->   
-> +/**
-> + * security_secctx_to_lsmprop() - Convert a secctx to a lsmprop
-> + * @secdata: secctx
-> + * @seclen: length of secctx
-> + * @prop: prop
-> + * @lsmid: which LSM the context is appropriate to.
-> + *
-> + * Convert security context to an lsmprop.
-> + *
-> + * Return: Returns 0 on success, error on failure.
-> + */
-> +int security_secctx_to_lsmprop(const char *secdata, u32 seclen,
-> +			       struct lsm_prop *prop, int lsmid)
-> +{
-> +	struct lsm_static_call *scall;
-> +
-> +	lsm_for_each_hook(scall, secctx_to_lsmprop) {
-> +		if (lsmid != LSM_ID_UNDEF && lsmid != scall->hl->lsmid->id)
-> +			continue;
-> +		return scall->hl->hook.secctx_to_lsmprop(secdata, seclen, prop);
-> +	}
-> +	return LSM_RET_DEFAULT(secctx_to_lsmprop);
-> +}
-> +EXPORT_SYMBOL(security_secctx_to_lsmprop);
-> +
->   /**
->    * security_release_secctx() - Free a secctx buffer
->    * @cp: the security context
+Hi Paolo,
+
+
+The two waits are very different. The xmit path holds tx_lock across
+sk_stream_wait_memory(), which can sleep for an undetermined time (until
+the peer reads):
+
+   tls_device_sendmsg()
+      mutex_lock(&tls_ctx->tx_lock);
+      lock_sock(sk);
+      tls_push_data()
+        sk_stream_wait_memory()   <- releases sk lock, keeps tx_lock
+      release_sock(sk);
+      mutex_unlock(&tls_ctx->tx_lock);
+
+
+So waiting for tx_lock with plain mutex_lock() can leave the process in
+
+D state for a long time. The lock_sock() after it is fine: the sleeping
+
+sender drops the socket lock, so that wait is only for short critical 
+sections, never across the long sleep.
+
+
+tls_sw_sendmsg() also uses  mutex_lock_interruptible but 
+tls_device_sendmsg() still
+
+uses plain mutex_lock() indeed, but that's another topic.
 
