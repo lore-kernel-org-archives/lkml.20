@@ -1,46 +1,42 @@
-Received: from www62.your-server.de (www62.your-server.de [213.133.104.62])
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C652B46C4CD;
-	Thu,  3 Sep 2026 13:44:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.133.104.62
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0303C4AF694;
+	Thu,  3 Sep 2026 13:44:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788443102; cv=none; b=UJE5mzX3WCyJV3Dtrd092l1y1Tb+LaOaYYEIE6nwDvY50q84icwsWOCRt2yf/Gnu5D9LS2NMkpPaps5GqjVEVF7d2DO/lnFi9+aTGpEi51EQYIqm9JzZycHLkWwSHk4Iy92E1wq4JEemdktJskn421NQENJcYLMoGjsoJhc9p/o=
+	t=1788443114; cv=none; b=vDspnT/+J0yBtWSh3q850wZdxENSxIelFnNkud77I2eKAHl9LwpUH81ALbwCnt/suacZxmeWOlvxg4jzmmkFpZsU5/kujMf5YMdLwMKVkIHx4Nm+Xtzh0viNFbYfght2EwFe97qQir9M+kw7vtIvC69/FjVcj8X5oZAb4kwwm+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788443102; c=relaxed/simple;
-	bh=OcBRudey4HYib83xRogPjVJ0CVDoo+6pQ5k5qrOcagQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KvCiTC5SClZtSimk9EQi5IQB8eiZkNiwqNCVtpF08mtzaDIH9QQO16SimcsUZLs452n0S6CIaPaFpqEh/VxJSmhYKES8zmi1aS0lO4pc13cI8Rj/eq1k4Pjs2p66GAu5p2runoS4bTc1FtpEjzDLPUB6z4CzA+fvezx972r7kBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net; spf=pass smtp.mailfrom=iogearbox.net; dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b=OJpa/M8F; arc=none smtp.client-ip=213.133.104.62
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iogearbox.net
+	s=arc-20240116; t=1788443114; c=relaxed/simple;
+	bh=m/zYIIjS2dlH+phLZRymtS+W6TRghpDL07a4BaVcfvg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=BMTCUP5fiRaWDFVxk9p/Qw3N7+rOSW6YlqsH5FjIeEKUUUibTNrKQsrzgf732YXQ9F8ryC7ePY95P8kU5kA+W712QOQDw3tXcvVa36+m+/q+ZVl2F0J7I2w4l/1slrm69xbi8a9vJoBxBsdXTWlgQt4GSAKHPBAU8KmR6Tfr7ys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=U8EUbmYy; arc=none smtp.client-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b="OJpa/M8F"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=iogearbox.net; s=default2302; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=2nyRUfrntiH8DpeqrJpnUPG2G5Js5y3XiuDTkGJaHK8=; b=OJpa/M8F7ysF1nzg8fcB1UB0tL
-	S6nTbz2pb/9pMizMIvPQ7E3Qmhj/akG00SWUoNtZDtR410iU2tdpbjZq6D2WBL9zxA/IqT1hvEuFg
-	2QM93r1HJ2z7w3VmQD+hsdcuLdyfMDOFmfX+Tpw/VRkhbVbJP9a6WNoo5azw2eNzloO0KSD9S2Zm8
-	jjQeGWQu1P2EOUkux0tsesT6zjKVcBym8kyZmbTtBoqU01jMvD/N+6widsS7+z7NF4YTPjfvavqt8
-	qfzpSmh+aQvp7DHtkwO0veosDc7BpzsrWyeoZDsfM7BCh1R4WYHFl5tnnHBu3DROYxOM3K7UMClhh
-	t5flcvZw==;
-Received: from sslproxy04.your-server.de ([78.46.152.42])
-	by www62.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <daniel@iogearbox.net>)
-	id 1x27k4-000GqA-2u;
-	Thu, 03 Sep 2026 15:44:36 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy04.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <daniel@iogearbox.net>)
-	id 1x27k3-000Mxd-30;
-	Thu, 03 Sep 2026 15:44:35 +0200
-Message-ID: <10886894-081b-499f-abce-fca62b120615@iogearbox.net>
-Date: Thu, 3 Sep 2026 15:44:35 +0200
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="U8EUbmYy"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260903134447euoutp0275bc74c23dab134a89925deaae7eed9d~R04MYc5ZA1805318053euoutp02L;
+	Thu,  3 Sep 2026 13:44:47 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260903134447euoutp0275bc74c23dab134a89925deaae7eed9d~R04MYc5ZA1805318053euoutp02L
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1788443087;
+	bh=qMyNnEe2VO29svGA0dfmwKzLJS9xqVqR88SLj5rL67k=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=U8EUbmYyR7YXputAFXW91F6pkDdqiKeau6Up/U569s86JZGZrjQ2JLsNl05H6K5/r
+	 0hFYlwS+j8R9Od3vZKWGF0/0pyHsL9U0sl/AurlvAS43GNjIeUqLwAbBAiyOZXRYZY
+	 doo6ZexuZGwqH5fluJw0qhX9JE+CwIG8TWpKrGjQ=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260903134446eucas1p1999879348f53db4f5dff6cea9a73aee8~R04MCdR2p0462604626eucas1p1n;
+	Thu,  3 Sep 2026 13:44:46 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20260903134444eusmtip25a6f7671740df53786ab8867ebd33067~R04KVfPcM2229722297eusmtip2R;
+	Thu,  3 Sep 2026 13:44:44 +0000 (GMT)
+Message-ID: <9bd2e8bf-472a-42b8-a259-901062f32cdf@samsung.com>
+Date: Thu, 3 Sep 2026 15:44:44 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,261 +44,279 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v2] selftests/bpf: Track test_xdp_features DUT
- processes
-To: Bochao Cao <bochaolucky@gmail.com>, Emil Tsalapatis <emil@etsalapatis.com>
-Cc: =?UTF-8?Q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
- bpf@vger.kernel.org, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>, Ihor Solodrai
- <ihor.solodrai@linux.dev>, Jiayuan Chen <jiayuan.chen@linux.dev>,
- Alexei Starovoitov <ast@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Stanislav Fomichev <sdf@fomichev.me>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>,
- netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260812-xdp-dut-process-lifecycle-gmail-v2-1-b03ef2aa1b97@gmail.com>
- <d4be160e-703e-46bb-9509-d3d90f6bc34b@iogearbox.net>
- <DKX99ZAP7GZ8.23U5EOSFB4VPU@bootlin.com>
- <CAHKNYVXN0DAUzv2Lwm=oQ_K=zhi2iNyTO2e99s5F4M+Kr7u5tQ@mail.gmail.com>
- <CAHKNYVV8gn-L_unjsxUZV=E+Rx4ouDBJX613_n4hevXP1rivyg@mail.gmail.com>
- <CAHKNYVX_r_yS+NjkTx=gn7zGfcHF11azQbFWHJ+naqXO3aTpJw@mail.gmail.com>
- <DL4NVR5IIKSE.IC903DOR6ZDA@etsalapatis.com>
- <CAHKNYVXFB5aFBNU5-__TsVNNX2ket7TO1EB-HcX1FgJhbKeVCw@mail.gmail.com>
+Subject: Re: [PATCH v2 13/15] phy: starfive: Add jh7110-inno-hdmi-phy driver
+To: Maud Spierings <maud_spierings@murena.io>
+Cc: Laurent.pinchart@ideasonboard.com, airlied@gmail.com, alex@ghiti.fr,
+	andrzej.hajda@intel.com, andy.yan@rock-chips.com, andyshrk@163.com,
+	aou@eecs.berkeley.edu, bmasney@redhat.com, conor+dt@kernel.org,
+	conor@kernel.org, db@domibel.de, devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, hal.feng@starfivetech.com, heiko@sntech.de,
+	hello@big-grey.co.uk, jernej.skrabec@gmail.com, jonas@kwiboo.se,
+	kernel@esmil.dk, krzk+dt@kernel.org, lee@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+	linux-riscv@lists.infradead.org, linux-rockchip@lists.infradead.org,
+	luca.ceresoli@bootlin.com, m.szyprowski@samsung.com,
+	maarten.lankhorst@linux.intel.com, maudspierings@gocontroll.com,
+	mfd@lists.linux.dev, mripard@kernel.org, mturquette@baylibre.com,
+	neil.armstrong@linaro.org, p.zabel@pengutronix.de, palmer@dabbelt.com,
+	pjw@kernel.org, rfoss@kernel.org, robh@kernel.org, sboyd@kernel.org,
+	simona@ffwll.ch, tzimmermann@suse.de, uwu@icenowy.me, vkoul@kernel.org
 Content-Language: en-US
-From: Daniel Borkmann <daniel@iogearbox.net>
-Autocrypt: addr=daniel@iogearbox.net; keydata=
- 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
-In-Reply-To: <CAHKNYVXFB5aFBNU5-__TsVNNX2ket7TO1EB-HcX1FgJhbKeVCw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28112/Thu Sep  3 08:22:22 2026)
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <e780ecb8-918f-4816-99c8-b69b10b25a18@murena.io>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260903134446eucas1p1999879348f53db4f5dff6cea9a73aee8
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260830141726eucas1p2c9fe77236f7114b376fabc752f368521
+X-EPHeader: CA
+X-CMS-RootMailID: 20260830141726eucas1p2c9fe77236f7114b376fabc752f368521
+References: <20260828-jh7110-clean-send-v2-13-331680c8b9d1@samsung.com>
+	<0ccb4168-ff88-459c-972d-3c091c155db2@murena.io>
+	<CGME20260830141726eucas1p2c9fe77236f7114b376fabc752f368521@eucas1p2.samsung.com>
+	<e780ecb8-918f-4816-99c8-b69b10b25a18@murena.io>
 
-On 9/3/26 10:10 AM, Bochao Cao wrote:
->   Thanks Daniel, Alexis, and Emil.
-> 
->    Moving the test to tools/testing/selftests/drivers/net/hw/ appears to
->    require more than relocating the shell script. The xdp_features userspace
->    tool, BPF program, skeleton build rules, and test environment would also
->    need to be adapted to the net driver selftest framework.
-> 
->    Would it be acceptable to take the process lifecycle fix as a v3 in its
->    current location, followed by a separate migration series?
-> 
->    I would also be happy to work on the migration. If you would prefer to
->    see the migration before this fix is applied, I can prepare v3 as a
->    small series, keeping the framework migration and the process lifecycle
->    changes separate where practical.
 
-No objections from my side to take the process lifecycle fix, I would however
-suggest that this goes into net-next tree in this case: the BPF CI does not
-depend on this script, and if we would merge it into bpf-next then you'd have
-to wait for ~8 weeks before the trees sync during the merge window.. that way
-via net-next you can continue with the migration and as next step cleanly/
-conflict-free remove the test_xdp_features.sh script from BPF selftests and
-adding it for net/driver HW selftests.
-> Emil Tsalapatis <emil@etsalapatis.com> 于2026年9月2日周三 15:44写道：
-> Emil Tsalapatis <emil@etsalapatis.com> 于2026年9月2日周三 15:44写道：
->>
->> On Fri Aug 28, 2026 at 5:32 AM EDT, Bochao Cao wrote:
->>>   Resending as plain text because my previous reply was rejected by the
->>> vger mailing lists. Sorry for the duplicate.
->>>   Thanks Daniel and Alexis.
->>>
->>>    Dropping the procps dependency is not the primary motivation for
->>>    this change. I agree that Debian can remove the dependency independently.
->>>    The issue addressed by this patch is process isolation in the standalone
->>>    test. The current readiness check may observe an unrelated
->>>    concurrent xdp_features process, while cleanup may terminate every
->>> xdp_features
->>>    process on the host. In addition, a DUT which exits before listening
->>> can leave the test waiting indefinitely.
->>>
->>>    Although this script is not currently run by the BPF CI, it remains
->>> useful  for testing real hardware,
->>>    so these process lifecycle issues can still  affect users running
->>> the test manually.
->>>
->>>    Would it be acceptable to fix these issues in the script's current location?
->>>    If the preferred direction is to move it under
->>> tools/testing/selftests/drivers/net/hw/,
->>>    should the move be submitted first, with this fix rebased on top?
->>>
->>>    I can send a v3 that drops the Debian Closes tag and focuses
->>>    the commit message solely on the process isolation, timeout,
->>>    and cleanup fixes once the preferred location is clear.
->>>
->>>    Thanks,
->>>    Bochao
->>
->> While I'd defer to Daniel and Alexis on this, imo we could merge the fix
->> as-is and move the file as a followup since the change is a net gain on
->> its own.
->>
->> Wherever we end up putting the file feel free to add:
->>
->> Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
->>
->>>
->>>
->>> Bochao Cao <bochaolucky@gmail.com> 于2026年8月28日周五 14:10写道：
->>>>
->>>>   Thanks Daniel and Alexis.
->>>>
->>>>    Dropping the procps dependency is not the primary motivation for
->>>>    this change. I agree that Debian can remove the dependency independently.
->>>>    The issue addressed by this patch is process isolation in the standalone
->>>>    test. The current readiness check may observe an unrelated
->>>>    concurrent xdp_features process, while cleanup may terminate every xdp_features
->>>>    process on the host. In addition, a DUT which exits before listening can leave the test waiting indefinitely.
->>>>
->>>>    Although this script is not currently run by the BPF CI, it remains useful  for testing real hardware,
->>>>    so these process lifecycle issues can still  affect users running the test manually.
->>>>
->>>>    Would it be acceptable to fix these issues in the script's current location?
->>>>    If the preferred direction is to move it under tools/testing/selftests/drivers/net/hw/,
->>>>    should the move be submitted first, with this fix rebased on top?
->>>>
->>>>    I can send a v3 that drops the Debian Closes tag and focuses
->>>>    the commit message solely on the process isolation, timeout,
->>>>    and cleanup fixes once the preferred location is clear.
->>>>
->>>>    Thanks,
->>>>    Bochao
->>>>
->>>> Bochao Cao <bochaolucky@gmail.com> 于2026年8月25日周二 21:01写道：
->>>>>
->>>>>    Thanks Daniel and Alexis.
->>>>>
->>>>>    Dropping the procps dependency is not the primary motivation for
->>>>>    this change. I agree that Debian can remove the dependency independently.
->>>>>    The issue addressed by this patch is process isolation in the standalone
->>>>>    test. The current readiness check may observe an unrelated
->>>>>    concurrent xdp_features process, while cleanup may terminate every xdp_features
->>>>>    process on the host. In addition, a DUT which exits before listening can leave the test waiting indefinitely.
->>>>>
->>>>>    Although this script is not currently run by the BPF CI, it remains useful  for testing real hardware,
->>>>>    so these process lifecycle issues can still  affect users running the test manually.
->>>>>
->>>>>    Would it be acceptable to fix these issues in the script's current location?
->>>>>    If the preferred direction is to move it under tools/testing/selftests/drivers/net/hw/,
->>>>>    should the move be submitted first, with this fix rebased on top?
->>>>>
->>>>>    I can send a v3 that drops the Debian Closes tag and focuses
->>>>>    the commit message solely on the process isolation, timeout,
->>>>>    and cleanup fixes once the preferred location is clear.
->>>>>
->>>>>    Thanks,
->>>>>    Bochao
->>>>>
->>>>> Alexis Lothoré <alexis.lothore@bootlin.com> 于2026年8月24日周一 22:49写道：
->>>>>>
->>>>>> Hi Daniel, thanks for the notification
->>>>>>
->>>>>> On Mon Aug 24, 2026 at 1:31 PM CEST, Daniel Borkmann wrote:
->>>>>>> [ Trimming the excessive Cc list, and adding Alexis ]
->>>>>>>
->>>>>>> On 8/12/26 10:28 AM, Bochao Cao via B4 Relay wrote:
->>>>>>>> From: Bochao Cao <bochaolucky@gmail.com>
->>>>>>>>
->>>>>>>> test_xdp_features.sh waits for any xdp_features listener to appear and
->>>>>>>> uses pidof during cleanup. A concurrent test can therefore make another
->>>>>>>> test proceed before its own DUT is ready, and cleanup kills every
->>>>>>>> xdp_features process on the host. The readiness loop also has no timeout,
->>>>>>>> so a DUT that exits before listening leaves the test hung indefinitely.
->>>>>>>>
->>>>>>>> Track one active DUT at a time, wait for ss to report that exact PID with
->>>>>>>> a bounded retry loop, and reap it after each test. Consult the shell job
->>>>>>>> table before signaling the DUT so a stale PID cannot target an unrelated
->>>>>>>> process. On failure, terminate the shell job with SIGKILL and reap it so
->>>>>>>> blocked I/O cannot hang cleanup. Install an EXIT trap and signal handlers
->>>>>>>> so failure paths also remove network setup.
->>>>>>>>
->>>>>>>> Fixes: 4dba3e7852b7 ("selftests/bpf: introduce XDP compliance test tool")
->>>>>>>> Closes: https://bugs.debian.org/1136522
->>>>>>>> Signed-off-by: Bochao Cao <bochaolucky@gmail.com>
->>>>>>>> ---
->>>>>>>> Tests:
->>>>>>>> - bash -n tools/testing/selftests/bpf/test_xdp_features.sh
->>>>>>>> - make -C tools/testing/selftests/bpf xdp_features
->>>>>>>> - sudo tools/testing/selftests/bpf/test_xdp_features.sh
->>>>>>>> - verified cleanup terminates a blocked DUT without affecting an unrelated process
->>>>>>>> ---
->>>>>>>> Changes in v2:
->>>>>>>> - Clarify that avoiding name-wide process matching, rather than dropping a dependency, is the motivation.
->>>>>>>> - Track and reap one active DUT at a time instead of retaining historical PIDs.
->>>>>>>> - Address PID reuse by signaling only the current Bash job during cleanup.
->>>>>>>> - Use SIGKILL on failure cleanup so blocked DUT I/O cannot hang wait indefinitely.
->>>>>>>> - Link to v1: https://patch.msgid.link/20260805-xdp-dut-process-lifecycle-gmail-v1-1-45984df8d295@gmail.com
->>>>>>>> ---
->>>>>>>>    tools/testing/selftests/bpf/test_xdp_features.sh | 82 ++++++++++++++++++------
->>>>>>>>    1 file changed, 62 insertions(+), 20 deletions(-)
->>>>>>>
->>>>>>> Sorry for the late reply. With regards to https://bugs.debian.org/1136522, src:linux deb
->>>>>>> does not have to depend on this at all, so the src:linux can just get rid of procps in
->>>>>>> any case if this is indeed the last dependency. I'm not seeing the test being run in our
->>>>>>> BPF CI. I've Cc'ed Alexis as he's in the process of migrating and/or removing tests from
->>>>>>> tools/testing/selftests/bpf/ depending on how they fit into test_progs framework. I'll
->>>>>>> let him comment if there is already work in progress. It feels like this script could be
->>>>>>> reworked into tools/testing/selftests/drivers/net/hw/ tests and removed altogether from
->>>>>>> the tools/testing/selftests/bpf/ dir.
->>>>>>
->>>>>> There has been an attempt to fully convert and get rid of
->>>>>> test_xdp_features.sh, but discussions around the corresponding series
->>>>>> highlighted the need for the script to remain available for testing on
->>>>>> real hardware.  Features covered by the test_xdp_features.sh that were
->>>>>> not covered yet by test_progs have been added to test_progs (in
->>>>>> xdp_cpumap_attach), see [1]. So there's currently no active effort on
->>>>>> this one on my side.
->>>>>>
->>>>>> Alexis
->>>>>>
->>>>>> [1] https://lore.kernel.org/bpf/20241009-convert_xdp_tests-v3-0-51cea913710c@bootlin.com/
->>>>>>
->>>>>> --
->>>>>> Alexis Lothoré, Bootlin
->>>>>> Embedded Linux and Kernel engineering
->>>>>> https://bootlin.com
->>>>>>
->>
 
+On 8/30/26 16:17, Maud Spierings wrote:
+> I was still having some glitching happening on the display, but I've found the way to fix that, the question is what is actually happening here.
+> 
+> With just the changes mentioned in my previous email the screen flickers and is very unpleasant. After doing 2 reg writes it behaves as expected:
+>   0x29590000 <- 0x00000061
+> is 0x00000075 before, difference is v_REG_CLK_INV | v_REG_CLK_SOURCE_SYS in drivers/gpu/drm/bridge/inno-hdmi.c, these bits always get set but that seems to break this display so there must be some way to detect that these should not be set: v_VCLK_NOT_INV | v_REG_CLK_SOURCE_TMDS
+
+I'd rather not hardcode this per board in DT if it can be avoided since
+the right value looks like it depends on what is attached rather than on
+the board wiring. If Andy can confirm from the datasheet what selects the
+register clock source, detecting it at runtime would be the better fix.
+
+Either way I don't think this should hold up the series, since it is
+pre existing behaviour in the generic inno-hdmi driver rather than
+something this patchset introduces.
+
+> 
+>   0x29590020 <- 0x00000005
+> This one I have no idea, it is 0x00000009 with this patch series but with the vendor kernel I get the value above. When I hook up my external display (regular 1440p) this becomes 0x0000000D on the vendor kernel.
+> 
+> But I can't find this register being written to anywhere there?
+> 
+> Andy, you are credited on the inno-hdmi driver, do you have a datasheet that gives some further info?
+> 
+> kind regards,
+> Maud
+> 
+> On 8/29/26 20:54, Maud Spierings wrote:
+>> Hi Michal,
+>>
+>> Small request for an eventual v3
+>>
+>>> Add the HDMI PHY driver for the StarFive JH7110.
+>>>
+>>> This driver binds to the starfive,jh7110-inno-hdmi-phy node and
+>>> gets its regmap from the parent. It has no dependencies on voutcrg, only
+>>> on its refoclk (xin24m), which breaks the probe-time circular
+>>> dependency.
+>>>
+>>> This driver provides two main functions:
+>>>  - Clock Provider: It registers clk_ops to provide the variable pixel
+>>>    clock (hdmi_pclk). The .set_rate operation configures the Pre-PLL
+>>>    registers (0x1a0+) based on the requested rate.
+>>>
+>>>  - PHY Provider: It registers phy_ops for the controller. The .power_on
+>>>    op configures and enables the Post-PLL and other analog blocks (BIAS,
+>>>    LDO, Serializer, etc.).
+>>>
+>>> The JH7110 instantiates the same Innosilicon IP as the Rockchip RK3328,
+>>> with the PHY register block shifted by 0x100 because it sits behind the
+>>> HDMI controller in the shared register space. The pre-PLL programming
+>>> therefore comes from the common Innosilicon helpers; this driver adds
+>>> the JH7110 pixel clock table, the post-PLL and the analog configuration.
+>>>
+>>> Co-developed-by: Dominique Belhachemi <db@domibel.de>
+>>> Signed-off-by: Dominique Belhachemi <db@domibel.de>
+>>> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+>>> ---
+>>>  drivers/phy/starfive/Kconfig                |  20 +
+>>>  drivers/phy/starfive/Makefile               |   1 +
+>>>  drivers/phy/starfive/phy-jh7110-inno-hdmi.c | 567 +++++++++++++++++++ +++++++++
+>>>  3 files changed, 588 insertions(+)
+>>>
+>>
+>> [snip]
+>>
+>>> +
+>>> +static const struct inno_hdmi_phy_pre_pll_config pre_pll_cfg_table[] = {
+>>> +    { 25175000, 25175000, 1, 100, 2, 3, 3, 12, 3, 3, 4, 0, 0xF55555 },
+>>> +    { 25200000, 25200000, 1, 100, 2, 3, 3, 12, 3, 3, 4, 0, 0 },
+>>> +    { 27000000, 27000000, 1, 90, 3, 2, 2, 10, 3, 3, 4, 0, 0 },
+>>> +    { 27027000, 27027000, 1, 90, 3, 2, 2, 10, 3, 3, 4, 0, 0x170A3D },
+>>> +    { 28320000, 28320000, 1, 28, 2, 1, 1, 3, 0, 3, 4, 0, 0x51EB85 },
+>>> +    { 30240000, 30240000, 1, 30, 2, 1, 1, 3, 0, 3, 4, 0, 0x3D70A3 },
+>>> +    { 31500000, 31500000, 1, 31, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
+>>> +    { 33750000, 33750000, 1, 33, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
+>>> +    { 36000000, 36000000, 1, 36, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>>> +    { 40000000, 40000000, 1, 80, 2, 2, 2, 12, 2, 2, 2, 0, 0 },
+>>> +    { 46970000, 46970000, 1, 46, 2, 1, 1, 3, 0, 3, 4, 0, 0xF851EB },
+>>> +    { 49500000, 49500000, 1, 49, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
+>>> +    { 49000000, 49000000, 1, 49, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>>> +    { 50000000, 50000000, 1, 50, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>>> +    { 54000000, 54000000, 1, 54, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>>> +    { 54054000, 54054000, 1, 54, 2, 1, 1, 3, 0, 3, 4, 0, 0x0DD2F1 },
+>>> +    { 57284000, 57284000, 1, 57, 2, 1, 1, 3, 0, 3, 4, 0, 0x48B439 },
+>>> +    { 58230000, 58230000, 1, 58, 2, 1, 1, 3, 0, 3, 4, 0, 0x3AE147 },
+>>> +    { 59341000, 59341000, 1, 59, 2, 1, 1, 3, 0, 3, 4, 0, 0x574BC6 },
+>>> +    { 59400000, 59400000, 1, 99, 3, 1, 1, 1, 3, 3, 4, 0, 0 },
+>>> +    { 65000000, 65000000, 1, 130, 2, 2, 2, 12, 0, 2, 2, 0, 0 },
+>>> +    { 68250000, 68250000, 1, 68, 2, 1, 1, 3, 0, 3, 4, 0, 0x3FFFFF },
+>>> +    { 71000000, 71000000, 1, 71, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>>> +    { 74176000, 74176000, 1, 98, 1, 2, 2, 1, 2, 3, 4, 0, 0xE6AE6B },
+>>> +    { 74250000, 74250000, 1, 99, 1, 2, 2, 1, 2, 3, 4, 0, 0 },
+>>> +    { 75000000, 75000000, 1, 75, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>>> +    { 78750000, 78750000, 1, 78, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
+>>> +    { 79500000, 79500000, 1, 79, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
+>>> +    { 83500000, 83500000, 2, 167, 2, 1, 1, 1, 0, 0, 6, 0, 0 },
+>>> +    { 83500000, 104375000, 1, 104, 2, 1, 1, 1, 1, 0, 5, 0, 0x600000 },
+>>> +    { 85500000, 85500000, 1, 85, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
+>>> +    { 85750000, 85750000, 1, 85, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
+>>> +    { 85800000, 85800000, 1, 85, 2, 1, 1, 3, 0, 3, 4, 0, 0xCCCCCC },
+>>> +    { 88750000, 88750000, 1, 88, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
+>>> +    { 89910000, 89910000, 1, 89, 2, 1, 1, 3, 0, 3, 4, 0, 0xE8F5C1 },
+>>> +    { 90000000, 90000000, 1, 90, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>>> +    { 101000000, 101000000, 1, 101, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>>> +    { 102250000, 102250000, 1, 102, 2, 1, 1, 3, 0, 3, 4, 0, 0x3FFFFF },
+>>> +    { 106500000, 106500000, 1, 106, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
+>>> +    { 108000000, 108000000, 1, 90, 3, 0, 0, 5, 0, 2, 2, 0, 0 },
+>>> +    { 119000000, 119000000, 1, 119, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>>> +    { 131481000, 131481000, 1, 131, 2, 1, 1, 3, 0, 3, 4, 0, 0x7B22D1 },
+>>> +    { 135000000, 135000000, 1, 135, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>>> +    { 136750000, 136750000, 1, 136, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
+>>> +    { 147180000, 147180000, 1, 147, 2, 1, 1, 3, 0, 3, 4, 0, 0x2E147A },
+>>> +    { 148352000, 148352000, 1, 98, 1, 1, 1, 1, 2, 2, 2, 0, 0xE6AE6B },
+>>> +    { 148500000, 148500000, 1, 99, 1, 1, 1, 1, 2, 2, 2, 0, 0 },
+>>> +    { 154000000, 154000000, 1, 154, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>>> +    { 156000000, 156000000, 1, 156, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>>> +    { 157000000, 157000000, 1, 157, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>>> +    { 162000000, 162000000, 1, 162, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>>> +    { 174250000, 174250000, 1, 145, 3, 0, 0, 5, 0, 2, 2, 0, 0x355555 },
+>>> +    { 174500000, 174500000, 1, 174, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
+>>> +    { 174570000, 174570000, 1, 174, 2, 1, 1, 3, 0, 3, 4, 0, 0x91EB84 },
+>>> +    { 175500000, 175500000, 1, 175, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
+>>> +    { 185590000, 185590000, 1, 185, 2, 1, 1, 3, 0, 3, 4, 0, 0x970A3C },
+>>> +    { 187000000, 187000000, 1, 187, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>>
+>> add:
+>> { 235690000, 235690000, 1, 235, 2, 1, 1, 3, 0, 3, 4, 0, 0xB0A3D6},
+
+Sure that is no problem, thank you for debugging the issue.
+
+>>
+>> This matches one of the framework 13 displays (fml13v01 board)
+>>
+>> source: [1]
+>>
+>> edid:
+>>
+>> edid-decode (hex):
+>>
+>> 00 ff ff ff ff ff ff 00 09 e5 5f 09 00 00 00 00
+>> 17 1d 01 03 80 1c 13 78 02 de 50 a3 54 4c 99 26
+>> 0f 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+>> 01 01 01 01 01 01 11 5c d0 18 81 e0 2d 50 30 20
+>> 36 00 1d be 10 00 00 1a a7 49 d0 18 81 e0 2d 50
+>> 30 20 36 00 1d be 10 00 00 1a 00 00 00 fe 00 42
+>> 4f 45 20 43 51 0a 20 20 20 20 20 20 00 00 00 fe
+>> 00 4e 45 31 33 35 46 42 4d 2d 4e 34 31 0a 01 21
+>>
+>> 02 03 19 c1 44 83 10 02 01 23 09 07 07 83 01 00
+>> 00 67 03 0c 00 10 00 00 44 11 5c d0 18 81 e0 2d
+>> 50 30 20 36 00 1d be 10 00 00 1a 00 00 00 00 00
+>> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01
+>>
+>> ----------------
+>>
+>> Block 0, Base EDID:
+>>    EDID Structure Version & Revision: 1.3
+>>    Vendor & Product Identification:
+>>      Manufacturer: BOE
+>>      Model: 2399
+>>      Made in: week 23 of 2019
+>>    Basic Display Parameters & Features:
+>>      Digital display
+>>      Maximum image size: 28 cm x 19 cm
+>>      Gamma: 2.20
+>>      Monochrome or grayscale display
+>>      First detailed timing is the preferred timing
+>>    Color Characteristics:
+>>      Red  : 0.6396, 0.3291
+>>      Green: 0.2998, 0.5996
+>>      Blue : 0.1494, 0.0595
+>>      White: 0.3125, 0.3281
+>>    Established Timings I & II: none
+>>    Standard Timings: none
+>>    Detailed Timing Descriptors:
+>>      DTD 1:  2256x1504   59.998513 Hz   3:2     92.938 kHz    235.690000 MHz (285 mm x 190 mm)
+>>                   Hfront   48 Hsync  32 Hback  200 Hpol P
+>>                   Vfront    3 Vsync   6 Vback   36 Vpol N
+>>      DTD 2:  2256x1504   47.998302 Hz   3:2     74.349 kHz    188.550000 MHz (285 mm x 190 mm)
+>>                   Hfront   48 Hsync  32 Hback  200 Hpol P
+>>                   Vfront    3 Vsync   6 Vback   36 Vpol N
+>>      Alphanumeric Data String: 'BOE CQ'
+>>      Alphanumeric Data String: 'NE135FBM-N41'
+>>    Extension blocks: 1
+>> Checksum: 0x21
+>>
+>> ----------------
+>>
+>> Block 1, CTA-861 Extension Block:
+>>    Revision: 3
+>>    Underscans IT Video Formats by default
+>>    Basic audio support
+>>    Native detailed modes: 1
+>>    Video Data Block:
+>>      VIC   3:   720x480    59.940060 Hz  16:9     31.469 kHz 27.000000 MHz (native)
+>>      VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz 148.500000 MHz
+>>      VIC   2:   720x480    59.940060 Hz   4:3     31.469 kHz 27.000000 MHz
+>>      VIC   1:   640x480    59.940476 Hz   4:3     31.469 kHz 25.175000 MHz
+>>    Audio Data Block:
+>>      Linear PCM:
+>>        Max channels: 2
+>>        Supported sample rates (kHz): 48 44.1 32
+>>        Supported sample sizes (bits): 24 20 16
+>>    Speaker Allocation Data Block:
+>>      FL/FR - Front Left/Right
+>>    Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
+>>      Source physical address: 1.0.0.0
+>>      Maximum TMDS clock: 340 MHz
+>>    Detailed Timing Descriptors:
+>>      DTD 3:  2256x1504   59.998513 Hz   3:2     92.938 kHz    235.690000 MHz (285 mm x 190 mm)
+>>                   Hfront   48 Hsync  32 Hback  200 Hpol P
+>>                   Vfront    3 Vsync   6 Vback   36 Vpol N
+>> Checksum: 0x01  Unused space in Extension Block: 84 bytes
+>>
+>>
+>>> +    { 241500000, 241500000, 1, 161, 1, 1, 1, 4, 0, 2, 2, 0, 0 },
+>>> +    { 241700000, 241700000, 1, 241, 2, 1, 1, 3, 0, 3, 4, 0, 0xB33332 },
+>>> +    { 262750000, 262750000, 1, 262, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
+>>> +    { 296500000, 296500000, 1, 296, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
+>>> +    { 296703000, 296703000, 1, 98, 0, 1, 1, 1, 0, 2, 2, 0, 0xE6AE6B },
+>>> +    { 297000000, 297000000, 1, 99, 0, 1, 1, 1, 0, 2, 2, 0, 0 },
+>>> +    { 594000000, 594000000, 1, 99, 0, 2, 0, 1, 0, 1, 1, 0, 0 },
+>>> +    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+>>> +};
+>>> +
+>>
+>> kind regards,
+>> Maud
+>>
+>> [1]: https://protect2.fireeye.com/v1/url?k=9e0a6938-c19113c6-9e0be277-000babff250c-ea88914414736a98&q=1&e=54b09ed3-c7be-440b-ace0-db9bfc392036&u=https%3A%2F%2Fgithub.com%2FDC-DeepComputing%2Ffml13v01-linux%2F blob/97c64fe2832b6826914b6da7aa4febcdd4d3d444/drivers/gpu/drm/ verisilicon/inno_hdmi.c#L112
+> 
+> 
+
+Best regards,
+-- 
+Michal Wilczynski <m.wilczynski@samsung.com>
