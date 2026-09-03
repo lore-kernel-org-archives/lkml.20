@@ -1,214 +1,163 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF4D73F5BD7;
-	Thu,  3 Sep 2026 06:33:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13B5A3F12C4
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:34:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788417234; cv=none; b=Yy9N5RIt3VPhQxDi9bslKbQ54RR/LGiVrVBpM2XkPFnbL5w5VZhoXdLyuPEWt3qKAlYZR0OhtEYZ+s3y8D6j1DsytR2tc763zseSaYBbQC/2ySJWnPTEkP+kJpY0D2VODSpU6ZDY+2v2r8khqeTeMT1tXB2SQP4sL1BGC5mdx9U=
+	t=1788417251; cv=none; b=QiR3puHo+85In82LlxYB8zIkpUedgKJpThHwCp/U9mJudPLYrUWwZk6sw/uYhbWRde0E92F3JR3JLznvOSFpbAPQv4rBlxAa23V9NMdojd9vYu93u8W8wxtB/tMuFqSea3ht4l/QfNto79w5+WpZcLaL95s7Lqyx3+A92SO6WH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788417234; c=relaxed/simple;
-	bh=scynNHLZntdnjgSa6fiT0L6du/g5ELrDcNjAOoQ0xrY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CWyaoYbdH1LhMrVtxhi3ZuuKqJ8cuBRW1lqluPmGvGCA54kENyGMfP7Vp9gbFVuo6A2ZsghGnCDxun6V472PvWmVxvBTgICex9B/dK8cJc3hDbe0VCpRtdYnAS3MBeWjVnhttHTpDkvCLoujbiGR2a8tMp1GIAiF92HkZjvyr3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=DcnX7sr0; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788417251; c=relaxed/simple;
+	bh=xMIrA9cToFFZxVo5TPqlvEijOMIEoJijBlnQJr7SzHw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BfsJDC4/6xh0scP0s8740gax7qLcReVPbi0gmkRAAw+ywLbkFeLMxdfaPDF1YZcM7ZM/sIzY+tbfyXiP5A5lT3tUvx9JRtI+X1NBJz89zVNmNmi48AHhKfGHHtrtUyn7gIIBAdEW4G/DSQI1cY2v26IeEK8G1hEkow8vPZtqMCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=IU5pRoGR; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="DcnX7sr0"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68361uSI312168;
-	Thu, 3 Sep 2026 06:33:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=OpXDqA4IrF6tYgvzL
-	FsuOPdgMFXuHYqIjNNRmFkAhO4=; b=DcnX7sr0bdeawRpLJZ8ktrrukKt60sXcP
-	/8EaWMNZkZpheMQ8UOi4HXnU0yesqHHExUVgkRL6IDCtoXlYI87fMemCIOQ3GU3M
-	CRaPNv8f8P0su5NMhxdDKHqC0jW6r7GrxZUV3pNH9Zto4pSSmmbGNftKfrGFb95q
-	Os+E59ekU8n+GgVgzZto8ZIttV7bPsViRRINciE/8bEMtA5h8u881VTRMQlFGoWP
-	lTgj8hNXbGk/p1NWtkcwea674kh2/8j0muQci5xytChAObO5rCq3x8fs+7DMRocD
-	4FymrQOQLdImS7QCgF6ba6Dp8P4zBIbVX21Igotm5c1ySNKa0gQJQ==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq3rkdhc-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 03 Sep 2026 06:33:26 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6836QGck002978;
-	Thu, 3 Sep 2026 06:33:25 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gecjaprb1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 03 Sep 2026 06:33:25 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6836XLDS30671494
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 3 Sep 2026 06:33:21 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 576362004B;
-	Thu,  3 Sep 2026 06:33:21 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0C42820040;
-	Thu,  3 Sep 2026 06:33:13 +0000 (GMT)
-Received: from li-7bb28a4c-2dab-11b2-a85c-887b5c60d769.ibm.com.com (unknown [9.39.27.193])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  3 Sep 2026 06:33:12 +0000 (GMT)
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-To: linux-kernel@vger.kernel.org, mingo@kernel.org, peterz@infradead.org,
-        juri.lelli@redhat.com, vincent.guittot@linaro.org,
-        yury.norov@gmail.com, kprateek.nayak@amd.com, iii@linux.ibm.com,
-        corbet@lwn.net, meted@linux.ibm.com, ynorov@nvidia.com
-Cc: sshegde@linux.ibm.com, tglx@kernel.org, gregkh@linuxfoundation.org,
-        pbonzini@redhat.com, seanjc@google.com, vschneid@redhat.com,
-        huschle@linux.ibm.com, rostedt@goodmis.org, dietmar.eggemann@arm.com,
-        maddy@linux.ibm.com, srikar@linux.ibm.com, hdanton@sina.com,
-        chleroy@kernel.org, vineeth@bitbyteword.org, frederic@kernel.org,
-        arighi@nvidia.com, pauld@redhat.com, christian.loehle@arm.com,
-        tj@kernel.org, tommaso.cucinotta@gmail.com, maz@kernel.org,
-        rafael@kernel.org, rdunlap@infradead.org, kernellwp@gmail.com,
-        linux-doc@vger.kernel.org, jgross@suse.com,
-        virtualization@lists.linux.dev, sunlightlinux@gmail.com
-Subject: [PATCH v12 03/13] sched/docs: Document cpu_preferred_mask and Preferred CPU concept
-Date: Thu,  3 Sep 2026 12:02:30 +0530
-Message-ID: <20260903063240.268775-4-sshegde@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260903063240.268775-1-sshegde@linux.ibm.com>
-References: <20260903063240.268775-1-sshegde@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="IU5pRoGR"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49b8687630fso16262065e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 23:34:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788417244; x=1789022044; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7hYjgbToYjV9xCbE8koKqXdWPOsEFnvvuydih6e5oBw=;
+        b=IU5pRoGRLxduZQ+TDcxFAaUrKNvDr+K7rBc7cy9XV4eKWWqFndMrebK3Ouos0D7HMo
+         fGh93vNDDfLtIhmr6x3O+JOwRuPzbvz1MNRNuFWvNk9qB3pjy/Pfrys2dR+T+Ttafy5g
+         gldf47hDFA7NolK2onW7NNTQagMiJIEBUtuBYzr0AxQWiMLr8GjdlCqYhJWFA1z60kzd
+         3dvm8cR+grIyDPBZBKIIZMaUfHRybOKc1G78zi90XwuG7FU5Sm4saMtAoDpXmpUpuZGX
+         wJIRF73IgSIpiFuZTznh1ED4jmEWT0ZzUs75bEy5Zp7InzgOSnxqILsROy46zEcbcRCg
+         TKcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788417244; x=1789022044;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7hYjgbToYjV9xCbE8koKqXdWPOsEFnvvuydih6e5oBw=;
+        b=n1qGrt9Y/y0ksckxT5XhfDVayiqxw2SZpQeSSWR0Q8U1vivuvCue2gltGjjmgZWrkv
+         FYchKOf5VPg0UHHIYH/Ld4SWnlw49pRH+buOJu26kr6/NsFZXi/K5XMkjqn6DAcF+7Ik
+         uYjpNzBRx9QVcHzNMEusA9rA9W7rM05nuha7NzKJNhXotC8t38g5KlZ5hXG2cqYDwEVa
+         8PoUWmQSNZzkVOxvXjBnhHTvAp2y3x6LAYBjPaIhP3tXbM+/ivTiGtdgB5JyGC+br0a7
+         W8ED4W6cHntRjHiqGnUtkkqO2sJg/3X2rZMiR3eDlAjk7a3pc2Zr2SJAyuFgDZWBpxWy
+         JHlg==
+X-Forwarded-Encrypted: i=1; AKwUvBxsTGlcT9mu3qhPPI0L8Am0lMy8kYOdGG77m5JyAGNLCJ1N8jBx35cSUVagM7q2UeHXumeVoHEh9pfDhOs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kObKlLiBr60NXDv3qSsQ2HDmDZrDPImFuA2a40GMV8eR1/ySB5
+	zl5LAZZu7Culs4ICJIsrLzL2d9EG6tbHIvxJC2GKW/Pvi2v8v7UyJ6G7ZosmMTnEnLQ=
+X-Gm-Gg: AYBFou2zzKYXBOde1mKF2cwlblRbr6ddIlLfB6SxcSm1IHFr7E7XK/m8s6XLBhWJdcX
+	flDlCvHSPwhZdHI2cyEHTQIM1YqPoYP7EPXf2+/+p39e8jLb1swYyk2aw9bVvwiXiv7yvtHsbAB
+	Of3cT0fPe1wvlE5DcyYQpsJIr7ntOlO3OWWfvLQHD3XY/+pHvn7JAKMMiEJjkBG2tUL7wU8SEiS
+	JxVrngG7Ij20bGdJSdq94EQF83GJeWBY1MyW3zB7wLPM4boaDYNHgT95zjqRzDTDj4aBlkvRUUN
+	C20oDbd+tn/bUbAww59wczq1hh6pK9BkBWBRRoIwrYkvNHz7AAURkURciR3RV8oAyktztBZ3XUj
+	RkivxBJoK9955UfF4/lwsjsJqO6rilkNgdSRdAsAWdT/KIv01kyCeLyEWm1Q/uui3w4oHMg/QqR
+	OoJ6ff0KRfqvPlrfWZ09vMQY8ESyH2CqSX+n0EKzrl1TkDr54VHCl8
+X-Received: by 2002:a7b:c3da:0:b0:49c:d293:70c8 with SMTP id 5b1f17b1804b1-49ced887bfcmr84872295e9.3.1788417243857;
+        Wed, 02 Sep 2026 23:34:03 -0700 (PDT)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc003a801sm2331943b3a.31.2026.09.02.23.34.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 23:34:02 -0700 (PDT)
+Message-ID: <a9179480-4f99-407d-b381-5c97a1e85a2d@suse.com>
+Date: Thu, 3 Sep 2026 16:03:57 +0930
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] btrfs: promote async checksumming out of
+ EXPERIMENTAL
+To: Daniel Vacek <neelx@suse.com>, David Sterba <dsterba@suse.com>,
+ Chris Mason <mason@kernel.org>
+Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260903062317.3928665-1-neelx@suse.com>
+ <20260903062317.3928665-4-neelx@suse.com>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXVgBQkQ/lqxAAoJEMI9kfOh
+ Jf6o+jIH/2KhFmyOw4XWAYbnnijuYqb/obGae8HhcJO2KIGcxbsinK+KQFTSZnkFxnbsQ+VY
+ fvtWBHGt8WfHcNmfjdejmy9si2jyy8smQV2jiB60a8iqQXGmsrkuR+AM2V360oEbMF3gVvim
+ 2VSX2IiW9KERuhifjseNV1HLk0SHw5NnXiWh1THTqtvFFY+CwnLN2GqiMaSLF6gATW05/sEd
+ V17MdI1z4+WSk7D57FlLjp50F3ow2WJtXwG8yG8d6S40dytZpH9iFuk12Sbg7lrtQxPPOIEU
+ rpmZLfCNJJoZj603613w/M8EiZw6MohzikTWcFc55RLYJPBWQ+9puZtx1DopW2jOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
+ cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
+ qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
+ /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
+ o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
+ JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
+In-Reply-To: <20260903062317.3928665-4-neelx@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=EIc2FVZC c=1 sm=1 tr=0 ts=6a9914b7 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8 a=2BnLtqgf9UOq1ijo76cA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA1NyBTYWx0ZWRfX5khyQ5ytna0l
- kIubaaA66w9Y4V5iPckpEi8vZdq+pArcdkt9nQLAguotIM6JBQwU92divjWxlyIOnQBpSIwSpCx
- 5E4nnf4n5Xl3j5gdnEJUCDKmxhkopW8q9DdU6nYJBQtaXtRnqfcurRh0QUU5p3T0ci+zSbtZJ7c
- JSiHqAV0wTFZH8nD9SLegkznGc4J0ngL2DS2L6wIZbVeNxR4kkXnaRAo6rHQ/80dIZ9FPPnixOm
- 2Xq+ocgA9Sbp6c1OBsL74VpcEoptztr3K9WbRJSeTaP2s7TBV7UKovR69ER2Edu4+dRLfwjVlD7
- Gw7NaCbBuZgh8urbUq1ekymr+mRFJrh9JLMIv1XuZFBwjl0x2KrdOg8W31OcpDwXoEeSaxMR/Zp
- 29dOZLFHzTYSZLrXp1SvemhxOFr9OuUEpcJCuJ70zHZ3rjA6aZig+uEKlQMPHB4YmNkmF6cwwZ7
- Cqb76oGZpRmpqezUYWg==
-X-Proofpoint-GUID: srczto0zDuxKQ58XLIX9KTVJkcUU9Ytb
-X-Proofpoint-ORIG-GUID: bzzX3l-vM0wJQsJDWBFMf0DeDRlAAf2s
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA1NyBTYWx0ZWRfX7EFCvkNzG6q/
- 0IgRRFB/0BrVg1SYdo2Yt5zJA8JzDmFwFoXLGQTOSNM2fWCCscQOllYSWSy5sXOdOZ5YRwXT+wt
- mpifvNa2GURPcFmmHHxwgBofWTKedxw=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_02,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
- phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030057
 
-Add documentation for new CPU state called preferred CPU state and
-corresponding cpumask called cpu_preferred_mask.
-This could help users in understanding what it is and how to use it.
 
-Document the role of scheduler and driver for this feature to work.
-Details regarding the driver documentation will be added in
-later patches under Documentation/driver-api/steal-governor.rst.
 
-Newly added file could be used for other paravirt usecase documentation.
+在 2026/9/3 15:53, Daniel Vacek 写道:
+> There was no issue with this feature since it's introduction in
+> dd57c78aec398 ("btrfs: introduce btrfs_bio::async_csum").
+> No need for hiding it.
+> 
+> Signed-off-by: Daniel Vacek <neelx@suse.com>
 
-Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+Oh, I was doing this already, and it turns out that we have a lot of 
+things to cleanup:
+
 ---
- Documentation/scheduler/index.rst          |  1 +
- Documentation/scheduler/sched-paravirt.rst | 67 ++++++++++++++++++++++
- 2 files changed, 68 insertions(+)
- create mode 100644 Documentation/scheduler/sched-paravirt.rst
+  fs/btrfs/bio.c       | 136 +------------------------------------------
+  fs/btrfs/disk-io.c   |  20 +------
+  fs/btrfs/file-item.c |   6 +-
+  fs/btrfs/file-item.h |   2 +-
+  fs/btrfs/fs.h        |  10 ----
+  fs/btrfs/super.c     |   1 -
+  6 files changed, 4 insertions(+), 171 deletions(-)
 
-diff --git a/Documentation/scheduler/index.rst b/Documentation/scheduler/index.rst
-index 17ce8d76befc..a43647b9706d 100644
---- a/Documentation/scheduler/index.rst
-+++ b/Documentation/scheduler/index.rst
-@@ -23,5 +23,6 @@ Scheduler
-     sched-stats
-     sched-ext
-     sched-debug
-+    sched-paravirt
- 
-     text_files
-diff --git a/Documentation/scheduler/sched-paravirt.rst b/Documentation/scheduler/sched-paravirt.rst
-new file mode 100644
-index 000000000000..311cdbf2722b
---- /dev/null
-+++ b/Documentation/scheduler/sched-paravirt.rst
-@@ -0,0 +1,67 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+.. _sched-paravirt:
-+
-+Preferred CPUs
-+==============
-+
-+In paravirtualized environments CPU overcommit is a common scenario.
-+i.e. the sum of virtual CPUs (vCPUs) of all VMs is greater than number of
-+physical CPUs (pCPUs). Under such conditions when all or many VMs have
-+high utilization, hypervisor won't be able to satisfy the CPU requirement
-+and has to context switch within or across VMs. The hypervisor needs to
-+preempt one vCPU to run another. This is called vCPU preemption.
-+This is more expensive compared to task context switch within a vCPU, since
-+hypervisor lacks vCPU context and could preempt a critical section which
-+slows forward progress.
-+
-+In such cases it is better that combined vCPU demand from all VMs is reduced
-+by not using some of the vCPUs in each VM. vCPUs where workload can be safely
-+scheduled which won't increase any contention for pCPU are called
-+"Preferred CPUs".
-+
-+One of the main design constructs is that preferred CPUs are always
-+a subset of active CPUs. In most cases preferred CPUs will be same as
-+active CPUs. When there is pCPU contention, Preferred CPUs will reduce
-+based on the steal time. When the pCPU contention goes away as indicated
-+by steal time, Preferred CPUs could become same as active CPUs again.
-+The policy decisions are to be taken by driver.
-+For example, steal_governor. Look at its documentation for more
-+details. (``drivers/virt/steal_governor.c``)
-+
-+Scheduling decisions such as wakeup, pushing the task etc, need this
-+CPU state info. This is maintained in ``cpu_preferred_mask``.
-+vCPUs which are not in ``cpu_preferred_mask`` should be treated as vCPUs which
-+should not be used at this moment provided it doesn't break user affinity.
-+
-+This is achieved by:
-+
-+1. Selecting a preferred CPU at wakeup using fallback mechanism.
-+2. Pushing the task away from non-preferred CPU at tick.
-+3. Selecting only preferred CPUs for load balance.
-+
-+``/sys/devices/system/cpu/preferred`` prints the current ``cpu_preferred_mask``
-+in cpulist format.
-+
-+Notes:
-+
-+1. This feature is available under ``CONFIG_PREFERRED_CPU``. Driver which
-+   makes decisions should enable it. For example, steal_governor driver
-+   (``CONFIG_STEAL_GOVERNOR``). On enabling the driver, CPU preferred state
-+   can change based on steal time. Without the driver, preferred CPUs is
-+   same as active CPUs.
-+
-+2. This feature works for the FAIR class only.
-+
-+3. A pinned task, which can't be moved to preferred CPUs will continue
-+   to run based on its affinity. But no load balancing happens if it is affined
-+   only on non-preferred CPUs.
-+
-+4. Decision to change the preferred CPU state is driven by the kernel.
-+   Hence it shouldn't break user affinities. One of the main reasons why
-+   CPU hotplug or Isolated cpuset partitions was not a solution.
-+
-+5. This feature works best only when all the Guest VMs enable the feature as
-+   it is a co-operative scheme. If a specific VM doesn't enable this feature
-+   it may end up with more CPUs than others, still should lead to better
-+   performance when seen from system view.
-+   Users who enable this driver must ensure it is enabled in all Guest VMs.
--- 
-2.52.0
+The main missing part is the should_async_write() now always return 
+false (you missed that EXPERIMENTAL flag there).
+
+Then it means the whole async submission part is no longer required, 
+resulting the above code removal.
+
+Thanks,
+Qu
+
+
+> ---
+> 
+> v2: Introduced this change.
+> ---
+>   fs/btrfs/bio.c | 4 ----
+>   1 file changed, 4 deletions(-)
+> 
+> diff --git a/fs/btrfs/bio.c b/fs/btrfs/bio.c
+> index 771b7d598aee..db426ee6e587 100644
+> --- a/fs/btrfs/bio.c
+> +++ b/fs/btrfs/bio.c
+> @@ -569,11 +569,7 @@ static int btrfs_bio_csum(struct btrfs_bio *bbio)
+>   {
+>   	if (bbio->bio.bi_opf & REQ_META)
+>   		return btree_csum_one_bio(bbio);
+> -#ifdef CONFIG_BTRFS_EXPERIMENTAL
+>   	return btrfs_csum_one_bio(bbio, true);
+> -#else
+> -	return btrfs_csum_one_bio(bbio, false);
+> -#endif
+>   }
+>   
+>   /*
 
