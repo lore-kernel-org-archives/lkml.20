@@ -1,141 +1,67 @@
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1297B368D4A
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:06:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABDB13FF1AD
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:07:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788419172; cv=none; b=MCN8zOxsniDeyvPdznfNC89aZUBedhD/jja9QE+q+KcK4sp08JC50mFURfbdlBI6l1iOCwTP/Wuhii86se2KLaZQOYNhEs30sn/KRJZNIRGr7QxkdcaIxrv9v/ZTloftfvkgVdPIqID5mClHWTJB2OTzh2zYZInpxo5c91BFenQ=
+	t=1788419229; cv=none; b=fbNaq5T41EEurL+PveM7m7E/5hzmlfmT3NaybiBjhDTFy7t7PfkSfHWV1b+nhozTMnIQtTAN95hqfYS134g6Z7rtqwZy1xyBpscqqTQbQkDGIlvIozzxBGANSxLdA4kT9P+bZO+TelpuzUWFUYrItPh/qIl0gpnHCOHgqDrrnQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788419172; c=relaxed/simple;
-	bh=6Yi8B4f7QmlxXddS5h9SNCzOwjwrx+XGhyZF0DKWZ64=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=OKHYwyXjLZL0S04sgGKyR2fhqV5OiPCId/BRbMSEr1vXeh7403Q0CQkuTwAI/gqS2JLctFV7qLYbqcHo3OOQdcrY2/Xwq/MxchHpLSqSdhdWf8Dm6p4p9EHm5+eTzVidwATUZLOAPKZXNCFh9ce6KAq/d4O4qQQnb9gjFb9dYvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7f43c6b6d64so1906867a34.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:06:10 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788419170; x=1789023970;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=IywCq373dkUlQSQTDRM8mInlgtx/dt5RVCeCSHsAk3U=;
-        b=FLGaAMmlflxOX1iYASXWn8wIjonspcdJUblvI6Pz8xLtyAboUrAakzrW3tTA5J6NOR
-         wa7/eHOx106pXGkyqiix2sE7THit0/jmoWm7i1geLHGV2EOc737WbVRT36F7kOGlxKlO
-         NBT6xfKjm5HIq33lmoWpd1CUuBzVnaqvxyFQDOCOfoXcya+qvzuqSWwLJFiTP0tkaj6a
-         HsNWm6PP1CJpoVe+Sdg93MgkSIKdW2FsmUyLrjI2x1y4fLM9X+sEcbn25y/rTCR+ADAz
-         oNomEQaBhFTCFddr/hVcQKBsV5sEtcBQRvIkf6bB4EVNiZN1S7yPsRX1SuVd0O01NOF4
-         2WUQ==
-X-Gm-Message-State: AFuF++nP8FPP9tKoghYKjBfcrfXrGLPpZ/W98v6Axoe2taNWxVNlu3m3
-	Zv2qTpxPr4ToDIN8uu34YOdFyAzNnz2am4B+bim4PFsAETxz9/BzWjB9UWPwDGjQzeAe7mBAPAV
-	gqLjH93IQjde41fcr86EMph2+Pw7OKrBnLjufUd1Wg22LeLcyFdqXzU7fb8k=
+	s=arc-20240116; t=1788419229; c=relaxed/simple;
+	bh=7TQtVdnqzwhSxfsXW1nvkeQ+DNy+m818Y5Yp8ga0+mQ=;
+	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=dZWSstFQW42hlBMI1HrH9M0lxB0/HwpaQZOVOtAjZOBf9n5oCG6LanhEuwA/7ShivMeXYknza4Zdqpz8vreHOnoNj9Oiwi1mirJGOtaWzX6D9A8KZSOjxiRnSI57eCFfVCMosphvVwNGOA4Cd1RsIamaoSbwLaEWfgyTajSEFnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ACfNj8go; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ACfNj8go"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=7TQtVdnqzwhSxfsXW1nvkeQ+DNy+m818Y5Yp8ga0+mQ=; b=A
+	CfNj8go5esFKb0OgKTFFbcAxgcvB0C/yNlNakvgeZ8XjPgGO+I0swvEjoeTiZ8r1
+	l6KNDKYJNuutHpV2zitxMLNO9lKtpgFSW6cKhDuJ1OIkWWHpLM8/RIFfuuMUq9gk
+	wqP2dvAkYk76kLBKSWQ22T9gBMGielIvBB5kwNd3kY=
+Date: Thu, 3 Sep 2026 15:06:34 +0800 (CST)
+From: CJ <firefly0158@163.com>
+To: aivazian.tigran@gmail.com
+Cc: linux-kernel@vger.kernel.org,
+	syzbot+5b2e10c67416270b15c0@syzkaller.appspotmail.com
+Subject:  [BUG] bfs: WARNING in mark_buffer_dirty from bfs_get_block
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+X-NTES-SC: AL_Qu2TCviatkki4iOcZukdnk8aj+g+UcCwufkj24Bfc+8GgRv84DoEfW1FPnbL6uekLwG0vT6TaBlX0txmU4J4ZkWErJ8K5XYPceep7cIwjA==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:2d05:b0:6ac:bafb:bff5 with SMTP id
- 006d021491bc7-6b47c6b1ae9mr9368551eaf.11.1788419169990; Thu, 03 Sep 2026
- 00:06:09 -0700 (PDT)
-Date: Thu, 03 Sep 2026 00:06:09 -0700
-In-Reply-To: <6a85e576.f7a79266.2f965f.003f.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a991c61.9266084e.bf0d7.00c1.GAE@google.com>
-Subject: Forwarded: Re: [PATCH] usb: core: fix GPF on disconnect when
- interface claimed before registration
-From: syzbot <syzbot+87188222c77c0dbbdb4d@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <7bd0e4e9.56b2.1a066173def.Coremail.firefly0158@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:kygvCgD3X+p6HJlqGoc+AA--.7649W
+X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3Rom12qZHHqM0QAA3+
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
-
-***
-
-Subject: Re: [PATCH] usb: core: fix GPF on disconnect when interface claimed before registration
-Author: khiemtranzo532001@gmail.com
-
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-
-diff --git a/drivers/usb/core/driver.c b/drivers/usb/core/driver.c
-index f63004417..59e74872b 100644
---- a/drivers/usb/core/driver.c
-+++ b/drivers/usb/core/driver.c
-@@ -562,7 +562,6 @@ int usb_driver_claim_interface(struct usb_driver *driver,
- 	if (!iface->authorized)
- 		return -ENODEV;
-
--	dev->driver = &driver->driver;
- 	usb_set_intfdata(iface, data);
- 	iface->needs_binding = 0;
-
-@@ -580,11 +579,19 @@ int usb_driver_claim_interface(struct usb_driver *driver,
- 	else
- 		pm_runtime_set_active(dev);
-
--	/* if interface was already added, bind now; else let
--	 * the future device_add() bind it, bypassing probe()
--	 */
--	if (device_is_registered(dev))
-+	if (device_is_registered(dev)) {
-+		dev->driver = &driver->driver;
- 		retval = device_bind_driver(dev);
-+	} else {
-+		/*
-+		 * Interface not yet registered: record the claim without
-+		 * setting dev->driver.  usb_set_configuration() will call
-+		 * device_bind_driver() explicitly after device_add(), which
-+		 * skips ->probe() and attaches knode_driver so teardown is safe.
-+		 */
-+		iface->claimed = 1;
-+		iface->claimed_driver = driver;
-+	}
-
- 	if (retval) {
- 		dev->driver = NULL;
-diff --git a/drivers/usb/core/message.c b/drivers/usb/core/message.c
-index 75e2bfd74..73c630750 100644
---- a/drivers/usb/core/message.c
-+++ b/drivers/usb/core/message.c
-@@ -2269,8 +2269,23 @@ int usb_set_configuration(struct usb_device *dev, int configuration)
- 		if (ret != 0) {
- 			dev_err(&dev->dev, "device_add(%s) --> %d\n",
- 				dev_name(&intf->dev), ret);
-+			intf->claimed = 0;
-+			intf->claimed_driver = NULL;
- 			continue;
- 		}
-+		if (intf->claimed) {
-+			intf->dev.driver = &intf->claimed_driver->driver;
-+			ret = device_bind_driver(&intf->dev);
-+			if (ret) {
-+				dev_err(&dev->dev,
-+					"device_bind_driver(%s) --> %d\n",
-+					dev_name(&intf->dev), ret);
-+				intf->dev.driver = NULL;
-+				intf->condition = USB_INTERFACE_UNBOUND;
-+			}
-+			intf->claimed = 0;
-+			intf->claimed_driver = NULL;
-+		}
- 		create_intf_ep_devs(intf);
- 	}
-
-diff --git a/include/linux/usb.h b/include/linux/usb.h
-index 1da4ad161..0ec743e76 100644
---- a/include/linux/usb.h
-+++ b/include/linux/usb.h
-@@ -266,6 +266,8 @@ struct usb_interface {
- 	unsigned needs_binding:1;	/* needs delayed unbind/rebind */
- 	unsigned resetting_device:1;	/* true: bandwidth alloc after reset */
- 	unsigned authorized:1;		/* used for interface authorization */
-+	unsigned claimed:1;		/* driver claimed before device_add() */
-+	struct usb_driver *claimed_driver;	/* driver for deferred bind */
- 	enum usb_wireless_status wireless_status;
- 	struct work_struct wireless_status_work;
---
-2.34.1
+CgoKSGksCgoKSSBhbSByZXBvcnRpbmcgdGhhdCBXQVJOSU5HIGluIG1hcmtfYnVmZmVyX2RpcnR5
+IHJlbWFpbnMgcmVwcm9kdWNpYmxlIHdpdGggYQptaWdyYXRlZCBzeXprYWxsZXIgcmVwcm9kdWNl
+ciBvbiBMaW51eCA3LjItcmMzLiBUaGUgdGVzdGVkIEhFQUQgY29tbWl0IGlzCmExM2MxNDBjYzI4
+OWMwYjdiMzc3MGJjZTViM2FkNDJhYjM1MDc0YWEuCgoKVGhlIHJlcHJvZHVjZXIgd3JpdGVzIHRv
+IGEgZmlsZSBvbiBhIGNyYWZ0ZWQgQkZTIGZpbGVzeXN0ZW0gYW5kIGVudGVycwpiZnNfZ2V0X2Js
+b2NrKCkgdGhyb3VnaCB0aGUgYnVmZmVyZWQgd3JpdGUgcGF0aC4KCgpiZnNfZ2V0X2Jsb2NrKCkg
+cmVhY2hlcyBtYXJrX2J1ZmZlcl9kaXJ0eSgpLCB3aGljaCB3YXJucyBhYm91dCB0aGUgc3RhdGUg
+b2YKdGhlIG1ldGFkYXRhIGJ1ZmZlciB3aGlsZSBzZXJ2aWNpbmcgdGhlIHdyaXRlLgoKClRoaXMg
+bG9va3MgbGlrZSBCRlMgbWFya3MgYSBtZXRhZGF0YSBidWZmZXIgZGlydHkgYmVmb3JlIGl0cyBz
+dGF0ZSBoYXMgYmVlbgp2YWxpZGF0ZWQgb3IgaW5pdGlhbGl6ZWQgY29ycmVjdGx5IGZvciB0aGUg
+bWFsZm9ybWVkIGZpbGVzeXN0ZW0gaW1hZ2UuCgoKVGhpcyBpc3N1ZSB3YXMgcHJldmlvdXNseSBy
+ZXBvcnRlZCBhdDoKCgpodHRwczovL3N5emthbGxlci5hcHBzcG90LmNvbS9idWc/ZXh0aWQ9NWIy
+ZTEwYzY3NDE2MjcwYjE1YzAKCgpSZXByb2R1Y2VyOgoKCnN5eiByZXByb2R1Y2VyOiBodHRwczov
+L3Bhc3RlYmluLmNvbS9yYXcvVlViYUp6TEIKCgpjb25zb2xlIG91dHB1dDogaHR0cHM6Ly9wYXN0
+ZWJpbi5jb20vcmF3L3NGbmFnemJUCmtlcm5lbCBjb25maWc6IGh0dHBzOi8vcGFzdGViaW4uY29t
+L3Jhdy9CMGYzZEM3SAoKCktlcm5lbDoKCgpIRUFEIGNvbW1pdDogYTEzYzE0MGNjMjg5YzBiN2Iz
+NzcwYmNlNWIzYWQ0MmFiMzUwNzRhYQpnaXQgdHJlZTogdG9ydmFsZHMvbGludXgKa2VybmVsIHZl
+cnNpb246IDcuMi4wLXJjMyAjMSBQUkVFTVBUKGZ1bGwpCnRlc3RlZCB0YWc6IHY3LjItcmMzCgoK
+TGV0IG1lIGtub3cgaWYgeW91IG5lZWQgbW9yZSBkZXRhaWxzIG9yIHRlc3RpbmcuCgoKQmVzdCBy
+ZWdhcmRzCgo=
