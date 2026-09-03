@@ -1,182 +1,117 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011035.outbound.protection.outlook.com [52.101.52.35])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ADDE345EA7
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 03:57:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.35
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788407837; cv=fail; b=WzMn2djdOYsCF9BWSvqioAwmTTShB+Uf5bQvoMfrHFUx1XGQkg+f6md1BJwUDn+1DOsATqm8uBx+/RG0z1X1o5L2DamEYyXGzWcnCDhPXpmKusvzzv3pZ8a+fVVaYFTNZCSfQ1UfHiJGBbZQfwJCsjpX0kft20G3TDZikDIJjMY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788407837; c=relaxed/simple;
-	bh=UH28MahiBQn766MbteK8RRsF8jJ0AORpRQBniic/hnY=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ogsL9apdgCOL5Th2S25VZ2bcmXiS/Lr4JpNvc47wc4XRhWG1Cd4pC2MNAUZVY7vL8eTbN7sweA3JuJfCXSbnygQVMOOC9Q6xs86gKIjFQZnwBvW4GPqMuBNdRDL9rvgGBMIDMsnRFnrESvAU7Xvx7lxYHYWRIN2UViQRk+Ah5aA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=d5Cp3zOU; arc=fail smtp.client-ip=52.101.52.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="d5Cp3zOU"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Zom2IywMiqae/QPidzx2ev5EXionikHqvRgR7iyyOC66AJbmHrGu66sxuphKogBQbkwZ5ZdqQ5fh3vgxW3bl9e+JjzeWBEC8PR+1byLtn2cHvKpsh4qiMyNOOYxSEI42byh0gvJIJbO5EvtozqGDAPpbEQG4pvC5I+LcAnXg5pVVthMMEx7P9gOGj6SkBAdGD/e/mn7h+hd5A6aHHBahqAdvwi38K4S1aWQ5VwjWWXSUiMlrif5sIJt7N3jqwcs/CBoAZCr/5UKm2AXauIIYpBhnh43YZu9hwdPxOSBDOJvcfyOxH9E3BceIDeYKG7en4aHxPn5+HB+/gH2903w0rQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b5Z2d6zx1h2dBYWN6sNoPK2ByVT08b/+V7O2fhhtcyY=;
- b=EqK7qHmwlTEBrsRDOMO/5bTFOhDWTv9YXxax8OsOhInzSCzKtyUU/aY8r6z4xEX4V4+lsSqCobB59A0f8dQ+I1oOV6MrkOhrEmt2kl8k2e5aQnfl9pntHG3TkRnMpS9GnoiwyJepDvyVcRa5ApQWf2KEukARg1G1eC4H4vLI2lJnnWGq7rUf5GvkbhYrbRM1y+sApGgO5jGpCuoTS2Se2Gpsqq+0sScopKYBpwoNFqoXqu5gldaj1xHGJN0sTDCYQFC1/ovbSthySXPCI706irT9RSbzkDZQ7YQqu9uV0GNUyL+rMCusPqTtjT2Iq2NRSlILI6ErHnpXJCLkK6LQmw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b5Z2d6zx1h2dBYWN6sNoPK2ByVT08b/+V7O2fhhtcyY=;
- b=d5Cp3zOUWsdZlC1zYJiPHisiuEP3hnoubc1LMmGp3Rb+0rIccYscJ+I2Kw+JNSPyxqeNqccgrI0nVGjCevkF1R7jBObV2XLZ6f0gZy19CCNvpni/XabEA4/DNwxE10pL/cOj01XbThr4uE/4il0NXXjaWiBvYzgjiXlrsYKUyHdIRW6NlcRvfbeLSa06mF5zzurVLZ5lbmc8+qmCld+N59YC+tfcnHlB8u3Ge1e7yHIpugAlSF1OLeFHK0138vhoVUG2Gb6dZqNk6sEXufXK5dioW9u2URiZg+HGxxdYMrKqraNemXVc968J2IIIV2l4dDGM9T4I5LLgXL1Do9uQOg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- CYYPR12MB8654.namprd12.prod.outlook.com (2603:10b6:930:c9::16) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.13; Thu, 3 Sep 2026 03:57:12 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 03:57:12 +0000
-Message-ID: <b7d5224f-8dbb-45c6-a34f-d6c6f5c06788@nvidia.com>
-Date: Wed, 2 Sep 2026 20:57:10 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 07/14] gpu: nova-core: add an interrupt delivery
- self-test
-To: sashiko-reviews@lists.linux.dev, Danilo Krummrich <dakr@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>
-Cc: Will Pierce <wpierce@nvidia.com>, Alex Gaynor <alex.gaynor@gmail.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Boqun Feng <boqun.feng@gmail.com>,
- Zhi Wang <zhiw@nvidia.com>, Simona Vetter <simona@ffwll.ch>,
- Gary Guo <gary@garyguo.net>, Joel Fernandes <joelagnelf@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- David Airlie <airlied@gmail.com>, LKML <linux-kernel@vger.kernel.org>,
- Miguel Ojeda <ojeda@kernel.org>, Alistair Popple <apopple@nvidia.com>,
- nova-gpu@lists.linux.dev, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Eliot Courtney <ecourtney@nvidia.com>
-References: <20260903031514.1515905-1-jhubbard@nvidia.com>
- <20260903031514.1515905-8-jhubbard@nvidia.com>
- <20260903032942.2DA621F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <20260903032942.2DA621F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR03CA0136.namprd03.prod.outlook.com
- (2603:10b6:a03:33c::21) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0C3345EA7
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 03:57:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788407851; cv=none; b=K7XAVUkN2lj7HZ4Rfmkn6k+pWnblwq6bNSzYokW322+qkzki9Vdz6nOwh8Me5E3SHEhkNO1BrWZ0kZCySuIhLp4DWCyvf+WW+dUS2u6yXBuShFnuPxEvhFsJM7KGu542UkaEp8znYBdElef/ZcGthi05Au5VvoavdZQrc9OMcq0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788407851; c=relaxed/simple;
+	bh=R8MCB0fZPp2kqpX8SMDkl8QbZkpnPzGATyB+nbfhggY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=a//McO2rRACYvOwdzR1UYs8iQNq/hPr14JFc9YvCmsYwIIs3VSsw7O2pi6aTHLWaSYz9NZs/dS8tcJ1Gzxn8Tdmb3kmCdx9OC56TuIWdRNQK1++vjq+AcMHMrrSDsD8J0YGsNxRdyJvJAe5Zm8loVmFyKHF4F0nvx2GN1Qe4Ei0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 91e76e82a74b11f19a56ed5b684f684d-20260903
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:155ee8e6-6ac1-4a87-8f4c-bfc556ebb13e,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:585e62760e82be758c00727469015eda,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|865|898,TC:nil,Content:0|15|50,EDM:5,IP:
+	nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:
+	0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_ULS,TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 91e76e82a74b11f19a56ed5b684f684d-20260903
+X-User: liwanwu@kylinos.cn
+Received: from kylinos.cn [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <liwanwu@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1093751082; Thu, 03 Sep 2026 11:57:23 +0800
+From: Wanwu Li <liwanwu@kylinos.cn>
+To: tj@kernel.org
+Cc: arighi@nvidia.com,
+	void@manifault.com,
+	changwoo@igalia.com,
+	emil@etsalapatis.com,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	liwanwu@kylinos.cn
+Subject: [PATCH 1/2] sched_ext: Make scx_locked_rq() return NULL from NMI
+Date: Thu,  3 Sep 2026 11:57:19 +0800
+Message-Id: <20260903035719.721445-1-liwanwu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260903032953.659847-1-liwanwu@kylinos.cn>
+References: <20260903032953.659847-1-liwanwu@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|CYYPR12MB8654:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5c50cd69-a3f9-4e09-b43e-08df096f6f29
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|376014|23010399003|366016|7136999003|6133799003|10067099003|11063799006|4143699003|56012099006|11062099010|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	e0jhHuIpFDcu4NKyqVpf6iihByuvjUgb2kmAkMeWzJFN2XtJQfCLKmFDw+IJ1b6Zx8CLpvdSesONHCn+o198NYxErfWvnmA3YWfYZlrO72ffNbPRSxgM+/Q8D2Oagni4KeLK7tYhlKuKMPj6OQN12CoapzPM0eApb1ZQbiC89ow/BdM+CsRlSjCF2ElQ0bL1jvtal12khiQrAXKWQbZN94KS+B3kMvP5Ng6yJiB1GS7L09j5z3CXPGe4+/etEaPwUAfc8QKjg5JlAJam83FC1Rj0wYH4Rocx9EzKIbfM2sr/dHa/K3MeFIimF4O00e9AYRv6ixNh5TdK7of4JqKht3FlWpB0yhM3TIIVU28BP9XjZ7jnV8L1DYLcg/I9ykZfCqkdL9ZCr9wi11OfsIgXPiY8GFf3lYeezyyUgl2OV5snYESGAOZv9SAUoU3OVc9mQWh8q6L53YxSuVfXHWyqQncYmDTmF1N5oL6O7FPgCo5niYBeuL1tAZx4CpNx+ZSQM9/hSTSEgaGE5Jh5lMvqTfQUrwGGFjG+jPkvLcM7fUMCQfzbmKX4YrJr5ywjg1pYd2AlB+Iyzf+MgKQ2vfPK3XlDydU1piVaq9bFLAYJ5J106syacjLIs3qP5P4VueS3KR1WlyacweQlQwcEqdtHIVyS0rN7Lo2QMffHk39HcjI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(23010399003)(366016)(7136999003)(6133799003)(10067099003)(11063799006)(4143699003)(56012099006)(11062099010)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V3B0ZkkrY1cwL2xLQ2VaeG9SellsVEJFVW8yQjkxTCtrUWtxVWF6d055SVN5?=
- =?utf-8?B?MHUxT0xnVnZ4bS96bGZvcVRXWjhyeE9pd2VVN3RLdTRXS3pOWlErVm84TFZr?=
- =?utf-8?B?cVR3WHB0TEhMQ2ovVXFLbjUyaFNLSXBEaUtYV21TOE15M0Q4STYzWFovRDhm?=
- =?utf-8?B?a254cTQxY2x5SWF6bTkweEEzMVF4bndobmJwVFlwNXpVTHliSHNHY2xPNlJn?=
- =?utf-8?B?VjgzMUVZYkJIY2lvUElnT0s2OWFpRDNuSXdxRHlnOWhBaDZNdEJSb0xNVlJ6?=
- =?utf-8?B?LzFnaEFOU1RhYmVWQ29lWG1HcC9mcHhGeTlPaldCQTQ0Z254VFJPOEp2R0VF?=
- =?utf-8?B?cDJJdWFNaUlYVzBpT0ZuMkVRWWhHcFcwMllEOWZwTlF6bzlEVlhxV3BEcnMw?=
- =?utf-8?B?anBJVGUwK1gvWVBOcXp2TnU2SllQU3diRDBUb0xNUVlKRGltcXBuMmY1TW92?=
- =?utf-8?B?TG5KS1k0b0Fhcm9WMVlrU1ZNYkVFdjhMakJJMFZ4VTVrck8vbEdtSVZ6VTNV?=
- =?utf-8?B?UTZJZkNJOXhMcWgzektqOXhaY05WQVVMRmhPRm9ReEMzbllEL0IranJUR1g1?=
- =?utf-8?B?dFl4M1E3UENtMkNFL0FNTXhod3RlU01abUw1YnVBWDRXTDRVeU5EYUZPZXJH?=
- =?utf-8?B?Y29kWmY2ZHVmVis5ZTlGTi9PbGxkZUovRDFSRlVFcEpIT2phckZtcmNYRTBn?=
- =?utf-8?B?cVNFYWtteElTZzl3WmJjK2xJS1dYUWZ0N0FIL2NyRXlFTFFGU2ovUVR4Uysx?=
- =?utf-8?B?Ums1bXR1LzBjWjdteFY0eGdLaDZIQjY4Q3YxNkw3RldYWTliK1UvZGE4aFVJ?=
- =?utf-8?B?VXh5anprOWxTRE1jM0lTQlFoWStWMnJFYTcva1hqQ2hraFB2Q1N6OUVZZ084?=
- =?utf-8?B?M0tpWXZpTFJySHZ3b0R6aG9USklsZnYwNW45SUZNcjBudWF0VjViWllVT29V?=
- =?utf-8?B?Vm5xanlMRi9wTDJQV3luWVZKTG0zemhxZkhKVDJVeCtuVWxTaXB3OHBxRzRr?=
- =?utf-8?B?UjUvei9WMUpTemhabUhxWTF4QWZ0RGdMZzR5akVMQzNZSnVpbzlzM3FJT3lI?=
- =?utf-8?B?YzVpSmF4WHdKeHMyc25FUk0vN0ROTDZ0d20zM1d1Zm5lM3hKM2Z1ckRZYWJy?=
- =?utf-8?B?KzhrK1NtYm54MnZtbldlMHFQWTFMSnlaN3ArWkpuNWtrY0ZrTVY4b3hnYTFR?=
- =?utf-8?B?SG9JaGhsalBCWGdQdzBPeTk1d09zQUIvMlNrUEJ5OWVEUksxazhCWWhFa1dY?=
- =?utf-8?B?Q2UydHUvOFpKT2RYMGxJSHFON2o0eVQwQWYyeDR3Y1hHdkZ4d3JHOS8wZGFL?=
- =?utf-8?B?M2RabFhRREYzS1h0dFQvMkpxNUFMNTJ4dmk2ekVDYWxSRWVUWElwc3ViVFRU?=
- =?utf-8?B?NmdlR1d5aHFWVmlSZ1lvRVd4TEtENHFJMGRNOFhMY0tLUWVFQlovdmZNVnRh?=
- =?utf-8?B?ekFDVkxqNCs0TFFJdzEyZDJzcGlrNGJXY1AzeVNtNnpmVHp1YWhOR0xOd2Jj?=
- =?utf-8?B?UU5nd2FVMTZaWGw1Z3NhY1NDMFQ0U1loK3Y0MkFRTFRyVVZWTjBQSW42am5R?=
- =?utf-8?B?WnlIZGROMVRFSk1aVkYzbDh3VFkwNGhKQysweUxmYUtLNzRpRTB5VFRGV2FE?=
- =?utf-8?B?VWZ1VU4rMkZHcFJNS2dZQVdoNWs4WDR0THM0enlDdGh3VXVBaVFJVGJjd29V?=
- =?utf-8?B?ZFM5SFpHVGtYaks5ZDBuNlhGaHdDRWFDTmJUTG0yVFFrWXNMWEtMOUFPSjJy?=
- =?utf-8?B?UEpZeXJ2VjN3bEtZSEV3dDdnMGdNblQvRlRiRUNoUFpxS1lsWDZtanR5bWgw?=
- =?utf-8?B?YTI2ejkzRHBSQkhZaTAyNGdMdFFWNFlvZU1VcXVDd1VFV3JSRTZXSjZSWFU4?=
- =?utf-8?B?ME9Oc3ZseVU2b0c5dFRCVlJNdFIyUjNoczlYY2VaWkNIdFFkQzM5dHhLUng0?=
- =?utf-8?B?bGxiTzBkL1FuZ2V0RVQ4SXkxNnc3enQxcXhqbjVMRVkveDJsc0tiS0JjUGxO?=
- =?utf-8?B?RFJCMWVvYWdPWmZxTHBwdUlkNHZ0UEJKbkFMdzk5Y0ZpYnZURXFiUzJTSjNa?=
- =?utf-8?B?aTRIbjFUSHpRYXpWUzJvY1ZXMlc2ZExsUEJQbXlBQncyWFFoZldQZ3FIOHhj?=
- =?utf-8?B?dzFFak9xL09IblE3UGdkTm9RRGI4bmpsVVNQV2p6NWpSNEVuZUNINVlYY1R0?=
- =?utf-8?B?SHZ5VTBDTURGNC9nTWZRRHVwYXRtL2dkOFZTeUpiNlFGWitQcmhJWnpSQUxT?=
- =?utf-8?B?MEUvaFRtUGNEZTIwS1NreUZtRnp6S05SV0Z6TVF0MzFFWGxnemRZc2JGY2tL?=
- =?utf-8?B?SGNId0ZBZWs2eTZzcE85MHY2K0pxWkZMYjh1MkNzdTJwcXRXaVgwZz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c50cd69-a3f9-4e09-b43e-08df096f6f29
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 03:57:12.2580
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PJaTSohSRW6VcnEWlbXCNUxq1G/MMHNOgX4eybX34BJizOTR1MKxmdaD3ftWnq+B5C6rdNty1pFKlcCYtTij5w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8654
+Content-Transfer-Encoding: 8bit
 
-On 9/2/26 8:29 PM, sashiko-bot@kernel.org wrote:
-...
->> @@ -330,6 +337,12 @@ pub(crate) fn new<'a>(
->>          let dev = pdev.as_ref();
->>  
->>          try_pin_init!(Self {
->> +            vectors: crate::irq::alloc_vectors(pdev, crate::irq::SERVICED_SUBTREE.into())?,
->> +
->> +            // SAFETY: `vectors` is initialized above, lives at a pinned stable address, and is
->> +            // dropped after every field that uses `vectors_ref` (struct field drop order).
->> +            vectors_ref: unsafe { &*core::ptr::from_ref(vectors.as_ref().get_ref()) },
-> 
-> [Severity: High]
-> Does this create a dangling pointer under the Rust memory model?
+scx_locked_rq() reads the per-CPU scx_locked_rq_state, which tracks the
+rq locked by the context running on the CPU. Tracing progs can call
+kfuncs from NMI, and an NMI interrupts - rather than replaces - the
+context that set scx_locked_rq_state, so a non-NULL read from NMI
+falsely tells the caller that it holds the interrupted context's rq
+lock.
 
-Probably not. Perhaps Sashiko doesn't know about pin_init yet. :)
+Three "any"-category kfuncs read scx_locked_rq() on their success path
+and take an unsafe fast path on a non-NULL return:
 
+ - scx_bpf_task_set_slice() writes p->scx.slice directly, racing
+   update_curr_scx()'s non-atomic read-modify-write of the same field.
+ - scx_bpf_dsq_nr_queued() resolves %SCX_DSQ_LOCAL to
+   (scx_locked_rq() ?: this_rq()) and can report the interrupted
+   context's local DSQ length instead of the caller's.
+ - scx_bpf_locked_rq() hands the interrupted context's rq to the BPF
+   program, which may then operate on it as if it owned the rq lock.
 
-> 
-> `try_pin_init!` provides access to previously initialized fields via local
-> variable bindings, which expire at the end of the initialization closure.
-> Taking a reference from this local variable and artificially extending its
-> lifetime to `'gpu` via `unsafe { &*... }` violates strict aliasing rules
-> (Stacked Borrows / Tree Borrows).
-> 
-> When the closure returns, the local variable goes out of scope, its
-> provenance tag is popped, and `vectors_ref` becomes a dangling pointer.
-> The `pin-init` crate also explicitly documents that creating references to
-> fields of the struct inside the initializer is not allowed.
-> 
->> +
->>              spec: Spec::new(dev, bar).inspect(|spec| {
->>                  dev_info!(dev,"NVIDIA ({})\n", spec);
->>              })?,
-> 
+Make scx_locked_rq() return NULL from NMI so that all three take their
+unlocked paths: scx_bpf_task_set_slice() stashes the request into the
+atomic p->scx.slice_oob for application under the rq lock,
+scx_bpf_dsq_nr_queued() falls back to this_rq(), and
+scx_bpf_locked_rq() reports an error and aborts the scheduler through
+the NMI-safe exit path.
 
-thanks,
+The kfuncs that take scheduler locks reject NMI calls through
+scx_kf_allowed_ctx() before reaching scx_locked_rq(), and the internal
+callers only run from struct_ops callbacks, which never run in NMI, so
+no other caller is affected.
+
+Suggested-by: Tejun Heo <tj@kernel.org>
+Link: https://lore.kernel.org/r/d84b31727f04e1ed0d40042ba1c09e61@kernel.org
+Signed-off-by: Wanwu Li <liwanwu@kylinos.cn>
+---
+ kernel/sched/ext/internal.h | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
+index a67277b0fee6..809e0ee0fd5f 100644
+--- a/kernel/sched/ext/internal.h
++++ b/kernel/sched/ext/internal.h
+@@ -2218,6 +2218,15 @@ static inline void scx_schedule_reenq_local(struct rq *rq, u64 reenq_flags)
+  */
+ static inline struct rq *scx_locked_rq(void)
+ {
++	/*
++	 * Tracing progs can call kfuncs from NMI. scx_locked_rq_state tracks
++	 * the rq locked by the interrupted context, so a non-NULL read from
++	 * NMI would falsely claim its lock. Return NULL from NMI so that
++	 * callers take their unlocked paths.
++	 */
++	if (unlikely(in_nmi()))
++		return NULL;
++
+ 	return __this_cpu_read(scx_locked_rq_state);
+ }
+ 
 -- 
-John Hubbard
-
+2.25.1
