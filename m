@@ -1,107 +1,156 @@
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F43E22FF22
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 00:16:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86855230BDB
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 00:16:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788394588; cv=none; b=YvzDnaYHvVs5O0mKLaTbNnaRfamoswKsGLngqLQ8GTJ6x+2wC/zHEiJ6jXRdbC6K+I2uDnk0Fu64wAs/kdwxVshi8PelgppaeMJvfgFcOvAoYMTpAgAvqqYPTsDWcWzWCWzj2fyoclLRnrRUEj+SyBdqc/I2r9ZGM1teYTXvoCQ=
+	t=1788394589; cv=none; b=tOnJmxBzSP4pUvwtKy1iEL2jiN5UiFrCJ+p8nUPG6CXPq0upihZQgnJBMlxrfPm82IbQ+2ByCDuRm5IsJxJ+ARlRpFz8Ciy3Ve1w8CSJ6edSrzEqceveuqV1AX+BgXyvXs1i+0kctyjiv1GQjFr3T/1IvA9OFrpeWpkeZMMPXEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788394588; c=relaxed/simple;
-	bh=p3kIujUfclIHgrp+ae99x6feuE7UCrPnVXI5HMFwwzc=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=LSFduhW25WQtgxCHvv13K0Q3WlQnWJ4qOx+QUu1q9vK+Ff5szT3Zid00BXHZi9hBA212ZTXbgXM8vFjvZxFUYjLUO1bL10gzK82RS1EVxC0Fg2KPoJDZFilznTuOtb++QC7qrjxDd1arFrMnLNNIVnVubtm2egCjwnLX1c0uCFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=efKg0w/t; arc=none smtp.client-ip=209.85.216.70
+	s=arc-20240116; t=1788394589; c=relaxed/simple;
+	bh=GwUAO3/qh3jBnPvjL539kUpRgMJEXtQNJH9ROB0FcAQ=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=RAW94uc1oRpMKY6IdL3EOppZwRCIE3a2Idt8i9hdfRN+1X1lDR57Bb+KcxRab9Wa/me4dreGvTgauHtbjsdVyPVS7n43XlU+8I9Fx0LFPLIcZSa42m4D4gXOjqLrKw2Q/hjLMUTaKhbvc7X5I3dp9ADlJgWfKATEk/pStZZLxQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GtMb4gRv; arc=none smtp.client-ip=209.85.214.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="efKg0w/t"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-398ba5404d2so2471567a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 17:16:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GtMb4gRv"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d6df0a1e18so30418285ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 17:16:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788394587; x=1788999387; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Vzm816r0LGTVzlU6FqzDKHr2Q746+h0dW3Jpg0VBIpA=;
-        b=efKg0w/taBRBJcPdfJpXdvZ59L2HHla0sWveYv+OxG4yzMf4YiBxTzU2H1Dmr/MFMz
-         PBREBteo5oDWHOsXcZCUe2nMzG4jSp+glQbu3U7ufWuNqWw/slBoI9GEQD+C8DMR98ng
-         2ksIaJItybyM5mHiydhBB+WYfwpdmcBvqhZYey23d9mACKbke81gsHQV0v/if4apnub6
-         SAFHbJM23L2fAxTHHnLOVwCPuZdj9l9j394ckVYPebfxewdz+GN6iGq0opdrcY1mF4K4
-         UYpxKVGzsYGjD35h1BDcQTAzGSC5zZQaD7W9KhBBRZRr6Zzpr612eUk6eM5nTB2534XC
-         c3fQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788394587; x=1788999387;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=google.com; s=20251104; t=1788394588; x=1788999388; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=Vzm816r0LGTVzlU6FqzDKHr2Q746+h0dW3Jpg0VBIpA=;
-        b=bNxFdUs5YC2NXToDMsHGr/tcLIEKJzFmi+4LS8/762ko7SO1VdakesRdwH8SSDL7sg
-         y2rFRsWMZKfj/LhFCDoyAuYl9v9BJgLyM4gytmtFk682y1fFDaNcJn5OIKBIbTHfUC6S
-         t7CA5byQWoVxzgl7LfVUDUVZHcX3wdEkBuhHrMAQXQ8ipJEcRKoCc3gOQqLr2Jy4ZUlo
-         k97O1Qd1xUuq7wggVLxhFp/e+CRXAM5kMQE7Bwv5urlXwNbk1YDKbBjpavp6BPqrsh0Z
-         bs/CsJD1dzm2xItWJJvIrg2XNHPnLrYYRUIh4sy13z7TbTbzu3dlpD6TB1K9YXrgZQqI
-         ZPZw==
-X-Forwarded-Encrypted: i=1; AKwUvBwWS5RDKelnlPv3lOC8oe/tUaYDcHX0h6d+QohiTSV6jEsQib9YZhv1K2Ddx2EmmO5yO7yqStkukS/Wiqc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nAT8xDu/aJCcQP1sr/8ZVmVahmOwHVj5x10fJiOc7rt9DLSGQf
-	3uHYPoQ9dGgU//r0+Cf3ikogHUs7IaxpxbYJAzLYcsBZTdpxImRmfJth0Qw8m6QivtEat3ATuId
-	hkrmsyA==
-X-Received: from pjzj20.prod.google.com ([2002:a17:90a:eb14:b0:398:c817:fd48])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:57eb:b0:398:9be6:f995
- with SMTP id 98e67ed59e1d1-39aee1110f5mr12722550a91.20.1788394586534; Wed, 02
- Sep 2026 17:16:26 -0700 (PDT)
+        bh=tjeJ2nAAXDrhJbonGdD2NMDMFjcyQiwI3v/yLE7aS0g=;
+        b=GtMb4gRvQ40yFxcDce2xXnerxAVfFgmir3T9O77Vin9FGGsiId/T3jFNVuuqmOMZrT
+         q5hhVDoHicNPvGfMQttvgcInngbg1r46HPr+/+mLJkeEF+jJlVoVBku0vOC9lua2xQmh
+         mRMBJ9hGhmPB9UaJw0sNuRdxYdIjJnjzhTflFZm6mszx/OEaRa68x+M48NFwZrRSSiCw
+         dJsgIqtsY2vb/RbrxwFBT05VuUfIDwT+dTLlxljHJoabK2CUH2WufIDXKRcyns7paZhB
+         ZMeHsbPI8PrRK7D9ooiNkvVjeTx9ITUo+NbZCdKYzcSf0hjYuVIfL5dnlfy2WdhAG0zU
+         wvCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788394588; x=1788999388;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tjeJ2nAAXDrhJbonGdD2NMDMFjcyQiwI3v/yLE7aS0g=;
+        b=GW5G+THSAOE+RVpwyQzpd1I5+is2vo/CWa/QDQqUN0mwv7bInNQW+sjbA57V4ZdXUx
+         nk+CGfIxKSv0KoMFPIrlLGyTejIRKonxMfhT17bb90SLaeTpIKVUYZxe65H6cuarhir/
+         EQ0wPMCSiA+9HP4GZVlh0S7T6DXmIcE0VGj4/KjN4MTYTJ3JVfJlFKvs7lXV+RoRvOqp
+         rfI9RBczRytcVTiKiy9dza+INKdh9UBMKej1U/3/DcUSjR39gJiSneSnjWYR8jVC7qJA
+         I5O/3+rNBZW/KfKPk6J4aFROdP4SUL49rSfBm70CY+tkLvofbP+DS1LQjbasF79FiZtc
+         bszQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzacvM9Tp4KfXtJXzwcgHa8IP/N1XDTnO2QqDD2TkQRit4bL5dBp3VpMYxB9hmUQxM1VqR9SDEBMKXGVuY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDYfFyenc+N2cs8aHpSdHwEN9qPWNZIFC0Tvb87hCZ67l6Qknn
+	hop55HbP5Vka86IUD5f35Y2qjoBTPSQuS/bIHtzGGeP6CIviaFbXQuAC24BTotscs4NHJrGxaDx
+	BmG/RDw==
+X-Received: from plbmb8.prod.google.com ([2002:a17:903:988:b0:2ca:ddbd:a19c])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e749:b0:2d8:de9f:9a44
+ with SMTP id d9443c01a7336-2daec732f99mr105045205ad.19.1788394587684; Wed, 02
+ Sep 2026 17:16:27 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed,  2 Sep 2026 17:16:18 -0700
+Date: Wed,  2 Sep 2026 17:16:19 -0700
+In-Reply-To: <20260903001625.2792367-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+References: <20260903001625.2792367-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.970.g62bdec98f9-goog
-Message-ID: <20260903001625.2792367-1-seanjc@google.com>
-Subject: [PATCH 0/7] KVM: selftests: Fix maxnodes bugs and cleanup related code
+Message-ID: <20260903001625.2792367-2-seanjc@google.com>
+Subject: [PATCH 1/7] KVM: selftests: Account for kernel's off-by-one bug in
+ NUMA node syscalls
 From: Sean Christopherson <seanjc@google.com>
 To: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	Shivank Garg <shivankg@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 
-This is a spin-off of Shivank's series[*] to fix "flaws" in KVM selftests
-handling of @maxnode in various sycalls.  In quote because the flaw is that
-KVM selftests followed the docs, and the kernel has a longstanding, poorly
-documented off-by-one bug.
+Add and use MAXNODE_FOR_MASK() to compute the "correct" maxnode value that
+is passed to various NUMA-related syscalls, e.g. get_mempolicy(), mbind(),
+migrate_pages(), etc.  In quotes, because the kernel has an undocumented,
+longstanding off-by-one bug that requires userspace to specify the number
+of bits plus one, i.e. the max node plus two.
 
-Along the way, massage the xAPIC IPI test to automatically run its page
-migration testcases when possible, because that's the entire reason the
-test exists.
+The kernel bug has been known since 2007[*]:
 
-I didn't included the guest_memfd changes that were the focus of Shivank's
-series, as they are bigger and more involved (I'll let Shivank tackle those).
+ : And this is I think the reason why we can't change this now. I assume
+ : numactl allocates 1024 bits (0 to 1023) and passes 1025 to make sure all
+ : 1024 bits are processed. If we change it now, kernel will process 1025
+ : bits (0 to 1024) and overflow the allocated bitmask. If it happens to be
+ : at the border of mmaped vma, it's a segfault...
 
-[*] https://lore.kernel.org/all/20260901-gmem-selftests-fix-v2-0-5a273153354c@amd.com
+But unfortunately the manpages haven't yet been updated, e.g.
 
-Sean Christopherson (5):
-  KVM: selftests: Account for kernel's off-by-one bug in NUMA node
-    syscalls
-  KVM: selftests: Compute node masks on-demand in xAPIC IPI test
-  KVM: selftests: Add common helper to get mask+number of usable memory
-    NUMA nodes
-  KVM: selftests: Automatically run xAPIC IPI migration test when
-    possible
-  KVM: selftests: Skip xAPIC IPI migration test when forced but
-    unsupported
+ : The maxnode argument is the maximum node number in the bit mask plus one
 
-Shivank Garg (2):
-  KVM: selftests: Fix maxnode argument to migrate_pages() in
-    xapic_ipi_test
-  KVM: selftests: use BITS_PER_TYPE() for NUMA masks
+Link: https://lore.kernel.org/all/63ccc890-fd57-118b-5997-e0259f507d28@suse.cz[*]
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ tools/testing/selftests/kvm/guest_memfd_test.c   |  2 +-
+ tools/testing/selftests/kvm/include/numaif.h     | 11 +++++++++++
+ tools/testing/selftests/kvm/x86/xapic_ipi_test.c |  2 +-
+ 3 files changed, 13 insertions(+), 2 deletions(-)
 
- .../testing/selftests/kvm/guest_memfd_test.c  |  2 +-
- tools/testing/selftests/kvm/include/numaif.h  | 43 ++++++++++
- .../selftests/kvm/x86/xapic_ipi_test.c        | 78 +++++++++----------
- 3 files changed, 83 insertions(+), 40 deletions(-)
-
-
-base-commit: 76671054f9a1ff6abb976583cd8da37650acdc97
+diff --git a/tools/testing/selftests/kvm/guest_memfd_test.c b/tools/testing/selftests/kvm/guest_memfd_test.c
+index 2233d871a38f..cd5df88bc642 100644
+--- a/tools/testing/selftests/kvm/guest_memfd_test.c
++++ b/tools/testing/selftests/kvm/guest_memfd_test.c
+@@ -80,7 +80,7 @@ static void test_mbind(int fd, size_t total_size)
+ {
+ 	const unsigned long nodemask_0 = 1; /* nid: 0 */
+ 	unsigned long nodemask = 0;
+-	unsigned long maxnode = BITS_PER_TYPE(nodemask);
++	unsigned long maxnode = MAXNODE_FOR_MASK(nodemask);
+ 	int policy;
+ 	char *mem;
+ 	int ret;
+diff --git a/tools/testing/selftests/kvm/include/numaif.h b/tools/testing/selftests/kvm/include/numaif.h
+index 29572a6d789c..71f261eafc90 100644
+--- a/tools/testing/selftests/kvm/include/numaif.h
++++ b/tools/testing/selftests/kvm/include/numaif.h
+@@ -6,6 +6,7 @@
+ 
+ #include <dirent.h>
+ 
++#include <linux/bitops.h>
+ #include <linux/mempolicy.h>
+ 
+ #include "kvm_syscalls.h"
+@@ -30,6 +31,16 @@ KVM_SYSCALL_DEFINE(mbind, 6, void *, addr, unsigned long, size, int, mode,
+ 		   const unsigned long *, nodemask, unsigned long, maxnode,
+ 		   unsigned int, flags);
+ 
++/*
++ * Calculate the @maxnode param for the above syscalls given the mask that will
++ * be passed to the kernel, to account for a longstanding off-by-one bug in the
++ * kernel that isn't properly documented in the manpages.  The manpages say
++ * that @maxnode is "the maximum node ID plus one", but the kernel's actual
++ * behavior is "the number of bits in the mask plus one", i.e. "the maximum
++ * node ID plus two".
++ */
++#define MAXNODE_FOR_MASK(mask) (BITS_PER_TYPE(mask) + 1)
++
+ static inline int get_max_numa_node(void)
+ {
+ 	struct dirent *de;
+diff --git a/tools/testing/selftests/kvm/x86/xapic_ipi_test.c b/tools/testing/selftests/kvm/x86/xapic_ipi_test.c
+index 469e3ab16460..1ddcf95d7fe4 100644
+--- a/tools/testing/selftests/kvm/x86/xapic_ipi_test.c
++++ b/tools/testing/selftests/kvm/x86/xapic_ipi_test.c
+@@ -248,7 +248,7 @@ void do_migrations(struct test_data_page *data, int run_secs, int delay_usecs,
+ 		delay_usecs);
+ 
+ 	/* Get set of first 64 numa nodes available */
+-	kvm_get_mempolicy(NULL, &nodemask, sizeof(nodemask) * 8,
++	kvm_get_mempolicy(NULL, &nodemask, MAXNODE_FOR_MASK(nodemask),
+ 			  0, MPOL_F_MEMS_ALLOWED);
+ 
+ 	fprintf(stderr, "Numa nodes found amongst first %lu possible nodes "
 -- 
 2.55.0.970.g62bdec98f9-goog
 
