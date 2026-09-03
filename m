@@ -1,190 +1,169 @@
-Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9504635F61E;
-	Thu,  3 Sep 2026 07:32:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.96.220.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D204440647;
+	Thu,  3 Sep 2026 07:33:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788420782; cv=none; b=uxeLb9Cf7C2Gh9VZyBcM+Krb4rtSR6GVY09HmdqnLpw+gSC48eqSY+1drm7VpUiBwWyv+RT9dpkvwjEwjNBAinqu5fPaqMJi/D+KKmDO3Rgoor3XN/3LwVtBIzYDixGttpjbnC9iCIIE5FcN0FuUfk4oOjVlWWzFvPVL0mQwKoM=
+	t=1788420789; cv=none; b=Y2QS0R2QOGp3e+EL0LzMXf/FXAp/XhaMMnljtTt+ZFOWbmEPHAJO5xb76IMDwRfoR7F5aNQmyX95yeXOjNXnUeEroxWY5fY/OiqoyOhw94GVeO7p3RE5K1pu8gOyZXir3P1Bt7dTBRZ2SeTdQZhO5/S7bvQ5xrJaAOAXUwp9DSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788420782; c=relaxed/simple;
-	bh=rxDXIMSCoBOkjZoCKGfH+vbM71Jqs/DjLA1NIsEcEiU=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OjG66+otacm7486tnzvrzXPdAZBqoe7WbgdIyk1l2RuOPEc3423ywaoyxRDGYcCamMqOhlVet6d9Z5MVeH+6CEwIvW+TU0B2Cx7MOg1IakDF659vvqvjmhZYoAroUmIcrX9476hOPn009NdLqjyeV9lGz3hHEfbxOdZtJGpDIT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com; spf=pass smtp.mailfrom=secunet.com; dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b=cB5i5pl8; arc=none smtp.client-ip=62.96.220.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
+	s=arc-20240116; t=1788420789; c=relaxed/simple;
+	bh=AHPGNiaR5J3grPf0jqA8qefXFAPkTePC19VGEkjGmU8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=b8swguuRKr1pukrNjVwnvzr3tZ4P3/37K/7j10xvoW3HWaGT2/65MynMBo0xra1TSY5Oz6pJL3/ZB8SqRvgVY+YLwKQ7E6fcnOlrfwNhCR0A2RGgDF+t1oBotW/moM2sObiAuC0iTq7EIx0TalfdB68eTsWtFOFSqN5qIM4pofc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=bQV1zXZ4; arc=none smtp.client-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b="cB5i5pl8"
-Received: from localhost (localhost [127.0.0.1])
-	by mx1.secunet.com (Postfix) with ESMTP id 39E30201C7;
-	Thu,  3 Sep 2026 09:32:56 +0200 (CEST)
-X-Virus-Scanned: by secunet
-Received: from mx1.secunet.com ([127.0.0.1])
- by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id q5baW6b2ggut; Thu,  3 Sep 2026 09:32:55 +0200 (CEST)
-Received: from EXCH-01.secunet.de (rl1.secunet.de [10.32.0.231])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mx1.secunet.com (Postfix) with ESMTPS id 7FEC72058E;
-	Thu,  3 Sep 2026 09:32:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com 7FEC72058E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
-	s=202301; t=1788420775;
-	bh=VYA2mSun53SINAKSK+NMDIUfBNfT1MQXzK7ecPvuByc=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:From;
-	b=cB5i5pl8P15gvLgAIgIH6yek67OYdmBr/hLsOLiYlx8ahEFwLtKwMIvCKxLETEIew
-	 hgVz4lsfHRwEA+q33vGySgH0vId4NiMVdnDQvW4+vjL32+burtq8JxgK7RAXqUmNF6
-	 pI1eyhMo4DE9rfW9sIvvJXvVv7wEHW2Ymi3hgOXa6/ol0ygCTJrNkjXtcDXl80o/47
-	 IIrecm5VJzODHkEBb3COY3j9rFQAWivRTSMXtFM8kh+uZlSAFEajiZ2pgJCASw+Ym0
-	 Tc5EP1/FHmRwa2dxQYo+prm3+/AsBRsCw21JrjsR9g0laEXu823hSKBL4lyS+9jhIK
-	 48IhYhP9OMT7A==
-Received: from secunet.com (10.182.7.193) by EXCH-01.secunet.de (10.32.0.171)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 3 Sep
- 2026 09:32:54 +0200
-Received: (nullmailer pid 1406827 invoked by uid 1000);
-	Thu, 03 Sep 2026 07:32:53 -0000
-Date: Thu, 3 Sep 2026 09:32:53 +0200
-From: Steffen Klassert <steffen.klassert@secunet.com>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-CC: Herbert Xu <herbert@gondor.apana.org.au>, "David S . Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
-	<horms@kernel.org>, Florian Westphal <fw@strlen.de>,
-	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-Subject: Re: [PATCH net] xfrm: retry inexact policy lookup after node
- reinsertion
-Message-ID: <apkipe4r500gMfwx@secunet.com>
-References: <20260824152057.216329-1-nicoyip.dev@gmail.com>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="bQV1zXZ4"
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260903073300euoutp01f932cc3b5b8312ed22b276d0d0ac5943~RvzldRbJd3111131111euoutp01L;
+	Thu,  3 Sep 2026 07:33:00 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260903073300euoutp01f932cc3b5b8312ed22b276d0d0ac5943~RvzldRbJd3111131111euoutp01L
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1788420780;
+	bh=4Rh82UpIZQ7NIonfNGs8YTQqWSqGT+MHCSLTl6BXJFs=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=bQV1zXZ4+kSUiD1UtpA8m7+DEFdp3b+UJT/x0X50HERkYva4J2b8M/D3zL6qOxYy5
+	 6lfDF3e+/r2d8teE3hZUKOHqLhKuqFmsKNY1MOeHj8gIqcQh65i9ERtw7Ct1LVadGN
+	 is0YSAfIOwuPbjiTdffjbCDzJGY3smVOZSHQSVyY=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260903073259eucas1p1129fec57788d227a159662ed4bbd4068~Rvzk9e9k82315423154eucas1p1i;
+	Thu,  3 Sep 2026 07:32:59 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260903073256eusmtip1b94b6b13230ed6f62847ad6ac2a1cf65~RvzhrjUza3241332413eusmtip1J;
+	Thu,  3 Sep 2026 07:32:56 +0000 (GMT)
+Message-ID: <859ff0c6-6c3f-47c1-95f5-0428d06f0b87@samsung.com>
+Date: Thu, 3 Sep 2026 09:32:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260824152057.216329-1-nicoyip.dev@gmail.com>
-X-ClientProxiedBy: EXCH-04.secunet.de (10.32.0.184) To EXCH-01.secunet.de
- (10.32.0.171)
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH v6 09/10] of: reserved_mem: mark /memreserve/ entries as
+ MEMBLOCK_NODUMP
+To: Wandun Chen <chenwandun1@gmail.com>, catalin.marinas@arm.com,
+	will@kernel.org, chenhuacai@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
+	aou@eecs.berkeley.edu, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, x86@kernel.org, robh@kernel.org,
+	saravanak@kernel.org, akpm@linux-foundation.org, baoquan.he@linux.dev,
+	rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org
+Cc: mark.rutland@arm.com, kernel@xen0n.name, alex@ghiti.fr, hpa@zytor.com,
+	ruirui.yang@linux.dev, robin.murphy@arm.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org, kexec@lists.infradead.org, linux-mm@kvack.org,
+	iommu@lists.linux.dev
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20260902073116.802752-10-chenwandun1@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260903073259eucas1p1129fec57788d227a159662ed4bbd4068
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260902073334eucas1p1b0e997e1f1c9752bc9f48229d7922443
+X-EPHeader: CA
+X-CMS-RootMailID: 20260902073334eucas1p1b0e997e1f1c9752bc9f48229d7922443
+References: <20260902073116.802752-1-chenwandun1@gmail.com>
+	<CGME20260902073334eucas1p1b0e997e1f1c9752bc9f48229d7922443@eucas1p1.samsung.com>
+	<20260902073116.802752-10-chenwandun1@gmail.com>
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
---- Patch [1]: [PATCH net] xfrm: retry inexact policy lookup after node reinsertion ---
-commit 55045c9b49d306c47b0ee8e568d224e0bca94a3c
-Author: Chengfeng Ye <nicoyip.dev@gmail.com>
-
-xfrm: retry inexact policy lookup after node reinsertion
-
-This adds a snapshot of the per-bin sequence counter around inexact
-candidate discovery and evaluation in xfrm_policy_lookup_bytype(), and
-retries the whole lookup if the counter changed.  The stated goal is to
-reject lookups that overlap the bydst hlist hop done during node merge and
-reinsertion.
-
-No Link: tags are present in the commit header.
-
-> During concurrent policy insertion and route lookup, KCSAN reported:
+On 02.09.2026 09:31, Wandun Chen wrote:
+> From: Wandun Chen <chenwandun@lixiang.com>
 >
->   BUG: KCSAN: data-race in __xfrm_policy_link / xfrm_lookup_with_ifid
->   write to ... by task 92 on cpu 0:
->     __xfrm_policy_link
->     xfrm_policy_insert
->     xfrm_add_policy
->   read to ... by task 91 on cpu 1:
->     xfrm_lookup_with_ifid
->     xfrm_lookup_route
->     ip_route_output_flow
-
-Discovered by: opus-5 � Missed by: sonnet-5, gpt-5-6-sol, sashiko-gemini � Confirmed by: gpt-5-6-sol
-Can this KCSAN report come from the code the patch changes?
-
-__xfrm_policy_link() in net/xfrm/xfrm_policy.c only does this:
-
-	switch (dir) {
-	case XFRM_POLICY_IN:
-	case XFRM_POLICY_FWD:
-	case XFRM_POLICY_OUT:
-		pol->pos = xfrm_gen_pos(net);
-		break;
-	}
-
-	list_add(&pol->walk.all, &net->xfrm.policy_all);
-	WRITE_ONCE(net->xfrm.policy_count[dir], net->xfrm.policy_count[dir] + 1);
-	xfrm_pol_hold(pol);
-
-The only one of those locations that xfrm_lookup_with_ifid() touches is
-policy_count, and it reads it marked:
-
-	if (!if_id && ((dst_orig->flags & DST_NOXFRM) ||
-		       !READ_ONCE(net->xfrm.policy_count[XFRM_POLICY_OUT])))
-		goto nopol;
-
-Documentation/dev-tools/kcsan.rst states that if all concurrent accesses to
-a variable are properly marked, KCSAN will never trigger a watchpoint and
-therefore never report the accesses.  Both sides here are marked, so how
-was this pair reported?
-
-The write side the changelog describes in prose is a different one: the
-bydst hop in xfrm_policy_inexact_node_merge():
-
-	hlist_for_each_entry(tmp, &v->hhead, bydst) {
-		tmp->bydst_reinsert = true;
-		hlist_del_rcu(&tmp->bydst);
-	}
-
-	xfrm_policy_inexact_list_reinsert(net, n, family);
-
-That path is reached via xfrm_policy_inexact_insert_node(), not via
-__xfrm_policy_link(), and it also uses only marked writes
-(hlist_del_rcu(), hlist_add_head_rcu(), hlist_add_behind_rcu()) against a
-reader using hlist_for_each_entry_rcu().  So that pair would not be
-reported by KCSAN either, which suggests the hazard being fixed is a
-logical list-hop ordering problem between correctly marked RCU accesses
-rather than a data race.
-
-Could the changelog be reworded to describe the ordering problem directly,
-and either drop the KCSAN splat or replace it with a report that actually
-corresponds to the accesses this patch guards?  With Cc: stable in place,
-the quoted evidence is what backporters will use to judge the fix.
-
-> diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
-> index 932a313b9460a..5d4e863863dfe 100644
-> --- a/net/xfrm/xfrm_policy.c
-> +++ b/net/xfrm/xfrm_policy.c
-
-[ ... ]
-
-> @@ -2191,12 +2192,18 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
->  		goto skip_inexact;
+> The /memreserve/ entries are memory reservations made by the bootloader
+> or firmware, their contents are not needed for kernel crash analysis,
+> so mark them MEMBLOCK_NODUMP to have kdump omit them from the vmcore.
 >
->  	bin = xfrm_policy_inexact_lookup_rcu(net, type, family, dir, if_id);
-> -	if (!bin || !xfrm_policy_find_inexact_candidates(&cand, bin, saddr,
-> -							 daddr))
-> +	if (!bin)
-> +		goto skip_inexact;
+> Entries that overlap a dumpable region (such as CMA) are left unmarked,
+> because the pages of a dumpable region may carry crash-relevant data.
+>
+> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+> Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
+
+Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
+
+> ---
+>  drivers/of/fdt.c             |  1 +
+>  drivers/of/of_private.h      |  1 +
+>  drivers/of/of_reserved_mem.c | 33 +++++++++++++++++++++++++++++++++
+>  3 files changed, 35 insertions(+)
+>
+> diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
+> index 286fd4db6312..9a727941b5af 100644
+> --- a/drivers/of/fdt.c
+> +++ b/drivers/of/fdt.c
+> @@ -1286,6 +1286,7 @@ void __init unflatten_device_tree(void)
+>  	/* Save the statically-placed regions in the reserved_mem array */
+>  	fdt_scan_reserved_mem_late();
+>  	fdt_mark_reserve_mem_nodump();
+> +	fdt_mark_memreserve_nodump();
+>  
+>  	/* Populate an empty root node when bootloader doesn't provide one */
+>  	if (!fdt) {
+> diff --git a/drivers/of/of_private.h b/drivers/of/of_private.h
+> index 505735732c13..6497404ec751 100644
+> --- a/drivers/of/of_private.h
+> +++ b/drivers/of/of_private.h
+> @@ -188,6 +188,7 @@ static inline struct device_node *__of_get_dma_parent(const struct device_node *
+>  int fdt_scan_reserved_mem(void);
+>  void __init fdt_scan_reserved_mem_late(void);
+>  void __init fdt_mark_reserve_mem_nodump(void);
+> +void __init fdt_mark_memreserve_nodump(void);
+>  
+>  bool of_fdt_device_is_available(const void *blob, unsigned long node);
+>  
+> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+> index f29a07e8fb23..a42cf6eac55b 100644
+> --- a/drivers/of/of_reserved_mem.c
+> +++ b/drivers/of/of_reserved_mem.c
+> @@ -251,6 +251,39 @@ static void __init __rmem_check_for_overlap(void)
+>  	}
+>  }
+>  
+> +void __init fdt_mark_memreserve_nodump(void)
+> +{
+> +	u64 base, size;
+> +	int n;
+> +	const void *fdt = initial_boot_params;
 > +
-> +	inexact_sequence = read_seqcount_begin(&bin->count);
-> +	if (!xfrm_policy_find_inexact_candidates(&cand, bin, saddr, daddr))
->  		goto skip_inexact;
->
->  	pol = xfrm_policy_eval_candidates(&cand, ret, fl, type,
->  					  family, if_id);
-> +	if (read_seqcount_retry(&bin->count, inexact_sequence))
-> +		goto retry;
+> +	if (!IS_ENABLED(CONFIG_CRASH_DUMP))
+> +		return;
 > +
+> +	if (!fdt)
+> +		return;
+> +
+> +	for (n = 0; ; n++) {
+> +		int i;
+> +
+> +		if (fdt_get_mem_rsv(fdt, n, &base, &size))
+> +			break;
+> +		if (!size)
+> +			break;
+> +
+> +		for (i = 0; i < reserved_mem_count; i++) {
+> +			struct reserved_mem *rmem = &reserved_mem[i];
+> +
+> +			if (rmem->dumpable &&
+> +			    base < (u64)rmem->base + (u64)rmem->size &&
+> +			    (u64)rmem->base < base + size)
+> +				break;
+> +		}
+> +		if (i == reserved_mem_count)
+> +			memblock_mark_nodump(base, size);
+> +	}
+> +}
+> +
+>  /**
+>   * fdt_scan_reserved_mem_late() - Scan FDT and initialize remaining reserved
+>   * memory regions.
 
-Discovered by: opus-5 � Missed by: sonnet-5, gpt-5-6-sol, sashiko-gemini � Confirmed by: gpt-5-6-sol
-Related to the above: this retry can only observe mutations that are
-bracketed by write_seqcount_begin(&bin->count).  The chain updates done by
-xfrm_policy_insert_list() and __xfrm_policy_unlink(), and the counter
-update in __xfrm_policy_link() named in the quoted splat, do not run inside
-any bin->count write section.
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
-So even taken at face value, would this new read_seqcount_retry() have any
-effect on the __xfrm_policy_link() versus xfrm_lookup_with_ifid() pair
-quoted in the changelog?
