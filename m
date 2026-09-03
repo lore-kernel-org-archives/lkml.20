@@ -1,137 +1,65 @@
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA9474F30EC
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 17:03:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63BEA41D107;
+	Thu,  3 Sep 2026 17:04:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788455010; cv=none; b=ggv0v76NNWEoWn6cwMIC3tfYbPcYuOSAP4bo6xWkxHVJ2hkVU8Du4NKMI4nbyyhf8T+ACd8lUlbaOTMl0JgJ9i7Vta6g8s1Se6s7vFWVnlmmcOhM5pC8U2jB0hlgzGMF4ap5ibb/IESYVRYOgumHFG7DNJtO+j+Zu7H71UDkWFs=
+	t=1788455062; cv=none; b=JeADe1wMIvTNSahShq+pzij8aFL2nZYmJLwcr6cumF7SHSkSOnSwrWYMtnIGOguOpHubfM5kFINR3r0uduHqaMnNY57JvoS7X6BjpgGHpHKTAmtX3OxlaPzEeIAkahQxGG4oHLkgUVOE4C+WvscVge8vI4golrETghnTAwIeYbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788455010; c=relaxed/simple;
-	bh=6vLgwFypI9R6E48HnmbFTXCQiSQpFbanDrb/YELuqEs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Vvws1iwEXTvVQJeu6huUus2b30DyzKqxyZHIoodOYIChWTlRsH/ANwc6Y9C/tnR7axAsR5TPiyzOMpOu2dnhe767lbv0aMtqZ4fRTrxsIodlvDCksaBg3CW+xpMo3+FQSHDR5uy7MP8qUksbmwnt6zRybtt5eVHgUI3ucwYMeGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QQYKnSVO; arc=none smtp.client-ip=209.85.128.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788455062; c=relaxed/simple;
+	bh=P2kh42sz3F/S3MGz/OO66I7pRINdwtyckW3evH0s9xw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=UXF3Y2/OhiKfteX/WkSg9W89s8pBlM94lLK+wn+QX8JAJ6g9SWhwBtmsZEDdufkzYtFNIJr8CX3n1M4iIB7OE/9zzi+4BHk8dqDaCZqfZEvWIVLbF4GaLwFkGB5C6lXgzdogd/iUA9QpaaOx3RTUKw+E5Nc+uCwwJz9Is7NgAYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dls2N2dw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QQYKnSVO"
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-836c4474028so1661757b3.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 10:03:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788455008; x=1789059808; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CstuSRSoRYjDy3SQPB3JE0tK/DdVcQaXoQui8YlYnzY=;
-        b=QQYKnSVOlORU22HAtJfuNVl4iQiCljkEKWs/8txAonTMfEjSWpKVbcC1PEJ4X+hCaU
-         XZ+MbMr2TtDnJ4Xt0kQX3W45dL09ERr0eilP00Eu+VRb31O5sxiRSw9YX3hZspdInT/v
-         x9utrbLEXuB2ucQScMLqbEXH4XH0LS84nZI88VOGP1VBYyB+S4hZ5+Oc7Rxd4NCd1RoX
-         d/tX0Gi3dFPtCF3ckZqv/GJ96akyWVrMVvg+6wKydPB3xovIdaxlpBSucPoMBdkUwsFZ
-         lKjRMm6tHJ/5Flxdi9A4vj8a41St0A130csA9T8i1YJOoGNBf5kZhSTNDUxYB/F/jbLo
-         /zBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788455008; x=1789059808;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CstuSRSoRYjDy3SQPB3JE0tK/DdVcQaXoQui8YlYnzY=;
-        b=DjWHluUbd+reamSKPNx2nyPEoSOJ06I+abmdcTdHWF0ZN2vgupkd4u3Y/qqyUO4lf7
-         uv15iU5m5VZWdVqtRsvAyQ16zqGVpNwt5OMoJPGXr4IiNhlxkF7S6Zf5DfI4/lKCjFOW
-         2qlnff1fiXhLmhIQxf4ikBkdeO5FukDlXfy62dQkM6sdu0cHHg0xa4NmDnVErJJZDGHC
-         dI7Pnk20MPT8ueezmD0mdR1e56RSZ6fdjEGvvN8lhAREibp/IbOgHZwxP+H2eF38luoe
-         P01sLFL5RTdWpzpk1xKtpxeIka0jhBC/hG7VyY+gp01dTu42Q0CerEhyKG9Bwo2zhxck
-         MM0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwtQPCpDwFVyd4AImBjroFfYLqeCRUWdXZFmhkC8UHTZCz/wT+BA3BEETLxQODivBz6gDlk3NgNVMnoxxo=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6264y9KjdoRZd1Xe2nJ+8jWoyGEYO0mt7f5nm2VphuLB/D5E9
-	JuTuQR3fzeqTbDckL0AXrKIAC9y69fj5A7NIg7YI9zsSaJZGwbBMo9Ic
-X-Gm-Gg: AYBFou35I3nhvNex3UaOFCQGwanRYsjexUU43fV6LGEBBCge97cn1uX7qXR2nDwqoSP
-	PqptaMg8bfRLQQn+KoNfPSJhvOhgeeQtVQgWLhxG1cYLLkYSuXkTQTizqhPh6qbmj5s05QnCxWa
-	7iZw5HiNNzgFI5idalNs4V7LIHwD29KYcYPVSQwHXC2Cylj1p5zFdW3/Ks4f1i6av2qulIzLjkA
-	cLMCk0ZCoqJrsEpm0CRgOVDGLUOfsKFeW+VAMHJ62gfAtuSLCkeim7cEW5/G8v0s7TafPi7ki1t
-	hAg5Xiq8b1Ivov5ATykl+/J39IYrIoVr+z1Mjf8gs/UAwKoctSwvmpRTyMikQMV4cg0dMbcXg/A
-	2JrGVZtLnJ/HPtdszge2jtgGuHahVr7w19oQOOXkBo1Ydw3mDlEOXYhVpJPpYbwXLxDgKN02kDT
-	cRj3AmjHI1Qwrwlzuve+pJIOgYSQIziCIZ2RcQJzSHXozZKgfhLY7zHr2dZzFjepQW5Q==
-X-Received: by 2002:a05:690c:6605:b0:845:ddf4:a399 with SMTP id 00721157ae682-8712390b41dmr2299217b3.11.1788455007588;
-        Thu, 03 Sep 2026 10:03:27 -0700 (PDT)
-Received: from Beast ([2600:1702:8265:324f:c600:425a:f388:aa8b])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-86c1784382esm44343537b3.25.2026.09.03.10.03.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 10:03:26 -0700 (PDT)
-From: Aritra Das <aritra.rohit2003@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Aritra Das <aritra.rohit2003@gmail.com>
-Subject: [PATCH] Bluetooth: btusb: Add USB ID 13d3:3556 for RTL8821CE
-Date: Thu,  3 Sep 2026 10:03:22 -0700
-Message-ID: <20260903170322.47004-1-aritra.rohit2003@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dls2N2dw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96AF81F000E9;
+	Thu,  3 Sep 2026 17:04:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788455060;
+	bh=EurD4w8b/UeMVamu+ReBim1+YAXqPm5dzgrxosZd9fM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=dls2N2dw02Iv9r7slmak7JJSJHHeVsGc6meB9X+drKBFDZDxb5XeK3n0bAqCJmTHN
+	 n268+axM18t2+TdjokhvMhMbTRfwg2mW1Yuek5idHD2QexLhzLjQQeKufgq+mz5RbH
+	 sGoKh23FFx/alQ3XOVw8G7rx+6lCYqribNF3ZPciTxAYf2Bxtd/8E6DJTjTDNQvHWM
+	 uuW1tNAfdIBL2wFL2S7iPZyh73gL3f13TbLcclNcUVT/XkM6j9SQwOXLfXqNjyg/Ik
+	 XfYF3iNWHTc2AepcxOhdCl3VXkOBOaAOcjZkdc3QJCdXYwzWTnhvMFZu+B1CKVNBCT
+	 R6bJhCnnPxeig==
+From: Vinod Koul <vkoul@kernel.org>
+To: Frank Li <Frank.Li@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Manuel Ebner <manuelebnerli@mailbox.org>
+Cc: dmaengine@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260903095545.729607-3-manuelebnerli@mailbox.org>
+References: <20260903095545.729607-3-manuelebnerli@mailbox.org>
+Subject: Re: [PATCH] docs: dmaengine: Fix bracket
+Message-Id: <178845505816.1711546.8996027018854474819.b4-ty@kernel.org>
+Date: Thu, 03 Sep 2026 22:34:18 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13.0
 
-The onboard Realtek RTL8821CE combo card on the ASUS PRIME B550-PLUS
-AC-HES presents its Bluetooth function as USB ID 13d3:3556. This ID is
-missing from quirks_table, so btusb matches the device only through the
-generic Bluetooth class entry in btusb_table and driver_info stays zero.
-BTUSB_REALTEK is therefore never set, btrtl never runs, and the
-controller keeps executing its on-chip ROM firmware instead of loading
-rtl_bt/rtl8821c_fw.bin and rtl_bt/rtl8821c_config.bin.
 
-In that state BLE HID peripherals are unusable. A HHKB Hybrid keyboard
-pairs and enumerates as a HID device, then the link drops within 10-30
-seconds, repeatedly. The same keyboard is stable on the same host under
-other operating systems.
+On Thu, 03 Sep 2026 11:55:45 +0200, Manuel Ebner wrote:
+> Add missing ')' to sentence.
+> 
+> 
 
-Adding the ID lets btusb run the Realtek setup path:
+Applied, thanks!
 
-  Bluetooth: hci0: RTL: examining hci_ver=08 hci_rev=000c lmp_ver=08 lmp_subver=8821
-  Bluetooth: hci0: RTL: rom_version status=0 version=1
-  Bluetooth: hci0: RTL: loading rtl_bt/rtl8821c_fw.bin
-  Bluetooth: hci0: RTL: loading rtl_bt/rtl8821c_config.bin
-  Bluetooth: hci0: RTL: cfg_sz 10, total sz 34926
-  Bluetooth: hci0: RTL: fw version 0x75b8f098
+[1/1] docs: dmaengine: Fix bracket
+      commit: 635e425c0771ec2ba09b0ef69bb9814e2554374e
 
-With the firmware loaded the same keyboard has stayed connected for over
-11 hours without a single drop.
+Best regards,
+-- 
+~Vinod
 
-Device descriptor:
 
-T:  Bus=01 Lev=01 Prnt=01 Port=04 Cnt=02 Dev#=  2 Spd=12   MxCh= 0
-D:  Ver= 1.10 Cls=e0(wlcon) Sub=01 Prot=01 MxPS=64 #Cfgs=  1
-P:  Vendor=13d3 ProdID=3556 Rev=01.10
-S:  Manufacturer=Realtek 
-S:  Product=Bluetooth Radio 
-S:  SerialNumber=00e04c000001
-C:  #Ifs= 2 Cfg#= 1 Atr=e0 MxPwr=500mA
-I:  If#= 0 Alt= 0 #EPs= 3 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
-E:  Ad=02(O) Atr=02(Bulk) MxPS=  64 Ivl=0ms
-E:  Ad=81(I) Atr=03(Int.) MxPS=  16 Ivl=1ms
-E:  Ad=82(I) Atr=02(Bulk) MxPS=  64 Ivl=0ms
-I:  If#= 1 Alt= 0 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
-E:  Ad=03(O) Atr=01(Isoc) MxPS=   0 Ivl=1ms
-E:  Ad=83(I) Atr=01(Isoc) MxPS=   0 Ivl=1ms
-
-Signed-off-by: Aritra Das <aritra.rohit2003@gmail.com>
----
- drivers/bluetooth/btusb.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
-index 03039ce..0424898 100644
---- a/drivers/bluetooth/btusb.c
-+++ b/drivers/bluetooth/btusb.c
-@@ -511,6 +511,8 @@ static const struct usb_device_id quirks_table[] = {
- 						     BTUSB_WIDEBAND_SPEECH },
- 	{ USB_DEVICE(0x13d3, 0x3533), .driver_info = BTUSB_REALTEK |
- 						     BTUSB_WIDEBAND_SPEECH },
-+	{ USB_DEVICE(0x13d3, 0x3556), .driver_info = BTUSB_REALTEK |
-+						     BTUSB_WIDEBAND_SPEECH },
- 	{ USB_DEVICE(0x13d3, 0x3558), .driver_info = BTUSB_REALTEK |
- 						     BTUSB_WIDEBAND_SPEECH },
- 
-base-commit: 6696072ffe07205255cf83621a95a1aa2f9f6e62
