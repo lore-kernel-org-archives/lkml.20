@@ -1,43 +1,59 @@
-Received: from mail-07.mail-europe.com (mail-07.mail-europe.com [37.187.220.204])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A5D175A9D
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 00:41:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.187.220.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C351FF7C5
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 00:44:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788396095; cv=none; b=dpwdLivWdXyi88iKJkPKc4s14ZcWNn13Wnu2/1m94niv9Ywr+jUSxXEOh3BYkGb0QG35NID4rzeR11+QtIA4evjMpRW+MGa6L9eXxWdd2kER1eUH23cSHKBdwdF9CSDHhW31378pbyhdOgx4oj80QLh64YvXnJOxMTyfGXHkMuM=
+	t=1788396279; cv=none; b=gz1bXI/v47hfKJaZ/yhyXt4bxJdtu/Pbu52bky/h7pqSYP66dZl7ZVdC+LXT+WAQWyIIH5kzoZGLaiTD2XXbk2RX97FoEwd2/6HbckUajTnd/w+d7pA0GYhwUCyNoHadVV+kW/yJ4jhPIuI84b5eJT1RTonBzZAcFF6QWdOx35M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788396095; c=relaxed/simple;
-	bh=jMwOBwGiRU8fETlBy0Qnu3oQ54CAs0gRdMT8qbU+v98=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sUVdUPdkY6WlBRnsy433Vq6F9M0inFAS2y5buymjQsUVbeG6AcGI/tioQ5vPy0KWyXgTD7fkRwiGOkHfykHQpqqoM5VmD+6WYTRBRpIrQSARi7bP6XExh1MoLvj88wmX2AxENvUOOtYDj9C45Ie4MujXGoP9sUC6Wmr64yslRvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=q/l4gws5; arc=none smtp.client-ip=37.187.220.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	s=arc-20240116; t=1788396279; c=relaxed/simple;
+	bh=+q2nRmIMqouBhmKTnCyfcrc5UQsl75n0NRq5NUaBXHo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T4n+83M/kE/5vlEishaVhvFjHOX0TQe1dKO9YXsMdcADzLPrkcn91aDk5AlO2uM43COS0OzNg8xDLJWx7uVP9kKL/wfuHcv6uWnJCIT/pXHSgzRSuZeOSP8hf64PQY1UYuWqIKFQ2vLI57CEZqUNR8A18oUI8bP3u8W51Q1aQBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=hMwIqT5c; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="q/l4gws5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1788396074; x=1788655274;
-	bh=u+EzJoDEG9W5tYl5Q0IYEK/9+yw3B8m1JuHAL+Fe8n4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=q/l4gws5khHQ9usVFhNy0enBWgX0xFWS+I2k5m6cemWpTllDUVh3FPqKFH8kVKUFv
-	 iJCxo5xmaJF+T33gO56nzM7+LirON14zZOmfgnX9JdJBdMq8YRUi7Dl9PINoAXXBDA
-	 CHyjVhOvu9EFUqZf3EzDPcGbjjys17oJptaYdcENSeL1uWc5x4/mMpDFTVfAUC1tOf
-	 AXs7UG7ZU3NxoN1+Jvc6c94MFtb1zh2t3Qz2FiHVehtm4DKGHsJu7CfVsE8VPshLVE
-	 BTwxh8DLOlnd2/zxsGGvi7jYMIV7Wj0nl6XWHZsxLKJ9agb+4coRDXNwH8Gtyc66aj
-	 nbozTG5nVArDA==
-Date: Thu, 03 Sep 2026 00:41:10 +0000
-To: aidenisik@member.fsf.org
-From: Aiden Isik <aidenisik@protonmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, Aiden Isik <aidenisik+git@member.fsf.org>
-Subject: Re: [PATCH 2/2] arm64: dts: exynos: Add initial support for Samsung Galaxy Watch FE
-Message-ID: <4nry_0LYAWEUI1glONRapkF3AXjNNot6Rl4lQ91urHXgWoZKDAnfgn-VhZFPFqp9NPpuKAzYiaH9r2sVCcDgrp4hP6lsUWtcQuEB4vU5Vnc=@protonmail.com>
-In-Reply-To: <20260817-for-next-lucky7-v1-2-42ffb2b71ba2@member.fsf.org>
-References: <20260817-for-next-lucky7-v1-0-42ffb2b71ba2@member.fsf.org> <20260817-for-next-lucky7-v1-2-42ffb2b71ba2@member.fsf.org>
-Feedback-ID: 46524699:user:proton
-X-Pm-Message-ID: 84627e5c69c68b7676b45132793d9da796719d27
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="hMwIqT5c"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 0B9C740E02C2;
+	Thu,  3 Sep 2026 00:44:35 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id Puely6-fpXbP; Thu,  3 Sep 2026 00:44:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1788396263; bh=BvTNIxSwVFWHoSIbkK2L5MbPA3hShxFmAoJ2zInYwzw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hMwIqT5cuCP+oIf0IV/d8+XbLuqd8m4CxFbeSw4zhKkPJbZwzCno9lPvRjQ/agCFY
+	 00C8N5o1wE8iNgAmN9+BvSw7/2fXa2efew4Ip/pLc8dn7Z+Zgunu5DDI5id1J0mx76
+	 CxQZ+y3G03k1qu8Wh6cRy2e6XYG9+jvpPP1h8OLZP5fBnL9AjZzEEiry0i/fbRjYYF
+	 WLUhA9kBglpQDmiRXqdDEzR0kzx0mPO1Wd0u8KkiRSUm4KxkX5+ke9FY3py+zIXMMd
+	 972zNMOVtg/V5s3sIE1DQuTIktQ/CS6fF3IHEdcIZr62PyQ2J+O+02PVyeTFfd0C9O
+	 0rCJRi9Ossm5sGd8ebH7nehm+oPEVKGZIQghPNUgHetn6luROQgbYD8QRWF5E+a4Is
+	 Y2SVcpFbIXXhXMk2n7Vp1AjeJ3pyKsz2KIldf5S7Z8+wDfX6nhP2EtWxoo5D5J078b
+	 kE2aafWz/89j+rKuNyum36yY2gzI/2lbRE7o2l/u/cHWL6pN+twj47Kd2iOR76CkZL
+	 9gS1WGZaEzV4z/c8oCh4Ppf92jKs3kQL9YGbFaNmAd5fy9LYnTzN30H5S3otCmFPLl
+	 ieK+D3BJB9IUnwHWou9GmwUfdMZxs1Ae6SF3Flb0iXEysTfZl7uXLCgrSk5w8xD6yF
+	 z7wIcsAHJJdb4P28kzIshRfk=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 0D61340E027F;
+	Thu,  3 Sep 2026 00:44:18 +0000 (UTC)
+Date: Wed, 2 Sep 2026 17:44:15 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Melody Wang <huibo.wang@amd.com>
+Cc: x86@kernel.org, LKML <linux-kernel@vger.kernel.org>,
+	Tom Lendacky <thomas.lendacky@amd.com>
+Subject: Re: [PATCH v1 2/8] x86/sev: Add support for Alternate Injection
+Message-ID: <20260903004415.GLapjC39_OQgXHhS79@fat_crate.local>
+References: <cover.1787973545.git.huibo.wang@amd.com>
+ <64561ae475103cbe9743793fd54d083a039a36eb.1787973545.git.huibo.wang@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,164 +61,123 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+In-Reply-To: <64561ae475103cbe9743793fd54d083a039a36eb.1787973545.git.huibo.wang@amd.com>
 
-On Monday, August 17th, 2026 at 11:37 AM, Aiden Isik via B4 Relay <devnull+=
-aidenisik.member.fsf.org@kernel.org> wrote:
+On Sat, Aug 29, 2026 at 03:39:40AM +0000, Melody Wang wrote:
+> The Alternate Injection feature is a method to protect an AMD
+> confidential computing guest from malicious injection attacks. It allows
 
-> From: Aiden Isik <aidenisik@member.fsf.org>
->=20
-> The Samsung Galaxy Watch FE (SM-R861/SM-R866), codenamed lucky7, is a
-> smartwatch developed by Samsung and released in 2024. It has 1.5GiB RAM,
-> 16GiB of eMMC storage, an Exynos5515 (W920) SoC, and a 396x396 display.
->=20
-> Support for the following is added by this device tree:
-> - Bootloader framebuffer
-> - Memory
->=20
-> Only the lowest 490MiB and highest 512MiB of memory are used for now.
-> The 488MiB between the addresses of 0x9ea00000 and 0xbe680000 is excluded
-> from the memory node due to a bug where if the kernel even knows about
-> the existence of this memory, one or both cores will lock up and cause
-> an RCU stall.
+" ... a SNP guest... " - simpler.
 
-This used to work fine on my 7.0 and 7.1-based branches, so I did a bit
-of bisecting and found that the issue was introduced in commit
-7b9f263909a57e2463c6a543d72651e00a3fd0d6
-(of: reserved_mem: only support one <base size> entry in reg property).
-
-This explains why hiding the memory from the kernel worked, I *was*
-reserving this memory but in a way which this commit discontinued.
-
-I initially thought this was some randomly-occurring "heisenbug", which
-is why I submitted the memory-hiding fix instead as it definitely worked,
-but now I know the real problem I will fix the reserved-memory node.
-
-I will fix this in the next version of this patchset, next merge window.
-
->=20
-> Signed-off-by: Aiden Isik <aidenisik+git@member.fsf.org>
-> ---
->  arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts | 106 +++++++++++++++++=
-++++++
->  1 file changed, 106 insertions(+)
->=20
-> diff --git a/arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts b/arch/arm6=
-4/boot/dts/exynos/exynos5515-lucky7.dts
-> new file mode 100644
-> index 000000000000..f91ea7e44cf8
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts
-> @@ -0,0 +1,106 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Samsung Galaxy Watch FE (lucky7/SM-R861/SM-R866) device tree source
-> + *
-> + * Copyright (c) 2026 Aiden Isik <aidenisik+git@member.fsf.org>
-> + */
-> +
-> +/dts-v1/;
-> +#include "exynos5515.dtsi"
-> +
-> +/ {
-> +=09compatible =3D "samsung,lucky7", "samsung,exynos5515";
-> +=09chassis-type =3D "watch";
-> +=09model =3D "Samsung Galaxy Watch FE (SM-R861/SM-R866)";
-> +
-> +=09chosen {
-> +=09=09ranges;
-> +=09=09#address-cells =3D <2>;
-> +=09=09#size-cells =3D <1>;
-> +
-> +=09=09framebuffer@9e0cf000 {
-> +=09=09=09compatible =3D "simple-framebuffer";
-> +=09=09=09reg =3D <0x0 0x9e0cf000 (396 * 396 * 4)>;
-> +=09=09=09format =3D "a8r8g8b8";
-> +=09=09=09height =3D <396>;
-> +=09=09=09stride =3D <(396 * 4)>;
-> +=09=09=09width =3D <396>;
-> +=09=09};
-> +=09};
-> +
-> +=09memory@80000000 {
-> +=09=09/*
-> +=09=09 * Use the lowest 490MiB and highest 512MiB of memory.
-> +=09=09 * The 488MiB between the addresses of 0x9ea00000 and
-> +=09=09 * 0xbe680000 is currently unused due to any memory accesses
-> +=09=09 * in several ranges between those addresses causing the core
-> +=09=09 * performing the accesses to stall.
-> +=09=09 */
-> +=09=09reg =3D <0x0 0x80000000 0x1ea00000>,
-> +=09=09      /* Crashing memory at 0x9ea00000-0xbe680000 */
-> +=09=09      /* Memory hole at 0xbe680000-0xc0000000 */
-> +=09=09      <0x0 0xc0000000 0x20000000>;
-> +=09=09device_type =3D "memory";
-> +=09};
-> +
-> +=09reserved-memory {
-> +=09=09ranges;
-> +=09=09#address-cells =3D <2>;
-> +=09=09#size-cells =3D <1>;
-> +
-> +=09=09framebuffer@9e0cf000 {
-> +=09=09=09reg =3D <0x0 0x9e0cf000 (396 * 396 * 4)>;
-> +=09=09=09no-map;
-> +=09=09};
-> +
-> +=09=09misc-rmem {
-> +=09=09=09/*
-> +=09=09=09 * Some of these regions belong to memory-mapped
-> +=09=09=09 * devices, and will be assigned to drivers as support
-> +=09=09=09 * is added.
-> +=09=09=09 *
-> +=09=09=09 * Other regions belong to the TrustZone firmware
-> +=09=09=09 * and should never be touched.
-> +=09=09=09 */
-> +=09=09=09reg =3D <0x0 0x87000000 0x200000>,
-> +=09=09=09      <0x0 0x87fff000 0x1000>,
-> +=09=09=09      <0x0 0x8a000000 0x31000>,
-> +=09=09=09      <0x0 0x8d800000 0x180000>,
-> +=09=09=09      <0x0 0x8ffff000 0x33000>,
-> +=09=09=09      <0x0 0x90100000 0x200000>,
-> +=09=09=09      <0x0 0x98a00000 0x600000>,
-> +=09=09=09      <0x0 0x9a000000 0xc00000>,
-> +=09=09=09      <0x0 0x9b000000 0x400000>,
-> +=09=09=09      <0x0 0x9bd00000 0x208000>,
-> +=09=09=09      <0x0 0x9c000000 0x20000>,
-> +=09=09=09      <0x0 0xa0000000 0x10000>,
-> +=09=09=09      <0x0 0xa0010000 0x400000>,
-> +=09=09=09      <0x0 0xa0510000 0x1000>,
-> +=09=09=09      <0x0 0xa0900000 0x2000>,
-> +=09=09=09      <0x0 0xa0902000 0x1000>,
-> +=09=09=09      <0x0 0xa0910000 0x3c000>,
-> +=09=09=09      <0x0 0xb0000000 0x200000>,
-> +=09=09=09      <0x0 0xb1000000 0x200000>,
-> +=09=09=09      <0x0 0xbbfff000 0x1000000>,
-> +=09=09=09      <0x0 0xbcfff000 0x1000>,
-> +=09=09=09      <0x0 0xbd430000 0x1250000>,
-> +=09=09=09      <0x0 0xd0000000 0x5d00000>,
-> +=09=09=09      <0x0 0xdc444000 0x2bbc000>,
-> +=09=09=09      <0x0 0xdf005000 0x1000>,
-> +=09=09=09      <0x0 0xdf008000 0x1000>,
-> +=09=09=09      <0x0 0xdf009000 0x12000>,
-> +=09=09=09      <0x0 0xdf01b000 0x21000>,
-> +=09=09=09      <0x0 0xdf03c000 0x1000>,
-> +=09=09=09      <0x0 0xdf03d000 0xfc3000>;
-> +=09=09=09no-map;
-> +=09=09};
-> +=09};
-> +};
-> +
-> +&oscclk {
-> +=09clock-frequency =3D <26000000>;
-> +};
-> +
-> +&watchdog {
-> +=09status =3D "okay";
-> +};
->=20
-> --
-> 2.54.0
->=20
->=20
+> the guest to control the interrupt injection.
 > 
+> When this feature is enabled, interrupts are injected with the help of
+> an agent called a Secure VM Service Module (SVSM) which executes in the
+> security realm of the guest and uses Restricted Injection as the sole
+> method to receive interrupts from the hypervisor.
+> 
+> Add support for Alternate Injection enablement.
+
+s/ enablement//
+
+> Signed-off-by: Melody Wang <huibo.wang@amd.com>
+> ---
+>  arch/x86/Kconfig                   | 14 ++++++++++++++
+>  arch/x86/boot/compressed/sev.c     |  2 +-
+>  arch/x86/coco/core.c               |  3 +++
+>  arch/x86/coco/sev/core.c           |  2 +-
+>  arch/x86/include/asm/cpufeatures.h |  1 +
+>  arch/x86/include/asm/msr-index.h   |  4 ++--
+>  include/linux/cc_platform.h        |  8 ++++++++
+>  7 files changed, 30 insertions(+), 4 deletions(-)
+
+...
+
+> diff --git a/arch/x86/coco/core.c b/arch/x86/coco/core.c
+> index 989ca9f72ba3..aabda3ddc0e2 100644
+> --- a/arch/x86/coco/core.c
+> +++ b/arch/x86/coco/core.c
+> @@ -107,6 +107,9 @@ static bool noinstr amd_cc_platform_has(enum cc_attr attr)
+>  	case CC_ATTR_SNP_SECURE_AVIC:
+>  		return sev_status & MSR_AMD64_SNP_SECURE_AVIC;
+>  
+> +	case CC_ATTR_SNP_ALTERNATE_INJECTION:
+> +		return sev_status & MSR_AMD64_SNP_ALTERNATE_INJ;
+
+Sashiko is complaining here:
+
+| Does this attribute evaluate the host status or the guest status?
+| 
+| The implementation in amd_cc_platform_has() checks sev_status, which 
+| represents the SEV capability of the executing guest. However, the doc comment
+| for CC_ATTR_SNP_ALTERNATE_INJECTION below states it checks if "The host kernel
+| is running with the necessary features". Could the documentation be updated to
+| match the actual implementation?
+
+Because of the comment over CC_ATTR_SNP_ALTERNATE_INJECTION talking about the
+host running with the necessary features, blabla. Yeah, sev_status dumps guest
+bits and the alternate injection bit is set in the VMSA by the SVSM and so
+yeah, maybe we should tone down the "host" speech in the comment...
+
+> diff --git a/arch/x86/coco/sev/core.c b/arch/x86/coco/sev/core.c
+> index cc292d7c6fd1..c54269366278 100644
+> --- a/arch/x86/coco/sev/core.c
+> +++ b/arch/x86/coco/sev/core.c
+> @@ -78,7 +78,7 @@ static const char * const sev_status_feat_names[] = {
+>  	[MSR_AMD64_SNP_VTOM_BIT]		= "vTom",
+>  	[MSR_AMD64_SNP_REFLECT_VC_BIT]		= "ReflectVC",
+>  	[MSR_AMD64_SNP_RESTRICTED_INJ_BIT]	= "RI",
+> -	[MSR_AMD64_SNP_ALT_INJ_BIT]		= "AI",
+> +	[MSR_AMD64_SNP_ALTERNATE_INJ_BIT]	= "AI",
+>  	[MSR_AMD64_SNP_DEBUG_SWAP_BIT]		= "DebugSwap",
+>  	[MSR_AMD64_SNP_PREVENT_HOST_IBS_BIT]	= "NoHostIBS",
+>  	[MSR_AMD64_SNP_BTB_ISOLATION_BIT]	= "BTBIsol",
+> diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
+> index f70ee74b5f92..a53e40a3982c 100644
+> --- a/arch/x86/include/asm/cpufeatures.h
+> +++ b/arch/x86/include/asm/cpufeatures.h
+> @@ -466,6 +466,7 @@
+>  #define X86_FEATURE_SNP_SECURE_TSC	(19*32+ 8) /* SEV-SNP Secure TSC */
+>  #define X86_FEATURE_V_TSC_AUX		(19*32+ 9) /* Virtual TSC_AUX */
+>  #define X86_FEATURE_SME_COHERENT	(19*32+10) /* hardware-enforced cache coherency */
+> +#define X86_FEATURE_ALTERNATE_INJECTION	(19*32+13) /* SEV Alternate Injection */
+
+Sashiko: Does this new feature addition need to be synchronized with the
+kernel tools directory?
+
+Answer: no. We sync those only when needed.
+
+Also, make the comment /* SEV-SNP Alternate ... */
+
+as it is a SNP feature.
+
+>  #define X86_FEATURE_DEBUG_SWAP		(19*32+14) /* "debug_swap" SEV-ES full debug state swap support */
+>  #define X86_FEATURE_RMPREAD		(19*32+21) /* RMPREAD instruction */
+>  #define X86_FEATURE_SEGMENTED_RMP	(19*32+23) /* Segmented RMP support */
+> diff --git a/arch/x86/include/asm/msr-index.h b/arch/x86/include/asm/msr-index.h
+> index 3a8e51a0c9e8..473a3ba86a2d 100644
+> --- a/arch/x86/include/asm/msr-index.h
+> +++ b/arch/x86/include/asm/msr-index.h
+> @@ -721,8 +721,8 @@
+>  #define MSR_AMD64_SNP_REFLECT_VC	BIT_ULL(MSR_AMD64_SNP_REFLECT_VC_BIT)
+>  #define MSR_AMD64_SNP_RESTRICTED_INJ_BIT 5
+>  #define MSR_AMD64_SNP_RESTRICTED_INJ	BIT_ULL(MSR_AMD64_SNP_RESTRICTED_INJ_BIT)
+> -#define MSR_AMD64_SNP_ALT_INJ_BIT	6
+> -#define MSR_AMD64_SNP_ALT_INJ		BIT_ULL(MSR_AMD64_SNP_ALT_INJ_BIT)
+> +#define MSR_AMD64_SNP_ALTERNATE_INJ_BIT	6
+> +#define MSR_AMD64_SNP_ALTERNATE_INJ	BIT_ULL(MSR_AMD64_SNP_ALTERNATE_INJ_BIT)
+>  #define MSR_AMD64_SNP_DEBUG_SWAP_BIT	7
+>  #define MSR_AMD64_SNP_DEBUG_SWAP	BIT_ULL(MSR_AMD64_SNP_DEBUG_SWAP_BIT)
+>  #define MSR_AMD64_SNP_PREVENT_HOST_IBS_BIT 8
+
+Sashiko: Is it necessary to update tools/arch/x86/include/asm/msr-index.h with this
+macro rename as well?
+
+Yeah, we probably should for completeness' sake.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
