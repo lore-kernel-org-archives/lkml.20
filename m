@@ -1,103 +1,117 @@
-Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290E23E1203
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:41:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C88242DA3D;
+	Thu,  3 Sep 2026 07:41:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788421284; cv=none; b=mFQt7czqfxf4doOWcBfV2rZwVKjouZsa4DJhHPz3QHc/whdtYdYs/TyAoR9/LwixJecbW/GizsdLzhmoeOzcAZKc1DGTi7xSTkMrAVl1sSeqqYcd2l9QI4i1ysO2lgXGymxLvGToqJuXnVxhG8Am5F1bpzEP0lmzcKKtrHeg9hI=
+	t=1788421291; cv=none; b=V3+4C9L5kEGCJxeC7C29zxUJoS1MX2BdWoAEPrBUSXNOAME5vgyHL33mxLzW6+rlii9sBWJRq7vytZbW7nHUFX4VU32K7Ki0lnSrrbfT9hcZKa0x7j2HoKqQVsbUvo8M3eKVGyHhEuWh+0+n5X1XCOyfc/4E7x6knhUEOFK3vXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788421284; c=relaxed/simple;
-	bh=unaWM7BrO6F4HYlrzqWPdL/PRtBfcelsNoWi1/wzGzo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Rg7fJrtGO7bPTTu+PvpKLc9gq5lLo24Cet2vOnmj218aKPumqiqmvJMcw5ehSC55tGCHldthQhKCelR1hrAsLnMVEGFyJLgxeRGKDcPttXRmsDAH+rVttM4r0PBk0b6nRrV4W2jcfTTQr9hK8QZ1MHDePgdTyEyuU4H8zVktL9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev; spf=pass smtp.mailfrom=onurozkan.dev; dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b=IDd0MOAY; arc=none smtp.client-ip=79.135.106.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
+	s=arc-20240116; t=1788421291; c=relaxed/simple;
+	bh=HWrppGtlxN68+J1EvLurdbOmIVycSJ5y0ost40gYay0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=QH9NDb36Jdh7F2TvjYowKZ0+T5kzFWJP8O2407Jj3fHG6uzxV9XFm8GNrpSdrAx9WGthYuHsxudcZ5DKp3vCIaORXP1Rj57F3z8R2DLejdPr3A48Y80Yu+mkF10VTZBCQg7//afRPWJuh6JDP/D4ghwEk36LrciqUFNvg5Ka+Q8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=wnd6QEH5; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=3zO6Gdlo; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="IDd0MOAY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
-	s=protonmail; t=1788421273; x=1788680473;
-	bh=unaWM7BrO6F4HYlrzqWPdL/PRtBfcelsNoWi1/wzGzo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=IDd0MOAY5akUlOL70WgsQOXjtdCUMxerD7rkLet1xhynoIWleEh22Ownb54Nk7G76
-	 Udgjw+hVxDzr6j8lrKpGpCOIm/O4yxMPpGdR65XowD1iL/z4WShmQtWjeQCnkoPT8w
-	 txTl8y6Uo/9PQ1wqSfiTy3r2O7JYlsGdIuK/5NOnSQZPaRnaDR26npa2aEVF9POmPl
-	 x8cKyiLVXEcv1MRYi2m7pxNzpxbG5N6tOpahKz/NZYYX1aY+NIzdd5TqFjAQV6/4RW
-	 iY9fI35FiHsE82CzlEPvRe3yKF5Ow4LtDhHDO7DVY/TS/QS0aLmnl2wWJ3d7uBS3Y6
-	 BcIH8UVierCtw==
-X-Pm-Submission-Id: 4hbBNl5shzz2SdmB
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: Brian Masney <bmasney@redhat.com>
-Cc: linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mturquette@baylibre.com,
-	sboyd@kernel.org,
-	daniel.almeida@collabora.com
-Subject: Re: [PATCH v2] clk: devres: fix cleanup in devm_clk_get_optional_enabled_with_rate()
-Date: Thu,  3 Sep 2026 10:41:08 +0300
-Message-ID: <20260903074110.101285-1-work@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <apib9XCsTNGA3-u3@redhat.com>
-References: <20260809095413.150069-1-work@onurozkan.dev> <apib9XCsTNGA3-u3@redhat.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="wnd6QEH5";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="3zO6Gdlo"
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788421288;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tzk8S7GGq/mqM3W6SmaZkZnDg7V0wPqYFRG/WWfPRl8=;
+	b=wnd6QEH54/BjH3IqL+NmsSLdPMkIm3Ol4UY/fevb8PsoirNu25dRIf9FyoBeO21n7ryuiB
+	4q8W5smEU5SP2xUhtsmAPB8t1AyD7BOnfk9PMF61YydeJW57H9S+LagF4bPuQfR4881WRX
+	/4oCAgEv/Lb/GUwIYUiN9M5C/Nq2KJrUZLyuYIxmNF/rXmTaHpNExOd8dL/nTrYG1A8nqS
+	1IJmvplNWiUa6b0Q2weqH1mz/Kn4SalyfB2YijMQ8/Vpp2jtuXuQxHZdB3BjakEgFTGG1+
+	IzqqSnX5CGvvZly/aH0pQFeEH4/dWYMPZ/63MP3uHm5VaD0VlSxBYQTUsX1SgQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788421288;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tzk8S7GGq/mqM3W6SmaZkZnDg7V0wPqYFRG/WWfPRl8=;
+	b=3zO6GdloI0RIRQIUARPzBVJ6Z2WmANTijL9R9i7Ce0cPzMjNreKcy1VLDJ/BIWuW6HH1xn
+	nh/lWOAWzbhNpfDQ==
+Date: Thu, 03 Sep 2026 09:41:17 +0200
+Subject: [PATCH v2 02/15] auxvec.h: Move AT_VECTOR_SIZE definitions to
+ linux/auxvec.h
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260903-at-vector-size-arch-v2-2-5bc32a71e3d8@linutronix.de>
+References: <20260903-at-vector-size-arch-v2-0-5bc32a71e3d8@linutronix.de>
+In-Reply-To: <20260903-at-vector-size-arch-v2-0-5bc32a71e3d8@linutronix.de>
+To: Kees Cook <kees@kernel.org>, Arnd Bergmann <arnd@arndb.de>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-riscv@lists.infradead.org, loongarch@lists.linux.dev, 
+ linux-s390@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-mips@vger.kernel.org, sparclinux@vger.kernel.org, 
+ linux-sh@vger.kernel.org, linux-alpha@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788421286; l=1309;
+ i=thomas.weissschuh@linutronix.de; s=20240209; h=from:subject:message-id;
+ bh=HWrppGtlxN68+J1EvLurdbOmIVycSJ5y0ost40gYay0=;
+ b=QtuUd8ndQfte3MxNSIPeA1ceK7WkBDpTjXLL5fb4pzWRDNSz/qxqD4exzasiSFQC/0O6qJggd
+ TikOW26FC/0DEludcoZTMbhvBJm/noFxtE6Oqd7XYz5ZG5OybqRL4sw
+X-Developer-Key: i=thomas.weissschuh@linutronix.de; a=ed25519;
+ pk=pfvxvpFUDJV2h2nY0FidLUml22uGLSjByFbM6aqQQws=
 
-On Wed, 02 Sep 2026 17:58:13 -0400=0D
-Brian Masney <bmasney@redhat.com> wrote:=0D
-=0D
-> Hi Onur,=0D
-> =0D
-> On Sun, Aug 09, 2026 at 12:54:04PM +0300, Onur =C3=96zkan wrote:=0D
-> > devm_clk_get_optional_enabled_with_rate() registers its cleanup action=
-=0D
-> > before setting the clock rate. If setting the rate fails, it attempts t=
-o=0D
-> > disable and unprepare a clock that was never enabled. This issue was=0D
-> > spotted while reviewing "rust: clk: add devres-managed clks" [1].=0D
-> > =0D
-> > Register the cleanup action only after successfully preparing and enabl=
-ing=0D
-> > the clock.=0D
-> > =0D
-> > [1]: https://lore.kernel.org/rust-for-linux/20260706-clk-type-state-v5-=
-3-67c5f326a16c@collabora.com=0D
-> > =0D
-> > Fixes: 9934a1bd45b2 ("clk: provide devm_clk_get_optional_enabled_with_r=
-ate()")=0D
-> > Reviewed-by: Brian Masney <bmasney@redhat.com>=0D
-> > Signed-off-by: Onur =C3=96zkan <work@onurozkan.dev>=0D
-> =0D
-> This series no longer applies against the latest clk-next branch. Can you=
-=0D
-> rebase this, and submit a new version? I'll be able to pick it up quickly=
-.=0D
-> =0D
-> Thanks,=0D
-> =0D
-> Brian=0D
-> =0D
-=0D
-Hi Brian,=0D
-=0D
-It seems that the fix has already been applied, but v1 was picked instead o=
-f v2.=0D
-I sent v2 the next day after receiving warnings from the kernel bot [1], at=
-=0D
-which point v1 had not yet been applied anywhere.=0D
-=0D
-[1]: https://lore.kernel.org/all/202608090025.dwxdfqFr-lkp@intel.com=0D
-=0D
-So this patch itself is no longer necessary since the fix is already there.=
- If=0D
-you still want to get rid of the warnings I can send another patch for it.=
-=0D
-=0D
-- Onur=0D
+The auxvec.h header is a more fitting place for these definitions.
+
+Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+Reviewed-by: Kees Cook <kees@kernel.org>
+---
+ include/linux/auxvec.h   | 7 +++++++
+ include/linux/mm_types.h | 6 ------
+ 2 files changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/include/linux/auxvec.h b/include/linux/auxvec.h
+index 8bcb9b726262..4b364e639f08 100644
+--- a/include/linux/auxvec.h
++++ b/include/linux/auxvec.h
+@@ -6,4 +6,11 @@
+ 
+ #define AT_VECTOR_SIZE_BASE 24 /* NEW_AUX_ENT entries in auxiliary table */
+   /* number of "#define AT_.*" above, minus {AT_NULL, AT_IGNORE, AT_NOTELF} */
++
++#ifndef AT_VECTOR_SIZE_ARCH
++#define AT_VECTOR_SIZE_ARCH 0
++#endif
++
++#define AT_VECTOR_SIZE (2*(AT_VECTOR_SIZE_ARCH + AT_VECTOR_SIZE_BASE + 1))
++
+ #endif /* _LINUX_AUXVEC_H */
+diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+index 6d815f6440c9..08a06b26375b 100644
+--- a/include/linux/mm_types.h
++++ b/include/linux/mm_types.h
+@@ -26,12 +26,6 @@
+ 
+ #include <asm/mmu.h>
+ 
+-#ifndef AT_VECTOR_SIZE_ARCH
+-#define AT_VECTOR_SIZE_ARCH 0
+-#endif
+-#define AT_VECTOR_SIZE (2*(AT_VECTOR_SIZE_ARCH + AT_VECTOR_SIZE_BASE + 1))
+-
+-
+ struct address_space;
+ struct futex_private_hash;
+ struct mem_cgroup;
+
+-- 
+2.55.0
+
