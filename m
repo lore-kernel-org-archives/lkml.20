@@ -1,85 +1,77 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C6604A2A46;
-	Thu,  3 Sep 2026 17:04:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE4EA4F6477;
+	Thu,  3 Sep 2026 17:04:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788455081; cv=none; b=Xyzj74bfNGBVMizF49AUcJZJsCbW/cbTwVFnmGi9Gw3PbwJklpja77/Ta+vb+Fvm6HdU2Mqiw6pC/vO619HCIJzA6bBJHsXP28XD/HhUhyQS4iy0eeR1sG8xj6aChBc+nMU6Ohjp8/egFFqi/7KpINFgkItpXqGZCFKTTY3PANY=
+	t=1788455084; cv=none; b=M3KUqD+nyZpMtTuL+rtiHeDXoloML56ur8JoiWWdcF7S2G5Ew00Pa9kY9g1xl/NvDY2NMleHLZKyP7/PC0N+M2wL5RGxB+DZKTLb4jPZm5XEyA/EploRZGOAJ5M+ik3NEIpharjq12ZnUMGBobp+q03EaEc/O9h7exIXz+/39ro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788455081; c=relaxed/simple;
-	bh=9ANDRCFdRJf6Eq6viKKbkdbx6xdZ3ttXCN30JBPuFfM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sS4uRQhyf+FdAialDW65DtXDdZmKy6SP6IfH+nFR14Vyo4Z5Ips2LUmlnQS4HZ5JpxQPdypcyaSNTRFwiC+RwANaEzeO8hK762LxzIX4dju1IqR36B6BSXWC5xD3KR3XYbelbB8uJVKB8HXof0jRservGFs8sGj6sFf/dQG15rc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ZpAjm5/B; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788455084; c=relaxed/simple;
+	bh=AYl6JvZMEZ/QoHcOGPv26ZEqWeGffZSO4uuFdiGbNsI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Khr+DG9UOWA27sZ8BF1g7HXjE1j2SFhZ/3ViTarI2FJvrcnV3qVYAN9F9lwtwArb/1m9URaP8Pm62rbQPfDl/IANu8sufVy2q3au61wwfPojkigld1O/6r/YQQjOViNeZbA/2KP901BSErCEt62pLqvwG/ZLO1M3NAAzltyh5Xk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oBnv8rhE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ZpAjm5/B"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=+Rm8lf6ex4uHU/asau0I+azeyQMLntFPZVeOCk1JuZ4=; b=ZpAjm5/B/oSSsiOw94H71UlUTc
-	5j/puReJXlfTNPndTYTCdebCO7xyL7AQgTjUAeoufpb5pJh2xDZ9RFdYvyoL3EkHqEb2vlwqt0kyd
-	cFUuwxWrAVUgz7B3eHUNKurHQSZvUjlioDoM0PNkf0Cx9QcdCRpmdKuzAVXH1jjT4DV1XJLJGpcP9
-	NhUDakcMiSE7rOcpbSbSoxA6fOft9D5kS6lLzjius3vejV6HOKfrJszEAI5IzCUqpboQnhJk9USOY
-	vyTqT11ABcJoNRtWjtWxOSF4v1SGCou4sJEumu0tudItNm+8cnMgYWnpObnrdtD9MHaN4d1cMN+2H
-	sthg0K6A==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x2Arf-00000000EYR-2bV3;
-	Thu, 03 Sep 2026 17:04:39 +0000
-Message-ID: <e895f645-b18c-491e-b101-3d9fc814b835@infradead.org>
-Date: Thu, 3 Sep 2026 10:04:38 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oBnv8rhE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AE451F000E9;
+	Thu,  3 Sep 2026 17:04:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788455082;
+	bh=IoLH/hhN9t2gCsFXAHpa1BHsHfqKZHWk++1GVr4n0bI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=oBnv8rhEodtCXyDWfOzmRB+rnPeUQjUPhuJpegQHEHhth2Hav0I1W1aABsNjvhneB
+	 8rJvbS36xEMorJ2FF8z5CG9Hued3/lPeq6vxDdBXkb3LaLwITN/2mFDCE89m4Lk5EJ
+	 liEYUzYROIsOE+NxhB8y5jD90xGQq4Ui+HwhYeYBQxbxRmC76+p4FwygalW1wYN29h
+	 d7Sovp+Q1y2krd3i3bRPR8QawhZQnixEWEc4J859QqMMXPbJEf4HqpDqifLSoxRRPR
+	 ZaaLuEO5iGQCY396f3THhdu5UoquFFKgRMhFKO8h1GeC+a2HgGw3NYZ8Fc4BmiBnPs
+	 HMpIPw/6VP9mw==
+From: Vinod Koul <vkoul@kernel.org>
+To: ludovic.desroches@microchip.com, Frank.Li@kernel.org, 
+ tudor.ambarus@linaro.org, nicolas.ferre@microchip.com, 
+ Hongling Zeng <zenghongling@kylinos.cn>
+Cc: linux-arm-kernel@lists.infradead.org, dmaengine@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, zhongling0719@126.com, sashiko-bot@kernel.org, 
+ Frank Li <Frank.Li@nxp.com>
+In-Reply-To: <20260727061705.45169-1-zenghongling@kylinos.cn>
+References: <20260727061705.45169-1-zenghongling@kylinos.cn>
+Subject: Re: [PATCH RESEND v6] dma: at_hdmac: Fix use-after-free by proper
+ tasklet cleanup
+Message-Id: <178845507904.1711546.7183586519826680915.b4-ty@kernel.org>
+Date: Thu, 03 Sep 2026 22:34:39 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: pwm: Remove bracket
-To: Manuel Ebner <manuelebnerli@mailbox.org>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-pwm@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260903160535.734369-2-manuelebnerli@mailbox.org>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260903160535.734369-2-manuelebnerli@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.13.0
 
 
-
-On 9/3/26 9:05 AM, Manuel Ebner wrote:
-> Remove needless '(' from sentence.
+On Mon, 27 Jul 2026 14:17:05 +0800, Hongling Zeng wrote:
+> Current cleanup paths have a use-after-free vulnerability:
+> - vchan_init() creates tasklets that access at_dma_chan memory
+> - free_irq() only waits for IRQ handler, NOT tasklets
+> - atdma is devm-managed and freed after probe/remove
+> - Running tasklets accessing freed memory → Use-After-Free!
 > 
-> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-> ---
->  Documentation/driver-api/pwm.rst | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> The fix requires careful ordering:
+> - free_irq() FIRST to synchronize with running IRQ handlers and prevent
+>   them from scheduling new tasklets
+> - Then kill tasklets to wait for already-scheduled ones to complete
+> - Only then free other resources
 > 
-> diff --git a/Documentation/driver-api/pwm.rst b/Documentation/driver-api/pwm.rst
-> index 0d27a40f5..d62e3a695 100644
-> --- a/Documentation/driver-api/pwm.rst
-> +++ b/Documentation/driver-api/pwm.rst
-> @@ -177,7 +177,7 @@ and pwm_put() may not be called from an atomic context.
->  Most functions in the PWM consumer API might sleep and so must not be called
->  from atomic context. The notable exception is pwm_apply_atomic() which has the
->  same semantics as pwm_apply_might_sleep() but can be called from atomic context.
-> -(The price for that is that it doesn't work for all PWM devices, use
-> +The price for that is that it doesn't work for all PWM devices, use
->  pwm_might_sleep() to check if a given PWM supports atomic operation.
+> [...]
 
-OK. Could you also fix the comma splice on that same line?
-Thanks.
+Applied, thanks!
 
->  
->  Locking in the PWM core ensures that callbacks related to a single chip are
+[1/1] dma: at_hdmac: Fix use-after-free by proper tasklet cleanup
+      commit: 00c5236057e36e88d3aca7246dd891cb56b513a7
 
+Best regards,
 -- 
-~Randy
+~Vinod
+
 
