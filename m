@@ -1,102 +1,83 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C124E3EC4
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:38:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBBF4E80A7
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:38:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449930; cv=none; b=DmaR94gdgAnoQTYXKHtl9C0dd8uCcb1ZjpIgkGHaufPLHnKwRrIldoGBL7yA8RIDwoeFiCtESM0y6XvU3hGlL1kOWCPTW1fKYQCUkGFz6a/rShl4mS60RCLeC8d2jTjq8PQ0XdOP1/rINJTV3nXqH1nOBGR5Y68xqeGkqRAgF1A=
+	t=1788449935; cv=none; b=XaOLGmO1wDdJ4u3Ltwbr3NAmaTknfeot4nSnNIEpRqJJgnhvZ8Kj4iglhTvgrroCrPJUz2l1NFvb9TBSlUknEV5lI972iXhfsbsjcjwuUmBygo+Tlw09Y+2BruQv5TMWGq0nfwoxeKwPa3cTwm0Kwt0VxSXoZfK0lGAoLY+5Y+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449930; c=relaxed/simple;
-	bh=4vXFe8mDn022Y/B25bfpbZTEc3rDqMffSWmcEmGusgA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=khSnMmxAnaJaeMFhrJrD1d7QM42DWbYGSxUKOae6pMst44M88HQtBbPawfFGaRhsWtpGZAvTGcTKWvt6XHHiU2a/oYzokAtr91GyK6v/omh7BLDzpmeU2Iuky0YCURBlNRfkf/Om4V5Q/3q60ca0RZ14cju0+PiQx5jsrzKvBZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Sqq2ijWc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=j3p20I4b; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788449935; c=relaxed/simple;
+	bh=rSLnVsPL9u/lrUTkhemPtZizvTSuCW/b7J5C50Xg6dU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IKRdH62oBFFG7qFFYe9Uz/1QE7Z7GPGNs8XNLHyeoDbMXu2L8J9xyKlpuHPfHkyRqlEG2oOaf3W/orUYSRtfUG3faDjDM1Ox0CbFS4Df3DFIUxpd9Lz1cmNek/w+kVw0GOlvOJxcBg2Gps0iVL6xzV3RsWLAvU/pkrL4zL2v7L4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=GXsy9DcU; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Sqq2ijWc";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="j3p20I4b"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683DARAA035590
-	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 15:38:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=7DMo5aLM7KO
-	0xZZuqnuCa7iNDZoWTd8Rp83SaIim8bw=; b=Sqq2ijWcT0SNyBCiTdXleYzVIjK
-	+kj43fUvy9GKD0Cfu6UuuqZOgc6zoYODmiUyVymagv02D2J8F3snItulaT8ERDUk
-	81ZsL8k00XTWzlD1FO0mWxxVSlFky2cOJInswXWv1DRmAwYdoKn3eAb5HaSSRHMU
-	oE+r0TKnlSlhmBqWKPQgedP5R4VtdL6GgNsxyx29bZKNYn1Gp7AV23i6oiGfQzyx
-	2kOgs7P1PoQ3ijou0d9c3DCndrC7WZHDw+nCEtl5jhH2rvgR2bkWsMWiScy40dAV
-	1B6OR1XekvdpXtvhw7OBFWuhhCQfknLuN2V6C66I7PSpXpVbaNVHDoq6mQw==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf51m1vp2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 15:38:48 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-85722fc5a21so3632694b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:38:48 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="GXsy9DcU"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-482f9309813so3425f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:38:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788449928; x=1789054728; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7DMo5aLM7KO0xZZuqnuCa7iNDZoWTd8Rp83SaIim8bw=;
-        b=j3p20I4bPkm/jwMKErhOetutNUX1gUjIC+T5FvHqXwz/bJREml0DGUZ6zYHQvhLvTF
-         ZNAlWtcx07dcaDF7RH4FRCKZRw8z7U6tPv3uWBCMFqF3r/x5z4LChtBjVyQtNUcqD+Rr
-         BRGygb1fgt0MMAjjZnn7b+0HfJPSpsSF8IO/yPtA/xzjzG3BHcFR+qvxurjGu18eCbXK
-         t9gwn4gt/NUrWMo1C2VZ9oCNpm/ITWJhstT8rFscEbbWL7vecrXfJTVcL+IHXWUtjf7o
-         IwXj4ygfpR7qjSPv8dBpeGLKBrPm9vRnID68DSq6kEkzN0uaw66b62ahqSRGLaprq2fX
-         uBTg==
+        d=amarulasolutions.com; s=google; t=1788449931; x=1789054731; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cfbXs+O7gl4kgXTDO65gSIX2ToO03QaBPpDK6T1ajt8=;
+        b=GXsy9DcU4YeNPFhSyZxpDjrN/zbVLagIvgiSM+PybSFNaTQ7R+SLtGpiqEukbXqMpn
+         Gf2AZyKRa4ggPaa4m5r/Sil3/AsfYmVtmrLGleiZ1LDpX0hcZVs3GTNJa2Wtw0qIpjEE
+         zHgaKBrkPciyEAOiKDNxizALmNxsFXEFGSIVs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788449928; x=1789054728;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7DMo5aLM7KO0xZZuqnuCa7iNDZoWTd8Rp83SaIim8bw=;
-        b=SQf6YsLcH8hV982FTIoLWcoLqkMQTBjmxO0c70sI7mm8snajUweYQmVGZ/igF+Qr9C
-         FKKC0ZXYahkIhfgMwoU46ej+LjaDRt1qVTM5N9EQzjauTVfXUKF4XHcumUPvwxYdw25Z
-         IfxKEvOysbfVmJTpIFeFWOMObBG6JxXX26/Hb3g4R5XO98BQN7C/pmlciKUwF51fVp/Y
-         03swd42ISPBvzUnTBblQKoegFu+xMLr53hSiGJd8r5vBpvawp+45KE8HQNPON0Yfwb6U
-         iRDbSpoTF7mI0CD1QkF+ev/NRN8tqONChyf2KEw1bJ9Zpt1Qj5hCTLJpCBiXQaANImnE
-         piJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxHDVh3z4TY7aDkWhYOF7CTSZPRw/fBKteK6ZpXyx3vKLdesSXbzVYrpE5dYnHZ4jBxNgXDkcMKAfGl1Mc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mvd1cE6UZeQdwuTPPWbsinrCpJW+zhJLKz7HR5H9pJryFRwEkf
-	SuurhJG4O10cKh6Ww6uwmOxROxXFs/QuASchmhgaLEpTF4++2hKiFEnGsN8A9jKoAN/yfv5J3fE
-	9VLNw/X7Z+VP4vXjiTQycpSKs+KQ9jxJ5TrWKmvrENFZDGtHgMnUg9EUX8Zyo6gxbt1o=
-X-Gm-Gg: AYBFou0R1iSyb/+HsspT54Kn8/6oKxLnwwV3gf3SGrwRmm2Hd8lCmN5o5qq9/pyBcN9
-	TcUVDWFbJL5q0Id3qMwWt0MxLO8yylxM+nmYbzsl4NJoJl4rz92ml6SiZkMEAxVhb+bOKHxCEQS
-	1dHNsHr8/pI3OiXm/Yn+85VonvihKS9ZNja/VBTepmJibSg4BZi/r0mVA4yE1ItcKZvzeHy8nec
-	qA0jrYRbtY6VNksFu/kWn+KOgFWh3fHaKJ1ARNU529fwoWPtvi8Yr7IgJQgsAFG0/1c5xsGIbcB
-	NtwauY98JB8sM4T9bn4R3+/jAlpVio4YRpDntTX26xYpdWFjXHnB7VPuQL/lu7gvJH7vREjwF/I
-	3Mm/Oi7N0SiVzl3H2Spm7S2DqdQUXZQf9
-X-Received: by 2002:a05:6a00:2309:b0:84a:29a7:f650 with SMTP id d2e1a72fcca58-861630c5ce5mr1026b3a.0.1788449926223;
-        Thu, 03 Sep 2026 08:38:46 -0700 (PDT)
-X-Received: by 2002:a05:6a00:2309:b0:84a:29a7:f650 with SMTP id d2e1a72fcca58-861630c5ce5mr932b3a.0.1788449925461;
-        Thu, 03 Sep 2026 08:38:45 -0700 (PDT)
-Received: from hu-faisalh-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86153027951sm81069b3a.40.2026.09.03.08.38.40
+        d=1e100.net; s=20251104; t=1788449931; x=1789054731;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cfbXs+O7gl4kgXTDO65gSIX2ToO03QaBPpDK6T1ajt8=;
+        b=VRtxd9bddf0vXk6kOTtbTubCxZ3uHVTC0qm3UjsQ234eD+brFdpvkRu4nqQv5Ls+Nd
+         npElojBatlfydGtcS4ECQjovOVimDrLGKTI+ddWksXefOcB8kFscYjRTfvtSRF8kcB/h
+         348w+hJwS5SG3ds98Hj9OKn1Zo8PllOySxqv8LJ4TQO4W0tdJxGxIeCgwKYCLkkyTSA5
+         ZIyYegjD9NkOCNj9Yd+onr4GtSIw56FHcFhtVvYBK5H+CDbA/4j3W0eVq6FyYx+NO3B5
+         EuzqSa7VH18hYsMv+2so0VV5RCdBD947SFTcXAf/wcV1mFOGg3BMGoe1PT7GHNfYSbW/
+         AfSA==
+X-Gm-Message-State: AFuF++la2FRFRJRyxKPJTbKMsqV706yDGHCncwWI+lKRPry2SiteHC0P
+	Ef50yVvXo83CW5fhIZp40O3lzE4FTeCZVdAI/e1StJ5Y3B/X8hkXtflkBgrPUslpNIc/PAx6osC
+	7c5QF/V0=
+X-Gm-Gg: AYBFou05qYQ1sx8JkKObXBqhcdTHVIpteoTnTiTWQFCTEqBAd94aVik2Iut2K6jyKhG
+	TZ/nhonYt0/6XZOKk/aXtmTBuhur8mhlDdEArhgQ9QcIG47cVjMX8jALb7UkaI5c0vIBmoNJyVI
+	PRAty9o9Myk0fDBRpp4ngGKQYEEAQJVQaV5jg1w3jOtptYdIxTkfSY5/QoW9xqkXIiSj/znCi42
+	ksXUlHv1eQDzmEo9qdOHVwN/I5Za/LYlqs4rdHLgjYL8o6N7NtACz1eXb1NRx1dpsAOSZthKbMs
+	t2cCiR0AFtfIzzShqflZc2oX4SWezmBFZOkfHzAaRSZ3W1hDmiJxuJBBb/rFSPEPQYh049JfgJ0
+	vpSYsqTuqgosFKgf+KcPu5gLgTp51+N+Dfhhw+KHS59mA9fBzfH8VnwWghmjaTzI67WXQg/im6Z
+	+VDiGmOv9bxw7qvpBj7Qi/TdKJaVZTiypWHFppgdURda6vf1DTRhSgy53xJeZLsd10bNa516OYv
+	W7vjgppSiEMy54kocJifXhL36qvLgxW2/90mE0AOYJWyy6cap3p8ebZiArBeBYJ2AjsIPtYMSPV
+	/6cd2H+g5LH2HT1wCDcjKXNWa1ZsREF6cjCDukIfHRAe0+Y8rZKPxNs=
+X-Received: by 2002:adf:f643:0:b0:482:e1b0:8a1a with SMTP id ffacd0b85a97d-485860bfd21mr1751594f8f.15.1788449931024;
+        Thu, 03 Sep 2026 08:38:51 -0700 (PDT)
+Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com (host-95-245-93-90.retail.telecomitalia.it. [95.245.93.90])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e72df2sm15366301f8f.1.2026.09.03.08.38.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 08:38:44 -0700 (PDT)
-From: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Mathias Nyman <mathias.nyman@intel.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Philipp Zabel <p.zabel@pengutronix.de>,
-        Wesley Cheng <wesley.cheng@oss.qualcomm.com>
-Cc: Sriram Dash <sriram.dash@oss.qualcomm.com>,
-        Jack Pham <jack.pham@oss.qualcomm.com>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/7] usb: dwc3: qcom: Distinguish PM and runtime suspend/resume paths
-Date: Thu,  3 Sep 2026 21:08:22 +0530
-Message-Id: <20260903153827.3463313-3-faisal.hassan@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260903153827.3463313-1-faisal.hassan@oss.qualcomm.com>
-References: <20260903153827.3463313-1-faisal.hassan@oss.qualcomm.com>
+        Thu, 03 Sep 2026 08:38:49 -0700 (PDT)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Cc: michael@amarulasolutions.com,
+	linux-amarula@amarulasolutions.com,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Peng Fan <peng.fan@nxp.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Sebin Francis <sebin.francis@ti.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-clk@vger.kernel.org
+Subject: [PATCH v13 0/4] Support spread spectrum clocking for i.MX8M PLLs
+Date: Thu,  3 Sep 2026 17:32:12 +0200
+Message-ID: <20260903153836.373267-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -104,159 +85,128 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 6oWX8MRA-44SgWC9OXxyRhtkBW81JHqF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEzNiBTYWx0ZWRfXwOKX0SPHahva
- HoFOnLiDEOLNmHhTOs1VkMLNabrJCgQrsgGHvDD+xrBgukeMqJhVwASW04C1mJuJgcIiZCu3TK2
- rtVH21paTg9+7RMspbp6VUz7UYukSvC7nvLSRulCi8FmNKJ4vxbjuWYsOlrZ9oJ9/RQ1DMh0Q29
- TIyoXLjR3EStgIh5gw5OWx/DG+mwZrVJfL0RLZbVwz7XsIqVKM29KAEsQ4orqUcXgFvWLQTXqXS
- PTxx1PDplgZWHqjS2Xq1Lq4ZM9wVdBR0DRp5es0rMTC3ASVl8CF55RA1UJ9W2sBXcp6zGJiYb9Y
- c7ji/wnTiU8I3Qcr7M+rAyAmf9ShhIEiSJEiSXHS4u0pqQ42Ri761FFH5VIJcSHCcxNm3g8TTLG
- UdJtDNG19tmjcGlLKQM7L8CI6D8SpthYC9xpu01c8X3tM3LwKb9lfE+lDywO+Qc2e8Fahy2dhLg
- O5waEftXV1idfAXSS6w==
-X-Authority-Analysis: v=2.4 cv=X8Ji7mTe c=1 sm=1 tr=0 ts=6a999488 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=tqe-1LZTDOhu2qnNqD0A:9 a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEzNiBTYWx0ZWRfX05HrsilFMBbI
- cEEB2/yBdaJK4a2jBpbY6WPwTKB0ArhJ7kLMiTK0/cPa0tOteKgwwbudzwOlL3voOBcxRAKq+h2
- tX6XOnS+xxmZmcNPALnds1UoxL8R45c=
-X-Proofpoint-ORIG-GUID: 6oWX8MRA-44SgWC9OXxyRhtkBW81JHqF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_04,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
- priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1011 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030136
 
-The dwc3_qcom_suspend() and dwc3_qcom_resume() functions
-handle both system PM and runtime PM paths but cannot
-differentiate between them, preventing distinct power
-management strategies.
+The series adds support for spread spectrum clocking for i.MX8M{M,N,P}
+PLLs (audio, video and DRAM). It has been tested for the video PLL on
+boards using i.MX8MN and i.MX8MP.
 
-Refactor suspend/resume functions to accept pm_message_t
-instead of boolean wakeup flags. Use PMSG_IS_AUTO()
-to identify runtime PM (PMSG_AUTO_SUSPEND/RESUME) versus
-system PM (PMSG_SUSPEND/RESUME) paths.
+While at it, it validates the spread spectrum configuration in the clk
+core before it reaches the providers, and fixes the i.MX SCMI OEM
+extension, which converted the spread to the wrong unit.
 
-Preserve existing wakeup behavior: always enable wakeup
-for runtime suspend, check device_may_wakeup() for system
-suspend.
+Changes in v13:
+ - Add patch "clk: scmi: reject SSC configuration out of the OEM field
+   range".
+ - Rename patch "clk: scmi: fix SSC permyriad conversion" to "clk: scmi:
+   fix SSC spread conversion".
 
-Follow dwc3/core.c pattern to enable future per-path
-strategies like differentiated power states.
+Changes in v12:
+ - Add patch "clk: scmi: fix SSC permyriad conversion" to fix the
+   permyriad to percent conversion in clk-scmi-oem.c, reported by
+   Sashiko AI review.
+ - Fix issues claimed by Sashiko for patch "clk: imx: pll14xx: support
+   spread spectrum clock". See the details in the patch changelog.
 
-Co-developed-by: Sriram Dash <sriram.dash@oss.qualcomm.com>
-Signed-off-by: Sriram Dash <sriram.dash@oss.qualcomm.com>
-Signed-off-by: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
+Changes in v11:
+ - Add patch "clk: validate spread spectrum configuration" to reject
+   invalid parameters in the clk core before they reach the providers.
+ - Fix issues claimed by Sashiko for patch "clk: imx: pll14xx: support
+   spread spectrum clock". See the details in the patch changelog.
+ 
+Changes in v10:
+- Drop patches 1-22, superseded by the generic spread spectrum clocking
+  support from Peng Fan, merged in 7.3, so the i.MX8M specific infrastructure
+  is no longer needed. This patch is now based on the following commits:
+  - ae794aa6e88d ("dt-bindings: clock: Add spread spectrum definition")
+  - c86814e70390 ("clk: Introduce clk_hw_set_spread_spectrum")
+  - a7f16660af39 ("clk: conf: Support assigned-clock-sscs")
+  - 7d98de6ffdab ("clk: Add KUnit tests for assigned-clock-sscs")
+  https://lore.kernel.org/all/20260826165611.236321-1-sboyd@kernel.org/
+
+Changes in v9:
+- Add 'Reviewed-by' tag of Peng Fan for imx8mn platform patches
+- Fix building warning raised by the kernel test robot for patch
+  v8, 11/18 clk: imx: add support for i.MX8MN anatop clock driver
+- Add patches for imx8m{m,p} platforms:
+  - 23/23 clk: imx8mm: support spread spectrum clock generation
+  - 22/23 clk: imx: add support for i.MX8MM anatop clock driver
+  - 21/23 clk: imx8mp: support spread spectrum clock generation
+  - 20/23 clk: imx8mp: rename ccm_base to base
+  - 19/23 clk: imx: add support for i.MX8MP anatop clock driver
+
+Changes in v8:
+- Drop the patches added in version 7:
+  - 10/23 dt-bindings: clock: imx8m-clock: add phandle to the anatop
+  - 11/23 arm64: dts: imx8mm: add phandle to anatop within CCM
+  - 12/23 arm64: dts: imx8mn: add phandle to anatop within CCM
+  - 13/23 arm64: dts: imx8mp: add phandle to anatop within CCM
+  - 14/23 arm64: dts: imx8mq: add phandle to anatop within CCM
+
+Changes in v7:
+- Add and manage fsl,anatop property as phandle to the anatop node with
+  the new patches:
+  - 10/23 dt-bindings: clock: imx8m-clock: add phandle to the anatop
+  - 11/23 arm64: dts: imx8mm: add phandle to anatop within CCM
+  - 12/23 arm64: dts: imx8mn: add phandle to anatop within CCM
+  - 13/23 arm64: dts: imx8mp: add phandle to anatop within CCM
+  - 14/23 arm64: dts: imx8mq: add phandle to anatop within CCM
+
+Changes in v6:
+- Merge patches:
+  10/20 dt-bindings: clock: imx8mm: add binding definitions for anatop
+  11/20 dt-bindings: clock: imx8mn: add binding definitions for anatop
+  12/20 dt-bindings: clock: imx8mp: add binding definitions for anatop
+  to
+  05/20 dt-bindings: clock: imx8m-anatop: define clocks/clock-names
+  now renamed
+  05/18 dt-bindings: clock: imx8m-anatop: add oscillators and PLLs
+- Split the patch
+  15/20 dt-bindings-clock-imx8m-clock-support-spread-spectru.patch
+  into
+  12/18 dt-bindings: clock: imx8m-clock: add PLLs
+  16/18 dt-bindings: clock: imx8m-clock: support spread spectrum clocking
+
+Changes in v5:
+- Fix compilation errors.
+- Separate driver code from dt-bindings
+
+Changes in v4:
+- Add dt-bindings for anatop
+- Add anatop driver
+- Drop fsl,ssc-clocks from spread spectrum dt-bindings
+
+Changes in v3:
+- Patches 1/8 has been added in version 3. The dt-bindings have
+  been moved from fsl,imx8m-anatop.yaml to imx8m-clock.yaml. The
+  anatop device (fsl,imx8m-anatop.yaml) is indeed more or less a
+  syscon, so it represents a memory area accessible by ccm
+  (imx8m-clock.yaml) to setup the PLLs.
+- Patches {3,5}/8 have been added in version 3.
+- Patches {4,6,8}/8 use ccm device node instead of the anatop one.
+
+Changes in v2:
+- Add "allOf:" and place it after "required:" block, like in the
+  example schema.
+- Move the properties definition to the top-level.
+- Drop unit types as requested by the "make dt_binding_check" command.
+
+Dario Binacchi (4):
+  clk: scmi: fix SSC spread conversion
+  clk: scmi: reject SSC configuration out of the OEM field range
+  clk: validate spread spectrum configuration
+  clk: imx: pll14xx: support spread spectrum clock generation
+
+ drivers/clk/clk-scmi-oem.c             | 17 ++++-
+ drivers/clk/clk.c                      | 14 ++++
+ drivers/clk/clk_test.c                 | 12 ++--
+ drivers/clk/imx/clk-pll14xx.c          | 99 ++++++++++++++++++++++++++
+ drivers/clk/kunit_clk_assigned_rates.h |  4 +-
+ 5 files changed, 136 insertions(+), 10 deletions(-)
+
 ---
- drivers/usb/dwc3/dwc3-qcom.c | 34 ++++++++++++++++++++++++++--------
- 1 file changed, 26 insertions(+), 8 deletions(-)
+base-commit: 940de590b839f71d6dc846160534bf202401b8b7
+branch: imx-pll14xx-spread-spectrum
 
-diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
-index 49698a31b2f4..6d25f81800a7 100644
---- a/drivers/usb/dwc3/dwc3-qcom.c
-+++ b/drivers/usb/dwc3/dwc3-qcom.c
-@@ -335,14 +335,24 @@ static void dwc3_qcom_enable_interrupts(struct dwc3_qcom *qcom)
- 		dwc3_qcom_enable_port_interrupts(&qcom->ports[i]);
- }
- 
--static int dwc3_qcom_suspend(struct dwc3_qcom *qcom, bool wakeup)
-+static int dwc3_qcom_suspend(struct dwc3_qcom *qcom, pm_message_t msg)
- {
- 	u32 val;
- 	int i, ret;
-+	bool wakeup;
- 
- 	if (qcom->is_suspended)
- 		return 0;
- 
-+	/*
-+	 * For runtime suspend, always enable wakeup.
-+	 * For system suspend, check device wakeup capability.
-+	 */
-+	if (PMSG_IS_AUTO(msg))
-+		wakeup = true;
-+	else
-+		wakeup = device_may_wakeup(qcom->dev);
-+
- 	for (i = 0; i < qcom->num_ports; i++) {
- 		val = readl(qcom->qscratch_base + pwr_evnt_irq_stat_reg[i]);
- 		if (!(val & PWR_EVNT_LPM_IN_L2_MASK))
-@@ -369,14 +379,24 @@ static int dwc3_qcom_suspend(struct dwc3_qcom *qcom, bool wakeup)
- 	return 0;
- }
- 
--static int dwc3_qcom_resume(struct dwc3_qcom *qcom, bool wakeup)
-+static int dwc3_qcom_resume(struct dwc3_qcom *qcom, pm_message_t msg)
- {
- 	int ret;
- 	int i;
-+	bool wakeup;
- 
- 	if (!qcom->is_suspended)
- 		return 0;
- 
-+	/*
-+	 * For runtime resume, always assume wakeup was enabled.
-+	 * For system resume, check device wakeup capability.
-+	 */
-+	if (PMSG_IS_AUTO(msg))
-+		wakeup = true;
-+	else
-+		wakeup = device_may_wakeup(qcom->dev);
-+
- 	if (dwc3_qcom_is_host(qcom) && wakeup)
- 		dwc3_qcom_disable_interrupts(qcom);
- 
-@@ -759,14 +779,13 @@ static int dwc3_qcom_pm_suspend(struct device *dev)
- {
- 	struct dwc3 *dwc = dev_get_drvdata(dev);
- 	struct dwc3_qcom *qcom = to_dwc3_qcom(dwc);
--	bool wakeup = device_may_wakeup(dev);
- 	int ret;
- 
- 	ret = dwc3_pm_suspend(&qcom->dwc);
- 	if (ret)
- 		return ret;
- 
--	ret = dwc3_qcom_suspend(qcom, wakeup);
-+	ret = dwc3_qcom_suspend(qcom, PMSG_SUSPEND);
- 	if (ret)
- 		return ret;
- 
-@@ -779,10 +798,9 @@ static int dwc3_qcom_pm_resume(struct device *dev)
- {
- 	struct dwc3 *dwc = dev_get_drvdata(dev);
- 	struct dwc3_qcom *qcom = to_dwc3_qcom(dwc);
--	bool wakeup = device_may_wakeup(dev);
- 	int ret;
- 
--	ret = dwc3_qcom_resume(qcom, wakeup);
-+	ret = dwc3_qcom_resume(qcom, PMSG_RESUME);
- 	if (ret)
- 		return ret;
- 
-@@ -819,7 +837,7 @@ static int dwc3_qcom_runtime_suspend(struct device *dev)
- 	if (ret)
- 		return ret;
- 
--	return dwc3_qcom_suspend(qcom, true);
-+	return dwc3_qcom_suspend(qcom, PMSG_AUTO_SUSPEND);
- }
- 
- static int dwc3_qcom_runtime_resume(struct device *dev)
-@@ -828,7 +846,7 @@ static int dwc3_qcom_runtime_resume(struct device *dev)
- 	struct dwc3_qcom *qcom = to_dwc3_qcom(dwc);
- 	int ret;
- 
--	ret = dwc3_qcom_resume(qcom, true);
-+	ret = dwc3_qcom_resume(qcom, PMSG_AUTO_RESUME);
- 	if (ret)
- 		return ret;
- 
 -- 
-2.34.1
+2.43.0
 
