@@ -1,313 +1,160 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4B165391849
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:07:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72B143C13F8
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:07:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788415632; cv=none; b=NRUXEaszu7V/sUvZ8ypas9qnSgw2FTjtG1aiaIVUf/URMqACyeoiL0o8V+Bd4vZ33otSe6Sun/EZOtQpms36PzsnqCiCL0DtTcr0CCfcelMpRExc80THLdnbcD00j+9Ux50ABmRR+l6mDTaHczujsPjbjpDdbsdj+Gwe6MbA0ss=
+	t=1788415636; cv=none; b=klYCqo1F94QiVTp3LVyq3zNgGsTB9ZllbIrOTd5PBksmIt9FfNNGVwpal3bEeOuU4hO66cYHmL4JOCPgE8NmYg8KSKcNkEVJZaG9Zsjw9ZbXlOu47hSkuFXn+k3Sp8cU+xMgwlBkM1e2iG+WGsBAdzimVaYsOhGcjOq12wsAKME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788415632; c=relaxed/simple;
-	bh=4452ysLjNmLryvgaNw39khfzX+Pth08JgAik4oKU6Jg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OAU2tNqmoPss/atA1WYPRhlVF6SHlnr3zuhfbQRVbZx4QbDGA8J6N+KG7CXepW5h0Dn3ebD7QeTLV2lSBdc1gXfKJjjSg+OcmwLaLikTf18wzoHaBjUtjxcp2Os8RprxOisRILaZ+xV8yxpaI0hRcactglq7bJnU/r4x04jFgg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=hTEpmSGP; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788415636; c=relaxed/simple;
+	bh=Qlu2kSPeQ9fQnX7dfvoM0kmKFMfGiV5UUteJMfTnJLQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z5iJtQnGpJLYoLu+ubDr31NQhJjBYQDCgnaIYqQzLz6qpodncIyR/tm+PoBKj1qyVWTJaLXFC0Plh6dITUEK03/CTH0/whHm7SGYaC7ZPT+8UoRJdFRrTboS8WQJlcnB+xoiOpkb8DljMLo2MjYEQpUFmTMNv+7sbwT2wVtIF+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o0lxdCMA; arc=none smtp.client-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="hTEpmSGP"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 91C351596;
-	Wed,  2 Sep 2026 23:07:05 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 980D93F673;
-	Wed,  2 Sep 2026 23:07:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788415629; bh=4452ysLjNmLryvgaNw39khfzX+Pth08JgAik4oKU6Jg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=hTEpmSGPBTm5yHveeFi1B29Fw18kY2VSxJq0aQIMmPVsEaWdGB0Y9YTIkUIMd8nSZ
-	 M52vF1br0oobty+ZsHukgKnpLL2QVFtAgpfL3Qu9Dl/Fpd3KInMSGljQWHz/KTNOqY
-	 AJXCczCwhkHRv4K+5sKNZ1Sl7nqKjeoIBi5cWgv8=
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Linu Cherian <linu.cherian@arm.com>,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	kasan-dev@googlegroups.com
-Subject: [PATCH 2/4] arm64/mm: Convert READ_ONCE() as pudp_get() while accessing PUD
-Date: Thu,  3 Sep 2026 11:36:55 +0530
-Message-ID: <20260903060657.2717457-3-anshuman.khandual@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260903060657.2717457-1-anshuman.khandual@arm.com>
-References: <20260903060657.2717457-1-anshuman.khandual@arm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o0lxdCMA"
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-c9b373d5af0so1533116a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 23:07:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788415634; x=1789020434; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gBUuqGg91aYvqgQOgpAhdv5iVIgNNaz0N9DNOLXqnd8=;
+        b=o0lxdCMAsm3DZyC1qyrOKk46oLlc6GiOQg7hcy8lo+85FUFXW3d55nnRYo5cJbFE9m
+         OhxGQf9w4cBsru2sNe8/YFebakDo0XJhXrQBtoXey2ya0LGkOd7IgGfVp15N0D+hXhyF
+         EWmu0yCLXp5RL6VaFm1TGIc3GD2bLkqpYhWLot8s1Qnp6CTqHMW0xbnISuWq4Oc/ZPQr
+         dwHWbLhBBSFz8S9L5mGl65DRsr3btN+2keub6LQLkKqt6qiObBxgoC6UEVrUQyTmBT/3
+         knFJMmIlDtB1Uo7Tq9zyVu4zLaaIhC9Elijhwi6xKxYCZhTok/hwzdLV/nbup7EYASEK
+         30ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788415634; x=1789020434;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gBUuqGg91aYvqgQOgpAhdv5iVIgNNaz0N9DNOLXqnd8=;
+        b=QZPJc+wceNErvfs0tU1Y3TTn2mIw4Xrg2S+sJxGrASqqwBmBlEP0jd0J9EaVzsKfDS
+         JEl5pblEC4qYDRf97PlcWw75sD+8s9czN3Eme6pGlTZXP1NSbdkOLA3CrkMDlNd0UAYj
+         4xuHCuaJrdS71qhlcUkO2BHArTzAlcxRoqMyWY6z9lOSxteuVYYTAfnI5axO9keS5vB3
+         xVlX7odKLlWAv6UEILjgMsa2haLQnHRPlQIWATKsd5zuItT0M1LpzjH5YtAydHkd00Wj
+         7Es/HsWuwDKqjZ7WV7c8Ci3SIKucFb+GC+Fb6e7yF8hbM6mXssbzNyaiZuVW7PvyrVg/
+         BzIA==
+X-Forwarded-Encrypted: i=1; AKwUvBxi+rS/2l5aSR4d5zAVE1/qF2Xj3r9KbHyPyG/cYgbGCslZxjhDRxRSlfGa4oI6VoHVMvzMiJlqjyk0fSU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nIbiy0d6pbHE7WmBvEarbotmGz0xI1GcEWBG07xJY5O/SbTVbG
+	H3Z8+ErOG5/N+AJtAIYbE5a0ft38uTKDXjzAsooOzXUHzmwLDBUv9f1I
+X-Gm-Gg: AYBFou3R/p04vyFklMppn1L7wIe9hl3kNpBO+uTgs0OKWK8uBmlesprl8arvpxnrVja
+	W+u9i7VJBu8Xs0asB/UryxShpAVs5S/Gq2de5Pwl6wpkt8rLz22pLOYyBMO7ohQwBl/u3yrRWIH
+	8rGsa/oC58CvZLb0s5tc64PpOkStafMZf37hf1rFa+2vp1PZTdpPXGZjNVY2dNMVOKw7hjhqAKI
+	Ne2cnG3ANT9es5tWVPXuJHbxCAlA2HGeB3M2iKow2ahxjjo12XiSeQTQrR9KNmu5QYEpV3naMad
+	W+G9OnGBVYF0qudiJI+KnQe+GpflRkLt0c1v45ChmYUyXfYjsbbR+ndl46YgdjkyVl+qxONl7KK
+	lYwFlq1QpcyYvEsQj8iBCmvkI/wZFidlrDcHhGXQ0B4PcvlaJ6KdA3ai9pK0HFOeuIo47DYg7uk
+	7blP4pO1P9G1hV4/h5wPAaycRz9rIriEJ7F86EHExJ9W0u/FXGflN+ituUE6dl3kcjZVjTbU2Xh
+	b0kZc8=
+X-Received: by 2002:a17:90b:4b0f:b0:38e:b400:a860 with SMTP id 98e67ed59e1d1-39aee15920cmr13300583a91.13.1788415633539;
+        Wed, 02 Sep 2026 23:07:13 -0700 (PDT)
+Received: from kernel ([45.251.35.126])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3325367238fsm3671440eec.2.2026.09.02.23.07.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 23:07:12 -0700 (PDT)
+Date: Thu, 3 Sep 2026 11:37:06 +0530
+From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+To: Alex Williamson <alex@shazbot.org>
+Cc: bhelgaas@google.com, skhan@linuxfoundation.org, jkoolstra@xs4all.nl,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] PCI: quirks: Fix out-of-bounds MMIO read in
+ nvme_disable_and_flr()
+Message-ID: <apkOikPtaTVYnJ1W@kernel>
+References: <20260817092448.4395-1-raizudeen.kerneldev@gmail.com>
+ <20260902115117.34a30084@shazbot.org>
+ <apjoiNcvvJLv2grA@kernel>
+ <20260902222156.393e2457@shazbot.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902222156.393e2457@shazbot.org>
 
-Convert all READ_ONCE() based PUD accesses as pudp_get() instead which will
-support both D64 and D128 translation regime going forward. That is because
-READ_ONCE() would need 128 bit single copy atomic guarantees, while reading
-128 bit page table entries which is currently not supported on arm64. Build
-fails for READ_ONCE() while accessing beyond 64 bits.
+On Wed, Sep 02, 2026 at 10:21:56PM -0600, Alex Williamson wrote:
+> On Thu, 3 Sep 2026 08:54:56 +0530
+> Mohamad Raizudeen <raizudeen.kerneldev@gmail.com> wrote:
+> 
+> > On Wed, Sep 02, 2026 at 11:51:17AM -0600, Alex Williamson wrote:
+> > > On Mon, 17 Aug 2026 14:54:47 +0530
+> > > Mohamad Raizudeen <raizudeen.kerneldev@gmail.com> wrote:
+> > >   
+> > > > In nvme_disable_and_flr(), the PCI bar is mapped using
+> > > > NVME_REG_CC + sizeof(cfg) which is (0x14 + 4 = 0x18 bytes)
+> > > > 
+> > > > However, the function later reads the controller status from
+> > > > NVME_REG_CSTS - offset 0x1C, which is outside the mapped 0x18 byte
+> > > > boundary and it can cause a page fault or kernel panic on architectures
+> > > > that enforce strict MMIO boundaries.  
+> > > 
+> > > What are those architectures?  The bug and fix look correct, but the
+> > > risk seems overstated.  Thanks,
+> > > 
+> > > Alex
+> > >   
+> > Hi Alex,
+> > 
+> > Arm64, risc-v do panic on out-of-bounds mmio. But you are right that the
+> > risk is overstated, since most standard servers return all ones instead
+> > of crashing.
+> 
+> Are you building with some sort of sanity or debug checking enabled?
+> 
+> While we're clearly violating the API accessing beyond the requested
+> length, it's my understanding that we're generally working with
+> PAGE_SIZE mappings at the MMU, so unless we're crossing a page, the
+> access should work regardless.  Even for the cited archs.
+> 
+> The -1 return is typically related to how the platform handles
+> master-abort when accessing unimplemented or disabled MMIO space.  This
+> out-of-bounds access shouldn't be triggering that, it's still within
+> the enabled BAR range of the device.
+> 
+> Anyway, I'd be curious to see the backtrace and whether there's a
+> config option to enable such sanity checking.  Thanks,
+> 
+> Alex
+>
+No, I am not runnning with any debug enabled, So I don't have a
+bactrace. You are completely right about the PAGE_SIZE mappings. I agree
+that I was mistaken about the panic. 
 
-Load Pair/Store Pair (ldp/stp) are only single copy atomic if FEAT_LSE128
-is supported (which is required when FEAT_D128 is supported). Currently 128
-bit pgtables is a compile time decision - so we could have chosen to extend
-READ_ONCE()/WRITE_ONCE() to allow 128 bit for this configuration. But then
-it's a general purpose API and we were concerned that other users might
-eventually creep in that expect 128 and then fail to compile in the other
-configs.
+Also, I already sent a v2 that drops that speculation and just focuses
+on the undefined behavior of the out-of-bounds read.
 
-But worse, we are considering eventually making D128 a boot time option, at
-which point we'd have to make READ_ONCE() always allow 128 bit at compile
-time but then it might silently tear at runtime.
-
-So our preference is to standardize on these existing helpers, which we can
-override in arm64 to give the 128 bit single copy guarantee when required.
-
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Mark Rutland <mark.rutland@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: kasan-dev@googlegroups.com
-Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
----
- arch/arm64/include/asm/pgtable.h |  3 ++-
- arch/arm64/mm/fault.c            |  2 +-
- arch/arm64/mm/fixmap.c           |  2 +-
- arch/arm64/mm/hugetlbpage.c      |  4 ++--
- arch/arm64/mm/kasan_init.c       |  4 ++--
- arch/arm64/mm/mmu.c              | 20 ++++++++++----------
- arch/arm64/mm/pageattr.c         |  2 +-
- arch/arm64/mm/trans_pgd.c        |  4 ++--
- 8 files changed, 21 insertions(+), 20 deletions(-)
-
-diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-index 51f55498d43d..83087b70f192 100644
---- a/arch/arm64/include/asm/pgtable.h
-+++ b/arch/arm64/include/asm/pgtable.h
-@@ -867,7 +867,8 @@ static inline pmd_t *pud_pgtable(pud_t pud)
- }
- 
- /* Find an entry in the second-level page table. */
--#define pmd_offset_phys(dir, addr)	(pud_page_paddr(READ_ONCE(*(dir))) + pmd_index(addr) * sizeof(pmd_t))
-+#define pmd_offset_phys(dir, addr)	(pud_page_paddr(pudp_get(dir)) + \
-+					 pmd_index(addr) * sizeof(pmd_t))
- 
- #define pmd_set_fixmap(addr)		((pmd_t *)set_fixmap_offset(FIX_PMD, addr))
- #define pmd_set_fixmap_offset(pud, addr)	pmd_set_fixmap(pmd_offset_phys(pud, addr))
-diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
-index cb25cb130e83..a8f07143512b 100644
---- a/arch/arm64/mm/fault.c
-+++ b/arch/arm64/mm/fault.c
-@@ -181,7 +181,7 @@ static void show_pte(unsigned long addr)
- 			break;
- 
- 		pudp = pud_offset(p4dp, addr);
--		pud = READ_ONCE(*pudp);
-+		pud = pudp_get(pudp);
- 		ptval_to_str(pud_str, pud_val(pud));
- 		pr_cont(", pud=%s", pud_str);
- 		if (pud_none(pud) || pud_bad(pud))
-diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
-index 3cdac8021d4f..d9a870836faf 100644
---- a/arch/arm64/mm/fixmap.c
-+++ b/arch/arm64/mm/fixmap.c
-@@ -56,7 +56,7 @@ static void __init early_fixmap_init_pmd(pud_t *pudp, unsigned long addr,
- 					 unsigned long end)
- {
- 	unsigned long next;
--	pud_t pud = READ_ONCE(*pudp);
-+	pud_t pud = pudp_get(pudp);
- 	pmd_t *pmdp;
- 
- 	if (pud_none(pud))
-diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
-index cdaa4500faf9..c9ad5e75b073 100644
---- a/arch/arm64/mm/hugetlbpage.c
-+++ b/arch/arm64/mm/hugetlbpage.c
-@@ -262,7 +262,7 @@ pte_t *huge_pte_alloc(struct mm_struct *mm, struct vm_area_struct *vma,
- 		WARN_ON(addr & (sz - 1));
- 		ptep = pte_alloc_huge(mm, pmdp, addr);
- 	} else if (sz == PMD_SIZE) {
--		if (want_pmd_share(vma, addr) && pud_none(READ_ONCE(*pudp)))
-+		if (want_pmd_share(vma, addr) && pud_none(pudp_get(pudp)))
- 			ptep = huge_pmd_share(mm, vma, addr, pudp);
- 		else
- 			ptep = (pte_t *)pmd_alloc(mm, pudp, addr);
-@@ -292,7 +292,7 @@ pte_t *huge_pte_offset(struct mm_struct *mm,
- 		return NULL;
- 
- 	pudp = pud_offset(p4dp, addr);
--	pud = READ_ONCE(*pudp);
-+	pud = pudp_get(pudp);
- 	if (sz != PUD_SIZE && pud_none(pud))
- 		return NULL;
- 	/* hugepage or swap? */
-diff --git a/arch/arm64/mm/kasan_init.c b/arch/arm64/mm/kasan_init.c
-index 7ca833c5de5e..aad29bcc7622 100644
---- a/arch/arm64/mm/kasan_init.c
-+++ b/arch/arm64/mm/kasan_init.c
-@@ -76,7 +76,7 @@ static pte_t *__init kasan_pte_offset(pmd_t *pmdp, unsigned long addr, int node,
- static pmd_t *__init kasan_pmd_offset(pud_t *pudp, unsigned long addr, int node,
- 				      bool early)
- {
--	if (pud_none(READ_ONCE(*pudp))) {
-+	if (pud_none(pudp_get(pudp))) {
- 		phys_addr_t pmd_phys = early ?
- 				__pa_symbol(kasan_early_shadow_pmd)
- 					: kasan_alloc_zeroed_page(node);
-@@ -150,7 +150,7 @@ static void __init kasan_pud_populate(p4d_t *p4dp, unsigned long addr,
- 	do {
- 		next = pud_addr_end(addr, end);
- 		kasan_pmd_populate(pudp, addr, next, node, early);
--	} while (pudp++, addr = next, addr != end && pud_none(READ_ONCE(*pudp)));
-+	} while (pudp++, addr = next, addr != end && pud_none(pudp_get(pudp)));
- }
- 
- static void __init kasan_p4d_populate(pgd_t *pgdp, unsigned long addr,
-diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-index 32daaa547d09..58a50809f91a 100644
---- a/arch/arm64/mm/mmu.c
-+++ b/arch/arm64/mm/mmu.c
-@@ -309,7 +309,7 @@ static int alloc_init_cont_pmd(pud_t *pudp, unsigned long addr,
- {
- 	int ret;
- 	unsigned long next;
--	pud_t pud = READ_ONCE(*pudp);
-+	pud_t pud = pudp_get(pudp);
- 	pmd_t *pmdp;
- 
- 	/*
-@@ -390,7 +390,7 @@ static int alloc_init_pud(p4d_t *p4dp, unsigned long addr, unsigned long end,
- 	}
- 
- 	do {
--		pud_t old_pud = READ_ONCE(*pudp);
-+		pud_t old_pud = pudp_get(pudp);
- 
- 		next = pud_addr_end(addr, end);
- 
-@@ -408,7 +408,7 @@ static int alloc_init_pud(p4d_t *p4dp, unsigned long addr, unsigned long end,
- 			 * only allow updates to the permission attributes.
- 			 */
- 			BUG_ON(!pgattr_change_is_safe(pud_val(old_pud),
--						      READ_ONCE(pud_val(*pudp))));
-+						      pud_val(pudp_get(pudp))));
- 		} else {
- 			ret = alloc_init_cont_pmd(pudp, addr, next, phys, prot,
- 						  pgtable_alloc, flags);
-@@ -416,7 +416,7 @@ static int alloc_init_pud(p4d_t *p4dp, unsigned long addr, unsigned long end,
- 				goto out;
- 
- 			VM_WARN_ON_ONCE(pud_val(old_pud) != 0 &&
--					pud_val(old_pud) != READ_ONCE(pud_val(*pudp)));
-+					pud_val(old_pud) != pud_val(pudp_get(pudp)));
- 		}
- 		phys += next - addr;
- 	} while (pudp++, addr = next, addr != end);
-@@ -1591,7 +1591,7 @@ static void unmap_hotplug_pud_range(p4d_t *p4dp, unsigned long addr,
- 	do {
- 		next = pud_addr_end(addr, end);
- 		pudp = pud_offset(p4dp, addr);
--		pud = READ_ONCE(*pudp);
-+		pud = pudp_get(pudp);
- 		if (pud_none(pud))
- 			continue;
- 
-@@ -1748,7 +1748,7 @@ static void free_empty_pud_table(p4d_t *p4dp, unsigned long addr,
- 	do {
- 		next = pud_addr_end(addr, end);
- 		pudp = pud_offset(p4dp, addr);
--		pud = READ_ONCE(*pudp);
-+		pud = pudp_get(pudp);
- 		if (pud_none(pud))
- 			continue;
- 
-@@ -1769,7 +1769,7 @@ static void free_empty_pud_table(p4d_t *p4dp, unsigned long addr,
- 	 */
- 	pudp = pud_offset(p4dp, 0UL);
- 	for (i = 0; i < PTRS_PER_PUD; i++) {
--		if (!pud_none(READ_ONCE(pudp[i])))
-+		if (!pud_none(pudp_get(pudp + i)))
- 			return;
- 	}
- 
-@@ -1867,7 +1867,7 @@ int pud_set_huge(pud_t *pudp, phys_addr_t phys, pgprot_t prot)
- 	pud_t new_pud = pfn_pud(__phys_to_pfn(phys), mk_pud_sect_prot(prot));
- 
- 	/* Only allow permission changes for now */
--	if (!pgattr_change_is_safe(READ_ONCE(pud_val(*pudp)),
-+	if (!pgattr_change_is_safe(pud_val(pudp_get(pudp)),
- 				   pud_val(new_pud)))
- 		return 0;
- 
-@@ -1898,7 +1898,7 @@ void p4d_clear_huge(p4d_t *p4dp)
- 
- int pud_clear_huge(pud_t *pudp)
- {
--	if (!pud_leaf(READ_ONCE(*pudp)))
-+	if (!pud_leaf(pudp_get(pudp)))
- 		return 0;
- 	pud_clear(pudp);
- 	return 1;
-@@ -1938,7 +1938,7 @@ int pud_free_pmd_page(pud_t *pudp, unsigned long addr)
- 	pud_t pud;
- 	unsigned long next, end;
- 
--	pud = READ_ONCE(*pudp);
-+	pud = pudp_get(pudp);
- 
- 	if (!pud_table(pud)) {
- 		VM_WARN_ON(1);
-diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
-index 0ca07bd5ded9..07b2fa4de57f 100644
---- a/arch/arm64/mm/pageattr.c
-+++ b/arch/arm64/mm/pageattr.c
-@@ -407,7 +407,7 @@ bool kernel_page_present(struct page *page)
- 		return false;
- 
- 	pudp = pud_offset(p4dp, addr);
--	pud = READ_ONCE(*pudp);
-+	pud = pudp_get(pudp);
- 	if (pud_none(pud))
- 		return false;
- 	if (pud_leaf(pud))
-diff --git a/arch/arm64/mm/trans_pgd.c b/arch/arm64/mm/trans_pgd.c
-index b27b2d2c20c3..d119119455f1 100644
---- a/arch/arm64/mm/trans_pgd.c
-+++ b/arch/arm64/mm/trans_pgd.c
-@@ -64,7 +64,7 @@ static int copy_pmd(struct trans_pgd_info *info, pud_t *dst_pudp,
- 	unsigned long next;
- 	unsigned long addr = start;
- 
--	if (pud_none(READ_ONCE(*dst_pudp))) {
-+	if (pud_none(pudp_get(dst_pudp))) {
- 		dst_pmdp = trans_alloc(info);
- 		if (!dst_pmdp)
- 			return -ENOMEM;
-@@ -109,7 +109,7 @@ static int copy_pud(struct trans_pgd_info *info, p4d_t *dst_p4dp,
- 
- 	src_pudp = pud_offset(src_p4dp, start);
- 	do {
--		pud_t pud = READ_ONCE(*src_pudp);
-+		pud_t pud = pudp_get(src_pudp);
- 
- 		next = pud_addr_end(addr, end);
- 		if (pud_none(pud))
--- 
-2.43.0
-
+Thanks, 
+Mohamad Raizudeen
+> > > > Fix this by increasing the mapping size to include NVME_REG_CSTS.
+> > > > 
+> > > > Fixes: ffb0863426eb9 ("PCI: Disable Samsung SM961/PM961 NVMe before FLR")
+> > > > Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+> > > > ---
+> > > >  drivers/pci/quirks.c | 2 +-
+> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > > > 
+> > > > diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+> > > > index b09f27f7846f..ed03892cc960 100644
+> > > > --- a/drivers/pci/quirks.c
+> > > > +++ b/drivers/pci/quirks.c
+> > > > @@ -4090,7 +4090,7 @@ static int nvme_disable_and_flr(struct pci_dev *dev, bool probe)
+> > > >  	if (probe)
+> > > >  		return 0;
+> > > >  
+> > > > -	bar = pci_iomap(dev, 0, NVME_REG_CC + sizeof(cfg));
+> > > > +	bar = pci_iomap(dev, 0, NVME_REG_CSTS + sizeof(cfg));
+> > > >  	if (!bar)
+> > > >  		return -ENOTTY;
+> > > >    
+> > >   
+> 
