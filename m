@@ -1,115 +1,112 @@
-Received: from mta1.migadu.com (out-120.mta1.migadu.com [95.215.58.120])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A979F4AE128
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:22:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E9524A5C5C
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:22:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788441732; cv=none; b=JHORPE7pBGWEgOO5whefk5cO1Jov/yUdsiqnde/nCrQnzXLAFA5q3MxWSw9gbbo2Tq4HDw8Fj2uGaFZjzp/Hdm40V+hwHZzp8GuTxKidtNkylnYONU7iUgdu2P/X943oER1AnrGb7QsNAaoNt0hX+l7v2K/NbQO118Bu1LYeJvU=
+	t=1788441743; cv=none; b=MUuE0O+oFvwgYc/hBEVS5Zycr5bnli5sm3CUBQI1MzFrU1VtWC1geIlMbOd1zFYxY+2olmVBvHoA5c9PvkQsawYgVrOGryB1NQ+X0N3pgtYI9IzDE7j60j37JJ7l+6ZL004Sjx2qugwZ+QynnNCjzyzgUUsTnJEyhJLZDMGJF5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788441732; c=relaxed/simple;
-	bh=j4uTZUo+uYR5vMdqlLMHmmh/MInxo1hjPIgXMf1amGM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=E+9DjwaBVloseJERnoS76a82fTMv24Zz9x4IlGoP8+Wo5aD4FHpa6Zt6C35JnT6y2sCpGwl7Gp/FqLoYjxpqnSYQ0xKchvMY/hpnnNgRuWlf619JgbV/qHNCkm+F1tCPPTUeT9B0fGe3ritTFuYr8cdOtWFbfst2VFBo/AnVda0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QoFXIfPt; arc=none smtp.client-ip=95.215.58.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788441743; c=relaxed/simple;
+	bh=fBeMkFaC1Cs7R3UZ2FEIJChYmhbI/KTvKfsZ3VllDtQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=b20+B/DwG5JgaCUFxp9Y+ApIy2TMFQAKlnU2WIrnihmuIcyA6ke3bA+xGFiXppzsvh0y6a+tcn7Erx0XD286Y/aKukoBV7nxrnqPFS/PINlPMEOCCsEViUzmsPJMU4QviUTfGJHvy+F4rl0VoUVBZhlb3N0As5FwGenbshvgzUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SqZFWulg; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QoFXIfPt"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=j4uTZUo+uYR5vMdqlLMHmmh/MInxo1hjPIgXMf1amGM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788441717; v=1; x=1789046517;
- b=QoFXIfPtKfBRiqW/yfCTmlyIbPIwn/gWXaEf3B/eMKBKmT8y2CYjx2tD5VhuVeBDdPBSum8g
- rCpuReIzmSfbH8O67eOcKeVevir3zvXPeB0a2d7rSu6PZYRpOg4ovq+kpCJm4jOjQQiGi8RDSeX
- 7hi4I783cVZcp8svDoDYN3Zg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0f1f8dcc7f935278;
-	Thu, 03 Sep 2026 13:21:57 +0000
-X-Mizu-Trace-ID: 0f1f8dcc7f935278
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <047c7f3f-4a8d-47b1-a940-cc4535c3495f@linux.dev>
-Date: Thu, 3 Sep 2026 21:21:48 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SqZFWulg"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d71a50caa9so32859235ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 06:22:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788441733; x=1789046533; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fBeMkFaC1Cs7R3UZ2FEIJChYmhbI/KTvKfsZ3VllDtQ=;
+        b=SqZFWulg7KvcXlqEnA4Lw6rZd480mwzZMQ5bt05xAUmms0+5HvMJwskTIzh377Em2R
+         2cdJgjV/FAUdd0FhH3G7v4uJcWoo3R8fJjPKrJ6U121eVEBGDyhkkK/bwG5B6DdO3yXx
+         mCuX59Nb+IW0esKBCg1ccJ/Kq4B6YLt5dpbxahhWG876Q/biKids7bDiP39jU0xzz5L5
+         q35LThB18mcFz1TcyQTjq0TQOZHTRZDgqkKxJDnSlbJmC/naWFxpBGLzv/fWr7WW+LFk
+         BWZ/omuQQ/Vmypxl4mkYfLb5Swg0VGDFEAz7PSFsRbpPp6S24JD0seJBrsvl9iDqy/mf
+         ++jQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788441733; x=1789046533;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fBeMkFaC1Cs7R3UZ2FEIJChYmhbI/KTvKfsZ3VllDtQ=;
+        b=r3Qnfope1edEnvwuxkRxgrOyX4gXWfEGehzUvTVyL1pfa+QRVPPsJMzqpQ0Ru4r7gE
+         thEk4iOzRh+XXdg3cFoK517LgZIOz4zpZWyQi4AuaDHBhJ3gV/0++7wz1PQjq0JXL8bq
+         HK8CYWLg9rZl++qrE9jRhjh4Raj/1fzpkjhst+MA8ewjVpxCQmtdFTPFuHXwAP+Dlx+e
+         +R85FwElrrk1XOyJLJNcZ0QyW5zkFC7uYAWw60SkYIv9rFKSIdtN4iRofqZaVRpPd8QV
+         Y4BzADASggbBLT6zSvo6+mD7XfHt2Wyfc1axBYa/lAv8rdZnWulHnF4XGbR9VdbGZ+sH
+         kw1g==
+X-Forwarded-Encrypted: i=1; AKwUvBzLTQa6ZWEqW+kKo1ghE5h6IFI6XuETzS0PZQMs+gDyaYEaf44oxpKO4vtvXkvg9J7t6bB0NCBcudCcuAI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzHMG1IT5/obNW0sIESVM5BRREe6mEwdnUZIrlHFCoMQTrVxKm
+	vIH9i1hAIKAPIO+y/T0HeR3CwfDOMx8wsK0IbyIO7MAEtCTwlJUfbJoE
+X-Gm-Gg: AYBFou3a59z8JRtG1l05Q4ICl0+pYJkZ18+2o/YkUaf6GFgu1JGl9X3NVlYwjw9R2Qo
+	BCtQyw4IMtg31RckcRfkRhIXhHEiw9bDQKolrKoTo+W7+6qPuwY80A4oOuYovfsnZdGhjhMll08
+	TfETRlHgk6lbgio5z6Ta1E16+xwERNepBDQyzAcbj24D66U3NsrT7ijXmnvFpR2EfaxeLG+eI8O
+	qkFN9NKc+F7vjaNoSHHBkagin1hcg3XLU2ZnY4WZnTBPRMkTiU0dEdrm7r7bmjgivQFBxEEjGnJ
+	XabQ71+T0i6I4kZEVsStyZE/ac1JEjmg2KbtZa0udv6EXHAOFX5l0POhzRDcmzyTY6I+8puoSjr
+	MuolEq8lMPFReWYw9+3PH+fAlEMd45b9MSKet+2HCFqCWWlFGBbJzfmmw8iD0HFqozu1VlDq+Hb
+	QoZsbGTpasqRaEA/d4RiuXquyVKqANR+VHFviv1UIMaD5KC8UnSy0RSQU7pCqjRqSTKBC/0gsd3
+	o4=
+X-Received: by 2002:a17:90b:2808:b0:398:9be5:b417 with SMTP id 98e67ed59e1d1-39aee1c63b1mr20007782a91.18.1788441732646;
+        Thu, 03 Sep 2026 06:22:12 -0700 (PDT)
+Received: from localhost.localdomain ([2408:8607:1b00:8:d43b:6dcd:a4e9:1d79])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b07b197a9sm5407729a91.0.2026.09.03.06.22.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 06:22:11 -0700 (PDT)
+From: Pengfei Li <ljdlns1987@gmail.com>
+X-Google-Original-From: Pengfei Li <lipengfei28@xiaomi.com>
+To: sashiko-bot@kernel.org
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Pengfei Li <lipengfei28@xiaomi.com>,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [RFC PATCH v5 2/3] trace: integrate stackmap into ftrace stack recording path
+Date: Thu,  3 Sep 2026 21:21:50 +0800
+Message-Id: <20260903132150.253372-1-lipengfei28@xiaomi.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260902065433.2D6361F000E9@smtp.kernel.org>
+References: <20260902064242.28606-1-lipengfei28@xiaomi.com> <20260902064242.28606-3-lipengfei28@xiaomi.com> <20260902065433.2D6361F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1.y] cgroup/cpuset: Fix misplaced DL migration reset
-To: Karl Mehltretter <kmehltretter@gmail.com>, stable@vger.kernel.org
-Cc: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Guopeng Zhang <zhangguopeng@kylinos.cn>,
- Chen Ridong <chenridong@huaweicloud.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Sasha Levin <sashal@kernel.org>, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260901131335.15553-1-kmehltretter@gmail.com>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <20260901131335.15553-1-kmehltretter@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+On Wed, 2 Sep 2026 06:54:32 +0000 sashiko-bot@kernel.org wrote:
+> Could the commit message be updated to reflect that the buffers are not
+> cleared?
 
+> Does this code unnecessarily export tracing_reset_all_cpus() outside of
+> trace.c?
 
-在 2026/9/1 21:13, Karl Mehltretter 写道:
-> Mainline commit 4a39eda5fdd8 ("cgroup/cpuset: Reset DL migration state
-> on can_attach() failure") puts the common error cleanup in
-> cpuset_can_attach().  The 6.1.y backport instead placed that hunk at
-> cpuset_can_fork()'s similarly named out_unlock label, while removing
-> cpuset_can_attach()'s two existing targeted resets.
-> 
-> If cpuset_can_attach() fails after accounting a SCHED_DEADLINE task,
-> cgroup_migrate_execute() does not call cpuset_cancel_attach() for the
-> failing subsystem.  The temporary migration fields remain set, and a
-> later successful migration can consume the stale state and corrupt
-> deadline-task and pending-bandwidth accounting.
-> 
-> Move the reset to cpuset_can_attach()'s common error exit.  It is not
-> needed in cpuset_can_fork(), which never accumulates migration DL state.
-> 
-> Fixes: f8a8358832f3 ("cgroup/cpuset: Reset DL migration state on can_attach() failure")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
-> Applies to Linux 6.1.186 and 6.1.187-rc1.
-> 
-> A controlled QEMU A/B on 6.1.186 forced an attach error after accounting a
-> real SCHED_DEADLINE task.  The affected kernel returned with
-> nr_migrate_dl_tasks=1 and sum_migrate_dl_bw=104857; both fields were zero
-> with this patch.
-> 
-> The equivalent 6.6.y correction is submitted separately.
-> 
->  kernel/cgroup/cpuset.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 681b52f6aae5b..7123bb020a242 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -2600,6 +2600,8 @@ static int cpuset_can_attach(struct cgroup_taskset *tset)
->  	 */
->  	cs->attach_in_progress++;
->  out_unlock:
-> +	if (ret)
-> +		reset_migrate_dl_data(cs);
->  	mutex_unlock(&cpuset_mutex);
->  	return ret;
->  }
-> @@ -3405,8 +3407,6 @@ static int cpuset_can_fork(struct task_struct *task, struct css_set *cset)
->  	cs->attach_in_progress++;
->  
->  out_unlock:
-> -	if (ret)
-> -		reset_migrate_dl_data(cs);
->  	mutex_unlock(&cpuset_mutex);
->  	return ret;
->  }
+Both are real. Fixed in v6.
 
-Acked-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+The commit message was left over from the stricter reset design that
+was dropped in favour of map-only reset. It no longer claims the
+trace_array buffers are cleared. ftrace_stackmap_create() still takes
+the owning trace_array, but for a different reason: the text and
+binary exports run stack addresses through trace_adjust_address().
+
+The export was indeed dead. With the ring-buffer clear gone,
+tracing_reset_all_cpus() has no caller outside trace.c, so v6 restores
+it to a private static helper and removes the declaration from
+trace.h.
+
+Pengfei
