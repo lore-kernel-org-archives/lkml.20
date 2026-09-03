@@ -1,361 +1,201 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012014.outbound.protection.outlook.com [40.107.209.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F82B412C08
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 18:05:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56AC7317145;
+	Thu,  3 Sep 2026 18:06:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.14
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788458730; cv=pass; b=LU/wXrIbMES2I+ZfKVU6BHFJN2HmFngXeVh7Yl0u2D1S1Pw5hwJQjg6z8h8sxA4DP37XXmcMUIbdBkJyF8CFygIxKhkN02bsskXd+rfZeSZAvngVmJ5t6FhqLaZWAKuSJZnljwkhBFcbvjaQxRLIRsF6GBr6R2ptT0RbBjNihGM=
+	t=1788458800; cv=fail; b=od46Qky0oDv8W7qJEgX8joZPPUN/PuyLfm+tWThJi4ZeGUBp9tPkNQp6+dp13r63H+Q5bVJGVC8vYuWq5L5fDzJ0yZN5GvEifrrp8sR6pJGItWVjCLFk/WYSte+We+EEnOpO64EJWVn/MX4Xd/t5L8+r9ClGg8NUWB1G4xbUa/Y=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788458730; c=relaxed/simple;
-	bh=Kedqy20iL1VKqlMTRtx4HVaP26Qjm1i0y2pTcLCn1Bo=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=PX8n+QNOPjJq8wItFPH2jqfnI+JgUXM9VTqHGbwtpxwXOcMlcZ+61DKD/efBiOAPkcWDJKDwH3IDg6T/A0mUgcmcJL4RzIkRuwlRwP/E8Coe+zlSPPYxVYRyqkZCAZfvV70/xM8zRiLX3KHIjoGS9ljzjVzScIfu1mPo/sQU5oI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pTCZGd9F; arc=pass smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788458800; c=relaxed/simple;
+	bh=YTn47qygp+N9ZO/g2enN6dGbWpKxSHuAR4ENogdyl2E=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=pgnf4j/UQ1DvtcBsr5NP3dNWiAU71ZRNyMj9T/QPBrTZVP/fvdVO4ffrTH5F2m55Qf7gNSBC27XHfDuPHQEvtL9DBWFReAZ3E3uFRkor4Pd4pYShy24X/nEl3a8zHjQ1L32LnA2DUakR6erAVIeqkyq9LRGadncIcQK+LN2rgmw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=disney.com; spf=pass smtp.mailfrom=disney.com; dkim=pass (2048-bit key) header.d=disney.com header.i=@disney.com header.b=Qw3Jut7w; arc=fail smtp.client-ip=40.107.209.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=disney.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disney.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pTCZGd9F"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a20319d030so30661a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 11:05:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788458726; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ni7PfBDaxcwCC83rtFoEdVsUC6URgraX5FPK/BVNL+UHizPJWsytOwtf66Y2H6BcYC
-         tdyIdnG9IMwIL4nMBvhLtfhMH+o2R1RmIYe4lfaJxsJxrUCewlDR73CFiaUi/HMbNb05
-         qJuJ/q3n3dBAUZ3g/mugJ5ktLR2KUJJ5ahHNbsZ28RNOvlBYL5cWPCVKKT9h6VkL21wo
-         aj7Y9ZxmXYkw/UC4mwqFYsHM+e69xCV8qBiQQTCJ1H+TQBD3bCQ4omsQKNVeG42hT4De
-         hj1EYXqD8z2z2AwMpH1Zbq0X3CfHrZhcJSRtgzBIv90z/sVI/npztUXwfLpPKQ8/XAH3
-         MbAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=ouLdnCY2g+cfVI1uQbvBpUc2m70NxffWFhYFj+R3y1Q=;
-        fh=f+ghNHuGgN9bX7f3yNe4Fb0ayiefQIdtcmRiTgwC4mI=;
-        b=fLAVIBpDJl98dZJfP9+IO0T5aK6WTu8rQ4WoIpULxDwOSU1dj17XhjhGbcc7QM5Ah/
-         o+hxENsGzJzU+dORbMO2YKtg3ZZBN5ggDLZa0WMgDlyqaqmwzwpP57ccMqQfX4MJNK6Y
-         ZkLatM9pe8mSEP2L1/Wx4OnT/dBeGYpVhzsMbRTrHyfdmwhYsxQqwuPgeyK4uQ7fTVqh
-         MhunGl6vXg7PM7MIN6A/G5BO3awJBdKjbaWCqgUs/U0Ikfyb/HnEx8R2nDpWYZ/79usm
-         h3njmt+U4utojYO8tD7W3U6utdvmZvMACLy0Tagg4Pf6DJpdJfGdsJn9LvKqHvRdkq09
-         Xxgg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788458726; x=1789063526; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ouLdnCY2g+cfVI1uQbvBpUc2m70NxffWFhYFj+R3y1Q=;
-        b=pTCZGd9FP1IhxPnjKk6E66Ddlp4m5GqUiNPbDyqJchmZrfYoXl15Hap+A55w+zSWHc
-         paRX8zSl/BjFDnDPhDDC1Ye3YfBcyTM4gCwNTPgjRvyPg5EN3prpjdGFsSicYRg5iu+2
-         L3W5dGzRcNMm+Q1bnAY0twMPqV+7GIjrreNWSs6lCqwtldSPxx94icjoq0CUvirl8Wf0
-         LCExRp9L4tFJiR6HA9mMl2fJGPc6oiW7SRZ2sbuFPDMABsLbnXi2Is4pBNVDDBDXdGQm
-         bll4fps4wn1S3CmI0JUvOpOtTGqDEOvmlLNLwiw5xCeJpiIk+wwZbauyV5BQrobSprlM
-         eO9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788458726; x=1789063526;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ouLdnCY2g+cfVI1uQbvBpUc2m70NxffWFhYFj+R3y1Q=;
-        b=Bz9h/yYX2/9aLoIavno9Cu4M0umsnMmJs46JKyqa3PggmSFneIW2rq/WuK0tVTLT3i
-         UlTHA6i7fojKEKYHrgQd8+5q20zuJoR8evRPzUg5817IzbuX5dImp1vSg7Dtsw+KTf71
-         DEt0OT+WRD4RlGCEN30Z+cHlNnnotlPnP3phXrOUdgMz6nFBIreH3yJL9s5ajd4o8Sx7
-         b6nHHgnfs5m7NhmSTMKz2UjAWzCoo6sTYnt4mTPED1jw8HSAop7CIpcPWd107eVHlx96
-         TFspkDy4+fyeoKfqXN5cgVCrzh50XUMDYCL2oHcenn5Hvir2dWwQrxrvqzD/yaWHqEjF
-         C3jw==
-X-Forwarded-Encrypted: i=1; AKwUvBwgBIgGUciF7x1bsh1fmLrN1xrOY9L4LeALuNR+wShCZuYYZZMwex67alH+gn5d/dQqsABMajAOjIlOsN0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kUdMryQLkG0e4k9VizMSjf3/KqKpj1XSPX4fEQllgYSzSGtHfK
-	JPqqzT+eNe8ZrHbR6ZObvXfxSNMLYKBVXx9MTGLduvTSghtdBQ06oDJ+yKRFnKD7XJu7G7GI2b1
-	z2SIOseNMQo2pgcCTcKOs0RUZ4+appbQ=
-X-Gm-Gg: AYBFou1enXalxsoKmEbqIb8fj/TyjZqBpK/feoEq4R7TphZ1zwLcuywj4darI3W+Ds8
-	2j3kM42YXMWokXpp+T4momF5gSLPWjhFwW+Tbmz/sno4mEx5sXB7Y9FKG5XZjuw030gs9fbtPT7
-	GnYEtPZM83ZS3fsW9d0oTIJ9ptcd9zxUYhZuNj5TdCinFGyH4ZqHokshyL2F4NFpdvaYs7gD+Ne
-	ju4kpRsS9rUqsCl9uPkkBYkOEc8q0iEuMQCcA4zGSSpLeptd/vnlLhhsTfH7sgJKSiqDAYm+ulb
-	5JUcIx8/RNFpByfQ+I+hjN8qF4zYf1sgsPmm2K1klBkVxhU1XIHEbXgfB8Oasq6ekQAnnK/gTJV
-	ymB7I4sQo3TkhbF1RcPv1Z7fH24oATZqx7ocPD4+u/yT1HMOzoai7Uzp4Pgps44fq
-X-Received: by 2002:a05:6402:46c6:b0:6a3:87b7:b5a9 with SMTP id
- 4fb4d7f45d1cf-6a7e5604d15mr1334240a12.12.1788458725896; Thu, 03 Sep 2026
- 11:05:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=disney.com header.i=@disney.com header.b="Qw3Jut7w"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zIuqpBUidO97NTe6tcBlRrZHUO9mBeqRRYxIPRC/rDNpJvk0RmtQCfZsHmJA3Vv4f19arhICi5yko0I3DdteGxvHFTeQ8I9GhTRKCurIAVIMO5nfJOlDfFcy7ZCRJ4VTbKhrOXJLuN3LiXQvmSvi2jyiDeT2hYACiy1mBodbh5/7QQbgPiE4odz5YMrh3jt3KzIN0BL/VmuSxaZdqkJA31eQIbOQSctZrrMMNbgD+79InNgi52boyHYKr6Y7zORyOFOtea6+f2qpY2WAe0fEFRMXnKP4ZxweO8PGrBeUUZVxfRgBCAt61UMdjfEEI7tiuzmhtK1CwPhVLUwlrLlIKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=K1v8PicgJ4iassEVMu0hm6M6gqiusxvhZuFnTq2s824=;
+ b=wS5MmSX1oi+QmRK96n7A+sU6VRPWq+Q3YvpGahatp+HCmg93pcjbdbBfpTiSu7OR5QkPPHElKbQFN+SczKbbyzdfX9CC9b0UFSrY59yi+zjuTY7MhhJMLH57zL50v0AFHbh4OBfxHU2tqrjAPN5G6SCjWmwTVY9kdrJBkNuNnqIqVD1BGrFA7VSWHMApS8wyM6yi3rwuf94rjKRRhINayC4p2LfyqlqDf/qWNmEnmBAe4CNChtOASuGJ6KOmyMMQTSyBn7vwEt1GbFyXC/kBHzpAY6zaab0UrzoGOEPQmxqYv2cmoY7nq0IO8Hs66Ae6O14S0VEruS05JGpkiZWO7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=disney.com; dmarc=pass action=none header.from=disney.com;
+ dkim=pass header.d=disney.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=disney.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=K1v8PicgJ4iassEVMu0hm6M6gqiusxvhZuFnTq2s824=;
+ b=Qw3Jut7w0kroOY4HtECgHGUPuhEEiUDDvpWihpKD1eMet1+lfxFB9dxKv2KS+feqAcn6zldZVhd4vxyENFmYaSDbGMWrUQi1/0258jWUaxt/qLD45POJrAuS1wOpMm+rYmCgQrLl92R3rvq5TKr4i7YsLfz3NO2ZXu9SY9gCnMnuQZz4WQmZLTJf9P+jCg2dqYhFfUp47ag0gU9bL259BAbKVfGYw4cg5rXrJtn0yay5cOmFNDffEQs8WGKXML62PZyGF6yMd4hp+SZc6m6KuhWBY3Yp/hbQfBUlgGebIxE14Oifzgl5Rh1I4h6j5tSNeRRKYGxm3d2vetEviIU4sA==
+Received: from DM6PR03MB3836.namprd03.prod.outlook.com (2603:10b6:5:4b::31) by
+ SA1PR03MB6670.namprd03.prod.outlook.com (2603:10b6:806:1c1::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 18:06:33 +0000
+Received: from DM6PR03MB3836.namprd03.prod.outlook.com
+ ([fe80::faf2:9f59:6b8b:ac36]) by DM6PR03MB3836.namprd03.prod.outlook.com
+ ([fe80::faf2:9f59:6b8b:ac36%6]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 18:06:33 +0000
+From: "Rawda, Tony" <Tony.Rawda@disney.com>
+To: "anthony.l.nguyen@intel.com" <anthony.l.nguyen@intel.com>,
+	"przemyslaw.kitszel@intel.com" <przemyslaw.kitszel@intel.com>
+CC: "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"richardcochran@gmail.com" <richardcochran@gmail.com>,
+	"vitaly.lifshits@intel.com" <vitaly.lifshits@intel.com>,
+	"sasha.neftin@intel.com" <sasha.neftin@intel.com>
+Subject: [PATCH] e1000e: set fixed clock frequency indication for Alder Point
+Thread-Topic: [PATCH] e1000e: set fixed clock frequency indication for Alder
+ Point
+Thread-Index: Ad07zqXgr+5utV32TBiUFVTVUh+ZFA==
+Date: Thu, 3 Sep 2026 18:06:33 +0000
+Message-ID:
+ <DM6PR03MB383684B3604D2B332361B810FAB62@DM6PR03MB3836.namprd03.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_c62e0584-010f-4004-8a6a-d5c118c8b4bd_ActionId=f0aad0bf-412c-4de7-93b0-9ab0ea7dad74;MSIP_Label_c62e0584-010f-4004-8a6a-d5c118c8b4bd_ContentBits=0;MSIP_Label_c62e0584-010f-4004-8a6a-d5c118c8b4bd_Enabled=true;MSIP_Label_c62e0584-010f-4004-8a6a-d5c118c8b4bd_Method=Standard;MSIP_Label_c62e0584-010f-4004-8a6a-d5c118c8b4bd_Name=Internal;MSIP_Label_c62e0584-010f-4004-8a6a-d5c118c8b4bd_SetDate=2026-09-03T18:03:55Z;MSIP_Label_c62e0584-010f-4004-8a6a-d5c118c8b4bd_SiteId=56b731a8-a2ac-4c32-bf6b-616810e913c6;MSIP_Label_c62e0584-010f-4004-8a6a-d5c118c8b4bd_Tag=10,
+ 3, 0, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=disney.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR03MB3836:EE_|SA1PR03MB6670:EE_
+x-ms-office365-filtering-correlation-id: 54851f29-cd48-44c1-5fa8-08df09e616c6
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|18002099003|56012099006|3023799007|38070700021|10067099003|11063799006;
+x-microsoft-antispam-message-info:
+ pUY4wecrUCL6eFz+8qO2CO5GAIrL1cCT2xxqb9GMI167/VaE44PXS+Oxj1X1680XcN24i9tLq1Sszaek15fwipFGXuIyRT1dzDe+ldllSBBIV7g8SjL1pKdqvrmh24pPtK1xIXps5WyxgGwlWvUagaLQeBXYY0EB5y5+ePtW9vNIva/S6rb3jnlZU5UNP8n8dk2PKd9xuBSsd3bJ/l1vLPRrqvRxRltyObVyk7pcbAGh8ovwcOZaUK6rRL/DiDD3d0Q3dSU1rZZw7OI5kqcMS2rivWcWCWQK2Y8qMcfhWQUF/k9xDJMRTCzbKapY55ViikUM91OL1utAa+jJrDwNIk75TJgC1vbgn7oaMp9NgxNPCyH4ta0GHRnCKV5Ff9K0RVXL2drkTBsDYf4e3+BaKz+wZpQi1YBoDe4WhFS+CBhZO8Xle3py4l9a7ZBJyE0fnigu2VEN6nyk1uBMFNOPvhTgtbSEqI85IgXR0ULctWBlNxdIwDzrKvZJsG/816iP8Ke7qUbowCWuX7o8okuRu2lNG5XM4hoUlxN9DcNH0DxxOiiQmFtczUaPQWHvkml/gzVvjLFJHbGejgWd79CAniKSn0Oiihq+upSHzUGCISPqCH3u3/ZUNwSM0DUSETm+4g9Y+6v3a6YQi24cqNUb9aj5mo8MK/2MMGOXU4s4IRvKUtboLm8U7rd9hUU+UH6NUBi+LnnsuzrFop9Rix79dojBvyqHfpbbcjN0vxpEFbU=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR03MB3836.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(18002099003)(56012099006)(3023799007)(38070700021)(10067099003)(11063799006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?w2/oSz0U1Qb5B7NHhx1fpjiM3SdzYqUt3+T4M3WXUzTVB5Bz/L8K3S0C03Wn?=
+ =?us-ascii?Q?l1anbJq+M/k9FJes0EUfVtdpNOzQFeZ3d0YSZ8/uCYhN5rYTMjKYvLkHPghK?=
+ =?us-ascii?Q?YJsqRc/deEi7UW7MuX1SRe2QVT5T9HhR7eFq/S9fih0YJ078pdH4QL50XDrH?=
+ =?us-ascii?Q?m9zAYpD61Y/Q5NvCrlUTKI9bONgFb7kgH8LfDJcdn3GE+ZN7SUUw+zPYqI54?=
+ =?us-ascii?Q?FYLL39ENp/hq8cSBU/eRV9CRv4uRvfBgqIV7nHMVi7mg/Gy1zxyddt1eOFOt?=
+ =?us-ascii?Q?bhyyLYx8jKEBVJYdgI7K4YJPu7vqO1uIKzzMjC1s1+ND3DVo0QCIbJNRZmxQ?=
+ =?us-ascii?Q?VNz433R44VXr0O87vfgFiuBiIme1LETKSsfPuKGiHaigdIRPUwyeOl4NmNbS?=
+ =?us-ascii?Q?PKZINOhaHBIWtivc95ok6uoPuZZZmSyYz4R3wg9VMmJCGN8nvtRBDnYQqHcX?=
+ =?us-ascii?Q?FBdkpdUd9vwVTgyqk0+z3t4eIeI/+JEAlHyB7MpZIN8ZPdY8cN9Wn0+r+Qyt?=
+ =?us-ascii?Q?Y5rb1G2aceHU3b2YlPC6yK1Fdfuf5tti3THeqlJj3gFIgQKO1nwiDTkxB+x8?=
+ =?us-ascii?Q?hmm235bPmKkD694fxDvTU7vhOAarxtsDANp8B0T4OjYxThQfrMOXk+ZDxNYY?=
+ =?us-ascii?Q?ivH7TFWmJ8fb/mZZBIpUNEKifS4a1N+X0giw8FlfAD6wSdNrUyEKuZawc1Pm?=
+ =?us-ascii?Q?A7pUCjaa+boJ31/CddttRLKlEOJmIjp2hk5WPqvUQp+ZWsBwOf7A730wuhdK?=
+ =?us-ascii?Q?KWpUCJyvqcMSJh1YRzn9j0lX0IQogPkRcSd/lyMVTdvSOPDvnMMOI6yVCxEu?=
+ =?us-ascii?Q?Lu5rVlLiq+6crrRp1BquUl1gxC+9wJJRdz8+H8T4mQR4LPyaU6HhanLvZ0KO?=
+ =?us-ascii?Q?mcBCwbAJAa/IlFmklVLokqMhEaQ2IRmH59EpnODv30+oVCixk0ICt1FFqGf0?=
+ =?us-ascii?Q?HyubswW4FBp4RNsAoPBL0WUhA+iKfgWZVlt4ZZF+l+iJZ2DkuMZA5zbM8tGM?=
+ =?us-ascii?Q?M1BbgmmqycFmWLeXShbsM3o/bxmViXKhizdffgE9cytNMuGA+Io33fBxiL/v?=
+ =?us-ascii?Q?TKeRXyerT+EtKP0XHcH8iX8lDz9QBGDD1bHx3nASuiXfKP9WRTfYsdLM/bvx?=
+ =?us-ascii?Q?EuHwFb/jKxJFBtXLmQUnAl04z7z936VlWKTL9FPOi4E2FBQYXv1VUerVBMsI?=
+ =?us-ascii?Q?WMuTSDSEV+NtG867mBN1gmAgodVhqyRctixQhL2svPnFkXZijoNx+DY8l9gq?=
+ =?us-ascii?Q?ALSiBp7/juhl8w2s/6CDlhm63hnnDrunlatzFEIzIzSrqpuF6tW0Q8SUiWXR?=
+ =?us-ascii?Q?rCJ745Wz6IemRbJ2vb9RfSSEX6QoWop043UgXZK0JeaxN7nw2ViCLd70oo8c?=
+ =?us-ascii?Q?O+n/7xoGkPdZuG/jVJRvjS32tdtTXns8iY0dkQxXXbEsO47bx0+lXzL9IqgX?=
+ =?us-ascii?Q?0FrOIOtgySZhg9aCbV6fUCKVRk6JnipI5nVucVDp0hB3AAq8+RucflSZHevl?=
+ =?us-ascii?Q?hRMheVeCcZuLQrp1ASihLJdbLL8RlNczqks9kfc1c7Nww+4bIuk7gAMpPggQ?=
+ =?us-ascii?Q?l9TIucUvn8X08vWp3w41zguNIgyapD/Kk2MCf5NQz8EtcIr6CqEFVslKzmyK?=
+ =?us-ascii?Q?YnmZcG8FQPldcn78I5v4MFC1Xil+mz2FSM1VQmF+fjhzGmjmTw+V9MAlFg9x?=
+ =?us-ascii?Q?ku+4TcGxhujZ3OHGtwDnfbp36V2nI3qsfY37fprEuSbIAyWy?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Suraj Theekshana <surajtheekshana1111@gmail.com>
-Date: Thu, 3 Sep 2026 23:35:13 +0530
-X-Gm-Features: AcwNN1Vt6Tc8y4Do8D2u35EyFOWok_1twivnhW8FthoSUho74voiB0U_yD-wAQA
-Message-ID: <CA+_JcNS4PREBDzqmnHSu6h5jqfK=NiX5J+14JY-JDaegoQ2xLw@mail.gmail.com>
-Subject: greybus: CAP IMS/auth memcpy not capped to ioctl buffer
-To: greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org
-Cc: security@kernel.org
-Content-Type: multipart/mixed; boundary="0000000000000dae61065a97ffe2"
+X-OriginatorOrg: disney.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB3836.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 54851f29-cd48-44c1-5fa8-08df09e616c6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Sep 2026 18:06:33.8514
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 56b731a8-a2ac-4c32-bf6b-616810e913c6
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: MIKDb8oMMSDs9E50+ebAtlwqrPJMR2mc8mFcF+3/GHr62gYAJWH9tvridO2bB3EX8eNjHaL37q3NdxOoW0QXjA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR03MB6670
 
---0000000000000dae61065a97ffe2
-Content-Type: multipart/alternative; boundary="0000000000000dae60065a97ffe0"
+On some Alder Point (e1000_pch_adp) platforms the XTAL value reported in
+the software STRAP is incorrect, so the SYSCFI bit in TSYNCRXCTL selects
+a 24 MHz base frequency while the SYSTIM counter actually advances at
+38.4 MHz. As a result the PTP hardware clock runs ~1.6x too fast
+(38.4/24), which prevents ptp4l and other PTP-based time sync from
+disciplining the clock.
 
---0000000000000dae60065a97ffe0
-Content-Type: text/plain; charset="UTF-8"
+Commit 688a0d61b2d7 ("e1000e: set fixed clock frequency indication for
+Nahum 11 and Nahum 13") fixed the same problem for e1000_pch_mtp,
+e1000_pch_lnp and e1000_pch_ptp. Alder Point silicon likewise always
+runs at 38.4 MHz, so give it the same fixed-frequency override in both
+e1000e_get_base_timinca() and e1000e_ptp_init().
 
-Hello,
+Observed on an HP Z2 Mini G9 with I219-LM (17) [8086:1a1c]: before the
+change the PHC advanced 16.0 s per 10.0 s of wall-clock time and
+/sys/class/ptp/ptpN/max_adjustment read 999999999 (MAX_PPB_24MHZ);
+afterwards it advances ~10.0 s and max_adjustment reads 230769100
+(MAX_PPB_38400KHZ).
 
-I am reporting an unbounded memcpy in the Greybus CAP driver.
+Fixes: 59e466888038 ("e1000e: Add support for Alder Lake")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tony Rawda <Tony.Rawda@disney.com>
+---
+ drivers/net/ethernet/intel/e1000e/netdev.c | 2 +-
+ drivers/net/ethernet/intel/e1000e/ptp.c    | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Product: Linux kernel
-File:   drivers/staging/greybus/authentication.c
-Header: drivers/staging/greybus/greybus_authentication.h
-         include/linux/greybus/greybus_protocols.h
-Tree:   torvalds/linux 8ab1afb
+diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/ether=
+net/intel/e1000e/netdev.c
+index 844f31ab37ad..635a18cfc93f 100644
+--- a/drivers/net/ethernet/intel/e1000e/netdev.c
++++ b/drivers/net/ethernet/intel/e1000e/netdev.c
+@@ -3543,7 +3543,6 @@ s32 e1000e_get_base_timinca(struct e1000_adapter *ada=
+pter, u32 *timinca)
+ 		break;
+ 	case e1000_pch_cnp:
+ 	case e1000_pch_tgp:
+-	case e1000_pch_adp:
+ 	case e1000_pch_nvp:
+ 		if (er32(TSYNCRXCTL) & E1000_TSYNCRXCTL_SYSCFI) {
+ 			/* Stable 24MHz frequency */
+@@ -3559,6 +3558,7 @@ s32 e1000e_get_base_timinca(struct e1000_adapter *ada=
+pter, u32 *timinca)
+ 			adapter->cc.shift =3D shift;
+ 		}
+ 		break;
++	case e1000_pch_adp:
+ 	case e1000_pch_mtp:
+ 	case e1000_pch_lnp:
+ 	case e1000_pch_ptp:
+diff --git a/drivers/net/ethernet/intel/e1000e/ptp.c b/drivers/net/ethernet=
+/intel/e1000e/ptp.c
+index ec39e35f3857..4955d29e47f7 100644
+--- a/drivers/net/ethernet/intel/e1000e/ptp.c
++++ b/drivers/net/ethernet/intel/e1000e/ptp.c
+@@ -291,13 +291,13 @@ void e1000e_ptp_init(struct e1000_adapter *adapter)
+ 		break;
+ 	case e1000_pch_cnp:
+ 	case e1000_pch_tgp:
+-	case e1000_pch_adp:
+ 	case e1000_pch_nvp:
+ 		if (er32(TSYNCRXCTL) & E1000_TSYNCRXCTL_SYSCFI)
+ 			adapter->ptp_clock_info.max_adj =3D MAX_PPB_24MHZ;
+ 		else
+ 			adapter->ptp_clock_info.max_adj =3D MAX_PPB_38400KHZ;
+ 		break;
++	case e1000_pch_adp:
+ 	case e1000_pch_mtp:
+ 	case e1000_pch_lnp:
+ 	case e1000_pch_ptp:
+--=20
+2.53.0
 
-Observed
-========
-
-cap_get_ims_certificate() and cap_authenticate() do:
-
-  *size = op->response->payload_size - sizeof(*response);
-  memcpy(dest, src, *size);
-
-The response buffer is allocated with gb_operation_get_payload_size_max()
-and GB_OPERATION_FLAG_SHORT_RESPONSE.
-
-The ioctl destinations are fixed:
-
-  certificate[CAP_CERTIFICATE_MAX_SIZE]  /* 1600 */
-  signature[CAP_SIGNATURE_MAX_SIZE]      /* 320  */
-
-There is no check that payload_size >= sizeof(*response)
-and no cap to 1600 / 320.
-
-A 2048-byte payload therefore copies:
-
-  IMS:  2048 - 1  = 2047 bytes into certificate[1600]
-  AUTH: 2048 - 65 = 1983 bytes into signature[320]
-
-A payload shorter than the response header wraps the unsigned subtract and
-memcpy uses a huge length.
-
-Expected
-========
-
-Reject payload_size < sizeof(*response) (-EMSGSIZE).
-Reject copy length > CAP_CERTIFICATE_MAX_SIZE /
-CAP_SIGNATURE_MAX_SIZE (-E2BIG).
-
-Reproduce (no Greybus hardware)
-===============================
-
-  git clone --depth 1 https://github.com/torvalds/linux.git
-  # tree used: 8ab1afb
-
-  gcc -fsanitize=address -g -O0 -fno-builtin -U_FORTIFY_SOURCE \
-    -I gb-poc \
-    -I linux/drivers/staging/greybus \
-    -I linux/include/linux/greybus \
-    gb-poc/poc_cap_headers.c -o poc_cap_headers
-
-  ./poc_cap_headers
-  ./poc_cap_headers auth
-
-ASan excerpt (IMS)
-==================
-
-CAP_CERTIFICATE_MAX_SIZE=1600 CAP_SIGNATURE_MAX_SIZE=320
-[IMS] payload=2048 dest=1600 mode=ims
-=================================================================
-ERROR: AddressSanitizer: stack-buffer-overflow
-WRITE of size 2047
-    #0 memcpy
-    #1 cap_get_ims_certificate  poc_cap_headers.c:18
-    #2 main                     poc_cap_headers.c:61
-Address is located in stack of thread T0
-  This frame has 2 object(s):
-    [48, 481) 'a'
-    [560, 2173) 'ims'  <== overflows certificate[1600]
-SUMMARY: AddressSanitizer: stack-buffer-overflow in memcpy
-ABORTING
-
-ASan excerpt (AUTH)
-===================
-
-CAP_CERTIFICATE_MAX_SIZE=1600 CAP_SIGNATURE_MAX_SIZE=320
-[AUTH] payload=2048 dest=320
-=================================================================
-ERROR: AddressSanitizer: stack-buffer-overflow
-WRITE of size 1983
-    #0 memcpy
-    #1 cap_authenticate  poc_cap_headers.c:26
-    #2 main              poc_cap_headers.c:54
-Address is located in stack of thread T0
-  This frame has 2 object(s):
-    [48, 481) 'a'  <== overflows signature[320]
-    [560, 2173) 'ims'
-SUMMARY: AddressSanitizer: stack-buffer-overflow in memcpy
-ABORTING
-
-The PoC includes greybus_authentication.h and
-greybus_protocols.h from this tree. It is not a live
-CAP_IOC_* ioctl and there is no in-kernel KASAN frame.
-
-Impact
-======
-
-Local overflow in the CAP ioctl path if a CAP connection exists and a
-module answers GET_IMS_CERTIFICATE or AUTHENTICATE with an oversized or
-truncated payload.
-Not unauthenticated remote RCE. Same trust model as a malicious or buggy
-Greybus module.
-
-Files in the attached zip
-=========================
-
-  poc_cap_headers.c
-  ktypes.h
-  asan_ims.txt
-  asan_auth.txt
-
-
-Regards,
-Suraj Theekshana
-
---0000000000000dae60065a97ffe0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><p>Hello,<br><br>I am reporting an unbounded memcpy in the=
- Greybus CAP driver.<br><br>Product: Linux kernel<br>File: =C2=A0 drivers/s=
-taging/greybus/authentication.c<br>Header: drivers/staging/greybus/greybus_=
-authentication.h<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0include/linux/greybus=
-/greybus_protocols.h<br>Tree: =C2=A0 torvalds/linux 8ab1afb<br><br>Observed=
-<br>=3D=3D=3D=3D=3D=3D=3D=3D<br><br>cap_get_ims_certificate() and cap_authe=
-nticate() do:<br><br>=C2=A0 *size =3D op-&gt;response-&gt;payload_size - si=
-zeof(*response);<br>=C2=A0 memcpy(dest, src, *size);<br><br>The response bu=
-ffer is allocated with gb_operation_get_payload_size_max() and GB_OPERATION=
-_FLAG_SHORT_RESPONSE.<br><br>The ioctl destinations are fixed:<br><br>=C2=
-=A0 certificate[CAP_CERTIFICATE_MAX_SIZE] =C2=A0/* 1600 */<br>=C2=A0 signat=
-ure[CAP_SIGNATURE_MAX_SIZE] =C2=A0 =C2=A0 =C2=A0/* 320 =C2=A0*/<br><br>Ther=
-e is no check that payload_size &gt;=3D sizeof(*response)<br>and no cap to =
-1600 / 320.<br><br>A 2048-byte payload therefore copies:<br><br>=C2=A0 IMS:=
- =C2=A02048 - 1 =C2=A0=3D 2047 bytes into certificate[1600]<br>=C2=A0 AUTH:=
- 2048 - 65 =3D 1983 bytes into signature[320]<br><br>A payload shorter than=
- the response header wraps the unsigned subtract and memcpy uses a huge len=
-gth.<br><br>Expected<br>=3D=3D=3D=3D=3D=3D=3D=3D<br><br>Reject payload_size=
- &lt; sizeof(*response) (-EMSGSIZE).<br>Reject copy length &gt; CAP_CERTIFI=
-CATE_MAX_SIZE /<br>CAP_SIGNATURE_MAX_SIZE (-E2BIG).<br><br>Reproduce (no Gr=
-eybus hardware)<br>=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br><br>=C2=A0 git clone --depth 1 <=
-a href=3D"https://github.com/torvalds/linux.git">https://github.com/torvald=
-s/linux.git</a><br>=C2=A0 # tree used: 8ab1afb<br><br>=C2=A0 gcc -fsanitize=
-=3Daddress -g -O0 -fno-builtin -U_FORTIFY_SOURCE \<br>=C2=A0 =C2=A0 -I gb-p=
-oc \<br>=C2=A0 =C2=A0 -I linux/drivers/staging/greybus \<br>=C2=A0 =C2=A0 -=
-I linux/include/linux/greybus \<br>=C2=A0 =C2=A0 gb-poc/poc_cap_headers.c -=
-o poc_cap_headers<br><br>=C2=A0 ./poc_cap_headers<br>=C2=A0 ./poc_cap_heade=
-rs auth<br><br>ASan excerpt (IMS)<br>=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D<br><br>CAP_CERTIFICATE_MAX_SIZE=3D1600 CAP_SIGNATURE_MAX=
-_SIZE=3D320<br>[IMS] payload=3D2048 dest=3D1600 mode=3Dims<br>=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>ERROR: AddressSanitizer: stack-buffer-=
-overflow<br>WRITE of size 2047<br>=C2=A0 =C2=A0 #0 memcpy<br>=C2=A0 =C2=A0 =
-#1 cap_get_ims_certificate =C2=A0poc_cap_headers.c:18<br>=C2=A0 =C2=A0 #2 m=
-ain =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 p=
-oc_cap_headers.c:61<br>Address is located in stack of thread T0<br>=C2=A0 T=
-his frame has 2 object(s):<br>=C2=A0 =C2=A0 [48, 481) &#39;a&#39;<br>=C2=A0=
- =C2=A0 [560, 2173) &#39;ims&#39; =C2=A0&lt;=3D=3D overflows certificate[16=
-00]<br>SUMMARY: AddressSanitizer: stack-buffer-overflow in memcpy<br>ABORTI=
-NG<br><br>ASan excerpt (AUTH)<br>=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D<br><br>CAP_CERTIFICATE_MAX_SIZE=3D1600 CAP_SIGNATURE_MAX_SI=
-ZE=3D320<br>[AUTH] payload=3D2048 dest=3D320<br>=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D<br>ERROR: AddressSanitizer: stack-buffer-overflow<br>WRI=
-TE of size 1983<br>=C2=A0 =C2=A0 #0 memcpy<br>=C2=A0 =C2=A0 #1 cap_authenti=
-cate =C2=A0poc_cap_headers.c:26<br>=C2=A0 =C2=A0 #2 main =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0poc_cap_headers.c:54<br>Address is located i=
-n stack of thread T0<br>=C2=A0 This frame has 2 object(s):<br>=C2=A0 =C2=A0=
- [48, 481) &#39;a&#39; =C2=A0&lt;=3D=3D overflows signature[320]<br>=C2=A0 =
-=C2=A0 [560, 2173) &#39;ims&#39;<br>SUMMARY: AddressSanitizer: stack-buffer=
--overflow in memcpy<br>ABORTING<br><br>The PoC includes greybus_authenticat=
-ion.h and<br>greybus_protocols.h from this tree. It is not a live<br>CAP_IO=
-C_* ioctl and there is no in-kernel KASAN frame.<br><br>Impact<br>=3D=3D=3D=
-=3D=3D=3D<br><br>Local overflow in the CAP ioctl path if a CAP connection e=
-xists and a module answers GET_IMS_CERTIFICATE or AUTHENTICATE with an over=
-sized or truncated payload.<br>Not unauthenticated remote RCE. Same trust m=
-odel as a malicious or buggy Greybus module.<br><br>Files in the attached z=
-ip<br>=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D<br><br>=C2=A0 poc_cap_headers.c<br>=C2=A0 ktypes.h<br>=C2=A0 asan_im=
-s.txt<br>=C2=A0 asan_auth.txt<br><br><br>Regards,<br>Suraj Theekshana</p></=
-div>
-
---0000000000000dae60065a97ffe0--
---0000000000000dae61065a97ffe2
-Content-Type: application/zip; name="gb-cap-poc-8ab1afb.zip"
-Content-Disposition: attachment; filename="gb-cap-poc-8ab1afb.zip"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mtlt5s490>
-X-Attachment-Id: f_mtlt5s490
-
-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
-AQAA3gwAAAAA
---0000000000000dae61065a97ffe2--
