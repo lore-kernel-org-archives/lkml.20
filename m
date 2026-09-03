@@ -1,100 +1,111 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E044E8DE4;
-	Thu,  3 Sep 2026 15:52:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 324C64B129F
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:54:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788450774; cv=none; b=QkeWiL/WaKFyynVz/YWLCqHrIMC28y9l59spWmmNVPTm506209ILfLZ+zyCzp/wVxj3PYs+CWo779YtN/flE88DarXgPxEcBm//zRgvSjpQogeAL9bsazP0dMb4yMYppBu3svldtf0xIHViq1LHftBYfx9gpoNcobPjKmUFaMLc=
+	t=1788450879; cv=none; b=ln68Gb9U5wbgslKJBV0b8ZGBdr1XhOoGcb7GrAbDOR+kbhLOZb+B4+IwKuvWiMS2lEei1QCeLvxt4bClR6ztXD4+ZOo64A6NcLH5ABBiBRkb4vZfrp16AblgIinGneKG6kWsg8BCN9DCl+GJHjQCyFJu6zD5+tdQVv+iq9bup48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788450774; c=relaxed/simple;
-	bh=p7ES8nwIovp7xHlhYDOkL6N7GK0us3k/IN7/+Bc8UI0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F4F0fO9AA9migakidP+XOg3NAQqeBPxFAkRvki1R3r8Z59/wMG2DfJkfS/IB3r/DikXF5kyiejR3n/F/mDEgAIGusIT/+Pxk9GO560jCqOChooY7chC4Er3aZ+dklSat4GNcfJ2CE8hh4ZQS4m0KalxXi7HZKKQYVJOsUNQXm9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=P1RSSFU7; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=tpu6Skg5; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788450879; c=relaxed/simple;
+	bh=Kk2AD3UOwPSnwmgTVWy6P/2K5EFdMfMyACv+LM8k68Y=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=M81C3tbdQvjzhkFhRvppvrYZp9jfvRgVa5/evCAXD9AtFespe5ryh1m+5kVZ9wy09JCXO8XwfmuJ/1MrtTHrcOwgsbUz/82IuXdKZNPFnFZzDCb/CCP+Bhc5Bp21gkvBUQESyDAbcTKLdlFWouIO0ZZs3/2eYauiHFyYeIqs1Ww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=orQHUJsF; arc=none smtp.client-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="P1RSSFU7";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="tpu6Skg5"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hbPJ22FDpzMlBv;
-	Thu, 03 Sep 2026 17:52:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788450770;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=8w1bDeRMYm/x/2RMHKo/3hs5sGJ7Q4oB0MBXtAICmD8=;
-	b=P1RSSFU7xwNzLTo6mn7Fvp1fsU0yy/xX2B0RymWVtHvBVEoVFnGGFF8uyKSjuwEZZo+zQB
-	YesTj/t80Q3i/n4m1BAybj9MjH59Tx07QXILuojwBxGd3UxCpH+RzSqzlWpl1HGvCtxTGs
-	lmL0nVgN+UuL5vt6ozTeESBRLQtex6wFtZnlduslHIMHLOS98kHVn9xL1Quz4au8idVBDD
-	HCpKu7fJgwLLTMhJ6gSK2bCoStHKvLsER/W4MEMCzpM+ntQLF3iRAnldM7oIP7LjxzyOXH
-	Ns5mvQVLFeDOQE+aZMGLNoWOEauIKXoRo5LLsBtkf4LSq5UomA69tIDCEwHnZQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=tpu6Skg5;
-	spf=pass (outgoing_mbo_mout: domain of manuelebnerli@mailbox.org designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=manuelebnerli@mailbox.org
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788450768;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=8w1bDeRMYm/x/2RMHKo/3hs5sGJ7Q4oB0MBXtAICmD8=;
-	b=tpu6Skg53kBHG29fhfhHIW5sTRJMkgdobAUQsoM+OkBt/v03OnJAfh18mOq+Fs1/Y5Qe24
-	CGvQ33CKdHXbDYy920iK7t2eYmwocDXFc2aQ0aRksiBsWswYXnGIocHM/Gp0zHyY5DE3CO
-	hWqwfTkKFCNC55gW6h/C5H4f1pTsVUqFI1eYw4edo96amj2d0zSivSm8St8lgx3TvPCp15
-	0mq5PJj+Iben3p9JURTxxWgTnNe0anYE0Drl3FaxbKuH4wAdFPvB0bN2hhyCqPQuH9NrKB
-	g5z6T3Qv8LI0kPs8y7XNt1brCzemW0QX/uaB7ae15t2kj2Evbj/6e+oNMyIyvQ==
-To: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] Documentation: admin-guide: Fix bracket
-Date: Thu,  3 Sep 2026 17:49:24 +0200
-Message-ID: <20260903154924.732852-2-manuelebnerli@mailbox.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="orQHUJsF"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d54187d8b0so68898165ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:54:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788450878; x=1789055678; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8mGifk9h8LIddg9L9JpNR126tGysvi+0g41edfZ4g+M=;
+        b=orQHUJsFfJFwE/Er9oXA+g8Cq4LzA9jiSBhLUrxndI8d+df5PPzDJ9Q9lQ1p+Jid6l
+         uyPv+Fnv7/V9P/hT/ucg0jVefOoZe/PIedqpR7UpEzqobb+Rt+eAYoQAXeEYJy8zJobV
+         DulMuDG7twFIn4tpRFKXBMQ5CVsGPqklTTjha7DZGuqYmRN4xCIjHPNZYJ4zCu+axsPK
+         hYRxjCjm6yN+Fa9MxcoqY3xt/WtRLp6ob2u7Shg2UKjLgnUIj9GxssknS7b2Qpl7joCv
+         mQgWHvEKHUFpzWFQQheg9fl5za+ggQVGCV+Q5laT5NVyXcnPm/hWEHZiMdK2NF5ypJEh
+         ehzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788450878; x=1789055678;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8mGifk9h8LIddg9L9JpNR126tGysvi+0g41edfZ4g+M=;
+        b=I2PqOS4JQFlP64QApmkdZ1RPB88+bP3z43tbsp71CAlU2RxS9DQAJp938ITlmZ6jwe
+         /UvHlaRX/feZgtUdw6rU5bSahpAhTSZz6VMXmYzfO69oiGtvsdQfjWSMQ/8fG8fLJEie
+         QZKKVbYdWBMjYe5kCl06nM8SSc+0pUd56aBVaJojFBKBvZoxEKvLZdd5QbVqxIlVYPG5
+         toWQnDAk+1771fujgNLxqfiJoAnhpmzYDsQQuB9IwAc09QfqQf1yMIVfE3ARmKzT79uk
+         pJkeBUOE35y3Zsun4uSvOfK2U//pw4ltaZXzOjAXvpo3heXFGPUe/pSjhREn26GrdhJK
+         PNtg==
+X-Forwarded-Encrypted: i=1; AKwUvBxIex+HMtAtKlg7iehwce4ilBF5qeFHoWFFZRU1PlvkElJd6djDipV3qVBX82tkPZG1pmmD+IiRhGw/AvY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhCZD+vN2qzpZYPG065NbLDJjgOEWdoi3kb//bKjdi14ppi/n9
+	TADXi6Woy8VH+5rn/wphE9Mza4vME6Q1xyqebiEozaLWprkgOsEnN2d0pyFgJH6unL+HAydSHvy
+	2wchemw==
+X-Received: from pgp23-n2.prod.google.com ([2002:a05:6a02:62d7:20b0:cb2:563f:d136])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:7d02:b0:3d3:ae50:97cb
+ with SMTP id adf61e73a8af0-3da35f9b1e3mr1317921637.24.1788450877399; Thu, 03
+ Sep 2026 08:54:37 -0700 (PDT)
+Date: Thu, 3 Sep 2026 08:54:36 -0700
+In-Reply-To: <19d4feb1-d703-4c62-8622-a6d5e9d6394c@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: qkcympzo15gw9b6ibsddh4htf3imitkn
-X-MBO-RS-ID: 136bf047d172eda0941
-X-Rspamd-Queue-Id: 4hbPJ22FDpzMlBv
+Mime-Version: 1.0
+References: <20260831144802.834315-1-seiden@linux.ibm.com> <20260831144802.834315-3-seiden@linux.ibm.com>
+ <apdweRfqt4dTxcU9@google.com> <20260902075028.231001-D-seiden@linux.ibm.com>
+ <aphLXQL1H2zYZgTi@google.com> <20260903114241.33034-C-seiden@linux.ibm.com>
+ <apmEi1NmOUvmUBFP@google.com> <apmFClPZ2WcDINmT@google.com>
+ <apmIGgMEN8w-kQAm@google.com> <19d4feb1-d703-4c62-8622-a6d5e9d6394c@redhat.com>
+Message-ID: <apmYPMMPCNzK9ZEA@google.com>
+Subject: Re: [PATCH v7 02/23] KVM: Make device name configurable
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Steffen Eiden <seiden@linux.ibm.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, David Hildenbrand <david@kernel.org>, 
+	Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>, 
+	Gautam Gala <ggala@linux.ibm.com>, Hariharan Mari <hari55@linux.ibm.com>, 
+	Heiko Carstens <hca@linux.ibm.com>, Hendrik Brueckner <brueckner@linux.ibm.com>, 
+	Ilya Leoshkevich <iii@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+	Joey Gouly <joey.gouly@arm.com>, Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>, 
+	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>, Oliver Upton <oupton@kernel.org>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Sven Schnelle <svens@linux.ibm.com>, 
+	Ulrich Weigand <Ulrich.Weigand@de.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+	Will Deacon <will@kernel.org>, Zenghui Yu <yuzenghui@huawei.com>
+Content-Type: text/plain; charset="us-ascii"
 
-Add missing ')' and remove ';' to improve readability.
+On Thu, Sep 03, 2026, Paolo Bonzini wrote:
+> On 9/3/26 16:45, Sean Christopherson wrote:
+> > > > Actually, thinking about this more, what I've proposed here, plus the pattern of
+> > > > #define-ing macros in arch-specific kvm_host.h files, should suffice.  For things
+> > > > like __KVM_HAVE_ARCH_VM_FREE, it absolutely makes sense to #define the macro in
+> > > > kvm_host.h since it's very directly tied to an arch callback.  Whereas with KVM_MIO
+> > > > and KVM_ASYNC_PF, because they enable compilation of C files, it makes sense to
+> > > > define them in Makefiles.
+> Ugh, defining CONFIG symbols in Makefiles sucks.
 
-Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
----
+Sure, but IMO wrapping entire files in an #ifdef that comes from an arch header
+sucks more.  And technically, these aren't CONFIG symbols.
 
-[v2]
- Remove ';' as Randy Suggested
-[v1]
- https://lore.kernel.org/all/20260902152347.708070-2-manuelebnerli@mailbox.org/
----
- Documentation/admin-guide/sysctl/vm.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> I don't want KVM to be the. one that does things differently *once more*.
 
-diff --git a/Documentation/admin-guide/sysctl/vm.rst b/Documentation/admin-guide/sysctl/vm.rst
-index 5b318d17a..5f4a056e4 100644
---- a/Documentation/admin-guide/sysctl/vm.rst
-+++ b/Documentation/admin-guide/sysctl/vm.rst
-@@ -438,7 +438,7 @@ zone[i]'s protection[j] is calculated by following expression::
-     = (total sums of managed_pages from zone[i+1] to zone[j] on the node)
-       / lowmem_reserve_ratio[i];
-   (i = j):
--     (should not be protected. = 0;
-+     (should not be protected. = 0)
-   (i > j):
-      (not necessary, but looks 0)
- 
--- 
-2.54.0
+Too late :-D
 
+arch/arm64/kvm/hyp/nvhe/Makefile:ccflags-y := -D__KVM_NVHE_HYPERVISOR__ -D__DISABLE_EXPORTS -D__DISABLE_TRACE_MMIO__
+arch/arm64/kvm/hyp/vhe/Makefile:ccflags-y := -D__KVM_VHE_HYPERVISOR__
+
+And I think there's value in deliberately being different, because CONFIGs are
+kernel-wide things, whereas the thingies in question are KVM-local macros.  I.e.
+IMO, having the behavior stand out is a good thing.
+
+> I'd prefer to stub out the contents of the .c files instead.
