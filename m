@@ -1,72 +1,118 @@
-Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com [209.85.160.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEEBB3FC5C9
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:04:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FD4B3FDC18;
+	Thu,  3 Sep 2026 07:04:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788419046; cv=none; b=dmKSQ3zkBjf+UZIOVMsgbYQew2rerMAe/aAuStIqPqstzCtIrGV0ywC4pEOp0p2QwOoedRir8tphijDGYcBeBYU8HwKMEvz65bC2b7gxs1BSk/x16DYB6I9dLYMX3POcauFprE8sUmSppe/8LQpD5K+yNT33C4rJKbsOb4cEz+Y=
+	t=1788419073; cv=none; b=nFSWBPco4VkybWHNQrJvYDX1ee2wYXWtojCs0i4/mZ/ZwHQ1hBNWj5WgtzOFUal0GY6ZslGoulWHpT3duZZGUEwr6aKDqDzlrrQxrGu5Iwn0SdrcFXONiFoi07C8B1iAmC5oND9N/gQAowh7ivlor8XyAMKvKXnLCr/hUR1A/oA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788419046; c=relaxed/simple;
-	bh=BRE1/rnZ8b7H2gWywpLpQBA2M1FJzaNFurI+FCIR/mo=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=vFlQLyH0wJrvBgswodviBstAUOQXMpc22zrDY7+HpIaNzZc50+u+m7Z+n2Sy3fNynFSrlFN+ugrEywNSlfJ4H84mdtRTnwRFnoCHKFekVXDkrHd/FmHt2B7djq+NcDJKI8tEmLN1HYHNNcdjQ1oJa8u2OZs1rHLQUmw0hzAGaW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-4574f1cac98so3454851fac.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:04:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788419043; x=1789023843;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8mvY8ViBmIg8a+jKAMb8MZpaRXkydnbEBlmHVCZdLoc=;
-        b=Ohr79ki6leBDrLs1yaB+tIGRsuOZ31mTfLjbOx7VtPcTamZjPvQNtwd6r8z8QlzjJY
-         R5sv3qlwfhmZ/gKBkRuj2GqcdJ9F1gjEtbT+Pzv2Xc5B4dX9UjXrcJAlgDIyZICAaIiS
-         g1ISXHIRt6yXA5UtBqh/tYahK1+tLKgtsl1kFMQT2x0fObWyYX5WN/3dVEijUs++6R6X
-         MOfJwajz4LNBddLeTpkhJWIJh9yuYHqGYVCYHy7P1akvVpNbxw3w66UBDVzdYvuNWAke
-         vK1TfHoohGrZehnxETDSscedi/XqL7wuj9aeKjaeLI0K3z4W7H+KWfA+QwPn02i6pxzn
-         fLzg==
-X-Forwarded-Encrypted: i=1; AKwUvBxQLjL4TgHmJap2MJeDpTVuQS6Zcn5CqHKT7GRbhTPo57JG0SqL1SHeuh7bmEebvL6dVKJmm6ms67MkkG0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lETtqUSdtjkzSRsb2x7TMSVh49/ZjDYGoXI4Yb9ZDF+LU0pZWM
-	RjN3IYhuLKAaPflUBtFx5NteuDtzvPuifd6RElGPW8ajbn/5lp8J3FPCZhpWm2L++2J7AX+jR0V
-	v8K0ruhwbRmFIXpehbPxkvrDnkfDnXmAfDum4cf5W7FfNpzVn9UdwzDlaz7c=
+	s=arc-20240116; t=1788419073; c=relaxed/simple;
+	bh=mwANxLS6bxYhyYMrT+1jzLYffebrt+HciyIfKItAAH8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IC3FZccep55QMuGdf4THwQyGFrh9PAWEZJDWO6KxdRPm1XypqkYNl9JzlENiM63EGmeNE/6omNcFW/AS9a5ckET8Kod1A17PYxRpJDOV2SzGMj6cLFVuHEiZ0E2dpxJR9qWgYyudCFgtr8cWFMkLJHhO4Em/SZlsT1qasMsoFtE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=S05MFAq6; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=F5Xo+jZI; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="S05MFAq6";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="F5Xo+jZI"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hb9ZL1F9VzKv7V;
+	Thu, 03 Sep 2026 09:04:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788419066;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=EDszXM77rysWN3TrIUrTbiqTu09Lh/qkUY7ZyZhkYsI=;
+	b=S05MFAq6DstWIPsRlUwep6wgGyqpVGUUxOlL1V4hL8VjKvRlMBphIB4kHdyNyGFSVBc2Xt
+	D7I+EsW2FE/utdh1+sVU7L/LePfyj7wfX0z4Fv8IU5JWSlPFpW/9L2RczxkryUzKF5rhXw
+	ZXw5u7Hx00hWd6YLyZUVhiMDh39clGPu1r64lgGVD3rv2oR8bf0eXNMrR7oDcilwCU53Wi
+	0LC5e0oKgzjU/7pWnLuJs1OsRSPfhrcYFBpWCBHhku9jObNLmH9qpVB3d8dJOyP6fTS2ZJ
+	55kAavX5iFqW70dpPifJshgo5UnxNS1KicF6K7Bpv28YCITJ2QRd+otasNPUVQ==
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788419064;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=EDszXM77rysWN3TrIUrTbiqTu09Lh/qkUY7ZyZhkYsI=;
+	b=F5Xo+jZISY4G+JpM2HK0KQ9ipszZrU59CmmDBlctCnZcASLSdivYzA81ZDEy5i3t0htql5
+	eZLZyDhMjcakrYyHjqRubpBvuei9inTqBZiAI4FwfoshIeIrlcpLiHPRYg/OoMwTaidp5R
+	ulIX15AMEBDMrzXQ8xDRV/I0ZGkNGHLSfjnmvYVWqG8R/oqShAWrAVYgA/8Pi6k5XW18+h
+	BfSN3mIVBfOvam3LdUAveP71nwPXmMX7xr1VXktq0HR+A3uzPiDoiJAFttiL319aBSPM6O
+	qRUxHyUKVSd4DVRocob4EhypI3QBD3y9CClbuH8Us+N1fBinddJScBeV50KHtQ==
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: [PATCH v2] Documentation: trace: histogram-design: fix bracket, improve wording
+Date: Thu,  3 Sep 2026 09:02:49 +0200
+Message-ID: <20260903070249.713483-2-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:81c5:b0:6b4:6459:9237 with SMTP id
- 006d021491bc7-6b47f714e28mr8349539eaf.9.1788419043363; Thu, 03 Sep 2026
- 00:04:03 -0700 (PDT)
-Date: Thu, 03 Sep 2026 00:04:03 -0700
-In-Reply-To: <CAEe5be5Qvbwf7wQPsv-HSpekx2N7rc-uvHqu_+7uHtb5xSVOOw@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a991be3.9266084e.bf0d7.00c0.GAE@google.com>
-Subject: Re: [syzbot] [usb?] general protection fault in bus_remove_device
-From: syzbot <syzbot+87188222c77c0dbbdb4d@syzkaller.appspotmail.com>
-To: khiemtranzo532001@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: xxnkpgn7a7hyy7ak3ebssxd34nea59fe
+X-MBO-RS-ID: 2fe46c1e398b0076018
 
-Hello,
+Add missing ')' and add note about the new way of triggering an event.
 
-syzbot tried to test the proposed patch but the build/boot failed:
+CC: Randy Dunlap <rdunlap@infradead.org>
+Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+---
+@ Steven, I added this line, because else the references wouldn't make sense.
+References: $wakeup_lat, next_pid
 
-failed to apply patch:
-error: corrupt patch at line 30
++ ... (which
++could equivalently be written trace(wakeup_latency,$wakeup_lat,next_pid)
+ are implemented, the parameters specified to the trace handler must be
+ variables.  In this case, $wakeup_lat is obviously a variable, but
+ next_pid isn't, since it's just naming a field in the sched_switch
+---
+ Documentation/trace/histogram-design.rst | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-
-
-Tested on:
-
-commit:         940de590 Merge tag 'hardening-v7.3-rc2' of git://git.k..
-git tree:       upstream
-kernel config:  https://syzkaller.appspot.com/x/.config?x=1d67342c314f228d
-dashboard link: https://syzkaller.appspot.com/bug?extid=87188222c77c0dbbdb4d
-compiler:       
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=14d470f9580000
+diff --git a/Documentation/trace/histogram-design.rst b/Documentation/trace/histogram-design.rst
+index 41a726cd3..86c83b177 100644
+--- a/Documentation/trace/histogram-design.rst
++++ b/Documentation/trace/histogram-design.rst
+@@ -25,7 +25,7 @@ tracing_map.c.
+ 
+ If the kernel is compiled with CONFIG_HIST_TRIGGERS_DEBUG set, an
+ event file named 'hist_debug' will appear in each event's
+-subdirectory.  This file can be read at any time and will display some
++
+ of the hist trigger internals described in this document. Specific
+ examples and output will be described in test cases below.
+ 
+@@ -916,6 +916,13 @@ means it will be automatically converted into a field variable::
+           onmatch(sched.sched_waking).wakeup_latency($wakeup_lat,next_pid)' >>
+ 	  /sys/kernel/tracing/events/sched/sched_switch/trigger
+ 
++Note that the above is the old way to trigger a synthetic event, whereas the
++newer way is preferred, which uses the trace() action handler::
++
++  # echo 'hist:keys=next_pid:wakeup_lat=common_timestamp.usecs-$ts0: \
++          onmatch(sched.sched_waking).trace(wakeup_latency,$wakeup_lat,next_pid)' >>
++	  /sys/kernel/tracing/events/sched/sched_switch/trigger
++
+ The diagram for the sched_switch event is similar to previous examples
+ but shows the additional field_vars[] array for hist_data and shows
+ the linkages between the field_vars and the variables and references
+-- 
+2.54.0
 
