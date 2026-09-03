@@ -1,218 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 333A4419FB2;
-	Thu,  3 Sep 2026 10:05:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B89F41BA82
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:06:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788429939; cv=none; b=jc0VNTmra9shOiriqgGnDNVxU+CozELGJS+ZSU2nTen+dehRIdazZgLHSr5Ry2stLQTfWWyFcAnrIS799iSPuukGLHdGozAkOpalUuywZFegsPhYlPBKAXqzsYxqn5cu/i9gChLESOZVMjwv1RNy28/7yGflRkrEuAk8RlHvtas=
+	t=1788429986; cv=none; b=raxxlXD50li2f/UebEqZ8/Fg8OG142cZfSqX9j0IsAgmGpf/wM/WFYn0Afw9AW0xhPeOgb42m+RTwBleXHOIL9L/dQR6I2IB/jzRogbl3KdpoKn8Nl65NTx8GDiXtB2933A2DRtOuqjxErCZnMVT3COZtLOxcYjMpWNf4HDUEW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788429939; c=relaxed/simple;
-	bh=xW2urQsVEDXn55Kns1EHCAEHKrhI3DMT2OFdwtJPXIw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=maooAgfsu8riyQR8MAuoDRxnePQSpUTUb6bAOpOtsxg20y5KpPmqWnj/yWiX21R4Pbtczp/Mtelcw59xMiqoL2oahI/815MMZySA7no+lhiVL8sSLoTcfqnxHspQGqKTppZeXCIdcaxzbFX2kdWurtVJYH4nboG1Bgydpns+d4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ijkelgBa; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788429986; c=relaxed/simple;
+	bh=nIkdqPKw0YSs56WtLqYavjL+GoHx0RknfouZioIQYnQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=g6ZkiWaz6E/b09/sYd9X9wiNQ5Zv7R8tGNbRQitLxGiMzkrnBfPmeXdwo2tUvWViIN8QvG2MZ3Gw9EMJ93HuPCKIwxA8zjmo0Z5bxWGfJhgwlzCk2XUYX0BOrH+bdiYgD3JpdpAgsFip62SI70Dg6c7JxwxJDTjT0rluyi7/bnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=qWIYn/nS; arc=none smtp.client-ip=115.124.30.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ijkelgBa"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2C9B4C2BCC7;
-	Thu,  3 Sep 2026 10:05:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788429937;
-	bh=xW2urQsVEDXn55Kns1EHCAEHKrhI3DMT2OFdwtJPXIw=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=ijkelgBaktVLR0cpTDx1Jhxye5ZJKhLZRkJrBVCeQZAMlDaZXIi0w8JbYmNiPlCMV
-	 2Q9rpTxd0Yl0IQzqIsU8HUVJvXkC9UN2R/6YP4us2vGBnigxZuwUlIGbCeyynOSwDK
-	 OPRQAfzQiC45EcEp+WfuuibKx8dBTG9XxXqtidy0PuMIFRjhBlFes2bq03ErQAaZ+Q
-	 jNrge0E4OZ2O8YkH8yMltyaIRLUrk1owMyX5J337+RsD+8SP+YKURijKwn0dO4enfx
-	 ibuOFNnPib66MVyw6gczT8o/uOgt51g73N+9wUv80SMfsftgBVj7XycyuEeIsrBbuD
-	 v84G0W35A0XKg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A50FC624A4;
-	Thu,  3 Sep 2026 10:05:37 +0000 (UTC)
-From: Mark Amirkan via B4 Relay <devnull+markdamirkan.gmail.com@kernel.org>
-Date: Thu, 03 Sep 2026 03:05:14 -0700
-Subject: [PATCH] usbip: Reject unterminated strings received from peers
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="qWIYn/nS"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788429981; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=Fpdjgc9+sv9jCsQkNtcRXnZevnJDV+QJt0b62KNfz6w=;
+	b=qWIYn/nSw24ADrsALaLu1xdMefXQXbtLaTqnMldJ8cWzz3xMYJw5Np8ForgqKp4xsXspue+VXnSnO6hkD05VbRvA5ll/UPrURShyWO2LABuufCUQjHevPVzPxhIwz5WLHmrm0papWkx211BLlv1tRQKTHaO2T9QySUeeM3MYMuk=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=23;SR=0;TI=SMTPD_---0XAFjTM5_1788429979;
+Received: from 30.74.144.116(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAFjTM5_1788429979 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 03 Sep 2026 18:06:19 +0800
+Message-ID: <ac1f4e9a-d45a-433c-b26a-23fd0d955243@linux.alibaba.com>
+Date: Thu, 3 Sep 2026 18:06:16 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/7] mm/mglru: batch update lrugen->nr_pages in
+ inc_min_seq()
+To: "Barry Song (Xiaomi)" <baohua@kernel.org>, akpm@linux-foundation.org,
+ linux-mm@kvack.org
+Cc: axelrasmussen@google.com, baoquan.he@linux.dev, chenridong@xiaomi.com,
+ david@kernel.org, hannes@cmpxchg.org, kasong@tencent.com,
+ lianux.mm@gmail.com, linux-kernel@vger.kernel.org, ljs@kernel.org,
+ lyugaofei@xiaomi.com, mhocko@kernel.org, qi.zheng@linux.dev,
+ shakeel.butt@linux.dev, stevensd@chromium.org, wangzicheng@honor.com,
+ weixugc@google.com, yuanchu@google.com, zhangbo56@xiaomi.com,
+ Xueyuan Chen <xueyuan.chen21@gmail.com>, Kunwu Chan <kunwu.chan@gmail.com>
+References: <20260901232421.40157-1-baohua@kernel.org>
+ <20260901232421.40157-3-baohua@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20260901232421.40157-3-baohua@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-sympwn-linux-005-final-v2-v1-1-f92548abf9ce@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CQAxA0auQrm1SKxjHqxgXgB2twUqmghDC3
- R11+Rb/L+CSVByOxQJJRnV9WsZ2U0B7q+0qqJdsYOI9Bdqhz4/+bdipDRMSVRjV6g5HxlByoDI
- cqsgRct8niTr93qfz3z40d2lf3yGs6wds5GOffQAAAA==
-X-Change-ID: 20260903-sympwn-linux-005-final-v2-942904985f2f
-To: skhan@linuxfoundation.org, valentina.manea.m@gmail.com, 
- shuah@kernel.org
-Cc: gregkh@linuxfoundation.org, i@zenithal.me, linux-kernel@vger.kernel.org, 
- linux-usb@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788429936; l=5486;
- i=markdamirkan@gmail.com; s=pscsi-20260818; h=from:subject:message-id;
- bh=QTpBrPKFb81Y4iOSFIIcF6enJuCbPleIQefiKM9cBHY=;
- b=AYsvP6s7XIX49FN2iNmnHc1bdI4K84493i2YnMAKAHld2xt2bY7o33boLiuR1+qtgMkBx0sC5
- C6+5aCVh0jbAeaI1KUq7w/uWf4KmDuh5cP0oGxucGhh63yNhv+Mgw/i
-X-Developer-Key: i=markdamirkan@gmail.com; a=ed25519;
- pk=/wb49ibt4gZFDncmhFQBYtjPvzT1tfJtvK4Mqt1P2Wc=
-X-Endpoint-Received: by B4 Relay for markdamirkan@gmail.com/pscsi-20260818
- with auth_id=961
-X-Original-From: Mark Amirkan <markdamirkan@gmail.com>
-Reply-To: markdamirkan@gmail.com
-
-From: Mark Amirkan <markdamirkan@gmail.com>
-
-USB/IP path and busid fields are fixed-size strings and must contain a NUL
-byte. The list and attach clients and usbipd use fields received from a
-peer as C strings without checking them first.
-
-A reply with an unterminated field makes both clients read past the end of
-the 312-byte device record. ASan reports a stack-buffer overflow at the end
-of the record in both paths. In ten normal attach runs, the busid error
-printed six bytes beyond the received record. The server did not send those
-bytes, and their values changed between processes.
-
-An import request with no NUL in its 32-byte busid makes usbipd read past
-the request too. ASan reports the access at the end of the request.
-
-Check the strings after receiving them and reject messages without the
-required NUL byte.
-
-Fixes: e9837bbb3e69 ("staging: usbip: userspace tools v1.0.0")
-Cc: stable@vger.kernel.org
-Assisted-by: Symbolic
-Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
----
- tools/usb/usbip/src/usbip_attach.c  |  4 +---
- tools/usb/usbip/src/usbip_list.c    |  3 +--
- tools/usb/usbip/src/usbip_network.c | 35 +++++++++++++++++++++++++++++++++++
- tools/usb/usbip/src/usbip_network.h |  2 ++
- tools/usb/usbip/src/usbipd.c        |  3 +--
- 5 files changed, 40 insertions(+), 7 deletions(-)
-
-diff --git a/tools/usb/usbip/src/usbip_attach.c b/tools/usb/usbip/src/usbip_attach.c
-index 531a415538f9..b81127ba3b04 100644
---- a/tools/usb/usbip/src/usbip_attach.c
-+++ b/tools/usb/usbip/src/usbip_attach.c
-@@ -153,14 +153,12 @@ static int query_import_device(int sockfd, char *busid)
- 		return -1;
- 	}
- 
--	rc = usbip_net_recv(sockfd, (void *) &reply, sizeof(reply));
-+	rc = usbip_net_recv_usb_device(sockfd, &reply.udev);
- 	if (rc < 0) {
- 		err("recv op_import_reply");
- 		return -1;
- 	}
- 
--	PACK_OP_IMPORT_REPLY(0, &reply);
--
- 	/* check the reply */
- 	if (strncmp(reply.udev.busid, busid, SYSFS_BUS_ID_SIZE)) {
- 		err("recv different busid %s", reply.udev.busid);
-diff --git a/tools/usb/usbip/src/usbip_list.c b/tools/usb/usbip/src/usbip_list.c
-index 3d810bcca02f..19d6e2205579 100644
---- a/tools/usb/usbip/src/usbip_list.c
-+++ b/tools/usb/usbip/src/usbip_list.c
-@@ -86,12 +86,11 @@ static int get_exported_devices(char *host, int sockfd)
- 
- 	for (i = 0; i < reply.ndev; i++) {
- 		memset(&udev, 0, sizeof(udev));
--		rc = usbip_net_recv(sockfd, &udev, sizeof(udev));
-+		rc = usbip_net_recv_usb_device(sockfd, &udev);
- 		if (rc < 0) {
- 			dbg("usbip_net_recv failed: usbip_usb_device[%d]", i);
- 			return -1;
- 		}
--		usbip_net_pack_usb_device(0, &udev);
- 
- 		usbip_names_get_product(product_name, sizeof(product_name),
- 					udev.idVendor, udev.idProduct);
-diff --git a/tools/usb/usbip/src/usbip_network.c b/tools/usb/usbip/src/usbip_network.c
-index ed4dc8c14269..b99c230c62af 100644
---- a/tools/usb/usbip/src/usbip_network.c
-+++ b/tools/usb/usbip/src/usbip_network.c
-@@ -124,6 +124,41 @@ ssize_t usbip_net_recv(int sockfd, void *buff, size_t bufflen)
- 	return usbip_net_xmit(sockfd, buff, bufflen, 0);
- }
- 
-+int usbip_net_recv_busid(int sockfd, char *busid)
-+{
-+	int rc;
-+
-+	rc = usbip_net_recv(sockfd, busid, SYSFS_BUS_ID_SIZE);
-+	if (rc < 0)
-+		return rc;
-+
-+	if (!memchr(busid, '\0', SYSFS_BUS_ID_SIZE)) {
-+		dbg("received malformed busid");
-+		return -1;
-+	}
-+
-+	return 0;
-+}
-+
-+int usbip_net_recv_usb_device(int sockfd, struct usbip_usb_device *udev)
-+{
-+	int rc;
-+
-+	rc = usbip_net_recv(sockfd, udev, sizeof(*udev));
-+	if (rc < 0)
-+		return rc;
-+
-+	if (!memchr(udev->path, '\0', sizeof(udev->path)) ||
-+	    !memchr(udev->busid, '\0', sizeof(udev->busid))) {
-+		dbg("received malformed usb device");
-+		return -1;
-+	}
-+
-+	usbip_net_pack_usb_device(0, udev);
-+
-+	return 0;
-+}
-+
- ssize_t usbip_net_send(int sockfd, void *buff, size_t bufflen)
- {
- 	return usbip_net_xmit(sockfd, buff, bufflen, 1);
-diff --git a/tools/usb/usbip/src/usbip_network.h b/tools/usb/usbip/src/usbip_network.h
-index 83b4c5344f72..075114729a22 100644
---- a/tools/usb/usbip/src/usbip_network.h
-+++ b/tools/usb/usbip/src/usbip_network.h
-@@ -166,6 +166,8 @@ void usbip_net_pack_usb_device(int pack, struct usbip_usb_device *udev);
- void usbip_net_pack_usb_interface(int pack, struct usbip_usb_interface *uinf);
- 
- ssize_t usbip_net_recv(int sockfd, void *buff, size_t bufflen);
-+int usbip_net_recv_busid(int sockfd, char *busid);
-+int usbip_net_recv_usb_device(int sockfd, struct usbip_usb_device *udev);
- ssize_t usbip_net_send(int sockfd, void *buff, size_t bufflen);
- int usbip_net_send_op_common(int sockfd, uint32_t code, uint32_t status);
- int usbip_net_recv_op_common(int sockfd, uint16_t *code, int *status);
-diff --git a/tools/usb/usbip/src/usbipd.c b/tools/usb/usbip/src/usbipd.c
-index 3e22b651c754..325edac8aef6 100644
---- a/tools/usb/usbip/src/usbipd.c
-+++ b/tools/usb/usbip/src/usbipd.c
-@@ -100,12 +100,11 @@ static int recv_request_import(int sockfd)
- 
- 	memset(&req, 0, sizeof(req));
- 
--	rc = usbip_net_recv(sockfd, &req, sizeof(req));
-+	rc = usbip_net_recv_busid(sockfd, req.busid);
- 	if (rc < 0) {
- 		dbg("usbip_net_recv failed: import request");
- 		return -1;
- 	}
--	PACK_OP_IMPORT_REQUEST(0, &req);
- 
- 	list_for_each(i, &driver->edev_list) {
- 		edev = list_entry(i, struct usbip_exported_device, node);
-
----
-base-commit: c9273c83885835dbd1e8835d5665dfb8503d65e0
-change-id: 20260903-sympwn-linux-005-final-v2-942904985f2f
-
-Best regards,
---  
-Mark Amirkan <markdamirkan@gmail.com>
 
 
+
+On 9/2/26 7:24 AM, Barry Song (Xiaomi) wrote:
+> Currently, folio_inc_gen() updates lrugen->nr_pages for every folio
+> as it advances generations. Instead, accumulate the size changes
+> and update lrugen->nr_pages in a batch after scanning the entire
+> oldest generation, or when the scan stops because remaining reaches
+> zero.
+> 
+> Since we only move folios from the oldest generation to the second
+> oldest generation, the active/inactive state cannot change. We can
+> therefore skip __lru_update_size().
+
+Make sense to me.
+
+> 
+> Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+> Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+> Reviewed-by: Lian Wang <lianux.mm@gmail.com>
+> Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+> ---
+
+LGTM. One nit follows.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+
+>   mm/vmscan.c | 23 ++++++++++++++++++-----
+>   1 file changed, 18 insertions(+), 5 deletions(-)
+> 
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 54bce2f608ef..27494505cecc 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -3918,6 +3918,7 @@ static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
+>   	struct lru_gen_folio *lrugen = &lruvec->lrugen;
+>   	int hist = lru_hist_from_seq(lrugen->min_seq[type]);
+>   	int new_gen, old_gen = lru_gen_from_seq(lrugen->min_seq[type]);
+> +	int target_gen = (old_gen + 1) % MAX_NR_GENS;
+>   
+>   	/* For file type, skip the check if swappiness is anon only */
+>   	if (type && (swappiness == SWAPPINESS_ANON_ONLY))
+> @@ -3927,35 +3928,47 @@ static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
+>   	if (!type && !swappiness)
+>   		goto done;
+>   
+> +	VM_WARN_ON_ONCE(get_nr_gens(lruvec, type) != MAX_NR_GENS);
+> +	VM_WARN_ON_ONCE(lru_gen_is_active(lruvec, old_gen) !=
+> +			lru_gen_is_active(lruvec, target_gen));
+>   	/* prevent cold/hot inversion if the type is evictable */
+>   	for (zone = 0; zone < MAX_NR_ZONES; zone++) {
+>   		struct list_head *head = &lrugen->folios[old_gen][type][zone];
+> +		long delta = 0;
+>   
+>   		while (!list_empty(head)) {
+>   			struct folio *folio = lru_to_folio(head);
+> +			long nr_pages = folio_nr_pages(folio);
+>   			int refs = folio_lru_refs(folio);
+>   			bool workingset = folio_test_workingset(folio);
+> +			bool gen_increased;
+>   
+>   			VM_WARN_ON_ONCE_FOLIO(folio_test_unevictable(folio), folio);
+>   			VM_WARN_ON_ONCE_FOLIO(folio_test_active(folio), folio);
+>   			VM_WARN_ON_ONCE_FOLIO(folio_is_file_lru(folio) != type, folio);
+>   			VM_WARN_ON_ONCE_FOLIO(folio_zonenum(folio) != zone, folio);
+>   
+> -			new_gen = folio_inc_gen(lruvec, folio);
+> +			new_gen = __folio_inc_gen(folio, old_gen, &gen_increased);
+
+IMO, it's better to add some comments to describe why we don't need to 
+call __lru_update_size(), in case someone thinks this needs to be fixed 
+in the future. :)
