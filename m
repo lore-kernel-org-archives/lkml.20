@@ -1,262 +1,300 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10494247280
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 02:46:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FFDC1EE7B7;
+	Thu,  3 Sep 2026 02:47:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788403605; cv=none; b=GGReK5KDsGaOaO8Hlw9ffhdDQ+dgehyXHeba7FBTEYon+HFNVRAsKLuw5EIZhqsAG6p2ux0bOdom3rArWnRacRD/GMu/3sJd6hhnGsbN6dS0drYwSqdvb5S/W6DruXWCTsqPvLETwFtrAL6lUZrd4Hx80LleR7tSZ8ubys9h4aI=
+	t=1788403659; cv=none; b=KFNkjolXzw0koonDdUc7yui6hHx8FDEtjPokMS8XN6e1lfHv8++BGSKdSkrJMqCPQZ6iYZdLPId2FKa7pmJacaFQNrT/YrNKivlrVnBaSoph4yzhT8ujydvmMZ8LkQZQJmuY6/4DD1hPLnveVVTgI8wKnwpSBKl8VlF2O+4E2uM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788403605; c=relaxed/simple;
-	bh=9/cCQ89DY4ZjsYq5qL5PmjiRT3dPTdg8k/Chlfmt4mU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nIqOTWbna7mOIEKx6lVSCRyPmn53Rzh5fH9PSr27qY+qq6+GFl85zPNaj1zpHZ3s8qkhsHYHhmPKnH6NcAARs3pcrxx5NwWGIyi8Z8GPdGA8UgeyZKX3YVSfMdazkbNLzUirJIMTLyFDS0w/lxQa75AHWYiJshWzBvsp1LOIXns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=knSx/mh9; arc=none smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788403659; c=relaxed/simple;
+	bh=OAZ17QYQRxW+6QWkSmNXTqE5PKgfTkl9xj+sYX9MqQI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GMIIPu4N31i11vSzNORwUdXjiLzju2hEzBrjJT2AHf5FnX3pG9Be5UpnnvaqZFGUIvSmHWwOcFD+WnwAheK4sZUiXcaj9+hbZvp2dTN0T7q5LwaY142HxsAfdrZzMtK9izhXetv6FMoIc4iad9HRQEVYRqSZZNscEGAgSEaboc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=KxAwabPQ; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="knSx/mh9"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cbe4c537ad6so250132a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 19:46:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788403603; x=1789008403; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XrinlxSyjlgA1CHOv7AAT+CQFAvBKLOzmbqNTrYOST8=;
-        b=knSx/mh9GtLrlmGq4ZpDc/MOzzNZz2mux8b/RLeTMy737YjsH3AyRJzuyVaIXhPoem
-         FIlM/3cAPqkn2iPlw8jKKBbQQx/zVzKDh0y3uAeJH2c105RDb4UvSsGET+hUfaOAwhrB
-         k83jeclR50iBU0n+eTTQWwWU8dThRz7Y0mFu6Kn0IvRxLta//psLMz40MZcc+yJ0Ul2a
-         LutdiVngOIQHoJZvMfHUmNjZUnPMR2hrrMbheZqNh5XnSi8x3J7hMiOmwMcHq2iHOEar
-         G0/xsX9Cl+9qB6LymWqlfqlsxJ6Okml4BH7f3WTC58+Gb9uJYjMEJT5RP27rGPjXmu4R
-         pwgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788403603; x=1789008403;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XrinlxSyjlgA1CHOv7AAT+CQFAvBKLOzmbqNTrYOST8=;
-        b=LQaVAYEW6ZiiOZQTWi/3ZyW3aajzrmAlYoakJCWIX6TCLs3V+xm1KJhPaFCssWDYpS
-         04PEWZaCYxXaMbsusRqbielnigylvyYa+QGLqpvTcRnBXNbmE2qGLZnUonasyAukTB4L
-         xiFyyDBGBZsrXbpri2AUz0Gfg9l6HctiHi0vfVkdU44rSqNvwe+GBSpMrPiAIPc/56LF
-         Yfx977XggP9wuKCtRTEC5awl2P8bYiSt8n8rB10Woj0bTOBYoISHDWA/UCI2FlcSQhA3
-         fVCkZ44RPacUjjZRSHigcnlPu3VJCdtUT0sUnMcMV+LKObha2X478ayi1qJH3l06b7V9
-         hw2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxzvH2dmtkopCFzIEtvzYeCq/JN5DLgRgyAWPb3S5aApAYvaK7rfzXgO8R5qMf2ldGn+pVhWi1NNftDEiY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJVr0+dNqffR2cxOXJsxstjICAhg00l2nqZbatU2eiLKAOXE2m
-	jV/v5LqfsrfsvBjpkDfBH6f5MnkDwKBXk3DUpgWbT55O4nNO3RSeQ3Z8
-X-Gm-Gg: AYBFou1qjtASU6kYuHksxF0Fcsac/KbU5meeQEB3OM+BnopOcmS834t9ARamg3oRaRF
-	e2PBwq/Gy80kyKSs2Sk4k8zCqb5O4HPeFGsUEd7bn3dRqEyrwsLkWIORmElF8yxFB47xqTfYOLe
-	VUHq0g2Gdr2kmkhpiKV92FHEzS0Oy0map0irfUIMkptRtzDreYdsCY9ktmihm6+ITznamaK/Y4d
-	tzU1Q+eogSzmOVc9TIuEgEHQQBOaiUCIGv+xJfWF+cSeeIRC8X+9ySrjlFp7DlEdpsKp+UgfyTU
-	vXTa/UOBytAaQ62llr2dOPweZ/Ha+4i/MjLkQOvCixWxT5d7q+eppsasPsY34rx1hX6qRFB6YIr
-	xVxgYwIWz4urZAj5GY+MGmAnM1nuv09zjE36Aj7K13up1LGSsqdKSM8Y9Bxe90kHZNSqoxmZTIZ
-	UPwLnOmIhoLNTB0GCwpkaz7us2ze0YPjQ6aR3ZOk4CtLgPduACYtuBwq+GfXOEoYqZKnekWxv9q
-	Y7RrSooTm81sst0cmN9yfb/EAelLwGgLDelsCAyZYwrOte4k/bwvgVAn0p3qWPqGvv0tI9c8tZz
-	EsFLaA==
-X-Received: by 2002:a17:90b:4cc4:b0:398:bada:838b with SMTP id 98e67ed59e1d1-39aee277bc5mr8953822a91.6.1788403603107;
-        Wed, 02 Sep 2026 19:46:43 -0700 (PDT)
-Received: from hz-11197422 ([132.147.97.6])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b083e4fafsm2177685a91.1.2026.09.02.19.46.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 19:46:42 -0700 (PDT)
-From: Xueyuan Chen <xueyuan.chen21@gmail.com>
-To: zhangbo0325@gmail.com
-Cc: akpm@linux-foundation.org,
-	vbabka@kernel.org,
-	david@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	ljs@kernel.org,
-	liam@infradead.org,
-	rppt@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	kasong@tencent.com,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	zhaonanzhe@xiaomi.com,
-	lipengfei28@xiaomi.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	zhangbo56@xiaomi.com
-Subject: Re: [RFC PATCH 4/4] mm: adjust free_pages to make __zone_watermark_ok() mTHP-aware
-Date: Thu,  3 Sep 2026 10:46:03 +0800
-Message-ID: <20260903024629.574484-1-xueyuan.chen21@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260825043833.2659350-5-zhangbo56@xiaomi.com>
-References: <20260825043833.2659350-5-zhangbo56@xiaomi.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="KxAwabPQ"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682NVrI7290532;
+	Thu, 3 Sep 2026 02:46:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=rOdWMC
+	uL9D3IoUM29DC6JSDTnLDaPAkQ8YMdBLT4Hl0=; b=KxAwabPQQJkhUwwzkrNiOt
+	2og3KtMrwNLWU4jI0lkOPCbJujnac4uxzOYBnfA/85SOK8QF0zHOldNRSyBGUTah
+	t718g4Wjy2VMpOJh02gblveXW5mDZ64wc8FCeZCOfpqTk+ViG6ZWEwrCAxuNBpmN
+	fAyEc0HvPLkXHZcjR5m/ZUNejlPNDNAir52h+c+qAjnADpSmbPRiJSpSx61lA26z
+	8WvYei1XA8DvnVyN0nbcB/Sl6ZitB8CZ2svf/t18PKdKoPvxZ1x9J+2i+NWGChA1
+	7WN7uRqYkWu1884ZgLeaYVShR2iF/YRNziMW/koikkqNkT1JyWjjMIz0uYvotAvw
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbnue2btu-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 02:46:01 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6832fK54026262;
+	Thu, 3 Sep 2026 02:46:00 GMT
+Received: from smtprelay06.wdc07v.mail.ibm.com ([172.16.1.73])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gc9rqntax-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 02:46:00 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
+	by smtprelay06.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6832jwfY12845810
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 3 Sep 2026 02:45:59 GMT
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A65975805D;
+	Thu,  3 Sep 2026 02:45:58 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BB4B758052;
+	Thu,  3 Sep 2026 02:45:50 +0000 (GMT)
+Received: from [9.43.65.145] (unknown [9.43.65.145])
+	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  3 Sep 2026 02:45:50 +0000 (GMT)
+Message-ID: <d52d3775-ded0-4b7a-8315-6e940ba90f4a@linux.ibm.com>
+Date: Thu, 3 Sep 2026 08:15:48 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 1/2] sched: Document WF_SYNC wakeup placement
+ semantics
+To: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Juri Lelli <juri.lelli@redhat.com>,
+        Vincent Guittot <vincent.guittot@linaro.org>,
+        Dietmar Eggemann <dietmar.eggemann@arm.com>,
+        Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+        Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+        K Prateek Nayak <kprateek.nayak@amd.com>,
+        Shubhang Kaushik <shubhang@os.amperecomputing.com>,
+        Christopher Lameter <clameter@amperecomputing.com>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>, linux-doc@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Madadi Vineeth Reddy <vineethr@linux.ibm.com>
+References: <20260825-sched-wf-sync-doc-v1-0-f899edb44ff5@gentwo.org>
+ <20260825-sched-wf-sync-doc-v1-1-f899edb44ff5@gentwo.org>
+Content-Language: en-US
+From: Madadi Vineeth Reddy <vineethr@linux.ibm.com>
+In-Reply-To: <20260825-sched-wf-sync-doc-v1-1-f899edb44ff5@gentwo.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: WXcXphI-J6fOOkj6ZMb3t9UiF4pYw6Bg
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDAyMSBTYWx0ZWRfX/F84uaue9/7B
+ p6T+lJ+l59UqzAfK8b9qrhDBp7tjENRRBoAfCVgrLCANhJaiyl+2iR0lL7fFdnsyMPXhAw7xJO0
+ PuMLoeSeYWPgnUSL4QfHH0F9xvzNcEkCioLHAEyqVfhXx/Fxbtk6n6rXyDRgS9zwhD6CjDlvuKO
+ 5GWOPYNPZ4Gsyrp6oa2ip1C/9zNtVdheTgsPOCDz6LFAa+7zwkENA1Uakh8lfa+hJHLQHELAciG
+ AriK/Y6g0/thiWi6kzs5akaQZ1hCWr0t9vIeklhb07kQISHCjQVvhVRWdWk0CDGVMQBbqLNlscl
+ ZkCWmc8SA5LayJRUZ9jG7AAkRaGz+kGR48fqNWdZW5sX4eUfnGXSLcdiXqSvhQfJ7fHfzQ1jVPA
+ 9YVvDc6eGmL5I/0MlwTVo20JXcr2inz4M56Xj6LqoZO6HC5jUk2OeJ2sDdIS/x02zM8wxdWt0l6
+ BZ0Q2syVeMRpxUgrIjw==
+X-Proofpoint-ORIG-GUID: s23dK7QRFEvayQq7Vopf86kp4yg8fPIA
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDAyMSBTYWx0ZWRfX1RqK42Z+jbNJ
+ pUul5ZHjkLUaXx6GfNCFsPLW8ZAv+THvV1mHgkd01UN0xkLu3LBwfQcSmYdXiZsFKdERbfks9Nl
+ T3G4ziyMa9wwFqBDejfdkewxFDz2jt0=
+X-Authority-Analysis: v=2.4 cv=B92JFutM c=1 sm=1 tr=0 ts=6a98df6a cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=PuvxfXWCAAAA:8
+ a=TT-myxhzOO4GQJku5wMA:9 a=QEXdDO2ut3YA:10 a=uAr15Ul7AJ1q7o2wzYQp:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_06,2026-09-02_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 clxscore=1011 suspectscore=0 phishscore=0
+ lowpriorityscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609030021
 
+On 26/08/26 04:16, Shubhang Kaushik (Ampere) wrote:
+> WF_SYNC is supplied by callers that expect the waker to schedule away
+> soon. The fair-class wakeup path uses it as a heuristic, but its
+> placement and preemption behavior is not documented.
+> 
+> Document the current behavior from try_to_wake_up() through
+> select_task_rq_fair(), select_idle_sibling(), and preempt_sync(). In
+> particular, document that WF_SYNC does not bypass wake_wide(), does not
+> make wake_affine()'s target final, and does not require immediate wakee
+> preemption.
+> 
+> This documents existing behavior only. It does not establish a new
+> WF_SYNC placement policy.
+> 
+> Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+> ---
+>  Documentation/scheduler/index.rst               |   1 +
+>  Documentation/scheduler/sched-wake-affinity.rst | 133 ++++++++++++++++++++++++
+>  2 files changed, 134 insertions(+)
+> 
+> diff --git a/Documentation/scheduler/index.rst b/Documentation/scheduler/index.rst
+> index 17ce8d76befc1bb1dc289e9243bdca98c9ccb172..ac95c79617fd2c03564ea4a9dad362091b9d1b86 100644
+> --- a/Documentation/scheduler/index.rst
+> +++ b/Documentation/scheduler/index.rst
+> @@ -14,6 +14,7 @@ Scheduler
+>      sched-design-CFS
+>      sched-eevdf
+>      sched-domains
+> +    sched-wake-affinity
+>      sched-capacity
+>      sched-energy
+>      schedutil
+> diff --git a/Documentation/scheduler/sched-wake-affinity.rst b/Documentation/scheduler/sched-wake-affinity.rst
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..6b0dc83da537ad576130ef165a2bb1cf5abd814a
+> --- /dev/null
+> +++ b/Documentation/scheduler/sched-wake-affinity.rst
+> @@ -0,0 +1,133 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+> +==============================
+> +WF_SYNC Wakeup Placement Hints
+> +==============================
+> +
+> +WF_SYNC is a wakeup flag supplied by callers that expect the waking task
+> +to schedule away soon after waking another task. It is a scheduler hint,
+> +not a CPU-placement request.
+> +
+> +The synchronous waitqueue helpers pass WF_SYNC to try_to_wake_up(). The
+> +wakeup path adds WF_TTWU before invoking the scheduler. WF_SYNC itself
+> +does not block, yield, or otherwise change the state of the waker.
+> +
+> +This document describes the current behavior for the fair scheduler.
+> +Other scheduler classes may ignore WF_SYNC or apply their own policy.
+> +
+> +Wakeup paths
+> +============
+> +
+> +A successful wakeup does not always select a CPU. If the wakee is already
+> +queued, try_to_wake_up() can complete the wakeup through ttwu_runnable().
+> +That path retains the wakee's current runqueue, although it can still
+> +invoke wakeup_preempt().
+> +
+> +For a wakee that is not queued, try_to_wake_up() calls
+> +select_task_rq(). If the wakee has one allowed CPU or migration is
+> +disabled, select_task_rq() bypasses the scheduler-class CPU-selection
+> +method and selects an allowed CPU directly.
+> +
+> +Fair-class CPU selection
+> +========================
+> +
+> +For a fair-class wakee, select_task_rq_fair() derives its local sync
+> +state as::
+> +
+> +        sync = (wake_flags & WF_SYNC) &&
+> +               !(current->flags & PF_EXITING);
+> +
+> +Thus, WF_SYNC does not influence wake-affine selection when the current
+> +task is exiting.
+> +
+> +For WF_TTWU wakeups, select_task_rq_fair() first calls record_wakee().
+> +It can then return before wake-affine selection in either of these cases:
+> +
+> +* WF_CURRENT_CPU is set and the waking CPU is allowed; or
+> +* find_energy_efficient_cpu() selects a CPU while the root domain is not
+> +  overutilized.
+> +
+> +Otherwise, the fair scheduler computes::
+> +
+> +        want_affine = !wake_wide(p) &&
+> +                      cpumask_test_cpu(cpu, p->cpus_ptr);
+> +
+> +wake_wide() uses the wakee-flip state maintained by record_wakee() to
+> +identify broad wakeup relationships. WF_SYNC does not override this
+> +classification.
+> +
+> +Wake affinity is considered only when want_affine is true, the domain has
+> +SD_WAKE_AFFINE set, and the wakee's previous CPU belongs to that domain.
+> +wake_affine() considers only two CPUs: the waking CPU and the wakee's
+> +previous CPU.
+> +
+> +With WF_SYNC, wake_affine_idle() can prefer the waking CPU when::
+> +
+> +        rq->nr_running - cfs_h_nr_delayed(rq) == 1
+> +
+> +wake_affine_weight() also adjusts the effective load comparison by
+> +removing the current task's load from the waking CPU and biasing the
+> +previous-CPU effective load.
+> +
+> +The result of wake_affine() is only a candidate. For WF_TTWU wakeups,
+> +select_task_rq_fair() passes that candidate to select_idle_sibling().
 
-On Tue, Aug 25, 2026 at 12:38:33PM +0800, Bo Zhang wrote:
->To improve the mTHP allocation success rate and reduce
->fragmentation over time, introduce
->zone_effective_free_pages() for mTHP-aware free page accounting.
->
->Refactor the free page counting logic used by pgdat_balanced() and
->compaction_suit_allocation_order() into a shared helper function
->zone_effective_free_pages().
->
->The function selects the appropriate free page metric based on context:
->- defrag_mode: use NR_FREE_PAGES_BLOCKS (whole pageblock accounting)
->- mTHP always-enabled: count only free pages in buddy blocks >= the
->  minimum always-enabled mTHP order, since smaller fragments cannot
->  satisfy mTHP allocations
->- otherwise: use NR_FREE_PAGES
->
->Signed-off-by: Bo Zhang <zhangbo56@xiaomi.com>
->---
-> mm/compaction.c | 38 ++++++++++++++++++++++++++++++++++----
-> mm/internal.h   |  3 +++
-> mm/vmscan.c     | 23 +++++------------------
-> 3 files changed, 42 insertions(+), 22 deletions(-)
->
->diff --git a/mm/compaction.c b/mm/compaction.c
->index 15b92475562a..29be72597415 100644
->--- a/mm/compaction.c
->+++ b/mm/compaction.c
->@@ -2528,6 +2528,38 @@ bool compaction_zonelist_suitable(struct alloc_context *ac, int order,
-> 	return false;
-> }
-> 
->+/**
->+ * zone_effective_free_pages - get free pages relevant to allocation order
->+ * @zone:       target zone
->+ * @order:      allocation order
->+ * @use_blocks: if true, use NR_FREE_PAGES_BLOCKS
->+ *
->+ * In defrag_mode, watermarks must be met in whole blocks to avoid
->+ * polluting allocator fallbacks. kswapd usually cannot accomplish
->+ * this on its own and needs kcompactd support.
->+ *
->+ * When mTHP always-enabled orders are configured, count only free pages
->+ * in blocks >= min mTHP order, as smaller fragments cannot satisfy mTHP
->+ * allocations.
->+ */
->+unsigned long zone_effective_free_pages(struct zone *zone,
->+					unsigned int order,
->+					bool use_blocks)
->+{
->+	if (use_blocks)
->+		return zone_page_state(zone, NR_FREE_PAGES_BLOCKS);
->+
->+	if (READ_ONCE(huge_anon_orders_always) && order == compact_hpage_order()) {
->+		unsigned long free_pages = 0;
->+
->+		for (int o = order; o < NR_PAGE_ORDERS; o++)
->+			free_pages += zone->free_area[o].nr_free << o;
->+		return free_pages;
->+	}
->+
->+	return zone_page_state(zone, NR_FREE_PAGES);
->+}
->+
-> /*
->  * Should we do compaction for target allocation order.
->  * Return COMPACT_SUCCESS if allocation for target order can be already
->@@ -2543,10 +2575,8 @@ compaction_suit_allocation_order(struct zone *zone, unsigned int order,
-> 	unsigned long free_pages;
-> 	unsigned long watermark;
-> 
->-	if (kcompactd && defrag_mode)
->-		free_pages = zone_page_state(zone, NR_FREE_PAGES_BLOCKS);
->-	else
->-		free_pages = zone_page_state(zone, NR_FREE_PAGES);
->+	free_pages = zone_effective_free_pages(zone, order,
->+					       kcompactd && defrag_mode);
-> 
-> 	watermark = wmark_pages(zone, alloc_flags & ALLOC_WMARK_MASK);
-> 	if (__zone_watermark_ok(zone, order, watermark, highest_zoneidx,
->diff --git a/mm/internal.h b/mm/internal.h
->index 38b1165212c9..14bb9543879b 100644
->--- a/mm/internal.h
->+++ b/mm/internal.h
->@@ -1654,4 +1654,7 @@ static inline bool can_spin_trylock(void)
-> 	return true;
-> }
-> 
->+unsigned long zone_effective_free_pages(struct zone *zone,
->+					unsigned int order,
->+					bool use_blocks);
-> #endif	/* __MM_INTERNAL_H */
->diff --git a/mm/vmscan.c b/mm/vmscan.c
->index c1404a59523d..a419a2c2fca4 100644
->--- a/mm/vmscan.c
->+++ b/mm/vmscan.c
->@@ -6966,7 +6966,6 @@ static bool pgdat_balanced(pg_data_t *pgdat, int order, int highest_zoneidx)
-> 	 * meet watermarks.
-> 	 */
-> 	for_each_managed_zone_pgdat(zone, pgdat, i, highest_zoneidx) {
->-		enum zone_stat_item item;
-> 		unsigned long free_pages;
-> 
-> 		if (sysctl_numa_balancing_mode & NUMA_BALANCING_MEMORY_TIERING)
->@@ -6974,21 +6973,6 @@ static bool pgdat_balanced(pg_data_t *pgdat, int order, int highest_zoneidx)
-> 		else
-> 			mark = high_wmark_pages(zone);
-> 
->-		/*
->-		 * In defrag_mode, watermarks must be met in whole
->-		 * blocks to avoid polluting allocator fallbacks.
->-		 *
->-		 * However, kswapd usually cannot accomplish this on
->-		 * its own and needs kcompactd support. Once it's
->-		 * reclaimed a compaction gap, and kswapd_shrink_node
->-		 * has dropped order, simply ensure there are enough
->-		 * base pages for compaction, wake kcompactd & sleep.
->-		 */
->-		if (defrag_mode && order)
->-			item = NR_FREE_PAGES_BLOCKS;
->-		else
->-			item = NR_FREE_PAGES;
->-
-> 		/*
-> 		 * When there is a high number of CPUs in the system,
-> 		 * the cumulative error from the vmstat per-cpu cache
->@@ -7001,9 +6985,12 @@ static bool pgdat_balanced(pg_data_t *pgdat, int order, int highest_zoneidx)
-> 		 * counter won't actually be per-cpu cached. But keep
-> 		 * things simple for now; revisit when somebody cares.
-> 		 */
->-		free_pages = zone_page_state(zone, item);
->+		free_pages = zone_effective_free_pages(zone, order,
->+						       defrag_mode & order);
-
-Hi Bo,
-
-  zone_effective_free_pages(zone, order, defrag_mode & order);
-
-"&" should be "&&". defrag_mode is 0 or 1, so this is just order & 1:
-works for order-3 by accident, always 0 for order-2.
-
-Same for the zone_page_state_snapshot() call below.
+This document reproduces the implementation literally like want_affine,
+nr_running, helper names. This could quickly go stale with code changes
+and nothing will tell us then. I think the contract doesn't need the
+call flow.
 
 Thanks,
-Xueyuan
+Vineeth
 
-> 		if (zone->percpu_drift_mark && free_pages < zone->percpu_drift_mark)
->-			free_pages = zone_page_state_snapshot(zone, item);
->+			free_pages = zone_page_state_snapshot(zone,
->+					defrag_mode & order ?
->+					NR_FREE_PAGES_BLOCKS : NR_FREE_PAGES);
+> +
+> +Idle CPU selection
+> +==================
+> +
+> +select_idle_sibling() first tests whether the candidate CPU is idle and
+> +can run the wakee. If not, it can select:
+> +
+> +* the previous CPU when it is cache-affine and idle;
+> +* a recently used CPU when it is cache-affine and idle;
+> +* an idle SMT sibling; or
+> +* another idle CPU in the relevant search domain.
+> +
+> +On asymmetric-capacity systems, the search uses sd_asym_cpucapacity when
+> +available. Otherwise, it uses sd_llc for the candidate CPU.
+> +
+> +Consequently, WF_SYNC does not guarantee that the wakee runs on the
+> +waker CPU, remains on its previous CPU, avoids migration, or shares a
+> +core with the waker.
+> +
+> +Fair-class wakeup preemption
+> +============================
+> +
+> +WF_SYNC can also affect wakeup_preempt_fair(). The normal fair-class
+> +preemption checks run first. In particular, a non-idle wakee can preempt
+> +an idle entity, and PREEMPT_SHORT can select the wakee before the
+> +WF_SYNC-specific path is reached.
+> +
+> +If the wakee becomes the next buddy after those checks, preempt_sync()
+> +uses WF_SYNC to decide whether to request rescheduling. The wakee must
+> +be earlier than the current entity, and the current entity must have run
+> +for at least the applicable threshold. The threshold is
+> +sysctl_sched_migration_cost, divided by four when WF_RQ_SELECTED is set.
+> +
+> +If those conditions are not met, preempt_sync() returns
+> +PREEMPT_WAKEUP_NONE. Consequently, WF_SYNC neither guarantees nor
+> +prevents immediate wakee preemption. On UP, it can avoid an unnecessary
+> +preemption when the waker is expected to schedule away.
+> +
+> +Semantics and policy
+> +====================
+> +
+> +WF_SYNC is a non-binding hint. It does not guarantee that the wakee:
+> +
+> +* runs on the waker CPU;
+> +* remains on its previous CPU;
+> +* avoids migration;
+> +* shares a core with the waker; or
+> +* immediately preempts the current task.
+> +
+> +The scheduler does not verify that the waker subsequently blocks.
+> +Callers may therefore use WF_SYNC where the waker continues to execute,
+> +or where several wakeups are issued before it schedules away.
+> +
+> +The current policy leaves the locality, parallelism, topology, load, and
+> +capacity tradeoffs to the scheduler. It does not require the wakee to
+> +remain on the waker CPU when that CPU has no other runnable task.
+> +
+> +Any future policy that strengthens WF_SYNC placement semantics must
+> +consider the different call sites, workload patterns, and hardware
+> +topologies that use the flag.
 > 
-> 		if (__zone_watermark_ok(zone, order, mark, highest_zoneidx,
-> 					0, free_pages))
->-- 
->2.34.1
->
->
 
