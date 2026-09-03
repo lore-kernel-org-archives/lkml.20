@@ -1,172 +1,138 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D26AE368D5E
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 18:17:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788459437; cv=pass; b=JoqFegCgnYhD9mvnN+79Go2fBw9+F7CH67m5oeiR1qIV4k7MHNFcG2lJsYp1s3v2j/5i0BWDyZNfXKBP/6V+l2qVIUYQLBG+Ja8ZL4y4Mq0eM02U85u3b6ORdx5G8rUqmD8q26pYKTGl5IGcN4mLrzcXndF7B8W8wVie9NuLPUc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788459437; c=relaxed/simple;
-	bh=uvE5b/EiDpNgiR0Kg/L+ZSuEvfLCiq/r/YNySx3RI8c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KYpyNcJCqDanaPsbCFiOipZJN1bx+pH+kUXJPa4DVQMaNh1S/p+sveU397/W2YI76ezEWZwlzUv8aoumGhYkVchpLLPIB2grQ8qqr/az57Wi9XP2GRypZe1T51SlLXRgihSnB5THe37O4AKK0TA4BktP/Oo/Ofn1rU3oHwHxwUA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=glfB8ogb; arc=pass smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E02007E105;
+	Thu,  3 Sep 2026 18:18:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.157
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788459513; cv=none; b=LVIijp00J6/BW9043xXZ+XGA0vq0lSaK5BB+p7K/C2zIVWq/U8FRjSnYrnptYP1IyGyToBbZXcoC24n7EnR3hqZD793WULOZNuyifPy4+zo7sl3sGOgwAkJjmtl0YGlWXtMIBXfOxkn2pawvWqqMhVYOZyAeVXEam8VL1SaC3e8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788459513; c=relaxed/simple;
+	bh=q0pRZtMzocciLXZ7Uk1J4rxdMU4bSglWz9Zejnxl+6c=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=fPtGTf8adKzeuBtND576SHOMA8q3sAIfqcKHjXsHgBsg2a3dJ3i2n6U+7H/KVMoQw5O/MN/hjtDPujc1YjZJrg1Ny4uPXTwtY/gjEvuHdZ2336d/V2GBeEqiBJKNbXc2QlrS9Z5+okDna+rdDcJpWha3/Hr8d7/BgNuzEuxN57g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=y3Vckjg5; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=bdiWv99k; arc=none smtp.client-ip=103.168.172.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="glfB8ogb"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-53012819c04so313231cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 11:17:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788459435; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CVE19x0WTExNS/yVhFEoCkpC9OqCADfkpQi7paCCen5IgDOX36oqVs5X2rKvCMcaMo
-         rnHbfJjm3ugk1BUs82/paEZ7lnXGzdhbNNe5XpgdKycVIbOpp48RBgxoi2k2pryCHJOd
-         3G/myAQgkZUhJWezQFMTuBhkwSwFhV5eSFMFYRYTBXWwtWrorcZon7VLT6bK37y/YC0p
-         MxNW+Z4xG82WUBh0OchjjKDXPmSYPU0vXoqHyDbxJ3apUiJTuuoLWzCbrxxex5rq9nMv
-         AfjTD2DcHx0UUXlkdpgbe8VF4QIspRvtWty0aHOX0u5/Dm/2RQNgxj2vGssV9B9qTbik
-         Cj2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TYPdkHe//ABCrrcrY9PNffZ5lOpN9WmoX92PzRYdpRw=;
-        fh=XaFjVacSJ0dl1x1ligZZHa2qLo8oQzb/d6IDzUfkfbQ=;
-        b=FPfaEb43+EJRmTI6YiALnzRb66v3ff0CRDdJGQKUtxLDg68y6Fwcbuc68YIBwJrX68
-         HMDzhXxS/1NWOj633UVe0fHZ/mFZeKjod3la/fhaqYqbA+dc7Ae4Q4EOWhCdJAjsU6Kz
-         a9kF5TfgN9MNp0lQDHi74paX9BaGGiwz4O8+WJXN2KIA7jZyrDGeLZqI7YvMUVtZfD1T
-         L0mq5ltWAdHccrpMarp79e83YQjqjQXCdPDBBbOu2oWIYBOOfiJbQLO15VXZBG06HJ2q
-         +DBc6nJD9KFtHhyM/Kk0SAbebXTVm3hGEpssHHPk2FeAuU6eTbb3GDXd1TSTQR2ao3b4
-         g4xQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788459435; x=1789064235; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TYPdkHe//ABCrrcrY9PNffZ5lOpN9WmoX92PzRYdpRw=;
-        b=glfB8ogbiW1UrHVbhgTdWbl9g9W8SsJkTDLlIYtNd+PHpONFgsxqjg3QM9pLw5fQ1E
-         cnAh5pjiwnHczQYIqu17zcG17LEGdwvdc79aoYHYzP9pqjCwO97co8JpY5Ri29WQycSr
-         +sKnnXjHT10V/cF0xC3ROJwlN7gwC4XVFnVGtoa5j0NBFUKURTazcMWX0Y8CLs+wRurO
-         5FJ2kC0bfaHRK29KcH89652PWKUqDB4nYAwrRtm7oHota79QAe7lD+TYv32muzDpzLoU
-         TAhBXQqShVtyjQr7AUVdi2g+1Thd2OjmTmEHmr4awBOiQMJhvY/6ixfIWoquRZU28jRC
-         LTJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788459435; x=1789064235;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TYPdkHe//ABCrrcrY9PNffZ5lOpN9WmoX92PzRYdpRw=;
-        b=gIOcldBm4+csGKBMvwWdzueS1i8emsXQWk+NCeuuBNKKfqPENc+pJWb8XsurczsywW
-         sSzm9GP8BH3wwUxsTmX0ZLqmD9Fli8qcHBbwshalbFyQtAisOJaAXatw73L5gEDK9HKT
-         hD9nL/EcwsA0Bj9TedPdqU7ji8aiOL5ZI/5IitRG7RgP5Nu8sa86WQ/VFrpkE2B9FGLY
-         Sh36ZZGMiQtIzzPVDlMP6uqGif9m1Z69ZJ0WoNTg4A37luoHRZt7vkVQjAk9UdIq2Lil
-         zHCFOgWNsvAp6BByFb16x3L3RBfYTpcx9/zSd5YOeKyp6ouhtjY+3RxvoQknAC4prBZv
-         UaUg==
-X-Gm-Message-State: AFuF++k/WN6RQsfFaZLSNIjHEzn6POYLHAH5dL/CWjJOAs7poo+LzoDi
-	k5Lx6rHlQot1du2SQoZyhB3bbbpFJndAUGWe2LZOpX+tA2bqDW2INz97f3G/SqEorkxFviZ/usS
-	+A0fagjELKXGtuOBc8wWZK+NA+x9Euf85NroZwMJodUJM9CBGMf6+N0pR
-X-Gm-Gg: AYBFou3OspB2Ki2NiOm3oolv7rA/Z/FupXAblZrOXSB4aahioQm6ZdBTRpkUepqvjrL
-	M/OKgkYWYurvg43e3m2UspltLGtyoqxqkm4wQWdN1jMY1GSIHyN3JF7VOwg01SW+V4HTVirRU3v
-	3HJFlDHxgB9BblaOs4rOvjFMrh4VJKyfsnAQD8Y7Nye2mP80cwoNCiUxAuQbkrpFN2djzEyaNTR
-	X/Pr8X0P/r7kDNn3FBim4s57aZUuM5kfG2HG4+mAQRMHapzcRBt7xgM8vucgetNzaZ7QzLnu3nX
-	FSizY8s80roZed5DJFxN0rbi9AbQNn1CyovTGwCmlInPh4gd0DVoQC4Ay7LHgaSdkjdFJ026+Rk
-	=
-X-Received: by 2002:ac8:5992:0:b0:52f:4a75:f840 with SMTP id
- d75a77b69052e-53055567dccmr83931cf.9.1788459433648; Thu, 03 Sep 2026 11:17:13
- -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="y3Vckjg5";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="bdiWv99k"
+Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id C7ED114000BB;
+	Thu,  3 Sep 2026 14:18:29 -0400 (EDT)
+Received: from stl-imap-02 ([10.204.2.93])
+  by stl-compute-04.internal (MEProxy); Thu, 03 Sep 2026 14:18:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1788459509;
+	 x=1788545909; bh=yJSVbKwMvwow3JtKYZ5b6ktTLZ/s1e1Bv6rK8BmE3Ws=; b=
+	y3Vckjg5cYfQYcoUkx4IhbYtOI8ixbGgFczrQTmPSu24pAnxrL811FY58WZb+VjY
+	9UEL0pH/B7XJPTHjS6nykI4BkFHMQJ7q4U2582S2aDpem9Xz5ardGWj028oUVbRj
+	K9K3OBYutldAnAd2NtbTQAJjDMtky8OD1AC/ColqMCTkT9+35BCRU1yYUrAWSnEM
+	1lzIBYujn2OCbv8YxE/3iNxM5S+bLOJyMCWUcu1onI29Q41XrsA1bzULeHVxY7SZ
+	4AttvmFlTMLHluz7puCr0AIQNFuxfk6NsqyjhW1VxIhC6grVO8nRJqDKQvj2s7mW
+	gFhivaevj+jcK3q+2pOdMA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788459509; x=
+	1788545909; bh=yJSVbKwMvwow3JtKYZ5b6ktTLZ/s1e1Bv6rK8BmE3Ws=; b=b
+	diWv99kyP4rCu02DJaechzsCZ5aBxa4ZDRis2vrxINybIUjLGKBDyS8NJdrGRgUt
+	neAfnplACTFL1FcHkKfIY0R+6skhZxrzIdAlJY/PD9gwPnRwkfviqSYsh1wjbO7h
+	mMmkMEdwb132t3nNtHHotZ2XBTL2TlOypeUq4MbVCswINlmIvNJEKRkWXw7EQMeq
+	Huszg5VLK5LdzS9GRlC9X5WE7xLKwriws7cuT/8Dx8zVBAxsAVMb7hPGYwkPPsF9
+	XSbMvtHLhQXhj24YILqCGkAdH1ynyrMFHPUhpFzMwaH0JpyJNDWayD+Aqq1RDzV6
+	bweU7Is99Zsu9t7sHjILg==
+X-ME-Sender: <xms:9bmZaiE_xeGtpj-aAZG8FqxPjt3hRpaFNuwo3_PFeh2Aib8Zhv18iw>
+    <xme:9bmZauJargMgfRnRnN5OF8BdnJjwnroU23o6WlFtHeDagzbo6tqjzj3oWwiYEAoGA
+    5-hxD-J4b-eqfJnF3bJ6ktjR3rahnaNzO_3ObDpnfNHQSAReD3KWCrF>
+X-ME-Proxy-Cause: dmFkZTGz2sGakKQmWs4ObkEsezaHzQnaR8zoMe6FG4x9vwNpWVPin7aeMOow/P75UR78bk
+    RHl492FO+616I1+nkzegTTctVbOajGt4IQ0tSqx4rcTs2AfNuvKIz/r3pK2wwarcbdfrfi
+    NgG5Dz3Qu6i2BusqveKFOMQ2RwxKEO/7/YWQHn9NYSJRmXX5pnpYcFuFbw/eTX2Ez3JYp0
+    cRsgIoctBwSmq5h1EV5UYYQQfzc2uJq9wbdsQcqD4s8FBQIqCVy8F7/3YvsLUqvn3r+fW1
+    hBPEWtoh6Z5N9ospob9hdoHd4ETJiBUwKRoHvL2gJrKCElwwJjEs4PyoJ8cEtUEj/tP2S6
+    vs3CT6uixPqXFEwEy2q3nEhZAzHzgddWYWZwcu9e5yu7uxncYKAfRmZd2s7J10uw2HuMdk
+    jE35cwANatK8WciLpjt7vBPgoAv1qv2B3Dsx2MrnbXvDHG/aisKIT+HzsxNskZq6snI4vs
+    cJ48HMYK+0IS2BynVhmGOgvjujhfgOAU+QHtU7JyINkh6wEVesSP6LueQLsKlMcZuEQSTL
+    xZ9ZODd6zPzhgeDqIS0cgZuoL03gao4YGpcMyDw13x1pKFc/hPY4I20pxmEoMF9zQYA21C
+    GqjcryleQMWzJmg+6/zTAK6lfSt0C/jgClJaKuh5RdmmhF/GqAXPQ95zsOzQ
+X-ME-Proxy: <xmx:9bmZajx-KKg1US7GQ5HfUsIpaV3YuqXA5_2UoprSFMWBD0_nMVH-Xg>
+    <xmx:9bmZaiKOJH2t8DKGJbnVzG9dXcu-su6rw1bGMLnBnvWSizQu5RXGyw>
+    <xmx:9bmZalqjrUYQiMwiE_LnhjskrUaOz0uAk7K3Wq1BUgQadoG98BR07w>
+    <xmx:9bmZapKTSkGoGSleTvKtRa3shs6BeXZFE1S-zaqsQ4_tuAbuU8aBag>
+    <xmx:9bmZag7dgwcqO4L7Gzbqrxm1ZZJsbntyWYbZzO6c57Co3lJU4iZBWTQc>
+Feedback-ID: ibe194615:Fastmail
+Received: by mailuser.stl.internal (Postfix, from userid 501)
+	id EA9C62C00064; Thu,  3 Sep 2026 14:18:28 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903073554.1300334-1-tmricht@linux.ibm.com>
-In-Reply-To: <20260903073554.1300334-1-tmricht@linux.ibm.com>
-From: Ian Rogers <irogers@google.com>
-Date: Thu, 3 Sep 2026 11:17:01 -0700
-X-Gm-Features: AcwNN1Wj7onVlAWq82ttAz6rRWHfVF4Ef3_xa9bxcnd8LJ60UxXFqlzVG2puzko
-Message-ID: <CAP-5=fUtW=EfB5SOt8iCSsyt4pg_2NhoWvTr=Qf5vEKU5CwZRA@mail.gmail.com>
-Subject: Re: [PATCH v2] perf test: perf stat tests fails on s390
-To: Thomas Richter <tmricht@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, acme@kernel.org, namhyung@kernel.org, 
-	agordeev@linux.ibm.com, iii@linux.ibm.com, sumanthk@linux.ibm.com, 
-	hca@linux.ibm.com, japo@linux.ibm.com, Aaron Tomlin <atomlin@atomlin.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: AGpaznFded8J
+Date: Thu, 03 Sep 2026 14:18:08 -0400
+From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
+To: "Heikki Krogerus" <heikki.krogerus@linux.intel.com>
+Cc: "Greg KH" <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <b98ed1c6-37fb-4235-8ebd-df350728f797@app.fastmail.com>
+In-Reply-To: <anMmhwSSLEAnAZZI@black.igk.intel.com>
+References: <mpearson-lenovo@squebb.ca>
+ <20260729182203.3667583-1-mpearson-lenovo@squebb.ca>
+ <anMmhwSSLEAnAZZI@black.igk.intel.com>
+Subject: Re: [PATCH] usb: typec: ucsi: Retry if notification enable timesout
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 3, 2026 at 12:36=E2=80=AFAM Thomas Richter <tmricht@linux.ibm.c=
-om> wrote:
+On Wed, Aug 5, 2026, at 8:03 AM, Heikki Krogerus wrote:
+> On Wed, Jul 29, 2026 at 02:21:50PM -0400, Mark Pearson wrote:
+>> Found on Thinkpad E14 G8.
+>> When UCSI notifications are enabled the FW does not ack the enablement
+>> itself. Future commands will be acked correctly.
+>> 
+>> If this happens try enablement again and confirm acks are working
+>> correctly.
+>> 
+>> Signed-off-by: Mark Pearson <mpearson-lenovo@squebb.ca>
 >
-> The test case 'perf stat tests' fails on s390 z/VM machines. The
-> root cause is the unsupported CPU measurement facility on z/VM.
-> Therefore the events cycles and instructions do not exist and
-> are unsupported. This cause the subtest
->   Hide zero events stat test
-> to fail.
+> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 >
-> Output before:
->  # perf test 116
->  116: perf stat tests  : FAILED!
->
->  =3D=3D=3D Test Summary =3D=3D=3D
->  Passed main tests : 0
->  Passed subtests   : 0
->  Skipped tests     : 0
->  Failed tests      : 1
->  List of failed tests:
->   116: perf stat tests
->  #
->
-> Output after:
->  # ./perf test 116
->  116: perf stat tests  : Ok
->
->  =3D=3D=3D Test Summary =3D=3D=3D
->  Passed main tests : 1
->  Passed subtests   : 0
->  Skipped tests     : 0
->  Failed tests      : 0
->  #
->
-> Fixes: 64724095a33f ("perf stat: Add --hide-zero-events option to suppres=
-s zero-count events")
-> Cc: Aaron Tomlin <atomlin@atomlin.com>
-> Cc: Ian Rogers <irogers@google.com>
-> Cc: Namhyung Kim <namhyung@kernel.org>
-> Signed-off-by: Thomas Richter <tmricht@linux.ibm.com>
-> Reviewed-by: Aaron Tomlin <atomlin@atomlin.com>
 
-Reviewed-by: Ian Rogers <irogers@google.com>
+Thanks Heikki.
 
-Thanks,
-Ian
+Just curious - what is the process/timelines for this subsystem for patch being accepted and making it into Linus's tree?
+We're tracking this for being able to get it into the distro's, but I want to make sure maintainers are happy with it first. I couldn't see it in usb-next etc, so wanted to make sure it hadn't fallen off the radar.
 
-> ---
->  tools/perf/tests/shell/stat.sh | 5 +++++
->  1 file changed, 5 insertions(+)
+Mark
+
+>> ---
+>>  drivers/usb/typec/ucsi/ucsi.c | 6 ++++++
+>>  1 file changed, 6 insertions(+)
+>> 
+>> diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+>> index 49f1c53721bb..ea25c44c2850 100644
+>> --- a/drivers/usb/typec/ucsi/ucsi.c
+>> +++ b/drivers/usb/typec/ucsi/ucsi.c
+>> @@ -2082,6 +2082,12 @@ static int ucsi_init(struct ucsi *ucsi)
+>>  	ntfy = UCSI_ENABLE_NTFY_CMD_COMPLETE | UCSI_ENABLE_NTFY_ERROR;
+>>  	command = UCSI_SET_NOTIFICATION_ENABLE | ntfy;
+>>  	ret = ucsi_send_command(ucsi, command, NULL, 0);
+>> +	/*
+>> +	 * Some FW may not ack the notification enable the first time.
+>> +	 * If this happens, repeat to confirm it is actually working
+>> +	 */
+>> +	if (ret == -ETIMEDOUT)
+>> +		ret = ucsi_send_command(ucsi, command, NULL, 0);
+>>  	if (ret < 0)
+>>  		goto err_reset;
+>>  
+>> -- 
+>> 2.43.0
 >
-> diff --git a/tools/perf/tests/shell/stat.sh b/tools/perf/tests/shell/stat=
-.sh
-> index 298ce454b45a..1f5d4cc05807 100755
-> --- a/tools/perf/tests/shell/stat.sh
-> +++ b/tools/perf/tests/shell/stat.sh
-> @@ -583,6 +583,11 @@ test_hide_zero_events_stat() {
->    # Check that --metric-only works with --hide-zero-events
->    if ! perf stat --hide-zero-events --metric-only -e instructions,cycles=
- true > "${stat_output}" 2>&1
->    then
-> +    if grep -sq 'No supported events found' "${stat_output}"
-> +    then
-> +      echo "Hide zero events stat test [Skipped - events not supported]"
-> +      return
-> +    fi
->      echo "Hide zero events stat test [Failed - metric-only command faile=
-d]"
->      err=3D1
->      return
-> --
-> 2.55.0
->
+> -- 
+> heikki
