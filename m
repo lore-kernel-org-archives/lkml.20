@@ -1,240 +1,190 @@
-Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11020121.outbound.protection.outlook.com [52.101.228.121])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 120A94CA76D
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:13:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448410; cv=none; b=PPfUfvzdKO5ZVLLMYE4woq4MFEWa9UjLA/26eW3Y9qaOdA8aC1ethX/45TxZIpWYpbb+mDvEVlEpELDVgcLb2HHJB15K0AM+aHxEMY/A43d+9xssz6l7FUqF9s+msuRUE/9SK6hqBwXWni0IdMq3FwGLNW2/6SSCnvfvwl4a4BE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448410; c=relaxed/simple;
-	bh=8oDPwKyJq6D8iNtKGoCjRBDtydxKgNge9OBI1Z9R0JA=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=IcpCF0p+X8tTWOMtboZy4GYlQI0MsJNlc3ib4s3j9gFRI6TGnnO+BsXc7MZlkozB/hp6bG+Hg5JP0kahqDvX867xKmSXrWvJkP1PgXuM2rbGMAoBgzUyZ0Xz2CxcpqFodu8XwCMkFMKn+me93Ro9lq+hkysZndOv3kpRI7NBo04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa2-f0.google.com with SMTP id 586e51a60fabf-44cdbcd53b8so355215fac.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:13:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788448407; x=1789053207;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=n88pISbCSWfh8Nmha5aYNHR09vbvpIlX43fQfrQW0kg=;
-        b=jbpwFsjUQ9BT1YqGI/ltJkaXbmKcUnspX0lr51GL4Ck3lGs414VLDdsT9wAWgN7iy9
-         X7OpVnV4ORq2a1KAVdTq1f8aUKMfXi49+elsjln0kBf+hKpCfthpqtmdiY3gFoqNCQWZ
-         dyBWrTpX7H2uW/XF2fxpLhC547uVj+XAPPjWxORVGvLlmlbpZr259gVKCeP2S2BnENJ7
-         rfGyhCWO09F6ONfElHNCqQqW0G/J4txFdo6tRNEUzLJdkVpYSDJQIHjeVsnAKdlhbpOh
-         JOeEBddPUrkvKbLjWLlcxKCfLGdn5THRzeOZ0vBsqNJnrZovHyPPUwZM/Mr2ICBnAHlf
-         FQDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx+IQXNx92q8cmWiBE06+53MtgH3sDvkk7/FVUQzuhgr+64ps0hHYyNtrVQVblIWotPNM+hXghINUP0nRE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lh7ER2TUQ/3/f4QymxD9Hqk6M9uUC/Q0EXInDcua+iqEpzx4m2
-	2YjcAeOc01RQ22cJbocBK636CKXq/m9quIgeCcyAIDGdTWE6bJikPLdzQ7N/T1RKPaIzKoW8Ea4
-	MhTdFyRTqA9SNZ0XlafgDfoAGupLc032qXVxX0Rmktg4l+7/bIefxUn7+VWU=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C3A24CA78B;
+	Thu,  3 Sep 2026 15:13:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.121
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788448415; cv=fail; b=UfXYX2YtsJrMOOEeyWlZYLMotchKrCy7gOPNUzsqvGDWQ37rWZfaqv20k020COQdvH6CQY10B7RrurQANkI4d72oxnY+GzZaPxTXSfpWHdtEOKKd1KzA9Tc+W1QCbFma/+R1C3xXNG4/IKCjGeGm3vrGf21RPImn4vLWEzpQ/cw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788448415; c=relaxed/simple;
+	bh=8G344F4k66XOltqVOhuwBmfpBM2ntNq1Fh1P/1Lc7qA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=bCNpLFLenJ7z/N8RsEUtwbDJB+5uX9Go62CFf1nxjbCU+GMWUsRbn/k5nqMXDJpr1Y67Cn/KjA24NPBlw3BHQqpB3Z3Q2QjP0OU14ObPpHZFXAFKmgNpyY3FIc76nNzjLNH2HzLtVl6TDSFDm5qI1bt+/hDV9s2nKCRELpsVWko=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=H2n7I2FJ; arc=fail smtp.client-ip=52.101.228.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="H2n7I2FJ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tbeHf0r6FFFDcWZtoFMstQKcmcG0w0rkMAE9/3+qF8pM1z7T5Unip68djJRPD4BsssYze8YhmMngVB8njr6ZU0OL/hobKtWAlzMQIkpjRC8vuzWHf3yGjeaAjGTJuT/6zCYdVZcnuPzuJPi95twtQeQHOQPSvn0yLQpgqy6k3yT4uwnn9Lom/peMkRCXa+5D/CR/DhhfUmJlaCfC0q5RYVDolTCZbISX0+XfdgUIIM1t0kD0Rr8qpD9OfhQ0aJr3+pcPouuQJhPd+p7QgAx0wp4ofsVFs9oi+Bk9SFy53R3L6wp+2ptq7M9o2Jlnflecp7E0wW467P0lUmwUmsX3aQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cP6B7v+tdQ+ru0KfgXzyT6jgBjssOPmQl3H5DiVqIqM=;
+ b=c6rk2lqB0GEmNiCr6rd6kg/i8ZdtM0kRsVTwJ17DgnFNpeKwCICShFJxabiHw3Jri3ASpGjjj1STDd+p8FgpsR4qjMf5C4QIuRL9nxSmoh/1jdgj9YdDrvs82f02X342iK+81EgefliPm8UyJa/sbw8rFQ5Rq0kSeu1ksv8BMyHXhD4miUXquljfWrikXq2zad/Rvterq6AlGqy+cbZ14cIFV8b5yWqzNCtp3aqhKphLT5RkJs4TaO6UU9D6Uz6QHXQO9He4NbpPxd4M3GjCCaiKwumtUR3xjRfGnnnFUIH7ktRFhIguehN09SyAqRIOtvEB22x+j6EWUe06q0K/cA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cP6B7v+tdQ+ru0KfgXzyT6jgBjssOPmQl3H5DiVqIqM=;
+ b=H2n7I2FJLkjI2FXa/P4hWckwlYvHPztq0OCUf8+QXIoF4njwU6qocirsHOX6p4m6hUwaGQdF607UAVHDrKGjVOQsrn2INXfzJmbog1YazaLQVjvoIaGQW3VoxfYj5I0N/pRYYut1XVpcBAfURJWyII4h5QL8hKEzqEEou8DFTYU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
+ by TY4P286MB6797.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:33f::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 15:13:29 +0000
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 15:13:29 +0000
+Date: Fri, 4 Sep 2026 00:13:28 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Kishon Vijay Abraham I <kishon@kernel.org>, Frank Li <Frank.Li@kernel.org>, Jon Mason <jdmason@kudzu.us>, 
+	Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>, 
+	Niklas Cassel <cassel@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Jingoo Han <jingoohan1@gmail.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Jerome Brunet <jbrunet@baylibre.com>, linux-pci@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, ntb@lists.linux.dev
+Subject: Re: [PATCH v3 0/7] PCI: endpoint: Remote DMA support via vNTB
+Message-ID: <gjvpfltamqvvgucmdz7scvslyuf65ditqpyuu6ktbqkctwcakc@5atq3vrxa6nb>
+References: <20260831182657.329614-1-den@valinux.co.jp>
+ <4k22ipcaw6hy3va2z6nd56zb35kbcx63tfgk4tyuz5jifd6a3v@absanor6e2vp>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4k22ipcaw6hy3va2z6nd56zb35kbcx63tfgk4tyuz5jifd6a3v@absanor6e2vp>
+X-ClientProxiedBy: TY4P286CA0096.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:369::18) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:38f::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:619:b0:6ae:9815:7c8e with SMTP id
- 006d021491bc7-6b48102eaa1mr9727355eaf.21.1788448406931; Thu, 03 Sep 2026
- 08:13:26 -0700 (PDT)
-Date: Thu, 03 Sep 2026 08:13:26 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a998e96.9266084e.bf0d7.026d.GAE@google.com>
-Subject: [syzbot] [scsi?] INFO: task hung in scsi_scan_host_selected
-From: syzbot <syzbot+1f678bd2872aefb11d8a@syzkaller.appspotmail.com>
-To: James.Bottomley@HansenPartnership.com, linux-kernel@vger.kernel.org, 
-	linux-scsi@vger.kernel.org, mkp@kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|TY4P286MB6797:EE_
+X-MS-Office365-Filtering-Correlation-Id: c7b08dc6-68fa-4719-e374-08df09cde958
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|366016|1800799024|23010399003|376014|7416014|56012099006|22082099003|18002099003|6133799003|4143699003|10067099003|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	S3aFB2bw73rvudGDiBfJ85otZmX5DhOHw/N+P9/Hby1JGkN3Wl0/dnNvR9kCoNPkqAdMbWjUNbuy7AzO+wKspf/s9zClKYe1mzgU3K6Uz9grR/uppH+juhl4Ssa34qIngi2WNg69hc6wvMNuCZOGRmkqS2doUkMmusWGWSpGd4QrEJfBpiWYPgLiwBQhFsHo7EY6LNNNceUZkWgi3Dt39lQoqYBEJI+Y2mfJjHrnd7mZu9M+KyiaavtjCK7p+wd9HZlws6HALXfrCjCijBA+F+lxTV2tpkKet6Ibnvrd2wW7at7y2VUPvPgTexg2TXsI19xb5/MMD5qovtNO8+jTxpCV6CLqh5ThclEuXoyU8Mz8HWAqD0JcDEeUb9VmlCsTqdywAILk3ofKH+FG2rU1FzOPXQ4ZQQWgsl9saLnozRq98Kmlq3P+B78GXWptFSKiEeDyJrQLOy/cZLBA2v4NsRZV/BLfz/DUsqBH9ETv193BLQhBepgjo4wxro2KYlg2fGnweaoZtmbQDrXxnK/3vGxe/BtzEF5URfQ+e5l8+fWsU+6JCFApIHy1em+Nz6xWTKyaXrEmW7MgKC8J97nHcYs4Whq9sM1uOwBWGCJagbbFGY4hlqIDFlngrkck7WYG
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(1800799024)(23010399003)(376014)(7416014)(56012099006)(22082099003)(18002099003)(6133799003)(4143699003)(10067099003)(5023799004);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?M1hwTC9kakowNnNCeDZWbURlcGJ2RC9vT3V6SVloWkpJZGl2OXd6QUJGWkFK?=
+ =?utf-8?B?YVJFRnpxN3lnSE5qcldsWHBPY2d1cDg4c0J1NWRFcE9yVkgvSStOMnJ3NjNl?=
+ =?utf-8?B?SldiSUllNDhBdk9sVWk1VVhiMFNBSDJndXFWd0t5cG9OM2UxQjRQdk1mTGND?=
+ =?utf-8?B?NVhhblU5N3FLWkVzbSsxV3N0NHp4Y0ptMmVsZWlMUEowbUVQOTlPNm8ySDVV?=
+ =?utf-8?B?MHFzSU1hZHVtb2VKTjA0dG1MYU10QUw1Mlp3OXhERVlOTWZja0ZsbjdhNXdo?=
+ =?utf-8?B?eVkrR0hLME1tN0pHdUV6MWVPMEVUWnh0Z0RjNzZnQjdlbG5aYzBsS2lSM1Y5?=
+ =?utf-8?B?UG1oVlQvcEN1K0JYWk1NTTU3ZVREcmVEQjhYeVpwbmRrTC9CWERvN1Nsc1NK?=
+ =?utf-8?B?RlJuSXROQkRiTUZTR25ISGZReFBGOGJrTzFmNjROZG5HYkJiZ3h4TE03b3ZD?=
+ =?utf-8?B?MFJPTkhxTFlNZkY0WnllbUZvdGE3Y3VZWEhRSGpaSFBlSWtpRVJjR3IyUU9i?=
+ =?utf-8?B?MTBKVTZhcDAwVUdJN3hqQThWbzZHRkg0Q09CdzRJcmJTc29VZDlVckVlcklD?=
+ =?utf-8?B?amlNeW1nLzZSaVRLSEZ1Ylh4MUw4ZlFwTEFMRlIxaDFVOHpQRFRiQkRjMHdJ?=
+ =?utf-8?B?d2xoZE1ORVlTMUZ1SHkrUGVTandrK0xoYlFOR3pLaFlBK3A0UDAxMzhQYzNm?=
+ =?utf-8?B?bDBsK0N3SUtqeU02VXFhSE1Oa1JDaTBIYUh1OVRiRWMwMENGM1BlYlN3a1ZV?=
+ =?utf-8?B?NjhIQXpuSjFtU0F1Rm10YU5OcjhueVJweitCMzhGVk5uNWkrZTgrQjNuOW50?=
+ =?utf-8?B?N054N25CMXgvUGN5blEvaS9aTGoyOGx5TWs0K0xaVEUwZ3M5TVpONDFkNGo3?=
+ =?utf-8?B?enN4RFZ1b2VZakNTNURXdWhTREVwZEx4ZGJ3ZnVVWCtWbERKeVVEZUhxMjVY?=
+ =?utf-8?B?QUlCalBTdmp1OXBHY1ZRT2d4SWtIaXJpdVN6M0NlTlJWL3BnMUpWdVpURlEz?=
+ =?utf-8?B?cHRRZnVyeU5pWE1YcjVodVRWUlF2SE5jWnV3RjN5UjBCaG04eitvRmJVZi9t?=
+ =?utf-8?B?UzdnNnV5Rit6SGpRcVFyMmpIWWxQbFhKY2V4dHFFMHk2bTRqR3JiUmMwcWlE?=
+ =?utf-8?B?aldISUg0QzJpa2JIOEpUZ2pRU2pPVFlvdzFjWDQ2clhXUEc1cFBsRnpRWTRh?=
+ =?utf-8?B?cnNnT2ZFTzYrMFk5cE5leENIZ21WRDcxaWFYZWgveVlpalpxd0pPN1hxdGFQ?=
+ =?utf-8?B?U2RCUGYyRTl4VHFYWGZ2MkhyYldVMGlaZ3ZIOTlaa0cvYjFXU1c0NERyQ1dK?=
+ =?utf-8?B?REpzNmNkQi9HU25aeEVPNmx2UmE2empuOTZDOGlaZjdyMkZwSENVSGRvSTl6?=
+ =?utf-8?B?NUd1R2c3TUgzQ3Q2VHQ5ZUxBWjB6YUdtMGFIbnV0OEdFSTFSZEdqckxqbGgv?=
+ =?utf-8?B?YkpwbW8zOE13eGpLV3g3cTZTR0VRYmxzT1hPN25pMzBjUk9TWlpJUmsrSFhZ?=
+ =?utf-8?B?cVhRUmJPdFVLV0pYdDNoQ3lFOHM1N0l0Zm5TQzljdCszazlhOVVzVXBwTk1Q?=
+ =?utf-8?B?WThOR0QwQnJlYmllWExsWUlBK203VXR4NjQxQWsrTG9IOHpJUlNBNFQzZ2gz?=
+ =?utf-8?B?SFZIVXI2LzJzby9QdEd0bnU5MFo4OU44RThvSkM4dXlJckQ2RmVvcjJJbk1r?=
+ =?utf-8?B?MXlJbm5UVDhzREJUa285S1hoNXpqTlZ6OEY4RWVTVXdRTjF4V0U5NXAvRG1C?=
+ =?utf-8?B?Y2hNaUx0VFdVVXZXUmtCVG11KzlQdXR5WHZkdkdGYWZjZFlFNFk1VWRqeUd6?=
+ =?utf-8?B?TUlnVHBMWTVGOC81V1pUL1NidkRaUU5QeXV3UzFmRXU3aER5MG54WFlsQlBJ?=
+ =?utf-8?B?TnNSMTFJanMyYTVFbHFueS9wck9MNnhERUVtQjc0YThLcFRrUUg1SE1qY0k3?=
+ =?utf-8?B?L0tTTjB0bVhWVE1GTW1IMFlUS0NKMTdnSW1mZ045eFA0UDdJNks4OUVxcTdU?=
+ =?utf-8?B?SnBuTjNxMjJ6c0twdmdJVkRmUVUxdllOKy9GV2g4Y2hnS0lYOGlMaU9RN2Iw?=
+ =?utf-8?B?em5MK2E0L2pjOWo2WGhSVWlzb0xpMXBwWkFZcnZHRWVOKzBCYkZ2UDNzU2hC?=
+ =?utf-8?B?NDRZbDBjY1pJU2VVWk54enhHS1pvbzNmK2o2YTBHRHhDNURDdjdUaS9KSy8w?=
+ =?utf-8?B?eUFNT3JDUTFDU2p5Mkx6eEdpRitRUW50QmJ1R0QyNEN0VlNJbUJoeG1FS0hT?=
+ =?utf-8?B?ZEx1Wmd1aTVvVVNDQldXKzZCWGJxMXBEdEdzVnpMWEY1OHd6N2xCdmdpYy9N?=
+ =?utf-8?B?L0F4UEtEMnRUdDdaUXBhbldSc2tGNmFsTWZxTmxOZ1lqcWJKNGxZWUxxdW9V?=
+ =?utf-8?Q?O4mcL2zEvg72h/7jVgY17J9Bc7NsJXKBYEWmF?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7b08dc6-68fa-4719-e374-08df09cde958
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 15:13:29.8405
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PF0eBMbbJH4+KY9G5G/QhcbeROZVPJqKisvssxv2h9Zy+50vTyPHvTIBxRUUd960J6WNqkVcuE5kgZ9YQrBUpQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4P286MB6797
 
-Hello,
+On Thu, Sep 03, 2026 at 01:43:45PM +0200, Manivannan Sadhasivam wrote:
+> On Tue, Sep 01, 2026 at 03:26:50AM +0900, Koichiro Den wrote:
+> > Hi,
+> > 
+> > This series lets an RC use endpoint-local DesignWare eDMA read channels
+> > through vNTB. It keeps the export within pci-epf-vntb and ntb_hw_epf
+> > rather than defining a generic remote-DMA ABI or using a separate PCI
+> > DMA function.
+> > 
+> > On the endpoint, pci-epf-vntb reserves the complete eDMA read direction
+> > and exposes those channels as a group. HDMA is not yet supported,
+> > keeping the series minimal.
+> > 
+> > The DMA feature is opt-in through the pci-epf-vntb configfs attribute
+> > 'dma_bar', which is -1 by default. Without it, no DMA extension is
+> > exported. pci-epf-ntb is unchanged.
+> > 
+> > Base and dependency
+> > ===================
+> > 
+> > This series is based on next-20260827 (3d83758432b5) plus:
+> > 
+> >   [PATCH v2 0/3] dmaengine: dw-edma: Prepare channels for remote use
+> >   https://lore.kernel.org/r/20260828163611.2691264-1-den@valinux.co.jp/
+> > 
+> > The prerequisite is for the dmaengine tree and is not part of
+> > pci/endpoint. linux-next provides a common buildable base for both
+> > series. Once the prerequisite lands, this series can be rebased onto
+> > pci/endpoint.
+> > 
+> 
+> Just to make it clear. This series has to build time dependency with the above
+> mentioned dmaengine series, right? The above statement is not very clear.
 
-syzbot found the following issue on:
+Yes, this series strictly depends on the prereq series, and as you pointed out,
+it's a built-time dependency as well. Sorry for the ambiguity.
 
-HEAD commit:    940de590b839 Merge tag 'hardening-v7.3-rc2' of git://git.k..
-git tree:       upstream
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=14f950f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
-dashboard link: https://syzkaller.appspot.com/bug?extid=1f678bd2872aefb11d8a
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=15114b49580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16769f79580000
+> 
+> EPF patches LGTM! I'm waiting for an Ack from NTB maintainer for patch 6.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/bd9a624b9ba1/disk-940de590.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/9d23d27ba1b3/vmlinux-940de590.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/fbe1a9f530ca/bzImage-940de590.xz
+Thanks for taking a look. Note that I have already sent v4:
+https://lore.kernel.org/r/20260903082327.2345602-1-den@valinux.co.jp/
+(One more dependency is added as noted in v4 cover letter..)
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+1f678bd2872aefb11d8a@syzkaller.appspotmail.com
+Best regards,
+Koichiro
 
-INFO: task syz-executor247:5632 blocked for more than 143 seconds.
-      Not tainted syzkaller #0
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:syz-executor247 state:D stack:27912 pid:5632  tgid:5632  ppid:5629   task_flags:0x400140 flags:0x00080002
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5520 [inline]
- __schedule+0x16d9/0x5700 kernel/sched/core.c:7270
- __schedule_loop kernel/sched/core.c:7347 [inline]
- rt_mutex_schedule+0x76/0xf0 kernel/sched/core.c:7643
- rt_mutex_slowlock_block+0x55e/0x690 kernel/locking/rtmutex.c:1670
- __rt_mutex_slowlock kernel/locking/rtmutex.c:1747 [inline]
- __rt_mutex_slowlock_locked kernel/locking/rtmutex.c:1787 [inline]
- rt_mutex_slowlock+0x2d4/0x780 kernel/locking/rtmutex.c:1827
- __rt_mutex_lock kernel/locking/rtmutex.c:1842 [inline]
- __mutex_lock_common kernel/locking/rtmutex_api.c:560 [inline]
- mutex_lock_nested+0x168/0x1d0 kernel/locking/rtmutex_api.c:578
- scsi_scan_host_selected+0x19f/0x6c0 drivers/scsi/scsi_scan.c:1916
- scsi_scan drivers/scsi/scsi_sysfs.c:151 [inline]
- store_scan+0x4aa/0x540 drivers/scsi/scsi_sysfs.c:191
- kernfs_fop_write_iter+0x3a5/0x540 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x61e/0xbb0 fs/read_write.c:687
- ksys_write+0x156/0x270 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f95515558b9
-RSP: 002b:00007ffdb0003058 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f95515558b9
-RDX: 0000000000000005 RSI: 0000200000001400 RDI: 0000000000000003
-RBP: 00000000000f4240 R08: 0000000000000009 R09: 0000000000000009
-R10: 0000000000000009 R11: 0000000000000246 R12: 00007ffdb00031d8
-R13: 0000000000000002 R14: 00007ffdb0003080 R15: 00007ffdb0003070
- </TASK>
-
-Showing all locks held in the system:
-locks held by pr/ttyS0/17: 3, last CPU#1:
- #0: ffffffff8e09d578 (console_srcu){....}-{0:0}, at: rcu_try_lock_acquire include/linux/rcupdate.h:314 [inline]
- #0: ffffffff8e09d578 (console_srcu){....}-{0:0}, at: srcu_read_lock_nmisafe include/linux/srcu.h:439 [inline]
- #0: ffffffff8e09d578 (console_srcu){....}-{0:0}, at: console_srcu_read_lock+0x30/0x60 kernel/printk/printk.c:291
- #1: ffffffff99e981f8 (&port_lock_key){+.+.}-{3:3}, at: nbcon_emit_one kernel/printk/nbcon.c:1137 [inline]
- #1: ffffffff99e981f8 (&port_lock_key){+.+.}-{3:3}, at: nbcon_kthread_func+0x64c/0x880 kernel/printk/nbcon.c:1271
- #2: ffffffff8e1c3ac0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #2: ffffffff8e1c3ac0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #2: ffffffff8e1c3ac0 (rcu_read_lock){....}-{1:3}, at: __rt_spin_lock kernel/locking/spinlock_rt.c:50 [inline]
- #2: ffffffff8e1c3ac0 (rcu_read_lock){....}-{1:3}, at: rt_spin_lock+0x1e2/0x400 kernel/locking/spinlock_rt.c:57
-locks held by khungtaskd/38: 1, last CPU#0:
- #0: ffffffff8e1c3ac0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffffffff8e1c3ac0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #0: ffffffff8e1c3ac0 (rcu_read_lock){....}-{1:3}, at: debug_show_all_locks+0x2e/0x180 kernel/locking/lockdep.c:6837
-locks held by getty/5344: 2, on CPU#0:
- #0: ffff8880290a90a0 (&tty->ldisc_sem){++++}-{0:0}, at: tty_ldisc_ref_wait+0x25/0x70 drivers/tty/tty_ldisc.c:243
- #1: ffffc900044cb2e0 (&ldata->atomic_read_lock){+.+.}-{4:4}, at: n_tty_read+0x460/0x1360 drivers/tty/n_tty.c:2211
-locks held by syz-executor247/5632: 4, on CPU#0:
- #0: ffff888035fc8510 (sb_writers#7){.+.+}-{0:0}, at: file_start_write include/linux/fs.h:2753 [inline]
- #0: ffff888035fc8510 (sb_writers#7){.+.+}-{0:0}, at: vfs_write+0x231/0xbb0 fs/read_write.c:683
- #1: ffff88802d053878 (&of->mutex){+.+.}-{4:4}, at: kernfs_fop_write_iter+0x1d9/0x540 fs/kernfs/file.c:336
- #2: ffff888027b9b0f8 (kn->active#49){.+.+}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
- #2: ffff888027b9b0f8 (kn->active#49){.+.+}-{0:0}, at: kernfs_fop_write_iter+0x22c/0x540 fs/kernfs/file.c:337
- #3: ffff8880227cc110 (&shost->scan_mutex){+.+.}-{4:4}, at: scsi_scan_host_selected+0x19f/0x6c0 drivers/scsi/scsi_scan.c:1916
-locks held by syz-executor247/5633: 4, on CPU#0:
- #0: ffff888035fc8510 (sb_writers#7){.+.+}-{0:0}, at: file_start_write include/linux/fs.h:2753 [inline]
- #0: ffff888035fc8510 (sb_writers#7){.+.+}-{0:0}, at: vfs_write+0x231/0xbb0 fs/read_write.c:683
- #1: ffff88803bd46878 (&of->mutex){+.+.}-{4:4}, at: kernfs_fop_write_iter+0x1d9/0x540 fs/kernfs/file.c:336
- #2: ffff888027b9b0f8 (kn->active#49){.+.+}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
- #2: ffff888027b9b0f8 (kn->active#49){.+.+}-{0:0}, at: kernfs_fop_write_iter+0x22c/0x540 fs/kernfs/file.c:337
- #3: ffff8880227cc110 (&shost->scan_mutex){+.+.}-{4:4}, at: scsi_scan_host_selected+0x19f/0x6c0 drivers/scsi/scsi_scan.c:1916
-locks held by syz-executor247/5640: 4, on CPU#1:
- #0: ffff888035fc8510 (sb_writers#7){.+.+}-{0:0}, at: file_start_write include/linux/fs.h:2753 [inline]
- #0: ffff888035fc8510 (sb_writers#7){.+.+}-{0:0}, at: vfs_write+0x231/0xbb0 fs/read_write.c:683
- #1: ffff88803bd47078 (&of->mutex){+.+.}-{4:4}, at: kernfs_fop_write_iter+0x1d9/0x540 fs/kernfs/file.c:336
- #2: ffff888027b9b0f8 (kn->active#49){.+.+}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
- #2: ffff888027b9b0f8 (kn->active#49){.+.+}-{0:0}, at: kernfs_fop_write_iter+0x22c/0x540 fs/kernfs/file.c:337
- #3: ffff8880227cc110 (&shost->scan_mutex){+.+.}-{4:4}, at: scsi_scan_host_selected+0x19f/0x6c0 drivers/scsi/scsi_scan.c:1916
-locks held by syz-executor247/5641: 4, on CPU#1:
- #0: ffff888035fc8510 (sb_writers#7){.+.+}-{0:0}, at: file_start_write include/linux/fs.h:2753 [inline]
- #0: ffff888035fc8510 (sb_writers#7){.+.+}-{0:0}, at: vfs_write+0x231/0xbb0 fs/read_write.c:683
- #1: ffff88803bd47478 (&of->mutex){+.+.}-{4:4}, at: kernfs_fop_write_iter+0x1d9/0x540 fs/kernfs/file.c:336
- #2: ffff888027b9b0f8 (kn->active#49){.+.+}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
- #2: ffff888027b9b0f8 (kn->active#49){.+.+}-{0:0}, at: kernfs_fop_write_iter+0x22c/0x540 fs/kernfs/file.c:337
- #3: ffff8880227cc110 (&shost->scan_mutex){+.+.}-{4:4}, at: scsi_scan_host_selected+0x19f/0x6c0 drivers/scsi/scsi_scan.c:1916
-locks held by syz-executor247/5648: 4, on CPU#1:
- #0: ffff888035fc8510 (sb_writers#7){.+.+}-{0:0}, at: file_start_write include/linux/fs.h:2753 [inline]
- #0: ffff888035fc8510 (sb_writers#7){.+.+}-{0:0}, at: vfs_write+0x231/0xbb0 fs/read_write.c:683
- #1: ffff88803bd47878 (&of->mutex){+.+.}-{4:4}, at: kernfs_fop_write_iter+0x1d9/0x540 fs/kernfs/file.c:336
- #2: ffff888027b9b0f8 (kn->active#49){.+.+}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
- #2: ffff888027b9b0f8 (kn->active#49){.+.+}-{0:0}, at: kernfs_fop_write_iter+0x22c/0x540 fs/kernfs/file.c:337
- #3: ffff8880227cc110 (&shost->scan_mutex){+.+.}-{4:4}, at: scsi_scan_host_selected+0x19f/0x6c0 drivers/scsi/scsi_scan.c:1916
-
-=============================================
-
-NMI backtrace for cpu 0
-CPU: 0 UID: 0 PID: 38 Comm: khungtaskd Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- nmi_cpu_backtrace+0x274/0x2d0 lib/nmi_backtrace.c:123
- nmi_trigger_cpumask_backtrace+0x17d/0x390 lib/nmi_backtrace.c:66
- trigger_all_cpu_backtrace include/linux/nmi.h:164 [inline]
- __sys_info lib/sys_info.c:157 [inline]
- sys_info+0x135/0x170 lib/sys_info.c:165
- check_hung_uninterruptible_tasks kernel/hung_task.c:353 [inline]
- watchdog+0xfd7/0x1030 kernel/hung_task.c:561
- kthread+0x38b/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-Sending NMI from CPU 0 to CPUs 1:
-NMI backtrace for cpu 1
-CPU: 1 UID: 0 PID: 17 Comm: pr/ttyS0 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:io_serial_in+0x77/0xc0 drivers/tty/serial/8250/8250_port.c:409
-Code: e8 ce cc 65 fc 44 89 f9 d3 e3 49 83 ee 80 4c 89 f0 48 c1 e8 03 42 80 3c 20 00 74 08 4c 89 f7 e8 6f 7b d1 fc 41 03 1e 89 da ec <0f> b6 c0 5b 41 5c 41 5e 41 5f c3 cc cc cc cc cc 44 89 f9 80 e1 07
-RSP: 0018:ffffc900001678b8 EFLAGS: 00000202
-RAX: 1ffffffff33d3000 RBX: 00000000000003fd RCX: 0000000000000000
-RDX: 00000000000003fd RSI: 0000000000000000 RDI: 0000000000000000
-RBP: dffffc0000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: dffffc0000000000 R11: ffffffff8560aca0 R12: dffffc0000000000
-R13: 0000000000000000 R14: ffffffff99e98220 R15: 0000000000000000
-FS:  0000000000000000(0000) GS:ffff888125cd5000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00005555889aa798 CR3: 000000003ff02000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- serial_in drivers/tty/serial/8250/8250.h:128 [inline]
- serial_lsr_in drivers/tty/serial/8250/8250.h:150 [inline]
- wait_for_lsr+0x190/0x300 drivers/tty/serial/8250/8250_port.c:2013
- serial8250_fifo_wait_for_lsr_thre drivers/tty/serial/8250/8250_port.c:3270 [inline]
- __serial8250_console_fifo_write+0xd0/0x3f0 drivers/tty/serial/8250/8250_port.c:3345
- serial8250_console_fifo_write drivers/tty/serial/8250/8250_port.c:3378 [inline]
- __serial8250_console_write drivers/tty/serial/8250/8250_port.c:3429 [inline]
- serial8250_console_write+0xac5/0x1230 drivers/tty/serial/8250/8250_port.c:3493
- nbcon_emit_next_record+0xef5/0x1a90 kernel/printk/nbcon.c:-1
- nbcon_emit_one kernel/printk/nbcon.c:1157 [inline]
- nbcon_kthread_func+0x679/0x880 kernel/printk/nbcon.c:1271
- kthread+0x38b/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+> 
+> - Mani
+> 
+> -- 
+> மணிவண்ணன் சதாசிவம்
