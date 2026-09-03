@@ -1,82 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D6984F55A9
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 17:27:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E8039A4D6;
+	Thu,  3 Sep 2026 17:27:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788456453; cv=none; b=VcFKYI0jHezMSUi/5mOM5fCVatJMBhJ6yRDnNTwZJ3cOb9RieJBdeNI3uySGWOWLCeuqXJ1kaS3/5HAOMQq2HPD1EFGmZ5oVx++FS7x+MP2eg6B4hxq+bhIDY2w652CphFsWPOLZ3SZ5bxJ0hwV1qcW+PYJWHBRXOAhct4NI4Zo=
+	t=1788456474; cv=none; b=pEaWcBjsNdy0OKFJLUSNmkud/22VtttlWiRsR5saZXZS+PqV1eVtuK5C+xza1BAoqWCe3TlwIuy4Epv8zcLG7awQiHc3TWSoztLmAQbjFtovo2DxjDPLu2xe3w4OhM5O9aPwTl1s8/+a/3rD2EUhh2wndehPQlM1+Jle3xW9QMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788456453; c=relaxed/simple;
-	bh=NzyHlj+F1WnazB4+oa+9hqNquIJnPs2apGJceu268FA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gNsmdBOjEWKGYSufejf/cq1tOI9Mbv3PRXCOhDX91BqUjOnoX5mXKqmakI10Mb5YDn+dC87Wu/hIzcQahTzfQiqyFfZ+FH0L+B08el3kl0AlpJoM1WsTTYyKLXltlUNpqrGlmQKWwXmiLNsic8lenCCwgcR+DUBSVWaPe4x7krg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f31mTfVb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788456474; c=relaxed/simple;
+	bh=wsAwZpSJDsbP0PvVLjHx+2iJlPOrq6EZEhI9/Y4ITus=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KyxKsSqoA+hwwTEBJ5ltBC2iUNfyZbBSkHZXWsHPvNCfmOVzubdyRmW0C0THRVxEtI/gSXjmSjdseds3Q7V/QDU7ovRnC2nJNlu0mO3VkFXRMVBs6/8b7dRmk3dbcq7uffJzQHCoej2tUOj1gwKD08X+9VkBIYKzCjUlI8bWsKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=HZG2zrne; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f31mTfVb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA5961F000E9
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 17:27:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788456451;
-	bh=NzyHlj+F1WnazB4+oa+9hqNquIJnPs2apGJceu268FA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=f31mTfVbMKX3f4GPVuzk0C3Y0RWX7S/tMMwl5EDNyPSO0tK67b9OdtyjaJeK9Zn87
-	 eBn/B4BBQpv+Dd2ZCGRulX3fx56DSFeeRgp1TaNF/e+lg6BfpwjwR5dFycj1j53cMX
-	 J+togD6TItMtnKmZXbAigUrKKHyILYdfsA0LhYfDIVcDs/YGt2W+O3JYQDIW5RP5oR
-	 gbbwspHG8kM4+DRp0L4CaziwHMJPStIHYlUU92UPoaLiBuKKJZxVDs82kWNvSmPv+F
-	 inp+WGAJvXcHqaHEa2BEqcsCWalF7ev/GXAPhqQe4vI+yct6m1B9srI+wRoNEPh0OO
-	 PAjtuU2N1MgVA==
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-398d2b28acfso29769a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 10:27:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwPzBrWcfRmB/QfJSjzScUAzpAwia3S7+fW1z0Tx9kwSKKbg9m1gTKjWPjKqUvQQ1ZIPTM5E2sIkJcuRZg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kkDw8yocrIhHP2tyt6n996SJ0EPI4mrtqf0iaMoN7Iq3FpnjJe
-	lqrp47D/0plrUZGU/ECuViRPB7LF3CDNr7a980QA0jjSjv5NBIs8JeFcsYIpOIk0FJflqT4l+CZ
-	aVKduTMM2J3q+na1H9WqL6yTlWKZGsQ4=
-X-Received: by 2002:a17:90b:5310:b0:381:11eb:d78e with SMTP id
- 98e67ed59e1d1-39b26272b59mr4877a91.14.1788456451651; Thu, 03 Sep 2026
- 10:27:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="HZG2zrne"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=omSdGrzgptFKkaEboQmH9m/MCMMwI+CK/RTEyIElEGw=; b=HZG2zrneaLyVIxkBm0ceTXM/+k
+	J5bCUkcq+0XdaiZxfkEGS5UXwWA4M0R9P5AZFqI7yNmhFHZHNUoxwLaZspcwUZcMUVncXnswPJc4O
+	d+0dH/bsJ+/RgoxcUYCIWIF4xm3/Joz57c0xVBSo7rS8Fg/ro4RErusQZJxHkyb7wyCvCt3Z9sZ56
+	/3EUXJAUmWgWERcKguFLfps0PTYGPv769cY5XN3RUWMFnfIUqoil3LiM3CiA/Xv9dWYaEzXJW8UJ1
+	LnBVHWNtmdF+YVrLH8JRKEevDCH8UhyQ0tRO1mO0gn0HTOEdEuDDwNazFTLvomAG10yqg8iHxrHDy
+	BcyC+0ig==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x2BE5-00000000H3T-3emx;
+	Thu, 03 Sep 2026 17:27:49 +0000
+Message-ID: <9e53e154-1b4e-49f4-a028-a50af0fbadf3@infradead.org>
+Date: Thu, 3 Sep 2026 10:27:49 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902152910.708743-3-manuelebnerli@mailbox.org> <a4f81c75-bd83-499d-9dc7-b891ec9cd922@infradead.org>
-In-Reply-To: <a4f81c75-bd83-499d-9dc7-b891ec9cd922@infradead.org>
-From: Fan Wu <wufan@kernel.org>
-Date: Thu, 3 Sep 2026 10:27:19 -0700
-X-Gmail-Original-Message-ID: <CAKtyLkGDab8y4gLCxB8it0R7pJEYk6SF2YDRuhxGwRnoPJCVsw@mail.gmail.com>
-X-Gm-Features: AcwNN1UzhA_lKFHBKz39dW7UfnttRnAH9rsChsJlzbrbWgm9FM8-99pn-OxwtcM
-Message-ID: <CAKtyLkGDab8y4gLCxB8it0R7pJEYk6SF2YDRuhxGwRnoPJCVsw@mail.gmail.com>
-Subject: Re: [PATCH v3] ipe: fix invalid sgid value in audit event documentation
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>, Fan Wu <wufan@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Deven Bowers <deven.desai@linux.microsoft.com>, Paul Moore <paul@paul-moore.com>, 
-	Manuel Ebner <manuelebner@mailbox.org>, Fan Wu <wufan@linux.microsoft.com>, 
-	linux-security-module@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Documentation/gpu: Fix spelling mistakes in todo gpu doc
+To: Hardik Kumar <hardikxk@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260903-docs-gpu-todo-v1-1-be712c8f67a0@gmail.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260903-docs-gpu-todo-v1-1-be712c8f67a0@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 2, 2026 at 10:21=E2=80=AFAM Randy Dunlap <rdunlap@infradead.org=
-> wrote:
->
->
->
-> On 9/2/26 8:29 AM, Manuel Ebner wrote:
-> > From: Manuel Ebner <manuelebner@mailbox.org>
-> >
-> > The audit event example in the IPE documentation contains 'sgid=3D)',
-> > which is not a valid Set Group ID value. Fix it to use 'sgid=3D0'.
-> >
-> > Fixes: ac6731870ed9 ("documentation: add IPE documentation")
-> > Signed-off-by: Manuel Ebner <manuelebner@mailbox.org>
->
-> Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
-> Thanks.
->
 
-It's now in ipe/next.
 
--Fan
+On 9/3/26 10:04 AM, Hardik Kumar wrote:
+> Fix some obvious typos in the todo.rst doc.
+> 
+> Correct spellings of incorrect words.
+> Fix an article usage.
+> 
+> Signed-off-by: Hardik Kumar <hardikxk@gmail.com>
+> ---
+>  Documentation/gpu/todo.rst | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+> index 14cf37590..187932554 100644
+> --- a/Documentation/gpu/todo.rst
+> +++ b/Documentation/gpu/todo.rst
+> @@ -277,8 +277,8 @@ Various hold-ups:
+>  - Need to switch to drm_gem_fb_create(), as now drm_gem_fb_create() checks for
+>    valid formats for atomic drivers.
+>  
+> -- Many drivers subclass drm_framebuffer, we'd need a embedding compatible
+> -  version of the varios drm_gem_fb_create functions. Maybe called
+> +- Many drivers subclass drm_framebuffer, we'd need an embedding compatible
+> +  version of the various drm_gem_fb_create functions. Maybe called
+
+LGTM except for the comma splice above, which you weren't
+attempting to repair. Thanks.
+
+Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
+
+>    drm_gem_fb_create/_with_dirty/_with_funcs as needed.
+>  
+>  Contact: Simona Vetter
+> @@ -303,7 +303,7 @@ everything after it has done the write-protect/mkwrite trickery:
+>  
+>        vma->vm_page_prot = pgprot_wrprotect(vma->vm_page_prot);
+>  
+> -- Set the mkwrite and fsync callbacks with similar implementions to the core
+> +- Set the mkwrite and fsync callbacks with similar implementations to the core
+>    fbdev defio stuff. These should all work on plain ptes, they don't actually
+>    require a struct page.  uff. These should all work on plain ptes, they don't
+>    actually require a struct page.
+> @@ -465,7 +465,7 @@ be turned into a WARN_ON() or somehow made louder.
+>  At the moment, we expect that we may still encounter the warnings in the
+>  drm_panel core when using panel-simple and panel-edp. Since those panel
+>  drivers are used with a lot of different DRM modeset drivers they still
+> -make an extra effort to disable/unprepare the panel themsevles at shutdown
+> +make an extra effort to disable/unprepare the panel themselves at shutdown
+>  time. Specifically we could still encounter those warnings if the panel
+>  driver gets shutdown() _before_ the DRM modeset driver and the DRM modeset
+>  driver properly calls drm_atomic_helper_shutdown() in its own shutdown()
+> @@ -891,7 +891,7 @@ Querying errors from drm_syncobj
+>  ================================
+>  
+>  The drm_syncobj container can be used by driver independent code to signal
+> -complection of submission.
+> +completion of submission.
+>  
+>  One minor feature still missing is a generic DRM IOCTL to query the error
+>  status of binary and timeline drm_syncobj.
+> 
+> ---
+> base-commit: 66498c75b4f8017f62d720d9b59675bdf3abce91
+> change-id: 20260903-docs-gpu-todo-31116c645874
+> 
+> Best regards,
+
+-- 
+~Randy
