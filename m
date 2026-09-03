@@ -1,124 +1,220 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DEEF4A499E
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:23:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A51DE4AEBE8;
+	Thu,  3 Sep 2026 13:23:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788441799; cv=none; b=azLJ0ovboMrzoDFdhLv88poFjJ2opNhIoYmeEmqCpRylVctMzAzdGzCnkmQ97yANmhy6bLpQwvki7PSD2bYqKJUvHOXWEAdOW6zCq2mYbwhAZWzXZwfycvE2epDYm2Gxhry309D3s1Hkt6+1NeVMmVvsoAxJfe79oMSserKEho4=
+	t=1788441805; cv=none; b=OuMbgg2IjW0davABYNF51Lb+cqHbZzuWkwzqT3yVvmym4frqF0SkWut7c2vlJGWQtfEm2EiDVky5JjgmvhStDmPaKaoLTEeBdlBtE1TzTwq0sz32syJSyJdxGBOBiIQj256XoH57plPu3bjrIfZ1Bm4Z2OgpIF9keQ9ereOVEYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788441799; c=relaxed/simple;
-	bh=EDFARvlMcOirKUGwE9AZ0iZlv5bOg6YoUmnxawq5gxg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uwaXEjyFajBLfQC+0WBD+cQgm/sjZ7Kd9Tkq8ft0z4WyFj15MY+5eUryjyHzqrhLPop1gEaEWlE67dhkvH3J9gto6mi5fwhUyKFtTnyQn/Z8KHA20ySyRoQH0le+UBdjR/zPaD3d8eWXyjgpXLMWnMC8r2xeV/1BrDYcTWt6aRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=amBTZeSK; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Gsqab8UP; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788441805; c=relaxed/simple;
+	bh=49Kw97LLSQ4wYGERFAwnuRn8NRTU8dL5rolrv5ESGpg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Xu+FiMGbyXPyO7LjJi3ehgbV2Kw4oYzpeXhu54s9xDcaNmJkroUrcQCwS/ib664Ld7EeP5PrKJqTOWpjTHBGnquc70eC/HLU+b3jmPJYwJjgsp0TrkZDRwdysFs7Y58PVPjE6bAwIYvbXOmxHvXGYicoK6WXx4zy0YHz7ojLuVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N9k0+2iW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="amBTZeSK";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Gsqab8UP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788441781;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lljH/FqiYJ4HVD9LG6mSefJkZCWX5aKHWi6CMB6vKwM=;
-	b=amBTZeSKW/D7LgQKWhSBzOLwBvIkSX/p6OenPL98d1uiuDDpSQyjpXfhgfyNz4iitu29rF
-	K71u24U5VAYqOVWrD5ODI1Pn9yKBSMqUrH1Yk3oHngEUFK/NRtt3khrwMv+Y6vJbjfhuJm
-	0Juur2+xjwviXMqHW+Sxo0inpoZnFWw=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-83-vFnzsEBuOFOp6rPyoQgt2A-1; Thu, 03 Sep 2026 09:23:00 -0400
-X-MC-Unique: vFnzsEBuOFOp6rPyoQgt2A-1
-X-Mimecast-MFC-AGG-ID: vFnzsEBuOFOp6rPyoQgt2A_1788441779
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49a1b4ea633so24560415e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 06:23:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788441779; x=1789046579; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lljH/FqiYJ4HVD9LG6mSefJkZCWX5aKHWi6CMB6vKwM=;
-        b=Gsqab8UPA09Sje4VKotnyjahqJl7BHCCqd0cUvV88oX0ECHJDy/tIEKEqxZ30rnx4r
-         LiZNgts70ySTsdrSzCweAHHZ6yfozHQ6+oDR59y34j8tF5rnte0oq2bw3Hf5jNsEMy8l
-         KhtyNJ8KFiONYqezHLCsJm9mb95ToVs+ZJKj0rYsfN20wqZVyHxKcUcf1jXKCBNgcuZT
-         HblPRJ3vTtCe83WocTDomDa8RsuF4ILK+H9YNo/lZnMv2asU2oOa3cHit46WOwCLNk0M
-         BAhNwD11UiJdhisNSg5prbUynZESVU2mm90RLd8W0OQoOE0IKkxVOt3xRfG0WcOpA/pd
-         G/fA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788441779; x=1789046579;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lljH/FqiYJ4HVD9LG6mSefJkZCWX5aKHWi6CMB6vKwM=;
-        b=ZcL7AUrgrSrueudVjxval2txoNHxc7VWUuQ01XsitRTR+0YaW43cgbW7blbqZhiH4/
-         1fiavk1oRN3o8YIwAzisvZs6iQv/bcfFGd7shZf+MLDsDn0/nWswd4szYUWpq/9PeTy3
-         5a/Z+z8r5c2Gvk/IiG5rNgjeYXZRLBKcFAQ64cFBCtMOFGfF1DjvHseUL4HOqvjQH/FB
-         z0gaHGceGxA6zY0Nyc11Y84klMaR6AbIOzQyZ/KDkq1JLMgkrwvX4Dl31wqoerNfF3mJ
-         QcbiBIY7L4Hfu+ohXvMWGGoVZUgSb1WgaGoPy6WjHPqLp2Q6kjB4YIy32BozPttN6AGi
-         KOdg==
-X-Forwarded-Encrypted: i=1; AKwUvByQ6wrNsmkNWfoXHIYSyhbZ04Ew20TpkQ0pOeNZp64j+1ZacyOGBhRhalWRFC54TtPEr8GI/l8kWKW4O9k=@vger.kernel.org
-X-Gm-Message-State: AFuF++nHoQIr1ytWoiVzqmLOMU5ORrG7+G21JkHFUgIsyLfxolwUl037
-	EtJ/ISEaRKnRkg3/BHvqxeLLP5A+R7rD5B4NbB5ZCrHOFtTmL9AwgqSq1qKkMdKuTAt3LvzSYhl
-	bnKChHIWaFlSPs4yRHINIRU3BLYrlLXyO69ypTw7ZbtniNor5kD+fFHH8uCEQTXIO4A==
-X-Gm-Gg: AYBFou1/s4MvcfCTwwnqojNNmOP6ceo7eqV/QVpXyW0pqGJ1CQ+taK2OJwQAhaFXLGv
-	NuEcZoaUW2wdfr9R/zgbdAMD5GblYZLteaFdEI2C70YkV9FwqOEBnpXwVQ07Dlo1JbeLsOp5m4O
-	HPGCjupNIML+F2u2/O5tWiQw6ZJd/v8L611iw0AZSCccK29zK4gMPSW5ExhiC9piwe1p1Z++DlN
-	Q7zHSWEd0CgFiNkiGd2wzCDEpVP7iZwlQ5PYYVESZz/tCvwzxRx0+66NZ2z+tET/OkxS+oT+xUi
-	+XHan17tME53NjpQlgPYQMmlb96lZIWEUr0iiJyqa3TyXCKqObWVXW17M1pUl0lSlIn/A51+47t
-	fDIbPWkQkAf1KWG5hiUlOK6ewDR3d2hMyefHPBXERELn5xZoZoW1Mgf31R7hIcrLLUVBSV/Yg+A
-	==
-X-Received: by 2002:a05:600d:a:b0:49c:e88b:b7ce with SMTP id 5b1f17b1804b1-49ce88bb80emr188830435e9.11.1788441779281;
-        Thu, 03 Sep 2026 06:22:59 -0700 (PDT)
-X-Received: by 2002:a05:600d:a:b0:49c:e88b:b7ce with SMTP id 5b1f17b1804b1-49ce88bb80emr188829265e9.11.1788441778811;
-        Thu, 03 Sep 2026 06:22:58 -0700 (PDT)
-Received: from [192.168.188.218] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee60d8a6sm70872675e9.10.2026.09.03.06.22.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 06:22:57 -0700 (PDT)
-Message-ID: <5832ba17-c096-4f07-aa73-2e2bb6f79856@redhat.com>
-Date: Thu, 3 Sep 2026 15:22:57 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N9k0+2iW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F4131F00A3D;
+	Thu,  3 Sep 2026 13:23:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788441793;
+	bh=zVuGCa5JkO9W8qaCsJWajvQZcXk7UK/+LrY4kqAkDVU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=N9k0+2iWiLbMDV4sX7XBd+Fbq8fG+52A5vi6mKScjW9s1B3GbZ0QmtcWb3v7q9FQu
+	 K7BWI5fu4Xn9i7gOH6M/YyKZXMX+1uTfGHZHA5qyA9QqDdiq760ZLVnIas99+SODfJ
+	 zg8VQj6mUKnAEKUNyayDx+ruU5qr9xHwD15ph8qVbQpiZT1IULQRNcIR1nhcpCApZC
+	 Srq0fcLPqZBsvKadEZI7mchGDxTRXE9Jvvt0HIBeR1Plz41Xxse8b8l9XTwa3ir+FL
+	 XwPNR8oUGCtaDMtUVaBkV6G04i+F9SRr3HODJt7hZe9Yog/ZL8nU50SQLLwF2lGw1T
+	 5upiXXjVoohKQ==
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	sashiko-bot <sashiko-bot@kernel.org>,
+	Stephane Eranian <eranian@google.com>
+Subject: [PATCH 5/5] perf dso: Defer dropping the open list reference until after the lock
+Date: Thu,  3 Sep 2026 10:22:51 -0300
+Message-ID: <20260903132251.237029-6-acme@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260903132251.237029-1-acme@kernel.org>
+References: <20260903132251.237029-1-acme@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [net,v3] udp: revalidate socket family before publishing an IPv6
- cork
-To: 4ncienth@gmail.com, edumazet@google.com, kuba@kernel.org
-Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
- davem@davemloft.net, horms@kernel.org, willemdebruijn.kernel@gmail.com,
- vyasevic@redhat.com, linux-kernel@vger.kernel.org,
- netdev-bot+sashiko@kernel.org
-References: <20260902010408.1057857-1-4ncienth@gmail.com>
- <178844070069.3394541.5419916956797677793@kernel.org>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <178844070069.3394541.5419916956797677793@kernel.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 9/3/26 3:05 PM, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider:
-> 
-> Critical: 0 · High: 2 · Medium: 0 · Low: 0
-> 
-> - [High] Incomplete fix: the sibling IPv6 socket-dst publisher in the
->   connect() path is not covered, so an IPv6 dst can still be installed…
-> - [High] The fix is writer-side and after-the-fact, so the mixed-family
->   socket dst it claims to eliminate remains observable by the unguarded…
+From: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-It looks like fixing this kind of issues, if possible at all, would
-require adding a significant complexity to the data-path.
+There was a problem in the code with some resources potentially being
+left unbalanced, and the logic on dso__data_close() becoming confused
+if the fd had been closed already.
 
-I'm wondering if we could just remove setsockopt(IPV6_ADDRFORM) support?
+The reference taken by dso__list_add() on the open list cannot be
+dropped while holding the open lock: dso__put() may call
+dso__data_close(), which takes dso__data_open_lock() itself,
+deadlocking and leaving the list and its counter inconsistent for
+concurrent threads.
 
-/P
+Fix it by changing dso__list_del() to transfer the reference to a
+deferred node, drained by dso__put_deferred() right after every
+unlock of dso__data_open_lock().  Since the counter is now decremented
+under the open lock, do_open()'s close_first_dso() no longer races
+with a stale count.
+
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Cc: Stephane Eranian <eranian@google.com>
+Assisted-by: LLM
+Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+---
+ tools/perf/util/dso.c | 75 ++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 71 insertions(+), 4 deletions(-)
+
+diff --git a/tools/perf/util/dso.c b/tools/perf/util/dso.c
+index 42bfe30a3b518e80..a4b2361bc7420084 100644
+--- a/tools/perf/util/dso.c
++++ b/tools/perf/util/dso.c
+@@ -531,18 +531,79 @@ static void dso__list_add(struct dso *dso) EXCLUSIVE_LOCKS_REQUIRED(_dso__data_o
+ 	dso__data_open_cnt++;
+ }
+ 
++#ifdef REFCNT_CHECKING
++/*
++ * A deferred put: carries the reference taken by dso__list_add() for an
++ * entry removed from dso__data_open.  Dedicated nodes are used so that
++ * the dso_data's own open_entry node can be relinked by a concurrent
++ * dso__list_add() without corrupting this list or its reference.
++ */
++struct dso_data_put {
++	struct list_head entry;
++	struct dso *dso;
++};
++static LIST_HEAD(dso__data_open_put);
++#endif
++
+ static void dso__list_del(struct dso *dso) EXCLUSIVE_LOCKS_REQUIRED(_dso__data_open_lock)
+ {
+-	list_del_init(&dso__data(dso)->open_entry);
+ #ifdef REFCNT_CHECKING
+-	mutex_unlock(dso__data_open_lock());
+-	dso__put(dso__data(dso)->dso);
+-	mutex_lock(dso__data_open_lock());
++	struct dso_data_put *put;
+ #endif
++
++	list_del_init(&dso__data(dso)->open_entry);
+ 	WARN_ONCE(dso__data_open_cnt <= 0,
+ 		  "DSO data fd counter out of bounds.");
+ 	dso__data_open_cnt--;
++#ifdef REFCNT_CHECKING
++	/*
++	 * The reference taken in dso__list_add() cannot be dropped while
++	 * holding the open lock: dso__put() may call dso__data_close(),
++	 * which takes dso__data_open_lock itself, deadlocking and leaving
++	 * the list/counter state inconsistent for concurrent threads.
++	 * Transfer the reference to a deferred node drained by
++	 * dso__put_deferred() once the lock is released.
++	 */
++	put = zalloc(sizeof(*put));
++
++	if (put == NULL)
++		return;
++
++	put->dso = dso__data(dso)->dso;
++	dso__data(dso)->dso = NULL;
++	list_add_tail(&put->entry, &dso__data_open_put);
++#endif
++}
++
++#ifdef REFCNT_CHECKING
++/*
++ * Drop the references deferred by dso__list_del().  Must be called
++ * without holding dso__data_open_lock: dso__put() may re-enter it via
++ * dso__data_close().
++ */
++static void dso__put_deferred(void) LOCKS_EXCLUDED(_dso__data_open_lock)
++{
++	for (;;) {
++		struct dso_data_put *put;
++		struct dso *dso;
++
++		mutex_lock(dso__data_open_lock());
++		put = list_first_entry_or_null(&dso__data_open_put, struct dso_data_put, entry);
++		if (put == NULL) {
++			mutex_unlock(dso__data_open_lock());
++			return;
++		}
++		list_del_init(&put->entry);
++		dso = put->dso;
++		mutex_unlock(dso__data_open_lock());
++
++		free(put);
++		dso__put(dso);
++	}
+ }
++#else
++static void dso__put_deferred(void) {}
++#endif
+ 
+ static void close_first_dso(void);
+ 
+@@ -805,6 +866,7 @@ void dso__data_close(struct dso *dso)
+ 	mutex_lock(dso__data_open_lock());
+ 	close_dso(dso);
+ 	mutex_unlock(dso__data_open_lock());
++	dso__put_deferred();
+ }
+ 
+ static void try_to_open_dso(struct dso *dso, struct machine *machine)
+@@ -865,12 +927,14 @@ bool dso__data_get_fd(struct dso *dso, struct machine *machine, int *fd)
+ 		return true;
+ 
+ 	mutex_unlock(dso__data_open_lock());
++	dso__put_deferred();
+ 	return false;
+ }
+ 
+ void dso__data_put_fd(struct dso *dso __maybe_unused)
+ {
+ 	mutex_unlock(dso__data_open_lock());
++	dso__put_deferred();
+ }
+ 
+ bool dso__data_status_seen(struct dso *dso, enum dso_data_status_seen by)
+@@ -1058,6 +1122,7 @@ static ssize_t file_read(struct dso *dso, struct machine *machine,
+ 	ret = pread(dso__data(dso)->fd, data, DSO__DATA_CACHE_SIZE, offset);
+ out:
+ 	mutex_unlock(dso__data_open_lock());
++	dso__put_deferred();
+ 	return ret;
+ }
+ 
+@@ -1188,6 +1253,7 @@ static int file_size(struct dso *dso, struct machine *machine)
+ 
+ out:
+ 	mutex_unlock(dso__data_open_lock());
++	dso__put_deferred();
+ 	return ret;
+ }
+ 
+@@ -1405,6 +1471,7 @@ uint16_t dso__e_machine_endian(struct dso *dso, struct machine *machine, uint32_
+ 		*e_flags = 0;
+ 
+ 	mutex_unlock(dso__data_open_lock());
++	dso__put_deferred();
+ 	return e_machine;
+ }
+ 
+-- 
+2.55.0
 
