@@ -1,60 +1,45 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-65.mta0.migadu.com [91.218.175.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6A81D9A5F;
-	Thu,  3 Sep 2026 05:37:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23274349CFF
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 05:37:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788413835; cv=none; b=W7wQ3B/YMjkHmDG+a5zhyDLiX0Siwrj7AEDUiEmYfGo0vbgc0eUNMHpCwQqH7Yo5bNhpKDPWk7xArgdxdOafY5/0HKXc9HahUL1Vff0zzMF8+CfN6bbf6c95DQ/cAsSk4xdJogwsGWmjE7E6r9ssbozIfAp7EnWr8eV2o5CRy6A=
+	t=1788413850; cv=none; b=MFSaYJV4NmVzufJNZV3PQfxvWp8pP6N+O1nBCS6Y86QSk6GRzWP4BVZXaIAGK7wqWOa80VpxescJqy4wVvJYwJNdO9q56dNOOkRg6KAnwmdzIWwXSB4JfZZJEOFOLghiPdmAt/G7csfgysOo7fmOeFdHYtvGfzDFdj+9JnBjgmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788413835; c=relaxed/simple;
-	bh=Z8tTZlVgL94I8CKtvPZwYNu164VkXj+v272ZBtYpEVI=;
+	s=arc-20240116; t=1788413850; c=relaxed/simple;
+	bh=GUra9Sz1ZsJBvBMzdUk5ZKkwM32xrfNY9UlZVLF9CBw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XcIxvXGm7P4ogUZgRJ9E3i0VhkZ9J7lVigbQKHLb62ZDvwsPsKJWEdiH3PXc28tCr8AG3AR8zvxgb2BO6Bsv9dEmxwrxAfrQIyaK2RO7wAV6KhkLRimMEUhFwn3R54AoUEQKkurfHWp/ynvkCCv4YiPoV4lzGSKGD7RBDXGBGnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=S9cPRXCR; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=dsNmSJMKoCWygOvvh6oNbU2Ep91P4QLfd27rByhwKVF7eUB0IOMcnMQxRV7TsSNpoebXWdqaLwZX/OYRL+DAfs9oQZ5xODEPd46cSUGYpS7SlpafPqO8ePSAk80rkYkThwHp8QAdxyUxQV/w1n6F86Y2UujTAfS1tA0eVpDcR8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=U+r/bmwK; arc=none smtp.client-ip=91.218.175.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="S9cPRXCR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788413833; x=1819949833;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Z8tTZlVgL94I8CKtvPZwYNu164VkXj+v272ZBtYpEVI=;
-  b=S9cPRXCRWdyDIFJWmuz8/S9D6dNNcvnja/ODkYZ1pWZx/47hVyz50q+y
-   ULZ/7jxE21I1KleXiBYfV650S5ks3zFfameKiWMCmdn0n9qNhj24gF9/u
-   mMkvM4dzjblw0qRPLe0D3aSeExa2mOIet6dNskzHzzbCGh5vphsmEEQ+l
-   kv4t0MO7unqN9T3s+Q2fwKD+XByB76dy5S6wmSNzefNdc71jB4aDrplU6
-   foCptiea3AgOcuJretWVZwvQ9wSf79bEcNYSVsBlSEzF/aWojhx0O0lUj
-   dZkx0VHepR67YFsiCIP1DxB/dvdVIm4NiVQRm1ykydidO1CMj707uaeZb
-   A==;
-X-CSE-ConnectionGUID: Ivt/SXntSlaaKGKwlL8qAw==
-X-CSE-MsgGUID: g5zx/hfWT5GyClE/2NiA+Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="99481577"
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="99481577"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 22:37:12 -0700
-X-CSE-ConnectionGUID: oOHZDl1MSbyzQWqEsSxWtw==
-X-CSE-MsgGUID: Zi7mP9elRdGdQNg5DAAXmg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="266365243"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 22:37:10 -0700
-Date: Thu, 3 Sep 2026 08:37:07 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
-	sakari.ailus@linux.intel.com, bingbu.cao@amd.com,
-	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
-	andy@kernel.org, hansg@kernel.org, gregkh@linuxfoundation.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 00/16] media: Add Yoga Book camera support
-Message-ID: <apkHg_No1Dwtn6jB@ashevche-desk.local>
-References: <cover.1788360629.git.mauriziocasciano7@gmail.com>
- <apj7LiYzFEIByPvV@ashevche-desk.local>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="U+r/bmwK"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=GUra9Sz1ZsJBvBMzdUk5ZKkwM32xrfNY9UlZVLF9CBw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788413847; v=1; x=1789018647;
+ b=U+r/bmwKHwc/2GSw7taX7xlq3WSkSI+ubK/Wigo/T0FnELu45/VTHFyl1R8Yr7Id+JzIIoUM
+ 3n7Uh6ZtdnaZU67OFM3qJhReq6IACfmrxbO0skZpFFHbuVwC+Uhu/5u9zTNU32azQ82/uLf9JnT
+ 0Szm+LxFR3lGsCUKg2XXCiPg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 34ba9696c4835a6b;
+	Thu, 03 Sep 2026 05:37:27 +0000
+X-Mizu-Trace-ID: 34ba9696c4835a6b
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 2 Sep 2026 22:37:21 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Tejun Heo <tj@kernel.org>, Christian Brauner <christian@brauner.io>, 
+	Meta kernel team <kernel-team@meta.com>, linux-kselftest@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] kernfs: take kernfs_rename_lock for same-parent
+ renames too
+Message-ID: <20260903053226.GA15581@shakeel.butt@linux.dev>
+References: <20260903040253.670020-1-shakeel.butt@linux.dev>
+ <2026090330-cytoplasm-resilient-900b@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,45 +48,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <apj7LiYzFEIByPvV@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <2026090330-cytoplasm-resilient-900b@gregkh>
 
-On Thu, Sep 03, 2026 at 07:44:30AM +0300, Andy Shevchenko wrote:
-> On Wed, Sep 02, 2026 at 04:53:29PM +0200, Maurizio Casciano wrote:
+On Thu, Sep 03, 2026 at 06:31:58AM +0200, Greg Kroah-Hartman wrote:
+> On Wed, Sep 02, 2026 at 09:02:51PM -0700, Shakeel Butt wrote:
+> > kernfs_rename_ns() only takes kernfs_rename_lock when the rename moves
+> > the node to a new parent.  A rename that keeps the same parent, like
+> > renaming a network interface, changes kernfs_node::name with only
+> > kernfs_rwsem held.  So the lock protects ->__parent but not ->name, and
+> > a reader that wants a stable name has to take kernfs_rwsem, the same
+> > lock every path lookup needs.
 > > 
-> > This series adds the sensor, bridge, AtomISP and lens-actuator support
-> > needed by the front and rear cameras of the Lenovo Yoga Book YB1-X91.
+> > That also makes for a small but real bug.  kernfs_path_from_node()
+> > takes kernfs_rename_lock for reading, and kernfs_path_from_node_locked()
+> > then reads the name of each ancestor.  It reads each one once, so a
+> > single same-parent rename only moves the answer from the old path to the
+> > new one, but two of them landing inside one walk build a path that never
+> > existed:
 > > 
-> > It covers the OV8858 19.2 MHz clock and Cherry Trail gain programming,
-> > OV2740 288 MHz link frequency and manual white balance, firmware IDs and
-> > IPU bridge data, AtomISP raw capture and CSI-2 timing, and the WV517S lens
-> > actuator.
+> >   CPU0                                   CPU1
+> >   kernfs_path_from_node() on /a/b/c
+> >     reads the name of a, gets "a"
+> >                                          renames a to a2
+> >                                          renames b to b2
+> >     reads the name of b, gets "b2"
+> >     returns "/a/b2/c"
+> > 
+> > This hits roots without KERNFS_ROOT_INVARIANT_PARENT: sysfs, where the
+> > bad path can reach sysfs_warn_dup() and pr_cont_kernfs_path(), and
+> > resctrl, which renames a mon group inside its mon_groups directory.
+> > cgroup sets the flag, so it skips the lock and reads names under RCU
+> > alone; that case needs something else and is not addressed here.
+> > 
+> > So take the lock in both cases, and let kernfs_rcu_name() accept it the
+> > way kernfs_parent() already does for ->__parent.  Same-parent renames
+> > are rare, the lock is per filesystem, and the locked section is at most
+> > three stores.  It also gives a future rename sequence counter one place
+> > to sit that covers every rename.
+> > 
+> > Fixes: 741c10b096bc ("kernfs: Use RCU to access kernfs_node::name.")
+> > Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+> > ---
+> >  fs/kernfs/dir.c             | 28 +++++++++++++++-------------
+> >  fs/kernfs/kernfs-internal.h |  9 ++++++++-
+> >  2 files changed, 23 insertions(+), 14 deletions(-)
 > 
-> > Changes in v7:
-> > - In patch 2, keep digital gain independent of the external clock and
-> >   expose the manual red and blue gains as separate controls, as requested
-> >   by Sakari Ailus. Keep green at unity and accumulate register-write
-> >   errors across the three manual white-balance channels.
-> > - Move the 24 MHz PLL and global timing registers out of the common mode
-> >   tables into revision- and lane-specific arrays. Select both 19.2 MHz and
-> >   24 MHz clock programming explicitly when starting a stream.
-> > - Clarify the patch 2 assistance disclosure as
-> >   `Assisted-by: LLM [Codex] [Sparse]`.
-> > - No changes to patches 1 and 3 through 16.
-> 
-> Wait at least a few days before sending a new version.
-> 
-> There will be a v8 as far as I can tell, but send it next week after all comments
-> were addressed (or settled down).
+> How was this found and tested?  Did you forget an Assisted-by: tag?
 
-To collect given tags use `b4` tool.
-
-And general comment about AI, try to do some work yourself, AI does not
-guarantee 100% correct results.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+I am working on a series to improve kernfs_rwsem and going through
+review-prompt with AI to review my series and these were existing 
+issues AI found. I have created reproducers with AI for these and
+tested that these patches those.
 
