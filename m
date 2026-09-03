@@ -1,150 +1,120 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 482AD50AC3E
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 21:13:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68E4439A4D6;
+	Thu,  3 Sep 2026 21:14:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788470026; cv=none; b=huQgyKDbRMcyTaz56etL8o0CInjXyi8CeAjvaPeXV81E+n5EnRNTdy6/5J+ECKDqUWPcZSJA3Rlv3IdKSWnEnseZpVgwfIKpMGBQHmZvaVXLlyNLhO6IJcxJG5E2s6cZTLni0jgPnAhFnFCujiX/E+LRbFWOHKDtCpauVicRxMM=
+	t=1788470086; cv=none; b=pKXOKLVYMA76/IBuNF8aNQk7diWbWW0IZNhw+wR7IxVi4P5amHusnkbzBXf/m2hkvsjYGnxsAs+ErU2F1xFnjHaXqiIuPdoWgyXTSfTx7o/P1OT2/yKg+31k1XhXOJ7UPBIPYMJf+JBTVNrpAJq0T9d2R38KEiG+HUVbBWe1zBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788470026; c=relaxed/simple;
-	bh=b0/HSCJZuEl0PGtn9azoPzkS0dWwxnYHqdvEixO/txA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mo7TVSeVRTJzi2Jl+NbH3Yq7TUlCyCf3hlpeK/6u8B3hvbsKhlZw+qTbs7fzJDY3YTOz29LdpI6G3HlgRQC2kre7CDlzrZ5FJr7Mnmc3JXuXDQCWn1AbNyuCwrOe8HA9qpxzc6JuIFWFMqh+l5w7evH9hW4y1jnITD3Ro5Vzv8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rwXtRlJz; arc=none smtp.client-ip=209.85.208.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788470086; c=relaxed/simple;
+	bh=yzce8FF3PyDdb5RQtEjJfbqeXqKMx5wRV8Hd5Zq8t08=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=JfnNw3ovE5SZXHURoiN9QP6sj/wg17lJtf86hD1TdD9iPZCEfV86YQS/EoAPiHCMAGXKl7jtwHvE1CwW35VIL2yKDMlVdwxND64IsITsFRaUo2mtkVZlpOAXqlZ/3NL14g+zL3WlhEM0x82sIw00atgz64IVLNrzk8dqoB4Bf+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SyynRAsX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rwXtRlJz"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a0a4aa99bdso273599a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 14:13:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788470020; x=1789074820; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mEtsy+Nj496tWyceVNXPO2QTuND+7hvS8GahA09Q5S0=;
-        b=rwXtRlJzrk7DrNzUN5tfH/9eOKUU1xx62/i3MLPpqSYw7ddJEm3HxcJb1EavrwGVtq
-         cmeh1Dl4QDUjVrOSr+KWDlrZyC+bdWdOEwZ3gb8230eQ6RJJi9PCJM3r4P+4iZ9B/BN+
-         ypl2iWV0FO4OEs+a45o++xhF+aEhDo6b4KTSRoUyaXPkrEoG1vBQrtyJ90wnQ36Mgq4S
-         tGi+9mGaMumXklppqfUIDCQP3/6PMAz1JFYh1s/Zc0SwHdnQGqcXf26UFDwXWEb69uTt
-         wjCoty/hSl6CHvi1bM9l65nBtTak3aY6bs1XSJM6ICcfR59a/EpfGgsgy0UbYBRl+/eT
-         O96g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788470020; x=1789074820;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mEtsy+Nj496tWyceVNXPO2QTuND+7hvS8GahA09Q5S0=;
-        b=o2TOBxPhmkog22tNLHQQQiy0Ph/J5tillrZn/D9joythqqEuMOcUc+uHZJ7+85SRhv
-         MO7ixeATboaUf7QVlms+uGR8xGSerAQLbXEjhU6MFkpnS86QquVZmvX1PJJJPjwkAILg
-         OTF0x0ipxWYJBePY2e2LBJRpF0Mt1aodCOneslGvGbRz13Ir/M6GWEK9yes+FopvKbKL
-         AbViaTIK9vCyTGc3MFouyijc0pHmr+aELbsL3oEdJbswDuY8P62XYyUrGaJeJNt5ImqK
-         QnccuBmpd6txXqZRJq+vHxrJ8mUL+SSJz32LaKp/yZooS7+Hm4j0BkOLeCtu8QGLY393
-         ARzg==
-X-Forwarded-Encrypted: i=1; AKwUvBxkbDhRCc5evzZYamuZynAI6gliGobxa3qUCpSG69shTdPTF2deZPc4LV4JrJIqrSZNAhfkahBfpy3fcww=@vger.kernel.org
-X-Gm-Message-State: AFuF++nv+M6IL3No6KleNDDYmK1KXv3TJmpJl22ImW2o/Ssh1Sp0H2oz
-	HVQkFMZ6BxPfppJETY7hTw7zb4ucIyuKqQG6MwsqV7x2Io3p2DyywN4=
-X-Gm-Gg: AYBFou2R0N0GpZNEAw36QRbGRwBf7MPgnfzDKfwkF+Res9+U+mKxM28ekZnJZ/kKjbz
-	BIPBX5CHIUaraqxQEDHe5xv/9MkDhZ1CI2XyT+OC/7VU5VgVnx+JrKXVOp7zzh8a9iTyJtc6aGh
-	H1Z42y905io+6AAX4g7+m7xa1fP52g/ltEplXdHfsEaqM8ErQ+9HHOilgH0arHQRwsx5KDYR5pY
-	3M8mERQTiyyl1KBBKFGt6HahZzTQVwW4x6Z/lv6/4BnULhfgRhakY3nlDbkENwwRM1c+mW2Znvz
-	s/UJcPEORrkq5P/luBlR3ecbkD8MqNm8mXb6nmx61NqMokrY9hsNWF81LZKk8VSA3adIv6R5Pk5
-	s3V0U0iQVOj+2jjFrucu96bGgfw4dDNywGaTCAvyu5NAVYPHUeGi6piuwReROR/u8d9NqY90Fpq
-	td6hGvbIqoDXEPqQ2WPtKulaWyEZbZBkMj1YXF5PfO4Lbw877D6bswSRfu7O7Uow==
-X-Received: by 2002:a05:6402:11ce:b0:6a6:32f9:d7cf with SMTP id 4fb4d7f45d1cf-6a7e90bd161mr434390a12.20.1788470019849;
-        Thu, 03 Sep 2026 14:13:39 -0700 (PDT)
-Received: from fedora ([46.8.219.5])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e68a6a1dsm255242a12.7.2026.09.03.14.13.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 14:13:39 -0700 (PDT)
-From: Vitaliy Sochnev <sochnev.v.74@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: netdev@vger.kernel.org,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Alexander Duyck <alexanderduyck@fb.com>,
-	Hannes Frederic Sowa <hannes@stressinduktion.org>,
-	Wei Wang <weiwan@google.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2] net: yield the CPU on every exit of the threaded NAPI poll loop
-Date: Fri,  4 Sep 2026 00:12:53 +0100
-Message-ID: <20260903231253.292576-1-sochnev.v.74@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260902154836.19a497e5@kernel.org>
-References: <20260902154836.19a497e5@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SyynRAsX"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E907FC2BCB8;
+	Thu,  3 Sep 2026 21:14:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788470085;
+	bh=yzce8FF3PyDdb5RQtEjJfbqeXqKMx5wRV8Hd5Zq8t08=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=SyynRAsXw8WE+yZUw7IOMPSnAtIqgNa2Hv+OTJcVf5/oya6WKp8sKrXnO+4lgJWeM
+	 NaWlvMwtpGpP9Fb77U1pSvLTy4pBW1SS1awTGNO7EamkN/EE70y3xarw3BZ7eFTXRS
+	 uRj3NOTU9iuENE9lLcFToET9Q2rJqOtPz+OEgFRR14nrtGtIfUEnrh12siDzlm0uRR
+	 RwZBUR5V1+w5jaPGxKPwfBna+kH6b+Dfw2O7IWAzab3CQ/ibUbcDd9vuaNlU1Aq8Fe
+	 O/Bg8yUI9uEJURQloEAn/HuQLCs22uKlIR4lXZYQ9aIf59qA5VKLVo22zY0TFqX+Qw
+	 HKIcIT2RHn7FA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D6198C61DD3;
+	Thu,  3 Sep 2026 21:14:45 +0000 (UTC)
+From: Roman Prucha via B4 Relay <devnull+zorgan.roman.gmail.com@kernel.org>
+Date: Thu, 03 Sep 2026 23:14:44 +0200
+Subject: [PATCH] ALSA: ctxfi: Fix CA20K2 S/PDIF passthrough
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-ctxfi-spdif-conf9-fix-v1-1-5e4e3e1f801c@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvxJ7bsESDPtKdCjdrb2YaIQg/T3pO
+ AMzFTIloQxzVyHRI1mu0GDoO3DnFg5C8Y1hVKNRVml0d2HBHL0wuiuwRZaCu1WWJ9LGeAetjYm
+ a/r/L+r4f6f2l2GcAAAA=
+X-Change-ID: 20260903-ctxfi-spdif-conf9-fix-b909f7e366dc
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Colin Ian King <colin.i.king@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.de>, linux-sound@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Roman Prucha <zorgan.roman@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788470085; l=1760;
+ i=zorgan.roman@gmail.com; s=20260903; h=from:subject:message-id;
+ bh=jp1ueNFuA7dYZ45fIz/uA/BuyiO44DD0w6SFBbr7Fa0=;
+ b=z3wyA/sdLPH8AAAP3N3Tqh9wZQJozr+KoUi594t9AJYiIajbW0/CJga6QNj9JUZYR/aLf3hMp
+ LZ8Q2LFr1REC5GQA9FP6t1eVQsRP6woUy8JBsHMOVV3uUk7feiqmH0L
+X-Developer-Key: i=zorgan.roman@gmail.com; a=ed25519;
+ pk=nrIfal6DL0s9II7312EtRS98gHuLh87xybqQk8LhJw4=
+X-Endpoint-Received: by B4 Relay for zorgan.roman@gmail.com/20260903 with
+ auth_id=1001
+X-Original-From: Roman Prucha <zorgan.roman@gmail.com>
+Reply-To: zorgan.roman@gmail.com
 
-> Rebase your OOT patches on latest and test the tree you're targeting
-> or keep this patch in your downstream kernel as well.
+From: Roman Prucha <zorgan.roman@gmail.com>
 
-I could not produce a repro on the target tree, and the reason turns out
-to matter more than my board being out of tree.
+dao_rsc_init() encodes the DAIO configuration as
 
-Since v7.0 the non-preempting models are gated:
+    conf = (desc->msr & 0x7) | (desc->passthru << 3);
 
-  kernel/Kconfig.preempt
-    config PREEMPT_NONE       depends on ARCH_NO_PREEMPT
-    config PREEMPT_VOLUNTARY  depends on !ARCH_HAS_PREEMPT_LAZY
+S/PDIF passthrough uses msr=1 and passthru=1, resulting in
+conf=9.
 
-  kernel/sched/core.c, sched_dynamic_mode()
-    "none" and "voluntary" are compiled out under
-    !(PREEMPT_RT || ARCH_HAS_PREEMPT_LAZY)
+daio_mgr_dao_init() masks conf with 0xf, but handles only values
+1, 2, 4 and 8 when programming ATXCTL_NUC. As a result, conf=9
+falls through to the default case and leaves NUC at its previous
+setting.
 
-ARCH_NO_PREEMPT is selected by m68k, hexagon and alpha only, and
-ARCH_HAS_PREEMPT_LAZY by x86, arm64, powerpc, s390, riscv and loongarch.
-So on those six there is no way to build a kernel, or boot one, in which
-cond_resched() is anything but a nop. I checked it on an x86 guest built
-from net/main: the set offered by /sys/kernel/debug/sched/preempt is
-"full (lazy)", and none and voluntary are not in it.
+On a Creative X-Fi Titanium HD SB1270 (CA20K2), this breaks AC3
+IEC61937 passthrough when snd_ctxfi runs with
+reference_rate=48000,multiple=2. The receiver detects a non-audio
+stream but cannot decode the AC3 payload.
 
-This patch therefore does nothing on those six, and I should have said
-that in v2 instead of describing PREEMPT_NONE and PREEMPT_VOLUNTARY as
-what is left. What is left is PREEMPT_VOLUNTARY on arc, arm, csky,
-microblaze, mips, nios2, openrisc, parisc, sh, sparc and xtensa,
-PREEMPT_NONE on the three above, and 6.18 and earlier everywhere, which
-is what the affected devices run and where the Fixes tag applies.
+With the unmodified driver, multiple=1 makes the same stream work.
+Handle conf=9 through the same NUC=0 path as conf=1.
 
-Since every number in v2 came from PREEMPT_NONE, which those
-architectures can no longer select, I measured VOLUNTARY as well. Same
-board, 6.18 where it is still selectable, untainted, no out-of-tree
-module, 30 minute runs, the two halves differing only in this patch:
+The change was runtime tested on the SB1270 with multiple=2 using
+IEC958 stereo PCM, pre-encoded AC3 IEC61937 passthrough and ALSA
+A52 live 5.1 encoding.
 
-                          before        after
-  mean                    13.38 s       0.19 s
-  worst                  135.95 s       0.51 s
-  over 1 s              10 of 55      0 of 89
-  RCU stalls, classic          12            0
-  RCU stalls, expedited        20            0
-  packet rate           80312 p/s    81532 p/s
+Fixes: 26a9630c72eb ("ALSA: ctxfi: cthw20k2: fix mask on conf to allow 4 bits")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Roman Prucha <zorgan.roman@gmail.com>
+---
+ sound/pci/ctxfi/cthw20k2.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-add, mtu and a no-op netlink call stayed at 0.01-0.41 s throughout both
-halves, so the delay is the grace period and not rtnl or scheduling. The
-splat names the model itself:
+diff --git a/sound/pci/ctxfi/cthw20k2.c b/sound/pci/ctxfi/cthw20k2.c
+index 07e1490a6d17..36066ffe8784 100644
+--- a/sound/pci/ctxfi/cthw20k2.c
++++ b/sound/pci/ctxfi/cthw20k2.c
+@@ -994,6 +994,7 @@ static int daio_mgr_dao_init(struct hw *hw, void *blk, unsigned int idx, unsigne
+ 		/* S/PDIF output */
+ 		switch ((conf & 0xf)) {
+ 		case 1:
++		case 9:
+ 			set_field(&ctl->txctl[idx], ATXCTL_NUC, 0);
+ 			break;
+ 		case 2:
 
-  rcu: INFO: rcu_sched self-detected stall on CPU
-  rcu:  0-....: (5999 ticks this GP) ... (t=6001 jiffies g=861 q=830)
-  CPU: 0 PID: 200 Comm: napi/qdma_eth-0 Not tainted 6.18.44 #0 VOLUNTARY
+---
+base-commit: 7f71fd44a1089b362eacf87e1f451ddd4fb7df62
+change-id: 20260903-ctxfi-spdif-conf9-fix-b909f7e366dc
 
-For completeness, I did try to reproduce it on net/main in a VM, with
-threaded NAPI on a veth pair and the ARCH_HAS_PREEMPT_LAZY select
-dropped from arch/x86/Kconfig so that voluntary preemption was
-reachable at all. The worst "ip link del" went to 0.19 s against 0.01 s
-at rest, but never to a stall: below the band the thread sleeps between
-batches, above it repoll stays set and the existing cond_resched() runs.
-I could not hold it in between, so I am not offering that as a
-reproduction.
+Best regards,
+-- 
+Roman Prucha <zorgan.roman@gmail.com>
 
-So this fixes the architectures that still have a non-preempting model,
-and the stable kernels, but not the tree it is posted against. If that
-makes it not worth carrying in net, say so and I will keep it
-downstream. If it is worth carrying, I will send a v3 with the numbers
-above in the commit message.
+
