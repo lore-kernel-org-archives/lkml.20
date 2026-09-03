@@ -1,72 +1,164 @@
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+Received: from mta0.migadu.com (out-41.mta0.migadu.com [91.218.175.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A37B1E1DF0
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 04:03:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1910B3612EF
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 04:03:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788408186; cv=none; b=S+j4L5ksT4Lbf1RWGimfZpLJY0RnGQkECUSzJzsBFQJCCtsomE5963Sp024lLdCSyXfRs3lgSAu9Dkl3TxxR7TC9e/zhfh9SrQ7N/KhTOpkm2MJbeUMpHjN9t9hZFqtVW0sqxvCEwVVk7hHAvku7Pbh0AwvWJ+M/Xb3qqIFTS1g=
+	t=1788408233; cv=none; b=grnYhLKQUF/1P+fqjkf0TLbYZddkNndL5CbMh+XnPg3IPQ6LQCABp860Tv3hc/Gd5uiznsFXjYQNHSTCNRztqb//yJtwE/ZDNemdbbO1vlieEcJdB33+SvxpWboyVNzroSUA4K4rXS0Sq5VI4wfq46AuPME/a+ajXm5CVZNNnRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788408186; c=relaxed/simple;
-	bh=Fwrt5ORySpdxjVnYA0aMY2za1DxOj92uIl4Lre00X14=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=MTwXdZhIhlM7deafiA3ZQUntHJ4anfkTELpwoto9FpNeaXT16actKwJ4oPUxmdwj0rhjbu+Xiod3SDjIw6DCOJs0w4xF/52AuihAmBDfUX1h8+j/oJxFPjYz8mL0V/o+cZIhi7Jdk1Cuc+I/DIcYL7UXORXs2lV6MLB2vRjSfyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7f4eb9e05a8so2045406a34.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 21:03:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788408184; x=1789012984;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=CU67Dn2lex35hSK8KKh9wv5SAtrXgOVQpI4eBCQSW3c=;
-        b=GJQuyjlRxZwY7yOckJZ5DHYC22zK5arq0iGZgOto6Jz3/aR1ZdgPDmwXQ0UEmGxCFR
-         wLqbRBL0t2ULPbIm9TgX7zpJSQReuoDNHuBn29yXJBKXjxfCBp5VGhqqh6Akrev3xGTN
-         2MWv1ydl760tbGHs3pCB4U++IUThal+YBPQXUozzmbgrAJhL0qiEUM1ZzCo0t9sHPKQK
-         mri/ciaW9fPQWfm7mEoQUdDROUx67F8T/o+T4CvaLFTgpx1MWLU1EVOSoIkBiGXQhNoN
-         Jm5Yl8MIma1ySf8ulSziT+iCsmm2xBk9VrTubOau92vagUe7ezSJlqhmMTkhumqKPVwP
-         yaEw==
-X-Forwarded-Encrypted: i=1; AKwUvBwbSsD9/V4kl7FdIeSkry1n47kn8+ajrvmge4a7sr0yTqwKV7Ydjb+Fk/EOzVrQqMWg0HKjEp2cjcq668I=@vger.kernel.org
-X-Gm-Message-State: AFuF++k8SGVW1CuoKiTnyEjzeN8Stz/8J4yCpgYLLsguA3bcvPGxKl4J
-	G183ZBu5ESo+WEFrcVYh7RuVFJ6uJCG8cJWr+JAXlg38oA5nzSWOtKEDVYLSYDz5kx/31M13KMv
-	QTxA5VuHSZLk4wQ361kjf3nZokch7rBwgSyaNbsaKY2mddICkX5LKVrDSbG8=
+	s=arc-20240116; t=1788408233; c=relaxed/simple;
+	bh=/Cx+kQIoXQn4f56wMN2TAMtu+h068kTZbFYbYyLO0HE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bgoZRAqY/akM5afgdjAsrjf5PuE75bwcr3jC627KLBqbMjXhj6xANkYXsb1iYN/DspqPlFLB4QVW9T48SSmrMsCNjZeNka/KEFS8N9HTrm4UFi/BnUCgZf3RY49ovu4uvpRuxoabLv/Mf7uBMx1aAVFCrJaF9wUXnvnFULu8y08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MdDMt0F6; arc=none smtp.client-ip=91.218.175.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MdDMt0F6"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/Cx+kQIoXQn4f56wMN2TAMtu+h068kTZbFYbYyLO0HE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788408229; v=1; x=1789013029;
+ b=MdDMt0F6Sn82OrNSECBXHyv1ujwPZvQDqRZymovSMo0kiGSP6UG6zfpLdQHFQt9+rdNnHaAd
+ 3QWyWwBL8A+bYwuv8qT5zEfl8V1Cl6BWBf6v6fjBP2JzPs5uS6nEyMoZmFpy/vgRO0cykIFURBQ
+ 192ndQuRhQrkI9I7+ZA//p2s=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7fbf072aebaeb1e4;
+	Thu, 03 Sep 2026 04:03:49 +0000
+X-Mizu-Trace-ID: 7fbf072aebaeb1e4
+X-Migadu-Flow: FLOW_OUT
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tejun Heo <tj@kernel.org>,
+	Christian Brauner <christian@brauner.io>
+Cc: Meta kernel team <kernel-team@meta.com>,
+	linux-kselftest@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 2/3] kernfs: don't lose IN_DELETE_SELF when decoding a file handle
+Date: Wed,  2 Sep 2026 21:02:52 -0700
+Message-ID: <20260903040253.670020-2-shakeel.butt@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260903040253.670020-1-shakeel.butt@linux.dev>
+References: <20260903040253.670020-1-shakeel.butt@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1997:b0:6aa:d97f:453b with SMTP id
- 006d021491bc7-6b481437811mr8382424eaf.28.1788408183963; Wed, 02 Sep 2026
- 21:03:03 -0700 (PDT)
-Date: Wed, 02 Sep 2026 21:03:03 -0700
-In-Reply-To: <20260903034152.122978-1-adrianox@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a98f177.9266084e.bf0d7.0016.GAE@google.com>
-Subject: Re: [syzbot] [usb?] general protection fault in keyspan_break_ctl
-From: syzbot <syzbot+473d7477c523b41d4046@syzkaller.appspotmail.com>
-To: adrianox@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+__kernfs_remove() clears i_nlink on the inode each superblock holds for
+the node, and finds those inodes with ilookup().  A lookup that has
+pinned the node but has not put its new inode in the inode hash yet is
+invisible to that pass:
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+  CPU0                                    CPU1
+  open_by_handle_at()
+    kernfs_find_and_get_node_by_id()
+      pins the node, still active
+                                          rmdir()
+                                            marks the subtree removing
+                                            ilookup() finds no inode
+    kernfs_get_inode()
+      hashes an inode with i_nlink 1
 
-Reported-by: syzbot+473d7477c523b41d4046@syzkaller.appspotmail.com
-Tested-by: syzbot+473d7477c523b41d4046@syzkaller.appspotmail.com
+Nothing corrects it afterwards, because kernfs_refresh_inode() skips
+set_nlink() for a directory being removed and never touches i_nlink for
+a file.  The inode keeps the i_nlink of 1 that inode_init_always() gave
+it, and dentry_unlink_inode() only sends IN_DELETE_SELF when i_nlink is
+0, so a watcher is never told the node went away.
 
-Tested on:
+kernfs_rwsem keeps the other callers of kernfs_get_inode() in fs/kernfs
+out of that window, and the one outside it, cgroup_may_write(), is kept
+out by cgroup_mutex, which cgroup_destroy_locked() holds across its
+kernfs_remove().  __kernfs_fh_to_dentry() has neither; it has created
+inodes without a lock ever since exportfs support was added.
 
-commit:         940de590 Merge tag 'hardening-v7.3-rc2' of git://git.k..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1373bc15580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=473d7477c523b41d4046
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=17ad90f9580000
+Take kernfs_rwsem for reading, as ->get_parent already does.  It has to
+cover the lookup by id as well, not just kernfs_get_inode():
+__kernfs_remove() marks and deactivates the whole subtree under the write
+lock before kernfs_drain() first drops it, so under the read lock an
+active node is one that is not going away, and the lookup returns NULL
+for the rest.  The other outcome, that CPU0 takes the lock first, leaves
+the inode in the hash before the ilookup() pass runs, so the pass finds
+it.
 
-Note: testing is done by a robot and is best-effort only.
+The same argument covers ->fh_to_parent, since a node cannot be active
+while an ancestor is being removed.
+
+Reproduced with a 300ms delay in __kernfs_fh_to_dentry(), between the
+lookup by id and kernfs_get_inode(): one task decodes a handle for a
+file in a cgroup directory while another rmdir()s that directory.  The
+result has st_nlink 1 without this patch and 0 with it.
+
+->get_parent keeps a window of its own that this does not close.  It
+already holds the same lock, but it has no active check, so
+reconnect_path() can still build an inode for an ancestor whose removal
+has finished, on the very open_by_handle_at() that got here.  Closing
+that wants the active test rather than another lock, and it changes what
+->get_parent returns for a node that is already gone, so it is left to
+the series that reworks these paths.
+
+Fixes: eea5d2bb34ba ("kernfs: Send IN_DELETE_SELF and IN_IGNORED")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+---
+ fs/kernfs/mount.c | 32 +++++++++++++++++++++-----------
+ 1 file changed, 21 insertions(+), 11 deletions(-)
+
+diff --git a/fs/kernfs/mount.c b/fs/kernfs/mount.c
+index f183a96778b9..c15ba6357162 100644
+--- a/fs/kernfs/mount.c
++++ b/fs/kernfs/mount.c
+@@ -124,22 +124,32 @@ static struct dentry *__kernfs_fh_to_dentry(struct super_block *sb,
+ 		return NULL;
+ 	}
+ 
+-	kn = kernfs_find_and_get_node_by_id(info->root, id);
+-	if (!kn)
+-		return ERR_PTR(-ESTALE);
++	/*
++	 * Hold kernfs_rwsem across the lookup as well as kernfs_get_inode().
++	 * __kernfs_remove() deactivates the subtree and clears i_nlink on its
++	 * inodes under the write lock, so under the read lock either
++	 * kernfs_find_and_get_node_by_id() refuses the node, or the inode is
++	 * in the inode hash before the ilookup() pass goes looking for it.
++	 */
++	scoped_guard(rwsem_read, &info->root->kernfs_rwsem) {
++		kn = kernfs_find_and_get_node_by_id(info->root, id);
++		if (!kn)
++			return ERR_PTR(-ESTALE);
+ 
+-	if (get_parent) {
+-		struct kernfs_node *parent;
++		if (get_parent) {
++			struct kernfs_node *parent;
+ 
+-		parent = kernfs_get_parent(kn);
++			parent = kernfs_get_parent(kn);
++			kernfs_put(kn);
++			kn = parent;
++			if (!kn)
++				return ERR_PTR(-ESTALE);
++		}
++
++		inode = kernfs_get_inode(sb, kn);
+ 		kernfs_put(kn);
+-		kn = parent;
+-		if (!kn)
+-			return ERR_PTR(-ESTALE);
+ 	}
+ 
+-	inode = kernfs_get_inode(sb, kn);
+-	kernfs_put(kn);
+ 	return d_obtain_alias(inode);
+ }
+ 
+-- 
+2.53.0-Meta
+
