@@ -1,1137 +1,237 @@
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022086.outbound.protection.outlook.com [40.107.75.86])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7271E374E76
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 02:35:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0330F34B1A5;
+	Thu,  3 Sep 2026 02:35:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.86
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788402923; cv=pass; b=mgOoMZp2f96jxhy4WrfzoL2u0Jpi1pb7jMuGjyJcUAF9sut1ZRQPfP/MWYeBQU2IuZ3M0rBqxOdsErow8Nf50wyxS0GbE3V883+MY940dOd9HiqxoC/R7hNIIZUaDA45v4Fq9le0aM/4C0ykfVthFu3Js5VEilbZGYdKbFjwvi4=
+	t=1788402934; cv=fail; b=XwfLJmkI0I/CLjz+Iv4flcxFvxcna0eaHVx3/lPXwJp9x+dnJbvvHnHgngyMwsl1i14s7ttM2+MKYETbabN+d9VbPSXdUN0+C3dCLsC8b8XDvTJORGEhI0LjBNVW4oba5ovf3HwQIJ7R/FZBrzkuQOmPcO9nPBv7Nga+BfGLGII=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788402923; c=relaxed/simple;
-	bh=zDTf/eIsUKIEnjwbF5JRwrHOX6J9/jFWI4Y8R1lZ7jM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qEegPR5i4mSfxxlPtfaEvM8SHQvl8oKCFx2bykuHkWycUPbhMV6EoQsVpHTdkBFPYT7m3oY/4pKJGwz11TWUl9QDZHywPni1xoHdLUi3EphSm2xmx+d2hu3c2VXDkTAP9J4N6NlNCSVie3YpzoKk0095PXBhim7gjLS4zBiOcsU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=PB+Cy0Nv; arc=pass smtp.client-ip=209.85.167.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="PB+Cy0Nv"
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5aec201b582so2424952e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 19:35:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788402912; cv=none;
-        d=google.com; s=arc-20260327;
-        b=khDLIixPdbyb+ppHFrlDABurNgrzCopijltDCRN0QGPNKfOslepOXOV0UTZe+OEko7
-         jml9AiqGM1tqIcUBOudKvv//bUvoNOK8Cfg/anjLHiSM1cfipknUg/P0dnlJxztm9A9T
-         C9SNiMW/EpIxIHOsvKwt1rHzBJeFnufK94Aae+tBKvkH4ZPSwW0j5vfVSc2wTZWrVN3Q
-         Pd1LNsdsZpBG5U21RV5eVqAZyfIsaDVLh+bLmRq9QhoCODXipvEcNNy7Os79M93sCCPO
-         mSqIG9LQaBo4eBmmz+XdncyY0vOcdxSz2zgNvSUH1+r6fm7J6CGmIuufysIWf8q0ycQY
-         PaPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=pAreqm4ZAwmAMcKTnPWqfeMzfD8bNnBFNnhJTT0SQM0=;
-        fh=zxrhCU8WZflC5M00O8hVMUXGA+LGdkF8AfNCuLV3hXA=;
-        b=jQc7jBUcnsO3uRyp8aHQEQ+nms5e9Kwc6HHsuH4e5AcRNfwNGigWhiy/FNc5JdqcHX
-         QbU3fW4ktY0mWlD7uTqZszdOCbJVhdYLrWmiLmslOTRp4x2Hhr+/7HT2RXcYY+QCOv6H
-         JM+29eUug/C0grQQyCQ5iuG/jQGsENofO0wRLTiXXXh/5aN2GJUAHqx/t+kl6KNks9O9
-         PZFEKSnf/0bFliXKaIyHMcYg1SufATKz796pTVUAexw0KgvqbkgamlPBYPuJo9xqzIiu
-         LeUNcsNIGUS/c2FQTf6X3YJhctCBbP5yPwBXPzrOOjueKy2sndoD1rVyczN4UKYLppDX
-         CCvA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788402912; x=1789007712; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pAreqm4ZAwmAMcKTnPWqfeMzfD8bNnBFNnhJTT0SQM0=;
-        b=PB+Cy0NvMHMcU5SJJZ1AdEh+tN38lABZf7QmGSyR4mHW+r3Lcgy4QIl47cJAEcjbA2
-         Ny+GB32ZyuSQ5cLhEPzOXmTSMDT96+8jUeRKmBx5hdIs9PhMM3EZzlS835pZqlMAhb36
-         /c8Z1ztstCLRhYu9vix9Ytf00S0gWc80ZOvfgsqabwhSgqu0k1mmRztvkmyrlEtalTDt
-         8YDkaUQWVQwRg+j/QIGNnJbq7Z+KXz4/JFT1Y0PcfWnZZZHJkseHu6Aos/424Uxa+uWk
-         B/aBwIXKn+PW2AY0OX5TfkQXfS+n7E7f3gHZZ2t3Voiwew+KS5aKYisVkFbiQ3oZiHXj
-         qcDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788402912; x=1789007712;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pAreqm4ZAwmAMcKTnPWqfeMzfD8bNnBFNnhJTT0SQM0=;
-        b=n2utYBHhpsLBNuyYtZviAXQungrz4pSTj2UcfWwgXb2XN0sbMxc7gTTMRIe8GDhw3Z
-         ot1pHGRDjTBYdd/bCTjF13iWVbVU0sDxYqIJS7Id1tz/aKCe1B5DeB4pkuORkRwcE+SH
-         NH9xFmw6sM8Lpv+bsmgArTQm8Nn0CSDr+i2T8wN0nc8owF0eHwz5czkm7916gb5GyW+1
-         YQjAC8mB1XQqf0Jbr/wTxs0pz85wObvbaD8EYUDP/ymMn7bH2C8zYlyk/ga+kPxTUnP9
-         SmUkC/hpA+w/ythAvQwvRLxdsoL6ftJUH3T8VcTEDx1Vu/vTeYOXfTXt9OIUH8lH3h0Z
-         fpjg==
-X-Forwarded-Encrypted: i=1; AKwUvBw41mzIlmRvKtkaTwWTaI9EXfrSOTyyvV2Fx9YPaYVIbXdj2d43/Z4c11imyztpPSt9aRU+zAqMoNhmFNQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMTQiGhEshAQxaD0ukq9DdbSXEaAfNo0igeoDU+beSNb9RoXdz
-	R/+d3fR9uNVyna9jn0yywIUvhYnx3fwY6kOHmF64eaw5CMmYEwmzQ9xdxQDLxyJvOgiI9O3RxYd
-	U9EL2W+8OXPATv6bLU55ydNKy/1rbVZiI1G5ft4ZJnpw=
-X-Gm-Gg: AYBFou0+3gRSkezSccWzmG96x3TjGReNpm+5sIINzF/DUtX2ySA1hB25vY/OUUJfsbo
-	jo154NiRbs+NC/hFrfZN3JZ2twrS/evqYUfVjGVyve8/4Kd6sKkRxjcsWmPvxZhUYvDapbKKF/N
-	jl0wuMCoIZcN3Ns2W99+sr3bY9jcWQ77YXkF6WZoYH4r+g1aeM/rGeuA5f1zNmQf2ij2ZHIj0Q3
-	8MN+uG5jsb+OPLfWj0ccBttG9mqadzOf9CntelcSZns1JmzACuLs1emnrLwC73MLuxWS+oRvA6x
-	Fy9umuyZStfQlKgCWbw5b8mOxs/WepsOvbV1GEsiWIoNYA9tuGRQirWWL2cdF0hgHdNOLSHC1j+
-	D5g==
-X-Received: by 2002:a05:6512:2c8b:b0:5b5:a8ab:3500 with SMTP id
- 2adb3069b0e04-5b609196955mr2620824e87.2.1788402911739; Wed, 02 Sep 2026
- 19:35:11 -0700 (PDT)
+	s=arc-20240116; t=1788402934; c=relaxed/simple;
+	bh=hv+IrMUbkRdQmPk9mu0jDmITKr/DjC547ipVw+Lf8Yw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HsH1s3/4iwFh43+Dqx3o25m01VTpyWkEqyJWi6TsLAEThgehdEFrHcGHlen+8UjggSWldQz/Die66u+GnvAe077otW7c0AE5sKb8WAbzruNiEWSv3G72dPkBFzgFmVnCWo3aOQffhx7Yd+OpPBqzG+BsD94bVwgHC121ozFmB4Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.75.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=y8m5UkWVHky+paTU1yPG7acZC3s3uii1v8X9jMIb4DE1j8NHagoThqUvWlUbjNrTWZMKQseo3ENeTb3pGdTI5TFyasKc0ABdyHWaVEp/xVySfBaLin7kvWsyJxqPy1b5FCnY5GeZf/QcAnT7LZNzIrTReXBg5X+jLUc3UFYAl6AMTOEufcbVQ9ObYXW2wUmGLlZaTFBJOwgRjnBeH6CibEn0tB7igLR3VV+TKiZg5ywiE7KZeNc3G01yZ1HJ53BksjlvxU1odK5UsxLuIwsTeLU4PZPE5iByDiJM9GslFwxP9A2uvBZBCJm/XLo7p6aHeKITTvALFP4sEn+JCxrEgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=i8WtX0k4EqwDh/TgPkcMz1aEkAtxppzLjZYw7yZxlbs=;
+ b=UQEdenIDESWBp5pWNkHF7OE23iMmGujQAt8ow1sGkvGyxjMmStn/VhjctYJWqWs9KscXhPeLPbP0whFzaxwkb3mVJY+YLOhrprjVEdxMST1QtVVkedyCsavKB2zF9hnmUAhCKgXewwhGex+0CmQ5AlhF4HmgFI66GH5tywhE1D/CPbdD9cNFi/zVuPERdW0W1PC/Cu6l57jSBwftxJd08y+bLOhhckTHT8BmwxghV/5HsHj/vW+4tdbfvzVY5810oWJ8PBBwIFQ24Xch4cEmCdX41bX60wlLRcvuyp2GPE/4TcNJgUH/AGlQYT+iTxR/1r5xDzpPuZDTACiPpFE/vw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cadence.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from JH0PR01CA0011.apcprd01.prod.exchangelabs.com
+ (2603:1096:990:56::10) by SEYPR06MB5159.apcprd06.prod.outlook.com
+ (2603:1096:101:5b::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 02:35:24 +0000
+Received: from SG2PEPF000B66C9.apcprd03.prod.outlook.com
+ (2603:1096:990:56:cafe::15) by JH0PR01CA0011.outlook.office365.com
+ (2603:1096:990:56::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Thu, 3
+ Sep 2026 02:35:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG2PEPF000B66C9.mail.protection.outlook.com (10.167.240.20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Thu, 3 Sep 2026 02:35:23 +0000
+Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 35786409210E;
+	Thu,  3 Sep 2026 10:35:22 +0800 (CST)
+From: Hongliang Yang <hongliang.yang@cixtech.com>
+To: krzk@kernel.org
+Cc: cix-kernel-upstream@cixtech.com,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	fugang.duan@cixtech.com,
+	gregkh@linuxfoundation.org,
+	hongliang.yang@cixtech.com,
+	krzk+dt@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-usb@vger.kernel.org,
+	neil.armstrong@linaro.org,
+	p.zabel@pengutronix.de,
+	pawell@cadence.com,
+	peter.chen@kernel.org,
+	robh@kernel.org,
+	rogerq@kernel.org,
+	vkoul@kernel.org
+Subject: [PATCH v3 1/5] dt-bindings: phy: Add CIX Sky1 USB3 PHY
+Date: Thu,  3 Sep 2026 10:35:17 +0800
+Message-ID: <20260903023521.2064986-2-hongliang.yang@cixtech.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260903023521.2064986-1-hongliang.yang@cixtech.com>
+References: <503e87d9-3311-413a-98c0-e02a02c4a354@kernel.org>
+ <20260903023521.2064986-1-hongliang.yang@cixtech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788248601.git.zihanx@nebusec.ai> <CAAVpQUDMSKo6S5CADED41XMxvxBVWpQfcNbvebGWc4hg6mROHw@mail.gmail.com>
-In-Reply-To: <CAAVpQUDMSKo6S5CADED41XMxvxBVWpQfcNbvebGWc4hg6mROHw@mail.gmail.com>
-From: zihan xi <zihanx@nebusec.ai>
-Date: Thu, 3 Sep 2026 10:35:00 +0800
-X-Gm-Features: AcwNN1XsbqYhFH109uPXn6TL0cz3vpOOB4kP2JbFDNNGe51ax4Ni-WcS_nMyopc
-Message-ID: <CAANe3eTr9kM-Vso_n1TcAGq7+5VJ5Mx9N7-Oyh7KdJXyLfDHGw@mail.gmail.com>
-Subject: Re: [PATCH net v2 0/2] tcp: diag: bound bucket lock hold in diag dump paths
-To: Kuniyuki Iwashima <kuniyu@google.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	mptcp@lists.linux.dev, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
-	Matthieu Baerts <matttbe@kernel.org>, Mat Martineau <martineau@kernel.org>, 
-	Geliang Tang <geliang@kernel.org>, Guillaume Nault <gnault@redhat.com>, Florian Westphal <fw@strlen.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG2PEPF000B66C9:EE_|SEYPR06MB5159:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 27c77602-24f6-47e3-ca90-08df0964015d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|1800799024|376014|82310400026|36860700016|22082099003|18002099003|3023799007|56012099006|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	yicrPkZRLQXIoqCYFZQNF32zElrQvVn/Y6EpOKEVSYmsRUDNCwBEKhOELS7wSMfe06ZuKXmvSfPdx/Dixfh/+yB+w+ENlMwjPObI3eLxpP+hE5LWfou3flk1NWX9OKAOMPuVYgoYbvD9ORwyIqXEc3f1KZTUqqDDEOjY1upaNkZOFsVgu20wMR50BbntSEttyL3MpkSHG3zNczNzOIhqGhIW7GFF3QdV4nBSupQH3hRg3EyR2+UY+piUVWEmwVfI3zTQUdyhzBnni7bVvrNZIxIJ9ehzeYPm2+cZ3grkfWFGKB1y3OBqxIM8bupITorCHeWEmv3XWdK5zFg+o9bciRIZ5NyzicLpZL9Tbgvgfu4n57nJentZM3C0yJkq5E6H1iOikOE/0K2EVRg8s9T4xQVbQZBFf3pyei/lfWS+Shdy6mYoL9UPtUnm1C0iv+d3zTnEMw74CHv8a7JI0PmpF90m4KbUfV+qS+rcUsvptkkqi4gfi1FGMeihL3/i9ApLGzSDqPCqLNfUGJ43DKJaYQckh8+D5eq/gJNeTO3PRBVrgfJ0K9gTZKGNyn2uvLCnpsxQd5VF/fsL44SuObH+FFhRMplDIWnNMvGPgv/ntjQR4PHmU+HW/6VIAN1XvhsadyG67Im0HVMqnMtNnIHJtA==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(1800799024)(376014)(82310400026)(36860700016)(22082099003)(18002099003)(3023799007)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Xpy9mL2m0mJqLxEg8X2EKRD3s37pu9QqVPflSySDfQCBUN8jIac0xAHFw/e7qd210RCXQKCSeNTPoSRogf+x+B6cPVYE2g7XF1uqVbDCOQ08NPvagt3mO0RoDVdIpnJBBfQIiW2AoAC8zpE4pf31pKZl50JVtNCHqVmPmT51bmkG0VER4TCkPsmEeDhd+jwdfp3Yrso4B9dHCvkfNVtLamCaSdMQEds2FZgghCzxPM/Zil4DHbEmuZq9PgIHDFG37QVjytPqBkTFz3t9wGS1W08m78GzJ0wgBosE2bEPIIEU8NGZbjUeaDDkNlTMmOET1UlLgRsaYe+SwaV2cAjE3H06PVKOguMP0uEL7deqenC6MvlySd+GiahwG4iQj+2KEJXpxolPw/f9e5JzZnzA2qvjyuSCGW4uc1NYdZZD2b6qq5hRy3M9js2kL7ieU/o8
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 02:35:23.2325
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27c77602-24f6-47e3-ca90-08df0964015d
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG2PEPF000B66C9.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB5159
 
-On Thu, Sep 3, 2026 at 10:09=E2=80=AFAM Kuniyuki Iwashima <kuniyu@google.co=
-m> wrote:
->
-> On Tue, Sep 1, 2026 at 5:53=E2=80=AFAM Zihan Xi <zihanx@nebusec.ai> wrote=
-:
-> >
-> > Hi Linux kernel maintainers,
-> >
-> > We found and validated an issue in net/ipv4/tcp_diag.c and
-> > net/mptcp/mptcp_diag.c. The bug is reachable by a
-> > non-root user via user and net namespace.
-> > Our testing did not identify any impact on other functionality.
-> >
-> > We will provide detailed information about the bug
-> > in this email, along with a PoC to trigger it.
-> >
-> > ---- details below ----
-> >
-> > Bug details:
-> >
-> > inet_diag TCP dumps currently execute request-supplied
-> > INET_DIAG_REQ_BYTECODE programs while still holding the listener, bind,
-> > or ehash bucket locks in tcp_diag_dump(). With a heavily populated
-> > bucket, the time spent under the same lock grows with both raw socket
-> > traversal and bytecode cost.
-> >
-> > The local listener reproducer creates four SO_REUSEPORT groups of 32768
-> > listeners each, 131072 sockets in total, and then issues a
-> > NETLINK_SOCK_DIAG dump request with 16380 INET_DIAG_BC_NOP instructions
->
-> Same feedback as v1.
->
-> tcp_diag_dump() is long enough, and I don't think that the "fix"
-> to avoid a long loop on *QEMU* due to an unreal setup is worth
-> 300 LoC(hurn).
->
->
->
->
-> > followed by a failing INET_DIAG_BC_D_EQ test. This is a deliberately
-> > concentrated setup to make the lock scope observable; it is not intende=
-d
-> > to represent a typical deployment. Because every socket runs the full
-> > bytecode and none reaches the reply fill path, skb backpressure does no=
-t
-> > terminate the walk early.
-> > On the unfixed kernel, with local softlockup panic sysctls enabled, thi=
-s
-> > makes the long bucket-locked section visible as a watchdog report and
-> > panic in inet_diag_bc_sk().
-> >
-> > The earlier batching fix direction was still too narrow: it only counte=
-d
-> > sockets that survived the cheap prefilters and reached the expensive du=
-mp
-> > path. An attacker can therefore populate one bucket with many sockets o=
-r
-> > listeners that fail the netns/family/port or MPTCP-specific prefilters,
-> > causing the same bucket lock to be scanned far past the 16-entry batch
-> > threshold before control is returned.
-> >
-> > The same root cause also exists in MPTCP listener dumping. The
-> > MPTCP-specific mptcp_diag_dump_listeners() path reuses sk_diag_dump(),
-> > which runs inet_diag_bc_sk() before filling the netlink reply, while th=
-e
-> > listener bucket lock is still held.
-> >
-> > The inline reproducer and decoded crash log below cover the TCP watchdo=
-g
-> > path only. They are not an MPTCP crash reproduction. The crash log is t=
-he
-> > decoded output of `./scripts/decode_stacktrace.sh`, with source paths
-> > reduced to repository-relative file and line references for review. The
-> > MPTCP patch addresses the equivalent listener lock scope identified by
-> > code inspection and completed MPTCP listener stress tests. A separate
-> > MPTCP crash artifact is not included, because the fixed MPTCP run
-> > completed without a crash.
-> >
-> > This series fixes both sites by keeping bucket-locked sections limited =
-to
-> > raw socket collection and lifetime pinning, and moving all filtering,
-> > inet_diag_bc_sk(), and socket filling work out of the locked regions so
-> > the batch limit applies to raw bucket traversal itself. For TCP listene=
-r,
-> > bind, and ehash buckets, and for the MPTCP listener bucket, restarts no=
-w
-> > keep a referenced dump cursor so the next batch resumes after the
-> > previous socket instead of rescanning the bucket head under the same
-> > lock. A stored cursor is reused only after it is checked against the
-> > currently locked bucket. Listen and ehash resume also require the socke=
-t
-> > state to still belong to that table. Current-bucket membership is infer=
-red
-> > from that state plus the recomputed hash slot. If the check fails,
-> > collection restarts from the bucket head with the same batch limit. Tha=
-t
-> > fallback can emit a socket more than once, but it does not move bytecod=
-e
-> > or fill work back under the bucket lock. Bind collection counts TIME_WA=
-IT
-> > nodes toward the batch limit and restores them through tw_tb2.
-> >
-> > We also ran targeted cursor-resume stress tests on the fixed kernel. Th=
-e
-> > TCP listener workload used 131072 listeners while a separate thread
-> > repeatedly removed and recreated listeners across listener buckets. Thr=
-ee
-> > runs completed in 17024.089 ms, 17217.245 ms, and 17180.322 ms, and the
-> > guest remained alive. With temporary kernel instrumentation, one run
-> > directly observed an invalid TCP listener cursor: the cursor was unhash=
-ed
-> > and its computed bucket differed from the bucket being scanned, after
-> > which the safe restart path completed normally.
-> >
-> > A corresponding MPTCP listener workload and a TCP bound-only close/rebi=
-nd
-> > workload also completed without a crash, and the guest remained alive.
-> > Neither workload deterministically reached its instrumented invalid-cur=
-sor
-> > branch, and no crash artifact is claimed for either path.
-> >
-> > For ehash, a dedicated workload created 4096 loopback established TCP
-> > connections while a mutator replaced connection pairs concurrently. The
-> > TCPF_ALL inet_diag dump completed in 315.108 ms. No ehash invalid-curso=
-r
-> > log, soft lockup, or panic was observed. These tests exercise the relev=
-ant
-> > mutation and resume paths, but do not claim deterministic scheduling of
-> > every race between two dump callbacks.
-> >
-> > The TCP patch uses two Fixes tags for the path-specific introductions:
-> > commit 5caea4ea7088 ("net: listening_hash get a spinlock per bucket")
-> > introduced the listener bucket spinlock, and commit 91051f003948
-> > ("tcp: Dump bound-only sockets in inet_diag.") introduced the bound-onl=
-y
-> > path. The ehash dump already ran diagnostic work under the bucket lock
-> > before 7e3aab4a9cd7, which only converted that lock from read_lock_bh()
-> > to spin_lock_bh(), so that commit is not used as a Fixes tag. The MPTCP
-> > patch uses commit 4fa39b701ce9 ("mptcp: listen diag dump support").
-> >
-> > udp_diag and raw diag still run bytecode and fill under their own hash
-> > slot locks. Those locks are not the TCP listener, bind, or ehash locks,
-> > or the MPTCP listener lock, tightened by this series.
-> >
-> > Reproducer:
-> >
-> >     gcc -O2 -static -o poc poc.c
-> >     unshare -Urn ./poc
-> >
-> > This is not a packet-sequence or protocol-state reproducer. The trigger
-> > depends on creating many sockets and issuing NETLINK_SOCK_DIAG requests=
-,
-> > which packetdrill cannot express, so the PoC uses sockets and Netlink
-> > directly.
-> >
-> > To make the long bucket-locked section observable in the local QEMU
-> > run below, we enabled softlockup panic sysctls as guest root. The
-> > unshare command above uses the PoC defaults, which are:
-> >
-> >     ./poc --listen --groups 4 --stride 2048 --count 32768 --nops 16380
-> >
-> > The crash log reports UID: 0 because that process is the userns root
-> > created by unshare -Urn, after those sysctls were set as guest root.
-> > That UID does not by itself prove a host-unprivileged run. The inet_dia=
-g
-> > dump path itself is reachable from a user and net namespace.
-> >
-> > We run the PoC in a 2 vCPU, 2 GB RAM x86 QEMU environment.
-> >
-> > ------BEGIN poc.c------
-> > #define _GNU_SOURCE
-> >
-> > #include <arpa/inet.h>
-> > #include <errno.h>
-> > #include <linux/inet_diag.h>
-> > #include <linux/netlink.h>
-> > #include <linux/sock_diag.h>
-> > #include <linux/tcp.h>
-> > #include <sched.h>
-> > #include <stdbool.h>
-> > #include <stdint.h>
-> > #include <stdio.h>
-> > #include <stdlib.h>
-> > #include <string.h>
-> > #include <sys/resource.h>
-> > #include <sys/socket.h>
-> > #include <sys/time.h>
-> > #include <time.h>
-> > #include <unistd.h>
-> >
-> > #ifndef SOL_TCP
-> > #define SOL_TCP 6
-> > #endif
-> >
-> > #ifndef TCP_LISTEN
-> > #define TCP_LISTEN 10
-> > #endif
-> >
-> > #define TCPF_LISTEN (1U << TCP_LISTEN)
-> >
-> > #ifndef TCP_BOUND_INACTIVE
-> > #define TCP_BOUND_INACTIVE 13
-> > #endif
-> > #ifndef TCPF_BOUND_INACTIVE
-> > #define TCPF_BOUND_INACTIVE (1U << TCP_BOUND_INACTIVE)
-> > #endif
-> >
-> > #define DEFAULT_SOCKETS 32768U
-> > #define DEFAULT_NOPS 16380U
-> > #define DEFAULT_REPEAT 1U
-> > #define DEFAULT_GROUPS 4U
-> > #define DEFAULT_STRIDE 2048U
-> > #define DEFAULT_BASE_PORT 10000
-> > #define MAX_NOPS 16380U
-> > #define RECV_BUF_SIZE (1U << 20)
-> >
-> > struct options {
-> >         unsigned int sockets;
-> >         unsigned int nops;
-> >         unsigned int repeat;
-> >         unsigned int groups;
-> >         unsigned int stride;
-> >         unsigned int cpu;
-> >         bool cpu_set;
-> >         bool compare;
-> >         bool attack;
-> >         bool listen_mode;
-> >         int port;
-> > };
-> >
-> > static void usage(const char *prog)
-> > {
-> >         fprintf(stderr,
-> >                 "Usage: %s [--count N] [--nops N] [--repeat N] [--port =
-P] [--cpu N]\n"
-> >                 "          [--groups N] [--stride N] [--compare] [--no-=
-attack]\n"
-> >                 "          [--listen | --bound]\n"
-> >                 "Defaults: --count %u --nops %u --repeat %u\n",
-> >                 prog, DEFAULT_SOCKETS, DEFAULT_NOPS, DEFAULT_REPEAT);
-> > }
-> >
-> > static long long timespec_delta_ns(const struct timespec *start,
-> >                                        const struct timespec *end)
-> > {
-> >         return (end->tv_sec - start->tv_sec) * 1000000000LL +
-> >                (end->tv_nsec - start->tv_nsec);
-> > }
-> >
-> > static int raise_nofile_limit(rlim_t needed)
-> > {
-> >         struct rlimit lim;
-> >
-> >         if (getrlimit(RLIMIT_NOFILE, &lim) < 0) {
-> >                 perror("getrlimit(RLIMIT_NOFILE)");
-> >                 return -1;
-> >         }
-> >
-> >         if (lim.rlim_cur >=3D needed)
-> >                 return 0;
-> >
-> >         if (lim.rlim_max < needed)
-> >                 needed =3D lim.rlim_max;
-> >
-> >         lim.rlim_cur =3D needed;
-> >         if (setrlimit(RLIMIT_NOFILE, &lim) < 0) {
-> >                 perror("setrlimit(RLIMIT_NOFILE)");
-> >                 return -1;
-> >         }
-> >
-> >         if (getrlimit(RLIMIT_NOFILE, &lim) < 0) {
-> >                 perror("getrlimit(RLIMIT_NOFILE)");
-> >                 return -1;
-> >         }
-> >
-> >         if (lim.rlim_cur < needed) {
-> >                 fprintf(stderr, "RLIMIT_NOFILE stayed at %llu, need %ll=
-u\n",
-> >                         (unsigned long long)lim.rlim_cur,
-> >                         (unsigned long long)needed);
-> >                 return -1;
-> >         }
-> >
-> >         return 0;
-> > }
-> >
-> > static int pin_to_cpu(unsigned int cpu)
-> > {
-> >         cpu_set_t set;
-> >
-> >         CPU_ZERO(&set);
-> >         CPU_SET(cpu, &set);
-> >         if (sched_setaffinity(0, sizeof(set), &set) < 0) {
-> >                 perror("sched_setaffinity");
-> >                 return -1;
-> >         }
-> >
-> >         return 0;
-> > }
-> >
-> > static int create_socket_in_bucket(bool listen_mode, int port, int *bou=
-nd_port)
-> > {
-> >         struct sockaddr_in addr =3D {
-> >                 .sin_family =3D AF_INET,
-> >                 .sin_addr.s_addr =3D htonl(INADDR_ANY),
-> >         };
-> >         socklen_t addrlen =3D sizeof(addr);
-> >         int one =3D 1;
-> >         int fd;
-> >
-> >         fd =3D socket(AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
-> >         if (fd < 0) {
-> >                 perror("socket(AF_INET, SOCK_STREAM)");
-> >                 return -1;
-> >         }
-> >
-> >         if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one))=
- < 0) {
-> >                 perror("setsockopt(SO_REUSEADDR)");
-> >                 goto err;
-> >         }
-> >
-> >         if (setsockopt(fd, SOL_SOCKET, SO_REUSEPORT, &one, sizeof(one))=
- < 0) {
-> >                 perror("setsockopt(SO_REUSEPORT)");
-> >                 goto err;
-> >         }
-> >
-> >         addr.sin_port =3D htons(port);
-> >         if (bind(fd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
-> >                 perror("bind");
-> >                 goto err;
-> >         }
-> >
-> >         if (getsockname(fd, (struct sockaddr *)&addr, &addrlen) < 0) {
-> >                 perror("getsockname");
-> >                 goto err;
-> >         }
-> >
-> >         if (listen_mode) {
-> >                 if (listen(fd, 0) < 0) {
-> >                         perror("listen");
-> >                         goto err;
-> >                 }
-> >         }
-> >
-> >         *bound_port =3D ntohs(addr.sin_port);
-> >         return fd;
-> >
-> > err:
-> >         close(fd);
-> >         return -1;
-> > }
-> >
-> > static int setup_sockets(bool listen_mode, unsigned int groups,
-> >                          unsigned int count_per_group, unsigned int str=
-ide,
-> >                          int requested_port, int **fds_out, int *port_o=
-ut)
-> > {
-> >         int *fds;
-> >         unsigned int g, i;
-> >         unsigned int total =3D groups * count_per_group;
-> >         int base_port =3D requested_port ? requested_port : DEFAULT_BAS=
-E_PORT;
-> >
-> >         fds =3D calloc(total, sizeof(*fds));
-> >         if (!fds) {
-> >                 perror("calloc(socket fds)");
-> >                 return -1;
-> >         }
-> >
-> >         for (g =3D 0; g < groups; g++) {
-> >                 int port =3D base_port + (int)(g * stride);
-> >
-> >                 if (port <=3D 0 || port > 65535) {
-> >                         fprintf(stderr, "port overflow for group %u (ba=
-se=3D%d stride=3D%u)\n",
-> >                                 g, base_port, stride);
-> >                         goto err;
-> >                 }
-> >
-> >                 for (i =3D 0; i < count_per_group; i++) {
-> >                         unsigned int idx =3D g * count_per_group + i;
-> >                         int bound_port =3D port;
-> >                         int fd =3D create_socket_in_bucket(listen_mode,=
- bound_port,
-> >                                                          &bound_port);
-> >
-> >                         if (fd < 0) {
-> >                                 fprintf(stderr,
-> >                                         "socket setup failed at group %=
-u index %u (port %d)\n",
-> >                                         g, i, port);
-> >                                 goto err;
-> >                         }
-> >
-> >                         fds[idx] =3D fd;
-> >                         if ((idx + 1) % 4096U =3D=3D 0 || idx + 1 =3D=
-=3D total) {
-> >                                 printf("sockets_ready=3D%u group=3D%u p=
-ort=3D%d mode=3D%s\n",
-> >                                        idx + 1, g + 1, port,
-> >                                        listen_mode ? "listen" : "bound"=
-);
-> >                         }
-> >                 }
-> >         }
-> >
-> >         *fds_out =3D fds;
-> >         *port_out =3D base_port;
-> >         return 0;
-> >
-> > err:
-> >         for (i =3D 0; i < total; i++) {
-> >                 if (fds[i] > 0)
-> >                         close(fds[i]);
-> >         }
-> >         free(fds);
-> >         return -1;
-> > }
-> >
-> > static void teardown_sockets(int *fds, unsigned int count)
-> > {
-> >         unsigned int i;
-> >
-> >         if (!fds)
-> >                 return;
-> >
-> >         for (i =3D 0; i < count; i++) {
-> >                 if (fds[i] >=3D 0)
-> >                         close(fds[i]);
-> >         }
-> >         free(fds);
-> > }
-> >
-> > static size_t build_request(void *buf, bool listen_mode, bool with_atta=
-ck,
-> >                             unsigned int nops)
-> > {
-> >         size_t msg_len =3D NLMSG_SPACE(sizeof(struct inet_diag_req_v2))=
-;
-> >         struct nlmsghdr *nlh =3D buf;
-> >         struct inet_diag_req_v2 *req;
-> >
-> >         memset(buf, 0, msg_len);
-> >         nlh->nlmsg_len =3D msg_len;
-> >         nlh->nlmsg_type =3D SOCK_DIAG_BY_FAMILY;
-> >         nlh->nlmsg_flags =3D NLM_F_REQUEST | NLM_F_DUMP;
-> >         nlh->nlmsg_seq =3D 1;
-> >
-> >         req =3D NLMSG_DATA(nlh);
-> >         req->sdiag_family =3D AF_INET;
-> >         req->sdiag_protocol =3D IPPROTO_TCP;
-> >         req->idiag_states =3D listen_mode ? TCPF_LISTEN : TCPF_BOUND_IN=
-ACTIVE;
-> >         req->id.idiag_cookie[0] =3D INET_DIAG_NOCOOKIE;
-> >         req->id.idiag_cookie[1] =3D INET_DIAG_NOCOOKIE;
-> >
-> >         if (with_attack) {
-> >                 size_t payload_len =3D ((size_t)nops + 2U) *
-> >                                      sizeof(struct inet_diag_bc_op);
-> >                 size_t attr_len =3D NLA_HDRLEN + payload_len;
-> >                 struct nlattr *nla =3D (struct nlattr *)((char *)buf + =
-msg_len);
-> >                 struct inet_diag_bc_op *ops;
-> >                 unsigned int i;
-> >
-> >                 memset(nla, 0, NLA_ALIGN(attr_len));
-> >                 nla->nla_type =3D INET_DIAG_REQ_BYTECODE;
-> >                 nla->nla_len =3D attr_len;
-> >                 ops =3D (struct inet_diag_bc_op *)((char *)nla + NLA_HD=
-RLEN);
-> >
-> >                 for (i =3D 0; i < nops; i++) {
-> >                         ops[i].code =3D INET_DIAG_BC_NOP;
-> >                         ops[i].yes =3D sizeof(struct inet_diag_bc_op);
-> >                         ops[i].no =3D 0;
-> >                 }
-> >
-> >                 ops[nops].code =3D INET_DIAG_BC_D_EQ;
-> >                 ops[nops].yes =3D 2U * sizeof(struct inet_diag_bc_op);
-> >                 ops[nops].no =3D 3U * sizeof(struct inet_diag_bc_op);
-> >
-> >                 ops[nops + 1].code =3D 0;
-> >                 ops[nops + 1].yes =3D 0;
-> >                 ops[nops + 1].no =3D 1;
-> >
-> >                 msg_len +=3D NLA_ALIGN(attr_len);
-> >                 nlh->nlmsg_len =3D msg_len;
-> >         }
-> >
-> >         return msg_len;
-> > }
-> >
-> > static int recv_until_done(int fd)
-> > {
-> >         char *buf;
-> >         int ret =3D 0;
-> >
-> >         buf =3D malloc(RECV_BUF_SIZE);
-> >         if (!buf) {
-> >                 perror("malloc(recv buf)");
-> >                 return -1;
-> >         }
-> >
-> >         for (;;) {
-> >                 ssize_t received =3D recv(fd, buf, RECV_BUF_SIZE, 0);
-> >                 struct nlmsghdr *nlh;
-> >                 int remaining;
-> >
-> >                 if (received < 0) {
-> >                         perror("recv");
-> >                         ret =3D -1;
-> >                         break;
-> >                 }
-> >
-> >                 if (received =3D=3D 0) {
-> >                         fprintf(stderr, "recv: unexpected EOF\n");
-> >                         ret =3D -1;
-> >                         break;
-> >                 }
-> >
-> >                 remaining =3D (int)received;
-> >                 for (nlh =3D (struct nlmsghdr *)buf; NLMSG_OK(nlh, rema=
-ining);
-> >                      nlh =3D NLMSG_NEXT(nlh, remaining)) {
-> >                         if (nlh->nlmsg_type =3D=3D NLMSG_DONE)
-> >                                 goto out;
-> >
-> >                         if (nlh->nlmsg_type =3D=3D NLMSG_ERROR) {
-> >                                 const struct nlmsgerr *err =3D NLMSG_DA=
-TA(nlh);
-> >
-> >                                 if (nlh->nlmsg_len < NLMSG_LENGTH(sizeo=
-f(*err))) {
-> >                                         fprintf(stderr, "short NLMSG_ER=
-ROR\n");
-> >                                 } else if (err->error) {
-> >                                         errno =3D -err->error;
-> >                                         perror("netlink");
-> >                                 } else {
-> >                                         fprintf(stderr, "unexpected ACK=
-\n");
-> >                                 }
-> >                                 ret =3D -1;
-> >                                 goto out;
-> >                         }
-> >                 }
-> >         }
-> >
-> > out:
-> >         free(buf);
-> >         return ret;
-> > }
-> >
-> > static int run_dump(bool listen_mode, bool with_attack, unsigned int no=
-ps,
-> >                     double *wall_ms)
-> > {
-> >         size_t request_len;
-> >         size_t attr_space =3D with_attack ?
-> >                             NLA_ALIGN(NLA_HDRLEN +
-> >                                       ((size_t)nops + 2U) *
-> >                                       sizeof(struct inet_diag_bc_op)) :=
- 0;
-> >         size_t alloc_len =3D NLMSG_SPACE(sizeof(struct inet_diag_req_v2=
-)) +
-> >                            attr_space;
-> >         struct sockaddr_nl local =3D {
-> >                 .nl_family =3D AF_NETLINK,
-> >         };
-> >         struct sockaddr_nl kernel =3D {
-> >                 .nl_family =3D AF_NETLINK,
-> >         };
-> >         struct timeval timeout =3D {
-> >                 .tv_sec =3D 60,
-> >                 .tv_usec =3D 0,
-> >         };
-> >         struct iovec iov;
-> >         struct msghdr msg =3D {
-> >                 .msg_name =3D &kernel,
-> >                 .msg_namelen =3D sizeof(kernel),
-> >                 .msg_iov =3D &iov,
-> >                 .msg_iovlen =3D 1,
-> >         };
-> >         struct timespec start_ts;
-> >         struct timespec end_ts;
-> >         void *request;
-> >         int fd;
-> >         int ret =3D -1;
-> >
-> >         request =3D malloc(alloc_len);
-> >         if (!request) {
-> >                 perror("malloc(request)");
-> >                 return -1;
-> >         }
-> >
-> >         request_len =3D build_request(request, listen_mode, with_attack=
-, nops);
-> >
-> >         fd =3D socket(AF_NETLINK, SOCK_RAW | SOCK_CLOEXEC, NETLINK_SOCK=
-_DIAG);
-> >         if (fd < 0) {
-> >                 perror("socket(AF_NETLINK)");
-> >                 free(request);
-> >                 return -1;
-> >         }
-> >
-> >         if (setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(ti=
-meout)) < 0) {
-> >                 perror("setsockopt(SO_RCVTIMEO)");
-> >                 goto out;
-> >         }
-> >
-> >         if (bind(fd, (struct sockaddr *)&local, sizeof(local)) < 0) {
-> >                 perror("bind(netlink)");
-> >                 goto out;
-> >         }
-> >
-> >         iov.iov_base =3D request;
-> >         iov.iov_len =3D request_len;
-> >
-> >         if (clock_gettime(CLOCK_MONOTONIC_RAW, &start_ts) < 0) {
-> >                 perror("clock_gettime(start)");
-> >                 goto out;
-> >         }
-> >
-> >         if (sendmsg(fd, &msg, 0) < 0) {
-> >                 perror("sendmsg");
-> >                 goto out;
-> >         }
-> >
-> >         if (recv_until_done(fd) < 0)
-> >                 goto out;
-> >
-> >         if (clock_gettime(CLOCK_MONOTONIC_RAW, &end_ts) < 0) {
-> >                 perror("clock_gettime(end)");
-> >                 goto out;
-> >         }
-> >
-> >         *wall_ms =3D (double)timespec_delta_ns(&start_ts, &end_ts) / 10=
-00000.0;
-> >         ret =3D 0;
-> >
-> > out:
-> >         close(fd);
-> >         free(request);
-> >         return ret;
-> > }
-> >
-> > static int parse_u32(const char *arg, unsigned int *value)
-> > {
-> >         char *end =3D NULL;
-> >         unsigned long parsed;
-> >
-> >         parsed =3D strtoul(arg, &end, 0);
-> >         if (!end || *end || parsed > UINT32_MAX)
-> >                 return -1;
-> >
-> >         *value =3D (unsigned int)parsed;
-> >         return 0;
-> > }
-> >
-> > static int parse_port(const char *arg, int *port)
-> > {
-> >         unsigned int value;
-> >
-> >         if (parse_u32(arg, &value) < 0 || value > 65535U)
-> >                 return -1;
-> >
-> >         *port =3D (int)value;
-> >         return 0;
-> > }
-> >
-> > int main(int argc, char **argv)
-> > {
-> >         struct options opts =3D {
-> >                 .sockets =3D DEFAULT_SOCKETS,
-> >                 .nops =3D DEFAULT_NOPS,
-> >                 .repeat =3D DEFAULT_REPEAT,
-> >                 .groups =3D DEFAULT_GROUPS,
-> >                 .stride =3D DEFAULT_STRIDE,
-> >                 .cpu =3D 0,
-> >                 .cpu_set =3D false,
-> >                 .compare =3D false,
-> >                 .attack =3D true,
-> >                 .listen_mode =3D true,
-> >                 .port =3D 0,
-> >         };
-> >         int *fds =3D NULL;
-> >         int port =3D 0;
-> >         unsigned int i;
-> >
-> >         for (i =3D 1; i < (unsigned int)argc; i++) {
-> >                 if (strcmp(argv[i], "--count") =3D=3D 0) {
-> >                         if (i + 1 >=3D (unsigned int)argc ||
-> >                             parse_u32(argv[++i], &opts.sockets) < 0 ||
-> >                             opts.sockets =3D=3D 0) {
-> >                                 usage(argv[0]);
-> >                                 return 1;
-> >                         }
-> >                 } else if (strcmp(argv[i], "--nops") =3D=3D 0) {
-> >                         if (i + 1 >=3D (unsigned int)argc ||
-> >                             parse_u32(argv[++i], &opts.nops) < 0 ||
-> >                             opts.nops > MAX_NOPS) {
-> >                                 fprintf(stderr, "--nops must be in rang=
-e [0, %u]\n",
-> >                                         MAX_NOPS);
-> >                                 return 1;
-> >                         }
-> >                 } else if (strcmp(argv[i], "--repeat") =3D=3D 0) {
-> >                         if (i + 1 >=3D (unsigned int)argc ||
-> >                             parse_u32(argv[++i], &opts.repeat) < 0 ||
-> >                             opts.repeat =3D=3D 0) {
-> >                                 usage(argv[0]);
-> >                                 return 1;
-> >                         }
-> >                 } else if (strcmp(argv[i], "--groups") =3D=3D 0) {
-> >                         if (i + 1 >=3D (unsigned int)argc ||
-> >                             parse_u32(argv[++i], &opts.groups) < 0 ||
-> >                             opts.groups =3D=3D 0) {
-> >                                 usage(argv[0]);
-> >                                 return 1;
-> >                         }
-> >                 } else if (strcmp(argv[i], "--stride") =3D=3D 0) {
-> >                         if (i + 1 >=3D (unsigned int)argc ||
-> >                             parse_u32(argv[++i], &opts.stride) < 0 ||
-> >                             opts.stride =3D=3D 0) {
-> >                                 usage(argv[0]);
-> >                                 return 1;
-> >                         }
-> >                 } else if (strcmp(argv[i], "--port") =3D=3D 0) {
-> >                         if (i + 1 >=3D (unsigned int)argc ||
-> >                             parse_port(argv[++i], &opts.port) < 0) {
-> >                                 usage(argv[0]);
-> >                                 return 1;
-> >                         }
-> >                 } else if (strcmp(argv[i], "--cpu") =3D=3D 0) {
-> >                         if (i + 1 >=3D (unsigned int)argc ||
-> >                             parse_u32(argv[++i], &opts.cpu) < 0) {
-> >                                 usage(argv[0]);
-> >                                 return 1;
-> >                         }
-> >                         opts.cpu_set =3D true;
-> >                 } else if (strcmp(argv[i], "--compare") =3D=3D 0) {
-> >                         opts.compare =3D true;
-> >                 } else if (strcmp(argv[i], "--no-attack") =3D=3D 0) {
-> >                         opts.attack =3D false;
-> >                 } else if (strcmp(argv[i], "--listen") =3D=3D 0) {
-> >                         opts.listen_mode =3D true;
-> >                 } else if (strcmp(argv[i], "--bound") =3D=3D 0) {
-> >                         opts.listen_mode =3D false;
-> >                 } else {
-> >                         usage(argv[0]);
-> >                         return 1;
-> >                 }
-> >         }
-> >
-> >         if (opts.groups > UINT32_MAX / opts.sockets) {
-> >                 fprintf(stderr, "socket count overflow\n");
-> >                 return 1;
-> >         }
-> >
-> >         if (raise_nofile_limit((rlim_t)opts.sockets * opts.groups + 64U=
-) < 0)
-> >                 return 1;
-> >
-> >         if (opts.cpu_set && pin_to_cpu(opts.cpu) < 0)
-> >                 return 1;
-> >
-> >         if (setup_sockets(opts.listen_mode, opts.groups, opts.sockets,
-> >                           opts.stride, opts.port, &fds, &port) < 0)
-> >                 return 1;
-> >
-> >         printf("setup_complete groups=3D%u sockets_per_group=3D%u total=
-_sockets=3D%u base_port=3D%d stride=3D%u mode=3D%s nops=3D%u repeat=3D%u co=
-mpare=3D%s attack=3D%s\n",
-> >                opts.groups, opts.sockets, opts.groups * opts.sockets,
-> >                port, opts.stride, opts.listen_mode ? "listen" : "bound"=
-,
-> >                opts.nops, opts.repeat,
-> >                opts.compare ? "yes" : "no",
-> >                opts.attack ? "yes" : "no");
-> >
-> >         if (opts.compare) {
-> >                 double wall_ms;
-> >
-> >                 if (run_dump(opts.listen_mode, false, 0, &wall_ms) < 0)=
- {
-> >                         teardown_sockets(fds, opts.groups * opts.socket=
-s);
-> >                         return 1;
-> >                 }
-> >                 printf("baseline wall_ms=3D%.3f\n", wall_ms);
-> >         }
-> >
-> >         if (opts.attack) {
-> >                 for (i =3D 0; i < opts.repeat; i++) {
-> >                         double wall_ms;
-> >
-> >                         if (run_dump(opts.listen_mode, true, opts.nops,=
- &wall_ms) < 0) {
-> >                                 teardown_sockets(fds, opts.groups * opt=
-s.sockets);
-> >                                 return 1;
-> >                         }
-> >                         printf("attack_run=3D%u wall_ms=3D%.3f\n", i + =
-1, wall_ms);
-> >                 }
-> >         }
-> >
-> >         teardown_sockets(fds, opts.groups * opts.sockets);
-> >         return 0;
-> > }
-> > ------END poc.c--------
-> >
-> > ----BEGIN crash log----
-> > watchdog: BUG: soft lockup - CPU#1 stuck for 3s! [poc:256]
-> > [   21.507468] Modules linked in:
-> > [   21.507471] CPU: 1 UID: 0 PID: 256 Comm: poc Not tainted 7.2.0-rc4-0=
-0390-g743916aa8e8c #5 PREEMPT(full)
-> > [   21.507472] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, a=
-rch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-> > [   21.507473] RIP: 0010:inet_diag_bc_sk (inet_diag.c:471 inet_diag.c:6=
-31)
-> > [   21.507499] Code: 00 00 00 0f 87 89 00 00 00 3c 02 0f 84 4e 01 00 00=
- 3c 03 0f 84 72 01 00 00 3c 01 75 31 0f b7 53 02 29 d5 48 01 d3 85 ed 7e 31=
- <0f> b6 03 3c 08 76 c2 3c 0b 0f 84 76 01 00 00 77 3a 3c 09 0f 84 54
-> > All code
-> > =3D=3D=3D=3D=3D=3D=3D=3D
-> >    0:   00 00                   add    %al,(%rax)
-> >    2:   00 0f                   add    %cl,(%rdi)
-> >    4:   87 89 00 00 00 3c       xchg   %ecx,0x3c000000(%rcx)
-> >    a:   02 0f                   add    (%rdi),%cl
-> >    c:   84 4e 01                test   %cl,0x1(%rsi)
-> >    f:   00 00                   add    %al,(%rax)
-> >   11:   3c 03                   cmp    $0x3,%al
-> >   13:   0f 84 72 01 00 00       je     0x18b
-> >   19:   3c 01                   cmp    $0x1,%al
-> >   1b:   75 31                   jne    0x4e
-> >   1d:   0f b7 53 02             movzwl 0x2(%rbx),%edx
-> >   21:   29 d5                   sub    %edx,%ebp
-> >   23:   48 01 d3                add    %rdx,%rbx
-> >   26:   85 ed                   test   %ebp,%ebp
-> >   28:   7e 31                   jle    0x5b
-> >   2a:*  0f b6 03                movzbl (%rbx),%eax              <-- tra=
-pping instruction
-> >   2d:   3c 08                   cmp    $0x8,%al
-> >   2f:   76 c2                   jbe    0xfffffffffffffff3
-> >   31:   3c 0b                   cmp    $0xb,%al
-> >   33:   0f 84 76 01 00 00       je     0x1af
-> >   39:   77 3a                   ja     0x75
-> >   3b:   3c 09                   cmp    $0x9,%al
-> >   3d:   0f                      .byte 0xf
-> >   3e:   84                      .byte 0x84
-> >   3f:   54                      push   %rsp
-> >
-> > Code starting with the faulting instruction
-> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >    0:   0f b6 03                movzbl (%rbx),%eax
-> >    3:   3c 08                   cmp    $0x8,%al
-> >    5:   76 c2                   jbe    0xffffffffffffffc9
-> >    7:   3c 0b                   cmp    $0xb,%al
-> >    9:   0f 84 76 01 00 00       je     0x185
-> >    f:   77 3a                   ja     0x4b
-> >   11:   3c 09                   cmp    $0x9,%al
-> >   13:   0f                      .byte 0xf
-> >   14:   84                      .byte 0x84
-> >   15:   54                      push   %rsp
-> > [   21.507500] RSP: 0018:ffffbb290036b7a8 EFLAGS: 00000202
-> > [   21.507501] RAX: 0000000000000000 RBX: ffff98bcf7ca2588 RCX: 0000000=
-000000000
-> > [   21.507502] RDX: 0000000000000004 RSI: ffff98bcf7ca0048 RDI: ffff98b=
-cf61c9840
-> > [   21.507502] RBP: 000000000000dabc R08: 0000000000000000 R09: ffff98b=
-cdfb91440
-> > [   21.507502] R10: 0000000000000000 R11: ffff98bcdfb91444 R12: 0000000=
-000000000
-> > [   21.507503] R13: 0000000000002f10 R14: 0000000000000000 R15: 0000000=
-000000002
-> > [   21.507508] FS:  0000000002be8380(0000) GS:ffff98bda3b6e000(0000) kn=
-lGS:0000000000000000
-> > [   21.507509] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > [   21.507510] CR2: 00007f62b3bb9000 CR3: 000000000c6b6005 CR4: 0000000=
-000370ef0
-> > [   21.507510] Call Trace:
-> > [   21.507512]  <TASK>
-> > [   21.507512]  ? inet_diag_bc_sk (inet_diag.c:632)
-> > [   21.507514]  tcp_diag_dump (tcp_diag.c:366)
-> > [   21.507524]  ? ___slab_alloc (slub.c:1080 slub.c:4524)
-> > [   21.507526]  ? __kmalloc_node_track_caller_noprof (slub.c:4936 slub.=
-c:5361 slub.c:5497)
-> > [   21.507527]  ? inet_diag_handler_cmd (netlink.h:341 inet_diag.c:983)
-> > [   21.507528]  ? __alloc_skb (skbuff.c:715)
-> > [   21.507531]  ? kmalloc_reserve (skbuff.c:637 (discriminator 1))
-> > [   21.507532]  __inet_diag_dump (inet_diag.c:823)
-> > [   21.507533]  netlink_dump (af_netlink.c:2331)
-> > [   21.507543]  __netlink_dump_start (af_netlink.c:2446)
-> > [   21.507544]  inet_diag_handler_cmd (netlink.h:341 inet_diag.c:983)
-> > [   21.507545]  ? __pfx_inet_diag_dump_start (inet_diag.c:891)
-> > [   21.507546]  ? __pfx_inet_diag_dump (inet_diag.c:928)
-> > [   21.507547]  ? __pfx_inet_diag_dump_done (inet_diag.c:508)
-> > [   21.507548]  sock_diag_rcv_msg (sock_diag.c:248 sock_diag.c:284)
-> > [   21.507550]  ? __pfx_sock_diag_rcv_msg (sock_diag.c:306)
-> > [   21.507551]  netlink_rcv_skb (af_netlink.c:2556)
-> > [   21.507553]  netlink_unicast (af_netlink.c:1319 af_netlink.c:1345)
-> > [   21.507554]  netlink_sendmsg (af_netlink.c:1900)
-> > [   21.507556]  ____sys_sendmsg (socket.c:775 (discriminator 1) socket.=
-c:790 (discriminator 1) socket.c:2684 (discriminator 1))
-> > [   21.507558]  ___sys_sendmsg (socket.c:2738)
-> > [   21.507559]  __sys_sendmsg (socket.c:2770)
-> > [   21.507560]  do_syscall_64 (syscall_64.c:63 syscall_64.c:94)
-> > [   21.507563]  entry_SYSCALL_64_after_hwframe (entry_64.S:121)
-> > [   21.507564] RIP: 0033:0x421964
-> > [   21.507566] Code: c2 c0 ff ff ff f7 d8 64 89 02 48 c7 c0 ff ff ff ff=
- eb b5 0f 1f 00 f3 0f 1e fa 80 3d fd 26 09 00 00 74 13 b8 2e 00 00 00 0f 05=
- <48> 3d 00 f0 ff ff 77 4c c3 0f 1f 00 55 48 89 e5 48 83 ec 20 89 55
-> > All code
-> > =3D=3D=3D=3D=3D=3D=3D=3D
-> >    0:   c2 c0 ff                ret    $0xffc0
-> >    3:   ff                      (bad)
-> >    4:   ff f7                   push   %rdi
-> >    6:   d8 64 89 02             fsubs  0x2(%rcx,%rcx,4)
-> >    a:   48 c7 c0 ff ff ff ff    mov    $0xffffffffffffffff,%rax
-> >   11:   eb b5                   jmp    0xffffffffffffffc8
-> >   13:   0f 1f 00                nopl   (%rax)
-> >   16:   f3 0f 1e fa             endbr64
-> >   1a:   80 3d fd 26 09 00 00    cmpb   $0x0,0x926fd(%rip)        # 0x92=
-71e
-> >   21:   74 13                   je     0x36
-> >   23:   b8 2e 00 00 00          mov    $0x2e,%eax
-> >   28:   0f 05                   syscall
-> >   2a:*  48 3d 00 f0 ff ff       cmp    $0xfffffffffffff000,%rax        =
- <-- trapping instruction
-> >   30:   77 4c                   ja     0x7e
-> >   32:   c3                      ret
-> >   33:   0f 1f 00                nopl   (%rax)
-> >   36:   55                      push   %rbp
-> >   37:   48 89 e5                mov    %rsp,%rbp
-> >   3a:   48 83 ec 20             sub    $0x20,%rsp
-> >   3e:   89                      .byte 0x89
-> >   3f:   55                      push   %rbp
-> >
-> > Code starting with the faulting instruction
-> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >    0:   48 3d 00 f0 ff ff       cmp    $0xfffffffffffff000,%rax
-> >    6:   77 4c                   ja     0x54
-> >    8:   c3                      ret
-> >    9:   0f 1f 00                nopl   (%rax)
-> >    c:   55                      push   %rbp
-> >    d:   48 89 e5                mov    %rsp,%rbp
-> >   10:   48 83 ec 20             sub    $0x20,%rsp
-> >   14:   89                      .byte 0x89
-> >   15:   55                      push   %rbp
-> > [   21.507567] RSP: 002b:00007ffde1d1cfc8 EFLAGS: 00000202 ORIG_RAX: 00=
-0000000000002e
-> > [   21.507568] RAX: ffffffffffffffda RBX: 0000000002bea910 RCX: 0000000=
-000421964
-> > [   21.507570] RDX: 0000000000000000 RSI: 00007ffde1d1d040 RDI: 0000000=
-000020003
-> > [   21.507571] RBP: 0000000000020003 R08: 0006b49d20000000 R09: 00007f6=
-2b3bb50e8
-> > [   21.507571] R10: 0000000000000004 R11: 0000000000000202 R12: 00007ff=
-de1d1d110
-> > [   21.507571] R13: 0000000000003ffc R14: 0000000000010044 R15: 0000000=
-00000fffc
-> > [   21.507572]  </TASK>
-> > [   21.507573] Kernel panic - not syncing: softlockup: hung tasks
-> > -----END crash log-----
-> >
-> > Best regards,
-> > Zihan Xi
-> >
-> > changes in v2:
-> >   - Rebased onto net commit e2a6641e3bfd (2026-08-27).
-> >   - Corrected the non-listener PoC state mask to TCPF_BOUND_INACTIVE.
-> >   - Added current-bucket cursor validation for TCP listener, bind, and
-> >     ehash paths, and for MPTCP listeners, with safe restart on mismatch=
-.
-> >   - Reject listen/ehash/MPTCP listener cursors unless sk_state still
-> >     matches the table being walked.
-> >   - Count TIME_WAIT bind nodes toward the batch limit and resume them v=
-ia
-> >     tw_tb2 instead of treating them as inet_connection_sock.
-> >   - Kept the listener and bound-only TCP Fixes tags; dropped 7e3aab4a9c=
-d7
-> >     because that commit only converted the existing ehash dump lock typ=
-e.
-> >   - Sorted new TCP dump local declarations reverse xmas tree.
-> >   - Moved INET_DIAG_DUMP_CURSOR_MPTCP_LISTEN into the MPTCP patch.
-> >   - Read icsk_ulp_data with rcu_dereference() after dropping the MPTCP
-> >     listener lock.
-> >   - Refreshed the inline PoC and matching decoded crash log artifacts.
-> >   - Corrected wording and removed duplicate crash-log provenance text.
-> >   - Made PoC defaults match unshare -Urn ./poc (4 listener groups).
-> >   - Clarified crash-log UID 0, cursor fallback restart, and that UDP/RA=
-W
-> >     diag locks are outside this series.
-> >   - v1 Link: https://lore.kernel.org/all/cover.1785307984.git.zihanx@ne=
-busec.ai/
-> >
-> > Zihan Xi (2):
-> >   tcp: diag: bound bucket lock hold in tcp_diag_dump()
-> >   mptcp: diag: bound listener bucket lock hold
-> >
-> >  include/linux/inet_diag.h     |  15 ++
-> >  include/net/inet_hashtables.h |  18 ++
-> >  net/ipv4/inet_diag.c          |  13 ++
-> >  net/ipv4/inet_hashtables.c    |  18 --
-> >  net/ipv4/tcp_diag.c           | 338 +++++++++++++++++++++++++---------
-> >  net/mptcp/mptcp_diag.c        | 124 +++++++++----
-> >  6 files changed, 383 insertions(+), 143 deletions(-)
-> >
-> > --
-> > 2.43.0
-> >
+Add device tree binding for the CIX Sky1 USB3 PHY, a multi-port
+SuperSpeedPlus PHY supporting up to two USB3 lanes.
 
-Hi Kuniyuki,
+Signed-off-by: Hongliang Yang <hongliang.yang@cixtech.com>
+---
+ .../bindings/phy/cix,sky1-usb3-phy.yaml       | 107 ++++++++++++++++++
+ 1 file changed, 107 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
 
-Thanks for the review.
+diff --git a/Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml b/Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
+new file mode 100644
+index 000000000000..5b025a48c844
+--- /dev/null
++++ b/Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
+@@ -0,0 +1,107 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/phy/cix,sky1-usb3-phy.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: CIX Sky1 USB3 PHY
++
++maintainers:
++  - Hongliang Yang <hongliang.yang@cixtech.com>
++
++description:
++  The CIX Sky1 USB3 PHY is a multi-port SuperSpeedPlus PHY that
++  supports up to two USB3 lanes. Each port is represented as a
++  child node of the PHY controller.
++
++properties:
++  compatible:
++    const: cix,sky1-usb3-phy
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: APB register interface clock
++      - description: PHY reference clock
++
++  clock-names:
++    items:
++      - const: apb
++      - const: ref
++
++  resets:
++    items:
++      - description: PHY reset
++      - description: PHY APB preset
++
++  reset-names:
++    items:
++      - const: core
++      - const: apb
++
++  "#address-cells":
++    const: 1
++
++  "#size-cells":
++    const: 0
++
++patternProperties:
++  "^usb-port@[0-9a-f]+$":
++    type: object
++    description:
++      A single USB3 PHY port/lane.
++
++    properties:
++      reg:
++        maxItems: 1
++
++      "#phy-cells":
++        const: 0
++
++    required:
++      - reg
++      - "#phy-cells"
++
++    additionalProperties: false
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - resets
++  - reset-names
++  - "#address-cells"
++  - "#size-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/cix,sky1.h>
++    #include <dt-bindings/reset/cix,sky1-s5-system-control.h>
++
++    usb-phy@9210000 {
++        compatible = "cix,sky1-usb3-phy";
++        reg = <0x9210000 0x40000>;
++        #address-cells = <1>;
++        clocks = <&scmi_clk CLK_TREE_USB3A_PHY3_GATE>,
++                 <&scmi_clk CLK_TREE_USB3A_PHY_x2_REF>;
++        clock-names = "apb", "ref";
++        resets = <&s5_syscon SKY1_USBPHY_SS_RST_N>,
++                 <&s5_syscon SKY1_USBPHY_SS_PST_N>;
++        reset-names = "core", "apb";
++        #size-cells = <0>;
++
++        usb-port@0 {
++            reg = <0>;
++            #phy-cells = <0>;
++        };
++
++        usb-port@1 {
++            reg = <1>;
++            #phy-cells = <0>;
++        };
++    };
+-- 
+2.54.0
 
-I understand the concern about the added complexity in
-tcp_diag_dump(). I will drop the cursor/batching approach.
-
-If a much smaller change would be useful, I can respin to
-only move the bytecode/filter/fill work out of the bucket
-lock and keep the existing s_num restart. If not, I will
-drop the series.
-
-Thanks,
-Zihan
