@@ -1,80 +1,32 @@
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 252BE30C60D
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 23:33:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2700F317163;
+	Thu,  3 Sep 2026 23:38:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788478421; cv=none; b=YTjFm81RkhVKc9XQ8WXNYCa3eoioaDK4WhyyW1FPs9eSRDo34TC6lnqX7Er4dIoVSIWBQbRnFBcnlFmtg96x8GJWvoxe+Sf6Wk8Ioyq+G2dtbx0KRQSn8+63sE1WKdJwyvyITnoGMApkcC7eVGehseLZ7fC4gG8CangO7xtacrQ=
+	t=1788478690; cv=none; b=j9EJazXg2jyj0kFOoCnQlJosy29NdQFvS09ci/vZJLS2dlyuPktVy58GsvxtcGTZWjyo8QgUQmByHOBDWTU67dKx31wKnhQ9s1Gqa4x/+PYTvYuQcAr+Z6b0AoTIvEh8O2V7XXH0Z4GVqz7viYt3KMUsivqNITDuxGelTdUa03c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788478421; c=relaxed/simple;
-	bh=/qWtFqHBkrtLXXAD1XpvUaW1zHKMs9ArEGyHDtyLBkA=;
+	s=arc-20240116; t=1788478690; c=relaxed/simple;
+	bh=R22rTRS8i9oV4XQC8K1yvIUDAkDqyALkPaWr3zupxq4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Cs0gZApbQwipTZWdPIViOVlYUCUbmNXriPX5dgSK/pvB3mhW4a8xG1Dnwz+XZpEgswmRtAwO8ThFw8Hn9tA40QCxLvmUVQVt4I159IjWWlvNuJgNUX7KzI94etSZ7a4c31Ier7GHzvNbpAzQBsUHdk+M6ZB5alPQp8xfIWMGtwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=JMmAKuRF; arc=none smtp.client-ip=209.85.216.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	 In-Reply-To:Content-Type; b=M90M5penJDoPAbD3UJAjhIfRByk7tHl3JOVyRt/yEaJfXPFEgQReZCFRS5WDLoS6OTF/Cv9ngQjdl0JgXrGz6nysV2aBR9HWVfBtEQuz05+oupMZ5rCoOgz3zXTQhOnT14TF6kApCwdSHVdVq2j54w9QV5dXdLYJGmDBBgQSPUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=pWFcCily; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="JMmAKuRF"
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-38d489b6b71so456408a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 16:33:39 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788478419; x=1789083219;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Qy1+fiy5vVG6Fgi2325/mnWQkrttmVDQVIUSqg+HoGM=;
-        b=sI53AZ7JUaxRxgJFidxjsIARPXoxwfE1UiJEbC4MAPF2N4zvbOhSZ4zPgtCW6xZb5V
-         tUjROtkZDgDP8j2yM4LITR/TA3fda5u/CyYlkbaS2AoEpZ6uN0KIO8uMClmtiRXPHr77
-         MgFXJimUHfVEp4kg/kgyO4z65ZSxybDjADV0uTIRzYQa8oG8Zn8oerCVDauvpgEjrxlc
-         dPYyga3tZUqmGbvaQvZFTqUrsNoNsCF7raaFcTboRFnKKEj6WiwaW2k+GGjPqlNa/XrF
-         xHmaDM+d+c04LYQov/nFLbi93H31tupy75EOOys5sxDQggdWeAqK1w6ba0ySeEM1PuTu
-         +Zjw==
-X-Forwarded-Encrypted: i=1; AKwUvBzXULmLeVK+t9xHoX42zMy4iFV0SPWqjQ1Va+LBnaYhpNkLt+DKHkyEOKvLMgXAksq+cLpt1HeyBVW4sfA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nwesvam38ObW5rLAvFjxSSVndreB6YNNeZj40leGwHf1YAlKhX
-	sV1U5g+OYqwzPvoavMCk/6bWe9TE/1qXFsr0CLXUSjyn9X+S3kr1bc2ZUeORzkDiR+YOyutKRUt
-	860cqKpkBRl/k8taotS0sZS6pKElr7JhcMdqAN3rgtLo7BdE8oLHKIL4/YfPyeyXDHWuxX9laiH
-	JqGztMigyxkf2HS9N2b3fFDBZgWTurhzDXSivUzMNbk+KS5kHEx3PESdWRMzCg7fcZYP3kqwUNB
-	pdg/1fZOGuD63tTzgxYGbBo
-X-Gm-Gg: AYBFou1NvtxHScvvao9TTxHFToSJ3HOxkWjVSpZlW/on0Ez7STZ7wceiPG3DGWDouwc
-	VKcjOAIuH5kpc6DMahNsDqZ3ZOtwfC9YGoQdXR8cdbNEbJNrS3RgT7HnSr26pWN5cBCV6uHe3De
-	JNr1CZY7Kzi5HXEjNzU38dFdYqHIqDuHgn37LMMNSHYyCLo1IW/rZMDeR7oByCPj8ICiGe9VYze
-	y7m6iM4w73EtC61kkeq3HCgi+OFxKZdy0DFM6PN/gFgV1B7Z8oqFvLMMntm4mOx45kMdiW31HAu
-	8lB/H6gtZUMqfEHcP7Q/uShNUE4GP/4mBfS2O1W0HhBDlRxUEQzBPYIK7x2DuQLJsi6PyOxCMUM
-	qUWxCTQtqE/tXpdlK5+YtLIWkZomNwwFAFzHD7uo5aktBrUD9fzmJBdFPsRAkUGCNp7u7jgsj7C
-	8pDtULlzsJtxcMDWji4a2VqsDH04i9jIt5KUmIlpeuxA8=
-X-Received: by 2002:a17:90b:2ecd:b0:396:40e6:f631 with SMTP id 98e67ed59e1d1-39b2609f306mr3270557a91.3.1788478419383;
-        Thu, 03 Sep 2026 16:33:39 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-39ae608911dsm890080a91.0.2026.09.03.16.33.39
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 03 Sep 2026 16:33:39 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-398d0010cfaso638183a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 16:33:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1788478417; x=1789083217; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Qy1+fiy5vVG6Fgi2325/mnWQkrttmVDQVIUSqg+HoGM=;
-        b=JMmAKuRFekgUrJYITSj2Oh4pgOODAKpC6WpGKRSJ1E5Xf7xrM+C+nsJB0tkBn/FgLQ
-         g3yVsAd7aJx9bVpw1TxrUg4LbCeuHbYLLdzGiXfCFA71rGoop8lOw0ltAjVApisb+uo3
-         POzfwhdmz71O7++zX69EySOrLcev+SWn1/b+g=
-X-Forwarded-Encrypted: i=1; AKwUvBzXHS4t+4ypVP+6MfXaJgHGiiHd6X9H0EEqXnjCGwKfUz6UQ5XONF2UyNN+3a4AnMFbgZ+JnKUEd9T9BLw=@vger.kernel.org
-X-Received: by 2002:a17:90b:1343:b0:38e:9eb2:9d43 with SMTP id 98e67ed59e1d1-39b261b1bcfmr3210963a91.16.1788478417613;
-        Thu, 03 Sep 2026 16:33:37 -0700 (PDT)
-X-Received: by 2002:a17:90b:1343:b0:38e:9eb2:9d43 with SMTP id 98e67ed59e1d1-39b261b1bcfmr3210904a91.16.1788478417146;
-        Thu, 03 Sep 2026 16:33:37 -0700 (PDT)
-Received: from [10.211.247.235] ([192.19.50.250])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885d29esm2238141eec.2.2026.09.03.16.33.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 16:33:36 -0700 (PDT)
-Message-ID: <b858b84b-a1ef-45b4-a7c1-35ba28490e35@broadcom.com>
-Date: Thu, 3 Sep 2026 16:33:42 -0700
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="pWFcCily"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=uRpUrzAIFjYym95kQ3qVHTU3gGRgeQr9wo+Qelo0Hjc=;
+	b=pWFcCilySSzrWE5DcN5ZIZXHpOigjdlHbNYqTIiaIB72O3hB7rEf8i/iYnBFLX
+	9Aklbalm3VEUoGdI6bLw/iXde1Ziqr5kD7T8wi8u/t4a7ufU8fVHxO2JdDF5dYUl
+	q45qENWwO6rUNgj8jTX8fN3bDQDZKFHvM7+I7in+G/xxE=
+Received: from [IPV6:2409:8900:1a96:d5f:519a:bd19:ff78:1325] (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wBX1h7ABJpqwN2yAQ--.239S2;
+	Fri, 04 Sep 2026 07:37:39 +0800 (CST)
+Message-ID: <c43b2ea8-e80f-4f63-8b07-4c3f5b845edb@163.com>
+Date: Fri, 4 Sep 2026 07:37:35 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,28 +34,103 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] x86/vmware: Fix i386 high-bandwidth hypercall
- arguments
-To: Zack Rusin <zack.rusin@broadcom.com>, Borislav Petkov <bp@alien8.de>,
- Ajay Kaher <ajay.kaher@broadcom.com>,
- Alexey Makhalov <alexey.makhalov@broadcom.com>, x86@kernel.org
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin"
- <hpa@zytor.com>, virtualization@lists.linux.dev,
- bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org,
- Peter Zijlstra <peterz@infradead.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
- Nathan Chancellor <nathan@kernel.org>, llvm@lists.linux.dev
-References: <4ab10678a8f50053934b62b56af81f881c1d3798.1788414669.git.zack.rusin@broadcom.com>
-From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+Subject: Re: [PATCH 1/2] ntfs: fix volume flag update races
+To: Hongling Zeng <zhongling0719@126.com>,
+ Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
+ hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260903012104.185926-1-zenghongling@kylinos.cn>
+ <d576d6d6-e378-4124-817a-f019c09c391e@163.com> <6A99158E.2040006@126.com>
 Content-Language: en-US
-In-Reply-To: <4ab10678a8f50053934b62b56af81f881c1d3798.1788414669.git.zack.rusin@broadcom.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <6A99158E.2040006@126.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wBX1h7ABJpqwN2yAQ--.239S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXrWfZr1DtFyUCrWfCr45KFg_yoW5Cr47pF
+	Wa9rnrWw4kKF4Ikr1vya1fWryFgFWxAF43KryrGw4xXwn8AF17XFW3Ka1FqrykCryfKwnI
+	qr40y398u3W7AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UTKZAUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6QNyPWqaBMP1hAAA3j
 
-LGTM!
 
-Reviewed-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 
--- 
-Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+在 2026/9/3 14:37, Hongling Zeng 写道:
+> Thanks for the careful reading
+> 
+> These two sites cannot actually race ntfs_sync_fs(): ntfs_reconfigure() 
+> (via do_remount()) and ntfs_put_super() (via generic_shutdown_super()) 
+> both run with sb->s_umount
+> held for write, while the sync(2)/syncfs(2) paths only take it for read 
+> through iterate_supers(). So the check and the clear inside 
+> ntfs_clear_volume_flags() are
+> effectively a single non-interleavable pair with respect to sync — the 
+> window is not merely narrow but structurally closed.
+> 
+> We deliberately keep ntfs_clear_volume_dirty_if_no_errors() for the 
+> paths that can genuinely race sync (currently only ntfs_sync_fs() 
+> itself), so converting these two would
+> blur that line rather than improve consistency.
+
+Hi Hongling,
+
+    Thank you for the explanation.
+    However, I believe we may be discussing different races.
+    Your explanation addresses why ntfs_reconfigure()/ntfs_put_super() 
+cannot run concurrently with ntfs_sync_fs().
+    My concern is whether these paths can race with an NTFS writer/error 
+path while checking NVolErrors(vol) and clearing VOLUME_IS_DIRTY.
+
+   For ntfs_put_super(), I agree that no change is needed.
+   It runs only during the final filesystem shutdown, when ordinary 
+userspace writers and related I/O can no longer run concurrently with it.
+
+   For a normal read-only remount, reconfigure_super() calls 
+sb_prepare_remount_readonly(). This blocks new mount writers and checks 
+for existing writers; if writers are present, the remount does not 
+proceed. Therefore, the normal remount-ro path does not have the 
+concurrency issue I was concerned about.
+
+   However, an emergency/forced remount uses SB_FORCE and skips 
+sb_prepare_remount_readonly(), calling only sb_start_ro_state_change(). 
+This does not wait for writers that have already entered the filesystem. 
+Such writers use sb->s_writers and do not need to acquire s_umount.
+The following sequence is therefore possible:
+NTFS writer                         forced remount
+   -----------                         -------------
+   file_start_write()
+   Enter the NTFS write path
+   Set or prepare to set VOLUME_IS_DIRTY
+   Pause
+                                       Acquire s_umount for writing
+                                       SB_FORCE
+                                       sb_start_ro_state_change()
+                                       ntfs_reconfigure()
+                                         sync_filesystem()
+                                         NVolErrors() == false
+                                         Clear VOLUME_IS_DIRTY
+                                       Set SB_RDONLY
+   Resume the writer
+   Continue modifying metadata
+   An error occurs
+   NVolSetErrors(vol)
+
+The final state may be:
+   NVolErrors(vol) == true
+   VOLUME_IS_DIRTY == false
+
+   Therefore, the s_umount locking relationship only rules out 
+concurrency with ntfs_sync_fs(); it does not rule out concurrency 
+between a forced/emergency remount and an NTFS writer that is already in 
+progress.
+
+   Please consider whether this case also needs to be handled. If you 
+agree with my analysis, I suggest adding a follow-up patch to address 
+this race.
+   This is my current understanding of the issue. I welcome further 
+discussion, and please feel free to correct me if any part of my 
+analysis is inaccurate.
+
+Thanks,
+Baolin.
+
