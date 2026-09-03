@@ -1,309 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED604052A2
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 22:00:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFD4D19E97B;
+	Thu,  3 Sep 2026 22:01:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788472845; cv=none; b=l5cMomYI/Kyy4ec3UjvcPJgwJN988o/4O6sRuJzNjKYMYUnVDrv/irFfUPQOFH4nD4pJpiFgghHz1YdBgL7rKUpvCON5o17PapS1kLKlIdjH9/ZFTuo3f6itOqox7VMcGHXlasGVLntbVrg0AXAPq08J2hpOp0f4ENiYrt2Oh3U=
+	t=1788472899; cv=none; b=EFY2GlejAXto5PsxfIHT7pk4Jm5h5pJ/vpqhIG2sVXRgFrZPGj6oBVyoEFPvqDG+qph76IhI8slM9QWKOPwXPG5AtVEr0I0EXGufUhtmTdSbS0PkoOeXCDDnfi/Kt8ZBpniJWnnKbrwjEZ8v9nI2LPWhjXDo2SndRtVq7XqnKy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788472845; c=relaxed/simple;
-	bh=8HgvklB29rh0ClPeXXm7oYhqE28MptayobnKEetJy1M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YiEfLVOaYTkZnI6wTyoOZ1he5a+/09JqdTRNzb3iZdA2SxHtl9joUOxgjoThHMgl4is6N3AVLcf9AUQzbGDunnMZaKm/QGopdvpbh52f9HB2AWWu8X2czahjbhAwckBU1/Oz9fHizYRYE1kZmeG8UA9kape+HcldHOgUbpk4QH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=duU2wqID; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788472899; c=relaxed/simple;
+	bh=PoA/DHYNZOe/21o0emYovdyOo6vCKMcKpP39FAe9SYU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j1WU9pidtS1rMV6osm7bRZ5wmGtyXfh6tWdtLZpx2deeqzcHXAyQNDuIh0rLSUdgIRisrmRM5DTLfbZW84J+QlvDWCHWDk+kLAl/JjSnlBMfSjYqBmo4tYg6gQ3D7VFDPvEeVa3bdbhAKVwdCt2kzO4Bz5t5tFUOuR0A44jWSh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=dXQmaRN+; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="duU2wqID"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3D351F00ADB
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 22:00:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788472843;
-	bh=cDOcenxVcTfG2Ivwu2jQyEAhFsfes+FRIZ0N5RdiNPA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=duU2wqIDfg+PzVi7GNqCL/JAWbtHuvINHKWk+jn1c2BEActB9OqkbnrpS9z0R3Hm3
-	 MIokDyUCVtuOQjX5OH7zszYjJvNnDRg7/RcSrad++pHia7ZtMk1rLTnvrADmSG2e0T
-	 cTxVL4vJXx6mH+KUm1jz+fDu0ocRPtbe8/valyEyCItpaz9Z/urnuCLO5lVirhqQwk
-	 N3wb3bayV9gseHMXqhGd2J5xg9ceSnK3nVMzJUlKjUrk90wQwCEwJtJNiu8f0H5Oh/
-	 nbUxGglGNyym7u1tluqc7HAT0Ul8Cqv1a9g4+yU5fQCN4rxfzQ8419e/ePMvpnGpCC
-	 bOnN6P2lMLihA==
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c250a2bc3b3so38196566b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 15:00:43 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzdqXIufndwdRCmdP3e7HDxigoLxBy3eOVgLOAQoEFxrZodyJF6jwbKeTZ9UVQtXP0KEu13C9okAx6KZO8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nt8/CFuu8E3Sddoxifq4VqpwNHL7BHB2Xsp3DHs9SYW9/d7u85
-	M8wPOPcrKy4zfFIQp4/gt6cNim+feDfFwK9Ms33LAtUoEPjHG0aVu782hpSEZrqhMTJKh2ksd0S
-	OQEiMu1jasCCCI9u/7bMrIwnWJ6R3gH8=
-X-Received: by 2002:a17:906:8d89:b0:c24:c250:a6b5 with SMTP id
- a640c23a62f3a-c260c993a9amr120576666b.12.1788472842652; Thu, 03 Sep 2026
- 15:00:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="dXQmaRN+"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683K1b5c3922333;
+	Thu, 3 Sep 2026 22:01:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=QAmqejKNmNP+mfMNDq09ycqUSobTLK4ccmsLLo8OZ
+	EU=; b=dXQmaRN+qA9U4C/dP0DJ3eB+ePLXIY/KKcVH2jFBOmmwyzMZsRZfLUd6N
+	XgT0Dy7LwQD4bryuPW6nq8sk5n7p6RGEiKizsjfjq/8rjhnB7K3m+eNsYNAHR7Zl
+	QXbfck/1Wjd7mfUd4IwOTbx6sga7lKiBHnJoN+GRUu40aIGFvC4le5g/VJ9KBzYT
+	9iDbWrtes/z4zdz8O096anYpt/Bi9/Z9j8bJaCYrhjwDHloYRjt9Btw0YhQEeJqU
+	5tZmoSbrr+PbSelr46QhKd2aW+Gm3g8M0H4PbkF/fFs+Ke/i7ilq79lkIoMSGFFU
+	zuDKMNkVTKMVSVHWtGnEGIzeW1X/g==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbpx5y8fk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 22:01:28 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 683LuIx2015917;
+	Thu, 3 Sep 2026 22:01:27 GMT
+Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gcbygshmg-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 22:01:27 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
+	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 683M1Qi97799774
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 3 Sep 2026 22:01:26 GMT
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0B3E958054;
+	Thu,  3 Sep 2026 22:01:26 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5781A58045;
+	Thu,  3 Sep 2026 22:01:25 +0000 (GMT)
+Received: from li-4c4c4544-004d-3310-8032-b2c04f503334.ibm.com.com (unknown [9.61.75.10])
+	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  3 Sep 2026 22:01:25 +0000 (GMT)
+From: David Dai <zdai@linux.ibm.com>
+To: jv@jvosburgh.net, andrew+netdev@lunn.ch, davem@davemloft.net,
+        edumazet@google.com, kuba@kernel.org, pabeni@redhat.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        pradeeps@linux.ibm.com, zdai@linux.ibm.com
+Subject: [PATCH 1/1] bonding: crypto offload enabled, non-offload slave failover, rekey failed
+Date: Thu,  3 Sep 2026 17:01:23 -0500
+Message-ID: <20260903220123.475685-1-zdai@linux.ibm.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903175856.4065099-1-yosry@kernel.org> <apnqonqMBZ2GeGEq@google.com>
-In-Reply-To: <apnqonqMBZ2GeGEq@google.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 3 Sep 2026 15:00:30 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zPcvZpy=379oWNY_+p2XZ74On5LPL+53evbRqq5OD1H=g@mail.gmail.com>
-X-Gm-Features: AcwNN1XMVsEnoFpkVZlFWh79egRk2_lNmEeXqOjTbquABEBypRG25byaT8f89zs
-Message-ID: <CAO9r8zPcvZpy=379oWNY_+p2XZ74On5LPL+53evbRqq5OD1H=g@mail.gmail.com>
-Subject: Re: [PATCH] KVM: SVM: Trigger new ASID allocation in both VMCBs on
- pCPU switch
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Stefan Teodorescu <fane@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=PPc/P/qC c=1 sm=1 tr=0 ts=6a99ee38 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8 a=90oEQoJImY1yxsAiUqMA:9
+X-Proofpoint-GUID: Qo0JzSIHupwwh--bEqgoveZz27Y7WDyG
+X-Proofpoint-ORIG-GUID: 4VT0vd94mrpP_zVaywdeIr8UAR0gSGdW
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDE5MyBTYWx0ZWRfXyvdhLxkqeAiT
+ YQLzs1P3TbtDL8sMk/0h6gKEtFX9Wxhf6xan1bX8aQyI//t8jJxuRD17egKGPmmfalCIXAvnG2Y
+ CwDMpBgAyVtVfziA8lBN5DB30kuANZ4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDE5MyBTYWx0ZWRfXz7f62GPPKHRT
+ SmPV3KSKN+wGeuoqz/0dBGkB394IlIjnjg6Nb8H5FxOR6TRviR+I40wl0QS4RI2dIzVJ7xphzj8
+ j95rQRZVmQm22qWUcc/kZ1w+NUa8d+tf+a2FkM98V+ZKGcszhNfqwbDb2B5E+sF9YwhiOH8AWjv
+ 4i6018H8ZzOjbo7c0OmqVmKDBAP8y0mBjE2yUwn9R5hicg77Bo5ucHEmsLFRNhqh8Vmx9dgCtOk
+ eB81R7091LfXYyy0ahqaqYuM2NHrxoNrNjS13WiDajSrb5FjauFyVS5ZlNP59PGXy9kSIQJyfuU
+ 8zJSvF3WNz73y3RYcBqPbqsOAuUwgQETN4/F/dg4MiBYENAwo9iU50VAtrPjG/kiA6PLjCfqTZM
+ iGG39MgBjVg6IMmPou+0SI5uZSX5mZDq5mFtEamAEClXh00N7LrmWKrk9LlZoWgxrlsCicf/ygE
+ 7gwlHu/GqXpo3QdssAg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_06,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609030193
 
-On Thu, Sep 3, 2026 at 2:53=E2=80=AFPM Sean Christopherson <seanjc@google.c=
-om> wrote:
->
-> On Thu, Sep 03, 2026, Yosry Ahmed wrote:
-> > When the pCPU where the VMCB was mostly recently used is switched, rese=
-t
-> > the ASID generation in both VMCBs, triggering new ASID allocation for
-> > the immediate VMRUN as well as the next VMRUN on the other VMCB.
-> >
-> > The ASID is shared between vmcb01 and vmcb02, and gets flushed on every
-> > nested transition. However, since pCPU tracking is done per VMCB, it is
-> > possible for one VMCB to allocate a new ASID when migrated to a new
-> > pCPU, and then the other VMCB reuses that ASID on the old pCPU. This ca=
-n
-> > result in the same ASID being used by multiple vCPUs on the old pCPU.
-> >
-> > Example scenario:
-> > - vCPU runs on pCPU A, vmcb01 is active, asid=3D1.
-> > - vCPU migrates to pCPU B, vmcb01 pCPU changes, new asid=3D2.
-> > - Another vCPU runs on pCPU A and allocates asid=3D2 as well.
-> > - vCPU migrates back to pCPU A, and then switches to vmcb02 before it
-> >   runs again with vmcb01.
-> > - No pCPU switch is detected for vmcb02, so VMRUN is done with asid=3D2=
-.
-> > - Two vCPUs end up using asid=3D2 on the same pCPU.
-> >
-> > Keep the VMCB dirtying to the active VMCB only. Clean bits are tracked
-> > by a pCPU for each VMCB, so do not unnecessarily dirty a VMCB if its
-> > pCPU does not change.
-> >
-> > Additionally, initialize the tracker pCPU for vmcb02 to -1 on nested
-> > enablement, so that the new ASID allocation in the scenario above
-> > happens even if EFER.SVME is disabled in L1 before migrating to the new
-> > pCPU (so asid_generation in vmcb02 is not reset), but enabled before
-> > returning to the old pCPU.
-> >
-> > No performance regression was noticed when overcommitting L1 vCPUs in L=
-0
-> > (to force rescheduling), pinning L1 <-> L2 vCPUs, and running CPUID in =
-a
-> > tight loop bouncing between 2 vCPUs in L2.
-> >
-> > An alternative (and perhaps more proper) fix would be tracking the ASID
-> > per-VMCB instead (e.g. [1]). However, that's a more involved change, an=
-d
-> > it would result in having different ASIDs for L1 and L2 without actuall=
-y
-> > properly maintaining them. It would probably work because all TLB
-> > flushes target the current VMCB, and the other VMCB is always flushed o=
-n
-> > nested transitions, but the code ends up in an arguably more fragile
-> > state. Punt a proper clean fix to an incoming (and overdue) overhaul of
-> > SVM's ASID usage [2].
-> >
-> > [1]https://lore.kernel.org/lkml/20250205182402.2147495-2-yosry.ahmed@li=
-nux.dev/
-> > [2]https://lore.kernel.org/kvm/20260728003557.1136583-1-yosry@kernel.or=
-g/
-> >
->
-> Fixes: 193015adf40d ("KVM: nSVM: Track the ASID generation of the vmcb vm=
-run through the vmcb")
->
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Stefan Teodorescu <fane@google.com>
-> > Signed-off-by: Yosry Ahmed <yosry@kernel.org>
-> > ---
-> >
-> > I wasn't sure if the last paragraph (or parts of it) fit in the
-> > changelog or below ---, so I just put it all in the changelog, but feel
-> > free to move things around.
->
-> I like having the alternative(s) listed in the changelog, it saves having=
- to
-> find the alternative when digging through git (if the reader is even awar=
-e there
-> was/is an alternative).
->
-> I agree with your assessment, tracking per-VMCB is absolutely the right a=
-pproach
-> given that the asid_generation is tracked per-VMCB.  But I hate how SVM m=
-anages
-> ASIDs and want to burn it with fire.  Taking a quick-and-dirty approach w=
-ill be
-> good motivation for landing the overhaul of ASIDs.
->
-> I _was_ going to propose an alternative solution, but it subtly doesn't w=
-ork.
-> More below.
->
-> > ---
-> >  arch/x86/kvm/svm/nested.c |  1 +
-> >  arch/x86/kvm/svm/svm.c    | 20 ++++++++++++++++----
-> >  2 files changed, 17 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-> > index 73f37b050d0a0..0c55c71fc6010 100644
-> > --- a/arch/x86/kvm/svm/nested.c
-> > +++ b/arch/x86/kvm/svm/nested.c
-> > @@ -1494,6 +1494,7 @@ int svm_allocate_nested(struct vcpu_svm *svm)
-> >       if (!svm->nested.msrpm)
-> >               goto err_free_vmcb02;
-> >
-> > +     svm->nested.vmcb02.cpu =3D -1;
-> >       svm->nested.initialized =3D true;
-> >       return 0;
-> >
-> > diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-> > index ea647938a2a65..c388c6598463e 100644
-> > --- a/arch/x86/kvm/svm/svm.c
-> > +++ b/arch/x86/kvm/svm/svm.c
-> > @@ -3765,14 +3765,26 @@ static int pre_svm_run(struct kvm_vcpu *vcpu)
-> >       struct vcpu_svm *svm =3D to_svm(vcpu);
-> >
-> >       /*
-> > -      * If the previous vmrun of the vmcb occurred on a different phys=
-ical
-> > -      * cpu, then mark the vmcb dirty and assign a new asid.  Hardware=
-'s
-> > -      * vmcb clean bits are per logical CPU, as are KVM's asid assignm=
-ents.
-> > +      * If the previous VMRUN of the VMCB occurred on a different phys=
-ical
-> > +      * cpu, then mark the VMCB dirty as hardware's clean bits are per=
- pCPU.
-> > +      *
-> > +      * Reset the ASID generation in both VMCBs. This will lead to ass=
-igning
-> > +      * a new ASID now, and then again when switching to the other VMC=
-B.
-> > +      * However, this is needed as the ASID is shared between the VMCB=
-s, and
-> > +      * otherwise it would be possible to use an ASID allocated on one=
- pCPU
-> > +      * on another, for example:
-> > +      * - vCPU migrates from pCPU A to pCPU B, allocates a new ASID.
-> > +      * - vCPU migrates back to pCPU A, and then switches the VMCB.
-> > +      * - The new VMCB does not detect a pCPU change and runs on pCPU =
-A with
-> > +      *   the new ASID allocated on pCPU B, which is potentially used =
-by
-> > +      *   another vCPU/VM.
-> >        */
-> >       if (unlikely(svm->current_vmcb->cpu !=3D vcpu->cpu)) {
-> > -             svm->current_vmcb->asid_generation =3D 0;
-> >               vmcb_mark_all_dirty(svm->vmcb);
-> >               svm->current_vmcb->cpu =3D vcpu->cpu;
-> > +             svm->vmcb01.asid_generation =3D 0;
-> > +             if (svm->nested.initialized)
->
-> Isn't conditioning the clear on nested.initialized wrong?  It's stupidly =
-contrived,
-> but I think it can happen?  Even if it can't, I don't see any reason to c=
-onditionally
-> zero vmcb02.asid_generation.  Either it's buggy or it's a wash in terms o=
-f performance.
+Create a bonding device (i.e. bond0) in active-backup mode, 2 slaves.
+Active slave: offload capable interface (i.e. eth1), primary interface.
+Backup slave: non-offload capable interface(i.e. eth2).
+Configure strongswan service swantl.conf child SA "hw_offload = crypto"
+Start strongswan service
+IPSec Crytpo Offload is enabled on top of bond0. i.e. 
+ip xfrm state |grep offload
+        crypto offload parameters: dev bond0 dir out mode crypto
+	crypto offload parameters: dev bond0 dir in mode crypto
 
-Oh yeah it's not needed. I thought the generation is only allocated
-when svm->nested.initialized, but that's not true it's always there.
-So yeah we can just always zero it, and then we can drop the change in
-svm_allocate_nested() too, or keep it as hardening (it seems like a
-good idea in general)?
+Active slave eth1 takes adavantage of IPSec Crypto Offload capability. 
 
->
->  - vCPUx runs on pCPU A, vmcb02 is active, asid=3D1.
->  - vCPUx migrates to pCPU B, vmcb02 pCPU changes, new asid=3D2.
->  - vCPUz runs on pCPU A and allocates asid=3D2 as well.
->  - vCPUx switches to vmbc01 and disabled nested, but doesn't run, e.g. be=
-cause
->    userspace stuffs EFER.
+If active slave eth1 is down for any reason (i.e. eth1 link down):
+ip link set down dev eth1
+non-offload capable interface eth2 failover to becomes active slave. 
+The existing SAs can continue use software IPsec after failover.
+Traffic still keeps going properly.
 
-IIUC, here userspace wrote EFER.SVME=3D0..
+However if eth1 link had not recovered yet, strongswan service does
+new child SA rekey, or uses swanctl command to do new child SA rekey, 
+it will fail because active slave eth2 doesn't support crypto offload.
+In bond_ipsec_add_sa routine, it returns -EINVAL now, which is 
+treated as fatal error by xfrm_dev_state_add routine in kernel xfrm.
 
->  - vCPUx migrates back to pCPU A, and zeroes vmcb01.asid_generation, but =
-not
->    vmcb02.asid_generation.
->  - vCPUx switches to vmcb02, without running vmcb01, again thanks to user=
-space.
+To make the non-offload active slave survive the child SA rekey, need 
+to make bond_ipsec_add_sa routine returns -EOPNOTSUPP instead when 
+active slave doesn't support IPsec Crypto offload, the xfrm will 
+gracefully fallback to create new SA using Software IPsec. 
+Network traffic can keep going.
 
-..and here it wrote EFER.SVME=3D1, in which case svm_allocate_nested()
-should set svm->nested.vmcb02.cpu =3D -1..
+After offload capable interface eth1 link is up, becomes active slave,
+next time strongswan child SA rekey will create a new SA which enables
+crypto offload again.
 
->  - vCPUx does VMRUN on vmcb02 with asid=3D2.
+This way, network traffic is never interrupted, always keeps going.
 
-..and we allocate a new ASID here?
+Signed-off-by: David Dai <zdai@linux.ibm.com>
+Tested-by: David Dai <zdai@linux.ibm.com>
+---
+ drivers/net/bonding/bond_main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
->  - Two vCPUs end up using asid=3D2 on the same pCPU.
->
-> The "svm->current_vmcb->cpu !=3D vcpu->cpu" check is also sketchy, but I =
-don't think
-> it's outright wrong?
->
-> Ugh.  Jumping back a bit, I _was_ going to say that we could revert 19301=
-5adf40d
-> and then do:
->
-> diff --git arch/x86/kvm/svm/svm.c arch/x86/kvm/svm/svm.c
-> index b4845e452e69..4c8e2fcd378e 100644
-> --- arch/x86/kvm/svm/svm.c
-> +++ arch/x86/kvm/svm/svm.c
-> @@ -1310,12 +1310,6 @@ void svm_switch_vmcb(struct vcpu_svm *svm, struct =
-kvm_vmcb_info *target_vmcb)
->  {
->         svm->current_vmcb =3D target_vmcb;
->         svm->vmcb =3D target_vmcb->ptr;
-> -
-> -       /*
-> -       * Workaround: we don't yet track the ASID generation
-> -       * that was active the last time target_vmcb was run.
-> -       */
-> -       svm->asid_generation =3D 0;
->  }
->
->  static int svm_vcpu_create(struct kvm_vcpu *vcpu)
-> @@ -4531,6 +4525,9 @@ static __no_kcsan fastpath_t svm_vcpu_run(struct kv=
-m_vcpu *vcpu, u64 run_flags)
->         sync_lapic_to_cr8(vcpu);
->
->         if (unlikely(svm->asid !=3D svm->vmcb->control.asid)) {
-> +               if (svm->vmcb->control.tlb_ctl !=3D TLB_CONTROL_FLUSH_ALL=
-_ASID)
-> +                       svm->vmcb->control.tlb_ctl =3D TLB_CONTROL_FLUSH_=
-ASID;
-> +
->                 svm->vmcb->control.asid =3D svm->asid;
->                 vmcb_mark_dirty(svm->vmcb, VMCB_ASID);
->         }
->
->
-> But after reading the cover letter[*], I can't tell if 193015adf40d was a=
- bug
-> fix for a dirty/clean bits bug, a bug fix for ASID reuse, or an optimizat=
-ion (I
-> thought it was an optimization until reading the cover letter and looking=
- more
-> at commit af18fa775d07 ("KVM: nSVM: Track the physical cpu of the vmcb vm=
-run
-> through the vmcb").
->
-> So yeah, hit this with a hammer and defer the proper fix to your cleanup =
-series,
-> because I have low confidence that doing a proper fix is the safest appro=
-ach for
-> LTS kernels.
+diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+index ef9eb0c53c66..79fc892dab07 100644
+--- a/drivers/net/bonding/bond_main.c
++++ b/drivers/net/bonding/bond_main.c
+@@ -490,7 +490,7 @@ static int bond_ipsec_add_sa(struct net_device *bond_dev,
+ 	    !real_dev->xfrmdev_ops->xdo_dev_state_add ||
+ 	    netif_is_bond_master(real_dev)) {
+ 		NL_SET_ERR_MSG_MOD(extack, "Slave does not support ipsec offload");
+-		err = -EINVAL;
++		err = -EOPNOTSUPP;
+ 		goto out;
+ 	}
+ 
+-- 
+2.55.0
 
-I can send a new version dropping conditioning the reset on
-svm->nested.initialized and dropping the change in
-svm_allocate_nested(), is this what you had in mind?
-
->
-> [*] https://lore.kernel.org/all/20210112164313.4204-1-cavery@redhat.com
