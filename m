@@ -1,125 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA02E4B715E
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:30:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED9F32AADE;
+	Thu,  3 Sep 2026 14:30:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445818; cv=none; b=h48uJZSXFbZAuOV0ubB9H9fR0GjpdnQNtCrPmvuikbKOSlNrgoZ4174oc2k/H7ALcX1Y3jbMyvb7lu9bcB7lB3+tuGJxaJfmI5Ztky0q139Wpb2fhZxb6i4WA2NT9FPunaHg3EmPY7pUroBfaIkODGE17NsZDiG8152E7R7v1k4=
+	t=1788445834; cv=none; b=NgXi/DTCWLz8AEGoykprBC4kdLLmkeHUR92Y7OWtf8rM1z2WyYlfosp4tl2GbrcWiQI5Oh+oRvMBTZysKAhmpo45VHCjKi671xeniw9+OLllaDLQrWlkKKFP5EfQbLiAlFcEBTha6PkIpc8HXyALcBFo7hV62QZUT4IaXuYqZHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788445818; c=relaxed/simple;
-	bh=4hO8hUtX2xJorYiGl+3XVXDqBA51gYmQ9gvWT1y0sVk=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=qKpeMEgiuY1/X51DWd6aRcGy0URBY5CQ1HkT0qmxk2p7eXe2ALy0wfoLuqVSBEk5y/mk01uelhB/cfnXpoZ/Qn3NDz/Tr1Br6nqdlQr2OyrJe3acainAOCJtyLD9Uieuom0MAudWXaLdtCMxTIasBnCP+zvqLEz1NVQGq5xOSWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lkp1B6q7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788445834; c=relaxed/simple;
+	bh=pu8ouhgIAntGL6unmelmTryxqPMDe246JXbmrznDPmY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ceLlcpp7ZSDI5evp6kK2OWeHKdooEBb8Q9ZQYLfPlTvRzVKUmBfT0tRk2cdJ8sPHidjlgukjSeu+9WQ21N1bIc/RXJwQ9LsGR1LDmIqAsuFzZeVvrSwSXJ3I0UgCx7HCCBUs0iB7+04h91lOIPOPOaTe6AFvRf+CzJAKafzJ9i8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=z3dR4Idj; arc=none smtp.client-ip=216.40.44.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lkp1B6q7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37CAA1F00AC4
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:30:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788445809;
-	bh=7tu2A/3vWDsQ7scHWgfJRM6wBRgv8cpTvpUa+LaqfH4=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=lkp1B6q7TjBmBCvVWOgPd1yzB1dLBQYTcKJ9bIERvcPjHoj4BCtG3eSJoEHU1EQiu
-	 nKud0B84aXgh357zBAstAuvD25ogs/NpUlcjMGh2W1u0fDuKgeB6OIY4HSx2tWkpzL
-	 Pcf421ViyEHUIZcOAJd5Vqyzjs1S7/ME+RSINQPcAPr5Xuc/bh04sGR/b7u4qQg7R8
-	 HgMH5CtfwRBaqmFy1Hqsz7wmyaDQvMv3jOKwofn5aZfDEKnIeZxxKD+nmxB8sWsD2s
-	 R7xVYAet0evYW5yN6NaxCDHVUvFsNJoKd1/fZz0G1gnLK45Vt0MxNczw9ATodAPT/f
-	 AaT/U4jg/+79w==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id BEA07198003A;
-	Thu,  3 Sep 2026 10:30:07 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Thu, 03 Sep 2026 10:30:07 -0400
-X-ME-Sender: <xms:boSZarffwKCpC5096WHIv-vnRmEZgM-vmrxymx39dH2sCbEHoh-MUg>
-    <xme:boSZasB-YIVR7JQo7agQK3b2IjP8q4pjMXjcm3JJSggc65tmuHmWXP0xszSOJwLFC
-    VDg9J7FtVyxXmBa78Y8eJPkFX9Ho--DVwlcYrEvF0AUmq1pvR8aPBc>
-X-ME-Proxy-Cause: dmFkZTGB5zgUQ5bm7kkCZfRmN/PosY4xl9uEUviJX0Ilof6sjHdv/KjCpNDjcdJT4OkRZ/
-    RP+Nb+UpfZYB79/y8jXpc18zBdj0rPQeeyiFmduc8aLdz29Czckph4Cz+nVK116y8LK64S
-    D+aFQQUL2UIq8JNQya3j4XXpPc232hbMCtjtuJMyqXvkxAEFhcRYy0CGYSR2eyPNLo7onA
-    rgOTMVlhNtYSR0lL9yiRzIKBEaqZNylJh7/VMGJTp/q0BsPkkYSJ8dBazX2R6vaUaDNK9q
-    JS4QRI5Bd7wnuO7z1Tpdbbk0FxfRJ0GN2SvzbCeWmj5NFcWNS5D2torQeIXIkHEN6VMasU
-    7lJ9iGS+fswuPhXLxZxVw0SyNpFq1RuOzHl2WRrwbhYVqugc4ygLq6FNiWcwaqyv10myAS
-    zt1ZdWJjEWk3uS+eVehfq9DvZAoL2+crpCLrwaotP5e80CqhApH2qhtnKKhtFxouZ8yLJy
-    vLwD2+rAl9laY2Q5eqLVzUHEFtizH2RwOEfvtRH55NLez0i0XARxwozOx2X7HaQB67ZRXU
-    BQIVBplDB5BICXCWbO8WMvZYcBjxv6zzaidhscOhP7BmLpLbxkIEJMV2SpiCTrB+kZi7e+
-    kSfumvwXjigM56eip+NcT+hX6xBLP5YE1jDc1EhGQLuZcTtWB+iylvPkuc4Q
-X-ME-Proxy: <xmx:b4SZas9t8Qz7BNH3fCImaAQ5BJRO2r4CBQjsivlkys62HBhBNOZAwA>
-    <xmx:b4SZavrZd7fWWTCR_RjRai-ZDJ-ie2v4FwUPxur1bwGbwVOHQ-zmTg>
-    <xmx:b4SZahDiXpheKlor2K270HWUzLi9G8Z4osYg5slrHDKc_QxReskxfw>
-    <xmx:b4SZahylDmXWrI6DVIiG8TVCn12yEBAwSum2zKPM3Im_E3ZocJR9Vg>
-    <xmx:b4SZau1Qp5gLfzD-sW4WqS1wgfOaj5kVfIVHI77jVwqtqBrAEkF3OcZl>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 44731F8007B; Thu,  3 Sep 2026 10:30:06 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="z3dR4Idj"
+Received: from omf14.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay08.hostedemail.com (Postfix) with ESMTP id 38F401404BD;
+	Thu,  3 Sep 2026 14:30:15 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf14.hostedemail.com (Postfix) with ESMTPA id 4CBA332;
+	Thu,  3 Sep 2026 14:30:13 +0000 (UTC)
+Date: Thu, 3 Sep 2026 10:31:16 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: mhiramat@kernel.org, linux-trace-kernel@vger.kernel.org,
+ mathieu.desnoyers@efficios.com, kernel-team@android.com,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 0/4] ring-buffer: Fixes for subbuf resizing and
+ persistent buffers
+Message-ID: <20260903103116.6cb7c39c@gandalf.local.home>
+In-Reply-To: <20260901155445.1475405-1-vdonnefort@google.com>
+References: <20260901155445.1475405-1-vdonnefort@google.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 03 Sep 2026 16:29:45 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Yeoreum Yun" <yeoreum.yun@arm.com>
-Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
- "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
- "Breno Leitao" <leitao@debian.org>,
- "sami.mujawar@arm.com" <Sami.Mujawar@arm.com>
-Message-Id: <44097058-9fdc-4e9f-a277-d63e3876b035@app.fastmail.com>
-In-Reply-To: <apl_29t7Jxr2mv9C@e129823.arm.com>
-References: <20260903113238.2291844-1-yeoreum.yun@arm.com>
- <960e985e-b338-4648-a29b-1f8a31e00599@app.fastmail.com>
- <apl_29t7Jxr2mv9C@e129823.arm.com>
-Subject: Re: [PATCH] firmware: efi: add a separate timeout for UpdateCapsule()
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 4CBA332
+X-Stat-Signature: dzpjbanoo8xnnjapzfc93wcb5z6yk44f
+X-Rspamd-Server: rspamout03
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+pkPendwrE+SUxjqe40cMDjXYFx7iTfN0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=xg1eImxmhZMYQ3hk/7PaDoIrMq81IdJS6B5oAdUL8pw=; b=z3dR4IdjO61+H3jSnRhYb5qWpXfeIY3Gr0ZXNcLjtQnt3yoo2Px2pBiApiaAD7rkOFjcL8mc6V5wTD4I1LNuVwUd5WYFdwbV0OfF+7Tba5uqFst/DJE1JVk4nd9VTBJcyoXYgIx6MGU6QisdTtitaSAvkUxmfkmebp+pQv5r5no=
+X-HE-Tag: 1788445813-897403
+X-HE-Meta: U2FsdGVkX1979hS64fQURrGOzz/YadhQuceL2VOAEfgC9CQ6SkaD2X5Vw3Ksp+FGV44n0ug6Hs6n3KeKlGViy+h3WJMYVuJ3J3JvYOEZh/h4GVMLcyTNDkAY8sn84IbkKeE4Cn+54w3G2j++Vivj72OD44XutM6a8iavMzTAnSe3TziZ+S4XG68vpqk7EbPyMKgPlWshaKvW1NKnMYNHSkXw/UB72gsGKpdwk4+5uU6Trx2bku6Tkb2fGBZLftqSFsr/vAGEaVwLq6mrvPTSVvw3DxNXiZzQK8QVieta9Pj34YQNGVmFJwQCn/I3LmZztXh2bSmorRqDfP67AjyqVTOz5Or3ptFQ
 
+On Tue,  1 Sep 2026 16:54:41 +0100
+Vincent Donnefort <vdonnefort@google.com> wrote:
 
-On Thu, 3 Sep 2026, at 16:10, Yeoreum Yun wrote:
-> Hi Ard,
->
->> Hello Yeoreum Yun,
->> 
->> On Thu, 3 Sep 2026, at 13:32, Yeoreum Yun wrote:
->> > On platforms that allows to update firmware in runtime, UpdateCapsule()
->> > may immediately write a firmware image to persistent storage.
->> > This operation can take longer than EFI_RTS_TIMEOUT.
->> >
->> > Use a separate timeout for the UpdateCapsule() runtime service. By
->> > default, wait indefinitely to avoid interrupting an ongoing firmware
->> > update. Administrators may configure an appropriate timeout, in seconds,
->> > through /sys/firmware/efi/capsule_update_timeout.
->> >
->> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
->> > ---
->> >  drivers/firmware/efi/efi.c              | 41 +++++++++++++++++++++++++
->> >  drivers/firmware/efi/runtime-wrappers.c | 14 +++------
->> >  include/linux/efi.h                     | 10 ++++++
->> >  3 files changed, 55 insertions(+), 10 deletions(-)
->> >
->> 
->> Given that UpdateCapsule() is rarely used these days at runtime, I
->> wonder if we should just call it synchronously instead of via the
->> EFI workqueue.
->> 
->> I assume that would also solve the timeout issue?
->
-> Might be. But it would make *non-preemptible* for UpdateCapsule().
-> AFAIK the purpose of running runtime service with efi_queue to
-> run it in indepdent context and to be preemtible in case of arm64.
->
+> This series addresses multiple issues discovered with the dynamic ring
+> buffer resizing.
+> 
+> I have managed to reproduce a ring_buffer_read_page() race with
+> 
+>  $ while true; do for i in 8 16 32; do echo $i > /sys/kernel/tracing/buffer_subbuf_size_kb; sleep 0.1; done; done
 
-No.
+Did you do anything else while running the above?
 
-> Since most of UpdateCapsule() will be called via capsule-loader's misc
-> device, if UpdateCaspule() is called synchronously, It would be
-> non-preemtible in arm64 platform.
->
-> But, some platform could be preemptible while updating firmware so
-> I think it would be better that it would be called via EFI workqueue.
->
+I ask because I ran this for several hours and it didn't produce anything.
+What bug does it supposed to trigger?
 
-EFI runtime service invocations are preemptible on arm64, so this is
-not a problem.
-
+-- Steve
