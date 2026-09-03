@@ -1,77 +1,54 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E6D423EBA
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:27:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 638BF4399E6;
+	Thu,  3 Sep 2026 10:27:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788431259; cv=none; b=aPqWHUu35MvebgcEpJgIKimbnrY7GcqN2E3QBb79YPJ+f7D0jvSwkJkILAHcAd4JFtMYDWd5aD6TG2meB7BDQdkOoY/v6k99aM91sPDvbCVhSMmu0i//lUFxVB2OcdVq40o6qd9op8snxD0Vwafbi81F275S7b8WIin3xHfDKxQ=
+	t=1788431276; cv=none; b=ayLkyWzIRdv+/t4AatL9Q7y7s4wfkZCVocfIY8wCqnV5czqu+HOGNd5MxxjWbgbCpbDn/aU8Wnog4D4u97sOczdHoFASskVGvosWkmNnBwHSLK7PQLrHapADRrIIv692CermwcjlQxe0NMDMX2G+C5FJNt/AR4erLupaYeGs76s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788431259; c=relaxed/simple;
-	bh=LFkbEPJMXtlKlu8k0CfjzImXNJSiYxotiw5JDji/Bhg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HQ04ztksSF2sRQGOJbDXc58ljRA4UhY+Rhhvlxfwrg1bhCLfk+Cm6iCCGReRWFY8usqM8H9jtaIfC74bmIdMlc1i8tdNgG1U1Nz8KwO7hXjZOR2VZBnxVqyHTqcpSto3Bft7ScE+1HWuQSBkYWxLH8zyV4EpoOfB0QtXo/159fI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SXO7UroJ; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788431276; c=relaxed/simple;
+	bh=xQcJuDFvFPBT6ZYRpZgPGU8Uad9koS4KrJdIrgeViB8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gPBvJ5SuXwb3AipbLioUhHZrjt36h6WH2oCW9pVN9ciLrE66CQJ3WBy+rfflMM73s6EeaenyAevZ9L1GH61xYhjE6ZZwYLDtJjEOYTzy+oCEZ0oIG5aGIjCPW8DUWNP+fTLbEoLWkaEOLBFihpyerR5obHoqUMSpsE6AxyglJcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L0sleX8b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SXO7UroJ"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-39927410578so3855132a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 03:27:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788431243; x=1789036043; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2CQkGuc52z9Az9JmaiqvdXOtnpX3mU1OHrbdWMMw/t4=;
-        b=SXO7UroJc4aGkQcR9AmFBP1bOR/oVEshJwuQJG8xn2t05oUpZnZJ2YClNeuifkIAd4
-         BOWXgPj3esln8Eu+oKREC3Pe+0pXanlOVuRRN/hshABabSSkceDSI/PKtBJSglokAvRx
-         tMDQXmVw5sGfvlhBQwygAp1YF0UT03Z5JIKUXLWFxSnVZ/vnbj7KlH+xgzx1bekgzMtk
-         QxRrENBqDBB93s9i+2GUtKVtVdX9XVEMmF/V1OBY59TIB7Sy/FEHRzdvn/Gu5Orc0NLl
-         AzVtAoeqMXp9GnzziLJk6aC6uwbLKb3/Wq1RN3CddfM/Ma/206cjUk3T+FKt4xK4iTKT
-         L7qQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788431243; x=1789036043;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2CQkGuc52z9Az9JmaiqvdXOtnpX3mU1OHrbdWMMw/t4=;
-        b=Qc6la9hm2ohxeMQYUTpD1116JgHkZ4xbmWxp74bHRM81fv1qE0puAtQgW9t9Zer3Rz
-         b/WjFtWMU4y1gN/XOvVao2/RgzxP0uj2lIU8AqJM0UqSo5EC7hF3TLyc8yYNirEoKR93
-         pDBbsDuRWpvufRK9dW3lajZy3dQ9LI01ZOwwqeI2URDWXh9mLKg6/eMfjtf4lqj3kC7w
-         8DQmWDPr7SgFeC3Rjh8TgH0lyDr5NRp9qANsN+31p8bWXFNE8kKj3M9UnImr0C8HJd+U
-         2TMN6MnqNaZtjC0gSdtYtRdzEZ+CijU0AWBlaSWzGCF5V4MIs6Wazym3ZRVIbZfZ4ikc
-         SISQ==
-X-Forwarded-Encrypted: i=1; AKwUvByUAolKCof/d7p64GApZDKcUYCAYIVdN0v3e/ZfdT6330tenosQ3ITr8bhHVichhf5S6N4c38ZbkTICBic=@vger.kernel.org
-X-Gm-Message-State: AFuF++m5gEO6uPqVznhgMIeZuHNAo4Pw9qWsuVU9hDa+uMYLHyMb8qIg
-	uPB0R+EF6hTJurX5BcdFACfKmUoag208CDajSr62SgMaxpLvnJ/aXBQc
-X-Gm-Gg: AYBFou1Qe8OF+HQrPe77O3X9cPLdeBTnqjw9+7+8iA66GiVUPftAQyX3SaTt34clozH
-	0Vrb8BCtzNY7rCBlJruh3JueaXU3xTur3CZuhKPJe4D8gKHUszV6KhDzvrLlucBCF4kC0G/W1Rw
-	gNi1T9vY1RKjGMo9rwyd2zZvOxyoNu5sNdfyQeYrcktjC9CqFslzme3wnUMMLgjet6LjGGRTcQI
-	YgiZfSUcgsjUlfuHvt9veuz+lDt5SoFuS0wJNUm6k1D2NsOP9cAUdf8+A/AZmS1kf0qHpqV4U2b
-	juUb8HKjtC38c3VmlrulaJkJej1zrU0K8q2Kzn/27TsyDZd32Bf/gImZsUlNZSeirkkp/SJZwsm
-	2TRBUWczksnNIvmV4uRYxWUjIfZ0nHhYCY2Rs5/WxoGnx/+NOMfA0/h3Zn2znNJMiMeNYShD6G2
-	BHNif04EEHhMDLWzk1DNPvVPSTZs7tdMU2+WUvcGrzvwZbeS0m5ZfEvUlk2r8yWsF0tLyiitekl
-	sCLZl56prSXmtWfz5lrZRyy7dzyTXBOwZP6hJXg2YG3LjQymW7Yoie4CBluUjiXVZq/3xj2VLaq
-	VDoOKAQZFVAxVBeD
-X-Received: by 2002:a17:90b:3d84:b0:392:ca3b:370a with SMTP id 98e67ed59e1d1-39aedf7cc2cmr18831032a91.2.1788431242712;
-        Thu, 03 Sep 2026 03:27:22 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08d0d845sm4723578a91.17.2026.09.03.03.27.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 03:27:22 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Paul Cercueil <paul@crapouillou.net>,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L0sleX8b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C2B71F000E9;
+	Thu,  3 Sep 2026 10:27:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788431263;
+	bh=atJ2KXPXSgGiq2OqP7CMIUjSO8wmjaHoVZs8sAlmqBk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=L0sleX8b5Wj/WKStYZA6hK9/wQDat30zobX24QjYj83n4y0YfoclGIR2uC6AU7EWr
+	 GfIKHI7LlqeAtyZPwuE5T2rYARl2SkP5tdg4pvqwGXKd6TYycldWoefRszGn92f6yu
+	 v1adk2QSVTj+NBgRAWA7JcKijrOfRJ9xxsDRADDFwbDiVvM4Zg02Hj+cimlU3aQVzm
+	 c7W++roFN1tZw2GjTQTmDMOTfo6fqZ1Rw9aCtr5WSTBR4ZpPA4bojM7EvnAHcQ3JXK
+	 ptsQofWLY43QHngnq8H4oALiBPZqNe5/57vq8AsvViaEnXvWWGo8QfWOPDq4sI4RYk
+	 Hw0UO0rCbisBQ==
+From: Simon Horman <horms@kernel.org>
+To: tactii@gmail.com
+Cc: Simon Horman <horms@kernel.org>,
+	intel-wired-lan@lists.osuosl.org,
 	netdev@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH net-next v2] net: davicom: Propagate wakeup IRQ errors
-Date: Thu,  3 Sep 2026 17:26:56 +0700
-Message-ID: <20260903102656.370039-1-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	anthony.l.nguyen@intel.com,
+	przemyslaw.kitszel@intel.com,
+	aleksander.lobakin@intel.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH iwl-next 1/8] e1000e: add jumbo Rx CRC stripping
+Date: Thu,  3 Sep 2026 11:27:30 +0100
+Message-ID: <20260903102730.578872-1-horms@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260830232146.36948-2-tactii@gmail.com>
+References: <20260830232146.36948-2-tactii@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,59 +57,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: bui duc phuc <phucduc.bui@gmail.com>
-
-The wakeup IRQ is optional, but errors from platform_get_irq_optional()
-are currently ignored. Propagate errors from the IRQ lookup, except
--ENXIO which indicates that the optional IRQ is not available.
-
-Also propagate errors from request_irq() and irq_set_irq_wake() instead
-of continuing the probe after the wakeup IRQ setup fails.
-
-Found by manual code inspection.
-
-Fixes: 2e2696223676 ("net: davicom: Use platform_get_irq_optional()")
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://sashiko.dev/#/patchset/20260830232146.36948-2-tactii@gmail.com?part=1
 ---
+e1000e: add jumbo Rx CRC stripping
+    
+When the hardware is configured to not strip the FCS (CrcStripping=0),
+the jumbo Rx path would deliver frames with the FCS still attached.
+Follow the standard path's convention by stripping the FCS at EOP and
+leaving it out of the byte count.
 
-Changes in v2:
- - Add a Fixes: tag.
+> diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/ethernet/intel/e1000e/netdev.c
+> index 844f31ab37ad4..599600ad695cd 100644
+> --- a/drivers/net/ethernet/intel/e1000e/netdev.c
+> +++ b/drivers/net/ethernet/intel/e1000e/netdev.c
+> @@ -1631,13 +1631,23 @@ static bool e1000_clean_jumbo_rx_irq(struct e1000_ring *rx_ring, int *work_done,
+>  			}
+>  		}
+>  
+> +		/* strip the Ethernet CRC; it may span fragments */
+> +		if (!(adapter->flags2 & FLAG2_CRC_STRIPPING) &&
+> +		    !(netdev->features & NETIF_F_RXFCS))
+> +			pskb_trim(skb, skb->len - 4);
+> +
+>  		/* Receive Checksum Offload */
+>  		e1000_rx_checksum(adapter, staterr, skb);
+>  
+>  		e1000_rx_hash(netdev, rx_desc->wb.lower.hi_dword.rss, skb);
+>  
+> -		/* probably a little skewed due to removing CRC */
+>  		total_rx_bytes += skb->len;
+> +		/* If configured to store CRC, keep the FCS bytes out of the
+> +		 * total_rx_bytes counter
+> +		 */
+> +		if (!(adapter->flags2 & FLAG2_CRC_STRIPPING) &&
+> +		    (netdev->features & NETIF_F_RXFCS))
+> +			total_rx_bytes -= 4;
 
- drivers/net/ethernet/davicom/dm9000.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+[Severity: Medium]
+Could these lockless evaluations of adapter->flags2 and netdev->features get
+out of sync if userspace changes features via ethtool while a packet is being
+processed?
 
-diff --git a/drivers/net/ethernet/davicom/dm9000.c b/drivers/net/ethernet/davicom/dm9000.c
-index b87eaf0c250c..904b859f0a63 100644
---- a/drivers/net/ethernet/davicom/dm9000.c
-+++ b/drivers/net/ethernet/davicom/dm9000.c
-@@ -1511,13 +1511,18 @@ dm9000_probe(struct platform_device *pdev)
- 	}
- 
- 	db->irq_wake = platform_get_irq_optional(pdev, 1);
--	if (db->irq_wake >= 0) {
-+	if (db->irq_wake < 0 && db->irq_wake != -ENXIO) {
-+		ret = db->irq_wake;
-+		goto out;
-+	}
-+	if (db->irq_wake > 0) {
- 		dev_dbg(db->dev, "wakeup irq %d\n", db->irq_wake);
- 
- 		ret = request_irq(db->irq_wake, dm9000_wol_interrupt,
- 				  IRQF_SHARED, dev_name(db->dev), ndev);
- 		if (ret) {
- 			dev_err(db->dev, "cannot get wakeup irq (%d)\n", ret);
-+			goto out;
- 		} else {
- 
- 			/* test to see if irq is really wakeup capable */
-@@ -1525,6 +1530,7 @@ dm9000_probe(struct platform_device *pdev)
- 			if (ret) {
- 				dev_err(db->dev, "irq %d cannot set wakeup (%d)\n",
- 					db->irq_wake, ret);
-+				goto out;
- 			} else {
- 				irq_set_irq_wake(db->irq_wake, 0);
- 				db->wake_supported = 1;
--- 
-2.43.0
+If a concurrent change occurs between the first check and this second check,
+it appears it could lead to an inconsistent state where a packet's payload is
+incorrectly truncated by 4 bytes, or where the byte statistics are overcounted
+or undercounted by 4 bytes.
 
+>  		total_rx_packets++;
+>  
+>  		/* eth type trans needs skb->data to point to something */
