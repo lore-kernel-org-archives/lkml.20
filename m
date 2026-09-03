@@ -1,106 +1,146 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DD23F44CE
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:42:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742613F7A98
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:42:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788417747; cv=none; b=guL/92JFn/BwIQW0vNOFUtlTbwNP4J6O8KtLLIx48tsXPqmudsgwqmdAKvjSCl6LmOJ+uVBtwootGOstyXNR+L3InHW1PqnV7C0ixMkKZWzKdEVi47jHox1V/RLSqORzmG1B3fmBV+vvv6QyC7gBRvIB6erMcmInJ//0MxIwQvg=
+	t=1788417756; cv=none; b=m7NKTMpb57Dz97jIcg4DfUpuLWiTQqULIfl4lcTEOgbDNvVmqXmXi2l24t3U2/YR3lJrUEc/7lw7EvQ0QTSx13ZkSFnJYohj4ojjjtJLtq+bPn5cwvpFYoWy8Q/NW27dQRL4MdAi9u1srEEpxf0I0a2IM5OzYgD1S3fU9xe/ib4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788417747; c=relaxed/simple;
-	bh=CGgEjsoKzFVj+GcGxAp4hHB8AFwDGB8jPl/K/LpFdz4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=kdpxbJbDb2OgXPzQD0hZXdRg/dSeCem2iQcMjzB0Rif7KMzDwt8xMwH9+XLIcMxXUmlvPCApJFQLkezUMgvGxK/rgk9u5KAF4KWHxMn9G6U4gi+CObAQHI+udrdlZA7If+9tD1J5/KYzwElaTAxRa4FbttPrstBLqOzaLfIaMb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nm/CcY9O; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788417756; c=relaxed/simple;
+	bh=lCLTsbc8doJehgprLLiB9xv9y/OGAJGue/VR8RpR0hU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WuW7vuoHhmOPnYViFy0n4rjCSWCMAbg+LpiRxCxrv5la7XsZ2n7wqYXWkmN6g8LSbiGbzYYbCb2/Yis7Z24XeOz2PUe2tAp4zchgnbnO6VANZUn0fvHvWpH8FEZqAYwCnJpTr15t2B9g6tBJBli8KyPiBV7BkgLoLyRQCdiNlx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NhbKpu4e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nm/CcY9O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 213B71F000E9;
-	Thu,  3 Sep 2026 06:42:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NhbKpu4e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4A531F0155A
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:42:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788417736;
-	bh=SQS+yOKJydeR277npXj6PZ+MIa4NneM3XeRmFudAoJo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=Nm/CcY9O5o1WIxmaSBn1ZsI4b/bzQ9eCH0tV5inuuCWGYBFcCNMuq9P9SvP1Gm4sB
-	 xIjeU97m8q3t8hMBqXtHJirGsCBu7TetTRNGYeFaKls3S1LE1zlnZMWgbAUv5kVkRk
-	 WbWDaE5krFFi6PO2lkwlGUA0HkOg4+H33McZOE03/WMkaOKQGzVrbDn2OLpXvsAUjJ
-	 Hhu8PdaOL/BCeMtyXnCEnuCukX7WR9pofDfqGiZmowueQ8zFCnMZGOUoL2l/zVPuNb
-	 Fp4BP9N9v5nuoUOasPXefBwwrXwR4F5ackFCTVc0eEm2jZIH5ErsOAQYZ9K5cnbOgO
-	 X/3mjq3jX4O/w==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: "Eric W. Biederman" <ebiederm@xmission.com>, Frederic Weisbecker
- <frederic@kernel.org>, Hyunwoo Kim <imv4bel@gmail.com>,
- brauner@kernel.org, peterz@infradead.org, anna-maria@linutronix.de,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH V2] signal: Prevent exec() race
-In-Reply-To: <apgwWTwG_oq3ij8n@redhat.com>
-References: <87mru7h09e.fsf@email.froward.int.ebiederm.org>
- <87tsofdvf2.ffs@fw13> <871pbfeaiv.ffs@fw13>
- <87zey3fep2.fsf@email.froward.int.ebiederm.org> <87pkyyd39l.ffs@fw13>
- <87h5kad0mx.ffs@fw13> <87bjaie2gc.fsf@email.froward.int.ebiederm.org>
- <87wlt5aybr.ffs@fw13> <87qzjcdh06.fsf@email.froward.int.ebiederm.org>
- <87ecfcbyt1.ffs@fw13> <apgwWTwG_oq3ij8n@redhat.com>
-Date: Thu, 03 Sep 2026 08:42:13 +0200
-Message-ID: <8733vqbzui.ffs@fw13>
+	s=k20260515; t=1788417748;
+	bh=NoreS1c67SI6AUlE45CnZ5o1zP8316Y/FnI+L8qchEI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=NhbKpu4euU3J54kuBewdoHitvzC4s0XKkJbtFRar7UcMxbaZ7Gv7lBMvrP9w36xSw
+	 2+8iojnoVDwxMeAUCOee93Mp8p1ONeExTpgtO8oFLQd96LjWAWbZ9lpmZqHzaT0Upd
+	 ct1nRoEbswWioW6g6JRN2Pvs/vnUvVWAFi9Dt6l/QpSwO9TUMwrXv72SZwdCPvY2Oo
+	 yfFYdVNNR4rvKO0cTOvavhsjC8NOIA8wNKksOuQdp8/6GrYxzo/NBnpk8wJVf6ewmA
+	 mImhjfdQ1Lh9psq3Yphl5NJsOdXPzLPM9QVumnmXilSJ/vtpspNlPJe8LjfFACA91O
+	 t69ZgAaWQXTOQ==
+Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-92edb12cdf2so171773585a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 23:42:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzH8QyaWI8GAgidcU6I7+h2/9f35aWM91MwF/taHma5ZnMMhBUHeoOSOI3f5d6FQ28R3VZ8rAKDxU/FuNg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mexZzzmSHC7qG4ryA2f3IAm2a7flIbYN+XyRsiuUPXixsYUa2M
+	2Q2fpg4rUJjVnk8mZQhfRPcGwnNrdLLZmFfsj7t662QhOUoDvOu0w20rvgjW9gBS7UEQZ4f1oup
+	GqzIKjgicdfbiBIkZU8Gzk6TU/obv9YA=
+X-Received: by 2002:a05:620a:a20e:b0:939:3b56:c416 with SMTP id
+ af79cd13be357-93960ca35cfmr1181035685a.8.1788417748183; Wed, 02 Sep 2026
+ 23:42:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20260902-mglru-flags-cleanup-v5-0-9db761d779ef@tencent.com> <20260902-mglru-flags-cleanup-v5-6-9db761d779ef@tencent.com>
+In-Reply-To: <20260902-mglru-flags-cleanup-v5-6-9db761d779ef@tencent.com>
+From: Barry Song <baohua@kernel.org>
+Date: Thu, 3 Sep 2026 14:42:14 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4yqwfMJCaonibg4Bc9AosthroQBwM272eg+Qx3oa89PMA@mail.gmail.com>
+X-Gm-Features: AcwNN1VD2akl2VUX8YhUPLeb6jEb8u2mnb-VNQovUDSfTJ95mvMn_WCutxEh8is
+Message-ID: <CAGsJ_4yqwfMJCaonibg4Bc9AosthroQBwM272eg+Qx3oa89PMA@mail.gmail.com>
+Subject: Re: [PATCH v5 6/6] mm/mglru: fix potential generation folio number leak
+To: kasong@tencent.com
+Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Ridong Chen <ridong.chen@linux.dev>, Lian Wang <lianux.mm@gmail.com>, Yu Zhao <yuzhao@google.com>, 
+	Zi Yan <ziy@nvidia.com>, Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Kairui Song <ryncsn@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 02 2026 at 16:19, Oleg Nesterov wrote:
-> This is subjective and mostly cosmetic, but what do you think
-> about the alternative change below?
+On Wed, Sep 2, 2026 at 5:51=E2=80=AFPM Kairui Song via B4 Relay
+<devnull+kasong.tencent.com@kernel.org> wrote:
 >
-> I won't insist, but to me both the patch and resulting code look
-> a bit simpler this way.
+> From: Kairui Song <kasong@tencent.com>
+>
+> Each generation of MGLRU accounts anon and file folio numbers
+> separately, and the page table walker updates each generation's
+> counters in batch once the walk is done. The walker promotes a
+> folio's generation with a cmpxchg on folio->flags, and
+> update_batch_size() then reads the live flags again to pick the
+> anon/file column to charge. The walk holds neither the lruvec lock nor
+> the folio lock, so the type can flip between the cmpxchg and that
+> read: the lazyfree path clears PG_swapbacked, and reclaim sets it back
+> on a dirty lazyfree folio. The batched delta pair is then recorded in
+> the wrong type column. Nothing reconciles it afterwards, permanently
+> skewing lrugen->nr_pages and the reclaim budgets derived from it.
+>
+> Fix it by capturing the type from the flags snapshot the cmpxchg
+> linearized against: folio_update_gen() returns the type of the state
+> it transitioned from, and update_batch_size() accounts with that.
+>
+> A folio's type only changes while it is off the LRU list, inside a
+> del/add pair under the lruvec lock, with the gen bits cleared in
+> between. The generation and PG_swapbacked sit in the same
+> folio->flags word, so the cmpxchg snapshot captures them together.
+> Let G be the generation that snapshot captured (old_gen) and G' the
+> one it wrote (new_gen); the CAS can land in only three places:
+>
+>   - before the del: the folio is anon at G; the batch records anon
+>     G -> G', and the del later removes the folio from the anon
+>     counters;
+>   - between del and add: gen =3D=3D -1, so folio_update_gen() returns -1
+>     without touching the flags and no batch is recorded; the del/add
+>     pair accounts for the move alone;
+>   - after the add: the folio is file at the fresh generation the add
+>     charged; the batch records file, that gen -> G', matching that
+>     charge.
+>
+> Unlike the drift of lazy promotions, which sort_folio() repairs under
+> the lruvec lock, the phantom deltas from before this fix land in a
+> column the folio never occupies again, so nothing ever repairs them.
+>
+> Fixes: bd74fdaea146 ("mm: multi-gen LRU: support page table walks")
+> Signed-off-by: Kairui Song <kasong@tencent.com>
+> ---
 
-Yeah, though if we restructure the code then I rather prefer to get rid
-of the gotos and also move the cgroup...end() part out of the sighand
-lock held region to make that as short as possible.
+Reviewed-by: Barry Song <baohua@kernel.org>
 
-void exit_signals(struct task_struct *tsk)
-{
-	LIST_HEAD(sigq_list);
-	int group_stop = 0;
+[...]
 
-	/*
-	 * @tsk is about to have PF_EXITING set - lock out users which
-	 * expect a stable threadgroup.
-	 */
-	cgroup_threadgroup_change_begin(tsk);
+>  /* promote pages accessed through page tables */
+> -static int folio_update_gen(struct folio *folio, int new_gen, const vma_=
+flags_t *vma_flags)
+> +static int folio_update_gen(struct folio *folio, int new_gen, int *type,
+> +                           const vma_flags_t *vma_flags)
+>  {
+>         unsigned long new_flags, old_flags =3D READ_ONCE(*folio_flags(fol=
+io, 0));
+>         int old_gen;
+> @@ -3298,6 +3299,7 @@ static int folio_update_gen(struct folio *folio, in=
+t new_gen, const vma_flags_t
+>                 new_flags |=3D BIT(PG_workingset);
+>         } while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flag=
+s));
+>
+> +       *type =3D folio_flags_is_file_lru(&old_flags);
 
-	scoped_guard(spinlock_irq, &tsk->sighand->siglock) {
-		tsk->flags |= PF_EXITING;
+Though it is a bit ugly that an `is_file` value can be assigned to
+a `type`, it is not your fault. We've been doing this throughout
+MGLRU. Technically, it should be:
 
-		sigqueue_dequeue_pending(&tsk->pending, &sigq_list);
+if (folio_flags_is_file_lru(&old_flags))
+   *type =3D LRU_GEN_FILE;
+else
+  *type =3D LRU_GEN_ANON;
 
-		if (task_sigpending(tsk) && !thread_group_empty(tsk) &&
-		    !(tsk->signal->flags & SIGNAL_GROUP_EXIT)) {
-			sigset_t unblocked = tsk->blocked;
+But that would be too long, so I'm fine with the current code :-)
 
-			signotset(&unblocked);
-			retarget_shared_pending(tsk, &unblocked);
-
-			if (unlikely(tsk->jobctl & JOBCTL_STOP_PENDING) &&
-			    task_participate_group_stop(tsk))
-				group_stop = CLD_STOPPED;
-		}
-	}
-
-	cgroup_threadgroup_change_end(tsk);
-
-	flush_sigqueue_list(&sigq_list);
-
-	/*
-	 * If group stop has completed, deliver the notification.  This
-	 * should always go to the real parent of the group leader.
-	 */
-	if (unlikely(group_stop)) {
-		read_lock(&tasklist_lock);
-		do_notify_parent_cldstop(tsk, false, group_stop);
-		read_unlock(&tasklist_lock);
-	}
-}
+Best Regards
+Barry
