@@ -1,97 +1,543 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A8FB42E420;
-	Thu,  3 Sep 2026 08:12:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BF323C585C
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:12:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788423134; cv=none; b=AVMMWIov9tBU+S55aichNc+Y+NLKEd2fGGOplQUqVc0uike2qNXCi/w+UcN06sNKG3Ae/fEeW5nvtMimMDhPAWtBZxFU00FfzC3ZF529cgo8dWBtNsJufWo05Ej05C4awhbHJFIAuPMmGfY+l28ktT3cFWXQQpIho2A8xgY1AIs=
+	t=1788423135; cv=none; b=utqauI1QgiRqY0iJgB6jEEKRuKAvEovZ4VjSWklAQB0XdNT/jibvfYg29ShjQHRCml1b8tGuN0jGjRHc9RZRuC2LjeHZwI2cigNyHQc9dURqaaGZ/TRfAJfztmfQTnnAHPc7fzFVKwnnV0cDGwEgbwY2Kmty39g9CAWTq91GHmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788423134; c=relaxed/simple;
-	bh=MIHSYS07q4uwcFA4MbFu3S/olppq06bL+JWmRGhocLM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Gbl2AIqyAaHc4Zub+uRTv6CYPNiNwSXLEU8coGUKpu363MPvqX3qycJ1kjXHcIXCJctWtZzNd8JViF4Sx3JHsPjSuVPHqvdvV3VxY6vs+xFsKiI/oFoRpZ+ZEKKR2ZJjFO3bkPiPglgXYkPU0L/H6t6V1fqRQZJqOc4oqiElof8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 26314d1aa76f11f19a56ed5b684f684d-20260903
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NO_NAME, HR_CTE_8B, HR_CTT_MISS
-	HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_DIGIT_LEN, HR_FROM_NAME
-	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
-	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
-	HR_TO_NO_NAME, IP_UNTRUSTED, SRC_UNTRUSTED, IP_UNFAMILIAR, SRC_UNFAMILIAR
-	DN_TRUSTED, SRC_TRUSTED, SA_TRUSTED, SA_EXISTED, SN_TRUSTED
-	SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_GOOD_SPF
-	CIE_UNKNOWN, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD
-	ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:b09a396d-3e08-4346-a70f-dc2feb628c4c,IP:10,
-	URL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:30
-X-CID-INFO: VERSION:1.3.19,REQID:b09a396d-3e08-4346-a70f-dc2feb628c4c,IP:10,UR
-	L:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:30
-X-CID-META: VersionHash:7db8b62,CLOUDID:ee3e79dd0a867c557cbd0d21772ae162,BulkI
-	D:260903161207NA2A594Q,BulkQuantity:0,SF:17|19|66|78|102|127|850|865|898,T
-	C:nil,Content:0|15|50,EDM:5,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BE
-	C:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 26314d1aa76f11f19a56ed5b684f684d-20260903
-X-User: wangyan01@kylinos.cn
-Received: from localhost.localdomain [(223.104.132.142)] by mailgw.kylinos.cn
-	(envelope-from <wangyan01@kylinos.cn>)
-	(Generic MTA)
-	with ESMTP id 695768317; Thu, 03 Sep 2026 16:12:04 +0800
-From: Wang Yan <wangyan01@kylinos.cn>
-To: chunkeey@googlemail.com
-Cc: johannes.berg@intel.com,
-	zilin@seu.edu.cn,
-	wangyan01@kylinos.cn,
-	linville@tuxdriver.com,
-	Larry.Finger@lwfinger.net,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] wifi: p54: fix incorrect frame length check in p54_find_ie()
-Date: Thu,  3 Sep 2026 16:12:00 +0800
-Message-Id: <20260903081200.267514-1-wangyan01@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1788423135; c=relaxed/simple;
+	bh=e92KqPQ5/nx/5Yn0ZvK26lweTavp1F/vqZw9jYHJwXA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=lCG/kU0x4jysqM4cQYPCO9A+PniLQsc3Ee9hLkiO9I30MgOIWIQVMpJXY/LmHRHO/OfZZI0jOZsW5w6kZZhT2MF2GrdT9rklaUOxhcWdkcNQMJ6Ul80w1EEMcuzRC8cOLGiY7u4N9tfMlF2tQ+4i+1k1XrIusGs7fe+c5Krv3ns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xLP5uURk; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xLP5uURk"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id AE7871A198B;
+	Thu,  3 Sep 2026 08:12:11 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 7A8C0602B8;
+	Thu,  3 Sep 2026 08:12:11 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8E2CA11C79FA7;
+	Thu,  3 Sep 2026 10:12:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788423130; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=9usQOCNh8tbKobnfgQCJWyMdDIV74e743x42Do9+b3E=;
+	b=xLP5uURkfDLQA88pEkKxt/t1utv4Kcnh7YN0slRTO0Qukg+W56cyxxYd0fq52h2T2/6PRD
+	K1WizumhXXUD57GLpzXbgpOseg1JWaD+CcQvftlkO39BTQnsoCt1m5pH/yvV9Rk85Ma82O
+	02Lj3IbWSOQMiuD92O+aGCbztP8L5+INW7zHaFYERDoQz2Qk3FwwWgL0K73bvsaboaCSG2
+	2Qc5Qx4nyTOYrneGeC5R17KAeG/cGCKhOoyu46ujPom1igMwQ04RIuypvfRBKF23CksW+N
+	N/EFppol7l3tDRceTLulxpCY9BpADkswvG8IOFth7h/KMYfrdz+hYyGpq82mxA==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Date: Thu, 03 Sep 2026 10:11:08 +0200
+Subject: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
+ drm_panel
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-drm-bridge-every-panel-v2-5-2ab8ee24538e@bootlin.com>
+References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
+In-Reply-To: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Linus Walleij <linusw@kernel.org>, 
+ Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Albert Esteve <aesteve@redhat.com>, 
+ Anusha Srivatsa <asrivats@redhat.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-In p54_find_ie(), mgmt is a pointer to struct ieee80211_mgmt, so
-sizeof(mgmt) evaluates to the size of the pointer rather than the size
-of the management frame header.
+Adding a drm_panel does currently not add a panel_bridge wrapping
+it. Usually the panel_bridge creation happens later, when some other driver
+(e.g. the previous bridge or the encoder) calls *_of_get_bridge() and the
+following element in the pipeline is a panel.
 
-Use sizeof(*mgmt) instead so that the skb length is compared against
-the actual size of the management frame header.
+This has some drawbacks:
 
-Fixes: 0ac0d6cedf61 ("p54: Move mac80211 glue code")
-Signed-off-by: Wang Yan <wangyan01@kylinos.cn>
+ * the bridge API is currently the best practice to access various
+   components of the pipeline, especially with complex cards where bridges
+   can be combined in different ways on different hardware
+ * the panel_bridge is not created in the context of the driver of the
+   underlying physical device (the panel driver), but of some other driver
+ * that other driver is not aware of whether the returned drm_bridge
+   pointer is a panel_bridge created on the fly, a pre-existing
+   panel_bridge or a non-panel bridge
+ * removal of a panel_bridge requires calling drm_panel_bridge_remove(),
+   but that other driver doesn't know whether this is needed because it
+   doesn't know whether it has created a panel_bridge or not
+
+Other drivers call [a variant of] drm_panel_bridge_add(), which also has
+some of the above drawbacks.
+
+So far the current approach was working mostly because devm and drmm ensure
+the panel bridge would be dealloacted at some later point. However with the
+upcoming implementation of bridge hotplug and dynamic bridge lifetime this
+will get more complicated.
+
+Switch to the new approach: embed a drm_bridge inside every drm_panel,
+which behaves just like the current drm_panel_bridge.
+
+Do this by copying and adapting the code from bridge/panel.c, using
+function names that are more suitable within drm_panel.c and doing the
+minimal adaptation needed.
+
+Currently drm_bridge and drm_panel have independent refcounted
+allocation. As they now become a single struct, just change
+drm_panel_get/put() to get/put the bridge. As a result, the refcount for a
+drm_bridge embedded in a drm_panel is:
+
+  bridge.refcount == number of drm_bridge_get() calls
+                   + number of drm_panel_get() calls
+                   - number of drm_bridge_put() calls
+                   - number of drm_panel_put() calls
+
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
 ---
- drivers/net/wireless/intersil/p54/main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/intersil/p54/main.c b/drivers/net/wireless/intersil/p54/main.c
-index 57a62108cbc3..d3e1776174f9 100644
---- a/drivers/net/wireless/intersil/p54/main.c
-+++ b/drivers/net/wireless/intersil/p54/main.c
-@@ -76,7 +76,7 @@ u8 *p54_find_ie(struct sk_buff *skb, u8 ie)
- 	struct ieee80211_mgmt *mgmt = (void *)skb->data;
- 	u8 *pos, *end;
+This patch is new in v2, and replaces "drm/bridge: panel: add a
+panel_bridge to every panel" which was based on a different approach.
+---
+ drivers/gpu/drm/drm_panel.c | 258 +++++++++++++++++++++++++++++++++++++++++---
+ include/drm/drm_panel.h     |  33 ++++--
+ 2 files changed, 266 insertions(+), 25 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
+index f8f6082e637f..9b86195f9f66 100644
+--- a/drivers/gpu/drm/drm_panel.c
++++ b/drivers/gpu/drm/drm_panel.c
+@@ -22,15 +22,19 @@
+  */
  
--	if (skb->len <= sizeof(mgmt))
-+	if (skb->len <= sizeof(*mgmt))
- 		return NULL;
+ #include <linux/backlight.h>
++#include <linux/debugfs.h>
+ #include <linux/err.h>
+ #include <linux/export.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
  
- 	pos = (u8 *)mgmt->u.beacon.variable;
++#include <drm/drm_atomic_helper.h>
+ #include <drm/drm_crtc.h>
++#include <drm/drm_modeset_helper_vtables.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
++#include <drm/drm_probe_helper.h>
+ 
+ static DEFINE_MUTEX(panel_lock);
+ static LIST_HEAD(panel_list);
+@@ -46,6 +50,18 @@ static LIST_HEAD(panel_list);
+  * take look at drm_panel_bridge_add() and devm_drm_panel_bridge_add().
+  */
+ 
++static inline struct drm_panel *
++drm_bridge_to_panel(const struct drm_bridge *bridge)
++{
++	return container_of(bridge, struct drm_panel, bridge);
++}
++
++static inline struct drm_panel *
++drm_connector_to_panel(const struct drm_connector *connector)
++{
++	return container_of(connector, struct drm_panel, connector);
++}
++
+ /**
+  * drm_panel_init - initialize a panel
+  * @panel: DRM panel
+@@ -86,6 +102,7 @@ void drm_panel_add(struct drm_panel *panel)
+ 	mutex_lock(&panel_lock);
+ 	list_add_tail(&panel->list, &panel_list);
+ 	mutex_unlock(&panel_lock);
++	drm_bridge_add(&panel->bridge);
+ }
+ EXPORT_SYMBOL(drm_panel_add);
+ 
+@@ -97,6 +114,7 @@ EXPORT_SYMBOL(drm_panel_add);
+  */
+ void drm_panel_remove(struct drm_panel *panel)
+ {
++	drm_bridge_remove(&panel->bridge);
+ 	mutex_lock(&panel_lock);
+ 	list_del_init(&panel->list);
+ 	mutex_unlock(&panel_lock);
+@@ -370,13 +388,198 @@ int drm_panel_get_modes(struct drm_panel *panel,
+ }
+ EXPORT_SYMBOL(drm_panel_get_modes);
+ 
+-static void __drm_panel_free(struct kref *kref)
++static int drm_panel_bridge_connector_get_modes(struct drm_connector *connector)
++{
++	struct drm_panel *drm_panel = drm_connector_to_panel(connector);
++
++	return drm_panel_get_modes(drm_panel, connector);
++}
++
++/**
++ * drm_bridge_set_connector_orientation - Set the connector panel
++ * orientation from the bridge that can be transformed to drm_panel.
++ *
++ * @bridge: The drm_bridge for a drm_panel.
++ * @connector: The connector to be set panel orientation.
++ *
++ * Returns 0 on success, negative errno on failure.
++ */
++int drm_bridge_set_connector_orientation(const struct drm_bridge *bridge,
++					 struct drm_connector *connector)
++{
++	struct drm_panel *panel = drm_bridge_to_panel(bridge);
++
++	return drm_connector_set_orientation_from_panel(connector, panel);
++}
++EXPORT_SYMBOL(drm_bridge_set_connector_orientation);
++
++static const struct drm_connector_helper_funcs
++drm_panel_bridge_connector_helper_funcs = {
++	.get_modes = drm_panel_bridge_connector_get_modes,
++};
++
++static const struct drm_connector_funcs drm_panel_bridge_connector_funcs = {
++	.reset = drm_atomic_helper_connector_reset,
++	.fill_modes = drm_helper_probe_single_connector_modes,
++	.destroy = drm_connector_cleanup,
++	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
++};
++
++static int drm_panel_bridge_attach(struct drm_bridge *bridge,
++				   struct drm_encoder *encoder,
++				   enum drm_bridge_attach_flags flags)
++{
++	struct drm_panel *panel = drm_bridge_to_panel(bridge);
++	struct drm_connector *connector = &panel->connector;
++	int ret;
++
++	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
++		return 0;
++
++	drm_connector_helper_add(connector,
++				 &drm_panel_bridge_connector_helper_funcs);
++
++	ret = drm_connector_init(bridge->dev, connector,
++				 &drm_panel_bridge_connector_funcs,
++				 panel->connector_type);
++	if (ret) {
++		DRM_ERROR("Failed to initialize connector\n");
++		return ret;
++	}
++
++	drm_bridge_set_connector_orientation(bridge, connector);
++
++	drm_connector_attach_encoder(connector, encoder);
++
++	if (bridge->dev->registered) {
++		if (connector->funcs->reset)
++			connector->funcs->reset(connector);
++		drm_connector_register(connector);
++	}
++
++	return 0;
++}
++
++static void drm_panel_bridge_detach(struct drm_bridge *bridge)
++{
++	struct drm_panel *panel = drm_bridge_to_panel(bridge);
++	struct drm_connector *connector = &panel->connector;
++
++	/* Cleanup the connector if we know it was initialized */
++	if (connector->dev)
++		drm_connector_cleanup(connector);
++}
++
++static void drm_panel_bridge_atomic_pre_enable(struct drm_bridge *bridge,
++					       struct drm_atomic_commit *atomic_commit)
++{
++	struct drm_panel *panel = drm_bridge_to_panel(bridge);
++	struct drm_encoder *encoder = bridge->encoder;
++	struct drm_crtc *crtc;
++	struct drm_crtc_state *old_crtc_state;
++
++	crtc = drm_atomic_get_new_crtc_for_encoder(atomic_commit, encoder);
++	if (!crtc)
++		return;
++
++	old_crtc_state = drm_atomic_get_old_crtc_state(atomic_commit, crtc);
++	if (old_crtc_state && old_crtc_state->self_refresh_active)
++		return;
++
++	drm_panel_prepare(panel);
++}
++
++static void drm_panel_bridge_atomic_enable(struct drm_bridge *bridge,
++					   struct drm_atomic_commit *atomic_commit)
+ {
+-	struct drm_panel *panel = container_of(kref, struct drm_panel, refcount);
++	struct drm_panel *panel = drm_bridge_to_panel(bridge);
++	struct drm_encoder *encoder = bridge->encoder;
++	struct drm_crtc *crtc;
++	struct drm_crtc_state *old_crtc_state;
+ 
+-	kfree(panel->container);
++	crtc = drm_atomic_get_new_crtc_for_encoder(atomic_commit, encoder);
++	if (!crtc)
++		return;
++
++	old_crtc_state = drm_atomic_get_old_crtc_state(atomic_commit, crtc);
++	if (old_crtc_state && old_crtc_state->self_refresh_active)
++		return;
++
++	drm_panel_enable(panel);
++}
++
++static void drm_panel_bridge_atomic_disable(struct drm_bridge *bridge,
++					    struct drm_atomic_commit *atomic_commit)
++{
++	struct drm_panel *panel = drm_bridge_to_panel(bridge);
++	struct drm_encoder *encoder = bridge->encoder;
++	struct drm_crtc *crtc;
++	struct drm_crtc_state *new_crtc_state;
++
++	crtc = drm_atomic_get_old_crtc_for_encoder(atomic_commit, encoder);
++	if (!crtc)
++		return;
++
++	new_crtc_state = drm_atomic_get_new_crtc_state(atomic_commit, crtc);
++	if (new_crtc_state && new_crtc_state->self_refresh_active)
++		return;
++
++	drm_panel_disable(panel);
+ }
+ 
++static void drm_panel_bridge_atomic_post_disable(struct drm_bridge *bridge,
++						 struct drm_atomic_commit *atomic_commit)
++{
++	struct drm_panel *panel = drm_bridge_to_panel(bridge);
++	struct drm_encoder *encoder = bridge->encoder;
++	struct drm_crtc *crtc;
++	struct drm_crtc_state *new_crtc_state;
++
++	crtc = drm_atomic_get_old_crtc_for_encoder(atomic_commit, encoder);
++	if (!crtc)
++		return;
++
++	new_crtc_state = drm_atomic_get_new_crtc_state(atomic_commit, crtc);
++	if (new_crtc_state && new_crtc_state->self_refresh_active)
++		return;
++
++	drm_panel_unprepare(panel);
++}
++
++static int drm_panel_bridge_get_modes(struct drm_bridge *bridge,
++				      struct drm_connector *connector)
++{
++	struct drm_panel *panel = drm_bridge_to_panel(bridge);
++
++	return drm_panel_get_modes(panel, connector);
++}
++
++static void drm_panel_bridge_debugfs_init(struct drm_bridge *bridge,
++					  struct dentry *root)
++{
++	struct drm_panel *panel = drm_bridge_to_panel(bridge);
++
++	root = debugfs_create_dir("panel", root);
++	if (panel->funcs->debugfs_init)
++		panel->funcs->debugfs_init(panel, root);
++}
++
++static const struct drm_bridge_funcs drm_panel_bridge_funcs = {
++	.attach = drm_panel_bridge_attach,
++	.detach = drm_panel_bridge_detach,
++	.atomic_pre_enable = drm_panel_bridge_atomic_pre_enable,
++	.atomic_enable = drm_panel_bridge_atomic_enable,
++	.atomic_disable = drm_panel_bridge_atomic_disable,
++	.atomic_post_disable = drm_panel_bridge_atomic_post_disable,
++	.get_modes = drm_panel_bridge_get_modes,
++	.atomic_create_state = drm_atomic_helper_bridge_create_state,
++	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
++	.atomic_get_input_bus_fmts = drm_atomic_helper_bridge_propagate_bus_fmt,
++	.debugfs_init = drm_panel_bridge_debugfs_init,
++};
++
+ /**
+  * drm_panel_get - Acquire a panel reference
+  * @panel: DRM panel
+@@ -387,10 +590,8 @@ static void __drm_panel_free(struct kref *kref)
+  */
+ struct drm_panel *drm_panel_get(struct drm_panel *panel)
+ {
+-	if (!panel)
+-		return panel;
+-
+-	kref_get(&panel->refcount);
++	if (panel)
++		drm_bridge_get(&panel->bridge);
+ 
+ 	return panel;
+ }
+@@ -406,7 +607,7 @@ EXPORT_SYMBOL(drm_panel_get);
+ void drm_panel_put(struct drm_panel *panel)
+ {
+ 	if (panel)
+-		kref_put(&panel->refcount, __drm_panel_free);
++		drm_bridge_put(&panel->bridge);
+ }
+ EXPORT_SYMBOL(drm_panel_put);
+ 
+@@ -429,8 +630,22 @@ void *__devm_drm_panel_alloc(struct device *dev, size_t size, size_t offset,
+ 			     const struct drm_panel_funcs *funcs,
+ 			     int connector_type)
+ {
+-	void *container;
++	/*
++	 * Struct embedding and offsets:
++	 *
++	 *    |--------------- user container struct ------------|
++	 *    :    |---------- struct drm_panel ------------|
++	 *    :    :    |----- struct drm_bridge ------|
++	 *    A    B    C
++	 *
++	 * B - A = offset (passed as argument)
++	 * C - B = panel_bridge_offset
++	 * C - A = alloc_bridge_offset
++	 */
++	const size_t panel_bridge_offset = offsetof(struct drm_panel, bridge);
++	const size_t alloc_bridge_offset = offset + panel_bridge_offset;
+ 	struct drm_panel *panel;
++	void *container;
+ 	int err;
+ 
+ 	if (!funcs) {
+@@ -438,14 +653,16 @@ void *__devm_drm_panel_alloc(struct device *dev, size_t size, size_t offset,
+ 		return ERR_PTR(-EINVAL);
+ 	}
+ 
+-	container = kzalloc(size, GFP_KERNEL);
+-	if (!container)
+-		return ERR_PTR(-ENOMEM);
++	container = __devm_drm_bridge_alloc(dev, size, alloc_bridge_offset,
++					    &drm_panel_bridge_funcs);
++	if (IS_ERR(container))
++		return container;
+ 
+ 	panel = container + offset;
+-	panel->container = container;
+ 	panel->funcs = funcs;
+-	kref_init(&panel->refcount);
++	panel->bridge.of_node = dev->of_node;
++
++	drm_panel_get(panel);
+ 
+ 	err = devm_add_action_or_reset(dev, drm_panel_put_void, panel);
+ 	if (err)
+@@ -457,6 +674,19 @@ void *__devm_drm_panel_alloc(struct device *dev, size_t size, size_t offset,
+ }
+ EXPORT_SYMBOL(__devm_drm_panel_alloc);
+ 
++/**
++ * drm_bridge_is_panel - Tell if a drm_bridge is a panel.
++ *
++ * @bridge: The drm_bridge to be checked.
++ *
++ * Returns true if the bridge is a panel, or false otherwise.
++ */
++bool drm_bridge_is_panel(const struct drm_bridge *bridge)
++{
++	return bridge->funcs == &drm_panel_bridge_funcs;
++}
++EXPORT_SYMBOL(drm_bridge_is_panel);
++
+ #ifdef CONFIG_OF
+ /**
+  * of_drm_find_panel - look up and reference a panel by device tree node
+diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
+index 08949d41d743..7fe2f3160b2a 100644
+--- a/include/drm/drm_panel.h
++++ b/include/drm/drm_panel.h
+@@ -30,6 +30,8 @@
+ #include <linux/mutex.h>
+ #include <linux/kref.h>
+ 
++#include <drm/drm_bridge.h>
++
+ struct backlight_device;
+ struct dentry;
+ struct device_node;
+@@ -228,6 +230,22 @@ struct drm_panel {
+ 	 */
+ 	const struct drm_panel_funcs *funcs;
+ 
++	/**
++	 * @bridge:
++	 *
++	 * Bridge to access the panel features through the drm_bridge API.
++	 */
++	struct drm_bridge bridge;
++
++	/**
++	 * @connector:
++	 *
++	 * Connector instantiated by the bridge (only for legacy code not
++	 * yet using the drm_bridge_connector and
++	 * DRM_BRIDGE_ATTACH_NO_CONNECTOR).
++	 */
++	struct drm_connector connector;
++
+ 	/**
+ 	 * @connector_type:
+ 	 *
+@@ -281,17 +299,6 @@ struct drm_panel {
+ 	 * If true then the panel has been enabled.
+ 	 */
+ 	bool enabled;
+-
+-	/**
+-	 * @container: Pointer to the private driver struct embedding this
+-	 * @struct drm_panel.
+-	 */
+-	void *container;
+-
+-	/**
+-	 * @refcount: reference count of users referencing this panel.
+-	 */
+-	struct kref refcount;
+ };
+ 
+ void *__devm_drm_panel_alloc(struct device *dev, size_t size, size_t offset,
+@@ -327,6 +334,10 @@ void drm_panel_add(struct drm_panel *panel);
+ void drm_panel_remove(struct drm_panel *panel);
+ int devm_drm_panel_add(struct device *dev, struct drm_panel *panel);
+ 
++bool drm_bridge_is_panel(const struct drm_bridge *bridge);
++int drm_bridge_set_connector_orientation(const struct drm_bridge *bridge,
++					 struct drm_connector *connector);
++
+ void drm_panel_prepare(struct drm_panel *panel);
+ void drm_panel_unprepare(struct drm_panel *panel);
+ 
+
 -- 
-2.25.1
+2.55.0
 
