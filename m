@@ -1,125 +1,141 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-48.mta1.migadu.com [95.215.58.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E3983431E6;
-	Thu,  3 Sep 2026 12:53:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E47994AA56C
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:53:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788439999; cv=none; b=fnbdzd1DAs8JoPyRE/9HCgcJt5PUOaJICUI6vp+sGHXFdfnvLAB75IEKlDb1TqcVgNBIyA5yd1lAvcK4HrlXUCIOISHWqeTCA+We5V4nOjMxIZu23Eu8HlxpXrxxI1fbvBswoXsHIt5WbKdKA7P9C3gMdg+eNYcfzSd+T6exhXA=
+	t=1788440004; cv=none; b=rnZgQRll8ZRiwKWgb6GRVyqE9wXRqh9/6rOyXB4PChij8KDMpl1jxBUm5GRWlARSZhberWNa4YLCpuoJ5GSZws5IZbdeoCrycUg2asJSWwEGvdHUuTk9MpSBlu3uzrYIfnhAahi0pbAZlRYcE2/QDz6WImgcnDQ1FX/iDQKUrFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788439999; c=relaxed/simple;
-	bh=tG43r3ybKL5uUT1O97RFbvlWYx+uuXHDv+04GQeYfAI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F8beYgGZvfYfV2Yp9Genx8kwV70nCUN+GB7z+Bbwh7j9Y8T2U1nOHHnWlkCHSNQKbqodn8JJI0/15snFBghaTahn33ipbo6xWSp+sCPs3gTsIDt3b5aKEaGRtm7BK+3DGeB8zcM0ah5MSoCCcvyxw2uQ5wCJ/3n1Gn738EpJRz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cGemzVTj; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788440004; c=relaxed/simple;
+	bh=UlTZVZlpxTLFXO8JJRdJ8MXuTqmOeVcpCsf//AOZZCE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TQ6mOmwpHrz7DCFaGowyqZsnKTMdNDACaP0XH2oI5052GVhGt6uJw8eQ8VrQ+a2VBENOEwmF2zv6qBFBk9DwJB+mbxcSsD/8Hbdoy2oHEAOWJHMTQB99MhO1bQv7cKB9lU3UmKutqJ4gyFOH1FVAxRV1f8taiDGbsdAdSzZQ89U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bZgCCfHJ; arc=none smtp.client-ip=95.215.58.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cGemzVTj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788439998; x=1819975998;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=tG43r3ybKL5uUT1O97RFbvlWYx+uuXHDv+04GQeYfAI=;
-  b=cGemzVTjhDdm/eKK4bNao3ZNAGnj6P2DnGgCd509ZXfEg/zhh7expQDY
-   aesXNjBG3S1Q0VKb/uRKUdcZxOPi3XRDMvB4ZVbikia/zSiZDklNICZ1E
-   3OGMTrrwZvEPO3KAu+sD8OWGP50UitVu4AfEwJln9ADF515UkGZs3VDUv
-   SQGbzQH6Mkdz0O8sIsoV5oDZRI6zrzOQe0FVr6kayPylqTRYBhl8zPcT+
-   tgUVEozUXzwtdLOxHDDImYtsElbYA0+zMmZWVgP+TMgTbHsd9I6BvHJ9V
-   2fKrrPGK1bFNt6fTxJVxHOS74AS9aztv+85tC20gBsGXNZOMxWr1ewQC0
-   Q==;
-X-CSE-ConnectionGUID: YL9PaXPcQViTXGaVv7CkqA==
-X-CSE-MsgGUID: 2JX6UsMcQ2GFouX/phKIBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="100079188"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="100079188"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 05:53:17 -0700
-X-CSE-ConnectionGUID: EG6UkGFQT6G/iLYPpVG6aQ==
-X-CSE-MsgGUID: Fv19EkL4QhedtceXVGp5ew==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="265372033"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 05:53:11 -0700
-Date: Thu, 3 Sep 2026 15:53:08 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: zl020895 <zl020895@163.com>
-Cc: longzhao <longzhao@ambarella.com>, Arnd Bergmann <arnd@arndb.de>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	soc <soc@lists.linux.dev>,
-	linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	devicetree <devicetree@vger.kernel.org>,
-	linux-clk <linux-clk@vger.kernel.org>,
-	linux-gpio <linux-gpio@vger.kernel.org>,
-	linux-serial <linux-serial@vger.kernel.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	Brian Masney <bmasney@redhat.com>, Lee Jones <lee@kernel.org>,
-	mfd <mfd@lists.linux.dev>
-Subject: Re: Re: Re: [PATCH v5 10/12] serial: 8250: add Ambarella UART driver
-Message-ID: <aplttDenvZHvn0mF@ashevche-desk.local>
-References: <20260818-cv75-v5-v5-0-7bbb12f0360f@ambarella.com>
- <20260818-cv75-v5-v5-10-7bbb12f0360f@ambarella.com>
- <aoRpc2RK2_X3CdAi@ashevche-desk.local>
- <162c0385.2c076.1a018b82fa7.Coremail.zl020895@163.com>
- <aplcxoINt0YAjvxL@ashevche-desk.local>
- <709278f9.9699.1a067207b4c.Coremail.zl020895@163.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bZgCCfHJ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=UlTZVZlpxTLFXO8JJRdJ8MXuTqmOeVcpCsf//AOZZCE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788439998; v=1; x=1789044798;
+ b=bZgCCfHJwIyAAkUIHMriFrmR1b1F7tyZwl3fdu9z9UCeZsj2Ep7DEIyUSEmgF+ZhMVLWiEvw
+ zyYYk1BeX8qgwCaCvP8majsvebQqpmTIzeIQAVPXlFPzTB95++c2u/q1A+GTnGmeZszJFKDFLtf
+ gi3y7yEVr4Bab5NY9KUjsef4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5ce3ad7db0c8ff24;
+	Thu, 03 Sep 2026 12:53:18 +0000
+X-Mizu-Trace-ID: 5ce3ad7db0c8ff24
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: bpf@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Xiang Mei <xmei5@asu.edu>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Aditi Ghag <aditi.ghag@isovalent.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH bpf 1/2] bpf: Fix out-of-bounds read of sk_protocol in bpf_sock_destroy()
+Date: Thu,  3 Sep 2026 20:52:48 +0800
+Message-ID: <20260903125306.299943-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <709278f9.9699.1a067207b4c.Coremail.zl020895@163.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 03, 2026 at 07:56:17PM +0800, zl020895 wrote:
-> 
-> Thanks for the confirmation. 
-> I will keep 8250_ambarella and update the commit message as you
-> suggested.
+sk_protocol lives in struct sock, not in struct sock_common. A timewait
+or request sock handed to bpf_sock_destroy() by the tcp iterator is
+neither, so reading sk->sk_protocol runs past the object:
 
-No, I mean to go back to the version that modifies 8250_dw.
+==================================================================
+BUG: KASAN: slab-out-of-bounds in bpf_sock_destroy+0xc7/0xe0
+Read of size 2 at addr ffff8881047d11b4 by task test_progs/428
 
-> At 2026-09-03 19:40:54, "Andy Shevchenko" <andriy.shevchenko@linux.intel.com> wrote:
-> >On Wed, Aug 19, 2026 at 02:31:59PM +0800, zl020895 wrote:
-> >> 
-> >> Thanks for the review.
-> >
-> >> This is Ambarella 8250-compatible IP, not Synopsys DesignWare. We
-> >> first tried 8250_dw after Linus asked us to move to the 8250 library;
-> >> you then told us not to touch 8250_dw and to use 8250_ambarella
-> >> instead. That is what this patch is.
-> >> Background:
-> >> https://lore.kernel.org/r/CAD++jLm6HzEU1TM-c=Vtjv3FJEBecVP7TyxSgq_Q0zF-YwT6NA@mail.gmail.com/
-> >> https://lore.kernel.org/linux-serial/an8KvvHWX0naH3Xw@ashevche-desk.local/
-> >> https://lore.kernel.org/linux-serial/7E774305-3920-4BB7-BA46-E0772D6BED84@ambarella.com/
-> >> I will also switch to uart_read_port_properties() and trim the
-> >> 8250_dw-derived boilerplate.
-> >
-> >Thanks for the register descriptions, it was helpful. After going through them
-> >it seems the v3 as you made it is good enough (sorry for going back and forth).
-> >What it needs is better commit message explaining that while it's not a Synopsys
-> >DW IP, it was made to be quite compatible with that (on register level) and hence
-> >no new driver is required, just a small quirk.
+Tainted: [W]=WARN
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x91/0xf0
+ print_report+0xd1/0x630
+ kasan_report+0xf3/0x130
+ __asan_report_load2_noabort+0x14/0x30
+ bpf_sock_destroy+0xc7/0xe0
+ bpf_prog_c3dd61f9d9cd9f37_iter_tcp6_timewait+0x9f/0xb7
+ bpf_iter_run_prog+0x538/0xde0
+ bpf_iter_tcp_seq_show+0x26b/0x4b0
+ bpf_seq_read+0x424/0x1210
+ vfs_read+0x197/0xe40
+ ksys_read+0x119/0x240
+ __x64_sys_read+0x72/0xc0
+ x64_sys_call+0x647/0x27e0
+ do_syscall_64+0xe5/0x610
+ entry_SYSCALL_64_after_hwframe+0x76/0x7e
 
+Only check sk_protocol on full socks. tcp_abort() already knows how to
+deal with TIME_WAIT and NEW_SYN_RECV socks. Also fix the comment, it
+never matched the code.
+
+Fixes: 4ddbcb886268 ("bpf: Add bpf_sock_destroy kfunc")
+Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
+Closes: https://lore.kernel.org/bpf/20260702224519.800135-1-xmei5@asu.edu/
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
+ net/core/filter.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/net/core/filter.c b/net/core/filter.c
+index 61940e753552..1bbb72138ac6 100644
+--- a/net/core/filter.c
++++ b/net/core/filter.c
+@@ -12912,8 +12912,8 @@ __bpf_kfunc_start_defs();
+  * @sock: Pointer to socket to be destroyed
+  *
+  * Return:
+- * On error, may return EPROTONOSUPPORT, EINVAL.
+- * EPROTONOSUPPORT if protocol specific destroy handler is not supported.
++ * On error, may return EOPNOTSUPP, EINVAL.
++ * EOPNOTSUPP if protocol specific destroy handler is not supported.
+  * 0 otherwise
+  */
+ __bpf_kfunc int bpf_sock_destroy(struct sock_common *sock)
+@@ -12925,8 +12925,12 @@ __bpf_kfunc int bpf_sock_destroy(struct sock_common *sock)
+ 	 * Supporting protocols will need to acquire sock lock in the BPF context
+ 	 * prior to invoking this kfunc.
+ 	 */
+-	if (!sk->sk_prot->diag_destroy || (sk->sk_protocol != IPPROTO_TCP &&
+-					   sk->sk_protocol != IPPROTO_UDP))
++	if (!sk->sk_prot->diag_destroy)
++		return -EOPNOTSUPP;
++
++	if (sk_fullsock(sk) &&
++	    sk->sk_protocol != IPPROTO_TCP &&
++	    sk->sk_protocol != IPPROTO_UDP)
+ 		return -EOPNOTSUPP;
+ 
+ 	return sk->sk_prot->diag_destroy(sk, ECONNABORTED);
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
