@@ -1,139 +1,106 @@
-Received: from mail01.salmtek.com (mail01.salmtek.com [65.108.149.29])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com [209.85.222.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC80B4BB5D5;
-	Thu,  3 Sep 2026 15:00:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.108.149.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35904BA9F1
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:00:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788447635; cv=none; b=ZwXyzKAiLqOwzHnf79ylCw4iG6zTgugKgaGMi90pQMIIJU8J0zXh2lvcRs6UZD7Ydcb0XhbwmO7/Q2AE+vC5Iz17fFzD0hSYljtIjQ8OSTbVEANrUI/1/NeQ8QFFXMAunNp86vTG7+R+aOd15nLhnKFOUO3rew1nSTZMEYUwF7w=
+	t=1788447639; cv=none; b=hbthJw7R6Zc9tXXXQK16YGLevm8J8AoN5q49dJTSyX/BRBNkl6L9boH81KIrnM7HLjkgenikxHgoME9CyIo88UoH2O7Fm94eaehgZZmMkSaHNFE6xDmSHWyIQ4F2tlsARfhqbNpBhNC5GffholCq9hILqu0fRnb2LnnbrnQWvPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788447635; c=relaxed/simple;
-	bh=Knp04GX35Uv1sDTbNkONfQcmM0uAfalH2x++UFeVV8s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fALriX5FfrOByVok4yfTFvR6Ie/h1oSDEXxuMUVWM027EgaqaEuMO/NRu4jbAIm2kLg6VqZxbKWg0mTUwEHNynfX9L/1LAdOsedIrcjlx0fBbPiYGP5FSB+jo7/DQpQVjYKvZsojZSl0I/SWn4GFGbSRFia+foc9UcuumcwGAKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=salmtek.com; spf=none smtp.mailfrom=salmtek.com; dkim=pass (2048-bit key) header.d=salmtek.com header.i=@salmtek.com header.b=dfD8eQ8R; arc=none smtp.client-ip=65.108.149.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=salmtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=salmtek.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=salmtek.com header.i=@salmtek.com header.b="dfD8eQ8R"
-Received: from mail01.salmtek.com (localhost.localdomain [127.0.0.1])
-	by mail01.salmtek.com (Proxmox) with ESMTP id D6AE440925;
-	Thu, 03 Sep 2026 12:00:25 -0300 (-03)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=salmtek.com; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:from:from:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=selector01; bh=1J5YWfIaliRnkR
-	MI/8B08F7xEXXPvDk24J81082ruWw=; b=dfD8eQ8R+x6IFOQsNEcMAqLNcfmXOi
-	R3ytSap652IMxEmJeV1bWZP4vJl1t56v4qomSiW6l/+t2+S8R76McKYmUVn++4yR
-	iz8GRMGmxjDF/J3ambzLBMf10OtBVaAR174wt/M17OZG3Dbpn/StvFHjk/a2K0uR
-	1FnrKg9Tb/bnaezI+YhljPphQHRPBMk8mWLw998HDKz4xXI411n1AKcO8ZJu3Cv5
-	Pdo0shEpU4HPOcRd+5OlAOFIwwBKFCOzfbL0pISjZT0nw8wsq+QYDJa+EoCnBhlx
-	uMgnbj5EjGUUO1d+itkpVVfx+zVMGIKb7ywUTfxBSpEbjcA0pd/EHr/A==
-Message-ID: <376dbf6f-ecda-49ca-a7c0-af2a4077e945@salmtek.com>
-Date: Thu, 3 Sep 2026 12:00:06 -0300
+	s=arc-20240116; t=1788447639; c=relaxed/simple;
+	bh=rEiGuSHpvriUqLhToDYgt8FFSKdOnEQptXqAy0J5nV4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eueBLqqxCLnolahB27eZXSZLO8SoZQOjZnYn9GLPfaFSSVugKp/iOeRCHUuhTM+0wOjpzqB0SfXj39ZQXKfw6L7Jp/kc3oy9tZ2DH7x4AuzzJNqARFJD5WuVGDvpz2CAa6RVGhtcV+pQGX0aR27mVFimVctmfKFYFx3itnRll+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-97bf90f4b41so1199770241.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:00:37 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788447636; x=1789052436;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=E7IpOefrxKq1W8FoUG8547LazHe9zeJ3Q1wTKXTvt3Y=;
+        b=fSk47aOyXmJoQgsqOWEKfSHRuue9YC5khGchtA2x9B9EK16YznUHRbUbcL0gZafjr4
+         sCmohmp/wrUXYezo6TQ0FVI94ogWzrnuscEsIpXe2pr7OapeWudrbVQKerPtLSN0ye9L
+         bbSFIo+PkmsziBFauPZ0TAczpdGKAOHBaEYNIm6K/iH0DueoZ9ek/7+ANeXhwuAWjXL4
+         TMOir9/+05JprhgLEYe+aLwY0ciivsSKQN3B5t/dWrOZkUOhKQuyPAX/H4LYbKKlZKAG
+         Rhs4AIfUNftH3wiRs/vs7GbA9XAr7ei9VLf8V3P8lywsi+39DPGxNHnQf4RODjP5sQGw
+         eKNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxyYzbu77k0S2+9wibE0N7sA/diX2HyOrIHZgGi6tCFiUeCmCgHwGIDDrOQaz+tEWCxdPfVTb8bVRVDR9Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++mLRoabbmwGiDmmziyC43QA5RcGW1+BBSdQR0aN2ZNe58AU5dRe
+	NWc4vkjvTpD61N4ATgdrsnuLteboBmn0rf4IKIWeQkwP5/oxoh6JdVI/8a4uXu7vU1A=
+X-Gm-Gg: AYBFou2x1g10EIylQdLO+vpOeWWyIzrHOzjPOeQJtUm6DfXDqKgxFnWr+JFenK3+qYi
+	aRRL+grtisIALW6Jr6emjV0P7X5akE/bMx6rYQ1CoY5uFpWi8z38irlBAyPCXJq9khs19aDCsH+
+	L21xmuggFLX273OBw3kiw3dMiRJY9THh1UojdEVhQkJFoK9Bo1DP5ySzys5QSg83qrGgPS3v+6u
+	/qq6jqZ9BqPP4d6esG+11y8l8AqPD4LcIfHVPS7Bc9AA8jI2msLgfMEi/05N5/qFijl35tIMZ/m
+	dv3I+0aaV6XhY7vXEx9uFlw2oozE1WW52IM6+i3UNKyo1WkI2lNzfDP0I3pohnBVas2tV45I8vj
+	Ni4qWN6gkPjpQwk00CgcnCIKp05biugFFu6OM41rmPCkoAPeV7o7JGtV20AUs7MZ/yiKXDCjOOL
+	x7pzR1JEjW0v+vKM+bYxl3+AvcOL/gKB0bQP8hTaRKZPOf0OcKYLt7qAxRAyXy6LqyF3gGkM/DY
+	hauaB69j7rt/F8xehM0CqQ+ZA==
+X-Received: by 2002:a05:6102:8084:b0:779:c38e:de53 with SMTP id ada2fe7eead31-78a1f36fe00mr6165801137.10.1788447636424;
+        Thu, 03 Sep 2026 08:00:36 -0700 (PDT)
+Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com. [209.85.222.47])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9806728262esm4576462241.3.2026.09.03.08.00.32
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 08:00:34 -0700 (PDT)
+Received: by mail-ua1-f47.google.com with SMTP id a1e0cc1a2514c-977258a75d9so1513195241.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:00:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwjhkBsEPs3Nr1VDoMxxoG0uhT63DiE3PO0Bn0HHxxwieB3ZeQd/Nr0i3e5rPQn/TSEEZ1a58RN1Mg0p14=@vger.kernel.org
+X-Received: by 2002:a67:e704:0:b0:77c:6bdc:824f with SMTP id
+ ada2fe7eead31-78a1f1d4903mr5471476137.1.1788447632007; Thu, 03 Sep 2026
+ 08:00:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] wifi: ath12k: flush REO queue extension descriptors
- before freeing the qdesc
-To: Baochen Qiang <baochen.qiang@oss.qualcomm.com>, jjohnson@kernel.org
-Cc: ath12k@lists.infradead.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260831151011.2336305-1-sebastian.salmhofer@salmtek.com>
- <265ee3ce-b953-4cef-a34e-c2f51a86ec26@oss.qualcomm.com>
-Content-Language: en-US
-From: Sebastian Salmhofer <sebastian.salmhofer@salmtek.com>
-Organization: SalmTek LLC
-In-Reply-To: <265ee3ce-b953-4cef-a34e-c2f51a86ec26@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <e481b6de46cecc6ea604ae165272c667274cc621.1788437140.git.geert+renesas@glider.be>
+ <abec6831-d344-489d-b70c-1e5dd4d43c2d@lunn.ch>
+In-Reply-To: <abec6831-d344-489d-b70c-1e5dd4d43c2d@lunn.ch>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 3 Sep 2026 17:00:20 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdV98HRJEy2s824VTnXXDMGcfuMN-s0RFertQ4ymjPyp4w@mail.gmail.com>
+X-Gm-Features: AcwNN1XbkTCwkdzzCUI--td_POZtF6rqFVqNEudn1e6PV9_tB5kgdfNf5dSHIDE
+Message-ID: <CAMuHMdV98HRJEy2s824VTnXXDMGcfuMN-s0RFertQ4ymjPyp4w@mail.gmail.com>
+Subject: Re: [PATCH] net: ethernet: ti: davinci_mdio: Drop commas after match
+ table sentinels
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Siddharth Vadapalli <s-vadapalli@ti.com>, Roger Quadros <rogerq@kernel.org>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	linux-omap@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/3/2026 5:07 AM, Baochen Qiang wrote:
- >> The faulting addresses always fall at offsets 0x100..0x580 of a
- >> retired qdesc and never at 0x000 or 0x080, i.e. exactly the ten
- >> extension descriptors and never the queue descriptor or the 1K bitmap
- >
- > the queue desc offset should be 0x000, and the offset of the first 
-extension descriptor
- > should at 0x080. However the IOMMU warning starts at 0x100, which 
-does not make sense ...
+Hi Andrew,
 
-You are right that under the driver's struct layout ext_desc[0] sits at
-0x080, so that sentence of the commit message was an interpretation on
-my part, not an observed fact. The observed facts, across about ten
-days of logs and more than a dozen retired qdescs, are:
+On Thu, 3 Sept 2026 at 16:38, Andrew Lunn <andrew@lunn.ch> wrote:
+> On Thu, Sep 03, 2026 at 02:06:47PM +0200, Geert Uytterhoeven wrote:
+> > It does not make sense to have a comma after a sentinel, as any new
+> > elements must be added before the sentinel.
+> >
+> > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+>
+> net-next.
 
-- every fault falls at an offset in 0x100..0x580 of a retired
-   1536-byte qdesc (bases are 2KB-aligned from kmalloc-2k, so the
-   offsets are unambiguous),
-- no fault was ever seen at 0x000 or 0x080,
-- within one qdesc the faulting lines are 0x80-strided runs, sometimes
-   the full 0x100..0x580 sweep, sometimes a subset, and lines of one
-   qdesc can be written back in separate bursts minutes apart.
+Bummer. I have added a check to my checkpatch wrapper script,
+so hopefully this was the last time I made that mistake ;-)
 
-Two explanations would fit that pattern: either the hardware expects
-the 1K bitmap descriptor directly after the base queue structure (so
-extension descriptors effectively start at 0x100 from the hardware's
-point of view), or FLUSH_QUEUE_1K_DESC covers the first 256 bytes of
-the queue as one object. I don't have documentation for the REO cache
-controller, so I can only report that on QCN9274 hw2.0 with
-WLAN.WBE.1.6-01243 the single 1K flush demonstrably leaves everything
-from 0x100 upward dirty. Could you check internally what the 1K flush
-actually covers on this target, and where the hardware expects the 1K
-bitmap? I will reword the commit message to stay purely with the
-observed offsets in v2.
+> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
- >> The writes are triggered by later REO activity, typically
- >> a new station association, so they can occur minutes or hours after the
- >> memory was freed, and the blocked transactions stall the data path for
- >> several seconds.
- >
- > then what happens? the new sta association succeeds?
+Thanks!
 
-Yes, the association succeeds. The IOMMU blocks the writes, so nothing
-is corrupted; the user-visible symptom is that the data path stalls
-for several seconds around each fault burst, for all connected
-stations, which is how this was noticed (periodic freezes of
-latency-sensitive traffic). With the fix applied the stalls are gone
-along with the faults. Without an IOMMU the same writes would land in
-freed memory. I will make that explicit in v2.
+Gr{oetje,eeting}s,
 
- >> +    while (off > HAL_LINK_DESC_ALIGN) {
- >> +        off -= HAL_LINK_DESC_ALIGN;
- >> +        memset(&cmd, 0, sizeof(cmd));
- >
- > unnecessary cleanup since all required fields are refilled in each 
-iteration.
+                        Geert
 
-Right, and the same for the one before the base flush - cmd is
-zero-initialized and both sites set every field the flush-cache
-command reads. Will drop both in v2.
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
- >> +    if (rx_tid->tid != HAL_DESC_REO_NON_QOS_TID)
- >> +        cmd.flag |= HAL_REO_CMD_FLG_FLUSH_QUEUE_1K_DESC;
- >
- > HAL_REO_CMD_FLG_FLUSH_QUEUE_1K_DESC is used to flush all in a single 
-cmd. since we switch
- > back to the per segment flush, do we still need it?
-
-I kept it deliberately. The per-segment loop covers every 128-byte
-line from 0x080 upward, and the flag makes the final base flush cover
-whatever the "1K descriptor" object is, so the sequence is correct
-under either interpretation above, at no extra cost. Dropping the flag
-would restore the exact pre-b706fb4e580b sequence; that may well be
-sufficient, but if the 1K-window queue is cached as an object larger
-than 128 bytes on this target, a plain flush of the base address might
-not cover its tail, and I cannot rule that out from here. If you can
-confirm that plain 128-byte flushes fully cover a 1K-window queue
-descriptor, I am happy to drop the flag in v2.
-
-I will send v2 with the memsets removed and the commit message
-clarified once the 1K flush semantics are settled.
-
-Thanks for the review,
-Sebastian
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
