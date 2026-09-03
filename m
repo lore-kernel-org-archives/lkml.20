@@ -1,197 +1,122 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 670D1490C12;
-	Thu,  3 Sep 2026 10:32:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D3E648BD24
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:32:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788431547; cv=none; b=r1COxojZEWX9CEsjzci9fILHH3kMpVDU6wGwfHjfmGHXIZCfg/xreI/ki89iJyKWnjzF28H4u1UBxTUto9Jgrcdd1YBgP7VlHpJRJKfw+4XAunV7MfcDCABQy3L/sjQSFIRGzGajvJTpEzxpW6DqUwLJZm68UEQ3xLmRHBvEPU8=
+	t=1788431553; cv=none; b=lwIv6XlNmeS2Dl96KMm3EjPnY4KD/tjaoksqTKNqk9U5FgSdfqQ8Xb2rzI195Y2A9GFrPkwzZY3KDqu4CwLN1RFc5rW/0sOt6vK4p3RmOlkl781KhKhAdclFq6PaZGgcYH7C/s2aIfCzzJ0a2b5/w8fjX7od7i0Ojy+mXYajfrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788431547; c=relaxed/simple;
-	bh=jnhKOvqXNxavrVkvy1TrIz2ZFbREXQCKHvvjfSTHsrk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=htXIrbyxyXC9Kl9IcTd4oOqQ1dkafdV9+1E3GyUYvuo4QOUrIG7TRNFhv+kTlZHRTQFTiIqGX2XfNdtiz1T9B8DRSMwZixcq/k+d2imhf6HI/2thyXQWB0npCJIwCU+3mxXBYdE2ziSHnzX9CyR15qyklWVPSbjX0/P2c9y5YSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=TqdJTvjS; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788431553; c=relaxed/simple;
+	bh=UTWEEMTIdKTL982VQSfBJWW2fta0VT/gkHpdezrQf2U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=efJpMdgp9qnsHxUl/KqBDpXIB9YTpkKFh24keNIliTv4wnbmsu6r0aSt121MTh9kajyACJX6enRZbh9u0bH+zAPJKIRnXT/u3mb3X8BftRdWCu44vMwzmBG6Q37QQbhK0wCuQVljNxrJNqNZlwT5RKflHbRWheu9Ltgg83LDINo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZLAiTh8c; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=qpuOUr5b; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="TqdJTvjS"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 54DCF1596;
-	Thu,  3 Sep 2026 03:31:59 -0700 (PDT)
-Received: from e142334-100.cambridge.arm.com (e142334-100.cambridge.arm.com [10.2.198.93])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id E7E333F673;
-	Thu,  3 Sep 2026 03:31:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788431523; bh=jnhKOvqXNxavrVkvy1TrIz2ZFbREXQCKHvvjfSTHsrk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=TqdJTvjSMBL/Fecpzq69xnSc8TtbMviOhHJH0tSUQhuwn0beTUse/c0M5IvEcZQBk
-	 ZWuuBe3peOseXoJxaSyHvNwu+SsvzmYsY5yXAGPVWpK8KMU1ZQ4B3t4mAKW1iUi0QH
-	 u2Yb1Uhkv1kKR+XFEs06dtpTzXB1MMV4rnuygP5E=
-From: Muhammad Usama Anjum <usama.anjum@arm.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Dimitri Sivanich <dimitri.sivanich@hpe.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Helge Deller <deller@gmx.de>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	Nick Piggin <npiggin@gmail.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	SJ Park <sj@kernel.org>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Dennis Zhou <dennis@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	ziy@nvidia.com,
-	pfalcato@suse.de,
-	agordeev@linux.ibm.com,
-	ryan.roberts@arm.com
-Cc: Muhammad Usama Anjum <usama.anjum@arm.com>,
-	linux-kernel@vger.kernel.org,
-	intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-parisc@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	linux-mm@kvack.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	kasan-dev@googlegroups.com,
-	linux-trace-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	damon@lists.linux.dev
-Subject: [PATCH v2 8/8] xen: use hw_pte_t for PTE range callbacks
-Date: Thu,  3 Sep 2026 11:30:00 +0100
-Message-ID: <20260903103002.1091859-9-usama.anjum@arm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260903103002.1091859-1-usama.anjum@arm.com>
-References: <20260903103002.1091859-1-usama.anjum@arm.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZLAiTh8c";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="qpuOUr5b"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788431538;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P1S4jDPBcWhcjpcEN8bURyLjdL/4D6hTstVl8KFuzFw=;
+	b=ZLAiTh8cf3Z0L3yzT/Ht2xJnmt/5deZtpwCZGwGDxQV1jio6wNItgWXd1z+VSkPDRRWJcN
+	MmwFkx71jThr+RYIR/FTYp1DGybzlp/7EpgOJuxthgRed2s3TmwNI3RQYHtOtlKPd1s99t
+	W6psqHW+9vtI67cZPCo65Tcr0r+INE0=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-313-up9tCkmYNf6UxKn6VW-efA-1; Thu, 03 Sep 2026 06:32:17 -0400
+X-MC-Unique: up9tCkmYNf6UxKn6VW-efA-1
+X-Mimecast-MFC-AGG-ID: up9tCkmYNf6UxKn6VW-efA_1788431536
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-482ea386bf6so1021139f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 03:32:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788431536; x=1789036336; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P1S4jDPBcWhcjpcEN8bURyLjdL/4D6hTstVl8KFuzFw=;
+        b=qpuOUr5bUd8lFpNtDrfNd8GD9ABYnCgP0+ukoKvuyiv+2dAWzMGXe9p7dW1N9V/zrg
+         eWXOiH249PPXneZ8sczfw0ALM42vREVhSm6mive0LiOcMIEIb39LRWU2s4mfzeHHK5Xv
+         UZAdHwuzyGSI4RwUcTX+EF0Z2a4DgyKvCz3KyZlo2EcZMf3sZP80cn96XdXQLrg9ncPy
+         QHp6/7MDMAeRYlPbYJn7FtglYVUPf0V2Od2050NzArq5nfcXHDGVP7c4U8uJJcZJksCL
+         Csn9gJd93dtjKA7Cj4J08pRRfo5QYYNGsr2l2O1kRbuOghcV078MKzeukMDK5IjjAtpd
+         fbOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788431536; x=1789036336;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P1S4jDPBcWhcjpcEN8bURyLjdL/4D6hTstVl8KFuzFw=;
+        b=A/4jS0YNy+AulYcdMNJJXmyLousrfh3CAatlNNMFbtIZfpjryfBDUylYhF9x1PE/PO
+         45colDIErytTj8IwZ5ZzQJhsulJ4seRHIbfsyXzNo3N96e2YnoihweCARhe4cTvmgzNy
+         a9Yx8dKg3IULkrzd/utYH9h17ZILan+XfKJB/JyM5q9PiBO/q3yjMyu8SqR3bWEghnkM
+         xn+0zpY3qudMEIdX5Jvdvcud/m9qn2F0rA8MzjWMi1dTl83Jaf0Vy2kdtX87caZjsHm0
+         ya0o/grwPpDav5xbIwvVEsMK1CfXNry7U42YKyPuKsBVCmgY0JKlpbDPLosLumzBqeLU
+         7viw==
+X-Forwarded-Encrypted: i=1; AKwUvBzpT/Tk0gAKSTOgKFG5RHNYWUwdH1nOm4aA/5gGb9wsn+JAuTIEdJoABer3aSRoPcD5b068IaV2+HgLeMs=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9zlq76myYzcF7tyh3uwALcBTqSY6RsomGARMlyN/J6EHDg9d7
+	TM/WCP9j+RjQi0TlM/Aw/YvS9fXSAUtH3s6tqd2lwpRtVd8f/i4w3gtmIeLvoHt13qDf7mZOz4I
+	SBpbIitwBAVQ16FYGmUOmNILE4JJUnGctXgANBdrgtbryW/d7IzFdtaOZNiGFJu1fLw==
+X-Gm-Gg: AYBFou2fD3VyIHMUXTfBVcLkOqyc+Sjhn4GGuWmV3h/1k880TYJ/x8pA6xOcTDTfgou
+	NO++oM8RUUvHyNgUEl5hqr5hteGfYEtjhdNqFpsZjv5SpnnyBqt46TIKZkn0D4y1Z7V9erRRyja
+	cJGvFyb1uFveexHPlmxAM7X5bSEXOmSQbPyCs6HmgIXN8Fg8pdqGMPPlgWgAQog53FpQNCGish6
+	POIomx2yPrFuk/uEVOVdjF6NDaoNScKz5nud4ihG/vHxo6+UFXfC0tFuI80bp0TMR8gIAW5H2nu
+	+nQbEy2W0rW5BUl/j/BmnW7FmWdk2U9e+8Gp7lmdBcSYRL/avvi8m4TdRCfrZeeZd5D9OgKmRd6
+	w+opB7rBGvuxto5eZny1gYm5bRkYfAhRnhNT5j9fpbNVQYO+TzvnmfIsj+XDEbSOaMbUlz7dOsQ
+	==
+X-Received: by 2002:a05:600c:1c29:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-49ce584c93amr189606835e9.16.1788431536336;
+        Thu, 03 Sep 2026 03:32:16 -0700 (PDT)
+X-Received: by 2002:a05:600c:1c29:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-49ce584c93amr189606265e9.16.1788431535877;
+        Thu, 03 Sep 2026 03:32:15 -0700 (PDT)
+Received: from [192.168.188.218] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce55259ecsm84231465e9.2.2026.09.03.03.32.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 03:32:13 -0700 (PDT)
+Message-ID: <0d041c08-1deb-40c3-b05a-e4657844b3a4@redhat.com>
+Date: Thu, 3 Sep 2026 12:32:12 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [net-next,v2] octeontx2-pf: Add NIXLF error and poison interrupt
+ handlers
+To: netdev-bot+sashiko@kernel.org, nshettyj@marvell.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ naveenm@marvell.com, sgoutham@marvell.com, gakula@marvell.com,
+ rkannoth@marvell.com, sbhatta@marvell.com, bbhushan2@marvell.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org
+References: <20260831062600.839203-1-nshettyj@marvell.com>
+ <178842771187.3394541.7325489363068011329@kernel.org>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <178842771187.3394541.7325489363068011329@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Generic PTE range and remapping helpers now pass pointers to PTE table
-storage as hw_pte_t *. Update the Xen callbacks to match those interfaces.
+On 9/3/26 11:28 AM, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider:
+> 
+> Critical: 0 · High: 0 · Medium: 1 · Low: 1
+> 
+> - [Medium] The patch bundles undisclosed VF-side changes that the commit
+>   message (subject "octeontx2-pf: Add NIXLF error and poison interrupt…
 
-Keep software PTE values as pte_t and continue to access them through the
-existing PTE helpers. This is required when Xen is built for an
-architecture that selects the distinct hw_pte_t wrapper.
+IMHO this comment is borderline relevant, but addressing it requires a
+level of effort that would offset the benefit, as this is only for code
+archeology's sake and we already have the lore link in the changelog.
 
-Reviewed-by: Juergen Gross <jgross@suse.com>
-Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
----
-Changes since v1:
-- Use software PTE value terminology.
-
-Changes since RFC v1:
-- Clarify why the callback conversion is required after architecture
-  opt-in.
----
- drivers/xen/gntdev.c               | 2 +-
- drivers/xen/privcmd.c              | 2 +-
- drivers/xen/xenbus/xenbus_client.c | 2 +-
- drivers/xen/xlate_mmu.c            | 4 ++--
- 4 files changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
-index 1dcc4675580ed..b013bcad99b5b 100644
---- a/drivers/xen/gntdev.c
-+++ b/drivers/xen/gntdev.c
-@@ -301,7 +301,7 @@ void gntdev_put_map(struct gntdev_priv *priv, struct gntdev_grant_map *map)
- 
- /* ------------------------------------------------------------------ */
- 
--static int find_grant_ptes(pte_t *pte, unsigned long addr, void *data)
-+static int find_grant_ptes(hw_pte_t *pte, unsigned long addr, void *data)
- {
- 	struct gntdev_grant_map *map = data;
- 	unsigned int pgnr = (addr - map->pages_vm_start) >> PAGE_SHIFT;
-diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
-index 7cfc28f1bb86f..e724cc053e264 100644
---- a/drivers/xen/privcmd.c
-+++ b/drivers/xen/privcmd.c
-@@ -1658,7 +1658,7 @@ static int privcmd_mmap(struct file *file, struct vm_area_struct *vma)
-  * on a per pfn/pte basis. Mapping calls that fail with ENOENT
-  * can be then retried until success.
-  */
--static int is_mapped_fn(pte_t *pte, unsigned long addr, void *data)
-+static int is_mapped_fn(hw_pte_t *pte, unsigned long addr, void *data)
- {
- 	return pte_none(ptep_get(pte)) ? 0 : -EBUSY;
- }
-diff --git a/drivers/xen/xenbus/xenbus_client.c b/drivers/xen/xenbus/xenbus_client.c
-index 27682cb5e58ab..387f97a555594 100644
---- a/drivers/xen/xenbus/xenbus_client.c
-+++ b/drivers/xen/xenbus/xenbus_client.c
-@@ -749,7 +749,7 @@ int xenbus_unmap_ring_vfree(struct xenbus_device *dev, void *vaddr)
- EXPORT_SYMBOL_GPL(xenbus_unmap_ring_vfree);
- 
- #ifdef CONFIG_XEN_PV
--static int map_ring_apply(pte_t *pte, unsigned long addr, void *data)
-+static int map_ring_apply(hw_pte_t *pte, unsigned long addr, void *data)
- {
- 	struct map_ring_valloc *info = data;
- 
-diff --git a/drivers/xen/xlate_mmu.c b/drivers/xen/xlate_mmu.c
-index 8efd7b55223fb..d7244f9f9a545 100644
---- a/drivers/xen/xlate_mmu.c
-+++ b/drivers/xen/xlate_mmu.c
-@@ -93,7 +93,7 @@ static void setup_hparams(unsigned long gfn, void *data)
- 	info->fgfn++;
- }
- 
--static int remap_pte_fn(pte_t *ptep, unsigned long addr, void *data)
-+static int remap_pte_fn(hw_pte_t *ptep, unsigned long addr, void *data)
- {
- 	struct remap_data *info = data;
- 	struct page *page = info->pages[info->index++];
-@@ -269,7 +269,7 @@ struct remap_pfn {
- 	unsigned long i;
- };
- 
--static int remap_pfn_fn(pte_t *ptep, unsigned long addr, void *data)
-+static int remap_pfn_fn(hw_pte_t *ptep, unsigned long addr, void *data)
- {
- 	struct remap_pfn *r = data;
- 	struct page *page = r->pages[r->i];
--- 
-2.47.3
+/P
 
