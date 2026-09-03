@@ -1,113 +1,145 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D3B73CB90A;
-	Thu,  3 Sep 2026 06:22:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C7122BDC1C;
+	Thu,  3 Sep 2026 06:23:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788416575; cv=none; b=Gv9KvAbGT4re06B7OJUio52DCv+b5dopCVd/762rMEhqsTe9fs2nZ82DAwDRG/j/ACgjvVIKzvEnOuoAqUnUZBut2rk8EuFvoNUlz+uEPntDWIPWhsVWOwExupnKo3VxuQ1m94gTiggDGa3SCsPQ97QdBibRFvkpkggJx+YViys=
+	t=1788416611; cv=none; b=it/dTfm+b7z3KCEeE7MzuvuQ8WkK9JAUkX2WH3ph5s0RlNoY8JnSuGOWUnKB9unqw96nJsab+3SfQEGG4nFR375+jlX2N4oHG7vQg7hfe6gjsUyhgmFi9F//EgYyWmUUAr0+QoAsybJ9IIr/lOqE8kkKG9CWpuf270NQbve+XlE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788416575; c=relaxed/simple;
-	bh=59ix3QFGUTTfXXlWlM5VJlIV0wiWTBUYF1LiPPudgzY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HTym2u/potme2U1B2I1+qSZ/4kz8WIk+scfCwZxRGwS+J1WKpxIvu2KTbYSu3KCmabI/+VmM3kL1c/LfamPM6MMkf8ECzhxAdPvxT8Yh/w4HEBWDjPSHZx43vV4lF0ulQieymZXr/LomANU/MVm7aGdadFDaUrK/4Yfxj5Iow68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Bjqg89bo; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788416611; c=relaxed/simple;
+	bh=SaB9aXPUYYvGwQvhTxrdrk4O5rz23QLKf9SfjrmIcMs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=m8gHY+DzjCbu1xdo+tGBGAlMLer6hpyKGbpqSqJgD3S+5oVTS3cIFsP+6RgbvPye6dyRLx5apod1qLKryc6IDHldq+8BhmGivq1sABZu8isWdffPdjdlH3xY0jChQKJesKhkd6wZOV1ONmg/ke1wkKOFLjoQIvXqkoVCHuHKMpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=Sykx5Cgx; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Bjqg89bo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788416573; x=1819952573;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=59ix3QFGUTTfXXlWlM5VJlIV0wiWTBUYF1LiPPudgzY=;
-  b=Bjqg89boBCtZ9A9sJ6XRVeZJDzNv67fNTyVLWc+pH6CMoF6TVwpNdomP
-   yjowozkFDqSxjeaPwl4HbeNJu0C0n3NdWNIJDM8MWQWWrWAG0mX92mNZh
-   qa0XoJ4JaF7fst4dYzX47t3OmZpluD5A2g8B8tS+kp3zAFIrhyS2FUuY+
-   4jwfsmOFJj3yvmRMYVqlOP8LhBw9dnuI/OSHuRCivx0A5hoV8Nw9WT27L
-   rfB/D2OSD3+A3rjxwx9xJJH0kiK1ZDXn3Z+T06CkHkHM6JFIqzggl75Co
-   RMj0nFe2zdqIqwJVWnHDibLbP2vs1rd7Bgazbyz/G+nyeKIww/CYP6+9F
-   Q==;
-X-CSE-ConnectionGUID: UCytBYRyRIaXpAnwXuC+yQ==
-X-CSE-MsgGUID: PaVm4p2pQXyRo/JNIwMMkg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="106406701"
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="106406701"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 23:22:52 -0700
-X-CSE-ConnectionGUID: eGdfNlSlSyOqx6QlxLqQ/g==
-X-CSE-MsgGUID: Z5FyE2Z9Syq2BVJ9LIhTwQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="263450736"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 23:22:49 -0700
-Date: Thu, 3 Sep 2026 09:22:46 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Marcelo Schmitt <marcelo.schmitt@analog.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux@analog.com, jic23@kernel.org,
-	nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
-	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
-	marcelo.schmitt1@gmail.com
-Subject: Re: [PATCH v1 01/13] iio: Fix typo in vendor name
-Message-ID: <apkSNlQuQkjdNKvx@ashevche-desk.local>
-References: <cover.1788368334.git.marcelo.schmitt@analog.com>
- <e508718734a06f005704051b8bc3d3d7a1a3b48d.1788368334.git.marcelo.schmitt@analog.com>
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="Sykx5Cgx"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 7DE961FDB1;
+	Thu,  3 Sep 2026 06:23:23 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1788416603; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WKsSDk9GkEa82koVjVF9sHtV2XmBuB9AUujVQP91OZU=;
+	b=Sykx5CgxFRaMO/x/vCTep3m1K4Qu4g2XCpAUQsOw/azpEXx4U7UyGSgpzTEijDd1aTHLOv
+	5K9DlB1AwWpxzvxC2sk9kyBCcA+aEHND65c6HCeNBWdA35pHT+nsT5FnjW5GvhnLWrhLRr
+	PohAjbagV/7p9iY9BDVCsfvdxS6XGMw=
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2C01413736;
+	Thu,  3 Sep 2026 06:23:23 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id IDcwClsSmWoVKwAAD6G6ig
+	(envelope-from <neelx@suse.com>); Thu, 03 Sep 2026 06:23:23 +0000
+From: Daniel Vacek <neelx@suse.com>
+To: David Sterba <dsterba@suse.com>,
+	Chris Mason <mason@kernel.org>
+Cc: Daniel Vacek <neelx@suse.com>,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Qu Wenruo <wqu@suse.com>
+Subject: [PATCH v2 1/3] btrfs: consume the given iter directly instead of copying in csum_one_bio()
+Date: Thu,  3 Sep 2026 08:23:14 +0200
+Message-ID: <20260903062317.3928665-2-neelx@suse.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260903062317.3928665-1-neelx@suse.com>
+References: <20260903062317.3928665-1-neelx@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e508718734a06f005704051b8bc3d3d7a1a3b48d.1788368334.git.marcelo.schmitt@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 7DE961FDB1
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -4.00
+X-Spam-Level: 
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
 
-On Wed, Sep 02, 2026 at 02:21:34PM -0300, Marcelo Schmitt wrote:
+This is just a small cleanup to avoid copying the iter twice in async case.
+We already have a copy csum_one_bio() can consume directly. No need to copy
+again the second time.
+We can use this copy also in the sync case and get rid of the parameter.
 
-> ---
-> Now
-> find drivers/iio/ -type f | xargs grep -i "Analog Device "
-> finds no leftover occurrence of such typo.
-> 
-> Also,
-> grep -nrIi drivers/iio/ -e "Analog Device" | wc -l
-> and
-> grep -nrIi drivers/iio/ -e "Analog Devices" | wc -l
-> both count the same number of lines.
+Signed-off-by: Daniel Vacek <neelx@suse.com>
+---
 
-Why not `git grep ...`?
+v2: Use the bbio::csum_saved_iter in both cases and simplify even further.
+---
+ fs/btrfs/file-item.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
-...
-
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-
-But you also want to fix possessive suffix usage
-
-$ git grep -n 'Analog Device[^s]'
-
-Documentation/iio/ade9000.rst:7:This driver supports Analog Device's ADE9000 and ADE9078 energy measurement
-Documentation/iio/adis16475.rst:7:This driver supports Analog Device's IMUs on SPI bus.
-Documentation/iio/adis16480.rst:7:This driver supports Analog Device's IMUs on SPI bus.
-Documentation/iio/adis16550.rst:7:This driver supports Analog Device's IMUs on SPI bus.
-Documentation/iio/adxl313.rst:7:This driver supports Analog Device's ADXL313 on SPI/I2C bus.
-Documentation/iio/adxl345.rst:7:This driver supports Analog Device's ADXL345/375 on SPI/I2C bus.
-Documentation/iio/adxl380.rst:7:This driver supports Analog Device's ADXL380/382 on SPI/I2C bus.
-drivers/iio/adc/Kconfig:108:    tristate "Analog Device AD4130 ADC Driver"
-drivers/iio/adc/Kconfig:124:    tristate "Analog Device AD4134 ADC Driver"
-drivers/iio/adc/Kconfig:136:    tristate "Analog Device AD4170-4 ADC Driver"
-drivers/iio/adc/Kconfig:167:    tristate "Analog Device AD4695 ADC Driver"
-drivers/iio/adc/Kconfig:182:    tristate "Analog Device AD4851 DAS Driver"
-drivers/iio/adc/Kconfig:350:    tristate "Analog Device AD7405 ADC Driver"
-drivers/iio/dac/ad3552r.c:699:MODULE_DESCRIPTION("Analog Device AD3552R DAC");
-
+diff --git a/fs/btrfs/file-item.c b/fs/btrfs/file-item.c
+index 581ca5653be9..4a7681557ec1 100644
+--- a/fs/btrfs/file-item.c
++++ b/fs/btrfs/file-item.c
+@@ -797,18 +797,17 @@ int btrfs_lookup_csums_bitmap(struct btrfs_root *root, struct btrfs_path *path,
+ 	return ret;
+ }
+ 
+-static void csum_one_bio(struct btrfs_bio *bbio, struct bvec_iter *src)
++static void csum_one_bio(struct btrfs_bio *bbio)
+ {
+ 	struct btrfs_inode *inode = bbio->inode;
+ 	struct btrfs_fs_info *fs_info = inode->root->fs_info;
+ 	struct btrfs_ordered_sum *sums = bbio->sums;
+-	struct bvec_iter iter;
++	struct bvec_iter *iter = &bbio->csum_saved_iter;
+ 	const u32 blocksize = fs_info->sectorsize;
+ 	int index = 0;
+ 
+-	for (iter = *src; iter.bi_size; bio_advance_iter(&bbio->bio, &iter, blocksize)) {
+-		btrfs_csum_one_bio_block(fs_info, &bbio->bio, &iter,
+-					 sums->sums + index);
++	for (; iter->bi_size; bio_advance_iter(&bbio->bio, iter, blocksize)) {
++		btrfs_csum_one_bio_block(fs_info, &bbio->bio, iter, sums->sums + index);
+ 
+ 		index += fs_info->csum_size;
+ 	}
+@@ -820,7 +819,7 @@ static void csum_one_bio_work(struct work_struct *work)
+ 
+ 	ASSERT(btrfs_op(&bbio->bio) == BTRFS_MAP_WRITE);
+ 	ASSERT(bbio->async_csum == true);
+-	csum_one_bio(bbio, &bbio->csum_saved_iter);
++	csum_one_bio(bbio);
+ 	complete(&bbio->csum_done);
+ }
+ 
+@@ -850,13 +849,13 @@ int btrfs_csum_one_bio(struct btrfs_bio *bbio, bool async)
+ 	bbio->sums = sums;
+ 	btrfs_add_ordered_sum(ordered, sums);
+ 
++	bbio->csum_saved_iter = bio->bi_iter;
+ 	if (!async) {
+-		csum_one_bio(bbio, &bbio->bio.bi_iter);
++		csum_one_bio(bbio);
+ 		return 0;
+ 	}
+ 	init_completion(&bbio->csum_done);
+ 	bbio->async_csum = true;
+-	bbio->csum_saved_iter = bbio->bio.bi_iter;
+ 	INIT_WORK(&bbio->csum_work, csum_one_bio_work);
+ 	schedule_work(&bbio->csum_work);
+ 	return 0;
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
