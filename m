@@ -1,82 +1,146 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20CC6345ED1
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 02:24:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74DBE3451C1
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 02:24:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788402255; cv=none; b=GYLcPDV91x8eOZXRuOKsQn0Jp7wcmDjHJ1QSENt9v46i9j6tlYByTE4K1qnDmBpWr7AxXw4U1x4vdPVGFtQf7B/rz0IWTb7oMCu7LbOtjyAt8hKHaJ/ATGNjRKlag9zyd0X0v7GqW+7H5RGjpk2ofNcRzEeYthuuNdmEz56ECkk=
+	t=1788402292; cv=none; b=DU3meCQzyuTMppXf91aQXRdqRHvvKFQCJFkTXNsJEusvp7McsESCpd3C8mhwSwKPRyhEK6ZS7PkmrOTPuIMu8aSYcQf4mUn4islaCKr967vy/pfzWAGTSpVZu1J31tVmnxoEQtsLxUmM+lWKTFBwKWQ1NUTFelndHlQgbH29Do8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788402255; c=relaxed/simple;
-	bh=gm1y3HjSbfjetP2qj6SkQ/PvAerOiP935sq/jHQIUpg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dG8sj2TMnU8FZHicw0G9JMbMpf+MB9si5iznmIajaQ1F3dC6Q2p7hJGo7mGH2tgWy4mCvs8vKtuNmZGwszOoFZM0DMROvvjJGsG1qxNXqVbM6QAZRfEQOyA6cm7LVZ1auG5MTYnJbTOFUKRUtBZXOyXyA3DonQtQ78AQbvFzZsU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JKtI5OPK; arc=none smtp.client-ip=209.85.216.45
+	s=arc-20240116; t=1788402292; c=relaxed/simple;
+	bh=iC7and9h7b1SIUvtmbF0bA5C1kwIySKrp0zXHTwCAuQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=X76WpFqfSbqaxsBkWyf87YTgdsh1x8h+mOLEe5mVw6EYaJIQLq6/uszqOcgZjUFXC8yvBJ0dYMLVp2M505fRQUXwkJy+pz+oxkGvC81aeAMrHu0eSSiOn//JjUC3T+EWMh6iNoixbK0wOBb6WGxTfw2C7fK9kxop+MDso70n+ZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WUFHSksd; arc=none smtp.client-ip=209.85.214.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JKtI5OPK"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-395cf2535acso567762a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 19:24:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WUFHSksd"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d6fe26ef1cso20386975ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 19:24:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788402251; x=1789007051; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gm1y3HjSbfjetP2qj6SkQ/PvAerOiP935sq/jHQIUpg=;
-        b=JKtI5OPKYgnHrf9Dnqgga0fvi2ZJ/x8+42Hn/6x6VZ8b2fqLfNt0iu05kDa5XGjXpS
-         ZqYXEjybp7stvUwk0yBDEYnwp1WdSUy9OyapzKiIy9TAz3OXiMHWgxAEzc9xn23Jx8sz
-         /+B2EKOL1XRUarPdgS0HUVS7d21Q/7cHbNCbuxExJ4q3Lhf4qD8SFoLFgDoHhKH6E9kn
-         f8OBoLzOMMXTCc7hiUK+zvvTZ1fpT/digCAXe1UWjfW90THr7WI5ZWeGDC8pOBrZSDoQ
-         OOaUEP0Elinj3QrjkaN0zku/q567yh87vuShATPnzyUJKHlM/gSepzSNT2nhn+EX82Vu
-         gFhQ==
+        d=gmail.com; s=20251104; t=1788402284; x=1789007084; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nEnLbsLjH8lfXnlpNq4YY44i+y0cC+hZ66l4ewIS6QE=;
+        b=WUFHSksd8voXxr0ryYu0+kvRy0EX1RU8TfWn+MFz4NCqadw5Ao4UfrPKnVY4FmT3B1
+         taVMNHKNk9L5+7sEAVrMfAEOG3ZTzCHuj2e/EKWWFx3x5UG0gjTd54Ee6PGRUG4wsrbT
+         n8BACLv/iEEDToIGyRmycrG1bCqgLrQR0IKGSzJ+r2/BRV1K37Q7YXegdDd3ep74B6QK
+         zSHvO6z8qkkc/xT7Bhs8Pz3tT5CpaWIVV1dSdxmjwSsIS+WNiITuwyP97lazZv1hSMrf
+         LFQGSKJZzIdyFvMVnFaoJHj7Tg69Prws1MkO66iYRBfZNBCd1UbRfAKn4YgpTQs1m6PB
+         FiKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788402251; x=1789007051;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gm1y3HjSbfjetP2qj6SkQ/PvAerOiP935sq/jHQIUpg=;
-        b=PShw5uOOLQaiZeWQP9SJxy/f7v5y35t/B9eQDor7gKhNNRHamjJJcVZgnoCZ9W3YTm
-         b3cVBzVUAJo0LLzqtuS7rjVvq1x7r9HPzBKOs4Fg5WH7WXmw1OxqvbMY4KEqa0Dgpilm
-         OzqcF8f5h7KLt1YMV3MeeGY2SHXytck8JxwuguAn9H+1llCuz9IMyjL3IDYwCZbvSHwV
-         PehUxLXnfJSBvyNH3JcoJgN3wODLTEAIM4VC1rGcdg5TZIWMKn/AjKIeXWrjjBEEdcGf
-         q8LgC5/sytBOAdRUV9CQHX7AnFtC0lmqe4Yz4unMV3sOi6baejytN8CMJL1n0djjmYee
-         qFyA==
-X-Forwarded-Encrypted: i=1; AKwUvBwY+2Yp++LUjlUeolvlmNCgk0ZD6giXEVLc4vYTUrJgMy4r+P+v8/m16JsKHeQTkS2QPQD5hF78Y21Uwj8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kGDc8lWuEW1Q2yOGSGhTUtO8kfwyVYZxGNE7NEyCYalFfqna0h
-	ANpUG+e3DhIE/6yMpwx+OktcFc7GdHbeYQFcYHHsnQxPFvWG432QQ4I=
-X-Gm-Gg: AYBFou2GXGK7mPd5PcEttF0XR2/heJ8G5fIarw7S1mb3/w/UD8suTG8vuyLeNl6W8Y5
-	9e0HJhzAO5blSQ/NAMkmOyFG52gUUfIqe/CkhzLAMZcQdo7doL9ri37fzE4cBhKcaQyyjyFx7Tz
-	nzBI8S6SSRKa3Hcrkih+SZmVx7rIbo/CXPB1c5pLTwjETkGbDWJmDzTzMWgsb19QzJCfPAj7ZJN
-	MjvfvmkPpbz/8E6+h8TZ9EIO/sNDQYE6xwRzX1JMq3ifXwT0c1M48kJB5XP0NFx6v8FuDvRq3rX
-	OOEAs9mSdKKMlzkOhfFApzLS4DP74inBSFDoGiboVJQdvKsp1uH9w9yoVfnIkuUqMho1YS6dNZK
-	O82G2D3YCTBPD9r30VaCYHSCUiPfLFjMHIXXUfwZQ9TbxwXFeN754ERP9JdZJG10oqf2iIpLV4P
-	vF8sq8VGTKonnc3CBPeQOhjqeZ1RBDKTaQ/1niuvIXgsPudfrm1NN1NtUnxMYwMZ1tKCJRHr5e4
-	KhhCoB4yrdxYmxEAY8/zG4//KuK
-X-Received: by 2002:a17:90b:2e46:b0:38f:a81:15b1 with SMTP id 98e67ed59e1d1-39b08653554mr3443262a91.19.1788402250805;
-        Wed, 02 Sep 2026 19:24:10 -0700 (PDT)
-Received: from anuj-MacBookPro ([2406:7400:63:f76b:3efb:3463:cad7:ba39])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33256414c60sm2062933eec.24.2026.09.02.19.24.07
+        d=1e100.net; s=20251104; t=1788402284; x=1789007084;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nEnLbsLjH8lfXnlpNq4YY44i+y0cC+hZ66l4ewIS6QE=;
+        b=s5Y7jBerCauEyxgTlM84Z7TT0xjClxU9NxL3D4i/V/SaVoEt/8KG4CVYxRxoCV0vTB
+         7zdRwKUxkp95vBE2KX0xK1Ewl8a2oqm+oWfX6vQyA0TvU9FGREO0Wcr8qJt95yy/JEft
+         UPH1B9YIkhNVwMBf+/WjtlRpvEtLjsRgh9w8ctJDjQ2TnduJ3tlBSw0XR35QjiBcPeQc
+         mO1tL7Yhhraz8cUhtH1u7onk7H5ChVFiZq/iBrOq8bzFmQxPfBggzqxtSD3W9KkTfz0U
+         fM36O0LyueQK930LuuTCYubYxLOGnI8EoJtVe5qirV8WfaKMizky6nTJ1XcWDeQjPCWm
+         ZSaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxUwRCbtuabNWTv8l6Rm9jaaePJ273wOIN7VSTz2AgWbvGNYeIxvcJuy83tPzRhmWZjiJ17ouE4Vy7tgSM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kSR21CxuosUiFafYQkPOSQkQH3cLPj71fYwLBaNvKa11iknAs1
+	IeYLuBovBmVBw/hS154TNpzIz1feUfdCxRCf6pJCGaT87Myg/lw9t/Vw
+X-Gm-Gg: AYBFou16ysOD1HOtOq/KeIfk56ctxtI8jIsXom9/LgHeongqMMCGOiwddeSUom0PLcM
+	1QfyCNQe0IUFxHn2WmMazX3PAuxShOSsD0TNbx+k9db+aSLHrMjs3+4lYNY+6/0gkgYJeLL/pbf
+	JieZtkbxtLBfb63AdWq3z4xN6XeW8y/EhHIz28lx/y9nwyUfpjFqf8WtRRnlw43PGbp+PWSRnv3
+	ALSFO6Ku11R+OzDXCdMKVpa8FD5hxz4tEb8qWrQT7i1rgDjEr+QijJWEOpD+xCTOo7quUqzXHL2
+	IlKY4S5lJN97JzO+avNSCpzka5zqeKcYjOexM1qYt1r/fTo4yDBa7RYI9P1zoEocjGLFaXab9bm
+	hzwksDqV9YGUYbI3xYDOBXwqZb48uvDLkwECkNtNWjdcte+6ldnLoGYnDjTEzzxYMZWw0H7Zdzc
+	7ZanTSV/VQNTMvSdMBDVFYHhByZf8eTsDst1mo0O6AUQFGDyJ9Sr1eVE8+JKI=
+X-Received: by 2002:a17:90b:5384:b0:398:ceef:edbd with SMTP id 98e67ed59e1d1-39aee1bbae0mr14243570a91.18.1788402283444;
+        Wed, 02 Sep 2026 19:24:43 -0700 (PDT)
+Received: from gmail.com ([185.220.238.35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08766a2dsm2107662a91.15.2026.09.02.19.24.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 19:24:09 -0700 (PDT)
-Date: Thu, 3 Sep 2026 07:54:03 +0530
-From: Anuj Gupta <anuj1072538@gmail.com>
-To: Caleb Sander Mateos <csander@purestorage.com>
-Cc: Jens Axboe <axboe@kernel.dk>, sashiko-bot@kernel.org, 
-	io-uring@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] io_uring/rw: keep CQE flags on iopoll requests when
- adding kbuf flags
-Message-ID: <2vfjhhjzjoii2xaetvm5nadbvqfg5gamjcszsrj6ks5qvil2v4@sii3illc5s65>
-References: <20260902210200.2336720-1-csander@purestorage.com>
+        Wed, 02 Sep 2026 19:24:43 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
+To: SJ Park <sj@kernel.org>
+Cc: Kunwu Chan <kunwu.chan@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: Re: [PATCH 03/12] mm/damon/vaddr: remove a debug message
+Date: Thu,  3 Sep 2026 10:24:22 +0800
+Message-ID: <20260903022431.74074-1-kunwu.chan@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260902054747.99370-4-sj@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902210200.2336720-1-csander@purestorage.com>
+Content-Transfer-Encoding: 8bit
 
-Reviewed-by: Anuj Gupta <anuj20.g@samsung.com>
+On Tue,  1 Sep 2026 22:47:36 -0700 SJ Park <sj@kernel.org> wrote:
+
+> There is a debug message in the DAMON virtual address space operation
+> set.  It has not really been used in a meaningful way for the last few
+> years, though.  Remove it.
+> 
+> Signed-off-by: SJ Park <sj@kernel.org>
+> ---
+>  mm/damon/vaddr.c | 16 +++-------------
+>  1 file changed, 3 insertions(+), 13 deletions(-)
+> 
+> diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
+> index c8c32b2ae0402..f884d3f78f30a 100644
+> --- a/mm/damon/vaddr.c
+> +++ b/mm/damon/vaddr.c
+> @@ -189,22 +189,12 @@ static int damon_va_three_regions(struct damon_target *t,
+>   *   <BIG UNMAPPED REGION 2>
+>   *   <stack>
+>   */
+> -static void __damon_va_init_regions(struct damon_ctx *ctx,
+> -				     struct damon_target *t)
+> +static void __damon_va_init_regions(struct damon_target *t)
+>  {
+> -	struct damon_target *ti;
+>  	struct damon_addr_range regions[3];
+> -	int tidx = 0;
+>  
+> -	if (damon_va_three_regions(t, regions)) {
+> -		damon_for_each_target(ti, ctx) {
+
+Thanks for the cleanup. The debug message was the only user of
+ctx here, so the signature cleanup follows naturally.
+
+Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+
+Thanks,
+Kunwu
+
+> -			if (ti == t)
+> -				break;
+> -			tidx++;
+> -		}
+> -		pr_debug("Failed to get three regions of %dth target\n", tidx);
+> +	if (damon_va_three_regions(t, regions))
+>  		return;
+> -	}
+>  
+>  	damon_set_regions(t, regions, 3, DAMON_MIN_REGION_SZ);
+>  }
+> @@ -217,7 +207,7 @@ static void damon_va_init(struct damon_ctx *ctx)
+>  	damon_for_each_target(t, ctx) {
+>  		/* the user may set the target regions as they want */
+>  		if (!damon_nr_regions(t))
+> -			__damon_va_init_regions(ctx, t);
+> +			__damon_va_init_regions(t);
+>  	}
+>  }
+>  
+> -- 
+> 2.47.3
+> 
+
+Sent using hkml (https://github.com/sjp38/hackermail)
