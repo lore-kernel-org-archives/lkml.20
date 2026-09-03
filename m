@@ -1,588 +1,127 @@
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B3634E56D6;
-	Thu,  3 Sep 2026 15:47:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D304E2343;
+	Thu,  3 Sep 2026 15:47:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788450468; cv=none; b=pLek89kghu7heswsE0XheWDigkcD4dJ8xFcZfum9/zNlCvbZokDdXcRMrw9ab/ozczJcKs+aYbY7mM6Ildz1BBLMcqbrKFW6lPxVVCepswd0COyHwe9WciMXtey7P+gK1o5k399AXzqNYaZFTJw/ZC/J8ijPQgZWVn7zuMFOh7Q=
+	t=1788450472; cv=none; b=V7Iijv139pnAWeoF3kz7ca7CxOELH2pG2dsP7eNgq29rltPpf4vy3T8baolXC+qHM1zG+zQz+R9LptgVyOXrZnKILriMlyVLHWXKABh9lCHHMc1VCtW1hisHjMQaBE4pgtiID1QdKs7FuMJBVoFX/7aVH0dxnwG9d/q8CMeFDSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788450468; c=relaxed/simple;
-	bh=HfYHvyqB5PtBuPmi086kVJuCSKdAEmSFkGc/keIk1Gc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=M2N8EPhpop0Wy73ckytzAA7mffVQ9+HzfMBfvp2aWhmC7P5o4AKpj+eDa7wbaXo5aiF8EmnvlGzxAXqRtMl89LIriSwMHsAf1tIwDdLSeY60yGKIYTwnxa6CWbWe+z03gvVuQjldUy/4ygP+ifrj05wztv7iZrp5+wOZvp1YvY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=VERux9SG; arc=none smtp.client-ip=216.40.44.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788450472; c=relaxed/simple;
+	bh=pqHW43aaDY6UbfTuWChfQDsIAymGj4QkwJoB9GC+A0Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=grNlR3BdNqDmveG0LILtzdwZkP85x71Lj6Daw7TNivim2kxPsH2qYjXIgkN3ZxsM/yIy6Ltj/kqy2MUS26epvObdf4bq0z54+CWgtawzib1BqgXIiGJKkkX/u9sh/FOQA8ov8Hc/dt9fmCS9H48FbTa2U6x0HchxbelFBvqnfm4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QyuHBUd5; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="VERux9SG"
-Received: from omf18.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay07.hostedemail.com (Postfix) with ESMTP id D6E44160581;
-	Thu,  3 Sep 2026 15:47:43 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf18.hostedemail.com (Postfix) with ESMTPA id 031C62F;
-	Thu,  3 Sep 2026 15:47:41 +0000 (UTC)
-Date: Thu, 3 Sep 2026 11:48:45 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: mhiramat@kernel.org, linux-trace-kernel@vger.kernel.org,
- mathieu.desnoyers@efficios.com, kernel-team@android.com,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 2/4] tracing: Fix subbuf resize races with
- trace_pipe_raw readers
-Message-ID: <20260903114845.4eec2020@gandalf.local.home>
-In-Reply-To: <20260901155445.1475405-3-vdonnefort@google.com>
-References: <20260901155445.1475405-1-vdonnefort@google.com>
-	<20260901155445.1475405-3-vdonnefort@google.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QyuHBUd5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788450471; x=1819986471;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=pqHW43aaDY6UbfTuWChfQDsIAymGj4QkwJoB9GC+A0Q=;
+  b=QyuHBUd5PpDWFwoXdKJaJ3UvOlajnbGnDZVYkQt3O18bh48nhMVEPBSQ
+   azaGh1OTS0DOQxubDz0sHeT2ca41dYZB/5eNteylk8OZ1/hlNqdULf3le
+   WEMEhQXrGiCWlkIWOe1VKkmlVdNiO5eVNmfIgh9BzatVNQj1arLPZngQh
+   hRubTYqAjBxDPeWzCZAzdh+n8n3dyckxpBAYbj0MqOrvbkDH1zzc1PZyK
+   Vr2gomsydaf3BKHwh7X9hqbMo++BRD9foIzRxT1v+IKNfsXNndYeCmaUH
+   zFNlOsof/kX99vZvcKWvYsMPlrNqr/cXbP6UQ2m4nfzmKetnfjc7tfutD
+   Q==;
+X-CSE-ConnectionGUID: yD+SjvV8TGWQgzEgvNdhdw==
+X-CSE-MsgGUID: DIaeS1yGS4yU93VGjPRKSw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="88703375"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="88703375"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 08:47:50 -0700
+X-CSE-ConnectionGUID: WKFC3obMQmC8gOC3zO69xg==
+X-CSE-MsgGUID: K+2s97SiTjmhdFdbIaXO9Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="265434270"
+Received: from jmaxwel1-mobl.amr.corp.intel.com (HELO [10.125.110.172]) ([10.125.110.172])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 08:47:49 -0700
+Message-ID: <225572f8-5636-41fd-9315-ef5efb78f0a5@intel.com>
+Date: Thu, 3 Sep 2026 08:47:48 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 10/11] Documentation/x86: Add documentation for TDX's
+ Dynamic PAMT
+To: Rick Edgecombe <rick.p.edgecombe@intel.com>, bp@alien8.de, hpa@zytor.com,
+ kas@kernel.org, kvm@vger.kernel.org, linux-coco@lists.linux.dev,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, mingo@redhat.com,
+ nik.borisov@suse.com, pbonzini@redhat.com, seanjc@google.com,
+ tglx@kernel.org, vannapurve@google.com, x86@kernel.org, chao.gao@intel.com,
+ yan.y.zhao@intel.com, kai.huang@intel.com, tony.lindgren@linux.intel.com,
+ binbin.wu@intel.com, sohil.mehta@intel.com
+Cc: Hongyu Ning <hongyu.ning@linux.intel.com>,
+ Binbin Wu <binbin.wu@linux.intel.com>
+References: <20260903015113.93343-1-rick.p.edgecombe@intel.com>
+ <20260903015113.93343-11-rick.p.edgecombe@intel.com>
+Content-Language: en-US
+From: Dave Hansen <dave.hansen@intel.com>
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <20260903015113.93343-11-rick.p.edgecombe@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Stat-Signature: cmhxzg5p1i3fjd1361wgjwnkhh451ii4
-X-Rspamd-Server: rspamout06
-X-Rspamd-Queue-Id: 031C62F
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18GrpUEGdC89ccKikCZdkWpS3RjyXpSh2E=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=FZbmFI4t38i1UBimWEoQex/XNX5CXRCKPEdEaX+iyNQ=; b=VERux9SGge1WUcjCed2DtXoijQzLKlZjorcmHES29lX+9tn84TfzIHZ9p3PAJBnsrtWFbIpF//hW5qEmsNQZM8ctXsGf8pFbvfuC+0OyMYmmNYEIVBlJAy4Bj4Z50zXLWP0x8LtVFLstxDF70n4HxJgAhaYjhdF6yxqRkgZKGic=
-X-HE-Tag: 1788450461-869149
-X-HE-Meta: U2FsdGVkX19Oq+kSpW/N12s+zBNZZVKuOlrlPiOb1m/tAzRaj6FCT/4kL/dcacDbeDdbXIssiEHfG/iNTz3Phu/qTYcK1nrsu1KLlimB1S3G7ypDtPB7dsNKfNZKd/QuOGQBe9CmTLQPzEdR0IKMrbNUBpfeiuPStIv3OICECFWmvzbO/LRk4Ofurhisq4lHzERa11i3QCRnWWqrF0FEQ+upcBreWgYA8lDhxDADr3hGkVZnMan+8mLpqNCdFZ9Qd/75EEUcKPPnaMsV/jDsL9YfJfg8rOgGB+Iwgz85MxbNZHQCCKyIl84u0hv7i//IcJ/gIeUVc1WBkvnGLuqBQTHVbOgMHAS63s0+R6aonJe2EIgqjZzPPg==
 
-On Tue,  1 Sep 2026 16:54:43 +0100
-Vincent Donnefort <vdonnefort@google.com> wrote:
+On 9/2/26 18:51, Rick Edgecombe wrote:
+> +Dynamic PAMT is only enabled when supported and the ``tdx_dpamt=`` kernel
+> +parameter is set to "on". The feature is off by default because TDX module
+> +internal details prevent Dynamic PAMT from working on all keyid partitioning
+> +configurations. When the TDX module is fixed to include these constraints in
+> +its enumeration of Dynamic PAMT support, kernel support can be changed to
+> +default on. For more information, consult the Intel TDX documentation about
+> +Dynamic PAMT.
 
-> Concurrent subbuffer resizes may crash trace_pipe_raw readers or leak
-> uninitialized memory to userspace due to stale size values.
-> 
-> Modify ring_buffer_alloc_read_page() to handle the resizing of an
-> existing buffer_data_read_page if necessary and add a new
-> ring_buffer_read_page_size(). This new function enables ring-buffer
-> buffer_data_read_page users to not call the racy
-> ring_buffer_subbuf_size_get(). This makes the spare_size member of
-> ftrace_buffer_info redundant.
-> 
-> Finally, handle buffer_data_read_page/reader_page order discrepancy in
-> ring_buffer_read_page(). On a mismatch simply copy manually the data to
-> the buffer_data_read_page.
-
-Let's add here:
-
- Link: https://lore.kernel.org/all/20260817140812.2C7D41F00A3A@smtp.kernel.org/
-
-As it has more information about why we came up with this solution.
-
-> 
-> Fixes: bce761d75745 ("ring-buffer: Read and write to ring buffers with custom sub buffer size")
-> Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
-
-
-
-> -struct buffer_data_read_page *
-> -ring_buffer_alloc_read_page(struct trace_buffer *buffer, int cpu)
-> +int ring_buffer_alloc_read_page(struct trace_buffer *buffer, int cpu,
-> +				struct buffer_data_read_page **rpage)
->  {
->  	struct ring_buffer_per_cpu *cpu_buffer;
-> -	struct buffer_data_read_page *bpage = NULL;
->  	unsigned long flags;
-> +	unsigned int order;
->  
->  	if (!cpumask_test_cpu(cpu, buffer->cpumask))
-> -		return ERR_PTR(-ENODEV);
-> +		return -ENODEV;
->  
-> -	bpage = kzalloc_obj(*bpage);
-> -	if (!bpage)
-> -		return ERR_PTR(-ENOMEM);
-> +	if (!rpage)
-> +		return -EINVAL;
->  
-> -	bpage->order = buffer->subbuf_order;
-> +	order = buffer->subbuf_order;
-
-Hmm, should we add a READ_ONCE() around the subbuf_order? There's no locks
-taken here and couldn't we get some inconsistency if things change. I feel
-more comfortable knowing that "order" is consistent throughout this
-function.
-
-> +
-> +	if (*rpage) {
-> +		if ((*rpage)->order == order)
-> +			return 0;
-> +
-> +		/* We can reuse rpage, but we discard the payload */
-> +		free_pages((unsigned long)(*rpage)->data, (*rpage)->order);
-> +		(*rpage)->data = NULL;
-> +	} else {
-> +		*rpage = kzalloc_obj(**rpage);
-> +		if (!*rpage)
-> +			return -ENOMEM;
-> +	}
-> +
-> +	(*rpage)->order = order;
->  	cpu_buffer = buffer->buffers[cpu];
-> +
->  	local_irq_save(flags);
->  	arch_spin_lock(&cpu_buffer->lock);
->  
->  	if (cpu_buffer->free_page.data) {
-> -		*bpage = cpu_buffer->free_page;
-> +		**rpage = cpu_buffer->free_page;
->  		cpu_buffer->free_page.data = NULL;
->  	}
->  
->  	arch_spin_unlock(&cpu_buffer->lock);
->  	local_irq_restore(flags);
->  
-> -	if (bpage->data) {
-> -		rb_init_data_page(bpage->data);
-> +	if ((*rpage)->data) {
-> +		rb_init_data_page((*rpage)->data);
->  	} else {
-> -		bpage->data = alloc_cpu_data(cpu, bpage->order);
-> -		if (!bpage->data) {
-> -			kfree(bpage);
-> -			return ERR_PTR(-ENOMEM);
-> +		(*rpage)->data = alloc_cpu_data(cpu, (*rpage)->order);
-> +		if (!(*rpage)->data) {
-> +			kfree(*rpage);
-> +			*rpage = NULL;
-> +			return -ENOMEM;
->  		}
->  	}
->  
-> -	return bpage;
-> +	return 0;
->  }
->  EXPORT_SYMBOL_GPL(ring_buffer_alloc_read_page);
->  
-> @@ -7050,21 +7077,30 @@ EXPORT_SYMBOL_GPL(ring_buffer_alloc_read_page);
->   * ring_buffer_free_read_page - free an allocated read page
->   * @buffer: the buffer the page was allocate for
->   * @cpu: the cpu buffer the page came from
-> - * @data_page: the page to free
-> + * @rpage: the buffer_dat_read_page to free
->   *
->   * Free a page allocated from ring_buffer_alloc_read_page.
->   */
->  void ring_buffer_free_read_page(struct trace_buffer *buffer, int cpu,
-> -				struct buffer_data_read_page *data_page)
-> +				struct buffer_data_read_page *rpage)
->  {
->  	struct ring_buffer_per_cpu *cpu_buffer;
-> -	struct buffer_data_page *dpage = data_page->data;
-> -	struct page *page = virt_to_page(dpage);
-> +	struct buffer_data_page *dpage;
->  	unsigned long flags;
-> +	struct page *page;
->  
->  	if (!buffer || !buffer->buffers || !buffer->buffers[cpu])
->  		return;
->  
-> +	if (!rpage)
-> +		return;
-> +
-> +	dpage = rpage->data;
-> +	if (!dpage)
-> +		goto out;
-> +
-> +	page = virt_to_page(dpage);
-> +
->  	cpu_buffer = buffer->buffers[cpu];
->  
->  	/*
-> @@ -7072,14 +7108,14 @@ void ring_buffer_free_read_page(struct trace_buffer *buffer, int cpu,
->  	 * is different from the subbuffer order of the buffer -
->  	 * we can't reuse it
->  	 */
-> -	if (page_ref_count(page) > 1 || data_page->order != buffer->subbuf_order)
-> +	if (page_ref_count(page) > 1 || rpage->order != buffer->subbuf_order)
->  		goto out;
->  
->  	local_irq_save(flags);
->  	arch_spin_lock(&cpu_buffer->lock);
->  
->  	if (!cpu_buffer->free_page.data) {
-> -		cpu_buffer->free_page = *data_page;
-> +		cpu_buffer->free_page = *rpage;
->  		dpage = NULL;
->  	}
->  
-> @@ -7087,8 +7123,8 @@ void ring_buffer_free_read_page(struct trace_buffer *buffer, int cpu,
->  	local_irq_restore(flags);
->  
->   out:
-> -	free_pages((unsigned long)dpage, data_page->order);
-> -	kfree(data_page);
-> +	free_pages((unsigned long)dpage, rpage->order);
-> +	kfree(rpage);
->  }
->  EXPORT_SYMBOL_GPL(ring_buffer_free_read_page);
->  
-> @@ -7159,10 +7195,9 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
->  	if (!dpage)
->  		return -1;
->  
-> -	guard(raw_spinlock_irqsave)(&cpu_buffer->reader_lock);
-> +	len = min_t(size_t, len, rb_read_page_capacity(data_page));
->  
-> -	if (data_page->order != cpu_buffer->reader_page->order)
-> -		return -1;
-> +	guard(raw_spinlock_irqsave)(&cpu_buffer->reader_lock);
->  
->  	reader = rb_get_reader_page(cpu_buffer);
->  	if (!reader)
-> @@ -7177,16 +7212,18 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
->  	/* Check if any events were dropped */
->  	missed_events = cpu_buffer->lost_events;
->  
-> -	/*
-> -	 * If this page has been partially read or
-> -	 * if len is not big enough to read the rest of the page or
-> -	 * a writer is still on the page, then
-> -	 * we must copy the data from the page to the buffer.
-> -	 * Otherwise, we can simply swap the page with the one passed in.
-> -	 */
-> +	 /*
-> +	  * It is not possible to swap the reader page if:
-> +	  *   - It has been partially read
-> +	  *   - len is not big enough to read it entirely
-> +	  *   - A writer is still on it
-> +	  *   - The ring buffer is static
-> +	  *   - The order doesn't match
-> +	  */
->  	if (read || (len < (size - read)) ||
->  	    cpu_buffer->reader_page == cpu_buffer->commit_page ||
-> -	    rb_is_static(cpu_buffer)) {
-> +	    rb_is_static(cpu_buffer) ||
-> +	    data_page->order != reader->order) {
->  		struct buffer_data_page *rpage = cpu_buffer->reader_page->page;
->  		unsigned int rpos = read;
->  		unsigned int pos = 0;
-> @@ -7280,7 +7317,7 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
->  		 * missed events, then record it there.
->  		 */
->  		if (missed_events > 0 &&
-> -		    rb_page_capacity(reader) - size >= sizeof(missed_events)) {
-> +		    rb_read_page_capacity(data_page) - size >= sizeof(missed_events)) {
->  			memcpy(&dpage->data[size], &missed_events,
->  			       sizeof(missed_events));
->  			local_add(RB_MISSED_STORED, &dpage->commit);
-> @@ -7300,8 +7337,8 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
->  	/*
->  	 * This page may be off to user land. Zero it out here.
->  	 */
-> -	if (size < rb_page_capacity(reader))
-> -		memset(&dpage->data[size], 0, rb_page_capacity(reader) - size);
-> +	if (size < rb_read_page_capacity(data_page))
-> +		memset(&dpage->data[size], 0, rb_read_page_capacity(data_page) - size);
->  
->  	return read;
->  }
-> @@ -7319,6 +7356,18 @@ void *ring_buffer_read_page_data(struct buffer_data_read_page *page)
->  }
->  EXPORT_SYMBOL_GPL(ring_buffer_read_page_data);
->  
-> +/**
-> + * ring_buffer_read_page_size - get size of the read page.
-> + * @page:  the page to get the size from
-> + *
-> + * Returns size of the page in bytes.
-> + */
-> +unsigned int ring_buffer_read_page_size(struct buffer_data_read_page *rpage)
-> +{
-> +	return PAGE_SIZE << rpage->order;
-> +}
-> +EXPORT_SYMBOL_GPL(ring_buffer_read_page_size);
-> +
->  /**
->   * ring_buffer_subbuf_size_get - get size of the sub buffer.
->   * @buffer: the buffer to get the sub buffer size from
-> diff --git a/kernel/trace/ring_buffer_benchmark.c b/kernel/trace/ring_buffer_benchmark.c
-> index 593e3b59e42e..c3d34c0e64e2 100644
-> --- a/kernel/trace/ring_buffer_benchmark.c
-> +++ b/kernel/trace/ring_buffer_benchmark.c
-> @@ -104,7 +104,7 @@ static enum event_status read_event(int cpu)
->  
->  static enum event_status read_page(int cpu)
->  {
-> -	struct buffer_data_read_page *bpage;
-> +	struct buffer_data_read_page *bpage = NULL;
->  	struct ring_buffer_event *event;
->  	struct rb_page *rpage;
->  	unsigned long commit;
-> @@ -114,8 +114,8 @@ static enum event_status read_page(int cpu)
->  	int inc;
->  	int i;
->  
-> -	bpage = ring_buffer_alloc_read_page(buffer, cpu);
-> -	if (IS_ERR(bpage))
-> +	ret = ring_buffer_alloc_read_page(buffer, cpu, &bpage);
-> +	if (ret < 0)
->  		return EVENT_DROPPED;
->  
->  	page_size = ring_buffer_subbuf_size_get(buffer);
-> diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-> index a946e0183fd1..7ba3856daf44 100644
-> --- a/kernel/trace/trace.c
-> +++ b/kernel/trace/trace.c
-> @@ -7082,8 +7082,8 @@ ssize_t tracing_buffers_read(struct file *filp, char __user *ubuf,
->  {
->  	struct ftrace_buffer_info *info = filp->private_data;
->  	struct trace_iterator *iter = &info->iter;
-> +	unsigned int spare_size;
->  	void *trace_data;
-> -	int page_size;
->  	ssize_t ret = 0;
->  	ssize_t size;
->  
-> @@ -7093,36 +7093,24 @@ ssize_t tracing_buffers_read(struct file *filp, char __user *ubuf,
->  	if (iter->snapshot && tracer_uses_snapshot(iter->tr->current_trace))
->  		return -EBUSY;
->  
-> -	page_size = ring_buffer_subbuf_size_get(iter->array_buffer->buffer);
-> -
-> -	/* Make sure the spare matches the current sub buffer size */
-> +again:
->  	if (info->spare) {
-> -		if (page_size != info->spare_size) {
-> -			ring_buffer_free_read_page(iter->array_buffer->buffer,
-> -						   info->spare_cpu, info->spare);
-> -			info->spare = NULL;
-> -		}
-> +		spare_size = ring_buffer_read_page_size(info->spare);
-> +		/* Do we have previous read data to read? */
-> +		if (info->read < spare_size)
-> +			goto read;
->  	}
-
-I would have ring_buffer_free_read_page() accept a null pointer and then here do:
-
-	spare_size = ring_buffer_read_page_size(info->spare);
-
- again:
-	/* Do we have previous read data to read? */
-	if (info->read < spare_size)
-		goto read;
-
-As the jump to here below has already calculated the spare_size, why do it again?
-
-Have ring_buffer_read_page_size() be:
-
-unsigned int ring_buffer_read_page_size(struct buffer_data_read_page *rpage)
-{
-	return rpage ? PAGE_SIZE << rpage->order : 0;
-}
-
-Then info->read could not be less than spare_size if there was no spare.
-
->  
-> -	if (!info->spare) {
-> -		info->spare = ring_buffer_alloc_read_page(iter->array_buffer->buffer,
-> -							  iter->cpu_file);
-> -		if (IS_ERR(info->spare)) {
-> -			ret = PTR_ERR(info->spare);
-> -			info->spare = NULL;
-> -		} else {
-> -			info->spare_cpu = iter->cpu_file;
-> -			info->spare_size = page_size;
-> -		}
-> -	}
-> -	if (!info->spare)
-> +	/* Make sure the read page order is aligned with the current subbuf order */
-
-The above comment doesn't really make sense anymore since the user here
-should not care about the order. I would nuke it.
-
-> +	ret = ring_buffer_alloc_read_page(iter->array_buffer->buffer, iter->cpu_file,
-> +					  &info->spare);
-> +	if (ret)
->  		return ret;
->  
-> -	/* Do we have previous read data to read? */
-> -	if (info->read < page_size)
-> -		goto read;
-> +	spare_size = ring_buffer_read_page_size(info->spare);
-> +	info->read = spare_size;
-> +	info->spare_cpu = iter->cpu_file;
->  
-> - again:
->  	trace_access_lock(iter->cpu_file);
->  	ret = ring_buffer_read_page(iter->array_buffer->buffer,
->  				    info->spare,
-> @@ -7148,8 +7136,9 @@ ssize_t tracing_buffers_read(struct file *filp, char __user *ubuf,
->  	}
->  
->  	info->read = 0;
-> +
->   read:
-> -	size = page_size - info->read;
-> +	size = spare_size - info->read;
->  	if (size > count)
->  		size = count;
->  	trace_data = ring_buffer_read_page_data(info->spare);
-> @@ -7199,17 +7188,17 @@ int tracing_buffers_release(struct inode *inode, struct file *file)
->  }
->  
->  struct buffer_ref {
-> -	struct trace_buffer	*buffer;
-> -	void			*page;
-> -	int			cpu;
-> -	refcount_t		refcount;
-> +	struct trace_buffer		*buffer;
-> +	struct buffer_data_read_page	*rpage;
-> +	int				cpu;
-> +	refcount_t			refcount;
->  };
->  
->  static void buffer_ref_release(struct buffer_ref *ref)
->  {
->  	if (!refcount_dec_and_test(&ref->refcount))
->  		return;
-> -	ring_buffer_free_read_page(ref->buffer, ref->cpu, ref->page);
-> +	ring_buffer_free_read_page(ref->buffer, ref->cpu, ref->rpage);
->  	kfree(ref);
->  }
->  
-> @@ -7270,23 +7259,12 @@ ssize_t tracing_buffers_splice_read(struct file *file, loff_t *ppos,
->  	};
->  	struct buffer_ref *ref;
->  	bool woken = false;
-> -	int page_size;
->  	int entries, i;
->  	ssize_t ret = 0;
->  
->  	if (iter->snapshot && tracer_uses_snapshot(iter->tr->current_trace))
->  		return -EBUSY;
->  
-> -	page_size = ring_buffer_subbuf_size_get(iter->array_buffer->buffer);
-> -	if (*ppos & (page_size - 1))
-> -		return -EINVAL;
-> -
-> -	if (len & (page_size - 1)) {
-> -		if (len < page_size)
-> -			return -EINVAL;
-> -		len &= (~(page_size - 1));
-> -	}
-
-OK, you are removing this so that it is tested in the loop?
-
-> -
->  	if (splice_grow_spd(pipe, &spd))
->  		return -ENOMEM;
->  
-> @@ -7294,7 +7272,8 @@ ssize_t tracing_buffers_splice_read(struct file *file, loff_t *ppos,
->  	trace_access_lock(iter->cpu_file);
->  	entries = ring_buffer_entries_cpu(iter->array_buffer->buffer, iter->cpu_file);
->  
-> -	for (i = 0; i < spd.nr_pages_max && len && entries; i++, len -= page_size) {
-> +	for (i = 0; i < spd.nr_pages_max && len && entries; i++) {
-
-Is there a reason you moved the len -= page_size from here to the end of
-the loop?  Basically that has no functional change.
-
-> +		unsigned int page_size;
-
-Was that just to move page_size here?
-
-Let's keep it as-is.
-
->  		struct page *page;
->  		int r;
->  
-> @@ -7306,25 +7285,36 @@ ssize_t tracing_buffers_splice_read(struct file *file, loff_t *ppos,
->  
->  		refcount_set(&ref->refcount, 1);
->  		ref->buffer = iter->array_buffer->buffer;
-> -		ref->page = ring_buffer_alloc_read_page(ref->buffer, iter->cpu_file);
-> -		if (IS_ERR(ref->page)) {
-> -			ret = PTR_ERR(ref->page);
-> -			ref->page = NULL;
-> +
-> +		ret = ring_buffer_alloc_read_page(ref->buffer, iter->cpu_file, &ref->rpage);
-> +		if (ret) {
->  			kfree(ref);
->  			break;
->  		}
->  		ref->cpu = iter->cpu_file;
->  
-> -		r = ring_buffer_read_page(ref->buffer, ref->page,
-> -					  len, iter->cpu_file, 1);
-> +		page_size = ring_buffer_read_page_size(ref->rpage);
-> +
-> +		r = -EINVAL;
-> +		if (IS_ALIGNED(*ppos, page_size) && len >= page_size) {
-> +			r = ring_buffer_read_page(ref->buffer, ref->rpage, len, iter->cpu_file, 1);
-> +		} else if (!i) {
-> +			/*
-> +			 * If the first iteration fails this is an invalid
-> +			 * userspace input. Otherwise, this is because the
-> +			 * subbuf order has been modified. Do not report an
-> +			 * error and finish the read.
-> +			 */
-> +			ret = -EINVAL;
-
-This is more likely to be true not because the subbuf order was modified,
-but also if the length was not a multiple of page_size. From the code you
-removed;
-
--	if (len & (page_size - 1)) {
--		if (len < page_size)
--			return -EINVAL;
--		len &= (~(page_size - 1));
--	}
-
-It would error if len was smaller than page_size but otherwise it would
-modify len to be a multiple of page_size.
-
-The overall behavior is the same, but the comment needs to be updated.
-
--- Steve
-
-> +		}
-> +
->  		if (r < 0) {
-> -			ring_buffer_free_read_page(ref->buffer, ref->cpu,
-> -						   ref->page);
-> +			ring_buffer_free_read_page(ref->buffer, ref->cpu, ref->rpage);
->  			kfree(ref);
->  			break;
->  		}
->  
-> -		page = virt_to_page(ring_buffer_read_page_data(ref->page));
-> +		page = virt_to_page(ring_buffer_read_page_data(ref->rpage));
->  
->  		spd.pages[i] = page;
->  		spd.partial[i].len = page_size;
-> @@ -7332,6 +7322,7 @@ ssize_t tracing_buffers_splice_read(struct file *file, loff_t *ppos,
->  		spd.partial[i].private = (unsigned long)ref;
->  		spd.nr_pages++;
->  		*ppos += page_size;
-> +		len -= page_size;
->  
->  		entries = ring_buffer_entries_cpu(iter->array_buffer->buffer, iter->cpu_file);
->  	}
-> diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
-> index 74a7a50d1e78..203d098ee14e 100644
-> --- a/kernel/trace/trace.h
-> +++ b/kernel/trace/trace.h
-> @@ -745,11 +745,10 @@ static inline int tracing_get_cpu(struct inode *inode)
->  void tracing_reset_cpu(struct array_buffer *buf, int cpu);
->  
->  struct ftrace_buffer_info {
-> -	struct trace_iterator	iter;
-> -	void			*spare;
-> -	unsigned int		spare_cpu;
-> -	unsigned int		spare_size;
-> -	unsigned int		read;
-> +	struct trace_iterator		iter;
-> +	struct buffer_data_read_page	*spare;
-> +	unsigned int			spare_cpu;
-> +	unsigned int			read;
->  };
->  
->  /**
-
+What's the end user visible effect of hitting one of these troublesome
+"keyid partitioning configurations"?
