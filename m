@@ -1,133 +1,124 @@
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4718626B0A9
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:57:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A835828C5B1
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:58:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788422271; cv=none; b=eeskfdlRzO1RD4ADHsy5Fhdy4Cv2VEEIQK5KIM6zYdID8GJS186LSnXZePUF87nL6LIDVW3NfRUpRt/BEejRr4gfuhB7TkHlbd+I8W+9hySVe12bEcBydrzt061IuTWUmp/g16AuDGlzk9G3Ds0LIH/6ZJCDSbXzAYZxG5M3VrE=
+	t=1788422294; cv=none; b=rYW3oyLRrFCqqEwVZGi2XSFWQ7PffbaLH9A3LnokeMGI6LhkSDdGJuoMzPAwpiZb6GRNs0w2BiN4vAcVTCZWUfHpRwWm9KapP5VBTeFf75d14IArIDspPJOJcQadYAStNquKiYLHmGb43MpqRhthhMqAIbf9VMCPNN2hLxppD7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788422271; c=relaxed/simple;
-	bh=L/r7m7kDv0omebnD1y3qb2AQBcATiYqlgqTB+1Do+6A=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=jDZ+wRAugoT8TkrqGmmm0q4Qf9xJmEENNpxNfSWL0LiDgN5NZJsOUuK0F8J9J70iHmVmb9ohHQCGaxa605dEDx3vyPsGo5xqy5c34jKHjt/LJVARH69NRrJ/iYtxF339iP5EUFEqqtlnTJIXsj+/a3vKUZA3Qd75vwRZwo0qFEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Z3SQ4yOk; arc=none smtp.client-ip=209.85.128.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	s=arc-20240116; t=1788422294; c=relaxed/simple;
+	bh=T5cmr4AS4Mc5RSkaZ65eKN18E4FTywsUwCGNvI0ai1E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mPEQm03sib1qTdHvLpZk8Q7DyxnmUotFeyipst9y7EmtSP453t54sTZ88q5Nr32K5SpAOEEy20+NkXWBBeUanyltU7gmyxphetlq3pI+iN+tCM0Xw395EMsH1g6SvryBojJ67CQXaa5q8foR0aFT6mj1QSh/PLKBKeAoUYMgCM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GVS1dfXR; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Z3SQ4yOk"
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49ccf17d3b0so12672145e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:57:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GVS1dfXR"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-398c1101c1bso2386953a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:58:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788422268; x=1789027068; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vR1Q5C1h3ZhnEFmXm0MTEkgQW02wtj80tGssKs7CjOM=;
-        b=Z3SQ4yOkkmXjtWozFUVfzGIYasJxwYZvD5s2E7jaJaJuxGMCZ6GyyyChyz8PKJ9oCJ
-         rWRYPCJdnVitIyT4MuBFZCw5hwI36LBthrxrs27ateKZLinSQQ4RN467ZWT6QJw0RAYT
-         Je1y015IlExYTJC7v2KK6xPt0SS6gj7KKpTfQ8mx8CWZ9PtQ3pxqdjF/rNU0fHxxVDIx
-         wpuk+PusRDJGLBzdPo2TvWiwkdlpBx+PkNN0RqaFpdqz0Ayraen1VYCqBBBBP0lBWk8x
-         6lJjoXiJzrqtMi6AkeVIfabPgAVicmLXi1vDcGcVMNPSSyehcwv89L+HsjZf/PVC3ADZ
-         LfJA==
+        d=gmail.com; s=20251104; t=1788422292; x=1789027092; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Yd20SNdmG7z7W+LdlhedLQwdQEcbKDOr02wLEKBgbwk=;
+        b=GVS1dfXRcuszcELA8fxCtlcReDBmnL03gtolFUmcvcSj7sp+b3UgMc/cg7fFeMpNTC
+         slzYwnWohlUjIoaCDkwPzTcX6gFH0EdXqV463t5nTO3Jzt8MgTVxe9Jmll41SRvqgUuQ
+         OmjyaZlCEotXoDJ2Go1Fsh3avUJzjnK1yaA/NWS6JL2Mt0KBJ45nH7dnlZov4bsKDCNJ
+         nZxrYNP81aFBKdwu+plSj/zZfbIlTpYxMBzEiOciRFgfwvO6x3l8Cz359fW5SRqKx3P9
+         L5QhPvoz/3crzO8XYGkYHX5/umiZjrQPv3nWz7ZcN1p5utprmKvl/Ek4D2jCbRggOq9J
+         shUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788422268; x=1789027068;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788422292; x=1789027092;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vR1Q5C1h3ZhnEFmXm0MTEkgQW02wtj80tGssKs7CjOM=;
-        b=ev94lis6QR/hpSaihHnPyEjSyFgJh1irLWOHLYidMUJjuWWDJs6Iczx9hQ6wzLIJCz
-         GFgk7pNg61VRYCtGdZ0bj28QDsKPJDM/H79hQZT7sicLxPIwjb1q3fxVdqlKP8BIAGM6
-         gPD5lZBoSRAwQQcqdRPmLzwrCPS17nQfuGVMGZ5y7Pg1p1r8z9ml+aadUIeglEyhjkeo
-         O1KSvxiX068QRl6RqWEsNQiuxp+ZeIRie8CmzsJj64XSYT6QjHdJd4M2FxsJhDjGohez
-         0q5xBaVWCcBA1njAX8JsLyo537YdYwd4ddDqov2gO99l2BcSBO2emThWMGrwgSdv6uny
-         uGpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzCyYC5MB8ESVpADQwsUAXQ8artv2GdvvVPB2zxSAP1CkUorRI0wnX1Hh+FU8c1VtqnUhP7j3nZYKtinNc=@vger.kernel.org
-X-Gm-Message-State: AFuF++n3Z45oVHBRvmZtzeGskfMpV4FaFd/UoOqM15coxghim9dEgSXC
-	2ZrzAO5B0f/0xVEbGO9olTEscMTmWbn33p48N2PBuiS/XnMBKHRm0cdQ20H2TKZ+lfLsocIh8o5
-	edQhHzwH8W9KMbUTxTA==
-X-Received: from wmnl19.prod.google.com ([2002:a05:600c:16d3:b0:49c:d53d:56b2])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:6209:b0:495:4d5c:903e with SMTP id 5b1f17b1804b1-49ce582039fmr193039575e9.7.1788422268362;
- Thu, 03 Sep 2026 00:57:48 -0700 (PDT)
-Date: Thu, 3 Sep 2026 07:57:47 +0000
-In-Reply-To: <aphOAx2CINlw3m6Y@google.com>
+        bh=Yd20SNdmG7z7W+LdlhedLQwdQEcbKDOr02wLEKBgbwk=;
+        b=BAmcHfZsmD3RPxokWkjTZBKt9vpxXd4g6I5hrihttH/JEQvk8n8To63OPv17oSVOeP
+         8tqD8/EtO4MZYlARrRwY0WnF7VstxIz4e69qXAFu7Q5VJyXfZTIBZeX0JYSqElJyPlt+
+         e8xw2gHA0lScEcvKVI3ORRWhgBex+cZOIJAF65i3A41sp3RmXa7o9bGxQpCsq85Hc8Hv
+         D/CzA0U4LKjGVzOcaswaN0aak+IywAtPCdt/MaLTZo1n60pDfZPwxW6mI+i+zKa6k/cq
+         Y2d+8Kyq8tGcTSMU1CCCUwkh3WZNiFG2WeDNtFr1ouX1iBU2jf6ECXhAtFPxOe+axYr2
+         I32A==
+X-Forwarded-Encrypted: i=1; AKwUvBx6Okvo1u18f+lzucQJcYPeNbOLBz0XBv21pg4I7PMicivLAJHIMfB6RkHgC37xtiuI3gG9ypD98MPSD88=@vger.kernel.org
+X-Gm-Message-State: AFuF++mlNHabOhDvn+acA2Lb/n9qtRhNOyhrlgQE5nGwbVLytHJdLkJf
+	JlVTCk3QvMP+bUu4Drkw7dRYr61Xk4GNFORV+5LBgOfNQgCKxPtqRoRxKKa8tQ==
+X-Gm-Gg: AYBFou21X/KDPse6o6FpJS31j8nKGGjc4Fp27aZy8u/H/SevJs7O+9s6JXoQZJ/5v2+
+	C5A5ks4X6OtXNGQY6yWjDks8zroBDzu16XQu4YKWWrAoZbN/zCUiP2oRtDxAAgHRDdFksSNspZu
+	4MdXG7C2NSK+INJLwzgV5Qeg7NW9FwZ3knHOtE3tswG9I/M5Y0sD7lBntFttWPQ3cb2H6o88TQS
+	KhZTdjlvV7y7HhUlwYQdGUcI+om37lh/Q4YarDJ2M67Me22xrOsX9ccBUjBru+Luo4ahxK82pXD
+	NeHaeu8ZeE+C+gyVW265exKR/bDL+yHYRtVdZLei6in0kog4weRFSRFcKUSosnqiyizo2Cm9voI
+	tW1+ill9lTxoyhBoH9OdQ38QATJozTtL7k3QSMAk8bI5brIv1lNvBLxsmoGiB5XzNhkRE2eROfw
+	+VTuo5avjsQ7TfX0YoQ3ykOfKRzBHKtCOJ8JpHx7DFOfmwjIW6S7P4iFtQRgefSLOx+PIjr8GeC
+	ewcw+ub2QEubh5L6c2TfYNFgqsDZV57w27OAMk9+LJIKC7iajCFixGmeh9alofIPIYcDUoD0eOX
+	Kv3u
+X-Received: by 2002:a17:90b:3909:b0:398:9c0c:7c72 with SMTP id 98e67ed59e1d1-39aee204517mr13918913a91.25.1788422291920;
+        Thu, 03 Sep 2026 00:58:11 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08d0d845sm3826300a91.17.2026.09.03.00.58.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 00:58:11 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Marcin Wojtas <marcin.s.wojtas@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Thomas Petazzoni <thomas.petazzoni@free-electrons.com>,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH net-next v2] net: mvpp2: simplify IRQ validity check
+Date: Thu,  3 Sep 2026 14:57:53 +0700
+Message-ID: <20260903075753.346647-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260901205250.1638304-1-cmllamas@google.com> <20260901205250.1638304-6-cmllamas@google.com>
- <apgbjOsfn4oFMmAC@google.com> <aphOAx2CINlw3m6Y@google.com>
-Message-ID: <apkoe-g5Cj9U8Kqt@google.com>
-Subject: Re: [PATCH v4 5/7] binder: check vma->vm_start in binder_vma_close()
-From: Alice Ryhl <aliceryhl@google.com>
-To: Carlos Llamas <cmllamas@google.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Arve =?utf-8?B?SGrDuG5uZXbDpWc=?=" <arve@android.com>, Todd Kjos <tkjos@android.com>, 
-	Christian Brauner <brauner@kernel.org>, kernel-team@android.com, linux-kernel@vger.kernel.org, 
-	Suren Baghdasaryan <surenb@google.com>, stable@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 02, 2026 at 04:25:39PM +0000, Carlos Llamas wrote:
-> On Wed, Sep 02, 2026 at 12:50:20PM +0000, Alice Ryhl wrote:
-> > On Tue, Sep 01, 2026 at 08:52:45PM +0000, Carlos Llamas wrote:
-> > > Certain operations like a failed mremap() might trigger vm_ops->close()
-> > > on temporary mappings. To avoid tearing-down the main binder mapping on
-> > > these, let's verify that the VMA matches the expected starting address.
-> > > 
-> > > Cc: stable@vger.kernel.org
-> > > Fixes: 457b9a6f09f0 ("Staging: android: add binder driver")
-> > > Reported-by: Sashiko <sashiko-bot@kernel.org>
-> > > Closes: https://sashiko.dev/#/patchset/20260831224145.169403-1-cmllamas@google.com?part=1
-> > > Signed-off-by: Carlos Llamas <cmllamas@google.com>
-> > > ---
-> > >  drivers/android/binder.c | 3 +++
-> > >  1 file changed, 3 insertions(+)
-> > > 
-> > > diff --git a/drivers/android/binder.c b/drivers/android/binder.c
-> > > index 185128577829..3d359490436e 100644
-> > > --- a/drivers/android/binder.c
-> > > +++ b/drivers/android/binder.c
-> > > @@ -6018,6 +6018,9 @@ static void binder_vma_close(struct vm_area_struct *vma)
-> > >  {
-> > >  	struct binder_proc *proc = vma->vm_private_data;
-> > >  
-> > > +	if (vma->vm_start != proc->alloc.vm_start)
-> > > +		return;
-> > 
-> > So .. this does work in the case of mremap, but how about instead doing
-> > this?
-> > 
-> > static int binder_mremap(struct vm_area_struct *vma)
-> > {
-> > 	vma->vm_private_data = NULL;
-> > 	return -EINVAL;
-> > }
-> > 
-> > and then check for NULL in binder_vma_close() instead? I think that
-> > logic would be a bit easier to understand.
-> 
-> Yeah, I agree that is easier to read. However, not all exit paths that
-> close a copied vma actually call op->mremap(). We would miss those and
-> accidentally brick binder.
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-What about setting it to NULL in op->open(), then?
+irq_of_parse_and_map() returns 0 when parsing or mapping an IRQ fails.
+The current condition also checks for negative values, even though
+irq_of_parse_and_map() does not return negative error codes.
 
-Alice
+Check only for a zero return value to match the semantics of
+irq_of_parse_and_map().
 
-> Maybe I should add a comment to the check, so that is easier to read?
-> 
-> 	/* 
-> 	 * Ignore temporary vma copies from aborted operations (e.g.
-> 	 * mremap). Only tear-down the original VMA with the expected
-> 	 * starting address.
-> 	 */
-> 	 if (vma->vm_start != proc->alloc.vm_start)
-> 	 	return;
-> 
-> Would that work?
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
 
+Link v1: 
+https://lore.kernel.org/all/20260824100758.31622-1-phucduc.bui@gmail.com/
+
+Changes in v2:
+ - Drop the Fixes tag and rework the commit message to describe this
+   as a cleanup.
+ - Add net-next to the --subject-prefix.
+
+ drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
+index ccc24a1301f2..1c50174c9f1e 100644
+--- a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
++++ b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
+@@ -5874,7 +5874,7 @@ static int mvpp2_simple_queue_vectors_init(struct mvpp2_port *port,
+ 	v->sw_thread_mask = *cpumask_bits(cpu_online_mask);
+ 	v->port = port;
+ 	v->irq = irq_of_parse_and_map(port_node, 0);
+-	if (v->irq <= 0)
++	if (!v->irq)
+ 		return -EINVAL;
+ 	netif_napi_add(port->dev, &v->napi, mvpp2_poll);
+ 
+-- 
+2.43.0
 
