@@ -1,157 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A943396D15
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:23:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B4930D402
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:23:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788427386; cv=none; b=OWMXDvdlSE3wTEfpboJRQuCw+tXVySKTq8M1lHpOaBMPVBlR5pGkpE2Dt8A7Ia5TmvUtCMUfGfAlxT0kvCv/pdUd3z5yahiivHOaHTcTmBLZ9+9VR1UqPz303W9SdskY+7FHHtn43mgETkhDhAT9RGYjEJ1SH6FLOhelGGPL7V4=
+	t=1788427387; cv=none; b=F4HPJ0kBRmCDIfNtk0n1sCb7xvl2LF6m2oDvPjZ841gDhop7nWP3zl36xzZD3/jvIhyh/V3xrXRWddDxzRTQw7H2/Rp/euFml3LTVTXJn0UKF/XGad2kcvwekghB+ddHhkLko6jrsHRxglZLfpfla3Wh6GnzrsD8LDMqNlNYM2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788427386; c=relaxed/simple;
-	bh=QJzTl9mpfbcR/ern5So2dPo/+BdDFUSyA8/TbaT21bI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FzK+aXxKLfoUb65Sxa6F9Bw1hwj2Q4K4TyuxWc0BeRtC/XbP/F5twLL+PNZEQCeb0WoIs2gdQf8SrdgzSjpVhy4V2fMLKZRRvPagoRnRyjNI781R7kDNEgA3sQiNPrCjZFv7eEZ8kbTBVc2AFecMOvh13bAzRU9l6sf9QqF+hxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CsLTmwDY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788427387; c=relaxed/simple;
+	bh=AjTasbakC0emVDyGI93cXu30+73h1hI9fBwV3t0u2zQ=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=edgOyp5m2CGdicFt74k6M6CL9UjuYZlA1mNpI5A6JHsZHer8/LotS2OXyQzfdQQoHeq7Vnnn4+e4rk47x4CC5fvdDpARcTMMfCerfiYDheIu+TJ8GZDXvWOWeBGDy6nciKlkpEKmVeqv5D4XWzYgkKgY0FBUd3byx7Dwo+H24e0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=A7Y/7m9+; arc=none smtp.client-ip=209.85.128.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CsLTmwDY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 969871F000E9;
-	Thu,  3 Sep 2026 09:22:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788427376;
-	bh=CVH46s0TiBnSL1nhlyLYQT7Nebe0o5BJiT5/S7ZnuZY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CsLTmwDYUQuPdEGJ2URh4YYrVQjku/PYtQd8szB9HFBHKuxNiHG8jlkrL7gi1baJv
-	 baOlP721yc+Gapvn+co/bsCE+vzOe7wj38uGpYqZPkxomRAwIz0bQTUhRLhTAuqqra
-	 dcAYfgKFIupV+om73sgPaweqXIGMwkg5fWtKJMpvY7FG1n04OkQOJYThS8OWkrXRF/
-	 6d+zCI/PEFFnvI3TBktpF/UQ7XAfs6aQrSu5o0XLNpvLlz/KIh0d4q4F8mng6kmC35
-	 gHgYzeK4HV1Zw3Tpumbe8aupeoEBK6jboDtDlQeHq19XetZJxR/N2esfUJW+ShNiZf
-	 qTij8AvQ7COkA==
-Date: Thu, 3 Sep 2026 12:22:45 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Xueyuan Chen <xueyuan.chen21@gmail.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
-	usama.arif@linux.dev, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
-	liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com,
-	dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev,
-	kas@kernel.org, catalin.marinas@arm.com, will@kernel.org,
-	mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org,
-	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-	luto@kernel.org, peterz@infradead.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 1/3] mm: make persistent huge zero folio read-only
-Message-ID: <apk8ZRr6do_YAlzf@kernel.org>
-References: <20260901151818.3191443-1-xueyuan.chen21@gmail.com>
- <20260901151818.3191443-2-xueyuan.chen21@gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="A7Y/7m9+"
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49b0e6638e3so14703825e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 02:23:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788427381; x=1789032181; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2V4M6o7aI0aIbt2wQz8c6XIdX3uY+/4vuQ30/skoPyQ=;
+        b=A7Y/7m9+KVG5c0xDJaqGLNjV2utZHzBFGxTEdtz16YLOuajXxJCkxO2CC/MbaHQpxk
+         nCM5qTOnEJZTIXJyh6RRPR6s4FHqSkaK+t2ohW05dlX5xQYcGQlOo6SgDQNPcDexefg4
+         weKAvFVueAy1xMlHbAMXsU4Ct/iYQY2phUXA/AAIbT0Ym6Dircv8AOCuuU6P9Jrr3XOJ
+         IAUMkEOGUQyItjuwMcqhStT57ls8L+DLONs40l5cLatMVQgL22DFOalp2UblCKJ23Jwf
+         Le0kWtU1dVwk3TsnIA3wLXZoumaLPF6CQV5rQvijTz5eKOIR2+wMF/xyOvZpgOy9e0Wx
+         +cHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788427381; x=1789032181;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2V4M6o7aI0aIbt2wQz8c6XIdX3uY+/4vuQ30/skoPyQ=;
+        b=Sl1vIi13+SwLDO/v8FTy7G9ajQQNSZ3mt2964E1VBtmmGEGCtHaCzhs3mvC1oJ/lsi
+         ooOSOD5N/blThUCj+le4G+W0F9bTRPoB64RO9k1+1irTsmhiJk8giU7r9RJNLsUV+bxc
+         LApzVSTDRR+L/TLeIJKG9v46NfYeHxLIogfWlGsfop7Qgosi33ZW8s6k81mdBNLNIwQz
+         uqiNC/ASNCs0ZTB4E6RlS8Imp4q1JZhD2THa7bhCETAJuyNPjRDSMN6fLsNZ7BtCkvVH
+         Tp1nKTUH9/OJBMBtLswjXqu+f8u0uMDkJG0xXnwCei1DZZOqyTsagp9FUzSsjS/gPFFw
+         BAzw==
+X-Forwarded-Encrypted: i=1; AKwUvBwzMr76g7kI1+hPz4hizunQ3MqiJZIhcnRrISOWpNKOWODhQNUmszKQ74oJeZch815L+QQzuUps4iJvaVs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lWz18m7AGVLIvXKaagcujdTXTa0LxxSIpx6+ydW9OH53seRTnp
+	WBCCD6g8WUxZ+kOCDCm9h9I+jfPp0eBC9/GmCmoJQ/saHrlq1xQmBe7eVSeCpDiWyV4upLhN4l0
+	yjcnFoENMnMQrDpXKxg==
+X-Received: from wmsk27-n1.prod.google.com ([2002:a05:600d:849b:10b0:49c:f0fa:d2a2])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:470d:b0:499:9240:9a1c with SMTP id 5b1f17b1804b1-49ce58363f8mr156305415e9.15.1788427380263;
+ Thu, 03 Sep 2026 02:23:00 -0700 (PDT)
+Date: Thu, 03 Sep 2026 09:22:52 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901151818.3191443-2-xueyuan.chen21@gmail.com>
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAGs8mWoC/x3MQQqDMBBG4avIrB0Yo1Xaq4iLav7oUIhlIlYQ7
+ 27o8lu8d1KCKRK9ipMMuyZdY0ZVFjQt7ziD1WeTE9fKU2oeNXoY49CNZ2z8W+3DXeWaUVxoBQ/ K6dcQ9Phv++G6br3rkMRmAAAA
+X-Change-Id: 20260903-binder-exit-get-work-7124b02f60e5
+X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1701; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=AjTasbakC0emVDyGI93cXu30+73h1hI9fBwV3t0u2zQ=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqmTxupemevviPsCLFMT6CcnH2LH8E8iUsrockM
+ DwiA3zO+96JAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCapk8bgAKCRAEWL7uWMY5
+ RjCND/9vR7ChED/4hBm4q5t2TfodomhRsx4zcVQN0JneKFk9zWTaYYfNetZelolLb33thCYeP31
+ 4J0DE13AnCh2LOOHtQBYjaucNYf3LkmFNnMx4C1B8q59zWNNXB60B6YylC9HZeonzFPOxunZVzh
+ QOCbi8kIW9uPE5z/K1t7A56na0V1fas4/IbQiyw6/WJuaVg8dO9nGKkRG7deKYkDXK8jO+693bf
+ TiunYOZPhNa0qdeVkmX/x9oYwCYjKtXNDQSXMTC5vSagObVkW5oeBS6n/ldcCZSl05VV4m9LNJc
+ a8Ij0jfuisQX7bDYuc/0hmBnosHzPy2FycjqBbeo+1gif1XR8izhKlmMI1QLqcosre9TmjdCqG+
+ JuDgHs7DmSv4f3qaepOgFQTg1f64zzae43U37IKm2u4SWoPxWY7HcT40u0RGt8JbTQRq157YwaF
+ aNk4ir+IQEZm9BycjMmBuZPl4DcK5r4WDharV1Piwgk6heNpP0laqv8ElnUr5Atbd+c2ngqH9BC
+ uYu4jhlcZto4p0MaGydCv81OP6ii2k7dC0jdX2tYQkxe+j0DpsoeeG72tiKw2neIZwFj4soMVam
+ 5yKmgFncmm2E8O/TFXMwc/UdXprwJvZym/0yPOsPe0uXEYLlXECMrsmZQOq2GbJxNmjE48KY21O Yu7vzdxZTeTBfcA==
+X-Mailer: b4 0.14.3
+Message-ID: <20260903-binder-exit-get-work-v1-1-2d6129a238df@google.com>
+Subject: [PATCH] rust_binder: cancel deferred work items in thread exit
+From: Alice Ryhl <aliceryhl@google.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos Llamas <cmllamas@google.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	"=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Alice Ryhl <aliceryhl@google.com>
+Content-Type: text/plain; charset="utf-8"
 
-On Tue, Sep 01, 2026 at 11:18:16PM +0800, Xueyuan Chen wrote:
-> The persistent huge zero folio is shared globally and should stay zero
-> after initialization. As Jann Horn pointed out [1], kernel bugs have
-> ended up writing to pages that were meant to be read-only, including in
-> security-sensitive cases. Making the folio read-only in the direct map
-> turns such writes into faults instead of silent zero-page corruption.
-> 
-> Add a page-based helper consistent with the existing direct-map interfaces.
-> Handle TLB invalidation in the architecture implementation; unsupported
-> architectures retain their current behavior.
-> 
-> Protect the folio after initialization. Skip highmem folios, which have no
-> permanent direct-map mapping.
-> 
-> Inspired by Jann Horn's read-only zero page work [1] and follow-up
-> discussion [3] with Yang Shi.
-> 
-> Link: https://lore.kernel.org/r/20260508-ro-zeropage-v1-1-9808abc20b49@google.com [1]
-> Link: https://lore.kernel.org/r/0e5b23a6-4895-454a-9dfa-6dc21adc2991@kernel.org [2]
-> Link: https://lore.kernel.org/r/CAHbLzkrXXe7r3n3jXgDKtwZhRqj=jDx9E6dLOULohnhBguvi9A@mail.gmail.com [3]
-> 
-> Suggested-by: David Hildenbrand <david@kernel.org>
-> Suggested-by: Usama Arif <usama.arif@linux.dev>
-> Co-developed-by: Lance Yang <lance.yang@linux.dev>
-> Signed-off-by: Lance Yang <lance.yang@linux.dev>
-> Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
-> ---
->  include/linux/set_memory.h | 17 +++++++++++++++++
->  mm/huge_memory.c           | 13 ++++++++++---
->  2 files changed, 27 insertions(+), 3 deletions(-)
-> 
-> diff --git a/include/linux/set_memory.h b/include/linux/set_memory.h
-> index 3fe293cfed8c..ed9ce04b18a1 100644
-> --- a/include/linux/set_memory.h
-> +++ b/include/linux/set_memory.h
-> @@ -54,6 +54,23 @@ static inline bool can_set_direct_map(void)
->  #endif
->  #endif /* CONFIG_ARCH_HAS_SET_DIRECT_MAP */
->  
-> +#ifndef set_direct_map_ro
-> +/**
-> + * set_direct_map_ro - make a direct-map range read-only
-> + * @page: first page in the direct-map range
-> + * @nr: number of pages in the range
-> + *
-> + * Make the direct-map range starting at @page read-only and invalidate stale
-> + * writable translations before returning.
-> + *
-> + * Return: 0 on success, or a negative error code on failure.
-> + */
-> +static inline int set_direct_map_ro(struct page *page, unsigned int nr)
-> +{
-> +	return 0;
-> +}
-> +#endif
-> +
->  #ifdef CONFIG_X86_64
->  int set_mce_nospec(unsigned long pfn);
->  int clear_mce_nospec(unsigned long pfn);
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 54494c3fa983..742283b36d74 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -42,6 +42,7 @@
->  #include <linux/pgalloc_tag.h>
->  #include <linux/pagewalk.h>
->  #include <linux/cleanup.h>
-> +#include <linux/set_memory.h>
->  
->  #include <asm/tlb.h>
->  #include "internal.h"
-> @@ -291,10 +292,16 @@ static int __init huge_zero_init(void)
->  	huge_zero_folio = alloc_huge_zero_folio();
->  	if (!huge_zero_folio) {
->  		pr_warn("Allocating persistent huge zero folio failed\n");
-> -	} else {
-> -		huge_zero_pfn = folio_pfn(huge_zero_folio);
-> -		count_vm_event(THP_ZERO_PAGE_ALLOC);
-> +		return 0;
->  	}
-> +
-> +	huge_zero_pfn = folio_pfn(huge_zero_folio);
-> +	count_vm_event(THP_ZERO_PAGE_ALLOC);
-> +
-> +	/* Highmem folios have no permanent direct-map mapping to protect. */
-> +	if (!folio_test_highmem(huge_zero_folio))
-> +		set_direct_map_ro(folio_page(huge_zero_folio, 0), HPAGE_PMD_NR);
+If there are deferred work items on the thread todo list, then they are
+not cleaned up in the Thread::release() method. Thus, update the code to
+clean up the work items even if they are deferred.
 
-Sorry, I don't remember if it was discussed previously, but why can't we
-use the existing set_memory_ro() here?
+This can happen if the thread dies while it has an active outgoing
+transaction.
 
-> +
->  	return 0;
->  }
->  
-> -- 
-> 2.47.3
-> 
+Cc: stable@vger.kernel.org
+Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
+Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+---
+ drivers/android/binder/thread.rs | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
+index 18a14aa8a835..24f7b5be1b0e 100644
+--- a/drivers/android/binder/thread.rs
++++ b/drivers/android/binder/thread.rs
+@@ -686,6 +686,12 @@ pub(crate) fn push_return_work(&self, reply: u32) {
+         self.inner.lock().push_return_work(reply);
+     }
+ 
++    pub(crate) fn pop_work_even_if_deferred(&self) -> Option<DLArc<dyn DeliverToRead>> {
++        let mut thread_inner = self.inner.lock();
++        thread_inner.process_work_list = true;
++        thread_inner.pop_work()
++    }
++
+     fn translate_object(
+         &self,
+         obj_index: usize,
+@@ -1678,7 +1684,7 @@ pub(crate) fn release(self: &Arc<Self>) {
+         self.unwind_transaction_stack();
+ 
+         // Cancel all pending work items.
+-        while let Ok(Some(work)) = self.get_work_local(false) {
++        while let Some(work) = self.pop_work_even_if_deferred() {
+             work.into_arc().cancel();
+         }
+     }
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260903-binder-exit-get-work-7124b02f60e5
+
+Best regards,
 -- 
-Sincerely yours,
-Mike.
+Alice Ryhl <aliceryhl@google.com>
+
