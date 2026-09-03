@@ -1,233 +1,167 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outbound.pv.icloud.com (pv-2006j-snip4-11.eps.apple.com [57.103.67.103])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58FEA4A483D
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:50:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788439807; cv=pass; b=GGCzdYGJ/k0lv4A8ekpJwPW+TDEZ5VK/HnsxwG4lYKU/QAnbjoyq8Oqb312ownP5zgQeCeQ/QBHpofmKM6oJDX6Lb9OniU+XE9897rMSEnsx57Yy/FvRlCoua0KA6QQbrGJ62lL7r9tHBqYyUivpINcFTegrnc8d0hH6kAWFE5A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788439807; c=relaxed/simple;
-	bh=nZAhi7JLs5DqmGCStoTBpNYdm2JT9uDBw6dn+Kg4UKo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Z/9htkUnkBvlyDrDEFMM8D7LZIr1Kq61RWsvj1S7iARTmyMMPY9kqH4vhN/A1BAE7Ck1LjfLNt3kdqS9gz5/gYjjZFzdjcPmOOU7eOKHJqWgYJCrkNo6gLP0Iw0JSxxPDmWlg1k/amysf9mwrAalVw1UnRYrEa6pyaO94v4X1es=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EoPRb4B2; arc=pass smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DA0A4A6CF8
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:50:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.67.103
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788439826; cv=none; b=Dr9Ep81BRrq7lzIzw9bQBE8LsgDnEyE5Ac4yImEcbe2ePhUiSCy5+ZRFxfRIw6/BDIM1V1zm5Aps3mxNiXJsiF6Z9FVhsJfKRNupIC7Q3aKKSNxixB6qatolGVQeGqxF8wkYnse54t8q7Rk72aMlZuniZ+EzQFX8XsYIVVhEeLs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788439826; c=relaxed/simple;
+	bh=cg9kWbceYx8PSNDrmZnXuLdqOPAnaRwef8Env6m0WLo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JPg6/4K60Nc+nbiuIYVvZEeJ3RV07rhVX8dgNHEitiFxf50K7+Ii7fXCzKz+NKrZmJJvhb2+lx6++EtRNugT4GMTQBs3hMBi1q4xk7VifCaALz/mugk/ZzvUeesddsCm9gZYCPezw56CHitK1Ocj4UOQX+478rKfFA7QdZHFjkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinon1.fr; spf=pass smtp.mailfrom=pinon1.fr; dkim=pass (2048-bit key) header.d=pinon1.fr header.i=@pinon1.fr header.b=QaoRREhy; arc=none smtp.client-ip=57.103.67.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinon1.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pinon1.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EoPRb4B2"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4995df974b3so1058135e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:50:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788439803; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PXeR7G2OC8fLYftiJgWvQyccPihqqdTyGenRSgbz7Y3zPxqiMbb2OJNbyaLMtRj/Is
-         Q5ZgRPMmNTx+ApB6coYN2GWVs3AFjCiImaAk23NK+7Xda3fgJ9YrEOryzPoH+caMWL+o
-         2fLeSf7ZaM5aRVldfYUl3c7AL2uEazuUjJ36n5nRGIfTwXo9TjufXsV8D2gQpc68kuw4
-         APSjddHs9HrCok+ka2I7YrqwJUWglg283OJhhX9Tr6PtLEl4/d1yLY6OQlBzNfd1q8q0
-         15m8z2lKRZw01CtLsjVk9LGM4Ftof1sU9Y/Q0wb/A27lO7oUI0ZDAOsUDhgrxwXZrTN7
-         eFNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=59Wj+J6S9wt/dcmTRFnqS+5MGklja5S5ehnxj0FnuDo=;
-        fh=YdWKNv3Sa6Nvf4g2jXDpmHLh+b09Y9Bbn71cQU3D5x4=;
-        b=FBVlOlY4s8rlqGx4RWRYD/L8rM65syuwul7sP7271PJhHFGloC4TLDq5ohYLWR1q3d
-         /6Tbe3F4U8VtE3fj0coDlMwqc0AJrKYLwaYBBfT3BuTy891hQhY7+e2J/S8Nrtorl3ON
-         9R8cE0kzSyIfX7zo76D2lvdeMR6t5NhUE4HlFWd3H9p1k6swVAJLL7XzY+H10tfFDHTb
-         8dx1ASYddrjq1yctSElIvdAfmZnyPGoFHJ7OuUh2+3sQuM/GdCpbOhgiDuMJ8WamVRZf
-         Oy/aZBi05OJLAKezNhqXPt/Uj8wRbc+P8YS8sO4MBDiI8GgL9KEQTubREPqbQhzgSDFH
-         A7ew==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788439803; x=1789044603; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=59Wj+J6S9wt/dcmTRFnqS+5MGklja5S5ehnxj0FnuDo=;
-        b=EoPRb4B2FShp7v5WToCJUg43cVi196hr5+vPH1YqhKnzgK+Nik+OwA7oWM6uDBRFqK
-         fsHXjhHJDxgin5q3EqPbD9x+qIPl589W4bWElfGdRPG3l3srgQ/q7RvtubrxicDHxuQr
-         gNY+QBMQpD2sUAqGSBDSrEa5TcXnm2272HvayK0EfJXs3//ipv2a8je5Wp17eFdAdSoI
-         MeQosDn4oKhQiLrKdtKPaaYKSrRVLpw1nkwIv+2BidpOZ8QRa4FEdCpie92FjGosK1AK
-         KtruDNe0WCtdGLPmoyVY6MoJex4vWasC8kvxl7gsVrUCnpousSBpVC7CzDTm+AjlY06w
-         sUUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788439803; x=1789044603;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=59Wj+J6S9wt/dcmTRFnqS+5MGklja5S5ehnxj0FnuDo=;
-        b=FYPHbz/aRCzQ/d/2mnw+pWFpxa2Qgre414JaWuoGxLhVWm/kygMcFzvkDfF7Pqnfkb
-         j4XR919mWyMnA1WmlUJ4D3ou9S36+LWEdIZeVii505nIysApf53Bg+Vri8h4YaExWyrV
-         cjrl5lPQBWMF4wUg3S9/MftOQ9Stf+d4K1tKg5TcHNjr3x3h48Sxq4olbCB/DNY89AEF
-         YM+ZbP3srZURkQ7g0ytXbMvIUClfiRIaAZ9byBIrEXUQVkrv4t3QOx/OVm9mnVuiy6+b
-         doGTl3zObojYHYnpFY1YDLMAiEH7N0M29MEd26R5tKPAdPhm7hNN35q8e4ljhGibsh+J
-         IDqg==
-X-Forwarded-Encrypted: i=1; AKwUvBxwjK+G8kJW5W+3YIS8xGy8h3YOHJZAnziYaFlSleJVP49rwzKqGIlsTz4SI1d+vZgIlfpbcpG8uOShpNQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kPoVBPmGL0sL442NrHZ66iZhjeluwQglfnyy26A1uK/ncfhXI8
-	aKgtl2Q3akokLKouia/9poQok0jBbH2MmY17o8iJe9n9OT5g1IU8FYodJBChIG0yxT/0UzKZiP1
-	XFWrlxUZwrA5NSEaJu4qjiNvoIfZ80Mw=
-X-Gm-Gg: AYBFou0JDPo5vzzd19kJKKxsszc6p7ye90SCYm8dmtrSCPFwjG1vq3Op+PEF9HO2sbV
-	OlvtN+CHvfYmQ4DHC3S3oJwPcb9Wk+5DcqXApRKy+Mpa5ZVnJNForKXK64lfNuMUhkAar/YD+qu
-	g6KxDbzshwqnAI3zUUpqBPPAVlynIrcZt+jDGxk+kdcCdEiInFdhDLRwufLQ5u98ba/T2az8rtS
-	CrD+krGTVZAq5Ph4H3ldx9pzOoLG2u1zLVeycY/BRKH5P9j8P26qvsyDKIzqtuHQ/UhdF6+z+Ir
-	KmjpvidO4GKYyLWn5fj5kx0lsYBkCPjylMRm60wNCs0xkBkRVYBs6idGBcEHwkxhJ1PZxuEw74x
-	4/OYfuORDX69pjV43II3akDUmgLqt
-X-Received: by 2002:a05:600c:530c:b0:499:cef6:104c with SMTP id
- 5b1f17b1804b1-49ce58369f4mr98184805e9.1.1788439802952; Thu, 03 Sep 2026
- 05:50:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=pinon1.fr header.i=@pinon1.fr header.b="QaoRREhy"
+Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-1a-100-percent-9 (Postfix) with ESMTPS id 86D4F1800C8D;
+	Thu, 03 Sep 2026 12:50:21 +0000 (UTC)
+X-ICL-RepId: 01a06751-fc9d-71a4-ba5c-a5906bfe3d3b
+X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQBKHVwPXxxBDUkdXA5eEhVdRUMEUhlAFXkIWgNYBQNeXwoTC1NWQhlXF11cGQ1AUEsbDlUXA1ccVkVcGEMJXQVXHB0dQUVbE1UXRgkZCF0dGQhHHwowA0IOVgNDB0UALRkcV1BHAlwfV0kdC0VLXxldRQ9fB1kEQABIAFwFXgJBDVYFXAVbB0MUSR4dXg5AAlw4QwRZBFxBFx5BUxcfSwBcRVAYRB9dHWYcXABWAlw=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pinon1.fr; s=sig1; t=1788439823; x=1791031823; bh=LUfe1pdcps0sFnIL1Tvqw6S2TvQ7uC51WrK64XPEpbE=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=QaoRREhyqEfbb2rlIFjEZ3ebd0ZcDeZzrhqOCtPDHxykSESGcI0FWRIuy31XtbyanYxiFi22yBvE6G5+4RC9VXVM/8BIwXSoSe1IZHo0hWAFYaEGbGCKj2CyGIGzbVEx554Qt3hqKiY8rXZau6Ufra2V3BsTjXYjPn8lLFo9kOFDTMS7Jt6bZEBL40JGfB1u+VGMT/nfhHf3KKpVJhjQOx8YhukHqT9DeDENktYq/7QYcUlgpfTOd9bRbTcY1QgE860W8FhiwLPR5OLUYHTxdJa0MhKU0i9355T22oC3fiC/9GyHBR3du5x1XofM4zQmlyngFeNqorFCw7xYsD+S+Q==
+mail-alias-created-date: 1575045973000
+Received: from 2a01cb06d02d74794b6d6271b4dfc9d3.ipv6.abo.wanadoo.fr (unknown [17.156.192.29])
+	by p00-icloudmta-asmtp-us-west-1a-100-percent-9 (Postfix) with ESMTPSA id 32F181800320;
+	Thu, 03 Sep 2026 12:50:19 +0000 (UTC)
+From: Pierre Pinon <pierre@pinon1.fr>
+To: Miguel Vadillo <miguel.vadillo@intel.com>,
+	linux-media@vger.kernel.org
+Cc: Pierre Pinon <pierre@pinon1.fr>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] media: i2c: cvs: register subdev nodes when the remote sensor binds
+Date: Thu,  3 Sep 2026 14:50:13 +0200
+Message-ID: <20260903125014.612053-1-pierre@pinon1.fr>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901151818.3191443-1-xueyuan.chen21@gmail.com>
- <20260901151818.3191443-2-xueyuan.chen21@gmail.com> <apk8ZRr6do_YAlzf@kernel.org>
-In-Reply-To: <apk8ZRr6do_YAlzf@kernel.org>
-From: Xueyuan Chen <xueyuan.chen21@gmail.com>
-Date: Thu, 3 Sep 2026 20:49:52 +0800
-X-Gm-Features: AcwNN1UgFTYq7ea9-qGswA9Jf4fWjx8u_UTgGqrDxE_25OvzBaj7okOUxHJIdeg
-Message-ID: <CA+qSx6wqd5VSR=9yarFFmyN1SyvLJqEHpA7BwmzuxNQTHbS=Xg@mail.gmail.com>
-Subject: Re: [PATCH v7 1/3] mm: make persistent huge zero folio read-only
-To: Mike Rapoport <rppt@kernel.org>
-Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
-	usama.arif@linux.dev, ziy@nvidia.com, baolin.wang@linux.alibaba.com, 
-	liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
-	dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, kas@kernel.org, 
-	catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
-	linux-arm-kernel@lists.infradead.org, tglx@kernel.org, mingo@redhat.com, 
-	bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, 
-	luto@kernel.org, peterz@infradead.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDExMSBTYWx0ZWRfXyV4zW7x64LCF
+ MTTfdTJg9VXSYXHInBCLf/i6KIhx5CoSxjO26/2ZumqkO1fXLk7q6G0S973bmuokfGpmCRizr3R
+ ARVFgFdRzYO0lZLRfm3vD+aCuov+FwoRagxtP0gOC4bOUVcbhcKgJkEyyyxudf8voaXy7Vo6ucj
+ gn7PCWloTc+X/CtWlyIIe8zIvQJl2s7wCkt1cGv2qO9wSJn/xYxuNRzMqQqnBtbZTb3gNswr2jQ
+ Tyv9Sbsot86IjzT43ogqnX76KbPGXJJe5kXttFqbjs4303beaMd4tawsFuBIKBwmD/h4mVPWBK1
+ iLfJxoSoR+rY+tnjtylhGslnE9eaasEafDMm5BNUtpoadlI3OCOGhS0hN586Js=
+X-Proofpoint-ORIG-GUID: yZFUPbM2yqc4hToncFDC8zf2S6oKNDOa
+X-Proofpoint-GUID: yZFUPbM2yqc4hToncFDC8zf2S6oKNDOa
+X-Authority-Info-Out: v=2.4 cv=SvydKfO0 c=1 sm=1 tr=0 ts=6a996d0e
+ cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
+ a=aW9mcIavGNWWFvFFKOxBSA==:17 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=VwQbUJbxAAAA:8 a=JOLwy3tAsX9ZQIJcA2wA:9
+X-JNJ: AAAAAAABULCkW0hhv7KM7gLZlSGwSW6BzEq0dHFwlMGS27c5zke2yMDetmmUnmSntn177vAkU8OiGwOqCcCP98rG/nzyTwRDJeky7E3rQiASsCTFhfselCam3fqQebFWZTSjW2FnnqYhdpy1wx7tacQgkL37DrVwTbhD6qy5vHpDjItuieRqVSAiG6lCiytibu7yR5t89bsLjatCXkTXzN3/FunHtfABAGJ6a8Z+31ppruToN532CM+7DyqL3eL/krbP1lngCqJd9zP2oWsx5joyyXLNsrXjLtMi4FPOB8/HFdUc3TLwWs8E1Jckp9f6LeDq3su/Pu2807k9l0igTqYgI2P3ZIK09MT3f6pn4cCoZNDYbkL3ovckh8nZxHHU6MIYXzv5MTan7HZxzxgAhCu2dlVjMnNFwJf24jWqAog7fp9KaeNIi9Ytt5mzW29E6Tq1Z3FVOUV/vMbxFOU98kKx7GpIrKu6lWzSJO8dH9xyfP3uE72f+gYCFexkNpctjqLKzxg9+sl4CjYgsbhpAnN4eTNN73lAil7YWDPZLTT4uS+34BS7735ALdv1r1dXm43iQiqk9r0qaI8ABwv1VRcEf9nSWt4FHCRb9gZF3L1PD7sorMu+ycg0PoaO9oocTwEpVlhp3ThZgl4NQBBtBPRlixS7QcEkRgOdzT/cxXfv+Epxq7CYpUokBCdUL+YNKtIGgU/zsrQLet7SS6pjXkddtp/gdz2yu37w5pHAdWLEcZVmkts/nFoQk1iBOvm9v159GDGiF7DcZMh3NcZz+p94Xo5zjtlJYONaioXh1XkRJRD/8yqYnhlNvKV6QNXob14YRHqUxFgT13ZrAAbEf4AW6GIPxOJsXXjViWpWzcl9SpgkLSU6Ysy/NqKgHaKbC1sjfSiooA1SD+om5vOaXf7D7nRTDWqGgSifthhl2+mXtOHal8oC7rLltK5jxSN8LOAP5UfqkpZ7J2LkypeZtPGHNo+AdBR
+ VVy0X6F6NtFTvJVnpXmbdM1m6NXXNFwxxlqKTulJilEzMdwAJ6ea04F4CRhosbzJoh1lTPwnCS2/aozYZunmEmiDRC8iyWVGcPMucbdauVKOqG0RtXxtcPR9oEfyEzsZnbQg0Dv9XT6Hg90Y/ouQ4qyLzXTCl0uKzp1TgEF+g0NZn+tjOaDELdD8ZHMR65xW3MBgyWo6ifPnvvMapfcvN7tYSiMIz1CoIZPAbleybGAsioOebaQzn/Nn9U18axGmhcydwBsd8hh1+5iKiR9F65FzHnG8uQ0cBHu41T6trZTTy0VD0+wgZ8gDeFHUXPfJ6q9MLp5de/UEUs4UBqhBiTdUQi5VzitrFjEC33y+3
 
-On Thu, Sep 3, 2026 at 5:22=E2=80=AFPM Mike Rapoport <rppt@kernel.org> wrot=
-e:
->
-> On Tue, Sep 01, 2026 at 11:18:16PM +0800, Xueyuan Chen wrote:
-> > The persistent huge zero folio is shared globally and should stay zero
-> > after initialization. As Jann Horn pointed out [1], kernel bugs have
-> > ended up writing to pages that were meant to be read-only, including in
-> > security-sensitive cases. Making the folio read-only in the direct map
-> > turns such writes into faults instead of silent zero-page corruption.
-> >
-> > Add a page-based helper consistent with the existing direct-map interfa=
-ces.
-> > Handle TLB invalidation in the architecture implementation; unsupported
-> > architectures retain their current behavior.
-> >
-> > Protect the folio after initialization. Skip highmem folios, which have=
- no
-> > permanent direct-map mapping.
-> >
-> > Inspired by Jann Horn's read-only zero page work [1] and follow-up
-> > discussion [3] with Yang Shi.
-> >
-> > Link: https://lore.kernel.org/r/20260508-ro-zeropage-v1-1-9808abc20b49@=
-google.com [1]
-> > Link: https://lore.kernel.org/r/0e5b23a6-4895-454a-9dfa-6dc21adc2991@ke=
-rnel.org [2]
-> > Link: https://lore.kernel.org/r/CAHbLzkrXXe7r3n3jXgDKtwZhRqj=3DjDx9E6dL=
-OULohnhBguvi9A@mail.gmail.com [3]
-> >
-> > Suggested-by: David Hildenbrand <david@kernel.org>
-> > Suggested-by: Usama Arif <usama.arif@linux.dev>
-> > Co-developed-by: Lance Yang <lance.yang@linux.dev>
-> > Signed-off-by: Lance Yang <lance.yang@linux.dev>
-> > Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
-> > ---
-> >  include/linux/set_memory.h | 17 +++++++++++++++++
-> >  mm/huge_memory.c           | 13 ++++++++++---
-> >  2 files changed, 27 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/include/linux/set_memory.h b/include/linux/set_memory.h
-> > index 3fe293cfed8c..ed9ce04b18a1 100644
-> > --- a/include/linux/set_memory.h
-> > +++ b/include/linux/set_memory.h
-> > @@ -54,6 +54,23 @@ static inline bool can_set_direct_map(void)
-> >  #endif
-> >  #endif /* CONFIG_ARCH_HAS_SET_DIRECT_MAP */
-> >
-> > +#ifndef set_direct_map_ro
-> > +/**
-> > + * set_direct_map_ro - make a direct-map range read-only
-> > + * @page: first page in the direct-map range
-> > + * @nr: number of pages in the range
-> > + *
-> > + * Make the direct-map range starting at @page read-only and invalidat=
-e stale
-> > + * writable translations before returning.
-> > + *
-> > + * Return: 0 on success, or a negative error code on failure.
-> > + */
-> > +static inline int set_direct_map_ro(struct page *page, unsigned int nr=
-)
-> > +{
-> > +     return 0;
-> > +}
-> > +#endif
-> > +
-> >  #ifdef CONFIG_X86_64
-> >  int set_mce_nospec(unsigned long pfn);
-> >  int clear_mce_nospec(unsigned long pfn);
-> > diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> > index 54494c3fa983..742283b36d74 100644
-> > --- a/mm/huge_memory.c
-> > +++ b/mm/huge_memory.c
-> > @@ -42,6 +42,7 @@
-> >  #include <linux/pgalloc_tag.h>
-> >  #include <linux/pagewalk.h>
-> >  #include <linux/cleanup.h>
-> > +#include <linux/set_memory.h>
-> >
-> >  #include <asm/tlb.h>
-> >  #include "internal.h"
-> > @@ -291,10 +292,16 @@ static int __init huge_zero_init(void)
-> >       huge_zero_folio =3D alloc_huge_zero_folio();
-> >       if (!huge_zero_folio) {
-> >               pr_warn("Allocating persistent huge zero folio failed\n")=
-;
-> > -     } else {
-> > -             huge_zero_pfn =3D folio_pfn(huge_zero_folio);
-> > -             count_vm_event(THP_ZERO_PAGE_ALLOC);
-> > +             return 0;
-> >       }
-> > +
-> > +     huge_zero_pfn =3D folio_pfn(huge_zero_folio);
-> > +     count_vm_event(THP_ZERO_PAGE_ALLOC);
-> > +
-> > +     /* Highmem folios have no permanent direct-map mapping to protect=
-. */
-> > +     if (!folio_test_highmem(huge_zero_folio))
-> > +             set_direct_map_ro(folio_page(huge_zero_folio, 0), HPAGE_P=
-MD_NR);
->
-> Sorry, I don't remember if it was discussed previously, but why can't we
-> use the existing set_memory_ro() here?
+The CVS bridge picks up the remote sensor through a v4l2 subdev notifier
+of its own, but nothing in that path creates the sensor's device node.
+The IPU7 ISYS driver calls v4l2_device_register_subdev_nodes() from its
+own .bound -- which runs for the CVS subdev itself, before the sensor
+behind it is bound -- and from .complete. The sensor's node therefore
+depends entirely on .complete being reached.
 
-Hi Mike,
+That does not happen when another sensor on the same notifier has no
+driver. On a Panther Lake laptop ipu-bridge instantiates two camera
+endpoints, OVTI08F4 (ov08x40) and HIMX1092; there is no driver for the
+latter, so it stays in the notifier's waiting list forever:
 
-We want to change the linear map here, but arm64 set_memory_ro() only
-works on vmalloc addresses.
-So a new helper is needed on arm64, and x86 implements the same
-helper to keep the two architectures consistent. On x86 it is
-basically set_memory_ro() minus the alias check.
+  # cat /sys/kernel/debug/v4l2-async/pending_async_subdevices
+  ipu7:
+   [fwnode] dev=i2c-HIMX1092:00, node=HIMX1092-2/port@0/endpoint@0
+  ov08x40 17-0036:
+  Intel CVS:
 
-Thanks,
-Xueyuan
+The ov08x40 subdev is registered with the v4l2_device and shows up in
+the media graph, but never gets a /dev/v4l-subdevN, so userspace cannot
+open it. libcamera fails with:
 
->
-> > +
-> >       return 0;
-> >  }
-> >
-> > --
-> > 2.47.3
-> >
->
-> --
-> Sincerely yours,
-> Mike.
+  Failed to open V4L2 device '': No such file or directory
+  No valid pipeline for sensor 'ov08x40 17-0036', skipping
+
+Register the subdev nodes from the CVS notifier's .bound instead. By the
+time it runs, v4l2_async_match_notify() has already called
+__v4l2_device_register_subdev() for the sensor, so sd->v4l2_dev is
+valid. When .complete is reached as well, the extra call is a no-op:
+__v4l2_device_register_subdev_nodes() skips subdevs that already have a
+devnode.
+
+With this the sensor gets its node even though HIMX1092 is still
+pending, and the camera streams.
+
+Fixes: 8e2b43d2c10b ("media: i2c: cvs: Add driver of Intel Computer Vision Sensing Controller(CVS)")
+Cc: stable@vger.kernel.org
+Signed-off-by: Pierre Pinon <pierre@pinon1.fr>
+---
+
+Notes:
+    I am not certain this is the right layer. The same gap would affect any
+    sensor sitting behind a sub-notifier, so the fix could equally live in
+    ipu7-isys.c or in the v4l2-async core; I put it in the CVS driver because
+    that is where the sub-notifier is created. Happy to redo it either way.
+    
+    Tested on a Panther Lake laptop (Intel Graphics [8086:b090], IPU7 + Intel
+    CVS + ov08x40) on top of 7.3.0-rc1: with the patch the sensor gets its
+    /dev/v4l-subdev node and libcamera streams at 3848x2176, while HIMX1092
+    is still sitting in the notifier's waiting list.
+
+ drivers/media/i2c/cvs/v4l2.c | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/media/i2c/cvs/v4l2.c b/drivers/media/i2c/cvs/v4l2.c
+index 9fadca7a3..0a42f91c0 100644
+--- a/drivers/media/i2c/cvs/v4l2.c
++++ b/drivers/media/i2c/cvs/v4l2.c
+@@ -13,6 +13,7 @@
+ #include <media/v4l2-async.h>
+ #include <media/v4l2-common.h>
+ #include <media/v4l2-ctrls.h>
++#include <media/v4l2-device.h>
+ #include <media/v4l2-event.h>
+ #include <media/v4l2-fwnode.h>
+ #include <media/v4l2-mc.h>
+@@ -400,7 +401,7 @@ static int cvs_csi_notify_bound(struct v4l2_async_notifier *notifier,
+ 				struct v4l2_async_connection *asc)
+ {
+ 	struct icvs *ctx = notifier_to_csi(notifier);
+-	int pad;
++	int pad, ret;
+ 
+ 	pad = media_entity_get_fwnode_pad(&sd->entity, asc->match.fwnode,
+ 					  MEDIA_PAD_FL_SOURCE);
+@@ -409,9 +410,21 @@ static int cvs_csi_notify_bound(struct v4l2_async_notifier *notifier,
+ 
+ 	ctx->remote = &sd->entity.pads[pad];
+ 
+-	return media_create_pad_link(&sd->entity, pad, &ctx->subdev.entity,
+-				     ICVS_CSI_PAD_SINK, MEDIA_LNK_FL_ENABLED |
+-				     MEDIA_LNK_FL_IMMUTABLE);
++	ret = media_create_pad_link(&sd->entity, pad, &ctx->subdev.entity,
++				    ICVS_CSI_PAD_SINK, MEDIA_LNK_FL_ENABLED |
++				    MEDIA_LNK_FL_IMMUTABLE);
++	if (ret)
++		return ret;
++
++	/*
++	 * v4l2_async_match_notify() has already registered the sensor with
++	 * the v4l2_device, but only the bridge driver creates subdev nodes,
++	 * and it does so from its own .bound and .complete callbacks. The
++	 * former ran for this subdev, before the sensor was bound; the latter
++	 * is never reached if another sensor on the same notifier has no
++	 * driver. Create the nodes here so the sensor is reachable either way.
++	 */
++	return v4l2_device_register_subdev_nodes(sd->v4l2_dev);
+ }
+ 
+ /**
+
+base-commit: 940de590b839f71d6dc846160534bf202401b8b7
+-- 
+2.55.0
+
