@@ -1,153 +1,252 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFDD641DE13
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:06:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26D914C77BF
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:07:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788447996; cv=none; b=hhjWkNTRoP7PZOjzOM7sTugJjPwJRNKqfgawJE9H1tnq7F7X6Y0tOGRnqGR815IxhRiR+drJskQHmb0Pj4kKZc8m8nnBDk71K7YK8g1+fy0HMTmEu2QvD8uEu+KyRTd86I0n99++3IssojVUI8WTjLdN5QL79hgrTrUvdtBKGT4=
+	t=1788448025; cv=none; b=ILeT0sxHmV1GuVQM/DyOPg39yBUfk9daiDlxx/0AWbu3FKBSQyerddUzys5zYdXrSMv+BIEcIT8u0g+Cwvo7H4ceZvm08Sll+laC2+tOnx8VUi+piq/tDvB1r9UoP90sCugLPh4bNkUDyTp5Qciomw1NoUMhUskIOV4BwOHuT3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788447996; c=relaxed/simple;
-	bh=WH0QTFAGkBASqEUK10naybiWkASY5mU9qZY1XfCsA78=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ATOCPkAs5ncCi+kciCaBdezX81+hJuXtvRWEvJixzaaEjPz6DDQo/C55HdjMaKG+7//253Fa19TyidrhFU3Z3J+78RPB2kBoM6LgMKq6MQDcg+9ww9NUlQ2OO9yFJvF5fk1NVzQFu6Zm0xaB2MoVHFRDooFUc5wMeL0Rs+fVsk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NTINs6bA; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788448025; c=relaxed/simple;
+	bh=UcMfgKoIgbjA/Yt1Y60klCeHwQzhR96tNxN6tCPrud4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HIxFxjtNtVv/IaqI++tvBZEAVRcxu8lhfcRUPT0DR7Gle4i1qKEgdHOnpPHt5rG1K2urFQuuQ8rNnN+Gkh6OKK88O3TUW9xG25gaOESM2yx//Fm7MmH+s8yE7viF61+i4vNOyJfZAy4GNWBqmnBjOJv2YL8NLi1eMB1bGU8epWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iTVtJ5V/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iMnx/nN/; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NTINs6bA"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso26374305e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:06:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iTVtJ5V/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iMnx/nN/"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683DALCh1705133
+	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 15:07:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	IJQlwKWVKCEeiPvskX1SbJyL3p4M8HL541YIt9e58Tk=; b=iTVtJ5V/yDPSlXFV
+	Gq/ViW3j9yBXcY5xAmGzZN3sOcE8LJ57Rq9NoEI5hYN/Us9/0OMl/ilx55zoL99q
+	Ioj1bwu/iszqBdp15p8nD0D607dYHNUuGGVVWCJST24ZVJShQKQ0xCrrrkB7pRfA
+	FwgvWqvw1bUI5L7JStzfeGobAb+i62JlApnOg8a/2gJ2SAgyZooezJKvnSPqCt1B
+	/1UANVZeYmuYnB/kkL7VhBLl24QxqIOgJ95HTdmv7iWMAfbfoer6Rrb8bTilfTZg
+	1HzC626ud9Ko1niZj1A3dLBBtmA+Dpa+CHZ+Zlrhny12TCbQQG09QG1USReZxn/Y
+	lil0kQ==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf9b18jg7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 15:07:03 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d54187d8b0so67474745ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:07:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788447993; x=1789052793; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1788448022; x=1789052822; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=THzjvy5iGboyhx98aFSf1bvAFTvgaD3XGcWeB3Rn6lc=;
-        b=NTINs6bA3GqiKjFdJsMJUj4OFjHB2BjLZMANp0fpKNE3ooFguHaq8AEbHwdAK1tl/E
-         ziNIuH7atdzqKBvRl8x0rNdbZ0vBTuWl1e7Mxem3MDTqYG+m5O4GrkWZVBHdAl3boJVc
-         jNRwt/nNd/LVeXZh8l+eoLnC6NvwGIILMbdTQzT3GnL2Shme0RpDdr73hVOpTKiqRLKo
-         UFs5wF8G8bTVvW5vvsxnSUv/0ZAOLVU1hVWV9VN6QFm1M7qUmF/O8NG5k2wfTKJejWsv
-         /A1sJMO0X/SL5b/SLS8J3kDCrcsOzhCIyS01KxsiFDozHv9gckBfIg88XirtGTxXTv9R
-         yLCQ==
+        bh=IJQlwKWVKCEeiPvskX1SbJyL3p4M8HL541YIt9e58Tk=;
+        b=iMnx/nN/1JZU82E5/o91CqRlDTrzI+vFmwlCtlP+xL8wwkWO2D10No4FejSC+TmAFo
+         h5lSRBWb4aYdpM6tlN+qzduAQe2l6v4F/yaCYrmjtE3S1Tpn8STNWzRV1MBb3E1yRXAx
+         F1NWP1+m7/HaizM1JeO9q/m23O/CxW/dKT35RZAA6VG2aXlziZBvXpihjO+FwoosRvl9
+         v5alaCYaOa99y9qU53mt1L18RkhvkrzHgZTqpP4lHwhUHwON6xEQYWeDoG1X//iaHKbR
+         LzI35xNbuT9gace47bRXd1Mg+oYR+cDxkXjYrkXTTkhi7po++/zn8WTF4/2tIBxSLWFw
+         VYgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788447993; x=1789052793;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=THzjvy5iGboyhx98aFSf1bvAFTvgaD3XGcWeB3Rn6lc=;
-        b=Lj6Aegm9Xwt0Yqmo89dQAr2GdKMrxJkuG5C6U6P9AFunSJQjcDkjBfulTvNCPYFt7s
-         HfLJ7DMqaCw8L7gJgQ4mvF55ISrMEDG+LKdZx/jQCEU4TNkVxEx0UVOoPC7ad3SOEiMD
-         xFGA1pkq/5kGK1+SOYi12GlCn1g2NfVvtsuKLYr0M6jWWdvsL3XTTRacF+Mup4y0r0Yf
-         G9SqJtmV6/MtPYrJmrsHnNzwmLUzzLEPzrFugPPH6hFY2q2T0sAtM8jfUzhLN6PZBlff
-         h8l1U/VD6SRVM71fSOezoT6oV/edN7jhTGEF+4xSG7o2h/mMPGBPcXLN20937ACJz/Cb
-         78sg==
-X-Forwarded-Encrypted: i=1; AKwUvBxuZXs/qGu5vtAeZ6zWBbcywhgp3bTesLhg4ZJUToOIJjbb/WDx9LcS4TvFnVJu0OIaRghKgP1MTo3cqfM=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0RJmh44DZFwvEsOHojumMYXiV23DUZaGWa4pznn8otQXo/HSc
-	Xw4aCqu2wU1xq+fsDtws15VqoxLLAcYwo645/eXVseaMMplUA4RAvJuI
-X-Gm-Gg: AYBFou1w6qehhlM+25cX23qz6uW+kX1197Yx517eqILaQ67ow0Jt4/NsAeSSRplw7h8
-	pbILtTobVejkU49002gCdAbsTegj+QTjoRh+kaWzR9pc/nZZYE1lM4ziKwr+FWpnmXBrg7Ttm3d
-	SYKJyk7AWfar9yVNlJJonwweKL2Pdjjxjrs31SkddFHSZr7XS/lg15t/1k6XdKPeuOd7eqOVGCb
-	x4K5nP+KxAu7cF+5Dr8kmJgTiHNGYtidBRmyb4S/rHtV7wkBk7QZsJvC5oZZM9f6MLk3Elrw+Ai
-	7bx30+kPts7X82VEw1EiibbfuJ5hemp2tfUFoZPahF90FRfeTEkWbCqo4J1YH3q2A2pGwoycCJw
-	Rl+UPw73ulFmCnTp12Nwh0mt2YBm10mxZA/yk1nHPedWbVR1cw3dHb4/7dexgK48tEF3KV2eO9F
-	bpVm2pVPgIhLX2sSaYYJHa3nrav8IEBJxCjtNmGLKk2oSvYDTh5RtrjYV4Xw==
-X-Received: by 2002:a05:600c:4712:b0:496:bbce:fc with SMTP id 5b1f17b1804b1-49ce5843aa9mr215052115e9.12.1788447992569;
-        Thu, 03 Sep 2026 08:06:32 -0700 (PDT)
-Received: from metepc ([46.197.185.71])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5e589bsm71318925e9.13.2026.09.03.08.06.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 08:06:32 -0700 (PDT)
-From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: johannes@sipsolutions.net,
-	kvalo@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>,
-	syzbot+adeb8550754921fece20@syzkaller.appspotmail.com,
-	syzbot+101224300649c3eb8af4@syzkaller.appspotmail.com,
-	syzbot+8141dcbd23a8f857798a@syzkaller.appspotmail.com,
-	syzbot+b0ae8f1abf7d891e0426@syzkaller.appspotmail.com,
-	syzbot+d6bbe0f5705cb8a5aa2b@syzkaller.appspotmail.com
-Subject: [PATCH] wifi: cfg80211: avoid holding rtnl_mutex across all cfg80211_leave() calls
-Date: Thu,  3 Sep 2026 18:05:53 +0300
-Message-ID: <20260903150608.485390-1-omermetekaya0@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1788448022; x=1789052822;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IJQlwKWVKCEeiPvskX1SbJyL3p4M8HL541YIt9e58Tk=;
+        b=j6ONNNzHGihbojJDSCSYejFx6ITvRi+it9o2R2quhTy6UnVvt8SCwEfZl8SXiwqjZY
+         v3YJ3cpd+080LmC2GSdE/Ych2JqvWJZ+cY7KsgYsSqZn7/MLH6dkRpQFHgMCStPRSOcW
+         JZ6iTDJt8mnjkGFwvxvDD3DePkAApQ6OrseRcUH8RXjX7fM4kHfT8H7/zA8AHrI1nzFp
+         /3SJwqOUXuaxgIMq/5jpqXI9DQ7aDSRn3uwrVe3ERHikFzjITwh83h6qayC1CrXWWVbe
+         IgfbuVSeKomKUWiNq4/5J75W+MrNVKpQFDahwgkoxjQxKMsr+wH3UrQSuCm7Py2Cheih
+         FxgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy5Nx/WcAZcDu2vntdqR6o41SRnHYCLXjAjiA5+f4UfL5pSf9HgeBSGyDvi6+7biu/rb7dA6Y/Xk2oPKZ8=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9oo/weXP30vVxsWx0uV91muBMmLsMXKRrs4SrrhPjFr0rMhsY
+	BUVdolRK4eYLnbzQ+92dN1sz3aUghdUKqePCw9rxitvQeVtbCB1isKaLmyguwWUSs8mZZI5Kj9C
+	6UG+i9UTZY7WL9NPSQLG7G2aLVC+ZVNobJzb76nqrBsJFpKs2ReLAy9jb9oDJ3SLRDVM=
+X-Gm-Gg: AYBFou2Bo/25lhV9ECDpZ02/mti/2UAYDM+3agDceQmD+D/p2w0rKtrK/fWa10txWJy
+	ArVMa+yotXajPrlfOar6Ay4oGlZ54eJSGqGD4P+n7LWvBl8X1yWq/K87CN0vsylANsWNUBDh5LC
+	439ljoxLguMsqKUejutrY3FNQUcURBj5AeXzqFoaAMZzgbLLzqQBDygbBgumytjtmo3z/3Iq/A7
+	QpyUZIfdJNz85/bcRApeMGrajgWClXVGV+f0NDB09Yy8kGtocK/sjygXFAEAGYCFH0i1W2Apk16
+	yRDJZLeunjHw3JTdetwfmcNN8L0vYCGykYN8qMZPIoXM3gSkxFECahWjFHX+RrSunUgI7ubGdPt
+	QfqVeEEbfV5Sph5xqswPctyx/N9KdJ7/OCwO0PLFc89TFlaHRi/zna8fZwdnHL16h
+X-Received: by 2002:a17:903:3c65:b0:2d9:b60d:7755 with SMTP id d9443c01a7336-2db104e87famr6825755ad.1.1788448022357;
+        Thu, 03 Sep 2026 08:07:02 -0700 (PDT)
+X-Received: by 2002:a17:903:3c65:b0:2d9:b60d:7755 with SMTP id d9443c01a7336-2db104e87famr6824365ad.1.1788448021745;
+        Thu, 03 Sep 2026 08:07:01 -0700 (PDT)
+Received: from [10.133.33.96] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dafe929d77sm11790525ad.39.2026.09.03.08.06.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 08:07:01 -0700 (PDT)
+Message-ID: <d93ad481-b574-449e-97aa-f5d1828f583b@oss.qualcomm.com>
+Date: Thu, 3 Sep 2026 23:06:53 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 04/12] clk: qcom: ipq-cmn-pll: Register CMN PLL /2
+ clock
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, quic_kkumarcs@quicinc.com,
+        quic_linchen@quicinc.com, quic_leiwei@quicinc.com,
+        quic_suruchia@quicinc.com
+References: <20260814-qcom_ipq5210_cmnpll-v3-0-21c3db378611@oss.qualcomm.com>
+ <20260814-qcom_ipq5210_cmnpll-v3-4-21c3db378611@oss.qualcomm.com>
+ <j6m4b2psvvg65qksij63wxo3aqoc5ldlfehqnywa3i33v4pm5j@lr4i5o2g6tdt>
+Content-Language: en-US
+From: Jie Luo <jie.luo@oss.qualcomm.com>
+In-Reply-To: <j6m4b2psvvg65qksij63wxo3aqoc5ldlfehqnywa3i33v4pm5j@lr4i5o2g6tdt>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: Bvt2hYMXkgS-qVLibwnbfnCjjPS6f-P5
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEzMiBTYWx0ZWRfXy6e41LXhWCbZ
+ jB1p5xNoQ+ncwKeOhiXphzm8ElvnIzVqwfZnYLyZ89tngf3/38TcR33allZe8nMHdnhozZ9sIck
+ RoVX/w+UnJIMx38C57MMganZGI+erWY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEzMiBTYWx0ZWRfX9B+9nBf0sgKR
+ 0DX1mLEZ6gtqggqqNpZXHM/Yo8CcD5YmKsuwJWWWOSVfpC/SDbWUyg8fqHar8H5Q3VJeDJ7lzok
+ YK51VS+Mrw5r/imvhPyOmTU3nFlHWlhxk+b6/Ik0Ps0/1AyIiaEHcyoVaxMtXa5c6qoTeQOJABM
+ Xud4irhTDlyRMNAPTVSh1Fq1P78w7jw/3dD713l7drfIXJQGORmCLd+6p7xhRjuy7H+AMXU+ZQe
+ Jxfrlky6zKe1AtxWo9pt8+8hdDzXPttA00ra0rErODheFjkw3ftYDVvrYmHkN8VZcnDen3iLodM
+ vYvMUi3DdYuQbu/i0k0by+DeFYMsNwVXG8pUg45wnPNKGzE+vdMYAE6HBGkZ85YQPa+cLDuXSOT
+ p73IXMouQamQXCTSUUD2aLI+5jVbO6aWbwhQJY4qAleA+CqInM5jLExc06yDwiOvx1qw+DtvbpW
+ x61CA5B1Yy0XahWq6zw==
+X-Authority-Analysis: v=2.4 cv=NNTlPU6g c=1 sm=1 tr=0 ts=6a998d17 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=_0NKdZRjI3JEYUyFDiwA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: Bvt2hYMXkgS-qVLibwnbfnCjjPS6f-P5
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_04,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 adultscore=0
+ malwarescore=0 clxscore=1015 suspectscore=0 impostorscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609030132
 
-reg_check_chans_work() holds rtnl_mutex for the entire duration of
-iterating over all registered devices and calling cfg80211_leave() on
-each invalid wdev. cfg80211_leave() can be slow (disconnect, stop AP,
-leave mesh), causing rtnl_mutex starvation when many wireless interfaces
-are present. This results in tasks waiting for rtnl_mutex for longer
-than hung_task_timeout_secs:
 
-  INFO: task hung in inet_rtm_newaddr
-  INFO: task hung in inet6_rtm_newaddr
-  INFO: task hung in nsim_destroy
-  INFO: task hung in tun_chr_close
-  INFO: task hung in switchdev_deferred_process_work
 
-Fix by walking cfg80211_rdev_list under RCU and acquiring rtnl per-device,
-so other rtnl waiters get a chance to run between devices.
+On 9/3/2026 9:18 PM, Abel Vesa wrote:
+> On 26-08-14 05:48:14, Luo Jie wrote:
+>> Most CMN PLL output clocks are derived from the 12 GHz PLL output
+>> through a shared, physical /2 stage, ahead of any further per-clock
+>> processing: a gated fixed rate (PCS/ETH0/ETH1/ETH2/EPHY/ETH), a
+>> configurable divider (NSS/PPE/PON), or a rate-select bit (EPHY-RAW).
+>> This /2 stage is present in the CMN PLL block on every SoC supported
+>> by this driver, not just IPQ5210.
+>>
+>> Register this /2 stage once as a fixed-factor clock, "cmn_pll_div2",
+>> and store it on struct clk_cmn_pll so the output clock types added by
+>> later patches can parent on it. The two plain fixed-rate outputs,
+>> xo-24mhz and sleep-32khz, are the exception on IPQ5210 SoC: they stay
+>> parented directly on the main PLL clock.
+>>
+>> On SoCs other than IPQ5210, every output clock is a plain fixed-rate
+>> clock (CMN_PLL_CLK_FIXED_RATE) whose rate is a hardcoded absolute
+>> value rather than one computed from the parent rate, so this /2 clock
+>> is registered there but currently has no consumers; IPQ5210 is simply
+>> the first SoC in this driver whose output clocks are modeled as
+>> depending on parent_rate, which is what makes the /2 stage significant.
+>>
+>> This patch only registers the clock; later patches wire it in as the
+>> effective parent for the output clock types that sit downstream of it.
+> 
+> Do not mention future patches here. Each patch has to stand by itself.
+> 
 
-I could not add the Fixes: tag because this patch addresses five separate
-hung task reports whose cause bisections all failed, making it impossible
-to identify a single introducing commit.
+I will remove the reference to later patches and ensure that this patch
+is self-contained.
 
-Reported-by: syzbot+adeb8550754921fece20@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=adeb8550754921fece20
-Reported-by: syzbot+101224300649c3eb8af4@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=101224300649c3eb8af4
-Reported-by: syzbot+8141dcbd23a8f857798a@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=8141dcbd23a8f857798a
-Reported-by: syzbot+b0ae8f1abf7d891e0426@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=b0ae8f1abf7d891e0426
-Reported-by: syzbot+d6bbe0f5705cb8a5aa2b@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d6bbe0f5705cb8a5aa2b
-Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
----
- net/wireless/reg.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+>>
+>> Signed-off-by: Luo Jie <jie.luo@oss.qualcomm.com>
+>> ---
+>>  drivers/clk/qcom/ipq-cmn-pll.c | 22 ++++++++++++++++++++++
+>>  1 file changed, 22 insertions(+)
+>>
+>> diff --git a/drivers/clk/qcom/ipq-cmn-pll.c b/drivers/clk/qcom/ipq-cmn-pll.c
+>> index 4fdf78f6829e..bcb51a5f559a 100644
+>> --- a/drivers/clk/qcom/ipq-cmn-pll.c
+>> +++ b/drivers/clk/qcom/ipq-cmn-pll.c
+>> @@ -96,10 +96,17 @@ struct cmn_pll_fixed_output_clk {
+>>   * struct clk_cmn_pll - CMN PLL hardware specific data
+>>   * @regmap: hardware regmap.
+>>   * @hw: handle between common and hardware-specific interfaces
+>> + * @div2_hw: fixed /2 clock derived from the CMN PLL output; present on
+>> + *           every supported SoC, but only IPQ5210 currently parents
+>> + *           any output clock on it (every output clock except the
+>> + *           plain fixed-rate xo/sleep clocks, which stay on the main
+>> + *           PLL); other SoCs' output clocks use hardcoded rates that
+>> + *           never depend on a parent
+>>   */
+>>  struct clk_cmn_pll {
+>>  	struct regmap *regmap;
+>>  	struct clk_hw hw;
+>> +	struct clk_hw *div2_hw;
+>>  };
+>>  
+>>  #define CLK_PLL_OUTPUT(_id, _name, _rate) {		\
+>> @@ -362,6 +369,7 @@ static int ipq_cmn_pll_register_clks(struct platform_device *pdev)
+>>  	const struct cmn_pll_fixed_output_clk *p, *fixed_clk;
+>>  	struct clk_hw_onecell_data *hw_data;
+>>  	struct device *dev = &pdev->dev;
+>> +	struct clk_cmn_pll *cmn_pll;
+>>  	struct clk_hw *cmn_pll_hw;
+>>  	unsigned int num_clks;
+>>  	struct clk_hw *hw;
+>> @@ -388,6 +396,20 @@ static int ipq_cmn_pll_register_clks(struct platform_device *pdev)
+>>  	if (IS_ERR(cmn_pll_hw))
+>>  		return PTR_ERR(cmn_pll_hw);
+>>  
+>> +	cmn_pll = to_clk_cmn_pll(cmn_pll_hw);
+>> +
+>> +	/*
+>> +	 * The CMN PLL output feeds a shared, physical /2 stage ahead of
+>> +	 * any further per-clock processing (a gated fixed rate, a
+>> +	 * configurable divider, or a rate-select bit). Register it once
+>> +	 * as a fixed-factor clock so the output clock types added by
+>> +	 * later patches can parent on it.
+> 
+> The comment here should only say why this is needed. Do not mention
+> future patches.
+> 
 
-diff --git a/net/wireless/reg.c b/net/wireless/reg.c
-index a8336baf85dc..a2e0d1cf8317 100644
---- a/net/wireless/reg.c
-+++ b/net/wireless/reg.c
-@@ -2466,12 +2466,21 @@ static void reg_check_chans_work(struct work_struct *work)
- 	struct cfg80211_registered_device *rdev;
- 
- 	pr_debug("Verifying active interfaces after reg change\n");
--	rtnl_lock();
--
--	for_each_rdev(rdev)
-+	/*
-+	 * Acquire rtnl per-device instead of holding it for the entire loop;
-+	 * cfg80211_leave() can be slow and starve other rtnl waiters otherwise.
-+	 * wiphy_unregister() holds rtnl across list_del_rcu() + synchronize_rcu(),
-+	 * so rdev cannot be freed while we hold rtnl_lock() below.
-+	 */
-+	rcu_read_lock();
-+	list_for_each_entry_rcu(rdev, &cfg80211_rdev_list, list) {
-+		rcu_read_unlock();
-+		rtnl_lock();
- 		reg_leave_invalid_chans(&rdev->wiphy);
--
--	rtnl_unlock();
-+		rtnl_unlock();
-+		rcu_read_lock();
-+	}
-+	rcu_read_unlock();
- }
- 
- void reg_check_channels(void)
--- 
-2.55.0
+Understood, thanks.
+
+>> +	 */
+>> +	cmn_pll->div2_hw = devm_clk_hw_register_fixed_factor_parent_hw(dev, "cmn_pll_div2",
+>> +								       cmn_pll_hw, 0, 1, 2);
+>> +	if (IS_ERR(cmn_pll->div2_hw))
+>> +		return PTR_ERR(cmn_pll->div2_hw);
+> 
+> In fact, I think this clock registering is self explanatory as is, so you
+> should drop the comment above it.
+> 
+
+Agreed. I will drop the comment above the clock registration.
+
+>> +
+>>  	/* Register the fixed rate output clocks. */
+>>  	for (i = 0; i < num_clks; i++) {
+>>  		struct clk_parent_data pdata = { .hw = cmn_pll_hw };
+>>
+>> -- 
+>> 2.43.0
+>>
 
