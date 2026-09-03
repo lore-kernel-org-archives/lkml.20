@@ -1,278 +1,105 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D594A64D2
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:38:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 835944A5C27
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:39:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788442704; cv=none; b=PEpt2xcgKu1U632jS6TBs+tNknyL2AmbJas9tHv9pTvTbAgxBmpR/5i8cpDD9QRf8IpFURnVPmN0ope8ClwRICFyxTnkZg4VNabTvAKPhoLw4ytKLWwrtxmrvJNrKuuwJT6/MSXsuOqEuXhq5glJSsTpHYsW2yRyC9BFdPuJLcM=
+	t=1788442773; cv=none; b=IxkeZ3EiLdbIj/Vg/hMZWPsRIBz8jh2yYMD5FjtsYKi5Hs68JoeIgw3H1facKbCPCTOYi/X/o0F1NA8XSb9orZE/zficsoG8AV17pVNZzl7dayheoL65uE25vsITpMp+kdHE3fzYDOQnKvdsOaOWHLdvdYTdqLWRh6y3paicU1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788442704; c=relaxed/simple;
-	bh=ZmM0R0WjP6AdWgPRTpqLzJIyXhGDN2mB99C6W2lIKn4=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=hDplFNtVeTsZi5Ko3330ae/dDyZBkG1bRhghIsO4w75ezVWcEViI1xK2tOOMJtopOpc9k1MRo7iYKMBgz3sQTmNXrwU6y8Tj//uCVdGgFZbaHwIcaviMluOkImPY2sVFAx5C9rggCqjRpvy/vCCZLGh+Dq8efq6HJQmwAbcoOHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=PojtZPsV; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="PojtZPsV"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 301AF4E414DB;
-	Thu,  3 Sep 2026 13:38:06 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id EB358602B8;
-	Thu,  3 Sep 2026 13:38:05 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5B77611C7A01D;
-	Thu,  3 Sep 2026 15:37:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788442684; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=9f0ZuBKqT92qJPNvM+giYXAm4zlV6Gw43u/bjYl1GBs=;
-	b=PojtZPsV70ZDuv8d/ej0nZtaNT/cu5e72fOQRqjRjdbQ9xlz0ttKsbDXLvmcpVwOqtE+qY
-	TsfuBdjmCvxy6gfcqQu+8vxzZsDqvaqNESJ8Mwt90+mdZInIojEC0f7xlYe1C6XXE6kyam
-	Ezx2Xh6teTrJXaXjDAi0UIppX6Snwe49bYsNqp31elJSfLf/X670efvpckN2yf9yyjxmFt
-	4OpPBwNnu2hcgpMKxSxooF5gqojPBZk2BY1FHGEaga7WO47rlMdMBuwKKz8KDIWeO+DmAx
-	PT13m9PY2FFJ+p8eki2X6mIXMQifNWLpaGYNOWnqy5jEhQaWVe7v6XlOnVqU2A==
+	s=arc-20240116; t=1788442773; c=relaxed/simple;
+	bh=ImQDDFj9qVjPIWDEX0xwmDVNDBDG8sj0eUt9eSQ9/DY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=evu2hAtHjQw6Y9ovdAd1+bKjtqdu6cg4wXB/c7SgGxOKpzOeRY8rjwuFP79am70J4iAglOInlJ+UTFPl4S3ztOHSSo9amfweFApfPdp9BxP92S43JTtST6TlCrZJp4o36md6xhN+vS27+QXPccjEgvqNyRvofUTFp69pnnoDu1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c252e703fa3so349876466b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 06:39:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788442766; x=1789047566;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3kI/3YoXSD5l4MUFY+JdTBHSS/S10bVdqe61ILAQItw=;
+        b=fs+B7WM03nZRjIaAtzVqStQoZiV5OulCRjx+Hp4S0od4td64OMcxVL/ina6z/254Jb
+         FlTIJwgJ8p1gu4Ax9vjqWj5k6JEwuDiETyyVyDPd05qs1Fs8hzzDxZ0KW9q359hJ8F1A
+         n6bH6fGzCmG1+V7jOI5cFIBG3ahtqwjldiNoQQ4AGtuboX4xI6oH5fImkqdd1HwUJBEV
+         +B6A2RUvt9Q5vs0zhVFCOZb+TZftdMflry8ID9ejwkd0ttDQEpEBB6fYEy5ir3eRq3iM
+         PfYAxDwwwKZ3iLxUfBvF0Dy7hhj9urMYVqCpzoWDP3DgsUICBkTvDbOZlcKKGoZklTOi
+         4N2g==
+X-Forwarded-Encrypted: i=1; AKwUvBxRkT6T/s114CqqCOBE674qOolLNPjaS9x0sTI6KEG0QCHJ3EAMm9LV1PV6+5PenjvoE4wskhKBx/H0zNQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nAZ4pGTwIlo5fwgk0oHyd9e+HGHBrFrvDoZzG3+nh3Uus3ECO4
+	VeEc6tWdUW7W0AStTeKCuCbjRBuhRl43Z2LSAlW5ITtRbdPh7hjzNy3kQTNEQEa7bQ4=
+X-Gm-Gg: AYBFou1na9TynTvICzLuIu3EzZINfhqeNfLJgcvJFUmY5tWs3ZHG+iBsgykNVakAt4P
+	U+VAB7Mt5wpltqCwcgEx0iK301uGagbK/0AiYk2XjXkVAxC+dXnxT6E+PhWxMKZM6L9ZLukAqYV
+	WeLW0DCkat3Blxbv9e4ybJFUnu/ZJMGoQlWXtM96YX4gz25pNPNnjeAvvIkWvnXwJEODsW7OmHs
+	KfGCWfzYiDqD0PEkdPKmppDbP7kOUHoC+BG8ZSjRCphPkTKQaQ/tBPekvl/pOaJG94wdsaLNalN
+	Ke5yGQgdqcemW1K+OtTmv3fV1xSJanm+xGV2oyQwT7x9SLxXqmwJSH8zK98vQXs8bpxPdzkUBD0
+	ibsz+pDZ68GeP8EJ3ko38Ysr/4FpdrmZi0WJ2xP+v5Ts7u4Li+gUKbFVify41FIVSHcspJCLAEb
+	LtNATJxk8HA9ecaozKLbCv37s1X4Ykpsw5bu29eNAOFEz2y7l8KPCY/UhJUQ9XmqssudTtv2457
+	dMBVx8leXT/fwJtbg7rgXxKCg==
+X-Received: by 2002:a17:907:7b8a:b0:c16:101d:7afa with SMTP id a640c23a62f3a-c25d54fc0d8mr817949066b.16.1788442765645;
+        Thu, 03 Sep 2026 06:39:25 -0700 (PDT)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com. [209.85.208.46])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25f41a363dsm101873666b.34.2026.09.03.06.39.22
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 06:39:22 -0700 (PDT)
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a38098734bso4464936a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 06:39:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwONOIvhb9qbAXNFWW0JBoh12YLdMYWo8y6/Zh+Hnz3Dxt7oRungtlYFq+cvJaBiJr7X3PbY70/bLPxFNA=@vger.kernel.org
+X-Received: by 2002:a05:6402:24d7:b0:6a5:fbc6:cad1 with SMTP id
+ 4fb4d7f45d1cf-6a68254b68bmr7079678a12.7.1788442762167; Thu, 03 Sep 2026
+ 06:39:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 03 Sep 2026 15:37:55 +0200
-Message-Id: <DL5Q0MLS0KT9.24LJK2Q1L89KP@bootlin.com>
-Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
- drm_panel
-Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas
- Zimmermann" <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
- <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Linus Walleij" <linusw@kernel.org>, "Inki Dae"
- <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>, "Marek
- Szyprowski" <m.szyprowski@samsung.com>, "Albert Esteve"
- <aesteve@redhat.com>, "Anusha Srivatsa" <asrivats@redhat.com>, "Dmitry
- Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Hui Pu"
- <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-To: "Maxime Ripard" <mripard@kernel.org>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
- <20260903-drm-bridge-every-panel-v2-5-2ab8ee24538e@bootlin.com>
- <aplG-skzq-TPfFZQ@houat>
-In-Reply-To: <aplG-skzq-TPfFZQ@houat>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+References: <20260902104939.25522-1-ovidiu.panait.rb@renesas.com> <20260902104939.25522-3-ovidiu.panait.rb@renesas.com>
+In-Reply-To: <20260902104939.25522-3-ovidiu.panait.rb@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 3 Sep 2026 15:39:00 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUZrmXfpmuxQdw6phK1YGJHyhndT64vmsdzHE9FO19jJQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XvRbtPP7ZOjowl3YDbtGxIvYTtX57sf45BGJvcFDqDNY8G0uf9IogwGTU
+Message-ID: <CAMuHMdUZrmXfpmuxQdw6phK1YGJHyhndT64vmsdzHE9FO19jJQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] clk: renesas: rzv2h: Convert to clk_hw based provider API
+To: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, 
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, John Madieu <john.madieu.xa@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Maxime,
+Hi Ovidiu,
 
-thanks for keeping the round-trip time short for this discussion!
-
-On Thu Sep 3, 2026 at 12:22 PM CEST, Maxime Ripard wrote:
-> On Thu, Sep 03, 2026 at 10:11:08AM +0200, Luca Ceresoli wrote:
->> Adding a drm_panel does currently not add a panel_bridge wrapping
->> it. Usually the panel_bridge creation happens later, when some other dri=
-ver
->> (e.g. the previous bridge or the encoder) calls *_of_get_bridge() and th=
-e
->> following element in the pipeline is a panel.
->>
->> This has some drawbacks:
->>
->>  * the bridge API is currently the best practice to access various
->>    components of the pipeline, especially with complex cards where bridg=
-es
->>    can be combined in different ways on different hardware
->>  * the panel_bridge is not created in the context of the driver of the
->>    underlying physical device (the panel driver), but of some other driv=
-er
->>  * that other driver is not aware of whether the returned drm_bridge
->>    pointer is a panel_bridge created on the fly, a pre-existing
->>    panel_bridge or a non-panel bridge
->>  * removal of a panel_bridge requires calling drm_panel_bridge_remove(),
->>    but that other driver doesn't know whether this is needed because it
->>    doesn't know whether it has created a panel_bridge or not
->>
->> Other drivers call [a variant of] drm_panel_bridge_add(), which also has
->> some of the above drawbacks.
->>
->> So far the current approach was working mostly because devm and drmm ens=
-ure
->> the panel bridge would be dealloacted at some later point. However with =
-the
->> upcoming implementation of bridge hotplug and dynamic bridge lifetime th=
-is
->> will get more complicated.
->>
->> Switch to the new approach: embed a drm_bridge inside every drm_panel,
->> which behaves just like the current drm_panel_bridge.
->>
->> Do this by copying and adapting the code from bridge/panel.c, using
->> function names that are more suitable within drm_panel.c and doing the
->> minimal adaptation needed.
->>
->> Currently drm_bridge and drm_panel have independent refcounted
->> allocation. As they now become a single struct, just change
->> drm_panel_get/put() to get/put the bridge. As a result, the refcount for=
- a
->> drm_bridge embedded in a drm_panel is:
->>
->>   bridge.refcount =3D=3D number of drm_bridge_get() calls
->>                    + number of drm_panel_get() calls
->>                    - number of drm_bridge_put() calls
->>                    - number of drm_panel_put() calls
->>
->> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+On Wed, 2 Sept 2026 at 12:50, Ovidiu Panait
+<ovidiu.panait.rb@renesas.com> wrote:
+> From: John Madieu <john.madieu.xa@bp.renesas.com>
 >
-> So there's a lot to unravel, and I wished you had split it, but I can't
-> find a good way to split it either.
-
-As I see it, this could be maybe split in 2:
-
- - copy all needed symbols from bridge/panel.c (or move or whatever, see
-   discussion below) without using them
- - change _alloc, _get, _put etc to actually embed the bridge and start
-   using the copied/moved symbols
-
-Would you prefer that?
-
-Note the second bullet, which is the core change, is pretty small, I think
-a <100 lines diff, but I don't think it can be split further.
-
->> This patch is new in v2, and replaces "drm/bridge: panel: add a
->> panel_bridge to every panel" which was based on a different approach.
->> ---
->>  drivers/gpu/drm/drm_panel.c | 258 +++++++++++++++++++++++++++++++++++++=
-++++---
->>  include/drm/drm_panel.h     |  33 ++++--
->>  2 files changed, 266 insertions(+), 25 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
->> index f8f6082e637f..9b86195f9f66 100644
->> --- a/drivers/gpu/drm/drm_panel.c
->> +++ b/drivers/gpu/drm/drm_panel.c
->> @@ -22,15 +22,19 @@
->>   */
->>
->>  #include <linux/backlight.h>
->> +#include <linux/debugfs.h>
->>  #include <linux/err.h>
->>  #include <linux/export.h>
->>  #include <linux/module.h>
->>  #include <linux/of.h>
->>
->> +#include <drm/drm_atomic_helper.h>
->>  #include <drm/drm_crtc.h>
->> +#include <drm/drm_modeset_helper_vtables.h>
->>  #include <drm/drm_of.h>
->>  #include <drm/drm_panel.h>
->>  #include <drm/drm_print.h>
->> +#include <drm/drm_probe_helper.h>
->>
->>  static DEFINE_MUTEX(panel_lock);
->>  static LIST_HEAD(panel_list);
->> @@ -46,6 +50,18 @@ static LIST_HEAD(panel_list);
->>   * take look at drm_panel_bridge_add() and devm_drm_panel_bridge_add().
->>   */
->>
->> +static inline struct drm_panel *
->> +drm_bridge_to_panel(const struct drm_bridge *bridge)
->> +{
->> +	return container_of(bridge, struct drm_panel, bridge);
->> +}
->> +
->> +static inline struct drm_panel *
->> +drm_connector_to_panel(const struct drm_connector *connector)
->> +{
->> +	return container_of(connector, struct drm_panel, connector);
->> +}
->> +
->>  /**
->>   * drm_panel_init - initialize a panel
->>   * @panel: DRM panel
->> @@ -86,6 +102,7 @@ void drm_panel_add(struct drm_panel *panel)
->>  	mutex_lock(&panel_lock);
->>  	list_add_tail(&panel->list, &panel_list);
->>  	mutex_unlock(&panel_lock);
->> +	drm_bridge_add(&panel->bridge);
->>  }
->>  EXPORT_SYMBOL(drm_panel_add);
->>
->> @@ -97,6 +114,7 @@ EXPORT_SYMBOL(drm_panel_add);
->>   */
->>  void drm_panel_remove(struct drm_panel *panel)
->>  {
->> +	drm_bridge_remove(&panel->bridge);
->>  	mutex_lock(&panel_lock);
->>  	list_del_init(&panel->list);
->>  	mutex_unlock(&panel_lock);
->> @@ -370,13 +388,198 @@ int drm_panel_get_modes(struct drm_panel *panel,
->>  }
->>  EXPORT_SYMBOL(drm_panel_get_modes);
->>
->> -static void __drm_panel_free(struct kref *kref)
->> +static int drm_panel_bridge_connector_get_modes(struct drm_connector *c=
-onnector)
->> +{
->> +	struct drm_panel *drm_panel =3D drm_connector_to_panel(connector);
->> +
->> +	return drm_panel_get_modes(drm_panel, connector);
->> +}
->> +
->> +/**
->> + * drm_bridge_set_connector_orientation - Set the connector panel
->> + * orientation from the bridge that can be transformed to drm_panel.
->> + *
->> + * @bridge: The drm_bridge for a drm_panel.
->> + * @connector: The connector to be set panel orientation.
->> + *
->> + * Returns 0 on success, negative errno on failure.
->> + */
->> +int drm_bridge_set_connector_orientation(const struct drm_bridge *bridg=
-e,
->> +					 struct drm_connector *connector)
->> +{
->> +	struct drm_panel *panel =3D drm_bridge_to_panel(bridge);
->> +
->> +	return drm_connector_set_orientation_from_panel(connector, panel);
->> +}
->> +EXPORT_SYMBOL(drm_bridge_set_connector_orientation);
+> The driver mixes the clk consumer API with the clk_hw provider API for
+> its internal clock storage and OF lookup callback. Convert it to use
+> clk_hw consistently.
 >
-> I don't think we should create new ones. Just move the code from
-> bridge/panel here and remove it there. The only thing left will be the
-> panel_bridge_add() variants that become almost trivial now, and you can
-> cleanup the drivers in later patches.
+> No functional change intended.
+>
+> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+> Signed-off-by: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
 
-What do you mean by "move" exactly? Really move all relevant functions from
-bridge/panel.c into drm_panel.c, so evey user driver will depend on the new
-drm_panel module instead of the old one for these symbols?
+Nice, thanks a lot for picking up John's legacy!
 
-> This also allows to get rid of all the symbol renaming, which isn't
-> great in itself, but also the existing names were good so it's hard to
-> come with better ones.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-clk for v7.4.
 
-I think the names in bridge/panel.c make sense there, but not in
-drm_panel.c. Here's my interpretation (using atomic_enable as an example):
+Gr{oetje,eeting}s,
 
- - panel_bridge_atomic_enable
-   ^^^^^^^^^^^^ <- this is about the panel_bridge
+                        Geert
 
- - drm_panel_bridge_atomic_enable
-   ^^^^^^^^^        <- this is drm_panel stuff
-             ^^^^^^ <- and specifically about the bridge embedded in drm_pa=
-nel
-
-Does it make sense to you too in this perspective?
-
-Luca
 
 --
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
