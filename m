@@ -1,74 +1,110 @@
-Received: from forwardcorp1b.mail.yandex.net (forwardcorp1b.mail.yandex.net [178.154.239.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35FCB442120
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 20:34:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF763B4E81
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 20:35:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788467689; cv=none; b=d3LUlXHIMC7wfH66iNnDWAm58hYj+pJW6e1sH7CkD0NFeuKf09FxEDs6LgYyv0olvu6jESxItDF0eWyAP6fhocIlpCnA3uQa+bflWX67kuKKE0jNsc0vJGbN0j/BfND+h0jkfKlvNxJy6jPiXWLCqBEzTqFn7BwlUytrahg58oA=
+	t=1788467741; cv=none; b=lvxgDgQXALzrvRWxzj5jwerutkdcWCi0OwQ0oD9XWs+rSKRTAlHowgPa4dUUi9KbAL1P16Ygf/AFvrkacYBNOq/vSP/Q8I+mKaP5iz6evmi8oCG/dwAs4B5iSnqDw360gSVP4XfkN4OjOQzWeluxjaEBFKI1N8DUGa8sNhzx7w8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788467689; c=relaxed/simple;
-	bh=CDnaeJfFuH1+gspwsTW1C4tYCdURuN0uth1/vqPJWto=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CZ0bRHV6xOeRin2G6DgfInWRjsjG33NZL7xu4Y4mbh1fkOVE4vUSVvKymG3l2bqVBR/LaQ5djHsFy3aJlyDXsNqP2XLE9/kS4DaGrIsgeQMP8RrPWFD9JuKzXLNkiPteSKK8plfvKq37Ctsre+92JOpGeODAT0mu5D5NOWNbyTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex-team.ru; spf=pass smtp.mailfrom=yandex-team.ru; dkim=pass (1024-bit key) header.d=yandex-team.ru header.i=@yandex-team.ru header.b=uAk54gbj; arc=none smtp.client-ip=178.154.239.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex-team.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex-team.ru
+	s=arc-20240116; t=1788467741; c=relaxed/simple;
+	bh=9uWd0iWTHtgoOPQrB8sodf7NrxSHcMYqSafeXFsJ/Mg=;
+	h=Date:Message-ID:From:To:Cc:Subject; b=CxKQXhkMi82mwKIvRt32VW5O9gaShlfu1lMsUt2gW9HiG1m6GoxmqYOL0/wrLJL2kjQPsZoKyPNUUiFo1PZCqWYxS2/Lncz3Jx+4QLiVa5UXdUrvMfdJfvDSqPZNC6qFjZEDEnj6XdvArrsoT2dSI7OxPFSC5tB/fdfNSodfaJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=RHQF0cjB; arc=none smtp.client-ip=209.85.222.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yandex-team.ru header.i=@yandex-team.ru header.b="uAk54gbj"
-Received: from mail-nwsmtp-smtp-corp-main-34.sas.yp-c.yandex.net (mail-nwsmtp-smtp-corp-main-34.sas.yp-c.yandex.net [IPv6:2a02:6b8:c24:fa2:0:640:41ee:0])
-	by forwardcorp1b.mail.yandex.net (postfix) with ESMTPS id A69A280AD8;
-	Thu, 03 Sep 2026 23:34:34 +0300 (MSK)
-Received: from [IPV6:2a02:6bf:8080:d5c::1:3a] (unknown [2a02:6bf:8080:d5c::1:3a])
-	by mail-nwsmtp-smtp-corp-main-34.sas.yp-c.yandex.net (smtpcorp) with ESMTPSA id WYsZl6waMuQ0-SJOJ4uIE;
-	Thu, 03 Sep 2026 23:34:34 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
-	s=default; t=1788467674;
-	bh=HBcAjfpMlA7r60pPF6BOpwXqiGeqg7IHcYn4i21hws0=;
-	h=From:In-Reply-To:Cc:Date:References:To:Subject:Message-ID;
-	b=uAk54gbjsyrsqbPeh6xGMu3IEHk2AqRIhGR7cPeS7Iz080EYc6Imz/NalWxaQFfh+
-	 i5WFVpaRYiWhNNiMlnfZbErjpTFgOUMR10/FW+fvBHryw1OYrhCwq4Kuh82VePsBsh
-	 QLQZ5HQsv+ebLZ8VVF3NsT64Jw7etZxOLC6BEbl8=
-Authentication-Results: mail-nwsmtp-smtp-corp-main-34.sas.yp-c.yandex.net; dkim=pass header.i=@yandex-team.ru
-Message-ID: <5c57eb31-3548-4e0a-8b02-315057d029b8@yandex-team.ru>
-Date: Thu, 3 Sep 2026 23:34:32 +0300
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="RHQF0cjB"
+Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-938cd95b06eso31739285a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 13:35:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=paul-moore.com; s=google; t=1788467729; x=1789072529; darn=vger.kernel.org;
+        h=subject:cc:to:from:message-id:date:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BgZOKPlak6pP0U7KmyWbsU79GCeGbr4ZhDTeyjd+peY=;
+        b=RHQF0cjBtrfmsK62fMliV4TZPzmAVUhmbKA1iOju8Cp7W+ECT152FENTL6yKbQ5Mqm
+         ANOJnsaEn5ihqrsFfDdNDbKzsYNDuFn+5/hIp+SPxMZfCauOmvxtq956CQrD3mdqh7qy
+         4R+3GTIjFpQnnS9kIcJTq+iizD4IK6riW/LV3wIVeGFh3OlzYnTBwF4Q9GdOd7eat2V5
+         3dCUmlN2GfrLvUF9daY+yA6eiTK4E4jXj+0NkdWakob9xHz5H62012NbKdRxIDdILSiN
+         pHay5oBoC5/0lNC3uihAVkmnenH3KUZ9FP85bg3TPmBXlpyRhfFW9NedQNhYW9krIYHd
+         GgDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788467729; x=1789072529;
+        h=subject:cc:to:from:message-id:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BgZOKPlak6pP0U7KmyWbsU79GCeGbr4ZhDTeyjd+peY=;
+        b=ZjP4Ivw0K/He/DJYnDWagWjK9iLroYkbDigclOpN7KiK0DH5w550uj7aPobrH3ZntW
+         K7K1xg+49t5Cd7Gfby21nI5hnzeEp7yl99ZiD8wRdzs/3O9Yb9JB5icZ+M4BnxTOyXrm
+         nZP5S6V+LTfoC+6GHYIGti2f2wL72LUCfawo4fEnkoK1FuKPAv+fPXe7mjhXsi+THRNg
+         UilZDyN6Lns0SYLvQfAUZHPNekKJ3yJUtgS3S7tuc7ijgJMElgi7v3NqXZ5G9PuST6MY
+         8v/sPXikfWAxydOtDxKV9LU1Q2QWZBSjbtRYMEGnJiU3sSU8n2YNyRy6h5zXhgnuKvNA
+         AePg==
+X-Forwarded-Encrypted: i=1; AKwUvBz2ZkW3EVvKWsnha8nfR5QTc9fgUHMgI2TzzZVB2/nLA7iiWFZwr4bjDKi5v5c0NEbRo2uE8Ctjfnrv+cE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lHAaV/zFtkr0JPbQngJVC4pNC3mOE9M+Nn52eWPh7imx1P4+Vm
+	NbmqHhAER+uaf1bsA/Z69hI8pxWnTJzoenWUfxlMOKgaBIYCg1DBClhCxNG0uixTIg==
+X-Gm-Gg: AYBFou2b26ty7A2xcZfI92mtNSiMMahZlnUvOM5Cr0G+Be7VRzcqSU4AUQEiepPYRm2
+	5HNWowGy7NNOCGx9AdKWlaXljVdRHvAKb69mqTv6tqTjm7fQFFgPQV9dBpuI0oBjyfzh6MBPzwS
+	ofGervRTny7U73xN5AiodaZgW6dGSZj/mEGRCE0r1hvGE+ch6PEBbLmVHBXHsafVfRDq1v4z+zn
+	84NS6XjIIOSHGyCu/BOoRO0iFEpNJFLFm79WLj6V3wgH0ay3gCGAvlffgX4hLEn90Vz/yz55XSI
+	Bl/OwCMwIKaoyuxf7Y0D7UMn/n0U4IbqeKofxC3hg1xcjaVghivrw7EShoXcP9gyfGelYKe+YQC
+	pOq5nUPIyxVEGbVIv0BrkNdPTcSuygGPBqdnrdV6MbWEZel4VHSMsc/BuoJfeI2dfFmmEx62IA1
+	M3N9L66g6Qostot3a7BFqKSvgqMsSVc5QXJM4X8xNV9P7CNFgj0Hevc/bSAgWt7jh0cfpzWPLIz
+	ydXzas54vFVppERtivJ1JY25NPWg+DmuJ2FynPxgSKBzczJFCzKLzka
+X-Received: by 2002:a05:620a:2856:b0:939:cda:46ac with SMTP id af79cd13be357-93981737ffamr29121885a.17.1788467728670;
+        Thu, 03 Sep 2026 13:35:28 -0700 (PDT)
+Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fb70fbdsm50115485a.32.2026.09.03.13.35.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 13:35:27 -0700 (PDT)
+Date: Thu, 03 Sep 2026 16:35:27 -0400
+Message-ID: <8c72adc9e5a9d3ce854fab61ec5f66df@paul-moore.com>
+From: Paul Moore <paul@paul-moore.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: selinux@vger.kernel.org, linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [GIT PULL] selinux/selinux-pr-20260903
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/apic: Remove dead disable_esr machinery
-To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org
-Cc: Daniil Tatianin <99danilt@gmail.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Steve Wahl <steve.wahl@hpe.com>, Justin Ernst <justin.ernst@hpe.com>,
- Kyle Meyer <kyle.meyer@hpe.com>, Dimitri Sivanich
- <dimitri.sivanich@hpe.com>, Russ Anderson <russ.anderson@hpe.com>,
- Juergen Gross <jgross@suse.com>, Boris Ostrovsky
- <boris.ostrovsky@oracle.com>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
-References: <20260902220124.2931854-1-d-tatianin@yandex-team.ru>
- <87tso69jdu.ffs@fw13>
-Content-Language: en-US
-From: Daniil Tatianin <d-tatianin@yandex-team.ru>
-In-Reply-To: <87tso69jdu.ffs@fw13>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+Linus,
 
-On 9/3/26 11:20 PM, Thomas Gleixner wrote:
-> On Thu, Sep 03 2026 at 01:01, Daniil Tatianin wrote:
->
->> From: Daniil Tatianin <99danilt@gmail.com>
-> ...
->> Signed-off-by: Daniil Tatianin <d-tatianin@yandex-team.ru>
-> Seems you can't decide which of your alter egos is author and signing
-> off on the patch.
+Two SELinux fixes for the next Linux v7.3-rcX release: one to fix how we
+lookup a BPF token's creator label to prevent a possible TOCTOU, and one
+to update Ondrej's email address.
 
-Yeah, sorry about that. Originally had my git email configured 
-incorrectly. The right one is in the S-o-b (the one I sent the patch from).
+Paul
 
+--
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/pcmoore/selinux.git
+    tags/selinux-pr-20260903
+
+for you to fetch changes up to 4299767d772d4e498998e32157e45841178ab192:
+
+  MAINTAINERS, mailmap: update email address for Ondrej Mosnáček
+    (2026-09-03 16:24:05 -0400)
+
+----------------------------------------------------------------
+selinux/stable-7.3 PR 20260903
+----------------------------------------------------------------
+
+Ondrej Mosnáček (1):
+      MAINTAINERS, mailmap: update email address for Ondrej Mosnáček
+
+Paul Moore (1):
+      selinux: fix BPF token permission checks
+
+ .mailmap                 |    1 +
+ MAINTAINERS              |    2 +-
+ security/selinux/hooks.c |   36 ++++++++++--------------------------
+ 3 files changed, 12 insertions(+), 27 deletions(-)
+
+--
+paul-moore.com
