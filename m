@@ -1,137 +1,122 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B014231E830
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 02:28:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB3443515D2;
+	Thu,  3 Sep 2026 02:30:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788402529; cv=none; b=Ge8YsxWysjQemnuTJKvXmkm2XQXvKpOquYqLyfgJe5ydfJkXpj4ah1b2GQyAzRC9u5d4SQPEeFTrhwjk/wYX3vCDNNqmrTcPqg1c2xT7PVDCmFF54ncvYXOB+39CV9Wm3p8zgkvw43vTq8lV33u+/XIVIyfFSm5FSL1pfi5cyxQ=
+	t=1788402657; cv=none; b=vD6YnPtQWz4PSdSkmsGzakUbR2ctGcx36uMzyIPnXfOUek9xrrHzzhJ5mGxOMtZbdMnA+4KB0tpccRSmpTmTDVCNZuRA/FlR6Ub2P7Ej7WQIEb8FaCKPIzt2gwXL7A2AN8TVOwCw2WPUnink+4xD9RdiINDJoI3uJo9yz6pk+qw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788402529; c=relaxed/simple;
-	bh=MlS3IX0xH3F6kltkBlDgyiNzI+eN5idd3Z1w/9mta0s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cqdFPI602tshwArevIDgLP2OZViHwWX1AyI9WC+EZe8blF9YlEiHYJZL2TvUEwHGiYNkbYO1bLWQkeqBq8KMscElRTWQHJW39BnS0CnBvxe+jfktF049jydNevvuPpqx01I4kanMK2+9CZYNrJRY+ahwyDkQovUOLSniTHGGpcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CKDBwDMN; arc=none smtp.client-ip=209.85.215.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788402657; c=relaxed/simple;
+	bh=AyX2EFPvuiK1pqoqXM9KP4CsCsWwvZZ/tNc38egcLoE=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hndoyoeZfhP+GlIeqUT8nuLQ+uQVUQJa0Qx5NF5iXtGznZbXbQRY7OmfsCzC9hgvSlOoEmJWbE0oRG8BM1T7AKD1pKOea+q/zoapuU+ub/mOtaeDroOer5cUzV258PXCsXdcJ7yRhub6UNuVukF4ZlEinCgS+Vqx/Q0u8E+Lt8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=bC97djAD; arc=none smtp.client-ip=67.231.156.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CKDBwDMN"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc147d86bebso606638a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 19:28:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788402528; x=1789007328; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5h9wrn+mfzp9QC7ABJOSoQKED7IPugC4MTokiR4EUYE=;
-        b=CKDBwDMN5U+nI776xYf3WukymksUp8/+sF1XrHfKNvZCbmfaXFb8WK6XG9NRKpppTu
-         PIvRBAg36dZTZiGmxwOCTwM2QqA5eDSgBY1PZX3fvOZBgXPCLX1oFvcXXMrPeQQ0dYfv
-         /EwGxbXGwpPseCWEn5EZvSrDxxoIZt0gCnIDguHTgZMmPkrbK6P5G3IMob+gVQB37IzF
-         2QazuZ6MPIAH7p/jEHtqRax3i4CPipGfSvaAIRUZllLnPHWrlDFX7Q5g2HXVAKrnNRrO
-         n+c5SZ+rQ+n/aodXD5r9fSOrMNWXseqaN1b1PLx5XhYT07NsOwKTzxT1OuRRtiT+VPhF
-         +3BQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788402528; x=1789007328;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5h9wrn+mfzp9QC7ABJOSoQKED7IPugC4MTokiR4EUYE=;
-        b=dyxf9xrMqzCE4jPdXtLEEezG85mYTy0EMIvUzWLzrOlLkNLQLK9NYa1mrZE0s+FSK9
-         jAMKIFs2/c+Z2t0S8cS2DTCkCJ6qiN2F8Ctn33x39NeDWr86ME2d4FsYLpTYFZLivjnX
-         QXyeEc+A+1LY4glZx4MAp6vsEtwtQRlCdyUoAzUdVjzE5dqtki6mG9QGkOsmI7DGYGbj
-         sQs94ga005rk3oCHLgirsEj/48p+gGNR81uAhfnV4j6naqnFVHVSF1gikw/fp2NtQmar
-         P79pC72UwansxCFqTQuvkLqhaxWdiOox45bvWVhVk7OCnfsRdnPjAk2vYKcRtM/elb62
-         /pAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzps+6dW5kTX9QJTTXgsUiV3vKhSjOLCSygN9aFn8MbpXeHK07egZqsd2t+rPgp0tcUeSwSY+e+BTf/YfI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kn5mFLFVtp9Xn30Ldae56+mjUEMRvLeAVERyzX9UuBLf6iMQTV
-	irqwIQuPovrjv25bUmK6bN9tKjy8H+stdLgIIW/Xdbv0gJTaM1hzHpQ=
-X-Gm-Gg: AYBFou0I7D63yiEANMZl7bnjWk0nrSOon54Ce34etoSLIvrbwkh7yqDYQj/Femn+U3C
-	bzKU7KdT1Lnjzk38Q+VhcQJP2oG5/oEY0ElwGJPwo+PLxf+RNGoQV3jTSqhMxqU6SK6BXbwjFTJ
-	WsU87BL32U0v4jFAAZm7TCKxT38D8K6kSCP4mFaTnhv/NB8v+t2N//c/mGp6bvyu8JncU2LeqN3
-	QGCAc2CaCER/gcD8eN6zyvCY35NIFqPm9shXdjAg4jdNgW3AuiYQFD0umRaCdMBg69laDOoi1zd
-	aiQcLi50kag5T/Rzu0cTIEm5TZoR6dNRfcZNn1rfNz0R8yro39cBmq7pvLVYCTp/Bxh6c+QH46O
-	FM+WS5tceFuV9ItmcAmxP78cKH5xko9MK7Xl1qnLN3Ra816WURGCXZTU7ZMQIsRh9iVwsULXEKc
-	tzSzOWgzRVTFQqZElt0DOU+cSc5rrOyKoqUwkZsgC3k7GzWJPtJLrovPgQP79wK27B7GVQCzorp
-	zBUEcQ59ZF987v5hY5avgaBHVA=
-X-Received: by 2002:a17:90b:50cb:b0:398:baa7:4c2f with SMTP id 98e67ed59e1d1-39b13222d5dmr705565a91.5.1788402527851;
-        Wed, 02 Sep 2026 19:28:47 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:6496:3266:b22d:ab57:a1be:ef30])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b0832c14fsm2152818a91.3.2026.09.02.19.28.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 19:28:47 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Daniel Golle <daniel@makrotopia.org>
-Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net: phy: dp83867: handle the active-high LED polarity mode
-Date: Thu,  3 Sep 2026 11:28:38 +0900
-Message-ID: <20260903022839.4006614-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="bC97djAD"
+Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
+	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682NMCXi3630541;
+	Wed, 2 Sep 2026 19:30:03 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pfpt0220; bh=AyX2EFPvuiK1pqoqXM9KP4CsC
+	sWwvZZ/tNc38egcLoE=; b=bC97djADl+4XUaGJXAoKcaCGLw+ONBQPVxshS+6Hb
+	9SVmi22NHQCbnd59MxXyXQsCT4DRVplIDPFTiYidXplYkzXPVvqgauTgkNiFslFn
+	klXZlFR0PRaDyZErMBHptSyrR9tS1/jD/+HYtAx/ucWGQDzevNKbkGbWxOyc4gRT
+	iHD6sEblNxHI/ocB8RAZsiE5oy2/rEUBR6eWj+ro2CxNUvikP2RigDh2oypmorUV
+	UVkNR8tW+L2yzlhVymDSp6jvgZMvwHbnnmRtA6BvtzUQ6ZxCT2uqCJpeZkmpKnoh
+	RpZbX/9DoVw6Iaib3Er02qPepUviMN1ArWDq2Sjv6I+ow==
+Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
+	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4gegb62xnx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 19:30:03 -0700 (PDT)
+Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
+ DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Wed, 2 Sep 2026 19:30:03 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
+ (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Wed, 2 Sep 2026 19:30:02 -0700
+Received: from rkannoth-OptiPlex-7090 (unknown [10.28.36.165])
+	by maili.marvell.com (Postfix) with SMTP id B3BD23F7072;
+	Wed,  2 Sep 2026 19:29:58 -0700 (PDT)
+Date: Thu, 3 Sep 2026 07:59:52 +0530
+From: Ratheesh Kannoth <rkannoth@marvell.com>
+To: <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <netdev@vger.kernel.org>
+CC: <andrew+netdev@lunn.ch>, <ast@kernel.org>, <daniel@iogearbox.net>,
+        <davem@davemloft.net>, <edumazet@google.com>, <hawk@kernel.org>,
+        <john.fastabend@gmail.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
+        <sdf@fomichev.me>, <sgoutham@marvell.com>
+Subject: Re: [PATCH v11 net-next] octeontx2-pf: add mqprio bandwidth offload
+ for NIX TX schedulers
+Message-ID: <apjboPTH53wIfke0@rkannoth-OptiPlex-7090>
+References: <20260902015500.2985371-1-rkannoth@marvell.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260902015500.2985371-1-rkannoth@marvell.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDAyMSBTYWx0ZWRfX5VeMKuQfoDUG
+ 5uzBIjEboLIisaI8gpJ2sBvakcEJCSUmlVfrZTBKohxw+ZHLvG9U6WvmBJ3ZDEbQq2MALed4TRO
+ I+rGW42TyUqy4WPJbAsGJVv2+RI9v7nO/Lq2/GGaS87ZRGu7cbOk6h77KxKKJJSwq0WY5MEHfBw
+ mMf4sCYXhtcX5vx3mA/eC29uK0AjF8JGkqU0uJVqFASmjEaakiXKPXnLW7lQeioV4s0WC49Eqtz
+ viQVljZSlZoqfeeMm3WGNg1/2XYvmFbhIV09xb1H32ORT+2bzMtYS2bHdpVHAVKCbGDBhdXL09E
+ 3dSYPgvARwD48Xbah28nDBf4f1W8/00s6tBh/8IXYAXW2P43xYzfGrwaaQn0kbCEOrmW9lai8XB
+ FUHvEFxejRQVc6fufkzRe8Vu4vZUu1Cj/HPGapmkbQTa0d4A4dDiQlssrrHDTPUe0Zu0ovfA/Th
+ SpNYlUwAtwV//2POA5g==
+X-Proofpoint-GUID: Tzlo5EZCpD6573HLryst_2rfiTdkzPvN
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDAyMSBTYWx0ZWRfXxDcOBLCsBsgy
+ 6E4V/k56qcIHSffqCEfwJ1oSxUG5U4VBBPG0JRCaZjfHTq1DFUOZdJc4ZlN3+iS0y0D53sTDziy
+ CnxcP/SomsJ6liObtSNhiqr3EwcR8Bs=
+X-Authority-Analysis: v=2.4 cv=GpJyPE1C c=1 sm=1 tr=0 ts=6a98dbab cx=c_pps
+ a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=l0iWHRpgs5sLHlkKQ1IR:22 a=QXcCYyLzdtTjyudCfB6f:22 a=M5GUcnROAAAA:8
+ a=rrcPliMPUjUZiAMkEZsA:9 a=CjuIK1q_8ugA:10 a=OBjm3rFKGHvpk9ecZwUJ:22
+ a=Oh551-UHZqmTy8JkqTUo:22
+X-Proofpoint-ORIG-GUID: Tzlo5EZCpD6573HLryst_2rfiTdkzPvN
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_06,2026-09-02_04,2025-10-01_01
 
-Commit a274465cc3be ("net: phy: support 'active-high' property for PHY
-LEDs") added PHY_LED_ACTIVE_HIGH and made of_phy_led() set the matching
-bit in the modes mask when a LED node carries the 'active-high'
-property. dp83867 was not part of that series.
+On 2026-09-02 at 07:25:00, Ratheesh Kannoth (rkannoth@marvell.com) wrote:
+> Add TC_SETUP_QDISC_MQPRIO offload for channel-mode mqprio with
+> TC_MQPRIO_SHAPER_BW_RATE. Program per-queue MDQ CIR/PIR through the
+> NIX TX scheduler mailbox for each non-QoS transmit queue. When offload
+> is active, allocate one SMQ per such queue, parent every MDQ under
+> TL4[0], and map each traffic class min/max rate to the queue(s) in that
+> class.
+>
+> Rebuild the TX scheduler hierarchy by bouncing the netdev through
+> ndo_stop() and ndo_open() on mqprio add, replace, and delete. Cache
+> the active rates and restore MDQ shapers from otx2_mqprio_up() during
+> ndo_open(); log and continue if restoration fails so a normal open is
+> not blocked.
+>
+> Track mqprio configuration in mq_offload_snap snapshots (TC layout and
+> rates). On tc qdisc replace, stage the new configuration while keeping
+> the previous snapshot for rollback: failed setup restores the old
+> snapshot, successful graft is recorded through TC_ROOT_GRAFT, and
+> teardown of the replaced qdisc instance commits the staged snapshot
+> without tearing down the live offload.
+>
+> Reject offload unless the interface is running and the device advertises
+> CIR+PIR support. Reject per-TC rates for traffic classes mapped to more
+> than one queue, SDP rep ports, and concurrent PFC or XDP use. Block
+> ethtool channel count changes while mqprio bandwidth offload is active.
+>
+> Add a ratelimited AF debug message when validating TX scheduler queue
+> ownership to aid mqprio hierarchy setup failures.
+>
+> Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
 
-dp83867_led_polarity_set() only recognizes PHY_LED_ACTIVE_LOW, so
-PHY_LED_ACTIVE_HIGH falls through to the default case and returns -EINVAL.
-of_phy_led() propagates the error, of_phy_leds() drops the LEDs registered
-so far and passes it on, and phy_probe() fails. A device tree marking a
-DP83867 LED as 'active-high', which leds/common.yaml allows and
-ethernet-phy.yaml references for led@N nodes, thus stops the PHY from
-probing.
+Will address sashiko reviews in v12.
 
-Active high is what the function programs when no polarity mode is
-requested at all, so the initial value of polarity already satisfies the
-request and only the case label is missing.
-
-The same series updated mxl-gpy in commit eb89c79c1b8f ("net: phy:
-mxl-gpy: correctly describe LED polarity") and aquantia in
-commit 9d55e68b19f2 ("net: phy: aquantia: correctly describe LED
-polarity override").
-
-Fixes: a274465cc3be ("net: phy: support 'active-high' property for PHY LEDs")
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
----
-Compile tested only. I have no DP83867 hardware, so the failure path was
-traced by inspection through of_phy_led(), of_phy_leds() and phy_probe().
-
-The polarity bit sense assumed here matches the datasheet: LEDCR2 bits
-2, 6, 10 and 14 are LED_x_POLARITY with 1 = active high, 0 = active low,
-and they reset to 1 (SNLS484J, Table 8-24).
-
- drivers/net/phy/dp83867.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/net/phy/dp83867.c b/drivers/net/phy/dp83867.c
-index 88255e92b4cd..61a941aa02d9 100644
---- a/drivers/net/phy/dp83867.c
-+++ b/drivers/net/phy/dp83867.c
-@@ -1150,6 +1150,9 @@ static int dp83867_led_polarity_set(struct phy_device *phydev, int index,
- 		case PHY_LED_ACTIVE_LOW:
- 			polarity = 0;
- 			break;
-+		case PHY_LED_ACTIVE_HIGH:
-+			polarity = DP83867_LED_POLARITY(index);
-+			break;
- 		default:
- 			return -EINVAL;
- 		}
-
-base-commit: 5a3f7a683aee56e1f15c9d53041f3236767eaae7
--- 
-2.53.0
-
+pw-bot: changes-requested
