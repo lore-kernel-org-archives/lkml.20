@@ -1,179 +1,218 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazolkn19011057.outbound.protection.outlook.com [52.103.14.57])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 687D0370D57;
-	Thu,  3 Sep 2026 04:57:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.14.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788411473; cv=fail; b=KNdtQFliq0rO+/c99QW85hg51d7iz9x7dcW4CXlFbKjioyqbUjwLvQrPDJp1IyllXkd89U0KR14bdx27xKX7VrUTHn8DbcOm309TII+IDJRqqNdrk7aTAM3zPDYkTyBD7gru3TuYgRwP3LfnOtHMoyiJhhArBwJqk9ftWn0hSvg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788411473; c=relaxed/simple;
-	bh=Ui99WLCjdTu34WlG/Dl5Jehq4XnjJGBJp0hhmrAu/bg=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=LAWG00dWqTFoRVvFIwoXED6Iu23vDfjX/2cSDwLsIkJ+2dH6dbUUWzIkRMviIHGFwBFAH/va7hD8cB1BsX4V7pauHgRml5wUG6oidzRar+4vYWFk+MgVkfioNnf6TR2xlcpmTDD4ggNXjfjH+VA0UNzbRFmaXd2pUFGWElsTWjc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=UY5apfU6; arc=fail smtp.client-ip=52.103.14.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FBBC377016
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 05:00:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788411632; cv=none; b=QFK1VWSk5P5kNaUwNrdQOs8HsNhaGcLOq1p5zhmTt/VYTfeldj32+MBRiD/HXu+42vlnjVyJqiKpZsndVBaU+jMCx6U7URNf4Qw+Orhc3QXVcZzxZ9Si02sCwPE1O6SwBq3ftHush7IUa0oxmtniwNxfYEoUW6K277/kIW3h8hw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788411632; c=relaxed/simple;
+	bh=Do6DIyYheb72ubQenuc39X/h+3c0RITXfqxUusCBwQ0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fVst6JiYK3Yi7Qrmm0D9rNYOwYtSfL4txsE2PdUnJ2d3kJFm3+lNP5h8zKgfCO77IUYRrZFY210bt5gtd1UCCmBoTkN2E4+y5ePuX6kMeUPGjbBgmtGht42mJJnBjyUqp+i+c8cbpUS2VXNvSb5Ayoo9y5DNVyRlGxBWd/+Z9og=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=My0FBi5E; arc=none smtp.client-ip=209.85.167.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="UY5apfU6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=By/UwR+/gazlKYdThQnp3IsajPDqfHzJaJJOSNDUPrgLVyQyxz0ZKViKQ5EP0ohMBmfQVvhDKLN92mgtFH9/zogFgGTf8ZGzFdOHymFQ/PisA426mmFlvzJG0FJcusnFHIn/GfSU3kGcAUePFCZqUttWjWS/PVplFwO6N1GpoMGDyU1/3DpQu1bNcO67N+0NP5KdbbzXY1IN3z3+T/8WPcQOid6a88uzokKAHiwz+pKQsaurIRCV8SL/ile7L9CBRIu1HnNJrRaq6tbjxVHEaSD822TPJglP269hWPlWxMn+2ZkGhow47VH++Cxf7eVPzGmisH+hmr14I6xTgiEySw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q4i8CRClmUNHBKkhA6s0w5wC9cVWEpbZLKAD67GIS4Q=;
- b=WXbXF2oNCmll2si2WunCGc8CBD+/eK0CWVfoyjJVrIIR7xPJKRLT/TmsZzh6YTJvMByY428FkKxpy5K1su/uvVTV/tCxAOg94aPVCrhVFU3QumEmqe62zlRPHdfPvbvKLfKKIkTCEoTM1TfbWMtXS+e7S7ngysT1+gcHBr+aKnGpNT8uYwyX4yMtuebjJqNIoxvd340/6/k5OyD4pjlb8PhgwWJkKQHScFTCMDdOz5I0oRhYUsflATbBKM5ceJLfLb1iInSy+R450OjNIGw815+I783yuttHpKtH6gYv/6LU7EFipLU41JAF/HsmSi19PGnFeqJLdhlGt5wUxzW9Iw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q4i8CRClmUNHBKkhA6s0w5wC9cVWEpbZLKAD67GIS4Q=;
- b=UY5apfU6usZArBPiGeLPR1B5v5C9P/f5btONcu/14B3WdMUYcQPygF3n2on0+WTi7zf5KipTLh6vJMYhxw8vcgmxZxtmdMNS4+f6XW6ZzWyIIxtjJOkt21xfqMXPFeBhF46/wH1Y1yAwHS0xMn+ILrzHXQRZXROwYfTMNdTrjj7NNZwDfHGWbFJtR/Ygbiz/i2EsapN26/VAJZo6C79yQboT2h6u7gTJeAPrk5b7aJ5ruIOJzElS/HvyG3a9b/IVgWVtNHbkEGaa/aXWPm2G4Zj2P+09QgyW7GzUUFFJHX8RarJaBN8OLMfndcCi+jVLchmGbyOJtKiGC6hpDXUFiQ==
-Received: from SN7PR19MB6736.namprd19.prod.outlook.com (2603:10b6:806:263::12)
- by CO1PR19MB5048.namprd19.prod.outlook.com (2603:10b6:303:f2::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Thu, 3 Sep
- 2026 04:57:47 +0000
-Received: from SN7PR19MB6736.namprd19.prod.outlook.com
- ([fe80::4b6c:b84f:b71c:d0a]) by SN7PR19MB6736.namprd19.prod.outlook.com
- ([fe80::4b6c:b84f:b71c:d0a%3]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 04:57:47 +0000
-Message-ID:
- <SN7PR19MB6736784249D636E0C2DE066A9DB62@SN7PR19MB6736.namprd19.prod.outlook.com>
-Date: Thu, 3 Sep 2026 08:57:39 +0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/9] usb: dwc3: core: Allow glue layer to pass reference
- clock
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>,
- Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-References: <20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com>
- <20260825-ipq-flatten-usb-v1-2-5c1f3170bbe9@outlook.com>
- <20260830-fragrant-jolly-snail-eadb92@quoll>
-Content-Language: en-US
-From: George Moussalem <george.moussalem@outlook.com>
-In-Reply-To: <20260830-fragrant-jolly-snail-eadb92@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DX0P273CA0014.AREP273.PROD.OUTLOOK.COM
- (2603:1086:300:26::19) To SN7PR19MB6736.namprd19.prod.outlook.com
- (2603:10b6:806:263::12)
-X-Microsoft-Original-Message-ID:
- <9df220c0-e25b-467a-b4d3-d3a8d8874bfb@outlook.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="My0FBi5E"
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b4ae0b3308so1396271e87.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 22:00:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788411629; x=1789016429; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Aw9gpVGru8xiZcUq3dSpmW3TOUrgw1owBT+0w2fdvGo=;
+        b=My0FBi5E6ceep2eAoKtxAwze+bPhLRYCaPXTsjOaQqVZ8ryTz+lRaxOnfXEt+284B5
+         U7n/U6MzfdDFFohQTuaH0IOnEuwciKck08RiW19oW1b9BbQxqqS+7CLNBg0NJRQV66KZ
+         GeT8bgS69DdHa2eUqXBtwS4eQfnQVXIpjhYBo05l4bk72Nfb/8ZoDr6n/bLRDXc45xgY
+         qh2ywezmDvFCQu6Lkai2TZfZyOs1dXf9V1w4uXKnoQ6/emjl8zpf0utEcJMl6ZLavcXa
+         85arZA43rRRHYxcYZIrOIo0a7VQVgrEQMlURageYQiagMm0G74u2ih509vZuKvL/Fede
+         jaQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788411629; x=1789016429;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Aw9gpVGru8xiZcUq3dSpmW3TOUrgw1owBT+0w2fdvGo=;
+        b=Hs919caCnPt7v4PdhsuqEIWXnaSmnQ/QQkdxosccwgCG6/SCGQxmGPool/x7A4KwT3
+         zgrKStELAjmMb2467if08+h0VZW6TSZmDkVqQDkr4knDqA9cpjd1NR7XrjsA2mLZWrXQ
+         c2/dT2qjxWuAycxFwlJEo0jLhdhBTP22Ax/BM+xSktS2cK1w2MRL3TdTZtgIZ53HKKQI
+         0YKBjwa1S5+adOyLdxY4XV1TtW+emsqQPbaUrmmg3qyUfIKtZduWmt6E+NFLzAXhN7Gj
+         4m4yANanHHcksCtFgqa4uRf450Odnx6jCTyRw+jFceypBTxjxbK4uL6Vtj5x7iWB2qvZ
+         GVAg==
+X-Forwarded-Encrypted: i=1; AKwUvBxpcSoen9Xioi1YIT5Yhh1Z2yn+3u1p/jP34//G06VZSBmaCMceVO1xIjopFeaA99lNDHTFBbR0RSJtle8=@vger.kernel.org
+X-Gm-Message-State: AFuF++k5k+OEU/3WGBBQa9HxMEVM4MhF6Z4oBaByz7ExEK8y76a+RmV6
+	aB+Slpoy/gnJrBSCrBy3vZOt4L9mmqHJN6oXr7+v/Z5e9pq3PI761n6L
+X-Gm-Gg: AYBFou35Jkhj3VUHsMJRUJ66rrOSpY23POBtrQa+lCMBtDk6KxWLgWkdchUSJCBVqTg
+	uHHxm9Exr2dp0lR1i6OuT93/iq2Uc/7YQQAYrLYDz0Y2PRjW1Bttz/5ecao6F4d8V9vdxm4FQm0
+	CwEjATyKqQqVDt7Pt2YZeA8GtsLQ5BITMnn6nKXs1awhRRtUcK08xzvISzrWtrPlmLDg5XUv+Sh
+	aOUnUjq8ZyuphX7llDjg1nqhqnvUkh+deheDMphAi3pSgeQDdmNSHQop1WoC7qstlM4EB98slmY
+	fA2Cw7p927xKQ6nwocgZzB2G7vD1gEvVGbtwdSk80j1dcUEoWT1FR4d2nr/G41S3XAsxL7zn0lD
+	KzIo8itysKutXZVk/267neqAgx+rPjzz0ESZM/TP9JVBPV3FYDwcujj803rINJNTM+qshi5vNnh
+	Mm7xyajeMmgiAffYrVk/VxIGD0QyCPIIxMu7yiI0V7XLj4C2raAJMufmZlzWEGusU8t9dQ7tnfL
+	GX+1awOIiVXM5jQCWpCnsqzvoV/ya3xKuUyHnhTwwEa
+X-Received: by 2002:ac2:5685:0:b0:5b5:e393:2284 with SMTP id 2adb3069b0e04-5b60832fcfemr3051273e87.3.1788411628714;
+        Wed, 02 Sep 2026 22:00:28 -0700 (PDT)
+Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a350e4caacsm7622581fa.21.2026.09.02.22.00.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 22:00:26 -0700 (PDT)
+Message-ID: <57832670-6066-424d-a75f-4eb1f1f0cf73@gmail.com>
+Date: Thu, 3 Sep 2026 08:00:24 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR19MB6736:EE_|CO1PR19MB5048:EE_
-X-MS-Office365-Filtering-Correlation-Id: 861684bf-7f22-4ef3-be20-08df0977e58a
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|25010399006|19110799012|6090799003|5072599009|15080799012|8060799015|23021999003|37011999003|24021099003|51005399006|440099028|3412199025|19061999003|40105399003|2607281247196008;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?dm5SM3ZBSkhESVdyZTVNNzhwajhQanNMSTVWcUkzMGs4bjR5WjRzUFpPM2da?=
- =?utf-8?B?Z0dFWXljbHN6L2dNbXE0RTdPZng5cWVJc2lqQlhLYWFhSHdVMXNjYklxVVVT?=
- =?utf-8?B?Rmd1WWt1MnljQ0o1MnhURHNMNktSWXFiVXFiUSs3V2w3Wm5nNTh3WjVqVU1R?=
- =?utf-8?B?QzlWWWlQMTh4c2xVU2hIVVI4amRhZE50VFhmNmdlVkhHWTNjMXg0MVJQY1o3?=
- =?utf-8?B?eTQzQmttMWpoc0hFS3hLSmhIcjg2QUs3cTZZa2xZd2pYZUpyOXBOMkwyV1Ra?=
- =?utf-8?B?R1BDNXBTQnBZYVUyUlB0RkZ4MmtPRGQ2NzdsbzRzbnhmbWhGbmMvZkd0ZjBa?=
- =?utf-8?B?aGVVMzE5UmhjN2NUSWVMYkdDa1hJbGZibC8ySXNiVXVZWVJkWHhTTVJvYmhE?=
- =?utf-8?B?S0l6WVFheW5POWRzS3VOQThrSE1uSmI1aDRsRnY0Z2c1NWwvTjdYM2cycXla?=
- =?utf-8?B?bHo3Zkcyc1VDVTF2b0VxTGxjWWY3NzdMc0IvMmJkV2x2TUs1ZlUxSlpWNjN4?=
- =?utf-8?B?cmoyRVVFSjlSTHFDQ1V0ZWI2dzZodWoyYUNKMS82MlF3cVdRa1cxZjVtZ3Q1?=
- =?utf-8?B?MUlZMnJFN0JoNnAzb3U0OFFXZjNQVzRTRW5aakdFQzd4QnVyWmtYWUJ2blgz?=
- =?utf-8?B?a0I2T2I3M3lzakNxNGJiRkhuRElDWkhoaDZQTVRjSzlJMyt6MjFGbTd4aTdR?=
- =?utf-8?B?SFBjaThHUjFHazYrRTdDTU4vL2VRb0pYbnllVjZqb3RiQ3FjK2FrODZGSFFx?=
- =?utf-8?B?Ykd6Zk03eGJPRUpOSWRpMU1Ib1hML0k1MTNQemRoYVNKMGk5T3hpdDErajdw?=
- =?utf-8?B?WVlXdTZuMU9JdzNuMXhjOUpXZkZCNFNjZ3VRNGRtcHR6NEVPa1drUlBiTGw3?=
- =?utf-8?B?VWE1c2JsZFpPVURhZDQybFJocGtWMGQxcnJXSlhHQk80V25ZaSttbFQrTjFU?=
- =?utf-8?B?WFBlM2hTRzA5YUhvZFA4bWxoYTFzd0NFbjNEajhLUTVaTGViSG9tTzBBSG9M?=
- =?utf-8?B?OE1iL2h1cVk4S2dtNFJwM2tERkZFekhzbDB6MTZ1SWN2VlZXa3JTbUphZkxO?=
- =?utf-8?B?RE5VRy9MV3JSV0kvK045V1ZNLzZuY3NZTWE4QmY4cEw4ODBIZGUyckdydEF4?=
- =?utf-8?B?MkkrL29waEVhTVlOcXNZSzkxdkMvdUVLMnpkRG5yM21tSkphV1hIYnpTNCtq?=
- =?utf-8?B?eE12azg1ZUJvWkx3Y1Vjcm5JcHRKOEdkN1A3TjR1MGttM2FPY1dFNFdUbnpS?=
- =?utf-8?B?UDdIMGZuTkkvMFprbDJtVk14QVdmRkVFeVJQNjVrYUdHMW1HRlR3STNYQmwr?=
- =?utf-8?B?aVhVUmQ3ZkxRMVN3S0RaMGxQcWxTV01jLzQvRGR6Y0VpRmd2enNQWVRsemE2?=
- =?utf-8?Q?YrkueULyeC/eyxRrbkGKQ0B3QSYAtJGY=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?T0JBWnU2YkhyWUdCVVBOaDBNNy9CQjVMOXJGZFpxNEFCVm1kdUNMSzBKYWh5?=
- =?utf-8?B?c1BuaVNmUGNNeVAvRzBMOFpDWGdIMXRObmNvVkxqcm9RWUZFNkR6S0RJc3ox?=
- =?utf-8?B?WE9nZWtSODRIUDJmVk5KeVg4Z1BVMGdUQmJaZFZtTWR6ZXMzaFROeWNyN0Zo?=
- =?utf-8?B?ak9sMklNZmE1VFZkaVpZWnBTUnIxK09OK3J1NWNzelVHK3BUQ0x6b2JQZEIz?=
- =?utf-8?B?aUFsTlNRd0liQlE2M3NJQzZyQTl3UFdPUlppczh5Y3hHT2NjbCtHWmdTZ1Q5?=
- =?utf-8?B?M3ROQlMwVUR5THQ5ZUFuTS96bnZWVklhdlJEWXBuZm5PeDBDbGVXcEpxck1a?=
- =?utf-8?B?ZDVHT2JWdHVNNURaOWxzbWdLU2lBMUJaaFZjQVQ5dHBScW1wV3Q3SUpqenkv?=
- =?utf-8?B?bEpLcTlOdHBqaUxCam9VQjJkLzNMVGVRSVNQcDMxUzZ5TXFvWlNyQjZ0Ykt5?=
- =?utf-8?B?T0NlM2RhejJ2QVQySFVUWCt3b3hTTnVja2N5Uk5XVFp1ZnRFdTBvNkx6a21Z?=
- =?utf-8?B?Vk9iMTcxZDJvRnQ1cnIrNDhhRVJQMFpjUzd4eDVKSWptYkdEVTQxeXA5anFF?=
- =?utf-8?B?bzJLUzF1MTJTTFRzeWs5OFVZYmNkZ0ZxUUtScVNjTEpLNHV0Vm80T0gyaDFZ?=
- =?utf-8?B?WHFWZTdHeUthcEZvT0psTlE3TG5zckcza3JCdklVRXBtTjF2TTZBaGQrN3lF?=
- =?utf-8?B?MEdFOEVoTG9OMUFhTjVxSmtqQTRhRm1tVHFoL29FZU1LWGhuQlFOZVlCMDky?=
- =?utf-8?B?NHIyVDVxeWpQM0QyTURwL0JxZWltTzB2aTZZM1ROalVRYjVXamFQU0FLYjVs?=
- =?utf-8?B?bC82Q09IT2oyeU5aMnFNUTRkeTdGTGxRUFFGdTJoeFlZeW8rTDlpSEliZHJn?=
- =?utf-8?B?U2w4SkYwbk9XNzM5QjVqb0ZIZUZIMno1L2NlckJ6eGM0aEp1ZnJ4b3QxTGI5?=
- =?utf-8?B?UkUxUUlnbW5FY0ZRa3Jpc1paS3ZlVUo3dTV1R2hBT1dDQnhpa3pQREFnekNt?=
- =?utf-8?B?dldPTHhvZFRDZG1kMFRxWU9ZR2x3LzBpWml6dUlVN3o0T3NhNng0YW9yM2lq?=
- =?utf-8?B?Wm1jMWcxUjRZRjRudm02UFBlWjF6c0Y2allBaVJvUHdDdVcyQ2RMaHdqOEhL?=
- =?utf-8?B?dG11blIzRkZBTGhPOWtDaDBVdXJmUDZ0SExiQW9peU5SeHpncGhrZVBHRVl1?=
- =?utf-8?B?ZjV4bllJNDBSbEZLaWhyMHlKNHdKUllZTURzajNyT0ZYeCtnVVpBUFBYVmNj?=
- =?utf-8?B?OHl2c0JzTThBakNEWmNEUER6Ylo5blhFZ3h6U01NUi9EUlg2U1EzdXhzL0pm?=
- =?utf-8?B?cHJnQVZQRzczWC9XL3NrREE3SUs5cUNpb2w3VG9SclNDcWVJTTZ5TkFhM2dX?=
- =?utf-8?B?RjI1TmpUeEpJUi9GK3NHcEN3OWhySHpXUDcxS0hrSFVCOU5SNzB4MExHd0ZF?=
- =?utf-8?B?V1NPYy9mM1NzRnVMRW8yT0k5d1RiMnRYb05oT0lObHBMYXRMdUl4bGZVTFMy?=
- =?utf-8?B?NHREdkFLZXFiZ3RkTVJrL29zckVJMEkvWExrSUg4bkVJbzhDY3B1bUJYUUNl?=
- =?utf-8?B?b0x1QWRieDlDVklDRktUWU5aTElKOFRHNElZQVZBaEh0UEtDV1Z1dE5odkZF?=
- =?utf-8?B?TTZVNWxiekRMcjJpaHRob1ppUGZPdGQ5OGpDTGRLbkJGUUV1MnQ4d1FycnJw?=
- =?utf-8?B?UHF5cEVYKzdsK2pQN2MrbGFoTWV0RWp2cHNLaEtPbllVdWlaenF1Sll3a2kw?=
- =?utf-8?B?UnR1ektKV1dpbnZhd3ozY1RjbDBjNS90MUxJVjc1WHNSbXFndFc3b1pOc0Q1?=
- =?utf-8?B?U1Y1ZXBYSlltazhRMXd2QXYwMnBlUlg5U2dFenl5SlIxYStyd3g2TXF3NmdX?=
- =?utf-8?B?ME44NjMxVnZ4aXdXS2N0VGtXazN0Z29zUVNPTW4rSmZib0E9PQ==?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 861684bf-7f22-4ef3-be20-08df0977e58a
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR19MB6736.namprd19.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 04:57:47.2226
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR19MB5048
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 09/10] gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Linus Walleij <linusw@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-rtc@vger.kernel.org,
+ Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>
+References: <cover.1788346553.git.mazziesaccount@gmail.com>
+ <5eb294e68b8d5d2c1d3a12b14a55dd2a9c075a09.1788346553.git.mazziesaccount@gmail.com>
+ <CAMRc=MchpaOib+jgMniG7=BBYwB1yqLvJG1sMkjXfRaMFPodgA@mail.gmail.com>
+Content-Language: en-US, en-AU, en-GB, en-BW
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+In-Reply-To: <CAMRc=MchpaOib+jgMniG7=BBYwB1yqLvJG1sMkjXfRaMFPodgA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 8/30/26 13:42, Krzysztof Kozlowski wrote:
-> On Tue, Aug 25, 2026 at 02:42:27PM +0400, George Moussalem wrote:
->> Add ability to pass a reference clock from the glue layer to the DWC3
->> core driver. The core calculates the reference clock period and frame
->> length adjustment based on the reference clock rate.
+Hi dee Ho Bartosz,
+
+Thanks for the reviews!
+
+On 02/09/2026 15:58, Bartosz Golaszewski wrote:
+> On Wed, 2 Sep 2026 13:07:32 +0200, Matti Vaittinen
+> <matti.vaittinen@linux.dev> said:
+>> From: Matti Vaittinen <mazziesaccount@gmail.com>
 >>
->> In the flattened snsp-dwc3 model, it is currently not possible to pass a
->> reference clock that differs from the default since:
->> commit 613a2e655d4d ("usb: dwc3: core: Expose core driver as library")
+>> The ROHM BD73800 PMIC has 4 pins (named GPIO1, CLKOUT, FAULT_B and
+>> EXTEN_OUT) which might have been set to operate as a GPI or GPO when OTP
+>> (One Time Programmable memory) is written at device manufacturing.
+>> Support the GPI/GPO use-case via GPIO framework.
 >>
->> The new glue layers (incl. Qualcomm's) set the ignore_clocks_and_resets
->> flag in dwc3_probe_data to true, which disables the core driver's clock
->> management, thus it also doesn't acquire the reference clock from the
->> devicetree needed in dwc3_ref_clk_period.
+>> The default OTP for these pins is to not use any of them as GPI or GPO.
+>> (The GPIO1 defaults as an ADC input regardless the naming). Hence the
+>> driver assumes none of these pins is a GPI/GPO unless explicitly pointed
+>> as GPI or GPO via device tree.
 >>
->> There's an existing DT property 'snps,quirk-ref-clk-period-ns', but
-> 
-> Where? git grep gave me zero results.
+>> Furthermore, pin's direction can't be changed after OTP configuration is
+>> done. Also the default drive type for a GPO (CMOS / Open Drain) is set
+>> by the OTP configuration. The BD73800 has a set of undocumented test
+>> registers which should allow changing the drive type. Access to the test
+>> register area or the test registers aren't documented and so this driver
+>> does not support configuring the drive type even though it might be
+>> doable.
+>>
+>> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+>>
 
-Yeah, fixed in next version, should be: snps,ref-clock-period-ns
+//snip
+
+>> +
+>> +static const char * const bd73800_gpio_properties[BD73800_GPIO_MAX_PINS] = {
+>> +	"rohm,pin-gpio1", "rohm,pin-clkout", "rohm,pin-fault_b", "rohm,pin-exten"
+> 
+> Can you put the properties on separate lines?
+
+Sure, no problem, thanks. I just wonder if I should re-spin the whole 
+series for this. I suppose I'll wait until the next week, to see if I'll 
+get any other comments.
+>> +};
+>> +
+
+//snip
+
+>> +
+>> +static int gpo_bd73800_probe(struct platform_device *pdev)
+>> +{
+>> +	struct gpio_regmap_config config = { };
+>> +	struct bd73800_gpio *data;
+>> +	struct device *parent, *dev;
+>> +	struct gpio_regmap *gpio;
+>> +	int ret;
+>> +
+>> +	dev = &pdev->dev;
+>> +	/* The device-tree and regmap come from MFD => use parent for that */
+>> +	parent = dev->parent;
+>> +
+>> +	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+>> +	if (!data)
+>> +		return -ENOMEM;
+>> +
+>> +	data->dev = dev;
+>> +	data->regmap = dev_get_regmap(parent, NULL);
+>> +	if (!data->regmap)
+>> +		return dev_err_probe(dev, -ENODEV, "no parent regmap\n");
+>> +
+>> +	ret = bd73800_gpio_get_pins(data);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	if (bitmap_empty(data->valid_mask, BD73800_GPIO_MAX_PINS)) {
+>> +		/*
+>> +		 * The BD73800 may or may not have pins allocated for GPIO
+>> +		 * depending on the OTP used at manufacturing.
+>> +		 * If there are no pins, then we have nothing to do.
+>> +		 */
+>> +		dev_dbg(dev, "no GPIO pins\n");
+>> +		return -ENODEV;
+>> +	}
+>> +
+>> +	config.parent = parent;
+>> +	config.regmap = data->regmap;
+>> +	config.label = "bd73800";
+>> +	config.ngpio = BD73800_GPIO_MAX_PINS;
+>> +	config.reg_dat_base = BD73800_REG_INT_5_SRC;
+>> +	config.reg_set_base = BD73800_REG_GPO_OUT;
+>> +	config.reg_mask_xlate = bd73800_gpio_reg_mask_xlate;
+>> +	config.init_valid_mask = bd73800_gpio_init_valid_mask;
+>> +	/* All pins that are valid GPIO lines also have a fixed direction */
+>> +	config.fixed_direction_mask = data->valid_mask;
+>> +	config.fixed_direction_output = data->output_mask;
+>> +	config.drvdata = data;
+>> +
+>> +	gpio = devm_gpio_regmap_register(dev, &config);
+>> +
+>> +	return PTR_ERR_OR_ZERO(gpio);
+> 
+> Why not return PTR_ERR_OR_ZERO(devm_gpio_regmap_register())?
+
+How strongly do you feel about it? It's not a big deal, but I always 
+find it a bit harder to read when functions / macros are called inside a 
+parameter list. Thus I'd rather keep it like this, just for the sake of 
+my own eyes :)
+
+>> +}
+>> +
 
 > 
-> Best regards,
-> Krzysztof
+> With that:
 > 
+> Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
+Yours,
+	-- Matti
+
+-- 
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
+
+~~ When things go utterly wrong vim users can always type :help! ~~
