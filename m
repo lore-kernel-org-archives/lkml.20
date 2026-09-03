@@ -1,115 +1,231 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1D29D19F121
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:16:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 144814AEBCC
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:18:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788441400; cv=none; b=TLLj0hdj3EAKJ3VVEsZsAFmmEt+PBQu0Rd30rIhMF21+iEQJpzAZ15PsonvUjvbAp+1H3iSUNrlZu/a21HCFKB3OzejuDrf1cpkY0a0eehCXzU8NhMFMSOBZ5u9ELYVQI92wzi/j0eBFxooSag6lZfvKt358gmMPgBUxuUSGEh8=
+	t=1788441517; cv=none; b=hFG88+UMl0dcEtf4xqo2VoCFsDhEyfOVgh5sPPfrPE47qP2iJSoKa+r7ruY3cdZml2Z01k4mIN/8RpAMmVhpfCtwzpK36UOkOZXBg3eldI0wGa/WvvFzzKPe2+xUh0CgQi4zMKvCS3+i4+SqMVKD+/TIfvEWnc6PIxROEPA3Etk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788441400; c=relaxed/simple;
-	bh=XfAY/dZHTsqXVY4mLyR6AY5GGRW5FNCmoCd9yLOCUwU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RiZYGWCvE+7kHJUfc+pLNSv4/SHH23MxDob8UEnIfpnynhst4k+IxyU6nxEdt39699PVlHPnlniQ2puqz6wCjreVjbhpE5/K2UzOZYACOXXQoSaZXU67IjAafBlcNL1iFFnLd1GkmGMokdSPXlC94CTKFdC59hSswxBM8ls07TU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ksB9jG1K; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788441517; c=relaxed/simple;
+	bh=2QaVIM8YaxKqQWbM/hUzSKzUliia1nb/ywpuupEbhuo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y5+CPbcwcTv/WVCeB6jsa+4CqB+JRm5T6qLiQoL9bPpw52fJyNOLsoP/BuX5/hJq/r9AcXcpxbAGskDW7S6HtLW7OTokNmi6W9RMNWEscrAxVDhln9gvcn0a/Y63UWT1Ja8hd/PIwV5+V7M+xtIAFCsEfMniFcnpiPl2F1fftUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gCSV7y1T; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=O6gRWxtc; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ksB9jG1K"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 45AD11596;
-	Thu,  3 Sep 2026 06:16:18 -0700 (PDT)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B178B3F7D8;
-	Thu,  3 Sep 2026 06:16:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788441382; bh=XfAY/dZHTsqXVY4mLyR6AY5GGRW5FNCmoCd9yLOCUwU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ksB9jG1K5Igbwua9Lq+7o89W3WiRuaXHMA7h/OT0RgqaHy/eYY9L9iOAJDlelPh0K
-	 vlsA9J+tdjeSwerzPHWoU/wMImxZqn9Euy9NDNnwS8Rk9UUzzDWr3r7gBDMjb1yeO5
-	 YBOB7zbvUkNThtcfEh5o0VDAiOg/fITDdeAJIyRE=
-Message-ID: <03055fbc-281f-4ed9-9282-4853d560e17f@arm.com>
-Date: Thu, 3 Sep 2026 14:16:19 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gCSV7y1T";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="O6gRWxtc"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683DAG2V4093556
+	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 13:18:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=Z5vNOn+OylGyP9n19xpBlOfa
+	6p2e38aOuasVWqv+TX4=; b=gCSV7y1TkZHdEEZXmrNUOTbAchVeKObATGCuLPcy
+	Hin5pE+dFQgIaslviYTlZnaTP4agM/l8kdiZpPUYLx75NvudaWW783jdQqaxMyJo
+	nbtzHFXTkJvoxZK3FI5Do5DL7AHHYzH9hMnsoPolshv4ohGCWR3vN4wFgR7utuyD
+	DTLV0LaTZ9cFX7X3HTF9CzwDaR8/NFc88vAT8yjvUhIolN3JztTbvOPMNLtWJjVj
+	9yWao05Ucq+4fIaG19ol7pTe3DKfz8fn6WUa9M/wZWYvl20UXPNA5oyvpHMRda5l
+	RZP3YM+tLY3qfSgAezITlFF/RYKUufCKT6njmYoG+I5wwQ==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf0gjt9br-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 13:18:22 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-97cc09260a3so828112241.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 06:18:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788441501; x=1789046301; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Z5vNOn+OylGyP9n19xpBlOfa6p2e38aOuasVWqv+TX4=;
+        b=O6gRWxtcgq0L2l4kE92JQSfvpkjJYtyX2HcXWV7I84Xj3bUC5D5GE+w+f5VqQK/iqO
+         lGerhR3v5F5IWwK9iFjtmKmAwii4UwedETfa8vJt9uKxR5FjQPL+ajumha1vza4IYTwz
+         3RYTbnUhIszCjGUPXEwVOtQjlq0v+GWO1MhUsmCNhq6CQNIjh+EM5Ywr5gbzoy3xC4gr
+         2w+ZBt6CQQ4AjK7D2yla0JafmZB55+O67ufqU22NX8dAstl8UKAbyEj5iSES8iteD2X8
+         M2JwQw7fQiyIrbwBI6600oQWNOCGhp5uhU1QrGi/pEmXyi9336ylcUVd8z4+Wk36av3D
+         mK/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788441501; x=1789046301;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Z5vNOn+OylGyP9n19xpBlOfa6p2e38aOuasVWqv+TX4=;
+        b=Kr06V2258UfLokxOAIaREJxy1+ZU8RTm5O9tjxQdtE1ZclWxBNLsAB6t3CM2SLXMpa
+         tOh8UT5b+28Kkuuyw0DQJvk/4m+qf8g6xt8Zd7al99Ihz90cWhNggTkL4/amoKCoQxAz
+         wKyCtamdb78GxDY9EADR1BKqoDYasjwG4566fbWHbuTnDY+uT2BihJBYdIX9ZCHKpodI
+         85/pCe9ycAWEG7928OM7Yq2GB/PdiYDp5hhBcqbpbUkw+ZGPB4xWnmvh5XFwxuq8xbxA
+         kPBLzc9j4/T+1K7jNQCSoPMA/snf9KsLQraOo6j1sx2QIC0+9em33/RffUWS1nplZ60c
+         qIZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxzevHRdSX5rF0MR2NQDfJhbfSH4jZt6rBBqYMO89PlHE2+g25I4UkwPiaJHEmyICZtEALCXrM3kui7aCE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGzQaMKr4QkIW92SKk+cljv77jfa9zzidAcdSmjdjmcc01diJp
+	EuTZyUvdJu6B6pmOeq4NqAg0qjxz/+YvvepRVBpybVL8ehWn0k9zlS7Je0Mo6w/6Ogv37Xg+u+V
+	BlT0xiZPcH3iqQFT4jtmE1EKV5y9Sk78qT7ECiBTKH68XAUQfa0Nv9K7/cm28CwxdW7I=
+X-Gm-Gg: AYBFou34Xh8FXvYMKcDLx6/6bVYdhBMxGRpegTmM9AGpUzFdM4Z9avnqjMjH4dsSdiq
+	9eZciTlv1dVOcorEzUXrUCH/kiBXIYYUd9KrVtFKbcOVMvHjOvbUjhHO4kjGd6QrhZO2Awlyqub
+	iCUImTyIiFlSt1uJNiKpXJx9F9O0XD18ZL7MckTs2iDwTFlha94BRDrJmHG4GZLJv1HEQ7DIgeG
+	erRU4tNGDg+hlESdwlFWKiF8PB8VBKpepxgrWILsTQBrPuUiQcFOovV7Rd2379IQan9smLti7NG
+	lf3kHPCFqebO36+mV+ysW8CdekgJHG1u954XrIVu2VzY8Cyv5713JGlKoQ7+/T3MkyxvJrWoJH+
+	sWW9UMYhEYiph
+X-Received: by 2002:a05:6102:1676:b0:785:6719:abb1 with SMTP id ada2fe7eead31-78a2ef7b044mr1223363137.11.1788441500999;
+        Thu, 03 Sep 2026 06:18:20 -0700 (PDT)
+X-Received: by 2002:a05:6102:1676:b0:785:6719:abb1 with SMTP id ada2fe7eead31-78a2ef7b044mr1223334137.11.1788441500321;
+        Thu, 03 Sep 2026 06:18:20 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5d1fe2sm80599295e9.3.2026.09.03.06.18.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 06:18:18 -0700 (PDT)
+Date: Thu, 3 Sep 2026 16:18:16 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Luo Jie <jie.luo@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, quic_kkumarcs@quicinc.com,
+        quic_linchen@quicinc.com, quic_leiwei@quicinc.com,
+        quic_suruchia@quicinc.com
+Subject: Re: [PATCH v3 04/12] clk: qcom: ipq-cmn-pll: Register CMN PLL /2
+ clock
+Message-ID: <j6m4b2psvvg65qksij63wxo3aqoc5ldlfehqnywa3i33v4pm5j@lr4i5o2g6tdt>
+References: <20260814-qcom_ipq5210_cmnpll-v3-0-21c3db378611@oss.qualcomm.com>
+ <20260814-qcom_ipq5210_cmnpll-v3-4-21c3db378611@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: drivers/resctrl/mpam_devices.c:1860:35-38: WARNING: Suspicious
- code. resource_size is maybe missing with msc_res
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- kernel test robot <lkp@intel.com>, James Morse <james.morse@arm.com>
-Cc: oe-kbuild-all@lists.linux.dev, LKML <linux-kernel@vger.kernel.org>,
- Zeng Heng <zengheng4@huawei.com>, Shaopeng Tan
- <tan.shaopeng@jp.fujitsu.com>, Jonathan Cameron
- <jonathan.cameron@huawei.com>, Gavin Shan <gshan@redhat.com>
-References: <202609030809.ObirDhR3-lkp@intel.com>
- <555e6b9d-cff8-ef10-42e9-5e469550292b@linux.intel.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <555e6b9d-cff8-ef10-42e9-5e469550292b@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260814-qcom_ipq5210_cmnpll-v3-4-21c3db378611@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDExNCBTYWx0ZWRfX/fWf/N7XcD2a
+ VrBJxu/EYfjA6XygAT7wn1FZHL2wSMcF0AUg6wv9an3dVV5xuzib6wvTkh2RAETsukB0gGzEB+b
+ TXt33siUz2CT/jl3PMdMpmdSUbPcfWBf0OOZOdGSosIm/0yAExza7AbizQF22Ti6pGwfWi7hhzw
+ WZrq2Ls9ISYeqI8P1Un8WChWxe1Bcd4+wuOzYl1ucOAf/p6UJ5qTrten0D+kf6LJe8n2lOMmxWu
+ JY9N4S+ejig8OR3Tyi/QQV+Wn2qC5cHeMjJk5oCgxDV0uwhCmx73BHtaYEQFxh/WIO3ORw1UlaC
+ lKANjjdHoypbKosUOa9e12BnJ/zLxdMZkOKTQa37kFoNRKi3P2zjqEIHlkxUpPDfU3MmKKExHnw
+ sh/uJJxUv/m36kow06YkrHh00mtxClKgGhgScMFNxXnFDfWi+nQltW0Z46PPNCMbS9nf5E0e+EO
+ pyuHfW2KBhvlsS0vlzA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDExNCBTYWx0ZWRfX3FtDh2iSwrwF
+ +Mh3RL5mO3xVtLdQr3zS5r+SYvkl1ewwbSvWT+BfzyLI3ZnB3lC0wV117sLsLWcaUGDuvIj5p1f
+ USHlDdH8ql00ELbN7PDFzn7Z2YfhWEg=
+X-Proofpoint-GUID: QbEnd4cnUY96i5FT8Ajm0VYwC0I2p4c-
+X-Proofpoint-ORIG-GUID: QbEnd4cnUY96i5FT8Ajm0VYwC0I2p4c-
+X-Authority-Analysis: v=2.4 cv=LZ4MLDfi c=1 sm=1 tr=0 ts=6a99739e cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=q7XEBjOi5DRkXzmV0jSBjQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=rjAelre24C4lQ5HC_LQA:9 a=CjuIK1q_8ugA:10
+ a=o1xkdb1NAhiiM49bd1HK:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_04,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
+ bulkscore=0 priorityscore=1501 impostorscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030114
 
-Hi Ilpo,
+On 26-08-14 05:48:14, Luo Jie wrote:
+> Most CMN PLL output clocks are derived from the 12 GHz PLL output
+> through a shared, physical /2 stage, ahead of any further per-clock
+> processing: a gated fixed rate (PCS/ETH0/ETH1/ETH2/EPHY/ETH), a
+> configurable divider (NSS/PPE/PON), or a rate-select bit (EPHY-RAW).
+> This /2 stage is present in the CMN PLL block on every SoC supported
+> by this driver, not just IPQ5210.
+> 
+> Register this /2 stage once as a fixed-factor clock, "cmn_pll_div2",
+> and store it on struct clk_cmn_pll so the output clock types added by
+> later patches can parent on it. The two plain fixed-rate outputs,
+> xo-24mhz and sleep-32khz, are the exception on IPQ5210 SoC: they stay
+> parented directly on the main PLL clock.
+> 
+> On SoCs other than IPQ5210, every output clock is a plain fixed-rate
+> clock (CMN_PLL_CLK_FIXED_RATE) whose rate is a hardcoded absolute
+> value rather than one computed from the parent rate, so this /2 clock
+> is registered there but currently has no consumers; IPQ5210 is simply
+> the first SoC in this driver whose output clocks are modeled as
+> depending on parent_rate, which is what makes the /2 stage significant.
+> 
+> This patch only registers the clock; later patches wire it in as the
+> effective parent for the output clock types that sit downstream of it.
 
-On 03/09/2026 12:02, Ilpo Järvinen wrote:
-> On Thu, 3 Sep 2026, kernel test robot wrote:
-> 
->> Hi Ben,
->>
->> First bad commit (maybe != root cause):
->>
->> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
->> head:   89a312991dc6e638a36adc43ccb91dbc25504c04
->> commit: c544f00a473239835d22e7109b403314d8b85974 arm64: mpam: Drop the CONFIG_EXPERT restriction
->> date:   5 months ago
->> config: arm64-randconfig-r051-20260902 (https://download.01.org/0day-ci/archive/20260903/202609030809.ObirDhR3-lkp@intel.com/config)
->> compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 2c2cffa015e9549aafba9e514384b08204c7cc4b)
->>
->> If you fix the issue in a separate patch/commit (i.e. not just a new version of
->> the same patch/commit), kindly add following tags
->> | Fixes: c544f00a4732 ("arm64: mpam: Drop the CONFIG_EXPERT restriction")
->> | Reported-by: kernel test robot <lkp@intel.com>
->> | Closes: https://lore.kernel.org/oe-kbuild-all/202609030809.ObirDhR3-lkp@intel.com/
->>
->> cocci warnings: (new ones prefixed by >>)
->>>> drivers/resctrl/mpam_devices.c:1860:35-38: WARNING: Suspicious code. resource_size is maybe missing with msc_res
->>
->> vim +1860 drivers/resctrl/mpam_devices.c
->>
->> f04046f2577a5c James Morse 2025-11-19 @1860  		msc->mapped_hwpage_sz = msc_res->end - msc_res->start;
-> 
->> :::::: The code at line 1860 was first introduced by commit
->> :::::: f04046f2577a5c76167333ca99d3903ee5331ba0 arm_mpam: Add probe/remove for mpam msc driver and kbuild boiler plate
->>
->> :::::: TO: James Morse <james.morse@arm.com>
->> :::::: CC: Catalin Marinas <catalin.marinas@arm.com>
-> 
-> Hi all,
-> 
-> This report has some validity but the code doesn't look buggy as is, just 
-> off-by-one errors correcting each other. The variable is called "..._sz" 
-> (~ size), but the resource size calculation is off-by-one because trying Arm A-profile Architecture Hi 
-> to do it by hand instead of using the resource_size() helper.
-> 
-> The mapped_hwpage_sz value is only used for register write offset 
-> sanity checks, which use > countering the off-by-one error.
-
-Ah, yes, thanks for pointing this out. mapped_hwpage_sz is a misleading name as it really indicates
-the last byte mapped and so it is functionally correct when used with >.
+Do not mention future patches here. Each patch has to stand by itself.
 
 > 
-> IMO, it would be better to use resource_size() and change those sanity 
-> checks to use >= instead of > but this doesn't look a major problem by 
-> any means.
-
-Agreed. Looking back I fixed the functional bug in v6 (changed >= to >) of the original mpam driver
-posting but left it in a confusing state.
-
-Thanks,
-
-Ben
-
+> Signed-off-by: Luo Jie <jie.luo@oss.qualcomm.com>
+> ---
+>  drivers/clk/qcom/ipq-cmn-pll.c | 22 ++++++++++++++++++++++
+>  1 file changed, 22 insertions(+)
 > 
+> diff --git a/drivers/clk/qcom/ipq-cmn-pll.c b/drivers/clk/qcom/ipq-cmn-pll.c
+> index 4fdf78f6829e..bcb51a5f559a 100644
+> --- a/drivers/clk/qcom/ipq-cmn-pll.c
+> +++ b/drivers/clk/qcom/ipq-cmn-pll.c
+> @@ -96,10 +96,17 @@ struct cmn_pll_fixed_output_clk {
+>   * struct clk_cmn_pll - CMN PLL hardware specific data
+>   * @regmap: hardware regmap.
+>   * @hw: handle between common and hardware-specific interfaces
+> + * @div2_hw: fixed /2 clock derived from the CMN PLL output; present on
+> + *           every supported SoC, but only IPQ5210 currently parents
+> + *           any output clock on it (every output clock except the
+> + *           plain fixed-rate xo/sleep clocks, which stay on the main
+> + *           PLL); other SoCs' output clocks use hardcoded rates that
+> + *           never depend on a parent
+>   */
+>  struct clk_cmn_pll {
+>  	struct regmap *regmap;
+>  	struct clk_hw hw;
+> +	struct clk_hw *div2_hw;
+>  };
+>  
+>  #define CLK_PLL_OUTPUT(_id, _name, _rate) {		\
+> @@ -362,6 +369,7 @@ static int ipq_cmn_pll_register_clks(struct platform_device *pdev)
+>  	const struct cmn_pll_fixed_output_clk *p, *fixed_clk;
+>  	struct clk_hw_onecell_data *hw_data;
+>  	struct device *dev = &pdev->dev;
+> +	struct clk_cmn_pll *cmn_pll;
+>  	struct clk_hw *cmn_pll_hw;
+>  	unsigned int num_clks;
+>  	struct clk_hw *hw;
+> @@ -388,6 +396,20 @@ static int ipq_cmn_pll_register_clks(struct platform_device *pdev)
+>  	if (IS_ERR(cmn_pll_hw))
+>  		return PTR_ERR(cmn_pll_hw);
+>  
+> +	cmn_pll = to_clk_cmn_pll(cmn_pll_hw);
+> +
+> +	/*
+> +	 * The CMN PLL output feeds a shared, physical /2 stage ahead of
+> +	 * any further per-clock processing (a gated fixed rate, a
+> +	 * configurable divider, or a rate-select bit). Register it once
+> +	 * as a fixed-factor clock so the output clock types added by
+> +	 * later patches can parent on it.
 
+The comment here should only say why this is needed. Do not mention
+future patches.
+
+> +	 */
+> +	cmn_pll->div2_hw = devm_clk_hw_register_fixed_factor_parent_hw(dev, "cmn_pll_div2",
+> +								       cmn_pll_hw, 0, 1, 2);
+> +	if (IS_ERR(cmn_pll->div2_hw))
+> +		return PTR_ERR(cmn_pll->div2_hw);
+
+In fact, I think this clock registering is self explanatory as is, so you
+should drop the comment above it.
+
+> +
+>  	/* Register the fixed rate output clocks. */
+>  	for (i = 0; i < num_clks; i++) {
+>  		struct clk_parent_data pdata = { .hw = cmn_pll_hw };
+> 
+> -- 
+> 2.43.0
+> 
