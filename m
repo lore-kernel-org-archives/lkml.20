@@ -1,161 +1,96 @@
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D5B4B1283;
-	Thu,  3 Sep 2026 14:00:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2A24B26F1
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:01:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444066; cv=none; b=UTe5YP/d+8dIcfkzVYfEr+M56xo7S3PJLig+9ZJS43I1jtI06S+igfG8nC/2nB5WGKjJkp2jaQlRNdd9Ctu/t9MmTgzWT2hqDbElrsPTexV1ynM2/24/fz3pfNjwvIi4pKKq/2z6HOA6upsDTQLWsao/1XEMoZX0+C2ec/uiHYs=
+	t=1788444120; cv=none; b=ldPIGhqbxW5yktVAgqP7LoDL21iZGkv15JUi93volnf+dCznNdH0COWXaX+NaexocABofUPj4cD1kXZnr+o/wWzwX50VnSBJYpLWEVXMLKscyvpmQmcLXUn5X6AzV1cd/sdUdIH80Dl2pQGDdsNcSSqS+ewbAwM0yLSB6MghZZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444066; c=relaxed/simple;
-	bh=jY9nHpNgEvlW8JyWvz3Jehy7FPbVDgI1Ta6inmZFL4s=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ePVwGNsb4scVWDXE6ks87bzV7U7Li5H551hyf59KfZ7KCQKeMyxArEIGx0W0Zr6IxJeG8ImmVbAVQVJOF2/P13xPfkDmRXtWJFSUMM6Z+w33gu0mk6qO3sU6iox+ed751bBPeJUys0K49xEihkIYCBsyEVRTVP/lYcF1xfcB1UI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=cpx103/W; arc=none smtp.client-ip=115.124.30.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788444120; c=relaxed/simple;
+	bh=n4XEocIqJ19nHNwUpvF/j3erls8ICoBu9d7tL4Y/X5o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C0ZDQt5IEU5v8vHDcXjZk4jxLp4ShaUV1Y7PV7oOF7aM9bWrn7dtSp6HFFC9Ls1gXpdBkLLzpPqDeSR8Wkugaq74/N9D9cDeYogp0r7n03ISgFErFgMwEGpkPxW5vJ4dsSRyR03flJKXbLMD514eg9G6YOB2x5QMMtmH0Op7Fro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=LTmSQpl/; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="cpx103/W"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788444035; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=EeH6bdDAEIQqh3qtw9ytOgfSyurKW+ipErCrXEGxYck=;
-	b=cpx103/Wm0Y1mFRFhn7w7+Naq5aAOctYx9jvfBv3FpRuMLEdLJ1GexXdmYrJJy8YA/aLl5U8RpDE8mGCFUVzV59cL0KU9BjIAdrqA6TrElt12jq+KJgKVsbBk/absg1iPgDF9Gj8MVsl6uZsM+QqnGOgBw6vmy2oczx1V7UUzMk=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0XAG8g3p_1788444033;
-Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XAG8g3p_1788444033 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 03 Sep 2026 22:00:34 +0800
-From: fangyu.yu@linux.alibaba.com
-To: sunilvl@oss.qualcomm.com,
-	rafael@kernel.org,
-	lenb@kernel.org,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr
-Cc: fangyu.yu@linux.alibaba.com,
-	guoren@kernel.org,
-	linux-acpi@vger.kernel.org,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org
-Subject: [PATCH v2] ACPI: RIMT: Enable PCI ACS for root complexes mapped to an IOMMU
-Date: Thu,  3 Sep 2026 22:00:31 +0800
-Message-Id: <20260903140031.3684-1-fangyu.yu@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="LTmSQpl/"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49b96837ca3so17322895e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:01:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788444111; x=1789048911; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qQqL94pz1aKeRhaHhlDg5rCITzELovSKECj2UmHlmfM=;
+        b=LTmSQpl/Jj4PPOYZjWLSH1W/4CXEjBzpgBdS0gsKLWYai96t+GBHQXvhh8zpFANTwS
+         C3vV28nl68/MfgE3FFQqLWC8dAufiu+d0iMLYbUSihY1uN1hyP3D46zibXr9ykGpkk2f
+         RlRgtLsIEKpI6HCmIHLqmyIXX0Lz5coou0mub2qQ1XRhdh9hwca6946qVDgYp3pyxSHf
+         qnW18es/+NOJaLlsnaj/7i0XCREvSqDbJnZ4K/9KmziBC9MjWQJJdah0QZ6axv63h0zS
+         IFCbFPpMzAXmnKBGSF0WTgNUFl+s+xTMvmrYDWiLMcEOKfz45QOx6LpN4t5KS9wo2c6/
+         oe2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788444111; x=1789048911;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qQqL94pz1aKeRhaHhlDg5rCITzELovSKECj2UmHlmfM=;
+        b=fuYYdPIRWB1NRfiIcUQWQBM6cbeeo56Fo9dL8UYW2j6QfWukvpCYlKJNSriR1lP+f+
+         mczf7Gku8wiQmzkBvzMQe43rgt6aL5ipukHMsRJrafeECCDAEVhR5gPUUB4fWXskjVoo
+         fkJZGgzxAy9dlTY3/OPRlRm5Qy5Cwz0bUbXQDDHvbB+4GGxBwYCymCkccdH4rxZ1BzgD
+         ZFcrUDoTUSdkNInpG2J9xmCeAiIxOdIoy8keeDBTjQ7kgZq0ALsSqOxi1kLHCnaTz+mU
+         nPECnYMSyME8Xs7p09EgvnBq6GuSVeB4ROogtgjvMad2MdmOd91ANZ4HIDeFW71fUUn2
+         C25A==
+X-Forwarded-Encrypted: i=1; AKwUvBwplx04MDODrsnEbwxnCJZdv6i5mpBkwZ1YUnFAlqeQvQPGeNTKvEJV592w+U80jEiFuKqNV15jeDt6rqw=@vger.kernel.org
+X-Gm-Message-State: AFuF++liy8PyAfmeJbGF5SuK7+3Nm3KFATSVJH3/vuGTu8UXda42QXo0
+	wkuv9zDfmN+71fpWcoMYwws4lIamkQqnrGfi5DNqZjdFhM+j8ghB77fHuQdj50tbBJg=
+X-Gm-Gg: AYBFou1hzpy5LZbOMTTvyxEmM7gehZTOcyqrnRO6XgOZZ8noVDRVJk4o88FmvEZPsmr
+	ROKja5lWPWEOdQeliSezzOi5d7Zr6kapsCtmFbnuEJDsHIi8aXyrXpz1mxFHEH6K7+LT21uxb8p
+	K8NBMNna5EJUEy86GRBxPoAX0I6IDUJ6GoXvH0Odwi+sifCw5Gm8Oe/67c/nEPGKk3MOa7ylVHH
+	ObJGSr3fFLSOFxPNJgSGuD/EoAlRPNuBbEZXhq6wOHOcEyMgDBMMLOUz81FjtZ3MyL/CmFWHhtk
+	/vSKjyIGdycWhQgjI7+qfzGVPkyYPf+0vjRZLb9wybSNcuM51sGUwQxDeyQgzpm0Rg9e/8QTj6A
+	55g7cC1I0FX2BdqxP0G8zSlt/bGTFbdXrJkOzSUrToyAKQ5MSm0aVKkaubqkTFDsbSF0i7h3OBF
+	qGgxTjSXTzHOI2vHViBFICZQySjFd3XD/KULHNQzSGLszAwNTzsW3mqUX2xXLt2jjXejTCVoi0i
+	VlF
+X-Received: by 2002:a05:600c:e557:10b0:49c:e42b:a4ac with SMTP id 5b1f17b1804b1-49ce5822582mr173308705e9.11.1788444109457;
+        Thu, 03 Sep 2026 07:01:49 -0700 (PDT)
+Received: from pathway.suse.cz (nat2.prg.suse.com. [195.250.132.146])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5f912esm74352975e9.4.2026.09.03.07.01.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 07:01:48 -0700 (PDT)
+Date: Thu, 3 Sep 2026 16:01:46 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: Feng Tang <feng.tang@linux.alibaba.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] panic: remove the unneeded panic_print_get()
+Message-ID: <apl9yt83vksVL7A6@pathway.suse.cz>
+References: <20260902114851.77062-1-feng.tang@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902114851.77062-1-feng.tang@linux.alibaba.com>
 
-From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+On Wed 2026-09-02 19:48:51, Feng Tang wrote:
+> panic_print_get() was introduced in commit 2683df6539cb ("panic: add
+> note that 'panic_print' parameter is deprecated") to print out warning
+> message of the deprecation of 'panic_print' on read access.
+> 
+> Since commit 90f3c123247e ("panic: only warn about deprecated panic_print
+> on write access"), panic_print_get() wrapper is not needed anymore for
+> read access, so remove it and use param_get_ulong() instead.
+> 
+> Signed-off-by: Feng Tang <feng.tang@linux.alibaba.com>
 
-Mirror the ACPI IORT solution used on arm64 (see iort_enable_acs())
-by scanning the RIMT table for PCIe root complex nodes during
-riscv_acpi_rimt_init(), which runs before ACPI PCI enumeration. If a
-root complex node's ID mapping points at an IOMMU node, call
-pci_request_acs() immediately, so pci_acs_enable is already set by
-the time any PCI device is scanned and pci_enable_acs() runs.
+Nice cleanup.
 
-Only one call to pci_request_acs() is needed regardless of how many
-root complexes are found, so track that with a static acs_enabled
-flag, same as iort_enable_acs() does.
+Reviewed-by: Petr Mladek <pmladek@suse.com>
 
-Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
-Reviewed-by: Sunil V L <sunilvl@oss.qualcomm.com>
-
----
-Changes in v2 (Suggested by Sunil):
-    - Check the RIMT node type in riscv_acpi_rimt_init() and invoke
-      rimt_enable_acs() only for PCIe root-complex nodes.
----
- drivers/acpi/riscv/rimt.c | 58 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 58 insertions(+)
-
-diff --git a/drivers/acpi/riscv/rimt.c b/drivers/acpi/riscv/rimt.c
-index e4538fa6c2c8..edbd04a9e03b 100644
---- a/drivers/acpi/riscv/rimt.c
-+++ b/drivers/acpi/riscv/rimt.c
-@@ -179,6 +179,42 @@ static struct acpi_rimt_node *rimt_scan_node(enum acpi_rimt_node_type type,
- 	return NULL;
- }
- 
-+#ifdef CONFIG_PCI
-+static void __init rimt_enable_acs(struct acpi_rimt_node *rimt_node)
-+{
-+	static bool acs_enabled __initdata;
-+	struct acpi_rimt_pcie_rc *pci_rc;
-+	struct acpi_rimt_id_mapping *map;
-+	struct acpi_rimt_node *parent;
-+	int i;
-+
-+	if (acs_enabled)
-+		return;
-+
-+	pci_rc = (struct acpi_rimt_pcie_rc *)rimt_node->node_data;
-+	if (!pci_rc->id_mapping_offset || !pci_rc->num_id_mappings)
-+		return;
-+
-+	map = ACPI_ADD_PTR(struct acpi_rimt_id_mapping, rimt_node,
-+			   pci_rc->id_mapping_offset);
-+
-+	for (i = 0; i < pci_rc->num_id_mappings; i++, map++) {
-+		if (!map->dest_offset)
-+			continue;
-+
-+		parent = ACPI_ADD_PTR(struct acpi_rimt_node, rimt_table,
-+				      map->dest_offset);
-+		if (parent->type == ACPI_RIMT_NODE_TYPE_IOMMU) {
-+			pci_request_acs();
-+			acs_enabled = true;
-+			return;
-+		}
-+	}
-+}
-+#else
-+static inline void rimt_enable_acs(struct acpi_rimt_node *rimt_node) { }
-+#endif
-+
- /*
-  * RISC-V supports IOMMU as a PCI device or a platform device.
-  * When it is a platform device, there should be a namespace device as
-@@ -509,7 +545,10 @@ int rimt_iommu_configure_id(struct device *dev, const u32 *id_in)
- 
- void __init riscv_acpi_rimt_init(void)
- {
-+	struct acpi_rimt_node *rimt_node, *rimt_end;
-+	struct acpi_table_rimt *rimt;
- 	acpi_status status;
-+	int i;
- 
- 	/* rimt_table will be used at runtime after the rimt init,
- 	 * so we don't need to call acpi_put_table() to release
-@@ -525,4 +564,23 @@ void __init riscv_acpi_rimt_init(void)
- 
- 		return;
- 	}
-+
-+	rimt = (struct acpi_table_rimt *)rimt_table;
-+	rimt_node = ACPI_ADD_PTR(struct acpi_rimt_node, rimt,
-+				 rimt->node_offset);
-+	rimt_end = ACPI_ADD_PTR(struct acpi_rimt_node, rimt_table,
-+				rimt_table->length);
-+
-+	for (i = 0; i < rimt->num_nodes; i++) {
-+		if (rimt_node >= rimt_end) {
-+			pr_err("RIMT node pointer overflows, bad table\n");
-+			return;
-+		}
-+
-+		if (rimt_node->type == ACPI_RIMT_NODE_TYPE_PCIE_ROOT_COMPLEX)
-+			rimt_enable_acs(rimt_node);
-+
-+		rimt_node = ACPI_ADD_PTR(struct acpi_rimt_node, rimt_node,
-+					 rimt_node->length);
-+	}
- }
--- 
-2.50.1
-
+Best Regards,
+Petr
