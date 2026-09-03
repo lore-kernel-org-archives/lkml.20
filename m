@@ -1,102 +1,185 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFDB24F474C
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 21:44:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0465372B27
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 21:44:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788471842; cv=none; b=J2QxA8ioH5UG3daVe2alH/JqTocRqkiQQw+eIdebZ89Sb3G4eo3jj2kvsasoRLYFNTsK3TcaBCI9/voMSgn+ZgNYyzneFhaIEr45hjTDEGybichqCizbJjGHeW7vhParf8VRD5Kl9dg9I3JIK/NELF9SL6Dj/ojosHJGR92kHk4=
+	t=1788471858; cv=none; b=gDyDIuZgjpvVR5zwzTCjA+BPx9hrwGL0slUdP9ytY2xuWKb2l/rk0s5v6D/uz11kffyFpc7yNso04s4r+ektmFy8J4MTGd5xlxCr33Gr55Y4kQWv7Y0lwbu3EBIkqoSfvsMqkkv4SPTLf7lDlHRzj4r8OOkWXoZQsMl/dXrhzkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788471842; c=relaxed/simple;
-	bh=F3jOHh+snqMsGLak2PpEkbeCpwY6HsbPB4pwFgYJvVo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=izgYiIo3RSRXdCHUxuxenbx1gsGdBCSidTVU3bj1BbftSeR6XuVh/e351YvmN5dJ5P8vLvyHItTV+oR4vAAwPUScpkuZ7tNyAw1B4a7TRifwu6kf/ndUTYiUZ3Lz0QS+OByuerxym7dEhHRFUx9Z/cZiBdu/yMiV1fQ+gXjQvqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IEN4+Lqe; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788471858; c=relaxed/simple;
+	bh=Hueze08T5W2Ew3KvtbFUwllkqFG9iBBmCN0tN3fMiF4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JxBrf9fvUys9IsZFwI8U3uUR73JBUdBKSeP2NJd+U1/CBUPrtLzkvLtD65j7p7dCmkGfoCPDohTWnRBkE2Z0flamwizbnih7oyKdeU0nQO3NCmV0YyE+NzjG+mT4Annv7rrOSIryhsKx6teYMBOc2m9woJQu4YtDWQO8S+IM394=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nWyNQFWH; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IEN4+Lqe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788471839;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=F3jOHh+snqMsGLak2PpEkbeCpwY6HsbPB4pwFgYJvVo=;
-	b=IEN4+LqeMdTM2+9uDjlcCqiZReQjCalT3KimSerzb+JNl3bJlcyM/8OZAoMDzcp/zOji6a
-	pGqFd+roD4ZZu6OHkqKfClEf5RaK6hJUXV7noO4J/u6TvQS6rN5QGHlrk4X/G5ds8SMRE0
-	C2/pzwMn9h/MExSabgiJ94ZJM3GrbvQ=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-257-E472_1DMN2K9UdbHXXDiBQ-1; Thu,
- 03 Sep 2026 17:43:54 -0400
-X-MC-Unique: E472_1DMN2K9UdbHXXDiBQ-1
-X-Mimecast-MFC-AGG-ID: E472_1DMN2K9UdbHXXDiBQ_1788471833
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9F074195605E;
-	Thu,  3 Sep 2026 21:43:52 +0000 (UTC)
-Received: from fedora (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 867C31800669;
-	Thu,  3 Sep 2026 21:43:50 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Thu,  3 Sep 2026 23:43:52 +0200 (CEST)
-Date: Thu, 3 Sep 2026 23:43:49 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] super: remember whether freeze holds writer rwsems
-Message-ID: <apnqFe3aZdSM6lsy@redhat.com>
-References: <20260903060855.4610-1-kmehltretter@gmail.com>
- <aplro1ObQ5YNZT6R@redhat.com>
- <apnKz_3xD-zbw0dM@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nWyNQFWH"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso6326295e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 14:44:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788471855; x=1789076655; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6xH2vpFd7/KJDLnoGJY2uG70zopl/sgcsHz1QS01L2Y=;
+        b=nWyNQFWHYRomINWyzEpz4daStstzjj7USzRBX7OZhdsPvEnwkqew7wjBrZUgNphI4q
+         clONN6W2nK3Hkaeslp6Y9iquNxo1sIikUyDiSJ6vlZWq4EijTW9KpsuQD+QlHjdNIJFp
+         kRcSKykak6ao6yejYHhDygJ6XUfnEUrOkDvHHUNksQ9eSP9zdvMCp5ZBpth2CsteffAg
+         BaA9iCMcvpHVhFfGWmbMxjhD4ZSscm666aBNVSKUI1xUSUI70lc9VDx3WpZGkDIDXxj6
+         0xuInNOtC6jDrB2ZEuyeHqm6ywIUzvOImkcSe7fjmt0hlun53eL5LaMROYegBcNHaw84
+         a5AQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788471855; x=1789076655;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6xH2vpFd7/KJDLnoGJY2uG70zopl/sgcsHz1QS01L2Y=;
+        b=eRJfbWIiG/D+O4MeOwvXPSbFWyjHonMPFTuyMK/2Eoee2SdgMGjeUqMx92rY6Mb7F8
+         T9mt9Lc1XRmkbgdtVfj6QKpqYHjokv56S6olytZiN3vB1pjldoAIKsWZ3+2gByxpOd1p
+         EHhp59YCncbWDgDpQ8gxKWJiT/epEQsP8UKbZMnRemH2U4LJQCFCKUZlEeLHYcSevUbV
+         LrWjwMfPKBANvIfE1ZnkiUDe18s2e+gumO/bG7iWmUvRhKkUrxN1qEaGABZT9dQUPpA6
+         YFrOnwjTqH50WB/U+N7GEkjnrNx5fylsrleyYMxq5ZuLZjxwffLnWNM5C5NxSEBS7K4x
+         NWRA==
+X-Forwarded-Encrypted: i=1; AKwUvBzdCybK2G6n+547pIoDTy1+jrZUckqdoNy95sWLa1G+M6ghJkyB3giH1/9bfFLqWGtINBV4lS5j7HgoICc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mKga2AqTHigiM3Yp2Mywoir3EiT91XxHnIN/Kx/nAg+4MCrDqW
+	9vMXAe8COEVlVa00RWbTIAEBTlfqo2na0PFeXC+BGc92X0kuMSjE9dIq
+X-Gm-Gg: AYBFou23npf5b4uk1QLNdeVBPibAMJ1EmrkllcZgacetdjRqWkMj3DkZF4oE9UkLMs/
+	ulF/hG5Liu/pj5O6X1gIvMij3iqkpnfXUfAkM59Gms6osrhsOSIpsu//LcvhhJVtFYf0QJeb38w
+	LgnIZlt+gmPguX1glh7pZkQ7q6CQt4xNYKblSIYrbarmqXnpLI8nvXktu8u79aGXhx9+A5ZsbLQ
+	zwTyoENlDg2XANhv/X5VyN9xuDbkbV1Q/Rn+OyzCpt9VlpRl83qHct34lRr4cJTT3BlQEcsk4Jq
+	zdNWc5MBHMb5tbyWpqrO5Z2QkM5UDZrFd91XROYrHbRlxA/ZcoafH13Vxp3zCu2I1EXNrCIVhfy
+	NcaW0FI0f0LNKbGLfQIfrVY9YJwot9Ynlkzk+yKnP98fPauNcXIlRFTw5/zBk4Bpn/5G6CLycdH
+	owThxFeoGSLVOCGgaZU2V0Do7CC/RU4ACqFwMG0U+W83OD91V6L4O4f0CjcAj0dnClw2SBcv2Sz
+	DuXxi35TuJrhmqT9e7hyABRGg==
+X-Received: by 2002:a05:600c:5251:b0:499:9eb8:a1d7 with SMTP id 5b1f17b1804b1-49cf825c45emr14362655e9.9.1788471854969;
+        Thu, 03 Sep 2026 14:44:14 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee60d9c6sm104115335e9.11.2026.09.03.14.44.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 14:44:14 -0700 (PDT)
+Date: Thu, 3 Sep 2026 22:44:12 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Ajith P V <ajithpv.linux@gmail.com>
+Cc: tung.quang.nguyen@est.tech, jmaloy@redhat.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v4] tipc: replace deprecated strcpy with
+ strscpy in tipc_bearer_get_name()
+Message-ID: <20260903224412.179c87a1@pumpkin>
+In-Reply-To: <20260902053043.1483895-1-ajithpv.linux@gmail.com>
+References: <20260902053043.1483895-1-ajithpv.linux@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apnKz_3xD-zbw0dM@gmail.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 09/03, Karl Mehltretter wrote:
->
-> On Thu, Sep 03, 2026 at 02:44:19PM +0100, Oleg Nesterov wrote:
-> > > Tested with a test-only KUnit case in x86_64 QEMU on linux-next
-> > > 32b6ef9a5d0e (next-20260902). It freezes a writable ramfs, sets SB_RDONLY,
-> > > thaws it, and calls sb_start_write_trylock(). The call fails without this
-> > > patch and succeeds with it.
-> >
-> > But I am curious, how exactly did you test this?
-> >
-> > ramfs_ops doesn't have ->freeze_fs or ->freeze_super, so
-> > ioctl_fsfreeze() should fail?
-> >
-> > And how it is possible to remount with -ro, reconfigure_super() should
-> > see sb->s_writers.frozen != SB_UNFROZEN ?
-> >
-> Hi Oleg,
->
-> Thank you for the review!
->
-> The original test called freeze_super() directly, changed SB_RDONLY,
-> and called thaw_super().
+On Wed,  2 Sep 2026 05:30:43 +0000
+Ajith P V <ajithpv.linux@gmail.com> wrote:
 
-Thanks, but this doesn't answer my questions...
+> The `strcpy()` function is deprecated and moving towards code-tree
+> elimination. Replacing it with `strscpy()` fixes potential buffer
+> overflow vectors by ensuring safe NULL-termination based on the
+> destination buffer size limit [1][2].
+> 
+> To make the interface safer and more robust for future callers, refactor
+> `tipc_bearer_get_name()` to accept a destination buffer length parameter.
+> Replace `strcpy()` with `strscpy()` and pass through any potential
+> `-E2BIG` truncation error code up to the caller. Update the existing
+> caller in `net/tipc/monitor.c` to pass its array size.
 
-How exactly this original test "called freeze_super() directly" ?
-Could you show this test-case ?
+For real safety embed the char[TIPC_MAX_BEARER_NAME] in a struct and
+pass the struct through.
+Then you can use sizeof() in the function itself.
 
-IOW, how can we actually hit the problems described in the changelog?
+	David
 
-Let me repeat, you can safely ignore me, I don't understand fs/,
-I am just curious.
-
-Oleg.
+> 
+> Link: https://www.kernel.org/doc/html/latest/process/deprecated.html#strcpy [1]
+> Link: https://github.com/KSPP/linux/issues/88 [2]
+> 
+> Signed-off-by: Ajith P V <ajithpv.linux@gmail.com>
+> ---
+> v4:
+>   - Avoid hard-coding TIPC_MAX_BEARER_NAME in the function body.
+>   - Pass size_t len from the caller down to strscpy().
+>   - Forward strscpy()'s -E2BIG error up through the existing int return type.
+>   - Updated function documentation comment block.
+> v3:
+>   - Fix patch title as suggested by Tung Quang Nguyen.
+>   - No code changes from v2.
+> v2:
+>   - Target net-next tree instead of standard net tree as requested by Tung Quang Nguyen.
+>   - No code changes from v1.
+> 
+>  net/tipc/bearer.c  | 8 ++++++--
+>  net/tipc/bearer.h  | 2 +-
+>  net/tipc/monitor.c | 2 +-
+>  3 files changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/net/tipc/bearer.c b/net/tipc/bearer.c
+> index 05dcd2f9e887..abd90e6bde09 100644
+> --- a/net/tipc/bearer.c
+> +++ b/net/tipc/bearer.c
+> @@ -195,12 +195,14 @@ struct tipc_bearer *tipc_bearer_find(struct net *net, const char *name)
+>  /*     tipc_bearer_get_name - get the bearer name from its id.
+>   *     @net: network namespace
+>   *     @name: a pointer to the buffer where the name will be stored.
+> + *     @len: size of the destination buffer
+>   *     @bearer_id: the id to get the name from.
+>   */
+> -int tipc_bearer_get_name(struct net *net, char *name, u32 bearer_id)
+> +int tipc_bearer_get_name(struct net *net, char *name, size_t len, u32 bearer_id)
+>  {
+>  	struct tipc_net *tn = tipc_net(net);
+>  	struct tipc_bearer *b;
+> +	int ret;
+>  
+>  	if (bearer_id >= MAX_BEARERS)
+>  		return -EINVAL;
+> @@ -209,7 +211,9 @@ int tipc_bearer_get_name(struct net *net, char *name, u32 bearer_id)
+>  	if (!b)
+>  		return -EINVAL;
+>  
+> -	strcpy(name, b->name);
+> +	ret = strscpy(name, b->name, len);
+> +	if (ret < 0)
+> +		return ret; /* Returns -E2BIG if destination buffer is too small */
+>  	return 0;
+>  }
+>  
+> diff --git a/net/tipc/bearer.h b/net/tipc/bearer.h
+> index 41eac1ee0c09..12a322642de1 100644
+> --- a/net/tipc/bearer.h
+> +++ b/net/tipc/bearer.h
+> @@ -226,7 +226,7 @@ int tipc_l2_send_msg(struct net *net, struct sk_buff *buf,
+>  void tipc_bearer_add_dest(struct net *net, u32 bearer_id, u32 dest);
+>  void tipc_bearer_remove_dest(struct net *net, u32 bearer_id, u32 dest);
+>  struct tipc_bearer *tipc_bearer_find(struct net *net, const char *name);
+> -int tipc_bearer_get_name(struct net *net, char *name, u32 bearer_id);
+> +int tipc_bearer_get_name(struct net *net, char *name, size_t len, u32 bearer_id);
+>  struct tipc_media *tipc_media_find(const char *name);
+>  int tipc_bearer_setup(void);
+>  void tipc_bearer_cleanup(void);
+> diff --git a/net/tipc/monitor.c b/net/tipc/monitor.c
+> index a94b9b36a700..8af49000a07c 100644
+> --- a/net/tipc/monitor.c
+> +++ b/net/tipc/monitor.c
+> @@ -833,7 +833,7 @@ int __tipc_nl_add_monitor(struct net *net, struct tipc_nl_msg *msg,
+>  	void *hdr;
+>  	int ret;
+>  
+> -	ret = tipc_bearer_get_name(net, bearer_name, bearer_id);
+> +	ret = tipc_bearer_get_name(net, bearer_name, sizeof(bearer_name), bearer_id);
+>  	if (ret || !mon)
+>  		return 0;
+>  
 
