@@ -1,143 +1,166 @@
-Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com [209.85.160.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-125.mail.aliyun.com (out28-125.mail.aliyun.com [115.124.28.125])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA53357CF4
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 02:41:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B73593546E0;
+	Thu,  3 Sep 2026 02:41:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.125
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788403267; cv=none; b=UVPSyeL5UqqCrJNLdcd1z44DW3mqCM+rt6Pi/btsNHHutJThRSPqNhd4liaw5LknPHboKuR6ifq090UH95R0ceiEY5YqecdBlLBTSVw2KkMMU+8Jw3XBeJxbJlhKEf0x9EUjmmHG6LmOTWOtuWMcv68hxPbWnodjI22aInSFeP0=
+	t=1788403303; cv=none; b=NkEVnkxlZioMeZ+cwKZcwEwzqnFFojxrF/XywVk5R4KlzC3HJ24kwr6WLzXUv6dDRbydeGmMSSpQ98Y/g3WLoeXnL1+Vwd0vfL9uwpo8rEhZ1iiAnq8Q9zSvFCMff70dv/Jva7D1Fxaz6vckBpcb5zJ4y9g8nL5Ibdu6BA0Wvi4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788403267; c=relaxed/simple;
-	bh=lr0aR1UY7uIm1dLJJqyF/T2lElAnVVpA0WzNuk3EPMI=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=JTqczoZ3LBvi4aoWSbDQxD8006v1Y2iWXepdI4pzXV9l1cPqTsv4a2MARx/cqt7qFfA7hhVbG07/wfVPBX3z3ZtFUpRHc4CT/jciz81JMMEnds1R/VAh4WIFbpgPujVfwB+WuMtCjOEeJqeyHe0C2xw+sDHCMeqW1kgY9i3drcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-4412c255fd4so2363568fac.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 19:41:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788403265; x=1789008065;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=iRtqUWnllCctgJmjQTfsRI6sPQicPo1I015+mx/n+3o=;
-        b=JbxtH+Qd9M1/kzsLgHKXfzpHa6j0oXOLo8jez/34W4ZfKeDCmyZPJVDqkZSNjw/fPs
-         1A5h9O5k01B+PigrzpoCWdpp6poWhtazZBWT4rIIpFmOo+tU8G6l7N6oxMLAMLcHiEvq
-         2g/dkrh3k457mkVgo8wuAIbdMTp+yuKvxY7Plk8OwCPWDO+7lVFutArCb1d/O1O/CWr0
-         slFJVDsxPF67RTwy3BQ5150e/lt2k/BjFTm5NUIi2pTjT/BTGU3PAUBUoOxtjhzA+8G2
-         8coyXsTImgFNLt1f9IXo0CD9O6Ko60U+U4w133YbjH00E5Id4jQWLu4/rJrPoJZrYhy7
-         reig==
-X-Forwarded-Encrypted: i=1; AKwUvBzcJWHUS0pZpX1KpI9bD3f2cKKIztZmyXyWTEjCieN1G2iqeMpnbxq4yoLH0cDKB1MIiugYxyh29LpbXwY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lNTjItFuGCH2nCIaWhFzFscYQEBQvN8RS/kXgzO6iPl9PwuoO2
-	bpjpS/cSr2b17A/udapmJKSlKfaI95RQAtGARFrAzUDjxIFRM0+w8ooEob47pzR6ItbEXcIXA1e
-	M6IsNi+ymAUzKBLvAoGAL1uCrugsda8aJk7f6qhqnVkVeQ3tP/dojPgxe8mM=
+	s=arc-20240116; t=1788403303; c=relaxed/simple;
+	bh=6u4PHAZ/H4x65SWpE7IYKnikm6E+U38Lj4eVkpdhFKM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bj7teHrbiciLcnlX0MP1SzNQ7BdavcX31/B+6JznCg6aJldUZD+y91G7/5UYNQKKE9RGuJv2j1tgHUlMNU7FPtbRPUHgJEAvqrQpmrMOdZzUmKj9KcXaeaDSS89j7feOkmV40gNY0SRpsXL5L7qSiQmT0cazb/c9x1S98DyS8Ro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=115.124.28.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.09446921|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00875414-0.00211812-0.989128;FP=7200128259874146027|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033023018039;MF=zhang_wei@open-hieco.net;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.j429d-8_1788403282;
+Received: from 172.18.22.44(mailfrom:zhang_wei@open-hieco.net fp:SMTPD_---.j429d-8_1788403282 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Thu, 03 Sep 2026 10:41:26 +0800
+Message-ID: <9515a124-5c18-4015-b64a-e80bb6b84264@open-hieco.net>
+Date: Thu, 3 Sep 2026 10:41:20 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:2918:b0:6b0:4199:3cc4 with SMTP id
- 006d021491bc7-6b48173f922mr8898596eaf.27.1788403265029; Wed, 02 Sep 2026
- 19:41:05 -0700 (PDT)
-Date: Wed, 02 Sep 2026 19:41:05 -0700
-In-Reply-To: <20260903022452.111316-2-adrianox@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a98de41.9266084e.bf0d7.0015.GAE@google.com>
-Subject: Re: [syzbot] [usb?] general protection fault in keyspan_break_ctl
-From: syzbot <syzbot+473d7477c523b41d4046@syzkaller.appspotmail.com>
-To: adrianox@gmail.com, johan@kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/8] KVM: nSVM: Enable DecodeAssists for nested guests
+To: Sean Christopherson <seanjc@google.com>, Jim Mattson
+ <jmattson@google.com>, kvm@vger.kernel.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>,
+ zhouyanjing@hygon.cn, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260824123954.315112-1-zhang_wei@open-hieco.net>
+Content-Language: en-US
+From: Tina Zhang <zhang_wei@open-hieco.net>
+In-Reply-To: <20260824123954.315112-1-zhang_wei@open-hieco.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello,
+Hi Sean and Jim,
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-general protection fault in keyspan_break_ctl
+A gentle ping on this series. I believe v5 addresses all the comments 
+from the previous review rounds. Could you please take another look when 
+you have a chance? Any further comments would be appreciated.
 
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000013: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000098-0x000000000000009f]
-CPU: 3 UID: 0 PID: 6463 Comm: syz.3.20 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:keyspan_break_ctl+0x8e/0xe0 drivers/usb/serial/keyspan.c:608
-Code: ff ff ff e8 24 67 42 fa 83 fb ff 48 b8 00 00 00 00 00 fc ff df 49 8d bc 24 9c 00 00 00 0f 94 c3 48 89 fa 0f b6 db 48 c1 ea 03 <0f> b6 14 02 48 89 f8 83 e0 07 83 c0 03 38 d0 7c 04 84 d2 75 1d 41
-RSP: 0018:ffffc9000334fca8 EFLAGS: 00010203
-RAX: dffffc0000000000 RBX: 0000000000000001 RCX: ffffffff87c9835c
-RDX: 0000000000000013 RSI: 00000000ffffffff RDI: 000000000000009c
-RBP: ffff888059412000 R08: 0000000000000005 R09: 00000000ffffffff
-R10: 00000000ffffffff R11: 0000000000000000 R12: 0000000000000000
-R13: ffff888038a76e00 R14: ffff88802aef6020 R15: ffff88802aef60c8
-FS:  00007f62980d46c0(0000) GS:ffff8880d5e61000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f41412c8d58 CR3: 0000000025cea000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- serial_break+0xcb/0x160 drivers/usb/serial/usb-serial.c:538
- send_break drivers/tty/tty_io.c:2456 [inline]
- send_break+0x194/0x3b0 drivers/tty/tty_io.c:2442
- tty_ioctl+0xa2f/0x1640 drivers/tty/tty_io.c:2737
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl fs/ioctl.c:583 [inline]
- __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f629719e0d9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f62980d4028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007f6297425fa0 RCX: 00007f629719e0d9
-RDX: 0000000000000000 RSI: 0000000000005425 RDI: 0000000000000004
-RBP: 00007f6297235024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f6297426038 R14: 00007f6297425fa0 R15: 00007ffcf04a40e8
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:keyspan_break_ctl+0x8e/0xe0 drivers/usb/serial/keyspan.c:608
-Code: ff ff ff e8 24 67 42 fa 83 fb ff 48 b8 00 00 00 00 00 fc ff df 49 8d bc 24 9c 00 00 00 0f 94 c3 48 89 fa 0f b6 db 48 c1 ea 03 <0f> b6 14 02 48 89 f8 83 e0 07 83 c0 03 38 d0 7c 04 84 d2 75 1d 41
-RSP: 0018:ffffc9000334fca8 EFLAGS: 00010203
-RAX: dffffc0000000000 RBX: 0000000000000001 RCX: ffffffff87c9835c
-RDX: 0000000000000013 RSI: 00000000ffffffff RDI: 000000000000009c
-RBP: ffff888059412000 R08: 0000000000000005 R09: 00000000ffffffff
-R10: 00000000ffffffff R11: 0000000000000000 R12: 0000000000000000
-R13: ffff888038a76e00 R14: ffff88802aef6020 R15: ffff88802aef60c8
-FS:  00007f62980d46c0(0000) GS:ffff8880d5d61000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000055aeb7ddb480 CR3: 0000000025cea000 CR4: 0000000000352ef0
-----------------
-Code disassembly (best guess), 2 bytes skipped:
-   0:	ff                   	ljmp   (bad)
-   1:	e8 24 67 42 fa       	call   0xfa42672a
-   6:	83 fb ff             	cmp    $0xffffffff,%ebx
-   9:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
-  10:	fc ff df
-  13:	49 8d bc 24 9c 00 00 	lea    0x9c(%r12),%rdi
-  1a:	00
-  1b:	0f 94 c3             	sete   %bl
-  1e:	48 89 fa             	mov    %rdi,%rdx
-  21:	0f b6 db             	movzbl %bl,%ebx
-  24:	48 c1 ea 03          	shr    $0x3,%rdx
-* 28:	0f b6 14 02          	movzbl (%rdx,%rax,1),%edx <-- trapping instruction
-  2c:	48 89 f8             	mov    %rdi,%rax
-  2f:	83 e0 07             	and    $0x7,%eax
-  32:	83 c0 03             	add    $0x3,%eax
-  35:	38 d0                	cmp    %dl,%al
-  37:	7c 04                	jl     0x3d
-  39:	84 d2                	test   %dl,%dl
-  3b:	75 1d                	jne    0x5a
-  3d:	41                   	rex.B
+Thanks,
+Tina
 
 
-Tested on:
-
-commit:         940de590 Merge tag 'hardening-v7.3-rc2' of git://git.k..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=10641f79580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=473d7477c523b41d4046
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=10f81f79580000
+On 8/24/2026 8:39 PM, Tina Zhang wrote:
+> The SVM DecodeAssists feature provides decode state for selected
+> VM-Exits.  KVM currently does not expose this feature to L1.  Some L1
+> hypervisors may therefore treat the platform's SVM support as
+> incomplete.
+> 
+> In practice, this was observed with Hyper-V running on top of KVM.
+> Hyper-V appears to require DecodeAssists before enabling nested SVM for
+> its guests.  Virtualizing the feature lets users enable Hyper-V
+> virtualization features inside a Windows VM when needed, e.g. to run
+> QEMU/KVM in WSL.  Without DecodeAssists, Hyper-V does not enable nested
+> SVM because DecodeAssists is missing from KVM's virtual SVM model.
+> 
+> Virtualize both parts of DecodeAssists for nested SVM.  For emulated
+> MOV CR/DR, INTn, INVLPG, and INVLPGA intercepts, synthesize the
+> architectural EXITINFO state that hardware would provide to L1.
+> 
+> For data #PF and #NPF VM-Exits, provide GuestInstrBytes from fresh
+> VMCB02 state, matching emulator fetch bytes, or an on-demand fetch from
+> the current L2 CS:RIP, depending on how the nested VM-Exit was produced.
+> Instruction-fetch faults report no instruction bytes, and encrypted
+> guests do not use the on-demand fallback.
+> 
+> Add a focused selftest covering synthesized EXITINFO, hardware and
+> synthesized GuestInstrBytes, truncated instruction fetching, and
+> instruction-fetch faults.  The test has been run with
+> kvm.force_emulation_prefix both disabled and enabled.
+> 
+> Changes since v4:
+> - Drop the generic queued-exception provenance tracking for delayed and
+>    synthesized #PF VM-Exits.  Fetch their instruction bytes from the
+>    current L2 CS:RIP when constructing VMCB12 instead.
+> - Keep matching emulator fetch bytes only for synthesized #NPF exits,
+>    and use the on-demand fetch to fill any missing tail.
+> - Reduce the series from nine to eight patches by removing the generic
+>    x86 exception-tracking patch.
+> - Trim the selftest to focused cases that cover distinct implementation
+>    paths and regressions, removing redundant instruction variants,
+>    overlapping boundary cases, and userspace event-state coverage.
+> 
+> v4:
+> https://lore.kernel.org/r/cover.1787116250.git.zhang_wei@open-hieco.net
+> 
+> Changes since v3:
+> - Rebase onto kvm-x86/next.
+> - Register DecodeAssists in the CPUID 0x8000000A SVM capability
+>    initializer so that common code validates its CPUID word before the
+>    SVM code enables it for nested guests.
+> - Make the VMCB02 instruction-byte source const and simplify the
+>    synthesized-byte copy and fallback-fetch flow.
+> 
+> v3:
+> https://lore.kernel.org/r/cover.1785411877.git.zhang_wei@open-hieco.net
+> 
+> Changes since v2:
+> - Rebase onto kvm-x86/next.
+> - Track hardware-provided instruction bytes independently of the VMCB02
+>    exit code, and preserve the bytes when L0 handles an intercepted #PF
+>    before reflecting it to L1.
+> - Select the instruction-byte source using host-owned VMCB02 state
+>    instead of control fields in guest-owned VMCB12.
+> - Record whether a queued #PF VM-Exit has a matching emulator context,
+>    so userspace-injected #PF exits do not consume stale emulator bytes.
+> - Stop fallback instruction fetches at noncanonical addresses and at the
+>    32-bit linear-address boundary.
+> - Extend the selftest with regression coverage for replacing a hardware
+>    #NPF with a synthesized #NPF and for userspace-injected #PF during
+>    emulation, and harden its page layout and ucall handling.
+> 
+> v2:
+> https://lore.kernel.org/r/cover.1783999988.git.zhang_wei@open-hieco.net
+> 
+> Changes since v1:
+> - Split the implementation into seven patches to make the individual
+>    pieces easier to review.
+> - Add EXITINFO virtualization for emulator-generated MOV CR/DR, INTn,
+>    INVLPG, and INVLPGA intercepts.
+> - Limit GuestInstrBytes propagation to data #NPF and intercepted #PF
+>    exits, and clear the fields for instruction-fetch and unrelated exits.
+> - Provide GuestInstrBytes for KVM-synthesized data #PF/#NPF exits.  Use
+>    matching emulator bytes first and fetch missing bytes from L2 RIP as a
+>    fallback, while avoiding fallback reads for SEV guests.
+> - Expand the selftest beyond hardware #NPF and stale-state coverage to
+>    exercise hardware, synthesized, userspace-injected, instruction-fetch,
+>    page-boundary, and CS-limit cases.
+> 
+> v1:
+> https://lore.kernel.org/r/20260629125205.52394-1-zhang_wei@open-hieco.net
+> 
+> Tina Zhang (8):
+>    KVM: x86: Add helper to provide intercept linear addresses
+>    KVM: nSVM: Synthesize DecodeAssists EXITINFO for emulated intercepts
+>    KVM: nSVM: Track fresh hardware DecodeAssist bytes
+>    KVM: nSVM: Propagate hardware DecodeAssist bytes to VMCB12
+>    KVM: nSVM: Use emulator bytes for synthesized nested #NPF
+>    KVM: nSVM: Fetch missing DecodeAssist bytes for synthesized #NPF/#PF
+>    KVM: nSVM: Advertise DecodeAssists to L1
+>    KVM: selftests: Add nested SVM DecodeAssists test
+> 
+>   arch/x86/kvm/cpuid.c                          |   1 +
+>   arch/x86/kvm/emulate.c                        |  29 +-
+>   arch/x86/kvm/kvm_emulate.h                    |   1 +
+>   arch/x86/kvm/svm/nested.c                     | 180 ++++++-
+>   arch/x86/kvm/svm/svm.c                        |  56 +-
+>   arch/x86/kvm/svm/svm.h                        |  17 +-
+>   tools/testing/selftests/kvm/Makefile.kvm      |   1 +
+>   .../selftests/kvm/include/x86/processor.h     |   1 +
+>   .../kvm/x86/svm_nested_decode_assists_test.c  | 482 ++++++++++++++++++
+>   9 files changed, 754 insertions(+), 14 deletions(-)
+>   create mode 100644 tools/testing/selftests/kvm/x86/svm_nested_decode_assists_test.c
+> 
+> 
+> base-commit: 1b731e5ded480bd1e5546aed35584238661ce72e
 
