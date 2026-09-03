@@ -1,229 +1,213 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F14D43B3DE;
-	Thu,  3 Sep 2026 07:46:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A682D3A75;
+	Thu,  3 Sep 2026 07:47:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788421620; cv=none; b=WQYMAeqBMyENsfRC6gVMQ3PtqNNPsildm7S45FGkT8i2pIB2N4zxpxoGyI2Dd+UY3qbIbsZrtkXRoTA5Luvb0YNSPMbtjSfCLu5mtykkc9rx0fbj1cOX2D3D4dsQUn6vZ7ZXe0km1Jq1sokFp8s95HF5iuHpFV2WEw6KaADxT2I=
+	t=1788421638; cv=none; b=Zb1FxsDYQ0i5GkjJ2sVaUtxMByyHSHe/2rVJNAq5DFwhxAZQIPocBdk/Q1AR84kIvDNPQWR+pKzKdFQzIvFx+2w/+tz5sbpC1tA9XIrqlz636KLbvtO0kW4/TQjqquRke1nqJg3yYvbkVOly0V+RSGk5QX/bvsNVeoLTHyBayfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788421620; c=relaxed/simple;
-	bh=Cl0NZ3XpAP7HfxvIn/bTq7M/efP9DEVbCTug8RKQaHo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ajl3w27wy9GCgUG7BmjnqN9Une0N2IVfrkWp936sy5hkP4re3jET3BT77XIFWFw+rCKNA/E1wP0V4TMQfh3W3e16lRrpWfo++YNvZe3nxToF+Pt2esFAiloFMlTHZj5YZ06Oog+RdM0bw3+UtEIOK+NhB9nZTGCZvnWGQTuIaD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Jkg2wMsO; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=SDDldus3; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788421638; c=relaxed/simple;
+	bh=2eZKdONamPvCP1y5RVztRq6n8gH4zttgffCWQfy2imM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TCFi91c8HMwPGpHmPgPE1Bb8rKYwrQPVchjxlDp2b+ohhvNF08rs/zDmaFHL7toC19Mr4c8NI1m9jv9ERMI8sm4OKzrtfy2KEXtkjxysPqytvqYQUAIsG6/5YQpf6xyAhsePVAozikWTvhbOUCucGNOyW4t0VxZgU7MpsyfBDH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WjAT8ISn; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Jkg2wMsO";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="SDDldus3"
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh_=28Schneider_Electric=29?= <thomas.weissschuh@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788421617;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Q4R5tcvzIFsy/xQEdT5mJzi52ucmMu7YwKbCKoveVzY=;
-	b=Jkg2wMsON1/8sRsHupBIMCoTq1VdSzHs2k2xOHeUOKINR1ncXNjkfIIdqaiOU0YYKIM9eI
-	Rsn60txv9ulKbO7czvGfTA15JEq59w300G5ED6Heu1KXRSLispFCwkSd5M3SZRifAGKdhc
-	7o6AmlR2gviSEIlSeDPUmJ23a/DY5clmzfxX3scSI0MvJ/eawC0YrejqYLZy1Bc71Wp+He
-	6vY+KNVOJBd6Oun+FuzrRA7dRIrtAph/tNcS+AKY5DGO0o3jGtr0hqiRwunfeSKJEJEufD
-	2muYuDjq6S7J5XD59LdjZtZDTd6DLWNdb6UpuqT/v10Q9YdfEANOd6RSJmZEOA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788421617;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Q4R5tcvzIFsy/xQEdT5mJzi52ucmMu7YwKbCKoveVzY=;
-	b=SDDldus3VjMAxc51eHRue8WDB6/ESlzEWc1vCDCABIyXMdJLvRRL1iwriK568nscg1Nz3E
-	Gj/wOahpWKnlJhCw==
-Date: Thu, 03 Sep 2026 09:46:53 +0200
-Subject: [PATCH 4/4] rtc: test: Remove test_rtc_lib.c
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WjAT8ISn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788421637; x=1819957637;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=2eZKdONamPvCP1y5RVztRq6n8gH4zttgffCWQfy2imM=;
+  b=WjAT8ISnVatwrk3DKrccEU4FM3C/vMRBbJkO0lclGHRVI6jv/ZmAA8EO
+   YY96bZYLu5jjUf16cYO5dQek8qGhkkQsO+vJIpAQK4DtjdYI52Zzrh8Nd
+   GQDu3bw9o1T3HJyOEh0lKdXuoF6b9d0Md9mI2oGPQ6qzvNXlW6yuWdyce
+   a4iOsAV0LeorAU9YLVZj22NSU7lvF4P8OJFBjem6dzeHpAkLKBfbeJDzR
+   DiBZVyQIVH2lGQ1CGathun18pwhCnmthFCaRBDVIYriJjQoENSg56GBsY
+   lxH5I1bN3TmuqWWOaUBCskgQbpEvmJDi5VjATb+Fsz653yT7rF2od8CNl
+   Q==;
+X-CSE-ConnectionGUID: NcKnVddEREm8uhcsAljm8w==
+X-CSE-MsgGUID: ku2yQo01RPK0O+ESJszvWg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="99555157"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="99555157"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 00:47:16 -0700
+X-CSE-ConnectionGUID: Hxhn/43GRSOYkNyUr+boqg==
+X-CSE-MsgGUID: aEGVW8hZTXaw6XN4m0VwhA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="293143021"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 00:47:12 -0700
+Date: Thu, 3 Sep 2026 10:47:09 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	=?iso-8859-1?Q?Beno=EEt?= Monin <benoit.monin@bootlin.com>
+Subject: Re: [PATCH v2 12/12] i2c: designware: add support for I2C_XFER_V2 -
+ detailed fault reporting
+Message-ID: <apkl_XHaZreKoipX@ashevche-desk.local>
+References: <20260903-i2c-fault-reporting-v2-0-fedeb91792e6@mobileye.com>
+ <20260903-i2c-fault-reporting-v2-12-fedeb91792e6@mobileye.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260903-time-time64-to-tm-v1-4-660be972adfc@linutronix.de>
-References: <20260903-time-time64-to-tm-v1-0-660be972adfc@linutronix.de>
-In-Reply-To: <20260903-time-time64-to-tm-v1-0-660be972adfc@linutronix.de>
-To: John Stultz <jstultz@google.com>, Thomas Gleixner <tglx@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788421614; l=4664;
- i=thomas.weissschuh@linutronix.de; s=20240209; h=from:subject:message-id;
- bh=Cl0NZ3XpAP7HfxvIn/bTq7M/efP9DEVbCTug8RKQaHo=;
- b=BEdoLpCuJtsb3Ws4e141oeIV3LFNIv1TrQqDxWSijM/RkDSdN3Cylx1rtWb42fngJYqFmBSdf
- HCVvTxVlXZRArJiOycJBG4piURungwmhy+s7MCqJ04KkOe8vNuBcGzn
-X-Developer-Key: i=thomas.weissschuh@linutronix.de; a=ed25519;
- pk=pfvxvpFUDJV2h2nY0FidLUml22uGLSjByFbM6aqQQws=
+In-Reply-To: <20260903-i2c-fault-reporting-v2-12-fedeb91792e6@mobileye.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Now that rtc_time64_to_tm() is only a thin wrapper around time64_to_tm()
-the dedicated test is not necessary anymore. time64_to_tm() is already
-tested with a similar test in kernel/time/time_test.c
+On Thu, Sep 03, 2026 at 08:38:19AM +0300, Dmitry Guzman wrote:
+> I2C_XFER_V2 is a new API that allows I2C clients to get the detailed
+> report in case of transmission failure. Previously, the only information
+> returned by I2C bus controller was the error code; there was no way to
+> find out how many messages or bytes in a certain message have been sent
+> or received until the fault condition occurred, or to receive the data
+> read before the fault.
+> 
+> This patch introduces support for this feature in i2c-designware driver.
+> For AMD_NAVI_GPU model that has its own `xfer` callback function, this
+> feature is currently not implemented.
+> 
+> The driver uses FLUSH_CNT field of ABORT_SOURCE register to detect
+> how many command/data bytes written to FIFO were not actually sent.
+> 
+> Also, if the detailed fault report is required, the driver checks
+> status after each read/write from/to FIFO. If ABORT flag is set, the
+> driver cannot detect what happened first - FIFO read/write or
+> communication abort, so it assumes that abort happened first, otherwise
+> it either falsely reports one extra byte sent or returns the byte read
+> from FIFO flushed after abort as a valid read byte. So, in unfortunate
+> conditions, the fault report may be too pessimistic by one byte.
+> 
+> This check increases amount of time spent in interrupt handler, so if
+> client doesn't need detailed fault report, this check should be avoided.
+> Because of this, both `xfer` and `xfer_v2` callbacks are implemented in
+> struct i2c_algorithm: the former does not generate detailed fault
+> report, while the latter does.
 
-Remove it.
+...
 
-Signed-off-by: Thomas Wei√üschuh (Schneider Electric) <thomas.weissschuh@linutronix.de>
----
- drivers/rtc/Kconfig        |   9 ----
- drivers/rtc/Makefile       |   2 -
- drivers/rtc/test_rtc_lib.c | 106 ---------------------------------------------
- 3 files changed, 117 deletions(-)
+> +static int i2c_dw_fault_report(struct dw_i2c_dev *dev, struct i2c_transfer_report *report);
 
-diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
-index 05b9233b9418..b507ed2f10e7 100644
---- a/drivers/rtc/Kconfig
-+++ b/drivers/rtc/Kconfig
-@@ -75,15 +75,6 @@ config RTC_DEBUG
- 	  Say yes here to enable debugging support in the RTC framework
- 	  and individual RTC drivers.
- 
--config RTC_LIB_KUNIT_TEST
--	tristate "KUnit test for RTC lib functions" if !KUNIT_ALL_TESTS
--	depends on KUNIT
--	default KUNIT_ALL_TESTS
--	help
--	  Enable this option to test RTC library functions.
--
--	  If unsure, say N.
--
- config RTC_NVMEM
- 	bool "RTC non volatile storage support"
- 	select NVMEM
-diff --git a/drivers/rtc/Makefile b/drivers/rtc/Makefile
-index 0347645b021f..a3b336432df1 100644
---- a/drivers/rtc/Makefile
-+++ b/drivers/rtc/Makefile
-@@ -15,8 +15,6 @@ rtc-core-$(CONFIG_RTC_INTF_DEV)		+= dev.o
- rtc-core-$(CONFIG_RTC_INTF_PROC)	+= proc.o
- rtc-core-$(CONFIG_RTC_INTF_SYSFS)	+= sysfs.o
- 
--obj-$(CONFIG_RTC_LIB_KUNIT_TEST)	+= test_rtc_lib.o
--
- # Keep the list ordered.
- 
- obj-$(CONFIG_RTC_DRV_88PM80X)	+= rtc-88pm80x.o
-diff --git a/drivers/rtc/test_rtc_lib.c b/drivers/rtc/test_rtc_lib.c
-deleted file mode 100644
-index 0eebad1fe2a0..000000000000
---- a/drivers/rtc/test_rtc_lib.c
-+++ /dev/null
-@@ -1,106 +0,0 @@
--// SPDX-License-Identifier: LGPL-2.1+
--
--#include <kunit/test.h>
--#include <linux/rtc.h>
--
--/*
-- * Advance a date by one day.
-- */
--static void advance_date(int *year, int *month, int *mday, int *yday, int *wday)
--{
--	*wday = (*wday + 1) % 7;
--
--	if (*mday != rtc_month_days(*month - 1, *year)) {
--		++*mday;
--		++*yday;
--		return;
--	}
--
--	*mday = 1;
--	if (*month != 12) {
--		++*month;
--		++*yday;
--		return;
--	}
--
--	*month = 1;
--	*yday  = 1;
--	++*year;
--}
--
--/*
-- * Check every day in specified number of years interval starting on 1970-01-01
-- * against the expected result.
-- */
--static void rtc_time64_to_tm_test_date_range(struct kunit *test, int years)
--{
--	/*
--	 * years	= (years / 400) * 400 years
--	 *		= (years / 400) * 146097 days
--	 *		= (years / 400) * 146097 * 86400 seconds
--	 */
--	time64_t total_secs = ((time64_t)years) / 400 * 146097 * 86400;
--
--	int year	= 1900;
--	int month	= 1;
--	int mday	= 1;
--	int yday	= 1;
--	int wday	= 1; /* Jan 1st 1900 was a Monday */
--
--	struct rtc_time result;
--	time64_t secs;
--	const time64_t sec_offset = RTC_TIMESTAMP_BEGIN_1900 + ((1 * 60) + 2) * 60 + 3;
--
--	for (secs = 0; secs <= total_secs; secs += 86400) {
--
--		rtc_time64_to_tm(secs + sec_offset, &result);
--
--		#define FAIL_MSG "%d/%02d/%02d (%2d, %d) : %lld", \
--			year, month, mday, yday, wday, secs + sec_offset
--
--		KUNIT_ASSERT_EQ_MSG(test, year - 1900, result.tm_year, FAIL_MSG);
--		KUNIT_ASSERT_EQ_MSG(test, month - 1, result.tm_mon, FAIL_MSG);
--		KUNIT_ASSERT_EQ_MSG(test, mday, result.tm_mday, FAIL_MSG);
--		KUNIT_ASSERT_EQ_MSG(test, yday, result.tm_yday, FAIL_MSG);
--		KUNIT_ASSERT_EQ_MSG(test, 1, result.tm_hour, FAIL_MSG);
--		KUNIT_ASSERT_EQ_MSG(test, 2, result.tm_min, FAIL_MSG);
--		KUNIT_ASSERT_EQ_MSG(test, 3, result.tm_sec, FAIL_MSG);
--		KUNIT_ASSERT_EQ_MSG(test, wday, result.tm_wday, FAIL_MSG);
--
--		advance_date(&year, &month, &mday, &yday, &wday);
--	}
--}
--
--/*
-- * Checks every day in a 160000 years interval starting on 1900-01-01
-- * against the expected result.
-- */
--static void rtc_time64_to_tm_test_date_range_160000(struct kunit *test)
--{
--	rtc_time64_to_tm_test_date_range(test, 160000);
--}
--
--/*
-- * Checks every day in a 1000 years interval starting on 1900-01-01
-- * against the expected result.
-- */
--static void rtc_time64_to_tm_test_date_range_1000(struct kunit *test)
--{
--	rtc_time64_to_tm_test_date_range(test, 1000);
--}
--
--static struct kunit_case rtc_lib_test_cases[] = {
--	KUNIT_CASE(rtc_time64_to_tm_test_date_range_1000),
--	KUNIT_CASE_SLOW(rtc_time64_to_tm_test_date_range_160000),
--	{}
--};
--
--static struct kunit_suite rtc_lib_test_suite = {
--	.name = "rtc_lib_test_cases",
--	.test_cases = rtc_lib_test_cases,
--};
--
--kunit_test_suite(rtc_lib_test_suite);
--
--MODULE_DESCRIPTION("KUnit test for RTC lib functions");
--MODULE_LICENSE("GPL");
+Why forward declaration?
+
+> +static inline bool i2c_dw_check_abort_flag(struct dw_i2c_dev *dev)
+
+Why 'inline'?
+
+> +{
+> +	u32 stat;
+> +
+> +	regmap_read(dev->map, DW_IC_RAW_INTR_STAT, &stat);
+> +	return (!!(stat & DW_IC_INTR_TX_ABRT));
+
+Not a macro style.
+
+> +}
+
+...
+
+> +			/* If precise fault reporting is required, check if the transfer
+> +			 * is aborted after writing each byte.
+> +			 * Otherwise, if it is aborted during filling FIFO, there is no way
+> +			 * to know how many bytes was written to FIFO after transfer abort
+> +			 * and thus are not counted in FLUSH_CNT.
+> +			 * If we are checking abort flag after each byte, we can lose only 1 byte.
+> +			 */
+
+Style of the comments...
+
+...
+
+> +	if (!report) {
+
+Use positive conditional instead.
+
+> +		dev->need_precise_report = false;
+> +	} else {
+> +		dev->need_precise_report = true;
+> +		report->msgs_cplt = -EOPNOTSUPP;
+> +		report->bytes_cplt = -EOPNOTSUPP;
+> +		report->fault_msg_idx = -EOPNOTSUPP;
+> +	}
+
+Will each driver use this? Needs a helper with explanation of the defaults.
+Also note, the helper itself can be made in a separate patch.
+
+...
+
+> +					/* Reset report pointer to avoid
+> +					 * calling i2c_dw_fault_report later
+> +					 */
+
+Style of the comment, also respect English punctuation and kernel standard
+references, for instance the function can be referred as func().
+
+...
+
+> +	if (ret < 0) {
+> +		if (report) {
+> +			i2c_dw_fault_report(dev, report);
+> +			report->msgs_cplt += msgs_in_prev_parts;
+> +			report->fault_msg_idx += msgs_in_prev_parts;
+> +		}
+>  		return ret;
+> +	}
+> +	if (report) {
+> +		report->msgs_cplt = num;
+> +		report->fault_msg_idx = num;
+> +		report->bytes_cplt = 0;
+> +	}
+
+If we going to have many lines like these you need to introduce an I≤C report
+handling APIs instead of these. This will help a lot. Currently this bulk of
+stuff hard to review and follow.
+
+...
+
+> +	int idx;
+> +	int n_flushed = FIELD_GET(DW_IC_TX_ABRT_SOURCE_FLUSH_CNT_MASK, dev->abort_source);
+
+Reversed xmas tree order.
+
+...
+
+> +	for (int i = dev->msg_read_idx; i <= idx && i < dev->msgs_num; i++) {
+
+Why is 'i' signed?
+
+> +		if (dev->msgs[i].flags & I2C_M_RD) {
+> +			report->msgs_cplt = i;
+> +			if (!(dev->rx_buf_len))
+> +				report->bytes_cplt = 0;
+> +			else
+> +				report->bytes_cplt = dev->rx_buf - dev->msgs[i].buf;
+> +			if ((i < idx) || (report->bytes_cplt < dev->bytes_written))
+> +				dev_warn_ratelimited(dev->dev, "Read data lost due to FIFO flush");
+> +			break;
+> +		}
+> +	}
 
 -- 
-2.55.0
+With Best Regards,
+Andy Shevchenko
+
 
