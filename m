@@ -1,111 +1,110 @@
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 324C64B129F
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:54:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 478DA4DF4C7;
+	Thu,  3 Sep 2026 15:55:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788450879; cv=none; b=ln68Gb9U5wbgslKJBV0b8ZGBdr1XhOoGcb7GrAbDOR+kbhLOZb+B4+IwKuvWiMS2lEei1QCeLvxt4bClR6ztXD4+ZOo64A6NcLH5ABBiBRkb4vZfrp16AblgIinGneKG6kWsg8BCN9DCl+GJHjQCyFJu6zD5+tdQVv+iq9bup48=
+	t=1788450935; cv=none; b=fJrQYHvhnj9Tv6EQfzzuTLWHMLmTw0G5//OnCC157ri/KeY/1ZHRxmm+KjtSG3zUPNFcEFEilRq9eaqvUM4u8gHZUlBhTFlWu6BPhl5y8AyvNcRqDu1rZvx7jFwIOTuqJnME0ik3Bjtr6nlgJrGH/TrV2wi8tzDCTdOESy3H//Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788450879; c=relaxed/simple;
-	bh=Kk2AD3UOwPSnwmgTVWy6P/2K5EFdMfMyACv+LM8k68Y=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=M81C3tbdQvjzhkFhRvppvrYZp9jfvRgVa5/evCAXD9AtFespe5ryh1m+5kVZ9wy09JCXO8XwfmuJ/1MrtTHrcOwgsbUz/82IuXdKZNPFnFZzDCb/CCP+Bhc5Bp21gkvBUQESyDAbcTKLdlFWouIO0ZZs3/2eYauiHFyYeIqs1Ww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=orQHUJsF; arc=none smtp.client-ip=209.85.214.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1788450935; c=relaxed/simple;
+	bh=FhI4jwB5wVe5kfHJwrIsGsHJidCSbsdWAb/7DthktI0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SsIexR8KykDw7ICqkkAyCrYAxlNSE3F/bTWD31O46gHw+jUfTpJxglqIQnSeCqr6Qda0hcB4PyILxBOIDOL8D+Cwfon6yVylCHwsOLDASDJKdxaZe0YD6O0MUrI/0My1se0YMoHirZeoomAJIcWXImS6vxCzCjojzzoEbPNjY3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=nsAYQ7Uu; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="orQHUJsF"
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d54187d8b0so68898165ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:54:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788450878; x=1789055678; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8mGifk9h8LIddg9L9JpNR126tGysvi+0g41edfZ4g+M=;
-        b=orQHUJsFfJFwE/Er9oXA+g8Cq4LzA9jiSBhLUrxndI8d+df5PPzDJ9Q9lQ1p+Jid6l
-         uyPv+Fnv7/V9P/hT/ucg0jVefOoZe/PIedqpR7UpEzqobb+Rt+eAYoQAXeEYJy8zJobV
-         DulMuDG7twFIn4tpRFKXBMQ5CVsGPqklTTjha7DZGuqYmRN4xCIjHPNZYJ4zCu+axsPK
-         hYRxjCjm6yN+Fa9MxcoqY3xt/WtRLp6ob2u7Shg2UKjLgnUIj9GxssknS7b2Qpl7joCv
-         mQgWHvEKHUFpzWFQQheg9fl5za+ggQVGCV+Q5laT5NVyXcnPm/hWEHZiMdK2NF5ypJEh
-         ehzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788450878; x=1789055678;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8mGifk9h8LIddg9L9JpNR126tGysvi+0g41edfZ4g+M=;
-        b=I2PqOS4JQFlP64QApmkdZ1RPB88+bP3z43tbsp71CAlU2RxS9DQAJp938ITlmZ6jwe
-         /UvHlaRX/feZgtUdw6rU5bSahpAhTSZz6VMXmYzfO69oiGtvsdQfjWSMQ/8fG8fLJEie
-         QZKKVbYdWBMjYe5kCl06nM8SSc+0pUd56aBVaJojFBKBvZoxEKvLZdd5QbVqxIlVYPG5
-         toWQnDAk+1771fujgNLxqfiJoAnhpmzYDsQQuB9IwAc09QfqQf1yMIVfE3ARmKzT79uk
-         pJkeBUOE35y3Zsun4uSvOfK2U//pw4ltaZXzOjAXvpo3heXFGPUe/pSjhREn26GrdhJK
-         PNtg==
-X-Forwarded-Encrypted: i=1; AKwUvBxIex+HMtAtKlg7iehwce4ilBF5qeFHoWFFZRU1PlvkElJd6djDipV3qVBX82tkPZG1pmmD+IiRhGw/AvY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhCZD+vN2qzpZYPG065NbLDJjgOEWdoi3kb//bKjdi14ppi/n9
-	TADXi6Woy8VH+5rn/wphE9Mza4vME6Q1xyqebiEozaLWprkgOsEnN2d0pyFgJH6unL+HAydSHvy
-	2wchemw==
-X-Received: from pgp23-n2.prod.google.com ([2002:a05:6a02:62d7:20b0:cb2:563f:d136])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:7d02:b0:3d3:ae50:97cb
- with SMTP id adf61e73a8af0-3da35f9b1e3mr1317921637.24.1788450877399; Thu, 03
- Sep 2026 08:54:37 -0700 (PDT)
-Date: Thu, 3 Sep 2026 08:54:36 -0700
-In-Reply-To: <19d4feb1-d703-4c62-8622-a6d5e9d6394c@redhat.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="nsAYQ7Uu"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 8FA854E414E5;
+	Thu,  3 Sep 2026 15:55:31 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 548C36054B;
+	Thu,  3 Sep 2026 15:55:31 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9F31411C79F4D;
+	Thu,  3 Sep 2026 17:55:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788450930; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=C0YhNtOAqu9STBbW5yxOQL427yKmiBfnh4vUyQZuEzc=;
+	b=nsAYQ7Uumrq90sszrFI2yB0Wq00Am3fPefV25tA5MkQ+Kn+Ocp3RH7Fn5vlyzRUO1nsXZg
+	PFo3Q8QUGB2ffDVCeIn3+jjwjJrxha7+H2Ag8Zds8gjlzkG22dVn3iPp1hTva7PH7y4A8K
+	E8B7onJoDj1aL6Tg0lbU+jreXYM/kk8cAKwBRrrW2eJbvgjkj3meIboA5hdGspm0UyAkPL
+	k6EfP4FM7kq/aubBh2RBOPQjNh7cCHTZbmDO/0b68skgerRTP1tXicHrhOgm63VpL55Eeq
+	E4/QxWbZpAp7qv+XLw/T68bvUmhSxreEz9OMDG87nc81LaIY6qELo3/FEsAUEw==
+From: "Maxime Chevallier (Netdev Foundation)" <maxime.chevallier@bootlin.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Donald Hunter <donald.hunter@gmail.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	matttbe@kernel.org,
+	Stanislav Fomichev <sdf@fomichev.me>
+Cc: "Maxime Chevallier (Netdev Foundation)" <maxime.chevallier@bootlin.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	thomas.petazzoni@bootlin.com,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH net-next v2 0/2] selftests: drv-net: Allow cross-compiling the hardware tests
+Date: Thu,  3 Sep 2026 17:55:21 +0200
+Message-ID: <20260903155524.2241065-1-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260831144802.834315-1-seiden@linux.ibm.com> <20260831144802.834315-3-seiden@linux.ibm.com>
- <apdweRfqt4dTxcU9@google.com> <20260902075028.231001-D-seiden@linux.ibm.com>
- <aphLXQL1H2zYZgTi@google.com> <20260903114241.33034-C-seiden@linux.ibm.com>
- <apmEi1NmOUvmUBFP@google.com> <apmFClPZ2WcDINmT@google.com>
- <apmIGgMEN8w-kQAm@google.com> <19d4feb1-d703-4c62-8622-a6d5e9d6394c@redhat.com>
-Message-ID: <apmYPMMPCNzK9ZEA@google.com>
-Subject: Re: [PATCH v7 02/23] KVM: Make device name configurable
-From: Sean Christopherson <seanjc@google.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Steffen Eiden <seiden@linux.ibm.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Claudio Imbrenda <imbrenda@linux.ibm.com>, David Hildenbrand <david@kernel.org>, 
-	Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>, 
-	Gautam Gala <ggala@linux.ibm.com>, Hariharan Mari <hari55@linux.ibm.com>, 
-	Heiko Carstens <hca@linux.ibm.com>, Hendrik Brueckner <brueckner@linux.ibm.com>, 
-	Ilya Leoshkevich <iii@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
-	Joey Gouly <joey.gouly@arm.com>, Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>, 
-	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>, Oliver Upton <oupton@kernel.org>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Sven Schnelle <svens@linux.ibm.com>, 
-	Ulrich Weigand <Ulrich.Weigand@de.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Will Deacon <will@kernel.org>, Zenghui Yu <yuzenghui@huawei.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Sep 03, 2026, Paolo Bonzini wrote:
-> On 9/3/26 16:45, Sean Christopherson wrote:
-> > > > Actually, thinking about this more, what I've proposed here, plus the pattern of
-> > > > #define-ing macros in arch-specific kvm_host.h files, should suffice.  For things
-> > > > like __KVM_HAVE_ARCH_VM_FREE, it absolutely makes sense to #define the macro in
-> > > > kvm_host.h since it's very directly tied to an arch callback.  Whereas with KVM_MIO
-> > > > and KVM_ASYNC_PF, because they enable compilation of C files, it makes sense to
-> > > > define them in Makefiles.
-> Ugh, defining CONFIG symbols in Makefiles sucks.
+Hi everyone, here's V2 for cross-compilation improvements for the
+drivers/net/hw selftests.
 
-Sure, but IMO wrapping entire files in an #ifdef that comes from an arch header
-sucks more.  And technically, these aren't CONFIG symbols.
+Patch 1 fixes YNL cross compilation, while patch 2 deals with the
+iou_zcrx check.
 
-> I don't want KVM to be the. one that does things differently *once more*.
+Jakub asked :
 
-Too late :-D
+  I assume you don't actually have luring for your cross- env? Could we
+  keep it simple and just declare luring as unavailable when cross
+  compiling? Because the probing compilation rule is probably missing 
+  more flags to make cross compilation work.
 
-arch/arm64/kvm/hyp/nvhe/Makefile:ccflags-y := -D__KVM_NVHE_HYPERVISOR__ -D__DISABLE_EXPORTS -D__DISABLE_TRACE_MMIO__
-arch/arm64/kvm/hyp/vhe/Makefile:ccflags-y := -D__KVM_VHE_HYPERVISOR__
+  Ignore if selftests using luring do actually work for you after this
+  patch..
 
-And I think there's value in deliberately being different, because CONFIGs are
-kernel-wide things, whereas the thingies in question are KVM-local macros.  I.e.
-IMO, having the behavior stand out is a good thing.
+Turns out I did have liburing in the CC env (generated from Buildroot,
+which supports liburing), and the cross-compiled liburing check worked
+as expected :)
 
-> I'd prefer to stub out the contents of the .c files instead.
+Tested on an aarch64 target, built on x86_64.
+
+Thanks,
+
+Maxime
+
+Changes in V2:
+ - Update the topic for patch 1
+ - Update the CC construction for patch 2
+
+V1: https://lore.kernel.org/r/20260901164200.1124343-1-maxime.chevallier@bootlin.com
+
+Maxime Chevallier (Netdev Foundation) (2):
+  tools: ynl: Allow cross-compiling ynl and associated tools
+  selftests: drv-net: Use cross-compilation environment for the io_uring
+    check
+
+ tools/net/ynl/Makefile                          | 1 +
+ tools/net/ynl/generated/Makefile                | 3 ++-
+ tools/net/ynl/lib/Makefile                      | 3 ++-
+ tools/net/ynl/tests/Makefile                    | 2 +-
+ tools/net/ynl/ynltool/Makefile                  | 4 ++--
+ tools/testing/selftests/drivers/net/hw/Makefile | 5 +++++
+ 6 files changed, 13 insertions(+), 5 deletions(-)
+
+-- 
+2.55.0
+
