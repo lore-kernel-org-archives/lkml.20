@@ -1,80 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC6709463;
-	Thu,  3 Sep 2026 00:58:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9088A1E8332;
+	Thu,  3 Sep 2026 01:01:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788397091; cv=none; b=VJFNP+ewuQmiaE2rcfms3SMKEPuZcYPCU9KpPzg3hWnIo/VC1U2/Bk8Dak7QZd1It8DTV7ZvcQJVmPDAMLreJvnzwRNxCLFsYrVl6SHOF1ZPl8RNfaf05SjrqiX2vViIjKEv2+eTWK64bnqQDTHR+kRItDWF+T3d/cFGkBXT0dA=
+	t=1788397308; cv=none; b=cKBayJSvLnfCr3IHyxG0BJVcqxMC1MAiOmQsvhA3SCB2O9X35RHgVSeykzQRtkkoTVIIUGSI5bwVX70SPTVzsDqlTn9dlU31/QGcdnAJEPonhNh7nXf/MpJ6rw6uunVnQJ0iSKZlFS8KQXBYLxAvlhIijW0TG56hczL6WXq/Bo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788397091; c=relaxed/simple;
-	bh=6Z1QLTho/qg24a8CEJ9NUBfWxa+C17nrF+txoyv2xwc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NGK/DmiZ2xQUvxBwNkCRFIMfpre/kQAUwud1YMOyfUOvW0e2DR73P8tKP7lI4/VyFVXEJ338hBIv5U3uK4CpMSGcJd8HIVBf5YHS/8IPxJAKaef6SgMaoFxcQ7aN9ZI0Bx1YqJDjsyIUtKYe36A01tzd/50RzK3xALElxY+XHGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RKCYj5Hs; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RKCYj5Hs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4025D1F000E9;
-	Thu,  3 Sep 2026 00:58:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788397089;
-	bh=MVuln2L/DOqdg7FfuTweNKo/Jqs+fblHDj6cIXMRwzU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=RKCYj5HsenuRPArA52fvWck9s/9/CWa4nMce8h7Pi1fosgHETajJgfT8RlzjXxwGx
-	 MPRkngL30zUfJxcknESaivvhWk1w0wC2dHZ8tD1BP+6ojuOe6CBb6AREcBAIPzlnIF
-	 d81A1Wdumz477duNW2cIDYjBKkgQ0g7Hi3Op+uQYx7UFsZajAr7RijSPWjhvWsC22Q
-	 bLV1OOgYlD/LBagLFtVpDQUH65qW+Unv3D4hteakPRcDlgJeriRkN0aBcNkBFKApdQ
-	 JvJI+L/0zRB+cr+yDY31GiofVeL67zJiiSHlHYi78SvoNXa3FxzgpR0mNGiCZjkLNa
-	 rb33TpP4V76uw==
-Date: Wed, 2 Sep 2026 17:58:08 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Simon Horman <horms@kernel.org>
-Cc: Yang Zi <2959243019@qq.com>, davem@davemloft.net, edumazet@google.com,
- pabeni@redhat.com, andrew+netdev@lunn.ch, kees@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] net: liquidio: avoid sleeping allocation under
- octeon_devices_lock
-Message-ID: <20260902175808.095e3cd4@kernel.org>
-In-Reply-To: <20260902155423.GG396647@horms.kernel.org>
-References: <tencent_6653AA61B6BB17B8D845A89977D199C08C06@qq.com>
-	<20260902155423.GG396647@horms.kernel.org>
+	s=arc-20240116; t=1788397308; c=relaxed/simple;
+	bh=WwGnAA5ErGotDZh3VbAgEK5nIiocXB/JGkOeCgq4A54=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=B6orzQRYqWmqIzjqjHPe6SL4uTID+rqWHUgUYi8K2o7lxWQtaOGq8ss1vmlxD9nrT3nOx7Zc9CPQvwLIYyjNjsvhLg4vkf8g1sX7KL5Qtysk2RNmMlzGG4ax2INGLycTrZsx1JGAm7XMGpwYDRzV4HG3zGq9NkFdqKKQTBt7yH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.62])
+	by gateway (Coremail) with SMTP id _____8AxdvD3xphq0_8HAA--.22830S3;
+	Thu, 03 Sep 2026 09:01:43 +0800 (CST)
+Received: from [10.20.42.62] (unknown [10.20.42.62])
+	by front1 (Coremail) with SMTP id qMiowJDxRs30xphqzu0ZAA--.42143S2;
+	Thu, 03 Sep 2026 09:01:41 +0800 (CST)
+Subject: Re: [PATCH v2 02/20] KVM: selftests: Use the common minimum GPA for
+ page tables on LoongArch
+To: Sean Christopherson <seanjc@google.com>, Marc Zyngier <maz@kernel.org>,
+ Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+ Tianrui Zhao <zhaotianrui@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>,
+ Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>
+Cc: Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
+ Steffen Eiden <seiden@linux.ibm.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu
+ <yuzenghui@huawei.com>, Atish Patra <atish.patra@linux.dev>,
+ Alexandre Ghiti <alex@ghiti.fr>, David Hildenbrand <david@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ kvm@vger.kernel.org, loongarch@lists.linux.dev,
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Itaru Kitayama <itaru.kitayama@fujitsu.com>,
+ Nicholas Piggin <npiggin@gmail.com>, Ritesh Harjani <ritesh.list@gmail.com>
+References: <20260902164123.2546762-1-seanjc@google.com>
+ <20260902164123.2546762-3-seanjc@google.com>
+From: Bibo Mao <maobibo@loongson.cn>
+Message-ID: <170acb36-7542-e6f8-d834-250816ddfbfc@loongson.cn>
+Date: Thu, 3 Sep 2026 09:01:24 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <20260902164123.2546762-3-seanjc@google.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxRs30xphqzu0ZAA--.42143S2
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBj93XoW7ZF43uFy8JrWDCF15CFWUJrc_yoW8CrWUpa
+	ykAryY9r4rGr17KFZ7WwnYqFy8Wa97GFWxAr1S9ryDurnrAry2gFWxKasrXFy5Z39Yq34S
+	v3WI93W5Za1kZwbCm3ZEXasCq-sJn29KB7ZKAUJUUUUt529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUPFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2kKe7AKxVWUtVW8ZwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
+	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
+	XwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
+	k0xIA0c2IEe2xFo4CEbIxvr21lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l
+	4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jw0_GFylx2IqxVAqx4xG67AKxV
+	WUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI
+	7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r
+	4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI
+	42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUShiSDUUUU
 
-On Wed, 2 Sep 2026 16:54:23 +0100 Simon Horman wrote:
-> On Tue, Aug 25, 2026 at 04:50:55PM +0800, Yang Zi wrote:
-> > octeon_allocate_device() holds the spinlock octeon_devices_lock while
-> > calling octeon_allocate_device_mem(), which uses vzalloc(). vzalloc()
-> > can sleep, so this is a "scheduling while atomic" bug that can trigger a
-> > sleeping-in-atomic warning (or deadlock on a preemptible kernel).
-> > 
-> > The memory allocation does not touch octeon_device[], octeon_device_count
-> > or the free-slot search, so it does not need the lock. Move the
-> > octeon_allocate_device_mem() call ahead of the lock: allocate the device
-> > memory first, then take the lock only to find a free slot and register
-> > the new device in the octeon_device[] array. If no slot is available
-> > (all MAX_OCTEON_DEVICES slots in use), free the freshly allocated memory
-> > and return NULL as before.
-> > 
-> > The lock therefore continues to protect exactly the data it documents:
-> > the octeon_device[] array and octeon_device_count.
-> > 
-> > Signed-off-by: Yang Zi <2959243019@qq.com>  
-> 
-> This patch has been marked as Not Applicable in patchwork.
-> I assume that is because it doesn't apply.
-> Which I believe, in turn, is because it is whitespace mangled:
-> the tabs appear to have been substituted for combinations
-> of spaces and non-breaking spaces.
-> 
-> Please consider updating the way that you send patches -
-> e.g. using b4 or a different mail server - and reposting.
 
-Also we should consider deleting liquidio instead of fixing it?
-It's _stupendously_ buggy, and Orphaned.
+
+On 2026/9/3 上午12:41, Sean Christopherson wrote:
+> Use the common minimum GPA for page tables (0x180000) on LoongArch instead
+> of LoongArch's custom minimum of 0x200000, so that LoongArch can use
+> vm_alloc_page_table() instead of open coding a rough equivalent.  There are
+> no known reasons why LoongArch can't use a lower, less-aligned minimum.
+> The more-aligned value was originally selected to support huge pages for
+> the guest, but that only requires the address of the final allocation to be
+> aligned, the addresses of page table pages is irrelevant on that front.
+> 
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> ---
+>   tools/testing/selftests/kvm/lib/loongarch/processor.c | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/kvm/lib/loongarch/processor.c b/tools/testing/selftests/kvm/lib/loongarch/processor.c
+> index 47bbde3e205a..057a77713542 100644
+> --- a/tools/testing/selftests/kvm/lib/loongarch/processor.c
+> +++ b/tools/testing/selftests/kvm/lib/loongarch/processor.c
+> @@ -9,7 +9,6 @@
+>   #include "processor.h"
+>   #include "ucall_common.h"
+>   
+> -#define LOONGARCH_PAGE_TABLE_PHYS_MIN		0x200000
+>   #define LOONGARCH_GUEST_STACK_VADDR_MIN		0x200000
+>   
+>   static gpa_t invalid_pgtable[4];
+> @@ -57,7 +56,7 @@ void virt_arch_pgd_alloc(struct kvm_vm *vm)
+>   	child = table = 0;
+>   	for (i = 0; i < vm->mmu.pgtable_levels; i++) {
+>   		invalid_pgtable[i] = child;
+> -		table = vm_phy_page_alloc(vm, LOONGARCH_PAGE_TABLE_PHYS_MIN,
+> +		table = vm_phy_page_alloc(vm, KVM_GUEST_PAGE_TABLE_MIN_PADDR,
+>   				vm->memslots[MEM_REGION_PT]);
+>   		TEST_ASSERT(table, "Fail to allocate page tale at level %d\n", i);
+>   		virt_set_pgtable(vm, table, child);
+> 
+Reviewed-by: Bibo Mao <maobibo@loongson.cn>
+
