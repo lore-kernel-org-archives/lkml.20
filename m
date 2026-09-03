@@ -1,104 +1,79 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010057.outbound.protection.outlook.com [52.101.229.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD2B42A154;
-	Thu,  3 Sep 2026 11:01:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373EE3EC689;
+	Thu,  3 Sep 2026 11:01:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.57
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788433271; cv=fail; b=Ib11mue/50mc5/ArlC3ZsqJcNXnJW38pO4313jUwBojlNJthzg0j6TpTDemp6z1q7dWnWqq5ORRZSbyGOfQrYyQw+d5Tx5/ndcdZ7OdwwkskvlKKAcMgBnW0FZJ2e+uMiQIoMDz8w4sMNxuXmhJ0w7zEmQ0E9ZFYNXi7oJkDPYE=
+	t=1788433304; cv=fail; b=I+23FwSskWfP2GU6tMid0OP984KNd6FNKxE6Hyt2Gxyt5d9VlheOiZcXPgxaAJmO+TJ2cyx1plFGaBgWNbTGYU1CuWGHfBCSLtkSZXOa5D/GfGZEyNQNM6gWiQQ9X+S+MYoSay9P8sXCySjoIid7i/pOqYIqbm067c/oWA8sEZE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788433271; c=relaxed/simple;
-	bh=08JIu0XRXv8SrrjucGWPyzL0zTFf3DW45zDM/kQp4xQ=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=phv01dP0FNjR4W8LSPdeDg5y/gxDi8o9PzDBTs23a3Mjw/PwDL4qtp5QFq555R6tv1RudSPWeIH/0TNvNZBSfgamjC7Qc2U9Vm5B32vKQIMw2nxCi6Uq6kKNneA27HnZ39SLGykN/teIhdHRwpcJjJXnQpoHS7QplFi1EtO/EF4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QZ+uHNRV; arc=fail smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788433304; c=relaxed/simple;
+	bh=LyCouKNZ86lHkeAMBWekQLklATfRfzGqibhaSRqTtHM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=qxdCSVvOsXBoPKgx5Wi07iME7yOoNX27bPwMJxqRaEBqW/JAQmdQXUasFnO8YGq0xIfZ0ihWGO++H3EEVOZhb5afGXgw28sOomIIu2+MmaKn2ve+GKZRcbaSt4iAf+rZmdhqxVmA+PphyQqhKcmNvejemnQQ0ocYnBGcrgJ2Ei8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=Sn8caC5t; arc=fail smtp.client-ip=52.101.229.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QZ+uHNRV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788433269; x=1819969269;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=08JIu0XRXv8SrrjucGWPyzL0zTFf3DW45zDM/kQp4xQ=;
-  b=QZ+uHNRVATK5YI35rTKHwlloIMpsMg/JuXQtNGEcyc9z/msaHF0Q/6XG
-   IyWeXGlV7IVLSxftCaE1yPKQCFujMKnEf+L/qBhRza1QKI7D2CX/GK4Si
-   lZEUYcYw1aGW0ZL+fIeAJ6mcVfKT37LBE++srkQge56JfZHqdxnsZupge
-   UDFESHBJsjPN6cYvWeGmaoRzC978tzIJPZY7R58itJoMv29LlSKBTS1EA
-   /x6a9tgN363kyD0FqenZ2fX0wqrv0HBQ385UjvLc1Ccg6SX3FCgVegATd
-   poroKmREKe1+h3VfbMzzaS4MhAKgOmE2+b8avW6DPVjiwnmQ7VLZ73MvM
-   g==;
-X-CSE-ConnectionGUID: L9nagRNFTROlc1kHLRBj1w==
-X-CSE-MsgGUID: U/gE2dCMQxS+F4Uqwwy/vw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="89033162"
-X-IronPort-AV: E=Sophos;i="6.25,259,1779174000"; 
-   d="scan'208";a="89033162"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 04:01:08 -0700
-X-CSE-ConnectionGUID: qspXhw6YSOK/SVKoyamO6w==
-X-CSE-MsgGUID: WW0ZpeTRROqz78mvn2c1lQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,259,1779174000"; 
-   d="scan'208";a="273205772"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 04:01:07 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 3 Sep 2026 04:01:06 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Thu, 3 Sep 2026 04:01:06 -0700
-Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.65) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 3 Sep 2026 04:01:06 -0700
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="Sn8caC5t"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=voP9H8rKD24ASf9HY+p0Ep920bYaVfszKDSHKFBfXfM3NW3vNT3L1edgMC8vXK/dtpB2dZN21gVDWos7Zj9a76ls2/lB8DSL+T6oqUMXC713/eaNSfFuBUq2uKqkF6s6/YzcIUaWYqolVK4PhjWRFNgx0KNmSjAs4WzIp2kLpOUNBwHpYNsjc8teP4aI/5ApXaTiRBBv1znzc6eopf3Aw7/ZDo/g4uDxGzuUCc6Hnm4sq8K1vcoVsotI72XgbpZayMJ4uzA/tOEXkv6P7qsf/v9C6sTNE0XS9t6BPVnvnZpuZJG8a/yTuJ9v3Fg4/Hku9AL6Yd8QCM833UQ9rld+SA==
+ b=Tg3Lwttk3+9AttolzRGQWn5o9CSDNns4khnTuBnlKLfWNYOSwd+hBU1ytlo7lgJ0keUZ1gAztxm//K/EPtZGxf8KwmlRF/EzUDVodZaZqaOR1Rlw3MTy7i2TQns39SEDlBlscEOThWUHiZjS59n4y15MeNrpV2/+kmVzn2knSHBEhPz13o8zny19DzqpMXZI+dP7xAHbfpFfwLCNi7xYOlnC3MBD8ru122rhcQiStPUicBdNa0G53FNQXWEv1WSRnuxOZ4lIUjuDaKTYxXdloxXL9sW097/f4qy0ZgKc+ylUi6ZiP8eWUtDbAf6te0pnonWw5Bxl0uz+OkEJZdgAZg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=utDHZsHt1UNw/meovJe59g8MjA70P2RUm5bcZet6Y2A=;
- b=VC8grKThA+v9oqvXs/ZTCEhOCkNblzIUHpTuiGIfG3hqwT2dKwU+wJRGr6aWKvgiqPi/GRZg38LjSG4GDHXyLECptcKQsXuHQ6OYCRgqTivt7HtQTta2OdQujVFkqmMP80u5DN+UEaxZRiqDBcQfscDG703l433Gk3riM/e6T+/F+Jy78SEipjd+glldyRYUeCYr5mX8Ml0p7LV8S/3+/WqfDLbCuhFH56Cy3Mna77De61K1a5w/52tt71E7GcpNEgftlBGMeyZdc9q+GKs5ZZvXASNdGf47+pPRVPjSTc65v+CmGGlYctEq1Vbo2DXQC0yWwwIMRdQxjltjhuF0Zg==
+ bh=tDIeaBX7/gVaygDG5qNq9IJJYO8cKLgH4ij6u19VTNw=;
+ b=yl1hq0IzhiKR3YUzjHxrbNlUxpgFUzm02lAPha6XUsvF97bS1vA8DL1ARJM9KS6rsRtQRFl+EdZi/l2ftCtc6Gh9N+k2bMQNF5ac4GigEJ/7JN2ZRZxXIEXWX4Aaf93JYaOdZY2hecyHxf/5CyvIxe9IjrX6aU6qt4Ebnwk3u3t+GhT3YyqsKiXzFi92zlYc6rRg0tkMdStljmdOAwKtrkj9Ebnmno0GLdtzTZyPdIf2EtnicYXNGc2uj6snqYHLRjowPD14FHidBa6gBLhooeJesiUuZR51rX800dZY57n8F+UY6k+wx/moXm2oRwiighRIzWFmsrM++cwFFm1MgQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tDIeaBX7/gVaygDG5qNq9IJJYO8cKLgH4ij6u19VTNw=;
+ b=Sn8caC5taSS+ZI6pjeXVruXGiOFTwzxuRckYy4lUfM8K5Ju74jiiuF/NGJ302DzROz7x8mjxVXKojMfZ3H42YX8cloDCPW6R/bqFRfQUbwZJJ51OL4l2jsN00bQcsD5AvVAtoBxG8zoGjYLUFdaVYSt3TnIUP6nBeGUxT6IBJpI=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6006.namprd11.prod.outlook.com (2603:10b6:510:1e1::13)
- by DM4PR11MB7278.namprd11.prod.outlook.com (2603:10b6:8:10a::5) with
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
+ by TYCPR01MB9796.jpnprd01.prod.outlook.com (2603:1096:400:20a::5) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 11:01:04 +0000
-Received: from PH7PR11MB6006.namprd11.prod.outlook.com
- ([fe80::4e2d:28f0:ede9:73bd]) by PH7PR11MB6006.namprd11.prod.outlook.com
- ([fe80::4e2d:28f0:ede9:73bd%5]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 11:01:04 +0000
-Message-ID: <63c61f29-5db7-4e90-8565-3d6c8a6d57b5@intel.com>
-Date: Thu, 3 Sep 2026 13:00:58 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/5] ASoC: mediatek: mt8183: Fix clock handling in mux
- disable path
-To: <phucduc.bui@gmail.com>
-CC: Liam Girdwood <lgirdwood@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Shunli Wang <shunli.wang@mediatek.com>,
-	<cassiogabrielcontato@gmail.com>, <linux-sound@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, Mark Brown <broonie@kernel.org>, "Matthias
- Brugger" <matthias.bgg@gmail.com>
-References: <20260903045203.175337-1-phucduc.bui@gmail.com>
- <20260903045203.175337-3-phucduc.bui@gmail.com>
-Content-Language: en-US
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <20260903045203.175337-3-phucduc.bui@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS8PR04CA0174.eurprd04.prod.outlook.com
- (2603:10a6:20b:331::29) To PH7PR11MB6006.namprd11.prod.outlook.com
- (2603:10b6:510:1e1::13)
+ 2026 11:01:39 +0000
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 11:01:38 +0000
+Date: Thu, 3 Sep 2026 13:01:20 +0200
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, tomm.merciai@gmail.com,
+	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 1/9] dt-bindings: display: renesas,rzg2l-du: Document
+ RZ/G3E SoC
+Message-ID: <aplTgBjpPX9d6XEh@tom-desktop>
+References: <20260828122113.1426778-1-tommaso.merciai.xr@bp.renesas.com>
+ <20260828122113.1426778-2-tommaso.merciai.xr@bp.renesas.com>
+ <20260902-heavenly-ambrosial-trogon-b7ab03@quoll>
+ <apgsOubuGuvw_0rf@tom-desktop>
+ <CAMuHMdU0y5Dg9tW7fAM3QQHKpAw_+vmjj7v-XeZmrushQgQFAA@mail.gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdU0y5Dg9tW7fAM3QQHKpAw_+vmjj7v-XeZmrushQgQFAA@mail.gmail.com>
+X-ClientProxiedBy: FR5P281CA0005.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f2::18) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+ (2603:1096:405:18d::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -106,110 +81,339 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6006:EE_|DM4PR11MB7278:EE_
-X-MS-Office365-Filtering-Correlation-Id: 66b3fda0-8817-4f05-f264-08df09aaa5ee
+X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|TYCPR01MB9796:EE_
+X-MS-Office365-Filtering-Correlation-Id: 17362145-10d6-457f-1210-08df09aaba5d
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|10067099003|11063799006|5023799004|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: ISIdQJovZWiuB87MCIbPcSPvQdjBZW4ZmYcodHGZ2HRUUIQxJlTf1Pjsto8MfVA0AgntDlOYuKI/KtVdqQNQX0UJKse8+En8T6FHg2oMyjZTBvfW9ZmLG72EtPc56tX9SIlRAK1cw/eTksROsGDN5bATbSydxUgEiadXhcBeHDIk7Awr5cJNReK5uXn6tzE2VjDxrPi4k6gytGeCLE54czTwaax9bzbI0Nitd0Il+GgMIeBSgmQSyaVRv7bv/7Xh5ZixPnwJpCaB3En9mfEz5Boeg7g6L8tcAdWLb51fQZpHPplJMlCq8aRSweuDLFIMKmUyU+/R6Y54c2ebBdIpr53XMN9zoNOWmfc13gxTAg9aWVXdwN1Gry18HYh/1KliDoFXjXNgYeNDQfzliJJ14HX/81kw+YnxjwjBb4XDjba63TKtjxNuokzjun5N/gPNqR7kiSqH6ISwm8u2YFZSxsVdl+UrzZOCdUh5DhJNf3mwwV/Vvz5HwidfnoIL1MV8kb9kIs4kPzjf45M1qwrPkq0NKN86DuJ659szT4uhJzG685+GDXCwkbndATClSLR1//E3y3X+WRBgnmZkCZ0P6Q0+mC9XoOUpLIoFMba/vziKNUhzWmWoc7BiUcZM1QteG0r/oBrCnGKQw4V2AS/Dv53m2WeSkrkQ5yUE8L/Atwo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6006.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(10067099003)(11063799006)(5023799004)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|52116014|23010399003|7416014|366016|38350700014|4143699003|5023799004|10067099003|11063799006|18002099003|22082099003|3023799007|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	5KeX3iuM9cRiK4HW1vhtVOL34fC4FCNCeQuuioPdgBRtCrNDsvZInHBjUv7Rc9azhIjILnaLptPbLENLdnpnj40p5knifLpyuy5TwEcaGdbgu8Oo8S1U/if2kLnv2jQDiXp9d/XScxVpq9IZ72A7ExlhfZMA4Gw6P3H2O7gnVzzj5+nzLNOWMIgBlPPggaBizZ+pMsuWBqBpafBPFoeyMnLmFGnPEH/Gn6OTrZGles1TsFvHZR/N9juuqnp4vTyHjG+DZXlfNC4UYjRh0/amSPlkhaEIAdNmOu3g+mj3sJSIpsvKNxLbWB0wDunvbMUgw2O+nrwr08BbyHrjugGkN70KIAf96z5/aFT49WiMlI5kmof+gtsuM1/q6lNTPBkNprVQ62RoxNUq+ZUO1S0YlOpL7R0+P8sqK2zTHJQmcCQH9BKVU6cMre4kzqOPie9RekqkmiDEri6muAZD/l9RVrAgY9rLVqBy4wVkxvR378I7/XoQRXdkSP09sTCsgCrtCIzeaSmNsWSv6tTdk16v9/2y6M5g4EY6SQSfiY023qo6u92AxpUtTP4UCmNRX33TvqPWDcAK1n57+31J2Qprc1Ta8oiGr2z/lS0YdG4qR97JA6pvYnrYzmTm/nnCxJd9nKEIXAI1VIdEEHahtnCsulR3AA8TLr58S6RSEQ/XTDg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(52116014)(23010399003)(7416014)(366016)(38350700014)(4143699003)(5023799004)(10067099003)(11063799006)(18002099003)(22082099003)(3023799007)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UGZkMlE5Wm85VTVKcktyb2Z4RGdJdHdvdzJ4OTVSaXE3ODQ3dkg4NFhzVHJJ?=
- =?utf-8?B?dXh2a1k2eWVucSt0STA2cnFYWGNCbnI1cDUzRWFXNlVIRGIrQkpOUXRTR0I2?=
- =?utf-8?B?Y1hRWUZtT3ZFOFZJbHZ3Y0RwNHNOVXo4TFd0U3dTdG1WdGl1VzhYNUZLUFlG?=
- =?utf-8?B?Vm1XRnNSQ0FZL3diN0NGb29kbUFFNjhHajV6L2J3ZUpqRUQ2U2JCM0tyaXdS?=
- =?utf-8?B?SDZMZjFwSXJzSGZLQ3doc2FHaEJnd1VxZG9qN2k3aGdxWVpTY3FQbW1XZGZU?=
- =?utf-8?B?YmlOUkltR1JpMzAvbkNEazNoayt5OE55bjNiN3JMMURyMXFQMTNiRi82eXVR?=
- =?utf-8?B?eTlLbEx6U2k4bDljTlJJOVcxYlprdUZpSEFGOXloL3Q2aEJERnppbkdlREhr?=
- =?utf-8?B?M0tZT0FXV0w5Z2RVTm1uMVJoNHhHdVZZT1lDQlZIa05FVE1QU2h4ZlFRaGht?=
- =?utf-8?B?eElCVUlqa3pNWWF0VXdIZmN6RGgwNW1pc0xGdnp6alJRU3pqeWVldS8zbXR0?=
- =?utf-8?B?N2dIWDRQYWFiRzlYeDFvRlJFd1Jrb0lCcUF0U3ZXalFVT0tWK1Z4NnVZNHAy?=
- =?utf-8?B?bktoajVnc3h1Z1l2NS9nRkwzSXRmNkNvNzJSWkxCbHJDUlpLS1QrZmxWRkYz?=
- =?utf-8?B?aldaQ2d2TVZTUHJScVg5S0pjcnk2dGhUcUt1NmgyNlF3dzUrSy9BNDZYT1dm?=
- =?utf-8?B?ZGdRbDU5bTdaUktLRkRidEk5b0gvQ293eUdtSW8za1FES0JnUEs5WXFaZksv?=
- =?utf-8?B?UzRRc2Y2QlNyMnRzajR3S3lBRG9UNDBoMmNudUxCZ2ZTZ3ZMYlVFemtGa202?=
- =?utf-8?B?d0Y4czJhWXJsTlpTTXZ6VGx0UCs0Z2cyOFdUV2VJdU9zZWR3QWFCN2E3SU02?=
- =?utf-8?B?bzRBU3l2TUtJeW9kd2EzRXpDT1BDVXRIZEk4a01xN29ra0ZJZUc3MmZJVita?=
- =?utf-8?B?OWFVNWN5bUNkSWw1cHNIb2xReXo2R2lVVTcwQzB1VTRqNDFSWkd0d0dBSVFw?=
- =?utf-8?B?T1c0YnIxQkswUXdmQVFVWWFjdC9rZ3RuaE9hRFY0WThTclZGb1ZVeUQwTmtY?=
- =?utf-8?B?Q0pvRXBlamtMNC9pL0dneDJPNXFubFpHUjFGSGZqanYxc3dwZXp1N3BsejNx?=
- =?utf-8?B?d1FTcWJ6REYrdnM2V2JWdkxFMk9ZL1N0eUkwdkVrSzdIVVRwcXNvWVVpNXpV?=
- =?utf-8?B?eUdHTW9BenpLelE2aFdhVTFaNlhsY2hDZUtlUy9NZFJvcVgxaGR0Znp5NWNj?=
- =?utf-8?B?eVhjcm5aSVhmOVJ3a3prRGNHWVg5Wjk5bWY4TTdrSzA4a2IwUnZ0WDNDeDI1?=
- =?utf-8?B?cE5jT1RiVVFvd2c3ZWFidVZKYm8vZFFqeUZiUVMyMWtFUkN5Rk1La3Rwamha?=
- =?utf-8?B?V2lKZGNNaGI4d2J5RVlDYW1odDVvWjA3dXJ1Z3dCbmxkS0NkRVk5S3hJVklI?=
- =?utf-8?B?elpTU3hJWkI5ZE4yMFJ0SmptRE90UjR5VmtiM2VkdnZQNHcxUnA4cThZc09l?=
- =?utf-8?B?MzZxM1ovZS91NStjVmI5dGRTd2drRllUSmRNUC9CQ3hjaEE2UnpPZGtzWkRF?=
- =?utf-8?B?SzZYVElJL2Q3K1VCK045SUtBR0pPRUNEaStJQ2JpTU9WbS9LZUJuVVBLWDFh?=
- =?utf-8?B?OXBGTFF0Q3ZZUTR5LzF6Zk9iZnVoZVJnVVA1VisyZVM5aDZId3A4eTJOMGkv?=
- =?utf-8?B?ZXNmVWxQL052cGNBRnplOFZrTXY1TU9ldUFBSXNiLzUvbTRjL0tVamsyME5M?=
- =?utf-8?B?cTNLUWlYRS9vSjFaMVNycXlRbkFqY2pOK3ZvOElkbHE0SVVNMWlkbXF6K2Jt?=
- =?utf-8?B?MDNnV2IydFlsSFF0aXlkck91YkhNQ2VzZVJhUVVZeVNwbVFLdFBhbkdPSFBw?=
- =?utf-8?B?TnJ5OVI5bjExZ1V0ZUtQcVFoN2FzdkRDbFZwVUMxczJTWUdITGdXTllzVnBi?=
- =?utf-8?B?TElKTmg3THBmWFduSGhYMlE2U29Zb0pINEk3eTZjSFBXWHZ4QkZlNVNqVmw5?=
- =?utf-8?B?cEUxVjV6L3piYWwyeEVFVUdRTVhIVVdkQXJEVldVSTNLZFVUUjBDS2YvQUpS?=
- =?utf-8?B?QnN3ZlgzN0ZLRlBvdjNkYmV5YnpBaFRUZEV6R1h6QTVpVXNSMEJEY2d2bFp2?=
- =?utf-8?B?OFcrZWNOYU5sMHlZMUoxa1NQR0hqME1jU1paWlEvWG9Rd3hxVHEwZGZTNng4?=
- =?utf-8?B?MVcxTnpyVmlhN3lkdDI4Um5PTjFaSEJDZE1DTnFUSzIxNmZDazV4bTJzLzFR?=
- =?utf-8?B?cXJrZlM3dk5kM1QyZ25JNjlWNlFIYWREdDVzNnNaa2tjMnJTdWh3YjRxZUFi?=
- =?utf-8?B?N0RXekdCVHU5akdOY2Fsc283cTBBV2xSMDMxT0tkK20vL0c5SCtBb3c2OUl2?=
- =?utf-8?Q?lYR/FiaDjCPEHI5A=3D?=
-X-Exchange-RoutingPolicyChecked: PgUyL9Vu+qQxv4YxtrkO2xluRjCswqggXEoonHLtz59xZDvpcrgaaY90V+KPuFuI4BwqeAsQCllQeSQUkCDHsaD7N4MnxCKB2xLD8Eyt4wiYzRnO0EJ/gxoD5kIy/brg9xKRuANnIC6uXjwxrMyPe715gk3H1IsIYt4Vxa3dBznUVwmBK9tKJZulLrfl8f6HxjNX4bR9ZKw1dL4CWFJi9l1DLW76o1e1jgXe5wK0NTnAlNwaNBigX434oTtGPU3jrrfYfVOJB2Wv5VWdrNiscA9I0zohZSZqxLdk17t0gWyvJN2oqbivnnY8jpxagDPjyu5/xq4rKxbsBnXsM69qFw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 66b3fda0-8817-4f05-f264-08df09aaa5ee
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6006.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?r+SOQQmPo9JgFd+3faetcSNNVfVOuD6bw7kVFUTR8I15Lb88lBTu6TjlQPBw?=
+ =?us-ascii?Q?1mgkYhjOVYQlKQwaeei6Hc4x1DXogBcmzl+MiqsioNDd2+l5Yz28lxhgd7Bg?=
+ =?us-ascii?Q?Bf/czjUyZjAP0KAqYc5ukc1oHrm9NkGgxVjlLDl5vQAi1R48oIHyQ7P2cYXQ?=
+ =?us-ascii?Q?Qzr35WftT1FvbX+NATtrSBCOw/CLlzWWRUXQLvIw0m+X5Bk++InmzTbmNfU8?=
+ =?us-ascii?Q?2+4h4VnmKyJWHow7D866vKby01C/UyjXEh5l+sLPv9fms/ZMLDedXmux5pA1?=
+ =?us-ascii?Q?SPQHbELRTVXlunSZ6v1ououErDR8MjrcmLMFKR22rwi6CaonJL0dvn+CQBfM?=
+ =?us-ascii?Q?EWGtIa88ADjN2mqmzW/+9wA+jFbfOD6VwjHPnkR5mM6gjW74y+klMZuiYPI2?=
+ =?us-ascii?Q?I18LDRL9xi5h+0n7peV7RcIM0LFtkD4wow/1m3B3NZWagpNH7k0nja9QQ9BV?=
+ =?us-ascii?Q?cJAocpSI0asj12uhDZRO06YUaU4oWa+19EnOUuu4h53o5ayD4NW1BSiA+8Of?=
+ =?us-ascii?Q?bsfI7PVwxEEnz3EgC3pLWdEyaVirWu7ykFKGW8jq/mZLWo4HryWVBhNiEvRE?=
+ =?us-ascii?Q?9yiCSmADAtGFxwfAD2Bc8rwJhrmkv4uZUf9vuCmFZXJy3UcuP9eomadXItyG?=
+ =?us-ascii?Q?eFIVSaq7ynJCQROpeb4A2TQ2aY+0TundOmKD/EbUmuQ650N3bTnypr3LOGhV?=
+ =?us-ascii?Q?Xd/CIAeANkeiKwx9fQBqjratBBfWZ+1MjQR/ZoFOVWWvErWDA+sfPr1TpZpm?=
+ =?us-ascii?Q?cAA9/Gh6Eo25jBMmKa6wvowSxPSajNz0LwyGsKReT6Jwr5JFoF1KMUkgaI3s?=
+ =?us-ascii?Q?R1+/K6AKmRCr1FKHwcVHSyTZC9VA8f8N4/L0eR6I2AEZMzZG1sG0bRRxOMu6?=
+ =?us-ascii?Q?1mm7OYD37XDnLVjkvIEoPFK+kLo3s13VUWPOYPDi1EZbSUkyptF2q2Ld4E0l?=
+ =?us-ascii?Q?/2Aw59les8NtIZ5qmDHuZcVtE0SkyKBUrcdefYAXhodeR+qQVUdWnlIBSpNP?=
+ =?us-ascii?Q?8rXW2y3NwVG+sjPCixo/Btab6+wSBHibh1h9tFpMr0lLyVUBAEThsOn5IPhf?=
+ =?us-ascii?Q?9cJfug0WoiMjmIRPs41cCLOLX+8hMM/Nn7cnnr7V9ac22lH1iaTqf+ABds26?=
+ =?us-ascii?Q?mRrJsueSHv5coxG6h78u29uZqaA3ft0Vv3nmANL5P2m+S/yUgoaMNEoauHJV?=
+ =?us-ascii?Q?Ze35Pqt4RmdPYamYipWYp0RFA3XAY3s17/ZpAqDnlKUz/wXclWUY5C8/NVRJ?=
+ =?us-ascii?Q?1dnrDUBwYiGjQp5dQQ1yvmd6ICb7DXppAXf+SFEtzlbaFDNg7EePApIammC9?=
+ =?us-ascii?Q?J/apijyuGfSITyJ7MOeMdHY6VUqw3gl4hKEwXHmk8J5iCXkraegc9cyk3ikw?=
+ =?us-ascii?Q?jmkhLSgwr/Tl9v6yjgUO1TQ604hFPgob+WvrHVK70IytT8GiH19JpQoVkdF1?=
+ =?us-ascii?Q?usjc3x9tF3P5YolP3jkgncaFV9CU+zLqW6VMZFZcWIjWL0D4MrwnebH8ONqF?=
+ =?us-ascii?Q?9H+QkM+LUtNNk0jmTue50RINGQS14IVZWg7Ig2juLtTyG+e5lvdQEvIU0pfj?=
+ =?us-ascii?Q?oJEXKlqe4M+ISJvUzmH6me26YZQYAM0FaYpqQsHe4JIm6PLrk7zGErjr5lze?=
+ =?us-ascii?Q?JkVHswz3azWEFHKBadEadjYwxbRiU4iLQ0wgSWde+hsGwkTj24o8CCfXMEZ8?=
+ =?us-ascii?Q?q09IlJ3i9dbGKZ9NpCt7ATvUErzZjpCN+DLMLkGm1o2ofe6zDvmRGTpR4Gnc?=
+ =?us-ascii?Q?yaTtSYr8hiocC882DTBBUM+rDPiBSBPMAQgIB9ZaafINTPrCtRUk?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17362145-10d6-457f-1210-08df09aaba5d
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 11:01:04.3856
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 11:01:38.9304
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xEzN2Di7jrDBsj25MWrtERxnbLilGE+KkWdljo1LOD3CxeIFDL7u3/ZoK15ghbugkbTfLU81EINEXUZYvubb2FFEiJ5jQWuSm2QxJZqNKck=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB7278
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: pKzdQMh/VakmYTQoXXiJtGQ60D6bmv7040fVNP/P4MndvfPXZGsGkSoLXlbAs6FWFb1LEPAHmAgOr4FUzhmeZ7Vgf+fs6c/HaV6ChvUUQUPh39VGFn/s8cMmdCvf6/OC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB9796
 
-On 9/3/2026 6:52 AM, phucduc.bui@gmail.com wrote:
+Hi Geert,
 
-> Changes in v4:
->  - In the mux disable path, remove the goto labels so that all teardown
->    steps are attempted and any errors are only reported.
+On Wed, Sep 02, 2026 at 04:20:51PM +0200, Geert Uytterhoeven wrote:
+> Hi all,
 > 
->  sound/soc/mediatek/mt8183/mt8183-afe-clk.c | 6 ------
->  1 file changed, 6 deletions(-)
+> On Wed, 2 Sept 2026 at 16:03, Tommaso Merciai
+> <tommaso.merciai.xr@bp.renesas.com> wrote:
+> > On Wed, Sep 02, 2026 at 08:37:06AM +0200, Krzysztof Kozlowski wrote:
+> > > On Fri, Aug 28, 2026 at 02:21:04PM +0200, Tommaso Merciai wrote:
+> > > > The RZ/G3E Soc has 2 LCD controller (LCDC), contain a Frame Compression
+> > > > Processor (FCPVD), a Video Signal Processor (VSPD), Video Signal
+> > > > Processor (VSPD), and Display Unit (DU).
+> > > >
+> > > >  - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
+> > > >  - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
+> > > >
+> > > > Add new SoC-specific compatible string 'renesas,r9a09g047-du'.
+> > > >
+> > > > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> 
+> > > > --- a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> > > > +++ b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> > > > @@ -21,6 +21,7 @@ properties:
+> > > >            - renesas,r9a07g043u-du # RZ/G2UL
+> > > >            - renesas,r9a07g044-du # RZ/G2{L,LC}
+> > > >            - renesas,r9a08g046-du # RZ/G3L
+> > > > +          - renesas,r9a09g047-du # RZ/G3E
+> > > >            - renesas,r9a09g057-du # RZ/V2H(P)
+> > > >            - renesas,r9a09g077-du # RZ/T2H
+> > > >        - items:
+> > > > @@ -35,25 +36,51 @@ properties:
+> > > >            - const: renesas,r9a09g077-du # RZ/T2H fallback
+> > > >
+> > > >    reg:
+> > > > -    maxItems: 1
+> > > > +    minItems: 1
+> > > > +    maxItems: 2
+> > > > +
+> > > > +  reg-names:
+> > > > +    items:
+> > > > +      - const: du.0
+> > > > +      - const: du.1
+> > >
+> > > du is the name of the device, thus calling items "0" and "1" is pretty
+> > > pointless - indices already define that. Please drop the reg-names.
+> >
+> > Will drop this in v8.
+> >
+> > > >    interrupts:
+> > > > -    maxItems: 1
+> > > > +    minItems: 1
+> > > > +    maxItems: 2
+> > > > +
+> > > > +  interrupt-names:
+> > > > +    items:
+> > > > +      - const: du.0
+> > > > +      - const: du.1
+> > >
+> > > Same here
+> >
+> > Same, thanks.
+> >
+> > >
+> > > >
+> > > >    clocks:
+> > > > +    minItems: 3
+> > > >      items:
+> > > >        - description: Main clock
+> > > >        - description: Register access clock
+> > > >        - description: Video clock
+> > > > +      - description: Main clock for DU1
+> > > > +      - description: Register access clock for DU1
+> > > > +      - description: Video clock for DU1
+> > > >
+> > > >    clock-names:
+> > > > +    minItems: 3
+> > > >      items:
+> > > >        - const: aclk
+> > > >        - const: pclk
+> > > >        - const: vclk
+> > > > +      - const: aclk1
+> > > > +      - const: pclk1
+> > > > +      - const: vclk1
+> > > >
+> > > >    resets:
+> > > > -    maxItems: 1
+> > > > +    minItems: 1
+> > > > +    maxItems: 2
+> > > > +
+> > > > +  reset-names:
+> > > > +    items:
+> > > > +      - const: resetn
+> > > > +      - const: resetn1
+> > >
+> > > Drop reset-names
+> >
+> > For reset-names, I got the the following comment from Philipp in v7 [1].
+> >
+> > Dropping reset-names would force the driver back to an index-based
+> > lookup, which is what that comment explicitly asked me to avoid.
+> >
+> > [1] https://lore.kernel.org/all/8382e2b9fd07fb1132c26e228b3899336fc1fdd4.camel@pengutronix.de/
+> >
+> > Philipp, Krzysztof, could you agree on which way you'd prefer?
+> > I'll follow whatever you decide.
+> 
+> Until we get a variant with a third interrupt (or reset or reg),
+> which is not related to the number of channels...
 
-> @@ -271,7 +271,6 @@ static int apll1_mux_setting(struct mtk_base_afe *afe, bool enable)
->  			dev_err(afe->dev, "%s clk_set_parent %s-%s fail %d\n",
->  				__func__, aud_clks[CLK_TOP_MUX_AUD_ENG1],
->  				aud_clks[CLK_CLK26M], ret);
-> -			goto EXIT;
->  		}
->  		clk_disable_unprepare(afe_priv->clk[CLK_TOP_MUX_AUD_ENG1]);
->  
-> @@ -281,7 +280,6 @@ static int apll1_mux_setting(struct mtk_base_afe *afe, bool enable)
->  			dev_err(afe->dev, "%s clk_set_parent %s-%s fail %d\n",
->  				__func__, aud_clks[CLK_TOP_MUX_AUD_1],
->  				aud_clks[CLK_CLK26M], ret);
-> -			goto EXIT;
->  		}
->  		clk_disable_unprepare(afe_priv->clk[CLK_TOP_MUX_AUD_1]);
->  	}
-> @@ -298,7 +296,6 @@ static int apll1_mux_setting(struct mtk_base_afe *afe, bool enable)
->  		       afe_priv->clk[CLK_CLK26M]);
->  	clk_disable_unprepare(afe_priv->clk[CLK_TOP_MUX_AUD_1]);
->  ERR_ENABLE_CLK_TOP_MUX_AUD_1:
-> -EXIT:
->  	return ret;
->  }
-When looking at this again, I'd probably refactor the whole thing so we
-have a permissive teardown path but still propagate the error code in
-case there is a caller who does care about the result of the disable
-scenario.  Alas, nothing in this file ever checks the results of
-apll1/2_mux_setting() so the callers needed an update too.  Well, let's
-just say that's a tale for a separate patchset..
+Just to make sure I follow: are you referring to variants like R-Car H3
+and M3-N, where the position in the array no longer matches the channel
+index? From renesas,du.yaml:
 
+[renesas,du-r8a7795: 4 channels, two resets] [1]
+  reset-names:
+    items:
+      - const: du.0
+      - const: du.2
 
-TLDR: the patch is still an improvement and the (possible) refactor is a
-outside of its scope.
+[renesas,du-r8a77965: 3 channels, du.2 (channel 2) does not exist] [2]
+  clock-names:
+    items:
+      - const: du.0
+      - const: du.1
+      - const: du.3
+  reset-names:
+    items:
+      - const: du.0
+      - const: du.3
 
-Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
+If so, I agree: the names are what makes these unambiguous, and an
+index-based lookup could not express them.
 
+Then on RZ/G3E we can keep:
 
+reg-names:
+    items:
+      - const: du.0
+      - const: du.1
+
+interrupt-names:
+    items:
+      - const: du.0
+      - const: du.1
+
+Maybe make sense also for reset-names having:
+
+reset-names:
+    items:
+      - const: du.0
+      - const: du.1
+
+?
+
+Then we can add struct rzg2l_du_channel_res:
+
+struct rzg2l_du_channel_res {
+	const char *reg;
+	const char *aclk;
+	const char *pclk;
+	const char *vclk;
+	const char *rst;
+};
+
+Into struct rzg2l_du_device_info in this way we can cover future cases
+du-r8a77965, du-r8a7795 -like using:
+
+static const struct rzg2l_du_channel_res rzg2l_du_r8a7795_channels_res[] = {
+	[0] = { "du.0", "aclk",  "pclk",  "vclk",  "du.0" },
+	[1] = { "du.1", "aclk1", "pclk1", "vclk1", "du.0" },
+	[2] = { "du.2", "aclk2", "pclk2", "vclk2", "du.2" },
+	[3] = { "du.3", "aclk3", "pclk3", "vclk3", "du.2" },
+};
+
+static const struct rzg2l_du_device_info rzg2l_du_r8a7795_info = {
+	.channels_mask = BIT(0) | BIT(1) | BIT(2) | BIT(3),
+	.channels_res = rzg2l_du_r8a7795_channels_res,
+	.num_channels_res = ARRAY_SIZE(rzg2l_du_r8a7795_channels_res),
+	.routes = {
+		[RZG2L_DU_OUTPUT_DPAD0] = {
+			.possible_crtcs = BIT(0),
+			.port = 0,
+		},
+		[RZG2L_DU_OUTPUT_DSI0] = {
+			.possible_crtcs = BIT(1) | BIT(2),
+			.port = 1,
+		},
+		[RZG2L_DU_OUTPUT_LVDS0] = {
+			.possible_crtcs = BIT(3),
+			.port = 3,
+		},
+	},
+	.mode_clock_min = 5440,
+	.mode_clock_max = 87000,
+};
+
+/* Channels 0, 1 and 3: channel 2 does not exist, so [2] is a hole. */
+static const struct rzg2l_du_channel_res rzg2l_du_r8a77965_channels_res[] = {
+	[0] = { "du.0", "aclk",  "pclk",  "vclk",  "du.0" },
+	[1] = { "du.1", "aclk1", "pclk1", "vclk1", "du.0" },
+	[3] = { "du.3", "aclk3", "pclk3", "vclk3", "du.3" },
+};
+
+static const struct rzg2l_du_device_info rzg2l_du_r8a77965_info = {
+	.channels_mask = BIT(0) | BIT(1) | BIT(3),
+	.channels_res = rzg2l_du_r8a77965_channels_res,
+	.num_channels_res = ARRAY_SIZE(rzg2l_du_r8a77965_channels_res),
+	.routes = {
+		/*
+		 * possible_crtcs is a software channel index: hardware channel
+		 * 3 is the third populated one, hence BIT(2) and not BIT(3).
+		 */
+		[RZG2L_DU_OUTPUT_DPAD0] = {
+			.possible_crtcs = BIT(0),
+			.port = 0,
+		},
+		[RZG2L_DU_OUTPUT_DSI0] = {
+			.possible_crtcs = BIT(1),
+			.port = 1,
+		},
+		[RZG2L_DU_OUTPUT_LVDS0] = {
+			.possible_crtcs = BIT(2),
+			.port = 2,
+		},
+	},
+	.mode_clock_min = 5440,
+	.mode_clock_max = 87000,
+};
+
+And for RZ/G3E we will have:
+
+static const struct rzg2l_du_channel_res rzg2l_du_r9a09g047_channels_res[] = {
+	[0] = { "du.0", "aclk",  "pclk",  "vclk",  "du.0" },
+	[1] = { "du.1", "aclk1", "pclk1", "vclk1", "du.1" },
+};
+
+static const struct rzg2l_du_device_info rzg2l_du_r9a09g047_info = {
+	.channels_mask = BIT(0) | BIT(1),
+	.channels_res = rzg2l_du_r9a09g047_channels_res,
+	.num_channels_res = ARRAY_SIZE(rzg2l_du_r9a09g047_channels_res),
+	.routes = {
+		[RZG2L_DU_OUTPUT_DSI0] = {
+			.possible_crtcs = BIT(0) | BIT(1),
+			.port = 0,
+		},
+		[RZG2L_DU_OUTPUT_DPAD0] = {
+			.possible_crtcs = BIT(1),
+			.port = 1,
+		},
+		[RZG2L_DU_OUTPUT_LVDS0] = {
+			.possible_crtcs = BIT(0),
+			.port = 2,
+		},
+		[RZG2L_DU_OUTPUT_LVDS1] = {
+			.possible_crtcs = BIT(0) | BIT(1),
+			.port = 3,
+		},
+	},
+	.mode_clock_min = 5400,
+	.mode_clock_max = 87000,
+};
+
+What do you think?
+
+[1] https://elixir.bootlin.com/linux/v7.2/source/arch/arm64/boot/dts/renesas/r8a77951.dtsi#L3363
+[2] https://elixir.bootlin.com/linux/v7.2/source/arch/arm64/boot/dts/renesas/r8a77965.dtsi#L2819
+
+Kind regards,
+Tommaso
+
+> 
+> Gr{oetje,eeting}s,
+> 
+>                         Geert
+> 
+> -- 
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> 
+> In personal conversations with technical people, I call myself a hacker. But
+> when I'm talking to journalists I just say "programmer" or something like that.
+>                                 -- Linus Torvalds
