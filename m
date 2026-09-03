@@ -1,148 +1,180 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C21549F100
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:00:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD9E35F19A
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:01:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788436837; cv=none; b=SQhbBxp16hEbd3XetT0d/jecYN6jRbu77XmPEpdOZNAoqXgMjkueHpdKu6KwWNgVHFfJq+gUhRwTeV6Z8i+GC0Gm2ZiDgLfLWEqek50k14PCX9zn/STw1OjM7+gWgWDzaSsuzHkSx0vcd/VH2V4nYH6EK8ZKwv83TLysEHWOIMI=
+	t=1788436902; cv=none; b=m2vYtu9tIxbgDejYWOT3lJehcIWvFK2LuFzwiU/ALORWgMn72Ipumg1Dc+upnzl9fraz/XvexvFkiMBB2hXs1g7/e+BeNALc1a8Oki5duomC5eI4odMXDTVjcaC9ywwC1hYkqdHpJy/8rhuDJ7V1SB7Wic3QjZrblgmFFN0modk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788436837; c=relaxed/simple;
-	bh=hYv0Tjkpm329P9k+TQgqKAPpwtzq68X7vpyHeYE1jHE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=j3KapNVs2rT3trqbfinSXgAokpBFdXOxCO2z3AxgDxoCZqH0btVqrjxjvdPYmzh6NJ0lkU50zDBEAqnm+I6eUZoWpMtKtPNoOwQo1YeX0JLTgCxdzZEahoPnDLb1Yww7XZQmm3mIs1CcNWh4+juyf61efgJGw3dnhgRLpZAFz3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kvjv7mTH; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788436902; c=relaxed/simple;
+	bh=3JRGhyckz5malS0xm86glLK46wIsuCl7J+xHw95jSPc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dR8SqGOXtnaf46Rspg8wnEwk71z8JfpvXtJBTwT+6MFqPeajgd16H6dsxnzp30uSBtZZcRoltovKVh1P+BiVocrGxIDtWbtYVNdy4j7gRiKwsHtG4tQOE4boknmFIt4CxREyNQMqhiXpt3mwbN29Aw0+sKC6r8sUws2BIft0+bY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=EiUfz/n2; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kvjv7mTH"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d7195706f1so24412185ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:00:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788436836; x=1789041636; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x84L8D3771uX1JRAz3DeEhkLMS/d3fFl7+pMbK1JIwc=;
-        b=kvjv7mTHOi7YcvKmPL+bqdpCLBoTNMQ+EGYilMjh0sbYviv2xQSSAjf8/vy6wQTHit
-         h7w7donsSKHUetTy+NaahPfjrD+YmvkwV2tLftrqmVAaj7zfIJeBPV8CuIayacxYFQb/
-         JUeVX8l2OYiQDhj5x6qw16Bq1SJCv8jGfmrm9q6pxc2DB48BUR1egTlQ6NfZmoLIvul8
-         GPa9ckqgbB6Dq7rYw1cM64qIQopLdoUWOFMNrTxMPAjytPcMobHcUJrR+bNKutlyjsq5
-         aRqhP6Na+o90p7jYTJISu0qojHjueQAhSaT2bub9JDDttDxPMj9lqKOuqnbdObDSMoEV
-         JP0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788436836; x=1789041636;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x84L8D3771uX1JRAz3DeEhkLMS/d3fFl7+pMbK1JIwc=;
-        b=rT+eBunpjJxkJxbULNfmY1fjAOsYm6+LJ8ZisK1tCdzxI2rPug296e4Q9jhJXDEFnW
-         Dn2k+ZhIfmUIt6UsGXTOKnrVkki3tsplo49ZZLVpPUJkV4VKm6iNsPcna5WVfSCXH3dM
-         Zzu2crwfvus58kKhMr4KQg8b/GgW+ZsRMd/kQoZXcYqspWvHtEKMTX24H6FCYibgYIyn
-         IHscFf71LYCBGB+CVVu6Z59fMaNivOZimrN/vFut2uwnfMCFq212aMFVKmpctUbdq/gY
-         z4Jjt4Mb/MwahyZhcvZ79y7jsC9Pef42mg7IP1xLVQECjAzQBhCrOOKc3xAQQGShWBo7
-         rYZw==
-X-Forwarded-Encrypted: i=1; AKwUvBywlMBD/D2m5WdupSqVeJEH/qdJlje2upn3xzVKJWvo2Tadr47BpkWCD6rmda012j/w/SGiZTCRJLrVELA=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7MpbgXHnrRC9XYl3vEk2SeLuih04Z3IxeCMMnKiP4RSKB1X/g
-	koHHaxTzwFLspngLKkxfazhJdfn/i+uGTTqLF7wuHLRzMWu1mJn4KCtZ
-X-Gm-Gg: AYBFou1wTgfeaV6oRe/sSFVasLG7uUtYL+imcQ0ozaPs4gDHexpLAaipdUy+Y8EbI33
-	n9pTpLBBxN9EfuIMGiDMc2KuLH7FZ/SQWu+K618J9zTd2syF8giwwNCvyJFI5WV47Ebd+2BzsG9
-	jp1w0j2WGFNa7KhgbclXy43qpyF6f2yAkiILwlkE1r4omnqELiSBlpZ0GBfdeFeCQiwT4G2InS7
-	bmek2R2mQqptXuTtAEKkKZPNeLlga1XANfjkHuKcYzUs/8eQHd2htRju0psyV0f3KXpAcgFYVcc
-	gl9o2MSdPFpDqt+4h/C3P104//Wa1I9y+h/GfqeIZPwE6nz44XrF1UXTm5Qlf2IkXkPFU2X426B
-	iBPw/c0h6UyJiM/kt8UijTPtc8fwu0UkTZqRqf1qcjMqJavYOw46rlhNKQAxrHRRAUqDFt7I4yT
-	jM9z8IKkjyEpFm3yPpyD74r2oFuI+S62wIwfSiMDoX1EMk0pLyuTANRVZfO32Q4p3ZqFtemtmKH
-	YsApZKUo7wneGVrDvjF7RS602mc6PSWCyUrBriS8KJgRFvgJw==
-X-Received: by 2002:a17:903:26c6:b0:2d8:d4cc:be67 with SMTP id d9443c01a7336-2daec73f1d2mr160598335ad.20.1788436835424;
-        Thu, 03 Sep 2026 05:00:35 -0700 (PDT)
-Received: from ?IPV6:2406:7400:56:e503:ad72:fda5:83e8:be95? ([2406:7400:56:e503:ad72:fda5:83e8:be95])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db01c4204csm8037835ad.66.2026.09.03.05.00.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 05:00:35 -0700 (PDT)
-Message-ID: <c00f266d-b6c3-4988-a2b9-72c5e0389317@gmail.com>
-Date: Thu, 3 Sep 2026 17:30:28 +0530
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="EiUfz/n2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=aKJX
+	bTwdyrznYPGRuoX01iBhI+rk25Vt+bwyCdC8MA8=; b=EiUfz/n2vmWq9ztnjuXs
+	cZahbeet5yAOLaESwcIpOevQqc4mFRBkvfI+d7DKJIlbbe2o7NXtFk7uebJaqxI6
+	tq9Zg52JkYX6r+Cpj8BtXsKcKphOwev1/0pjF0XR7tfbAyX5yqHIxh1HggidQ/PL
+	sNBZjBAwLXdbkfPYTHXQ71r6umdZ/2KtXT0qyE2PoBxwUCQfddguJ1U1MZG04xfC
+	kWaR5dvW1jELp6Md9DD8xH5q8ZruOLCnxCr8jQcGAiTPir1/VctkoFfRaqU9iDUM
+	iD8NT5znMm6IX9B0Ffryz/OqwDeJKyFLFcMzd5I6hbFA1C6u62Rgb6+2FurdUSS3
+	Nw==
+Received: (qmail 1036518 invoked from network); 3 Sep 2026 14:01:32 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 3 Sep 2026 14:01:32 +0200
+X-UD-Smtp-Session: l3s3148p1@Y7Gw6ZJanqkujntC
+Date: Thu, 3 Sep 2026 14:01:31 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Biju <biju.das.au@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>,
+	linux-mmc@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v24 11/15] mmc: renesas_sdhi: Add RZ/G3L SDHI support
+Message-ID: <aplhlynkb_LUiVhS@shikoro>
+References: <20260820171657.62815-1-biju.das.jz@bp.renesas.com>
+ <20260820171657.62815-12-biju.das.jz@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] pmdomain: core: Rename genpd_status_on()
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
- Sudeep Holla <sudeep.holla@kernel.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, linux-pm@vger.kernel.org
-Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Christian Loehle <christian.loehle@arm.com>,
- Maulik Shah <maulik.shah@oss.qualcomm.com>,
- Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
- Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260901111441.122436-1-ulf.hansson@oss.qualcomm.com>
- <20260901111441.122436-2-ulf.hansson@oss.qualcomm.com>
-Content-Language: en-US
-From: Dhruva G <goledhruva@gmail.com>
-In-Reply-To: <20260901111441.122436-2-ulf.hansson@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pK/lZdLk3occFTHY"
+Content-Disposition: inline
+In-Reply-To: <20260820171657.62815-12-biju.das.jz@bp.renesas.com>
 
-Hi Ulf,
-
-On 01-09-2026 16:44, Ulf Hansson wrote:
-> Let's rename the internal function genpd_status_on() to
-> genpd_status_on_unlocked() to clarify its use.
-> 
-> Suggested-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> Signed-off-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-> ---
-
-Optional:
-An additional line explaining why this otherwise unnecessary rename exists:
-
-Rename the accessor to leave genpd_status_on() available for a lock-taking wrapper
-introduced in a future commit.
+--pK/lZdLk3occFTHY
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
 
-> 
-> Changes in v2:
-> 	- New patch.
-> 
-> ---
->  drivers/pmdomain/core.c | 25 +++++++++++++------------
->  1 file changed, 13 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
-> index 842c4169e290..6ac1ce18fda3 100644
-> --- a/drivers/pmdomain/core.c
-> +++ b/drivers/pmdomain/core.c
-> @@ -173,7 +173,7 @@ static const struct genpd_lock_ops genpd_raw_spin_ops = {
->  #define genpd_lock_interruptible(p)	p->lock_ops->lock_interruptible(p)
->  #define genpd_unlock(p)			p->lock_ops->unlock(p)
->  
-> -#define genpd_status_on(genpd)		(genpd->status == GENPD_STATE_ON)
-> +#define genpd_status_on_unlocked(genpd)	(genpd->status == GENPD_STATE_ON)
->  #define genpd_is_irq_safe(genpd)	(genpd->flags & GENPD_FLAG_IRQ_SAFE)
->  #define genpd_is_always_on(genpd)	(genpd->flags & GENPD_FLAG_ALWAYS_ON)
->  #define genpd_is_active_wakeup(genpd)	(genpd->flags & GENPD_FLAG_ACTIVE_WAKEUP)
-> @@ -771,7 +771,7 @@ EXPORT_SYMBOL_GPL(dev_pm_genpd_rpm_always_on);
->   * @dev: Device to get the current power status
->   *
->   * This function checks whether the generic power domain associated with the
-> - * given device is on or not by verifying if genpd_status_on equals
-> + * given device is on or not by verifying if genpd_status_on_unlocked equals
->   * GENPD_STATE_ON.
+Okay, let's start this one high level...
 
-Since we're fixing this anyway, It should describe comparing genpd->status with GENPD_STATE_ON, not the macro
-which expands to that logic ;)
+On Thu, Aug 20, 2026 at 06:16:41PM +0100, Biju wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>=20
+> RZ/G3L (r9a08g046) has an SDHI controller that differs from existing
+> platforms in clock divider width, a second HW adjustment register,
+> and an extra tuning register.
+>=20
+> Add TMIO_MMC_HWADJ to mark controllers with a second HWADJ2 register
+> (offset 0x010), programmed by renesas_sdhi_set_hw_adjustment_delay()
+> alongside TMPPORT2 (0x3FFF at 3.3V, 0xFF at 1.8V). Clear the new
+> HWADJ4 register (0x022) at tuning start when TMIO_MMC_INTERNAL_DIVIDER
+> is set.
+>=20
+> Update renesas_sdhi_set_clock() to write the clock control register
+> with a 32-bit access when max_divider isn't the default, moving bits
+> [9:8] of the clock value into bits [17:16] of the register =E2=80=94 need=
+ed
+> to drive RZ/G3L's wider 11-bit divider field via the max_divider/
+> clk_div_mask support added earlier in this series.
+>=20
+> Add SDHI_VER_RZ_G3L_SDMMC (0xce10) and handle it in
+> renesas_sdhi_sdbuf_width(). Add of_data_rzg3l with RZ/G3L's wider
+> clk_mask, an 11-bit max_divider of 2048, a dedicated tap table, and
+> the relevant flags including TMIO_MMC_INTERNAL_DIVIDER and
+> TMIO_MMC_HWADJ. Wire it up via of_rzg3l_compatible (fixed_addr_mode
+> quirk) and register the "renesas,sdhi-r9a08g046" compatible string.
 
-Anyway, nits only, LGTM otherwise.
+After arriving at patch 11, I feel a significant loss in motivation to
+read this patch description. It is very wordy, includes a lot of the
+WHAT, hiding the WHY. Maybe you can adjust the prompt, but I would
+suggest to write it yourself.
 
-Reviewed-by: Dhruva Gole <goledhruva@gmail.com>
+> -	sd_ctrl_write16(host, CTL_SD_CARD_CLK_CTL, clock);
+> +	if (host->pdata->max_divider !=3D SDHI_MAX_DIVIDER_DEFAULT) {
+> +		u64 tmp;
+> +
+> +		tmp =3D FIELD_GET(RZG3L_CLK_CTL_DIV9_DIV8_SRC, clk);
+> +		clock |=3D FIELD_PREP(RZG3L_CLK_CTL_DIV9_DIV8, tmp);
+> +		clock &=3D ~RZG3L_CLK_CTL_DIV9_DIV8_SRC;
+
+I am confused. Bit 8+9 are always zero?
+
+> -#define SH_MOBILE_SDHI_SCC_TMPPORT2	0x00E
+> +#define SH_MOBILE_SDHI_SCC_TMPPORT2	0x00E /* G3L: SDm_SCC_HS400MODE1 */
+> +#define RZG3L_SDHI_SCC_HWADJ2		0x010
+
+Does RZG3L have a dedicated naming? I'd guess *_HWADJ1. I wonder if it
+makes sense to have a dedicated define for it. I tend to think so.
+
+> +		if (hwadj2)
+> +			sd_scc_write32(host, priv, RZG3L_SDHI_SCC_HWADJ2, 0x3FFF);
+> +	} else {
+>  		sd_scc_write32(host, priv, SH_MOBILE_SDHI_SCC_TMPPORT2, 0x1);
+> +		if (hwadj2)
+> +			sd_scc_write32(host, priv, RZG3L_SDHI_SCC_HWADJ2, 0xFF);
+
+Magic values?
+
+>  	if (preserve) {
+>  		card_opt =3D sd_ctrl_read16(host, CTL_SD_MEM_CARD_OPT);
+> -		clk_ctrl =3D sd_ctrl_read16(host, CTL_SD_CARD_CLK_CTL);
+> +		if (host->pdata->flags & TMIO_MMC_INTERNAL_DIVIDER)
+> +			clk_ctrl_32 =3D sd_ctrl_read32(host, CTL_SD_CARD_CLK_CTL);
+> +		else
+> +			clk_ctrl =3D sd_ctrl_read16(host, CTL_SD_CARD_CLK_CTL);
+> +
+>  		if (host->pdata->flags & TMIO_MMC_MIN_RCAR2)
+>  			sdif_mode =3D sd_ctrl_read16(host, CTL_SDIF_MODE);
+>  	}
+> @@ -217,7 +222,11 @@ static void tmio_mmc_reset(struct tmio_mmc_host *hos=
+t, bool preserve)
+> =20
+>  	if (preserve) {
+>  		sd_ctrl_write16(host, CTL_SD_MEM_CARD_OPT, card_opt);
+> -		sd_ctrl_write16(host, CTL_SD_CARD_CLK_CTL, clk_ctrl);
+> +		if (host->pdata->flags & TMIO_MMC_INTERNAL_DIVIDER)
+> +			sd_ctrl_write32(host, CTL_SD_CARD_CLK_CTL, clk_ctrl_32);
+> +		else
+> +			sd_ctrl_write16(host, CTL_SD_CARD_CLK_CTL, clk_ctrl);
+> +
+
+We should hide this complexity in a function, I'd say. To make sure
+future updates modifying CTL_SD_CARD_CLK_CTL will have it easy.
+
+> +/* Some controllers have hw adjustment delay */
+> +#define TMIO_MMC_HWADJ			BIT(15)
+
+I wonder how likely it is that a SDHI variant has either only this or
+only TUNING_DELAY. Do you know of one? What would you think about
+merging the two? You know the RZ SDHI much better...
+
+I will stop reviewing at this patch. There are enough issues to tackle,
+I'd think. Once we got this right, we can improve HS400 on top of it.
+
+Makes sense to you?
 
 
+--pK/lZdLk3occFTHY
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqZYZcACgkQFA3kzBSg
+KbawLxAAjuWj/8/y4ara9+iSLjrytiHihw+rT+9A6zZt7S7sdbRDIVbZ3a+4j1Jc
+Y14ZaOFD3Urt9LdxEts3Z38jp5z/8lhwnMc3XCrr7J3lguD6XkliHwr4U3ETokU2
+EPmAKENUWvdtskVo0jVbP1ULMLdk2CSbLTkd0eTk8/qXZ2rSiiW8MHjfKFAtFFaR
+2CBF7tPhVGx3CNZzhjgsLXA4qC8BDa+KMrcUuHAHp8hKIxR89WiWyt+pMP6ONLYb
+TdVv3MvAFFcaEj7VsEWcEn31r/EHM7dghtYoaFKLPVlkkLhXvUSqYuBKQgnylega
+i4RAPD7hNRBC6DTGOIyoA61WXtLPYHJ/xBs9Rq0AyvUZOIqxZfMV+ow/JvAZDvUN
+N9enFfr9729WjbiSuDYOiG7jgE5xG4PgwCuCs+dLoSVw93ntTyEo/sA9jLqy4efp
+G0cZgd+dBx48fvJUOCvoE8aTBaU72cnu1QXi0F2IChw6KBrzyKxiqISfzj36NLk1
+thjL8eZE2Zmv+JgpFiMld5mh6ZPjBkzv8fy2nG/vnwlILJy48AHBzl41cYgzQrRc
+2AkYxRR+rzWsH7BXkXdpJoFXZlAdCvSt5o2ky2vs/hfZVpwQu0N2ebOey4Mx4PHz
+wot5hlQIM32kngWSqaCgmC98o8aLNfJl8ZrnqB3fYc96zeF1aKk=
+=iifC
+-----END PGP SIGNATURE-----
+
+--pK/lZdLk3occFTHY--
