@@ -1,255 +1,207 @@
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012040.outbound.protection.outlook.com [52.101.53.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 441584028C4
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 17:34:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 356124A2061;
+	Thu,  3 Sep 2026 17:34:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.40
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788456899; cv=pass; b=m5yAzJm4lbLm4ktOugMLa7dGksZqICjGvIdhmCn4fFsRxyBl87/V9bgScwQDB9RmHBP7L085ZaYwfh6KZYPBegJAmd/Yt+xgmQ8s9cd2maBAdaReFyb1nmUU2+ZNfUp1+ckR3dB633OjDjQ+a/qIn82QS0oL/AZnhCGZirDk208=
+	t=1788456899; cv=fail; b=fVgRaCkA9ndXGu1pQXZFOPpa7/Pu8z2cQvXwwAi9peKnyd/7j+sjPedq2OHy6H5F9xdI8jnOFkBoqTjjSVKp98KYI7R2WQpsfP5KHJA/9v6otu+AVP69/Ykkw8CEh2gg9YbnhRq27ScIkXjJVFKURyGtLof2ZfJhXa2LdFKtWq4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788456899; c=relaxed/simple;
-	bh=B9D9nkqnvXNFHSQVP2bm3NFHJ383vXnuevpuXGgUI8g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sI4RWuZzTO8/wBwYpqbM0alk5oNROSaRjkzDO2o+xNpjJS2NdHFF6BzRM5Q6teLwFVSJy9xsnyRLaJscQKzKi1JWJgh70tx4psK8kNZv5FeN0oeQCu3qGhpl2G5G3R2iNa6Y5j75HNe7/cO2xNQ+vWaPLm8Gc960KWWcQKE2zYM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=YnRtbn3F; arc=pass smtp.client-ip=209.85.167.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	bh=l9RNtYw55jyY8+XkQ1bWyC9QwWELrziS65YXaZdPHL8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=XnTTRq1EUscBYDoUnh382Ltj1kHeLjsQQ8f/i1WM2hlDlxT1FuBIOsdcOhMsbovY96cWCcf7vn3zgDXIgEQfZfJfVV2eUg4eqnJHrLnK1z/Y6KeLubrCPZyMQJkGHRLgHpnnNQLc80NilPHVHB6EjV7Xve0AoTCr3LVYlWVLHV0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=hr7OfiGu; arc=fail smtp.client-ip=52.101.53.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="YnRtbn3F"
-Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-4b38048d0c1so8366b6e.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 10:34:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788456896; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Sxi5YynATWtv11PsI7l5CUSJfOrcFA6iMluNTRFrhgONXSprxOCjHmBBZtE8f+/b+0
-         x+dL1bW2UQF3xIbXh6HFyJVKIWqDIQQWkL6aE7GRfmpSJEdWC1OYBo55I5B4tfHXr7zf
-         FL36lK+0ewTKQIkcgAJenDDdZg2+GSxiJH1gK3dk8S0Df4cSBsbPezWqV/BlSzN3CwkI
-         ZtYW8lRD+ahrd/UUuYGmqxFZwdKNyFtrIwRrc7++IZfwnLfsbHuiMn4JkiZGcSfSdJz7
-         BA8J8CNWZ6d9C1xtvtXAfWpkOg/qC+9iyOxaTN+BLp2GKZTfaF52Xjb9FdBVE+28WJKn
-         MRig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7ewABu/OdmOVe+HOqk4r9aZ2OhRinVo0iIDSSoR7VOc=;
-        fh=WCFeEYCUa92SwZVzudyeVnT3+NtUcQ4NtinwirAaWTo=;
-        b=s7M3d3Ov5n7b3Z7WrLUDFKrpqfq3JallsLvBPmyS4QzEoItF7fAhaF8Jgr0uADmh8K
-         L3su+2J4EuXbl2N1tk78LjTCIlc/IdTroVsn2MaFu2SRenufv09oUq73aLpE4ptw8OVE
-         vwa7uqy1zTafgQ9PGxgaLrnds/oZmxYJfB62mJ9WDefd+MZpa3m54a8HwFKkeTDDaERA
-         6g0+EhEZAwIyCTSDY0u0qoeRcp5Cc9Ck9EaYrRNUEItDXLaSAvuXoL3MUEdzWFky/kFP
-         UMzfnvFD8TlvdztnFVxxUHM1SENl0Ai+jwS8PavsQodr/R6TlW0xIkWJAtQWqMhBySf3
-         sXhA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1788456896; x=1789061696; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7ewABu/OdmOVe+HOqk4r9aZ2OhRinVo0iIDSSoR7VOc=;
-        b=YnRtbn3FqkEDew5AzNRRJhmWvAZjKlSR84zzZti7ZEOVCxkhho7DbCyrG3zxAP6kQK
-         oysxkt7VjOeVhQuEJ7WHoR92tGH8avHd0sDstvl1qHcf4OWnb1j+Cs8mMBZp/yFVyLYd
-         6vTpi6YqyknNqZDORDHTCZ7Y6sdos5OpiboduROiAxZq14Nk3FGcu2jWJMNK7rotU4Gg
-         CQYjqphl0iLhHRoExpTwI2rMwzrctYBtrxSdJJdd+HEBfgVL50/aUQBpOg5aHf+fU2eH
-         mPUQ6Ja0bjAcBQBzHhorQDyrqdttbxdgs7+qtjNOAoDrgJwbJ/eTrTR6UetggWyMBAQE
-         rt9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788456896; x=1789061696;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7ewABu/OdmOVe+HOqk4r9aZ2OhRinVo0iIDSSoR7VOc=;
-        b=IAysVX18bRqsEw0OFJB9QagQWpBcutBGJ5Y9IRNSt5YMXY74Z0L+2Cz9o2iX5hBHtK
-         6NujRNAztXvYhqiTX/ykWF56NxtIQcgqD6djVsgE7U7PSBIQVjNxsllE5bAjrt4v8wDg
-         WvfvHGBodfLQIMI1KEyQoW/JK30Uyr43gOXStIWhSu7nenTWsr+r3D2KCnN2rf4Lre5Y
-         n8oB6a0RRxGZG0xfEMzbpTSGABgxAe8Gwf026q5nP9L66/NRoin6hGL1/FPRee8MtJ2l
-         p9X5ETFEnOpYNOcKn0bkTbtE/G6VJRLw92A61dXQHaejY2eYrkYLQynxIMag7z7ljgXM
-         gdAg==
-X-Forwarded-Encrypted: i=1; AKwUvBzhh2Z+ma4siLksg56eAMLTJT/22Zcf/JBxYGXCBQtthSgy9cVCiuHyHwpGuKxd45IbC3635QoNd0JT0ow=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgglykSrrY/X5SLDLfOpb9DCU7PMM27c6T5giattCbGM3WG7ZX
-	e6vYnpTAcJpPnaU8JhLv4dvfx1jmtSLLcbs95uEmcFVuRCT2M5JhbJyvQxg79gyqeENAZJdbunH
-	Omdw1LcHCfVtiopO1N+CWWR4ZDrjvB8GbjI6mHpGouQ==
-X-Gm-Gg: AYBFou3ZjIGBwRCX5wDLuz5tcj3GJ2VqiBa9f2HSsPBPkEir/w8youu1zUF44wqs06C
-	xWa56fn3LmjrOB2frnlCam3jjTZcr46PfREuaLwiHXffkECuyVS1lvp+wb/yDv0LGT6ARkZ7KD3
-	G+ZUM2dKea++rRhBj0neHlGdT2Gb52TLIurY+osZ9vkacu/nvrqPDmiz8brAlAhLCrMZdPE/lAH
-	b44dbvLtMgn5XZc1e8u+mLc6kbv8fExw6lhkzgDkaw50d/pv9ICC5C7TX1mj5xiXsGlLIZZrH78
-	L3x+JdAso9Pt4rCMLIAID0gnY612iYdMTd+t6OupcofV
-X-Received: by 2002:a05:6808:30a6:b0:4b5:8402:958d with SMTP id
- 5614622812f47-4b6bfbcfc9amr6567061b6e.5.1788456895883; Thu, 03 Sep 2026
- 10:34:55 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="hr7OfiGu"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Pd77au9FOF4iCXhnf0/1j+sJDvbXT90HofzOqCFJZCVWeg5Bh/Rj2vxcuE3Enk9PaEm90K1BsYpdja+6R2aTZSzkoyuXwg4D4OTyOXPmTOId/93u9zGz0ZuM4bKwKaft9gMx1MiKahrjpEADsq/sIk8LK/BLwo4+lG0G+/fMOsC414ysV6O54bnwh0c16XBpe3fPQ3UHDTzM6MPg8Qv/HwIO+eMQXgzj62xzaHRpx7kfkZ9WvxSOuvqVntWIFBDOeL0EwhMvkna17HcHFyl7gx4XDxpLIT/h5zBM+D9SlcI2NEkxJGLzr9hcS3B/uQi/gwxcu5EpHgwHMrm99jjBDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mYNPJziOoDi32Woktb6IGqq6G9r65dWSds0aXQ+dWa8=;
+ b=ytxa5YoPmkLKsRoEabtkBsXBExPpX2fF7z56L8ti9U20rGV3RjQCaiKu2rD8qKYZa6O3Rc1zESv4aqqxzq9kPoALROkdZP5TAgeD0HC6+4buHBRdP7ozrdmwAYyOzqKU8AjEiNhiXvVlsIcPIEZS4bQhCjLpxWB44bNPIMXaLpcjKhjvSLmcKGc+pfUhHp6/sspEpYVMvYSTwtDfkxieM1pboPzfP7vO2/RPrhZMr52aXNJ25dKzm6XiuyYO1DknxodFGDl+5rwnAAlCI/3FqhhbrxN4peIhxmBZ7a2cR/Mq54tc1YPYTaObtC9sKXmyoIW1HkwOIpeEHPgXY2An7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mYNPJziOoDi32Woktb6IGqq6G9r65dWSds0aXQ+dWa8=;
+ b=hr7OfiGuApHr3y+UQHshS0RZwaV1K2+ewPG9u148n5KIPTnXAyDIaShkYVAq0P9HMhyQ68iLXhWsjwN+4ViEjs2yf5BkCozz74K7sw1NE4SkOH5F93iWMTdQz/UGZQ9F6uQM6cduvN4SOkK/eIHl5ujHxoXlgGFB9nvC1AnRqLg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
+ MN0PR12MB6341.namprd12.prod.outlook.com (2603:10b6:208:3c2::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Thu, 3 Sep
+ 2026 17:34:54 +0000
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf%3]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 17:34:53 +0000
+Date: Thu, 3 Sep 2026 13:34:44 -0400
+From: Yazen Ghannam <yazen.ghannam@amd.com>
+To: Lin Wang <wanglin@open-hieco.net>
+Cc: Borislav Petkov <bp@alien8.de>, mario.limonciello@amd.com,
+	tglx@linutronix.de, mingo@redhat.com, dave.hansen@linux.intel.com,
+	"H. Peter Anvin" <hpa@zytor.com>, bhelgaas@google.com,
+	x86@kernel.org, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 4/5] x86/amd_node: Skip SMN setup on Hygon Fam18h
+ models 0x04-0x08
+Message-ID: <20260903173444.GA27025@yaz-khff2.amd.com>
+References: <20260901071700.3255382-1-wanglin@open-hieco.net>
+ <20260901071700.3255382-5-wanglin@open-hieco.net>
+ <20260902024833.GJapeOgRJ50RAZvI3e@fat_crate.local>
+ <5c6ebbf5-3b3c-47e7-800d-adb4049cd636@open-hieco.net>
+ <20260902151340.GAapg9JDQMt2WTkjLM@fat_crate.local>
+ <20724518-2bf0-40ac-a5a9-1b2fe9df2b0c@open-hieco.net>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20724518-2bf0-40ac-a5a9-1b2fe9df2b0c@open-hieco.net>
+X-ClientProxiedBy: BN1PR13CA0016.namprd13.prod.outlook.com
+ (2603:10b6:408:e2::21) To DM4PR12MB6374.namprd12.prod.outlook.com
+ (2603:10b6:8:a3::18)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902225708.2379840-1-csander@purestorage.com>
- <20260902225708.2379840-2-csander@purestorage.com> <CACVXFVOKGOEmefHmZpsBX-7uxGjzbaJiueYMvka8TDjccOuFjg@mail.gmail.com>
-In-Reply-To: <CACVXFVOKGOEmefHmZpsBX-7uxGjzbaJiueYMvka8TDjccOuFjg@mail.gmail.com>
-From: Caleb Sander Mateos <csander@purestorage.com>
-Date: Thu, 3 Sep 2026 10:34:43 -0700
-X-Gm-Features: AcwNN1W9WnICv9pGfNodLq9yLwaSICnIyXjRpvwIb40wmKIKgI6KwpbmnVrMA7k
-Message-ID: <CADUfDZqFLMS08wq0bJWQwKpJL5k9ty1bruVFQFcV6juFVB-9AQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] io_uring/cmd: split io_uring_cmd_set_res() from io_uring_cmd_done()
-To: Ming Lei <tom.leiming@gmail.com>
-Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, 
-	Sagi Grimberg <sagi@grimberg.me>, Joanne Koong <joannelkoong@gmail.com>, 
-	linux-nvme@lists.infradead.org, io-uring@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|MN0PR12MB6341:EE_
+X-MS-Office365-Filtering-Correlation-Id: e71f37ba-ff9f-4e6f-d120-08df09e1aa0b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|56012099006|10067099003|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	BZ2aq74EC6sf5cFuEi95gcCtkMbZlvpX9RScatD8hKAO3cXlWV9R17eP3TUGgXEA3XF5B51Gk2jLbW24EbhEbYUkHhV/T2bnf/B99PGOp/2SOGqqY3hvRs2AgpBwEd/1uSHCswfoangA1SjDChQEyu2M9uh59Vye+ZpLSOmnJvb/5ni+BdLUDW0HJbvFSPcPiTIBNY79akVM5p06zp2wNdMvPEwKN4xsxb3kOkFVHvka6goJjUD7b8bvLz9LqfH+yqtsVMlufbr8BdxouSOXfNZBCX8oNBfjEWywaqnl5rQZFhz8IWNtrdqznr8JvMOK6EBl42HPW+T71zjR7zdj8RVbez3Gpx3e2uHRsXy5Eny4fgUXgNNGCO94JQcJMRWsryTpVvsU9rRmIv4u+yZtqyJtlNFUTonECPzSjSSVrn3ExJy+N/fHQ+aHxbvSZl3mkCKYvSekhEsAQjPfXsMaINOiHBUPXoDHXjOLDRVUQdf2SMybuAyY7p2kJ5yvOLOS/LH36GmpR+UfQ2y0rJhq4j+5WMdJUNAm7SDGo081b1w5S8vMuC/ULjzeyVyeQRSDHAr3DIjhOZ55KR4qQ3RP+pxAUT4Q31H4wnp5hRUxC4Jr+dWgoRaJhHjI+36qpn7cFCVStstg6lfna70Pm3gROsnPnhC6udu0h+Dj+Rv5OhM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(56012099006)(10067099003)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?9gzwhBAKs97UDGLS8nbKjXjj+X6Sa4oPXQLSjcFoPDj7VlFtUr0ieeyHpqLB?=
+ =?us-ascii?Q?cwyH7OBeYukcVzBFM4wEZoedfjxeb+OD2wVH1v0r0sVtn1wv2aVzZKWEuIuJ?=
+ =?us-ascii?Q?aFASr9E44126BzS+424uerwOU03AGTAc9+nUaQZaqC3os3NFyci4dwlFNKCg?=
+ =?us-ascii?Q?6TVC3xMXbEbbDfQ/5NfDdA/KSTjawFsXoseXG+a3PrJd/tsxPVKNRSX6RvAb?=
+ =?us-ascii?Q?uGTmw8RTQ7RVfQWEi7RI2KyPEu1VGLFDonxO/A2AmVBC6yEHt6LaXsE6HO/c?=
+ =?us-ascii?Q?4tX+9YLyoidKThIwxitJpVyVYNESXL1M/scQoeaW4s17+7bXVYhOSigJ0rcu?=
+ =?us-ascii?Q?26tYv5Z2PPCUWAu9cZ2Hag7xBgGR21WGuiJDUwY9Botxt4SU4NMVp/OkHFlN?=
+ =?us-ascii?Q?8tz6dWsnkU90VG39c7xVugHTdRexwl1XoSopIhzv/dS4A72hI9uHVuFglfpu?=
+ =?us-ascii?Q?z7EkihZL2Pegh1Q1cd2u+G+CIlZN+sQPd1lU1PMFfpiEg8oEqOPXUiFhS6Lv?=
+ =?us-ascii?Q?98E5/rf00mF18SpSKE1RT8+JlxiWNOIZcCRO1UqkIbqEgy8CghbGadKmtX+L?=
+ =?us-ascii?Q?fqxJ4P3vZ23TIQ6xoZjleSrt/WPSC40ffhy0Scq72C1jX7X6V3UnFJBhjCm5?=
+ =?us-ascii?Q?2LOOLZ54GblFwMFxQ3qQlWYN/54HUSvs+OYpdj7elWpvSJkfJzc5coGwwYzg?=
+ =?us-ascii?Q?25tYpISQw5wmuKrRT4qgk3w84Nda/Eh8V/OoC9r+NCFIH961qqRSCgYI/Myo?=
+ =?us-ascii?Q?Jmb+bjg5nNDWQ2zqWoanWZk2gFSVEiirZ6yCoNn4HesLEOoXazmQqa5ZtFy9?=
+ =?us-ascii?Q?T40/27JKqTnGDnvB12lJSw6nCJnNMf2tzaEIQDQdnvD4+ZWfVodbVyexvZIi?=
+ =?us-ascii?Q?uVkt59UVoWkIva2IurfSq3FVW2By+Ee2IIn4q+EHTvQ7Rpf3bjgmSt819qJQ?=
+ =?us-ascii?Q?CMV0G6Dg5vA39eJ8clh60TCumj1Ep5lxSB1Av0SxDv8gyM6Gn1ZLTf0SVhyp?=
+ =?us-ascii?Q?2xiiRmbpFmSXnZT4PnpQXZRdSJGlvQtZ62xSUTNGmQF2fc3fbhUKqMKzfVWK?=
+ =?us-ascii?Q?hjmEqLGz813UexNgkrcaEXR2QVBdEmZGUndn7lKdyJ3vesCp5tt4coXap0x+?=
+ =?us-ascii?Q?csfMmo2B01KNwn23oBzgdcw/0059AWmglCG14BI+UkSU2ZWeTvB8Rajb5g2P?=
+ =?us-ascii?Q?ffUbHy7DTJAhejJkFM23F/2Km4gxTWEXbLn7P1H5s5DRnE415CyBG5pAHn8r?=
+ =?us-ascii?Q?MN2sPBtiXeu5vfPRyZQubluL2Mx7s3AUo30pJ+WYrsLWcIUbUxmWTVaoC2lt?=
+ =?us-ascii?Q?2s7+sYUQDUwdxIJXc69PIEBq0JqauUa+JwLKQncOiR3c9cKtnUckGar4/pdg?=
+ =?us-ascii?Q?Hk5Ygk3hckzOHOt9xUSgGQt0ivAPLqTDBw5A9VLeicM/2BbsdjrRR98azyGR?=
+ =?us-ascii?Q?hz31MH8rs8hXcHz57w8192X4sWoMOzMbZAH2QvAc6bc/ANf2h9H7ZP6xY3qK?=
+ =?us-ascii?Q?q3rfA4sSIQEMcS1z9l2cvnn0OfaO8gXVexpsYoofN26RVN9ylOT469JTVtGj?=
+ =?us-ascii?Q?zGb0c35gcwZRDhoek8kGNYhueuRfqwO4//TnC71Ef4w+j5oUysBvPChffrj8?=
+ =?us-ascii?Q?QJ5s8rOXvlP9rnPxaumofFf7UVGnebTO4ExE0wAd0CnNi5tUuQKBepWiBdsw?=
+ =?us-ascii?Q?HapXEu+euIyJa2GRhbarSZrP9WVbc/npCVYPcjJyfXG+uCHchbwYhZs+rAEj?=
+ =?us-ascii?Q?pHK6xyQwqQ=3D=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e71f37ba-ff9f-4e6f-d120-08df09e1aa0b
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 17:34:53.7161
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 39IpuU2K4dvviEHc9K8po5KEBhBnqx97Ji5y/E/F64QoEkIhnanNWG3s9H7U1QuHdNuxVBE225QHdbDpnu8zsg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6341
 
-On Wed, Sep 2, 2026 at 6:02=E2=80=AFPM Ming Lei <tom.leiming@gmail.com> wro=
-te:
->
-> On Wed, Sep 2, 2026 at 6:05=E2=80=AFPM Caleb Sander Mateos
-> <csander@purestorage.com> wrote:
-> >
-> > In preparation for setting the io_uring NVMe passthru CQE results from
-> > the blk-mq request completion rather than the task work callback, split
-> > out functions io_uring_cmd_set_res{,32}() from __io_uring_cmd_done().
-> > io_uring_cmd_done{,32}() now call io_uring_cmd_set_res{,32}() and then
-> > __io_uring_cmd_done(). This allows __io_uring_cmd_done() to be made
-> > CQE-size-agnostic, with 3 fewer arguments.
-> >
-> > Signed-off-by: Caleb Sander Mateos <csander@purestorage.com>
-> > ---
-> >  include/linux/io_uring/cmd.h | 23 +++++++++++++++++------
-> >  io_uring/uring_cmd.c         | 33 ++++++++++++++++++---------------
-> >  2 files changed, 35 insertions(+), 21 deletions(-)
-> >
-> > diff --git a/include/linux/io_uring/cmd.h b/include/linux/io_uring/cmd.=
-h
-> > index 331dcbefe72f..67f2ef700c43 100644
-> > --- a/include/linux/io_uring/cmd.h
-> > +++ b/include/linux/io_uring/cmd.h
-> > @@ -50,19 +50,21 @@ int io_uring_cmd_import_fixed_vec(struct io_uring_c=
-md *ioucmd,
-> >                                   const struct iovec __user *uvec,
-> >                                   size_t uvec_segs,
-> >                                   int ddir, struct iov_iter *iter,
-> >                                   unsigned issue_flags);
-> >
-> > +void io_uring_cmd_set_res(struct io_uring_cmd *, s32 ret);
-> > +void io_uring_cmd_set_res32(struct io_uring_cmd *, s32 ret, u64 res2);
-> > +
-> >  /*
-> >   * Completes the request, i.e. posts an io_uring CQE and deallocates @=
-ioucmd
-> >   * and the corresponding io_uring request.
-> >   *
-> >   * Note: the caller should never hard code @issue_flags and is only al=
-lowed
-> >   * to pass the mask provided by the core io_uring code.
-> >   */
-> > -void __io_uring_cmd_done(struct io_uring_cmd *cmd, s32 ret, u64 res2,
-> > -                        unsigned issue_flags, bool is_cqe32);
-> > +void __io_uring_cmd_done(struct io_uring_cmd *, unsigned issue_flags);
-> >
-> >  void __io_uring_cmd_do_in_task(struct io_uring_cmd *ioucmd,
-> >                             io_req_tw_func_t task_work_cb,
-> >                             unsigned flags);
-> >
-> > @@ -105,12 +107,19 @@ static inline int io_uring_cmd_import_fixed_vec(s=
-truct io_uring_cmd *ioucmd,
-> >                                                 int ddir, struct iov_it=
-er *iter,
-> >                                                 unsigned issue_flags)
-> >  {
-> >         return -EOPNOTSUPP;
-> >  }
-> > -static inline void __io_uring_cmd_done(struct io_uring_cmd *cmd, s32 r=
-et,
-> > -               u64 ret2, unsigned issue_flags, bool is_cqe32)
-> > +static inline void io_uring_cmd_set_res(struct io_uring_cmd *cmd, s32 =
-ret)
-> > +{
-> > +}
-> > +static inline void io_uring_cmd_set_res32(struct io_uring_cmd *cmd, s3=
-2 ret,
-> > +                                         u64 res2)
-> > +{
-> > +}
-> > +static inline void __io_uring_cmd_done(struct io_uring_cmd *cmd,
-> > +                                      unsigned issue_flags)
-> >  {
-> >  }
-> >  static inline void __io_uring_cmd_do_in_task(struct io_uring_cmd *iouc=
-md,
-> >                             io_req_tw_func_t task_work_cb, unsigned fla=
-gs)
-> >  {
-> > @@ -171,17 +180,19 @@ static inline void *io_uring_cmd_ctx_handle(struc=
-t io_uring_cmd *cmd)
-> >  }
-> >
-> >  static inline void io_uring_cmd_done(struct io_uring_cmd *ioucmd, s32 =
-ret,
-> >                                      unsigned issue_flags)
-> >  {
-> > -       return __io_uring_cmd_done(ioucmd, ret, 0, issue_flags, false);
-> > +       io_uring_cmd_set_res(ioucmd, ret);
-> > +       __io_uring_cmd_done(ioucmd, issue_flags);
-> >  }
-> >
-> >  static inline void io_uring_cmd_done32(struct io_uring_cmd *ioucmd, s3=
-2 ret,
-> >                                        u64 res2, unsigned issue_flags)
-> >  {
-> > -       return __io_uring_cmd_done(ioucmd, ret, res2, issue_flags, true=
-);
-> > +       io_uring_cmd_set_res32(ioucmd, ret, res2);
-> > +       __io_uring_cmd_done(ioucmd, issue_flags);
-> >  }
-> >
-> >  int io_buffer_register_bvec(struct io_uring_cmd *cmd, struct request *=
-rq,
-> >                             void (*release)(void *), unsigned int index=
-,
-> >                             unsigned int issue_flags);
-> > diff --git a/io_uring/uring_cmd.c b/io_uring/uring_cmd.c
-> > index 726a659f38c3..917b32a921e6 100644
-> > --- a/io_uring/uring_cmd.c
-> > +++ b/io_uring/uring_cmd.c
-> > @@ -136,40 +136,43 @@ void __io_uring_cmd_do_in_task(struct io_uring_cm=
-d *ioucmd,
-> >         req->io_task_work.func =3D task_work_cb;
-> >         __io_req_task_work_add(req, flags);
-> >  }
-> >  EXPORT_SYMBOL_GPL(__io_uring_cmd_do_in_task);
-> >
-> > -static inline void io_req_set_cqe32_extra(struct io_kiocb *req,
-> > -                                         u64 extra1, u64 extra2)
-> > +void io_uring_cmd_set_res(struct io_uring_cmd *cmd, s32 ret)
-> >  {
-> > -       req->big_cqe.extra1 =3D extra1;
-> > -       req->big_cqe.extra2 =3D extra2;
-> > +       struct io_kiocb *req =3D cmd_to_io_kiocb(cmd);
-> > +
-> > +       if (ret < 0)
-> > +               req_set_fail(req);
-> > +       io_req_set_res(req, ret, 0);
-> >  }
-> > +EXPORT_SYMBOL_GPL(io_uring_cmd_set_res);
-> > +
-> > +void io_uring_cmd_set_res32(struct io_uring_cmd *cmd, s32 ret, u64 res=
-2)
-> > +{
-> > +       struct io_kiocb *req =3D cmd_to_io_kiocb(cmd);
-> > +
-> > +       if (ret < 0)
-> > +               req_set_fail(req);
-> > +       io_req_set_res32(req, ret, 0, res2, 0);
-> > +}
-> > +EXPORT_SYMBOL_GPL(io_uring_cmd_set_res32);
->
-> Both the two helpers can be inline, can't they?
+On Thu, Sep 03, 2026 at 09:49:58AM +0800, Lin Wang wrote:
+> 
+> 
+> On 9/2/2026 11:13 PM, Borislav Petkov wrote:
+> > On Wed, Sep 02, 2026 at 02:22:13PM +0800, Lin Wang wrote:
+> > > Please let me know how you would prefer this to be handled.
+> > 
+> > Well, X86_FEATURE_ZEN isn't Hygon apparently. Otherwise, we wouldn't be having
+> > this conversation. And we wouldn't need ugly workarounds like that.
+> > 
+> > Which means, you cannot set it on Hygon. Instead, you should check vendor or
+> > define your own X86_FEATURE_HYGON if you think it would be useful to denote
+> > common set of features between all Hygon cores.
+> > 
+> > Reusing an AMD-specific flag but then having different hardware which needs
+> > hacks and workarounds to the code is not what you do. Hygon is a different
+> > vendor and it should be treated as such - not piggyback on AMD code.
+> > 
+> > Unless you wanna piggyback. But then you have to extract it properly and make
+> > it generic so that it can be shared. I have been asking all people submitting
+> > Hygon code to do that and you are starting to do it but then you need to stick
+> > to it and do only that.
+> > 
+> 
+> Hi Boris,
+> 
+> Thanks for clarifying the direction.
+> 
+> My proposed approach is to use explicit vendor checks to make
+> init_amd_nbs() and amd_smn_init() AMD-only. Hygon node enumeration and
+> SMN setup would remain in Hygon code.
+> 
+> Sashiko's concern with v3 was that the AMD initializers were restricted
+> while Hygon call sites remained. However, as currently implemented, the
+> AMD NB and SMN paths are based on AMD topology assumptions and cannot
+> provide the Hygon node and SMN mappings.
+> 
 
-I also wanted to do that, but req_set_*() are defined in
-io_uring/io_uring.h, an io_uring-private header, whereas
-include/linux/io_uring/cmd.h is a public header. Perhaps the inline
-functions could be moved to include/linux/io_uring_types.h or
-include/linux/io_uring.h. If not, I think we'll have to rely on LTO to
-inline these calls. I'd be curious to hear Jens's thoughts.
+The "vendor != HYGON" restriction would be fair.
 
-Best,
-Caleb
+I don't understand how the "model-specific" restriction is better.
+Wouldn't it cause similar problems?
+
+> I would first stop the affected Hygon call sites from entering those AMD
+> paths, and then make the two initializers AMD-only in the same series.
+> Later driver support would use the Hygon interfaces.
+> 
+> Would this ordering address the Sashiko concern?
+> 
+
+Right, so first you provide a Hygon-only option for all affected call
+sites. Then you add the vendor check. This ensures that the affected
+callers don't break in the middle of the patch series.
+
+Is this your intent?
+
+Regarding the Zen feature flag, I think it may be overloaded.
+
+Hygon systems are Zen systems. The same Zen1 architecture was used
+orginally, though I don't know how much things have diverged since then.
+
+All Hygon systems are Zen systems, but not all AMD systems are Zen
+systems.
+
+So we have three diverging Platforms:
+1) AMD legacy (Northbridge / !Zen)
+2) AMD modern (Zen)
+3) Hygon (Zen by default)
+
+(2) and (3) where the same until recently.
+
+Maybe we define new feature flags that indicate a Platform/Interconnect
+group? That way we won't need to rely on PCI IDs or vendor+core
+combinations.
+
+FYI, that was the intent to use the Zen feature flag here. It was a way
+to distinguish (1) and (2/3) above. It worked until it didn't. :)
+
+Thanks,
+Yazen
