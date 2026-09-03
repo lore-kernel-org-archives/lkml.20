@@ -1,265 +1,270 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3EB84A1DF0
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:19:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B250446BE2
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:19:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788437956; cv=none; b=k32cvi036SSBbGoZiVWN7QcsNlXXugJDX2wd9uSiVkKtgHn2mftFCby8pB8m25SSiR4Ou4QySMarOCMMYSTENQVQEyck4cDVVXkbUA1rH/UhlLg1ZOg4qe8GZauuNwC8uZTe7wfYVmtxZn1N486FqXDxtce/o1yHTXhQP7LJb4k=
+	t=1788438000; cv=none; b=q8XMwKur2XLHujRHFMIVzlRcMirTQzueMorbJFKVy99f8P76dWxpg4NqIaPLXeGQqcufd1xGAQQecWd4kyw+P0rb/pyJMcA1SI/IbiY5+FKZv1Mq1mGaoCVsLCYMLaBw3a2g+lPY3Gd5XwyiHGJxdeGwqDlkt9g5AU47vPwx3Yo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788437956; c=relaxed/simple;
-	bh=uz7L8jZC+FRa4iH6HND9+Fq9kcOFbjPiksyeJbgXaOI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=iV6CPVLoRse32Qbk4YJAvYULEZn4U31cU86wP8CPhrkM1br6TuvgMbflLFpOEd4BGZIvxF5gAkYS8V5JUj2rqCmJlqZVpr+2Z+oAi4DST9Obk50Avl6AIZUTq6XzQjn/F93mOJHOAiEw5jIR7Oic6z2aCJ813NZeFK5rhNHKN+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DOzbJSpH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EaizgB/b; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788438000; c=relaxed/simple;
+	bh=IPoP1ujHUk9VAUmKycpgSLHGWxb9gHi9sH2bqHUrxX4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TutU8tHaJi3xlSatAWzk+5r75lENkG5o4qHw5uFgwZ28tFfp4Rfk41EzMntXArgcLOnHhLRJNnbUVcFfX4VDG7m6/baHJt4SiH4oL566VHxbRqbhBQ12M5kuyTDP+FHKj3R4QDFu0AKcXiEt8xSAuXH+g5HpOR568r8gmueexi4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cnqT9XQE; arc=none smtp.client-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DOzbJSpH";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EaizgB/b"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683AHDoR327114
-	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 12:19:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=d1v+GC8Hhix4s/ZeQXqidP
-	kZI2JR/xI9DRh0/nfz9oc=; b=DOzbJSpH1/bEeTonQSd4JC9BM4dkM5TW7nNiTE
-	lVTSHhmnqKwNBKA5sBCV18eBY/7/OPgLYJ3eyBCULVCsbnu0neVf6+oNIKgn4mm2
-	v+Rsi0GYCfbnLrh+rXxoShHaFo185qWtjabiJpij0SElcWJiv0SkmjcqZ6sZrg8J
-	iDJUwJImDwAJUU5pUOqoyQYZ22/el1lkvPUAD4IrhFnqKoNGDhJNbw63V/CgOOGT
-	nPXvIR/h5a1tQsjOkWynuORRx42upgSNJv2+XoaBzEXkaERDK0FQNpKVLXMgJGm+
-	XGcvbYoHN9fJts6kcLskW7dKTGCg8L9KVmTlhTdpEcRakQKw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf4ekh5v3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 12:19:13 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93903622880so173652985a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:19:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cnqT9XQE"
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-c9d1fff21edso1911279a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:19:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788437953; x=1789042753; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=d1v+GC8Hhix4s/ZeQXqidPkZI2JR/xI9DRh0/nfz9oc=;
-        b=EaizgB/byGWJUl8jwQafnUP7b4SYJv6+oAaE2AmRukoQE9KQVsfhcZEKFlm2sypnk3
-         Av5wANKidykvC3hf7gwTKcMkq9LmZL7Xb+dOA/wAKJCrb++/BKTwyNk4sx0SRJvZG2NS
-         iBs1xGsoy0gcwqnTWBF3fBMZQ2Jna16o0hB9KDxWJ4e3jhtScE+c95P0DdvhoJUAwdlz
-         0uSzuq3rPAIMXK0AVgrQBAMFlosZovW/hw+EOO9TvsgPvvWffJ6r/c9CMG+f8NowBB7R
-         kgdRrnFtUqHI5SGS06zDtZYUrpXLC4BUy/b2gnF5RAcNOwysXc4O0rpe1Aa/q9fI56L0
-         v5GQ==
+        d=gmail.com; s=20251104; t=1788437999; x=1789042799; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=77BNTVqgC1Z2OdVFKoom+8RxQdD5brnKOMVuDrWHP/Y=;
+        b=cnqT9XQEFmpDdDCKUPONbZaHr/LActep/Xn50lW9wlFWfhI41gwyQ+U9+ArgHCV1oE
+         txRhJV4nVNwKu5wLEj/wxNLrfqvLXBanVA0FnXUjKF2/wTuF/bB/s62BhpsCDKmUJUDU
+         OJFsmZdIccW8IQFTx4oc6Dm+SIqHnTIY9giNrZgTc4KAuQ2fgha1aE+qYx6xO9QT+P6Z
+         txEK9VaDkKnCOvu6FjsSCMcpsSni6ShOVrHDcw+dVR6YGNNLFpJY8SFcW6NxXkIYbmdZ
+         VEW5dMggg4sEOAEYCbcGseFnHzt+mo/amcKoTtPAs2d6GMMz4N3RiVvNg9mrzg0H6rfZ
+         pHIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788437953; x=1789042753;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=d1v+GC8Hhix4s/ZeQXqidPkZI2JR/xI9DRh0/nfz9oc=;
-        b=nNR+MPYL2hu74FE8HSMKRJKBWpFWbg7zNVjVP7X0wzEGKHrZKs/+TJXKGThcajHisE
-         /Ox6NJ7tA+qVR009mYSOKRLIfHbqt1PobCYIe7+VIGoQ/ASyRTuo1jWFwGSLlr71U282
-         gsDfNN+LIH+ILcOW49xxwPwQbeaf06GAeBpPPGxMKX5t0LVf1UPs0j82cAF1xgJio3aT
-         5tNQpSVpomdd339PdexU22GZfHpEzpOGx/FI2mku8Rpt09NTFZYJu2CsHc+3Fz7z7nuq
-         i01MS2obodJ0e0kMR+r/nGBauaAZ1vIVi+tcEymk4aHAWrMu/oIYmsNI6CY+7p8ejF1E
-         40uQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzq0ZqbQyITTuOB5Ntnj1JxJxkKIU906dhCwKPf6Pf3PT8kBBewDIHRfWyJyAvHUXGxX2yUYfcZlxBek74=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhPJSZRvHcpaKzqyL+k+r6hI8WqVQLZmOyq4OsVDLiWeB90wVI
-	S7wEYCeP7RzUKT2XVAZSgqiGI3cnCQnqTikJ7+4NiUkmbENLlkDORZ7TecUdYAgkVKo9LPkfiTh
-	JEwm1H9iZjoL22dEJ8/VT+i5xSiOdgBVlCQltQKCBgYQ7L46vxz2TX3S70vnT9FJb6LQ=
-X-Gm-Gg: AYBFou29/6C8e2m5ddF1jE0/WelB1tjWDnjGVQ0reh4DFdgjRKaD/FLkOYRWqBHH9Tn
-	GCXMvZLPJkwryZuZ1kEphR8g8wfLjJrmGd2Nob8gUNdSsZS+sZdtPu3HKffGusoTM1MlqPq65Nh
-	G0qGCQJU40ytwMUlrB6UkjTqpvgoRyo1P80m95e7WQ85sg/G/fmIoXlSIGYjOLKiXc9rd+zh39K
-	Zn/kjh8yN0liBInASAIxPbrYOlBZza96cez7qDysyj3IF7O3O1w2mJK/ZfEXTASv1aZA349u+86
-	llObBjAb34xbTPJUIwaJaJj7jQAdS5DBpvmN/sWAYNb/JTMBArPV0IQgSQvcSJcAwHkZxoPu+Er
-	xZjVMipR5XfWQXseFmLuiIeX5NO9UTGjf8IFavoto2/qGyn97VJHpslNUqB0UX1mjFnWXFl+QT9
-	GV8fSZ+EmFrDKO
-X-Received: by 2002:a05:620a:3704:b0:939:79c:1104 with SMTP id af79cd13be357-9396df22e93mr542211685a.10.1788437952972;
-        Thu, 03 Sep 2026 05:19:12 -0700 (PDT)
-X-Received: by 2002:a05:620a:3704:b0:939:79c:1104 with SMTP id af79cd13be357-9396df22e93mr542207585a.10.1788437952445;
-        Thu, 03 Sep 2026 05:19:12 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b606b0ecdbsm1254298e87.9.2026.09.03.05.19.10
+        d=1e100.net; s=20251104; t=1788437999; x=1789042799;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=77BNTVqgC1Z2OdVFKoom+8RxQdD5brnKOMVuDrWHP/Y=;
+        b=mxVn6tFzW7kYj7L6SdKL84nEegyGYsVDHlkTv9ws5Ca2PovX8tgtAMqOjB37kB5m2J
+         RlzHkovYy6O6sf5Xz2FK+rGFwUjTxPs1r+wKO2+C28KRdchqfiIPkPC7biIBNNsuVt4p
+         C9MEM7r2pqj+EwkSSD2/g5W5jHz1Z8gMoOaVxeBgd9h7S+SrD2v1hHITeq/lvkZFy4zv
+         +RqrEtANpd8U1Y19fF2X1t/GhcaHVDygSK63jqMhHmSXq7IDnbmytTD5gv4GIk0d6z3C
+         TKNz4n/ELcZXF/PU45pRm9QMDFZZ2E21cto1im1CQ+unw9/ErISsgyo8nE1VOlcmj1Jf
+         tKuA==
+X-Forwarded-Encrypted: i=1; AKwUvBxrs+UqgU0ePMdd8jcgrmwVY1EzaV8YjnlVFGE0MTQuGbSBHQg2irXCtnBM8FhI17K6FRJUzqAGelQEp3E=@vger.kernel.org
+X-Gm-Message-State: AFuF++mwF+3qw2x2lpIWWcjZnaPEpPNXFF/DZIEersebX0wF6FkBtiSP
+	TyPCmbH4VUBougKx/klT3QY6GCmtv5YLGw3lHaR/r1fB0VYQ5BltzGBw
+X-Gm-Gg: AYBFou3IY5rm/H/+BOUn20bzVeS5dAN+J3hMGjmcTyzArOaKmY7HQQSxBQlVAZN4gbD
+	2Sx5K0wJHp6CXFJyMevxnFpus0mg8H/CsXPSBwHfmSGxf1qwsxCWAZ2or3NsGqjGMZCxit86W6o
+	Pz2UQfXhA1imsekA1xh+OjsbbFh2mDXtbUT02HjeOMVoGqFXQpPtwtIm6lkwTX1hIWQJQoD4BKI
+	jbsiiCO31dyxlv78jvxej8AYoBugIaHKfbXShqPgQsGrr2pSYy84x6ehqPbm6KMp7kD6xJtkYFe
+	E7DpKsrTPwvpauGxPGrqWi0zZ4ndCQ4nUK0YViaduxquekokPD8TJXZ/4yO7kTSjNuc69IuMV5Y
+	AwLq/pD4xLcCy8R83rOXURRQCWoJ2B+DYdfqbNT68uVjZN8nsWEvR06QdGYjdTQhYyVZf/Q10PJ
+	Lc3Zshk/TkKUw2vd1wVqTZCLeOQCHiKrtCmfPglB4Diqr5BASnypjf9BGA4Z6mHmmKZxvW/S3pj
+	3tZIagPNWrVsuG9svL22koI0FmscrFXUWdHWcDAwILDtkQG8yTL4g==
+X-Received: by 2002:a17:90b:3d81:b0:398:c150:e7b3 with SMTP id 98e67ed59e1d1-39aedf5d923mr18578664a91.4.1788437989277;
+        Thu, 03 Sep 2026 05:19:49 -0700 (PDT)
+Received: from deepanshu-Legion-Pro-5-16AFR10.. ([2405:201:682f:383f:d01b:7a44:ef5d:7899])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08bcc090sm5361270a91.4.2026.09.03.05.19.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 05:19:11 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Thu, 03 Sep 2026 15:19:10 +0300
-Subject: [PATCH] drm/msm/dsi: round the byte clock rate after reparenting
- to the PHY PLL
+        Thu, 03 Sep 2026 05:19:48 -0700 (PDT)
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+To: valentina.manea.m@gmail.com,
+	shuah@kernel.org,
+	i@zenithal.me,
+	gregkh@linuxfoundation.org
+Cc: yuyang.du@intel.com,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Deepanshu Kartikey <kartikey406@gmail.com>,
+	syzbot+8753715f05759f1a10de@syzkaller.appspotmail.com
+Subject: [PATCH v4] usbip: vhci_hcd: let the driver core manage the sysfs attributes
+Date: Thu,  3 Sep 2026 17:49:38 +0530
+Message-ID: <20260903121938.7661-1-kartikey406@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-fix-eliza-dsi-v1-1-3474a6c9f2e0@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAL1lmWoC/yXMQQqEMAyF4atI1gZqBFGvMszCtlEj4gyNiije3
- arLD977D1AOwgp1ckDgVVR+U0SWJuD6ZuoYxUcDGSpMZXJsZUMeZW/Qq2BpHbXsyVFlIX7+geP
- g6X2+r3WxA7v5jsB5XjXjCcRxAAAA
-X-Change-ID: 20260903-fix-eliza-dsi-8bc2fed2c29b
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Kavan Smith <kavansmith82@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4272;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=uz7L8jZC+FRa4iH6HND9+Fq9kcOFbjPiksyeJbgXaOI=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqmWW+wJLWxHequ4iwL3l+6YA4eVuefTeu/unAo
- EV3dXdw19uJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCapllvgAKCRCLPIo+Aiko
- 1bXzB/4k3Sk7t3WsIolAsFnZopkL7GkMimyro3AHD/0eM3i6vM5oCIE1pOgThrWM2sNbJXk7ERb
- 67KOCDyUQJrcDtgItRcKLFxnxxbXnVO+mMQxfrZQCJ45gDRnbpUxNbCEDWqxRscKleU7Sp7hbvb
- EnvalAlN3LAWXFVhJd8bESdvaFJjmzXozx8rwFZnBzUzc1k/QrNfJ1/GOb14Iuv8BOuEg3XnMVF
- G4lzqU96wEU9KO9sxqupC02/kbWE8jfbjmPQo/0CupEJYwEq6In25Y/zT6YtSsuy3xbrRTulueH
- +LfGn5/m9Sslh3U3PmERfB8EFT+1g+gk+biY+gNuoAt56x0A
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-ORIG-GUID: uGsesU9bzUIF4Xlkcx5VMkWeVxpWY89-
-X-Proofpoint-GUID: uGsesU9bzUIF4Xlkcx5VMkWeVxpWY89-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEwNiBTYWx0ZWRfXygItd6q6lKEF
- gIND5n2l7PmfMrJr6D4uk1xfWcmiTReL1ShhM3HGjYAiu5xP9Nve95j1JgYYM+mGncxasZAKEIy
- i9Ovk7Gl7V0trI2kcl49OrY1BYWmUoO0tODeCHgc8MVLk4wLO9NroIOde3V4g1a0gfDoQj23yG0
- 62bER5g/C9Ng0Yk1Y+hA7ufg3htWFMjguBprLUhObaf96iRlATkdRFgaIja+J2DW6dhRIZBRToX
- mwjzIEWYgkKiMDcrXq1Mq0VY4UBEpdbFDs6TYE/0nncTD24KWIxFzM4iXifbV7kanl0xUfqX7Gi
- C5YJwRYqZrXwcWquMHEh9o688yUrQuxgXpg1WqgbPJYBWOSAEby+PywiC6ZMoQvcsZTAwAKTNZn
- eQ06Wo8qCx0c/+N0MfiIzTDTKq2lBa//rd0Cem6LXmqIfi+4S3Zxer9cdB3XC5IBJkQ9h4s9eKs
- bNZ8m48i3IgVGYMf6gA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEwNiBTYWx0ZWRfX9kV0XKoiQTGi
- u0IAgHtOCUJ2j1npTxa3sLd7ZCOovGpEIj+QHvdVXL4mTTHRQ3Sti3EE7Ct4pjFMSLZ9z8gZXgv
- JVQjRrLZt4dCNvZQGYAAj/G4apfF2MM=
-X-Authority-Analysis: v=2.4 cv=PKc/P/qC c=1 sm=1 tr=0 ts=6a9965c1 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=hm1qJ70bMNtfgpIXLUgA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_03,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 bulkscore=0 clxscore=1015 phishscore=0
- suspectscore=0 priorityscore=1501 spamscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030106
+Content-Transfer-Encoding: 8bit
 
-DSI 6G v2.9 hosts (SM8650, SM8750, Kaanapali, etc.) reparent the byte and
-pixel RCGs to the DSI PHY PLL at runtime from
-dsi_link_clk_set_rate_6g_v2_9(), after the PHY has been enabled. However
-dsi_calc_clk_rate_6g() runs earlier, in order to compute the bit clock
-request for the PHY. At that point the byte RCG still has its reset
-parent (XO), so clk_round_rate() returns a bogus rate, which then ends up
-in the PHY bit clock request and the PLL gets programmed to a wrong
-frequency, breaking the panel.
+The vhci attribute group is created in vhci_start() and removed in
+vhci_stop(), guarded by usb_hcd_is_primary_hcd(). Both run from
+usb_add_hcd()/usb_remove_hcd(), which are called once per hcd, so the
+attach attribute is live while only one of the two hcds exists: it is
+created during the first usb_add_hcd() before vhci_hcd_ss is set, and it
+survives the first usb_put_hcd() on removal. A concurrent write to attach
+can therefore reach a NULL or freed vhci_hcd_ss.
 
-Move the rounding to dsi_link_clk_set_rate_6g(), which is called after
-the RCGs have been reparented to the PLL. Storing the rounded rate at
-this point still makes later link_clk_set_rate() calls no-ops in the
-CCF. Derive the byte interface clock rate from the rounded byte clock
-rate, otherwise it would keep requesting the idealized rate and
-retrigger the PLL on every transfer.
+Register the group as dev_groups on the platform driver instead, so the
+driver core creates the files before probe and removes them after remove
+returns, and drop the sysfs_create_group()/sysfs_remove_group() calls from
+the driver. The attributes have always been created only on vhci_hcd.0;
+an is_visible() callback keeps them there.
 
-Reported-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Reported-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Fixes: 6cd33b6f4155 ("drm/msm/dsi: round 6G byte clock rate to the PLL-achievable value")
-Assisted-by: LLM
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+vhci_init_attr_group() is moved into vhci_hcd_init() ahead of
+platform_driver_register() so the group is populated before the core
+reads it. The attribute array is still built at runtime because the
+number of status attributes comes from CONFIG_USBIP_VHCI_NR_HCS and the
+preprocessor cannot emit a variable number of __ATTR() declarations.
+
+Fixes: 1c9de5bf4286 ("usbip: vhci-hcd: Add USB3 SuperSpeed support")
+Reported-by: syzbot+8753715f05759f1a10de@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=8753715f05759f1a10de
+Tested-by: syzbot+8753715f05759f1a10de@syzkaller.appspotmail.com
+Link: https://lore.kernel.org/all/20260815143427.19066-1-kartikey406@gmail.com/T/ [v1]
+Link: https://lore.kernel.org/all/20260816015051.13184-1-kartikey406@gmail.com/T/ [v2]
+Link: https://lore.kernel.org/all/20260816061034.17769-1-kartikey406@gmail.com/T/ [v3]
+Assisted-by: Claude (Anthropic)
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
 ---
- drivers/gpu/drm/msm/dsi/dsi_host.c | 36 +++++++++++++++++++-----------------
- 1 file changed, 19 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 7e4e3718b536..b292dfd266d1 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -129,7 +129,7 @@ struct msm_dsi_host {
- 	struct clk *dsi_pll_pixel_clk;
+v4:
+ - add Assisted-by: tag (Greg)
+
+v3:
+ - make vhci_attr_group static, drop its extern from vhci.h (Greg)
+ - drop stray blank line in vhci_hcd_init()
+ - fix indentation in vhci_sysfs.c
+
+v2:
+ - use dev_groups instead of moving sysfs_create_group() into probe (Greg)
+ - add is_visible() to keep the attributes on vhci_hcd.0 only
+ - move vhci_init_attr_group() into vhci_hcd_init()
+
+ drivers/usb/usbip/vhci.h       |  2 +-
+ drivers/usb/usbip/vhci_hcd.c   | 36 ++++++++++------------------------
+ drivers/usb/usbip/vhci_sysfs.c | 21 +++++++++++++++++++-
+ 3 files changed, 31 insertions(+), 28 deletions(-)
+
+diff --git a/drivers/usb/usbip/vhci.h b/drivers/usb/usbip/vhci.h
+index 5659dce1526e..f3993238f91d 100644
+--- a/drivers/usb/usbip/vhci.h
++++ b/drivers/usb/usbip/vhci.h
+@@ -120,7 +120,7 @@ struct vhci_hcd {
  
- 	unsigned long byte_clk_rate;
--	unsigned long byte_intf_clk_rate;
-+	bool byte_intf_clk_div_2;
- 	unsigned long pixel_clk_rate;
- 	unsigned long esc_clk_rate;
+ extern int vhci_num_controllers;
+ extern struct vhci *vhcis;
+-extern struct attribute_group vhci_attr_group;
++extern const struct attribute_group *vhci_groups[];
  
-@@ -382,8 +382,20 @@ int msm_dsi_runtime_resume(struct device *dev)
- 
- int dsi_link_clk_set_rate_6g(struct msm_dsi_host *msm_host)
+ /* vhci_hcd.c */
+ void rh_port_connect(struct vhci_device *vdev, enum usb_device_speed speed);
+diff --git a/drivers/usb/usbip/vhci_hcd.c b/drivers/usb/usbip/vhci_hcd.c
+index 39e8faf4c18c..22b9bad7ca31 100644
+--- a/drivers/usb/usbip/vhci_hcd.c
++++ b/drivers/usb/usbip/vhci_hcd.c
+@@ -1199,7 +1199,6 @@ static int vhci_start(struct usb_hcd *hcd)
  {
-+	unsigned long byte_intf_clk_rate;
-+	long rounded_byte_clk_rate;
- 	int ret;
+ 	struct vhci_hcd *vhci_hcd = hcd_to_vhci_hcd(hcd);
+ 	int id, rhport;
+-	int err;
  
-+	rounded_byte_clk_rate = clk_round_rate(msm_host->byte_clk,
-+					       msm_host->byte_clk_rate);
-+	if (rounded_byte_clk_rate < 0) {
-+		pr_err("%s: failed to round byte clock rate, %ld\n",
-+		       __func__, rounded_byte_clk_rate);
-+		return rounded_byte_clk_rate;
-+	}
-+
-+	msm_host->byte_clk_rate = rounded_byte_clk_rate;
-+
- 	DBG("Set clk rates: pclk=%lu, byteclk=%lu",
- 	    msm_host->pixel_clk_rate, msm_host->byte_clk_rate);
+ 	usbip_dbg_vhci_hc("enter vhci_start\n");
  
-@@ -401,7 +413,11 @@ int dsi_link_clk_set_rate_6g(struct msm_dsi_host *msm_host)
- 	}
- 
- 	if (msm_host->byte_intf_clk) {
--		ret = clk_set_rate(msm_host->byte_intf_clk, msm_host->byte_intf_clk_rate);
-+		byte_intf_clk_rate = msm_host->byte_clk_rate;
-+		if (msm_host->byte_intf_clk_div_2)
-+			byte_intf_clk_rate /= 2;
-+
-+		ret = clk_set_rate(msm_host->byte_intf_clk, byte_intf_clk_rate);
- 		if (ret) {
- 			pr_err("%s: Failed to set rate byte intf clk, %d\n",
- 			       __func__, ret);
-@@ -669,24 +685,12 @@ static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
- 
- int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
- {
--	long rounded_byte_clk_rate;
--
- 	if (!msm_host->mode) {
- 		pr_err("%s: mode not set\n", __func__);
+@@ -1230,40 +1229,17 @@ static int vhci_start(struct usb_hcd *hcd)
  		return -EINVAL;
  	}
  
- 	dsi_calc_pclk(msm_host, is_bonded_dsi);
--
--	rounded_byte_clk_rate = clk_round_rate(msm_host->byte_clk,
--					       msm_host->byte_clk_rate);
--	if (rounded_byte_clk_rate < 0) {
--		pr_err("%s: failed to round byte clock rate, %ld\n",
--		       __func__, rounded_byte_clk_rate);
--		return rounded_byte_clk_rate;
+-	/* vhci_hcd is now ready to be controlled through sysfs */
+-	if (id == 0 && usb_hcd_is_primary_hcd(hcd)) {
+-		err = vhci_init_attr_group();
+-		if (err) {
+-			dev_err(hcd_dev(hcd), "init attr group failed, err = %d\n", err);
+-			return err;
+-		}
+-		err = sysfs_create_group(&hcd_dev(hcd)->kobj, &vhci_attr_group);
+-		if (err) {
+-			dev_err(hcd_dev(hcd), "create sysfs files failed, err = %d\n", err);
+-			vhci_finish_attr_group();
+-			return err;
+-		}
+-		dev_info(hcd_dev(hcd), "created sysfs %s\n", hcd_name(hcd));
 -	}
 -
--	msm_host->byte_clk_rate = rounded_byte_clk_rate;
- 	msm_host->esc_clk_rate = clk_get_rate(msm_host->esc_clk);
  	return 0;
  }
-@@ -2495,9 +2499,7 @@ int msm_dsi_host_power_on(struct mipi_dsi_host *host,
- 		goto unlock_ret;
- 	}
  
--	msm_host->byte_intf_clk_rate = msm_host->byte_clk_rate;
--	if (phy_shared_timings->byte_intf_clk_div_2)
--		msm_host->byte_intf_clk_rate /= 2;
-+	msm_host->byte_intf_clk_div_2 = phy_shared_timings->byte_intf_clk_div_2;
+ static void vhci_stop(struct usb_hcd *hcd)
+ {
+ 	struct vhci_hcd *vhci_hcd = hcd_to_vhci_hcd(hcd);
+-	int id, rhport;
++	int rhport;
  
- 	msm_dsi_sfpb_config(msm_host, true);
+ 	usbip_dbg_vhci_hc("stop VHCI controller\n");
  
-
----
-base-commit: a9117574de38e27355ded76850df9200ce7870e6
-change-id: 20260903-fix-eliza-dsi-8bc2fed2c29b
-
-Best regards,
---  
-With best wishes
-Dmitry
+-	/* 1. remove the userland interface of vhci_hcd */
+-	id = hcd_name_to_id(hcd_name(hcd));
+-	if (id == 0 && usb_hcd_is_primary_hcd(hcd)) {
+-		sysfs_remove_group(&hcd_dev(hcd)->kobj, &vhci_attr_group);
+-		vhci_finish_attr_group();
+-	}
+-
+-	/* 2. shutdown all the ports of vhci_hcd */
++	/* shutdown all the ports of vhci_hcd */
+ 	for (rhport = 0; rhport < VHCI_HC_PORTS; rhport++) {
+ 		struct vhci_device *vdev = &vhci_hcd->vdev[rhport];
+ 
+@@ -1513,6 +1489,7 @@ static struct platform_driver vhci_driver = {
+ 	.resume	= vhci_hcd_resume,
+ 	.driver	= {
+ 		.name = driver_name,
++		.dev_groups = vhci_groups,
+ 	},
+ };
+ 
+@@ -1541,6 +1518,10 @@ static int __init vhci_hcd_init(void)
+ 	if (vhcis == NULL)
+ 		return -ENOMEM;
+ 
++	ret = vhci_init_attr_group();
++	if (ret)
++		goto err_init_attr_group;
++
+ 	ret = platform_driver_register(&vhci_driver);
+ 	if (ret)
+ 		goto err_driver_register;
+@@ -1568,6 +1549,8 @@ static int __init vhci_hcd_init(void)
+ err_add_hcd:
+ 	platform_driver_unregister(&vhci_driver);
+ err_driver_register:
++	vhci_finish_attr_group();
++err_init_attr_group:
+ 	kfree(vhcis);
+ 	return ret;
+ }
+@@ -1576,6 +1559,7 @@ static void __exit vhci_hcd_exit(void)
+ {
+ 	del_platform_devices();
+ 	platform_driver_unregister(&vhci_driver);
++	vhci_finish_attr_group();
+ 	kfree(vhcis);
+ }
+ 
+diff --git a/drivers/usb/usbip/vhci_sysfs.c b/drivers/usb/usbip/vhci_sysfs.c
+index a7ede6fb3da9..d87d9e449d72 100644
+--- a/drivers/usb/usbip/vhci_sysfs.c
++++ b/drivers/usb/usbip/vhci_sysfs.c
+@@ -497,8 +497,27 @@ static void finish_status_attrs(void)
+ 	kfree(status_attrs);
+ }
+ 
+-struct attribute_group vhci_attr_group = {
++static umode_t vhci_attr_is_visible(struct kobject *kobj,
++				    struct attribute *attr, int n)
++{
++	struct platform_device *pdev = to_platform_device(kobj_to_dev(kobj));
++
++	/*
++	 * The attributes control every controller and have always lived on
++	 * vhci_hcd.0 only.  Keep them there now that the driver core creates
++	 * the group for each device.
++	 */
++	return pdev->id == 0 ? attr->mode : 0;
++}
++
++static struct attribute_group vhci_attr_group = {
+ 	.attrs = NULL,
++	.is_visible = vhci_attr_is_visible,
++};
++
++const struct attribute_group *vhci_groups[] = {
++	&vhci_attr_group,
++	NULL,
+ };
+ 
+ int vhci_init_attr_group(void)
+-- 
+2.43.0
 
