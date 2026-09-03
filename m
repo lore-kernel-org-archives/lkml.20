@@ -1,123 +1,162 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-oa2-f9.google.com (mail-oa2-f9.google.com [74.125.231.73])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 954B73A16AC
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:58:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE184E2375
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:58:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788451088; cv=none; b=YLHmcCO2EyYOFw3ALnq7kbwQOQMqLwmIo5Eqw+vpQhbNY20w1yjFpmOi6Nyoy1ejoOADiw0sw9NwdOtiy9nPkCfrC3/tcFBpqdiGZK35Of8dSZdOkiECK3ppw2C6oEfGy6dQHStn6qSUCNIli6UsHMC5XhLZ303RZZ0W9SpQ0JM=
+	t=1788451116; cv=none; b=o03IZ8yEgh02667p3jaBSmDmR3/fEcK6Mu+hgaNmtbDBF1Cgfuo70NsKEZaP6TeVORBvlFlRr3o32xFEKWREZH9rLRxfDWyIc9xmUgPB0oF7Un5GEzHDTaSQjQsacBx2N7C4CFtOWgSSwXR6YJ8ESt15GTQdYili0/7KUDKHqVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788451088; c=relaxed/simple;
-	bh=M0ssDVSzbqa8xtXV0sIe0Flh6ZlUA5Hy8S+0BKYzM+w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o/1JOVMCSq1HsB9swwDFahv5ZD8/ZjWV5Hd4eK+isnkZCdrDbyZRp8Y5Q0mfam1kuk+2p4Aj8OJPgQ3LyB2r41Zb5Uen8kn4ZzgQaLXsRLfGVeVPFlfPMVksdJThV9oluEhIMeCsxt958h19vk+G9zkqcjnIZLHMndLxveEs+B8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BlCCgUb9; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BlCCgUb9"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-485852d03a4so60485f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:58:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788451085; x=1789055885; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b6tKOR5KZSNLaAYuQSBE34bjWw9CzqlGHsE0UPAcN9E=;
-        b=BlCCgUb9rf6fyTK7bdryRei0MAAYRo4VlvAOfpyGmPxtZQHLgVz/5e87/rwve3BcHp
-         Aser5B8Occemu+bS96c/t6AEujKRTljoD1tsKabBIEtDUM4BFen6WJ2b95OiS8n28Wld
-         ibwScjokI2xX9QLP5hNSeANno6FMSB3OUdnyNVeIO6O2xPBKnL9UkK1DuAm/BrTFd+sO
-         zW54aZUkQKhcHYI226CxTSBeNuywRGMGVuPtnAbui08BiKJThdG7Z1pASQbx/diuZ4qu
-         tRm64rJJi8fwcPzfFtj2sPKYCn2loCRBRrulCmfS8k9e/4Vp4OQ9jFFexpQG7sbnvar8
-         86Hg==
+	s=arc-20240116; t=1788451116; c=relaxed/simple;
+	bh=5w3uSfJaIBrZw+waj4F921tJffJaJeBAayDo58EvVYo=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=OdfA/YNHw+FZsf99WK5DixvKOChhBdNcVerUrq8rmJ8cKXKDglAlLLOcXzP34BuTNYMrAp8+4bsXcrEdGfXo9u+1T/wQUokX2z4bYRDS/snMITLbB+a6KSJoS/XsLoTb4d+84fjlq4QYaoE/X49WHI51WaGdoWif5mpPqOJ9cr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa2-f9.google.com with SMTP id 586e51a60fabf-4667f43a4ccso594640fac.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:58:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788451085; x=1789055885;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b6tKOR5KZSNLaAYuQSBE34bjWw9CzqlGHsE0UPAcN9E=;
-        b=gwZQGvXX6wI05uFr5UGMfHDXvrLwM+C/V7Z+XhoQ92aEujkhJGNrUEH6jqfgepcCrS
-         QXUEfZJG2Cuzz/LDnxWg7uaXqkw2ph8pAHXMWrcQ5RTCsubAY80lcx7gPb0ILW8umkEE
-         TPx9SMyfqkaUbtH99IR3aJN2pGfqEv1AIiEgfZSIhQsukHxa2ryOTeDU0Q208jHJtWYc
-         GtDaALCbeGYWwq88Ule1ej6mmOD3Oz11f5DJbJySIfLCtRR96pIVBSHNXPKPBbHBL+Pm
-         QSJacNd1hL09PK6h5pHy9o5R4oSrGIj8+276ldh3cw8bX8fnuM4Dq0m935mm1CPOuyo0
-         VXWw==
-X-Gm-Message-State: AFuF++mmSRSyxhAFnFJKq0VZgY9Ewd2XJlg21UVdhrZy6VSOMKZeBn0u
-	yzC3PWsF9oh2h5dpn8as5nXz5bH2C2YGemkEnocDSww4sKlF2dP2UDlI
-X-Gm-Gg: AYBFou2WD19wPplyswWs5CVo4xo2zac2kRh2TxXXdBVaGh2PSZjMynZ9pweUZycNPPO
-	lbXNwkjWkwqN6+Tt4YlePSHHlmADRvSdiJrPaE5yzUK8vuiIQdaHi7K4BUBzyHw2/kr5U2FGiVM
-	cytl6hqet9jdDuIN8sgXrjB2itLvFtgs6Q0kRMJ5jeRxg5S0qRK0Ke+3ele8Hb4yCwsY6Z5NhJ5
-	MLEFQXqEfCLYnBiwWePVvO5ERH0ylrpAkic8P1MwWV1VNlqd0X/nq9KQBJ0x6tNbidZLHHJmCx4
-	CCkFinfCc/5TAx95xLREcKSemCl11Yg4/D4lVqKfNG8BVFingDr82IFwxDq/LJAzytQSi4xY3h+
-	UQOfL0zw8wzZZhTFZzNP4WvLFFoJ8bSuSSR28r5nw0VxEw1M8NpgvND5aQejIr4g7AtKtAKRKzk
-	vs2hmHKRevMPxiPV5ziBuU3NwnyHrwaDSxyFG2qEjRm3lD2CMlmTescnq6IhlwrIvuRc5dXUVOi
-	chIWg==
-X-Received: by 2002:a05:600c:6749:b0:49c:c96a:d36b with SMTP id 5b1f17b1804b1-49cf5be1647mr19593155e9.12.1788451084371;
-        Thu, 03 Sep 2026 08:58:04 -0700 (PDT)
-Received: from localhost.localdomain ([82.215.83.93])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e736a6sm14388587f8f.5.2026.09.03.08.58.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 08:58:03 -0700 (PDT)
-From: Andrey Erokhin <language.lawyer@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	=?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm: Register the full minor range
-Date: Thu,  3 Sep 2026 20:57:43 +0500
-Message-ID: <20260903155745.3027211-1-language.lawyer@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1788451113; x=1789055913;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UOzGqp3OwBh6k+SZ5NV8DGENeJLmQwfLAYI0Ib0FeE0=;
+        b=ru1l3wVH/xl8k2CjZp31g8I5X2A0DcCzXXByyo/n1Hxv5QuI4lEpxzPvUvyKhPo+x1
+         WXxxSQCNFFVWoxH/G6HMw4eyEu/PgIzKTXax9hA7QmU/ygilaBdk/14czg12Vh5uyYQ8
+         cxgzxXLQbqPKKnp9jR7GLuDgai5XMlrH0REgqk+3tHsDaMw9zh8rvy+k8xMnm+w70Gnt
+         1LD1d7DiHdGV5wpfmRl8UVVMX3M+Pf58QIUQo3Ga153SyZ398rAtmDZ22Ba2gN2YRvLl
+         qGvzQH5iyCYF6DuUD3+N+Uk0Q7IpxAjWhJlWmlq7DkciGU6XmJL0RoBVol0Y8CWeHjBq
+         c6wg==
+X-Forwarded-Encrypted: i=1; AKwUvBzj+KnQL7UNbVmNTnVHyPftNvjfI19G3xwVWWjVIOgXXmaWa0Jf/DlFa4xPlsaDYebBnvZBnByOCqj750s=@vger.kernel.org
+X-Gm-Message-State: AFuF++ngVi1dZtQkOcojly4YYgI2wYwyMwN6jVoVgF0sBCAVG3gBiUg9
+	oylB0E2g+B1JOafwVcuvecFilN7tBiYiVsNMR9tj7sfIt0Ybntyi8UhsfTKqADj7jZOxosaPPS8
+	6XnGmM34Vo5UT67PQwqSS75GNRp09ZGL49EId5k3v/O2voTFaLPYqjgbt9F8=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:820:b0:6a1:3e91:dcac with SMTP id
+ 006d021491bc7-6b481b368cfmr9221469eaf.31.1788451113296; Thu, 03 Sep 2026
+ 08:58:33 -0700 (PDT)
+Date: Thu, 03 Sep 2026 08:58:33 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a999929.f03f19fe.169578.0006.GAE@google.com>
+Subject: [syzbot] [input?] WARNING in roccat_open
+From: syzbot <syzbot+e7b6bbf6cf88d7d932c3@syzkaller.appspotmail.com>
+To: bentiss@kernel.org, erazor_de@users.sourceforge.net, jikos@kernel.org, 
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Commit 071d583e01c8 ("drm: Expand max DRM device number to full MINORBITS")
-expanded DRM minor allocation to the full range provided by MINORBITS.
-However, drm_core_init() still uses register_chrdev(),
-which registers only minors 0 through 255.
+Hello,
 
-Consequently, character-device lookup for a DRM minor greater than 255
-fails with -ENXIO before drm_stub_open() can handle the open.
+syzbot found the following issue on:
 
-Register and unregister the full minor range explicitly.
+HEAD commit:    bf1079577a11 Merge tag 'sched_ext-for-7.3-rc1-fixes' of gi..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=14a93b79580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=e7b6bbf6cf88d7d932c3
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
-Fixes: 071d583e01c8 ("drm: Expand max DRM device number to full MINORBITS")
-Cc: stable@vger.kernel.org
-Signed-off-by: Andrey Erokhin <language.lawyer@gmail.com>
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/de4b27952d35/disk-bf107957.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/b26d9a76bae1/vmlinux-bf107957.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/b66563d96cd9/bzImage-bf107957.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+e7b6bbf6cf88d7d932c3@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+DEBUG_LOCKS_WARN_ON(lock->magic != lock)
+WARNING: kernel/locking/mutex.c:625 at __mutex_lock_common kernel/locking/mutex.c:625 [inline], CPU#1: syz.2.2708/15053
+WARNING: kernel/locking/mutex.c:625 at __mutex_lock+0x944/0x1bd0 kernel/locking/mutex.c:821, CPU#1: syz.2.2708/15053
+Modules linked in:
+CPU: 1 UID: 0 PID: 15053 Comm: syz.2.2708 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
+RIP: 0010:__mutex_lock_common kernel/locking/mutex.c:625 [inline]
+RIP: 0010:__mutex_lock+0x94b/0x1bd0 kernel/locking/mutex.c:821
+Code: 0f b6 14 11 38 d0 7c 08 84 d2 0f 85 c0 10 00 00 44 8b 05 e8 16 74 05 45 85 c0 75 13 48 8d 3d ac 21 77 05 48 c7 c6 e0 f3 ef 8b <67> 48 0f b9 3a 90 e9 1b f8 ff ff 4d 8d a7 f0 0a 00 00 4c 89 e7 e8
+RSP: 0018:ffffc90002dc7790 EFLAGS: 00010246
+RAX: 0000000000000003 RBX: ffff88807e76b080 RCX: 1ffffffff228a580
+RDX: 0000000000000000 RSI: ffffffff8beff3e0 RDI: ffffffff914836d0
+RBP: ffffc90002dc7900 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
+R13: 0000000000000000 R14: dffffc0000000000 R15: ffff88807e76b008
+FS:  00007f7de7f066c0(0000) GS:ffff888123c64000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b32f0aff8 CR3: 0000000033da6000 CR4: 00000000003526f0
+DR0: ffffffffffffffff DR1: 20000000000001f8 DR2: 0000000000000002
+DR3: ffffffffefffff15 DR6: 00000000ffff0ff0 DR7: 0000000000000400
+Call Trace:
+ <TASK>
+ roccat_open+0x105/0x660 drivers/hid/hid-roccat.c:178
+ chrdev_open+0x234/0x6a0 fs/char_dev.c:411
+ do_dentry_open+0x6ab/0x14d0 fs/open.c:996
+ vfs_open+0x82/0x3f0 fs/open.c:1101
+ do_open fs/namei.c:4837 [inline]
+ path_openat+0x19fa/0x2440 fs/namei.c:5000
+ do_file_open+0x20e/0x430 fs/namei.c:5029
+ do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
+ do_sys_open fs/open.c:1423 [inline]
+ __do_sys_openat fs/open.c:1439 [inline]
+ __se_sys_openat fs/open.c:1434 [inline]
+ __x64_sys_openat+0x12d/0x210 fs/open.c:1434
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f7de6f9e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f7de7f06028 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+RAX: ffffffffffffffda RBX: 00007f7de7225fa0 RCX: 00007f7de6f9e159
+RDX: 0000000000000002 RSI: 0000200000000100 RDI: ffffffffffffff9c
+RBP: 00007f7de7035024 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f7de7226038 R14: 00007f7de7225fa0 R15: 00007ffdf6e37348
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	0f b6 14 11          	movzbl (%rcx,%rdx,1),%edx
+   4:	38 d0                	cmp    %dl,%al
+   6:	7c 08                	jl     0x10
+   8:	84 d2                	test   %dl,%dl
+   a:	0f 85 c0 10 00 00    	jne    0x10d0
+  10:	44 8b 05 e8 16 74 05 	mov    0x57416e8(%rip),%r8d        # 0x57416ff
+  17:	45 85 c0             	test   %r8d,%r8d
+  1a:	75 13                	jne    0x2f
+  1c:	48 8d 3d ac 21 77 05 	lea    0x57721ac(%rip),%rdi        # 0x57721cf
+  23:	48 c7 c6 e0 f3 ef 8b 	mov    $0xffffffff8beff3e0,%rsi
+* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2f:	90                   	nop
+  30:	e9 1b f8 ff ff       	jmp    0xfffff850
+  35:	4d 8d a7 f0 0a 00 00 	lea    0xaf0(%r15),%r12
+  3c:	4c 89 e7             	mov    %r12,%rdi
+  3f:	e8                   	.byte 0xe8
+
+
 ---
- drivers/gpu/drm/drm_drv.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index c808958a2188..25819c88c627 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -1250,7 +1250,7 @@ static void drm_core_exit(void)
- 	drm_privacy_screen_lookup_exit();
- 	drm_panic_exit();
- 	accel_core_exit();
--	unregister_chrdev(DRM_MAJOR, "drm");
-+	__unregister_chrdev(DRM_MAJOR, 0, MINORMASK + 1, "drm");
- 	drm_debugfs_remove_root();
- 	drm_sysfs_destroy();
- 	WARN_ON(!xa_empty(&drm_minors_xa));
-@@ -1273,7 +1273,7 @@ static int __init drm_core_init(void)
- 	drm_debugfs_init_root();
- 	drm_debugfs_bridge_params();
- 
--	ret = register_chrdev(DRM_MAJOR, "drm", &drm_stub_fops);
-+	ret = __register_chrdev(DRM_MAJOR, 0, MINORMASK + 1, "drm", &drm_stub_fops);
- 	if (ret < 0)
- 		goto error;
- 
--- 
-2.55.0
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
