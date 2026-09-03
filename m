@@ -1,187 +1,385 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021101.outbound.protection.outlook.com [52.101.100.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7127E4AC141
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:12:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788441169; cv=none; b=b9TQBtNpTwQnNMATS0WG35D7RLP66WKhIvebqDfOcQWsHlzxM3p81kUFnonjJc7d5ZZmc7g++sSmFaKAhfNYVQ2dSo/3uJZPDc6cMoefENii+OPHhTbLbs0Df8PHmQIvEWpByMn0OvflY1NMHCBfmmP/FpRCQnd5EeIu+xHHvgI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788441169; c=relaxed/simple;
-	bh=6PpOaDvG7B4yvqN1w+kxiA04SVsuNsaPu4+LJMpskEw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=lQBBHTbP1cnHDx1daIwAKjHoUMhGvGeFV6vbb8/Alv3dfwUBnR3iO/jWCS3GYn5/q7oejUwfPCkMu26pMr2/BRxaJsRhze7eXcO1td0KG0hDir4EQV3VMp7HMbFh/gyDMrgWGwLgmbJWq/19PyEwrQyvuqPCpkMvwAzg/WFZkGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G8s9A9xv; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91F414A92D0;
+	Thu,  3 Sep 2026 13:12:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.101
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788441170; cv=fail; b=MNoG3F/pC5Pi05NkhFHCHTaAIh5N/D8YvxgVLWUSb2VZLNgz3ze2yghGfbO5Gp0PnXcqHaF8FhKLNiBCk8Ho44q0K5BMhY7txscPiyGh8fvZJFL34jd+o2m7ACb+I3UbDCwfuIQkU7GFtgAz8hClLbG08Ico4nM9pDQeeV1MTN4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788441170; c=relaxed/simple;
+	bh=e8YDJz9yjux5U+9ifP7m+3e8VWguo6/l6umvkSPZXNw=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=e/YBo/aq6wRfMUSf3n0c3kmhYkuWIYZ8hC2Pu9bCp/0I5CPBisd3dCc6q+np/625McIOAxftJLQ2TgG3hxoNX4QBZaibTXfaDO07HQcjdTDhLEePtsJqKji5/8zovUsJQsEPQDQNr3as5NYEfs9gI9mK6p89pmZgElhBjiZE6Oc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=gE4LAx0Q; arc=fail smtp.client-ip=52.101.100.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G8s9A9xv"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-c9e7391839cso2460418a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 06:12:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788441145; x=1789045945; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=emV5n6JyzwHHJDAPrwbCGMimUu0hxMHFjSvszb+s2d8=;
-        b=G8s9A9xviegaRJ1PT8In18usvKg6pbJd0MfCSZiMPT/2NnsJ1cEcxgXvuCeAS+NWcg
-         fPsXczn9AEtPOeEHL6YzuMH/eftJHUcF+rNIgpoaow7D0VQ3ysf2sMDA7hug+lStG3Im
-         x3pRq+/Mx74F05QU5RLW/iQyXQ+qnc62SfwbAcLsEKdzbR5Rv/xWbWkR3vZzer8P9Lg8
-         jT3/beCzSwq62YNpsZzLhYKti/YOzW4v1klTMeiJfJtKBgp0SGq93hSLtIhJCHvQ2SSk
-         M+baGQmiNXFEZh03+tiV5pUOnpVyeO+Uuo0UYaeKUlvgmvEmhGBgW0i+d+vDaOTGHzDW
-         EvAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788441145; x=1789045945;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=emV5n6JyzwHHJDAPrwbCGMimUu0hxMHFjSvszb+s2d8=;
-        b=guSgxfEBbsYJkcXB82QH1d6AfYSGCDk2qaxccAjuYIxeSMp5l4h2omjM6D0hEYkyAg
-         03NbN+F2G/qNhnj/bm7bBjwWmdDsb487xlOP2lXLUttces46JMvBtu98v5WGnTfobmC8
-         o6WnhEMe7YXSBadDpIeNuNFAdfYPeUib5fsD1zanhzCKoRrFSApYVHiAZVQUQIv8SueU
-         IEySCDk+phOWs6W9XPbevk8YM+GuKLJPT5n0EsHPiz0FA+gv7+OBMhIdYKH8yNcmIvSW
-         Or/tbvZrncMfnrV19sxGctOFhD/c2jTIIQzHekjLEY7aCHlBIg3zrHJRFUSSGvU2b1xC
-         i5xg==
-X-Forwarded-Encrypted: i=1; AKwUvBxTX/innWOkx77zpzbwRj0sd3kCmYSXQZgJKMjuIZ8j5RPcwupTnaSMssTDe284jM3ofCK0l8KqQUHhZMY=@vger.kernel.org
-X-Gm-Message-State: AFuF++k7NRqRhhafz+hVEyXFqzIisy1DVP+BcwvBNcz1lx0+n8wsb7oM
-	9xtdAsjrH2z8PCp9LwNJnFknDJ7ukhdW46oTAouRLqwi3HE1tl23ERW9
-X-Gm-Gg: AYBFou3CfI+cuALymG2qF1Chfe7hPAIzjYIJ7lS0ZjbetQ2YaIBc8zReBu5XY/TvcIJ
-	ralirr5xXutquiCgXluUYZAEDisibDd3H21RslNiM9RuCZk2YS9UjkmhjB8GEuldMfBTXLPv6Qu
-	2jgm/J9+rUWG3umIy+9iZbrK+MlunZH6z5wiE2rWWKHwtGh2PJSR0OPj5neE//tSBpN0f0GOU2x
-	AfCSlQo4ls1KYz6rzPPGjzwomwq7SEpbCvoE6JOktfihbpmi0v+J33msg9oakJ9N7W0JyacXLnp
-	qgDlCW5uwgEYXN3m/LFOeNnn10I8W/TOeMwo5ixn4WRAU0n+zAWgzreegZ8kJHANVVw9a6x1Qxa
-	ZSlvQ3GWz0uNXgD605cYSsOQvscXY0XkFMe+Z0eqPI+JwXXhAF/QxEUCmDbbOR56JyvcH3qjtPG
-	N2y3fsiwejPsiaBN+OtxjojW5Apy4cnCtqhwvThO6ayKWOp7RgTYyaSnMwIUTvmvbI1z6GBjkpt
-	guB7QyL+G9BPTE=
-X-Received: by 2002:a17:90b:2688:b0:398:bdb0:adb7 with SMTP id 98e67ed59e1d1-39aee162e08mr21243652a91.16.1788441144840;
-        Thu, 03 Sep 2026 06:12:24 -0700 (PDT)
-Received: from XP-PC-huhb1.xiaopeng.local ([98.98.122.134])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae902354asm2692820a91.2.2026.09.03.06.12.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 06:12:24 -0700 (PDT)
-From: huhb1 <huhb04@gmail.com>
-X-Google-Original-From: huhb1 <huhb1@xiaopeng.com>
-To: laurent.pinchart@ideasonboard.com,
-	hansg@kernel.org
-Cc: mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	huhb04 <huhb04@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: uvcvideo: defer cancelled buffer completion until copies finish
-Date: Thu,  3 Sep 2026 21:11:41 +0800
-Message-Id: <20260903131141.6368-1-huhb1@xiaopeng.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="gE4LAx0Q"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nlzWseuKaXsJVZIo+Hz64KOTCNMN3UiPMH8RXuwqK2RpXbxCujyhLorW9IhZwnIEQewZM8gJez07hRs/6INzDElA4nBI4K5OBmzhC1zSY0lUexSb+npK3nj7/txZquBo0Mw9WmP4f+JpGQR2Iim2CrYwtsPWUjkxvupnLvXW/oHP9fbdmezHfm9kO8N/RPJu62G+oQYs1JCUq0hoUQzQ77Nj7H0dF2IVUwlg6ElrbAsAoVKN8dZAMV1XYLA9rzgYaPWMSP10rVpOndASlNe2ZxO2KWymrcIiuvQ7BlJHWKYErT+1lEMNiphq/t1rmaANF80PXu+4wlDYefRTnM/FDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JIVzaf3CYDKwc5bs/jFOAoA9pBOOX3UPellMa+CdTO4=;
+ b=W/X0f/l73bF/Vjqlr0DIugkaX2d8saGFx0DXnlQTwcpKWnvmNGcGsX0pp7v3diYTDUiOe2oVRpIq+WiHgG+49AAV2QZ9slJBo4FL3JW7i8Xp0j/nPAWqqYijoccnBg1rDg4XRiJDm+JCm0k7X0EXR2ew0YYTtXyZHPBHQGBByKJ6e6cmhgPRkzxhqw/DYka9tU4y+ZonUv7Xo+5aRbpMTg656H0pu9bX5G8TikjzUs0UHqEajfrYy1wRT5EJwesUXDEYOQEkBJUiCiUDsCIGtrfTTrzRESpXNOrxLLI2eyJBq50KVHqFi2U4mDqDHD4unQ5aTdw0qb0f6Ge2rGa8Kg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JIVzaf3CYDKwc5bs/jFOAoA9pBOOX3UPellMa+CdTO4=;
+ b=gE4LAx0Qb4JAgUt//2IecYG5rXnpR5ExJAhQaQgz65/Omqy8/4pLneznzO9C9FycJYhPeX4wFvQOmPh9Hjct9B0XjKfjQSmzyz5OALVlAKEvjj9Os5DjeMKyAU65hA/fnRNMlJBTXzvdZa8bWD+hx8Ql1a5FPyFbBSmew+lZ1N0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO7P265MB7602.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:398::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 13:12:24 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 13:12:24 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 03 Sep 2026 14:12:23 +0100
+Message-Id: <DL5PH2S8AP7E.25CW1PZIQ8BM3@garyguo.net>
+Cc: <driver-core@lists.linux.dev>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH 1/4] rust: debugfs: drop 'static bound from ScopedDir
+ file creation methods
+From: "Gary Guo" <gary@garyguo.net>
+To: "Danilo Krummrich" <dakr@kernel.org>, <abdiel.janulgue@gmail.com>,
+ <daniel.almeida@collabora.com>, <robin.murphy@arm.com>,
+ <a.hindborg@kernel.org>, <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
+ <aliceryhl@google.com>, <acourbot@nvidia.com>, <ojeda@kernel.org>,
+ <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <tmgross@umich.edu>, <tamird@kernel.org>,
+ <work@onurozkan.dev>, <mmaurer@google.com>
+X-Mailer: aerc 0.22.0
+References: <20260830193824.471089-1-dakr@kernel.org>
+ <20260830193824.471089-2-dakr@kernel.org>
+In-Reply-To: <20260830193824.471089-2-dakr@kernel.org>
+X-ClientProxiedBy: LO4P123CA0639.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:296::6) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO7P265MB7602:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d4a2330-9d23-4ae0-72ec-08df09bcfeb4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|10070799003|7416014|376014|10067099003|6133799003|22082099003|56012099006|17002099007|18002099003|4143699003|921020;
+X-Microsoft-Antispam-Message-Info:
+	PrB13zxIvyit7nlRqSZxTrkE/u8RxObUL0K8XAejjw8uGHB+FLytvBQPaS0pMHcz4XkmINz6J7yjii76YrDUsJwEa7Yl6u6V9/YdEfAYxtibgYHNoNNKIqti/HiIi0zim171381Q+r756qYk0ityG+jeHku9/rg4gIEZCWK/xyuzMv6vO8Vn2tJLp34551kZqcR0CBQ8uAsOGzRVN6qDjQ3hg0+FYW6Quhl85RPXeffGCLyc/Lhv66xxFLSdKcHollo7a84KRbXh2tQmx1SlVsib1jU+FObQGxwn1/7NrMlkYnN/qXMGuWnULnsiKBnkegMMpdN5RjWItCcVPqoisY+bLCCBHAMnypPojUUHDtb2LwI6ks1AXmXlz+UPLWW9O3kknEMy6ReasliOKy+F8q6ZrOdrWs/DZkpy88IytVlscPOpRtRMecy7f9xwVG4LEpCaMvbq0TNWGNH9OeuNtO2lFFc3nRp4XPrshbuLwvTF8Qfy/6PUeYtjFzL41BtLIDLLdW+Taei1gSDNwg8hgoRu66cOIiCvgXneL4fSDX2h58pXoFkOKRD5y9RoDuZcP30L044iImM2JgorljlLfiEnH72YahkodvKkDXOVdl0CG7JkK6PsdVVCCQMIH47kF30ge9vBgQpWczhp0x06VX/xhy75zZCyGi1RTjYFxnDesTgroOhhMcpZVB+KBqZomXArfnf6/Df7zmWdIxxhvQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(10070799003)(7416014)(376014)(10067099003)(6133799003)(22082099003)(56012099006)(17002099007)(18002099003)(4143699003)(921020);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dThFWEd3RXpuNzhPTnd1VjA2ZlQyK1RVV0NFWkxJU2x4TlIxdTZMbWR2ZTl2?=
+ =?utf-8?B?cjh2Z0NONER5SkgxYWhKM2gzd25jeHlleEJVNmJla1c0UHd4bUNFUDdiZENF?=
+ =?utf-8?B?SENRdFgvQWJ4UFo0WTZ5N2cwQ011K0ovWnI3UG5MN0VxWW5iZVFrR0dOTFlo?=
+ =?utf-8?B?aUZUQXgyNVlaYjFrYWpjSFRLZnNGT2NFQjBKenZQTTFPUDk3NG1XcWNhNGFL?=
+ =?utf-8?B?US9ZNmlZcHpKZno3cnpiM0MyaHZRQlpsRFlva0krbE1JbWZ1b3NqdXRBQmxi?=
+ =?utf-8?B?QUlXVkhwZlI5K3ZIT1dtbFM4Sms2QkZ6SytsTzkreEVKVGZwR1NHZmlYMWcy?=
+ =?utf-8?B?RXc4L1lVVjdacDdDVFVSTTNGOW1hRUlDNDVZc2dRY1pLSzBUSjBwZ3UxR1Qx?=
+ =?utf-8?B?TllhWUY0QjFGOHRhVHpreTRTcVZQOFBvU1YyV0FoeXpnTmZwTVJpbUF2ZXVF?=
+ =?utf-8?B?ZlhDZXIrUFJoU1RkODBWRHJQTWRncFhVMTRaRUZnSHY5dGI4aGw2TkxQNi93?=
+ =?utf-8?B?K0N1azFmL2hTbkthbFNKNjEyWDZjeUdBN2p6MGxITVlIdjE3dzBtNjdsMUt3?=
+ =?utf-8?B?RUF2bGhoczNMUSswSWR4RTY2cEQ1b3dXbnJEcHNha3JtUVZMRmptUTlaWGZ5?=
+ =?utf-8?B?Ny8yKzNNeTZmQXdsLzRGUzNLOWxjeVBXWmoxZi9iMkx0UHZkbDgzdm1kQzJk?=
+ =?utf-8?B?ZThWUWoxZitwS2ZJNTZWdnpPbVUyQzZTZUdKV000VG5VTkNyaEtMWXAveFBn?=
+ =?utf-8?B?WXNpUU1jKy9pNHlzZXZpc0UzNWNpZGRmaUx1RzlGb3Z0ZnR6VW5OdklCNGx1?=
+ =?utf-8?B?d3BKWXE2REtSTTF0ZWc4cXNORlE3MnF4R0srTEhBakh2eTV2SnVibWNLT0li?=
+ =?utf-8?B?OFlhdm1QcHp5Q3NabnNodmxHU3pBaHE2eXlYS3VPZ0srNXc3eWFrQ2xyOG8x?=
+ =?utf-8?B?Rkg5V2NEWnhMTExrQUplYTlZUER1bmlrS3J3dXJZbkl6WXBnVmpMOElkZDBq?=
+ =?utf-8?B?ek9DRE80YUVVRGQvbVBXb3FYNy9kNUk0WlJEQW5WTG5tRDZMV1l2bkFrTmN5?=
+ =?utf-8?B?VFRwOGxERXZDVzc1RnlIbEhIWXh1dTFCZlBNb0pKakxKN2JvT3UxNTNmK3NI?=
+ =?utf-8?B?Wnk4Mm81ZFljTWFndk9tS2tCLzkyUUYvR2w3czd2bFNrT2M3QXVPVGI2TWFQ?=
+ =?utf-8?B?MGRNeE15MklON3lvR2xGUWpHYmN2cG9ha3hEdHEwangzUmJOMXNhcVkwU2lh?=
+ =?utf-8?B?TkRhWENlSFQ2d2U3dWwzWi9vUGNIWFFnNUs2NFYvMDVFSjAyZklCK3RXSDZa?=
+ =?utf-8?B?WDVQcG9BcXhVd0p0ai9IOGlkNnZJSFNEWk5vcDFKKzdBdnphbWhWQkxzQWFx?=
+ =?utf-8?B?azZCSStRd2Z3dTdSSE82T2YrYlVQdEl5S01KY1JOTGlGU2VTWURPaGc2VlRw?=
+ =?utf-8?B?aVBNaWZPOVQ0ZEpVaWRMcGc2U0RRVGVQYnkvTVpFMGVvZlFsdFFUN0RLdzdu?=
+ =?utf-8?B?RWM5K204WDVmZFpwYTFscExyVExTTDBpeHFldGhDTmtRYlRRdDhMWkNqcStv?=
+ =?utf-8?B?ZUVqaFEvMlBTL2l3dWJ6VkJnNU1CYVR2WFdKU21aSkF6TTVMalZTTGVkOEs5?=
+ =?utf-8?B?M3k0MDJxMzY5QldMNkFxMnF4ZTRHWEloUlFMR3V0djNFTXkyT0FjU1N2SHBL?=
+ =?utf-8?B?RjBZY2NGMkVPSWNKbjRLNGkxWTVXdG93QUFJeHpyZWNTeWJjMEFEYUplZHBE?=
+ =?utf-8?B?YmdQa0YvM1dKNW4zQ0JJTnJDS01DN1Q5Um1ZWVdvWlF5aDV3bHRScDlDZjll?=
+ =?utf-8?B?UVFrM0JJRFRGRmNSb3draEZNanI1dTZOb3EzaXhoYmN3RWFJOTdURGJxMjMw?=
+ =?utf-8?B?OEdaVnhWM2lXS0RidjBKUythb1FpK0ZUZ04yeHBNRjF6T1VhRUo0WFVBcUFC?=
+ =?utf-8?B?a2t2Z29pNmtDaHNZb0hQODNmQnJjdmxKcktJUnAwZTBORWNucjZwR1JrMDRN?=
+ =?utf-8?B?VjNBRWFHL1JBQlZSY1IxbEVLb2ZseTRRZHUxUndCWDd0WkRyWHdzeFd5Wklh?=
+ =?utf-8?B?VWxtdjFJcUhCQnNLdGFyUll3NktIT3BScngwSG54R3A2QUZNRFRFb1Vqeitw?=
+ =?utf-8?B?NGJCNEI0SWM3by9HTUpVUnYvT1VhSitQcVNWTC9hTzNOSGl5ZXlCd1QxYlpz?=
+ =?utf-8?B?cXN3YkFtUzhXRVpTek1qUi9EekxjRDU1R3Bld1c0WUxuVUVFakNoYkxhdHIr?=
+ =?utf-8?B?bWFEdS83NlF0T2ZQenlvTGVySkhlYU1uQlB2OUdtZzNNTjlGSUI5WkdOdjha?=
+ =?utf-8?B?bXVmWVQwRlFZZGVxM0V3M3NRZEVGZ3N6ZGxOYjNsS2tlUm41amlzZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d4a2330-9d23-4ae0-72ec-08df09bcfeb4
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 13:12:24.2725
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: d6J9juE/3Adj0lPeXb7TjT2d4KporYJWJoDlTaetORW5kdtkYxppeczCp7BB87iTzEg/KXlLzjUimTbwdKLPIw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO7P265MB7602
 
-From: huhb04 <huhb04@gmail.com>
+On Sun Aug 30, 2026 at 8:37 PM BST, Danilo Krummrich wrote:
+> Drop the T: 'static bound from ScopedDir's file creation methods
+> (read_binary_file(), read_only_file(), etc.) to support registering
+> debugfs files backed by types that contain non-'static references, such
+> as dma::Coherent<'a, T>.
+>
+> The previous 'static bound existed because ScopedDir::create_file() took
+> &'static FileOps<T>, and &'static requires T: 'static for well-
+> formedness. However, this was overly conservative; FileOps instances are
+> always associated consts residing in static storage, so the pointer
+> passed to the C debugfs API is always valid for the file's lifetime.
+>
+> Formalize this as a type invariant on FileOps. All instances reside in
+> static storage, enforced by requiring FileOps::new() to only be used in
+> const/static items. Replace the Deref impl with an explicit fops()
+> method that returns &'static bindings::file_operations, justified by the
+> type invariant.
+>
+> With this, ScopedDir::create_file() takes &FileOps<T> (no 'static),
+> preserving the generic type safety (T links the fops to the data type)
+> while allowing non-'static T.
+>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> ---
+>  rust/kernel/debugfs.rs          | 26 +++++------------
+>  rust/kernel/debugfs/entry.rs    |  4 +--
+>  rust/kernel/debugfs/file_ops.rs | 52 +++++++++++++++++++--------------
+>  3 files changed, 39 insertions(+), 43 deletions(-)
+>
+> diff --git a/rust/kernel/debugfs.rs b/rust/kernel/debugfs.rs
+> index d7b8014a6474..2beb55d444ca 100644
+> --- a/rust/kernel/debugfs.rs
+> +++ b/rust/kernel/debugfs.rs
+> @@ -538,7 +538,7 @@ pub fn dir<'dir2>(&'dir2 self, name: &CStr) -> Scoped=
+Dir<'data, 'dir2> {
+>          }
+>      }
+> =20
+> -    fn create_file<T: Sync>(&self, name: &CStr, data: &'data T, vtable: =
+&'static FileOps<T>) {
+> +    fn create_file<T: Sync>(&self, name: &CStr, data: &'data T, vtable: =
+&FileOps<T>) {
+>          #[cfg(CONFIG_DEBUG_FS)]
+>          core::mem::forget(Entry::file(name, &self.entry, data, vtable));
 
-uvc_queue_cancel() returns queued buffers to videobuf2 directly via
-vb2_buffer_done(). This is unsafe because asynchronous memcpy workers may
-still hold a reference on the same uvc_buffer. Once vb2_buffer_done() has
-run, userspace can dequeue and requeue the buffer while the old worker is
-still running, leading to the same list_head being inserted into irqqueue
-twice and corrupting the list.
+With the signature change you're relying on static promotion to happen -- w=
+hich
+would still happen without a lifetime bound, but I find it somewhat
+uncomfortable relying on that fact without a lifetime check.
 
-The crash manifests in two ways depending on the drop-corrupted-frames
-module parameter:
+>      }
+> @@ -550,7 +550,7 @@ fn create_file<T: Sync>(&self, name: &CStr, data: &'d=
+ata T, vtable: &'static Fil
+>      /// This function does not produce an owning handle to the file. The=
+ created
+>      /// file is removed when the [`Scope`] that this directory belongs
+>      /// to is dropped.
+> -    pub fn read_only_file<T: Writer + Send + Sync + 'static>(&self, name=
+: &CStr, data: &'data T) {
+> +    pub fn read_only_file<T: Writer + Send + Sync>(&self, name: &CStr, d=
+ata: &'data T) {
+>          self.create_file(name, data, &T::FILE_OPS)
+>      }
+> =20
+> @@ -560,11 +560,7 @@ pub fn read_only_file<T: Writer + Send + Sync + 'sta=
+tic>(&self, name: &CStr, dat
+>      ///
+>      /// This function does not produce an owning handle to the file. The=
+ created file is removed
+>      /// when the [`Scope`] that this directory belongs to is dropped.
+> -    pub fn read_binary_file<T: BinaryWriter + Send + Sync + 'static>(
+> -        &self,
+> -        name: &CStr,
+> -        data: &'data T,
+> -    ) {
+> +    pub fn read_binary_file<T: BinaryWriter + Send + Sync>(&self, name: =
+&CStr, data: &'data T) {
+>          self.create_file(name, data, &T::FILE_OPS)
+>      }
+> =20
+> @@ -596,11 +592,7 @@ pub fn read_callback_file<T, F>(&self, name: &CStr, =
+data: &'data T, _f: &'static
+>      /// This function does not produce an owning handle to the file. The=
+ created
+>      /// file is removed when the [`Scope`] that this directory belongs
+>      /// to is dropped.
+> -    pub fn read_write_file<T: Writer + Reader + Send + Sync + 'static>(
+> -        &self,
+> -        name: &CStr,
+> -        data: &'data T,
+> -    ) {
+> +    pub fn read_write_file<T: Writer + Reader + Send + Sync>(&self, name=
+: &CStr, data: &'data T) {
+>          let vtable =3D &<T as ReadWriteFile<_>>::FILE_OPS;
+>          self.create_file(name, data, vtable)
+>      }
+> @@ -612,7 +604,7 @@ pub fn read_write_file<T: Writer + Reader + Send + Sy=
+nc + 'static>(
+>      ///
+>      /// This function does not produce an owning handle to the file. The=
+ created file is removed
+>      /// when the [`Scope`] that this directory belongs to is dropped.
+> -    pub fn read_write_binary_file<T: BinaryWriter + BinaryReader + Send =
++ Sync + 'static>(
+> +    pub fn read_write_binary_file<T: BinaryWriter + BinaryReader + Send =
++ Sync>(
+>          &self,
+>          name: &CStr,
+>          data: &'data T,
+> @@ -655,7 +647,7 @@ pub fn read_write_callback_file<T, F, W>(
+>      /// This function does not produce an owning handle to the file. The=
+ created
+>      /// file is removed when the [`Scope`] that this directory belongs
+>      /// to is dropped.
+> -    pub fn write_only_file<T: Reader + Send + Sync + 'static>(&self, nam=
+e: &CStr, data: &'data T) {
+> +    pub fn write_only_file<T: Reader + Send + Sync>(&self, name: &CStr, =
+data: &'data T) {
+>          let vtable =3D &<T as WriteFile<_>>::FILE_OPS;
+>          self.create_file(name, data, vtable)
+>      }
+> @@ -666,11 +658,7 @@ pub fn write_only_file<T: Reader + Send + Sync + 'st=
+atic>(&self, name: &CStr, da
+>      ///
+>      /// This function does not produce an owning handle to the file. The=
+ created file is removed
+>      /// when the [`Scope`] that this directory belongs to is dropped.
+> -    pub fn write_binary_file<T: BinaryReader + Send + Sync + 'static>(
+> -        &self,
+> -        name: &CStr,
+> -        data: &'data T,
+> -    ) {
+> +    pub fn write_binary_file<T: BinaryReader + Send + Sync>(&self, name:=
+ &CStr, data: &'data T) {
+>          self.create_file(name, data, &T::FILE_OPS)
+>      }
+> =20
+> diff --git a/rust/kernel/debugfs/entry.rs b/rust/kernel/debugfs/entry.rs
+> index 46aad64896ec..88a870d8c295 100644
+> --- a/rust/kernel/debugfs/entry.rs
+> +++ b/rust/kernel/debugfs/entry.rs
+> @@ -74,7 +74,7 @@ pub(crate) unsafe fn dynamic_file<T>(
+>                  parent.as_ptr(),
+>                  core::ptr::from_ref(data) as *mut c_void,
+>                  core::ptr::null(),
+> -                &**file_ops,
+> +                file_ops.fops(),
+>              )
+>          };
+> =20
+> @@ -127,7 +127,7 @@ pub(crate) fn file<T>(
+>                  parent.as_ptr(),
+>                  core::ptr::from_ref(data) as *mut c_void,
+>                  core::ptr::null(),
+> -                &**file_ops,
+> +                file_ops.fops(),
+>              )
+>          };
+> =20
+> diff --git a/rust/kernel/debugfs/file_ops.rs b/rust/kernel/debugfs/file_o=
+ps.rs
+> index f15908f71c4a..7e1dd8c75ad9 100644
+> --- a/rust/kernel/debugfs/file_ops.rs
+> +++ b/rust/kernel/debugfs/file_ops.rs
+> @@ -20,14 +20,12 @@
+> =20
+>  use core::marker::PhantomData;
+> =20
+> -#[cfg(CONFIG_DEBUG_FS)]
+> -use core::ops::Deref;
+> -
+> -/// # Invariant
+> +/// # Invariants
+>  ///
+> -/// `FileOps<T>` will always contain an `operations` which is safe to us=
+e for a file backed
+> -/// off an inode which has a pointer to a `T` in its private data that i=
+s safe to convert
+> -/// into a reference.
+> +/// - `FileOps<T>` will always contain an `operations` which is safe to =
+use for a file backed
+> +///   off an inode which has a pointer to a `T` in its private data that=
+ is safe to convert
+> +///   into a reference.
+> +/// - Every instance of `FileOps<T>` resides in static storage.
 
-1. With the drop corrupted frames enabled, the old worker's
-   final kref_put reaches uvc_queue_buffer_complete(), sees buf->error set,
-   and calls uvc_queue_buffer_requeue(). This performs list_add_tail() on
-   buf->queue even though userspace has already QBUF'd the same buffer and
-   added it to irqqueue.
+This can be better done by storing `&'static bindings::file_operations` in
+`FileOps<T>` instead of just by value. That is actually better than the cur=
+rent
+impl, IMO, because `mode` for example doesn't have to be in static storage.=
+ (You
+can also then make `FileOps<T>` `Copy`).
 
-2. With nodrop=1, uvc_queue_buffer_complete() calls vb2_buffer_done() a
-   second time. If userspace has already dequeued and requeued the buffer,
-   the second completion exposes it to userspace again, and the next
-   DQBUF/QBUF inserts the still-linked list_head into irqqueue a second
-   time.
+If you made the change, you'd still have `&'static` checked at compile time=
+, and
+the fops below can be safe.
 
-Both cases produce the kind of list_del corruption seen here:
+Best,
+Gary
 
-    list_del corruption. next->prev should be ..., but was ...
-    kernel BUG at lib/list_debug.c:64!
-
-Fix the cancel path to remove buffers from irqqueue and drop the queue's
-reference through uvc_queue_buffer_release() (i.e. kref_put()). The final
-VB2 completion then only happens from uvc_queue_buffer_complete() once the
-last async reference is released, so userspace cannot reuse the buffer
-while an old worker still accesses it.
-
-A buffer whose state is already UVC_BUF_STATE_ERROR is forced to complete
-as an error and must not be requeued by the corrupted-frame policy. Normal
-malformed frames are still requeued/dropped as before.
-
-Fixes: 01e90464e42e ("media: uvcvideo: queue: Support asynchronous buffer handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: huhb04 <huhb04@gmail.com>
----
- drivers/media/usb/uvc/uvc_queue.c | 30 ++++++++++++++++++++++++++++--
- 1 file changed, 28 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
-index 3c002c8f44..9206e0a355 100644
---- a/drivers/media/usb/uvc/uvc_queue.c
-+++ b/drivers/media/usb/uvc/uvc_queue.c
-@@ -289,10 +289,19 @@ int uvc_queue_init(struct uvc_streaming *stream, struct uvc_video_queue *queue,
-  */
- void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
- {
-+	struct uvc_buffer *buf, *next;
-+	struct list_head local_list;
- 	unsigned long flags;
- 
-+	INIT_LIST_HEAD(&local_list);
-+
- 	spin_lock_irqsave(&queue->irqlock, flags);
--	__uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
-+	while (!list_empty(&queue->irqqueue)) {
-+		buf = list_first_entry(&queue->irqqueue, struct uvc_buffer, queue);
-+		list_del(&buf->queue);
-+		buf->state = UVC_BUF_STATE_ERROR;
-+		list_add_tail(&buf->queue, &local_list);
-+	}
- 	/*
- 	 * This must be protected by the irqlock spinlock to avoid race
- 	 * conditions between uvc_buffer_queue and the disconnection event that
-@@ -303,6 +312,17 @@ void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
- 	if (disconnect)
- 		queue->flags |= UVC_QUEUE_DISCONNECTED;
- 	spin_unlock_irqrestore(&queue->irqlock, flags);
-+
-+	/*
-+	 * Release the queue-owned kref outside the irqlock. The final VB2
-+	 * completion only happens from uvc_queue_buffer_complete() once all
-+	 * asynchronous copy references have been released, preventing userspace
-+	 * from reusing the buffer while an old worker still accesses it.
-+	 */
-+	list_for_each_entry_safe(buf, next, &local_list, queue) {
-+		list_del(&buf->queue);
-+		uvc_queue_buffer_release(buf);
-+	}
- }
- 
- /*
-@@ -356,7 +376,13 @@ static void uvc_queue_buffer_complete(struct kref *ref)
- 	struct vb2_buffer *vb = &buf->buf.vb2_buf;
- 	struct uvc_video_queue *queue = vb2_get_drv_priv(vb->vb2_queue);
- 
--	if (buf->error && !uvc_no_drop_param) {
-+	/*
-+	 * Buffers cancelled from uvc_queue_cancel() are forced to complete as
-+	 * errors. They must not be requeued by the corrupted-frame policy even
-+	 * when buf->error is set.
-+	 */
-+	if (buf->state != UVC_BUF_STATE_ERROR &&
-+	    buf->error && !uvc_no_drop_param) {
- 		uvc_queue_buffer_requeue(queue, buf);
- 		return;
- 	}
--- 
-2.34.1
+>  pub(super) struct FileOps<T> {
+>      #[cfg(CONFIG_DEBUG_FS)]
+>      operations: bindings::file_operations,
+> @@ -39,9 +37,13 @@ pub(super) struct FileOps<T> {
+>  impl<T> FileOps<T> {
+>      /// # Safety
+>      ///
+> -    /// The caller asserts that the provided `operations` is safe to use=
+ for a file whose
+> -    /// inode has a pointer to `T` in its private data that is safe to c=
+onvert into a reference.
+> +    /// - The caller asserts that the provided `operations` is safe to u=
+se for a file whose
+> +    ///   inode has a pointer to `T` in its private data that is safe to=
+ convert into a reference.
+> +    /// - Must only be used to initialize a `const` or `static` item, to=
+ uphold the type invariant
+> +    ///   that all `FileOps` instances reside in static storage.
+>      const unsafe fn new(operations: bindings::file_operations, mode: u16=
+) -> Self {
+> +        // INVARIANT: The caller is required to only use this in a `cons=
+t` or `static` item,
+> +        // ensuring that all `FileOps` instances reside in static storag=
+e.
+>          Self {
+>              #[cfg(CONFIG_DEBUG_FS)]
+>              operations,
+> @@ -65,11 +67,11 @@ pub(super) const fn adapt(&self) -> &FileOps<T::Inner=
+> {
+>  }
+> =20
+>  #[cfg(CONFIG_DEBUG_FS)]
+> -impl<T> Deref for FileOps<T> {
+> -    type Target =3D bindings::file_operations;
+> -
+> -    fn deref(&self) -> &Self::Target {
+> -        &self.operations
+> +impl<T> FileOps<T> {
+> +    /// Returns a `'static` reference to the inner `file_operations`.
+> +    pub(crate) fn fops(&self) -> &'static bindings::file_operations {
+> +        // SAFETY: By the type invariant, `self` resides in static stora=
+ge.
+> +        unsafe { core::mem::transmute(&self.operations) }
+>      }
+>  }
+> =20
 
