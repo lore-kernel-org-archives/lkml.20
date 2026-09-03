@@ -1,99 +1,132 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-116.mta1.migadu.com [95.215.58.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D90A74EBAC3;
-	Thu,  3 Sep 2026 16:08:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B522A4EBAF1
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:08:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788451709; cv=none; b=FlB+nHbG024PN3s+jleKt/0nGEnbR5wWYjeup19HY7H1UQPD+kKF4KsErCPwl+YnzpGYSUaJezgKM2uIWP/P4yYTekYis7u6UPjnVakKW8acqS4FOFXJwc+wGlSWe0qm3eyisuc5KdaLsQXIH+aQdIj6rPCVwc7WLDWAB+TEdXY=
+	t=1788451712; cv=none; b=MabYjOnxzjPJzk5aKbw6QA64NQ1D+d0MOeGziQ11ZQ7QBGFTLzfJWBQ7x/8gU6ModWshC44Qc1KlfefmlY2qS5WNxMgMpWgozCCTbBnSUbK57BCM+zu3sXfttkVpJrGqixgVFr4OEq2Ef4GPQ+fD+k3RA2vSJI7mGd+t+mpaXGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788451709; c=relaxed/simple;
-	bh=J/6RTnRNDYHUyrEE65U3iedZ5acE/1uJCyvJYs0oizE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qEQbZ7DDL8nZNFWVuB8AH0o/6LQfS5MMvfTK5cnv/VeR6hLceuUsTVUKTeuSWKZ97KJaaoGbpm1Vyzwj2hM7rovWo0p4LK0Hxvi8pzwCFs3p9J4zz5RNsZv/CdL0pHDj96//MpI9xRw1398j1ti09CmgZo7oDh/+eJxqE3Cwuzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Jqw0T/WN; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=d4L02aXC; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788451712; c=relaxed/simple;
+	bh=LIb/7rrK5h/wT9lpdn6ra1OGGg+3Wy5Q15Bf/KyCPjQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XaTwLR52EaklnQDd7XOSor1uPzr6KZ8tWt5c07lre3g/EwywCUPfjEj4oRftmw5Xd0miQYWIhw56XTu4VjWe88aP71ar/EavkDHGTHPqFk1Wv1iMrnqkU77RS6QXSlD8HnCoIdZRoK8YRQhbywFpK6+RgVi0p9QclrLUakGsod0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pLdJoR7h; arc=none smtp.client-ip=95.215.58.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Jqw0T/WN";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="d4L02aXC"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hbPf15tMnzMl3M;
-	Thu, 03 Sep 2026 18:08:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788451705;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=ny3aREbBJWXFWbqRvFKUC8m+w92BLm7cElDduQjhR44=;
-	b=Jqw0T/WNbrkoklLcwUY4LJqiK1o1+Cacnj6NXKGOb7fAIaFUzfWJ4kaFX81p4ZJwIstsJ7
-	8eiJZxh1SomyUbbe2mejUbUz8NugjGqKnkmKuuDdKfQj6yqeB+cSv2udAcBQYIIwcAGp1O
-	5cgHTKh4NTSCvmchbXaLUzFda8G1V6PFPoyiStnmSRi8JIUkL1DdUhL27OYoVymrJSgkxl
-	I2NOw1hBgh4T9qewX9EpMW82RyjetGcesB+Hs16BRj5BBG3hTFG8dEsjuIafnOxLwByi3a
-	cIGJNf6JiEl0Anb9g8yQ58tgW74fCwUb0V2i64a1OFa4R68Nxr9d1cl2/dydoA==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=d4L02aXC;
-	spf=pass (outgoing_mbo_mout: domain of manuelebnerli@mailbox.org designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=manuelebnerli@mailbox.org
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788451704;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=ny3aREbBJWXFWbqRvFKUC8m+w92BLm7cElDduQjhR44=;
-	b=d4L02aXCYRbMeTeDnLfnlKz0QPtRC4BvCVnTAn0XEdhCNDi1qTqZQBKZS3tlIUYNRIbstG
-	2RAS82At9mkpHOHgOYwJlEXnV0rErSnJSMCBv2qM2ePCyPA5JxTPCsbJ/HHzNPCcrgSb8Y
-	rr9vA7n642Uny1KUPIssT+kbtXupqjvvxjsndxz5qjb7qdDR7yhFVB+ZSKpZb3d0gNCKkX
-	wtnevMowOzKa+V7xSntun+OWc1YHUSJD8LfA+6rmlbsxRkVn9L73sUsfwUXKxAudOBcPvu
-	FngYq2a33n0Fcjtdi/DBukvPW4WNiVfEiLUcziR2idzSmapbsMI8GB71gIMXbw==
-To: Amit Daniel Kachhap <amit.kachhap@gmail.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
-	linux-pm@vger.kernel.org,
-	linux-doc@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pLdJoR7h"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=LIb/7rrK5h/wT9lpdn6ra1OGGg+3Wy5Q15Bf/KyCPjQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788451708; v=1; x=1789056508;
+ b=pLdJoR7hoY4o6mwSvLsdRhvtJyNdOrVP1FKbkEKK3b2q4+1NRLxFSNTdRPpyfqC7ROxo2n1Y
+ dXS82xhprPZu4kXZHFmJjFBEawyN+gNeHVYBgQHMWFtJwsptn3e4xVkpPcMrPUPDhRbW++6g0vH
+ CodLf/idUhwvSuoIiDoKZxao=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b4b3b84fd517c841;
+	Thu, 03 Sep 2026 16:08:18 +0000
+X-Mizu-Trace-ID: b4b3b84fd517c841
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 3 Sep 2026 09:08:17 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Tejun Heo <tj@kernel.org>, Christian Brauner <christian@brauner.io>, 
+	Meta kernel team <kernel-team@meta.com>, linux-kselftest@vger.kernel.org, driver-core@lists.linux.dev, 
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] docs: thermal: cpu-idle-cooling.rst: Fix bracket
-Date: Thu,  3 Sep 2026 18:07:51 +0200
-Message-ID: <20260903160751.734704-2-manuelebnerli@mailbox.org>
+Subject: Re: [PATCH 1/3] kernfs: take kernfs_rename_lock for same-parent
+ renames too
+Message-ID: <apmaTeNaULFmV7H4@linux.dev>
+References: <20260903040253.670020-1-shakeel.butt@linux.dev>
+ <2026090330-cytoplasm-resilient-900b@gregkh>
+ <6a990797.3e7a366d.3bd849.72d1SMTPIN_ADDED_BROKEN@mx.google.com>
+ <2026090351-turbofan-tux-d75e@gregkh>
+ <20260903060812.GA18952@shakeel.butt@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: a1pmqxm5exthjwoixiwetypbodbh7gm6
-X-MBO-RS-ID: 748c677e9bd5965da4c
-X-Rspamd-Queue-Id: 4hbPf15tMnzMl3M
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903060812.GA18952@shakeel.butt@linux.dev>
 
-Remove needless '(' from equation.
+On Wed, Sep 02, 2026 at 11:15:16PM -0700, Shakeel Butt wrote:
+> On Thu, Sep 03, 2026 at 07:41:53AM +0200, Greg Kroah-Hartman wrote:
+> > On Wed, Sep 02, 2026 at 10:37:21PM -0700, Shakeel Butt wrote:
+> > > On Thu, Sep 03, 2026 at 06:31:58AM +0200, Greg Kroah-Hartman wrote:
+> > > > On Wed, Sep 02, 2026 at 09:02:51PM -0700, Shakeel Butt wrote:
+> > > > > kernfs_rename_ns() only takes kernfs_rename_lock when the rename moves
+> > > > > the node to a new parent.  A rename that keeps the same parent, like
+> > > > > renaming a network interface, changes kernfs_node::name with only
+> > > > > kernfs_rwsem held.  So the lock protects ->__parent but not ->name, and
+> > > > > a reader that wants a stable name has to take kernfs_rwsem, the same
+> > > > > lock every path lookup needs.
+> > > > > 
+> > > > > That also makes for a small but real bug.  kernfs_path_from_node()
+> > > > > takes kernfs_rename_lock for reading, and kernfs_path_from_node_locked()
+> > > > > then reads the name of each ancestor.  It reads each one once, so a
+> > > > > single same-parent rename only moves the answer from the old path to the
+> > > > > new one, but two of them landing inside one walk build a path that never
+> > > > > existed:
+> > > > > 
+> > > > >   CPU0                                   CPU1
+> > > > >   kernfs_path_from_node() on /a/b/c
+> > > > >     reads the name of a, gets "a"
+> > > > >                                          renames a to a2
+> > > > >                                          renames b to b2
+> > > > >     reads the name of b, gets "b2"
+> > > > >     returns "/a/b2/c"
+> > > > > 
+> > > > > This hits roots without KERNFS_ROOT_INVARIANT_PARENT: sysfs, where the
+> > > > > bad path can reach sysfs_warn_dup() and pr_cont_kernfs_path(), and
+> > > > > resctrl, which renames a mon group inside its mon_groups directory.
+> > > > > cgroup sets the flag, so it skips the lock and reads names under RCU
+> > > > > alone; that case needs something else and is not addressed here.
+> > > > > 
+> > > > > So take the lock in both cases, and let kernfs_rcu_name() accept it the
+> > > > > way kernfs_parent() already does for ->__parent.  Same-parent renames
+> > > > > are rare, the lock is per filesystem, and the locked section is at most
+> > > > > three stores.  It also gives a future rename sequence counter one place
+> > > > > to sit that covers every rename.
+> > > > > 
+> > > > > Fixes: 741c10b096bc ("kernfs: Use RCU to access kernfs_node::name.")
+> > > > > Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+> > > > > ---
+> > > > >  fs/kernfs/dir.c             | 28 +++++++++++++++-------------
+> > > > >  fs/kernfs/kernfs-internal.h |  9 ++++++++-
+> > > > >  2 files changed, 23 insertions(+), 14 deletions(-)
+> > > > 
+> > > > How was this found and tested?  Did you forget an Assisted-by: tag?
+> > > 
+> > > I am working on a series to improve kernfs_rwsem and going through
+> > > review-prompt with AI to review my series and these were existing 
+> > > issues AI found. I have created reproducers with AI for these and
+> > > tested that these patches those.
+> > 
+> > Then please read our documentation for how to properly document this
+> > usage of a LLM tool.
+> 
+> Sure
+> 
+> > 
+> > If you have reproducers, please add them to the kernfs tests as well as
+> > patches part of this series when you resend them.
+> >
+> 
+> The reproducers are like stress tests and are targeting race conditions.
+> In one case delay was added to fully expose the race. I am not sure
+> selftests is the right place for this kind of tests. I can just publish
+> the reproducer on the list to have them on record if that is what you
+> are looking for.
 
-Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
----
- Documentation/driver-api/thermal/cpu-idle-cooling.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Greg, let me know what would you prefer. I can add selftests which execise the
+paths these bugs are on but to trigger the bug, more stress would be needed and
+still will not trigger the bug always.
 
-diff --git a/Documentation/driver-api/thermal/cpu-idle-cooling.rst b/Documentation/driver-api/thermal/cpu-idle-cooling.rst
-index c2a7ca676..b9d4c91a7 100644
---- a/Documentation/driver-api/thermal/cpu-idle-cooling.rst
-+++ b/Documentation/driver-api/thermal/cpu-idle-cooling.rst
-@@ -161,7 +161,7 @@ tree. So with the idle injection mechanism, we want an average power
- specific OPP and idle another amount of time. That could be put in a
- equation::
- 
-- P(opp)target = ((Trunning x (P(opp)running) + (Tidle x P(opp)idle)) /
-+ P(opp)target = (Trunning x (P(opp)running) + (Tidle x P(opp)idle)) /
- 			(Trunning + Tidle)
- 
-   ...
--- 
-2.54.0
+Also I have inflight kernfs selftest patch [1] as well. I can combine that to
+this series. 
 
+[1] https://lore.kernel.org/all/20260902014050.499002-1-shakeel.butt@linux.dev/
