@@ -1,152 +1,108 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C654BB7FD
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:19:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7914D2EC0
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:19:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448787; cv=none; b=kDSnowhm8/12KDGLzcOsEX/CVLSG4HLI9+ZBSYMHmPfyZIJgx1KZL/nqqTZ3dcYwKSmlbrJ/ElG7VPxcgMIO4r3Q723+sqNL3TkYisHLESwcOquH+mmpxlF/HCASLaDbhnjAyGZKSBaTqZ6v5l9liY30CdqgeKsHbtzaEH00J2M=
+	t=1788448798; cv=none; b=TyvC2cm8q3EPbJdV9wEG02iHWpFH9IQ84YFymXPnmKyZbdRC4uFQ+zXCKeD2a7Ep6+meLEYpQf83QKGImM810xPTDo9/DWjh0buQ9OoLOQuv47j3qmrFdezxl3EdmwQ51CGy1+A+0MNPCFu0EoBwg2OB42AuBBxgJ3+SvO1NGbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448787; c=relaxed/simple;
-	bh=nbUSOnH/yAvzACxNcixvd9qpwb8O+QZ2GQHLOMzuIPY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m7dKmIS9stw8+2PVWlkjxGW5qLOkxoGafb2uZ1ElisKbfH/goKkWnT3/Fts+G9h6kKiw6gY+w2aKXVyVi/WdfbJDJ8bRZ/eRQX7YJxjV45HWUU6DkVZ+JSP99XXVzNxWo4oGOeFA5y5vhIp5EM0LcR+mp1ewg5wC3ronlfWQBYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nJ7q/53U; arc=none smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788448798; c=relaxed/simple;
+	bh=2J4kYJhWzcn/tlR3JRnNUxnbyfb/k3jvDTo55cncdW0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TVHlxR0rxk22UhpO5MprCDHLQYGU6ElWLBKLqwKRZBGn2xG7+Yvbybsw3A7/rAeN3oRxRIkpdE288WqIkX+yg359Oj1NG1gSQn1N95SwmJ5FRMwHZc/JouMMEIid77hwZP2xqs9ZZRi4YUFR5CkPsXm3chkpkWGhj+GRf4/rsnw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=O9jxrwfa; arc=none smtp.client-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nJ7q/53U"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c2544ff970dso376843966b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:19:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="O9jxrwfa"
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-84e0688b7e8so2394533b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:19:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788448784; x=1789053584; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c/Qt/fPdwPC3wUdBHPi4+U/TKrcXHOgncT4srAq3Wek=;
-        b=nJ7q/53URt/69k208sxM1yKudzlYB+L0/JyD4ElL255rqI9h+qVygVbjAAmMHxc2Fm
-         jO3hmE1Sk/w3cfsVNFKERUWj4KkNj1lt1dyWZh4ZNPI/fu0gKOyJWk/kwAcSEEZrx52/
-         oOlNtjE6LonmH6+llRBje4XOHbFQg6Az9LMaXoBiIg2663j6CGyQwb1cPMO1jwZ9Sx3V
-         KFz/MNlkJJOuP4jWcTsZgkSc6Ds0NzZZ9ReG6hWXFxDv7hsa6HpcOsaNx3gE72sCvLPk
-         6zS+u0TMTxGqSJEWWII2gkGS7REnC/ipy4RfNerlfXrxClD3L/XPlXqyCmWXGRawzSWe
-         7onw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788448784; x=1789053584;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1788448795; x=1789053595; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c/Qt/fPdwPC3wUdBHPi4+U/TKrcXHOgncT4srAq3Wek=;
-        b=XRQTm3PLrqrloUJELx6tny0ckUk6n5JaZp5JABNEVztFqVu/b6bk5pHDmyWPIJkHDY
-         r3PXaVB+r+fzj1WHrlMU0nTWgdotCe3t7AtjWzjv4ZM5ifK9me17YOgiqgFv9ZA4C997
-         5FI4WAicfadMjDHCmZXP3Uyds5Xp2HXYPuYSx+GX2BJPFtLU9/uGKjZR8173KSHvoiAj
-         iMJdTmFCjR/zFXwH2tAyHLO5r1mnuOhA3ayVOFebrmjb4DlL7rCJUmAknIM6G5CsP0iZ
-         6An+W4pWzbG+BXfA/J3vfIHifLItyGwJFanFCaDNd9DhCkRfEqRLxVcGlQriIPnW3LzK
-         Hm4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxfiUWhYx0kvyfXBrIJoxzirngWkJhuOMVhfM6nd2uhs2NHQ7W811ePAxRIp+KQlAGF6sYcpWFbCNdQTwo=@vger.kernel.org
-X-Gm-Message-State: AFuF++k2xqbZ0QQjWViU+BTJOqi0I5gpqDoOPAIfYlbJqYs3ToL+DLQD
-	fbO2s9koJUoQHfgB1EWAfr98wkV2saKsWS5DDCqPnAhYVoz67ge3IEAF
-X-Gm-Gg: AYBFou2yOhMTrrt1uJ7ir2FWtXMO+zdlq8v90SB+NoWv0PXf85KgfbQ4z2TaOSQ9KFk
-	HwA4bW6FmWaOqu4UC07VwOs1kHhzqlC9wGe/fgScXLmgO6+rnzbzbw7Kpvz2EE5BtuhbKeD66rK
-	7N3jXHvZk4YXN0CJkmVnQcgG/jtAHj+1GhvTYyUTjP0cRLuk6RysoE/70BF+4AVEnjqjNx20yAW
-	ms4bZ/JscMEgY49h/ZBEVvtG1m5a7BwDlcv4JyeTosq+R/yCgMrszo5nTauLyc4D3SHvLNOE2Pp
-	TY09J06MKmO8D2TkTotl6Dcy3L5bizgxPkawMaEphaZNV6KOpxY8654FqQlml7yojfS9zvT/sWd
-	sAonsoxzab38GLMGnYDBk9RoP1RoKimoegbl4q0C+GGlEbvY+0iLWK00w5VEUxCa9Cp0Bz+MVj3
-	PGTsJBcpkMt8gaS+t0AeSHlAEH2Z5vIhQ2s0mBKJYoLpmNv2uWQkTzkbRWoIziPpeoZE9r961qt
-	sZjzbZoOB2giHDS+Nj5B8l3cZp4td/fGCuEuw==
-X-Received: by 2002:a17:907:3f88:b0:c21:450d:cd7e with SMTP id a640c23a62f3a-c25d53be168mr861775766b.9.1788448783664;
-        Thu, 03 Sep 2026 08:19:43 -0700 (PDT)
-Received: from flaviu-Aspire-E5-572G.. ([5.15.67.216])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e13db0sm14634897f8f.0.2026.09.03.08.19.42
+        bh=t4k71jgXR0pxejFwDgrDgrQ6R4Jk1k1enZ3AJ1qLF40=;
+        b=O9jxrwfazSf6pIO7nr9/nF5Hx75D37G4jf3k1T6Cc6Gj1riRhaa5r4byMn1H14T3cU
+         xA91cmQlZdG0JvONb9X617VCEamDDPQP7BKnLGiH1/dQu5zf/LhshCLxLRwd4RKla1u8
+         +cJ9oxXKhjG4D8s1kuCe0Daef5xu0mIRRlzQgL3blBcEq+SN2YyGIf4Q1YeROVuJCSH5
+         TB5bSoUirLe8jedvVH/3pCNYnehqZOE/IjvnnX4ZyQ3jUv1cGTkxPtSo1hSGqf1spAEJ
+         tD5XN0F7Uxx7PMqEB1iyaLyMLXL2sdt1aiCvALdpzW3fV/n1mMIDF8mWtTP2yvrTCptF
+         VH9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788448795; x=1789053595;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=t4k71jgXR0pxejFwDgrDgrQ6R4Jk1k1enZ3AJ1qLF40=;
+        b=sDzJHNY7MkkULZJKLEE607j1IqeXz/babslwwaBCPkV+nYhUur+6mPy2m+7e15Lvhx
+         haaaNwYxvhrGeQmq9CXo48EvEQlx+wTAAF1+xl2Rlsd/Z6J3MBW9BFeUhhm8a0fgLLHe
+         8jWT0FRjLmoPQLXw61IVIACEvqzT+OlU/D05O3nIC+BExbVgyzJ5jy6awHwkV6fdvp+9
+         vv97VyAfOcEbmiBmPxKIyKg2KSDQbjTV9pU+BfsgkD3IpZLIbdan/zquK2sujTtGPgRy
+         M2UtjHBbM8yR3z7IfGKaPh7BIRKNyiH4U7ntJsQXWTJqHyWTEPBGFuBas5rakufWFx5M
+         ooDw==
+X-Forwarded-Encrypted: i=1; AKwUvBwg61Zt6dhsH6X41wimQMBtRDYEzDL9biTzO4Cc6J39Vnd9mJ4mqp/YMuJHhKf1jpxXIb0mfpzAb2gblIE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mpv5HDdg6V9exoqBbcX4kVaL89FpjrEOlMH2hEaqx5biRUYDOM
+	L/vpG1Gq3itKhtkNp6/cAu3jhJ6IXYqHHSldoEp/TEi7/sOltG8p/iKQXGOwu9CAgho=
+X-Gm-Gg: AYBFou0nn4zzI5hv2oPryaBSv45EhOkmf4IRFq2WqkFrFHXPCM2NZghhdPcGLnIvlrm
+	C4/rw30wEOTfrYwpnq+X8COw95l9h8xYF0GBn4v1ezvdxy8KFSuEw+icNycsmVUwPW6sEcJZRBD
+	zVLYo3JBn7lmXOeo79s7la7sZbnOUZJVFdSMKn8mAcMDT/RE3LzwH9HFuYmfZHk07upp+X38plJ
+	eJhWVnhwG+uFI/S09p1Tm3Squo5ZlcmUGdACOjPPcZH6p0ZbHBlTKmb04znWlXtNM58pSxTaI3s
+	mymsqfnG9NZJGQtvIqFZjDPFPrO+a8qqg2wtGBQTx5ofB0FRt1Xqr5uT2RrKH8ziRDJjfYD4LvC
+	z6M02VQNMDyDSNieNVUILy9q2hJQvtd5DKo//gwyPLhcZCipCbLdzXS3b6gvmrB+M0uhtbLsvog
+	lc+QeDMS+/d0n/gWVYd34S1EokJL7xKZnHVybFOczpYA==
+X-Received: by 2002:a05:6a21:7a86:b0:3d3:ae40:51df with SMTP id adf61e73a8af0-3d9aeef1aa1mr20459239637.19.1788448795373;
+        Thu, 03 Sep 2026 08:19:55 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:4f::])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc43d47d32fsm1093623a12.32.2026.09.03.08.19.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 08:19:43 -0700 (PDT)
-From: Flaviu Nistor <flaviu.nistor@gmail.com>
-To: David Lechner <dlechner@baylibre.com>
-Cc: Andy Shevchenko <andy@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Nuno Sa <nuno.sa@analog.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Flaviu Nistor <flaviu.nistor@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: adc: ti,ads1015: Add label property
-Date: Thu,  3 Sep 2026 18:19:39 +0300
-Message-ID: <20260903151939.5117-1-flaviu.nistor@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <60dc58c6-dfe2-4377-9a73-f65cda56179c@baylibre.com>
-References: <60dc58c6-dfe2-4377-9a73-f65cda56179c@baylibre.com>
+        Thu, 03 Sep 2026 08:19:54 -0700 (PDT)
+Date: Thu, 3 Sep 2026 08:19:54 -0700
+From: Joe Damato <joe@dama.to>
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, horms@kernel.org,
+	michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
+	kalesh-anakkur.purayil@broadcom.com, colin.winegarden@broadcom.com,
+	rukhsana.ansari@broadcom.com, linux-kernel@vger.kernel.org,
+	raphaelcf@meta.com
+Subject: Re: [PATCH net v5 0/6] Fix a variety of TPA bugs
+Message-ID: <apmQGp1mEhQ1EiEb@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, horms@kernel.org,
+	michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
+	kalesh-anakkur.purayil@broadcom.com, colin.winegarden@broadcom.com,
+	rukhsana.ansari@broadcom.com, linux-kernel@vger.kernel.org,
+	raphaelcf@meta.com
+References: <20260902015652.2421609-1-joe@dama.to>
+ <bb4ae7c9-e705-4eff-9813-065ea4bd9514@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <bb4ae7c9-e705-4eff-9813-065ea4bd9514@redhat.com>
 
-On Wed, Sep 2, 2026 at 9:31 PM, David Lechner wrote:=0D
->On 9/2/26 12:22 PM, Flaviu Nistor wrote:=0D
->> Add support for an optional label property per channel similar to other =
-adc=0D
->> chips. This allows assigning distinct names for each channel which can=0D
->> match the schematic signal name.=0D
->> =0D
->> Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>=0D
->> ---=0D
->>  Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml | 6 ++++++=0D
->>  1 file changed, 6 insertions(+)=0D
->> =0D
->> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml b=
-/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml=0D
->> index 718f633c6e04..777a75c21d7f 100644=0D
->> --- a/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml=0D
->> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml=0D
->> @@ -66,6 +66,11 @@ patternProperties:=0D
->>            - minimum: 0=0D
->>              maximum: 7=0D
->>  =0D
->> +      label:=0D
->> +        $ref: /schemas/types.yaml#/definitions/string=0D
->> +        description:=0D
->> +          A descriptive name for this channel, like "vcc_ram" or "CH3".=
-=0D
->> +=0D
->=0D
->Apparently this chip has quite old dt-bindings. Normally, we would have=0D
->included adc.yaml to get this and other channel properties.=0D
->=0D
->And we would have used diff-channels and single-channel from that to=0D
->describe which pins are associated with which channel rather than having=0D
->a magic number for reg. And the ti,datarate looks suspicious as sampling=0D
->frequency is usually we control at runtime.=0D
->=0D
->Anyway, none of that is really relevant to this patch. We'll see what=0D
->Jonathan says about using adc.yaml here vs. adding a label property.=0D
->=0D
-=0D
-Thanks for your feedback. I can also use:=0D
-=0D
-$ref: adc.yaml=0D
-unevaluatedProperties: false=0D
-=0D
-and move additionalProperties: false at the end of patternProperties block.=
-=0D
-Any other idea?=0D
-=0D
-Best regards,=0D
-Flaviu Nistor=0D
-=0D
->>        ti,gain:=0D
->>          $ref: /schemas/types.yaml#/definitions/uint32=0D
->>          minimum: 0=0D
->> @@ -125,6 +130,7 @@ examples:=0D
->>                  reg =3D <4>;=0D
->>                  ti,gain =3D <3>;=0D
->>                  ti,datarate =3D <5>;=0D
->> +                label =3D "CH3";=0D
->>              };=0D
->>          };=0D
->>      };=0D
+On Thu, Sep 03, 2026 at 11:37:34AM +0200, Paolo Abeni wrote:
+> On 9/2/26 3:56 AM, Joe Damato wrote:
+
+[...]
+
+> > I boot tested this on a Thor1 and a Thor2 machine and there were no crashes at
+> > boot.
+> Waiting for Michael's ack here. Note that I think that the AI report on
+> patch 5 is not a blocker.
+
+Aright. If there's no reply within 24hr of posting do you want me to spin a v6
+that:
+  - fixes the commit message sashiko doesnt like for patch 4
+  - fixes the resets stat it mentions in patch 4
+  - add the return value check for bnxt_init_ring_grps in patch 5
+
+or just leave the series as is ?
