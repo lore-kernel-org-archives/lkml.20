@@ -1,211 +1,137 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA6494A8FC7;
-	Thu,  3 Sep 2026 17:02:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA9474F30EC
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 17:03:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788454975; cv=none; b=qE5W3mHMm+9aTIyLgZOWaiFdMQywosZTrJbUCDo0XMBBlbbODMQgyDimV0S2n4lc4Z51ZrjrqwK94bZci5zzWFHAkrSsAVRyg+SJKEatuJg3kNo3rC3Q6qNUUxUzJzd+rfnJNj7bEwPZexNwnpX3RNXpG1Vxu08GDQuLk5T0PIo=
+	t=1788455010; cv=none; b=ggv0v76NNWEoWn6cwMIC3tfYbPcYuOSAP4bo6xWkxHVJ2hkVU8Du4NKMI4nbyyhf8T+ACd8lUlbaOTMl0JgJ9i7Vta6g8s1Se6s7vFWVnlmmcOhM5pC8U2jB0hlgzGMF4ap5ibb/IESYVRYOgumHFG7DNJtO+j+Zu7H71UDkWFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788454975; c=relaxed/simple;
-	bh=7dS65mLqS5TaYH+jrH1I8s0IhvEwTBq61zxYxCN2BtI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rwnFDEIvi9+TZSGmqXVrvAvNgJ1H3+yuIjax/5YxeJBFyqI7EoxMLbywEJXz9+mowvqo0eu6jT58mZgz/A4GeSAlYn4qH/5yIyXcPPI/txW+GVF+CSXpoKG4gRxayGHGtkrYl5NTaFrTMYb7U5JHAZPTz8/2bYBFjgJ4sOzOfpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=cNSaZdy8; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1788455010; c=relaxed/simple;
+	bh=6vLgwFypI9R6E48HnmbFTXCQiSQpFbanDrb/YELuqEs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Vvws1iwEXTvVQJeu6huUus2b30DyzKqxyZHIoodOYIChWTlRsH/ANwc6Y9C/tnR7axAsR5TPiyzOMpOu2dnhe767lbv0aMtqZ4fRTrxsIodlvDCksaBg3CW+xpMo3+FQSHDR5uy7MP8qUksbmwnt6zRybtt5eVHgUI3ucwYMeGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QQYKnSVO; arc=none smtp.client-ip=209.85.128.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="cNSaZdy8"
-Received: from [10.0.0.152] (unknown [10.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 55629534032A;
-	Thu, 03 Sep 2026 19:02:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1788454970;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=Q4dUwejdRJI2qLkZSXJEkJxoQfGOS6BIS0QFYJOq8yQ=;
-	b=cNSaZdy8kfXM68HQ7QZzyWeDLc5ztf22U/gd+IXjIvg90zLkq7eM4JmaIvUk1sq8XVrwXJ
-	+GOA9Uprue3SBsMckV8BneaZkcEMW2tBdRMKBDG2d4gNKbNRtCC/T6eaF1WBQuFpzW++9+
-	7UoIdKocS4BdDfz+0EK8QHKzhcsY+h4=
-Message-ID: <e4b32a40-4432-40c0-8e57-f5602c98f096@ixit.cz>
-Date: Thu, 3 Sep 2026 19:02:50 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QQYKnSVO"
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-836c4474028so1661757b3.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 10:03:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788455008; x=1789059808; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CstuSRSoRYjDy3SQPB3JE0tK/DdVcQaXoQui8YlYnzY=;
+        b=QQYKnSVOlORU22HAtJfuNVl4iQiCljkEKWs/8txAonTMfEjSWpKVbcC1PEJ4X+hCaU
+         XZ+MbMr2TtDnJ4Xt0kQX3W45dL09ERr0eilP00Eu+VRb31O5sxiRSw9YX3hZspdInT/v
+         x9utrbLEXuB2ucQScMLqbEXH4XH0LS84nZI88VOGP1VBYyB+S4hZ5+Oc7Rxd4NCd1RoX
+         d/tX0Gi3dFPtCF3ckZqv/GJ96akyWVrMVvg+6wKydPB3xovIdaxlpBSucPoMBdkUwsFZ
+         lKjRMm6tHJ/5Flxdi9A4vj8a41St0A130csA9T8i1YJOoGNBf5kZhSTNDUxYB/F/jbLo
+         /zBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788455008; x=1789059808;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CstuSRSoRYjDy3SQPB3JE0tK/DdVcQaXoQui8YlYnzY=;
+        b=DjWHluUbd+reamSKPNx2nyPEoSOJ06I+abmdcTdHWF0ZN2vgupkd4u3Y/qqyUO4lf7
+         uv15iU5m5VZWdVqtRsvAyQ16zqGVpNwt5OMoJPGXr4IiNhlxkF7S6Zf5DfI4/lKCjFOW
+         2qlnff1fiXhLmhIQxf4ikBkdeO5FukDlXfy62dQkM6sdu0cHHg0xa4NmDnVErJJZDGHC
+         dI7Pnk20MPT8ueezmD0mdR1e56RSZ6fdjEGvvN8lhAREibp/IbOgHZwxP+H2eF38luoe
+         P01sLFL5RTdWpzpk1xKtpxeIka0jhBC/hG7VyY+gp01dTu42Q0CerEhyKG9Bwo2zhxck
+         MM0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwtQPCpDwFVyd4AImBjroFfYLqeCRUWdXZFmhkC8UHTZCz/wT+BA3BEETLxQODivBz6gDlk3NgNVMnoxxo=@vger.kernel.org
+X-Gm-Message-State: AFuF++l6264y9KjdoRZd1Xe2nJ+8jWoyGEYO0mt7f5nm2VphuLB/D5E9
+	JuTuQR3fzeqTbDckL0AXrKIAC9y69fj5A7NIg7YI9zsSaJZGwbBMo9Ic
+X-Gm-Gg: AYBFou35I3nhvNex3UaOFCQGwanRYsjexUU43fV6LGEBBCge97cn1uX7qXR2nDwqoSP
+	PqptaMg8bfRLQQn+KoNfPSJhvOhgeeQtVQgWLhxG1cYLLkYSuXkTQTizqhPh6qbmj5s05QnCxWa
+	7iZw5HiNNzgFI5idalNs4V7LIHwD29KYcYPVSQwHXC2Cylj1p5zFdW3/Ks4f1i6av2qulIzLjkA
+	cLMCk0ZCoqJrsEpm0CRgOVDGLUOfsKFeW+VAMHJ62gfAtuSLCkeim7cEW5/G8v0s7TafPi7ki1t
+	hAg5Xiq8b1Ivov5ATykl+/J39IYrIoVr+z1Mjf8gs/UAwKoctSwvmpRTyMikQMV4cg0dMbcXg/A
+	2JrGVZtLnJ/HPtdszge2jtgGuHahVr7w19oQOOXkBo1Ydw3mDlEOXYhVpJPpYbwXLxDgKN02kDT
+	cRj3AmjHI1Qwrwlzuve+pJIOgYSQIziCIZ2RcQJzSHXozZKgfhLY7zHr2dZzFjepQW5Q==
+X-Received: by 2002:a05:690c:6605:b0:845:ddf4:a399 with SMTP id 00721157ae682-8712390b41dmr2299217b3.11.1788455007588;
+        Thu, 03 Sep 2026 10:03:27 -0700 (PDT)
+Received: from Beast ([2600:1702:8265:324f:c600:425a:f388:aa8b])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-86c1784382esm44343537b3.25.2026.09.03.10.03.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 10:03:26 -0700 (PDT)
+From: Aritra Das <aritra.rohit2003@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aritra Das <aritra.rohit2003@gmail.com>
+Subject: [PATCH] Bluetooth: btusb: Add USB ID 13d3:3556 for RTL8821CE
+Date: Thu,  3 Sep 2026 10:03:22 -0700
+Message-ID: <20260903170322.47004-1-aritra.rohit2003@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 6/6] arm64: dts: qcom: sdm845-google: Add basic audio
- support
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- David Rhodes <drhodes@opensource.cirrus.com>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
- devicetree@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260705-pixel3-audio-v1-0-3b66f33859f1@ixit.cz>
- <20260705-pixel3-audio-v1-6-3b66f33859f1@ixit.cz>
- <71e04eae-7826-4f51-bd6a-318ea1108c08@oss.qualcomm.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <71e04eae-7826-4f51-bd6a-318ea1108c08@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 06/07/2026 14:00, Konrad Dybcio wrote:
-> On 7/5/26 10:06 PM, David Heidelberg via B4 Relay wrote:
->> From: David Heidelberg <david@ixit.cz>
->>
->> Introduce support for sound card and wire two CS35L36 audio codecs for
->> top and bottom speakers.
->>
->> Inspired by commit from Joel Selvaraj.
->>
->> Signed-off-by: David Heidelberg <david@ixit.cz>
->> ---
-> 
-> [...]
-> 
->> +	/* CS35L36, Bottom Speaker */
->> +	cs35l36_bottom: audio-codec@40 {
->> +		compatible = "cirrus,cs35l36";
->> +		reg = <0x40>;
->> +		reset-gpios = <&tlmm 112 GPIO_ACTIVE_HIGH>;
->> +		#sound-dai-cells = <0>;
->> +		sound-name-prefix = "Right"; /* Bottom */
-> 
-> One comment's enough (either above the node or here)
-> 
-> [...]
-> 
->> +	mm1-dai-link {
->> +		link-name = "MultiMedia1";
->> +
->> +		cpu {
->> +			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA1>;
->> +		};
->> +	};
->> +
->> +	cs35l36-dai-link {
->> +		link-name = "Speaker Playback";
->> +
->> +		cpu {
->> +			sound-dai = <&q6afedai QUATERNARY_TDM_RX_0>;
->> +		};
->> +
->> +		platform {
->> +			sound-dai = <&q6routing>;
->> +		};
->> +
->> +		codec {
->> +			sound-dai = <&cs35l36_bottom>, <&cs35l36_top>;
->> +		};
-> 
-> nit: 'co'dec < 'cp'u < 'p'latform
-> 
-> also 'c's35l36-dai-link < `m`m1-dai-link
+The onboard Realtek RTL8821CE combo card on the ASUS PRIME B550-PLUS
+AC-HES presents its Bluetooth function as USB ID 13d3:3556. This ID is
+missing from quirks_table, so btusb matches the device only through the
+generic Bluetooth class entry in btusb_table and driver_info stays zero.
+BTUSB_REALTEK is therefore never set, btrtl never runs, and the
+controller keeps executing its on-chip ROM firmware instead of loading
+rtl_bt/rtl8821c_fw.bin and rtl_bt/rtl8821c_config.bin.
 
-... aaaand **sorting nodes** broke audio.
+In that state BLE HID peripherals are unusable. A HHKB Hybrid keyboard
+pairs and enumerates as a HID device, then the link drops within 10-30
+seconds, repeatedly. The same keyboard is stable on the same host under
+other operating systems.
 
-Moving `mm1-dai-link` behind `cs35l36-dai-link` broke the audio.
+Adding the ID lets btusb run the Realtek setup path:
 
-For now I'm keeping m1-dai-link at the begging and added the comment why is it 
-there, but I guess would be nice to have this solved properly.
+  Bluetooth: hci0: RTL: examining hci_ver=08 hci_rev=000c lmp_ver=08 lmp_subver=8821
+  Bluetooth: hci0: RTL: rom_version status=0 version=1
+  Bluetooth: hci0: RTL: loading rtl_bt/rtl8821c_fw.bin
+  Bluetooth: hci0: RTL: loading rtl_bt/rtl8821c_config.bin
+  Bluetooth: hci0: RTL: cfg_sz 10, total sz 34926
+  Bluetooth: hci0: RTL: fw version 0x75b8f098
 
+With the firmware loaded the same keyboard has stayed connected for over
+11 hours without a single drop.
+
+Device descriptor:
+
+T:  Bus=01 Lev=01 Prnt=01 Port=04 Cnt=02 Dev#=  2 Spd=12   MxCh= 0
+D:  Ver= 1.10 Cls=e0(wlcon) Sub=01 Prot=01 MxPS=64 #Cfgs=  1
+P:  Vendor=13d3 ProdID=3556 Rev=01.10
+S:  Manufacturer=Realtek 
+S:  Product=Bluetooth Radio 
+S:  SerialNumber=00e04c000001
+C:  #Ifs= 2 Cfg#= 1 Atr=e0 MxPwr=500mA
+I:  If#= 0 Alt= 0 #EPs= 3 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=02(O) Atr=02(Bulk) MxPS=  64 Ivl=0ms
+E:  Ad=81(I) Atr=03(Int.) MxPS=  16 Ivl=1ms
+E:  Ad=82(I) Atr=02(Bulk) MxPS=  64 Ivl=0ms
+I:  If#= 1 Alt= 0 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=03(O) Atr=01(Isoc) MxPS=   0 Ivl=1ms
+E:  Ad=83(I) Atr=01(Isoc) MxPS=   0 Ivl=1ms
+
+Signed-off-by: Aritra Das <aritra.rohit2003@gmail.com>
 ---
-   What actually happens in the core. In soc_probe_component() the ASoC core 
-creates a component's widgets, probes it, and immediately adds that component's own
-   routes. Card-level routes, including the DT audio-routing ones, are only 
-added after every component is probed. So a component whose routes point at another
-   component's widgets, which is exactly what q6routing does with MM_DL* and 
-MM_UL*, only works if the other component happens to be probed earlier. Probe 
-order is
-   the DT link order, so this becomes a hidden DT contract.
+ drivers/bluetooth/btusb.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-   Upstream does not actually sort these nodes. The binding matches .*-dai-link$ 
-and the reference boards rely on the order: db845c lists mm1 to mm4 and then
-   hdmi-dai-link, sm8250-mtp lists mm1 to mm3 and then wcd-..., wsa-..., 
-va-dai-link. Neither is alphabetical. So "sorted by name" is not the convention 
-being
-   followed for these children, and cs35l36-dai-link sorting before mm1-dai-link 
-is precisely why an alphabetical rework breaks.
-
-   Where a fix would belong. Two options, in order of preference:
-
-   - In the ASoC core: defer component routes until after 
-soc_probe_link_components() finishes, next to where the card routes are added. 
-That removes the dependency
-     for every driver with cross-component routes. It is a small change, but it 
-touches every card, so it needs a wide audience on alsa-devel.
-   - In qcom_snd_parse_of(): it already knows which links are frontends (no 
-codec and no platform child, marked dynamic) and which are backends (no_pcm). 
-Two passes
-     over the children, frontends first, make the order independent of the DT. 
-That is local and would be acceptable to the Qualcomm audio maintainers, but it 
-papers
-     over a core problem.
-
-> 
-> otherwise:
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->   
-> Konrad
-> 
-
+diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
+index 03039ce..0424898 100644
+--- a/drivers/bluetooth/btusb.c
++++ b/drivers/bluetooth/btusb.c
+@@ -511,6 +511,8 @@ static const struct usb_device_id quirks_table[] = {
+ 						     BTUSB_WIDEBAND_SPEECH },
+ 	{ USB_DEVICE(0x13d3, 0x3533), .driver_info = BTUSB_REALTEK |
+ 						     BTUSB_WIDEBAND_SPEECH },
++	{ USB_DEVICE(0x13d3, 0x3556), .driver_info = BTUSB_REALTEK |
++						     BTUSB_WIDEBAND_SPEECH },
+ 	{ USB_DEVICE(0x13d3, 0x3558), .driver_info = BTUSB_REALTEK |
+ 						     BTUSB_WIDEBAND_SPEECH },
+ 
+base-commit: 6696072ffe07205255cf83621a95a1aa2f9f6e62
