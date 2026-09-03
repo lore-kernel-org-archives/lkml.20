@@ -1,115 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-252.mta1.migadu.com [95.215.58.252])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B35134C9A6;
-	Thu,  3 Sep 2026 16:20:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E114EA394
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:20:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.252
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788452440; cv=none; b=awfXpXMRHfQ214VaUu/8ak84nixwkEYRzsJxFtG+j7sZ8UmJt9+Nm+CJSpLcSK/Yw8vH27GNirFj0MvQYLNAQQ+H5pHK9tyCPbXkCDQye7a2qc0UaSArrhUWOatR4GILAfCCKKhzBpm1lU24peWzB5msnQswhBdv9RrN74eBtoU=
+	t=1788452460; cv=none; b=hmgXbkDZrFSKNzZukBcqnVk/CIANVeBr92BGtNhQM5OK2t3pCVfscEJTR1uS7H6HgIfqF0FaaPtGOsUc5tEpWeWBN3FzKVk4NDis9QM+MZ5G81wUmY3XRIsVP3RYYB+A3IuZqtWj6WMORFHL103JhyxJb75+czRQobmj1V7yOMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788452440; c=relaxed/simple;
-	bh=DqRZUDEFKru5IvtuOoKPEWDwRzk1HsN9K+ntlbLAl0g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MJvQu6LDSAU0Opf3dLJs9q8+jY7xyFXB7ePScNweDl6AF7A5dP8pwMOJpbIK9Yv7OaXeuXw5lHUdTb2Rbg4x8Ssfk8liN2/nZaqhmaz91zGT6bAfp9VdXAZaGzTAwOwiHsO390oXR+w8IrB9FX035U83uEyT3l7xn7XfKJRHg88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JHSYT+Gv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788452460; c=relaxed/simple;
+	bh=AkJG1cubqnvO8sxUYeb9Y8S45m7KFZON1Zp+P7kN8ZI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Co9+gqbFBU6GRSTGfc1/49Ww8EE6zWiCTLMdcowIc164zLTaG+yLhoVQNDexAC/MuTbj62k1CujlqWePCHcwBas/3LIuyba4AUsM5Jj/dX3PBZXs+0Qx2NTHF77WZUhjzTREl8NitS2NOZhTNVb4p2Pof8neah8SX1oB3iDfptk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FDhaXeRU; arc=none smtp.client-ip=95.215.58.252
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JHSYT+Gv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E3921F000E9;
-	Thu,  3 Sep 2026 16:20:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788452438;
-	bh=VSLTX2bHv/0VjH84x9GECXxs329plv3yZhSR8Ismajg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JHSYT+GvWm0P+dkLw1CyNPLznI8s+3xaExoLRmN6IOA8imtmumSXFdgiD4v5f0pF1
-	 atwkkMYt8GH3a2wxJHQslk4zEkhFaiczCXLEPAe/QMaDPSWYiZXEm+3U78/rsKlDZ1
-	 lqz6vFqpZzL9a93yXW1bw3Je16AwSUJpI5DCaWTLbOj1l5NlMpQNNkJ7svcdLuVBQc
-	 2DyltC3ievBsnfUuSfYn/FhFVwK3eGydAe894A4Qvs5nXUY5O9+mJKAAAJMMwxr6fK
-	 o3vYDAFLRlcXvk20Oz+Ad0amNdXkzrfv0l1antCCk1Y/T7bWsBFZd3Y7OVOFzXil43
-	 fuoDqLeKJkETA==
-Date: Thu, 3 Sep 2026 17:20:32 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Leonardo Bras <leo.bras@arm.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	Yao Yuan <yaoyuan@linux.alibaba.com>,
-	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
-	kvmarm@lists.linux.dev, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v20 05/14] KVM: arm64: Set PSTATE.EXLOCK when entering an
- exception
-Message-ID: <0c1c0d26-4e96-4076-8863-b4e871e38e67@sirena.org.uk>
-References: <20260901-arm64-gcs-v20-0-f31750bdfadb@kernel.org>
- <20260901-arm64-gcs-v20-5-f31750bdfadb@kernel.org>
- <apmDRXBvS-XOi1NJ@LeoBrasDK>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FDhaXeRU"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=AkJG1cubqnvO8sxUYeb9Y8S45m7KFZON1Zp+P7kN8ZI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788452455; v=1; x=1789057255;
+ b=FDhaXeRU50pKuP8NliSPlwEraupAgYC0+JJmeaGQxvHWYTEt2BCXvrLy5cqrP3gJgQad2kO/
+ /Vh7ur63AcockLbIOJUBee9H9di++RXR3drLekKj1gBSc5kQT8et5kp2b+b+ZhBf0MDSsGkXGay
+ 3ptPAzuCN7+G+HfClK0Z1+KA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1537d81e6cc724e8;
+	Thu, 03 Sep 2026 16:20:45 +0000
+X-Mizu-Trace-ID: 1537d81e6cc724e8
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b17359so7893e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 09:20:45 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx1Ju96wwEAGRu7fu3m5lBVoyYqwm+vNTmm2mAJbHGH+VbicXA+q3a5Iz4qDdFL3xe02u1ET0y/s+zZ2iQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwgz/7MtA10cCSaW/WmBRWGapR4YzG8VD4+DZ9su0oe3HkfBsR
+	JW/HNodNi93MI2gznHtJdMxBliuJBEmGMPjpnvj1B3l8wswnel5/ZDWY4aBPSixN1UNUJlnZwWV
+	U8cnauW+jOReO793KeYxe+Kq2n5k0LAcObrfSpqpo
+X-Received: by 2002:a05:6512:3b8e:b0:5b1:4fd9:ac with SMTP id
+ 2adb3069b0e04-5b60f98abf0mr143016e87.3.1788452444151; Thu, 03 Sep 2026
+ 09:20:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="1FpyWFQbSeHo2hc0"
-Content-Disposition: inline
-In-Reply-To: <apmDRXBvS-XOi1NJ@LeoBrasDK>
-X-Cookie: One picture is worth 128K words.
+References: <20260831163421.272420-1-fuad.tabba@linux.dev> <20260831163421.272420-3-fuad.tabba@linux.dev>
+ <apgjJVg0PmS3OudU@google.com>
+In-Reply-To: <apgjJVg0PmS3OudU@google.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Thu, 3 Sep 2026 17:20:07 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTzkUqmso49_XV2pPLBDbgqOe5Xnk=2+mWuX55NB2Nospw@mail.gmail.com>
+X-Gm-Features: AcwNN1UhKtG9WhVNbYyetZAICUndgBZHs9WEb955L7xRcf_KFNgwRj6BJQ8GY38
+Message-ID: <CA+EHjTzkUqmso49_XV2pPLBDbgqOe5Xnk=2+mWuX55NB2Nospw@mail.gmail.com>
+Subject: Re: [PATCH 02/17] KVM: arm64: Advertise the capabilities that
+ protected VMs support
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Quentin Perret <qperret@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
+On Wed, 2 Sept 2026 at 14:22, Vincent Donnefort <vdonnefort@google.com> wrote:
+>
+> On Mon, Aug 31, 2026 at 05:34:06PM +0100, Fuad Tabba wrote:
+> > kvm_pkvm_ext_allowed() denies every capability it does not name, so a
+> > protected VM reports 0 for interfaces it implements: KVM_CHECK_EXTENSION
+> > denies KVM_CAP_ONE_REG while KVM_{GET,SET}_ONE_REG stage the guest's
+> > boot state.
+> >
+> > Allow the capabilities that work for a protected guest, the vGIC and
+> > the I/O bus being host-managed, subject to the restrictions the rest of
+> > this series adds.
+> >
+> > Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> > ---
+> >  arch/arm64/include/asm/kvm_pkvm.h | 9 +++++++++
+> >  1 file changed, 9 insertions(+)
+> >
+> > diff --git a/arch/arm64/include/asm/kvm_pkvm.h b/arch/arm64/include/asm/kvm_pkvm.h
+> > index beea00e693a0a..c4c834d55e503 100644
+> > --- a/arch/arm64/include/asm/kvm_pkvm.h
+> > +++ b/arch/arm64/include/asm/kvm_pkvm.h
+> > @@ -42,6 +42,15 @@ static inline bool kvm_pkvm_ext_allowed(struct kvm *kvm, long ext)
+> >       case KVM_CAP_ARM_VM_IPA_SIZE:
+> >       case KVM_CAP_ARM_PTRAUTH_ADDRESS:
+> >       case KVM_CAP_ARM_PTRAUTH_GENERIC:
+> > +     case KVM_CAP_ONE_REG:
+>
+> Shouldn't we bring the VCPU_PKVM_FINALIZED restriction in kvm_arch_vcpu_ioctl()
+> first before we allow SET_ONE_REG/GET_ONE_REG?
 
---1FpyWFQbSeHo2hc0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+KVM_{GET,SET}_ONE_REG don't go through kvm_pkvm_ext_allowed(), so
+they're as reachable before this patch as after it.
 
-On Thu, Sep 03, 2026 at 03:25:09PM +0100, Leonardo Bras wrote:
-> On Tue, Sep 01, 2026 at 10:47:03PM +0100, Mark Brown wrote:
-> [...]
-> > +	/* When taking an exception to a higher EL EXLOCK is cleared. */
-> > +	if ((mode | PSR_MODE_THREAD_BIT) !=3D target_mode)
-> > +		return 0;
+The ordering is wrong though, and there are a few more capabilities
+advertised here and restricted later. I'll fix it for all of them in
+v2.
 
-> "Higher" is mentioned here, but the comparison is a "!=3D", so I suppose=
-=20
-> here we trust the fact that we always have "mode <=3D target_mode", and o=
-nly=20
-> 2 possible target exception levels (EL2h and EL1h).
+Thanks,
+/fuad
 
-> It's a nit, but maybe a "<" here would be more clear?
-
-Sure.
-
-> > +	// PSTATE.EXLOCK is set to 0 upon any exception to a higher
-> > +	// EL, or to GCSCR_ELx.EXLOCKEN for an exception to the same
-> > +	// exception level.  See ARM DDI 0487 R_WTXBY.
-> > +	new |=3D compute_exlock(vcpu, mode, target_mode);
-
-> Same nit: am I really setting one bit here? or could be=20
-> more stuff depending on the parameters? Having an "if (cond) new |=3D bit"
-> seems more clear to what is being done, without needing to read the comme=
-nt=20
-> above.
-
-The goal with the comment is to explain the rule that the code is
-implementing in a style similar to all the other field updates in the
-same function.
-
---1FpyWFQbSeHo2hc0
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqZnk8ACgkQJNaLcl1U
-h9CuIgf/XRruPIDXIBcedIfznjWLTr7snIOwP3v7dpemoskRUGLV1cqWrxGj9SI6
-9ltAHKeDvbyTDBIj+gqwpX2VANkvIteA6Wdrdy+XXL06WSwa0vtzhqLctFaKPP+s
-zXyLQSQ52mA5I0Jeh4Eg174P/mV/wmLLBAyoIgJipMFVIpOyiK1OcoyyKEoEzOOZ
-srsrDLlBElA+3QUIa3Xai01sDhv2IjcxcUmYHK0bb8EkxLp7RRJJ4bsdCO7dhmR+
-hMQlgzqjsAjQZWARZ2CBLnqbG93bkiRwjh++7TtL7av6I1MzMJxvQJoGrkAESGEU
-KZRhEuEtKRL2vGveBdnyyQw3MrxxVA==
-=gUoM
------END PGP SIGNATURE-----
-
---1FpyWFQbSeHo2hc0--
+>
+> > +     case KVM_CAP_MP_STATE:
+> > +     case KVM_CAP_VCPU_EVENTS:
+> > +     case KVM_CAP_VCPU_ATTRIBUTES:
+> > +     case KVM_CAP_IMMEDIATE_EXIT:
+> > +     case KVM_CAP_IOEVENTFD:
+> > +     case KVM_CAP_IRQFD_RESAMPLE:
+> > +     case KVM_CAP_ARM_IRQ_LINE_LAYOUT_2:
+> > +     case KVM_CAP_ARM_INJECT_SERROR_ESR:
+> >               return true;
+> >       case KVM_CAP_ARM_MTE:
+> >               return false;
+> > --
+> > 2.39.5
+> >
