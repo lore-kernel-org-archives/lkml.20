@@ -1,77 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 934594FDE44;
-	Thu,  3 Sep 2026 17:21:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707BC4A3D35;
+	Thu,  3 Sep 2026 17:21:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788456067; cv=none; b=WzZrq/XuQ/FESNM54WoAmUcRtFcZIM/aWlNCU98cPbJA0Z/NV21sE1Vu0Kok2uVMPgs9k7ewZpAnN0bC8X2qQaEN9eXmdJotTbo9o5M71MmH0NnJYbKOoKuhPWbTZ9jNt+1LxvjTn5yf4bH1jcBmbbgPhy5wxkB6k42r65NK0rI=
+	t=1788456094; cv=none; b=JW1368fXONYYuyTsykOoxamCIACyrq6BJufAtj0H/x5M0cO2xm9qXQax9Y6UYDbsWA4r7bd+Oacn9pHvjEM7S7+TCUXl0wHH+9n74Rv7uN65BEh9IcapmizLgcnPFWsb4L6opnjfgqwrBCE/jaiJUmvgYbMKYIzuzfnkxRCVO+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788456067; c=relaxed/simple;
-	bh=BsFYeHJFbRkN7L4/X1cjaPBklsEheoLOioZXmpi1FNk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CfK27GxIeb0wT6tpey2Wmm9kHwpMnDmurvKX4fRdBO3bWhq++GqJef83V7HECFHBPVYeyq0hW4IpADUFz/XtBNjTwa2fIlk8BcNUfPEIdVCI6hqPkdpwhIaDg7W4SS+R3eJBt4/D0y5WIiBrh/kT5pcf/1V7BSeWQ3H3pRDZG0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kGgWdgaK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788456094; c=relaxed/simple;
+	bh=8fLMl2i76QBah764wmDwdNZ3MjXBEOTxUjwIrnRm3ZQ=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=OhlOcxpmLK7Kgz8p2KFs3LygWa+O0bsaLuSj0j0jwwrWUi2aQZm9zcA+uTTqs9Ax9CMygFXQfoClvHmqPcLpDC4lkJyd8Ufln0r1qvuK+13lmtbxv2k9vlwqdAJCk4vZy18Zv1FvWTiCsBAwFPbQvOC9R0gE92RpKZhTXjUwiaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=MIp12bdW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kGgWdgaK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A60751F000E9;
-	Thu,  3 Sep 2026 17:21:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788456066;
-	bh=CElnlB33TsaQSwBCd0+edg2HvwemWlkaUgyejN9+fXo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kGgWdgaKYFX744X+Slpg/0UIDCMYrqakbC4Ep/dE4xvecOtNncd4aWO11QITa63Jx
-	 JTyHk4grGWAeOmbQmpHuS3ZIYm4VxY1yZKwnR4F8YeIhbGnL0zFzpS9wGZ9kkFo5Qd
-	 /P1hRn5ryVV2TWIlzR7/WoBniHYb6LXnlsAgACEuGd5Gel8hWFATAy0QcsPQG/jTji
-	 fUTF2j39kOdXcmpsmOYL3Ak0B7t2/at6zvRtnvmowZMoR0FiLgmJ0bIlglggt5sk6s
-	 vCXOWrFm/IZot2d0erGR+U3z+oKyKlYMf3mKsZHDO68bdFx6RE83QpvJ4IXede5bfx
-	 yVBDsxkNHF5LA==
-From: Bjorn Andersson <andersson@kernel.org>
-To: konradybcio@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	richardcochran@gmail.com,
-	Umang Chheda <umang.chheda@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mohd.anwar@oss.qualcomm.com,
-	krishna.chundru@oss.qualcomm.com,
-	monish.chunara@oss.qualcomm.com
-Subject: Re: (subset) [PATCH v5 0/2] arm64: dts: qcom: Introduce support for Monaco-ac-sku Evaluation Kit
-Date: Thu,  3 Sep 2026 12:20:38 -0500
-Message-ID: <178845603580.348193.12141040001593368130.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260626111301.3479559-1-umang.chheda@oss.qualcomm.com>
-References: <20260626111301.3479559-1-umang.chheda@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="MIp12bdW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7007C1F00A3D;
+	Thu,  3 Sep 2026 17:21:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788456092;
+	bh=uofprPFCPxfEf69MnbeHxACRkACv1OeYBLcQOB9jELU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=MIp12bdWHSMU1GrCwa+hfnX1qpV2W3u66ysoCVszd5rb+R79OlF5hj7b+DQN2bazx
+	 eh1MiE9BwStxsnUVkLn6Qwj+C+HT9h+oDHRs+YbMfBdIH7L9CU8kBn95iYGllk36Ac
+	 cfEtMHoLdsrMHgqb734Gi8d2inYB+SVJC68ZZm1A=
+Date: Thu, 3 Sep 2026 10:21:30 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>, Vernon Yang <vernon2gm@gmail.com>,
+ rick.p.edgecombe@intel.com, tglx@kernel.org, mingo@redhat.com,
+ bp@alien8.de, dave.hansen@linux.intel.com, david@kernel.org, hpa@zytor.com,
+ rmclure@linux.ibm.com, andrew+kernel@donnellan.id.au,
+ pasha.tatashin@soleen.com, tj@kernel.org, rppt@kernel.org,
+ yu-cheng.yu@intel.com, orsonpeters@gmail.com, linux-kernel@vger.kernel.org,
+ x86@kernel.org, linux-mm@kvack.org, Vernon Yang <yanglincheng@kylinos.cn>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] x86/mm: Fix pmd_modify() dropping the dirty bit
+Message-Id: <20260903102130.b5cda1b08f3efd4ab66226e9@linux-foundation.org>
+In-Reply-To: <314f11c1-ce5e-4b36-b296-0ab742550851@intel.com>
+References: <20260903031608.1194238-1-vernon2gm@gmail.com>
+	<aplfcTfjeQUgnrvH@thinkstation>
+	<314f11c1-ce5e-4b36-b296-0ab742550851@intel.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Thu, 3 Sep 2026 07:18:54 -0700 Dave Hansen <dave.hansen@intel.com> wrote:
 
-On Fri, 26 Jun 2026 16:42:58 +0530, Umang Chheda wrote:
-> Add support for Qualcomm's Monaco-ac-sku Evaluation Kit (EVK) without
-> safety monitoring feature of Safety Island(SAIL) subsystem.
-> This board is based on Qualcomm's QCS8300-AC variant SoC.
+> On 9/3/26 04:54, Kiryl Shutsemau wrote:
+> >> Closes: https://lore.kernel.org/r/CAJxLxMUGu1-L+O_nAONOwOXnS=cNbNApCWqdthRjd76LThtSPg@mail.gmail.com/
+> >> Fixes: bb3aadf7d446 ("x86/mm: Start actually marking _PAGE_SAVED_DIRTY")
+> > Hm. I don't understand why would this commit explicitly exclude
+> > _PAGE_DIRTY from the mask:
+> > 
+> > -       val &= _HPAGE_CHG_MASK;
+> > +       val &= (_HPAGE_CHG_MASK & ~_PAGE_DIRTY);
+> > 
+> > Rick, could you comment? It doesn't look like a typo.
 > 
-> Monaco-ac-sku EVK board is a single board computer (SBC) that supports various
-> industrial applications, including factory automation, industrial
-> robots, drones, edge AI boxes, machine vision, autonomous mobile
-> robots (AMRs), and industrial gateways.
+> My guess is that it's some remnant from an earlier version of the patch.
+> The asymmetry with pte_modify() vs. pmd_modify() just can't be explained
+> any other way. It _might_ have been some attempt to say, "Hey
+> _PAGE_DIRTY is now a part of the pgprot_t since it's part of the
+> 'permissions' of a shadow stack PTE" that got abandoned.
 > 
-> [...]
+> But I don't see anything wrong with the fix at all.
+> 
+> It does give me pause that this has been losing user data for so long,
+> but it must just be a weird combination of features that few folks use
+> together (huge pages + MADV_FREE).
+> 
 
-Applied, thanks!
-
-[3/3] arm64: dts: qcom: monaco-ac-evk: Add IFP mezzanine
-      commit: 0fb8fb4e7377d999456e184503d053429fd605ab
-
-Best regards,
--- 
-Bjorn Andersson <andersson@kernel.org>
+And with heavy reclaim pressure.
