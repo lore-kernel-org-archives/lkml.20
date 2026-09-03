@@ -1,85 +1,78 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-204.mta1.migadu.com [95.215.58.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CE4437A846;
-	Thu,  3 Sep 2026 07:55:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84FA43FA5FA
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:55:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788422121; cv=none; b=IY2at4Jr0vySp9hBjFng7Q4tSF3SbQcidqdGnATso8TzNBgpvpCYfSS2JXNbDWsMmIuTXdRMAIgiV2mtzoI50Gky9upgL86ZaYvSIQvw+40Q7zQ8RtT1iHVhJ+8CL20rdao8Dg+TNp7Ah8EzyKMtERkSnudB9g6xgT7Z0YokHLs=
+	t=1788422128; cv=none; b=Pev24OkX2F7h5PNYud83Ny7M7QrwQaSyTFL+IP2OJJQcoTC+pJvKy9ac8fMRiyoaIvm63KEq58l+bsqOhlIPXrP2HK9x4cuNvAjgnKj0SmnNkuBiNOhZhy6YvF7R6cfkFXnn9oIhpzLjS7P1ofTDSYiVRIaMY0UQRWT43qdcWrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788422121; c=relaxed/simple;
-	bh=oEZUz5rtQGFea8KnrSaezcDsHUvWAvb933VhFcmwdNo=;
+	s=arc-20240116; t=1788422128; c=relaxed/simple;
+	bh=o0utxRT6lPpIqhqf3RPoer+EjDMkX/LUDuhmVYcVzg8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ot+1SMvD3eL5YBiCtUIyyg8cp1JFXs3+9HVvZUO7JVIhLKvZMgSdE66sb3H/t/8Xo22I/DWYusN0BMlwtvYkBTcGrRnfcjBpbMewbtspO8daAY0IDMf16YBKTrjGHLDLyUrIVN3SpMA8HoWXvjmV56HxAunxfNmms6m1sDJPiX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GrkABiE+; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=c8UyudH4fobdc52BY5mpghxEVLWqq3GgVxaj8K6NPRr91j+MdpYb0e1Sb8bNFn+wcAUfrc/VOuY49o2k1PuWGZEPk/NgnfewGCM4fVLkasiWVp7tE4yZKrej4pPuOP5av6Ua+0t60lMxee/3TujBjiWWpLwBH5x6gMlJpzBzbXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=R2Gpkbrc; arc=none smtp.client-ip=95.215.58.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GrkABiE+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788422120; x=1819958120;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=oEZUz5rtQGFea8KnrSaezcDsHUvWAvb933VhFcmwdNo=;
-  b=GrkABiE+TCHGYonjuuxSizZFnu2+Kg7gP+InSAPOWhOlmlgaCDlN5hc+
-   QOsQWAJyX+Oly2oP1dsRGBNumC5UPLKoqgQQrB9OJFbZXbsuPmiod0Ieb
-   hdou4c4C3etVdsNKLYf9ZbknBOZ0YCK0rdzpCgvc7jXMP7WbypRyMrN3C
-   Hyud/EayhWemwJ5+GTxFRvba4vUDSPIktkXRfSlcbNXATu9j1Je/I2Z+q
-   diJl91oghZZWVhtJRPaGMKF6eMrdg7IbD/mRbUYWP4H4mzqGQlH4iAToE
-   Xf6eCb1mm1OF7ms/RsksSegc9B5qpNivaY4esmOif/DYsxgROreuN6wzt
-   A==;
-X-CSE-ConnectionGUID: wHsreohsRKeyscnFBT3OnA==
-X-CSE-MsgGUID: 6Wz3crWYTr+2GIWd3zTDZQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="88740325"
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="88740325"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 00:55:20 -0700
-X-CSE-ConnectionGUID: oyT5rocWS+SsY9hvb/0CoQ==
-X-CSE-MsgGUID: j4FQMz8rTmGyM8J7dZ0kKw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="273400058"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 00:55:17 -0700
-Date: Thu, 3 Sep 2026 10:55:15 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Tsz Shan Chan <tsz.chan.dev@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Tsz Shan Chan <tchan@jacques.com.au>
-Subject: Re: [PATCH v3 2/5] iio: light: vcnl4000: clear DRDY interrupt when
- buffer disabled
-Message-ID: <apkn4_NiacmfNpjj@ashevche-desk.local>
-References: <20260903-vcnl4000-v3-0-5e69c2e715a8@jacques.com.au>
- <20260903-vcnl4000-v3-2-5e69c2e715a8@jacques.com.au>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="R2Gpkbrc"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=o0utxRT6lPpIqhqf3RPoer+EjDMkX/LUDuhmVYcVzg8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788422124; v=1; x=1789026924;
+ b=R2GpkbrcRX2pgBnRsWFQXjGmC/MeJp6XKq++/kiDi+mBxGzXAEb5thd8/JR1yoImzSYLKxqq
+ kZNN5PmyKbpmDT7sm0giP7WnJFDsoRmFR8q3kV92x5JceWWFlI8ApXu/f6tlmuJqzGjvPQm9IDB
+ Lari0hMB0PZzCS8f5dYJehoE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 1e804ac248914eb0;
+	Thu, 03 Sep 2026 07:55:06 +0000
+X-Mizu-Trace-ID: 1e804ac248914eb0
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 3 Sep 2026 15:54:59 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: Baoquan He <hebaoquan@kylinos.cn>, linux-mm@kvack.org,
+	akpm@linux-foundation.org, chrisl@kernel.org, kasong@tencent.com,
+	baohua@kernel.org, youngjun.park@lge.com, hannes@cmpxchg.org,
+	yosry@kernel.org, shikemeng@huaweicloud.com,
+	chengming.zhou@linux.dev, david@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 01/16] mm: zswap: return -ENOENT when the swap device is
+ gone
+Message-ID: <apkn02lBhQl-JusJ@fedora>
+References: <20260827094509.1016740-1-hebaoquan@kylinos.cn>
+ <20260827094509.1016740-2-hebaoquan@kylinos.cn>
+ <CAKEwX=MqTYpZAwBDOOzdkuo7NP0JFRjFdQaedtrjk_HCNmTSXA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260903-vcnl4000-v3-2-5e69c2e715a8@jacques.com.au>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAKEwX=MqTYpZAwBDOOzdkuo7NP0JFRjFdQaedtrjk_HCNmTSXA@mail.gmail.com>
 
-On Thu, Sep 03, 2026 at 02:53:47PM +1000, Tsz Shan Chan wrote:
-> on vcnl4010/4020, interrupt status bits are cleared by writing 1 to the
-> corresponding bit in the ISR register. If data ready interrupt triggers
-> when the iio buffer is disabled, the DRDY bit is never cleared and the
-> interrupt line stays low.
+On 09/02/26 at 10:53am, Nhat Pham wrote:
+> On Thu, Aug 27, 2026 at 5:45 AM Baoquan He <hebaoquan@kylinos.cn> wrote:
+> >
+> > zswap_writeback_entry() returns -EEXIST when get_swap_device() finds no
+> > device.  -EEXIST is the shrinker's "page already in swap cache" signal,
+> > which makes zswap_shrinker_scan() stop shrinking entirely.  A NULL
+> > get_swap_device() instead means the device is being swapped off, so the
+> > entry is simply stale.
+> >
+> > Return -ENOENT so the shrinker skips the stale entry and keeps scanning.
+> > Independent of xswap; affects all swap devices.
+> >
+> > Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
 > 
-> Clear the DRDY bit in the interrupt handler when the buffer is disabled.
+> I think this should be submitted independently of this patch series!
+> It's a small, self-contained fix for an existing issue, no?
 
-Shouldn't this have a Fixes tag?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Right, this should be sent out as a standalone patch. I will split it
+from v2. Thanks for careful checking. 
+> 
+> Acked-by: Nhat Pham <nphamcs@gmail.com>
