@@ -1,215 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FAA543713E;
-	Thu,  3 Sep 2026 11:05:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC460438011
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:06:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788433502; cv=none; b=ukhSeAHYBNl/uObcDu5JE7bFX1nzNHr1jd60/suuogeymFYvXCTxz3zJcg+ctuvXCz+jNGlogs4wGvBsddDy1Lw/2pRny8jCYSgV8CZ3GMVLdV9+4gfNiEsEG5Snh3gpoL96vnz1WjKF6Kq/RIWWwXj8YeT+7OwVJfwQ43LoMvQ=
+	t=1788433579; cv=none; b=AC7zQgUc9+QdscB28V5uI56jhghrhTcVz7JzG6oD/IuvK8MNM9KImpnxo4rpVa+kh7orLs6IOh4hQk3pEK9JLJn25MckKe61zVUKff4do+IeESsTKBizBTQ9vJ4C6kccaVRAXiMjnRKmu4XTxPdhmzX+02B+xF7nBLA54SFlVFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788433502; c=relaxed/simple;
-	bh=70biVnXZdTszpQN4ocqjee9GNCAdrxxcGK9CdJ0YKwk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fvUC7Ua9jRT313XmiBP0j6FaPTFJdSGTNsP3j6khOgDHhXIeDU79HkiLdaLOOs6Osks82j2R0BWZv2r0uiJSdkOWiv0h+OTvMzzXwXEeyNJqc1binkfx2qiyeenZ7lpENO4+UDAxtrwNCgYc7AcnhZdlBKHyZQSwn421sU3UUUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sPVwrY+Z; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788433579; c=relaxed/simple;
+	bh=kRMsU1aQi5RSNYArF5IobHP4IFwCbZNZ+oBFJRRILgc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EuGxXBmyWTHaDvhs3j6MeSA1xacCVCaXDeIXAcaYbZEvHfHFnbZ69ZA4Vw+zX3F+3L5LYqF9TRcWSp3v0/ndQF+KHazQf7bBdZ7qBeBizFFLkbd8fi0mhPDwexVXNhUW2kWlva98+0vAn6vlL5pYg2Vhzgz3cqn/z1ki+j0rYoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Sp214kcz; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Z6ETwcpX; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sPVwrY+Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E874EC2BCFF;
-	Thu,  3 Sep 2026 11:05:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788433502;
-	bh=70biVnXZdTszpQN4ocqjee9GNCAdrxxcGK9CdJ0YKwk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=sPVwrY+ZaDf5hyRwgVKkCbkv/bZ4RkiD5gjHzOfzXbdumwynH0CB3AvKQXI2cvTTx
-	 JF1Zpe9OsNa8N6ycLasFlO5a2YSS9yWjwAq6LwPaQr+2WAbaZ2xD433dqPOMljFQrN
-	 +O91AbNiKv5nqOmu5z5m+RiHMd0ZsqcOc4ZRPQg33yTA86craXmbZYrG0uU6bqj8GU
-	 QQ4SzCjw8dgPempsdz/2IUt4E7N3nVaZE4FMmplMgd3p1dcjf8TY9Utl3rTpfK15WW
-	 ooYYmid1etnGHjEfbb4SNa4Ijc49tSZat/eCO0mfRYHDTyZs2ZxP8iUfLmbK1mVVZy
-	 fqvgl7m0qufuQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C457EC624D7;
-	Thu,  3 Sep 2026 11:05:01 +0000 (UTC)
-From: Mark Amirkan via B4 Relay <devnull+markdamirkan.gmail.com@kernel.org>
-Date: Thu, 03 Sep 2026 04:04:21 -0700
-Subject: [PATCH v2 2/2] perf evsel: Validate RAW sample before byte
- swapping
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Sp214kcz";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Z6ETwcpX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788433576;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kaaI8EpfE53Tx/bzWzG0YZdIemiUc49MwXJ5O8jhTbw=;
+	b=Sp214kcz0vpAyUF/Vg+Yt6h+aUjZEJDRUFT4Jp1rOn4WopZM6XtIrBuXf34XG7XHAetigh
+	mG3Em6mmooLONq5Ow8Bql/c/diA0xuR3++L5xshad4BkC8Lm7ff0re6wUHVt0GcMvCyyOD
+	gHZNue30K2wSS81PhI3E1MrcrL5jwXw=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-622-62V-O32UO7iC61HB7gQB_Q-1; Thu, 03 Sep 2026 07:06:15 -0400
+X-MC-Unique: 62V-O32UO7iC61HB7gQB_Q-1
+X-Mimecast-MFC-AGG-ID: 62V-O32UO7iC61HB7gQB_Q_1788433574
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4994d67d0e3so13287655e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 04:06:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788433574; x=1789038374; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kaaI8EpfE53Tx/bzWzG0YZdIemiUc49MwXJ5O8jhTbw=;
+        b=Z6ETwcpXFXpVuftUIu5lqa1Nw9d3+HKr8k5V2XeQzBEDJy/4vK7ZaWM2v11nmT960b
+         R0/Sv9i/aICk1OPcE+pvhOngAGGY0a+iHfsAVqEs2H5QNohaBb1gyduTF83i6upt1F2a
+         +fX9h35xHfkP9D0F2r7wBORLwa5wcRSZNr1NUD00AwQ/qk/gcNOzHNzAjXfX/FHCtOL9
+         BVt7HOyM4P+94Z36otHWh4fdr63Ses0NvN4YEasQ0fxZGEvivcw9qm82zfv0agZJhl53
+         kKpfL9PaEgFi55geU+tDx34B/ErQASkmY098RMGoaxFbyVU4odwcrBKmH6lwPc5oZ/dU
+         tgFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788433574; x=1789038374;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kaaI8EpfE53Tx/bzWzG0YZdIemiUc49MwXJ5O8jhTbw=;
+        b=NgPnJmev5MMqCuYnI2V+IV0qM8nRsJD4kkpO7dC6nhKc2iewaCpuQBP7+xdU4+eDWj
+         5U8MBUgLVKxwcpqFN3Gsm25pqm7yUbAT97m0NB8AV9eWvToInaukE1h5Jntyq8lMQUO4
+         QoCNSucvekR6R1qaR2lJwzV0AOzPYOcdSJXvTQnny+qabqnAOBdb+5t9BZnfygusRIbd
+         04VDtbsBU77VwdJlFhg6nd1ls/dK1WMzHufVgNrgZE+7NUU1koSZuftIgtVpcX8wreCr
+         6MugFGJV7CEXPsZPmRLp6NjCqX1EB50DSvTfm/rzoeZzv3MGSqZuuS1T+b8nqnQhUQ8J
+         POXA==
+X-Forwarded-Encrypted: i=1; AKwUvBxiFRYlFZtUcKeM4+YG+Xj8+E/DPmf9ZzP3LC6jgiRqL75s0R9py85/tOM314HLJ4olXGKUjqWeUU3kXHA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lQhLL12Bca86GsbyObsZ5tJF7D9QZFmhEVzss85vnoQzLIYoz+
+	7NXM11gQbRwGVchITSxdrkhO5SKeh2F3WdGUC1J7771GnmfCUPUMpwIbtlFY0Oq9lt2ik1sK5mb
+	ICzZY8OTsPACC20LnRBaDEnXHoEbPIBxRmkxn8mZ4bDiQ1iFa9fmXuPunK6qEBhdK8Q==
+X-Gm-Gg: AYBFou04Q9tr+tpeHl8HciU1M+0uOTZW+7s5ZYTMEVGCRid1QhoEdviEs6GuKwIfS/W
+	HNBXseAK2Kcsz6IqXAV7jTvT/jpjokDNA79lsxNBa+i/FBM/8h2z9cxxXWz7nRmTcxk2yzn43k+
+	MPc+LAt7LjRFWVShBstxayiCacBouc5/P0sg/XufAXyxs2rGCML6PzhtYmuCnRMEwniUsJFRAFO
+	5hV/PNANQKusyfG83QhBHfYGEb4tQVOSSi84iUnGot6efgSSyMEEOwUxCsoUkJv6u0Wdt39iWe7
+	yPUuh9PN3BOJvg6/jO/Put26iv1OenTubwuDF95YMK3+JxkC3tr1bNzLF4A+XM2lMAe+wHpnNX4
+	qUcDQGj97YeYSxdRrgobu7Gaj2K+Sk0NBGHMjOu+PzfvmDv8LBwtjJ9sxNAuFIDw4glrbT9wC1Q
+	==
+X-Received: by 2002:a05:600c:83c4:b0:499:8ff5:8ecc with SMTP id 5b1f17b1804b1-49ce58268afmr210656585e9.15.1788433573942;
+        Thu, 03 Sep 2026 04:06:13 -0700 (PDT)
+X-Received: by 2002:a05:600c:83c4:b0:499:8ff5:8ecc with SMTP id 5b1f17b1804b1-49ce58268afmr210655435e9.15.1788433573513;
+        Thu, 03 Sep 2026 04:06:13 -0700 (PDT)
+Received: from [192.168.188.218] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e80798sm12414481f8f.13.2026.09.03.04.06.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 04:06:12 -0700 (PDT)
+Message-ID: <1cf3f4de-bec8-4559-a4b2-1d946ead0f69@redhat.com>
+Date: Thu, 3 Sep 2026 13:06:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-sympwn-linux-002-final-v2-v2-2-0aee1fca1f95@gmail.com>
-References: <20260903-sympwn-linux-002-final-v2-v2-0-0aee1fca1f95@gmail.com>
-In-Reply-To: <20260903-sympwn-linux-002-final-v2-v2-0-0aee1fca1f95@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>
-Cc: Mark Amirkan <markdamirkan@gmail.com>, linux-perf-users@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788433501; l=4545;
- i=markdamirkan@gmail.com; s=pscsi-20260818; h=from:subject:message-id;
- bh=UB7egJdlaxZNL6OHQ6khTPm+2pfri3frePTZlRlCqf8=;
- b=ie3cYz6bQEfs+7mvYXYFFEqddNBl59PMbYh/SgBtwFegU4qnuAC341JnrdPcbmwXJi6LUG27f
- t4WHIpSRyzdAH8mL50TibG20qKsbP6WTbEOtkxTRPvdcndh+7VO3akw
-X-Developer-Key: i=markdamirkan@gmail.com; a=ed25519;
- pk=/wb49ibt4gZFDncmhFQBYtjPvzT1tfJtvK4Mqt1P2Wc=
-X-Endpoint-Received: by B4 Relay for markdamirkan@gmail.com/pscsi-20260818
- with auth_id=961
-X-Original-From: Mark Amirkan <markdamirkan@gmail.com>
-Reply-To: markdamirkan@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [net-next,v6,5/6] selftests: net: add multithread server support
+ to iou-zcrx
+To: netdev-bot+sashiko@kernel.org, juanlu@fastmail.com
+Cc: dw@davidwei.uk, netdev@vger.kernel.org, io-uring@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kuba@kernel.org, asml.silence@gmail.com, shuah@kernel.org
+References: <20260831-iou-zcrx-v6-5-02d1d012f0fd@fastmail.com>
+ <178839229706.3394541.1555608492152892136@kernel.org>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <178839229706.3394541.1555608492152892136@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Mark Amirkan <markdamirkan@gmail.com>
 
-For an opposite-endian RAW sample, __evsel__parse_sample() passes the
-input-controlled size to mem_bswap_64() before checking whether the
-payload fits in the event. A truncated record can therefore make the helper
-read and write past the event boundary.
 
-A crafted perf.data file makes perf report crash with SIGSEGV. ASan
-reports the out-of-bounds access. A regression test puts backed data past
-the declared end and shows that it is changed before the parser returns
--EFAULT.
+On 9/3/26 1:38 AM, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 6 potential
+> issue(s) to consider:
+> 
+> Critical: 0 · High: 1 · Medium: 2 (3) · Low: 3
+> 
+> - [High] listen() is now executed before the workers have registered
+>   their zcrx ifqs, breaking the ordering that two existing in-tree tests…
+> - [Medium] A worker thread that is dispatched zero connections reports
+>   success without receiving or verifying a single byte.
+> - [Medium] The new CQ sizing removes the implicit bound that kept the
+>   zcrx refill-queue producer inside one ring.
 
-Move the bounds checks before mem_bswap_64(). Check the rounded length too,
-because the helper accesses complete 64-bit words. Complete records are
-handled as before.
+My understanding is that the above 3 concerns may affect tests stability
+and should be addressed before merging.
 
-Fixes: f9d8adb345d7 ("perf evsel: Fix swap for samples with raw data")
-Cc: stable@vger.kernel.org
-Assisted-by: Symbolic
-Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
----
- tools/perf/tests/sample-parsing.c | 61 +++++++++++++++++++++++++++++++++++++++
- tools/perf/util/evsel.c           | 17 ++++++-----
- 2 files changed, 70 insertions(+), 8 deletions(-)
+Thanks,
 
-diff --git a/tools/perf/tests/sample-parsing.c b/tools/perf/tests/sample-parsing.c
-index 583951534937..bd30f6d4c31b 100644
---- a/tools/perf/tests/sample-parsing.c
-+++ b/tools/perf/tests/sample-parsing.c
-@@ -461,6 +461,55 @@ static int test_truncated_branch_stack(void)
- 	return 0;
- }
- 
-+static int test_truncated_swapped_raw(u16 event_size, u32 raw_size)
-+{
-+	struct perf_event_attr attr = {
-+		.sample_type = PERF_SAMPLE_RAW,
-+	};
-+	struct {
-+		struct perf_event_header header;
-+		union {
-+			u64 value;
-+			u32 words[2];
-+		} raw;
-+		u64 canary;
-+	} input = {
-+		.header = {
-+			.type = PERF_RECORD_SAMPLE,
-+			.size = event_size,
-+		},
-+		/* Parsing a pre-swapped word exchanges these two u32 values. */
-+		.raw.words = { 0x12345678, raw_size },
-+		.canary = 0x8877665544332211ULL,
-+	};
-+	struct perf_sample sample;
-+	struct evsel *evsel;
-+	u64 raw = input.raw.value;
-+	u64 canary = input.canary;
-+	int err;
-+
-+	evsel = evsel__new(&attr);
-+	if (!evsel)
-+		return -1;
-+
-+	evsel->sample_size = __evsel__sample_size(attr.sample_type);
-+	err = __evsel__parse_sample(evsel, (union perf_event *)&input,
-+				    &sample, /*needs_swap=*/true);
-+	perf_sample__exit(&sample);
-+	evsel__put(evsel);
-+
-+	if (err != -EFAULT) {
-+		pr_debug("truncated swapped RAW sample (size %u, raw %u) returned %d, expected -EFAULT\n",
-+			 event_size, raw_size, err);
-+		return -1;
-+	}
-+	if (input.raw.value != raw || input.canary != canary) {
-+		pr_debug("truncated swapped RAW sample modified data before validation\n");
-+		return -1;
-+	}
-+	return 0;
-+}
-+
- /**
-  * test__sample_parsing - test sample parsing.
-  *
-@@ -481,6 +530,18 @@ static int test__sample_parsing(struct test_suite *test __maybe_unused, int subt
- 	if (err)
- 		return err;
- 
-+	/* The declared RAW payload extends past an otherwise aligned event. */
-+	err = test_truncated_swapped_raw(sizeof(struct perf_event_header) +
-+					 sizeof(u64), 16);
-+	if (err)
-+		return err;
-+
-+	/* The final complete word touched by mem_bswap_64() extends past it. */
-+	err = test_truncated_swapped_raw(sizeof(struct perf_event_header) +
-+					 sizeof(u32) + 9, 9);
-+	if (err)
-+		return err;
-+
- 	/*
- 	 * Fail the test if it has not been updated when new sample format bits
- 	 * were added.  Please actually update the test rather than just change
-diff --git a/tools/perf/util/evsel.c b/tools/perf/util/evsel.c
-index cc0bc0857754..ce429eb247b6 100644
---- a/tools/perf/util/evsel.c
-+++ b/tools/perf/util/evsel.c
-@@ -3584,7 +3584,10 @@ int __evsel__parse_sample(struct evsel *evsel, union perf_event *event,
- 	}
- 
- 	if (type & PERF_SAMPLE_RAW) {
-+		const __u64 *raw;
-+
- 		OVERFLOW_CHECK_u64(array);
-+		raw = array;
- 		u.val64 = *array;
- 
- 		/*
-@@ -3600,16 +3603,14 @@ int __evsel__parse_sample(struct evsel *evsel, union perf_event *event,
- 		}
- 		data->raw_size = u.val32[0];
- 
--		/*
--		 * The raw data is aligned on 64bits including the
--		 * u32 size, so it's safe to use mem_bswap_64.
--		 */
--		if (swapped)
--			mem_bswap_64((void *) array, data->raw_size);
--
- 		array = (void *)array + sizeof(u32);
--
- 		OVERFLOW_CHECK(array, data->raw_size, max_size);
-+		if (swapped) {
-+			/* mem_bswap_64() accesses complete 64-bit words. */
-+			sz = roundup((u64)data->raw_size, sizeof(u64));
-+			OVERFLOW_CHECK(raw, sz, max_size);
-+			mem_bswap_64((void *)raw, data->raw_size);
-+		}
- 		data->raw_data = (void *)array;
- 		array = (void *)array + data->raw_size;
- 	}
-
--- 
-Git-146)
-
+Paolo
 
