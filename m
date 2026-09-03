@@ -1,398 +1,256 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A37B4D98FA
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:29:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449373; cv=fail; b=qtJkjXu55dsqxMA8qQfRTZBD1Q4gEz/G6Lm/q0YommiULdufYyfjTTJfYyDCv24Xd20cxc77NIhojAsIv4iMFaDmUfinnWSecj+xD3rqH937mHc0FrqpGiQjsUkXpWxRgURI0t3jge9tDZlJxyQ+tBuARgw4iwg6DLYX/MqJVvs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449373; c=relaxed/simple;
-	bh=3uZYI04BWpNgT6aywKileGINYcAKaxXYp/QWkXDx3Uo=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=M72vLZcO+RNUrfy5E6ZyXqwMNI3dFvE36noi/TuijPi0Uu+z+15wf4VOK/02Lt2Wog8mO0TgBJ7s4uV74Ay4Lm5rnUAzyFRvjl9HuBPZJ5Iqnb2fhOCL7OsfAeZtK7IdhVi792MVmBowZA89dwIZMaTVwhdZcEC+/Inv6JuBuN4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jzpB09O0; arc=fail smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1F244AB9D
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:29:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.98
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788449374; cv=none; b=BBnpiAjDm7RWdvfKcCaJaOZ5DMnWfmsmUkLuWGr4eWlmIXtR9OtuPO2BmCku5Su2acqaOBXuL/N2mLtmcdW+0pSY7BYAOzm7gUq5Eu85PEymcVFXrY0wnAxuCf+lgcj+afIvsuhPDPvFN0YUf+6STgi09cbtuGrZcrsUV93WzUY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788449374; c=relaxed/simple;
+	bh=MlBHCJsNa2sd8tEHG2JbDYk4uhgUtbe7QxNluQtaBz8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EVmFSb+V7IsiKs2amklykrGib7O+O1hoteqZBj1Ldt48zPETtjtZ76naiOBzO+kiIDiUqix0ZUK6Kxzp6NZCmsdCzr+gvH4Wi3MwEPlmvqmAmAANAf1kZSNI/5mnszYfne29dr0YVltymLvWLWY3VpcIU1Hqm0C8KLSE5vtgX8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=PSe1gdeU; arc=none smtp.client-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jzpB09O0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788449371; x=1819985371;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=3uZYI04BWpNgT6aywKileGINYcAKaxXYp/QWkXDx3Uo=;
-  b=jzpB09O0enJqD50gLz94qQ69JXzxRiW/rfymgPKIORb2EegxGSLjNw+A
-   3bHJWM43KlDjZkOfk2VoKxkcKjNC38VUsL4ees0MZ8+Ky+FC5Bf4GH7N+
-   zzSSkiEkvZdnka8TuoHlJLU0ScO8efSZd8dF3A9Pna9YMZGKEzElZwsnC
-   zXaaIVhPHdSnksA5TrMl4oR5Xtbq/kxbEGjIbuR45mSSbwA1rUyOnBU/n
-   phq7T1EJqolHGjeLTOMw/Gd2eGbw3WPLQuPByIWWLSHzAVlGvrLv/Rmjc
-   Qrb3427UAwBaCOXOqC1LNtGq0pLKHEJdlyulDShz8RUYTSb3pLdXQaN6E
-   Q==;
-X-CSE-ConnectionGUID: PbIu1xPIRCCA/9pd/0PLlA==
-X-CSE-MsgGUID: GEVYjfXCTQewxk3DJTRvLg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="100450958"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="100450958"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 08:29:30 -0700
-X-CSE-ConnectionGUID: znig0aIWRGCuoZOOpLPcmw==
-X-CSE-MsgGUID: nHm9tBOaSs+CXr3LbUBEIQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="270296016"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 08:29:30 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 3 Sep 2026 08:29:29 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Thu, 3 Sep 2026 08:29:29 -0700
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.0) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 3 Sep 2026 08:29:29 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xbX9BeqAu7q0e226qDJ5PUeHvGFqZHr/76o6pehHfasKCnCB7OJt52EkQJpRa1IMsJmHccdNLTTN7KixtyKN17fNUt8tyrbmPpv7MZ46OrYYFSGA4QD/lv12kikXsMcCINymEeC7Q2iGqz1f5ePhh6mab6yy7suqi1rEK06RJL6Inhtx1oc6PPoabv+p+DY/U6rJTuqrEKXJr5OFTY/tXo1ELA/gfp5o5wfPmv8NrRTJScMJXpYorcJi8ZOh5wg+H7TdZyrKFswtLEA4t3t53rMDuqjeL78dWZOvNC4CBqnReRU2NfCSAYGbc1+UNZISTzbPBSZCbNamKCTQSi6CHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rSKS2Xj9bEjBc5cAAMBUMSaWK9qsok6hf9c3xY4y5uI=;
- b=ksINWlC1bRDFk8eCeqYhhaTG7kaJmTBxZfFPityCT5C/FBglLkw8yiySJ2tv5uQvjJYmG+yZzX6hij/rdPh4ADjLAHzuwxZCX2QHmeWr4X6SZOuygGe8/g2CtDgTS/o4ICss2wbwGINyC4gK5dzJg91mMELmKW3Pzw6K1W8PfECh3UfQaVtgne1zW3ld9P1pjfkUJgKsAKjmdNJOemVDVAlsXGGtIiE/0d2aHWmE1u8HgJ1aHJois/mRQkhKXZ2K7fPJLaw6180htIRTJqY/th00qg7HXvEhz9dcUCrwC3Vp/gV4PcO8DUh9vbsZGZaopc51fI6sTnr8VQ4dW5WPGA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
- by SN7PR11MB6948.namprd11.prod.outlook.com (2603:10b6:806:2ab::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 15:29:25 +0000
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc%5]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 15:29:25 +0000
-Message-ID: <a492ffb3-c12e-4986-8f36-c907382c67e5@intel.com>
-Date: Thu, 3 Sep 2026 08:29:22 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] arm_mpam: resctrl: Separate MPAM domains
-To: Ben Horgan <ben.horgan@arm.com>, <james.morse@arm.com>,
-	<Dave.Martin@arm.com>, <fenghuay@nvidia.com>
-CC: <tony.luck@intel.com>, <babu.moger@amd.com>, <yu.c.chen@intel.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<patches@lists.linux.dev>
-References: <85ca29e89eacf12cfa7071249419e7cadb8f0691.1788220029.git.reinette.chatre@intel.com>
- <0b0eef2d-ce3b-48c8-af08-5889e7396e4f@arm.com>
-From: Reinette Chatre <reinette.chatre@intel.com>
-Content-Language: en-US
-In-Reply-To: <0b0eef2d-ce3b-48c8-af08-5889e7396e4f@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR03CA0073.namprd03.prod.outlook.com
- (2603:10b6:303:b6::18) To SJ2PR11MB8370.namprd11.prod.outlook.com
- (2603:10b6:a03:540::20)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="PSe1gdeU"
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-398c1101c1bso2890705a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:29:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788449373; x=1789054173;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MlBHCJsNa2sd8tEHG2JbDYk4uhgUtbe7QxNluQtaBz8=;
+        b=I1ksLdriCElULnRRdQbvvM8OVsHRJKgmkvXbnPgHFtFTfO9yihOs3FuyKcSCn42Blw
+         eaKZikhjY864K5JXPvvuBO5zO/w1WeRU+s1U0QDrb7qa+PLVE96B1hfbE95VVQEgz4dT
+         OUkVwPb4FHltEnw37tWIKndGinVnZFQstOBjGE0g5byDQ1JSCA/OhpZYA/rw5wF2gwJB
+         069PQJ/gL28ylvsYTCb/V2Jw2bK+fJWYy2smcGERNe7JgZvw240bIRJa2P0QL9rFWvlz
+         xbY8zF0FZa9gcbrxOU18vIheZxfk7IHTAihQuzGBOK//0wOWx/fqXayUPTcO6lu9i6Hd
+         67cQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzsWKQcIF5/dDjQF9jMfGc2KR4K/oS+U47GNW89BItr+fCoMrnX7+yqBpP7y7AFz58LIT4PBRqHiflMqac=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMBaTPxZGWjsfEBuWmACEpRh/0//f77AvjzGC3eKgFsBBBYcOk
+	uNPTzaPFzAL1HaIukjcWwFa0cC5WFR7RoCSwUOVPLViN+h/iS0M2I//k6vy2oPt6ng7BjTP7qL0
+	Jnh+HVhqNfLWEoNRIgmb6zutchVYDc6J7W1oETSKi7xOseFp4S92O63LOOBtiieWpFefDuwnlOV
+	FBvPMxMAGIUvlBPVjlBl788sIk/LZBjID8lQdG4O/OEtH6zUxsHJjeoHU0Z2KlGaVkL+PpNPY8M
+	A4XyQK/xpaBCL6AnlK9D6+60zMBA0eM
+X-Gm-Gg: AYBFou3kaIXT83RL5ETSygGd9mJCaATWElygJ8/dbme1/DQKadZXQN6oWNzgO0qRMpU
+	8tV/elxXmF9SRxrnhIUCxypq2lluVER6VHl/oeuXAVTSEA4Gw3dO+J2tLxG5zCHQGQFau7B324p
+	xb0/TpJPltK0YNofA9ooFBMuaErlmiHgJINbW1+DZnUv9lDQYGEOeQmG/zKIYoPP7g0N7pmuuLk
+	bec03kxVfMFz7hKAad//jJxZJBYRfqUdlCEgatr/91sR7sTldgZ/yqxIXg5YiIeOdBmWYzW9Ojb
+	Rq+DehJcMAEF76uyrNh35RHat/8tmswm1S2iDVtDWcmYSY8PExOSAICzvXe6LW5OkTi6i+yrXAV
+	Ot5TxOsOTZ73dBM7lhk0Lm4ul00TWmoTBH+1I4BjmhlsSxHFnTe9Ach2UdHIbT4mz6aD0N4c52g
+	FtPg9G0nvYagpIySwJzlYJNLnHpwIbZEsApcaIrXF+BhRUdCz0
+X-Received: by 2002:a17:90b:17cd:b0:398:9beb:5c19 with SMTP id 98e67ed59e1d1-39aee178f15mr16194453a91.20.1788449372174;
+        Thu, 03 Sep 2026 08:29:32 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-39ae9072f23sm581475a91.4.2026.09.03.08.29.31
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 03 Sep 2026 08:29:32 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cb11535e6a1so58393a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:29:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1788449370; x=1789054170; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MlBHCJsNa2sd8tEHG2JbDYk4uhgUtbe7QxNluQtaBz8=;
+        b=PSe1gdeU9pfxCKJLFiQNceFHxp2aeX7bcjrr4VzJbrCwLdbzWlLT0BRIEKLSHWavoo
+         1DuDHfxNCHpaevc+7rw/L/Si95Dt9+3U9rAFLra/EuI6yjibHys9p1Vse20oP9g4XyY7
+         QQa/ZY6xaN3J1U9FTh13h0o1W9JWdxXJq60uc=
+X-Forwarded-Encrypted: i=1; AKwUvBzG9RzZyFufXu39kzaQOZuTrw+N76B7VTDQe8ZpyjuYfA1iEG0oJVY3muWA6pT/88l53lMpFEOD3TJKqF0=@vger.kernel.org
+X-Received: by 2002:a05:6a00:139a:b0:835:6388:655d with SMTP id d2e1a72fcca58-85ed8ed87b8mr18330696b3a.14.1788449370159;
+        Thu, 03 Sep 2026 08:29:30 -0700 (PDT)
+X-Received: by 2002:a05:6a00:139a:b0:835:6388:655d with SMTP id
+ d2e1a72fcca58-85ed8ed87b8mr18330620b3a.14.1788449369554; Thu, 03 Sep 2026
+ 08:29:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|SN7PR11MB6948:EE_
-X-MS-Office365-Filtering-Correlation-Id: 25542118-5b08-486c-f639-08df09d02281
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|6133799003|3023799007|10067099003|5023799004|56012099006|11063799006|18002099003|22082099003|4143699003;
-X-Microsoft-Antispam-Message-Info: DqqdqNR5u4aVKzj8w+uZ5C/w+LXvDlFQ9s7179iIgRgPBG6nxmGcguk7niqoJJZ2E8hxwQGzTMcdu/JDavPhGeK5Tls59RnmSzUykaj5/LSOpmHWSyjI2TQX3inlW9+FTESYtBpaSbYrULqBMck+wOM2EVDue0YxSclcpUMukNKSTfQhIX6RwMShChznMxR5O7RHbzAvxqMHxNV30DElfzMDzPAbbmS1IxcMYuj+lr2DDV0PV3sTJAFKvUCHc8YuaYx45bO0muqvlUEIm6OwG+CYEOWxS2gZD4EXTPioLNk/Xx9wSWtwyT5fxPCtucqFyBg+ZxfT6wo4/mFn4k6Mj02AVgkwPvnoxvDJdyVMcbg54nl60IPxuy6euGRZYsMM+yhREYNwuIV9gG0okVffyEzl3b1h2WyYKodNe+x/09b5j8EhLQaFTgyQEj+n6HBR9SzIYkHQ5VvWb4+d+ivsI2zva/FYF81zGfd2uQTVZyvJoPedsA7vNYn64GE+kD9hRP+vQdpqyGSujmPs91kEukBlz+QZ0wkYPFtw+fgjIsiO9wpYwwOt7aQCpNag6xwBfY9lVWuNjvOjsS3oJEB37NbDtA7rV1CoTaNBJMpCCwrwMA0flA+CXAzIK/YErsEIZOWTDmO4L4JM+bHqtiopTrBeX1I2oJ77dA0VPaDOakQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(6133799003)(3023799007)(10067099003)(5023799004)(56012099006)(11063799006)(18002099003)(22082099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RjRmeEFNMG42bXNHK0JXUCtzckdlQTM2cTcwYnVnKzR3K0J1emlmRnVNR0Uy?=
- =?utf-8?B?WGkwOVEyU1VoU1lPeWMzMmszSlhJNFBqb2psSWY1dEZGbE1EQnhqa1lNUm8v?=
- =?utf-8?B?OFNzY2pnVFhhM2xZMmJWSTFqcmUxMDdOMG9wOWJKb3h0VTErTnJnTHZLSisx?=
- =?utf-8?B?TVdBbWVhNmRBR2FuYUJXWk94S1Q2VmtKemlIa3AvMFBFdGtFK041QStkQ296?=
- =?utf-8?B?b1EwVGI4N0dURWVIMnhBOVpMT2tPY1BMb3VSclY5NWZuS1lUc1FqZWZOakZp?=
- =?utf-8?B?a0c1Nlg4RElFeDQ1Nng4ai9Hd3EwYU9rdUE3a0VQOTc3dW1LcEpGMVY4azdJ?=
- =?utf-8?B?TnpCK3VrMDNWUDVZbU5ZTld6Q1FFZ0FUMC9iNWJqS2ZnbHdiMGhoU01MQmhv?=
- =?utf-8?B?MVlEL3Z2d3JNVE54MjJaVlAzbTZ1aTcwdmxOcmh4aXpXTGc3MjdQTnhJbmxI?=
- =?utf-8?B?V0JvUXlFZGFjd2NId0FnOGNWdUZPdjBYWFphYUFySkZON1lpN3JZMTQ0K3pw?=
- =?utf-8?B?WXlxZ1ZON0gwdUtkdmNIWDRCLytNZ1dRdXd5SWhEaVNOY1N2UWxDZGwrQm0y?=
- =?utf-8?B?YWQ3cXJHQ01oWk1Mb3RIOGFkNm9NTy82R09xZEdJV2JqT3RDY1ZGdm9BT2tI?=
- =?utf-8?B?dWo1ZUl5RWtqNzVDZVVVYVNwZW42WjROMHhpVWV4UnAvVVduWFE2SHRrTE1o?=
- =?utf-8?B?c2xUbWo0TTNyM3BtU3B3RnllMlZmZjVqNlo5QkdzczNiQ3E0dHcvMjhtWTJT?=
- =?utf-8?B?dWtyanZBRFJCUWoweTFBZTcvN3lwVHlJUVduSXhXMkVob01TM2dnU1JNWHNH?=
- =?utf-8?B?M1BlNnEyOEZhVTBueDdHVnd1TXgvVWlQV3hlTWVOdEZNdmVhSXBHNHpDN1Jp?=
- =?utf-8?B?UHhSQktsZ1JwOTZkN3FnZnNrS0RBTm9EQUxTNEt0RnBPaHZTRUdoYkN3U01r?=
- =?utf-8?B?QnUvZ3VCSzFpRU1WZGlBdHk1UkZBeVl1aDBLZXlpSFFpZGUyUENCY1BxcVZF?=
- =?utf-8?B?d2dsMjZFOGpqS0hBRVE0V0h6RDJMRkNhYWdtTDJBQWprQU5LMTc5T21NeGF0?=
- =?utf-8?B?L1JzSExpWEJ3WU02QVhoWVVSb3oyanBRVW1EYytkbEIzaVlDRjFxOUlkdUcy?=
- =?utf-8?B?VlRWSkpjajRSNW9PVE9rVjltdDVkNEFEZ2JNd1B5NXZiZjhuRDY3RFdtazVI?=
- =?utf-8?B?TGNBUVdXaC8ybldEM05wZHE2K2NPOXdUTXF0Rm1ranpnN1VmTUpSN0U0bzBi?=
- =?utf-8?B?R09EcWJiRlJLNUdJQXNFWnpMME42dW9nTG5yQ3hueFdWakVXTGJtU2FGMzNx?=
- =?utf-8?B?ekU0RHZBYzVKZXh2ZkhLV1ljT0ZFbnpSbjMxY3pPSjVIZ1JXY2FWclNMdWx6?=
- =?utf-8?B?OFJrL2srYVBLWXVINUhzdlRSLzdRNWRJZit5d29vbEdDT3grblJORHJXc3Iv?=
- =?utf-8?B?aWNFUkU3WUpGWmtsTnk1aE56TU1tV2JJWDFnVE9IbkRubDI0SVpMTENjUFoy?=
- =?utf-8?B?SEhERmRQOGRNeVVOVWhHSmNheGV2R0tockw3Wm9wdVpCa1VrelRLYlNzYXJh?=
- =?utf-8?B?dWRzZVgrbldTMkxUYjBvUm92WFh3UmxaRzFKM05KRXFSVHdQZk9PQ3pKc2Q2?=
- =?utf-8?B?VnZDMU9ZeHppMVNna2JUV2lJVytrNHcxUlk1K2lzZ3NmdWxNbm1vQjRHWnA5?=
- =?utf-8?B?RXJKMENOVkRoTW5iRWVRNUp5eVV1ck9XcTBmK3I4MkF3R1RKVmZlMkhDWSt4?=
- =?utf-8?B?ZGJDSjloaDV4WFJiMFk1U1haZTdNWW55dUVqSWJxKzlHb2NWRFVzWFBPWG9s?=
- =?utf-8?B?WlVYdFVFb0twTk91WTh5b1laNGtvckNoeUxQMlpsbUVheDNBUnFYblJtZzZQ?=
- =?utf-8?B?MXIxT1laL1dUbWRMb1ltNzRjenNubnVZRjRnZEtrK2RjYkkvQ2UvZFJ4Z1pK?=
- =?utf-8?B?Q3pYUlo3N2ZIM0JVRkNCdVBkZXBGeGppTVJzMUp0ZWFlZkNTcU1KOTVHcGNN?=
- =?utf-8?B?VW4xKzMzOTZ6UVBpTG1RTU9IR1JaV1BvV05kN0g5Vm5wcDZjOGVzS2ZBY2Rk?=
- =?utf-8?B?YXlQdFZLTWQ1Mi9lRmw1dG50eG1MOEU2QmViMFJSNTlucmNkQkh3ODhUdFNv?=
- =?utf-8?B?M0tHZ3h3eE9HSlJWYVFteW1HWUxGenJTdFhSc055OEJrcEMyTE9iU01yMXFr?=
- =?utf-8?B?Z0l4QTBxL0Y2WXMzRnRTeURSVTlQcHdTcWJKT3BIVUVGNXo0ODV4WlFnamhJ?=
- =?utf-8?B?K05hNlphL05DWGYwQkd0Qm1qRS9iRWhwUEtLeXlEVFNpcVdSUWZzQkMrN0tK?=
- =?utf-8?B?citYd01FWS9LMktzdTJvenk5MTYraW5BcVdnTWhLSXFsSGszTWFId3JFZVFp?=
- =?utf-8?Q?n2ldXqHWMka0YLCE=3D?=
-X-Exchange-RoutingPolicyChecked: H6pcbXHgk8Z8KDSRjNqRIL52oiZIHPkW/H6S5AAj0q7Zt+U8HiHtSbfsRa4pG7BGRBR1X72Ut3Zql89sApbYuT7xVbfUi73kv/EWzla7UXdMxnf99gKYaebRQHuMePK4r9v0C95UBVRAOihvgtGGILW5WM9MmeIKuiBe8TKo5knRevhKVC3EwHoAUuCqG9ikTZJ0M1tvchnZrx8BP/2p1PqxlZfwFntb84uS7HgDQINYiscJ9J3Mf27QkMFLKa0vRcNRor6oG32q54JV/emDqamKgIJgopMS7nACMkH3RitSZDIm4djek680t0LMvxftxCMuqZiOjLDbS+YRkjEBww==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 25542118-5b08-486c-f639-08df09d02281
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 15:29:25.0330
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LGK7PCZKQeWtJzaSM4G81MjARZ/23idXybgWo2qWoz+TL2OK75rys/Wut8b+73klMEUQhPvcs3FsqoluznZstrgwQyzfk4fPYBcPeuIrVdo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB6948
-X-OriginatorOrg: intel.com
+References: <20260903-64-bit-iova-is-silently-truncated-to-v1-0-96e878ea6873@nvidia.com>
+ <20260903-64-bit-iova-is-silently-truncated-to-v1-2-96e878ea6873@nvidia.com>
+In-Reply-To: <20260903-64-bit-iova-is-silently-truncated-to-v1-2-96e878ea6873@nvidia.com>
+From: Kalesh Anakkur Purayil <kalesh-anakkur.purayil@broadcom.com>
+Date: Thu, 3 Sep 2026 20:59:15 +0530
+X-Gm-Features: AcwNN1U_7SRY207nVO2e40U-fvwTEuF82VJHAG_LK7dgLCcn04xG3zYyNMMAeyM
+Message-ID: <CAH-L+nOSRQ+XyrwO4h61_JPUQBsCqCwY7xsLuu53GRVrCstFVg@mail.gmail.com>
+Subject: Re: [PATCH rdma-next 2/2] RDMA/irdma: Remove unused post_sq arguments
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Tatyana Nikolova <tatyana.e.nikolova@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Mustafa Ismail <mustafa.ismail@intel.com>, Shiraz Saleem <shiraz.saleem@intel.com>, 
+	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="0000000000006eb0fa065a95d162"
 
-Hi Ben,
+--0000000000006eb0fa065a95d162
+Content-Type: multipart/alternative; boundary="0000000000005f3e5f065a95d19f"
 
-On 9/2/26 9:10 AM, Ben Horgan wrote:
-> Hi Reinette,
-> 
-> On 01/09/2026 00:54, Reinette Chatre wrote:
->> A single struct mpam_resctrl_dom instance represents both an allocation and
->> monitor domain. When a system supports allocation and monitoring a single
->> struct mpam_resctrl_dom instance is created and then added to both the
->> monitor and control domain lists via
->> mpam_resctrl_dom::rdt_ctrl_domain::rdt_domain_hdr::list_head
->> and mpam_resctrl_dom::rdt_l3_mon_domain::rdt_domain_hdr::list_head
->> respectively.
->>
->> Representing both allocation and monitoring domains with a single
->> architecture domain requires that allocation and monitoring be done at the
->> same scope and also requires a resource to have 1:1 support for an allocation
->> control and monitoring. The latter means that when a resource supports
->> multiple controls for allocation of a resource, for example a "min" bandwidth
->> control as well as a "max" bandwidth control for memory bandwidth allocation,
->> then each domain supporting each allocation control needs a matching
->> monitoring domain. This does not accurately represent the resource
->> capabilities.
-> 
-> For MPAM, the scope of a control is determined by where the MSC are in a system. For the MSC in the
-> L3 we collect the MSC in a cache instance and call that a component and collect those components and
-> call them a class. Similarly for other caches. The scope of a control is based on the component it
-> is in. Hence, we are unable to use all the flexibility that resctrl will offer.
+--0000000000005f3e5f065a95d19f
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you very much for this insight. Although, to me the final sentence is an
-unexpected jump from the description since in my view resctrl is catching up to
-what MPAM is capable of :)
+On Thu, Sep 3, 2026 at 5:11=E2=80=AFPM Leon Romanovsky <leon@kernel.org> wr=
+ote:
 
-> 
-> For MSC at the memory we currently only consider them for resctrl if there is only one memory
-> instance (a single NUMA node) and that this corresponds to the topology of the L3 in the system (i.e
-> only one L3 instance). This will change when NUMA scope is introduced to resctrl but for now the
-> domain associated with the MPAM component for MSC at the memory covers all the cpus and in such a
-> system there is only one L3 domain. The idea being that memory bandwidth controls at the memory are
-> effectively the same as those at L3 if only if there is only one of each and no other caches in
-> between. The initial MPAM driver put up for upstream review was more lenient than this and so the
-> tigtening up ended up leaving some complexity around that is no longer needed. I hope to simplify
-> this in the future and hopefully allow MPAM component to be used more directly to resctrl domain.
-
-For this I think this change is helpful since it makes it clear that a resctrl
-domain is associated with an MPAM component.
-
-> 
->>
->> Split MPAM allocation and monitoring domain management to enable a resource
->> to support multiple allocation controls. As an initial and knowingly
->> inefficient approach, duplicate struct mpam_resctrl_dom between the
->> monitoring and control lists while only initializing the relevant member
->> structs.
->>
->> The goal of this conservative approach is to use something that can only
->> be compile tested by me to learn from MPAM folks on what the best approach
->> should be for MPAM to support multiple allocation controls.
->>
->> This patch is extracted from the "Generic schema description" PoC [1] that,
->> among its various goals, aim to add support for MPAM's multiple controls
->> to resctrl.
->>
->> This has only been compile tested by me but Fenghua's work to enable
->> MPAM's CPU-less NUMA nodes [2] is using it as a baseline.
->>
->> I did consider a new layout as below but there seems to be a contradiction
->> in mpam_resctrl_alloc_domain() where domain addition for allocation as well
->> as monitoring domains unconditionally fails if there is no "ctrl_comp" while
->> a comment when adding a monitoring domain states "there may be no ctrl_comp
->> for the L3".
-> 
-> Hmmm, confusing, but there is no real contradiction. Just some bad naming.
-> 
-> Quoting the problem area:
-> 
-> 	ctrl_comp = NULL;
-> 	guard(srcu)(&mpam_srcu);
-> 	list_for_each_entry_srcu(comp_iter, &class->components, class_list,
-> 				 srcu_read_lock_held(&mpam_srcu)) {
-> 		if (cpumask_test_cpu(cpu, &comp_iter->affinity)) {
-> 			ctrl_comp = comp_iter;
-> 			break;
-> 		}
-> 	}
-
-Staring at this more above looks like an open-code of mpam_resctrl.c:find_component()?
-
-> 
-> 	/* class has no component for this CPU */
-> 	if (WARN_ON_ONCE(!ctrl_comp))
-> 		return ERR_PTR(-EINVAL);
-> 
-> 
-> In mpam_resctrl_alloc_domain() this initial 'ctrl_comp' check ensures that there is for the class
-> associated with the given resource, res, a component which includes the given cpu in its affinity
-
-Why does the monitoring require that there is a component associated with the resource as
-opposed to only relying on the component associated with the the monitoring class, specifically
-the mpam_resctrl_mon::class? (more below)
+> From: Leon Romanovsky <leonro@nvidia.com>
+>
+> The only callers of irdma_sc_qp_flush_wqes() and
+> irdma_sc_mr_fast_register() always request their respective send queues t=
+o
+> be posted, so their post_sq false branches are unreachable.
+>
+> Remove both arguments and post the queues unconditionally. Drop the
+> redundant QP flush request assignments as well.
+>
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 
 
-> mask. The class is all the L3 MSC or an equivalent of the same scope, see mpam_resctrl_monitor_init().
-> 
-> 	dom = kzalloc_node(sizeof(*dom), GFP_KERNEL, cpu_to_node(cpu));
-> 	if (!dom)
-> 		return ERR_PTR(-ENOMEM);
-> 
-> 	if (r->alloc_capable) {
-> 		dom->ctrl_comp = ctrl_comp;
-> 
-> If the resource is alloc capable this component is used as the domain ctrl_comp.
-> 
-> 		ctrl_d = &dom->resctrl_ctrl_dom;
-> 		mpam_resctrl_domain_hdr_init(cpu, ctrl_comp, r->rid, &ctrl_d->hdr);
-> 		ctrl_d->hdr.type = RESCTRL_CTRL_DOMAIN;
-> 		err = resctrl_online_ctrl_domain(r, ctrl_d);
-> 		if (err)
-> 			goto free_domain;
-> 
-> 		mpam_resctrl_domain_insert(&r->ctrl_domains, &ctrl_d->hdr);
-> 	} else {
-> 		pr_debug("Skipped control domain online - no controls\n");
-> 	}
-> 
-> 	if (r->mon_capable) {
-> 		struct mpam_component *any_mon_comp = NULL;
-> 		struct mpam_resctrl_mon *mon;
-> 		enum resctrl_event_id eventid;
-> 
-> 		/*
-> 		 * Even if the monitor domain is backed by a different
-> 		 * component, the L3 component IDs need to be used... only
-> 		 * there may be no ctrl_comp for the L3.
-> 		 * Search each event's class list for a component with
-> 		 * overlapping CPUs and set up the dom->mon_comp array.
-> 		 */
-> The MSC at the L3 may only have monitors and so no control component.
+Reviewed-by: Kalesh AP <kalesh-anakkur.purayil@broadcom.com>
 
-The code that follows is:
+--=20
+Regards,
+Kalesh AP
 
-        for_each_mpam_resctrl_mon(mon, eventid) {
-                struct mpam_component *mon_comp;
+--0000000000005f3e5f065a95d19f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-                if (!mon->class)
-                        continue;       // dummy resource
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
+mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Sep 3, =
+2026 at 5:11=E2=80=AFPM Leon Romanovsky &lt;<a href=3D"mailto:leon@kernel.o=
+rg">leon@kernel.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quot=
+e" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204)=
+;padding-left:1ex">From: Leon Romanovsky &lt;<a href=3D"mailto:leonro@nvidi=
+a.com" target=3D"_blank">leonro@nvidia.com</a>&gt;<br>
+<br>
+The only callers of irdma_sc_qp_flush_wqes() and<br>
+irdma_sc_mr_fast_register() always request their respective send queues to<=
+br>
+be posted, so their post_sq false branches are unreachable.<br>
+<br>
+Remove both arguments and post the queues unconditionally. Drop the<br>
+redundant QP flush request assignments as well.<br>
+<br>
+Signed-off-by: Leon Romanovsky &lt;<a href=3D"mailto:leonro@nvidia.com" tar=
+get=3D"_blank">leonro@nvidia.com</a>&gt;</blockquote><div>=C2=A0</div><div>=
+Reviewed-by: Kalesh AP &lt;<a href=3D"mailto:kalesh-anakkur.purayil@broadco=
+m.com">kalesh-anakkur.purayil@broadcom.com</a>&gt;=C2=A0</div></div><div><b=
+r></div><span class=3D"gmail_signature_prefix">-- </span><br><div dir=3D"lt=
+r" class=3D"gmail_signature"><div dir=3D"ltr">Regards,<div>Kalesh AP</div><=
+/div></div></div>
 
-                mon_comp = find_component(mon->class, cpu);
+--0000000000005f3e5f065a95d19f--
 
-Is this find_component() perhaps sufficient by itself (without the earlier "ctrl_comp" check)
-to determine if there is a valid component associated with this CPU to support this
-monitoring feature? Although, as written it seems that it is ok for mon_comp to be NULL?
+--0000000000006eb0fa065a95d162
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
 
-It is not clear to me if a mon_comp of NULL is able to handle all scenarios since it looks
-like mpam_resctrl_get_mon_domain_from_cpu() and mpam_resctrl_online_domain_hdr() does not
-consider the component at all. Would that not cause monitoring features to depend on which
-CPU of a domain comes online first?
-
-Could mon_comp perhaps be required to be !NULL here as a replacement for the earlier
-"ctrl_comp" check to ensure there is a component with the CPU in its affinity mask?
-
-                dom->mon_comp[eventid] = mon_comp;
-                if (mon_comp)
-                        any_mon_comp = mon_comp;
-        }
-
-
-> 
-> 
-> 
-> 
-> 
->> 	struct mpam_resctrl_mon_dom {
->> 		struct mpam_component		*mon_comp[QOS_NUM_EVENTS];
->> 		struct rdt_l3_mon_domain	resctrl_mon_dom;
->> 	}
->>
->> 	struct mpam_resctrl_ctrl_dom {
->> 		struct mpam_component		*ctrl_comp;
->> 		struct rdt_ctrl_domain		resctrl_ctrl_dom;
->> 	};
-> 
-> What you have looks to work for me, with some local cmax, mbw_min, mbw_max additions but with the
-> new layout also works. I gave it a go with this mechanical patch which uses the new layout.
-> 
-> Thanks,
-> 
-> Ben
-> 
-> commit c67c624149474b96e07ccedda11a11ce968e5599
-> Author: Ben Horgan <ben.horgan@arm.com>
-> Date:   Tue Sep 1 17:36:29 2026 +0100
-> 
->     arm_mpam: resctrl: Separate monitor and control domain structure
-> 
-> diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
-> index 3304ef64fcae..855f06657554 100644
-> --- a/drivers/resctrl/mpam_internal.h
-> +++ b/drivers/resctrl/mpam_internal.h
-> @@ -393,18 +393,14 @@ struct mpam_resctrl_ctrl {
->  	struct resctrl_ctrl	r_ctrl;
->  };
-> 
-> -struct mpam_resctrl_dom {
-> -	struct mpam_component		*ctrl_comp;
-> -
-> -	/*
-> -	 * There is no single mon_comp because different events may be backed
-> -	 * by different class/components. mon_comp is indexed by the event
-> -	 * number.
-> -	 */
-> +struct mpam_resctrl_mon_dom {
->  	struct mpam_component		*mon_comp[QOS_NUM_EVENTS];
-> +	struct rdt_l3_mon_domain	resctrl_mon_dom;
-> +};
-> 
-> +struct mpam_resctrl_ctrl_dom {
-> +	struct mpam_component		*ctrl_comp;
->  	struct rdt_ctrl_domain		resctrl_ctrl_dom;
-> -	struct rdt_l3_mon_domain	resctrl_mon_dom;
->  };
-> 
-
-Thank you very much for trying this out. I find this layout better since the
-architecture domain structure only contains those members related to the domain. 
-I see your snippet is based on the PoC, would you prefer I incorporate it into a new
-version of the PoC to get some more testing or to create a new version based on
-current upstream so that we can work on its upstream inclusion for the multiple
-controller support to build on?
-
-Thank you
-
-Reinette
+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
+tJVewHuOmXgWQxNWV7Oiszu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x36
+2AczdlQAIiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8aHARc
+phXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADomK4OeDTDJfuvCp8g
+a907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXSe7frgP4lN/4Cm2isQl3D7vXM3PBQ
+ddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKppQ++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/
+07kwIwdMjxC/hpbZmVq0mVccpMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yL
+SqGQdCWnsz5LyCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
+rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQMIIGtzCCBJ+g
+AwIBAgIMEvVs5DNhf00RSyR0MA0GCSqGSIb3DQEBCwUAMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQK
+ExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAy
+MDIzMB4XDTI1MDYyMDEzNDI1N1oXDTI3MDYyMTEzNDI1N1owgfUxCzAJBgNVBAYTAlVTMRMwEQYD
+VQQIEwpDYWxpZm9ybmlhMREwDwYDVQQHEwhTYW4gSm9zZTEZMBcGA1UEYRMQTlRSVVMrREUtNjYx
+MDExNzEYMBYGA1UEBBMPQW5ha2t1ciBQdXJheWlsMQ8wDQYDVQQqEwZLYWxlc2gxFjAUBgNVBAoT
+DUJST0FEQ09NIElOQy4xLDAqBgNVBAMMI2thbGVzaC1hbmFra3VyLnB1cmF5aWxAYnJvYWRjb20u
+Y29tMTIwMAYJKoZIhvcNAQkBFiNrYWxlc2gtYW5ha2t1ci5wdXJheWlsQGJyb2FkY29tLmNvbTCC
+ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAOG5Nf+oQkB79NOTXl/T/Ixz4F6jXeF0+Qnn
+3JsEcyfkKD4bFwFz3ruqhN2XmFFaK0T8gjJ3ZX5J7miihNKl0Jxo5asbWsM4wCQLdq3/+QwN/xAm
++ZAt/5BgDoPqdN61YPyPs8KNAQ8zHt8iZA0InZgmNkDcHhnOJ38cszc1S0eSlOqFa4W9TiQXDRYT
+NFREznPoL3aCNNbDPWAkAc+0/X1XdV1kt4D9jrei4RoDevg15euOaij9X7stUsj+IMgzCt2Fyp7+
+CeElPmNQ0YOba2ws52no4x/sT5R2k3DTPisRieErWuQNhePfW2fZFFXYv7N2LMgfMi9hiLi2Q3eO
+1jMCAwEAAaOCAecwggHjMA4GA1UdDwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAAMIGTBggrBgEFBQcB
+AQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3NlY3VyZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQv
+Z3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEFBQcwAYYtaHR0cDovL29jc3AuZ2xvYmFsc2ln
+bi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1UdIAReMFwwCQYHZ4EMAQUDAzALBgkrBgEEAaAy
+ASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIBFiZodHRwczovL3d3dy5nbG9iYWxzaWduLmNv
+bS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAyhjBodHRwOi8vY3JsLmdsb2JhbHNpZ24uY29t
+L2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwLgYDVR0RBCcwJYEja2FsZXNoLWFuYWtrdXIucHVyYXlp
+bEBicm9hZGNvbS5jb20wEwYDVR0lBAwwCgYIKwYBBQUHAwQwHwYDVR0jBBgwFoAUACk2nlx6ug+v
+LVAt26AjhRiwoJIwHQYDVR0OBBYEFJ/R8BNY0JEVQpirvzzFQFgflqtJMA0GCSqGSIb3DQEBCwUA
+A4ICAQCLsxTSA9ERT90FGuX/UM2ZQboBpTPs7DwZPq12XIrkD58GkHWgWAYS2xL1yyvD7pEtN28N
+8d4+o6IcPz7yPrfWUCCpAitaeSbu0QiZzIAZlFWNUaOXCgZmHam8Oc+Lp/+XJFrRLhNkzczcw3zT
+cyViuRF/upsrQ3KY/kqimiQjR9BduvKiX/w/tMWDib1UhbVhXxuhuWMr8j8sja2/QR9fk670ViD9
+amx7b5x595AulQfiDhcN0qxG4fr7L22Y/RYX8fCoBAGo0SF7IpxSukVsp6z5uZp5ggdNr2Cq88qk
+if7GG/Oy1beosYD9I5S5dIRcP25oNbcJkbCb/GuvWegzGfxCCBuirb09mTSZRxaBmb1P6dANmPvh
+PdqGqxfFrXagvwbO15DN46GarD9KiHa8QHyTtWghL3q+G6ZHlZUWnyS4YMacrx8Ngy0x7HR4dNdT
+pqAqOOsOwDmQFBNRYomMdAaOXm6x6MFDnp51sIWVNGWK2u4le2VI6RJMzEqLzMZKL0vTW+HPqMaT
+hWv2s5x6cJdLio1vP63rDxJS7vH++zMaY0Jcptrx6eAhzfcq+y/TkHJaZ4dWrtbof1yw3z5EpCvT
+YDxV0XFQiCRLNKuZhkVvQ8dtmVhcpiT/mENrWKWOt0DwNEeC/3Fr1ruoyriggbnRmBQt1bC5uxfv
++CEHcDGCAlcwggJTAgEBMGIwUjELMAkGA1UEBhMCQkUxGTAXBgNVBAoTEEdsb2JhbFNpZ24gbnYt
+c2ExKDAmBgNVBAMTH0dsb2JhbFNpZ24gR0NDIFI2IFNNSU1FIENBIDIwMjMCDBL1bOQzYX9NEUsk
+dDANBglghkgBZQMEAgEFAKCBxzAvBgkqhkiG9w0BCQQxIgQgS6h/9y6snTx07V3RNQbLGUX3Nipr
+fN1HsQsgiNz2jbMwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjYw
+OTAzMTUyOTMwWjBcBgkqhkiG9w0BCQ8xTzBNMAsGCWCGSAFlAwQBKjALBglghkgBZQMEARYwCwYJ
+YIZIAWUDBAECMAoGCCqGSIb3DQMHMAsGCSqGSIb3DQEBBzALBglghkgBZQMEAgEwDQYJKoZIhvcN
+AQEBBQAEggEAt05T3fbzdWHQe9wsy7FEGNLq1fovEF8cs7LboFqz9Ihdm21qLSRwle7QVVgHIQ9T
+gtN9agl3Zs7UoYnB49AoCf5mPAatO2TMe0C2EH2lyRq4ryUHJkm00gr49UYg0GmrCdgoPq9h22sy
+NwEToIxbSxo56JPCCzI/AOPQC0eup8VedmwMAtzykSO6dxNvEa0B7ZWqamDO8S97PRcrR25oBwgx
+DDDa7p6w01Zw0kEF/h9A5oLZEbMy91rAkQoGiw3+KAHkYXba+O60anyoujvI5p3LgV7tT0Le+WDV
+suLzXwQxSsyfjCubaT8MYguCKcS+BYjf2FYF0XGnNxh/yfEm4A==
+--0000000000006eb0fa065a95d162--
