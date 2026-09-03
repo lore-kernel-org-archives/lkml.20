@@ -1,114 +1,113 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E41B9511187
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 19:50:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57250511209;
+	Thu,  3 Sep 2026 19:53:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788465060; cv=none; b=dNnTu6yd5Vf5r8k153/LaozE4s6ruREQO8OiuxhqC5I2KZlCM12/qTBpJMMut2b/S5vmh/D+bcfQQGnHTwimuMomkhrNrFpMhHfKf9vPSHR7KSUW+CZHzccigd02mkpU3G5d9H/9RSklQzt2o3lVrzmuEe6xtZF0m4vhYX9H3sc=
+	t=1788465247; cv=none; b=DczM0etnP8XsPxXPRFfIXHL2rT+8RU8V9mQzKKvTiH5vHT7dOcuo5MTWtc6kL0CCnch16Kb5ukCtDqqKspnRl2aIUXlFfdjjfK7AJ8Dd2gTXj19KUOgZGK8SffNYYkVH6bV3OLAhZ707hTiNoS2acPABWhaaI3QNzxMTv9r43RI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788465060; c=relaxed/simple;
-	bh=Vqij/XyfWWBAn/N8UeaWu2TQyOe9gV4MPFIdlCvWqd0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g+pNOHXdi3gqOZ7kl1SPRpv7LyW2Ey0/Sq6cNTOkAKFABUFM7+MLZDHWTv9jOnMnYzP4zx7hh68GHmAwRu62ExgbMouT5KzlKVf+dmoPCE+tE4ajV7jpk+u/cvo7BjyOXsrD1zOd+o4rix2RsXc70grt5eeO6HQE3YNKNFkTWgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nAsPqqXD; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788465247; c=relaxed/simple;
+	bh=fIMHLyyG4vTq+ZqLREyakOLkmH+dwv5+f8WX6EukCm0=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pbqDbNAWSOP1ic+/oQ1NlxN/MoLAMuGBoE9tH3b8IdGT/xKVCOKprrIuXFKReYShZHeQjpmPDWxYe5Mgezh88BRy5oLjk50qxuNIdBoi22+gkKRvKGlO8RHtcm0eEtZm+62h9mMJbcfnrmGQzsOTPc0y0lAFZs04txLPYRd4J3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=fX6ERHuA; arc=none smtp.client-ip=185.70.43.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nAsPqqXD"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48586861639so163323f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 12:50:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788465048; x=1789069848; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GL8zkxepuP0M8EFbInFuzbe9GFtIatxdF7aVOTnQFtA=;
-        b=nAsPqqXDfs8Mr/u2+hJp5acvBXtJsKFxZy45UHP6zD1cbsOzsA5LvYG6HUNVDszGf7
-         1A1I2U/+l4wH1Xe56sixyLKTjr5ufsf1+fCtuTl72o6i0sMSgmvEu9vHQXEZJgBUoWSX
-         ER5Ey7enG66zASspuOwqql1/6dN1ZLeVc1S6f7F2NuhOrl62pekGvpq/a03+ogtZ83D9
-         aln5nuQjw5MudHjoB8UXCs0Pva6HQYS2hXG8UH6jCx01soYUbCugeEAaBnmVCKec8nRv
-         4paSmzo/u7CmvLlMj0nG6x5iOqsVYzzfIhfHPzE5bPqhWBOxef11vCD9KfubHyX7FPuI
-         1a8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788465048; x=1789069848;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GL8zkxepuP0M8EFbInFuzbe9GFtIatxdF7aVOTnQFtA=;
-        b=ooEwJokN3ikHafxwQXUgXkRVSXYdLbexu4Ve2tkcccnYndyL5kGvScWE6D7SUWRMTD
-         O2PLrOurcIl0FdK3e6G75mExyyW/y+SnB+AaMXLarHEQSlb/I81mTmTSy+7Ldv6PQVP2
-         D43OSmkoKZ/16EXzmXUEi0uMxUz7ohatiMwE03i11efVkVzY6IYUP72pT7xgtwRNsJQW
-         NdPQ0ffHzYs4/49WZ8PfOdv1sVAft7kr6SurjRksWhBV++DlFLSOb5MjMgr1dnpzi1NI
-         Czb7wfnBTsoD7R0cjZGyQdx6y9JenseMaJnJgliBTT1k35zkj5PaSdGePuDDGsKMIF9u
-         0rOA==
-X-Forwarded-Encrypted: i=1; AKwUvBzPzW/JKftSAzIi1DMFBx9Q+v3pZ2YGWod820GwnhkKJJcqUatVd5mOXgJp4p7BA67a3nh4l7ZGH2oGu78=@vger.kernel.org
-X-Gm-Message-State: AFuF++mN4R40XBodIvYPQAT+zRL4mavqMbxLx/Qj1S2QlhxrEq/t1CuT
-	6Y7s3RmpdGjpETHJfM6VPD4O+TXNCR33MjPBqAAnDidhhEvt8iPaje35
-X-Gm-Gg: AYBFou1ppSLDHdh+nbUU9YdDKYMy67h6x8T5MmOW/ltiwYje77wTjhsLF6hrUCvlcre
-	Kt+XYcQ22dah57aJsACz+yVRZVwAZvBTASWiVI95p9XOKt9XtJkL65lKD8jQaww/XCeoQcWOaNE
-	IR+G8qkHyvEJl0J5Vk2VpUTG+amZoBegvgsaO3C6exmw3lwdyIm6bBWLFJsnEuMbpjTkyymcQgq
-	teHuWqDeg/0NgfSS4bda52hmMkB/zrYxf2K+svTeo8P5v/RVL82Z2+ptnO8dRdMbn6GsgWavlKZ
-	a0s4uHEIHE/ERkzOdneiZBJI5tTxU1ygn5LuBBVttEQMp7Y23AlXShFwkFxuBQWqddayqryqAK1
-	zUWS7Cd2EBgFdr63l8KEHqCHAEtGWPJ2O9HdxrYPg1QJGF0oBS2IBtACUYIZ4HUeV88SVeW9paD
-	pL+FnnZHtraar4kfAEF/rw7aKhTtB+YGHaZwht3FyzyvlPkWPiNhF4GePUXreyOyhlbKmmxY2z+
-	kd3G0p02Pof1+QAw5zu2agofVyWp8pxuGWNngIZGiEBhPibbFxiwdr92lUatwozV+n1ONXyfNS8
-	RD8G0QERAqrh3LzFBlCe0JFzG5KdOFoVSGb5qy9NozruOvheXIjcGgW1PASWkOX2c72h68tBuzR
-	k
-X-Received: by 2002:a05:6000:460f:b0:485:8226:c69e with SMTP id ffacd0b85a97d-4858226c95cmr7200438f8f.29.1788465047884;
-        Thu, 03 Sep 2026 12:50:47 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl (dynamic-2a02-3100-a979-9501-3df6-d7fa-8a5a-06c5.310.pool.telefonica.de. [2a02:3100:a979:9501:3df6:d7fa:8a5a:6c5])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885b1320sm792490f8f.27.2026.09.03.12.50.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 12:50:47 -0700 (PDT)
-Date: Thu, 3 Sep 2026 21:50:45 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Jan Kara <jack@suse.cz>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Oleg Nesterov <oleg@redhat.com>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] super: remember whether freeze holds writer rwsems
-Message-ID: <apnNew8Exp44CgQh@gmail.com>
-References: <20260903060855.4610-1-kmehltretter@gmail.com>
- <yly6lgithikpjfvmozn73zvcivoftko7ou6qozsf6xntaoi6yc@44aw3yj4i7rh>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="fX6ERHuA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1788465232; x=1788724432;
+	bh=1QgznbOgvUg459L5zM9/psIURXxCsT4oTnvwjIkAZso=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=fX6ERHuAvrxEDWxySTjwbOx9DympMRedmxaMyIsnYYaXWcgFVVBgkhsx4OUeVM8f0
+	 LfC8S7RIAMwYUxyOL4RNYJAI+d8pKQ/LnGsNIrtIf5fD70bGVwk7v3xjt5/uU7z6WJ
+	 pwwKKMqhwsfB9Jcp3Ny5IS6YfOoH8gpCsaL5PwFS1XWmg36jcY3qzYBzA6d29yJIKU
+	 apO72ro72Ksfa82k82WlBE3fgJP2pHsz2VqmFUf+zFcdtXU7iVLUbp9r431n/58ITV
+	 M2M0hhxdsdVDWyzPFa8MrchoKyUf8TNU6x4LNt4hQGL7LuyBYBxJjf5Ki6sfjg6kTZ
+	 Sv1f+7owbi/7Q==
+Date: Thu, 03 Sep 2026 19:53:48 +0000
+To: "Vladimir V . Kondratyev" <vladimirkondratyev2@gmail.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Paul Menzel <pmenzel@molgen.mpg.de>, Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>, Kiran K <kiran.k@intel.com>, Arnd Bergmann <arnd@arndb.de>, linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] Bluetooth: btintel_pcie: fix stale cache in set_dxstate fallback check
+Message-ID: <20260903195342.78248-1-lsa.uz@pm.me>
+In-Reply-To: <20260903192245.135310-2-vladimirkondratyev2@gmail.com>
+References: <20260507203426.128975-1-vladimirkondratyev2@gmail.com> <20260903192245.135310-2-vladimirkondratyev2@gmail.com>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: d87253f2add65cfeb4bb2841280d3a074352681a
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <yly6lgithikpjfvmozn73zvcivoftko7ou6qozsf6xntaoi6yc@44aw3yj4i7rh>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 03, 2026 at 12:40:42PM +0100, Jan Kara wrote:
-> This looks like one of these theoretical issues LLMs come up with. Frankly,
-> I just wouldn't bother. If the fs gets forcibly remounted RO due to
-> metadata errors, a frozen fs is likely the least of your worries.
-> 
+Vladimir, Paul, Chandrashekar, Kiran,
 
-You may be right that this is not worth fixing in generic VFS. I tried the
-real filesystem paths anyway:
+Nothing here asks for a change to v4 =E2=80=94 it is right and my Tested-by=
+ stands. This
+is the measurement behind a question I put to the list on 2026-09-02 and co=
+uld
+not support with numbers at the time.
 
-          Without patch                 With patch
-ext2      next write hangs, unmount     write and unmount complete
-          gives three RCU warnings
-NILFS2    unmount gives three           unmount completes cleanly
-          RCU warnings
+The question was whether BTINTEL_PCIE_CSR_BOOT_STAGE_REG should be polled f=
+or the
+target D-state, with the alive interrupt demoted to an early exit, rather t=
+han the
+other way round. So I timed both against the same zero =E2=80=94 the write =
+in
+btintel_pcie_wr_sleep_cntrl() =E2=80=94 on Surface Pro 11 (Lunar Lake), Int=
+el BE201,
+8086:a876 rev 10, kernel 7.0.0-30, s2idle. A measurement build polls the re=
+gister
+every 100 us and records when bit 24 reaches the target and when gp0_receiv=
+ed
+becomes true. Four suspend/resume cycles, eight transitions:
 
-These tests use FIFREEZE, FITHAW, and corrupted filesystem images.
-Other filesystems have similar error paths.
+  dxstate  register (us)              interrupt (us)
+  D3       1517  1027  1085  1111     1670  1171  1085  1112
+  D0       1630  1521  1676  1701     1630  1646  1676  1701
 
-The f2fs report fixed by 930c6ab93492 exercised the same sequence. The ext4
-change d3476f3dad4a removed the analogous SB_RDONLY assignment because it
-confused filesystem freezing.
+The register reaches the target state in **1.0 to 1.7 ms** and is **never l=
+ater
+than the interrupt**. In four of the eight it is the same 100 us sample; in=
+ two
+it leads by 125 and 153 us. Against that, the current path budgets 200 ms p=
+er
+attempt and three attempts =E2=80=94 up to 600 ms per transition, twice per=
+ suspend cycle.
 
-The VFS patch only makes thaw release what freeze acquired. It is needed
-because these filesystems change SB_RDONLY outside the remount path.
+That is the whole of my case, and its limits are worth stating plainly. One
+machine, one controller, one firmware. The poll itself is PCIe traffic and =
+could
+be perturbing what it measures, though it would have to be perturbing it in=
+ the
+direction that flatters the register. And a settle time is not a guarantee:=
+ an
+interrupt exists partly so the driver need not assume a bound.
 
-Should I send a v2 with the changelog limited to the reproduced failure,
-look at filesystem-specific fixes, or leave this alone?
+But if the bound holds on Intel's own hardware, polling would delete the
+stale-cache class of bug rather than catch it, and POLL_INTERVAL_US is alre=
+ady
+declared in btintel_pcie.h and unused.
 
-Thanks,
-Karl
+I have not written that patch, because it is your subsystem and my coverage=
+ is
+one machine. What I do have is the hardware, a fixture that drops the alive
+interrupt on demand, and the per-hunk method already used in this thread. S=
+o if
+an RFC would be useful rather than noise, I will write one and report it th=
+e same
+way =E2=80=94 measured per hunk, with the failure injected and with it disa=
+bled. If you
+would rather it came from someone with the full range of controllers, that =
+is a
+perfectly good answer and I will leave it here.
+
+Sergey
+
