@@ -1,357 +1,195 @@
-Received: from mail-pf1-f225.google.com (mail-pf1-f225.google.com [209.85.210.225])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B37624FB9AB
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 17:36:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8EEF4F7990
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 17:37:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788457016; cv=none; b=Hnjg+rYVySdttlIGePLyyR3yfKBNlbvlnasRMAhnFITvq90hfZTNoMjmsx3+/k14KaZkRstj9rsYknP2dR3/tANvvVMh744pNFcLtNmnJLU1tkQX0Jy6bJJ3GrqceMnDrmXUZ5CcUpY8kgbJoeWLlsBun84OantCEg4A0uw3IGA=
+	t=1788457064; cv=none; b=tbs10UdzxTV37OqcOOQ1g4D0z9Sucx05y2lcxKApqJ8y7r8cdeOYnQD9IioK20foBIw2zANXh8/pKWmzWS7QHTcQJfG34W6Jo/1vRQPootOyWHQ3tVqv178DWiDM9m79+5E8KkmHASSlDD0y1eNlj+V6sPgCZJL0JxExKAyrZ7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788457016; c=relaxed/simple;
-	bh=DVKyikPHPXK27YueFd0uE1Hnd2Au2S4ER/LkDDILijc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dVrgJdr8z3s74z5DG5SKDoEmPsGn2x5jsX3A8oFfb8j9nkhj3JJn1vZj4wkmtMt1+DvLaSt9YE9cs7h0gL46ezjI9w3O+gUN0WrdcJHZITClVetAXdSwuRySS1o5TxDdT95N71MTB26DB0Yh1l4DosPdtt/PA2XH/RXWTNapf/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=duKVOEHW; arc=none smtp.client-ip=209.85.210.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1788457064; c=relaxed/simple;
+	bh=SyrqIQQtXa4YPY2KvQxhEouU+yPJizVLNGPmWqZG/rI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i26OL3golzerx71QM8ZTmmIMAo/CGIlcNE5pnFFDlcUlW+NBSuEOelxWVbYORA4fuWnLnI6vbh7PrcCOUv5DbmtqAmzPl006IDGb0wHc2t8yziqerMmI25bR9MmNn63TtciwkBu2QnZTUaPXFlYrNp2y5H6JAqirJFv9epwCZE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VE537Zba; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="duKVOEHW"
-Received: by mail-pf1-f225.google.com with SMTP id d2e1a72fcca58-8558c0b26a8so33160b3a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 10:36:54 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788457014; x=1789061814;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m7yOAVyk5/Jm58BZw2Mq9YxQjrZ7f/fiwP/lCPhAuUg=;
-        b=kJj69gWVFyybpZyBOHbtfTKPDnHs0iEje0iwmDaw60OnWQxkqjbPfBoUt0u1nGGUic
-         fdskNrVhMgjhsrXHYNSfhKM8/wcnDF0JwF51zmyEKTiHEodEB2CyBvdHIr2SMYqQwc/5
-         oX6F1bdXJxk3brBYfYzM360rYckjqlVWGhjP3AkkzskObfzB/TN87jdEzQKGTqC20BIR
-         mZXq5LX1E2S28upXjXLkFSG/it5/mhVk9H2rT5q8/KKukdxQY8cvjHdlC0LSiDyBGmdK
-         maH27MSTU9BEnoKhl6CVffdzZZei8r39vWf+uCEYMHHWAaXGx6EGfE46JpenwqAutG+q
-         dPIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy+fjNSeq0+9JoRICiTwRDWkwii35xQ3POCiTGj7bTbZg2BHSyt1i1oQ4PPcYshhTnMc1DKHEsebUFSbnU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mceXi80STTGviHdzx2S5g3kfTp0TTpQbZl+6nA0zi4PExFMg2e
-	K/bQtpndOIA9LjHm4fkTHS8iAf4mA6WLp3INQg21OaIpD5zSB/U+FHUpjgC9R16mj7su7hJ08So
-	3W4/lSXVTzNSflWJeTz+WBFUF5bCrgjE0wtOoqBElvZmo6LcZpr/McMLPppAYPVyoJpHL8yCFJO
-	dqWqLuMHNKxn/vnc/Pqayx97z7tIThprqgjK4939vlom8c/bOBzIU5QR6ts+t95vRrnblrjOxJB
-	0KME+O/DuvpKW7HrXfs
-X-Gm-Gg: AYBFou07k5CWpdUFMf+IAsZ8ejEL8QHVChiWpHjoBAOSA1uiWuys7GEHmHNecYXqKz0
-	yXeZbrH3bGty5Q78QhTMJAr1YXVNOB/hsobk8z2WnXCXwSmDU9nwT7bgSV4HPpfttS5IBdc6mgT
-	l5HVyj42nsiWgajX91TfnqW8ySYAa0Drtqn0z5e/N77VXXBPYBtCYQZFrhWCOja3H9OSU2GGlqt
-	BrMXXCwwT9QXLCs7PHnH3NboSLF+jqBwTire/zXrMD4e7OixEI5qj5QUhXjyh6Xy0+jLhl05UDx
-	88fgsKtGamkYKzZu0gDv1A4trc8mh0nwolny+dzUCdZKxHV2uzYn1Q57rC2MxgDDOP5jN64qAm9
-	EgSMqsXI41zIsVZWSfZyDhxAddcY79DtGoGj5GWm6cvLkKLqVQw/sm4UN8DSDDFWHAVbspMH5r/
-	fqjYokF4h+fmbzD1GvT7lqppsrVNJ5FytY3Mks
-X-Received: by 2002:a05:6a00:6c9c:b0:857:727c:a1f6 with SMTP id d2e1a72fcca58-8616997ee79mr762185b3a.24.1788457013429;
-        Thu, 03 Sep 2026 10:36:53 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
-        by smtp-relay.gmail.com with ESMTPS id d2e1a72fcca58-86151539569sm126712b3a.7.2026.09.03.10.36.52
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 03 Sep 2026 10:36:53 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c2580a59d0dso4752466b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 10:36:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VE537Zba"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4956869750eso1031375e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 10:37:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1788457011; x=1789061811; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1788457061; x=1789061861; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LnCu4sSV0cMjhA1klemm51cjPzIr5wLOT8ikgdkccRI=;
+        b=VE537ZbarMZxo9+bcjs3yITDoza4lkLk8HlgANkgSKnGjWeWBhc1rVYOgq43f3foKr
+         Jgjlq9BP03tU9EkNaxymabP5tJdnzrQpe3Hl2vA4TPXFzKf2UEqSVtfTbRxyVsYAMZjf
+         umZTyda6HsDBWZ+yDBnfzeG8LGT3nhtA6jtZnDfbc7VmoBpWR82doHwmsoqQvD/zwOry
+         UePdmczMHeMVM9nEYW8AdVFtX/T/HnyJcqZcnhIaplp5FWM+cS660p6UlB6T3yTg7Whg
+         dV1NW9Xyub3Y2QxYUBZaWJX9zLvpEnjpHMvU8moXVqNg3YUygFo9S63jjyeFd4ZTQpxD
+         L4BA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788457061; x=1789061861;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=m7yOAVyk5/Jm58BZw2Mq9YxQjrZ7f/fiwP/lCPhAuUg=;
-        b=duKVOEHWbQuTx8rS1sO17qmBv4EJgisQS+JVACE+NshNOmIPqFRmW4yePb4ClTUNoX
-         tqDwKpWRPnNdqc6gv3CkUtdjEE39Qqzy+gNLH1PSbgYGLGVpFwsoBPCjLUsHlGCfM0Sp
-         HbKZTH+lQgvO2gCmnp04vNHgQmxoYpA4zYYxQ=
-X-Forwarded-Encrypted: i=1; AKwUvBx0G+2sicAN224oh0He9+tHcEYDilj1enKLKnt+Yo5g2Xu9NfDmySXUpFn+6/6mMjn2yZNsQpKndnqn0oM=@vger.kernel.org
-X-Received: by 2002:a17:906:4fd0:b0:c25:1a5:62a4 with SMTP id a640c23a62f3a-c260ca1ed90mr19714266b.17.1788457011146;
-        Thu, 03 Sep 2026 10:36:51 -0700 (PDT)
-X-Received: by 2002:a17:906:4fd0:b0:c25:1a5:62a4 with SMTP id
- a640c23a62f3a-c260ca1ed90mr19708766b.17.1788457010559; Thu, 03 Sep 2026
- 10:36:50 -0700 (PDT)
+        bh=LnCu4sSV0cMjhA1klemm51cjPzIr5wLOT8ikgdkccRI=;
+        b=lWowDC42Fo8ehOCvXAadktJ1ugPbJKVl1TO4YxA8dNG/rl7aSdGGf8sAOMsYnqrhIg
+         cOGazRioJ5KEfkdw621/TrAi3FW+IiG6hUXSCvQWwJxP/SJx2gqWkIrSuo8vU7b3HRpv
+         s4IVzPG/QvAKeEGrR6/RswJyRlXz7xoOHaD7jQDwnhPA0vWcpFsfZxnzeM2ACGMolV53
+         1xvYi7TarXUdbBKtwd2GAI0NW5UrEBo3/KC72Jopt8sZX3cUt3APj/nU+4eFR8JpOWuA
+         0WkAjPp3xhVCB9nfrCDDJVLOafvPMrrgNNjCIiBKlbT+xtS1S/daVTlwGzpf3WorGWgq
+         us5g==
+X-Forwarded-Encrypted: i=1; AKwUvBxK0fzu6eThsB9grdXuaa6enCwBVjkxR6kYXznOVTe45Kx/YItijDKbhiExJ0pAgdxMi0CT5hBnxDExyww=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPIRfIZpZ5MsXmqmPDa22YLu4R6xYcY8r7QqfjH85+bBnlFxYM
+	YA1afKW/6x1NoRVl0SynUfuxKCxtsgcHntFTBfhMcq3Ozi1ZCX7TBvuZx2e+msy/XA==
+X-Gm-Gg: AYBFou1VgCSTuA1B/hHn0bGwQQFWLYVeVAdvDfhEXaAlLM8TQKq1ewxmwJK0UWvnqBy
+	0pYNSpzcioYqZWwOtKZUK49zWJkNBzbm3miUjsJ/maOVzxJrienaWOIBVtI14mtmAiyP+OrIWAi
+	iUW35BHWQgqvdCAxp68QjjP/hTqa49Y+FQ15ToGrR4lEo301OhizLkqA+TS8Ujd4cxcRk8hxUhA
+	W7T8OrX76hJcW+82rqV3euRlEiZKOay2b4P8WXqkXGB/prBW/uATTq4FzJ/EdAUAoAOKPOI8xMH
+	lb5GxIJN6/KarylZIB+b1FqyRVWCytQ8BoHTRqrkwMW8WRgRgx17vTuNlwqI6JeQXYkxELvB59t
+	8W0277Apucr3S5S0Dx4qpCRkQ4cJwsUNG4MhfXLgN0IyQaHrKYsS3cIz8J5cSqT13ExaNK0DTeW
+	6F1AomyeVWGwy0w8qYt4/IETEHHM8BpxKCxHQfrWMW/oRE5fUV6aGyQCHhtcTUGAy9LeVr9Hvvx
+	bzEmxPHuwJte62FwOBwVCAZnLJPPksv
+X-Received: by 2002:a05:600c:354b:b0:49b:d03:8d3a with SMTP id 5b1f17b1804b1-49ce58180bbmr236354195e9.11.1788457060442;
+        Thu, 03 Sep 2026 10:37:40 -0700 (PDT)
+Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7703cc7sm1407865e9.4.2026.09.03.10.37.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 10:37:39 -0700 (PDT)
+Date: Thu, 3 Sep 2026 18:37:36 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: mhiramat@kernel.org, linux-trace-kernel@vger.kernel.org,
+	mathieu.desnoyers@efficios.com, kernel-team@android.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 4/4] ring-buffer: Prevent truncation of nr_pages /
+ nr_subbufs
+Message-ID: <apmwYLVIxX-C21aB@google.com>
+References: <20260901155445.1475405-1-vdonnefort@google.com>
+ <20260901155445.1475405-5-vdonnefort@google.com>
+ <20260903131601.4e4caa0d@gandalf.local.home>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902-bcm2712-iommu-submit-v4-0-9dbb657578c1@reactivated.net> <20260902-bcm2712-iommu-submit-v4-2-9dbb657578c1@reactivated.net>
-In-Reply-To: <20260902-bcm2712-iommu-submit-v4-2-9dbb657578c1@reactivated.net>
-From: Jim Quinlan <james.quinlan@broadcom.com>
-Date: Thu, 3 Sep 2026 13:36:37 -0400
-X-Gm-Features: AcwNN1WO37iCo5lJmw0oA9Ue67-E06_V_rh5wuozhzpJ0Sb09NLYr5P6ip9-VKo
-Message-ID: <CA+-6iNyAU9uw1QyA8TaBWOvhWuxe=DdbeEzoHgM9Gk3TSsSccA@mail.gmail.com>
-Subject: Re: [PATCH v4 2/5] dt-bindings: iommu: Add Broadcom BCM2712 IOMMU
-To: Daniel Drake <dan@reactivated.net>
-Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	nick.hollinghurst@raspberrypi.com, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="000000000000de3f42065a979899"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903131601.4e4caa0d@gandalf.local.home>
 
---000000000000de3f42065a979899
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Thu, Sep 03, 2026 at 01:16:01PM -0400, Steven Rostedt wrote:
+> On Tue,  1 Sep 2026 16:54:45 +0100
+> Vincent Donnefort <vdonnefort@google.com> wrote:
+> 
+> > -static void *rb_range_buffer(struct ring_buffer_per_cpu *cpu_buffer, int idx)
+> > +static void *rb_range_buffer(struct ring_buffer_per_cpu *cpu_buffer, unsigned int idx)
+> >  {
+> >  	struct ring_buffer_cpu_meta *meta;
+> > +	unsigned int subbuf_size;
+> >  	unsigned long ptr;
+> > -	int subbuf_size;
+> >  
+> >  	meta = rb_range_meta(cpu_buffer->buffer, 0, cpu_buffer->cpu);
+> >  	if (!meta)
+> > @@ -1777,7 +1776,7 @@ static void *rb_range_buffer(struct ring_buffer_per_cpu *cpu_buffer, int idx)
+> >  
+> >  	ptr = (unsigned long)rb_subbufs_from_meta(meta);
+> >  
+> > -	ptr += subbuf_size * idx;
+> > +	ptr += (unsigned long)subbuf_size * idx;
+> 
+> Really, it looks like the idx should be typecasted, as it is the number of
+> subbuffers. Maybe even pass it in as unsigned long?
 
-On Wed, Sep 2, 2026 at 1:58=E2=80=AFPM Daniel Drake <dan@reactivated.net> w=
-rote:
->
-> Add bindings for the Broadcom BCM2712 IOMMUs and their shared TLB cache.
->
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Daniel Drake <dan@reactivated.net>
-> ---
->  .../bindings/iommu/brcm,bcm2712-iommu.yaml         | 54 ++++++++++++++++=
-++++++
->  .../bindings/iommu/brcm,bcm2712-iommuc.yaml        | 40 ++++++++++++++++
->  2 files changed, 94 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommu.y=
-aml b/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommu.yaml
-> new file mode 100644
-> index 000000000000..5ca8ce469ec3
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommu.yaml
-> @@ -0,0 +1,54 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iommu/brcm,bcm2712-iommu.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Broadcom BCM2712 IOMMU
-> +
-> +maintainers:
-> +  - Daniel Drake <dan@reactivated.net>
-> +  - Florian Fainelli <florian.fainelli@broadcom.com>
-> +  - Jim Quinlan <james.quinlan@broadcom.com>
-> +
-> +description:
-> +  The BCM2712 SoC features multiple independent IOMMU instances providin=
-g
-> +  address translation for multimedia hardware blocks, such as the VC6 di=
-splay
-> +  pipeline, camera receivers, and ISP. Each IOMMU has its own page table=
-s,
-> +  control registers, and local TLB, and is additionally linked to a cent=
-ralized
-> +  L2 TLB (IOMMUC).
-> +
-> +properties:
-> +  compatible:
-> +    const: brcm,bcm2712-iommu
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  '#iommu-cells':
-> +    const: 0
-> +
-> +  brcm,iommu-cache:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description:
-> +      Phandle to the shared IOMMU cache (IOMMUC). Each IOMMU instance ca=
-ches
-> +      translated descriptors in this centralized L2 TLB cache block and =
-must
-> +      trigger cache invalidation commands on it when updating or unmappi=
-ng page
-> +      table entries.
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - '#iommu-cells'
-> +  - brcm,iommu-cache
+__rb_allocate_pages() is passing idx as a number pages, so yeah that'd make
+more sense, even though a persistent buffer is capped to a 30-bits nr_pages.
 
-Hello Daniel,
-What are your thoughts on allowing the iommu work without the cache
-property, ie having its presence be optional?  I work on the Broadcom
-version of the Rpi4/5 SoCs,  and  (a) on certain workloads the cache
-slightly degrades performance or (b) on some chips there is no cache
-associated with a specific iommu.  This is probably on me to implement
-these possibilities, but I just wanted to give you a heads-up.
+> 
+> >  	if (ptr + subbuf_size > cpu_buffer->buffer->range_addr_end)
+> >  		return NULL;
+> >  
+> > @@ -1854,13 +1853,13 @@ static bool rb_meta_init(struct trace_buffer *buffer, int scratch_size)
+> >   * must be the same.
+> >   */
+> >  static bool rb_cpu_meta_valid(struct ring_buffer_cpu_meta *meta, int cpu,
+> > -			      struct trace_buffer *buffer, int nr_pages,
+> > +			      struct trace_buffer *buffer, unsigned long nr_pages,
+> >  			      unsigned long *subbuf_mask)
+> >  {
+> > -	int subbuf_size = PAGE_SIZE;
+> > +	unsigned long subbuf_size = PAGE_SIZE;
+> 
+> Why the long? Shouldn't it be unsigned int?
 
-LGTM
+That is to cheat to not have to add a cast in
 
-Regards,
-Jim Quinlan
-Broadcom WCC/CM/STB
+  buffers_end = meta->first_buffer + (subbuf_size * meta->nr_subbufs);
 
+> 
+> >  	unsigned long buffers_start;
+> >  	unsigned long buffers_end;
+> > -	int i;
+> > +	unsigned long i;
+> >  
+> >  	if (!subbuf_mask)
+> >  		return false;
+> > @@ -2109,8 +2108,8 @@ static void rb_meta_validate_events(struct ring_buffer_per_cpu *cpu_buffer)
+> >  	struct buffer_page *head_page, *orig_head, *orig_reader;
+> >  	struct rb_validation_state state = { 0 };
+> >  	bool skip = false;
+> > +	unsigned long i;
+> >  	int ret;
+> > -	int i;
+> >  
+> >  	if (!meta || !meta->head_buffer)
+> >  		return;
+> > @@ -2161,7 +2160,7 @@ static void rb_meta_validate_events(struct ring_buffer_per_cpu *cpu_buffer)
+> >  		rb_validate_buffer(head_page, cpu_buffer, meta, &state, 0, state.ts);
+> >  	}
+> >  	if (i)
+> > -		pr_info("Ring buffer [%d] rewound %d pages\n", cpu_buffer->cpu, i);
+> > +		pr_info("Ring buffer [%d] rewound %lu pages\n", cpu_buffer->cpu, i);
+> >  
+> >  	/* The last rewound page must be skipped. */
+> >  	if (head_page != orig_head)
+> > @@ -2245,7 +2244,8 @@ static void rb_meta_validate_events(struct ring_buffer_per_cpu *cpu_buffer)
+> >  	}
+> >  }
+> >  
+> > -static void rb_range_meta_init(struct trace_buffer *buffer, int nr_pages, int scratch_size)
+> > +static void rb_range_meta_init(struct trace_buffer *buffer,
+> > +			       unsigned long nr_pages, int scratch_size)
+> 
+> static void rb_range_meta_init(struct trace_buffer *buffer, unsigned long nr_pages,
+> 			       int scratch_size)
+> 
+> looks better ;-)
 
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    iommu@5200 {
-> +        compatible =3D "brcm,bcm2712-iommu";
-> +        reg =3D <0x5200 0x80>;
-> +        brcm,iommu-cache =3D <&iommuc>;
-> +        #iommu-cells =3D <0>;
-> +    };
-> diff --git a/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommuc.=
-yaml b/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommuc.yaml
-> new file mode 100644
-> index 000000000000..47c584ad667a
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommuc.yaml
-> @@ -0,0 +1,40 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iommu/brcm,bcm2712-iommuc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Broadcom BCM2712 Shared IOMMU Cache (IOMMUC)
-> +
-> +maintainers:
-> +  - Daniel Drake <dan@reactivated.net>
-> +  - Florian Fainelli <florian.fainelli@broadcom.com>
-> +  - Jim Quinlan <james.quinlan@broadcom.com>
-> +
-> +description:
-> +  The BCM2712 IOMMUC is a centralized Translation Lookaside Buffer (TLB)=
- cache
-> +  which accelerates address translation across the SoC's IOMMU devices. =
-If an
-> +  address mapping is not found in the IOMMU's local TLB cache, then this
-> +  IOMMUC is consulted as a L2 TLB. The SoC includes a single IOMMUC whic=
-h is
-> +  shared between all IOMMUs, and it must be explicitly invalidated when
-> +  modifying or unmapping IOMMU page tables.
-> +
-> +properties:
-> +  compatible:
-> +    const: brcm,bcm2712-iommuc
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    iommuc@5b00 {
-> +        compatible =3D "brcm,bcm2712-iommuc";
-> +        reg =3D <0x5b00 0x80>;
-> +    };
->
-> --
-> 2.55.0
->
+ack
 
---000000000000de3f42065a979899
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+-- 
+Vincent
 
-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
-P6nIShznyqOL2EoCa0IXujxvXUo0pANFYsDhrCVF5JOVPeEL3Y2m+4flRtOI+YlRQoepb+TEVdkY
-/g1rlWG7GIYrtHxrFFRvn2/Iqqpv/x5kzJgoTYFOyTTGlXIqGkKTqCWFrN09kJWzhhmxhxtJprJs
-KveDLF8yhHSbqmXfKTkT+CIrynXXDro+80qXEXC8CM9W9d+2lDDM+hWTlC6Pt/ikMYf/ZB4K2Nr8
-VFruDYGZfAHhh9/lqK3SpS2Z/8cB88K62U+Eb1yNAgMBAAGjggHeMIIB2jAOBgNVHQ8BAf8EBAMC
-BaAwDAYDVR0TAQH/BAIwADCBkwYIKwYBBQUHAQEEgYYwgYMwRgYIKwYBBQUHMAKGOmh0dHA6Ly9z
-ZWN1cmUuZ2xvYmFsc2lnbi5jb20vY2FjZXJ0L2dzZ2NjcjZzbWltZWNhMjAyMy5jcnQwOQYIKwYB
-BQUHMAGGLWh0dHA6Ly9vY3NwLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMzBlBgNV
-HSAEXjBcMAkGB2eBDAEFAwMwCwYJKwYBBAGgMgEoMEIGCisGAQQBoDIKAwIwNDAyBggrBgEFBQcC
-ARYmaHR0cHM6Ly93d3cuZ2xvYmFsc2lnbi5jb20vcmVwb3NpdG9yeS8wQQYDVR0fBDowODA2oDSg
-MoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCUGA1Ud
-EQQeMByBGmphbWVzLnF1aW5sYW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
-A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQiuRLoBkhIaas+1j3yf23P
-ffVFcjANBgkqhkiG9w0BAQsFAAOCAgEAp1y0fznw9Uo7UzExANVpYjj+OG1c3C7MhWOvAd7LvfPX
-BSFisMaabop5Pyfc/sWzb/jCNfVkkDW5Ij2mzpUsUca2qpILoFhOUT9b0d+nc48MCZ4/Wj6vX5QJ
-i9VdYeuv3DYASZsQdH8iYnV5X5YCYo1AO/pyW+M4gG022Nsji9+3A9zkx8JRPDIXkPaDLrzcGD9L
-rEVIYnnSK9b/4VHzITVgEmSsUTAIzOD6M6TzgrSoJZFmKNMXlAqo+m1nlNyJkM4OyOvaDx5y+2hA
-mp4tzD9gJNU9TzQpQRZFz53+c8BkCpzvcHqT8lMluRlCrIYWqaSOUDHX9HPYvzbtO4iYV+irMdGN
-2PBz6Wtfaoi1xTfFSKK9ON1mvxACK+E4B5gycSoZcOBADTbGXLDMqiygl7Wz0oooAPqZpUnaD1nc
-x/pX7N8Ff6YK+iN3vVah34vLkE1CMFyDQMtyTCzQPW+7XCTxCL9ML3LBAF+eNAtKpPOsrGIdRHy5
-6oQr+2ZquSMvWj447q4v3sk1LHs7ata+sP8/kmcPKn3WPXQ/4xMevqFVyv2VIFrBK9ZnOZ//fz8R
-7SjJ7t2kOITvbWcMkizMc33S9hfmYiXaVTjIi89NiO3EXCJouYShpptgGNG6mpYHcddnfdKiILOS
-06KlKNuHO4IpRmaGrzcDjsUQQSn8amMxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
-VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgwHM7pH5w7o7Qb7yXUwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIFMV
-o5hS0DDcFFymAnqwogOvaV9pgIoyUXi5QGwpHtP3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MDkwMzE3MzY1MVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
-ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAIzWmrBxBmtqvJ5fvCTDX/aWzJ6BL5gam9b2hTUZ
-9nJipfJH7zY0ySmtLtTH68YaRM6qBrQrK26GOie4J25KBfJdB0TNg76LvAqJTuVmmxmJYrHYR9NG
-JXykSfh2rK1tzyAiUgMqUoucRvGIcqj8MnIszqG9zSfv+dA0sqflE0PxNpUltusbCI0YtqfW5kW3
-XrKMCVHj3XYikNzEaBQY5EpTkXmmH7T6T83xNLf78cSosCvv0wNdn/PAuG1l1ylqrXVZZgqGcauD
-rlxsl+KQrXq/YDZWi0bW9lFXg1ax2y1KM4LN7ac4E54UFP8pZuV+pLlpgbFvI/6RRHnpT5Uu+N8=
---000000000000de3f42065a979899--
+> 
+> >  {
+> >  	struct ring_buffer_cpu_meta *meta;
+> >  	unsigned long *subbuf_mask;
+> > @@ -2345,8 +2345,8 @@ static int rbm_show(struct seq_file *m, void *v)
+> >  			   rb_meta_subbuf_idx(meta, (void *)meta->head_buffer));
+> >  		seq_printf(m, "commit_buffer: %d\n",
+> >  			   rb_meta_subbuf_idx(meta, (void *)meta->commit_buffer));
+> > -		seq_printf(m, "subbuf_size:   %d\n", meta->subbuf_size);
+> > -		seq_printf(m, "nr_subbufs:    %d\n", meta->nr_subbufs);
+> > +		seq_printf(m, "subbuf_size:   %u\n", meta->subbuf_size);
+> > +		seq_printf(m, "nr_subbufs:    %u\n", meta->nr_subbufs);
+> >  		return 0;
+> >  	}
+> >  
+> 
+> 
+> -- Steve
