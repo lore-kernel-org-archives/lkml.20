@@ -1,104 +1,102 @@
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5263F270EC3
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 20:24:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C92754DF4D3;
+	Thu,  3 Sep 2026 20:26:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788467063; cv=none; b=Wy7NwwZGMPV0fbkmI1fMYZ166aZxFTh9L9h54kdr7PIi4b365pHNCC6/7/gQNq2eC5JwMYmgJiK/grRjL1eIWd/NF0AlcyAPvGlokzfBujFrxUMwjc2Bq099sFYTuEkukcBLhHx42fNge+jNmU/WDB+83HyWtGyhDMwbyAVQhkM=
+	t=1788467183; cv=none; b=jwceB6bdlFO94cynfmsdFDKVcsxxtRh0X7LaRLNsPncUg6ZAAhDDUZsghr6II6+MOybIqZQpqLF06hAFSN9Ewn0Z5cUzt2uMNf4PMD++FDkQ9rsfnwiyL8n5/OSV/J6o6kKiHzrZToxhNjj6CauCX8dl3cpc/gCtL1z5vXcPBw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788467063; c=relaxed/simple;
-	bh=lovyBWo4HbHG9IAJc1682HSdnTeu5LyLU45uKHLvmeE=;
-	h=Date:Message-ID:MIME-Version:Content-Type:From:To:Cc:Subject:
-	 References:In-Reply-To; b=fv4fOTbwsZouTQbkP8bgMmIpCBx+Tej1ugAJe2lJdZBpMjtNAspc/ajLSG/jlYlpM4qb+7j8bC4xDr0C4UC9fNiF9YkitPLrIONdy39rsrSuKOIiSdYTOry0xkIxEXDRSEoTRxcevxCUEf0APPlTg+Dcq8iO1aVvtZOBiEjRWCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=AdSsSsoN; arc=none smtp.client-ip=209.85.160.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	s=arc-20240116; t=1788467183; c=relaxed/simple;
+	bh=09MHZ5B8NwaJeNDtQtwQamcZ5qyNv3VCJqjodHpedH0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mYqz0/9esBtnlsN7niugV/b+Xb+Z6MEQ3SOyjCzB9WuAHchYzTZcdg056nX6uNSHYCWli5QeFn7UA/0XzWnN4wer7b3n37GLlJXjpmL4iIuUtyHs9xVXSivkDhEHnhLLbPq3H05XLxj61V3i+JMMNV5S8Kh2KapeEdexePyZJKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PWgQrnJb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="AdSsSsoN"
-Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-5276d598b96so3580091cf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 13:24:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1788467045; x=1789071845; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
-         :content-type:mime-version:message-id:date:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B8uOzk5kbNElpXD3JZXWiXWL8uLf97nPgxHodv2izOs=;
-        b=AdSsSsoNkR8xZ86VkSDiP/2Hb8TXf2szTrC7SOhbCflatvm+ErE3ngJLYkfJQgmkoJ
-         hHXhA14Oy796z0v4bq+KENmudoQ7O8YMHdyFx/g8NbphhGTy2h3/CNEuehe1UvSr8nL2
-         ckrcxWV6zC/QS/qcQ8XrJ4uJ4JVFhyvxxocxh2uHPSll4i2jCxVEKGenz0zFp+z9Adlt
-         /gp9WXivzjSo6CtxgpguO/HRBXrumfEZlMpXHvoBJR+v835Ze4FN5J2CLLSDvuU1EkoM
-         WTb6UgBRnsbZiWJ6XBfrS3XPxZ7VwLlEf4n4tHR+Dbjehs9xilepDZKYJmyVzDBrPL4o
-         klmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788467045; x=1789071845;
-        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
-         :content-type:mime-version:message-id:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B8uOzk5kbNElpXD3JZXWiXWL8uLf97nPgxHodv2izOs=;
-        b=FWAPyGxtshNW2/Kx+9MeDoPwrU0zAYKTcQky9kvVOcRi50FiYJgcp7aKfAStTAutNP
-         Gb3cd6kY/ixwOuFHAply+BzlcplDhiVGESxqt6wECz+1hOecHjEnw8zXH7uIWNg6Vrz1
-         MaLzeE9KGBP9/nu8/jgi1ckB7Seg1iDnNtUODW66S5S4bTPxxum+1Xi9NExMduFYBWUP
-         uu+sScQ1TNR9jESkzD6Dtw1PcAeFWzanFwOmq9L8bNu3oq+AccL8aOXnAa0cKuhAjMOb
-         fAkQNedTv9uMYgRxvcLDGOqGOFj0b3OWCzbz47j1WWv10uesMdIHZA0WFZcKuJb+cEY/
-         /qtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwQNPxjQP9xMmYikUBAwIl7D5hgY95D2/a3MubcAvFcpDwtohPnFmTPFmi2zYbKDRVy9zCbwWIODAWncWM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mwOzpL8HXtd2Gn0c7iFrZ2frendYkfHYAFxWeSbjnR5vhdsM77
-	k+mwScqb58mkHRMrrsRZoQ32MUn3JzU8gDCT7tIEEFhHgQkVYCQNSZLzO7cVPF9DEw==
-X-Gm-Gg: AYBFou0hPHaQwJPtcwEsBfFTLzYDbHfRz/bz+lQwX5t98x38mw66XuxRtyP2uiXV+qf
-	2l/Dwu2k5enuC18C0usT/I1nLWKSNpY/LMA4HHBDwCfUtXFDp3b9Kx7UU2yFBFRjxjePMogxbLl
-	frjh7qDwPAKh65GLw6PIHr/eQIvHv7aZaMJq1zDZlLGcdsoV/+eP4ZjEeX+iaBcJZ/jU7vAX3ov
-	nhEFVG9+CwTLv90CY+Wld8TZ8RHw9S9KirpTBlJHSt4QvDG3YT2uoiptOyrKCLkHTv15Sb3ApNE
-	AWNrtZyvnEQVYabXDio4k4I/RbHncMS3vS4SiNFbmhIsxrQV85oM7JegVjt0AZq0gG0Q1XppNQK
-	sHFt2deVp5OQ7sRwMWkHQrALeAMcTN0pJZbNIGh0zk/RvMRJHW4huyymrNelB7vEnfmsi73B+I9
-	XulZFWsMAyWa+4Hp7jmUX+kY0zbEvQLnydMz6lPSDkeXZqMlfkVUeIoDi4BdKvZKrMgtqndAWET
-	juROQU5dLD3VqV4rm4ygAQpm4SdXRO/rQ==
-X-Received: by 2002:a05:622a:114:b0:530:42e5:f3a9 with SMTP id d75a77b69052e-53054a10750mr15915981cf.44.1788467044885;
-        Thu, 03 Sep 2026 13:24:04 -0700 (PDT)
-Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-910406871b6sm3176156d6.32.2026.09.03.13.24.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 13:24:04 -0700 (PDT)
-Date: Thu, 03 Sep 2026 16:24:03 -0400
-Message-ID: <763ef0523ed8e2e25ef5b902e21b0c53@paul-moore.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PWgQrnJb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B6EF1F000E9;
+	Thu,  3 Sep 2026 20:26:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788467168;
+	bh=Kn+BrQDF1tpL6NihpVkXwRuv3+9c2tqI66dX8xw+xLs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PWgQrnJbzG1Vcn7hcRs+ndmjjvosFxPtabrYQ2iiqybuoszWpGKXkb0Jw+laCaIGq
+	 gsjVBPsR/6s9GTFIiSO0pIMiiJuC/Ul3Ym0OkmTHWzb5rSZz448I3OjC1O+jVDUw5X
+	 sZmrqJE+aGKSo8q4/uouXsVzT45JTCS2o7Yhahxj//oLMzQClTBF+jVptGKL6UlF9Z
+	 X3XqMFj/bu7eW2jGQEVCxJX4xZOzuo9l/6kNy1YY6yBhQA+m+jT+F4hkT31XSZWX7G
+	 K/lmnm965rKlypr9A8SrJGoN8fA6xBKzja0gexB2jrBz/4K0570Rq9Mtd8XSM5TsVE
+	 mSfHJsbnTA2ew==
+Date: Thu, 3 Sep 2026 10:26:07 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Christian Brauner <christian@brauner.io>,
+	Meta kernel team <kernel-team@meta.com>,
+	linux-kselftest@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] kernfs: fix up the unlocked attribute reads on the
+ creation paths
+Message-ID: <apnX34sTUnMngU5k@slm.duckdns.org>
+References: <20260903040253.670020-1-shakeel.butt@linux.dev>
+ <20260903040253.670020-3-shakeel.butt@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 
-Content-Type: text/plain; charset=UTF-8 
-Content-Transfer-Encoding: 8bit 
-X-Mailer: pstg-pwork:20260903_1622/pstg-lib:20260903_1620/pstg-pwork:20260903_1622
-From: Paul Moore <paul@paul-moore.com>
-To: =?UTF-8?q?Ondrej=20Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
-Cc: selinux@vger.kernel.org, linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] MAINTAINERS, mailmap: update email address for Ondrej  Mosnáček
-References: <20260903155615.516010-1-omosnacek@gmail.com>
-In-Reply-To: <20260903155615.516010-1-omosnacek@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903040253.670020-3-shakeel.butt@linux.dev>
 
-On Sep  3, 2026 =?UTF-8?q?Ondrej=20Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com> wrote:
+On Wed, Sep 02, 2026 at 09:02:53PM -0700, Shakeel Butt wrote:
+> Two creation paths read a live node's attributes without holding
+> kernfs_iattr_rwsem, which kernfs_iop_setattr() takes for writing.  They
+> do not want the same fix.
 > 
-> I'm going to use my personal email for kernel contributions from now on.
-> Update MAINTAINERS and .mailmap to reflect this.
+> kernfs_create_link() copies the target's ia_uid and then its ia_gid
+> into the new link.  A chown of the target between the two reads leaves
+> the link with the old uid and the new gid, an owner the target never
+> had, when copying the target's owner is the whole point.  Read both
+> fields under the rwsem.
 > 
-> Also switch to use proper spelling with diacritics, since I normally use
-> the full Unicode name with my personal email address. I'm leaving
-> in-code occurences unchanged though, as that would be just unnecessary
-> churn.
+> kernfs_new_node() reads the parent's ia_gid for S_ISGID inheritance,
+> and that one does not care which value it gets: the node does not exist
+> yet, so nothing orders a racing chown against the creation either way.
+> Taking the rwsem there would only serialize creation under a set-gid
+> parent against a chown of that parent, to pick between two answers that
+> are both right.  Mark the field read data_race() instead.
 > 
-> Link: https://lore.kernel.org/lkml/CAFqZXNvOGbzy8-ZnJtKi94jfu2H173Tz7VYpK8KuseMQS-9tNA@mail.gmail.com/
-> Signed-off-by: Ondrej Mosnáček <omosnacek@gmail.com>
-> ---
-> Hoping for this to get picked up via the SELinux tree, since the main
-> change is in the SELinux MAINTAINERS entry.
+> The pointer that leads to it is a different matter: __kernfs_iattrs()
+> publishes kernfs_node::iattr with try_cmpxchg(), so there is no
+> unmarked write for that read to pair with, and both sides read it with
+> READ_ONCE() like the rest of fs/kernfs does.
 > 
->  .mailmap    | 1 +
->  MAINTAINERS | 2 +-
->  2 files changed, 2 insertions(+), 1 deletion(-)
+> The Fixes tag is for the symlink half.  kernfs_create_link() has read
+> the pair without a lock since it started copying the target's owner at
+> all; only the name of the lock its writer takes has changed since.  The
+> data_race() is a marking rather than a fix.
+> 
+> Fixes: 488dee96bb62 ("kernfs: allow creating kernfs objects with arbitrary uid/gid")
+> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
 
-Merged to selinux/stable-7.3 and will be sent to Linus shortly.
+Acked-by: Tejun Heo <tj@kernel.org>
 
---
-paul-moore.com
+> +		if (attrs) {
+> +			/*
+> +			 * Unlocked on purpose: the gid is inherited onto a
+> +			 * node that does not exist yet, so nothing orders a
+> +			 * racing chown against this creation, and either
+> +			 * value is correct.  The pointer above needs no such
+> +			 * marking, __kernfs_iattrs() publishes it with
+> +			 * try_cmpxchg().
+> +			 */
+> +			gid = data_race(attrs->ia_gid);
+
+Nit: READ_ONCE() is likely the better fit as it's an intentional lockless
+read whose value is used.
+
+Thanks.
+
+-- 
+tejun
