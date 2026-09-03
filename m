@@ -1,218 +1,75 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B54F84A3877
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:35:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E60A456E12;
+	Thu,  3 Sep 2026 12:35:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788438931; cv=none; b=I70o6dr5HXsI6i6VdftsONoiFnXg9ffnNWdc1buPA34+HWPv+6G8F2sos/Vh4rAz4t4C3KxbSQpc3QrCH1c+AHhjqsV8GPR/uWfraEsPEDxD8heKJlKpZAG2vOfHrJA3Xl65S2xG28Svo75q2kFzxWbqDKwL+sp+FwoNmaM2qyY=
+	t=1788438952; cv=none; b=g61ruvMc2z+Vtlz6CIUukkzJErwgBFjXKjCNAc2m166Q+7YdbG1gBZyHm8neiNqHaxm52VfozymsdhMQOaYXmPh5zr93D/yGKr5wP+LkyMP8qFWGdY5JLDyxxjQI3TOeSK/ak3g7Vgb0BYDXOMy06ClxLW5hV2h3Vac6oHFXODQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788438931; c=relaxed/simple;
-	bh=geRfqETqvvA7A4bFc+csqFpMipf18j7uiUbtSAGPfZ0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=I3V3VBXZpSW263A2PrRa6EGz5FRIMx2nVHHU9I+ju/xoyIUL3vU7TwWvaAqGlJthTq1CxiVnuMajwTLznqjML138l/3pdFZH96goO2iUUy/i5ZGuwV9PJE5H4Km0ABpODgO2nMgIhlIxT/ihixbJfbvwo1mFzd6Nu9wphqwcIvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=USxOZUYn; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788438952; c=relaxed/simple;
+	bh=MnLJbSGPcmjfEo9BMkHsvwXsd+XL2IgXm6qI5/O9GTY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R5g0OPS/a37LC76Yx9ksqeW2O62jBet4CYpr4RtZ6kl+MAZyUmZYDe+rCBZlYFZtAc+jp68i558/2rJ18kv+TkJS/lkbRxpsMfGDJD5Kvf4ja1nAt/VTX6DwoTE3VAtkmeME04hoACM0ZzDATFPHDBG5Hy+flGNQibTmqyZV/tU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HZAZ1zm1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="USxOZUYn"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-39675172593so2211495a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:35:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788438929; x=1789043729; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2uGa5V7yTrs241wbGx6ZtYSzWuI4KE2Z6GBbicY9WsY=;
-        b=USxOZUYneLjvwKyAFAFIuZ76zjoT956YrPxnR/38AQSyXfqN1pNpNmNsFgrNtsEobm
-         3KW7gR3w0aw2mCPqfvIK/2TkM1mhUfEkhoC5V01BZL9p8Um2EheB+cuAxpaEDOBXMF0U
-         p70XLHK3Opl8SevI5VdLzoL6Qn4N8yUqOPe/Sfr/ny8lWfh2TRqykTqLfnDqt7meMBih
-         /eLEpf9HbU4gPhMy7b1QePBAxCpUSUNaYNdTYNQk3bLpBD/9XM730pSz4Q1pBqTzCq0d
-         0JAmH4I9F3lSm8XW/xytvfyJs0QhgArxLyfPpRCC5HSAKO+HkuGj+dBVepc/2Ay2Znm0
-         XWrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788438929; x=1789043729;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2uGa5V7yTrs241wbGx6ZtYSzWuI4KE2Z6GBbicY9WsY=;
-        b=mIIstm9t8gKpUZ4assPFj8TJ7lpOXMMsOm0CCwzAErENAfTkrZs5dHYzIslQAG2OQk
-         HArO2X0ZbSNnMfidHqv7+QbNX63ZBfAyF4M1EzJscHQuQcWXsK4dXq1QEeWtMhg0OhL2
-         AB6gNkBbG0D8OntOKflnJ/eFtdcMmVU9jhoLXeVMZr+iHfe+rrpFFjnd0QPaYsVe3BmI
-         WrNatq5nFkX+gvDCts+YcG02b+5ZLCM+hE7dgyOAy0lSt7errMXs+10uqsAH5znzZFS3
-         75vRlmm1oQr+3koqyH022Gtze9raraoTEkQGURVZli7IEZ2EyIH9t/j9aJZ14OzdH26t
-         iIDA==
-X-Forwarded-Encrypted: i=1; AKwUvBzwC5mjMWegsz4YjZZQCDUl/uNjEab47tK931+ag62aNZWYfOx/HHEQgJl68Pv2/55yxqeo35Gqdgm3/Ws=@vger.kernel.org
-X-Gm-Message-State: AFuF++msPZAPTVbIGA+o+k/or8IzGfSC62HQFBcQZPCvadHXEBxTI5zn
-	WHHWdZan+GhC5P+ChjO/wtwXIUWMRnbr+5P5wdoi7y88UDe8qv8aobgi
-X-Gm-Gg: AYBFou221iDNhwqaMpFroC76OewihdzmeEp6BBN9gEPiyiCMF3jwrOfVN8XPpapRBPl
-	zHJGJ1KewX+Z1GACwe5znfI2orIVZOxzhuSsNA40XTyDF2q18fK4Go7Zlq203zQLnrS69N/xGWa
-	5RYrsB/5ac5L4TFsKwso54m9FcTp0YBZYQF3ggOe9H/f7sCcGcEMdMjCp/OPE+gSmYe3vFq3efT
-	gIHUZIEHE2YKOeOW8v/9OW0FoiYfkhOH1Ci0HT3Cn+6tBQbw02tujd3uH4NS5UKHIDnIbdwRxFE
-	5goc48Sy7O5nJG4I3iinXRYvhNR7JQVr6Z8QLdLw9MtsUeMo3J9pdLzdJeDuU1kdGH/NiDhE+ln
-	GYQNmTMRjjH1DO8MrMe5ar4INNZs+fq8eROdcYQ/aiDwnn2xDLcj4dTfGRqH4Y6hNp0LwkZe2VV
-	0rV8cTBq9cfVPfIW91TY8GXNOtG+0iYGM1SA5sTRff7bDDc/9xiRRK7lYFioQxQ0iDO2hCVHW/x
-	EyHNTGnQgmn6XhVIQixNWUhQAXPeApDDP3N0YNWyBrkrwf4TQ==
-X-Received: by 2002:a17:90a:c10e:b0:398:c3a3:dbd0 with SMTP id 98e67ed59e1d1-39aedfcc05dmr18826606a91.8.1788438928937;
-        Thu, 03 Sep 2026 05:35:28 -0700 (PDT)
-Received: from ?IPV6:2406:7400:56:e503:ad72:fda5:83e8:be95? ([2406:7400:56:e503:ad72:fda5:83e8:be95])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33255d39d21sm7358074eec.16.2026.09.03.05.35.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 05:35:27 -0700 (PDT)
-Message-ID: <fc9c4270-6ebf-4e6f-b0ff-5126f95ea006@gmail.com>
-Date: Thu, 3 Sep 2026 18:05:17 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HZAZ1zm1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DB951F000E9;
+	Thu,  3 Sep 2026 12:35:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788438950;
+	bh=y3V+7uMRfnRdyanOSMgHTTGvCzLHmifBko8jlgoRIVs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HZAZ1zm1RdkGbnsqhCrWKABPQcL0ZZDPvNL/ji0y0N2ZFtkJpTewen3Ls9/gna8qz
+	 tx27ZDTFscva9bILlikP8dxPVw+6+ysYDillpUnMZWOFbo7vRal9+WsMkc58dTNDQB
+	 e5moD0F6ecVHVtzp1I0sARJhHBn6ZUh633hR/9rxayCrHsbM3RqsoDb5A4zkepfupI
+	 E/jfrce2qAnNbZqoUM8Vysi+aYe0bUKMxHV1vcvuhBnahXHTf3nPWwHMv2yBXkWW7j
+	 LdUJ+S8aQKP9pB6+DFmeCHGugSsNcv2n7b/E9u50GEYlteA0Eqzs1xrVgLjhLyZfoU
+	 CGqdXOPFiB1Dg==
+Date: Thu, 3 Sep 2026 14:35:47 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Xilin Wu <sophon@radxa.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>
+Subject: Re: [PATCH 5/6] dt-bindings: pinctrl: qcom,sc8280xp-tlmm: allow
+ gpio-line-names
+Message-ID: <20260903-elated-ethereal-ladybug-eaf509@quoll>
+References: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
+ <20260901-q8b-dts-v1-5-7de0b6a73d08@radxa.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] lib/zstd: add fallback aliases for disabled BMI2
- variants
-To: Usama Arif <usama.arif@linux.dev>, dsterba@suse.com,
- linux-kernel@vger.kernel.org, terrelln@fb.com, terrelln@meta.com,
- linux-crypto@vger.kernel.org, yosry@kernel.org, ebiggers@kernel.org,
- torvalds@linux-foundation.org
-Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev,
- shakeel.butt@linux.dev, kernel-team@meta.com
-References: <20260901110850.1805747-1-usama.arif@linux.dev>
- <20260901110850.1805747-2-usama.arif@linux.dev>
-Content-Language: en-US
-From: Dhruva G <goledhruva@gmail.com>
-In-Reply-To: <20260901110850.1805747-2-usama.arif@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260901-q8b-dts-v1-5-7de0b6a73d08@radxa.com>
 
-On 01-09-2026 16:37, Usama Arif wrote:
-> When dynamic BMI2 dispatch is disabled, the BMI2-specific functions are
-> not compiled and each selector is conditionally compiled to avoid naming
-> them.
+On Tue, Sep 01, 2026 at 04:47:58PM +0800, Xilin Wu wrote:
+> The SC8280XP TLMM GPIO controller exposes 230 GPIO lines. Allow boards to
+> provide descriptive names for these lines and constrain the list to the
+> number of GPIOs exposed by the controller.
 > 
-> The selector-level preprocessor guards will be replaced with a predicate
-> that becomes constant false when dynamic BMI2 dispatch is disabled.
-> Although the compiler eliminates an `if (0)` branch, it must still parse
-> and resolve the BMI2 function referenced by it.
-> 
-> Add aliases from the unavailable BMI2 function names to their default
-> implementations. These aliases make the names valid without emitting
-> BMI2-specific code. The selectors remain unchanged in this patch, so the
-> aliases are not used yet and there is no code-generation change.
-> 
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> Signed-off-by: Xilin Wu <sophon@radxa.com>
 > ---
-
-Reviewed-by: Dhruva Gole <goledhruva@gmail.com>
-
->  lib/zstd/common/entropy_common.c            |  4 ++++
->  lib/zstd/common/fse_decompress.c            |  2 ++
->  lib/zstd/compress/zstd_compress_sequences.c |  4 ++++
->  lib/zstd/decompress/huf_decompress.c        |  4 ++++
->  lib/zstd/decompress/zstd_decompress_block.c | 12 ++++++++++++
->  5 files changed, 26 insertions(+)
+>  Documentation/devicetree/bindings/pinctrl/qcom,sc8280xp-tlmm.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> diff --git a/lib/zstd/common/entropy_common.c b/lib/zstd/common/entropy_common.c
-> index 6cdd82233fb59..15a7c14ae8040 100644
-> --- a/lib/zstd/common/entropy_common.c
-> +++ b/lib/zstd/common/entropy_common.c
-> @@ -202,6 +202,8 @@ BMI2_TARGET_ATTRIBUTE static size_t FSE_readNCount_body_bmi2(
->  {
->      return FSE_readNCount_body(normalizedCounter, maxSVPtr, tableLogPtr, headerBuffer, hbSize);
->  }
-> +#else
-> +#define FSE_readNCount_body_bmi2 FSE_readNCount_body_default
->  #endif
->  
->  size_t FSE_readNCount_bmi2(
-> @@ -323,6 +325,8 @@ static BMI2_TARGET_ATTRIBUTE size_t HUF_readStats_body_bmi2(BYTE* huffWeight, si
->  {
->      return HUF_readStats_body(huffWeight, hwSize, rankStats, nbSymbolsPtr, tableLogPtr, src, srcSize, workSpace, wkspSize, 1);
->  }
-> +#else
-> +#define HUF_readStats_body_bmi2 HUF_readStats_body_default
->  #endif
->  
->  size_t HUF_readStats_wksp(BYTE* huffWeight, size_t hwSize, U32* rankStats,
-> diff --git a/lib/zstd/common/fse_decompress.c b/lib/zstd/common/fse_decompress.c
-> index 15081d8dc607c..8d9c43b928833 100644
-> --- a/lib/zstd/common/fse_decompress.c
-> +++ b/lib/zstd/common/fse_decompress.c
-> @@ -300,6 +300,8 @@ BMI2_TARGET_ATTRIBUTE static size_t FSE_decompress_wksp_body_bmi2(void* dst, siz
->  {
->      return FSE_decompress_wksp_body(dst, dstCapacity, cSrc, cSrcSize, maxLog, workSpace, wkspSize, 1);
->  }
-> +#else
-> +#define FSE_decompress_wksp_body_bmi2 FSE_decompress_wksp_body_default
->  #endif
->  
->  size_t FSE_decompress_wksp_bmi2(void* dst, size_t dstCapacity, const void* cSrc, size_t cSrcSize, unsigned maxLog, void* workSpace, size_t wkspSize, int bmi2)
-> diff --git a/lib/zstd/compress/zstd_compress_sequences.c b/lib/zstd/compress/zstd_compress_sequences.c
-> index 256980c9d85ad..64abcdf2c5714 100644
-> --- a/lib/zstd/compress/zstd_compress_sequences.c
-> +++ b/lib/zstd/compress/zstd_compress_sequences.c
-> @@ -415,6 +415,10 @@ ZSTD_encodeSequences_bmi2(
->                                      sequences, nbSeq, longOffsets);
->  }
->  
-> +#else
-> +
-> +#define ZSTD_encodeSequences_bmi2 ZSTD_encodeSequences_default
-> +
->  #endif
->  
->  size_t ZSTD_encodeSequences(
-> diff --git a/lib/zstd/decompress/huf_decompress.c b/lib/zstd/decompress/huf_decompress.c
-> index ac8b87f48f847..5663ae524cd83 100644
-> --- a/lib/zstd/decompress/huf_decompress.c
-> +++ b/lib/zstd/decompress/huf_decompress.c
-> @@ -700,6 +700,8 @@ size_t HUF_decompress4X1_usingDTable_internal_bmi2(void* dst, size_t dstSize, vo
->                      size_t cSrcSize, HUF_DTable const* DTable) {
->      return HUF_decompress4X1_usingDTable_internal_body(dst, dstSize, cSrc, cSrcSize, DTable);
->  }
-> +#else
-> +#define HUF_decompress4X1_usingDTable_internal_bmi2 HUF_decompress4X1_usingDTable_internal_default
->  #endif
->  
->  static
-> @@ -1503,6 +1505,8 @@ size_t HUF_decompress4X2_usingDTable_internal_bmi2(void* dst, size_t dstSize, vo
->                      size_t cSrcSize, HUF_DTable const* DTable) {
->      return HUF_decompress4X2_usingDTable_internal_body(dst, dstSize, cSrc, cSrcSize, DTable);
->  }
-> +#else
-> +#define HUF_decompress4X2_usingDTable_internal_bmi2 HUF_decompress4X2_usingDTable_internal_default
->  #endif
->  
->  static
-> diff --git a/lib/zstd/decompress/zstd_decompress_block.c b/lib/zstd/decompress/zstd_decompress_block.c
-> index 710eb0ffd5a37..9c4215e435014 100644
-> --- a/lib/zstd/decompress/zstd_decompress_block.c
-> +++ b/lib/zstd/decompress/zstd_decompress_block.c
-> @@ -622,6 +622,8 @@ BMI2_TARGET_ATTRIBUTE static void ZSTD_buildFSETable_body_bmi2(ZSTD_seqSymbol* d
->      ZSTD_buildFSETable_body(dt, normalizedCounter, maxSymbolValue,
->              baseValue, nbAdditionalBits, tableLog, wksp, wkspSize);
->  }
-> +#else
-> +#define ZSTD_buildFSETable_body_bmi2 ZSTD_buildFSETable_body_default
->  #endif
->  
->  void ZSTD_buildFSETable(ZSTD_seqSymbol* dt,
-> @@ -1934,6 +1936,16 @@ ZSTD_decompressSequencesLong_bmi2(ZSTD_DCtx* dctx,
->  }
->  #endif /* ZSTD_FORCE_DECOMPRESS_SEQUENCES_SHORT */
->  
-> +#else
-> +
-> +#ifndef ZSTD_FORCE_DECOMPRESS_SEQUENCES_LONG
-> +#define ZSTD_decompressSequences_bmi2 ZSTD_decompressSequences_default
-> +#define ZSTD_decompressSequencesSplitLitBuffer_bmi2 ZSTD_decompressSequencesSplitLitBuffer_default
-> +#endif
-> +#ifndef ZSTD_FORCE_DECOMPRESS_SEQUENCES_SHORT
-> +#define ZSTD_decompressSequencesLong_bmi2 ZSTD_decompressSequencesLong_default
-> +#endif
-> +
->  #endif /* DYNAMIC_BMI2 */
->  
->  #ifndef ZSTD_FORCE_DECOMPRESS_SEQUENCES_LONG
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
 
