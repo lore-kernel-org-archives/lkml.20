@@ -1,122 +1,90 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5D833F929C
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:11:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F7137B002
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:12:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788419517; cv=none; b=Q3e+s/4yoypaA7+Qn2mgkwerBm/OSgAX5+nULq5uadbxiZoV1f+58AafkFgCtUe+CQVpS7QY8ehqqz+p9esBwgJ6lPCWwIcdpHTK/7grDncXdBYD4p55y5GkoXQTm9bTZ6kstQEmH268wCiIg1LcQysuSN4sbZuvX58DhyH5SX4=
+	t=1788419539; cv=none; b=PU6hfILqfONF4uIO6jOlyWlKQyyNfae9aB1qt5lGp6lHg0hwk4F6N5eTY4s0XDP437R/YU944/sfwx1p8Zp5d9dISkpp6h8QGO44JT/k9Gdsnr1dl2i4Xxjfji+ZvEok/rTMvdRD5oJXJKK9cFkdjCEC7Hd5tzfp9fOeUxLFLMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788419517; c=relaxed/simple;
-	bh=yoY6Kt8ZGwCSBT+cWfkQRAfW+IQhjCGB8ETnewcra1I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=SOxes0xYPrrDZ+aQJUKaX4NnFYXr9vsW5zuJNuNJ5199ddTmVtfYK8121ql838aGbHVaQzeekHvUmWsCRgcs4NAdHUeYlGrBuw4Q9+lDvjy7y01AJzxID9UEZ0C/IdOPctZo1SPnjwhBUK0seMUpY4SFuaItjs0QuJxrfR3rxAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=rujksxmT; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=pXJ1KNYs; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788419539; c=relaxed/simple;
+	bh=yYAhiCla68uVUiwin0xdm1mJTq8h2yF1Z/vybw00qBw=;
+	h=Mime-Version:From:Content-Type:Subject:Date:To:Cc:Message-Id; b=BLOwzgdn6mfGU5+CVF3xODxQ3BcPfoCCgDVd7aVSQFiv9sJ6wHGzDu/OWIMZf9aEsMl++s5NIkqFzSiMJZV/DN1TAKFGxY28gJhH9q06sWD1cNOyfNkOZ9SaxCAaWjAlhlIWD9rMAdczrKs5aS5yabfZs3rkTrGKrP7G4lmB0aA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=KDf3ZW/9; arc=none smtp.client-ip=209.127.230.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="rujksxmT";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="pXJ1KNYs"
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788419510;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=cuAu1XAoPEyxMUvUMCV11bN1U80weJx8j8gkVxfkj44=;
-	b=rujksxmTTcdeUtPsnLaDIjIhtsSJCygQNBD0dQF4j6soey1sk81G5Mz42AX0Vz6bq9ygz3
-	uXX8ijh66g3zFGSKXma57f+ShVWUao73vGr8wSLYyiqPhj0PN0ReWxz3nRl8d17Wrk6S0K
-	kt1CxyekoP5Qfc8Xcpm2V7sCINrdHeP5axFQzA4VXrjY23gQLcBjd19JwLGHvQ6jNWscrk
-	amUymHxvW8Lf/pWMoL5+lTNH89mmIVm9+fPX251B2UXsa/9dHNX5YutkkBOuOeTWrvfBGb
-	HEWKuq7lzOGV1CIERK4VW5qDUCOI5Q+u91uZJ3f/ANHFeR/achG5+eWHVgNV3w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788419510;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=cuAu1XAoPEyxMUvUMCV11bN1U80weJx8j8gkVxfkj44=;
-	b=pXJ1KNYsFyXl7gyVrUlbuH2uhYkx0g2ycv9WOSG5uZv+GH5HvifmTh5RqIl3gHM4fXHw9k
-	80fEBQjcz++sDcAg==
-Date: Thu, 03 Sep 2026 09:11:47 +0200
-Subject: [PATCH] timekeeping: Use READ_ONCE/WRITE_ONCE() for ktime_sec to
- prevent tearing
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="KDf3ZW/9"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1788419516; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=MkhNfbBH4PkDy2GD73ONaRjS2m1dsfNDUUYxpjgBuaU=;
+ b=KDf3ZW/9eCFnQt+fMqLH852S6h/sAxq1wfVKExHWVUVUMlVMa/PQ/949F87M7mpPvwNfLk
+ spKQVtVVvGELrBRX16IjqlFAZQETHdCJeSXx7olEVTdib0yRCE6UhCn4vd0IIazlR+KYkq
+ jzWDAj5LixnThS8ty/VH7/wejwb3W8/lqoI5qephO6XDS3/Evi9JqCP/ANGajYedM9QhQm
+ GAWDft9Y71Fyjnff0f+F98/oUlgrrg1HwLig3o2UT+5rKocu4lKQS0/t4yujo6CV72hi1V
+ nOqDF6JcZH7iA++4x5436Pbh31kxiBrTkswpKfdZtuvxI/xLcnuOSLDcZ46dbw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260903-timekeeping-ktime_sec-v1-1-b33017536aa9@linutronix.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3M3QpAMBiH8VvRe2y1MR+5FUk+/niT0Sap5d6Nw
- 9/B83hysAxHVeTJ4mLHuwlQcUTD0pkZgsdgSmSSyzJV4uQNK3CwmcX6oXUYhCwyFFprpfqRQnt
- YTHz/37p5nhcAWKvrZwAAAA==
-X-Change-ID: 20260831-timekeeping-ktime_sec-075e744411bd
-To: John Stultz <jstultz@google.com>, Thomas Gleixner <tglx@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>
-Cc: linux-kernel@vger.kernel.org, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh_=28Schneider_Electric=29?= <thomas.weissschuh@linutronix.de>, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788419510; l=2085;
- i=thomas.weissschuh@linutronix.de; s=20240209; h=from:subject:message-id;
- bh=yoY6Kt8ZGwCSBT+cWfkQRAfW+IQhjCGB8ETnewcra1I=;
- b=14eIkSUAVf0GayOS/NlyXDZJzfFjOu35C1Uc7MJDJhcpME+oqqGqx5Iabpew0pqwT87Vzy8G5
- 36uavP5jF6cDPYIV25vGfVqsS6xihlbnQk8be7gB4v9XgqBsOXgEvKa
-X-Developer-Key: i=thomas.weissschuh@linutronix.de; a=ed25519;
- pk=pfvxvpFUDJV2h2nY0FidLUml22uGLSjByFbM6aqQQws=
+Mime-Version: 1.0
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+X-Lms-Return-Path: <lba+26a991dba+2ae671+vger.kernel.org+lizhe.67@bytedance.com>
+From: "Li Zhe" <lizhe.67@bytedance.com>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Subject: [PATCH] x86/lib: make clean_cache_range() zero-size safe
+Date: Thu,  3 Sep 2026 15:11:25 +0800
+To: <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>, 
+	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, 
+	<akpm@linux-foundation.org>
+Cc: <x86@kernel.org>, <linux-kernel@vger.kernel.org>, 
+	"Li Zhe" <lizhe.67@bytedance.com>
+Message-Id: <20260903071125.1946-1-lizhe.67@bytedance.com>
+X-Mailer: git-send-email 2.45.2
 
-The timekeeper update path uses a bulk memcpy() to synchronize the
-timekeeper structure, which is not guaranteed to be atomic. This allows for
-torn reads in ktime_get_seconds() which bypasses the sequence counter
-protection for performance.
+clean_cache_range() writes back each cache line in the range
+[addr, addr + size). A zero-size range is empty and should not perform
+any cache maintenance operation.
 
-To prevent reading a torn ktime_sec value, enforce atomic-like
-access by using WRITE_ONCE() for the critical field before the bulk
-memcpy() in timekeeping_update_from_shadow(). Correspondingly, use
-READ_ONCE() in ktime_get_seconds() to ensure a fresh, consistent load
-from memory.
+As pointed out by Sashiko [1], clean_cache_range(addr, 0) currently can
+still execute one CLWB when addr is not cache-line aligned. With size 0,
+vend is equal to addr. However, the loop starts from the
+cacheline-aligned address containing addr. If addr is not cacheline
+aligned, that rounded-down start is below vend, so the loop can execute
+one CLWB even though the requested range is empty.
 
-The same was done for xtime_sec and ktime_get_real_seconds() in commit
-d7fc133bf91f ("timekeeping: Use READ_ONCE/WRITE_ONCE() for xtime_sec to
-prevent tearing").
+That gives zero-size callers observable side effects. For example,
+arch_wb_cache_pmem(addr, 0) should not write back any cache line, and
+memcpy_flushcache(dst, src, 0) should preserve the usual zero-length
+copy semantics. If the rounded-down line is not mapped, the stray CLWB
+can also fault.
 
-Signed-off-by: Thomas Weißschuh (Schneider Electric) <thomas.weissschuh@linutronix.de>
+Return immediately from clean_cache_range() for size 0.
+
+[1] https://sashiko.dev/#/patchset/20260831111638.76012-1-lizhe.67@bytedance.com
+
+Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
 ---
-Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
----
- kernel/time/timekeeping.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ arch/x86/lib/usercopy_64.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/kernel/time/timekeeping.c b/kernel/time/timekeeping.c
-index ea2e6e55f37b..d54c4d303db6 100644
---- a/kernel/time/timekeeping.c
-+++ b/kernel/time/timekeeping.c
-@@ -861,8 +861,10 @@ static void timekeeping_update_from_shadow(struct tk_data *tkd, unsigned int act
- 	 *
- 	 * Write xtime_sec first so that even if the memcpy() tears the store
- 	 * data integrity is provided for ktime_get_real_seconds().
-+	 * The same goes for ktime_sec and ktime_get_seconds().
- 	 */
- 	WRITE_ONCE(tkd->timekeeper.xtime_sec, tk->xtime_sec);
-+	WRITE_ONCE(tkd->timekeeper.ktime_sec, tk->ktime_sec);
- 	memcpy(&tkd->timekeeper, tk, sizeof(*tk));
- 	write_seqcount_end(&tkd->seq);
- }
-@@ -1169,7 +1171,7 @@ time64_t ktime_get_seconds(void)
- 	struct timekeeper *tk = &tk_core.timekeeper;
+diff --git a/arch/x86/lib/usercopy_64.c b/arch/x86/lib/usercopy_64.c
+index c47d8cd0e243..5adf772cbf04 100644
+--- a/arch/x86/lib/usercopy_64.c
++++ b/arch/x86/lib/usercopy_64.c
+@@ -32,6 +32,9 @@ static void clean_cache_range(void *addr, size_t size)
+ 	void *vend = addr + size;
+ 	void *p;
  
- 	WARN_ON(timekeeping_suspended);
--	return tk->ktime_sec;
-+	return READ_ONCE(tk->ktime_sec);
- }
- EXPORT_SYMBOL_GPL(ktime_get_seconds);
- 
-
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260831-timekeeping-ktime_sec-075e744411bd
-
-Best regards,
---  
-Thomas Weißschuh <thomas.weissschuh@linutronix.de>
-
++	if (!size)
++		return;
++
+ 	for (p = (void *)((unsigned long)addr & ~clflush_mask);
+ 	     p < vend; p += x86_clflush_size)
+ 		clwb(p);
+-- 
+2.20.1
