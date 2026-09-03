@@ -1,187 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AFDA50C2A6;
-	Thu,  3 Sep 2026 20:03:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A4E5111A2;
+	Thu,  3 Sep 2026 20:04:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788465831; cv=none; b=E0dtEgQ3K8ckFrrtsCl6NFd2E1v1D6q+teLF9awt9ImdV90xdYaPSPObO5t2Xp3gS/sp8VR+MMCeR3OpEUdcvk+zISZ8kYdF1wBlaxeYTNJ0jjrerE1kWX1ysJx+1OsLzkfwHU27LwiPyUQDUS6VU6KoJ3WEeVo0T7UXP3ujmBI=
+	t=1788465859; cv=none; b=f8vryRf9nVRxnOhAidixsKRVmRvbts1A/EEfnCyVYklygDeRP0znyQmKt2m9POgYmoRESt1UeBfBep8AYAyDwus+iInjd6aPpx80FTg8jSefpoos7fDVkepSeRk24Zcwp+9co6ELmfeY+6eOpdW67p5e7FkXgPkGr529cE6Jwe0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788465831; c=relaxed/simple;
-	bh=fgRmwkMOKGZ6qvZrfAiJ063FQc/4qEzqXvA+rlkMJI4=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=dnRwyeooIySPTAGw1b7j/Og8w09SZF0CjMePQ0SNLA8sHy1mBvUH7ywGvyWqzPwx8XcGHf/qQyTBF+rKh6ZBzHnDdPcHbAmFkuxfI9R3OFfn3vIUZIrcxmaltv/NthB0x8juYh4dm2ZvTDZUzlFm0OqdhDmf84CctoUbIZ5BKAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PL7vFoyu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788465859; c=relaxed/simple;
+	bh=W6D6nSNz5J+OydIEGM9dAju/NaAUXCdU/pmVsdSIvL8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=bfj1wq6lYWLIQkLu3sAjzx5bBOYjz06owffIeJVn30rIl79O2bhLamEx7lvsd2bwA2SPN5Dm80EIZ4WxzBsbnEqQf8bXBrN878ORkeHY5eP0S52hZwZGzP7lXr3mKhJtFKJu0pb1pgvgUj1Vwg+wthBDj/NJ3doQGu7SRrgSC4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TS7v8mJo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PL7vFoyu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3ECB1F00A3D;
-	Thu,  3 Sep 2026 20:03:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TS7v8mJo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7F0D1F00A3D;
+	Thu,  3 Sep 2026 20:03:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788465823;
-	bh=RliiC8EX5eSyxMCkV7diaMrRCSbGjrTaVnnO3YM73+k=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=PL7vFoyur6XNM4keWNC+yzFMjP9+ejBIAirqK1yApvYvIBK+hq29LlS2CDhy/YoPS
-	 pTf7FZXCBoTRO7zxbjSTbCmcJqWakhP5xwBNFBWRLDOdrfWVgujIe6ITPhexfneL5m
-	 C3i1db0lSF+mmRgh9FszNjUB/QT6M6nwjhmfHjyYM9s2G0CcEHbvdC5rwsFHNRAQ5O
-	 sJ/TmlzSuJEOxU0gU7i+kR0GJt/x2Zt17ig05Yxi1WYr8SembSMC9xqSjtEk6YXh9s
-	 3OqgYB775o6tBZBc26eAMIcz9dA+muk7AxQGnFMeYPhL7EVcpn/x2MwsQNh5ruxe8s
-	 BWNAeTAoFt5EA==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 3DDCF1980047;
-	Thu,  3 Sep 2026 16:03:41 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Thu, 03 Sep 2026 16:03:41 -0400
-X-ME-Sender: <xms:m9KZamdxoigxJrkBAzr3AlBnlLWKwu_8etI0xmwhCfQ_-sOmF98Bhg>
-    <xme:m9KZarCmj_exLCC5x3X3knvqAnhK12bcvA5-kMc7mlGGPJ62HNLcLfrj-h7WwK4oz
-    -TNyAKoCBvG9zH_COCnXm1T63Skvt6Enz-BMeTeS5BVUQckA5WNxbPv>
-X-ME-Proxy-Cause: dmFkZTECfpid2lhpXufZEYzL2XMdRevnf45kqa+1a4KlG6wTv4FeNJenT5cC1dXQfxZ5LV
-    fuwKsmK/bvWpZTHR93scuGWexucUPP/UwNn5cPNSUAVjFlHfvp6DrBzjj3BhftWtD48/RM
-    l1IUc0fxpFkTdkBiC7lQl/EYjzmIYHFWTYALdHKRTIrW2yqUnmyAD5DlROBXWhLLrSZ1pL
-    Mtm8kKNCLQ1bKoW4xIx7ZXgBX1Z2wCMxlsisbbakL9YK4Nh1njm4ss1QVrX16ydoru2WUO
-    Knpch6DxcTEckMElvoCWaEO9CIxK3/8e08TMXmy6nV8dFfULLPmQIka872vEh4UcnJy+eZ
-    YvsqMrGTBYT1H3zJvbFpE/D7XRpEGIXpZwL1PHWK8z4KMu+lRV3kf049NCuwx9KYsTUB1u
-    G/71xcnIgFs2zPXe+uPnlkffVhnoblgFxRPL87eQMCHZckRjCDs/xv4hj1xSe6LQwC98lE
-    zzy3kdSSRUZOdHvsRcdRO/s5Q9MibodCTF5zvxUu2d5sWIMBYYGJHbPLYborQ5n5faqS05
-    B+47dQHQ/1kTQL47lZnHalUfT/xceotUgYU5N3d0rT4Qv4itvXeF53sOUP+sLR1EWbGN6d
-    v+Iw8aXK4bQDKtFwRgzllBD6T1KAjn6U3Z0tph1i6m/VZViwLLhpKEllzCqw
-X-ME-Proxy: <xmx:ndKZartRkg-NGPIOGTYoNGheUA9b0bbRKDY3I9niP5ryK8bUaYg3Xw>
-    <xmx:ndKZajMf4huICw_Ec8DaV8aEj1flei0NznmoNJ30EXhpsdLdfeQ8aA>
-    <xmx:ndKZagj7BjdfVSBoj6lhHqDi3CtNjT7O11DTtRcGjIsrIp10CYUr_g>
-    <xmx:ndKZal7n_5UWImx46n561Pi6xjmH8xCAMpLi_f6JhrW76GJHXW69NA>
-    <xmx:ndKZan2sCKQszI1uU9ssdJ7S-B1FguawPuinZPyK99TEsNIe80om5RUS>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 5A67BF8007B; Thu,  3 Sep 2026 16:03:39 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1788465839;
+	bh=vmYieKVuqWUUBs/P/3HQoMemVH0LqupG2FD0izL7cBU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=TS7v8mJogrtLJ6Lg38z008KCK+68tRZAFnMA8fGex1u9zjAopXp+JegdvD8uTTm87
+	 Y9zWNueEEs833gLjE17WtTTarAtkuTYblnUazxx9JeXiVJHfeX2eG/OYgDWYNS6ySV
+	 sTMer6d5i6Ibq1E5S8GxS/AdYlcNqXIr6SLMyYJ7vbnkA9k4Wih1yIsQ2i4XT03iie
+	 0ueXlC6WPzo58iVYvXRS54DZpFNdhcbIGgAeavFqusnA4PuyojhtH09Bw8PyVasUUa
+	 R4hZ7yAgJ1dKixbYdfj2IdwvVwGMqi/07gyVfV1pqxbBk+bkUFTFvrr0cP0xCVtLff
+	 50KEdPnSR0bjw==
+From: Thomas Gleixner <tglx@kernel.org>
+To: kernel test robot <lkp@intel.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org, Jinjie Ruan
+ <ruanjinjie@huawei.com>
+Subject: Re: include/linux/irq-entry-common.h:218: undefined reference to
+ `syscall_enter_audit'
+In-Reply-To: <202609031938.ZvZZaRQy-lkp@intel.com>
+References: <202609031938.ZvZZaRQy-lkp@intel.com>
+Date: Thu, 03 Sep 2026 22:03:56 +0200
+Message-ID: <87wlt29k5v.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 03 Sep 2026 22:03:18 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Jonggeun Park" <jakejgpark@gmail.com>, "Jeremy Kerr" <jk@ozlabs.org>
-Cc: "Kees Cook" <kees@kernel.org>, "Tony Luck" <tony.luck@intel.com>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
- "Ilias Apalodimas" <ilias.apalodimas@linaro.org>, linux-efi@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <5b13119c-105a-4197-8f5c-711acc47ac0c@app.fastmail.com>
-In-Reply-To: <20260903115516.32495-1-jakejgpark@gmail.com>
-References: <20260815074844.1330-1-jakejgpark@gmail.com>
- <20260903115516.32495-1-jakejgpark@gmail.com>
-Subject: Re: [PATCH v2] efi: vars: commonize the 512-byte name buffer quirk
 Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
 
-Thanks for respinning this.
-
-Some additional thoughts below.
-
-On Thu, 3 Sep 2026, at 13:55, Jonggeun Park wrote:
-> Some old UEFI implementations reject GetNextVariableName() calls with
-> a name buffer size larger than 512 bytes. Both efivar_init() and
-> efi_pstore_read() open-code the same workaround of resetting the size
-> to 512 on every iteration.
+On Thu, Sep 03 2026 at 19:35, kernel test robot wrote:
+> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+> head:   940de590b839f71d6dc846160534bf202401b8b7
+> commit: 6f25517010ddd3f8080d7e06b9b1cb1b64b73772 entry: Rework syscall_audit_enter()
+> date:   6 weeks ago
+> config: riscv-randconfig-r052-20260903 (https://download.01.org/0day-ci/archive/20260903/202609031938.ZvZZaRQy-lkp@intel.com/config)
+> compiler: riscv64-linux-gcc (GCC) 8.5.0
+> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260903/202609031938.ZvZZaRQy-lkp@intel.com/reproduce)
 >
-> Move this workaround into efivar_get_next_variable(), which keeps this
-> quirk in one place, resolving the TODO in efi-pstore.c.
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+> the same patch/commit), kindly add following tags
+> | Fixes: 6f25517010dd ("entry: Rework syscall_audit_enter()")
+> | Reported-by: kernel test robot <lkp@intel.com>
+> | Closes: https://lore.kernel.org/oe-kbuild-all/202609031938.ZvZZaRQy-lkp@intel.com/
 >
-> No functional change intended.
+> All errors (new ones prefixed by >>):
 >
-> Signed-off-by: Jonggeun Park <jakejgpark@gmail.com>
-> ---
-> v2:
-> - Move the workaround into the existing efivar_get_next_variable().
-> ---
->  drivers/firmware/efi/efi-pstore.c | 10 ----------
->  drivers/firmware/efi/vars.c       |  7 +++++++
->  fs/efivarfs/vars.c                | 12 +-----------
->  3 files changed, 8 insertions(+), 21 deletions(-)
+>    riscv64-linux-ld: arch/riscv/kernel/traps.o: in function `__exit_to_user_mode_validate':
+>>> include/linux/irq-entry-common.h:218: undefined reference to `syscall_enter_audit'
+
+Seriously?
+
 >
-> diff --git a/drivers/firmware/efi/efi-pstore.c 
-> b/drivers/firmware/efi/efi-pstore.c
-> index a5db3534f..4f2594d08 100644
-> --- a/drivers/firmware/efi/efi-pstore.c
-> +++ b/drivers/firmware/efi/efi-pstore.c
-> @@ -164,16 +164,6 @@ static ssize_t efi_pstore_read(struct 
-> pstore_record *record)
->  	efi_status_t status;
-> 
->  	for (;;) {
-> -		/*
-> -		 * A small set of old UEFI implementations reject sizes
-> -		 * above a certain threshold, the lowest seen in the wild
-> -		 * is 512.
-> -		 *
-> -		 * TODO: Commonize with the iteration implementation in
-> -		 *       fs/efivarfs to keep all the quirks in one place.
-> -		 */
-> -		varname_size = 512;
-> -
->  		/*
->  		 * If this is the first read() call in the pstore enumeration,
->  		 * varname will be the empty string, and the GetNextVariable()
-> diff --git a/drivers/firmware/efi/vars.c b/drivers/firmware/efi/vars.c
-> index 3700e9869..0f95fc60d 100644
-> --- a/drivers/firmware/efi/vars.c
-> +++ b/drivers/firmware/efi/vars.c
-> @@ -191,11 +191,18 @@ EXPORT_SYMBOL_NS_GPL(efivar_get_variable, 
-> "EFIVAR");
->  /*
->   * efivar_get_next_variable() - enumerate the next name/vendor pair
->   *
-> + * A small set of old UEFI implementations reject sizes above a certain
-> + * threshold, the lowest seen in the wild is 512. Set the name buffer 
-> size
-> + * to 512 on each call.
-> + *
->   * Must be called with efivars_lock held.
->   */
->  efi_status_t efivar_get_next_variable(unsigned long *name_size,
->  				      efi_char16_t *name, efi_guid_t *vendor)
->  {
-> +	BUILD_BUG_ON(EFI_VAR_NAME_LEN < 512);
-> +	*name_size = 512;
-> +
+> vim +218 include/linux/irq-entry-common.h
+>
+> a70e9f647f501e3 Jinjie Ruan     2025-06-24  212  
+> 70fe25a3bc53a89 Thomas Gleixner 2025-10-27  213  static __always_inline void __exit_to_user_mode_validate(void)
+> 70fe25a3bc53a89 Thomas Gleixner 2025-10-27  214  {
+> a70e9f647f501e3 Jinjie Ruan     2025-06-24  215  	/* Ensure that kernel state is sane for a return to userspace */
+> a70e9f647f501e3 Jinjie Ruan     2025-06-24  216  	kmap_assert_nomap();
+> a70e9f647f501e3 Jinjie Ruan     2025-06-24  217  	lockdep_assert_irqs_disabled();
+> a70e9f647f501e3 Jinjie Ruan     2025-06-24 @218  	lockdep_sys_exit();
 
-This should really be
+What the heck has line 218 to do with that failure?
 
-  *name_size = min(*name_size, 512UL);
+This is getting stupid. It seems there is yet another compiler aside of
+s390 gcc which fails to do dead code elimination but this time it's
+worse it also points to the wrong place ....
 
-so that a smaller buffer size provided by the caller is respected.
+Thanks,
 
-That also removes the need for the BUILD_BUG_ON().
-
-No need to send a v3, I can fix that up when applying.
-
->  	return __efivars->ops->get_next_variable(name_size, name, vendor);
->  }
->  EXPORT_SYMBOL_NS_GPL(efivar_get_next_variable, "EFIVAR");
-> diff --git a/fs/efivarfs/vars.c b/fs/efivarfs/vars.c
-> index 6833c3d24..5a01833a6 100644
-> --- a/fs/efivarfs/vars.c
-> +++ b/fs/efivarfs/vars.c
-> @@ -391,18 +391,8 @@ int efivar_init(int (*func)(efi_char16_t *, 
-> efi_guid_t, unsigned long, void *),
->  	if (err)
->  		goto free;
-> 
-> -	/*
-> -	 * A small set of old UEFI implementations reject sizes
-> -	 * above a certain threshold, the lowest seen in the wild
-> -	 * is 512.
-> -	 */
-> -
->  	do {
-> -		variable_name_size = 512;
-> -		BUILD_BUG_ON(EFI_VAR_NAME_LEN < 512);
-> -
-> -		status = efivar_get_next_variable(&variable_name_size,
-> -						  variable_name,
-> +		status = efivar_get_next_variable(&variable_name_size, variable_name,
->  						  &vendor_guid);
->  		switch (status) {
->  		case EFI_SUCCESS:
-> -- 
-> 2.43.0
+        tglx
