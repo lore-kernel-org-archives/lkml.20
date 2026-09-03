@@ -1,124 +1,159 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0039A349CE2;
-	Thu,  3 Sep 2026 07:12:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5A4C3FF1D5
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:12:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788419563; cv=none; b=EW34uHvh2yCQdOI5yLwWiGlFLnAYe4B8q4zZyDtLnxE91cGp5hhgG2VI3aTlsjI1OBz6rxg0mN9TioPjod2Q/xBd6ghL1zEDd9HIlXDNF+RnWuy86xieLMfCTXfTyG7NlgmC47txoLMqChgANe0Qwuhb6nRj4OiKKe8KtW1zp2c=
+	t=1788419567; cv=none; b=UbST8/ydeRFZNYtC3YfQRBI2NbqqwlG7KDeENsv5lNKqoEb0pkBwH7hkoiNXCBS9ePJ9zvHQzzj9S7dROWNeWb99b0yztDinPMKBFrHg+Tk30nHs27b6sArdEn0vRHohNN68BrEs7bqZ9pGnIG17C1DWhbv6qFRiJo7n1/x2VPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788419563; c=relaxed/simple;
-	bh=/pqAFh9onL1+A3JmPy88x4jSz/wzVpSBB7ZcHKNINDw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mnqgF5tGVjdnvSERkvle55fjrYe5QDyO8wb8MaDfM63few+axelJN9HtQpaHF3F8XkkjHZOv/PZsAPuQZ/x2fK/43vv+hjRGjCaJYlWq/PoTaPugvHs+HPCa4vGCD5OInarja+QjX53bEjR2vPOCG1K4QtZp5bc1pNJgYGUi5OA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Us6/Hmrh; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788419567; c=relaxed/simple;
+	bh=JR4pPvec+sLV+RkPOqmcFPpRYuwIIVklN0ZILIEYBsM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Dq8BazZeT5K0WCEKoLY7kAS76JGiF4xdy/qilj/DtrlDnvRj3G82C1Rxif5XGNXeVYChYCLybRDjuVGTNs/tjc9FZB4Pvm1eTzRWUnqPy1njJ2e6DM2abLNut5b5pFP5Bq9p9WEPbUOzPR4zviphSimCQNVUoV/ZfmUUAbbAU3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=lW+8ECNG; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Us6/Hmrh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788419560; x=1819955560;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=/pqAFh9onL1+A3JmPy88x4jSz/wzVpSBB7ZcHKNINDw=;
-  b=Us6/Hmrhc671lpHDFQd1guVfjoWPBzA0EBTzevUWvR6Nyu4EuoRPso3S
-   4ZOBcYWtd4G7NGzcpxTucLxFjIMekiSumEAYxf0QesTtZsO8ZTZexgCHI
-   C9/r7SxxqRYubYYKh2Fusu6qoyLikjlPu2jaTGrx3I+5V4JQkCNvBRFJf
-   Go62KSwR5v2bYb043cYgNMd+QLZBAizNDvfLqF03r9xW7Orv3DLtRt24g
-   tMZUSJkemi/12bHeNxQtAOqsjT9mGZw50dCxEJZ9z/VuZIu/dvAu7eYWV
-   v4+3npchUWzGFXqWYlQlGe5bte8UepOeqldN7OCUX98ihS9Vs592yd6VR
-   w==;
-X-CSE-ConnectionGUID: hi+EBgp1Q2Ogk2LcO7yjmw==
-X-CSE-MsgGUID: dffGO5EtRCSYVxMR1vS6NQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="88766819"
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="88766819"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 00:12:38 -0700
-X-CSE-ConnectionGUID: WalDt28NTyympGDs1lUgnQ==
-X-CSE-MsgGUID: EELWTpHHTP6erMgdrSz0aA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="268303949"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 00:12:34 -0700
-Date: Thu, 3 Sep 2026 10:12:32 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
-	sakari.ailus@linux.intel.com, bingbu.cao@amd.com,
-	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
-	andy@kernel.org, hansg@kernel.org, gregkh@linuxfoundation.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 15/16] media: atomisp: allow raw Bayer capture
-Message-ID: <apkd4NkKNXFX-aGy@ashevche-desk.local>
-References: <cover.1788360629.git.mauriziocasciano7@gmail.com>
- <5a163a69a3cb3b139f2c7ba5eee5b32bac575d27.1788360629.git.mauriziocasciano7@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="lW+8ECNG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=BY
+	vzxe2xGIWuEyuWCsnHllNcNzMs7YGaDE3CbAnAmiQ=; b=lW+8ECNGm54jj6K880
+	ln6PT/MQSPX+bRN7R2vyrmNw4wj1JV5gYSAe1RDysKtfFifpRopqeE/afLrcJk87
+	v1eK0/8uXeRgr4nykhIDmmduAuH7lH6aGWGxNHl+gFJhfFlazrPx1TH33KjhawcZ
+	lqPBXbhFL4Z8lHHB2xEHs4NAs=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wA31de5HZlq1FxFAQ--.9384S2;
+	Thu, 03 Sep 2026 15:11:54 +0800 (CST)
+From: oushixiong1025@163.com
+To: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Shixiong Ou <oushixiong@kylinos.cn>
+Subject: [PATCH v2] drm/gma500: Create the primary plane in the driver
+Date: Thu,  3 Sep 2026 15:11:49 +0800
+Message-Id: <20260903071149.423579-1-oushixiong1025@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5a163a69a3cb3b139f2c7ba5eee5b32bac575d27.1788360629.git.mauriziocasciano7@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wA31de5HZlq1FxFAQ--.9384S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWF4xGr15CryfCFy5Jry7KFg_yoW5Kw47pF
+	ZrAF98tr4rtFsrWFW5JanFyFW3uws3G3WxKryxWwn0vr1DKr97uFnYy3srCFy7GFW7J3Wr
+	try5tFy5C3W8Cw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnmiiUUUUU=
+X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC-Rp2hWqZHbplSwAA3u
 
-On Wed, Sep 02, 2026 at 04:53:44PM +0200, Maurizio Casciano wrote:
-> AtomISP currently rejects all raw formats and silently substitutes
-> YUV420. This prevents userspace camera processing stacks from obtaining
-> unprocessed sensor frames.
-> 
-> Enumerate only the raw format matching the sensor media-bus code and
-> reconcile raw requests with the code selected by the sensor. Userspace
-> opts in by selecting that raw V4L2 pixel format with VIDIOC_S_FMT.
-> 
-> Raw formats expose the full sensor transport frame so ISP2401 can use
-> its copy pipeline. Processed formats retain the existing global padding
-> behavior; selecting a smaller receiver crop remains a userspace pipeline
-> decision.
+From: Shixiong Ou <oushixiong@kylinos.cn>
 
-...
+drm_crtc_init() creates the primary plane from a fixed format list
+that includes ARGB8888. The display engine programs the primary plane
+with DISPPLANE_32BPP_NO_ALPHA, so it does not support per-pixel alpha
+and must not advertise alpha formats. Since commit 860e748bddcc
+("drm: ensure blend mode supported if pixel format with alpha exposed"),
+drm_mode_config_validate() warns about this at probe time.
 
-> +	const struct atomisp_format_bridge *format;
->  	struct v4l2_subdev_state *act_sd_state;
+Replace drm_crtc_init() with a driver-owned primary plane that
+advertises only XRGB8888. The plane is allocated by
+drmm_universal_plane_alloc() and the "pixel blend mode" property is
+not needed because no format with alpha is exposed.
 
-> +	struct v4l2_area padding = {
-> +		.width = pad_w,
-> +		.height = pad_h,
-> +	};
+Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+---
+v1->v2:
+  - Open-code DRM_PLANE_NON_ATOMIC_FUNCS without .destroy, which
+    drmm_universal_plane_alloc() rejects
+  - Use drmm_universal_plane_alloc() for automatic cleanup
+  - Move the formats comment above the array
 
-Hmm... We use them only once. See below.
+ drivers/gpu/drm/gma500/psb_intel_display.c | 34 +++++++++++++++++++++-
+ 1 file changed, 33 insertions(+), 1 deletion(-)
 
->  	int ret;
-
-...
-
-> +	if (format->sh_fmt == IA_CSS_FRAME_FORMAT_RAW)
-> +		padding = (struct v4l2_area) { };
-
->  	fsize->type = V4L2_FRMSIZE_TYPE_DISCRETE;
-> -	fsize->discrete.width = fse.max_width - pad_w;
-> -	fsize->discrete.height = fse.max_height - pad_h;
-> +	fsize->discrete.width = fse.max_width - padding.width;
-> +	fsize->discrete.height = fse.max_height - padding.height;
-
-padding is not used as a stuct here, so instead you can simply convert the
-above to if-else
-
-	if (format->sh_fmt == IA_CSS_FRAME_FORMAT_RAW) {
-		fsize->discrete.width = fse.max_width;
-		fsize->discrete.height = fse.max_height;
-	} else {
-		fsize->discrete.width = fse.max_width - pad_w;
-		fsize->discrete.height = fse.max_height - pad_h;
-	}
-
+diff --git a/drivers/gpu/drm/gma500/psb_intel_display.c b/drivers/gpu/drm/gma500/psb_intel_display.c
+index 0df75a4a7739..f79484b9d593 100644
+--- a/drivers/gpu/drm/gma500/psb_intel_display.c
++++ b/drivers/gpu/drm/gma500/psb_intel_display.c
+@@ -9,8 +9,11 @@
+ #include <linux/delay.h>
+ #include <linux/i2c.h>
+ 
++#include <drm/drm_fourcc.h>
+ #include <drm/drm_modeset_helper.h>
+ #include <drm/drm_modeset_helper_vtables.h>
++#include <drm/drm_plane.h>
++#include <drm/drm_plane_helper.h>
+ #include <drm/drm_print.h>
+ 
+ #include "framebuffer.h"
+@@ -471,11 +474,25 @@ static void psb_intel_cursor_init(struct drm_device *dev,
+ 	REG_WRITE(base[gma_crtc->pipe], 0);
+ }
+ 
++/*
++ * The display engine programs the primary plane with
++ * DISPPLANE_32BPP_NO_ALPHA, so no formats with alpha.
++ */
++static const uint32_t gma_primary_formats[] = {
++	DRM_FORMAT_XRGB8888,
++};
++
++static const struct drm_plane_funcs gma_primary_plane_funcs = {
++	.update_plane = drm_plane_helper_update_primary,
++	.disable_plane = drm_plane_helper_disable_primary,
++};
++
+ void psb_intel_crtc_init(struct drm_device *dev, int pipe,
+ 		     struct psb_intel_mode_device *mode_dev)
+ {
+ 	struct drm_psb_private *dev_priv = to_drm_psb_private(dev);
+ 	struct gma_crtc *gma_crtc;
++	struct drm_plane *primary;
+ 	int i;
+ 
+ 	/* We allocate a extra array of drm_connector pointers
+@@ -494,7 +511,17 @@ void psb_intel_crtc_init(struct drm_device *dev, int pipe,
+ 		return;
+ 	}
+ 
+-	drm_crtc_init(dev, &gma_crtc->base, &gma_crtc_funcs);
++	primary = drmm_universal_plane_alloc(dev, struct drm_plane, dev, 0,
++					     &gma_primary_plane_funcs,
++					     gma_primary_formats,
++					     ARRAY_SIZE(gma_primary_formats),
++					     NULL, DRM_PLANE_TYPE_PRIMARY, NULL);
++	if (IS_ERR(primary))
++		goto err_free_crtc;
++
++	if (drm_crtc_init_with_planes(dev, &gma_crtc->base, primary, NULL,
++				      &gma_crtc_funcs, NULL))
++		goto err_free_crtc;
+ 
+ 	/* Set the CRTC clock functions from chip specific data */
+ 	gma_crtc->clock_funcs = dev_priv->ops->clock_funcs;
+@@ -524,6 +551,11 @@ void psb_intel_crtc_init(struct drm_device *dev, int pipe,
+ 
+ 	/* Set to true so that the pipe is forced off on initial config. */
+ 	gma_crtc->active = true;
++	return;
++
++err_free_crtc:
++	kfree(gma_crtc->crtc_state);
++	kfree(gma_crtc);
+ }
+ 
+ struct drm_crtc *psb_intel_get_crtc_from_pipe(struct drm_device *dev, int pipe)
 -- 
-With Best Regards,
-Andy Shevchenko
+2.25.1
 
+
+No virus found
+		Checked by Hillstone Network AntiVirus
 
