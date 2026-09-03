@@ -1,69 +1,63 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5596B3AAF49
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 20:47:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE193FD960;
+	Thu,  3 Sep 2026 20:47:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788468443; cv=none; b=n7XReJ3XuXoDMlI9738OeUCPO0ZgJX7/RJNbt0c1aqgZ21o+DOwsWPwVnGOqaAkKucfITUgW5BEZKRIUrUat9q8KdGMTqeIaRCfjZUwYdB+mHYcOYLl5Qq6+uXZZnJycuQFhrGVot/T6QOO/LtXjHVJrGxVQO68hPK/i51/qiZk=
+	t=1788468451; cv=none; b=KOFBUs4vOtR11T6y/gGvCOcYQr8gE4UFlh3vuiGX8XHQ2McDKT4Zv7KW4TidntKudOkNZxCe31gJ5ETmcN69i6Zd0lELr6lmiyrhVg74xxyVcNm4l1khd75jFduRRQhLNfFL2bJfx9ZQUaXaobDoHq+WzbdRK2nWSMVMi180eeM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788468443; c=relaxed/simple;
-	bh=LceZKNgQSZ5YYXde50P2jXWHNZCz9osuz63auvAVP/A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bHNYfWNwbW5PLKz0D9+anAj23xxhGiN1h1b53r6qeV6G+5EYtwspdJ/r3jpr5sZGB/oCeCQn8hqAHjcCQlVhpItSkY8UyeJg5o1rsVXrLPtDJqtJbXqu7BBNk6Ud7unDyu2meq6AEQVk4pIyeKtVrkNoGnN2hh8poqHVsp91NAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XDJ7Q8Rs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788468451; c=relaxed/simple;
+	bh=7efiFzxQFNwrEgtTSn3MFPTTuLPss7omLfJFbznXEcI=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=aZwN7bKATofGCVuGW+pd2ZlaWO11zhcguVx+AljrgflebbAU455Y2oGG41mF/KdAf4TU7rOpiUdqiuVai2JpXFcX/cADOdVS4I8WwA2YPtqthEWEGc/GhfrBP+4SRHYi3ovc7ZMNoHqQvG4Cz1SNhQAoRi1hnLCBKDW8rKlG/aE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TnVTB/nF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XDJ7Q8Rs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45FFC1F00A3E;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TnVTB/nF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26AEE1F00A3D;
 	Thu,  3 Sep 2026 20:47:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788468438;
-	bh=DdIokEjR3Hep86CMJFAfHVJnSB6eCK9wOnMgg3FzaAE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XDJ7Q8RslubZrqmsTngCVxVXwsvE3+cN+KH6XxeWw/4/sPTROE8nMw3Gqm7J3Y3wh
-	 C4Dm8BJhUEySA6Cc/1eLuwTimcDXnCxv9jocQpCyIp6iZrnbjSGIms/bSDFtOgFPJH
-	 DQ/xTbK2Vfyh/kn2dO72I18ITYqvZiQ2AZ9gxwommPWSdU/91lhXYilwJhuiRVfLpT
-	 iSUYmtM6qpz3ufW7d8Zs53keaoV7UYjJX1KdUoUZ3c+TvmY2ByfJSjU4ISF+26H6iz
-	 Ec42jGto/v7Xx4rROjIoq5MWrUyLn2dlpQ1zeGfyLGRiMIvmLAHo3SZKWz7CpL7RBt
-	 o0I3GW9E+b61w==
-Date: Thu, 3 Sep 2026 14:47:16 -0600
-From: Keith Busch <kbusch@kernel.org>
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
-	Jens Axboe <axboe@fb.com>, Sagi Grimberg <sagi@grimberg.me>,
-	linux-nvme@lists.infradead.org
-Subject: Re: [PATCH v3] nvme-tcp.h: drop kernel-doc comments, fix a few
- descriptions
-Message-ID: <apnc1ElrDkaTHwdY@kbusch-mbp>
-References: <20260831060501.3482765-1-rdunlap@infradead.org>
+	bh=iQBJ2gDurQ7wPl+YYRP+j5Ftqy8e1R+DBsIZRLrOcTc=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=TnVTB/nFVDwLfFx5MuApFD6P0lI1/slYZrWMlpWm1AK6QauJs4kcOyE5HuDS8O6kG
+	 9xASEBzs9bpxihXZJ5QY6vc4ZEbEml1PBbuHkufRwh22RX2Mzh2tJ9r1EpGkom2MZP
+	 zjEvmlHatIuvhnt0KV6BnfiphfM9D896wUW2+PqPWzNAl9GcSpkrJAU6okOSdUUBzL
+	 non/lMLgms3XtRUD6PN7gnl8xFTy1tcygEEP/D5Mv8STpuJZF8Ifp2861xkuwfb/RW
+	 GnZT8GptuaThFTE77p80D7LnOXknD5+fyCSuYhOjrPP9VFQp/t1B5NFNlriuRWMIoC
+	 5afNyLLmtR6WQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9396638119DE;
+	Thu,  3 Sep 2026 20:46:20 +0000 (UTC)
+Subject: Re: [GIT PULL] selinux/selinux-pr-20260903
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <8c72adc9e5a9d3ce854fab61ec5f66df@paul-moore.com>
+References: <8c72adc9e5a9d3ce854fab61ec5f66df@paul-moore.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <8c72adc9e5a9d3ce854fab61ec5f66df@paul-moore.com>
+X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/pcmoore/selinux.git tags/selinux-pr-20260903
+X-PR-Tracked-Commit-Id: 4299767d772d4e498998e32157e45841178ab192
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: a500db7819c50db59e55f1b4fa1c3baa5a2616f3
+Message-Id: <178846837920.4014495.13224631345092557627.pr-tracker-bot@kernel.org>
+Date: Thu, 03 Sep 2026 20:46:19 +0000
+To: Paul Moore <paul@paul-moore.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, selinux@vger.kernel.org, linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831060501.3482765-1-rdunlap@infradead.org>
 
-On Sun, Aug 30, 2026 at 11:05:01PM -0700, Randy Dunlap wrote:
-> Expand @fei into @feil and @feih because the field was split due to it
-> not being 32-bit aligned.
-> 
-> Struct member @hdr was described twice in struct nvme_tcp_rsp_pdu, so
-> drop one of them.
-> 
-> These structs are defined in a spec outside of the kernel, so kernel-doc
-> comments for them aren't needed here as well.
-> 
-> This avoids kernel-doc warnings:
-> 
-> Warning: include/linux/nvme-tcp.h:95 struct member 'rsvd2' not described in 'nvme_tcp_icreq_pdu'
-> Warning: include/linux/nvme-tcp.h:113 struct member 'rsvd' not described in 'nvme_tcp_icresp_pdu'
-> Warning: include/linux/nvme-tcp.h:128 struct member 'feil' not described in 'nvme_tcp_term_pdu'
-> Warning: include/linux/nvme-tcp.h:128 struct member 'feiu' not described in 'nvme_tcp_term_pdu'
-> Warning: include/linux/nvme-tcp.h:128 struct member 'rsvd' not described in 'nvme_tcp_term_pdu'
-> Warning: include/linux/nvme-tcp.h:169 struct member 'rsvd' not described in 'nvme_tcp_r2t_pdu'
-> Warning: include/linux/nvme-tcp.h:187 struct member 'rsvd' not described in 'nvme_tcp_data_pdu'
+The pull request you sent on Thu, 03 Sep 2026 16:35:27 -0400:
 
-Thanks, applied to nvme-7.3.
+> https://git.kernel.org/pub/scm/linux/kernel/git/pcmoore/selinux.git tags/selinux-pr-20260903
+
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/a500db7819c50db59e55f1b4fa1c3baa5a2616f3
+
+Thank you!
+
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
