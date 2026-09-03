@@ -1,141 +1,141 @@
-Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5B49368D66
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:27:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.34.181.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E982340A57
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:27:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788420427; cv=none; b=Gdj1zhO83j/KjBeTNVgqkRztKWLtvjkxjmrjIytoT1J/VOPQNmUSFowjm0K1qaaQ5Nm3cprGMaWtTdyfB0JfS9H2gcSeOw7+TBAPdc0JFPUg0YRjjX0CBu3kMwd3W1Usz9GoLuROuJEzi9EHpeo0PFYx61sYy+w8qtpuFe49SSg=
+	t=1788420430; cv=none; b=eYC7pD4k/8Xpb5AmALneJu3zPXKvMJU6/zQbUSXneOGS9QOe3ixusI9fh6gWPdmuiXM1zf0qrs02jwJWg9uojAeChgqWivD0CbnGyj6RefHMUA+BstYgw0zmxHpNFA0lMRWKaD1NFfPxnMSD9WvwVUlXantVaq3ezBE5TJu4lI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788420427; c=relaxed/simple;
-	bh=doWxkimnv0Ia9QFCILMLar83Tp+48Cy6j9Se48pZvhk=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=b2rX+auUbG4B3S3vYuwXJ5ykzNsLJNwXfYzlarqztMTlSfBPZgBnsXI3DL4BkRIipvQBJymEq8G1IsG81+7OHcHnxmwmYOA0Dp4xLTb62wApEdUNDWIQ21lcpE6HIBBPfyzH2m26ijT8kPvFN5yyvzylpxUPspJFnBTMpcrZ6wE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.co.uk; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=US63Mu34; arc=none smtp.client-ip=52.34.181.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.co.uk
+	s=arc-20240116; t=1788420430; c=relaxed/simple;
+	bh=wld4Tm6tiu1CmgqNMJydEtK1Ph0iA/iefmXGnb4A4PQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Zljv0xSA6vw8uHWvtYQDwzFdX3tZxgrTGG1zkyQPTAjZlyiVURUqIPUxGhTXxkUyrVfhIM9KU3oaAfaRoknIKB4JBcRI8ESLoriCEQp5an3UO/oefL541vmvxRCNPWdoOa8nwN7DbpHao0iwLMAp2hbbtwziSMzWRPFnoolXfek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=SvMJGHuL; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="US63Mu34"
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="SvMJGHuL"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so20255285e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:27:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1788420426; x=1819956426;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=XEDL0hSWB2zeGwWJtgzgRDFbNtGe7V0habGCOAlNjWw=;
-  b=US63Mu34d/pYaaXm5d4LvYH9Q4zv7PIs2FPLB7rFPchDySWa1ZFnb/Kc
-   jkHOxcecojJPDm267P6tsE7vBeRQMcO8y4FGoOpMls1kBnH9syWS9cCZ8
-   a3xTmJL4EFLDQe/cVPrAa4uyjII4LoK97VXJga1JVsGytnIanEBq83k+H
-   HoVw8Lq5iqyo62dCtQGip1aDNAHLgKNYMFhBS3FeYUQ0KBwlwjxg3kWBN
-   eb47IQ6b8Tlrp+yYxAkAeS+mycxMJId2akbR1MXT8FupVyFc+YkOPDdic
-   6pZAwdnojlqc9hbIfE4Q0TTnP//59FxJs9E3HBAfCaLZIsu6bNp43gNq+
-   Q==;
-X-CSE-ConnectionGUID: a9V3tmWSSHWMehpCtylDug==
-X-CSE-MsgGUID: zLigg53MQCWK0KP82k5/Pg==
-X-IronPort-AV: E=Sophos;i="6.25,258,1779148800"; 
-   d="scan'208";a="27681160"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 07:27:04 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:14068]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.23.85:2525] with esmtp (Farcaster)
- id 31c43739-7d7e-4b18-a143-798b81c75300; Thu, 3 Sep 2026 07:27:03 +0000 (UTC)
-X-Farcaster-Flow-ID: 31c43739-7d7e-4b18-a143-798b81c75300
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.218) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Thu, 3 Sep 2026 07:27:03 +0000
-Received: from b0f1d8753182.ant.amazon.com (10.106.83.23) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
- Thu, 3 Sep 2026 07:26:57 +0000
-From: Takahiro Itazuri <itazur@amazon.com>
-To: Yosry Ahmed <yosry@kernel.org>, Sean Christopherson <seanjc@google.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>
-CC: Brendan Jackman <jackmanb@google.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, Peter Zijlstra
-	<peterz@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, "David
- Hildenbrand" <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, "Mike
- Rapoport" <rppt@kernel.org>, Wei Xu <weixugc@google.com>, Johannes Weiner
-	<hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Lorenzo Stoakes
-	<ljs@kernel.org>, <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
-	<x86@kernel.org>, Sumit Garg <sumit.garg@oss.qualcomm.com>, Will Deacon
-	<will@kernel.org>, <rientjes@google.com>, Roy Patrick
-	<patrick.roy@linux.dev>, Andy Lutomirski <luto@kernel.org>, David Kaplan
-	<david.kaplan@amd.com>, Thomas Gleixner <tglx@kernel.org>, Patrick Bellasi
-	<derkling@google.com>, Reiji Watanabe <reijiw@google.com>, Nikita Kalyazin
-	<nikita.kalyazin@linux.dev>, Ackerley Tng <ackerleytng@google.com>, "Takahiro
- Itazuri" <zulinx86@gmail.com>, <cc-open-source@amazon.com>
-Subject: Re: [PATCH v3 03/26] mm: introduce AS_NO_DIRECT_MAP
-Date: Thu, 3 Sep 2026 08:26:26 +0100
-Message-ID: <20260903072625.62694-2-itazur@amazon.com>
-X-Mailer: git-send-email 2.43.1
-In-Reply-To: <CAO9r8zNJ3mSRf5YyRQYYW-eM2eiFvQMXW4Rh0cT=31jsKZpuSQ@mail.gmail.com>
-References: <CAO9r8zNJ3mSRf5YyRQYYW-eM2eiFvQMXW4Rh0cT=31jsKZpuSQ@mail.gmail.com>
+        d=suse.com; s=google; t=1788420426; x=1789025226; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OvwfsT5XsU+XlCBye/Gynm+OK1RDDicBO8P4RwFQ9O4=;
+        b=SvMJGHuLo2L2pJvx9PSlX2RHKD3iEX2CTn7t22fzaWpzQLa5nGBZ12aR9YsEncSs8W
+         I1KmDJrfCj98fwKi/Do0+1pf0gjbohydHA81zCLZcAXUxKUun5xQIcOfHzbqoBb9MjTQ
+         N9DSrqfVpN/q1t++KtVoYrdoeWAqYqtxiIMuGssT/rHy8AlZJHuRyZeFcwouH70qC3ND
+         oFhUtr/2iL2Oq0dpTqPn+KczztNB+gjkYzYULQ/2H/DBA+Y4/VcIciJ+LIwEyqwaJJ9P
+         8oq22VWj559xECNePq8MYkiLPQBG7TiotVlpmLNP2big2Q/UN8FLuqvkHbgoXD4A4CzE
+         qHrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788420426; x=1789025226;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OvwfsT5XsU+XlCBye/Gynm+OK1RDDicBO8P4RwFQ9O4=;
+        b=TMcU6MH4utyC3KPJCNxviE26oQm+Er92a4q5pKDV8TsJzXE/3t1yzj5jlI+Kvs6Tfo
+         741FiZUtmrifMIQ4hBDnnRTWmlBSYo/YOodpEqmc5nJ0biiDCVzPNWS7T9iakYBl0NN5
+         lHxK9sXdmwT0p7C2/2pW04q2tZKK41foyj8df2k7KPAbql+BS3MiMCXoxmcyaPntTQfN
+         VF58XuODos3aalavQnbGVy0JonNEvp1yxvqqCp6o56aQPQJxUjbFPyAtYBxOuIS7lofF
+         lZJBJzSoS+TM8U6I3lqR/VkiUeNm9I2Lh0XyqJeS7P06odBMr8BGGI+/3nyCSH8M8FK0
+         TKKw==
+X-Forwarded-Encrypted: i=1; AKwUvBzArlbWwC4+4EMtGznXzjeiLzGLPnpB3KmjwjImyc8DgQouoZsmXnBrY+jCYtDCZvXSB0KoJAZ1uJSmlL0=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+Md4EcvyK++je3hMCdu0L7Ab/X1kuSXzoglqrAx5czYmARSk3
+	abzK0GypnF73pJ+zNU8Off5f52AHU2Z9QLDnhilFYfRsqrRPKsxXNgdp0oSQcCkF81s=
+X-Gm-Gg: AYBFou3jH8KuCIajttvjNTLj/XEiFjZiKjk3Tvb2GwfOT4yvrqz5Jdpz5v5IuSDXJIA
+	B6khgFQVNUiCjlsEGc7Xe7mj0U1KxNS55uOD1dwPQrw+s1tk9MEvPNmhrxog9UfH5wCJnau0AlQ
+	WZAc02VlBm4QCREjC7geKA36RRvpC4OyCUjnE3tyZLLhZ5Hf5T3lLm3COn6uZA0YPeXoEM30e8o
+	qT6273V6miaImiIvNo0zooyGxc8jHStP9DNFUu89s0Ia8fwWgZ0xqIchbpo7i07jOv7nRepGgaz
+	XLnS7ngdBMX15yMVkrDVQ1tvdz96cl6Z5LHkx8/H/0utyXZCWLacl9Dl3+Se1bBupgJhXqYkZ4A
+	maJXutMhecm0EZh/XZ9H8Uo/F21EEqWye7psSs2zvSpNHvyEAxAoA15k1sFrZn2sd8WId6IJri+
+	eNPncxTQonH4xZPF9mrl3Lvjajq7R6JHzFTZwzSJaqLO8AbgsONBF4G5gYUnfd+3jcHDBXgHu3d
+	3hIHbhPNNt9OA==
+X-Received: by 2002:a05:600c:46cc:b0:49c:cb6a:1687 with SMTP id 5b1f17b1804b1-49ce5812d7cmr176613335e9.4.1788420426281;
+        Thu, 03 Sep 2026 00:27:06 -0700 (PDT)
+Received: from localhost (109-81-91-122.rct.o2.cz. [109.81.91.122])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee7fec25sm53367115e9.13.2026.09.03.00.27.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 00:27:05 -0700 (PDT)
+Date: Thu, 3 Sep 2026 09:27:04 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Charan Teja Kalla <quic_charante@quicinc.com>,
+	akpm@linux-foundation.org, mgorman@techsingularity.net,
+	david@redhat.com, vbabka@suse.cz, hannes@cmpxchg.org,
+	quic_pkondeti@quicinc.com, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH V3 3/3] mm: page_alloc: drain pcp lists before oom kill
+Message-ID: <apkhSHr3by5Bf8jW@tiehlicka>
+References: <cover.1699104759.git.quic_charante@quicinc.com>
+ <a8e16f7eb295e1843f8edaa1ae1c68325c54c896.1699104759.git.quic_charante@quicinc.com>
+ <aphSYFTd12oia8K2@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D032UWB004.ant.amazon.com (10.13.139.136) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aphSYFTd12oia8K2@google.com>
 
-Some of you on the KVM side already know this, but for those on the MM
-side who may not, I am taking over the guest_memfd direct-map removal
-series.  I have finally caught up with this thread, and I sincerely
-apologize for joining so late; other commitments kept me from catching
-up sooner.
+On Wed 02-09-26 16:49:48, Yosry Ahmed wrote:
+> On Sun, Nov 05, 2023 at 06:20:50PM +0530, Charan Teja Kalla wrote:
+> > pcp lists are drained from __alloc_pages_direct_reclaim(), only if some
+> > progress is made in the attempt.
+> > 
+> > struct page *__alloc_pages_direct_reclaim() {
+> >     .....
+> >    *did_some_progress = __perform_reclaim(gfp_mask, order, ac);
+> >    if (unlikely(!(*did_some_progress)))
+> >       goto out;
+> > retry:
+> >     page = get_page_from_freelist();
+> >     if (!page && !drained) {
+> >         drain_all_pages(NULL);
+> >         drained = true;
+> >         goto retry;
+> >     }
+> > out:
+> > }
+> > 
+> > After the above, allocation attempt can fallback to
+> > should_reclaim_retry() to decide reclaim retries. If it too return
+> > false, allocation request will simply fallback to oom kill path without
+> > even attempting the draining of the pcp pages that might help the
+> > allocation attempt to succeed.
+> > 
+> > VM system running with ~50MB of memory shown the below stats during OOM
+> > kill:
+> > Normal free:760kB boost:0kB min:768kB low:960kB high:1152kB
+> > reserved_highatomic:0KB managed:49152kB free_pcp:460kB
+> > 
+> > Though in such system state OOM kill is imminent, but the current kill
+> > could have been delayed if the pcp is drained as pcp + free is even
+> > above the high watermark.
+> > 
+> > Fix this missing drain of pcp list in should_reclaim_retry() along with
+> > unreserving the high atomic page blocks, like it is done in
+> > __alloc_pages_direct_reclaim().
+> > 
+> > Signed-off-by: Charan Teja Kalla <quic_charante@quicinc.com>
+> 
+> [Sorry for thread necromancy]
+> 
+> Hi Charan,
+> 
+> Are you planning to respin this patch?
+> 
+> I know that Michal was questioning the need for it. While doing some
+> stress testing I came across a couple of OOM kills that had significant
+> amount of memory in pcplists. Something that would have been prevented
+> by this patch.
 
-On Fri, 7 Aug 2026 15:48:24 -0700, Yosry Ahmed <yosry@kernel.org> wrote:
-> > I'm not ok punting on that, i.e. whatever we come up with needs to land=
- alongside
-> > AS_NO_DIRECT_MAP, or at least before guest_memfd tries to use AS_NO_DIR=
-ECT_MAP.
->
-> Yup, I meant the latter.
->
-> > The only way KVM can use AS_NO_DIRECT_MAP without GUP is with a massive=
- list of
-> > caveats and addendums on things the VMM and guest can't do.  I'm not ok=
- merging
-> > guest_memfd support for AS_NO_DIRECT_MAP with such a list.
->
-> This series is not adding the support in guest_memfd, just adding the
-> generic AS_NO_DIRECT_MAP and using it for secretmem. Followup work is
-> needed to plumb it for guest_memfd anyway, and I am proposing that we
-> also punt the GUP story to that (when we have an actual user).
-
-My reading of the discussion is that the generic AS_NO_DIRECT_MAP support
-can land with GUP rejecting such mappings, provided that a generic GUP-like
-access mechanism is in place before guest_memfd starts using
-AS_NO_DIRECT_MAP.
-
-As far as I know, Brendan is no longer at Google.  I do not know whether
-he plans to continue the ALLOC_UNMAPPED / mermap work, or whether someone
-else at Google has taken it over.  If that work is not already underway,
-I would like to respin the AS_NO_DIRECT_MAP introduction and secretmem
-adoption as a standalone MM series, separate from ALLOC_UNMAPPED and
-mermap.  The AS_NO_DIRECT_MAP changes originated in the guest_memfd
-direct-map removal series, and splitting the MM and KVM parts was already
-requested during review.
-
-The proposed MM series would include:
-
-  - the folio direct-map helpers;
-  - the AS_NO_DIRECT_MAP flag and filemap lifecycle;
-  - the current GUP and build-ID rejections, while keeping the mlock
-    check specific to secretmem; and
-  - the secretmem conversion.
-
-I would leave ALLOC_UNMAPPED, freetypes, mermap, the allocator fast path,
-and the KVM / guest_memfd integration out of that series.  This would not
-change the requirement discussed by Sean and Yosry above: the GUP-like
-access problem would still need to be resolved before enabling
-AS_NO_DIRECT_MAP for guest_memfd.
-
-Please let me know if this work is already being continued; if not, does
-the standalone MM series described above sound reasonable?
-
-Thanks,
-Takahiro
+Could you share some numbers to see the scale of the problem?
+-- 
+Michal Hocko
+SUSE Labs
