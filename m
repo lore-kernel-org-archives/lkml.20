@@ -1,335 +1,206 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C135E4A3877;
-	Thu,  3 Sep 2026 15:08:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 646A14C77D5;
+	Thu,  3 Sep 2026 15:08:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448082; cv=none; b=byl2MTP+W4kgy6ismZySrW3DMldkYNPYmzTNCpAFa4qm2LNfghCt7YHAuwgSIHGLGqPzsiH8dORPVbzNCemW4YKeowU5+n9u65Jv7Q96xrAm3eT6FthEIKHnYx9yIYL2fNnZVZ4d1hn7qJopJnNI9r8fxAxf1Sqa+cIpb/gXojE=
+	t=1788448109; cv=none; b=hJPo5ehccBr31O6bHV3THh1dLOAoyQQqBaMzbIcwMQ41uenoiE0oSFdCNJFATu5xp2213dcmZAA9qAK6J+drtpsMc5se2OxzHE8vp2ru1Dk+GXw41cVb4jod3jU5Cn95ovUzEysxv+JVOoWG8w86q1bU3ScpOVReXX3QXPo7mV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448082; c=relaxed/simple;
-	bh=2PuFcsWylNH31snrVJJoReAm/Nn0OKsJychGKCVWiQ8=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=oTb9Vmtq7aW/cys99BfCdZHwUGmvbejVRkQi6sib/dJMZr4r28b+E1y1/3AmViVHWCImQaGLN2yIOCwuf73kM9YkYohVNEZOplL6tzkHfvtu1Io426avYjYiS0OWc3pKtG0tM42ZMCgufaCGU3wU6WgEqLIUgbF4eIXgu64bTMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GwobO+Us; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788448109; c=relaxed/simple;
+	bh=dv4/qn4nx2++bbjwRGUc4f7yY00pFeA8FolBZJf67JA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Oe7y7WGuvWuHsZe8KmEd2Qwt2c6AKGmxVwj73LKFlHyo2YvDhZrLcAkSs7s3nH6EKOMu8lUHaCqhlTt5WsVrgP2i7csiW1jtIUtTgIdjBnMccsjHVMoN6M4m762vFHVIM0XyIJf6TjRJHcGVEEDgih5gbjuj7HcG1ZQHXtJNoC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=fjfsNDxI; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=x44kAsc7; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=RF8Wy01o; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ECpbuIa9; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GwobO+Us"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 953AA1F00A3A;
-	Thu,  3 Sep 2026 15:07:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788448080;
-	bh=4qmYNKLvmK56Y3vExZhL5LncOr+j7eNZrKKmYJsXYNE=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=GwobO+UsGz08X5+CX/F/wgchM6dWjckrK7hRPiukogUSoSOraKrwEQ023cSteyd15
-	 uGLnrA8WETQlR+nrq6PD2oVwUadiUfNb1gdmgpvNAtTKjweXNhKEtAiLN1etIMGsBa
-	 0iiPjXXslAV0gGRb0xXiau9pCUVVHDUpLKl8XRmjNHHtowSwcxrURwoehCWUj3035y
-	 vp643ZLZZcIVJcGSOZNHSa9hrzP4PQQ7piqzHSyzNkSwUPMxKu241C6JiX/Ec0vZMX
-	 QDmVkZFbWhmFjahUmSfPEb7UzStGl+jBELTX6MbbymVdVPhtHh74Jz+i70IiIqIFiz
-	 NGcrgShWLLf5A==
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="fjfsNDxI";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="x44kAsc7";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="RF8Wy01o";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ECpbuIa9"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 6B91521EF9;
+	Thu,  3 Sep 2026 15:08:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788448102; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=NNng1xi7wnGZOTn8LdAzNwBMYqT5fQMJKIW9obh2AUk=;
+	b=fjfsNDxIAXaN3RL+M96qH0XhXUtVwLu0etC+o088PJLrOerttPyjT/wa+DtOvnsOgl496i
+	gxAJ8ufYM0tO1HTfFPlQvSiq4H65uaEM8zJEcA0YIjXSNPPHbtVZyed6PlZgWsi0QwYhtB
+	WeBbf8JIjnO+bUm7PUYyf8EYYdB/kNU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788448102;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=NNng1xi7wnGZOTn8LdAzNwBMYqT5fQMJKIW9obh2AUk=;
+	b=x44kAsc7MAipC/tWxE8GvNS8v+RmwpsFF4wcbvb+tnYvwKkXhiln9uUPXpjkSvipL/UR+a
+	PPMh9PSinrEdJyBg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=RF8Wy01o;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=ECpbuIa9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788448098; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=NNng1xi7wnGZOTn8LdAzNwBMYqT5fQMJKIW9obh2AUk=;
+	b=RF8Wy01o4ONUhMrGjDiMJag5xfkutq9NCGP6KJtqwSSiw1x/nqV09rnF4F2LOiqd8vxW1F
+	dODdxLXW/vri3DFYjdViVQHtKd/hYo+9IleiLumkjj1bL4pPqHCVADbO6BUtuVKKnEAzU/
+	X/1vm6//y+6tJmbWlZKKf3QrXL7zLFc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788448098;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=NNng1xi7wnGZOTn8LdAzNwBMYqT5fQMJKIW9obh2AUk=;
+	b=ECpbuIa9Vd6l+jVBBz8LTsx4X9Ln76Ob62kLaA5YG2NZI2CPIXi1E+uAHgXpiIgYN4cVi4
+	kXA40p8z/LtgltAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3640A136D9;
+	Thu,  3 Sep 2026 15:08:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 6iT5C2KNmWpUPAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 03 Sep 2026 15:08:18 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH v2] ALSA: rawmidi: Add a proper disconnect handling
+Date: Thu,  3 Sep 2026 17:08:13 +0200
+Message-ID: <20260903150816.1917831-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 03 Sep 2026 17:07:55 +0200
-Message-Id: <DL5RXJCC43FY.CACM7A2UNBCI@kernel.org>
-Subject: Re: [PATCH 1/4] rust: debugfs: drop 'static bound from ScopedDir
- file creation methods
-Cc: <abdiel.janulgue@gmail.com>, <daniel.almeida@collabora.com>,
- <robin.murphy@arm.com>, <a.hindborg@kernel.org>,
- <gregkh@linuxfoundation.org>, <rafael@kernel.org>, <aliceryhl@google.com>,
- <acourbot@nvidia.com>, <ojeda@kernel.org>, <boqun@kernel.org>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <tmgross@umich.edu>,
- <tamird@kernel.org>, <work@onurozkan.dev>, <mmaurer@google.com>,
- <driver-core@lists.linux.dev>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>
-To: "Gary Guo" <gary@garyguo.net>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260830193824.471089-1-dakr@kernel.org>
- <20260830193824.471089-2-dakr@kernel.org>
- <DL5PH2S8AP7E.25CW1PZIQ8BM3@garyguo.net>
-In-Reply-To: <DL5PH2S8AP7E.25CW1PZIQ8BM3@garyguo.net>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -3.01
+X-Rspamd-Queue-Id: 6B91521EF9
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email,suse.de:mid];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCPT_COUNT_TWO(0.00)[2];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
 
-On Thu Sep 3, 2026 at 3:12 PM CEST, Gary Guo wrote:
-> This can be better done by storing `&'static bindings::file_operations` i=
-n
-> `FileOps<T>` instead of just by value. That is actually better than the c=
-urrent
-> impl, IMO, because `mode` for example doesn't have to be in static storag=
-e. (You
-> can also then make `FileOps<T>` `Copy`).
+The rawmidi core detaches only exposed devices at disconnection, but
+it doesn't deal with the pending bytes or gate the further unexpected
+accesses, leaving naively to each driver dealing with such situations.
 
-That's a great suggestion, thanks. It simplifies the patch to:
+Let's try to restrict it in the core side for more safety: introduce
+the disconnected flag to each substream, set it at disconnection call,
+then trigger down &  cancel the pending event work.
 
-Author: Danilo Krummrich <dakr@kernel.org>
-Date:   Sat Aug 29 14:42:54 2026 +0200
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+v1->v2: cover the forgotten snd_rawmidi_receive(), too
 
-    rust: debugfs: drop 'static bound from ScopedDir file creation methods
+ include/sound/rawmidi.h |  1 +
+ sound/core/rawmidi.c    | 18 ++++++++++++------
+ 2 files changed, 13 insertions(+), 6 deletions(-)
 
-    Drop the T: 'static bound from ScopedDir's file creation methods
-    (read_binary_file(), read_only_file(), etc.) to support registering
-    debugfs files backed by types that contain non-'static references, such
-    as dma::Coherent<'a, T>.
-
-    The previous 'static bound existed because ScopedDir::create_file() too=
-k
-    &'static FileOps<T>, and &'static requires T: 'static for well-
-    formedness. However, this was overly conservative: the file_operations
-    pointer passed to the C debugfs API just needs to be 'static, not the
-    entire FileOps<T>.
-
-    Store &'static bindings::file_operations in FileOps<T> instead of the
-    file_operations by value. In each trait impl, take a reference to the
-    file_operations struct within the const block; since
-    bindings::file_operations does not mention T, the reference is promoted
-    to 'static regardless of T's lifetime parameters.
-
-    Replace the Deref impl with an explicit fops() method that returns the
-    stored &'static reference.
-
-    Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-
-diff --git a/rust/kernel/debugfs.rs b/rust/kernel/debugfs.rs
-index d7b8014a6474..2beb55d444ca 100644
---- a/rust/kernel/debugfs.rs
-+++ b/rust/kernel/debugfs.rs
-@@ -538,7 +538,7 @@ pub fn dir<'dir2>(&'dir2 self, name: &CStr) -> ScopedDi=
-r<'data, 'dir2> {
-         }
-     }
-
--    fn create_file<T: Sync>(&self, name: &CStr, data: &'data T, vtable: &'=
-static FileOps<T>) {
-+    fn create_file<T: Sync>(&self, name: &CStr, data: &'data T, vtable: &F=
-ileOps<T>) {
-         #[cfg(CONFIG_DEBUG_FS)]
-         core::mem::forget(Entry::file(name, &self.entry, data, vtable));
-     }
-@@ -550,7 +550,7 @@ fn create_file<T: Sync>(&self, name: &CStr, data: &'dat=
-a T, vtable: &'static Fil
-     /// This function does not produce an owning handle to the file. The c=
-reated
-     /// file is removed when the [`Scope`] that this directory belongs
-     /// to is dropped.
--    pub fn read_only_file<T: Writer + Send + Sync + 'static>(&self, name: =
-&CStr, data: &'data T) {
-+    pub fn read_only_file<T: Writer + Send + Sync>(&self, name: &CStr, dat=
-a: &'data T) {
-         self.create_file(name, data, &T::FILE_OPS)
-     }
-
-@@ -560,11 +560,7 @@ pub fn read_only_file<T: Writer + Send + Sync + 'stati=
-c>(&self, name: &CStr, dat
-     ///
-     /// This function does not produce an owning handle to the file. The c=
-reated file is removed
-     /// when the [`Scope`] that this directory belongs to is dropped.
--    pub fn read_binary_file<T: BinaryWriter + Send + Sync + 'static>(
--        &self,
--        name: &CStr,
--        data: &'data T,
--    ) {
-+    pub fn read_binary_file<T: BinaryWriter + Send + Sync>(&self, name: &C=
-Str, data: &'data T) {
-         self.create_file(name, data, &T::FILE_OPS)
-     }
-
-@@ -596,11 +592,7 @@ pub fn read_callback_file<T, F>(&self, name: &CStr, da=
-ta: &'data T, _f: &'static
-     /// This function does not produce an owning handle to the file. The c=
-reated
-     /// file is removed when the [`Scope`] that this directory belongs
-     /// to is dropped.
--    pub fn read_write_file<T: Writer + Reader + Send + Sync + 'static>(
--        &self,
--        name: &CStr,
--        data: &'data T,
--    ) {
-+    pub fn read_write_file<T: Writer + Reader + Send + Sync>(&self, name: =
-&CStr, data: &'data T) {
-         let vtable =3D &<T as ReadWriteFile<_>>::FILE_OPS;
-         self.create_file(name, data, vtable)
-     }
-@@ -612,7 +604,7 @@ pub fn read_write_file<T: Writer + Reader + Send + Sync=
- + 'static>(
-     ///
-     /// This function does not produce an owning handle to the file. The c=
-reated file is removed
-     /// when the [`Scope`] that this directory belongs to is dropped.
--    pub fn read_write_binary_file<T: BinaryWriter + BinaryReader + Send + =
-Sync + 'static>(
-+    pub fn read_write_binary_file<T: BinaryWriter + BinaryReader + Send + =
-Sync>(
-         &self,
-         name: &CStr,
-         data: &'data T,
-@@ -655,7 +647,7 @@ pub fn read_write_callback_file<T, F, W>(
-     /// This function does not produce an owning handle to the file. The c=
-reated
-     /// file is removed when the [`Scope`] that this directory belongs
-     /// to is dropped.
--    pub fn write_only_file<T: Reader + Send + Sync + 'static>(&self, name:=
- &CStr, data: &'data T) {
-+    pub fn write_only_file<T: Reader + Send + Sync>(&self, name: &CStr, da=
-ta: &'data T) {
-         let vtable =3D &<T as WriteFile<_>>::FILE_OPS;
-         self.create_file(name, data, vtable)
-     }
-@@ -666,11 +658,7 @@ pub fn write_only_file<T: Reader + Send + Sync + 'stat=
-ic>(&self, name: &CStr, da
-     ///
-     /// This function does not produce an owning handle to the file. The c=
-reated file is removed
-     /// when the [`Scope`] that this directory belongs to is dropped.
--    pub fn write_binary_file<T: BinaryReader + Send + Sync + 'static>(
--        &self,
--        name: &CStr,
--        data: &'data T,
--    ) {
-+    pub fn write_binary_file<T: BinaryReader + Send + Sync>(&self, name: &=
-CStr, data: &'data T) {
-         self.create_file(name, data, &T::FILE_OPS)
-     }
-
-diff --git a/rust/kernel/debugfs/entry.rs b/rust/kernel/debugfs/entry.rs
-index 46aad64896ec..88a870d8c295 100644
---- a/rust/kernel/debugfs/entry.rs
-+++ b/rust/kernel/debugfs/entry.rs
-@@ -74,7 +74,7 @@ pub(crate) unsafe fn dynamic_file<T>(
-                 parent.as_ptr(),
-                 core::ptr::from_ref(data) as *mut c_void,
-                 core::ptr::null(),
--                &**file_ops,
-+                file_ops.fops(),
-             )
-         };
-
-@@ -127,7 +127,7 @@ pub(crate) fn file<T>(
-                 parent.as_ptr(),
-                 core::ptr::from_ref(data) as *mut c_void,
-                 core::ptr::null(),
--                &**file_ops,
-+                file_ops.fops(),
-             )
-         };
-
-diff --git a/rust/kernel/debugfs/file_ops.rs b/rust/kernel/debugfs/file_ops=
-.rs
-index f15908f71c4a..5c16a3196ca2 100644
---- a/rust/kernel/debugfs/file_ops.rs
-+++ b/rust/kernel/debugfs/file_ops.rs
-@@ -20,9 +20,6 @@
-
- use core::marker::PhantomData;
-
--#[cfg(CONFIG_DEBUG_FS)]
--use core::ops::Deref;
--
- /// # Invariant
- ///
- /// `FileOps<T>` will always contain an `operations` which is safe to use =
-for a file backed
-@@ -30,7 +27,7 @@
- /// into a reference.
- pub(super) struct FileOps<T> {
-     #[cfg(CONFIG_DEBUG_FS)]
--    operations: bindings::file_operations,
-+    operations: &'static bindings::file_operations,
-     #[cfg(CONFIG_DEBUG_FS)]
-     mode: u16,
-     _phantom: PhantomData<T>,
-@@ -41,7 +38,7 @@ impl<T> FileOps<T> {
-     ///
-     /// The caller asserts that the provided `operations` is safe to use f=
-or a file whose
-     /// inode has a pointer to `T` in its private data that is safe to con=
-vert into a reference.
--    const unsafe fn new(operations: bindings::file_operations, mode: u16) =
--> Self {
-+    const unsafe fn new(operations: &'static bindings::file_operations, mo=
-de: u16) -> Self {
-         Self {
-             #[cfg(CONFIG_DEBUG_FS)]
-             operations,
-@@ -65,11 +62,11 @@ pub(super) const fn adapt(&self) -> &FileOps<T::Inner> =
-{
+diff --git a/include/sound/rawmidi.h b/include/sound/rawmidi.h
+index 4154035af414..d812f70725bd 100644
+--- a/include/sound/rawmidi.h
++++ b/include/sound/rawmidi.h
+@@ -86,6 +86,7 @@ struct snd_rawmidi_substream {
+ 	bool opened;			/* open flag */
+ 	bool append;			/* append flag (merge more streams) */
+ 	bool active_sensing;		/* send active sensing when close */
++	bool disconnected;		/* already disconnected */
+ 	unsigned int framing;		/* whether to frame input data */
+ 	unsigned int clock_type;	/* clock source to use for input framing */
+ 	int use_count;			/* use counter (for output) */
+diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
+index 34b4c7d6dbe6..2e582688923d 100644
+--- a/sound/core/rawmidi.c
++++ b/sound/core/rawmidi.c
+@@ -208,14 +208,14 @@ static int snd_rawmidi_runtime_free(struct snd_rawmidi_substream *substream)
+ 
+ static inline void snd_rawmidi_output_trigger(struct snd_rawmidi_substream *substream, int up)
+ {
+-	if (!substream->opened)
++	if (!substream->opened || substream->disconnected)
+ 		return;
+ 	substream->ops->trigger(substream, up);
  }
+ 
+ static void snd_rawmidi_input_trigger(struct snd_rawmidi_substream *substream, int up)
+ {
+-	if (!substream->opened)
++	if (!substream->opened || substream->disconnected)
+ 		return;
+ 	substream->ops->trigger(substream, up);
+ 	if (!up)
+@@ -254,7 +254,8 @@ int snd_rawmidi_drain_output(struct snd_rawmidi_substream *substream)
+ 
+ 	scoped_guard(spinlock_irq, &substream->lock) {
+ 		runtime = substream->runtime;
+-		if (!substream->opened || !runtime || !runtime->buffer)
++		if (!substream->opened || !runtime || !runtime->buffer ||
++		    substream->disconnected)
+ 			return -EINVAL;
+ 		snd_rawmidi_buffer_ref(runtime);
+ 		runtime->drain = 1;
+@@ -537,7 +538,7 @@ static void close_substream(struct snd_rawmidi *rmidi,
+ 	if (--substream->use_count)
+ 		return;
+ 
+-	if (cleanup) {
++	if (cleanup && !substream->disconnected) {
+ 		if (substream->stream == SNDRV_RAWMIDI_STREAM_INPUT)
+ 			snd_rawmidi_input_trigger(substream, 0);
+ 		else {
+@@ -1151,7 +1152,7 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
+ 	struct snd_rawmidi_runtime *runtime;
+ 
+ 	guard(spinlock_irqsave)(&substream->lock);
+-	if (!substream->opened)
++	if (!substream->opened || substream->disconnected)
+ 		return -EBADFD;
+ 	runtime = substream->runtime;
+ 	if (!runtime || !runtime->buffer) {
+@@ -2063,8 +2064,13 @@ static int snd_rawmidi_dev_disconnect(struct snd_device *device)
+ 		struct snd_rawmidi_substream *s;
+ 
+ 		list_for_each_entry(s, &rmidi->streams[dir].substreams, list) {
+-			if (s->runtime)
++			scoped_guard(spinlock_irq, &s->lock)
++				s->disconnected = true;
++			if (s->runtime) {
++				s->ops->trigger(s, 0);
++				cancel_work_sync(&s->runtime->event_work);
+ 				wake_up(&s->runtime->sleep);
++			}
+ 		}
+ 	}
+ 
+-- 
+2.55.0
 
- #[cfg(CONFIG_DEBUG_FS)]
--impl<T> Deref for FileOps<T> {
--    type Target =3D bindings::file_operations;
--
--    fn deref(&self) -> &Self::Target {
--        &self.operations
-+impl<T> FileOps<T> {
-+    /// Returns a `'static` reference to the inner `file_operations`.
-+    #[inline]
-+    pub(crate) fn fops(&self) -> &'static bindings::file_operations {
-+        self.operations
-     }
- }
-
-@@ -130,11 +127,11 @@ pub(crate) trait ReadFile<T> {
-
- impl<T: Writer + Sync> ReadFile<T> for T {
-     const FILE_OPS: FileOps<T> =3D {
--        let operations =3D bindings::file_operations {
-+        let operations =3D &bindings::file_operations {
-             read: Some(bindings::seq_read),
-             llseek: Some(bindings::seq_lseek),
-             release: Some(bindings::single_release),
--            open: Some(writer_open::<Self>),
-+            open: Some(writer_open::<T>),
-             ..pin_init::zeroed()
-         };
-         // SAFETY: `operations` is all stock `seq_file` implementations ex=
-cept for `writer_open`.
-@@ -181,7 +178,7 @@ pub(crate) trait ReadWriteFile<T> {
-
- impl<T: Writer + Reader + Sync> ReadWriteFile<T> for T {
-     const FILE_OPS: FileOps<T> =3D {
--        let operations =3D bindings::file_operations {
-+        let operations =3D &bindings::file_operations {
-             open: Some(writer_open::<T>),
-             read: Some(bindings::seq_read),
-             write: Some(write::<T>),
-@@ -238,7 +235,7 @@ pub(crate) trait WriteFile<T> {
-
- impl<T: Reader + Sync> WriteFile<T> for T {
-     const FILE_OPS: FileOps<T> =3D {
--        let operations =3D bindings::file_operations {
-+        let operations =3D &bindings::file_operations {
-             open: Some(write_only_open),
-             write: Some(write_only_write::<T>),
-             llseek: Some(bindings::noop_llseek),
-@@ -290,7 +287,7 @@ pub(crate) trait BinaryReadFile<T> {
-
- impl<T: BinaryWriter + Sync> BinaryReadFile<T> for T {
-     const FILE_OPS: FileOps<T> =3D {
--        let operations =3D bindings::file_operations {
-+        let operations =3D &bindings::file_operations {
-             read: Some(blob_read::<T>),
-             llseek: Some(bindings::default_llseek),
-             open: Some(bindings::simple_open),
-@@ -344,7 +341,7 @@ pub(crate) trait BinaryWriteFile<T> {
-
- impl<T: BinaryReader + Sync> BinaryWriteFile<T> for T {
-     const FILE_OPS: FileOps<T> =3D {
--        let operations =3D bindings::file_operations {
-+        let operations =3D &bindings::file_operations {
-             write: Some(blob_write::<T>),
-             llseek: Some(bindings::default_llseek),
-             open: Some(bindings::simple_open),
-@@ -368,7 +365,7 @@ pub(crate) trait BinaryReadWriteFile<T> {
-
- impl<T: BinaryWriter + BinaryReader + Sync> BinaryReadWriteFile<T> for T {
-     const FILE_OPS: FileOps<T> =3D {
--        let operations =3D bindings::file_operations {
-+        let operations =3D &bindings::file_operations {
-             read: Some(blob_read::<T>),
-             write: Some(blob_write::<T>),
-             llseek: Some(bindings::default_llseek),
