@@ -1,92 +1,65 @@
-Received: from mta1.migadu.com (out-97.mta1.migadu.com [95.215.58.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9D04AF9E6
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:26:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8893D4AF694;
+	Thu,  3 Sep 2026 13:26:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788442031; cv=none; b=IQezAe5VJ7gPfDtnwbU6pvuG4/sKj5nlD1d4OtP4bIqUfcTbtV/KRIYDUaNOHMmwJyZWufNA/UdvwqzBwyxAJYDvCaCdqSAG6tlslcwdZ5hd8Ut3C+4txsXxh9JjMSoGpV6rR6ts7vOiVYgCzHZAmZlkLYH79Oyo3R1mRgmyXS8=
+	t=1788442033; cv=none; b=Q5/THg5OqVAL1E8JQu5s6DINSc/Ze2ECM/h3i0DZ6SPaQM/dUEJFoyaCazirLc2xms3110AkIfkX42sBHKLsXT6v4OoEID8Do43gkh4cPD82ifoIE3QcOuENOhSSonhOLI7sp9gbo41UN18BIjlAfdti3kXFA0WLyLN8xqs8WIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788442031; c=relaxed/simple;
-	bh=EaFcC/RhSenhJN9ukgjvjgGtZu/yLECIcHxTsatpik0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Rmy/8aF2gSIy4IszZIDzxKCgwBIQr2TrHq/dHyYvw7vFzHws+9RlaetgW7vuABll/FS0GZvAQEbDmAXA94vW+gVdcycxmNX43yhMY/UiRPfxrWRXEPircqKeFuSwdCOqvIdn4uVXZl4DfXiZ2jfxrRMP3cdr205mmW1AHpmwXcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qwFxnSA+; arc=none smtp.client-ip=95.215.58.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788442033; c=relaxed/simple;
+	bh=mtUjoY/8GQw3j+4LddYJOpy7LT5LLyBQQqH7Kwfxv3g=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=fldiukYKLmkwSXT2mWWiMusM/6IfEgccGUofCfDBREzK4lawH7Nr9zYTLARK2YYHYvRAPpwte3dNlKFN4OicqX0S430gt414AS7tikXG5Yz6gSmB5RDkx+mNXUSBviPS50m58g+13XbEvHKx9qOIgaO6A/KJCkge4pbRESah3zM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SqFKr0ut; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qwFxnSA+"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=EaFcC/RhSenhJN9ukgjvjgGtZu/yLECIcHxTsatpik0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788442008; v=1; x=1789046808;
- b=qwFxnSA+mYcq61cDrRU/N1+DuetQ3QYbXMH69s9yxU+uZoqqFpTF5SIxctuaGEr/GKvrCSaR
- OBHVYuq0Ma5ez4ccTh57pxiUIlseqUVHyVCUZq2vdp4kAZ+5f9qQZjdc6RLCTN0uOsoMGoy/4vN
- ePeV9APMdGmDj4N6bKtsYg5A=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id de941cdace52f3fb;
-	Thu, 03 Sep 2026 13:26:48 +0000
-X-Mizu-Trace-ID: de941cdace52f3fb
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: linux-unionfs@vger.kernel.org,
-	miklos@szeredi.hu,
-	amir73il@gmail.com
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	brauner@kernel.org,
-	jlayton@kernel.org,
-	cui.tao@linux.dev,
-	Tao Cui <cuitao@kylinos.cn>
-Subject: [PATCH v2] overlayfs.rst: clarify the scope of file locks taken through the overlay
-Date: Thu,  3 Sep 2026 21:26:36 +0800
-Message-ID: <20260903132636.1113789-1-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SqFKr0ut"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6698C1F000E9;
+	Thu,  3 Sep 2026 13:26:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788442016;
+	bh=lw9ViF11wKPe2eKXPB/tavLAOnAsDBdRW/k9AIyj8Qk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=SqFKr0utGQjANyHvbK5Djw6fBwLNrF8U3hBf8iQRDQoac5/+Ke7Ve9edLLBlUxQu6
+	 cm/6CUvQbmwHMrQk46/DcwH76YCFm9O2fhAqo3kvuMmyCzoqgLeIsjrqz/TMoDNTz3
+	 +JpCjaJ26u0gHIHUctHQ3eyoyIPzMYBPJNAQJOhGleOoiS7AHs/TE1Yp1vY9ceBvOr
+	 OCetID+mI7oz2mythUez3gYOCfvy0dWAeU/KO8/JK9hW/xsy7Knw/MoRar77qqDzKd
+	 Hm4m1yb/ghyk7X5heBmLkougL3MFB+68+1v9pkKTZJ+gusGTwfALJMacEq6qDqJWCx
+	 cdcuBWXtkIFmA==
+From: Lee Jones <lee@kernel.org>
+To: support.opensource@diasemi.com, lee@kernel.org, 
+ Hiroki Nakajima <3na7nanana@gmail.com>
+Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20260823174248.833535-1-3na7nanana@gmail.com>
+References: <20260823174248.833535-1-3na7nanana@gmail.com>
+Subject: Re: (subset) [PATCH] mfd: da9062: Use DEFINE_RES_IRQ_NAMED()
+Message-Id: <178844201513.2653879.2045887825159053688.b4-ty@b4>
+Date: Thu, 03 Sep 2026 14:26:55 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
-From: Tao Cui <cuitao@kylinos.cn>
+On Mon, 24 Aug 2026 02:42:48 +0900, Hiroki Nakajima wrote:
+> Use the dedicated DEFINE_RES_IRQ_NAMED() helper for the DA9062 IRQ
+> resources instead of open-coding it with DEFINE_RES_NAMED(). This makes
+> the intended resource type explicit and keeps the definitions consistent
+> with the DA9061 resources.
+> 
+> This is a mechanical cleanup with no functional change.
+> 
+> [...]
 
-File locks and leases taken on files through the overlay mount are
-only meaningful between tasks that access the files through the same
-overlay mount; they do not conflict with anything that changes the
-underlying filesystems directly.  Add a short note to "Changes to
-underlying filesystems" stating this scope.
+Applied, thanks!
 
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
----
-Changes since v1:
-- minimal note within "Changes to underlying filesystems" instead of a
-  separate section, per review (Amir Goldstein)
----
- Documentation/filesystems/overlayfs.rst | 9 +++++++++
- 1 file changed, 9 insertions(+)
+[1/1] mfd: da9062: Use DEFINE_RES_IRQ_NAMED()
+      commit: 8d0b4b0bef6538ace326afde928eb91f5bce0f9b
 
-diff --git a/Documentation/filesystems/overlayfs.rst b/Documentation/filesystems/overlayfs.rst
-index 16c35b491dad..11af5bc73e32 100644
---- a/Documentation/filesystems/overlayfs.rst
-+++ b/Documentation/filesystems/overlayfs.rst
-@@ -671,6 +671,15 @@ filesystem are not allowed.  If the underlying filesystem is changed,
- the behavior of the overlay is undefined, though it will not result in
- a crash or deadlock.
- 
-+Note that file locks and leases taken on files through the overlay
-+mount only provide mutual exclusion between tasks that access the
-+files through the same overlay mount, and a lease taken through the
-+overlay is broken by opens through that overlay.  They do not
-+conflict with locks taken on the same files by anything that changes
-+the underlying filesystems directly, so file locking cannot be relied
-+on for mutual exclusion between overlay users and such direct
-+changes.
-+
- Offline changes, when the overlay is not mounted, are allowed to the
- upper tree.  Offline changes to the lower tree are only allowed if the
- "metacopy", "index", "xino" and "redirect_dir" features
--- 
-2.43.0
+--
+Lee Jones [李琼斯]
 
