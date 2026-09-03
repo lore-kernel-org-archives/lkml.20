@@ -1,171 +1,114 @@
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDDB84A3D3E
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:27:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C944049DB86
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:27:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788438439; cv=none; b=Lnv8Ca3bmuTZw7t2udfyBaSua/rTbYva5G6p5WRl2iBJq36aCghFAY62dQw8RFYjak5LI2kPnkA3iDh2D8ZCoFkTySH9RUhIno7Mrasl2YHMvwFYsDk6p6PZvhujBg7IkJtmU17nSx6JuB/12fo9xz9G/CDmGAvX7MZcbZa8EyM=
+	t=1788438466; cv=none; b=db9nKRA/UiEKK6gvDYbIICa0rB5ZMmLAWUqN3m68aIUTgf2+ygNU6+nFhe13c5cneZ+MFFuHj5DCI2a/aQ/YKK9PxJ8yE3QShNro/ydpS1G/UD1oFbvZh/Cxn7joRtwNvbsIzMYHQSf6HuZF51JXEky0VrarLFW6aWIVVJG8MaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788438439; c=relaxed/simple;
-	bh=pksU9UBgOJDqMf98NvL1eyqBEF5diO914w9pQAxCwY0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=R9KpNzofZAsbHnM8Q/leKfP32BoaJqPHQtMSfjUEKNU49EgCajR5WMu4PI1k/jcsJY4taAj6CFHWDBO0t4ls/MO08Hi/RUfPm3uP3rva5hcggmJRCX7tLM2xFC5yV/9Ulp0condeETc64F/sohqavTrrv9kGHql38/Yq02R6Z2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=u353uV/I; arc=none smtp.client-ip=185.132.180.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	s=arc-20240116; t=1788438466; c=relaxed/simple;
+	bh=3YE1yer+0NRbMtvurGpjSkBGtnurRnJc863L+qyXIco=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eXMzg9uXWg0bM6V5J4O6IrX7xUZEw2ak8cMgzeDI0lrNNhgf2Coc3ccjVOytnn13dI6Dua60H/vvcbUbBWs9GkfTV5UWLxiAacFnygpuI/qD8wUryyMhSjnHQnhQ8Stf22jxh0GctpLsOKvzRhshTfKUWqgjzPW/yOqJrAHUxbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TjQ0id2E; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="u353uV/I"
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
-	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683AO363931954;
-	Thu, 3 Sep 2026 13:26:43 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=dk201812; bh=JXjYmHkZ70MpN76wTrkYhRn
-	7eTnzR/6jXvTCSXeGuUk=; b=u353uV/IYsHa+aWHMbUlP3PO8DtBuCpIisQPT7d
-	A7vOXNDaY3cRN839DZziOZDd53401D4vdWORe7hks2jo1s18zX0OZYbLhFc2fmTP
-	kxy1p12xrbIEXjIHI1yxiUQgUTfge0QxawhOBS0ThBZCT6AFaEMtKW0oyLWM3Mt3
-	SOnNITUd9NUIFMt3fNlXrUnuT8kQ/h8TW6RSzM/yN1qervhIWSMXXkoEIvUEQH71
-	I/5ArSv4iQq6Vw81pXANsTOAqgz00WNxTJDA4anZiyOg7sQfS0pezfgvySe5fyBv
-	UgM80ArMZV7eneYJJ+3Uvzu+wSi0ly5N0mNmfV824JBtDbA==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4gbqgvc8qr-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 03 Sep 2026 13:26:43 +0100 (BST)
-Received: from [127.0.1.1] (172.25.10.25) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
- 2026 13:26:41 +0100
-From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Thu, 3 Sep 2026 15:26:28 +0300
-Subject: [PATCH v2] drm/imagination: Fix parameter validation in
- pvr_fw_object_destroy()
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TjQ0id2E"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-482ea739de2so1276135f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:27:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788438463; x=1789043263; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=O7Bscj5M4bebt0mHty0y1jQwalSa0CrSkjx1JIVvKm0=;
+        b=TjQ0id2EFiHwqw3KsmWvGYPbWFtrvsAORrADOQo6lCrIX9ZrvOWAUKhLvZc1tvV+8G
+         ble3RROwfqrnDMa3uKFdpnF/8aloJX8FnFLFrnX0b7PIHzAH0A0xRoigH5YAg32xIzEd
+         w8PkVbdwZpiiuAFzKfrFFzXeXHsBASQdCLm2VpiqJL8si3LZ8kZ4EyJV+nuSM2OCK49g
+         f0OPeBxvimTfGv9P9wNhn3+yPHIxHux7iivSRAlF0UQ0NKKlx29IqSIKpJRkh7M6XomZ
+         /YvOGCnYx11uUC/oWeRIHGmuYYpiBA/uXW2fiJ/7VWtEdADm5iu0hRfK658Yg/6U90HG
+         yVTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788438463; x=1789043263;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=O7Bscj5M4bebt0mHty0y1jQwalSa0CrSkjx1JIVvKm0=;
+        b=pmJ8Xvm4eacwjcfEzPqOqVCAYWt8FjRJ66QnppaT1KEbsYOhRy8oIpOv6r1RH3/IJ8
+         hynP6rh0ML8whWQTbc1n6jYyVmS27UGmciP5e3MlEBDgJBm35dXExXDCc2gK+OFjzVQU
+         OfpdZwOEiSHA0pa9CTmZAB8Zw1H93IJ8jqQuLTj//h1xqDPytKGgIvEdNO9RfieSOo+w
+         E3143EB1tRUUfLAW32LwO2DN19W8PplbZDhLUxmGzCTdOR5VPz1VyEuSKbOEAAelXCOS
+         9/n6lvxS0RYkVGzqbZCzU9B1NJ27ywRpeNAi709g/4KyFBNSGCsMXNbujrCmJSztqsEN
+         BBDA==
+X-Forwarded-Encrypted: i=1; AKwUvBxBsy++2D8+9bUw9rImIVHyTJDBoDWqNhlyNLdCL5e6eO4D19Bzx+KBaXeuW9+PoGYT9+MxOrXNmbQxOho=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAmx8UHq7NpBDRUdEOk6I685onpDMouHwYxXXQJNNXl9xu3uJL
+	SQgp9sXiUY3QGR3Sy1qXy0LsJGkGnOO9cAgV2nGvrchTSC/p5bXy5gWjCCPSLQ==
+X-Gm-Gg: AYBFou1kOeeFwu8jf+nrxTSKFQfGdISf89NzX2G/QmRxL+EKZQVWvKxgLQkvE5a2UV5
+	CFPvvsjwlYrkrtqZjGnMAPIu0X79rljsCtiDU76DyfoV4AMhRFNXjLnqOLIo4YWxqbiKu7kc9r6
+	eXUjrB7ul3d5EN4jACJ7NQX1V6BN6t8kB2A+TKTVXq5tE5CPKV+TE8XQaT+yN4lNqYyJ3fMwhLH
+	r2O6/hhICDjWkn12BUnH5xIxmelRLR0fujVCsJn7zoWTN/hgw2EvxHrHGyDtuD1UnQxL7udmrpX
+	mvsokxIdwD8OI/fOxADX9cR5jMPbmg6MORgy791F4gt9ahWNwq/+UuHqpxkVw0EWGFeGWV/0s4p
+	OcOzoH1/uogcmRBcVdSaifBp+K07rPUGIuJ8HyxeOLNEhFQMybbvQPKpHCnFF/l05d+7ySnDkRp
+	Ni8k6njUQJbvB2f+Ys4KheWLPSmqySWZyqZ6Ks3V/U/fTZJ7KnqBu67J63oXw4q3s5SZeMIB+lM
+	3OCwMrGRR+6qMPA
+X-Received: by 2002:a05:600c:c16d:b0:499:db6d:bc97 with SMTP id 5b1f17b1804b1-49ce55cb47cmr256137575e9.0.1788438462117;
+        Thu, 03 Sep 2026 05:27:42 -0700 (PDT)
+Received: from localhost.localdomain ([196.235.147.117])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee6024a8sm67277055e9.6.2026.09.03.05.27.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 05:27:41 -0700 (PDT)
+From: Salah Triki <salah.triki@gmail.com>
+To: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>
+Cc: linux@analog.com,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Salah Triki <salah.triki@gmail.com>
+Subject: [PATCH] iio: imu: adis16400: Check return value of spi_setup()
+Date: Thu,  3 Sep 2026 13:27:33 +0100
+Message-ID: <20260903122733.67109-1-salah.triki@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260903-fix-null-pointer-dereference-v2-1-138ff9b6f805@imgtec.com>
-X-B4-Tracking: v=1; b=H4sIAHRnmWoC/42NQQ6CMBBFr2K6dgydKGldeQ/DQsoUxkBL2kIwh
- Ltb8AIu/uLl/7y/ikiBKYr7aRWBZo7sXQY8n4TpXq4l4CazwALLQkkEywu4qe9h9OwSBWgokM1
- xhgCN0lJesdFKiawYc8XLoX9WP45T/SaTdue+6DgmHz7H/yz33Z9XswQJttQ1Wkv6hsWDhzaRu
- Rg/iGrbti9Kotgg2wAAAA==
-X-Change-ID: 20260812-fix-null-pointer-dereference-2c891142d988
-To: Alessio Belle <alessio.belle@imgtec.com>,
-        Luigi Santivetti
-	<luigi.santivetti@imgtec.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-        <linux-kernel@vger.kernel.org>, Sashiko <sashiko-bot@kernel.org>,
-        "Alexandru
- Dadu" <alexandru.dadu@imgtec.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788438401; l=2699;
- i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=pksU9UBgOJDqMf98NvL1eyqBEF5diO914w9pQAxCwY0=;
- b=OZ1A6ZKmfOECpMqA0DG+6IVRk2TjS1ZHMcP8VmmA1W7nWldpzoVG2dpEQLRlwteeXXEtFPqMb
- NIKROSR6PkAAB4v51CzlkOw7QPsghCKI3JEpe3LwlnVVKmktaUZOw2n
-X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
- pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Proofpoint-GUID: 9hkYqcV-jbBnFzJbheW78KHz8YVqmgC5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEwOCBTYWx0ZWRfX/upyQoVsUyyg
- pSBXXiy6Pemt7mB6ZwNnD+RazKSlqtMhDYqeu4MZvId9odd9X7XSYOneybdldHmvLO5ljGIuL6C
- Nss3RpJsoNhbkxsc5Cq0Er54IdBs2hVyrubfkYrrOkvrs5bOzs3q/rphC+eF2jSEP+Hl+GEx0Yh
- bYq5XMbDkdHWJ3d21WR2c9KDRpkLDWK7g6xgspjtB1XNlo7qHVGBL49G3oxqp1s+w0KF4JXTacX
- pQUAEq8Rt1RBxB3PvlFdSjk395N2x9YuznfVzdG3niA29R4M0lv1EWTFozG7LCaIZu9VN2NR5+D
- 2TOIqt8r3icLEl8kUXPaW2gOsW5PLMtq/ER7TbXZfAj6qqkOhGrt7jM5JN+xV6pm5c1kjrPle0i
- x5RTSS9jwCNZsm8f7CeeSz2SLJf+KVo2P0XM8Vxtwl2KGWicYsRmo4J7NlVFihQfOU4QCd6UmrG
- rXMFHp31fdx6VJWDoeg==
-X-Proofpoint-ORIG-GUID: 9hkYqcV-jbBnFzJbheW78KHz8YVqmgC5
-X-Authority-Analysis: v=2.4 cv=OcCQnBTY c=1 sm=1 tr=0 ts=6a996783 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=1spURiKJc90A:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=VwQbUJbxAAAA:8 a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=craggXHLatwVVKPEDpEA:9
- a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEwOCBTYWx0ZWRfX5Z/vKlKkXIJ0
- Y5g9bD7ROiTwR1+dD4ZgE4yJ9oB9LAIJlFVym4cv38AQD2r2t+tSS368dYJrE2vclpdUrY/1a6P
- Vg7oImpvnmfPwkYjvD5lKKCsTlkddKI=
+Content-Transfer-Encoding: 8bit
 
-Fix parameter validation to avoid possible NULL pointer dereference from
-pvr_fw_object_destroy() when handling allocation failures.
+In adis16400_initial_setup(), the return value of spi_setup() was ignored.
+If SPI configuration fails, the driver would proceed with the
+initialization anyway, leading to undefined behavior or silent failures
+during device setup.
 
-Sashiko report:
-If pvr_gem_object_create() fails in
-pvr_fw_object_create_and_map_common(), fw_obj->gem is explicitly set to
-NULL before jumping to the error cleanup path.
-The cleanup path then calls pvr_fw_object_destroy().
+Check the return value of spi_setup() and return the error code immediately
+if it fails.
 
-Potential kernel panic when calling pvr_fw_object_destroy() with a NULL
-fw_obj->gem.
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/dri-devel/20260810132202.3C16D1F000E9@smtp.kernel.org/
-Fixes: cc1aeedb98ad ("drm/imagination: Implement firmware infrastructure and META FW support")
-Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Fixes: cd888a17f95f ("staging:iio:adis16400: Use adis library")
+Signed-off-by: Salah Triki <salah.triki@gmail.com>
 ---
-Changes in v2:
-- Commit message and cover letter updates.
-- Link to v1: https://patch.msgid.link/20260812-fix-null-pointer-dereference-v1-1-f69b2ffe9520@imgtec.com
----
- drivers/gpu/drm/imagination/pvr_fw.c | 28 ++++++++++++++++------------
- 1 file changed, 16 insertions(+), 12 deletions(-)
+ drivers/iio/imu/adis16400.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
-index 850a3ec8e775..88f11fb01304 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw.c
-@@ -1425,22 +1425,26 @@ pvr_fw_object_create_and_map_offset(struct pvr_device *pvr_dev,
-  */
- void pvr_fw_object_destroy(struct pvr_fw_object *fw_obj)
- {
--	struct pvr_gem_object *pvr_obj = fw_obj->gem;
--	struct drm_gem_object *gem_obj = gem_from_pvr_gem(pvr_obj);
--	struct pvr_device *pvr_dev = to_pvr_device(gem_obj->dev);
-+	if (!fw_obj)
-+		return;
- 
--	mutex_lock(&pvr_dev->fw_dev.fw_objs.lock);
--	list_del(&fw_obj->node);
--	mutex_unlock(&pvr_dev->fw_dev.fw_objs.lock);
-+	if (fw_obj->gem) {
-+		struct pvr_gem_object *pvr_obj = fw_obj->gem;
-+		struct drm_gem_object *gem_obj = gem_from_pvr_gem(pvr_obj);
-+		struct pvr_device *pvr_dev = to_pvr_device(gem_obj->dev);
- 
--	if (drm_mm_node_allocated(&fw_obj->fw_mm_node)) {
--		/* If we can't unmap, leak the memory. */
--		if (WARN_ON(pvr_fw_object_fw_unmap(fw_obj)))
--			return;
--	}
-+		mutex_lock(&pvr_dev->fw_dev.fw_objs.lock);
-+		list_del(&fw_obj->node);
-+		mutex_unlock(&pvr_dev->fw_dev.fw_objs.lock);
+diff --git a/drivers/iio/imu/adis16400.c b/drivers/iio/imu/adis16400.c
+index 4842346f9f0c..f51878066b2f 100644
+--- a/drivers/iio/imu/adis16400.c
++++ b/drivers/iio/imu/adis16400.c
+@@ -420,7 +420,10 @@ static int adis16400_initial_setup(struct iio_dev *indio_dev)
+ 	else
+ 		st->adis.spi->max_speed_hz = ADIS16400_SPI_FAST;
+ 	st->adis.spi->mode = SPI_MODE_3;
+-	spi_setup(st->adis.spi);
 +
-+		if (drm_mm_node_allocated(&fw_obj->fw_mm_node)) {
-+			/* If we can't unmap, leak the memory. */
-+			if (WARN_ON(pvr_fw_object_fw_unmap(fw_obj)))
-+				return;
-+		}
++	ret = spi_setup(st->adis.spi);
++	if (ret)
++		return ret;
  
--	if (fw_obj->gem)
- 		pvr_gem_object_put(fw_obj->gem);
-+	}
- 
- 	kfree(fw_obj);
- }
-
----
-base-commit: bd4f284df04d76fd65e57141cb1e6e7a49e4c3cb
-change-id: 20260812-fix-null-pointer-dereference-2c891142d988
-
-Best regards,
---  
-Alexandru Dadu <alexandru.dadu@imgtec.com>
+ 	ret = __adis_initial_startup(&st->adis);
+ 	if (ret)
+-- 
+2.43.0
 
