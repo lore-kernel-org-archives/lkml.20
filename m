@@ -1,145 +1,289 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012019.outbound.protection.outlook.com [40.107.200.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10E2E4A9D6A
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:57:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788440247; cv=fail; b=QRbh+UlGord7dBmMnKGyXywT+pG9+I7VCPMLN7Arka0U1g01U6IZ215svXdjsI0paoSErHh7nQw8nYS/xAU+PdEXRAa/JqATgKT9ppjQfjP4K3Wbbhe8aR9NylQDv4g9uCz20RPn1zi3Yg+DlOlTg0VBZEF9xBwRHftsUl+0riM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788440247; c=relaxed/simple;
-	bh=D8G4/JEZCTXLtE4Qu57A1FWtKTcdcfbHiOjux8ucO9k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=KP/OurLjtYprp+E2/Gn1INZya5xrnS/Bd3/grao1x45ca1AWGcSYsKBbREbtN41kxnRFJIqd48mAXYAdJ1BBL7LtPYBpYTtvgfe7TFxyC2aKr0oashmmhTA35bAYbz1IndXP0JOavOvURfv0Ika4LcCf1NWX/ThgVFUCiLLZuak=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=aPF60T/E; arc=fail smtp.client-ip=40.107.200.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80D3B4AA000
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:57:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788440248; cv=none; b=pqh/6yLpz+rnVPKTerZm4xGKZHcALk04Udj09Luh4q/xDLXWRis6djErm3P6vxLrpKlYFCvlLScXTN3xXt7FDVm796fWGs8s0EvUlyVFCkI655Fx9upZgHluwLuQ4EJsweIsIYYNY+1Kq7sfKL/czEKjGdGUQI6K4P2Ye2L+gMA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788440248; c=relaxed/simple;
+	bh=FHY4q3Ys1IpJPYpVWNL4je7qcy0wYqW1jLlS7Bg7pj0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=K2iP2nffTusQ/PWF63FIC/6GkKY5jFTmqxkvpnjcipwN66usQOZxHKA3QUUvv6vLZthGqgYPTkPoKeI+DerQlsJCMCWmv+vVXpqKlmwHGhBKBrg8bL4SHxB1QSmuYXDHH4oi+kRNiwnA56XxFiaBpNbgb0J1rzKRhYHoDKqjSb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W7xzK4Bs; arc=none smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="aPF60T/E"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=keN7pe9LaTaZpmRsxeMZ9YTiOflrZ2AdRpH4+pmm755NNCUchlyBLljmeykMob+lnBf/kXj5nMyn+h5kFopmr8+T25rG1zMigaI8eMTWk4UReDtv3cmYwBcJ7QQBAPyeVvvyEENHXnRCDH93haSsn+yByatnO65LBjPt2niMuxu9h25IKdOV8CJd12nmcEXqAZb1He5heIpF3jHsamf/87yQ0Cjhuk6edrgu+tOTPndDHc8us71gHJrOIEcx3URAgYD4vkiL95MbZFtd1HwhfC7GxRri3kucqy0QEn4Xwterp1Hq0qU33pqjLntKrBV+nZ7h8gzixgF2/1gPy7YE5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=D8G4/JEZCTXLtE4Qu57A1FWtKTcdcfbHiOjux8ucO9k=;
- b=F0mMpgC1MEFiBsNyAXm4A8D6k6s/iJrl/Gr5id3mBOp4EV338XqE1PKrsofphvMuK7747RSOtLT9ddTGXrjcyNXPaFuGbajc1axqWtOqVs5KyZtfmnTCfjSu+iwVn3SM/6dXV9HtQv7u1MNdwqXgfX/tI4mYnddfi0FDgVfqn0vBn4Ictsrk9/bceJjBaxKMyNeMwI/bcoP0FtI5cbpRuzGTJQW1h87myJVRtlmaP7k2AxEdSp/eOXI0oOONATT5nBWvHrbPdI+q6NJ4eJGZ3tdHIC+sAAE9KQVZCVDT3L2pE/cDhNlUDGHSS69DWk92dHzfx9IaH6/S2bZ4rARKDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=D8G4/JEZCTXLtE4Qu57A1FWtKTcdcfbHiOjux8ucO9k=;
- b=aPF60T/EcKTFGKs2kGI7TYsO1MSoNGq0jxwLBsystv4X5U1432OkCoueleUCrW1adGXOGFhBQc2VRXAoe/dzlc95slu2UAwvxLjFxYiI2T1EBNKHcMp7k9nnwXZgSjJHMRus70sXyMjNBCiDe/+VrNqtLw5VGhfyN/uYjAK+p3uYssJrXL7t/t1S3A0xfd3+RbGQIWr+/woPnOLkxT47kvrXXoXCH5YkGVcmTymaS2RmzpYv4PkU0r4Gg4RX+/U63Gy14u3wjOqqX8lbMP9hoO9rlKTpR8H2QSrN2CSJR0r3wS3mz0+KGKsN/gdp0VGBUTXxdwBP5zGU+cvvtaLRTA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
- by MW3PR12MB4460.namprd12.prod.outlook.com (2603:10b6:303:2f::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Thu, 3 Sep
- 2026 12:57:20 +0000
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 12:57:20 +0000
-Date: Thu, 3 Sep 2026 09:57:18 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
-Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Jeremy Linton <jeremy.linton@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Sudeep Holla <sudeep.holla@arm.com>, Will Deacon <will@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>
-Subject: Re: [PATCH v9 1/7] firmware: smccc: Add an Arm SMCCC bus
-Message-ID: <20260903125718.GI4157646@nvidia.com>
-References: <20260805063255.1638614-1-aneesh.kumar@kernel.org>
- <20260805063255.1638614-2-aneesh.kumar@kernel.org>
- <178794567779.4159892.8785590655735217125.b4-review@b4>
- <yq5ay0diyavw.fsf@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <yq5ay0diyavw.fsf@kernel.org>
-X-ClientProxiedBy: BN9PR03CA0768.namprd03.prod.outlook.com
- (2603:10b6:408:13a::23) To LV8PR12MB9620.namprd12.prod.outlook.com
- (2603:10b6:408:2a1::19)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W7xzK4Bs"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8534d507f59so2953292b3a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:57:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788440246; x=1789045046; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ursPPyuEzxu2ga/4COx+sqCZCJvo88hNEtVmuIQ04eM=;
+        b=W7xzK4Bs8h6xujXG1JOpZLORXGLP5N6Ye+5xzrkAMz5UjtnbhR6/9Jz+BRuM5L13Ie
+         uK9AEKzfUuG8vcYWW6jg711actPAfDrMdlAL8NB1eY0vtzoGqNVthFTRcC6JYiFN5eFf
+         HQDoWoV+L5K3SZpnN08m2as8P01Oq5NNFRfz9mhYddmnFxloxapjjSV/1w2OpX/Y+2DB
+         5sst2kKnitM7hNK6COxg+c6EuZWBgNaPipa3TWEqA2ieTpB0heiiekKRkhUq9jXubai1
+         zVAlcTShdRXLNFfpaTUlKMQ6P9R/oydvw2sU4KAmwCqOCzqR0myqbjy8coF9jjdMf7N8
+         i+VQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788440246; x=1789045046;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ursPPyuEzxu2ga/4COx+sqCZCJvo88hNEtVmuIQ04eM=;
+        b=EhLmsfiTpXMld4oC6XfWpwuZzXnVJL4jVS+bnzUakMyFU7ACvKj07mXTsvj2P1w0rf
+         kPnu2xCBxIXMatjVN8e+xWN634jb5U92E4cu3CfwH7C5TxVjM/IiuV8gNw+BIEFO79x9
+         3iwH9OOrI3ssLk2/hoNht53QDeygL1RAbCud5rJzDKdjhxOA1hzsdtBcEq17N1e4eSD1
+         paWB5YoEGe0+sp6h4FK+IsiEWjuSU+mcsaKvy5dU457tSuchJAA3VqFwE69pINO7n33t
+         3YlccI2MFRt2Hh3D9nv8XdEqLC25OAyixCmb12z+baVOHWiy1f4+lc/aEkzd6Qd2FH3n
+         UoWA==
+X-Forwarded-Encrypted: i=1; AKwUvBxttaV8MZgJKTMgsC/iZb+W3u3wJIvxlOJngDfZHKpe0J1B13snHyexxRhQVWypyRJ8pzwsK5UFpPOJpsc=@vger.kernel.org
+X-Gm-Message-State: AFuF++k7+vyl/WiRmumSTdzL14Y7PmlWVSNf/h8GFeXc2Xt0qU4CkK8V
+	ZhADVjiLkB6TfSy/kOeWR2eQ0Nw6y9VhD8wcFmWdG3bMW2ZwJWiBX5xc
+X-Gm-Gg: AYBFou3Wgzu17kQd634G2s/cfZHjlbDAmFuQIAjaNzx0xM0hO5YP6ujW9pQ34fLHh0m
+	LGw990AmFcro7TQ5vvi1/4YDuWFsMbB3z3ryIN2pi7WRCFLcFYdIrS0tMba7gND2o5ssUyCF6HW
+	2MwardKlOz++L9tDQm+ltJc1F40fYodJJJj4Hsq8SMFVbtx5GxjSQ69jLshnTV1JHwNMqN8AAlW
+	dMzDAnKPTD8oCuVw1q3H2i952+KLX0i4HoJcTO+URKo/IhiE/MI5pLZb0hDtGaarg90zWhy5Q6T
+	4bAyZ5mjreBGfmA6BHj6WFu79JMbTgtgB/6UzJlu0ZJnBxukomOyWYUyAjELlWn4x8MWrX3T0ru
+	HHFZit8jtdeYBpG62vKxH4mkB3kY5npX9kTRjM/Gnv+G8O7jX4jaJK5k2mlIoxFdUD8OswZcxi/
+	OAiabRPSt4AWGfUq29L3ZNyuOK6Utsbn5kQBJPQYDb9SSazo7B71jTdMOmjcEAEbBU1QOKVfmIF
+	CTu0IHc8wOG7j/gtqpvJFqud2JHyc0MHZ/6Zw==
+X-Received: by 2002:a05:6a00:23c1:b0:848:62ab:7b7 with SMTP id d2e1a72fcca58-85ed93bfe5dmr15162601b3a.16.1788440245621;
+        Thu, 03 Sep 2026 05:57:25 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db2fcfe2csm2843012b3a.27.2026.09.03.05.57.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 05:57:24 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <86700f73-530a-48b1-98d6-b3d2a2056645@roeck-us.net>
+Date: Thu, 3 Sep 2026 05:57:24 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|MW3PR12MB4460:EE_
-X-MS-Office365-Filtering-Correlation-Id: 00e02624-321e-4dfd-e486-08df09bae39a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|22082099003|10067099003|11063799006|56012099006|4143699003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	rTn1Tmv3wi7ehKkA/lDZOsrHRfc9mvoVcpVYBvl7HkHYYvZIR9FntE/o/JYf3aFoAOc3LV6J0Suf67JlkvmNLahk4Bq+rwyInMFRin+hcp9SNfw8PLBypWBl7faja5P4oClI63mpbyxs5MemOevC7A6TUmoAI8MFGPISXQid9B6cFWnKPIuWyI/E4f9Y7bZutlrMEiDbglTO8kHW+LzwgPtCP+ZuvPuh+5rMurpjbfusZSlZ/Yplnp8RelMDlYI0g9QWyGee7oXavyGqpE5b778Sdltp5SPds8T4Kw/whlq+onrfr1X7411vVLj/zQ9VvcZiBcuM69dirisbFAPBizGSdyiJoS/rP5nEV0ngPRdmIP9IeS0PIVVVSMRmX8F1JUIcLPtnH7ELDa0GjJGzKMEcZnLB9uSWOUsAQgDIsUQnd3Bzuv7jRfigh4LY4HWPi4nYxt0Ca8iW8AHnFwdmehRtYZV9+Ge07HYUd87mAFpJVDNhuffock0use2qBRFDlAvL0Tox89jbfq66wMdrlG8tPfh6qYtQihXhj7mAnRuPhAN9r4C1JKS5xeTmNoQKW3+GIAWmDmKMdJUw6a7GlLMs13VzkyYZ4AQM78cRgn/FNkwypiBVaTJpiM9yYi0HnDYB8wJzKWV8BQmWRsB769cQcQ+vQ2+JilBhQWdjM8Q=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(22082099003)(10067099003)(11063799006)(56012099006)(4143699003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?npO0ElS5W4mpV0IvRw3Fsp7ef2JN1P8nlZMbp8PnjJuRM631uWhoVscVWs6X?=
- =?us-ascii?Q?0zmuE1gP2ZGv3O3d68G73F18aNfiyAM2zEsY3ZyzmJxk7su6tsepWI8qbCOh?=
- =?us-ascii?Q?6r1oXj5ZsQy1sLgbYpwA/zDCH6u8zWUntATjd/KFroHoklbdYdzu1XJ0yKps?=
- =?us-ascii?Q?DHBhawhrwXgtwwQoaDwoauTW8uytLMggLIS2PZjiRdplvJFuAS5CzNe9bS3g?=
- =?us-ascii?Q?J3gjdqKk9iu0PuWqq5v01LEojHrpnC5BSxAb2xeCD8VIEKK5M5Ie4pbLfcd4?=
- =?us-ascii?Q?wjIQNAjfBwFlmT7QIYq1JaoX4BgLAT9dDnej4k8ei1BmyAIEdlkZkWgXtH61?=
- =?us-ascii?Q?adIBcDYoyqK2cwGBkWv7qstwYEnSYmyVLoHUhDJBGPD97UObMWVmXLq1HNPj?=
- =?us-ascii?Q?Isa9Mrhl2GMYMYrTV5IFZXiq/8Ei2RyHZV6Kln59Dxz390DXs9nkWVOMZede?=
- =?us-ascii?Q?ZW01NNmKtsHE+0TGEqJ4I9kzZk/S9lLhs0LDty6z122Cd0+pEycV3pQNqWPg?=
- =?us-ascii?Q?/n4jBy2Vugk7ohCt2F89Bi2LBK8d2Hj0X3j0i053tyXP2mzAU1JSPuFYysQm?=
- =?us-ascii?Q?C2ahurWYASOP1ewMoXFRlZYDxo9etl6ckC1WY77zU9wmVISm28prCfcglPKD?=
- =?us-ascii?Q?2xn1XMFJzy8LpXbF4xP0/wJ3DMt2Ercm+Wmb6UKKH3DHFAN/SZZUG7vb33dt?=
- =?us-ascii?Q?T+uxFc1fcQPwMkGGaw9Dq0Mo+G448MgQJj3KFPgK3IMwOBIhUL1LMTj4F6lc?=
- =?us-ascii?Q?iYQ6VnhfVfuTW8Ex792w7H5pCZgAiAf6qkOa8Wt4a07yKjIPbeDW+z1vwzI4?=
- =?us-ascii?Q?PBB5AFboCxcowfL3g62huPjm/pIaAnmEIQD8hLzRb0IyDw6ELX4f2+O5rwEw?=
- =?us-ascii?Q?y8XoVORamEQcsZ79KeD+CnP3ODHNkzxWnopthKCoG18o0ftm5y0Dc68wwThD?=
- =?us-ascii?Q?3RpLzmjMQFr1mc2D+iyCnGiAevBZnyr/qdZTUZb81pk5MUhH20rq5TZu0eKL?=
- =?us-ascii?Q?t8EQNPMqCmakZVPEi2eUknA8sgOxMrJ+UwflsSVWnTfzV7Sskeqt1ULseESQ?=
- =?us-ascii?Q?bwKXA/r7mVKSfDibWG+VYrYQiJcJtEMbFlQmCsuk8KCHujNM9qe/09T0XSl9?=
- =?us-ascii?Q?HzjSuqpjhdGtNOSH4MJhAqJAEHCkVeuiv4N1lzvs+PBtqoNU7j+WMdiPYQLd?=
- =?us-ascii?Q?HFjWAg6qL4BwwNBczM803hSHYOr3CIQjhBvCY49Wxbg6/L2w2WeSxkMl+ktX?=
- =?us-ascii?Q?lTqfsu4YoMm+16POvPOOmnRqhSrFkWHJET0GB9sFNVbcJw3T2NXEXxIDbZed?=
- =?us-ascii?Q?O62b4fgogiP9GHoWDX/4TsvSbir3IAgjQCqndb/yC7xZLGbY4lj93lc/qEMV?=
- =?us-ascii?Q?Ct1dkbCWbs1Fh6UHF6QGE9Y/LYQnc6jPKZKCEMdY8clrkvP8DuFxllomNwiT?=
- =?us-ascii?Q?1+NEyDb5B5dEoz6oWptUO1cvuwxzQ4Em96i/OLrQTHAfgmtkXygttBlpoVMb?=
- =?us-ascii?Q?Yy84pWTOEMlK5lkh57zh3pWRem3NvJ55VQJA6C9FoCUScnvbXWzOQ1FP5A2i?=
- =?us-ascii?Q?sz63DJfOBQLkJFZmmorPMDlShyj4ibP35cYa85c1wE15YLIEYeeez9OS/zjy?=
- =?us-ascii?Q?3kt8ILXRu6FildmheIMVxuLu2JGsrXpls2GQeoszoTg1PvSNw/+F/kScR7IQ?=
- =?us-ascii?Q?f6/uX8d4DE0IWpLswZBHHq4KK4RInxSzy4f04D2fUX+7R48o?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00e02624-321e-4dfd-e486-08df09bae39a
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 12:57:20.0120
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IeNfZHnxjsNx8f9sl9I/L/iumfgboKxIVFyhabXRXD0gGp61rW4gHUp8Ter74r+W
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4460
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] hwmon: (pmbus/ltc4286) Add runtime shunt_resistor control
+To: Carl Lee <carl.lee@amd.com>,
+ Delphine CC Chiu <Delphine_CC_Chiu@Wiwynn.com>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260903-hwmon-pmbus-ltc4286-add-runtime-shunt-resistor-control-v1-1-aca2d49a1418@amd.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260903-hwmon-pmbus-ltc4286-add-runtime-shunt-resistor-control-v1-1-aca2d49a1418@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 03, 2026 at 02:22:51PM +0530, Aneesh Kumar K.V wrote:
+On 9/3/26 02:23, Carl Lee wrote:
+> Expose a writable shunt_resistor sysfs attribute for ltc4286/ltc4287.
+> 
+> The driver still initializes rsense from the existing
+> shunt-resistor-micro-ohms firmware property (or 300 uOhm by default).
+> When userspace updates shunt_resistor, validate the value and update the
+> direct-format scaling coefficients used for current and power readings.
+> 
+> This enables runtime calibration without requiring a DT change or reboot.
+> 
 
-> I have updated the bus to match devices using func_id.
+What is the practical use case ? "to be able to do it" is not a use case.
 
-Did you have any thoughts on how to handle ARM's versioning scheme
-too?
+Thanks,
+Guenter
 
-I'm not sure what the rules are but it seems like if the major changes
-then the API is incompatible? So shouldn't every driver advertise a
-supported major, and the major be in the modalias and checked by match
-too?
+> Signed-off-by: Carl Lee <carl.lee@amd.com>
+> ---
+>   drivers/hwmon/pmbus/ltc4286.c | 86 +++++++++++++++++++++++++++++++++++++++++--
+>   1 file changed, 82 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/hwmon/pmbus/ltc4286.c b/drivers/hwmon/pmbus/ltc4286.c
+> index 8715d380784a..e80c9ecea099 100644
+> --- a/drivers/hwmon/pmbus/ltc4286.c
+> +++ b/drivers/hwmon/pmbus/ltc4286.c
+> @@ -1,6 +1,7 @@
+>   // SPDX-License-Identifier: GPL-2.0-or-later
+>   
+>   #include <linux/err.h>
+> +#include <linux/hwmon-sysfs.h>
+>   #include <linux/i2c.h>
+>   #include <linux/init.h>
+>   #include <linux/kernel.h>
+> @@ -16,6 +17,75 @@
+>   
+>   #define LTC4286_MFR_ID_SIZE	3
+>   
+> +struct ltc4286_data {
+> +	struct pmbus_driver_info info;
+> +	u32 rsense;
+> +	bool vrange_low_enable;
+> +};
+> +
+> +#define to_ltc4286_data(x) container_of((x), struct ltc4286_data, info)
+> +
+> +static ssize_t ltc4286_rsense_show(struct device *dev,
+> +				   struct device_attribute *devattr,
+> +				   char *buf)
+> +{
+> +	struct i2c_client *client = to_i2c_client(dev->parent);
+> +	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
+> +	struct ltc4286_data *data = to_ltc4286_data(info);
+> +
+> +	return sysfs_emit(buf, "%u\n", data->rsense);
+> +}
+> +
+> +static ssize_t ltc4286_rsense_store(struct device *dev,
+> +				    struct device_attribute *devattr,
+> +				    const char *buf, size_t count)
+> +{
+> +	struct i2c_client *client = to_i2c_client(dev->parent);
+> +	const struct pmbus_driver_info *info_ro = pmbus_get_driver_info(client);
+> +	struct ltc4286_data *data = to_ltc4286_data(info_ro);
+> +	struct pmbus_driver_info *info = &data->info;
+> +	u32 rsense;
+> +	int ret;
+> +
+> +	ret = kstrtou32(buf, 10, &rsense);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (rsense == 0)
+> +		return -EINVAL;
+> +
+> +	if (rsense > (INT_MAX / 1024))
+> +		return -EINVAL;
+> +
+> +	ret = pmbus_lock_interruptible(client);
+> +	if (ret)
+> +		return ret;
+> +
+> +	data->rsense = rsense;
+> +	info->m[PSC_CURRENT_OUT] = 1024 * rsense;
+> +	info->m[PSC_POWER] = data->vrange_low_enable ? 4 * rsense : rsense;
+> +
+> +	pmbus_unlock(client);
+> +
+> +	return count;
+> +}
+> +
+> +static SENSOR_DEVICE_ATTR_RW(shunt_resistor, ltc4286_rsense, 0);
+> +
+> +static struct attribute *ltc4286_attrs[] = {
+> +	&sensor_dev_attr_shunt_resistor.dev_attr.attr,
+> +	NULL,
+> +};
+> +
+> +static const struct attribute_group ltc4286_group = {
+> +	.attrs = ltc4286_attrs,
+> +};
+> +
+> +static const struct attribute_group *ltc4286_attribute_groups[] = {
+> +	&ltc4286_group,
+> +	NULL,
+> +};
+> +
+>   /*
+>    * Initialize the MBR as default settings which is referred to LTC4286 datasheet
+>    * (March 22, 2022 version) table 3 page 16
+> @@ -55,6 +125,7 @@ static struct pmbus_driver_info ltc4286_info = {
+>   	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_VOUT | PMBUS_HAVE_IOUT |
+>   		   PMBUS_HAVE_PIN | PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_VOUT |
+>   		   PMBUS_HAVE_STATUS_IOUT | PMBUS_HAVE_STATUS_TEMP,
+> +	.groups = ltc4286_attribute_groups,
+>   };
+>   
+>   static const struct i2c_device_id ltc4286_id[] = {
+> @@ -69,6 +140,7 @@ static int ltc4286_probe(struct i2c_client *client)
+>   	int ret;
+>   	const struct i2c_device_id *mid;
+>   	u8 block_buffer[I2C_SMBUS_BLOCK_MAX + 1];
+> +	struct ltc4286_data *data;
+>   	struct pmbus_driver_info *info;
+>   	u32 rsense;
+>   	int vrange_nval, vrange_oval;
+> @@ -114,11 +186,14 @@ static int ltc4286_probe(struct i2c_client *client)
+>   	if (rsense > (INT_MAX / 1024))
+>   		return -EINVAL;
+>   
+> -	info = devm_kmemdup(&client->dev, &ltc4286_info, sizeof(*info),
+> -			    GFP_KERNEL);
+> -	if (!info)
+> +	data = devm_kzalloc(&client->dev, sizeof(*data), GFP_KERNEL);
+> +	if (!data)
+>   		return -ENOMEM;
+>   
+> +	data->info = ltc4286_info;
+> +	data->rsense = rsense;
+> +	info = &data->info;
+> +
+>   	/* Check MFR1 CONFIG register bit 1 VRANGE_SELECT before driver loading */
+>   	vrange_oval = i2c_smbus_read_word_data(client, LTC4286_MFR_CONFIG1);
+>   	if (vrange_oval < 0)
+> @@ -126,7 +201,10 @@ static int ltc4286_probe(struct i2c_client *client)
+>   				     "Failed to read manufacturer configuration one\n");
+>   	vrange_nval = vrange_oval;
+>   
+> -	if (device_property_read_bool(&client->dev, "adi,vrange-low-enable")) {
+> +	data->vrange_low_enable =
+> +		device_property_read_bool(&client->dev, "adi,vrange-low-enable");
+> +
+> +	if (data->vrange_low_enable) {
+>   		vrange_nval &=
+>   			~VRANGE_SELECT_BIT; /* VRANGE_SELECT = 0, 25.6 volts */
+>   
+> 
+> ---
+> base-commit: 32b6ef9a5d0eca44f9cd91f52f4faa89f145a0de
+> change-id: 20260903-hwmon-pmbus-ltc4286-add-runtime-shunt-resistor-control-44b1fcc18d38
+> 
+> Best regards,
 
-Jason
