@@ -1,158 +1,194 @@
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF4C74ADD9E
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:59:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B85378813
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:00:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788451152; cv=none; b=K+qDSYC3CohVvnIUTmMbVbfpryubuSnKZNsSQvyS54dn1ZuI+UJkDcEXSm3iJYscGAu1qxPXOptgX4Lj7drsmgn/d/T7e+Mq4vuLv+8iYzJu2EWCmI4bHrd2NsIbx+lkfLNmbtUPA2LQ2cOMw2Vvlk1gG8O7caWxbhAeWvlqYdw=
+	t=1788451259; cv=none; b=fKHpMysB/HBtcJBTiikP4bnNHFt6QNjfDA/wvVpzw32qRvWXnSFk7mYnKebbUt443SHSElrzUsxz+6nyUPcpombafH6dlHNmvP8vaaDuG8H+aHVCZlOADiRmiunhk5CokfjBwt0Q6ADQQZiZndB76fvy9rlQroAYaFmHJP90/7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788451152; c=relaxed/simple;
-	bh=WpusHGlJ9I5jDMZadod6M8QI5XV27L02A0WYDW7yn6k=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=psq3joHNjBzrGl6auxIIrhUd5p2gBfeP32Zquz0Nsc+NmjyI1K4L8NNZDLW64K0fXM2E8+ZN6CzvvDZ3iDxtjxcBeYQRFxScdfGoEhZ6V572aUD3fJLQ48NsQBEAS6cgFyetXNK33/32ylrxaVCadht+gbHosXgOnhK4OYzVgbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lXhgVxMi; arc=none smtp.client-ip=209.85.208.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
+	s=arc-20240116; t=1788451259; c=relaxed/simple;
+	bh=A7n5QG9Jrq+2C38U170Iv6gJVcsHrMheTE2SwSWSYKU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JVYTP78lnWH8nxTD6dPi4EpCVC3zIIrK8k9RT3PCyvkx6tQeb/LO2Wy/cNi0r4+YKitsiSm+iFd0xJy8YXUSf0ZxW+ga0grWtbBMcShcxsrDrcpyFo3FXGF11nVPlYotem/VsT54uHGJ2dWDlZDvoHS2dhIAOQ3PuJ233/26gTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GVlcQUAM; arc=none smtp.client-ip=209.85.128.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lXhgVxMi"
-Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6a178080182so2815849a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:59:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GVlcQUAM"
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-86d43cdee51so312177b3.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 09:00:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788451149; x=1789055949; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fqrjp7diFK7hTPI/YVRHNUU83H0HuCgE52mHERNgxw0=;
-        b=lXhgVxMiWSwvNlfzetSb/Wm3GZZHYoWUH5MXMXC9YqSjrupicjlCJl/DxzQqgHARTT
-         nPwVaY0KIEcYRQUcy/Pvd4InDkCABNowKa08PLQrf41RJpoGMu61owyUEP028M9BGknk
-         rT+rAQfBq7jqaTZ8id1B3Ea7sa5tB5CULyJhR14kMNjSproq/qT03px2sDIwDGHYJAeD
-         S/983CX8BkmD2qSA+fRxRIMmitu4Ii2EcmHJ/gHnxAjqxrg+Oe7gjiNgaZGTiMu7E5x8
-         QacFTpjqQlewyCKsYooWWBP3kp2GNFoEYv78ynj27qyAqUOygUgAbwLD+wwr+Y+DMa8Z
-         u4Wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788451149; x=1789055949;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788451256; x=1789056056; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fqrjp7diFK7hTPI/YVRHNUU83H0HuCgE52mHERNgxw0=;
-        b=CE54s6PJ0hG9CBworO9fkg6jydOaC4txW6+iwZYeb+0pFNXOZ2NzEEYgbCN4IoczLK
-         HHICkwCc3Ts1+zJXeIavChfUzXzVW+sdz6hqhQCqDHoBGVnZexUbeK9jW/4fWtdDQAEW
-         nISeAk/DTTmfTk+kseFLTjKExVP8s/RZLqxpiazHYnPjshqYL9fHtFWi9WPbmD7wsi+5
-         8pnh9ybvuYLxVsm3mPQzNAcqEOGlpFQSZBjvfDBsJMmpndVMbuVmwGElXbdv0DE11tWm
-         SuoHWhSKdaBpE7TSECbUjMNvPCkibR2CfQ8IIHkp4DHfbsmqij3sJHQBzoBxoLvLHZpG
-         Ztfw==
-X-Gm-Message-State: AFuF++lIMlMYki6vNWdEoahr4qjy05G2AKLcazQuyE1zOajEixl9FgIv
-	7l4vcvtpWu/3Bz1h3RyN91Ll2rhYK4wwoqS/SionmbyNKI7JAv8xua3T7y2io1RDksJRHyOruRp
-	FIStz4Ox16lwqVDyPjA==
-X-Received: from edev1-n2.prod.google.com ([2002:a05:6402:a2c1:20b0:6a6:92c9:46e5])
- (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:24cf:b0:6a6:32fa:54f5 with SMTP id 4fb4d7f45d1cf-6a6832f4708mr8089142a12.20.1788451148809;
- Thu, 03 Sep 2026 08:59:08 -0700 (PDT)
-Date: Thu,  3 Sep 2026 15:59:06 +0000
+        bh=d0iIQfc/Xn8g8sZnyqtSBPoDrNyGH3/tP4TlfCZpLUs=;
+        b=GVlcQUAM2oQdOmJHl9IaCoouSEuT55xhWUtP9l+YhmIGLXoAUQfhURpO7VRuCLRkqn
+         DE4drM0mfakSXv6Yaigt1YFE/01S8xQ71cWPGi2EsT/N9fMCkmAILZr+S0uRWvJ0xQ9W
+         ldRt9RkZLS1dES1tP9FGdQ2tDEZtwA1On0duy1OrASlqhYXLmqnyzgZaj2jL12XhICX9
+         hFlfiFxP+T9dmXhQG4vUl6Ma4B66byJrnkmUYdFALAGY+bBIQTNbW3nxgApibuWS2mCj
+         Xh/72IvkCC8vJG4MJTJzJ7gUBVn5SUoYA0nlZzN+RC/ceYfpxKNxYDcE70j0gTipgCln
+         +AJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788451256; x=1789056056;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=d0iIQfc/Xn8g8sZnyqtSBPoDrNyGH3/tP4TlfCZpLUs=;
+        b=dvChB/qsb/6H8QAJH3JRPKdUsRAAAxbsb/TxuLsUJqZkPgWJG13R3YCX30pS5tuCi1
+         c6KP/017eOa/sRkCNf6LA3ppQInbhHizSttPS49YX/gvTvmfcjwdlLrmr4nq2fFKWQ6c
+         LZT9w8w64c0v9ZvF2S48/g6/hmclolExuqe0+IZ5F205x8RQkf33g6BZN3pvEw0J8QzD
+         H+N/7gPUO2nZJX5zIXHFWMlfWJPBTdY+RQ7piKhE+DEg8iYzC/TsC8EQslqSlO28c8ow
+         Pw4kEhKfmsgKnvYApoURtw6qaBWqT3uHw3kllc00IRx/9mstgRYCh+y9AXe+EdDZOV+Z
+         5Tgg==
+X-Forwarded-Encrypted: i=1; AKwUvBxP4SulHbEikweTFAGwQBk8sJk9e55ogLluyNOfP6+CI5LZxMxf/KDa26fmFC7B+5urXZEbSryhlaroJLM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lvlQ5nrB4Py3K+R+JwWviyNAIcfPeso9yRWPjWEu0+kQDzHt1T
+	rw6ixNkF9DC7cjcpT36g7Qt0ieD1Uu0PL4b3TUChOOC422pfKgadJSiW
+X-Gm-Gg: AYBFou0rIfLs8O6Mp1zmbnMr3OKVvxsn7ijRDFkd2X70ZtCPAQsotiok3OH+BHqlR6D
+	8AnK4OA3+fl9Lgc3QFVwBuZvtxcwa8uk2Xvzyr4Uo7xPGxjIt4KaRNkO9+gqP3pU6cjuQfa/bVn
+	od20tAmlNlv6IVwE0tRVbHNFR/vQzcTCftlLSO2U8axb+iu6DMiq40jsWBahjO4mGfR+HkQqzYO
+	Q61CrGnwJugU25gCnLmp8y+oGi1CvnqpP8IMq3EG/RkIIoNhNuy4BCorlBw7YlTXWBHVqW+gwsE
+	Xk1vgwNn3+Jwtahhoi2IgUuyId6h2MCz7nTrMHja0pX+72V7RldcbTOdin1cR7qOc9ZhtlwU4ty
+	vHvZrbqUGZrybEN1REOLJQw9pIsYBj+O1UBUM4TFWm4LOc68drRqidF7kwo+JucMnxJRJLrntwS
+	ZF0RS4AAomOrDQLKPV+48iuM8s7oJxf03Gp8NXNwUt4Lp2J+v01wdJ+ApjsdwnsA==
+X-Received: by 2002:a05:690c:e694:10b0:820:15ad:522c with SMTP id 00721157ae682-870ed3429c9mr3743287b3.11.1788451255669;
+        Thu, 03 Sep 2026 09:00:55 -0700 (PDT)
+Received: from ?IPV6:2600:6c5c:6b00:316::23? ([2600:6c5c:6b00:316::23])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-86c186d60f8sm43058097b3.36.2026.09.03.09.00.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 09:00:54 -0700 (PDT)
+Message-ID: <eb208b80-4cf2-4c3b-90c7-f68520382cf6@gmail.com>
+Date: Thu, 3 Sep 2026 12:00:53 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.55.0.970.g62bdec98f9-goog
-Message-ID: <20260903155907.1065681-1-tarunsahu@google.com>
-Subject: [PATCH] memblock: use binary search to locate candidate regions
-From: Tarun Sahu <tarunsahu@google.com>
-To: dmatlack@google.com, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Mike Rapoport <rppt@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Pratyush Yadav <pratyush@kernel.org>
-Cc: linux-kernel@vger.kernel.org, kexec@lists.infradead.org, 
-	linux-mm@kvack.org, Tarun Sahu <tarunsahu@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH iwl-net 3/3] e1000e: fix NETIF_F_RXALL buffer overrun
+To: intel-wired-lan@lists.osuosl.org
+Cc: Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260902032913.661570-1-tactii@gmail.com>
+ <20260902032913.661570-4-tactii@gmail.com>
+Content-Language: en-US
+From: Matt Vollrath <tactii@gmail.com>
+In-Reply-To: <20260902032913.661570-4-tactii@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Use binary search (memblock_bsearch_start) in memblock_add_range() and
-memblock_isolate_range() to locate candidate regions instead of linearly
-scanning from index 0.
+On 9/1/26 23:29, Matt Vollrath wrote:
+> When SBP is set, the card may deliver frames which would otherwise be
+> filtered out by LPE being unset. This would allow the device to write
+> up to 526 bytes beyond the skb's data allocation: over its own shinfo,
+> and beyond. This bug is reachable only when MTU <= 1500 and
+> NETIF_F_RXALL is set ("ethtool -K <dev> rx-all on").
+> 
+> Ensure that buffers are large enough for an entire 2048 byte chunk when
+> NETIF_F_RXALL is set. Do this by moving final rx_buffer_len
+> determination to one place, right before RCTL.BSIZE is determined. This
+> will correctly re-evaluate every time the adapter is configured, not
+> just on MTU change.
+> 
+> Signed-off-by: Matt Vollrath <tactii@gmail.com>
+> Suggested-by: Jakub Kicinski <kuba@kernel.org>
+> Assisted-by: Claude:claude-5-fable
+> Fixes: cf955e6c96cb ("e1000e: Support RXALL feature flag.")
+> Cc: stable@vger.kernel.org
+> ---
+>   drivers/net/ethernet/intel/e1000e/netdev.c | 53 +++++++++++++---------
+>   1 file changed, 32 insertions(+), 21 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/ethernet/intel/e1000e/netdev.c
+> index 063fc8cd2673..80d5a0010df8 100644
+> --- a/drivers/net/ethernet/intel/e1000e/netdev.c
+> +++ b/drivers/net/ethernet/intel/e1000e/netdev.c
+> @@ -3036,6 +3036,33 @@ static void e1000_configure_tx(struct e1000_adapter *adapter)
+>   #define PAGE_USE_COUNT(S) (((S) >> PAGE_SHIFT) + \
+>   			   (((S) & (PAGE_SIZE - 1)) ? 1 : 0))
+>   
+> +/**
+> + * e1000_set_rx_buffer_len - determine the Rx buffer size
+> + * @adapter: Board private structure
+> + **/
+> +static void e1000_set_rx_buffer_len(struct e1000_adapter *adapter)
+> +{
+> +	struct net_device *netdev = adapter->netdev;
+> +	u32 max_frame = adapter->max_frame_size;
+> +
+> +	/* NOTE: netdev_alloc_skb reserves 16 bytes, and typically NET_IP_ALIGN
+> +	 * means we reserve 2 more, this pushes us to allocate from the next
+> +	 * larger slab size.
+> +	 * i.e. RXBUFFER_2048 --> size-4096 slab
+> +	 * However with the new *_jumbo_rx* routines, jumbo receives will use
+> +	 * fragmented skbs
+> +	 */
+> +	if (max_frame <= 2048)
+> +		adapter->rx_buffer_len = 2048;
+> +	else
+> +		adapter->rx_buffer_len = 4096;
+> +
+> +	/* adjust allocation if LPE protects us, and we aren't using SBP */
+> +	if (max_frame <= (VLAN_ETH_FRAME_LEN + ETH_FCS_LEN) &&
+> +	    !(netdev->features & NETIF_F_RXALL))
+> +		adapter->rx_buffer_len = VLAN_ETH_FRAME_LEN + ETH_FCS_LEN;
+> +}
+> +
+>   /**
+>    * e1000_setup_rctl - configure the receive control registers
+>    * @adapter: Board private structure
+> @@ -3102,6 +3129,8 @@ static void e1000_setup_rctl(struct e1000_adapter *adapter)
+>   		e1e_wphy(hw, 22, phy_data);
+>   	}
+>   
+> +	e1000_set_rx_buffer_len(adapter);
+> +
+>   	/* Setup buffer sizes */
+>   	rctl &= ~E1000_RCTL_SZ_4096;
+>   	rctl |= E1000_RCTL_BSEX;
+> @@ -6087,30 +6116,12 @@ static int e1000_change_mtu(struct net_device *netdev, int new_mtu)
+>   
+>   	pm_runtime_get_sync(netdev->dev.parent);
+>   
+> -	if (netif_running(netdev))
+> +	if (netif_running(netdev)) {
 
-Under heavy memory fragmentation (such as KHO page preservation registering
-hundreds of thousands of disjoint folios), scanning from index 0 on every
-insertion and isolation results in O(N^2) complexity, causing boot-time
-memory retrieval to take several minutes (~268s for 393k pages).
+I see now that I should not have collapsed this to one netif_running check.
 
-Using binary search reduces the worst-case complexity to O(N log N)
-(and O(N) for sequential appends), cutting KHO memory retrieval time
-from ~268s to ~50ms.
-
-Signed-off-by: Tarun Sahu <tarunsahu@google.com>
----
- mm/memblock.c | 38 ++++++++++++++++++++++++++++++++++++--
- 1 file changed, 36 insertions(+), 2 deletions(-)
-
-diff --git a/mm/memblock.c b/mm/memblock.c
-index 9ce86349a29f..88940474b020 100644
---- a/mm/memblock.c
-+++ b/mm/memblock.c
-@@ -160,6 +160,11 @@ static __refdata struct memblock_type *memblock_memory = &memblock.memory;
- 	     i < memblock_type->cnt;					\
- 	     i++, rgn = &memblock_type->regions[i])
- 
-+#define for_each_memblock_type_from(i, memblock_type, rgn, start)	\
-+	for (i = (start), rgn = &memblock_type->regions[i];		\
-+	     i < memblock_type->cnt;					\
-+	     i++, rgn = &memblock_type->regions[i])
-+
- #define memblock_dbg(fmt, ...)						\
- 	do {								\
- 		if (memblock_debug)					\
-@@ -591,6 +596,33 @@ static void __init_memblock memblock_insert_region(struct memblock_type *type,
- 	type->total_size += size;
- }
- 
-+/**
-+ * memblock_bsearch_start - Find the first region index where rend > base
-+ * @type: memblock type to search
-+ * @base: base physical address of the candidate range
-+ *
-+ * Returns the first region index that could potentially overlap @base.
-+ */
-+static int __init_memblock memblock_bsearch_start(struct memblock_type *type,
-+						  phys_addr_t base)
-+{
-+	int mid, low = 0;
-+	int high = type->cnt;
-+
-+	if (type->cnt && base >= type->regions[type->cnt - 1].base +
-+				 type->regions[type->cnt - 1].size)
-+		return type->cnt;
-+
-+	while (low < high) {
-+		mid = (low + high) / 2;
-+		if (type->regions[mid].base + type->regions[mid].size <= base)
-+			low = mid + 1;
-+		else
-+			high = mid;
-+	}
-+	return low;
-+}
-+
- /**
-  * memblock_add_range - add new memblock region
-  * @type: memblock type to add new region into
-@@ -651,7 +683,8 @@ static int __init_memblock memblock_add_range(struct memblock_type *type,
- 	base = obase;
- 	nr_new = 0;
- 
--	for_each_memblock_type(idx, type, rgn) {
-+	for_each_memblock_type_from(idx, type, rgn,
-+				    memblock_bsearch_start(type, base)) {
- 		phys_addr_t rbase = rgn->base;
- 		phys_addr_t rend = rbase + rgn->size;
- 
-@@ -827,7 +860,8 @@ static int __init_memblock memblock_isolate_range(struct memblock_type *type,
- 		if (memblock_double_array(type, base, size) < 0)
- 			return -ENOMEM;
- 
--	for_each_memblock_type(idx, type, rgn) {
-+	for_each_memblock_type_from(idx, type, rgn,
-+				    memblock_bsearch_start(type, base)) {
- 		phys_addr_t rbase = rgn->base;
- 		phys_addr_t rend = rbase + rgn->size;
- 
--- 
-2.55.0.970.g62bdec98f9-goog
+>   		e1000e_down(adapter, true);
+> -
+> -	/* NOTE: netdev_alloc_skb reserves 16 bytes, and typically NET_IP_ALIGN
+> -	 * means we reserve 2 more, this pushes us to allocate from the next
+> -	 * larger slab size.
+> -	 * i.e. RXBUFFER_2048 --> size-4096 slab
+> -	 * However with the new *_jumbo_rx* routines, jumbo receives will use
+> -	 * fragmented skbs
+> -	 */
+> -
+> -	if (max_frame <= 2048)
+> -		adapter->rx_buffer_len = 2048;
+> -	else
+> -		adapter->rx_buffer_len = 4096;
+> -
+> -	/* adjust allocation if LPE protects us, and we aren't using SBP */
+> -	if (max_frame <= (VLAN_ETH_FRAME_LEN + ETH_FCS_LEN))
+> -		adapter->rx_buffer_len = VLAN_ETH_FRAME_LEN + ETH_FCS_LEN;
+> -
+> -	if (netif_running(netdev))
+>   		e1000e_up(adapter);
+> -	else
+> +	} else {
+>   		e1000e_reset(adapter);
+> +	}
+>   
+>   	pm_runtime_put_sync(netdev->dev.parent);
+>   
 
