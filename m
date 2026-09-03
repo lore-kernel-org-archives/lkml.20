@@ -1,108 +1,118 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B3D4CA28C
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:12:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2900A4BB81C
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:12:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448335; cv=none; b=tUEtAMrZAS2B6WuuGL/RVcGZfP82oBnbP3S64jaKbe4dLhNodJNLSzDzVLxgHa6B7CKk8sZ6kKH5GalTfDIRhoOrWk2y8Ne4O+CzQz+Sh2kSSSd1nUtMF7Qjs/WOHS9lrMD3rHaYPYlW0Gu9zptx/5KJothq1eKt/3r7PZB40As=
+	t=1788448342; cv=none; b=PMsW5fCw6YuhLmQhwgdQMNsLMteTYA5iPakLfVVrhA7a0AsUxd0PnuylE05tcmSUpzjjjaTKv/Whso8WP7asjhgsEljjocmiGEwbmfiwBllmlkw9NS/hEHhY+cy6Og93cnQ8Y1RRqCcKXibOeT/IbJiB3+dhjbJYkyiS9iDq2Wg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448335; c=relaxed/simple;
-	bh=AypfK/aOKqjDcv6x3JX0uwcWctZz8kqyktBW3Ip54EI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NsvfZ4XlEP04af6qLepgDJ/8HjL7hD3cTuPqPNXi0gZPxZdCZtS8xMIxAuay0bVz+wMv2ljqMj5F3Gbb4f6LJ03BcIEyoIDMW9AMUXRuvs7+HTm2VdrBRM3jsooR00QgL5IQ9sebfbMqs/gdoWb3DtZRLJsijdKgJaURePrGUiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jzOUIIHR; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788448342; c=relaxed/simple;
+	bh=VpEbJQjG2ydTUAD+hbDXgHW+pjuX6tuwuTErQEEiBs8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=GysExYZ1mzQ9yvkAVx7G83WyUcMu/giCMcsZbeg1Rk0cKIIdFH7jwG2nJOVBp205xpF3KyZhSy+Z0rrHtG8eL3dfyMC8AyFAwZGLZ3ey2kzZFa9Pl3xujbAU08FgS+rKV1gDMOVbTr/hx6/cBIj5I3TZ1ZItwug36RR4c1ia7aM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=TLDBITNR; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jzOUIIHR"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48441a2ba14so2294278f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:12:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788448331; x=1789053131; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pjlizrWboIfwnZS2oWukdlINpTQI4dn8vHdtaiT7QzA=;
-        b=jzOUIIHR9sRjKRgnKc63T7QLTdWlKVM+F10nvxX+yoxmvPdpyJCVEuA8J3iOXwFxfE
-         9qb7TBbXYnuSsfOyy4sCbtKFCWA56T924WUv8xM27urbD4Mse+e+gN9CpFsNRvDLdGO5
-         tzs1B3cMvEfs+++r2T+4YOJQXSD6t5eWlgbvJCsyUplV24NyNDuAvbmiljrxk0SbjRpN
-         2+rwThmPekNC3NgHcIJwE/DbHO+ZUcUeQgujDFd8WhBIgmFRXSd1FvXoAgyz3JwIT2Kr
-         jjzLIGJ0QXCJfhYa6D9t2AmMDNjlT60zonbEQIMLd6Flio1RQdHnY+3PkJ8iom8W2xfr
-         Muxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788448331; x=1789053131;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pjlizrWboIfwnZS2oWukdlINpTQI4dn8vHdtaiT7QzA=;
-        b=jhV2LPoFsJBvfkdJwwBsSGCUkqTcPqHXcZD3sl8Y04g4Tmrv/04OETRUGfa2lqjsa7
-         lgdi6iYniX5RlpnuuqbT2UIS3zBW+5TK/0yQypfDL5Ry66QuT1vuISgf3n6gLAZmG/dY
-         yXGdOt59xyQTsGII5zoZIqkzI/WS1OyPLIXALxXrmW/6R+jALd6ELTzU+IwdZefBku36
-         8J1b5nIsbzU1JHqRKdsQTQ6nLLM5llQRwsZiHbUQj9g+cKwfYg4eyWOPqWspD2eSv8Vt
-         5iOEs/yn8TMTk3RJ+BhgYITkIhrh/h9uP1R9yNPYKI8coURDSXSXRTYQH0kaC1G4lPUP
-         Xpww==
-X-Forwarded-Encrypted: i=1; AKwUvByyZVCYMK7+lN2UKYggbaSG1Trt56gGV734hWU5pyqBciaga+vY4bH6sFIOY7Q/6FGXBsC2Mlv1INWFMjQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLoC6GqqUcmGPEQ83RnUtQwF4NNC0AtThcV9AGdhhKPY4qsaet
-	u01+TrHBx1HghIRNFTrOV6/k0SSwClxdTnxiTLgx0VD7dihdeH2YVZAoFkPI4LIH
-X-Gm-Gg: AYBFou14Z3myD3c4z7/PZQ8Qc51e7sUQsc3a5Gp906HdBZU0e+SeNfo2Aew/h3oqj2A
-	fwuXFfVlhYE/9d4cr88FcC9W/kOVfU9xY6w9K2CUbjtwulO7jfWel+YamuzzszDrUtmUpzvvgp1
-	IfMDSGbW+8n31V1gw1F0Shwdap+qVfwhrG9GHmBIUNPALPv9VGdHDdR+8Zwmp0ocA8lu6bG/vwq
-	beOkw8egV/itwFXUUjGOLn7Li70Q67DeHhPYxJi26HNUyWha3tdzBygMPSZ56I1YnpEbX8+ksp7
-	RtDxJhY1O+lpM64AweodzCWVUROPx81WLdbMQrz23xWBOmtWjTQF8Zf2KPCliLW8eHTCAn/qMI4
-	sEMolCx9C+LAFU2lo+xVnFEdKieMdER9osOR5uAYDLvIUdKNwyT5rSpbpqnF/VOjiVsiBFDbGug
-	1UAdHc0IaH9DfX52eGmIV1NcviqC0yt8dojL2rHuq845w73a0eKDkJ90n1Bc8=
-X-Received: by 2002:a05:6000:2f8a:b0:482:e64d:a1f7 with SMTP id ffacd0b85a97d-48488e0371cmr21537891f8f.11.1788448331284;
-        Thu, 03 Sep 2026 08:12:11 -0700 (PDT)
-Received: from localhost ([5.83.201.220])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e6f604sm14396587f8f.2.2026.09.03.08.12.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 08:12:10 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-wireless@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Cc: kernel-janitors@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH][next] wifi: mt76: Fix spelling mistake "dowload" -> "download"
-Date: Thu,  3 Sep 2026 16:10:07 +0100
-Message-ID: <20260903151007.14832-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="TLDBITNR"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=uWKbj06GMxVM1AmFAtNOW8Qq7f96OKxmUAD1isOqei0=; b=TLDBITNR1KF/EL7KvbL44EZnS9
+	TzA/Ndl1x7WVjwCVMd5kR8ifD3PzJsBsYgLZZHVYp/sr5iUMlaTZRMiX71hXoxQpEn4cPN/KtxYeG
+	nOcLmRoDFMKcRk3Zw1ZwZ8M8q6ot5H6H9OQPjpgV4DADjNzRZVtcwkMIOkrsH1s4QEAKTL4hKtLtL
+	wbi9+Yzrw59C88C/SJdVcMAgBY/P+RDbSd7+79n6ivpWHpFjfju0Ba2iioznX8OfzLHf7pE/Ye0As
+	1aQeDLw92XgmkD40iZS8vSPrsH1PV5ZaDlM216ASOBIrxA5KXFwbgD9v7A6YPzONlQ/VpytHxsvXU
+	N0U7IpgQ==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ jbx6244@gmail.com
+Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ =?UTF-8?B?SMO8c2V5aW4=?= BIYIK <boogiepop@gmx.com>,
+ Johan Jonker <jbx6244@gmail.com>
+Subject:
+ Re: [PATCH v2] drm/rockchip: rk3066_hdmi: convert to devm_drm_bridge_alloc()
+ API
+Date: Thu, 03 Sep 2026 17:12:02 +0200
+Message-ID: <2814844.6tgchFWduM@diego>
+In-Reply-To: <20260824-drm-v2-1-7f9273c6020b@gmail.com>
+References: <20260824-drm-v2-1-7f9273c6020b@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
 
-There is a spelling mistake in a dev_err message. Fix it.
+Am Montag, 24. August 2026, 12:21:19 Mitteleurop=C3=A4ische Sommerzeit schr=
+ieb Johan Jonker via B4 Relay:
+> From: H=C3=BCseyin BIYIK <boogiepop@gmx.com>
+>=20
+> The function devm_drm_bridge_alloc() is the new API for allocating DRM br=
+idges.
+> This conversion was missed during the initial conversion of all bridges to
+> the new API.
+>=20
+> Signed-off-by: H=C3=BCseyin BIYIK <boogiepop@gmx.com>
+> Signed-off-by: Johan Jonker <jbx6244@gmail.com>
+> ---
+>  drivers/gpu/drm/rockchip/rk3066_hdmi.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/rockchip/rk3066_hdmi.c b/drivers/gpu/drm/roc=
+kchip/rk3066_hdmi.c
+> index f28d6a883e09..39c65ee07caa 100644
+> --- a/drivers/gpu/drm/rockchip/rk3066_hdmi.c
+> +++ b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
+> @@ -703,7 +703,6 @@ rk3066_hdmi_register(struct drm_device *drm, struct r=
+k3066_hdmi *hdmi)
+>  			 DRM_MODE_ENCODER_TMDS, NULL);
+> =20
+>  	hdmi->bridge.driver_private =3D hdmi;
+> -	hdmi->bridge.funcs =3D &rk3066_hdmi_bridge_funcs;
+>  	hdmi->bridge.ops =3D DRM_BRIDGE_OP_DETECT |
+>  			   DRM_BRIDGE_OP_EDID |
+>  			   DRM_BRIDGE_OP_HDMI |
+> @@ -747,9 +746,10 @@ static int rk3066_hdmi_bind(struct device *dev, stru=
+ct device *master,
+>  	int irq;
+>  	int ret;
+> =20
+> -	hdmi =3D devm_kzalloc(dev, sizeof(*hdmi), GFP_KERNEL);
+> -	if (!hdmi)
+> -		return -ENOMEM;
+> +	hdmi =3D devm_drm_bridge_alloc(dev, struct rk3066_hdmi, bridge,
+> +				     &rk3066_hdmi_bridge_funcs);
+> +	if (IS_ERR(hdmi))
+> +		return PTR_ERR(hdmi);
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- drivers/net/wireless/mediatek/mt76/mt76_connac_mcu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+If I'm reading things correctly, the parts in rk3066_hdmi_register setting
+hdmi->bridge.driver_private (should use the container field of struct
+drm_bridge instead) and hdmi->bridge.funcs are redundant by this change?
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt76_connac_mcu.c b/drivers/net/wireless/mediatek/mt76/mt76_connac_mcu.c
-index 2f925d22b9aa..9552fadbc17b 100644
---- a/drivers/net/wireless/mediatek/mt76/mt76_connac_mcu.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt76_connac_mcu.c
-@@ -3130,7 +3130,7 @@ mt76_connac_mcu_send_phy_ram_firmware(struct mt76_dev *dev,
- 		err = mt76_connac_mcu_init_download(dev, addr, len, mode);
- 		if (err) {
- 			dev_err(dev->dev,
--				"The request to dowload PHY firmware failed.\n");
-+				"The request to download PHY firmware failed.\n");
- 			return err;
- 		}
- 
--- 
-2.55.0
+
+Heiko
+
+
+
+> =20
+>  	hdmi->dev =3D dev;
+>  	hdmi->drm_dev =3D drm;
+>=20
+> ---
+> base-commit: 2709dd5ae32f0828f386327c76bba9f39f63a1c6
+> change-id: 20260824-drm-e4689f65ab8c
+>=20
+> Best regards,
+>=20
+
+
+
 
