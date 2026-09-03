@@ -1,125 +1,113 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35C2F4C77BA;
-	Thu,  3 Sep 2026 15:05:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286554C9003
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:05:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788447954; cv=none; b=n42TdGxoTBN7my5J2FMCUTb5kD4vOK2jRoewLt9k5EI3ZVHbbIVeE6rM5ob9VNR+z1eAhn6ivE59tvdroSCernHGP7M/sCEtviVNuST22MTuitv5IeDUot/DzUavJVB2H6QrCpAc0nqo3pEzU/+SyUhoZsu7h5h0jeKla+haZ3Q=
+	t=1788447960; cv=none; b=keSRCWpHJsmzGDSvYafCUdmIatmNCb3JHRJwNH8iLleZO4FGnoMC+H6RH1CdjVV/bnRI16JfB2c939hZ0SW5B9vxUyVqqd1IUSX3JcYsOKnF5GAE6q/GToTzgAC+DGQfMaiczyKETvA3EyC12+KytU8yeYBFMwwKdnaqai8xCRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788447954; c=relaxed/simple;
-	bh=eazYFU1WdrM+maaWAMQSZUR5F1W/1naSEK3ISWsJw9g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ed4dahbEhPsqtVv0XScjfDQZpX+0ht73ADeuZt+bNyA8xyOzuwGon33rx/YiL0/sYwD+n0WXHBsDooGSqnHAtt41tGvbgDoGOOvyssUZncYR4ZvNcmm57Z6vg4B+abbRM+MBBbCGRlIGdXV1zAVmyF4wdMZ07TeRSMIlzKAS9iQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nkunYjW4; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788447960; c=relaxed/simple;
+	bh=w92MawKkkHyqj+j4V9THNwhrPMydRPMGaLtM9WLIOwE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=HIyRbcu8NNp1AZrvrfzSHl6zfRn/XXsytUEh9dl7ln+vk5eExJOw3QsZ1PZv6IHo3LDB1AeOVohCgfsHRTFOpfrMWjkDJypnByEBaiJ9SiAvbs7LfVqnddH5v9DGGZBPHGyfqMrqUeVKTkM09by6aC0PmCbOzCyTy3cQReuZ8+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mpt/RDc2; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nkunYjW4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788447953; x=1819983953;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=eazYFU1WdrM+maaWAMQSZUR5F1W/1naSEK3ISWsJw9g=;
-  b=nkunYjW4ZXrMXFoA3qHRxctlymXH74swhnXAWzC8bs5jOQ1JsbMU042F
-   akGlisa/rq71bx9/Zs4poHO+v79luQP0Cc23iYmuy2/E92tX1bYsz6PtG
-   LD2rVUl32Gey4F7Yhuxl/VtOPq1fwmjrP8ugsKG3L2u/8ul3/Jx881rIr
-   ja2iFFFmxZgDry8slIXQmd3BcKP+nq+Dbj7wMNJBg9E0KrE9Yhu+IFgVX
-   2hJDUw4pfM/MZHtex0H4ZLjA/0EbYuUAtwxy/KumSHWxUnIVsml5rRVlD
-   pKHgenbznEpK5KTPe6uTjsQPBlTIl1+/3aMPKo3lUY7Z1/+mCOJGu0Q6R
-   A==;
-X-CSE-ConnectionGUID: dYjHVmSFTJOhB8xvZgZtNw==
-X-CSE-MsgGUID: nK1HFtxNSXqBRkAJDeQwCA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="91444127"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="91444127"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 08:05:52 -0700
-X-CSE-ConnectionGUID: b9clsSjjR3Sg112bFYiWDg==
-X-CSE-MsgGUID: AFsP3Y7ZSLW+/Fjlausx/A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="268443987"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by orviesa010.jf.intel.com with ESMTP; 03 Sep 2026 08:05:48 -0700
-Date: Thu, 3 Sep 2026 23:05:47 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: david@kernel.org, linux-mm@kvack.org, x86@kernel.org,
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
-	rick.p.edgecombe@intel.com, yilun.xu@intel.com,
-	xiaoyao.li@intel.com, sohil.mehta@intel.com,
-	adrian.hunter@intel.com, kishen.maloor@intel.com,
-	tony.lindgren@linux.intel.com, peter.fang@intel.com,
-	baolu.lu@linux.intel.com, zhenzhong.duan@intel.com,
-	chao.gao@intel.com, artem.bityutskiy@linux.intel.com,
-	kvm@vger.kernel.org
-Subject: Re: [PATCH 4/6] x86/virt/tdx: Add extra memory to TDX module for the
- extensions
-Message-ID: <apmMy9610sunPJeE@yilunxu-OptiPlex-7050>
-References: <20260821032920.256225-1-yilun.xu@linux.intel.com>
- <20260821032920.256225-5-yilun.xu@linux.intel.com>
- <aohvlMO7ehqcVW96@thinkstation>
- <aowMYbHKK4b0O5P6@yilunxu-OptiPlex-7050>
- <apE8yHrGx/bfifV9@yilunxu-OptiPlex-7050>
- <apf6WFKun8z4ejG8@thinkstation>
- <aplOhHWvaxqUJDqu@yilunxu-OptiPlex-7050>
- <aplSf00ESix5s6Ak@thinkstation>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mpt/RDc2"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4957eefd361so17891355e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:05:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788447956; x=1789052756; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3jJG+BikQhyyhKOerozrYKC8uiImTn5ykntBkDa6aSc=;
+        b=Mpt/RDc2EGK7IZHG7V2yXpIlibUlc8G2twPQedcB+p25HDMYpWCYwstgLHM/XsCkRY
+         IHgIIQmNO+7Z5rCjyyLpGwA4KC3UtcV0zOyVFAZEK7mncrvIUPm0UpSB80BjE3C05ZuZ
+         TGIuWxe0L8GA1lGx/SScaznL+dlGTiXBcu9DR6qUHsXPts0PbP+7cIUhaGaw1XUQQsNR
+         8WewNcfpPBrAVGfyYc/JMU7E3hQm46gtmmmDK5GfBxXMBx9mv4Aw6a770FbsOOFnGjhS
+         i1eoFYQaQ/yY86+cDIOgGy1+mB5k6rgYE4BdN85kAnVoFocbY/4oP8v7brufw5JEGUsj
+         UJfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788447956; x=1789052756;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3jJG+BikQhyyhKOerozrYKC8uiImTn5ykntBkDa6aSc=;
+        b=J2VIaOivd4INDUI8bOo72ynjKpGSGxZ2c27uyi3hkn1wSrR0VTCwFdfmB8hVLGze2s
+         vwSo/91/+CrIgacRlGX/nLaqZAvtc5MdCMUW0NbBlfoygpUx5FCEDCWcfPXjrBy7s9uG
+         OXd+HEZJFZTTjeLEtVKn2f6ZP9y4LZnJ7gR7KeKVPGR9BP52ZdTMlmsTd8JdKNUXsNrO
+         9nN+dmCnP3563U/sIPhFN7SOkSNHrIaCG7Y4LKbRIR5HirdSzQZeMiM0L0gP1uBufHHH
+         YWogmCqbt/YTwAERDDjxD0sgsCBjnbI++1P2rCSO0zZ988v2yHL1DN3X4yNjlFb94dz2
+         rujA==
+X-Forwarded-Encrypted: i=1; AKwUvBz2KG4D/ij/4qUKXwOn2Nb06E3PkfYWEsfctvGBM4MHmgaKqtpE8DaYwkM9DljQtC/YZz/qOMDMadXr1bk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lRP8QVNfO5tq9eviIgbB4JklMRL8wsz619TYdkYqa9bHxdUUaH
+	RrMy/SNLoyQROavXeptKzA4LqCfaUFKplC/Uk+Ayq3VpWq4bFhITzfEa
+X-Gm-Gg: AYBFou1BkPRjM35dMgJbv1dk5h595lxnYPvBNB4ZzEcUpTvupUGuLTLxgUWCfoa9+aZ
+	ksNhyE5NyV39J7wVx4aP43X48g6Vj89X4S5trtd+eUFL+3il+7LmWxxCm2lT7ZNCDFUpBP/DGrA
+	LDsnxbKcapPAEG7sOcKRn3O3sjI3kNwM2aIwDC/jJiKlnBKzazzD4FIUUl4WDuBL+1tUyQGcD2l
+	t3ZPq2qGYYaUO83DCpTW3xo4P1AIrD+Sx2e4ZLVG0xUIJhCdcuA6kmOE2s797DcTMe63HJgpA5Q
+	/W+Hx4oPovNnu7sGvuQ+dbh0NqyI/iuK9L70vViadwHW3D4Hm4sV0m8l1x5DU/EhTFAk95LxeoZ
+	xYkRnQiYZmNDjQkiUVescDwHkW/4OcOU00+kNIhTrfhGg6r89A+fQr0c/KsCfZ2mKARcUbPyH9S
+	0PpjZAaKQR4nVUlb46uGzj4Ac+RmXbd99icXsK36woo3BRMX31Rv2mjWxAZA==
+X-Received: by 2002:a05:600c:1f84:b0:496:c9cd:e7ab with SMTP id 5b1f17b1804b1-49cf5bc7986mr8421325e9.5.1788447955968;
+        Thu, 03 Sep 2026 08:05:55 -0700 (PDT)
+Received: from localhost ([5.83.201.220])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e6f604sm14353038f8f.2.2026.09.03.08.05.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 08:05:55 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Shuah Khan <shuah@kernel.org>,
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
+	Bastien Curutchet <bastien.curutchet@bootlin.com>,
+	bpf@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH][next] selftests/bpf: test_xsk: Fix spelling mistake "conigure" -> "configure"
+Date: Thu,  3 Sep 2026 16:03:51 +0100
+Message-ID: <20260903150351.12725-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aplSf00ESix5s6Ak@thinkstation>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-> > > What matters for fragmentation is not contiguity, it is how many
-> > > pageblocks are left partially occupied by unmovable pages that are never
-> > > freed.
-> > > 
-> > > So you can ask one pageblock at a time with
-> > > 
-> > > 	page = alloc_pages(GFP_KERNEL | __GFP_NOWARN, order);
-> > > 
-> > > with fallback to lower order if you must.
-> > > 
-> > > It also fits the ABI: pageblock_order is 9 on x86, i.e. 512 pages, which
-> > > is exactly TDX_HPA_LIST_MAX_NR_PAGES. One allocation is one full HPA list
-> > > is one TDH.EXT.MEM.ADD, so the allocation loop and the chunking loop
-> > > become the same loop.
-> > > 
-> > > But alloc_contig_pages() might be a good enough approximation for
-> > > per-pageblock allocation if we do it during the boot when fragmentation
-> > > is low.
-> > 
-> > IIUC, you mean alloc_contig_pages() also gives good de-fragmentation
-> > that we need. But it would be slightly easier to fail cause it requires
-> > extra contiguity that we don't need.
-> 
-> alloc_contig_pages() can be more expensive than needed (or fail) since
-> you ask for the full allocation size to be contiguous, where you should
-> be okay with a set of pageblocks regardless where they are relative to
-> each other.
+There is a spelling mistake in an assert message. Fix it.
 
-I see.
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ tools/testing/selftests/bpf/prog_tests/xsk.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> 
-> > Multiple alloc_pages(order-9) meets our requirement exactly but the
-> > falling back to lower order may create more fragments. And we can do
-> > this because of the ABI definition - an HPA_LIST could happen to hold
-> > an entire pageblock.
-> > 
-> > If I have to choose, I prefer alloc_contig_pages(). It doesn't have to
-> > depend on HPA_LIST ABI details.
-> 
-> As I said before, as long as you do it once during the boot, it should
-> be good enough.
+diff --git a/tools/testing/selftests/bpf/prog_tests/xsk.c b/tools/testing/selftests/bpf/prog_tests/xsk.c
+index 6e2f63ee2a6c..772f3dd7ce64 100644
+--- a/tools/testing/selftests/bpf/prog_tests/xsk.c
++++ b/tools/testing/selftests/bpf/prog_tests/xsk.c
+@@ -75,7 +75,7 @@ static void test_xsk(const struct test_spec *test_to_run, enum test_mode mode)
+ 	if (!ASSERT_OK_PTR(ifobj_rx, "create ifobj_rx"))
+ 		goto delete_tx;
+ 
+-	if (!ASSERT_OK(configure_ifobj(ifobj_tx, ifobj_rx), "conigure ifobj"))
++	if (!ASSERT_OK(configure_ifobj(ifobj_tx, ifobj_rx), "configure ifobj"))
+ 		goto delete_rx;
+ 
+ 	ret = get_hw_ring_size(ifobj_tx->ifname, &ifobj_tx->ring);
+-- 
+2.55.0
 
-Yes. Thanks for your detailed explanation!
-
-> 
-> -- 
->   Kiryl Shutsemau / Kirill A. Shutemov
