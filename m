@@ -1,116 +1,146 @@
-Received: from va-2-27.ptr.blmpb.com (va-2-27.ptr.blmpb.com [209.127.231.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D7A1E1DF0
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 04:04:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719A83612EF
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 04:07:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788408296; cv=none; b=inXmuMMmEPl5NvGwH7jBRPh29Qy5JaR6ZCBFHOsCtmpeVjDzQIbtetW7w4bT4OPYJbEiFGwTVOBLAmXaYKE8fI3Z8dg09NwgITQAz/q2SLEf9ubd09SCaA4iT62mvH3am29US8uKBUptDQvBDWuExxcGn1mFC5HopPfolv02oRs=
+	t=1788408430; cv=none; b=WCLVDUv1rSlCa9hWU8OvDDlXJvAl1f9QA0oe2gVUMPK6EzEskthcZG3VhBHl3oZo2Uz97cw/sbgTmpZX9BZ19S2rEtdXcovKWOvwK0hJvfJrYIlo7K8NGujhF503TKTaJspa4K6umdKgDtILH2Z38SHd3g6soB+D/uIXcHMWkPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788408296; c=relaxed/simple;
-	bh=9eQ1d/mhaLvoWyjx8yNW16ZDfOBI7ZnGPtccZnyudc8=;
-	h=Content-Type:Cc:Subject:Date:References:In-Reply-To:To:From:
-	 Message-Id:Mime-Version; b=qZ2fVoM8nHOchgssOno34Z2A/Hg2c2Hur5/XFdQG7QL8y/5hU5WEwAGXFM5FK8kb0kCu21M61zHxXhaAz+mP6bX7Xpyp2VM7mPLwJiaQc0lusN6Bq4Xa8CJPmqCEwM7u3hwarEIRADSRGkgxPvI4BmEBSiuxSF/rl5dj/N0O0bI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com; spf=pass smtp.mailfrom=picoheart.com; dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b=arIiyyN+; arc=none smtp.client-ip=209.127.231.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picoheart.com
+	s=arc-20240116; t=1788408430; c=relaxed/simple;
+	bh=juatxZpIE+hF605I3wQDn6J4RrJFx3vbfKDmcQEmqNI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LyaV5SKWR8DoybbQpkzqsEqWvesOdNQhnPbiHMuQPkdb4BN6NTQwK/OuBtTyI4sL7slyanuYx2QJD13TUkedm61q8eGAuaD7YsYvkLOw7nuPd/OyXK6uECfeJ/eFIYiZQJR4InF16TVPj7g4RVS82M/DPKp0UkYqz8zCt3IR9Dw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=u24qTa0Y; arc=none smtp.client-ip=115.124.30.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b="arIiyyN+"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604151535; d=picoheart.com; t=1788408283; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=2OZBaXoAwW7EqSgHAZPCMtP91U5/EchCYsUN3g8ScgE=;
- b=arIiyyN+wRvH3ue9Jj3QiX0hGL6wQvpBp7RyEptjqusbXCx+dQBfs1hN5ricIgaqqFjHvu
- AJDeQECF3wJuDcE0XuTJxZ2ldUx9Zt6GzcrtSxLRduHuuNbJcFTO7Qc3Ofb5ABwkyr2Fol
- 3rTwICfR/2l6SAbptjS0gFB7/anyqJFBHxaY4f1Eq8Mj9Aoy0GTNJeqIN8lZaJdngyoJwn
- da85M2KmQ8igjV6tNatKLX+8n4hh1FUL6PMyIhBfyQvBtuT1xG6t7FQg8gS0Nuo1qIYGT8
- vq7W1w38jHkfJfLg2ct+GG5FeOKSQ/U2tWDANIggRnZwhhynjzre7PilgYzXhw==
-Content-Type: text/plain; charset=UTF-8
-X-Original-From: Yicong Yang <yang.yicong@picoheart.com>
-Received: from [100.86.218.63] ([120.234.91.229]) by smtp.feishu.cn with ESMTPS; Thu, 03 Sep 2026 12:04:40 +0800
-Cc: <yang.yicong@picoheart.com>, "Paul Walmsley" <pjw@kernel.org>, 
-	"Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, 
-	<kvm@vger.kernel.org>, <kvm-riscv@lists.infradead.org>, 
-	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] RISC-V: KVM: Preserve LCOFIP when checking pending interrupts
-Content-Language: en-US
-Date: Thu, 3 Sep 2026 12:04:38 +0800
-References: <20260901080610.91993-1-pengpeng@iscas.ac.cn>
-In-Reply-To: <20260901080610.91993-1-pengpeng@iscas.ac.cn>
-X-Lms-Return-Path: <lba+26a98f1d9+59c365+vger.kernel.org+yang.yicong@picoheart.com>
-User-Agent: Mozilla Thunderbird
-To: "Pengpeng Hou" <pengpeng@iscas.ac.cn>, 
-	"Anup Patel" <anup@brainfault.org>, 
-	"Atish Patra" <atish.patra@linux.dev>
-From: "Yicong Yang" <yang.yicong@picoheart.com>
-Message-Id: <7504634a-b2bb-4a17-95f0-3542065810b2@picoheart.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="u24qTa0Y"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788408418; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=EFwlSXqfNEKM0ur5X+fXDaf9C70UjzJTOT5AZjis8cs=;
+	b=u24qTa0YO/Nj6tvbuVvL9ZllxMi5ZrG9Wyrd4+uJ6kE8Natop13dozVMBrGt9hcWLd56K3qEIqK22PAFk7/ijmHmv3Zj54bCyxVxSLWaTsEIABp4ZsvXEk/8oS1rTXUHfoqrWgQFTleZS3Pvh6xJ31rpGpBc49vDW+vt2tsJPKQ=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0XAEokn0_1788408416;
+Received: from 30.178.83.4(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XAEokn0_1788408416 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 03 Sep 2026 12:06:57 +0800
+Message-ID: <0c5aba0f-137a-4aaf-bddc-060118322602@linux.alibaba.com>
+Date: Thu, 3 Sep 2026 12:06:53 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/list_lru: don't copy stale shrinker id from
+ non-memcg-aware shrinkers
+To: =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Johannes Weiner <hannes@cmpxchg.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Lance Yang <lance.yang@linux.dev>, Qi Zheng <qi.zheng@linux.dev>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Muchun Song <muchun.song@linux.dev>, Dave Chinner <david@fromorbit.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ David Hildenbrand <david@kernel.org>, Xunlei Pang
+ <xlpang@linux.alibaba.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260901115104.2944996-1-qinyuntan@linux.alibaba.com>
+ <aphXPCn8isUVV87k@localhost.localdomain>
+From: Qinyun Tan <qinyuntan@linux.alibaba.com>
+In-Reply-To: <aphXPCn8isUVV87k@localhost.localdomain>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Hi Michal,
 
-On 9/1/26 4:06 PM, Pengpeng Hou wrote:
-> KVM injects the guest counter-overflow interrupt into HVIP bit 13 and
-> records the same bit in irqs_pending. The guest enables it through VSIE
-> LCOFIE, also at bit 13.
+On 9/3/26 1:17 AM, Michal Koutný wrote:
+> Hello Qinyun.
 > 
-> kvm_riscv_vcpu_has_interrupts() shifts the complete VSIP valid mask by
-> VSIP_TO_HVIP_SHIFT before matching it against irqs_pending. That maps
-> SSIP, STIP, and SEIP to VSSIP, VSTIP, and VSEIP, but incorrectly moves
-> LCOFIP from bit 13 to bit 14. The following high-interrupt term excludes
-> all local interrupt bits, so it cannot recover LCOFIP.
+> On Tue, Sep 01, 2026 at 07:51:04PM +0800, Qinyun Tan <qinyuntan@linux.alibaba.com> wrote:
+>> With cgroup.memory=nokmem, shrinker_memcg_alloc() fails with -ENOSYS
+>> for shrinkers without SHRINKER_NONSLAB, and shrinker_alloc() falls
+>> back to a non-memcg-aware shrinker.  On this fallback path,
+>> shrinker->id is never assigned and keeps 0 from kzalloc(), which is a
+>> valid id belonging to whichever memcg-aware shrinker registers first.
+>>
+>> __list_lru_init() copies shrinker->id unconditionally, so every
+>> list_lru backed by such a fallback shrinker (thp-deferred_split,
+>> zswap-shrinker, workingset shadow nodes, superblock lrus, ...) ends
+>> up with lru->shrinker_id == 0 instead of -1.
 > 
-> As a result, kvm_arch_vcpu_runnable() can report false for a vCPU waiting
-> in WFI even though an enabled PMU overflow interrupt is pending.
+> <del>thp-deferred_split shrinek has SHRINKER_NONSLAB so, the id should be
+> assigned (at least I see it in thp_shrinker_init()).</del> I was looking
+> at 6.12 kernel.
 > 
-> Keep LCOFIP in place while shifting the three interrupt classes that have
-> distinct VS-level bit positions. This makes a vCPU halted in WFI runnable
-> when its PMU overflow interrupt is pending.
+>> Under nokmem the list_lru collapses to the shared per-node lists, but
+>> __list_lru_add() still calls set_shrinker_bit() against the memcg of
+>> the added object.  Most list_lru users are unaffected because their
+>> objects resolve to a NULL memcg without kmem accounting, but the THP
+>> deferred split queue holds user folios, which are charged regardless
+>> of nokmem.  Since no memcg-aware shrinker can register under nokmem,
 > 
-> Fixes: 16b0bde9a37c ("RISC-V: KVM: Add perf sampling support for guests")
-> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+> Not sure I understand here, the SHRINKER_NONSLAB are excluded and should
+> still register for per-memcg info.
+>
+You're right, that sentence is imprecise - SHRINKER_NONSLAB shrinkers
+do register per-memcg under nokmem.  What I meant is that on a system
+where no NONSLAB shrinker happens to register, shrinker_nr_max stays 0.
 
-i suppose it's a vsip/hvip conversion bug but currently only lcofi will
-trigger this. a fix for the conversion:
+>> shrinker_nr_max stays 0 and every memcg's shrinker_info has
+>> map_nr_max == 0, so the first folio added by khugepaged triggers on
+>> every boot:
+>>
+>>   WARNING: mm/shrinker.c:212 at set_shrinker_bit+0x99/0xa0
+>>
+>> On systems where a SHRINKER_NONSLAB shrinker (btrfs, xfs) did register
+>> and expand the maps, there is no warning; instead bit 0 is set
+>> spuriously for an unrelated shrinker.
+> 
+> Could it be that you see this issue because of a shrinker which isn't
+> marked as SHRINKER_NONSLAB?
+> 
+> I'd even go as far as pointing at
+> fafaeceb89a5e ("mm: switch deferred split shrinker to list_lru")
+> which removed the flag from the the thp-deferred_split shrinker.
+> 
+> IOW, the proper fix should be addition of SHRINKER_NONSLAB so that
+> per-memcg maps are properly allocated.
+> 
+> Thanks,
+> Michal
 
-https://lore.kernel.org/linux-riscv/20260804134018.85497-1-yang.yicong@picoheart.com/
+Yes, good catch.  The flag was originally introduced for this very
+shrinker by 0a432dcbeb32 ("mm: shrinker: make shrinker not depend on
+memcg kmem"), and your 03375203e1da8 changelog even cites
+deferred_split_shrinker as the NONSLAB example that still needs
+per-memcg data.  fafaeceb89a5e dropped the flag without mentioning it
+in the changelog, so this looks like an unintended loss.
 
-> ---
->  arch/riscv/kvm/vcpu.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/riscv/kvm/vcpu.c b/arch/riscv/kvm/vcpu.c
-> index e062ca1..c6eb3bd 100644
-> --- a/arch/riscv/kvm/vcpu.c
-> +++ b/arch/riscv/kvm/vcpu.c
-> @@ -487,12 +487,14 @@ int kvm_riscv_vcpu_unset_interrupt(struct kvm_vcpu *vcpu, unsigned int irq)
->  bool kvm_riscv_vcpu_has_interrupts(struct kvm_vcpu *vcpu, u64 mask)
->  {
->  	unsigned long flags;
-> -	unsigned long ie;
-> +	unsigned long ie, vsie;
->  	bool ret;
->  
->  	raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
-> -	ie = ((vcpu->arch.guest_csr.vsie & VSIP_VALID_MASK)
-> -		<< VSIP_TO_HVIP_SHIFT) & (unsigned long)mask;
-> +	vsie = vcpu->arch.guest_csr.vsie & VSIP_VALID_MASK;
-> +	ie = ((vsie & ~SIP_LCOFIP) << VSIP_TO_HVIP_SHIFT) |
-> +	     (vsie & SIP_LCOFIP);
-> +	ie &= (unsigned long)mask;
->  	ie |= vcpu->arch.guest_csr.vsie & ~IRQ_LOCAL_MASK &
->  		(unsigned long)mask;
->  	ret = vcpu->arch.irqs_pending[0] & ie;
-> 
-> 
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
+That said, I see the flag restoration and this patch as complementary
+rather than either-or: other MEMCG_AWARE-but-not-NONSLAB shrinkers
+(superblock, workingset shadow nodes) still take the fallback path
+under nokmem by design, and __list_lru_init() copying an unassigned
+id there is a landmine independent of the deferred split case.  So I
+think this patch is still wanted as the generic fix, with the flag
+restoration on top for THP.
+
+(zswap might deserve the same NONSLAB treatment as THP, btw - its
+entries resolve the memcg from the folio's objcg, which is available
+regardless of nokmem.)
+
+Would you like me to send a separate patch restoring SHRINKER_NONSLAB
+in thp_shrinker_init() (Fixes: fafaeceb89a5e)?  Happy to do so if
+that works for you.
+
+Andrew, since the patch is already in mm-new, could you please update
+this changelog sentence
+
+	"Since no memcg-aware shrinker can register under nokmem,"
+to
+	"On a system where no SHRINKER_NONSLAB shrinker registers,"
+
+per Michal's comment above?  Or I can send a v2 if you prefer.
+
+Thanks,
+Qinyun Tan
