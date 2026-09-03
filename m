@@ -1,161 +1,126 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9B494A0F02
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:08:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D753E4A1DF9
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:08:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788437332; cv=none; b=H04wgfGIXLz6faLOajdlVyLix4/IzPokKOwrVcvOTQqy91x2CzTmU9IGN9pzSHbSlexZ+aF2G9+1ROA8vTwca9y7V9+Qryjum/Po9OmyascEuJPkKqfA4dVM6PfQqgy/WgnHfeiu/yCAZF9W4wgN0QMWRr1QNPIBXI4eijWdvoo=
+	t=1788437335; cv=none; b=hSBfqga6/TFQMY/CbRAZZbmXrhvvNQQGWfgSucwFAAckBf3tfGbOrIK7n+M0Yfcx/EqzI+Gfa1aKy+6EWKRtoyW7g7Rj4RdAsmTrw85p6IgiOVdpOF6eD7j74pO7rXmuI9jPtVw+matZE9KSy7i0VIxJOHN9AW8VaamIvjzONFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788437332; c=relaxed/simple;
-	bh=DS92zY7UggopypjAfNvS0nI3xwM4VczeNIlJ4DH107g=;
-	h=Subject:Date:Message-ID:In-Reply-To:References:From:To:Cc:
-	 Content-Type:MIME-Version; b=SD1giOmbsdcTTGHNmVFCQsKkIvrO80rAPEabVc8Z8VrRf6vLSmC40XdEu0UA7bSmQNzR2Ydbu5e0cVfXuyVMvHylPOou8148Q8z0pGsjPSZ8qAGa+418zMjVufK4dAjSX8BdAZMZT2jRKP+2mttBwjTg8nCLDkdm3LRcLH1L9IQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I9Fzd3DH; arc=none smtp.client-ip=209.85.210.180
+	s=arc-20240116; t=1788437335; c=relaxed/simple;
+	bh=BRKIuIMQwGJz+W0+V2Cv4f46rDoN+QkQp0uwFbNfBIs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iCOAcXlDPxe80VMZghPGKPlCSL9Bw8R/SF0flbXtHqBV3nySPVr9FPAyuF4OslqAFv/AFt8b+XtlaI/lvMuh5GH32IRDv/bu2DU14KLuxmFcPG3uRKj2UK6djhp8uBM0+HmDO811Wl/JTdhTEZPKyRdE3ntJ02SN9c0o4TyRlUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LNTleZLj; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I9Fzd3DH"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-84830c774a0so2507446b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:08:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LNTleZLj"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49b8e527d63so26200755e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:08:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788437330; x=1789042130; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:cc:to:from
-         :references:in-reply-to:message-id:date:subject:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0cSmqLTzwH1GLgzGsnxGCY8DR/cpVAEWeeTTJ8+EvwM=;
-        b=I9Fzd3DHr94RnEW96jbjjh0lOCRs2n0uCr8IiwQDB6Z++YbtCJrZESgK9f+VkpxCrG
-         MrMSCeiu90unl4FhmHNdSebLSOQNBv+RqdXAg3eHW93m8U59JIx6+WG3xyfNYiD5cfC7
-         C05aGUTkuaMvl6OuquhKwSRIwvu94nmhA6+rVgNuTpILGFSnhiu9PRJvVNyKOCsU9NK2
-         E3GMpc3+TDCtpiY+rGfin8sJ19UY1VsD9//1SR3caiN73oHK68BdPwRM9tnspdkXnbzW
-         UuCHxylht5SvWPTul4v6b+sxXfpdJu5P6IuaaL8dFTVu+9rcsxi9ZIe0ji3HEjcjl2+B
-         43JQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788437330; x=1789042130;
-        h=mime-version:content-transfer-encoding:content-type:cc:to:from
-         :references:in-reply-to:message-id:date:subject:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788437332; x=1789042132; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0cSmqLTzwH1GLgzGsnxGCY8DR/cpVAEWeeTTJ8+EvwM=;
-        b=SZkma9KcJasAwL278QJgjH28Cs6LA2XmnTIigyjhH0uMA7gcyLNok8SUmuCUcs/mjz
-         wJtmpgEoPqYa8x+4gAk5tGC9kwW72ky5sniQtIpxrshBIN/ZRUPRy2o9OVPLVQZMLpdd
-         Hr3P1xGgp4Wo92/riQw46eAt8gbd16rg6BvrgJjK3cA52LzLrqljNcEQ351BRVhIUM2g
-         FbAUWKIl3doJBHjH2IW+LlgXZdAdELXhlS+WUz8cc3j52bBX0zUC0YfsfwSjBX/U+fXR
-         Hz9aTg5b89c79xTpppT0dXyEd4dNBGzBjfQQWOWW4l3N4Mw7zWnnwOMruIQLkf/SvQIH
-         9DRg==
-X-Forwarded-Encrypted: i=1; AKwUvByG9YHhXOSx52n8r0RRQZZu7cYl0L3nnnWPJIRGpfjUTynR7RgWVTmmA99lYb5Ewt93ycXUgIBqDZvAA+c=@vger.kernel.org
-X-Gm-Message-State: AFuF++n09zA2rbib9osedKddytmDBrKJd2JiQVKxUpPwtA1CpSGdQ+ip
-	slRnkiGuIPmIrPSwcQfsmvv4+8jclXhMoEMOuw4PAijSG4Dsmwv5WIY8
-X-Gm-Gg: AYBFou031ojaIP8I+awSXYnFpm6+mv7vYQesHt7YtCsTpyHO+XepiB8AXf7a8WKo18S
-	Y44vzP10cIZhmDqlpj7l1lBfy8wNXEtyazPmpypj+pN1+Q9hT1CynKqTPslhTNVDAQVYlkLxnLn
-	Wit8lSVQBxAMIO36N8sCkngFlh3WJHBhNXM5DPJSpbC2BRKfgTYst2A1sEzVpve82ae6/obTlu5
-	XbGDPm0WJ3ZcRKxIcy+EpweDubTn4J4LM7jv8PaFXD6iR492UTTFMcdW0tVfcYILYYW0ZKCQy/t
-	kh+HDJB1zcDgziijcGwnlayK5iNNCSL72gUpltJb2pOabhZpcy+s8E653ugiYn//XseV27UHaXd
-	x1j2Nw2cC0EvIQAdTD6phsuqpX5TpxQnAdGhtmL10GIATHs4QBKHPRULR1vrvuED3bXxDXvsCGb
-	TDCqj97urjeWKTydsvX4YLuWjOhgP2Qa/Sd9M8Zz743slzzWG8PHHasJCYs8qTElYXKg==
-X-Received: by 2002:a05:6a21:3944:b0:3d3:af85:eb98 with SMTP id adf61e73a8af0-3d9af3efa11mr19982146637.26.1788437329916;
-        Thu, 03 Sep 2026 05:08:49 -0700 (PDT)
-Received: from [192.168.71.146] ([240e:b8f:91e2:d400:ec2a:b15e:fef8:70a])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc43d424edesm869853a12.22.2026.09.03.05.08.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 05:08:49 -0700 (PDT)
-Subject: [PATCH RFC v2 0/1] leds: asus-aura-scsi: Add ASUS Aura RGB LED driver
- for ROG NVMe enclosures
-Date: Thu, 03 Sep 2026 20:00:00 +0800
-Message-ID: <202609032000.RFCv2-0.lhw@gmail.com>
-In-Reply-To: <202609012200.RFC0.lhw@gmail.com>
-References:
- <202609012200.RFC0.lhw@gmail.com> <202609012200.RFC1.lhw@gmail.com>
-From: Liang Haowen <nbg2974@gmail.com>
-To: linux-leds@vger.kernel.org
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Martin K. Petersen <mkp@kernel.org>, linux-scsi@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
- Denis Benato <denis.benato@linux.dev>, Armin Wolf <W_Armin@gmx.de>,
- Hans de Goede <hansg@kernel.org>,
- Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+        bh=BRKIuIMQwGJz+W0+V2Cv4f46rDoN+QkQp0uwFbNfBIs=;
+        b=LNTleZLjtLgIkdeZGbBPeA9ZsjsvEyJPAhQhNw2PZd7ulApEWLz537mrDf9ZD5zD1W
+         IKRBieQ9ZE3yGWPobxeG6n5BXCN5/89i/ov0Hy5ANlwABc6aLPvxpegb5+l79KI6X6Jo
+         l+vN6k2xe86K3nisCWYEpHTA7W2K9seBjLKwpUhDxHnaCXI8KzgJRYAqrxjPPrFF4pK7
+         oJV3tXY7t5rvjU5gIw4KkjJdJXJ2Jp0YSmz9uJ06ODrtEjzDrZu+sZSay4S6Upq0eK7c
+         xB7EzuW9XtK2N2yhAq5gu0jbPGqKb/czT2e3Z6vn0F1ejmGraUuNngCFotffaXXogYwJ
+         uJmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788437332; x=1789042132;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BRKIuIMQwGJz+W0+V2Cv4f46rDoN+QkQp0uwFbNfBIs=;
+        b=ZdV7KppqmPdiCgJMDbRyQ7OGGed7AsA7ul6y4CnPVu+I3NZkGJ16UZRTex37kbU+Hy
+         7G8LSLypN91ffaMh4EvMm81ZztVeqkJzV4p3NIzzcSm1/3M0s10glDtvYe5zNYq7Vt41
+         bGpP+9zWbzRJMIvAvppPcOVDfes6pUQJ6441RjIOFEQCdWXvuzCW1uvkKgvWKYSQ0p3o
+         slP469pJnQ3dgj51/zm6ep4JjReaVq0BCnh72semz1nwHcMD8fxr6IDj4h8pIksmRNqe
+         +wsm5oqwT+R8Xr/zlLf+8JtPgdzLUYq6r/uNBpzWvYnMtKxjgnu3Y+Hxisr4vk4HalBd
+         hnbw==
+X-Forwarded-Encrypted: i=1; AKwUvBynFC5uVUEFqs2iwlnpMiRZu7piPY8X8xF9fMJZNymSb8pSaz/0sTNCpwFz55RY2gt/8+xgkrja6yoG1dU=@vger.kernel.org
+X-Gm-Message-State: AFuF++ldwdca3cyLOiJBZ7vKfegUXE+C+enrp/KA7m3d30LN6Vj7eeKZ
+	flM21jY/i4bOOb0JejQNAB7UW/1WWpRkJfSaj7ZoIbMySeSBLZGqWDNv
+X-Gm-Gg: AYBFou1NMzK3CJ+PbwfFdM6+c2ok0ezMm9GMr2OvEVnWwad22KFrdEzOYcFju2CSUfE
+	RSgukP8tkjngHAnLpVSmB5xAFZETFHIOm6YfA61QMIogCiN9MYJVFcPVWe3hKN02GfMqjR6/4RD
+	7fa2TOYVgO4/7DpNuRiBneIRz5oS6APUy5kdgKR6feZb+92Ud+4ER28Cpz2Yn42D8OwilqFPXE7
+	/kzWTX74pnSZ115DPHkN9cmAN0WSYAm7/BvVxfcmI6aF/TmMy2FKaMrG206lvrE/Oq+c2r0gAm6
+	bsnMwr1LZjej3YdgsqfxMjJ2ODNX7jWesEdFZZdyjFtwlZ3ga1/3c1Mxq5jde89aK8a8xf4XBNu
+	24YWMHxjvOuxSzX5FkQ5O1aXGkClZ/K1v+any6O3kjJpuETT+exbox9sVxb2RSdp7vohqjz6bWU
+	kTOkJ4J/1tavbittYBwv09cKEko5K3hjjXeDPzdlM9fGiVj8eGHjuIePrtCP69hPxl4rYST+DLe
+	ufdZ8u0628g9qJKWfBTpP3l0048skyTwf/tCmxFnXKKXbHNwLVsyQpFqH60nEOD5A==
+X-Received: by 2002:a05:600c:630e:b0:49c:e27c:6b10 with SMTP id 5b1f17b1804b1-49ce55ecea8mr213777445e9.3.1788437331849;
+        Thu, 03 Sep 2026 05:08:51 -0700 (PDT)
+Received: from [172.24.138.145] (ipservice-092-208-247-184.092.208.pools.vodafone-ip.de. [92.208.247.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf0c1728bsm52458095e9.15.2026.09.03.05.08.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 05:08:51 -0700 (PDT)
+Message-ID: <98851819-2079-4505-b8fa-1b6943ef71e2@gmail.com>
+Date: Thu, 3 Sep 2026 14:08:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 17/20] gpio: regmap: Use regmap_test_bits() for single
+ bit reads
+To: Bartosz Golaszewski <brgl@kernel.org>,
+ Janani Sunil <janani.sunil@analog.com>
+Cc: linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-doc@vger.kernel.org, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+ <u.kleine-koenig@baylibre.com>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Olivier Moysan <olivier.moysan@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Michael Walle <mwalle@kernel.org>
+References: <20260828-ad7768-driver-v5-0-e33ca6f841a2@analog.com>
+ <20260828-ad7768-driver-v5-17-e33ca6f841a2@analog.com>
+ <CAMRc=MfV+ziruvdyFU-RTbD09E_Jhpxgaab9T6bG=tuPg-jhLA@mail.gmail.com>
+Content-Language: en-US
+From: Janani Sunil <jananisunil.dev@gmail.com>
+In-Reply-To: <CAMRc=MfV+ziruvdyFU-RTbD09E_Jhpxgaab9T6bG=tuPg-jhLA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello,
 
-v2 of the LED driver for ASUS Aura RGB on ROG external NVMe
-enclosures. It addresses all seven points from the review v1 received
-(from the sashiko AI bot; there has been no human review on v1 yet).
+On 9/2/26 15:48, Bartosz Golaszewski wrote:
+> On Fri, 28 Aug 2026 17:30:40 +0200, Janani Sunil <janani.sunil@analog.com> said:
+>> Use regmap_test_bits() when reading a single GPIO value from a normal
+>> register and when reading the direction bit.
+>>
+>> Reviewed-by: Linus Walleij <linusw@kernel.org>
+>> Reviewed-by: Michael Walle <mwalle@kernel.org>
+>> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+>> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+>> ---
+> Janani: the GPIO patches don't apply on top of current gpio/for-next. Can you
+> rebase and resend just the GPIO bits separately?
+>
+> Thanks,
+> Bartosz
 
-Changes since v1:
+Hi Bartosz,
 
-- Teardown order: .detach() and the attach error path now unregister
-  the LED class devices first, then cancel_work_sync(), then free.
-  The v1 order (cancel first) left a window where a brightness write
-  could requeue the work after cancel_work_sync() returned, so the
-  work would run on freed memory.
+Done. I split out the three GPIO patches, rebased them onto the current gpio/for-next branch and resent them separately as v6.
 
-- Request allocation: ene_write() now builds the request with
-  scsi_alloc_request() instead of a raw blk_mq_alloc_request().
-  scsi_initialize_rq() zeroes cmnd, initializes the rcu head, sense
-  length and retries; skipping that left those fields uninitialized.
-  An explicit timeout and RQF_QUIET are set, matching what
-  scsi_execute_cmd() does.
+https://lore.kernel.org/r/20260903-ad7768-gpio-v6-0-4254ef6c9b38@analog.com
 
-- Serialization of the ENE sequence: brightness_set() now only caches
-  the colour and marks the LED in a per-zone dirty bitmap; a single
-  work item per zone runs one sequence (MODE, colour slots, APPLY,
-  SAVE) for all pending LEDs. The v1 per-LED works could interleave
-  their sequences between concurrent updates. As a side effect,
-  multi-LED updates now batch into one APPLY/SAVE.
+I will drop these patches from the next version of the main AD7768 IIO series.
 
-- Subject line: switched to the leds subsystem prefix and
-  capitalization.
-
-- The attach success log message is gone.
-
-Two of the reported items did not hold up against the kernel this
-driver is built against (7.2.2):
-
-- kzalloc_obj() is not an undefined macro; it lives in
-  include/linux/slab.h (since v6.17).
-
-- blk_rq_map_kern() with four arguments is the current signature
-  (rq, buf, len, gfp); drivers/scsi/scsi_lib.c calls it that way from
-  scsi_execute_cmd().
-
-Everything else is unchanged from v1: the hardware (ROG external NVMe
-enclosures, e.g. ROG STRIX Arion, USB 0b05:1932, no HID, ENE LED
-controller behind vendor SCSI commands on the disk's LUN, 4
-independently addressable LEDs), the scsi_device_handler that does
-not claim the sdev, the multicolor LED interface, and the
-protocol handling. v2 was re-verified on hardware.
-
-Known caveats, unchanged:
-
-- the handler attaches manually until a notifier lands
-  (echo asus_aura > /sys/block/sdX/device/dh_state);
-
-- SAVE (0xaa) is issued with every colour update, which writes the
-  enclosure flash each time; wear has not been characterized yet;
-
-- the LEDs are registered with a NULL parent device, because
-  parenting them to the sdev creates a reference cycle that blocks
-  the sdev's final release on unplug.
-
-Comments on the interface shape and on folding this into the shared
-Aura work with Denis remain very welcome.
-
-Signed-off-by: Liang Haowen <nbg2974@gmail.com>
-
-Liang Haowen (1):
-  leds: asus-aura-scsi: Add ASUS Aura RGB LED driver for ROG NVMe enclosures
-
- drivers/leds/leds-asus-aura-scsi.c | 332 +++++++++++++++++++++++++++++
- 1 file changed, 332 insertions(+)
-
---
-2.55.0
+Best Regards,
+Jan
 
