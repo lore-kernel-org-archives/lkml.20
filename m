@@ -1,165 +1,145 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24FE231716D
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:03:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A39D4B1B41;
+	Thu,  3 Sep 2026 14:04:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444248; cv=none; b=H5Tfd8pOxBNSoSmtrgjwmSRwA8vJsC7MIcKE+Bubjvll5dKbmKRc2mZ6BJ3GsvRCoqTgqKXXgbnKi2Dc7EOWOyt4OeKd/UM+PuhePJ381OIEwoU8mlGfcWKTQankLsNMi6TBxenh8F6d4j6uRg/XFuuVCXVFjLBOV7maJrk/67o=
+	t=1788444306; cv=none; b=JIFs3dRVVErdjTNBLY6TQqqVv4QjKk13qnSsGFPuB7I1962MAuZmKHa/t//PhmdPFW7zRMtH7srZcAqFutcS4XBvXvYZv+bYPEKQUPWx+6/bGp5dfgMCOyADlLp0lSjRBUgPRnFPeo42tSbltWXC8AEkLDCJ7/429FOR2S/MOfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444248; c=relaxed/simple;
-	bh=H8k/JurwcVNu7DRkWrrbuDfL0eOQ/gndxF7xLu0BWFc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=F4+0tJwJuI+v0pCwAvljKs4Bw3LqZmkJsCYyIVRD4ttX5JPMVChrFtVP86WArgxzK98etaxhqEeMmmrmNZm3dvTviJpCe+bIRyWa1N4xVhqFtn4nZNn3S4xSXw8E2gca3+yeMe8AO4Aa8RdReP4w9hxgENt13xwBlEwvnuTpC00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MKcvgfMp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788444306; c=relaxed/simple;
+	bh=/bwUsPFOPColKlBNTYApu5MktiyXtyxEoVxqVzkOAG0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eLas9pPpl9YJxerfve+Cb9artKqJI2M/8+pKrnkNCfJJRNMBPKZTigNnb9KO795CDgkiv5jtbs6g2FjlTktK9duy1IuvstVnYa7Fn3r4iHYNvXc7BQAuHRtlzyoGUKwYPC2bq0iZnPjqPKJ4308bcDLZCd5R5JcdHpRWocj+2iE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U1dKkoSP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MKcvgfMp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 924891F00ACA
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:03:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U1dKkoSP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE2951F00A3E;
+	Thu,  3 Sep 2026 14:04:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788444226;
-	bh=SIkCVMXueZug7Awhe2bDRHsi+uaKaNMKk8EAPzdMILM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=MKcvgfMpi72qQpfUBJdR6W1lHzc/2rNRHq0b0XCtBRAHeStSFPGp9K4F6s6o711he
-	 Hl29qtTtA6faFKUb4JZtyrBdX8Ht1RrFF3+j8O8Dd8zRycPEb3pgPCumQ0HQwaiUGm
-	 2nuz3JfDsa9vbXSb0BRKfeov+LvsmIlmRsMiKejnjW5C3nlICchVu9SZ+XGb+8SJZh
-	 KEU/Y+JQX9DKwpiVZm0b8VdU8BJ567YPPauQzwUiA06AKyPQqIcldyKKHzfFCbSy6j
-	 1l1gIG70zoXuS0jtcNW//96UEnEcFVe7mfHa03SwITbF+EJbu1DJfeg+2eI+lFbNnc
-	 meHyLfNnc2SZw==
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c2569aa5116so170383766b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:03:46 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwzMJEqbMHUT8PRwGYa4DHKIKJtGMbrkQ2WlfO1Mvfb5tX3oj5XJWXfXbQTMiiO+NJDxEDiGClF6KYVOYI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nPlJI6JOFQqYxG6aNbjoYBuN4TkJKCLk6PD/PFHnlYzXe/i4p2
-	ywNDgzTp9dop4ppuOaCpLl6B6amARxwkIxSk/uclnql56o+Mj1/pVtsyQL70VhiL5Uw4TnJ6Dic
-	QTd6DyT1R6oMCgkFQzZH0Ff8vv4Km1fA=
-X-Received: by 2002:a17:907:8323:b0:c25:f7dc:2e0 with SMTP id
- a640c23a62f3a-c25f7dc0985mr100970266b.33.1788444225414; Thu, 03 Sep 2026
- 07:03:45 -0700 (PDT)
+	s=k20260515; t=1788444295;
+	bh=elge9bDwtCLKT6xvAo3JEAnzLjGry/X8H8tlMHRXEkQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=U1dKkoSPdAWi+lBx2IodRAo+PkpJIhGCvTSJ1ADsxn5z9A2citGbidswvrrava5iz
+	 ++OYMoE48S/FkIlqNm6nOVnquLiVBZeP17Bd0w81JRE0U9f+x1UgeDzMqMEkoKS3zJ
+	 wF33hMQM0KtC8xU0KwGdS1jDmNv3eZDvnGIffxXzvT3d6fMHZWrp7fX3PDwV4h9RBT
+	 EgHZ6+D7tLUZDNsT9CHbSTPVCHUbVQaKauNHhx+AWBu23+LiPfJPTG63l8yyz9Y1UN
+	 ijDg3/bwZEG3FE+VFXUxp1mI+Xfjhflq/tdU+l6+5UJWrzpN82ooLFbSMh6l/h+Vqo
+	 tjK95QBJzG+Yg==
+Date: Thu, 3 Sep 2026 15:04:48 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Zenghui Yu <zenghui.yu@linux.dev>
+Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, akpm@linux-foundation.org, david@kernel.org, liam@infradead.org, 
+	vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
+	shuah@kernel.org, ziy@nvidia.com, baolin.wang@linux.alibaba.com, 
+	nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org, 
+	lance.yang@linux.dev, usama.arif@linux.dev
+Subject: Re: [PATCH] selftests/mm: remove unreachable returns after ksft exit
+ helpers
+Message-ID: <apl-bS787dYOwTP-@gremlin>
+References: <20260903135251.39593-1-zenghui.yu@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1699104759.git.quic_charante@quicinc.com>
- <a8e16f7eb295e1843f8edaa1ae1c68325c54c896.1699104759.git.quic_charante@quicinc.com>
- <aphSYFTd12oia8K2@google.com> <apkhSHr3by5Bf8jW@tiehlicka>
-In-Reply-To: <apkhSHr3by5Bf8jW@tiehlicka>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 3 Sep 2026 07:03:33 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zPCYNmJbkQEA62z75AB=ziWqGb38_E-ee_6o40Sz=zHXA@mail.gmail.com>
-X-Gm-Features: AcwNN1Vh9NEyJMK2-RqtsSvN7Ew3MbvuJfwRRlZGGsd6gh2ct7StqfMzBcy6rzk
-Message-ID: <CAO9r8zPCYNmJbkQEA62z75AB=ziWqGb38_E-ee_6o40Sz=zHXA@mail.gmail.com>
-Subject: Re: [PATCH V3 3/3] mm: page_alloc: drain pcp lists before oom kill
-To: Michal Hocko <mhocko@suse.com>
-Cc: Charan Teja Kalla <quic_charante@quicinc.com>, akpm@linux-foundation.org, 
-	mgorman@techsingularity.net, david@redhat.com, vbabka@suse.cz, 
-	hannes@cmpxchg.org, quic_pkondeti@quicinc.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903135251.39593-1-zenghui.yu@linux.dev>
 
-On Thu, Sep 3, 2026 at 12:27=E2=80=AFAM Michal Hocko <mhocko@suse.com> wrot=
-e:
+On Thu, Sep 03, 2026 at 09:52:51PM +0800, Zenghui Yu wrote:
+> From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
 >
-> On Wed 02-09-26 16:49:48, Yosry Ahmed wrote:
-> > On Sun, Nov 05, 2023 at 06:20:50PM +0530, Charan Teja Kalla wrote:
-> > > pcp lists are drained from __alloc_pages_direct_reclaim(), only if so=
-me
-> > > progress is made in the attempt.
-> > >
-> > > struct page *__alloc_pages_direct_reclaim() {
-> > >     .....
-> > >    *did_some_progress =3D __perform_reclaim(gfp_mask, order, ac);
-> > >    if (unlikely(!(*did_some_progress)))
-> > >       goto out;
-> > > retry:
-> > >     page =3D get_page_from_freelist();
-> > >     if (!page && !drained) {
-> > >         drain_all_pages(NULL);
-> > >         drained =3D true;
-> > >         goto retry;
-> > >     }
-> > > out:
-> > > }
-> > >
-> > > After the above, allocation attempt can fallback to
-> > > should_reclaim_retry() to decide reclaim retries. If it too return
-> > > false, allocation request will simply fallback to oom kill path witho=
-ut
-> > > even attempting the draining of the pcp pages that might help the
-> > > allocation attempt to succeed.
-> > >
-> > > VM system running with ~50MB of memory shown the below stats during O=
-OM
-> > > kill:
-> > > Normal free:760kB boost:0kB min:768kB low:960kB high:1152kB
-> > > reserved_highatomic:0KB managed:49152kB free_pcp:460kB
-> > >
-> > > Though in such system state OOM kill is imminent, but the current kil=
-l
-> > > could have been delayed if the pcp is drained as pcp + free is even
-> > > above the high watermark.
-> > >
-> > > Fix this missing drain of pcp list in should_reclaim_retry() along wi=
-th
-> > > unreserving the high atomic page blocks, like it is done in
-> > > __alloc_pages_direct_reclaim().
-> > >
-> > > Signed-off-by: Charan Teja Kalla <quic_charante@quicinc.com>
-> >
-> > [Sorry for thread necromancy]
-> >
-> > Hi Charan,
-> >
-> > Are you planning to respin this patch?
-> >
-> > I know that Michal was questioning the need for it. While doing some
-> > stress testing I came across a couple of OOM kills that had significant
-> > amount of memory in pcplists. Something that would have been prevented
-> > by this patch.
+> The ksft_exit*() helpers such as ksft_exit_fail_msg() are declared
+> __noreturn, and the ksft_exit() and ksft_finished() macros expand to calls
+> of them, always terminating the process via exit().  Any return statements
+> following such calls are unreachable, both at the end of main() and on
+> error paths of helper functions.
 >
-> Could you share some numbers to see the scale of the problem?
+> Remove all of them.  No functional change.
+>
+> Assisted-by: GLM-5.3 OpenCode
 
-Sure, here's a sample from an OOM log (ignore mapped/free_mapped, it's
-from the ALLOC_UNMAPPED series):
+Thanks for providing the tag, much appreciated :)
 
-[   40.336188] Mem-Info:
-[   40.336195] active_anon:96 inactive_anon:1540181 isolated_anon:0
-                active_file:51 inactive_file:0 isolated_file:0
-                unevictable:382720 dirty:43 writeback:0
-                slab_reclaimable:20339 slab_unreclaimable:26597
-                mapped:382858 shmem:153 pagetables:8291
-                sec_pagetables:0 bounce:0
-                kernel_misc_reclaimable:0
-                free:17264 free_pcp:16890 free_cma:0
-[   40.336199] Node 0 active_anon:384kB inactive_anon:6160724kB
-active_file:204kB inactive_file:0kB unevictable:1530880kB
-isolated(anon):0kB isolated(file):0kB mapped:1531432kB dirty:172kB
-writeback:0kB shmem:612kB shmem_thp:0kB shmem_pmdmapped:0kB
-anon_thp:10240kB kernel_stack:2576kB pagetables:33164kB
-sec_pagetables:0kB all_unreclaimable? yes Balloon:0kB gpu_active:0kB
-gpu_reclaim:0kB
-[   40.336202] DMA32 free:34808kB boost:0kB min:11028kB low:13784kB
-high:16540kB reserved_highatomic:0KB free_highatomic:0KB
-free_mapped:11032KB active_anon:0kB inactive_anon:1487720kB
-active_file:52kB inactive_file:20kB unevictable:393252kB
-writepending:4kB zspages:0kB present:2096760kB managed:1991156kB
-mlocked:393252kB bounce:0kB free_pcp:42404kB local_pcp:2460kB
-free_cma:0kB
-[   40.336205] lowmem_reserve[]: 0 5976 5976
-[   40.336210] Normal free:34248kB boost:0kB min:34024kB low:42528kB
-high:51032kB reserved_highatomic:0KB free_highatomic:0KB
-free_mapped:34028KB active_anon:384kB inactive_anon:4672764kB
-active_file:180kB inactive_file:0kB unevictable:1137628kB
-writepending:168kB zspages:0kB present:6291456kB managed:6120144kB
-mlocked:1137628kB bounce:0kB free_pcp:25156kB local_pcp:764kB
-free_cma:0kB
-[   40.336213] lowmem_reserve[]: 0 0 0
+> Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
 
-As far as I can tell there's about ~65M of free memory stranded on
-pcplists (in an 8G VM), which would have kept the amount of free
-memory above the watermarks and prevented that specific OOM kill.
-Although, as I mentioned before, this is a synthetic stress test.
-Perhaps in practice it doesn't matter all that much in practice, but
-it seems like the logical thing to do.
+LGTM, so:
+
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+> ---
+>  tools/testing/selftests/mm/folio_split_race_test.c | 2 --
+>  tools/testing/selftests/mm/mlock-random-test.c     | 1 -
+>  tools/testing/selftests/mm/pkey_sighandler_tests.c | 1 -
+>  tools/testing/selftests/mm/split_huge_page_test.c  | 4 ----
+>  4 files changed, 8 deletions(-)
+>
+> diff --git a/tools/testing/selftests/mm/folio_split_race_test.c b/tools/testing/selftests/mm/folio_split_race_test.c
+> index 45b84f7b364e..1960635a953e 100644
+> --- a/tools/testing/selftests/mm/folio_split_race_test.c
+> +++ b/tools/testing/selftests/mm/folio_split_race_test.c
+> @@ -269,6 +269,4 @@ int main(void)
+>  				      NUM_ITERATIONS);
+>
+>  	ksft_exit(iter == NUM_ITERATIONS);
+> -
+> -	return 0;
+>  }
+> diff --git a/tools/testing/selftests/mm/mlock-random-test.c b/tools/testing/selftests/mm/mlock-random-test.c
+> index 16294bc7dae6..58772914fd79 100644
+> --- a/tools/testing/selftests/mm/mlock-random-test.c
+> +++ b/tools/testing/selftests/mm/mlock-random-test.c
+> @@ -71,7 +71,6 @@ int get_proc_locked_vm_size(void)
+>
+>  	fclose(f);
+>  	ksft_exit_fail_msg("cannot parse VmLck in /proc/self/status: %s\n", strerror(errno));
+> -	return -1;
+>  }
+>
+>  /*
+> diff --git a/tools/testing/selftests/mm/pkey_sighandler_tests.c b/tools/testing/selftests/mm/pkey_sighandler_tests.c
+> index 74bf79a5399d..f9c728ba96a5 100644
+> --- a/tools/testing/selftests/mm/pkey_sighandler_tests.c
+> +++ b/tools/testing/selftests/mm/pkey_sighandler_tests.c
+> @@ -556,5 +556,4 @@ int main(int argc, char *argv[])
+>  	}
+>
+>  	ksft_finished();
+> -	return 0;
+>  }
+> diff --git a/tools/testing/selftests/mm/split_huge_page_test.c b/tools/testing/selftests/mm/split_huge_page_test.c
+> index 86a603692826..c01d227d7fd6 100644
+> --- a/tools/testing/selftests/mm/split_huge_page_test.c
+> +++ b/tools/testing/selftests/mm/split_huge_page_test.c
+> @@ -101,7 +101,6 @@ static bool is_backed_by_folio(char *vaddr, int order, int pagemap_fd,
+>  	return (pfn_flags & folio_tail_flags) != folio_tail_flags;
+>  fail:
+>  	ksft_exit_fail_msg("Failed to get folio info\n");
+> -	return false;
+>  }
+>
+>  static int check_after_split_folio_orders(char *vaddr_start, size_t len,
+> @@ -548,7 +547,6 @@ static int create_pagecache_thp_and_fd(const char *testfile, size_t fd_size,
+>  err_out_unlink:
+>  	unlink(testfile);
+>  	ksft_exit_fail_msg("Failed to create large pagecache folios\n");
+> -	return -1;
+>  }
+>
+>  static void split_thp_in_pagecache_to_order_at(size_t fd_size,
+> @@ -711,6 +709,4 @@ int main(int argc, char **argv)
+>  	free(expected_orders);
+>
+>  	ksft_finished();
+> -
+> -	return 0;
+>  }
+> --
+> 2.53.0
+>
+
+--
+Cheers, Lorenzo
