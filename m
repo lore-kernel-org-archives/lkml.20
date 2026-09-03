@@ -1,63 +1,43 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42E893FF8AC;
-	Thu,  3 Sep 2026 09:58:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1AC3416873;
+	Thu,  3 Sep 2026 09:58:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788429492; cv=none; b=s3xuc7/cJS/WBneXeuOsE+rTuXA8UCVz47Lh1wE26I5a0Ai2zIrNFL8GGg747ZkxzCEMK1nZY//G8E1pugnJTftVQWdTqnpQEDKYtDN9ZGjanHiaxL33rP06Fh7JBlxQx6KIQZ5qkSIK1cQ8ocrHbs9jDvG0VljNcV8EiteOPpk=
+	t=1788429521; cv=none; b=tdPh3nwdmVoP4VKlIRib/j4DSixN5Hc/9/5mkObVUHobCW0fUUBBI6T8JC5Pi6vhmeraq4Apzf0lutZAnzCEYYXGRoKby/teJTyyUbSV2h/83dRnXsUUC/nW5dhhvn8bLcfjI7qEhpThqGZx+xR8FTu5wnHysfeDgu+ROxDPtOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788429492; c=relaxed/simple;
-	bh=fRwgEYGItg/BspoQU8Cd0R1u8oFtv7rMnbB8ZHSfbRg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=rza6pY5s/3IcWz6ahESDVMvw8ZjBCQWliQlRWSN0mvmekqSTDZwNA7MrdG5tbFWcDxB2OiY7DugbjhBOMMABuLdy5hvzjg3sQvMohcAHB5npSozaFdN+o8XYiO1AnrM5IwcL4tcXFIxjJvGTDHLvqrXy7PdTdHEDKjvFr4bUvXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=EBzNOV51; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788429521; c=relaxed/simple;
+	bh=PoX631ibcyST4N2YXaOeJEQK2DngMS46Eutob5G8cQ4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FJGIqwLAHqdeifAp0yuPlF1OaCIeK5yyR9A15AZfOMUpXEQMIVeBxLixsW0CuRdDdemWwaxRl//6P7V4MbrBPA8Y0j5oBbMpKfrnPmbimzB6sQxyZDDUw8w4oMppaQtz2KlKR00L/596edW74dNyxXmjoqRN2JtLYgzln+qCfgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GxdBZNUv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="EBzNOV51"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 9B7084E414EB;
-	Thu,  3 Sep 2026 09:58:09 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6CEA3602B8;
-	Thu,  3 Sep 2026 09:58:09 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 53B4111C79654;
-	Thu,  3 Sep 2026 11:58:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788429484; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=fRwgEYGItg/BspoQU8Cd0R1u8oFtv7rMnbB8ZHSfbRg=;
-	b=EBzNOV51j1dg+dq8phVr6PjKQkRZ8y628vNuUFxB39MbG/OCCfEyqhNOEPpINDpmBbLkaq
-	SZyupqL46w3GPIVS1oHns2PjxdKWkCv+78qnlgCfyMNYJzy6KQKNlpUkyfQ9wWgitDRt+g
-	3fEzLMs2RCHnnwblzvgjXdDAV22JbgxBX5fdl4v0M9CshbaecPNY2isN7l+mmbqi8yOjM8
-	7bK7ZHeC6HR/K9RsxKXITHO2CRDciNcwS1+Cr/J8mMqdP3fGD2fnyLmY03nxhdb2NRGjH5
-	986anQ/bkVbK2xfbJ5DgkwfMVbba/ORJ9sr0OICQBMlXPpgpjMBRT2togmm9SQ==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Ernest Van Hoecke <ernestvanhoecke@gmail.com>,  Bartosz Golaszewski
- <brgl@kernel.org>,  Rob Herring <robh@kernel.org>,  Saravana Kannan
- <saravanak@kernel.org>,  Frank Li <Frank.li@oss.nxp.com>,  Kieran Bingham
- <kieran.bingham@ideasonboard.com>,  Pengutronix Kernel Team
- <kernel@pengutronix.de>,  Stephen Boyd <sboyd@kernel.org>,  Brian Masney
- <bmasney@redhat.com>,  Linus Walleij <linusw@kernel.org>,  Uwe
- =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,  Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>,  Geert Uytterhoeven <geert@linux-m68k.org>,
-  Leonardo Costa <leonardo.costa@toradex.com>,  devicetree@vger.kernel.org,
-  linux-gpio@vger.kernel.org,  linux-pwm@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  Ernest Van Hoecke
- <ernest.vanhoecke@toradex.com>,  stable@vger.kernel.org
-Subject: Re: [PATCH RFC 1/2] of: property: fw_devlink: Follow GPIO nexus maps
-In-Reply-To: <20260902185513.4867bc92@bootlin.com> (Herve Codina's message of
-	"Wed, 2 Sep 2026 18:55:13 +0200")
-References: <20260902-fw-devlink-nexus-ready-v1-0-68fe1996e78a@toradex.com>
-	<20260902-fw-devlink-nexus-ready-v1-1-68fe1996e78a@toradex.com>
-	<CAMRc=MfN73=K1nZrqUbhrMSijjpzhF_z_U9JU4_H163W0vRpqA@mail.gmail.com>
-	<qg2nemg4mlxpancg7az2vsnjkfc4anxkieozoxh3mj3zgkyifd@b5b6yiz4uew3>
-	<20260902185513.4867bc92@bootlin.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Thu, 03 Sep 2026 11:57:58 +0200
-Message-ID: <874ig664ih.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GxdBZNUv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DBCA1F000E9;
+	Thu,  3 Sep 2026 09:58:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788429519;
+	bh=lmm3428uIGZfnMghqloe1oSMva2nsLIIykVSeNrcwWA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GxdBZNUvkRHNeVaZPGcXElfte6UPPciaWDOp856KGakYjr0aZD+cUD9Vsis7yGX/h
+	 4FIrcApQbZbgAgntaqexYkoNUZ0HPi51IZoXAKADNCX8eVKq8pCctD4SA/Z6sL+8BY
+	 WE+kq1CxJIenBpKJFtx0MtWrD244+rvGRW/4nSwPo3RwYyC/baHZMfp0dcl8cQ7g/X
+	 yqFLbh9INSb1hSiSDteow1zok8ajbqziUsutxXuKxhso8oPKamalcR4/1HnZ9y/I8i
+	 nOH6t4RJ3woMy5q+7a3V5iZ3VAHUsdHfXOtNQkAGB0qORlHkDAQvdtU7oW2bTxrokn
+	 CmPCB8TVr+oMw==
+Date: Thu, 3 Sep 2026 11:58:35 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Frank.Li@oss.nxp.com
+Cc: Support Opensource <support.opensource@diasemi.com>, 
+	Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	"open list:MULTIFUNCTION DEVICES (MFD)" <mfd@lists.linux.dev>, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev
+Subject: Re: [PATCH 1/1] dt-bindings: mfd: da9052: allow dlg,da9053-aa
+ fallback to dlg,da9052
+Message-ID: <20260903-hypnotic-pearl-ladybug-8ed62d@quoll>
+References: <20260831201522.51294-1-Frank.Li@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,37 +45,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Disposition: inline
+In-Reply-To: <20260831201522.51294-1-Frank.Li@oss.nxp.com>
 
-Hello Ernest,
+On Mon, Aug 31, 2026 at 04:15:21PM -0400, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+> 
+> Allow dlg,da9053-aa fallback to dlg,da9052 to fix legacy platform (> 10
+> years) check_dtbs warnings:
+>   arch/arm/boot/dts/nxp/imx/imx53-voipac-bsb.dtb: dialog@48 (dlg,da9053-aa): compatible: ['dlg,da9053-aa', 'dlg,da9052'] is too long
+>         from schema $id: http://devicetree.org/schemas/mfd/dlg,da9052.yaml
+> 
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> ---
+> Previous try drop dlg,da9052 at
+> https://lore.kernel.org/imx/20260404-thoughtful-placid-boobook-da26da@quoll/
+> 
+> but Krzy have concern about compablity.
+> 
+> https://lore.kernel.org/imx/20251107-matrimony-showdown-ba6ce6996b2f@spud/
+> 
+> Conor prefer update old dts.
+> ---
+>  Documentation/devicetree/bindings/mfd/dlg,da9052.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/mfd/dlg,da9052.yaml b/Documentation/devicetree/bindings/mfd/dlg,da9052.yaml
+> index 1103a8cc5cea4..d1d23c7c4d0c2 100644
+> --- a/Documentation/devicetree/bindings/mfd/dlg,da9052.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/dlg,da9052.yaml
+> @@ -18,6 +18,10 @@ properties:
+>            - dlg,da9053-bb
+>            - dlg,da9053-bc
+>            - dlg,da9052
+> +      - items:
+> +          - enum:
+> +              - dlg,da9053-aa
+> +          - const: dlg,da9052
 
-On 02/09/2026 at 18:55:13 +02, Herve Codina <herve.codina@bootlin.com> wrot=
-e:
+... and the dlg,da9053-aa alone from earlier enum should be removed and
+existing DTS corrected.
 
-> Hi Ernest, Bartosz,
->
-> On Wed, 2 Sep 2026 15:22:36 +0200
-> Ernest Van Hoecke <ernestvanhoecke@gmail.com> wrote:
->
->> On Wed, Sep 02, 2026 at 05:30:19AM -0700, Bartosz Golaszewski wrote:
->> > On Wed, 2 Sep 2026 13:41:39 +0200, Ernest Van Hoecke
->> > <ernestvanhoecke@gmail.com> said:=20=20
->> > > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
->> > >
->> > > GPIO consumers use of_parse_phandle_with_args_map() to resolve speci=
-fiers
->> > > through gpio-map properties. fw_devlink instead parses GPIO properti=
-es as=20=20
->> >=20
->> > Unlike PWM, there's no such thing as "gpio-map" properties.
+Best regards,
+Krzysztof
 
-Just as an FYI, there is a pending series to extend the nexus
-node concept to clocks, this may also require some fw-devlink magic :-)
-
-Link: https://lore.kernel.org/linux-clk/20260807-schneider-v7-2-rc1-eip201-=
-upstream-v5-0-8785f9531cf0@bootlin.com/T/#m16ddef087544db31b5f434fa44be70aa=
-d0b5e37e
-
-Thanks,
-Miqu=C3=A8l
