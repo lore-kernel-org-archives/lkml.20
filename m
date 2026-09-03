@@ -1,122 +1,157 @@
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 313BF4C0427
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:40:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788446452; cv=pass; b=GIEahQEFwmExrq4z+7NL0btT/SxJ1zo+i3RGIEkmaoOsSOCnMznHU4zjMszC+rWeNDspB+yTrvZ670N1n18Ts2M+P52msV6HRCMOfBWylgHzjE53vcnNdxssGWb4nHbx25piNmS1RjqpMLy0KZwQKAgCRCBmo+CJs989QjSw3JY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788446452; c=relaxed/simple;
-	bh=DMcoFPAWdEiA47YKBPP9R2w1Up2IfyxuLdA+slJYpIs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=c7DQKmc/mTgP2+DVm7UPbyAg2e3CrsvLTEvlqAPQWDk5JZAt8WCCBdh7IQoa87r+ScmkR3MHbFa9YGLt0kgA/Not2Sqjxj+/LqX6AYnGL10MpyJ5OnLeAWE432zv6LWUYF4cvP7USMWwvu5S7NB4AQZduq9K2JSrSDvgTVwj9To=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hvz++bd8; arc=pass smtp.client-ip=209.85.128.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C23674B66F6;
+	Thu,  3 Sep 2026 14:40:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788446460; cv=none; b=WUsBI3IunWBdbttfYEmR7CFethnsdA2TpAk0ht8hdKw05QdFyYXdkCWBJvjybecWgbWEw+jQoURZUHbQzXm8DqOTrBVBwsMyhF+o40/c+j765lL8OwJAp87VUJka7ejHG9Mfg0XOOEftY5Jn0LB2WG8vKRVOc0Jx2ekO26RuH4w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788446460; c=relaxed/simple;
+	bh=4naB7UIPaDXCcNDksCUuirSZuL4IKfdjox4HXLjJDI0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=j5xzorvGWHJ4tFDspsuZIK7RwggVa0Mn/Wadi6FuNjmXbxq3BmxyHr1GPGYeT2ESVEUAfU+Yq4dRN+pwsnwY4Ib3u8SNOKpnmvLbL269newqoVoYId6OHnoVW0qn5AI5qo67Y/ul9abOCAqrYqxt++Nh6+w7WmZViJRhnjxy3rY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=HBTWuTmz; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hvz++bd8"
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-865bdc6ed72so41744657b3.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:40:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788446443; cv=none;
-        d=google.com; s=arc-20260327;
-        b=syhm+aYpTqOSqsc+Z+Xf40YZzZrT8dKdL3FXmXUerw0CuNXtSlQOqK6q1p5ictzDuc
-         0rK/ZjPXWFPOnhG4aHh337PAxK9zizt8Pj7Usbrtb1IWlZnuobdnLmffzzOCelISJYwP
-         zTpuE5BvlT5rvhal4HF09hPVF75z4IyysZeGltArURMmbzerOkxkrWq8m/cApX02gYdy
-         +RoOlkTa467TOjTUzaAa56b38K1hrErSxue5Id1sTWOPBVdI/aeFWnT9adnLGnw8sr7I
-         5XSvkk8q1AYb9SKKGjBZZfbMg4YT9raNxArHSPUVu9T3KMd39cSt50fBu6+Z5RJSsGsA
-         HkEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DMcoFPAWdEiA47YKBPP9R2w1Up2IfyxuLdA+slJYpIs=;
-        fh=HSh0FSYBTUibP/yZriN99jLVv3CSepOA4O13znJ8r0M=;
-        b=kH5szn8kqmxtQ7DUQi6MPZhjhsoV10AffmVnBB1TL6zAtpwPwcC+OCN9T1R19Mytph
-         lgAJODn29auVl1Fxxwc9Vmr4fX14Pklj8/QJ8HPZcveeYDFUA1jGYcTu4gpqK5rm9Oau
-         acoohZbi4UiEEJWp4FTqR3rcKDkO51z3gSAlTp9my8AkJ23Gb4ZmqJvTm1KqFHx2bZ9a
-         HoTlo5IBAJiXwo8jHv+60a9LTFVpbGhPeNG7XE5Fe3QyHE4Yfe8L+1m+t4/8LJBp3mr9
-         KxMaZn/8q6+7nrcLlNjjCFX4eOiOtgnytyqQgnske+Ljy0i54JK0djr2arkd8A1dSfNK
-         ikrw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788446443; x=1789051243; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DMcoFPAWdEiA47YKBPP9R2w1Up2IfyxuLdA+slJYpIs=;
-        b=Hvz++bd8+eYQunNClH2gjduGXicxU7Dxf9RUQf91Lt7mmlCNFJBKNsC5TXFqAX2ksE
-         KwP1DHKm0mpdNGAGNJgcDLmvLxrAf8KvNg2+oUqTjO7nSEKVjyJReCI4gAaHwfbYUSAw
-         IHvyXLBr7UhhT2Q/4PCFEwo61s+0zXpm/p/2pUaMJq0IPc4UM7MZwd3YSqeS2IvhN2GF
-         Cr9xZTW2ewL2WfKNfI85Oi/A3HRcMpQWKz9ST2POrBj7DvX+fQSd9K0WzFyGfhd85tt+
-         eFZnM6vvgMEv1YHJAgHzmOML+iF1b+rgvY6mA3M0wUoEkS1iHy02lpQbNvuYBxYhiDRP
-         X5Lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788446443; x=1789051243;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DMcoFPAWdEiA47YKBPP9R2w1Up2IfyxuLdA+slJYpIs=;
-        b=tQGoa2EruKCzxjFPD7EvBXMqJj0khfI9EZIHDAWJmx2QMxPdJSvpbVjE1nd3ebdeyo
-         L5XTIeNH08K5vGvpe6tvyDwzOw+A8ydm2K0EBitbPN7+W4Ayk5TlqJetnlkHMru3CX23
-         AVfGnkKpXiqvB8ZbxG9vV+kO1JaYEgnD3lSXC5XmFodhiBymwc6JMBEANTSbmrYOnTfO
-         2l48tsKHuSWUQuvXaYvlKhY4bNzZy/KMd+/zEAYA5vGamEYBZSxEvqnWRAFhoHQSvYfr
-         9Jese/tfu7lPoc66ZgAHJYOleyIhM7/jZESqtH/7kp5yDkD8Y+WBHYOQ2WnZRprKQ4U5
-         ub0Q==
-X-Forwarded-Encrypted: i=1; AKwUvByiZgJaGUCAc3d/r0ex/Zt5NRCoJDSuMPgkeCPzywnTQ47pT7+ULPNVl9LUdPDLydXlQOkceZi7BMKs7D0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lHZOAF7rogbpr45QosNyCeLvGTuPz9nDyVeNh+kOIfDZw+ldVM
-	1zQTZf2fQOgIn6A9VILA5YziXTYrDIYscs7QCyYTCmTo+f2gdWlLOUayb26dgkpzkwli2FE5I5H
-	m2a1eYKEX5g6go5XtS+eDnzla9EHS0u/NO2+wfy0TMw==
-X-Gm-Gg: AYBFou1EJyzmu0QZ6SaCnMigWCNEl7/9SQ9l3YY0Ja98sgHZUOeGkmlPSM8Qc/hN+qo
-	HMwBCdZSFYED3v6maer5N/oscoK6E9rlX/OkKP3iYwHUW8/jKareUErtUH3dEHAdHHwRiw9lTab
-	gG6YCAmpnNdNkfRJIjmUzpD/9xGgZS1Q6ECBybWaEIatWZXjUzWWcDZbSmFjZtgNqcnl24fV3jF
-	6MrL80ZAhDD7C+TwKhWV4iJge3pdtQM8I2ACLCXQvZe3ywLZquwGtCJaMvIHHPjXFHlsGcUAJkM
-	oOpTbG/IMGDARY+A4hRdWtPZMblCaO0g5CH5TJ+vfNmDFQDRHL1xJTagBU1TMzgA4HtMi1tzgaq
-	TjL0iH+Ced5nzYsXQYrr8OcWAiTvzpZ8=
-X-Received: by 2002:a05:690c:e211:10b0:80c:5ce9:8f1a with SMTP id
- 00721157ae682-86c54b242fbmr50652107b3.34.1788446442940; Thu, 03 Sep 2026
- 07:40:42 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="HBTWuTmz"
+Received: from [10.0.0.152] (unknown [10.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 2382253401F6;
+	Thu, 03 Sep 2026 16:40:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1788446445;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=ozigZcNd1R53uOOyPgHz9kIrV8jED5fHr5sryjLmFzc=;
+	b=HBTWuTmzT13Y7VOAjc6IG2hB4+5maIPoHG0xJd58BuLMRoQqejE3KaRbXiDEEQ7I6orgvw
+	rpSlBrm9GR9M4Agx3kZZ+xw4k3ebSxaH57vk+n8Jr2ezAh07Jdv0u5XqCgcI1pOBI8zIQ/
+	AYze+VFui2F6UKX8qSwrJk9JS9uRK+8=
+Message-ID: <ff2ee3c5-c0fc-4aa6-b64a-c77e4a2242e2@ixit.cz>
+Date: Thu, 3 Sep 2026 16:40:44 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <5be7vkmpzmizgmvqxyefubgi3epnlo2uf7mabcgsapvia4ckpm@ixwfppk5z5e5> <A4C1EAB3A67613DC+20260903132714.2538118-1-raoxu@uniontech.com>
-In-Reply-To: <A4C1EAB3A67613DC+20260903132714.2538118-1-raoxu@uniontech.com>
-From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Date: Thu, 3 Sep 2026 10:40:31 -0400
-X-Gm-Features: AcwNN1W2_JiObyW5To0IffDILn7tLdHOJXWxugOC4ExywC4Uofa9xPpYfNG3_Bo
-Message-ID: <CABBYNZL2QcodKofLFbHbDJZBcjA+mRDSYi2QFZ_XvyphJYg_yg@mail.gmail.com>
-Subject: Re: [PATCH] Bluetooth: btqcomsmd: destroy RPMsg endpoints before
- freeing hci_dev
-To: raoxu <raoxu@uniontech.com>
-Cc: dmitry.baryshkov@oss.qualcomm.com, brgl@kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, marcel@holtmann.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mfd: wcd934x: set DMA mask on parent to silence "DMA mask
+ not set"
+To: Lee Jones <lee@kernel.org>
+Cc: Thomas Tai <thomas.tai@oracle.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, mfd@lists.linux.dev,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260823-wcd-dma-v1-1-95e44a315ccf@ixit.cz>
+ <20260903124939.GT2133376@google.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260903124939.GT2133376@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Xu,
+On 03/09/2026 14:49, Lee Jones wrote:
+> On Sun, 23 Aug 2026, David Heidelberg via B4 Relay wrote:
+> 
+>> From: David Heidelberg <david@ixit.cz>
+>>
+>> The wcd934x MFD parent (a slim_device) never initializes its
+>> dma_mask/coherent_dma_mask. When the DT-aware children pass through
+>> of_dma_configure() this triggers the "DMA mask not set" warning for
+>> each child.
+>>
+>> Cc: stable@vger.kernel.org
+>> Fixes: f959dcd6ddfd ("dma-direct: Fix potential NULL pointer dereference")
+>> Assisted-by: tencent:hy3
+>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>> ---
+>>   drivers/mfd/wcd934x.c | 6 ++++++
+>>   1 file changed, 6 insertions(+)
+>>
+>> diff --git a/drivers/mfd/wcd934x.c b/drivers/mfd/wcd934x.c
+>> index 3c3080e8c8cf7..70ee13791d52b 100644
+>> --- a/drivers/mfd/wcd934x.c
+>> +++ b/drivers/mfd/wcd934x.c
+>> @@ -1,12 +1,13 @@
+>>   // SPDX-License-Identifier: GPL-2.0
+>>   // Copyright (c) 2019, Linaro Limited
+>>   
+>>   #include <linux/clk.h>
+>> +#include <linux/dma-mapping.h>
+>>   #include <linux/gpio/consumer.h>
+>>   #include <linux/interrupt.h>
+>>   #include <linux/kernel.h>
+>>   #include <linux/mfd/core.h>
+>>   #include <linux/mfd/wcd934x/registers.h>
+>>   #include <linux/mfd/wcd934x/wcd934x.h>
+>>   #include <linux/module.h>
+>>   #include <linux/of.h>
+>> @@ -212,16 +213,21 @@ static int wcd934x_slim_status(struct slim_device *sdev,
+>>   static int wcd934x_slim_probe(struct slim_device *sdev)
+>>   {
+>>   	struct device *dev = &sdev->dev;
+>>   	struct device_node *np = dev->of_node;
+>>   	struct wcd934x_ddata *ddata;
+>>   	struct gpio_desc *reset_gpio;
+>>   	int ret;
+>>   
+>> +	if (!dev->dma_mask) {
+>> +		dev->dma_mask = &dev->coherent_dma_mask;
+>> +		dev->coherent_dma_mask = DMA_BIT_MASK(32);
+>> +	}
+>> +
+> 
+> Any reason not to use dma_coerce_mask_and_coherent()?
 
-On Thu, Sep 3, 2026 at 9:27=E2=80=AFAM raoxu <raoxu@uniontech.com> wrote:
->
-> Hi Luiz, Marcel,
->
-> A gentle ping on this fix.
->
-> It has already received:
->
-> Reviewed-by: Dmitry Baryshkov
-> Acked-by: Bartosz Golaszewski
->
-> and the Bluetooth CI passed. The original teardown ordering is still
-> present in the current Bluetooth tree.
->
-> Please let me know if any further changes or testing are needed.
+Didn't knew about it. Sending v2.
 
-Please resend.
-
---=20
-Luiz Augusto von Dentz
+David
