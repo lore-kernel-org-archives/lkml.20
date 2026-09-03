@@ -1,191 +1,181 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 563324EE845
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:37:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5298E30E838;
+	Thu,  3 Sep 2026 16:37:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788453458; cv=none; b=IcAcERikOs1FWaB5LdqOOqaAOWJdxIjp+SQM3e/56Gi7AYndLToQk+BtzlzTHdysiFXaB3OOwRItBHarsCyPmTUULLhEzmtdTVLAoNRpayIJ59OIbTgRvNYHYRIZ2uQGB6SahsyB5m8TCSa8FQ5427KjFHIBuY8V6xoNHC2SL9o=
+	t=1788453466; cv=none; b=Pl/NMd1mDGQjbBC2Ti/jv8jpcabNgJROnad/uvfpPS8IuWQs/uimUdyDBCc3wqH8colaaSkl+2i0z8J1YHq3Y9Plk84LYgLAT9qQ+MLX/QvBGINVQl9TYoknHr2i57BZNi74fAGZtjZwLTD5I5jLJYJ53Zj6w24dFV/xR80bhPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788453458; c=relaxed/simple;
-	bh=DHU0rPfE8pNw4y8f4EIiMA8AyjtO5KJ1FJuAuI0+mmI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BS5y+NKVMKZFIOdUK482iLixQVfUZV3mDRsj9MHSBljQJgv7GRfzcExiFZ6IOMV4l9hSk1MaD4hfMXJQQt4F8Auh1b4DEe/K73RVwgqe4ta5K/x9s6j+llSGifOiLbM/GiYuyT0vMLClKFH5hcuCmTvUeqnA76bSkZ3s3AOtF7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NcbRr86S; arc=none smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788453466; c=relaxed/simple;
+	bh=dpp4tH0Hq1c1kejney2bDWQ/wwx1epNPn2CCinLRPIE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HlByiBuRpH6+cvfwy4rdjLG1S2pDMiwHXhB9ZwzhAjk9AMbIm3vCAt6JlaSS7X4OEU61eCDnTgTqGibwr8Qt6H/vKmJw4y/c6PnFDUNNv3v6yhDQ+oiv8p1r9vt+oJ4cgYNU1+r0MusBPm/MQGTvsmNN5+tMJLL2f047zVflevU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ahFvNbIQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NcbRr86S"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-84f38f3b36eso2261382b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 09:37:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788453456; x=1789058256; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lUZB+Y/RFFX7U5B1GssgETxfMaouezB0VLydJYjs6v0=;
-        b=NcbRr86SwjtDYcr0LYOS/0WeBTIbyh048e+GFTE6zRhR1pHyVAFZ6yys9EXJT2RXmi
-         lHtzWGeXE4MCLnQzc0bnrrediUAEuhuQBtT0pwzjjG8mdYsvrXt5W4+oarXuTavPO3a9
-         z0NYNUMP9LXiE7AaOI7BHdRnWkbGCozQr3arFPaJXJ0tDnBnS2Rs9cefrZNkPy9YELhR
-         cvuGTtZxQm/0u9hYsy+NtY7IXp+cfYESm7MgwpoNA/tZRmE4Y3H3Jd7lne5T1h3UwRos
-         m7xNiBvIVqvsvupia/HLFIXGONcqN47YK8C1/g+YYvNl7hKmvQLoMQZD8EuP671+iSpL
-         iT2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788453456; x=1789058256;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lUZB+Y/RFFX7U5B1GssgETxfMaouezB0VLydJYjs6v0=;
-        b=ZWhXE8sXxfazZuyOHffwGMjfd1q99FJxZeeiAGX0cv1/Z18ez++JOohbxOxG/sk0Dn
-         Dwbc0XvTGHd01FXfz/Pbw9406UhlWpfs4X1U6s2JJtM9QctcmA9fLY4XyiM5+QqPSAMr
-         dgGj3C2epC9UC+lY8mNpWyysO7B4Uc/kikhLRcb4YKD73ci0sd0fr6burwJ3+I+bpOiI
-         SCDi0LwiTdkKFBe/LceFHa/3mK4On5dSsWMCka5gl8v7uyvsRyEazxDhXIL8jcjXi4+F
-         IqnJufRlxIwOAqdULw8H3TUvlBujJvhjLcbZa7EcYqsch6LJAhC1gVEz7kmq6R92xxV7
-         tb3A==
-X-Forwarded-Encrypted: i=1; AKwUvBw8SCg/WUQ6nVh3EEVBvWQLxUMmNn7LdnwLnDMl1oXqS2cTp/OBYh9uUoq1/Kq24LB7KtIPKz/fvmtrUeY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nxg3Qs9bx7E6wRDfa0jbp1voE2qaeb6sdz5y2w86RZK8FeNkPg
-	0YtSZj2LJ6KAIhlpo8VqakjhBh7+t+BoPzi2UATmOT9wxs8qOGAyVfO2FcbdMg==
-X-Gm-Gg: AYBFou0beq0HC10ctNBRKkDSurLE+E8zjqmHtph2TXNXwQ8m0QO+Ui6QkhVEYyZtQWA
-	ACS16TnWJquvjiN2zK4IZemZ9U3DNjiF54LvVv/4m44WQKGyxLezFtfhe/LImeVnsLcLxlrjPHh
-	EvsdOpglSWA7/E3Y9HzrDf4lYTgBL3hltAqnh9FT3DktiTcHkyHqlPTggXyJL2cwEd0EsVOFCD5
-	CyoALpwHcVFBB6gSfrXYJdfBGAelHBxiwUFk/mhOe1UPhAN9E8YECrVDvbNMdri93FbzvXEWSUa
-	G4UjhERBENkzLopv47jABEmJhs3DfMXSBt8usuetiQG8PmflZEkq4jhS8eyrX83sHDOtQx53WsW
-	BQMuu7ioDldclhD8Be2xSSdm/9hGuOz4WhQlh0lePi+JP5sUfImrOdf82+/Is+KM7wrZj1/O6Hw
-	ud0mERgHxe9bqwHNhO+wjPetYLo72x4P/31NcEvCcGhas0dy3tqTGn4DO7z/bI158LSoByZ4Ul+
-	oJNqby6gFY3T47xo9+ohthgari2vXF6ZjDeGrgqpg==
-X-Received: by 2002:a05:6a00:3d48:b0:84e:4d6:78fe with SMTP id d2e1a72fcca58-861679a5642mr313171b3a.3.1788453456351;
-        Thu, 03 Sep 2026 09:37:36 -0700 (PDT)
-Received: from skinsburskii (c-98-225-44-182.hsd1.wa.comcast.net. [98.225.44.182])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8615273a099sm174320b3a.22.2026.09.03.09.37.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 09:37:35 -0700 (PDT)
-Date: Thu, 3 Sep 2026 09:37:33 -0700
-From: Stanislav Kinsburskii <skinsburskii@gmail.com>
-To: Paul Moore <paul@paul-moore.com>
-Cc: Shuah Khan <shuah@kernel.org>, Eric Paris <eparis@redhat.com>,
-	Al Viro <viro@zeniv.linux.org.uk>, Amy Griffis <amy.griffis@hp.com>,
-	Frank Hofmann <hofmann@deshaw.com>,
-	Noah Orlando <orlandon@deshaw.com>, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, audit@vger.kernel.org
-Subject: Re: [PATCH 3/3] audit: Skip exit filtering for syscalls without rules
-Message-ID: <apmiTQqF8lJ50sNC@skinsburskii>
-References: <20260806-audit-v1-3-ddd0d94ff0b6@gmail.com>
- <23b54475e31ed2c5248650d5aca830f5@paul-moore.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ahFvNbIQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3796A1F000E9;
+	Thu,  3 Sep 2026 16:37:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788453465;
+	bh=KY6qn66VB3ItGKX2EZsett3CtYykeUsgVqWuPa1ODag=;
+	h=From:To:Cc:Subject:Date;
+	b=ahFvNbIQmYSqa+kF0HWxVlux0Uw5Q5MTsI3y5gIC/QsuFHWysRcWSr0RuuA4c3lTy
+	 ZJae/rcnzU5AvoY7S1KPS60y8U6MYtwKR+yK23dSnGLGVR4HlOYKhG7j3E3dldtME2
+	 a65Juu6DnzvyUyJbneGK8xaYYgy+hdFguqzqT8MzmyZRUNeo4TwnaRz0EQkgavM0H0
+	 qI/MyQ+NYiN0Pt6yQ63Lx71vhOnvrgeWponjP3+03rBM1VFVMRwFKLdeyd6vEX/BxH
+	 pyBqUX1PbHjf1IVDGSvBub/aNsbCkZDNpdUCWeT3R6Hd/1vaa4yXGrbQdPFTNMJmRY
+	 +rn2IV791FAAg==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1x2ARb-00000006I2E-0GdU;
+	Thu, 03 Sep 2026 18:37:43 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Johan Hovold <johan@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] tty: abort break signalling on hangup
+Date: Thu,  3 Sep 2026 18:37:36 +0200
+Message-ID: <20260903163736.1499280-1-johan@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <23b54475e31ed2c5248650d5aca830f5@paul-moore.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026 at 05:35:16PM -0400, Paul Moore wrote:
-> On Aug  6, 2026 Stanislav Kinsburskii <skinsburskii@gmail.com> wrote:
-> > 
-> > Audit walks every exit filter rule for each audited syscall, even when no
-> > rule contains the current syscall number. Policies with many unrelated
-> > rules therefore add linear overhead to otherwise uninteresting syscalls.
-> > 
-> > Maintain a reference count for each syscall bit present in exit filter
-> > rules and derive an aggregate interest mask. Update the mask through the
-> > centralized rule lifecycle helpers, which cover explicit and automatic
-> > rule removal. Use the mask as a lockless rejection test before entering
-> > the exit filter RCU traversal.
-> > 
-> > The mask is architecture-independent. Syscall number overlap between
-> > architectures can cause an unnecessary scan but cannot suppress a match.
-> > 
-> > The aggregate bit must be set before list_add_rcu() publishes a new rule.
-> > Otherwise, a reader could observe the rule after publication while the
-> > aggregate mask still rejects its syscall. Move audit_rule_account()
-> > before the list insertion to provide this ordering. Rule removal already
-> > uses the inverse safe ordering: it unlinks the rule before clearing the
-> > aggregate bit, so a concurrent reader can only perform an unnecessary
-> > scan, not miss a rule.
-> > 
-> > To measure the effect, install increasing numbers of distinct statx rules
-> > in a disposable VM and benchmark the unrelated getpid syscall after each
-> > set is installed:
-> > 
-> >   for nr_rules in 1 32 128 256; do
-> >           auditctl -D
-> >           for uid in $(seq 1 $nr_rules); do
-> >                   auditctl -a always,exit -F arch=b64 -S statx \
-> >                            -F uid=$uid
-> >           done
-> >           audit_bench
-> >   done
-> > 
-> > Without this change, the same unpinned VM produced:
-> > 
-> >   1 rule:
-> >     median=55 ns/op
-> >   32 rules:
-> >     median=71 ns/op
-> >   128 rules:
-> >     median=428 ns/op
-> >   256 rules:
-> >     median=791 ns/op
-> > 
-> > With this change, it produced:
-> > 
-> >   1 rule:
-> >     median=55 ns/op
-> >   32 rules:
-> >     median=55 ns/op
-> >   128 rules:
-> >     median=55 ns/op
-> >   256 rules:
-> >     median=55 ns/op
-> > 
-> > Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
-> > ---
-> >  kernel/audit.h       |  2 ++
-> >  kernel/auditfilter.c | 56 +++++++++++++++++++++++++++++++++++++++++++++++++++-
-> >  kernel/auditsc.c     | 13 ++++++++++++
-> >  3 files changed, 70 insertions(+), 1 deletion(-)
-> 
-> We've had similar proposals in the past, and I'll say the same thing I've
-> said in the past: I'm not certain that our answer to filter performance is
-> to add additional complexity and filtering.  It may turn out that an
-> approach like this is the only option, but I'd really like to see more
-> effort put into improving a singular filter mechanism (either the current
-> approach or a replacement design) before we start layering on additional
-> complexity.
-> 
+The break ioctls can race with hangup and end up calling into a tty
+driver for a device that is already gone or powered down.
 
-I see. Indeed, the mask is effectively another filter in front of the
-existing rule list.
+Drivers must handle this race, but TCSBRK and TCSBRKP should still be
+aborted to avoid calling back into the driver after a user-controlled
+timeout (possibly even after the tty has been reopened).
 
-One alternative would be to replace the global runtime exit-rule
-traversal with an array of RCU-protected, ordered candidate lists,
-conceptually:
+Note that drivers should disable any break state on shutdown so just
+return on hangup (calling break_ctl() again is racy and will most likely
+fail for drivers handling the race).
 
-  candidates[__NR_getpid] = {
-          rules whose syscall mask includes __NR_getpid
-  }
+Fixes: f34d7a5b7010 ("tty: The big operations rework")
+Cc: stable@vger.kernel.org      # 2.6.26
+Signed-off-by: Johan Hovold <johan@kernel.org>
+---
 
-Filtering would then look roughly like:
+This is related to the USB serial and serial core fixes I just posted:
 
-  rcu_read_lock();
-  list_for_each_entry_rcu(candidate, &candidates[syscall], list) {
-          if (audit_filter_rules(...))
-                  break;
-  }
-  rcu_read_unlock();
+	https://lore.kernel.org/r/20260903163146.1498497-1-johan@kernel.org/
+	https://lore.kernel.org/r/20260903163439.1499055-1-johan@kernel.org
 
-A canonical registry would still keep each rule once for rule management
-and listing, while the syscall path would use only the candidate index.
-This would make the index the runtime filtering mechanism, rather than
-another filter layered in front of the existing traversal.
+Will take a closer look at the other TTY drivers in the coming days.
 
-What do you think about this approach?
+Johan
 
-Thanks,
-Stanislav
 
-> --
-> paul-moore.com
+ drivers/tty/tty_io.c | 36 +++++++++++++++++++++++++++---------
+ include/linux/tty.h  |  1 +
+ 2 files changed, 28 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
+index 48569035da56..1c30faae9ec1 100644
+--- a/drivers/tty/tty_io.c
++++ b/drivers/tty/tty_io.c
+@@ -620,6 +620,8 @@ static void __tty_hangup(struct tty_struct *tty, int exit_session)
+ 
+ 	tty_ldisc_hangup(tty, cons_filp != NULL);
+ 
++	wake_up_interruptible(&tty->break_wait);
++
+ 	spin_lock_irq(&tty->ctrl.lock);
+ 	clear_bit(TTY_THROTTLED, &tty->flags);
+ 	clear_bit(TTY_DO_WRITE_WAKEUP, &tty->flags);
+@@ -2431,6 +2433,7 @@ static int tiocgetd(struct tty_struct *tty, int __user *p)
+  * send_break - performed time break
+  * @tty: device to break on
+  * @duration: timeout in mS
++ * @file: file object
+  *
+  * Perform a timed break on hardware that lacks its own driver level timed
+  * break functionality.
+@@ -2438,8 +2441,9 @@ static int tiocgetd(struct tty_struct *tty, int __user *p)
+  * Locking:
+  *	@tty->atomic_write_lock serializes
+  */
+-static int send_break(struct tty_struct *tty, unsigned int duration)
++static int send_break(struct file *file, struct tty_struct *tty, unsigned int duration)
+ {
++	long timeout;
+ 	int retval;
+ 
+ 	if (tty->ops->break_ctl == NULL)
+@@ -2453,13 +2457,26 @@ static int send_break(struct tty_struct *tty, unsigned int duration)
+ 		return -EINTR;
+ 
+ 	retval = tty->ops->break_ctl(tty, -1);
+-	if (!retval) {
+-		msleep_interruptible(duration);
+-		retval = tty->ops->break_ctl(tty, 0);
+-	} else if (retval == -EOPNOTSUPP) {
+-		/* some drivers can tell only dynamically */
+-		retval = 0;
++	if (retval) {
++		if (retval == -EOPNOTSUPP) {
++			/* some drivers can tell only dynamically */
++			retval = 0;
++		}
++		goto out_unlock;
++	}
++
++	timeout = msecs_to_jiffies(duration);
++	timeout = wait_event_interruptible_timeout(tty->break_wait,
++						   tty_hung_up_p(file),
++						   timeout);
++	/* return early on hangup only */
++	if (timeout > 0) {
++		retval = -EIO;
++		goto out_unlock;
+ 	}
++
++	retval = tty->ops->break_ctl(tty, 0);
++out_unlock:
+ 	tty_write_unlock(tty);
+ 
+ 	if (signal_pending(current))
+@@ -2727,10 +2744,10 @@ long tty_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ 		 * This is used by the tcdrain() termios function.
+ 		 */
+ 		if (!arg)
+-			return send_break(tty, 250);
++			return send_break(file, tty, 250);
+ 		return 0;
+ 	case TCSBRKP:	/* support for POSIX tcsendbreak() */
+-		return send_break(tty, arg ? arg*100 : 250);
++		return send_break(file, tty, arg ? arg * 100 : 250);
+ 
+ 	case TIOCMGET:
+ 		return tty_tiocmget(tty, p);
+@@ -3090,6 +3107,7 @@ struct tty_struct *alloc_tty_struct(struct tty_driver *driver, int idx)
+ 	init_ldsem(&tty->ldisc_sem);
+ 	init_waitqueue_head(&tty->write_wait);
+ 	init_waitqueue_head(&tty->read_wait);
++	init_waitqueue_head(&tty->break_wait);
+ 	INIT_WORK(&tty->hangup_work, do_tty_hangup);
+ 	mutex_init(&tty->atomic_write_lock);
+ 	spin_lock_init(&tty->ctrl.lock);
+diff --git a/include/linux/tty.h b/include/linux/tty.h
+index 0a46e4054dec..ad4e4a835f90 100644
+--- a/include/linux/tty.h
++++ b/include/linux/tty.h
+@@ -230,6 +230,7 @@ struct tty_struct {
+ 	struct fasync_struct *fasync;
+ 	wait_queue_head_t write_wait;
+ 	wait_queue_head_t read_wait;
++	wait_queue_head_t break_wait;
+ 	struct work_struct hangup_work;
+ 	void *disc_data;
+ 	void *driver_data;
+-- 
+2.55.0
+
