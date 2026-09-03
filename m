@@ -1,121 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 808743F1653;
-	Thu,  3 Sep 2026 09:29:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE3AD427F8B
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:29:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788427751; cv=none; b=bcE/rHKKy54V3Ou0JnJW12m60IKqz1x2rB3Aptq0Ed6xYGzgLwHngXkwFfqio8PuqvxU9dxGZDeUAVHFt0XYV5TENUczJwMS5rUPhEpWy1uCljfYhi/yGbqxRbaIyKh97wS/Jkz1i36klFO2Co1XRY976KUSy35Vapb4qpBHhxM=
+	t=1788427755; cv=none; b=eDmlUk7JDuuw1dbSBzpZUuiNYiC/v4L1wb9RhgiY372kNgI1xCeI0E54UYnC+imyw7Nb4D70QsMSjzmK8mAkxQ+TdvWu7kGCF8f3IwwyWJYjMAGyK6B/rKArRNzVs+vZr2KxSe+uQUh50iaTfuDA4/xZ0+KL+jHW5kcdRb/mmDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788427751; c=relaxed/simple;
-	bh=zczX6jTqo78FTBDR6VyH2wcKZdZF6Meq2ngXaSZTD7Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ix1/sGG9uaY7nFtnZfS3CffT2PpzHpOZ137TrPGBgY3zdh3O/0ZGG9wsCkj9q0il18GpkbYi4Da1Y7aDHkH944uoVjmqus57NfEix5E9thR7ESLQK+xRO9JVE5V10If6w12jPvxb9/7/2leLUG/8naaqchJYaX+SYthnAdImqV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EmZYbLMt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788427755; c=relaxed/simple;
+	bh=1rdZid1OqnapaKpKLZfZL9nN/IIgE3XM/IxZCu4Yxls=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e5nduscKL5CuDHfJoF0fOqlJgF0DTJiWoGG7gCS+xWAopKHnSrjjIAf5ai40oeuOaDTuwuV5sKrW34kc+dxPt8R8H7SQY+CyaX7EVvql4CX0rjyckctcu66IVCrY7SCXsjaOIJbO1g8+mM1GUyKcAhlSHYhroncdWUXkGrARW2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i132Wc60; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EmZYbLMt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E58871F000E9;
-	Thu,  3 Sep 2026 09:28:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788427748;
-	bh=W4k8gpB3IOAIIjG8UTpBirOTQDvbIToA9Mf39j4z3bA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=EmZYbLMtgCfKR5SC0SQMKuy6UTCmihOaKfsjvsBiuS/XG7+bmTa0BttU4UQ8j7cdf
-	 vlK1dC3HchMglytuOJLBFLTyRcNQdP+8ieRosdoaP3VM+qhi/JXSJgB9O2up6Q1cc9
-	 dRF/zDGzuuK1aNW6SVIpMm/UtcIHCyGVBYN7VibK+4507rTi1xQ91nix1xb5JkwGBu
-	 eFN0D1Me4+48CIg7BPzVdmq60AYdlg16dPhyhgO/Z7ijOZIcJlmmMweRgb+nq5ucgP
-	 FcEhOb+cZpfl0fq+hYVBaIWbbUbVucc5yFPSZCZwxRRJs6GayaVzjn467NYhrYwBXC
-	 ooT5d1FoGG3bg==
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Thu, 03 Sep 2026 12:28:29 +0300
-Subject: [PATCH v3 3/6] mm/vmalloc: constify vm parameter of
- get_vm_area_page_order()
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i132Wc60"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4858303de5dso334856f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 02:29:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788427752; x=1789032552; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2r6oyYeWRA4NkJB59FMsCMrpSy0tWrSaFIZX5RFlVq4=;
+        b=i132Wc60B/bOGIxUCn1v5aDeyd1THYMsjMQ+KLLWRESdKuGgwllc8zgzSYL6PWo/js
+         3gY43z9EBtFKdfgc0Df56dlYKjCgu6O1EV86wvsmkzOGv8Eq3HwU3IF5FZHvU0alOFnq
+         1/lmV4ugH3bJLvGYZyJBZNBmQPrB/43yF0aoDEVzGYxSdpOGwgokkZUSurfoY1U1ROlc
+         3dl1UqxWrrwjxKRxwtnaNjtfSMxEuzTXmMBMBQ8enzsr62pdjRikthfuG7v62F8QIAyo
+         7bCKr6ekZwr9TtFqnCc9YykY7D0wfNfFR1Fp5cIFUml2P1rE3dCk9i3QCCqBhsDd+yga
+         c6Eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788427752; x=1789032552;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2r6oyYeWRA4NkJB59FMsCMrpSy0tWrSaFIZX5RFlVq4=;
+        b=R3ms6bxp6ZhkPlOLpE7pWCEK3/ECD/UWCBaHO+QdhHecCmuuu4xGw7606wR8aZ+svi
+         wJ5BO1+bTx507YZOlh5CV3cXPZpldPFi4Y8bYbiFdC38c1WzBWxcjo79iEMjJCacp0bd
+         sUKpSHmEz1QIxWu+DevbOU05JjrjCV8RwzF6MB8wbZ+sUbeNqCvRLwWpPRkOTp9txNoV
+         dSIxDf9tTmHQTgyQnT0NeWf0rPbUjbuZQEiFrpHkvCICNdGg6sJdZbXUTiyK6ZAK7iYu
+         ZWB/h+SEChefexO3hqpR500v526fiypOtxOfLOZhm8W65dutnukYfjuNWuzOkjVJ7qP8
+         RUkw==
+X-Forwarded-Encrypted: i=1; AKwUvBxjpf4as3V1sZyqTWwcdfSFhSzl8L6B+D7KTVfzP9swRT4t3j4H54sIRE5Y/TqjS6xyYMB9peE6PFPbvts=@vger.kernel.org
+X-Gm-Message-State: AFuF++lM6AT4ZQq8sn+d8gGlTnh/LmjUnMIZmA0CQ26MNrc39nVqwS/j
+	fbpn86rwJZLX91iy77C5dh9CEyQXI/1UhfY7+D9ZCCLNd0E3a3wN5kqr
+X-Gm-Gg: AYBFou0aqiOLQtBaEpAcagaHIOvVkhdlig7pU+9BR9Nrj8+BSrJplinw3RtmYsl59H0
+	01tTXdYLdIFa3cmDcPYQylKRH8phJ4PbbpM4AJ1/QGEf4vosaTQC/rN+qhxHBw4mMIguapYiAU3
+	QM6j45S7FLzzXIHvxE2yZVYVTLbUnpFojXVr83kw+2BPuAzMaOpEvb5hSxj4g62I0zidn5GqbEv
+	8NSlrxtPVT/V0CEI00o/NR+KIMs3ew5Q6sADC9eO8vAoZl8Y9ipn0Di9/KOptv+M9oGpY7yUg70
+	k0PF5y2goCcnBejzTS6r1nbGnyjsTR7TaGPuEn/uvVKHIviB09uT6S6F/R6/pGIwC7S7Ly+Vshl
+	Ma4LNK1ZQ79lBYHOGlvqYq505ZtitJ+bzOxpYGWLVzWm4MZcMyoL2Elkj04hP6x5hiJKCYZDNLK
+	3feSKxfYsOt7e0E+Q413D0p4Xb6kNzLSG+h/hPX/+pkRPMYmag0oaqZRyo080pSnBK/64=
+X-Received: by 2002:adf:e196:0:b0:482:e451:6810 with SMTP id ffacd0b85a97d-48488dee050mr23124500f8f.1.1788427751448;
+        Thu, 03 Sep 2026 02:29:11 -0700 (PDT)
+Received: from SurHub.localdomain ([196.188.114.38])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e7f8f9sm12579032f8f.9.2026.09.03.02.29.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 02:29:11 -0700 (PDT)
+From: Abdifatah Suruur <suruurism@gmail.com>
+To: kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Eric Auger <eric.auger@redhat.com>,
+	Mostafa Saleh <smostafa@google.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Alex Williamson <alex@shazbot.org>
+Subject: [PATCH v3] vfio/platform: prevent read-only region mappings from becoming writable
+Date: Thu,  3 Sep 2026 12:29:07 +0300
+Message-ID: <20260903092907.419-1-suruurism@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-execmem-set-vm-perms-v0-2-v3-3-949b64a9f755@kernel.org>
-References: <20260903-execmem-set-vm-perms-v0-2-v3-0-949b64a9f755@kernel.org>
-In-Reply-To: <20260903-execmem-set-vm-perms-v0-2-v3-0-949b64a9f755@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: =?utf-8?q?Adrian_Barna=C5=9B?= <abarnas@google.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, Alexandre Ghiti <alex@ghiti.fr>, 
- Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>, 
- Brendan Jackman <brendan.jackman@linux.dev>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Dave Hansen <dave.hansen@linux.intel.com>, 
- David Hildenbrand <david@kernel.org>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Huacai Chen <chenhuacai@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Len Brown <lenb@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Paul Walmsley <pjw@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, "H. Peter Anvin" <hpa@zytor.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Ryan Roberts <ryan.roberts@arm.com>, Sven Schnelle <svens@linux.ibm.com>, 
- Thomas Gleixner <tglx@kernel.org>, Uladzislau Rezki <urezki@gmail.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, WANG Xuerui <kernel@xen0n.name>, 
- Will Deacon <will@kernel.org>, x86@kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-mm@kvack.org, linux-pm@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, 
- loongarch@lists.linux.dev
-X-Mailer: b4 0.17-dev
+Content-Transfer-Encoding: 8bit
 
-get_vm_area_page_order() and vm_area_page_order() do not need to modify
-struct vm_struct passed to them.
+vfio_platform_mmap() rejects writable mappings of regions without the
+WRITE flag, but leaves VM_MAYWRITE set.  Userspace can map such a region
+read-only and then upgrade the mapping to writable with mprotect().
 
-Constify the parameter.
+Clear VM_MAYWRITE for regions without the WRITE flag, as i915 does for
+its read-only objects and as fixed in drm/vc4 (CVE-2026-68445),
+drm/panthor (CVE-2024-53071) and commit a5edadbae57e ("ptp: vmclock:
+prevent read-only mappings from becoming writable").
 
-Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Note this is defensive hardening: no in-tree platform driver currently
+publishes a region without the WRITE flag.  The guard costs nothing and
+keeps the mmap() interface honest if a read-only region ever appears.
+
+Fixes: fad4d5b1f042 ("vfio/platform: support MMAP of MMIO regions")
+Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
+Reviewed-by: Mostafa Saleh <smostafa@google.com>
 ---
- mm/vmalloc.c | 4 ++--
- mm/vmalloc.h | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+v2: commit log now states plainly that the read-only path is
+unreachable in practice, per Alex's review; dropped Cc: stable as
+there is no reachable issue to backport.
+v3: use 'commit <sha> ("<title>")' style for the vmclock reference
+and point Fixes at the MMAP support commit, per Mostafa's review.
 
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index 22aa554d123f5..5506b180f5c27 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -3130,7 +3130,7 @@ EXPORT_SYMBOL(vm_map_ram);
- 
- static struct vm_struct *vmlist __initdata;
- 
--static inline unsigned int vm_area_page_order(struct vm_struct *vm)
-+static inline unsigned int vm_area_page_order(const struct vm_struct *vm)
- {
- #ifdef CONFIG_HAVE_ARCH_HUGE_VMALLOC
- 	return vm->page_order;
-@@ -3139,7 +3139,7 @@ static inline unsigned int vm_area_page_order(struct vm_struct *vm)
- #endif
- }
- 
--unsigned int get_vm_area_page_order(struct vm_struct *vm)
-+unsigned int get_vm_area_page_order(const struct vm_struct *vm)
- {
- 	return vm_area_page_order(vm);
- }
-diff --git a/mm/vmalloc.h b/mm/vmalloc.h
-index 8866ddcff6681..211869f365095 100644
---- a/mm/vmalloc.h
-+++ b/mm/vmalloc.h
-@@ -12,7 +12,7 @@ void __init vmalloc_init(void);
- int __must_check vmap_pages_range_noflush(unsigned long addr, unsigned long end,
- 		pgprot_t prot, struct page **pages,
- 		unsigned int page_shift, gfp_t gfp_mask);
--unsigned int get_vm_area_page_order(struct vm_struct *vm);
-+unsigned int get_vm_area_page_order(const struct vm_struct *vm);
- #else
- static inline void vmalloc_init(void) {}
- 
+--- a/drivers/vfio/platform/vfio_platform_common.c
++++ b/drivers/vfio/platform/vfio_platform_common.c
+@@ -594,7 +594,11 @@
+ 	if (!(vdev->regions[index].flags & VFIO_REGION_INFO_FLAG_WRITE)
+ 			&& (vma->vm_flags & VM_WRITE))
+ 		return -EINVAL;
 
--- 
-2.53.0
++	/* Prevent read-only region mappings from being upgraded with mprotect() */
++	if (!(vdev->regions[index].flags & VFIO_REGION_INFO_FLAG_WRITE))
++		vm_flags_clear(vma, VM_MAYWRITE);
++
+ 	vma->vm_private_data = vdev;
 
+ 	if (vdev->regions[index].type & VFIO_PLATFORM_REGION_TYPE_MMIO)
+ 		return vfio_platform_mmap_mmio(vdev->regions[index], vma);
