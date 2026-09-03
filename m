@@ -1,166 +1,255 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp153-141.sina.com.cn (smtp153-141.sina.com.cn [61.135.153.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A636E49DB86
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:56:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94324446FA
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:57:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=61.135.153.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788436614; cv=none; b=SUK8GtlDGdO/Xt4n849Z/6SUQQ+1OCJa6nSSAREyxA7nSTnLTrXm10D+EMf9ZwGf4mtt/jeH0CTfFR3qxfeUEXbuLl9BjFWydnlVZjN0RMmVrUV6x281otKKp4IEelJv7vbSjafrwQsJ78nVyg41IPCQZzhEBY6D/Z+T1DpqdH8=
+	t=1788436643; cv=none; b=nChwpno5gA3qnph0XhCbjAwriOgSU713x2BuqpdgyWhLaUJkIDSmz9P/TYDO68G2kgVw9iphzai6Qa/GCOmfHaEHFkuFdHvhTlSCBjzAZMLhEEs1Cgcvl8wnUlCmKbqW0rRmqLufxEB+mPz91EdgdjUH5RR1pkXhAg7oIgy01VU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788436614; c=relaxed/simple;
-	bh=l2mBviIzjsxDrCGYmNf6Y/ZxROvtLAzlD3i0LYSPYDI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ar/hGUk/G23n5r+IfQ8a+GP/9WcEQ/8OyEuTqrFeZthApNDu0E1HtDtmU5WGFW82uwFRegELU8ez2Uv1+SCNEpn70E/GOHgDTp9PTDrhMKiRkRTLjPBEdpdsG8MrqvNmCH9z9sDHlOwawsAhtWGPCZZYiuHDuJ46VO+FqYK3imk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=V/Pl7Lyu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ILzmJBHA; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788436643; c=relaxed/simple;
+	bh=UjZb9Pn1U3m39gxKvKnbLa3QipMLxknqpp89+n6OH30=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=J7wmtjZqN3vXKFfEWYb4CW517SLEQDdB7tAUOv0UTHQJo1O30QCG2tWPAvsepY8NxDlhE4bHV+7LfAl8t1lla7Xh0m2xYN5oO6bHtNuhUZYORrwXBI025+8oxbY/51fZI1/WfZIf5XlOz7XsVivy8JJdHlGxRkS2yID1Q/hRrwA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=zC2A8rXV; arc=none smtp.client-ip=61.135.153.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="V/Pl7Lyu";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ILzmJBHA"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683AHA6c935180
-	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 11:56:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	10SeU9Ko5vWjSXjWQQR8N3iT1EL+d0CVdPeApdvEE90=; b=V/Pl7Lyu3cX9mZzb
-	8uTCS3kaV5siO1pTkeEPItBh6+P23hiW0JDfw7kKeUTcy69kPJdnZXRkqsYtDtV6
-	ypQqwuz+LH44O/RS2BVCUbzbrvpf2ykxZgtzbWUswKHzVpuW4OSuGaJKcinpfaOQ
-	RJKXvjXlYXtXAajMLQr1AFysd8cegYUTVnzSqOpyl5S+MoQk4CpgOj/VMT+UefwN
-	xqH4K+jI74ma7JSqf5ciHrpSkv9FPE/HNNYmj68TNB3UA8NhUOfR9b1r9t3yLhQU
-	tnAXpd1/iZrWQQRMNIemXi51NguX9axokjeT1h5vjPSMQJBn11r63glTI6Mucd0H
-	S5oxtQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gerdnc502-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 11:56:47 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-930bd2bfc45so63892885a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 04:56:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788436606; x=1789041406; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=10SeU9Ko5vWjSXjWQQR8N3iT1EL+d0CVdPeApdvEE90=;
-        b=ILzmJBHAeLLDw7hSPJ3h8HWvuWy06/ncNoeiqEvBAAgoR0FMd1cDd3MnRhu39Ocp6B
-         cw/yz3JziOr3JAG6BvAYi/0/wDUiFGExCmKqXd7pEieUN1bkxNmPPtCE3JK5815oIOwk
-         ed6cGEf5HW2q11wcXHTHN8zvEHFMmapb6vdKgvEhRXfqdmlATcpr9kuNeD7R8PRDLjeE
-         7Z/Log+I6peX0I8fJWK4kJgvGDjnBpiWq/ojXZYZETdaRwBdX0AABlw0Dvto9vcipaEn
-         fyCp2D+IW/6+uB786e2eLvzWkbRzC5oWnvYNDUVdn96ESA/66lB/I4GrddmOjYOiOnka
-         X4NQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788436606; x=1789041406;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=10SeU9Ko5vWjSXjWQQR8N3iT1EL+d0CVdPeApdvEE90=;
-        b=FmdpXn3OjRfXKH4E4NebGfTo7dnRKz3m30HK8W9AZ9fT43KwD/1zNcR8303Mn2VUeI
-         twILfkWz54Y5bYaLTkSyQRH7TDPvmfQTxPBZyYNjnUlKoGYCY5iDEHdGN8i9UZwH5qD4
-         rjq7/v9DGzd+SCEykfJ2vXLOOD47O32s0g1UFNhyfKzJ32WHtqUDw59vCsKF5cFPhaIe
-         M+WIPxb3svC0EzZCOHmmt0OJbp4C7cLpZz6SsCudVkY7SENpxbZNM3ayGYjIAnfiJohG
-         iX/zrpyQGsGYn/sw11lobdkKDU/WKj1N/DiQfDuYKTk1zcqnClDdpSADtNoO/i9Tylol
-         u9+A==
-X-Forwarded-Encrypted: i=1; AKwUvBzHoe30I5QC9qpsxjZV1i9KCWhmKPzqfD+IrWVVWMUsSEJHB2Epyn2cmY6KGxKEkt8//s0X57gnGGRZuNo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLfJ5Eubvuj0Cetc82i5BFdGJ7V3jwLaxVvDp17dcbzRozrkIv
-	Uix339lYWMm/X2C2hwHVtcceIC9HLQFlxPsC42OmKZUfOwlBRtBulf28umoi2BvEPTuuXxVy3Pm
-	2ioayNPfwdzipNf/HV8b4YiIqTQ5INfpELOG4MpWtA/NpJVQsX1hukZXHbJ4WMI1ZERU=
-X-Gm-Gg: AYBFou1gK2r7ZRX9/z7rLIpSDxU66m4lbWucXF4OIzg+Xdos9BjeOoJRXmr0ntbV3Za
-	w7rtVIygzuHbW0VXtaT4r/4t2S/nGrcFI/nb67greXhYe6EtgPPlPba0O+A8kXkfvlQLBtrSoIZ
-	QS1kTvzdDzFMYfvvQuRX7N9MGXSvDLWvSdt7FVA0zqKJsDDs2ZYBRF5n6bTtc8G3DXSTiO0Abfd
-	X5yUfWNpg6TV0Tuvv6Pl1fmooCSAKJZK8hsv4N0+jX9oY3DY99QIsSaiBmc6v1SEiIA2uTxxaWu
-	dNYUBSEH65TtHeFZOcOw8xQLvz/jIrk1AwkBEFVr7nC0vMaARL2RLEOqshAqfojMCrThLbu6RYX
-	+f1icIynToxpDKAPx8UBdrw==
-X-Received: by 2002:a05:620a:a2cb:10b0:939:6b7d:9941 with SMTP id af79cd13be357-9396b7d9994mr435187885a.2.1788436606038;
-        Thu, 03 Sep 2026 04:56:46 -0700 (PDT)
-X-Received: by 2002:a05:620a:a2cb:10b0:939:6b7d:9941 with SMTP id af79cd13be357-9396b7d9994mr435184585a.2.1788436605551;
-        Thu, 03 Sep 2026 04:56:45 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25f41a104fsm88275066b.28.2026.09.03.04.56.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 04:56:44 -0700 (PDT)
-Message-ID: <9e6a0e54-d16c-4b8c-9034-1e682a420e7c@oss.qualcomm.com>
-Date: Thu, 3 Sep 2026 13:56:41 +0200
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="zC2A8rXV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1788436634;
+	bh=OgTS4SBqntVJukFiLqrMD1eJ5BKRre7ShPJPymPauR4=;
+	h=From:Subject:Date:Message-ID;
+	b=zC2A8rXVgnd+fIHjp80TnrIgd9RgIiEHBzm66EEQnN71HaGiDbDBfYqJ3az5HkcSV
+	 8BvJJV3yRtTsAojgy9WFA47CGudnqF4yDxW66ovL56ERvEpTsaURCxrQiVwJummhD6
+	 7SzZ0E82OAxThfFYehr3atoMuB8/NrsQ8oFbbHLA=
+X-SMAIL-HELO: lxu-ped-host..
+Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
+	by sina.com (10.54.253.31) with ESMTP
+	id 6A99608400007334; Thu, 3 Sep 2026 19:57:00 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 8967206815970
+X-SMAIL-UIID: 0B28638A9924401DA4803ECBDE1D26C7-20260903-195700-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: tiwai@suse.de
+Cc: daniel@caiaq.org,
+	eadavis@sina.com,
+	gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	perex@perex.cz,
+	syzbot+832ce9fa3face1b7d44d@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com,
+	tiwai@suse.com,
+	zonque@gmail.com
+Subject: [PATCH v3] ALSA: caiaq: Decoupling ep1_in_urb in caiaq dev
+Date: Thu,  3 Sep 2026 19:56:52 +0800
+Message-ID: <20260903115652.550250-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <87ld9i8xe6.wl-tiwai@suse.de>
+References: <87ld9i8xe6.wl-tiwai@suse.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 05/12] clk: qcom: ipq-cmn-pll: Add NSS clock support
-To: Luo Jie <jie.luo@oss.qualcomm.com>,
-        Bjorn Andersson
- <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        quic_kkumarcs@quicinc.com, quic_linchen@quicinc.com,
-        quic_leiwei@quicinc.com, quic_suruchia@quicinc.com
-References: <20260814-qcom_ipq5210_cmnpll-v3-0-21c3db378611@oss.qualcomm.com>
- <20260814-qcom_ipq5210_cmnpll-v3-5-21c3db378611@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260814-qcom_ipq5210_cmnpll-v3-5-21c3db378611@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=YcmNIQRf c=1 sm=1 tr=0 ts=6a99607f cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=QFuAlUpucN9v7rsm42sA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEwNCBTYWx0ZWRfX7SodA2OMTt6B
- ckW5sAl33KZ5Y5dbTkLgjcqEDAtGiiihDd3lZZHh9rjeOp/jcl6shq9e6Qx2xZzvvfS/kD+EmNG
- TUZvZ9UF0oDOb+lgFfFrdwJ2Ll31WzE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEwNCBTYWx0ZWRfXzKL5eYSKolP7
- 7pPyoK36XY0K3HB+9KGDNurZaFLPwb/mvg1AJ5uhAhpcgTnTw5TatNUgiMh7DnEZi43H/LHpsq0
- SoefJwpQMHAAFVACKhPkAcTXAxcS/I/uJbLXlQXHHiejc3IaqFAqRjQIUG71hf6VGJFEwBDH253
- Jy9uk+iOdF3EfY43CM+pxknQPlMBeFuP9KM4DtlwzFvC+g8ESftP2E2uaZN5OQG1pbcXNznj4tm
- c6HAbxfHN/TqjbxapHo7lXH0bM4LsTz1goilL/1MUIu7qd7jTyuUHEJlcHho+Fn1n96yfbDkuQq
- wqltVcaFaDJzjkQN4U8KEux61/UImhDviPfh5tSahF92WXE6JTjICzXkkVCW8Z8snSvIEVOr6oK
- GrsdR0YAcqfRa8FN8En+OZKf19lkl0JXKskqF8KKrWt4Yzk+OA+mITOfWPThCUg5Yz+QfTR2z/K
- fBuGFC0dNvAZSNjhqBA==
-X-Proofpoint-GUID: m_ZAvFd7D9raw2fBMU21YW6UQtsYSKKw
-X-Proofpoint-ORIG-GUID: m_ZAvFd7D9raw2fBMU21YW6UQtsYSKKw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_03,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 priorityscore=1501 lowpriorityscore=0
- adultscore=0 phishscore=0 impostorscore=0 spamscore=0 suspectscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609030104
+Content-Transfer-Encoding: 8bit
 
-On 8/14/26 2:48 PM, Luo Jie wrote:
-> The NSS (network subsystem) clock's parent is cmn_pll_div2 (CMN PLL
-> rate / 2); it is then further divided by a configurable 6-bit divider.
-> 
-> Register the NSS clock through a new ipq_cmn_pll_regmap_div_register()
-> helper, built as a plain struct clk_regmap_div instance instead of
-> hand-rolling recalc_rate/set_rate. The helper takes the register field
-> mask and clock name as parameters so that the upcoming PPE clock, which
-> shares the same register with a different field, can reuse it.
-> 
-> Signed-off-by: Luo Jie <jie.luo@oss.qualcomm.com>
-> ---
+The epq_in_urb object belonging to the caiaq device is coupled within
+the struct snd_usb_caiaqdev. After usb_submit_urb(epq_in_urb, GFP_KERNEL)
+executes successfully, epq_in_urb is successfully added to the urbp_list
+queue of the dummy HCD driver (userspace specifies dummy_hcd as the HCD
+layer driver for the caiaq USB device).
 
-[...]
+When init_card() calls snd_usb_caiaq_send_command() which subsequently
+fails due to a timeout, and proceeds to call snd_card_free() to release
+the card, the embedded ep1_in_urb object is also freed. When the dummy
+HCD driver detects that the URB has been unlinked, it returns the URB
+(by usb_hcd_giveback_urb()), which triggers [1].
 
-> +static struct clk_hw *ipq_cmn_pll_regmap_div_register(struct platform_device *pdev,
-> +						      struct regmap *regmap,
-> +						      struct clk_hw *parent_hw,
-> +						      const char *name,
-> +						      u32 field_mask)
+Decouple the ep1_in_urb object from the struct snd_usb_caiaqdev and switch
+to using a pointer instead. Separately allocate and manage the memory for
+ep1_in_urb to prevent the release of the snd_card memory object from
+interfering with it.
 
-Since we're doing clk_regmap now, you can just use the clk/qcom/common.c
-infrastructure instead of NIH-ing it..
+midi_out_urb has the same issue as ep1_in_urb and is handled in the same
+way.
 
-Konrad
+[1]
+BUG: KASAN: slab-use-after-free in usb_free_urb+0x24/0x120 drivers/usb/core/urb.c:96
+Write of size 4 at addr ffff88803cee1050 by task ktimers/1/29
+Call Trace:
+ usb_free_urb+0x24/0x120 drivers/usb/core/urb.c:96
+ dummy_timer+0xaac/0x4d50 drivers/usb/gadget/udc/dummy_hcd.c:2019
+ __run_hrtimer kernel/time/hrtimer.c:2067 [inline]
+ __hrtimer_run_queues+0x3eb/0xaf0 kernel/time/hrtimer.c:2124
+ hrtimer_run_softirq+0x1e1/0x2e0 kernel/time/hrtimer.c:2141
+
+Allocated by task 36:
+ snd_card_new+0x7b/0x110 sound/core/init.c:184
+ create_card sound/usb/caiaq/device.c:429 [inline]
+ snd_probe+0x236/0x1af0 sound/usb/caiaq/device.c:544
+
+Freed by task 36:
+ snd_card_free_when_closed sound/core/init.c:630 [inline]
+ snd_card_free+0x138/0x1d0 sound/core/init.c:662
+ snd_probe+0x162b/0x1af0 sound/usb/caiaq/device.c:553
+ 
+Fixes: 523f1dce3743 ("[ALSA] Add Native Instrument usb audio device support")
+Reported-by: syzbot+832ce9fa3face1b7d44d@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=832ce9fa3face1b7d44d
+Tested-by: syzbot+832ce9fa3face1b7d44d@syzkaller.appspotmail.com
+Signed-off-by: Edward Adam Davis <eadavis@sina.com>
+---
+v1 -> v2: same dealwith midi_out_urb and add missing check
+v2 -> v3: set ep1_in_urb to NULL after midi_out_urb allow failed
+          remove err message when alloc failed
+
+ sound/usb/caiaq/device.c | 38 ++++++++++++++++++++++++++------------
+ sound/usb/caiaq/device.h |  4 ++--
+ sound/usb/caiaq/midi.c   |  6 +++---
+ 3 files changed, 31 insertions(+), 17 deletions(-)
+
+diff --git a/sound/usb/caiaq/device.c b/sound/usb/caiaq/device.c
+index a16e59248480..ff761978a1cf 100644
+--- a/sound/usb/caiaq/device.c
++++ b/sound/usb/caiaq/device.c
+@@ -192,8 +192,8 @@ static void usb_ep1_command_reply_dispatch (struct urb* urb)
+ 		break;
+ 	}
+ 
+-	cdev->ep1_in_urb.actual_length = 0;
+-	ret = usb_submit_urb(&cdev->ep1_in_urb, GFP_ATOMIC);
++	cdev->ep1_in_urb->actual_length = 0;
++	ret = usb_submit_urb(cdev->ep1_in_urb, GFP_ATOMIC);
+ 	if (ret < 0)
+ 		dev_err(dev, "unable to submit urb. OOM!?\n");
+ }
+@@ -408,6 +408,10 @@ static void card_free(struct snd_card *card)
+ #endif
+ 	snd_usb_caiaq_audio_free(cdev);
+ 	usb_put_dev(cdev->chip.dev);
++	usb_free_urb(cdev->ep1_in_urb);
++	cdev->ep1_in_urb = NULL;
++	usb_free_urb(cdev->midi_out_urb);
++	cdev->midi_out_urb = NULL;
+ }
+ 
+ static int create_card(struct usb_device *usb_dev,
+@@ -457,22 +461,32 @@ static int init_card(struct snd_usb_caiaqdev *cdev)
+ 		return -EIO;
+ 	}
+ 
+-	usb_init_urb(&cdev->ep1_in_urb);
+-	usb_init_urb(&cdev->midi_out_urb);
++	cdev->ep1_in_urb = usb_alloc_urb(0, GFP_KERNEL);
++	if (!cdev->ep1_in_urb)
++		return -ENOMEM;
+ 
+-	usb_fill_bulk_urb(&cdev->ep1_in_urb, usb_dev,
++	cdev->midi_out_urb = usb_alloc_urb(0, GFP_KERNEL);
++	if (!cdev->midi_out_urb) {
++		usb_free_urb(cdev->ep1_in_urb);
++		cdev->ep1_in_urb = NULL;
++		return -ENOMEM;
++	}
++	usb_init_urb(cdev->ep1_in_urb);
++	usb_init_urb(cdev->midi_out_urb);
++
++	usb_fill_bulk_urb(cdev->ep1_in_urb, usb_dev,
+ 			  usb_rcvbulkpipe(usb_dev, 0x1),
+ 			  cdev->ep1_in_buf, EP1_BUFSIZE,
+ 			  usb_ep1_command_reply_dispatch, cdev);
+ 
+-	usb_fill_bulk_urb(&cdev->midi_out_urb, usb_dev,
++	usb_fill_bulk_urb(cdev->midi_out_urb, usb_dev,
+ 			  usb_sndbulkpipe(usb_dev, 0x1),
+ 			  cdev->midi_out_buf, EP1_BUFSIZE,
+ 			  snd_usb_caiaq_midi_output_done, cdev);
+ 
+ 	/* sanity checks of EPs before actually submitting */
+-	if (usb_urb_ep_type_check(&cdev->ep1_in_urb) ||
+-	    usb_urb_ep_type_check(&cdev->midi_out_urb)) {
++	if (usb_urb_ep_type_check(cdev->ep1_in_urb) ||
++	    usb_urb_ep_type_check(cdev->midi_out_urb)) {
+ 		dev_err(dev, "invalid EPs\n");
+ 		return -EINVAL;
+ 	}
+@@ -480,7 +494,7 @@ static int init_card(struct snd_usb_caiaqdev *cdev)
+ 	init_waitqueue_head(&cdev->ep1_wait_queue);
+ 	init_waitqueue_head(&cdev->prepare_wait_queue);
+ 
+-	if (usb_submit_urb(&cdev->ep1_in_urb, GFP_KERNEL) != 0)
++	if (usb_submit_urb(cdev->ep1_in_urb, GFP_KERNEL) != 0)
+ 		return -EIO;
+ 
+ 	err = snd_usb_caiaq_send_command(cdev, EP1_CMD_GET_DEVICE_INFO, NULL, 0);
+@@ -530,7 +544,7 @@ static int init_card(struct snd_usb_caiaqdev *cdev)
+ 	return 0;
+ 
+  err_kill_urb:
+-	usb_kill_urb(&cdev->ep1_in_urb);
++	usb_kill_urb(cdev->ep1_in_urb);
+ 	return err;
+ }
+ 
+@@ -576,8 +590,8 @@ static void snd_disconnect(struct usb_interface *intf)
+ #endif
+ 	snd_usb_caiaq_audio_disconnect(cdev);
+ 
+-	usb_kill_urb(&cdev->ep1_in_urb);
+-	usb_kill_urb(&cdev->midi_out_urb);
++	usb_kill_urb(cdev->ep1_in_urb);
++	usb_kill_urb(cdev->midi_out_urb);
+ 
+ 	snd_card_free_when_closed(card);
+ }
+diff --git a/sound/usb/caiaq/device.h b/sound/usb/caiaq/device.h
+index 743eb0387b5f..1c6f34693fa8 100644
+--- a/sound/usb/caiaq/device.h
++++ b/sound/usb/caiaq/device.h
+@@ -60,8 +60,8 @@ struct snd_usb_caiaq_cb_info;
+ struct snd_usb_caiaqdev {
+ 	struct snd_usb_audio chip;
+ 
+-	struct urb ep1_in_urb;
+-	struct urb midi_out_urb;
++	struct urb *ep1_in_urb;
++	struct urb *midi_out_urb;
+ 	struct urb **data_urbs_in;
+ 	struct urb **data_urbs_out;
+ 	struct snd_usb_caiaq_cb_info *data_cb_info;
+diff --git a/sound/usb/caiaq/midi.c b/sound/usb/caiaq/midi.c
+index c656d0162432..18529484c8dc 100644
+--- a/sound/usb/caiaq/midi.c
++++ b/sound/usb/caiaq/midi.c
+@@ -43,7 +43,7 @@ static int snd_usb_caiaq_midi_output_close(struct snd_rawmidi_substream *substre
+ {
+ 	struct snd_usb_caiaqdev *cdev = substream->rmidi->private_data;
+ 	if (cdev->midi_out_active) {
+-		usb_kill_urb(&cdev->midi_out_urb);
++		usb_kill_urb(cdev->midi_out_urb);
+ 		cdev->midi_out_active = 0;
+ 	}
+ 	return 0;
+@@ -64,9 +64,9 @@ static void snd_usb_caiaq_midi_send(struct snd_usb_caiaqdev *cdev,
+ 		return;
+ 
+ 	cdev->midi_out_buf[2] = len;
+-	cdev->midi_out_urb.transfer_buffer_length = len+3;
++	cdev->midi_out_urb->transfer_buffer_length = len+3;
+ 
+-	ret = usb_submit_urb(&cdev->midi_out_urb, GFP_ATOMIC);
++	ret = usb_submit_urb(cdev->midi_out_urb, GFP_ATOMIC);
+ 	if (ret < 0)
+ 		dev_err(dev,
+ 			"snd_usb_caiaq_midi_send(%p): usb_submit_urb() failed,"
+-- 
+2.43.0
+
