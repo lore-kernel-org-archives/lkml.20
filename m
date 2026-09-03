@@ -1,129 +1,219 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E47A4F472E;
-	Thu,  3 Sep 2026 16:56:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B6D4AF69B
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:57:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788454614; cv=none; b=iQv27zUuwPF0noGFj3XdOIAA3aNZ28P3yngLo/ddVj5AHMNYm37SnKc/4ruMmCAN12Jtw9s8j76He1aY6kQdjmMzt4GQr8wXtnR+vBQFrEz7XcK5iaZfVxuZg7WgUFrTyNWBvyDqNEOnEqoHz9vAdWgPXvVSVvsyT7FlWMBXCrI=
+	t=1788454638; cv=none; b=KPnc4+juMGcjO+V9InasWax2ucBk+0eg3QsRlL5r5sokExEo8rG6c6+1mNLaUzozF6gqQvNFg/8dHLZKEJctq7CIyxhI5KtyfUjzVefWVtXO1EWiDlA1cac+CU4z9aeqF4zXb+HnzMWEUMjgNpCJ3+mZcTRnMsl2vK3bTyhpkfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788454614; c=relaxed/simple;
-	bh=FSlVyf9atQNmN9KquTxfDAEMbZlKXCjPzVeNCrGcDnE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QSH9WScju+e/UcYdBeNe5ZsQ279X8pjL7A0z1KZgtg4gdqMmfgbU5LYpg4n6IQyKbAcV+1axgPYiA2ARaADqGEFxlaX4DVm9K4Fbxi/4yu6cT/eMe1fvpI8Hg6OQw63vtZ2dCTVmP1RvNMtb25J/iPk3e/Yp4YdZ0ZgaZa6mHgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=iwIwdKKY; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788454638; c=relaxed/simple;
+	bh=i/k81EGLNxtO/O0oHsEnMXbYVmh6+JDKRa9c1Dfk3EI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ea+7CjS80IBiXu7B+oVAxPcfkXjMzdqJlacKFaxJPorRSYffAX6Rlvab5J2h6QJXf/wEbhv6ep9Oqh+SAUkfulGatHbBP6ih5te9PVV/n9q2KOThtf+EYWEBQCiwsvFg6ZzIe077MegpkcE5+VEZz4xihNQu780VQmCsnkcfFWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IJxMhosF; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="iwIwdKKY"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683G2uol2292412;
-	Thu, 3 Sep 2026 16:56:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=PkYuOB
-	nKxSMPtmBAHIe1yxX8ksre0sRUueo206+p7Sc=; b=iwIwdKKYz21A+uJFWpFhtk
-	LmSVp/YA+o37pAQAAVwkYWX+ihnABjS/8yEAsR/88svEe1pRcpweaMDRiRxQgpcW
-	9Eu1E/BJSHPQo04pGUwaWtZSEO1KChqpzNyM03Xwogw07PAOyp/9OtFCMwCrhi+l
-	gzkBn20ebB0ABg8ld2sTOeIoQ1c8I5gCtPXzsiZDbO/ia9WscSnE97FFG/x8Q5Nl
-	KpoERlNEgvhTu8w65pIlYIDH4ZMME2s10y+K5Qjw3YYa+SSWjlg31V6pgkfAVCZo
-	WlN5zBLSdBEjI+gt6O5Ap9VSduw4invAqwPIQVtTcd/8wRXoutPfpunTx4olzdUw
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbnue5m5v-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 03 Sep 2026 16:56:43 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 683GuOZT029257;
-	Thu, 3 Sep 2026 16:56:42 GMT
-Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gecjary37-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 03 Sep 2026 16:56:42 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com [10.241.53.105])
-	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 683Guf0J8520510
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 3 Sep 2026 16:56:41 GMT
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 003295805D;
-	Thu,  3 Sep 2026 16:56:41 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4B3B058055;
-	Thu,  3 Sep 2026 16:56:40 +0000 (GMT)
-Received: from [9.61.81.200] (unknown [9.61.81.200])
-	by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  3 Sep 2026 16:56:40 +0000 (GMT)
-Message-ID: <ae274c2b-cc1a-414b-8e79-41eb7c68a596@linux.ibm.com>
-Date: Thu, 3 Sep 2026 09:57:21 -0700
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IJxMhosF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788454635; x=1819990635;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=i/k81EGLNxtO/O0oHsEnMXbYVmh6+JDKRa9c1Dfk3EI=;
+  b=IJxMhosFb2d1H/W2p1J9kM8VABgnxfjVRVAR7R8EnPpLmSthhSyIrwcr
+   m81WSi5YGwDcDA4ArRWIdqXk6FxIubYZB+eTd5J3D4mjQRG4Vmli4Ch2U
+   IsIQV4c9q90hnsk8dUYCNlKsCkQVZq7N5fM6DAiCXPBnUMqWv1G25/qzM
+   btzga5iz4jm+O8AjT2G8lQXxDZaMCyirfldKJKgpOIFCQq84lU8cXVgPS
+   jxmzamsrAtb2sXAi3SHHnPEFV6OeXmO5Lf/teqlZO7ACJ6NUixMLnG8Kc
+   UdEy3gPgBudr7TGweaUGW14E9Mdw7qSkNX9cyBBCNskbx5Vp8Lncy+Y76
+   w==;
+X-CSE-ConnectionGUID: c1GGGc41S363MKajUzFdgg==
+X-CSE-MsgGUID: iYp7EdigTtyggx+PJZQ1gA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="100103979"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="100103979"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 09:57:14 -0700
+X-CSE-ConnectionGUID: ihv8a+w1RBqJ1bNQn23tpw==
+X-CSE-MsgGUID: LK2sMfroTr28fBi1+gfeQQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="273554217"
+Received: from rchatre-desk1.jf.intel.com ([10.165.154.99])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 09:57:13 -0700
+From: Reinette Chatre <reinette.chatre@intel.com>
+To: tony.luck@intel.com,
+	ben.horgan@arm.com,
+	james.morse@arm.com,
+	Dave.Martin@arm.com,
+	babu.moger@amd.com,
+	bp@alien8.de,
+	tglx@linutronix.de,
+	dave.hansen@linux.intel.com
+Cc: x86@kernel.org,
+	hpa@zytor.com,
+	fustini@kernel.org,
+	fenghuay@nvidia.com,
+	peternewman@google.com,
+	yu.c.chen@intel.com,
+	linux-kernel@vger.kernel.org,
+	patches@lists.linux.dev,
+	reinette.chatre@intel.com
+Subject: [PATCH 2/5] x86,fs/resctrl: Remove "arch_needs_linear"
+Date: Thu,  3 Sep 2026 09:57:04 -0700
+Message-ID: <62904217290f2cd3225d8608c19e284d6dde3aec.1788452481.git.reinette.chatre@intel.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1788452481.git.reinette.chatre@intel.com>
+References: <cover.1788452481.git.reinette.chatre@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] scsi: ibmvfc: Add Kconfig dependency to fix link failure
- when NVME_FC=m
-To: Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
-        James.Bottomley@HansenPartnership.com, mkp@kernel.org
-Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
-        pavrampu@linux.ibm.com, brking@linux.ibm.com, davemarq@linux.ibm.com,
-        linuxppc-dev@lists.ozlabs.org
-References: <20260903074329.6705-1-venkat88@linux.ibm.com>
-Content-Language: en-US
-From: Tyrel Datwyler <tyreld@linux.ibm.com>
-In-Reply-To: <20260903074329.6705-1-venkat88@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: IUZzmbX7od1_g-NjyLzHSC5YfgOx0gP_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDE0NCBTYWx0ZWRfX7nLK9tacXoxL
- b5OGMid/wWbAY5iYdQHcNH0PlXO5hzD/NFjiDU9PfLTfvDthj8l5RPlyJq5K1ck0eLaC40fho5+
- thBerZjdKwjcX5LtvvAce/QWHa5l5u3//GNgjZ0El9T+XhGYIcJyg/NsPKra9PjfDotuQne5CXC
- ZsmVZyVxPCf2xKBMicbTpuj2XDddShwV2IYjnh/u11PR1pV9LyHx4sM+CdniD/MctUbQzYFx9Kx
- +CHRZ+bVn/YIFcC8xlpu5kF9EKvXgk044dYnbbRYE51mDQNge4MgTyjtudMSAnOZvnlySg5KfxV
- ZLMO5KGsqOZPq3gxEav8hddjOahNVDoTlRx/qCwC7PDc0khmm+kQ4YRV6qlXEM05suEvkV9D6CK
- m71Xnb8gBDwQsz3ZJ46ZMdcUPuekaoIlVV8BdeYJQOnLYOs8mdLrS6pxq57nJ2wwED2yOobjoKq
- CwFoBtSNLh303mHFnYw==
-X-Proofpoint-ORIG-GUID: IUZzmbX7od1_g-NjyLzHSC5YfgOx0gP_
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDE0NCBTYWx0ZWRfXwYHyF54/8TWG
- wmmjzfhPkuQtVKJEQbuL4puwtw+jAUdZuIef0/fxJCRZ9Hsq2NnIzVqNcNHbzf8RzhysCqbZgMB
- h1aW66nbqvnP6D8IxnkYvFbL5q/UEt4=
-X-Authority-Analysis: v=2.4 cv=B92JFutM c=1 sm=1 tr=0 ts=6a99a6cb cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=l6V8SbYLYiLwnwxNSpgA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_05,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 clxscore=1011 suspectscore=0 phishscore=0
- lowpriorityscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609030144
+Content-Transfer-Encoding: 8bit
 
-On 9/3/26 12:43 AM, Venkat Rao Bagalkote wrote:
-> Building with CONFIG_SCSI_IBMVFC=y and CONFIG_NVME_FC=m results in a
-> link failure:
-> 
->   ibmvfc-nvme.o: undefined reference to `nvme_fc_register_localport'
->   ibmvfc-nvme.o: undefined reference to `nvme_fc_register_remoteport'
->   ibmvfc-nvme.o: undefined reference to `nvme_fc_unregister_localport'
->   ibmvfc-nvme.o: undefined reference to `nvme_fc_unregister_remoteport'
->   ibmvfc-core.o: undefined reference to `nvme_fc_rescan_remoteport'
-> 
-> IS_ENABLED() evaluates to 1 for both =y and =m, so the nvme_fc_*
-> call sites are kept in the object file. When SCSI_IBMVFC=y (built-in)
-> but NVME_FC=m (loadable module), the linker cannot resolve these
-> symbols at vmlinux link time.
-> 
-> Add the same "depends on NVME_FC || NVME_FC=n" constraint already
-> used by SCSI_LPFC to prevent this configuration.
-> 
-> Reported-by: Pavithra <pavrampu@linux.ibm.com>
-> Closes: https://lore.kernel.org/all/327877a29337aa526cc50ac88fbddb86@linux.ibm.com/
-> Signed-off-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
-> ---
-Acked-by: Tyrel Datwyler <tyreld@linux.ibm.com>
+arch_needs_linear is used to reject any configuration attempt on
+a non-linear Intel MBA resource yet there are no Intel SKUs that support
+non-linear delay. If such non-existent non-linear Intel MBA resource is
+encountered during enumeration then it will not be marked as alloc_capable
+anyway and thus resctrl will never attempt configuration because of it not
+being capable of allocation, not because of the arch_needs_linear value.
+
+On Intel the MBA resource will thus always have:
+    delay_linear == true and arch_needs_linear == true
+On AMD the MBA resource will always have:
+    delay_linear == false and arch_needs_linear == false
+MPAM does not set arch_needs_linear.
+
+rdt_get_mb_table() is only called during enumeration and since it always
+returns false an Intel MBA resource without MBA_IS_LINEAR is not supported.
+Drop the unnecessary venture to rdt_get_mb_table() to make it clear that
+an Intel MBA resource without MBA_IS_LINEAR is not considered capable of
+allocation. Drop the dead code that sets arch_needs_linear to false on Intel.
+
+Since "if (!delay_linear && arch_needs_linear)" can never be true, drop
+arch_needs_linear and its only usage during bandwidth validation.
+
+Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
+---
+Changes since RFC v1:
+- Fix typo in changelog
+
+Changes since RFC v2:
+- Rework changelog.
+- Group all r->membw assignments together.
+---
+ arch/x86/kernel/cpu/resctrl/core.c | 39 ++++++------------------------
+ fs/resctrl/ctrlmondata.c           |  8 ------
+ include/linux/resctrl.h            |  2 --
+ 3 files changed, 7 insertions(+), 42 deletions(-)
+
+diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
+index 65cfde0d6a9b..0e34a1c541b9 100644
+--- a/arch/x86/kernel/cpu/resctrl/core.c
++++ b/arch/x86/kernel/cpu/resctrl/core.c
+@@ -181,27 +181,6 @@ static inline void cache_alloc_hsw_probe(void)
+ 	rdt_alloc_capable = true;
+ }
+ 
+-/*
+- * rdt_get_mb_table() - get a mapping of bandwidth(b/w) percentage values
+- * exposed to user interface and the h/w understandable delay values.
+- *
+- * The non-linear delay values have the granularity of power of two
+- * and also the h/w does not guarantee a curve for configured delay
+- * values vs. actual b/w enforced.
+- * Hence we need a mapping that is pre calibrated so the user can
+- * express the memory b/w as a percentage value.
+- */
+-static inline bool rdt_get_mb_table(struct rdt_resource *r)
+-{
+-	/*
+-	 * There are no Intel SKUs as of now to support non-linear delay.
+-	 */
+-	pr_info("MBA b/w map not implemented for cpu:%d, model:%d",
+-		boot_cpu_data.x86, boot_cpu_data.x86_model);
+-
+-	return false;
+-}
+-
+ static __init bool __get_mem_config_intel(struct rdt_resource *r)
+ {
+ 	struct rdt_hw_resource *hw_res = resctrl_to_arch_res(r);
+@@ -213,16 +192,13 @@ static __init bool __get_mem_config_intel(struct rdt_resource *r)
+ 	hw_res->num_closid = edx.split.cos_max + 1;
+ 	max_delay = eax.split.max_delay + 1;
+ 	r->membw.max_bw = MAX_MBA_BW;
+-	r->membw.arch_needs_linear = true;
+-	if (ecx & MBA_IS_LINEAR) {
+-		r->membw.delay_linear = true;
+-		r->membw.min_bw = MAX_MBA_BW - max_delay;
+-		r->membw.bw_gran = MAX_MBA_BW - max_delay;
+-	} else {
+-		if (!rdt_get_mb_table(r))
+-			return false;
+-		r->membw.arch_needs_linear = false;
+-	}
++
++	if (!(ecx & MBA_IS_LINEAR))
++		return false;
++
++	r->membw.delay_linear = true;
++	r->membw.min_bw = MAX_MBA_BW - max_delay;
++	r->membw.bw_gran = MAX_MBA_BW - max_delay;
+ 
+ 	if (boot_cpu_has(X86_FEATURE_PER_THREAD_MBA))
+ 		r->membw.throttle_mode = THREAD_THROTTLE_PER_THREAD;
+@@ -255,7 +231,6 @@ static __init bool __rdt_get_mem_config_amd(struct rdt_resource *r)
+ 
+ 	/* AMD does not use delay */
+ 	r->membw.delay_linear = false;
+-	r->membw.arch_needs_linear = false;
+ 
+ 	/*
+ 	 * AMD does not use memory delay throttle model to control
+diff --git a/fs/resctrl/ctrlmondata.c b/fs/resctrl/ctrlmondata.c
+index cafebdff70dc..4562072b8ba6 100644
+--- a/fs/resctrl/ctrlmondata.c
++++ b/fs/resctrl/ctrlmondata.c
+@@ -45,14 +45,6 @@ static bool bw_validate(char *buf, u32 *data, struct rdt_resource *r)
+ 	int ret;
+ 	u32 bw;
+ 
+-	/*
+-	 * Only linear delay values is supported for current Intel SKUs.
+-	 */
+-	if (!r->membw.delay_linear && r->membw.arch_needs_linear) {
+-		rdt_last_cmd_puts("No support for non-linear MB domains\n");
+-		return false;
+-	}
+-
+ 	ret = kstrtou32(buf, 10, &bw);
+ 	if (ret) {
+ 		rdt_last_cmd_printf("Invalid MB value %s\n", buf);
+diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
+index b63dc62690ca..66dc9813c888 100644
+--- a/include/linux/resctrl.h
++++ b/include/linux/resctrl.h
+@@ -249,7 +249,6 @@ enum membw_throttle_mode {
+  * @max_bw:		Maximum memory bandwidth value, used as the reset value
+  * @bw_gran:		Granularity at which the memory bandwidth is allocated
+  * @delay_linear:	True if memory B/W delay is in linear scale
+- * @arch_needs_linear:	True if we can't configure non-linear resources
+  * @throttle_mode:	Bandwidth throttling mode when threads request
+  *			different memory bandwidths
+  * @mba_sc:		True if MBA software controller(mba_sc) is enabled
+@@ -259,7 +258,6 @@ struct resctrl_membw {
+ 	u32				max_bw;
+ 	u32				bw_gran;
+ 	u32				delay_linear;
+-	bool				arch_needs_linear;
+ 	enum membw_throttle_mode	throttle_mode;
+ 	bool				mba_sc;
+ };
+-- 
+2.55.0
+
