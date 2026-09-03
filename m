@@ -1,123 +1,128 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-169.mta1.migadu.com [95.215.58.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71A545FFD9;
-	Thu,  3 Sep 2026 07:41:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD6B025B083
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:41:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788421304; cv=none; b=cBbXFg3ySG+ZGWkaQJUvItvYD/FigvqjpctfUApRYUu+rmucGU28tCztF2B3aYYOD0leLnDqaL5a07VL9mJblZw1l9FCGMvgX5myxC6AXneWQQrGBaZmda9qmsrP95v7j6x7jFEIXvvybJ2nQe0aU07YBliWBjnKCzggdifq05s=
+	t=1788421321; cv=none; b=JlSf4XRPBrDPNctgReMmMn7uwWlIE0Y+NfffpD3vMdUMDeJzggQETydFgLgsXebGWD1z22tD/soSXZxR97Z1HHqdeRdsGsuPDi5tXoy62A7BiFkt2q2YPDnEKe7YD+5LD74qpiAzDkw7MCJ4YC+gOJtpZX3U4t9jdqrL1aeVPbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788421304; c=relaxed/simple;
-	bh=mT6IunlNmVAACIv/qOnfprsS76yyb9kAy/7Jf1UY23I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=vGp0bQBdsOv+E5HS4B0O3XHFxVJAYzI0WZbcAGjTnmOzGwy4t5qPa7E2oMG5tgpMLgY6iyDfXhDbhh9WbEotduPrWV1oC2PaUTejwxtOWzBZPBqAVKvNBHEcLkElD0eU7LVJrvd7rJQhaKBClyAajjDfAaknL5X1AtkskZ3I9FA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=XvaTjzYV; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=uYmG0xv0; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788421321; c=relaxed/simple;
+	bh=r2mySitCm8xZAfu7BGhS1SrRCHq8wTD0UYn0zUS4Mm4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LbrDiGH8jUfARnQ68pJp0esnTc55nFvDsytOqZVUgldVHS9/lAyoCLM6AXdEh5WiYnJxZPrEVXEIvGb3jlVpGQFpKVVcNbJMMmOXZD4dkHs+n9XHou8xdPuVObIiswe0p0HSPYutdyGhLS7VMXIKYSAycYMobBCvU0yJr0fijvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OXii/lR9; arc=none smtp.client-ip=95.215.58.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="XvaTjzYV";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="uYmG0xv0"
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788421297;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+rrF5e3YgB+atcHD5Gfa4JDkXTz+7YXoVXv9oxsgM/c=;
-	b=XvaTjzYVh0HucbGPiPARvWRn6wVYgsx+Csp2bfua/QOqfVCXtGr02dq9QV/NIgKdrmQttN
-	FruSzRbjGV2ltb8/SOj7JTLix/fJZVbI+j5Ihb3ZDpTm9XgO+CVNAi1KGHNu8modprd4sx
-	vkfb4UP1bfOYEiO25nbrMDeHeIFboyfqD/hgadHhg6C9qPWzibZS6r8QLE9hRF1PQ//5se
-	ouoFxnd7ZLe4sa78VjkPB4220N3XCrJT5IaQiUF3lV/yfjq+0w2UO+nVMsmD0xDcfEP6cw
-	d8JWdATeYQ0teA0PFMluj9KnXp8rrJpvWvmGfu+qMoJuGF9YZd9f/btvsvTkJw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788421297;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+rrF5e3YgB+atcHD5Gfa4JDkXTz+7YXoVXv9oxsgM/c=;
-	b=uYmG0xv0qojWcb+hNeKMxC7/rqCyITMqfBa/1k5/2s66l8mXzXZhdsVPFBCJGgk8R1nWYV
-	/D031BwFTFBTL0Bg==
-Date: Thu, 03 Sep 2026 09:41:29 +0200
-Subject: [PATCH v2 14/15] alpha: remove AT_VECTOR_SIZE_ARCH from UAPI
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OXii/lR9"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=r2mySitCm8xZAfu7BGhS1SrRCHq8wTD0UYn0zUS4Mm4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788421317; v=1; x=1789026117;
+ b=OXii/lR9UHrPY8uY4GTmcjcxIudOQS3tOGTvevDFPd4vuWFleg4BnVElLPHCSwORl6ywsYsl
+ QQxfR7swoQK7olcNLbe9PJHqlEfF7024jn+HWMwdlCdD+jVJysEZs+2iiVPSfh8aY4MJp9LK2pN
+ O+1+nvBtvSbWvUzzQQNklRKU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 40945f90da2aaa8b;
+	Thu, 03 Sep 2026 07:41:57 +0000
+X-Mizu-Trace-ID: 40945f90da2aaa8b
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 3 Sep 2026 15:41:51 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: "Barry Song (Xiaomi)" <baohua@kernel.org>
+Cc: akpm@linux-foundation.org, axelrasmussen@google.com,
+	baolin.wang@linux.alibaba.com, chenridong@xiaomi.com,
+	david@kernel.org, hannes@cmpxchg.org, kasong@tencent.com,
+	lianux.mm@gmail.com, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, ljs@kernel.org, lyugaofei@xiaomi.com,
+	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev,
+	stevensd@chromium.org, wangzicheng@honor.com, weixugc@google.com,
+	yuanchu@google.com
+Subject: Re: [PATCH v2 2/2] mm/mglru: make retry logic explicit in
+ isolate_folios()
+Message-ID: <apkkvyLNEt4_ETiz@fedora>
+References: <apjM5ZBOJrdGQM_g@fedora>
+ <20260903070500.76379-1-baohua@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260903-at-vector-size-arch-v2-14-5bc32a71e3d8@linutronix.de>
-References: <20260903-at-vector-size-arch-v2-0-5bc32a71e3d8@linutronix.de>
-In-Reply-To: <20260903-at-vector-size-arch-v2-0-5bc32a71e3d8@linutronix.de>
-To: Kees Cook <kees@kernel.org>, Arnd Bergmann <arnd@arndb.de>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-riscv@lists.infradead.org, loongarch@lists.linux.dev, 
- linux-s390@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- linux-mips@vger.kernel.org, sparclinux@vger.kernel.org, 
- linux-sh@vger.kernel.org, linux-alpha@vger.kernel.org, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
- Magnus Lindholm <linmag7@gmail.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788421286; l=1710;
- i=thomas.weissschuh@linutronix.de; s=20240209; h=from:subject:message-id;
- bh=mT6IunlNmVAACIv/qOnfprsS76yyb9kAy/7Jf1UY23I=;
- b=yYjljrbgHd9g0YvBGpHX18OgBAHjsDzVbGwiInZAXSnDdTlr6s+0cRT5wpLbzZrAcLw7t0bCW
- UZTIpaJMtZoDO1+CQ6vAol3PKC5JWA+jRIyABLT06nkmg8XMLKxb5lc
-X-Developer-Key: i=thomas.weissschuh@linutronix.de; a=ed25519;
- pk=pfvxvpFUDJV2h2nY0FidLUml22uGLSjByFbM6aqQQws=
+In-Reply-To: <20260903070500.76379-1-baohua@kernel.org>
 
-There is nothing userspace can do with this value. In the kernel is
-always combined with AT_VECTOR_SIZE_BASE, which is not exposed to
-userspace and also changes from time to time.
+On 09/03/26 at 03:05pm, Barry Song (Xiaomi) wrote:
+> On Thu, Sep 3, 2026 at 9:27 AM Baoquan He <baoquan.he@linux.dev> wrote:
+> >
+> [...]
+> >
+> > Thanks, Barry. These number is very convincing. The retry for swappiness
+> > 0 is worthy. Then the patchset feels like doing two things: refactoring
+> > the for() loop; improving the eviction for swappiness 0/201 by adding a
+> > retry and this also makes them be consistent with (1, 200). While the
+> > cover letter subject, patch 1 and patch 2 feels like it's not easy to
+> > match them to the corresponding part. Maybe merging them to one patch,
+> > or rearranging them? Just personal opinion.
+> >
+> 
+> Hi Baoquan,
+> 
+> Thanks very much for your suggestions and review.
+> We have two patches:
+> 
+> 1. `mm/mglru: make type fallback logic explicit in isolate_folios()`
+> 2. `mm/mglru: make retry logic explicit in isolate_folios()`
+> 
+> One handles fallback, while the other handles retry. I think this
+> separation makes the logic clearer. Could we keep the current
+> separation?
 
-Move the symbol to a kernel-internal header.
+Yeah, it's also fine to me. Thanks for the effort.
 
-Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
-Acked-by: Magnus Lindholm <linmag7@gmail.com>
-Reviewed-by: Kees Cook <kees@kernel.org>
----
- arch/alpha/include/asm/auxvec.h      | 7 +++++++
- arch/alpha/include/uapi/asm/auxvec.h | 8 +++-----
- 2 files changed, 10 insertions(+), 5 deletions(-)
-
-diff --git a/arch/alpha/include/asm/auxvec.h b/arch/alpha/include/asm/auxvec.h
-new file mode 100644
-index 000000000000..fa90ee4f899c
---- /dev/null
-+++ b/arch/alpha/include/asm/auxvec.h
-@@ -0,0 +1,7 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef __ASM_ALPHA_AUXVEC_H
-+#define __ASM_ALPHA_AUXVEC_H
-+
-+#define AT_VECTOR_SIZE_ARCH 4 /* entries in ARCH_DLINFO */
-+
-+#endif /* __ASM_ALPHA_AUXVEC_H */
-diff --git a/arch/alpha/include/uapi/asm/auxvec.h b/arch/alpha/include/uapi/asm/auxvec.h
-index 57cae8780d81..d21b87b6730a 100644
---- a/arch/alpha/include/uapi/asm/auxvec.h
-+++ b/arch/alpha/include/uapi/asm/auxvec.h
-@@ -1,6 +1,6 @@
- /* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
--#ifndef __ASM_ALPHA_AUXVEC_H
--#define __ASM_ALPHA_AUXVEC_H
-+#ifndef __UAPI_ASM_ALPHA_AUXVEC_H
-+#define __UAPI_ASM_ALPHA_AUXVEC_H
- 
- /* Reserve these numbers for any future use of a VDSO.  */
- #if 0
-@@ -22,6 +22,4 @@
- #define AT_L2_CACHESHAPE	36
- #define AT_L3_CACHESHAPE	37
- 
--#define AT_VECTOR_SIZE_ARCH 4 /* entries in ARCH_DLINFO */
--
--#endif /* __ASM_ALPHA_AUXVEC_H */
-+#endif /* __UAPI_ASM_ALPHA_AUXVEC_H */
-
--- 
-2.55.0
-
+> 
+> But we may really need Andrew's kind help to squash the change
+> you found below:
+> 
+> 
+> From 1fb8046662a8b23be1b87a21cc9964e9ff9e1eb0 Mon Sep 17 00:00:00 2001
+> From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+> Date: Thu, 3 Sep 2026 14:48:52 +0800
+> Subject: [PATCH] mm: revert slight behavior change for swappiness 1-200
+> 
+> Baoquan's review found that we unexpectedly introduced a slight behavior
+> change for swappiness 1-200. We could now have a case like:
+> 
+> 1. First scan -> `scanned != 0`
+> 2. Second scan -> `scanned = 0`
+> 3. Type fallback
+> 
+> Step 3 was impossible before. Let's remove this possibility.
+> 
+> Reported-by: Baoquan He <baoquan.he@linux.dev>
+> Closes: https://lore.kernel.org/linux-mm/apfZQE1X6zGAsBb_@fedora/
+> Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+> ---
+>  mm/vmscan.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index bf2786c7247d..ba7adf36e69f 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -4939,7 +4939,7 @@ static int isolate_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+>  	 * We are running out of the current reclaim type. Fall back to
+>  	 * the other type if allowed.
+>  	 */
+> -	if (!scanned && type_fallback_allowed) {
+> +	if (!scanned && !tried && type_fallback_allowed) {
+>  		type = !type;
+>  		tried = true;
+>  		type_fallback_allowed = false;
+> -- 
+> 2.39.3 (Apple Git-146)
+> 
