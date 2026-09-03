@@ -1,299 +1,165 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D57AC46D541;
-	Thu,  3 Sep 2026 10:03:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C53B74137AD;
+	Thu,  3 Sep 2026 10:03:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788429829; cv=none; b=BRXJSm0cPZZsTgH75fAFy7ha6JrenYs4hezTdK1VW0u4MfHAK0Vc6ROMeTGy2XjL7d9us+gPQUD0+ACo8yO5q+D3pHizfU+MFX0H00Gl05GuggOBrX67d6ToOQGlTf3QBAp+7yKUD2+4tWR9NxN7mAi+d1ARrhf1kxkALc94Cxg=
+	t=1788429833; cv=none; b=tJY6y00Fr8aVb1osvBqqkCp0/xjuoVAA363ALoLk1HQk33TxICUAD1mcG0ahH/aZVbGj4ZJ6Ny5bHxM1FGPtsSg1rsN4ljk3YrxlqeuYJ4Qe0BA5NJD9e4HJd2odYRX3GkHZvhcVSOXL7hFq+3ruPUSi+kP8GjXd+tpY0Yhs/Bg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788429829; c=relaxed/simple;
-	bh=GNI/elh2dFmSRnhzVi2c80kp1YqKr+lVSRz3WyR+GNw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cPrTZlexfG7vCUywWZnvSsynQwDHn2jnIPPN8UdVXmSnsYSGyzbzfj2zErESA8F6B1/7RmchX6G0JUx+KY6m0T2BcyqYIvjQe6VI/czUaNQqSVBOFknIK0nrkvWuMLZ372O3Tj/jYM6tegEHV6bAMlwtvdUCzF4sunHO4plXDkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fq27WkOB; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fq27WkOB"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0634A1596;
-	Thu,  3 Sep 2026 03:03:34 -0700 (PDT)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 35FA73F673;
-	Thu,  3 Sep 2026 03:03:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788429817; bh=GNI/elh2dFmSRnhzVi2c80kp1YqKr+lVSRz3WyR+GNw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fq27WkOBzGZZvkP0SsLX+4oIHjZydxDiALVuq/Sv9qBsIrlXHR1yrtgSkYYWlpfb/
-	 8Oi/OcsswiK4zNXExvZVCvGPYA5nn6yxzs+HPmtFfM0QTc3GRaJ8AUeL9S1s89kvUh
-	 NznYccQHETWjpHvtkP942KJA8PpcaZRDS2SfQ8PU=
-Message-ID: <5c9e08ef-051a-492f-a818-703e64e7b8b8@arm.com>
-Date: Thu, 3 Sep 2026 11:03:33 +0100
+	s=arc-20240116; t=1788429833; c=relaxed/simple;
+	bh=ID/ALhobsxfSAGQbWF+Z1Ci7Bfm1CH1TOIk+JV2Ef1o=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=c5P/BHVEa24msH+tGsGzBopdbjiWYvmN0tfgKgs/hnP47Bl5+jeiBXqn+Qjav+wXycUXPXBZxnsxvTGaESmrFLOMlBONJ49C9HADqAJ3jkQqagUPcBS5ud9MjXNv/F8dU0zss1Rkx/XpKFmSRepMmc8otYipKnfltyPbxz6Lu70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 83FE620177F;
+	Thu, 03 Sep 2026 12:03:32 +0200 (CEST)
+Message-ID: <9d734e555e9f074ffd93791a73c054ce92212f67.camel@pengutronix.de>
+Subject: Re: [PATCH v3 07/12] reset: Add
+ reset_control_get_from_provider_exclusive()
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Geert Uytterhoeven <geert+renesas@glider.be>, Rob Herring
+ <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Stephen Boyd	 <sboyd@kernel.org>, Brian Masney
+ <bmasney+clk@redhat.com>, Jerome Brunet	 <jbrunet+clk@baylibre.com>, Sudeep
+ Holla <sudeep.holla@kernel.org>, Cristian Marussi
+ <cristian.marussi@arm.com>, Saravana Kannan <saravanak@kernel.org>, Ulf
+ Hansson	 <ulfh@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, Marek
+ Vasut	 <marek.vasut+renesas@mailbox.org>, Bartosz Golaszewski	
+ <bartosz.golaszewski@oss.qualcomm.com>, Konrad Dybcio	
+ <konrad.dybcio@oss.qualcomm.com>, Kevin Hilman <khilman@baylibre.com>,
+ Vinod Koul <vkoul@kernel.org>, Wolfram Sang
+ <wsa+renesas@sang-engineering.com>, Kuninori Morimoto	
+ <kuninori.morimoto.gx@renesas.com>, =?ISO-8859-1?Q?Cl=E9ment?= Le Goffic	
+ <clegoffic@baylibre.com>
+Cc: devicetree@vger.kernel.org, arm-scmi@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Thu, 03 Sep 2026 12:03:32 +0200
+In-Reply-To: <619a6e41495adfdae3e2e6c0fee97e0550a5c404.1788338320.git.geert+renesas@glider.be>
+References: <cover.1788338320.git.geert+renesas@glider.be>
+	 <619a6e41495adfdae3e2e6c0fee97e0550a5c404.1788338320.git.geert+renesas@glider.be>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 01/15] dt-bindings: arm: Add MPAM MSC binding
-To: Yin Li <yin.li@oss.qualcomm.com>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Shanker Donthineni <sdonthineni@nvidia.com>,
- Conor Dooley <conor+dt@kernel.org>, Fenghua Yu <fenghuay@nvidia.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Konrad Dybcio <konradybcio@kernel.org>, James Morse <james.morse@arm.com>,
- Bjorn Andersson <andersson@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-arm-msm@vger.kernel.org, ganapatrao.kulkarni@oss.qualcomm.com,
- trilok.soni@oss.qualcomm.com, devicetree@vger.kernel.org,
- driver-core@lists.linux.dev, Srivathsa L Rao
- <srivathsa.rao@oss.qualcomm.com>, Huang Yiwei
- <huang.yiwei@oss.qualcomm.com>, aiqun.yu@oss.qualcomm.com,
- linux-kernel@vger.kernel.org
-References: <20260811-mpam-resctrl-dt-knp-support-v1-0-ea6397bead59@oss.qualcomm.com>
- <20260811-mpam-resctrl-dt-knp-support-v1-1-ea6397bead59@oss.qualcomm.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20260811-mpam-resctrl-dt-knp-support-v1-1-ea6397bead59@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Hi Rob,
-
-On 11/08/2026 14:30, Yin Li wrote:
-> From: Rob Herring <robh@kernel.org>
-> 
-> The binding is designed around the assumption that an MSC will be a
-> sub-block of something else such as a memory controller, cache controller,
-> or IOMMU. However, it's certainly possible a design does not have that
-> association or has a mixture of both, so the binding illustrates how we can
-> support that with RIS child nodes.
-> 
-> A key part of MPAM is we need to know about all of the MSCs in the system
-> before it can be enabled. This drives the need for the genericish
-> 'arm,mpam-msc' compatible. Though we can't assume an MSC is accessible
-> until a h/w specific driver potentially enables the h/w.
-
-Do you have sufficient evidence of platforms that would benefit from MPAM device tree support to
-consider this binding for upstream?
-
-Thanks,
-
-Ben
-
-> 
-> Cc: James Morse <james.morse@arm.com>
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> Signed-off-by: James Morse <james.morse@arm.com>
-> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
+On Mi, 2026-09-02 at 13:29 +0200, Geert Uytterhoeven wrote:
+> When stacking two reset controllers, the upper one should go through the
+> proper channels: request exclusive reset controls and use them via the
+> reset_control_*() APIs.  However, unlike the clock subsystem, which has
+> of_clk_get_from_provider(), the reset subsystem does not offer a way to
+> lookup and obtain a reset from a reset provider.
+>=20
+> Hence add a public helper reset_control_get_from_provider_exclusive()
+> to lookup and obtain an exclusive reference to a reset controller, based
+> on the recently introduced __reset_control_get_from_provider() helper.
+> This will be used by the R-Car X5H Module Controller driver.
+>=20
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 > ---
->  .../devicetree/bindings/arm/arm,mpam-msc.yaml      | 199 +++++++++++++++++++++
->  1 file changed, 199 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml b/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml
-> new file mode 100644
-> index 000000000000..53a6fdbbf05f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml
-> @@ -0,0 +1,199 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/arm/arm,mpam-msc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> v3:
+>   - Replace reset_controller_get_provider() by
+>     reset_control_get_from_provider_exclusive(),
+>   - Add kerneldoc,
+>=20
+> v2:
+>   - No changes.
+> ---
+>  drivers/reset/core.c  | 37 ++++++++++++++++++++++++++++++++-----
+>  include/linux/reset.h |  8 ++++++++
+>  2 files changed, 40 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/reset/core.c b/drivers/reset/core.c
+> index 8af7cd2e8a5029df..6d4c95b3edb18248 100644
+> --- a/drivers/reset/core.c
+> +++ b/drivers/reset/core.c
+> @@ -1141,6 +1141,7 @@ __reset_control_get_from_provider(const struct fwno=
+de_reference_args *args,
+>  				  bool gpio_fallback,
+>  				  enum reset_control_flags flags)
+>  {
+> +	struct fwnode_handle *fwnode =3D consumer ?: args->fwnode;
+>  	struct reset_control *rstc =3D ERR_PTR(-EINVAL);
+>  	struct reset_controller_dev *rcdev;
+>  	int rstc_id =3D -EINVAL;
+> @@ -1154,18 +1155,26 @@ __reset_control_get_from_provider(const struct fw=
+node_reference_args *args,
+>  	if (WARN_ON(args->nargs !=3D rcdev->fwnode_reset_n_cells))
+>  		return ERR_PTR(-EINVAL);
+> =20
+> -	if (rcdev->of_xlate && is_of_node(consumer)) {
+> -		struct device_node *np =3D to_of_node(consumer);
+> +	if (rcdev->of_xlate && is_of_node(fwnode)) {
+> +		struct device_node *np =3D to_of_node(fwnode);
+>  		struct of_phandle_args of_args;
+>  		int ret;
+> =20
+> -		ret =3D of_parse_phandle_with_args(np,
+> +		if (consumer) {
+> +			ret =3D of_parse_phandle_with_args(np,
+>  					 gpio_fallback ? "reset-gpios" : "resets",
+>  					 gpio_fallback ? "#gpio-cells" : "#reset-cells",
+>  					 gpio_fallback ? 0 : index,
+>  					 &of_args);
+> -		if (ret)
+> -			return ERR_PTR(ret);
+> +			if (ret)
+> +				return ERR_PTR(ret);
+> +		} else {
+> +			of_args.np =3D of_node_get(np);
+> +			of_args.args_count =3D args->nargs;
 > +
-> +title: Arm Memory System Resource Partitioning and Monitoring (MPAM)
-> +
-> +description: |
-> +  The Arm MPAM specification can be found here:
-> +
-> +  https://developer.arm.com/documentation/ddi0598/latest
-> +
-> +maintainers:
-> +  - Rob Herring <robh@kernel.org>
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: arm,mpam-msc                   # Further details are discoverable
-> +      - const: arm,mpam-memory-controller-msc
-> +
-> +  reg:
-> +    maxItems: 1
-> +    description: A memory region containing registers as defined in the MPAM
-> +      specification.
-> +
-> +  interrupts:
-> +    minItems: 1
-> +    items:
-> +      - description: error (optional)
-> +      - description: overflow (optional, only for monitoring)
-> +
-> +  interrupt-names:
-> +    oneOf:
-> +      - items:
-> +          - enum: [ error, overflow ]
-> +      - items:
-> +          - const: error
-> +          - const: overflow
-> +
-> +  arm,not-ready-us:
-> +    description: The maximum time in microseconds for monitoring data to be
-> +      accurate after a settings change. For more information, see the
-> +      Not-Ready (NRDY) bit description in the MPAM specification.
-> +
-> +  numa-node-id: true # see NUMA binding
-> +
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 0
-> +
-> +patternProperties:
-> +  '^ris@[0-9a-f]+$':
-> +    type: object
-> +    additionalProperties: false
-> +    description:
-> +      RIS nodes for each resource instance in an MSC. These nodes are required
-> +      for each resource instance implementing known MPAM controls
-> +
-> +    properties:
-> +      compatible:
-> +        enum:
-> +          - arm,mpam-cache
-> +          # Memory bandwidth
-> +          - arm,mpam-memory
-> +
-> +      reg:
-> +        minimum: 0
-> +        maximum: 0xf
-> +
-> +      cpus:
-> +        description:
-> +          Phandle(s) to the CPU node(s) this RIS belongs to. By default, the parent
-> +          device's affinity is used.
-> +
-> +      arm,mpam-device:
-> +        $ref: /schemas/types.yaml#/definitions/phandle
-> +        description:
-> +          By default, the MPAM enabled device associated with a RIS is the MSC's
-> +          parent node. It is possible for each RIS to be associated with different
-> +          devices in which case 'arm,mpam-device' should be used.
-> +
-> +    required:
-> +      - compatible
-> +      - reg
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +dependencies:
-> +  interrupts: [ interrupt-names ]
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    L3: cache-controller@30000000 {
-> +        compatible = "arm,dsu-l3-cache", "cache";
-> +        cache-level = <3>;
-> +        cache-unified;
-> +
-> +        ranges = <0x0 0x30000000 0x800000>;
-> +        #address-cells = <1>;
-> +        #size-cells = <1>;
-> +
-> +        msc@10000 {
-> +            compatible = "arm,mpam-msc";
-> +
-> +            reg = <0x10000 0x2000>;
-> +            interrupts = <1>, <2>;
-> +            interrupt-names = "error", "overflow";
-> +            arm,not-ready-us = <1>;
-> +            /* CPU affinity implied by parent cache node  */
-> +        };
-> +    };
-> +
-> +    mem: memory-controller@20000 {
-> +        compatible = "foo,a-memory-controller";
-> +        reg = <0x20000 0x1000>;
-> +
-> +        #address-cells = <1>;
-> +        #size-cells = <1>;
-> +        ranges;
-> +
-> +        msc@21000 {
-> +            compatible = "arm,mpam-memory-controller-msc", "arm,mpam-msc";
-> +            reg = <0x21000 0x1000>;
-> +            interrupts = <3>;
-> +            interrupt-names = "error";
-> +            arm,not-ready-us = <1>;
-> +            numa-node-id = <1>;
-> +        };
-> +    };
-> +
-> +    iommu@40000 {
-> +        reg = <0x40000 0x1000>;
-> +
-> +        ranges;
-> +        #address-cells = <1>;
-> +        #size-cells = <1>;
-> +
-> +        msc@41000 {
-> +            compatible = "arm,mpam-msc";
-> +            reg = <0 0x1000>;
-> +            interrupts = <5>, <6>;
-> +            interrupt-names = "error", "overflow";
-> +            arm,not-ready-us = <1>;
-> +
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +
-> +            ris@2 {
-> +                compatible = "arm,mpam-cache";
-> +                reg = <0>;
-> +                // TODO: How to map to device(s)?
-> +            };
-> +        };
-> +    };
-> +
-> +    msc@80000 {
-> +        compatible = "foo,a-standalone-msc";
-> +        reg = <0x80000 0x1000>;
-> +
-> +        clocks = <&clks 123>;
-> +
-> +        ranges;
-> +        #address-cells = <1>;
-> +        #size-cells = <1>;
-> +
-> +        msc@10000 {
-> +            compatible = "arm,mpam-msc";
-> +
-> +            reg = <0x10000 0x2000>;
-> +            interrupts = <7>;
-> +            interrupt-names = "overflow";
-> +            arm,not-ready-us = <1>;
-> +
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +
-> +            ris@0 {
-> +                compatible = "arm,mpam-cache";
-> +                reg = <0>;
-> +                arm,mpam-device = <&L2_0>;
-> +            };
-> +
-> +            ris@1 {
-> +                compatible = "arm,mpam-memory";
-> +                reg = <1>;
-> +                arm,mpam-device = <&mem>;
-> +            };
-> +        };
-> +    };
-> +
-> +...
-> 
+> +			for (unsigned int i =3D 0; i < args->nargs; i++)
+> +				of_args.args[i] =3D args->args[i];
 
+This should error out if args->args[i] > U32_MAX.
+
+> +		}
+> =20
+>  		rstc_id =3D rcdev->of_xlate(rcdev, &of_args);
+>  		of_node_put(of_args.np);
+> @@ -1257,6 +1266,24 @@ struct reset_control *__reset_control_get(struct d=
+evice *dev, const char *id,
+>  }
+>  EXPORT_SYMBOL_GPL(__reset_control_get);
+> =20
+> +/**
+> + * reset_control_get_from_provider_exclusive - Lookup and obtain an excl=
+usive
+> + *					       reference to a reset controller.
+> + * @args: Reference to the reset controller provider with all the args l=
+ike
+> + *	  reset number
+
+It is implied, but should this explicitly mention that this must not be
+a reference to a GPIO provider?
+
+> + *
+> + * Returns a struct reset_control or IS_ERR() condition containing errno=
+.
+> + * If this function is called more than once for the same reset control =
+it will
+> + * return -EBUSY.
+> + */
+> +struct reset_control *
+> +reset_control_get_from_provider_exclusive(const struct fwnode_reference_=
+args *args)
+> +{
+> +	return __reset_control_get_from_provider(args, NULL, 0, false,
+> +						 RESET_CONTROL_EXCLUSIVE);
+> +}
+> +EXPORT_SYMBOL_GPL(reset_control_get_from_provider_exclusive);
+
+regards
+Philipp
