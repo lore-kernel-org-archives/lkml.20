@@ -1,163 +1,211 @@
-Received: from mail-oo2-f4.google.com (mail-oo2-f4.google.com [74.125.231.132])
+Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4043D415F06
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BD833DD500
 	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 20:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788469181; cv=none; b=IQhBcLCqm+rPzH1ya537RkK9pGX4R/Tdrz78PD0V3YtwFnTikQEWv/bSu9rnzSlaA4oU+KRPFPlVyny+qeSfm16CqE8RagowJxZedHq1sDVz5P0Cl1TGEuosPzLYYpkcKErgOS2hrh+06sl2fDLD9fSv2MO06sFpH/aeRJiOTNg=
+	t=1788469180; cv=none; b=fz8nOSgIf9MVZ772SBID90zI4He1nj+m84ZD8LjsRK9gxtri2PBLiriboDNrjGD7EUHqARgrkOupKrPcXjkUaAaREV2HGyMWnMxuYiDqoyG0GO1/sRxoDVu2h3nU6kGE+7sPpk7eMvsqW62oGzbTAgMPR4SHFt+ur7IpAhFOlu4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788469181; c=relaxed/simple;
-	bh=aAuupha4ifkchXwkiAGbYr/HlKsVI+QX2NJQRTuTICg=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=bt0usXpPvNyMMW3k+hhKZnmBcGvk3YOybFr4Va4LOn9F/0oohSm6xzx0Cmn+mlMc8oAuBv1+tAfG1XzWy+PODQvIXALpCipzLDM1jbFjzg6mKKSDbYTaIV/TN9cxz1FZDK1bzjI0r9Au8rpuc8QxZ+LvY7+/skkG4+R/+Mgir8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.132
+	s=arc-20240116; t=1788469180; c=relaxed/simple;
+	bh=uuuDftWEtW1qFHxqtnhvjsGxPJjeQoFDiGsEqX6vzhk=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=KR7PW+xxwrfIYXRf1vCcL37QVe/zbZp5UBrueT6sb1D1Iuh/u85+j5umd4hFGYeybzH2Do45MlaF9rMbyW9GS0/KJ2FYFnBdPllFQdRUJenmiDPLCSPRlxpJ1vEdIfh4rWhBmK8remTLwMNW1Hf4BWApjMsGA1PwDqmo/5znfMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f4.google.com with SMTP id 46e09a7af769-7f4e9ec63a7so52841a34.1
+Received: by mail-oo2-f11.google.com with SMTP id 006d021491bc7-6aaf6076546so81448eaf.1
         for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 13:59:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788469170; x=1789073970;
+        d=1e100.net; s=20251104; t=1788469171; x=1789073971;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XNCoPtsUPtRUB6a23MbDtY9twkb0aPC99TXM6/JTHoA=;
-        b=WlE0+G6dLI1VTSRevkCLQ1gtRNk1NeLiB3cDlJw+d455twM/KiQbSM5cCtjv65pARz
-         wEj39vDlGlAH0w6SyqMZPG6LiArx91Wp35DwCOmSOsQe+4TyqKyhA7CGnX09ekJu4KIu
-         shkfnM82oZpsloNhkVJHlQeWDcdYfvIadSkYXO0o8P5pkaNAQmlw8WKqSGLoYKcagff1
-         q13z2v5Do8zYMAjc45K5pHNYjuDjzrYgwsrziChaT9lPSrwkIltXtLF91DmEStmirsu6
-         6mpf8MiPI9uHdEliEPxGyGXidCtmHm6apYv1NhtEAzvuNPb/mSvAYKTP7cels5lOrK+T
-         X8NQ==
-X-Forwarded-Encrypted: i=1; AKwUvBytMc/893BCtpd27m2aCaT4sm8uGK79koBoLUeCRFXbiITX9043gbM03zc3GxrHexNB/jniM5woOdI+UTA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nZI0dYw2e40xw0qIXvdqOVt6+OHQhJV+FyFGyyznLT7qDg9Pvi
-	26bERxxxMyLY249t0ueScJ7GCUVIhxLaeo8425RciMxpfC4v5+BCfM2I919CsDilz84EgLt9mj4
-	NOLZQ+fcK70pm8BQrggzFhfyPJm+0deAR+YCXoK/0c/0pEdXqahUTaeiY4D0=
+        bh=yMC1/2CRu6w8oyeK+QAGBB/5FTYZSuHpWHz9c0PCyIo=;
+        b=XLpW+17da/zhDTvADhPgJETdx23brh8gKf/eQwtqCbhKhv68Z3X35hbluu+YdQHZtn
+         VsE7CjUR1kW00HR/yrlHtinx6gRz5TQolOwRzs96eEz6MOQAxsXjFKesRvNpUNgLo2IP
+         qG8LTluygS78HpjGhVSP37VTaawqOeaseH0ttjzgO4UFL6A63gn2TGvW9njooDGC+LO8
+         PSj/pFtCEnKN4SJL5zmG4omr7GJiQ2LV155FT0RdViYACnRnNf6tNUj0ue/+btal3vLq
+         S8PpCJE3C1da//wsZXHtKMgfyy2YYKCGPChJ5D2Grw+eH4RqxY0pTuKWm4P33Mrn9fj6
+         i/4g==
+X-Forwarded-Encrypted: i=1; AKwUvBx414Zxr7PyCnsz77BDxGt2OIY8BvA7X8HO6FmoGtfcQBrQtY8TXHaRYwc57f/2xRv5WTJhGjj1EJ2b9Uc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mOf+4oNAH6V59dwbsWNUk2z4sf6V61lYyqDjNqphe7vjPYMmMv
+	HcBbB3WS6BGKsUTFL+0dGCtTkRVS88qGOkYiSc2EoJelfS9ZWJ4d0lWIAo3KLUbI7DH9VmnRLci
+	TppBXidGfchtBjDX5yzaz20K856GS3mX3DVAXsetGlXDmzY2+fP141g9uls0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1890:b0:6b1:464d:4d1d with SMTP id
- 006d021491bc7-6b6fb8d25aemr1327079eaf.11.1788469170682; Thu, 03 Sep 2026
+X-Received: by 2002:a05:6820:614:b0:6b1:9e75:6fe2 with SMTP id
+ 006d021491bc7-6b6fa3ddf94mr1334769eaf.12.1788469170902; Thu, 03 Sep 2026
  13:59:30 -0700 (PDT)
 Date: Thu, 03 Sep 2026 13:59:30 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a99dfb2.9266084e.bf0d7.027c.GAE@google.com>
-Subject: [syzbot] [block?] general protection fault in blk_mq_quiesce_queue
-From: syzbot <syzbot+fefa0af09f7891b1800e@syzkaller.appspotmail.com>
-To: axboe@kernel.dk, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
+Message-ID: <6a99dfb2.9266084e.bf0d7.027d.GAE@google.com>
+Subject: [syzbot] [kernfs?] possible deadlock in location_store
+From: syzbot <syzbot+ab46e65f9ffd10729c79@syzkaller.appspotmail.com>
+To: driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, tj@kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
 Hello,
 
 syzbot found the following issue on:
 
-HEAD commit:    940de590b839 Merge tag 'hardening-v7.3-rc2' of git://git.k..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=13df50f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
-dashboard link: https://syzkaller.appspot.com/bug?extid=fefa0af09f7891b1800e
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=166a48f9580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=116a48f9580000
+HEAD commit:    cee9395acd80 Linux 7.3-rc1
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+console output: https://syzkaller.appspot.com/x/log.txt?x=1036139e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=56ed23170c168d4c
+dashboard link: https://syzkaller.appspot.com/bug?extid=ab46e65f9ffd10729c79
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: arm64
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=14634b49580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=11412125580000
 
 Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-940de590.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/f3f674f98efb/vmlinux-940de590.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/132222426e71/bzImage-940de590.xz
+disk image: https://storage.googleapis.com/syzbot-assets/3bd9f0104cfb/disk-cee9395a.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/299da4fc0246/vmlinux-cee9395a.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/bf81ecd32215/Image-cee9395a.gz.xz
 
 IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+fefa0af09f7891b1800e@syzkaller.appspotmail.com
+Reported-by: syzbot+ab46e65f9ffd10729c79@syzkaller.appspotmail.com
 
-wlan0: Created IBSS using preconfigured BSSID 50:50:50:50:50:50
-wlan0: Creating new IBSS network, BSSID 50:50:50:50:50:50
-Oops: general protection fault, probably for non-canonical address 0xdffffc000000001c: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x00000000000000e0-0x00000000000000e7]
-CPU: 1 UID: 0 PID: 1158 Comm: kworker/u33:8 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: nvme-reset-wq nvme_loop_reset_ctrl_work
-RIP: 0010:kasan_byte_accessible+0x15/0x30 mm/kasan/generic.c:210
-Code: 00 00 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 0f 1f 40 d6 48 b8 00 00 00 00 00 fc ff df 48 c1 ef 03 48 01 c7 <0f> b6 07 3c 07 0f 96 c0 e9 0e 36 53 09 66 66 2e 0f 1f 84 00 00 00
-RSP: 0018:ffffc90002c2fae0 EFLAGS: 00010082
-RAX: dffffc0000000000 RBX: 0000000000000000 RCX: 0000000000000000
-RDX: 0000000000000000 RSI: ffffffff8bd0370a RDI: dffffc000000001c
-RBP: 00000000000000e0 R08: 0000000000000001 R09: 0000000000000000
-R10: ffffffff91452c5f R11: 0000000000000001 R12: ffffffff8bd0370a
-R13: 0000000000000001 R14: 0000000000000000 R15: 0000000000000000
-FS:  0000000000000000(0000) GS:ffff888096a67000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00000000f6824da4 CR3: 000000004c4f1000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- __kasan_check_byte+0x13/0x50 mm/kasan/common.c:573
- kasan_check_byte include/linux/kasan.h:402 [inline]
- lock_acquire kernel/locking/lockdep.c:5882 [inline]
- lock_acquire+0x132/0x380 kernel/locking/lockdep.c:5865
- __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:155 [inline]
- _raw_spin_lock_irqsave+0x3a/0x60 kernel/locking/spinlock.c:181
- blk_mq_quiesce_queue_nowait block/blk-mq.c:265 [inline]
- blk_mq_quiesce_queue+0x21/0x1c0 block/blk-mq.c:301
- nvme_quiesce_admin_queue+0x6e/0x100 drivers/nvme/host/core.c:5412
- nvme_loop_shutdown_ctrl drivers/nvme/target/loop.c:415 [inline]
- nvme_loop_reset_ctrl_work+0xa2/0x5d0 drivers/nvme/target/loop.c:447
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:kasan_byte_accessible+0x15/0x30 mm/kasan/generic.c:210
-Code: 00 00 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 0f 1f 40 d6 48 b8 00 00 00 00 00 fc ff df 48 c1 ef 03 48 01 c7 <0f> b6 07 3c 07 0f 96 c0 e9 0e 36 53 09 66 66 2e 0f 1f 84 00 00 00
-RSP: 0018:ffffc90002c2fae0 EFLAGS: 00010082
-RAX: dffffc0000000000 RBX: 0000000000000000 RCX: 0000000000000000
-RDX: 0000000000000000 RSI: ffffffff8bd0370a RDI: dffffc000000001c
-RBP: 00000000000000e0 R08: 0000000000000001 R09: 0000000000000000
-R10: ffffffff91452c5f R11: 0000000000000001 R12: ffffffff8bd0370a
-R13: 0000000000000001 R14: 0000000000000000 R15: 0000000000000000
-FS:  0000000000000000(0000) GS:ffff888096a67000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00000000f6824da4 CR3: 000000004c4f1000 CR4: 0000000000352ef0
-----------------
-Code disassembly (best guess):
-   0:	00 00                	add    %al,(%rax)
-   2:	0f 1f 00             	nopl   (%rax)
-   5:	90                   	nop
-   6:	90                   	nop
-   7:	90                   	nop
-   8:	90                   	nop
-   9:	90                   	nop
-   a:	90                   	nop
-   b:	90                   	nop
-   c:	90                   	nop
-   d:	90                   	nop
-   e:	90                   	nop
-   f:	90                   	nop
-  10:	90                   	nop
-  11:	90                   	nop
-  12:	90                   	nop
-  13:	90                   	nop
-  14:	90                   	nop
-  15:	0f 1f 40 d6          	nopl   -0x2a(%rax)
-  19:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
-  20:	fc ff df
-  23:	48 c1 ef 03          	shr    $0x3,%rdi
-  27:	48 01 c7             	add    %rax,%rdi
-* 2a:	0f b6 07             	movzbl (%rdi),%eax <-- trapping instruction
-  2d:	3c 07                	cmp    $0x7,%al
-  2f:	0f 96 c0             	setbe  %al
-  32:	e9 0e 36 53 09       	jmp    0x9533645
-  37:	66                   	data16
-  38:	66                   	data16
-  39:	2e                   	cs
-  3a:	0f                   	.byte 0xf
-  3b:	1f                   	(bad)
-  3c:	84 00                	test   %al,(%rax)
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+syz.0.59/5099 is trying to acquire lock:
+ffff0000d0d54358 (&mddev->reconfig_mutex){+.+.}-{4:4}, at: mddev_lock drivers/md/md.h:713 [inline]
+ffff0000d0d54358 (&mddev->reconfig_mutex){+.+.}-{4:4}, at: mddev_suspend_and_lock drivers/md/md.h:1019 [inline]
+ffff0000d0d54358 (&mddev->reconfig_mutex){+.+.}-{4:4}, at: location_store+0xb8/0x938 drivers/md/md-bitmap.c:2636
+
+but task is already holding lock:
+ffff0000d04efb48 (kn->active#62){++++}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
+ffff0000d04efb48 (kn->active#62){++++}-{0:0}, at: kernfs_fop_write_iter+0x1f0/0x3b8 fs/kernfs/file.c:337
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #1 (kn->active#62){++++}-{0:0}:
+       kernfs_drain+0x1cc/0x4d0 fs/kernfs/dir.c:532
+       __kernfs_remove+0x354/0x718 fs/kernfs/dir.c:1579
+       kernfs_remove_by_name_ns+0x70/0xd0 fs/kernfs/dir.c:1797
+       kernfs_remove_by_name include/linux/kernfs.h:644 [inline]
+       remove_files+0x90/0x184 fs/sysfs/group.c:28
+       sysfs_remove_group+0x98/0x160 fs/sysfs/group.c:328
+       md_bitmap_sysfs_del drivers/md/md.c:707 [inline]
+       md_bitmap_destroy+0x1b0/0x230 drivers/md/md.c:6635
+       __md_stop+0x54/0x154 drivers/md/md.c:7089
+       do_md_stop+0x284/0xe6c drivers/md/md.c:7193
+       array_state_store+0x6ac/0xce8 drivers/md/md.c:-1
+       md_attr_store+0x304/0x438 drivers/md/md.c:6158
+       sysfs_kf_write+0xe0/0x108 fs/sysfs/file.c:145
+       kernfs_fop_write_iter+0x260/0x3b8 fs/kernfs/file.c:345
+       new_sync_write fs/read_write.c:595 [inline]
+       vfs_write+0x51c/0xa0c fs/read_write.c:687
+       ksys_write+0x12c/0x228 fs/read_write.c:739
+       __do_sys_write fs/read_write.c:750 [inline]
+       __se_sys_write fs/read_write.c:747 [inline]
+       __arm64_sys_write+0x84/0x98 fs/read_write.c:747
+       __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+       invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+       el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
+       do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+       el0_svc+0x64/0x260 arch/arm64/kernel/entry-common.c:758
+       el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:777
+       el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:590
+
+-> #0 (&mddev->reconfig_mutex){+.+.}-{4:4}:
+       check_prev_add kernel/locking/lockdep.c:3181 [inline]
+       check_prevs_add kernel/locking/lockdep.c:3300 [inline]
+       validate_chain kernel/locking/lockdep.c:3924 [inline]
+       __lock_acquire+0x1600/0x2a6c kernel/locking/lockdep.c:5254
+       lock_acquire+0x150/0x370 kernel/locking/lockdep.c:5908
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x164/0xf14 kernel/locking/mutex.c:821
+       mutex_lock_interruptible_nested+0x24/0x30 kernel/locking/mutex.c:899
+       mddev_lock drivers/md/md.h:713 [inline]
+       mddev_suspend_and_lock drivers/md/md.h:1019 [inline]
+       location_store+0xb8/0x938 drivers/md/md-bitmap.c:2636
+       md_attr_store+0x304/0x438 drivers/md/md.c:6158
+       sysfs_kf_write+0xe0/0x108 fs/sysfs/file.c:145
+       kernfs_fop_write_iter+0x260/0x3b8 fs/kernfs/file.c:345
+       new_sync_write fs/read_write.c:595 [inline]
+       vfs_write+0x51c/0xa0c fs/read_write.c:687
+       ksys_write+0x12c/0x228 fs/read_write.c:739
+       __do_sys_write fs/read_write.c:750 [inline]
+       __se_sys_write fs/read_write.c:747 [inline]
+       __arm64_sys_write+0x84/0x98 fs/read_write.c:747
+       __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+       invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+       el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
+       do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+       el0_svc+0x64/0x260 arch/arm64/kernel/entry-common.c:758
+       el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:777
+       el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:590
+
+other info that might help us debug this:
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  rlock(kn->active#62);
+                               lock(&mddev->reconfig_mutex);
+                               lock(kn->active#62);
+  lock(&mddev->reconfig_mutex);
+
+ *** DEADLOCK ***
+
+locks held by syz.0.59/5099: 4, last CPU#1:
+ #0: ffff0000d7577970 (&f->f_pos_lock){+.+.}-{4:4}, at: fdget_pos+0x100/0x144 fs/file.c:1259
+ #1: ffff0000c5cac460 (sb_writers#6){.+.+}-{0:0}, at: file_start_write include/linux/fs.h:2753 [inline]
+ #1: ffff0000c5cac460 (sb_writers#6){.+.+}-{0:0}, at: vfs_write+0x248/0xa0c fs/read_write.c:683
+ #2: ffff0000d89ad480 (&of->mutex){+.+.}-{4:4}, at: kernfs_fop_write_iter+0x1b0/0x3b8 fs/kernfs/file.c:336
+ #3: ffff0000d04efb48 (kn->active#62){++++}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
+ #3: ffff0000d04efb48 (kn->active#62){++++}-{0:0}, at: kernfs_fop_write_iter+0x1f0/0x3b8 fs/kernfs/file.c:337
+
+stack backtrace:
+CPU: 1 UID: 0 PID: 5099 Comm: syz.0.59 Not tainted syzkaller #0 PREEMPT 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/14/2026
+Call trace:
+ show_stack+0x2c/0x3c arch/arm64/kernel/stacktrace.c:499 (C)
+ __dump_stack+0x30/0x40 lib/dump_stack.c:94
+ dump_stack_lvl+0xd8/0x12c lib/dump_stack.c:120
+ dump_stack+0x1c/0x28 lib/dump_stack.c:129
+ print_circular_bug+0x328/0x330 kernel/locking/lockdep.c:2059
+ check_noncircular+0x158/0x174 kernel/locking/lockdep.c:2191
+ check_prev_add kernel/locking/lockdep.c:3181 [inline]
+ check_prevs_add kernel/locking/lockdep.c:3300 [inline]
+ validate_chain kernel/locking/lockdep.c:3924 [inline]
+ __lock_acquire+0x1600/0x2a6c kernel/locking/lockdep.c:5254
+ lock_acquire+0x150/0x370 kernel/locking/lockdep.c:5908
+ __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+ __mutex_lock+0x164/0xf14 kernel/locking/mutex.c:821
+ mutex_lock_interruptible_nested+0x24/0x30 kernel/locking/mutex.c:899
+ mddev_lock drivers/md/md.h:713 [inline]
+ mddev_suspend_and_lock drivers/md/md.h:1019 [inline]
+ location_store+0xb8/0x938 drivers/md/md-bitmap.c:2636
+ md_attr_store+0x304/0x438 drivers/md/md.c:6158
+ sysfs_kf_write+0xe0/0x108 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x260/0x3b8 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x51c/0xa0c fs/read_write.c:687
+ ksys_write+0x12c/0x228 fs/read_write.c:739
+ __do_sys_write fs/read_write.c:750 [inline]
+ __se_sys_write fs/read_write.c:747 [inline]
+ __arm64_sys_write+0x84/0x98 fs/read_write.c:747
+ __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+ invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+ el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
+ do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+ el0_svc+0x64/0x260 arch/arm64/kernel/entry-common.c:758
+ el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:777
+ el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:590
 
 
 ---
