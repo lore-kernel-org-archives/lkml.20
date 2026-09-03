@@ -1,82 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-143.mta0.migadu.com [91.218.175.143])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 851EC4FC8F4;
-	Thu,  3 Sep 2026 17:55:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C79B4A385A
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 17:55:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.143
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788458124; cv=none; b=QO9Lh26N3AD4tf/WEGqjKrw0y4m6GAQSTSDRvgyxygTVPkvbliu3vVNHwKrPgGuI4Z3WopwitlOQMXzIaRbMuTi4eBQGftABWJL9OiNzsLE4ZEgM6nkDJhWcwQErgOb08l8NhPdlrIyNGr+9wbz39BzrWc+Dod4RYHG9YgmVjZs=
+	t=1788458141; cv=none; b=Iz3ugU8uuTFr7YvGktA7N/JFaBXWcqRZDr5UZq7dCGIUfSYpe7vHhZqOnNTPmL89xIKREAv7OH+p3Oppklt5oQe9f7PCTohgEuD3z2TzLErX6cPbHMPlTn6fg3p9VHh0umDNq3jz7DqL4kGSwJUIXXp6NgedQvpA+arBT4gqYvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788458124; c=relaxed/simple;
-	bh=LOAtcg1KYF6lB41X99rB06UgRQwziM+xiJEqeXODtIY=;
+	s=arc-20240116; t=1788458141; c=relaxed/simple;
+	bh=3cWqPp22IraIGu0JvB3xQlMqoKb4a/YFuTmuVC27eeM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V8nCK6MD4rU1xBnq68jAQoLcM+3duTK+dzdDrPEQ7WH2mzIJ8YOlq+ToT64OFC4fuayeq8wYRBGPrLWA7FG+PR4bJUKVTOYCEl3tnVoCX5nk6FQceMcBqNovvJ4qszHNA2CloIKMOD3wg7QPOCmDX+g6Oqs9MllXfj+F6oflpuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KEiKGBsW; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=khPf+qlpNZIO+GA2VxITfeJDO7b3plvTiyDjyo/n5Mpz3sQxFkdBMefh3w+ZuG7mB898eiLX7gp7MSVmqCnoRBSD0sJq9Le8+palpwU0FcFxH0l3uSGY79C1dxF+LSX4ycfcGfXiuhjcfhXgXTD2x21hCb6GP0jUnbH3xvBEjBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BBlpvUw2; arc=none smtp.client-ip=91.218.175.143
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KEiKGBsW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EADC1F000E9;
-	Thu,  3 Sep 2026 17:55:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788458123;
-	bh=yICCSCAcuhUA36xxNq/ZPvJoy+98fuFhMbUfdfYXPZM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KEiKGBsW537Fthl1v2Ev8tkuQozXOYG7WJ836vf7cXsrIw4eWQAb9/onhsCEObdVf
-	 TxF9pg4hCu2hWgfdCqPJ3TtY/P90NqJ/C9lJbuLVNaBHmxk+qyVAPp2wIqTFj5HQsg
-	 C9r81wFVSuYj+GBJ2Bfb10+tpp8HSFjOj7e8A0mh//H6tb0Dl8Za9WxnFTmlHbVZnw
-	 e/0lUTKbhAu0EwEDKc5bO9CppqVoRuf4W5yR44O9S9liXH0m2/9WxaOqtkyQWKs9NE
-	 keFpMKTXCZ3dOVwIEDngMLftUymk4T4zHzpwfo3kJzhKbbYq2Z606EunE8tf3uo1o1
-	 0iI1s57ftR+Fw==
-Date: Thu, 3 Sep 2026 18:55:18 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jonathan Santos <Jonathan.Santos@analog.com>
-Cc: linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
-	dlechner@baylibre.com, nuno.sa@analog.com,
-	michael.hennerich@analog.com, jonath4nns@gmail.com,
-	andriy.shevchenko@intel.com,
-	Dennis Heinzel <dennis.heinzel@irs.systems>
-Subject: Re: [PATCH] spi: axi-spi-engine: fix stale SYNC IRQ pending
-Message-ID: <75a27e3d-ea3d-42ce-b4c3-920c71e9c8b1@sirena.org.uk>
-References: <04d51e99b8cddce51113db933d806e83848f04f5.1788313558.git.Jonathan.Santos@analog.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BBlpvUw2"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=3cWqPp22IraIGu0JvB3xQlMqoKb4a/YFuTmuVC27eeM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788458136; v=1; x=1789062936;
+ b=BBlpvUw2RgIZusVVoCMvSFjY8j+K2JhYbj2ZiLegxvSijKM+7Yrxs7T65SJop68DOXNd7sF1
+ xabXaJ/UkbONF6THFkJXWzm1d8OlTVBXTVaaksqChOvPoPU0CEifrGd/U/8/Landsnq+1p9Lb70
+ 3rfXu1uEvFld/ci6ifFeHRns=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 82f448d9f30fec5e;
+	Thu, 03 Sep 2026 17:55:33 +0000
+X-Mizu-Trace-ID: 82f448d9f30fec5e
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 3 Sep 2026 10:55:31 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Hui Zhu <hui.zhu@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Qi Zheng <qi.zheng@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Hui Zhu <zhuhui@kylinos.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] mm: workingset: use lruvec_page_state_local() to
+ count lru pages
+Message-ID: <apm0b7mioZwXWE1Z@linux.dev>
+References: <cover.1788169145.git.zhuhui@kylinos.cn>
+ <e16dc5e411c1c5d95c4c4db6ffc789756362b867.1788169145.git.zhuhui@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nXJfhlQ63sdcYu2d"
-Content-Disposition: inline
-In-Reply-To: <04d51e99b8cddce51113db933d806e83848f04f5.1788313558.git.Jonathan.Santos@analog.com>
-X-Cookie: Surprise due today.  Also the rent.
-
-
---nXJfhlQ63sdcYu2d
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <e16dc5e411c1c5d95c4c4db6ffc789756362b867.1788169145.git.zhuhui@kylinos.cn>
 
-On Thu, Sep 03, 2026 at 10:49:22AM -0300, Jonathan Santos wrote:
-> spi_engine_setup() sends a SYNC(1) command and polls SYNC_ID to confirm
-> it was parsed by the FPGA, but never clears the corresponding interrupt
-> pending bit (INT_PENDING[SYNC]). When the first real SPI transfer starts
+On Mon, Aug 31, 2026 at 05:46:09PM +0800, Hui Zhu wrote:
+> From: Hui Zhu <zhuhui@kylinos.cn>
+> 
+> Commit 7404bd37cfbe ("mm: workingset: use lruvec_lru_size() to get the
+> number of lru pages") switched count_shadow_nodes() to lruvec_lru_size().
+> With CONFIG_MEMCG enabled, lruvec_lru_size() reads mz->lru_zone_size,
+> which only the classic LRU paths maintain.  MGLRU accounts its pages
+> through __update_lru_size(), which skips that array, so with MGLRU on the
+> four evictable LRU lists are always seen as empty.  The shadow node budget
+> (pages >> 3) then collapses to slab plus unevictable pages, and the
+> workingset shadow shrinker reclaims eviction tokens almost as fast as they
+> are created, losing thrashing protection.
+> 
+> lruvec_page_state_local() reads lruvec_stats->state_local instead, which
+> both classic LRU and MGLRU maintain.  Switch back to it.  The reparenting
+> race this re-exposes on cgroup v2 is closed by the follow-up patch that
+> redirects dying-memcg stat updates for all hierarchies.
+> 
+> Fixes: 7404bd37cfbe ("mm: workingset: use lruvec_lru_size() to get the number of lru pages")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
 
-> +	/* Clear the stale SYNC pending bit so it doesn't fire when the IRQ is later enabled */
-> +	writel_relaxed(SPI_ENGINE_INT_SYNC, spi_engine->base + SPI_ENGINE_REG_INT_PENDING);
+Reorder this after 2nd and with that
 
-Is there something later which posts the write?
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
 
---nXJfhlQ63sdcYu2d
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqZtIYACgkQJNaLcl1U
-h9B2lwf/W4FCGdTWNLk+AxmWzoVGMTk7X22pM37OP7oYHfFaFhl1aQpwoE53z7Fd
-KzssTRivULoatDC5vEOJcAFrsdhQtKziH88HDC3BKT969T9kYdJ0DqP8clpYL/QD
-R/iuoXZFxQthgUQrj1kErv/1Isos2MzsVIUZa0r5PYlNxtJc+IAauWTEhwRc2Iv3
-1Il3FZm4WYZcfTsUmsT/uZfFof1rwEG0MT3Gmw7nA4hT/hsxZmf0V1z4jwqfL4/r
-d7tWItGDEM5JRIz08MhPCMoQ02C436TCY0xUVxtdgXTSK/e6TJylpFGhsxXJJb9P
-5ORjA+ghpyPgzudLkNEqSxwZwQ85DQ==
-=Yiql
------END PGP SIGNATURE-----
-
---nXJfhlQ63sdcYu2d--
