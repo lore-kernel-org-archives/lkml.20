@@ -1,129 +1,130 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCBE9402B8F
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:43:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 288594052A7
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:43:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788428590; cv=none; b=Rafv3JHYiIF0V9PocXRC1W/Qq485t5DiAkgho1+CKJpIRodR4rpdCapVoqfn+2Zkt/9/x84z3HxqMsM4M05RW2YSzf3DgMhPsZdMlP5RDZU+u3ThaCNczKkynnktcq+RdDrkWNADPd8Tj1+3yOyxO1IQSN2dHCVj50pcWr9V5Uc=
+	t=1788428604; cv=none; b=Hb2svGKCBQ2Y11bMIZMAXNxr4jbFyXIVMNewVtkIwCivhNoH9Xxpfp78FV3MJBK3KMYOi3lUodO29hOVBKdRhQtO0crIqkB3h+l9Pt+RZeXCnXg97RjV7E7n2Aa+/cuOzuvcP1fB3isAge0sKedObeWPmaskXL72Cq6ZAiVyQxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788428590; c=relaxed/simple;
-	bh=eeQmjVkVna13xNvuP7KXsaAPQ0j3npYARLOdxRgDqJ0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fjCe/ocW8kzi/8H+7AiNeCwYPPg74m/Zk68J4e9gnf6RdPFsfNZJlEe07ofbZfO22PE/gIw1yE6+pmbzh5EgYQplRKZ6PKUyjOdw04Af0yLrZ94IWqQ+x5mzRAAzExVkEA8RzmScw18FhsfuTb4znMF6hjTk8HB4f5LKdn09hO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y+NLkCR3; arc=none smtp.client-ip=209.85.215.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1788428604; c=relaxed/simple;
+	bh=QlpCUlv+E6wRy2NB52jPmYtg/gL7xxiavKZ+fWvKSsM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=f0ZWB8Tx+D0b2yZjsRdJoHHhPBXmjB/yKSdJ0ZrgNwHpQRfVechw1UzfuaWr2IAjtKGBiMjqyy4psG4QdJxH6HaSBnB816YM6iEYXzmDFlyYt5Lp/L+f6zcsBq8GfPmUrDnXRGtn/Uvx6GspsiL615izT0kLzppMnqPoX+Ndp8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y+NLkCR3"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-c9aea40d799so1308035a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 02:43:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788428588; x=1789033388; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=eeQmjVkVna13xNvuP7KXsaAPQ0j3npYARLOdxRgDqJ0=;
-        b=Y+NLkCR3SusfEsWA5r9PkRW2cCVpV/j97tQTuHHPjPX+rGw/QXrhOpsqquofCMfPyV
-         NA/8RJAIC6YriHHi/LpshJarti95LBiHpcE8pTCKdmW11Ujv9HLxAOTrPdWdAeX2DDgt
-         gT6ZxMhkRcrNpiuYhZuZxOHu8fVuFD/RCHm2ulNtgjhPVlUoOU8fd0IOH2LP5rdSLo8y
-         RDIsfJBNDL0MjWn+VPDjhl2HwlA8rqSs9Y7F0fZ66sKMq2P2LAAn81VZNO87N1+blNns
-         ZR1eEv5jnJ5q9H0ddaupr2okPKFr7WXVUIxr1FBR2V1i4io9eY66YgSI1J0844xYcRlF
-         LV5A==
+Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5c2c46a428eso1761994e0c.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 02:43:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788428588; x=1789033388;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eeQmjVkVna13xNvuP7KXsaAPQ0j3npYARLOdxRgDqJ0=;
-        b=kcHWNblevLhTiuDzdrT4e4JBMLuKmUMbgG0a95plyUGYLdcYrJYn3SAsXVtFv6GgRR
-         t+Qnyqo4X4SPfI9sT2BtTtn/gNfaO1BroQ1esqOP/hm+hHImMYkB3iXUJE27coTlWk0n
-         pG8flGPDu/lo8Wtc4IiI9qQx9mxIn7p4Ql7P/KXuUeAFDbSl9+hh9EvxoYNhUBPDxNYr
-         +AX+QD4NQ6m19FypE6+K01c3QrvA0+TS7ngStU7bq3gSg8X5zVLmtaGj9kq7ktzR1Xxl
-         1Ui72e9GBE+gawm4Rotn474HMVEKKtx3/lGMt37TjKmC+pBXqGiDE03uKwNKCDLhIALQ
-         Iv4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzAK0ReTE7WW/EYwt/S9AjzAa7HYeFAjiaqnQmDQ4RARVivmxD0RcpJ5k520xHjB/+qjB+surH4UZDkSUY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lOnC5UdoNScHqseV9UuiuMkLL8vQiogKnm40fIlm9d69T4AyZK
-	tkc+NZ2gsbBcIXQ/dPMRL+coz/A6IejUIHLSWFKzRGSG4SBMQ71qu9bc
-X-Gm-Gg: AYBFou34WJm74a4tEXN2T8atHFXt+Dn+nO4sbiOv08d9RkDfXBNZR/uVgUB4Mi66V/k
-	C5HGbJGfRGIbiSNkg83OiClztAeXzZP5xSqpArKVlFhvgxTeIuZ+16Elh7QfEx6nF6C8NUHFjbl
-	v14Ozs925Ooqgvgfii1f/A6mUmRPqpY0NuTGt6n4uYAdYJZERau5ch34OzB9OOv/CJerJY3bsTW
-	irEfUxFAd85IqT/lBLUPJ125vFd0DeI3L1OsZgFxgSO/h51utmus8u04XNvif8Ut76lDyypgDQQ
-	KGSTGB5ShqXnkJ9KD1yYTO8+Xu6qfx5u/hbtf/udR/DITKzczsNGiETc+qwjco1GUye7fzkYVXf
-	NYdVMx1MEYPs+e1OsrqE6N/h/s86pS7Iqa/aqd0FTgKT6OhJhkBPxLWfPneQuUxuVoaNtSNOVPa
-	L/pxJRW3yDL4kRv3MFcTYDMCxw7hPjyZNq5FnjuE9HJfDTOIgiipEY9aftGE9X0xF24rV0l1hak
-	luDMJ9v2dk2SpyfWEX90lepsfqgTI1KCQ==
-X-Received: by 2002:a17:90b:2552:b0:38e:c232:9d3f with SMTP id 98e67ed59e1d1-39aedec7bbbmr17515317a91.5.1788428588043;
-        Thu, 03 Sep 2026 02:43:08 -0700 (PDT)
-Received: from [192.168.255.10] ([43.132.141.21])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b0832c14fsm4421347a91.3.2026.09.03.02.43.05
+        d=1e100.net; s=20251104; t=1788428602; x=1789033402;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/8aSggrTq+PN9vIOxwXLgYslllD/sPjeAKVtCCSsPVQ=;
+        b=ZcXhRL5x2sIbNiV8/sHbRateaxo3F/iHK/8gIwYuQS/tCmfuP8Q76U3XpS9dyfbrzO
+         LFrvC4xXXgfunXX6hBJVxoaUX2Mh2r8LHT/5p5ldzYh/OR3ja3Uwa4AattQGFyict/Nb
+         F9htg0p9P4EELA9F392PJmM2xZSYXdvzPXqPDiHwaveHu8BDh8vect9NeeCgz/f9FWo4
+         ZVIFR6pbrW6gLXWK36TBolaRshJ/1pWY9Q1w4HAVitTGgFGv0J2qBulI6uNUvvhBUysd
+         A9JvWyaKqEHpPfRE0f4PqfaVDmPAOXHB+h+pYsC01EFjV6/2QjO8AA4DM2n0uvluRDUp
+         rCYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzDwqTLxaGzU0gPS0iYojQRVziAlch9MPa1S3F17y/FLLVU6k9QUEow1ivBpL70juWGb4Y+HBws/ndg0PQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mjsrU5XloyMsrmV9VI6gQrfHcGLltxd/Nj4RadZ6QMCKEuzXEF
+	oOzA6/w3KlnUQ035H/ynl63Gg1e2NwpZh+t+Fac7xjbnbvGDRr2h155HD+VKud9Hm6w=
+X-Gm-Gg: AYBFou0x0RfADCt6Y/TdjcPX3Eg/Ku+QESCyyjU7C+WpP6dY8x0K1k6semYk3+7vkAA
+	y6eOoOd+tz4CNB2DF2lWcs+Ep07LKyOBsHMMVBCbyhS/zBycqw53OdLElIXBj3Z+2kxaXrro+CQ
+	uUi9Om5hFtr/0wlFpWupxlwtzxU2eVMZKuQXqd9Vngoykw61Ljs/Dj+0/nTBIFq66liQmgkhvM/
+	yig/zlqMtjhrG1cvnQJIIMEf+3ZT+sHdcFm3qXdnV9GkU1k2TqSEMAhaWphA2dualyx9R1bmlG2
+	JAhMe3HMdrtMrbO3s/6pJR4+Gwmeprr5EfMBJHBdih/4VfWoMYEb1swSLk3Sfw+KlqLSLOyYHDj
+	A0cY0lSEVjkXzL2FC45rzbL6hEcF2gBqQxBQusyBpzdpbpZ755JKgVBvyn2i3j2PKInCPSZ78UG
+	6dZkNM0h+OnPf+fmASiA6ikUSHa4Y3S0Uvr2VrUm5aIW0qGaqCr3ll2tn0GLlveBdPSC7wL8TJQ
+	/YqDmYOMzUOmoncESYSbPYVuQ==
+X-Received: by 2002:a05:6122:551:b0:5c7:d204:db7b with SMTP id 71dfb90a1353d-5c7d27e4191mr4338364e0c.3.1788428597019;
+        Thu, 03 Sep 2026 02:43:17 -0700 (PDT)
+Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com. [209.85.222.52])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7cd5da30asm4071998e0c.0.2026.09.03.02.43.16
+        for <linux-kernel@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 02:43:07 -0700 (PDT)
-Message-ID: <906239c1-e78c-435c-954f-1198595d62b2@gmail.com>
-Date: Thu, 3 Sep 2026 17:43:04 +0800
+        Thu, 03 Sep 2026 02:43:16 -0700 (PDT)
+Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-97c940ef65cso1124297241.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 02:43:16 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwhPrIofL3HBaEC8hNi4zpdajb+uLjBqDJNkoi4nhB6HWjZNXEM2SfKC4jFQVFOZ5S1DdIepvsILYV3f0w=@vger.kernel.org
+X-Received: by 2002:a05:6102:2997:b0:784:a169:194a with SMTP id
+ ada2fe7eead31-78a1f437b62mr4757188137.10.1788428595977; Thu, 03 Sep 2026
+ 02:43:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mtd: inftl: validate MediaHeader partition geometry
- before allocating tables
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: linux-mtd@lists.infradead.org, richard@nod.at, vigneshr@ti.com,
- linux-kernel@vger.kernel.org, Aohan Mei <henrymei@tencent.com>,
- TencentOS Corvus AI <corvus@tencent.com>, stable@vger.kernel.org
-References: <20260902124044.3942821-1-henrymei@tencent.com>
- <87h5k67ocd.fsf@bootlin.com>
-From: =?UTF-8?B?5p6X5L2z6bmP?= <ljp1205831794@gmail.com>
-In-Reply-To: <87h5k67ocd.fsf@bootlin.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260903084339.870562-1-zhouruizhe@resnics.com> <20260903084339.870562-14-zhouruizhe@resnics.com>
+In-Reply-To: <20260903084339.870562-14-zhouruizhe@resnics.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 3 Sep 2026 11:43:03 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdV871ZLtrCzXFmhUeThkc8eFAhcFo2=Cos9iJru3bxvqQ@mail.gmail.com>
+X-Gm-Features: AcwNN1VNMZwSAyY54Zj_XBQDARj9cOjn3MGAVS5vnzomKXlBjnTLo99feqtQTjY
+Message-ID: <CAMuHMdV871ZLtrCzXFmhUeThkc8eFAhcFo2=Cos9iJru3bxvqQ@mail.gmail.com>
+Subject: Re: [PATCH net-next 13/14] net: renesas: rswitch: Remove obsolete
+ 32-bit DMA mask fallback
+To: Ruizhe Zhou <zhouruizhe@resnics.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Miquèl,
+Hi Ruizhe,
 
-On 02/09/2026, Miquel Raynal wrote:
-> > is evaluated in unsigned 32-bit arithmetic.  With lastUnit < firstUnit
-> 
-> lastUnit < firstUnit? Did you even read that sentence?
+Thanks for your patch!
 
-I should have made the arithmetic explicit in the first place.
-All three fields are __u32 (struct INFTLPartition), so with the
-crafted header used in testing (firstUnit=7000, lastUnit=3,
-virtualUnits=100):
+On Thu, 3 Sept 2026 at 11:27, Ruizhe Zhou <zhouruizhe@resnics.com> wrote:
+> The DMA API guarantees support for masks of 32 bits or wider and
 
-    (3 - 7000 + 1) == 4294960300    /* u32 wrap */
-    4294960300 < 100 == false    /* sanity check passes */
+Really?
 
-Execution then continues with nb_boot_blocks=7000 as the loop
-bound against a kmalloc_array(lastUnit + 1 = 4, 2) = 8-byte
-PUtable, and the boot-block marking loop writes ~14 KB past
-the object.  Reproduced on v7.2-rc4 with a RAM-backed fake
-DiskOnChip MTD device carrying that header:
+> explicitly identifies retrying a 32-bit mask after a wider request as
+> incorrect:
+> https://docs.kernel.org/core-api/dma-api-howto.html#dma-addressing-capabilities
 
-    BUG: KASAN: slab-out-of-bounds in find_boot_record
-    Write of size 2 ... 0 bytes to the right of allocated 8-byte region
+AFAIUI, that is only true iff the wider request is DMA_BIT_MASK(64).
 
-That said, the reachability is admittedly narrow: this is a
-mount-time path, so triggering requires root (device
-registration) or physical control of the flash contents;
-unprivileged users cannot reach it.  The intent is only
-hardening of the MediaHeader parser, in the same spirit as
-the sanity checks already in find_boot_record().
+> Remove the obsolete fallback while retaining the error check so that a
+> genuine DMA setup failure still aborts initialization.
 
-One fair point about v1: the new check runs on every partition
-entry during the scan, while only the selected BDTL entry's
-fields are actually used for the allocations.  If entries with
-lastUnit < firstUnit can legitimately appear in other slots
-on real media, I can respin to validate only the selected
-partition (and drop the boot-record-unit check if preferred).
+Have you tested this on actual hardware, with/without IOMMU support?
 
-Happy to send a v2 along those lines if you think the
-hardening is worthwhile; otherwise I will drop it.  Either
-way, thanks for the time.
+> Signed-off-by: Ruizhe Zhou <zhouruizhe@resnics.com>
+> ---
+>  drivers/net/ethernet/renesas/rswitch_main.c | 7 ++-----
+>  1 file changed, 2 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/net/ethernet/renesas/rswitch_main.c b/drivers/net/ethernet/renesas/rswitch_main.c
+> index 755232994fcc..64b821ca02f8 100644
+> --- a/drivers/net/ethernet/renesas/rswitch_main.c
+> +++ b/drivers/net/ethernet/renesas/rswitch_main.c
+> @@ -2162,11 +2162,8 @@ static int renesas_eth_sw_probe(struct platform_device *pdev)
+>                 return -ENOMEM;
+>
+>         ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(40));
+> -       if (ret < 0) {
+> -               ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
+> -               if (ret < 0)
+> -                       return ret;
+> -       }
+> +       if (ret)
+> +               return ret;
+>
+>         priv->gwca.index = AGENT_INDEX_GWCA;
+>         priv->gwca.num_queues = min(RSWITCH_NUM_PORTS * NUM_QUEUES_PER_NDEV,
 
-Thanks,
-Aohan
+Gr{oetje,eeting}s,
 
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
