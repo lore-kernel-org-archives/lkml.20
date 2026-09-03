@@ -1,144 +1,171 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D56FD48BD56
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:33:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788431627; cv=none; b=W218Ai54AwBeVs2XMAlgUEHTlWd+3pkXcK6arhaZB+4q19zvtyPIFwO1vkyYAkGN9V6oJRMpWbBSm4gYuzYf+W2HU1ADAxeiOX7cONkg72eVrW7vaeKi/zhYgKy8ARSPPiXtfX/fBZfKE0pUmZ44mvY+Yry7WK4Ik4PUCoFrSJo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788431627; c=relaxed/simple;
-	bh=INC/gMQ52XGV0tXzKdQk+QdM6fsrXDjrQLn6+41iXMU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gjIopFPKbIcRpkj+qCeyfL7gNY8iyO5kyita1hexFzUkjGQwnnoKvA1faqezZjrN0LsElM/+y1VeW9tTCcE0HTJ6H0VvRZlP89Rvsd07k5HM203BJ30xEMergoixvjqcpxW5D54+cSjlfLHiQ3feolk/xXkCndc9CocTqNFijHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NRVRxRnk; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=gyuDZD9Y; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99AF542A7A8
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:35:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788431724; cv=pass; b=Ta0ROeNKmBN3iYIqOzipGZosMn2QJefwWSQ8oLGxaKgXgzr2QBnCz7T0FYDOHGdBpSUDiWBvlvmB9ujbQd+bjuAYzb65TnM1i6uipbCKH0CNUi1R/N77x42UigdbgBpTDEfktGirgoZWQgqhcyxoO5I78hKUCv7m1ur17WtqLqw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788431724; c=relaxed/simple;
+	bh=/zyYtEZmFhhQgOsgXNLJ+e0A/ltm9fi9IENg+VYRnRo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=olW1tXcpWQ4GilAwiNkfwykx+lu8o9muEU0hTIK8aqwFb+rWrBakh8H3UzzQMYBICRPsqPW/6dibvo3iG9URmrFOIM6krfUQS0yQJaOD3wHjXWHa35/+wtbAkh8FjgAHg2jsaDqCeWw4WyayE/WlLJ4q2Y/hxMkBFRWM6BPNcrs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lE/ZWT5v; arc=pass smtp.client-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NRVRxRnk";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="gyuDZD9Y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788431611;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CJZUMdrfC+SOHHgYZ50yWaWhgHW7YjmLUKRHwooHUww=;
-	b=NRVRxRnkiNBJjJn84rIpx7C6bVgCR6UHZC2jalo1KkRR48TV67NCJ52v5sxK8WR4ajOHqH
-	bZk9Wvp3I7qf2QSLbGk9NUke8bskLB0sMl427smwzql78a5nq9TSQ7RADJ7EfndZbr38yt
-	sBGgXe/tC50bs92DCcwP9wgBcqKTIAQ=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-167-tnTEqKS6PKaLjM8kWjApRg-1; Thu, 03 Sep 2026 06:33:28 -0400
-X-MC-Unique: tnTEqKS6PKaLjM8kWjApRg-1
-X-Mimecast-MFC-AGG-ID: tnTEqKS6PKaLjM8kWjApRg_1788431607
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c24ae1a510cso217349466b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 03:33:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lE/ZWT5v"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-c9e7391839cso2322191a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 03:35:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788431712; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PTVbcktg6pBqTRxf31oph5VRcu6f96JsC1L4QxEYyNc16op1GrHvyVVe+3h08GSFGL
+         YtnwTcsbw2Wlb3TMDABRClXSBgTGydgVTkVQVxE7zLMNDDtxrvXDhPkAB6QZr7GVbbWF
+         t9EeV2gF2tI2dS0Q5oFpYgb6nE4bLyN3f6HoM+ZgvqgZLJbj8NVxtCqGaBmbAVNTL2MY
+         ByFScpiz+q5OCK/TtDsYPk00ysy4TZ5myR3Gg4blj4CAdSDSOZ6DcsSvgotfh4DQkQ+z
+         hXgTmJFWoUUrm2gwORy7I4iZfU+pxtiFpsfWQb7HQ3uR04vxbK0z044iNhc5HPiwaRTN
+         y9wA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=A1wiUzfIxqJZYxMHbVMwIllXO/kuz3RAjcv5fqZ/QkY=;
+        fh=Z5ne2N+VC6cuZqK1dymMqW8LPRSFpD5lq+Acqdf07nk=;
+        b=nYlUTYqLwAO++g7DFyS5zGqcHQkXxkbzcUR24vf6zZ3RncX7TcLupfavKjyfD1FJMM
+         fVMBhuvQNtesP6f1GtxOfl3odteQfSfbURFrjRkNaWbA2oYcrgOD0t30ZJkUW4ZeYMib
+         9nZUgMjlEaPzLrN+H6qVCF9009posT9Wj2YqBEeAO+uMptB8Uscq1tVho7FfQmwy2tz1
+         /IV4V5/w629Wa2OPZPkZvPJdXStM+CwDKDxGsxrtW6mSFoEHpcxXiiwgVQtFxaRGB4bR
+         PEYe0m/PwDt8V8c/hbWATcKT3nzG3bCoyAYOlZ8Vu/w8Za0BZXh8KiSX9bEXvQQWB8EL
+         wE3w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788431607; x=1789036407; darn=vger.kernel.org;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1788431712; x=1789036512; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CJZUMdrfC+SOHHgYZ50yWaWhgHW7YjmLUKRHwooHUww=;
-        b=gyuDZD9YPkC0tx/a0gdvuXXQOEfFnzbLBB+kFvCG8Lpbvm7gntq1Mwiu1pM/ovE/Uk
-         OnDA5sP6+5wBW3w2Cdy1GKTGcFxPl7N98yIpEX5zqmjymjmy5q83xPN0TjTKI4+1wfQM
-         8ELBokR9UnSP54MhNGFWJbNp228OSIgZciG9f6LlQmLJy80MWwZO+AXemyO9Tdv3QqUb
-         4QCbhCrNeTRfGUo9cV3SrOKyro3JTamWob8Wpzhz3UdPVE33qxRYeRx8vUZkHP8m/02e
-         TB5SnuaEj3tq92A4NNAMlLbdADFc16nMrwiS1EgTdEaHlVhDne58tPngodi9kHsaMg30
-         otuQ==
+        bh=A1wiUzfIxqJZYxMHbVMwIllXO/kuz3RAjcv5fqZ/QkY=;
+        b=lE/ZWT5vVhGhIftgyHocZbvleVWCk6i8HMIpDwRkqRHYL2WYH4ywyqPSkj8CCVZrEo
+         qM6ZAjznBnVQsfHyIKm9r4maGVGzZLcXsKUX7Fhmoh2HSXJIc24PLWQRsJxXcknuPrT+
+         krvl/QQQuFF+mA+BnnRgMA9OR/HbpkR6WIWHOPcFs4Mq9PPOQLNsbWL1snwKuuiNLDpw
+         PO4W/Phcd/vuevy3m7l/mRhQwBGXrZeHrK+P9fcOr2eRMjFHm7rODhcBoeTaiKG6D2g1
+         o/CBPQuJcaxhNMCi+JSyj/2RTqTam9akqVkwRUBUxu3dh7QHimyL4fSpwo1Xl6fBfc15
+         Noyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788431607; x=1789036407;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CJZUMdrfC+SOHHgYZ50yWaWhgHW7YjmLUKRHwooHUww=;
-        b=PwyWZFKCpJw3RJByC0No98BQEjeiloqrS2UeEFAHNVy65L14sm3/xyWsHcC9ymWZUp
-         DjZVHKiG6/eeDT8Q8cuiYNiOpdlnXcgFqktuDN4iziREWyyhjFnF1oxem5zwsun6/Szq
-         QIIIr0ccXUGqHBIGIJWGvgM39CbypqK4h3nD8Ub11vUgYY/QsfbsIDElRbp6mLZMFASz
-         KXGEX5koQe811LYSJKNTifLala4lbBH470OMZ5U0w2S/SIEvS4Xv+kcoaoITKak/o2Uo
-         dY2MEP0r8lBcErslI2Xfb1ep+Zoxd3f90v5Nc/vW5xYGm7XsqJROnbwVuktzs/62NCZb
-         4HzA==
-X-Forwarded-Encrypted: i=1; AKwUvBxySvZytOFMUJon157Hq17MTbMx9TDx/6/+if+9gc+Fwdyfctbim07/WN+cnFhV0vJ7kmQUqbVcvYMksoM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nA1cSUKRNbrEeCtXyBiuXn8yT9OR9lRx1OQEyHz40V49Nuqdpa
-	SUxrGpKpl8uEevLALnGax7XfMpCXUSlaIhjSV16QLAXhyeJMAGmQsZZqbk0eY+ga29T2k8joKsb
-	YjoE8jaTG4qQd4SG5/AC0I5BZVQ/F6gfqs9+1vMHuo6uan8KaWWHUxhpJZNUv6Jz+eg==
-X-Gm-Gg: AYBFou3RcPT6Gpyr0bFJ+1dtLVw9L1OVcGm7Su3y8tASQYNVBLXWEqN9Stay36JpIDl
-	APClJ2Xd9+wdW/YP4nNmywKlSYGU0QJdb4fmtvdNEAoR9v+7VLTXYDrhVRYaQKFuYfyD0p2ZRwH
-	RUSVIXNebEjSei7IUROeLp16CMj76K3EAvBaZ+QlsZtwYT/d/t2Dh6lU8CAJwhjcJr1HCjs8AUl
-	5MSgM5ODISrVD0+nvFJ8T362jSxTTxzx1wYeynMCroQU6xAv1C7j/6AlP2HDV1L6TTGbYWZKXjW
-	ZDawj4uB99fgmcHt8Y1XdpVxGaTWHNPT8HjrX8eYv8LjtCmG8mRhbFwqgii/mD3RTe3JZLeX+L0
-	PSYnfhp2mS582Sq6SxG1VZAG1NYDFtQsX+4qgckFdJr5Qt6mv
-X-Received: by 2002:a17:907:198a:b0:c21:8c6a:c680 with SMTP id a640c23a62f3a-c25d563b583mr789071966b.22.1788431607056;
-        Thu, 03 Sep 2026 03:33:27 -0700 (PDT)
-X-Received: by 2002:a17:907:198a:b0:c21:8c6a:c680 with SMTP id a640c23a62f3a-c25d563b583mr789070066b.22.1788431606639;
-        Thu, 03 Sep 2026 03:33:26 -0700 (PDT)
-Received: from [172.16.2.95] (5920ab7b.static.cust.trined.nl. [89.32.171.123])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25f3eed0a9sm82869766b.1.2026.09.03.03.33.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 03:33:26 -0700 (PDT)
-From: Eelco Chaudron <echaudro@redhat.com>
-To: Ilya Maximets <i.maximets@ovn.org>
-Cc: netdev@vger.kernel.org, Aaron Conole <aconole@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, dev@openvswitch.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] net: openvswitch: don't schedule rebalancing if
- there are no datapaths
-Date: Thu, 03 Sep 2026 12:33:24 +0200
-X-Mailer: MailMate (3.0r7028)
-Message-ID: <61F294D1-5DEC-4DF7-999A-3E3DC8984897@redhat.com>
-In-Reply-To: <20260902203200.1416026-1-i.maximets@ovn.org>
-References: <20260902203200.1416026-1-i.maximets@ovn.org>
+        d=1e100.net; s=20251104; t=1788431712; x=1789036512;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=A1wiUzfIxqJZYxMHbVMwIllXO/kuz3RAjcv5fqZ/QkY=;
+        b=ORgiGy6s23HfRp+u/XZYwKMsaGvPDgOhTA2E8F9aD8FQPr8kdrgPZYuQB5EPCMQOLJ
+         FY298apOy2TDHG6xelWoOAokUi2nNZdgyMM9qXC4llYRgRXxjub+p7r7IOPioro9rSMM
+         XQWU7CMQJWwIGwx7XpLGKy6M6mYJRP4QKqiMqHYEuWihfZ0MXkw3kFSGZyxNYOPc45bs
+         0Fe1UiyDAH8xPUFMSkoZktT1vVsdkYhKVlhvlbkYFn3t2nXDAHmlYPmvCwbl8/tJvB5N
+         /fXQ+BabRhGev8fGGyMGVbXRrCthVdvmwsdxfKLIo6tbvSIhC+fsL0jTSssC6yuHLQFe
+         bcng==
+X-Forwarded-Encrypted: i=1; AKwUvBybhc53O6aMt1dYdUXZp8fBfo2a4N1lOZunfTGRpxQOa82k/RXK3qXcH3h9cR1D3AkTlNKszyVSuyHnV0I=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAWCbQ4+8CrX9322zWixx7FZosseF3/jnSk90rTQ1TiAtDcoIo
+	ws6EdU4HrIZ5MHne+F/OYkw6sOsB+yWwvTvA8r9R5tIyvF5UgdIsjriUZ+TPRpVBg2bvX8+kHbx
+	DbQivZJp3EiTMn0wv2iXH9+dr+ZqZOnY4hS43hgJckQ46Kjey44AJ403bFeg=
+X-Gm-Gg: AYBFou1MPXbhaA1aWu0uIFv9w6YAZq/MJ9gBEzxuLeOl7CvjW8vfPSvZ/eXT69wUFAE
+	KjeMZF110YxoNeX/QYVjeCpoO6jCqwVRW/SApeztl/i6y4g+gfg+a+07dLfk9BYPjvWUbjSZQNj
+	+nOPILTroMnKsbwBGyyw9sfRPJIGQgxsNWkRqaYY0YjigDlNCXVNZuWpAFUkqUodPuUSwkuf73G
+	cL4A136658RHbVaqhNQZHKhewoo/79JTVLLJyCrNxPI8rRWk2GWMKNbsj/+fMv45M9iKfv1gdI1
+	Swc3FdWLVB594fxB5X45dasuQ+HtXcc1xlS5Z/Juk7cDYz2B+sm5yO7QJcynTXbRw5KnRNm7E+O
+	P
+X-Received: by 2002:a17:90b:2785:b0:398:9be5:b41e with SMTP id
+ 98e67ed59e1d1-39aee285570mr19268361a91.25.1788431711616; Thu, 03 Sep 2026
+ 03:35:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-MS-Reactions: disallow
+References: <20260811160336.782342-1-timday@thelustrecollective.com>
+ <xiymqvu5la6h63umrp6upnzbl3xjjcacuyxg76xp4labnrioyj@xowfpjlhfrzh> <20260903072759.GA1750084@ax162>
+In-Reply-To: <20260903072759.GA1750084@ax162>
+From: Marco Elver <elver@google.com>
+Date: Thu, 3 Sep 2026 12:34:34 +0200
+X-Gm-Features: AcwNN1UBcaXn6RBIaclwnjVOGuTZ1dRp4jV_o2Hi5QwVrPsWTxTE-agnX7TT9dM
+Message-ID: <CANpmjNNWiX51UU064+P823sDX42=O6ChSHrUux1aNqLj60mfUg@mail.gmail.com>
+Subject: Re: [PATCH v2 0/8] Support Clang context analysis for ext2
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Jan Kara <jack@suse.cz>, Timothy Day <timday@thelustrecollective.com>, 
+	linux-ext4@vger.kernel.org, Jan Kara <jack@suse.com>, Theodore Tso <tytso@mit.edu>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-
-
-On 2 Sep 2026, at 22:30, Ilya Maximets wrote:
-
-> During namespace initialization the masks rebalancing work is
-> scheduled and automatically re-scheduled every 4 seconds afterwards.
-> This is happening in every namespace.  On a large kubernetes node with
-> 500 pods, i.e., 500+ namespaces, this creates a decent amount of
-> unnecessary churn scheduling 500 jobs every 4 seconds that take the
-> mutex, check that there are no datapaths in their namespace, release
-> the mutex, re-schedule themselves and exit.  These 500 unnecessary
-> mutex locks may hold off operations in a single namespace that
-> actually has a datapath configured and has real user requests to
-> handle under this lock.  They can also add delay to removal of other
-> namespaces as ovs_exit_net() needs to take that lock as well and
-> synchronously waits for the work to be cancelled.
+On Thu, 3 Sept 2026 at 09:28, Nathan Chancellor <nathan@kernel.org> wrote:
+> On Tue, Aug 18, 2026 at 11:58:20AM +0200, Jan Kara wrote:
+> > On Tue 11-08-26 12:03:28, Timothy Day wrote:
+> > > This description is mostly copied from v1:
+> > >
+> > > This series adds annotations for Clang's context analysis to ext2.
+> > > Clang context analysis was recently added in a series by Marco
+> > > Elver [1]. This allows the compiler to validate different
+> > > locking patterns at compile time.
+> > >
+> > > This series enables context analysis, fixes pre-existing warnings,
+> > > and adds new annotations. It is inspired by similar series in the
+> > > block layer (NVMe host driver, for example [2]).
+> > >
+> > > I'm starting with ext2 since it's smaller and simpler compared to
+> > > ext4/btrfs/etc. After ext2, I'd be interested in converting the
+> > > other filesystems and infrastructure code in fs/. I think the ultimate
+> > > goal would be to enable this by default across all of fs/.
+> > >
+> > > The series was built and tested with Clang 23 with
+> > > CONFIG_WARN_CONTEXT_ANALYSIS enabled. I based on 7.2-rc7.
+> >
+> > Thanks for the patches! They look good to me. Once the merge window is over
+> > I'll queue them to my tree. The only thing I'm not fully sure is how much I
+> > like the spinlock_init scoped guards - they looked quite confusing to me at
+> > the first sight (as much as I understand the convenience, conceptually how
+> > can initialization of a global lock be scoped?). I'll sleep over it, maybe
+> > I'll change them to just spinlock_init() + scoped_guard for the lock itself
+> > or maybe I'll get used to them. Anyway, no action on your side needed :).
 >
-> Let's only fire the job when the first datapath is actually created
-> and not re-arm it if there are no more datapaths configured in the
-> namespace.
+> This series is now in -next, where I see the following warnings (or errors with
+> CONFIG_WERROR=y / W=e) with various configurations, such as ARCH=arm
+> allmodconfig, when building with LLVM 23.1.0
 >
-> Another approach would be to make ovs_mutex per-namespace, but it's
-> a much larger change that should be handled separately, and the
-> unnecessary work scheduling feels like a waste regardless.
->
-> It's safe to check and re-arm outside of the mutex as DP_CMD_NEW
-> handler will re-arm if the new datapath appears.  The scheduling
-> attempt also doesn't change the work or delay if it is already queued,
-> so it's also safe to call multiple times.
->
-> Skipping the re-arming is more elegant than canceling on removal of
-> the last datapath as it allows us to not think about potential race
-> conditions at a negligible cost of potentially one extra re-scheduling.
->
-> msecs_to_jiffies() moved to the macro to save on line length.
->
-> Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
+>   fs/ext2/xattr.c:825:6: error: rw_semaphore 'EXT2_I().xattr_sem' is not held on every path through here [-Werror,-Wthread-safety-analysis]
+>     825 |         if (WARN_ON_ONCE(!down_write_trylock(&EXT2_I(inode)->xattr_sem)))
+>         |             ^
+>   include/asm-generic/bug.h:180:2: note: expanded from macro 'WARN_ON_ONCE'
+>     180 |         DO_ONCE_LITE_IF(condition, WARN_ON, 1)
+>         |         ^
+>   include/linux/once_lite.h:30:7: note: expanded from macro 'DO_ONCE_LITE_IF'
+>      30 |                 if (__ONCE_LITE_IF(__ret_do_once))                      \
+>         |                     ^
+>   include/linux/once_lite.h:23:3: note: expanded from macro '__ONCE_LITE_IF'
+>      23 |                 unlikely(__ret_once);                                   \
+>         |                 ^
+>   include/linux/compiler.h:77:22: note: expanded from macro 'unlikely'
+>      77 | # define unlikely(x)    __builtin_expect(!!(x), 0)
+>         |                         ^
+>   fs/ext2/xattr.c:825:20: note: rw_semaphore acquired here
+>     825 |         if (WARN_ON_ONCE(!down_write_trylock(&EXT2_I(inode)->xattr_sem)))
+>         |                           ^
 
-Thanks for looking into this. The approach seems right to me.
-I did some basic testing, and it looks fine to me.
+This one can be fixed with (should also be a bit more efficient):
+https://lore.kernel.org/all/20260903101843.3462767-1-elver@google.com/
 
-Acked-by: Eelco Chaudron <echaudro@redhat.com>
+>   fs/ext2/super.c:1149:3: error: calling function 'ext2_rsv_window_add' requires holding spinlock 'EXT2_SB(sb).s_rsv_window_lock' exclusively [-Werror,-Wthread-safety-precise]
+>    1149 |                 ext2_rsv_window_add(sb, &sbi->s_rsv_window_head);
+>         |                 ^
+>   fs/ext2/super.c:1149:3: note: found near match '_res->s_rsv_window_lock'
 
+sbi was just allocated, and EXT2_SB(sb) and sbi are pointing to the
+same object (unless I misread the code), but the compiler can't tell
+since aliases can't be tracked through non-local objects. So that
+scoped_guard could just become:
+
+  scoped_guard(spinlock, &EXT2_SB(sb)->s_rsv_window_lock) {
+  ...
+
+But I'll leave that to Jan and Tim.
+
+Thanks,
+-- Marco
