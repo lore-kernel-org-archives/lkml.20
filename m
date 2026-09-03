@@ -1,103 +1,108 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7102A402B8F
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:20:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8945D379C50;
+	Thu,  3 Sep 2026 07:20:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.14.17.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788420059; cv=none; b=orRmnwVLcFtpWKa2ChjVsR9FRis5dZ4HVSebPG0ZEnk4NciVJeiRRHK8v0rRW69qkEyzXgidLREjGmuaSdjiooVjDCdf4Us7CZhBNUagNtH/jlI13C0uugN98xuyyYovGC9RO6SZkMKJQA4mKBSr9YKU+w70oN0cbZW4/xmXfYU=
+	t=1788420062; cv=none; b=fCaE9HmbDvLlA8CfAeefoyeR1Yg3PwVIEzUknz5CsyHBbUatEwI8VZ+vxBUYKXzyAwsffihvzyYoL7VY7N3rL/+7euI8a7SN4Fv2zU4Qv23oJi0vY69+VR7/+IbI5LxhGDXBgnENL3w3H/9SDBpvl9HKR265h5HgM90UOsQhy24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788420059; c=relaxed/simple;
-	bh=qFjH69aIOXVUvqEcGK9+jou3rZnCCwOEc0IbWE4Dqq4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VF8qkIxx/DMwnsQFyTI8HIRmbE8CBnHOPxqiQ7zeSGP7Nx6VITe5UPBJa+BqN/WEfWGWvqQQ1MiYIcjW+wqHjwB1eqpjK5DcU+HcfXQbQir3t0uIkVL0VFAsg6psmyhFWK0vfAjLSgWXELXyN6S+GIfPIP1khazaDnJWEY/7T9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Migvmv9D; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Migvmv9D"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d6e954afbdso12861655ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:20:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788420055; x=1789024855; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UXuvqUj271LNrSs8P9g/osNAjtXzcTBNi1YQmbZCrTw=;
-        b=Migvmv9DKpeg04iIhWUtLfM386hHXmwlgpNstVs9t0PE/ZVw4S4xqXWKFNmt7+d13F
-         q5RIJrFdukSEUObwFTyZMsQhkZ2JikCuU4AUqL+RJVGGlk9u7W1AO1FzTiyOrDwnZdng
-         q7nDbwBSBt0vIsHXSWC4YkkMD1Y1XwECiW8/uPx+7/S1g+Qg1jhvhS8Ec4fFrHrMHLbj
-         PmxBsADb97DuXuVZbIZoMaCc5jwWzTpJYPGdUhE6qFymH6KGCF5PMBwsa5HsEUMH/SgQ
-         GhEw8TbNJBjHIytEnTTHAkxm8kJxiXxg+eA2TigxW2Eme8EEgk8i4vlBUtgyzD813BId
-         70Bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788420055; x=1789024855;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UXuvqUj271LNrSs8P9g/osNAjtXzcTBNi1YQmbZCrTw=;
-        b=evS3KshEllM7P85OJDLfykUF7mNR7KHJajC+Er7cNyOTfbEicYO317zlkxujetkxGX
-         lkjsdUhKSCCk6dQovSGpUbyb11qrUykziavg+Ej31ZgrOflx0JVa/ZgKIFaTh2mgsE21
-         IYWQemxqCHFZ4rxz2GWjPmcpfngOCrx5X/onZBL6jBoYNu8F/8dsWPJG7nD6YXXrxJFb
-         9EkFQlzEBxME0b6YHjB/LVouP9skkwUMvkfDjU8oLHMm6yyS5/H8du/PLyEvANX+gHLW
-         y0X6AE2DsAxMShQNksm9LOBcnCLTWb43cjSjEpIn8oZqdxBM4J0Kp+8+ZGxph9pycXLk
-         Z60g==
-X-Forwarded-Encrypted: i=1; AKwUvBxSzLLBMFefaLxomocIrdhh/TJEfWgsXWaG9GvdTxBSMqIj7V82vNVZ2nJ23GYHf6/ILIB0loMmUnQBPU8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZLIHL/DB9egA7C7178nf8FxqfwOnuAUqMeVaQ8IspTE2efJW4
-	GI0Fkm/WI0j8Z3pB6UsUHr5Q+RjSkQtQ3HcCDBZVsIx0xlC5t8MSABT1
-X-Gm-Gg: AYBFou0kZwQ6JfUWU5FFp3ir9o8gSULEEVasd01gx67n1D2NsM1BZ4qWhBf9/2RcoLS
-	q03IY7s9VwQsAOm2JNqogTEG1KkhrpieV44BcWDBoyo8Q1rd+aa+1ykPvZvDgKFfp/lCyjYeCI0
-	k1TbI29OcOr2hNSMF8zwgXyENyAToXSen9aiv4ic9TOZV6wJpVxD/CBrSh1gllQ6oM4gaa7kClo
-	MeFbGts68McZl0gGWwYWubG7tnUAFSK+UFf9Z5rEs3IB3xLrjGsc+3C64Jb0p461V+Pnl1Z21kJ
-	gCxBug+hXT6nuh5spMMDpeKIyX09vcpxfcJ2URnEBerVbXmQuYMNzwDASmcrmyTrk/UqNRyqk2Q
-	AfcsIMY6XyPqtoCZXJ6xTlIO+RUOXkfWARoIG/34w/lyQPUFJdnvu+u8BWMqBuB+TZfCFp3Vrc5
-	vr3jHuVc25pfyEU+AmIaeIPBezy66VpFbU4u1+Mzi2BynyMNilURXEXKN+3M0vxg==
-X-Received: by 2002:a17:90b:2d4f:b0:37f:e1b6:4c7d with SMTP id 98e67ed59e1d1-39aedf1aec2mr16333499a91.6.1788420054696;
-        Thu, 03 Sep 2026 00:20:54 -0700 (PDT)
-Received: from localhost ([27.122.242.71])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae8f1cf6dsm2534325a91.3.2026.09.03.00.20.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 00:20:54 -0700 (PDT)
-Date: Thu, 3 Sep 2026 16:20:51 +0900
-From: Hyunchul Lee <hyc.lee@gmail.com>
-To: liubaolin <liubaolin12138@163.com>
-Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Baolin Liu <liubaolin@kylinos.cn>
-Subject: Re: [PATCH 2/5] ntfs: return -ENOMEM from
- ntfs_inode_attach_all_extents()
-Message-ID: <apkf0-ab_1tkAiha@hyunchul-PC02>
-References: <20260902073249.3035977-1-liubaolin12138@163.com>
- <20260902073249.3035977-3-liubaolin12138@163.com>
- <apkE3nzoVd0raTde@hyunchul-PC02>
- <4c2bdc40-2d2d-49a4-8821-410b4a7382c8@163.com>
+	s=arc-20240116; t=1788420062; c=relaxed/simple;
+	bh=rZbyvCefitFJB5T5ubKvWrtfR1q2aFpzskEXeVknh5c=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=BJf4B0SBV5d61FhCsA8H5jzwB/FnI/hzo82Ir0bUQahzvFpOmd1YshRERSp8MIc6LeKa5pWkg2Bozkym70Kgulj3BxF8iMLoZOQECVfqZsnd/OF4PZXI49oAXHhwtg5GJrm2VjooRKGRKBekmEPRqz/XZWstnLuD+urF18IyTew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de; spf=pass smtp.mailfrom=molgen.mpg.de; arc=none smtp.client-ip=141.14.17.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=molgen.mpg.de
+Received: from [192.168.0.150] (ip5f5af1de.dynamic.kabel-deutschland.de [95.90.241.222])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: pmenzel)
+	by mx.molgen.mpg.de (Postfix) with ESMTPSA id A987A4C2C37F01;
+	Thu, 03 Sep 2026 09:20:47 +0200 (CEST)
+Message-ID: <90d9b04b-fa9e-48c2-8162-2cef38d01390@molgen.mpg.de>
+Date: Thu, 3 Sep 2026 09:20:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <4c2bdc40-2d2d-49a4-8821-410b4a7382c8@163.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] Bluetooth: btusb: Add support for Intel Otter Peak2
+ (OrP2)
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+To: Catherine L <catherine.l@intel.com>
+Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
+ linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kiran.k@intel.com
+References: <20260902190037.259487-1-catherine.l@intel.com>
+ <d2546a2d-938d-4980-94ab-6bfe434edf3d@molgen.mpg.de>
+Content-Language: en-US
+In-Reply-To: <d2546a2d-938d-4980-94ab-6bfe434edf3d@molgen.mpg.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-> Hi Hyunchul,
-> 
->    Thanks for the review.
-> 
->    I'll fix both issues you mentioned in v2 and send it soon.
+[Fix typo note → not]
 
-And the other patches look good to me, so feel free to add my
-Reviewed-by tag to them.
-
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
-
-> 
-> Thanks,
-> Baolin
+Am 03.09.26 um 09:19 schrieb Paul Menzel:
+> Dear Catherine,
 > 
 > 
-
--- 
-Thanks,
-Hyunchul
+> Thank you for v2. In the summary, I’d add a space in *Otter Peak 2* 
+> before the 2.
+> 
+> Am 02.09.26 um 21:00 schrieb Catherine L:
+>> $ lsusb
+>> Bus 003 Device 003: ID 8087:0043 Intel Corp.
+>>
+>> $ cat /sys/kernel/debug/usb/devices
+>> T:  Bus=03 Lev=01 Prnt=01 Port=09 Cnt=02 Dev#=  3 Spd=12   MxCh= 0
+>> D:  Ver= 2.01 Cls=e0(wlcon) Sub=01 Prot=01 MxPS=64 #Cfgs=  1
+>> P:  Vendor=8087 ProdID=0043 Rev= 0.00
+>> C:* #Ifs= 2 Cfg#= 1 Atr=e0 MxPwr=100mA
+>> I:* If#= 0 Alt= 0 #EPs= 3 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+>> E:  Ad=81(I) Atr=03(Int.) MxPS=  64 Ivl=1ms
+>> E:  Ad=02(O) Atr=02(Bulk) MxPS=  64 Ivl=0ms
+>> E:  Ad=82(I) Atr=02(Bulk) MxPS=  64 Ivl=0ms
+>> I:* If#= 1 Alt= 0 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+>> E:  Ad=03(O) Atr=01(Isoc) MxPS=   0 Ivl=1ms
+>> E:  Ad=83(I) Atr=01(Isoc) MxPS=   0 Ivl=1ms
+>>
+>> Signed-off-by: Catherine L <catherine.l@intel.com>
+>> ---
+>> Changes in v2:
+>>   - Fixed review comments of v1 and changed name format.
+>> ---
+>>   drivers/bluetooth/btusb.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
+>> index 03039ceaa77d..3e9db818a740 100644
+>> --- a/drivers/bluetooth/btusb.c
+>> +++ b/drivers/bluetooth/btusb.c
+>> @@ -488,6 +488,7 @@ static const struct usb_device_id quirks_table[] = {
+>>       { USB_DEVICE(0x8087, 0x0037), .driver_info = BTUSB_INTEL_COMBINED },
+>>       { USB_DEVICE(0x8087, 0x0038), .driver_info = BTUSB_INTEL_COMBINED },
+>>       { USB_DEVICE(0x8087, 0x0039), .driver_info = BTUSB_INTEL_COMBINED },
+>> +     { USB_DEVICE(0x8087, 0x0043), .driver_info = BTUSB_INTEL_COMBINED }, /* Otter Peak 2 */
+>>       { USB_DEVICE(0x8087, 0x0040), .driver_info = BTUSB_INTEL_COMBINED }, /* Lizard Peak 2 */
+> 
+> It’s still not sorted. 0x0043 should go after 0x0040.
+> 
+> Regarding the line length, the CI test passed, so the line length wasn’t 
+> complained about. Luiz needs to decide as maintainer. Maybe wait with 
+> sending v3 until his verdict.
+> 
+>>       { USB_DEVICE(0x8087, 0x07da), .driver_info = BTUSB_CSR },
+>>       { USB_DEVICE(0x8087, 0x07dc), .driver_info = BTUSB_INTEL_COMBINED |
+> 
+> 
+> Kind regards,
+> 
+> Paul
+> 
+> 
+> PS: It’s too many iterations for such a simple patch. What could have 
+> been done, that sorting would have been right from the beginning?
