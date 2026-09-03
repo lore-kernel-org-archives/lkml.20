@@ -1,272 +1,179 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010002.outbound.protection.outlook.com [52.101.201.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE61E3B8920
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 18:59:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B498B3793D0
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 18:59:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788461948; cv=fail; b=QViMPs3K0FLIJZysYb6MVMSVzxM2tn+W3JfbOtQuIJ0XbLJnj6WDvDdrVJM5Nszd2VrTKiyAnR7pK29F4a1PVNSBpMtzqVPFJZbJ+/+oT5fvOutMoJub4vdXsl4Fe23nIgV/wrTs28cjKUUrID9Ljn08ovFP0Ls33XBVVJEfdTQ=
+	t=1788461954; cv=pass; b=l3FIQtM0rmlZVjrtd02OD/IhJn8A5ytIQFfVblZE1pSNkCYk9dPGNvtoE5WgUzT6/R59HesJNvAXzc8kYZggP8DSz5Q4xc/AUgbmlR15D5B72uWsg33IKXSP2E+D8EQMIvQKzt3b1USRumg1KzrYw7vh1YH1RWHtv7oAP3Uf0f4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788461948; c=relaxed/simple;
-	bh=OwB+StsVA56q/xQXaukefH5Wkuw2Uoey+rPxBPRlRnM=;
-	h=Content-Type:Date:Message-Id:Cc:To:From:Subject:References:
-	 In-Reply-To:MIME-Version; b=gj7ASEO1aRSxJShuvfmIeSR1vIgWH6wQZfUXr7rofu9qwNAIGVuhxu6toqNxT+WaVSymLW+0tXevx150/gMRI6SkgpglCZGBZYRB6uypWngwrtFIgBw1BMNTs/dbm0BWoBpmSXYcO+gyKpXzQ1ubZDgO1lcsl15AuI1aiLKesko=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=GWBTIasa; arc=fail smtp.client-ip=52.101.201.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1788461954; c=relaxed/simple;
+	bh=/OxdHj9ysvfR57EEzc0+AuUsvMW1G0r5zIF1Md1GvvA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hH4zQyYw55FJjejmp/tktUdtSQfXdEsRq076fKIVs09h1TTsqiXSjcP5VZ2qdUJODkg0cRSWyQhG56rEKC0m4M1/Qyb5fKlDqykAoa5pfLvQgs8s0oaxCQDWodDc2hqojJVhewME9pp1MsAA+J0bcMgcaxcopVMyLLKkkFrmYDQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=njSLHGQx; arc=pass smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="GWBTIasa"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h5jUselzdvl1xU0xArW567ByCLjErTo3cu7CH/2kD6dgjKfQhAnyXD1vOo2tYryB4wTz7L38kFqiXcpPqI6Ja+AoZCW0rs6uRSTTVd+KvwxxJxomAnQjRagp2gCze4JKcL10RSBPR3BbuY1X3fuZ5xQxllIN2jVIwlkpMUaoZTObav0PYRMZXdlJ/FIeWtD6XSoS9H1qIpmNpQBnOeA9Ryfnq/O0rzeorbH7Fqk44MDCni1fqQmskkxvp9TH5iQNaoI8gEqq9AuZx/mVUobTP1rrKbAGYHhuKToQL7DttA+NcJjcBDWKRXYNzIGV5FMwAI4XyR4E1+QxVILH1ZCQuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OwB+StsVA56q/xQXaukefH5Wkuw2Uoey+rPxBPRlRnM=;
- b=ZzU4dSID4Kvj3rk2sp/J7d9kg9nW9qgjPzuPwodPsvNYHfNjZ9NUNOAqbsZnNg1K1UK8myDYE/AwpiSQYWCdJHZ/6hXa18A+CSxV+akPP0D44+1zmQAuaBdA6R+xVEOOSaUiWgoQnHnov8blG6/dsyBU6PRlKuUMjNhYkKrN0zfgYueGhKEqvUH5qQutvPXxev6az3Z6TQmUb4/GsXN4mnLkQW5MbSvsZpbuqaVG+eFvE4V+KBpae+atQlpWqSNbvwQtNT4JYJh8gP/ji9ziwCvHSlUe3bQ3WXbQOlqBcHjcXAhlgWG6w5Szf9jNj242FsFoBSM4dCilFXaI7ogH3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OwB+StsVA56q/xQXaukefH5Wkuw2Uoey+rPxBPRlRnM=;
- b=GWBTIasakYl5WxmTIn1OSUxJIZzkutkW0nSgbf+2KzMZXUh0INPE7fdVXdoIwMtnW0qUQGgtqx0dCclhSvKpsMHP/niqz8bslK0sreBeIw23fX4B8f1UlfRrKqXCJqLF4tcdpZd5wfQXGt3Ak69/+uqx87mVjJ4bwzTOeg43r8yxTbRX6CNb5+x9v72pIL1xgcjrlsGE82n3+0nQdfXBHSQzwMtvKXTsJy5fBsj9mPC3I0XZ+6lfIrnr4pv4JTDxpk+6KnbwzPUdQxUcipMbWC/kWqyclXf1NsL51xjGXAcEvmCZsxZxkdaNqJrVUaj1ku4bRFvJd1bbleNuk/bwPg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by DS2PR12MB9590.namprd12.prod.outlook.com (2603:10b6:8:279::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 18:58:57 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 18:58:57 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 03 Sep 2026 14:58:54 -0400
-Message-Id: <DL5WUE8JD6MH.3W984LEQQMFV@nvidia.com>
-Cc: "Nimrod Oren" <noren@nvidia.com>, "Andrew Morton"
- <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>,
- "Lorenzo Stoakes" <ljs@kernel.org>, "Baolin Wang"
- <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>,
- "Nico Pache" <nico.pache@linux.dev>, "Ryan Roberts" <ryan.roberts@arm.com>,
- "Dev Jain" <dev.jain@arm.com>, "Barry Song" <baohua@kernel.org>, "Lance
- Yang" <lance.yang@linux.dev>, "Usama Arif" <usama.arif@linux.dev>, "Kiryl
- Shutsemau" <kas@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Mike
- Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan" <surenb@google.com>,
- "Michal Hocko" <mhocko@suse.com>, "Brendan Jackman"
- <brendan.jackman@linux.dev>, "Hugh Dickins" <hughd@google.com>, "Nirmoy
- Das" <nirmoyd@nvidia.com>, "Dragos Tatulea" <dtatulea@nvidia.com>,
- <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>
-To: "Johannes Weiner" <hannes@cmpxchg.org>
-From: "Zi Yan" <ziy@nvidia.com>
-Subject: Re: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
-X-Mailer: aerc 0.22.0
-References: <20260901190123.3511535-1-noren@nvidia.com>
- <20260901204449.GK3004@cmpxchg.org>
- <C8541A2F-D6A9-41B0-A3FE-52339A6601F0@nvidia.com>
- <20260901220917.GM3004@cmpxchg.org>
- <69C018F5-A1C8-47AD-9567-3497AA6808EC@nvidia.com>
- <20260902160417.GN3004@cmpxchg.org>
-In-Reply-To: <20260902160417.GN3004@cmpxchg.org>
-X-ClientProxiedBy: YQBPR0101CA0168.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:f::11) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="njSLHGQx"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-69fab5a852cso156621a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 11:59:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788461945; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iVlGWtl6Sj+P5zVMiVvRm14+rsTCWu1B0BaFpL1q45IXxpcS68FeefXSrB/XosSB6b
+         v0mTP8wqSX47J76vqAb64wM6mbYAC6awNFPT7KerSIjnraQ3RHjcsjVze0Y3eiaOMMuj
+         4U4EwpDn3/0SIEkz3I2RJq4+P/ItWgyJTm0XT3WLo/H57aIavGwluAwSqpVOUIXgoLXQ
+         HBU7tXNHtY9g1qzOdkKOFHIqwoPTcysQV+7LyUAeHibEkVEn+Y6cbeIbdGLUWFrsflWe
+         AvnMsXKENZgThCGXTQ2iTuW3PVpW30oClvVr4LiPtGZu8C8oQr2SHban601/JGGciDk8
+         4F+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nI/hqBwcSMNIp3RBgD0iAO6W4qosGQLQpAKeR8JRNrs=;
+        fh=MlNYjy5+lqdSLAjL1YpHcAD82yeGnK6q8vVt5sPVtdw=;
+        b=b1pziHajcxBziuc3c/amxxHfHzorg53Xxzx/5j0e6H0qtweiUoKIM2eGOEvhwtSxZ7
+         YuXUudkZofN6KtoQie8jaNxzLgfVaBzFDxqyZDhx7k6bKy+kzWpYuGdY08351Q/tqPwH
+         6unDvO0ZG4Z6JsEaNoutR0gA1H8cqAuKwkM6qfyiCyLXjvs7gXSNCiq8/VzRxCtwIMU7
+         op4dXfO2EGIYE2c2PyDGal/zeghQcRZtucItxoo1EBjNwmhrZVAJhURsH9vjIwLcRXI2
+         DaMIokBPiEf/vu1BEr5el7w/UMf+crftLi+W7jhUqgvFOZI1LjejFsjJeMEubOz+G21R
+         WaAQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788461945; x=1789066745; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nI/hqBwcSMNIp3RBgD0iAO6W4qosGQLQpAKeR8JRNrs=;
+        b=njSLHGQxCP2li48YR6bUqLXOlIVAOS9Y4DfCyF+hwyMgmNTpgeiJ5/HJ0/q0FpxfcH
+         zWNz3e/bRS6ozvpZiy//nb9Ywndb+AjQCmAFskXYWkIIoSGuz8C2RSwc4iREuLGrugnT
+         q3DzOlS4ydOhd6BdRx0AoN3EabGSxbkvWtVKukNvb4/swQcc3ZVNhBfZTHN/oTcW/hdp
+         SAwGo302vNaGl+2mAv9k6AZ+RtVMPcdEARFSVPFr/wCArpNHT1qn03CrC4AQeo2QvR4M
+         aDW9BIVfPgE/DgeuKDbQT3AQFbaDgZGdK3KJHxt871q6kx7pVeYaKfZhCiVwtNUFTuoY
+         z7ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788461945; x=1789066745;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nI/hqBwcSMNIp3RBgD0iAO6W4qosGQLQpAKeR8JRNrs=;
+        b=DLISG8UwYtdn2qeOYfizYmqwy16DywlyXjxS3OTNakx/vOjPZqk4k2OrofqG4zJO7X
+         yv6wWRSjlya8sxTckUxou6+Ma2YMrCNzDYfn04ylVSDy0RZdlKVa6egDNV6FIUQ6hPg5
+         gYC20zynemtp3+LW85+fPBg/bRMyp4sUZBMhuqJve4SqMuOQuZqnCPyHAaTDlU7mLHpD
+         lGaY2SBnRnxLt8MgPmUEqrNqLrVSp8Kq0g6AQjbE8v9Z5Zu51c0kI8+JO3tVZU8nU5jZ
+         iI7LkCOC4rBtjD0S4SqGPQKqX3h4UVllUmuLH6NSMX7WBwErZ7BfUJJOW5D8NI6kRGWp
+         nRpg==
+X-Forwarded-Encrypted: i=1; AKwUvBySbV70ddC6k8sHj+1hl/FPf1simeRnpGgIDBBJ5n3uA2b1A2A6MSyENfc7dibREhGjLUkVeo04d9xydJc=@vger.kernel.org
+X-Gm-Message-State: AFuF++klkgzVyQAe5XchxaE7V76/ofPq7TJ8L3HHkH8NRh+bo0ac2jk2
+	tJ5tO1s2c5ghn3+oCxvGB3NB1FD+znqIaxCpVWcMzX8LXRaag5qCNQpsIJUW7CNqftV26LM6xUH
+	TFEdDhnKCONUWnq8xdN+5ydm0eHu8RGM=
+X-Gm-Gg: AYBFou2WnvsU1ffXqjm3CiVX+GBS01JEP8q/E5PZFbFAKOI0BJvVmlzGnmqEgUl8SuM
+	bP4Yp/xk7HV7hr6AL2rPdVQVl94tVUxw7tNLb7htWJkV5hFxqnoGVlw+Vo34KM+mLBGs5zb5vgC
+	W7oPXN0MdWQTGY31bceLh3p/Ia+mKnf5VJ261bfFsSi5PC+li6KTL/VF5E8FLdxCxoMPS8cEryZ
+	dRZC9D5FQ9e1X5/3WV4GTkLxMvkjCbST/39aSOMc4bjrouIUOk1DMzNx9+lhaUzGLppSDuQ84zS
+	c1vtBuUZiCjmwqFd3UBg7leBsPHG1//2iseLzKh9SFnvjUb8IjlMOFb9zwxe735ndkWXTHU9GHC
+	Nsz+ay14Srk6+O+tAKQVGExWDYZgz0lK4GqnNY0WqontGi9QTax/QAlU5VMil0t9u0PrPcR2vlk
+	t/EJtAwFkhygwvJfXJuXpa8/ZLN7Y7/GULLaq2Kpgycq/13JpdggRPWdg=
+X-Received: by 2002:a05:6402:3886:b0:6a6:32f5:5571 with SMTP id
+ 4fb4d7f45d1cf-6a7e8f946bfmr27530a12.19.1788461944874; Thu, 03 Sep 2026
+ 11:59:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DS2PR12MB9590:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee89eb72-6b81-4af0-8a5b-08df09ed67c4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|3023799007|10067099003|11063799006|5023799004|56012099006|6133799003|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	E8sjyZIX7glDi3zHBkqWLi1tynsppwXYBUROuaTl+s7hLSKh1vUj7ZDiXhOfcTe9g2uPAKcOqFWTsUWl8Fly/xRANI4ZD3gZx2dDoH4lyUUccdJdaDgakav2DTp0KBING43GrD6gtv/fP8K5GqRtvIoPJYHPfYoM1lyi/NwPiFbQdPYjpUDtV1bt/oV3aUIv2uXYdCBd27o5uykli5eEZ5pJm31Ga9JaAVSMKAaPV27018xdUPOPpHAF2gqBVnuCt2rbysOyTNJV6DTKCaJxQZ3BxaY8TPVEq5a16S9Q02fm1aykpUJSuJqjJ2uZMuIUDfNZSrPLtUMlED1DLbcETa+tsodExP1BV9Ap2zqoi/ulRH4gR2icXsW2KVmre6+22Tge9EqiQ1JjUrX1OCWW+UcdplmXDgWNKytTBXsSt+2fOAY48ci80p3ooBvU7uujxrZJSEBYS1b8aAGD5Uo5T9guXE6W3FjEK9Bn62/tFAXrUlFXNsixYFUhHo1ssPTi/iWhpY9qHzYajDl06SiX0EbML9eCStNP91JBL/r6oOyxcXLiISpW22z/PCN5kRfdaHXWv5RrMvhAcO86TwPUnNfC72FAnUTuvtSFNqeY3aNHHoq3xSV2Ryhg79WMf5YTLb+MatFquZnR4pjj6kQnljmFAuUhNVybcw4zrxjnpAM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(3023799007)(10067099003)(11063799006)(5023799004)(56012099006)(6133799003)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MXA2ckNkSVlMRkhabGdiRGNqa0RrSkQxd0xHQlNZYmRaL2tEQ0pmd3YvL1Bh?=
- =?utf-8?B?bEw0OWxBNUwxcGFKd3I5Tk5uVzJqQVROWFBJOUFPY081eDkxUjA4N3pFeUN1?=
- =?utf-8?B?dEZzaFo2WGxzbG1CUXJPNG9ON0UwMGZZQkVYcExwTVpZZTVuQnFxSGdVTVpW?=
- =?utf-8?B?enZES1IzaUFRN2o1bVZuNUR2SHI5WDdUZGwvSGhJck1OUGJZNEZMS2ZtV0Jk?=
- =?utf-8?B?MjQrRmpoUVQvNWU4S2s0b0tSSjFNM3NDaUhWenl6RUVxK01Hd3RjTGVWNk1a?=
- =?utf-8?B?cngvbitMbnd5NnV0WFBydSt3dWhaLzJjVGpxdTJ5T0V2RGFXSFpYb0lTMHZ4?=
- =?utf-8?B?QVdYdUtCTlFxT1NYdmZ3cm5OZVNrSEYxM2xGVUgzeTg5UzVWZXVhZnMrWkNB?=
- =?utf-8?B?U00wemNZeVhqNEpGQnlEQU1Ra3JrQ3JxMDVYaUNMVkE0dWpMaml5SCtoVjFv?=
- =?utf-8?B?bk1paUNyWDZ0Nm9TUXRtYVlTaXZzUGNBalhKak5ieW1iZGpFL1gwSUlYbGN5?=
- =?utf-8?B?Sm1yRm1XNHhqeGtlUTF3YlN1QWpqa1NCczhrRDk5M0lYU1dhQlEzMzIxbDVj?=
- =?utf-8?B?TzFna1g5N3pnMkZPb1RHSnBHVXg4czFDUG1zclBZVm5lZHowSk9QUmo0Q3o5?=
- =?utf-8?B?MWIyVlAzWWN5K2dVdFJwdXNCQ0c2anVkNHdVMytGQ285ZzdzZVpjL2xEeitk?=
- =?utf-8?B?eDlOWVVLeTRGU21Wd2UyNnVETUkyUjljOGV5NmU5VGhUZDZndFo2Z0w2RXov?=
- =?utf-8?B?RHUxT05Yd0h3QjJLUDZlalVqWWwzTFg2MXVscUxRU2hBYkFVYjcydFVlekVR?=
- =?utf-8?B?Y21jd25QVHp4bGczekxqRTQxZURzMElFSFVPcjV3SWMzTUV0cUY3YUYxM1pC?=
- =?utf-8?B?bUdFaXNKa2VJcEpham0vc2YwZmc0TUhmQUthRy9VR3lEUUNDSXNwM1JNK3l2?=
- =?utf-8?B?QS9kbW9DYndQRWZRZ3RvRUlLSzlSQnlkRlNWSFNJdWFoemRlUXFPMGl4VmM0?=
- =?utf-8?B?dC9vZks1QVRvQTlxZjB1NnZjdEE5NFpWeUZMMW5qTmxtTVdWdGN3QVMyZmNN?=
- =?utf-8?B?L1ZGd3FyU3N2NG1jN0cvY040dkkxL1hNcTlsa2RVWk1YSjJFNWliaTdOdFd1?=
- =?utf-8?B?RXNoM0gwbUZIWHNSd3ZCZ2hrWkdhbElXWmZtTHUzem1ZOTBJZDljY2gveXVN?=
- =?utf-8?B?WFl6MkRib1k5bWhLYUVRaWZtbzV5T0pFaDh5RHVmSXpuRG5qWWFaSUJCQXlr?=
- =?utf-8?B?T1gvRkFMOVphbERMNEZORkRXV0cremEvTTJTSnNxWVIwOTB1b0JZK3dUdGMz?=
- =?utf-8?B?UE5yWW5IMUJFZGFPMHU2K0crTTdZV0ZiT3hYd2o5em5Ud3RFWUErM0VUWURH?=
- =?utf-8?B?N2E3MHF6czJvUVNRMUpWMy94cC9LNDByTk50RlhHRlVLNU1pRnJmRjZSdmZJ?=
- =?utf-8?B?cm5JbG9tNGd1Sk4veXZSQlFSc0N3OUx5SCtheUZ4bkNuSE91RlpoaUNDM0kx?=
- =?utf-8?B?SEJVVVV2UDNDd0hLbG9wNnp0RWs2QXA3Yzl6SkM2bHRSb1NOeFRYTitEb25u?=
- =?utf-8?B?YTgzRHhFQjVBZVdZaGFFNVFEOWtCZDJkclp5dTd5T3A4MmJ6Sll4WE9xUUxt?=
- =?utf-8?B?ZEdTMEJUWGVTdzRBK2N0eStHRjlWUjhqUEJPVjJSejE4L05qeDhyZlU4SUFI?=
- =?utf-8?B?cnFaQnhocnJQVlV2SnNlRDdaNkw2UFJ5QXJ6YlYxMlhGWTA5SVF6clBqTXFu?=
- =?utf-8?B?cVYrTWVZaktqR0FtMFg1NGdxMmpTMFdNek9ZVWxEMFBwZjI1c3cwZ3ZVQjhq?=
- =?utf-8?B?OERSUkQ5dmFhdUcwYU1SZEp2ejhzRU9aSmppQjhtWlRMcEpFeFVSSWNtTXJW?=
- =?utf-8?B?OWxUbUV2aFViV2dsTXNEZ1h0OU9UK3ZzWVhBR2FNWjQ5QjlOdk95aTNzejRY?=
- =?utf-8?B?blZtR1B5STVzNEVHQ3ZlUDV3THBwMDIyb2dneXpmWGtMM2ZKSy9nVXVqVzFT?=
- =?utf-8?B?WGdRNkZ0MXVjTlp3Tm5SUmYrbjE2Q21KSmlEQVg3ZURhSW5Gc0s5UndVY3Zj?=
- =?utf-8?B?OVRrd2dWMi9wU2M2SWlSRnBVR3dtRnhyMFBLYmJ5L2czRStkbldlWXFkN3Yr?=
- =?utf-8?B?RWtJSGJvZzV4YmFaTG82OVZacElEcllxUDVMTFdpbWpVcEdYQ05NMGpvcFJa?=
- =?utf-8?B?KzJYZnVueGpMdjRXZmlnQjFwTW5wYllaWDhXSDRDT1ZXODlDOUJlYTRjckUy?=
- =?utf-8?B?VkpETzBnSmJ3c2lxeW9uUWxCNG1JanYrUUxORnpYQTFVWlFWMGZ0TFJscUxO?=
- =?utf-8?Q?Rmy/97Xafkm9LRnwG7?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee89eb72-6b81-4af0-8a5b-08df09ed67c4
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 18:58:56.4579
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KiM8qCxQvnyBILzws7vaZ8yFYw+gG3zSKaciQZp0Ytlfe+KyBS9SlJlSn41C/NkK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9590
+References: <20260901004203.49686-1-rosenp@gmail.com> <20260901-corrode-unvented-4cf271941722@spud>
+ <CAKxU2N9X=fvr-a5h5o5XaRLuRuSUq7wR85xmSduK9vff4z4CQA@mail.gmail.com> <20260903-pettiness-crested-c4fb1b3ac05a@spud>
+In-Reply-To: <20260903-pettiness-crested-c4fb1b3ac05a@spud>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Thu, 3 Sep 2026 11:58:53 -0700
+X-Gm-Features: AcwNN1VKJMbKCu_T1F0VY384x3qLO0B2LRU-9HQpE-yQn8Eo44X7b4XrjE7mWcM
+Message-ID: <CAKxU2N__+u-mJ4bbAEFcT3jbxPShi4BeEj+0cAN3oHWzqeGzZw@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: serial: 8250: add marvell,armada-38x-uart compatible
+To: Conor Dooley <conor@kernel.org>
+Cc: linux-serial@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Lubomir Rintel <lkundrak@v3.sk>, in file <devicetree@vger.kernel.org>, 
+	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, Sep 3, 2026 at 8:42=E2=80=AFAM Conor Dooley <conor@kernel.org> wrot=
+e:
 >
-> If you look at try_to_claim_block(), you need half of a block to be
-> free or compatible with the requested migratetype in order to convert
-> it. When memory is full, LRU pages are scattered all over, and
-> compaction is not involved (order-0), this gets more difficult the
-> bigger the block is. You can get into a situation where LRU reclaim
-> will not clear sufficient room for conversion in any given pageblock
-> anymore and you're stuck with the type distribution. A large share of
-> buddy requests then go permanently through the slower fallback path.
+> On Wed, Sep 02, 2026 at 02:34:55PM -0700, Rosen Penev wrote:
+> > On Tue, Sep 1, 2026 at 10:51=E2=80=AFAM Conor Dooley <conor@kernel.org>=
+ wrote:
+> > >
+> > > On Mon, Aug 31, 2026 at 05:42:03PM -0700, Rosen Penev wrote:
+> > > > The Armada 38x and 98DX3236 SoCs use this compatible, either paired
+> > > > with "ns16550a" (armada-38x.dtsi) or on its own
+> > > > (armada-xp-98dx3236.dtsi). Neither form is covered by the 8250
+> > > > binding, so dtbs_check reports:
+> > > >
+> > > >   serial@12000: failed to match any schema with compatible:
+> > > >   ['marvell,armada-38x-uart', 'ns16550a']
+> > > >
+> > > > Add a standalone const entry and a two-string variant paired with
+> > > > "ns16550a".
+> > >
+> > > Only one of these is correct, add one and fix the users.
+> > > Given there's match data, it's probably the standalone one.
+>
+> > Commit 62480772263a adds the second one to support earlycon.
+>
+> So the one with the ns16550a fallback is the correct one?
+Good question. I posted an alternative to this patch here:
+https://lore.kernel.org/linux-serial/20260902222555.30C151F000E9@smtp.kerne=
+l.org/T/#t
 
-I think we are digressing from the min_free_kbytes discussion, but it is
-good to understand the limitations of our compaction and reclaim. Nimrod
-is going to run some workloads to show us how his patch affect 4KB/2MB
-THP systems. Based on the min_free_kbytes calculation, this patch has no
-effect (on 4KB base page system) for a single node system with 272GB memory
-and a two-node system with 484GB memory. So smaller machines would see
-the impact of this patch. For example, a 16GB single node machine will
-have 16MB min_free_kbytes instead of 66MB.
-
+If accepted, it would avoid needing ns16550a in dts, and a v2 of this
+patch would be the first hunk + dts fixup.
 >
-> Usama knows more about this, but we have seen this on GB300 hosts, and
-> have JUST started to deploy kernels with smaller pageblocks (2M).
->
->> Basically it indicates at some point kernel allocates a lot of
->> unmovable pages that use many 512MB pageblocks and the life time of
->> these unmovable pages are so diverse, leading to all these
->> pageblocks remain unmovable and free pages spread across all these
->> pageblocks. I thought bigger pageblocks can keep unmovable pages
->> constrained within fewer pageblocks, leaving more contiguous free
->> memory.
->
-> The idea is that the pageblock maintains contiguity for the largest
-> size you routinely expect to allocate.
->
-> The page allocator is very passive right now, and it doesn't work
-> super reliably. But even in the current regime, smaller blocks have a
-> better chance of containment.
->
-> For example, when the ever-growing page cache runs out of movable
-> block space, it spills into unmovable free space. When the next
-> unmovable request finds no space, it runs LRU reclaim - which is more
-> likely to free space in one of the many movable blocks. And so the
-> next block is poisoned. Smaller blocks have a better chance of filling
-> up natively, means less pressure to spill into incompatible ones.
->
-> And the higher min_free_kbytes, the more likely there are still native
-> options when the zones are down to the watermarks. E.g. better odds
-> there is still unmovable free space, you just need to reclaim some
-> movable/reclaimable space elsewhere to satisfy the watermarks.
->
-> I've been working on making this more robust with the huge page
-> allocator / defrag_mode stuff: instead of falling back and poisoning a
-> block, invoke reclaim/compaction to produce a neutral block that can
-> be converted entirely.
->
-> It's the same idea as the higher min_free_kbytes and watermark
-> boosting, but it is more targeted at the end result: readily available
-> space in compatible or convertible blocks.
->
-> But with that active regime, oversized pageblocks are even
-> worse. You'd pay ongoing compaction work to produce a level of
-> contiguity that you don't actually need.
-
-OK, digress to the compaction and reclaim discussion. Isn't this 512MB
-pageblock size issue also telling us 1GB THP allocation will not work at
-all? It is a proxy of 1GB super-pageblock.
-
-I need to spend some time on it to understand all the heuristics and see
-if anything can be improved.
-
-A quick chat with Claude results in some items for me to explore:
-
-1. reduce pageblock conversion threshold from half of the pageblock.
-That can reduce the number of slowpath entries.
-
-2. make reclaim pageblock aware, so when an order-0 unmovable page
-allocation incurs a reclaim, the reclaim will try to get free movable
-pages from an unmovable pageblock first.
-
-3. in addition to produce a neutral block, compaction/reclaim need to
-repair unmovable blocks by getting rid of movable pages. Proactive
-compaction should do that too.
-
->
->> > Seems to me the excessive min_free_kbytes is just a symptom of a
->> > deeper problem.
->>=20
->> Yes, our anti-fragmentation mechanism does not work as we expected,
->> so that we need an excessive min_free_kbytes to get khugepaged working.
->> I wonder why reclaim cannot get the extra free memory instead of
->> reserving it via min_free_kbytes. Maybe we need a watermark boost
->> when some consecutive THP allocations are seen to achieve similar
->> effect of boosting min_free_kbytes?
->
-> I'm just wondering what the easiest way forward is to fix the ARM 64k
-> page problem.
->
-> Yes, optimally, reclaim would work to satisfy compaction space by
-> itself. We've seen it fail at that before, though.
->
-> How critical set_recommended_min_free_kbytes() is today is a question
-> that neither of us has a clear answer to. It's from 2011 and a lot has
-> changed. However, knowing Andrea, I'm willing to bet he added this
-> based on seeing a need in testing data. And I would actually expect it
-> to work better now with proactive compaction, since that has a better
-> chance of turning low-order chunks of that volume into pageblocks that
-> can be converted instead of needing a poisoning steal.
->
-> It's a change of long-standing behavior for everybody. It has a
-> regression risk and requires careful evaluation and testing.
-
-Not for 4KB systems with large memory, since khugepaged's
-min_free_kbytes is capped at 66MB for one-node, 88MB for two-node, and
-44MB + N*22MB for N-node. For a GB300 host you mentioned above, it has
-494GB memory and with pageblock size set to 2MB, it should be a nop,
-right?
-
->
-> Meanwhile, adjusting the pageblock size on 64k page arm configs has a
-> much smaller blast radius, appears to be the right move ANYWAY given
-> what pageblocks are for, and makes the min_free_kbytes a non-issue.
-
-
---=20
-Best Regards,
-Yan, Zi
-
+> > >
+> > > pw-bot: changes-requested
+> > >
+> > > Thanks,
+> > > Conor.
+> > >
+> > > >
+> > > > Validated with make dt_binding_check (8250.yaml) and dt-validate on
+> > > > armada-38x and armada-xp 98DX3236 boards: the UART schema errors ar=
+e
+> > > > gone.
+> > > >
+> > > > Assisted-by: opencode:big-pickle
+> > > > Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> > > > ---
+> > > >  Documentation/devicetree/bindings/serial/8250.yaml | 4 ++++
+> > > >  1 file changed, 4 insertions(+)
+> > > >
+> > > > diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/D=
+ocumentation/devicetree/bindings/serial/8250.yaml
+> > > > index 8c2c177faf89..f71c6afe02f2 100644
+> > > > --- a/Documentation/devicetree/bindings/serial/8250.yaml
+> > > > +++ b/Documentation/devicetree/bindings/serial/8250.yaml
+> > > > @@ -109,6 +109,7 @@ properties:
+> > > >        - const: aspeed,ast2500-vuart
+> > > >        - const: intel,xscale-uart
+> > > >        - const: mrvl,pxa-uart
+> > > > +      - const: marvell,armada-38x-uart
+> > > >        - const: nuvoton,wpcm450-uart
+> > > >        - const: nuvoton,npcm750-uart
+> > > >        - const: nvidia,tegra20-uart
+> > > > @@ -119,6 +120,9 @@ properties:
+> > > >                - exar,xr16l2551
+> > > >                - exar,xr16l2550
+> > > >            - const: ns8250
+> > > > +      - items:
+> > > > +          - const: marvell,armada-38x-uart
+> > > > +          - const: ns16550a
+> > > >        - items:
+> > > >            - enum:
+> > > >                - altr,16550-FIFO32
+> > > > --
+> > > > 2.55.0
+> > > >
