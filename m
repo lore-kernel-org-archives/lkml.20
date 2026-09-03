@@ -1,125 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-4398.protonmail.ch (mail-4398.protonmail.ch [185.70.43.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C589C3672A0;
-	Thu,  3 Sep 2026 22:39:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A65E82DAFAF
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 22:39:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788475162; cv=none; b=Rg2uJW1uEFpAG9boM7WzQsiNHL7icJvYKi1qYTGffvIv9FAB81r4YiIP1+E3YywPwUYh28cdz4aW46iFCM8Y1GDKEW8a3fA2eXowyemu0K51dfTHO19zZ7nbqIy3+KEzjEmMcN3rWXhnTAjk62wil7cm60EyjqhJv7vx8TlXTj4=
+	t=1788475172; cv=none; b=YYEpIsmlf95b2BuSKag89jq4qjCd1cZqquZcX/NykB/1ku9x3qofojHkUUzL+2+HZFODpD57s3cpLFXJJUwLu4dRqfUgcrK+fSdlmH83zx9XMylXRB7OuijPeHopk0Tfv3EeOcpS2t3Ve0fY3Mjv08RT5sdj17CTv5fqv9JbOSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788475162; c=relaxed/simple;
-	bh=gbxOt26bQoeAwt5cGsuB/OnGgpoiR0U3lXzQXWTFMsw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NTa+XssjyHAs3/yFf1A8wcI0b806k3mwaGkNGRbKl8tyOagCWkaPmgHue7vzfi/6EpfzKYageztc0R+nCxi9jDixF3QDDkArTa+UrDEzLDS8ojN6ok14JjLBV/qadI/+AwICRonQJfx0EfLTSOjRgWrrmj8h075804N1N+MQK9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oqtSJ0SL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788475172; c=relaxed/simple;
+	bh=2KEK6hCfPY3bO6wobnsYzxM4dHSOgJjX0TNI+c2wO0U=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NXV/sYbx0Bu+BvsVUkluEXDMItTJlW76oQpmyJzgnWjBcmbsdQoRldAyr129Cp9Jo9IfqILcKS7ZXaww46rPGxzFTYoYRT654LKqCtlekFBTjEceCF5ZdqZ+9Uhm7jWu5aGdxnS2SumpTKdiT9NrAxgITmdOfcA/658fkW25LMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=optocloud.no; spf=pass smtp.mailfrom=optocloud.no; dkim=pass (2048-bit key) header.d=optocloud.no header.i=@optocloud.no header.b=n/7/vIso; arc=none smtp.client-ip=185.70.43.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=optocloud.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=optocloud.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oqtSJ0SL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57E591F00A3E;
-	Thu,  3 Sep 2026 22:39:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788475161;
-	bh=FE7CoZIim/AFNristn24Z3J5voTLVFaS6R+eRkc4Q84=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oqtSJ0SLqwvGnWqla3hph4AhrUDQWj6AZkdpGJan3zK/p6bICbp6flNa9u47isRl9
-	 Uzcs4Ni42FI5myOEvVJwdMWMgvZ4ekOsjm0iaZ9Ft+Jd52i2cow+okXagyLAxSvQe8
-	 QmmEAvEvtSMwWASd13hIvxPD+AFh83E16c9sbFvtR4dvmRk54hj3a4hlwhiIbqnjfk
-	 kAO1HWe8FZVl5Pj+zwkDJuQkUL1o11JJAfqjdCljuoMPSbG46Vn8RGP3LSOR+L1rL+
-	 kaskdIL8NeBW2x7yPrr23HqKBPsRYqmZ0SfD+h+AxGjSVgb0efUJiI3M8WrS5uWx4x
-	 q9GxH8S3bT83A==
-Date: Thu, 3 Sep 2026 12:39:20 -1000
-From: Tejun Heo <tj@kernel.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>,
-	Lee Trager <ltrager@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
-	Koba Ko <kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
-	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 12/18] sched_ext: Generalize the reject DSQ reenqueue path
-Message-ID: <apn3GHPzhPZtGbSs@slm.duckdns.org>
-References: <20260831134338.1531664-1-arighi@nvidia.com>
- <20260831134338.1531664-13-arighi@nvidia.com>
+	dkim=pass (2048-bit key) header.d=optocloud.no header.i=@optocloud.no header.b="n/7/vIso"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=optocloud.no;
+	s=protonmail; t=1788475156; x=1788734356;
+	bh=zOkoNzUGSqjoFL99K4Scc/zmLBivAvnuMYypd872aNE=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=n/7/vIso42q/PT8/h2c0KkIGHP6ITE+h548vYTgXzUmY+zFrE9B7DOKdeDRgB4sOw
+	 jCvBX+1tOhDMaMnlPrzR8C798jIYra3P6PD5+hp5bmDVu386s0r+m8JR+4ZKSURZ5J
+	 njjGbGE+GUVqliiadLhggjFnciUMq9GWfPFwtLGbOEW210kJn+zvTOze3hmE8VUeT+
+	 1gZKis+zLdxWP6BY82HUiIBCzsOm8U5xBZqmodhLTq6D2McT9K04CSztyGW2UrIJEB
+	 sbS+Pr+tvUM64ltDSAXVvOCI2CpdQ6VK/lN/ASK6OXc4k+l+6V6EJmcXl88pyUy+2q
+	 w3fHB9GP7lHCQ==
+Date: Thu, 03 Sep 2026 22:39:10 +0000
+To: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>
+From: OptoCloud <git@optocloud.no>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, Yazen Ghannam <yazen.ghannam@amd.com>, "x86@kernel.org" <x86@kernel.org>, "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 3/3] x86/mce/amd: Reset deferred-register state between polling banks
+Message-ID: <VVPre8FwBOaDwOJsZLizBoEllya95qRDFGMnMwm_j_UOTE9L7LptaW7wFFQQNr9nBhwUYorxpQq_IZyQSsL3-IGNj6hdtcxr1HIg1xqWYPA=@optocloud.no>
+In-Reply-To: <20260903203609.GC145182@yaz-khff2.amd.com>
+References: <ZYPjnBLNLY69gIYeH-ING5IhrnA3ryhVQquuPlWhUR-WmKLUFl3z-HRWR6q3zW88Vi9L4IpFrd5WnRhVG0AptFUR4cDvCGTJ782EUQL9u0Y=@optocloud.no> <20260903203609.GC145182@yaz-khff2.amd.com>
+Feedback-ID: 192797849:user:proton
+X-Pm-Message-ID: e37d0fb100a733aaf1a1f3a496cd071d88666edf
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831134338.1531664-13-arighi@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+Thanks for the review, here's v2.
 
-Nits follow.
+machine_check_poll() reuses a single struct mce_hw_err while
+iterating over the MCA banks. smca_should_log_poll_error() sets
+MCE_CHECK_DFR_REGS in m->kflags when an error was taken from
+MCA_DESTAT rather than MCA_STATUS. Nothing clears the bit again for
+the rest of the poll, including on iterations that bail out early,
+so every later bank in the same pass inherits it.
 
-On Mon, Aug 31, 2026 at 03:42:22PM +0200, Andrea Righi wrote:
-> @@ -1599,11 +1599,10 @@ static void scx_dispatch_enqueue(struct scx_sched *sch, struct rq *rq,
->  				 struct scx_dispatch_q *dsq, struct task_struct *p,
->  				 u64 slice, u64 vtime, u64 enq_flags)
->  {
-> -	bool is_rq_owned = false;
-> +	bool is_rq_owned = dsq_is_rq_owned(dsq);
->  
->  	if (dsq->id == SCX_DSQ_LOCAL) {
->  		dsq = scx_resolve_local_dsq(sch, rq, p, &enq_flags);
-> -		is_rq_owned = true;
->  	}
+A stale MCE_CHECK_DFR_REGS has two effects on a later bank:
 
-No need for {}.
+  - mce_read_aux() reads MCx_DEADDR instead of MCA_ADDR, so the
+    address reported for that bank is wrong.
 
-> @@ -2017,6 +2016,7 @@ void scx_do_enqueue_task(struct rq *rq, struct task_struct *p, u64 enq_flags,
->  			__scx_exit(sch, SCX_EXIT_ERROR_REENQ, 0, cpu_of(rq),
->  				   "%s[%d] reenqueued %u times without running",
->  				   p->comm, p->pid, p->scx.reenq_cnt);
-> +			p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
->  			return;
->  		}
->  	}
-> @@ -2067,6 +2067,8 @@ void scx_do_enqueue_task(struct rq *rq, struct task_struct *p, u64 enq_flags,
->  
->  	SCX_CALL_OP_TASK(sch, enqueue, rq, p, enq_flags);
->  
-> +	/* The reason is input to ops.enqueue(), not to the resulting placement. */
-> +	p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
->  	*ddsp_taskp = NULL;
->  	if (p->scx.ddsp_dsq_id != SCX_DSQ_INVALID)
->  		goto direct;
-> @@ -2085,9 +2087,11 @@ void scx_do_enqueue_task(struct rq *rq, struct task_struct *p, u64 enq_flags,
->  	return;
->  
->  direct:
-> +	p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
->  	direct_dispatch(sch, p, enq_flags);
->  	return;
->  local_norefill:
-> +	p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
->  	scx_dispatch_enqueue(sch, rq, &rq->scx.local_dsq, p, 0, 0, enq_flags);
->  	return;
->  local:
-> @@ -2101,6 +2105,7 @@ void scx_do_enqueue_task(struct rq *rq, struct task_struct *p, u64 enq_flags,
->  	goto enqueue;
->  
->  enqueue:
-> +	p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
->  	refill_task_slice_dfl(sch, p);
->  	clear_direct_dispatch(p);
->  	scx_dispatch_enqueue(sch, rq, dsq, p, 0, 0, enq_flags);
+  - amd_clear_bank() returns before writing 0 to MCA_STATUS, so the
+    bank is logged again on the next poll.
 
-This is too messy. The clearing is scattered all over and sometimes done
-twice. Can't you add one label that everyone jumps to for exit and clear it
-there?
+Reset m->kflags at the start of each iteration, alongside the other
+bank-local resets, rather than clearing MCE_CHECK_DFR_REGS alone.
+The only other place kflags is set to zero is once, before the loop
+starts (mce_prep_record()'s initial memset), so there's no per-loop
+state a full reset would wipe out. It also covers any future kflags
+bit that ends up set within the loop the same way MCE_CHECK_DFR_REGS
+does today.
 
-Thanks.
+Found by code inspection; not reproduced on hardware.
 
--- 
-tejun
+Fixes: 7cb735d7c0cb ("x86/mce: Unify AMD DFR handler with MCA Polling")
+Signed-off-by: Eirik B=C3=B8e <git@optocloud.no>
+---
+Changes since v1:
+- Dropped Cc: stable (Yazen)
+- Reset the whole m->kflags field instead of just MCE_CHECK_DFR_REGS
+  (Yazen)
+
+ arch/x86/kernel/cpu/mce/core.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.=
+c
+index 6fa15e19988e..16ac2418fd51 100644
+--- a/arch/x86/kernel/cpu/mce/core.c
++++ b/arch/x86/kernel/cpu/mce/core.c
+@@ -823,6 +823,7 @@ void machine_check_poll(enum mcp_flags flags, mce_banks=
+_t *b)
+ =09=09=09continue;
+
+ =09=09mce_clear_hw_err_fields(&err);
++=09=09m->kflags =3D 0;
+ =09=09m->bank =3D i;
+
+ =09=09barrier();
+--
+Cheers,
+Eirik B=C3=B8e
