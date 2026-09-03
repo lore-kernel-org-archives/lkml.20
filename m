@@ -1,84 +1,76 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7914D2EC0
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:19:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E893D4D2EDF
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:20:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448798; cv=none; b=TyvC2cm8q3EPbJdV9wEG02iHWpFH9IQ84YFymXPnmKyZbdRC4uFQ+zXCKeD2a7Ep6+meLEYpQf83QKGImM810xPTDo9/DWjh0buQ9OoLOQuv47j3qmrFdezxl3EdmwQ51CGy1+A+0MNPCFu0EoBwg2OB42AuBBxgJ3+SvO1NGbw=
+	t=1788448804; cv=none; b=o3mLegqi4bDUik8rjBI07lC9SIA+xAra5w38oFpocYihSVLX7AZSvo9ieDcgDbrUZ4fYRz+/3JWWzq7Ae8U5B8D86mcrj9Qn97AXNgruEXNg3eHhaQBbSTXOcCM6HFk+t8IRwt7p6L0fTClmAFKP3uJAcb5nSx+0lKMWIUpyYCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448798; c=relaxed/simple;
-	bh=2J4kYJhWzcn/tlR3JRnNUxnbyfb/k3jvDTo55cncdW0=;
+	s=arc-20240116; t=1788448804; c=relaxed/simple;
+	bh=jHZdAdF+lmGzPYsT8GrQUp9u1PkWPJu0bdv2XBa5BQ8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TVHlxR0rxk22UhpO5MprCDHLQYGU6ElWLBKLqwKRZBGn2xG7+Yvbybsw3A7/rAeN3oRxRIkpdE288WqIkX+yg359Oj1NG1gSQn1N95SwmJ5FRMwHZc/JouMMEIid77hwZP2xqs9ZZRi4YUFR5CkPsXm3chkpkWGhj+GRf4/rsnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=O9jxrwfa; arc=none smtp.client-ip=209.85.210.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	 Content-Type:Content-Disposition:In-Reply-To; b=b91PeOuaRYMbjxUEbOwavGSenvxiqUjXow5ZYq4BSISEJ54eKalZ2ulbs1DwnVtMAJIwQBoPJyB0MjXPrs3p6QucAFJMNALki3UvjP8GEmvyBiQNMr70q2ZpVGCxxsIWPYPAQNsmd1VIo1Q8rfvzF5xIo4j4SGIBFxNfGS++a4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=h0EVelC6; arc=none smtp.client-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="O9jxrwfa"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-84e0688b7e8so2394533b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:19:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="h0EVelC6"
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6a60f0dbeccso3513728a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:20:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1788448795; x=1789053595; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788448801; x=1789053601; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=t4k71jgXR0pxejFwDgrDgrQ6R4Jk1k1enZ3AJ1qLF40=;
-        b=O9jxrwfazSf6pIO7nr9/nF5Hx75D37G4jf3k1T6Cc6Gj1riRhaa5r4byMn1H14T3cU
-         xA91cmQlZdG0JvONb9X617VCEamDDPQP7BKnLGiH1/dQu5zf/LhshCLxLRwd4RKla1u8
-         +cJ9oxXKhjG4D8s1kuCe0Daef5xu0mIRRlzQgL3blBcEq+SN2YyGIf4Q1YeROVuJCSH5
-         TB5bSoUirLe8jedvVH/3pCNYnehqZOE/IjvnnX4ZyQ3jUv1cGTkxPtSo1hSGqf1spAEJ
-         tD5XN0F7Uxx7PMqEB1iyaLyMLXL2sdt1aiCvALdpzW3fV/n1mMIDF8mWtTP2yvrTCptF
-         VH9Q==
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aAKIuEKuV7qhY7WF80gvKc7qYwMnmaoC0K+ccLX7aeM=;
+        b=h0EVelC6A3CVGqPBTfq5Ep+kk9QEZ78PoFsMeDqc1Aghi85+k4q5OODRiuV8WGbPBT
+         kglaaxeZoSRzOYD7Bc1z3PNeScSf+YphLW9BQV1FINM4eneiOWrD8vb43ow2SwLtvs+L
+         GEcjTREj/C797xEbY2iJ+kkQg0yPKacfKIU9346Xit1iuFyEcqDczo4erYuV5pC087qX
+         ieS5osJW3BUbyc+S4B+SItRZmoSPF7KO2X8a/KcxwF2ZOiqnD/2MHCUgtj031ArU+5Hm
+         XlJerFbtyQC4q14XWxA+ldJNs8+z5nVWZj42lM4JF0FZSeSjTa/72bDaQLfGkO1YKLr9
+         Jt2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788448795; x=1789053595;
+        d=1e100.net; s=20251104; t=1788448801; x=1789053601;
         h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=t4k71jgXR0pxejFwDgrDgrQ6R4Jk1k1enZ3AJ1qLF40=;
-        b=sDzJHNY7MkkULZJKLEE607j1IqeXz/babslwwaBCPkV+nYhUur+6mPy2m+7e15Lvhx
-         haaaNwYxvhrGeQmq9CXo48EvEQlx+wTAAF1+xl2Rlsd/Z6J3MBW9BFeUhhm8a0fgLLHe
-         8jWT0FRjLmoPQLXw61IVIACEvqzT+OlU/D05O3nIC+BExbVgyzJ5jy6awHwkV6fdvp+9
-         vv97VyAfOcEbmiBmPxKIyKg2KSDQbjTV9pU+BfsgkD3IpZLIbdan/zquK2sujTtGPgRy
-         M2UtjHBbM8yR3z7IfGKaPh7BIRKNyiH4U7ntJsQXWTJqHyWTEPBGFuBas5rakufWFx5M
-         ooDw==
-X-Forwarded-Encrypted: i=1; AKwUvBwg61Zt6dhsH6X41wimQMBtRDYEzDL9biTzO4Cc6J39Vnd9mJ4mqp/YMuJHhKf1jpxXIb0mfpzAb2gblIE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mpv5HDdg6V9exoqBbcX4kVaL89FpjrEOlMH2hEaqx5biRUYDOM
-	L/vpG1Gq3itKhtkNp6/cAu3jhJ6IXYqHHSldoEp/TEi7/sOltG8p/iKQXGOwu9CAgho=
-X-Gm-Gg: AYBFou0nn4zzI5hv2oPryaBSv45EhOkmf4IRFq2WqkFrFHXPCM2NZghhdPcGLnIvlrm
-	C4/rw30wEOTfrYwpnq+X8COw95l9h8xYF0GBn4v1ezvdxy8KFSuEw+icNycsmVUwPW6sEcJZRBD
-	zVLYo3JBn7lmXOeo79s7la7sZbnOUZJVFdSMKn8mAcMDT/RE3LzwH9HFuYmfZHk07upp+X38plJ
-	eJhWVnhwG+uFI/S09p1Tm3Squo5ZlcmUGdACOjPPcZH6p0ZbHBlTKmb04znWlXtNM58pSxTaI3s
-	mymsqfnG9NZJGQtvIqFZjDPFPrO+a8qqg2wtGBQTx5ofB0FRt1Xqr5uT2RrKH8ziRDJjfYD4LvC
-	z6M02VQNMDyDSNieNVUILy9q2hJQvtd5DKo//gwyPLhcZCipCbLdzXS3b6gvmrB+M0uhtbLsvog
-	lc+QeDMS+/d0n/gWVYd34S1EokJL7xKZnHVybFOczpYA==
-X-Received: by 2002:a05:6a21:7a86:b0:3d3:ae40:51df with SMTP id adf61e73a8af0-3d9aeef1aa1mr20459239637.19.1788448795373;
-        Thu, 03 Sep 2026 08:19:55 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:4f::])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc43d47d32fsm1093623a12.32.2026.09.03.08.19.54
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aAKIuEKuV7qhY7WF80gvKc7qYwMnmaoC0K+ccLX7aeM=;
+        b=NI3X83bIE0dOTid4iETU8/CFbHpK6ViHs7iMClWrbZcxN+Sbq3kZB5vyCpOOaSeSp6
+         KqAV0sKSpJUh1/Cf9xfQVan8uPDs/B2RVq4K97HPM4rNAA1pcx/IwST4F5HcUzAI/lnM
+         65Y/klE33TV0s8HQjXNBxW/8KsiHGE34EGpati+kplHfwx3s6jy9IilXdBtmbx946cjW
+         /aHcQ0Ye/kxBKcz4MhWVKf2Xrmn8514xHuulRGiJn1R800i6Mj47r12hGseux9Sfp2C/
+         diX+TO6x7SnvNumPwlpd99+HSc0paRX8JXrI0I9jsv1sTQ6FU7VXHu9F1ZicBwQcAGHa
+         XliA==
+X-Forwarded-Encrypted: i=1; AKwUvBzV6aILe4ZdAcicyC4h5wo6Z1p5WLrTza+KlMkh2PpSJpbAA8/n0/tF0HepOXHS6kTUJzN85VFcpjR/I1Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++mWESJaHSj/+cFDYJseZ75j6TZnj/67LyTIwvnMaHvF4xbdvJc5
+	n7VUCadMU6Qhf9bfwnUps0p2e2QXyTp/UL5sKY46MIAwLWKO1aFymhx0mZTjlvBZNw==
+X-Gm-Gg: AYBFou0vfm59jCdYOjhjSLw/eire8WKpbc3EFgtZa5QtEIYQ0paklbLKj6WiV4KqQ4d
+	E7kcfAUk0vq0Ow4K70YK3IXnvcgXfV33HEivrXeLtImD+fUPc+VNccJ67lYxaW54QKIhksuTBcZ
+	Ls/Qp2Ll+IWwI6lt6U3TUqeP/ELZAT3xRbSrtNZAaMg7N6S4O9YhKkYmsFiLFWh2pM6x9tIXW4m
+	IS4vKBIDKjohUn45LwD+SXDNduvCeBNzTEUOM1Umtk/DybVhZ3nudDXfOX3qa/Ku3NUdMmp91wZ
+	AIlG5yrAEHTKkg5XfQp2sxLtH+KNRt6BV6q82x0yQyxpuO/1SRls+JElJsfWncsIOv+M0y+xJVQ
+	7BiBZY2GeGlubBr8p6ovawr78QcodTw7shq8CGTqvaIhrpnDt8bX7a7MuiNfVsjZo80/P9a1A5G
+	4o62L4nEjGwyEtlu7L2P9eM2tShNBtjTw4F5i4uSBEsJyMVXLQUe19PQI51oVycIF54xjXHUSXE
+	MLjAAY0VlrGXCWhdPtnEpvp61V0eC+J
+X-Received: by 2002:a05:6402:360c:b0:6a6:cc:269e with SMTP id 4fb4d7f45d1cf-6a68257bceamr9136219a12.8.1788448800426;
+        Thu, 03 Sep 2026 08:20:00 -0700 (PDT)
+Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a69a010c72sm997336a12.8.2026.09.03.08.19.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 08:19:54 -0700 (PDT)
-Date: Thu, 3 Sep 2026 08:19:54 -0700
-From: Joe Damato <joe@dama.to>
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, horms@kernel.org,
-	michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
-	kalesh-anakkur.purayil@broadcom.com, colin.winegarden@broadcom.com,
-	rukhsana.ansari@broadcom.com, linux-kernel@vger.kernel.org,
-	raphaelcf@meta.com
-Subject: Re: [PATCH net v5 0/6] Fix a variety of TPA bugs
-Message-ID: <apmQGp1mEhQ1EiEb@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, horms@kernel.org,
-	michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
-	kalesh-anakkur.purayil@broadcom.com, colin.winegarden@broadcom.com,
-	rukhsana.ansari@broadcom.com, linux-kernel@vger.kernel.org,
-	raphaelcf@meta.com
-References: <20260902015652.2421609-1-joe@dama.to>
- <bb4ae7c9-e705-4eff-9813-065ea4bd9514@redhat.com>
+        Thu, 03 Sep 2026 08:19:59 -0700 (PDT)
+Date: Thu, 3 Sep 2026 16:19:55 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: mhiramat@kernel.org, linux-trace-kernel@vger.kernel.org,
+	mathieu.desnoyers@efficios.com, kernel-team@android.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 0/4] ring-buffer: Fixes for subbuf resizing and
+ persistent buffers
+Message-ID: <apmQGwDuvjSn0gzP@google.com>
+References: <20260901155445.1475405-1-vdonnefort@google.com>
+ <20260903103116.6cb7c39c@gandalf.local.home>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,22 +79,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <bb4ae7c9-e705-4eff-9813-065ea4bd9514@redhat.com>
+In-Reply-To: <20260903103116.6cb7c39c@gandalf.local.home>
 
-On Thu, Sep 03, 2026 at 11:37:34AM +0200, Paolo Abeni wrote:
-> On 9/2/26 3:56 AM, Joe Damato wrote:
+On Thu, Sep 03, 2026 at 10:31:16AM -0400, Steven Rostedt wrote:
+> On Tue,  1 Sep 2026 16:54:41 +0100
+> Vincent Donnefort <vdonnefort@google.com> wrote:
+> 
+> > This series addresses multiple issues discovered with the dynamic ring
+> > buffer resizing.
+> > 
+> > I have managed to reproduce a ring_buffer_read_page() race with
+> > 
+> >  $ while true; do for i in 8 16 32; do echo $i > /sys/kernel/tracing/buffer_subbuf_size_kb; sleep 0.1; done; done
+> 
+> Did you do anything else while running the above?
+> 
+> I ask because I ran this for several hours and it didn't produce anything.
+> What bug does it supposed to trigger?
+> 
+> -- Steve
 
-[...]
+I clearly have been imprecise here.
 
-> > I boot tested this on a Thor1 and a Thor2 machine and there were no crashes at
-> > boot.
-> Waiting for Michael's ack here. Note that I think that the AI report on
-> patch 5 is not a blocker.
+I had "trace-record -e sched" and I have just verified with a print that it has
+run into the reader->order != read_page->order case.
 
-Aright. If there's no reply within 24hr of posting do you want me to spin a v6
-that:
-  - fixes the commit message sashiko doesnt like for patch 4
-  - fixes the resets stat it mentions in patch 4
-  - add the return value check for bnxt_init_ring_grps in patch 5
-
-or just leave the series as is ?
+-- 
+Vincent
