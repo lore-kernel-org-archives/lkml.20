@@ -1,150 +1,72 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C1C34EF0C;
-	Thu,  3 Sep 2026 07:32:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0686D440647
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:33:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788420773; cv=none; b=mpfUN1YMcsxASR2FUz5/m4l3dab7T7DvmLFbaAjjJtgZgRPN/AXN+BgIIh4HfVc3lAo8PyLcgU1sV5qAk/HGnNg+iUqW8NJnkjVoVA/JE7k/RdpdBDn6LpVAqNTOrrYJ9k1EXftGVr91Q1ZgP5PQb/ybW/64QSV8Ok8hSQYe3ZI=
+	t=1788420784; cv=none; b=KdA2j3xYUP6vCz5EaFGrdWdZGPgvR/wH2Ieu7efpBzSh6e7SPsogjNDkSPkmJ5ZaK4aw9+NPt/9ts3ISA6E4TxKEsKkqxTFlJTuzuinvdwC+OtEvxsKzQsZaGaKcjxyZfz4bZA8j6XD9dr1pOwlEmnANkygVDJCUy+YpIZ1S9PA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788420773; c=relaxed/simple;
-	bh=LyHlha4NAVc9yMWTVgErJqUXUygFM89InLtyRIi6bzM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=O1l4dWZUMQVdaaLmxnJkJOxuXtf5deEQ5avREwAFUgtJsTkkpJu+DEFVrvilZS6eAxALPI8XVpdI/1Xj3rbM78KEklRHrOXy3izZrVhwLf6tvdWkG3Af9mpHmr2ouuXBuaq0S9b2Gw8bfZVqcandgHd8PM6Qr/TjuwXG6Bot02s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=Be3mug4n; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="Be3mug4n"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260903073242euoutp028273f8b6ecd56cd872bd07708e437933~RvzVL078Z1675416754euoutp02g;
-	Thu,  3 Sep 2026 07:32:42 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260903073242euoutp028273f8b6ecd56cd872bd07708e437933~RvzVL078Z1675416754euoutp02g
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1788420762;
-	bh=+wHQNtUzqWMJSc1lx6xZnDlVX8u6lqdGivmRj3Xx4g8=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=Be3mug4nDx3cwq9l0zEJz6bxShgUmWFhNerr8aSB3+JpOhp9ELT8C2JQyOj6fiw4U
-	 63hQQKr92t6934Lz4jr0aWYWf9gs/krroQ4w+aFShXYrTDqv0AAefQ0qxhBjgLrOnp
-	 2H+8ACOP+2hdFtmyQM7P43B6v62oHP8TSEfYlJfI=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260903073242eucas1p1bf766543283c23d9923ef581b9056525~RvzU88Ke02312023120eucas1p1b;
-	Thu,  3 Sep 2026 07:32:42 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260903073239eusmtip2a4493b60653a6ab9ea0e63ade61f9b93~RvzSMWeKp1596215962eusmtip2K;
-	Thu,  3 Sep 2026 07:32:39 +0000 (GMT)
-Message-ID: <2d0d36ba-db8f-454b-a90b-8eea69e97452@samsung.com>
-Date: Thu, 3 Sep 2026 09:32:38 +0200
+	s=arc-20240116; t=1788420784; c=relaxed/simple;
+	bh=nWmsqPS9FI0LrhgcKaD2/efQz6/CXyeznkML8S8/ouo=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=N/p1DiHSy1GJ5jxHXP0pKlW/Zgjquhimvldco9Q4jT5Vq7cJJyh919tTeQp3NDdpoRAmRNz5UWrn8ibjKPzyHC7Ir/pHcfSRz7TNiwbhjdhuGhaHy9cylQSti4Dwzzbc7+fozmiMxC9wUjU/lsT1azJS79wmlk8COxLNSo+O7tI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7f94a2da216so255325a34.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:33:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788420782; x=1789025582;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=EOjFMMfG7ZQHdZ2PEmpoXhTbohIr8dRdywkr8lfkeoo=;
+        b=rl/cNsGyLdHz6XSQ15JMfWnix8vfOEsoApDoUWVxJtbK2rVjFfG4kfPPUlFPk6O3sw
+         J5XtynmWe8PSdoU7VM3nq2ne127R5rBuBqcf7XdcijoMG8nxUQydywxARsQMsOVlQI2/
+         321iFL8cI4wZfZm72mcUO4tDSxeU1yXegK70mCUX/GouKziZ1u1gg4hAZ4zdMT8mc7FV
+         YSXExWR77RGf+5kL4QrUVsMOq7yw+9Nt9GMjvujKKho+IBTIxg42jzbxJKQfORr4JY1m
+         ewkI8RyDkq6jHj13RieUN7v2M9jQwgIeM5h0ymrgoA5oFaPgNpdyfTrCTuXEnSfDRcAb
+         xK6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwmueKXxbNk1xH61qb5SEIezWLpcrvZjhjapmDsjY1OUit71k7cCbuh3QfKQ8Izx1ZJUD3MXFX+4ELxasQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlRLzbILXhUrljMdpyDzgUULi9f2GBmv4A8vcopiB8AGJ7DXGU
+	pcdpXrxT9ZlFPaODYsB3fneR8k1kA/K1gQuNwfrya9r0GCkTdOaTP1IdIdAyfmqR/xqsfoeZXJW
+	vQjF/VrZS3/KJ1Mkm2WSzcYzWauUUo9gVKZyoNnHsJJWyoZ70F6JUs5fnClM=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v6 08/10] of: reserved_mem: mark /reserved-memory
- entries with MEMBLOCK_NODUMP
-To: Wandun Chen <chenwandun1@gmail.com>, catalin.marinas@arm.com,
-	will@kernel.org, chenhuacai@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
-	aou@eecs.berkeley.edu, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-	dave.hansen@linux.intel.com, x86@kernel.org, robh@kernel.org,
-	saravanak@kernel.org, akpm@linux-foundation.org, baoquan.he@linux.dev,
-	rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org
-Cc: mark.rutland@arm.com, kernel@xen0n.name, alex@ghiti.fr, hpa@zytor.com,
-	ruirui.yang@linux.dev, robin.murphy@arm.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org, kexec@lists.infradead.org, linux-mm@kvack.org,
-	iommu@lists.linux.dev
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20260902073116.802752-9-chenwandun1@gmail.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260903073242eucas1p1bf766543283c23d9923ef581b9056525
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260902073459eucas1p282f20730a9f6dce75cf5a406714b8ed0
-X-EPHeader: CA
-X-CMS-RootMailID: 20260902073459eucas1p282f20730a9f6dce75cf5a406714b8ed0
-References: <20260902073116.802752-1-chenwandun1@gmail.com>
-	<CGME20260902073459eucas1p282f20730a9f6dce75cf5a406714b8ed0@eucas1p2.samsung.com>
-	<20260902073116.802752-9-chenwandun1@gmail.com>
+X-Received: by 2002:a05:6820:f09:b0:6b3:f31f:bd74 with SMTP id
+ 006d021491bc7-6b480a4547emr7604732eaf.20.1788420781851; Thu, 03 Sep 2026
+ 00:33:01 -0700 (PDT)
+Date: Thu, 03 Sep 2026 00:33:01 -0700
+In-Reply-To: <20260903071128.105757-1-khiemtranzo532001@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9922ad.9266084e.bf0d7.00ee.GAE@google.com>
+Subject: Re: [syzbot] [usb?] general protection fault in bus_remove_device
+From: syzbot <syzbot+87188222c77c0dbbdb4d@syzkaller.appspotmail.com>
+To: khiemtranzo532001@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 02.09.2026 09:31, Wandun Chen wrote:
-> From: Wandun Chen <chenwandun@lixiang.com>
->
-> Mark non-dumpable reserved-memory regions with MEMBLOCK_NODUMP so
-> kdump can omit them from the vmcore.
->
-> The marking is guarded by CONFIG_CRASH_DUMP so non-kdump kernels do not
-> pay the cost of splitting memblock.memory entries at NODUMP boundaries.
->
-> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-> Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
+Hello,
 
-Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-> ---
->  drivers/of/fdt.c             |  1 +
->  drivers/of/of_private.h      |  1 +
->  drivers/of/of_reserved_mem.c | 15 +++++++++++++++
->  3 files changed, 17 insertions(+)
->
-> diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-> index a64afc3ded3d..286fd4db6312 100644
-> --- a/drivers/of/fdt.c
-> +++ b/drivers/of/fdt.c
-> @@ -1285,6 +1285,7 @@ void __init unflatten_device_tree(void)
->  
->  	/* Save the statically-placed regions in the reserved_mem array */
->  	fdt_scan_reserved_mem_late();
-> +	fdt_mark_reserve_mem_nodump();
->  
->  	/* Populate an empty root node when bootloader doesn't provide one */
->  	if (!fdt) {
-> diff --git a/drivers/of/of_private.h b/drivers/of/of_private.h
-> index 0ae16da066e2..505735732c13 100644
-> --- a/drivers/of/of_private.h
-> +++ b/drivers/of/of_private.h
-> @@ -187,6 +187,7 @@ static inline struct device_node *__of_get_dma_parent(const struct device_node *
->  
->  int fdt_scan_reserved_mem(void);
->  void __init fdt_scan_reserved_mem_late(void);
-> +void __init fdt_mark_reserve_mem_nodump(void);
->  
->  bool of_fdt_device_is_available(const void *blob, unsigned long node);
->  
-> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-> index 8c9d6395d6a3..f29a07e8fb23 100644
-> --- a/drivers/of/of_reserved_mem.c
-> +++ b/drivers/of/of_reserved_mem.c
-> @@ -677,6 +677,21 @@ static void __init fdt_init_reserved_mem_node(unsigned long node, const char *un
->  	reserved_mem_count++;
->  }
->  
-> +void __init fdt_mark_reserve_mem_nodump(void)
-> +{
-> +	struct reserved_mem *rmem;
-> +	int i;
-> +
-> +	if (!IS_ENABLED(CONFIG_CRASH_DUMP))
-> +		return;
-> +
-> +	for (i = 0; i < reserved_mem_count; i++) {
-> +		rmem = &reserved_mem[i];
-> +		if (rmem->size && !rmem->dumpable)
-> +			memblock_mark_nodump(rmem->base, rmem->size);
-> +	}
-> +}
-> +
->  struct rmem_assigned_device {
->  	struct device *dev;
->  	struct reserved_mem *rmem;
+Reported-by: syzbot+87188222c77c0dbbdb4d@syzkaller.appspotmail.com
+Tested-by: syzbot+87188222c77c0dbbdb4d@syzkaller.appspotmail.com
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+Tested on:
 
+commit:         940de590 Merge tag 'hardening-v7.3-rc2' of git://git.k..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=163f8b49580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=87188222c77c0dbbdb4d
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=12af8b49580000
+
+Note: testing is done by a robot and is best-effort only.
