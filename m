@@ -1,281 +1,194 @@
-Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CBD733C192;
-	Thu,  3 Sep 2026 23:51:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C761B33C192
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 23:53:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788479489; cv=none; b=nV3NdUdUFxsCdhgifcfRNwBc3RDe9JLZgh0P2Tnjxd7JeHasbgqR/G578pX4o+PhT2p6kRhxZ4AtCTt6AMzJYr5/5xIJX2Hq3SFnDkKfOHPbZtBAlV1x+ekIKqG0HRXdfz7L3vE+amLOUE2TMst+EtJseLSUFA2TigfVS9EwASQ=
+	t=1788479593; cv=none; b=N5brHPbYNt50TJhha+SOn45UPOmUNiBLW2GN13OQuF1fDn2d6RAI5nYzDh9O2ZG2eB1BQBcMc44iaKH8brZBJBFK2E8Yq4g3OBYCu6kNrAyKWrCPJ+ZgsGf5rl13NB9hC/im4vrmNoeoFJxUwXVTIOSC0Hdb3KSmujXeeeEIFBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788479489; c=relaxed/simple;
-	bh=whx3MwuuqeUZLwexkSsMN1tzlP1OB0NfURrM/yY9dtw=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=khKe6/FfuP83S/VbOM22fMBFu/VodUwh+0mKIxvMP++jwoWWZqd4fETvqs3eob7nCD/LbiLCsYBa6Ta1/uUO8VM8+0144YQnxkMPyp+X2OesM0c7fLwR1+ZGBKRXLWMRBO/H21ya4KMSsO0lO3X+6DVMisQ/pi4Fq1m84DqE19w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
-Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 683Nol7J013836;
-	Fri, 4 Sep 2026 08:50:47 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
-	(authenticated bits=0)
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 683NokUa013833
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO);
-	Fri, 4 Sep 2026 08:50:47 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Message-ID: <dc2f1e00-5e10-4e02-9415-c6ecb2cbc6b3@I-love.SAKURA.ne.jp>
-Date: Fri, 4 Sep 2026 08:50:46 +0900
+	s=arc-20240116; t=1788479593; c=relaxed/simple;
+	bh=+kIP7y78ResGK0mg1X+wjST5HlfTny0oUXjSjO/YqeU=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=cknHvYem8ml8AFhL6qF1xoPCPGr4dzaT9SbXR0oWAwH82dxUHxHYDmX7d8RTH/2s4xIiraEwNMyN3Hjtv7mV1jUhd2o/5zUxermVwrhm4MffM0gjUMi/zGjNoMhxEm179jrz40opazwSR4ZI+7hfh9INPUj+AD15cxdJnouQzn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Wo7ztnGc; arc=none smtp.client-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Wo7ztnGc"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-398d292eac1so780229a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 16:53:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788479591; x=1789084391; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2UV+8BVa840QAWI1056d4zVig0jh8eLQSYzgvwbA6Us=;
+        b=Wo7ztnGc0rh3an/h5qIhecSfPAwDVw1PF/NSCg8gK/2ya8fsg9zeHclXix54LVmlT+
+         wESpecTrdY2tcnPG5g7a0k+rjSjNNKGPrq4rH9X1vhhqZ4fYWwkRfEs3kXlsEIXzrfD3
+         WPX5G7TK5RyT4GM/vHwoI/tlhCZ3nqfK/DxtUY4YybQn3F6zuW2wRE+Q2ucK4QFkfUvG
+         r6627KKX8VsGm9ZYwx6KG7G47V7dWypfxiZsFaRzjK+5mb3vdF61h8iboBhGlMPWAzkg
+         cGeMI8MtyolaOcDj1wsS84lslVZBp3luhb8YAQNOvBQWPZGfflzCI6SuuwXXt2YM5gJy
+         MkQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788479591; x=1789084391;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2UV+8BVa840QAWI1056d4zVig0jh8eLQSYzgvwbA6Us=;
+        b=dlDH/cfdvrjOylMesIrTlPHiNSm/3ANA1WKBg87ykTr+RmIbHR6fGIZ23i23UFcVer
+         vTuM04wtb9oNSQ30A17geW4QuPbm54B8eZ739XUjec8HsHJeBd3jioa1463nosZIKK1n
+         dHFPB2ym6Bjd8F6/UOCU5jEZzOyLh851lfDdHuE9gUebQIvWGS/qrADkaLC+C8I2jpIZ
+         +uNUx53hPnnyA0YADzBRbSSZiyOs9RPL4pQTzKlla6n/yCkEFoR0QdRQCyg8cSPN4WkP
+         XnOSC8dcnP6ZRvXYGJimOiw488Dl7iNyIdU3KkHIiv0rxAfvM2WZtFIGQj8N6nfmsLx0
+         xhqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxWmoNKCoxD991ZaZJJmh8TucvDZp1sue6wvfl+mmSKVwREH5el9J4RKUMhdwoKW0S6FoAfR58RxZzwLpg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mkpJNUZXMhaIPW/CVmHf3f2M/f8sD4K9pjIRFH26GyOW3HGbPY
+	WbwoboHopXtVUjy5+4mhBT3ZrvpqkSA4wVkWbt8P+eyjQQQtMV9eGPZ1aOTWfEnAvRqGyXRXAf8
+	M2ETURhwgscyLS4Xo6/bPSg==
+X-Received: from pjbqi2.prod.google.com ([2002:a17:90b:2742:b0:39b:1f3d:2676])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:2ccb:b0:398:9be8:ea64 with SMTP id 98e67ed59e1d1-39b261d8533mr3377437a91.17.1788479590823;
+ Thu, 03 Sep 2026 16:53:10 -0700 (PDT)
+Date: Fri,  4 Sep 2026 07:53:08 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH v8] loop: Fix NULL pointer dereference in lo_rw_aio()
-From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-To: Bart Van Assche <bvanassche@acm.org>,
-        Markus Elfring <Markus.Elfring@web.de>, linux-block@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org,
-        Alexander Viro <viro@zeniv.linux.org.uk>,
-        Damien Le Moal <dlemoal@kernel.org>, Jens Axboe <axboe@kernel.dk>
-Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org, lkp@intel.com,
-        oe-lkp@lists.linux.dev, Christian Brauner <brauner@kernel.org>,
-        Christoph Hellwig <hch@infradead.org>, Christoph Hellwig <hch@lst.de>,
-        Hillf Danton <hdanton@sina.com>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Mark Brown <broonie@kernel.org>, Oliver Sang <oliver.sang@intel.com>,
-        linux-btrfs@vger.kernel.org
-References: <8dedfc40-9cae-44ff-9960-e0eb1825e963@I-love.SAKURA.ne.jp>
- <550ff0b4-df39-46d2-9781-c8688df10c93@web.de>
- <38ad64c1-edc7-431d-8f52-fba572ebf3eb@I-love.SAKURA.ne.jp>
- <372ca5f6-81a0-4f6c-8f55-ebeeada9f955@acm.org>
- <27bcb147-bead-4432-8cd0-981489f36228@acm.org>
- <c41e9198-86a8-4bcd-a608-6f457b24f345@I-love.SAKURA.ne.jp>
- <7e51bca8-218a-40b8-8ff8-fc59671f5add@acm.org>
- <3bb080d0-4421-4012-8a62-6a2bf165cbd9@I-love.SAKURA.ne.jp>
- <d2f387b9-031a-4306-9323-56f98a8241b7@acm.org>
- <e5518546-701e-4d3c-a077-18e34aa8c188@I-love.SAKURA.ne.jp>
- <c0df5f39-d103-4e36-9807-df0ae0247772@acm.org>
- <c2ab2547-63b3-48cf-87c1-fc53219e360a@I-love.SAKURA.ne.jp>
- <d0471919-9b71-4d24-9fb8-5f1d7f3792ca@acm.org>
- <903a22a2-432c-4e72-bc09-7898becf2f3e@I-love.SAKURA.ne.jp>
- <d7e26d4b-d9b9-47c0-9658-c241499209b5@acm.org>
- <9ac07477-b2be-482b-9e97-87acf9635307@I-love.SAKURA.ne.jp>
-Content-Language: en-US
-In-Reply-To: <9ac07477-b2be-482b-9e97-87acf9635307@I-love.SAKURA.ne.jp>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Anti-Virus-Server: fsav212.rs.sakura.ne.jp
-X-Virus-Status: clean
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
+Message-ID: <20260903235308.1240963-1-stanleyjhu@google.com>
+Subject: [PATCH] scsi: ufs: core: Add fault injection for task abort failures
+From: Stanley Jhu <stanleyjhu@google.com>
+To: "Martin K . Petersen" <mkp@kernel.org>, 
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: Bart Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Avri Altman <avri.altman@sandisk.com>, Peter Wang <peter.wang@mediatek.com>, 
+	Bean Huo <beanhuo@micron.com>, Can Guo <can.guo@oss.qualcomm.com>, 
+	Hyeoncheol Jeong <hyenc.jeong@samsung.com>, Po-Wen Kao <powenkao@google.com>, 
+	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stanley Jhu <stanleyjhu@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-syzbot is reporting NULL pointer dereference in lo_rw_aio() [1][2].
-An analysis by the Gemini AI collaborator [3] considers that this problem
-is caused by a timing shift primarily exposed by commit 65565ca5f99b
-("block: unify the synchronous bi_end_io callbacks"), along with helper
-refactorings like commit 92c3737a2473 ("block: add a bio_submit_or_kill
-helper").
+Commit 045da3077bc5 ("scsi: ufs: core: Make fault injection dynamically
+configurable per HBA") added fault injection support for UFS error
+handling and completion timeouts. However, there was no fault
+injection capability to simulate task abort failures.
 
-But due to difficulty of reproducing this race, discussion about what is
-happening and how to fix this problem is stalling. Also, we haven't
-identified how many filesystems are subjected to this problem.
+Both legacy single-doorbell mode (in ufshcd_abort()) and MCQ mode (in
+ufshcd_mcq_abort()) invoke ufshcd_try_to_abort_task() to query device
+status and execute task aborts.
 
-Therefore, introduce a grace period for flushing outstanding I/O
-(which should be a good thing from the perspective of defensive
-programming) so that we won't hit NULL pointer dereference problem.
+Add fault injection support for task abort:
+- Add "abort" module parameter and "abort_inject" debugfs attribute.
+- Hook ufs_fail_abort() at the entry of ufshcd_try_to_abort_task() to
+  short-circuit task abort with -EIO. This universally simulates task
+  abort failure across both single-doorbell and MCQ modes without
+  incurring query polling delays.
 
-However, calling drain_workqueue() from __loop_clr_fd() with
-disk->open_mutex held causes lockdep warnings. We need to flush
-outstanding I/O without disk->open_mutex held. But we can't use task work
-context, for there is no way to reliably wait for completion of a task work
-function inside a loadable module when module unloading code for that
-loadable module has started. We need to use a callback function which is
-embedded into a built-in module so that it can reliably wait for completion
-of synchronous teardown for the loop driver module.
-
-Therefore, add a dedicated callback for the loop module to the block core
-layer, and invoke that callback immediately after disk->open_mutex is
-released. It is possible that multiple threads invoke that callback
-when a teardown work was scheduled because disk->open_mutex was already
-released, but concurrently calling flush_work() in order to wait for
-completion of an outstanding teardown work will be safe.
-
-Link: https://syzkaller.appspot.com/bug?extid=cd8a9a308e879a4e2c28 [1]
-Link: https://syzkaller.appspot.com/bug?extid=bc273027d5643e48e5b3 [2]
-Link: https://lkml.kernel.org/r/fbb3edda-f108-4e5b-acf2-266f043f8125@I-love.SAKURA.ne.jp [3]
-Link: https://lkml.kernel.org/r/9f8b5ab0-efbc-4cf3-a1f8-b43377416946@I-love.SAKURA.ne.jp [4]
-Fixes: 65565ca5f99b ("block: unify the synchronous bi_end_io callbacks")
-Assisted-by: Gemini-Pro
-Signed-off-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 ---
-What this patch does is basically the same with the v6 patch. Can this be
-a possible alternative for Bart's
+ drivers/ufs/core/ufs-fault-injection.c | 15 +++++++++++++++
+ drivers/ufs/core/ufs-fault-injection.h |  6 ++++++
+ drivers/ufs/core/ufshcd.c              |  2 ++
+ include/ufs/ufshcd.h                   |  1 +
+ 4 files changed, 24 insertions(+)
 
-  Releasing and reacquiring disk->open_mutex from __loop_clr_fd() seems
-  risky to me. There is plenty of code in block/bdev.c that assumes that
-  disk->open_mutex is not released by lo_release().
-
-comment?
-
- block/bdev.c           |  2 ++
- drivers/block/loop.c   | 65 +++++++++++++++++++++++++++++++++---------
- include/linux/blkdev.h |  5 ++++
- 3 files changed, 59 insertions(+), 13 deletions(-)
-
-diff --git a/block/bdev.c b/block/bdev.c
-index cd8323083740..7ce5acaacf43 100644
---- a/block/bdev.c
-+++ b/block/bdev.c
-@@ -1188,6 +1188,8 @@ void bdev_release(struct file *bdev_file)
- 	else
- 		blkdev_put_whole(bdev);
- 	mutex_unlock(&disk->open_mutex);
-+	if (bdev->bd_disk->fops->post_release)
-+		bdev->bd_disk->fops->post_release(bdev->bd_disk);
+diff --git a/drivers/ufs/core/ufs-fault-injection.c b/drivers/ufs/core/ufs-fault-injection.c
+index 55db38e75cc4..25ae763da4f6 100644
+--- a/drivers/ufs/core/ufs-fault-injection.c
++++ b/drivers/ufs/core/ufs-fault-injection.c
+@@ -34,6 +34,12 @@ MODULE_PARM_DESC(timeout,
+ 	"Fault injection. timeout=<interval>,<probability>,<space>,<times>");
+ static DECLARE_FAULT_ATTR(ufs_timeout_attr);
  
- 	module_put(disk->fops->owner);
- put_no_open:
-diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-index 6f12976035b0..620298978706 100644
---- a/drivers/block/loop.c
-+++ b/drivers/block/loop.c
-@@ -75,6 +75,7 @@ struct loop_device {
- 	struct gendisk		*lo_disk;
- 	struct mutex		lo_mutex;
- 	bool			idr_visible;
-+	struct work_struct	lo_clr_work;
- };
- 
- struct loop_cmd {
-@@ -1134,13 +1135,42 @@ static int loop_configure(struct loop_device *lo, blk_mode_t mode,
- 	return error;
- }
- 
--static void __loop_clr_fd(struct loop_device *lo)
-+static void __loop_clr_fd(struct work_struct *work)
++static char g_abort_str[FAULT_INJ_STR_SIZE];
++module_param_cb(abort, &ufs_fault_ops, g_abort_str, 0644);
++MODULE_PARM_DESC(abort,
++		 "Fault injection. abort=<interval>,<probability>,<space>,<times>");
++static DECLARE_FAULT_ATTR(ufs_abort_attr);
++
+ static int ufs_fault_get(char *buffer, const struct kernel_param *kp)
  {
-+	struct loop_device *lo = container_of(work, struct loop_device, lo_clr_work);
-+	struct gendisk *disk = lo->lo_disk;
- 	struct queue_limits lim;
- 	struct file *filp;
- 	gfp_t gfp = lo->old_gfp_mask;
- 	int err;
+ 	const char *fault_str = kp->arg;
+@@ -49,6 +55,8 @@ static int ufs_fault_set(const char *val, const struct kernel_param *kp)
+ 		attr = &ufs_trigger_eh_attr;
+ 	else if (kp->arg == g_timeout_str)
+ 		attr = &ufs_timeout_attr;
++	else if (kp->arg == g_abort_str)
++		attr = &ufs_abort_attr;
  
-+	/* Step 1: Flush all outstanding I/O, without open_mutex held. */
-+	/*
-+	 * Since loop_queue_rq() is called with RCU read lock, this synchronize_rcu()
-+	 * makes sure that no more queue_work() calls are made from loop_queue_work()
-+	 * from loop_queue_rq(). Subsequent loop_queue_rq() calls which are made after
-+	 * this synchronize_rcu() returned shall see lo->lo_state != Lo_bound and
-+	 * return with BLK_STS_IOERR.
-+	 */
-+	synchronize_rcu();
-+	/*
-+	 * This drain_workqueue() makes sure that no more loop_handle_cmd() calls are
-+	 * made from loop_process_work() from loop_workfn()/loop_rootcg_workfn().
-+	 */
-+	drain_workqueue(lo->workqueue);
-+	/*
-+	 * This blk_mq_freeze_queue() waits for completion of all outstanding I/O
-+	 * which has been scheduled via loop_queue_rq(), by waiting for q_usage_counter
-+	 * to reach 0. Since the lo->lo_state != Lo_bound check in loop_queue_rq()
-+	 * guarantees that no more new I/O requests are made, we can call
-+	 * blk_mq_unfreeze_queue() immediately after blk_mq_freeze_queue() returns.
-+	 */
-+	blk_mq_unfreeze_queue(lo->lo_queue, blk_mq_freeze_queue(lo->lo_queue));
-+
-+	/* Step 2: Perform remaining cleanup, with open_mutex held. */
-+	mutex_lock(&disk->open_mutex);
-+	WARN_ON_ONCE(lo->lo_state != Lo_rundown);
-+
- 	spin_lock_irq(&lo->lo_lock);
- 	filp = lo->lo_backing_file;
- 	lo->lo_backing_file = NULL;
-@@ -1151,12 +1181,7 @@ static void __loop_clr_fd(struct loop_device *lo)
- 	lo->lo_sizelimit = 0;
- 	memset(lo->lo_file_name, 0, LO_NAME_SIZE);
- 
--	/*
--	 * Reset the block size to the default.
--	 *
--	 * No queue freezing needed because this is called from the final
--	 * ->release call only, so there can't be any outstanding I/O.
--	 */
-+	/* Reset the block size to the default. */
- 	lim = queue_limits_start_update(lo->lo_queue);
- 	lim.logical_block_size = SECTOR_SIZE;
- 	lim.physical_block_size = SECTOR_SIZE;
-@@ -1199,11 +1224,9 @@ static void __loop_clr_fd(struct loop_device *lo)
- 	WRITE_ONCE(lo->lo_state, Lo_unbound);
- 	mutex_unlock(&lo->lo_mutex);
- 
--	/*
--	 * Need not hold lo_mutex to fput backing file. Calling fput holding
--	 * lo_mutex triggers a circular lock dependency possibility warning as
--	 * fput can take open_mutex which is usually taken before lo_mutex.
--	 */
-+	/* Step 3: Drop refcounts, without open_mutex held. */
-+	mutex_unlock(&disk->open_mutex);
-+
- 	fput(filp);
+ 	if (WARN_ON_ONCE(!attr))
+ 		return -EINVAL;
+@@ -65,9 +73,11 @@ void ufs_fault_inject_hba_init(struct ufs_hba *hba)
+ {
+ 	hba->trigger_eh_attr = ufs_trigger_eh_attr;
+ 	hba->timeout_attr = ufs_timeout_attr;
++	hba->abort_attr = ufs_abort_attr;
+ #ifdef CONFIG_FAULT_INJECTION_DEBUG_FS
+ 	fault_create_debugfs_attr("trigger_eh_inject", hba->debugfs_root, &hba->trigger_eh_attr);
+ 	fault_create_debugfs_attr("timeout_inject", hba->debugfs_root, &hba->timeout_attr);
++	fault_create_debugfs_attr("abort_inject", hba->debugfs_root, &hba->abort_attr);
+ #endif
  }
  
-@@ -1769,8 +1792,22 @@ static void lo_release(struct gendisk *disk)
- 	need_clear = (lo->lo_state == Lo_rundown);
- 	mutex_unlock(&lo->lo_mutex);
- 
-+	/*
-+	 * In order to flush outstanding I/O (without open_mutex for deadlock
-+	 * avoidance) before clearing the backing device, defer __loop_clr_fd()
-+	 * to WQ context and let lo_post_release() wait for completion.
-+	 * The Lo_rundown state guarantees that lo_open() will fail with -ENXIO.
-+	 */
- 	if (need_clear)
--		__loop_clr_fd(lo);
-+		queue_work(system_long_wq, &lo->lo_clr_work);
-+}
+@@ -80,3 +90,8 @@ bool ufs_fail_completion(struct ufs_hba *hba)
+ {
+ 	return should_fail(&hba->timeout_attr, 1);
+ }
 +
-+static void lo_post_release(struct gendisk *disk)
++bool ufs_fail_abort(struct ufs_hba *hba)
 +{
-+	struct loop_device *lo = disk->private_data;
-+
-+	/* Wait for __loop_clr_fd() to complete. */
-+	flush_work(&lo->lo_clr_work);
++	return should_fail(&hba->abort_attr, 1);
++}
+diff --git a/drivers/ufs/core/ufs-fault-injection.h b/drivers/ufs/core/ufs-fault-injection.h
+index d0c870e19f0e..56725e3d4556 100644
+--- a/drivers/ufs/core/ufs-fault-injection.h
++++ b/drivers/ufs/core/ufs-fault-injection.h
+@@ -12,6 +12,7 @@ struct ufs_hba;
+ void ufs_fault_inject_hba_init(struct ufs_hba *hba);
+ bool ufs_trigger_eh(struct ufs_hba *hba);
+ bool ufs_fail_completion(struct ufs_hba *hba);
++bool ufs_fail_abort(struct ufs_hba *hba);
+ #else
+ static inline void ufs_fault_inject_hba_init(struct ufs_hba *hba)
+ {
+@@ -26,6 +27,11 @@ static inline bool ufs_fail_completion(struct ufs_hba *hba)
+ {
+ 	return false;
  }
++
++static inline bool ufs_fail_abort(struct ufs_hba *hba)
++{
++	return false;
++}
+ #endif
  
- static void lo_free_disk(struct gendisk *disk)
-@@ -1789,6 +1826,7 @@ static const struct block_device_operations lo_fops = {
- 	.owner =	THIS_MODULE,
- 	.open =         lo_open,
- 	.release =	lo_release,
-+	.post_release = lo_post_release,
- 	.ioctl =	lo_ioctl,
- #ifdef CONFIG_COMPAT
- 	.compat_ioctl =	lo_compat_ioctl,
-@@ -2034,6 +2072,7 @@ static int loop_add(int i)
- 	lo = kzalloc_obj(*lo);
- 	if (!lo)
- 		goto out;
-+	INIT_WORK(&lo->lo_clr_work, __loop_clr_fd);
- 	lo->worker_tree = RB_ROOT;
- 	INIT_LIST_HEAD(&lo->idle_worker_list);
- 	timer_setup(&lo->timer, loop_free_idle_workers_timer, TIMER_DEFERRABLE);
-diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-index 4f7905c3412b..5172d6bdd9e7 100644
---- a/include/linux/blkdev.h
-+++ b/include/linux/blkdev.h
-@@ -1605,6 +1605,11 @@ struct block_device_operations {
- 	 * driver.
- 	 */
- 	int (*alternative_gpt_sector)(struct gendisk *disk, sector_t *sector);
-+	/*
-+	 * Special callback for synchronous cleanup without open_mutex.
-+	 * Needed by loop devices.
-+	 */
-+	void (*post_release)(struct gendisk *disk);
- };
+ #endif /* _UFS_FAULT_INJECTION_H */
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index 2ba244cf40ac..a25b6a0cb5c6 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -7990,6 +7990,8 @@ int ufshcd_try_to_abort_task(struct ufs_hba *hba, int tag)
+ 		return -EINVAL;
  
- #ifdef CONFIG_COMPAT
+ 	lrbp = scsi_cmd_priv(cmd);
++	if (ufs_fail_abort(hba))
++		return -EIO;
+ 
+ 	for (poll_cnt = 100; poll_cnt; poll_cnt--) {
+ 		err = ufshcd_issue_tm_cmd(hba, lrbp->lun, tag, UFS_QUERY_TASK,
+diff --git a/include/ufs/ufshcd.h b/include/ufs/ufshcd.h
+index dfd302f2dc7c..dbf326efdbc4 100644
+--- a/include/ufs/ufshcd.h
++++ b/include/ufs/ufshcd.h
+@@ -1245,6 +1245,7 @@ struct ufs_hba {
+ #ifdef CONFIG_SCSI_UFS_FAULT_INJECTION
+ 	struct fault_attr trigger_eh_attr;
+ 	struct fault_attr timeout_attr;
++	struct fault_attr abort_attr;
+ #endif
+ 	u32 luns_avail;
+ 	unsigned int nr_hw_queues;
 -- 
-2.55.0
+2.55.0.970.g62bdec98f9-goog
+
