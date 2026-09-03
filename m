@@ -1,61 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-110.mta1.migadu.com [95.215.58.110])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63C114E80C8;
-	Thu,  3 Sep 2026 16:08:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25AE44C680E
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:08:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.110
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788451705; cv=none; b=Kym1Lr354NkUhVAJG4mrH8GMWlD9mDfDsA6HzJ1VY1sU2TvQgno/itktxKle5obdlSHwW2YzQsQ9ADWH/LIBrcQGrT0ETp+gK2rgkuNOQ3cPAIromjxG3JH8Jjw4LyIGP7nWfNhUW7EdsYzNz88oDITdzi60VLjGkRzi8se1ASs=
+	t=1788451707; cv=none; b=ShJfTSvjiqRGm2FZF+/h0OEmzrp7tkOO9UFCb9Uwgo/q1vlIdT5gfSwOaaExU1BJh2+znZu/vlYLiP2H3RvR5I6Vw6vjavxm19h38SrYMLdzK9DRqtzmwWpXVRRbZ0NqjsHZ9tihOjhak+VDjfRm7br4Tjf2kOfWfSy/ZqLMh3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788451705; c=relaxed/simple;
-	bh=DxN8Hyoam5c0GZ2624uWMxajZpHQfc6Q7Yblf8SgrUY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S273gbjX4ar7IymgaoZLtotusVkLb7Y9xwZyABaH9QTQfnqDhZgpUXz1KGym3vJKmvCgxxx82yPVENivfqzQ/mNEDy/JqkCo3Ng1pgtIUzmFY/cIZl+JnN3AzasXBKbuh48VNZ7upbNe+HCjHD6DJkdGebPMilNnHOMPue8xfGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oa/hzOSu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788451707; c=relaxed/simple;
+	bh=ST1d9tXf3lfByRvx1HzA3LALhNpAbVpeUQp5sPZRsq0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=t/SCD8WU9cDfCrxMjxnkzbD4Il4fSiLeI83N92gufQEWONhFsDSw9V0VzG9Tw9UJHTMBfMAF+xnxGUimfaCZs8Bi3HaUEnsfdrJNV4CvmdyE8PgjVJaQOXBQLmkqjrjD/kPGCHUY1P25SyQzNh/t4NGkPSgLaP9B1RmZkOqIUcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=lDZzHjn+; arc=none smtp.client-ip=95.215.58.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oa/hzOSu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE13D1F00A3D;
-	Thu,  3 Sep 2026 16:08:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788451703;
-	bh=RXaT6lx0rhnQm+iJAkxisCmWA+MWiEkz5wZYq6QWGXw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Oa/hzOSummlOrPk+3seebxJI8Znj9p3bA7J+e3lb6cwQce4ux9UJoEgGYmjNJMkoh
-	 P+Wji9Tdw1BQlXaMWmLXcpwrfbXz8Aiwpkx2JL1f3jEppr+dDlLDzIdxSEvYjSKImv
-	 TPowpZLNhSZQYFTyM+eb5jwsotrCzhO5rjB3M01K2TJ9TjOAKT9HPYLvHz9TdPYlU2
-	 D1gY7XQiRFWYx+kleRTkAR9jFBnplk5dUMVaLWMgEFjI1LOn563wLWN+mAWYaAu0YN
-	 K29cJu8fMpIuylC+gz1QbOsD9WGVgX+F5ZMRv05zCzJEbmIcOzA70hSaP5bERAmjRb
-	 HrznozOqCZNTQ==
-Date: Thu, 3 Sep 2026 21:38:19 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: naga chaithanya <nagachaithanya9911@gmail.com>
-Cc: Frank Li <Frank.li@oss.nxp.com>, Frank Li <Frank.Li@kernel.org>,
-	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dmaengine: dw-axi-dmac: convert clock handling to
- clk_bulk API
-Message-ID: <apmbc04cjkoM8ijy@vaman>
-References: <an3y4lS-ZE4CdJ7R@SMW015318>
- <20260816054858.2667380-1-nagachaithanya9911@gmail.com>
- <aoYCgWfzCmjT637e@lizhi-Precision-Tower-5810>
- <CALFZYQUrxNp3W2WvL0oWWEKUFxKnLyfbYyOzE3aNBWWG-pf0kQ@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="lDZzHjn+"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ST1d9tXf3lfByRvx1HzA3LALhNpAbVpeUQp5sPZRsq0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788451700; v=1; x=1789056500;
+ b=lDZzHjn+fKJ0tLRsM2GJ+qSvZcB8UsdsbBmPxpHGFg+3AL+vz+hUys6KPGXW+N8RvsdKlHEH
+ 2hr7oe5U2kGW4o1rJqiU8yUnG1cS7BQJIDNJkvC07eXqkGyEW5iqaouPIVa983fLNAwag6j1xit
+ bEbVVHcGSHN9svNtiijaxzEE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9b1f55877e308f33;
+	Thu, 03 Sep 2026 16:08:20 +0000
+X-Mizu-Trace-ID: 9b1f55877e308f33
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>
+Cc: James Morse <james.morse@arm.com>,
+	Ben Horgan <ben.horgan@arm.com>,
+	Xi Ruoyao <xry111@xry111.site>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Gavin Shan <gshan@redhat.com>,
+	Fuad Tabba <tabba@google.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] KVM: arm64: Trap guest MPAM accesses whenever MPAM is implemented
+Date: Thu,  3 Sep 2026 17:08:19 +0100
+Message-Id: <20260903160819.831518-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CALFZYQUrxNp3W2WvL0oWWEKUFxKnLyfbYyOzE3aNBWWG-pf0kQ@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On 20-08-26, 08:32, naga chaithanya wrote:
-> Hi Frank,
-> 
-> Thanks for the review. I apologize for the threading error and will ensure
-> future versions are sent as new threads.
+finalise_el2_state() clears the EL2 MPAM traps whenever the ID registers
+advertise MPAM, but KVM sets them only when ARM64_MPAM is set, which
+also requires MPAMEN. Without EL3 the enable is EL2's own and nothing
+sets it, so the cap stays off and a guest reaches the MPAM registers
+while ID_AA64PFR0_EL1.MPAM reads 0 for it.
 
-and DO_NOT top post!
+Gate the traps on the ID registers alone. MPAMEN is not a term in any
+MPAM accessor, so they take effect without it. finalise_el2_state
+already wrote MPAM2_EL2 under the same condition, so MPAM3_EL3.TRAPLOWER
+is clear wherever the cap is set, and arm64.nompam still clears it.
 
+Fixes: 31ff96c38ea3 ("KVM: arm64: Fix missing traps of guest accesses to the MPAM registers")
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+Found this while working on the other MPAM thread [1].
+
+[1] https://lore.kernel.org/all/CA+EHjTxeWxZiuSmnKLGLxTBXP4oJT7-LuffbPAyCSZZ5TW=5Ew@mail.gmail.com/
+
+ arch/arm64/include/asm/cpufeature.h     |  5 +++++
+ arch/arm64/kernel/cpufeature.c          | 13 +++++++++++++
+ arch/arm64/kvm/hyp/include/hyp/switch.h |  4 ++--
+ arch/arm64/tools/cpucaps                |  1 +
+ 4 files changed, 21 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/include/asm/cpufeature.h b/arch/arm64/include/asm/cpufeature.h
+index 7404a6e83a930..8863ae99596bc 100644
+--- a/arch/arm64/include/asm/cpufeature.h
++++ b/arch/arm64/include/asm/cpufeature.h
+@@ -873,6 +873,11 @@ static __always_inline bool system_supports_mpam_hcr(void)
+ 	return alternative_has_cap_unlikely(ARM64_MPAM_HCR);
+ }
+ 
++static __always_inline bool system_supports_mpam_sysregs(void)
++{
++	return alternative_has_cap_unlikely(ARM64_MPAM_SYSREGS);
++}
++
+ static inline bool system_supports_pmuv3(void)
+ {
+ 	return cpus_have_final_cap(ARM64_HAS_PMUV3);
+diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
+index 17b83a2518a8f..36a27692e5cf7 100644
+--- a/arch/arm64/kernel/cpufeature.c
++++ b/arch/arm64/kernel/cpufeature.c
+@@ -2501,6 +2501,13 @@ test_has_mpam(const struct arm64_cpu_capabilities *entry, int scope)
+ 	return (read_sysreg_s(SYS_MPAM1_EL1) & MPAM1_EL1_MPAMEN);
+ }
+ 
++static bool
++test_has_mpam_sysregs(const struct arm64_cpu_capabilities *entry, int __unused)
++{
++	/* The registers exist whether or not firmware enabled MPAM. */
++	return detect_ftr_has_mpam();
++}
++
+ static void
+ cpu_enable_mpam(const struct arm64_cpu_capabilities *entry)
+ {
+@@ -3116,6 +3123,12 @@ static const struct arm64_cpu_capabilities arm64_features[] = {
+ 		.matches = test_has_mpam,
+ 		.cpu_enable = cpu_enable_mpam,
+ 	},
++	{
++		.desc = "Memory Partitioning And Monitoring system registers",
++		.type = ARM64_CPUCAP_SYSTEM_FEATURE,
++		.capability = ARM64_MPAM_SYSREGS,
++		.matches = test_has_mpam_sysregs,
++	},
+ 	{
+ 		.desc = "Memory Partitioning And Monitoring Virtualisation",
+ 		.type = ARM64_CPUCAP_SYSTEM_FEATURE,
+diff --git a/arch/arm64/kvm/hyp/include/hyp/switch.h b/arch/arm64/kvm/hyp/include/hyp/switch.h
+index 1ce7130e25490..8941335724f6b 100644
+--- a/arch/arm64/kvm/hyp/include/hyp/switch.h
++++ b/arch/arm64/kvm/hyp/include/hyp/switch.h
+@@ -298,7 +298,7 @@ static inline void  __activate_traps_mpam(struct kvm_vcpu *vcpu)
+ 	u64 clr = MPAM2_EL2_EnMPAMSM;
+ 	u64 set = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1;
+ 
+-	if (!system_supports_mpam())
++	if (!system_supports_mpam_sysregs())
+ 		return;
+ 
+ 	/* trap guest access to MPAMIDR_EL1 */
+@@ -317,7 +317,7 @@ static inline void __deactivate_traps_mpam(void)
+ 	u64 clr = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1 | MPAM2_EL2_TIDR;
+ 	u64 set = MPAM2_EL2_EnMPAMSM;
+ 
+-	if (!system_supports_mpam())
++	if (!system_supports_mpam_sysregs())
+ 		return;
+ 
+ 	sysreg_clear_set_s(SYS_MPAM2_EL2, clr, set);
+diff --git a/arch/arm64/tools/cpucaps b/arch/arm64/tools/cpucaps
+index 2775ba3359cfe..aa5be51385f68 100644
+--- a/arch/arm64/tools/cpucaps
++++ b/arch/arm64/tools/cpucaps
+@@ -78,6 +78,7 @@ KVM_PROTECTED_MODE
+ MISMATCHED_CACHE_TYPE
+ MPAM
+ MPAM_HCR
++MPAM_SYSREGS
+ MTE
+ MTE_ASYMM
+ MTE_FAR
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
 -- 
-~Vinod
+2.39.5
+
