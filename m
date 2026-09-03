@@ -1,116 +1,122 @@
-Received: from odysseus.grml.info (odysseus.grml.info [136.243.234.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D13E4AF9C0
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 18:26:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.243.234.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6B6D4F30D4;
+	Thu,  3 Sep 2026 18:26:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788459997; cv=none; b=TfUbYV2guf2bZJxskQzW1o2EC5a9VKd7orH1kH1ApOfQhzVhuvaD+WcfPYFznSo8eczy+vjFy+EuuDRCMiREWIUhRYYYVL8UelJZARPjBjq9i7/dhG7F+Oi5jc7buJ3tGmM1qvUiBd1zONurDAMemNP7iNUG8Ow5vNh4ubKuo4o=
+	t=1788460003; cv=none; b=JkD1Nu0T+9AYyzXnEEMKNQCBcuMvb+RyAnRanYPsx2uhNiFa2yMxOw72vTf+7fmOIMhxbqHL1YOrd1BDJbjfZleSx3DgesjdbDAoOFQ3I26/46VAUEuRuLsfX2YzvEUrxSx/wK5/tTYPXEyDs4D0GGdBEKdo4dVoWSmUOeKq7eA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788459997; c=relaxed/simple;
-	bh=V7bLju8QLtAB9iAAeasLOaAaxSOHr+NdyBPoNGgzAq4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=KO3f+bsnnnKZRoUhMjQv5NWjIBIK1KlfbbXaWmjRvVTVBKhgvK5VGQb+uE1B4Qp3lU8i4ZgWYXbt2qhuJdVrjpS9FLAwGUuxUmaM+yuY4HGtMZq94h614SQXTBy2RZVVQ2BxT3xu4Wrlzb7BQa27QDgCQhMBZxxaKvMWl2kVbzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grml.org; spf=pass smtp.mailfrom=michael-prokop.at; arc=none smtp.client-ip=136.243.234.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grml.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=michael-prokop.at
-Received: by odysseus.grml.info (Postfix, from userid 105)
-	id B318140156; Thu,  3 Sep 2026 20:20:58 +0200 (CEST)
-X-Spam-Level: 
-X-Spam-Relay-Country: 
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by odysseus.grml.info (Postfix) with ESMTP id CC0C540032;
-	Thu,  3 Sep 2026 20:20:51 +0200 (CEST)
-From: Michael Prokop <mika@grml.org>
-To: linux-kernel@vger.kernel.org
-Cc: Dan Moulding <dmoulding@me.com>,
-	Michael Prokop <mika@grml.org>
-Subject: [PATCH 1/1] init/version.c: fix NULL pointer dereference on bare "hostname" param
-Date: Thu,  3 Sep 2026 20:20:29 +0200
-Message-Id: <20260903182029.3329686-1-mika@grml.org>
-X-Mailer: git-send-email 2.30.2
+	s=arc-20240116; t=1788460003; c=relaxed/simple;
+	bh=8HKNT4Quc+l1QMgCNYqlOsACz8lrus7AgcUoZu++PiU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=bjG/zhROJbXwAPDLUeMIkH2s6BWG10vLgL6hf9elmwuNnqWfv5NwpDEigRFHERL7ayk15/nrH7j+jnONFHygQWmOVMOCw5+T5NzUpHfuPoMRKmbhxT2kl7ZeNa3auUsXeT+zuKPmFvN0vQ2cGcbGoNrGsLoMhLNwsxPiJ475ZU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BNoLW0d+; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BNoLW0d+"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 53947C2BCFB;
+	Thu,  3 Sep 2026 18:26:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788460003;
+	bh=8HKNT4Quc+l1QMgCNYqlOsACz8lrus7AgcUoZu++PiU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=BNoLW0d+cwRtxsdFwpdfJ5bWX6FmvCkf/RyrIYAR9I3HgoJsRQ4lJvMRejICexQ8V
+	 Gfww0ZeZR8WXy3ZXe1uO8kI9uzNj/luTFowrB1L9OTYM0sEIhT8CnL6igBEyzjIh5D
+	 GlTtGZbjrUNhmsQnMH3fK6gu+COXlz8k5eegXukDVvTiG81Dy3NCCS0zkxjNRGEbCU
+	 Af7tSKSaa7Rq3GAPqoqlynL6pBflIeGWfDnm7F/1GJ/xpk5y/PuDjB0msxVG4asfLk
+	 z+TkcAf9nPbShzIsCiOlQmeqr50e7AbysgCBSh+DhphX4iTC+FjTGNKc18i79gjsmD
+	 fpXm85L7CnlnA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3285DC624DB;
+	Thu,  3 Sep 2026 18:26:43 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Thu, 03 Sep 2026 20:26:38 +0200
+Subject: [PATCH RFC v2 2/6] ASoC: qcom: sdm845: use DSP_A format for TDM
+ codec DAIs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-pixel3-audio-v2-2-7c22ed915291@ixit.cz>
+References: <20260903-pixel3-audio-v2-0-7c22ed915291@ixit.cz>
+In-Reply-To: <20260903-pixel3-audio-v2-0-7c22ed915291@ixit.cz>
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ David Rhodes <david.rhodes@cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ David Rhodes <drhodes@opensource.cirrus.com>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com, 
+ devicetree@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1269; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=1wKqiBzByWUp0kGcvJt9kwURHXbEVlcog8LeXEB9/TU=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqmbvhddqIGVtEXOs2uUDDcFfq0XRCR8ZgEfEHf
+ NbQDtltCjCJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCapm74QAKCRBgAj/E00kg
+ cq4ID/44AlVuaenS6d5+Hs9fVvSs6O+ByXmGPBqTTR2mVxCh1/eh4v8uXSU2Db65McM9SeMBloB
+ JjnYK6pP2kWNwBl76u9Pd8/7G0J5KNbtMEJQ9hXADGypqL6d7IvR+l2j/aRR3V6/fP3SiqAB1rd
+ PDBApYvFZiQ2GWSy+xhqyTfyUBr6PE9sY+wb6jC3aKT4/sirHAj7wJ4FefEW2TbicphWXbv8OvT
+ IeJXiWOBwQiFBuve/7UZhVNq4dsoGgfUMo+FRMJgThjwA12uXk1SOWhycCt4aWjx8vWTzKwQpPq
+ irZbwqUgm35a+0MfJZBipHE/QTG8PdOMpXw1nFV+Z1GdxH0mTPBT+hq+NZBiXBpaR4XeSfOurW2
+ vb8MDQQe8rvHggvX9BdfaPtYRng7hyQOYMhwnYt3mnff5Cn/69yMvCm9JbgJmzrsJqeVVhRBqwn
+ wp0na5sM1z3hs7ptwD/2gwlIN091re9svLEVoiOAEVbf545MOyu6wFjpzHMniP0MtsvIO2qSY3c
+ 1TSdEM5czTKmj/W+WJExLAhtiuHgYC+R3mCOdNk6wDSdp0P9FtmslNqYK0E35oWUgTWhhAg0LiZ
+ Ne0mwldKyD2Vwthaa2Ghe/eFL/n8C5/eQDfeUeyP+M8LGdsP/JRnTmV/FIdUvxOsXdKO5ZwHFvK
+ jDnPlI03bLMqisA==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-early_hostname() passes its "arg" parameter straight to strscpy()
-without checking it for NULL. As a result, a bare "hostname" (no
-"=value") on the kernel command line calls early_hostname(NULL),
-which dereferences a NULL pointer.
+From: David Heidelberg <david@ixit.cz>
 
-This happens during parse_early_param(), before console_init(), so the
-kernel oopses with no visible output on the usual boot console and the
-system fails to boot.
+Before the DSP_B only worked because the only close-to-mainline consumer
+cs35l36 codec was patched to map both DSP_A and DSP_B to the same
+hardware register value (asp_fmt = 0), which is inherently DSP_A timing.
+Use the right codec (DSP_A) which works as expected.
 
-STR:
-
-  make x86_64_defconfig
-  ./scripts/kconfig/merge_config.sh -m .config kernel/configs/kvm_guest.config
-  make olddefconfig
-  make bzImage
-  qemu-system-x86_64 -kernel arch/x86/boot/bzImage \
-    -nographic -no-reboot -m 512M -append \
-    "earlyprintk=ttyS0 earlycon=uart8250,io,0x3f8,115200n8 ignore_loglevel console=ttyS0 hostname"
-
-Resulting in:
-
-[    0.000000] CR2: 0000000000000000 CR3: 0000000010d82000 CR4: 00000000000000b0
-[    0.000000] Call Trace:
-[    0.000000] Call Trace:
-[    0.000000]  <TASK>
-[    0.000000]  <TASK>
-[    0.000000]  ? early_hostname+0x18/0x40
-[    0.000000]  ? early_hostname+0x18/0x40
-[    0.000000]  ? do_early_param+0x3f/0x70
-[    0.000000]  ? do_early_param+0x3f/0x70
-[    0.000000]  ? parse_args+0x15d/0x3c0
-[    0.000000]  ? parse_args+0x15d/0x3c0
-[    0.000000]  ? __pfx_do_early_param+0x10/0x10
-[    0.000000]  ? __pfx_do_early_param+0x10/0x10
-[    0.000000]  ? parse_early_options+0x24/0x30
-[    0.000000]  ? parse_early_options+0x24/0x30
-[    0.000000]  ? __pfx_do_early_param+0x10/0x10
-[    0.000000]  ? __pfx_do_early_param+0x10/0x10
-[    0.000000]  ? parse_early_param+0x31/0x80
-[    0.000000]  ? parse_early_param+0x31/0x80
-[    0.000000]  ? setup_arch+0x46b/0xab0
-[    0.000000]  ? setup_arch+0x46b/0xab0
-[    0.000000]  ? _printk+0x66/0x80
-[    0.000000]  ? _printk+0x66/0x80
-[    0.000000]  ? start_kernel+0x58/0x780
-[    0.000000]  ? start_kernel+0x58/0x780
-[    0.000000]  ? x86_64_start_reservations+0x24/0x30
-[    0.000000]  ? x86_64_start_reservations+0x24/0x30
-[    0.000000]  ? x86_64_start_kernel+0xce/0xd0
-[    0.000000]  ? x86_64_start_kernel+0xce/0xd0
-[    0.000000]  ? common_startup_64+0x13e/0x158
-[    0.000000]  ? common_startup_64+0x13e/0x158
-[    0.000000]  </TASK>
-[    0.000000]  </TASK>
-
-Fixes: 5a704629f2c1 ("init: add "hostname" kernel parameter")
-Signed-off-by: Michael Prokop <mika@grml.org>
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- init/version.c | 3 +++
- 1 file changed, 3 insertions(+)
+ sound/soc/qcom/sdm845.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/init/version.c b/init/version.c
-index 94c96f6fbfe6..0bd5c45aabc4 100644
---- a/init/version.c
-+++ b/init/version.c
-@@ -23,6 +23,9 @@ static int __init early_hostname(char *arg)
- 	size_t maxlen  = bufsize - 1;
- 	ssize_t arglen;
+diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
+index 0ce8265ab1c1f..d1cc825fc5cdc 100644
+--- a/sound/soc/qcom/sdm845.c
++++ b/sound/soc/qcom/sdm845.c
+@@ -382,17 +382,17 @@ static int sdm845_snd_startup(struct snd_pcm_substream *substream)
+ 	case QUATERNARY_TDM_RX_0:
+ 	case QUATERNARY_TDM_TX_0:
+ 		if (++(data->quat_tdm_clk_count) == 1) {
+ 			snd_soc_dai_set_sysclk(cpu_dai,
+ 				Q6AFE_LPASS_CLK_ID_QUAD_TDM_IBIT,
+ 				TDM_BCLK_RATE, SNDRV_PCM_STREAM_PLAYBACK);
+ 		}
  
-+	if (!arg)
-+		return -EINVAL;
-+
- 	arglen = strscpy(init_uts_ns.name.nodename, arg, bufsize);
- 	if (arglen < 0) {
- 		pr_warn("hostname parameter exceeds %zd characters and will be truncated",
+-		codec_dai_fmt |= SND_SOC_DAIFMT_IB_NF | SND_SOC_DAIFMT_DSP_B;
++		codec_dai_fmt |= SND_SOC_DAIFMT_IB_NF | SND_SOC_DAIFMT_DSP_A;
+ 
+ 		for_each_rtd_codec_dais(rtd, j, codec_dai) {
+ 
+ 			if (!strcmp(codec_dai->component->name_prefix,
+ 				    "Left")) {
+ 				ret = snd_soc_dai_set_fmt(
+ 						codec_dai, codec_dai_fmt);
+ 				if (ret < 0) {
+
 -- 
-2.50.1
+2.55.0
+
 
