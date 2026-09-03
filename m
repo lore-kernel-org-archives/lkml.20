@@ -1,147 +1,129 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com [157.90.84.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC22411672
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:30:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57172367B79;
+	Thu,  3 Sep 2026 09:31:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=157.90.84.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788427834; cv=none; b=aouW4OTcRh0Nd3hZLwlc6/EoMh81idmjZv0HpOKo1xcFYojIHMHdvnIdJnaqHz/smb3TnhiYAmOZoMON5cFFVYujSPGO4BHRaatARwMmkXvuQN8rQEmDFo6O8qGqg7WZRB4CnP623lkJbfYUAcKs13IEijFjNnOZGIfDf++Ofow=
+	t=1788427902; cv=none; b=Vt3DSdKJzjqHT2CAz0f584vI/kpIvysZzBrFs+6ZdU1LxChGw3/rPir5mt76YzBe2Agxfv0NH7v85FDTtcke3qSx+ex0RiNDCR9MabHmQvbVYjOEN+9d93VwNtv1up3eImbNry47+yyxBdSOIbIrHXfhQtEN+J7Rh/ibkBJ7NBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788427834; c=relaxed/simple;
-	bh=moVhZEPlxOejs4INWSi094ZLc7KHsJbD49rd9CQQFFk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kVD1y2TZ7hNhobYVhueFmKIST9espCyLRxz7XJPj2Br0MHREd5k9dmrPSIYtr0xnwuJoHkfJek6bb2nz8QjohL/D+kJo13SXvy73ZjGQItiqptNl45doAbZ7GRXQPsa+coJMT0aFMqWhrHFvkL+Gi2KBBfnWIZigtQfHTgMzGbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=HeJBsBwM; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1788427902; c=relaxed/simple;
+	bh=bgYjAczjSqCq1HkjokxhnudCSCwCew73jGcW2XLeUTw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RCajA40MmmPf6o2jTu1uUYMssTLiSGFo4GsMT/iH1wXuCGpd0XK2JpJBJWFDyQVzgZpH1nurhY+ajxhc3WwOVmEUVhRCDM6FffU74UBzNDhSqaSLT7Io/zo/0kPmts6oL59snGxX1biF3/tUCE/2tnXvr4uFUQYMYGpnhj5v/Tc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com; spf=pass smtp.mailfrom=tuxedocomputers.com; dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b=IAm3q5pC; arc=none smtp.client-ip=157.90.84.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxedocomputers.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="HeJBsBwM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=AbTb
-	7S2al3DCsVSokZ5kIhiq2Pl40XwJjzjGTFN89nU=; b=HeJBsBwMl/lEtzX/SkCy
-	/1E5nUvK1yb/p4WUEDPEQ/ubaDD1Fls8drjxhXcxVhemLDXpQ+Y+b2vO0d4YEoRx
-	EGIEmQ3UuUmqLpPrjAKZ2BqpEA4I2UdvL5oDExm1p0xeZIpoMCq0RmWfdUIWqTRC
-	jiBQBnLtKadNmoia/hqrPxtYfRsLLanoW8Q2fIAr1kFotEsSn5fd6wwmkzSDMqsZ
-	S/a++NWgxYqO2stq9+LkPok5Xq5hUoAN3A62b2TjSS2Ecd37PAeO92xYDhoMIlGD
-	NM3PH/b3XGfPvLlGnr6BNZPmCcG5bazYXwMrg07nSn+mznHyd2PGVCoNj9b97qjN
-	Wg==
-Received: (qmail 990621 invoked from network); 3 Sep 2026 11:30:20 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 3 Sep 2026 11:30:20 +0200
-X-UD-Smtp-Session: l3s3148p1@EMnvzJBa3tIujntC
-Date: Thu, 3 Sep 2026 11:30:20 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Biju <biju.das.au@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-mmc@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v24 07/15] mmc: renesas_sdhi: Add tuning delay support
- for RZ/G2L
-Message-ID: <apk-J8is9MNm7I2R@shikoro>
-References: <20260820171657.62815-1-biju.das.jz@bp.renesas.com>
- <20260820171657.62815-8-biju.das.jz@bp.renesas.com>
+	dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="IAm3q5pC"
+Received: from [10.10.11.33] (host-212-18-30-247.customer.m-online.net [212.18.30.247])
+	(Authenticated sender: a.erhardt@tuxedocomputers.com)
+	by mail.tuxedocomputers.com (Postfix) with ESMTPSA id C866B2FC007D;
+	Thu,  3 Sep 2026 11:31:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
+	s=default; t=1788427895;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=x7nBwgVlEfqpnTySlx9U+AI/L2fpp8CKG27e/r6cXBM=;
+	b=IAm3q5pC1cbcJcT1ZOp9FMeUBYg+HtNfMTx+xHi9z9/RI1/lCcCu+ZeAcBN1AP9SRUtMIY
+	VabXBmBRer0Ua1nz0b42co7WJlD4QePRr7a3WZDdfx/+ROjE1iK0tuiXibcHLVE2bntBqC
+	bfnemveI2IFGfa5cCUyhZQfuL4umXxc=
+Authentication-Results: mail.tuxedocomputers.com;
+	auth=pass smtp.auth=a.erhardt@tuxedocomputers.com smtp.mailfrom=aer@tuxedocomputers.com
+Message-ID: <175591b0-37ed-4143-9c99-f5da1988d686@tuxedocomputers.com>
+Date: Thu, 3 Sep 2026 11:31:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uyaiZIAdHY4EYaxM"
-Content-Disposition: inline
-In-Reply-To: <20260820171657.62815-8-biju.das.jz@bp.renesas.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] HID: generic: add LampArray support via hid-lamparray
+ helper
+To: Cristian Mazzotta <cmmazzo@icloud.com>
+Cc: bentiss@kernel.org, hansg@kernel.org, jikos@kernel.org,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-leds@vger.kernel.org, tgu@tuxedocomputers.com, wse@tuxedocomputers.com
+References: <d54951b4-8216-49eb-9c3e-ed49ab3d4355@tuxedocomputers.com>
+ <20260828144510.158538-1-cmmazzo@icloud.com>
+Content-Language: en-US
+From: Aaron Erhardt <aer@tuxedocomputers.com>
+In-Reply-To: <20260828144510.158538-1-cmmazzo@icloud.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---uyaiZIAdHY4EYaxM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Cristian,
 
+I just posted the patch with the updated driver.
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [High] The new function renesas_sdhi_set_hw_adjustment_delay() accesses=
- SCC registers via sd_scc_write32() without checking if priv->scc_ctl is in=
-itialized.
-> --
->=20
-> --- Patch [7]: [PATCH v24 07/15] mmc: renesas_sdhi: Add tuning delay supp=
-ort for RZ/G2L ---
-> commit 4e31e96fb980d0bb6400d3a60dfcc29dca208dcc
-> Author: Biju Das <biju.das.jz@bp.renesas.com>
->=20
-> mmc: renesas_sdhi: Add tuning delay support for RZ/G2L
->=20
-> This commit adds hardware adjustment delay support for RZ/G2L SoCs during
-> signal-voltage switch. It introduces the TMIO_MMC_TUNING_DELAY flag and
-> applies a delay by writing to SCC_TMPPORT2 based on the regulator voltage.
->=20
-> > diff --git a/drivers/mmc/host/renesas_sdhi_core.c b/drivers/mmc/host/re=
-nesas_sdhi_core.c
-> > --- a/drivers/mmc/host/renesas_sdhi_core.c
-> > +++ b/drivers/mmc/host/renesas_sdhi_core.c
-> [ ... ]
-> > @@ -350,6 +316,55 @@ static inline void sd_scc_write32(struct tmio_mmc_=
-host *host,
-> >  	writel(val, priv->scc_ctl + (addr << host->bus_shift));
-> >  }
-> > =20
-> > +static void renesas_sdhi_set_hw_adjustment_delay(struct tmio_mmc_host =
-*host)
-> > +{
-> > +	struct renesas_sdhi *priv =3D host_to_priv(host);
-> > +
-> > +	if (!(host->pdata->flags & TMIO_MMC_TUNING_DELAY))
-> > +		return;
-> > +
-> > +	if (host->mmc->ios.signal_voltage =3D=3D MMC_SIGNAL_VOLTAGE_330)
-> > +		sd_scc_write32(host, priv, SH_MOBILE_SDHI_SCC_TMPPORT2, 0x0);
-> > +	else
-> > +		sd_scc_write32(host, priv, SH_MOBILE_SDHI_SCC_TMPPORT2, 0x1);
->=20
-> [Severity: High]
-> Is it possible for priv->scc_ctl to be NULL here?
->=20
-> If an incorrect device tree binding or a hardware fault causes the
-> controller to report a version older than SDHI_VER_GEN2_SDR104,
-> priv->scc_ctl might not be mapped during probe.
->=20
-> However, renesas_sdhi_start_signal_voltage_switch() is registered based
-> on TMIO_MMC_MIN_RCAR2 and calls this new function, which writes directly
-> to the SCC register via sd_scc_write32().
->=20
-> Could this cause a NULL pointer dereference during card insertion?
+Please test it and feel free to provide feedback :)
 
-I agree. We should ensure in probe() that either
+https://lore.kernel.org/linux-input/20260903073602.3815258-1-aer@tuxedocomputers.com/T/#m1b8fdad3bb17ddf6f9139b373ef41c626e52e44f
 
-a) TMIO_MMC_TUNING_DELAY has a valid SCC or bail out otherwise
+Best regards
+Aaron
 
-or
+Am 28.08.26 um 16:45 schrieb Cristian Mazzotta:
+> Am 27.08.26 um 22:13 schrieb Werner Sembach:
+>> I think it's best for Aaron sending his version first and then you
+>> reacting on that on the LKML and getting in touch.
+> 
+> Sounds good, I'll hold off and review Aaron's version when it lands.
+> 
+>> Unregistering is important for userspace to know what happens
+> 
+> That's fair, I'll be sure to change that.
+> 
+> As for multi-zone, my I2C controller has more than one
+> LampArrayAttributesReport, and has 2 zones in effect, so the original
+> would only grab one of them. I'm not sure if my device is spec compliant,
+> but my implementation is agnostic to the zone count; I'll come back to it
+> with Aaron's version. Quirks get an entry for each zone too.
+> 
+> To clarify, each zone in my implementation gets its own dev class where
+> /sys/class/leds/<hid-id>:rgb:lamparray-<zone_number>
+> And use_leds_uapi is accessible from both
+> /sys/class/leds/<hid-id>:rgb:lamparray-<zone_number>/device/use_leds_uapi
+> and /sys/bus/hid/devices/<hid-id>/use_leds_uapi.
+> 
+> For Aaron when he gets to see this, here are some things I noticed while
+> testing on real hardware:
+> 
+> 1) lamparray_read_lamp_count() reads
+>    lamp_count_field->value[lamp_count_index] immediately after
+>    hid_hw_request(HID_REQ_GET_REPORT). As mentioned above, that call is
+>    asynchronous, so the read races the transfer and returns stale values.
+>    On my devices it consistently returned 0. hid_hw_raw_request() with a
+>    heap buffer works.
+> 2) In lamparray_parse_update_report(), usage 0x0003 is not unique within
+>    the Lighting page, and the switch has no guard, so lamp_count_field ends
+>    up bound to whichever match the parser saw last rather than the actual
+>    LampCount field. I added a simple guard so only the first one binds.
+>    Whether the first match will always be correct is an open question
+>    however.
+> 3) Both of my devices need the autonomous-mode disable re-asserted on S4
+>    resume; without it they come back in firmware-driven mode and ignore
+>    SET_REPORT.
+> 4) I don't believe this would be consistent with all LampArray devices,
+>    but mine in particular would ignore any change to the lighting that
+>    was within 4 values of its current state, so consecutive updates that
+>    are too similar silently do nothing.
+> 5) My hardware did not support reading back the current state of the lamps
+>    at all, so GET_REPORT and in effect, lamparray_hw_get_state(), can't
+>    work here. Plenty of LED drivers return the cached value when getting
+>    the state, which might be the safer default.
+> 
+> Also let me know if you want me to send my HID descriptors from
+> hid-recorder or similar.
+> 
+> In the meantime, I will definitely go look at OpenRGB's implementation.
+> I may also work on a driver that will fix s2idle residency on my laptop;
+> it's part of what brought me here and this is just step one.
+> 
+> Thanks a lot,
+> Cristian Mazzotta
+> 
 
-b) clear the TMIO_MMC_TUNING_DELAY flag if there is no SCC present
-
-What do you think?
-
-
---uyaiZIAdHY4EYaxM
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqZPicACgkQFA3kzBSg
-KbarVw/+Mu5eiDZRyuMUhefrlInydy2+mmkctbCUF0RAN8f3745catRlv/gNifXm
-wR6FKLx/YzKup8qe7XQhfbGOYOeH5a4hR+znzIBIXcebE7H9GILOiwtdenClTJ3M
-I6unKmJZ2ARxyKcZ0ZugUGfj2loXSjzwJqiRy6dJBCBXHqwyy6onUMuSAlU6mCZO
-JD8Tw4Lj+wG1KgFouRCPYjD1fPpw5n5IHMNIy6bm7VPUArXo516pgtyWhI4Ho7nM
-cM9KzKNZzH3c+LJzhkqR82vCGaFNR+gzuzmaBnZyhsseS6GTp9RnoudCw9nyu3tX
-YPw6r6ZdmG1eS641RF97ZWsnKrI3YhN6LSgrO1RFPRpddJL83wdIUoGsDMeJkmAm
-PIt2aPFtPu7zwjhrocwfEH2MyV4BI2nqI5dEhnnZdIYhSeNRIBy1H/wPzndemxJV
-ozOqUW/orjfw0187ksFO3/DqNe0X250AEVy3/IXEi4jjQB8VwiXovD8P9adu6Rbw
-iSkDrf6CqEM0UqikcpfJ69i6dAJyFAxGbrZ7Vpk7CiD25lixpEjAvTzerpFD4JI2
-YdeSR0s2dMQ4RMoMwWiHyfLXRuHpJREuImgmnbkAiPVmTuVv4JHVBdA0rfjgJQ5H
-lJP6nc6fnzoFOQf38syYrXRs7O7SKh/u0F2bFJl41gOxlA0NHhs=
-=IRZu
------END PGP SIGNATURE-----
-
---uyaiZIAdHY4EYaxM--
