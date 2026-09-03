@@ -1,87 +1,77 @@
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11021131.outbound.protection.outlook.com [52.101.52.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F2E94A0EEA
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:18:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788437895; cv=none; b=NtfTzi2ppk8GJ8QqWpfW7VOL3M0U85hLwZSzFK4+8rE5KGrA5UW3TqqY0HFrmyZaOkQbRDUEdK81kaF2s1iU757AR+Nts5Bv+eNJErOdGucSBSsl/dRmM8dOm2sFKy0Q9wpolXPmEY6VkFaAePK2j9mbXaK6QFNVyQRWwEfubuQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788437895; c=relaxed/simple;
-	bh=Q9uLEjPuUsW8cwmTICkYlym/RVuiMzxRLrjoajqUW+o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nr0Bb37B7cOtkXxOgy0DQVmbm6Be1lfo4T5pC61NqcGOmxXcOin70Nmbgq0qRsqhNJyVzmAIRLqfpaCMoNYPAB6Zohgf5+L8f1rdZKBXBptuNJzyl82jah4MgPZ2YsXVftfMnOfGuUCMg1QQagiclCI7tbk2MYuu15S/+IsyCF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QOdP+vzq; arc=none smtp.client-ip=209.85.167.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C8149EC69;
+	Thu,  3 Sep 2026 12:18:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788437921; cv=fail; b=Ahs+bSnJGZLfINmAVc+tg7Nsq2HWBfQopJxKdrGms+9nJ91iMkTKFVN4eD19B2uM3mrDlfTrHnp9Qazrk2DN8xvoNjk4BhY1VVZ7Gyrp8icJhorDM1mdwL7P+Slbr6UZQEjbUBBBnTVQC9IFkmrF6emECGG/M91867xZB1lem8o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788437921; c=relaxed/simple;
+	bh=8JEhwe/DEKr0OdW2IYb/17QO6S4idamZPJpaIrGhpoo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=RNdbzh27RP2yffyU4IgJRhHXsmIxFwsEqd/pH8faWQqAJkwddfUAeZeMHJjo0AGyjEQ/Nzn5OVJmhnI4GuRzJNPjBDCeq7Z6Y3B3zwtNpRX8Hurj6EAnLdpPLXEJGtKyL7r/vT1Bsy6QE+AG0+JN+2eupuzFmWufSqtlpyHW5Lw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synaptics.com; spf=pass smtp.mailfrom=synaptics.com; dkim=pass (2048-bit key) header.d=synaptics.com header.i=@synaptics.com header.b=aKjiPDyP; arc=fail smtp.client-ip=52.101.52.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synaptics.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synaptics.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QOdP+vzq"
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5b15dcaca31so2226424e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:18:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788437891; x=1789042691; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/fGnKM9GO11+CKzG0GTZXAjAlnoptWC/LUlsemO5pbE=;
-        b=QOdP+vzqL0xearGydJsDKTswjqdrKKVTga1kQKO8ZV8m5wLPxGDjTaWgeSwz8HxyWI
-         gmKg8W0S0k82u+yOaeHeTm1EsIBqzCoTNrDgIUdSNSlctb18ijes1SGpJjZQTdAAJSeO
-         XRSGive4YBYJwV2+1+n8oeudZ7Z7jd8tAQQwcv9ACCAPC4cwbIqjXTPNwHe6gPRdmq9L
-         Ex95VAxu7RoRhkyhPxb/x7AoKStKuTrkfs7YzLK0bT8RokoPNrwoeyKQFQIHYiPokzS2
-         mhDMLfy7Pz2l6gNUHPJiBge4XjxGEAbVvqbABX/+rBxGbu5UkK6ITa7p5cShqs4InJdL
-         aCpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788437891; x=1789042691;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/fGnKM9GO11+CKzG0GTZXAjAlnoptWC/LUlsemO5pbE=;
-        b=mj2IeaSWji6cUTqbxhKL4exIdu4ZkLCTfxhvyi8EhSrlTH1Q/UwLtU57gejHlnxZYC
-         a5ahrAxlurwnW5zNMTYAs7NJfAp+ZG5n1x5AAJgTvzCGj49l58mRkmy1pRm+eXB2/7jM
-         za7g5dsN2lcdLWTNokXTFla4Ryr5tx32GTvMFcd1jY1483pIJsFxcLlLzf6pOpbwfh1b
-         lhasi0A9b6pUBYbQ4KS2iNNWIR/tZ7Q9GccDtDyNRpU2o61jqXvp8eg9HBOWSM10GFZC
-         f8T3qIXffyU2RJJRzTHbDkYSRcUvH5wZFY00jdOJ0v2gWqcmPfcM3jbl3OJM3e+a3B/g
-         K4jA==
-X-Forwarded-Encrypted: i=1; AKwUvByG0qfExzjKQRQh5WiDnUwkBUSdivRH5OpkspQtzRzUSZgcuG68dyNI66mzPEYo/8e2KSkSQDmuA6ek8m0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mwl+61rowZrkuZafQA0S3EeD5aRUeUiQGXDHNjoQP337IzRmgz
-	dQtvWxbVaptNkU3ff5+lQf/UBgT0uHdaV8kOGmZ8/nYrfWMHsQINDkww
-X-Gm-Gg: AYBFou1nPnWlvj4aW7lczAuIDLi+Gymfn6/YC4cJra0Hw6HehZ0kQb2y4MpdgjIn1HZ
-	oEWV78c0xMVxwUH4g2aPLGUjRhZjvBXJgTzBiTMoBNROcaBn+8bCI4MwWP2Gvt9dGE+SM6SoL+U
-	W2MK523wq/GBBs3VDH5fuUMftJAi1plleOnQ/p59+aLMmv94wz1/ajBIWDcAA+0gfu64HuY8iQd
-	3jBhhwRKgv2UMqCqE7oNktmmuBFQHsx6LImEA2bdG2fz89K+AaS8oHyDvsiTpJwqGriXT9X/P4l
-	4Z1/08PRbIzEq5My7IobUhVGFBkL3TtPsoy5DSZYuX/gKZsWi5nmUb4Cbzv6M1FyUVhUWUsOSEa
-	pWQFVY5PgWYHpG6+8NwnafMiWrlJ7gyFuHiRBxtz0813MLup7yVyvOic9w0I7BLCin1IzElkwPg
-	r+CO0FilU27oJR78TQ26ZBQf1PB3JBePjvKab4BAVBIF815g5zmyob9TWZjoyRTLC8Vt+1FgOMS
-	vIKS+c4XQ==
-X-Received: by 2002:a05:6512:318d:b0:5b2:a558:b222 with SMTP id 2adb3069b0e04-5b6083395a2mr3870492e87.10.1788437890958;
-        Thu, 03 Sep 2026 05:18:10 -0700 (PDT)
-Received: from grower.astralinux.ru ([38.74.72.197])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b606b1cb8bsm1251212e87.22.2026.09.03.05.18.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 05:18:10 -0700 (PDT)
-From: Alexander Martyniuk <alexevgmart@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Alexander Martyniuk <alexevgmart@gmail.com>,
-	lvc-project@linuxtesting.org,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Jozsef Kadlecsik <kadlec@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=synaptics.com header.i=@synaptics.com header.b="aKjiPDyP"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KPwsolK9ymd6UGniU7R7iRlrFdcmOeh0vJClJ67sefia+0MeVMVT3jRLrtEYz6+QrBP1X/1Kqv5TvNRt74HLt5XGzxedT9tmXbfON3HNWWA5Ck3tsoWR3QKZizYyHlHpwUUBny7P0LXcbA6ooykzgLf1ETejenBKS9YrZgFkxRj2Mw7xiLvelUTUz34HW11eP04sRFxLHLRoJtswcoHl2i/3Lz88PcuH7GkrmMiYH8Vvo9OzO+M5tbK4fOWXj4sCS3fqCrJJxpSr0Xgb3TD5pYiz6iNbtIXv0i1c8TCDmqmShA6TPGP7/IPTX19IGMmsRAj7ePf/7Cz3tCOpKwYl8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xnijuNMnWdsM4h2IqDVU/CdoZ2CvKVkuzFDlljVBnmk=;
+ b=mchs1MJimFamZnUnEkcxoNMtTymumDimVO+2Ooh0z+iC0Ali3wJLx/2/nqXLe6Rq0XERZjLHNpnweuQywXEpaa7Oo7p/elIQRHyjnQ4/j6s5BA+zrXrSjkrzULIQnuLZhWOo7yqk+9ae3XtMJ3K/PqTyaisXA3gCrB1lF7EXPnbefNyYOA/k6rLaUA4hSOy2s0jWMI+Rbd8SQUH5DaJwhD6+Ry20qi2zzpRYKjvA3JAZ5So9r0y+sELe5TDL6ive/wgqEwX9EFfvARe/a7NtDofI3HqSLj2KU2wMnotmWSqNwhPk3bMjYsmerqJ2GmOFJ000FXn6E4sJV24lBXPp7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 59.124.75.172) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=synaptics.com;
+ dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
+ header.from=synaptics.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synaptics.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xnijuNMnWdsM4h2IqDVU/CdoZ2CvKVkuzFDlljVBnmk=;
+ b=aKjiPDyPVzx8uCTA/KiimQJjyLtqFc6+dCBjWkRrdpvdIBL6w6NExqrZQiKZWKsF8Djv+8dNVx8tnz56JzArvNyRTRGTuuolERLso4QTHRjODDbcLnXlQkVahNqK5zWkhnTiZ4aPyAh6DLLI+VPj4FDMf4ZUraeKxTF9K6pftCAfylYdEGhhhuOybqRxQYtJi7SdXc2GKg4evGVDK0Ew/Ve3ilf1LA4EsE9ARh9qgOGqNDcNAmHrQ+gwaY6a+wHdBRKZ9YQCt6Z+eDLALrmreiJ7vXLzln63PeuSj8hhJhi0YDHws/ant6dR0OYSUXecimoIyzQK4prvKjS4vLVEEw==
+Received: from SJ0PR05CA0195.namprd05.prod.outlook.com (2603:10b6:a03:330::20)
+ by MWHPR03MB989391.namprd03.prod.outlook.com (2603:10b6:303:2aa::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Thu, 3 Sep
+ 2026 12:18:34 +0000
+Received: from BY1PEPF0001AE16.namprd04.prod.outlook.com
+ (2603:10b6:a03:330:cafe::81) by SJ0PR05CA0195.outlook.office365.com
+ (2603:10b6:a03:330::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Thu, 3
+ Sep 2026 12:18:33 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 59.124.75.172)
+ smtp.mailfrom=synaptics.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=synaptics.com;
+Received-SPF: Fail (protection.outlook.com: domain of synaptics.com does not
+ designate 59.124.75.172 as permitted sender) receiver=protection.outlook.com;
+ client-ip=59.124.75.172; helo=bt-tpe-server.synaptics-inc.local;
+Received: from bt-tpe-server.synaptics-inc.local (59.124.75.172) by
+ BY1PEPF0001AE16.mail.protection.outlook.com (10.167.242.104) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.8
+ via Frontend Transport; Thu, 3 Sep 2026 12:18:31 +0000
+From: Andy Chang <Andy.Chang@synaptics.com>
+To: linux-bluetooth@vger.kernel.org,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	stable@kernel.org,
-	Yuan Tan <yuantan098@gmail.com>,
-	Yifan Wu <yifanwucs@gmail.com>,
-	Juefei Pu <tomapufckgml@gmail.com>,
-	Xin Liu <bird@lzu.edu.cn>,
-	Haoze Xie <royenheart@gmail.com>,
-	Ren Wei <n05ec@lzu.edu.cn>
-Subject: [PATCH 5.10] netfilter: nf_queue: pin bridge device while NFQUEUE holds fake dst
-Date: Thu,  3 Sep 2026 15:17:57 +0300
-Message-ID: <20260903121758.3660436-1-alexevgmart@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Andy Chang <Andy.Chang@synaptics.com>,
+	Paul Menzel <pmenzel@molgen.mpg.de>,
+	Linus Walleij <linusw@linaro.org>
+Subject: [PATCH v4 1/2] Bluetooth: dt-bindings: net: bluetooth: add BCM4384
+Date: Thu,  3 Sep 2026 20:18:23 +0800
+Message-Id: <20260903121824.3080796-2-Andy.Chang@synaptics.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260903121824.3080796-1-Andy.Chang@synaptics.com>
+References: <20260901023300.1382808-1-andy.chang@synaptics.corp-partner.google.com>
+ <20260903121824.3080796-1-Andy.Chang@synaptics.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,127 +79,60 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE16:EE_|MWHPR03MB989391:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 05310d7a-87e0-454b-f885-08df09b57931
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|82310400026|23010399003|7416014|376014|10067099003|4143699003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	SndUSwa2uMoWWdYCOSxm7hkuDmT1C1jOAVxF7M/INOqOP/Zf7WuYBolJ4PY3UzVnAmcH6uX0lEoCIw9NnHNkXCCmmPtJsXB25tu2m/gOJGXBdV3awp8lAUBKED5qnWfos9cNfh/1M/R/R16udHgJ549K8syDy6UGbPSlUbna0HUcreyqxzzyV3GwbQ1BQqDILMtn3Xx2qUprL0GELC3mwm5FGa/ACR05Tjc1IdMglvLl5AJOhfUd/Qp8S3kSKvlIFxmD21a4RUiwFQB6bZ+ALuqhFYyG8xQPU4Js+u5CXPX4gqFlUn1/AJnhsx5f+XYDiE8alNUIvWnd4nvvL6uRPz3NmEUVj1mn5JTCRwnP/qGMMeCw+7Rk1WE+uA9YS8HT7rOj9ZpwXwKD716ZpA2UckX9S3wkvq8TajSS0y74Qdja1yvE1NVj4/P6mEa1PQOHqcmZ/vEWILklHD5PhFtWB2kExbq/SwLSAJduuLdrYWdXbHsNFNOAmlejQG8iYwEx+8sl7bkgI66JAP2PDj3381s8Y9fjkdPr3D0OpiPnizYa+rqPloRECxHbq5RmgleyCctXkIq1o2EHdXFsSY9lTYB0sI3Q18iYqcjuWUBW8lJmNI37osvahlYrjRxGO9howgti1xLW4nPEtubHssoer6jYt2xbZi88XQ3TOxZ7Gmkjcd4gPdgA4o9wWUZ3yqQKFK2din2fy/CtYuQfr+XYxg==
+X-Forefront-Antispam-Report:
+	CIP:59.124.75.172;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:bt-tpe-server.synaptics-inc.local;PTR:59-124-75-172.hinet-ip.hinet.net;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(82310400026)(23010399003)(7416014)(376014)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	GoU+lfDNzykwWd9UmfHMXKOgfGzuxn5wUFdm5U4RhCdPeFomPOhRt5kLAoKx1pCbXB72O2T0ExEmph225/pZB92Oj4Mv3MQUhS8iCXCHd3Y1iHtszEzfI5/4Er6Q6i9ysCP7ClDos3a8h6KhOtvEJGRfg+e9dfLZIjIs89tqAhGJ7UEgpsdzjY46bSh9BmqcZoi5lUXMeoKlAUNfWnTl2KGJWEeN8CP5GkpvZqFvbuSzKz5AzmXHHM6NsDbxuCF07TWJMCaLtSDeEsokmopjpWlIfeVd31oL3AsQaBkQ0QNjHgeRRnnh09cCmFa5FVSWwPGdD+n3g//L5O3u/Z7fdwNhBwg/fsnM+cdy1RO3YjSMpEkd/f1Q66m5eFWo6Z+ToWKxg+sl+eiJBtokgOGJRE12aP8AvAXuAAM9X369eHVpY9LTSMfpzQNk9xBIiMpe
+X-OriginatorOrg: synaptics.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 12:18:31.7597
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05310d7a-87e0-454b-f885-08df09b57931
+X-MS-Exchange-CrossTenant-Id: 335d1fbc-2124-4173-9863-17e7051a2a0e
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=335d1fbc-2124-4173-9863-17e7051a2a0e;Ip=[59.124.75.172];Helo=[bt-tpe-server.synaptics-inc.local]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF0001AE16.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR03MB989391
 
-From: Haoze Xie <royenheart@gmail.com>
+Add the brcm,bcm4384-bt compatible string to support the
+Synaptics BCM4384 Bluetooth controller.
 
-commit c9c9b37f8c5505224e8d206184df3bb668ee00cf upstream.
+A fallback compatible is not suitable here because any operating system
+must discern the proper firmware to drive this specific hardware
+revision, and the compatible string fulfills that purpose.
 
-The br_netfilter fake rtable is embedded in struct net_bridge and is
-attached to bridged packets with skb_dst_set_noref(). If such a packet is
-queued to NFQUEUE, __nf_queue() upgrades that fake dst with
-skb_dst_force().
-
-At that point the queued skb can hold a real dst reference after bridge
-teardown has started. The problem is not that every bridged packet needs
-its own dst reference. The problem is that NFQUEUE can keep the bridge
-private fake dst alive after unregister begins.
-
-Fix this by keeping the bridge fake dst model unchanged and pinning the
-bridge master device only while the packet sits in NFQUEUE. Record the
-bridge device in nf_queue_entry when the queued skb carries a bridge fake
-dst, take a device reference for the queue lifetime, and drop it when the
-queue entry is freed.
-
-Also make sure queued entries are reaped when that bridge device goes
-down, and drop the redundant nf_bridge_info_exists() test from the fake
-dst detection.
-
-This keeps netdev_priv(br->dev) alive until verdict completion, so the
-embedded fake rtable and its metrics backing storage cannot be freed out
-from under dst_release(). It also avoids the constant refcount bump and
-avoids using ipv4-specific dst helpers for IPv6 bridge traffic.
-
-Fixes: 34666d467cbf ("netfilter: bridge: move br_netfilter out of the core")
-Cc: stable@kernel.org
-Reported-by: Yuan Tan <yuantan098@gmail.com>
-Reported-by: Yifan Wu <yifanwucs@gmail.com>
-Reported-by: Juefei Pu <tomapufckgml@gmail.com>
-Reported-by: Xin Liu <bird@lzu.edu.cn>
-Signed-off-by: Haoze Xie <royenheart@gmail.com>
-Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-Signed-off-by: Alexander Martyniuk <alexevgmart@gmail.com>
+Signed-off-by: Andy Chang <Andy.Chang@synaptics.com>
+Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
+Reviewed-by: Linus Walleij <linusw@linaro.org>
 ---
-Backport fix for CVE-2026-72255
- include/net/netfilter/nf_queue.h |  1 +
- net/netfilter/nf_queue.c         | 16 ++++++++++++++++
- net/netfilter/nfnetlink_queue.c  |  3 +++
- 3 files changed, 20 insertions(+)
+ .../devicetree/bindings/net/bluetooth/brcm,bluetooth.yaml        | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/include/net/netfilter/nf_queue.h b/include/net/netfilter/nf_queue.h
-index 6b4de68a762e..2637d1512929 100644
---- a/include/net/netfilter/nf_queue.h
-+++ b/include/net/netfilter/nf_queue.h
-@@ -16,6 +16,7 @@ struct nf_queue_entry {
- 	unsigned int		id;
- 	unsigned int		hook_index;	/* index in hook_entries->hook[] */
- #if IS_ENABLED(CONFIG_BRIDGE_NETFILTER)
-+	struct net_device	*bridge_dev;
- 	struct net_device	*physin;
- 	struct net_device	*physout;
- #endif
-diff --git a/net/netfilter/nf_queue.c b/net/netfilter/nf_queue.c
-index d9d35658a357..47ed9a353107 100644
---- a/net/netfilter/nf_queue.c
-+++ b/net/netfilter/nf_queue.c
-@@ -67,6 +67,7 @@ static void nf_queue_entry_release_refs(struct nf_queue_entry *entry)
- 		nf_queue_sock_put(state->sk);
+diff --git a/Documentation/devicetree/bindings/net/bluetooth/brcm,bluetooth.yaml b/Documentation/devicetree/bindings/net/bluetooth/brcm,bluetooth.yaml
+index 95501e858e6f..612d21123aaa 100644
+--- a/Documentation/devicetree/bindings/net/bluetooth/brcm,bluetooth.yaml
++++ b/Documentation/devicetree/bindings/net/bluetooth/brcm,bluetooth.yaml
+@@ -31,6 +31,7 @@ properties:
+           - brcm,bcm43540-bt
+           - brcm,bcm4335a0
+           - brcm,bcm4349-bt
++          - brcm,bcm4384-bt
+           - cypress,cyw4373a0-bt
+           - infineon,cyw55572-bt
  
- #if IS_ENABLED(CONFIG_BRIDGE_NETFILTER)
-+	dev_put(entry->bridge_dev);
- 	dev_put(entry->physin);
- 	dev_put(entry->physout);
- #endif
-@@ -83,6 +84,8 @@ static void __nf_queue_entry_init_physdevs(struct nf_queue_entry *entry)
- {
- #if IS_ENABLED(CONFIG_BRIDGE_NETFILTER)
- 	const struct sk_buff *skb = entry->skb;
-+	struct dst_entry *dst = skb_dst(skb);
-+	struct net_device *dev = NULL;
- 	struct nf_bridge_info *nf_bridge;
- 
- 	nf_bridge = nf_bridge_info_get(skb);
-@@ -93,6 +96,18 @@ static void __nf_queue_entry_init_physdevs(struct nf_queue_entry *entry)
- 		entry->physin = NULL;
- 		entry->physout = NULL;
- 	}
-+
-+	if (entry->state.pf == NFPROTO_BRIDGE &&
-+	    dst && (dst->flags & DST_FAKE_RTABLE)) {
-+		WARN_ON_ONCE(!rcu_read_lock_held());
-+		dev = READ_ONCE(dst->dev);
-+	}
-+
-+	/* Must hold a reference on the bridge device: dst_hold() protects
-+	 * the dst itself, but the fake rtable is embedded in bridge-private
-+	 * storage that netdevice teardown can free independently.
-+	 */
-+	entry->bridge_dev = dev;
- #endif
- }
- 
-@@ -109,6 +124,7 @@ bool nf_queue_entry_get_refs(struct nf_queue_entry *entry)
- 	dev_hold(state->out);
- 
- #if IS_ENABLED(CONFIG_BRIDGE_NETFILTER)
-+	dev_hold(entry->bridge_dev);
- 	dev_hold(entry->physin);
- 	dev_hold(entry->physout);
- #endif
-diff --git a/net/netfilter/nfnetlink_queue.c b/net/netfilter/nfnetlink_queue.c
-index 1541d6801001..f91cc1b8804d 100644
---- a/net/netfilter/nfnetlink_queue.c
-+++ b/net/netfilter/nfnetlink_queue.c
-@@ -910,6 +910,9 @@ dev_cmp(struct nf_queue_entry *entry, unsigned long ifindex)
- 
- 	if (physinif == ifindex || physoutif == ifindex)
- 		return 1;
-+
-+	if (entry->bridge_dev && entry->bridge_dev->ifindex == ifindex)
-+		return 1;
- #endif
- 	if (entry->skb_dev && entry->skb_dev->ifindex == ifindex)
- 		return 1;
 -- 
-2.43.0
+2.25.1
 
