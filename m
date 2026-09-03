@@ -1,90 +1,124 @@
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F7137B002
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:12:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0039A349CE2;
+	Thu,  3 Sep 2026 07:12:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788419539; cv=none; b=PU6hfILqfONF4uIO6jOlyWlKQyyNfae9aB1qt5lGp6lHg0hwk4F6N5eTY4s0XDP437R/YU944/sfwx1p8Zp5d9dISkpp6h8QGO44JT/k9Gdsnr1dl2i4Xxjfji+ZvEok/rTMvdRD5oJXJKK9cFkdjCEC7Hd5tzfp9fOeUxLFLMs=
+	t=1788419563; cv=none; b=EW34uHvh2yCQdOI5yLwWiGlFLnAYe4B8q4zZyDtLnxE91cGp5hhgG2VI3aTlsjI1OBz6rxg0mN9TioPjod2Q/xBd6ghL1zEDd9HIlXDNF+RnWuy86xieLMfCTXfTyG7NlgmC47txoLMqChgANe0Qwuhb6nRj4OiKKe8KtW1zp2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788419539; c=relaxed/simple;
-	bh=yYAhiCla68uVUiwin0xdm1mJTq8h2yF1Z/vybw00qBw=;
-	h=Mime-Version:From:Content-Type:Subject:Date:To:Cc:Message-Id; b=BLOwzgdn6mfGU5+CVF3xODxQ3BcPfoCCgDVd7aVSQFiv9sJ6wHGzDu/OWIMZf9aEsMl++s5NIkqFzSiMJZV/DN1TAKFGxY28gJhH9q06sWD1cNOyfNkOZ9SaxCAaWjAlhlIWD9rMAdczrKs5aS5yabfZs3rkTrGKrP7G4lmB0aA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=KDf3ZW/9; arc=none smtp.client-ip=209.127.230.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1788419563; c=relaxed/simple;
+	bh=/pqAFh9onL1+A3JmPy88x4jSz/wzVpSBB7ZcHKNINDw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mnqgF5tGVjdnvSERkvle55fjrYe5QDyO8wb8MaDfM63few+axelJN9HtQpaHF3F8XkkjHZOv/PZsAPuQZ/x2fK/43vv+hjRGjCaJYlWq/PoTaPugvHs+HPCa4vGCD5OInarja+QjX53bEjR2vPOCG1K4QtZp5bc1pNJgYGUi5OA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Us6/Hmrh; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="KDf3ZW/9"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1788419516; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=MkhNfbBH4PkDy2GD73ONaRjS2m1dsfNDUUYxpjgBuaU=;
- b=KDf3ZW/9eCFnQt+fMqLH852S6h/sAxq1wfVKExHWVUVUMlVMa/PQ/949F87M7mpPvwNfLk
- spKQVtVVvGELrBRX16IjqlFAZQETHdCJeSXx7olEVTdib0yRCE6UhCn4vd0IIazlR+KYkq
- jzWDAj5LixnThS8ty/VH7/wejwb3W8/lqoI5qephO6XDS3/Evi9JqCP/ANGajYedM9QhQm
- GAWDft9Y71Fyjnff0f+F98/oUlgrrg1HwLig3o2UT+5rKocu4lKQS0/t4yujo6CV72hi1V
- nOqDF6JcZH7iA++4x5436Pbh31kxiBrTkswpKfdZtuvxI/xLcnuOSLDcZ46dbw==
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Us6/Hmrh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788419560; x=1819955560;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=/pqAFh9onL1+A3JmPy88x4jSz/wzVpSBB7ZcHKNINDw=;
+  b=Us6/Hmrhc671lpHDFQd1guVfjoWPBzA0EBTzevUWvR6Nyu4EuoRPso3S
+   4ZOBcYWtd4G7NGzcpxTucLxFjIMekiSumEAYxf0QesTtZsO8ZTZexgCHI
+   C9/r7SxxqRYubYYKh2Fusu6qoyLikjlPu2jaTGrx3I+5V4JQkCNvBRFJf
+   Go62KSwR5v2bYb043cYgNMd+QLZBAizNDvfLqF03r9xW7Orv3DLtRt24g
+   tMZUSJkemi/12bHeNxQtAOqsjT9mGZw50dCxEJZ9z/VuZIu/dvAu7eYWV
+   v4+3npchUWzGFXqWYlQlGe5bte8UepOeqldN7OCUX98ihS9Vs592yd6VR
+   w==;
+X-CSE-ConnectionGUID: hi+EBgp1Q2Ogk2LcO7yjmw==
+X-CSE-MsgGUID: dffGO5EtRCSYVxMR1vS6NQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="88766819"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="88766819"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 00:12:38 -0700
+X-CSE-ConnectionGUID: WalDt28NTyympGDs1lUgnQ==
+X-CSE-MsgGUID: EELWTpHHTP6erMgdrSz0aA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="268303949"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 00:12:34 -0700
+Date: Thu, 3 Sep 2026 10:12:32 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
+	sakari.ailus@linux.intel.com, bingbu.cao@amd.com,
+	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
+	andy@kernel.org, hansg@kernel.org, gregkh@linuxfoundation.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 15/16] media: atomisp: allow raw Bayer capture
+Message-ID: <apkd4NkKNXFX-aGy@ashevche-desk.local>
+References: <cover.1788360629.git.mauriziocasciano7@gmail.com>
+ <5a163a69a3cb3b139f2c7ba5eee5b32bac575d27.1788360629.git.mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
-X-Lms-Return-Path: <lba+26a991dba+2ae671+vger.kernel.org+lizhe.67@bytedance.com>
-From: "Li Zhe" <lizhe.67@bytedance.com>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=UTF-8
-Subject: [PATCH] x86/lib: make clean_cache_range() zero-size safe
-Date: Thu,  3 Sep 2026 15:11:25 +0800
-To: <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>, 
-	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, 
-	<akpm@linux-foundation.org>
-Cc: <x86@kernel.org>, <linux-kernel@vger.kernel.org>, 
-	"Li Zhe" <lizhe.67@bytedance.com>
-Message-Id: <20260903071125.1946-1-lizhe.67@bytedance.com>
-X-Mailer: git-send-email 2.45.2
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5a163a69a3cb3b139f2c7ba5eee5b32bac575d27.1788360629.git.mauriziocasciano7@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-clean_cache_range() writes back each cache line in the range
-[addr, addr + size). A zero-size range is empty and should not perform
-any cache maintenance operation.
+On Wed, Sep 02, 2026 at 04:53:44PM +0200, Maurizio Casciano wrote:
+> AtomISP currently rejects all raw formats and silently substitutes
+> YUV420. This prevents userspace camera processing stacks from obtaining
+> unprocessed sensor frames.
+> 
+> Enumerate only the raw format matching the sensor media-bus code and
+> reconcile raw requests with the code selected by the sensor. Userspace
+> opts in by selecting that raw V4L2 pixel format with VIDIOC_S_FMT.
+> 
+> Raw formats expose the full sensor transport frame so ISP2401 can use
+> its copy pipeline. Processed formats retain the existing global padding
+> behavior; selecting a smaller receiver crop remains a userspace pipeline
+> decision.
 
-As pointed out by Sashiko [1], clean_cache_range(addr, 0) currently can
-still execute one CLWB when addr is not cache-line aligned. With size 0,
-vend is equal to addr. However, the loop starts from the
-cacheline-aligned address containing addr. If addr is not cacheline
-aligned, that rounded-down start is below vend, so the loop can execute
-one CLWB even though the requested range is empty.
+...
 
-That gives zero-size callers observable side effects. For example,
-arch_wb_cache_pmem(addr, 0) should not write back any cache line, and
-memcpy_flushcache(dst, src, 0) should preserve the usual zero-length
-copy semantics. If the rounded-down line is not mapped, the stray CLWB
-can also fault.
+> +	const struct atomisp_format_bridge *format;
+>  	struct v4l2_subdev_state *act_sd_state;
 
-Return immediately from clean_cache_range() for size 0.
+> +	struct v4l2_area padding = {
+> +		.width = pad_w,
+> +		.height = pad_h,
+> +	};
 
-[1] https://sashiko.dev/#/patchset/20260831111638.76012-1-lizhe.67@bytedance.com
+Hmm... We use them only once. See below.
 
-Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
----
- arch/x86/lib/usercopy_64.c | 3 +++
- 1 file changed, 3 insertions(+)
+>  	int ret;
 
-diff --git a/arch/x86/lib/usercopy_64.c b/arch/x86/lib/usercopy_64.c
-index c47d8cd0e243..5adf772cbf04 100644
---- a/arch/x86/lib/usercopy_64.c
-+++ b/arch/x86/lib/usercopy_64.c
-@@ -32,6 +32,9 @@ static void clean_cache_range(void *addr, size_t size)
- 	void *vend = addr + size;
- 	void *p;
- 
-+	if (!size)
-+		return;
-+
- 	for (p = (void *)((unsigned long)addr & ~clflush_mask);
- 	     p < vend; p += x86_clflush_size)
- 		clwb(p);
+...
+
+> +	if (format->sh_fmt == IA_CSS_FRAME_FORMAT_RAW)
+> +		padding = (struct v4l2_area) { };
+
+>  	fsize->type = V4L2_FRMSIZE_TYPE_DISCRETE;
+> -	fsize->discrete.width = fse.max_width - pad_w;
+> -	fsize->discrete.height = fse.max_height - pad_h;
+> +	fsize->discrete.width = fse.max_width - padding.width;
+> +	fsize->discrete.height = fse.max_height - padding.height;
+
+padding is not used as a stuct here, so instead you can simply convert the
+above to if-else
+
+	if (format->sh_fmt == IA_CSS_FRAME_FORMAT_RAW) {
+		fsize->discrete.width = fse.max_width;
+		fsize->discrete.height = fse.max_height;
+	} else {
+		fsize->discrete.width = fse.max_width - pad_w;
+		fsize->discrete.height = fse.max_height - pad_h;
+	}
+
 -- 
-2.20.1
+With Best Regards,
+Andy Shevchenko
+
+
