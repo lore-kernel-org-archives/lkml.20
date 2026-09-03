@@ -1,91 +1,184 @@
-Received: from mta1.migadu.com (out-88.mta1.migadu.com [95.215.58.88])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2289A3EF643
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:27:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.88
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C61C3F12CB;
+	Thu,  3 Sep 2026 09:28:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788427666; cv=none; b=bMBYYISCi3Y3Jt3jw7dP4zuDDJCFN+UxBOai/Lg67CXGl55yktgngqkP/U2KL2doely86SFdmBGeoCRbom5SgjfTySADfA788b/oUZTn+ZODsqqPD/VpJAUJEIlbicHfrDvzAY7vEcnX3vQlReXNG4oNVVVUxo8CehtLAJhPDVw=
+	t=1788427715; cv=none; b=DEShtJfx3cne8lGYw7Lv8UE+gpcbHmfxGQLZx8ew8AOLci/kGki4j8kwCI5AhObL2Cblmd2nTsm99sbreXv2VE5zA6S1NeWKKYLbTYlMEukU7Uu9gbZ4FxzfvwiPT9qhLnPa2DSaoVNgHWUfaw7JwDAiXg62tKdsz2qv6bB/APc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788427666; c=relaxed/simple;
-	bh=45pmiB7hOA0EAgm0ORNGEcRHx1hWKp/fNfvMp5mB2M8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BoJchqwfEPNNAI5JaDjW3RWmP3QqOhvTglCmXpbhK5+YhoGsHQuvkB92/83R9az021ud+F0Nw8fgaJ7kELZ4Xl4MnheEkeoK2ELQDJRJq0aGSm9vgzX/teQxmA0X8v8FmDyhSC2BoQZvwJF70qu2fxoEQNS1g8Nzn4oYcqgbS+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=b+dZpqlt; arc=none smtp.client-ip=95.215.58.88
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788427715; c=relaxed/simple;
+	bh=KdPikbKZw77wIUP3Hg5quQtLmCk+AUgIpmynOP8YgfE=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=llJXYiwkyFVzLUmdsdj27jLrxsSdgzLs0I2mjc51oyWsALu4hnz87WE53ec3CoHpngDcTjHFxvMwYEyRW8BVxs+7mOIDBvTtjHe8WE+ey8iSAWGLVKZRNt2uUpsPTncAAvm7Kh5R/DOKS7u9Pre48TBqHwJnJlnE9COalDG4380=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z2omrUpZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="b+dZpqlt"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=45pmiB7hOA0EAgm0ORNGEcRHx1hWKp/fNfvMp5mB2M8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788427659; v=1; x=1789032459;
- b=b+dZpqltXIRKuqUIVc72QA6TP9Z69V9HECKOWRso1dyLiFLd31QdRXdbot/KPbL5tctMMef/
- ORgQZoWcSdT8NPv0AhrwrMItwNapMJdgKhSsUd/ndWT7o7DLNQD2E4i/VlTuhesBn2hpYZuHvwu
- dnOHkTNWGs359X2G+FsftK0Y=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ed0af569cd94117b;
-	Thu, 03 Sep 2026 09:27:39 +0000
-X-Mizu-Trace-ID: ed0af569cd94117b
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 3 Sep 2026 17:27:20 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Nikolay Aleksandrov <razor@blackwall.org>
-Cc: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Jussi Maki <joamaki@gmail.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Hangbin Liu <liuhangbin@kylinos.cn>
-Subject: Re: [PATCH net v2] bonding: fix slave_cnt leak on XDP error paths
-Message-ID: <apk9eDWX069eRKCF@fedora>
-References: <20260903-bond_slave_cnt-v2-1-02e27304ca36@kylinos.cn>
- <30c405c0-d17b-4107-a4f4-d2595c661892@blackwall.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z2omrUpZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EBE51F00A3D;
+	Thu,  3 Sep 2026 09:28:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788427713;
+	bh=10aZmp2MkCX2sFuHtp4WBkWRLNU7moxfiQfncP8llic=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Z2omrUpZhcGHeo58eknO+iACr7cwWwLqwnaeCiO4LWQL2BaYssBWkKAMxP1rIdl1R
+	 SXQhIJHvSuvP09OaZ/+0ag17S8gm/rhwfAGMomyNldUKVthWm09kjPM2IXTQxYsOQb
+	 fYD4xYxOcW7MgoAZMwvOldpEXJDgQpJE2clQH111G6ZN5Z86aBfehk01Wfp6/dI8rY
+	 vlNLlctmPa70hvfzhibKDtumz0k5LOEglqVdzYq9LhchYVUBE3o/52vuRZkHdDT8xA
+	 00hnQYGAxgnKXNk4I8ecJjcH7JujQauu2DuhMfXD+x/ZGyOjsr917rqbbgGghQ8Vy0
+	 tYYESJsFk3/Rw==
+Subject:
+ Re: [net-next,v2] octeontx2-pf: Add NIXLF error and poison interrupt handlers
+From: netdev-bot+sashiko@kernel.org
+To: nshettyj@marvell.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, naveenm@marvell.com,
+ sgoutham@marvell.com, gakula@marvell.com, rkannoth@marvell.com,
+ sbhatta@marvell.com, bbhushan2@marvell.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com
+Date: Thu, 03 Sep 2026 09:28:31 +0000
+Message-ID: <178842771187.3394541.7325489363068011329@kernel.org>
+In-Reply-To: <20260831062600.839203-1-nshettyj@marvell.com>
+References: <20260831062600.839203-1-nshettyj@marvell.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <30c405c0-d17b-4107-a4f4-d2595c661892@blackwall.org>
 
-On Thu, Sep 03, 2026 at 11:18:32AM +0300, Nikolay Aleksandrov wrote:
-> > diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
-> > index 947d92a669b6..f3290aee50d1 100644
-> > --- a/drivers/net/bonding/bond_main.c
-> > +++ b/drivers/net/bonding/bond_main.c
-> > @@ -2284,7 +2284,6 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
-> >   		}
-> >   	}
-> > -	WRITE_ONCE(bond->slave_cnt, bond->slave_cnt + 1);
-> >   	netdev_compute_master_upper_features(bond->dev, true);
-> >   	bond_set_carrier(bond);
-> > @@ -2339,6 +2338,8 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
-> >   	bond_xdp_set_features(bond_dev);
-> > +	WRITE_ONCE(bond->slave_cnt, bond->slave_cnt + 1);
-> > +
-> >   	slave_info(bond_dev, slave_dev, "Enslaving as %s interface with %s link\n",
-> >   		   bond_is_active_slave(new_slave) ? "an active" : "a backup",
-> >   		   new_slave->link != BOND_LINK_DOWN ? "an up" : "a down");
-> > 
-> > ---
-> > base-commit: 70f3995830d3f1e79faa14eb0605914f778feca9
-> > change-id: 20260807-bond_slave_cnt-88e78c5f0ab9
-> > 
-> > Best regards,
-> 
-> Thanks, looks good to me. One minor nit if there's another version - mention
-> also the WRITE_ONCE() in the commit message or better yet do it in a separate
-> commit that properly annotates slave_cnt everywhere.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-The WRITE_ONCE() change is made by Eric's recent fix
-bc93419130bb ("net: bonding: annotate lockless writes with WRITE_ONCE()").
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-Do you mean add a comment for all the slave_cnt usage?
+- [Medium] The patch bundles undisclosed VF-side changes that the commit
+  message (subject "octeontx2-pf: Add NIXLF error and poison interrupt…
+- [Low] The rewritten comment in otx2_realloc_msix_vectors()
+  (otx2_pf.c:3086-3090) claims the code "Skip[s] NPA vectors", but the…
 
-Thanks
-Hangbin
+--
+
+octeontx2-pf: Add NIXLF error and poison interrupt handlers
+
+This registers handlers for the NIX LF error (NIX_LF_ERR_INT) and poison/RAS
+(NIX_LF_RAS) MSI-X vectors in otx2_open(), frees them in otx2_stop(), and
+widens the MSI-X reservation in otx2_realloc_msix_vectors() and
+otx2vf_realloc_msix_vectors() to cover the new vectors.
+
+A couple of questions about the changes below.
+
+> diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
+> index c995f29008590..1f8cb78c19195 100644
+> --- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
+> +++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
+
+[ ... ]
+
+> @@ -3006,11 +3084,15 @@ int otx2_realloc_msix_vectors(struct otx2_nic *pf)
+>  	struct otx2_hw *hw = &pf->hw;
+>  	int num_vec, err;
+>  
+> -	/* NPA interrupts are inot registered, so alloc only
+> -	 * upto NIX vector offset.
+> +	/* Skip NPA vectors. Representors only use CINT vectors, so limit
+> +	 * the budget to that range. For PF/VF, allocate the full NIX LF
+> +	 * interrupt range (QINT, CINT, GINT, ERR and POISON vectors).
+>  	 */
+
+[Severity: Low]
+Does the new comment in otx2_realloc_msix_vectors() describe what the code
+does?  The count starts at hw->nix_msixoff and the allocation is:
+
+	num_vec = hw->nix_msixoff;
+	...
+	err = pci_alloc_irq_vectors(hw->pdev, num_vec, num_vec, PCI_IRQ_MSIX);
+
+pci_alloc_irq_vectors() enables the contiguous range starting at vector 0,
+which includes everything below hw->nix_msixoff, and that is where the NPA
+LF's vectors live.  rvu_mbox_handler_attach_resources() attaches BLKTYPE_NPA
+before BLKTYPE_NIX, and rvu_set_msix_offset() hands out each LF's vectors
+with rvu_alloc_rsrc_contig() from the function's MSI-X bitmap, so
+npa_msixoff < nix_msixoff.
+
+The NPA vectors are therefore still allocated, just left without handlers,
+which is what the replaced comment said ("NPA interrupts are [not]
+registered, so alloc only upto NIX vector offset").  Would it be clearer to
+keep the original wording rather than saying the vectors are skipped?
+
+>  	num_vec = hw->nix_msixoff;
+> -	num_vec += NIX_LF_CINT_VEC_START + hw->max_queues;
+> +	if (pf->flags & OTX2_FLAG_REP_MODE_ENABLED)
+> +		num_vec += NIX_LF_CINT_VEC_START + hw->max_queues;
+> +	else
+> +		num_vec += NIX_LF_POISON_VEC + 1;
+>  
+>  	otx2_disable_mbox_intr(pf);
+>  	pci_free_irq_vectors(hw->pdev);
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_vf.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_vf.c
+> index fcdf891f90b58..3b06da52d37e5 100644
+> --- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_vf.c
+> +++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_vf.c
+> @@ -554,7 +554,7 @@ static int otx2vf_realloc_msix_vectors(struct otx2_nic *vf)
+>  	int num_vec, err;
+>  
+>  	num_vec = hw->nix_msixoff;
+> -	num_vec += NIX_LF_CINT_VEC_START + hw->max_queues;
+> +	num_vec += NIX_LF_POISON_VEC + 1;
+>  
+>  	otx2vf_disable_mbox_intr(vf);
+>  	pci_free_irq_vectors(hw->pdev);
+> @@ -597,7 +597,7 @@ static int otx2vf_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+>  
+>  	pci_set_master(pdev);
+>  
+> -	qcount = num_online_cpus();
+> +	qcount = min_t(int, num_online_cpus(), OTX2_MAX_CQ_CNT);
+
+[Severity: Medium]
+Should this queue count clamp in otx2vf_probe() be a separate patch, or at
+least be described in the commit message?
+
+The subject and body only talk about registering the two new NIX LF handlers,
+but this line changes the VF datapath configuration: on a system with more
+than 64 online CPUs every octeontx2 VF drops from num_online_cpus() rx/tx
+queues to 64, since hw->rx_queues, hw->tx_queues, hw->max_queues,
+hw->non_qos_queues and the alloc_etherdev_mqs() queue counts are all derived
+from qcount.
+
+It also looks like a fix for a pre-existing asymmetry rather than a
+requirement of the new handlers.  otx2_probe() already had the same clamp:
+
+	qcount = min_t(int, num_online_cpus(), OTX2_MAX_CQ_CNT);
+
+while the VF did not, so with more than 64 CPUs the VF's cint_cnt (max3 of
+rx_queues, tx_queues and tc_tx_queues) exceeded the 64 CINT slots available
+between NIX_LF_CINT_VEC_START (0x40) and NIX_LF_GINT_VEC (0x80) in
+otx2_common.h, and the CINT vector indices ran into GINT/ERR/POISON or past
+the LF's vector count.
+
+Would a standalone patch carrying
+
+	Fixes: 3184fb5ba96e ("octeontx2-vf: Virtual function driver support")
+
+be more appropriate for the clamp?  The "Changes in v2:" note that mentions
+it sits below the --- separator and is dropped when the patch is applied, so
+the recorded history contains no trace of this change.
+
+The same applies to the otx2vf_realloc_msix_vectors() hunk above: the VF
+reservation moves from the queue-count-scaled NIX_LF_CINT_VEC_START +
+hw->max_queues to the fixed NIX_LF_POISON_VEC + 1, and VFs pick up the new
+handlers only because otx2vf_open()/otx2vf_stop() call into the shared
+otx2_open()/otx2_stop().  Should the commit message mention that this touches
+VFs too, given the "octeontx2-pf:" subject prefix?
+
+>  	qos_txqs = min_t(int, qcount, OTX2_QOS_MAX_LEAF_NODES);
+>  	netdev = alloc_etherdev_mqs(sizeof(*vf), qcount + qos_txqs, qcount);
+>  	if (!netdev)
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260831062600.839203-1-nshettyj%40marvell.com
