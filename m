@@ -1,399 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8215C4BD0E3;
-	Thu,  3 Sep 2026 14:54:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E9734BB815
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:55:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788447283; cv=none; b=SBxfguEiPK4lpySzxAUlEjHGQTnh3LEq+27F930UHaWGaMvvetFXfh2Aents+QZw6h5LydB5sgbVLD6SRD0lmyeR0sRmwWHiD2xEMNWa+coo04/fbV9a9XLwEkmKrMIWb6/hZa0I3pzxtD3uapBuEEfQvRq5VoMhJa6as2y3WwA=
+	t=1788447339; cv=none; b=cTIwLS6qDIdMk0kOpJDLeeSXZfZot8olGjP6m5gcXRPTd0gJd5Qk3j/1zpzL/nZEx6Wf19f+5VmSNPI46UbK2QIJ0+VpeuKcMK8k4TzY30+DdLkyIS9t6PDyMsFvbsNICw08Lvy3aRk0/Lggte19M2bUrtTM0X6ThMEiaGk71R4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788447283; c=relaxed/simple;
-	bh=lnPcEb6R2k2cn9mdx4M1XD7sEW7ehiJJvyYxQXElP/8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ry/p0ZPifUgWe7/w6i9IdVvQh6Xi4VvurAYSOsc6YNa2SBDWRnA/IP3QOKK2FbS+Q0l4GnKFGvmhJsvCPgag3d7f+1DX5zKF7tnwzfc+t8AtqJ5ECZXPLCL7PI4inZm0BKKvj2eClHocrWkUnOH3JTWMhWHX4KQTfaCYjw+WgV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P/fieQkU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788447339; c=relaxed/simple;
+	bh=/LH2B4tdPoyKBq5EQsRZM/0jO8hDJQlMqwUSOQZODEU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DdZ8I/CZ9snjecVX8ddrlzpO8+qwHbf6EByjYCssPYMM9aDCNAliIoJ4xxI5ZRchcr6I7b44W/o/vEX7J0caH3WvREz+rVDiu94SOKqtjBHSOYmOnzGiyjmlMw6tQUWpbCTf2HROkOwqm6Kq2Rky2OrMZ8/NVSo3DsCj0n6N3+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Sw3NEcf0; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P/fieQkU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 810DE1F000E9;
-	Thu,  3 Sep 2026 14:54:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788447280;
-	bh=VuHMey/Yf4fc8xGmHLFRa2OsL+j/sTY/3VihKlmU5Ek=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=P/fieQkUzgyIvKF6UvtSps60A3DUv5ti/1dtRytlQbMTsClG7xJNSNLPItw/8qflZ
-	 nrRtONrafv3VVJNuhnuEe0WIv8FI16RsA7bhR266AJsbsgHjutdW1Y610+JuIcA9qt
-	 f1Ep5rzDQCbQ1wPoX0QAiCx3SPjEsl6NdpmujejI2pKqPF0LjrMpCDmpxDGHCcRgfU
-	 nX6496sDCbueA/fDpIrGeC9PK+59nGbCL4teUMWtEiUzUfAd3nsyLbEoLs7u9d7DqV
-	 JXgn5Y2YwRc/x+XCosbYev4Sl7iufOGJGR7EvGlORsYS8A3K5dfphO+xmRdi0AgpCM
-	 A/C0Ge/d/Bbag==
-Date: Thu, 3 Sep 2026 09:54:36 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Monish Chunara <quic_mchunara@quicinc.com>, Rakesh Kota <rakesh.kota@oss.qualcomm.com>, 
-	Sayali Lokhande <sayalil@qti.qualcomm.com>, Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: Add Talos Lyra EVK SoM platform
-Message-ID: <apmH0PSegmgOBqo6@baldur>
-References: <20260901-lyra_upstreaming-v1-0-e3a76dc9e21c@oss.qualcomm.com>
- <20260901-lyra_upstreaming-v1-2-e3a76dc9e21c@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Sw3NEcf0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788447337;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=8U+otGqZ4X4lHVqvG0g0N4yJExgb42yXgS3ZaxTrOlE=;
+	b=Sw3NEcf0xJN0pNXa7O+vK0GRbxJcziF01cztIKIIxDi/U3ddrO4QSAX8adbclqLrRp9IAo
+	UioudroS9VjEcslOhNolZF8ZR+A60Xorfgorl/1spQNkwwi4Rffzh4N6F7ylyaXruUf9pb
+	FoqTMZD2wUYNmq7jCK0xRgpbajW/Jfo=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-117-SizS3z2WMpmA6MXGV8OdaA-1; Thu,
+ 03 Sep 2026 10:55:30 -0400
+X-MC-Unique: SizS3z2WMpmA6MXGV8OdaA-1
+X-Mimecast-MFC-AGG-ID: SizS3z2WMpmA6MXGV8OdaA_1788447327
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 92F3B195FDD0;
+	Thu,  3 Sep 2026 14:55:25 +0000 (UTC)
+Received: from [100.90.56.12] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2F3227D7;
+	Thu,  3 Sep 2026 14:55:15 +0000 (UTC)
+Message-ID: <19d4feb1-d703-4c62-8622-a6d5e9d6394c@redhat.com>
+Date: Thu, 3 Sep 2026 16:55:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901-lyra_upstreaming-v1-2-e3a76dc9e21c@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 02/23] KVM: Make device name configurable
+To: Sean Christopherson <seanjc@google.com>,
+ Steffen Eiden <seiden@linux.ibm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
+ Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ David Hildenbrand <david@kernel.org>, Friedrich Welter
+ <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
+ Gautam Gala <ggala@linux.ibm.com>, Hariharan Mari <hari55@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>,
+ Hendrik Brueckner <brueckner@linux.ibm.com>,
+ Ilya Leoshkevich <iii@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>,
+ Joey Gouly <joey.gouly@arm.com>, Marc Zyngier <maz@kernel.org>,
+ Nico Boehr <nrb@linux.ibm.com>,
+ Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+ Oliver Upton <oupton@kernel.org>, Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Sven Schnelle <svens@linux.ibm.com>,
+ Ulrich Weigand <Ulrich.Weigand@de.ibm.com>, Vasily Gorbik
+ <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
+ Zenghui Yu <yuzenghui@huawei.com>
+References: <20260831144802.834315-1-seiden@linux.ibm.com>
+ <20260831144802.834315-3-seiden@linux.ibm.com> <apdweRfqt4dTxcU9@google.com>
+ <20260902075028.231001-D-seiden@linux.ibm.com> <aphLXQL1H2zYZgTi@google.com>
+ <20260903114241.33034-C-seiden@linux.ibm.com> <apmEi1NmOUvmUBFP@google.com>
+ <apmFClPZ2WcDINmT@google.com> <apmIGgMEN8w-kQAm@google.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Content-Language: en-US
+Autocrypt: addr=pbonzini@redhat.com; keydata=
+ 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
+In-Reply-To: <apmIGgMEN8w-kQAm@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Tue, Sep 01, 2026 at 07:14:02PM +0530, Avaneesh Kumar Dwivedi wrote:
-
-Please make subject prefix arm64: dts: qcom: talos: ... so that it
-groups nicely in a git log --oneline.
-
-> Introduce the device tree for the QCS615-based Talos Lyra EVK SoM.
-> Lyra EVK SoM a compact compute module integrating the QCS615 SoC,
-> PMIC, and essential connectivity, designed to mount on carrier boards.
+On 9/3/26 16:45, Sean Christopherson wrote:
+> On Thu, Sep 03, 2026, Sean Christopherson wrote:
+>> On Thu, Sep 03, 2026, Sean Christopherson wrote:
+>>> On Thu, Sep 03, 2026, Steffen Eiden wrote:
+>>>> On Wed, Sep 02, 2026 at 09:14:21AM -0700, Sean Christopherson wrote:
+>>>>> And taking things a few steps further, we can solve the MMIO issue in a more
+>>>>> elegant way, and eliminate the runtime string building in this patch (after looking
+>>>>> more closely, that code needs to be jettisoned no matter what, there's simply no
+>>>>> reason to specify the names at runtime since they're separate compilation units).
+>>>>>
+>>>>> Rather than splatter #defines throughout header files, deal with the bulk of the
+>>>>> pain in Makefile.kvm.  By feeding conditionals into Makefile.kvm, the s390+arm64
+>>>>> build can easily omit coalesced_mmio.o and async_pf.o, define __KVM_HAVE_ARCH_MMIO
+>>>>> programatically without having to change other architectures, and solve the naming
+>>>>> stuff.
+>>>>
+>>>> Yes, this is a great idea. Thank you. I second you, this looks more clean
+>>>> and stable than the stuff we came up with :)
+>>>
+>>> Looking more at arch/s390/kvm/Kconfig and virt/kvm/Kconfig, we might need/want to
+>>> to build out infrastructure to handle this sort of thing in a more generic fashion?
+>>>
+>>> Which probably isn't that much infrastructure?  It's more just changing how arch
+>>> code communicates with common KVM?  I.e. instead of providing boolean configs in
+>>> virt/kvm/Kconfig, formalize communicating HAVE-type macros through the Makefile.
+>>> That might even be a net positive in the long run, as it will make it easier to
+>>> provide defaults for the common cases.
+>>>
+>>> I say that because unless there's magic I'm unaware of these Kconfigs also needs
+>>> to be configured per-KVM, not per-kernel:
+>>>
+>>>    - KVM_MMU_LOCKLESS_AGING, otherwise aging on arm64 will unintentionally be done
+>>>      outside of mmu_lock.
+>>>
+>>>    - KVM_GENERIC_PRE_FAULT_MEMORY, so that arm64 doesn't need to provide a stub
+>>>      for something it doesn't support
+>>>
+>>>    - HAVE_KVM_MSI, because presumably it's needed for arm64 support.
+>>>
+>>>    - HAVE_KVM_READONLY_MEM, same story as HAVE_KVM_MSI.
+>>
+>> And in the opposite direction, HAVE_KVM_VCPU_RUN_PID_CHANGE also falls into this
+>> category.  That one is probably better handled as a #define in header files?
 > 
-> The initial SoM device tree includes basic support for:
-> 
-> - CPU and memory
-> - PMIC and board-level regulators
-> - UFS and SD card storage
-> - QUPv3 (I2C/SPI/UART) instances
-> - ADSP/CDSP remoteprocs
-> - GPU
-> 
-> Co-developed-by: Monish Chunara <quic_mchunara@quicinc.com>
-> Signed-off-by: Monish Chunara <quic_mchunara@quicinc.com>
-> Co-developed-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-> Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-> Co-developed-by: Sayali Lokhande <sayalil@qti.qualcomm.com>
-> Signed-off-by: Sayali Lokhande <sayalil@qti.qualcomm.com>
-> Signed-off-by: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
-> Signed-off-by: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
+> Continuing the conversation with myself, add in HAVE_KVM_NO_POLL and
+> HAVE_KVM_INVALID_WAKEUPS (which reminds me, valid_wakeup should really be moved
+> into s390's kvm_vcpu_arch).
 
-This s-o-b chain says Monish, Rakesh, Sayali, and Nirmesh first wrote
-the patch, but the way you sent it claims you authored it. Retain
-Nirmesh as author or fix the chain.
+Yes, these three can be handled in a similar way as this in 
+arch/x86/include/asm/atomic64_64.h:
 
-> ---
->  arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi | 282 +++++++++++++++++++++++
->  1 file changed, 282 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi b/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi
-> new file mode 100644
-> index 000000000000..8c19f050d5b3
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi
-> @@ -0,0 +1,282 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-> +#include "talos.dtsi"
-> +#include "pm8150.dtsi"
-> +/ {
-> +	aliases {
-> +		mmc0 = &sdhc_1;
-> +		mmc1 = &sdhc_2;
-> +		serial0 = &uart0;
-> +	};
-> +
-> +	chosen {
-> +		stdout-path = "serial0:115200n8";
-> +	};
-> +
-> +	clocks {
-> +		sleep_clk: sleep-clk {
-> +			compatible = "fixed-clock";
-> +			clock-frequency = <32764>;
-> +			#clock-cells = <0>;
-> +		};
-> +
-> +		xo_board_clk: xo-board-clk {
-> +			compatible = "fixed-clock";
-> +			clock-frequency = <38400000>;
-> +			#clock-cells = <0>;
-> +		};
-> +	};
-> +};
-> +
-> +&apps_rsc {
-> +	regulators-0 {
-> +		compatible = "qcom,pm8150-rpmh-regulators";
-> +		qcom,pmic-id = "a";
-> +
-> +		vreg_s3a: smps3 {
+#define arch_atomic64_xchg arch_atomic64_xchg
 
-I don't see anything referencing s3a, s5a, and s6a, are you sure that
-rpmh doesn't handle the SMPSs for us automatically?
+and then a #ifndef replaces the "#ifdef CONFIG_*".  Do this, and moving 
+vcpu->valid_wakeup to vcpu->arch comes almost for free.
 
-Do we actually want to vote for s4a from Linux?
+>>> Actually, thinking about this more, what I've proposed here, plus the pattern of
+>>> #define-ing macros in arch-specific kvm_host.h files, should suffice.  For things
+>>> like __KVM_HAVE_ARCH_VM_FREE, it absolutely makes sense to #define the macro in
+>>> kvm_host.h since it's very directly tied to an arch callback.  Whereas with KVM_MIO
+>>> and KVM_ASYNC_PF, because they enable compilation of C files, it makes sense to
+>>> define them in Makefiles.
+Ugh, defining CONFIG symbols in Makefiles sucks.  I don't want KVM to be 
+the one that does things differently *once more*.  I'd prefer to stub 
+out the contents of the .c files instead.
 
-> +			regulator-name = "vreg_s3a";
-> +			regulator-min-microvolt = <600000>;
-> +			regulator-max-microvolt = <650000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_s4a: smps4 {
-> +			regulator-name = "vreg_s4a";
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <1829000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_s5a: smps5 {
-> +			regulator-name = "vreg_s5a";
-> +			regulator-min-microvolt = <1896000>;
-> +			regulator-max-microvolt = <2040000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_s6a: smps6 {
-> +			regulator-name = "vreg_s6a";
-> +			regulator-min-microvolt = <1304000>;
-> +			regulator-max-microvolt = <1404000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l1a: ldo1 {
-> +			regulator-name = "vreg_l1a";
-> +			regulator-min-microvolt = <488000>;
-> +			regulator-max-microvolt = <852000>;
+Paolo
 
-That's a wide span, narrow it to what the consumers need.
-
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
-
-Are you sure you want to go LPM here?
-
-> +			regulator-allow-set-load;
-> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-> +						   RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l2a: ldo2 {
-> +			regulator-name = "vreg_l2a";
-> +			regulator-min-microvolt = <1650000>;
-> +			regulator-max-microvolt = <3100000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
-> +			regulator-allow-set-load;
-> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-> +						   RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l3a: ldo3 {
-> +			regulator-name = "vreg_l3a";
-> +			regulator-min-microvolt = <1000000>;
-> +			regulator-max-microvolt = <1248000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
-> +			regulator-allow-set-load;
-> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-> +						   RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l5a: ldo5 {
-> +			regulator-name = "vreg_l5a";
-> +			regulator-min-microvolt = <875000>;
-> +			regulator-max-microvolt = <975000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +			regulator-allow-set-load;
-> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-> +						   RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l7a: ldo7 {
-> +			regulator-name = "vreg_l7a";
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <1900000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +			regulator-allow-set-load;
-> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-> +						   RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l8a: ldo8 {
-> +			regulator-name = "vreg_l8a";
-> +			regulator-min-microvolt = <1150000>;
-> +			regulator-max-microvolt = <1350000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +			regulator-allow-set-load;
-> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-> +						   RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l10a: ldo10 {
-> +			regulator-name = "vreg_l10a";
-> +			regulator-min-microvolt = <2950000>;
-> +			regulator-max-microvolt = <3312000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +			regulator-allow-set-load;
-> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-> +						   RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l11a: ldo11 {
-> +			regulator-name = "vreg_l11a";
-> +			regulator-min-microvolt = <1232000>;
-> +			regulator-max-microvolt = <1260000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
-> +			regulator-allow-set-load;
-> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-> +						   RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l12a: ldo12 {
-> +			regulator-name = "vreg_l12a";
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <1890000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l13a: ldo13 {
-> +			regulator-name = "vreg_l13a";
-> +			regulator-min-microvolt = <3000000>;
-> +			regulator-max-microvolt = <3230000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
-> +			regulator-allow-set-load;
-> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-> +						   RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l15a: ldo15 {
-> +			regulator-name = "vreg_l15a";
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <1904000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
-> +			regulator-allow-set-load;
-> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-> +						   RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l16a: ldo16 {
-> +			regulator-name = "vreg_l16a";
-> +			regulator-min-microvolt = <3000000>;
-> +			regulator-max-microvolt = <3312000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
-> +			regulator-allow-set-load;
-> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-> +						   RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l17a: ldo17 {
-> +			regulator-name = "vreg_l17a";
-> +			regulator-min-microvolt = <2950000>;
-> +			regulator-max-microvolt = <3312000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +	};
-> +};
-> +
-> +&gcc {
-> +	clocks = <&rpmhcc RPMH_CXO_CLK>,
-> +		 <&rpmhcc RPMH_CXO_CLK_A>,
-> +		 <&sleep_clk>;
-
-I'm failing to see how that differs from that talos.dtsi already says.
-
-That said, this list is incomplete and needs to be corrected - can be
-done separately.
-
-> +};
-> +
-> +&gpu {
-> +	status = "okay";
-> +};
-> +
-> +&gpu_zap_shader {
-> +	firmware-name = "qcom/qcs615/a612_zap.mbn";
-> +};
-> +
-> +&qupv3_id_0 {
-> +	status = "okay";
-> +};
-> +
-> +&qupv3_id_1 {
-> +	status = "okay";
-> +};
-> +
-> +&remoteproc_adsp {
-> +	firmware-name = "qcom/qcs615/adsp.mbn";
-> +
-> +	status = "okay";
-> +};
-> +
-> +&remoteproc_cdsp {
-> +	firmware-name = "qcom/qcs615/cdsp.mbn";
-> +
-> +	status = "okay";
-> +};
-> +
-> +&rpmhcc {
-> +	clocks = <&xo_board_clk>;
-
-That's what it says in talos.dtsi already. I must be misunderstanding
-something?
-
-> +};
-> +
-> +&sdhc_1 {
-> +	pinctrl-0 = <&sdc1_state_on>;
-> +	pinctrl-1 = <&sdc1_state_off>;
-> +	pinctrl-names = "default", "sleep";
-> +	bus-width = <8>;
-> +	mmc-ddr-1_8v;
-> +	mmc-hs200-1_8v;
-> +	mmc-hs400-1_8v;
-> +	mmc-hs400-enhanced-strobe;
-> +	vmmc-supply = <&vreg_l17a>;
-> +	vqmmc-supply = <&vreg_s4a>;
-> +	non-removable;
-> +	no-sd;
-> +	no-sdio;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&sdhc_2 {
-> +	pinctrl-0 = <&sdc2_state_on>;
-> +	pinctrl-1 = <&sdc2_state_off>;
-> +	pinctrl-names = "default", "sleep";
-> +	bus-width = <4>;
-> +	cd-gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
-> +	vmmc-supply = <&vreg_l10a>;
-> +	vqmmc-supply = <&vreg_s4a>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&uart0 {
-> +	status = "okay";
-> +};
-> +
-> +&ufs_mem_hc {
-> +	reset-gpios = <&tlmm 123 GPIO_ACTIVE_LOW>;
-> +	vcc-supply = <&vreg_l17a>;
-> +	vcc-max-microamp = <600000>;
-> +	vccq2-supply = <&vreg_s4a>;
-> +	vccq2-max-microamp = <600000>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&ufs_mem_phy {
-> +	vdda-phy-supply = <&vreg_l5a>;
-> +	vdda-pll-supply = <&vreg_l12a>;
-> +
-> +	status = "okay";
-> +};
-> 
-> -- 
-> 2.34.1
-> 
