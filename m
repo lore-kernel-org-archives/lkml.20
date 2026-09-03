@@ -1,153 +1,237 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE694E13ED
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:35:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449751; cv=none; b=ZVbt2frME/Kw4muCchq6iQje3P4SPQtfy/KOaKbCnN6EtrRMEWgeMsI3FFhQE1DpaAsw1FXGADaKDo796ucQaRnu2akmBuPysOnfqhuDe5ElWqPbnCYya/gp+71wnJ6qZ+tf2UcLzZIDl5HLE/JynS7Iv5uNKYJ40+LUPSjUcOU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449751; c=relaxed/simple;
-	bh=ncJ1Z5b6dglmAecDwCPhVPH1ci0n4/A+38nkG7EOi9Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=glMsHqgHtkyQTSaZiQyZ1gPw0lwkVwjSj4e7GW/C2qXmKGClic8SjSz9l5I1K6gXwMtOP2WxtlAD7jmnE44IZxzQ9QqAt8HRFw4lUftpU4F41QBVLyDyJwmnYJk6LUHSs2IZU20J90xTn6Dvn49TYX0xB7FRR7ajV+5nxuJ4dfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c1sYT3NS; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA50A4E1419;
+	Thu,  3 Sep 2026 15:35:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788449758; cv=fail; b=lSGeMjbjsSIIqpuFNVLMlOmmhsy/hbhuN8rk1+WiULsArC0icfK515hudP8COAZW170fWsh3YSyWfibxgGThPO5S5IrFzQX9MpVGUyde/kBcaqSeS2OIzK4mVteg1fMPIT2GQp4X1f0WaBKpCLPUIP84zwOdvHKeub3npC64va0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788449758; c=relaxed/simple;
+	bh=rXVWmCHoKhfGBLfuLbZn23WRet69dklbrhN2Oz+l7fA=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MBqazMTRXdpD1C5wP6gJ3f1fBinSgP6k8GjKdsvlj/o/gw6yxq7x6x7fgcl2QIJBgOQ2PB3JFfTx4AYaX4zdad5F9NngQbm87gMk0ro5qhBFvN4E6m4RCR4spVerfOBuu7X5ugTqdoipynfvCST//gYM/ITQ1yMgW6+VMtndz2o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=Tw8NIl6d; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=AtLzcVEw; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c1sYT3NS"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-4858303de5dso699849f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:35:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788449748; x=1789054548; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BGqHkfnL74zaEtf/qjlyesNnXLKu3K97Vw4CNhC1tbM=;
-        b=c1sYT3NSOrd6uouEtxSaM/q33egHhjFF9rlE99qGWPH10WBuo1kJxyi5v2qe+CwJRG
-         StT2k8kew//q9C3OUIYYUE2cqnum218EYw0vCP+F03OxOHkSr/jadCZfnDCMk/SGEtXs
-         5Tr6ITEfVLxpuRfSauN1O/gvrSmmNiaiB0XgaAWu67u1LRtJPd6WXqon1GEb/ng9PcGa
-         f0dI4LaXAyNnIh8Uej/KJ60YAdiRqy6ni3HrHk6bB9Xqz5GOopx+0WXXioEYA34Uepe2
-         ABFLSn9NnWMrWaYvq8xkGLP00zSTAjCpk6lLc+0PULLi6NCbB8Pyiv8YcJyUoIuXoyok
-         Yj3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788449748; x=1789054548;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BGqHkfnL74zaEtf/qjlyesNnXLKu3K97Vw4CNhC1tbM=;
-        b=JB5r01QgKcm0oiIIFP6gNK4gwn+knTTd6zfKhmVLVRPYtERg3CO8ZlQNZrFdZ3a4uL
-         ZUxo1vsv/QA8Oyrlj0XKcTwhgBOm4pZfAL/6yW1YqOrdcMR2J2rhq03BbzYXMOwubPkJ
-         2exdbCyskjPcdO/fQhkr8aR8S3YB+KEWr0wU6LQE49MK9LpnXVBm4pxcFnVO4kPCRgfM
-         NncdXpxTqh5lbANLBYD7MMnEbnW1TIAJuCmf5aX/t8c2Wah3qrg9g2uCo9gcRFFzVEsk
-         VzWfCPZQmrecDapmH8WDM73JGLCioQYrEtjQENX7gRrMh1pzfyrK4VgOYnaBEtw2bYtO
-         wU0g==
-X-Forwarded-Encrypted: i=1; AKwUvBzYmriZSZwTgxPxCNdk0cPlAWzBbWib12LNuA1/rEl3rXRVix0x0WuQwpOkWd7HEpT0GRQSUwvaaWfsESc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRVIpbeA0R3gsKz/eca9QCfk8AFpNebg+RF7rmHlcMYWGFUHDO
-	busE1SrEJQ9KKzIeBbBkemlHm0oQ2E3WhLMwpP32n1lIeRKiU23S4eLLnSuw7/2SGQ4=
-X-Gm-Gg: AYBFou35jSs/N+tLpkIPYeC8hzOUGzehCso6VqRfx5YxXPjJ8Stq4iW7d+5jW9tQ2N1
-	QzRCtLDat24QxtGHOfyQrbLNRo3p9OXBeSxgKhNCwR98W3GExt3+pevq3y8+Ag0AdcP/kY31S1M
-	zYDam8Sp9H1TvipoCb34/suy3Ag3XsoZoN5bpxEFHHS3lY5B7uYSE/bxyBI8yFZfwIMZ/46wbzK
-	0tiVAyfuZ9FMVWzCDPTnLTealICucuiw7gXyATaN8unOzgznS5++4nyrKIecPnieHpTSaNWp32D
-	Z0d89bDS1ZHHUIOZ5JRs1WHXgDvGxQx+OvF/xDGrBTJHAVgzEwtaODcAjTnvLoRdX75taX45aTD
-	CjJthB0/B2COIH+kuCe+dd4Oa+QcB591xjXCUnnD9qay1XBFn8nNNk0vECuyL55lZ8KDYXPkYjT
-	9FiOGTW1JDVlKjJzX+do7B+/hS5nHHutB5kU+AaFvCqNM7lKuhW4vQFJ3RpV423fDglO5wD6qhU
-	E5axC/fRcOEAZp4OSlGr7VUykwwX5KWRRFZMuSPRHN9GXWychE0jpW1YATnoAkO5cjD44rujY4i
-	Ec07Q0HkIuGR
-X-Received: by 2002:adf:e947:0:b0:484:f26c:ba9a with SMTP id ffacd0b85a97d-4858606d6a3mr2102493f8f.16.1788449747700;
-        Thu, 03 Sep 2026 08:35:47 -0700 (PDT)
-Received: from cdev ([2a00:fbc:f1cb:c56f:5a2a:db32:f638:bd69])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448eea5b4sm14851108f8f.27.2026.09.03.08.35.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 08:35:46 -0700 (PDT)
-From: "Vladimir V. Kondratyev" <vladimirkondratyev2@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com,
-	pmenzel@molgen.mpg.de,
-	chandrashekar.devegowda@intel.com,
-	arnd@arndb.de,
-	kiran.k@intel.com,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lsa.uz@pm.me
-Cc: "Vladimir V. Kondratyev" <vladimirkondratyev2@gmail.com>
-Subject: [PATCH v3] Bluetooth: btintel_pcie: fix stale cache in set_dxstate fallback check
-Date: Thu,  3 Sep 2026 17:35:04 +0200
-Message-ID: <20260903153521.130258-2-vladimirkondratyev2@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260507203426.128975-1-vladimirkondratyev2@gmail.com>
-References: <20260507203426.128975-1-vladimirkondratyev2@gmail.com>
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="Tw8NIl6d";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="AtLzcVEw"
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683D9Bxk793968;
+	Thu, 3 Sep 2026 10:35:37 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=proofpoint-05-2026; bh=yVeA8sfXPtCoiC6
+	08bsir4m3Gs0+zlIvWo1tJyr9nF4=; b=Tw8NIl6dkoxM5uzgQeyVU0fzxugkCXc
+	t1GbDsHweuvkg9RQcGtbF9fJzp7UHO/tLJDzelav72dw95Xznq7kK+SB/v1ezN5L
+	M0Fp+fFhiyUqGmt+P4q8xRVwlcQfhSNo6NIaRSoH3q152Fe9Z6S5dXVmwBBTXU1f
+	A4/55bUJcYYS8BmSRtrBX2vl8Lf9Yopp710DghkU7fMQTMXXpBIPx6xC8TkOnRmK
+	khnCYVa/sizBUBCeRUB021xDCdMXLhRNenYT4Z8E3glqDKpm9QxwXiwFkNeWLfBA
+	T0NymlQYUkaY4pe9Ht8gTy0Fnadanv0zUBJd4pG6J4v45InzNGn95bg==
+Received: from ph7pr06cu001.outbound.protection.outlook.com (mail-westus3azon11010037.outbound.protection.outlook.com [52.101.201.37])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gf68jae0e-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 10:35:36 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EfqAnoC3VOb7s/lxpera4Nm8zA4HTxmH6gxdYVX0FICDSpn7m/tpCXc80gRPHbXg0QN2F4kYP/XfscC9NPgMbePPJm/7F3YfWhXYFOleaPWBjngOM3iFXzomma1RFoNNBAdhhAb1D9SxBqUkVs5U1YmorTQ7I7m7gL6sOJSjtlM5HlmtVW9dJa2x4O8eEWynU/75opnw9amjnMIQWicvoaVoaDu4rwo1e2gN3qoG9++qxGdcEiCQwcG84pGYqHW/baCH34LxoAb3a5y1Nfqk6sDTmaNAdLPCDj0gtsyi53a3Po4W/7Hxx47fJXkjq2a6jotSq73zZZ/ftYj6RsRRRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yVeA8sfXPtCoiC608bsir4m3Gs0+zlIvWo1tJyr9nF4=;
+ b=gQ1bM6YG2ae7y+lHdsDVrdjsWIpg39UDoZ+eHhXEaGE/3QkccgGJy7x7CBfUJjd0C0xejjA1nQQnexuMuiy/5xh9SeLL/LoF1MKwa73MUBaL/XLd63QG7aoGXPwEgJxW4kQ51rpKR0NIell5kdsrLZkDCOAcWR27m4lojuOKBz0vKeyGUjTZkzQ0i6e2kjZAv+bymO8Yty8rf2VaNdVJSslKvxjwFtOm1T0G6rl5d33oMQ9dGinV4J73hJKcgZhW7Vecxvy7Nn1akSl//PzVbKZ0UuyPQThmMsZlUKGQ/kvoD1QRBJ5aHxHVOYv/+CznPJ44teEOxS5tMH/wXCYYqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yVeA8sfXPtCoiC608bsir4m3Gs0+zlIvWo1tJyr9nF4=;
+ b=AtLzcVEw/dD5grgd4aUD8sny5oZUjsROa7dJ2datQD/mdmX4jZ5+D2DXBChewJq0a4Lt+LC4Y/Te0mkMWz+Fi3qoo0gg4qnGwamN+4L1QVcjE7SV/KeVPgX0v/g98KrbzC+gAE5RJHrGvwnkI0EBXajS2MFTj+0V8ZoSaT37v3E=
+Received: from PH8PR22CA0010.namprd22.prod.outlook.com (2603:10b6:510:2d1::14)
+ by PH3PPF54E75B76D.namprd10.prod.outlook.com (2603:10b6:518:1::7a0) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Thu, 3 Sep
+ 2026 15:35:27 +0000
+Received: from SA2PEPF00003AEB.namprd02.prod.outlook.com
+ (2603:10b6:510:2d1:cafe::56) by PH8PR22CA0010.outlook.office365.com
+ (2603:10b6:510:2d1::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Thu, 3
+ Sep 2026 15:35:27 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ SA2PEPF00003AEB.mail.protection.outlook.com (10.167.248.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Thu, 3 Sep 2026 15:35:25 +0000
+Received: from DFLE205.ent.ti.com (10.64.6.63) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 3 Sep
+ 2026 10:34:41 -0500
+Received: from DFLE215.ent.ti.com (10.64.6.73) by DFLE205.ent.ti.com
+ (10.64.6.63) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 3 Sep
+ 2026 10:34:40 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE215.ent.ti.com
+ (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Thu, 3 Sep 2026 10:34:40 -0500
+Received: from localhost (bb.dhcp.ti.com [128.247.81.12])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 683FYexd2814637;
+	Thu, 3 Sep 2026 10:34:40 -0500
+Date: Thu, 3 Sep 2026 10:34:40 -0500
+From: Bryan Brattlof <bb@ti.com>
+To: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
+CC: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
+        "Tero
+ Kristo" <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
+        "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Nathan
+ Chancellor" <nathan@kernel.org>,
+        Nick Desaulniers
+	<nick.desaulniers+lkml@gmail.com>,
+        Bill Wendling <morbo@google.com>,
+        "Justin
+ Stitt" <justinstitt@google.com>, Judith Mendez <jm@ti.com>,
+        Daniel Schultz
+	<d.schultz@phytec.de>, Andrew Davis <afd@ti.com>,
+        Siddharth Vadapalli
+	<s-vadapalli@ti.com>,
+        Paresh Bhagat <p-bhagat@ti.com>,
+        Jai Luthra
+	<jai.luthra@ideasonboard.com>,
+        Devarsh Thakkar <devarsht@ti.com>, "Beleswar
+ Padhi" <b-padhi@ti.com>,
+        Francesco Dolcini <francesco.dolcini@toradex.com>,
+        Stefano Radaelli <stefano.radaelli21@gmail.com>,
+        Nick Desaulniers
+	<ndesaulniers@google.com>,
+        Vishal Mahaveer <vishalm@ti.com>, Kevin Hilman
+	<khilman@baylibre.com>,
+        Sebin Francis <sebin.francis@ti.com>,
+        Kendall Willis
+	<k-willis@ti.com>, Akashdeep Kaur <a-kaur@ti.com>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <llvm@lists.linux.dev>,
+        Hari Nagalla
+	<hnagalla@ti.com>
+Subject: Re: [PATCH v8 3/9] arm64: dts: ti: k3-am62a7-sk: Fix wkup R5F memory
+ region size
+Message-ID: <20260903153440.rtw7admu6wfookqt@bryanbrattlof.com>
+X-PGP-Fingerprint: D3D1 77E4 0A38 DF4D 1853 FEEF 41B9 0D5D 71D5 6CE0
+References: <20260903-topic-am62a-ioddr-dt-v6-19-v8-0-74c650dfdea6@baylibre.com>
+ <20260903-topic-am62a-ioddr-dt-v6-19-v8-3-74c650dfdea6@baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <20260903-topic-am62a-ioddr-dt-v6-19-v8-3-74c650dfdea6@baylibre.com>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003AEB:EE_|PH3PPF54E75B76D:EE_
+X-MS-Office365-Filtering-Correlation-Id: a6261f1d-7e03-4411-196c-08df09d0f9d4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|82310400026|36860700016|10067099003|4143699003|56012099006|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	9jkTdVVzxfBPIFccF+iWRTsSHjsDcPsFJ7YBrBGCpQplphYZz1xscXtF5NIWc3Cc9EHcGswPXWAwZUNbmdEQlQUrLhzUxguzWXGtibQIqHJOxyLYdsqsb8l19lOk2SDDO6iiDGwQKPCi+x4tIMWNzhr76SMd/ehV4DolOiOllfA1fPWzYwmkQAsx/NawUvQBSoEeLEM5ihwqx442wnQOhaG3OxZ4lmAWI5Hn9Af2miCwpdr0K6j0P6ilvZZHwbWLQLEnKzjcCSM05rdBAqMuq0mS7cy55vmJVfCMKG84if8a7WGNk6fiBC0SDQj2SuMF78WK6fwHAgtg3Z95P9T++fj4Dh0RKWMtPxdXOo3gc4+Dd/6nESWTgXj1OR1djbjGlkVcQQ8xGLnK0/TPoC9eYRNEpMxKsWu+2+WgLmRJY/qhRaPtMmqPvO9DxnehmLDRHWmCO500ueSVMvoJZubEIlZQSJEbqHA0olkLAAfuvCuBlCGpMQOp3FPNgZK6G/ap8VRE9TsswMAFIEWkAZu0YL/3wJ0DOmfzgXHflsaBKGaH+3ccw/iijBpeUrOUiHg8HwJw6IVzyfVWzoJKH7V31IT+PANlQmE3Ne49E7N4NQQD7TTnK6ZfE/7X+c6BmFBdSxkFOVe1W1Tp/7v4T2Rrtg==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(82310400026)(36860700016)(10067099003)(4143699003)(56012099006)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	qUgDSb4HuXkzJZXu+mV5tETE4n7URprD685+ZTsfJQW3Kaf6aBgH9qahLjy/syrUsZmxXVZG8AHlqXG+jJCoxlejEiGzysuwiAtYMbRpVaO/s8BwdSYrw2PVLVUfL6xAkyhpRuLhAAL0Pfca8IQl6B1uZdgV8Gl5nWKqJDfFbW8pCZASSmfo+mN81dNZl1pgZ6f2Ga79FkHWyH4DPg9eIyGsp4HjJdkawFu3B2lJGOAJIR70gOMHHWiQzQnrAQK22QD0oMRaalMmwTTaQhMqykuZci8sxse3uKSQDWvqttXQKxtDZHU0GtdFY14S9plGZNeM4zL8ThR7Fg9y4yzgm8guAdUOiaXE+izluPQx+H3UDu5c1YIsNYG/BvT4N2InA/WDIPocUxXGUd5ZuayLifkqSs5nKTE1z4wSbCE2lSbPGOnJrZFQGNbJvR0FVURg
+X-Exchange-RoutingPolicyChecked:
+	yAR3N8FA9+E5r3rU+P8Tref7oCOn+J/jKvzON9I8iX3AErh/TokH5rkMiB0V0wpywlq4dy6wLVcZ2Tnbs3fYdxOMTt5sYjdNytSLT/UbSDhmgnFLEW2nV4qUqOq+epj0543DEYx791a9MEVKe9j7HGgTozsyPkh1yVsBWjzdPfGOJP3GoKO6LiUizm5If2KS4FjmETWw+b7vmsaPs/KJkH/JJsk3wE9kQaEnrqD5Wi8yvFvPdhzngaiTbBHdK75I2+HvPf+AUsJRjHNCcqLTT1sN9au4e1k2s3kvQ8I55RocDfFepAh/KzkbcGP8dQ8JtGLRvE+OPnSo+z/KOEny+A==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 15:35:25.8387
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a6261f1d-7e03-4411-196c-08df09d0f9d4
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF00003AEB.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH3PPF54E75B76D
+X-Authority-Analysis: v=2.4 cv=MvBiLWae c=1 sm=1 tr=0 ts=6a9993c8 cx=c_pps
+ a=fIWvqWWOoOps8dVAlNTpGg==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=jwouBfj2j3NM8CExmVVE:22 a=ZWcXVxRsAAAA:20 a=IpJZQVW2AAAA:8 a=sozttTNsAAAA:8
+ a=dbs-pGJ6yqg6YDvl5d4A:9 a=QEXdDO2ut3YA:10 a=IawgGOuG5U0WyFbmm1f5:22
+ a=bn7x_FpfJtc3yKQXRW3z:22 a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-ORIG-GUID: z70MQgkyq2m89wJcUVY1cgtPcWG-UR9s
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEzNiBTYWx0ZWRfX5Ww+En1SvmeN
+ bUGdIw0Lxi+S4qm7jppylcu2CLrad425OxJWO05Vtq/QpDo1KGLraucCUk1ZueDMqkeeeF6lN2z
+ a65TKsUDS0rm4UJ97Cpr1yJ0ExmnxGIpdcqohzbChGOZ6bKRuAAH9B9IE3go/wGiak4gQGH3hgc
+ d2Jm9pyJjn3XkOKInmKPRwZUwLpCfnIUNOBCoR8X1bn0udatyUVgJkWpJXM2sTDDPnxyARReyyv
+ fbRtr+csof8URGbG/jlHElwjWYjQM1fps3FqOigaO6+6rVfFzL1Unc+SXkOeQJ3UFf0OkXte0u5
+ wtZHfdmyeb/3AnDaH5APgiWR104UoREBNQCYDWAkd9s5k01aSnaSnchKfY/PlFAm5JV1Bt7aOE9
+ l94OGW1cBOab2rxm3ECo5IQBLBSpFRBhP6UGSxoBHDAghDB1RaUXyATZNSHQ0BT4bdX5ehrSOj+
+ dBFoixsxxUE45D8MTJw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEzNiBTYWx0ZWRfX30QExrp202+M
+ CIXIsM84qW3AW/7RFiOBevntb5BUbA2JcWPmKoF7oat9QXKXFRBLcEFgjuPcAJiaHQOHyxAx33p
+ JTPkePvPXUUIuhqnTxdSHwh2HlORr40=
+X-Proofpoint-GUID: z70MQgkyq2m89wJcUVY1cgtPcWG-UR9s
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_04,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 impostorscore=0 malwarescore=0 bulkscore=0
+ spamscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030136
 
-btintel_pcie returns -16 (EBUSY) during suspend, causing the entire suspend
-operation to abort on Intel Lunar Lake hardware. The system immediately resumes
-after every suspend attempt:
-  Bluetooth: hci0: Timeout (200 ms) on alive interrupt for D2 entry, retry count 0
-  Bluetooth: hci0: Timeout (200 ms) on alive interrupt for D2 entry, retry count 1
-  Bluetooth: hci0: Timeout (200 ms) on alive interrupt for D2 entry, retry count 2
-  btintel_pcie 0000:00:14.7: PM: pci_pm_suspend(): btintel_pcie_suspend [btintel_pcie] returns -16
-  btintel_pcie 0000:00:14.7: PM: dpm_run_callback(): pci_pm_suspend returns -16
-  btintel_pcie 0000:00:14.7: PM: failed to suspend async: error -16
-  PM: Some devices failed to suspend, or early wake event detected
+On September  3, 2026 thus sayeth Markus Schneider-Pargmann (TI):
+> The wkup_r5fss0_core0_memory_region was reserved with only
+> 0x0f00000 but the MCU SDK linker for the wkup R5F firmware on
+> AM62A defines the DM code/data DDR footprint differently:
+> 
+>     /* DDR for DM R5F code/data [ size 27 MiB + 364 KB ] */
+>     DDR                         : ORIGIN = 0x9CAA5000 LENGTH = 0x1B5B000
+> 
+> which results in an end at 0x9e600000. For this memory region which
+> starts at 0x9c900000 this means a length of:
+> 
+>     0x9e600000 - 0x9c900000 = 0x1d00000
+> 
+> AM62A additionally has a second DM firmware for edgeai whose highest
+> section end address reaches 0x9e700000, so the region should end there:
+> 
+>     0x9e700000 - 0x9c900000 = 0x1e00000
+> 
+> Link: https://github.com/TexasInstruments/mcupsdk-core-k3/blob/k3_main/examples/drivers/ipc/ipc_rpmsg_echo_linux/am62ax-sk/r5fss0-0_freertos/ti-arm-clang/linker.cmd
+> Fixes: 77c29ebe76d8 ("arm64: dts: ti: k3-am62a7-sk: Enable IPC with remote processors")
+> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+> ---
+>  arch/arm64/boot/dts/ti/k3-am62a7-sk.dts | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts b/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts
+> index d3b3675e7a8f..6e5419de8e35 100644
+> --- a/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts
+> +++ b/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts
+> @@ -61,7 +61,7 @@ wkup_r5fss0_core0_dma_memory_region: memory@9c800000 {
+>  
+>  		wkup_r5fss0_core0_memory_region: memory@9c900000 {
+>  			compatible = "shared-dma-pool";
+> -			reg = <0x00 0x9c900000 0x00 0xf00000>;
+> +			reg = <0x00 0x9c900000 0x00 0x1e00000>;
 
-btintel_pcie_set_dxstate() falls back to checking the controller state via
-btintel_pcie_in_d3/d0() when the alive interrupt is missed. However, these
-helpers read boot_stage_cache, which is only updated by the interrupt
-handler. As such, if the interrupt was missed, the cache is stale and the
-fallback check always fails, exhausting all retries and returning -EBUSY,
-causing suspend to abort.
+Ugh this is annoying. I don't like having to reserve the maximum of all 
+the DM variants. It seems like a waste. 
 
-The fix involves re-reading the hardware register before the fallback state
-check, consistent with btintel_pcie_resume().
+Reviewed-by: Bryan Brattlof <bb@ti.com>
 
-Fixes: e57362f4911b ("Bluetooth: btintel_pcie: Add support for _suspend() / _resume()")
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221481
-Link: https://lore.kernel.org/linux-bluetooth/20260830151550.44687-1-lsa.uz@pm.me/
-Signed-off-by: Vladimir V. Kondratyev <vladimirkondratyev2@gmail.com>
-Tested-by: Sergey Lebedev <lsa.uz@pm.me>
----
- drivers/bluetooth/btintel_pcie.c | 8 +++++---
- drivers/bluetooth/btintel_pcie.h | 1 +
- 2 files changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel_pcie.c
-index 30923eaabed7..44ad31a5d7ed 100644
---- a/drivers/bluetooth/btintel_pcie.c
-+++ b/drivers/bluetooth/btintel_pcie.c
-@@ -3538,10 +3538,12 @@ static int btintel_pcie_set_dxstate(struct btintel_pcie_data *data, u32 dxstate)
- 					  BTINTEL_PCIE_CSR_MSIX_HW_INT_CAUSES,
- 					  BTINTEL_PCIE_MSIX_HW_INT_CAUSES_GP0);
- 
--		/* A hardware bug may cause the alive interrupt to be missed.
--		 * Check if the controller reached the expected state and retry
--		 * the operation only if it hasn't.
-+		/* A hardware bug may cause the alive interrupt to be missed. Refresh
-+		 * boot_stage_cache from hardware, since only the interrupt handler
-+		 * updates it. Finally retry only if the state check still fails.
- 		 */
-+		data->boot_stage_cache = btintel_pcie_rd_reg32(data,
-+							       BTINTEL_PCIE_CSR_BOOT_STAGE_REG);
- 		if (dxstate == BTINTEL_PCIE_STATE_D0) {
- 			if (btintel_pcie_in_d0(data))
- 				return 0;
-diff --git a/drivers/bluetooth/btintel_pcie.h b/drivers/bluetooth/btintel_pcie.h
-index 9baa214d9bbe..a7f4e590af5e 100644
---- a/drivers/bluetooth/btintel_pcie.h
-+++ b/drivers/bluetooth/btintel_pcie.h
-@@ -51,6 +51,7 @@
- #define BTINTEL_PCIE_CSR_BOOT_STAGE_DEVICE_HALTED	(BIT(14))
- #define BTINTEL_PCIE_CSR_BOOT_STAGE_MAC_ACCESS_ON	(BIT(16))
- #define BTINTEL_PCIE_CSR_BOOT_STAGE_ALIVE		(BIT(23))
-+/* Reflects live D-state. Updated by hardware on every D-state transition. */
- #define BTINTEL_PCIE_CSR_BOOT_STAGE_D3_STATE_READY	(BIT(24))
- 
- #define BTINTEL_PCIE_CSR_DOORBELL_MBOX_READ_CONFIRM	(BIT(4))
--- 
-2.55.0
-
+~Bryan
