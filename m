@@ -1,139 +1,112 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011050.outbound.protection.outlook.com [40.93.194.50])
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA03B4B5413;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E96254B541B;
 	Thu,  3 Sep 2026 14:21:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445283; cv=fail; b=MBC8WBdR6FhPvJ1tboba2Ux3D0AqRJ5c98jtYegQafd7Yv35eLOCMSYgGQL51Ki3Im8BvKfr+jYWSXAqizbLtkAFWyLB0OShq3sbrkOa0gagtq5YIP5wx9U18OiEuOnVFaL42iR1rfLbC4iXU4NVljYbwNzQPgRA6qjhEDH72OU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788445283; c=relaxed/simple;
-	bh=Cld8hW5s2QzxPGDfHU4NQ01BhpXDql1dxfi8SnVLvUM=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=QrXvlZZUQYKYQcdfZQrimBLS7cFSNYKFhAtYpgHpo1KEQ44kMrWuU2fwIuqhg6arooeatlyJLqsVkkJ/6cJY1+VYhY7LyYnIEIxJ+T9mTHmYI6fm1gegQXW+sgVu/QNntP9eIrWNz7m+WwdPzSMMm2MqGwPpC6Tm4Qx7aPn1cbc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ysySQ9IZ; arc=fail smtp.client-ip=40.93.194.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788445282; cv=none; b=DwHk/v58Y6b2/rWF9IzG7GO8BT3FnmDr9+PZOn33vig/vVg+rq9y1Q4nMGpFQvzvVqbJoP3UbkwQwjH0+2UhonPOe4Mp1VF0HAtO1G6unG2c8OGTxSobVqRjdFZhz8DuL/GVPv42XrIUK1FHOSZbSoN3KeKkHKTc0w5Js6SFfDA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788445282; c=relaxed/simple;
+	bh=8cgy1pc2fkrTyDrJzHuyoZDQ7Z0SqVHptzw6x82N5pY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=C1OvJB61TK9d/5mZBhvIYqwOdDBDLHpd6zLjjZZWzcOuvuNYrLT261zY939HB8d07KD3vveA/wxiwyMAg8HgIjkQKi/s3A0OOUC0cXM78pjEJGobrODIavurt8Ueg6WvliH7B6hZ7q6vNKlNiPPDlrjdk1qIPzhYGWvjyVf+mas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=OeTVx8p2; arc=none smtp.client-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ysySQ9IZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mLaN/CFGYDRJftEviPF8I6otYC2T2dCZe1KDS066+BH1BWfyHTwX7UW6bgTcVidZv89tdvdEz6A82wjb4aRHnqHAavII2RfJTs6ARWWsc1GpPmaV7dEr5FlImD5lS88l5jKe5JACqRymhMTJk4qlCDmfxxD9B8r7nFvQxM+bDdBSLf9GjXsONknldJSXc6cWpICkXHIR39TecMBCKWY+j3m4eugLj5WEVj3CCbxfSvRogNuXV+dPdZOij3fPvtVsp/l9J46+YaGmlSEmYv/WVIrfnHOTI8Y+OZZV0oCUtUeds8yqWJ7pu326YlFpYy60JkB/OcwLfIvigOEH/gVL/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Lpxd7x00UMq98MfOveXOPeB3xw4sGlKhLZg794CmxAY=;
- b=ENoo1pux/NMIs3m/pMlay8IrZKKWqIi7Uu9e18U+3HGr7sSxQ+1Vm2vykhXe5qW9WJzt6kio23u6rsSH/TYGVnUP+bnxjd8oI8W9aXRZo9r9JhbbUgHlANzO1NnEYR/lGiVKgIKQi0t/mim9LSU7SxQvwKJfjKd30h7+JPgInLbgy+8Jb0RHogwkzOCx+z8XhY+BU+ue7YW9aHtToL22aTgocWAO2NFXkpNm5Dp/atATIkeiNRUcA46MTKIEONRdjpcVxl7KVUWjZzUIMBNboFJ66H8jk1zPY2k2qLNHX5YcgOx41TmWOvy3xCkabvH2H/BZ7vdqo0be6g6x+epJOw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Lpxd7x00UMq98MfOveXOPeB3xw4sGlKhLZg794CmxAY=;
- b=ysySQ9IZSsB9gtjHPk+mXaKOmKQxLm5fOIizVjNaevfdl2wxeAzIJpipkPlw+rwWf+N+GIik+5hq9yQNiFz4USouLdINpE5PeQuz0oHf2/Wy2ti0pcvJ6ZQVml53Et4FyCUAH+JYDz0HhHMWSxhqfa8HoZiJHtk9NV+UYfMgwD4=
-Received: from MN2PR18CA0008.namprd18.prod.outlook.com (2603:10b6:208:23c::13)
- by SA1PR12MB7126.namprd12.prod.outlook.com (2603:10b6:806:2b0::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 14:21:01 +0000
-Received: from BN6PEPF0000006F.namprd03.prod.outlook.com
- (2603:10b6:208:23c:cafe::81) by MN2PR18CA0008.outlook.office365.com
- (2603:10b6:208:23c::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Thu, 3
- Sep 2026 14:21:01 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN6PEPF0000006F.mail.protection.outlook.com (10.167.248.196) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Thu, 3 Sep 2026 14:21:00 +0000
-Received: from quartz-7b1chost.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
- 2026 09:20:59 -0500
-From: Yazen Ghannam <yazen.ghannam@amd.com>
-To: <linux-edac@vger.kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <tony.luck@intel.com>, <x86@kernel.org>
-Subject: [PATCH 0/3] Increase MCA bank count
-Date: Thu, 3 Sep 2026 09:20:46 -0500
-Message-ID: <20260903142049.4126599-1-yazen.ghannam@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="OeTVx8p2"
+Received: from omf05.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay09.hostedemail.com (Postfix) with ESMTP id 0EA638028D;
+	Thu,  3 Sep 2026 14:21:08 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf05.hostedemail.com (Postfix) with ESMTPA id 1F52B20010;
+	Thu,  3 Sep 2026 14:21:06 +0000 (UTC)
+Date: Thu, 3 Sep 2026 10:22:09 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, Chunfeng
+ Yun <chunfeng.yun@mediatek.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH] USB: mtu3: tracing: fix pointers dereferencing
+Message-ID: <20260903102209.7aa79164@gandalf.local.home>
+In-Reply-To: <20260804100531.88576-1-m.szyprowski@samsung.com>
+References: <CGME20260804100540eucas1p24c59c891e91eeeeea8032d1c80312ea3@eucas1p2.samsung.com>
+	<20260804100531.88576-1-m.szyprowski@samsung.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN6PEPF0000006F:EE_|SA1PR12MB7126:EE_
-X-MS-Office365-Filtering-Correlation-Id: 07ddaa2b-2771-4d2f-3944-08df09c6941e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|36860700016|23010399003|82310400026|56012099006|10067099003|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	b7ysJP8lYYD4zq5h2cKJr37nlmh2KLujRjnInIPYdh7p/TNLd3dvoGSNLklndPAn2trzaTZhlmpGbStBIWs1lbEWKQsLD+YYSdzxzZ1jZWw1l1kHAj98Sj46fKbkStSirAtvpTxdwr6P9xsHsPkxGQ78TG5mRzsC8lOV3nR+8FiWX92rcZk1P5AORiTJcFjkk8qGiioDGVpR1B8gJdQBYPDEd4jgr4rKZQbpX2lVHmhNuefl35+pvdtsxLLHg+SiV2CKmrBPd3XCH5SMOi/jbMAOpA04DGOeQuiYVM+vmrO8qkn/Gm6awlH+Uc/5HmCfbkx6JFb7ncutCQLTGB06c9awLjBKaEkMDRMKq7ztKRqUzG0fhuIf3+P7FDSFotez3odrVY8tvQUkdZ7IKlnu48FVaT/8OHHnRizdd4YA3YTdhf69MHX+hL/nN9yCAzfzHZqBSfIMI1h6vZzbQmD/8+11CSdAdz78mHS6PvcgI8V+PEVl3U984fnSzzIbRVr90mBClyXRCOAmngeTSriKiOAtRJ74T4PCSBwgLzzGmI6BdbcxKMZAFBcB1KKpK2Lq3KFRjtW6qsCugPHXr/9Tn/jlkMAsBVOSCiT/jmzKLHoEbiGJ6pik9UR7xLx2gPI7P7cyHQ6JNnDnHbBPVhuN4c3Xsy3K0bAlniyIeRQ8/LAEDPEo9gxENCOukw7Gjtkwn3i7f2OhFOvjOtMQj8jXkQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700016)(23010399003)(82310400026)(56012099006)(10067099003)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	2yTI1F8T0vVtHAsgABW80Wfyfli7WI8Wsk4hEv6ewOtqqkxUdI8v9NBDu3GIWThPH2CznDcZRgt5gKDrj4++UHSKusnd/91JviRIxooDNKiZcKLrJ6IXnE3tO2Kz11AtCjucPynOV2xVF1hHyxXComHen/hOd7eUuOUwg+c1lFUfLTi2ErqpLyqUwtOI2/ufIcpE1wUPrSfmNr5rQKut77OxTpwSwLjF3btOT+IAMQ0rghziyOyJeHbQC0AYnCJxcnWNcZdpMVEZ+Bd+gbj6YZuohPR21Ep81Ta5phjauK05M7mJuQH6kp0fJpFmZQyNDTKMbwumaBPu6vxtKqzGYE+ZnUBOYkMsxuSsJate/jW4sDrF2EFnuyb0KYtwGBtp4MFynpmIRcNhdU9ztMWg/yBda+4sCBgp7dyiQ1lfoV92m8G6jbKsJDRWx+uKk0Kw
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 14:21:00.2626
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07ddaa2b-2771-4d2f-3944-08df09c6941e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN6PEPF0000006F.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7126
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 1F52B20010
+X-Stat-Signature: bbffphg7oxa6e7rpsgix55ra4nbtu7w1
+X-Rspamd-Server: rspamout07
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1/iTf2W3ORymql+pkUYrTwc+8yFoyHdvsA=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=yishPGcJ2aBgX8f7/aGf43YSeYKU1vTSOdEz/UOhz0Q=; b=OeTVx8p2lxSQogYJ26E1ZhG3n3KKks5OHbZci2y9SKKWyKD0Rrldj5ZjxLjBpvlDgdpkm5WgLfgbRKajQHCn2eD55bDuEuD4vBO8hpYWi3QdZYLkGtNvz509LeLzEkfa+1qCbnN5wnYFCPj56e/Oqa2C65ipdz0ZqHjz3atyD60=
+X-HE-Tag: 1788445266-583183
+X-HE-Meta: U2FsdGVkX19X7ugC+vbhQ7lmiL4dr1fOYRS9OljPxV5GOhRyMDiZnXFW++NBw5Xkzwgds5f0z5EsyCnNZw8p/UQpt8MK3ohX44nVVlpxESuwo2n6R7Fgm/2eWaSnr5LaeeW5H62kssDdqx/CngttlxmQiA+OszTXiz8C3KLm830NrLGUsrzz6x/lhTlxQelVPtn5U5OM/0SsHPk/JgA93j84x8gXz7D1aHVfOw91L2ostFcRYo3YllfTi9E8odywsm12vTfc5sjM+gXBJ98r4n6PbSsH4uU52wmAIMpo7PcpVh6V1YOjsJ9xHsyola0bEuLv9WGO65W8TKj++sINsyXY6Z3CnGmfY6irKnL0jdnhD1SZD0sSfSX3/ryfM7N9WQenyaqo4uEcsuyuvDlQ2Q==
 
-Hi all,
+On Tue,  4 Aug 2026 12:05:30 +0200
+Marek Szyprowski <m.szyprowski@samsung.com> wrote:
 
-This set increases the max MCA bank count (MAX_NR_BANKS) to the
-architectural limit.
+> Commit b5cc230af5e5 ("tracing: Warn when an event dereferences a pointer
+> in TP_printk()") added a warning then printing an event dereferences
 
-Patch 1 is a bug fix that came out of code review.
+            s/then/when/
 
-Patch 2 is a pre-patch to avoid a bug for systems with more than 64 MCA
-banks per thread.
+> a pointer, because it might be already freed that time.
 
-Patch 3 is where MAX_NR_BANKS is updated. The commit message includes
-some memory stats like the last time we bumped up MAX_NR_BANKS.
+                                        freed at that time
 
-Originally, I intended to include additional patches to consolidate and
-dynamically allocate many of the per-CPU and per-bank structures. These
-still need more work. So I thought to send just this small set to start.
+> 
+> MTU3 driver is one of the drivers triggering this warning. Fix it by
+> storing also the DMA address in the event structure to avoid
 
-Also, I figure a smaller set would be easier for backporting for those
-who want the feature support but don't want the additional rework.
+        s/also//
 
-Thanks,
-Yazen
+> dereferencing gpd_ring pointer during event printing.
+> 
+> Fixes: 83374e035b62 ("usb: mtu3: add tracepoints to help debug")
+> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> ---
+>  drivers/usb/mtu3/mtu3_trace.h | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/mtu3/mtu3_trace.h b/drivers/usb/mtu3/mtu3_trace.h
+> index 89870175d635..b24c6411a8cf 100644
+> --- a/drivers/usb/mtu3/mtu3_trace.h
+> +++ b/drivers/usb/mtu3/mtu3_trace.h
+> @@ -224,6 +224,7 @@ DECLARE_EVENT_CLASS(mtu3_log_ep,
+>  		__field(unsigned int, flags)
+>  		__field(unsigned int, direction)
+>  		__field(struct mtu3_gpd_ring *, gpd_ring)
+> +		__field(dma_addr_t, gpd_ring_dma)
+>  	),
+>  	TP_fast_assign(
+>  		__assign_str(name);
+> @@ -235,12 +236,13 @@ DECLARE_EVENT_CLASS(mtu3_log_ep,
+>  		__entry->flags = mep->flags;
+>  		__entry->direction = mep->is_in;
+>  		__entry->gpd_ring = &mep->gpd_ring;
+> +		__entry->gpd_ring_dma = __entry->gpd_ring->dma;
+>  	),
+>  	TP_printk("%s: type %s maxp %d slot %d mult %d burst %d ring %p/%pad flags %c:%c%c%c:%c",
+>  		__get_str(name), usb_ep_type_string(__entry->type),
+>  		__entry->maxp, __entry->slot,
+>  		__entry->mult, __entry->maxburst,
+> -		__entry->gpd_ring, &__entry->gpd_ring->dma,
+> +		__entry->gpd_ring, &__entry->gpd_ring_dma,
+>  		__entry->flags & MTU3_EP_ENABLED ? 'E' : 'e',
+>  		__entry->flags & MTU3_EP_STALL ? 'S' : 's',
+>  		__entry->flags & MTU3_EP_WEDGE ? 'W' : 'w',
 
-Yazen Ghannam (3):
-  x86/mce/amd: Fix bank lookup in amd_mce_usable_address()
-  x86/mce/amd: Convert bank_map to a bitmap
-  x86/mce: Increase MAX_NR_BANKS to 255
+Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
 
- arch/x86/include/asm/mce.h      | 2 +-
- arch/x86/kernel/cpu/mce/amd.c   | 9 +++++----
- arch/x86/kernel/cpu/mce/core.c  | 6 ------
- arch/x86/kernel/cpu/mce/intel.c | 2 +-
- 4 files changed, 7 insertions(+), 12 deletions(-)
+Thanks for fixing this!
 
-
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
--- 
-2.43.0
-
+-- Steve
