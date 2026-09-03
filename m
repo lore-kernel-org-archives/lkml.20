@@ -1,76 +1,46 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+Received: from mta1.migadu.com (out-132.mta1.migadu.com [95.215.58.132])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 190843002A9
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 01:33:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C10582E7380
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 01:38:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788399229; cv=none; b=NPWuHIXv0mdjTLEVglLX8yFvCYR9ZB3Q5qCngs6UPtXxxz2CLavaZCLCQuV+Q+87JG+lDgkuFqLol8+HuSleQwdk8AWdMIqRUi/fK3QLQmN39tQHxkIKQaQzIFKBF44RNz+9f0+mK6FL77Zxm8nMcMb/rWjYZmcxpx32z394K30=
+	t=1788399501; cv=none; b=aLj8yMJtunEpK39mCgqNzdjkUp0lJ5w3xltjQOToUKJbG4c7bLL3yIllKGlBVchh5chwm09gWlNYJ5Ngz5jQfQ1c6wR6JyeestuiphstcJ1IRC4BKYtyoCoQ1PSZT1zHdjtP+QzdmgLUfHHx2BEpSe39jfajVFahUzNhvadeE34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788399229; c=relaxed/simple;
-	bh=BSQQzVNIuupTKWHkDHInQ5UQ2OhS26ABbsbDxBswT/E=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pAMG08YZHy2vicsjSE1qd6L3n9QK8mmPU0a82AwNrHJVNLIEqG5TNGYUrQuStMpTUT991pPdQo0q++MWjrxbrXz18ZrroyDGxynfxiGwt5BBiduh//Ttv9owRIInjweXbLYw8utf0cOvXrpiFCNrKboXEP0h7wKdac4nDoYvBCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n+u6506U; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788399501; c=relaxed/simple;
+	bh=1pj158FLJPReukgGffRDhnS0CLcUC3lDVfOPz6oelMw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XEqF/Qw4I7UmXU0TkwMRB5WiyzatFVECU7u+dV/afrWvHeXwc4O3cCN5AKJPFY/trPyig5fyjhFM0GZbXFND93IDg7N9Tj5vHpT1gSP6M2mnsT4/61IjQ9IrE7gJYYvAD+P78M8AR92Ew35zpaHA1tJLBcIL1hEr7KdqE0/oDzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Xzdwd3O9; arc=none smtp.client-ip=95.215.58.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n+u6506U"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-484374f54d0so1101607f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 18:33:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788399226; x=1789004026; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EVU2xXIwX74fn3t2r/Vw9dgcDAmgQOJ1XEy2yGBRzGw=;
-        b=n+u6506UUZxMIUyB1HWGzkgal3KkYaeRENWHfRqBPMs40eQcTF+IGyg9fkP1LnvAaI
-         oAhP7la/IWVzl80GaoApzFYdhYRJywaPb9yQ3RpF42xhUuHrfZwFdpCB8u70fPMbItKS
-         sjAuH0u9N0K3wg9KDT5CBLQhZ98CLqWkbGY0rnYWCS5B8Q4ujzbbRfZZVQma3d2PCnnn
-         Mu51sPOgYsr1/6/xkJC6R2zTghyOKqscGFn3HwDofLqhpWc3J1RcbpNrXEkL3FUzs2MG
-         VW4z9ZpzVmaxXAHftpXKoukyn8Jyky9465DNAjyWm2xC3ih6rjKMN0PtypeICZtBNmYT
-         PtlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788399226; x=1789004026;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EVU2xXIwX74fn3t2r/Vw9dgcDAmgQOJ1XEy2yGBRzGw=;
-        b=fHUcRZiho1maphECc34jwKLuUg/z9j5S4d/bwkDkG9tf4JuAEEjrEiBeeorXoJ+Dj7
-         Ox6kI3JB329TF9tIpEYt5GU1LDrPhH55k3swjxOZUjSqG5f5PvfDXM0YHjzAO4rErVQF
-         gdHPLcpBkLbU7PRr6tAL6T6uwlLJeJ/+Ai/1cr7rA2RQmLfXFSP5qy21VNarbAqCq/L1
-         2eFz9s3Mzz2mJJFzP2yZTR1iKqi/zckA44sSrix545uEgJzbVRERHNOkm9pkCxlhB3b3
-         DFr0zd3+4dILG4pnATppdXHgkTgAv/gc45yBHtYps1RKPppo/YFEILpfkPvNFVRyj9J0
-         4V+w==
-X-Forwarded-Encrypted: i=1; AKwUvBx3UtefGN55kx8iYy019rKan9yHVmsg140T8ltFC+dgS3RZOSnBIelmiMMJJAJYbi9oUsnEpqhoB5u9Jbc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mhIFLoepJqBVDsfQCc+MjZDJ2LtNCu88WGGxJ/MQTFD+vcxHmw
-	ugUgaSZlAdtkn7/h98EC8kYlTo5O8UYKjGyroATWixatsWOFFr5UYywf
-X-Gm-Gg: AYBFou2sUh4MuGoh1wPa+1BqyG2XdwgmAWTWKiiSk5kTbimPKWHSQoQsDugLgDQeogZ
-	inECX3hs0LOfzMg7OBbN/1oBkifSheFWhIsVWTVdVOO70dT3NdEO0IdpM8dhXaILFCRbszZTLEh
-	mmM/iaFqiiVxyBzvGiUN4qWKmObyepMw2TdFu2qpwql4eaXphp7qs+uMVe/t1rLjexNSF+b932I
-	3VCRdC9a8Ha1JJX5SjTv3ptCYyLXGmBcOzDBVYjSGBMnLIqmW9O4NNfetI02Il0onWCwtb/hj+l
-	hamPwKKBsTFKHV8vIoNVpvCuNreV0NASz1vVmJ4xSY9Pxl/TR8cyiOc3Gdmc0/lhGLVmlX80Gjo
-	ebJBWT8g/XfRQCWw1v5w3DQjmVQbjgslLmTxE46Y1OkVgu+1A7g22Sa8QOgzTOuOrUIEXCPCpOz
-	fDzDGGG8O697LDDpuVEC6KGygG93wLgqdLMKyDTxhquz9gc1crU8wEoTx6iyCMHanlKh4T6eEJf
-	rctIA2Ta3HIY9v8av+FIme5waOAHmymL1OfzqH9HGGoFWN2yYGLytnswE0/7JNgO3ReuKWB2+Wx
-	kxgQnzGc1h+S2WUasZaVXk2fFyITbqdW+a4Bm4NS7GFHtBkStHAT2zPu/C1STsF8avgoyDc=
-X-Received: by 2002:a05:6000:4813:b0:485:81b9:4e79 with SMTP id ffacd0b85a97d-48581b9523dmr1775697f8f.7.1788399225660;
-        Wed, 02 Sep 2026 18:33:45 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a1c2-c401-11b2-c123-0d12-6c0f.310.pool.telefonica.de. [2a02:3100:a1c2:c401:11b2:c123:d12:6c0f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448eea5b4sm10241187f8f.27.2026.09.02.18.33.43
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 02 Sep 2026 18:33:44 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Jan Kara <jack@suse.cz>,
-	Paulo Alcantara <pc@manguebit.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] super: make iterate_supers_type() deletion-safe
-Date: Thu,  3 Sep 2026 03:33:36 +0200
-Message-Id: <20260903013336.92081-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Xzdwd3O9"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1pj158FLJPReukgGffRDhnS0CLcUC3lDVfOPz6oelMw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788399497; v=1; x=1789004297;
+ b=Xzdwd3O9s5WVwg4uZWa/Uh47Jubt1TwGLq4VXSu9tLHSaJ9ehnV6K/cxCQl0TTbZteAxcjmd
+ QfmYbsjICXtEjV/0nSxZNNVgewwgF0J1/a5uhJzsYX/1aUUfoZMf7emrRdN9NYJ+iO8caNNhz0A
+ Yz9lSA+aLFekf/l1CxbOSO6k=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 798159db53fb6a2d;
+	Thu, 03 Sep 2026 01:38:07 +0000
+X-Mizu-Trace-ID: 798159db53fb6a2d
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: Bart Van Assche <bvanassche@acm.org>,
+	axboe@kernel.dk,
+	hch@lst.de,
+	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+Cc: cui.tao@linux.dev,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tao Cui <cuitao@kylinos.cn>
+Subject: [PATCH v3] loop: defer the queue limits clear to a workqueue
+Date: Thu,  3 Sep 2026 09:38:00 +0800
+Message-ID: <20260903013800.1036691-1-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,82 +49,190 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-iterate_supers_type() drops sb_lock while invoking the callback and keeps
-only a passive reference to the current superblock. That reference keeps
-the object allocated, but does not keep its s_instances node linked.
+From: Tao Cui <cuitao@kylinos.cn>
 
-After the callback releases s_umount, final teardown can unlink the current
-s_instances node. The iterator then advances through a reinitialized node.
-With the current hlist it stops without visiting the remaining superblocks.
-The unlink moved from generic_shutdown_super() to kill_super_notify(), but
-the cursor lifetime has been unsafe since the helper was introduced.
+loop_clear_limits() calls queue_limits_commit_update() directly from
+the loop workqueue that processes the request.  That does a
+non-atomic struct assignment to q->limits without freezing the queue,
+which races with lockless readers of q->limits on other CPUs - bio
+splitting reads max_hw_sectors, the discard path reads
+max_hw_discard_sectors - and can let them observe torn values.  The
+trigger is a discard or write-zeroes request on a loop device whose
+backing file does not support the corresponding fallocate operation.
 
-The CIFS DFS lookup can consequently miss a matching superblock and return
--EINVAL.
+The code already has an XXX comment saying this should move to a
+workqueue.  Do that: schedule a work item on the system workqueue, where
+it is safe to freeze the queue around the limits update.  Accumulate
+pending modes in lo->clear_limits_mode so that failures between
+scheduling and execution of the work item are not lost.  A rebinding of
+the device drops the accumulated modes and invalidates an already
+scheduled work item, so a stale clear cannot hit the new backing file.
+The work item is cancelled before the device is freed.
 
-Walk the global superblock list in reverse and filter it by filesystem
-type. A passive reference keeps its s_list node linked, and reverse
-traversal preserves newest-first visitation. Superblocks removed from
-fs_supers remain on the global list, but teardown marks them SB_DYING
-before unlinking them, so the existing filter excludes them.
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
 
-This broadens the scan from superblocks of one type to all superblocks.
-The only in-tree caller is the CIFS DFS lookup, so the broader scan is
-limited to that path.
-
-Fixes: 43e15cdbefea ("new helper: iterate_supers_type()")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
-Testing: x86_64 QEMU deterministic KUnit A/B using the actual CIFS lookup
-callback over temporary VFS superblocks. Baseline skipped the surviving
-match after teardown of the preceding nonmatch and returned -EINVAL. With
-only this patch applied, the same test passed.
+Changes since v2:
 
-A real Samba DFS server and the kernel CIFS client were then run in the
-same QEMU guest over loopback. Baseline and patch-only kernels both followed
-the referrals and completed 20 reconnects while two workers repeatedly
-mounted and unmounted independent CIFS superblocks. The patch-only run
-successfully mounted, read from, and unmounted CIFS shares 95 times. Kprobes
-recorded 110 DFS lookup calls and 60 iterate_supers_type() calls. There were
-no unmount failures, kernel warnings, oopses, or sanitizer reports. The
-natural network stress did not hit the narrow race on baseline.
+- Skip the clear when the device was rebound since the work item
+  was scheduled: the modes used to be captured before the freeze,
+  so a LOOP_CHANGE_FD completing in between could apply the old
+  modes to the new backing file.  The rebind generation is now
+  checked with the queue frozen, which excludes loop_change_fd()
+  because it assigns the new backing file under the same freeze,
+  so a rebind cannot slip in between the check and the commit.
+  Cancelling from loop_assign_backing_file() would instead
+  deadlock on the freeze held by loop_change_fd().
 
-Stable is requested because concurrent DFS automount teardown can make a
-reconnect lookup miss a live matching superblock.
+- Also bump the rebind generation from __loop_clr_fd(): unbinding
+  does not go through loop_assign_backing_file(), so a work item
+  scheduled before the last close could otherwise commit a stale
+  clear to the queue limits of the unbound device.
 
-Backport note: before dc3216b14160 ("super: ensure valid info"), the
-s_instances unlink is in generic_shutdown_super(). Before 3ec9800c2d33
-("super: convert s_count to refcount_t s_passive"), the passive reference is
-named s_count.
+Changes since v1:
 
- fs/super.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+- Make clear_limits_mode atomic_t: loop workers can hit the |=
+  concurrently.
 
-diff --git a/fs/super.c b/fs/super.c
-index 05e4431730387..c8accd144bad2 100644
---- a/fs/super.c
-+++ b/fs/super.c
-@@ -1026,11 +1026,18 @@ void iterate_supers_type(struct file_system_type *type,
- 	struct super_block *sb, *p = NULL;
+- Reset clear_limits_mode when assigning a new backing file, so
+  stale modes do not clear limits of the new file.
+
+- Cancel the work item from loop_remove() before del_gendisk():
+  the queue can already be in RCU-delayed freeing when
+  lo_free_disk() cancels it.
+
+Tested on x86-64 (qemu, vfat-backed loop device): 30s discard and
+reconfigure loop exercises the clear path 577 times, no torn sysfs reads,
+no difference against the unpatched kernel.
+
+Link: https://lore.kernel.org/r/20260828072004.273519-1-cui.tao@linux.dev/
+---
+ drivers/block/loop.c | 64 ++++++++++++++++++++++++++++++++++----------
+ 1 file changed, 50 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/block/loop.c b/drivers/block/loop.c
+index 6f12976035b0..9f6e518e60d2 100644
+--- a/drivers/block/loop.c
++++ b/drivers/block/loop.c
+@@ -67,6 +67,10 @@ struct loop_device {
+ 	struct list_head        rootcg_cmd_list;
+ 	struct list_head        idle_worker_list;
+ 	struct rb_root          worker_tree;
++	struct work_struct      clear_limits_work;
++	atomic_t		clear_limits_mode;
++	atomic_t		rebind_gen;
++	atomic_t		clear_limits_gen;
+ 	struct timer_list       timer;
+ 	bool			sysfs_inited;
  
- 	spin_lock(&sb_lock);
--	hlist_for_each_entry(sb, &type->fs_supers, s_instances) {
+@@ -222,26 +226,44 @@ static void loop_set_size(struct loop_device *lo, loff_t size)
+ 		kobject_uevent(&disk_to_dev(lo->lo_disk)->kobj, KOBJ_CHANGE);
+ }
+ 
+-static void loop_clear_limits(struct loop_device *lo, int mode)
++static void loop_clear_limits_workfn(struct work_struct *work)
+ {
++	struct loop_device *lo =
++		container_of(work, struct loop_device, clear_limits_work);
+ 	struct queue_limits lim = queue_limits_start_update(lo->lo_queue);
+-
+-	if (mode & FALLOC_FL_ZERO_RANGE)
+-		lim.max_write_zeroes_sectors = 0;
+-
+-	if (mode & FALLOC_FL_PUNCH_HOLE) {
+-		lim.max_hw_discard_sectors = 0;
+-		lim.discard_granularity = 0;
+-	}
++	unsigned int memflags;
++	int mode = 0;
+ 
+ 	/*
+-	 * XXX: this updates the queue limits without freezing the queue, which
+-	 * is against the locking protocol and dangerous.  But we can't just
+-	 * freeze the queue as we're inside the ->queue_rq method here.  So this
+-	 * should move out into a workqueue unless we get the file operations to
+-	 * advertise if they support specific fallocate operations.
++	 * Commit the unmodified limits if the device was rebound since
++	 * the work item was scheduled.  The freeze excludes a rebind
++	 * through loop_change_fd(), which assigns the new backing file
++	 * under the freeze; the other rebinding paths, loop_configure()
++	 * and __loop_clr_fd(), do not freeze the queue, but they bump
++	 * rebind_gen and reset clear_limits_mode themselves, so the
++	 * generation check and the atomic_xchg() below cover them.
+ 	 */
++	memflags = blk_mq_freeze_queue(lo->lo_queue);
++	if (atomic_read(&lo->clear_limits_gen) == atomic_read(&lo->rebind_gen)) {
++		mode = atomic_xchg(&lo->clear_limits_mode, 0);
++
++		if (mode & FALLOC_FL_ZERO_RANGE)
++			lim.max_write_zeroes_sectors = 0;
++
++		if (mode & FALLOC_FL_PUNCH_HOLE) {
++			lim.max_hw_discard_sectors = 0;
++			lim.discard_granularity = 0;
++		}
++	}
+ 	queue_limits_commit_update(lo->lo_queue, &lim);
++	blk_mq_unfreeze_queue(lo->lo_queue, memflags);
++}
++
++static void loop_clear_limits(struct loop_device *lo, int mode)
++{
++	atomic_set(&lo->clear_limits_gen, atomic_read(&lo->rebind_gen));
++	atomic_or(mode, &lo->clear_limits_mode);
++	schedule_work(&lo->clear_limits_work);
+ }
+ 
+ static int lo_fallocate(struct loop_device *lo, struct request *rq, loff_t pos,
+@@ -516,6 +538,8 @@ static int loop_validate_file(struct file *file, struct block_device *bdev)
+ static void loop_assign_backing_file(struct loop_device *lo, struct file *file)
+ {
+ 	lo->lo_backing_file = file;
++	atomic_inc(&lo->rebind_gen);
++	atomic_set(&lo->clear_limits_mode, 0);
+ 	lo->old_gfp_mask = mapping_gfp_mask(file->f_mapping);
+ 	mapping_set_gfp_mask(file->f_mapping,
+ 			lo->old_gfp_mask & ~(__GFP_IO | __GFP_FS));
+@@ -1144,6 +1168,12 @@ static void __loop_clr_fd(struct loop_device *lo)
+ 	spin_lock_irq(&lo->lo_lock);
+ 	filp = lo->lo_backing_file;
+ 	lo->lo_backing_file = NULL;
 +	/*
-+	 * The passive reference keeps the s_list cursor valid while sb_lock
-+	 * is dropped. Entries are added at the tail. Walk backwards to retain
-+	 * newest-first visitation.
++	 * Invalidate any pending clear that was scheduled against the old
++	 * backing file, like loop_assign_backing_file() does on rebind.
 +	 */
-+	list_for_each_entry_reverse(sb, &super_blocks, s_list) {
- 		bool locked;
++	atomic_inc(&lo->rebind_gen);
++	atomic_set(&lo->clear_limits_mode, 0);
+ 	spin_unlock_irq(&lo->lo_lock);
  
- 		if (super_flags(sb, SB_DYING))
- 			continue;
-+		if (sb->s_type != type)
-+			continue;
+ 	lo->lo_device = NULL;
+@@ -1781,6 +1811,7 @@ static void lo_free_disk(struct gendisk *disk)
+ 		destroy_workqueue(lo->workqueue);
+ 	loop_free_idle_workers(lo, true);
+ 	timer_shutdown_sync(&lo->timer);
++	cancel_work_sync(&lo->clear_limits_work);
+ 	mutex_destroy(&lo->lo_mutex);
+ 	kfree(lo);
+ }
+@@ -2100,6 +2131,7 @@ static int loop_add(int i)
+ 	spin_lock_init(&lo->lo_lock);
+ 	spin_lock_init(&lo->lo_work_lock);
+ 	INIT_WORK(&lo->rootcg_work, loop_rootcg_workfn);
++	INIT_WORK(&lo->clear_limits_work, loop_clear_limits_workfn);
+ 	INIT_LIST_HEAD(&lo->rootcg_cmd_list);
+ 	disk->major		= LOOP_MAJOR;
+ 	disk->first_minor	= i << part_shift;
+@@ -2138,6 +2170,10 @@ static int loop_add(int i)
  
- 		if (!refcount_inc_not_zero(&sb->s_passive))
- 			continue;
+ static void loop_remove(struct loop_device *lo)
+ {
++	/* Cancel early: the queue may be in RCU-delayed freeing
++	 * by the time lo_free_disk() runs. */
++	cancel_work_sync(&lo->clear_limits_work);
++
+ 	/* Make this loop device unreachable from pathname. */
+ 	del_gendisk(lo->lo_disk);
+ 	blk_mq_free_tag_set(&lo->tag_set);
 -- 
-2.53.0
+2.43.0
+
