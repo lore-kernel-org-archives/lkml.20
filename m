@@ -1,45 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E63F449B24
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:54:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B6DB44E651;
+	Thu,  3 Sep 2026 10:54:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788432846; cv=none; b=sfOJlcinxFW4pym8mINisQt6KQGaSCMRFoG3iLV49AxYrXXL0rGK0JCr5MeQyNtExv8wBezETtRxEoyLpHTRLNA1k5DHcD+c8TSQnypuHJI63CKQA8F5dxN4KEfgt4ueTtTxChe/HHbEQVp1FRP3vdAB6j34jkvl6twHaeA8dYU=
+	t=1788432886; cv=none; b=vD/CxwtckVvmbwzeW9EQWbFo0w5FWUElASjzjE3SpJG1rInChsO/A46un01//OC+TCoOu2tGqfAP8qL9y6Y6txH9ISC2HU1/2LB+ylHOUnj30u8x0umJ+KKYOfc4RPkaXM0jUxPN0h/Dif/FC38euryei6CwAtLXndOepg2jJoU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788432846; c=relaxed/simple;
-	bh=eU2PRGBwWSDfjuknSzKstH4CVGNPQz6F4XpHDLfW2+w=;
+	s=arc-20240116; t=1788432886; c=relaxed/simple;
+	bh=pXCKXNSXnJxqbVPsHWcNaHMxXYlIcjgCff7HLF0K7Wo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hsfZSNOVQCwVsMe+sO0fzY9S7AH8CAeuiEmwt0qqxkFnqqV0QomtUXDwlJygIm0qOosr6qMaPE39YmeNgf36evM1YbwkI6AM6puWhA6qLt0lVnBd5bK3hz/0X/m9ZWP3pQplLh+isR+2PIatjG4fRM411Vlmlx5MbEmUGoiB+gs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fV01/3ml; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=c5HZNA3Om0ANeQliqNvjgG5rKk8fdoPWTXapBKHn3FVhHWC9G9t16403GIcG6tkGHazaHDknkBz1j3azRUfeXDES5SupSdzlLrEKnyOj+RWAPNW7MwAzt44NsUDkF4Dk7N5h3/z/RPimZRijBEw82US7EVn7Y/DasCnSA/X5CNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FEYVSY1A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fV01/3ml"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE9171F000E9;
-	Thu,  3 Sep 2026 10:54:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FEYVSY1A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C93931F000E9;
+	Thu,  3 Sep 2026 10:54:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788432844;
-	bh=jZ5ikIPdtrsw5VYyqaHGjiwcB1Oj6QXBAQanMarXMYE=;
+	s=k20260515; t=1788432884;
+	bh=Yte+8LLHHjHRtJk2Wim31OWnwZFXKsPlPjw39cWebrY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fV01/3mlZ/6mEninu+ZZoxUqHyhZS/GDz3zW0DCZ+bQzicyuedWOJx6onxgCoQOXu
-	 02L00SCN+AxvCsUapErpvho+g+10FCPYI6xnMwTWh0T3cCQiPj9lcHbFfGVc+VD6lO
-	 MqWjQkfmSn9bau6NgeKCWO63A2cEQdNfitT99HxZxWKDk86GjI0jAGK4fDknp7ZmFw
-	 YaJYY8LGlzgWYtoxdm4FOIKwqU7ZnO4jLiAlw3ww8IetAWat+kuz95hGDVRUSp4US9
-	 CRFQXmOsrcs3MLdwQGfK9AenFAgPaKr0UjvnzgElCcmiWJwEUmX9Q/Flg4ZI1HU5fW
-	 WSIsNeGRs+a0g==
-Date: Thu, 3 Sep 2026 11:53:59 +0100
-From: Will Deacon <will@kernel.org>
-To: Mark Rutland <mark.rutland@arm.com>
-Cc: Bradley Morgan <brads@mainlining.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	James Morse <james.morse@arm.com>, Marc Zyngier <maz@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/7] arm64: hibernate: dust off the suspend/cleanup rework
-Message-ID: <aplRx8f5NprO9dSU@willie-the-truck>
-References: <20260825205839.14571-1-brads@mainlining.org>
- <apgpnjnJ4suhHh-v@J2N7QTR9R3.cambridge.arm.com>
- <B23E199A-2D3D-48B4-A7E9-9664371A7361@mainlining.org>
- <apgsm92KtXA7xh6H@J2N7QTR9R3.cambridge.arm.com>
+	b=FEYVSY1A2Xn3I1xKM06H+6iDo+CONHwGUrieaf8YLTIr++gbZ/osX1XJBvIyQfVgS
+	 5pG3pNip6KnKrx99j8e2oaxupXZWjgIqdQ6F3Wz24RDGrXbqC0EdgWiVp3UslPHcrk
+	 uu9VMayxq9lhK6wcGnOxI7udRC1b7SsLnCHs9tz01qbC0lff43D55N2utRlitv5pFc
+	 fZ4bjpQO8DdHg8AG1klb0Ora+nS9wqxH4yKtxoykH65y3LudBJKx/FZnJZQiZsY3Ot
+	 piK0p6QgVo0uSP6e+s9iAajiKhBQcFTul614EjzoP1UVJbVTIHo8DrzxswovFhI09v
+	 TOYQajtG33zew==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1x255e-00000005wji-0O90;
+	Thu, 03 Sep 2026 12:54:42 +0200
+Date: Thu, 3 Sep 2026 12:54:42 +0200
+From: Johan Hovold <johan@kernel.org>
+To: patchwork-bot+netdevbpf@kernel.org, Jakub Kicinski <kuba@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>, 3chas3@gmail.com, duncan.sands@free.fr,
+	gregkh@linuxfoundation.org, akpm@linux-foundation.org,
+	david@kernel.org, willy@infradead.org, vbabka@kernel.org,
+	accessrunner-general@lists.sourceforge.net,
+	linux-atm-general@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-usb@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH 0/4] USB: replace page allocator calls with kmalloc()
+Message-ID: <aplR8tmzndmg4kfq@hovoldconsulting.com>
+References: <20260830-usb-v1-0-aa349c302246@kernel.org>
+ <178840081114.3041656.13596134068099743678.git-patchwork-notify@kernel.org>
+ <apkRyoCr2dNI0bNS@hovoldconsulting.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,52 +53,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <apgsm92KtXA7xh6H@J2N7QTR9R3.cambridge.arm.com>
+In-Reply-To: <apkRyoCr2dNI0bNS@hovoldconsulting.com>
 
-On Wed, Sep 02, 2026 at 03:03:07PM +0100, Mark Rutland wrote:
-> On Wed, Sep 02, 2026 at 02:51:22PM +0100, Bradley Morgan wrote:
-> > On 2 September 2026 14:50:22 BST, Mark Rutland <mark.rutland@arm.com>
-> > wrote:
-> > >On Tue, Aug 25, 2026 at 08:58:32PM +0000, Bradley Morgan wrote:
-> > >> This comes out of the hibernate resume discussion where Will asked if
-> > >> the restored kernel's hyp vectors are reinstalled before we come back
-> > >> from swsusp_arch_suspend() and free the reserved pages. Rather than
-> > >> answer with a one off fix, this series reworks resume to look like a
-> > >> resume from idle, which makes the answer fall out on its own.
-> > >> 
-> > >> The series leans on Mark Rutland's old work for inspiration, he had the
-> > >> same end goal in a branch from back then:
-> > >> 
-> > >>  
-> > >https://git.kernel.org/pub/scm/linux/kernel/git/mark/linux.git/log/?h=arm64/suspend/cleanup
-> > >
-> > >Most of the series seems to be a rebased of those patches, just with
-> > >paraphrased commit messages and my S-o-B lines dropped. As commented on
-> > >patch 4, I do not think that is appropriate.
+On Thu, Sep 03, 2026 at 08:20:58AM +0200, Johan Hovold wrote:
+> On Thu, Sep 03, 2026 at 02:00:11AM +0000, patchwork-bot+netdevbpf@kernel.org wrote:
+> > Hello:
 > > 
-> > Same question as patch 2
+> > This series was applied to netdev/net-next.git (main)
+> > by Jakub Kicinski <kuba@kernel.org>:
 > > 
-> > If you want your S-O-B added, ok fine, but yeah.
+> > On Sun, 30 Aug 2026 11:10:36 +0300 you wrote:
+> > > This is a (small) part of larger work of replacing page allocator calls
+> > > with kmalloc.
+> > > 
+> > > My initial intention a few month ago was to remove ugly casts [1], but then
+> > > willy pointed out that Linus objected to something like this [2] and it
+> > > looks like more than a decade old technical debt.
+> > > 
+> > > [...]
+> > 
+> > Here is the summary with links:
+> >   - [1/4] USB: usbfs: replace __get_free_page() with kmalloc()
+> >     (no matching commit)
+> >   - [2/4] USB: cxacru: replace __get_free_page() with kmalloc()
+> >     https://git.kernel.org/netdev/net-next/c/a3b4826138d4
+> >   - [3/4] USB: speedtch: replace __get_free_page() with kmalloc()
+> >     https://git.kernel.org/netdev/net-next/c/534b18813974
+> >   - [4/4] USB: serial: wwan: replace __get_free_page() with kmalloc()
+> >     (no matching commit)
 > 
-> As on patch 2, please read the documentation before continuing futher.
-> 
-> > Do you think this series itself is good? 
-> 
-> No. At present I think it's in a worse state than it was in my branch,
-> because portions have changed, with no rationale and no clear benefit.
-> 
-> Hence my ask to Catalin and Will to NOT pick this up for now.
+> Why were these USB patches applies to net-next?
 
-I wasn't going to pick them up with the incorrect authorship, but it's
-worth noting that Bradley's patch _does_ fix one of the hibernation
-problems and has been tested by Vladimir:
+I see now that it was only the ATM ones.
 
-https://lore.kernel.org/all/20260809213615.11646-1-include@grrlz.net/
-
-I would prefer to take your complete set of patches, but if you don't
-want that then should I just take the above for now? Prior to this
-series, there has been no activity for nearly two years on your branch,
-so I'd prefer to get _something_ in, even if it only fixes some of the
-problems.
-
-Will
+Sorry about the noise.
+ 
+Johan
