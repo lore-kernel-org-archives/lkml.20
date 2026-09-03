@@ -1,166 +1,194 @@
-Received: from out28-125.mail.aliyun.com (out28-125.mail.aliyun.com [115.124.28.125])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012024.outbound.protection.outlook.com [40.107.200.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B73593546E0;
-	Thu,  3 Sep 2026 02:41:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.125
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788403303; cv=none; b=NkEVnkxlZioMeZ+cwKZcwEwzqnFFojxrF/XywVk5R4KlzC3HJ24kwr6WLzXUv6dDRbydeGmMSSpQ98Y/g3WLoeXnL1+Vwd0vfL9uwpo8rEhZ1iiAnq8Q9zSvFCMff70dv/Jva7D1Fxaz6vckBpcb5zJ4y9g8nL5Ibdu6BA0Wvi4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788403303; c=relaxed/simple;
-	bh=6u4PHAZ/H4x65SWpE7IYKnikm6E+U38Lj4eVkpdhFKM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bj7teHrbiciLcnlX0MP1SzNQ7BdavcX31/B+6JznCg6aJldUZD+y91G7/5UYNQKKE9RGuJv2j1tgHUlMNU7FPtbRPUHgJEAvqrQpmrMOdZzUmKj9KcXaeaDSS89j7feOkmV40gNY0SRpsXL5L7qSiQmT0cazb/c9x1S98DyS8Ro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=115.124.28.125
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.09446921|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00875414-0.00211812-0.989128;FP=7200128259874146027|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033023018039;MF=zhang_wei@open-hieco.net;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.j429d-8_1788403282;
-Received: from 172.18.22.44(mailfrom:zhang_wei@open-hieco.net fp:SMTPD_---.j429d-8_1788403282 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 03 Sep 2026 10:41:26 +0800
-Message-ID: <9515a124-5c18-4015-b64a-e80bb6b84264@open-hieco.net>
-Date: Thu, 3 Sep 2026 10:41:20 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA2D344DA0
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 02:41:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788403304; cv=fail; b=APi8ueMoxdyO6rIZ68W0cyt32ZHlF61v+67ThFJWCO0jFI+vs/uGDaDuXgrfwgsJudq2hhYOJmEhyWPxN0uGZLobKV14hFTWZPI8YWYYUXl+fxkL826qaM15m5E0Zdbk1wPXod83NE7ABfYtpaB00XU0Vuwp1eAdMavqAbSBHeU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788403304; c=relaxed/simple;
+	bh=iGsmd9bGrONe41b/sHa10EdIXR62ehMoVKCON6kRicI=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=NhjYlwyCEwfMP00kUWTyin273J8i6hSbCmZnwKoq99x7OfW43fD79RM9qwjAfmP25kM1F8+WHneXm+gbLrTziZmwMkcPMB7eCn+SrzNy/RSf61YOMbwdnn5Ulu+UJb7p1WALzdcbyAv8380WtFFc+aQclLMJpvke7S3YRwDqbbw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=0HAiZW7u; arc=fail smtp.client-ip=40.107.200.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="0HAiZW7u"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=izXG7Tvj8R19yc/YRgVsItyd1IpLOnyIuTGEzVQ6v5ncuA32GESkTy1ktzVQ+yw0usHeSIMB1QlGhdBChf3BWk0jV35kWVUU+F5lyTJSO48BnkexyaCuaMa487DYl5DKWS1p4c9RG9SSe4kqF/3ntb/r92EAYr7LNtrOwoZHLkVsADROuz77EfycgNwRtlL5BNr+PtMrwwfRy+VeKrtu4qXJQIodfzlVSO5DwU5RL4aSZcLf5oAXZxQ9tj7FEsoqO/16DtOWYtOjRp+FcO1Xcj+pt+fOAprjfVGif4t4HQR4XAuwFZ7I195Zg1kAmftKS8b1OaVsw8Y8Ln+YDajtog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Gv4kSuUhVjPKv5I5OHmxJUM2YNrcqrHU6r0FfkCoiKk=;
+ b=tamExSZQciAolu5H8N/wiIblb5c30JPrlgoj+sHwinD0W1TDfGIwNjELQ0JEVrhSixm9oETrU/Lqld/6XnK0CsNrak58ALJZJrmatY6fKXDBiQYOLeFTzYD7s0XwubHxqNKtsO7wAyGSL3Nz+KvgUmW0N6uViM3gybAd48eV82Oo7ET8+3bl69DTjd9YcwRaFbf0VQZFzeicud2LqDyeA4cpTaa3vWXdokl2RwmeWaeWgcWxe8T6A69jM2ylmvRX0rLo7XRt9fKjKJTR0LMMdx1XhiTn2ck45WE5dvnnvCuwUKarrvGvpIZjGJmOQpCunl1RL0gGsWi6c8pRr8ERZQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Gv4kSuUhVjPKv5I5OHmxJUM2YNrcqrHU6r0FfkCoiKk=;
+ b=0HAiZW7ugJiNoW6C/i11eeNBdtvusLByL5cyNLx4Ou2QLH0DYhLjipj+ZGXxx6GoopkWkEv1kJifVfzy1IEbiEZS8/QKfW7K6uLtFbWwEOssqrxERTxMd4Qa2+bsJCMPDHTQn4khxh3UPBIjmM/Og2REUuci2Jke2WeEKiYjaOA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DSVPR12MB999171.namprd12.prod.outlook.com (2603:10b6:8:388::22)
+ by LV5PR12MB9778.namprd12.prod.outlook.com (2603:10b6:408:300::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 02:41:37 +0000
+Received: from DSVPR12MB999171.namprd12.prod.outlook.com
+ ([fe80::b7ec:f444:4560:9f19]) by DSVPR12MB999171.namprd12.prod.outlook.com
+ ([fe80::b7ec:f444:4560:9f19%4]) with mapi id 15.21.0382.007; Thu, 3 Sep 2026
+ 02:41:37 +0000
+Message-ID: <073887b6-f226-4802-8a72-2d6a319f9238@amd.com>
+Date: Thu, 3 Sep 2026 09:41:27 +0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 16/24] iommu/amd: Introduce IOMMUFD vDevice support for
+ AMD
+To: "guanghuifeng@linux.alibaba.com" <guanghuifeng@linux.alibaba.com>,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, joro@8bytes.org,
+ jgg@nvidia.com
+Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
+ vasant.hegde@amd.com, jon.grimm@amd.com, santosh.shukla@amd.com,
+ Sairaj.K@amd.com, jay.chen@amd.com, wvw@google.com, wnliu@google.com,
+ dantuluris@google.com, chriscli@google.com, kpsingh@google.com,
+ alejandro.j.jimenez@oracle.com, joao.m.martins@oracle.com
+References: <20260727132913.22475-1-suravee.suthikulpanit@amd.com>
+ <20260727132913.22475-17-suravee.suthikulpanit@amd.com>
+ <916adcd5-63fd-49b2-b175-c7b509991e37@linux.alibaba.com>
+Content-Language: en-US
+From: "Suthikulpanit, Suravee" <suravee.suthikulpanit@amd.com>
+In-Reply-To: <916adcd5-63fd-49b2-b175-c7b509991e37@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: KUZPR03CA0026.apcprd03.prod.outlook.com
+ (2603:1096:d10:24::10) To DSVPR12MB999171.namprd12.prod.outlook.com
+ (2603:10b6:8:388::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/8] KVM: nSVM: Enable DecodeAssists for nested guests
-To: Sean Christopherson <seanjc@google.com>, Jim Mattson
- <jmattson@google.com>, kvm@vger.kernel.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>,
- zhouyanjing@hygon.cn, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260824123954.315112-1-zhang_wei@open-hieco.net>
-Content-Language: en-US
-From: Tina Zhang <zhang_wei@open-hieco.net>
-In-Reply-To: <20260824123954.315112-1-zhang_wei@open-hieco.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DSVPR12MB999171:EE_|LV5PR12MB9778:EE_
+X-MS-Office365-Filtering-Correlation-Id: 94cc25bb-9b22-4432-0699-08df0964e029
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|10067099003|4143699003|6133799003|22082099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	szulgLqn0ZOm4DTfRxStHK3NXMTD6rHtmj/Nim/NBr89QQX/CEsNedJQ+Jljp9aZd5upk2Xiox2/1e5p7upmFawkGD4qsjLfDCF9Pi5erRhx0KSXP/wF9s9mUrRkEDgo/whyMEzBsf+QUw163svMCRo3P/GoTTl+vp3dtAdTx8gVhWOToV5tzJwxYmLffoSmACsYx7Tn0HmL+d1B0+1rLq3EIrwzLT2OqaoD7yxW3+oheMJf10/jRyUfqb0m/iGUfIq61DrY2nbMKi7kk+yPkeilK0OBv1ZyB9gsiwTqsR7xF9nDKGhpMef1lXkM/FB4rgvj3IElEpnxbMTmyR0k3bhDMEuVb6ZYR0NamCv/KjBCrv9ZwYLxGtbHd2yJzwklNvBA5/0yJyzfUm/jZpN087c/MCzWXVlzcKmWfy7QYAiQ/FwtXo8fqkFtLT0rPcwOgAdFlxh3+6E5gmNTK3w5qRaq6vt1SU1pJYW7BqEnOT6U8l9TmICiQPcSLvA/YWtlyXap0Mya2itZT5j7gUxIRCqKdh++d9di0SylzW4OSIAHohgHGl7YUCqjXiLAhX2KrOpaNg+qBChQ2xqcsOSuoOeSOCoyRpf1jEifF/8bX9ddzfGzr5YAQXGCSE4qEDD/YVEM1ozGvH91F6o2AikPKQW/Yisze42YJBaIcfQcpWg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DSVPR12MB999171.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(10067099003)(4143699003)(6133799003)(22082099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TFloWGZVSVFHU05CMXlsZ1pGRnJseHk2L2hOc282c3puTlZKVUpMNlFsRHZK?=
+ =?utf-8?B?UGlpckxKVWllU3hNTVB1Z2VrU3I3eHR6UEd4QkFIZFJRRGxUZTlQa3A4ZWF2?=
+ =?utf-8?B?SHNySzVTa2pmUlorOVMzak5rN1hKUE0rZ3BQRVJHWFpSTlowVEVRQVFvN0tX?=
+ =?utf-8?B?UlNqbHd6d1kydVd1OU45TUpWZG1VODdJY2JGR3poMkRwcmRmU3ZJZEJIY2tn?=
+ =?utf-8?B?aXkrWHJQVklQcUxIL2hCNVBZVThhWDV5am9rb3BnU0QxUHB3MzU0SmVqSWlD?=
+ =?utf-8?B?TVFHOXVhSUdWS3ByYTF6V0QyNWpEMFhITExhc2MwVlVySHRyaVVLWWFNQ09h?=
+ =?utf-8?B?cjh5VHhMWUE5Rzd5YnBHNWVOZTNFa3JRUFBDNlp3REE0UVBNbVFqYVg1Y0Rl?=
+ =?utf-8?B?TmUwM2ozZ0JxSUp1cngrbmp3SndseDg3MlJxKzJoTFVSd2VHVWJTUEJyUUVy?=
+ =?utf-8?B?UzRPMWQweFcwU3Y2TkllSDBZSDVBNExoekNZQStid1c5WER5TFFFL3NBcFk5?=
+ =?utf-8?B?eElTVm9RTXJ1MVRHWXV2ZGVwalIyaGRzeU5jRDYwZzBveXRub1dUNFNsRC9z?=
+ =?utf-8?B?Q1lHdlhGQWg5YWFwK0UvT3RRREc3QTVVSVpWSkVpcjkraEwyQWQrSEVwYllE?=
+ =?utf-8?B?QjlKUHBITEN3eVQ3ZFhRNEJ5d092QzhvNVdkV3hzczFnMU5tQ3Fvd1hWWkd4?=
+ =?utf-8?B?aXFFOGlkNTJFNkF2blBFd3ZFZUFRaldUa0xJNlZtbFh1aHErWnExWjdSUUps?=
+ =?utf-8?B?bStNaTRKQ3g4ZWpuQ245TGZVYWlpelI0Z3JrcTUwTGJMeGF6RC83T2N3Znhn?=
+ =?utf-8?B?SVh6b3pCV21DQzdyQkw4VlRNSVYwVmluS1c2MFgvWTJEY29JVGdQTEJUTE5n?=
+ =?utf-8?B?WEQ0NVhIODNOU1U1YUMxSkJsV1hDaGZVQWdkR1J0SUwraVRGT2QxczFhTENB?=
+ =?utf-8?B?NE1EdmttZDlXOU5Pd1Q2VmVRUGg2ekRwbkRBSmcrbzduS3lBTjNuVTd0Y3RM?=
+ =?utf-8?B?bEd3bTI1VTUwU3VleHlua0pEK0tSQnZ3ZzRzeDVRak5EMFFNK3NocGE0WW81?=
+ =?utf-8?B?VzFWeFQ2R3NOZmtPbzVVUU1VRTVRazhSSFZLMnYzREN2RGZjc1VranVGY0xC?=
+ =?utf-8?B?dkVLWm1rc0tkUmlzNjdRbHlOaHVJOGlyRkY3d3QvdGloV01Bbm9aVGpVQlBU?=
+ =?utf-8?B?dlo3eGtoZGhURmVEUlgyNmp3dEltcktKVHhhclpkb1hKWWl0VHFsZmVvdTNh?=
+ =?utf-8?B?YlE4R0RiTXA1b050RzVVNkl5Z2pKZkJJYmd4U0RkNHhBMlEvd1l2bm5QNDFx?=
+ =?utf-8?B?d2ZpZ1NYVElVKzhuSVNVMmZnMUdBZFc4NUFHRE9pYXgwTjQ3THlJV1IyY1Vo?=
+ =?utf-8?B?WkdPbUZpdnA1TGc1MFZZKy8zVlg5bFpGUmFrMXl3YXVwS1hDRHZQZ3ljVVdC?=
+ =?utf-8?B?c2tQVnBaRndRSW9WUVJ4TXQzbnBlSU03L0xuKzVsV2hqdkM1L3JldTJkdjJH?=
+ =?utf-8?B?ekM2TTVuTlFlT2hEMVZER3duRUdRbWZkVVNNVWZaS3VxamExY1IxWDg4eFRZ?=
+ =?utf-8?B?dk5VeVZ3VzlwaTlLYmhTZERwZmRodWNFc3JGZVg1YktRZ0FYajc4bEFVdjBh?=
+ =?utf-8?B?ekhGMWhaYnRVY0VESTlFNkttSURDRWJkQzVGcmFiYTAwMjNFSUUwTDMzNTVt?=
+ =?utf-8?B?ZndVcmJNZGtjVnRGUlRteUExOEJGMUEyblhDVlRsTmtOa3d6dEcrYWM5ODlw?=
+ =?utf-8?B?eHFRcU45Nkkyd3Z5WGdQaHdpb2ExbDhmTG44SzkyamhXL2J5YUR4Z0N0OStB?=
+ =?utf-8?B?eEF3TkNXZWlsYWt6UmxXYjBONCszQ1cvWkFPZE9JK25SaHVQNDhSSUMyZFZz?=
+ =?utf-8?B?RUNVWmRBUHBRVHNGSjhvOVlmQW03eHZKRDZ4OXkwU3lrcWE3cDdYS3BMR2xP?=
+ =?utf-8?B?M2Yza1FrbEdRMkY1aS9mTUxNek5tK3dRL25EOUg2Z0dPR1ZTRHRTOEEzU1Z0?=
+ =?utf-8?B?T1g1R2poekhVRUxjaHNWK3lZSjBTODJ0QTI3TVJLTFMzWVErMXd0TUJlbW1V?=
+ =?utf-8?B?aUJTdmdvbm1BSFlpeGJhM3BIejhNeEVnUGZ0RW0rMHdFU25xUnNkMjRFUlNO?=
+ =?utf-8?B?aURDNkJsalRyZEN0czgvSnlaYVFiSDVGN2NRa2FnQ0krc1pFM1ZnVmZWTEN1?=
+ =?utf-8?B?TkgyOWFrNTNOQ0VKeXVpbmJ6VE9ETGUzMVlUcVJiOHY1RVd4eGw2eWtocGRO?=
+ =?utf-8?B?enNISTJRK2U1Q0cyZmQ4bXV1bWYrL25YcmZ3SzVoR0IySGVuakZ2Q29SejZ2?=
+ =?utf-8?Q?MRNZoJsXbRK7hbw6A3?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94cc25bb-9b22-4432-0699-08df0964e029
+X-MS-Exchange-CrossTenant-AuthSource: DSVPR12MB999171.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 02:41:37.3443
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: at8pbxj6m0Q17jOg4SMnqOdpO3cO0kdtDv5ZFgMOI33n/n0Tpz6++u2Yrmh3BLCZ0wbUmeYmDXJVBz9c8JlXIA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR12MB9778
 
-Hi Sean and Jim,
 
-A gentle ping on this series. I believe v5 addresses all the comments 
-from the previous review rounds. Could you please take another look when 
-you have a chance? Any further comments would be appreciated.
+
+On 8/19/2026 8:34 PM, guanghuifeng@linux.alibaba.com wrote:
+> 
+> 在 2026/7/27 21:29, Suravee Suthikulpanit 写道:
+>> Initialize vDevice for AMD vIOMMU by setting up the Device ID Mapping
+>> table using the guest device ID.
+>>
+>> Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+>> ---
+>>   drivers/iommu/amd/amd_iommu_types.h | 10 ++++++++++
+>>   drivers/iommu/amd/iommufd.c         | 31 +++++++++++++++++++++++++++++
+>>   drivers/iommu/amd/nested.c          | 27 ++++++++++++++++++++++---
+>>   3 files changed, 65 insertions(+), 3 deletions(-)
+>>
+>> ....
+>>
+>> diff --git a/drivers/iommu/amd/iommufd.c b/drivers/iommu/amd/iommufd.c
+>> index bfc4b0ec22a9..1975b2932107 100644
+>> --- a/drivers/iommu/amd/iommufd.c
+>> +++ b/drivers/iommu/amd/iommufd.c
+>> @@ -9,6 +9,7 @@
+>>   #include "amd_iommu.h"
+>>   #include "amd_viommu.h"
+>>   #include "amd_iommu_types.h"
+>> +#include "../iommufd/iommufd_private.h"
+>>   static const struct iommufd_viommu_ops amd_viommu_ops;
+>> @@ -126,6 +127,34 @@ static void amd_iommufd_viommu_destroy(struct 
+>> iommufd_viommu *viommu)
+>>       amd_iommu_gid_free(iommu, aviommu->gid);
+>>   }
+>> +/*
+>> + * Called from drivers/iommu/iommufd/viommu.c: 
+>> iommufd_vdevice_alloc_ioctl()
+>> + */
+>> +static int _amd_viommu_vdevice_init(struct iommufd_vdevice *vdev)
+>> +{
+>> +    struct iommu_dev_data *dev_data;
+>> +    struct pci_dev *pdev = to_pci_dev(vdev->idev->dev);
+>> +    struct iommufd_viommu *viommu = vdev->viommu;
+>> +    struct amd_iommu_viommu *aviommu = container_of(viommu, struct 
+>> amd_iommu_viommu, core);
+>> +
+>> +    if (!pdev) {
+>> +        pr_err("%s: not a PCI device\n", __func__);
+>> +        return -EINVAL;
+>> +    }
+>> +
+> 
+> to_pci_dev() is a container_of(), so it can never return NULL and the
+> !pdev check is dead code. Worse, for a non-PCI device it yields a bogus
+> pointer which is then dereferenced through dev_iommu_priv_get() below.
+
+I will fix the code to check dev_is_pci() properly.
 
 Thanks,
-Tina
-
-
-On 8/24/2026 8:39 PM, Tina Zhang wrote:
-> The SVM DecodeAssists feature provides decode state for selected
-> VM-Exits.  KVM currently does not expose this feature to L1.  Some L1
-> hypervisors may therefore treat the platform's SVM support as
-> incomplete.
-> 
-> In practice, this was observed with Hyper-V running on top of KVM.
-> Hyper-V appears to require DecodeAssists before enabling nested SVM for
-> its guests.  Virtualizing the feature lets users enable Hyper-V
-> virtualization features inside a Windows VM when needed, e.g. to run
-> QEMU/KVM in WSL.  Without DecodeAssists, Hyper-V does not enable nested
-> SVM because DecodeAssists is missing from KVM's virtual SVM model.
-> 
-> Virtualize both parts of DecodeAssists for nested SVM.  For emulated
-> MOV CR/DR, INTn, INVLPG, and INVLPGA intercepts, synthesize the
-> architectural EXITINFO state that hardware would provide to L1.
-> 
-> For data #PF and #NPF VM-Exits, provide GuestInstrBytes from fresh
-> VMCB02 state, matching emulator fetch bytes, or an on-demand fetch from
-> the current L2 CS:RIP, depending on how the nested VM-Exit was produced.
-> Instruction-fetch faults report no instruction bytes, and encrypted
-> guests do not use the on-demand fallback.
-> 
-> Add a focused selftest covering synthesized EXITINFO, hardware and
-> synthesized GuestInstrBytes, truncated instruction fetching, and
-> instruction-fetch faults.  The test has been run with
-> kvm.force_emulation_prefix both disabled and enabled.
-> 
-> Changes since v4:
-> - Drop the generic queued-exception provenance tracking for delayed and
->    synthesized #PF VM-Exits.  Fetch their instruction bytes from the
->    current L2 CS:RIP when constructing VMCB12 instead.
-> - Keep matching emulator fetch bytes only for synthesized #NPF exits,
->    and use the on-demand fetch to fill any missing tail.
-> - Reduce the series from nine to eight patches by removing the generic
->    x86 exception-tracking patch.
-> - Trim the selftest to focused cases that cover distinct implementation
->    paths and regressions, removing redundant instruction variants,
->    overlapping boundary cases, and userspace event-state coverage.
-> 
-> v4:
-> https://lore.kernel.org/r/cover.1787116250.git.zhang_wei@open-hieco.net
-> 
-> Changes since v3:
-> - Rebase onto kvm-x86/next.
-> - Register DecodeAssists in the CPUID 0x8000000A SVM capability
->    initializer so that common code validates its CPUID word before the
->    SVM code enables it for nested guests.
-> - Make the VMCB02 instruction-byte source const and simplify the
->    synthesized-byte copy and fallback-fetch flow.
-> 
-> v3:
-> https://lore.kernel.org/r/cover.1785411877.git.zhang_wei@open-hieco.net
-> 
-> Changes since v2:
-> - Rebase onto kvm-x86/next.
-> - Track hardware-provided instruction bytes independently of the VMCB02
->    exit code, and preserve the bytes when L0 handles an intercepted #PF
->    before reflecting it to L1.
-> - Select the instruction-byte source using host-owned VMCB02 state
->    instead of control fields in guest-owned VMCB12.
-> - Record whether a queued #PF VM-Exit has a matching emulator context,
->    so userspace-injected #PF exits do not consume stale emulator bytes.
-> - Stop fallback instruction fetches at noncanonical addresses and at the
->    32-bit linear-address boundary.
-> - Extend the selftest with regression coverage for replacing a hardware
->    #NPF with a synthesized #NPF and for userspace-injected #PF during
->    emulation, and harden its page layout and ucall handling.
-> 
-> v2:
-> https://lore.kernel.org/r/cover.1783999988.git.zhang_wei@open-hieco.net
-> 
-> Changes since v1:
-> - Split the implementation into seven patches to make the individual
->    pieces easier to review.
-> - Add EXITINFO virtualization for emulator-generated MOV CR/DR, INTn,
->    INVLPG, and INVLPGA intercepts.
-> - Limit GuestInstrBytes propagation to data #NPF and intercepted #PF
->    exits, and clear the fields for instruction-fetch and unrelated exits.
-> - Provide GuestInstrBytes for KVM-synthesized data #PF/#NPF exits.  Use
->    matching emulator bytes first and fetch missing bytes from L2 RIP as a
->    fallback, while avoiding fallback reads for SEV guests.
-> - Expand the selftest beyond hardware #NPF and stale-state coverage to
->    exercise hardware, synthesized, userspace-injected, instruction-fetch,
->    page-boundary, and CS-limit cases.
-> 
-> v1:
-> https://lore.kernel.org/r/20260629125205.52394-1-zhang_wei@open-hieco.net
-> 
-> Tina Zhang (8):
->    KVM: x86: Add helper to provide intercept linear addresses
->    KVM: nSVM: Synthesize DecodeAssists EXITINFO for emulated intercepts
->    KVM: nSVM: Track fresh hardware DecodeAssist bytes
->    KVM: nSVM: Propagate hardware DecodeAssist bytes to VMCB12
->    KVM: nSVM: Use emulator bytes for synthesized nested #NPF
->    KVM: nSVM: Fetch missing DecodeAssist bytes for synthesized #NPF/#PF
->    KVM: nSVM: Advertise DecodeAssists to L1
->    KVM: selftests: Add nested SVM DecodeAssists test
-> 
->   arch/x86/kvm/cpuid.c                          |   1 +
->   arch/x86/kvm/emulate.c                        |  29 +-
->   arch/x86/kvm/kvm_emulate.h                    |   1 +
->   arch/x86/kvm/svm/nested.c                     | 180 ++++++-
->   arch/x86/kvm/svm/svm.c                        |  56 +-
->   arch/x86/kvm/svm/svm.h                        |  17 +-
->   tools/testing/selftests/kvm/Makefile.kvm      |   1 +
->   .../selftests/kvm/include/x86/processor.h     |   1 +
->   .../kvm/x86/svm_nested_decode_assists_test.c  | 482 ++++++++++++++++++
->   9 files changed, 754 insertions(+), 14 deletions(-)
->   create mode 100644 tools/testing/selftests/kvm/x86/svm_nested_decode_assists_test.c
-> 
-> 
-> base-commit: 1b731e5ded480bd1e5546aed35584238661ce72e
-
+Suravee
