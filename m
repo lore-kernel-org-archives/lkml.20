@@ -1,195 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25D4C4EC670
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 22:20:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4178328267;
+	Thu,  3 Sep 2026 22:24:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788474044; cv=none; b=kebXkmhTPHW80fnzi53JOcApRXNF8FcDNZqxVLF8ICCmq2FXpSjgswEx1NM5JC4GKtDta5mBKNkEViysif/2NujlrALbYQCmlRqDRLqGZo4C523jZGbyvVbUW13uvwGRs2ZHvUcvOokr/dhWeLhQ3myhRSVdt0uZ6jboYD9GAB8=
+	t=1788474262; cv=none; b=pGKUoEQYXJvRYBSpgB77rXLU8Fd/7ZmCqWCxZkKuvcRdTKSWfA9ldB1vz7pFjlFqbTI6wYiAoJJzD+t2HUFprUA6Fi8pkPlCAHJSwWXW1DI5WwpVFkgIDkP9uPb8yDS9aGskYn20O5WO4E6vYMRjELKUopV8tkzYPWDqd8Ep+Hs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788474044; c=relaxed/simple;
-	bh=puDpgV/x7iJdRGy2iRfTHhaCr86DSBFmMYP1WYF7/Ls=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BaSDvAw3F6rNBfxCADSUmzxIEWQivhijMXOAMVG0X09RCS5NLEAgXg4x89RAILZFu+440j754vZWqRjqMRdIlwJvzCMaETJ9HkpBhwwbldK8iEV8TG3sBmg7vl6JC7ag5FAP7VMjREVJhtIEorFb95q3FVMfZ0FunACe18kb2do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bDOVkusC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788474262; c=relaxed/simple;
+	bh=R5ecAYavOe/shWm/VHZyOlX0ILQ6IoRlJWrBllw86so=;
+	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=ewzpQFitxtTkx9+0fNJO+nlQod5U9kc559tX42UllPYV8dsYY/DsWmA2ITESxGCP6F5JoZkPMdd4N4wbea7mfUT4CSKvMBgqESMmKWiuwuJTXQvzVjQh1h5N1RPf5QlhZ3+xKYwGuKG3PtmYpCqwjI55hqGRucPoRLUYjTZpwGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BfsP5sYC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bDOVkusC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0C651F00ACA
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 22:20:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BfsP5sYC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C3331F000E9;
+	Thu,  3 Sep 2026 22:24:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788474040;
-	bh=XErCkNZK6G7WBTio0jFGK/QgQh9ypuTGvQI+xaKM77k=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=bDOVkusCuh6f8y5QeSb4ykZg6FHXuAjSpiZHn7v+ni5orAJyTEEE32tJxPty1ECPU
-	 o56o2JVbFh1LQV7VZcpsTwg3YibMKNmVl0MV44R39ih/kUUqwUp0Y/WrjW4EXS1/yR
-	 wxe05MS2sFLrZkoxV11zEdnm1lICtAPDY4WOzSwNlMVu/D4hfpMgsvT59BiiYSAcOZ
-	 3EQGbrMKVVXr4GQ0qcEAYM78I93REq/fCGP6aJ6MZ2E+3xS2OiztiDYP88CU1Neq9l
-	 C8JT7F46EGNwK01XZFFplJFspAdzJ94feyhCcMowe4mVe0rMc+GOz9Dm2cnf2HPUQS
-	 BPze/yPOscSCw==
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a7e0ff423dso1856693a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 15:20:40 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzZuvIC7SFaHRJXKgk6wqPHSxtekNiNc5IpMSdMOvIhu06dnHBHCJHyIVnTn+1aR1eyEdnvZAKr6R9QCdY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mWjaruWfG6PHLBI7iVjswABoODX53jtqcWppDr8DFbQBjEanlt
-	a3qoUDrAdmwn9Fu1nCtNLGNubMXzroxUuqBMssbYJB24Fm5B/RD7neIi9gT5k2xe+HH0tp8rLBZ
-	hqtjFBqK0xbtSh/oOm6DWseh++qNzBbE=
-X-Received: by 2002:a17:907:3f16:b0:c25:f7dc:2d2 with SMTP id
- a640c23a62f3a-c25f7dc0940mr245742766b.19.1788474039802; Thu, 03 Sep 2026
- 15:20:39 -0700 (PDT)
+	s=k20260515; t=1788474261;
+	bh=r4Awgxk/6qZuiOs5NBt5iKLdvwHRlQ2uTPMeZaAPeN4=;
+	h=From:To:In-Reply-To:References:Subject:Date;
+	b=BfsP5sYC5/Nqio8sYBOh02H7pgewe4wVisN9kP+lp33gRywxmrMQN3m55asg1ljwb
+	 V70GJjlOaK4UQusnacxTH4HHAG0zvDr4NKrpPX2/+YtlUrB9AGLPYkcBc9MJDTvoKq
+	 LqwiELoZMy8Jj8A5BDEq2H7eEoZJAMIGSvsq7FgxDQLFU+WLkLXYBrkRa03ENyB4n5
+	 Wer75FnMMZuFbMiWqw/72AyxOhvU736AIPMpbGwa44QiCG5fRCj/GfGajKP8w2ZOwA
+	 nDdM1qLakaJbsBfKTsLdbIdkft0cgqpvz87JUGinczdAvUi+05RSPn7E6IQ165hL9O
+	 9soUu5ewR1+3g==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Oleksij Rempel <o.rempel@pengutronix.de>, linux-sound@vger.kernel.org, 
+ devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260830084046.14679-2-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260830084046.14679-2-krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v2] ASoC: dt-bindings: imx-audmux: Replace tabs with
+ spaces
+Message-Id: <178846125559.7659.2373412974052957861.b4-ty@b4>
+Date: Thu, 03 Sep 2026 19:47:35 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903175856.4065099-1-yosry@kernel.org> <apnqonqMBZ2GeGEq@google.com>
- <CAO9r8zPcvZpy=379oWNY_+p2XZ74On5LPL+53evbRqq5OD1H=g@mail.gmail.com> <apnyKNY_FKFWtDNK@google.com>
-In-Reply-To: <apnyKNY_FKFWtDNK@google.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 3 Sep 2026 15:20:28 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zN2AqpGudeej3VshJek6iy7iaTwO4GgmLSVO0++omHUxA@mail.gmail.com>
-X-Gm-Features: AcwNN1USE5TIY09YYe1eMfDzPC0dWkGMMkhrDqscJ1Fg0-SNpp1bjRgtghuYZWc
-Message-ID: <CAO9r8zN2AqpGudeej3VshJek6iy7iaTwO4GgmLSVO0++omHUxA@mail.gmail.com>
-Subject: Re: [PATCH] KVM: SVM: Trigger new ASID allocation in both VMCBs on
- pCPU switch
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Stefan Teodorescu <fane@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1135; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=R5ecAYavOe/shWm/VHZyOlX0ILQ6IoRlJWrBllw86so=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqmfOQANCyZh+kF83YBereludMZCIbGXvNHdv9n
+ qSQ+PVVaVyJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCapnzkAAKCRAk1otyXVSH
+ 0MZ1B/911WzFcnjK0xMG7i2UmccxCAPh6RL/mwROCe+M5azXO87QCxfvoM0RiglkxDPFuPKpnsu
+ eU/Xz0Y/Gt1k3tV6S8CpmS+hlcwEDefNFOCnG19IeZ2gVLHEwR0QJUwoZzfcUj6joLb/BQyizk9
+ DWuTi0Rkp0NjJQl5/AfBHRt5dAgEqvnfsc08o4mj6N41kpKYpYYFKWPoMTDYZEBAPeqRTp7JLey
+ bdLtxNvfe9kW5dtw6dbun8R2VoYjOLoCh/n1keImYM12ZzpU8cXKUdABuC+NeDKJKnWQJx1MbrK
+ K9HBvaFfkmdSYsxaqNs4kxnbv+eAlDSbUVtmC4QvA6T4rUET
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, Sep 3, 2026 at 3:18=E2=80=AFPM Sean Christopherson <seanjc@google.c=
-om> wrote:
->
-> On Thu, Sep 03, 2026, Yosry Ahmed wrote:
-> > On Thu, Sep 3, 2026 at 2:53=E2=80=AFPM Sean Christopherson <seanjc@goog=
-le.com> wrote:
-> > > >       if (unlikely(svm->current_vmcb->cpu !=3D vcpu->cpu)) {
-> > > > -             svm->current_vmcb->asid_generation =3D 0;
-> > > >               vmcb_mark_all_dirty(svm->vmcb);
-> > > >               svm->current_vmcb->cpu =3D vcpu->cpu;
-> > > > +             svm->vmcb01.asid_generation =3D 0;
-> > > > +             if (svm->nested.initialized)
-> > >
-> > > Isn't conditioning the clear on nested.initialized wrong?  It's stupi=
-dly contrived,
-> > > but I think it can happen?  Even if it can't, I don't see any reason =
-to conditionally
-> > > zero vmcb02.asid_generation.  Either it's buggy or it's a wash in ter=
-ms of performance.
-> >
-> > Oh yeah it's not needed. I thought the generation is only allocated
-> > when svm->nested.initialized, but that's not true it's always there.
-> > So yeah we can just always zero it, and then we can drop the change in
-> > svm_allocate_nested() too, or keep it as hardening (it seems like a
-> > good idea in general)?
->
-> Definitely keep it as hardening.
->
-> > >  - vCPUx runs on pCPU A, vmcb02 is active, asid=3D1.
-> > >  - vCPUx migrates to pCPU B, vmcb02 pCPU changes, new asid=3D2.
-> > >  - vCPUz runs on pCPU A and allocates asid=3D2 as well.
-> > >  - vCPUx switches to vmbc01 and disabled nested, but doesn't run, e.g=
-. because
-> > >    userspace stuffs EFER.
-> >
-> > IIUC, here userspace wrote EFER.SVME=3D0..
-> >
-> > >  - vCPUx migrates back to pCPU A, and zeroes vmcb01.asid_generation, =
-but not
-> > >    vmcb02.asid_generation.
-> > >  - vCPUx switches to vmcb02, without running vmcb01, again thanks to =
-userspace.
-> >
-> > ..and here it wrote EFER.SVME=3D1, in which case svm_allocate_nested()
-> > should set svm->nested.vmcb02.cpu =3D -1..
-> >
-> > >  - vCPUx does VMRUN on vmcb02 with asid=3D2.
-> >
-> > ..and we allocate a new ASID here?
->
-> Oh, right.  Yeesh, that's subtle.  All the more reason to burn with fire.
->
-> > >  - Two vCPUs end up using asid=3D2 on the same pCPU.
-> > >
-> > > The "svm->current_vmcb->cpu !=3D vcpu->cpu" check is also sketchy, bu=
-t I don't think
-> > > it's outright wrong?
-> > >
-> > > Ugh.  Jumping back a bit, I _was_ going to say that we could revert 1=
-93015adf40d
-> > > and then do:
-> > >
-> > > diff --git arch/x86/kvm/svm/svm.c arch/x86/kvm/svm/svm.c
-> > > index b4845e452e69..4c8e2fcd378e 100644
-> > > --- arch/x86/kvm/svm/svm.c
-> > > +++ arch/x86/kvm/svm/svm.c
-> > > @@ -1310,12 +1310,6 @@ void svm_switch_vmcb(struct vcpu_svm *svm, str=
-uct kvm_vmcb_info *target_vmcb)
-> > >  {
-> > >         svm->current_vmcb =3D target_vmcb;
-> > >         svm->vmcb =3D target_vmcb->ptr;
-> > > -
-> > > -       /*
-> > > -       * Workaround: we don't yet track the ASID generation
-> > > -       * that was active the last time target_vmcb was run.
-> > > -       */
-> > > -       svm->asid_generation =3D 0;
-> > >  }
-> > >
-> > >  static int svm_vcpu_create(struct kvm_vcpu *vcpu)
-> > > @@ -4531,6 +4525,9 @@ static __no_kcsan fastpath_t svm_vcpu_run(struc=
-t kvm_vcpu *vcpu, u64 run_flags)
-> > >         sync_lapic_to_cr8(vcpu);
-> > >
-> > >         if (unlikely(svm->asid !=3D svm->vmcb->control.asid)) {
-> > > +               if (svm->vmcb->control.tlb_ctl !=3D TLB_CONTROL_FLUSH=
-_ALL_ASID)
-> > > +                       svm->vmcb->control.tlb_ctl =3D TLB_CONTROL_FL=
-USH_ASID;
-> > > +
-> > >                 svm->vmcb->control.asid =3D svm->asid;
-> > >                 vmcb_mark_dirty(svm->vmcb, VMCB_ASID);
-> > >         }
-> > >
-> > >
-> > > But after reading the cover letter[*], I can't tell if 193015adf40d w=
-as a bug
-> > > fix for a dirty/clean bits bug, a bug fix for ASID reuse, or an optim=
-ization (I
-> > > thought it was an optimization until reading the cover letter and loo=
-king more
-> > > at commit af18fa775d07 ("KVM: nSVM: Track the physical cpu of the vmc=
-b vmrun
-> > > through the vmcb").
-> > >
-> > > So yeah, hit this with a hammer and defer the proper fix to your clea=
-nup series,
-> > > because I have low confidence that doing a proper fix is the safest a=
-pproach for
-> > > LTS kernels.
-> >
-> > I can send a new version dropping conditioning the reset on
-> > svm->nested.initialized and dropping the change in
-> > svm_allocate_nested(), is this what you had in mind?
->
-> Keep the change in svm_allocate_nested().  Or just do nothing, I'll happi=
-ly drop
-> the svm->nested.initialized check when applying.
+On Sun, 30 Aug 2026 10:40:47 +0200, Krzysztof Kozlowski wrote:
+> ASoC: dt-bindings: imx-audmux: Replace tabs with spaces
 
-You'll need to update the changelog too.
+Applied to
 
-Instead of:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
-Additionally, initialize the tracker pCPU for vmcb02 to -1 on nested
-enablement, so that the new ASID allocation in the scenario above
-happens even if EFER.SVME is disabled in L1 before migrating to the new
-pCPU (so asid_generation in vmcb02 is not reset), but enabled before
-returning to the old pCPU.
+Thanks!
 
-Maybe:
+[1/1] ASoC: dt-bindings: imx-audmux: Replace tabs with spaces
+      https://git.kernel.org/broonie/sound/c/9e6ad2ba055f
 
-Additionally, initialize the tracked pCPU for vmcb02 to -1 on nested
-enablement as hardening, so that a new ASID allocation is always
-triggered when nested is disabled and re-enabled.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Let me know if you still wanna fixup when applying or a v2 :)
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
