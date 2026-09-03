@@ -1,82 +1,82 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 766823264E2
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:07:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376A14B2041
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:07:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444457; cv=none; b=K71fc1csbr3/JrCX0VrPcSIvYII3wS+ned8m1O4kkMY/EHUm7DchczOlECR2RDWEdub9d4A2WCEpB+RArkhUWnaUhhatIGBIkkp2ICVPku2zkihl1KrGBY936H7ETFzs/KGCgayCjB7MLZSStaoPS71J0sNrxO51giheLqy+41M=
+	t=1788444474; cv=none; b=tDPhZztMb0v8AOKCcG2y7CV/lVx0lE+I4d8l46htfnUxBN/uxkPIkxAYZge7JnLVEiQ4VFTS2PFgBWNAMww2NJcgXPjoc4Cc/yz55kHgNgiajZj6v0eFln3BU0YwGHUeFrAo922j3GCGezQc8DGd4C1p3IwDTj4ypuJ/kMh6TIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444457; c=relaxed/simple;
-	bh=TRdYVlWhYuDm9lO6CVQKFqwaPI6f49HZDnLJd2t6SVI=;
+	s=arc-20240116; t=1788444474; c=relaxed/simple;
+	bh=T7O6lWalj+va9qpA7dMF0Q6gAhCbv6X5eCxp24xWTI4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hZAL5L2z/8JNzB922gWvsxBhd4o2KKPXx2XwFfvm2CzwwwMNRZNGnIbXQFy/DnQ9UeQ/QQAdF4eRdY8H778hhm0l4cdUkkFWvFxZGBIZGgnToRz4MvqhWaUINY1R3YoCOeNxBoCR33c1UqgPbvdacTYGNTtxpWBJdqxzlew0oqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lNZXfHnJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=beMEOV9u; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version; b=XLZA9VTpxhL3k2YLLh7XBpFTFiphA+Dk9N2tukvfNlnPScH311e0/eY7AK4DNfTDtwG4EwNevEs380LbuAvh2HRRRqNwXFdbcF2QTuIXdFQVb+H2QVLjVGSYo2CVTgZYLlOo2nhxS1b+ujJZxprhm3N56Wi16J7yr6AeUmr1Pgw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EUPiU23O; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cmVA8UbF; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lNZXfHnJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="beMEOV9u"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683DARY8035596
-	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 14:07:18 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EUPiU23O";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cmVA8UbF"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683DA7cC1704813
+	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 14:07:40 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=hM0He+HyIdm
-	wGakq8r+dh5y5fBQAFwdVgS7Dd2VSn/s=; b=lNZXfHnJlYAjKDYuNTUw00V3xsI
-	/KP50PkN2zhNcKNLmNlEnOSCUIRYqmP7Z5Y1ebEJHO3N7PKSZkkb8ogUz/vs20/S
-	btDtVWfNLwLbo6rP0Cgn8dVQKzs5FhRmVir/CAo3Ip6K0amYoGyjaLH3eGjqRQ5y
-	LRM4lgOjTEnqaf7K/jB9PFp7DGf2Z3ESKJu0j1mu3ft3i3RDKjsknbq4/Q/79bTf
-	cbYFcWhv9C/lGMxVvxCLjzn8CoOfaUKWhe9GsidEUoOwew3vYnqmlzoB0ViywtWG
-	tySOHc8HOWRjCHO9incSURAgI9JsMeFOYsWAc7iQLMyjLZH8II2ZMSCCrsg==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf51m1etu-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=/bcyhSVUxb1
+	z7Kx/Bh6dfuK/wNwgd4ynGbtp/yocQ0Q=; b=EUPiU23O3QqN/+916OY49HMgKJP
+	TMBO6fEcYFVK4PIgX0Aq5tNU0eWAxm6dmjAtiWSQjpGveHjlVgNPEDIBp/gtRA87
+	dU9ljpEByAizvtx2kc/SoV5mOSRnM9xN8ojMpNmdXrUhghapjm68duwQn8iXvBVB
+	TkhvxrrhFmJ7AkUitMBrJQgXjRi64d6VZQ/eW+5WVKUS2akwYMZW+2PMLKUxcn4C
+	5tfagEEfvYRHIDOw8JJpde8VMPaNq8stvPKSF7G1FDLrlsJ514U1U9NaVszyWKCH
+	rirqM6et8cS48F9fC+BnxxgtNdGu+wzGbovO0QFuhf6Xo6vC4+MfFGsfg6g==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf9b189pv-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 14:07:17 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc435388657so2392773a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:07:17 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 14:07:39 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc42a07d04aso2107699a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:07:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788444437; x=1789049237; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1788444459; x=1789049259; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hM0He+HyIdmwGakq8r+dh5y5fBQAFwdVgS7Dd2VSn/s=;
-        b=beMEOV9uYYXOrxMJxNzVyLjzVgM4YPrhqMZ+M0xRAow5+GeuEDZMtuaLJ+VAxmU/FS
-         Xbz9HRbk3AwSSpR5Zfh5vhmhdfV2BBUhAqiz+sSPuGM5HkGiq5qMeSqp3SnoVHffSnhV
-         MnzjmVDSaspvKPSyLn/vd7BwV3VR4qHBCC83lSjT5dTsgPTtFdkUj5TNBpsHMoH2U4kH
-         pyvhygYd9ctHlN7vo1Zq3WGYSqn/A6ZJMFjrkWSXlzUlViMSFHgehcb+lf8YZI9NjL0r
-         Dx+3dy6dExXWvV8kZmqPsIp3yK3PlOjiuAlEWupITESwGbxlzo29hTMqlkO5J8eRquuQ
-         mc4g==
+        bh=/bcyhSVUxb1z7Kx/Bh6dfuK/wNwgd4ynGbtp/yocQ0Q=;
+        b=cmVA8UbFcVQ3ldmG0HJSn1/b8vQVdQakGldl5riGhMMoqJvarnhIP/6JIXMqXA9uOu
+         MY6HGoG+iXxterPQFmFssC3zvvu/0DFG95DQMOR09s4Wa5AczkSlGK9nEnTWusPdWzqZ
+         7/U5DUv0QhGs30GiduCCCrLZgtUS1otgjPAb+4tul518rtVkpHi1Wj9Jcff+2Dye5bY+
+         It0PPuFuG44C8G3j6eHYSiHjTuGA0ZBbxm54ZZz3/8eMz6K1FFY3wfiuPCi+17byaLlQ
+         DYL/IxdrxbZNJdlFMXJVk3LXfcDPyh6ApyORV1Cc6CRjRWWy6c8gDVbSp1Lnuj48RPTP
+         H2bQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788444437; x=1789049237;
+        d=1e100.net; s=20251104; t=1788444459; x=1789049259;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hM0He+HyIdmwGakq8r+dh5y5fBQAFwdVgS7Dd2VSn/s=;
-        b=jCMGMkBtLTko1eEduXMPPCYkD7oGhBFABGV++UFKMjISn+AI+m69ksZ8SwezGiVr4P
-         U16qlFEHcGGU2+LgSLHCSJv0NLYUtoCZQDRH216/Ay7n1n1n6DVfDNr+M6wHDIDH9XdO
-         ErBJeUd+vxJh/oFlEy0qZS1hchJWWcbcQ8BAbGQ7JyEqNk5syD1NQ6HTl6b7RLGDbvDZ
-         C84vL//+VSFuSv7DMuo6OnmAlNVTV1htbXpl9IVDmsqXsj7ROTO6ktle4Jk9xXh8H/ZR
-         +7tDL3FKfWl+6YO6pIT047pYR8lF81CO6B059YDDfdZjUEfmygzZOAG8wEx/vffEeTFs
-         8lng==
-X-Forwarded-Encrypted: i=1; AKwUvBwQ8eosVbezNrcnk8D9pXpXgFfZlJDL91gVHWXf/q8AoGNv4fXEHOZU5jsmO8k4DxYo60FNWUdVV+N8BuA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmuyL4GUYil1k3mKeuSPW91JOSlx/Ww8S3v2YxMkADGgPTZuqV
-	DJtkNs9qIzsFEboLH243DBVQqCWXwl8z1FefPLvDp4UfjuvmVlpOGHGr7lKVJHo2WX1Vihpdjgz
-	HeHH4640HSAv1QLUvmhOAuJ26MBsWDCcjg+nr/CfbD3BFUS7+Ps78tJfMr55G5KN+ygw=
-X-Gm-Gg: AYBFou0Z6ZIt7mEQmL3USyKYOdZa5T/Wuyz28Fgu3+fl+R/sdVc9Qp99UBQq2TfltY6
-	MDvIUzKn75Xs43gXW2iMSq8j6Lp++E+hZqnBbn9ewuGyAaC0w6iZwMi2BlUuWQgpP7zJk3dqBaz
-	9xJukd+dxwI4s3RWtBxR64etzlrXNg/vKy5JRWiZDXKF4vD1FKjTNdsyDyWuPeBDmdAfABY8e2H
-	7FijNB/PDkrRfsSH2BYybgF7/KJwcMwmepT1SqPNjiPECW2/uhjtKOZRGWZ2+VpIrazURXxM0Jd
-	TlK28Xz5/ztCparr6Sg/1F1jU9RVMpEFqZqisbRi3Ji82FcFOQBR0FKVa5yLzamuy9YyzPaMatJ
-	3M0BNDf9OqWZgqB3zvIuq3Zt0SGWdzg2zF6/Dw5r3dTefOQHS6B5U2sYEKHXO
-X-Received: by 2002:a17:90a:c10e:b0:398:c3a3:dbd0 with SMTP id 98e67ed59e1d1-39aedfcc05dmr19833357a91.8.1788444435555;
-        Thu, 03 Sep 2026 07:07:15 -0700 (PDT)
-X-Received: by 2002:a17:90a:c10e:b0:398:c3a3:dbd0 with SMTP id 98e67ed59e1d1-39aedfcc05dmr19833103a91.8.1788444434387;
-        Thu, 03 Sep 2026 07:07:14 -0700 (PDT)
+        bh=/bcyhSVUxb1z7Kx/Bh6dfuK/wNwgd4ynGbtp/yocQ0Q=;
+        b=RSVdeXMIxzGxFV7l1kpRzyAqqEEPcP/TAH6Gp0HagP3IICKAEapMXeYUaKB5H8hru+
+         ZmOqeASewwr2dLcGyIkIsGCouLcbS14MrzDP7bTdBMBB0QWjJNKLUKO46Z6UWWmab+1Y
+         4/Zn5SxZlGY6JE0KVGkuthSAw/UQGQwXc/a6ce8s/KD7ajI92StvxP5hDzdvluZLkHkG
+         s35bMhVmu9bJx+cMY0DL2c2eQ5Ybc3i7LY7K7COSRmQ14ELAFMmLrDmbY7GFKcxV8M5u
+         TWOvkfhwth/esl9AF3wguXG9DdupLQz9FxxnF0rj+Eqar13+NPSdCr9W1NpjgtpSNNga
+         CxJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxND/Bw6yGSuc1H/yOTqD8MpDSpGaaJAppi2iYPVhyBU9HgaIF6Fz2IqpxbqlQLrztkgllVzBQyqN9jvvk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mTlEmdZ3f916VBJimMv+6zaNyDdlrfNRMkCmaxWiqDOmDGxNpa
+	jyuInvGEqVTUadTRqE4+s+ToYrYsXfpMzb4VWMdGCtYIZAjHAus6GiI2vJMRXMxhKVVII/u/FqH
+	91JoK3/DRnTXzl8ljsUeIf7elq4ggh12bXNeAVIeRBqu3plRD8C9gr5gW8bnKNRC37Ug=
+X-Gm-Gg: AYBFou27gj+4zsTVa8ftoHLxOZppA86PYqkbgBm6u/qzvx/gwiwUlu7zSPphrd40K5m
+	V9dDLWsHd6rG1EetTExFGodzTAxGHJmxlG6QADgRdqIgKDOkau+Jok4/TtCpJFOnmYncLutS552
+	V4ojXxqSsjrDcdJGRt1ipFv93vvLrCLvJk/o7WNDKhpA63d+K0mPvWuM4e3zhrY8uPdM4dFnsfV
+	yguyorHTAJekQ0RwkVFMAyHp3ETEjkTAeSM++GwPJFgce6RqwGXG46Ucbb23Vt7J4g1qwiUDT07
+	7SoocC18oCe6JDjdz9bK2KU3WamIPuR51YDfh4iEgzaoeYrHgewqSrZDnKq5bbWh0Ccj0amcG8j
+	D2gELAgGxnfI+qET1prrPzdQddiWiBe5Hbd4t0XXTi5j5DHWBIYsWpcWtrC7w
+X-Received: by 2002:a17:90b:5828:b0:38e:2e86:ed02 with SMTP id 98e67ed59e1d1-39aee0850bcmr19871577a91.14.1788444458943;
+        Thu, 03 Sep 2026 07:07:38 -0700 (PDT)
+X-Received: by 2002:a17:90b:5828:b0:38e:2e86:ed02 with SMTP id 98e67ed59e1d1-39aee0850bcmr19871368a91.14.1788444458210;
+        Thu, 03 Sep 2026 07:07:38 -0700 (PDT)
 Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1431994fdd7sm6809098c88.10.2026.09.03.07.07.05
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1431994fdd7sm6809098c88.10.2026.09.03.07.07.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 07:07:10 -0700 (PDT)
+        Thu, 03 Sep 2026 07:07:37 -0700 (PDT)
 From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>
 Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -92,9 +92,9 @@ Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
         Shawn Guo <shengchao.guo@oss.qualcomm.com>,
         Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
         Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: [PATCH v14 1/6] arm64: dts: qcom: Add device tree for Nord SoC series
-Date: Thu,  3 Sep 2026 22:06:12 +0800
-Message-ID: <20260903140617.441111-2-shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH v14 6/6] arm64: dts: qcom: Add device tree for Nord RRD board
+Date: Thu,  3 Sep 2026 22:06:17 +0800
+Message-ID: <20260903140617.441111-7-shengchao.guo@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260903140617.441111-1-shengchao.guo@oss.qualcomm.com>
 References: <20260903140617.441111-1-shengchao.guo@oss.qualcomm.com>
@@ -105,4670 +105,490 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: ijGcltmY0a1Unw3BR27wmQWa8wCLXY6a
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEyMyBTYWx0ZWRfX86hMzxMISPf2
- oqV8J819pKnVd51QdhmqJkTrqahc8zF5WqDYddR2MUIdGY34dzy+OyeoFSpPxLbrF4r9X8aKX3R
- A4ilBQfpEjmGTYlrlu9hEEQuzHzLRyw8vEEmhzOu1KfAWaBAzxUKoLcRp/kMsVv3ZnVA0Ulq11X
- CQwflaNCKWllGH0M40L3eW8YRjgMGX9sLLDy7OqIg455V4H5j5oDXNqXdEsxP2G3Dpe6lWHbsww
- EwaUAm3i8pyzqknyZ0Ej5xo0P3uZ/+NP89AZtXiPerG/DtSoSgI37uezzF7Y9sLvNkwAQ7K82pU
- iBZT72yMRyLKD3KUn/MMiHopg5jEO4O55tzb6Z4923rkTvTvLw8z4NcMG3N6l83QNscI1q/mZYf
- z4ra1CVheZNSn03UeFT3wSW9RIiJbXpw16VAe0ac7Cdp2GNN5/qrD4J0rbwZKBWD9TRJttqPYvX
- mqrhu7ig0KvoAciTXtA==
-X-Authority-Analysis: v=2.4 cv=X8Ji7mTe c=1 sm=1 tr=0 ts=6a997f15 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+X-Proofpoint-ORIG-GUID: 40zKVgzZRznVevFEILq0lcO4WvXdf9K8
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEyMyBTYWx0ZWRfX4K6jkgd+oAb3
+ wgOL2qhUu2ndhpGr3w3u24n5Dur1MU1scrEIM/9uat1B0dke9BJlccraGgyT/aMCs780AjoU59U
+ HSYfppE/dDBIVJPl7l6h+2YjePevBsk=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEyMyBTYWx0ZWRfX1lNt8Ftk9ckT
+ w4XskOXZ7PL+bF3+NRmZtcPc10aysNVyHLfo+xkSSFcsWRfHUuyMwg+Vqsv14wP+FF6mXpL3vpc
+ ed+rX/c2hnts9Mi9zFBzuCAzaJZTdZM5sEMboiOmjGyKH9gN+ZjdtXGSL+hzcKKx6NoX44uy6H1
+ eI1294VM2ORdzYWW04sjFOQwNMhCJRzclV8/qjnNMxYkWMyMt7YqfCXhx78FMFNc2RlP9Xw0H1V
+ TtXqK+9mZmVSI52VmzcJgxrsdzSUjtYjjrhHsjiSi/x5Y7YQotXYJZ4abNuzbgUPsJctlEv7wAg
+ ErPB8/f9RU1HxF/XKl2oB03BXUKA0YiatiRkbN6JepZCPVznQvQVhHnY2s+MuOG8juBCgG2qyNp
+ wzyKd171QhZC9KI6dVa989fVM0vN/0y3hOkIxEdL7/Ie7y5XS3ax2fiJgi8WqZCngWkji8gULPA
+ hI3BWNg0przNCHF+ECA==
+X-Authority-Analysis: v=2.4 cv=NNTlPU6g c=1 sm=1 tr=0 ts=6a997f2b cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=8CEx8uHD1C-9Ad5L0JgA:9 a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEyMyBTYWx0ZWRfX3bUpg6LkbNZI
- 7upo3CHU2AZYSZFUfrzBB0mnjEBH7N/d3oWMNr54f6ejO0UbPjJ2IGLkwuKEo2k14Cqf4jEkbZH
- 7yIT4NA091DQzomi9yKdqCHqlkU5p9Q=
-X-Proofpoint-ORIG-GUID: ijGcltmY0a1Unw3BR27wmQWa8wCLXY6a
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=5sLx7e1TBNyWi_Ja1bEA:9 a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-GUID: 40zKVgzZRznVevFEILq0lcO4WvXdf9K8
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-03_04,2026-09-03_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
- priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030123
+ phishscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 adultscore=0
+ malwarescore=0 clxscore=1015 suspectscore=0 impostorscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609030123
 
-Add base device tree include (nord.dtsi) for the Nord SoC series
-describing the core hardware components:
+Add initial device tree for the Qualcomm Dragonwing IQ10 RRD (Robotics
+Reference Design) board, which is built on Nord Embedded variant. Enable
+the debug UART, UFS storage, PMICs, I2C and SPI.
 
- - 18 Oryon (qcom,oryon-1-5) cores in three clusters, with PSCI-based
-   power management and CPU/cluster idle states
- - ARM GICv3 interrupt controller with ITS
- - TLMM GPIO/pinctrl controller
- - 8 TSENS thermal sensors with thermal zones
- - 3 APPS SMMU-500 instances
- - 3 QUPv3 GENI SE QUP blocks
- - PDP SCMI channel and mailbox
- - Watchdog, Crypto, TRNG and TCSR
- - Reserved memory, CMD-DB and firmware SCM
- - PSCI and architected timers
-
-Co-developed-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
 Co-developed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/nord.dtsi | 4605 ++++++++++++++++++++++++++++
- 1 file changed, 4605 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/nord.dtsi
+ arch/arm64/boot/dts/qcom/Makefile     |   1 +
+ arch/arm64/boot/dts/qcom/nord-rrd.dts | 424 ++++++++++++++++++++++++++
+ 2 files changed, 425 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/nord-rrd.dts
 
-diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qcom/nord.dtsi
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index d05920a0d5eb..38d326644146 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -161,6 +161,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-sony-xperia-yoshino-maple.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-sony-xperia-yoshino-poplar.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-xiaomi-sagit.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= nord-ride.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= nord-rrd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= purwa-iot-evk.dtb
+ 
+ purwa-iot-evk-el2-dtbs	:= purwa-iot-evk.dtb x1-el2.dtbo
+diff --git a/arch/arm64/boot/dts/qcom/nord-rrd.dts b/arch/arm64/boot/dts/qcom/nord-rrd.dts
 new file mode 100644
-index 000000000000..e0496fd40c30
+index 000000000000..3673003c8b21
 --- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/nord.dtsi
-@@ -0,0 +1,4605 @@
++++ b/arch/arm64/boot/dts/qcom/nord-rrd.dts
+@@ -0,0 +1,424 @@
 +// SPDX-License-Identifier: BSD-3-Clause
 +/*
 + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 + */
 +
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
++/dts-v1/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
++
++#include "nord-embedded.dtsi"
 +
 +/ {
-+	interrupt-parent = <&intc>;
-+	#address-cells = <2>;
-+	#size-cells = <2>;
++	model = "Qualcomm Technologies, Inc. IQ10 RRD";
++	compatible = "qcom,iq10-rrd", "qcom,nord";
 +
-+	cpus {
-+		#address-cells = <2>;
-+		#size-cells = <0>;
++	aliases {
++		serial0 = &uart15;
++	};
 +
-+		cpu0: cpu@0 {
-+			device_type = "cpu";
-+			compatible = "qcom,oryon-1-5";
-+			reg = <0x0 0x0>;
-+			enable-method = "psci";
-+			power-domains = <&cpu0_pd>, <&cpu_perf 0>;
-+			power-domain-names = "psci", "perf";
-+			next-level-cache = <&l2_0>;
-+			#cooling-cells = <2>;
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
 +
-+			l2_0: l2-cache {
-+				compatible = "cache";
-+				cache-level = <2>;
-+				cache-unified;
-+			};
++	clocks {
++		xo_board: xo-board-clk {
++			compatible = "fixed-clock";
++			clock-frequency = <38400000>;
++			#clock-cells = <0>;
 +		};
 +
-+		cpu1: cpu@100 {
-+			device_type = "cpu";
-+			compatible = "qcom,oryon-1-5";
-+			reg = <0x0 0x100>;
-+			enable-method = "psci";
-+			power-domains = <&cpu1_pd>, <&cpu_perf 0>;
-+			power-domain-names = "psci", "perf";
-+			next-level-cache = <&l2_0>;
-+			#cooling-cells = <2>;
++		sleep_clk: sleep-clk {
++			compatible = "fixed-clock";
++			clock-frequency = <32000>;
++			#clock-cells = <0>;
 +		};
 +
-+		cpu2: cpu@200 {
-+			device_type = "cpu";
-+			compatible = "qcom,oryon-1-5";
-+			reg = <0x0 0x200>;
-+			enable-method = "psci";
-+			power-domains = <&cpu2_pd>, <&cpu_perf 0>;
-+			power-domain-names = "psci", "perf";
-+			next-level-cache = <&l2_0>;
-+			#cooling-cells = <2>;
++		bi_tcxo_div2: bi-tcxo-div2-clk {
++			compatible = "fixed-factor-clock";
++			#clock-cells = <0>;
++			clocks = <&rpmhcc RPMH_CXO_CLK>;
++			clock-mult = <1>;
++			clock-div = <2>;
 +		};
 +
-+		cpu3: cpu@300 {
-+			device_type = "cpu";
-+			compatible = "qcom,oryon-1-5";
-+			reg = <0x0 0x300>;
-+			enable-method = "psci";
-+			power-domains = <&cpu3_pd>, <&cpu_perf 0>;
-+			power-domain-names = "psci", "perf";
-+			next-level-cache = <&l2_0>;
-+			#cooling-cells = <2>;
++		bi_tcxo_ao_div2: bi-tcxo-ao-div2-clk {
++			compatible = "fixed-factor-clock";
++			#clock-cells = <0>;
++			clocks = <&rpmhcc RPMH_CXO_CLK_A>;
++			clock-mult = <1>;
++			clock-div = <2>;
++		};
++	};
++};
++
++&apps_rsc {
++	/* PMIC A - Kobra_MM (PMM8650AU) - SID 0x0, Bus E0 */
++	regulators-0 {
++		compatible = "qcom,pmm8654au-rpmh-regulators";
++		qcom,pmic-id = "A_E0";
++
++		vreg_l4a_1p2: ldo4 {
++			regulator-name = "vreg_l4a_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
 +		};
 +
-+		cpu4: cpu@400 {
-+			device_type = "cpu";
-+			compatible = "qcom,oryon-1-5";
-+			reg = <0x0 0x400>;
-+			enable-method = "psci";
-+			power-domains = <&cpu4_pd>, <&cpu_perf 0>;
-+			power-domain-names = "psci", "perf";
-+			next-level-cache = <&l2_0>;
-+			#cooling-cells = <2>;
++		vreg_l6a_1p2: ldo6 {
++			regulator-name = "vreg_l6a_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
 +		};
 +
-+		cpu5: cpu@500 {
-+			device_type = "cpu";
-+			compatible = "qcom,oryon-1-5";
-+			reg = <0x0 0x500>;
-+			enable-method = "psci";
-+			power-domains = <&cpu5_pd>, <&cpu_perf 0>;
-+			power-domain-names = "psci", "perf";
-+			next-level-cache = <&l2_0>;
-+			#cooling-cells = <2>;
++		vreg_l7a_1p2: ldo7 {
++			regulator-name = "vreg_l7a_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-always-on;
++			regulator-boot-on;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
 +		};
 +
-+		cpu6: cpu@10000 {
-+			device_type = "cpu";
-+			compatible = "qcom,oryon-1-5";
-+			reg = <0x0 0x10000>;
-+			power-domains = <&cpu6_pd>, <&cpu_perf 1>;
-+			power-domain-names = "psci", "perf";
-+			enable-method = "psci";
-+			next-level-cache = <&l2_10000>;
-+			#cooling-cells = <2>;
-+
-+			l2_10000: l2-cache {
-+				compatible = "cache";
-+				cache-level = <2>;
-+				cache-unified;
-+			};
++		vreg_l8a_1p8: ldo8 {
++			regulator-name = "vreg_l8a_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-always-on;
++			regulator-boot-on;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
 +		};
 +
-+		cpu7: cpu@10100 {
-+			device_type = "cpu";
-+			compatible = "qcom,oryon-1-5";
-+			reg = <0x0 0x10100>;
-+			enable-method = "psci";
-+			power-domains = <&cpu7_pd>, <&cpu_perf 1>;
-+			power-domain-names = "psci", "perf";
-+			next-level-cache = <&l2_10000>;
-+			#cooling-cells = <2>;
++		vreg_s1a_vdd2h_l: smps1 {
++			regulator-name = "vreg_s1a_vdd2h_l";
++			regulator-min-microvolt = <900000>;
++			regulator-max-microvolt = <1100000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-always-on;
++			regulator-boot-on;
 +		};
 +
-+		cpu8: cpu@10200 {
-+			device_type = "cpu";
-+			compatible = "qcom,oryon-1-5";
-+			reg = <0x0 0x10200>;
-+			enable-method = "psci";
-+			power-domains = <&cpu8_pd>, <&cpu_perf 1>;
-+			power-domain-names = "psci", "perf";
-+			next-level-cache = <&l2_10000>;
-+			#cooling-cells = <2>;
++		vreg_s3a_1p8: smps3 {
++			regulator-name = "vreg_s3a_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-always-on;
++			regulator-boot-on;
 +		};
 +
-+		cpu9: cpu@10300 {
-+			device_type = "cpu";
-+			compatible = "qcom,oryon-1-5";
-+			reg = <0x0 0x10300>;
-+			enable-method = "psci";
-+			power-domains = <&cpu9_pd>, <&cpu_perf 1>;
-+			power-domain-names = "psci", "perf";
-+			next-level-cache = <&l2_10000>;
-+			#cooling-cells = <2>;
++		vreg_s5a_mv: smps5 {
++			regulator-name = "vreg_s5a_mv";
++			regulator-min-microvolt = <1328000>;
++			regulator-max-microvolt = <1370000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-always-on;
++			regulator-boot-on;
 +		};
 +
-+		cpu10: cpu@10400 {
-+			device_type = "cpu";
-+			compatible = "qcom,oryon-1-5";
-+			reg = <0x0 0x10400>;
-+			enable-method = "psci";
-+			power-domains = <&cpu10_pd>, <&cpu_perf 1>;
-+			power-domain-names = "psci", "perf";
-+			next-level-cache = <&l2_10000>;
-+			#cooling-cells = <2>;
-+		};
-+
-+		cpu11: cpu@10500 {
-+			device_type = "cpu";
-+			compatible = "qcom,oryon-1-5";
-+			reg = <0x0 0x10500>;
-+			enable-method = "psci";
-+			power-domains = <&cpu11_pd>, <&cpu_perf 1>;
-+			power-domain-names = "psci", "perf";
-+			next-level-cache = <&l2_10000>;
-+			#cooling-cells = <2>;
-+		};
-+
-+		cpu12: cpu@20000 {
-+			device_type = "cpu";
-+			compatible = "qcom,oryon-1-5";
-+			reg = <0x0 0x20000>;
-+			enable-method = "psci";
-+			power-domains = <&cpu12_pd>, <&cpu_perf 2>;
-+			power-domain-names = "psci", "perf";
-+			next-level-cache = <&l2_20000>;
-+			#cooling-cells = <2>;
-+
-+			l2_20000: l2-cache {
-+				compatible = "cache";
-+				cache-level = <2>;
-+				cache-unified;
-+			};
-+		};
-+
-+		cpu13: cpu@20100 {
-+			device_type = "cpu";
-+			compatible = "qcom,oryon-1-5";
-+			reg = <0x0 0x20100>;
-+			enable-method = "psci";
-+			power-domains = <&cpu13_pd>, <&cpu_perf 2>;
-+			power-domain-names = "psci", "perf";
-+			next-level-cache = <&l2_20000>;
-+			#cooling-cells = <2>;
-+		};
-+
-+		cpu14: cpu@20200 {
-+			device_type = "cpu";
-+			compatible = "qcom,oryon-1-5";
-+			reg = <0x0 0x20200>;
-+			enable-method = "psci";
-+			power-domains = <&cpu14_pd>, <&cpu_perf 2>;
-+			power-domain-names = "psci", "perf";
-+			next-level-cache = <&l2_20000>;
-+			#cooling-cells = <2>;
-+		};
-+
-+		cpu15: cpu@20300 {
-+			device_type = "cpu";
-+			compatible = "qcom,oryon-1-5";
-+			reg = <0x0 0x20300>;
-+			enable-method = "psci";
-+			power-domains = <&cpu15_pd>, <&cpu_perf 2>;
-+			power-domain-names = "psci", "perf";
-+			next-level-cache = <&l2_20000>;
-+			#cooling-cells = <2>;
-+		};
-+
-+		cpu16: cpu@20400 {
-+			device_type = "cpu";
-+			compatible = "qcom,oryon-1-5";
-+			reg = <0x0 0x20400>;
-+			enable-method = "psci";
-+			power-domains = <&cpu16_pd>, <&cpu_perf 2>;
-+			power-domain-names = "psci", "perf";
-+			next-level-cache = <&l2_20000>;
-+			#cooling-cells = <2>;
-+		};
-+
-+		cpu17: cpu@20500 {
-+			device_type = "cpu";
-+			compatible = "qcom,oryon-1-5";
-+			reg = <0x0 0x20500>;
-+			enable-method = "psci";
-+			power-domains = <&cpu17_pd>, <&cpu_perf 2>;
-+			power-domain-names = "psci", "perf";
-+			next-level-cache = <&l2_20000>;
-+			#cooling-cells = <2>;
-+		};
-+
-+		cpu-map {
-+			cluster0 {
-+				core0 {
-+					cpu = <&cpu0>;
-+				};
-+
-+				core1 {
-+					cpu = <&cpu1>;
-+				};
-+
-+				core2 {
-+					cpu = <&cpu2>;
-+				};
-+
-+				core3 {
-+					cpu = <&cpu3>;
-+				};
-+
-+				core4 {
-+					cpu = <&cpu4>;
-+				};
-+
-+				core5 {
-+					cpu = <&cpu5>;
-+				};
-+			};
-+
-+			cluster1 {
-+				core0 {
-+					cpu = <&cpu6>;
-+				};
-+
-+				core1 {
-+					cpu = <&cpu7>;
-+				};
-+
-+				core2 {
-+					cpu = <&cpu8>;
-+				};
-+
-+				core3 {
-+					cpu = <&cpu9>;
-+				};
-+
-+				core4 {
-+					cpu = <&cpu10>;
-+				};
-+
-+				core5 {
-+					cpu = <&cpu11>;
-+				};
-+			};
-+
-+			cluster2 {
-+				core0 {
-+					cpu = <&cpu12>;
-+				};
-+
-+				core1 {
-+					cpu = <&cpu13>;
-+				};
-+
-+				core2 {
-+					cpu = <&cpu14>;
-+				};
-+
-+				core3 {
-+					cpu = <&cpu15>;
-+				};
-+
-+				core4 {
-+					cpu = <&cpu16>;
-+				};
-+
-+				core5 {
-+					cpu = <&cpu17>;
-+				};
-+			};
-+		};
-+
-+		idle-states {
-+			entry-method = "psci";
-+
-+			core_off_c4: cluster-c4 {
-+				compatible = "arm,idle-state";
-+				idle-state-name = "retention";
-+				entry-latency-us = <93>;
-+				exit-latency-us = <129>;
-+				min-residency-us = <560>;
-+				arm,psci-suspend-param = <0x00000003>;
-+			};
-+		};
-+
-+		domain-idle-states {
-+			cluster_pwr_dn: cluster-sleep-0 {
-+				compatible = "domain-idle-state";
-+				arm,psci-suspend-param = <0x01000053>;
-+				entry-latency-us = <2150>;
-+				exit-latency-us = <1983>;
-+				min-residency-us = <9144>;
-+			};
-+
-+			domain_ss3: domain-sleep-0 {
-+				compatible = "domain-idle-state";
-+				arm,psci-suspend-param = <0x02000153>;
-+				entry-latency-us = <2800>;
-+				exit-latency-us = <4400>;
-+				min-residency-us = <10150>;
-+			};
++		vreg_s6a_vddq_l: smps6 {
++			regulator-name = "vreg_s6a_vddq_l";
++			regulator-min-microvolt = <500000>;
++			regulator-max-microvolt = <570000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
 +		};
 +	};
 +
-+	firmware: firmware {
-+		scm {
-+			compatible = "qcom,scm-nord",
-+				     "qcom,scm";
-+			qcom,dload-mode = <&tcsr 0x79000>;
++	/* PMIC E - Kai_MV - SID 0x4, Bus E0 */
++	regulators-1 {
++		compatible = "qcom,pmau0102-rpmh-regulators";
++		qcom,pmic-id = "E_E0";
++
++		vreg_l1e_0p9: ldo1 {
++			regulator-name = "vreg_l1e_0p9";
++			regulator-min-microvolt = <936000>;
++			regulator-max-microvolt = <936000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
 +		};
 +
-+		pdp_scmi: scmi {
-+			compatible = "arm,scmi";
-+			mboxes = <&pdp0_mbox 0>,
-+				 <&pdp0_mbox 11>,
-+				 <&pdp0_mbox 1>;
-+			mbox-names = "tx",
-+				     "tx_reply",
-+				     "rx";
-+			shmem = <&pdp0_a2p>,
-+				<&pdp0_p2a>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			cpu_perf: protocol@13 {
-+				reg = <0x13>;
-+				#power-domain-cells = <1>;
-+			};
-+		};
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		/* Size will be updated by bootloader */
-+		reg = <0x0 0x80000000 0x0 0x0>;
-+	};
-+
-+	psci {
-+		compatible = "arm,psci-1.0";
-+		method = "smc";
-+
-+		cpu0_pd: power-domain-cpu0 {
-+			#power-domain-cells = <0>;
-+			power-domains = <&cluster0_pd>;
-+			domain-idle-states = <&core_off_c4>;
++		vreg_l2e_0p9: ldo2 {
++			regulator-name = "vreg_l2e_0p9";
++			regulator-min-microvolt = <936000>;
++			regulator-max-microvolt = <936000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
 +		};
 +
-+		cpu1_pd: power-domain-cpu1 {
-+			#power-domain-cells = <0>;
-+			power-domains = <&cluster0_pd>;
-+			domain-idle-states = <&core_off_c4>;
-+		};
-+
-+		cpu2_pd: power-domain-cpu2 {
-+			#power-domain-cells = <0>;
-+			power-domains = <&cluster0_pd>;
-+			domain-idle-states = <&core_off_c4>;
-+		};
-+
-+		cpu3_pd: power-domain-cpu3 {
-+			#power-domain-cells = <0>;
-+			power-domains = <&cluster0_pd>;
-+			domain-idle-states = <&core_off_c4>;
-+		};
-+
-+		cpu4_pd: power-domain-cpu4 {
-+			#power-domain-cells = <0>;
-+			power-domains = <&cluster0_pd>;
-+			domain-idle-states = <&core_off_c4>;
-+		};
-+
-+		cpu5_pd: power-domain-cpu5 {
-+			#power-domain-cells = <0>;
-+			power-domains = <&cluster0_pd>;
-+			domain-idle-states = <&core_off_c4>;
-+		};
-+
-+		cpu6_pd: power-domain-cpu6 {
-+			#power-domain-cells = <0>;
-+			power-domains = <&cluster1_pd>;
-+			domain-idle-states = <&core_off_c4>;
-+		};
-+
-+		cpu7_pd: power-domain-cpu7 {
-+			#power-domain-cells = <0>;
-+			power-domains = <&cluster1_pd>;
-+			domain-idle-states = <&core_off_c4>;
-+		};
-+
-+		cpu8_pd: power-domain-cpu8 {
-+			#power-domain-cells = <0>;
-+			power-domains = <&cluster1_pd>;
-+			domain-idle-states = <&core_off_c4>;
-+		};
-+
-+		cpu9_pd: power-domain-cpu9 {
-+			#power-domain-cells = <0>;
-+			power-domains = <&cluster1_pd>;
-+			domain-idle-states = <&core_off_c4>;
-+		};
-+
-+		cpu10_pd: power-domain-cpu10 {
-+			#power-domain-cells = <0>;
-+			power-domains = <&cluster1_pd>;
-+			domain-idle-states = <&core_off_c4>;
-+		};
-+
-+		cpu11_pd: power-domain-cpu11 {
-+			#power-domain-cells = <0>;
-+			power-domains = <&cluster1_pd>;
-+			domain-idle-states = <&core_off_c4>;
-+		};
-+
-+		cpu12_pd: power-domain-cpu12 {
-+			#power-domain-cells = <0>;
-+			power-domains = <&cluster2_pd>;
-+			domain-idle-states = <&core_off_c4>;
-+		};
-+
-+		cpu13_pd: power-domain-cpu13 {
-+			#power-domain-cells = <0>;
-+			power-domains = <&cluster2_pd>;
-+			domain-idle-states = <&core_off_c4>;
-+		};
-+
-+		cpu14_pd: power-domain-cpu14 {
-+			#power-domain-cells = <0>;
-+			power-domains = <&cluster2_pd>;
-+			domain-idle-states = <&core_off_c4>;
-+		};
-+
-+		cpu15_pd: power-domain-cpu15 {
-+			#power-domain-cells = <0>;
-+			power-domains = <&cluster2_pd>;
-+			domain-idle-states = <&core_off_c4>;
-+		};
-+
-+		cpu16_pd: power-domain-cpu16 {
-+			#power-domain-cells = <0>;
-+			power-domains = <&cluster2_pd>;
-+			domain-idle-states = <&core_off_c4>;
-+		};
-+
-+		cpu17_pd: power-domain-cpu17 {
-+			#power-domain-cells = <0>;
-+			power-domains = <&cluster2_pd>;
-+			domain-idle-states = <&core_off_c4>;
-+		};
-+
-+		cluster0_pd: power-domain-cluster0 {
-+			#power-domain-cells = <0>;
-+			power-domains = <&system_pd>;
-+			domain-idle-states = <&cluster_pwr_dn>;
-+		};
-+
-+		cluster1_pd: power-domain-cluster1 {
-+			#power-domain-cells = <0>;
-+			power-domains = <&system_pd>;
-+			domain-idle-states = <&cluster_pwr_dn>;
-+		};
-+
-+		cluster2_pd: power-domain-cluster2 {
-+			#power-domain-cells = <0>;
-+			power-domains = <&system_pd>;
-+			domain-idle-states = <&cluster_pwr_dn>;
-+		};
-+
-+		system_pd: power-domain-system {
-+			#power-domain-cells = <0>;
-+			domain-idle-states = <&domain_ss3>;
++		vreg_l3e_1p8: ldo3 {
++			regulator-name = "vreg_l3e_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
 +		};
 +	};
 +
-+	reserved_memory: reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		cpucp_scandump_mem: cpucp-scandump-region@80000000 {
-+			reg = <0x0 0x80000000 0x0 0x800000>;
-+			no-map;
-+		};
-+
-+		tme_sail_mem: tme-sail-region@81ff0000 {
-+			reg = <0x0 0x81ff0000 0x0 0x10000>;
-+			no-map;
-+		};
-+
-+		tz_sail_mailbox_mem: tz-sail-mailbox-region@82000000 {
-+			reg = <0x0 0x82000000 0x0 0x8000>;
-+			no-map;
-+		};
-+
-+		sail_mailbox_mem: sail-mailbox-region@82008000 {
-+			reg = <0x0 0x82008000 0x0 0x1f8000>;
-+			no-map;
-+		};
-+
-+		sail_ota_mem: sail-ota-region@82200000 {
-+			reg = <0x0 0x82200000 0x0 0x5ff000>;
-+			no-map;
-+		};
-+
-+		sail_vdt_mem: sail-vdt-region@827ff000 {
-+			reg = <0x0 0x827ff000 0x0 0x1000>;
-+			no-map;
-+		};
-+
-+		hyp_mem: hyp-region@82800000 {
-+			reg = <0x0 0x82800000 0x0 0x2400000>;
-+			no-map;
-+		};
-+
-+		deepsleep_mem: deepsleep-region@84c00000 {
-+			reg = <0x0 0x84c00000 0x0 0x800000>;
-+			no-map;
-+		};
-+
-+		deepsleep_backup_mem: deepsleep-backup-region@86a00000 {
-+			reg = <0x0 0x86a00000 0x0 0x200000>;
-+			no-map;
-+		};
-+
-+		soccp_fe_vm_0: soccp-fe-vm-0-region@86c00000 {
-+			reg = <0x0 0x86c00000 0x0 0xac000>;
-+			no-map;
-+		};
-+
-+		soccp_fe_vm_1: soccp-fe-vm-1-region@86cac000 {
-+			reg = <0x0 0x86cac000 0x0 0x18d000>;
-+			no-map;
-+		};
-+
-+		soccp_fe_vm_2: soccp-fe-vm-2-region@86e39000 {
-+			reg = <0x0 0x86e39000 0x0 0x1c7000>;
-+			no-map;
-+		};
-+
-+		tme_crash_dump_mem: tme-crash-dump-region@87000000 {
-+			reg = <0x0 0x87000000 0x0 0xa0000>;
-+			no-map;
-+		};
-+
-+		tme_log_mem: tme-log-region@87140000 {
-+			reg = <0x0 0x87140000 0x0 0x4000>;
-+			no-map;
-+		};
-+
-+		aop_cmd_db_p_mem: aop-cmd-db-p-region@87148000 {
-+			compatible = "qcom,cmd-db";
-+			reg = <0x0 0x87148000 0x0 0x20000>;
-+			no-map;
-+		};
-+
-+		nsp_sync_buffer_mem: nsp-sync-buffer-region@871ff000 {
-+			reg = <0x0 0x871ff000 0x0 0x1000>;
-+			no-map;
-+		};
-+
-+		ddr_training_checksum_data_mem: ddr-training-checksum-data-region@87200000 {
-+			reg = <0x0 0x87200000 0x0 0x2000>;
-+			no-map;
-+		};
-+
-+		xbl_dtlog_mem: xbl-dtlog-region@87202000 {
-+			reg = <0x0 0x87202000 0x0 0x60000>;
-+			no-map;
-+		};
-+
-+		xbl_ramdump_mem: xbl-ramdump-region@87262000 {
-+			reg = <0x0 0x87262000 0x0 0x1c0000>;
-+			no-map;
-+		};
-+
-+		uefi_log: uefi-log@87442000 {
-+			reg = <0x0 0x87442000 0x0 0x10000>;
-+			no-map;
-+		};
-+
-+		secdata_apss_mem: secdata-apss-region@87452000 {
-+			reg = <0x0 0x87452000 0x0 0x1000>;
-+			no-map;
-+		};
-+
-+		antireplay_emulation_mem: antireplay-emulation-region@87453000 {
-+			reg = <0x0 0x87453000 0x0 0x1000>;
-+			no-map;
-+		};
-+
-+		soccp_sdi_mem: soccp-sdi-region@87454000 {
-+			reg = <0x0 0x87454000 0x0 0x40000>;
-+			no-map;
-+		};
-+
-+		hyp_mem_database_mem: hyp-mem-database-region@87494000 {
-+			reg = <0x0 0x87494000 0x0 0x60000>;
-+			no-map;
-+		};
-+
-+		pmic_mini_dump_mem: pmic-mini-dump-region@874f4000 {
-+			reg = <0x0 0x874f4000 0x0 0x80000>;
-+			no-map;
-+		};
-+
-+		qup_fw_mem: qup-fw-region@87574000 {
-+			reg = <0x0 0x87574000 0x0 0x20000>;
-+			no-map;
-+		};
-+
-+		softsku_mem: softsku-region@87594000 {
-+			reg = <0x0 0x87594000 0x0 0x9000>;
-+			no-map;
-+		};
-+
-+		resource_scheduler_mem: resource-scheduler-region@8759d000 {
-+			reg = <0x0 0x8759d000 0x0 0x20000>;
-+			no-map;
-+		};
-+
-+		pdp_ns_mem: pdp-ns-mem-region@87600000 {
-+			reg = <0x0 0x87600000 0x0 0x8000>,
-+			      <0x0 0x87609000 0x0 0x1f7000>;
-+			no-map;
-+		};
-+
-+		pdp0_p2a: scmi-shmem@87608000 {
-+			compatible = "arm,scmi-shmem";
-+			reg = <0x0 0x87608000 0x0 0x80>;
-+			no-map;
-+		};
-+
-+		pdp0_a2p: scmi-shmem@87608180 {
-+			compatible = "arm,scmi-shmem";
-+			reg = <0x0 0x87608180 0x0 0x80>;
-+			no-map;
-+		};
-+
-+		tz_stat_mem: tz-stat-region@87a00000 {
-+			reg = <0x0 0x87a00000 0x0 0x100000>;
-+			no-map;
-+		};
-+
-+		qdss_apps_mem: qdss-apps-region@87b00000 {
-+			reg = <0x0 0x87b00000 0x0 0x2000000>;
-+			no-map;
-+		};
-+
-+		global_sync_mem: global-sync-region@89f00000 {
-+			reg = <0x0 0x89f00000 0x0 0x400000>;
-+			no-map;
-+		};
-+
-+		tzffi_mem: tzffi-region@8a300000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0x0 0x8a300000 0x0 0x1400000>;
-+			no-map;
-+		};
-+
-+		gunyah_md_mem: gunyah-md-region@8b700000 {
-+			reg = <0x0 0x8b700000 0x0 0x80000>;
-+			no-map;
-+		};
-+
-+		flashless_qntm_tool_mem: flashless-qntm-tool-region@8b780000 {
-+			reg = <0x0 0x8b780000 0x0 0x182000>;
-+			no-map;
-+		};
-+
-+		ipa_fw_mem: ipa-fw-region@8bb00000 {
-+			reg = <0x0 0x8bb00000 0x0 0x10000>;
-+			no-map;
-+		};
-+
-+		ipa_gsi_mem: ipa-gsi-region@8bb10000 {
-+			reg = <0x0 0x8bb10000 0x0 0xa000>;
-+			no-map;
-+		};
-+
-+		gpu_microcode_mem: gpu-microcode-region@8bb1a000 {
-+			reg = <0x0 0x8bb1a000 0x0 0x2000>;
-+			no-map;
-+		};
-+
-+		gpu_microcode_2_mem: gpu-microcode-2-region@8bb1c000 {
-+			reg = <0x0 0x8bb1c000 0x0 0x2000>;
-+			no-map;
-+		};
-+
-+		soccp_mem: soccp-region@8bc00000 {
-+			reg = <0x0 0x8bc00000 0x0 0x300000>;
-+			no-map;
-+		};
-+
-+		cvp_mem: cvp-region@8d100000 {
-+			reg = <0x0 0x8d100000 0x0 0x800000>;
-+			no-map;
-+		};
-+
-+		cdsp0_mem: cdsp0-region@8d900000 {
-+			reg = <0x0 0x8d900000 0x0 0x2300000>;
-+			no-map;
-+		};
-+
-+		cdsp1_mem: cdsp1-region@8fc00000 {
-+			reg = <0x0 0x8fc00000 0x0 0x2300000>;
-+			no-map;
-+		};
-+
-+		cdsp2_mem: cdsp2-region@91f00000 {
-+			reg = <0x0 0x91f00000 0x0 0x2300000>;
-+			no-map;
-+		};
-+
-+		cdsp3_mem: cdsp3-region@94200000 {
-+			reg = <0x0 0x94200000 0x0 0x2300000>;
-+			no-map;
-+		};
-+
-+		hpass_dsp0_mem: hpass-dsp0-region@96500000 {
-+			reg = <0x0 0x96500000 0x0 0x2800000>;
-+			no-map;
-+		};
-+
-+		hpass_dsp1_mem: hpass-dsp1-region@98d00000 {
-+			reg = <0x0 0x98d00000 0x0 0x2800000>;
-+			no-map;
-+		};
-+
-+		hpass_dsp2_mem: hpass-dsp2-region@9b500000 {
-+			reg = <0x0 0x9b500000 0x0 0x2800000>;
-+			no-map;
-+		};
-+
-+		q6_cdsp0_dtb_mem: q6-cdsp0-dtb-region@9dd00000 {
-+			reg = <0x0 0x9dd00000 0x0 0x80000>;
-+			no-map;
-+		};
-+
-+		q6_cdsp1_dtb_mem: q6-cdsp1-dtb-region@9dd80000 {
-+			reg = <0x0 0x9dd80000 0x0 0x80000>;
-+			no-map;
-+		};
-+
-+		q6_cdsp2_dtb_mem: q6-cdsp2-dtb-region@9de00000 {
-+			reg = <0x0 0x9de00000 0x0 0x80000>;
-+			no-map;
-+		};
-+
-+		q6_cdsp3_dtb_mem: q6-cdsp3-dtb-region@9de80000 {
-+			reg = <0x0 0x9de80000 0x0 0x80000>;
-+			no-map;
-+		};
-+
-+		hpass_dsp0_dtb_mem: hpass-dsp0-dtb-region@9df00000 {
-+			reg = <0x0 0x9df00000 0x0 0x80000>;
-+			no-map;
-+		};
-+
-+		hpass_dsp1_dtb_mem: hpass-dsp1-dtb-region@9df80000 {
-+			reg = <0x0 0x9df80000 0x0 0x80000>;
-+			no-map;
-+		};
-+
-+		hpass_dsp2_dtb_mem: hpass-dsp2-dtb-region@9e000000 {
-+			reg = <0x0 0x9e000000 0x0 0x100000>;
-+			no-map;
-+		};
-+
-+		camera_icp_1_mem: camera-icp-1-region@9e100000 {
-+			reg = <0x0 0x9e100000 0x0 0x800000>;
-+			no-map;
-+		};
-+
-+		camera_icp_2_mem: camera-icp-2-region@9e900000 {
-+			reg = <0x0 0x9e900000 0x0 0x800000>;
-+			no-map;
-+		};
-+
-+		camera_qup_1_mem: camera-qup-1-region@9f100000 {
-+			reg = <0x0 0x9f100000 0x0 0x200000>;
-+			no-map;
-+		};
-+
-+		camera_qup_2_mem: camera-qup-2-region@9f300000 {
-+			reg = <0x0 0x9f300000 0x0 0x200000>;
-+			no-map;
-+		};
-+
-+		video_mem: video-region@9f500000 {
-+			reg = <0x0 0x9f500000 0x0 0xc00000>;
-+			no-map;
-+		};
-+
-+		pil_umd_reserved: mdt-load-region@a0100000 {
-+			reg = <0x0 0xa0100000 0x0 0x100000>;
-+			no-map;
-+		};
-+
-+		mm_dspq: mm-dspq-region@ba200000 {
-+			reg = <0x0 0xba200000 0x0 0x200000>;
-+			no-map;
-+		};
-+
-+		display_config_reserved: display-config-region@ba400000 {
-+			reg = <0x0 0xba400000 0x0 0xa00000>;
-+			no-map;
-+		};
-+
-+		mm_calibration_data_mem: mm-calibration-data-region@bae00000 {
-+			reg = <0x0 0xbae00000 0x0 0x800000>;
-+			no-map;
-+		};
-+
-+		audio_config_mem: audio-config-region@bb600000 {
-+			reg = <0x0 0xbb600000 0x0 0xa00000>;
-+			no-map;
-+		};
-+
-+		dare_tz_mem: dare-tz-region@bc000000 {
-+			reg = <0x0 0xbc000000 0x0 0xa300000>;
-+			no-map;
-+		};
-+
-+		hpass_rpc_remote_heap_mem: hpass-rpc-remote-heap-region@d4600000 {
-+			reg = <0x0 0xd4600000 0x0 0x800000>;
-+			no-map;
-+		};
-+
-+		mdf_mem: mdf-region@d4e00000 {
-+			reg = <0x0 0xd4e00000 0x0 0x2000000>;
-+			no-map;
-+		};
-+
-+		firmware_mem: firmware-region@d6e00000 {
-+			reg = <0x0 0xd6e00000 0x0 0x800000>;
-+			no-map;
-+		};
-+
-+		firmware_shared_mem: firmware-shared-region@d7650000 {
-+			reg = <0x0 0xd7650000 0x0 0x180000>;
-+			no-map;
-+		};
-+
-+		firmware_logs_mem: firmware-logs-region@d77d0000 {
-+			reg = <0x0 0xd77d0000 0x0 0x20000>;
-+			no-map;
-+		};
-+
-+		sail_p_mem: sail-p-region@8c0000000 {
-+			reg = <0x8 0xc0000000 0x0 0x8000000>;
-+			no-map;
-+		};
-+
-+		reserved_mem2: reserved-region@8c8000000 {
-+			reg = <0x8 0xc8000000 0x0 0x18000000>;
-+			no-map;
-+		};
-+
-+		dump_mem: mem-dump-region {
-+			alloc-ranges = <0x0 0x00000000 0x0 0xffffffff>;
-+			size = <0x0 0x79b0000>;
++	/* PMIC F - Kai_MV - SID 0x5, Bus E0 */
++	regulators-2 {
++		compatible = "qcom,pmau0102-rpmh-regulators";
++		qcom,pmic-id = "F_E0";
++
++		vreg_l1f_vdd2l: ldo1 {
++			regulator-name = "vreg_l1f_vdd2l";
++			regulator-min-microvolt = <904000>;
++			regulator-max-microvolt = <904000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-always-on;
++			regulator-boot-on;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3f_vdd1: ldo3 {
++			regulator-name = "vreg_l3f_vdd1";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-always-on;
++			regulator-boot-on;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_s7f_lv_sub: smps7 {
++			regulator-name = "vreg_s7f_lv_sub";
++			regulator-min-microvolt = <1036000>;
++			regulator-max-microvolt = <1136000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-always-on;
++			regulator-boot-on;
++		};
++
++		vreg_s8f_vddq_h: smps8 {
++			regulator-name = "vreg_s8f_vddq_h";
++			regulator-min-microvolt = <500000>;
++			regulator-max-microvolt = <570000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
 +		};
 +	};
 +
-+	soc: soc@0 {
-+		compatible = "simple-bus";
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		dma-ranges = <0 0 0 0 0x10 0>;
-+		ranges = <0 0 0 0 0x10 0>;
++	/* PMIC G - Kai_MV - SID 0x6, Bus E0 */
++	regulators-3 {
++		compatible = "qcom,pmau0102-rpmh-regulators";
++		qcom,pmic-id = "G_E0";
 +
-+		qupv3_2: geniqup@8c0000 {
-+			compatible = "qcom,geni-se-qup";
-+			reg = <0x0 0x008c0000 0x0 0x2000>;
-+			#address-cells = <2>;
-+			#size-cells = <2>;
-+			iommus = <&apps_smmu_0 0x15a3 0x0>;
-+			ranges;
-+
-+			i2c14: i2c@880000 {
-+				compatible = "qcom,geni-i2c";
-+				reg = <0x0 0x00880000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 373 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+			};
-+
-+			spi14: spi@880000 {
-+				compatible = "qcom,geni-spi";
-+				reg = <0x0 0x00880000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 373 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			uart14: serial@880000 {
-+				compatible = "qcom,geni-uart";
-+				reg = <0x0 0x00880000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 373 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			i2c15: i2c@884000 {
-+				compatible = "qcom,geni-i2c";
-+				reg = <0x0 0x00884000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 583 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+			};
-+
-+			spi15: spi@884000 {
-+				compatible = "qcom,geni-spi";
-+				reg = <0x0 0x00884000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 583 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			uart15: serial@884000 {
-+				compatible = "qcom,geni-debug-uart";
-+				reg = <0x0 0x00884000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 583 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			i2c16: i2c@888000 {
-+				compatible = "qcom,geni-i2c";
-+				reg = <0x0 0x00888000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 584 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+			};
-+
-+			spi16: spi@888000 {
-+				compatible = "qcom,geni-spi";
-+				reg = <0x0 0x00888000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 584 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			uart16: serial@888000 {
-+				compatible = "qcom,geni-uart";
-+				reg = <0x0 0x00888000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 584 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			i2c17: i2c@88c000 {
-+				compatible = "qcom,geni-i2c";
-+				reg = <0x0 0x0088c000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 585 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+			};
-+
-+			spi17: spi@88c000 {
-+				compatible = "qcom,geni-spi";
-+				reg = <0x0 0x0088c000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 585 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			uart17: serial@88c000 {
-+				compatible = "qcom,geni-uart";
-+				reg = <0x0 0x0088c000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 585 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			i2c18: i2c@890000 {
-+				compatible = "qcom,geni-i2c";
-+				reg = <0x0 0x00890000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 586 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+			};
-+
-+			spi18: spi@890000 {
-+				compatible = "qcom,geni-spi";
-+				reg = <0x0 0x00890000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 586 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			uart18: serial@890000 {
-+				compatible = "qcom,geni-uart";
-+				reg = <0x0 0x00890000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 586 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			i2c19: i2c@894000 {
-+				compatible = "qcom,geni-i2c";
-+				reg = <0x0 0x00894000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 587 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+			};
-+
-+			spi19: spi@894000 {
-+				compatible = "qcom,geni-spi";
-+				reg = <0x0 0x00894000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 587 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			uart19: serial@894000 {
-+				compatible = "qcom,geni-uart";
-+				reg = <0x0 0x00894000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 587 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			i2c20: i2c@898000 {
-+				compatible = "qcom,geni-i2c";
-+				reg = <0x0 0x00898000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 461 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+			};
-+
-+			spi20: spi@898000 {
-+				compatible = "qcom,geni-spi";
-+				reg = <0x0 0x00898000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 461 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			uart20: serial@898000 {
-+				compatible = "qcom,geni-uart";
-+				reg = <0x0 0x00898000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 461 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
++		vreg_l2g_0p7: ldo2 {
++			regulator-name = "vreg_l2g_0p7";
++			regulator-min-microvolt = <752000>;
++			regulator-max-microvolt = <752000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
 +		};
 +
-+		qupv3_0: geniqup@9c0000 {
-+			compatible = "qcom,geni-se-qup";
-+			reg = <0x0 0x009c0000 0x0 0x2000>;
-+			#address-cells = <2>;
-+			#size-cells = <2>;
-+			iommus = <&apps_smmu_2 0x1003 0x0>;
-+			ranges;
-+
-+			i2c0: i2c@980000 {
-+				compatible = "qcom,geni-i2c";
-+				reg = <0x0 0x00980000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 314 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+			};
-+
-+			spi0: spi@980000 {
-+				compatible = "qcom,geni-spi";
-+				reg = <0x0 0x00980000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 314 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			uart0: serial@980000 {
-+				compatible = "qcom,geni-uart";
-+				reg = <0x0 0x00980000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 314 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			i2c1: i2c@984000 {
-+				compatible = "qcom,geni-i2c";
-+				reg = <0x0 0x00984000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 513 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+			};
-+
-+			spi1: spi@984000 {
-+				compatible = "qcom,geni-spi";
-+				reg = <0x0 0x00984000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 513 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			uart1: serial@984000 {
-+				compatible = "qcom,geni-uart";
-+				reg = <0x0 0x00984000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 513 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			i2c2: i2c@988000 {
-+				compatible = "qcom,geni-i2c";
-+				reg = <0x0 0x00988000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 514 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+			};
-+
-+			spi2: spi@988000 {
-+				compatible = "qcom,geni-spi";
-+				reg = <0x0 0x00988000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 514 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			uart2: serial@988000 {
-+				compatible = "qcom,geni-uart";
-+				reg = <0x0 0x00988000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 514 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			i2c3: i2c@98c000 {
-+				compatible = "qcom,geni-i2c";
-+				reg = <0x0 0x0098c000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 515 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+			};
-+
-+			spi3: spi@98c000 {
-+				compatible = "qcom,geni-spi";
-+				reg = <0x0 0x0098c000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 515 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			uart3: serial@98c000 {
-+				compatible = "qcom,geni-uart";
-+				reg = <0x0 0x0098c000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 515 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			i2c4: i2c@990000 {
-+				compatible = "qcom,geni-i2c";
-+				reg = <0x0 0x00990000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 516 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+			};
-+
-+			spi4: spi@990000 {
-+				compatible = "qcom,geni-spi";
-+				reg = <0x0 0x00990000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 516 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			uart4: serial@990000 {
-+				compatible = "qcom,geni-uart";
-+				reg = <0x0 0x00990000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 516 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			i2c5: i2c@994000 {
-+				compatible = "qcom,geni-i2c";
-+				reg = <0x0 0x00994000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 517 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+			};
-+
-+			spi5: spi@994000 {
-+				compatible = "qcom,geni-spi";
-+				reg = <0x0 0x00994000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 517 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			uart5: serial@994000 {
-+				compatible = "qcom,geni-uart";
-+				reg = <0x0 0x00994000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 517 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+		};
-+
-+		qupv3_1: geniqup@ac0000 {
-+			compatible = "qcom,geni-se-qup";
-+			reg = <0x0 0x00ac0000 0x0 0x2000>;
-+			#address-cells = <2>;
-+			#size-cells = <2>;
-+			iommus = <&apps_smmu_2 0x1043 0x0>;
-+			ranges;
-+
-+			i2c7: i2c@a80000 {
-+				compatible = "qcom,geni-i2c";
-+				reg = <0x0 0x00a80000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 353 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+			};
-+
-+			spi7: spi@a80000 {
-+				compatible = "qcom,geni-spi";
-+				reg = <0x0 0x00a80000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 353 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			uart7: serial@a80000 {
-+				compatible = "qcom,geni-uart";
-+				reg = <0x0 0x00a80000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 353 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			i2c8: i2c@a84000 {
-+				compatible = "qcom,geni-i2c";
-+				reg = <0x0 0x00a84000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 354 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+			};
-+
-+			spi8: spi@a84000 {
-+				compatible = "qcom,geni-spi";
-+				reg = <0x0 0x00a84000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 354 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			uart8: serial@a84000 {
-+				compatible = "qcom,geni-uart";
-+				reg = <0x0 0x00a84000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 354 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			i2c9: i2c@a88000 {
-+				compatible = "qcom,geni-i2c";
-+				reg = <0x0 0x00a88000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 355 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+			};
-+
-+			uart9: serial@a88000 {
-+				compatible = "qcom,geni-uart";
-+				reg = <0x0 0x00a88000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 355 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			i2c10: i2c@a8c000 {
-+				compatible = "qcom,geni-i2c";
-+				reg = <0x0 0x00a8c000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 356 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+			};
-+
-+			uart10: serial@a8c000 {
-+				compatible = "qcom,geni-uart";
-+				reg = <0x0 0x00a8c000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 356 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			i2c11: i2c@a90000 {
-+				compatible = "qcom,geni-i2c";
-+				reg = <0x0 0x00a90000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 357 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+			};
-+
-+			spi11: spi@a90000 {
-+				compatible = "qcom,geni-spi";
-+				reg = <0x0 0x00a90000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 357 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			uart11: serial@a90000 {
-+				compatible = "qcom,geni-uart";
-+				reg = <0x0 0x00a90000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 357 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			i2c12: i2c@a94000 {
-+				compatible = "qcom,geni-i2c";
-+				reg = <0x0 0x00a94000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 358 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+			};
-+
-+			spi12: spi@a94000 {
-+				compatible = "qcom,geni-spi";
-+				reg = <0x0 0x00a94000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 358 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			uart12: serial@a94000 {
-+				compatible = "qcom,geni-uart";
-+				reg = <0x0 0x00a94000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 358 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			i2c13: i2c@a98000 {
-+				compatible = "qcom,geni-i2c";
-+				reg = <0x0 0x00a98000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 363 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+			};
-+
-+			spi13: spi@a98000 {
-+				compatible = "qcom,geni-spi";
-+				reg = <0x0 0x00a98000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 363 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+
-+			uart13: serial@a98000 {
-+				compatible = "qcom,geni-uart";
-+				reg = <0x0 0x00a98000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 363 IRQ_TYPE_LEVEL_HIGH>;
-+
-+				status = "disabled";
-+			};
-+		};
-+
-+		rng: rng@10c3000 {
-+			compatible = "qcom,nord-trng",
-+				     "qcom,trng";
-+			reg = <0x0 0x010c3000 0x0 0x1000>;
-+		};
-+
-+		ufs_mem_hc: ufshc@1d44000 {
-+			compatible = "qcom,nord-ufshc",
-+				     "qcom,ufshc",
-+				     "jedec,ufs-2.0";
-+			reg = <0x0 0x01d44000 0x0 0x3000>,
-+			      <0x0 0x01d60000 0x0 0x15000>;
-+			reg-names = "std",
-+				    "mcq";
-+			interrupts = <GIC_SPI 265 IRQ_TYPE_LEVEL_HIGH>;
-+			lanes-per-direction = <2>;
-+			iommus = <&apps_smmu_0 0x14c0 0x0>;
-+			dma-coherent;
-+			msi-parent = <&gic_its 0x14c0>;
-+
-+			status = "disabled";
-+		};
-+
-+		cryptobam: dma-controller@1dc4000 {
-+			compatible = "qcom,bam-v1.7.4", "qcom,bam-v1.7.0";
-+			reg = <0x0 0x01dc4000 0x0 0x28000>;
-+			interrupts = <GIC_SPI 272 IRQ_TYPE_LEVEL_HIGH>;
-+			#dma-cells = <1>;
-+			iommus = <&apps_smmu_0 0x1689 0>;
-+			qcom,ee = <0>;
-+			qcom,num-ees = <4>;
-+			num-channels = <20>;
-+			qcom,controlled-remotely;
-+		};
-+
-+		crypto: crypto@1dfa000 {
-+			compatible = "qcom,nord-qce", "qcom,sm8150-qce", "qcom,qce";
-+			reg = <0x0 0x01dfa000 0x0 0x6000>;
-+			dmas = <&cryptobam 4>, <&cryptobam 5>;
-+			dma-names = "rx", "tx";
-+			iommus = <&apps_smmu_0 0x1689 0>;
-+
-+			/* It stops nord-gearvm variant from booting to console */
-+			status = "disabled";
-+		};
-+
-+		tcsr_mutex: hwlock@1f40000 {
-+			compatible = "qcom,tcsr-mutex";
-+			reg = <0x0 0x01f40000 0x0 0x20000>;
-+			#hwlock-cells = <1>;
-+		};
-+
-+		tcsr: syscon@1f60000 {
-+			compatible = "qcom,nord-tcsr",
-+				     "syscon";
-+			reg = <0x0 0x01f60000 0x0 0xa0000>;
-+		};
-+
-+		pdc: interrupt-controller@b220000 {
-+			compatible = "qcom,nord-pdc",
-+				     "qcom,pdc";
-+			reg = <0x0 0x0b220000 0x0 0x10000>;
-+			qcom,pdc-ranges = <0 745 43>,
-+					  <67 543 31>,
-+					  <98 609 32>,
-+					  <130 717 12>,
-+					  <142 251 5>,
-+					  <147 796 16>;
-+			#interrupt-cells = <2>;
-+			interrupt-parent = <&intc>;
-+			interrupt-controller;
-+		};
-+
-+		tsens0: thermal-sensor@c22c000 {
-+			compatible = "qcom,nord-tsens",
-+				     "qcom,tsens-v2";
-+			reg = <0x0 0x0c22c000 0x0 0x1000>,
-+			      <0x0 0x0c222000 0x0 0x1000>;
-+			interrupts = <GIC_SPI 771 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 484 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "uplow",
-+					  "critical";
-+			#qcom,sensors = <16>;
-+			#thermal-sensor-cells = <1>;
-+		};
-+
-+		tsens1: thermal-sensor@c22d000 {
-+			compatible = "qcom,nord-tsens",
-+				     "qcom,tsens-v2";
-+			reg = <0x0 0x0c22d000 0x0 0x1000>,
-+			      <0x0 0x0c223000 0x0 0x1000>;
-+			interrupts = <GIC_SPI 772 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 485 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "uplow",
-+					  "critical";
-+			#qcom,sensors = <16>;
-+			#thermal-sensor-cells = <1>;
-+		};
-+
-+		tsens2: thermal-sensor@c22e000 {
-+			compatible = "qcom,nord-tsens",
-+				     "qcom,tsens-v2";
-+			reg = <0x0 0x0c22e000 0x0 0x1000>,
-+			      <0x0 0x0c224000 0x0 0x1000>;
-+			interrupts = <GIC_SPI 773 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 486 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "uplow",
-+					  "critical";
-+			#qcom,sensors = <16>;
-+			#thermal-sensor-cells = <1>;
-+		};
-+
-+		tsens3: thermal-sensor@c22f000 {
-+			compatible = "qcom,nord-tsens",
-+				     "qcom,tsens-v2";
-+			reg = <0x0 0x0c22f000 0x0 0x1000>,
-+			      <0x0 0x0c225000 0x0 0x1000>;
-+			interrupts = <GIC_SPI 774 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 487 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "uplow",
-+					  "critical";
-+			#qcom,sensors = <16>;
-+			#thermal-sensor-cells = <1>;
-+		};
-+
-+		tsens4: thermal-sensor@c230000 {
-+			compatible = "qcom,nord-tsens",
-+				     "qcom,tsens-v2";
-+			reg = <0x0 0x0c230000 0x0 0x1000>,
-+			      <0x0 0x0c226000 0x0 0x1000>;
-+			interrupts = <GIC_SPI 775 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 399 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "uplow",
-+					  "critical";
-+			#qcom,sensors = <16>;
-+			#thermal-sensor-cells = <1>;
-+		};
-+
-+		tsens5: thermal-sensor@c231000 {
-+			compatible = "qcom,nord-tsens",
-+				     "qcom,tsens-v2";
-+			reg = <0x0 0x0c231000 0x0 0x1000>,
-+			      <0x0 0x0c227000 0x0 0x1000>;
-+			interrupts = <GIC_SPI 776 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 400 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "uplow",
-+					  "critical";
-+			#qcom,sensors = <16>;
-+			#thermal-sensor-cells = <1>;
-+		};
-+
-+		tsens6: thermal-sensor@c232000 {
-+			compatible = "qcom,nord-tsens",
-+				     "qcom,tsens-v2";
-+			reg = <0x0 0x0c232000 0x0 0x1000>,
-+			      <0x0 0x0c228000 0x0 0x1000>;
-+			interrupts = <GIC_SPI 777 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 401 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "uplow",
-+					  "critical";
-+			#qcom,sensors = <16>;
-+			#thermal-sensor-cells = <1>;
-+		};
-+
-+		tsens7: thermal-sensor@c233000 {
-+			compatible = "qcom,nord-tsens",
-+				     "qcom,tsens-v2";
-+			reg = <0x0 0x0c233000 0x0 0x1000>,
-+			      <0x0 0x0c229000 0x0 0x1000>;
-+			interrupts = <GIC_SPI 778 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 402 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "uplow",
-+					  "critical";
-+			#qcom,sensors = <16>;
-+			#thermal-sensor-cells = <1>;
-+		};
-+
-+		tlmm: pinctrl@f100000 {
-+			compatible = "qcom,nord-tlmm";
-+			reg = <0x0 0x0f100000 0x0 0xc0000>;
-+			interrupts = <GIC_SPI 208 IRQ_TYPE_LEVEL_HIGH>;
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+			gpio-ranges = <&tlmm 0 0 181>;
-+			wakeup-parent = <&pdc>;
-+		};
-+
-+		apps_smmu_0: iommu@15a00000 {
-+			compatible = "qcom,nord-smmu-500",
-+				     "qcom,smmu-500",
-+				     "arm,mmu-500";
-+			reg = <0x0 0x15a00000 0x0 0x100000>;
-+			#iommu-cells = <2>;
-+			#global-interrupts = <1>;
-+			dma-coherent;
-+			interrupts = <GIC_SPI 886 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 32 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 33 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 34 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 35 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 36 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 37 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 38 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 39 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 40 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 41 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 42 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 43 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 44 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 45 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 46 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 47 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 48 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 49 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 50 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 51 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 52 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 53 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 54 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 55 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 56 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 57 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 58 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 59 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 60 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 61 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 62 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 63 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 64 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 65 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 66 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 67 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 68 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 69 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 70 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 71 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 72 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 73 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 74 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 75 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 76 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 77 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 78 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 79 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 80 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 81 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 82 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 83 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 84 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 85 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 86 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 87 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 88 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 89 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 90 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 91 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 92 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 93 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 94 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 95 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 96 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 97 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 98 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 99 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 100 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 101 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 102 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 103 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 104 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 105 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 106 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 107 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 108 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 109 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 110 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 111 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 112 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 113 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 114 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 115 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 116 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 117 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 118 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 119 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 120 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 121 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 122 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 123 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 124 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 125 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 126 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 127 IRQ_TYPE_LEVEL_HIGH>;
-+		};
-+
-+		apps_smmu_1: iommu@15c00000 {
-+			compatible = "qcom,nord-smmu-500",
-+				     "qcom,smmu-500",
-+				     "arm,mmu-500";
-+			reg = <0x0 0x15c00000 0x0 0x100000>;
-+			#iommu-cells = <2>;
-+			#global-interrupts = <1>;
-+			dma-coherent;
-+			interrupts = <GIC_SPI 882 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 128 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 129 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 130 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 131 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 132 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 133 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 134 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 135 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 136 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 137 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 138 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 139 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 140 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 141 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 142 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 143 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 144 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 145 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 146 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 147 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 148 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 149 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 150 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 151 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 152 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 153 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 154 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 155 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 156 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 157 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 158 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 159 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 160 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 161 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 162 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 163 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 164 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 165 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 166 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 167 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 168 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 169 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 170 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 171 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 172 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 173 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 174 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 175 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 176 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 177 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 178 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 179 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 180 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 181 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 182 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 183 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 184 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 185 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 186 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 187 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 188 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 189 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 190 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 191 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 192 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 193 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 194 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 195 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 196 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 197 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 198 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 199 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 200 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 201 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 202 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 203 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 204 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 205 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 206 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 207 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 208 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 209 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 210 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 211 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 212 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 213 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 214 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 215 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 216 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 217 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 218 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 219 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 220 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 221 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 222 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 223 IRQ_TYPE_LEVEL_HIGH>;
-+		};
-+
-+		apps_smmu_2: iommu@15e00000 {
-+			compatible = "qcom,nord-smmu-500",
-+				     "qcom,smmu-500",
-+				     "arm,mmu-500";
-+			reg = <0x0 0x15e00000 0x0 0x100000>;
-+			#iommu-cells = <2>;
-+			#global-interrupts = <1>;
-+			dma-coherent;
-+			interrupts = <GIC_SPI 877 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 224 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 225 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 226 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 227 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 228 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 229 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 230 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 231 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 232 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 233 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 234 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 235 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 236 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 237 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 238 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 239 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 240 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 241 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 242 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 243 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 244 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 245 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 246 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 247 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 248 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 249 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 250 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 251 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 252 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 253 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 254 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 255 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 256 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 257 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 258 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 259 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 260 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 261 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 262 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 263 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 264 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 265 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 266 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 267 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 268 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 269 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 270 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 271 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 272 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 273 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 274 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 275 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 276 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 277 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 278 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 279 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 280 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 281 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 282 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 283 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 284 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 285 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 286 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 287 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 288 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 289 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 290 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 291 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 292 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 293 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 294 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 295 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 296 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 297 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 298 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 299 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 300 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 301 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 302 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 303 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 304 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 305 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 306 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 307 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 308 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 309 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 310 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 311 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 312 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 313 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 314 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 315 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 316 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 317 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 318 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_ESPI 319 IRQ_TYPE_LEVEL_HIGH>;
-+		};
-+
-+		intc: interrupt-controller@17000000 {
-+			compatible = "arm,gic-v3";
-+			reg = <0x0 0x17000000 0x0 0x10000>,
-+			      <0x0 0x17080000 0x0 0x480000>;
-+			interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_HIGH>;
-+			#interrupt-cells = <3>;
-+			interrupt-controller;
-+			#redistributor-regions = <1>;
-+			redistributor-stride = <0x0 0x40000>;
-+			#address-cells = <2>;
-+			#size-cells = <2>;
-+			ranges;
-+
-+			gic_its: msi-controller@17040000 {
-+				compatible = "arm,gic-v3-its";
-+				reg = <0x0 0x17040000 0x0 0x40000>;
-+				msi-controller;
-+				#msi-cells = <1>;
-+			};
-+		};
-+
-+		pdp0_mbox: mailbox@17610000 {
-+			compatible = "qcom,nord-cpucp-mbox",
-+				     "qcom,x1e80100-cpucp-mbox";
-+			reg = <0x0 0x17610000 0x0 0x4c08>,
-+			      <0x0 0x19980000 0x0 0x300>;
-+			#mbox-cells = <1>;
-+			interrupts = <GIC_SPI 56 IRQ_TYPE_LEVEL_HIGH>;
-+		};
-+
-+		memtimer: timer@17810000 {
-+			compatible = "arm,armv7-timer-mem";
-+			reg = <0x0 0x17810000 0x0 0x1000>;
-+			ranges = <0x0 0x0 0x0 0x20000000>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			frame@17811000 {
-+				reg = <0x17811000 0x1000>,
-+				      <0x17812000 0x1000>;
-+				interrupts = <GIC_SPI 38 IRQ_TYPE_LEVEL_HIGH>,
-+					     <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>;
-+				frame-number = <0>;
-+			};
-+
-+			frame@17813000 {
-+				reg = <0x17813000 0x1000>;
-+				interrupts = <GIC_SPI 39 IRQ_TYPE_LEVEL_HIGH>;
-+				frame-number = <1>;
-+
-+				status = "disabled";
-+			};
-+
-+			frame@17815000 {
-+				reg = <0x17815000 0x1000>;
-+				interrupts = <GIC_SPI 40 IRQ_TYPE_LEVEL_HIGH>;
-+				frame-number = <2>;
-+
-+				status = "disabled";
-+			};
-+
-+			frame@17817000 {
-+				reg = <0x17817000 0x1000>;
-+				interrupts = <GIC_SPI 41 IRQ_TYPE_LEVEL_HIGH>;
-+				frame-number = <3>;
-+
-+				status = "disabled";
-+			};
-+
-+			frame@17819000 {
-+				reg = <0x17819000 0x1000>;
-+				interrupts = <GIC_SPI 42 IRQ_TYPE_LEVEL_HIGH>;
-+				frame-number = <4>;
-+
-+				status = "disabled";
-+			};
-+
-+			frame@1781b000 {
-+				reg = <0x1781b000 0x1000>;
-+				interrupts = <GIC_SPI 43 IRQ_TYPE_LEVEL_HIGH>;
-+				frame-number = <5>;
-+
-+				status = "disabled";
-+			};
-+
-+			frame@1781d000 {
-+				reg = <0x1781d000 0x1000>;
-+				interrupts = <GIC_SPI 44 IRQ_TYPE_LEVEL_HIGH>;
-+				frame-number = <6>;
-+
-+				status = "disabled";
-+			};
-+		};
-+
-+		watchdog@17826000 {
-+			compatible = "qcom,apss-wdt-nord",
-+				     "qcom,kpss-wdt";
-+			reg = <0x0 0x17826000 0x0 0x1000>;
-+			clocks = <&sleep_clk>;
-+			interrupts = <GIC_ESPI 848 IRQ_TYPE_EDGE_RISING>;
++		vreg_s5g_vdd2h_h: smps5 {
++			regulator-name = "vreg_s5g_vdd2h_h";
++			regulator-min-microvolt = <1080000>;
++			regulator-max-microvolt = <1150000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-always-on;
++			regulator-boot-on;
 +		};
 +	};
 +
-+	arch_timer: timer {
-+		compatible = "arm,armv8-timer";
-+		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>,
-+			     <GIC_PPI 14 IRQ_TYPE_LEVEL_LOW>,
-+			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
-+			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>;
++	/* PMIC H - Kai_MV - SID 0x7, Bus E0 */
++	regulators-4 {
++		compatible = "qcom,pmau0102-rpmh-regulators";
++		qcom,pmic-id = "H_E0";
++
++		vreg_l1h_0p9: ldo1 {
++			regulator-name = "vreg_l1h_0p9";
++			regulator-min-microvolt = <904000>;
++			regulator-max-microvolt = <904000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l2h_1p2: ldo2 {
++			regulator-name = "vreg_l2h_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
 +	};
 +
-+	thermal_zones: thermal-zones {
-+		ddr-0-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens0 0>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-0-0-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens0 1>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-0-1-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens0 2>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-0-2-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens0 3>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-0-3-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens0 4>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-0-4-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens0 5>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-0-5-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens0 6>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpullc-0-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens0 7>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-1-0-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens0 8>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-1-1-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens0 9>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-1-2-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens0 10>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-1-3-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens0 11>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-1-4-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens0 12>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-1-5-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens0 13>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpullc-1-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens0 14>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		ddr-1-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens0 15>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		ddr-0-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens1 0>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-0-0-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens1 1>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-0-1-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens1 2>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-0-2-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens1 3>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-0-3-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens1 4>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-0-4-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens1 5>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-0-5-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens1 6>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpullc-0-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens1 7>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-1-0-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens1 8>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-1-1-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens1 9>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-1-2-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens1 10>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-1-3-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens1 11>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-1-4-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens1 12>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-1-5-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens1 13>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpullc-1-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens1 14>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		ddr-1-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens1 15>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		amux-2-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens2 0>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-2-0-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens2 1>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-2-1-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens2 2>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-2-2-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens2 3>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-2-3-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens2 4>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-2-4-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens2 5>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-2-5-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens2 6>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpullc-2-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens2 7>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		audhvx-0-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens2 8>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		audhmx-0-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens2 9>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		audhvx-1-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens2 10>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		audhmx-1-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens2 11>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		audhvx-2-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens2 12>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		audhmx-2-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens2 13>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		pcie-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens2 15>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		amux-3-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens3 0>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-2-0-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens3 1>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-2-1-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens3 2>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-2-2-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens3 3>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-2-3-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens3 4>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-2-4-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens3 5>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpu-2-5-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens3 6>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <125000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cpullc-2-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens3 7>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		audhvx-0-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens3 8>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		audhmx-0-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens3 9>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		audhvx-1-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens3 10>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		audhmx-1-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens3 11>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		audhvx-2-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens3 12>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		audhmx-2-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens3 13>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		pcie-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens3 15>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsphvx-0-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens4 0>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsphvx-0-2-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens4 1>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsp-0-0-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens4 2>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsp-0-1-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens4 3>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsphvx-1-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens4 4>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsphvx-1-2-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens4 5>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsp-1-0-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens4 6>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsp-1-1-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens4 7>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsphvx-2-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens4 8>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsphvx-2-2-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens4 9>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsp-2-0-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens4 10>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsp-2-1-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens4 11>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsphvx-3-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens4 12>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsphvx-3-2-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens4 13>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsp-3-0-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens4 14>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsp-3-1-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens4 15>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsphvx-0-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens5 0>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsphvx-0-3-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens5 1>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsp-0-0-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens5 2>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsp-0-1-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens5 3>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsphvx-1-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens5 4>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsphvx-1-3-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens5 5>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsp-1-0-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens5 6>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsp-1-1-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens5 7>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsphvx-2-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens5 8>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsphvx-2-3-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens5 9>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsp-2-0-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens5 10>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsp-2-1-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens5 11>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsphvx-3-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens5 12>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsphvx-3-3-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens5 13>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsp-3-0-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens5 14>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		nsp-3-1-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens5 15>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		amux-6-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens6 0>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		gpuss-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens6 1>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		gpuss-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens6 2>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		gpuss-2-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens6 3>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		gpu-0-0-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens6 4>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		gpuss-1-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens6 5>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		gpuss-1-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens6 6>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cv-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens6 7>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		video-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens6 8>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		camera-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens6 9>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		ddr-2-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens6 10>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		ddr-3-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens6 11>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		gpuss-0-1-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens6 12>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		gpuss-1-1-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens6 13>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		gpuss-2-1-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens6 14>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		gpu-0-1-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens6 15>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		amux-7-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens7 0>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		gpuss-0-1-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens7 1>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		gpuss-1-1-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens7 2>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		gpuss-2-1-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens7 3>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		gpu-0-1-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens7 4>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		gpuss-1-2-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens7 5>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		gpu-1-0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens7 6>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		cv-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens7 7>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		video-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens7 8>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		camera-2-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens7 9>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		ddr-2-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens7 10>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		ddr-3-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens7 11>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		gpuss-0-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens7 12>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		gpuss-1-0-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens7 13>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		gpuss-2-0-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens7 14>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		gpu-0-0-1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tsens7 15>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <105000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <10000>;
-+					type = "passive";
-+				};
-+			};
++	/* PMIC I - Kai_MV - SID 0x8, Bus E0 */
++	regulators-5 {
++		compatible = "qcom,pmau0102-rpmh-regulators";
++		qcom,pmic-id = "I_E0";
++
++		vreg_l1i_0p9: ldo1 {
++			regulator-name = "vreg_l1i_0p9";
++			regulator-min-microvolt = <912000>;
++			regulator-max-microvolt = <912000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l2i_1p2: ldo2 {
++			regulator-name = "vreg_l2i_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3i_2p5: ldo3 {
++			regulator-name = "vreg_l3i_2p5";
++			regulator-min-microvolt = <2504000>;
++			regulator-max-microvolt = <2504000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
 +		};
 +	};
++
++	/* PMIC K - Kai_MV - SID 0xA, Bus E0 */
++	regulators-6 {
++		compatible = "qcom,pmau0102-rpmh-regulators";
++		qcom,pmic-id = "K_E0";
++
++		vreg_l1k_vdd2l: ldo1 {
++			regulator-name = "vreg_l1k_vdd2l";
++			regulator-min-microvolt = <904000>;
++			regulator-max-microvolt = <904000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-always-on;
++			regulator-boot-on;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l2k_0p9: ldo2 {
++			regulator-name = "vreg_l2k_0p9";
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <880000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3k_vdd1: ldo3 {
++			regulator-name = "vreg_l3k_vdd1";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-always-on;
++			regulator-boot-on;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	/* PMIC L - Kai_MV - SID 0xB, Bus E0 */
++	regulators-7 {
++		compatible = "qcom,pmau0102-rpmh-regulators";
++		qcom,pmic-id = "L_E0";
++
++		vreg_l3l_1p8: ldo3 {
++			regulator-name = "vreg_l3l_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++};
++
++&i2c7 {
++	clock-frequency = <400000>;
++
++	status = "okay";
++
++	rtc@32 {
++		compatible = "epson,rx8900";
++		reg = <0x32>;
++	};
++};
++
++&qupv3_0 {
++	firmware-name = "qcom/nord/qupv3fw.elf";
++
++	status = "okay";
++};
++
++&qupv3_1 {
++	firmware-name = "qcom/nord/qupv3fw.elf";
++
++	status = "okay";
++};
++
++&qupv3_2 {
++	firmware-name = "qcom/nord/qupv3fw.elf";
++
++	status = "okay";
++};
++
++&spi16 {
++	status = "okay";
++};
++
++&uart4 {
++	status = "okay";
++};
++
++&uart15 {
++	status = "okay";
++};
++
++&ufs_mem_hc {
++	reset-gpios = <&tlmm 181 GPIO_ACTIVE_LOW>;
++
++	vcc-supply = <&vreg_l3i_2p5>;
++	vcc-max-microamp = <1300000>;
++	vccq-supply = <&vreg_l2i_1p2>;
++	vccq-max-microamp = <1200000>;
++
++	status = "okay";
++};
++
++&ufs_mem_phy {
++	vdda-phy-supply = <&vreg_l1i_0p9>;
++	vdda-pll-supply = <&vreg_l2h_1p2>;
++
++	status = "okay";
 +};
 -- 
 2.43.0
