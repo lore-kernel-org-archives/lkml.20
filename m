@@ -1,194 +1,118 @@
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outbound.st.icloud.com (st-2002a-snip4-11.eps.apple.com [57.103.78.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B85378813
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:00:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3435E378825
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:01:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.78.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788451259; cv=none; b=fKHpMysB/HBtcJBTiikP4bnNHFt6QNjfDA/wvVpzw32qRvWXnSFk7mYnKebbUt443SHSElrzUsxz+6nyUPcpombafH6dlHNmvP8vaaDuG8H+aHVCZlOADiRmiunhk5CokfjBwt0Q6ADQQZiZndB76fvy9rlQroAYaFmHJP90/7c=
+	t=1788451265; cv=none; b=aI/gZtHWp2jys2h7EXJOTrDWQPzhKL6FCxhA7Rj2KFiizssswsDNLsoF+kmPsFpe5zuKYXRLjv2H88gIG4niolb3ID9f46Oy6cli9Zq2P9AAO7DrlVC3/V2GYyBOnhJ6+iSxg+gSrKM/FJeHb/ytLJvd56EEHlJQp53SIF5IMdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788451259; c=relaxed/simple;
-	bh=A7n5QG9Jrq+2C38U170Iv6gJVcsHrMheTE2SwSWSYKU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JVYTP78lnWH8nxTD6dPi4EpCVC3zIIrK8k9RT3PCyvkx6tQeb/LO2Wy/cNi0r4+YKitsiSm+iFd0xJy8YXUSf0ZxW+ga0grWtbBMcShcxsrDrcpyFo3FXGF11nVPlYotem/VsT54uHGJ2dWDlZDvoHS2dhIAOQ3PuJ233/26gTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GVlcQUAM; arc=none smtp.client-ip=209.85.128.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788451265; c=relaxed/simple;
+	bh=k5Ge8HcmDCd+FWu0Lrs6QScjxxx+69yqtwILtEcklzY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=a488HscgcIVdDKUly99wKTQZSrO6lOF/wp+O0OCqMKj1s0AE15SnDVHWYjHk7/vL4tU1DYA5StmRzCmA756XWZRXfZQbkinDpvO4XwN3AZqmJ71UBd0KYUbKZHCAuj9U3tPnHPHYfd8uKFTf6vXyEAeDNtqTRWSdD9VOqqgURLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=y-koj.net; spf=pass smtp.mailfrom=y-koj.net; dkim=fail (0-bit key) header.d=y-koj.net header.i=@y-koj.net header.b=bVq9vJdq reason="key not found in DNS"; arc=none smtp.client-ip=57.103.78.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=y-koj.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=y-koj.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GVlcQUAM"
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-86d43cdee51so312177b3.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 09:00:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788451256; x=1789056056; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d0iIQfc/Xn8g8sZnyqtSBPoDrNyGH3/tP4TlfCZpLUs=;
-        b=GVlcQUAM2oQdOmJHl9IaCoouSEuT55xhWUtP9l+YhmIGLXoAUQfhURpO7VRuCLRkqn
-         DE4drM0mfakSXv6Yaigt1YFE/01S8xQ71cWPGi2EsT/N9fMCkmAILZr+S0uRWvJ0xQ9W
-         ldRt9RkZLS1dES1tP9FGdQ2tDEZtwA1On0duy1OrASlqhYXLmqnyzgZaj2jL12XhICX9
-         hFlfiFxP+T9dmXhQG4vUl6Ma4B66byJrnkmUYdFALAGY+bBIQTNbW3nxgApibuWS2mCj
-         Xh/72IvkCC8vJG4MJTJzJ7gUBVn5SUoYA0nlZzN+RC/ceYfpxKNxYDcE70j0gTipgCln
-         +AJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788451256; x=1789056056;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=d0iIQfc/Xn8g8sZnyqtSBPoDrNyGH3/tP4TlfCZpLUs=;
-        b=dvChB/qsb/6H8QAJH3JRPKdUsRAAAxbsb/TxuLsUJqZkPgWJG13R3YCX30pS5tuCi1
-         c6KP/017eOa/sRkCNf6LA3ppQInbhHizSttPS49YX/gvTvmfcjwdlLrmr4nq2fFKWQ6c
-         LZT9w8w64c0v9ZvF2S48/g6/hmclolExuqe0+IZ5F205x8RQkf33g6BZN3pvEw0J8QzD
-         H+N/7gPUO2nZJX5zIXHFWMlfWJPBTdY+RQ7piKhE+DEg8iYzC/TsC8EQslqSlO28c8ow
-         Pw4kEhKfmsgKnvYApoURtw6qaBWqT3uHw3kllc00IRx/9mstgRYCh+y9AXe+EdDZOV+Z
-         5Tgg==
-X-Forwarded-Encrypted: i=1; AKwUvBxP4SulHbEikweTFAGwQBk8sJk9e55ogLluyNOfP6+CI5LZxMxf/KDa26fmFC7B+5urXZEbSryhlaroJLM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lvlQ5nrB4Py3K+R+JwWviyNAIcfPeso9yRWPjWEu0+kQDzHt1T
-	rw6ixNkF9DC7cjcpT36g7Qt0ieD1Uu0PL4b3TUChOOC422pfKgadJSiW
-X-Gm-Gg: AYBFou0rIfLs8O6Mp1zmbnMr3OKVvxsn7ijRDFkd2X70ZtCPAQsotiok3OH+BHqlR6D
-	8AnK4OA3+fl9Lgc3QFVwBuZvtxcwa8uk2Xvzyr4Uo7xPGxjIt4KaRNkO9+gqP3pU6cjuQfa/bVn
-	od20tAmlNlv6IVwE0tRVbHNFR/vQzcTCftlLSO2U8axb+iu6DMiq40jsWBahjO4mGfR+HkQqzYO
-	Q61CrGnwJugU25gCnLmp8y+oGi1CvnqpP8IMq3EG/RkIIoNhNuy4BCorlBw7YlTXWBHVqW+gwsE
-	Xk1vgwNn3+Jwtahhoi2IgUuyId6h2MCz7nTrMHja0pX+72V7RldcbTOdin1cR7qOc9ZhtlwU4ty
-	vHvZrbqUGZrybEN1REOLJQw9pIsYBj+O1UBUM4TFWm4LOc68drRqidF7kwo+JucMnxJRJLrntwS
-	ZF0RS4AAomOrDQLKPV+48iuM8s7oJxf03Gp8NXNwUt4Lp2J+v01wdJ+ApjsdwnsA==
-X-Received: by 2002:a05:690c:e694:10b0:820:15ad:522c with SMTP id 00721157ae682-870ed3429c9mr3743287b3.11.1788451255669;
-        Thu, 03 Sep 2026 09:00:55 -0700 (PDT)
-Received: from ?IPV6:2600:6c5c:6b00:316::23? ([2600:6c5c:6b00:316::23])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-86c186d60f8sm43058097b3.36.2026.09.03.09.00.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 09:00:54 -0700 (PDT)
-Message-ID: <eb208b80-4cf2-4c3b-90c7-f68520382cf6@gmail.com>
-Date: Thu, 3 Sep 2026 12:00:53 -0400
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=y-koj.net header.i=@y-koj.net header.b="bVq9vJdq"
+Received: from outbound.st.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-east-1a-100-percent-3 (Postfix) with ESMTPS id 61AF31801255;
+	Thu, 03 Sep 2026 16:00:59 +0000 (UTC)
+X-ICL-RepId: 01a06800-83b0-7de5-8d5a-7cb31bd4fea1
+X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQhJA0MBXBxHCVYCXAdLVxQEAVgtTkZZH1NWXQhDS1QUBAEeBlgBHB5cDBMfVFYEUFEdXwIKBEcEWxdGA1NFQQQXEVABWB5WXloXXk1HH0BNYkkBWhlbHEAXSm5NUw8PCRQTXAcZBVcEGRVaCQpXUwBUIkcBZw9jRHVIdwhREXIUXAtYGVgbHAkUE1wHGQVXBAdYRxRHDg8TTAtHAlo0Vh9UGVoD
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=y-koj.net; s=sig1; t=1788451262; x=1791043262; bh=Jj8UCgrJdUszNK3jbXxz4NAlHwQcjk4oFjg06Vcl0Io=; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=bVq9vJdqJzMjP9UpvifMUAk0atntCQAFtwb5XbZStwZuzyZlCeyjrfVOekD8oxKUDb91Lx6a6z/stBHm6PWR0hMJJNsr0Ssal0493C1tq7JQ8ZyTRlQ4cMAcLED3CQIwhwPEay8gg5h5AJzHNZN2Wr83lsTR44vSh3JQhuLghW289nl3AqMBvaApT6nOcsEe9tBkzLTknbPGH+MzkuVXMv6oyH6qmF4zQ2hThSKX9lbw7i4p8/HbF9Huvj9tdA5xz4ZM1if7Xbsy4s2M2rP5XXk4gbXo1zjcxtVEEpAZD6ivS6xXfDDDbss2ilotAZIjOLIXr4z4ihx2CWDHtKjsww==
+mail-alias-created-date: 1719758601013
+Received: from desktop.y-koj.net (unknown [17.156.216.30])
+	by p00-icloudmta-asmtp-us-east-1a-100-percent-3 (Postfix) with ESMTPSA id 917FC18015DC;
+	Thu, 03 Sep 2026 16:00:57 +0000 (UTC)
+Date: Fri, 4 Sep 2026 01:00:54 +0900
+From: Yohei Kojima <yk@y-koj.net>
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] debugfs: don't warn about uninitialized debugfs for an
+ error parent
+Message-ID: <apmZtlPdQ4L0Defz@desktop.y-koj.net>
+References: <20260903115135.63210-1-mikhail.v.gavrilov@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH iwl-net 3/3] e1000e: fix NETIF_F_RXALL buffer overrun
-To: intel-wired-lan@lists.osuosl.org
-Cc: Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260902032913.661570-1-tactii@gmail.com>
- <20260902032913.661570-4-tactii@gmail.com>
-Content-Language: en-US
-From: Matt Vollrath <tactii@gmail.com>
-In-Reply-To: <20260902032913.661570-4-tactii@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903115135.63210-1-mikhail.v.gavrilov@gmail.com>
+X-Proofpoint-ORIG-GUID: yyiFFSsPbiTjWl8gw63iqguqpP02uVOm
+X-Proofpoint-GUID: yyiFFSsPbiTjWl8gw63iqguqpP02uVOm
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEzOSBTYWx0ZWRfX4O1Bao4k5SI4
+ +grjJ9wsb4tKMz7z6MbIz/HdHKic1pG8joO3gTB6FtKptrsNG0NUQLkSCrMmI9xTGviGwtHYakn
+ Ps7wfqJOajxPmwgDJ/fNtXW4pkcsgQoSE4JD07Cm+syYeqerhXBJo47oXaRxUFIBSssn581hu6W
+ 7Se12sdTZDMOLF67sUQimDQizNl87NqGVu3BOc2Q45k6Xn67sLZ5p7WJpiyht1NoRFUv9CKdXoZ
+ Jd4wXtZ5CfffiVtUqGkqQ8uo68gTC0DzZmrbCxTItGohOYOYI/CN1RSxAHtKtGH2m3JEg/U37m+
+ DPzNyIeZ5OKnBoi/PHqgm0SY/ia/zjsbAcYVGOKpz7/n+7lWKNgI5dfOzeUwYE=
+X-Authority-Info-Out: v=2.4 cv=Gp1PO01C c=1 sm=1 tr=0 ts=6a9999bb
+ cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
+ a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=jnl5ZKOAAAAA:8 a=pGLkceISAAAA:8
+ a=YoNfM1Gq81bKbWdwTwgA:9 a=CjuIK1q_8ugA:10 a=RNrZ5ZR47oNZP8zBN2PD:22
+X-JNJ: AAAAAAABcvRuuPgrT2fBK/7sW09FN8wF5Q/IE+orH8L3c2RVKYdnAphX9QhXbPT+6IIU2paJV406Zv4kniSzgSY3CMLELY8qolru2FGUgUeBHgvEmbY7/xbD5/O4VcGrq9fnc6TTH0ltoHGrnQDpuGfhh54wuXli8csCbdLTIEYsZBbnMF9qoCwK+lG+8jc7UWnAMZcGLq+yXgPJlpT4z/MARaOV+TpNy5v+GJUxyZ9vMeMGAP0C22eaMTpHknMiTaTgOkdoTAQHjBw3M4/FOdAysG0THuhY8dqEmeUGOsVqJDum2dLVDjymevzaq6fplTnw/t/sVwIRJWbex0XSga91/iR+IYiMfMTDr1/ta8pEIdUgfHwHunNl6QiwGxooUhWiDSDF6W1THbRdwuaNv1V/wftqZ3TOQ95jTT31greldIEy7g9jnLmWUa0iNMFyWAa1/hvT0C6qgJrNmQiIDWLtSLEG0XNqQIrAaQjUfXj7tSvn2YAYpvr493HzkT/ypbxhm4btJrK8nJoJnhbj5s5Yc5882I24Fhht16wdPIM59ERXXgykaiSQ0IM/i4nw9Kl4kE1mRPPpOZqjBr6Q4r+/kASf3cwi1smyjMnhM81kLP18TjZhSTOgio4283KrZDpOTESBZ2+Gngjkq27wGRpOF1qqenG4vIy60Y2C80VOvoC5j0HCCCxDctAX4KuTIceZJSJf9eGbJ7en1pwQp9q6WXtVh7eRXkFcslzVca7WnbiBVpcuiHGKylyUU5rOZJB/z2WxWeZriP1HeUTw6vlQGB/7JNl1NxtDLLrkBSW5McmE7gW4s+xTvYZO0rfGhgo8z/LX11gY8wRCW7ENB6ixW8AUGono4+xEqZuNoCmGXvMYn8bmuQUhkhdSe25+FaG+zlqN7L2QEcVcn2VPQodxnxAkdhiZUGFE4oPTGjETjFYz58GxvLyBRDYGaXKSn5LQRN5+UlqILKAXn5ipXUU+e3G/epN
+ F8uGghs3rKjDpqsDAvsEIj1XInRlnCj65ivQiy8egZfcg1v/r2cieOK1SovpnKR4TSlnXncwMf/lGJReDb5gv5HUgmjU+ve6yGsSb2K2jOzGjWzDx0fU2G5wAZB1dDLjdXqHe/7Nlbx077mj55C2JRn+T7Qd9qrv8hfpkoG1ir38RfkyetGxpicNMkX43PO5fT5dIQQq6HwOw8dA+qh2R32/vdu31qABgBkCWpclE+PrIItjItJhV9M4zPybYPy4pC9mI7ESd6poyDFlyHJFQL84kcRlxCotG8JNnnPav3w==
 
-On 9/1/26 23:29, Matt Vollrath wrote:
-> When SBP is set, the card may deliver frames which would otherwise be
-> filtered out by LPE being unset. This would allow the device to write
-> up to 526 bytes beyond the skb's data allocation: over its own shinfo,
-> and beyond. This bug is reachable only when MTU <= 1500 and
-> NETIF_F_RXALL is set ("ethtool -K <dev> rx-all on").
+On Thu, Sep 03, 2026 at 04:51:35PM +0500, Mikhail Gavrilov wrote:
+> Since commit c3a280ff728a
+> ("debugfs: warn if file creation failed due to uninitialized debugfs")
+> every boot with CONFIG_REF_TRACKER=y and CONFIG_DEBUG_FS=y prints two
+> errors before the root filesystem is mounted:
 > 
-> Ensure that buffers are large enough for an entire 2048 byte chunk when
-> NETIF_F_RXALL is set. Do this by moving final rx_buffer_len
-> determination to one place, right before RCTL.BSIZE is determined. This
-> will correctly re-evaluate every time the adapter is configured, not
-> just on MTU change.
-> 
-> Signed-off-by: Matt Vollrath <tactii@gmail.com>
-> Suggested-by: Jakub Kicinski <kuba@kernel.org>
-> Assisted-by: Claude:claude-5-fable
-> Fixes: cf955e6c96cb ("e1000e: Support RXALL feature flag.")
-> Cc: stable@vger.kernel.org
-> ---
->   drivers/net/ethernet/intel/e1000e/netdev.c | 53 +++++++++++++---------
->   1 file changed, 32 insertions(+), 21 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/ethernet/intel/e1000e/netdev.c
-> index 063fc8cd2673..80d5a0010df8 100644
-> --- a/drivers/net/ethernet/intel/e1000e/netdev.c
-> +++ b/drivers/net/ethernet/intel/e1000e/netdev.c
-> @@ -3036,6 +3036,33 @@ static void e1000_configure_tx(struct e1000_adapter *adapter)
->   #define PAGE_USE_COUNT(S) (((S) >> PAGE_SHIFT) + \
->   			   (((S) & (PAGE_SIZE - 1)) ? 1 : 0))
->   
-> +/**
-> + * e1000_set_rx_buffer_len - determine the Rx buffer size
-> + * @adapter: Board private structure
-> + **/
-> +static void e1000_set_rx_buffer_len(struct e1000_adapter *adapter)
-> +{
-> +	struct net_device *netdev = adapter->netdev;
-> +	u32 max_frame = adapter->max_frame_size;
-> +
-> +	/* NOTE: netdev_alloc_skb reserves 16 bytes, and typically NET_IP_ALIGN
-> +	 * means we reserve 2 more, this pushes us to allocate from the next
-> +	 * larger slab size.
-> +	 * i.e. RXBUFFER_2048 --> size-4096 slab
-> +	 * However with the new *_jumbo_rx* routines, jumbo receives will use
-> +	 * fragmented skbs
-> +	 */
-> +	if (max_frame <= 2048)
-> +		adapter->rx_buffer_len = 2048;
-> +	else
-> +		adapter->rx_buffer_len = 4096;
-> +
-> +	/* adjust allocation if LPE protects us, and we aren't using SBP */
-> +	if (max_frame <= (VLAN_ETH_FRAME_LEN + ETH_FCS_LEN) &&
-> +	    !(netdev->features & NETIF_F_RXALL))
-> +		adapter->rx_buffer_len = VLAN_ETH_FRAME_LEN + ETH_FCS_LEN;
-> +}
-> +
->   /**
->    * e1000_setup_rctl - configure the receive control registers
->    * @adapter: Board private structure
-> @@ -3102,6 +3129,8 @@ static void e1000_setup_rctl(struct e1000_adapter *adapter)
->   		e1e_wphy(hw, 22, phy_data);
->   	}
->   
-> +	e1000_set_rx_buffer_len(adapter);
-> +
->   	/* Setup buffer sizes */
->   	rctl &= ~E1000_RCTL_SZ_4096;
->   	rctl |= E1000_RCTL_BSEX;
-> @@ -6087,30 +6116,12 @@ static int e1000_change_mtu(struct net_device *netdev, int new_mtu)
->   
->   	pm_runtime_get_sync(netdev->dev.parent);
->   
-> -	if (netif_running(netdev))
-> +	if (netif_running(netdev)) {
+>   debugfs: Unable to create file 'net_refcnt@(____ptrval____)',
+>     debugfs is not initialized yet
+>   debugfs: Unable to create file 'net_notrefcnt@(____ptrval____)',
+>     debugfs is not initialized yet
 
-I see now that I should not have collapsed this to one netif_running check.
+Ugh... I should've noticed this...
 
->   		e1000e_down(adapter, true);
-> -
-> -	/* NOTE: netdev_alloc_skb reserves 16 bytes, and typically NET_IP_ALIGN
-> -	 * means we reserve 2 more, this pushes us to allocate from the next
-> -	 * larger slab size.
-> -	 * i.e. RXBUFFER_2048 --> size-4096 slab
-> -	 * However with the new *_jumbo_rx* routines, jumbo receives will use
-> -	 * fragmented skbs
-> -	 */
-> -
-> -	if (max_frame <= 2048)
-> -		adapter->rx_buffer_len = 2048;
-> -	else
-> -		adapter->rx_buffer_len = 4096;
-> -
-> -	/* adjust allocation if LPE protects us, and we aren't using SBP */
-> -	if (max_frame <= (VLAN_ETH_FRAME_LEN + ETH_FCS_LEN))
-> -		adapter->rx_buffer_len = VLAN_ETH_FRAME_LEN + ETH_FCS_LEN;
-> -
-> -	if (netif_running(netdev))
->   		e1000e_up(adapter);
-> -	else
-> +	} else {
->   		e1000e_reset(adapter);
-> +	}
->   
->   	pm_runtime_put_sync(netdev->dev.parent);
->   
+> Move the IS_ERR(parent) check above the debugfs_initialized() test.  A
+> caller passing an error parent is propagating an earlier failure, which is
+> the pattern debugfs documents and which the warning is not aimed at.  A
+> caller passing a valid or NULL parent too early - the case the warning was
+> added for - still gets it.
+> 
+> One behaviour change: an early caller with an error parent now gets
+> PTR_ERR(parent) back instead of -ENOENT.  All callers of these interfaces
+> are documented to ignore the return value.
+
+The new behavior looks better than the old one as it used to ignore
+parent's errno and just returned ERR_PTR(-ENOENT).
+
+> 
+> Fixes: c3a280ff728a ("debugfs: warn if file creation failed due to uninitialized debugfs")
+> Link: https://lore.kernel.org/all/6d1dc775f7d5e754d734907514534054f682bac5.1781171918.git.yk@y-koj.net/
+> Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+
+I tested this patch on x86_64 (Intel Core i7-14700K), Gentoo, v7.3-rc1
+(940de590b839), CONFIG_REF_TRACKER=y, CONFIG_DEBUG_FS=y, with KASAN and
+lockdep enabled.
+
+  $ diff -u before_patch after_patch 
+  --- before_patch        2026-09-03 23:46:02.856774818 +0900
+  +++ after_patch 2026-09-03 23:46:09.990259686 +0900
+  @@ -1,8 +1,6 @@
+   Yama: becoming mindful.
+   SELinux:  Initializing.
+  -debugfs: Unable to create file 'net_refcnt@(____ptrval____)', debugfs is not initialized yet
+   stackdepot: allocating hash table of 131072 entries via kvcalloc
+   stackdepot: allocating space for 8192 stack pools via kvcalloc
+  -debugfs: Unable to create file 'net_notrefcnt@(____ptrval____)', debugfs is not initialized yet
+   Mount-cache hash table entries: 65536 (order: 7, 524288 bytes, linear)
+   Mountpoint-cache hash table entries: 65536 (order: 7, 524288 bytes, linear)
+
+Tested-by: Yohei Kojima <yk@y-koj.net>
+
+Thank you for reporting and fixing this during rc!
+
+Yohei
 
