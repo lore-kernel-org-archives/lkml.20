@@ -1,136 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B98DF76
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 00:04:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FDAB3D76
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 00:05:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788393856; cv=none; b=DjNUL9Cgae9LaY7suIv0dxoBTxr36qUuQyjCKm6hZduwBkphhfsQiZz4tn38lhcN6Fx1umj2To5n8XlwF55zJz8Gfaj+fnMdF1lMLtOyrC2DYcxjybtQkBrd5cvES0G1mDy6f2xaVRXXa1pUziWMsjSjvOQWhs4MI4fSDYvtpDg=
+	t=1788393939; cv=none; b=TI8mbm1ERrdNg8I6T/wvIIukRAQugYfGwp1pvoSMmp/Yx8hN92Sv4LFpx096/tdL6LMymNkTedOBxj5RvlqiF30W36/Ztgpo/brTaAtKCrFJfmNCAZN/KbuIq9veHb6aUflNbpIvo4ig5DkE4WIELl6Xiii4d0yeyFRrQWUCjLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788393856; c=relaxed/simple;
-	bh=FnKqod29qrbfyQNawdcqOhtqmUfCU92hzzvSmOC6DP4=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=r2sAHRkQoq9nTowXjOxJ9sLzv1rjkruHNPK+e+TyRMQOQODgheoqNuURCxa9jjpY243x0Zvs8uGKrefsNkFWBzojIzVhaE7/WieeCiQHcA4oKuCp+E+gVysEVS0yXV1DCCWlEBnblZhviiPtFMzxTi0Pz2LcwdFdFepzWub3gkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PU4tdwXE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788393939; c=relaxed/simple;
+	bh=QZRmCbXjxabh7Pmf0TZVuA87pVMd+AdA1qxg5h+Mhu0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IFIaRI6LgVtczyrw32jPHIIs/7JeRHMYvXrZZopeNtDxByxOMTFtPY0poe5MtWD/zJZ86WLPuf4ILE4VoHdfzXH7eNkKc+fkO9wmTmRkdnyhiou7OreI9Xmjf+i4YuePzcA6y9aeK5s3S9B6Rq7MU6d+GtX2p37gzlrOjdaOY/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=WL1NKLY/; arc=none smtp.client-ip=209.85.219.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PU4tdwXE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 734321F00A3A;
-	Thu,  3 Sep 2026 00:04:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788393854;
-	bh=k1T1mSQt9nXndvTD3GdJspqSLb02WDkXBhGjPz0MRvU=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=PU4tdwXEWnj1QSsf0DRmxII7S1wHxWNSJ5LRgOE4heiXa4ZQ4AQUP3KXipmTztYYv
-	 4mspDdQHkmHsd/deGUztpi1yo9zfroG8blYZ+ausMy/WqGRWV45ntkq5ODC7W3utNn
-	 nEB76oJUgM5i6tsbERunWUrLcTj3i601meY0mSNG3R30F3vGuCKBOVMS080svlOyuF
-	 dx2NYkxO31v5a/v608acribWuWQFnFDERyJCGIoyOIW66X9rs4XRltX85l3yxAL+0P
-	 C8rPohjb3HH1IFb/UkOm7y8c3gmlRGMxzYWbCwZY27AyVFc0xJ3dWsY+70cfgE/K1D
-	 Go19iBIIZrtFw==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 7AD79F40066;
-	Wed,  2 Sep 2026 20:04:13 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Wed, 02 Sep 2026 20:04:13 -0400
-X-ME-Sender: <xms:fbmYauQv33tcZIBeNS3WSChoYiYWc5aLSQguQUFnZSW0Riv1H8MVrg>
-    <xme:fbmYaukPzfzIHYbp4kCf3toxUMO2dvVmx4N1aK4wZt0lsnGG1tzbGj9rcrrRFYVhQ
-    P9bViIh2OA8BHBU4lhHy_JgMItlYDiJ_uWUOxgfqYEBOv-RqSvT_h8>
-X-ME-Proxy-Cause: dmFkZTErUHh5BuRVNpnhm4wFZdzcU6Gbef16hK1rlwjUGzG1b1RbSQ89W9JMf+dKlZA/Wv
-    reby9HkzPvy/+Kk0QW3WafCg2myqasjn5Yw/IeZxkREKi4I/Csd/ERpzaGq+wnGJbq32nc
-    BPO+lrtos2qFL4QqKVPsjb/OwoGeAGKh6Xa9h0GLSgSyciUs2aZOYn/CDBddxzXBY0hiod
-    JBmg0dxR0HlPdWYAKm2XUSXGAWVr6wGoIcLlEVPHOVNFfShMWUlnUE3oPfu9qBg0YJaYHC
-    76qQ7dMqwd1kFrMLXU5QrlUERuA6vBd0XqRZfCTeUOKNziSQxuVXDWwtxJF+3SroNcV7Io
-    66BCRzmVnHoI4XWSL4V57optk336x4nKfzxBQYshtqifqQysqM34YD2tj900hWbtRb0OZw
-    ZThpCBev8KeX+F+cCLyK5EvaND7q3nl7Xdw2W85rAiSkC0nB0qIOveshuxiWro34QEtXcd
-    jRT9tBECHBYD9kHZomPsABT6YoMUJrm4YlOJhgOoLIFIVIQ8JORyLwCTP6J7ygE9cOaAZQ
-    PB0r3prLRaEP0HmxYvxuUsIR/rRzxkXp4h71/t1SUO0mC0GccElBeFvikOZSph9cwPJL6g
-    kX9h0GU3flsH19uiJkPRotH8Mrv1t0Jz18GmNVGPaFI7l86fgZLl/F6nxRsw
-X-ME-Proxy: <xmx:fbmYajFZpbR4thcbLHSkL1DJ_sywKHeRiJFGTHx4vIoY-Y-iKoyuag>
-    <xmx:fbmYatBLXz3fBXL6sRJfAAYtLSMc6R8pMAqOBgaSDGr4txpwoHAZLQ>
-    <xmx:fbmYapAKXn1IEP4tkk8ZSIUjvDUWxZqF3nUSkQqA48JDZwzkCmodaA>
-    <xmx:fbmYarPSDRl8dBaq9UUWUWY843JuKvXc73F-que28L6z0eHVrpppdA>
-    <xmx:fbmYatPVqlQsTcX-nM7BruVi5BCu6kYUyEAvoMPdDLa0C8cgSKLroJcn>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 535147811F0; Wed,  2 Sep 2026 20:04:13 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="WL1NKLY/"
+Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-90cc64570deso6149746d6.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 17:05:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1788393937; x=1788998737; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Oj1j9DR7tvSUa6TkT43vyXg4EoLBwftWK8uVdHa6AYU=;
+        b=WL1NKLY/58AGULenm1IqQGnKsIsrvjHI0Xp0xZW6h4usl0mG8tIRde6RQEarJEXqWK
+         fstYp4H/mEduEQbqVYVXpWLrB/K2VSYZG9UXjkkPBOz7Exp/2ZsYF127eB7ittthUVt+
+         h/8fBqzJDWk95iOcCrNw7HA8iBeHvOb/ztgWMHrjBj7+/+NNLfazGYihkdLbKH0y00lQ
+         v6AumouFDmhS95iQoCTUJXq7LNYv/ZKjGju29ZIpckNzORUWLflNn7eVrYaWG5IL1CFy
+         ygWroeKVSQ6slxXbXbWYHfQMmcCE8PPvtV+AH7hIK/sH37MZFhMYmIEe5vAvL7U0KRaz
+         xiOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788393937; x=1788998737;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Oj1j9DR7tvSUa6TkT43vyXg4EoLBwftWK8uVdHa6AYU=;
+        b=MtTyNJP6VoAuj1LZcOv8oDlxXWOlK27+bkASvpNN8TV+kbi6RjxBcPHu+RvFNq/DJp
+         jmPbXWDd1HH6AlwFe98Ai8YGJAPrE2ngtSvdygpIP98Bl5Ce/ZTc9rzgguP7IPJYF2Px
+         icDRB4IIBdL4v3g73XGdQyisZ/qllp5fNMpCZG0sdtP5nwtUW6soFAeuJoORk2rfoCDU
+         cXFshQ9EjQKNQbCGUN69wRkjM4w5AxHBIJLcFNVgtaeOYyc42oHNFed8uNXTePvt/lDD
+         14yKLM8Z/8slqKNRkuDRV9VLrOZkeCnVCWvkKIYZssKSmx6sx1uob1fn/kyH5FB+IHR/
+         ktJA==
+X-Forwarded-Encrypted: i=1; AKwUvBwT3QRKEif8QGztiDtc17241HPpq4K90olqunsSrCs0Sz08zYtVRA+2b+tJHi9aGJABC7haSGi6levn0xg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kUy5QKpmSiJO3sXbDNjml0aVnsq3WycNQDZIz4H/u+yEDISDK9
+	3IlsKG9mRRhyk4+ewbK8JUanTGcMJzPRQrPrsdlnjFeGEa5bNYHB/FUpjN5SC10mZTo=
+X-Gm-Gg: AYBFou316H/glZuWLjSFMwZWNYLaq529ld4lqvzBzSv0aFlwflQ+8JJywpIXDO4A8jQ
+	OCBTCgIKERcAKS1XfcMEUgbu0BNMGB+OECXi9k7Ozmjcd7KrYakkdRhY25d70XzMkNy3ZcCTm7Y
+	AnrBGwmDz60iQcfO3MZ80MFYY7mpybKHqncQeTINOJ8pITNlbVfiAmuu83YFIuJQZG/Wy4b0EiB
+	RMZ4ncFrCv4DtEChJ3zG89SzXEwWXASBFHM2XF2H5RidGRLvt72Y7in1W8VB5QYhYjhYB4zQGU+
+	NlL8FXUU1RoVPAm7K6ZgQhM9K4/q+ZOYyg129C1aRWDBhYRWecZnI0df0K/cBhGEc0bjfVj09SD
+	el0buTlMh53zeqdTV2nNzWGdaExzQfqaKn6zkY0UFn1eGUmXMRCwavalg5xirui5/LLUjKNTd0F
+	XDkyqSP6j1jkVyx4/UYIMRAITiHeCuOILeXmD7mAk8m6gA3BTkXLo+CLVnpBtT6MpHLk/MoUlBa
+	/sKDPlPmmdGs3tbIr9gujyImSUW+mf50yPJdgUVv0GELtT/LN1zk8aHcw==
+X-Received: by 2002:a05:6214:3188:b0:910:2f75:2daa with SMTP id 6a1803df08f44-910346ee143mr40566336d6.9.1788393932126;
+        Wed, 02 Sep 2026 17:05:32 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9eef37a6sm30220746d6.35.2026.09.02.17.05.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 17:05:31 -0700 (PDT)
+Date: Wed, 2 Sep 2026 20:05:29 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Zi Yan <ziy@nvidia.com>
+Cc: David Hildenbrand <david@kernel.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Alistair Popple <apopple@nvidia.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Kairui Song <kasong@tencent.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Oscar Salvador <osalvador@suse.de>
+Subject: Re: [PATCH v2 05/14] mm/hugetlb: use direct assignment instead of
+ folio_change_private()
+Message-ID: <api5pece7I6eqdti@gourry-fedora-PF4VCD3F>
+References: <20260831-remove-pg_private-v2-0-3668159cd9e8@nvidia.com>
+ <20260831-remove-pg_private-v2-5-3668159cd9e8@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 02 Sep 2026 20:03:53 -0400
-From: "Chuck Lever" <cel@kernel.org>
-To: "Jeff Layton" <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
- "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <Dai.Ngo@oracle.com>,
- "Tom Talpey" <tom@talpey.com>, "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "Christian Brauner" <brauner@kernel.org>, "Jan Kara" <jack@suse.cz>
-Cc: "Thomas Haynes" <loghyr@gmail.com>, linux-nfs@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Message-Id: <3caef4ff-9f01-4b09-8e83-12bcb0a1ee17@app.fastmail.com>
-In-Reply-To: <20260902-delegts-v2-0-383cb289ce88@kernel.org>
-References: <20260902-delegts-v2-0-383cb289ce88@kernel.org>
-Subject: Re: [PATCH v2 0/3] fs/nfsd: accept a backdated timestamp from a delegation
- holder
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831-remove-pg_private-v2-5-3668159cd9e8@nvidia.com>
 
+On Mon, Aug 31, 2026 at 03:25:28PM -0400, Zi Yan wrote:
+> folio_change_private() should be used along with folio_attach_private() and
+> folio_detach_private(), where adding and remove ->private content requires
+> folio refcount change. add_hugetlb_folio() simply sets folio->private to
+> NULL without refcount manipulation. Change it to direct assignment to avoid
+> semantic confusion.
+> 
+> It prepares for a future commit that remove PG_private.
+> 
+> No functional change intended.
+> 
+> Assisted-by: Claude:claude-opus-4-8
+> Assisted-by: Codex:gpt-5
+> To: Muchun Song <muchun.song@linux.dev>
+> To: Oscar Salvador <osalvador@suse.de>
+> To: Andrew Morton <akpm@linux-foundation.org>
+> Cc: David Hildenbrand <david@kernel.org>
+> Cc: linux-mm@kvack.org
+> Cc: linux-kernel@vger.kernel.org
+> Acked-by: Usama Arif <usama.arif@linux.dev>
+> Signed-off-by: Zi Yan <ziy@nvidia.com>
 
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 
-On Wed, Sep 2, 2026, at 2:54 PM, Jeff Layton wrote:
-> The main problem is that an attribute delegation has strict rules about
-> updates can be done, and that prevents applications that backdate
-> timestamps on files after writing them, (e.g. tar -x, cp -p, etc.) from
-> setting them properly.
->
-> We could fix this on the client by making it always issue an RPC for the
-> SETATTR, but that would harm performance in these common use-cases.
-> This set allows the server to accept some of these backdated mtime
-> updates, by changing how the ctime is handled.
->
-> It'd be nice to see this in v7.4.
->
-> Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> ---
-> Changes in v2:
-> - Split the change into three patches
-> - Stamp now in inode_set_ctime_deleg() for a stale update, so nfsd need
->   not compare
-> - Drop a SETATTR report that matches the inode, so an untouched file
->   keeps its change attribute
-> - Set dl_setattr only on the branch that carries a c/mtime update
-> - Compare against the inode, not the grant-time snapshots (Chuck)
-> - Set the ctime whenever a CB_GETATTR moves the mtime
-> - Take i_rwsem before the CB_GETATTR comparison
-> - Drop the unused dl_atime, dl_mtime and dl_ctime, and make
->   nfsd4_vet_deleg_time() static
-> - Link to v1: 
-> https://lore.kernel.org/r/20260901-delegts-v1-1-9937f7ee4370@kernel.org
->
-> ---
-> Jeff Layton (3):
->       fs: stamp the current time for a stale delegated ctime update
->       nfsd: accept a backdated timestamp from a delegation holder
->       nfsd: compare CB_GETATTR times against the inode
->
->  fs/inode.c          | 17 +++++++++++----
->  fs/nfsd/nfs4proc.c  | 63 +++++++++++++++++++++++++++++++++++++++++++----------
->  fs/nfsd/nfs4state.c | 49 ++++++++++++++++++++++++++---------------
->  fs/nfsd/state.h     |  8 -------
->  4 files changed, 95 insertions(+), 42 deletions(-)
-> ---
-> base-commit: ac579868af0c900d8fd9c8cfe9e10db46ccc5a75
-> change-id: 20260901-delegts-e91a648f1427
->
-> Best regards,
-> -- 
-> Jeff Layton <jlayton@kernel.org>
-
-Since the series modifies fs/inode.c, Christian will want to take it
-through the VFS tree.
-
-Acked-by: Chuck Lever <cel@kernel.org>
-
-
--- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
