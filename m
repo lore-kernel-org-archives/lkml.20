@@ -1,152 +1,147 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38C2A4CB8A7
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:16:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68F824CA79B;
+	Thu,  3 Sep 2026 15:16:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448596; cv=none; b=AYbiB5TiHHvRno+2Nb49I3STdlmvq/1aVwSJKntppfTnmwpTX7nzQRCZVEO50NsxVG2bDrCoJxQfJtL9k6+WT4H6V1VOye+d1gdOF4mq1efdkTdQMv+9EjSc8zgysP2duNc2PljJrQkepx6l+mOQSjq+REKMRqMe5bnKd9TsWNQ=
+	t=1788448613; cv=none; b=aoi0n/8bk7ML7BxCeHkdgwjfdExPSlJH4EEm9AoUDhpP1TQZLFtQST017KvjyCsPcnyRb8JyhG9BsEBc0HNSLXZbEdig0qR9QdF+MreMnkUMfgC2oBbBqfNYN8cl2jP/Ieea4H6yXwlIw+Uq2nfRvXGxvBj81uRoml/Ga6/mSe8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448596; c=relaxed/simple;
-	bh=3k0aNco/wk53J9o68OsFWzaMKHfhgDwFOg4q1Ff6mbo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OnSspcWZfRlnzAan9A3p6lvvvrGxxBpBzeWkwaMunsYdUDS1J3d6St3wjB/DoHVSXeFcPOiDwxUcChWwKaqUy+fbDz4p7O+/qeHvfxWh/7erzkJmAe47zqPeZLOTdqukdarWrN0RAMzRkeyRvV9F0tuVv/GlupxdkHSuLQHjLqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VmNxRC8s; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788448613; c=relaxed/simple;
+	bh=3QjZsNW3GegBoFeYEVAx1Oqrt2Sw0ac2MiJNC8I4pTI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rF9OF+xAmlH6olK4somnSdLH/npGNHDkeeJ2XknZCm4J15KYwrTtOCrTY7gJQvr8seN9IsLe1cFPWW2enggmqGskqOrnIbYlJTQ7PzCJFfc4Y8cL/mU0AWDZOGzkXdmxntI3qmOEEHK9vuh8fscbgAu33r/6rWm6C3xg1Ck3uBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=gwwXz0bY; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VmNxRC8s"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48444ec4fe2so1423668f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:16:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788448592; x=1789053392; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pjN+r66d4VC/wMvjXwpeTffXWtgz3AZsnsncg2qP2S8=;
-        b=VmNxRC8sgLlWoU6oEyI3si05oltdjgG9W9rt2gy2KSUj80vFmX/phScTGxR9fKZwKd
-         fJs7JiloMoLScBIkadAGBwzPoau9wXPY1GV+IG25TzlDPC+qTp2CiBgkZDT90c9uX5Lp
-         hIaO+vZWa3YJhPsoM5/+eaFHDgdjGBvcz/8x77RlELa2tZxiTh4t0aCs0DPTW4WbbmUb
-         impW2hK+RAY9wFlYwbkAHfG694wjZACcEcgbsaXX5cC/12uvunJA1kMCc5d0RXSNemIt
-         i87QVEaAMln0g0E4nkvYQ1XCcQxr7F8Twofq5BcnTi0oIPVsMQYdjaRCrbOgAHfA0HEm
-         1Rog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788448592; x=1789053392;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pjN+r66d4VC/wMvjXwpeTffXWtgz3AZsnsncg2qP2S8=;
-        b=po5xG498cazsPEUDEZiIoWDuapcbpgu/ifXQ1+LRqbTVTlWByoytd/w2L/TEdFA9WJ
-         GKgzlPLOzmTA2gSJfqtK0LWJPpkxg9lfO9kj08ZRsuhN7xlDBQRFALfY0qqx8TYERnnx
-         g9v/HztOuP7aYFTx+4UV4GuLALpgB7JlnWvEki6b5YYhnG51rGxWMsnticdpX1ltmMzC
-         d/Au7TGtieUJf2gOlzZMmjfWVwvI2KnpzxlMkUmZWbF9zipFcpmAhhEppjgUiCoSZyfu
-         5SKj51fJ1AStFwUW6FVJN9XRsw3blFZxMwu2Zu+yxDmC7Ky62YxXJkuBuB0mc7PhrbsD
-         V8sg==
-X-Forwarded-Encrypted: i=1; AKwUvBybkRo/aaGV9rKepCbfMt6ouI8xqvltiCSLcR3neCCQ+aAY1LOjebjXHQ2v8gXJ3wFw5DQDLwBJpwFElyo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lBcsNjRhhuLQ9cbe3g7tJDvR/JPfj/X+uYoj1ybN3kE2iERSrR
-	NtY2Z6dlY00955UAQZxU81bTpkSO1j2FFtraK28qs4xS6259oTVWtjoU
-X-Gm-Gg: AYBFou0/EsXmqy4rWC/RZJjUoU4J9GHM6e1/PLwRk7ovfeR8EKzO85GmZN9nfzY5sg5
-	Fzy7PpTOGuEOL5d0Z+tTbgY3HD53uBhaHp9NGVbn1P4F2Z4dhYOkI/6rQRevjh7CRrniq9zLbR1
-	ccJgBmb4Qjq4+h0Tnr0NIej+fD4X99AovEO6eAc7LSfFFqraHMyrwrjHm1eDAysxUdsa9z09eHQ
-	doWjnmUaAwihNU1S6K1/Pr6Wz/n4PYxqufoUAdFv4CuIU0q8t9IZvuO9ABaYuE4//nnUvF/OXxE
-	POv8Advf+anvK8WTAmLLMLLC086WgOMwYU8O1VagrcgwysRnpTLunwhayZzCAy+I16ZItey052L
-	4z7ggnsHIcfFE36/lZV8Pl3Pj1Tj1TE8kfDrknPOIvyONm5B6NRYr5z0d5GDkZFr6+a7frflOWw
-	xpQH8nKeLzWdbcYIlSlL/vlW7ch+tM0WLIf1O12x3tazcTxKqPuoHlv9Q2BV4vp1BNP+l+ld5d+
-	3EFEJzBhqYz54qorJClABQtAu0gv0VoV3veEw==
-X-Received: by 2002:a05:600c:8012:b0:49a:252d:52f5 with SMTP id 5b1f17b1804b1-49ce583d99bmr267144185e9.11.1788448592068;
-        Thu, 03 Sep 2026 08:16:32 -0700 (PDT)
-Received: from flaviu-Aspire-E5-572G.. ([5.15.67.216])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee80eda4sm77119535e9.15.2026.09.03.08.16.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 08:16:31 -0700 (PDT)
-From: Flaviu Nistor <flaviu.nistor@gmail.com>
-To: Andy Shevchenko <andy@kernel.org>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno Sa <nuno.sa@analog.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Flaviu Nistor <flaviu.nistor@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: adc: ti-ads1015: Add support for label
-Date: Thu,  3 Sep 2026 18:16:27 +0300
-Message-ID: <20260903151627.5011-1-flaviu.nistor@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <apkRJ8T-X-HoNiDB@ashevche-desk.local>
-References: <apkRJ8T-X-HoNiDB@ashevche-desk.local>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="gwwXz0bY"
+Received: from [10.0.0.152] (unknown [10.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id B17F05340233;
+	Thu, 03 Sep 2026 17:16:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1788448608;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=GXAovTc9YTHtjLoeVbWGg8GE9X9Rna9HT3d4PbtrVuM=;
+	b=gwwXz0bYspQPWjy1N8yvwqlWO6JJdl3jUQ+OdpfsRaNGk6XRRlu83bkAklvTwH6OAcLTgb
+	ord7YjdLVFrY2PbZlE0bT7EFHts3ALko8GZm4VtuunFVDpeXQ64fx25+LYL830ZGeAaae9
+	ViXDdQsqQynpR78SpRyRRCSiOZ9Oyrs=
+Message-ID: <628ad2b7-d509-45d1-a9ab-e3cbedac9a92@ixit.cz>
+Date: Thu, 3 Sep 2026 17:16:48 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mfd: wcd934x: Unroll regmap and irqchip on removal
+To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+ Lee Jones <lee@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260309-wcd934x-unroll-regmap-v1-1-9a5fb305540e@oss.qualcomm.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260309-wcd934x-unroll-regmap-v1-1-9a5fb305540e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 3, 2026 at 9:18 AM, Andy Shevchenko wrote:=0D
->On Wed, Sep 02, 2026 at 01:37:45PM -0500, David Lechner wrote:=0D
->> On 9/2/26 12:22 PM, Flaviu Nistor wrote:=0D
->=0D
->...=0D
->=0D
->> > +		if (fwnode_property_present(node, "label")) {=0D
->> > +			ret =3D fwnode_property_read_string(node, "label", &label);=0D
->> > +			if (ret) {=0D
->> > +				dev_err(dev, "invalid label on %pfw\n", node);=0D
->> > +				return ret;=0D
->=0D
->				return dev_err_probe(...);=0D
->=0D
->> > +			}=0D
->> > +			data->channel_data[channel].label =3D label;=0D
->> > +		} else {=0D
->> > +			data->channel_data[channel].label =3D "";=0D
->> =0D
->> I think the normal way to do this is to return -EINVAL on channels with =
-no=0D
->> label rather than an empty string.=0D
->=0D
->=0D
->In this case the whole dance with property_present is not required.=0D
->(What you are saying sounds like label is mandatory property, but=0D
-> how the old DT will work that have no such property?)=0D
->=0D
-=0D
-I also consider that since label is not a mandatory property it should=0D
-not return -EINVAL just be simply not being used in the device tree for=0D
-that channel. Since the iio core exposes in sysfs the in_volatagex_label=0D
-for all channels, there are 3 situations:=0D
-1. The channel is defined in the dts and has the optional label property=0D
-assigned, in which case a string is returned in the console in user space.=
-=0D
-2. The channel is defined in the dts but has no optional label property=0D
-defined in the dts, in which case it an empty string "" (a default) is=0D
-returned.=0D
-3. The channel is not defined in the dts (in_voltagex_label is still visibl=
-e=0D
-in the sysfs), and reading the label will cause "(null)\n" to be printed in=
-=0D
-the console (as indicated also by Sashiko boot), since the default "" value=
-=0D
-is not assigned during device_for_each_child_node_scoped(). I think this is=
-=0D
-not an issue since is just the way sysfs_emit() handles an NULL string.=0D
-=0D
-My initial version (v1) handeled all 3 cases, for case 2 and 3, an empty st=
-ring=0D
-"" was printed out.=0D
-=0D
-What would you prefer? Any further suggestions?=0D
-=0D
-Best regards,=0D
-Flaviu Nistor=0D
-=0D
->> > +		}=0D
->=0D
->-- =0D
->With Best Regards,=0D
->Andy Shevchenko=
+On 10/03/2026 04:53, Bjorn Andersson wrote:
+> When the slimbus-up event is handled a new regmap is created, an IRQ
+> chip is registered on this regmap and then the MFD devices are added.
+> 
+> But the regmap is left dangling if either any of those operations are
+> failing or if the slimbus-down event ever comes. Which manifest itself
+> as an error print from debugfs once the next slimbus-up event happens.
+> 
+> Likewise, if for some reason a slimbus-down event would be followed by
+> a slimbus-up event without the MFD being torn down by the slimbus
+> controller inbetween, we're going to have a dangling irq_chip.
+> 
+> Add cleanup of the registered resources on failure and on removal.
+> 
+> Fixes: 6ac7e4d7ad70 ("mfd: wcd934x: Add support to wcd9340/wcd9341 codec")
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+> ---
+>   drivers/mfd/wcd934x.c | 49 ++++++++++++++++++++++++++++++++++++++-----------
+>   1 file changed, 38 insertions(+), 11 deletions(-)
+> 
+What is final thought on this series?
+
+I have feeling Sashiko pointed the problem with devm double registration still 
+exist, see below:
+
+[Severity: High]
+This is a pre-existing issue, but does the use of managed devres functions in
+wcd934x_slim_status_up() cause memory leaks and double registrations?
+
+drivers/mfd/wcd934x.c:wcd934x_slim_status_up() {
+     ...
+	ret = devm_regmap_add_irq_chip(dev, ddata->regmap, ddata->irq,
+				       IRQF_TRIGGER_HIGH, 0,
+				       &wcd934x_regmap_irq_chip,
+				       &ddata->irq_data);
+     ...
+}
+
+wcd934x_slim_status_up() is called when the SLIMbus transitions to
+SLIM_DEVICE_STATUS_UP. If the bus goes DOWN, mfd_remove_devices() is called,
+but the IRQ chip added via devm_regmap_add_irq_chip() is not removed because
+devres cleanup only happens on driver unbind, not on bus status changes.
+
+When the bus transitions UP again, wouldn't the driver attempt to re-register
+the IRQ chip and fail with -EBUSY, leaving the device in an unusable state?
+
+https://lore.kernel.org/mfd/20260903145651.AC1311F00ACA@smtp.kernel.org/
+
+David
