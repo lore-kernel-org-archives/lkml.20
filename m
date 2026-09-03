@@ -1,108 +1,111 @@
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF89A31618C
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 02:54:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B46D32A3DA
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 02:54:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788404046; cv=none; b=FNXLmPgT5VDkV7QAj8vat7L3uh1LCcW4c0A2y1BYl8bjqHU6nccHCHkxmNL7P//ssqde08MSOCOIMcJD6Yi00YLfTMT7SPYhGWkgGUQekwEEaLzQ9VKEzY9gRaIxXJNyXOcbscGfA/rU0RA9A+VvyNPyiGXfXNMqZ/Ay6nB045k=
+	t=1788404098; cv=none; b=gkoHlLeU1hufA1p7U9SsKOtCBxPNCjEHLer+qE43yHV68T5UmzdRsRGbMsumo7gYbWu8oeYNKS8zPqaKPSkYv0r7pgw5FYzN2lfx42uBdeMM592Ku6ckzCQxWCx6wvrxVDro97eWscm2AGkt+9e9fhqNiDTFX576WlSdCJBaDD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788404046; c=relaxed/simple;
-	bh=aiHnBTzn4LSsZgBjJK6hlwcyNiRzkQ8Jvxhrngb3+7E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o4ERl/oot/DfmN8fmJR4FThKEfPbdV416ySUo6VIBlOXWgqkzjZgOQQibZBTmdM5/zGEsW/7/HN/FbC0RFgbQ1hTWsc43Kxs3kZ5uqV4JppfXPx+gxCB2Izb551lxxCIZAdaUhCOgknAZiSbGEAEr1Gt36YUAd11KW8lz/PVlhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kxjjsn1A; arc=none smtp.client-ip=209.85.167.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788404098; c=relaxed/simple;
+	bh=wriApaBhKFCj0oEJdSOQlPecvWdWyGMnQjtRKvxcrro=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=mx8HL0LvZV8KqsQn+ahPzEq3Ucac7fSJcooWQgjvQMzT9Ccbfz1G3s6ayF5oBhJ3BMoW7R2C9Famo0Wovg6uRSuXG2gHBb7rGKFFFmj6ZabTm4IbC1+39SMxggsNjOVvVHorwd5iukBk/BHI/cxdi5WRB8B4GbBVPefBeM9SHzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=gBksxUIS; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kxjjsn1A"
-Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-4af173320f9so1276553b6e.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 19:54:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788404043; x=1789008843; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OjDl1z3rUoDmRCi/Ls7KLepbD5M0zU+LwTLRi8pr4mk=;
-        b=Kxjjsn1Ae5oX9dujUugcpi2IY9t9pAt1M/LDC5jOHhAZmRkoxVhNUTyCj6JS5Vgdt4
-         zFfqkOK4BrH5vAS49ZOnHvaFMVNcTmQDcL2m9P2hEidU91+NdW6ktpz8ygQmvqXZ4dNl
-         0KSMCV6Ug+lIxjxpRHrsHM9BxtlWE6tgCydvdR6zpCP6lPOnVpjqtmBZ/A/3JEfJw6aO
-         SNGHs65OskFfLbUT7j41uyjweeocu8sO45B/qWpZJHA+EgBSp9XiH3O7jCaA6JdVYB89
-         zLc3sDEhXXCFrsQH56MYxvfw1OIlZ+s1/p/GnQQJb46Trh71bZKLxvuHqClb1EhjxQ61
-         Mqzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788404043; x=1789008843;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OjDl1z3rUoDmRCi/Ls7KLepbD5M0zU+LwTLRi8pr4mk=;
-        b=Eg2OsmB2JLn9YFNtFgdlg8B6HbfkVhjC3PpCHbVDAh67/FNodG44rktHKTmJjrWn60
-         rERAWlRKSPMhIF36VgLZgzkCmyBPtPpp1dix6UPi/tD5t+8mBizEKjjDE0aHBw/+yylf
-         sSUFUY5F8M8u1EOy4P9Ad8sBtjNzUBNI9z7fr3ERS9yf6xMAF3/XBvwe5XokqTrgZNDv
-         yBxRc+Jd9BwLPTLm6FxKpzT8xtEdR+aYowLpCCdWMrMZknQPmaKfiG070DP2KK7vbnZg
-         dDMzkcOjLgjqlL0hMfPz829vHMM/psf4SKtxfk329McBFn0LvKV5+HUBwj6Fa0g2RFWp
-         6tZQ==
-X-Gm-Message-State: AFuF++ntlZcoC899lqyB/La7ZgiLrms5OkBMTaDGBIOgkZO+OaWLxBvw
-	PmguEZwdyHnST6PuUdvClIpStUhCk6iVOyee2Tm+GGhcCc056Scjinvv
-X-Gm-Gg: AYBFou0wmV7DUeU+D+m/rCcsnF+8aN9jWF8fsoR3O1AWBMIwrVe4gZLYlIIJtSySOEy
-	ga5Y4Syi3Kgn88do08fU0Q4pAa/l0S78AkQjtY/N5ndHQ6kLgRA5F6EpuLinwoO994rrR7b+Pbn
-	KoDiaO+JCyQVRSWDZIoPECPis0ohFPMHL47yi7EQD2LukyiFyU+7S98mKi71gSGjuMEwMg3ojb+
-	iuC+7/sVktnmF4VWwt6A6rCvbaY9BHEiqj06PnDlLhSc1hPuYS9MWSbglBbtGBQWT3Uy2bJSeDY
-	BLjpnsxKiFz7wu/1zKXwJSyGxhmiAWjV1aI2hVdT24aTWJxXxxiW52Z1CMR6XpFxc6WWBnfDi7F
-	Ps6EkZsSjvtg+BChhO62xKsVmeh5Q8jxJ7OP2lPhjQVykEo1t6i/c/4Y4gts3NXBLILDUy5WsJX
-	dVVUQw0t6iwmeFSaT5+2B1CWWZ/ara6plDYMIg4MQy31p5a3N3QNjlzCrO0kRRYtVQbvTVFCPJN
-	Q==
-X-Received: by 2002:a05:6808:4483:b0:4a4:933:b20f with SMTP id 5614622812f47-4b6bcd86805mr8728713b6e.7.1788404043512;
-        Wed, 02 Sep 2026 19:54:03 -0700 (PDT)
-Received: from cachyos-x8664 ([177.245.224.138])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b69b820671sm3477672b6e.15.2026.09.02.19.54.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 19:54:02 -0700 (PDT)
-From: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
-To: linux-doc@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org
-Subject: [PATCH] Documentation: arm: nwfpe: update stale document references
-Date: Wed,  2 Sep 2026 20:53:34 -0600
-Message-ID: <20260903025334.44666-1-diegomancera.dev@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="gBksxUIS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:Message-ID:From:To:Subject:Content-Type:
+	MIME-Version; bh=wriApaBhKFCj0oEJdSOQlPecvWdWyGMnQjtRKvxcrro=;
+	b=gBksxUIS/v3uLJQGTgOSmKXtkM8WoOLxYpneio0cDd8792c7iYugCL9ZYAj2d9
+	XnsQVKTfG/4qXlRIbAiEU019MR6usjk8mgiifPyfKDw3va7PHdMKu5z6F0d98/dZ
+	3uRmfgClhmHGEM62LguRILocpvriilK+1YSTAYbdhzQEw=
+Received: from localhost (unknown [])
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgDnHxMp4ZhqWrlvOQ--.18078S2;
+	Thu, 03 Sep 2026 10:53:30 +0800 (CST)
+Date: Thu, 03 Sep 2026 10:53:29 +0800
+Message-ID: <de3928e26072ba22a6f7d8d293a3bd43.sh_def@163.com>
+From: Hui Su <sh_def@163.com>
+To: Tim Chen <tim.c.chen@linux.intel.com>
+Cc: peterz@infradead.org, mingo@redhat.com, juri.lelli@redhat.com,
+ vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+ rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+ vschneid@redhat.com, kprateek.nayak@amd.com, jstultz@google.com,
+ metin.kaya@arm.com, connoro@google.com, yu.c.chen@intel.com,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] sched/cache: Use execution context for cache task tick
+In-Reply-To: <c5a2d651a5d647fb29f13fe483301b3b6e292b4d.camel@linux.intel.com>
+References: <20260902163336.1552840-1-sh_def@163.com>
+ <20260902163336.1552840-2-sh_def@163.com>
+ <c5a2d651a5d647fb29f13fe483301b3b6e292b4d.camel@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PSgvCgDnHxMp4ZhqWrlvOQ--.18078S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZryrKF43Wr1ktr17CFWfXwb_yoW5JF18pr
+	Z0gF17trn2vFy3tF17Z3srX34rJ393Aa4jgrs7GrWUuw15Wr409rW7ta4jgFy5Cr4Sya4x
+	Zws09wnrWF4Uu3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRijj9UUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6QpDomqY4SqyxwAA3O
 
-The NetWinder FPE introduction still refers to README.FPE and TODO,
-which were renamed to netwinder-fpe.rst and todo.rst when the
-documentation was converted to reStructuredText.
+On Wed, 2026-09-02 at 13:12 -0700, Tim Chen wrote:
+> Thanks for raising this issue.
+> I agree that the execution context should be handed to task_tick_cache().
+>
+> However, the donor may be a deadline or real time task, in which case
+> task_tick_fair() is not invoked at all -- and we still need
+> task_tick_cache(). Note that account_mm_sched() does run in that case,
+> via update_curr_common() -> update_se(), so rq->curr's mm keeps being
+> accounted while mm->sc_stat.epoch, which only task_tick_cache()
+> advances, goes stale. After llc_epoch_affinity_timeout epochs
+> account_mm_sched() then resets mm->sc_stat.cpu to -1 and we lose the
+> preferred LLC.
+>
+> So maybe the check belongs one level up, in sched_tick().
+> There we can test whether rq->curr -- the task actually running -- is a
+> fair task, and call task_tick_cache() and task_tick_numa().
+> That test is the same p->sched_class != &fair_sched_class one
+> account_mm_sched() already does.
+>
+> sched_tick_remote() would then need the same two calls added.
+> Without them, nohz_full CPUs would stop getting them at all.
+>
+> Tim
 
-Replace the stale filenames with links to the current documents and fix
-the accompanying grammar.
+Thanks for the review. I agree with your analysis.
 
-Signed-off-by: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
----
- Documentation/arch/arm/nwfpe/nwfpe.rst | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+The v1 cache change only passed rq->curr to task_tick_cache() from
+task_tick_fair(), which still misses the case where a fair execution task
+runs on behalf of an RT or deadline donor. In that case task_tick_fair()
+is not invoked, although update_curr_common() still accounts execution
+runtime to rq->curr.
 
-diff --git a/Documentation/arch/arm/nwfpe/nwfpe.rst b/Documentation/arch/arm/nwfpe/nwfpe.rst
-index 35cd90dacbff..b6ef46ff0f4a 100644
---- a/Documentation/arch/arm/nwfpe/nwfpe.rst
-+++ b/Documentation/arch/arm/nwfpe/nwfpe.rst
-@@ -33,9 +33,9 @@ double precision and extended double precision formats.  The port of
- SoftFloat to the ARM was done by Phil Blundell, based on an earlier
- port of SoftFloat version 1 by Neil Carson for NetBSD/arm32.
- 
--The file README.FPE contains a description of what has been implemented
--so far in the emulator.  The file TODO contains a information on what
--remains to be done, and other ideas for the emulator.
-+The :doc:`netwinder-fpe` document contains a description of what has been
-+implemented so far in the emulator.  The :doc:`todo` document contains
-+information on what remains to be done, and other ideas for the emulator.
- 
- Bug reports, comments, suggestions should be directed to me at
- <scottb@netwinder.org>.  General reports of "this program doesn't
--- 
-2.55.0
+I have reworked the series to move task_tick_numa() and task_tick_cache()
+out of task_tick_fair() and invoke them from sched_tick() when rq->curr
+is a fair task. The corresponding calls are also added to
+sched_tick_remote() so full-dynticks CPUs continue to receive both ticks.
+The calls remain after the donor scheduling-class tick to preserve the
+existing runtime-accounting order.
+
+I tested this with a QEMU topology providing two LLCs. With an RT donor and a
+fair mutex owner, the unmodified kernel did not execute the cache tick during
+the proxy execution episode. With the change, task_tick_cache() was observed
+with p == rq->curr while rq->donor was a different RT task. The proxy test
+completed three episodes without warnings or errors.
+
+The default build passed, as did builds with NUMA balancing and cache
+scheduling disabled independently and together. I also built the affected
+objects with CONFIG_NO_HZ_FULL=y.
+
+I will send v2 with these changes.
+
+Thanks,
+Hui
 
