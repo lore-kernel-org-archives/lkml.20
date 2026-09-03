@@ -1,309 +1,353 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3923B4A0933
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:08:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788437290; cv=none; b=VrQPVcMybIxt19RcpsaQ8ja0Tde+lSgqnBhRbWlY6O5hYz+AF0M2+EKlY2v5CFnzITcfKioiybiyGpdzCJEzxcnYzgYmuxLRK2/BXFvWp+4OGMkf7Px+yHYOgIegV4NIdTnoFjppVegYTgOm1L4g9HAAbUlSCFxobCS7DSzAMPU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788437290; c=relaxed/simple;
-	bh=gR502NFg7Egn9IOsKEHPuh0JyLkSs1F8+1Bwq3pKdVM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=W0uBITlK612+hhMSlmI2/xNRevTZAc/sLwSA0iLxNqgXnkubJndI0nT4YncR3+ajQ6VMMPah0uJRUvFZpvAq0J4C5mSfNyHXg5rPMYqxsQrewkE6W/4YPqsvZJp7t6okMTCx0wv4HT5r/KNC7P6/v6Tbq1KGR7PVblA+XpxhZrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KKu/wBs1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XD/kdvgM; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F334440A0B;
+	Thu,  3 Sep 2026 12:08:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788437327; cv=pass; b=ZIQySNTy9E61I96n0Vj9+QuAzRQG+aIoqwgUM+cMxmhCmqI/smAlLp17aILiT3x0TO2hrEjUCQQTC4ckiyicdaEUAqXaXdVjG/6GXMTTcX9njnKOQXyHrrsY53DBbtP25/IFusQpP7Yt/ahpzUl2AX61K88CM5jwF/35Z4aEL98=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788437327; c=relaxed/simple;
+	bh=mrO1iIz8K40Qek3AuIvwYygvK95u6FOPnqisgK9ORro=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=HsD2O75BAcW/cOBdF7u/DpOas7WPPlWfWO6Djs63s+D8mL7oiTDTFcWeJC1GFnDkfhzuiSilDoQNYDWxZfBGDT94jdf2eY8eFiwb7eHl3sZ2JWIvKb6Yjy71BIkwvslXTUaPteMb8xwU15qf1SCAaWmH6ZhSVOdSjt3YDXpNDRs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=i7zLglKE; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KKu/wBs1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XD/kdvgM"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683BTJ5K210333
-	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 12:08:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	t8LQU5O1Q0Iv5afw3UZ3mioVuPVN+6pqIdL01EBICTU=; b=KKu/wBs1PVwFeXOh
-	/jDqD4aNTXtWYjDNrjKgiKwkgq4QSjO6gcPkns9tY/ztntalqqeA+QReBYWwWyd+
-	Py1CAd2MhxKPOJ+jB9vWIbui5o6fFf8qarYCUkvunnSo9IFRWtDYLPLIhYKs19fS
-	6SboTg0bYWIvlvMPUYW5G4NdzRkWi6A6XUbo0tiRcTubH2lBiflnfiwRSpwVSpnp
-	RQsuZBvigsMmgdO7XZHIUIeypDA8/1Ru37NOhCHEhWUXVskE450wntlDCONGtn3U
-	jR3SBAOVwkboMYxFYfal/MgXszUA8vgOXVWSRlXvWGw4/6i1M/SPg654gp50/0KL
-	Dy5FrA==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf82k84s9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 12:08:04 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-74748e3a5b6so1027108137.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:08:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788437283; x=1789042083; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=t8LQU5O1Q0Iv5afw3UZ3mioVuPVN+6pqIdL01EBICTU=;
-        b=XD/kdvgMGOz6vI8Jg0hU8WO85rN3Ex/b07rhzgoy6ftoH+vyI1hsBU16q7Iiz0aINK
-         56mtq4BNvz3/XVziFMJ7hNUiWl6/p3kl0MikjE4O6a7tHRo7gbyiFUqhGtXZe0X82di+
-         We5iFDsMxbtE50/hQF88UTc/Hlw2HZb14kThrK9yiOqYN3oZ9938RsfbQjOOKxVW2dgr
-         NLvN/r2sRCYQcPYNO73562LdlzzObWXnuhHsUOnfXdon3So0jb3WKIgQN0kMoDkgLbnf
-         GXobVmKmYTRSoPvEUIahz4eYvXFyUOUnjPeGVOCIg3OVtGkoMcru31Jr7p2maX+F8xrH
-         ayUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788437283; x=1789042083;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t8LQU5O1Q0Iv5afw3UZ3mioVuPVN+6pqIdL01EBICTU=;
-        b=OKNilMCtaO1RLFeB5mqWub1d3uZx8aG3FHXIF1tZMFtHecNOWmGs03XJTgRmU8Fbhj
-         x3orU82+BNg5XZQOUq2oXrELhVCSwQaHUi8+HTJOTmmbonk7EG0vDA0mU/BDMiulEdvV
-         V54b658weNg/8fDmNWCZZlp5tzrQrp4PxTfiQbuTFXeCDuITRc3eSIalciGb6ze6vU/P
-         SEB3lzAHB3nsUhW6yVnJarBLVzATkRNnXuzikc+1uS9hs8N8DytC854Ytg+ON8ZVcRx0
-         iXiV/eRywnahvxGzgxgCSb3GeBBZg1XVfN2dhMHHf+r8ByE8i6vLu0MAFvsZa+h1Dagm
-         Oauw==
-X-Forwarded-Encrypted: i=1; AKwUvByQoJlitpmeoRr2Hc+eNYMGEFtyQRHSIzC2fxTpS2RB9vlEVynXaZ54z7gUYhszAh4tQOKTrjhfiLHlVss=@vger.kernel.org
-X-Gm-Message-State: AFuF++mvL5ariVUfOWkjoem40V+qnMS/tJmr3x4GJHeN9LQ43BQGDgaU
-	KrqkzEoWi6Dgq0OIfR2csA6lE0Gsm540y0QA+f/h/djYCMpmq6U65Mq8kLRSIK0I2WU0SvyLJnb
-	+cnKclhbm8BztIWbunO6R4GHwiOjdFkCSJqAFUE/+xwqW2ZAE5t+mHsi/4ZWTS6C+YEg=
-X-Gm-Gg: AYBFou3+rkc4pFIcuhlZQUVzi8Co+5TrqwATzGF1trlSxcvGwaOq2HFhxQ5RkYipVWQ
-	tl68bbPCZiZMJJtssgdrKTSOQ67fThcbHrHbWAEQkLSWH7cta6Wd+MgYedu9hbY+yd2olB33WMJ
-	tEhtZLQhTeKcCOXMk4ySAChudtbiNjwA62fzSBtS48wO98fgTPe2AHM9rOH3u9HJBEKt/sUCK97
-	VKiXHVsqqpFN9I8Q1Ulhjv80H7IcSGqne/xtfSQBceRBO4ynRjAXcRnhCIf9/JIfJq01oQC28iA
-	j2c2EIxLienUIfVXAnFDnsgMaoDnGKhStPqqOcyNJRhtWc4BYEwC11BLeaA/feQBralSni8XZRd
-	PWo/52Rna8oXNynK0/H6tTpB+DGDS
-X-Received: by 2002:a05:6102:30c6:20b0:780:c9c:bfcd with SMTP id ada2fe7eead31-78a2f00e2a9mr1046489137.17.1788437283434;
-        Thu, 03 Sep 2026 05:08:03 -0700 (PDT)
-X-Received: by 2002:a05:6102:30c6:20b0:780:c9c:bfcd with SMTP id ada2fe7eead31-78a2f00e2a9mr1046484137.17.1788437283020;
-        Thu, 03 Sep 2026 05:08:03 -0700 (PDT)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:1c7d:412b:f9d3:3bfc])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5d587csm72143115e9.4.2026.09.03.05.08.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 05:08:01 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Thu, 03 Sep 2026 14:07:45 +0200
-Subject: [PATCH v3 4/4] firmware: qcom: scm: introduce qcom_scm_bw class
- for bandwidth management
+	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="i7zLglKE"
+ARC-Seal: i=1; a=rsa-sha256; t=1788437276; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=UOqXUjksauaCF6j0R2WvQGx7W7ct+pOGuB7xfJWI66RWvgqGBovfoP+kY4t9s+SH9mCMM9/cXFYWNPdIhQqK2iKkAIwecmv7I/3pK+7dPJNb1yGfOXnwcfjSbBHg73HIzk1pa5dL0vKwa/Lh9G53Bg6TiUIKjDRf046YFW2tN8o=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788437276; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=RJgIA2x6iwR3vu3rMv+chG5TvTVx8Bb5vQhtPq96FMU=; 
+	b=Cpx3fJTxmt/9BXiesVlQnNyKgX+2+JvqI4arZ0SEPUSgp+tEecPdWC+cOV+TDhZ8W1zQgjqahckbB+4yJarPi6t0b3b59JLuqtq/Sey4UAEVJ+N8SyssY6dJb3f0dbDTqxdbkETCADP6DU0qVrKrwu2vjYlQ/eNp4gxAHQKWFcA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=icenowy.me;
+	spf=pass  smtp.mailfrom=uwu@icenowy.me;
+	dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788437276;
+	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=RJgIA2x6iwR3vu3rMv+chG5TvTVx8Bb5vQhtPq96FMU=;
+	b=i7zLglKEVY7pNBWONkcosdNW3xTVTY80NNc0MyThCD612ifHLfShJ65cR8lTDK+d
+	yOF0t2u7N5U6qMf/3slzaROi2bOH+8oDZkgA6SNFhwpOebLhrj8HGjax+NEmswq59NM
+	3a27a0pwykeN6WQMcLLlSDKJLLkS4WjqCCGcREnDOWm7I6vcHl9Mtucspnoq+Zi34vM
+	ECsqq7V1ZYg3mSI/bJPIAo7moAWlEUO5LGbPNuKXskKj/QP4rlJiuodGxeAMKFu3ABk
+	UHQmB742mtntNXuc4JSMZRHoi/Je5bKp52TiXHSxAQoMiabCq6EGSBBy4gOEz29bp4W
+	WzYhWUzDXQ==
+Received: by mx.zohomail.com with SMTPS id 1788437273594422.63839805930354;
+	Thu, 3 Sep 2026 05:07:53 -0700 (PDT)
+Message-ID: <e492222feabaa5c72229c93ce75f9500e4346da1.camel@icenowy.me>
+Subject: Re: [PATCH v2 11/17] drm/spacemit: add Saturn DPU DRM device driver
+From: Icenowy Zheng <uwu@icenowy.me>
+To: codykang.hk@gmail.com, David Airlie <airlied@gmail.com>, Simona Vetter	
+ <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Yixun Lan	
+ <dlan@kernel.org>, Vinod Koul <vkoul@kernel.org>, Neil Armstrong	
+ <neil.armstrong@linaro.org>, Haylen Chu <heylenay@4d2.org>, Michael
+ Turquette	 <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney	 <bmasney@redhat.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Paul Walmsley	 <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou	 <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Yao Zi
+ <me@ziyao.cc>,  Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=	
+ <u.kleine-koenig@baylibre.com>, Guodong Xu <docular.xu@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org, 
+	devicetree@vger.kernel.org, spacemit@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-clk@vger.kernel.org
+Date: Thu, 03 Sep 2026 20:07:32 +0800
+In-Reply-To: <20260809-k3-display-v2-11-327d7910bf71@gmail.com>
+References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
+	 <20260809-k3-display-v2-11-327d7910bf71@gmail.com>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-qcom-scm-code-shrink-v3-4-8237f3a654e1@oss.qualcomm.com>
-References: <20260903-qcom-scm-code-shrink-v3-0-8237f3a654e1@oss.qualcomm.com>
-In-Reply-To: <20260903-qcom-scm-code-shrink-v3-0-8237f3a654e1@oss.qualcomm.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4454;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=gR502NFg7Egn9IOsKEHPuh0JyLkSs1F8+1Bwq3pKdVM=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqmWMXWwj2dQ9PDWHgoE11vE8w+clNmmmpdcAbx
- 5ShwnOicP+JAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCapljFwAKCRAFnS7L/zaE
- w/JjD/4oW7KwlXS5Lz9I+yU+aYflL013g9qHMhzp6Bpnywv2kE1dLVsRp6FjW+O0IKMjkbiBrc0
- b2JlUg7i/rM5OVHP4tH1F2g1OB0V1fvGFbR0J6wCK9TKHMEfkg1zRHgT3RuP8HXtQ12geqG0CIt
- bDDY7Jbwp0GpFVAPrWQTs8m+RXS60s+ZWohzYYBz0sOK477C2aOd+Pnpm4ZE7Wq90cugC5udTyx
- 2Crej2+eM6WTLEsfp/lbVA0A+/PklTVXuJDevrF4FRW7bwBWvurb+HZfunYDYo685sCJ5PN/vIR
- PEsvRxbcEnoVtWkGQLPUkHNSTori5eg54ExPvVVFvYPKEO9rGGZydqPP6J1ZOzO1wT2XWo/+boZ
- EHBco5vxoZejA/Ghem6bhk8YmEXsTf9dt+MckeB8SAL8WscfCe9pr41UL2mTftdDcC7YcBfE3F+
- rGFw/CBs9nmrmzCR4zl9AttnX3yalc6XiLT50m4Rpt0fVwh8w/Q/BWb8Q1F9LHE1r4aZCYuYxIN
- Nt4RYKxuQmlNI1q0Hy7PTimpyDLx7D5u3yG/ig/sQ/otf93xHOtbFrW3VfKhItjEBxEYviaH0cx
- bc+R7o4Np4mpSzN8FPmamw5yiuDdSr9Q0BVtQcUIMsinh8vr4KdQZ87hW8gIekCcguySyuoJHdN
- p2BnzIpfV7Oxl2A==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-GUID: Nkd8fwn7a43FTOS6qSuFfesDcwGT7NkF
-X-Proofpoint-ORIG-GUID: Nkd8fwn7a43FTOS6qSuFfesDcwGT7NkF
-X-Authority-Analysis: v=2.4 cv=OuJ/DS/t c=1 sm=1 tr=0 ts=6a996324 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=jpxe35GwxECRtIIZr6QA:9 a=QEXdDO2ut3YA:10 a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEwNSBTYWx0ZWRfX9Xo1WKmMun/G
- vbKBpgE2GUwWy38nav3SoGlYJjL9XKPEcXsTaUIKZNWoI6J7Cfx9YZC+RPU7rpQIIAqOxvULUPi
- fu5OhFD4BUZkcVw3ZnYXi2/x2KCEV/y6HyhHoL/XoCCnntGlA04x38+7oMjNLaqJmOSqjh7waat
- mzsIHHUH4okfkoIS9ud7XO7gec0cyz139ew7x6YfM+nrLiZJUi7ZqKW/I4uqTwK/3/FQcNduWNK
- L44nSrzzmtSFKqCR0JgyiBMxnbpFxc5xHLqY3Cl+PpjhSJDzTA0XIFFv9SQ7auluV/ySGx+j83p
- HCss9D4Lm5e9/KAj8u19NCLdt2XfnNMAckhHSuk172nZ4/qNVY/2yJEhnpAJJDVwHQh4rLVNQUm
- +wT4lJuk2YM0zHF6v6MA6cOxFGyDsdrjOSzmdMBQKTh2TG8n2hC9JtzCUjvOPqh1aHU1xBZSMlu
- VJLS1s/elB2R/6IouGg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEwNSBTYWx0ZWRfX93rdrXfksG8s
- q7qATbezegjyBdi2lzrJxh3GTLLznBfkDUYyB2RVDuXrII4l0g3dwttrxXOhcnQDiMgkNLLDxT2
- 1ob4jui8XRdYqXPlfCny4SoI6/OOb1I=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_03,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015
- priorityscore=1501 spamscore=0 adultscore=0 bulkscore=0 malwarescore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609030105
+X-ZohoMailClient: External
 
-Define DEFINE_CLASS(qcom_scm_bw) that calls qcom_scm_bw_enable() on
-construction and automatically calls qcom_scm_bw_disable() at scope exit
-*if* the enable succeeded.
+=E5=9C=A8 2026-08-09=E6=97=A5=E7=9A=84 21:14 +0800=EF=BC=8CCody Kang via B4=
+ Relay=E5=86=99=E9=81=93=EF=BC=9A
+> From: Cody Kang <codykang.hk@gmail.com>
+>=20
+> Add the DRM device for the SpacemiT K3 Saturn display processing unit
+> and hook the driver up to the build. The SoC has two DPU instances;
+> each drives one CRTC that scans out a single primary plane in linear
+> RGB at up to 3840x2160@60 and feeds a downstream DP/eDP controller
+> over an OF-graph endpoint. Buffers use drm_gem_shmem_helper. The
+> AFBC/compressed decode path is not exposed and writeback is not
+> implemented.
+>=20
+> Signed-off-by: Cody Kang <codykang.hk@gmail.com>
+>=20
+> ---
+> v2:
+> - check for an ERR_PTR component match before
+> =C2=A0 component_master_add_with_match() (Sashiko)
+> - add a comment explaining why commit_tail waits for flip_done before
+> =C2=A0 commit_hw_done (Sashiko)
+> ---
+> =C2=A0drivers/gpu/drm/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/spacemit/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0 18 ++++
+> =C2=A0drivers/gpu/drm/spacemit/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0 12 +++
+> =C2=A0drivers/gpu/drm/spacemit/spacemit_drm.c | 140
+> ++++++++++++++++++++++++++++++++
+> =C2=A05 files changed, 172 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> index 323422861e8f6..81081562a6da2 100644
+> --- a/drivers/gpu/drm/Kconfig
+> +++ b/drivers/gpu/drm/Kconfig
+> @@ -341,6 +341,7 @@ source "drivers/gpu/drm/renesas/Kconfig"
+> =C2=A0source "drivers/gpu/drm/rockchip/Kconfig"
+> =C2=A0source "drivers/gpu/drm/sitronix/Kconfig"
+> =C2=A0source "drivers/gpu/drm/solomon/Kconfig"
+> +source "drivers/gpu/drm/spacemit/Kconfig"
+> =C2=A0source "drivers/gpu/drm/sprd/Kconfig"
+> =C2=A0source "drivers/gpu/drm/sti/Kconfig"
+> =C2=A0source "drivers/gpu/drm/stm/Kconfig"
+> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+> index e97faabcd7830..4a105520ee912 100644
+> --- a/drivers/gpu/drm/Makefile
+> +++ b/drivers/gpu/drm/Makefile
+> @@ -204,6 +204,7 @@ obj-$(CONFIG_DRM_MSM) +=3D msm/
+> =C2=A0obj-$(CONFIG_DRM_TEGRA) +=3D tegra/
+> =C2=A0obj-$(CONFIG_DRM_STM) +=3D stm/
+> =C2=A0obj-$(CONFIG_DRM_STI) +=3D sti/
+> +obj-$(CONFIG_DRM_SPACEMIT) +=3D spacemit/
+> =C2=A0obj-y=C2=A0			+=3D imx/
+> =C2=A0obj-$(CONFIG_DRM_INGENIC) +=3D ingenic/
+> =C2=A0obj-$(CONFIG_DRM_LOGICVC) +=3D logicvc/
+> diff --git a/drivers/gpu/drm/spacemit/Kconfig
+> b/drivers/gpu/drm/spacemit/Kconfig
+> new file mode 100644
+> index 0000000000000..51e38dabfdba5
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/Kconfig
+> @@ -0,0 +1,18 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +
+> +config DRM_SPACEMIT
+> +	tristate "DRM support for SpacemiT display controllers"
+> +	depends on DRM && OF && MMU
+> +	depends on ARCH_SPACEMIT || COMPILE_TEST
+> +	select DRM_CLIENT_SELECTION
+> +	select DRM_KMS_HELPER
+> +	select DRM_GEM_SHMEM_HELPER
+> +	select REGMAP_MMIO
+> +	select VIDEOMODE_HELPERS
+> +	help
+> +	=C2=A0 Choose this option if you have a SpacemiT SoC with the
+> Saturn
+> +	=C2=A0 display processing unit, such as the K3. The DPU scans out
+> +	=C2=A0 framebuffers through its private display MMU and feeds a
+> +	=C2=A0 DisplayPort or embedded DisplayPort controller.
+> +
+> +	=C2=A0 If M is selected the module will be called spacemit-drm.
+> diff --git a/drivers/gpu/drm/spacemit/Makefile
+> b/drivers/gpu/drm/spacemit/Makefile
+> new file mode 100644
+> index 0000000000000..b3b148000cf7b
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/Makefile
+> @@ -0,0 +1,12 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +
+> +spacemit-drm-y :=3D spacemit_drm.o \
+> +		=C2=A0 spacemit_crtc.o \
+> +		=C2=A0 spacemit_cmdlist.o \
+> +		=C2=A0 spacemit_planes.o \
+> +		=C2=A0 spacemit_dmmu.o \
+> +		=C2=A0 dpu/dpu_saturn.o \
+> +		=C2=A0 dpu/dpu_saturn_hee.o \
+> +		=C2=A0 dpu/saturn_fbcmem.o
+> +
+> +obj-$(CONFIG_DRM_SPACEMIT) +=3D spacemit-drm.o
+> diff --git a/drivers/gpu/drm/spacemit/spacemit_drm.c
+> b/drivers/gpu/drm/spacemit/spacemit_drm.c
+> new file mode 100644
+> index 0000000000000..12b2fe8b6fc99
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/spacemit_drm.c
+> @@ -0,0 +1,140 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
+> + *
+> + */
+> +
+> +#include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_framebuffer.h>
+> +#include <drm/drm_gem_framebuffer_helper.h>
+> +#include <drm/drm_gem_shmem_helper.h>
+> +#include <drm/drm_of.h>
+> +#include <drm/drm_fbdev_shmem.h>
+> +#include <linux/component.h>
+> +#include <linux/of_graph.h>
+> +
+> +#include "spacemit_drm.h"
+> +#include "spacemit_crtc.h"
+> +
+> +#define DRIVER_NAME	"spacemit"
+> +#define DRIVER_DESC	"SpacemiT SoC DRM driver"
+> +#define DRIVER_MAJOR	1
+> +#define DRIVER_MINOR	0
+> +
+> +static void spacemit_drm_atomic_commit_tail(struct drm_atomic_commit
+> *old_state)
+> +{
+> +	struct drm_device *dev =3D old_state->dev;
+> +
+> +	drm_atomic_helper_commit_modeset_disables(dev, old_state);
+> +
+> +	drm_atomic_helper_commit_modeset_enables(dev, old_state);
+> +
+> +	drm_atomic_helper_commit_planes(dev, old_state,
+> +					DRM_PLANE_COMMIT_ACTIVE_ONLY
+> );
+> +
+> +	/*
+> +	 * Flip first, hw_done second: the cmdlist engine reads the
+> old
+> +	 * state's DMA buffers until the frame boundary, and hw_done
+> both
+> +	 * releases the next commit to start programming and lets
+> the old
+> +	 * state (with those buffers) be torn down.
+> +	 */
+> +	drm_atomic_helper_wait_for_flip_done(dev, old_state);
+> +
+> +	drm_atomic_helper_commit_hw_done(old_state);
+> +
+> +	drm_atomic_helper_cleanup_planes(dev, old_state);
+> +}
+> +
+> +static const struct drm_mode_config_helper_funcs
+> spacemit_drm_mode_config_helper =3D {
+> +	.atomic_commit_tail =3D spacemit_drm_atomic_commit_tail,
+> +};
+> +
+> +static const struct drm_mode_config_funcs
+> spacemit_drm_mode_config_funcs =3D {
+> +	.fb_create =3D drm_gem_fb_create,
+> +	.atomic_check =3D drm_atomic_helper_check,
+> +	.atomic_commit =3D drm_atomic_helper_commit,
+> +};
+> +
+> +int spacemit_drm_mode_config_init(struct drm_device *drm)
+> +{
+> +	int ret;
+> +
+> +	ret =3D drmm_mode_config_init(drm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	drm->mode_config.min_width =3D 1;
+> +	drm->mode_config.min_height =3D 1;
+> +	/* K3 user manual: each DPU scans out at most 3840x2160@60
+> */
+> +	drm->mode_config.max_width =3D 3840;
+> +	drm->mode_config.max_height =3D 2160;
 
-This allows us to convert all call sites to using
-CLASS(qcom_scm_bw, bw)() instead of the manual enable/check/disable
-pattern and to remove the associated goto labels in cleanup path.
+This is for the biggest possible framebuffer instead of the possible
+scanout pixel count.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
----
- drivers/firmware/qcom/qcom_scm.c | 61 ++++++++++++++++------------------------
- 1 file changed, 25 insertions(+), 36 deletions(-)
+The width here should be based on the maximum allowed pitch of the
+display controller instead of the single-GPU maximum size, otherwise it
+won't be able to drive two 3840x2160 screens in a side-by-side
+configuration because this will create a 7680x2160 framebuffer.
 
-diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
-index f0578f0f55563c34a6875377e444dbb674fc61b7..ce6f1ed3739ce08d5890dc6423612b841747539d 100644
---- a/drivers/firmware/qcom/qcom_scm.c
-+++ b/drivers/firmware/qcom/qcom_scm.c
-@@ -244,6 +244,9 @@ static void qcom_scm_bw_disable(void)
- 	mutex_unlock(&__scm->scm_bw_lock);
- }
- 
-+DEFINE_CLASS(qcom_scm_bw_guard, int, if (!_T) qcom_scm_bw_disable(),
-+	     qcom_scm_bw_enable(), void)
-+
- enum qcom_scm_convention qcom_scm_convention = SMC_CONVENTION_UNKNOWN;
- static DEFINE_SPINLOCK(scm_query_lock);
- 
-@@ -594,14 +597,13 @@ static int __qcom_scm_pas_init_image(struct device *dev, u32 pas_id,
- 	if (clk_guard)
- 		return clk_guard;
- 
--	ret = qcom_scm_bw_enable();
--	if (ret)
--		return ret;
-+	CLASS(qcom_scm_bw_guard, bw_guard)();
-+	if (bw_guard)
-+		return bw_guard;
- 
- 	desc.args[1] = mdata_phys;
- 
- 	ret = qcom_scm_call(dev, &desc, res);
--	qcom_scm_bw_disable();
- 
- 	return ret;
- }
-@@ -701,12 +703,11 @@ static int qcom_scm_pas_mem_setup(struct device *dev, u32 pas_id,
- 	if (clk_guard)
- 		return clk_guard;
- 
--	ret = qcom_scm_bw_enable();
--	if (ret)
--		return ret;
-+	CLASS(qcom_scm_bw_guard, bw_guard)();
-+	if (bw_guard)
-+		return bw_guard;
- 
- 	ret = qcom_scm_call(dev, &desc, &res);
--	qcom_scm_bw_disable();
- 
- 	return ret ? : res.result[0];
- }
-@@ -770,15 +771,14 @@ static void *qcom_scm_pas_get_rsc_table(struct device *dev,
- 	struct resource_table empty_rsc = {};
- 	size_t size = SZ_16K;
- 	void *tbl_ptr;
--	int ret;
- 
- 	CLASS(qcom_scm_clk_guard, clk_guard)();
- 	if (clk_guard)
- 		return ERR_PTR(clk_guard);
- 
--	ret = qcom_scm_bw_enable();
--	if (ret)
--		return ERR_PTR(ret);
-+	CLASS(qcom_scm_bw_guard, bw_guard)();
-+	if (bw_guard)
-+		return ERR_PTR(bw_guard);
- 
- 	/*
- 	 * TrustZone can not accept buffer as NULL value as argument hence,
-@@ -793,10 +793,8 @@ static void *qcom_scm_pas_get_rsc_table(struct device *dev,
- 	void *input_rt_tzm __free(qcom_tzmem) = qcom_tzmem_alloc(__scm->mempool,
- 								  input_rt_size,
- 								  GFP_KERNEL);
--	if (!input_rt_tzm) {
--		ret = -ENOMEM;
--		goto disable_scm_bw;
--	}
-+	if (!input_rt_tzm)
-+		return ERR_PTR(-ENOMEM);
- 
- 	memcpy(input_rt_tzm, input_rt, input_rt_size);
- 
-@@ -809,23 +807,16 @@ static void *qcom_scm_pas_get_rsc_table(struct device *dev,
- 							     input_rt_tzm,
- 							     input_rt_size,
- 							     &size);
--	if (IS_ERR(output_rt_tzm)) {
--		ret = PTR_ERR(output_rt_tzm);
--		goto disable_scm_bw;
--	}
-+	if (IS_ERR(output_rt_tzm))
-+		return output_rt_tzm;
- 
- 	tbl_ptr = kmemdup(output_rt_tzm, size, GFP_KERNEL);
--	if (!tbl_ptr) {
--		ret = -ENOMEM;
--		goto disable_scm_bw;
--	}
-+	if (!tbl_ptr)
-+		return ERR_PTR(-ENOMEM);
- 
- 	*output_rt_size = size;
- 
--disable_scm_bw:
--	qcom_scm_bw_disable();
--
--	return ret ? ERR_PTR(ret) : tbl_ptr;
-+	return tbl_ptr;
- }
- 
- static int qcom_scm_pas_auth_and_reset(struct device *dev, u32 pas_id)
-@@ -844,12 +835,11 @@ static int qcom_scm_pas_auth_and_reset(struct device *dev, u32 pas_id)
- 	if (clk_guard)
- 		return clk_guard;
- 
--	ret = qcom_scm_bw_enable();
--	if (ret)
--		return ret;
-+	CLASS(qcom_scm_bw_guard, bw_guard)();
-+	if (bw_guard)
-+		return bw_guard;
- 
- 	ret = qcom_scm_call(dev, &desc, &res);
--	qcom_scm_bw_disable();
- 
- 	return ret ? : res.result[0];
- }
-@@ -917,12 +907,11 @@ static int qcom_scm_pas_shutdown(struct device *dev, u32 pas_id)
- 	if (clk_guard)
- 		return clk_guard;
- 
--	ret = qcom_scm_bw_enable();
--	if (ret)
--		return ret;
-+	CLASS(qcom_scm_bw_guard, bw_guard)();
-+	if (bw_guard)
-+		return bw_guard;
- 
- 	ret = qcom_scm_call(dev, &desc, &res);
--	qcom_scm_bw_disable();
- 
- 	return ret ? : res.result[0];
- }
+Thanks,
+Icenowy
 
--- 
-2.47.3
-
+> +
+> +	drm->mode_config.funcs =3D &spacemit_drm_mode_config_funcs;
+> +	drm->mode_config.helper_private =3D
+> &spacemit_drm_mode_config_helper;
+> +
+> +	return 0;
+> +}
+> +
+> +DEFINE_DRM_GEM_FOPS(spacemit_drm_fops);
+> +
+> +struct drm_driver spacemit_drm_drv =3D {
+> +	.driver_features =3D DRIVER_GEM | DRIVER_MODESET |
+> DRIVER_ATOMIC,
+> +	.fops =3D &spacemit_drm_fops,
+> +
+> +	DRM_GEM_SHMEM_DRIVER_OPS,
+> +	DRM_FBDEV_SHMEM_DRIVER_OPS,
+> +
+> +	.name		=3D DRIVER_NAME,
+> +	.desc		=3D DRIVER_DESC,
+> +	.major		=3D DRIVER_MAJOR,
+> +	.minor		=3D DRIVER_MINOR,
+> +};
+> +
+> +static int compare_of(struct device *dev, void *data)
+> +{
+> +	return dev->of_node =3D=3D data;
+> +}
+> +
+> +int spacemit_drm_of_component_probe(struct device *dev)
+> +{
+> +	struct device_node *ports, *port, *ep;
+> +	struct device_node *remote;
+> +	struct component_match *match =3D NULL;
+> +
+> +	if (!dev->of_node)
+> +		return -EINVAL;
+> +
+> +	/* The DPU is the drm root: its OF graph names the DP/eDP
+> components. */
+> +	ports =3D of_get_child_by_name(dev->of_node, "ports");
+> +	if (!ports) {
+> +		dev_err(dev, "missing 'ports' child node\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	for_each_child_of_node(ports, port) {
+> +		if (!of_node_name_eq(port, "port"))
+> +			continue;
+> +		for_each_child_of_node(port, ep) {
+> +			if (!of_node_name_eq(ep, "endpoint"))
+> +				continue;
+> +			remote =3D
+> of_graph_get_remote_port_parent(ep);
+> +			if (!remote)
+> +				continue;
+> +			if (of_device_is_available(remote))
+> +				drm_of_component_match_add(dev,
+> &match,
+> +							=C2=A0=C2=A0
+> compare_of, remote);
+> +			of_node_put(remote);
+> +		}
+> +	}
+> +	of_node_put(ports);
+> +
+> +	if (!match) {
+> +		dev_err(dev, "no downstream component available\n");
+> +		return -ENODEV;
+> +	}
+> +	if (IS_ERR(match))
+> +		return PTR_ERR(match);
+> +
+> +	return component_master_add_with_match(dev,
+> &spacemit_drm_master_ops,
+> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 match);
+> +}
