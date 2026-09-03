@@ -1,178 +1,272 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF6E74B5CB6
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:29:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7364B5CAF
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:29:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445777; cv=none; b=rbxUN0enGVsJlMiWRtJAbhyGLyNephhTujtStgiu5ek+2bHMIoANqL7AJm5cfkAOmqlh2/yc9ysJjiqNOFybJmm33AQ8Sdd9pUY1dpkJqPTI/DgHhxYA+xo6PZfaoPMglgEpbwCcXwsD59UUWXnHrtCDsCKY4q28Pb8ihgpgN2Q=
+	t=1788445783; cv=none; b=VkduFaaWubnGMnQR04w2AzYfsAZUvISfBwva/kTT40wI8pyGiUqCSEzPMOHUvWsAsSy7CiTm3McgI/bo7Ni0dXUwhBsRB6APv7P1LJzdRIGbrybGV5hNivS7V2hWY2bgMf4Nkapd+khUJwIGf5vUxNuHaqL2ZzmH2b1tS84vfJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788445777; c=relaxed/simple;
-	bh=1h8UY7C7DRfSBJpx+Kqk2kMtTanSJ0uIlMXF2pMqnmI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gPWu1OACaOvZNaiGHrgNuL7W1Etd/4jHZLthfl5T8w1wmY1N/vRYCmAsP+NRIaLEHoZdMuKfvawj5kDDq7W3CNMOPbsFtu6GS6z50WlMRF0dBcWgEUmF+RG/yzNwww1pFqKrl2JSVhyIxQa9zqJ4pJlNoO7k3jZeamqQMLtclXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=E28mpCZO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jW5rfLb1; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788445783; c=relaxed/simple;
+	bh=E2UBUgOlX7Mg1iAGsHD2ANc4lj8+hxAynoEU4FaeFSc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=EyZ83Hb+4kGIdbWRvVSZqHOM8I2oFKT9BJEhuElGuErzWEadokFyLm36LtfSP9/41bQOAMAiQM4osWNh3+F1adi5oNqkaQxGg5i1gmsUSvS/YAYTPSOMh+BZVnjOyVpeMXyAjbutpMJmBN0jbuAZFVPEO0V/G4goKUf2B90Lt/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bnCAQvU2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="E28mpCZO";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jW5rfLb1"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683DAAmF1704864
-	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 14:29:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	YrYZPm63HO7KH0MIwA5KVAUAv2xcSfYhYKeQJlbSewA=; b=E28mpCZOYSVLIZUg
-	feqGJZzVkbTIloQAxjTgVzF46iC2DKqWJgxBJv9nWtuyWk3iR1SrX/Sdr3eFo6wX
-	r6mkjtEVsqQF/0fLb+hSDt0gZIMB1v6rOWe3gkWDUxsLA/BPl6ch6+Ri4GbDSsfZ
-	ulRDNbIWlhBnJUIX0SqfrWEyQ2mQW6FE3T5GN9dZHZXzLatGPGDgLlu+VmNhWLAE
-	150PEADxA1wMOfEMF6LCr9GTy+n0rrmLSRvrMmhaKJWe72nZ/brYO8RdD87kZFjP
-	RxGwQ9cm9rzhZCmdNjkxF1SPjzZKz6TKovh7BKugQYcfSmbLiuwRH/ZfUEKU0qTD
-	wvOb2w==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf9b18cf7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 14:29:24 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93771aa0379so663225185a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:29:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788445764; x=1789050564; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YrYZPm63HO7KH0MIwA5KVAUAv2xcSfYhYKeQJlbSewA=;
-        b=jW5rfLb1GTiGMJ/ggH6WVGUnYFguEj4py/ZCsNSkq7I/A/krbQILsAT3BjuVY4p/pJ
-         HcJwUmFv3PhNrOlfql/MmnGr+1O05KkO3DacivO61+OInUn8t3zNsp8JJT4FGUxxXUtx
-         9R9yNUeEiogEyb2km8TwKkJzJycYlU+pqM7CYdzMzio9riq4Ij2GCHJ2O+4xANAHsmYf
-         JoxLFqzy6l9/+8mtsGMSB1o5x2E0NEKRkvkoISeKx2L/s6e1ILFzBwhqxzJeds44tlYR
-         7CKiR0VlJKcvH7hRWel8F8wMezh+uUDewZ1Icb8KoUHd2n05E01YTSeb8Cd+3FmpQdJG
-         sL4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788445764; x=1789050564;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YrYZPm63HO7KH0MIwA5KVAUAv2xcSfYhYKeQJlbSewA=;
-        b=X6xj2bsThfoARuvlcA5dCMkGnW/4xFBtWij8QCNeQZLkOhm4CMlNZWTjhyBJVpnk7e
-         uWhjIALbsdAdefzGhdonwnyrOmhszfD4L42lxHIf5DLGg9Hj6Zr7XJmAzykTzsYu7erS
-         xjWXfLe3ZEhSLQEYc02ksuxSNZUyKrIc3EZVUtkuPH5vAK4IvCCL4yIJJNYNaUzsncya
-         3rh+C8CM4NM1wBHq/ktjJiTT1U8wYa0bD4yBc0vegPsskVUMK/BntNdNA3KShhnz1eTD
-         7Jh1vXgEDwSDqfPNEB7LBfWgefA1Fu6kH/z8JkwNFOXXD2d/xtbRY3AaS0opVUUJppYw
-         LwTg==
-X-Forwarded-Encrypted: i=1; AKwUvBwtk4Bi2aAlvrxLh6cF1OV22CM4R7L5Et1Xr+ufQF0kC4QEyCVD80aJITku/kVBQkfPOjMQ7xNiqYwls1o=@vger.kernel.org
-X-Gm-Message-State: AFuF++n1XSf1SEUPtp9Nj4U7M208znU3xCuljp0lVmtWP0y65j+YST7Q
-	SwDaLKgmKmdqwuW6R19YUJI5i1rS4KjuW6FR7ZweqfOJRAotjxJ6quv11Ry5PMRNz8yITiEZDBX
-	h/LkiakztaLediRVOZXeG01r0hdIMgDIakZKwMJki8jGtFF0lDQdVu91NzlPV+in7w3yxzunf/T
-	I=
-X-Gm-Gg: AYBFou0PcsRymWKQPVNXG1tM57QHu3a388iqeKbzP2WxTphs3WSeRCnS4BAcDkpovkC
-	l0pMjjyVi27Fnom/PlhRFXg/0h2Kva5z67X0A835lppQjgG4eTRdnRIDkyKsgfoQKMq49jlC5aE
-	w42l30beF6xnpUFDieqq0x66W1Xc9ejoKKGTdhDWvJVkWpHeLcOhCaJ4ZMJ3foVne9d009RHA1E
-	IXRzPdEzTLkcv54fs5XalFpVVsjm0HZO84YH5oUtX3t4YEYPJzLEAJAf1eG1avhaRXl0u5FC2xc
-	WOAGhxSg788I0ZIFM6oXNquLUtz7a9T5rGWnFi/abDir8n4gOypH0VBN97529bh25VelHS1zm4S
-	MHXjyfKCMzYAep6hZD7tIBOD3D0cb
-X-Received: by 2002:a05:620a:4114:b0:939:57ca:7e0a with SMTP id af79cd13be357-93960cabe26mr1473852185a.7.1788445763662;
-        Thu, 03 Sep 2026 07:29:23 -0700 (PDT)
-X-Received: by 2002:a05:620a:4114:b0:939:57ca:7e0a with SMTP id af79cd13be357-93960cabe26mr1473842785a.7.1788445762889;
-        Thu, 03 Sep 2026 07:29:22 -0700 (PDT)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:1c7d:412b:f9d3:3bfc])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5f9114sm72799415e9.5.2026.09.03.07.29.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 07:29:21 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Thu, 03 Sep 2026 16:29:08 +0200
-Subject: [PATCH 1/2] power: sequencing: don't call .post_enable() if
- pwrseq_unit_enable() failed
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bnCAQvU2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA4FC1F00ACF;
+	Thu,  3 Sep 2026 14:29:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788445775;
+	bh=vhUZTqNa/p6fi0f//Ohc7Sk8mdZj6Nh5HCM0lRwe13Q=;
+	h=From:To:Cc:Subject:Date;
+	b=bnCAQvU2rfO6eEEJ+2Gj+D/LyEEJSf78NjgVCbt84ifDTjaZQgdTUxvanalBwynvh
+	 AUCR8IrjuZELezIplFoidL5NKAsEkr/P94OV1/FAivlDQKkUs7SQd8ZG+MOo2FbuCz
+	 Bb62pAoTU7n06XDYK2/ke40cou8jnMftTbZq0aGQ2u2iFGynA5aZ7Btkx3pZcWjxfQ
+	 e+GCfMYitqFY4/FKMqwwSBhtPkorC2I62N5nBN2gTrpZga1BGi9rsBSIak98dVjGdp
+	 4SXPyjAgDs4u5LSVPJRPvMSRxKLdeC7a1sWfw2e44kF9aCKt4ZI/6yZPEeZBSDsEQh
+	 aZXuTcNWhWYjA==
+From: Gao Xiang <xiang@kernel.org>
+To: linux-erofs@lists.ozlabs.org
+Cc: LKML <linux-kernel@vger.kernel.org>,
+	Gao Xiang <xiang@kernel.org>,
+	"Walther, Jens-Uwe" <waltju@amazon.de>,
+	Yann Collet <yann.collet.73@gmail.com>
+Subject: [PATCH] erofs: disable LZ4 rolling decompression for now
+Date: Thu,  3 Sep 2026 22:28:41 +0800
+Message-ID: <20260903142841.4465-1-xiang@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-pwrseq-kunit-v1-1-1f893d2cabc2@oss.qualcomm.com>
-References: <20260903-pwrseq-kunit-v1-0-1f893d2cabc2@oss.qualcomm.com>
-In-Reply-To: <20260903-pwrseq-kunit-v1-0-1f893d2cabc2@oss.qualcomm.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Chen-Yu Tsai <wens@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        stable@vger.kernel.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=908;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=1h8UY7C7DRfSBJpx+Kqk2kMtTanSJ0uIlMXF2pMqnmI=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqmYQ8f67iDxjYYuF9u6KuV9DjWQ8r4SVQDMArr
- QvqpcuuORWJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCapmEPAAKCRAFnS7L/zaE
- wz1QD/48X4FfbNFqvDxZCWx2jhXOClH8pEnGIil8YRnF0id/RgcwhJyI2nRkXz1UWuq+tHyUUUJ
- nIZsbzcL4LptvIbWt20lI+Qwp1S/QqZVhjq5nIFYTop1lLX+tYrKZxCIOFyPObOMx8rEOV+BhG+
- cHL6R93C6o8c1VW84qHCvz5CLVBwsWDFhJi2cMBm2vqQmPcosm2ntjl3yDHwjNe5PiUmv9mPxUA
- bqY61zXsbS17XFMG+JnBxnoLMmg8TEW8q2O1IWoVcs1LpWViq59sc1UaR5l8BZ/cUTPTGMX6Tjv
- 2jVqqRaUYurrMpkbdX2U6+T0FM+q5oMzfOfc3tEQoub+GOusp/7U6DrmvjPC1wJSwnv3e9Rdtrt
- mhVn2EPAaayGyO3yHOIxHIcF6KEWyoXjDmtMWKpctHO+qC/23wEbMaSURvsqsThpD5s4qtTjuLu
- QdLT0WiuR9RmMwbwYP2GwxATeRKup8P9JJicTeOfOtM/nXx6dHS1nl8xM7JJNa3g5YiRZSdqFMn
- Kw8K3aWGuayYa3meYob3Nfx+CX2Yn6n9SQu4nnE2OwcGCgocLWVs2M5CM+qyn4YnWj7wpZOaoIz
- XeyYsJfbucjy0/l6i1V7//swCUnHokK7kUxJJKbB+wtaRLCl9wgRsd2yHYpbWwAYNhtE9kQwpE4
- Pu9efPOytK2abdw==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-ORIG-GUID: L2HnXZCxBM8-s82W8Fj23dQuEoQV_OaG
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEyNiBTYWx0ZWRfXwX4gnfhGdEWR
- tuUbrmynNlq2VIDG9NBKWwk915uDrP1NHZ0tzW1WnWzjoX+HTzdvX9c2+2W9Yo/4hIGPVYFPO13
- rNqgIMRZt/nondretcSM1N3zqg0fEM8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEyNiBTYWx0ZWRfX7ZfFmnTtFE1F
- eu9Ws6DJrH+L7vqh3TLy7QFPIfK3Y1lLjlzeC4iV0S57win45M2oDySMZvzUlyM6RAEcylYuyS+
- yClQK7NaFszaXcYyC3LIbq3flh2Gp5tCK2vqzx8Ul7wEd74Ifov1m+aeMGBXE/VxZrZtr4T7hkl
- sMEp8qxrMHsmfiE3GH/W9qDOOmXipLFGzV90ZHeB0Q/o6oj6s4h9GWupxyhrya//kkQ4fpO2ucf
- JPAnHYtnEr8pY2RLdSKAZslR9FiIZBpimz2ChlP8QijbFhQfe9As34RJeRSElnZKJok65bpGfW4
- BhOpX+eCimWJeg2x4n3aM8AtRodum/TFDKBM56OhMAX5Kzc/b7FjIDHIJTReGIXG21O+QKnCbU3
- JahU7a7NVNanecuTiSTvz0QYeAJSuZToRuYptANX1qm4o0pTHDEqM8CFypK++Owq4yuUCLoSw5g
- N0Pu/ghCKg3BOb9wgQw==
-X-Authority-Analysis: v=2.4 cv=NNTlPU6g c=1 sm=1 tr=0 ts=6a998444 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=Trbc2l1I1fXLbfWOQTAA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-GUID: L2HnXZCxBM8-s82W8Fj23dQuEoQV_OaG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_04,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 adultscore=0
- malwarescore=0 clxscore=1015 suspectscore=0 impostorscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609030126
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-If the call to pwrseq_unit_enable() failed in pwrseq_enable(), bail out
-instead of calling target->post_enable() which assumes the target was
-successfully enabled.
+LZ4 rolling decompression [1] was introduced to reduce the memory
+footprint of temporary pages:
 
-Fixes: 249ebf3f65f8 ("power: sequencing: implement the pwrseq core")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+ For many cases, it is needed for users to read small data within
+ a compressed extent (pcluster), either due to random small read, or
+ since uptodate folios (typically order-0) cannot be reused for
+ decompression again since decompression algorithm refills
+ already-uptodate folios.
+
+Rolling decompression works because LZ4 is LZ77-based and only refers
+to the most recent 64 KiB of decompressed data, so in theory only a
+bounded rolling window of temporary pages is needed when decompressing.
+
+It can save a lot of temporary memory, e.g.
+ 601,960-byte data can be compressed into a 256k LZ4 compressed extent,
+ which means it needs 146 extra pages per request in the worst case if
+ rolling decompression is disabled.
+
+However, the upstream LZ4 implementation is not under EROFS' control:
+For example, the literal copy memmove() may still **copy long literals
+backward** on x86 based on the address comparison even when the source
+and destination ranges do not overlap (IOWs, inline decompression
+doesn't need to be considered here). That breaks the rolling assumption
+and makes the optimization broken.
+
+Disable it for now to make sure the data correctness first since EROFS
+is used everywhere now: The rolling window approach can be revived once
+we either ensure that the official LZ4 code always copies forward for
+non-overlapping ranges or maintain our own LZ4 implementation in EROFS.
+
+The main impact is a higher runtime memory footprint; However, recent
+commit 0f6273ab4637 ("erofs: add a reserved buffer pool for lz4
+decompression") helps mitigate this when enabled but it's still not
+perfect.
+
+[1] https://www.usenix.org/conference/atc19/presentation/gao
+    § 3.3 Decompression
+
+Reported-by: "Walther, Jens-Uwe" <waltju@amazon.de>
+Closes: https://lore.kernel.org/r/BEZP281MB2102E57CD31862B8D958B33DD2AC2@BEZP281MB2102.DEUP281.PROD.OUTLOOK.COM
+Fixes: 8e6c8fa9f2e9 ("erofs: enable big pcluster feature")
+Cc: Yann Collet <yann.collet.73@gmail.com>
+Signed-off-by: Gao Xiang <xiang@kernel.org>
 ---
- drivers/power/sequencing/core.c | 2 ++
- 1 file changed, 2 insertions(+)
+ fs/erofs/decompressor.c | 55 +++++++++--------------------------------
+ fs/erofs/internal.h     |  6 +----
+ fs/erofs/zdata.c        | 18 +++-----------
+ 3 files changed, 16 insertions(+), 63 deletions(-)
 
-diff --git a/drivers/power/sequencing/core.c b/drivers/power/sequencing/core.c
-index 721e888b658d1f254513e126bb72f2d0487a8383..76c39600f690d9f19a21f4a89512ee24942e3b14 100644
---- a/drivers/power/sequencing/core.c
-+++ b/drivers/power/sequencing/core.c
-@@ -912,6 +912,8 @@ int pwrseq_enable(struct pwrseq_desc *desc)
- 		if (!ret)
- 			desc->powered_on = true;
- 	}
-+	if (ret)
-+		return ret;
+diff --git a/fs/erofs/decompressor.c b/fs/erofs/decompressor.c
+index 27caf4bebddc..d387b27c4ee2 100644
+--- a/fs/erofs/decompressor.c
++++ b/fs/erofs/decompressor.c
+@@ -7,8 +7,6 @@
+ #include "compress.h"
+ #include <linux/lz4.h>
  
- 	if (target->post_enable) {
- 		ret = target->post_enable(pwrseq);
-
+-#define LZ4_MAX_DISTANCE_PAGES	(DIV_ROUND_UP(LZ4_DISTANCE_MAX, PAGE_SIZE) + 1)
+-
+ static int z_erofs_load_lz4_config(struct super_block *sb,
+ 			    struct erofs_super_block *dsb, void *data, int size)
+ {
+@@ -21,8 +19,6 @@ static int z_erofs_load_lz4_config(struct super_block *sb,
+ 			erofs_err(sb, "invalid lz4 cfgs, size=%u", size);
+ 			return -EINVAL;
+ 		}
+-		distance = le16_to_cpu(lz4->max_distance);
+-
+ 		sbi->lz4.max_pclusterblks = le16_to_cpu(lz4->max_pclusterblks);
+ 		if (!sbi->lz4.max_pclusterblks) {
+ 			sbi->lz4.max_pclusterblks = 1;	/* reserved case */
+@@ -39,45 +35,25 @@ static int z_erofs_load_lz4_config(struct super_block *sb,
+ 		sbi->lz4.max_pclusterblks = 1;
+ 		sbi->available_compr_algs = 1 << Z_EROFS_COMPRESSION_LZ4;
+ 	}
+-
+-	sbi->lz4.max_distance_pages = distance ?
+-					DIV_ROUND_UP(distance, PAGE_SIZE) + 1 :
+-					LZ4_MAX_DISTANCE_PAGES;
+ 	return z_erofs_gbuf_growsize(sbi->lz4.max_pclusterblks);
+ }
+ 
+ /*
+- * Fill all gaps with bounce pages if it's a sparse page list. Also check if
+- * all physical pages are consecutive, which can be seen for moderate CR.
++ * Fill all gaps with bounce pages if it's a sparse page list (for example some
++ * folios are already uptodate and thus can be mapped into userspace). Also
++ * check if pages are physically consecutive, which can be seen for moderate CR.
+  */
+-static int z_erofs_lz4_prepare_dstpages(struct z_erofs_decompress_req *rq,
+-					struct page **pagepool)
++static int z_erofs_oneshot_prepare_dstpages(struct z_erofs_decompress_req *rq,
++					    struct page **pagepool)
+ {
+-	struct page *availables[LZ4_MAX_DISTANCE_PAGES] = { NULL };
+-	unsigned long bounced[DIV_ROUND_UP(LZ4_MAX_DISTANCE_PAGES,
+-					   BITS_PER_LONG)] = { 0 };
+-	unsigned int lz4_max_distance_pages =
+-				EROFS_SB(rq->sb)->lz4.max_distance_pages;
+ 	void *kaddr = NULL;
+-	unsigned int i, j, top;
++	unsigned int i;
+ 
+-	top = 0;
+-	for (i = j = 0; i < rq->outpages; ++i, ++j) {
+-		struct page *const page = rq->out[i];
+-		struct page *victim;
+-
+-		if (j >= lz4_max_distance_pages)
+-			j = 0;
+-
+-		/* 'valid' bounced can only be tested after a complete round */
+-		if (!rq->fillgaps && test_bit(j, bounced)) {
+-			DBG_BUGON(i < lz4_max_distance_pages);
+-			DBG_BUGON(top >= lz4_max_distance_pages);
+-			availables[top++] = rq->out[i - lz4_max_distance_pages];
+-		}
++	for (i = 0; i < rq->outpages; ++i) {
++		struct page *page, *victim;
+ 
++		page = rq->out[i];
+ 		if (page) {
+-			__clear_bit(j, bounced);
+ 			if (!PageHighMem(page)) {
+ 				if (!i) {
+ 					kaddr = page_address(page);
+@@ -89,21 +65,14 @@ static int z_erofs_lz4_prepare_dstpages(struct z_erofs_decompress_req *rq,
+ 					continue;
+ 				}
+ 			}
+-			kaddr = NULL;
+-			continue;
+-		}
+-		kaddr = NULL;
+-		__set_bit(j, bounced);
+-
+-		if (top) {
+-			victim = availables[--top];
+ 		} else {
+ 			victim = __erofs_allocpage(pagepool, rq->gfp, true);
+ 			if (!victim)
+ 				return -ENOMEM;
+ 			set_page_private(victim, Z_EROFS_SHORTLIVED_PAGE);
++			rq->out[i] = victim;
+ 		}
+-		rq->out[i] = victim;
++		kaddr = NULL;
+ 	}
+ 	return kaddr ? 1 : 0;
+ }
+@@ -266,7 +235,7 @@ static const char *z_erofs_lz4_decompress(struct z_erofs_decompress_req *rq,
+ 		dst_maptype = 0;
+ 	} else {
+ 		/* general decoding path which can be used for all cases */
+-		ret = z_erofs_lz4_prepare_dstpages(rq, pagepool);
++		ret = z_erofs_oneshot_prepare_dstpages(rq, pagepool);
+ 		if (ret < 0)
+ 			return ERR_PTR(ret);
+ 		if (ret > 0) {
+diff --git a/fs/erofs/internal.h b/fs/erofs/internal.h
+index 65974e57aebf..12e3a5b80a5a 100644
+--- a/fs/erofs/internal.h
++++ b/fs/erofs/internal.h
+@@ -71,12 +71,8 @@ struct erofs_dev_context {
+ 	bool flatdev;
+ };
+ 
+-/* all filesystem-wide lz4 configurations */
+ struct erofs_sb_lz4_info {
+-	/* # of pages needed for EROFS lz4 rolling decompression */
+-	u16 max_distance_pages;
+-	/* maximum possible blocks for pclusters in the filesystem */
+-	u16 max_pclusterblks;
++	u16 max_pclusterblks;	/* maximum physical blocks for LZ4 pclusters */
+ };
+ 
+ struct erofs_xattr_prefix_item {
+diff --git a/fs/erofs/zdata.c b/fs/erofs/zdata.c
+index e1e25ca0d190..6b07e73ee2aa 100644
+--- a/fs/erofs/zdata.c
++++ b/fs/erofs/zdata.c
+@@ -1259,7 +1259,7 @@ static int z_erofs_decompress_pcluster(struct z_erofs_backend *be, bool eio)
+ 	const struct z_erofs_decompressor *alg =
+ 				z_erofs_decomp[pcl->algorithmformat];
+ 	bool try_free = true;
+-	int i, j, jtop, err2, err = eio ? -EIO : 0;
++	int i, err2, err = eio ? -EIO : 0;
+ 	struct page *page;
+ 	bool overlapped;
+ 	const char *reason;
+@@ -1348,7 +1348,6 @@ static int z_erofs_decompress_pcluster(struct z_erofs_backend *be, bool eio)
+ 	    be->compressed_pages >= be->onstack_pages + Z_EROFS_ONSTACK_PAGES)
+ 		kvfree(be->compressed_pages);
+ 
+-	jtop = 0;
+ 	z_erofs_fill_other_copies(be, err);
+ 	for (i = 0; i < be->nr_pages; ++i) {
+ 		page = be->decompressed_pages[i];
+@@ -1356,22 +1355,11 @@ static int z_erofs_decompress_pcluster(struct z_erofs_backend *be, bool eio)
+ 			continue;
+ 
+ 		DBG_BUGON(z_erofs_page_is_invalidated(page));
+-		if (!z_erofs_is_shortlived_page(page)) {
++		if (!z_erofs_is_shortlived_page(page))
+ 			erofs_onlinefolio_end(page_folio(page), err, true);
+-			continue;
+-		}
+-		if (pcl->algorithmformat != Z_EROFS_COMPRESSION_LZ4) {
++		else
+ 			erofs_pagepool_add(be->pagepool, page);
+-			continue;
+-		}
+-		for (j = 0; j < jtop && be->decompressed_pages[j] != page; ++j)
+-			;
+-		if (j >= jtop)	/* this bounce page is newly detected */
+-			be->decompressed_pages[jtop++] = page;
+ 	}
+-	while (jtop)
+-		erofs_pagepool_add(be->pagepool,
+-				   be->decompressed_pages[--jtop]);
+ 	if (be->decompressed_pages != be->onstack_pages)
+ 		kvfree(be->decompressed_pages);
+ 
 -- 
 2.47.3
 
