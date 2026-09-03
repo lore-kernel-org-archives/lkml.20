@@ -1,172 +1,173 @@
-Received: from mta1.migadu.com (out-185.mta1.migadu.com [95.215.58.185])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7DEF1B808
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 01:27:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.185
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95126171B1;
+	Thu,  3 Sep 2026 01:28:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788398845; cv=none; b=M1JJif2nPh4tJFcE3CqYHMU03mjvunnVU7Jb7XMMcTKJT6R0IannJ0097cGfgDOkB7SC7GStI0iwXRXmnLK2zEa2wgLFHMc4J2T6oqGglPZMWr5vRbMhIpyjLXkYOLzqsUbvcvprU9CvmjkLK0jOujeZsT8FQprWn1yThczoq3I=
+	t=1788398888; cv=none; b=ViiAH3p7zugngozPiPXgpCtfdhgvmbi3k+bjzex+za4fqTtCYPzGae31qwDrEOFhFsjnOTx8x4R+O3SqHQxxY7EBsBGnw2lZUObMIgync2sGQIR+6PzKZrn6IVFTb/P50Vjvkoi1rYBaWsMoJjx/bIumvzXdpDgNuT0HcF1qnWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788398845; c=relaxed/simple;
-	bh=dk9sKkN5uRP0GrbLFA2P9o5pKt0fKi/knsyrlgEkpNI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HAHTh7ICvP4u+or3ioQfn8fAJI4bM1MpbAWEGHyfmVdXvlmmNnVdo2f7XqeVJLFjYFUeI78mAaVi5Cw8sVVd0FymmA16WJoeE8OchFEX0VZ+cy2n/IdTTBje/lV81DmouXE7nTadQ9OnnV/m65OlEVtzJ/lCmjBI3kpEhRrrm88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mRTfkmyK; arc=none smtp.client-ip=95.215.58.185
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788398888; c=relaxed/simple;
+	bh=mXl4nV02DIkoU9EW05M/ZICcMk38AfMVdgtQzrtmicY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OvesfdMzIrggFy8sGIMXe1WUcxEd55NcJEx8e8uQ8f0E87lbYUA3cY1+3hHMk5B76eVn4YDqduUc346x/q3EC3vg9KGDN16emJtv1aqPwo6aLw5Pxbx05vrm0Tr1LNYRP87gvZhXRnchnqAadzcTTKlhRBT3gvwbgv5PfCCYlx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=XaB1eERK; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mRTfkmyK"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=dk9sKkN5uRP0GrbLFA2P9o5pKt0fKi/knsyrlgEkpNI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788398840; v=1; x=1789003640;
- b=mRTfkmyK+n2fXNvwuewlN5f7xIVOEHqEFIpuM/W0GpCCTZjKeDQowKsfy61Z9h3w7qlA9unK
- ca5f5cmdtgIGeVpqhT3uVtxT1W1V2RZROraqt4WAa3yK3p+0yfrJqWxVGSjuasZUufN5sHdK6de
- EMzSnTth7STcGQpb+zvuyJJU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 4a836954cf0dfae8;
-	Thu, 03 Sep 2026 01:27:10 +0000
-X-Mizu-Trace-ID: 4a836954cf0dfae8
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 3 Sep 2026 09:27:01 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Barry Song <baohua@kernel.org>
-Cc: akpm@linux-foundation.org, linux-mm@kvack.org, axelrasmussen@google.com,
-	baolin.wang@linux.alibaba.com, chenridong@xiaomi.com,
-	david@kernel.org, hannes@cmpxchg.org, kasong@tencent.com,
-	lianux.mm@gmail.com, linux-kernel@vger.kernel.org, ljs@kernel.org,
-	lyugaofei@xiaomi.com, mhocko@kernel.org, qi.zheng@linux.dev,
-	shakeel.butt@linux.dev, stevensd@chromium.org,
-	wangzicheng@honor.com, weixugc@google.com, yuanchu@google.com
-Subject: Re: [PATCH v2 2/2] mm/mglru: make retry logic explicit in
- isolate_folios()
-Message-ID: <apjM5ZBOJrdGQM_g@fedora>
-References: <20260829074204.45304-1-baohua@kernel.org>
- <20260829074204.45304-3-baohua@kernel.org>
- <apfZQE1X6zGAsBb_@fedora>
- <CAGsJ_4z=A3EGajzL8F5H+0fwyzh3qqMNACEzo20J83m+T8bbZw@mail.gmail.com>
- <apf3ivSCu9kQfM9F@fedora>
- <CAGsJ_4zfDJ2+qG-NHQoSi=KOPdsfi3YHL63gZytDGUhW1HOpvQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="XaB1eERK"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682NVg7w1472100;
+	Thu, 3 Sep 2026 01:28:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=MOYDww
+	w5UbDPQDuCOnc4C6bpM7ArImYjmh7y2/UGN08=; b=XaB1eERKnLh7ISIZ60Q3VI
+	fd7NwdaGH4JrS0Oo+ScKXK3p7nj+BrRO6offp1AmFR8n6fMoK7OoD246eAOLSHPg
+	E4p7b3A1HAOnBJZ04fb0jghygOltEj4b5601SssELbfmlzK48Jv2Kpahc2jofwmx
+	cBSxaYCsZ5n9rqkx8IiHwFNXZ1daDroS5e5zkIELn1qwPVDcfLA/EifEmsvEjz0K
+	S/W2CvgGp5l0TFg8xcLOFWf2vd2EiQvEM+fgD4FwmT2IQOI8kQjJ8vG5aD/HMdrw
+	m3qc4nelfaEmwu2OW60ia2xkaL1trbVVUV+7cOS47TPPiFrZm7Nmx9fJR+1CBlqw
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq2thxx3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 01:27:59 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6831QHW3012383;
+	Thu, 3 Sep 2026 01:27:59 GMT
+Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcb8hncfx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 01:27:59 +0000 (GMT)
+Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com [10.241.53.105])
+	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6831RwUb7209622
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 3 Sep 2026 01:27:58 GMT
+Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 06D385805E;
+	Thu,  3 Sep 2026 01:27:58 +0000 (GMT)
+Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6BB6858055;
+	Thu,  3 Sep 2026 01:27:57 +0000 (GMT)
+Received: from [9.61.27.13] (unknown [9.61.27.13])
+	by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  3 Sep 2026 01:27:57 +0000 (GMT)
+Message-ID: <9873559a-59df-4f4c-b653-6930636096a6@linux.ibm.com>
+Date: Wed, 2 Sep 2026 18:27:56 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: scsi: ibmvfc: Add Kconfig dependency on NVME_FC to prevent link
+ failure
+To: Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
+        pavrampu <pavrampu@linux.ibm.com>
+Cc: linux-scsi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+        brking@linux.ibm.com, linux-kernel@vger.kernel.org,
+        davemarq@linux.ibm.com
+References: <327877a29337aa526cc50ac88fbddb86@linux.ibm.com>
+ <afd6fdc7-0fae-4fcf-b30a-a69294d26576@linux.ibm.com>
+Content-Language: en-US
+From: Tyrel Datwyler <tyreld@linux.ibm.com>
+In-Reply-To: <afd6fdc7-0fae-4fcf-b30a-a69294d26576@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGsJ_4zfDJ2+qG-NHQoSi=KOPdsfi3YHL63gZytDGUhW1HOpvQ@mail.gmail.com>
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=bc1bluPB c=1 sm=1 tr=0 ts=6a98cd1f cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
+ a=KZpsQks5LnckocmEDf0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDAwNyBTYWx0ZWRfX4W1QbXC2jI+E
+ QGXCBnyRyrSdRn7OLNmE1v/PkbReLkQvlNRoP+jdA+adMSHtZMXTUznPIltvPLtQZzMsKkGzwmK
+ +vC4Q3K5gIgF319T29lB10TFkTvorCk=
+X-Proofpoint-ORIG-GUID: rRVE2T7NeSMiPmS2OLRgAJ9Xs7Hfm7_w
+X-Proofpoint-GUID: rRVE2T7NeSMiPmS2OLRgAJ9Xs7Hfm7_w
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDAwNyBTYWx0ZWRfX/P/b5dkJmOol
+ YRmf4Fw0KOn4+snJxI9c5cO3JFTPyjel+HQKuHJcBQuVCR0XFSETn2PmMlqy2rZCjx6CvWH5iKV
+ r9UbE+BChG8l4CW9k/rOw9ygap4b2CUj0byN/eJx5/qF1T87WmMbzvvk5ECVqZZiNwm+XT+Y7B2
+ Z46FPQVB6z9ZBWUz65muB7WbiWJ47VFTQhI/gU90moKTIASTQuv4pRDQ6azf/6QsP/BijyhvkMc
+ s7LftFllxREayr0LFn4/dkro0OZ+mqlktib/HxWxgeqKkQjK4CEHfDaq58HwJJdkACfrnHmUnAe
+ MKg5/NUhqW9HB+Nfx9LCgPWdZcYPIX5f0xaYpK52g+UP5VIGzm/VTW59ae0FnR4V0KydZV097SI
+ 7l+tt8pBC62o2/cZqV+l7eMlBoht0aOzojns45kBJRoYjlHa5p+7deZI0TTrr8O+LJjnmMYvjWm
+ dT8PoGuuukm6ROBNhZA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_06,2026-09-02_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0 adultscore=0 malwarescore=0 spamscore=0
+ lowpriorityscore=0 phishscore=0 clxscore=1015 priorityscore=1501
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609030007
 
-On 09/03/26 at 06:08am, Barry Song wrote:
-> On Wed, Sep 2, 2026 at 6:17 PM Baoquan He <baoquan.he@linux.dev> wrote:
-> >
-> > On 09/02/26 at 05:20pm, Barry Song wrote:
-> > > On Wed, Sep 2, 2026 at 4:07 PM Baoquan He <baoquan.he@linux.dev> wrote:
-> > > >
-> [...]
-> >
-> > Hi Barry,
-> >
-> > Agreed on the one-line change for the (1, 200) case - I traced it and it
-> > now matches mainline exactly (no extra third scan). I personally prefer
-> > the for (attempt = 0... ) style because I feel that makes logic clearer,
-> > while everybody truly has different code taste, LOL, just a weak opinion.
-> >
-> > For 0/201: my concern is that on no-swap systems (swappiness 0 is
-> > file-only), the same-type retry when the first scan is busy may be a
-> > no-gain run if the file generation is dominated by protected/ineligible
-> > folios - the retry re-scans the same sort results. But if you see a case
-> > where the retry does isolate folios on the second pass for single-type
-> > reclaim, keeping it for consistency is defensible. Do you have such a
-> > case, or should we drop the retry for 0/201?
-> >
+On 9/2/26 1:40 AM, Venkat Rao Bagalkote wrote:
 > 
-> 201 only applies to proactive reclamation. I believe the retry helps
-> avoid having an outer loop. For 0, I ran a kernel build test on x86
-> with swap disabled:
+> On 02/09/26 1:55 pm, pavrampu wrote:
+>> Hi,
+>>
+>> I am seeing below build failure with latest linux-next repo.
+>>
+>> Description:
+>>
+>> Building the kernel with CONFIG_SCSI_IBMVFC=y and CONFIG_NVME_FC=m results in
+>> a link failure when building vmlinux:
+>>
+>> Build failure logs:
+>>
+>> ld: drivers/scsi/ibmvscsi/ibmvfc-nvme.o: in function
+>> `ibmvfc_nvme_register_remoteport':
+>> ibmvfc-nvme.c:488: undefined reference to `nvme_fc_register_remoteport'
+>> ld: drivers/scsi/ibmvscsi/ibmvfc-nvme.o: in function
+>> `ibmvfc_nvme_unregister_remoteport':
+>> ibmvfc-nvme.c:515: undefined reference to `nvme_fc_unregister_remoteport'
+>> ld: drivers/scsi/ibmvscsi/ibmvfc-nvme.o: in function `ibmvfc_nvme_register':
+>> ibmvfc-nvme.c:536: undefined reference to `nvme_fc_register_localport'
+>> ld: drivers/scsi/ibmvscsi/ibmvfc-nvme.o: in function `ibmvfc_nvme_unregister':
+>> ibmvfc-nvme.c:565: undefined reference to `nvme_fc_unregister_localport'
+>> ld: drivers/scsi/ibmvscsi/ibmvfc-nvme.o: in function `ibmvfc_nvme_unregister':
+>> ibmvfc-nvme.c:565: undefined reference to `nvme_fc_unregister_localport'
+>> ld: drivers/scsi/ibmvscsi/ibmvfc-core.c:6798: undefined reference to
+>> `nvme_fc_rescan_remoteport'
 > 
-> # free
->                total        used        free      shared  buff/cache   available
-> Mem:        23991248     1315020    20554564      331312     2121664    22099256
-> Swap:              0           0           0
 > 
-> #  time systemd-run --scope --unit=kernel-build -p MemoryMax=1500M
-> make ARCH=arm64 \
->         CROSS_COMPILE=aarch64-linux-gnu- vmlinux -j20 1>/dev/null 2>/dev/null
+> Below simple check in Kconfig fixes the build failure.
 > 
-> With the following patch for counting:
-> 
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index bf2786c7247d..e8d5603cd56e 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -4913,6 +4913,28 @@ static inline bool is_single_type_reclaim(int swappiness)
->                swappiness == SWAPPINESS_ANON_ONLY;
->  }
-> 
-> +#include <linux/proc_fs.h>
-> +
-> +static atomic64_t tried_isolated;
-> +static atomic64_t tried_not_isolated;
-> +static int reclaim_stats_show(struct seq_file *m, void *v)
-> +{
-> +       seq_printf(m, "tried_isolated: %lld\n",
-> +                  atomic64_read(&tried_isolated));
-> +       seq_printf(m, "tried_not_isolated: %lld\n",
-> +                  atomic64_read(&tried_not_isolated));
-> +
-> +       return 0;
-> +}
-> +       return 0;
-> +}
-> +static int __init reclaim_stats_init(void)
-> +{
-> +       proc_create_single("reclaim_stats", 0444, NULL,
-> +                          reclaim_stats_show);
-> +
-> +       return 0;
-> +}
-> +fs_initcall(reclaim_stats_init);
-> +
->  static int isolate_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
->                           struct scan_control *sc, int swappiness,
->                           struct list_head *list, int *isolated,
-> @@ -4928,6 +4950,13 @@ static int isolate_folios(unsigned long
-> nr_to_scan, struct lruvec *lruvec,
->         scanned = scan_folios(nr_to_scan, lruvec, sc,
->                               type, tier, list, isolated);
-> 
-> +       if (tried) {
-> +               if (*isolated)
-> +                       atomic64_inc(&tried_isolated);
-> +               else
-> +                       atomic64_inc(&tried_not_isolated);
-> +       }
-> +
->         total_scanned += scanned;
->         if (*isolated) {
->                 *isolate_type = type;
-> 
-> I got:
-> 
-> # cat /proc/reclaim_stats
-> tried_isolated: 12096
-> tried_not_isolated: 23061
-> 
-> So we see some cases where the retry gets isolated folios, while in
-> others we still encounter promoted or protected folios. But my gut
-> feeling is that even if we don't retry and instead go back to the outer
-> loop for another iteration, we'll still encounter those folios, since
-> they are still on the LRU. We would just reach those folios in a more
-> costly way.
+> If this is acceptable, then I will send a formal patch.
 
-Thanks, Barry. These number is very convincing. The retry for swappiness
-0 is worthy. Then the patchset feels like doing two things: refactoring
-the for() loop; improving the eviction for swappiness 0/201 by adding a
-retry and this also makes them be consistent with (1, 200). While the
-cover letter subject, patch 1 and patch 2 feels like it's not easy to
-match them to the corresponding part. Maybe merging them to one patch,
-or rearranging them? Just personal opinion.
+Yep, need to force ibmvfc to be a module when NVME_FC isn't builtin, or NVME_FC
+must be disabled.
+
+-Tyrel
+> 
+> # git diff
+> diff --git a/drivers/scsi/Kconfig b/drivers/scsi/Kconfig
+> index 4a2af0f702e1..6612d5d445e2 100644
+> --- a/drivers/scsi/Kconfig
+> +++ b/drivers/scsi/Kconfig
+> @@ -753,6 +753,7 @@ config SCSI_IBMVFC
+>         tristate "IBM Virtual FC support"
+>         depends on PPC_PSERIES && SCSI
+>         depends on SCSI_FC_ATTRS
+> +      depends on NVME_FC || NVME_FC=n
+>         help
+>           This is the IBM POWER Virtual FC Client
+> 
+> 
+> Regards,
+> 
+> Venkat.
+> 
+>>
+>> If you happen to fix this, please add below tag.
+>>
+>> Reported-by: Pavithra <pavrampu@linux.ibm.com>
+>>
+>> Thanks,
+>> Pavithra
+> 
 
