@@ -1,80 +1,85 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A835828C5B1
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:58:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADEE4375AC6
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:59:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788422294; cv=none; b=rYW3oyLRrFCqqEwVZGi2XSFWQ7PffbaLH9A3LnokeMGI6LhkSDdGJuoMzPAwpiZb6GRNs0w2BiN4vAcVTCZWUfHpRwWm9KapP5VBTeFf75d14IArIDspPJOJcQadYAStNquKiYLHmGb43MpqRhthhMqAIbf9VMCPNN2hLxppD7k=
+	t=1788422382; cv=none; b=Nj8uLjrfnZy2AStXlsmTaPXTC+Dx8A0TbFUhcyRAo7zr+mCKA61RJZgQFME0VlKHsXD7S120/ChUP6HavTki4K82/RNWGl1WuRqLqZbKHMGP+XztKKLYC8OeRkdC7ZmPvRjM6pgBPNDDRYyLbtTT+tyGf2CPmDmrOXCInE0EG4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788422294; c=relaxed/simple;
-	bh=T5cmr4AS4Mc5RSkaZ65eKN18E4FTywsUwCGNvI0ai1E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mPEQm03sib1qTdHvLpZk8Q7DyxnmUotFeyipst9y7EmtSP453t54sTZ88q5Nr32K5SpAOEEy20+NkXWBBeUanyltU7gmyxphetlq3pI+iN+tCM0Xw395EMsH1g6SvryBojJ67CQXaa5q8foR0aFT6mj1QSh/PLKBKeAoUYMgCM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GVS1dfXR; arc=none smtp.client-ip=209.85.216.50
+	s=arc-20240116; t=1788422382; c=relaxed/simple;
+	bh=gyV9BSPjMnPGkLtAXxZ0BHhZYYFuPfmyciIi8M78Li4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uJRuKq25E7rFR1hx3ezaO9KARf/yBDLXz7QMGX0TpD/29t20Js+nXlOnYqs/rgO5KHwXXnfBEMg6PAhMusXW5/z+KxxhsLE59+wU0FiQxv7m7Xatck4CCgzKnawUV8MInnLKbT0EgQNtKl04k8QM55lRNNrIE3qMR++aEXH3UXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CzPV10l+; arc=none smtp.client-ip=209.85.221.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GVS1dfXR"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-398c1101c1bso2386953a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:58:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CzPV10l+"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48584dc164fso1137f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:59:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788422292; x=1789027092; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Yd20SNdmG7z7W+LdlhedLQwdQEcbKDOr02wLEKBgbwk=;
-        b=GVS1dfXRcuszcELA8fxCtlcReDBmnL03gtolFUmcvcSj7sp+b3UgMc/cg7fFeMpNTC
-         slzYwnWohlUjIoaCDkwPzTcX6gFH0EdXqV463t5nTO3Jzt8MgTVxe9Jmll41SRvqgUuQ
-         OmjyaZlCEotXoDJ2Go1Fsh3avUJzjnK1yaA/NWS6JL2Mt0KBJ45nH7dnlZov4bsKDCNJ
-         nZxrYNP81aFBKdwu+plSj/zZfbIlTpYxMBzEiOciRFgfwvO6x3l8Cz359fW5SRqKx3P9
-         L5QhPvoz/3crzO8XYGkYHX5/umiZjrQPv3nWz7ZcN1p5utprmKvl/Ek4D2jCbRggOq9J
-         shUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788422292; x=1789027092;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788422379; x=1789027179; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Yd20SNdmG7z7W+LdlhedLQwdQEcbKDOr02wLEKBgbwk=;
-        b=BAmcHfZsmD3RPxokWkjTZBKt9vpxXd4g6I5hrihttH/JEQvk8n8To63OPv17oSVOeP
-         8tqD8/EtO4MZYlARrRwY0WnF7VstxIz4e69qXAFu7Q5VJyXfZTIBZeX0JYSqElJyPlt+
-         e8xw2gHA0lScEcvKVI3ORRWhgBex+cZOIJAF65i3A41sp3RmXa7o9bGxQpCsq85Hc8Hv
-         D/CzA0U4LKjGVzOcaswaN0aak+IywAtPCdt/MaLTZo1n60pDfZPwxW6mI+i+zKa6k/cq
-         Y2d+8Kyq8tGcTSMU1CCCUwkh3WZNiFG2WeDNtFr1ouX1iBU2jf6ECXhAtFPxOe+axYr2
-         I32A==
-X-Forwarded-Encrypted: i=1; AKwUvBx6Okvo1u18f+lzucQJcYPeNbOLBz0XBv21pg4I7PMicivLAJHIMfB6RkHgC37xtiuI3gG9ypD98MPSD88=@vger.kernel.org
-X-Gm-Message-State: AFuF++mlNHabOhDvn+acA2Lb/n9qtRhNOyhrlgQE5nGwbVLytHJdLkJf
-	JlVTCk3QvMP+bUu4Drkw7dRYr61Xk4GNFORV+5LBgOfNQgCKxPtqRoRxKKa8tQ==
-X-Gm-Gg: AYBFou21X/KDPse6o6FpJS31j8nKGGjc4Fp27aZy8u/H/SevJs7O+9s6JXoQZJ/5v2+
-	C5A5ks4X6OtXNGQY6yWjDks8zroBDzu16XQu4YKWWrAoZbN/zCUiP2oRtDxAAgHRDdFksSNspZu
-	4MdXG7C2NSK+INJLwzgV5Qeg7NW9FwZ3knHOtE3tswG9I/M5Y0sD7lBntFttWPQ3cb2H6o88TQS
-	KhZTdjlvV7y7HhUlwYQdGUcI+om37lh/Q4YarDJ2M67Me22xrOsX9ccBUjBru+Luo4ahxK82pXD
-	NeHaeu8ZeE+C+gyVW265exKR/bDL+yHYRtVdZLei6in0kog4weRFSRFcKUSosnqiyizo2Cm9voI
-	tW1+ill9lTxoyhBoH9OdQ38QATJozTtL7k3QSMAk8bI5brIv1lNvBLxsmoGiB5XzNhkRE2eROfw
-	+VTuo5avjsQ7TfX0YoQ3ykOfKRzBHKtCOJ8JpHx7DFOfmwjIW6S7P4iFtQRgefSLOx+PIjr8GeC
-	ewcw+ub2QEubh5L6c2TfYNFgqsDZV57w27OAMk9+LJIKC7iajCFixGmeh9alofIPIYcDUoD0eOX
-	Kv3u
-X-Received: by 2002:a17:90b:3909:b0:398:9c0c:7c72 with SMTP id 98e67ed59e1d1-39aee204517mr13918913a91.25.1788422291920;
-        Thu, 03 Sep 2026 00:58:11 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08d0d845sm3826300a91.17.2026.09.03.00.58.08
+        bh=gyV9BSPjMnPGkLtAXxZ0BHhZYYFuPfmyciIi8M78Li4=;
+        b=CzPV10l+p2sjcseqG5+rISj6wSfljw507YRrEiZIX/nHDmQGSB3WF5XaKAVlCemYmI
+         VEM3/fTF/D6cvRSVKztO+1bnVuq6uZb/j2bm32d7iqF491GbVniXyBuJTXp1Y4wlD9xa
+         iE6HGU225t4pgBGNO6eFtEt0Im4ddnvD81bSSE9B9D9R3TDqCQVVVEfI3XUK7fAXyYVy
+         2kVGbzDEUdWye3zPwoaBMdqCEZBem+ukv2wBcqWX+lGuQfigWfkDfOViIMKFflNjMld4
+         Ur9TaNVtQcl8cTH9Yg/5iKUZ2+xfyNcWxm/q/9D0B6UEpW6eQSXrmkfgIFCAa8SXnTIc
+         b4bA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788422379; x=1789027179;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gyV9BSPjMnPGkLtAXxZ0BHhZYYFuPfmyciIi8M78Li4=;
+        b=VPBb4hrGN1zwxkPzr9A7IuGMAe+VD7L9DuS2LQbXtdpTXzvkvV8BaYFLSfgU7fz94n
+         5jCkejEtGiCOvTRutWiz7Iqkolu3pq8XXPHAEGR9tKdw3wG0+5J8q+VRfPldSB9xTg3r
+         AYRcRZyVp1w9aOfwOPGYcheUfEp3PY6ihqVeExe1+ByKsmzppwkD5G5aLffdf4Zqsult
+         XZRjMt7W0X/Ouhyn8KqaBQpcSVkV4DvxMw+cpSKthN+NJuslnVVuNxRTsOV0vAbtwkRP
+         k4a44OTkCvXThhcVhU7l9gXNVwL0cHagFbLUolmLdWZ5FgjVdtVkY9HJL+1QIYqnqTqL
+         CuZA==
+X-Forwarded-Encrypted: i=1; AKwUvBxZV7tia2HbGJo/geKtBbVXxMQAGxG8sws0Uohgj1nWGNT5sShuNoyzjTg6WxUSdxaEMR4ENLRQsuyMDf0=@vger.kernel.org
+X-Gm-Message-State: AFuF++ljA13gbFf30OO7m5dMkSRMY6uOfGTNxbJCcGSYTLYkqgoo49zt
+	Zw9HghbomHQfz50Hxp1Luj4goVq2b4Fi5fdqi+KPgRddKAEs4R4bWUo5
+X-Gm-Gg: AYBFou2CzfGuPAErol0rs9Ub2aYeKEvC2UKe98rsOBwQtssgojvdm6pC63eJBWFb1/0
+	3XzUwnDJGj1g1VvpYItI1bz4THIgfy+5wmJRX/3H/lAVVypo5nI5hPbKYCPd3cj79qGy3CkeET4
+	2DdY8jZJtwpwnMQmckj75nELIBt7uxfqqXTXfCL8zgNY5MlPCHDaqW/Wk/kSrJ3OmCkW9sw/pHw
+	+YjVOWzUeqANS9eMOzFr7qSSJ7GVWnXaXKP8esHdbk92LG5ha94koJKTq/OFix2G0v5Q93IW+8X
+	qeMjPRpNdM0v8X7HIEXr8IKpTDbetpwSsJfgKgvxMUd+XPDFfXouLqCgyoPh9gVPVnBIb0Gh5Uf
+	uMD1diSOlvsHlh+OGPXJt+Fm8Gx0rk1n3xOxY98w7GBglZ66rezw/YAc15FxrFr01YPhAhv23k/
+	oxoXpf3+6GYMkmlrZBMWqTyqkvYROx7rDpinzDHFu5nl7LNJDYsEC5wTEVrf6sxguoC8DtvvYWD
+	vzbhXc=
+X-Received: by 2002:adf:e18e:0:b0:47f:e721:1f77 with SMTP id ffacd0b85a97d-48488f0f80dmr20736014f8f.13.1788422378643;
+        Thu, 03 Sep 2026 00:59:38 -0700 (PDT)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e72c28sm12914843f8f.6.2026.09.03.00.59.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 00:58:11 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Marcin Wojtas <marcin.s.wojtas@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Thomas Petazzoni <thomas.petazzoni@free-electrons.com>,
+        Thu, 03 Sep 2026 00:59:37 -0700 (PDT)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>
+Cc: Dong Aisheng <aisheng.dong@nxp.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Jacky Bai <ping.bai@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	imx@lists.linux.dev,
+	linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH net-next v2] net: mvpp2: simplify IRQ validity check
-Date: Thu,  3 Sep 2026 14:57:53 +0700
-Message-ID: <20260903075753.346647-1-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Mehmet Fide <mehmet.fide@screeningeagle.com>,
+	sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/3] pinctrl: imx: answer OUTPUT_ENABLE/INPUT_ENABLE queries from the pad register
+Date: Thu,  3 Sep 2026 09:59:34 +0200
+Message-ID: <20260903075936.2089280-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260903074348.8F2DF1F000E9@smtp.kernel.org>
+References: <20260903073143.2068494-2-mehmet.fide@gmail.com> <20260903074348.8F2DF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,42 +88,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-irq_of_parse_and_map() returns 0 when parsing or mapping an IRQ fails.
-The current condition also checks for negative values, even though
-irq_of_parse_and_map() does not return negative error codes.
+> [Severity: Critical]
+> This is a pre-existing issue, but can an unvalidated pin_id derived from the
+> device tree cause an out-of-bounds access on ipctl->pin_regs here?
 
-Check only for a zero return value to match the semantics of
-irq_of_parse_and_map().
+Same finding as on v2 and v3, same answer: yes, the parser trusts the
+fsl,pins value, this series does not touch it, and I will send a
+separate bounds check for imx_pinctrl_parse_pin_mmio() and
+imx_pinctrl_parse_pin_scu() once this series is in.
 
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
-
-Link v1: 
-https://lore.kernel.org/all/20260824100758.31622-1-phucduc.bui@gmail.com/
-
-Changes in v2:
- - Drop the Fixes tag and rework the commit message to describe this
-   as a cleanup.
- - Add net-next to the --subject-prefix.
-
- drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-index ccc24a1301f2..1c50174c9f1e 100644
---- a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-+++ b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-@@ -5874,7 +5874,7 @@ static int mvpp2_simple_queue_vectors_init(struct mvpp2_port *port,
- 	v->sw_thread_mask = *cpumask_bits(cpu_online_mask);
- 	v->port = port;
- 	v->irq = irq_of_parse_and_map(port_node, 0);
--	if (v->irq <= 0)
-+	if (!v->irq)
- 		return -EINVAL;
- 	netif_napi_add(port->dev, &v->napi, mvpp2_poll);
- 
--- 
-2.43.0
-
+Mehmet
