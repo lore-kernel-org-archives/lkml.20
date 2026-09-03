@@ -1,246 +1,265 @@
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from YQZPR01CU011.outbound.protection.outlook.com (mail-canadaeastazon11020083.outbound.protection.outlook.com [52.101.191.83])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEC203CF21E
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 19:09:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788462554; cv=none; b=bbTNliyPuUYjCNyodIdMeAEfXXEEMLtPee5jqdMqdd3GJUJkh+f1F2T7OTqDnor0oUt1w1OX/rYwNb/wOUPmhWbgX9Z7MdzI24Ml4jYrfJW524wn8uFdX2adFZFw8mSp/EMTVZy7rMZmAdeE/OI/ORSAsU6Bl5lVDoU8JYKqQSg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788462554; c=relaxed/simple;
-	bh=zohLUEHoUGucyIqh2JCSr6NzM/L90VLWTpNmRSm/PsI=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=dQUDfxxRGA2Ujp9qwq3ReH/QUeWteVYv9Nz1a7kixB/qpuv1JmTfWXm9bRSES/xer2LlUCnv4Y7nZix5PADRDtzcbIqYb8g3+t2TKY5dmNeZRMJOZ72PR3k0qy+sAysbPWRU0/sEeT95wdBnhjvwHWpyIafJk4KzJm7YzN42FY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ofibgSda; arc=none smtp.client-ip=209.85.128.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C8D3DEFF1
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 19:09:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.191.83
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788462564; cv=fail; b=E83wxSyWUHCVmfKdfHvSbAnXInFQBqYceQuuIifm98cLWbhhGJakXxzMyV242uUrDXkgLdcbQEStG9DXpImDnFXnBcw4zOMSK5XY4q8I3a7zb7nOW6VrlqzuKzm5w2berZGkX4K0puYdb3y+5QkE0sPlQucBbMzB1KOnXqZopkY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788462564; c=relaxed/simple;
+	bh=rHMEBPfKkZcAzidTOvZ3Fu/IIRpmY2JOwekCP2b+dKE=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=VvQm8NI0cvYkb6OOZM2Heua/2paChhZ9aN2eFxVKGMY3NLNz7G43yTFeEe4eB+xy1dAO67XCV4feccl1SvX0zNH3W/9DlBzDlbP33NUrv1jXnQpL35k/cBBdzcsCsIlAXCvPgKsHUU7TpbimHEQh33F52zniJ7RBzO+500CDPSI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=jpv72Dgw; arc=fail smtp.client-ip=52.101.191.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ofibgSda"
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-86162c086f8so2648127b3.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 12:09:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788462543; x=1789067343; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B0jjBKM/T0lxzBL1G/oFuXqJ/xjVo9f/c2XBOtxdJVs=;
-        b=ofibgSdaJwnFgZeNiEwciUuhLlr9Fs7OmYZBi5ay3ML37iA0pO/SL9WGsipJwDbXW+
-         RbtQ0AcaLfXPjPGttww3mXWPhtTrzoiZ3WLgmOC2zL9+v3044orn5T6gk3a/asd0yZLA
-         mAZIXOct4AmPt7wd5yajmvX3cJwOrSFBh7LlBtoVE2a0wHT/kCgIj+aHnAH+QSSrvJuH
-         bAj0+tSYniTJ/4x28jIMjdu1U7bYQ3m4zC7mk6wawObwfAs4KfV+LRLApq1oMi7HepwJ
-         Kjx9LnVe4t5uLNqhwH65otVXAFCEPfv0H6EqWxIvZuyoRX9e5OLKpCwI9lvf0W1XuldM
-         egdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788462543; x=1789067343;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B0jjBKM/T0lxzBL1G/oFuXqJ/xjVo9f/c2XBOtxdJVs=;
-        b=qtgRYs/NRAgJNe7QRGrC3QxJmGCFTZbennms4MCKUnduNFopL6GUVGm7gvhJixdwPd
-         PKYVlC4Zp3q5odvqSFSkD4w782UZrxTst+Aj8KcAkUI3HMIQyLCoP7vNj1ywmbZw9lq0
-         kGf75ozkcncX1DR+8VHAZd5xBBa2pesNJZHrW+iG6ac7VVOJE8RhaX4A4rgHT+3SWZ0F
-         9FZp+raKqF6UlHCKbFXajadSTpUHFrb861YWmfyfZn3tLPg05aBSs4KZUbxxNOW/bnDc
-         wO4UXgfft75Sz4ZSr3WYyGT7Rpxgpq/VUFB+cowlRrtWioR5+kVrFBkx071699UZftlm
-         nJQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz6+ABRbmNeTLVI32sO8oDLH9/7zmKPwF+bEUwP0m/+msuruX+uzLAs++hd0nKhdXtImWz/0ngsyHGDGJ8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lBpRgpG5+FsuvUAyMx2OAbbrSNY8SwHnuqjSPhZWAkZaMWrQNQ
-	8jE6N7cn6Vs3BUlZvxRxsDV+ryMKuGIv20XqpR6S8jhDjR/NLN8l2hCi9BCvxTJgLA==
-X-Gm-Gg: AYBFou3zmLPt6LkHXBFX1aCSEd2tfQCUc+YuGhM6sAlfci2NoQWY/7ovZGLKh+yz0E7
-	DoCKJm16str4iM98hy8YUKV5EK9qn4t68QlihRUnt8QEvFpYAlsZ2dPNpoc0oKcIoTFn54smwr5
-	ahYF5DUvK38N6u3shNZdOBrp3ZAL0fhoUivXmpuUI0yLNetfg62fS2bDyZZGCv6/RUFfEbvyJWL
-	vseddTjEkGcAr/nUBBGGHC1T9BpZW/lrlIqr5ptGNE77uQ3S37SQxeHXJAHD7TYiv0fdRP5iB4h
-	R4l4s7bLNXFfKGN4qUWHRpmvlubxvj87uv1vNJP5qpzJ7yPm9D7VqTkC/YjbjDif6J8LU2fOxEz
-	9VHzO0NoCusRh8Vi+JsX0DSyMqZDlIA05x/O28MkibiGLH7acsMsjgXMlv+gv6f8C7SdGgFAak5
-	eEMV3ZbcDc8Sqxe1hYZaPHSLUnrgWyWFhOMbuyTXwsrJEcvOEY0MbbIPmbxhJjN2LhpLXINsmpl
-	xxNm4IB2BiIrW+KZPJiL7iGX8WPDxvj/DcUiedYMthY2j60
-X-Received: by 2002:a05:690c:e257:10b0:80e:c332:1796 with SMTP id 00721157ae682-86e7081d3ecmr33938977b3.10.1788462542453;
-        Thu, 03 Sep 2026 12:09:02 -0700 (PDT)
-Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714af5581bsm2146627b3.36.2026.09.03.12.08.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 12:09:01 -0700 (PDT)
-Date: Thu, 3 Sep 2026 12:08:46 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-To: Kiryl Shutsemau <kas@kernel.org>
-cc: Hugh Dickins <hughd@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
-    Ackerley Tng <ackerleytng@google.com>, 
-    Alexander Viro <viro@zeniv.linux.org.uk>, 
-    Baolin Wang <baolin.wang@linux.alibaba.com>, 
-    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
-    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
-    Christoph Lameter <cl@gentwo.org>, 
-    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
-    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
-    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
-    Lance Yang <lance.yang@linux.dev>, Leonardo Bras <leobras.c@gmail.com>, 
-    Lorenzo Stoakes <ljs@kernel.org>, Marcelo Tosatti <mtosatti@redhat.com>, 
-    Matthew Wilcox <willy@infradead.org>, 
-    Mel Gorman <mgorman@techsingularity.net>, 
-    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
-    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
-    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
-    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-    Shakeel Butt <shakeel.butt@linux.dev>, 
-    Suren Baghdasaryan <surenb@google.com>, 
-    Vlastimil Babka <vbabka@kernel.org>, 
-    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
-    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
-    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 07/25] mm/fbatch: LRU_NEXT_ACTIVATE bit to optimize
- folio_activate()
-In-Reply-To: <aplHq9bvNdyPGEw-@thinkstation>
-Message-ID: <e2098d3b-722a-50aa-3b01-ec012f05c1e5@google.com>
-References: <14a16945-529b-8bc0-ab38-3ea97e54e223@google.com> <16b39f43-d91e-7b23-900e-90cec13837ff@google.com> <apAllneItXmyjRPo@thinkstation> <7b30ca86-dca6-83b7-a632-180e35ed2a0c@google.com> <apThx6sWOQ-aZcN7@thinkstation> <821cced3-dcc8-6c80-a92c-c568c2639e5a@google.com>
- <aplHq9bvNdyPGEw-@thinkstation>
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="jpv72Dgw"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ykgRI6N2lexFvWdWcyP7hYs2KWS/34LwrDBqJVqqgMswdo12G9Xnl6qQI2SUK+yxVEb5L2Q4AxVFIspRe+O4zveREVGFYN55SgbkvhOTrym7MizkM/nur4EZJBwy9wIWwEeZ+0vYXHdsBpW683jJ1U2shxS7qmNIq/gEODb8bgS7BpI+hIrVM42zwGc8CQlvuu9fEcWfDkhoL1CA+jouFPx4SYa8BUXBn9IWee44vwAmfrlhvT8i81dgtz4X1PjECZfXkZ3c+h3/ldIYpd4MTIwwH83qALn168u0aDq5f4wqeOhLMNs2+2ctDuGR82wl38/ps92vjB6RcQprwhVU8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GEaROtKaj6cYzMR5bJdk/qt3k9+Sf2aPtlj6c9+aNbs=;
+ b=PKisFfSYLiH5uG09zpkA9K5QLvBVSAo8NLQ3v/MS+XxAaimAe0+zRoMxula9CckpJ6cPAASA/mEA27+uBYRRZTTvy1GrmNAvg7RP8L3/PnVkbQ2NoMa+qNZb5atmgg2wxoF1XWtjf/1NtJ5zqy1zLmdgCMMxfOPHWjuWh1/qZ2ShaVFA3U1N/9LZOgTKxSpjOAF3NvW7teH1MRzIeLre7tqt4wiyG0Hcw8hW7DEpy+saZRD677q7QQGloMDgUXCwj+qsNcyqIoVxC1yZa8i/lOlo/ZqPtDdXeZHUN6erXuVtBXgQlrqLcXChhV2IttkFsGsvj/MBCbrfzKvoVXJKxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GEaROtKaj6cYzMR5bJdk/qt3k9+Sf2aPtlj6c9+aNbs=;
+ b=jpv72DgwgiPef/Y/5Qt3oArlBCfUNRFJkZn2Vfhmnt2pDW8rLGD7R0T9o9iV47b2NvRaiSqdBqGxR/bfZ11f1+xPcGmVMjMMAWIfBqr+yfmvnoxzAM1VaMj36TbYt4Cgn4HPo9wHXzVCT8tvjMJ4Pw+84ebNGnMnsfPZkt/NtcO3H9249uAuzxjnXbXV7RVJc3tWQUmO/UyxRiYUclxjSenKmept3uvMwVv02PhXOAzPIRrAoVSXYPbFWGRz0tIfjIV1nb8yjQDNaEMqIqvn3u9fVHGTzlEOiA9uD5IyJi8Gqisje9YtM63cYthwtXHYi1Il6Nh1wa3ka1XNMKogqw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by YT5PR01MB237853.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1b8::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 19:09:11 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 19:09:11 +0000
+Message-ID: <e5c2f04c-64ac-4a5d-8e62-2e7ce0083fe9@efficios.com>
+Date: Thu, 3 Sep 2026 15:09:09 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v21 0/6] Hierarchical Percpu Counters for RSS
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
+ "Paul E. McKenney" <paulmck@kernel.org>, Steven Rostedt
+ <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Christoph Lameter <cl@linux.com>, Martin Liu <liumartin@google.com>,
+ David Rientjes <rientjes@google.com>, christian.koenig@amd.com,
+ SeongJae Park <sj@kernel.org>, Michal Hocko <mhocko@suse.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Sweet Tea Dorminy <sweettea-kernel@dorminy.me>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Vlastimil Babka <vbabka@kernel.org>, Christian Brauner <brauner@kernel.org>,
+ Wei Yang <richard.weiyang@gmail.com>, David Hildenbrand <david@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, Al Viro <viro@zeniv.linux.org.uk>,
+ Yu Zhao <yuzhao@google.com>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Mateusz Guzik <mjguzik@gmail.com>, Matthew Wilcox <willy@infradead.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Aboorva Devarajan <aboorvad@linux.ibm.com>,
+ David Carlier <devnexen@gmail.com>, Josh Law <objecting@objecting.org>,
+ linux-mm@kvack.org
+References: <20260901182857.26690-1-mathieu.desnoyers@efficios.com>
+ <apmrfy5zsjmWMNj4@linux.dev>
+Content-Language: en-US
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+In-Reply-To: <apmrfy5zsjmWMNj4@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0246.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:66::27) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YT5PR01MB237853:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4f80b2b4-1e75-4976-c8dc-08df09eed63e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|6133799003|22082099003|18002099003|56012099006|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	MKMn0jK9r6TIJkGedtNEbE3KlqocwugEVGdY4bYNPyuwYOcIImtISQbWLciljfwQjVHv2xSw3ZEixt8GzASlcdk3YylHrrTSuQJTjXxx+4aI2D4a7uOXeGPy3I2xvKmREV5ZFKEwb61khLsJqt7J9GRJlVDrSJsf8r33Y8AGnZ3bdy0OXunGB4st33qH8zyoDFnacgc3IWY1I6LT9yzfpeZz6csmbBdEVOaRuBHY5qj9dFbU7ZPsxKRZ0DpXWgLE1OtkhZhWC77r/BzpA5fLhFDIbnyXxNwBti63MuF7BiDpdXLTwcszgsEnTXkvV1/C8bn+eeiTq2ioiUtTscva/o8FXLBi6o8F5CFiRbbo0PWOx9dQjmnWW53kdpczLZaWGhgC1ADzsOeWS0nIzKk6Jte6WU4n01uNli/kQy/N8AEDABsCeYnR8EHpP4/TAlr6txG6Fd/vFXe93Qs33+TI8evwk5r9Z7WmL6P1xnYfKgQjZom3CcBudTtTEOKh2j1KP7It38JqR34oj7uU+Gv85jfNxU5tTVoB6mVnUzhXzU435LQjgGz7DdJuGhy7JaZhnYJQjR4/SW0FeGvSU4RVf/0JXjlLGnkiKATqq3NNXoc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(6133799003)(22082099003)(18002099003)(56012099006)(10067099003)(4143699003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eEFPUjJpOS9COTgzcHBOY1Z0eTF0b2NXL3pRNWM0WEJ5V2F4LzZ5ZnZ1M2ZX?=
+ =?utf-8?B?UThScEpPQ2VndjQyWU41Q1ZObXppbDFLSmN1SnZJdkxkUXhnOUZHT2dUYmRp?=
+ =?utf-8?B?ekVuL3NsNzNBQ05hWEpLaDlKTk45NS9vcVlpclBNSWlmU0pWdjNuMTYzVFR5?=
+ =?utf-8?B?WmlBYTcxMStxSGZ1anR4eGxzYkNXRVdZMWxXU0xNb2EvbGgyZEVPSTVHblMy?=
+ =?utf-8?B?SVE1NUJwMlRVV0pNdW56R0xVOVprL05Ld1BHK0JSZ0pnRWRSUTZCRC9IZEFU?=
+ =?utf-8?B?WnQ1ajBDNmc3Ym1yRzBWWlI4Z3VNUld5UURrNWk0MWdIY3ZwWjFkSk56ZndG?=
+ =?utf-8?B?azh4TnhwaXhLKzRBU1hCU0dyQ1h1Q0VBWXpNa2ZOSS9Ka3pYbWMzOGpUNURZ?=
+ =?utf-8?B?MFVJOE5vUHdLS1FVV2ZqeEVjNFhTdlkwbVBhaEhnMnd2USswdjRnTmt0MXFk?=
+ =?utf-8?B?NEZ6ZFNmQ200V2ZSdEE0UjVzU3pLL3BmZHpCUEJLT2d2Y2l5OFY3UEE1R0FX?=
+ =?utf-8?B?QmNocU43VlIvOFZtZlBNT1ZScWdtN2V0a3pMM0pLYWRyK1B5NDJ0cnN5WkxF?=
+ =?utf-8?B?clU1bU5KNDBZOWl3ZGF4anZLaEVvZ3VUTksrM01KQUU5R3hXRzdlVkNhanMx?=
+ =?utf-8?B?cmdKWXNyUkVFTlhZbDYzUUlkVkQvZ1krVGFteU14OTc1a2s1NGlLNElRblFR?=
+ =?utf-8?B?OWgyejYrNDFoSnNUWXp0UXVOeHRrY1M3UEszNUxsVU4wNU14ZXRlNUt5OUhk?=
+ =?utf-8?B?VElRQ1FzREpsTVBpUEhlY2NXNXVYQmdVREl0WHh1S0lXQlVxQ0ZmTFUvZmFo?=
+ =?utf-8?B?dzhWdG1KU2w0aFFXVlRJbHh5Vm0rNVJvV0hDSHFPeGpRcFd1VUpIT2J3eDR6?=
+ =?utf-8?B?eEViTjBZSFBjNE4zbENjV3pqSmZyRHl2V1U4dTUwRFptYzhXdVZxbDVqVFNV?=
+ =?utf-8?B?ZkhESEhURUZkSVVXSWlUSGNXL2JrUFYxMUpIcXJIZ2ptUFFTOG1DQ0dlRmZh?=
+ =?utf-8?B?L09hR2hocUZaZWYrNkhBZ2x3c1MwYXBJVDhUcXllaVhIUTFjV3M5VW9kVXBt?=
+ =?utf-8?B?dm5FRGk3NW03REYvWlBMMkpvS09kUThRNVBxcGZqU3pMdjNpSEI3bFBNc3My?=
+ =?utf-8?B?TlI4KzFaRVZjTjRDWFZmUEl6TW9rZlFlVVZtSjZpVGs4eGFhZ0o5Q2s1WEs2?=
+ =?utf-8?B?b01JRjlTOWc0azRKa0FCQzltb01sbjlCNUhPWjFRQVIvK24wRGpGNjl1M1Y2?=
+ =?utf-8?B?Snd6NFpWRWJLKytGRWN3NjdxMVpOZFd2L20wVmVJSHZEc2hHeWxEK0p1NHB5?=
+ =?utf-8?B?M3JKMWZMUkVLRGl2ajV4ems4RGJ3cWxWK0ZhU2ZmRHdMT1lwdldyUlZ1N0tt?=
+ =?utf-8?B?YUw1TVhOejZ2MVkralNKcnYzZTRDeDVJT2sxdjJuREtGN0JGTENMUFpxTkd0?=
+ =?utf-8?B?RHhqNnlaMlIwVnNoUHNlNmRkOXk4dFRDMjg4R3lmTkRFVHFBUGgxZDlpSzJ4?=
+ =?utf-8?B?WHhuOXd1SXJjREdNY2tYbXhaMkNxbFVrUzE0Ly9vWGFGS0hXbEhodG4va3NL?=
+ =?utf-8?B?N24zcEE3eEtqVVNEQ3NmdGx5WCtMOWRvVmVjTS9JSmFFR3FHOEdjVVBYbXlF?=
+ =?utf-8?B?K1lJd1VWMkh1OUhNc1pEbGJvalA3RXdzVkY1NTdHU3V5clBIS3hXc1lQZUlm?=
+ =?utf-8?B?NEdPdkUzRHdEeUsyMnk1TWRDMmFxMi8yV0hQZExrUGg5eVJtdzlHSnRFS1JY?=
+ =?utf-8?B?bXgva0h6TjZuWWtEbi9waWJubzIreUlPYm9ndkZKWFVaNVNLZHRNcmQzYnJm?=
+ =?utf-8?B?YXZOMHFYaGhUcW1EVWpqVnlKR2dVRkNKbWJ6WlNodVNUdDJENjNrYnEyV3Fn?=
+ =?utf-8?B?eDNzZ3BJOFdkbzNhL0dodXluZ0JobEJBczJaMFNCUWpzREZOUXFZZVZOYVk4?=
+ =?utf-8?B?MEovV0YzL0NsNGlFVGp3WXVHU0dBaXFKYXczZDNqQ29oUEdzdUJzTW1BRWVF?=
+ =?utf-8?B?eEFXcHdiZTBpdTROdzA2RGRreUY2bDc5akIraG9mZWYrbjYxUEVEMGd2aWZ5?=
+ =?utf-8?B?TWlFL25yMzE3V0toT29HMWdmcVIyTk4wSFVrUDNZS3pqb294ckd0N0xoNlJ6?=
+ =?utf-8?B?VThmQUxGenk5blg1Z3o5RFNSZjFkRGpmRTZHRDd0Z2FyUytjZ09CVHZzTlBk?=
+ =?utf-8?B?aTJlMDVJYU1CaVpaRWZ5VUZYbjAyYkM3YWJ5dUFnVEIrN2xjY21BVWVyVlJQ?=
+ =?utf-8?B?MHNyNW1WL2l4Wk1HdVY2cURSMURHeEswK0UwWW5NNzJmanlKTnN6ck13ZEcz?=
+ =?utf-8?B?QjNDdHJ4UFRMcDNkTjZWek9aMklMK04veXVnUzdPVDlHcmlrSDdZUkN2cy9Q?=
+ =?utf-8?Q?q6lpK1hTro41Y+saIOjoUU58HlmZz6evkgw24?=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f80b2b4-1e75-4976-c8dc-08df09eed63e
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 19:09:11.2390
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 89l3tGzi7aaiL5xMm+W2y7X8TgSChh3GzIzXqyq/61j4UxeKf28oE083qJgcgbrDvPLKPrX/IEypM9aavv7rPc7iHZ8f0XbZjc2eVwJjyRU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT5PR01MB237853
 
-On Thu, 3 Sep 2026, Kiryl Shutsemau wrote:
-> On Wed, Sep 02, 2026 at 10:41:56PM -0700, Hugh Dickins wrote:
-> > On Mon, 31 Aug 2026, Kiryl Shutsemau wrote:
-> > > On Fri, Aug 28, 2026 at 01:40:51AM -0700, Hugh Dickins wrote:
-> > > > Do you have a head for smp_mb__ barriers? I'm more anxious that
-> > > > I might be missing one or two of those.
-> > > 
-> > > I think the release side of PG_lru is missing.
-> > > 
-> > > You effectively turn PG_lru into a lock over folio->lru.next.
-> > > 
-> > > The acquire side works: test_and_clear_bit() has a return value, so it
-> > > is fully ordered.
-> > > 
-> > > But there's a problem with release. set_bit() is unordered. You
-> > > correctly placed a fence in __folio_add_lru(), but every other
-> > > folio_set_lru() is problematic.
-> > > 
-> > > For instance:
-> > > 
-> > > 	CPU0 				CPU1
-> > > folio_batch_move_lru()		folio_batch_move_lru()
-> > >   lru_add_del_folio()
-> > >     lru.next = LIST_POISON1
-> > >   lruvec lock
-> > >     list_add()
-> > >   /* no barrier */
-> > >   set_bit(PG_lru)
-> > > 				  folio_try_get() == true
-> > > 				  folio_test_clear_lru() == true
-> > > 				  lru_next == stale BATCHED ???
-> > >   lruvec unlock
-> > > 
-> > > If CPU1 sees a stale BATCHED, lru_add_del_folio() returns true without
-> > > doing the list_del() or the NR_LRU_BASE accounting, and CPU1 then goes
-> > > on to lruvec_add_folio() a folio that is already on a list.
-> > > 
-> > > I think we need to have a helper that would set PG_lru and enforce
-> > > release semantics.
-> > 
-> > Thank you very much for this, Kiryl: it helps me considerably.
-> > But I have to cool myself down close to absolute zero to think
-> > about these things, and can only manage that occasionally.
-> > 
-> > I've nothing useful to say yet. I believe I understand you, and in
-> > particular your last sentence, which I take as an observation that
-> > clear_bit_unlock() is well-established, but what we want is
-> > set_bit_unlock(), perhaps better named set_bit_release().
-> > 
-> > Of course I'm not competent to add that to N architectures, most of
-> > them unfamiliar to me.  So I'm looking for a reasonable compromise,
-> > to minimize the additional overhead needed for correctness here,
-> > just using what we have already have (test_and_set, smp_mb__).
+On 2026-09-03 13:18, Shakeel Butt wrote:
+> On Tue, Sep 01, 2026 at 02:28:45PM -0400, Mathieu Desnoyers wrote:
+>> Hi Andrew,
+>>
+>> Here is the hierarchical percpu counters for RSS accounting series
+>> rebased on top of v7.3-rc1. It includes small bootup fixes which were
+>> needed to fix bootup sequence on specific architectures, and a rename of
+>> the test config option to include "KUNIT_".
+>>
+>> This aims at replacing the prior version of the series you had
+>> in mm.
+>>
+>> As a reminder, the goal here is to provide more precise RSS counters
+>> through /proc. A future step would be to also use these counters to
+>> speed up the OOM killer task selection when OOM is triggered by
+>> memcg. In whole-machine OOM situations, latency introduced by the
+>> OOM killer task selection may not be too much of an issue, but for
+>> memcg, where cgroups may routinely depend on the OOM killer, the
+>> acceptable latency tradeoff is quite different.
+>>
 > 
-> It would not be N architectures. This should be good enough:
+> Hi Mathieu, can you please comment on the Sashiko's findings [1]?
+> Worth addressing or not?
 > 
-> /* include/asm-generic/bitops/lock.h */
-> #ifndef arch_set_bit_release
-> static __always_inline void
-> arch_set_bit_release(unsigned int nr, volatile unsigned long *p)
-> {
-> 	p += BIT_WORD(nr);
-> 	raw_atomic_long_fetch_or_release(BIT_MASK(nr), (atomic_long_t *)p);
-> }
-> #endif
+> [1] https://sashiko.dev/#/patchset/20260901182857.26690-1-mathieu.desnoyers%40efficios.com
 > 
-> /* include/asm-generic/bitops/instrumented-lock.h */
-> static inline void set_bit_release(long nr, volatile unsigned long *addr)
-> {
-> 	kcsan_release();
-> 	instrument_atomic_write(addr + BIT_WORD(nr), sizeof(long));
-> 	arch_set_bit_release(nr, addr);
-> }
-> 
-> /* arch/x86/include/asm/bitops.h -- mirrors arch_clear_bit_unlock() */
-> static __always_inline void
-> arch_set_bit_release(long nr, volatile unsigned long *addr)
-> {
-> 	barrier();	/* LOCK prefix is already a full barrier */
-> 	arch_set_bit(nr, addr);
-> }
-> #define arch_set_bit_release arch_set_bit_release
-> 
-> I don't know if we want to make it _unlock() to match
-> clear_bit_unlock(). Naming is hard.
-> 
-> x86 does need an override, since it has no locked OR that returns the old
-> value -- arch_atomic64_fetch_or() is a cmpxchg loop.
-> 
-> arm64 is happy with the generic version.
-> 
-> ppc and riscv need a definition of their own only because they do not
-> include asm-generic/bitops/lock.h, so the #ifndef above never reaches
-> them. ppc can take the generic body. and riscv is a one-liner right next
-> to its existing arch_clear_bit_unlock().
-> 
-> This set_bit_release() gets better results than alternatives:
-> 
->                 set_bit_release()  smp_mb__ + set_bit()   test_and_set_bit()
-> x86             lock orb           lock orb               lock btsq
-> arm64 LSE       ldsetl             dmb ish + stset        ldsetal
-> arm64 LL/SC     ldxr/stlxr         dmb ish + ldxr/stxr    ldxr/stlxr + dmb ish
-> ppc             lwsync + loop      sync + loop            sync + loop + sync
-> riscv           amoor.d.rl         fence rw,rw + amoor.d  amoor.d.aqrl
-> 
-> I can prepare a proper patches with what I listed above, if you want, so
-> you can prepend to your series.
-> 
-> If you don't want to go there for the initial series,
-> smp_mb__before_atomic() plus folio_set_lru() should be good enough:
-> 
-> static __always_inline bool folio_test_clear_lru_acquire(struct folio *folio)
-> {
-> 	return folio_test_clear_lru(folio);
-> }
-> 
-> static __always_inline void folio_set_lru_release(struct folio *folio)
-> {
-> 	smp_mb__before_atomic();
-> 	folio_set_lru(folio);
-> }
-> 
-> -- 
 
-Thanks a lot for taking this further, and we may indeed want it later;
-but you guess correctly that I don't want to go there for the initial
-series, and I've not yet convinced myself that it's what we want anyway.
+I've looked at the report. There are 4 classes of things happening
+there. FWIW I've also used Claude to counter-check the report.
 
-Assuming that the existing pre-series code is correct just to use
-folio_set_lru() throughout, what I've added are these additional lru_next
-transitions, unprotected by lruvec lock, and it's just these which need
-the additional protection.
+Summary: no code change appears to be needed for classes 1 and 2.
+I should do test and module teardown fixes, as well as overflow cleanup
+for a v22.
 
-So, I haven't finished thinking on it, but what I'm currently inclined
-to, is putting an smp_mb__before_atomic() after the LIST_POISON1 in
-lru_add_del_folio(). That's a long way from the folio_set_lru() it's
-intended for, which is unusual, but it seems more to the point than
-always using folio_set_lru_release(). We can switch to a proper
-folio_set_lru_release() later, if that's usually seen to work better.
+* Class 1: the supposed "over vs under" swapped accuracy bounds. In that
+case it appears to be the LLM which is confused. This is because the range
+of approximation as a function of the precise sum is expressed in the
+opposite direction than the range of precise sum as a function of the
+approximation:
 
-Hugh
++ * The range of the approximation as a function of the precise sum is expressed as:
++ *
++ *   approx_sum >= precise_sum - approx_accuracy_range.under
++ *   approx_sum <= precise_sum + approx_accuracy_range.over
++ *
++ * Therefore, the range of the precise sum as a function of the approximation is expressed as:
++ *
++ *   precise_sum <= approx_sum + approx_accuracy_range.under
++ *   precise_sum >= approx_sum - approx_accuracy_range.over
+
+We could possibly extend this documentation elsewhere to make sure that a
+LLM with limited context don't get confused, but the code is OK there.
+
+Sashiko wrote that the positive margin "should be over_a + under_b" and then
+claimed the code passes under_a + over_b. The code passes a->over + b->under.
+Exactly what Sashiko itself derived. Its reasoning agreed with the code; it
+misread which argument was which.
+
+* Class 2:
+
+> +void percpu_counter_tree_add(struct percpu_counter_tree *counter, long inc)
+> +{
+> +    unsigned long bit_mask = counter->level0_bit_mask, orig, res;
+> +
+> +    res = this_cpu_add_return(*counter->level0, inc);
+> +    orig = res - inc;
+> +    inc = percpu_counter_tree_carry(orig, res, inc, bit_mask);
+> +    if (likely(!inc))
+> +        return;
+> +    percpu_counter_tree_add_slowpath(counter, inc);
+> +}
+
+Sashiko:
+Does this code risk an unbounded approximation error if preemption occurs
+after this_cpu_add_return() but before percpu_counter_tree_add_slowpath()?
+The level 0 counter reflects the addition immediately, but if the task is
+preempted before propagating the carry to the tree, that carry is held back
+indefinitely. Multiple preempted tasks could cause the approximate sum to
+deviate from the precise sum by an amount far exceeding the topological
+accuracy bounds. Could we disable preemption across this entire sequence?
+
+My take on this:
+
+I think we need a clearer _documentation_ statement about what the approximation
+upper bounds guarantee. It guarantees upper bounds on the approximation error
+_when the counters are quiescent_, never when they are actively being concurrently
+updated. So if a thread is preempted _while propagating the carry_, it's not
+quiescent. I don't think we need any code change there. And disabling preemption
+would not "fix" anything there, it would merely make the race smaller.
+
+
+* Class 3:
+
+Test cases boilerplate, module teardown and cpu hotplug issues: Good catches,
+I'll fix them.
+
+* Class 4: Overflows
+
+In order to be strictly C compliant, I should do the difference in unsigned
+(where overflow/underflow is OK), and cast the result as signed to compare
+with 0 with a inequality. It won't change things in practice, but it's a good
+call.
+
+Thoughts ?
+
+Thanks,
+
+Mathieu
+
+
+
+-- 
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
