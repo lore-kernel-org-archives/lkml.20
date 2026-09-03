@@ -1,156 +1,322 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834173876BB
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 04:54:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1033769F8
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 04:56:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788411275; cv=none; b=WvlFEZg91SVRBeHpvARykCtL8Hm7AE+VqAyb8hTJxB1lKx6vFfokygWoeJbVTPk9iHAa028mMvd9jINDxf5UCAZW/rlwua2KXEJVAJ5UcgrsBD1UGNnJed5ulEAWOGQsnbjSUj/pRbKcrZx8hQVp9TyswjEM0dckRoaIw4L7oUk=
+	t=1788411370; cv=none; b=f+PrTUyNHplXPK336fpU+J9qjVpvCVwL5p8qUsxnxb7bYhM6XBbhrzG3CPGm11ciJ02MXK8wMvbBEFJjaFhK9MYGD6znxV6KmyhXVXzOBC9DTi8NAELdQwpqsFgOzGFD03HN8eVddhqp0V2hz7wZpIkz2n6y932vTvIABDHoKdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788411275; c=relaxed/simple;
-	bh=+OR1gTWNrzIqf2xISmhfp+s65tbaKQebpLjqZ8qvz7k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=G6/QkwzO0ZSJCcQy/w0VYOmOIaAmcuk7nSERizBjzl3zLptBycHmAkBarMdjEKj1iyQdYVcY1IzZUn4+4XcyRdRe1ldgiZf7fA+CGCXJfibinqKmVDtZPkVMrXlgqgIyWLnXeZdMlRxCYwPKDyR0a/Jb08ndwWfQzb2l2+8qUes=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aeszYdF5; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788411370; c=relaxed/simple;
+	bh=9d5bJTZoze3EweLxHCAQDp4r/qheSO1cRUlgaXuIQLY=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=XBSIVb/WDqcwtE8LvjkC8yjTI2XbdQXDdSqZlLP3AKKODftRDle2Hro8Orh2x1gyQRGdfGhtRMWGnyBQXwHanaKICzB8pOUXE8yQU9TkoY2rCHuOzVxAdemk8nmff3ni+lnYC4SsxooyADWkcNsuCiADle+BfUdEUS9RXV63FHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oE/TFvqS; arc=none smtp.client-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aeszYdF5"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-396750cfee6so1646500a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 21:54:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oE/TFvqS"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38f283baf1fso2705603a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 21:56:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788411273; x=1789016073; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4Xrkf+M7d/buQlEiH9zes2PfuHopkhsev9Nl4qDT6q8=;
-        b=aeszYdF5zN9myhXKyD64ceUy5VOAs1Zj4Dpcvvn1oyWymgj3HtU6MhTDn0YZmmOVVO
-         2PirmwuvcC29z7xwOnUvqDlEZ7rXOJuTq/Ngf5xY4hGb4otMK6V+8Vl1OWpqLtXsCDAJ
-         BVZKQLJ5s042evNClEGPMVquawI3voDFr5D8NVv0BVQ+5YGacexPXGoIg70zyb4w2YPX
-         pYqTiDLkN4yYofIPs3qSFhikFQuWsGGpNlQwHTi+3TbDLUDh9lZ8QtKca6Eie2q3IPHm
-         gZU++9B0Ws0NsMy03xi2qVIAZQDNlfDOyv1pzthaS9fF5ShkVtHEZK2MnrModCmeOTVE
-         FlYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788411273; x=1789016073;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1788411367; x=1789016167; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4Xrkf+M7d/buQlEiH9zes2PfuHopkhsev9Nl4qDT6q8=;
-        b=nvSi0cRHQWjP92+mzOhkGCL3PfqkE1CLEEei1QJlCiSsckbgjJc1Cir02SLgxh3EcP
-         AHJe4yGpWjJimxD4sqz3xbIV6ka7NcE+Szbs0VdrsldyKy3TpTdyf2ouCyKQnIFMCDpm
-         T+NTsWzu+fNX0bRRf04uui371gVU7u0FxIDCpNkAmKvY0T2jYlnpIYSLvE4Kn1t6f2bs
-         nEFCF7CZKCCD4AdxjgGR62RBGP+J+5xGvrM+17cVdXoAeLSng9svIoT0BVf6TdFAR5MM
-         ZrlH1gdXAKMBDIJ2XqUsSBApkfdsn7HY2Vbwj7rGRtu847AjYcYKcOL0cC8vjCDO4S5O
-         wFVg==
-X-Forwarded-Encrypted: i=1; AKwUvBxmPe2Ke4pps/mV6pHIWRm28XtqUEnazVugwx4gb5Jy/p1wRkX8LXLhip3MG3N3+YJxuFhUgu/0ecyDjUg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nCb0ktDNhSdllw/leliCrRCVQest3BwiX1cYraIacFrbEo6WO7
-	vaBSbzwb7G9PhrefAo16hl9NQLjld8kA6ic9Wn9YmvoCFIVIM38DcHQSiPQVGw==
-X-Gm-Gg: AYBFou21U1MNnyXcGPnC/EJubFC13gzD6mo/L0t2hcnNyL0K5IdRtGyg9FFZ1E4YC0U
-	sktL2F81mRcOYo8wpID7DosApc+CRPTTR01EugJTxv5n6Oy0XUAUbODhAE6KoNN3NUM+ZrNZWLj
-	Q0h7DcIhvfV8ZP6v6xSqPmq2X36I5Nx5VSh87u83I2ZEZla8YLyzCSJ7d1egMCvpUIVWLzfuBwq
-	HRnN1TrENVMImthZ04yGrQEp4xdeY5rXwX8sYUy6y+bPuVdvEr+6NEuhhK9xX5KAqiqEcPj8qz9
-	G0MD4Ce9c3pQ4Mk0DwMAu/8fijpAbva4yFh+HGOp15DQ5gF1AZv2rzvp0yx0AYqJWr2Qf1MKp2p
-	b183+cHUxv4iJ49d/NtUGXPD/gooBJ4Jzv1DW8YX/fRvSeC2TYpiEpe/za9e1I1nr0H8ZNZMA8U
-	W+sAJGjsOYbwaZOigKH83tT+sW7pNQPjnBEeIStKYJbCBjQTAf+iclHa8fV2KoNBFlng==
-X-Received: by 2002:a17:90b:4c0b:b0:398:9bd5:490e with SMTP id 98e67ed59e1d1-39aee1427e6mr14134517a91.21.1788411272765;
-        Wed, 02 Sep 2026 21:54:32 -0700 (PDT)
-Received: from [192.168.20.42] ([115.70.157.242])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae8f1cf6dsm2300801a91.3.2026.09.02.21.54.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 21:54:32 -0700 (PDT)
-From: Tsz Shan Chan <tsz.chan.dev@gmail.com>
-X-Google-Original-From: Tsz Shan Chan <tchan@jacques.com.au>
-Date: Thu, 03 Sep 2026 14:53:50 +1000
-Subject: [PATCH v3 5/5] iio: light: vcnl4000: add shared IRQ support
+        bh=TAJRiyqxDNbqNovLMx0HCQdku/X8Sgrg7Q1N4V/JMDI=;
+        b=oE/TFvqSVPXniKMcSYd1UI8fvuSVvH7BickME5oNo9lsrrIH83iUqyGsJa960zXWgP
+         iRv6HrgDBKcLr7F0sEjWkLVQud6wMEkSrqeWxRxKz0zuXghfm7/FCdjyN58YA47cE4OM
+         MCNjluk+DyV1/ObxBPc/MHmzJAmC9RcKWetB0hfBgZEmIHIPQn8rQRHvJJ75j5dJTScO
+         NCS5zB26T6xGm3/7rRbld25PLEmQj+ptmdzkOGhJyvFgYQ0iyJ+Khiy/SlhIMaIYRc1k
+         lM5+Hv31Y6kR6Y9QmdNLSlhtg6SU/xLlil5oQPWzbUj3+xG/nhnFZtwA7LaQs71amLZ3
+         gnOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788411367; x=1789016167;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TAJRiyqxDNbqNovLMx0HCQdku/X8Sgrg7Q1N4V/JMDI=;
+        b=ejOC4JrTuMwCGPpICM1sLiZwleJg4dEUqeo9t6pNP6LjXeWZhM17+Z6hFz3jmFH36O
+         pREh1ha1fC5XzaY+4qg2hL1xyLUmq56t9w3Uyz+EwMe9zxUh0UN/0Y4lelrPRX3uTiXG
+         dMQS7CXZHvUFDkMGvMhbcMQ4RXRPh49dkTGxi+k6D/pTWlrYSqarM4HfqJW01imPAfHG
+         DdC74lCSSyKdRS8CE4O5bA2X0+/o3ZnsAhjLkLvM9LogLK+gLNVRM5ZckrTT/BbKt1kp
+         qj9T5T9fX1BmlgCyw9ZTR/2Y/lGWp2zoXFGL+/0TCwGzo5XBqBZ1BOs8Us7Yu2gMHWBj
+         LV5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwfrXqChKB/xZkQYItKhsxFVkdVV3xNPs/YKFM0/RDtQJHLr6wAUSCBUUEfkYPSyot14vz2BQX8ur1X3FA=@vger.kernel.org
+X-Gm-Message-State: AFuF++m2QXWr9ODeaV6QbjlJjlJ4Wlwh7cLN6yj7x2Sw5zt09XKc2nnt
+	tBWyG0MtEsDPCa5O2AzfA/hFf/U7gL5Ex2hQg03kFnkRDiz8mSoCBgmIT6Goay4UnDp/pJU1hQi
+	livsURZRJjg==
+X-Received: from dlag28.prod.google.com ([2002:a05:701b:251c:b0:141:4cd7:9d61])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:5908:b0:38e:5b59:c2ff
+ with SMTP id 98e67ed59e1d1-39aedec4caamr15609087a91.3.1788411367246; Wed, 02
+ Sep 2026 21:56:07 -0700 (PDT)
+Date: Wed,  2 Sep 2026 21:56:03 -0700
+In-Reply-To: <20260902153135.2067365-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-vcnl4000-v3-5-5e69c2e715a8@jacques.com.au>
-References: <20260903-vcnl4000-v3-0-5e69c2e715a8@jacques.com.au>
-In-Reply-To: <20260903-vcnl4000-v3-0-5e69c2e715a8@jacques.com.au>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Tsz Shan Chan <tchan@jacques.com.au>
-X-Mailer: b4 0.14.3
+Mime-Version: 1.0
+References: <20260902153135.2067365-1-irogers@google.com>
+X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
+Message-ID: <20260903045603.3611902-1-irogers@google.com>
+Subject: [PATCH v2] perf tests: Improvements to build-test performance
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
+Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
+	leo.yan@arm.com, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, mingo@redhat.com, mjeanson@efficios.com, 
+	peterz@infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-Change the interrupt trigger to IRQF_TRIGGER_LOW and add IRQF_SHARED to
-allow the sensor to share an interrupt line.
+Replace hardcoded 'make' calls with '$(MAKE)' within tests/make to
+ensure GNU Make jobserver file descriptors are properly inherited by
+nested builds.
 
-Return IRQ_NONE from the irq handler when read fails or when none of the
-interrupt source bits handled by the driver are set. This prevents
-claiming interrupts from other devices on a shared line.
+Additionally, remove the 'unexport MAKEFLAGS' from
+tools/perf/Makefile. This hack was originally added to prevent the
+wrapper's internal '-j$(JOBS)' override from crashing when parent
+jobserver tokens were present. Instead, use proper GNU Make
+conditionals to check for '-j' or 'jobserver' strings within
+MAKEFLAGS. If a jobserver is already orchestrating the build,
+gracefully back off and let GNU Make manage parallelism natively.
 
-The datasheets confirm that the INT pin is open drain active low, and
-the interrupts are latched:
-- vcnl4010/4020: The INT pin is open drain. It is pulled low
-  while a status bit is 1, and it stays low until the driver writes
-  a 1 to clear it.
-- vcnl4040/4200: The INT pin is pulled low when a flag triggers. It
-  resets to high only after the driver reads the INT_Flag register.
+Finally, optimize the 'out' target (which processes 'run_O'
+out-of-tree builds) by stripping sequential bottlenecks like $(call
+clean) from isolated tmp directories, and wrapping the target list in
+a parallel sub-make call.
 
-Signed-off-by: Tsz Shan Chan <tchan@jacques.com.au>
+These combined changes enable 'build-test' out-of-tree targets to
+build completely concurrently without severing jobserver tokens.
+
+Unscientifically measured the change lowered the build-test from
+around 15 minutes to 10 minutes on a 28 threaded Alderlake CPU. Fixing
+the jobserver issues meant the machine remained somewhat usable while
+running the test.
+
+Signed-off-by: Ian Rogers <irogers@google.com>
+Assisted-by: Antigravity:gemini-3.1-pro
 ---
- drivers/iio/light/vcnl4000.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+v2:
+ - Re-structured build-test array in tools/perf/Makefile into explicit
+   sequential $(MAKE) passes. This prevents in-tree targets (make_static,
+   etc.) from racing to directory corruption when exposed to native
+   jobservers.
+ - Added '+' prefix to recipe modifiers in tests/make to prevent jobserver
+   FDs from being stripped before sub-shell evaluation.
+ - Replaced hardcoded -j$(cores) limits in the 'out' sub-make step with
+   dynamic jobserver boundary detection to prevent fork-bomb override
+   collisions.
+ - Restored missing $(call clean) steps via O_CLEAN conditionals to prevent
+   in-tree polluted runs from breaking out-of-tree sequences.
+ - Removed unconditionally appended $(FEATURES_DUMP_FILE) target restrictions
+   from 'out' that threw "No rule to make target" errors on unhandled tests.
+ - Fixed 'test_dest_files' to check [ ! -f ] instead of [ ! -x ], removing
+   long-standing ghost warnings for non-executable mode-644 targets
+   like etc/bash_completion.d/perf.
+ - Fixed cosmetic string formatting bugs in GNU Make's print_msg banner
+   output.
+---
+ tools/perf/Makefile   | 35 ++++++++++++++++++++++-------------
+ tools/perf/tests/make | 42 ++++++++++++++++++++++++------------------
+ 2 files changed, 46 insertions(+), 31 deletions(-)
 
-diff --git a/drivers/iio/light/vcnl4000.c b/drivers/iio/light/vcnl4000.c
-index df929eab2bef..9855c2954429 100644
---- a/drivers/iio/light/vcnl4000.c
-+++ b/drivers/iio/light/vcnl4000.c
-@@ -1517,7 +1517,11 @@ static irqreturn_t vcnl4040_irq_thread(int irq, void *p)
+diff --git a/tools/perf/Makefile b/tools/perf/Makefile
+index 5b713837eede..2cbf4cb5f093 100644
+--- a/tools/perf/Makefile
++++ b/tools/perf/Makefile
+@@ -14,23 +14,29 @@
+ .SUFFIXES:
  
- 	ret = i2c_smbus_read_word_data(data->client, data->chip_spec->int_reg);
- 	if (ret < 0)
--		return IRQ_HANDLED;
-+		return IRQ_NONE;
+ #
+-# We don't want to pass along options like -j:
++# If no parallel build was requested, do a parallel build with multiple jobs,
++# based on the number of CPUs online in this system: 'make -j8' on an 8-CPU
++# system, etc.
+ #
+-unexport MAKEFLAGS
+-
+-#
+-# Do a parallel build with multiple jobs, based on the number of CPUs online
+-# in this system: 'make -j8' on a 8-CPU system, etc.
++# If MAKEFLAGS contains '-j' or 'jobserver', JOBS is intentionally left
++# uninitialized so the native GNU Make jobserver can seamlessly control the
++# parallel bounds of the build.
+ #
+ # (To override it, run 'make JOBS=1' and similar.)
+ #
+-ifeq ($(JOBS),)
+-  JOBS := $(shell (getconf _NPROCESSORS_ONLN || grep -E -c '^processor|^CPU[0-9]' /proc/cpuinfo) 2>/dev/null)
+-  ifeq ($(JOBS),0)
+-    JOBS := 1
++ifeq ($(findstring -j,$(MAKEFLAGS)),)
++  ifeq ($(findstring jobserver,$(MAKEFLAGS)),)
++    ifeq ($(JOBS),)
++      JOBS := $(shell (getconf _NPROCESSORS_ONLN || grep -E -c '^processor|^CPU[0-9]' /proc/cpuinfo) 2>/dev/null)
++      ifeq ($(JOBS),0)
++        JOBS := 1
++      endif
++    endif
++    PARALLEL_OPT := -j$(JOBS)
+   endif
+ endif
+ 
 +
-+	if (!(ret & (VCNL4040_PS_IF_CLOSE | VCNL4040_PS_IF_AWAY |
-+		     VCNL4040_ALS_FALLING | VCNL4040_ALS_RISING)))
-+		return IRQ_NONE;
+ #
+ # Only pass canonical directory names as the output directory:
+ #
+@@ -58,11 +64,11 @@ else
+ endif
  
- 	if (ret & VCNL4040_PS_IF_CLOSE) {
- 		iio_push_event(indio_dev,
-@@ -1573,7 +1577,10 @@ static irqreturn_t vcnl4010_irq_thread(int irq, void *p)
+ define print_msg
+-  @printf '  BUILD:   Doing '\''make \033[33m-j'$(JOBS)'\033[m'\'' $(BUILD_TYPE) build\n'
++  @printf '  BUILD:   Doing '\''make\033[33m%s\033[m'\'' $(BUILD_TYPE) build\n' "$(if $(JOBS), -j$(JOBS),)"
+ endef
  
- 	ret = i2c_smbus_read_byte_data(data->client, VCNL4010_ISR);
- 	if (ret < 0)
--		goto end;
-+		return IRQ_NONE;
-+
-+	if (!(ret & (VCNL4010_INT_THR | VCNL4010_INT_DRDY)))
-+		return IRQ_NONE;
+ define make
+-  @$(MAKE) -f Makefile.perf --no-print-directory -j$(JOBS) O=$(FULL_O) $(SET_DEBUG) $@
++  @$(MAKE) -f Makefile.perf --no-print-directory $(PARALLEL_OPT) O=$(FULL_O) $(SET_DEBUG) $@
+ endef
  
- 	isr = ret;
+ #
+@@ -106,7 +112,10 @@ clean:
+ # make -C tools/perf -f tests/make
+ #
+ build-test:
+-	@$(MAKE) SHUF=1 -f tests/make REUSE_FEATURES_DUMP=1 MK=Makefile SET_PARALLEL=1 --no-print-directory tarpkg make_static make_with_gtk2 out
++	@$(MAKE) SHUF=1 -f tests/make REUSE_FEATURES_DUMP=1 MK=Makefile SET_PARALLEL=1 --no-print-directory tarpkg
++	@$(MAKE) SHUF=1 -f tests/make REUSE_FEATURES_DUMP=1 MK=Makefile SET_PARALLEL=1 --no-print-directory make_static
++	@$(MAKE) SHUF=1 -f tests/make REUSE_FEATURES_DUMP=1 MK=Makefile SET_PARALLEL=1 --no-print-directory make_with_gtk2
++	@$(MAKE) SHUF=1 -f tests/make REUSE_FEATURES_DUMP=1 MK=Makefile SET_PARALLEL=1 --no-print-directory out
  
-@@ -1610,7 +1617,6 @@ static irqreturn_t vcnl4010_irq_thread(int irq, void *p)
- 						  isr & VCNL4010_INT_DRDY);
- 	}
+ build-test-tarball:
+ 	@$(MAKE) -f tests/make REUSE_FEATURES_DUMP=1 MK=Makefile SET_PARALLEL=1 --no-print-directory out
+diff --git a/tools/perf/tests/make b/tools/perf/tests/make
+index d2c2f526e1db..d1d99f5a85ae 100644
+--- a/tools/perf/tests/make
++++ b/tools/perf/tests/make
+@@ -28,15 +28,17 @@ endif
  
--end:
- 	return IRQ_HANDLED;
- }
+ PARALLEL_OPT=
+ ifeq ($(SET_PARALLEL),1)
+-  ifeq ($(JOBS),)
+-    cores := $(shell (getconf _NPROCESSORS_ONLN || grep -E -c '^processor|^CPU[0-9]' /proc/cpuinfo) 2>/dev/null)
+-    ifeq ($(cores),0)
+-      cores := 1
++  ifeq ($(findstring jobserver,$(MAKEFLAGS))$(findstring -j,$(MAKEFLAGS)),)
++    ifeq ($(JOBS),)
++      cores := $(shell (getconf _NPROCESSORS_ONLN || grep -E -c '^processor|^CPU[0-9]' /proc/cpuinfo) 2>/dev/null)
++      ifeq ($(cores),0)
++        cores := 1
++      endif
++    else
++      cores=$(JOBS)
+     endif
+-  else
+-    cores=$(JOBS)
++    PARALLEL_OPT="-j$(cores)"
+   endif
+-  PARALLEL_OPT="-j$(cores)"
+ endif
  
-@@ -2047,8 +2053,8 @@ static int vcnl4000_probe(struct i2c_client *client)
- 	if (client->irq && data->chip_spec->irq_thread) {
- 		ret = devm_request_threaded_irq(dev, client->irq, NULL,
- 						data->chip_spec->irq_thread,
--						IRQF_TRIGGER_FALLING |
--						IRQF_ONESHOT,
-+						IRQF_TRIGGER_LOW |
-+						IRQF_ONESHOT | IRQF_SHARED,
- 						"vcnl4000_irq",
- 						indio_dev);
- 		if (ret < 0)
-
+ # As per kernel Makefile, avoid funny character set dependencies
+@@ -230,7 +232,7 @@ test_make_util_pmu_bison_o := test -f $(PERF_O)/util/pmu-bison.o
+ 
+ define test_dest_files
+   for file in $(1); do				\
+-    if [ ! -x $$TMP_DEST/$$file ]; then		\
++    if [ ! -f $$TMP_DEST/$$file ]; then		\
+       echo "  failed to find: $$file";		\
+     fi						\
+   done
+@@ -310,7 +312,7 @@ clean := @(cd $(PERF); $(MAKE_F) -s $(O_OPT) clean >/dev/null && $(MAKE) -s $(O_
+ 
+ $(run):
+ 	$(call clean)
+-	@TMP_DEST=$$(mktemp -d); \
++	+@TMP_DEST=$$(mktemp -d); \
+ 	cmd="cd $(PERF) && $(MAKE_F) $($@) $(PARALLEL_OPT) $(O_OPT) DESTDIR=$$TMP_DEST"; \
+ 	printf "%*.*s: %s\n" $(max_width) $(max_width) "$@" "$$cmd" && echo $$cmd > $@ && \
+ 	( eval $$cmd ) >> $@ 2>&1; \
+@@ -320,7 +322,7 @@ $(run):
+ 
+ make_with_gtk2:
+ 	$(call clean)
+-	@TMP_DEST=$$(mktemp -d); \
++	+@TMP_DEST=$$(mktemp -d); \
+ 	cmd="cd $(PERF) && $(MAKE_F) $($@) $(PARALLEL_OPT) $(O_OPT) DESTDIR=$$TMP_DEST"; \
+ 	printf "%*.*s: %s\n" $(max_width) $(max_width) "$@" "$$cmd" && echo $$cmd > $@ && \
+ 	( eval $$cmd ) >> $@ 2>&1; \
+@@ -330,7 +332,7 @@ make_with_gtk2:
+ 
+ make_static:
+ 	$(call clean)
+-	@TMP_DEST=$$(mktemp -d); \
++	+@TMP_DEST=$$(mktemp -d); \
+ 	cmd="cd $(PERF) && $(MAKE_F) $($@) $(PARALLEL_OPT) $(O_OPT) DESTDIR=$$TMP_DEST"; \
+ 	printf "%*.*s: %s\n" $(max_width) $(max_width) "$@" "$$cmd" && echo $$cmd > $@ && \
+ 	( eval $$cmd ) >> $@ 2>&1; \
+@@ -339,8 +341,10 @@ make_static:
+ 	rm -rf $@ $$TMP_DEST || (cat $@ ; false)
+ 
+ $(run_O):
++ifneq ($(O_CLEAN),0)
+ 	$(call clean)
+-	@TMP_O=$$(mktemp -d); \
++endif
++	+@TMP_O=$$(mktemp -d); \
+ 	TMP_DEST=$$(mktemp -d); \
+ 	cmd="cd $(PERF) && $(MAKE_F) $($(patsubst %_O,%,$@)) $(PARALLEL_OPT) O=$$TMP_O DESTDIR=$$TMP_DEST"; \
+ 	printf "%*.*s: %s\n" $(max_width) $(max_width) "$@" "$$cmd" && echo $$cmd > $@ && \
+@@ -363,18 +367,18 @@ endif
+ make_kernelsrc:
+ 	@echo "- make -C <kernelsrc> $(PARALLEL_OPT) $(K_O_OPT) tools/perf"
+ 	$(call clean); \
+-	(make -C ../.. $(PARALLEL_OPT) $(K_O_OPT) tools/perf) > $@ 2>&1 && \
++	($(MAKE) -C ../.. $(PARALLEL_OPT) $(K_O_OPT) tools/perf) > $@ 2>&1 && \
+ 	test -x $(KERNEL_O)/tools/perf/perf && rm -f $@ || (cat $@ ; false)
+ 
+ make_kernelsrc_tools:
+ 	@echo "- make -C <kernelsrc>/tools $(PARALLEL_OPT) $(K_O_OPT) perf"
+ 	$(call clean); \
+-	(make -C ../../tools $(PARALLEL_OPT) $(K_O_OPT) perf) > $@ 2>&1 && \
++	($(MAKE) -C ../../tools $(PARALLEL_OPT) $(K_O_OPT) perf) > $@ 2>&1 && \
+ 	test -x $(KERNEL_O)/tools/perf/perf && rm -f $@ || (cat $@ ; false)
+ 
+ make_libperf:
+ 	@echo "- make -C lib";
+-	make -C lib clean >$@ 2>&1; make -C lib >>$@ 2>&1 && rm $@
++	$(MAKE) -C lib clean >$@ 2>&1; $(MAKE) -C lib >>$@ 2>&1 && rm $@
+ 
+ FEATURES_DUMP_FILE := $(FULL_O)/BUILD_TEST_FEATURE_DUMP
+ FEATURES_DUMP_FILE_STATIC := $(FULL_O)/BUILD_TEST_FEATURE_DUMP_STATIC
+@@ -383,20 +387,22 @@ all: $(run) $(run_O) tarpkg make_kernelsrc make_kernelsrc_tools
+ 	@echo OK
+ 	@rm -f $(FEATURES_DUMP_FILE) $(FEATURES_DUMP_FILE_STATIC)
+ 
+-out: $(run_O)
++out:
++	$(call clean)
++	@$(MAKE) -f tests/make $(run_O) PARALLEL_OPT= O_CLEAN=0 $(if $(findstring jobserver,$(MAKEFLAGS))$(findstring -j,$(MAKEFLAGS)),,$(if $(cores),-j$(cores)))
+ 	@echo OK
+ 	@rm -f $(FEATURES_DUMP_FILE) $(FEATURES_DUMP_FILE_STATIC)
+ 
+ ifeq ($(REUSE_FEATURES_DUMP),1)
+ $(FEATURES_DUMP_FILE):
+ 	$(call clean)
+-	@cmd="cd $(PERF) && make FEATURE_DUMP_COPY=$@ $(O_OPT) feature-dump"; \
++	@cmd="cd $(PERF) && $(MAKE) FEATURE_DUMP_COPY=$@ $(O_OPT) feature-dump"; \
+ 	echo "- $@: $$cmd" && echo $$cmd && \
+ 	( eval $$cmd ) > /dev/null 2>&1
+ 
+ $(FEATURES_DUMP_FILE_STATIC):
+ 	$(call clean)
+-	@cmd="cd $(PERF) && make FEATURE_DUMP_COPY=$@ $(O_OPT) LDFLAGS='-static' feature-dump"; \
++	@cmd="cd $(PERF) && $(MAKE) FEATURE_DUMP_COPY=$@ $(O_OPT) LDFLAGS='-static' feature-dump"; \
+ 	echo "- $@: $$cmd" && echo $$cmd && \
+ 	( eval $$cmd ) > /dev/null 2>&1
+ 
 -- 
-2.55.0
+2.55.0.979.g7e5102b832-goog
 
