@@ -1,501 +1,406 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011047.outbound.protection.outlook.com [52.101.57.47])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF3E47FAF5;
-	Thu,  3 Sep 2026 10:15:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788430557; cv=fail; b=ZoJs5FriTJw+wzRGtcvX4PAJBW9gseI0Z8P/RCyR+hy1xRKtceoMjoo2D24QmUNUZbg/aZxMNlmpcMaWbpH9WMtE8xQAgqNrIAgMMIk4X6tK1iCamvFS26Ywg/3ljt9GpccbjKf+kPdeIgH8LPp8q2GJ+9jg4wpdfmWPNucAC7w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788430557; c=relaxed/simple;
-	bh=3ufSMn0KsMdhnibdUiII4cbNvQ5jU3fnyCXsevF9jb0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=l5LwCM/Ce8Z7lJTQVQG3TFQC1IlGvSc/O6U9v7om4yZt9AP+cuvanLr+VwnSymjJksnx4suef7XIV2SfxG9FFnYt40sBB7H6Ycar+i4MPzPQjbAuQwf7L19e73aE7sCwpZPGHbA1ZnxQwd2zdtJnsxl5NoeVew2yTA5N3ss1WP8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=kE0PuAVt; arc=fail smtp.client-ip=52.101.57.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCB96481257;
+	Thu,  3 Sep 2026 10:16:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788430579; cv=none; b=gjJpPjRw646B511wMjXcFYGtK3o7MW/Hr9b2OjG/m25ks79kvmj0/4YZdJWG2/Y6MDm04zLAP1O0+/JZXXg0pEjseXGnN095yvseRmHquGRANXoAg8aHrqOaIQr2tEjmxd37D9kOIeYbYb5q9KsyuysQ386ujX77um87USHuwFs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788430579; c=relaxed/simple;
+	bh=R+xKDK2nTnMwARl8glz7InHfn/eZY4VyUjeJ/bHhdr8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YovVenXxOwQu7EJOT8Hi2KpNq6x8nG2GdEHtcX1aB5HZlr4liCKZPBhCtnM/YRBCBZwrOt+4/2ykpzl4AkQQ2FDG0QyAdNlViBUu7c2op3lMnAX2zFvZvDFsU8WCapcdUBn4W9+vutbzcUUBPp0t3J79WEdS0Qu+6Pi9g5SM7es=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CU8QQD8U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="kE0PuAVt"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uOTBFvJlIRaEfMf+SmXtfTGj0vPXfZE3ge4aoV03UOhJzjTpXaq/N5fYYDgLm7J+Xxa4uWlk3FZd0lRtNRbHkpJXUXuHoZZqhYmnPukaRc+nSjbECjYmMR/WJP1SD0yrZcKenhIlje2zcN/4u88Qlsy4Irwg1wCOTLO5rP/o3VgylOa+K4huBoEsWj81FC9llSUNveJWHPxujy2UoQTFEjopj15+XXi2I14MwFvkQLA7S0HpicOnSbURXOm4GajL02U4TbwpNi2sqYO8hSrshZZhkAE6UiBIeOZxbZxxU9N0BdcB8EXezCJEV9ipIphqwE0EYqY90vK7fQJk8YGC7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Vw8yqjiB5CimIBwONdW3Ajc5M056/eiPucYY48vPU3I=;
- b=hUchfxKaLY/eV14mwllbH0GFgQG2j4FeqDoMYomGOsJ7U5vxjVXJ6HMk99MOSD2XugU/gxU7xbgzSv8OdcCOtkjglJRhPULlzdHL2y+FZamKNYs6pXmAki9LKhRV+EsMu4Ypg5AU0jIY5g5cj/3Kr7ou8/70AvAc4kJ/FEYPGs7KoT0B0fGZ1griSmaNjbU6hE//jhglbHHpHfxNXTLtKB9TS4syxRLklYqkq5G3ITCIZIiqsgloAGsM50p5FJnVjfCbGml5cyIEp258rJsUYe7dEkTGjklXn3mW24iFOOHc/yJ+8/3TfW3Enk1srdmmRgewOhrsLIP8ze7D/cCMFw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vw8yqjiB5CimIBwONdW3Ajc5M056/eiPucYY48vPU3I=;
- b=kE0PuAVtgWzwFIfwOUoM+HW/l2uAcBr0JujxW5vLf/1Kk3kaVIHkZOEzZS4M+QRSF5VW8Ky3JdWvOSmGI1TcTF8ZzeS/z3rU/v7bNceox/3yJ21spiY3hPk7qqx2LHQPbopi04gW8j1WsGJre3/skXVzJZhxm0LJaZfoY45jdA+ibe1QatlcdHxk5RMm9m2k4wFAKmO9gu+KJruIZM3SDL94gSjFgzPjeUGWb+yNAGCENr86BdCPdoKhr3XIsS6uBAVQeAbMTdFV3SiwIDYt+l8GIFRbH+CzXrJ9tK/pIajvRm//VYRYiaysWTt0OHj404DIfyQQptekM/ikjCsWAw==
-Received: from IA1PR12MB9030.namprd12.prod.outlook.com (2603:10b6:208:3f2::22)
- by LV8PR12MB9405.namprd12.prod.outlook.com (2603:10b6:408:1fa::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 10:15:31 +0000
-Received: from IA1PR12MB9030.namprd12.prod.outlook.com
- ([fe80::2c1d:ed27:b53a:97d2]) by IA1PR12MB9030.namprd12.prod.outlook.com
- ([fe80::2c1d:ed27:b53a:97d2%7]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 10:15:31 +0000
-From: Manish Honap <mhonap@nvidia.com>
-To: Alex Williamson <alex@shazbot.org>
-CC: "jgg@ziepe.ca" <jgg@ziepe.ca>, Ankit Agrawal <ankita@nvidia.com>,
-	"jic23@kernel.org" <jic23@kernel.org>, "dave.jiang@intel.com"
-	<dave.jiang@intel.com>, "alejandro.lucero-palau@amd.com"
-	<alejandro.lucero-palau@amd.com>, Srirangan Madhavan <smadhavan@nvidia.com>,
-	"corbet@lwn.net" <corbet@lwn.net>, "skhan@linuxfoundation.org"
-	<skhan@linuxfoundation.org>, "dave@stgolabs.net" <dave@stgolabs.net>,
-	"alison.schofield@intel.com" <alison.schofield@intel.com>,
-	"vishal.l.verma@intel.com" <vishal.l.verma@intel.com>, "iweiny@kernel.org"
-	<iweiny@kernel.org>, "ming.li@zohomail.com" <ming.li@zohomail.com>, Yishai
- Hadas <yishaih@nvidia.com>, Shameer Kolothum Thodi <skolothumtho@nvidia.com>,
-	"kevin.tian@intel.com" <kevin.tian@intel.com>, "bhelgaas@google.com"
-	<bhelgaas@google.com>, "dmatlack@google.com" <dmatlack@google.com>,
-	"kees@kernel.org" <kees@kernel.org>, "gustavoars@kernel.org"
-	<gustavoars@kernel.org>, Neo Jia <cjia@nvidia.com>, Krishnakant Jaju
-	<kjaju@nvidia.com>, Vikram Sethi <vsethi@nvidia.com>, Zhi Wang
-	<zhiw@nvidia.com>, "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-cxl@vger.kernel.org"
-	<linux-cxl@vger.kernel.org>, "linux-pci@vger.kernel.org"
-	<linux-pci@vger.kernel.org>, "linux-kselftest@vger.kernel.org"
-	<linux-kselftest@vger.kernel.org>, "linux-hardening@vger.kernel.org"
-	<linux-hardening@vger.kernel.org>, Manish Honap <mhonap@nvidia.com>
-Subject: RE: [PATCH v4 23/27] vfio/cxl: Refresh the decoder snapshot after a
- device reset
-Thread-Topic: [PATCH v4 23/27] vfio/cxl: Refresh the decoder snapshot after a
- device reset
-Thread-Index: AQHdKwfjnwuTAzJ2fEezVwkeqdGgcLa0JGkAgAiOP0A=
-Date: Thu, 3 Sep 2026 10:15:31 +0000
-Message-ID:
- <IA1PR12MB903046CEF5BC3E7DC50E5250BDB62@IA1PR12MB9030.namprd12.prod.outlook.com>
-References: <20260813093631.2288172-1-mhonap@nvidia.com>
-	<20260813093631.2288172-24-mhonap@nvidia.com>
- <20260828163324.72a685d1@shazbot.org>
-In-Reply-To: <20260828163324.72a685d1@shazbot.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA1PR12MB9030:EE_|LV8PR12MB9405:EE_
-x-ms-office365-filtering-correlation-id: 7415aa8d-8629-484f-3b98-08df09a44900
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|10067099003|6133799003|11063799006|56012099006|4143699003|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info:
- 0mt+R7d8DU5C7HiGcl94E1Z4q2IikYyHttak223Dj1BSOuFf5eUSroRsTLhwZy7OCMAWj+CqnxKFqv8VbV8cX6j6uzQ30D+jxf+1KbhjsEegeSXfbOVSYciKqKngkbVwcSnk4sSITPPtmVFPLdtJVaw5jxs3s6ci6B2QH/pmjjAHgpMbCVbavwa9v/7Z4W4AbHzzgll/DKIyG2wql02nR3PcQTubMIXv0qII5J7QJKNdil6BJxe0xBR9HJKIrf6cuhSmNxGJG6lwrxMlgcaLdM4iqCchLj7YVtTDfpi/rm3boIcgGkrtFRPqR3hlz9TePFZGoN4xEDZJ5nmpQL2aR5RQ+SEKcD1C84Q9EMvnZz3Sp4SCR+3m8RqUfRcyHf7z86DPSm1enbPWy9W+x5vGXD3eUyb83FKoLz4uMGaDeg4CzSb31OzdQQeoDQtQMRY3/G5p/r5sWvYTKGrGC8Ox5z0uat9oIPn7K54GivPHTTQeB+jn/U58CAUg37j2BttgoJWwFrk0ircRlbt7vWfXBoI9h5UT8ssZDlK+VWRJMAtlCivSU8Ura//G6QRwpaEjCynfUjdJMdGaA1um3YvliNiLz87H3NS+W1bUWk90e08si8FIRpTmgw+Hc/A0/VGVlGjk+Foac5bbHfZGT6P011kL8vNSb6hZPkQq8ZPlhB0H64MN3Lr78G5QCY8sg58IRdkqITMyvxUftE88xkv4z9AHhgqf2Nkfos+YgJJ+fk4=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB9030.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(10067099003)(6133799003)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?jVizOSc6Tv7oEpLKKC5/YYNrE2tE/OO6STCkatHsO1qVRnCb2sQvWeTw0YQk?=
- =?us-ascii?Q?VWLqq4s/qkCK90+D1U3w2IhN9gnkXTUIYLKiO4+Z/vsv4OYOcRnX8uDVXpUC?=
- =?us-ascii?Q?q2gBaJS3L1qS33i/PaT9b1DEmLVEFBgy9N9Rhkr1rCSoJ6b2GA4OLP3L0m0e?=
- =?us-ascii?Q?PhUO2t9uuw+ZF5qJahTCKLSWuK2BiOEcf+ANlL8tnfXROG9V7yOXo8wZJW2v?=
- =?us-ascii?Q?KXOpvF1/kXlQb5UnboBrotc30BvKVUs15WKSNATyshxNBAcrKBoUJRVtgs0J?=
- =?us-ascii?Q?W8GrC4p/gbQg7KTPEaRE6owKxGGLkh2ih3UbVOazeCNhl/E6eCSdY46xMac9?=
- =?us-ascii?Q?svPupu1Z9klaJhkCxEw4TBc6ldTSOkbOdd8YiEPpSw4e4J0tT/u/JyGTysAQ?=
- =?us-ascii?Q?R6SjNYDWzhiswpgnNmwXGN+4SHwYwb6JVKfVGLtlrIXTQc97fvx8LCMitygr?=
- =?us-ascii?Q?v8hY0qG9v8qqyDUj31prEqHh0FLKjoF/K6x+m2JXWuesXx6XacN+ItyzbVLt?=
- =?us-ascii?Q?pBTBE8GXJWFogZuOZtgXIt4TnWg+jZIM8ynwwJdgCFpHshcljFAr3LovLAgX?=
- =?us-ascii?Q?GwqJX5aedvt0Er3z0xj8ICbov2bxX9tSjoIwG0zPTu9IvJJn6VYSZqpW5/GI?=
- =?us-ascii?Q?ekeV+mMIqJvOzRi2PigF/doppSv2buE7rpWt47AobtG3ix1GjoU/7d1KhZnN?=
- =?us-ascii?Q?L4IjMUFDjUtxk9lUMaXrI3yVnAgXt2NOahUzYh1Nn7Jv4pv5enywToc56g1/?=
- =?us-ascii?Q?IfWeZ83sG39DHtYrO1/sftN0nd/zw/Re0rRB2rQxVvR7kY/NIoDxo80lUEmN?=
- =?us-ascii?Q?zqfH5T6IRrgInw2d9XmwhSCtS4YmfijWV3uQQUCBagKttMbWHxyAmYtVuqHf?=
- =?us-ascii?Q?NUSw2oMgFU3+XdrIA8FKFr9wxAhdTSMQf43/HyYtyszyMnd9iHhdbO5ZV9q+?=
- =?us-ascii?Q?EaPaxUnwYpNhrm0JElLUwlVbjEdPS/olCq0MTe4xrWtTsuAVRVuwNL++ID69?=
- =?us-ascii?Q?u3cdKFgkAZAyznbrj84SMH5Sf4XiHQwzS2UZWysYfkooZc3rwMV1ivPHEi6Q?=
- =?us-ascii?Q?TCicp1jDys1TapS4xID0V46c4U+8y8UvSYodGMQzS8H+XQB+t3ue3ayUuqIC?=
- =?us-ascii?Q?+4yG4hW8NDjTY0eXb/S30jgAeWvOT4y9RpJRrJPjsA+uEeX4wPAO6hrdwgtT?=
- =?us-ascii?Q?XiGqmZbg9dL+lw3tTKqdZf5GjNpji0U/XzWVC4l+1AmcGUxuWhxCyZe/CzKZ?=
- =?us-ascii?Q?vnlEorANp6Ke4BNu1a5poo43H//OAHAeifwf1irOr25cNGyyZ+31uIqEpAR1?=
- =?us-ascii?Q?rjVGA0hEWzW+uDznFXc+qwB+aNz3J9ACfOzrNXDXyJ0yxXyQ95k4xh5oJUOq?=
- =?us-ascii?Q?0QZJsmRT8BWvHF06Xe7wKkuaBkXrOeFK0mK273M/Ksk7A8l4H7UmGQv7yEc3?=
- =?us-ascii?Q?WBgVdyfTr+wAe4K3tgkbDAzSmQEWNpTybTaE/4JwW4DAqZ6axioaiqPZztdF?=
- =?us-ascii?Q?eaCWeRZwtlOOJKZXzxuElp58ZfI5h7ZROK8aW5VkGsDsDQ/bpeqzH4fbC87P?=
- =?us-ascii?Q?/jW6wfDKJPuqTN91858iYTBlR4wdpa1p/NpoDoysr90Tg5Haq05UJFX+VoQZ?=
- =?us-ascii?Q?+cfKI4AXc7PzdzK1Q1dXYPGwIqBDTgu88V9odMe6D/oKN2IjS3VP3n+AZcsj?=
- =?us-ascii?Q?Tc4eDLYGTjRg1X/y5Fsf34wbrObvXVAFQAhEyO3zeJ8f/LBY?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CU8QQD8U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E25051F00A3A;
+	Thu,  3 Sep 2026 10:15:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788430562;
+	bh=J+hHCoeCaNrFNAaS98mS3DbEz4agR3WizErmXjfn3jg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CU8QQD8UMQrrFMjNLbg7A1pr9E84x6mDUWy27MaJwjULD5tm0cXLa96RBBtUKykUs
+	 KUsSHj05V2V0RGg9VLN0WLxoYZZ9F7kTCM6nPvM2K39RhYgpvtOjlVT7aPAbEh3LTw
+	 YPPOpIoyFI+ugytlZOU4Ti9B7kS8DPBGC5kQoGkcEsceRUx+eZpNG0z10sMwsrfbjR
+	 eNR8JhhV/lbA5FSjN/CuTCuUgi21B7o9+5aj24ISK7Sx2vAe/1eZLAYEFrSP73gGkJ
+	 spSa3CqVNgwAsO+B05SBZhehzsZHorTvFI8x3efx8yjn8ryBow3PgVPjTas6g3/ZAg
+	 KMMQ3ptHS7ZYQ==
+Date: Thu, 3 Sep 2026 12:15:43 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-phy@lists.infradead.org, Thanh Quan <thanh.quan.xn@renesas.com>, 
+	Phong Hoang <phong.hoang.wz@renesas.com>, Hai Pham <hai.pham.ud@renesas.com>, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Tam Nguyen <tam.nguyen.xa@renesas.com>, 
+	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, Vinh Nguyen <vinh.nguyen.xz@renesas.com>, 
+	Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 2/2] phy: renesas: Add Renesas Multi-Protocol PHY driver
+ for R-Car X5H
+Message-ID: <c2rlwdyn2xm3tti7skniz3uldwh4lly4jlqdmggqjm2a2xpyxq@nczmbl7tyqa7>
+References: <20260828192223.402422-1-marek.vasut+renesas@mailbox.org>
+ <20260828192223.402422-2-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB9030.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7415aa8d-8629-484f-3b98-08df09a44900
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Sep 2026 10:15:31.3743
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: yNeV/vS7D3DSPtRDAhcp+WsN0SjjQvN3KXuBkE9k9nXdPNJk8GqKTSKwsqEsQhoAISdCVT/AjdUgQCcVmur6mQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9405
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260828192223.402422-2-marek.vasut+renesas@mailbox.org>
 
+On Fri, Aug 28, 2026 at 09:21:40PM +0200, Marek Vasut wrote:
+> From: Thanh Quan <thanh.quan.xn@renesas.com>
+> 
+> Add Renesas Multi-Protocol PHY driver for R-Car X5H (R8A78000) SoC.
+> 
+> This is a multiplexing PHY block with inputs from five IPs, and outputs
+> to four separate IO blocks. The five inputs are two PCIe4, two USB 3.2,
+> and ethernet PCS, each connected into the PHY with up to 4 times 2 lanes.
+> The inputs can be multiplexed to the four IO blocks as needed.
+> 
+> The datasheet describes initialization procedure without many information
+> about registers' name/bits. So, this driver does contain a bit of magic
+> to initialize the hardware.
+> 
+> Signed-off-by: Thanh Quan <thanh.quan.xn@renesas.com>
+> Co-developed-by: Phong Hoang <phong.hoang.wz@renesas.com>
+> Signed-off-by: Phong Hoang <phong.hoang.wz@renesas.com>
+> Co-developed-by: Hai Pham <hai.pham.ud@renesas.com>
+> Signed-off-by: Hai Pham <hai.pham.ud@renesas.com>
+> Co-developed-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+> Signed-off-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+> Co-developed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> ---
+> Cc: Arnd Bergmann <arnd@arndb.de>
+> Cc: Biju Das <biju.das.jz@bp.renesas.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+> Cc: Hai Pham <hai.pham.ud@renesas.com>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Magnus Damm <magnus.damm@gmail.com>
+> Cc: Manivannan Sadhasivam <mani@kernel.org>
+> Cc: Neil Armstrong <neil.armstrong@linaro.org>
+> Cc: Phong Hoang <phong.hoang.wz@renesas.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Tam Nguyen <tam.nguyen.xa@renesas.com>
+> Cc: Thanh Quan <thanh.quan.xn@renesas.com>
+> Cc: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> Cc: Vinh Nguyen <vinh.nguyen.xz@renesas.com>
+> Cc: Vinod Koul <vkoul@kernel.org>
+> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-phy@lists.infradead.org
+> Cc: linux-renesas-soc@vger.kernel.org
+> ---
+>  drivers/phy/renesas/Kconfig               |   7 +
+>  drivers/phy/renesas/Makefile              |   1 +
+>  drivers/phy/renesas/phy-rcar-gen5-mpphy.c | 757 ++++++++++++++++++++++
+>  3 files changed, 765 insertions(+)
+>  create mode 100644 drivers/phy/renesas/phy-rcar-gen5-mpphy.c
+> 
+> diff --git a/drivers/phy/renesas/Kconfig b/drivers/phy/renesas/Kconfig
+> index 90a9ca2db7fc7..ac903b29cacbc 100644
+> --- a/drivers/phy/renesas/Kconfig
+> +++ b/drivers/phy/renesas/Kconfig
+> @@ -43,6 +43,13 @@ config PHY_RCAR_GEN3_USB3
+>  	help
+>  	  Support for USB 3.0 PHY found on Renesas R-Car generation 3 SoCs.
+>  
+> +config PHY_RCAR_GEN5_MPPHY
+> +	tristate "Renesas R-Car generation 5 Multi-Protocol PHY driver"
+> +	depends on ARCH_RENESAS || COMPILE_TEST
+> +	select GENERIC_PHY
+> +	help
+> +	  Support for Multi-Protocol PHY found on Renesas R-Car generation 5 SoCs.
+> +
+>  config PHY_RZ_G3E_USB3
+>  	tristate "Renesas RZ/G3E USB 3.0 PHY driver"
+>  	depends on ARCH_RENESAS || COMPILE_TEST
+> diff --git a/drivers/phy/renesas/Makefile b/drivers/phy/renesas/Makefile
+> index 0e98083f2f0c8..23d413cfa8ce0 100644
+> --- a/drivers/phy/renesas/Makefile
+> +++ b/drivers/phy/renesas/Makefile
+> @@ -4,4 +4,5 @@ obj-$(CONFIG_PHY_RCAR_GEN2)		+= phy-rcar-gen2.o
+>  obj-$(CONFIG_PHY_RCAR_GEN3_PCIE)	+= phy-rcar-gen3-pcie.o
+>  obj-$(CONFIG_PHY_RCAR_GEN3_USB2)	+= phy-rcar-gen3-usb2.o
+>  obj-$(CONFIG_PHY_RCAR_GEN3_USB3)	+= phy-rcar-gen3-usb3.o
+> +obj-$(CONFIG_PHY_RCAR_GEN5_MPPHY)	+= phy-rcar-gen5-mpphy.o
+>  obj-$(CONFIG_PHY_RZ_G3E_USB3)		+= phy-rzg3e-usb3.o
+> diff --git a/drivers/phy/renesas/phy-rcar-gen5-mpphy.c b/drivers/phy/renesas/phy-rcar-gen5-mpphy.c
+> new file mode 100644
+> index 0000000000000..31f17a4955e8e
+> --- /dev/null
+> +++ b/drivers/phy/renesas/phy-rcar-gen5-mpphy.c
+> @@ -0,0 +1,757 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Renesas Multi-Protocol PHY device driver
+> + *
+> + * Copyright (C) 2025-2026 Renesas Electronics Corporation
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/bitops.h>
+> +#include <linux/clk.h>
+> +#include <linux/delay.h>
+> +#include <linux/firmware.h>
+> +#include <linux/io.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_device.h>
+> +#include <linux/phy/phy.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pm_domain.h>
+> +#include <linux/regmap.h>
+> +#include <linux/reset.h>
+> +#include <linux/types.h>
+> +
+> +#include <dt-bindings/phy/phy.h>
+> +
+> +#define MPPHY_NUM_CHANNELS		4
+> +
+> +/* Common registers */
+> +#define MPPHY_CMNCNT1			0x80000
+> +#define MPPHY_CMNCNT2			0x80004
+> +
+> +/* Channel register base and offsets */
+> +#define MPPHY_CHAN_BASE(ch)		(0x81000 + (ch) * 0x1000)
+> +#define MPPHY_PXCNTXT1(ch)		(MPPHY_CHAN_BASE(ch) + 0x4)
+> +#define MPPHY_PXCNTXT2(ch)		(MPPHY_CHAN_BASE(ch) + 0x8)
+> +#define MPPHY_PXTEST(ch)		(MPPHY_CHAN_BASE(ch) + 0xc)
+> +#define MPPHY_PXREFCLK(ch)		(MPPHY_CHAN_BASE(ch) + 0x14)
+> +#define MPPHY_PXRXREQ1(ch)		(MPPHY_CHAN_BASE(ch) + 0x24)
+> +#define MPPHY_PXRXCNT(ch)		(MPPHY_CHAN_BASE(ch) + 0x38)
+> +#define MPPHY_PXSRAMCNT(ch)		(MPPHY_CHAN_BASE(ch) + 0x40)
+> +#define MPPHY_PXTXREQ(ch)		(MPPHY_CHAN_BASE(ch) + 0x44)
+> +
+> +#define MPPHY_PCS0REG1			0x85000
+> +#define MPPHY_PCS0REG5			0x85010
+> +
+> +/* TCA (Type-C Adapter) Register Offsets within MP-PHY base */
+> +#define TCA_OFFSET(ch)			(0x90000 + (((ch) & 1) ? 0x10000 : 0))
+> +#define TCA_VBUS_CTRL			0x40
+> +
+> +/* PCS0REG1 register bits */
+> +#define MPPHY_PCS0REG1_VAL		BIT(16)
+> +
+> +/* PXTEST register bit */
+> +#define MPPHY_PXTEST_BIT		BIT(0)
+> +
+> +/* PXRXCNT register reset value */
+> +#define MPPHY_PXRXCNT_RESET_VAL		0x202
+> +
+> +/* PXSRAMCNT register bits */
+> +#define SRAM_EXT_LD_DONE		0x10
+> +
+> +/* PXREFCLK register value */
+> +#define MPPHY_PXREFCLK_VAL_ETH		0x55
+> +
+> +/* Firmware update */
+> +#define MPPHY_FW_BASE			0x10000
+> +#define MPPHY_FW_CH_OFFSET		0x20000
+> +#define MPPHY_FW_NAME			"rcar_gen5_mp_phy.bin"
 
+Is this firmware redistributable? I would assume not as like other Renesas IP
+firmware. If so, you should add a documentation about how an user can get the
+firmware, and package it. Like,
+Documentation/PCI/controller/rcar-pcie-firmware.rst
 
-> -----Original Message-----
-> From: Alex Williamson <alex@shazbot.org>
-> Sent: Saturday, August 29, 2026 4:03 AM
-> To: Manish Honap <mhonap@nvidia.com>
-> Cc: jgg@ziepe.ca; Ankit Agrawal <ankita@nvidia.com>; jic23@kernel.org;
-> dave.jiang@intel.com; alejandro.lucero-palau@amd.com; Srirangan Madhavan
-> <smadhavan@nvidia.com>; corbet@lwn.net; skhan@linuxfoundation.org;
-> dave@stgolabs.net; alison.schofield@intel.com; vishal.l.verma@intel.com;
-> iweiny@kernel.org; ming.li@zohomail.com; Yishai Hadas
-> <yishaih@nvidia.com>; Shameer Kolothum Thodi
-> <skolothumtho@nvidia.com>; kevin.tian@intel.com; bhelgaas@google.com;
-> dmatlack@google.com; kees@kernel.org; gustavoars@kernel.org; Neo Jia
-> <cjia@nvidia.com>; Krishnakant Jaju <kjaju@nvidia.com>; Vikram Sethi
-> <vsethi@nvidia.com>; Zhi Wang <zhiw@nvidia.com>; linux-
-> doc@vger.kernel.org; linux-kernel@vger.kernel.org; kvm@vger.kernel.org;
-> linux-cxl@vger.kernel.org; linux-pci@vger.kernel.org; linux-
-> kselftest@vger.kernel.org; linux-hardening@vger.kernel.org; alex@shazbot.=
-org
-> Subject: Re: [PATCH v4 23/27] vfio/cxl: Refresh the decoder snapshot afte=
-r a
-> device reset
->=20
-> External email: Use caution opening links or attachments
->=20
->=20
-> On Thu, 13 Aug 2026 15:06:27 +0530
-> <mhonap@nvidia.com> wrote:
->=20
-> > From: Manish Honap <mhonap@nvidia.com>
-> >
-> > A reset clears the HDM decoder registers, so the guest snapshot has to
-> > be resampled once the reset settles, on every path that can reset the
-> > function: the reset ioctl, an FLR driven through config space, and a
-> > bus hot reset. Re-enable Memory Space first, since a config restore
-> > can leave it off and the component-BAR read would then take an
-> Unsupported Request.
-> >
-> > The bus hot reset zaps BARs directly rather than through
-> > vfio_pci_zap_and_down_write_memory_lock(), so it also needs the HDM
-> > window zapped by hand; route both zap sites through a common helper.
-> >
-> > Signed-off-by: Manish Honap <mhonap@nvidia.com>
-> > ---
-> >  drivers/vfio/pci/cxl/vfio_cxl_core.c | 82 ++++++++++++++++++++++++++++
-> >  drivers/vfio/pci/vfio_pci_config.c   |  2 +
-> >  drivers/vfio/pci/vfio_pci_core.c     | 25 ++++++++-
-> >  drivers/vfio/pci/vfio_pci_priv.h     | 20 +++++++
-> >  include/linux/vfio_pci_core.h        |  4 ++
-> >  5 files changed, 131 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/vfio/pci/cxl/vfio_cxl_core.c
-> > b/drivers/vfio/pci/cxl/vfio_cxl_core.c
-> > index f1c6bf06c408..f45eaa60bad2 100644
-> > --- a/drivers/vfio/pci/cxl/vfio_cxl_core.c
-> > +++ b/drivers/vfio/pci/cxl/vfio_cxl_core.c
-> > @@ -555,6 +555,86 @@ static void vfio_cxl_zap(struct vfio_pci_core_devi=
-ce
-> *vdev)
-> >                           range_len(&cxl->hpa_range), true);  }
-> >
-> > +static void vfio_cxl_post_reset(struct vfio_pci_core_device *vdev) {
-> > +     struct vfio_cxl_state *cxl =3D vdev->cxl;
-> > +     struct pci_dev *pdev =3D vdev->pdev;
-> > +     bool re_enabled =3D false;
-> > +     int i, dwords;
-> > +     u16 cmd;
-> > +
-> > +     lockdep_assert_held_write(&vdev->memory_lock);
-> > +
-> > +     if (!cxl || !cxl->hdm_shadow)
-> > +             return;
-> > +
-> > +     /*
-> > +      * The decoder registers are read through the component BAR. A co=
-nfig
-> > +      * restore can leave Memory Space disabled, and the read would th=
-en
-> > +      * return an Unsupported Request, so re-enable it before sampling=
-.
-> > +      */
-> > +     pci_read_config_word(pdev, PCI_COMMAND, &cmd);
-> > +     if (!(cmd & PCI_COMMAND_MEMORY)) {
-> > +             pci_write_config_word(pdev, PCI_COMMAND,
-> > +                                   cmd | PCI_COMMAND_MEMORY);
-> > +             re_enabled =3D true;
-> > +     }
-> > +
-> > +     dwords =3D cxl->hdm_len / sizeof(u32);
-> > +     for (i =3D 0; i < dwords; i++)
-> > +             cxl->hdm_shadow[i] =3D cpu_to_le32(readl(cxl->hdm_regs +
-> > +                                                    i * sizeof(u32)));
-> > +     /*
-> > +      * Leave Memory Space as it was found. The guest owns Memory Spac=
-e
-> > +      * through vconfig, so a physical enable done only to sample must=
- not
-> > +      * outlive the sampling or the function would decode while vconfi=
-g
-> > +      * reports it off.
-> > +      */
-> > +     if (re_enabled)
-> > +             pci_write_config_word(pdev, PCI_COMMAND, cmd);
->=20
-> This is usually done by just saving the original and re-writing it, but t=
-his whole
-> patch is really just ammunition for why it should be read live rather tha=
-n
-> shadowed.
->=20
-> See also the reset_done callback in pci_error_handlers, we shouldn't be o=
-pen
-> coding calls to this everywhere, but of course this goes away if we expos=
-e it live
-> rather than shadow it.  Thanks,
->=20
-> Alex
+> +
+> +struct mp_phy_chan_priv {
+> +	struct phy *phy;
+> +	enum phy_mode protocol_id;
+> +	bool initialized;
+> +};
+> +
 
-I will drop this patch as per suggestion on patch 18.
+[...]
 
-Manish
+> +static int mp_phy_init(struct phy *phy)
+> +{
+> +	struct mp_phy_priv *priv = phy_get_drvdata(phy);
+> +	struct mp_phy_chan_priv *chan = &priv->chan[phy->id];
+> +	int ret;
+> +
+> +	/*
+> +	 * Note: Current source code support for Ethernet, PCIe
+> +	 * initialization is based on the bare metal code shared
+> +	 * by the board team.
+> +	 */
 
->=20
-> > +}
-> > +
-> > +static int vfio_cxl_pm_restore(struct vfio_pci_core_device *vdev) {
-> > +     struct vfio_cxl_state *cxl =3D vdev->cxl;
-> > +     struct pci_dev *pdev =3D vdev->pdev;
-> > +     int rc;
-> > +
-> > +     lockdep_assert_held_write(&vdev->memory_lock);
-> > +
-> > +     if (!cxl || !cxl->hdm_shadow) {
-> > +             pci_dbg(pdev, "vfio-cxl: pm_restore: no shadow (device no=
-t open),
-> skipping\n");
-> > +             return 0;
-> > +     }
-> > +
-> > +     /*
-> > +      * A D3hot->D0 transition can soft-reset the function and clear t=
-he HDM
-> > +      * decoder. Restore the physical decoder before the fault gate re=
--inserts
-> > +      * the mapping. The restore needs the device lock, taken here aft=
-er
-> > +      * memory_lock to match the reset path ordering. On failure the d=
-ecoder
-> is
-> > +      * left unrestored, so close the access gate (zap no longer clear=
-s it) and
-> > +      * return the error so the caller keeps the HDM range inaccessibl=
-e.
-> > +      */
-> > +     if (!pci_dev_trylock(pdev)) {
-> > +             pci_warn(pdev, "vfio-cxl: pm_restore: could not lock devi=
-ce, HDM
-> not restored\n");
-> > +             cxl->hdm_valid =3D false;
-> > +             return -EBUSY;
-> > +     }
-> > +
-> > +     rc =3D cxl_restore_hdm_after_pci_reset(pdev);
-> > +     pci_dev_unlock(pdev);
-> > +     if (rc) {
-> > +             pci_err(pdev, "vfio-cxl: pm_restore: HDM restore failed: =
-%d\n", rc);
-> > +             cxl->hdm_valid =3D false;
-> > +             return rc;
-> > +     }
-> > +
-> > +     vfio_cxl_post_reset(vdev);
-> > +     /* The decoder is restored and re-sampled, so reopen the access g=
-ate. */
-> > +     cxl->hdm_valid =3D true;
-> > +     return 0;
-> > +}
-> > +
-> >  static int vfio_cxl_open_device(struct vfio_pci_core_device *vdev)  {
-> >       struct vfio_cxl_state *cxl =3D vdev->cxl; @@ -767,6 +847,8 @@
-> > static const struct vfio_cxl_ops vfio_cxl_ops =3D {
-> >       .config_read    =3D vfio_cxl_config_read,
-> >       .config_write   =3D vfio_cxl_config_write,
-> >       .zap            =3D vfio_cxl_zap,
-> > +     .post_reset     =3D vfio_cxl_post_reset,
-> > +     .pm_restore     =3D vfio_cxl_pm_restore,
-> >       .owner          =3D THIS_MODULE,
-> >  };
-> >
-> > diff --git a/drivers/vfio/pci/vfio_pci_config.c
-> > b/drivers/vfio/pci/vfio_pci_config.c
-> > index f088e4ce5e07..01d808546a4c 100644
-> > --- a/drivers/vfio/pci/vfio_pci_config.c
-> > +++ b/drivers/vfio/pci/vfio_pci_config.c
-> > @@ -911,6 +911,7 @@ static int vfio_exp_config_write(struct
-> vfio_pci_core_device *vdev, int pos,
-> >                       vfio_pci_zap_and_down_write_memory_lock(vdev);
-> >                       vfio_pci_dma_buf_move(vdev, true);
-> >                       pci_try_reset_function(vdev->pdev);
-> > +                     vfio_pci_cxl_post_reset(vdev);
-> >                       if (__vfio_pci_memory_enabled(vdev))
-> >                               vfio_pci_dma_buf_move(vdev, false);
-> >                       up_write(&vdev->memory_lock); @@ -996,6 +997,7
-> > @@ static int vfio_af_config_write(struct vfio_pci_core_device *vdev, i=
-nt
-> pos,
-> >                       vfio_pci_zap_and_down_write_memory_lock(vdev);
-> >                       vfio_pci_dma_buf_move(vdev, true);
-> >                       pci_try_reset_function(vdev->pdev);
-> > +                     vfio_pci_cxl_post_reset(vdev);
-> >                       if (__vfio_pci_memory_enabled(vdev))
-> >                               vfio_pci_dma_buf_move(vdev, false);
-> >                       up_write(&vdev->memory_lock); diff --git
-> > a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-> > index 1a54f15d1c2c..fc8235c8b4fc 100644
-> > --- a/drivers/vfio/pci/vfio_pci_core.c
-> > +++ b/drivers/vfio/pci/vfio_pci_core.c
-> > @@ -362,6 +362,14 @@ int vfio_pci_set_power_state(struct
-> vfio_pci_core_device *vdev, pci_power_t stat
-> >               } else if (needs_restore) {
-> >                       pci_load_and_free_saved_state(pdev, &vdev->pm_sav=
-e);
-> >                       pci_restore_state(pdev);
-> > +                     /*
-> > +                      * A NoSoftRst- device soft-resets on D3hot->D0, =
-which can
-> > +                      * clear a CXL HDM decoder. Restore it before the=
- fault
-> > +                      * gate re-inserts the HDM mapping. memory_lock i=
-s held on
-> > +                      * this path (the PM config write and runtime PM =
-entry both
-> > +                      * take it before the D0 transition).
-> > +                      */
-> > +                     vfio_pci_cxl_pm_restore(vdev);
-> >               }
-> >       }
-> >
-> > @@ -529,6 +537,13 @@ static int vfio_pci_core_runtime_resume(struct
-> device *dev)
-> >               eventfd_signal(vdev->pm_wake_eventfd_ctx);
-> >               __vfio_pci_runtime_pm_exit(vdev);
-> >       }
-> > +     /*
-> > +      * A NoSoftRst- function can soft-reset on the runtime D3hot->D0
-> > +      * transition and clear a CXL HDM decoder. Restore it while memor=
-y_lock
-> > +      * is held, before the fault gate can re-insert the HDM mapping. =
-PCI
-> > +      * config restore alone does not restore the component decoder re=
-gisters.
-> > +      */
-> > +     vfio_pci_cxl_pm_restore(vdev);
-> >       up_write(&vdev->memory_lock);
-> >
-> >       if (vdev->pm_intx_masked)
-> > @@ -1449,6 +1464,7 @@ static int vfio_pci_ioctl_reset(struct
-> > vfio_pci_core_device *vdev,
-> >
-> >       vfio_pci_dma_buf_move(vdev, true);
-> >       ret =3D pci_try_reset_function(vdev->pdev);
-> > +     vfio_pci_cxl_post_reset(vdev);
-> >       if (__vfio_pci_memory_enabled(vdev))
-> >               vfio_pci_dma_buf_move(vdev, false);
-> >       up_write(&vdev->memory_lock);
-> > @@ -1838,8 +1854,7 @@ void
-> vfio_pci_zap_and_down_write_memory_lock(struct vfio_pci_core_device
-> *vdev)
-> >        * a runtime-PM entry, D3 transition, or reset would leave the gu=
-est
-> >        * with live mappings into a quiesced device.
-> >        */
-> > -     if (vdev->cxl_ops && vdev->cxl_ops->zap)
-> > -             vdev->cxl_ops->zap(vdev);
-> > +     vfio_pci_cxl_zap(vdev);
-> >  }
-> >
-> >  u16 vfio_pci_memory_lock_and_enable(struct vfio_pci_core_device
-> > *vdev) @@ -2780,6 +2795,8 @@ static int
-> > vfio_pci_dev_set_hot_reset(struct vfio_device_set *dev_set,
-> >
-> >               vfio_pci_dma_buf_move(vdev, true);
-> >               vfio_pci_zap_bars(vdev);
-> > +             /* zap_bars misses the HDM window; bus reset needs it too=
- */
-> > +             vfio_pci_cxl_zap(vdev);
-> >       }
-> >
-> >       if (!list_entry_is_head(vdev,
-> > @@ -2802,6 +2819,10 @@ static int vfio_pci_dev_set_hot_reset(struct
-> > vfio_device_set *dev_set,
-> >
-> >       ret =3D pci_reset_bus(pdev);
-> >
-> > +     /* Re-sample decoder state for any CXL device the bus reset touch=
-ed. */
-> > +     list_for_each_entry(vdev, &dev_set->device_list, vdev.dev_set_lis=
-t)
-> > +             vfio_pci_cxl_post_reset(vdev);
-> > +
-> >       vdev =3D list_last_entry(&dev_set->device_list,
-> >                              struct vfio_pci_core_device,
-> > vdev.dev_set_list);
-> >
-> > diff --git a/drivers/vfio/pci/vfio_pci_priv.h
-> > b/drivers/vfio/pci/vfio_pci_priv.h
-> > index 902d17815ab6..46e67573d264 100644
-> > --- a/drivers/vfio/pci/vfio_pci_priv.h
-> > +++ b/drivers/vfio/pci/vfio_pci_priv.h
-> > @@ -82,6 +82,26 @@ int vfio_pci_set_power_state(struct
-> vfio_pci_core_device *vdev,
-> >                            pci_power_t state);
-> >
-> >  void vfio_pci_zap_and_down_write_memory_lock(struct
-> > vfio_pci_core_device *vdev);
-> > +
-> > +static inline void vfio_pci_cxl_zap(struct vfio_pci_core_device
-> > +*vdev) {
-> > +     if (vdev->cxl_ops && vdev->cxl_ops->zap)
-> > +             vdev->cxl_ops->zap(vdev); }
-> > +
-> > +static inline void vfio_pci_cxl_post_reset(struct
-> > +vfio_pci_core_device *vdev) {
-> > +     if (vdev->cxl_ops && vdev->cxl_ops->post_reset)
-> > +             vdev->cxl_ops->post_reset(vdev); }
-> > +
-> > +static inline int vfio_pci_cxl_pm_restore(struct vfio_pci_core_device
-> > +*vdev) {
-> > +     if (vdev->cxl_ops && vdev->cxl_ops->pm_restore)
-> > +             return vdev->cxl_ops->pm_restore(vdev);
-> > +     return 0;
-> > +}
-> > +
-> >  u16 vfio_pci_memory_lock_and_enable(struct vfio_pci_core_device
-> > *vdev);  void vfio_pci_memory_unlock_and_restore(struct
-> vfio_pci_core_device *vdev,
-> >                                       u16 cmd); diff --git
-> > a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h index
-> > 8b93949d4484..c438d968dc59 100644
-> > --- a/include/linux/vfio_pci_core.h
-> > +++ b/include/linux/vfio_pci_core.h
-> > @@ -78,6 +78,10 @@ struct vfio_cxl_ops {
-> >                               int count, __le32 val);
-> >       /* Revoke the HDM mapping; paired with the BAR zap */
-> >       void    (*zap)(struct vfio_pci_core_device *vdev);
-> > +     /* Re-sample the decoder state once a reset has settled */
-> > +     void    (*post_reset)(struct vfio_pci_core_device *vdev);
-> > +     /* Restore the HDM decoder after a D3hot->D0 soft reset */
-> > +     int     (*pm_restore)(struct vfio_pci_core_device *vdev);
-> >
-> >       /* Pinned per bound CXL device so vfio-cxl cannot unload under us=
-age */
-> >       struct module *owner;
+Nit: Make use of 80 column for comments
 
+> +	ret = pm_runtime_get_sync(priv->pd_list->pd_devs[phy->id]);
+> +	if (ret < 0) {
+> +		dev_err(priv->dev,
+> +			"Failed to power on domain for channel %d: %d\n",
+> +			phy->id, ret);
+> +		return ret;
+> +	}
+> +
+> +	/* Check if initialized with same protocol then skip */
+> +	if (chan->initialized)
+
+Comment indicates that the check is supposed to check the protocol, but the code
+is not doing it.
+
+> +		return 0;
+> +
+> +	if (chan->protocol_id == PHY_MODE_PCIE)
+> +		ret = mp_phy_init_pcie4(phy);
+> +	else if (chan->protocol_id == PHY_MODE_ETHERNET)
+> +		ret = mp_phy_init_ethernet(phy);
+> +	else
+> +		ret = mp_phy_init_usb(phy);
+> +	if (ret)
+> +		return ret;
+> +
+> +	chan->initialized = true;
+> +	dev_dbg(priv->dev,
+> +		"Channel %d successfully initialized for protocol %d\n",
+> +		phy->id, chan->protocol_id);
+> +
+> +	return 0;
+> +}
+> +
+
+[...]
+
+> +static int mp_phy_probe(struct platform_device *pdev)
+> +{
+> +	static const char *const pd_names[] = { "mpp0", "mpp1", "mpp2", "mpp3" };
+> +	const struct dev_pm_domain_attach_data pd_attach_data = {
+> +		.pd_names = pd_names,
+> +		.num_pd_names = ARRAY_SIZE(pd_names),
+> +		.pd_flags = 0,
+> +	};
+> +	struct device *dev = &pdev->dev;
+> +	struct phy_provider *provider;
+> +	struct mp_phy_priv *priv;
+> +	int i, ret;
+> +
+> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	priv->dev = dev;
+> +
+> +	ret = mp_phy_parse_dt(pdev, priv);
+> +	if (ret)
+> +		return ret;
+> +
+> +	priv->base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(priv->base))
+> +		return dev_err_probe(dev, PTR_ERR(priv->base), "Failed to map PHY registers\n");
+> +
+> +	priv->map = devm_regmap_init_mmio(dev, priv->base, &mp_phy_regmap_config);
+> +	if (IS_ERR(priv->map))
+> +		return PTR_ERR(priv->map);
+> +
+> +	priv->num_clks = devm_clk_bulk_get_all(dev, &priv->clks);
+> +	if (priv->num_clks < 0)
+> +		return dev_err_probe(dev, priv->num_clks, "Failed to get PHY clocks\n");
+> +	if (priv->num_clks != 5)
+> +		return dev_err_probe(dev, -ENODEV, "Failed to get all PHY clocks\n");
+
+devm_clk_bulk_get_all() will fail if any of the clocks cannot be acquired. So I
+don't see a need to check for clock count.
+
+> +
+> +	/*
+> +	 * The reset ID order here does matters, reset_control_bulk_assert()
+> +	 * asserts these resets in this order, with mpphy02 reset being
+> +	 * asserted first, reset_control_bulk_deassert() deasserts these
+> +	 * resets in reverse order, with mpphy02 being reset being
+> +	 * deasserted last. This is the behavior the hardware expects.
+> +	 */
+> +	priv->resets[0].id = "mpphy02";
+> +	priv->resets[1].id = "mpphy01";
+> +	priv->resets[2].id = "mpphy11";
+> +	priv->resets[3].id = "mpphy21";
+> +	priv->resets[4].id = "mpphy31";
+> +	ret = devm_reset_control_bulk_get_exclusive(&pdev->dev, ARRAY_SIZE(priv->resets),
+> +						    priv->resets);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to get PHY resets\n");
+> +
+> +	platform_set_drvdata(pdev, priv);
+> +
+> +	ret = dev_pm_domain_attach_list(dev, &pd_attach_data, &priv->pd_list);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to attach power domains\n");
+> +
+> +	ret = devm_pm_runtime_enable(dev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable PHY runtime PM\n");
+> +
+> +	provider = devm_of_phy_provider_register(dev, mp_phy_xlate);
+> +	if (IS_ERR(provider))
+> +		return dev_err_probe(dev, PTR_ERR(provider), "Failed to register PHY provider\n");
+> +
+> +	for (i = 0; i < MPPHY_NUM_CHANNELS; i++) {
+> +		priv->chan[i].phy = devm_phy_create(dev, NULL, &mp_phy_ops);
+> +		if (IS_ERR(priv->chan[i].phy)) {
+> +			return dev_err_probe(dev, PTR_ERR(priv->chan[i].phy),
+> +					     "Failed to create PHY %d\n", i);
+> +		}
+> +
+> +		priv->chan[i].phy->id = i;
+> +		phy_set_drvdata(priv->chan[i].phy, priv);
+> +	}
+> +
+> +	return pm_runtime_resume_and_get(dev);
+
+Since the runtime usage count is incremented and not dropped anywhere else, the
+driver will never runtime suspend.
+
+> +}
+> +
+> +static void mp_phy_remove(struct platform_device *pdev)
+> +{
+> +	struct mp_phy_priv *priv = dev_get_drvdata(&pdev->dev);
+> +	struct device *dev = &pdev->dev;
+> +
+> +	pm_runtime_put(dev);
+> +
+> +	dev_pm_domain_detach_list(priv->pd_list);
+> +
+> +	pm_runtime_disable(&pdev->dev);
+> +
+> +	if (priv->fw)
+> +		release_firmware(priv->fw);
+> +
+> +	platform_set_drvdata(pdev, NULL);
+> +}
+> +
+> +static int mp_phy_suspend(struct device *dev)
+> +{
+> +	struct mp_phy_priv *priv = dev_get_drvdata(dev);
+> +	int i;
+> +
+> +	for (i = 0; i < MPPHY_NUM_CHANNELS; i++)
+> +		priv->chan[i].initialized = false;
+> +
+> +	clk_bulk_disable_unprepare(priv->num_clks, priv->clks);
+> +
+> +	dev_info(dev, "Multi-Protocol PHY suspended\n");
+
+Please avoid spamming the log.
+
+I'm wondering how you managed to test runtime PM with
+pm_runtime_resume_and_get() above.
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
