@@ -1,223 +1,198 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SY5PR01CU010.outbound.protection.outlook.com (mail-australiaeastazolkn19012065.outbound.protection.outlook.com [52.103.72.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4B43921EC
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:44:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788439456; cv=none; b=C+n4Ac1N3nq6TLCfNfnCIm/g1YqjS5B8bz8l5Rl+VP0keu9DXQ5h0ba4gSTJwl829QkY54uVREkMXypM58hV7ebqzUsQMwiu0gbcJn6Ra2UJz8ZVsVTdV/FsAuT+uYZRBkXujO6jRp+R4Uowom/wpRRZyJ578GbBvsKgWVBGEDY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788439456; c=relaxed/simple;
-	bh=qWCj6/FKwNR+w9ys8WEEcPnqWL6QEM9dEnsZ80xAZrg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mAyZ2+3ak5XP31JTw0P+iiqDN5VQrjZTKAPxusHhOUHN6gVyEILD36ovlVayOi9CkP+3spFhCF+ZvOuukBGGQbqPjhwhwAaeU0zZVYT+Xuwbw0IlhdUvSaBc70CASg6VTfcgDlKlNJs/td4gHs9QLloLFk2xA8hZPEOlU//VNhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MVRPz2BX; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB6933921EC
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:44:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.72.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788439462; cv=fail; b=Kt4g5gpXgj/nR/JlpH9CElz+UtogMh62x/iRLTOljhVAuDuO8xRe9vIrA2hEePS/jYdtzeiAHumTwQqT7Lqu2yT8lNmloADYnloORZO/cwYWqXtkAdxBzvUg6I8Z8QHMp4usG/wIhCwWIGGQ/kPRabqyh5YbEDFI6NqHRotNiGM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788439462; c=relaxed/simple;
+	bh=eA2SL0BcKUmOrHrAWWTa3PCs4AL+FZZCcwJC3YHUUkA=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=j5ksREbAMz8l4x9hOpxf4yrE4vdaOu8TEOpxEwq1DbZk+ub2mMwVMj2PivWtdhNO9O/uyDNePPVvr0S+crSI+I95mw7c3FRQp/DhJZftNx7WQuElrqoI+tHRCzIQJH/cuP6AeXpIAnmjctewkeLk4Uh7QIkSQ0MykvZ2NF9Uxh8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=hXdxXAGR; arc=fail smtp.client-ip=52.103.72.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MVRPz2BX"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38e58034d05so1978626a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:44:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788439454; x=1789044254; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=v1JpLmeHcDYci9TjzZaOlT2Qs79rEF11KvKmH8LlIEc=;
-        b=MVRPz2BXovBl7Q85HaOdXQlr5P6K6uZGmelqh+3ezVrBt/KW6Eoa6SFDscpivcchDn
-         fGr3113No163CY0ijQWB4kDeZ/qxnInktr+aojMyq48zcLV7VE8usOH8PRCBrfDumcGA
-         vo9H4PdDzblpdQcLLNFMLAftFQbSdgWNskLv0vJFJIFH7dJdfZw4BR1YUIaw4ek1u5J4
-         HaqrwIAmrea12UbDsVUGhlya2Ah8D+za3S9pD2cYYUSI5+SQT6NNhoIyJh3LKBnZ1tRa
-         HMRiQTiuD6Zj44KLiwsqdZ+WeMMNVOejiPsQe4mI/DBrkejAXKltLujcp20MFWSfz0aR
-         44cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788439454; x=1789044254;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=v1JpLmeHcDYci9TjzZaOlT2Qs79rEF11KvKmH8LlIEc=;
-        b=GY7alMo3mpUzPv683RmKAoiBem+2NdREK96aIapsVCQpXBmncCgBsBJOFWF7K3fiw1
-         3c1lfC3nVHWtB7Cp+vzPLFLXE1Q3JsS6uwUr7eSZmuhzeeA66iWO9j0YUjNF0ijc5x8P
-         s0iKoWZINIPXnZHxZfcn3jqBkJZO8Rne6p1048A8o3Plz1ubrAfRxzsewvgX4NRF+hhV
-         U8fp1wonWAkgwxFnd13KGHSDaeLZUBfFpSH6W8XvOkev5fa9E5vh7QT9U9OfrEzcCW8f
-         EeExLRD9c1t3kaedvV27U7TViKdWJUrycUF4ucqfjnfdXO0ve+9rI68pjTnK8h7vP6iN
-         kkNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw97/aqRHiC6Xno3m8GX0z4CTZoo8/uRu7VBtWe6+IIVIxE80H7r3wDBPUY3jBnmDlHrk4Cr+w1lnQuss4=@vger.kernel.org
-X-Gm-Message-State: AFuF++k7gglB9YBciP08K/TpVkBFNNfGYHTvfOuvoxOacmDHd5mK9tIR
-	bzAHYJA9SFe2kmwTYlaF2sn+EUXkIHzloL2j6oZm6t9uPIza6wMb1bIq
-X-Gm-Gg: AYBFou1BeDupwPYLfr/h0u3IgLppkUf2muEAN5UwMkbxDz8skOAbWezh8GFN4auEgk6
-	vOEv/jzIQfDLRoFwSiMctQaNHgxhfwzCFg7qE2Fy2uZLRnyDUCQWYSyJba7Igekut12wDX1+TxD
-	WsBteYcR5P+LjT4eZEpYO+XFKBnszy71X0i4QzfnYrO3EvIJE0udJHbNjyLpuZqYrhsMpMDtVpp
-	fHByK/c3pS1OA/08oVPieOkEGk0JCLrEGXk4ccsMSMR8rT87mmuBSgD2JIUwuRjWAOSCFxltEfc
-	jO3ymhMFPqTB9qpvuwC81WglKBP02YapoR7op5L+y6mq00BBcPqN/s/ftwCzAr9VqOXEaUrLLu/
-	VrhINuir7LcRPRH/y37mkSSwjbyMMyhoZj6TnMz4lyrZtzQSTgbUgbzutpAWOumVPgLY1k2VeHh
-	I4bLZf4vbIRqia5tRwOn7pldwtHr0YACrAPhYNF0DRvQPapkLHZfSK6d7GjxymP3+kFY0G4JKqA
-	PxNdG8MrrIVgmDF
-X-Received: by 2002:a17:90b:264e:b0:398:dcf6:d40e with SMTP id 98e67ed59e1d1-39aee0c16cdmr19784168a91.17.1788439454461;
-        Thu, 03 Sep 2026 05:44:14 -0700 (PDT)
-Received: from celestia.taila51cc2.ts.net ([2402:1980:9c5:2de5:8b4e:3f3c:b637:4ca5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08bcc060sm6268339a91.3.2026.09.03.05.44.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 05:44:14 -0700 (PDT)
-From: Liew Rui Yan <aethernet65535@gmail.com>
-To: sj@kernel.org
-Cc: aethernet65535@gmail.com,
-	akpm@linux-foundation.org,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2.1] mm/damon/core: fix false positive in damos_quota_is_full() when esz is zero
-Date: Thu,  3 Sep 2026 20:41:48 +0800
-Message-ID: <20260903124422.5340-1-aethernet65535@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260903003351.91088-1-sj@kernel.org>
-References: <20260903003351.91088-1-sj@kernel.org>
+	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="hXdxXAGR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cyi4ZkQ4cYx8cCLoy3z6ztlx8j9kg7ZTzn63+19OBQaU7ZLxLw1u0HyIEDZ5SOjBLRcBqYvZbwmsJiNmyIgx9b/oo45kJTAETu9jBPBVcKYFaTLatCIoOoBerUJK+7NaLOuLnUxaFP2Y4qmS/BWN1ydlbc89YxVfkbgpSN4lCUaXAWS0lU4WZeaT4/RKTCSeAwb6fi67mQpIr/5ARP1l42haCOT8NYHtfoNRcMo/z4V/N62wKfyVfZPHQIgtv+1Z9uP5WVkvwUawrv0W3IIaz17X4Ugel5HFWtc8DMep9K3kMoyv/B/8/ky5q8BpcgtnES2iQrKqtX0N5nnP1iahKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eA2SL0BcKUmOrHrAWWTa3PCs4AL+FZZCcwJC3YHUUkA=;
+ b=n6WGKms8XngPGqtTHDa/yFLm94VXrxfFZXL+y92TqvtrvePMQfUufQXwx+xOPEAt6xLsZT33nd6dFvLtMnJ9YtS6oxEyCyqS18ZrpxQZdWeX51RMpy3w57gw+/fMqf5DN864mQZDp+Mu3ES9TBFL63iWtoXcgTDlyQn1HU0JAmwwusXo51WdY1Sf5uvKQ3GQNSHcGsIR5wN0mr9E1291ZLCtEah/wlWoEKRmjQ/TLw2B64T8gz7qld4xIMIXhV9nWKkS1fmOq7bNjpzS2fbw7iCe3/1Phj105k3fCTcssfNDQ3AusxjVUJogdHN/NWdcTO3j4WUNfkivV5zJhku2BQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eA2SL0BcKUmOrHrAWWTa3PCs4AL+FZZCcwJC3YHUUkA=;
+ b=hXdxXAGRDYL7oDvQm1Og7CkyFSxKTB8wTbDJnWRXwHBILZ7Z6jDKb4Ov3XrAMBMGLQj6HiY+5pPCXP5MzQw9p0O17VFjTCExOJL/iSLa/k6p6unfbMDiv8NQg2O9Cvhhi0UM1D5tgyq39p1R8iT5jScrLA+W5RhvngMpFf7SzTBHkEHCxRFot1+Fhky7nfBBKE+imH0LS5zMdAuESme0dpwxTQgFIr16HQLoNqFeVVq+o9+A47g59tkUzioXqA2r8jS4mBo//uYEnygwhFxziuKpvz2TtrG6Z75jafZz8h1a/0bRPftbn6Wzr1OVGsVBGF8GofqkchNT06i2fNMXdg==
+Received: from SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM (2603:10c6:10:24c::11)
+ by SY7P300MB0055.AUSP300.PROD.OUTLOOK.COM (2603:10c6:10:238::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 12:44:16 +0000
+Received: from SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM
+ ([fe80::1c6a:c02f:24a4:eec0]) by SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM
+ ([fe80::1c6a:c02f:24a4:eec0%6]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 12:44:16 +0000
+From: =?gb2312?B?1uwgzOy6xg==?= <zhutianhao75@hotmail.com>
+To: "linkinjeon@kernel.org" <linkinjeon@kernel.org>, "hyc.lee@gmail.com"
+	<hyc.lee@gmail.com>
+CC: "ntfs@lists.linux.dev" <ntfs@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	=?gb2312?B?1uwgzOy6xg==?= <zhutianhao75@hotmail.com>
+Subject: [PATCH] ntfs: fix sector conversion on 4Kn devices
+Thread-Topic: [PATCH] ntfs: fix sector conversion on 4Kn devices
+Thread-Index: AQHdO56ejJyAklp2tUCGikkzN+n1yw==
+Date: Thu, 3 Sep 2026 12:44:15 +0000
+Message-ID:
+ <SY0P300MB0312121B2DA3A618B0632D3BDEB62@SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SY0P300MB0312:EE_|SY7P300MB0055:EE_
+x-ms-office365-filtering-correlation-id: 30fe29a5-10a9-487b-c7ae-08df09b9107f
+x-ms-exchange-slblob-mailprops:
+ 7qh87CJt6y1mqZO6407WRLxlypE3k+ejQwbSTxP0P7pJmOt8ytz7iGkHdm1rtl9D+1bsus7VhYwbkizWKWL9zur8qHHAySedsyh9BSncYOlJH6D4UHXOVvjRDkt+lzoK0emOpInuAMper2YV/VfSDIBKSvhVmaaGSYfJ4AsJaTN+kolwwaH2mHPAJ+EMVP24mx6p2t106BwJUqp3Hwq5+aInnIoOAsdmj6w4kqUo9hF1TS+3Lg8crm8l476h39vVWIr4r3HrKAqG8FzNQJp/Ohc5c542TbW7KG6jxj3lIxTBfMPeYIN9ugb/hHqMRA1UUdGgSqsstbdZiQ10cN5LPmhD7YVM+O+ERnY8n3MNN0wktwIR0eX3EigfXEWCjOmu1ZZP2yjUrzsiCXgltrMmS1FX6DMWjFwnuTdZUVeDQqq6dcv2TqUtHN0vXIbvf2nEStK2qEkwTWlRy6prQLvjEE36GMlyA0i4fLlhPZAErn91wn2fPOp0cEhF1FBdkKFAT9BGUPx5nokjKIHytz/ZB1dvKKQSZl0maC6DfaIDHErZOeEKwH6Ox1fjYXK2Am4MZpSGUxe8N7OEE10HAzXqBNhqEWpwXX2kCiRbc/gdrjB1AExH175ay+KlS5GZfNSnrIf/qH19fWIVlGIdb/IILGgSOod+BODVToNDZqbaSrW8v78IQNeOVkv76zhVUCxfC5zvn8Ka39Zfg8enCz4gt471hCEXPqdcjDeFay44v3Esg1ytoKtw7846kePGpuQ3
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|24021099003|22091999003|41001999006|24121999003|22141099003|8062599012|15030799006|8060799015|19110799012|31061999003|39105399006|15080799012|4140399003|6050399003|40105399003|26121999007|2607281247196008|3430499035|102099032|440099028|3412199025|1710799026;
+x-microsoft-antispam-message-info:
+ =?gb2312?B?eEFOZW5IbGpzTUd3dUVnUWZTbmZ5L3Z4R1p2YUc1RlFoQ3ZIOG9KVTlQbldC?=
+ =?gb2312?B?ZC81c2J2djJQTnFGMU5qcHVucTF0NE5zVmkweDlUQ2hXQnB3dkJha1hxaUxX?=
+ =?gb2312?B?RU94VS9tUVJSbFVEb0JrdFV1OXAwMWlzMVBURkJVc0JFOEllS1ZnY2FkU3Bl?=
+ =?gb2312?B?ZTBMNE1SYzIvR2lJU01PYmxZY2lIalF1M3c0N1huQTIyZVRhSFh4eTMyZlRy?=
+ =?gb2312?B?ckZ4elhUMjE5WHRIYVoyY0l1MjF5OW9HOUR2QTB0VzFTdFE2Yk5yRngrQmFx?=
+ =?gb2312?B?Q2lodDZjTGZQZnRudUduOHJuL2RMekRxa0JPVmliS0VQZ3pybmY5WEF2WHI0?=
+ =?gb2312?B?bWI3c2k3ZWdzWGJTYmpTMGhRemlYeXNpckF1cjdvSlUrQkVHK3VKTW1wb2JX?=
+ =?gb2312?B?cG4wWVUzdVliUUxnSWtVWHdMYWdUQ1RFZ09hK2hnSHlqcUJsTHpkZWNLa1h1?=
+ =?gb2312?B?NGdCek1SelN5MGJ3Z0hCQXROTHQvdVJENUdJOEpnYnMySFFJclNuajNoQk1O?=
+ =?gb2312?B?emkwN0ZFZGJrR2ZGREF2aDJJSGRmZjRBbXp6WXpkSGkrWVQzSmJaZ1FWVkhu?=
+ =?gb2312?B?QWk3OWVWYm9SOFlPekJncmcxZzJZMEhnMFQ0RS9la3FFMWh5cVp5SXBpdVhE?=
+ =?gb2312?B?VGVWdjRNL1UzT0pDRFlidHFDQkZLSkk2R3VXWVc3OVovVGNQazZkYlkwTFow?=
+ =?gb2312?B?Z0RyM1lFNnBjY2ZZWDk2RDZaaGo0VFBuUnZEZDNPcnNET1F6Z2dzTWVySUl3?=
+ =?gb2312?B?dUxQMUdTUUwyTDhGQU1kMFBQNVNhTW5ZRlNUVVVUWFBQdnp2ZEdYSUhibGw4?=
+ =?gb2312?B?RGZTQ01YcWQ2VjBPai9IRU1OZGxTNmJNRFhRaXlqek5TaytEYnM3ekVXbW1K?=
+ =?gb2312?B?cnFMYUpQMy9JcEljRUtCcE91MVpZa0xkVjQ2NzVoc2MrNlp3eW44Y0tFUzNG?=
+ =?gb2312?B?ajVKNGt1RG1LNXpZZUo1QXQzSVVYajlDK2dOYWZqbTZFaVljWlRnZ3ZwT0pn?=
+ =?gb2312?B?SHJRbFFpMmxMcXJ6S0ZyRVhVQ0VqaUtneGppOHBldmJnWnhDN29nZnM5OTVT?=
+ =?gb2312?B?SjZ1a29lWjJEUFlGTFZGOG9HQ1JxZERvMUcyejBGRHlRall6OW9TRmJZWStE?=
+ =?gb2312?B?bktmSEJOTzlpTXB5QXp4Q3FIenE3bSticXZ1OWs1SzF2WVBQeEVGWmt0Tk9p?=
+ =?gb2312?B?dFFEcGlnZGVmZ2QwVlFnVFIwazRmZzFZNkJhdlhYUUFmL0w4a1Izb3Z4WE9H?=
+ =?gb2312?B?SnNtczl6Q2lNTEQ1M0VIZ3NLZWQ0N0Q5OHVpVDFibGc3SmpudGtHMlBnaW13?=
+ =?gb2312?B?ZlVxUE54RVZHaXFhTURIRkFtMktQN1N2KzdmbG9laTJRYm45YVZGWmt5czNB?=
+ =?gb2312?B?U0ZqQ0I1S1JmeEU0aVB3aDF5NkJTN3dVajQ5STdwa2Q2VFJ0MGF3SENHTGFm?=
+ =?gb2312?B?YnNudDZyTndVL3l1QzFLTnZ6TmZPdllwQkY3SUVvS0piWWpzRUFLT0V0M1ZZ?=
+ =?gb2312?B?VlgrYi82MEhUZzhIVE9ML1hyU2dpZzlydXFBSjI3dDlBaElzeHczNkxuZEw4?=
+ =?gb2312?B?ekp3UT09?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?gb2312?B?S3JMU1hZUTFQMDJUUGFOdXJRQm1rUHVMT3JVMFV0emlaakxCNHRtRDVFQ3l4?=
+ =?gb2312?B?cXNzellPWjltSko3b1pTTkFOczltSmdCVVBmclBLMGNDVGd4UEJQQmJ1andk?=
+ =?gb2312?B?UWk3N2xtUXJiWDZ3ZnU3T0pkZjZpTU8zN2pKR2cwb0gzcUJZVFJtSDNuamNl?=
+ =?gb2312?B?U1hEaDhBSC9YdEhUY0VmMjdnN0FTOXMxejgxREVEencxaUp4ZGFFdjYrdkVz?=
+ =?gb2312?B?UW9jNFFtZWYwUm05MHdFNFB3UG5oNmFvWmpUaXl6TG5qcFRVQnNPTWpYc3ZO?=
+ =?gb2312?B?T1R6Z09tL0ZQV0RjQVo0Mk1IdXNiTU9RTHBoY0J1QytOYjFKT0lPSFIxU0lC?=
+ =?gb2312?B?TVRnTGZWTnIxamphTWhMS0dJT05qSm4xbnltZk93YWJYaUFkeHlYZ1lFZ0l6?=
+ =?gb2312?B?NWptZWpqNVRIbDQwOU8yZHFQaU1tUENVMkIweFd6bGgvbXd2V1NpN1RWMzl2?=
+ =?gb2312?B?c1FOQXpqYW9TeElyK0c5cE5WeVZxMlZOaGdnaEtMaklzRHlzYVJIQkh2L1kz?=
+ =?gb2312?B?QWlVOGt4bjc4VGVhbjl1c2NpbDN6QjR0WHJpTW4wZzhVL2xBWSthYjdBUlVG?=
+ =?gb2312?B?bWZyeDd5ZzN1UjB5Zm1DUDFSR2ZhQUJRZUF5K1pGZGlIZVppWjdHejdnT3Jv?=
+ =?gb2312?B?Tk1uem1TWE1CbTVBOWJEbUlqOGRpaDRJVGkxOEd4emtwVGxhQmN5dGpBdnFS?=
+ =?gb2312?B?SzhpenhnQ3ZkM0hpekQ1Q1VsN3BMVVlpNzY3SHJFWW9vZVN5TkxDOTBNaGtS?=
+ =?gb2312?B?RExSMkRqU3NBWjRjT1VBYmpOZzJCbE1jUkRrRUZ5bzBvT2JHeGNjTWowR3JM?=
+ =?gb2312?B?bWhodVE3ejBNNFNvczA5STZrdFNLZnBQV0JwK3J5RnQ2dkNXcmN2cFY4N3BS?=
+ =?gb2312?B?MHRyNjN2SjFBN2VLNEo5djNCaTI5blVlclNlNXYwMHhiZVlHRUZTc0VMTVB5?=
+ =?gb2312?B?aUIvMC9CYkwvbUJ3cUlUMTczUVVJSnBXVXVabWp0djdjZVpjQWEySnFnbnhQ?=
+ =?gb2312?B?SVZUak94bEsydHJNQ3hoZ05Ed2RLbG5wYi9xZXdvMGRwVHhqVy9BbEZLb0ZP?=
+ =?gb2312?B?dUN5YlM0N3A3NmMxMmZRa1dsSU9taGZUQ2xoVDhNYjZIejZTUWhwcFdocURw?=
+ =?gb2312?B?a1Zxb1hmd25iSTBlYXpsR2w5MTBpdExOUmZjNkc2clU2K3hKRDVMZkxkM25a?=
+ =?gb2312?B?YzM4VkV4RGFDS1VMVW1Ja3pWV2NxOHorL1dPWElHY2FGY3FaUXJSSy9kdjBG?=
+ =?gb2312?B?RTFreVpvdkpncHBHSnROaThkTHl5RHR6YnRtcWwxZFYyc0xBSzQyclNIQURL?=
+ =?gb2312?B?STlDTGZOdkkwM3hya25PNWl4ZkRBeDlmRDBqbVRIQ0lvVW9pRUlxSmZ2VDhR?=
+ =?gb2312?B?Rkdka3BIc2FoZTdJQ0tYZFErWFRKUnpLR3RqWGc4RlJoSW9mNUVqQTdUdTVT?=
+ =?gb2312?B?T0JxN2ZtQ2w5K2VyaWhDcVQwRmJNdTVsTkkrMjJ2aUIwa0VUOU1WMWFKVHN5?=
+ =?gb2312?B?ZXVPTWpkdS9pMEI0SGNzb003MU12UWE3VmRzbDhhRytMVkNsRmdGUFVkMXo5?=
+ =?gb2312?B?RXBUTWJMZGpQdElYY2V5ZG42VkxEMHp1WUl1U3c2b3pOSGtEOGppa0JzTTJy?=
+ =?gb2312?B?S2xlamNFMGpGa2FRbkFnemRaRU5TVkpnTGZ6cDNyMzNpcXhrZEZFZkJOMVU1?=
+ =?gb2312?B?WldjS2VDMGI3bWd3UW9MdGZlazJ0Q2FWRTUwamg4Tnl4N2xlakxLM2FHTDRi?=
+ =?gb2312?B?TitLVTdoeENLVmdyNnlnQjhRRnJ2TnRiRWVrUGFMSXBwR2JkRUVwQ04rRnZq?=
+ =?gb2312?B?V0VZZEs2NWIrYUhHeFNSS0tHSUlsYkNjbTBFTDk5Sm1kR0Q4RHFTM1RFYTUw?=
+ =?gb2312?B?dmU0cVJ4NHd0Q291cFNRakhXeFZ0ZWQ4L1dYUmo2bHRFZlVGS2MvcHRqT0pn?=
+ =?gb2312?Q?bOL7lk61s3GJynpEyaGvQA2uMPDBDzws?=
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-4606f.templateTenant
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30fe29a5-10a9-487b-c7ae-08df09b9107f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Sep 2026 12:44:16.0074
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY7P300MB0055
 
-On Wed, 02 Sep 2026 17:33:50 -0700 SJ Park <sj@kernel.org> wrote:
-
-> On Thu,  3 Sep 2026 06:31:38 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
-> 
-> > On Wed, 02 Sep 2026 07:48:03 -0700 SJ Park <sj@kernel.org> wrote:
-> > 
-> > > On Wed,  2 Sep 2026 22:22:31 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
-> > > 
-> > > > On Wed, 02 Sep 2026 07:10:00 -0700 SJ Park <sj@kernel.org> wrote:
-> > > > 
-> > > > > On Wed,  2 Sep 2026 16:44:45 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
-> > > > > 
-> > > > > > When setting goal_tuner to 'temporal', if the goal is achieved,
-> > > > > > quota->esz_bp will be set to zero.  In this case, damos_quota_is_full()
-> > > > > > will always return true, even if no regions have been tried to apply at
-> > > > > > all.  This causes qt_exceeds to increase unexpectedly.
-> > > > > 
-> > > > > To me, this looks logically correct.  Could this cause any user issue?
-> > > > 
-> > > > Yes, I think this might cause unnecessary confusion for users,
-> > > 
-> > > If it is _might_ kind thing, please ask questions first, or add RFC tag at
-> > > least.
-> > > 
-> > > > at least
-> > > > it did for me.
-> > > 
-> > > If it confused you, definitely we need to fix it.  But if it is just confusing,
-> > > let's try to clarify by adding documentation, rather than changing existing
-> > > behaviors.
-> > 
-> > I agree that we should avoid unnecessary code changes if the issue is
-> > merely a matter of confusion.
-> > 
-> > However, I believe a code change is necessary in this specific case,
-> > rather than just adding documentation, for the following reasons:
-> > 
-> > First, this distorts the semantics of qt_exceeds.  It is a statistic
-> > meant to track actual quota full/overflows.  Incrementing qt_exceeds
-> > when the quota is completely unused (because the temporal goal is
-> > already met) misleads users and could break user-space monitoring tools
-> > or scripts that rely on this metric's accuracy.
-> 
-> As I mentioned in the previous comment, this doesn't look wrong to me.  I
-> understand some people could think differently.  That's why I think this is a
-> matter of clarification, not a bug to fix.
-> 
-> > 
-> > Second, considering its original behavior when it was first introduced,
-> > the recent changes [2] have inadvertently altered this behavior.
-> > 
-> > When qt_exceeds was first introduced [1], the conditional check was:
-> > 
-> >     if (quota->esz && quota->charged_sz >= quota->esz)
-> >             s->stat.qt_exceeds++;
-> > 
-> > Later, to handle cases where 'remaining quota < min_region_sz',
-> > damos_quota_is_full() was added [2].  When this function was added,
-> > quota->esz was replaced with !damos_quota_is_set(quota).
-> 
-> I don't find what's wrong with this.
-> 
-> > 
-> >     static bool damos_quota_is_full(struct damos_quota *quota,
-> >             unsigned long min_region_sz)
-> >     {
-> >         if (!damos_quota_is_set(quota))
-> >             return false;
-> >         if (quota->charged_sz >= quota->esz)
-> >             return true;
-> >         /*
-> >          * DAMOS action is applied per region, so <min_region_sz remaining
-> >          * quota means the quota is effectively full.
-> >          */
-> >         return quota->esz - quota->charged_sz < min_region_sz;
-> >     }
-> > 
-> > With the introduction of DAMOS_QUOTA_GOAL_TUNER_TEMPORAL [3], quota->
-> > esz == 0 carries two meanings: "unlimited quota" and "should not
-> > be applied".
-> 
-> I don't find how you think this way.
-> 
-> > This overlap causes the damos_quota_is_full() check to
-> > return true incorrectly in the temporal goal scenario, leading to the
-> > false positive in the statistic.
-> 
-> That still sounds like just a matter of different interpretations.  Let me know
-> if I'm missing something.
-
-Thank you for keeping this discussion going!
-
-First, I would like to clarify my intention to avoid any
-misunderstanding.  My actual goal is to fix the semantic of the
-qt_exceeds statistic, rather than necessarily changing the underlying
-logic of damos_quota_is_full().
-
-Currently, there is an issue with how qt_exceeds is incremented.  When
-the quota is set very small, qt_exceeds increases frequently.  This
-produces a statistical trend that looks almost identical to the
-continuous increments caused by the Temporal Goal being achieved.
-
-The original intent of introducing qt_exceeds is to let users easily
-notice if the quota is too small.
-
-Commit Messages [1]:
-
-    mm/damon/schemes: account how many times quota limit has exceeded
-
-    If the time/space quotas of a given DAMON-based operation scheme is too
-    small, the scheme could show unexpectedly slow progress.  However, there
-    is no good way to notice the case in runtime.  This commit extends the
-    DAMOS stat to provide how many times the quota limits exceeded so that
-    the users can easily notice the case and tune the scheme.
-
-However, under the current behavior, users are forced to manually ignore
-or filter out the qt_exceeds increments that occur after the Temporal
-Goal is achieved.  This adds an unnecessary burden to the users and
-contradicts the core goal of making it "easy" for them to tune the
-scheme.
-
-If we agree that this adds unnecessary burden, perhaps we could explore
-a minimal fix at the point where qt_exceeds is incremented, to skip the
-count when the Temporal Goal is already achieved, without touching
-damos_quota_is_full().
-
-Please let me know if I'm misunderstanding anything or missing some
-context!
-
-[...]
-
-> > [1] 6268eac34ca30 ("mm/damon/schemes: account how many times quota limit has exceeded")
-> >     (Fri Jan 14 14:10:202022 -0800)
-> > [2] c7ec7d5f6b3d1 ("mm/damon/core: handle <min_region_sz remaining quota as empty")
-> >     (Mon Apr 27 18:33:50 2026 -0700)
-> > [3] af738a6a00c1f ("mm/damon/core: introduce DAMOS_QUOTA_GOAL_TUNER_TEMPORAL")
-> >     (Mon Mar 9 18:05:19 2026 -0700)
-
-Best regards,
-Rui Yan
+VGhlIE5URlMgZHJpdmVyIHdhcyBjb252ZXJ0aW5nIGJ5dGUgb2Zmc2V0cyB0byBiaW8gc2VjdG9y
+IG51bWJlcnMgdXNpbmcKdGhlIGZpbGVzeXN0ZW0gYmxvY2sgc2l6ZSAoc2ItPnNfYmxvY2tzaXpl
+X2JpdHMpLiAgSG93ZXZlciwgYmxvY2sgbGF5ZXIKc2VjdG9yIG51bWJlcnMgLSBiaW8tPmJpX2l0
+ZXIuYmlfc2VjdG9yIGFuZCBzZWN0b3JfdCAtIGFyZSBhbHdheXMgaW4KdW5pdHMgb2YgNTEyIGJ5
+dGVzLCBpbmRlcGVuZGVudCBvZiB0aGUgZmlsZXN5c3RlbSBibG9jayBzaXplLgoKT24gYSBkZXZp
+Y2Ugd2l0aCBhIDQwOTYgYnl0ZSBsb2dpY2FsIGJsb2NrIHNpemUgKDRLbiksIHNiX21pbl9ibG9j
+a3NpemUoKQpsaWZ0cyBzX2Jsb2Nrc2l6ZSB0byA0MDk2LCBzbyBldmVyeSBNRlQgd3JpdGViYWNr
+IGJpbyBidWlsdCBieQpudGZzX3N5bmNfbWZ0X21pcnJvcigpLCB3cml0ZV9tZnRfcmVjb3JkX25v
+bG9jaygpIGFuZApudGZzX21mdF93cml0ZXBhZ2VzKCkgZW5kZWQgdXAgd2l0aCBhIHNlY3RvciBu
+dW1iZXIgZWlnaHQgdGltZXMgdG9vCnNtYWxsLiAgVGhlIHJlc3VsdGluZyBMQkEgaXMgbm90IG9u
+bHkgd3JvbmcsIGl0IGlzIHVzdWFsbHkgbm90IGEKbXVsdGlwbGUgb2YgdGhlIGxvZ2ljYWwgYmxv
+Y2sgc2l6ZSBlaXRoZXIsIGFuZCBzb21lIGNvbnRyb2xsZXJzIHJlamVjdAp0aGUgd3JpdGUgb3V0
+cmlnaHQsIGUuZy46CgogIG50ZnM6IChkZXZpY2UgbnZtZTBuMXAzKTogbnRmc19zeW5jX21mdF9t
+aXJyb3IoKTogSS9PIGVycm9yIHdoaWxlCiAgd3JpdGluZyBtZnQgbWlycm9yIHJlY29yZCAweDMh
+CiAgbnRmczogKGRldmljZSBudm1lMG4xcDMpOiB3cml0ZV9tZnRfcmVjb3JkX25vbG9jaygpOiBJ
+L08gZXJyb3Igd2hpbGUKICB3cml0aW5nIG1mdCByZWNvcmQgMHgzISAgTWFya2luZyBiYXNlIGlu
+b2RlIGFzIGJhZC4KClJlcHJvZHVjZWQgb24gYW4gQXBwbGUgU1NEIEFQMDI1NkogKDRLbikgd2l0
+aCBhIHZvbHVtZSB1c2luZyA0MDk2IGJ5dGUKc2VjdG9ycywgNDA5NiBieXRlIGNsdXN0ZXJzIGFu
+ZCBjbHVzdGVyc19wZXJfbWZ0X3JlY29yZCA9IDE7IGFmdGVyIHRoZQpmaXggYSAxMyBNQiBmaWxl
+IHdyaXR0ZW4gdG8gdGhlIHZvbHVtZSBpcyBieXRlLWZvci1ieXRlIGlkZW50aWNhbAphZnRlciBh
+IHVtb3VudC9tb3VudCBjeWNsZS4KCkZpeGVzOiA0MDc5NjA1MTk5MWQgKCJudGZzOiB1cGRhdGUg
+aW4tbWVtb3J5LCBvbi1kaXNrIHN0cnVjdHVyZXMgYW5kIGhlYWRlcnMiKQpTaWduZWQtb2ZmLWJ5
+OiBaaHUgVGlhbmhhbyA8emh1dGlhbmhhbzc1QGhvdG1haWwuY29tPgotLS0KIGZzL250ZnMvbnRm
+cy5oIHwgMTUgKysrKysrKysrKysrLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTIgaW5zZXJ0aW9ucygr
+KSwgMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9mcy9udGZzL250ZnMuaCBiL2ZzL250ZnMv
+bnRmcy5oCmluZGV4IGRmNWE3NWQ1MDZmNi4uYjY2Y2U2MmY2N2M5IDEwMDY0NAotLS0gYS9mcy9u
+dGZzL250ZnMuaAorKysgYi9mcy9udGZzL250ZnMuaApAQCAtMjAsNiArMjAsNyBAQAogI2luY2x1
+ZGUgPGxpbnV4L3NtcC5oPgogI2luY2x1ZGUgPGxpbnV4L3BhZ2VtYXAuaD4KICNpbmNsdWRlIDxs
+aW51eC91aWRnaWQuaD4KKyNpbmNsdWRlIDxsaW51eC9ibGtkZXYuaD4gICAgICAvKiBGb3IgU0VD
+VE9SX1NISUZULiAqLwogCiAjaW5jbHVkZSAidm9sdW1lLmgiCiAjaW5jbHVkZSAibGF5b3V0Lmgi
+CkBAIC03MSw3ICs3MiwxMSBAQAogI2RlZmluZSBOVEZTX0NMVV9UT19QT0ZTKHZvbCwgY2x1KSAo
+KCh1NjQpKGNsdSkgPDwgKHZvbCktPmNsdXN0ZXJfc2l6ZV9iaXRzKSAmIFwKIAkJCQkgICAgflBB
+R0VfTUFTSykKIAotI2RlZmluZSBOVEZTX0JfVE9fU0VDVE9SKHZvbCwgYikgKChiKSA+PiAoKHZv
+bCktPnNiKS0+c19ibG9ja3NpemVfYml0cykKKy8qCisgKiBiaW8tPmJpX2l0ZXIuYmlfc2VjdG9y
+IGFuZCBzZWN0b3JfdCBhcmUgYWx3YXlzIGluIDUxMi1ieXRlIHNlY3RvcnMsIGV2ZW4KKyAqIHdo
+ZW4gdGhlIGZpbGVzeXN0ZW0gYmxvY2sgc2l6ZSBpcyBsYXJnZXIgKGZvciBleGFtcGxlIDRLaUIp
+LgorICovCisjZGVmaW5lIE5URlNfQl9UT19TRUNUT1Iodm9sLCBiKSBudGZzX2J5dGVzX3RvX3Nl
+Y3Rvcih2b2wsIGIpCiAKIGVudW0gewogCU5URlNfQkxPQ0tfU0laRQkJPSA1MTIsCkBAIC0xNTQs
+MTEgKzE1OSwxNSBAQCBzdGF0aWMgaW5saW5lIHU2NCBudGZzX2NsdXN0ZXJfdG9fcG9mZihjb25z
+dCBzdHJ1Y3QgbnRmc192b2x1bWUgKnZvbCwKIAlyZXR1cm4gKGNsdSA8PCB2b2wtPmNsdXN0ZXJf
+c2l6ZV9iaXRzKSAmIH5QQUdFX01BU0s7CiB9CiAKLS8qIENvbnZlcnQgYnl0ZSBvZmZzZXQgdG8g
+c2VjdG9yIChibG9jaykgbnVtYmVyLiAqLworLyogQ29udmVydCBieXRlIG9mZnNldCB0byBhIGJs
+b2NrIGxheWVyIHNlY3RvciBudW1iZXIuICBUaG9zZSBhcmUgYWx3YXlzIGluCisgKiB1bml0cyBv
+ZiA1MTIgYnl0ZXMsIG5ldmVyIGluIHVuaXRzIG9mIHNiLT5zX2Jsb2Nrc2l6ZSwgd2hpY2ggaXMg
+cmFpc2VkIHRvCisgKiB0aGUgZGV2aWNlIGxvZ2ljYWwgYmxvY2sgc2l6ZSBvbiA0S24gZGV2aWNl
+cy4KKyAqLwogc3RhdGljIGlubGluZSBzZWN0b3JfdCBudGZzX2J5dGVzX3RvX3NlY3Rvcihjb25z
+dCBzdHJ1Y3QgbnRmc192b2x1bWUgKnZvbCwKIAkJdTY0IGJ5dGVzKQogewotCXJldHVybiBieXRl
+cyA+PiB2b2wtPnNiLT5zX2Jsb2Nrc2l6ZV9iaXRzOworCSh2b2lkKXZvbDsKKwlyZXR1cm4gYnl0
+ZXMgPj4gU0VDVE9SX1NISUZUOwogfQogCiAvKiBHbG9iYWwgdmFyaWFibGVzLiAqLwotLSAKMi41
+MS4wCg==
