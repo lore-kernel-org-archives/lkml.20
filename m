@@ -1,183 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F22250C28F;
-	Thu,  3 Sep 2026 20:42:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02BD950EC1E;
+	Thu,  3 Sep 2026 20:43:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788468155; cv=none; b=uULXNYboH5b10RLW4qcBmiJViaK09U4hkU/Lb6UO21oBhEZ0XvUbobxEWswCsnd00gTz2Qi2VnTfNB2iVoxghC2v50q2Wa7B+5r+8+MRl1q+7cLNlBLmsgziTwQXotZjZoSXveFB09wMBD6oppC2dligdtJFufPltr7QWyYTUrM=
+	t=1788468229; cv=none; b=XJdGT33NDpciyiJ/a4XnnW0yFRj7KjUCWhgYDwiLLrXTZZTLvPj1QFIDu7z/GNGq1z0s+fruRQJWQ+5KRuWg3Y+gKwp+pHdzMqeuN+j8RYFrf/DfbyzTTe4QHwfcPS+hIzOZFSUgDJ2fnDn1987P6FOwGj47u31iV6iS0tj1Irw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788468155; c=relaxed/simple;
-	bh=GVd8Iy/H18JBf/7HKyrxgWxglNOxkHMbCo0lgYNyMbk=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=AMSXY+iFLzUl/IaDlRWV2iP/id6LfusRJchCsXIMM2X/M4NkwmkHAckRMfpEcW7n/+/UXOqrGJKXNYO/OgPD6c9MqTgWob9/x5AsUjPdaaNbfvTVaYCpZU5lzVr5Wob7TR9tDNrHne/rd7muUMdyIg5S0GoMvYhGGcGQhDxeHnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gTx9C/VK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788468229; c=relaxed/simple;
+	bh=n230phlDry5CJrh5PIzytyNR8M2YhLWFFnSbFH3+k9c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ih5R5nyJL/d6LCCWEr9SMH7oSE7NE0p85kkThOzssjspp7CEqmYd1F2z4c3lh2+CmxOI3LuS6b8AE/qsD9LmDC8bHQ7TTsodR/oQonJ9lFMpC4FY4CBUg6OfxFDz9Vw1wzIs0JMuAHjIHtMaxECw+xgsdCqcrKL3HkWHHlaFhBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=OOWEPmm1; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gTx9C/VK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE3681F00ACA;
-	Thu,  3 Sep 2026 20:42:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788468128;
-	bh=R/ICcvEgsR7nCa4HQJQeOOquuFPufd/ZR1tavR5ybiw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=gTx9C/VKgRoE5cVu6Nt+1vCiBAYsod+msYlM1ZeWkThijrtfh+j9FcKYIGUvi2i/Y
-	 OhOA8vtZ0f+l0856FmJjTyp9pmzebyn1Hmwc+coEQ9/PY/fo2dCX+SShtVo0W4ZxoQ
-	 BhJm57WXRfazdi3/sjV7E8qYIHAlC1Qvo1JBCcoLEEqpC5ebfQfBQWcUUVQH5VScdk
-	 U9gpG4uVnrm3sryMFHpYMt097h1ZrjYdsCavWS5Hjr5ndIoascb3nTjkmO10w8Xnwn
-	 Jw2kaydv26QBuAd9KeIaKvNpTqIp3jyCVlIsxlW0lJAN8RwMdPwQPNJeJZgeIULvSR
-	 aW4jv8beRBffw==
-Subject: Re: [net-next,v12,7/7] r8169: add get_channel support for ethtool
-From: netdev-bot+sashiko@kernel.org
-To: javen_xu@realsil.com.cn
-Cc: hkallweit1@gmail.com, nic_swsd@realtek.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 03 Sep 2026 20:42:07 +0000
-Message-ID: <178846812735.3394541.11906532448427871629@kernel.org>
-In-Reply-To: <20260831053940.620-8-javen_xu@realsil.com.cn>
-References: <20260831053940.620-8-javen_xu@realsil.com.cn>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="OOWEPmm1"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hbWlR4T5rzMlKT;
+	Thu, 03 Sep 2026 22:43:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788468211;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rIsRbrscXRi7iMtDvkhseMV3Mlo2LVQZR4emqeAYj8g=;
+	b=OOWEPmm1ls2kMiw4GL0nBSfXHHHbXC4TTOc98t1P2Sur9K22gOf/5LYvi764QLsU1n10iT
+	1rKOyxb28OICxAynQNgzrkpyq/4t46fGj6Jn9Taa488CxOkyazwjXa+3trTMcveY4NslJN
+	bufHO/3hAzlfZqyl2FeSZ9eYIWwzUIYw6Pd7shg8Y6W0r36pBjHeFxiXXqXxkYqe/QGNoQ
+	XxfgZ79a1IkMJf62XzOjShxXk/ZU8qHFdwR6bxTq8Z7SABa69miAGj/ctn8/JY2DbKrpl/
+	zsYal4wkrSucbyXMQ6v0gVWzlk3/YWalYArTONrF38Slsverx4qHKSUpvgjfZQ==
+Message-ID: <c130c46d-586d-454d-b700-5bbe2c6eca40@mailbox.org>
+Date: Thu, 3 Sep 2026 22:43:24 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Subject: Re: [PATCH v3] PCI: rcar-gen4: Limit Max_Read_Request_Size and
+ Max_Payload_Size to 256 Bytes
+To: Bjorn Helgaas <helgaas@kernel.org>, Nishanth Menon <nm@ti.com>
+Cc: linux-pci@vger.kernel.org, stable@vger.kernel.org,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Koichiro Den <den@valinux.co.jp>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Magnus Damm <magnus.damm@gmail.com>, Manivannan Sadhasivam
+ <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Ziyao Li <liziyao@uniontech.com>, Rong Zhang <i@rong.moe>,
+ Huacai Chen <chenhuacai@loongson.cn>
+References: <20260903202706.GA2234456@bhelgaas>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <20260903202706.GA2234456@bhelgaas>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: d4f7364284db7387202
+X-MBO-RS-META: 83s5f6unfcj19mhdywbq5hzh85mjtkig
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider:
+Hello Bjorn,
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 2
+On 9/3/26 10:27 PM, Bjorn Helgaas wrote:
+> On Thu, Sep 03, 2026 at 08:51:06PM +0200, Marek Vasut wrote:
+>> Hello Bjorn,
+>>
+>> On 9/3/26 7:32 PM, Bjorn Helgaas wrote:
+>>> [+cc Ziyao, Rong, Huacai for similar Loongson MRRS issue]
+>>>
+>>> On Fri, Aug 21, 2026 at 04:05:51AM +0200, Marek Vasut wrote:
+>>>> R-Car Gen4 PCIe controller has a hardware limitation of 256 Bytes
+>>>> Max_Payload_Size (MPS). PCIe specification indicates that the MPS
+>>>> must not exceed minimum MPS of any element along the packet path.
+>>>> Force limit Max_Payload_Size to at most 256 Bytes for each device
+>>>> connected to this PCIe controller.
+>>>
+>>> IIUC the PCI core already enforces this limit, and what this patch
+>>> does is double-check that this limit is observed with this check,
+>>> right?
+>>
+>> That is correct, this was changed in V3, I missed the commit message update,
+>> sorry.
+>>
+>> Would you like me to respin the patch one more time with an updated commit
+>> message, or would you be willing to fix it up in tree ?
+> 
+> I fixed the commit log, no problem.
 
-- [Medium] rtl8169_get_channels()
-  (drivers/net/ethernet/realtek/r8169_main.c:6305-6315) unconditionally…
-- [Low] rtl8169_get_channels() sets ch->max_rx =
-  tp->hw_supp_num_rx_queues…
-- [Low] rtl8169_get_channels() hardcodes ch->max_tx = 1 and ch->tx_count
-  = 1 (drivers/net/ethernet/realtek/r8169_main.c:6311 and 6314) instead…
+Thank you.
 
---
+>>>     +	WARN_ON(pcie_get_mps(dev) > 256);
+>>>
+>>> More below.
+>>
+>>
+>> [...]
+>>
+>>>> +	bridge->no_inc_mrrs = 1;
+>>>> +	if (pcie_get_readrq(dev) > 256) {
+>>>> +		pci_info(dev, "Limiting MRRS to 256 bytes\n");
+>>>> +		pcie_set_readrq(dev, 256);
+>>>> +	}
+>>>
+>>> It would be nice if all the platforms that need no_inc_mrrs could
+>>> apply it the same way, but I assume you saw loongson_mrrs_quirk() and
+>>> loongson_set_min_mrrs_quirk() in the process of finding no_inc_mrrs,
+>>> and chose a different implementation strategy for some reason, e.g.,
+>>> this way doesn't have to include device IDs for all the Root Ports?
+>>
+>> The loongson quirk won't work if the PCIe controller driver is built as a
+>> module, which the R-Car Gen4 PCIe driver can be, and in fact is often built
+>> as a module, because it depends on firmware which is loaded from filesystem.
+>>
+>> If the controller driver is built as a module, then
+>> DECLARE_PCI_FIXUP_ENABLE() is not applied, the DECLARE_PCI_FIXUP_ENABLE() is
+>> applied only on boot and therefore only for built-in drivers.
+>>
+>> I got burnt by DECLARE_PCI_FIXUP_ENABLE() in V1 of this patch.
+> 
+> Ouch, that does hurt.
 
-r8169: add get_channel support for ethtool
+I also mentioned this to TI a while back, because I think the 
+pci-keystone.c has the same (module) issue. ( +CC Nishanth here too )
 
-This adds a rtl8169_get_channels() callback to rtl8169_ethtool_ops so that
-ethtool -l reports the RX/TX channel layout of the device. The reported
-values come from tp->hw_supp_num_rx_queues and tp->num_rx_rings for RX, and
-from literal 1 for TX. No .set_channels callback is added.
+>> However, there is also another part to this -- the
+>> rcar_gen4_pcie_enable_device() is called for every device on the bus and
+>> applies the MRRS limitation to every device on the bus that is downstream of
+>> the controller, not only the controller. This is necessary on this
+>> controller variant, else hardware like PCIe SSDs with MRRS higher than the
+>> controller break.
+>>
+>>> Maybe we should rework no_inc_mrrs in such a way that drivers could
+>>> set a max MRRS in the struct pci_host_bridge and make
+>>> pcie_write_mrrs() and pcie_set_readrq() pay attention to it?  That
+>>> might let us get rid of the FIXUP approach.
+>>
+>> In light of the last paragraph above, that the MRRS has to be limited also
+>> on all devices downstream of this particular controller, I would like to ask
+>> -- does the Loongson controller have the same limitation or not ? If not,
+>> then I would argue this quirk should be isolated to this controller variant
+>> ; else, I am happy to start on the core patches.
+> 
+> I don't know if we'll get a real answer for Loongson (there's no
+> maintainer listed for it, hint hint :)), but my guess is that it does
+> apply to all devices downstream of the Loongson controller.
+> 
+> I think MRRS is mostly interesting for DMA because MMIO from CPUs is
+> usually small sizes, far below the 128-byte or larger transfers that
+> devices may do.
 
-> diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethernet/realtek/r8169_main.c
-> index 11fb31223f492..a76fbf1e50d11 100644
-> --- a/drivers/net/ethernet/realtek/r8169_main.c
-> +++ b/drivers/net/ethernet/realtek/r8169_main.c
-> @@ -6302,6 +6302,18 @@ static void r8169_init_napi(struct rtl8169_private *tp)
->  	}
->  }
->  
-> +static void rtl8169_get_channels(struct net_device *dev,
-> +				 struct ethtool_channels *ch)
-> +{
-> +	struct rtl8169_private *tp = netdev_priv(dev);
-> +
-> +	ch->max_rx = tp->hw_supp_num_rx_queues;
+I agree with that, and DMA is what triggers the fault in my case.
 
-[Severity: Low]
-Is hw_supp_num_rx_queues the right value to advertise as the maximum here?
+Looking at the TI ks_pcie_quirk() FIXUP, I wonder if that might be a 
+third instance of the same behavior. TI uses it to work around errata 
+i2037 PCIe: PCI-Express May Corrupt Inbound Data [1] page 19 . But I now 
+wonder, whether this behavior might be some common behavior of the DWC 
+PCIe controller core ? Is there someone from Synopsys who might comment 
+on that ?
 
-rtl_setup_rx_params() sets it purely from mac_version, before any interrupt
-vectors are allocated:
-
-	case RTL_GIGA_MAC_VER_80:
-		tp->hw_supp_num_rx_queues = R8169_MAX_RX_QUEUES;
-
-The number of RX rings the driver will actually arm is decided later, in
-rtl8169_set_rx_ring_num():
-
-	if (tp->irq_nvecs >= get_min_irq_nvecs(tp)) {
-		unsigned int rss_queue_num = netif_get_num_default_rss_queues();
-
-		tp->num_rx_rings = rounddown_pow_of_two(min(rss_queue_num,
-							    tp->hw_supp_num_rx_queues));
-
-and rtl_alloc_irq() can fall back to a single vector:
-
-	nvecs = pci_alloc_irq_vectors(pdev, get_min_irq_nvecs(tp),
-				      get_max_irq_nvecs(tp), flags);
-
-	if (nvecs < 0)
-		nvecs = pci_alloc_irq_vectors(pdev, 1, 1, flags);
-
-In that fallback case num_rx_rings stays 1 for the lifetime of the device,
-yet ethtool -l reports a maximum of 8. Counts that are not a power of two
-are also not usable in principle, since rtl_set_rss_config() and
-rtl8125_set_rx_q_num() both use ilog2(tp->num_rx_rings).
-
-Would it be better to bound the advertised maximum by what the driver can
-actually arm, for example rounddown_pow_of_two(min(hw_supp_num_rx_queues,
-RX vectors derivable from tp->irq_nvecs))? This matters more once a
-.set_channels callback is layered on top, because the ethtool core validates
-requested counts against max_rx and would accept counts the hardware paths
-cannot use.
-
-> +	ch->max_tx = 1;
-> +
-> +	ch->rx_count = tp->num_rx_rings;
-> +	ch->tx_count = 1;
-
-[Severity: Low]
-This isn't a bug, but could max_tx and tx_count use R8169_MAX_TX_QUEUES (and
-dev->real_num_tx_queues) instead of the literal 1?
-
-The netdev itself is sized from the constant in rtl_init_one():
-
-	dev = devm_alloc_etherdev_mqs(&pdev->dev, sizeof(*tp),
-				      R8169_MAX_TX_QUEUES,
-				      R8169_MAX_RX_QUEUES);
-
-The values agree today, so nothing is wrong now. If R8169_MAX_TX_QUEUES is
-bumped when multi-TX-queue support lands, would this report keep claiming a
-single TX channel while the netdev has more?
-
-> +}
-
-[Severity: Medium]
-Should the single-interrupt configuration be reported as one combined
-channel rather than as one dedicated RX plus one dedicated TX channel?
-
-max_combined and combined_count are left at 0 here, while max_rx/rx_count
-and max_tx/tx_count are always populated. For every chip other than
-RTL_GIGA_MAC_VER_80 (and for VER_80 whenever rtl_alloc_irq() falls back to
-pci_alloc_irq_vectors(pdev, 1, 1, flags)) there is exactly one IRQ and one
-NAPI instance, and it services both directions:
-
-rtl_set_irq_mask()
-	tp->irq_mask = RxOK | RxErr | TxOK | TxErr | LinkChg;
-
-r8169_init_napi() installs rtl8169_poll() in that case, which does:
-
-	rtl_tx(dev, tp, budget);
-
-	/* rtl8169_poll() is used only when there is a single RX ring. */
-	work_done = rtl_rx(dev, tp, &tp->rx_ring[0], budget, napi);
-
-The uAPI kernel-doc describes max_combined as a "Set of queues RX, TX or
-other", and ethtool(8) defines a channel as an IRQ plus the set of queues
-that can trigger it. By that definition the single-vector case looks like
-one combined channel, so does ethtool -l tell userspace that two
-independently steerable channels exist where only one shared channel does?
-
-The split rx/tx model appears accurate only for the RTL8127 MSI-X case,
-where vectors below R8169_MAX_RX_QUEUES run rtl8169_poll_msix_rx() and the
-rest run rtl8169_poll_msix_tx(). Since this is a newly exposed read-only
-ABI value, changing the classification later, when .set_channels is added,
-would change what userspace already sees. Could the commit message explain
-the reasoning behind the chosen model?
-
-> +
->  static const struct ethtool_ops rtl8169_ethtool_ops = {
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260831053940.620-1-javen_xu%40realsil.com.cn
+[1] https://www.ti.com/lit/er/sprz452i/sprz452i.pdf
