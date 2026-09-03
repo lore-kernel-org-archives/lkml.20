@@ -1,280 +1,227 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0940E37F33F
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 05:26:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 417DB370D61;
+	Thu,  3 Sep 2026 05:28:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788413171; cv=none; b=HWmNMlPVeq9X/MTd5e4MW2E+Fw+phfEcHUyWIIFVuQE/OQesQfyr6rKKTWU7KE/DvOpM85yCnjjvVWQI/Shfnc1HAh6XA7+Gb/UzZMFgNptlptMfplYHbsWc2v3pFFLV8Xz8QaWkBNcJ9cDC9pBYYVKFWZdGBR+M/yXDtq2fpzI=
+	t=1788413298; cv=none; b=NK1Mh0JQL4ZlhheAPbcthDSLMsfiBsWmKkLNhHulO+8i40W/RMkUJ58AzR+Lwd6Wg/wRtzYTtMdIBnhr3u6z0mJw+S49uN2KokP1Rha+ER2yuuM87T4FJlQx4GN/j7SuHBzGfr6EakJt7j8F5WdqCtKARtopATVenHADEWFDr48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788413171; c=relaxed/simple;
-	bh=5ZKeJX0Pe2XaPJokiceoOf6fBWvsj9hj+Iooa05zS9I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=SxzYHuKnYBjLHnjiMYHNgK7M8Pu6YEuxqN/HQxupTCKfYtqWH8UmmDULYgzj8Uiv9sIjdNf4AlrN8jrlFMf43zspNmSEgkSwilmyXr3VKtp/KVCf59+55gFq2NMmweRonzdOIr+s1UDhehyE56ZrXHgV5R5gCt6PqpGIShpqXXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OV4BnH8U; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EJslfHaA; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788413298; c=relaxed/simple;
+	bh=txaTssFR9L+FuhZcCgxOrz7O9X4L9kSObDEoea5xmt8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=gqZ3kaQYCeIWPIJFrsad/xLNcSlkUrS9kAHD2BSXW5A3jhRJy71OKzH7eeTV6Ia7WbbEDONcERn3gHMUvEkQ8NpSYGRF2WGDTwnh6hMQN2Lm/xbo+NHjZNoEp+UvImwSaYPpf9U8R7vsUcvWbRT4cGPG/IfMkyO8naIQi05CqV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vn0LIuvy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OV4BnH8U";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EJslfHaA"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6832xt9A3275629
-	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 05:26:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=m9X9wMPV1ZizICLacCYzxn
-	SkTZv6Ifd9J8mUVYRMKtY=; b=OV4BnH8U/md85Q6CehBbydEQaoLwJ21pI7rXZM
-	wSsia8PfajbvApKbrZ+2TxwpJrfxT9fADu6nOLaad9bh28O7TnnNNvIGwx8dKmeq
-	QxS3Uqz5FAQudX7SIABQZBJRD5Gln2HkwcG0R3g9eKHaJBmGKlKvhqzvkDzoffNb
-	siVhBqwPnKhqrxlnjmd2MnFa2a3saLGEf9zknZdiOiL9xJB24dXoEl5pvsFMr1Gg
-	hydbWJzv4LY5LF7gZsiHCrY+iLvlrBktSetO/A3cHfiEoUD8TSPBXQaeqp6MHBAt
-	0DF+Ah2w5/yNU54pNkbKQGHgflpGKl59Nm3QCnF96gvild7g==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4genrdu8t1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:26:08 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d7151120d6so30466985ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 22:26:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788413168; x=1789017968; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=m9X9wMPV1ZizICLacCYzxnSkTZv6Ifd9J8mUVYRMKtY=;
-        b=EJslfHaAWro1EHt+EJkibLnw+7e1sOSMcKCFnPNULVir25YCt1pY6keYBfMg2MrmsW
-         0DomXtAOUyiECpt0lsja6tKyCDt3H8FvlCew8Nhwis/VhxrjLzprrKWLIiBsfZMsI6cW
-         9tb9hIzWztkqXpiJqnL87E73+hwNvCgBO2et93rOfx3OF7+x0IkWY9yfeS9ar3FjM6T9
-         gEdbq83r02Ixa+i/W5YDPwoAM8H+Xcx0CgEwgwVb6l2jMO5ZyXRbfimF2vfdyYxfljx2
-         zi2hn+GGJPhsWDSPKXdWYfxh3Jn768Cj9ZXTSajqQbEIpuNFASMlPtvNLi76oilrfGO6
-         NxrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788413168; x=1789017968;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=m9X9wMPV1ZizICLacCYzxnSkTZv6Ifd9J8mUVYRMKtY=;
-        b=NZvpzZ1EVG9ZY0d1C0w4D7cjC7o+FFYaleFgyBSLedajQhuE8A5MghhMOTUM2q0Y2/
-         LpU0BuCD+pSffouBM6ZaMLbDCCLWWNd6TvnRRPgTQmVxkyQW048+ioGj6CE4q0Oo4hc1
-         uQOdDF+AygFqn8EVxgAkqTCNFhm1WUfB/eaX9zmYtPhLg8FCat9IBBehDpZuWx6psYxp
-         QC43zzJj1qC94IobbR++QrptmIRCy3T1Gq0q/CJPETPezkx9bISoENpCSfxhj/Gvz2au
-         K/Nx6tXPa41H4JHOJYysqXAzXHOkYj4Y1AAHQqf/XM3jWiivBW5b8QNFFiGJEO8FduCt
-         6cag==
-X-Forwarded-Encrypted: i=1; AKwUvBxAnHKG2OnCJMTAolnReIVTZ9YrvYK2rJfg1cgfJmbU8Zd3f86JUAf5rwcvlxhk5SCxOpSfzEKofbbwfwQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQ8uw0r4qD2jDs5qNnRp36MMRcRkgx7/9cIB1BUEIeRP9Vx9Yi
-	jYolHuro+vxWq55gjrDhd8MMoHYbHMBq5/yuSFHwlPx+hwfwo+IEZV9GHofDSMPsu6zR71nyrSA
-	GIep0RXfXk4T14UT0ZMySd0Z0sluYF1h9ny9NaKr8uo/MA7o8QrzfGWFbqoqXMpyv6zQ=
-X-Gm-Gg: AYBFou2BYFJzhR/opWDEXU6lyJa2wlF3lXX4ljNP5/ZzvI+LJlNFzYztQU1Oqay5rfG
-	EBLsOhQcLvfCi40fkaPnaMM6MVqwaHijs5D0L59Nzc2U1j1NmUuvph16ImdUDuHiRVhWcGej3us
-	25Ek2rhwQl5BHxotBg4hkrs9kfP8tU1cZiEi8NAo30Cq0MXr3N+wU+6+KKovI+64LaEmKeQOZ8j
-	jaUxu8kj3bvQvjwZ0t0VV7ZzkVK17UNfmWxu6J+gH0RHc5qmcjUkTwoegT8YGN6kZ1IsUT6TgKj
-	X2najCTd/KkkF1TxK6Xfd7Vcxf6bNm63BBDyMMZzHLjjLH3/VCm3WkFuGoMzjBRjc2lcOKiFqFD
-	xGG8XKGGjp6CxGKRNiFD2/W/d6qBeJz5ZbLBpiQ==
-X-Received: by 2002:a17:902:ce8e:b0:2d9:4871:393d with SMTP id d9443c01a7336-2daec79d31amr128573575ad.21.1788413167740;
-        Wed, 02 Sep 2026 22:26:07 -0700 (PDT)
-X-Received: by 2002:a17:902:ce8e:b0:2d9:4871:393d with SMTP id d9443c01a7336-2daec79d31amr128573125ad.21.1788413167328;
-        Wed, 02 Sep 2026 22:26:07 -0700 (PDT)
-Received: from hu-vpernami-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33256902f6fsm3215968eec.31.2026.09.02.22.26.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 22:26:06 -0700 (PDT)
-From: Vivek Pernamitta <vivek.pernamitta@oss.qualcomm.com>
-Date: Thu, 03 Sep 2026 10:56:00 +0530
-Subject: [PATCH v3] dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Add Maili
- PCIe PHY compatibles
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vn0LIuvy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38F451F000E9;
+	Thu,  3 Sep 2026 05:28:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788413296;
+	bh=JVxkLaQT4T/vmJg4DPi96Zlumzz3/QNy4dvXOiGy+xY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=Vn0LIuvybbznKaVVTOU5d9OPD4sBTUuFDC63Qy5Wl+VX0M4oRhgBBnmo53RitRShT
+	 c7z03wmwZBrTzJfrXaCtVShWaL8TR6idp1sgjVL9rq0yZxoLMr/T2uEW+YAfzNF9zS
+	 5A3PZVxn3sLOHTx1eJ4R5I9xbJxKfHOtJ0DNjpP7UO/vMGVsJcrEez0qHW+/H8ewrX
+	 xh0jzW2womVcJB5iUAB2zxIuZhDeocWCLNa0Df3uVTbgTvPssrni2LkhEfBAAS2p1T
+	 F1vr7KzeOWS8srrLF8GdvOEj1szbNN90v3hDyCH5/HV1ArwEwQksvNfbsQ2VAkMT8x
+	 oCDwwtJGPl0mQ==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Nicolin Chen <nicolinc@nvidia.com>, linux-coco@lists.linux.dev,
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Joerg Roedel <joro@8bytes.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Pranjal Shrivastava <praan@google.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Xu Yilun <yilun.xu@linux.intel.com>
+Subject: Re: [RFC PATCH v4 03/16] iommu/arm-smmu-v3: Add initial pSMMU realm
+ viommu plumbing
+In-Reply-To: <20260902193014.GF2890729@ziepe.ca>
+References: <20260427085344.941627-1-aneesh.kumar@kernel.org>
+ <20260427085344.941627-4-aneesh.kumar@kernel.org>
+ <apM6dOHcEI2ztWS0@nvidia.com> <yq5a8q5lz5yn.fsf@kernel.org>
+ <yq5aecfdnv4i.fsf@kernel.org> <20260901143445.GC56830@ziepe.ca>
+ <yq5a8q5kkoz3.fsf@kernel.org> <20260902121700.GC2890729@ziepe.ca>
+ <yq5aik4nztdt.fsf@kernel.org> <20260902193014.GF2890729@ziepe.ca>
+Date: Thu, 03 Sep 2026 10:58:06 +0530
+Message-ID: <yq5abjaezyxl.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-vdev_next-20260902_new_post-v3-1-108223cbcc10@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAOgEmWoC/y3MOwqAMBBF0a3I1AaGiN+tiIiap04TJZEoiHs3i
- OW5xb3Jwwk8NclNDkG8bDYiSxOa1sEuUGKiSbMuuOZMBYPQW1yH+pOOOvt984cypmKg5HzMNcX
- D7jDL9d3b7nlel5WXbG0AAAA=
-X-Change-ID: 20260903-vdev_next-20260902_new_post-dd80ee705b52
-To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Vivek Pernamitta <vivek.pernamitta@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788413163; l=5804;
- i=vivek.pernamitta@oss.qualcomm.com; s=20241114; h=from:subject:message-id;
- bh=5ZKeJX0Pe2XaPJokiceoOf6fBWvsj9hj+Iooa05zS9I=;
- b=B23HGy7dwbHuDA1oOEciBPpBzzmHe9K+ee/kapfNyIy7ss298f/jeYd+pwCXjcKc3siL61PLS
- Nqt73YGy42ZDQuXrrLTwTViYjzGkzSINSYFFlNx3D391OJZDfCMmJ+s
-X-Developer-Key: i=vivek.pernamitta@oss.qualcomm.com; a=ed25519;
- pk=HDwn8xReb8K52LA6/CJc6S9Zik8gDCZ5LO4Cypff71Y=
-X-Authority-Analysis: v=2.4 cv=H4/rBeYi c=1 sm=1 tr=0 ts=6a9904f0 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=-EJkK5gzETyOJOMAgRsA:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-GUID: _wyHcArwSIluPOT5uw4y65YaXZM36f8y
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA0NiBTYWx0ZWRfX75Ctte4Le68Y
- A24md7uMKvQZgWHqqlPmgm2Py6HduD9LfjpbN8ENN/jMsfR23dSPTmMKEdOBHexCVXKOEmGjB3q
- rGyMnWxEyO7UykfDyjibdYuf3FuywuxXO4M+YcrLva+M4f0QLbtKOw64yyb8SQiTpyntBGkB7T8
- 8z/KGEys0tDDhi4KSlkx4+CjSrNyFDePUbB5Lobl90HI3Yf91r8jzZheFK40iVUqvgyF/Na8Aam
- RPLNW5m2pfFOwaw2udsfLWf9Esp69P7ruKQqZpEeuA4a3n9xrd9E/JZPF7ST6MauxGBWuffLlMj
- 3HCVAdhvziq70QBY43bBCkxEScxG97z0pDxiGKVxrOpnOs+1MYdZAKejslbBsDIvUfjPQ9o1OQo
- C6zFYrBpaCWyELvk0l2m6e4lka8Zq+48gIy4QYU+Kjy5dPvI6I9plmSRlB6g3IqRTIjy1nBi+mD
- 9ZpmwPFVtlhs+XxGlaw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA0NiBTYWx0ZWRfX4TtvzSsvaUtA
- qQ/RWOEycVmtDEbTLWQoMGDP6DVtND7ROQicA/HBPxh4obdbQuFnl38zpOyjm5aZ6C6PliZKVNa
- ZV00SV0G9/1ZSC3DnyFzL91IZu3QgXA=
-X-Proofpoint-ORIG-GUID: _wyHcArwSIluPOT5uw4y65YaXZM36f8y
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_01,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015
- malwarescore=0 spamscore=0 phishscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030046
+Content-Type: text/plain
 
-Add qcom,maili-qmp-gen3x2-pcie-phy and qcom,maili-qmp-gen4x1-pcie-phy
-compatible strings for the Maili SoC PCIe QMP PHY.
+Jason Gunthorpe <jgg@ziepe.ca> writes:
 
-Maili reuses the Hawi QMP PCIe PHY hardware, so the compatibles use
-the two-item fallback format with Hawi as the fallback:
+> On Wed, Sep 02, 2026 at 06:45:42PM +0530, Aneesh Kumar K.V wrote:
+>
+>> To reiterate, for this configuration:
+>> 
+>> - The viommu will use a stage-1 bypass configuration.
+>> - A new IOMMU_VIOMMU_TYPE_ARM_REALM_SMMUV3 type will create the viommu.
+>>   The psmmu will be activated at this point to avoid creating psmmu
+>>   objects early. We will reference-count it to ensure that the same
+>>   psmmu is shared across realm guests.
+>> - Creating a vdevice will invoke SMC_RMI_PSMMU_ST_L2_CREATE.
+>> 
+>> I am unclear about the vdev_create suggestion. Creating a vdevice
+>> requires an RD, which is created later in the flow above. How do you
+>> suggest linking vdevice_alloc to vdev_create?
+>
+> I was thinking we'd make sure the KVM is associated with the viommu
+> and/or possibly the S2 domain. That was always sort of broadly the
+> idea in this space. There are several topics unrelated to CC that
+> needed this.
+> In any case, when you create the iommufd viommu you should also do
+> VSMMU_CREATE which needs the RD. It seems reasonable to assume the RD
+> is available during vdevice create.
+>
+> [There is an aside here I will mention: several other use cases need
+> this idea of an "external" domain where the HWPT would be created but
+> not controlled by iommufd or the iommu subsystem. Xen and Hyperv for
+> example. There is probably some merit in thinking more about exactly
+> what the nested parent domain should be for this viommu, but it isn't
+> critical.]
+>
+>> From the RMM's perspective, the sequence is as follows:
+>>
+>> viommu alloc
+>>
+>> [   rmm ] SMC_RMI_PSMMU_ACTIVATE            2b400000 8819bb000 > RMI_INCOMPLETE 0 10008
+>> [   rmm ]       SMC_RMI_OP_MEM_DONATE       0 881bac098 1 > RMI_INCOMPLETE 2 10004
+>> [   rmm ]       SMC_RMI_OP_MEM_DONATE       0 881bac098 1 > RMI_INCOMPLETE 1 10004
+>> [   rmm ]       SMC_RMI_OP_MEM_DONATE       0 881bac098 1 > RMI_INCOMPLETE 1 0
+>> [   rmm ] L1 StrTab: PA 0x881baa000 VA 0x80003c0000 size 0x2000
+>> [   rmm ] CMDQ: PA 0x88066a000 VA 0x80003c2000
+>> [   rmm ] EVTQ: PA 0x8815c5000 VA 0x80003c3000
+>> [   rmm ] PSMMU 0x2b400000 activated
+>> [   rmm ]       SMC_RMI_OP_CONTINUE         0 0 > RMI_SUCCESS 0 0
+>>
+>> [   rmm ] SMC_RMI_PSMMU_ST_L2_CREATE        2b400000 300 > RMI_INCOMPLETE 0 10004
+>> [   rmm ]       SMC_RMI_OP_MEM_DONATE       0 881bac098 1 > RMI_INCOMPLETE 1 0
+>> [   rmm ] smmu->strtab_base[12] 0x0 @0x80003c0060
+>> [   rmm ] L1STD[12] 0x8819bb007 for SID 0x300: L2 table VA 0x80003d0000 PA 0x8819bb000
+>> [   rmm ]       SMC_RMI_OP_CONTINUE         0 0 > RMI_SUCCESS 0 0
+>
+> What was this one for during viommu alloc?
+>
+>> vdevice alloc
+>> 
+>> [   rmm ] SMC_RMI_PSMMU_ST_L2_CREATE        2b400000 200 > RMI_INCOMPLETE 0 10004
+>> [   rmm ]       SMC_RMI_OP_MEM_DONATE       0 882648098 1 > RMI_INCOMPLETE 1 0
+>> [   rmm ] smmu->strtab_base[8] 0x0 @0x80003c0040
+>> [   rmm ] L1STD[8] 0x882506007 for SID 0x200: L2 table VA 0x80003cc000 PA 0x882506000
+>> [   rmm ]       SMC_RMI_OP_CONTINUE         0 0 > RMI_SUCCESS 0 0
+>> 
+>> RD gets allocated here
+>> 
+>> [   rmm ] SMC_RMI_REALM_CREATE              881b03000 8819a1000 > RMI_INCOMPLETE 0 24
+>> [   rmm ]       SMC_RMI_OP_MEM_DONATE       0 881605098 9 > RMI_INCOMPLETE 9 0
+>> [   rmm ]       SMC_RMI_OP_CONTINUE         0 0 > RMI_SUCCESS 0 0
+>
+> Why? The VMM needs to create the kvm before starting the iommu stuff.
+>
+> I would expect that KVM knows it is going to a realm very early on? I
+> had assumed the RD would also be created early by KVM?
+>
+> What triggers RD creation? Why can't the VMM do it earlier?
+>
+> Your followup said:
+>   - The realm is created during viommu allocation, ensuring that the
+>     vSMMU can be created here.
+>
+> Do you mean the SMMUv3 driver triggers RD creation? That feels
+> wrong. Did you mean the VMM just does it earlier?
+>
 
-  qcom,maili-qmp-gen3x2-pcie-phy -> qcom,hawi-qmp-gen3x2-pcie-phy
-  qcom,maili-qmp-gen4x1-pcie-phy -> qcom,hawi-qmp-gen4x1-pcie-phy
+Currently, CCA creates the realm lazily as part of another operation.
+Realm creation is triggered by kvm_arm_rmi_populate() or
+kvm_arch_vcpu_run_pid_change()
 
-Since the allOf conditions use 'contains:' to match against the
-compatible array, and Maili nodes always carry the Hawi fallback
-string as the second compatible.
+The change looks like this:
 
-Signed-off-by: Vivek Pernamitta <vivek.pernamitta@oss.qualcomm.com>
----
-Chnages in V3:
-- Adding the falling back relationship between Maili and Hawi as per comments from
-  Jingyi and Krzysztof.
-V2 patch link: https://lore.kernel.org/all/20260831-vdev_phy_next-20260828-v2-1-08fe5dcd4b86@oss.qualcomm.com/
-
-Changes in V2:
-- Rebases to the latest code.
-- PCIe controller dt-bindings: pci: qcom,hawi-pcie: Add Maili PCIe compatible
-  change is already merged, so dropping change
-V1 patch link: https://lore.kernel.org/all/e5516c61-44ea-4224-9da2-1694eac10fec@oss.qualcomm.com/
----
-
----
- .../bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml   | 91 ++++++++++++----------
- 1 file changed, 50 insertions(+), 41 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
-index b353b7bfb839ce9cc43ecd9ef96d174a7750b35b..31ba711bb114a43647a242520acd6c2e42ffa12c 100644
---- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
-@@ -15,47 +15,56 @@ description:
+modified   arch/arm64/include/asm/kvm_rmi.h
+@@ -102,6 +102,14 @@ u64 kvm_realm_reset_id_aa64dfr0_el1(const struct kvm_vcpu *vcpu, u64 val);
+ bool kvm_rmi_supports_sve(void);
  
- properties:
-   compatible:
--    enum:
--      - qcom,eliza-qmp-gen3x1-pcie-phy
--      - qcom,eliza-qmp-gen3x2-pcie-phy
--      - qcom,glymur-qmp-gen4x2-pcie-phy
--      - qcom,glymur-qmp-gen5x4-pcie-phy
--      - qcom,hawi-qmp-gen3x2-pcie-phy
--      - qcom,hawi-qmp-gen4x1-pcie-phy
--      - qcom,kaanapali-qmp-gen3x2-pcie-phy
--      - qcom,qcs615-qmp-gen3x1-pcie-phy
--      - qcom,qcs8300-qmp-gen4x2-pcie-phy
--      - qcom,sa8775p-qmp-gen4x2-pcie-phy
--      - qcom,sa8775p-qmp-gen4x4-pcie-phy
--      - qcom,sar2130p-qmp-gen3x2-pcie-phy
--      - qcom,sc8180x-qmp-pcie-phy
--      - qcom,sc8280xp-qmp-gen3x1-pcie-phy
--      - qcom,sc8280xp-qmp-gen3x2-pcie-phy
--      - qcom,sc8280xp-qmp-gen3x4-pcie-phy
--      - qcom,sdm845-qhp-pcie-phy
--      - qcom,sdm845-qmp-pcie-phy
--      - qcom,sdx55-qmp-pcie-phy
--      - qcom,sdx65-qmp-gen4x2-pcie-phy
--      - qcom,sm8150-qmp-gen3x1-pcie-phy
--      - qcom,sm8150-qmp-gen3x2-pcie-phy
--      - qcom,sm8250-qmp-gen3x1-pcie-phy
--      - qcom,sm8250-qmp-gen3x2-pcie-phy
--      - qcom,sm8250-qmp-modem-pcie-phy
--      - qcom,sm8350-qmp-gen3x1-pcie-phy
--      - qcom,sm8350-qmp-gen3x2-pcie-phy
--      - qcom,sm8450-qmp-gen3x1-pcie-phy
--      - qcom,sm8450-qmp-gen4x2-pcie-phy
--      - qcom,sm8475-qmp-gen3x1-pcie-phy
--      - qcom,sm8550-qmp-gen3x2-pcie-phy
--      - qcom,sm8550-qmp-gen4x2-pcie-phy
--      - qcom,sm8650-qmp-gen3x2-pcie-phy
--      - qcom,sm8650-qmp-gen4x2-pcie-phy
--      - qcom,sm8750-qmp-gen3x2-pcie-phy
--      - qcom,x1e80100-qmp-gen3x2-pcie-phy
--      - qcom,x1e80100-qmp-gen4x2-pcie-phy
--      - qcom,x1e80100-qmp-gen4x4-pcie-phy
--      - qcom,x1e80100-qmp-gen4x8-pcie-phy
--      - qcom,x1p42100-qmp-gen4x4-pcie-phy
-+    oneOf:
-+      - items:
-+          - enum:
-+              - qcom,maili-qmp-gen3x2-pcie-phy
-+          - const: qcom,hawi-qmp-gen3x2-pcie-phy
-+      - items:
-+          - enum:
-+              - qcom,maili-qmp-gen4x1-pcie-phy
-+          - const: qcom,hawi-qmp-gen4x1-pcie-phy
-+      - enum:
-+          - qcom,eliza-qmp-gen3x1-pcie-phy
-+          - qcom,eliza-qmp-gen3x2-pcie-phy
-+          - qcom,glymur-qmp-gen4x2-pcie-phy
-+          - qcom,glymur-qmp-gen5x4-pcie-phy
-+          - qcom,hawi-qmp-gen3x2-pcie-phy
-+          - qcom,hawi-qmp-gen4x1-pcie-phy
-+          - qcom,kaanapali-qmp-gen3x2-pcie-phy
-+          - qcom,qcs615-qmp-gen3x1-pcie-phy
-+          - qcom,qcs8300-qmp-gen4x2-pcie-phy
-+          - qcom,sa8775p-qmp-gen4x2-pcie-phy
-+          - qcom,sa8775p-qmp-gen4x4-pcie-phy
-+          - qcom,sar2130p-qmp-gen3x2-pcie-phy
-+          - qcom,sc8180x-qmp-pcie-phy
-+          - qcom,sc8280xp-qmp-gen3x1-pcie-phy
-+          - qcom,sc8280xp-qmp-gen3x2-pcie-phy
-+          - qcom,sc8280xp-qmp-gen3x4-pcie-phy
-+          - qcom,sdm845-qhp-pcie-phy
-+          - qcom,sdm845-qmp-pcie-phy
-+          - qcom,sdx55-qmp-pcie-phy
-+          - qcom,sdx65-qmp-gen4x2-pcie-phy
-+          - qcom,sm8150-qmp-gen3x1-pcie-phy
-+          - qcom,sm8150-qmp-gen3x2-pcie-phy
-+          - qcom,sm8250-qmp-gen3x1-pcie-phy
-+          - qcom,sm8250-qmp-gen3x2-pcie-phy
-+          - qcom,sm8250-qmp-modem-pcie-phy
-+          - qcom,sm8350-qmp-gen3x1-pcie-phy
-+          - qcom,sm8350-qmp-gen3x2-pcie-phy
-+          - qcom,sm8450-qmp-gen3x1-pcie-phy
-+          - qcom,sm8450-qmp-gen4x2-pcie-phy
-+          - qcom,sm8475-qmp-gen3x1-pcie-phy
-+          - qcom,sm8550-qmp-gen3x2-pcie-phy
-+          - qcom,sm8550-qmp-gen4x2-pcie-phy
-+          - qcom,sm8650-qmp-gen3x2-pcie-phy
-+          - qcom,sm8650-qmp-gen4x2-pcie-phy
-+          - qcom,sm8750-qmp-gen3x2-pcie-phy
-+          - qcom,x1e80100-qmp-gen3x2-pcie-phy
-+          - qcom,x1e80100-qmp-gen4x2-pcie-phy
-+          - qcom,x1e80100-qmp-gen4x4-pcie-phy
-+          - qcom,x1e80100-qmp-gen4x8-pcie-phy
-+          - qcom,x1p42100-qmp-gen4x4-pcie-phy
+ int kvm_init_realm(struct kvm *kvm);
++#ifdef CONFIG_KVM
++int kvm_realm_ensure_created(struct kvm *kvm);
++#else
++static inline int kvm_realm_ensure_created(struct kvm *kvm)
++{
++	return -EOPNOTSUPP;
++}
++#endif
+ int kvm_activate_realm(struct kvm *kvm);
+ void kvm_destroy_realm(struct kvm *kvm);
+ int kvm_realm_teardown_stage2(struct kvm *kvm);
+modified   arch/arm64/kvm/rmi.c
+@@ -1120,6 +1120,20 @@ static int realm_ensure_created(struct kvm *kvm)
+ 	return realm_create_rd(kvm);
+ }
  
-   reg:
-     minItems: 1
++int kvm_realm_ensure_created(struct kvm *kvm)
++{
++	int ret;
++
++	if (!kvm_is_realm(kvm))
++		return -EINVAL;
++
++	guard(mutex)(&kvm->arch.config_lock);
++	ret = realm_ensure_created(kvm);
++
++	return ret;
++}
++EXPORT_SYMBOL_GPL(kvm_realm_ensure_created);
++
+ int kvm_arm_rmi_init_ripas(struct kvm *kvm,
+ 			   struct kvm_arm_rmi_init_ripas *args)
+ {
+modified   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-realm.c
+@@ -253,8 +253,9 @@ int arm_realm_smmu_v3_init(struct iommufd_viommu *viommu,
+ 		return -EINVAL;
+ 
+ 	kvm = viommu->kvm_file->private_data;
+-	if (!kvm_is_realm(kvm))
+-		return -EINVAL;
++	ret = kvm_realm_ensure_created(kvm);
++	if (ret)
++		return ret;
+ 
+ 	if (!(smmu->features & ARM_SMMU_FEAT_RME))
+ 		return -EOPNOTSUPP;
 
----
-base-commit: 32b6ef9a5d0eca44f9cd91f52f4faa89f145a0de
-change-id: 20260903-vdev_next-20260902_new_post-dd80ee705b52
 
-Best regards,
--- 
-Vivek Pernamitta <vivek.pernamitta@oss.qualcomm.com>
+>
+> The draft in the next message looks promising, did you discover any
+> other gotchas when exploring it?
+>
 
+Nothing significant. I still have questions about moving TDI flows such
+as vdev creation and guest requests into the SMMU driver instead of
+keeping them in arm-cca-host.ko, but I will follow up in the other
+thread.
+
+>
+> When you repost this can you take some care to explain the general
+> idea of this modelling in the commit messages so AMD and Intel can
+> confirm they can use it for both their non-viommu and viommu cases?
+>
+> Thanks,
+> Jason
+
+-aneesh
