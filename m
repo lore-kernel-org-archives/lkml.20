@@ -1,152 +1,401 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB7B4F4751
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 17:07:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B132A4EBAF4
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 17:07:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788455223; cv=none; b=oLRWntamWRaPJ2PAHRQBZhnek8Ar4iOiIfSfJkkXQiKZz/Txqf1gB8Z5KJ0psTsxBGdHGBupTw30X+uQr11fG6V3eovyFgPoQ/pTlFdl9NL6Q+GgEIZ6glT4VFsMcJl5FCOK9ZCPWJyIfPQTshf5nGGUi+gU4iFtn+zAI2DLVro=
+	t=1788455275; cv=none; b=MBiASqguUU+Ez/lMuz4Cn140MkC59W4qBMURUttiFxs5/K9vPBl2y1aOVn3yDNOtMGcutcJIUBoZJK/S83tk5NmJHMQHM8RcgBSCWEmtH6P5SIH4TBVr0iTsIuyN1U9d5DbPNp3jDk1hqOSC+az3/t0kte0QKe0wbMQ43SkeDkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788455223; c=relaxed/simple;
-	bh=mwjS1qJDm5Rrnz3Is+AgPi54s75JfFcvKNHxNEqcXXI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=NU6hZ8yxKlHpqkpI7CXDYnysHZOoUEDJQHC/7EpHM0jfYqmQcl5ybhQUVShYXPk94Zn9jFHxv4SlpUn6GrnqmrxtXurMvdGezaFRLdDHMfb4HNV5wySCyDRdrc+7qzSsn58sOq3vB4/1p3SPm+qH6yVUQDI33wPmWORwLsraidA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k4eojBLh; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788455275; c=relaxed/simple;
+	bh=1mAusGE2WjZjp2lU0prL79NM/ZtzNKAJZRVPuIeOUmE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fE8gWraxEB2r/RcWweWds1KNq379tjYzlS0XDRmPwGxWHG2gMhDzoend7UZB+XmO/TYdLAZ7Imbdz0ankYTiKs5VUV5C7uVlgrne7FUtGFc9LgWauD6KT1pqpV+eCf1ZgFpKFbAjBey8bMLTPAC7XWvRHOyx9gok66v0+f1urII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FHDldI3Z; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k4eojBLh"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38511175ad3so2421a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 10:07:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788455221; x=1789060021; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=FDFcBw+OAGvI9CgN/45/xQaVNM9WgzSnrhfaFNWW050=;
-        b=k4eojBLhh+pbneNtBGsvjINgJp/GGm+GRtPPj6E5JXAqLRTjsajzF16jLY/3n5oMlH
-         9f+GmCAyp5cHVdHNwL4+oDqb1BIvjQQUqqmMlEAoijTZ2z7Kq9usrkS3Q31TxgJ8INbX
-         2rjBt/e6v/0Rr3H+iaernpGme761x2ORJ3zmPaaRvSty72me0HF9QjBrKkj5EyF6MM35
-         TNCE+b5FaxBpTFnEcqXcoIm3J2xbqeANKfzAZu6nqhGAOTX/2ia58GULRGugsTlRqDJq
-         dgc9/EXhByAcN8UuzFElV83wb2n+kPT0CSb7cH/iHQIEbjEyO4dIFDQyLopuhrqR8JEe
-         Z3jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788455221; x=1789060021;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=FDFcBw+OAGvI9CgN/45/xQaVNM9WgzSnrhfaFNWW050=;
-        b=sr3tbXT1rt95k6wdxz49xjeHPthvePIa0qzOSej23C37q7pzh85EOZZrBpXtmfjYBi
-         GtGn7meyBPLZm2EZyUdw8/6kTumahwnphR8Y/WsQv5z93W07oS4g/VVnuTHfszx+Tg0C
-         dX+RPT/Qyux/n5VR4TXG6HOMKfRKD6srgjAMPIpT9ih6WIUjMqBmyvhrxa70ckfBUk6t
-         AohaGeNmJs78JVIpJnkyID3ym3pjIN6K3y8PiyDnHI0kNZyRUdKidWo+4Hbwrh2Xyx3C
-         FO6ajqF4X8kOsMmA1RpB0Kg83nJfMhVxjXrwHmOMv/x9vz8lKguGCNAyt3EOhtu9KQ7O
-         NHfg==
-X-Forwarded-Encrypted: i=1; AKwUvBzcg3zGSZvqslt2S7R9GIfcOgLSO5N402ybUOkPwrUmvZWlB+Z1KqjiEiRfR4xavu1irMD0Pt+ltefJEHs=@vger.kernel.org
-X-Gm-Message-State: AFuF++k3AY72iDWJh5RXOGrP24qxmCOTOFaHWI0CrRZiJK1c9pawV2tW
-	KgQ53z340quTqbyr9JoWeVlouvEvT/XKjWQjnimdr31iubXqy9ALVbx0
-X-Gm-Gg: AYBFou1K8nhfDjdfZERnSefpPIabW4PeaV4H+MtPBfvNQMiPJrkOvyTJ1P3IzM6hsFp
-	4BUsyahAWJyAktsdP4mTRfF2w7va9o+7syC3UJrh3yZroO5pvNjKmnIrSK2qCQNiyHlNnwd3a0n
-	MSAa1I0PfzZF/z9XmPESMln+xXuWLRhPyRWoge4NE1+WS/KwrSx9iPMgVSd8MeogYTPkOjZmt0Y
-	zniHgD3kJzQ208MP3+mbCwbciyQK+8wIQHRKkeJL66GQsiW2HD6Vtf5rpSmyAfVXwdsS7AmWHWL
-	iAqSIabbgruPAC1xSMpCdM3aWUnwO7SUUP8x5F5fQFlTFopHr5Z98W9gCja2CwKl2Hm4l4UhQGT
-	lcIfAZKDeKzjfiPcx1QYrqwUN1wLWL2RTvOg1RKhL+KyQcypbbi06cPCdN99HnDctnOPeaH9NSL
-	GggmUU6WQ/xfYkvr/5FqdZxivaaUOptfvsiWN6DMA79WDmL0xr06YOOwHnJGYZR7MIOA==
-X-Received: by 2002:a17:90b:4407:b0:398:9bd4:d13 with SMTP id 98e67ed59e1d1-39aee219427mr20003360a91.18.1788455221096;
-        Thu, 03 Sep 2026 10:07:01 -0700 (PDT)
-Received: from [100.87.176.22] ([112.133.220.139])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432435648esm891560c88.5.2026.09.03.10.06.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 10:07:00 -0700 (PDT)
-From: Hardik Kumar <hardikxk@gmail.com>
-Date: Thu, 03 Sep 2026 22:34:38 +0530
-Subject: [PATCH] Documentation/gpu: Fix spelling mistakes in todo gpu doc
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FHDldI3Z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788455271;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=s+EZtMHgeGqsFph8/8MM9BHrlRmIxU3w55YSmxrBHfs=;
+	b=FHDldI3ZIrTSuP0yLl2UDPKMWY2x5w28/Ia2fJD2E9VtrCTkDLaAkBny3bmHhHVBatN17t
+	WsR9WEB0y138OVkiaPZAFSycJQJBZyixdJU5tVtHaS3xBQM4iUY/k/lx+/voQ7DAgfGykt
+	k/SeklYpdH0NyMjKY9GXTw6899Fy7sc=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-5-2BKyY_5PNFaO6Zd2PaDL9g-1; Thu,
+ 03 Sep 2026 13:07:46 -0400
+X-MC-Unique: 2BKyY_5PNFaO6Zd2PaDL9g-1
+X-Mimecast-MFC-AGG-ID: 2BKyY_5PNFaO6Zd2PaDL9g_1788455265
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DED3119792DD;
+	Thu,  3 Sep 2026 17:07:44 +0000 (UTC)
+Received: from gerbillo.redhat.com (unknown [10.44.32.4])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 194701800643;
+	Thu,  3 Sep 2026 17:07:42 +0000 (UTC)
+From: Paolo Abeni <pabeni@redhat.com>
+To: torvalds@linux-foundation.org
+Cc: kuba@kernel.org,
+	davem@davemloft.net,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL] Networking for v7.3-rc2
+Date: Thu,  3 Sep 2026 19:07:35 +0200
+Message-ID: <20260903170735.107840-1-pabeni@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-docs-gpu-todo-v1-1-be712c8f67a0@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDSwNj3ZT85GLd9IJS3ZL8lHxdY0NDQ7NkMxNTC3MTJaCegqLUtMwKsHn
- RsbW1AK0AuWhfAAAA
-X-Change-ID: 20260903-docs-gpu-todo-31116c645874
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Hardik Kumar <hardikxk@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788455216; l=2678;
- i=hardikxk@gmail.com; s=20260827; h=from:subject:message-id;
- bh=mwjS1qJDm5Rrnz3Is+AgPi54s75JfFcvKNHxNEqcXXI=;
- b=5IWOsWt9xiohCr8FqZ9h6JG87i/4Ds/tmjR+ndAiXtH1mAt27ALWop+qT8AA+3ER/f4AdBiOL
- nkusp+c/CarBjOJZhGw4YlrhF9zBSwGWupOkbvtDzFtfSi9Mt8D2CmW
-X-Developer-Key: i=hardikxk@gmail.com; a=ed25519;
- pk=56yFuFlLHAdRemUZghoGHVCijEX767atrut3dPD0thQ=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-Fix some obvious typos in the todo.rst doc.
+Hi Linus!
 
-Correct spellings of incorrect words.
-Fix an article usage.
+The following changes since commit 1b78070aaef63512688aebfbc82365ef9d6660f1:
 
-Signed-off-by: Hardik Kumar <hardikxk@gmail.com>
----
- Documentation/gpu/todo.rst | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+  Merge tag 'net-7.3-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net (2026-08-27 13:53:43 -0700)
 
-diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-index 14cf37590..187932554 100644
---- a/Documentation/gpu/todo.rst
-+++ b/Documentation/gpu/todo.rst
-@@ -277,8 +277,8 @@ Various hold-ups:
- - Need to switch to drm_gem_fb_create(), as now drm_gem_fb_create() checks for
-   valid formats for atomic drivers.
- 
--- Many drivers subclass drm_framebuffer, we'd need a embedding compatible
--  version of the varios drm_gem_fb_create functions. Maybe called
-+- Many drivers subclass drm_framebuffer, we'd need an embedding compatible
-+  version of the various drm_gem_fb_create functions. Maybe called
-   drm_gem_fb_create/_with_dirty/_with_funcs as needed.
- 
- Contact: Simona Vetter
-@@ -303,7 +303,7 @@ everything after it has done the write-protect/mkwrite trickery:
- 
-       vma->vm_page_prot = pgprot_wrprotect(vma->vm_page_prot);
- 
--- Set the mkwrite and fsync callbacks with similar implementions to the core
-+- Set the mkwrite and fsync callbacks with similar implementations to the core
-   fbdev defio stuff. These should all work on plain ptes, they don't actually
-   require a struct page.  uff. These should all work on plain ptes, they don't
-   actually require a struct page.
-@@ -465,7 +465,7 @@ be turned into a WARN_ON() or somehow made louder.
- At the moment, we expect that we may still encounter the warnings in the
- drm_panel core when using panel-simple and panel-edp. Since those panel
- drivers are used with a lot of different DRM modeset drivers they still
--make an extra effort to disable/unprepare the panel themsevles at shutdown
-+make an extra effort to disable/unprepare the panel themselves at shutdown
- time. Specifically we could still encounter those warnings if the panel
- driver gets shutdown() _before_ the DRM modeset driver and the DRM modeset
- driver properly calls drm_atomic_helper_shutdown() in its own shutdown()
-@@ -891,7 +891,7 @@ Querying errors from drm_syncobj
- ================================
- 
- The drm_syncobj container can be used by driver independent code to signal
--complection of submission.
-+completion of submission.
- 
- One minor feature still missing is a generic DRM IOCTL to query the error
- status of binary and timeline drm_syncobj.
+are available in the Git repository at:
 
----
-base-commit: 66498c75b4f8017f62d720d9b59675bdf3abce91
-change-id: 20260903-docs-gpu-todo-31116c645874
+  git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git tags/net-7.3-rc2
 
-Best regards,
--- 
-Hardik Kumar <hardikxk@gmail.com>
+for you to fetch changes up to 66817a9794263cd2a5dc4e99bf8e5fcc5ff7181e:
+
+  net: gro: Fix nesting of TCP GSO SKBs in skb_gro_receive_list() (2026-09-03 12:20:38 +0200)
+
+----------------------------------------------------------------
+Including fixes from bluetooth.
+
+Previous releases - regressions:
+
+  - page_pool: keep frag_offset aligned for odd-sized requests
+
+  - sched: fix u32 duplicate handle when node ID pool is exhausted
+
+  - udp: create exceptions before socket matching
+
+  - igmp: convert struct ip_sf_list to RCU
+
+  - ip6_gre: check tunnel info before xmit in ip6gre_tunnel_xmit
+
+  - rds: acquire the fastpath locks in rds_conn_shutdown()
+
+  - tipc:
+    - protect node reset trace dump with node lock
+    - fix NULL deref in tipc_named_node_up() on empty publication list
+
+  - bluetooth:
+      L2CAP: fix out-of-bounds write in l2cap_ecred_connect
+      hci_core: fix race condition during device registration
+
+  - eth: mlx5e: prevent stale XSK buffer release on refill retries
+
+  - eth: bridge: don't truncate the port group walk on teardown
+
+Previous releases - always broken:
+
+  - gro: fix nesting of TCP GSO SKBs in skb_gro_receive_list()
+
+  - sched: fix skb sizing and action leak on reoffload delete
+
+  - tcp: fix use-after-free in do_tcp_getsockopt()
+
+  - af_packet: don't cast tpacket_hdr.tp_len to int in tpacket_parse_header().
+
+  - sctp: fix soft lockup from unpadded ASCONF-ACK parameter iteration
+
+  - iptunnel: fix stale transport header during tunnel decapsulation
+
+  - eth: vxlan: fix use-after-free in vxlan_mdb_remote_src_del()
+
+  - eth: bonding: fix uninitialized transport header access in alb_determine_nd()
+
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+
+----------------------------------------------------------------
+Aleksandr Nogikh (1):
+      Bluetooth: hci_core: Fix race condition during device registration
+
+Allison Henderson (5):
+      net/rds: use wq_has_sleeper() in release_in_xmit()
+      net/rds: use clear_bit_unlock() in release_refill()
+      net/rds: clear cp_flags bits individually in rds_conn_path_reset()
+      net/rds: acquire RDS_IN_XMIT in rds_tcp_reset_callbacks()
+      net/rds: don't let rds_conn_shutdown() consume a concurrent drop
+
+Aohan Mei (1):
+      net/sched: cls_flower: validate mask pointer after nla_next()
+
+Aswin Karuvally (1):
+      s390/ctcm: Prevent XID null dereference
+
+Baul Lee (1):
+      vxlan: mdb: Fix use-after-free in vxlan_mdb_remote_src_del()
+
+Bryam Vargas (1):
+      net/iucv: fix the recvmsg window update
+
+Cen Zhang (Microsoft Security FORGE Labs) (2):
+      tcp: fix use-after-free in do_tcp_getsockopt(TCP_CONGESTION)
+      tcp: fix use-after-free in do_tcp_getsockopt(TCP_CC_INFO)
+
+Charles Vosburgh (1):
+      sctp: validate chunk length in the inqueue parser
+
+Chengfeng Ye (1):
+      tipc: protect node reset trace dump with node lock
+
+Chris Lew (1):
+      net: qrtr: Send HELLO message on endpoint register
+
+Daehyeon Ko (2):
+      vsock/virtio: validate packet source for connected sockets
+      vsock/vmci: validate packet source for connected sockets
+
+David Laight (1):
+      tipc: Dont send random pad bytes in RESET/ACTIVATE messages
+
+Dong Chenchen (1):
+      net: iptunnel: fix stale transport header during tunnel decapsulation
+
+Eric Dumazet (13):
+      net: icmp: avoid invalid transport header access in icmp_send tracepoint
+      tcp: use GFP_ATOMIC in tcp_send_active_reset()
+      igmp: convert struct ip_sf_list to RCU
+      ipv6: mcast: fix RCU list diversion in ip6_mc_del1_src()
+      ipv6: mcast: use copy-on-write RCU updates in ip6_mc_source()
+      ipv6: mcast: fix delay calculation in igmp6_join_group()
+      ipv6: mcast: use rcu_assign_pointer() for __rcu list updates
+      ipv6: mcast: use jiffies_delta_to_clock_t() in igmp6_mc_seq_show()
+      ip6_gre: check tunnel info before xmit in ip6gre_tunnel_xmit
+      ipv6: sr: restore network header before routing and forwarding
+      net: bonding: annotate lockless writes with WRITE_ONCE()
+      bonding: alb: fix uninitialized transport header access in alb_determine_nd()
+      bonding: do not clear curr_active_slave prematurely when releasing all slaves
+
+Florian Schauer (1):
+      page_pool: keep frag_offset aligned for odd-sized requests
+
+Gerd Rausch (1):
+      net/rds: tcp: don't force RDS_CONN_RESETTING over a concurrent shutdown
+
+Gongwei Li (1):
+      Bluetooth: hci_mrvl: Fix wrong return value check of wait_on_bit_timeout()
+
+HW He (1):
+      net: gro: Fix nesting of TCP GSO SKBs in skb_gro_receive_list()
+
+Henry Martin (1):
+      sctp: fix soft lockup from unpadded ASCONF-ACK parameter iteration
+
+Håkon Bugge (1):
+      net/rds: acquire the fastpath locks in rds_conn_shutdown()
+
+Ian Lin (1):
+      net: usb: qmi_wwan: add Compal EXM-G1x support
+
+Ido Schimmel (4):
+      ipv6: Fix redirect exception creation for UDP/RAW sockets
+      ipv4: udp: Create exceptions before socket matching
+      ipv6: udp: Create exceptions before socket matching
+      selftests: net: Add exception cache tests
+
+Ilya Maximets (2):
+      netlink: specs: fix the conntrack filter type
+      netlink: specs: add missing mask attributes for conntrack dump
+
+Jakub Kicinski (10):
+      Merge branch 'netlink-specs-fixes-for-conntrack-dump-filtering'
+      Merge branch 'net-mlx5e-prevent-stale-xsk-buffer-release-on-refill-retries'
+      Merge branch 'net-sched-fix-remaining-actions-notification-accounting-issues'
+      Merge branch 'tcp-fix-use-after-free-in-do_tcp_getsockopt'
+      Merge branch 'fix-to-possible-skb-leak-due-to-race-condtion-in-tx-path'
+      Merge branch 'vsock-validate-packet-sources-after-bound-lookup-fallback'
+      Merge tag 'for-net-2026-08-31' of git://git.kernel.org/pub/scm/linux/kernel/git/bluetooth/bluetooth
+      Merge branch 'ipv6-mcast-rcu-and-timer-fixes'
+      Merge branch 'mitigate-a-side-channel-in-routing-exception-caches'
+      Merge branch 'net-rds-own-the-fastpath-locks-across-connection-teardown'
+
+Jamal Hadi Salim (2):
+      net/sched: cls_u32: fix duplicate handle when node ID pool is exhausted
+      selftests: tc-testing: add u32 node ID pool exhaustion test
+
+James Nugraha (1):
+      net: amd-xgbe: discard rx packets with bad FCS
+
+Jerome Tollet (2):
+      net/mlx5e: Prevent stale XSK buffer release on refill retry
+      net/mlx5e: Prevent stale XSK buffer release on MPWQE refill retry
+
+Jun Yang (1):
+      net: bridge: mcast: don't truncate the port group walk on teardown
+
+Kaiwen Shi (1):
+      mac802154: fix data race and NULL deref on local->assoc_dev
+
+Kiran K (1):
+      Bluetooth: btintel_pcie: Clear automask on spurious interrupts
+
+Kiran Kumar K (1):
+      octeontx2-af: fix CN20K default MCAM rule removal on port cleanup
+
+Koichiro Den (1):
+      net: ntb_netdev: Fix statistics races
+
+Kuniyuki Iwashima (2):
+      af_packet: Don't cast tpacket_hdr.tp_len to int in tpacket_parse_header().
+      net: Remove conflicting altnames for dying netns in __dev_change_net_namespace().
+
+Laxman Acharya Padhya (3):
+      Bluetooth: btintel: validate version TLV value lengths
+      Bluetooth: btintel: bound firmware ID by TLV length
+      Bluetooth: btintel: propagate version TLV parsing errors
+
+Lorenzo Bianconi (3):
+      net: stmmac: fix dma mapping leak in stmmac_tso_xmit()
+      net: airoha: enable RX_DONE interrupt for RX queue 31
+      net: stmmac: reconfigure RX packet parser table in stmmac_hw_setup() after reset
+
+Maciej Fijalkowski (1):
+      ipvlan: unregister upper devices outside pnodes_lock
+
+Nicolai Buchwitz (1):
+      net: macb: exclude software FCS from TX byte statistics
+
+Norbert Szetei (1):
+      net: psp: do not inherit the Rx association on clone
+
+Pauli Virtanen (3):
+      Bluetooth: L2CAP: fix chan mode for LE_CONN_REQ + EXT_FLOWCTL pchan
+      Bluetooth: L2CAP: fix out-of-bounds write in l2cap_ecred_connect
+      Bluetooth: L2CAP: clear FLAG_DEFER_SETUP only for same PID/PSM
+
+Qingfang Deng (2):
+      ppp: ppp_async: simplify tty disc_data access
+      ppp: ppp_synctty: simplify tty disc_data access
+
+Selvamani Rajagopal (4):
+      net: ethernet: oa_tc6: Protect skb pointer used by two different kernel instances
+      net: ethernet: oa_tc6: Improve the error recovery
+      net: ethernet: oa_tc6: Disable tx queues on fatal error
+      net: ethernet: oa_tc6: Fix for the wrong data type
+
+Sunil Goutham (1):
+      octeontx2-af: Fix limiting SRIOV VF count logic
+
+Tung Nguyen (1):
+      tipc: fix NULL deref in tipc_named_node_up() on empty publication list
+
+Victor Nogueira (3):
+      net/sched: act_api: budget all shared attributes in notify skbs
+      net/sched: act_api: size the RTM_GETACTION reply from the actions
+      net/sched: act_api: fix skb sizing and action leak on reoffload delete
+
+Xin Long (1):
+      sctp: fix a TOCTOU race in SCTP_CMD_TIMER_START
+
+Xuanqiang Luo (1):
+      raw: annotate disconnect-side IPv4 match writers
+
+Zihan Xi (1):
+      ipv4: avoid divide by zero in fib_rebalance
+
+ Documentation/netlink/specs/conntrack.yaml         |  21 +-
+ drivers/bluetooth/btintel.c                        |  44 +-
+ drivers/bluetooth/btintel_pcie.c                   |   3 +
+ drivers/bluetooth/hci_mrvl.c                       |   3 +-
+ drivers/net/bonding/bond_alb.c                     |  15 +-
+ drivers/net/bonding/bond_main.c                    |  18 +-
+ drivers/net/bonding/bond_options.c                 |   4 +-
+ drivers/net/ethernet/airoha/airoha_eth.h           |   2 +-
+ drivers/net/ethernet/amd/xgbe/xgbe-dev.c           |   3 +-
+ drivers/net/ethernet/cadence/macb.h                |   3 +
+ drivers/net/ethernet/cadence/macb_main.c           |  21 +-
+ drivers/net/ethernet/marvell/octeontx2/af/rvu.c    |  33 +-
+ .../net/ethernet/marvell/octeontx2/af/rvu_npc.c    |   5 +-
+ .../net/ethernet/mellanox/mlx5/core/en/xsk/rx.c    |   2 +
+ drivers/net/ethernet/mellanox/mlx5/core/en_rx.c    |   7 +-
+ drivers/net/ethernet/oa_tc6.c                      | 258 +++++++---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |  61 ++-
+ drivers/net/gtp.c                                  |   5 +
+ drivers/net/ipvlan/ipvlan_main.c                   |   4 +-
+ drivers/net/ntb_netdev.c                           |  47 +-
+ drivers/net/ppp/ppp_async.c                        |  82 +---
+ drivers/net/ppp/ppp_synctty.c                      |  83 +---
+ drivers/net/usb/qmi_wwan.c                         |   1 +
+ drivers/net/vxlan/vxlan_mdb.c                      |   8 +
+ drivers/s390/net/ctcm_mpc.c                        |   3 +-
+ include/linux/igmp.h                               |   7 +-
+ include/linux/skbuff.h                             |   5 +
+ include/net/af_vsock.h                             |   3 +
+ include/net/if_inet6.h                             |   2 -
+ include/net/ip.h                                   |   3 +-
+ include/net/tcp.h                                  |   3 +-
+ include/trace/events/icmp.h                        |  13 +-
+ net/bluetooth/hci_core.c                           |   4 +-
+ net/bluetooth/l2cap_core.c                         |  33 +-
+ net/bluetooth/msft.c                               |   2 +-
+ net/bridge/br_multicast.c                          |  13 +-
+ net/core/dev.c                                     |  25 +-
+ net/core/gro_cells.c                               |   2 +
+ net/core/page_pool.c                               |   3 +-
+ net/core/sock.c                                    |   3 +
+ net/ipv4/fib_semantics.c                           |   2 +-
+ net/ipv4/igmp.c                                    | 210 +++++----
+ net/ipv4/tcp.c                                     |  32 +-
+ net/ipv4/tcp_cong.c                                |   4 +-
+ net/ipv4/tcp_dctcp.c                               |   4 +-
+ net/ipv4/tcp_minisocks.c                           |   2 +-
+ net/ipv4/tcp_offload.c                             |  22 +-
+ net/ipv4/tcp_output.c                              |   6 +-
+ net/ipv4/tcp_timer.c                               |   6 +-
+ net/ipv4/udp.c                                     |  15 +-
+ net/ipv6/exthdrs.c                                 |   4 +-
+ net/ipv6/ip6_gre.c                                 |   6 +-
+ net/ipv6/mcast.c                                   | 148 +++---
+ net/ipv6/route.c                                   |   2 +-
+ net/ipv6/tcpv6_offload.c                           |  15 +-
+ net/ipv6/udp.c                                     |  13 +
+ net/iucv/af_iucv.c                                 |  42 +-
+ net/mac802154/ieee802154_i.h                       |   7 +-
+ net/mac802154/main.c                               |   1 +
+ net/mac802154/scan.c                               |  51 +-
+ net/mptcp/protocol.c                               |   3 +-
+ net/mptcp/protocol.h                               |   2 +-
+ net/packet/af_packet.c                             |   5 +-
+ net/qrtr/af_qrtr.c                                 |  66 ++-
+ net/qrtr/ns.c                                      |  35 +-
+ net/rds/connection.c                               |  89 +++-
+ net/rds/ib_recv.c                                  |   9 +-
+ net/rds/send.c                                     |  14 +-
+ net/rds/tcp.c                                      | 101 ++--
+ net/rds/tcp_listen.c                               |   6 +-
+ net/sched/act_api.c                                |  37 +-
+ net/sched/cls_flower.c                             |   5 +
+ net/sched/cls_u32.c                                |  32 +-
+ net/sctp/inqueue.c                                 |   6 +-
+ net/sctp/sm_make_chunk.c                           |  14 +-
+ net/sctp/sm_sideeffect.c                           |  11 +-
+ net/tipc/link.c                                    |   6 +-
+ net/tipc/name_table.c                              |  30 +-
+ net/tipc/node.c                                    |   2 +
+ net/vmw_vsock/af_vsock.c                           |  32 ++
+ net/vmw_vsock/virtio_transport_common.c            |   3 +-
+ net/vmw_vsock/vmci_transport.c                     |  34 +-
+ tools/testing/selftests/net/Makefile               |   1 +
+ tools/testing/selftests/net/exception_cache.sh     | 521 +++++++++++++++++++++
+ tools/testing/selftests/net/test_vxlan_mdb.sh      |   6 +
+ .../selftests/tc-testing/tc-tests/filters/u32.json |  23 +
+ 86 files changed, 1839 insertions(+), 703 deletions(-)
+ create mode 100755 tools/testing/selftests/net/exception_cache.sh
 
