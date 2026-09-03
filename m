@@ -1,71 +1,71 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E20904921BB;
-	Thu,  3 Sep 2026 11:45:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C997494A1B;
+	Thu,  3 Sep 2026 11:46:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788435935; cv=none; b=R49cGrna4h0grYoSZNFQXIlC29iJDd3v5oJsYBoVNBv36Jc2cDstOwjr1M1cKrqDINKyDsKLO+36biGuUk64ViAEwElkElj7lzI8IoX3CpMwo+pYXBjIRyKSeX6iAUP7O0OFeSu3GOwliFakL7J5vn0DNAl/UI5DBwtgoLOWnJk=
+	t=1788435988; cv=none; b=sU6EzdTAgeA+IdKGjTVNOoJNviwCpWSerAQVeRBsw4E1203Ro5xODYpOS8kFy5wpOzBQlavdZyYmcrz4Q9tGYKrsddpIufgC9xQVFZedkwEr/Xey/uvG4pPbHEfDYL92C3EcndzlLqy5IBy1b75Pti+2bMp3kFachYVK3qfnhNw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788435935; c=relaxed/simple;
-	bh=iDpkHQ4A9aavbAO0VY9TWwzuSMJVrP9fvNQC/zw795I=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=Z0wA04iMz3MeFC1AvF+tD1ArhCwV+8e7WrCHj8jSX8z6m4tjdPtrDaHhUg4xKej79bbFiqPOoE4oCMfLEc2AydMG25PkkGTeuMF+dcgG4dOAzjRCInviJVKbZT4NIvukoADdR9SyJXxoq5rXV9hOcKVzXWn2v9zhzS9OY4rVswY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S8/s608K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788435988; c=relaxed/simple;
+	bh=yBLGsiC5Qo5U7xVpJC95AXV9s4D/tC+FX9uG5XmguZk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=X+p/n5U9Kfd+AkKt0N23wIWsLG8IhNqETH3dJ+ZOTW3OYCJr4GzHRLBkQW6oBB1y0YJQwsLH6AZwJX209nlUhkLCrJin+6OPDm1A79f6ILtJZfZN2B7i0mhvr/I4kwc0rFTb5JUXukGWPTrIVYKW4mYB6XOPwO7ysP1y9IJLHy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nvU3ngAT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S8/s608K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB1521F000E9;
-	Thu,  3 Sep 2026 11:45:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nvU3ngAT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 578CC1F000E9;
+	Thu,  3 Sep 2026 11:46:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788435928;
-	bh=DT15CpzEOkwydrrc9EXEoGDNjopv/Z22TmDRwFRNU90=;
-	h=Date:From:To:Cc:Subject;
-	b=S8/s608KBRHpsOZJNSr8mwbpYuox4uNjpaWHIStJm7Eb+TCAlObf2GDRbvYZ3Gk3c
-	 ESCf1Jl8BGQBAjCyvzweYjcLmA2lGE/o696tNONhEn3nMQFliHg221MjNZWd2S1BL+
-	 LO5nUH44CBVYgmdydH+r+oQ1wNqEWiChl2+2UU/8dn2afnqdlZ3JMuxnkK3txFUWRZ
-	 2ZoMLWGh5SGByMgBp4FsR4xikXHE1ZwP4L2uyATYt45paveI4+oXJs5wmop9iZIR8T
-	 MHbnL9dpBSXl8D4QgjBkOfkb6FC7L0GRQB/VByWUH0rbOKsIJUbNKbPbO8j8k+yegu
-	 3b5YJ6ZLcH6tQ==
-Date: Thu, 3 Sep 2026 12:45:25 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jason Gunthorpe <jgg@nvidia.com>, Leon Romanovsky <leonro@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
-Subject: Missing signoff in the rdma tree
-Message-ID: <apld1ajH9zvMi5-H@sirena.org.uk>
+	s=k20260515; t=1788435976;
+	bh=hMqxdzKrWow7jpM0HakJLDnYHFNMOJBE2QIgHGSmMT8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nvU3ngATjz6jRDjc1JUWES6jaVshC5LwTusZaLg8us52Cv9XxjMgcspOcme5x0yQ8
+	 k/GDanFLKF4KOzgg3GZ3p24+zS7F2SeVu31Bh6AptlWJP7qDWW0PKOTVMXrYkHT4va
+	 KFfhWplD0KuS9K+jtULivEQX6BM4eX0nKCx3OIbO+WBW/Y/Wp2recyxpOYiTHtwWkt
+	 RYY5x75zt9P/fq8kWHamfKRtDVnt68omeHh0aXvbhSCv2ttMpCAeIwl7uqcoMt7pWj
+	 +tGc92zy8MV8r8BnW29xdmDDZDs770qfItBSZrvL/p1xBGUv/L/94tfapcLT+qSVM2
+	 ZOs6Jk0cER1sw==
+Date: Thu, 3 Sep 2026 13:45:53 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Bhargav Joshi <j.bhargav.u@gmail.com>
+Cc: Vignesh Raghavendra <vigneshr@ti.com>, Vinod Koul <vkoul@kernel.org>, 
+	Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrzej Siewior <bigeasy@linutronix.de>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
+	Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, Ravi B <ravibabu@ti.com>, 
+	Kumar Gupta <ajay.gupta@ti.com>, Bin Liu <b-liu@ti.com>, dmaengine@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+	linux-phy@lists.infradead.org, linux-omap@vger.kernel.org, goledhruva@gmail.com, 
+	m-chawdhry@ti.com, daniel.baluta@gmail.com, simona.toaca@nxp.com
+Subject: Re: [PATCH v3 2/6] dt-bindings: phy: ti,am335x-usb-phy: Convert to
+ DT schema
+Message-ID: <yawsbme42sxvel5ftn6urvxnqczx6hd2crdnh22abeegfigdnz@tpmzmpc2wbny>
+References: <20260901-ti-am33-usb-v3-0-5e15c617d2e9@gmail.com>
+ <20260901-ti-am33-usb-v3-2-5e15c617d2e9@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qbQ6wlEmjtO9pb+2"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260901-ti-am33-usb-v3-2-5e15c617d2e9@gmail.com>
 
+On Tue, Sep 01, 2026 at 04:53:06AM +0530, Bhargav Joshi wrote:
+> Convert the TI AM335x USB PHY text bindings to DT schema.
+> Add undocumented vcc-supply property to match existing DTS usage.
+> 
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 
---qbQ6wlEmjtO9pb+2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Commit
+- Mani
 
-  a9d53db40dba3 ("RDMA/mana_ib: Enable multi-port GSI QP support for mana_ib")
-
-is missing a Signed-off-by from its committer
-
---qbQ6wlEmjtO9pb+2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqZXdQACgkQJNaLcl1U
-h9AU0Qf+LAKoCPgWhCZg3oha1UFYz0Y6MUiJdA/BEszuk7Mb3MVIYkO23uSVRIKN
-Na0nBf/XX5e85nf92/66w6Fv6PaQysRssb7P/ZpEuyD8VrJod1UWwFvXsGepJRCn
-47kt83vXWweKE4gu0AKbrXVWkBWKFlMtFdwoyLn0MjbvFIQ28pRHIfvZuclh6EQ1
-BQsuzSO5oXnA2iE2vKIY+mVOfgSiSTAmzw550+it0b0qmQx1UJVZzp3TTwX3MiXH
-uT5oRwPRy/mi5sSVdKihyZFlC6GWVA/4wlnuXOl/6jC92lQWuy7r17i+WryZX40C
-N4nxdXcws0O54zCpVbXIfe60Dg2cUg==
-=oPDZ
------END PGP SIGNATURE-----
-
---qbQ6wlEmjtO9pb+2--
+-- 
+மணிவண்ணன் சதாசிவம்
