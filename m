@@ -1,184 +1,110 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFFB640928C;
-	Thu,  3 Sep 2026 14:35:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 251054B049C;
+	Thu,  3 Sep 2026 14:35:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788446123; cv=none; b=cwbrttFMMbM31Ftl5Cc5pMKZ3yuK1c3Xiyg03M8zKEvO4jeumHMLPWWOFFgB/BtRVsP90cmsRshu0MsMDN2u3EP2jh5jJpNZdjxE4kEgnFTIp0mH80xBayEzH2aS4eocFEy+xSUg1qnBIQIxjeol7wL9UAxgtfzICfHFzKQlhDA=
+	t=1788446129; cv=none; b=ZVtrcBgGeZV6lxby3sQdoYXbNwV/VZS6Def2XYw4d0X4Cn5k4eicPczrD00C4gmtpVuFlXOU7bEhQY4bFrFw1Ep7A8fO5SBPIxRu5+7WGLhPm9BNOxefuDBfueyVrAwKr7IMV9dMGMIm+7x2mnUEXV37ozQC6lE+gGxhmqXZ7zY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788446123; c=relaxed/simple;
-	bh=vkHtOBeqJKuWcc0Hcp4YMAdXb99vMRmxPJnYZQagXaQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eu4KdTHZic+0tYWL8x4e0wGC3UIi6Q5dPxPA6/dJZ4VAmY1ZOZ89mLwjkbcc8fXTUg0aCqUHooJ34DTn9HVxkXvPjAqatrm24tB+ffsCpijQLhYekgGgZIDbl1FQz0Joz17glwIc4/0tdy/p7VoX4HRM4ccn4dJZAwdvUWBqKJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=uLMvKxzL; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1788446129; c=relaxed/simple;
+	bh=zW5X/BlVew3gtfkgd5wsBqPi9i4JuzpFq61XhHXYaC8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=a2JUN0H55XujtdgiAu6PpQcnV7QyhaBpyk453uPeAs+v454FVmIlyxjiKpfLDv1VYPhrZ2viasFI8ZakPj4II8VKCFMBTkiZQHJfx6by+XqKlCUOGu06T54QwQJXJ2jA+Y1Clsh6dLsVrLGFxhkGvI4H0bnlt8HbbsQaFToinfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=LtKb0+Tz; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="uLMvKxzL"
-Received: from [10.0.0.152] (unknown [10.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 8D18A53405FD;
-	Thu, 03 Sep 2026 16:35:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1788446109;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=Q5rOd/Qktib1iQtBnsgey0ILDazMjdhik5E1O2hY1ro=;
-	b=uLMvKxzLjt5vT5r4g2tOrTLKmJtUdqtmFDBbpxjR4ByP9TM1lXcSdScRqzAMWxwP39bPic
-	jH5Jdt5FFuOaRAxtJSYpteXijG2ZXFDphhXOhzi6VyZP/rWNvBOz5d4khi5UhNrKmw5WyV
-	WRQj/SwOLKOZZULZCCrJx7iFXewKZVk=
-Message-ID: <a1038b46-1d37-4563-a51c-f4432b557de1@ixit.cz>
-Date: Thu, 3 Sep 2026 16:35:09 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="LtKb0+Tz"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3FD451596;
+	Thu,  3 Sep 2026 07:35:17 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C549B3F673;
+	Thu,  3 Sep 2026 07:35:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788446121; bh=zW5X/BlVew3gtfkgd5wsBqPi9i4JuzpFq61XhHXYaC8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=LtKb0+Tzhm19dgk0V5d3SADRfaHjnLN4CAyIIsVgP2jMB1EejyikYV3Ry6KxjvxEu
+	 Pr/x5BuJvbzBqk4qDR0mo3p1rx7Zy0HlGNgg+81ZGXI7R8iXErFPLx1sBP4jAc3+f0
+	 LZzBTWS3Vy+Q7OlWE1iPSChRXtPWRcadAdjDON3A=
+Date: Thu, 3 Sep 2026 15:35:17 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-efi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Breno Leitao <leitao@debian.org>,
+	"sami.mujawar@arm.com" <Sami.Mujawar@arm.com>
+Subject: Re: [PATCH] firmware: efi: add a separate timeout for UpdateCapsule()
+Message-ID: <apmFpUvkRBgMdOH2@e129823.arm.com>
+References: <20260903113238.2291844-1-yeoreum.yun@arm.com>
+ <960e985e-b338-4648-a29b-1f8a31e00599@app.fastmail.com>
+ <apl_29t7Jxr2mv9C@e129823.arm.com>
+ <44097058-9fdc-4e9f-a277-d63e3876b035@app.fastmail.com>
+ <23ce2fb0-1002-409f-bb84-f592db9d0b89@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: sdm845-lg: Enable NFC
-To: Paul Sajna <sajattack@postmarketos.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht
-References: <20260902-sdm845-lg-judy-nfc-v1-1-282173900569@postmarketos.org>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260902-sdm845-lg-judy-nfc-v1-1-282173900569@postmarketos.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <23ce2fb0-1002-409f-bb84-f592db9d0b89@app.fastmail.com>
 
-On 03/09/2026 04:03, Paul Sajna wrote:
-> Add the i2c and tlmm nodes to support the NXP PN547 NFC chip
+> On Thu, 3 Sep 2026, at 16:29, Ard Biesheuvel wrote:
+> > On Thu, 3 Sep 2026, at 16:10, Yeoreum Yun wrote:
+> >> Hi Ard,
+> >>
+> >>> Hello Yeoreum Yun,
+> >>> 
+> >>> On Thu, 3 Sep 2026, at 13:32, Yeoreum Yun wrote:
+> >>> > On platforms that allows to update firmware in runtime, UpdateCapsule()
+> >>> > may immediately write a firmware image to persistent storage.
+> >>> > This operation can take longer than EFI_RTS_TIMEOUT.
+> >>> >
+> >>> > Use a separate timeout for the UpdateCapsule() runtime service. By
+> >>> > default, wait indefinitely to avoid interrupting an ongoing firmware
+> >>> > update. Administrators may configure an appropriate timeout, in seconds,
+> >>> > through /sys/firmware/efi/capsule_update_timeout.
+> >>> >
+> >>> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> >>> > ---
+> >>> >  drivers/firmware/efi/efi.c              | 41 +++++++++++++++++++++++++
+> >>> >  drivers/firmware/efi/runtime-wrappers.c | 14 +++------
+> >>> >  include/linux/efi.h                     | 10 ++++++
+> >>> >  3 files changed, 55 insertions(+), 10 deletions(-)
+> >>> >
+> >>> 
+> >>> Given that UpdateCapsule() is rarely used these days at runtime, I
+> >>> wonder if we should just call it synchronously instead of via the
+> >>> EFI workqueue.
+> >>> 
+> >>> I assume that would also solve the timeout issue?
+> >>
+> >> Might be. But it would make *non-preemptible* for UpdateCapsule().
+> >> AFAIK the purpose of running runtime service with efi_queue to
+> >> run it in indepdent context and to be preemtible in case of arm64.
+> >>
+> >
+> > No.
+> >
+> >> Since most of UpdateCapsule() will be called via capsule-loader's misc
+> >> device, if UpdateCaspule() is called synchronously, It would be
+> >> non-preemtible in arm64 platform.
+> >>
+> >> But, some platform could be preemptible while updating firmware so
+> >> I think it would be better that it would be called via EFI workqueue.
+> >>
+> >
+> > EFI runtime service invocations are preemptible on arm64, so this is
+> > not a problem.
 > 
-> Downstream dtsi for reference:
-> https://github.com/LineageOS/android_kernel_lge_sdm845/blob/lineage-22.2/arch/arm64/boot/dts/lge/sdm845-judy/sdm845-judyln_lao_com/sdm845-judyln_lao_com-nfc.dtsi
-> 
-> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
-> ---
->   arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 31 ++++++++++++++++++++++++++
->   1 file changed, 31 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
-> index b030a10009c5..069d1cf3dead 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
-> @@ -471,6 +471,25 @@ &gpu {
->   	status = "okay";
->   };
->   
-> +&i2c3 {
-> +	clock-frequency = <1000000>;
-> +
-> +	status = "okay";
-> +
-> +	nfc@28 {
-> +		compatible = "nxp,pn547", "nxp,nxp-nci-i2c";
-> +		reg = <0x28>;
-> +
-> +		interrupts-extended = <&tlmm 63 IRQ_TYPE_EDGE_RISING>;
-> +
-> +		enable-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
-> +		firmware-gpios = <&tlmm 62 GPIO_ACTIVE_HIGH>;
-> +
-> +		pinctrl-0 = <&nfc_default>;
-> +		pinctrl-names = "default";
-> +	};
-> +};
-> +
->   &ipa {
->   	status = "okay";
->   };
-> @@ -551,6 +570,11 @@ &qupv3_id_1 {
->   	status = "okay";
->   };
->   
-> +&qup_i2c3_default {
-> +	drive-strength = <2>;
-> +	bias-disable;
-> +};
-> +
->   &qup_uart9_rx {
->   	drive-strength = <2>;
->   	bias-pull-up;
-> @@ -609,6 +633,13 @@ sd_card_det_n: sd-card-det-n-state {
->   		function = "gpio";
->   		bias-pull-up;
->   	};
-> +
-> +	nfc_default: nfc-default-state {
-> +		pins = "gpio12", "gpio62", "gpio63";
+> Ah wait - you're right, they are only preemptible when invoked from the
+> work queue.
 
-if you want to, you could make it more descriptive with -pins,
+Yes. That's why I think it would be better to call via EFI workqueue
+when I see arch_efi_call_virt_setup().
 
-see
-
-https://lore.kernel.org/all/20260902-sdm670-sargo-nfc-v1-2-bed1cbbffc46@ixit.cz/
-
-David
-
-> +		function = "gpio";
-> +		drive-strength = <6>;
-> +		bias-pull-up;
-> +	};
->   };
->   
->   &uart6 {
-> 
-> ---
-> base-commit: 32b6ef9a5d0eca44f9cd91f52f4faa89f145a0de
-> change-id: 20260902-sdm845-lg-judy-nfc-5f9e5775393d
-> 
-> Best regards,
-
+-- 
+Sincerely,
+Yeoreum Yun
