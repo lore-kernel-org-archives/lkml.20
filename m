@@ -1,122 +1,215 @@
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B870C1D63F3
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 01:16:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C3415C14F;
+	Thu,  3 Sep 2026 01:21:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788398203; cv=none; b=nSnFJ5tkth/fk+ZOT804zCFhlny4hrno+XpYadVZ/dfUo1Qb4q7eg3+KVDzr+BhUmXULtcT6OeTFyELDK2GCG6nYCMfToVBNIbEKXdkzO8qtrik1xYJKC1lzR70LHoEM/FFIx73fTrICae22Nu0hv8sN7FOvmNyRgBs9q2AenAs=
+	t=1788398479; cv=none; b=R5w10PRM44JgkMGBHioTEbHOHQVgB8K9VbytRpgX8ZgtMtNn7XIJbU9d5YZlrspFZyjzBzBJ3u0FnhtB6QQLfeFrdkEuc3VqBt1uNYLw5cULIw1SOjWbOynElP/iQw9g4DbayP2/dIK54yu+JrVHYq2vPQCpG3EyVYHI2fts4wk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788398203; c=relaxed/simple;
-	bh=6N/uGzfZ/z6s2knBb4sFIBYbeRmal3H64Kvddr6Mtjc=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=kvO2Hkxzn8v0p4g6xNwfPwANlep+6dn+acgXUzceumGUxNCNLecBc93yUSXrBKDjl8P8R0+ncz9QHG7VWMb3YNOcOZRo8VxDOa7yUh7uFGB/wJzT39UTNckmbEgspeQqhhQffbvgEiv3jk4lYpfKnpMnUQm38rMgvvHk1NLsWIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=YEOOrmM5; arc=none smtp.client-ip=80.86.107.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="YEOOrmM5"
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id B35CFCCE4D;
-	Thu,  3 Sep 2026 04:16:36 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro B35CFCCE4D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1788398198;
-	bh=K0e2bO9sZgwFiNy9Yf/ChdFp1jz620gjB++D5MNjCXE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=YEOOrmM51NHwE9z1OyZ5tUl9Wg+KMhfeR3xhp21rd3UK7faHl/vTW2xUz9Hg3ne7A
-	 KKKY/H7Df/rGVvFtex0Nb4GWwW1k1DF0YbYWkk7OkdubhnQlS09YlBQWG/sPQ4IiTs
-	 9HGGJmapb/7iF+hlzUFMmpaCXLZiOcKWJurqENBaw/j3hoAKVrUWb7Egp6MaeUqzgR
-	 jQKtXvRhY33DYPMveHSG1VfCenWFjjxEzDnqkC+mveuTjl/HT2N1C/V625BO6cSxEL
-	 0l16w+5wqCL21ihAIxx/0jsqV49ikxN+KgeiRX6S71bUEolsexKV14wMtRH4c2vwCh
-	 GStGKTrGxf/9g==
-Message-ID: <860cba0d279223d6e5ac8cb86ba82fbe1f66b3d3.camel@rendec.net>
-Subject: Re: [PATCH v5 7/9] irqchip/imx-irqsteer: Allow building as module
-From: Radu Rendec <radu@rendec.net>
-To: Zhipeng.wang_1@oss.nxp.com, Thomas Gleixner <tglx@kernel.org>, Marc
- Zyngier	 <maz@kernel.org>, Frank Li <Frank.Li@nxp.com>
-Cc: Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team
-	 <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Jindong Yue
-	 <jindong.yue@nxp.com>, xuegang.liu@nxp.com, linux-kernel@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Date: Wed, 02 Sep 2026 21:16:34 -0400
-In-Reply-To: <20260821101039.4037925-8-Zhipeng.wang_1@oss.nxp.com>
-References: <20260821101039.4037925-1-Zhipeng.wang_1@oss.nxp.com>
-	 <20260821101039.4037925-8-Zhipeng.wang_1@oss.nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	s=arc-20240116; t=1788398479; c=relaxed/simple;
+	bh=hxhngAuDx8GSokc6rP4LurdJaNYN0GNhcknj23j6Gkw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IK/6EOifFz9o97RmHULgvXY0Q8Kglg0XJPkR+gamfv647i62ygUi0lh8H3dIpSdY+UDxddpopXD2TiELAbWfCpnJ4BlkP9rAHw42GvC3DytxeY8w4MAVjPQthcl/4ZN32s6qQ/SMyDuKmWHdIAJBKpxIvtYil7uP99pb54mvSCk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: bddf0786a73511f19a56ed5b684f684d-20260903
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:2e6fa7d1-9be9-4313-a57c-6eaf05b7f05e,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:d77727f464645be784fc4e209daed7b8,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50,EDM:-3|
+	-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
+	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: bddf0786a73511f19a56ed5b684f684d-20260903
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 2119722697; Thu, 03 Sep 2026 09:21:08 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] ntfs: fix volume flag update races
+Date: Thu,  3 Sep 2026 09:21:03 +0800
+Message-Id: <20260903012104.185926-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, 2026-08-21 at 19:10 +0900, Zhipeng.wang_1@oss.nxp.com wrote:
-> From: Jindong Yue <jindong.yue@nxp.com>
->=20
-> Make the driver buildable as a module by turning the Kconfig symbol into
-> a tristate and using module_platform_driver() instead of
-> builtin_platform_driver(), and add the MODULE_DEVICE_TABLE() and module
-> metadata needed for autoloading.
->=20
-> The clock, runtime PM and IRQ domain are already owned by devres, so no
-> further teardown is needed to support unbind and reload.
->=20
-> Signed-off-by: Jindong Yue <jindong.yue@nxp.com>
-> Signed-off-by: Zhipeng Wang <zhipeng.wang_1@nxp.com>
-> ---
-> =C2=A0drivers/irqchip/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
-> =C2=A0drivers/irqchip/irq-imx-irqsteer.c | 7 ++++++-
-> =C2=A02 files changed, 7 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-> index 20b77fbc51ee..105108d2e6ff 100644
-> --- a/drivers/irqchip/Kconfig
-> +++ b/drivers/irqchip/Kconfig
-> @@ -555,7 +555,7 @@ config CSKY_APB_INTC
-> =C2=A0	=C2=A0 the controller's register.
-> =C2=A0
-> =C2=A0config IMX_IRQSTEER
-> -	bool "i.MX IRQSTEER support"
-> +	tristate "i.MX IRQSTEER support"
-> =C2=A0	depends on ARCH_MXC || ARCH_S32 || COMPILE_TEST
-> =C2=A0	default y if ARCH_MXC || ARCH_S32
-> =C2=A0	select IRQ_DOMAIN
-> diff --git a/drivers/irqchip/irq-imx-irqsteer.c b/drivers/irqchip/irq-imx=
--irqsteer.c
-> index c2f58787f9a8..dad09e095ed1 100644
-> --- a/drivers/irqchip/irq-imx-irqsteer.c
-> +++ b/drivers/irqchip/irq-imx-irqsteer.c
-> @@ -10,6 +10,7 @@
-> =C2=A0#include <linux/irqchip/chained_irq.h>
-> =C2=A0#include <linux/irqdomain.h>
-> =C2=A0#include <linux/kernel.h>
-> +#include <linux/module.h>
-> =C2=A0#include <linux/of.h>
-> =C2=A0#include <linux/of_irq.h>
-> =C2=A0#include <linux/platform_device.h>
-> @@ -370,6 +371,7 @@ static const struct of_device_id imx_irqsteer_dt_ids[=
-] =3D {
-> =C2=A0	{ .compatible =3D "nxp,s32n79-irqsteer",	.data =3D &s32n79_data },
-> =C2=A0	{},
-> =C2=A0};
-> +MODULE_DEVICE_TABLE(of, imx_irqsteer_dt_ids);
-> =C2=A0
-> =C2=A0static struct platform_driver imx_irqsteer_driver =3D {
-> =C2=A0	.driver =3D {
-> @@ -380,4 +382,7 @@ static struct platform_driver imx_irqsteer_driver =3D=
+ntfs_set_volume_flags() and ntfs_clear_volume_flags() both read
+vol->vol_flags outside any lock to compute the new value before handing
+it to ntfs_write_volume_flags(), which only takes ni->mrec_lock around
+the actual write. The read-modify-write is therefore not atomic, and two
+concurrent callers can lose an update: ntfs_sync_fs() may derive a
+"clean" value from vol->vol_flags while a writer concurrently records an
+error and sets VOLUME_IS_DIRTY; the locked write then silently
+overwrites the freshly-set dirty bit. The on-disk volume looks clean
+despite the recorded errors, so chkdsk will not run on the next mount
+and corrupted metadata can persist.
+
+Fix by moving the read-modify-write inside the mrec_lock: pass the bits
+to set and to clear separately, and combine them with the current flag
+state under the lock inside ntfs_write_volume_flags(). The set/clear
+helpers pass only the bits to modify, not the complete flag state. The
+bit manipulation is done on CPU-endian values, and the result is
+converted back to little-endian before storing it. The wrappers keep
+their signatures so callers are unchanged.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+- Also fix the ntfs_sync_fs() race by checking NVolErrors() and clearing
+  VOLUME_IS_DIRTY under ni->mrec_lock.
+- Keep ntfs_set_volume_flags() and ntfs_clear_volume_flags() semantics
+  unchanged.
+- Do not tie setting VOLUME_IS_DIRTY to NVolSetErrors() in the generic
+  set helper.
+---
+ fs/ntfs/super.c | 62 +++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 45 insertions(+), 17 deletions(-)
+
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index a1813093222b..a7977b95b967 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -353,31 +353,45 @@ void ntfs_handle_error(struct super_block *sb)
+ }
+ 
+ /*
+- * ntfs_write_volume_flags - write new flags to the volume information flags
++ * ntfs_write_volume_flags - apply flag changes to the volume information flags
+  * @vol:	ntfs volume on which to modify the flags
+- * @flags:	new flags value for the volume information flags
++ * @set_bits:	bits to set in the volume information flags
++ * @clear_bits:	bits to clear in the volume information flags
+  *
+  * Internal function.  You probably want to use ntfs_{set,clear}_volume_flags()
+  * instead (see below).
+  *
+- * Replace the volume information flags on the volume @vol with the value
+- * supplied in @flags.  Note, this overwrites the volume information flags, so
+- * make sure to combine the flags you want to modify with the old flags and use
+- * the result when calling ntfs_write_volume_flags().
++ * Combine @set_bits and @clear_bits with the current in-memory flag state and
++ * write the result back.  The set/clear helpers pass only the bits to modify,
++ * not the complete flag state.  The read-modify-write happens under
++ * ni->mrec_lock so that concurrent set/clear operations cannot lose updates.
++ * All bit manipulation is done on CPU-endian values, and the result is
++ * converted back to little-endian before storing it.
+  *
+  * Return 0 on success and -errno on error.
+  */
+-static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
++static int ntfs_write_volume_flags(struct ntfs_volume *vol,
++		const __le16 set_bits, const __le16 clear_bits,
++		const bool skip_if_errors)
  {
-> =C2=A0	.probe		=3D imx_irqsteer_probe,
-> =C2=A0	.remove		=3D imx_irqsteer_remove,
-> =C2=A0};
-> -builtin_platform_driver(imx_irqsteer_driver);
-> +module_platform_driver(imx_irqsteer_driver);
-> +
-> +MODULE_DESCRIPTION("i.MX IRQSTEER interrupt multiplexer/remapper driver"=
-);
-> +MODULE_LICENSE("GPL");
+ 	struct ntfs_inode *ni = NTFS_I(vol->vol_ino);
+ 	struct volume_information *vi;
+ 	struct ntfs_attr_search_ctx *ctx;
++	u16 flags;
+ 	int err;
+ 
+-	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
+-			le16_to_cpu(vol->vol_flags), le16_to_cpu(flags));
+ 	mutex_lock(&ni->mrec_lock);
+-	if (vol->vol_flags == flags)
++
++	if (skip_if_errors && NVolErrors(vol))
++		goto done;
++
++	flags = le16_to_cpu(vol->vol_flags);
++	flags |= le16_to_cpu(set_bits) & le16_to_cpu(VOLUME_FLAGS_MASK);
++	flags &= ~(le16_to_cpu(clear_bits) & le16_to_cpu(VOLUME_FLAGS_MASK));
++	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
++			le16_to_cpu(vol->vol_flags), flags);
++
++	if (le16_to_cpu(vol->vol_flags) == flags)
+ 		goto done;
+ 
+ 	ctx = ntfs_attr_get_search_ctx(ni, NULL);
+@@ -393,7 +407,7 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
+ 
+ 	vi = (struct volume_information *)((u8 *)ctx->attr +
+ 			le16_to_cpu(ctx->attr->data.resident.value_offset));
+-	vol->vol_flags = vi->flags = flags;
++	vol->vol_flags = vi->flags = cpu_to_le16(flags);
+ 	mark_mft_record_dirty(ctx->ntfs_ino);
+ 	ntfs_attr_put_search_ctx(ctx);
+ done:
+@@ -414,13 +428,14 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
+  * @flags:	flags to set on the volume
+  *
+  * Set the bits in @flags in the volume information flags on the volume @vol.
++ * The bits are combined with the current flag state under the lock in
++ * ntfs_write_volume_flags(), so concurrent updates are not lost.
+  *
+  * Return 0 on success and -errno on error.
+  */
+ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+ {
+-	flags &= VOLUME_FLAGS_MASK;
+-	return ntfs_write_volume_flags(vol, vol->vol_flags | flags);
++	return ntfs_write_volume_flags(vol, flags, 0, false);
+ }
+ 
+ /*
+@@ -429,14 +444,27 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+  * @flags:	flags to clear on the volume
+  *
+  * Clear the bits in @flags in the volume information flags on the volume @vol.
++ * The bits are combined with the current flag state under the lock in
++ * ntfs_write_volume_flags(), so concurrent updates are not lost.
+  *
+  * Return 0 on success and -errno on error.
+  */
+ int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
+ {
+-	flags &= VOLUME_FLAGS_MASK;
+-	flags = vol->vol_flags & cpu_to_le16(~le16_to_cpu(flags));
+-	return ntfs_write_volume_flags(vol, flags);
++	return ntfs_write_volume_flags(vol, 0, flags, false);
++}
++
++/*
++ * ntfs_clear_volume_dirty_if_no_errors - clear dirty bit if no errors exist
++ * @vol:	ntfs volume whose dirty bit should be cleared
++ *
++ * Check NVolErrors() and clear VOLUME_IS_DIRTY under the same mrec_lock so
++ * ntfs_sync_fs() cannot clear the dirty bit after a concurrent error has been
++ * recorded.
++ */
++static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume *vol)
++{
++	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true);
+ }
+ 
+ int ntfs_write_volume_label(struct ntfs_volume *vol, char *label)
+@@ -1862,7 +1890,7 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
+ 		return 0;
+ 
+ 	/* If there are some dirty buffers in the bdev inode */
+-	if (ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY)) {
++	if (ntfs_clear_volume_dirty_if_no_errors(vol)) {
+ 		ntfs_warning(sb, "Failed to clear dirty bit in volume information flags.  Run chkdsk.");
+ 		err = -EIO;
+ 	}
+-- 
+2.25.1
 
-Reviewed-by: Radu Rendec <radu@rendec.net>
