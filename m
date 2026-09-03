@@ -1,86 +1,85 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B66744BD119;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65B94BD115;
 	Thu,  3 Sep 2026 14:57:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788447430; cv=none; b=rJ5qX2fgDWgP7H/jriA260OWWg3vnEfwscVzFGl5TUWilJzDiFrYCB1BEXWrw+/ZAewvdzI6roBpST8gMf2209odpGu7SJYWnunZ560LMun7yLui+ctK05VCKtuj2zwzKJM4ss3bwbkBeFCBeTBsf+DNLlTsnsGcp8iajJZq9sQ=
+	t=1788447430; cv=none; b=IozB91HA4Qq5GEie16UG3g0tipAWpa8mGXSv3ud0N/NJyBznQms71Gb+4/D7m45BMXkGaBsrFNjjKuUKt7YabXi/nuoa5In1QSA4u6U1zXhnlpDPBOGIe+yc0I6qXmuI3t8c1/sNkaOBfXY1ym2mCFmYr9z1doGzRWS38dmL9hk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788447430; c=relaxed/simple;
-	bh=qQdKwx47al/8YO6tail6zzQgg1sONfu8PfjJaiR4eLs=;
+	bh=17RZR2ZTMt59sbwE6Mx8M/WpENZsr6g+2QL+Zhn3GOM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xn69oC/WjFVnGMQs7CRr8Dd/IYUtgf9v1WCFh+Npo5tBldj2r2N15qFAB+54P8ltKJ+mV+HT83iKuOzVeY90Mbhv76xJBTVqBbwnKW4xHd7pH7++q1DEtds6x5MdmpkPDkc/DmVZDv1poabXDw0dKBYE5UOS+u4NvOxWPiKLIoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=qRlqXN1E; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=aLt1uW69; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Qo8t/bLz; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=TFfhuXBq; arc=none smtp.client-ip=195.135.223.130
+	 MIME-Version; b=mek6AjzwMbwMjER5ZpVJf/3vjhaUdZrOt8QXeAkzBCK03siOAwqlOacOXBmFrx68D7MSFTlAbR2FG2r1E9VLZ/EZ08HNDv1tUqvXSHiLJn73RRAaQzQd0DaZ0yPub8j6nyF9dGyePEn6qEbEUHgW9xtJXCj3cVhVGTr88xd8eHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=AWc+4ITF; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=I9drJdpc; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=vDOJZMwN; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=JmBvoe7Y; arc=none smtp.client-ip=195.135.223.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qRlqXN1E";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="aLt1uW69";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Qo8t/bLz";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="TFfhuXBq"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="AWc+4ITF";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="I9drJdpc";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="vDOJZMwN";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="JmBvoe7Y"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 8947621EC5;
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 5D56A1FE2B;
 	Thu,  3 Sep 2026 14:56:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
 	t=1788447422; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=QrNdELoVcr9YF74ohv2KVf3Smb1p8aaziHH2zBLwcyc=;
-	b=qRlqXN1Eovnq/zB8TdzH+EIv0LxRJO6obulMW+OupDLWSOxdghKKFtOBmmPWRhIEUv2hMa
-	YjmX27nMmEpWy/6mDLSDf6xxbV/gwupdes3D+bLitQ4P4PhibQnEJCIv4ksiGfU0+7zCW1
-	wMW0DWU3QOcq4WWryUuKjLGh8E2VXVM=
+	bh=DpFSt+M0gpbm3frk/kVuPHJG1gAoCphQnHc2kyplzUU=;
+	b=AWc+4ITF7cpc7pIZF3F6zOvXYZd9EsQqxV0o5DWWMO8xXqEv78b18Gxpb++qktnQ4u8ZW7
+	iTOJr9lTghAw1qdTG7EFZH+UvRWJGb5DUwnMNLX4t9TJOxaJsnnfq077RXBjrYrYjpU3NC
+	hFv6E+h6ovShBbK2vyrl58kgbFr4XWU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1788447422;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=QrNdELoVcr9YF74ohv2KVf3Smb1p8aaziHH2zBLwcyc=;
-	b=aLt1uW69VBmiyA8iK//Cg2lUrlAmA9IfvBzWahLw1ZWLFvVHEyiba8Z+kvdtK6iNlOdaf/
-	YI13LnmO9+tFRQBg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="Qo8t/bLz";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=TFfhuXBq
+	bh=DpFSt+M0gpbm3frk/kVuPHJG1gAoCphQnHc2kyplzUU=;
+	b=I9drJdpcBTWUvXz/U/GbeNHF7mFxP4QBvNMav9O0w6dJyubeQdI9jCtIYl3VGxFml/if30
+	yIBYqD9AmWHgdUAg==
+Authentication-Results: smtp-out2.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
 	t=1788447418; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=QrNdELoVcr9YF74ohv2KVf3Smb1p8aaziHH2zBLwcyc=;
-	b=Qo8t/bLzTyv6L9x9t/icdl9JuAkp8sSUjGw8IUTSV53YdR6rmv3HVj+YWmxzHgTHWyLLTK
-	eSu95ZkNzp5vzKN7cpFJn3Ti4Qr9yUEAVJri51Ca2HdjJTg5cwsISvBdYXGoGB1k44r3mF
-	26w4fAhkuLOJASWdbioL7OhyN44Z3yw=
+	bh=DpFSt+M0gpbm3frk/kVuPHJG1gAoCphQnHc2kyplzUU=;
+	b=vDOJZMwNm5sHJXosIMKSMttTLTJDY12zqczSl0BICF/1hG6zEU3Q1GDml99XtD84H85FHm
+	odBE/bDwaAv+L6CkV51WtkPvKxDJmugCe9tstZOBJINL1NRim6Hpf8hb/mTkrV+SMVppdH
+	khBtunLVjHFJvie44X1GQxezE8EMacI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1788447418;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=QrNdELoVcr9YF74ohv2KVf3Smb1p8aaziHH2zBLwcyc=;
-	b=TFfhuXBqO8B2lC7/f1+Rz0UAs5AkMBisXXlOW9O0LuiXRjoHoqeHx6rVhcNN4P5P+W8imc
-	b9/p+35lGCKLa0Bg==
+	bh=DpFSt+M0gpbm3frk/kVuPHJG1gAoCphQnHc2kyplzUU=;
+	b=JmBvoe7YcRcK+zRHl43IGiGdHbq7EWHW2KKTvq+YmBKVrRRcY9DFdech0YMmJSQ8KCG+mO
+	+KKf0/bD0DivgpAg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4D45813738;
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 25EEC136E6;
 	Thu,  3 Sep 2026 14:56:58 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id WNK0EbqKmWo6MQAAD6G6ig
+	id +D4gCLqKmWo6MQAAD6G6ig
 	(envelope-from <tiwai@suse.de>); Thu, 03 Sep 2026 14:56:58 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: linux-sound@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
 	Michal Pecio <michal.pecio@gmail.com>
-Subject: [PATCH 2/3] ALSA: usb: hiface: Avoid embedded URBs
-Date: Thu,  3 Sep 2026 16:56:44 +0200
-Message-ID: <20260903145648.1914352-3-tiwai@suse.de>
+Subject: [PATCH 1/3] ALSA: usb: ua101: Avoid embedded URBs
+Date: Thu,  3 Sep 2026 16:56:43 +0200
+Message-ID: <20260903145648.1914352-2-tiwai@suse.de>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260903145648.1914352-1-tiwai@suse.de>
 References: <20260903145648.1914352-1-tiwai@suse.de>
@@ -91,136 +90,289 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spam-Score: -3.01
-X-Rspamd-Queue-Id: 8947621EC5
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00];
+X-Spam-Score: -2.80
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-2.80 / 50.00];
 	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
 	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
 	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
 	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo];
+	TAGGED_RCPT(0.00)[];
 	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
 	RCPT_COUNT_THREE(0.00)[3];
 	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
+	FREEMAIL_ENVRCPT(0.00)[gmail.com]
 
-The hiface driver uses URBs embedded in struct pcm_urb, and this is
-basically a buggy implementation nowadays; since a URB is managed with
-a refcount, this may lead to a UAF when the URB is released
+UA101 driver uses URBs embedded in struct ua101, and this is basically
+a buggy implementation nowadays; since a URB is managed with a
+refcount, this may lead to a UAF when the URB is released
 asynchronously.
 
 For addressing the problem, this patch converts the embedded URBs to
-ones that are properly allocated via usb_alloc_urb().
+ones that are properly allocated via usb_alloc_urb().  The
+iso_frame_desc[] is gone, as it's allocated together by
+usb_alloc_urb().
 
-The conversion is rather straightforward; pcm_urb.instance became a
-pointer, assigned/freed via usb_alloc_urb() and usb_free_urb(), and
-the call with this is corrected accordingly.
+Along with the dynamic allocation of each URB, the ua101.urbs[]
+becomes a static array of struct ua101_urb, and struct ua101_urb
+contains the pointer to struct ua101.  Those are needed to handle the
+ready_list linked list in the complete callback.
 
 No functional changes, only compile-tested.
 
 Link: https://lore.kernel.org/20260903130757.0668310a.michal.pecio@gmail.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/usb/hiface/pcm.c | 22 +++++++++++++---------
- 1 file changed, 13 insertions(+), 9 deletions(-)
+ sound/usb/misc/ua101.c | 102 ++++++++++++++++++++++-------------------
+ 1 file changed, 54 insertions(+), 48 deletions(-)
 
-diff --git a/sound/usb/hiface/pcm.c b/sound/usb/hiface/pcm.c
-index cd1a4c871c5d..9571c9eabd57 100644
---- a/sound/usb/hiface/pcm.c
-+++ b/sound/usb/hiface/pcm.c
-@@ -24,7 +24,7 @@
- struct pcm_urb {
- 	struct hiface_chip *chip;
+diff --git a/sound/usb/misc/ua101.c b/sound/usb/misc/ua101.c
+index b9a62e94e06c..860a62a3d74b 100644
+--- a/sound/usb/misc/ua101.c
++++ b/sound/usb/misc/ua101.c
+@@ -109,10 +109,10 @@ struct ua101 {
+ 		unsigned int buffer_pos;
+ 		unsigned int queue_length;
+ 		struct ua101_urb {
+-			struct urb urb;
+-			struct usb_iso_packet_descriptor iso_frame_desc[1];
++			struct urb *urb;
+ 			struct list_head ready_list;
+-		} *urbs[MAX_QUEUE_LENGTH];
++			struct ua101 *ua;
++		} urbs[MAX_QUEUE_LENGTH];
+ 		struct {
+ 			unsigned int size;
+ 			void *addr;
+@@ -167,15 +167,15 @@ static void abort_usb_playback(struct ua101 *ua)
+ 		wake_up(&ua->alsa_playback_wait);
+ }
  
--	struct urb instance;
-+	struct urb *instance;
- 	struct usb_anchor submitted;
- 	u8 *buffer;
- };
-@@ -193,7 +193,7 @@ static void hiface_pcm_stream_stop(struct pcm_runtime *rt)
- 			if (!time)
- 				usb_kill_anchored_urbs(
- 					&rt->out_urbs[i].submitted);
--			usb_kill_urb(&rt->out_urbs[i].instance);
-+			usb_kill_urb(rt->out_urbs[i].instance);
- 		}
- 
- 		rt->stream_state = STREAM_DISABLED;
-@@ -215,9 +215,9 @@ static int hiface_pcm_stream_start(struct pcm_runtime *rt)
- 		rt->stream_state = STREAM_STARTING;
- 		for (i = 0; i < PCM_N_URBS; i++) {
- 			memset(rt->out_urbs[i].buffer, 0, PCM_PACKET_SIZE);
--			usb_anchor_urb(&rt->out_urbs[i].instance,
-+			usb_anchor_urb(rt->out_urbs[i].instance,
- 				       &rt->out_urbs[i].submitted);
--			ret = usb_submit_urb(&rt->out_urbs[i].instance,
-+			ret = usb_submit_urb(rt->out_urbs[i].instance,
- 					     GFP_ATOMIC);
- 			if (ret) {
- 				hiface_pcm_stream_stop(rt);
-@@ -334,7 +334,7 @@ static void hiface_pcm_out_urb_handler(struct urb *usb_urb)
- 	if (do_period_elapsed)
- 		snd_pcm_period_elapsed(sub->instance);
- 
--	ret = usb_submit_urb(&out_urb->instance, GFP_ATOMIC);
-+	ret = usb_submit_urb(out_urb->instance, GFP_ATOMIC);
- 	if (ret < 0)
- 		goto out_fail;
- 
-@@ -492,16 +492,18 @@ static int hiface_pcm_init_urb(struct pcm_urb *urb,
- 			       void (*handler)(struct urb *))
+-static void playback_urb_complete(struct urb *usb_urb)
++static void playback_urb_complete(struct urb *urb)
  {
- 	urb->chip = chip;
--	usb_init_urb(&urb->instance);
-+	urb->instance = usb_alloc_urb(0, GFP_KERNEL);
-+	if (!urb->instance)
-+		return -ENOMEM;
+-	struct ua101_urb *urb = (struct ua101_urb *)usb_urb;
+-	struct ua101 *ua = urb->urb.context;
++	struct ua101_urb *ua_urb = urb->context;
++	struct ua101 *ua = ua_urb->ua;
  
- 	urb->buffer = kzalloc(PCM_PACKET_SIZE, GFP_KERNEL);
- 	if (!urb->buffer)
- 		return -ENOMEM;
+-	if (unlikely(urb->urb.status == -ENOENT ||	/* unlinked */
+-		     urb->urb.status == -ENODEV ||	/* device removed */
+-		     urb->urb.status == -ECONNRESET ||	/* unlinked */
+-		     urb->urb.status == -ESHUTDOWN)) {	/* device disabled */
++	if (unlikely(urb->status == -ENOENT ||	/* unlinked */
++		     urb->status == -ENODEV ||	/* device removed */
++		     urb->status == -ECONNRESET ||	/* unlinked */
++		     urb->status == -ESHUTDOWN)) {	/* device disabled */
+ 		abort_usb_playback(ua);
+ 		abort_alsa_playback(ua);
+ 		return;
+@@ -184,18 +184,19 @@ static void playback_urb_complete(struct urb *usb_urb)
+ 	if (test_bit(USB_PLAYBACK_RUNNING, &ua->states)) {
+ 		/* append URB to FIFO */
+ 		guard(spinlock_irqsave)(&ua->lock);
+-		list_add_tail(&urb->ready_list, &ua->ready_playback_urbs);
++		list_add_tail(&ua_urb->ready_list, &ua->ready_playback_urbs);
+ 		if (ua->rate_feedback_count > 0)
+ 			queue_work(system_highpri_wq, &ua->playback_work);
+ 		ua->playback.substream->runtime->delay -=
+-				urb->urb.iso_frame_desc[0].length /
++				urb->iso_frame_desc[0].length /
+ 						ua->playback.frame_bytes;
+ 	}
+ }
  
--	usb_fill_bulk_urb(&urb->instance, chip->dev,
-+	usb_fill_bulk_urb(urb->instance, chip->dev,
- 			  usb_sndbulkpipe(chip->dev, ep), (void *)urb->buffer,
- 			  PCM_PACKET_SIZE, handler, urb);
--	if (usb_urb_ep_type_check(&urb->instance))
-+	if (usb_urb_ep_type_check(urb->instance))
- 		return -EINVAL;
- 	init_usb_anchor(&urb->submitted);
+ static void first_playback_urb_complete(struct urb *urb)
+ {
+-	struct ua101 *ua = urb->context;
++	struct ua101_urb *ua_urb = urb->context;
++	struct ua101 *ua = ua_urb->ua;
  
-@@ -525,8 +527,10 @@ static void hiface_pcm_destroy(struct hiface_chip *chip)
- 	struct pcm_runtime *rt = chip->pcm;
- 	int i;
+ 	urb->complete = playback_urb_complete;
+ 	playback_urb_complete(urb);
+@@ -248,7 +249,8 @@ static void playback_work(struct work_struct *work)
+ {
+ 	struct ua101 *ua = container_of(work, struct ua101, playback_work);
+ 	unsigned int frames;
+-	struct ua101_urb *urb;
++	struct ua101_urb *ua_urb;
++	struct urb *urb;
+ 	bool do_period_elapsed = false;
+ 	int err;
  
--	for (i = 0; i < PCM_N_URBS; i++)
-+	for (i = 0; i < PCM_N_URBS; i++) {
-+		usb_free_urb(rt->out_urbs[i].instance);
- 		kfree(rt->out_urbs[i].buffer);
-+	}
+@@ -275,23 +277,24 @@ static void playback_work(struct work_struct *work)
+ 			ua->rate_feedback_count--;
  
- 	kfree(chip->pcm);
- 	chip->pcm = NULL;
+ 			/* take URB out of FIFO */
+-			urb = list_first_entry(&ua->ready_playback_urbs,
+-					       struct ua101_urb, ready_list);
+-			list_del(&urb->ready_list);
++			ua_urb = list_first_entry(&ua->ready_playback_urbs,
++						  struct ua101_urb, ready_list);
++			list_del(&ua_urb->ready_list);
++			urb = ua_urb->urb;
+ 
+ 			/* fill packet with data or silence */
+-			urb->urb.iso_frame_desc[0].length =
++			urb->iso_frame_desc[0].length =
+ 				frames * ua->playback.frame_bytes;
+ 			if (test_bit(ALSA_PLAYBACK_RUNNING, &ua->states))
+ 				do_period_elapsed |= copy_playback_data(&ua->playback,
+-									&urb->urb,
++									urb,
+ 									frames);
+ 			else
+-				memset(urb->urb.transfer_buffer, 0,
+-				       urb->urb.iso_frame_desc[0].length);
++				memset(urb->transfer_buffer, 0,
++				       urb->iso_frame_desc[0].length);
+ 
+ 			/* and off you go ... */
+-			err = usb_submit_urb(&urb->urb, GFP_ATOMIC);
++			err = usb_submit_urb(urb, GFP_ATOMIC);
+ 			if (unlikely(err < 0)) {
+ 				abort_usb_playback(ua);
+ 				abort_alsa_playback(ua);
+@@ -342,7 +345,8 @@ static bool copy_capture_data(struct ua101_stream *stream, struct urb *urb,
+ 
+ static void capture_urb_complete(struct urb *urb)
+ {
+-	struct ua101 *ua = urb->context;
++	struct ua101_urb *ua_urb = urb->context;
++	struct ua101 *ua = ua_urb->ua;
+ 	struct ua101_stream *stream = &ua->capture;
+ 	unsigned int frames, write_ptr;
+ 	bool do_period_elapsed;
+@@ -413,7 +417,8 @@ static void capture_urb_complete(struct urb *urb)
+ 
+ static void first_capture_urb_complete(struct urb *urb)
+ {
+-	struct ua101 *ua = urb->context;
++	struct ua101_urb *ua_urb = urb->context;
++	struct ua101 *ua = ua_urb->ua;
+ 
+ 	urb->complete = capture_urb_complete;
+ 	capture_urb_complete(urb);
+@@ -427,7 +432,7 @@ static int submit_stream_urbs(struct ua101 *ua, struct ua101_stream *stream)
+ 	unsigned int i;
+ 
+ 	for (i = 0; i < stream->queue_length; ++i) {
+-		int err = usb_submit_urb(&stream->urbs[i]->urb, GFP_KERNEL);
++		int err = usb_submit_urb(stream->urbs[i].urb, GFP_KERNEL);
+ 		if (err < 0) {
+ 			dev_err(&ua->dev->dev, "USB request error %d: %s\n",
+ 				err, usb_error_string(err));
+@@ -442,8 +447,8 @@ static void kill_stream_urbs(struct ua101_stream *stream)
+ 	unsigned int i;
+ 
+ 	for (i = 0; i < stream->queue_length; ++i)
+-		if (stream->urbs[i])
+-			usb_kill_urb(&stream->urbs[i]->urb);
++		if (stream->urbs[i].urb)
++			usb_kill_urb(stream->urbs[i].urb);
+ }
+ 
+ static int enable_iso_interface(struct ua101 *ua, unsigned int intf_index)
+@@ -508,7 +513,7 @@ static int start_usb_capture(struct ua101 *ua)
+ 		return err;
+ 
+ 	clear_bit(CAPTURE_URB_COMPLETED, &ua->states);
+-	ua->capture.urbs[0]->urb.complete = first_capture_urb_complete;
++	ua->capture.urbs[0].urb->complete = first_capture_urb_complete;
+ 	ua->rate_feedback_start = 0;
+ 	ua->rate_feedback_count = 0;
+ 
+@@ -550,7 +555,7 @@ static int start_usb_playback(struct ua101 *ua)
+ 		return err;
+ 
+ 	clear_bit(PLAYBACK_URB_COMPLETED, &ua->states);
+-	ua->playback.urbs[0]->urb.complete =
++	ua->playback.urbs[0].urb->complete =
+ 		first_playback_urb_complete;
+ 	scoped_guard(spinlock_irq, &ua->lock) {
+ 		INIT_LIST_HEAD(&ua->ready_playback_urbs);
+@@ -580,7 +585,7 @@ static int start_usb_playback(struct ua101 *ua)
+ 			add_with_wraparound(ua, &ua->rate_feedback_start, 1);
+ 			ua->rate_feedback_count--;
+ 		}
+-		urb = &ua->playback.urbs[i]->urb;
++		urb = ua->playback.urbs[i].urb;
+ 		urb->iso_frame_desc[0].length =
+ 			frames * ua->playback.frame_bytes;
+ 		memset(urb->transfer_buffer, 0,
+@@ -1059,7 +1064,7 @@ static int alloc_stream_urbs(struct ua101 *ua, struct ua101_stream *stream,
+ 			     void (*urb_complete)(struct urb *))
+ {
+ 	unsigned max_packet_size = stream->max_packet_bytes;
+-	struct ua101_urb *urb;
++	struct urb *urb;
+ 	unsigned int b, u = 0;
+ 
+ 	for (b = 0; b < ARRAY_SIZE(stream->buffers); ++b) {
+@@ -1070,23 +1075,24 @@ static int alloc_stream_urbs(struct ua101 *ua, struct ua101_stream *stream,
+ 		while (size >= max_packet_size) {
+ 			if (u >= stream->queue_length)
+ 				goto bufsize_error;
+-			urb = kmalloc_obj(*urb);
++			urb = usb_alloc_urb(1, GFP_KERNEL);
+ 			if (!urb)
+ 				return -ENOMEM;
+-			usb_init_urb(&urb->urb);
+-			urb->urb.dev = ua->dev;
+-			urb->urb.pipe = stream->usb_pipe;
+-			urb->urb.transfer_flags = URB_NO_TRANSFER_DMA_MAP;
+-			urb->urb.transfer_buffer = addr;
+-			urb->urb.transfer_dma = dma;
+-			urb->urb.transfer_buffer_length = max_packet_size;
+-			urb->urb.number_of_packets = 1;
+-			urb->urb.interval = 1;
+-			urb->urb.context = ua;
+-			urb->urb.complete = urb_complete;
+-			urb->urb.iso_frame_desc[0].offset = 0;
+-			urb->urb.iso_frame_desc[0].length = max_packet_size;
+-			stream->urbs[u++] = urb;
++			urb->dev = ua->dev;
++			urb->pipe = stream->usb_pipe;
++			urb->transfer_flags = URB_NO_TRANSFER_DMA_MAP;
++			urb->transfer_buffer = addr;
++			urb->transfer_dma = dma;
++			urb->transfer_buffer_length = max_packet_size;
++			urb->number_of_packets = 1;
++			urb->interval = 1;
++			urb->context = &stream->urbs[u];
++			urb->complete = urb_complete;
++			urb->iso_frame_desc[0].offset = 0;
++			urb->iso_frame_desc[0].length = max_packet_size;
++			stream->urbs[u].ua = ua;
++			stream->urbs[u].urb = urb;
++			u++;
+ 			size -= max_packet_size;
+ 			addr += max_packet_size;
+ 			dma += max_packet_size;
+@@ -1104,8 +1110,8 @@ static void free_stream_urbs(struct ua101_stream *stream)
+ 	unsigned int i;
+ 
+ 	for (i = 0; i < stream->queue_length; ++i) {
+-		kfree(stream->urbs[i]);
+-		stream->urbs[i] = NULL;
++		usb_free_urb(stream->urbs[i].urb);
++		stream->urbs[i].urb = NULL;
+ 	}
+ }
+ 
 -- 
 2.55.0
 
