@@ -1,140 +1,302 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m1973175.qiye.163.com (mail-m1973175.qiye.163.com [220.197.31.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42BCE309EF2
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 04:54:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A78361945;
+	Thu,  3 Sep 2026 04:54:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788411256; cv=none; b=EBNXMvV1NRViVNnTRmQ4ddgEwZCiBB0NUHUscm/XQQFbssknMBAwvytTE9xNDGg4HRRXk6r5HMhsjHK0NE+6o9uSH4YYjn6mdZU/CPZuSVtuZDChwHNvepkBdj/fbCYAo+/4sCvE/qYYlEsrDDA7qa0VSFUCo8MNXwPYULLtg+I=
+	t=1788411259; cv=none; b=oc1aH+p2f7eCeg9Y+MPKkbX1mGSNBiBAMCzmOHfSIGlztJVn9zJxp4Dtv+ZBbNLJfGC2Ar4q9IvEBaxwv2WjwMbbWcw1YJmIASV91rNsUTh6oXL7PdrlC1zn2Z7rq5AJJUGacTzF/vLfb0eZNtBmGKMqK38yDfP7l0IKw9yhMRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788411256; c=relaxed/simple;
-	bh=5fclEXDDuT+sXtJg4ceME5bBs86atFjTAHlF5i9HdDc=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZsXkZyhnmcFsyc5OT3hj+vG+9RjzCej7Fj9nf1tvCT3UePfk27ajXGyUpuT65phDfkf6PEeICThU0Lalt1+C4d4IDwj0LaVCtvybAVAAfyBbzbbCynCO6UH2yN2R1co9LvQC6T7EPqb3s9kyHtKocjQygW6ZtfB1Uq2yYpVpdxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UFOM7NRs; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UFOM7NRs"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so2483839a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 21:54:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788411254; x=1789016054; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Ra+ZPy+hnKesC8Sn+un1UOlkqTiaEK8VZmbFv/xFnwc=;
-        b=UFOM7NRsG4JT/UbkFQ76RwBRliOQ70TEC8ZsYWx6rOPg0hiFzOGQYgnj5YLm15b8n3
-         BD2JPa+tcEfG5dBlSXx5HhdusNCTI0w+z5yQtILD4XTClfZw0RwlMIru1QyRITBhcVNR
-         nenMpPO5tPUEUpJkfqpDBL/Vkf1tyaqhb/6iHHaa0eBPwstqB/AAqMy/elbuiteUxbMU
-         yt6p05JAGh8la3oXxYmJbsvNCIODD0IKWq6nR5Q5tVokLB/VHCX+LIU7ugbm0nfyT/WF
-         B9Tp2m6YdW2g9VfOigCWAsoHtzsV1rS3CfE51Z+w5fCsZP+0ArOpAia2h7pd/sxCd8Vd
-         vh/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788411254; x=1789016054;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Ra+ZPy+hnKesC8Sn+un1UOlkqTiaEK8VZmbFv/xFnwc=;
-        b=mI2IER6Ra6OSL4nDUEKHAnd1s94tZjWKG7tpV6MokEFUFc67ti27haZ59BsXP8nRrq
-         Lmo/3dOc5lNfOuY7HPvfgV0OghdDQx15l9vNoEhMXEZrFBVG+uNBfIKKEmDhYKJN7G43
-         MvGlggBnR2owB/GbNcAP2qGc0bH+aOkEhyFSC2caMpCtlo72ZfqfnRHc6O8QW9kghYhG
-         GP7dpKMoHjCqc/26If70zfwky5xSzOdihYgdVyc1Hu2f6Lisx49bveLkDfAsmg8so4nr
-         r0RvdZPVcBlDYifd/Uni3JzfNGnnNwIKqw8HmfC8cYGlqrzbEW22k8x5sBiR+Tch9WSh
-         dCnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxtRGD+6WHsJ/PHfWwkHsxp9sDspIR2mIUaikJfylEtKb6tbZuiebxgQzq12zWcfTfBxylZBzXUdBiVLpY=@vger.kernel.org
-X-Gm-Message-State: AFuF++k0vjCHFwpHDy0CWZcMY/otm5skBNQ4uN822gsHnfKMfJB4w8Zc
-	Wl0u0hDEnHOAdQ3RT8kfjCnK6NGOl0ugNwudzfqls5tkVdO2pM0MB0t3
-X-Gm-Gg: AYBFou2Uhr67Giacr4kTD7jpYLB/Y8UTdt2qrXuutkdIq9cqQmKCu6WwJrgFk+k7Mqz
-	Ki1WKZMRgiNaeDH6miicWtlIz0fYE/ADqlokPjGAfVWy533wpROni9xVoGIxsTZybtQJjRLvrUV
-	J5A3OaG0ukgb5/1NAFVZCt/s1GNJwAK78V5mhQHDdXpExjDkEsnL4Z/Yc6cAk7iYAd8Wk5nt49W
-	dVWCnuFM+DqhVCSj0kdd1/tc7uL7IQq/duPOtlq4CPRY8Q4Khiwn14cQUyP6aQS5m9dfN2iQujk
-	ZOQU7KneKJ+2nLuUhDOIiZP6lPxqbKD5rqC+AeJCRjdqhPo7/vzkFzQ8nix44WAjAN4cc3R7YpZ
-	Jvyq58sZ8XAIWQOW8zkqpFPm+z9c2bo2o+a6dk7MxMPthiSXqLTONM/yD5KXSntJ4wTTwz3e42Y
-	SWXYhCyHcEctQdt2FnD3Il999PSJYAM4uHqyJl3vwJbEK4EDPBSlJHVriNcPf8rZKd2g==
-X-Received: by 2002:a17:90b:1e04:b0:38f:57f0:1f5d with SMTP id 98e67ed59e1d1-39aee16ffd9mr12393903a91.15.1788411254557;
-        Wed, 02 Sep 2026 21:54:14 -0700 (PDT)
-Received: from [192.168.20.42] ([115.70.157.242])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae8f1cf6dsm2300801a91.3.2026.09.02.21.54.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 21:54:14 -0700 (PDT)
-From: Tsz Shan Chan <tsz.chan.dev@gmail.com>
-X-Google-Original-From: Tsz Shan Chan <tchan@jacques.com.au>
-Subject: [PATCH v3 0/5] iio: light: vcnl4000: support shared IRQs
-Date: Thu, 03 Sep 2026 14:53:45 +1000
-Message-Id: <20260903-vcnl4000-v3-0-5e69c2e715a8@jacques.com.au>
+	s=arc-20240116; t=1788411259; c=relaxed/simple;
+	bh=cZf8FZ+AueieYQogELQLZnlY12nvrvqvcR3NqKSOI94=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=kg+74oA3VhTWUKfpvAY68dRmEGLoPp6caQ91AyKbDej6/TgMRiFR/MdWJb4xY5TN9hYmKCH8J23bFL1YzLCGaxt3kMzFH5ZN2ZQrKQdgc08LJgU3bvvPe3eGpIZlVKkOefC2yJ85fpXfbExI07XImQxoa7RIdfC5dI/f4ezeshQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=220.197.31.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
+Received: from localhost.localdomain (unknown [218.94.118.90])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 1ea3ea3b6;
+	Thu, 3 Sep 2026 12:18:37 +0800 (GMT+08:00)
+From: Zhen Ni <zhen.ni@easystack.cn>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Zi Yan <ziy@nvidia.com>,
+	linux-mm@kvack.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zhen Ni <zhen.ni@easystack.cn>
+Subject: [PATCH v2 5/8] mm/page_owner: Add memcg filter support
+Date: Thu,  3 Sep 2026 12:18:16 +0800
+Message-Id: <20260903041819.1776630-6-zhen.ni@easystack.cn>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20260903041819.1776630-1-zhen.ni@easystack.cn>
+References: <20260903041819.1776630-1-zhen.ni@easystack.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XMQQ6CMBCF4auQri2ZqdBaV97DuIAySI0WbaXRE
- O5uITGSuHyT+b+RBfKWAttnI/MUbbC9S2O7yZjpKncmbpu0mQAhYYfAo3HXAgA4CELdKiAFkqX
- 3u6fWvhbqeEq7s+HZ+/ciR5yvXwR/SEQOvExGW8tSSS0Ol8o8Bgq56W95NbBZimJdF6tapFrXS
- qHQYAw2f/U0TR8yjq6P4wAAAA==
-X-Change-ID: 20260810-vcnl4000-02e19f70e706
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Tsz Shan Chan <tchan@jacques.com.au>
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0657d7a3f0229kunm7336907a330bb
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSxhCVk5KTRkeGkpCHhhPGVYVFA
+	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
+	lPT09IVUpLS1VKQktLWQY+
 
-This series contains changes for the vcnl4000 driver.
+Add memory cgroup filtering to page_owner to allow filtering pages by
+their memcg path. This helps debug memory usage patterns for specific
+cgroups. Users can now filter page_owner output to show only pages
+belonging to a particular memory cgroup.
 
-Patch 1 makes .num_channels match .channels for vcnl4200. vcnl4040 and
-vcnl4000 channel arrays have the same size, so no functional change.
+Collect cgroup path in memcg_info using cgroup_path() and store the
+filter state in page_owner_filter_state. When the user sets memcg filter
+via "memcg=<path>" command, compare each page's cgroup path against
+the specified path and skip non-matching pages using strcmp.
 
-Patch 2 prepares the driver for level-triggered irq by making sure the
-DRDY interrupt is explicitly cleared when the iio buffer is disabled.
-
-Patch 3 refactors the interrupt configuration help functions. It also
-standardizes the hardware disable order (clearing INT_CTRL before
-COMMAND).
-
-Patch 4 adds a devm action to explicitly disable hardware interrupts
-during driver removal. This prevents unhandled interrupt during devm
-teardown.
-
-Patch 5 adds shared IRQ support. It changes the trigger type from
-falling edge to low level and adds IRQF_SHARED. The IRQ handlers return
-IRQ_NONE when the device did not generate the interrupt.
-
+Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
 ---
-Changes in v3:
-- 2/5: Clear the DRDY interrupt when the IIO buffer is disabled to
-  prevent interrupt storms (sashiko)
-- 3/5: Refactor interrupt configuration and adjust the vcnl4010/4020
-  disable order to safely stop interrupt generation.
-- 4/5: Add a devm action to disable hardware interrupts during driver
-  removal (sashiko)
-- Link to v2: https://lore.kernel.org/r/20260814-vcnl4000-v2-0-9b771290cc1d@jacques.com.au
-
 Changes in v2:
-- 1/2: Clarify in the commit message that the channel arrays have the
-  same size.
-- 2/2: Drop IRQ trigger type checking and use IRQF_TRIGGER_LOW directly.
-- 2/2: Check the interrupt source bits handled by the driver.
-- Link to v1: https://lore.kernel.org/r/20260811-vcnl4000-v1-0-50e7fb657692@jacques.com.au
+- Allocate the cgroup path buffer once per read() outside the loop
+  instead of per page inside get_page_memcg_info(); a GFP_KERNEL
+  allocation must not sleep inside the page_ext RCU read-side critical
+  section.
+- Guard the memcg= parsing branch with CONFIG_MEMCG
 
+v1: https://lore.kernel.org/linux-mm/20260828031339.1270699-6-zhen.ni@easystack.cn/
 ---
-Tsz Shan Chan (5):
-      iio: light: vcnl4000: use correct channel array size
-      iio: light: vcnl4000: clear DRDY interrupt when buffer disabled
-      iio: light: vcnl4000: refactor interrupt config functions
-      iio: light: vcnl4000: Add IRQ disable callback on cleanup
-      iio: light: vcnl4000: add shared IRQ support
+ mm/page_owner.c | 81 ++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 76 insertions(+), 5 deletions(-)
 
- drivers/iio/light/vcnl4000.c | 173 ++++++++++++++++++++++++++++++++-----------
- 1 file changed, 130 insertions(+), 43 deletions(-)
----
-base-commit: 940de590b839f71d6dc846160534bf202401b8b7
-change-id: 20260810-vcnl4000-02e19f70e706
-
-Best regards,
+diff --git a/mm/page_owner.c b/mm/page_owner.c
+index ca9dd8ed9f77..0915bcf46963 100644
+--- a/mm/page_owner.c
++++ b/mm/page_owner.c
+@@ -71,6 +71,7 @@ static const char * const page_owner_print_mode_strings[] = {
+ 
+ struct memcg_info {
+ 	char name[80];
++	char *path;
+ 	bool is_slab;
+ 	bool is_objcg;
+ 	bool is_online;
+@@ -86,6 +87,7 @@ struct page_owner_filter_state {
+ 	enum page_owner_print_mode print_mode;
+ 	bool nid_filter_enabled;
+ 	bool proc_filter_enabled;
++	bool memcg_filter_enabled;
+ 	nodemask_t nid_filter;
+ 	int pid_count;
+ 	int tgid_count;
+@@ -93,6 +95,7 @@ struct page_owner_filter_state {
+ 	pid_t pid_list[MAX_FILTER_PIDS];
+ 	pid_t tgid_list[MAX_FILTER_TGIDS];
+ 	char comm_list[MAX_FILTER_COMMS][TASK_COMM_LEN];
++	char *memcg_path;
+ };
+ 
+ static int cmp_pid_t(const void *a, const void *b)
+@@ -582,7 +585,8 @@ void pagetypeinfo_showmixedcount_print(struct seq_file *m,
+ /*
+  * Get memcg information from page
+  */
+-static void get_page_memcg_info(struct page *page, struct memcg_info *info)
++static void get_page_memcg_info(struct page *page, struct memcg_info *info,
++				 char *path_buf)
+ {
+ 	unsigned long memcg_data;
+ 	struct obj_cgroup *objcg;
+@@ -606,6 +610,10 @@ static void get_page_memcg_info(struct page *page, struct memcg_info *info)
+ 	info->is_objcg = (memcg_data & MEMCG_DATA_KMEM) != 0;
+ 	info->is_online = css_is_online(&memcg->css);
+ 	cgroup_name(memcg->css.cgroup, info->name, sizeof(info->name));
++	if (path_buf) {
++		info->path = path_buf;
++		cgroup_path(memcg->css.cgroup, info->path, PATH_MAX);
++	}
+ out_unlock:
+ 	rcu_read_unlock();
+ }
+@@ -775,11 +783,23 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
+ 	struct page_ext *page_ext;
+ 	struct page_owner *page_owner;
+ 	depot_stack_handle_t handle;
++	char *memcg_path_buf = NULL;
+ 	struct page_owner_filter_state *state = file->private_data;
++	ssize_t ret;
+ 
+ 	if (!static_branch_unlikely(&page_owner_inited))
+ 		return -EINVAL;
+ 
++	/*
++	 * Allocate outside the loop, as GFP_KERNEL allocations may not
++	 * sleep inside the page_ext RCU read-side critical section.
++	 */
++	if (state->memcg_filter_enabled) {
++		memcg_path_buf = kmalloc(PATH_MAX, GFP_KERNEL);
++		if (!memcg_path_buf)
++			return -ENOMEM;
++	}
++
+ 	page = NULL;
+ 	if (*ppos == 0)
+ 		pfn = min_low_pfn;
+@@ -899,7 +919,11 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
+ 		}
+ 
+ #ifdef CONFIG_MEMCG
+-		get_page_memcg_info(page, &memcg_info);
++		get_page_memcg_info(page, &memcg_info, memcg_path_buf);
++		if (state->memcg_filter_enabled)
++			if (!memcg_info.path ||
++			    strcmp(memcg_info.path, state->memcg_path) != 0)
++				goto ext_put_continue;
+ #endif
+ 
+ 		/* Record the next PFN to read in the file offset */
+@@ -907,13 +931,16 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
+ 
+ 		page_owner_tmp = *page_owner;
+ 		page_ext_put(page_ext);
+-		return print_page_owner(buf, count, pfn, page,
++		ret = print_page_owner(buf, count, pfn, page,
+ 				&page_owner_tmp, handle, state, &memcg_info);
++		kfree(memcg_path_buf);
++		return ret;
+ ext_put_continue:
+ 		page_ext_put(page_ext);
+ 		cond_resched();
+ 	}
+ 
++	kfree(memcg_path_buf);
+ 	return 0;
+ }
+ 
+@@ -1016,7 +1043,10 @@ static int page_owner_open(struct inode *inode, struct file *file)
+ 
+ static int page_owner_release(struct inode *inode, struct file *file)
+ {
+-	kfree(file->private_data);
++	struct page_owner_filter_state *state = file->private_data;
++
++	kfree(state->memcg_path);
++	kfree(state);
+ 	return 0;
+ }
+ 
+@@ -1075,9 +1105,11 @@ static ssize_t page_owner_write(struct file *file,
+ 	nodemask_t new_nid_filter;
+ 	bool new_nid_filter_enabled;
+ 	bool new_proc_filter_enabled;
++	bool new_memcg_filter_enabled;
+ 	pid_t new_pid_list[MAX_FILTER_PIDS];
+ 	pid_t new_tgid_list[MAX_FILTER_TGIDS];
+ 	char (*new_comm_list)[TASK_COMM_LEN] = NULL;
++	char *new_memcg_path;
+ 	int new_pid_count = 0;
+ 	int new_tgid_count = 0;
+ 	int new_comm_count = 0;
+@@ -1093,16 +1125,24 @@ static ssize_t page_owner_write(struct file *file,
+ 	if (count > 32 + 6 * MAX_NUMNODES +
+ 			(PID_MAX_DIGITS + 1) * MAX_FILTER_PIDS + 4 +
+ 			(PID_MAX_DIGITS + 1) * MAX_FILTER_TGIDS + 5 +
+-			TASK_COMM_LEN * MAX_FILTER_COMMS + 5)
++			TASK_COMM_LEN * MAX_FILTER_COMMS + 5 +
++			PATH_MAX + 6)
+ 		return -EINVAL;
+ 
+ 	new_comm_list = kmalloc_array(MAX_FILTER_COMMS, TASK_COMM_LEN, GFP_KERNEL);
+ 	if (!new_comm_list)
+ 		return -ENOMEM;
+ 
++	new_memcg_path = kmalloc(PATH_MAX, GFP_KERNEL);
++	if (!new_memcg_path) {
++		kfree(new_comm_list);
++		return -ENOMEM;
++	}
++
+ 	kbuf = memdup_user_nul(buf, count);
+ 	if (IS_ERR(kbuf)) {
+ 		kfree(new_comm_list);
++		kfree(new_memcg_path);
+ 		return PTR_ERR(kbuf);
+ 	}
+ 
+@@ -1125,6 +1165,9 @@ static ssize_t page_owner_write(struct file *file,
+ 				state->comm_count * TASK_COMM_LEN);
+ 		new_comm_count = state->comm_count;
+ 	}
++	new_memcg_filter_enabled = state->memcg_filter_enabled;
++	if (state->memcg_filter_enabled && state->memcg_path)
++		strscpy(new_memcg_path, state->memcg_path, PATH_MAX);
+ 
+ 	while ((token = strsep(&kbuf, " \t\n")) != NULL) {
+ 		if (*token == '\0')
+@@ -1168,12 +1211,35 @@ static ssize_t page_owner_write(struct file *file,
+ 			ret = parse_comm_list(token + 5, new_comm_list, &new_comm_count);
+ 			if (ret < 0)
+ 				goto out_free;
++#ifdef CONFIG_MEMCG
++		} else if (!strncmp(token, "memcg=", 6)) {
++			if (token[6] == '\0') {
++				ret = -EINVAL;
++				goto out_free;
++			}
++			ret = strscpy(new_memcg_path, token + 6, PATH_MAX);
++			if (ret < 0)
++				goto out_free;
++			new_memcg_filter_enabled = true;
++#endif
+ 		} else {
+ 			ret = -EINVAL;
+ 			goto out_free;
+ 		}
+ 	}
+ 
++	if (new_memcg_filter_enabled) {
++		if (!state->memcg_path) {
++			state->memcg_path = kzalloc(PATH_MAX, GFP_KERNEL);
++			if (!state->memcg_path) {
++				ret = -ENOMEM;
++				goto out_free;
++			}
++		} else {
++			memset(state->memcg_path, 0, PATH_MAX);
++		}
++	}
++
+ 	/* Commit all filter changes */
+ 	state->print_mode = new_print_mode;
+ 	state->nid_filter = new_nid_filter;
+@@ -1200,11 +1266,16 @@ static ssize_t page_owner_write(struct file *file,
+ 				new_comm_count * TASK_COMM_LEN);
+ 		state->comm_count = new_comm_count;
+ 	}
++	if (new_memcg_filter_enabled) {
++		strscpy(state->memcg_path, new_memcg_path, PATH_MAX);
++		state->memcg_filter_enabled = true;
++	}
+ 
+ 	ret = count;
+ 
+ out_free:
+ 	kfree(new_comm_list);
++	kfree(new_memcg_path);
+ 	kfree(orig);
+ 	return ret;
+ }
 -- 
-Tsz Shan Chan <tchan@jacques.com.au>
+2.20.1
 
