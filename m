@@ -1,113 +1,75 @@
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+Received: from relay.smtp-ext.broadcom.com (lpdvsmtp10.broadcom.com [192.19.144.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57250511209;
-	Thu,  3 Sep 2026 19:53:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BE953FF1B7;
+	Thu,  3 Sep 2026 19:54:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.144.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788465247; cv=none; b=DczM0etnP8XsPxXPRFfIXHL2rT+8RU8V9mQzKKvTiH5vHT7dOcuo5MTWtc6kL0CCnch16Kb5ukCtDqqKspnRl2aIUXlFfdjjfK7AJ8Dd2gTXj19KUOgZGK8SffNYYkVH6bV3OLAhZ707hTiNoS2acPABWhaaI3QNzxMTv9r43RI=
+	t=1788465266; cv=none; b=aUIwY5doVor/KcFL0TJN6BEhibN4rtgtP/pKojmAJ1Lx3d3zG8Gdo8KWFozxF4ecDtPzQOaAOplyO8iKnZGOfYuBwmLz7pUzxdO2kln5jpdKTb7ICPVlGuqT7K+18JX5092T86Trv8Xp+Nh/QwO6uX3xN4CxIfsvNVQ8c16Cpnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788465247; c=relaxed/simple;
-	bh=fIMHLyyG4vTq+ZqLREyakOLkmH+dwv5+f8WX6EukCm0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pbqDbNAWSOP1ic+/oQ1NlxN/MoLAMuGBoE9tH3b8IdGT/xKVCOKprrIuXFKReYShZHeQjpmPDWxYe5Mgezh88BRy5oLjk50qxuNIdBoi22+gkKRvKGlO8RHtcm0eEtZm+62h9mMJbcfnrmGQzsOTPc0y0lAFZs04txLPYRd4J3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=fX6ERHuA; arc=none smtp.client-ip=185.70.43.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1788465266; c=relaxed/simple;
+	bh=5ywL+AjbqduBPI70f+35daeMhjjmOPDHuxP9jp+8fRk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XopbgPnD6jIIhB2quwHaK7D3VSYMU5CE3t62EaKL0V4rvan2TJlAhq2uyLtqB3u786rSaCkQ9RtJr8ShXDgHxTgnfpZeCo7Fy12cZMMziIkvTKa1HNNAskJJNvxOM3ZLwWwYi+YZOyMhhCAxNqEfQ0WIDp6M/PSy8C1AtgZimu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=wNlMycB3; arc=none smtp.client-ip=192.19.144.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="fX6ERHuA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788465232; x=1788724432;
-	bh=1QgznbOgvUg459L5zM9/psIURXxCsT4oTnvwjIkAZso=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=fX6ERHuAvrxEDWxySTjwbOx9DympMRedmxaMyIsnYYaXWcgFVVBgkhsx4OUeVM8f0
-	 LfC8S7RIAMwYUxyOL4RNYJAI+d8pKQ/LnGsNIrtIf5fD70bGVwk7v3xjt5/uU7z6WJ
-	 pwwKKMqhwsfB9Jcp3Ny5IS6YfOoH8gpCsaL5PwFS1XWmg36jcY3qzYBzA6d29yJIKU
-	 apO72ro72Ksfa82k82WlBE3fgJP2pHsz2VqmFUf+zFcdtXU7iVLUbp9r431n/58ITV
-	 M2M0hhxdsdVDWyzPFa8MrchoKyUf8TNU6x4LNt4hQGL7LuyBYBxJjf5Ki6sfjg6kTZ
-	 Sv1f+7owbi/7Q==
-Date: Thu, 03 Sep 2026 19:53:48 +0000
-To: "Vladimir V . Kondratyev" <vladimirkondratyev2@gmail.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Paul Menzel <pmenzel@molgen.mpg.de>, Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>, Kiran K <kiran.k@intel.com>, Arnd Bergmann <arnd@arndb.de>, linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] Bluetooth: btintel_pcie: fix stale cache in set_dxstate fallback check
-Message-ID: <20260903195342.78248-1-lsa.uz@pm.me>
-In-Reply-To: <20260903192245.135310-2-vladimirkondratyev2@gmail.com>
-References: <20260507203426.128975-1-vladimirkondratyev2@gmail.com> <20260903192245.135310-2-vladimirkondratyev2@gmail.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: d87253f2add65cfeb4bb2841280d3a074352681a
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="wNlMycB3"
+Received: from mail-lvn-it-01.broadcom.com (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
+	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id BA814C0003D4;
+	Thu,  3 Sep 2026 12:54:13 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com BA814C0003D4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
+	s=dkimrelay; t=1788465253;
+	bh=5ywL+AjbqduBPI70f+35daeMhjjmOPDHuxP9jp+8fRk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=wNlMycB36Ai1OrwMD/ANDaWaMr/1zObPuven9GeU64hX3flJv9gwyNaXk9vsNwBnl
+	 HmSLMzglOg9pEpPEQe015TJBII9DYDykLWyQ896m7MH6epHC0HqQ+Xg7mPa4ij7S+j
+	 +sSjLn5dW4EpkwAIVdk/DmzeSgoyiOEheviHtaqo=
+Received: from fainelli-desktop.igp.broadcom.net (fainelli-desktop.dhcp.broadcom.net [10.67.48.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id 5DA06A9A;
+	Thu,  3 Sep 2026 12:54:13 -0700 (PDT)
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+To: bcm-kernel-feedback-list@broadcom.com,
+	Rosen Penev <rosenp@gmail.com>,
+	devicetree@vger.kernel.org
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	=?iso-8859-2?q?Rafa=B3_Mi=B3ecki?= <rafal@milecki.pl>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"moderated list:BROADCOM BCM53573 ARM ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] ARM: dts: BCM53573: Rename mpcore node to mpcore-bus
+Date: Thu,  3 Sep 2026 12:54:12 -0700
+Message-ID: <20260903195412.2040463-1-florian.fainelli@broadcom.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260806003703.5141-1-rosenp@gmail.com>
+References: <20260806003703.5141-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Vladimir, Paul, Chandrashekar, Kiran,
+From: Florian Fainelli <f.fainelli@gmail.com>
 
-Nothing here asks for a change to v4 =E2=80=94 it is right and my Tested-by=
- stands. This
-is the measurement behind a question I put to the list on 2026-09-02 and co=
-uld
-not support with numbers at the time.
+On Wed,  5 Aug 2026 17:37:03 -0700, Rosen Penev <rosenp@gmail.com> wrote:
+> The 'mpcore' node name does not match the simple-bus node name pattern
+> '^([a-z][a-z0-9\-]+-bus|bus|localbus|soc|axi|ahb|apb)(@.+)?$'.
+> Rename to 'mpcore-bus' to match the pattern, consistent with the
+> naming used in bcm-nsp.dtsi and bcm-ns.dtsi.
+> 
+> Assisted-by: OpenCode:Big-Pickle
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
 
-The question was whether BTINTEL_PCIE_CSR_BOOT_STAGE_REG should be polled f=
-or the
-target D-state, with the alive interrupt demoted to an early exit, rather t=
-han the
-other way round. So I timed both against the same zero =E2=80=94 the write =
-in
-btintel_pcie_wr_sleep_cntrl() =E2=80=94 on Surface Pro 11 (Lunar Lake), Int=
-el BE201,
-8086:a876 rev 10, kernel 7.0.0-30, s2idle. A measurement build polls the re=
-gister
-every 100 us and records when bit 24 reaches the target and when gp0_receiv=
-ed
-becomes true. Four suspend/resume cycles, eight transitions:
-
-  dxstate  register (us)              interrupt (us)
-  D3       1517  1027  1085  1111     1670  1171  1085  1112
-  D0       1630  1521  1676  1701     1630  1646  1676  1701
-
-The register reaches the target state in **1.0 to 1.7 ms** and is **never l=
-ater
-than the interrupt**. In four of the eight it is the same 100 us sample; in=
- two
-it leads by 125 and 153 us. Against that, the current path budgets 200 ms p=
-er
-attempt and three attempts =E2=80=94 up to 600 ms per transition, twice per=
- suspend cycle.
-
-That is the whole of my case, and its limits are worth stating plainly. One
-machine, one controller, one firmware. The poll itself is PCIe traffic and =
-could
-be perturbing what it measures, though it would have to be perturbing it in=
- the
-direction that flatters the register. And a settle time is not a guarantee:=
- an
-interrupt exists partly so the driver need not assume a bound.
-
-But if the bound holds on Intel's own hardware, polling would delete the
-stale-cache class of bug rather than catch it, and POLL_INTERVAL_US is alre=
-ady
-declared in btintel_pcie.h and unused.
-
-I have not written that patch, because it is your subsystem and my coverage=
- is
-one machine. What I do have is the hardware, a fixture that drops the alive
-interrupt on demand, and the per-hunk method already used in this thread. S=
-o if
-an RFC would be useful rather than noise, I will write one and report it th=
-e same
-way =E2=80=94 measured per hunk, with the failure injected and with it disa=
-bled. If you
-would rather it came from someone with the full range of controllers, that =
-is a
-perfectly good answer and I will leave it here.
-
-Sergey
-
+Applied to https://github.com/Broadcom/stblinux/commits/devicetree/next, thanks!
+--
+Florian
