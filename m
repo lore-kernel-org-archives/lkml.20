@@ -1,105 +1,152 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 835944A5C27
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:39:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE12383991;
+	Thu,  3 Sep 2026 13:41:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788442773; cv=none; b=IxkeZ3EiLdbIj/Vg/hMZWPsRIBz8jh2yYMD5FjtsYKi5Hs68JoeIgw3H1facKbCPCTOYi/X/o0F1NA8XSb9orZE/zficsoG8AV17pVNZzl7dayheoL65uE25vsITpMp+kdHE3fzYDOQnKvdsOaOWHLdvdYTdqLWRh6y3paicU1I=
+	t=1788442891; cv=none; b=SHZXwlDd4SeKiotgSB9BGZ+PaF9GSOMIJpIHaGyHaszcfLA2imVoNTexWD1TdiUk/qgISX2C6h7U3HcW8Ur5Y6vIjeM5wd8QOk9F88AdIOyAOqnDM/FWOk24MjJCcs0aLX2eyVooTomJnMXHF0smKO81JmO9bQVewAmGMiLm2hc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788442773; c=relaxed/simple;
-	bh=ImQDDFj9qVjPIWDEX0xwmDVNDBDG8sj0eUt9eSQ9/DY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=evu2hAtHjQw6Y9ovdAd1+bKjtqdu6cg4wXB/c7SgGxOKpzOeRY8rjwuFP79am70J4iAglOInlJ+UTFPl4S3ztOHSSo9amfweFApfPdp9BxP92S43JTtST6TlCrZJp4o36md6xhN+vS27+QXPccjEgvqNyRvofUTFp69pnnoDu1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c252e703fa3so349876466b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 06:39:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788442766; x=1789047566;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3kI/3YoXSD5l4MUFY+JdTBHSS/S10bVdqe61ILAQItw=;
-        b=fs+B7WM03nZRjIaAtzVqStQoZiV5OulCRjx+Hp4S0od4td64OMcxVL/ina6z/254Jb
-         FlTIJwgJ8p1gu4Ax9vjqWj5k6JEwuDiETyyVyDPd05qs1Fs8hzzDxZ0KW9q359hJ8F1A
-         n6bH6fGzCmG1+V7jOI5cFIBG3ahtqwjldiNoQQ4AGtuboX4xI6oH5fImkqdd1HwUJBEV
-         +B6A2RUvt9Q5vs0zhVFCOZb+TZftdMflry8ID9ejwkd0ttDQEpEBB6fYEy5ir3eRq3iM
-         PfYAxDwwwKZ3iLxUfBvF0Dy7hhj9urMYVqCpzoWDP3DgsUICBkTvDbOZlcKKGoZklTOi
-         4N2g==
-X-Forwarded-Encrypted: i=1; AKwUvBxRkT6T/s114CqqCOBE674qOolLNPjaS9x0sTI6KEG0QCHJ3EAMm9LV1PV6+5PenjvoE4wskhKBx/H0zNQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nAZ4pGTwIlo5fwgk0oHyd9e+HGHBrFrvDoZzG3+nh3Uus3ECO4
-	VeEc6tWdUW7W0AStTeKCuCbjRBuhRl43Z2LSAlW5ITtRbdPh7hjzNy3kQTNEQEa7bQ4=
-X-Gm-Gg: AYBFou1na9TynTvICzLuIu3EzZINfhqeNfLJgcvJFUmY5tWs3ZHG+iBsgykNVakAt4P
-	U+VAB7Mt5wpltqCwcgEx0iK301uGagbK/0AiYk2XjXkVAxC+dXnxT6E+PhWxMKZM6L9ZLukAqYV
-	WeLW0DCkat3Blxbv9e4ybJFUnu/ZJMGoQlWXtM96YX4gz25pNPNnjeAvvIkWvnXwJEODsW7OmHs
-	KfGCWfzYiDqD0PEkdPKmppDbP7kOUHoC+BG8ZSjRCphPkTKQaQ/tBPekvl/pOaJG94wdsaLNalN
-	Ke5yGQgdqcemW1K+OtTmv3fV1xSJanm+xGV2oyQwT7x9SLxXqmwJSH8zK98vQXs8bpxPdzkUBD0
-	ibsz+pDZ68GeP8EJ3ko38Ysr/4FpdrmZi0WJ2xP+v5Ts7u4Li+gUKbFVify41FIVSHcspJCLAEb
-	LtNATJxk8HA9ecaozKLbCv37s1X4Ykpsw5bu29eNAOFEz2y7l8KPCY/UhJUQ9XmqssudTtv2457
-	dMBVx8leXT/fwJtbg7rgXxKCg==
-X-Received: by 2002:a17:907:7b8a:b0:c16:101d:7afa with SMTP id a640c23a62f3a-c25d54fc0d8mr817949066b.16.1788442765645;
-        Thu, 03 Sep 2026 06:39:25 -0700 (PDT)
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com. [209.85.208.46])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25f41a363dsm101873666b.34.2026.09.03.06.39.22
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 06:39:22 -0700 (PDT)
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a38098734bso4464936a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 06:39:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwONOIvhb9qbAXNFWW0JBoh12YLdMYWo8y6/Zh+Hnz3Dxt7oRungtlYFq+cvJaBiJr7X3PbY70/bLPxFNA=@vger.kernel.org
-X-Received: by 2002:a05:6402:24d7:b0:6a5:fbc6:cad1 with SMTP id
- 4fb4d7f45d1cf-6a68254b68bmr7079678a12.7.1788442762167; Thu, 03 Sep 2026
- 06:39:22 -0700 (PDT)
+	s=arc-20240116; t=1788442891; c=relaxed/simple;
+	bh=7pRROOdHtyRIESuA4cQGRlfSWM8ve16qY7jlkowG1w0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RuMWA48ajrVj8shJSTTWeREUq4pr4Vpj6PCCmVhavQdiRNRsIRfCx4PunFZmhySPHt8U+bTveQpMBlB2tRklClk/tqUeDW3bhwQzHlyMLEwpRMSUMuI6lqNrRO5VH3wOn7WGXUVHo/JnjdGMCCJtRlgxFmoAhbEH+LDXItbi34M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oNt6g5Ta; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oNt6g5Ta"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A868A1F000E9;
+	Thu,  3 Sep 2026 13:41:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788442879;
+	bh=kFvZWT/OUUzeMqSSgVtf6sqt5zDZQ2VdnfM6WeaS3IY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oNt6g5TaldbvnOrcAcM8G3od0vg1//utaZr43m/Yi3w+QwEzaYRDQ5gfC7Ly1CXFS
+	 qT7GSoRjjLpCCrFAJdgO9zxFuxqPj8RsiGaWduGIUrHfa7mKX5+PjOZmNhKz9LdNXZ
+	 Sxe7Q9riU7vGXokMAe5s9bmE9T9fs8BcMWLIzxbIfWoTqzaSSfYDVBIbVfD64JcVVX
+	 sALm1armQY0U8hJWEt3TR/ov4qrpSzWap2XhCxxv2cMaGrdERiPUNZTdKpJD/12ZFB
+	 vVozSsBaD8MKMhs09QOYfzdO0IWkRk4Fy0ciBJdeJgzBiCE/RTl1HwB8KVFPvC29nZ
+	 5c9DqQAomyiVw==
+Date: Thu, 3 Sep 2026 15:41:15 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Liu Ying <victor.liu@nxp.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch, 
+	maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, shawnguo@kernel.org, s.hauer@pengutronix.de, 
+	kernel@pengutronix.de, festevam@gmail.com, tglx@linutronix.de, vkoul@kernel.org, 
+	kishon@kernel.org, Frank.Li@nxp.com, lumag@kernel.org, aisheng.dong@nxp.com, 
+	agx@sigxcpu.org, u.kleine-koenig@baylibre.com, marek.vasut@mailbox.org
+Subject: Re: [PATCH v9 00/19] Add Freescale i.MX8qxp Display Controller
+ support
+Message-ID: <apl4rkHIs9QFuUTE@houat>
+References: <20250414035028.1561475-1-victor.liu@nxp.com>
+ <20260714193627.GA9616@francesco-nb>
+ <alh4a66fEro05ShA@raspi>
+ <20260716062612.GC9973@francesco-nb>
+ <alh-6sI4J7vq2drz@raspi>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902104939.25522-1-ovidiu.panait.rb@renesas.com> <20260902104939.25522-3-ovidiu.panait.rb@renesas.com>
-In-Reply-To: <20260902104939.25522-3-ovidiu.panait.rb@renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 3 Sep 2026 15:39:00 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUZrmXfpmuxQdw6phK1YGJHyhndT64vmsdzHE9FO19jJQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XvRbtPP7ZOjowl3YDbtGxIvYTtX57sf45BGJvcFDqDNY8G0uf9IogwGTU
-Message-ID: <CAMuHMdUZrmXfpmuxQdw6phK1YGJHyhndT64vmsdzHE9FO19jJQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] clk: renesas: rzv2h: Convert to clk_hw based provider API
-To: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, 
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, John Madieu <john.madieu.xa@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-
-Hi Ovidiu,
-
-On Wed, 2 Sept 2026 at 12:50, Ovidiu Panait
-<ovidiu.panait.rb@renesas.com> wrote:
-> From: John Madieu <john.madieu.xa@bp.renesas.com>
->
-> The driver mixes the clk consumer API with the clk_hw provider API for
-> its internal clock storage and OF lookup callback. Convert it to use
-> clk_hw consistently.
->
-> No functional change intended.
->
-> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
-> Signed-off-by: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-
-Nice, thanks a lot for picking up John's legacy!
-
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-clk for v7.4.
-
-Gr{oetje,eeting}s,
-
-                        Geert
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="o4ooto37lrg6lqir"
+Content-Disposition: inline
+In-Reply-To: <alh-6sI4J7vq2drz@raspi>
 
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+--o4ooto37lrg6lqir
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v9 00/19] Add Freescale i.MX8qxp Display Controller
+ support
+MIME-Version: 1.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+On Thu, Jul 16, 2026 at 02:49:14PM +0800, Liu Ying wrote:
+> On Thu, Jul 16, 2026 at 08:26:12AM +0200, Francesco Dolcini wrote:
+> > On Thu, Jul 16, 2026 at 02:21:31PM +0800, Liu Ying wrote:
+> > > On Tue, Jul 14, 2026 at 09:36:27PM +0200, Francesco Dolcini wrote:
+> > > > On Mon, Apr 14, 2025 at 11:50:09AM +0800, Liu Ying wrote:
+> > > > > Hi,
+> > > > >=20
+> > > > > This patch series aims to add Freescale i.MX8qxp Display Controll=
+er support.
+> > > > >=20
+> > > > > The controller is comprised of three main components that include=
+ a blit
+> > > > > engine for 2D graphics accelerations, display controller for disp=
+lay output
+> > > > > processing, as well as a command sequencer.
+> > > >=20
+> > > > ...
+> > > >=20
+> > > > >=20
+> > > > > To follow up i.MX8qxp TRM, I changed the controller name to "Disp=
+lay Controller"
+> > > > > instead of the previous "DPU".  "DPU" is only mentioned in the So=
+C block
+> > > > > diagram and represents the whole display subsystem which includes=
+ the display
+> > > > > controller and prefech engines, etc.
+> > > > >=20
+> > > > > With an additional patch[1] for simple-pm-bus.c, this series faci=
+litates
+> > > > > testing a LVDS panel on i.MX8qxp MEK.
+> > > > >=20
+> > > > > Please do NOT merge patch 14-19.  They are only used to facilitat=
+e testing
+> > > > > the LVDS panel.
+> > > >=20
+> > > > What's the plan to conclude this work? What's the latest status?
+> > > > I am looking forward to have a way to use the i.MX8QXP display with
+> > > > mainline, but to my understanding some required changes on the SOC =
+dtsi
+> > > > are not merged.
+> > > >=20
+> > > > Can you help?
+> > >=20
+> > > I planned to add display controller DT node after prefetch engine sup=
+port [1]
+> > > is picked up so that the prefetch engine could be enabled together wi=
+th the
+> > > display controller.  Just want to avoid a DT that only enables the di=
+splay
+> > > controller or bypasses the prefetch engine.  It makes the display con=
+troller
+> > > driver simpler.
+> > >=20
+> > > [1] https://lore.kernel.org/all/20251027-imx8-dc-prefetch-v5-0-4ecb6c=
+6d4941@nxp.com/
+> >=20
+> > That series is from October 2025, is there anything blocking to move it
+> > forward?
+>=20
+> It lacks a Reviewed-by tag(at least a Acked-by tag) from a drm-misc commi=
+tter
+> for every driver patch in that series.  Also, it seems that Marek(Cc'ed) =
+is
+> not a big fan of [1](See i.MX95 display support discussion[2]).
+
+I was just pointed at this series, and I'm not sure why it's blocked. It
+looks like you were waiting for a Reviewed-by by a drm-misc maintainer,
+but I gave mine already and I'm a drm-misc maintainer, sooo... :)
+
+Maxime
+
+--o4ooto37lrg6lqir
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCapl4+wAKCRAnX84Zoj2+
+due1AYCLc2tJQwDF9c4iRI/++4KTTdF3kVz0NHVdo8/5oeYCWXx8fVEF7hVkt4Ra
+wo5XQHsBgOtcOEuQUzP9eFI6ZXk4Osh1GNXCdmzBpFn3otlHi4Jyo0MDwTymjy9b
+xyO5RX/Wgw==
+=aO6C
+-----END PGP SIGNATURE-----
+
+--o4ooto37lrg6lqir--
