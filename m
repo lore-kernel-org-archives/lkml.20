@@ -1,147 +1,73 @@
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11012018.outbound.protection.outlook.com [52.101.126.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96D033254A0;
-	Thu,  3 Sep 2026 03:38:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788406738; cv=fail; b=HL5kunADcWi1fKj4fQdKHGwXSBz8cGkDhmpGbauUqLy6RB+BNkFF0ogIZvM39Hy5e5XCoRlt/TQ3Sv0BoZ9fMpGAjJb5ubfqF2JaG6QakYs6uWtsQEpF3jFSkIbS02Y9V7DcmJYwJqGqGh7A/c5+qXsRBlKQynpHOPeoKhJQL0g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788406738; c=relaxed/simple;
-	bh=RrJYjx9t7wBA9NVou8n4AwUEjWgUypBAq/RrQ1B3aDs=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=DL5kjytrWBJ0a6CD/4mtEXvp5hqe/xW2iOYfuxM6cvLhjmLxRuHwdPnTD/f+ig6EyDh56C8W9LDQy63oPs2YQHMpTxEGGKQL0ppHOBUfm7tqC4f62ChNVS1ZM1L6eD3yisMRrv9P761uG9+xzgam8H2J2ErPNsb4A8anrMLthcU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuvoton.com; spf=pass smtp.mailfrom=nuvoton.com; dkim=pass (2048-bit key) header.d=nuvoton.com header.i=@nuvoton.com header.b=nQ3gCst8; arc=fail smtp.client-ip=52.101.126.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuvoton.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nuvoton.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFFE41A8F84;
+	Thu,  3 Sep 2026 03:39:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788406762; cv=none; b=XciFD7p7hx4bTixpOcLaDJMLY7xLVwfByatTNZxCPn62Y92WIYlxKmn5G9dAdt9pHlUYxurxR6Wriq+31/qL9Lcqh7Db9b5Udd+sFlPUMAnCDTWot51a4X81YX2qxTKggnY5XrAwHXcMoEIMJ4WCN5JdGJ9Eibv1pUbtXnKAk+g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788406762; c=relaxed/simple;
+	bh=/PWU/tsWkmuN9nY21zSa08TegzVVCYJ/SGFMG7qM9Kk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AI4PlU4QDDlNJEp9bmKZXJ7ZVtzcnCYTuqbmsivQP0dam587EymWqSuYawZki0q6d0qcQQPE711So9rmtrMvxjLEUWFeCMoTL6pj0C6V6glEdnkN7RkibXUHkVJWljfns+sPvctzTMXXTYpRXPcrJNwAKdUxSX/OCtqsvptmmFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mLONVf+F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nuvoton.com header.i=@nuvoton.com header.b="nQ3gCst8"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NJQXvcXWjH0wRLNorVI5hhZ/pcVqsVMCsxtRFUjDZNnmHRDvYYoTb1DHfKv6EfcAyu1Ikmw0e3ctEb0pKEI3Z3NGvOpzHw5qOh3/v+JPFveOZ1eMUNt4NRlu2GuaS5isOYuItN8VL5nbAwRn+ALPkPfaaBDWepwUlxHJ6rL8bGSEh9oK56FHiNwncsO9WBy6IJ2w12fC6GzZXTvEYCVDmqQQ+7yxxOLhh8XhvY8htEp/ZJCeG/AQlHsHQAXo3t7SYiiWfVEr+hp29f2mzwcJkRASVMNHUxXWKAXCisDL6E6iwyAvauxfAtc2nURS7yprY/4BfGrMKjzny9Mi2DrxMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Hop0qcppkvAfUPAft1Kaprx56rb41kyffZBt8FyywXA=;
- b=bhnvYjtTuhVD/TldM5d0e9rgA7XTIg374p4nyoIyH6lfCPYQ6yGGX0BCgUu41Dg/TxrBsJ/v0n0kPJSiO4FhhNR5DYEaStyZEC3oBGTYrsBn0EUDTNKOjwiNVNeFIlEgQr5Swrh+s3Bwzt9XIXj3bPfZf++rmJWASFF5/7zKXoIda6fig4fkQpShEieZkGF1Ci0IiwHyMfKDarqdnyeT6AbJiuI0rMTWI39M7sm10j8mAQR4i7rRS1GdMJipjKUjCgTmkA9t4xds5S2b/gCvk40RvgMoyBMxIPTlSjhKdg4acBH4Tjs3LDuxfGT6p8zZsuq+Mtzmm/fu/gBVIVnpkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 175.98.123.7) smtp.rcpttodomain=kernel.org smtp.mailfrom=nuvoton.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=nuvoton.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nuvoton.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Hop0qcppkvAfUPAft1Kaprx56rb41kyffZBt8FyywXA=;
- b=nQ3gCst8sW7jPSaVPyDVm8WA6hoVYtwMQNHYumHr7Jl+pNScL7NAosu5u4+EQpTqpxOsOwcki15of9d7MFwYl6M9tBXOovEZqnrFFaWLrUfbVUDazkw6dH1XnHN8d1B81+SG7/fe/4hSNYSRE+wsS/ueKek0GNsD1ebB7Jt5jRkAHbakbLva4EJVXuT4/vK9pUDNlozq2wPLKtsrgQFynYPqU5KHSjeXzr1IerqBqWAUzOqcnNq+0iWsKOWDu2I2z+Tf+/zYMO8sSyPyrwkcCswSLOz/PAS8SYUCXDp+1ZkYM6w4AnTznYudzmMSPmDrkAPe4DKI0a3M6ewu+SNq1A==
-Received: from TYWPR01CA0013.jpnprd01.prod.outlook.com (2603:1096:400:a9::18)
- by KUYPR03MB10582.apcprd03.prod.outlook.com (2603:1096:d10:74::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 03:38:49 +0000
-Received: from TY2PEPF0000AB87.apcprd03.prod.outlook.com
- (2603:1096:400:a9:cafe::19) by TYWPR01CA0013.outlook.office365.com
- (2603:1096:400:a9::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Thu, 3
- Sep 2026 03:38:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 175.98.123.7)
- smtp.mailfrom=nuvoton.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nuvoton.com;
-Received-SPF: Pass (protection.outlook.com: domain of nuvoton.com designates
- 175.98.123.7 as permitted sender) receiver=protection.outlook.com;
- client-ip=175.98.123.7; helo=NTHCCAS02.nuvoton.com; pr=C
-Received: from NTHCCAS02.nuvoton.com (175.98.123.7) by
- TY2PEPF0000AB87.mail.protection.outlook.com (10.167.253.6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Thu, 3 Sep 2026 03:38:49 +0000
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS02.nuvoton.com
- (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.61; Thu, 3 Sep
- 2026 11:38:47 +0800
-Received: from localhost.localdomain (10.11.36.27) by NTHCCAS01.nuvoton.com
- (10.1.8.28) with Microsoft SMTP Server id 15.1.2507.61 via Frontend
- Transport; Thu, 3 Sep 2026 11:38:47 +0800
-From: Neo Chang <YLCHANG2@nuvoton.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <linux-sound@vger.kernel.org>
-CC: <perex@perex.cz>, <krzysztof.kozlowski@oss.qualcomm.com>,
-	<linux-kernel@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-	<lkp@intel.com>, <neo.chang70@gmail.com>, <kchsu0@nuvoton.com>, Neo Chang
-	<YLCHANG2@nuvoton.com>
-Subject: [PATCH 1/2] ASoC: codecs: nau8360: Fix static declarations and endianness
-Date: Thu, 3 Sep 2026 11:38:44 +0800
-Message-ID: <20260903033845.76540-1-YLCHANG2@nuvoton.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mLONVf+F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31F591F000E9;
+	Thu,  3 Sep 2026 03:39:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788406761;
+	bh=il3+9SnNHXN3k7XUpAO/4rCSOayBxmPeo3Wv4RVoeTg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mLONVf+Fwx/Di5maAHIRmGqS6uFPu5+P9e68ZcIe4L7r+Zhv2N8BdCRd3OtWtlmUS
+	 bx4oLoYwauQd6xykl5CUhHmB6mbYPWqzaJ4sQTEEpnQbzUj5u9QHCW0FqacZqV0/mL
+	 ztMVCan9JAR+Hvk9cSdI9FSz1zWbdJvrVEyvymzaEvxkPke3G71SIgevN1URIb6vmA
+	 KY/Z51wF5i+SGy6T54Ty925GW+FFDyzJouF3/8TXrDYlxDMW+Efeuaq2MyeExEV+wn
+	 wmWJnR4ZIFPvgKJUq1zjyyZ6UMlpIIVOSIny4nxy1p1DBfFj8h22AmybHVQ5JaScl0
+	 8QCjOyb+u5neA==
+From: Kees Cook <kees@kernel.org>
+To: Alexander Potapenko <glider@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Arnd Bergmann <arnd@kernel.org>
+Cc: Kees Cook <kees@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	David Laight <david.laight.linux@gmail.com>,
+	linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] KMSAN: fix memset() when using fortify-source, again
+Date: Wed,  2 Sep 2026 20:39:17 -0700
+Message-Id: <178840674549.2647132.11479583220926959631.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260618142951.1739694-1-arnd@kernel.org>
+References: <20260618142951.1739694-1-arnd@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NotSetDelaration: True
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB87:EE_|KUYPR03MB10582:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d6f916e-1540-409f-a4e8-08df096cddd1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|10067099003|56012099006|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	ip15ZMke3aX0aNLyBE8vxeVHe/gnULg9kZID9Rk6LFYssCGjlnfJZY3Gvtvsln2GCkvdg4xB28UTvgF/2Vjl4XNjuF0EL+wAO8Yvg7guNL+vnbUJPRdD+XDO+cFpg+PyJ7rV6sEQc8ITCU+2LtXE5phijvpFEFnl97KwRNRgPe56ArA8Nu+m/3TtFQoYCAKz/nR+SuFNJV/XTb6UzCi7vOcqA8CNADxeooz9HXWwCBNlqBKIfXXDYjmBsOpeaYMr7bEQFJTjN8nJsiwnqg1il6juI/m4Eh+WXJRZsFakIITZdKTdTt5E6mCvRBXqffPi7z9RGfS6e2PWo83qsmsZ44cuU9XB4MwXMxoYJCa4mObrNO80PwqDf7nnTdnhB1JxbnlFuay5zzBTP+Xpa4tjS1Adc2qazC0m7RDB9D8DOj+PMuLl5oOy1yMPZBL2EcvcVbK3NfJ+jttAT6d1pnjgOVoqMdpExGQVKtFUACSH13UWqx63EYJ9n9J7zVHUiQ1CpIfgzFqm2Q/R7BXWI4Luxt2HC/ioFfMNcs+MQxA3OdVxC4Ipdu235a+OYwJhkLHdWEa+svCwrWFPiQxKmbeIckaqV86H4LjPwtCGrcQxsa6wkYQiH/cenfbV3KFtjqsJCpTTTfHMN0N3w7K5Mx0Gtc48uR79NGz6ulPD33x/XF29lMy4WQbOlwKEBzilNLI+17+xrjoXnpPVCNw2FIHOdg==
-X-Forefront-Antispam-Report:
-	CIP:175.98.123.7;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:NTHCCAS02.nuvoton.com;PTR:175-98-123-7.static.tfn.net.tw;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(10067099003)(56012099006)(18002099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	CkqCVrupOFqn0uEWj+KPV5w9mah2p3vC5cKhi7pyOEN9yVx1NfmFlNjJdO4yddPKwurSdTexevYfpfrOaDqPJAshvoqxd3YOD7tYPoX1tAqQJIxusEiTd41GTPigE+SKWlDA0CuhZebtwKo96L5TFm62rq8ubBXEgsrxFcmLqE0JH9pj5BFJsCB88bSW2QfGMZsNSD3mUMRBQaFAg/d96YrAMAjfmc8VOd0lKWSXGGUBzu87ojSbAXrnzdohIi2xbDpfypQVM9p2Y50JaCZraIVbNWXsYz79dst+gqw9CVPXXnLuB5h1FGpyphifjMoW+HGyw9u74v0ujkjaD+gTvPVLkluACyFPYUNVTljzaB2Lawkc+r8LdEvABTxUhmu7u6xD21w5LEwxGhzO29xtkcmplGPaGJ6aKBkTp84vtwh6vJbzj21U7NrUozQtvmsh
-X-OriginatorOrg: nuvoton.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 03:38:49.1738
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d6f916e-1540-409f-a4e8-08df096cddd1
-X-MS-Exchange-CrossTenant-Id: a3f24931-d403-4b4a-94f1-7d83ac638e07
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a3f24931-d403-4b4a-94f1-7d83ac638e07;Ip=[175.98.123.7];Helo=[NTHCCAS02.nuvoton.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	TY2PEPF0000AB87.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUYPR03MB10582
 
-Fix warnings reported by the kernel test robot:
-1. Make the 'nau8360_dsp_addr' array static to resolve namespace pollution.
-2. Change the variable type to '__be16' to fix the incorrect type.
+On Thu, 18 Jun 2026 16:29:43 +0200, Arnd Bergmann wrote:
+> Both kmsan and fortify-source replace the memset function. When both
+> are enabled at the same time, the kmsan version gets used, which triggers
+> a warning about fortify-source being nonfunctional:
+> 
+> warning: unsafe memset() usage lacked '__write_overflow' symbol in /home/arnd/arm-soc/lib/test_fortify/write_overflow-memset.c
+> warning: unsafe memset() usage lacked '__write_overflow_field' symbol in /home/arnd/arm-soc/lib/test_fortify/write_overflow_field-memset.c
+> 
+> [...]
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202609021121.a4mHPAyZ-lkp@intel.com/
-Signed-off-by: Neo Chang <YLCHANG2@nuvoton.com>
----
- sound/soc/codecs/nau8360-dsp.c | 2 +-
- sound/soc/codecs/nau8360.c     | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Applied to for-next/hardening, thanks!
 
-diff --git a/sound/soc/codecs/nau8360-dsp.c b/sound/soc/codecs/nau8360-dsp.c
-index 2d6bc2962229..41afccbea2c0 100644
---- a/sound/soc/codecs/nau8360-dsp.c
-+++ b/sound/soc/codecs/nau8360-dsp.c
-@@ -20,7 +20,7 @@
- #include "nau8360.h"
- 
- #define NAU8360_DSP_IDLE_RETRY 10
--const unsigned short nau8360_dsp_addr[NAU8360_DSP_FW_NUM] = {
-+static const unsigned short nau8360_dsp_addr[NAU8360_DSP_FW_NUM] = {
- 	NAU8360_RF000_DSP_COMM, NAU8360_RF002_DSP_COMM };
- 
- static int nau8360_dsp_chan_kcs_setup(struct snd_soc_component *cp,
-diff --git a/sound/soc/codecs/nau8360.c b/sound/soc/codecs/nau8360.c
-index d7af2dffb749..802806d92fc4 100644
---- a/sound/soc/codecs/nau8360.c
-+++ b/sound/soc/codecs/nau8360.c
-@@ -409,7 +409,7 @@ static int nau8360_peq_coeff_get(struct snd_kcontrol *kcontrol,
- 	struct nau8360 *nau8360 = snd_soc_component_get_drvdata(cp);
- 	struct soc_bytes_ext *params = (void *)kcontrol->private_value;
- 	int i, value, reg, ret = 0;
--	u16 *val = (u16 *)ucontrol->value.bytes.data;
-+	__be16 *val = (__be16 *)ucontrol->value.bytes.data;
- 
- 	/* Use the DAPM lock to prevent race conditions during DAPM power-up
- 	 * state transitions, and check component active status to prohibit
+[1/1] KMSAN: fix memset() when using fortify-source, again
+      https://git.kernel.org/kees/c/ff936b726c98
+
+Take care,
+
 -- 
-2.25.1
+Kees Cook
 
