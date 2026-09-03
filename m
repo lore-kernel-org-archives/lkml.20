@@ -1,156 +1,134 @@
-Received: from mta0.migadu.com (out-56.mta0.migadu.com [91.218.175.56])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCCA743846C
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:42:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23A2A449991
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:42:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788432149; cv=none; b=oYTWFvhUFlwWSQfT/njrHU1LxG1LPqIO1sl2ZlJW4QlXXl4vNwler6x56mBCAA72qrq2fo+ccCsCsOind8dF/j2yutXjeYdt2vHQ8i7hAL59RWiQPByXS4qWlh5oXBdmTbXrV290Uq1Obu20wJLy3h2PAqwqmV2s5oCGOuW6QqI=
+	t=1788432174; cv=none; b=NJwYy8Mg4IfMnl1nn8UbibQnX5lzbKSpdqMRI9i9rqqLOjhxnJL+LByU1VqLr0c6BrHfYondooeygBrj4ySiZzo6hWKm6XmcxbjmcWocqUEZ0y+XNx/HBNyqnw9e3/Tv/2eklS+eAP21uafDiw81PdUGHBQWyM2DP7jP8poXWNg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788432149; c=relaxed/simple;
-	bh=LY41AWwZgTNGgRkVR34EfSW+VvJaa0ABgmH1Yoknl/A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bXaae9pxvpSYxlPnNgLDTUWbNGh+WGsluVe2eW5Oky3QP/XsB5DJ0vUJ+bhBHCwAdyNqwMLMeMIcgCupHcQpknrD3Ki/UU97o93E8N6/s4i15KILNQpBQlRPsoDQIJtunaKDtgL96vsLp8ezA8ZOcz69WIm8UOMdMgHcJPbai9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=RfECx5lI; arc=none smtp.client-ip=91.218.175.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788432174; c=relaxed/simple;
+	bh=+GX8WEIiqxcsxRx8lJOjMEWa5txU6zxSwwWpPI3e4mA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L7uo7WzyVwwA1/70EdW7fR1/acutGPsvvkRy0R14pzSEAwAvsinvhsGR3UZkWrFe25tTcizScnitSs2p7MHH8f8dWYbaUXfGEEIjREO2+Gij2+HVEA2m2iLo5tkIQuSyJ3kibNHrdEKdpUbJclnpPUzZFNFJKEEFXq6FyKxizz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DbrG4Dvr; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="RfECx5lI"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=LY41AWwZgTNGgRkVR34EfSW+VvJaa0ABgmH1Yoknl/A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788432144; v=1; x=1789036944;
- b=RfECx5lIWKZIreKyAHTL9L7mW/SBKzqBFlOX0jJwgp6ws+wshw10mpjD63BH2fgtUfWBKS1q
- +hVaDaiWrvSug7BOhoLCRD6+O1Mi5GY9qRGmcaj1jpbX0nNXWGP30f332snFBaZY5gliykiVfJQ
- 1NKfm0Zm7qYW2g4AfqN1Beww=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f601bdfda607a2b4;
-	Thu, 03 Sep 2026 10:42:14 +0000
-X-Mizu-Trace-ID: f601bdfda607a2b4
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <46f83a1c-02ed-4c64-9eeb-2fc435fdfb24@linux.dev>
-Date: Thu, 3 Sep 2026 12:42:09 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DbrG4Dvr"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4957eefd361so15431515e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 03:42:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788432171; x=1789036971; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aaqNY17cMmjcPMSLqDr2N+tN8Vmcq3Ywr2AifLrAlrE=;
+        b=DbrG4DvrJEOiaTFF3e5+/ksSjj01VWHj5uWjijZFe0564CUW9240Y4jFfUerAJsknJ
+         T3AEfegt+LnWvUTkbvCFFGZChn1/MC6X+ZJ6ik1HLv3OkmVKiQVKn9sqquNxfPvDBmlm
+         cSvs7EwJKENtUslckdygm4NOOd5S67vqjZVzQKlju0hq6mpmzPeHAyqglM58Xl6gMNYT
+         u3R5qBkHWnKhPgVx/hpXq2/04LfuDrPH0Id+Q8UuMNnzntMZUU0Qf6DNN+MQMcYmf040
+         oZE6gaBH1EpYPoFJIoCftEbeh7zzOMkHRysN9JumJeT/R2GX4wXrcp7cSdwNxYD/WHTV
+         8MvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788432171; x=1789036971;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aaqNY17cMmjcPMSLqDr2N+tN8Vmcq3Ywr2AifLrAlrE=;
+        b=o9+Foz77i924tmoBzmE0mR72377Q4rupKwdmkzNNj5uCdXFQx2Ar6zZMaJclWbzRXD
+         j9YJZyPkUbcKXVD81X6cIs7AmFw+Eac/Gbv3NsISRlsL6imEnRAy6DmENZM6Bcprw34W
+         28l0vxLg1/+LWVihi63ficSrSqF9szqjuduLks7+PL2m8UBM35Vo8aQC+2LRW7HIPBzK
+         6iNKktqBfyokaMX7ZibFi8VH8sNgiw1IrAXP81/+nk4YTpCgPHoLpfwWSQ2eb4G/zP+g
+         CsLowLhcNMEcy0SOEvkHTijC0fiF1CHL6ZybGfghL4JvKHGRBA3tmEsZjWA5WYIszHSX
+         +2Eg==
+X-Forwarded-Encrypted: i=1; AKwUvBx++aekOmMQpGfux7cr7qqSmh6DktYvI3M/q4y+nio2ip8l2/QEWrs6zBmRYYd0RpMvpx++YDiRN/S55U4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lg+HE1jjjbypBd1dstxanTZpKl9H2vN/3xmziZ8gGnDvdISiN3
+	jt5biw8xfIBxdLhjpEzwnmE8+cYaEQMeHEx0d+a3geyPQckjaVvwZpckGOKFaCf2
+X-Gm-Gg: AYBFou2RCO+qrpQXG6v99JyGICa7JanSdK1Rw9i1mJf4NWQvdarXwx3O6Kv40VhVO71
+	9fllMLtYQQZ5CIFFZm44WE+eJMvzX+oPuLAJdm5keFhF6hkCp2I0F10tCz2z8+5tOGPHCD5zobZ
+	Cwg1xf1J1wi1GLnitiwhpOPQN9ZKMwg7svfhpcXFn6zJMhtBXvdVpXI+mf3pP+OvMPGY7lCjbEw
+	bioLb3c2Vz6466QHrJk8Sn/7eJ60VKmyR4yh74CpNVZ75d0tObdY35AVr2ApF+9y4fOOYZvtXff
+	DeGFHCrPQYobfIwAJ/WpiRdXNZKwEFJJqQhqLPb09PM7/RJhO5OMpv9qQejh88FwUDdJp4I6vNU
+	kzLqMyJf/9rXAN3QCwSxhItSNdS/Sb2yxV006SosG1FL6YKZSSwdL/x9KZsARkWuV+hdZbJ5wQq
+	1EjXL8J+XUomc+GSFFQ2jzI5dQsSF/YMHLhooTZMtwJ/VzDNlWrwXPdMftG+h2RTzNHNIifzDg3
+	aMxJuiJ/bttizyyDol0xvxOXf015R6m
+X-Received: by 2002:a05:600c:3f08:b0:49c:e1ed:26b1 with SMTP id 5b1f17b1804b1-49ce5850cefmr215418115e9.16.1788432170902;
+        Thu, 03 Sep 2026 03:42:50 -0700 (PDT)
+Received: from ubuntu-mbp.fritz.box (bzq-85-130-235-2.static.bezeqint.net. [85.130.235.2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf5135353sm5090695e9.2.2026.09.03.03.42.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 03:42:50 -0700 (PDT)
+From: Itay Shem-tov <itayst@gmail.com>
+To: rafael@kernel.org
+Cc: lenb@kernel.org,
+	linux-acpi@vger.kernel.org,
+	sre@kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Itay Shem-tov <itayst@gmail.com>
+Subject: [PATCH] ACPI: SBS: report relative state of charge as CAPACITY
+Date: Thu,  3 Sep 2026 13:42:44 +0300
+Message-ID: <20260903104244.25556-1-itayst@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] RDMA/iwcm: allow aborting an active connect awaiting
- CONNECT_REPLY
-To: Stefan Metzmacher <metze@samba.org>, Leon Romanovsky <leon@kernel.org>,
- Yunseong Kim <yunseong.kim@est.tech>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Jacob Moroni <jmoroni@google.com>,
- Bart Van Assche <bvanassche@acm.org>, Namjae Jeon <linkinjeon@kernel.org>,
- Tom Talpey <tom@talpey.com>, Yunseong Kim <yunseong.kim@ericsson.com>,
- linux-cifs@vger.kernel.org, samba-technical@lists.samba.org,
- linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org
-References: <20260805000159.321645-2-yunseong.kim@est.tech>
- <20260901124103.GL24140@unreal>
- <47142579-3af7-453b-875c-ff6d610f26a7@samba.org>
-From: Bernard Metzler <bernard.metzler@linux.dev>
-In-Reply-To: <47142579-3af7-453b-875c-ff6d610f26a7@samba.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 01.09.2026 18:50, Stefan Metzmacher wrote:
-> Hi Leon,
-> 
->> On Wed, Aug 05, 2026 at 02:02:00AM +0200, Yunseong Kim wrote:
->>> After a successful connect downcall, iw_cm_connect() returns with
->>> IWCM_F_CONNECT_WAIT still set and the cm_id in IW_CM_STATE_CONN_SENT.
->>> The only thing that clears the flag is the provider delivering
->>> IW_CM_EVENT_CONNECT_REPLY (cm_conn_rep_handler()).  Until that event
->>> arrives, iw_cm_disconnect() and destroy_cm_id() sleep uninterruptibly
->>> in
->>>
->>>     wait_event(cm_id_priv->connect_wait,
->>>            !test_bit(IWCM_F_CONNECT_WAIT, &cm_id_priv->flags));
->>>
->>> and both state machines treat IW_CM_STATE_CONN_SENT as BUG(), so the
->>> API has no way to cancel a pending active connect.  If the provider
->>> never generates the reply, because the peer died in the middle of
->>> connection setup or because of a provider bug, every teardown path
->>> (rdma_disconnect(), rdma_destroy_id()) blocks in D state forever and
->>> the ULP cannot recover: there is no way to disconnect after
->>> rdma_connect() was called without risking an unbounded hang.
->>>
->>> This class of problem is not theoretical.  The pending smbdirect
->>> change "smb: smbdirect: bound the disconnect wait in destroy_sync" [1]
->>> had to work around it on the ULP side:
->>> smbdirect_socket_destroy_sync() waited unbounded for the socket to
->>> reach SMBDIRECT_SOCKET_DISCONNECTED, a transition that depends on an
->>> asynchronous RDMA CM disconnect event, and when the peer died abruptly
->>> (a killed client, or Soft-RoCE/RXE where no graceful disconnect
->>> completes) that event never arrived.  The destroy ran on the single
->>> ksmbd-conn-release workqueue, every later connection release queued
->>> behind it in D state, and the whole server wedged until hung_task
->>> fired.  That change bounded the wait and drove the socket state
->>> machine to DISCONNECTED locally on timeout; ULPs should not have to
->>> resort to that, the CM should offer a teardown they can rely on.
->>>
->>> IWCM_F_CONNECT_WAIT currently guards two different windows:
->>>
->>>   * the connect/accept downcall into the provider being in progress;
->>>     teardown must keep waiting for that, it is short and bounded;
->>>
->>>   * an issued active connect waiting for CONNECT_REPLY, which is
->>>     potentially unbounded.
->>>
->>> Mark the second window with a new flag, IWCM_F_CONNECT_SENT: set by
->>> iw_cm_connect() once the downcall has returned successfully, cleared
->>> by cm_conn_rep_handler().  The teardown waits now complete when either
->>> the downcall has finished (!IWCM_F_CONNECT_WAIT, as before) or the
->>> pending-reply window has been entered (IWCM_F_CONNECT_SENT), and the
->>> previously BUG() CONN_SENT cases become:
->>>
->>>   * iw_cm_disconnect(): return -ENOTCONN; there is no established
->>>     connection to disconnect, aborting is the destroy path's job;
->>>
->>>   * destroy_cm_id(): abort the pending connect locally by moving to
->>>     DESTROYING and putting the QP into error so the provider tears the
->>>     connection attempt down.
->>>
->>> A CONNECT_REPLY that arrives after the abort is dropped: either
->>> cm_work_handler() sees IWCM_F_DROP_EVENTS, or cm_conn_rep_handler()
->>> now recognizes IW_CM_STATE_DESTROYING (the abort and the reply
->>> serialize on cm_id_priv->lock) and frees the event without touching
->>> the QP that destroy_cm_id() already released.  The cm_id memory stays
->>> valid for such a late reply because the provider holds its own
->>> reference (cm_id->add_ref) for as long as it can deliver events.
->>>
->>> The passive side has a sibling gap, where after a successful accept
->>> downcall the flag stays set until the provider's ESTABLISHED event
->>> arrives, which this patch deliberately does not change.
->>>
->>> [1] https://github.com/smfrench/smb3-kernel/commit/26d0f82a02c8a9c9c8cdfc138acb7ed0bf8e01a9
->>>
->>> Suggested-by: Stefan Metzmacher <metze@samba.org>
->>> Signed-off-by: Yunseong Kim <yunseong.kim@est.tech>
->>> ---
->>>   drivers/infiniband/core/iwcm.c | 76 +++++++++++++++++++++++++++++-----
->>>   drivers/infiniband/core/iwcm.h |  1 +
->>>   2 files changed, 67 insertions(+), 10 deletions(-)
->>
->> I'm not sure what to do with this patch, as the iWARP folks have
->> remained silent.
->>
->> Stefan,
->>
->> Do you still need this patch? Have you tested it?
-> 
-> I'll test it soon.
-> 
-> But the problem is real and I hit it very often in the past and the only option
-> was a reboot.
-> 
-> I added Bernard explicitly...
-> 
-> metze
-> 
-I follow Yunseong's and Stefan's argumentation.
+acpi_sbs reads SBS command 0x0e (AbsoluteStateOfCharge) into
+battery->state_of_charge, which is exported unmodified as
+POWER_SUPPLY_PROP_CAPACITY.
 
-Thanks,
-Bernard.
+Per the Smart Battery Data Specification 1.1, 0x0e is expressed as a
+percentage of DesignCapacity and is explicitly permitted to exceed 100%.
+Documentation/ABI/testing/sysfs-class-power specifies the capacity
+attribute as "Valid values: 0 - 100 (percent)", so any pack whose
+FullChargeCapacity exceeds its DesignCapacity - the normal state of a
+new or recently replaced battery - makes the driver report out of range.
+
+The correct source is 0x0d (RelativeStateOfCharge), a percentage of
+FullChargeCapacity, which the specification bounds to 0..100.
+
+This is the same defect that was fixed in the i2c SBS driver by commit
+b1f092f6480e ("sbs-battery.c: Capacity attr = remaining relative
+capacity"), whose reasoning applies verbatim here; drivers/acpi/sbs.c was
+not updated at the time. drivers/power/supply/sbs-battery.c has used 0x0d
+since, so the two SBS drivers currently disagree about what CAPACITY
+means.
+
+Observed on a MacBookPro11,1 with an SMP/bq20z451 pack
+(FullChargeCapacity 6775 mAh, DesignCapacity 6400 mAh). Both registers
+read back-to-back from the pack at a full charge:
+
+  0x0d RelativeStateOfCharge = 100 %
+  0x0e AbsoluteStateOfCharge = 106 %
+
+/sys/class/power_supply/BAT0/capacity reported 106 while upower, which
+computes charge_now/charge_full itself rather than trusting the driver,
+reported 100.
+
+battery->state_of_charge has no other consumer, so no other property
+changes behaviour.
+
+Signed-off-by: Itay Shem-tov <itayst@gmail.com>
+---
+ drivers/acpi/sbs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/acpi/sbs.c b/drivers/acpi/sbs.c
+index 86b7c79..862cb94 100644
+--- a/drivers/acpi/sbs.c
++++ b/drivers/acpi/sbs.c
+@@ -318,7 +318,7 @@ static struct acpi_battery_reader state_readers[] = {
+ 	{0x0a, SMBUS_READ_WORD, offsetof(struct acpi_battery, rate_now)},
+ 	{0x0b, SMBUS_READ_WORD, offsetof(struct acpi_battery, rate_avg)},
+ 	{0x0f, SMBUS_READ_WORD, offsetof(struct acpi_battery, capacity_now)},
+-	{0x0e, SMBUS_READ_WORD, offsetof(struct acpi_battery, state_of_charge)},
++	{0x0d, SMBUS_READ_WORD, offsetof(struct acpi_battery, state_of_charge)},
+ 	{0x16, SMBUS_READ_WORD, offsetof(struct acpi_battery, state)},
+ };
+
+--
+2.51.0
