@@ -1,199 +1,189 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 601AF3630BF;
-	Thu,  3 Sep 2026 23:24:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3826D383C6E;
+	Thu,  3 Sep 2026 23:24:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788477880; cv=none; b=OZWn1qv5xret3+v3QTPrT3qPxvd5Df66S+nS/0k4jOazF67psBkVXAFicOBiyUCvEwu1D0hT6SLjo4YBYUoZSCDCgnd/uUQORsI+9ur0jmpQ9cUOrTOt/q8OpWNsj8fypqv1CRzuV4RXibqGTtH0uUKOLU8iTRcTah2Jkm+avCU=
+	t=1788477882; cv=none; b=tUWcl8DN7CKCO/GXwaLpfwTj9/VGNbu5Bud2cjwPkJZVKjareV1rYB6PhM5TvN8/s6xgaF2HNaKEnlH7XWK/9vzByALv+Ai4SlzaUNdF+rwUByKwIhX9a4uAgQ3c+yO9nnbxM55+rF0Vcc7+iYbPSe/J7bHo5a88jrpKnWbYJ78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788477880; c=relaxed/simple;
-	bh=r1vurSscIyny3Yx0Jf+hbRvdDU8fpobXkuTGkEBoLkA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=SnzUhUitRRRUcp8bfUpT+Hmud9/btGWedPTJ5p6/gb7cv/e+2XBc2DV2RYxsDbgzsTSOlXLQcmeUqDOzXI7sC1qE6AYzzz40Uf+TvgKFijy26y80eQm0V/08kK4BmiHVrSg1FMxlaEfcQLI5mY6zbFMt6E7gByeOki5w/8AE3Jk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PQqdPpF/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788477882; c=relaxed/simple;
+	bh=I8vK/xnJwji/H+K76XKA6oGWu4PVuJJ/rWaRqqzSn7E=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=dCWqvtp/7M7GdKQ5thKVp2GWzLaDAW6yfr7tVFyBX8+QO7xhTwIQRErp4QrF0fSYeEPjNafcWqBMeFCrnHuZEn9wpQjyrpATcmGF/0K7LhPppZUrAwM66Nz5fcC/B4LdH1rYkdCPoIivP0YFNUUkMy57WBFvapGdGwNNsC0PF1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hsxcrze/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PQqdPpF/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 172C81F00A3E;
-	Thu,  3 Sep 2026 23:24:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hsxcrze/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 770A61F00A3F;
+	Thu,  3 Sep 2026 23:24:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788477879;
-	bh=1LW90y13IOdbJfNjSUxpwj36Qi9PJAz/jImCqGzw6do=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PQqdPpF/lOhYgVvPkGqlXNzXFu1bi970wQZ/QPDMV8HwXsXHjR1H1bSt17Tu85lGE
-	 hcLYqkJJ1z+UqpvZZpPbBBPyfBOSk8/MhtHqxoUSW1qVzCuTvXh+SqULNUOhZ6Q9ix
-	 AMdeYlrhJxIi4w1q5a1QTBS5p/cXhF2iL7kovLs3TyblFspLgK9TZVLGLd4a+cAvzW
-	 I+gp2KscsMUpPKH+RIoMgkt9rY4EmyHYyinwtHixZtGRkxTDNoW04qHdMEJAXvK6X1
-	 91yVBXKKV3E4Y8Kx1wldVQCb4GraKp9sbd5JJGpCQ2Jz7E7yYkOsShvfdgPSDLc0M2
-	 hBVtYKOcURbeg==
-From: Kees Cook <kees@kernel.org>
-To: Bill Wendling <morbo@google.com>
-Cc: Kees Cook <kees@kernel.org>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: [PATCH 1/2] randstruct: fix container_of() false positives after __mptr removal
-Date: Thu,  3 Sep 2026 16:24:35 -0700
-Message-Id: <20260903232438.60394-1-kees@kernel.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260903232428.i.323-kees@kernel.org>
-References: <20260903232428.i.323-kees@kernel.org>
+	s=k20260515; t=1788477880;
+	bh=zFT2zUt53aUu7qGPcRXVpBNsjYv+H5a81LT2gMX200M=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=hsxcrze/yDEVWvpMmH/CbDglq/W0G72xVPVFkM1FGjqvfu24l0imp6TQFvZyDnRWQ
+	 ir73H6vqi7b054rAUuepPYILL3EndVbVlh8RXngxkVrN087Ski0Xl5AM1WKEUHEiQs
+	 nVZ1kxYjBA9neExyGLTq+1btJezhSq3ZnvWBcZm+eC5UBA+TzSa1Z1Fm7jIzigBdd7
+	 IQt7v7xRXlRYfWWcJUD1AZWsVJXlDszCfR7N+KdjF34B6wDAJJFQgaZLxGdtgtUj82
+	 HBGaycSET7hbbFME/3Ujmy7H0Amwx9SSDhXrJNxb7g1BUU3rmeHbjWRSwt+o+sWjwa
+	 ctFYVPblnmIhQ==
+Subject: Re: [PATCH net v4] net: qualcomm: rmnet: require CAP_NET_ADMIN in the
+ real device netns for config ops
+From: netdev-bot+sashiko@kernel.org
+To: suruurism@gmail.com
+Cc: subash.a.kasiviswanathan@oss.qualcomm.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, sean.tranchetti@oss.qualcomm.com,
+ horms@kernel.org, stable@vger.kernel.org, kuba@kernel.org
+Date: Thu, 03 Sep 2026 23:24:39 +0000
+Message-ID: <178847787997.4131868.406911054016867942@kernel.org>
+In-Reply-To: <20260901081441.632-1-suruurism@gmail.com>
+References: <20260901081441.632-1-suruurism@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5737; i=kees@kernel.org; h=from:subject; bh=r1vurSscIyny3Yx0Jf+hbRvdDU8fpobXkuTGkEBoLkA=; b=owGbwMvMwCVmps19z/KJym7G02pJDFmzGDcnXm7xnJZlf8y2TG5+oBOj4fnSpz4ycbMsXiz7/ 4yPJUSoo5SFQYyLQVZMkSXIzj3OxeNte7j7XEWYOaxMIEMYuDgFYCKTexj+u1lw3Dvs5p9yI839 yhfmDd8Mb6293rnDOfVI+7PqJSoZcxkZ+pPE7tefebqvKmWB8a+zzIfnHA1sOLHup45B6nqNZTr vOQE=
-X-Developer-Key: i=kees@kernel.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
-Content-Transfer-Encoding: 8bit
 
-Commit f9e7a7564834 ("container_of: remove local __mptr variable") dropped
-the "void *__mptr" temporary from container_of(). The randstruct GCC
-plugin's find_bad_casts pass recognized the casts container_of() generates
-by that variable's name:
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-	const_tree ssa_name_var = SSA_NAME_VAR(rhs1);
-	/* skip bogus type casts introduced by container_of */
-	if (ssa_name_var != NULL_TREE && DECL_NAME(ssa_name_var) &&
-	    !strcmp(DECL_NAME_POINTER(ssa_name_var), "__mptr"))
-		continue;
+Critical: 0 · High: 1 · Medium: 0 · Low: 1
 
-With the variable gone the suppression never fires, so every
-container_of() whose container type is randomized now emits a note:
+- [High] Incomplete cross-netns authorization: the ethtool coalesce
+  setter rmnet_set_coalesce()…
+- [Low] The two new -EPERM returns that have an extack available carry no
+  extended ACK message.
 
-  include/linux/container_of.h:23:9: note: randstruct: casting between
-    randomized structure pointer types (ssa): 'struct ocfs2_triggers' and
-    'struct jbd2_buffer_trigger_type'
-  fs/ocfs2/journal.c:524:16: note: in expansion of macro 'container_of'
+--
 
-The pass runs on GIMPLE, after folding, and for a member at offset 0 the
-whole expression collapses to a bare copy that is indistinguishable from
-an unsafe cast:
+net: qualcomm: rmnet: require CAP_NET_ADMIN in the real device netns for
+config ops
 
-  to_ocfs2_trigger (struct jbd2_buffer_trigger_type * triggers)
-  {
-    _2 = triggers_1(D);   /* void * cast and subtraction gone */
-    return _2;
-  }
+This adds an rtnl_dev_link_net_capable() gate to rmnet_changelink(),
+rmnet_add_bridge() and rmnet_del_bridge() so that a caller privileged only
+in the rmnet device's netns cannot rewrite the rmnet port state attached to
+a real device living in another netns.  Two observations below on the set
+of paths covered and on the error reporting.
 
-Match the type relationship instead. A cast from A * to B * is a
-container_of() if B reaches a field of type A at offset 0 through a chain
-of by-value members. The chain matters: container_of()'s member argument
-may be a dotted path, as in ceph_inode(), which is container_of(inode,
-struct ceph_inode_info, netfs.inode) and needs two levels. The search
-is depth-bounded to 4 just in case, since real paths are generally one
-or two members deep.
+> diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
+> index bed6f63facf25..5d0a4a428e97a 100644
+> --- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
+> +++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
+> @@ -312,6 +312,13 @@ static int rmnet_changelink(struct net_device *dev, struct nlattr *tb[],
+>  	if (!rmnet_is_real_dev_registered(real_dev))
+>  		return -ENODEV;
+>  
+> +	/* The rtnl path only checks CAP_NET_ADMIN against dev_net(dev),
+> +	 * but the port state mutated below is attached to real_dev, which
+> +	 * may live in a different netns.
+> +	 */
+> +	if (!rtnl_dev_link_net_capable(dev, dev_net(real_dev)))
+> +		return -EPERM;
+> +
 
-Requiring the cast happens at offset 0 is done because any other member
-offset the subtraction survives folding and the cast's rhs is still
-void *, which the pass already skips a few lines above.
+[Severity: High]
+Is the ethtool coalesce setter intentionally left out of this series?
 
-A cast between two randomized types with no containment relationship is
-still reported. Verified with:
+rmnet_set_coalesce() in rmnet_vnd.c reaches the same shared port through
+the rmnet device and rewrites it, with no netns check:
 
-	struct cred *f(struct file *f) { return (struct cred *)f; }
+drivers/net/ethernet/qualcomm/rmnet/rmnet_vnd.c:rmnet_set_coalesce() {
+	struct rmnet_priv *priv = netdev_priv(dev);
+	struct rmnet_port *port;
 
-which is still flagged with the patch applied.
+	port = rmnet_get_port_rtnl(priv->real_dev);
 
-Clang's implementation is unaffected. It checks the cast as written, and
-both the old and new macros cast from void *, which is always permitted;
-a genuinely bad cast is rejected there as a hard error rather than a note.
+	if (kernel_coal->tx_aggr_max_frames < 1 || kernel_coal->tx_aggr_max_frames > 64)
+		return -EINVAL;
 
-Build tested ARCH=x86_64 defconfig with CONFIG_RANDSTRUCT_FULL=y and GCC
-14.2.0: randstruct notes 52 before, 0 after.
+	if (kernel_coal->tx_aggr_max_bytes > 32768)
+		return -EINVAL;
 
-Fixes: f9e7a7564834 ("container_of: remove local __mptr variable")
-Assisted-by: Claude:claude-opus-5[1m]
-Signed-off-by: Kees Cook <kees@kernel.org>
----
- scripts/gcc-plugins/randomize_layout_plugin.c | 61 ++++++++++++++++++-
- 1 file changed, 58 insertions(+), 3 deletions(-)
+	rmnet_map_update_ul_agg_config(port, kernel_coal->tx_aggr_max_bytes,
+				       kernel_coal->tx_aggr_max_frames,
+				       kernel_coal->tx_aggr_time_usecs);
+}
 
-diff --git a/scripts/gcc-plugins/randomize_layout_plugin.c b/scripts/gcc-plugins/randomize_layout_plugin.c
-index ff65a4f87f24..e2bd9ba08089 100644
---- a/scripts/gcc-plugins/randomize_layout_plugin.c
-+++ b/scripts/gcc-plugins/randomize_layout_plugin.c
-@@ -698,6 +698,63 @@ static void handle_local_var_initializers(void)
- 	}
- }
- 
-+/*
-+ * Does @container reach a field of type @member_type by a chain of
-+ * by-value members? That is the relationship container_of() expresses --
-+ * its @member argument may be a dotted path, e.g.
-+ * container_of(inode, struct ceph_inode_info, netfs.inode) -- so a cast
-+ * from @member_type * to @container * is legitimate rather than a
-+ * layout-confusing one.
-+ *
-+ * container_of() used to leave a "void *__mptr" temporary behind, and this
-+ * pass recognised such casts by that name. Commit f9e7a7564834
-+ * ("container_of: remove local __mptr variable") removed it to stop nested
-+ * container_of() shadowing itself, and the cast now folds to a bare SSA
-+ * copy when the member sits at offset 0, leaving nothing syntactic to key
-+ * on. Match the type relationship instead.
-+ *
-+ * The depth bound keeps this cheap; container_of() paths are one or two
-+ * members deep in practice.
-+ */
-+#define CONTAINER_OF_MAX_DEPTH 4
-+
-+static bool is_container_of_cast(const_tree container, const_tree member_type,
-+				 int depth)
-+{
-+	const_tree field;
-+
-+	if (container == NULL_TREE || depth > CONTAINER_OF_MAX_DEPTH)
-+		return false;
-+
-+	if (TREE_CODE(container) != RECORD_TYPE &&
-+	    TREE_CODE(container) != UNION_TYPE)
-+		return false;
-+
-+	for (field = TYPE_FIELDS(container); field; field = DECL_CHAIN(field)) {
-+		const_tree field_type;
-+
-+		if (TREE_CODE(field) != FIELD_DECL)
-+			continue;
-+
-+		/*
-+		 * Only a member at offset 0 can reach here: for any other
-+		 * offset container_of()'s subtraction survives folding, the
-+		 * cast's rhs stays void *, and the caller skipped it above.
-+		 */
-+		if (!integer_zerop(byte_position(field)))
-+			continue;
-+
-+		field_type = TYPE_MAIN_VARIANT(TREE_TYPE(field));
-+		if (field_type == member_type)
-+			return true;
-+
-+		if (is_container_of_cast(field_type, member_type, depth + 1))
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
- /*
-  * iterate over all statements to find "bad" casts:
-  * those where the address of the start of a structure is cast
-@@ -799,10 +856,8 @@ static unsigned int find_bad_casts_execute(void)
- #endif
- 				MISMATCH(gimple_location(stmt), "op0", ptr_lhs_type, op0_type);
- 			} else {
--				const_tree ssa_name_var = SSA_NAME_VAR(rhs1);
- 				/* skip bogus type casts introduced by container_of */
--				if (ssa_name_var != NULL_TREE && DECL_NAME(ssa_name_var) && 
--				    !strcmp((const char *)DECL_NAME_POINTER(ssa_name_var), "__mptr"))
-+				if (is_container_of_cast(ptr_lhs_type, ptr_rhs_type, 0))
- 					continue;
- #ifndef __DEBUG_PLUGIN
- 				if (lookup_attribute("randomize_performed", TYPE_ATTRIBUTES(ptr_rhs_type)))
+rmnet_map_update_ul_agg_config() then stores into the real device's port:
+
+	spin_lock_bh(&port->agg_lock);
+	port->egress_agg_params.bytes = size;
+	WRITE_ONCE(port->egress_agg_params.count, count);
+	port->egress_agg_params.time_nsec = time * NSEC_PER_USEC;
+	spin_unlock_bh(&port->agg_lock);
+
+The authorization on that path is only against the netns the rmnet device
+was addressed through: dev_ethtool() checks
+ns_capable(net->user_ns, CAP_NET_ADMIN), and ETHTOOL_MSG_COALESCE_SET is
+registered with GENL_UNS_ADMIN_PERM.  Neither consults
+dev_net(priv->real_dev).
+
+Can that value also stop the uplink traffic of the other netns?
+tx_aggr_max_bytes == 0 with tx_aggr_max_frames >= 2 passes the validation
+above, and the aggregation path in rmnet_map_tx_aggregate() then computes:
+
+		size = port->egress_agg_params.bytes - skb->len;
+
+		if (size < 0) {
+			/* dropped */
+			spin_unlock_bh(&port->agg_lock);
+			return 0;
+		}
+
+which is taken for every nonempty packet on that port, for all endpoints
+muxed on the real device, and is turned into -ENOMEM by
+rmnet_map_egress_handler().
+
+Would it make sense to add the same
+rtnl_dev_link_net_capable(dev, dev_net(priv->real_dev)) gate to
+rmnet_set_coalesce() with a Fixes: tag for the coalesce support commit, or
+alternatively to note in the changelog why this op is excluded?
+
+>  	port = rmnet_get_port_rtnl(real_dev);
+>  
+>  	if (data[IFLA_RMNET_MUX_ID]) {
+> @@ -441,6 +448,13 @@ int rmnet_add_bridge(struct net_device *rmnet_dev,
+>  	struct rmnet_port *port, *slave_port;
+>  	int err;
+>  
+> +	/* The rtnl path only checks CAP_NET_ADMIN against dev_net(dev),
+> +	 * but the port state mutated below is attached to real_dev, which
+> +	 * may live in a different netns.
+> +	 */
+> +	if (!rtnl_dev_link_net_capable(rmnet_dev, dev_net(real_dev)))
+> +		return -EPERM;
+> +
+
+[Severity: Low]
+This isn't a bug, but should these two -EPERM returns carry an extack
+message?  Both rmnet_changelink() and rmnet_add_bridge() get a
+struct netlink_ext_ack *extack and already describe every other failure
+that way, for example "MUX ID already exists", "Invalid MTU on real dev",
+"more than one rmnet dev attached", "more than one bridge dev attached" and
+"slave cannot be another rmnet dev", while the new capability failure
+returns a bare -EPERM.
+
+The equivalent gate in macvlan does report it, in both
+macvlan_common_newlink() and macvlan_changelink():
+
+drivers/net/macvlan.c:macvlan_changelink() {
+	    !rtnl_dev_link_net_capable(dev, dev_net(vlan->lowerdev))) {
+		NL_SET_ERR_MSG(extack,
+			       "Changing shared macvlan port settings requires CAP_NET_ADMIN in the lower device network namespace");
+		return -EPERM;
+}
+
+rmnet_del_bridge() has no extack argument, so only the changelink and
+add_bridge sites can do this without a signature change.
+
+>  	port = rmnet_get_port_rtnl(real_dev);
+>  
+>  	/* If there is more than one rmnet dev attached, its probably being
+
+[ ... ]
+
 -- 
-2.34.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260901081441.632-1-suruurism%40gmail.com
