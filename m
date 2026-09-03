@@ -1,161 +1,173 @@
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF44485CCA;
-	Thu,  3 Sep 2026 12:27:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 005B04908AD
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:28:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788438480; cv=none; b=kg3itz8RI1gMz440vKbzneSBn343BglzTD/FEDDWTlYPcSTblSfZD3H1IsZnXrbWNdxsDV4q4V5XK/qIoo8MHJF/iF+pfL0XS0EJoekOyJw2icWnI8xFntpcAw9PCiRS0Cn/05IimhrXqp+YjjvqZyB6nBBuaJuGEgVXFVKSwPQ=
+	t=1788438489; cv=none; b=kGaJD/Hgi/0kJg11eFAv/TYkJYI2mESon5xYIx8foOkoGrD+ynKMOKPoleQ7vIKHvuOxRJi1tJ42haXhf9H2FqJQ0QetiKs61iaMrcA3PVdoXzqA53J4TRmWs/9nOtF6QtrN4zFCYNIw663zD6FLs/W3UrWsMrxoOY0sVjqNwcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788438480; c=relaxed/simple;
-	bh=tPgQPqeQ8tivFoOi8T92/LAwDafbjGB3DMZys3D1d8g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R0ZDxHSP8T8QhpDGbO5RVyX4j54Yc8DUjvKaBVpqqvrulx0lgh9PpNraE4Thd4JPPlFfROHXcpfu542Nn3VRTc3rAbXoajOFj2Xo6FTVTn7rSB9JXkc5Fv5obDYMJl3nUqrNJlPMUJiWPxe4UIMsxdzsrHN90UTWRc21MZkjBaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=ewng8sCF; arc=none smtp.client-ip=115.124.30.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788438489; c=relaxed/simple;
+	bh=J1iHfgTJrxvMwx0A3ullfLihFOTmPPBT5Wz1CdM9JMo=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=KNsZTXsHnDQTF04yy+vt1cpyi8lI3TNoXQShjLoBJwXMZDyZ+8itlCtn/P7NgWR7aBktdVjlJfC2FCWynumy1I8NAgMozIZeDrdoOdr9PrFhLW4V6vbkb7VpnXiZOBz6AdlRap0xnRZbNIu7m0aegPFKz6WjP3aUtkhdQ+KaP5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wg85vMN5; arc=none smtp.client-ip=209.85.128.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="ewng8sCF"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788438470; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=iSSfdL1I/sWuhejsZXnDXVfRiUf2pDJbtuLEZmLDvb8=;
-	b=ewng8sCFzw4k/iSZrIWhvFJJeaOlW/jA0VOnK5InyKGKdLoPHOX2+s6MFh0kOm+v9/InuIs64r7/+JAsKaFhgUsUmOY5V01k986TGBiXZ/lm81CYqcYzwTwQ5OUIJbjIesewXaYdilDLYWOU6ZRVydVxsOrkdqhfLzBhqeeJ2QU=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R361e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=xueshuai@linux.alibaba.com;NM=1;PH=DS;RN=33;SR=0;TI=SMTPD_---0XAFvA3u_1788438466;
-Received: from 30.246.160.252(mailfrom:xueshuai@linux.alibaba.com fp:SMTPD_---0XAFvA3u_1788438466 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 03 Sep 2026 20:27:48 +0800
-Message-ID: <3dc96249-5103-4b00-8981-5d309ad9e941@linux.alibaba.com>
-Date: Thu, 3 Sep 2026 20:27:46 +0800
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wg85vMN5"
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4997b060af8so21578235e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:28:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788438482; x=1789043282; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V8oMeUkkadw5964DdmpGPYbX5e2DZr/ayCcvdDJ6rss=;
+        b=wg85vMN5fUOD17yCG8T1aWvNgfbcPbsJaaXkYZeAI1ETMj9g1sK+WaRFp3tRthcX0L
+         dkMdjfb7XZ0wZ5DUgI4I2QlXhU5cfXqRPIwYvAAe/h2D0KGYy95qKgUSaA4+dZ1VC8u6
+         /XEJg/GxWzcy0CQCCYeWKUdyKK4wnMhL1Dr5xundW2Zoz63bS2+R+iY/Ax5NcDJ45ugo
+         IaEnJv3UY1Nduc8loRgY3WIvJl4TJwpddPHDyEC81Xg2oqTwtkmmoZtxgZe46sC//xom
+         WMTYuANzWVzX7mwskoTydFVJDmehIrDbMB6MlL2U78gO8w18iAFBS8zvFUEcnLELSA35
+         SGww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788438482; x=1789043282;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=V8oMeUkkadw5964DdmpGPYbX5e2DZr/ayCcvdDJ6rss=;
+        b=ArXc1hXxNJzeCREJXmThqmUGCq8xDW4D8s9PMDSYK1dV2mYaClkOrxJlf5vtlUYlCZ
+         aptvufLng2w5+scYTjRpMYqDqOUWC/1Y+r2PDaV0cRMLAP68Ma7p2m4kImtHZmOLJZHg
+         ABk+Nv7B+MpKocIDRoiKeMHdJIr5pi8Chv8PlzClazrlhAxxdJGByAqV2YJ2UM1ZL2Km
+         sUjN2jGXbaaCLDeYKrM/L5sSwiiH6iMBcAyoTXklWqt8CSHs+DgEahQG+M+LTGl+ODFb
+         Td3jqRamLJEoJ3NlkBONNLPvNXOB7y3xly/dOXKIIki3w8kI2sSk1h1I0r/x14iRPRsb
+         iFvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxZ7Q5hDPuUSizjXuPcfH0zWnCaNHk8wLkwlBdrkqj5l77rI2tZxFyGlV04vGlOhkxo5FkyPNMCNSpA4IY=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8uhXof0+KlEltRut40TDN5Av+0CiNaC+d6PnbCaVXwz5Cbrh7
+	CJNOGGOhe4f7gbK1fEwtZ+WxkYT8bDJe1Qsf6NCj16oo0aHtd7bEzI4J0xZTS4qajc14Kc7TfZc
+	G3LkMKM0+Qx+o9JADUw==
+X-Received: from wmbb16.prod.google.com ([2002:a05:600c:5890:b0:49c:e267:c017])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:3f08:b0:49c:e1ed:26b1 with SMTP id 5b1f17b1804b1-49ce5850cefmr230495895e9.16.1788438481854;
+ Thu, 03 Sep 2026 05:28:01 -0700 (PDT)
+Date: Thu, 3 Sep 2026 12:28:00 +0000
+In-Reply-To: <20260726223613.1242940-4-dakr@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 17/27] vfio/cxl: Virtualize the CXL DVSEC
-To: mhonap@nvidia.com, alex@shazbot.org, jgg@ziepe.ca, ankita@nvidia.com,
- jic23@kernel.org, dave.jiang@intel.com, alejandro.lucero-palau@amd.com,
- smadhavan@nvidia.com, corbet@lwn.net, skhan@linuxfoundation.org,
- dave@stgolabs.net, alison.schofield@intel.com, vishal.l.verma@intel.com,
- iweiny@kernel.org, ming.li@zohomail.com, yishaih@nvidia.com,
- skolothumtho@nvidia.com, kevin.tian@intel.com, bhelgaas@google.com,
- dmatlack@google.com, kees@kernel.org, gustavoars@kernel.org
-Cc: cjia@nvidia.com, kjaju@nvidia.com, vsethi@nvidia.com, zhiw@nvidia.com,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- kvm@vger.kernel.org, linux-cxl@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-hardening@vger.kernel.org
-References: <20260813093631.2288172-1-mhonap@nvidia.com>
- <20260813093631.2288172-18-mhonap@nvidia.com>
-From: Shuai Xue <xueshuai@linux.alibaba.com>
-In-Reply-To: <20260813093631.2288172-18-mhonap@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20260726223613.1242940-1-dakr@kernel.org> <20260726223613.1242940-4-dakr@kernel.org>
+Message-ID: <apln0Aee5iXOFShC@google.com>
+Subject: Re: [PATCH 3/5] rust: sync: add WaitQueue infrastructure
+From: Alice Ryhl <aliceryhl@google.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: gregkh@linuxfoundation.org, arve@android.com, tkjos@android.com, 
+	brauner@kernel.org, cmllamas@google.com, boqun@kernel.org, gary@garyguo.net, 
+	lyude@redhat.com, daniel.almeida@collabora.com, work@onurozkan.dev, 
+	juri.lelli@redhat.com, vincent.guittot@linaro.org, dietmar.eggemann@arm.com, 
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
+	kprateek.nayak@amd.com, ojeda@kernel.org, bjorn3_gh@protonmail.com, 
+	lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu, 
+	tamird@kernel.org, acourbot@nvidia.com, peterz@infradead.org, 
+	mingo@redhat.com, will@kernel.org, longman@redhat.com, 
+	viro@zeniv.linux.org.uk, jack@suse.cz, tj@kernel.org, jiangshanlai@gmail.com, 
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 
+On Mon, Jul 27, 2026 at 12:36:09AM +0200, Danilo Krummrich wrote:
+> +    /// Returns a raw pointer to the underlying `wait_queue_head`.
+> +    #[expect(unused)]
+> +    #[inline]
+> +    pub(super) fn as_raw(&self) -> *mut bindings::wait_queue_head {
 
+This should 'pub'. Then you can drop #[expect(unused)].
 
-On 8/13/26 5:36 PM, mhonap@nvidia.com wrote:
-> From: Manish Honap <mhonap@nvidia.com>
-> 
-> Serve reads of the CXL DVSEC body from the per-open shadow and keep guest
-> writes in the shadow rather than letting them reach the hardware, so a
-> guest cannot reprogram the device through the DVSEC. Accesses outside the
-> CXL DVSEC return -ENODEV and take the default DVSEC handling, so a device
-> that also exposes a vendor DVSEC is unaffected.
-> 
-> Route each shadow write through the CXL r4.0 field class rather than
-> storing it verbatim: Control stays programmable, Status is
-> write-1-to-clear, and Capability, Lock and the Range registers keep their
-> firmware snapshot. The guest can no longer set Config Lock or scribble the
-> capability and range fields.
-> 
-> Signed-off-by: Manish Honap <mhonap@nvidia.com>
-> ---
->   drivers/vfio/pci/cxl/vfio_cxl_core.c | 88 ++++++++++++++++++++++++++++
->   drivers/vfio/pci/vfio_pci_config.c   | 36 +++++++++++-
->   include/linux/vfio_pci_core.h        |  5 ++
->   include/uapi/linux/pci_regs.h        |  1 +
->   4 files changed, 129 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/vfio/pci/cxl/vfio_cxl_core.c b/drivers/vfio/pci/cxl/vfio_cxl_core.c
-> index 2e516a0929c6..9fed909cb9d3 100644
-> --- a/drivers/vfio/pci/cxl/vfio_cxl_core.c
-> +++ b/drivers/vfio/pci/cxl/vfio_cxl_core.c
-> @@ -148,11 +148,99 @@ static void vfio_cxl_close_device(struct vfio_pci_core_device *vdev)
->   	cxl->dvsec_shadow = NULL;
->   }
->   
-> +/* Read a 16-bit DVSEC field from the shadow; @off is DVSEC-relative. */
-> +static u16 vfio_cxl_dvsec16(struct vfio_cxl_state *cxl, u32 off)
-> +{
-> +	u32 dw = cxl->dvsec_shadow[off / sizeof(u32)];
+> +    /// Sleeps until the condition returns `true` or a signal is received.
+> +    ///
+> +    /// Returns `Ok(())` when the condition is met, or `Err(WaitError::Signal)` if interrupted
+> +    /// by a signal.
+> +    #[inline]
+> +    pub fn wait_event_interruptible<F: Fn() -> bool>(&self, condition: F) -> Result<(), WaitError> {
+> +        self.wait_event_timeout_internal(TASK_INTERRUPTIBLE, &condition, Jiffies::MAX);
+> +        if !condition() && current!().signal_pending() {
+> +            Err(WaitError::Signal)
+> +        } else {
+> +            Ok(())
+> +        }
+
+I don't think we should call condition() again here. Instead, I think we
+should base it on which 'break' statement was used in wait_event_timeout_internal().
+
+> +    /// Sleeps until the condition returns `true` or the timeout expires.
+> +    ///
+> +    /// Returns `Ok(())` when the condition is met, or `Err(WaitError::Timeout)` if the timeout
+> +    /// elapsed first.
+> +    #[inline]
+> +    pub fn wait_event_timeout<F: Fn() -> bool>(
+> +        &self,
+> +        condition: F,
+> +        jiffies: Jiffies,
+> +    ) -> Result<(), WaitError> {
+> +        let remaining = self.wait_event_timeout_internal(TASK_UNINTERRUPTIBLE, &condition, jiffies);
+> +        if remaining == 0 && !condition() {
+> +            Err(WaitError::Timeout)
+> +        } else {
+> +            Ok(())
+> +        }
+
+Ditto here.
+
+> +    fn wait_event_timeout_internal(
+> +        &self,
+> +        wait_state: c_int,
+> +        condition: &dyn Fn() -> bool,
+> +        jiffies: Jiffies,
+> +    ) -> Jiffies {
+
+Why are we using dynamic dispatch here?
+
+> +    /// Performs a single exclusive prepare-to-wait / finish-wait cycle, calling `schedule_fn`
+> +    /// in between.
+> +    #[expect(unused)]
+> +    pub(super) fn wait_once_exclusive<F, R>(&self, wait_state: c_int, schedule_fn: F) -> R
+> +    where
+> +        F: FnOnce() -> R,
+> +    {
+> +        let wait = Opaque::<bindings::wait_queue_entry>::uninit();
 > +
-> +	return (dw >> (8 * (off % sizeof(u32)))) & 0xffff;
+> +        // SAFETY: `wait` points to valid memory.
+> +        unsafe { bindings::init_wait(wait.get()) };
+> +
+> +        // SAFETY: Both `wait` and `wait_queue_head` point to valid memory.
+> +        unsafe {
+> +            bindings::prepare_to_wait_exclusive(self.wait_queue_head.get(), wait.get(), wait_state)
+
+What about the non-exclusive prepare_to_wait? That's the one Rust Binder
+*should* be using here. It's not ideal that it's using the exclusive
+wait.
+
+> +/// Error returned by [`WaitQueue`] wait functions.
+> +#[derive(Debug, PartialEq)]
+> +pub enum WaitError {
+> +    /// Interrupted by a signal.
+> +    Signal,
+> +    /// The timeout elapsed without the condition being met.
+> +    Timeout,
 > +}
 > +
-> +/*
-> + * Apply the CXL r4.0 8.1.3 write class for the 16-bit DVSEC register at @off.
-> + * Control is programmable, Status is write-1-to-clear, and Capability, Lock and
-> + * the Range registers stay fixed at their firmware snapshot.
-> + */
-> +static u16 vfio_cxl_dvsec_field(u32 off, u16 old, u16 wval, u16 wmask)
-> +{
-> +	switch (off) {
-> +	case PCI_DVSEC_CXL_CTRL:
-> +		/*
-> +		 * CXL.mem stays enabled for as long as the guest owns the device.
-> +		 * The HDM decoder maps the guest window to device memory, so a
-> +		 * store to it while CXL.mem is disabled completes on the device as
-> +		 * an error that the host fabric reports as an SError, which is
-> +		 * fatal. The spec does not pin down accesses to a decoder whose
-> +		 * CXL.mem is off and many hosts SError, so ignore a guest request
-> +		 * to clear the enable and keep the bit set.
-> +		 */
-> +		return ((old & ~wmask) | (wval & wmask)) | PCI_DVSEC_CXL_MEM_ENABLE;
-> +	case PCI_DVSEC_CXL_CTRL2:
-> +		return (old & ~wmask) | (wval & wmask);
+> +impl From<WaitError> for Error {
+> +    #[inline]
+> +    fn from(e: WaitError) -> Error {
+> +        match e {
+> +            WaitError::Signal => ERESTARTSYS,
+> +            WaitError::Timeout => ETIMEDOUT,
+> +        }
+> +    }
+> +}
 
+I agree with Gary's comment about splitting up this error type.
 
-Control2 is routed through the r4.0 write class as plain RW,
-but both INITIATE bits are self-clearing doorbells per spec: the guest
-sets the bit, the device performs the operation and clears it, and
-completion is observed in STATUS2 (Cache_Invalid for the WBI). With the
-plain-RW class the shadow latches the bit at 1 forever, and because
-reads are served from the open-time snapshot, Cache_Invalid
-(CXL_DVSEC_STATUS2_CACHE_INVALID) never changes either.
-Both polling paths are dead ends.
-
-The interesting part is that the series already models this correctly
-for the sibling command bit -- the vfio_cxl_reset() epilogue does:
-
-	/*
-	 * The guest-facing DVSEC bookkeeping only applies while the device
-	 * is open. Initiate_CXL_Reset self-clears in hardware; mirror that
-	 * and stamp the outcome onto a fresh hardware STATUS2 read for the
-	 * polling guest.
-	 */
-
-INIT_CXL_RST is self-cleared in the shadow and the outcome is
-stamped into STATUS2 for the polling guest. Initiate_Cache_WBI just
-never gets the same treatment.
-
-The polling contract is one this series itself implements on the host
-side: cxl_reset_wait_cache_wbi() sets WBI, then polls STATUS2
-Cache_Invalid with a 100ms budget. A guest kernel running the same
-sequence would set WBI, poll the frozen snapshot, and time out before
-ever reaching INIT_CXL_RST, so whether a guest-initiated CXL reset
-succeeds depends on the open-time STATUS2 value rather than on device
-state. The stuck command bit is also directly visible to any guest
-reading CTRL2 back.
-
-Would the minimal fix be to mirror the epilogue's INIT_CXL_RST handling
-for WBI: self-clear the bit on the 0->1 write and set Cache_Invalid in
-the shadow (the host already runs the real WBI at VM power on/off via
-cxl_reset_dvsec_sequence(), and the existing W1C class on STATUS2 lets
-the guest clear Cache_Invalid before the next round)? Or is forwarding
-the WBI to hardware and keeping Cache_Invalid live the intended
-long-term model?
-
-Thanks.
-Shuai
+Alice
