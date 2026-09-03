@@ -1,270 +1,160 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83D4038398F
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:14:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1DF386424
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:14:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788419645; cv=none; b=vE5JNbTEQncY+fhLqNt2agjLkvJif4twpuZ8BVfNRPZOUU8RBNpxpXxsSkbCyvlIP/ykxeJ4e0+rjVaniChUriXKaArfxn/mMO/vFN0ysXQfHrVCZHT7kuVjg8rZjH6DfFYFQw+r1H6DFWNRLSrF66rt5OOC2tHPRdvPfST/lLo=
+	t=1788419664; cv=none; b=BWoCnldMUhRW/+CnxMxtL7MTb+qOAdek5DAAnBN+B3VtbidsR6Oqu+B90dO35NCei273NzVBnRloJAGdjZ7eElEuPtkFoRttGvejqN3GttO6xZcsMcrmb/efvblVQtody37jqXgpKMW1VmlikF8SdCGl6yAdYxvuOXm+RQAg6X0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788419645; c=relaxed/simple;
-	bh=Xa5G4mhQl38Wew636ZQ6vmEJaM4aGAdkb3PaAexBHv8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=egQMVfk5jpJ5EBQJnV1ApdGVzJewszxkRwqwoHMqjS3cXIvUWTyHAdQwHGs0u2sq+at9WFuFgV/epit5bhSlyV6FMHFE4TTZWnDGjDA9rIZxVzeQQ2zlhydXBGVmq2Vfo4opVJyadqbZJ7IFBAoQ2HGSWaoAJ324Q+Wvl/XR54o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dzeMZMN6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A4g07mdi; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788419664; c=relaxed/simple;
+	bh=ESuAv4SbeCyeFc33oJsRO8+fL8zEjorp2qejvugV63A=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=q5aHVjWcKX00ASGvaW29B6haZrXs9Svuy6hfzK5CV4pLCxM5IX8TXMdgFEZ4IMLyqbjVFEhD4jNdVu+Gzx4wGaH2jDpQ6YAdh4dWJqcnv13gB8sj1O66ehtX8070mI+aFEdu5PN5fEOl+RTR+2333R35zqtYAt1fOpIGG1ezrKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oLCxkhyG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dzeMZMN6";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A4g07mdi"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6835lKQV721298
-	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 07:14:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	1tI3L93136NevpSwOUQHK1YeEJCgS9S8zFneCM0oV/4=; b=dzeMZMN6XBGBcXkz
-	quikUGIqz2nAjlgzrxJXHtQuzLLNzCo+cD+JuGoszsxm+4Oyy5JvhCsy0881EOFQ
-	2MwoIFz4wRzmXH0IKEmi1exXzSw3SHnAGgrebRdSFPJG2fpydax4Y/tJ0QLLz2WK
-	0x24s5jmNVPUdg2GWXTvc1KOqmZeFXXterNljeU+crNguieG/u9K9OI24gQCd+iS
-	JauVipEXK965O3ZNaEZuFIXRjGjcGvH9DUlDYq5itu4lLaFfET+Lcf3SkK2g3xnx
-	DkyX+JuWBEiIczoSoqRzrmFvut9ifxS30fJY3iT+GNNGa2ejbLTv9sYd2SVJYq+j
-	F1HWaw==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4genrnksh9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:14:02 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93821883e26so52059985a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:14:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788419642; x=1789024442; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1tI3L93136NevpSwOUQHK1YeEJCgS9S8zFneCM0oV/4=;
-        b=A4g07mdihzFWp4l1lHhv2cdxmxegF0TkeBdUc/hy9+GCSYbn5uIiqigU7xOv5NRRGq
-         eHYcujtWhwxZlduModiR2Kvz5cEMQXuFbeEV7JD93sr0qhm705pcUalVrUemtxh9Yv51
-         yGZxLS+HSAdyfay/66bOj55DgRcRtXka6OcARhB5oWSbXUq1ntpBIDg+jZDJoHFo/7O8
-         n7AMdOi/+zozOsYltMqn7O9ykr410M1vJt09Gbic7umAr4UgYb/rbq4CeE+6vlkTxdN7
-         ldw3NWWwkGBmdt2KlO/6oygVH9Cc/IjAxw9qrCneIXQq00zZoND3QAoC/YaUOIujmme+
-         LEgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788419642; x=1789024442;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1tI3L93136NevpSwOUQHK1YeEJCgS9S8zFneCM0oV/4=;
-        b=gzsNJDuySr2qGv7SumX1wExVefJvyN0hlX6Ea8bHWd/ad+4QdyT++S4dih9op/51fI
-         zkBhsdsCE9dp8qMLkOns7SYH1vfCb6W2252O40XYbtoJqSeCGriSW2YwHSUbmJbEXMoC
-         Dp4AC8mfIb9CfIvpiPGxFc88K7U+/Xu+677ztdqGmXhkFW61WfwLNS8CK4aGoXEf+bZu
-         akCUl4GFmmJoeT0Qo3/QwGlXKvsMWk4VTsdGrApBp7hRDP6n7+8WsSgi5Sz8HW1XNuZh
-         uzg/ledcb0JH4bLzx0RyXnU+3Q0yvFCVjdydx9msxvoqj1tE/GbzKZMFtZrXA/ArFCeh
-         QIxA==
-X-Forwarded-Encrypted: i=1; AKwUvBw6zw5WsdFojCzPvuoTc+6GpJ7qbP3MMzqxvRIJUeASOv822FfgSbcXooIS7gDz2+2yM5kQXOy+87nXNM8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mwPIWKj2iKUbMQyYBasX5/rZeNu2tnEF2Hwj4sCo2NU0WJ48Gq
-	2h89QCDmT3LJAY9HrjC0LH+ezEZm0L6R7M4E0J7YzfiYecF3WswfHypIW9+cz2YEzaR+TLurvWK
-	6UEhABhayAJBNUW/TiO+oTBYvqiVyHta74i1zeDN/KQ8xE8zewETOi2R/p3EjM5yuuiM=
-X-Gm-Gg: AYBFou1FdbST7vt//3eb431izpsgOygGPczx+vd3LH3s6E+OL/v0kRufU/Q5RIoqc5J
-	dhIuU6qyfkBssNZ/6T0pYnIyHfJNoxxCAe+mPIgTeHSRpCaZN6UxTfB73kv7MBNe5VKaDMQ3fAu
-	6x6igUyG43UdxHqgWvkVNYun2kL59FmWuwW5zgpDLAbqj1Lw7fEyEFn94DQEBP++qURnSgjzmJR
-	T7xEkSesd7TGcdspg7eXthpoKCRhZe8E0+iTxZf6zONhRc2dYmqTtFJes7SBTpijit2318BSTQv
-	s3UZWLN7P5zk1XPwBEvjWH1ZMWkdwzUJIELlVg61s1YJWgKu1BS+ouQdz1ioopZRF4vBsClzYkg
-	s12ZTu6oa0JLuK6f+OFLE7Q==
-X-Received: by 2002:a05:620a:2915:b0:92e:9cb3:3f67 with SMTP id af79cd13be357-93960e022f7mr811310685a.2.1788419641535;
-        Thu, 03 Sep 2026 00:14:01 -0700 (PDT)
-X-Received: by 2002:a05:620a:2915:b0:92e:9cb3:3f67 with SMTP id af79cd13be357-93960e022f7mr811306985a.2.1788419640917;
-        Thu, 03 Sep 2026 00:14:00 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25f422ef61sm55632066b.52.2026.09.03.00.13.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 00:14:00 -0700 (PDT)
-Message-ID: <be340fda-a8d6-40ab-a073-5acce519a90f@oss.qualcomm.com>
-Date: Thu, 3 Sep 2026 09:13:58 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oLCxkhyG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15CAB1F000E9
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:14:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788419663;
+	bh=Av/f/dN04Dq0eOfSlSMt8bfPCIo+wE1Jfk+EnQ6m3J0=;
+	h=From:Date:Subject:To:Cc;
+	b=oLCxkhyG/dGOcalM5v/mirn56Qd5qzDkMbTqLhSdCAaqOff9HYa6UKxJW7Gs6ZA2W
+	 dmY6U6lAYXUw1cMLZ8Y0Ld3rJlw90uUWaE5GVZ7PeMBGQ7TGkRRj1jNN+y6QwNk0Ib
+	 SBGslTrDEAUAsT0dqegV26m/USa+4SrhvPQXuroXEFwi8eppLdJ+uuZ8e40K0n5R97
+	 Pi8N8PzT7KL3cnNHFjjJKwhxPLuPrsIzt3cOeKsZlHSx0yNVWp8ZH4YmN4P05vmtvH
+	 kW39UHdv7BVAgbtQakRqHR5B/NdXLUJ6iQU2xwFUeKyrXO/Zb5avAVqlQs2YQxiMCa
+	 Zt17DuYOczwCg==
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a68aaf4840so1726176a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:14:23 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzwj4RUx8cd8iHyAlDBSbmP4nTCRB7+fKTvnhgDIHHur5raYQO9eJKeLPchb9jbtF1aM/fNkwy2H/Fqc8Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9dDrvoCOLcpSRKOerGASrl7K94SrvqCGlo3miRHdv7BIT7VwN
+	vkQ3zhFOhU1kFTDzJ+nk9OoJYek01LBBK5n5uEu2S7Fq+UIT4gPIDtPOUgYUub3E6MfZYDphxXp
+	p2vKfhYVJZEc5Pwp63k+xcJ0AR1r/vpA=
+X-Received: by 2002:a05:6402:52d7:b0:6a6:32e3:9ba with SMTP id
+ 4fb4d7f45d1cf-6a6d8749a43mr549650a12.10.1788419661676; Thu, 03 Sep 2026
+ 00:14:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] power: supply: qcom_battmgr: Add multi-port USB-C
- power supply support
-To: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Sebastian Reichel <sre@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260806-b4-battmgr-multiport-usb-v2-1-1a6dd1e06cc2@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260806-b4-battmgr-multiport-usb-v2-1-1a6dd1e06cc2@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: kKRicTz9MoxBFwGLrPqhw5gXIRnuZkN3
-X-Proofpoint-ORIG-GUID: kKRicTz9MoxBFwGLrPqhw5gXIRnuZkN3
-X-Authority-Analysis: v=2.4 cv=YKuvDxGx c=1 sm=1 tr=0 ts=6a991e3a cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=Qrz6jqPncDHAnAyxcuYA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA2MyBTYWx0ZWRfX23sQwB+5xLTx
- AKczQLJRXU6Y7n2szR1XUKboqWAlSLdriv+hLHNHS3DnFSd9tTj895QRWa2dEIIWsnkOz6tzgOo
- CXnNhNVN2US8LS8CrqIKRZ5ZL4XaSy4gmYyf2PEInEuU8gkX0M6f2jRsdOMYWHz0/yVYNqvV3+d
- GfLOSCruzWBFYGPfbeS23tOTDrgMSJwnTgNMK4qoae8cW3O6DyVB5AjZHOmNdEM6RwSlMjPxhuU
- AJbxXckgq+2pnz3wuwVoO1Hep/gl9ElECbxMJqOPVCl2B3dWKMA3nZsSf6YnTbUvE9EM+7wt8Tg
- 6px+c56dgXQ+zfZJcabqFnQrxxIjcmUaci9HA+kmgyj8LIZ/vmH8LBiDUrhLdj38ZiZiysKqQvT
- Of/yPpFMHf69dNSmVql5W90UKFir2alGW1nbaCPdjmjxijflKuFGOfcAh5BPWZuUkO3OYKvDb4y
- VgO0s0voeHcumvXSlgA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA2MyBTYWx0ZWRfX3rgqNGEOjrj1
- hrhk5kzH0VlFmcAj48NJF88kQKLJ+nIYCAd+l5f2f1R3aJjnPSM04lSy8dUMoOyAFMwJuOldT8d
- Iu9tUNtqJ5X8Hu4ocqH2gS3HFBRIqwA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_02,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 adultscore=0 impostorscore=0 malwarescore=0
- phishscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609030063
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Thu, 3 Sep 2026 16:14:08 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-GgLoLKM4tX4wUqH+67nWVemjkH-pC7WzrM=aaCsXrnA@mail.gmail.com>
+X-Gm-Features: AcwNN1Xx_CX2rNHhikh_oeRkBnOw4spIk2UUGxpPQGWxIB132iVrh_zfHrLgDP8
+Message-ID: <CAKYAXd-GgLoLKM4tX4wUqH+67nWVemjkH-pC7WzrM=aaCsXrnA@mail.gmail.com>
+Subject: [GIT PULL] ntfs fixes for 7.3-rc2
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Hyunchul Lee <hyc.lee@gmail.com>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 8/6/26 5:06 PM, Kamal Wadhwa wrote:
-> Extend the qcom_battmgr driver to report up to MAX_USB_PORTS (3)
-> USB-C power supply ports on the X1E80100 & Glymur platform, which
-> exposes more than one charger port to firmware.
+Hi Linus,
 
-[...]
+This is ntfs fixes pull request for v7.3-rc2. I add the description of
+this pull request below. Please pull the following ntfs fixes.
 
->  #define BATTMGR_USB_PROPERTY_GET	0x32
->  #define BATTMGR_USB_PROPERTY_SET	0x33
-> +#define BATTMGR_USB2_PROPERTY_GET	0xC0
-> +#define BATTMGR_USB2_PROPERTY_SET	0xC1
-> +#define BATTMGR_USB3_PROPERTY_GET	0xC2
-> +#define BATTMGR_USB3_PROPERTY_SET	0xC3
+Thanks!
 
-nit: let's keep the defines lowercase
+The following changes since commit 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229:
 
-[...]
+  Merge tag 'hwlock-v7.3' of
+git://git.kernel.org/pub/scm/linux/kernel/git/remoteproc/linux
+(2026-08-25 14:21:47 -0700)
 
+are available in the Git repository at:
 
-> +static int qcom_battmgr_usb_x1e80100_update(struct qcom_battmgr *battmgr,
-> +					    enum power_supply_property psp)
-> +{
-> +	unsigned int prop;
-> +	int ret;
-> +
-> +	if (psp >= ARRAY_SIZE(x1e80100_usb_prop_map))
-> +		return -EINVAL;
-> +
-> +	prop = x1e80100_usb_prop_map[psp];
-> +
-> +	mutex_lock(&battmgr->lock);
-> +	ret = qcom_battmgr_request_property(battmgr, BATTMGR_USB_PROPERTY_GET, prop, 0);
-> +	mutex_unlock(&battmgr->lock);
-> +
-> +	return ret;
-> +}
+  git://git.kernel.org/pub/scm/linux/kernel/git/linkinjeon/ntfs.git
+tags/ntfs-for-7.3-rc2
 
-I'd rather you pass the array and its size to this function rather than
-wholly duplicating it
+for you to fetch changes up to 0fecc393f2060e6bc25138df32cb923ec7071c6b:
 
-[...]
+  ntfs: take invalidate_lock in ntfs_filemap_page_mkwrite()
+(2026-08-31 19:47:53 +0900)
 
-> +static int qcom_battmgr_usb_x1e80100_get_property(struct power_supply *psy,
-> +						   enum power_supply_property psp,
-> +						   union power_supply_propval *val)
+----------------------------------------------------------------
+ - Serialize truncate, fallocate, and mmap fault paths with
+   invalidate_lock, avoiding mmap failures during concurrent size changes
+   and exposure of uninitialized data during allocation.
 
-Likewise there's no reason to duplicate this one
+ - Correct fallocate signal and zeroing error handling.
 
-[...]
+ - Fix FITRIM range alignment to prevent discard requests from extending
+   into allocated clusters.
 
-> +static int qcom_battmgr_usb2_x1e80100_update(struct qcom_battmgr *battmgr,
-> +					     enum power_supply_property psp)
+ - Fix free-cluster accounting when cluster-freeing rollback or bitmap
+   clearing fails.
 
-We can add another parameter for the property and save some duplication
-as well
+ - Keep volumes marked dirty when ntfs errors have been recorded.
 
-[...]
+ - Compute bi_sector in 512-byte units, preventing silent corruption on
+   4Kn devices.
 
-> +static int qcom_battmgr_usb2_get_property(struct power_supply *psy,
-> +					  enum power_supply_property psp,
-> +					  union power_supply_propval *val)
-> +{
+ - Validate sectors_per_cluster values and prevent undefined shifts when
+   parsing MFT and index record sizes.
 
-This function is also wholly duplicated, we can extract out the common
-part
+ - Bound $AttrDef traversal to the loaded table size.
 
-[...]
+ - Fix MFT record resizing, memmove overlap, and kmap_local cleanup issues.
 
->  static const enum power_supply_property sc8280xp_usb_props[] = {
->  	POWER_SUPPLY_PROP_ONLINE,
-> +	POWER_SUPPLY_PROP_VOLTAGE_NOW,
-> +	POWER_SUPPLY_PROP_VOLTAGE_MAX,
-> +	POWER_SUPPLY_PROP_CURRENT_NOW,
-> +	POWER_SUPPLY_PROP_CURRENT_MAX,
-> +	POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT,
-> +	POWER_SUPPLY_PROP_USB_TYPE,
->  };
+ - Improve error propagation across attribute, EA, and reparse operations,
+   including returning -ERANGE for undersized xattr buffers.
 
-Hm, no one noticed this list was very short for a long time..
+ - Avoid modifying the HasEA flag when setxattr fails and return
+   DT_UNKNOWN when directory inode lookup fails.
 
-[...]
+ - Reduce contention in WOF decompression by performing block reads outside
+   the decompression lock.
 
-> +	case BATTMGR_USB_PROPERTY_GET:
-> +		property = le32_to_cpu(resp->intval.property);
-> +		if (payload_len != sizeof(resp->intval)) {
-> +			dev_warn(battmgr->dev,
-> +				 "invalid payload length for %#x request: %zd\n",
-> +				 property, payload_len);
-> +			battmgr->error = -ENODATA;
-> +			return;
-> +		}
+----------------------------------------------------------------
+Baolin Liu (9):
+      ntfs: return DT_UNKNOWN on inode lookup failure in readdir
+      ntfs: propagate reparse index insertion failure
+      ntfs: return -ERANGE for undersized xattr buffer
+      ntfs: preserve error code in ntfs_resident_attr_record_add()
+      ntfs: return real error from ntfs_non_resident_attr_record_add()
+      ntfs: fix kmap_local leak in write_mft_record_nolock() error paths
+      ntfs: only count successfully cleared runs when freeing clusters
+      ntfs: skip free cluster decrement when rollback fails
+      ntfs: leave HasEA flag untouched on setxattr failure
 
-We can do something like:
+Dennis Tighe (4):
+      ntfs: do not mark the volume clean in sync_fs when errors were recorded
+      ntfs: bound $AttrDef table walk to the loaded table size
+      ntfs: reject invalid sectors_per_cluster in the boot sector
+      ntfs: compute bi_sector in 512-byte units
 
-if (opcode == BATTMGR_USB2_PROPERTY_GET)
-	usb_info = &battmgr->usb2;
-else if (opcode == BATTMGR_USB3_PROPERTY_GET)
-	usb_info = &battmgr->usb3;
-else
-	usb_info = &battmgr->usb;
+Hongling Zeng (7):
+      ntfs: fix incorrect MFT record pointer passed to ntfs_attr_record_resize
+      ntfs: fix undefined behavior in mft/index record size calculation
+      ntfs: fix memmove overlap in ntfs_new_attr_flags
+      ntfs: fix race between fallocate and mmap reads
+      ntfs: handle signal interruption in fallocate
+      ntfs: take invalidate_lock in ntfs_setattr_size()
+      ntfs: take invalidate_lock in ntfs_filemap_page_mkwrite()
 
-and then have a shared case for all 3 in the switch-statement
+Jacopo Labardi (1):
+      ntfs: fix FITRIM range alignment
 
-[...]
+Wentao Guan (1):
+      ntfs: treat any nonzero dio zero-range return as an error
 
-> +static char *qcom_battmgr_battery[] = { "battery" };
-> +
->  static void qcom_battmgr_enable_worker(struct work_struct *work)
->  {
->  	struct qcom_battmgr *battmgr = container_of(work, struct qcom_battmgr, enable_work);
-> @@ -1591,11 +1989,53 @@ static void qcom_battmgr_enable_worker(struct work_struct *work)
->  		.hdr.type = cpu_to_le32(PMIC_GLINK_NOTIFY),
->  		.hdr.opcode = cpu_to_le32(BATTMGR_REQUEST_NOTIFICATION),
->  	};
-> +	struct power_supply *psy;
->  	int ret;
-> +	int num_ports_fw = 0;
->  
->  	ret = qcom_battmgr_request(battmgr, &req, sizeof(req));
->  	if (ret)
->  		dev_err(battmgr->dev, "failed to request power notifications\n");
-> +
-> +	if (battmgr->variant == QCOM_BATTMGR_X1E80100) {
-> +		mutex_lock(&battmgr->lock);
-> +		ret = qcom_battmgr_request_property(battmgr, BATTMGR_USB_PROPERTY_GET,
-> +						     USB_NUM_PORTS, 0);
-> +		mutex_unlock(&battmgr->lock);
-> +		if (ret < 0) {
-> +			dev_dbg(battmgr->dev, "Failed to read USB_NUM_PORTS from SoCCP, rc=%d\n",
-> +				ret);
+Zhan Xusheng (1):
+      ntfs: read WOF chunks outside the decompression lock
 
-The pmic-glink drivers are supposed not to care what's on the other end,
-let's just drop the "from SoCCP" part.
-
-Also, the existing way this driver prints errors is:
-
-"A problem occured: %d\n", without a 'rc=' prefix
-
-Konrad
+ fs/ntfs/attrib.c   |  18 +++++---
+ fs/ntfs/bdev-io.c  |   2 +-
+ fs/ntfs/bitmap.c   |   8 ++--
+ fs/ntfs/compress.c |   2 +-
+ fs/ntfs/ea.c       |  49 +++++++++++++++------
+ fs/ntfs/file.c     |  50 +++++++++++++--------
+ fs/ntfs/inode.c    |  10 +----
+ fs/ntfs/lcnalloc.c |   9 ++--
+ fs/ntfs/mft.c      |  16 ++++---
+ fs/ntfs/ntfs.h     |  10 ++---
+ fs/ntfs/reparse.c  |   7 +--
+ fs/ntfs/super.c    |  15 ++++---
+ fs/ntfs/wof.c      | 127 +++++++++++++++++++++++++++++++++--------------------
+ 13 files changed, 196 insertions(+), 127 deletions(-)
