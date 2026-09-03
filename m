@@ -1,93 +1,99 @@
-Received: from mta0.migadu.com (out-74.mta0.migadu.com [91.218.175.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBA5C34D90C
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 03:36:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECD53334C3D;
+	Thu,  3 Sep 2026 03:36:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788406601; cv=none; b=r0FH5ojHBVMfmkhWGYArPaTRvlb4pbUghFjXY8ofH4oZ2iDUg2BteLEeAsltQx7OQoi/RUeW8rwm/2MMheCEIaJIh2izyJgRdQWLJQm/J96nXMML2ztNJL5Xg07Y5mEy/k73rVti7vibsa1crxxdulpDVyTjGVeAHESldDkXfXU=
+	t=1788406612; cv=none; b=VV4C0hKX6TsyZCCWngEKSt0MwEcXtPTHsncB7gL1uRBBNsj8uhDxeKOGFJH5vAo+gGPrwqm5P8Q2yMbMW4vT8QfmCxoxQanfubbhT9Vf+n9P8OyOhKwBnmPQUEspYOXKuGHx1rw1wRJzmPeBCJIsgmu9qslOhFLJr2pu+kapu8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788406601; c=relaxed/simple;
-	bh=f9n7vxqegBMiJa3B9ktL1V1OhF+Wal7I2bpsCiLF8lg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f4b9r2XUUKKlUKOwuDyn4c5IcZlHyMatZrsARQnQYyQyzIiOQJvFImjNqyH0Iky04B7LVFo0tQHrj3l2U2MhQh7qSZI5qPhQbtJHkbPVUkjfwz6zKONVmLHJ1EKdIHsRBVX8AhGc2ZBo9JLv8DgfnHn8JQLrPy2JOHSKQyir/Ug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mE6fl3ZX; arc=none smtp.client-ip=91.218.175.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788406612; c=relaxed/simple;
+	bh=XhxBwDfUE4P+jO2J/XzoYbh5m+LywYasvNw8FgYhV4I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d0bSQXl1R/HSmWN52UE1FeG2LRfGM1pRNqlUF8nj+rGyOCmzEKYy2nBschG2n7Ayp5mIuv3wvBTFA/6+plBu+g9eaUBnB5ERG0oKtWfmOKXUle1tyfowZdDDSC08uafBhAF3uM37YwbcdUASO3guKy7O3vKGT4rqQh72omN8n3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=SKlG4fos; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mE6fl3ZX"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=f9n7vxqegBMiJa3B9ktL1V1OhF+Wal7I2bpsCiLF8lg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788406595; v=1; x=1789011395;
- b=mE6fl3ZXiL2QY6mleTtmWlQU0ZgG1WQqqiZJefKqWB+lqpLsCnPgpBpL4XW782TyvwQSPUnD
- 8lOe0+DIaGq/3RwJmHJSSQ2pSPA4jVSqvyg4/yPUO7yhjh6QguKH1SSRb9etCSS8n7NpYlDsREy
- ZOzCb7U0hboqP+mRdXKkjK6w=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id dde1976bb73c7399;
-	Thu, 03 Sep 2026 03:36:35 +0000
-X-Mizu-Trace-ID: dde1976bb73c7399
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: linux-fsdevel@vger.kernel.org,
-	viro@zeniv.linux.org.uk,
-	brauner@kernel.org
-Cc: jack@suse.cz,
-	gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org,
-	lxc-devel@lists.linuxcontainers.org,
-	cui.tao@linux.dev,
-	Tao Cui <cuitao@kylinos.cn>
-Subject: [PATCH] devpts: reject max=0 instead of silently lifting the limit
-Date: Thu,  3 Sep 2026 11:36:25 +0800
-Message-ID: <20260903033625.1042796-1-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="SKlG4fos"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=2jK3EFka/duw445W9YVD+lZA1TtvuE7+SNQ5AWGQYsA=; b=SKlG4fosJbGQSwGprWAbGFA2xi
+	d9EmODOoYyRzRLfkH7fN1YU/RCXAiEFY7AQMASxBCc/ruU8z3/MFPxWhczdJU+kK2smWZ5GrXUPBM
+	HPsEekqcAd4LEXjiwR8gGC+itwCboCcYh5LkOG0G3m80gOzwtN32jMVTNFEOZt1OIaT6YK1opJqqC
+	/GHhD79GgB2bjYVZh8rv6jB8TvBCEKN4fWqsuyK7V+WFYoiq1X3/GG7KOIZkD85ItG27KSxTPxh1F
+	3VBYcA7QqIPndaDnjH2IRE15F3BCHSPGAywG5L/uK0l/N5IS9nGRCmgmW8CcvSozZxuzH4NE+hYHC
+	Yt0rLdag==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x1yFo-0000000GHl3-08lA;
+	Thu, 03 Sep 2026 03:36:44 +0000
+Message-ID: <deb7eaa4-99fe-49a6-adfe-17184660e0ea@infradead.org>
+Date: Wed, 2 Sep 2026 20:36:42 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Documentation: arm: nwfpe: update stale document
+ references
+To: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>,
+ linux-doc@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, corbet@lwn.net, skhan@linuxfoundation.org
+References: <20260903025334.44666-1-diegomancera.dev@gmail.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260903025334.44666-1-diegomancera.dev@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Tao Cui <cuitao@kylinos.cn>
 
-mount_opts.max == 0 is consumed as ida_alloc_max(..., max - 1), which
-wraps to 0xffffffff.  The IDA layer treats a negative max as INT_MAX,
-so "mount -t devpts -o max=0" does not disable ptys - it lifts the
-per-instance limit entirely and only the global kernel.pty.max still
-applies.
 
-Reject the value at parse time:
+On 9/2/26 7:53 PM, Diego Fernando Mancera Gomez wrote:
+> The NetWinder FPE introduction still refers to README.FPE and TODO,
+> which were renamed to netwinder-fpe.rst and todo.rst when the
+> documentation was converted to reStructuredText.
+> 
+> Replace the stale filenames with links to the current documents and fix
+> the accompanying grammar.
+> 
+> Signed-off-by: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
 
-  $ mount -t devpts -o max=0 pt /tmp/pt
-  mount: /tmp/pt: wrong fs type, bad option, bad superblock...
+Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
+Tested-by: Randy Dunlap <rdunlap@infradead.org>
 
-No userspace relies on 0 meaning "unlimited": runc and crun never
-set max=, and LXC, the only runtime that does, omits the property
-entirely when the configured value is 0.
+> ---
+>  Documentation/arch/arm/nwfpe/nwfpe.rst | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/arch/arm/nwfpe/nwfpe.rst b/Documentation/arch/arm/nwfpe/nwfpe.rst
+> index 35cd90dacbff..b6ef46ff0f4a 100644
+> --- a/Documentation/arch/arm/nwfpe/nwfpe.rst
+> +++ b/Documentation/arch/arm/nwfpe/nwfpe.rst
+> @@ -33,9 +33,9 @@ double precision and extended double precision formats.  The port of
+>  SoftFloat to the ARM was done by Phil Blundell, based on an earlier
+>  port of SoftFloat version 1 by Neil Carson for NetBSD/arm32.
+>  
+> -The file README.FPE contains a description of what has been implemented
+> -so far in the emulator.  The file TODO contains a information on what
+> -remains to be done, and other ideas for the emulator.
+> +The :doc:`netwinder-fpe` document contains a description of what has been
+> +implemented so far in the emulator.  The :doc:`todo` document contains
 
-The value has never been validated since the option was introduced,
-so there is no Fixes tag.
+I prefer this change, but either ways works (same html output):
 
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
----
- fs/devpts/inode.c | 2 ++
- 1 file changed, 2 insertions(+)
++The netwinder-fpe.doc document contains a description of what has been
++implemented so far in the emulator.  The todo.rst document contains
 
-diff --git a/fs/devpts/inode.c b/fs/devpts/inode.c
-index 9844dcf354ee..bd1e8eb26edb 100644
---- a/fs/devpts/inode.c
-+++ b/fs/devpts/inode.c
-@@ -249,6 +249,8 @@ static int devpts_parse_param(struct fs_context *fc, struct fs_parameter *param)
- 	case Opt_max:
- 		if (result.uint_32 > NR_UNIX98_PTY_MAX)
- 			return invalf(fc, "max out of range");
-+		if (result.uint_32 == 0)
-+			return invalf(fc, "max must be greater than 0");
- 		opts->max = result.uint_32;
- 		break;
- 	}
+> +information on what remains to be done, and other ideas for the emulator.
+>  
+>  Bug reports, comments, suggestions should be directed to me at
+>  <scottb@netwinder.org>.  General reports of "this program doesn't
+
+thanks.
 -- 
-2.43.0
-
+~Randy
