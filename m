@@ -1,151 +1,274 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 694DF353EF7
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:38:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DDC63F58E9;
+	Thu,  3 Sep 2026 06:38:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788417495; cv=none; b=sEiakIan7RpgYcFQUqyxSmPvc5wiw9Xy/oM0TwIIJLFhe7Ebe53duPZUFkEDOcHuxhw7URS2gIFCNUhI3I+pTqWiB3K1s+KIvSRgzet7uELnzkudlWVuLuyQ/RKrtcqEjh9sN+P4WKrtxQmNSHGOj2yMvr7BHUrv9k4j7uMIkbY=
+	t=1788417505; cv=none; b=tvVbooxBdef/0ziOvk2MvBq6/qJZ6ck5ohO2EsUjw54TvQ9s+P4ZqjHZs/oayXY52axq5PPSFRJ+0ju3A9xHscEAsbkg777jPU3psprKDgWX7HGLmdUGnWqG+lcq3gjC+cxTZqCvTj3okKHGbwQtsPjK0WSMWy9QvM96JNx9T3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788417495; c=relaxed/simple;
-	bh=kTSx32pwz72ST6W1u3JCf9MAJhvDpt92EnV9VM+cQfw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IhcqFrc+KrDB8BwuQ7CBOa2rEK2XzEn9cJT2MuR4fp3RBh1mucpqNd2X+Z6L3eUlo0+1LJ02F9b9wgU9q9AQtRFmHvNaybQrGIjBM+7D3r+oTPZN0BScn/3ZdQar9eJcejdfzAecjo8Mkdf5Fq/Hq3MDL1LrbwhafgpNymt96xg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=f3ZpkMxw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=P3h/M6MU; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788417505; c=relaxed/simple;
+	bh=WHzN8whD/sPVFMbaTppMqhjZBhAguwvoXnPwSSu9ehY=;
+	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
+	 In-Reply-To:Content-Type; b=hx9dhEU76ypWA2UQVJt2QFXO+uME6Y8SvFnsRlstvel6c96K1qfNU6L1ilM+P1C4nOy3CPmsaCxEoqluV0I+n6ga4WpCeL9BocyE5mLjUy0iA5skJqqNexOjBzyolHyYAAJ3e0YsQRqThpCF1CykD/52QCdX4B6iWD3Do5lQid0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=dh/fCS7G; arc=none smtp.client-ip=220.197.31.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="f3ZpkMxw";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="P3h/M6MU"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6835lpvE3177013
-	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 06:38:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	kPYnMIwUt1sAQ3vnoWcYPF0LEE0sls/qUz0yveE4jHY=; b=f3ZpkMxwK/+SFxYp
-	1VSGD+lmxJUXup4wwz+QJ5EvxIHdseXWCXvCW8HI4C3+y2M+kOuN9OKa/3aRutCC
-	T2BLKHtfW5/vXMexS6plX4GR9EtB2Odp91nytHy3+ZqwOghXrHd4MuID4b+YYyrh
-	7DjkItl1GBFHEx88OWJ0nG0scpZ+CdF00vd3/xGN+h3XmWhxXFikFqqasnjmJWwo
-	Fqc4vW5IxEsXyRflF4fFDFhOuuQ2q4NaNr0cU710IuGM2Zyedkm+tuef0Xm/+XqK
-	1IgVs4Lq75IPKHimS2mAR/f91thuR6SmZsIaHrko5neIHtT3hNVOPg3I0P1v9tqc
-	Mkc7Nw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gemj4uucb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 06:38:09 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-934a8cd3a8bso44231585a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 23:38:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788417489; x=1789022289; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kPYnMIwUt1sAQ3vnoWcYPF0LEE0sls/qUz0yveE4jHY=;
-        b=P3h/M6MUC2Hl9btE5c7ksr8t6zBG6FubU5SAfHD+ehguKSExDEZ/Q2SkSxn5kvnnZC
-         apVm2kREMsIK7tCn3mGpAj5tMNdXfrcYsVHivpEFvmvXp/stI6wyJHRo6M0vje+xMiwG
-         2RB4KCtTKtZIIPPMMLUOivnSmvKZDyH6ghYfhe9c31Am+vhLZZStLZua+RIUhw/4BAP+
-         sGNpH4mi2QeSIf6+2s1oLWhVjMVYelFjlmeIqu9gBB9H3PCuZmbhXmcG2CzBbCU5Z4Ar
-         /F3V6E5PecrAtOcs4H/4RLsXMq5ahX7auTc5LwKuWQo8HtBNR9LbYiLsLuKFGrz6AWn+
-         F0rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788417489; x=1789022289;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kPYnMIwUt1sAQ3vnoWcYPF0LEE0sls/qUz0yveE4jHY=;
-        b=ozG4LoNNMx3t7Tw7wwrZudg8HUYrl3JpuNLNvExE/M6Xftd6t3jIrptHqTNx4MxI/5
-         KGXqaVU6mKv07Ll7eM6YZTnYwuHvfg9C8kM77zzL/SwbrhYikIdKHuqPUWnvrMY2mXPC
-         OivOZw3hUcqlgT7xLsn3nrq0Pv7Mzj/SffbbM8NpGlmrtksuPRUqxres+sFGznn96m2O
-         /zYA67pJIycKFlhEJzRfxsX4xzWJu8ieKhsuhFBowyKLVjXOYhcnBWJ2QWAu7CRH4uUs
-         ySO7Xzx/Zn2RE2OHu82eQ6icEcSiV/+dXKXZIcZmG+YS/U7yyJ6t40Az+3SOFplUg7sy
-         +asA==
-X-Forwarded-Encrypted: i=1; AKwUvBzIudkIJVI+5iy47zn5EqNfSj0MAOPv99Y9jzDoE3cm4VsAbTfPv7K8v7Y0K61q0kvWPedawb0p0mdFmpE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTzJ4+XAhf/9N3ujLUhhWC3n87dA5jtZgxa3YV5dPb3cXQ6cMi
-	eSnhFp1djS9taYXJxmFETiHpvqjHdOblpZbj2wB3k3/CBCe5ufSvpC+A7nZuVzJ0RsXULN9jo+F
-	qMB1GHEytQ62QK8Gf0TeznqMziabWw62JllITs3XEkeIDccWprLD0lEKjiF4YLIHY2yU=
-X-Gm-Gg: AYBFou0JBqs2Ux5fHeRCyZa1/kwdeRGLBBJR5Hg6G6NR6ZjIPV0OJccVayZFzoTnZ5O
-	ad0YkyWr9VJcqwQQQg0rpIOqw3NQvse1oP1GqDKAf3h50MwIYaTjEMknCeGJMzO6sw9I/KGCIny
-	EzRrnozGmjTmA/a8czSDDK+YnCLQPXFdCv8mJCmFGW0uC6EF+Mv2BF8baWs4rOvE8yn86lvVhMm
-	SzLNdaoNc/L6zlDwIbbQgaQX/Rqgp8cQ7ER09RV6hJ25U9IiKdJA1oulaJrBHLm++iOTO/1czr+
-	YOKy8vaAT9xen7ub82FpB8V7vgMs0MIAEUOay7hCHhtHNWwoDZQbbgXTTep7tlCjp/Bj/jrweCU
-	B0y2K3zsnkKIITnG0HL6qFg==
-X-Received: by 2002:a05:620a:8388:b0:939:2880:3d6e with SMTP id af79cd13be357-939610433dcmr718369785a.5.1788417489304;
-        Wed, 02 Sep 2026 23:38:09 -0700 (PDT)
-X-Received: by 2002:a05:620a:8388:b0:939:2880:3d6e with SMTP id af79cd13be357-939610433dcmr718366685a.5.1788417488768;
-        Wed, 02 Sep 2026 23:38:08 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25f4236f8fsm50762866b.53.2026.09.02.23.38.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 23:38:08 -0700 (PDT)
-Message-ID: <9c72e597-eef1-42c8-bb08-a9d3c08ad4f4@oss.qualcomm.com>
-Date: Thu, 3 Sep 2026 08:38:05 +0200
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="dh/fCS7G"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:From:MIME-Version:To:Subject:
+	Content-Type; bh=QhhhQWqk/C4nR9X6FXtttU/PKvCAIlbq/hLOZ5YeK4Y=;
+	b=dh/fCS7G0OJqoZRU1MMXilaZclxQLnSGH9pxl1+hGwO2xyhIhXmRNiDba0i10v
+	/Ov6SbbD5ffZT01ipwBqjVz0pfNGwxyp6af9gINSOkapB+ih2a/dz2gu5PMR3OEr
+	BjWkQLnVic2s2jKbOY55AwXOknOlYrSV37dEE7YhVLv88=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wDnt5mpFZlq41LHAA--.43306S2;
+	Thu, 03 Sep 2026 14:37:30 +0800 (CST)
+Message-ID: <6A99158E.2040006@126.com>
+Date: Thu, 03 Sep 2026 14:37:02 +0800
+From: Hongling Zeng <zhongling0719@126.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Thunderbird/31.2.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: sdm845-google: Improve NFC pins
- description
-To: david@ixit.cz, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Richard Acayan <mailingradian@gmail.com>
-Cc: Marco Mattiolo <marco.mattiolo@hotmail.it>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        phone-devel@vger.kernel.org
-References: <20260902-sdm670-sargo-nfc-v1-0-bed1cbbffc46@ixit.cz>
- <20260902-sdm670-sargo-nfc-v1-2-bed1cbbffc46@ixit.cz>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260902-sdm670-sargo-nfc-v1-2-bed1cbbffc46@ixit.cz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA1NyBTYWx0ZWRfX/uLxEAIYOo/b
- sKPgi1dmr7fc+ZgofwVWQO3/AZCWl03+nRSBaK4RQi3+K6jBsIaWPXqWrYluIrwRZrlTR5afbX4
- xCFYyyimpN+TwLFuPNfJYJNWMucENS/DEvlEuAnTUVDEMXagHEqiYl31A6ARrahwl+9TO+wruBk
- tSezivFfuStsXKKHTUvpNHVCDDf5n98VLhDt8066IfmLoIh/LQNW9QKOgqUH5wN3OsPZLilUy7s
- ILr6d9bITPUAeZlT+IS8sSANUBTdfSoXyYr0Crq3JLQMyWZWF95HqdbZ6vJJZm9KTZNo5kUaF5Q
- ZyeNR5r6MRo8j60Euh/t4SIHDfmtrj4qdpOkVxLErrygc5jqdCurW6voE2To8LFWjmYPPsJW0PA
- JJPcln+XhPPdJvh4gPTIHxtgwtjH7LREn2F1rPC4LCHdvGkaL6uTb+0YjIXBM8zgXZojC5ZOxGr
- 3fZ6aVRU0eZus1wQWBQ==
-X-Proofpoint-ORIG-GUID: iYVRmSHu_5i0SlqQzz4YJFPbxybsGKfV
-X-Authority-Analysis: v=2.4 cv=MdhcfZ/f c=1 sm=1 tr=0 ts=6a9915d1 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=IwCXldT5zbx61SKktksA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-GUID: iYVRmSHu_5i0SlqQzz4YJFPbxybsGKfV
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA1NyBTYWx0ZWRfX4aJzfQ/1gy1d
- TSOXnPQR6sixBDMAx1NF5HwmQz3J32gGBnXYjkyqxp2jp6YQEj2Cg+5QhML7RH94NsAZ8HXk8Q4
- ET1R2fHtw1lgJz1UvMnUZCvTyU459SE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_02,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 adultscore=0 suspectscore=0 malwarescore=0
- phishscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030057
+To: liubaolin <liubaolin12138@163.com>, 
+ Hongling Zeng <zenghongling@kylinos.cn>,
+ linkinjeon@kernel.org, hyc.lee@gmail.com
+CC: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] ntfs: fix volume flag update races
+References: <20260903012104.185926-1-zenghongling@kylinos.cn> <d576d6d6-e378-4124-817a-f019c09c391e@163.com>
+In-Reply-To: <d576d6d6-e378-4124-817a-f019c09c391e@163.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnt5mpFZlq41LHAA--.43306S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3WF4UWrWUCF18ZFWkGw1xKrg_yoWfAr4fpr
+	s2yF9rKa1qyr1xuws7t3yIga1S934kGr48Cry7Jw1av3s0kr18XFy8K3WrZa4vyr9rAw1I
+	qFWUtrW3uw1UZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j-sqJUUUUU=
+X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBrgpwQWqZFarT4QAA3r
 
-On 9/2/26 10:59 PM, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
-> 
-> Be more clear with pin description and group all of them into one state.
-> 
-> No functional changes.
-> 
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+在 2026年09月03日 11:01, liubaolin 写道:
+>
+>
+> 在 2026/9/3 09:21, Hongling Zeng 写道:
+>> ntfs_set_volume_flags() and ntfs_clear_volume_flags() both read
+>> vol->vol_flags outside any lock to compute the new value before handing
+>> it to ntfs_write_volume_flags(), which only takes ni->mrec_lock around
+>> the actual write. The read-modify-write is therefore not atomic, and two
+>> concurrent callers can lose an update: ntfs_sync_fs() may derive a
+>> "clean" value from vol->vol_flags while a writer concurrently records an
+>> error and sets VOLUME_IS_DIRTY; the locked write then silently
+>> overwrites the freshly-set dirty bit. The on-disk volume looks clean
+>> despite the recorded errors, so chkdsk will not run on the next mount
+>> and corrupted metadata can persist.
+>>
+>> Fix by moving the read-modify-write inside the mrec_lock: pass the bits
+>> to set and to clear separately, and combine them with the current flag
+>> state under the lock inside ntfs_write_volume_flags(). The set/clear
+>> helpers pass only the bits to modify, not the complete flag state. The
+>> bit manipulation is done on CPU-endian values, and the result is
+>> converted back to little-endian before storing it. The wrappers keep
+>> their signatures so callers are unchanged.
+>>
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+>> ---
+>> - Also fix the ntfs_sync_fs() race by checking NVolErrors() and clearing
+>>    VOLUME_IS_DIRTY under ni->mrec_lock.
+>> - Keep ntfs_set_volume_flags() and ntfs_clear_volume_flags() semantics
+>>    unchanged.
+>> - Do not tie setting VOLUME_IS_DIRTY to NVolSetErrors() in the generic
+>>    set helper.
+>> ---
+>>   fs/ntfs/super.c | 62 +++++++++++++++++++++++++++++++++++--------------
+>>   1 file changed, 45 insertions(+), 17 deletions(-)
+>>
+>> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+>> index a1813093222b..a7977b95b967 100644
+>> --- a/fs/ntfs/super.c
+>> +++ b/fs/ntfs/super.c
+>> @@ -353,31 +353,45 @@ void ntfs_handle_error(struct super_block *sb)
+>>   }
+>>     /*
+>> - * ntfs_write_volume_flags - write new flags to the volume 
+>> information flags
+>> + * ntfs_write_volume_flags - apply flag changes to the volume 
+>> information flags
+>>    * @vol:    ntfs volume on which to modify the flags
+>> - * @flags:    new flags value for the volume information flags
+>> + * @set_bits:    bits to set in the volume information flags
+>> + * @clear_bits:    bits to clear in the volume information flags
+>>    *
+>>    * Internal function.  You probably want to use 
+>> ntfs_{set,clear}_volume_flags()
+>>    * instead (see below).
+>>    *
+>> - * Replace the volume information flags on the volume @vol with the 
+>> value
+>> - * supplied in @flags.  Note, this overwrites the volume information 
+>> flags, so
+>> - * make sure to combine the flags you want to modify with the old 
+>> flags and use
+>> - * the result when calling ntfs_write_volume_flags().
+>> + * Combine @set_bits and @clear_bits with the current in-memory flag 
+>> state and
+>> + * write the result back.  The set/clear helpers pass only the bits 
+>> to modify,
+>> + * not the complete flag state.  The read-modify-write happens under
+>> + * ni->mrec_lock so that concurrent set/clear operations cannot lose 
+>> updates.
+>> + * All bit manipulation is done on CPU-endian values, and the result is
+>> + * converted back to little-endian before storing it.
+>>    *
+>>    * Return 0 on success and -errno on error.
+>>    */
+>> -static int ntfs_write_volume_flags(struct ntfs_volume *vol, const 
+>> __le16 flags)
+>> +static int ntfs_write_volume_flags(struct ntfs_volume *vol,
+>> +        const __le16 set_bits, const __le16 clear_bits,
+>> +        const bool skip_if_errors)
+>>   {
+>>       struct ntfs_inode *ni = NTFS_I(vol->vol_ino);
+>>       struct volume_information *vi;
+>>       struct ntfs_attr_search_ctx *ctx;
+>> +    u16 flags;
+>>       int err;
+>>   -    ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
+>> -            le16_to_cpu(vol->vol_flags), le16_to_cpu(flags));
+>>       mutex_lock(&ni->mrec_lock);
+>> -    if (vol->vol_flags == flags)
+>> +
+>> +    if (skip_if_errors && NVolErrors(vol))
+>> +        goto done;
+>> +
+>> +    flags = le16_to_cpu(vol->vol_flags);
+>> +    flags |= le16_to_cpu(set_bits) & le16_to_cpu(VOLUME_FLAGS_MASK);
+>> +    flags &= ~(le16_to_cpu(clear_bits) & 
+>> le16_to_cpu(VOLUME_FLAGS_MASK));
+>> +    ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
+>> +            le16_to_cpu(vol->vol_flags), flags);
+>> +
+>> +    if (le16_to_cpu(vol->vol_flags) == flags)
+>>           goto done;
+>>         ctx = ntfs_attr_get_search_ctx(ni, NULL);
+>> @@ -393,7 +407,7 @@ static int ntfs_write_volume_flags(struct 
+>> ntfs_volume *vol, const __le16 flags)
+>>         vi = (struct volume_information *)((u8 *)ctx->attr +
+>> le16_to_cpu(ctx->attr->data.resident.value_offset));
+>> -    vol->vol_flags = vi->flags = flags;
+>> +    vol->vol_flags = vi->flags = cpu_to_le16(flags);
+>>       mark_mft_record_dirty(ctx->ntfs_ino);
+>>       ntfs_attr_put_search_ctx(ctx);
+>>   done:
+>> @@ -414,13 +428,14 @@ static int ntfs_write_volume_flags(struct 
+>> ntfs_volume *vol, const __le16 flags)
+>>    * @flags:    flags to set on the volume
+>>    *
+>>    * Set the bits in @flags in the volume information flags on the 
+>> volume @vol.
+>> + * The bits are combined with the current flag state under the lock in
+>> + * ntfs_write_volume_flags(), so concurrent updates are not lost.
+>>    *
+>>    * Return 0 on success and -errno on error.
+>>    */
+>>   int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+>>   {
+>> -    flags &= VOLUME_FLAGS_MASK;
+>> -    return ntfs_write_volume_flags(vol, vol->vol_flags | flags);
+>> +    return ntfs_write_volume_flags(vol, flags, 0, false);
+>>   }
+>>     /*
+>> @@ -429,14 +444,27 @@ int ntfs_set_volume_flags(struct ntfs_volume 
+>> *vol, __le16 flags)
+>>    * @flags:    flags to clear on the volume
+>>    *
+>>    * Clear the bits in @flags in the volume information flags on the 
+>> volume @vol.
+>> + * The bits are combined with the current flag state under the lock in
+>> + * ntfs_write_volume_flags(), so concurrent updates are not lost.
+>>    *
+>>    * Return 0 on success and -errno on error.
+>>    */
+>>   int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
+>>   {
+>> -    flags &= VOLUME_FLAGS_MASK;
+>> -    flags = vol->vol_flags & cpu_to_le16(~le16_to_cpu(flags));
+>> -    return ntfs_write_volume_flags(vol, flags);
+>> +    return ntfs_write_volume_flags(vol, 0, flags, false);
+>> +}
+>> +
+>> +/*
+>> + * ntfs_clear_volume_dirty_if_no_errors - clear dirty bit if no 
+>> errors exist
+>> + * @vol:    ntfs volume whose dirty bit should be cleared
+>> + *
+>> + * Check NVolErrors() and clear VOLUME_IS_DIRTY under the same 
+>> mrec_lock so
+>> + * ntfs_sync_fs() cannot clear the dirty bit after a concurrent 
+>> error has been
+>> + * recorded.
+>> + */
+>> +static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume 
+>> *vol)
+>> +{
+>> +    return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true);
+>>   }
+>>     int ntfs_write_volume_label(struct ntfs_volume *vol, char *label)
+>> @@ -1862,7 +1890,7 @@ static int ntfs_sync_fs(struct super_block *sb, 
+>> int wait)
+>>           return 0;
+>>         /* If there are some dirty buffers in the bdev inode */
+>> -    if (ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY)) {
+>> +    if (ntfs_clear_volume_dirty_if_no_errors(vol)) {
+>>           ntfs_warning(sb, "Failed to clear dirty bit in volume 
+>> information flags.  Run chkdsk.");
+>>           err = -EIO;
+>>       }
+>
+> Hi Hongling,
+>   Patch 1 fixes the race in ntfs_sync_fs(), but there are two other 
+> sites with the same check-outside-lock-then-clear-inside-lock pattern:
+>
+>   1. super.c:315 (ntfs_reconfigure, remount read-only path)
+>   2. super.c:1755 (ntfs_put_super, umount path)
+>
+>   Both use:
+>       if (!NVolErrors(vol)) {   // check outside lock
+>           if (ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY))  // clear 
+> inside lock
+>
+>   The same race can occur: if an error thread sets NVolErrors() and the
+>   dirty bit after the check but before the lock acquisition, the clear
+>   operation will overwrite the freshly-set dirty bit.
+>
+>   Although the race window is much narrower for remount/umount, should
+>   these two sites also be converted to use
+>   ntfs_clear_volume_dirty_if_no_errors() for consistency?
+>
+> Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+>
+>
+> Thanks,
+> Baolin.
+Thanks for the careful reading
 
-Konrad
+These two sites cannot actually race ntfs_sync_fs(): ntfs_reconfigure() 
+(via do_remount()) and ntfs_put_super() (via generic_shutdown_super()) 
+both run with sb->s_umount
+held for write, while the sync(2)/syncfs(2) paths only take it for read 
+through iterate_supers(). So the check and the clear inside 
+ntfs_clear_volume_flags() are
+effectively a single non-interleavable pair with respect to sync — the 
+window is not merely narrow but structurally closed.
+
+We deliberately keep ntfs_clear_volume_dirty_if_no_errors() for the 
+paths that can genuinely race sync (currently only ntfs_sync_fs() 
+itself), so converting these two would
+blur that line rather than improve consistency.
+
