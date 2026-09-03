@@ -1,166 +1,326 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FDEC4B149A
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:07:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4C64ADD83
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:07:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444466; cv=none; b=RENA1w63SYPl9H0DdXWhAzsjt5Y6cOjY+cg9ZLvqal61Hq7UM2rlw+1yynUhD/OdVdEiXN3Pvg7INBbdSdGzyyZXLIe0gi4nC3G4FfKcX01LBuWgZn2oqId8qE20woTnfdYGeMrGXBWCzoB2RglqDhef0Qr4hVtNr08CniuRSZo=
+	t=1788444461; cv=none; b=c3z/my7i8MPAzUsMHI8jFYWduJNYHSZh3hpybGCOZ8cqmmg/ZspOtuyCRcwbIKj8l8iU2omhu38UABj5bXe0m6+n0jIZkTIorWOaHYehqGpOrsqmROK+P71RgL8TdtFEv5AYmi0Yjvb2Q/ebr563H89tA4BuO/IHV+z9u2STkto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444466; c=relaxed/simple;
-	bh=taHT/FWrTTmTNXum4aFu4vc3zEZd97waKqjHUDl8gfk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=faCJP85W5a4qsR+ymgK5299CTk/zcr+CBs22wE6H5f3LvZTrQzh6AIlHYN4f1JUdHFc+iVdk07nH3PUgvbpPxns/eDkB6hz9BlzhI4AQWSUaKh1tJ5TiKeME0tHMrIdPdDhxv7VymtOLaRSZAIdzPceZFUkTo08xH393HDNV3nU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pbLIUqbv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gui5l7tu; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788444461; c=relaxed/simple;
+	bh=3JVcJdyW+KzKM09ayMr/cSlvghtbjv5LFmv0rpwNFII=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=K5XIDjQhjgtFWR8G2tbNZKfjWdCq7zmkoyTXWBa9sBZoUR1ZgeclV/XcS5Ue8sbrd1JY0fUDso/E/8Cw3/1xavEGyqjCfsuT4KGGT9nkbyIfJ37fDs3N/LojwjLUEgBOWGSDD14NR47P3OmuwS2QDZkCQIvHvoLi/SSPsNSS834=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=Hyp0gggJ; arc=none smtp.client-ip=188.68.63.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pbLIUqbv";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gui5l7tu"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683DA8vL1704855
-	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 14:07:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=euO68b8p5f2
-	lwR2HBSoTd9oe/4Nd/VdBWR8tOJjtlZg=; b=pbLIUqbvgz5NbLlACLX+l6oJMQX
-	xozqop+HFdynlBsXIdRrO98BvaW0c68a9NSSLjdAVBcViv3oUNijTzR89oRStS4/
-	Vjm7k7PzYaF1F1bQgx1PWqiaik/f8N6XFuLPP7g7OqqenhPYIdsXXLx7FAQWzuyu
-	HDyLDfb0gQfFJ1Pc2zlqiBZtSBKYbQcMeExnAObIuf/2LUmm/A7U1grqXn0XJv62
-	evPkUME6FTXBFq7PUl02LjwKxLnC3Kt14pyRi58OtxbwOlXmRgTSeo4ZtO2dSzDS
-	NxGfqvwGmKl75j80BZyi46yi38ecS/OsxyNXM/ZpYSw/OIZRAssjDZKgSGw==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf9b189pe-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 14:07:30 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38ec0f510a9so5503811a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:07:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788444450; x=1789049250; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=euO68b8p5f2lwR2HBSoTd9oe/4Nd/VdBWR8tOJjtlZg=;
-        b=gui5l7tuJ7t8qLgmMC73E4apbZJ/KHttaMe6gndcUFlYsinlPuxcYTd3KdYjfX81Sz
-         pUnAEdDOpQjC3tBzrCtVOLAdDJPQtYth2am3Ij/gty5/JB4a/xyuDWfc/KOUjAdlUmNi
-         2wbMVP6BO2FRKdd0R/EEjN3FAELv70xsd9eGZILh40LS1NdZWTWBRQIQGydHvrr2JRKt
-         prZiSLc4FRwuWnI9GW3KQPFmQU9SQF0FCEcuvpmutTYbGFlOCDkFa0bu3fR9loOSQfK3
-         t2z0j1pvgEdaYQNJFsqwxC/A+CsfK82XOCHiCSsFKybE+V5YHwAQ+YOtOVXFylz91Y5D
-         UtzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788444450; x=1789049250;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=euO68b8p5f2lwR2HBSoTd9oe/4Nd/VdBWR8tOJjtlZg=;
-        b=icoDEZG2fmkFQhJS/gpZMWHmTS/MPRJDflF44QE1MG3Q+bSDrshQw8N1Q0yK8InZXz
-         yWe4BUtiJ3m6IpthXak184/Kh0WsBEeFt3TA1LQCk4d1sflRPNvFrfSuD4f3Hm6Zzr2t
-         nJL/kzwFAeKW3WFq17Ifu26oaHx1iR4RapqGyx3jK+MPIwdciej27ouX3nMiJ3aIU2IC
-         uUsEJgoCBKSzei/R1kriRaE/VXEMVGVwZhKj7J7gRxabkd9pLHfZ3VYmADOFKLNiPNA9
-         EnuYhKMzAa02JkPh0C1k7vuza2hVXTrsuXAZ1KLIGQzVFJegsTPOpvuLJHCYDx7XcHTS
-         IutA==
-X-Forwarded-Encrypted: i=1; AKwUvByZSeWt+1Vlarb5CQktEyZdXOR0ipanmUOkclm0nrpjec0pjzjDTwsLO+e3ZzMN67TrmOwaQvQJcvbJWJY=@vger.kernel.org
-X-Gm-Message-State: AFuF++ngd8WvTJ2Aiu6xT8Mjpcs6o0+EpEA7HpZggqXdPiqxQeA7XEWb
-	IOqzKClifxGTFTT/yrHJP59sF+5sThr0EHaM4xiNLTlPoiAPkKfThocBr/YbaetWmlV+92Qcw2q
-	4nQgeQHpFxwtLtXAeU6fd50MFDZbpbOPOnAGdKBHMr2jrbY8u3sCZbh8DvN1zJBTGdoI=
-X-Gm-Gg: AYBFou3Bj0hUfM6637uVC5T+Ooet3wi7Xh73pXKKGf/5fnyAfbwLV4ve83MmBOcBHfL
-	B0BEazqx10CuYk/j7wkIuoOORr7KtCyFObqWGqnTRSjgqH2DdbJIy2KGlxFn9tpR/8H7bSa4KoH
-	GWcorU7Pz2HV7RPwQuHnDfbzQnN9rwvMQV83SynbmcA+7CHKMuIBjmrANcXkHbb1835sK9Wg/ku
-	TxfMVVQfMUCQRDUS+tWpsXs4vKzz2LX8bZPA3Sn2dYSavX/3YZyrpURZ3EYqb4Ywfly3rBr4tG1
-	0YDP9l3oZUyvrQP1evQGezxxw8T6PAR6gswvnPGQQ+KeehvLjaqe0AT/qqMgvBR68mL4CJjD/E6
-	PdJtQOWBhCpquFOnDJCilZTPsnaWJvT2enCfIE4yu7KETnXKbLbt5yC9PZKws
-X-Received: by 2002:a17:90b:2688:b0:398:bdb0:adb7 with SMTP id 98e67ed59e1d1-39aee162e08mr21894654a91.16.1788444449713;
-        Thu, 03 Sep 2026 07:07:29 -0700 (PDT)
-X-Received: by 2002:a17:90b:2688:b0:398:bdb0:adb7 with SMTP id 98e67ed59e1d1-39aee162e08mr21894373a91.16.1788444448818;
-        Thu, 03 Sep 2026 07:07:28 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1431994fdd7sm6809098c88.10.2026.09.03.07.07.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 07:07:28 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
-        Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-        Yadu M G <yadu.mg@oss.qualcomm.com>,
-        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH v14 4/6] dt-bindings: arm: qcom: Document Nord reference boards
-Date: Thu,  3 Sep 2026 22:06:15 +0800
-Message-ID: <20260903140617.441111-5-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260903140617.441111-1-shengchao.guo@oss.qualcomm.com>
-References: <20260903140617.441111-1-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="Hyp0gggJ"
+Received: from mors-relay8203.netcup.net (localhost [127.0.0.1])
+	by mors-relay8203.netcup.net (Postfix) with ESMTPS id 4hbLyK0ZQQz8kyp;
+	Thu,  3 Sep 2026 14:07:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1788444441;
+	bh=3JVcJdyW+KzKM09ayMr/cSlvghtbjv5LFmv0rpwNFII=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Hyp0gggJ6Y/kCMq53XZ9/nu7aQ6YuQ8DiUon1EbzK2A/R4CatF7NkEm+ivj1iug3a
+	 dLwNlWS+G1u22qgOJlxD8nuvLRxsqkcWSsVwT+6lYuPKxofwlCB9mQ5ECLH5nLb1VR
+	 q0mb6736J4cqV6ftXksX0v3wVMhgyaxAC8JoQo9VbhFQEQD0GjJDrtMuExBAig5itQ
+	 fIYS0TbJ0zoU7c3pI4HA2WxG6BjWx0jmo7ejqm9iUi4nPKhb9meyfb/ZMcehdruSHO
+	 eDqATWmOj1nfVIjK6Hn9GLFZRcNv/nHONYcUNl9P8mnp6BpSBYSMDkZMccFvfOshLJ
+	 yJbJL8g8bKnvQ==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay8203.netcup.net (Postfix) with ESMTPS id 4hbLyJ6ycjz8k0P;
+	Thu,  3 Sep 2026 14:07:20 +0000 (UTC)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hbLyG6dWdz8svZ;
+	Thu,  3 Sep 2026 16:07:18 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 7B1D75F98C;
+	Thu,  3 Sep 2026 16:07:17 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <0600a3f0-b2d2-4a07-ab21-f590c2979612@leemhuis.info>
+Date: Thu, 3 Sep 2026 16:07:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/vblank: Don't arm vblank timer with invalid frame
+ duration
+To: Thomas Zimmermann <tzimmermann@suse.de>, Roman Ilin <me@romanilin.is>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maxime Ripard <mripard@kernel.org>, Louis Chauvet
+ <louis.chauvet@bootlin.com>, Javier Martinez Canillas <javierm@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?=
+ <ville.syrjala@linux.intel.com>, Peter Arnesen <peter.m.arnesen@gmail.com>,
+ Linux kernel regressions list <regressions@lists.linux.dev>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+References: <20260613224434.96501-1-me@romanilin.is>
+ <20260702181027.98526-1-me@romanilin.is>
+ <E697A2AE-5413-48AE-BFD6-3383819B388B@romanilin.is>
+ <3b192119-9709-4f21-841f-a4706cc85e4a@suse.de>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <3b192119-9709-4f21-841f-a4706cc85e4a@suse.de>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: mrRwnhHHbiB7IWR9W3OBuVTjP20tTh9m
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEyMyBTYWx0ZWRfX/vr0dIGTC5k5
- SDANNNscC191GcX0eB3+YoaTf3/lmJJZ9xJms+82gOk/Bhvy+wsM94uIKQrbNnoz3p75lnGhxX0
- XVeKOXm3fuDQ53NBamdySt71sdIVM5U=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEyMyBTYWx0ZWRfX7w5bkgpArej9
- bcs7vXPcEt3Zka9bGrWfy11EPtl0E3D4+d/a+DqQHsPrWQ6mujDF76k46j2sgDvxbbI1/MNIZfI
- Mf4Djwo7LjC/6Wih9Fgl9HpQAFZc5qEsnko8ZZ90u2Bi+kXxh1FmciGUGZOYQS+kUSSqEuucsDp
- euYreLqdcgoNeOlwZtbaW7st2uM0kUatRFWUYuCSNq/CqfGdlUUB+T6LbHYdpJ2retBGrjrLnpl
- coh3uNHOLacAKn5OAjkYs1T89g5O9jwyBBSKhKLkzNUBLfyCLVheMPLCNvLvCCR77xF/TpCiAIh
- JhkUtPQt87PUv4xcD7bP4oq+eiYiDl/T68PxK3A5h90/FjrEddzqUWXrMNawyL7lfASLd3FlCh2
- A33LN4PSZN89e6dMd6jTyqOowRhLrfT70Q0F0o/11HC5S9EZMItXhR9aCkPEc+Ns90XCvp2WMXu
- pb5gMhLju4efDkHQE8g==
-X-Authority-Analysis: v=2.4 cv=NNTlPU6g c=1 sm=1 tr=0 ts=6a997f22 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=3mLb7b5QgQ_nS9KBAK4A:9 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-GUID: mrRwnhHHbiB7IWR9W3OBuVTjP20tTh9m
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_04,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 adultscore=0
- malwarescore=0 clxscore=1015 suspectscore=0 impostorscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609030123
+X-PPP-Message-ID: <178844443809.4107117.9364314680688868683@mxe9fb.netcup.net>
+X-NC-CID: MeO2IRxoOEpTD/j4x3it0MhCtIXgmIlb7HzlQlo+BCdoA5uKCTM=
 
-Nord is a new generation of SoC series from Qualcomm which includes
-SA8797P (for Automotive) and Dragonwing IQ10 (for IOT/Robotics).
-Document SA8797P Ride and IQ10 Robotics Reference Design (RRD) boards.
+On 7/3/26 09:26, Thomas Zimmermann wrote:
+> Am 02.07.26 um 20:23 schrieb Roman Ilin:
+>> Apologies, I accidentally fired off send-email before saving my final
+>> changelog notes. Please ignore the changelog and notes in the original
+>> v3 email.
+>>
+>> The actual changes in v3 are:
+>>
+>> - Changed the WARN_ON_ONCE to drm_dbg_kms (to avoid user-triggerable
+>>    panics).
+> 
+> We want to know when this happens. And user space will only be able to
+> trigger this once, so there's no risk of spamming the kernel log.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
----
- Documentation/devicetree/bindings/arm/qcom.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
+Hmmm, just wondering: what's the status here?
 
-diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index ff8a35df7862..198314ddaa84 100644
---- a/Documentation/devicetree/bindings/arm/qcom.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -402,6 +402,12 @@ properties:
-               - xiaomi,sagit
-           - const: qcom,msm8998
- 
-+      - items:
-+          - enum:
-+              - qcom,iq10-rrd
-+              - qcom,sa8797p-ride
-+          - const: qcom,nord
-+
-       - description: Qualcomm Technologies, Inc. Robotics RB1
-         items:
-           - enum:
--- 
-2.43.0
+Roman Ilin, did you loose interest? Or was this continued somewhere or
+maybe even resolved and I just missed that?
+
+Thomas: if Roman left this behind, could you maybe handle this, as it
+fixes a regressions that iirc is caused by a change of yours? Or is it
+fine for some reason to ignore this, even if the userland problem that
+triggers this is still unfixed afaics? Side note: I by chance saw that
+the latter a few days ago got a new comment from someone that ran into it.
+https://gitlab.freedesktop.org/spice/linux/vd_agent/-/work_items/52
+
+Ciao, Thorsten
+> So this is not really a problem. drm_WARN_ON_ONCE was ok for that. You
+> can also use a regular DRM print macro. But instead of drm_dbg_kms()
+> should use drm_err_once(). But please also output linedur_ns and
+> framedur_ns in the error. We want to know which of them is incorrect.
+> You can also add more information to the error message. See [1] for the
+> mode-formating macros.
+> 
+> [1] https://elixir.bootlin.com/linux/v7.1.2/source/include/drm/
+> drm_modes.h#L422
+> 
+> 
+>> - Updated drm_calc_timestamping_constants with the goto error fallback
+>>    to clear the stale state.
+>>
+>> Also, an automated review bot pointed out an AB-BA deadlock in
+>> drm_crtc_vblank_start_timer(). But I am leaving this out of the patch to
+>> keep the fixes orthogonal.
+>>
+>> Sorry for the noise.
+>>
+>>> On Jul 2, 2026, at 21:10, Roman Ilin <me@romanilin.is> wrote:
+>>>
+>>> When a CRTC's display mode carries a too small pixel clock,
+>>> drm_calc_timestamping_constants() computes a frame duration that
+>>> exceeds INT_MAX. drm_vblank_crtc.framedur_ns becomes negative.
+>>> drm_crtc_vblank_start_timer() then arms the vblank hrtimer with this
+>>> interval, after which vblank events are no longer delivered. Pending
+>>> page flips never complete and the display appears frozen.
+>>>
+>>> This could be triggered on virtio-gpu guests that have dynamic
+>>> resolution
+>>> enabled: when the SPICE agent or the X server resizes the output, it
+>>> submits a mode whose pixel clock is off by a factor of 1000, e.g.:
+>>>
+>>>     clock = 406 kHz, htotal = 3152, vtotal = 2148
+>>>
+>>>     framedur_ns = 3152 * 2148 * 1000000 / 406 = 16675852216 ns (~16.7 s)
+>>>
+>>> 16675852216 does not fit into an int and wraps to roughly -504000000.
+>>> ns_to_ktime() then yields a negative interval and the timer stops
+>>> working.
+>>>
+>>> Found by bisection, which pointed at commit a036f5fceedb ("drm/virtgpu:
+>>> Use vblank timer"). That commit merely made virtio-gpu use the vblank
+>>> timer and thereby exposed the pre-existing problem in the timer setup
+>>> added by commit 74afeb812850 ("drm/vblank: Add vblank timer").
+>>>
+>>> To fix this, modify drm_calc_timestamping_constants() to use u64 for
+>>> calculations, check for INT_MAX overflows, and return an error code.
+>>> drm_crtc_vblank_start_timer() will then propagate the error, enabling
+>>> the driver to fall back to immediate vblank events. Valid modes are
+>>> unaffected, and the timer self-heals on the next mode with a sane clock.
+>>>
+>>> Fixes: 74afeb812850 ("drm/vblank: Add vblank timer")
+>>> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+>>> Signed-off-by: Roman Ilin <me@romanilin.is>
+>>> ---
+>>> Changes in v3:
+>>>
+>>> - Changed the WARN_ON_ONCE to drm_err_once
+>>>
+>>> Notes:
+>>>
+>>>
+>>>
+>>> drivers/gpu/drm/drm_vblank.c | 71 +++++++++++++++++++++++-------------
+>>> include/drm/drm_vblank.h     |  4 +-
+>>> 2 files changed, 48 insertions(+), 27 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+>>> index f90fb2d13..629b9fcc7 100644
+>>> --- a/drivers/gpu/drm/drm_vblank.c
+>>> +++ b/drivers/gpu/drm/drm_vblank.c
+>>> @@ -631,42 +631,51 @@ EXPORT_SYMBOL(drm_crtc_vblank_waitqueue);
+>>>   * drm_crtc_vblank_helper_get_vblank_timestamp(). They are derived from
+>>>   * CRTC's true scanout timing, so they take things like panel
+>>> scaling or
+>>>   * other adjustments into account.
+>>> + *
+>>> + * Returns:
+>>> + * 0 on success, or a negative errno code otherwise.
+>>>   */
+>>> -void drm_calc_timestamping_constants(struct drm_crtc *crtc,
+>>> -     const struct drm_display_mode *mode)
+>>> +int drm_calc_timestamping_constants(struct drm_crtc *crtc,
+>>> +    const struct drm_display_mode *mode)
+>>> {
+>>> struct drm_device *dev = crtc->dev;
+>>> unsigned int pipe = drm_crtc_index(crtc);
+>>> struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
+>>> - int linedur_ns = 0, framedur_ns = 0;
+>>> + u64 linedur_ns, framedur_ns;
+>>> int dotclock = mode->crtc_clock;
+>>> + unsigned int frame_size;
+>>>
+>>> if (!drm_dev_has_vblank(dev))
+>>> - return;
+>>> + return 0;
+>>>
+>>> if (drm_WARN_ON(dev, pipe >= dev->num_crtcs))
+>>> - return;
+>>> + return -EINVAL;
+>>>
+>>> - /* Valid dotclock? */
+>>> - if (dotclock > 0) {
+>>> - int frame_size = mode->crtc_htotal * mode->crtc_vtotal;
+>>> + if (dotclock <= 0) {
+>>> + drm_err(dev, "crtc %u: Can't calculate constants, dotclock = %d!\n",
+> 
+> Please turn this into drm_err_once() because this call can actually be
+> triggered repeatedly from userspace.
+> 
+> Best regards
+> Thomas
+> 
+> 
+>>> + crtc->base.id, dotclock);
+>>> + goto error;
+>>> + }
+>>>
+>>> - /*
+>>> - * Convert scanline length in pixels and video
+>>> - * dot clock to line duration and frame duration
+>>> - * in nanoseconds:
+>>> - */
+>>> - linedur_ns  = div_u64((u64) mode->crtc_htotal * 1000000, dotclock);
+>>> - framedur_ns = div_u64((u64) frame_size * 1000000, dotclock);
+>>> + frame_size = (unsigned int)mode->crtc_htotal * (unsigned int)mode-
+>>> >crtc_vtotal;
+>>>
+>>> - /*
+>>> - * Fields of interlaced scanout modes are only half a frame duration.
+>>> - */
+>>> - if (mode->flags & DRM_MODE_FLAG_INTERLACE)
+>>> - framedur_ns /= 2;
+>>> - } else {
+>>> - drm_err(dev, "crtc %u: Can't calculate constants, dotclock = 0!\n",
+>>> - crtc->base.id);
+>>> + /*
+>>> + * Convert scanline length in pixels and video dot clock to line
+>>> duration
+>>> + * and frame duration in nanoseconds.
+>>> + */
+>>> + linedur_ns  = div_u64((u64)mode->crtc_htotal * 1000000, dotclock);
+>>> + framedur_ns = div_u64((u64)frame_size * 1000000, dotclock);
+>>> +
+>>> + /*
+>>> + * Fields of interlaced scanout modes are only half a frame duration.
+>>> + */
+>>> + if (mode->flags & DRM_MODE_FLAG_INTERLACE)
+>>> + framedur_ns /= 2;
+>>> +
+>>> + if (linedur_ns > INT_MAX || framedur_ns > INT_MAX) {
+>>> + drm_dbg_kms(dev, "crtc %u: Can't calculate constants, mode clock
+>>> too small!\n",
+>>> +    crtc->base.id);
+>>> + goto error;
+>>> }
+>>>
+>>> vblank->linedur_ns  = linedur_ns;
+>>> @@ -678,7 +687,16 @@ void drm_calc_timestamping_constants(struct
+>>> drm_crtc *crtc,
+>>>      crtc->base.id, mode->crtc_htotal,
+>>>      mode->crtc_vtotal, mode->crtc_vdisplay);
+>>> drm_dbg_core(dev, "crtc %u: clock %d kHz framedur %d linedur %d\n",
+>>> -     crtc->base.id, dotclock, framedur_ns, linedur_ns);
+>>> +     crtc->base.id, dotclock,
+>>> +     vblank->framedur_ns, vblank->linedur_ns);
+>>> +
+>>> + return 0;
+>>> +
+>>> +error:
+>>> + vblank->linedur_ns  = 0;
+>>> + vblank->framedur_ns = 0;
+>>> + drm_mode_copy(&vblank->hwmode, mode);
+>>> + return -EINVAL;
+>>> }
+>>> EXPORT_SYMBOL(drm_calc_timestamping_constants);
+>>>
+>>> @@ -2221,6 +2239,7 @@ int drm_crtc_vblank_start_timer(struct drm_crtc
+>>> *crtc)
+>>> struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
+>>> struct drm_vblank_crtc_timer *vtimer = &vblank->vblank_timer;
+>>> unsigned long flags;
+>>> + int ret;
+>>>
+>>> if (!vtimer->crtc) {
+>>> /*
+>>> @@ -2239,7 +2258,9 @@ int drm_crtc_vblank_start_timer(struct drm_crtc
+>>> *crtc)
+>>> hrtimer_try_to_cancel(&vtimer->timer);
+>>> }
+>>>
+>>> - drm_calc_timestamping_constants(crtc, &crtc->mode);
+>>> + ret = drm_calc_timestamping_constants(crtc, &crtc->mode);
+>>> + if (ret)
+>>> + return ret;
+>>>
+>>> spin_lock_irqsave(&vtimer->interval_lock, flags);
+>>> vtimer->interval = ns_to_ktime(vblank->framedur_ns);
+>>> diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
+>>> index 2fcef9c0f..d99772dfa 100644
+>>> --- a/include/drm/drm_vblank.h
+>>> +++ b/include/drm/drm_vblank.h
+>>> @@ -311,8 +311,8 @@ void drm_crtc_vblank_on(struct drm_crtc *crtc);
+>>> u64 drm_crtc_accurate_vblank_count(struct drm_crtc *crtc);
+>>> void drm_crtc_vblank_restore(struct drm_crtc *crtc);
+>>>
+>>> -void drm_calc_timestamping_constants(struct drm_crtc *crtc,
+>>> -     const struct drm_display_mode *mode);
+>>> +int drm_calc_timestamping_constants(struct drm_crtc *crtc,
+>>> +    const struct drm_display_mode *mode);
+>>> wait_queue_head_t *drm_crtc_vblank_waitqueue(struct drm_crtc *crtc);
+>>> void drm_crtc_set_max_vblank_count(struct drm_crtc *crtc,
+>>>    u32 max_vblank_count);
+>>> -- 
+>>> 2.54.0
+>>>
+> 
 
