@@ -1,163 +1,228 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013048.outbound.protection.outlook.com [40.107.201.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9997D4B66DE;
-	Thu,  3 Sep 2026 14:42:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788446570; cv=fail; b=YIexjNwHSWR1OG3SVoJQu2uWegqolQFdHsBrgu8NFbhY7g96fwZJR0l4q7lRkXAIGpLQ05rSatbAadqoXY36O9Ely5ItVY2o4SeRkEObiRTbKLmEFljiksNLnQUtvhk/c/dsGUr8ptJcv/XAUaTsLGLRJlzjdfCeyqT3bQVDkDw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788446570; c=relaxed/simple;
-	bh=aXtaw7cnug5WYtfA/Wd2PeFkgteYKyMMFQSooszHc6k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=F0zgOlXgtNfFz8cd1Farx83YMUwFCYO5hJpCspZV6gZ1k0JaJfnHdBp7A+pQTjxtDoMcWgYt3MXQVT3aks+6EOsgHEZdAquemNmMs6RDmdDJab8V9XT2xoE2TnN7FNo/GqIWGYTVXtu+s3Ycsrb0RJ+tn6RMk9fV3pzjgHr53QI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=SJxCMz5j; arc=fail smtp.client-ip=40.107.201.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 034364B8DE0
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:44:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788446648; cv=none; b=SBcg8zCqorf0nDJe0meTn9gvHQ1rDxt1G3VOOBx1wLpZ1Kvp+h/cLyVubzfEJJQjwNq3tnL5ml02pbUa2nCtv6DgxeDNWutWtG/m3dfrmWRRg6PsBcgtyvcdNRju447hYhb5tnZkqu++WrlD8nHCK0O47nZQuNtx4iUCKjHt2K0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788446648; c=relaxed/simple;
+	bh=ELuqRbWl/d7dwnAoN/rZEEIZG2/ycBkDZSXJhJLTFps=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=fTSGrEAhOGy9ztlaoFVF88NFY9aqPMDQpvAJMTFzKW/d5vYu6HNO8axmfDQjTjsEc4kigaQ7T1uQ+K3OFvcng/5lQ2ef0hxa2Pcnnu/NLq3RZLqCSy3+mRlsHXSZXUoQpkg1awJxZCpOaAXrgAVjV0U7/SGcW0P54zdCaiKtims=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qXgXAq07; arc=none smtp.client-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="SJxCMz5j"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ehGJRdFy33uY80pGqNhE3eOBJb8gnk2QHixiUGuhzxHMVEOmW/ZtvWH72xLgHUfw1vhxc3yNEdajz3UpMW3J2Kg1wgdBypRD3c4lfRQXYB7tVuyHBLjclQ0/TOlvs4R2CQpwbD0/BeDEvMJSdCWpVL3/QXFLlLZn4gl22o/DnApycfJ46PVES70G8uYwnR/h6liNnOmmazrwjfbjf72faw2OrELg3CjU4PEtBrFdbGB3vtxw9ZGWgAN4zU3iuuPF9dvh8m2gYERnnLx+3XdweZip34PFSNX5SkmvzjZU1jG6bC2xGL2JWH81zTu4lu77LBCMq856erPm9CDCqMLmcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aXtaw7cnug5WYtfA/Wd2PeFkgteYKyMMFQSooszHc6k=;
- b=Oi3m61oS3quhUy6DetI8iC9ALlDLprpCCWw3ShMehoHCebcvXBSnuWzBgcYVIB+vrDVPQbC/WbiWsy6y/dvgXB3CiVLyFadh6dqmHcvFHfIEhORXj58bJwq439D314t5RjJDUzBnIHFAskXqYSRP3u5YGXgivstVBj1oVte/5UJ7TxUl+dO7vF+kPJUl8B+SD5Kol4wqsg+0pSyXv4mahNO/7mAgzRNgLjndUoXa5ic86xtDZ5QAZisM/UhkKz0Icw0Mt6kdKjmRj9eLiI6r4BUP8t3TsP+9xyntQBGN+FdFRA2/JgvvyPlY/Yyz0hDaorxejQb6jNcPNrKNGOTRpQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aXtaw7cnug5WYtfA/Wd2PeFkgteYKyMMFQSooszHc6k=;
- b=SJxCMz5jnZlsyIphkZoj3FwtNu+VT2ySC/0JmiQ1ClZo4AjLjvoHwj38VFoTE4hqNfMXXfBWI1KpzpWeNzBsffzrxCLtbTJ38Jp345EIH2uqIAAuCOqX/8YgKRji2zJ1JqH7Vdjty91+5vYanh/ssbKIk23+Bgg0RKzx5RkdKGLs/dx625YD/w/V3eruAtNZ+DFAQJ2zN6u2WtSHzj11/wa1xNHTxPcluC3O7zoN7S4m1XTVBmTyIbQ2qNtlZ0w2wwjn+Wn7IKNFiXj4CeibXRbOg+b9VfAlulkrd+DRhGMUuDJ8GZf6EQ8g0uhjWkO7YCb9YEwGhtEfPhBzww65Ew==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
- by CY3PR12MB9702.namprd12.prod.outlook.com (2603:10b6:930:103::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Thu, 3 Sep
- 2026 14:42:38 +0000
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 14:42:38 +0000
-Date: Thu, 3 Sep 2026 11:42:36 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Jacob Pan <jacob.pan@linux.microsoft.com>
-Cc: Mukesh R <mrathor@linux.microsoft.com>,
-	Alex Williamson <alex@shazbot.org>, hpa@zytor.com,
-	robin.murphy@arm.com, robh@kernel.org, wei.liu@kernel.org,
-	mhklinux@outlook.com, muislam@microsoft.com,
-	namjain@linux.microsoft.com, magnuskulke@linux.microsoft.com,
-	anbelski@linux.microsoft.com, linux-kernel@vger.kernel.org,
-	linux-hyperv@vger.kernel.org, iommu@lists.linux.dev,
-	linux-pci@vger.kernel.org, linux-arch@vger.kernel.org,
-	kys@microsoft.com, haiyangz@microsoft.com, decui@microsoft.com,
-	longli@microsoft.com, tglx@kernel.org, mingo@redhat.com,
-	bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
-	joro@8bytes.org, will@kernel.org, lpieralisi@kernel.org,
-	kwilczynski@kernel.org, bhelgaas@google.com, arnd@arndb.de,
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
-Subject: Re: [PATCH v5 3/9] mshv: Introduce basic mshv bridge device for VFIO
- to build upon
-Message-ID: <20260903144236.GK4157646@nvidia.com>
-References: <20260731223427.2554388-1-mrathor@linux.microsoft.com>
- <20260731223427.2554388-4-mrathor@linux.microsoft.com>
- <20260902111905.000079d4@linux.microsoft.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902111905.000079d4@linux.microsoft.com>
-X-ClientProxiedBy: BL1PR13CA0236.namprd13.prod.outlook.com
- (2603:10b6:208:2bf::31) To LV8PR12MB9620.namprd12.prod.outlook.com
- (2603:10b6:408:2a1::19)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qXgXAq07"
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-85524903a9cso1736381b3a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:44:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788446639; x=1789051439; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=H0PiIrFTy0jAZPA55N8PvRPAL536lW/v4rDJ21ApSMo=;
+        b=qXgXAq077zOjpTE2DTKgkEdgUcozNwpU215qKi+xO5ioXcNS6LHukUgas0I01N/fvs
+         lmVKD7UljFhhGv9I47pWwxf1MvoECx9a5XsZVSPQumroi1sQGjJmSXo1Z52uPKYJP1wM
+         EtiWp/XluPlKAp2IRl69Z1NfuGvbTm/t/FqLPb/UmU9TPNF/0NB6zdhJaOm6SvnjUsDi
+         JqstlW8tM20ESSPTpfa6OEoBCcTgnnQPJrL4UhMHzQVfLqMssDJHj9MS0mc0kAestFFP
+         ZP8688Odz7vkkJlWtA7b6bPHxICub1TDjypVSpf7hvH9wqg+62qMynDlblnkAhrtfLDO
+         3hLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788446639; x=1789051439;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H0PiIrFTy0jAZPA55N8PvRPAL536lW/v4rDJ21ApSMo=;
+        b=REns7+uO1Xvb26sgGp2YQHZ49J0BEEIoR+B4OzBdAw6pTt2P4ZSNroMfnnk1zgkRQG
+         i5wxo/Jd09ZIzoZL+C+2faM8OV9kIEZvtRZ6u9X5h3z0JxkQz1cfntbNVjNHTGvEv6KS
+         Jz4ic45Z6SDJhrcb3g9YuT3IjdGipgT3qLxKok2TNRgFWePX+gGxposw+Bz+6SdGiH9u
+         EGoLe46jIMywKzI6N9jBaFM9NTy1FnI1mVNYbrV5Fw6IQgFZ90eTbFbC3iqGaFVCOUpd
+         XX2cEWtkFIhSGq71K51ziExcc1OkDJpG4bezm6HpkQXBNb6zC0UDK8ehgyieJMonxRfa
+         0qpg==
+X-Forwarded-Encrypted: i=1; AKwUvBxS3D28ARDNvKwhaPRzDEm9Q+uhnmS7OdcV83lb9tGOBiFEQHcLr58Sxg5YhR6AO/xZW8Uq/7+UoB+7jH4=@vger.kernel.org
+X-Gm-Message-State: AFuF++neIEAsBVu515KTbpR6/iC8FBet4kQ9hssbcSyC63gKFgrZQ68E
+	T9VFKRH8zJ9a0tuZvgsxvlNK6EgHmKocAjKBmYZo3EeB7pvOOPtK479cq3NYCROkBaHjYxNzR4Q
+	TcLAkTg==
+X-Received: from pfgr14.prod.google.com ([2002:a05:6a00:c48e:b0:847:926b:dc17])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:138d:b0:857:74ae:ad76
+ with SMTP id d2e1a72fcca58-86141ae9ad6mr626813b3a.26.1788446639057; Thu, 03
+ Sep 2026 07:43:59 -0700 (PDT)
+Date: Thu, 3 Sep 2026 07:43:58 -0700
+In-Reply-To: <20260903083857.33034-B-seiden@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|CY3PR12MB9702:EE_
-X-MS-Office365-Filtering-Correlation-Id: 73c3f93e-3f9d-408a-34d1-08df09c99923
-X-LD-Processed: 43083d15-7273-40c1-b7db-39efd9ccc17a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|376014|366016|23010399003|10067099003|56012099006|4143699003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	TgAwAiTKPL5U5G3tGdxNk6fby/ebrgshEWYqhx+IASxz8WHlSL3rxU1vikf2wYj3t4irngc8vyjVry7PDbzpvTdvH0ICiG7wUXR8BXi9/gHvta6vkMaiosQicnWvJvId+rXDsU8ZGwLm/zv3/0u+pABVouKyiLb3PFrgk3Ch54rW5lXcNBXdEpD3EIz7axY7iJ6VIOIBuF4kK791ESIK+jCrfB4rIPUafCh32zeV1j07QtSvgI/Evqfrbyn+DoBUyNaYiXDftZIXyKDc0em1H1OKkBUYrN9ptt8ntIz9zEqf/Wei3FBsdjw+ojFvDOMhea7CYHIBq5Q79/LGLDXNUpu0yKmJM+jPecV0ndrcVM5W+0lCJUBdUkBCzJpVQqSi1NkZ7JnvQstUIQjhInyxBDryc8uU7sHDQfkNenoAGH6zYb0xXe2V62XDCvFIktYjEEP07/hBDVaM6XJCg6jIWg5hkg6rqPSilSZSaQmpIu3RvE321iHq7tOhvJVx6YIrYEcS1ocD2B2VKIn7uZ/9Lzc0+Rvx8bcNwGpQiv8MpfgTxS3k2Nu2bRTvMlY2eVbr27KQgbt5WsWsdmO5rFN/L5JBNJb4YZhA5ZzcxBKrECO+W7tFV5yDvTZoao+Yg2YARkNmbK1lFuJoXBtx5B63BhiJInRj77ztd0V2mNOBmZo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(366016)(23010399003)(10067099003)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?yePXdVtAqfPtFz6lierpGeDecu+qsLw93UcOw75rBK0Mfd/ZMgbFg7owe2Pp?=
- =?us-ascii?Q?M4Vqeed2o9XgtyMjS7HMOl178C402nSOshTQsD365DuwY0SfQldHtYPWPF4E?=
- =?us-ascii?Q?sP0vWuxdj11rzzh2/v2bf4e/Kyh9okUwZpYYhh5x65Y6Mt/jc0cMpPqI7qvJ?=
- =?us-ascii?Q?Unk8S1eMIDqHnOkaMMXVoPZbG9z9weBQZpEy5T28bfH8UKRzAL3ZUCfM41cq?=
- =?us-ascii?Q?b334dvL40qGL9AxzbS3AfvCe/RCxb4E2tSwxDA3LG+S18Q+m2DXWU2+6bSGK?=
- =?us-ascii?Q?FcZeLqP3W4B+rFAANY81vcDhNiuuTOaisfA2zj2Pd3WXNM+GEBHISpyAGe3v?=
- =?us-ascii?Q?Pb6cHCR7X0I6ek3e4j86nJS+e9ZmNIdrJIrrwf/RL+1JknEDQT7veqZx07Cc?=
- =?us-ascii?Q?vZoPV9mcftYc6IHlOjnlY3Mt9un7IxTmUWj8erYSyJmWBDqm/32NuKu2bmAs?=
- =?us-ascii?Q?hEMEJg73xN1P2AaYl0NMZ3/4w+qAzOp7Uy/L5hlj1Bq9I0L4NjkVVzwQejZm?=
- =?us-ascii?Q?3gdRocagTPQhDxzNhmbffHDdbE6q9UoafNXqqpCPTUUOz0O8AdNXmnV6BCeN?=
- =?us-ascii?Q?ozKuHnB2CoH5MLtcyR/tJLWrvW6mQCtVWl9JD/9t0XTgN6MQ4QcQurNJwZer?=
- =?us-ascii?Q?KxYpJHqEq5PmITGLgDluOZq7osoOWOjB/jTzhmbw75BJQ81d+KFTQkgTUnUY?=
- =?us-ascii?Q?AEqpg/z/zSaT7F2pMT7sdUPAguWaCZaDUtfSPf/GwmbJZxTEHNHjJozVV1xF?=
- =?us-ascii?Q?eTWqymqzbblH1HgHDTTzGUFb2NI5f3Xs0/r8FEhAxSnXdV809VFcPaf3mTzu?=
- =?us-ascii?Q?K+fN8KWCp/8ehwY083KbSv5WgAyHl3h5VqQCcUNk3frbkCF8vju3hNVSFwB/?=
- =?us-ascii?Q?O5Cs99jF52te0UamahlAoX/mhRS9EaTaZWNeptDRqViCggWjbHa5jIQWgEOm?=
- =?us-ascii?Q?wx87QmVlXSiu0plLKRX20FLX14DaM6E1SCs8UDHvFsaJfl48Css+LGUceLTM?=
- =?us-ascii?Q?mj8wALUNcK7yfP9iSUvvue7UNXMXoUlLpoR8yVtvY0XkhXZWXVmx9UGHbib5?=
- =?us-ascii?Q?80DQuz70xCItS0FCwGjgNYM7BRM2eV/WEktwr8+RueLONzI1n1SWFGKZgjjr?=
- =?us-ascii?Q?FtzkCDm9WTNrVZO1g3OAVYFDWAkkpgv4NiArenHg8PkwhiC4xhoBqFodHs9p?=
- =?us-ascii?Q?tLw3tjtM14AVgcXTsIiztqiumubrZ44uP8wgEcQG28zcyaTM2XE2Qo+5LtO0?=
- =?us-ascii?Q?newaOniWCJuvtSNI3g75XQVu+XbXDeTBzs32tWOw2TmVFBOVAO2GlIhmejuA?=
- =?us-ascii?Q?mRGUfAfwxehkagMm27X/GmB1QE/OHMBzhXjue3278w2u+8QXbL+cAbsC2tKT?=
- =?us-ascii?Q?2MdMCI6OXtklFi2NjeGpIoaQVy30pmKTS5WWJl17xf6zE2xWcslTBwzb+8CZ?=
- =?us-ascii?Q?c1b0P2fqvFCogW+s2glrIUe55CzBp8HyYoHDgeG3ReofZqxLDXdf4vToDuLN?=
- =?us-ascii?Q?jWwBnHROC7Wkm/NSRCvtpIXMlJPovfXrJzag2a81iw4+h9zQvdvTPUyFDiIN?=
- =?us-ascii?Q?O85c3JQEfDud0dpM3LBPguEIx5dezCONCYTosSyxqonSSHZ23bocSMcjlTfI?=
- =?us-ascii?Q?j8jHvbKewyGkGSQhK6Mhb1g8QGPI3CO/BRzqeqePi1hV9NUXPBOB8LXC83Ct?=
- =?us-ascii?Q?yP/8RXhMq+vFPYfRDULs4TBAVOp9PTAgWDsE9uSmrU3NKUcj?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 73c3f93e-3f9d-408a-34d1-08df09c99923
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 14:42:37.8914
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: b27IHUWkM1IY9q2aQB7YElX9UiKDyZMS77NQjC2TS/vUdWJIarM3COMpQKs8aknZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9702
+Mime-Version: 1.0
+References: <20260831144802.834315-1-seiden@linux.ibm.com> <20260831144802.834315-24-seiden@linux.ibm.com>
+ <aphMx5hsoXwIpNjt@google.com> <20260903083857.33034-B-seiden@linux.ibm.com>
+Message-ID: <apmHrnxRLl9BuVhn@google.com>
+Subject: Re: [PATCH v7 23/23] KVM: s390: arm64: Add KVM_S390_ARM64 Kconfig and Makefile
+From: Sean Christopherson <seanjc@google.com>
+To: Steffen Eiden <seiden@linux.ibm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, David Hildenbrand <david@kernel.org>, 
+	Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>, 
+	Gautam Gala <ggala@linux.ibm.com>, Hariharan Mari <hari55@linux.ibm.com>, 
+	Heiko Carstens <hca@linux.ibm.com>, Hendrik Brueckner <brueckner@linux.ibm.com>, 
+	Ilya Leoshkevich <iii@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+	Joey Gouly <joey.gouly@arm.com>, Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>, 
+	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>, Oliver Upton <oupton@kernel.org>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Sven Schnelle <svens@linux.ibm.com>, Ulrich Weigand <Ulrich.Weigand@de.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>, Zenghui Yu <yuzenghui@huawei.com>
+Content-Type: text/plain; charset="us-ascii"
 
-On Wed, Sep 02, 2026 at 11:19:05AM -0700, Jacob Pan wrote:
+On Thu, Sep 03, 2026, Steffen Eiden wrote:
+> On Wed, Sep 02, 2026 at 09:20:23AM -0700, Sean Christopherson wrote:
+> > On Mon, Aug 31, 2026, Steffen Eiden wrote:
+> > > diff --git a/arch/s390/kvm/Kconfig b/arch/s390/kvm/Kconfig
+> > > index 8d3ee17a1bcb..9c69ea16031e 100644
+> > > --- a/arch/s390/kvm/Kconfig
+> > > +++ b/arch/s390/kvm/Kconfig
+> > > @@ -53,4 +53,33 @@ config KVM_S390_UCONTROL
+> > >  
+> > >  	  If unsure, say N.
+> > >  
+> > > +config KVM_S390_ARM64
+> > > +	def_tristate y
+> > > +	prompt "KVM support for hardware accelerated arm64 guests"
+> > > +	depends on HAS_IOMEM
+> > > +	depends on KVM
+> > 
+> > Is this actually necessary?  I.e. does kvm.ko need to be *loaded* in order for
+> > kvm-arm64.ko to be loaded?
+> > 
+> > If kvm-arm64.ko does indeed have a hard dependency on kvm.ko, then I think it
+> > makes sense to not have redundant "select" statements below.  As an outsider,
+> > it's super confusing because the KVM_S390_ARM64 are incomplete, e.g. are lacking
+> > things like VIRT_XFER_TO_GUEST_WORK (at least, I assume those are lacking), and
+> > makes it hard to see what is actually unique to kvm-arm64.ko.
+> > 
+> > If kvm-arm64.ko doesn't have a dependency on kvm.ko, e.g. to initialize hardware
+> > or something, then this "depends on" should go away.
+> 
+> 
+> It is a bit more complicated unfortunately. KVM_S390_ARM64 depends on
+> KVM as there is code around in the kernel & drivers (arch and common)
+> which depends on CONFIG_KVM we need as well. I did not want to leak arch
+> local configs to common code if I can avoid that.
+> I could change it to select KVM ? Do you have another idea on how to
+> solve this issue?
 
-> If we do want to support this kvm-vfio bridge semantics beyond kvm,
-> maybe this should be abstracted as a generic VFIO "hypervisor
-> partition" association, with hypervisor-specific get/put callbacks,
-> rather than adding an MSHV-only copy of the KVM hook.
-> +Alex
+I would do something similar to what KVM x86 does.
 
-I don't like this patch at all.
+> The two modules are completely independent at compile and runtime. So
+> kvm does not have to be loaded for kvm-arm64 to work.
+> 
+> VIRT_XFER_TO_GUEST_WORK is only lacking for now. I will add it later.
+> Currently the kvm-arm64 module is incomplete anyways but I did not want
+> to send a 60+patches series and rather stage the introduction over
+> multiple series.
+> 
+> I will remove the duplicated config selections. Thanks for pointing it
+> out. In previous series I had an explicit KVM_S390 config. Both KVM_S390
+> and KVM_ARM64 selected KVM. But this created too much churn around the
+> whole tech-stack 
 
-I think we should try to harmonize all these sort of "external" cases
-as best we can. mshv, confidential compute, xen, etc all have a very
-similar shape.
+LOL, what exactly are you expecting to happen?  You're trying to squeeze support
+in for a completely different architecture, of course there's going to be churn.
 
-I am discussing here with Aneesh an approach to use the viommu almost
-exclusively for this.
+This absolutely needs to be as precisely and correct as possible, otherwise it'll
+be painfully difficult to maintain,  And to some extent, just for others to review.
+E.g. as is, it's at all not clear to me which of the IS_ENABLED(CONFIG_KVM) checks
+in arch/s390 apply to both flavors of virtualization, versus which are specific to
+"native" s390 virtualization.
 
-https://lore.kernel.org/all/20260902235609.GG2890729@ziepe.ca/
+I realize this is outside of my immediate scope, but getting this "right" isn't
+just an s390 thing, because these details bleed into common KVM, and even affect
+other architectures, e.g. when trying to make "treewide" KVM changes.
 
-Can you imagine a way to do that for your stuff?
+And FWIW, while it might seem daunting, from my perspective it's not actually that
+much churn to do things "right".  Provide KVM_S390_NATIVE, and then have KVM reflect
+the "weakest" of S390_NATIVE vs. S390_ARCH.  I.e. make KVM=m if either of the "real"
+KVMs will be a module.  That requires some creative shenanigans, but it's not hard,
+just weird.
 
-In that case I imagine the iommufd vdevice create is what attaches the
-vfio device to the partition, not a seperate ioctl over in some other
-driver. When the viommu is created it knows what partition it is
-affiliated with because it took in a FD that describes that partition.
+> (default config change, s390 is the odd one out for the KVM config meaning, ...).
 
-Does mshv use KVM at all? Can a kvm fd describe the partition?
+Nah, x86 is the odd one, where CONFIG_KVM=m doesn't even guarantee kvm.ko gets
+built :-)
 
-Jason
+E.g. something like this, which probably doesn't compile and isn't the desired
+end state, as several of the Kconfig selections need to be reworked into #defines
+provided by header files, but AFAICT it does what I want/intend.
+
+config KVM
+	def_tristate m if (KVM_S390_NATIVE = m || KVM_S390_ARM64 = m)
+	select HAVE_KVM_CPU_RELAX_INTERCEPT
+	select KVM_COMMON
+	select HAVE_KVM_IRQCHIP
+	select HAVE_KVM_IRQ_ROUTING
+	select KVM_VFIO
+	select VIRT_XFER_TO_GUEST_WORK
+
+config KVM_S390_NATIVE
+	def_tristate y
+	prompt "Kernel-based Virtual Machine (KVM) support"
+	select KVM if (y && KVM_S390_ARM64 != m)
+	select KVM_ASYNC_PF
+	select KVM_ASYNC_PF_SYNC
+	select HAVE_KVM_NO_POLL
+	select KVM_MMU_LOCKLESS_AGING
+	select KVM_GENERIC_PRE_FAULT_MEMORY
+	select HAVE_KVM_INVALID_WAKEUPS
+	help
+	  Support hosting paravirtualized guest machines using the SIE
+	  virtualization capability on the mainframe. This should work
+	  on any 64bit machine.
+
+	  This module provides access to the hardware capabilities through
+	  a character device node named /dev/kvm.
+
+	  To compile this as a module, choose M here: the module
+	  will be called kvm.
+
+	  If unsure, say N.
+
+config KVM_S390_UCONTROL
+	bool "Userspace controlled virtual machines"
+	depends on KVM
+	help
+	  Allow CAP_SYS_ADMIN users to create KVM virtual machines that are
+	  controlled by userspace.
+
+	  If unsure, say N.
+
+config KVM_S390_ARM64
+	def_tristate y
+	prompt "KVM support for hardware accelerated arm64 guests"
+	depends on HAS_IOMEM
+	select KVM if (y && KVM_S390_NATIVE != m)
+	select GUEST_PERF_EVENTS if PERF_EVENTS
+	select HAVE_KVM_VCPU_RUN_PID_CHANGE
+	select HAVE_KVM_IRQ_BYPASS
+	select KVM_MMIO
+	select SCHED_INFO
+	select XARRAY_MULTI
+	help
+	  Enable support for hosting virtualized, hardware-accelerated arm64
+	  virtual machines on s390 systems using the Start ARM Execution (SAE)
+	  instruction. This requires hardware models that support the Arm
+	  execution facility (AEF).
+
+	  The module provides a character device named /dev/kvm-arm64 to expose
+	  the hardware capabilities.
+
+	  To compile this driver as a module, choose M here. The module will
+	  be called kvm-arm64.
+
+	  If unsure, say N.
