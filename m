@@ -1,156 +1,280 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC0AD411F8F
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:10:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E8873FF8A5
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:11:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788423047; cv=none; b=rWP46lwJ6ne93ThOh9pOqcFq1JrrqjdXTZf41tGxarfQxJhps2KKv1N7t22scqnDJRVpxaInRX5UfoN84Jz6J88kj/A2zLXOEzFTDS+rM2D5NQDaK5ikCjW/oeJR7MNRESZAD3sIKj1UjVRu1svXUjbJc/yV7ICsgpV/W5Fn/p8=
+	t=1788423101; cv=none; b=FlHoBFvCGaQNGrJmfljKHe9CTXamN9oLUb5PAEkXMQrTqUJq0R4D8i0lHJMz9JnN0wR+ZdudH5quTIUuH3A5Pu629Hnd6N1orfk9HiP32Lk1DtbH6FxljsQ/03G95WYmAM3+ZNrS2j7/IeCn9c2AXVSlaSgkp76U9yASF0KWlVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788423047; c=relaxed/simple;
-	bh=b3aHP4glpbl5TnB+5H7BPBdBuPy7x4QVRQrW1rbJY8A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=egy06Z0TKZCxi2m8n4rw+2boTPuHf/kJdyxFk5Qk+V8KObf4DoupR9VL6H92S0Lm/pbox/v+sC6ic1QzLHpdTdYJEiLuixIvhcA8r0Yh5jqkK7Ptm75BBFK+6FM1WBemE+IBte/mvqCXIOLiL0jtT09ts1z0ehHcuuLYMbAqGYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=n+J2qPMU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iqrivUn/; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788423101; c=relaxed/simple;
+	bh=v1xOOpMT0RzltqDPSPxa01hWkxE9tCBYbw1rrVtTQfg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=QFZd+OMFAlyZ5BSYNOVmcg8W5c7mWs7DKxX2iGCJcYtYzXCvgL2YQR3Yh0ybbR11tLqoDpCbgiZ+nBj8Ep5SzanRcnkQxaEfRGFY5QMFMShNFLOE5ED0vEHu5Q1Vh8U4195wqmffBxRYyhktsq7BP7UeGn1Na+s+Xsem6eD8c94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=yhuo5k0M; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="n+J2qPMU";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iqrivUn/"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6835leGu079891
-	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 08:10:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	rMpUqgqgoWZTEb2f9TIxt36dAocZg5MO4USy9UOEEYA=; b=n+J2qPMUlKB8Axu+
-	/FzNqZn3cIK+jrEKtB9/xJnmyShpH2cWduaGLR58QG02VPUnDfskp3+y/UFJQuQ/
-	QeHXA1fwg8VfKku2+1f+P/M+SP04MuuFdrdrfCT+PtheaHponlf0UoDtUDj0M7MI
-	CwKe0I4LQa1IZGi7jcB2Exk1KCbsRcm5gagwJ+pnEsW2FDyRgmoc9cXYkkbx85u2
-	4WshPQEoI77O/pWuezCRRX92sbmRirXr1wdYfot889OQgQXKto5QhDeOw5kPPDTb
-	m+tkxxAMImN1oYWKmu7/4LA7ZWts5Y83ilJIWzGg/CSoLGbLJeThqnHkPCDW2O8z
-	fcdU+g==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf1j4guun-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:10:44 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93102454272so47391085a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 01:10:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788423044; x=1789027844; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rMpUqgqgoWZTEb2f9TIxt36dAocZg5MO4USy9UOEEYA=;
-        b=iqrivUn/SFYlnVDmvwf3ykGCWHpnS5dNjh/xyZU/qWyv7EJEFsXKS1IyPU4WivTWwd
-         9N+YHSRFE10YUoQahk1eqrgNeQ8ysNGtu8+3M/LG0hmFTGq1OL+3RKfWf+a773i2KMcl
-         xXpOuQz1s8aJIdV9UfPMnu0tOL+RjTfASMU7PpdY+EPMEhHcxwNc3gjM30t3SrWZM00G
-         Wc1+9/0f8l0ALA1Q234Xll2MhdjSbDfXvJ0xnw6vGPlHCGZfQy/jFRfBVtClelWdWOyP
-         zC8jUIFmLJxoQepyFEy2YTKxAhFtf+rvE/fJsQu+mqmKXHMki6+BQs4ecXf6OAX0bw87
-         ds5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788423044; x=1789027844;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rMpUqgqgoWZTEb2f9TIxt36dAocZg5MO4USy9UOEEYA=;
-        b=ZE9UgWmFsqlfGq/8kj5d8Ekr50Ly+NqUTmiAiIB8dXxO2cK2zgQeR/Qhs+xuNiNGpT
-         ZWDedQw7aSM1oNnYoJrqN/2tWsgCtj2ZUEizbmMFJxPUB1OP5EDfB6KMyYar9ZyqhJwC
-         ZPdAXiodqZLEzqx1gUN0ESIzJA6mUZq41Q3EIZ9Y60AbLcCPceBCRcYTz21Sft5vGL4b
-         CS4fgPzYJnwH1fVFGp47m5XrSd1YGGmnlt0aLom2T9tvntP98tu+nKohEJfNfAtpUKrj
-         uJ2kiU+atcH5EqiGYkYZoqOqyiQoNjfrQL8qL2O6rcCduMALAVd/UyCBQvzJF+fTCiC4
-         t7XQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwazTSNuCPT+pOZAvqfFjTP16dAyQ5PgBPfUb6c19ZFMwqhmEUKCiJjEiLThSdypDdPK+siLZpsQjORhkg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nFOK0WhVdneBvSARRWGUEIfHZlqi+8hMEcd9lK1lc7/5Ef3TLH
-	P3ETEdVOfks6nMd3RkqTFj0vX2W1TutxNhs8Q0P4lxXEPedYSCdv+O5ACX8kpRZMxAPdnkRXvXT
-	5W/XW60aDGatVh7g7O+aE/+x4O5npHWSv819tFYH5gOBQlpyNJQFKQBd5JHdOr5CMei0=
-X-Gm-Gg: AYBFou2Xq/VWBXMnEi00+vXrY85/cTJbxrjqB1467z//zwWXkcgQCaLNeX5fcW2DwFl
-	bN8EmJsn4hhwCObPnkSqVCGp/pfTOhPs73abbvc8GzvDvssVL+TLe6wK6qafBhcKD4Us0bcENWv
-	r4cApz1xCRhX61lccPAzVZich7J8exXA9hFBdWkD6mz4z0oPJtTD+p+enHsdYAEm5NnEORhyVc+
-	ophIKLdCN/iCmRhFKoXnQ+695tFzC/2NV2Es5JfXiopEl9qzHY91NciSR67NxToFi3E+XsbqqXm
-	TLkkpk3kgotycwMUqb3OZTMUJblo00b6WcRHqrq+kriBVc19u0XwE40qA6er1h/rP+qMibO3fhc
-	6mCmyZy5uL2bi59zZxj+JBg==
-X-Received: by 2002:a05:620a:236:b0:939:6c5f:9a8e with SMTP id af79cd13be357-9396c5f9b56mr363084185a.0.1788423043986;
-        Thu, 03 Sep 2026 01:10:43 -0700 (PDT)
-X-Received: by 2002:a05:620a:236:b0:939:6c5f:9a8e with SMTP id af79cd13be357-9396c5f9b56mr363081685a.0.1788423043577;
-        Thu, 03 Sep 2026 01:10:43 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25f4172626sm60991266b.16.2026.09.03.01.10.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 01:10:42 -0700 (PDT)
-Message-ID: <0e5368aa-0b75-40a6-a023-af2eb4589249@oss.qualcomm.com>
-Date: Thu, 3 Sep 2026 10:10:41 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="yhuo5k0M"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 57D784E4146F;
+	Thu,  3 Sep 2026 08:11:36 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 20000602B8;
+	Thu,  3 Sep 2026 08:11:36 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D7A9511C79B6F;
+	Thu,  3 Sep 2026 10:11:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788423094; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=eV5ymJWMT/U5V95Od7/UCmBNly2al5Fvog9qbBc19Ho=;
+	b=yhuo5k0MERZrD/xyXkcjbX8sxGZklTgI0JPk8ArN0ehfKtL1Ih9z0o/XkMY/7A1w1aUAwq
+	K97YDLY1tifYp2UkxBQJ+xFBFhwhEWL5qIhmPlrESuRm9YDpgFjvcWhm7j7ip6xmwF5C2R
+	BJTeqh0CmFVo8IqGq9mheg/p0BWnova9aIwO19ThFBvTWV0FLG2epMZsDGK4iC8L7HVgD7
+	KPfGNVJzwXY7eEFZt4ftcuYIj9hBIuMOK/hYhezRQyEsSva3EgtZ74TFOzKa2NUIVNIyz3
+	f5Ld6TXVmzDsLe6pPTpGgMsWBrN7GUejLU6J3R9mbc05i5AH7RBHphMmHaUHXQ==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Subject: [PATCH RFC v2 00/19] drm/panel: embed a drm_bridge into every
+ drm_panel
+Date: Thu, 03 Sep 2026 10:11:03 +0200
+Message-Id: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: sdm845-lg: Enable NFC
-To: Paul Sajna <sajattack@postmarketos.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: David Heidelberg <david@ixit.cz>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
-References: <20260902-sdm845-lg-judy-nfc-v1-1-282173900569@postmarketos.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260902-sdm845-lg-judy-nfc-v1-1-282173900569@postmarketos.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=dufrzVg4 c=1 sm=1 tr=0 ts=6a992b84 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=OQN141zOAAAA:20 a=Gbw9aFdXAAAA:8 a=GcxSr_ZgTee_yd3lG38A:9 a=QEXdDO2ut3YA:10
- a=zZCYzV9kfG8A:10 a=bTQJ7kPSJx9SKPbeHEYW:22 a=9vIz8raoGPyDa4jBFAYH:22
- a=bA3UWDv6hWIuX7UZL3qL:22
-X-Proofpoint-GUID: zcXBq0jT4pOvAPASRPZY1zyypr3eD10N
-X-Proofpoint-ORIG-GUID: zcXBq0jT4pOvAPASRPZY1zyypr3eD10N
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA3MSBTYWx0ZWRfX6p5UnbSI2WMv
- A9OnyJFEpZeH5BunRNT8ouCDEzHQcvoXNrPX+bTlEhrmE0fylU0sGktBTr1ZvQg6+KZT7HeYK/U
- NQVNcpwI1LSu4l3UMvGR0pIurrKTJUk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA3MSBTYWx0ZWRfX4W7CdMlg747o
- UOKuHjiWP9zUG6QEWiF+N6Isl6uCsIhblXkYer34EvntU4OV/PRwWVNOc5vk4JjAQxv8Ln9q+ip
- PvEBMTnpncDUghuOF7uSLkgmwyEAwzOZB3L8zCLysXfKrPuASaRta5eJBaiA5HKtdvB4VU0ix7F
- kPINd+4iEZ5IJhWL5b6dIm9UpLugvCFXJONAkJq7VuQbR1SM25AUpodm1tz/wlSAbNNdZM42XuT
- Otr4ZtbRy625AiiUgrhsKseN18yumV9k614LLXwi2DdJpjdSarTbvvPIvO0yrigh8gJ2VyxIN2T
- rlGejjvlCMsCBRk5IKpGeOZr1Ad1iZLeQ+9lvEkCTTYFyFBx6LlnRRsCRGHtdQL412MHKoBlI+4
- Uxin3RWsgiHU/gCIt6kaP+vTAnS0xAeACzZWf9/0+LGeh3yiQFmQCzip4mkXIphMlRcxYYffd1O
- PY/vNSdaNB0/UwJAFTg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_02,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 malwarescore=0 bulkscore=0 suspectscore=0
- clxscore=1015 spamscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030071
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNSw6CMBCGr0JmbQ1teLoyMfEAbg0LaAcZAy1ps
+ ZEQ7m5Bty7/57eAQ0vo4BQtYNGTI6ODEIcIZFfrBzJSQYOIRRYXXDBlB9ZYUiFBj3ZmY62xZzV
+ Py0xl2GKdQBiPFlt678d3uF0vUH1N92qeKKftcqt15CZj5x3v+V7+kZJ/JM9ZzHgpVSryXMpCn
+ Rtjpp70UZoBqnVdP+sfIVvVAAAA
+X-Change-ID: 20260812-drm-bridge-every-panel-a1596d6efea4
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Linus Walleij <linusw@kernel.org>, 
+ Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Albert Esteve <aesteve@redhat.com>, 
+ Anusha Srivatsa <asrivats@redhat.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 9/3/26 4:03 AM, Paul Sajna wrote:
-> Add the i2c and tlmm nodes to support the NXP PN547 NFC chip
-> 
-> Downstream dtsi for reference:
-> https://github.com/LineageOS/android_kernel_lge_sdm845/blob/lineage-22.2/arch/arm64/boot/dts/lge/sdm845-judy/sdm845-judyln_lao_com/sdm845-judyln_lao_com-nfc.dtsi
-> 
-> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
-> ---
+This series embeds a drm_bridge into every drm_panel, as previously
+discussed [1][2] and in v1.
 
-[...]
+This will allow bridges and encoders to interact with the next pipeline
+component always with the bridge API, not caring whether it is a panel or
+another device (e.g. a bridge from a bus to another bus).
 
-> +	nfc_default: nfc-default-state {
-> +		pins = "gpio12", "gpio62", "gpio63";
-> +		function = "gpio";
-> +		drive-strength = <6>;
-> +		bias-pull-up;
+Currently a drm_panel does not have a corresponding drm_bridge when it is
+created. A panel_bridge is often created afterwards by the component
+accessing it (typically the previous bridge or encoder). This creates a
+mismatch between the drm_panel and the drm_bridge (part of the
+panel_bridge), in terms of lifetime and devm ownership. It also makes
+implementing bridge hotplug close to impossible in some cases.
 
-active-high pins and pull-ups don't really go well together, please
-verify that
+This work leverages the work done by Anusha Srivatsa and Albert Esteve to
+implement drm_panel lifetime.
 
-Konrad
+== RFC status
+
+Embedding a drm_bridge does not automatically prevent the creation of the
+now-legacy one (panel_bridge). All drivers have to be adapted to not create
+a panel_bridge, or there would be two drm_bridges for the same drm_panel.
+
+This is an RFC because not all drivers are converted yet. The goal now is
+discussing the core changes, while driver conversion progresses.
+
+When all drivers are converted, the entire panel_bridge (bridge/panel.c)
+and related functions such as drm_of_find_panel_or_bridge() can be removed.
+
+== Series outline
+
+ 1. move code to modules to prevent dependency loops during the transition
+
+      drm: of: move drm_of_find_panel_or_bridge() from drm_of.c to bridge/panel.c
+      drm/bridge: panel: move to a new module
+      drm/panel: move to a new module
+      drm/bridge: panel: rename drm_bridge_is_panel() -> drm_bridge_is_panel_bridge()
+
+ 2. The main commit
+
+      drm/panel: embed a drm_bridge into every drm_panel
+
+ 3. Update *some* drivers to not create a panel_bridge for the same panel
+
+      drm/bridge: tc358767: don't create a panel_bridge
+      drm/bridge: waveshare-dsi: don't create a panel_bridge
+      drm/mcde: dsi: simplify device_node management using scoped for_each variant
+      drm/mcde: dsi: remove unused includes
+      drm/mcde: dsi: don't create a panel_bridge
+      drm/bridge: fsl-ldb: don't create a panel_bridge
+      drm/bridge: samsung-dsim: don't create a panel_bridge
+      drm/bridge: tc358768: don't create a panel_bridge
+      drm/bridge: ssd2825: don't create a panel_bridge
+      drm/omap: dsi: remove unused includes
+      drm/omap: dss: don't create a panel_bridge
+      drm/tve200: remove unused includes
+      drm/tve200: don't create a panel_bridge
+      drm/bridge: analogix_dp: don't create a panel_bridge
+
+ 4. Remove bridge/panel.c, drm_of_find_panel_or_bridge() and related code
+
+      TODO
+
+== Dependencies
+
+This series depends on:
+
+ * "drm/bridge: Kconfig: cleanup DRM_PANEL usage"
+   https://lore.kernel.org/r/20260831-drm-bridge-drm_panel-cleanup-v3-0-50efd8168b3e@bootlin.com
+   Reason: trivial, both touch drivers/gpu/drm/bridge/Kconfig, would
+           conflict otherwise
+
+== Grand plan
+
+This is part of the work to support hotplug of DRM bridges. The grand plan
+was discussed in [0].
+
+Here's the work breakdown (➜ marks the current series):
+
+ 1. ➜ add refcounting to DRM bridges struct drm_bridge,
+      based on devm_drm_bridge_alloc()
+    A. ✔ add new alloc API and refcounting (v6.16)
+    B. ✔ convert all bridge drivers to new API (v6.17)
+    C. ✔ kunit tests (v6.17)
+    D. ✔ add get/put to drm_bridge_add/remove() + attach/detach()
+         and warn on old allocation pattern (v6.17)
+    E. ➜ add get/put on drm_bridge accessors
+       1. ✔ drm_bridge_chain_get_first_bridge(), add cleanup action (v6.18)
+       2. ✔ drm_bridge_get_prev_bridge() (v6.18)
+       3. ✔ drm_bridge_get_next_bridge() (v6.19)
+       4. ✔ drm_for_each_bridge_in_chain() (v6.19)
+       5. ✔ drm_bridge_connector_init (v6.19)
+       6. ✔ protect encoder bridge chain with a mutex (v7.2)
+       7. ✔ of_drm_find_bridge
+          a. ✔ add of_drm_get_bridge() (v7.0),
+               convert basic direct users (v7.0-v7.1)
+          b. ✔ convert direct of_drm_get_bridge() users, part 2 (v7.0)
+          c. ✔ convert direct of_drm_get_bridge() users, part 3 (v7.0)
+          d. ✔ convert direct of_drm_get_bridge() users, part 4 (v7.1-v7.2)
+          e. ✔ bridge-only drm_of_find_panel_or_bridge() users (v7.2)
+       8. ➜ panel_bridge lifetime
+          a. … cleanup DRM_PANEL in bridge drivers
+	  b. ➜ add a panel_bridge to every panel
+       9. ✔ enforce drm_bridge_add before drm_bridge_attach (v6.19)
+    F. ✔ debugfs improvements
+       1. ✔ add top-level 'bridges' file (v6.16)
+       2. ✔ show refcount and list lingering bridges (v6.19)
+ 2. ✔ handle gracefully atomic updates during bridge removal
+    A. ✔ Add drm_bridge_enter/exit() to protect device resources (v7.0)
+    B. ✔ Add drm_bridge_clear_and_put() (v7.1)
+ 3. … DSI host-device driver interaction
+ 4. ✔ removing the need for the "always-disconnected" connector
+ 5. ✔ Migrate i.MX LCDIF driver to bridge-connector (v7.2)
+ 6. … DRM bridge hotplug
+    A. … Bridge hotplug management in the DRM core
+       1. ✔ bridge-connector: attach encoder to the connector (v7.2)
+       2. … drm bridge hotplug
+    B.   Device tree description
+
+[0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/#t
+
+[1]  https://lore.kernel.org/all/emuj2innmp6zmzd7pyakqzjqpdzhly6qfhakya3ydwmd63pl26@5jwxaidpikjw/
+[2]  https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-8-9d6f2c9c3058@bootlin.com/
+
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+---
+Changes in v2:
+- Totally new approach: embed a drm_bridge, don't create it dynamically
+- New approach to module dependencies management: new drm_panel module etc
+- Convert more drivers, including a complex, multi-user one (analogix_dp)
+- Add Albert and Anusha to Cc list
+- Minor improvements
+- Link to v1: https://patch.msgid.link/20260814-drm-bridge-every-panel-v1-0-19cd5277cc8d@bootlin.com
+
+---
+Luca Ceresoli (19):
+      drm: of: move drm_of_find_panel_or_bridge() from drm_of.c to bridge/panel.c
+      drm/bridge: panel: move to a new module
+      drm/panel: move to a new module
+      drm/bridge: panel: rename drm_bridge_is_panel() -> drm_bridge_is_panel_bridge()
+      drm/panel: embed a drm_bridge into every drm_panel
+      drm/bridge: tc358767: don't create a panel_bridge
+      drm/bridge: waveshare-dsi: don't create a panel_bridge
+      drm/mcde: dsi: simplify device_node management using scoped for_each variant
+      drm/mcde: dsi: remove unused includes
+      drm/mcde: dsi: don't create a panel_bridge
+      drm/bridge: fsl-ldb: don't create a panel_bridge
+      drm/bridge: samsung-dsim: don't create a panel_bridge
+      drm/bridge: tc358768: don't create a panel_bridge
+      drm/bridge: ssd2825: don't create a panel_bridge
+      drm/omap: dsi: remove unused includes
+      drm/omap: dss: don't create a panel_bridge
+      drm/tve200: remove unused includes
+      drm/tve200: don't create a panel_bridge
+      drm/bridge: analogix_dp: don't create a panel_bridge
+
+ drivers/gpu/drm/Makefile                           |   5 +-
+ drivers/gpu/drm/bridge/Kconfig                     |  12 +-
+ drivers/gpu/drm/bridge/analogix/Kconfig            |   2 +
+ drivers/gpu/drm/bridge/analogix/analogix_dp_core.c |  40 ++--
+ drivers/gpu/drm/bridge/fsl-ldb.c                   |  19 +-
+ drivers/gpu/drm/bridge/panel.c                     |  74 +++++-
+ drivers/gpu/drm/bridge/samsung-dsim.c              |  24 +-
+ drivers/gpu/drm/bridge/ssd2825.c                   |  23 +-
+ drivers/gpu/drm/bridge/tc358767.c                  |  64 ++---
+ drivers/gpu/drm/bridge/tc358768.c                  |  25 +-
+ drivers/gpu/drm/bridge/waveshare-dsi.c             |  17 +-
+ drivers/gpu/drm/display/drm_bridge_connector.c     |   2 +-
+ drivers/gpu/drm/drm_of.c                           |  63 -----
+ drivers/gpu/drm/drm_panel.c                        | 258 +++++++++++++++++++--
+ drivers/gpu/drm/exynos/exynos_dp.c                 |  36 +--
+ drivers/gpu/drm/fsl-dcu/Kconfig                    |   1 +
+ drivers/gpu/drm/imx/dcss/Kconfig                   |   2 +
+ drivers/gpu/drm/ingenic/Kconfig                    |   1 +
+ drivers/gpu/drm/logicvc/Kconfig                    |   2 +
+ drivers/gpu/drm/mcde/Kconfig                       |   2 +-
+ drivers/gpu/drm/mcde/mcde_dsi.c                    |  50 +---
+ drivers/gpu/drm/omapdrm/dss/dsi.c                  |   1 -
+ drivers/gpu/drm/omapdrm/dss/omapdss.h              |   1 -
+ drivers/gpu/drm/omapdrm/dss/output.c               |  42 +---
+ drivers/gpu/drm/omapdrm/omap_drv.c                 |   1 -
+ drivers/gpu/drm/panel/Kconfig                      |   2 +-
+ drivers/gpu/drm/pl111/Kconfig                      |   1 +
+ drivers/gpu/drm/renesas/rcar-du/Kconfig            |   1 +
+ drivers/gpu/drm/rockchip/Kconfig                   |   4 +
+ drivers/gpu/drm/rockchip/analogix_dp-rockchip.c    |   9 -
+ drivers/gpu/drm/stm/Kconfig                        |   1 +
+ drivers/gpu/drm/sun4i/Kconfig                      |   1 +
+ drivers/gpu/drm/tegra/Kconfig                      |   1 +
+ drivers/gpu/drm/tidss/Kconfig                      |   2 +
+ drivers/gpu/drm/tve200/Kconfig                     |   2 +-
+ drivers/gpu/drm/tve200/tve200_display.c            |   1 -
+ drivers/gpu/drm/tve200/tve200_drm.h                |   1 -
+ drivers/gpu/drm/tve200/tve200_drv.c                |  31 +--
+ include/drm/bridge/analogix_dp.h                   |   1 -
+ include/drm/drm_bridge.h                           |  20 +-
+ include/drm/drm_of.h                               |  12 -
+ include/drm/drm_panel.h                            |  37 +--
+ 42 files changed, 475 insertions(+), 419 deletions(-)
+---
+base-commit: 0097858c2acde041f2c4c9f5ac90ab251b5bc647
+change-id: 20260812-drm-bridge-every-panel-a1596d6efea4
+
+Best regards,
+--  
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
