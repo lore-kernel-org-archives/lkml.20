@@ -1,230 +1,304 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4054950C2B8
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 19:43:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788464636; cv=none; b=C6+s4YGRrbDLv3d6sOFgIaFbQDbFwrQW0XOOV+goGjuxIh8CLp417PZpNOOvUCHovyOOnLCaDwZPtoJK/TtFMjsRf6Y+0CPdgK5kT/l4SPLAFKngi29vaM3yohGCCo6atLRa8cS8EDMafVU/mMoAAnCHHUB/rWxGG/YhuVyxzdI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788464636; c=relaxed/simple;
-	bh=AUwUXYTSiLg+4+ZgzE1c1EjhRaY9RHvKMoQpUgZSGH0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JngVztvFdp9zkr51sr1ysh5FcNf0fr32gmrOI22A8/JbHmKilhWRzc5KJZm8UhpFOhveWPOk25nA1DIzRk9tl6nw2qA105fnXnkcEFE5n2w9T3K/enrFWXyFO9iq+TF11dprNxCNxgs/wy4tWAiRuK3pSrxjusNCcNSRqhn45TE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OoP6Jj7i; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2AA850AC09
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 19:44:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788464664; cv=pass; b=rkPY8yMTArX89V5Q2Mis92Y0nfwg+Unm6eQPOO9uIIpMg5X1VrVsqJME5/v6p4Y0pEgdJbZN64buD8mr02poGWNYMHWDIAiJ/MSUDVfIxcBgKBTNQhHUBW+pPOsPRK2m5brjO4oTrYsEicQHnYy8zcVvxXaVcmgLJSDm9V3X6uE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788464664; c=relaxed/simple;
+	bh=5uwxxeZPYN4Ij6akn4bwbxGcDtLNY+69BXfmEyQCBcQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eRqarGK3LcaI6oCvscOx4qF/I7eHci+oyLMIl7XABu4goL9fj9r34qQtPvQpJp2EE+NRxrK60QLBmvl8e+pHCqKCRT0+6O3CtLPXNhwxPRrDLMRBdTH1HL3DDxUINzGh0ppZqX1q9XbjgkfakFW254uyRg7E2SPPszQgwE7cRuc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IfTP3BHC; arc=pass smtp.client-ip=209.85.208.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OoP6Jj7i"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d72ae08fa1so2018485ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 12:43:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IfTP3BHC"
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a6010a7234so24889a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 12:44:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788464647; cv=none;
+        d=google.com; s=arc-20260327;
+        b=P/yS5FFObMpUEBrpK4kdHZlCHJgoCJeby2XgSmCvEbeY5EI2b3pBms4WhRStXJT2C2
+         0fd2ZBrnbmZSl1Gt162ojBmDTQCKV9upMeY9UkhiceDzhZESbUUtx1uawhCyfgFWJwKk
+         IafRDGfO4fMfbPqwLS63Po+R7akzR0z4+stnhTKC6+T/zevezORFNdU4ZuqBK4WZBFye
+         j0Y7R35kc+9eqwAMo109Tf0VaXKIRUzhNAs43mOtQm2P02kFNnyawKdZqbcb6Rnmp26a
+         MDDxT9n77yNtHqu9UGRLwTLi8DbW1Fz65ZK2qu8j0NjtNKFdx+BxHMFf2sxwhqu2paUO
+         yYBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7nTSGhWAmSp7STouxjDPpEdLgNOmqXAwprS+AGG4sBg=;
+        fh=vNow4EkRA2bzHJQ1k1OitOr6dWMmPBiuMkXwxFspgdE=;
+        b=ThTg0SS6vYTv5YDzdYkiYtNk035UlPJFdkLP3SUN+KR9vqTxjq13RLvWSRYb6Fanwy
+         vRx8vRSNA3d8fCFC7FhJUXt2ulWtzz6cXcKIL7hLwABQyzdQeDJ1e+pgVjSkNLpD1NLp
+         6/DJgPbJLKZZHFTRnCYIy6MCMtGojTyzaO+885ihW/BvKAehQ+knC/r7QOyEQh0a5/Gn
+         3e6+a4gmDkkxAs+3rVmN9v3c3ZGx798+MKl2UBEsAahEMK/JwOI5NyVZM+/hRiS2M80d
+         lZ8lBfaeuv5sOdGYvaUvGlk5pTvZHIJTaXmTybXKUYFhnoYLevRMbRD+i0NxdmzUvEbG
+         WcFw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788464627; x=1789069427; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AahTyLWLBHNpF3GBq6NBDmCN0xxivJBqCrlvcZaObVE=;
-        b=OoP6Jj7iDa0tNQ2HEjkY8fjezPYzwIE4Tmj+LEoC7P6yxhHZvEx+7GkleYpGdD0yhV
-         EWgdFHEWcOrfe/eC+WbmHPmKs8ePyr1ymQwYpGM4QMtMOB4H68Q6JU2xVFnBaWeOfk2R
-         IU2wlLvfTXlHXh2RpAqdai9ZXToD31HntHH2PBHlS5eGFBNa1iilZAokE2V64xkRLSsn
-         YWeKM5TTfMU95qW5pWq/gzPbOKmEMKjI0B92L9UeeXU5LqUj9VFPmERkfKj0SKtdKJZJ
-         swU1YwTu6uhRllBpj2Nppemja3hj1h43T27i32QTNHVYm6GgsI4jBTtxJIHBLzHcVDlG
-         743w==
+        d=gmail.com; s=20251104; t=1788464647; x=1789069447; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7nTSGhWAmSp7STouxjDPpEdLgNOmqXAwprS+AGG4sBg=;
+        b=IfTP3BHChN+WgwQWFEhAvkOCgDBJV5XK0HWHz1E3oaOmWI5qtksAUxUuH807T0ivCW
+         yyLlpKb7GLWb/SJy4iiM4/BtIkgPPHLPB3sjP35X7RZsf6Cnv1IgV7TbXDQb6YQIoTAc
+         TYMx1TiI8II4jd5M1DuaIV1QagmeNgDmci1T3qbE40yyfZJ5LekJ7rsUbm0LtO7wYkZH
+         rABDQ5tRhk96rMoQC8H1VyoqjGERJW3E/2S+leBO0RiYLVREN5NHKSogpKfZQxakCcIk
+         IUK4OPzGB0WSZJl4S97smVosq7IayejGyf2V4npgo5p9JTMNHZnAGOv0JIK6qOU91qvq
+         II0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788464627; x=1789069427;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AahTyLWLBHNpF3GBq6NBDmCN0xxivJBqCrlvcZaObVE=;
-        b=ClfpgW/13eBlDRExBpW8fgTASlsFU866BKwynKEptROFvQsN9kaUaoqnf5UY010+Si
-         tq0SO0xhF1ZBZvXeyTh1fC90QYQO22DyULWdaqSahd/so4mU//pGdhQY/IszSiIZtrpe
-         SmLGqrZ4fpKF7yE5VbfQaJaxKcTFO2kFcsSJA48I6HHyICVSnLHQTWL17uJ5zYQTkzHE
-         vHGXcu5LoLYDswtzI0WNSukeIeCzc1qjXcuthDozcfOygj/5SpJD9yo7rd1zIoqqVPN4
-         uyDsxx5lLZUP/KJh/56s6cXMisXAsrwJts5n4femswzOpnzbeBEqJ+IIr1qSO+uka20z
-         PH1Q==
-X-Forwarded-Encrypted: i=1; AKwUvByCCDHUWw4N9aEVEYs9Nx4HLsQPZRu1VEm/+Zs3sCRc+rgubXid7OWMWV7WLnSnCSXVYMukalgHhiedSJU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kc8GHYkHVbf/HrrOjVoXFy+J4L2Bk7c1awsa4rBnHSxe6EFJMM
-	ImflbUepdISATTL5prm2u7ZhePPAS/9F2RiHJIr0iaQkThoZ/JQ01i7BKknNlQ==
-X-Gm-Gg: AYBFou25yD35dZQjEMQ1VZc0McJzFrmzwpvhCjx6SPErCfsQzrlAAAZjjE3MZKqf8O+
-	9EGMLLRY2AsjMnZpssyehZ7HO+kCn/9GJ4LHJinxDz2DaHpJu1mOTOoAgHe6j5I4IYatrbpQAdC
-	wamJ2mgb61xIp8KhNVshl2sMuaKH3tUu23PbaVhbbiba9PSX3lQMrFNcg03b+4ZGlZ+1Hd3TLLY
-	EoyxAydXhkf/MIaUDbWDvnSnscxsjSou/spoc91WLp1Io/p7xaVOkdePo+Ky8tNIjrGGcbmf45K
-	BO64OWwfqChTP7Z7cet0yFJptaZgavrQQwsvJ71o45ceLIAuAQy66t1DG7LwpJF8T07PA8eY+83
-	GmOkdAeQ737+cwC9JSELq12/hNOBopmdLZM9urlBjxTzYJ0TSwsBAViez1eDDCcxdGmGQwTD0iC
-	WnGH+naJj3YohA2midzcnd2TPO3GABU84jM6yEmALR7OLiY37VOzUAmZk2vaaWAZfN6UtUOhzzS
-	GG8rRVQ9XmNkWmgRaEGOgpVmMGdNOYAfjELEn5hhP4WtqKnwUP+6UX/31GQJDY4MigoXPN79W66
-X-Received: by 2002:a17:90b:510c:b0:398:9be6:f999 with SMTP id 98e67ed59e1d1-39b262e27a9mr1194828a91.24.1788464626540;
-        Thu, 03 Sep 2026 12:43:46 -0700 (PDT)
-Received: from mac.localdomain ([12.162.234.74])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885ce11sm1201335eec.3.2026.09.03.12.43.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 12:43:45 -0700 (PDT)
-From: Ahmad Byagowi <ahmadexp@gmail.com>
-To: Andi Shyti <andi.shyti@kernel.org>
-Cc: Peter Rosin <peda@lysator.liu.se>,
-	Andy Shevchenko <andy@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ahmad Byagowi <ahmadexp@gmail.com>
-Subject: [PATCH v9 2/2] i2c: mux: Propagate firmware nodes to channel adapters
-Date: Thu,  3 Sep 2026 12:40:56 -0700
-Message-ID: <fbc7f6e21c12b87f56cc8593b380e7460440bab3.1788298883.git.ahmadexp@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <cover.1788298883.git.ahmadexp@gmail.com>
-References: <cover.1788298883.git.ahmadexp@gmail.com>
+        d=1e100.net; s=20251104; t=1788464647; x=1789069447;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7nTSGhWAmSp7STouxjDPpEdLgNOmqXAwprS+AGG4sBg=;
+        b=EM9wsgpSgkV8BKxHjSustQOojD8fqiOq+e8qFD8KOh8JYOrmUIugfC3dYvlKHhYOQV
+         XHUi+eB/CDllpHhKRJkHZa0stjnsOIBfbNqdq5r38Bd3fIuk51TRC5BMhEPLOox21C7Z
+         GdmkcUYqhsNOACGyxG7AxHuCihJO/L5WWhoyCbxbvXqJZtXbchTevtTcksB5WSAbW2Vb
+         0KdX8C9jImtEm7F5eDeOVXN82PR6Izo8C4Fi1F0Fj3mOflinmmsOT49CfMCwSv/JnDiP
+         U1qR5TLrSYWKiId+TRIHWBDyf5jM3SSAealjqxOxTEgJVoeJxYz/zywr5dzhrpFbJq0P
+         7AKg==
+X-Forwarded-Encrypted: i=1; AKwUvBz0FnJtODwFGZN94SGVGHEPKbhLsb659HtOR8py7wnKdtSU56N2caTnn+DebhYcP9OpkSiaYyR0Sgj8q38=@vger.kernel.org
+X-Gm-Message-State: AFuF++nEqXTBbokCU5G2UZ5Gx0OfxMyUK9ja/aWfFRTltfLp61ZxrPEQ
+	Kz6g/TBwJFYZGUGVkTX967EzGBtiKsYRjT9vPsnN+7YdQKwUV48fL2TWhmRxx5Bn1KBB+tyO19D
+	PaeO7GKYx/zERP6gK+Wr1H75QGJCo61E=
+X-Gm-Gg: AYBFou09magWStAEAAXecR7GFWdz+CdLS2OPcs7AO5oL4ZpgX//gz4NM58QQVN9yrhG
+	BmUA6Yh3oFztm31HsShIAhdxd5Fod//TaZjv+aC+LNjbKNhBg2L6C0WPkYp9ftQhdV2Y3sheF1E
+	9xBcI6gVqqFVly2LBhGnnS5gYPGvW+iIj7B7z7RSFzRhO1qXUdaVWNsyRJ65WgzcvYaXw/p40EH
+	P4YX7MenzPyvImjMayecO8f/OmUUcuHSh9Y6E3G1pePBZPDZDhfh6gXoPiVV8xJGidribbnLHIC
+	O58J93EwWRhq6vU4Ho1C9npWRoiYSAj3pWJqCqX9iRDBGFJOsu1wCyZ0DMcapiOAH0ubKIzp6bY
+	LFA==
+X-Received: by 2002:a05:6402:4585:b0:6a6:32f6:ee8e with SMTP id
+ 4fb4d7f45d1cf-6a7e8e9c97bmr78640a12.3.1788464647094; Thu, 03 Sep 2026
+ 12:44:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260901-ti-davinci-emac-v3-1-db41e32f3f6d@gmail.com> <178844863252.3394541.10006643092711574384@kernel.org>
+In-Reply-To: <178844863252.3394541.10006643092711574384@kernel.org>
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Fri, 4 Sep 2026 01:13:54 +0530
+X-Gm-Features: AcwNN1VED6faEgcpjoUkRbm5zQtgZu9zqcqs2cQMMmJnQoBHnsr_ZAdYEEo-k3k
+Message-ID: <CAOWyW_6qRhoUts2MtvDL3JiBx74UOBs73Fye=1FKrky-brmS8Q@mail.gmail.com>
+Subject: Re: [v3] dt-bindings: net: ti,davinci-emac: Convert to DT schema
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, tony@atomide.com, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
+	simona.toaca@nxp.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Device Tree channel nodes are associated with the adapters created by
-i2c-mux, but equivalent firmware-node descriptions are not.
+Hi,
 
-Use generic firmware-node operations for the existing channel lookup
-and associate the returned node with the adapter. Do not restrict the
-lookup by firmware-node type, so Device Tree, software nodes, and ACPI
-descriptions all follow the same property traversal. The existing
-acpi_preset_companion() call remains in place for the standard ACPI
-channel association.
+On Thu, Sep 3, 2026 at 8:47=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wrot=
+e:
+>
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider:
+>
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 1
+>
+> - [Medium] The new schema lets `ti,dm816-emac` nodes carry either 1 or 2
+>   `reg` entries with no further constraint, while the driver derives=E2=
+=80=A6
+> - [Low] The schema makes `clocks` required (justified in the commit
+>   message by 'driver probe fails without it') but leaves `power-domains`=
+=E2=80=A6
+>
+> --
+>
+> dt-bindings: net: ti,davinci-emac: Convert to DT schema
+>
+> This converts the DaVinci EMAC text binding to YAML, documents clocks,
+> clock-names, syscon, power-domains and ti,hwmods, and adds per-compatible
+> conditionals restricting reg, syscon and clock-names.  clocks becomes a
+> required property and ti,hwmods is marked deprecated.
+>
+> > diff --git a/Documentation/devicetree/bindings/net/ti,davinci-emac.yaml=
+ b/Documentation/devicetree/bindings/net/ti,davinci-emac.yaml
+> > new file mode 100644
+> > index 0000000000000..f0c539d1bac79
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/net/ti,davinci-emac.yaml
+> > @@ -0,0 +1,127 @@
+>
+> [ ... ]
+>
+> > +properties:
+> > +  compatible:
+> > +    enum:
+> > +      - ti,davinci-dm6467-emac
+> > +      - ti,am3517-emac
+> > +      - ti,dm816-emac
+> > +
+> > +  reg:
+> > +    minItems: 1
+> > +    items:
+> > +      - description: EMAC core
+> > +      - description: EMAC control module
+>
+> [Severity: Medium]
+>
+> For ti,dm816-emac this leaves reg free to be either 1 or 2 entries, but t=
+he
+> driver derives hardware semantics from the entry count.  In
+> davinci_emac_probe() the presence of the second region is the only signal
+> used, both for the control module base:
+>
+>         res_ctrl =3D platform_get_resource(pdev, IORESOURCE_MEM, 1);
+>         if (res_ctrl) {
+>                 priv->ctrl_base =3D
+>                         devm_ioremap_resource(&pdev->dev, res_ctrl);
+>                 ...
+>         } else {
+>                 priv->ctrl_base =3D priv->remap_addr + pdata->ctrl_mod_re=
+g_offset;
+>         }
+>
+> and for the SCM eFuse MAC-ID instance:
+>
+>         rc =3D davinci_emac_try_get_mac(pdev, res_ctrl ? 0 : 1, priv->mac=
+_addr);
 
-Keep a separate reference to the node returned by the generic lookup
-because acpi_preset_companion() may replace the device's primary
-firmware node. Release the saved reference after adapter deletion.
+This driver logic relies on the reg entry count to determine the port
+instance. This is a software implementation detail and not hardware
+detail. I believe it is bad idea to rely on the number of reg entries to
+get instance, It's better to use of_alias_get_id() to get instance of port.
 
-Signed-off-by: Ahmad Byagowi <ahmadexp@gmail.com>
----
- drivers/i2c/i2c-mux.c | 44 +++++++++++++++++++++----------------------
- 1 file changed, 21 insertions(+), 23 deletions(-)
+From a hardware perspective, eth0 requires 2 reg entries because MDIO
+node occupies the 0x800 to 0x8FF.
 
-diff --git a/drivers/i2c/i2c-mux.c b/drivers/i2c/i2c-mux.c
-index 37529c7627a6..e0b0116d5b6d 100644
---- a/drivers/i2c/i2c-mux.c
-+++ b/drivers/i2c/i2c-mux.c
-@@ -24,7 +24,7 @@
- #include <linux/i2c-mux.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
--#include <linux/of.h>
-+#include <linux/property.h>
- #include <linux/slab.h>
- #include <linux/sysfs.h>
- 
-@@ -33,6 +33,7 @@ struct i2c_mux_priv {
- 	struct i2c_adapter adap;
- 	struct i2c_algorithm algo;
- 	struct i2c_mux_core *muxc;
-+	struct fwnode_handle *channel_node;
- 	u32 chan_id;
- };
- 
-@@ -264,47 +265,47 @@ static const struct i2c_lock_operations i2c_parent_lock_ops = {
- 	.unlock_bus =  i2c_parent_unlock_bus,
- };
- 
--static struct device_node *
-+static struct fwnode_handle *
- i2c_mux_get_channel_node(struct i2c_mux_core *muxc, u32 chan_id)
- {
--	struct device_node *dev_node;
--	struct device_node *mux_node, *child;
-+	struct fwnode_handle *dev_node;
-+	struct fwnode_handle *mux_node, *child;
- 	u32 reg;
- 	int ret;
- 
--	dev_node = dev_of_node(muxc->dev);
-+	dev_node = dev_fwnode(muxc->dev);
- 	if (!dev_node)
- 		return NULL;
- 
- 	if (muxc->arbitrator)
--		mux_node = of_get_child_by_name(dev_node, "i2c-arb");
-+		mux_node = fwnode_get_named_child_node(dev_node, "i2c-arb");
- 	else if (muxc->gate)
--		mux_node = of_get_child_by_name(dev_node, "i2c-gate");
-+		mux_node = fwnode_get_named_child_node(dev_node, "i2c-gate");
- 	else
--		mux_node = of_get_child_by_name(dev_node, "i2c-mux");
-+		mux_node = fwnode_get_named_child_node(dev_node, "i2c-mux");
- 
- 	if (mux_node) {
--		/* A "reg" property indicates an old-style DT entry */
--		if (!of_property_read_u32(mux_node, "reg", &reg)) {
--			of_node_put(mux_node);
-+		/* A "reg" property indicates an old-style firmware entry. */
-+		if (!fwnode_property_read_u32(mux_node, "reg", &reg)) {
-+			fwnode_handle_put(mux_node);
- 			mux_node = NULL;
- 		}
- 	}
- 
- 	if (!mux_node)
--		mux_node = of_node_get(dev_node);
-+		mux_node = fwnode_handle_get(dev_node);
- 	else if (muxc->arbitrator || muxc->gate)
- 		return mux_node;
- 
--	for_each_child_of_node(mux_node, child) {
--		ret = of_property_read_u32(child, "reg", &reg);
-+	fwnode_for_each_child_node(mux_node, child) {
-+		ret = fwnode_property_read_u32(child, "reg", &reg);
- 		if (ret)
- 			continue;
- 		if (chan_id == reg)
- 			break;
- 	}
- 
--	of_node_put(mux_node);
-+	fwnode_handle_put(mux_node);
- 	return child;
- }
- 
-@@ -367,11 +368,9 @@ int i2c_mux_add_adapter(struct i2c_mux_core *muxc,
- 	else
- 		priv->adap.lock_ops = &i2c_parent_lock_ops;
- 
--	/*
--	 * Try to populate the mux adapter's of_node, expands to
--	 * nothing if !CONFIG_OF.
--	 */
--	priv->adap.dev.of_node = i2c_mux_get_channel_node(muxc, chan_id);
-+	/* Associate the mux adapter with its channel firmware node. */
-+	priv->channel_node = i2c_mux_get_channel_node(muxc, chan_id);
-+	device_set_node(&priv->adap.dev, priv->channel_node);
- 
- 	/*
- 	 * Associate the mux channel with an ACPI node.
-@@ -415,7 +414,7 @@ int i2c_mux_add_adapter(struct i2c_mux_core *muxc,
- 	return 0;
- 
- err_free_priv:
--	of_node_put(priv->adap.dev.of_node);
-+	fwnode_handle_put(priv->channel_node);
- 	kfree(priv);
- 	return ret;
- }
-@@ -428,7 +427,6 @@ void i2c_mux_del_adapters(struct i2c_mux_core *muxc)
- 	while (muxc->num_adapters) {
- 		struct i2c_adapter *adap = muxc->adapter[--muxc->num_adapters];
- 		struct i2c_mux_priv *priv = adap->algo_data;
--		struct device_node *np = adap->dev.of_node;
- 
- 		muxc->adapter[muxc->num_adapters] = NULL;
- 
-@@ -438,7 +436,7 @@ void i2c_mux_del_adapters(struct i2c_mux_core *muxc)
- 
- 		sysfs_remove_link(&priv->adap.dev.kobj, "mux_device");
- 		i2c_del_adapter(adap);
--		of_node_put(np);
-+		fwnode_handle_put(priv->channel_node);
- 		kfree(priv);
- 	}
- }
--- 
-2.50.1 (Apple Git-155)
+>
+> which flows into ti_cm_get_macid()/cpsw_am33xx_cm_get_macid() and selects=
+ the
+> register pair at offset + slave * 8.
+>
+> Given that, can a schema-valid DM816x node land on the wrong hardware?  T=
+wo
+> cases seem possible:
+>
+> A single-reg EMAC0 node with a 0x800 core window (as in dm816x.dtsi, wher=
+e
+> MDIO at 0x4a100800 is a separate node) plus ti,davinci-ctrl-mod-reg-offse=
+t =3D
+> <0x900> would make ctrl_base point 0x900 past the end of the ioremap.
+>
+To resolve this I can either:
 
+Use nodename to hardcode exact address for eth0 and eth1 something like
+  if:
+      properties:
+        $nodename:
+          pattern: "^ethernet@4a100000$"
+  then:
+      properties:
+        reg:
+          minItems: 2
+or
+Enforce 2 reg for both eth0 and eth1, For eth1, even though there is no
+MDIO, the base+0x800 to 0x8FF is simply unused, so describing it as
+split regions is still accurate. But this will require a driver fix
+for getting port
+instance.
 
+> An EMAC1 node written with two reg entries would be passed instance 0 and=
+ get
+> EMAC0's factory MAC address, putting two interfaces on the wire with the =
+same
+> address.
+>
+> In-tree, arch/arm/boot/dts/ti/omap/dm816x.dtsi happens to pair these
+> correctly (eth0 has two reg entries, eth1 has one), but nothing here requ=
+ires
+> that pairing.  Would it make sense to constrain this per instance, or at
+> least document that the presence of the second reg entry also selects the
+> MAC-ID instance?  The commit message line:
+>
+>     - Allow 1-2 reg entries for DM816.
+>
+> reads as though the choice is free.
+>
+> [ ... ]
+>
+> > +  power-domains:
+> > +    maxItems: 1
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - interrupts
+> > +  - ti,davinci-ctrl-reg-offset
+> > +  - ti,davinci-ctrl-mod-reg-offset
+> > +  - ti,davinci-ctrl-ram-offset
+> > +  - ti,davinci-ctrl-ram-size
+> > +  - clocks
+>
+> [Severity: Low]
+>
+> clocks is required here, but power-domains stays optional.  For
+> ti,davinci-dm6467-emac, is clocks alone enough to describe an enabled mod=
+ule?
+> davinci_emac_probe() only queries the rate and immediately drops the cloc=
+k:
+>
+>         emac_clk =3D devm_clk_get(&pdev->dev, NULL);
+>         if (IS_ERR(emac_clk)) { ... }
+>         emac_bus_frequency =3D clk_get_rate(emac_clk);
+>         devm_clk_put(&pdev->dev, emac_clk);
+>
+> There is no clk_prepare_enable() in probe, so the LPSC gate and local res=
+et
+> appear to be handled by the genpd reached through power-domains.  In
+> drivers/clk/davinci/psc.c each LPSC registers a domain with
+> GENPD_FLAG_PM_CLK and davinci_psc_genpd_attach_dev() adds the LPSC clock =
+to
+> the device's pm_clk list:
+>
+>         lpsc->pm_domain.attach_dev =3D davinci_psc_genpd_attach_dev;
+>         lpsc->pm_domain.flags =3D GENPD_FLAG_PM_CLK;
+>         pm_genpd_init(&lpsc->pm_domain, NULL, is_on);
+>
+> That matches da850.dtsi, the only in-tree user of this compatible, which
+> carries both clocks =3D <&psc1 5> and power-domains =3D <&psc1 5>, and it=
+ matches
+> the example added below.
+>
+> > +allOf:
+> > +  - $ref: ethernet-controller.yaml#
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            const: ti,davinci-dm6467-emac
+> > +    then:
+> > +      properties:
+> > +        syscon: false
+> > +        clock-names: false
+> > +        reg:
+> > +          maxItems: 1
+>
+> Since this conditional already narrows reg, syscon and clock-names for
+> ti,davinci-dm6467-emac, would adding power-domains to a required list her=
+e be
+> appropriate?  Without it, a conforming node describes a module that is ne=
+ver
+> ungated, while probe continues and later register access in emac_dev_open=
+()
+> and the cpdma setup targets a gated, reset-asserted module.
+
+Yes, I will fix this in the next version.
+
+Best regards,
+Bhargav
