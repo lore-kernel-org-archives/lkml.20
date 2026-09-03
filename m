@@ -1,43 +1,41 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E3C554B2035;
-	Thu,  3 Sep 2026 14:10:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 844C34B26FC
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:10:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444648; cv=none; b=N1GohjCjxbQLea67YoxWcofFNypxn4+fL4XN3RcWd0c91myYO62lBQXZrJu3n3/5zaUclPI4tEjDNGri0+dQPI3jhmTBASjgrTgJbJW+3uQbSd11TgJ68dwqNPXcymdnGEjuHcfEMN7h4K7ziE2BSgk5iLKtMU2YYR1bkFnVWjc=
+	t=1788444654; cv=none; b=iBv6tCG/pRI96MmpPC84eIAtY79ROL6fv8DFfhdOjsDhe3MIs9MAKFWCOqc2KCVy+jHml+mnysWxh3+jWJSFyz31gLbWY3N+g3uexK2pxPy0ieHiTybjfMwKHlaWVTKKl8xZVLifTWoqgTZlcD/cLYjQJG7XlA2t59GMyESMUW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444648; c=relaxed/simple;
-	bh=pTOzblkFOsyEkX/GrQ+IJftHza01vi5Bwx5axi8Gix8=;
+	s=arc-20240116; t=1788444654; c=relaxed/simple;
+	bh=uyaj7kG6TPS6LEfhjwIhpsOwcFNptcTWq6h8aScAAaA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z9qFWji1AQFUdIuvY5ASSMskgF8WNC8l9csmMtKIm9n6ovFFwFNMUoUxLQDE7Z2aBHCc9T+A8dQPaweFH/gMGrDGUwEarGuFoPc/Dq33/r2gGtLUbdQGrJVFGRhdEdSQPXrAOX+WBl4DKvPhfHN7rOT9QNpS4hDVmgKww5TLmgo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qM7WEz0v; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=sJfUN5ZvakeWUuaFjoPa9OaRkexSITUTNpfDPU6KJep1XpOPf1L/09mJvBdKswZNPSxwmUvHm0ObFFNXHcDkDMO6n69KPjAssAsJXOjdveEPFRWNyX0kgqCKTfS17lW/RKeKFWuetfEhXoSk7mO5YfSzAIZb6BO9hRBeCodya+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jygmUT9I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qM7WEz0v"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B00711596;
-	Thu,  3 Sep 2026 07:10:34 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7B0683F673;
-	Thu,  3 Sep 2026 07:10:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788444638; bh=pTOzblkFOsyEkX/GrQ+IJftHza01vi5Bwx5axi8Gix8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qM7WEz0vs7Qs1oAfLO/HSa48Obh0H9vQAL36RlwbGEz+KNhGM7Z5fY7QNjc7RtJgn
-	 cdAZc1Npbv0FnmamYEHr1e1Ael9y8Dc0Hv37gy+yur9MBIy0jK3oumlyiX1OQGgGIB
-	 nFFrHjaSFIv8LtmepanWYtGt4FV4pdsuWPVa88aQ=
-Date: Thu, 3 Sep 2026 15:10:35 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-efi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Breno Leitao <leitao@debian.org>,
-	"sami.mujawar@arm.com" <Sami.Mujawar@arm.com>
-Subject: Re: [PATCH] firmware: efi: add a separate timeout for UpdateCapsule()
-Message-ID: <apl_29t7Jxr2mv9C@e129823.arm.com>
-References: <20260903113238.2291844-1-yeoreum.yun@arm.com>
- <960e985e-b338-4648-a29b-1f8a31e00599@app.fastmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jygmUT9I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04B131F000E9;
+	Thu,  3 Sep 2026 14:10:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788444645;
+	bh=3JZzmgG9bG+UNAMwOnm5lvihONair7Pb+TlG3wgKfYE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jygmUT9I2xlA9gFXYgsMjQnieC9T4700PPohryUEchjY9qdyFurXttHb/9ScGKasp
+	 p/6yyvXWyKak+rj+jCkxoAKJSG2mYUuM3ZfRJT0u0LPIzdpjHRfDUxArBrhmtTLMkP
+	 OuzjGv3w8HqZAY9nskFe1nP6D+3HSC5IZl4AeyXMPenTlWaC+n2qzuDxpC5way5ZCf
+	 kGE+P/qYXmD0QnB1+vuyXte9h5HZ2orivrgTMbbLj8pBFnhlVbi0X3hkLahkoJL+u9
+	 iBP8TxMau6ClWm9iHmKoRz0aYWFHSewpMoeDVtJzpmvJNoj0Gtiqlu/GBow7WEsoS/
+	 USHFM1ZcYVHyw==
+Date: Thu, 3 Sep 2026 15:10:39 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Christos Skarlos <christosskarlos.kernel@gmail.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, 
+	baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
+	dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/huge_memory: fix various coding style warnings
+Message-ID: <apl_vDvfWZldRknr@gremlin>
+References: <20260903092200.88910-1-christosskarlos.kernel@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,51 +44,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <960e985e-b338-4648-a29b-1f8a31e00599@app.fastmail.com>
+In-Reply-To: <20260903092200.88910-1-christosskarlos.kernel@gmail.com>
 
-Hi Ard,
+On Thu, Sep 03, 2026 at 12:22:00PM +0300, Christos Skarlos wrote:
+> Resolve coding style issues flagged by checkpatch.pl Specifically:
+> - Add missing blank lines after variable declarations.
+> - Remove unnecessary braces {} for a single statement block.
+>
+> No functional changes are introduced.
+>
+> Signed-off-by: Christos Skarlos <christosskarlos.kernel@gmail.com>
 
-> Hello Yeoreum Yun,
-> 
-> On Thu, 3 Sep 2026, at 13:32, Yeoreum Yun wrote:
-> > On platforms that allows to update firmware in runtime, UpdateCapsule()
-> > may immediately write a firmware image to persistent storage.
-> > This operation can take longer than EFI_RTS_TIMEOUT.
-> >
-> > Use a separate timeout for the UpdateCapsule() runtime service. By
-> > default, wait indefinitely to avoid interrupting an ongoing firmware
-> > update. Administrators may configure an appropriate timeout, in seconds,
-> > through /sys/firmware/efi/capsule_update_timeout.
-> >
-> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> > ---
-> >  drivers/firmware/efi/efi.c              | 41 +++++++++++++++++++++++++
-> >  drivers/firmware/efi/runtime-wrappers.c | 14 +++------
-> >  include/linux/efi.h                     | 10 ++++++
-> >  3 files changed, 55 insertions(+), 10 deletions(-)
-> >
-> 
-> Given that UpdateCapsule() is rarely used these days at runtime, I
-> wonder if we should just call it synchronously instead of via the
-> EFI workqueue.
-> 
-> I assume that would also solve the timeout issue?
+LGTM so:
 
-Might be. But it would make *non-preemptible* for UpdateCapsule().
-AFAIK the purpose of running runtime service with efi_queue to
-run it in indepdent context and to be preemtible in case of arm64.
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Since most of UpdateCapsule() will be called via capsule-loader's misc
-device, if UpdateCaspule() is called synchronously, It would be
-non-preemtible in arm64 platform.
+> ---
+>  mm/huge_memory.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index ced400f72d43..371ee8d38c45 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -1104,6 +1104,7 @@ subsys_initcall(hugepage_init);
+>  static int __init setup_transparent_hugepage(char *str)
+>  {
+>  	int ret = 0;
+> +
+>  	if (!str)
+>  		goto out;
+>  	if (!strcmp(str, "always")) {
+> @@ -1510,6 +1511,7 @@ static void set_huge_zero_folio(pgtable_t pgtable, struct mm_struct *mm,
+>  		struct folio *zero_folio)
+>  {
+>  	pmd_t entry;
+> +
+>  	entry = folio_mk_pmd(zero_folio, vma->vm_page_prot);
+>  	entry = pmd_mkspecial(entry);
+>  	pgtable_trans_huge_deposit(mm, pmd, pgtable);
+> @@ -2613,6 +2615,7 @@ bool move_huge_pmd(struct vm_area_struct *vma, unsigned long old_addr,
+>
+>  		if (pmd_move_must_withdraw(new_ptl, old_ptl, vma)) {
+>  			pgtable_t pgtable;
+> +
+>  			pgtable = pgtable_trans_huge_withdraw(mm, old_pmd);
+>  			pgtable_trans_huge_deposit(mm, new_pmd, pgtable);
+>  		}
+> @@ -3901,9 +3904,8 @@ int folio_check_splittable(struct folio *folio, unsigned int new_order,
+>  	 * swapcache folio split. Only uniform split to order-0 can be used
+>  	 * here.
+>  	 */
+> -	if ((split_type == SPLIT_TYPE_NON_UNIFORM || new_order) && folio_test_swapcache(folio)) {
+> +	if ((split_type == SPLIT_TYPE_NON_UNIFORM || new_order) && folio_test_swapcache(folio))
+>  		return -EINVAL;
+> -	}
+>
+>  	if (is_huge_zero_folio(folio))
+>  		return -EINVAL;
+> --
+> 2.55.0
+>
 
-But, some platform could be preemptible while updating firmware so
-I think it would be better that it would be called via EFI workqueue.
-
-[...]
-
-Thanks!
-
--- 
-Sincerely,
-Yeoreum Yun
+--
+Cheers, Lorenzo
