@@ -1,191 +1,156 @@
-Received: from mta1.migadu.com (out-143.mta1.migadu.com [95.215.58.143])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010043.outbound.protection.outlook.com [52.101.201.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E576A4A485A
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:32:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.143
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788438780; cv=none; b=TEZjAg2MPQ+QVseGHWuESWr75lncpDo5RVd/DVLRL7LjkL/Nu48qhCGisrOD9YYpkt2ypJUUwYY6/wowApAEeAPY+AYzHtjt53AfKqlyLXxRKs54HX9v4Ch+R1QgQVt0Cc1EguiNPXf/8WnLx++JB1SaEm0aVb1TIbn+MA1ul64=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788438780; c=relaxed/simple;
-	bh=1iB/o8bZw94ZM1/04pVnXdKi6vlIvmj3KTplXfVEHY8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ry+wEsU9R/PGBOk1h8rGc8BiRbkk/+BHQCHvvNd7zyU0Sjr+WOTN47iXxsfi7ExOhf+zbX14IVaPy+lZNmPzGCZdUOJmVwswF515CQT6b6TGawLUfXhmhKrx5fMEC4m9U5gSEVJMDvk/gr0gjg0XSi6Ad3kNF+CVRc8ki4Zisd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GnYSQNz2; arc=none smtp.client-ip=95.215.58.143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C73FE49364A;
+	Thu,  3 Sep 2026 12:34:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788438867; cv=fail; b=N4NiJwpMTcgG9rk1WApQlw7ruqgLkcg+5Cx37PYj5/cTbFNGYbpNAFGPhVNScGOQGNhNsOKTPfhGQvyL+vhUj3SgD0PxF714zaIV2lTizVE/JbiEjAgqtOS1MR1uhnj6GIzZgcOC2GTHDqJ1LnAWqDijuFVsVFzLrnZU0WXb1Rw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788438867; c=relaxed/simple;
+	bh=0kg0xvEEnbOgiaQSmtT9s/fqQacZ93DrkDrMTMefXsk=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=njXoRR1bRRLDYvWu9tW8YMCCgjk0Hcyv06jcTxuJKux3XzkJuafG6KxUII+96rIi/+oPCTnkFjJCea+/NcYcBvgseDcbE+DSx87qaWZQjaI5zqxw8fNijHmt8vJXP8Ra0VG0yHor2GgU59aplC+GP0Cu2hFoHAdDf+d/0E1L9f0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=T21nAGWC; arc=fail smtp.client-ip=52.101.201.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GnYSQNz2"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1iB/o8bZw94ZM1/04pVnXdKi6vlIvmj3KTplXfVEHY8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788438776; v=1; x=1789043576;
- b=GnYSQNz2fQBdKHJRcFxw5U1sEWVwiixC9V32gjo1LlJ39ZAIcQFXVzRgftKIsynpkzKV6N/M
- ITToR34WvDqIdtrTWGvq+VxycuVNQ3H9JVMXPUSr4UglO/hPfoIxtGoq4WrX06opasVv2AvlOmq
- IWlhfn8x7wBYqX59ROL+2Iio=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 88afac023ae83057;
-	Thu, 03 Sep 2026 12:32:56 +0000
-X-Mizu-Trace-ID: 88afac023ae83057
-X-Migadu-Flow: FLOW_OUT
-From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-To: linux-wpan@vger.kernel.org
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	alex.aring@gmail.com,
-	stefan@datenfreihafen.org,
-	miquel.raynal@bootlin.com,
-	david.girault@qorvo.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	stable@vger.kernel.org,
-	Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-Subject: [PATCH net v2 2/2] mac802154: pin netdevs for queued RX descriptors
-Date: Thu,  3 Sep 2026 20:32:02 +0800
-Message-ID: <20260903123202.60152-3-xuanqiang.luo@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260903123202.60152-1-xuanqiang.luo@linux.dev>
-References: <20260903123202.60152-1-xuanqiang.luo@linux.dev>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="T21nAGWC"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eKb2CtLcG2QoG55rha4zcWNiqFRMsJa+dSimlhdfDbvTSV9CKy64K9EKpDFA6Hg09fy4gnli2bPmz3RVjU8Ev/tWZsmRox+smtxAdEkGfPTdPPE7GhYnIVsqyUMLMisSq3yYdKVixBaorML03cc1WqV2n/RiRnEb0UTFsS6TCzDsCc7TfriWejX332ZwUJOjVt2ScWWXPKff9V86p/rSxHrmq+xIwHIoXSNMgvnAfrQQtOGjQiG89RU7dbKV6Sgt8+pJnwYYNlS7R4G9KLsRQ77xMgcMtrFWwnx56+3Q0VOM6T3T8atyIo1BICe2jHCWOEcaCwfd/spNHIU2SRRhDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0kg0xvEEnbOgiaQSmtT9s/fqQacZ93DrkDrMTMefXsk=;
+ b=uoIXMlO57x7ZN83rzVqGi1DYDyl/4p2WoRbKH0ujSTPijriKcCMWWXSi/DP31XFTv3wgspDoviyliOEhD3fP3XSefC6lXJkzBKhnFWFt/nbT/09d6SY0kSnlNbnJ4GLG0UsguBL29I3/KDEBsY9AIW9iyFjL5p/JgNh29xBXyMher24SRM8I4c4ORLo+WzE+pB7JuzdWNBmR+8MmH5mOLLybx65QmBwVOwDH+bqdxVW2XXeYhPhY0+6Exu7yt49V3rXdkt2bARK7u1mnaVhPHDZzyGEj/wzMF0cLx8gRRIJQO76gdTv4Unp2z0TqIQ1S+eb8MwbyKjdqXDJRmYlKig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0kg0xvEEnbOgiaQSmtT9s/fqQacZ93DrkDrMTMefXsk=;
+ b=T21nAGWCthlc1BPuz712Wc98OX6AufkLUaO19zEAB7LIE6gwyQUTITQMjal2me9uUftnh1KAOshznVC1QDAnpsWiyF/OksoySNKNVrVeUnRuzWm1eqU28ZOaPrEz1c9ga4rA92C58P/uNG2uA9YQi5IbUNNciX2rGujQ39Q3CSfEwLWKY08kwPWY2puGvVI8Nweou5cRT4XU4TPkdGdoZQ36fE+8Vn4qqt6QK+Oz52UQw7WMRlzrRZVN76pOz83wxJ2HoS+swoltQVmoepRVo1qn/kM0eutlKGDuSABydCtuYsuW0ub/xwEWwQDZCkFPytuqVzPHHb6f4+UNyYIy+g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by CY8PR12MB8194.namprd12.prod.outlook.com (2603:10b6:930:76::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 12:34:14 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0382.007; Thu, 3 Sep 2026
+ 12:34:14 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 03 Sep 2026 21:34:11 +0900
+Message-Id: <DL5ONU6LGWGA.2X6IHS9OKOD9C@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH v4 12/16] gpu: nova-core: use projection for PFALCON and
+ PFALCON2 registers
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>
+References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
+ <20260901-typed_register-v4-12-5552b1d59525@garyguo.net>
+In-Reply-To: <20260901-typed_register-v4-12-5552b1d59525@garyguo.net>
+X-ClientProxiedBy: TY6PR01CA0026.jpnprd01.prod.outlook.com
+ (2603:1096:405:3bb::19) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CY8PR12MB8194:EE_
+X-MS-Office365-Filtering-Correlation-Id: 65950a29-be80-429a-f33c-08df09b7a9f3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|10070799003|366016|11063799006|10067099003|4143699003|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	+JVty70p2UYhgP8ftfQOWwi4fbXj2H47pJv77riIpJpzEpBgNOWjwv9vOA7oQaqaPzk6Sxuv6je3Ovn7EI+e3AKBMvCWLXtquppO6/WKuREhzR/XSx3R3MKc+vLi0zyugAZ1u0x1WzDxuBPxEsk9n6wnj25lj9f8m6Ea3kNZYObrRU4oToLzW5ZvrCHZXVR014isT+CqpO7r5jJXuPzdXh6lTGg7Qcfh4GR/+QCjgYYRrpzr6NJvDYdbmzJU9B2pLNqKDeXy7HJGN2TdX1kX1zcKX4hTPPnywb8xVtWZPiUQ0RKheOQiI97H6GFgjpoVlSQfkYInuMcTTDAGU8/DIQTvhbJZ4P+T2v0F5mdaDcv6TJWPJmHWve2jTsyGbAS4567YcXNlJ+R5D9yM0IDMxDQDf3aaCB+Pv0PqLcmr3Sy7r1tubxsDatcGZcCoXnYY3cB4iMRrG8JRJjkkRo/6SzdNqiX2LhI/tIADik2b/r+1IsoaK7l0LObwOMqsX2ztISpjh2ZGkrRA1T/zb6e9fEW5Pxbmdz+cXlIUMgwQOH0axtzLQYD0nDMiVXNGA7b/u3jw6rpgzDTxrvMsaf6Cls5oOofUn/mlIg9zP59PQHRyPxv6pO4q5WlQ+J1PCQ4lLNj4KwSku2xuq+MpS4QTv45eD1jAY2pBJ9drgEK+Gb0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(10070799003)(366016)(11063799006)(10067099003)(4143699003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NWpXMmlibUZhVFNoYUgxMEZ4eWRraG5YSExvQkMrc1c5Vndrc2pvck92V2FJ?=
+ =?utf-8?B?eXVDaHMvNVdLRXlWL3JpWFc4eUo1eHk5QmRyeE8zWGlxVkp3VHpOa3Ira3lZ?=
+ =?utf-8?B?dGIyU09wTmZsNExlakJnMkNTMGJaZUZrVjZkY2Y0LzJsZjhkR0dIK3ZtYmJp?=
+ =?utf-8?B?NDVZYThWRjUrMnpoZGhHUFE3WWJ5Uy9DOFNIc0xqbS8rMVk4aHh1bzVEV0Ji?=
+ =?utf-8?B?N2h6dG5LVC85c05pWkcrVnVhOWpRVlJsYXA1bGZvODBxWDB3bVNmVVNCeEFV?=
+ =?utf-8?B?RVlnLzN6SUpxL29UdXkyVFowd0tiVm1wbkMxL253M1Y4SXVVeVkzT3RKd1oy?=
+ =?utf-8?B?dTN3SGd4QkFRSjY1TFZzNW5mdUxQQzZudHVZcytLT095SmVRN1dQemw4ejhn?=
+ =?utf-8?B?Vy8vN1VlRzhSclgyYVl0c0R2dUI0ak5LQ25Za05FbVlLNXpPWEg1UXJYRFJh?=
+ =?utf-8?B?QlpoYnN5RWE2dzNMSmRSbWlLUm95QTQ0eDhGT3ljd2JKVWNWbVBrS3ZqWW9y?=
+ =?utf-8?B?aFJ6TE9yaktUSlJ0K1JvWkFKTHhpajAvVWhNQyt6Wk9KbGpZU1F4T2pINkFQ?=
+ =?utf-8?B?Wnh5T0NDbFlCY2dMSm12VVluU1hnaVhoU1dKMTBWa0VzVnc1Smt6YWNhcFc1?=
+ =?utf-8?B?b0JpZjVadVdJenY2eHltVFhlR05PZXFnZEdTL1QvV2ZvOXNSK3RYRXNlaUZZ?=
+ =?utf-8?B?TFE2S3Bod2hxdk1tNkRocUpSNENjT2FtV1pHQ1llb2pUQWxBY2JNSExyUW1G?=
+ =?utf-8?B?aTFlaFNpKzVka2JnMlVEM1Rta3BZQmtabjB5VWxleHNaZHFuQ2M3Q1h6UTN4?=
+ =?utf-8?B?QmVyaER4bHZ0Ky9ISCtzeFRDZ1BwcnVPejQrTzExMFhETk9wenl4Ullnem90?=
+ =?utf-8?B?ajdIazZIcUxqQ0Nua1VudmtaWXU5dDRGNkVKUFRzU3NBL1NVMnlGM3ZyM2Fm?=
+ =?utf-8?B?eDgrSUVTZEpWZks0bGlqVnhKOHhYTitNYlZZRWFzRW4xSCtQcFpUOStLd3VW?=
+ =?utf-8?B?T2VyeXFlVWpxcTNDZVh4TmdreWJ4dk9uOUwwMCtwVS9teStnd3RPQ1E1cFZu?=
+ =?utf-8?B?Rk5pOGVGdlg5SUtwY05QUTh3ckl0MUh4MHdNc1hHOXRNMTQrSkI3VzlDT29w?=
+ =?utf-8?B?MHZZVHJaRk1JUjdnenJFb1NLaDZrQ1MreEJzUGVzNzN3SUxPMmkvWnVtODV2?=
+ =?utf-8?B?Q1BjM1diQWRNaGNQQTYvQllITUZBTzVQZFpKM2lmeVV2V3czNzMveFd3Z1dC?=
+ =?utf-8?B?TEtqWk8zcGtyS3NkNTRyektyL1BYcUpjN2M0d29ERVQwZ1czb2x2VUViRmNh?=
+ =?utf-8?B?VFNDQjJhTVBtcURXdTZIdUxzQ2cyYTYvYnBVTXg5Tno1dmhsODlIV2d0Z29F?=
+ =?utf-8?B?RS90cmlwR252QkI4K0pWZ3daYWo2ZXQydnd4SXhib01JRUcxN213ZjlmWjg2?=
+ =?utf-8?B?UkgrTmNZT25jOXlxZitIS0dtM3BURExVVHBMNHFncCtwSmlXaG5qR2lsMnRR?=
+ =?utf-8?B?VkZoQXp4QjlWWlMwNkhhdWFhZENrWlZnV2hXM1VxaDB4K2lhWDhncVdTcURo?=
+ =?utf-8?B?eUQvNlJBK3JJcjBtUVN1TEh0VVRxcVB0Sk54QnlVVUpDUTd4SzAvTDRieFJR?=
+ =?utf-8?B?cnkwSFp6VGJJckVQRThwd3pwNTdjZTl1dG5oQnF0MksrTG5JU3kvK21rL2Vi?=
+ =?utf-8?B?bHlZdStReFNDYTZBVjc0RWEzRlFTNXVZRmtXZU1lMzJSbkhIdGh5bTdsMmJj?=
+ =?utf-8?B?bGRLNk4vWXdZNkIrQk9FVWdPNlU4b0RHUDNrZGFoTnBxVFkrbWJvMExnSkxk?=
+ =?utf-8?B?ZXdsSWMrY09aUTNtNkRHeXRNL1hZdmdIWEVBUjY5Z3BqYmRUby83YUk2RVNL?=
+ =?utf-8?B?MDdWQUhRWjJ5RHY0YVpBOU5JV3FmcXR1QkthSkhLMzlqcHJSLytHWlhaZ0Iv?=
+ =?utf-8?B?cXJidHZnUkwzdzBZYUw4WXpPZGxlUzZVSHBuZVVsUWxtVmlqMDczcXNTL0xF?=
+ =?utf-8?B?M1FCNTRKT2N0aDNLYVdQN3VtdGRVaUZwTFhuZUpNMGpsMngzWVF4dVQybGVq?=
+ =?utf-8?B?WkQ4QkZOMmxMMEV3WVphYjIwWVdDWEFaQmoxVTFpa2t6cXZtY09wUmdGR3dT?=
+ =?utf-8?B?azIzV2Z3RjNBQTEwZkU1QUhMTFdSMmgyUjhDMmd0R0wwNVlqTGJTRDlVd3ZN?=
+ =?utf-8?B?ZCszNk1FVUxtMEFmSUpwSDNxUmZTK3hmRGNGQkdUbXA1NUM1dkhvL0pMaU52?=
+ =?utf-8?B?bkJ1ckdYVzE1cW9sMk1uRmpkVmtHRTdXek14K1lBSGJnVGZuV3NXcWltYVpv?=
+ =?utf-8?B?NmFWVEhKN2NsY21UVlVmdEQ4Qlg2ck5POWFBZTMrYW80U0dQWTJsMzdQNTlG?=
+ =?utf-8?Q?PXTsbhSepxKlitVdGNZ3Wi1Grhkh1pbpkGvohVgtB/VoQ?=
+X-MS-Exchange-AntiSpam-MessageData-1: gBMZNCcvHDy0OA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65950a29-be80-429a-f33c-08df09b7a9f3
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 12:34:14.6038
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XndIKNp6Nc5ASi7n5hserlYswfcENKgq3ailW1u9i/sen7FHJP7mw6Wn9DzL4jimyAkz3xe+rowHcPJtX1NDdA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8194
 
-From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+On Wed Sep 2, 2026 at 1:50 AM JST, Gary Guo wrote:
+> Add fixed size region types `PFalconRegisters` and `PFalcon2Registers` an=
+d
+> update PFALCON and PFALCON2 registers to be fixed register on them and no=
+t
+> relative registers on `NovaRegisters`.
+>
+> Update `Falcon` struct to store projected views when constructing and
+> access with `self.pfalcon` and `self.pfalcon2`.
+>
+> Signed-off-by: Gary Guo <gary@garyguo.net>
 
-The RX path keeps the receiving sub-interface in queued beacon and MAC
-command descriptors after leaving its RCU read-side critical section. An
-interface can therefore be unregistered and freed before mac_wq consumes
-the descriptor, leading to a use-after-free such as:
-
-  BUG: KASAN: slab-use-after-free in mac802154_rx_mac_cmd_worker+0xc0/0x498 [mac802154]
-  Read of size 8 at addr ffff0000c6db0ba8 by task kworker/u16:3/61
-  ...
-  Call trace:
-   show_stack+0x20/0x38 (C)
-   dump_stack_lvl+0x78/0x90
-   print_address_description.constprop.0+0x88/0x398
-   print_report+0xa8/0x278
-   kasan_report+0xa8/0xf8
-   __asan_load8+0x9c/0xc0
-   mac802154_rx_mac_cmd_worker+0xc0/0x498 [mac802154]
-   process_one_work+0x334/0x8b8
-  ...
-  Allocated by task 630:
-   kasan_save_stack+0x2c/0x58
-   kasan_save_track+0x20/0x40
-   kasan_save_alloc_info+0x40/0x58
-   __kasan_kmalloc+0xa0/0xb8
-   __kvmalloc_node_noprof+0x1e8/0x588
-   alloc_netdev_mqs+0x74/0x7f0
-   ieee802154_if_add+0xac/0x630 [mac802154]
-   ieee802154_register_hw+0x31c/0x3d0 [mac802154]
-   fakelb_add_one+0x250/0x318 [fakelb]
-  ...
-  Freed by task 652:
-   kasan_save_stack+0x2c/0x58
-   kasan_save_track+0x20/0x40
-   kasan_save_free_info+0x4c/0x78
-   __kasan_slab_free+0x60/0x90
-   kfree+0x194/0x478
-   kvfree+0x44/0x60
-   netdev_release+0x4c/0x68
-   device_release+0xac/0x130
-   kobject_cleanup+0x84/0x248
-   kobject_put+0x98/0xf8
-   netdev_run_todo+0x3a0/0x5e0
-   rtnl_unlock+0x18/0x30
-   ieee802154_unregister_hw+0x48/0x90 [mac802154]
-   fakelb_remove+0xe8/0x148 [fakelb]
-
-Hold the receiving netdev from before a descriptor is queued until the
-descriptor is released. Since sdata is the netdev's private data, this also
-keeps sdata valid while a worker or scan cleanup accesses the descriptor.
-
-Fixes: 57588c71177f ("mac802154: Handle passive scanning")
-Fixes: d021d218f6d9 ("mac802154: Handle received BEACON_REQ")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
----
- include/net/cfg802154.h | 2 ++
- net/mac802154/rx.c      | 4 ++++
- net/mac802154/scan.c    | 1 +
- 3 files changed, 7 insertions(+)
-
-diff --git a/include/net/cfg802154.h b/include/net/cfg802154.h
-index 76d2cd2e2b309..57343762d7f0b 100644
---- a/include/net/cfg802154.h
-+++ b/include/net/cfg802154.h
-@@ -369,6 +369,7 @@ struct cfg802154_beacon_request {
-  * @node: MAC packets to process list member
-  * @skb: the received sk_buff
-  * @sdata: the interface on which @skb was received
-+ * @dev_tracker: netdev reference held until the descriptor is released
-  * @page: page configuration when @skb was received
-  * @channel: channel configuration when @skb was received
-  */
-@@ -376,6 +377,7 @@ struct cfg802154_mac_pkt {
- 	struct list_head node;
- 	struct sk_buff *skb;
- 	struct ieee802154_sub_if_data *sdata;
-+	netdevice_tracker dev_tracker;
- 	u8 page;
- 	u8 channel;
- };
-diff --git a/net/mac802154/rx.c b/net/mac802154/rx.c
-index 26da20ea470ef..df2f6128ddd4a 100644
---- a/net/mac802154/rx.c
-+++ b/net/mac802154/rx.c
-@@ -62,6 +62,7 @@ void mac802154_rx_beacon_worker(struct work_struct *work)
- 	mac802154_process_beacon(local, mac_pkt->skb, mac_pkt->page, mac_pkt->channel);
- 
- 	kfree_skb(mac_pkt->skb);
-+	netdev_put(mac_pkt->sdata->dev, &mac_pkt->dev_tracker);
- 	kfree(mac_pkt);
- }
- 
-@@ -141,6 +142,7 @@ void mac802154_rx_mac_cmd_worker(struct work_struct *work)
- 
- out:
- 	kfree_skb(mac_pkt->skb);
-+	netdev_put(mac_pkt->sdata->dev, &mac_pkt->dev_tracker);
- 	kfree(mac_pkt);
- }
- 
-@@ -237,6 +239,7 @@ ieee802154_subif_frame(struct ieee802154_sub_if_data *sdata,
- 		mac_pkt->sdata = sdata;
- 		mac_pkt->page = sdata->local->scan_page;
- 		mac_pkt->channel = sdata->local->scan_channel;
-+		netdev_hold(sdata->dev, &mac_pkt->dev_tracker, GFP_ATOMIC);
- 		spin_lock_bh(&sdata->local->rx_lists_lock);
- 		list_add_tail(&mac_pkt->node, &sdata->local->rx_beacon_list);
- 		queue_work(sdata->local->mac_wq, &sdata->local->rx_beacon_work);
-@@ -251,6 +254,7 @@ ieee802154_subif_frame(struct ieee802154_sub_if_data *sdata,
- 
- 		mac_pkt->skb = skb_get(skb);
- 		mac_pkt->sdata = sdata;
-+		netdev_hold(sdata->dev, &mac_pkt->dev_tracker, GFP_ATOMIC);
- 		spin_lock_bh(&sdata->local->rx_lists_lock);
- 		list_add_tail(&mac_pkt->node, &sdata->local->rx_mac_cmd_list);
- 		queue_work(sdata->local->mac_wq, &sdata->local->rx_mac_cmd_work);
-diff --git a/net/mac802154/scan.c b/net/mac802154/scan.c
-index 5fa98e001a8fb..c3c61ebde1568 100644
---- a/net/mac802154/scan.c
-+++ b/net/mac802154/scan.c
-@@ -114,6 +114,7 @@ static void mac802154_flush_queued_beacons(struct ieee802154_local *local)
- 	list_for_each_entry_safe(mac_pkt, tmp, &mac_pkt_list, node) {
- 		list_del(&mac_pkt->node);
- 		kfree_skb(mac_pkt->skb);
-+		netdev_put(mac_pkt->sdata->dev, &mac_pkt->dev_tracker);
- 		kfree(mac_pkt);
- 	}
- }
--- 
-2.43.0
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
