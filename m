@@ -1,139 +1,153 @@
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 950AE35CB6D
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:35:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449714; cv=pass; b=eW7JI1SohNgKA6CYMG7uw7odiLlHHjUkgGDjoTfvr2RehxR/38YvKP9CcW+KBmUnsfBVqozq3JG56Rap2Q7n/kXZ19R25FpdFUtRpIL+FwSUKb1Q2ktoTlWBZhVWZ4b0CKhdeg+AQFVXULbj+baQv6lWwIVsTQTfMQI/RqmNTxg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449714; c=relaxed/simple;
-	bh=Wel+w58EuWSYu3QVdPuqD8C+kXDhkBOx9VRsUEzu18g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=r28yegKLX9UzV+xP3uoMQDs/JYqLQaL9DqTYh7eGjX6wlopBpt2hPimg6qwxUh/tKmGNNOa9qs6RLkfMaHbhtzipb+l34bZO50PiPzgwtR9VLWzsBEWjUQVOhCQ1Aj8bl83PU4Vu2L56dN3ASagbl9QSHXO4muBb8WHobbn/uW8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=syg0T3nd; arc=pass smtp.client-ip=209.85.215.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE694E13ED
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:35:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788449751; cv=none; b=ZVbt2frME/Kw4muCchq6iQje3P4SPQtfy/KOaKbCnN6EtrRMEWgeMsI3FFhQE1DpaAsw1FXGADaKDo796ucQaRnu2akmBuPysOnfqhuDe5ElWqPbnCYya/gp+71wnJ6qZ+tf2UcLzZIDl5HLE/JynS7Iv5uNKYJ40+LUPSjUcOU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788449751; c=relaxed/simple;
+	bh=ncJ1Z5b6dglmAecDwCPhVPH1ci0n4/A+38nkG7EOi9Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=glMsHqgHtkyQTSaZiQyZ1gPw0lwkVwjSj4e7GW/C2qXmKGClic8SjSz9l5I1K6gXwMtOP2WxtlAD7jmnE44IZxzQ9QqAt8HRFw4lUftpU4F41QBVLyDyJwmnYJk6LUHSs2IZU20J90xTn6Dvn49TYX0xB7FRR7ajV+5nxuJ4dfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c1sYT3NS; arc=none smtp.client-ip=209.85.221.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="syg0T3nd"
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cbe41618110so3459a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:35:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788449713; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HvkXtlh1JWbVAcdkQEsT/yOGr/Sz3c5h0u6nUYUJa6LlLVNRtVipzgjLwmE7XhbWZ9
-         GicZoX6lRv0Cqr9sEo7rqGbTCVnJ5eP2WX+kIB5VH/ZRDXjLTVgdE9T99GFLLcU1sYQZ
-         cFc36XlnOD+8q8GlgyY/c0Fml7RbyI+IL/7fDBM6oCopP/30lI0VuGHv3NHX2BNP+INk
-         ZSbQaHNwJx6Ue2G3rEjX7T71m9iOjhDSi6FA7NIxk8KcTVHYXnqSo+xDcaogBLL4jotR
-         pCg2zfXzC78w9ChlT1N/PLF3F0pHgQ6cGgVJR2H06LKWVoum7qpFbnaVxMjOKMkR2iDy
-         WAlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5VPKGp4sBNMrvoxmgXp5R0a1UxC9YH7siCg3VciSds8=;
-        fh=30wG0giVhjF+ko65EPQ6aZ7AOFH2M8jxqCXuokaUSuE=;
-        b=NiyPP40WF54Ka9GDA9XTVFNIgbAqiQUQzSTUWaCKvcEzpesGDbiyi0pb8x4D0S5t+Y
-         N73STNCzdiIJ5WAbPbaNOxQZJzMTYSSdvwkGH+fUE17Rh3UEmmhulQb9Hwvh3qPTLHfi
-         h28OhvRtFG/OcIsuyMUXR3eVX/wP2ayHedKKzYLpTQIKV0k5n7cueJY5YAmflL6JLftg
-         ykrDw9XTOEXcoN0KHbMGM+A01gFptByGghVSLN9XYwqaW2Ef3o7p/FvQGYBeK56j019c
-         sS3vpdNi+KnjhZQBeDazowPaRrAyqiY6eD0NC9mwhSn1sJrUVhVUkHliRg9T/Y+nC5cy
-         X47A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c1sYT3NS"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-4858303de5dso699849f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:35:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788449713; x=1789054513; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5VPKGp4sBNMrvoxmgXp5R0a1UxC9YH7siCg3VciSds8=;
-        b=syg0T3ndehRCKW1Qt2UYtGcgdmsjYJmRWKirOcvFY3YJmjK/uGGlVkl9/B23SnnVgt
-         OPAILTlWtCeq1lNRjF9xp5LP9UJHnhVse2XxFTLhghbvHICL9hJr3j8SjVFac4dyBVEr
-         VQ7LM87Y29pf6jKbCKPeMd4W4cTiPAFD/7aGT++uYgdB7g1hsO+ywYtn15g3IUpf4FtC
-         4A5fYytcrjcbM7BNwLoi0d+u+mx4fAvXsVimZ+RwH+AsM/LbZw9RWzrNZMcNWe4LpIe6
-         4ID+c7GVKgjmBRIP386g6vPVT6lmMDy5EiInm1P6S1DD3fgvQFRK9pw5BiOOJMDIxeYi
-         rHyA==
+        d=gmail.com; s=20251104; t=1788449748; x=1789054548; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BGqHkfnL74zaEtf/qjlyesNnXLKu3K97Vw4CNhC1tbM=;
+        b=c1sYT3NSOrd6uouEtxSaM/q33egHhjFF9rlE99qGWPH10WBuo1kJxyi5v2qe+CwJRG
+         StT2k8kew//q9C3OUIYYUE2cqnum218EYw0vCP+F03OxOHkSr/jadCZfnDCMk/SGEtXs
+         5Tr6ITEfVLxpuRfSauN1O/gvrSmmNiaiB0XgaAWu67u1LRtJPd6WXqon1GEb/ng9PcGa
+         f0dI4LaXAyNnIh8Uej/KJ60YAdiRqy6ni3HrHk6bB9Xqz5GOopx+0WXXioEYA34Uepe2
+         ABFLSn9NnWMrWaYvq8xkGLP00zSTAjCpk6lLc+0PULLi6NCbB8Pyiv8YcJyUoIuXoyok
+         Yj3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788449713; x=1789054513;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5VPKGp4sBNMrvoxmgXp5R0a1UxC9YH7siCg3VciSds8=;
-        b=aKRkqXDDAPJM4WHxYFskeAPnZR3ofXqd7SXmQbUNCsB889VilbGe86wTp/CUudDfVk
-         nSd1xVq8TCe+9mN8l6shJ9g8qhTIz10+XO1+mRRECUShYc1KAMW7ZOw91qvI+rsxb67A
-         MB2PZB7dlB110OB8rK0QHtEfXxJ+Oj3I+dhW3scypMQRXnqdzD1rtj859OGZOKjvqfht
-         6zFNEQ0+QMFLKykBP+peMM8ogvXqr5ccZgpFffOKGXQx7GDvzgX9328TsNuuiQgrBadq
-         XloJozmP1jcfs3pE2OkDlVGGZDV76tFCZ3e8Zj2FIibJ8w6HLAlR8SZCzacaJFHCOwLo
-         XREw==
-X-Forwarded-Encrypted: i=1; AKwUvBwiN28oLSNT8l0kIPsmTb1rwIdj6jXX5PSr/5JPH7XwhlcaUyS6AJm0MEZ2JZ9gXzykIKJ7/CDKwujfwV8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mh/KkVf6ybjjUiaSEIXOrb5AjsLg1axGRvcO46qCHYJ1Y/JESo
-	pAdCFMzJ9V0xPCi5ihl0ZkFd0xhkUY33fI8TcyrfeNerr2Hyz895hihjzAs4IaKGGuw6SpqA9P9
-	fJIyRyl1HCfquPAelhUGSjEvBG9n9cPM=
-X-Gm-Gg: AYBFou15lQxoniMd1SmAs8tDqJmlIdMHWFEVtd+58/qNok3CjO40uBMOtW+FxKu7X5h
-	QjkPVnIH9KFddRSHcwVWYbBu71En6s860oWuFkzxjsdMokeQbKE3rNHQIkE9xu15Qa10knDKYpx
-	Kib9eggiKQWd8KdDSF5+dlbZo1zyin0iS03EwGUxZflle/s/Jkpb7f5eGm9wf2h5weyyIDhGuI+
-	PzM9dFYG97RjxoJNZKThDh0/dVBVT40sVZ3oDf/0Ftk+FdyFoALFzNOgaKSR3Hm9hnW46mnDGx7
-	fT4klros1vQFnJHnTt/Q2NvgytdNJiJpvPaVYebuMoOSIt9nyMwNxXDjFXrCu5crC4xq1PdMpgy
-	MCPBlNK+vnnRa1+OhiCzQM07Gx1WD9AzQ85Bwb0mzVOndbwPjmBqSggd0BUoU
-X-Received: by 2002:a17:90b:1c89:b0:381:bcfb:e710 with SMTP id
- 98e67ed59e1d1-39aee12649dmr11584059a91.3.1788449712766; Thu, 03 Sep 2026
- 08:35:12 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788449748; x=1789054548;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BGqHkfnL74zaEtf/qjlyesNnXLKu3K97Vw4CNhC1tbM=;
+        b=JB5r01QgKcm0oiIIFP6gNK4gwn+knTTd6zfKhmVLVRPYtERg3CO8ZlQNZrFdZ3a4uL
+         ZUxo1vsv/QA8Oyrlj0XKcTwhgBOm4pZfAL/6yW1YqOrdcMR2J2rhq03BbzYXMOwubPkJ
+         2exdbCyskjPcdO/fQhkr8aR8S3YB+KEWr0wU6LQE49MK9LpnXVBm4pxcFnVO4kPCRgfM
+         NncdXpxTqh5lbANLBYD7MMnEbnW1TIAJuCmf5aX/t8c2Wah3qrg9g2uCo9gcRFFzVEsk
+         VzWfCPZQmrecDapmH8WDM73JGLCioQYrEtjQENX7gRrMh1pzfyrK4VgOYnaBEtw2bYtO
+         wU0g==
+X-Forwarded-Encrypted: i=1; AKwUvBzYmriZSZwTgxPxCNdk0cPlAWzBbWib12LNuA1/rEl3rXRVix0x0WuQwpOkWd7HEpT0GRQSUwvaaWfsESc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mRVIpbeA0R3gsKz/eca9QCfk8AFpNebg+RF7rmHlcMYWGFUHDO
+	busE1SrEJQ9KKzIeBbBkemlHm0oQ2E3WhLMwpP32n1lIeRKiU23S4eLLnSuw7/2SGQ4=
+X-Gm-Gg: AYBFou35jSs/N+tLpkIPYeC8hzOUGzehCso6VqRfx5YxXPjJ8Stq4iW7d+5jW9tQ2N1
+	QzRCtLDat24QxtGHOfyQrbLNRo3p9OXBeSxgKhNCwR98W3GExt3+pevq3y8+Ag0AdcP/kY31S1M
+	zYDam8Sp9H1TvipoCb34/suy3Ag3XsoZoN5bpxEFHHS3lY5B7uYSE/bxyBI8yFZfwIMZ/46wbzK
+	0tiVAyfuZ9FMVWzCDPTnLTealICucuiw7gXyATaN8unOzgznS5++4nyrKIecPnieHpTSaNWp32D
+	Z0d89bDS1ZHHUIOZ5JRs1WHXgDvGxQx+OvF/xDGrBTJHAVgzEwtaODcAjTnvLoRdX75taX45aTD
+	CjJthB0/B2COIH+kuCe+dd4Oa+QcB591xjXCUnnD9qay1XBFn8nNNk0vECuyL55lZ8KDYXPkYjT
+	9FiOGTW1JDVlKjJzX+do7B+/hS5nHHutB5kU+AaFvCqNM7lKuhW4vQFJ3RpV423fDglO5wD6qhU
+	E5axC/fRcOEAZp4OSlGr7VUykwwX5KWRRFZMuSPRHN9GXWychE0jpW1YATnoAkO5cjD44rujY4i
+	Ec07Q0HkIuGR
+X-Received: by 2002:adf:e947:0:b0:484:f26c:ba9a with SMTP id ffacd0b85a97d-4858606d6a3mr2102493f8f.16.1788449747700;
+        Thu, 03 Sep 2026 08:35:47 -0700 (PDT)
+Received: from cdev ([2a00:fbc:f1cb:c56f:5a2a:db32:f638:bd69])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448eea5b4sm14851108f8f.27.2026.09.03.08.35.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 08:35:46 -0700 (PDT)
+From: "Vladimir V. Kondratyev" <vladimirkondratyev2@gmail.com>
+To: marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	pmenzel@molgen.mpg.de,
+	chandrashekar.devegowda@intel.com,
+	arnd@arndb.de,
+	kiran.k@intel.com,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lsa.uz@pm.me
+Cc: "Vladimir V. Kondratyev" <vladimirkondratyev2@gmail.com>
+Subject: [PATCH v3] Bluetooth: btintel_pcie: fix stale cache in set_dxstate fallback check
+Date: Thu,  3 Sep 2026 17:35:04 +0200
+Message-ID: <20260903153521.130258-2-vladimirkondratyev2@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260507203426.128975-1-vladimirkondratyev2@gmail.com>
+References: <20260507203426.128975-1-vladimirkondratyev2@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903-cv-v2-0-e93b1613e40c@garyguo.net>
-In-Reply-To: <20260903-cv-v2-0-e93b1613e40c@garyguo.net>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Thu, 3 Sep 2026 17:34:59 +0200
-X-Gm-Features: AcwNN1U-DNvbVvz5zFAU4rKPoamceLKbon3dohS4mdpg2OjXc_prN4YYMGEtrLc
-Message-ID: <CANiq72mgqhjAYR-a5gSnMjK++TVc1n6RFpj=Go6QqXtQRX3=9g@mail.gmail.com>
-Subject: Re: [PATCH v2 0/3] rust: const_eval: add a mechanism to do const
- trait calls
-To: Gary Guo <gary@garyguo.net>
-Cc: Eliot Courtney <ecourtney@nvidia.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 3, 2026 at 5:21=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
->
-> Add a mechanism to perform const trait method calls, with the same type
-> inference capabilities. This would only work for concrete types (not insi=
-de
-> generic functions).
->
-> As an example, convert `as_char_ptr_in_const_context`, so instead of
->
->     kernel::str::as_char_ptr_in_const_context(c_str)
->
-> one may write
->
->     const_call!(c_str.as_char_ptr())
->
-> instead.
->
-> Signed-off-by: Gary Guo <gary@garyguo.net>
+btintel_pcie returns -16 (EBUSY) during suspend, causing the entire suspend
+operation to abort on Intel Lunar Lake hardware. The system immediately resumes
+after every suspend attempt:
+  Bluetooth: hci0: Timeout (200 ms) on alive interrupt for D2 entry, retry count 0
+  Bluetooth: hci0: Timeout (200 ms) on alive interrupt for D2 entry, retry count 1
+  Bluetooth: hci0: Timeout (200 ms) on alive interrupt for D2 entry, retry count 2
+  btintel_pcie 0000:00:14.7: PM: pci_pm_suspend(): btintel_pcie_suspend [btintel_pcie] returns -16
+  btintel_pcie 0000:00:14.7: PM: dpm_run_callback(): pci_pm_suspend returns -16
+  btintel_pcie 0000:00:14.7: PM: failed to suspend async: error -16
+  PM: Some devices failed to suspend, or early wake event detected
 
-Thanks for resending this!
+btintel_pcie_set_dxstate() falls back to checking the controller state via
+btintel_pcie_in_d3/d0() when the alive interrupt is missed. However, these
+helpers read boot_stage_cache, which is only updated by the interrupt
+handler. As such, if the interrupt was missed, the cache is stale and the
+fallback check always fails, exhausting all retries and returning -EBUSY,
+causing suspend to abort.
 
-So I definitely like having `#[const_eval_only]`, because we do want
-to limit those calls sometimes and it is nice to have C++'s equivalent
-to `consteval` (perhaps this could be called just `#[consteval]` to
-match?); i.e. what we talked about in the call.
+The fix involves re-reading the hardware register before the fallback state
+check, consistent with btintel_pcie_resume().
 
-On `Const` and `const_call!`, i.e. the other two patches: I am not
-sure if we care that much to introduce a macro for it, but it doesn't
-look bad either. I guess perhaps it helps to have a consistent way to
-do it and to easily remove it later when the actual feature lands in
-Rust. I would like to hear some thoughts on it from others.
+Fixes: e57362f4911b ("Bluetooth: btintel_pcie: Add support for _suspend() / _resume()")
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=221481
+Link: https://lore.kernel.org/linux-bluetooth/20260830151550.44687-1-lsa.uz@pm.me/
+Signed-off-by: Vladimir V. Kondratyev <vladimirkondratyev2@gmail.com>
+Tested-by: Sergey Lebedev <lsa.uz@pm.me>
+---
+ drivers/bluetooth/btintel_pcie.c | 8 +++++---
+ drivers/bluetooth/btintel_pcie.h | 1 +
+ 2 files changed, 6 insertions(+), 3 deletions(-)
 
-Cheers,
-Miguel
+diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel_pcie.c
+index 30923eaabed7..44ad31a5d7ed 100644
+--- a/drivers/bluetooth/btintel_pcie.c
++++ b/drivers/bluetooth/btintel_pcie.c
+@@ -3538,10 +3538,12 @@ static int btintel_pcie_set_dxstate(struct btintel_pcie_data *data, u32 dxstate)
+ 					  BTINTEL_PCIE_CSR_MSIX_HW_INT_CAUSES,
+ 					  BTINTEL_PCIE_MSIX_HW_INT_CAUSES_GP0);
+ 
+-		/* A hardware bug may cause the alive interrupt to be missed.
+-		 * Check if the controller reached the expected state and retry
+-		 * the operation only if it hasn't.
++		/* A hardware bug may cause the alive interrupt to be missed. Refresh
++		 * boot_stage_cache from hardware, since only the interrupt handler
++		 * updates it. Finally retry only if the state check still fails.
+ 		 */
++		data->boot_stage_cache = btintel_pcie_rd_reg32(data,
++							       BTINTEL_PCIE_CSR_BOOT_STAGE_REG);
+ 		if (dxstate == BTINTEL_PCIE_STATE_D0) {
+ 			if (btintel_pcie_in_d0(data))
+ 				return 0;
+diff --git a/drivers/bluetooth/btintel_pcie.h b/drivers/bluetooth/btintel_pcie.h
+index 9baa214d9bbe..a7f4e590af5e 100644
+--- a/drivers/bluetooth/btintel_pcie.h
++++ b/drivers/bluetooth/btintel_pcie.h
+@@ -51,6 +51,7 @@
+ #define BTINTEL_PCIE_CSR_BOOT_STAGE_DEVICE_HALTED	(BIT(14))
+ #define BTINTEL_PCIE_CSR_BOOT_STAGE_MAC_ACCESS_ON	(BIT(16))
+ #define BTINTEL_PCIE_CSR_BOOT_STAGE_ALIVE		(BIT(23))
++/* Reflects live D-state. Updated by hardware on every D-state transition. */
+ #define BTINTEL_PCIE_CSR_BOOT_STAGE_D3_STATE_READY	(BIT(24))
+ 
+ #define BTINTEL_PCIE_CSR_DOORBELL_MBOX_READ_CONFIRM	(BIT(4))
+-- 
+2.55.0
+
