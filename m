@@ -1,244 +1,169 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011018.outbound.protection.outlook.com [40.93.194.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F4B3750BC
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 03:52:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0D932D42B
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 03:56:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.18
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788407578; cv=pass; b=dCKmEiEmM//+pOTL4V2tT/c6H/kkRKCa3YI7WQ5nOYp/ZHaWLiUsbCUjSe98tgKaedZ/hGBaRUOicwUYyiixPf240cAaqymbJlrQwZEVfn35g/sYhEq1oYgNhzx051FhLSx/mXl86LqwS3DO6e2fR3kms3xHwaRNSh2OeY72Kr4=
+	t=1788407762; cv=fail; b=n/0xdEH6t35sbzaqomv4saI8d+YNFe8WB/skxbDyp0ktpZbSfG/frIO5fwb/4cSChTkSXZRPvOcpY+qAe0nepJQ9kSgTvZNhgguY8l2vEHpOGrtZf7XVi5ivP0Nog2+XosZyeB2f958qtYdt89oPWnrksb6aUiTRWwbuFexnfI4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788407578; c=relaxed/simple;
-	bh=0nG8U1FR8wXCOSjXTDfBvYxce9r58Wp20V47CS4+oyY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VkEinJE7WlEBms6bC/9OVH5SshzXPwMMFmNT4RavH6iyqwXL78INFPNL3r1YR3QjbhifVgEzO7KKjm8Uhvd6uVMR3KQLTPFd6wSe4NCpTNfgUXz3x3fF/dzZjwWwZa1MMSk0U4XH6r83tczRz7rpVJseufa+6FXAs2ggOfxYrME=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PXXZaLSm; arc=pass smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788407762; c=relaxed/simple;
+	bh=7DNyb34i93R3VYquS0S07R04TQfQqzDjqqIK0MslFsE=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=LIcTJfXkc4l4r8Lu8gUW5LWBTzh4dwhY7HiV3s23/8wn3J3ZJeGTtH6rqdl5H1kZRq/nnGLqO7ePRy8knMWD7cB2ThuCE7sxbhekQCrEPa3sQ9NTz9Mz3du/YRMEiDbH+v3PLUiXwm9gw8IwEvjJRhlkDqbkMOcJb5m1v6hEChA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ixR/qQsh; arc=fail smtp.client-ip=40.93.194.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PXXZaLSm"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a668ce86abso3363308a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 20:52:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788407573; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sE4/TEEZWdNawr/fsX7WnLiP9r7j6vUAfhyTsTOtPCmTuO2fuYkfEPZ+z3PtvVMEuX
-         2f68akADKjTaXIeF9E87GuufFAoGTKMWHNlVb/vFBWKNrihExXQJnMQxWPQGPVdksB0G
-         78CoMYrk6cR29D09PLM02qvqok5pIEwxec2G5SLDJZLcJkM3VJw0XkJ2mfQWuUVtvkPH
-         0oLAECmX0l2FWsFBCC3Y1Mmqn+LqnJmBrA/knp2f+d513GMlRa8OMAM9JCTb/dKadq8b
-         lHFf6er4A78Dbs5mcyGnKXa1zg8ZKM0gl4JGZvm7CtcoA25nMrnU8mgt+ItVWJC80MrV
-         nF3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0nG8U1FR8wXCOSjXTDfBvYxce9r58Wp20V47CS4+oyY=;
-        fh=koETX9zJW6ANCc8dz/cJYaBj6/vbOwdpQnfRBenSJOg=;
-        b=pmxeOaiplxGhkzCzdWjlK8gjApCASmo/Eft6YEkgaYISQOyWTkwzuq2QbDcWmOWgiE
-         p1VtcvTVMWMr8sNGZ2m3cH0c2bXSUeOLtdkAyiXtUxWtjoRRzLg4yiJDHxIJqqBg9Udz
-         7E0GaDbilH3sKay0ig2VgbuzPbAjE568waSxgYpJH/7cKx+wuvU4TSIFdNjmWxxLSy+g
-         asVpr2Wto4VJAWtPJgdVqeoZweSu8WvxurP8kafQAV9b84p3qo6+BfqQy6drMq3Iqhse
-         JzFcovHjoXF/HGjCEULa9qV+MvrBPUf8d4/C3vviP2BXhkzQy5kHLA9sipR+rF6jqxl7
-         NR2Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788407573; x=1789012373; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0nG8U1FR8wXCOSjXTDfBvYxce9r58Wp20V47CS4+oyY=;
-        b=PXXZaLSmj/OemL6050Kt/u0PJbrDy5jiWhOAFwh5nbwWW0repPBhDdi0BME6hMP1EE
-         3Mb0sIqcPXIwJ45k/66ssOZ3LtUahzJU8niHivcu7cTEAjiKxAYdCa0KiQqo5kxT1eQ5
-         38DmyUMaJS0c5Q8wobyCLnUKs6EJy0X0+1saSWmWalCQMKTOjzOzmA2Q0QRNHmRLd9y7
-         YJlmV2ydAdhPglCVjw3nOTsaI5mZ1VeyGNLT99eZaoqBc149BPZAfgUuKdW4crXyVnCt
-         MSR9RTeBZIdPcqWzRLmY/gyAT0A5isbi5Mroo2VEsvaW8JouVGB18L0Ems61woKnTcEM
-         P/yA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788407573; x=1789012373;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0nG8U1FR8wXCOSjXTDfBvYxce9r58Wp20V47CS4+oyY=;
-        b=ZWicxXpaPAxBqjeT9HkdJvqt6uOSmFkthxALNDrxZRyerifZEnDaVePvTJ7vXaRTHD
-         XD3/vwrMIwx3YnS7zu1blL/eCYHXlggNf+XYOQ6qXWj3TGZI79+fPNDYJwVc/m8VItu0
-         D/c4gE1P/Rfc8Y4UC4qGvK906+CGVJybbuCcvbLWntyvSLXPi4GIrJgQNYGBC3Eqsa2S
-         lVWmuyJHwzwvod+icXCyrIkDHcMlFKpMRv5oBk9eNRJNec8AlTyif6dqy0SopZGtsqeO
-         +k0oFYNhqPneYRgqDVl1K2Vl26m+GJu/0xdWL5y3ZKVdmNeSfuE+q/bGKJMX2Coma5Wy
-         hzLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzvSfEQ1X/1Rb89jUoP2CViEijwhHxiuGDdaM02N5P4VZVj005wJjfxIlbraXsKxpJwqGIF4yrkATCVzWE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mrjGjnh0/mDaVgB09VIv6anNaUsfIPTgM2c5aJXigLTZgUYSRq
-	bY0u5UjTCVgPmvkK3+O1DpLtiBt4gJeZEK/kMECZXJlXBHn6RpcSv4+qp0/jQceVYikryshKZ4X
-	ijO/kGnVV+/JnP4p05WsbVSdKRAlYSUQ=
-X-Gm-Gg: AYBFou2hcKP90y/LTEtI+A24msgqQUEjGPVqxlrMp2t+wgB2zJMoIlzztUPUCek7VSl
-	NKyYDdqkHEQLNw3r8ZYJ5teJYgIhm7UHUvLn8i1wzCyfiPkVjh3nl46kpkry0KOwPnF/K/Roast
-	V++hh9hO6GjJ1nrtGgUxgBgtzWjY9P8TNLoM2Z1I46kkuZslPBiDv+ogWPZH6Kr5patFQgVwXRM
-	WuAtZ7/kNT6AD/qv5U/2SQQrHOXeT8WqQVxQ5+UX4MXqnzTSqh3zsLQDvIzTJu5xy0q1tX5Cj3J
-	R0qTC9lrLrPBTTCpFlJuWW8c3LoFOEcCda20J55GzXyzoGA//eAZNISB4817RZwPqd97fH3g/99
-	JKe6gBjiPfvE5ra+WOmdYu6gsYF7dtLzs
-X-Received: by 2002:a05:6402:388d:b0:6a6:32f5:90b4 with SMTP id
- 4fb4d7f45d1cf-6a682af9bf4mr6070931a12.22.1788407573017; Wed, 02 Sep 2026
- 20:52:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ixR/qQsh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tGBAN9Wqus3hCtUIVH3sH74ercd608XkVRtVPHdl+NHiKhX1zC+KrjVVgvD/DmIzOQnEB+hnC5de7JiyQELqld0yYduFyJstvt+7HJUoGM2aBHvHLDKBcYStKGkFNICOhG6pkD5fzdyzzj9PRdV6L/UnoL4F0G83Nm+m5At8zeOt3AW6T86zcAJ0G9y3qOacZPdCr6SnJeTFZ1mrPGuqCJwexIch6ERNc+NR1+TNH0NhmS7UnrN0squufmfY9pDH4PLk1NFQpPRUZc9mOVsFFO+X1BAryTuiKhWD50OKBCWPUNhra39IlLqIxCEjpCp8dVdxODg7rZK0IeGhsogMOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l1vOireDPPUV+ovBF5BfbBNvTxC2iVcRHGHYAWaiRDg=;
+ b=j+VpgBEfK6A7AsThGbHhVEUMJCLhwTDQOLznfIfXKHc5C5BfnAbuqKOJbKssi/u6/dveuJMZ22w7bUeepl8KOazmGm38SdBV0wV6R1GWuOVi4OThCYxPqPtY/pu2si7QK7pfhPBFSFT4FkZRq2NX54S+BvAw9b24aD1wUO3xcKks3Du551cfjscf5ztxdyVBVnxhFANEDY5W15VxclWid/OuzdGMw50e5ZWWmbRYzVFYEaSF2bWWgwKTPQM8vpmyfwiOwnu0yPnxiu/N59aP/AmFMqWQSy+3VmFSlEwF0Ut1BaI2wkiF0hdVXJ7aLmzJwSYvbNXPXTYHOaCHTY39rQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l1vOireDPPUV+ovBF5BfbBNvTxC2iVcRHGHYAWaiRDg=;
+ b=ixR/qQshI7pNaLUaRLs+TVecrRvt1IejCx9b4MnhKwBWLTv7Nf19f5caVH9/2aVExPMX6k7qdEYRewk6G7OP25S5LCAOHNjumQdoQnmLuFy0qC9ZTD4ykrbc5Cc4yAzPlTqUBoie2+amXnR2/hBqKTTN4bQfWOFaCgbmBeyndkPZbsb7M/n2yWAc5B/TW7Rk+ZAZsJjgGAL6OaairYrdnkjrrepYALarlOi5eg4UTKbFc16H15xl2ODM9tshnHPG8Ucz/kN5i356rhWIZIJAh3brL9T6OXI0F6sHQ5Fk0lo8IhL2yRx7lz5OBXG/vwj/KyArkeRLMCuQ0HSajR56Nw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ CYYPR12MB8654.namprd12.prod.outlook.com (2603:10b6:930:c9::16) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.13; Thu, 3 Sep 2026 03:55:57 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 03:55:57 +0000
+Message-ID: <3c3a96a2-4eda-4335-9388-0b35ea5ecd5d@nvidia.com>
+Date: Wed, 2 Sep 2026 20:55:49 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 12/14] gpu: nova-core: drive GSP events with the SWGEN0
+ interrupt
+To: sashiko-reviews@lists.linux.dev, Danilo Krummrich <dakr@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>
+Cc: Alistair Popple <apopple@nvidia.com>, Bjorn Helgaas
+ <bhelgaas@google.com>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Eliot Courtney <ecourtney@nvidia.com>, Benno Lossin <lossin@kernel.org>,
+ Zhi Wang <zhiw@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Timur Tabi <ttabi@nvidia.com>, Will Pierce <wpierce@nvidia.com>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>, Trevor Gross <tmgross@umich.edu>,
+ Gary Guo <gary@garyguo.net>, nova-gpu@lists.linux.dev,
+ Andreas Hindborg <a.hindborg@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ Alice Ryhl <aliceryhl@google.com>, LKML <linux-kernel@vger.kernel.org>,
+ Miguel Ojeda <ojeda@kernel.org>
+References: <20260903031514.1515905-1-jhubbard@nvidia.com>
+ <20260903031514.1515905-13-jhubbard@nvidia.com>
+ <20260903032815.6BDA71F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <20260903032815.6BDA71F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR03CA0133.namprd03.prod.outlook.com
+ (2603:10b6:a03:33c::18) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <aoczaCuoaZfUkfm5@gsse-cloud1.jf.intel.com> <CAMpTW2cxRrG4oJ0HrRoKhHrVHxWO01-L+QDoWMLCAUaSfw75sA@mail.gmail.com>
- <CAMpTW2fxFRrpn1b5WGYBrtLLMfUo_fmx9s2D0b552GJp-sF5qg@mail.gmail.com>
- <8b7001c68c94491095f41d2a3dff45090c0a95cf.camel@linux.intel.com>
- <aoeUdfrPX+0ZnZMr@gsse-cloud1.jf.intel.com> <CAPM=9twBded3B553KYzwDtVd0NbhbAwbiVDGw_bdrmBnOKgtKA@mail.gmail.com>
- <CAMpTW2eXS9tBzppJvvfZ-FiwoJ5MKOAdB9sqYgCDPVQ_+___ZA@mail.gmail.com>
- <ao+acQG/wyZYNYfW@gsse-cloud1.jf.intel.com> <apfZcEF8IlDak/As@gsse-cloud1.jf.intel.com>
- <CAPM=9tw9dtxN+tZLrb4fvPGndUT+He7Y=o39ByMEva8wWyq56g@mail.gmail.com>
- <apflRScB/NTEiEzU@gsse-cloud1.jf.intel.com> <60f8132f-efc9-4dc1-bd02-b62391bf3fa0@amd.com>
-In-Reply-To: <60f8132f-efc9-4dc1-bd02-b62391bf3fa0@amd.com>
-From: Nathan Bourgeois <iridescentrosesfall@gmail.com>
-Date: Wed, 2 Sep 2026 23:52:40 -0400
-X-Gm-Features: AcwNN1XjM_3CDNM2RXbcW9bsYX8QLssOvGlmXwTLjeDvMA-uBLr1c2b3x6gwG1Y
-Message-ID: <CAMpTW2d8Q0OXpw1G_9+cj0ohrYo9cONUPEBgC6kpLumosTxt+Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/xe: Fix unnecessary host-side population of ttm_tt on
- non-TT resources
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Matthew Brost <matthew.brost@intel.com>, Dave Airlie <airlied@gmail.com>, 
-	"Kuehling, Felix" <Felix.Kuehling@amd.com>, 
-	=?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
-	intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-	Matthew Auld <matthew.auld@intel.com>, Simona Vetter <simona@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|CYYPR12MB8654:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0c9b3ed8-67af-4a7b-cc2e-08df096f424d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|1800799024|376014|23010399003|366016|6133799003|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	xVAN8NHY0hzBojjOYjYCrPh3gHcqKlUKmWC+WfL6zxK3WxzvxB5qQHYTMfaTWAPovIejB2UuJCqpQfLiZX8cXjGAcjf1UTt8WbKcT8shlt9NfgzhfgbYnfNE8+Xh6aEK+8qOs6AWufR9RepsrflTcK/P0cBJ/tPozw4ZZIZ2b20wjjIivceGfpTuzzSHEcme/YBxtNzLSSqlrm1xTJPFbBA4L2h2XQI9InkU2Zd0/sR+xXBfsvJDb+P5ejZ5SZVc2ApEwRzC+U/mfWoOTteR+GhegLe4fWZfMnbps1iOq+xgI5tBXsRJzjr1IoxSeQNmO1L6zxjMyZu74gGABVvqDVDIrhAQptob+BkTG4gwXeKeZP1JC4HtLmTnOh3KO53AquI8XixOOos9vL7rkFM8q1bl+eWKpeAocN+hQ5TMuZH1K1K3RjvKOUHa5IdokNdXQqHgAkYkBs3j/ZdEYBXKHO+mMaZTBdYD6SSCzmIqrIE1dW5tcBIkk5QpqMiZBZzhyGMXLyxPQA7UvC00EIe/NqDRMgEEoxflMrqtYe843IxJ2GV11JlkysZfZDPJIMjFErTdwtqltweZp+cPXgFFaMKXfjhZpaTL7+G58JvFtxplw9vwjLBR35v0cVxJ1AahIfuXsHowh9yflSqGOORbbbjzBtWBC+f4Rc+q1LjJTG0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(23010399003)(366016)(6133799003)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?R0FpZHhYbFV6UE5DZjBvRDQwM2o0RzRpYjlmaWVtZ0h1TDBOL2JYUkFoT0Zj?=
+ =?utf-8?B?YklRTnAydlBxY2ZtRUJkNU1nbHByTW1aTFJIbzlNQ0tMYXFPZXlndzU5NFQv?=
+ =?utf-8?B?UEFkeDBOQkthWWhWczNxWXovZVllSzRmNG5Eb2ErenFGR0tuL1p4SlpxR1JP?=
+ =?utf-8?B?MDQ0cituWGREQURLQmVqQVJsN0dqc3AxeVpjMFR1aXIvMWJtQWxxY2tKdThz?=
+ =?utf-8?B?NXBYeWttWTZZbFUyTU9RQTJJYmNWVnF4emhFcDYwc2hCTHJMbFFyYjdMSm9W?=
+ =?utf-8?B?LzVxaHhrdHQvNGdIZ1V1eDFOUlpobVJlcmZmSFRHL1dEQUdmdGdlaHFQa3lI?=
+ =?utf-8?B?aDNVUTBpekV5QjZsN2UxekF0K1dIQWJGdHAwWGVmTXg2cnRveUI1aUZNazNh?=
+ =?utf-8?B?WXp3cEZZV1lnODVXZWFFRXhJeU12TUlLOW1RcEJwK0tNaFY4dHdROEJaV3Zo?=
+ =?utf-8?B?RHQ4Rmw0cVZsRnlSRTJjV04rWUI3UlEwYjVVMTVNdElodHB1aUsrZHFjbTNs?=
+ =?utf-8?B?ZjNTaFFWQ1dTYzJQcDlXWGZheC8va3g2VVczdlZseEx2OXNXdGpnS3V4cFBP?=
+ =?utf-8?B?cTZMTEZkU0ZyRWhQQ0M3dGxjMlZoZDEvUlZ3U09IbjhMYS9KVVpDNHQwSHV3?=
+ =?utf-8?B?N2FzVHcyZ09BQXpjeWo0enFTcGhYSjkzK1U5MkFSQldBRGtBWmV0Sms2Z3Yr?=
+ =?utf-8?B?Rkd4TGROWU5TbXh4WkJYbzNvU1BrWjBjODJvdG5yNHcvV1BnZHM2MCtVWEdP?=
+ =?utf-8?B?d0dJYTJ6eENjZmxNY3RzYzk0OWxac21wSG94Q2lITnNzaTBNRUlVSjNXQ3dJ?=
+ =?utf-8?B?bGg5MEh5cmZMQ3k3NGF6Z0JZOEh5TW1qMDdmdEE0RUxXc1VvR2p3aGxJZTRG?=
+ =?utf-8?B?WGFyT0g5NzFNMUpaeEdORFo5R1B5L0lBcnVpRVB2QnlFSWNBM245TWVKOCtB?=
+ =?utf-8?B?N3A1T01ITElWRm9TdklCUnFLMi9YOEdTeGZralNDa0JQMFZodzE1WU90LzAz?=
+ =?utf-8?B?NnRXMDVnSlJwT1E3NkhIZ2hUWCtzYTJIbEZvTUlWbU1QQUZyVU80VThRWHFG?=
+ =?utf-8?B?YUU5TUZha0RFakFOdE5RUVlUOWJYdE9EUUkvZzJsdHE2a0ppQmF0NW9OK2p2?=
+ =?utf-8?B?MkdlZElJUXVobjFZdHNuQ3YyTytmMmk2QUVnVzMyRGlWenhPelBraHduaW13?=
+ =?utf-8?B?UFc3RDBYaWZjRWw3aGp5bU5ndHZ0Ly9sbUltMGs0d0dvVFhqb3lJS0dGRUVl?=
+ =?utf-8?B?S0QxODJrMFliWlpZRkZ5Zm5Sa1pqWW5PVlJLQUliazg2Qk92cHRyb3ova29B?=
+ =?utf-8?B?RHFBVSt6cVNVWmp5RW9SeUdMOExwamJrR0R4MEJkcTBmMGZBdnhlaUZZZnpJ?=
+ =?utf-8?B?S1JDWXBSbGFLd3kzMXlhM2tmZXVkdlN1alpRdHUvcEl3ZnlXcDllcHpyT1Nz?=
+ =?utf-8?B?emhrSkVwQzMrYlhFR1BJWW5qdlNqNkN5ekRPZWdYUFYrNXhSSmxlTlRRZUNs?=
+ =?utf-8?B?Q2pIbnhlUE4rcUo2THVvZUtqSXp5UHBNV2g5Q01QU0NiZ01NUnptdG5uVDBx?=
+ =?utf-8?B?Q2s3em1HSmF5clNBQVk3OUQ4ZkhVejZNbW1BVC8ySFJCRm52L2swYnRRVmVh?=
+ =?utf-8?B?djQvRTdEWEtrUDVacXROaTF4N1o5YUdGeTZjMlFDTk1tb28vSXdHOXljTmxV?=
+ =?utf-8?B?dTAraW1zOEhPRGpuWkppWC85cElSeGZHL1N2RzBTT0dsa1MvQkJ2Qk4wUlhW?=
+ =?utf-8?B?aVkycVcxV0FoK0hGU1pVRTBFOVdEQ3dRNitDTW9yenc1UVVySE9CVHlqMXRs?=
+ =?utf-8?B?aDBEM3pwTlM5S2NTdnpFTktWWVV6UHh5ak92eWdURGdxT0ZBVUJuWlhHTEw0?=
+ =?utf-8?B?MzlaRXE1QjBOL09SUXR0a214RytpcVJicjFsdk5PR2JNMForbFRDSExXTFds?=
+ =?utf-8?B?VC96ck1vYzJuQWw3aUZkM1U4MnlIRjR6elhFcU9LTjlzcjNzRjI1MDl4ZlNT?=
+ =?utf-8?B?eFMwRmxYT2ViVGUxWkM3STh2L1ZsMVJRbEI5bUwwSVBFKzNRdGpRMnVHODBN?=
+ =?utf-8?B?QjVaaTdOd3dWWlFGZytBTXFmYTlodTlXNWtPa1pQKzVkSFpLbkc1TjkyRCth?=
+ =?utf-8?B?Wm5TYkZXcStzc0VDbzFuQTN6SjNvb0dXTzVtZ1VXVjNKMjY0NFIvdis4ZXJa?=
+ =?utf-8?B?TUdJVW5pRXJrU2wwRmQxZ1ZyeCtLYzExUmU0QUdEbjgyZXFUTDd5RG5BbXRT?=
+ =?utf-8?B?N2hFaktKckRuUEV2OGdhWVBpU2FzVCt5VVc3VXJtaUpiUjU0VjhNVDZQZ3hI?=
+ =?utf-8?B?dExNb01kTGxtb3RZZDdXcCtvK2tvVGRHWUdnNEowcUVhaTdHekJYQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0c9b3ed8-67af-4a7b-cc2e-08df096f424d
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 03:55:56.9976
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: v+cumvwa5cLrYhdok6UdtKo7aOvsD2BDTFkPebxpCU/9RC01cmtIztAPx7pF9sjRJK+EiEc/yXy+WjoQsomj7A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8654
 
-> Nathan - the conclusion is validate in Xe.
+On 9/2/26 8:28 PM, sashiko-bot@kernel.org wrote:
+...
 
-Understood; I will begin working on that patch.
+> [Severity: High]
+> Does this lead to an interrupt storm if the GSP remains in a fault state like a
+> HALT or WDT timeout?
 
-On Wed, Sep 2, 2026 at 5:04=E2=80=AFAM Christian K=C3=B6nig <christian.koen=
-ig@amd.com> wrote:
->
-> On 9/2/26 10:58, Matthew Brost wrote:
-> > On Wed, Sep 02, 2026 at 06:54:55PM +1000, Dave Airlie wrote:
-> >> On Wed, 2 Sept 2026 at 18:08, Matthew Brost <matthew.brost@intel.com> =
-wrote:
-> >>>
-> >>> On Wed, Aug 26, 2026 at 07:01:21PM -0700, Matthew Brost wrote:
-> >>>
-> >>> Dave ping. Question below.
-> >>>
-> >>>> On Thu, Aug 20, 2026 at 10:34:49PM -0400, Nathan Bourgeois wrote:
-> >>>>>> Shouldn't we just be calling xe_bo_validate() here instead of
-> >>>>>> ttm_tt_populate? (With the correct xe_validation_guard() wrapping)=
-.
-> >>>>>
-> >>>>>> Yes, this might be a better solution, making ttm_bo_setup_export()
-> >>>>>> completely unnecessary.
-> >>>>>
-> >>>>> If ttm_bo_setup_export() is unnecessary, I'm happy to change the pa=
-tch
-> >>>>> or make a new patch. I will attempt to implement and test this loca=
-lly.
-> >>>>>
-> >>>>>> This part looks good as different patch from what I'm assuming wil=
-l be a
-> >>>>>> TTM fix.
-> >>>>>
-> >>>>> Regarding this, what do you recommend I do, assuming the patch
-> >>>>> remains local to drm/xe? I'm still learning the ropes of contributi=
-ng.
-> >>>>>
-> >>>>
-> >>>>
-> >>>> For Xe I believe Thomas and I aligned a xe_bo_validate with a correc=
-t
-> >>>> xe_validation_guard is the Xe preferred solution in the existing
-> >>>> design... But a question to Dave below before I commit to anything.
-> >>>>
-> >>>>> Nathan
-> >>>>>
-> >>>>> On Thu, Aug 20, 2026 at 9:08=E2=80=AFPM Dave Airlie <airlied@gmail.=
-com> wrote:
-> >>>>>>
-> >>>>>>> Yes, this might be a better solution, making ttm_bo_setup_export(=
-)
-> >>>>>>> completely unnecessary.
-> >>>>>>>
-> >>>>>>> It's also a bit odd that, in flows where we don't have backing st=
-orage
-> >>>>>>> on export, we populate with pages and charge the system memory cg=
-roup,
-> >>>>>>> only to move the data to VRAM when the import attach is triggered=
-,
-> >>>>>>> resulting in a copy and a change in cgroup charging.
-> >>>>>>>
-> >>>>>>> I guess the question is why was ttm_bo_setup_export() introduced =
-over
-> >>>>>>> just a validation at export?
-> >>>>>>>
-> >>>>>>
-> >>>>>> I'd like to think I had an answer for that, but I don't. Likely
-> >>>>>> because I wasn't thinking about VRAM charging at all, and just
-> >>>>>> worrying about making sure we had populated some pages for system
-> >>>>>> memory ones, so the other side couldn't DoS us.
-> >>>>>>
-> >>>>
-> >>>> Dave:
-> >>>>
-> >>>> We don't charge any cgroups yet, right? This would only come into pl=
-ay
-> >>>> once a version of [1] merges, correct?
-> >>>>
-> >>>> What would prevent the pages populated for a TTM BO from being
-> >>>> immediately reclaimed and discarded? I'm fairly certain Xe's shrinke=
-r
-> >>>> could do exactly that, since we don't pin those pages. This seems to
-> >>>> imply that we'd need to store the cgroup associated with the TTM BO =
-at
-> >>>> creation time and charge allocations to that cgroup, regardless of w=
-hich
-> >>>> task ultimately triggers the page allocation.
-> >>
-> >> This was actually to fix a non-cgroup bug with a possible priority
-> >> inversion problems.
-> >>
-> >> i.e. a client could allocate a BO export it to a compositor, and then
-> >> the compositor would populate it for the first time and get ENOMEM.
-> >>
-> >> This was to avoid that case by making sure a client had tried to
-> >> allocate all the pages for the BO before exporting it, so it would get
-> >> the failure at that time.
-> >>
-> >
-> > Ah, this makes more sense.
->
-> I was wondering why we did that as well, but yeah now I remember.
->
-> >
-> >> I don't believe xe should just be reclaiming and discarding these
-> >> pages without swapping them to shmem first?
-> >
-> > Yes, the pages would be in shmem if swapped.
-> >
-> >>
-> >> Validating is probably fine as well.
-> >>
-> >
-> > Nathan - the conclusion is validate in Xe.
->
-> I think we ran into a similar issue during some recent amdgpu work as wel=
-l, so adding Felix on CC.
->
-> Basically we sometimes need empty BO objects without resource nor TT obje=
-ct to fill them with some resource object at a specific location.
->
-> So far we just gave them a dummy system placement for the initial validat=
-ion, but that is far from ideal.
->
-> Any idea how to do that cleanly without breaking the compositor fix?
->
-> Thanks,
-> Christian.
->
-> >
-> > Matt
-> >
-> >> Dave.
->
+Well, maybe. I can't rule this out at first reading, anyway. I'll take
+a closer look.
+
+> 
+> If there is no recovery path to reset the GSP, wouldn't the unserviceable
+> interrupt immediately re-latch after GspFalcon::clear_intr() is called?
+> 
+> The subsequent calls to GspFalcon::retrigger_intr() and self.tree.rearm_pci_irq()
+> would then force a new edge to the GIN tree and re-enable PCI delivery,
+> potentially trapping the CPU in an endless loop servicing the same unserviceable
+> interrupt.
+> 
+> Could the GIN leaf source be disabled here instead when encountering an
+> unrecoverable fault?
+> 
+
+thanks,
+-- 
+John Hubbard
+
