@@ -1,132 +1,179 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B254E13F6
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:48:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 898764E66A4;
+	Thu,  3 Sep 2026 15:48:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788450519; cv=none; b=aP/jnJ2+/OPkO0BCazTvdXA6Zb6KVSk0u060TnlNTYWi4YW8eUazFbi/VWuDOTe1NBRW4OTYn1K7g6oksB89vdrgnm7i7VKBD4hSBwOKJjbrCcSpV/1RosM/qk3KQvTb4cDUWZOY2LPDY2dsJlIaFfWXHYixw0j6rsBTOgq7qqM=
+	t=1788450534; cv=none; b=dd1gLqOaKoY5/JwExZCUIRCZQ3zklpklOFyALTuSmBJdGQ99OckKNSPBkDtrvQaToHMFQ5C4H3th+T+YPWIi0saIzBWTTPQOqrLJm6gPqNg+OqAOKGFgGFHw8K11T6c2XN763ECGpGj68C0liW9Nypxp5o024m+J7Cidl2+/+v8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788450519; c=relaxed/simple;
-	bh=qKmRoYSbK4pggjfQTTrO8FbbOoauwacbfUdwqi26JN8=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=DHPU9cVdW6VBAEyZuAezu0mawX3eJCUeOj9v5YR1F9jjbpemtsqMTydlg6UofublW7ogd0pCh4BUzNAduFIOxN0dJw3OHzcJXPDKWAcHiMioG6Nl+b5xMs8lfMuwDuetgGqUrtGvSsMvBSVOWsvc5o/qawyZ+ps/KDls+wavJgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dSEKNUit; arc=none smtp.client-ip=209.85.214.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1788450534; c=relaxed/simple;
+	bh=9LcJdngf59ejuQ0Ec2ZiDfsGu6VLWow6ZZNLs/T9cGw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZEEgFgm7b0k8+/sJDJ6NklkH6C6WFUCC+mC/pFvcYGF8w7Jwcpg4Ax9iPOuCw3i0L9U4h65GObDVE0NE46F3d9vQgNhJlBWx0t6+On6oSqf4lF2DPP9rivEHJiwhMxaYGnnJ+yTBtJlS9izxffMmsLKh5RJXpVzhlLnObxCgQvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=hzd5FOnz; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=jh4EPZ8X; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dSEKNUit"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ccb687f82eso33357765ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:48:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788450517; x=1789055317; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PmHR9VMSgZvTyS5Rd9T+V8oik7z2Cr4I+UuO+iaoSDc=;
-        b=dSEKNUitVPGXgu5NXqV/b4gRUizHj/nDbdrMqeQ1bUV1Sd91iJOG/ei6bu7zt2KMGM
-         1lXEEPxyQ377bb/NqriW7/odVkHo6SchsNsSxm7+QKQB1gpSthXVFub2BzaHB5c93Jz6
-         evE5nVPgubHZdv4aZLcYRiF37gzHCL2gq2+4plh2/2ghKBh4xy2l0EpbJoMa/SVgXXbQ
-         QcNbxsb/gW2Yop0ZYbKf44iqiBCCFIDMxAdc1Q5Twndrgjfg4K1ko/82vPdTEwPTD9Ep
-         W0ARJF+r0D6Ygox8dYozz1b4wK3Os0jKE1YLjnvucQi5OmG2mh/D5z4OAUF98KRZww/x
-         Jd3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788450517; x=1789055317;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PmHR9VMSgZvTyS5Rd9T+V8oik7z2Cr4I+UuO+iaoSDc=;
-        b=b+N6vwf68mnO4NE+eBl36nT1zKFxdpcTImMoNz/9T+d19jPQUk2bvptxO+WvOPkFtK
-         yJZiCEHJM05pdEZrGJXR8RFQLhSzu37FguxwpMbKyFuL4py9ZCTKYNJgEaDG6/HWDzRW
-         Nk3psxsJ7wvtS43RGaOlH6HJsFunB4zLQ+syra5c9Fco1w4G3JJGI1mdjpjCNaN0B9Y3
-         b4+0LeA3SLFRjRxBdJzBWnIDBA2CPoDhP9OS/FYJTHxBvwNPdukY3hJxalkaKaqNOHVi
-         OSt+BknfkbrzmGHwIx25TuQqmkpOr7lEqo8ADPqw9F4cqqa3zOO3zGjF+vh1yg9Tq3Lr
-         PYGw==
-X-Forwarded-Encrypted: i=1; AKwUvBy8V8TMmV4Uhtnx9NcOHShjItS26aF7uj3t7vuLLsarwfhRed4NgFhi0VfTzyRzT0uEy40h13XrVio3Fzo=@vger.kernel.org
-X-Gm-Message-State: AFuF++khQNxS3wnwFTTogaVphHhOp1PoXBmqnd9RmC5WUAg7qrrxBeV2
-	mMoX6svsCr5zUtZ+K0f0BkyJiZlPWfpBaiCpAb6/gtrLvv+FnBzSq4pTQfvFecHkrFYBTWBMxqP
-	aLsz1Bw==
-X-Received: from plce19.prod.google.com ([2002:a17:902:f1d3:b0:2d9:2fc7:bb3d])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f78c:b0:2c9:df1b:e948
- with SMTP id d9443c01a7336-2daec5dfa20mr199165855ad.4.1788450516176; Thu, 03
- Sep 2026 08:48:36 -0700 (PDT)
-Date: Thu, 3 Sep 2026 08:48:35 -0700
-In-Reply-To: <20260903114241.33034-C-seiden@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="hzd5FOnz";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="jh4EPZ8X"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hbPCH3Z8fzMlN5;
+	Thu, 03 Sep 2026 17:48:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788450523;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=LN4TTjsQ9JoZgSfygMV13r66ZZvngAgYJdgxhZ2BMQs=;
+	b=hzd5FOnzwECux1EuRF70piosSX06JpxU6WfOc6xM3XVJvuh9GjTebR3KHtfP1ETQKH35/V
+	NLoaYNN1FcU/WlTKs3QKHgrA5KO613SqG0jlkSrcLx9Rqmk4UTBa21b5A12FToI3mPj4sD
+	9SJyL5cCi+rsHQiwOy7xnK1fqh+sER/8QxHPmv0Bry5MvJw9yCtAFzfCTLNpFXbhhGMC2E
+	wIe4we9WES22hPZbdT0957P8YCJvn8x5ICl1fSmLTpE1YCSbw8mchcQU/IADQT4yP64KYr
+	Qy2TIPCnFA2r/JeToT0sd7Y8K9C+jnlfA0n1+7ivXHTckxfJuA+OhuSg7drQ9w==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=jh4EPZ8X;
+	spf=pass (outgoing_mbo_mout: domain of manuelebnerli@mailbox.org designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=manuelebnerli@mailbox.org
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788450521;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=LN4TTjsQ9JoZgSfygMV13r66ZZvngAgYJdgxhZ2BMQs=;
+	b=jh4EPZ8XqioUPD+ZaUdcZd5k5dK6pQB6whK22IdKCEsBCeb+ogBVKZ8V8z/0WYAg5pjpH9
+	cw0kH6AZwSuNQMyFLQLsMndJmSy2ETepU5EHrZzqmY74AANstUxkAi9TbiTYA36l1Z9nop
+	cuBRULKvMOlUKSGkFKFhpxIk/0PUWDB1Z6g0nPciVyB9Y6yt+tGQoy1PBt4HIh8zCyag//
+	lH2JfKPQe/xFsUd9/CeGhqSZN0a2/NbEY1Pa5JiMAPxRbdWJogPUENwBI6XzyoXX7ZXtD9
+	W0nXgEAECKVCPp7S+vOmXWb0PuCQ3qA0XH7TrC0nxjVTiQFYgx15Xj9/o94eHA==
+To: Thorsten Leemhuis <linux@leemhuis.info>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] docs: verify/bisect: fix typos, formating and punctuation
+Date: Thu,  3 Sep 2026 17:43:36 +0200
+Message-ID: <20260903154336.732305-3-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260831144802.834315-1-seiden@linux.ibm.com> <20260831144802.834315-3-seiden@linux.ibm.com>
- <apdweRfqt4dTxcU9@google.com> <20260902075028.231001-D-seiden@linux.ibm.com>
- <aphLXQL1H2zYZgTi@google.com> <20260903114241.33034-C-seiden@linux.ibm.com>
-Message-ID: <apmW0xFe7zgzheGe@google.com>
-Subject: Re: [PATCH v7 02/23] KVM: Make device name configurable
-From: Sean Christopherson <seanjc@google.com>
-To: Steffen Eiden <seiden@linux.ibm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Claudio Imbrenda <imbrenda@linux.ibm.com>, David Hildenbrand <david@kernel.org>, 
-	Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>, 
-	Gautam Gala <ggala@linux.ibm.com>, Hariharan Mari <hari55@linux.ibm.com>, 
-	Heiko Carstens <hca@linux.ibm.com>, Hendrik Brueckner <brueckner@linux.ibm.com>, 
-	Ilya Leoshkevich <iii@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
-	Joey Gouly <joey.gouly@arm.com>, Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>, 
-	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>, Oliver Upton <oupton@kernel.org>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Ulrich Weigand <Ulrich.Weigand@de.ibm.com>, 
-	Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>, Zenghui Yu <yuzenghui@huawei.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: gu7ychr15pib9sbxd79ytdcumrfd98u9
+X-MBO-RS-ID: de8e29818527fd920e2
+X-Rspamd-Queue-Id: 4hbPCH3Z8fzMlN5
 
-On Thu, Sep 03, 2026, Steffen Eiden wrote:
-> On Wed, Sep 02, 2026 at 09:14:21AM -0700, Sean Christopherson wrote:
-> > On Wed, Sep 02, 2026, Steffen Eiden wrote:
-> > > On Tue, Sep 01, 2026 at 05:40:25PM -0700, Sean Christopherson wrote:
-> > > > On Mon, Aug 31, 2026, Steffen Eiden wrote:
-> > > > > Allow KVM implementations to choose alternative device names. This is
-> > > > > especially useful for architectures providing multiple KVM
-> > > > > implementations simultaneously. Architectures providing multiple KVM
-> > > > > implementations must compile the KVM common code once per
-> > > > > implementation and mange symbols.
-> > > > 
-> > > > What about tracepoints?  Or do those show up as "kvm" and "kvm-arm64"?
-> > > 
-> > > Yes, I want them to show up as kvm and  kvm-arm64.
-> > > 
-> > > Thanks for pointing that out - I just noticed that I forgot to switch
-> > > the trace system to kvm-arm64 for the common tracepoints in
-> > > trace/events/kvm.h
-> > > I only did it for the arch-local traces in PATCH 21.
-> > > 
-> > > I would just do the following:
-> > > 
-> > > diff --git a/include/trace/events/kvm.h b/include/trace/events/kvm.h
-> > > index b282e3a86769..5d4f8a0693a3 100644
-> > > --- a/include/trace/events/kvm.h
-> > > +++ b/include/trace/events/kvm.h
-> > > @@ -5,7 +5,11 @@
-> > >  #include <linux/tracepoint.h>
-> > > 
-> > >  #undef TRACE_SYSTEM
-> > > +#ifdef KVM_S390_ARM64
-> > 
-> > Side topic, I recommend choosing a macro name that doesn't have a near-collision
-> > with CONFIG_KVM_S390_ARM64.  This *looks* like a typo, i.e. it looks like you
-> > forgot the CONFIG_ prefix.  Especially since the macro is defined in the Makefile
-> > and won't show up with e.g. "git grep -w KVM_S390_ARM64". E.g. KVM_S390_BUILD_ARM64
-> > or something?
-> 
-> Interesting. The name was deliberately chosen to be similar. But I
-> see that it could be confusing.
-> 
-> I am not totally happy with KVM_S390_BUILD_ARM64 but I cannot find a
-> better name either.
+Improve readability.
 
-Y'all need to pick *one* method.  KVM_S390_MANAGES_S390_GUEST was already added
-by a07276d5d188 ("KVM: s390: gmap: Make storage keys optional"), and then this
-series effectively adds another macro to provide the inversion of that, except
-they're not even tied together.
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
+---
+
+[v3]
+ + incorporate Thorsten's suggestions
+
+[v2]
+ https://lore.kernel.org/all/20260902115121.687986-2-manuelebnerli@mailbox.org/
+ + one more 'your' -> 'you'
+ + 'it'
+ + incorporate Randy's suggestions
+    https://lore.kernel.org/all/0475c09c-e165-41a5-b654-5c6aefeaab0b@infradead.org/
+ + Reviewed-by: Randy Dunlap
+
+[v1]
+ https://lore.kernel.org/all/20260829055501.581856-2-manuelebnerli@mailbox.org/
+
+---
+ .../verify-bugs-and-bisect-regressions.rst    | 26 +++++++++----------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
+
+diff --git a/Documentation/admin-guide/verify-bugs-and-bisect-regressions.rst b/Documentation/admin-guide/verify-bugs-and-bisect-regressions.rst
+index 7d38393f3..91ebb631a 100644
+--- a/Documentation/admin-guide/verify-bugs-and-bisect-regressions.rst
++++ b/Documentation/admin-guide/verify-bugs-and-bisect-regressions.rst
+@@ -163,7 +163,7 @@ will be considered the 'good' release and used to prepare the .config file.
+      section 'Complementary tasks: cleanup during and after the process'
+      below.
+ 
+-  d) Once your finished the bisection, put a few things away::
++  d) Once you have finished the bisection, put a few things away::
+ 
+        cd ~/linux/
+        git bisect log > ~/bisect-log
+@@ -178,9 +178,9 @@ will be considered the 'good' release and used to prepare the .config file.
+        ./scripts/config --set-str CONFIG_LOCALVERSION '-local-cafec0cacaca0-reverted'
+ 
+     This is optional, as some commits are impossible to revert. But if the
+-    second command worked flawlessly, build, install, and boot one more kernel
+-    kernel; just this time skip the first command copying the base .config file
+-    over, as that already has been taken care off.
++    second command worked flawlessly, build, install, and boot one more kernel;
++    just this time skip the first command copying the base .config file over,
++    as that already has been taken care off.
+ 
+ * **Complementary tasks**: cleanup during and after the process.
+ 
+@@ -229,10 +229,10 @@ depends on your issue:
+ Execute all steps till the end of *segment 1* to **verify if your kernel problem
+ is present in code supported by Linux kernel developers**. If it is, you are all
+ set to report the bug -- unless it did not happen with earlier kernel versions,
+-as then your want to at least continue with *segment 2* to **check if the issue
++as then you want to at least continue with *segment 2* to **check if the issue
+ qualifies as regression** which receive priority treatment. Depending on the
+ outcome you then are ready to report a bug or submit a preliminary regression
+-report; instead of the latter your could also head straight on and follow
++report; instead of the latter you could also head straight on and follow
+ *segment 3* to **perform a bisection** for a full-fledged regression report
+ developers are obliged to act upon.
+ 
+@@ -550,7 +550,7 @@ be a waste of time. [:ref:`details <introlatestcheck_bisref>`]
+       cd ~/linux/
+       git switch --discard-changes --detach stable/linux-6.1.y
+ 
+-    Your series is unsupported, if is not listed or carrying a 'end of life'
++    Your series is unsupported if it is not listed or it is carrying a 'end of life'
+     tag. In that case you might want to check if a successor series (say
+     linux-6.2.y) or mainline (see next point) fix the bug.
+ 
+@@ -1183,9 +1183,9 @@ Space requirements
+ The numbers mentioned are rough estimates with a big extra charge to be on the
+ safe side, so often you will need less.
+ 
+-If you have space constraints, be sure to hay attention to the :ref:`step about
+-debug symbols' <debugsymbols_bissbs>` and its :ref:`accompanying reference
+-section' <debugsymbols_bisref>`, as disabling then will reduce the consumed disk
++If you have space constraints, be sure to pay attention to the :ref:`step about
++debug symbols <debugsymbols_bissbs>` and its :ref:`accompanying reference
++section <debugsymbols_bisref>`, as disabling them will reduce the consumed disk
+ space by quite a few gigabytes.
+ 
+ [:ref:`back to step-by-step guide <diskspace_bissbs>`]
+@@ -1254,8 +1254,8 @@ distributions:
+       kernel-install-tools libelf-devel make modutils openssl openssl-devel \
+       perl-base zlib-devel rpm-build ncurses-devel qt6-base-devel
+ 
+-These commands install a few packages that are often, but not always needed. You
+-for example might want to skip installing the development headers for ncurses,
++These commands install a few packages that are often, but not always needed. For
++example, you might want to skip installing the development headers for ncurses,
+ which you will only need in case you later might want to adjust the kernel build
+ configuration using make the targets 'menuconfig' or 'nconfig'; likewise omit
+ the headers of Qt6 if you do not plan to adjust the .config using 'xconfig'.
+@@ -1407,7 +1407,7 @@ Occasionally odd things happen when trying to use a config file prepared for one
+ kernel (say 6.1) on an older mainline release -- especially if it is much older
+ (say 5.15). That's one of the reasons why the previous step in the guide told
+ you to boot the kernel where everything works. If you manually add a .config
+-file you thus want to ensure it's from the working kernel and not from a one
++file you thus want to ensure it's from the working kernel and not from one
+ that shows the regression.
+ 
+ In case you want to build kernels for another machine, locate its kernel build
+-- 
+2.54.0
+
