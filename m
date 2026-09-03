@@ -1,118 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f7.google.com (mail-pj2-f7.google.com [74.125.227.135])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854974657FE;
-	Thu,  3 Sep 2026 11:36:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3D7490BF5
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:39:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788435392; cv=none; b=iyEfJVobiJP6Se7GM6Oae6DWBg7VW5GxYO2iPBdeK6nEEDihtBYjP4qZ0T1m3srY15q0kboAKfy10TAe9INSOzQYFVKWuxkLZioY9vEqXsBrCQAq5EDdBMOiVB26ryYYTiIeEpvbhZMz6a1oRvtc+iN9PFcBJ9ci4PDY9ZTlMck=
+	t=1788435551; cv=none; b=qbb8qCMFkiA4qQtVshssuST50L/cn4YDDbfDU/yT+S5DEmcQz/fqj7wllLtwD+zpSq7yesAqq8cRqbpT/uZ2NR+gLCozbfiCGdou2WXG2NWqSWZeC8ZuFSm2PflH2kL2Zxa0y602HnGBCGD3KkEQzgltC8FvE10L4JmDKRt1E8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788435392; c=relaxed/simple;
-	bh=4BrUozfJNo0rG4OrODIJWwKKspx4G6mMrrRp7O0dnQI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qzJpM6wxAsT4gIbbIlBPvCEPV1VGBAvHlf/031b38lpRn5eybF8s0kEHP01ed8aZe5Yg6KDDJGIvUvyGoVAXhPz85UzcxtReI8R+KPWmMk3kyOvA2258b/gVEtLKVzz0rZptWKFH0X3b9EnN9KruwkL2jM31iUDon8la6E1cFEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NRDM+4W6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788435551; c=relaxed/simple;
+	bh=ro5ycANoLWJJCE9324sTDjhQ6jvDY7a4igZpzbhFBBg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qdHTBRMlYfK5W89SICyXTxcPYkeagdY/pGDXhSSYQDQYaPLzHxV/pA+lrfxFa9/H04dczFgEngVZ3NIKH5fgO0+RD4SRRKGW6TohyipkXjgSuOXTf1wCq3AOnj4APpYLTJbTvMYYGiuBNGw7+x5eaojeTnsP1GAc1C8oROIiNZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=WXcs3L4s; arc=none smtp.client-ip=74.125.227.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NRDM+4W6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 037631F000E9;
-	Thu,  3 Sep 2026 11:36:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788435383;
-	bh=wrVEUaKDCxXfXSiIelEGPpoYL6FTx7PTDLeMKbSuEgU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NRDM+4W6Kx1wgNOjbukiCqHo/tSG95NOqtnKCE0GtS8m7HX7kgUaW3mJHhHgaIh6S
-	 OQ8rwMA82m+AF+sBDQNqTBzb1RwflASZbJ1r/IANBk6tYgV/Yu5Tb8sG2tHOttN/S1
-	 a9Hj4DaaX+9ZscuiDxnYT3giYzaF4jJ8pkx1kziIMzmR+dR0F4KGIeZxrpNcJVuRUt
-	 6mQ5p89NC7nX1OG+809dM+ZbG8Gv1jArkOMlj64eyXTZnp6XQ1ugGFabT4Jd2JUMif
-	 PxuHwdRacwmiHUXBBUvcrfDTcmFagzgLlO8HbrmJcd9WI5oK5hppRRHZN3CtoyU0bc
-	 n5Et8HmqmvI1w==
-Date: Thu, 3 Sep 2026 12:36:18 +0100
-From: Lee Jones <lee@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Conor Dooley <conor@kernel.org>, Frank.Li@oss.nxp.com,
-	Support Opensource <support.opensource@diasemi.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	"open list:MULTIFUNCTION DEVICES (MFD)" <mfd@lists.linux.dev>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev
-Subject: Re: [PATCH 1/1] dt-bindings: mfd: da9052: allow dlg,da9053-aa
- fallback to dlg,da9052
-Message-ID: <20260903113618.GR2133376@google.com>
-References: <20260831201522.51294-1-Frank.Li@oss.nxp.com>
- <20260901-devourer-pushover-f26c72688255@spud>
- <20260902102532.GQ2943942@google.com>
- <20260902-varied-unsent-b99f9f007685@spud>
- <20260903090625.GI2133376@google.com>
- <20260903-vague-sassy-cow-d2d6c8@quoll>
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="WXcs3L4s"
+Received: by mail-pj2-f7.google.com with SMTP id 98e67ed59e1d1-398da2bdcb9so858378a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 04:39:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1788435540; x=1789040340; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cRU7hLnxNiZ55MaNHqLlZScRyTHKVnmWkFZTM4ExPyA=;
+        b=WXcs3L4si6KuoF36NArKZksDtLUaaDRzsPBs6vgmdr3dhPO0GaGg1FPC6h9eICs25A
+         BwWj79QoY32YPaAG+WTDJv5q0O3qHPOLZAiiMnxLVJ7B2pcVRMDqlTljyFkKRwiK4zgX
+         lbGp0yetCe+EFhcXvym+ZseSffsKNVaUoU6NRt5nfufO1qFwRvhrWCmuhd8ZKS8T/fIs
+         cIIEYGkLskaE0Gfk1FX2505LfjfxxmjCDOE7dt8ediDIfzlPKQVhqyY7nLpXv+ces+48
+         G/Yak+a3yL30OQK27ubwqavdxv4i7+VjksFeo87EDG1HzYWSyyBKcaNeNYKnXDQYeDJq
+         HlHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788435540; x=1789040340;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cRU7hLnxNiZ55MaNHqLlZScRyTHKVnmWkFZTM4ExPyA=;
+        b=g/L+BKk8gayHjxG0bUumaAQrrC9KKn9lfeWHPJWn/qUiXnPxqNykYDugO/jsMz9m9u
+         wABkbs9bJDQvxeZGlb5qeO4G6OGC/3tfoxLdRlCtduvf6hevWgaJfROxgLKW1HARQYn/
+         9le1EMQtJUfAE9zsxPakemsMdNQNR1Lw/RARRv1XI5P2TA2gvdx40n8jViw5l7kFjXsz
+         mAV7VZ65teNJP7OwPbG9QQvwS+S1KyoX+iqbebFoA641tcKqabNlBSEcAyOIp8zpY0jb
+         oJ1yXk7ms2B09Y4EBs6zEUCXXDvNFEVVn1+9yP+9Fu18C3m5DlDEVq/y96JBR9VXSSSb
+         cwkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzZhhPyOhss7Szyeku7ww3usDXE6dnNAESAyq0WfuvXvoH03OhZ+OpnhZTGyC4vPm1zNdV9drcP73R6YrM=@vger.kernel.org
+X-Gm-Message-State: AFuF++n8w8iKt5wbnSW1f8cPIjAzma9X/Pm3fvSZzj323QYJSHo/dcx6
+	loa7Si5ac4wBghfmnzyRwJ4xamNVgGxAoMKoPVBU4ZVhyvpDiWSWKOLmHCprrrQh+nmB
+X-Gm-Gg: AYBFou2zrBAz3c1Ihi8Cg4mqYOsxCvhFsdtXett3/TuyKADbKqeTPcaX/WiU5OGZvrK
+	qDOhGr22q4rn2/kcgtDuvmYbATtv0bKAIEqFAKzYvQLFOZr1565xiU4tFyDXlldzavDws4hheQR
+	NgdA3G8UQRgVVL2OEAxWJqRTTasKC7StZgGSbbzWaj6u02lj2vmkoTD825G5R3oUvBfKkv84fFV
+	us1cjbM5nsJB0o2rA5y88Tq0lSkAR2opOHgWxHmMuKegjkq1ROYlg2gI+2kL0dwLrnHe6XazTSx
+	sI9XTYUL4gAvcNEY6NWuyX/dwTuEHwBzwoEw52QtDdLqyyHkS9zDlpNSGJgmOomHij+ajKBBVxQ
+	3lHX/HMFs22MLVUmt5WAXLknsNfN7t0XNDtLe9Vbq+RJng4LDpZ1TMj7iwNVNRSZlbr26JHB4sF
+	AxyBaeafjbtFTCHtoBC+XfG9h3g5s/sphlRHitDcy5aNnqNnH2302ISylVn9G7l7JtpOR2p7S3C
+	fL0+aaOG3CMCfFxwSN25JqpK+67deK/6JACNC3iRg==
+X-Received: by 2002:a17:90b:164d:b0:398:c16e:69d3 with SMTP id 98e67ed59e1d1-39aedeb9aecmr17724130a91.1.1788435539824;
+        Thu, 03 Sep 2026 04:38:59 -0700 (PDT)
+Received: from [192.168.4.59] (c-73-93-246-205.hsd1.ca.comcast.net. [73.93.246.205])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14319922eb4sm5341286c88.7.2026.09.03.04.38.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 04:38:59 -0700 (PDT)
+Message-ID: <e105651b-a773-4a46-80e9-1e2ff0b665f4@nebusec.ai>
+Date: Thu, 3 Sep 2026 04:38:57 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903-vague-sassy-cow-d2d6c8@quoll>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [ANNOUNCE] A Syzbot-style Platform for Verifying and Fixing
+ LLM-reported Bugs
+To: Jan Kara <jack@suse.cz>
+Cc: netdev@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, workflows@vger.kernel.org, frankw@nebusec.ai,
+ jhs@mojatatu.com, ksummit@lists.linux.dev, kuba@kernel.org,
+ pabeni@redhat.com, kerneljasonxing@gmail.com, roman.gushchin@linux.dev,
+ jgg@nvidia.com, mchehab+huawei@kernel.org, torvalds@linux-foundation.org,
+ ben.copeland@linaro.org, gregkh@linuxfoundation.org, yuantan098@gmail.com
+References: <20260830115546.3942129-1-yuantan098@gmail.com>
+ <f73vtlhwpdgrt5klkk2cgxfuqsvwvvlhzti4nu7hgdevwbqhvt@g2udlammqolb>
+Content-Language: en-US
+From: Yuan Tan <yuant@nebusec.ai>
+In-Reply-To: <f73vtlhwpdgrt5klkk2cgxfuqsvwvvlhzti4nu7hgdevwbqhvt@g2udlammqolb>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, 03 Sep 2026, Krzysztof Kozlowski wrote:
+On 9/2/26 08:10, Jan Kara wrote:
+> Hi,
+>
+> On Sun 30-08-26 04:55:45, Yuan Tan wrote:
+>> A month ago, I posted an RFC[1] to the mailing list proposing an automated
+>> platform that validates AI-reported bugs and prepares draft fixes, and
+>> later discussed the idea at the Netdev conference. After further
+>> development, it is finally ready.
+>>
+>> While preparing to send this email, I noticed that Roman has since started
+>> a related discussion:
+>> [MAINTAINERS SUMMIT] The place of AI code review in the Linux Kernel process
+>>
+>> It turns out this platform already addresses several of the needs raised
+>> there.
+>>
+>> The platform is available at:
+>> https://bugtracker.nebusec.ai
+>>
+>> It is currently hosted under my company's domain for convenience. I would
+>> prefer to move it to a neutral, community-oriented domain once the project
+>> name is settled.
+>> Access is currently restricted to maintainers whose email addresses are
+>> listed in the Linux kernel MAINTAINERS file.
+>> For now, only bug reports from the net subsystem have been fully imported
+>> and processed.
+> I was playing with this for a while and this looks useful. Some notes I have:
+>
+> 1) When you download the patch, it has 'From' field set to some value (I've
+> actually seen different values in different patches). Perhaps it would make
+> sense to automatically set From to the person downloading the patch (or
+> maybe value configured in user's profile)?
+>
+Fixed!
+>
+> 2) Based on current state of the kernel doc, the patches should contain
+> "Assisted-by: LLM" tag although I understand that might be controversial.
+Fixed! 
+>
+> 3) It would be nice if you could "assign" the report to yourself - i.e.,
+> you've decided to handle this and don't want co-maintainers to waste time
+> on it anymore.
 
-> On Thu, Sep 03, 2026 at 10:06:25AM +0100, Lee Jones wrote:
-> > On Wed, 02 Sep 2026, Conor Dooley wrote:
-> > 
-> > > On Wed, Sep 02, 2026 at 11:25:32AM +0100, Lee Jones wrote:
-> > > > On Tue, 01 Sep 2026, Conor Dooley wrote:
-> > > > 
-> > > > > On Mon, Aug 31, 2026 at 04:15:21PM -0400, Frank.Li@oss.nxp.com wrote:
-> > > > > > From: Frank Li <Frank.Li@nxp.com>
-> > > > > > 
-> > > > > > Allow dlg,da9053-aa fallback to dlg,da9052 to fix legacy platform (> 10
-> > > > > > years) check_dtbs warnings:
-> > > > > >   arch/arm/boot/dts/nxp/imx/imx53-voipac-bsb.dtb: dialog@48 (dlg,da9053-aa): compatible: ['dlg,da9053-aa', 'dlg,da9052'] is too long
-> > > > > >         from schema $id: http://devicetree.org/schemas/mfd/dlg,da9052.yaml
-> > > > > > 
-> > > > > > Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> > > > > > ---
-> > > > > > Previous try drop dlg,da9052 at
-> > > > > > https://lore.kernel.org/imx/20260404-thoughtful-placid-boobook-da26da@quoll/
-> > > > > > 
-> > > > > > but Krzy have concern about compablity.
-> > > > > > 
-> > > > > > https://lore.kernel.org/imx/20251107-matrimony-showdown-ba6ce6996b2f@spud/
-> > > > > > 
-> > > > > > Conor prefer update old dts.
-> > > > > 
-> > > > > I don't think these devices are actually compatible, so this fallback
-> > > > > would be wrong.
-> > > > > The data comes from the match data, be that spi or i2c, and there's
-> > > > > explicitly different behaviour for the da9052 and da9053aa.
-> > > > > I doubt the legacy platform ever worked properly, and this is what should
-> > > > > have been explained in the PR that Krzysztof denied not just blindly
-> > > > > citing a dtbs_check problem.
-> > > > > 
-> > > > > Nacked-by: Conor Dooley <conor.dooley@microchip.com>
-> > > > 
-> > > > At first glance this looks like an Acked-by.
-> > > > 
-> > > > IMHO, this is going to cause issues - please rethink this.
-> > > 
-> > > As in, use NAKed-by instead or just say NAK without the name/mail?
-> > > Not entirely sure what you're getting at.
-> > 
-> > As in, don't make NACKs looks like acceptance trailers.
-> > 
-> > If you're going to "NACK", which I always felt was a bit harsh anyway,
-> > just say it without making it appear like an official sign-off.  Please.
-> 
-> Heh, tag is correct if maintainer, e.g. you in this case, would like to
-> take such patch still. There were already such cases, I did it once as
-> well to express that I do not agree with the approach taken by other
-> maintainer and I want to be sure that a commit in git history will never
-> be used in future discussions against my review (because this happens
-> all the time "I found commit like this, so I can add here poor code").
+This feature is ready now. Our fixing team will also assign bugs to
+themselves. Feel free to remove their names if you think it would be
+better for you to fix a particular bug yourself. Our team definitely
+won’t know this part of the code as well as the maintainers do, and
+reviewing our patches may sometimes take more effort than fixing the bug
+directly.
 
-I wouldn't take the patch if it was NACKed.
+As for patch generation, I’ll make some adjustments. This is indeed
+because I explicitly asked the llm in the prompt to follow the reverse
+Christmas tree style.
 
--- 
-Lee Jones
+Also, I haven’t had a chance yet to enable fix-status tracking or import
+the Sashiko bug reports for the fs subsystem. So far, I’ve only finished
+this for net, as cleaning up and normalizing all the data has been quite
+a bit of work.
+
+Some fs bugs may still be outside the threat model, such as those
+requiring a corrupted or malicious filesystem to trigger. I haven’t
+filtered those out yet.
+
+Over the next couple of days, I’ll first run the fix-status detection
+for the filesystem bugs and try to reduce as much unnecessary work for
+you as possible.
+
+Yuan
+
+>
+> Thanks for putting together the service.
+>
+> 								Honza
