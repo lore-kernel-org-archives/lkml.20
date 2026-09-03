@@ -1,137 +1,173 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 173AF4B66D2;
-	Thu,  3 Sep 2026 17:24:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D05377AA7;
+	Thu,  3 Sep 2026 17:24:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788456249; cv=none; b=HRls6kE83LgPXxYUzQnsseyd39TpqykCApDpr+EvXYE4tUA61n8c6WvQ4/3JcUmuCn+4V9sVn+CMYKZyo/s5OIKiZHMWR47hZOzo2b2zu1bm0UiYk5uvjxW3g20b4fHeDJS0dLVIqomTzp3HGX1O0HarR7XEXZwsJSMbRG9CO08=
+	t=1788456268; cv=none; b=Cgkz668umvRh0vWzTXOF2WCxhh3rXbUMbv/haATDHDFn67Nf0f+4OlVjo/IHEFq3SSa7mh9tHznOx0WcT+Kj28nHZC0kb4T9oFEWVU2taZGE8s4B48Xujel5ZzgKF/NasJUjbTT+bisFoJ1oUwrPm91mSu873H77yHXcs/Pk6zw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788456249; c=relaxed/simple;
-	bh=WZM66IndoDGw1AIvMt1UzAxbMH4mAm4nPrXkiYEywJk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kjBCoXrWQ+nY01hyImH/7/Gu3pS8DuUmp4B2JXCjBFIJ1bsQnDY+Vk2k1DzOOl4CY1GvQed/x/sgMi019b9062CupIDFo3YJPbLpzEUG79kPwjK5bn/TR6U+00zV0qdp+xizjayj4QkHpkYH60TW8T+Zb5A9Y5K48zOpOAa8L5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=eVcAGgRG; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1788456268; c=relaxed/simple;
+	bh=bUWo3Ln1yQQwc4kuTS4Fy6LaJyFVsXeAYcWf/2KMuzA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bPHcy667915R0OEjDMMzlmcHUdjkFvqgLZ6RkY6WzR/rSMgUmpwr2Me/SCiXzrygTcMXk8AFR79kTBT8V8JiBEQGgP1x8RHKoWIa4DCwp583RfAiNS33nrb5iO8aOLP9DmiIrE7pfAbKMY8kPTPQxO1FXMcFn6utBHOVyAnguB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=tk0w+1ML; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="eVcAGgRG"
-Received: from [10.0.0.152] (unknown [10.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 3264E53402CD;
-	Thu, 03 Sep 2026 19:24:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1788456245;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=QxpQpdJ8wdz2zI4beWu74d/wDFWkTRTp7Wa4gd8OYQk=;
-	b=eVcAGgRGKxQK6XDAz4t5exlGGadcE+215tyxqw8ocWQFFcW3JRw8NMehjHnERwKicpnBvu
-	nurmfX7la0tp7S6+enTHO5uXqVivvgc7Uz/QDimp9xIsebeKjBoRWUiMATmbLhLuLCQ0+z
-	W07tWe7z7QrXSY1Qs6snYwoIanOYcjU=
-Message-ID: <c5773a71-e7f0-44ae-8418-1e00de16d08f@ixit.cz>
-Date: Thu, 3 Sep 2026 19:24:04 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="tk0w+1ML"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683G2rPP2292349;
+	Thu, 3 Sep 2026 17:24:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=c8TO/7OmvWGnMMLtgzx+QJ5ne/qqbr
+	RqrQI/qIvKOcY=; b=tk0w+1ML1WzdAiMfCAeYriFWIVLZ77ViBxJCSohQ/igM7/
+	TndfhwZ0gfXTbzKiElVuR3mGNcDARpxUjzbU3BULh/+iBCtisedKz/RNRJZRpr5D
+	wwhq6cfQcKlkYrimI4102g356kN/JFqudtRTAuwrQ/PGrm1JnJ2P8LgOv+xw43Bs
+	iNzXdpbuFmcu2hSvs3Emdzu3ROf4Bwu0q7pYYkUpPxzMu4LLHVKQdD58b71g4KjC
+	7uK3rfY9WQofhSDC0pcNvVfyPPr4l2BrhOCRTa206KUsFrQ11SyFU2//mY3JZjzC
+	Ez6X2VsXbeeDYbXLr/d++JMkEVFMcPfcFXdPM9kw==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbnue5qy4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 17:24:24 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 683HBM3d027423;
+	Thu, 3 Sep 2026 17:24:23 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gcbygrhjj-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 17:24:23 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 683HOJYP49021252
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 3 Sep 2026 17:24:19 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 99E7720040;
+	Thu,  3 Sep 2026 17:24:19 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3E81420043;
+	Thu,  3 Sep 2026 17:24:19 +0000 (GMT)
+Received: from osiris (unknown [9.87.144.233])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Thu,  3 Sep 2026 17:24:19 +0000 (GMT)
+Date: Thu, 3 Sep 2026 19:24:17 +0200
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>, linux-s390@vger.kernel.org,
+        kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/8] KVM: s390: pv: Use VM_SPARSE area for guest
+ variable storage area
+Message-ID: <20260903172417.12158Bf0-hca@linux.ibm.com>
+References: <20260720085834.898025-1-hca@linux.ibm.com>
+ <20260720085834.898025-2-hca@linux.ibm.com>
+ <e9449c63-b8d2-4ed9-a184-7dcab3e8dfce-agordeev@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 6/6] arm64: dts: qcom: sdm845-google: Add basic audio
- support
-To: Srinivas Kandagatla <srini@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- David Rhodes <drhodes@opensource.cirrus.com>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
- devicetree@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260705-pixel3-audio-v1-0-3b66f33859f1@ixit.cz>
- <20260705-pixel3-audio-v1-6-3b66f33859f1@ixit.cz>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260705-pixel3-audio-v1-6-3b66f33859f1@ixit.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e9449c63-b8d2-4ed9-a184-7dcab3e8dfce-agordeev@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: lQ87t9wGFaNarBH5O1a7QAehJ9p8v979
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDE0OCBTYWx0ZWRfX+aHlm7/7Ulja
+ sKxgI46hpg0f+mLQmGtgUkqUK0i50Yfjz91D4cQrayKNXj5gXKviMLX0CKyBMPW0np/DZk0XaUl
+ xhzkvtOifBDbQdKelV1C/D4mCWuzlFz0Za76D+3mJpno9BuH6l37FmV46/H74haH7w0ccIASGpG
+ 7SIjr3KFBgoHlRI4YSSG0dpgTAgMEyJFX0/8+10yJ9sbcHy500Pez8iZtIUsJWJivYUAzyXSC0Q
+ sQc1z+0mjZHe6ClHBcWvA+nnDDw5f/HvEp0ZgzYU70Iy0DXoveM0PXy7FOixyCSvjb//roK0O62
+ TiRXU8GGS5a3sOR3yihvnGvlTbOJA9KRDQg0X3RbtuZim1CMShvCQdWOX2pm4jLW78M7h1PjTKR
+ 1OhjGK1tmvelk76RaKv77eqMWziZaxtfFFotULF6UMbNRc+HKMuEK0fV+9Eh6tqASWpnzDv6oef
+ JGPjZGxKWy9Y+Bw9vqQ==
+X-Proofpoint-ORIG-GUID: lQ87t9wGFaNarBH5O1a7QAehJ9p8v979
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDE0OCBTYWx0ZWRfX5Runrt85YE4E
+ YmHEMmZGOTNoemowEE7qxp+pZZOxEsQRX5Xc6IeWiqnTFnMKNdE3e1qMqKwWuodfgcm2S7AHs3L
+ FdFMAJYv5y4rAVGbd/9fmDielhiOODo=
+X-Authority-Analysis: v=2.4 cv=B92JFutM c=1 sm=1 tr=0 ts=6a99ad48 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=G1NG3s6dxYr6cGAu9j0A:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_05,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 clxscore=1015 suspectscore=0 phishscore=0
+ lowpriorityscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609030148
 
-On 05/07/2026 22:06, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
+On Thu, Sep 03, 2026 at 02:28:35PM +0200, Alexander Gordeev wrote:
+> On Mon, Jul 20, 2026 at 10:58:27AM +0200, Heiko Carstens wrote:
+> ...
+> > This assumes that s390 will gain full support for lazy_mmu_mode_enable()
+> > and lazy_mmu_mode_disable() in the future, since as of now the used
+> > ptep_get_and_clear() in vunmap_pte_range() does indeed invalidate and
+> > flush every single pte entry, but only for s390.
+> ...
+> > +static int uv_alloc_range_cb(pte_t *ptep, unsigned long addr, void *data)
+> > +{
+> > +	struct page *page;
+> > +	pte_t pte;
+> > +
+> > +	page = alloc_page(GFP_KERNEL_ACCOUNT | __GFP_ZERO);
 > 
-> Introduce support for sound card and wire two CS35L36 audio codecs for
-> top and bottom speakers.
+> In lazy mode this callback is called with preemption disabled, so it leads to:
 > 
-> Inspired by commit from Joel Selvaraj.
+>     [  138.709287] BUG: sleeping function called from invalid context at ./include/linux/sched/mm.h:322
+>     [  138.709535] in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 6092, name: qemu-kvm
+
+...
+
+Any chance you missed to provide an important detail: this can only
+happen with your not-yet upstream series, but as of now there is no
+upstream problem?
+
+Is this correct?
+
+> This could be solved using the below fixup:
 > 
-> Signed-off-by: David Heidelberg <david@ixit.cz>
+> @@ -247,7 +247,9 @@ static int uv_alloc_range_cb(pte_t *ptep, unsigned long addr, void *data)
+>  	struct page *page;
+>  	pte_t pte;
+>  
+> +	lazy_mmu_mode_pause();
+>  	page = alloc_page(GFP_KERNEL_ACCOUNT | __GFP_ZERO);
+> +	lazy_mmu_mode_resume();
+>  	if (!page)
+>  		return -ENOMEM;
+>  	pte = __pte(page_to_phys(page) | pgprot_val(PAGE_KERNEL));
+> 
+> The downside is lazy_mmu_mode_resume() does not really re-enable
+> the caching and the performance will stay the same even when the
+> lazy mode is supported on s390.
+> 
+> This is the same pattern as kasan_populate_vmalloc_pte() - which
+> was the only occurrence so far.
+> 
+> Alternatively, the page could be allocated atomically, but I think
+> that is less preferrable.
 
-[...]
+I guess the real fix is to pre-allocate all pages, keep the pointers
+to the struct pages in an array, and populate with a different
+mechanism. Similar like the vmalloc code is doing.
+I wanted to keep this code as simple as possible, but...
 
-> +&sound {
-> +	compatible = "qcom,sdm845-sndcard";
-> +	model = "Google Pixel 3";
-I see some new nodes using such as
+> > +	if (apply_to_page_range(&init_mm, addr, size, uv_alloc_range_cb, NULL))
+> 
+> lazy_mmu_mode_enable_with_ptes() called from apply_to_pte_range()
+> disables preemption.
 
-SC8280XP-MICROSOFT-SURFACE-PRO-9-5G
-sc7280-wcd938x-max98360a-1mic
-HUAWEI-PAK_AL09-M1040
+There is no lazy_mmu_mode_enable_with_ptes() upstream, nor does s390
+select ARCH_HAS_LAZY_MMU_MODE until now. Therefore my question above.
 
-is there is a preferred syntax?
-
-I would go for blueline which translates into google-blueline profile.
-
-Thoughts?
-Thanks
-David
+I guess my assumption above is correct and there is real urgency to
+fix this.
