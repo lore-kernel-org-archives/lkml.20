@@ -1,119 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 306E03E5A08
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:30:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE2A3EAC71;
+	Thu,  3 Sep 2026 06:31:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788417028; cv=none; b=edmyHVui8lrVWElgCERdrjs71AsejFh6Ro0m6RutVKw2Eqoh6fa9IbAq9/9HX4otCBBuiCHbWQyPtf0Bn9kNNhzD/OUEZZRlad9uKpp4Zm/Tebcrf0IbkMn6imHU2cjcXgskjrGL9hl3sZeA7f2s4OD+k/FowVd8QaI51vixm9w=
+	t=1788417084; cv=none; b=CjSA1oUYm5Gbp1+v9LnaJloH/98yDts8MpzryEj0sw0Fe9VhlrX/u3C/2JiEcaCj3znodrTThWA80ivqME7wCBzTTmsSSXe32MK4ydvJYYPBJHb22pqEIG8Nw4naCReBk3tTvQgJPRDsCJnVbd01Dx9jQwuxOLfPrAIfW3R4hf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788417028; c=relaxed/simple;
-	bh=R2/gjhxWyyUZ0jBNMDGGTiujSGfQ32xuIupRnERfeRw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZItUYFVNGrYXKWzTkksIZMWFIFEmtwNx14wg+/VfdS7X/FQBWeNmakjENKRZDBF/sLKv1jZsVx2aClIJbvrDWEUPDyZDsShqeQj9YsH2z+A+jX5xsA2XOEzrrrgrYVGIp+y1gWZ0fJ/tZ3kOoyUgMdEaV9d8BX08fr6YPek5hjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NQEgvfbF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788417084; c=relaxed/simple;
+	bh=KnGPxRYqa+YU4j0JBli/anSpWWwJeLJkR2/WWMw4sTA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IBNQ6tpKfzoME6WnLx7EV7q1W5VaHisyLPOp8ymMUNv+m2eSbMZolYcyV9IkeCvWGTY7tuhgsee9h5uWEJp/k7Yt19DkxBUPa4tzlMwihNNbN5/D6mlNZ5Damf6fYE9XD1zOoD126CQqh5qESAIVIRcPph2gW2VJR1hqa4iY0h4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=m3zTTyuv; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NQEgvfbF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D9681F00AC4
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:30:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788417023;
-	bh=z36InkbgZ5czLNoME51lvPgrfTTVurywTjIuByWup8c=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=NQEgvfbFEiEVrwFSBb/9E5aGP1yluPqmMKNMROwPv43STzTUF6Nd7VzSo4LqIes+B
-	 vS33elFpG3DqJVJp7oXlNn0Qz4hD8DvzMCc6Ht0jI36l0/gOETnGOukv7PX5NkJ1md
-	 99z/lxcYVTCKfNPOOqTFJJMa/ChgMj9aL1If6GAvBJdjVlrHD6VnkGGwjX0v0EsM99
-	 oQBnuE9Fzx82MuO4xrlTW0e+PZqHg2hT5cxPU4Ecc714jXMIednN6MjlIjyGDgf8o/
-	 a0M1NZ9tBvErUImCCyjYSMPOu9PV2DglTKjiGBUaGwzaxISTriJLtM8lTnRyiCGWIW
-	 dpnbekKaUUqFg==
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-930c0f9c1b1so215944985a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 23:30:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxRBvQIulQah/AoT8XTDrle/wGawpmgBu1piuudzevuY2I4WwUz/Zlq1y3MqaJbH4ZMONmO3n9AXcGQu5E=@vger.kernel.org
-X-Gm-Message-State: AFuF++mluwCJ8KEt1Abn/TrJFFfzEHiTJ4XkgA+4OysZoJGUTm2D8AyB
-	es8KSbQQZped5l6B8qPUK1EQr0n2YmY11V97zOsNTpjQgktNMzdcG4QTV38pdHiJWXW4wYtl9if
-	e/pW+chm01w7iyZ6UNId7G93CSoWcFO4=
-X-Received: by 2002:a05:620a:f13:b0:937:2ac8:bbda with SMTP id
- af79cd13be357-93960f52da3mr1075847085a.35.1788417022888; Wed, 02 Sep 2026
- 23:30:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="m3zTTyuv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788417083; x=1819953083;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=KnGPxRYqa+YU4j0JBli/anSpWWwJeLJkR2/WWMw4sTA=;
+  b=m3zTTyuvBf1WI8AipTiYiJgkrq2/CbdKDZlVY2mTZuYIN5h4RjIlNHHZ
+   3rZAzqMRLCbh0HUNZHdQ60Zde2vpl1aU796yqqh00scn/Zqt6ddgbzW25
+   vDKQC3a3n+kBFWjnYOzy+AXnnyEf8qnFA4UkK9wzrYGL1d7oOq05i6NhW
+   p0329FXIuZS+lsM4mzyeeaOK9Sv0i7fNlplAM+GH0Cba/DLKGAuuCmDPU
+   6+PFXwSgFu2ehMS6CF5cLkyZ6UGi1skMswPY19mY+TDf1SMXQ61CecokS
+   J/CjlD2fVOC0n53rsWowpzWx0pPwM/QNDHeDGy/apyHRAHt4i42zrz5TN
+   A==;
+X-CSE-ConnectionGUID: O4juEVl8R42tcs2+MwavoA==
+X-CSE-MsgGUID: XIVNHyeLQk++fLOwjfRlCQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="106252730"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="106252730"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 23:31:22 -0700
+X-CSE-ConnectionGUID: Zenm2r2LRiKoIs5Vpnc1fg==
+X-CSE-MsgGUID: SUe2Q2yKQD+335Nz2YKkZg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="263451694"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 23:31:19 -0700
+Date: Thu, 3 Sep 2026 09:31:16 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@analog.com, jic23@kernel.org,
+	nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
+	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
+	marcelo.schmitt1@gmail.com
+Subject: Re: [PATCH v1 06/13] iio: adc: ad4134: Add support for digital
+ filter type selection
+Message-ID: <apkUNH9qCcfTNZqU@ashevche-desk.local>
+References: <cover.1788368334.git.marcelo.schmitt@analog.com>
+ <058e82fb421c6794cc3002bde25d9e3485f74be2.1788368334.git.marcelo.schmitt@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903031952.1120321-1-ridong.chen@linux.dev> <20260903031952.1120321-3-ridong.chen@linux.dev>
-In-Reply-To: <20260903031952.1120321-3-ridong.chen@linux.dev>
-From: Barry Song <baohua@kernel.org>
-Date: Thu, 3 Sep 2026 14:30:11 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4wKaboESQfUJPi8y4BNJuxpEWG2Prjb44NvFKDV_aeVhw@mail.gmail.com>
-X-Gm-Features: AcwNN1Xa9LjF9LvOPJz6jmGmZsvCdU3Ed2O2AMgXfYG7RHIlGiW-5e7M8Zr3wao
-Message-ID: <CAGsJ_4wKaboESQfUJPi8y4BNJuxpEWG2Prjb44NvFKDV_aeVhw@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] mm/mglru: fix ineffective memory protection for
- non-kswapd reclaim
-To: Ridong Chen <ridong.chen@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Andrew Morton <akpm@linux-foundation.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Chris Down <chris@chrisdown.name>, Tejun Heo <tj@kernel.org>, Yu Zhao <yuzhao@google.com>, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <linux-mm@kvack.org>, linux-kernel@vger.kernel.org, 
-	Ridong Chen <chenridong@xiaomi.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <058e82fb421c6794cc3002bde25d9e3485f74be2.1788368334.git.marcelo.schmitt@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Sep 3, 2026 at 11:20=E2=80=AFAM Ridong Chen <ridong.chen@linux.dev>=
- wrote:
->
-> From: Ridong Chen <chenridong@xiaomi.com>
->
-> For MGLRU, memory.min/low is not honored during global proactive reclaim
-> (writing to the root memory.reclaim) and global direct reclaim, because
-> these paths shrink memcgs using stale or effective protection (emin/elow)=
-.
+On Wed, Sep 02, 2026 at 02:23:22PM -0300, Marcelo Schmitt wrote:
+> AD4134 supports four types of programmable digital filters that allow users
+> to choose between different output data rates and input bandwidths. Enable
+> basic digital filter configuration by providing a way to select which
+> filter type is activated for each channel.
 
-Are you sure it should be =E2=80=9Cstale or effective=E2=80=9D?
-My gut feeling is that we don't need the =E2=80=9Cor=E2=80=9D here.
+...
 
-[...]
->
-> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> ---
+> +static const struct iio_chan_spec_ext_info ad4134_filter_type_ext_info[] = {
+> +	IIO_ENUM("filter_type", IIO_SEPARATE, &ad4134_filter_type_enum),
+> +	IIO_ENUM_AVAILABLE("filter_type", IIO_SEPARATE,
+> +			   &ad4134_filter_type_enum),
 
-With a few nits:
+Make it a single line (it's only 82 characters).
 
-Reviewed-by: Barry Song <baohua@kernel.org>
+> +	{ }
+> +};
 
-[...]
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index b4c9b8f3dfe9..500cc2051d13 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -5111,7 +5111,13 @@ static int shrink_one(struct lruvec *lruvec, struc=
-t scan_control *sc)
->         struct mem_cgroup *memcg =3D lruvec_memcg(lruvec);
->         struct pglist_data *pgdat =3D lruvec_pgdat(lruvec);
->
-> -       /* lru_gen_age_node() called mem_cgroup_calculate_protection() */
-> +       /*
-> +        * For kswapd, lru_gen_age_node() has already called
-> +        * mem_cgroup_calculate_protection()
-> +        */
+...
 
-Could be clearer:
+> +static int ad4134_get_filter_type(struct iio_dev *indio_dev,
+> +				  struct iio_chan_spec const *chan)
 
-/*
- * For kswapd, mem_cgroup_calculate_protection() has already
- * been called during the top-down cgroup traversal.
- */
+int
 
-> +       if (!current_is_kswapd())
-> +               mem_cgroup_calculate_protection_path(NULL, memcg);
+> +{
+> +	struct ad4134_state *st = iio_priv(indio_dev);
+> +	enum ad4134_filter_type f_type;
 
-Best Regards
-Barry
+enum
+
+> +	unsigned int mask, reg_val;
+> +	int ret;
+> +
+> +	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> +	if (IIO_DEV_ACQUIRE_FAILED(claim))
+> +		return -EBUSY;
+> +
+> +	ret = regmap_read(st->regmap, AD4134_CHAN_DIG_FILTER_SEL_REG, &reg_val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	mask = AD4134_CHAN_DIG_FILTER_SEL_CH_MASK(chan->channel);
+
+> +	f_type = field_get(mask, reg_val);
+> +
+> +	return f_type;
+
+field_get() macro...
+
+I think you can get rid of temporary variable if it's not used afterwards.
+
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
