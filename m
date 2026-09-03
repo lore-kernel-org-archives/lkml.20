@@ -1,63 +1,78 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648AC4EBACA;
-	Thu,  3 Sep 2026 16:25:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787B84E8E1A;
+	Thu,  3 Sep 2026 16:26:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788452755; cv=none; b=Mku/CM0jDJOrnAFoim/ziVQ4PZSeSOkSDqaKRrpQeYqBltVMJGAORdZ6SJtDKTx17zJVePjqn1oALGgcG30LNpqp8xSRw7wroh7XmRDnDj7VNlNTVxKP0DUVbsM34a6RvCXzJJ9VjbBom/b0ssk8dVtbFv427x7gSNm6dNhMaZ4=
+	t=1788452769; cv=none; b=cefeTnMXQz5//OaagppePJ6wi6YOFgWARliAGY57/OgEWp9fGFAUPskySQnVcnHdksxPLpohbOa02oPfEcceFoXdpSYNioJgndalMUOnXVC7wRngLOAFd8TtME2sqzlsT7Hmv4paXkUhn6x6xcWaI2ZbreavNuDMGkKxoT6vf2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788452755; c=relaxed/simple;
-	bh=Qjp9s93WKT9GSAkwinXvY7BYYxnbXCPp1HZhL2ZKUWk=;
+	s=arc-20240116; t=1788452769; c=relaxed/simple;
+	bh=Og59F8yzv67J158UPsSsM5lFNF4EuqRf14ZZN0FKw9I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Dkv1LHWhqoodWxcv0hHGvtHdJagLxkc7i5fE6FGFOJNtgzriEXDv1YJKl8fZr+5A4rYxkS+Q7Bwu6Zfm2jWQr1ZkHTNhjQj0QMGVa5bbakUixL5ftIAV3R1ndqGxplo5FOO1ROByRMOi6R8AWy3FFWhU6fwhT/uI1z8KMmsEDB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=4NNVtOn7; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=EFxIElLHcJpnB1ESX+tr8YEBpsIx0DfvWFKHz9z/3Wc9Quentwx2MOZeJiTaTnNIgFDQ3aQs9W0HjDMVZYBm7/5s2kPSaJx7oJe/TqQMSMv8SV9KmUYh1GBUFXpxPDZZTVHWGOgZakmq8k5dBOrKGvP1EcnEvc7kW8YRZyR5Ltw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fXRSn420; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="4NNVtOn7"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=o9ibEAjof7rB7VihNGOccTypJjhjM+Lpyk7rTBpXcRg=; b=4NNVtOn7d+1/QEZy2LEeAspKFh
-	kzezQtmefEab6W1nyiNG93NxQFbtfYM5kNL1ZmAGtJCij/xejEKD5WaCXD5B09i8QmKQc4au9+RTk
-	iRhRUCdiFDt98CiQGz2mJ7qBCKDSMauCRq/4GDJTHLRgDiflWOfrjot3KLaZq2rFqjTY=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x2AG2-002kyG-TR; Thu, 03 Sep 2026 18:25:46 +0200
-Date: Thu, 3 Sep 2026 18:25:46 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: David Yang <mmyangfl@gmail.com>
-Cc: netdev@vger.kernel.org, Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 3/4] net: dsa: motorcomm: Use u64_stats_t for
- MIB stats
-Message-ID: <ff900ceb-82eb-4356-97f2-4af75480a8c4@lunn.ch>
-References: <20260903143514.532023-1-mmyangfl@gmail.com>
- <20260903143514.532023-4-mmyangfl@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fXRSn420"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5511C1F000E9;
+	Thu,  3 Sep 2026 16:26:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788452768;
+	bh=tBFnYjRmfcdV1M1q0twcPje4ka6He7iANUg+2x5MoEE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fXRSn4208M62IytZTrpuK9A0SuPM20XutgfSGr4gBxwXFKR9jdHSUUj6OzoghOUhc
+	 Ld1nDTS+mEYggrs56BjrYnCngcwBkU6310KUrUOOgxG91fwkbZ5PSfNJFq0gEnqI0v
+	 7FdSHFLCWka/c18sP5VAIsDFUzbeMnctuQa3fit+ta4iT/LJnCAxCEgFeG3F2bgxFh
+	 erhroMglOSPXgz4ZAr1uy8vinRA9IGVtQBRXaZaoE7NajSNlCHHHgCKX5oe/2fsK3X
+	 J++3PZmOzed8euo/KxiIdrDzxorS/IJ8IpslCw0Q8Wg5AHBDRYrHDoSNAe9fQmjw1R
+	 OoPs1C+GybLdQ==
+Date: Thu, 3 Sep 2026 18:26:05 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, mingo@kernel.org, peterz@infradead.org,
+	juri.lelli@redhat.com, vincent.guittot@linaro.org,
+	yury.norov@gmail.com, kprateek.nayak@amd.com, iii@linux.ibm.com,
+	corbet@lwn.net, meted@linux.ibm.com, ynorov@nvidia.com,
+	tglx@kernel.org, gregkh@linuxfoundation.org, pbonzini@redhat.com,
+	seanjc@google.com, vschneid@redhat.com, huschle@linux.ibm.com,
+	rostedt@goodmis.org, dietmar.eggemann@arm.com, maddy@linux.ibm.com,
+	srikar@linux.ibm.com, hdanton@sina.com, chleroy@kernel.org,
+	vineeth@bitbyteword.org, arighi@nvidia.com, pauld@redhat.com,
+	christian.loehle@arm.com, tj@kernel.org,
+	tommaso.cucinotta@gmail.com, maz@kernel.org, rafael@kernel.org,
+	rdunlap@infradead.org, kernellwp@gmail.com,
+	linux-doc@vger.kernel.org, jgross@suse.com,
+	virtualization@lists.linux.dev, sunlightlinux@gmail.com
+Subject: Re: [PATCH v12 01/13] sched/cputime: Add kcpustat_field_total helper
+Message-ID: <apmfne3iBct7oNTp@localhost.localdomain>
+References: <20260903063240.268775-1-sshegde@linux.ibm.com>
+ <20260903063240.268775-2-sshegde@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260903143514.532023-4-mmyangfl@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260903063240.268775-2-sshegde@linux.ibm.com>
 
-On Thu, Sep 03, 2026 at 10:35:08PM +0800, David Yang wrote:
-> 64-bit variables might not be atomic on 32-bit architectures, and could
-> lead to load/store tearing. Use u64_stats_t to ensure consistency.
+Le Thu, Sep 03, 2026 at 12:02:28PM +0530, Shrikanth Hegde a écrit :
+> Provide a new helper function which sums up a given type of cpustat
+> over a specified cpumask.
+> 
+> This allows the caller's code to be simpler and avoids duplication.
+> For example, subsequent patch in the steal governor use this exact
+> same pattern when calculating steal time.
+> 
+> Suggested-by: Yury Norov <yury.norov@gmail.com>
+> Reviewed-by: Yury Norov <ynorov@nvidia.com>
+> Reviewed-by: Mete Durlu <meted@linux.ibm.com>
+> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
 
-Can this patch also be broken up. It should be possible to use
-u64_stats_read() without changing the locking? So one patch which only
-does u64_stats_read(). You should then be able to add the syncp
-code. And lastly the mutex changes. That then allows you to explain
-why the mutex changes are safe in the commit message.
+Acked-by: Frederic Weisbecker <frederic@kernel.org>
 
-    Andrew
+-- 
+Frederic Weisbecker
+SUSE Labs
