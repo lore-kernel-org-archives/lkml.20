@@ -1,156 +1,182 @@
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C274A263F;
-	Thu,  3 Sep 2026 12:10:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788437434; cv=pass; b=p7ZKcIhmjoMbwCqaDzwalj/Bl++D29SPtxJNyiYI+otnzSosP9k9IwxCh75mWiAmWd00bj4VThc/1g0qe53LqU1O5Pn/AKU2vudxH/9UXX6tHhzAqRMDa1Q7ee90/ic1epJBC4BrVZ+d/tzZQ5WHYQkBZRm43YO7OEr9sZKyh5Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788437434; c=relaxed/simple;
-	bh=63YRcxrFcbqSkKQOUbtiKeloTiw2IC7QOnv7nHbacC0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=t8jU6lJK15JVLYn6IKsD6qqtnRJdTQRWWa0uGHwBKudtf4RXLgyu8jVdO4vuvKUt0wBsiN0qe3aRNkTJUf/rdRUaETpVSEj0HuMVagsSbPj4BhVl9eS0p9npEu6zhvftMZDhPd7y9MVnGyWqIUJ/FYSsSRGR1TEETyv1WWrThVw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=hTGjefJu; arc=pass smtp.client-ip=136.143.188.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 798D64A2E3B;
+	Thu,  3 Sep 2026 12:10:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788437436; cv=none; b=ap7PfJprU1aBHFuOfU1UBqqkkxbBvL+Dj01fmDNbjIMmfKAcMJmJZbROxDcCVRqhPc1xNtohNjMAjwlKWGq9Aq9ai/++fjyQVFL+jV7XmNXRW4WfTgDp5kZf8K2M1d/GIpitnl+TahXtpVUGURTQ5hpb9xADjwg4i7fPK0CBbM0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788437436; c=relaxed/simple;
+	bh=TgaWdc2v14syQKTjd0P+G00v2RLl1wdAxEUGkvtCiXc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=qiDvRcJxQTmL+h8oEtkVaa0yO6UMm52Q6RJG92D7KLrjc5DSPEvz8JW55kPIjHa+2pKUIVsdBFX8Cum36Hxpj+nI3C7ORCoit6MqGiK3/iWTBNZAFpRx1eOzwlHtYhOKC3qDAV4fGG3IOxqmo1dkgckmGOUiU0WIE0PwoEnoZT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=er0/TQg8; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="hTGjefJu"
-ARC-Seal: i=1; a=rsa-sha256; t=1788437392; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Zc6xuJ3xl49VRPhcniB/3ZakchN1aZhf0cfhA9pujCw8BTWIBbuOJNaEZD7FBgBuMmflkIaIj0t/I1Zr5MXrPnXM2ZVpY0kcXn7r1pBHlbdZK9sA3PGFsax4Sg4pYf7q6xx1TV6/7mt0FzHtTziNgdXNZco/t9RBvPg7KKaLJZo=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788437392; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=udLpqyCAmF5x6NjypD7ZgtL4WKgcLBmXurRxSamaIC8=; 
-	b=VX8V98MFSDeLC7wSiSHo3oJo/P3uGJu3G+RCcjOqPG3lTkTQKWcS4997IRLXg5MqrSLEhW1eXMbaSXe+0iCCCRbDi+aJBIckRX9GYBrLTmek3+2RA6Ppo6eLZHtvWTQQCJXs2RSP316zCkNTCtChOYoNduQQdss0ssaYhgd6LX0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788437392;
-	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=udLpqyCAmF5x6NjypD7ZgtL4WKgcLBmXurRxSamaIC8=;
-	b=hTGjefJujyRPquMYHt1PxDjFJRQiLBSiwixit7f44eOGk/AkBVY7n+YwleID99bG
-	SXjZo446kyxFCFYE5T7XX3whUoRj5fh9RteO+romCHm3gMD/o8HfCe8nhTXDAJ+Ss3G
-	Cztc9JEW5MTmjIYsLxV2Jfb86fEKSiIc2LtdvEcMRutiARlEeyhQtcf1UYCVQnTHqn2
-	1sJ1Pnq5vW46tfI/a9JqouniyOcZDn98v/P0tU8iz/w/Z4YCtm7E00zcIIdJVuSqzgl
-	WY/s/rRSl6bZlTxkrFZYdN2EXPX1fiTpaNizRi1NSLxKNV0zNvZ5aPR7GpFJnokQbU9
-	Rb8Jd0Klzg==
-Received: by mx.zohomail.com with SMTPS id 1788437390405973.4421037897633;
-	Thu, 3 Sep 2026 05:09:50 -0700 (PDT)
-Message-ID: <576146d4f2752c3c3f6ec6c42812cb9956406383.camel@icenowy.me>
-Subject: Re: [PATCH v2 15/17] riscv: dts: spacemit: k3-pico-itx: enable the
- DisplayPort output
-From: Icenowy Zheng <uwu@icenowy.me>
-To: codykang.hk@gmail.com, David Airlie <airlied@gmail.com>, Simona Vetter	
- <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
- <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski	
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Yixun Lan	
- <dlan@kernel.org>, Vinod Koul <vkoul@kernel.org>, Neil Armstrong	
- <neil.armstrong@linaro.org>, Haylen Chu <heylenay@4d2.org>, Michael
- Turquette	 <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney	 <bmasney@redhat.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Paul Walmsley	 <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou	 <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Yao Zi
- <me@ziyao.cc>,  Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=	
- <u.kleine-koenig@baylibre.com>, Guodong Xu <docular.xu@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org, 
-	devicetree@vger.kernel.org, spacemit@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-clk@vger.kernel.org
-Date: Thu, 03 Sep 2026 20:09:42 +0800
-In-Reply-To: <20260809-k3-display-v2-15-327d7910bf71@gmail.com>
-References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
-	 <20260809-k3-display-v2-15-327d7910bf71@gmail.com>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="er0/TQg8"
+Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id BB01E2814;
+	Thu,  3 Sep 2026 14:08:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788437334;
+	bh=TgaWdc2v14syQKTjd0P+G00v2RLl1wdAxEUGkvtCiXc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=er0/TQg86FDr7WZxXHtPjHYpR9s/ObtBUZ3WT/1pwQF8Ne+XDC6fZrme4a+D0+wXF
+	 76pHKNSs6cF0XIEQYQIy5kAzZQmrgsV77CVqQJUj/J7S1iKKpAx2RGYbEWjMkcPUqz
+	 WKVX76JS6+UpRuEIoeyiORPpQzsb+ynI7OF3KY/A=
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Date: Thu, 03 Sep 2026 15:09:57 +0300
+Subject: [PATCH 07/10] drm/tidss: Add support for DPIENABLE bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-tidss-pre-beagley-v1-7-93928baa8b12@ideasonboard.com>
+References: <20260903-tidss-pre-beagley-v1-0-93928baa8b12@ideasonboard.com>
+In-Reply-To: <20260903-tidss-pre-beagley-v1-0-93928baa8b12@ideasonboard.com>
+To: Devarsh Thakkar <devarsht@ti.com>, Swamil Jain <s-jain1@ti.com>, 
+ Jyri Sarha <jyri.sarha@iki.fi>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Tomi Valkeinen <tomi.valkeinen@ti.com>, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4387;
+ i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
+ bh=TgaWdc2v14syQKTjd0P+G00v2RLl1wdAxEUGkvtCiXc=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqmWOojsM7Rr8jvQpvQ/LJr6PFpUfPukaw+TSEg
+ MmpHK0RXheJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCapljqAAKCRD6PaqMvJYe
+ 9SBRD/4nOd5hscQqQLxM+TwYjW7H5HYCEKiCG7SF+R1G2EfRdrpmijRb3DjHkzqy8WK4GMRqKX8
+ 247p0MvdRELWT6RiWWCRKKawnc3l2TdMbH4XMe5FhxVrrehEpuUmOD2SpDVgyvNXXDmfNkcoB+t
+ LfkSk5FAza5e4xOmvqaWXnr5LRpCV5S3Nh6KqD5+zT4X9PnCxZht2GY2Xf+s/Wd9AALzEd4WTj7
+ dceAHgFaaD1bPsB1EexJ+IY0/zQVRiBhhDoehZWyJsRBscL2i20C/uYhl4z4UC6G9SmUn75EVuD
+ SBLZU03O0219jFHiYScvAcRaJ7kGGiVd5K2My3fDmJs+Uc4mvkfAoDwM8kv6xF/pTDR7AgWOZsf
+ CGh+omVOO8Cia16A0yGjPn6ZHMZekFwZ/EUFxRFm0J96YKNMARTqYL6EH2X7WF9uUvRNMzsg/5R
+ oTgCCZ5Hc0laR9hc4upc//GPgS+XjwRaErq3SelxdvAdPm4avkMtYM2/NE2nGNqeLNXlX3UkBQ3
+ MmoN8Zm1L2L09UMuTOd4FZd1HCGoJq4VJeYnRHWjf8zvdyVXB945H9vtFfE9FPmiPhAr5eVx+De
+ Ap2FtoRQHxPBKjDAkkxsy27q3fU0cvgYLFIqD4jWpCEOADqjImppd7nrQsDV5l3UwpoRkx/MU8R
+ BvQXSLsZ8T4yNdA==
+X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
+ fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-=E5=9C=A8 2026-08-09=E6=97=A5=E7=9A=84 21:14 +0800=EF=BC=8CCody Kang via B4=
- Relay=E5=86=99=E9=81=93=EF=BC=9A
-> From: Cody Kang <codykang.hk@gmail.com>
->=20
-> Pico-ITX brings the second DPU's output to an external DisplayPort
-> connector. Enable that DPU and the DisplayPort controller it feeds.
+Many (or even all?) K3 SoCs have DSS VP_CONTROL.DPIENABLE bit described
+in their documentation. This bit controls whether the DPI block is
+enabled, and is set to 1 by default (i.e. DPI is enabled at HW reset).
 
-The connector available on the Pico-ITX mainboard isn't a DisplayPort
-port -- it's a USB Type-C port instead.
+However, in almost all SoCs the setting does not actually do anything,
+and at the moment the bit is not managed by the driver.
 
-I think you need to model the Type-C port and alt functions of it.
+The exception is AM62L, which does have DPIENABLE connected, and
+disabling the DPI block when it is not in use provides power savings.
 
-Thanks,
-Icenowy
+Let's add a new feature flag for this, 'has_vp_control_dpienable', and
+implement the support.  Disable DPIENABLE for all videoports at resume
+time, so that it is 0 by default. Specifically enable and disable it in
+dispc_vp_prepare() and dispc_vp_unprepare() for DPI output.
 
->=20
-> Signed-off-by: Cody Kang <codykang.hk@gmail.com>
->=20
-> ---
-> v2:
-> - no change
-> ---
-> =C2=A0arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 11 +++++++++++
-> =C2=A0arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi | 11 +++++++++++
-> =C2=A02 files changed, 22 insertions(+)
->=20
-> diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> index b89c1521e6649..6c31460990a75 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> @@ -6,6 +6,7 @@
-> =C2=A0#include <dt-bindings/gpio/gpio.h>
-> =C2=A0
-> =C2=A0#include "k3.dtsi"
-> +#include "k3-display.dtsi"
-> =C2=A0#include "k3-pinctrl.dtsi"
-> =C2=A0
-> =C2=A0/ {
-> @@ -221,3 +222,13 @@ hub@1 {
-> =C2=A0&usb2_phy {
-> =C2=A0	status =3D "okay";
-> =C2=A0};
-> +
-> +&dpu1_crtc0 {
-> +	status =3D "okay";
-> +};
-> +
-> +&dp1 {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&dp1_1_cfg>;
-> +	status =3D "okay";
-> +};
-> diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-> b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-> index 3ee1471f37985..2f36eba20f1ee 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-> @@ -11,6 +11,17 @@
-> =C2=A0#define K3_GPIO(x)	(x / 32) (x % 32)
-> =C2=A0
-> =C2=A0&pinctrl {
-> +	/omit-if-no-ref/
-> +	dp1_1_cfg: dp1-1-cfg {
-> +		dp1-pins {
-> +			pinmux =3D <K3_PADCONF(24, 6)>;	/* dp1 hpd
-> */
-> +
-> +			bias-disable;
-> +			drive-strength =3D <25>;
-> +			power-source =3D <3300>;
-> +		};
-> +	};
-> +
-> =C2=A0	gmac0_rgmii_0_cfg: gmac0-rgmii-0-cfg {
-> =C2=A0		gmac0-rgmii-0-pins {
-> =C2=A0			pinmux =3D <K3_PADCONF(0, 1)>,	/*
-> gmac0_rxdv */
+Tested-by: Swamil Jain <s-jain1@ti.com>
+Reviewed-by: Devarsh Thakkar <devarsht@ti.com>
+Reviewed-by: Swamil Jain <s-jain1@ti.com>
+Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+---
+ drivers/gpu/drm/tidss/tidss_dispc.c      | 23 +++++++++++++++++++++--
+ drivers/gpu/drm/tidss/tidss_dispc.h      |  2 ++
+ drivers/gpu/drm/tidss/tidss_dispc_regs.h |  1 +
+ 3 files changed, 24 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
+index c21ac3f51720..7efcdf7679ac 100644
+--- a/drivers/gpu/drm/tidss/tidss_dispc.c
++++ b/drivers/gpu/drm/tidss/tidss_dispc.c
+@@ -442,6 +442,8 @@ const struct dispc_features dispc_am62l_feats = {
+ 	},
+ 
+ 	.vid_order = {0},
++
++	.has_vp_control_dpienable = true,
+ };
+ 
+ static const u16 *dispc_common_regmap;
+@@ -1201,6 +1203,11 @@ void dispc_vp_prepare(struct dispc_device *dispc, u32 hw_videoport,
+ 				  mode->crtc_hdisplay - 1) |
+ 		       FIELD_PREP(DISPC_VP_SIZE_SCREEN_VDISPLAY_MASK,
+ 				  mode->crtc_vdisplay - 1));
++
++	if (dispc->feat->has_vp_control_dpienable &&
++	    dispc->vp_data[hw_videoport].dpi_output)
++		VP_REG_FLD_MOD(dispc, hw_videoport, DISPC_VP_CONTROL, 1,
++			       DISPC_VP_CONTROL_DPIENABLE_MASK);
+ }
+ 
+ void dispc_vp_enable(struct dispc_device *dispc, u32 hw_videoport)
+@@ -1217,6 +1224,11 @@ void dispc_vp_disable(struct dispc_device *dispc, u32 hw_videoport)
+ 
+ void dispc_vp_unprepare(struct dispc_device *dispc, u32 hw_videoport)
+ {
++	if (dispc->feat->has_vp_control_dpienable &&
++	    dispc->vp_data[hw_videoport].dpi_output)
++		VP_REG_FLD_MOD(dispc, hw_videoport, DISPC_VP_CONTROL, 0,
++			       DISPC_VP_CONTROL_DPIENABLE_MASK);
++
+ 	if (dispc->feat->vp_bus_type[hw_videoport] == DISPC_VP_OLDI_AM65X) {
+ 		dispc_vp_write(dispc, hw_videoport, DISPC_VP_DSS_OLDI_CFG, 0);
+ 
+@@ -2436,10 +2448,17 @@ static void dispc_vp_init(struct dispc_device *dispc)
+ 
+ 	dev_dbg(dispc->dev, "%s()\n", __func__);
+ 
+-	/* Enable the gamma Shadow bit-field for all VPs*/
+-	for (i = 0; i < dispc->feat->num_vps; i++)
++	for (i = 0; i < dispc->feat->num_vps; i++) {
++		/* Enable the gamma Shadow bit-field for all VPs*/
+ 		VP_REG_FLD_MOD(dispc, i, DISPC_VP_CONFIG, 1,
+ 			       DISPC_VP_CONFIG_GAMMAENABLE_MASK);
++
++		if (dispc->feat->has_vp_control_dpienable) {
++			/* Disable DPIENABLE for all VPs */
++			VP_REG_FLD_MOD(dispc, i, DISPC_VP_CONTROL, 0,
++				       DISPC_VP_CONTROL_DPIENABLE_MASK);
++		}
++	}
+ }
+ 
+ static void dispc_initial_config(struct dispc_device *dispc)
+diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
+index 6f53d554259c..0fbfb86adfbf 100644
+--- a/drivers/gpu/drm/tidss/tidss_dispc.h
++++ b/drivers/gpu/drm/tidss/tidss_dispc.h
+@@ -92,6 +92,8 @@ struct dispc_features {
+ 	u32 num_vids;
+ 	struct dispc_vid_info vid_info[TIDSS_MAX_PLANES];
+ 	u32 vid_order[TIDSS_MAX_PLANES];
++	/* The DSS has VP_CONTROL.DPIENABLE bit */
++	bool has_vp_control_dpienable;
+ };
+ 
+ extern const struct dispc_features dispc_k2g_feats;
+diff --git a/drivers/gpu/drm/tidss/tidss_dispc_regs.h b/drivers/gpu/drm/tidss/tidss_dispc_regs.h
+index 382027dddce8..13ff00696c2e 100644
+--- a/drivers/gpu/drm/tidss/tidss_dispc_regs.h
++++ b/drivers/gpu/drm/tidss/tidss_dispc_regs.h
+@@ -230,6 +230,7 @@ enum dispc_common_regs {
+ 
+ #define DISPC_VP_CONTROL			0x4
+ #define DISPC_VP_CONTROL_DATALINES_MASK			GENMASK(10, 8)
++#define DISPC_VP_CONTROL_DPIENABLE_MASK			GENMASK(6, 6)
+ #define DISPC_VP_CONTROL_GOBIT_MASK			GENMASK(5, 5)
+ #define DISPC_VP_CONTROL_ENABLE_MASK			GENMASK(0, 0)
+ 
+
+-- 
+2.43.0
+
