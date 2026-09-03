@@ -1,93 +1,107 @@
-Received: from mta0.migadu.com (out-35.mta0.migadu.com [91.218.175.35])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DDC53E00AA
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:17:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDAB3DD533;
+	Thu,  3 Sep 2026 06:18:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788416262; cv=none; b=tg/PBWiBmxEDGOv4hLTvoIJrjnHKSCYm/jVQv73GyEsqg5oyCvFuKMoIibdvOM71bwbSzhiapHmeqFaGOGlg2uDyOzZ6+/eJkKs+EmFcOPuS57ifcjy2xO6Lr1s2DjEhXX6kitEkKzyOgUz1yq/2ffgoemkAcy6yan3ZQl2f9+A=
+	t=1788416320; cv=none; b=KsK55kppk9SAblLoa+cYub9qT4TfJhq5mObJ9itIaJJFu6w+YhnhpdmH3s0z5rYxshEydSfPcOTU2uVwC+NX+mjM0IWuCvgupKu3vrye/mpX//4jdI95PdaHRPKnmBRO0JFbpewy8Oh3tzP76hL157f9Z0f9Fi/APJ6zPZ6CwCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788416262; c=relaxed/simple;
-	bh=qfDv57uIWsnOlT1w0+UzNsl5Tfmu4rytKxkaLXjRnNY=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=B0ljKHbe3yC+5SmvjHzA3Gtg6gm7SzazgwifbMhq6BtTGcBNrN7s87pVYEDa/h+Xd1ZovSoUhAVFigEHNhc8/GfJj2sg1iW1v9Uua7qQA9SlvfLhTMwnVrljeTWLPcEg0usv1N9NMDI/KfUcLQ4nRwjziQnxVSepmJubL+0KgvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=COF3tCID; arc=none smtp.client-ip=91.218.175.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788416320; c=relaxed/simple;
+	bh=mpft1NnwMVq1t5m6FqgL2KE/iQcOvbcNiKDdqOq2htg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I1ACy7vf+6JK4rkXkrd+KVQZf/rSXW89iklt/9MyxPVLkh7dxO3FTcgu+Ua652pH4eMHrB5tkMf1dXVLpus2ZxhijwFgWELQLwysWtBuRMssU8mu8ZRNnJOXkNBL2oXQgXLkpji4QHS8jr2r7PNS/fNj19x8wg2wLhsfx3KIdHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OeX4HiEo; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="COF3tCID"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=qfDv57uIWsnOlT1w0+UzNsl5Tfmu4rytKxkaLXjRnNY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788416257; v=1; x=1789021057;
- b=COF3tCIDTOSDXzADGQry3tyJwYwceLvp4DXycmm/DJ0ob1i22DzIw7kTMSbS8uFek0eb/SS5
- kTVU9vywrF3yeaZXpR+yWeEQGOFEUPP+hXU2YAuh8dUGasnmsfOkgF2hnqZKqwvOuI1890sy1RR
- gLJnaiDRLizPVyw3H7yiaNmw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 015fc451421f2d60;
-	Thu, 03 Sep 2026 06:17:36 +0000
-X-Mizu-Trace-ID: 015fc451421f2d60
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OeX4HiEo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788416319; x=1819952319;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=mpft1NnwMVq1t5m6FqgL2KE/iQcOvbcNiKDdqOq2htg=;
+  b=OeX4HiEoHl5PwmQt9MCqtzIs82xmYXll08SKfPcy81e+RNV1iL3pcGFP
+   XeiThOgfvJQ2cGNzVsbnEOFt6b3kACUqbbD7rUmedMBi/HVHeuAzyA9hI
+   /GjjmWr9sCuItca73gg5bmfkJVKexr58Vmh3L9z/zS2vAxhfYLnZKQu50
+   RrWESRBtlkXvHSk97kiDBNhDAQG2LASbYpttGEypbioynXqiaj5YYny08
+   uPMjAZnzINu5N0XxqZmzhia+wstoCWRaHLbqegy38dk+CUeQOYuGxR6Qv
+   bIf3r84/zyQCMobR4zwCVzqlpN9Ijg8BNwn3RLG4h5wwtiUbo5jBaQCmX
+   Q==;
+X-CSE-ConnectionGUID: msWbhw8QTQuX+syH1909ig==
+X-CSE-MsgGUID: Zi/4pw1HTfK+HGXviu8k3Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="92705480"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="92705480"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 23:18:20 -0700
+X-CSE-ConnectionGUID: 38Bw4+YVRE2OE0iv/qoExQ==
+X-CSE-MsgGUID: Iuc2Jm7ZTxuGC3iEosd2Gw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="268292423"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 23:18:17 -0700
+Date: Thu, 3 Sep 2026 09:18:15 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: David Lechner <dlechner@baylibre.com>
+Cc: Flaviu Nistor <flaviu.nistor@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>, Nuno Sa <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iio: adc: ti-ads1015: Add support for label
+Message-ID: <apkRJ8T-X-HoNiDB@ashevche-desk.local>
+References: <20260902172230.5234-1-flaviu.nistor@gmail.com>
+ <20260902172230.5234-2-flaviu.nistor@gmail.com>
+ <cf9a0918-3e06-4532-8e72-ccc4d417e6b2@baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
-Subject: Re: [PATCH 2/2] nvdimm/pmem: Remove test_and_clear_pmem_poison()
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20260903053535.17611-3-kaitao.cheng@linux.dev>
-Date: Thu, 3 Sep 2026 14:17:19 +0800
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R . Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>,
- Dan Williams <djbw@kernel.org>,
- Vishal Verma <vishal.l.verma@intel.com>,
- Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Ira Weiny <iweiny@kernel.org>,
- linux-mm@kvack.org,
- nvdimm@lists.linux.dev,
- linux-kernel@vger.kernel.org,
- Kaitao Cheng <chengkaitao@kylinos.cn>
-Content-Transfer-Encoding: 7bit
-Message-Id: <E350C4C9-ECB1-46D7-B712-351D01C06C71@linux.dev>
-References: <20260903053535.17611-1-kaitao.cheng@linux.dev>
- <20260903053535.17611-3-kaitao.cheng@linux.dev>
-To: Kaitao Cheng <kaitao.cheng@linux.dev>
-X-Mailer: Apple Mail (2.3864.700.51.1.1)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cf9a0918-3e06-4532-8e72-ccc4d417e6b2@baylibre.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Wed, Sep 02, 2026 at 01:37:45PM -0500, David Lechner wrote:
+> On 9/2/26 12:22 PM, Flaviu Nistor wrote:
+
+...
+
+> > +		if (fwnode_property_present(node, "label")) {
+> > +			ret = fwnode_property_read_string(node, "label", &label);
+> > +			if (ret) {
+> > +				dev_err(dev, "invalid label on %pfw\n", node);
+> > +				return ret;
+
+				return dev_err_probe(...);
+
+> > +			}
+> > +			data->channel_data[channel].label = label;
+> > +		} else {
+> > +			data->channel_data[channel].label = "";
+> 
+> I think the normal way to do this is to return -EINVAL on channels with no
+> label rather than an empty string.
 
 
+In this case the whole dance with property_present is not required.
+(What you are saying sounds like label is mandatory property, but
+ how the old DT will work that have no such property?)
 
-> On Sep 3, 2026, at 13:35, Kaitao Cheng <kaitao.cheng@linux.dev> wrote:
-> 
-> From: Kaitao Cheng <chengkaitao@kylinos.cn>
-> 
-> TestClearPageHWPoison() is now defined regardless of whether
-> CONFIG_MEMORY_FAILURE is enabled, returning false when memory failure
-> handling is unavailable.
-> 
-> The test_and_clear_pmem_poison() wrapper duplicates this configuration
-> handling and has no other pmem-specific behavior.
-> 
-> Call TestClearPageHWPoison() directly and remove the redundant wrapper.
-> This also removes the need to include page-flags.h from pmem.h.
-> 
-> No functional change is intended.
-> 
-> Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
+> > +		}
 
-The code becomes simpler.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Acked-by: Muchun Song <muchun.song@linux.dev>
-
-Thanks.
 
