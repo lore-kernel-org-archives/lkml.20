@@ -1,219 +1,103 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-46.mta0.migadu.com [91.218.175.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C334F4726
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:57:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5E54F053F
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:57:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788454643; cv=none; b=bBomwbFFoIqyjjw6l0iVsOJXgraBZoC8oRLKNykxfewf5zUS+J/rPUn2niw3lRvkjL+qUYFpkR0ZWenzft6twlJWfLnJ71HhUxuJX9NjNScbZehNmNJguA1othQy7D7Bxeucey//9z+yjFyC52rjK8Dma3nyPwoyIRPZJreJomQ=
+	t=1788454657; cv=none; b=SNNOhSGM7BnO1yejxiz52+NkXYlmsZYNfQN+Vgq4pfeG0tOGrQa2T2tfkgW2OtgY9/b2TbMHZN1+C1Vp08tPT+emTIw4LWBFKsjOrg70B9m7lNY+V7RWXUdCfoyyPVV/rgyoqqK2at9dd3QKAsH6v2i0O45UOEWe1rW6zjvrPlE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788454643; c=relaxed/simple;
-	bh=dM/MsDp/E2+2zD4gGKazTa3hI3cKZgdFwZlWuhra2Kg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ehSwXluHzDbLkcIofee1qRlOgFEWb0c6QjfN6evhNFuplVDCyvukwi87donKAO4hh83MEi63MylzZap/prB8pFr61eDpVO1NJKRQ+t1rj68ePSK6BjMAnUsoXCmJyBFKUetXDiHPIsQLgszWlvdWDoKnY/J9n6HMDn2GKoS80fI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UsNEnYaf; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788454657; c=relaxed/simple;
+	bh=yrTVed2V76HIXyGCXgr8lE+QFhABBpHQFtBkdMn89t4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Jk64YwtC1Z2Dfbe8NrXwcEFWzf8Yn/92wY+Tx2BYNnoJq1SXT6+Kv5ZGExeTuNT3lnZbLnA4MpFWPUzs0igJ/n3Zmw2XlwN9oMaOq+EWnfAdbU3Oh9gUDmRWyD4WN/nCep1s6y4B3Hj0h69KJ7cWY9DfkRcgT1BTiWVoRpxgvWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org; spf=pass smtp.mailfrom=wyuan.org; dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b=kxXmcYWa; arc=none smtp.client-ip=91.218.175.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UsNEnYaf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788454641; x=1819990641;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=dM/MsDp/E2+2zD4gGKazTa3hI3cKZgdFwZlWuhra2Kg=;
-  b=UsNEnYafbqF0nYAlt3oVOWT3hq2Vgl1wM0CkdHHlUD90VFzJw/yXCryi
-   yVU83MRp5sQ6OYZ/4QLRqhsV7kBMrUvmFdvMq6ft+CpxG3RcSP0J1oSTg
-   nKwziqghyFgbSnoEZvfRSxEt9oFup1Fkk+ctkZAHYNFcgS4Vtl4oxJw9v
-   m7UuKBx7pJu14cdv1zFIfSk8Yv4AJ5Afi10pdVb+CWPketeIAqnJzzxLA
-   CUVuBDU4Adba1gwi+fN7sVtyTBdixxuoZmLy9Nwjj9TtDSOyoV7o2lzWJ
-   rFzuXuAyEFcuVByXT4zlLXXSS9C/LwXWULOxahtrqax5ieyHmVIsEfp5T
-   w==;
-X-CSE-ConnectionGUID: orUWGw72QwiVmjVrfR0MvQ==
-X-CSE-MsgGUID: fwNx4+jPQzWV9lLrYbkY7w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="100103989"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="100103989"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 09:57:14 -0700
-X-CSE-ConnectionGUID: zqmVtFvfTkWnKu87AMFezg==
-X-CSE-MsgGUID: LhXV8K6pRb2px4qayvOo1Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="273554220"
-Received: from rchatre-desk1.jf.intel.com ([10.165.154.99])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 09:57:13 -0700
-From: Reinette Chatre <reinette.chatre@intel.com>
-To: tony.luck@intel.com,
-	ben.horgan@arm.com,
-	james.morse@arm.com,
-	Dave.Martin@arm.com,
-	babu.moger@amd.com,
-	bp@alien8.de,
-	tglx@linutronix.de,
-	dave.hansen@linux.intel.com
-Cc: x86@kernel.org,
-	hpa@zytor.com,
-	fustini@kernel.org,
-	fenghuay@nvidia.com,
-	peternewman@google.com,
-	yu.c.chen@intel.com,
-	linux-kernel@vger.kernel.org,
-	patches@lists.linux.dev,
-	reinette.chatre@intel.com
-Subject: [PATCH 3/5] x86,fs/resctrl: Make MSR_IA32_L{2,3}_QOS_CFG scope architecture specific
-Date: Thu,  3 Sep 2026 09:57:05 -0700
-Message-ID: <523b1b373a4cf579231c346502c61762b3cb7fb9.1788452481.git.reinette.chatre@intel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1788452481.git.reinette.chatre@intel.com>
-References: <cover.1788452481.git.reinette.chatre@intel.com>
+	dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b="kxXmcYWa"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=yrTVed2V76HIXyGCXgr8lE+QFhABBpHQFtBkdMn89t4=;
+ c=simple/simple; d=wyuan.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788454652; v=1; x=1789059452;
+ b=kxXmcYWawqlTDsv4WOaVIoXC0FPaNsgUcPU+JiN5gY4pRwdjLVCAkccr0pmQZPG2ayAl/27W
+ cpEwF9jTJ7m89l77+VlbkgIvefHJj/QnfPyR0cT3zEbky0wfaRcihuTsfiFqT6bQfGgYXsgm0GU
+ Z2JhHuKbp4/S6nKND76Cu6Q+2fYzbejOEI2DLrmk7E8VcxxrOsjDjFdHEY7i1k/g6x/kGAnogCk
+ gaNDTWgUuEMml4a4PKH01i2ZrhZENt/9ptlQe2kQmmeqQ2PUO/hFBe3m5tL4wZbxAComNia/B7k
+ GSzRZjRdrow4IUtywLKsU3KjlKZZQ3h75PVS3TXrhJnjQ==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c26a59a5668ff9b5;
+	Thu, 03 Sep 2026 16:57:32 +0000
+X-Mizu-Trace-ID: c26a59a5668ff9b5
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 4 Sep 2026 00:55:55 +0800
+From: Weijie Yuan <wy@wyuan.org>
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: Nguyen Duc Thinh <ducthinh100812@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, workflows@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/5] Documentation: process: Clean up grammar, tone,
+Message-ID: <apmmmz0Xo6fXgFiV@wyuan.org>
+References: <20260902084430.17248-1-ducthinh100812@gmail.com>
+ <aploLWg-i315frp5@wyuan.org>
+ <5efba8f3-ffb0-4e1e-8057-6946e1e96db8@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5efba8f3-ffb0-4e1e-8057-6946e1e96db8@infradead.org>
 
-The architecture specific cache bitmap control property
-resctrl_cache::arch_has_per_cpu_cfg reflects whether the x86 cache
-configuration registers MSR_IA32_L{2,3}_QOS_CFG have scope that is per-CPU
-or matches the associated cache. This property is maintained, but never
-used, by the resctrl filesystem.
+On Thu, Sep 03, 2026 at 09:33:46AM -0700, Randy Dunlap wrote:
+> >> Nguyen Duc Thinh (5):
+> >>   Documentation: process: Clean up grammar, tone, and contractions in
+> >>     core files
+> >>   Documentation: process: Clean up grammar and tone in next guide files
+> >>   Documentation: process: Refine language, tone, and grammar in
+> >>     subsequent files
+> >>   Documentation: process: Refine language, tone, and grammar in
+> >>     subsequent files
+> >>   Documentation: process: Clean up grammar and tone across multiple
+> >>     files
+> > 
+> > Output of 'b4 shazam':
+> > 
+> > ...
+> > Applying: Documentation: process: Clean up grammar, tone, and contractions in core files
+> > Applying: Documentation: process: Clean up grammar and tone in next guide files
+> > Applying: Documentation: process: Refine language, tone, and grammar in subsequent files
+> > Applying: Documentation: process: Refine language, tone, and grammar in subsequent files
+> > Applying: Documentation: process: Clean up grammar and tone across multiple files
+> > /home/user/Projects/linux/.git/rebase-apply/patch:72: trailing whitespace.
+> >   License (about which more will be said below).  The author is not a
+> > warning: 1 line adds whitespace errors.
+> > /home/user/Projects/linux/.git/rebase-apply/patch:244: trailing whitespace.
+> > Which is nice, since there is no more insanity in the form of fake-generic
+> > warning: 1 line adds whitespace errors.
+> > /home/user/Projects/linux/.git/rebase-apply/patch:261: trailing whitespace.
+> >    rare cases, an AI assistant capable of finding a bug is capable of fixing it.
+> > /home/user/Projects/linux/.git/rebase-apply/patch:262: trailing whitespace.
+> >    Fixes written within the same session used to identify the bug will
+> > /home/user/Projects/linux/.git/rebase-apply/patch:263: trailing whitespace.
+> >    generally lead to better and more accurate fixes as the LLM's reasoning
+> > /home/user/Projects/linux/.git/rebase-apply/patch:282: trailing whitespace.
+> > - Within two weeks, a representative of this group will communicate the
+> > warning: 4 lines add whitespace errors.
+> > 
+> > Should we handle with whitespace?
+> 
+> No, the trailing whitespace should be fixed (i.e., deleted)
+> and then resend the patches.
 
-Each cache resource only supports one control. In preparation for resources
-supporting multiple controls it is no longer appropriate to place the x86
-architecture cache resource property with the cache control properties
-since that would result in the resource property being duplicated among
-all its controls. Additionally, the scope of the x86 MSR_IA32_L{2,3}_QOS_CFG
-registers is x86 architecture specific - the resctrl filesystem does not
-use it at all and should therefore not need to maintain it.
+Right, I was actually trying to gently point out that the trailing
+whitespace should be fixed. ;-)
 
-Make the scope of MSR_IA32_L{2,3}_QOS_CFG an x86 hardware resource
-specific property with a direct name of qos_cfg_has_cpu_scope.
+This should be caught easily by checkpatch.pl, or simply by running
+b4 prep --check, I guess. Better run it before sending out next time.
 
-Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
----
-Changes since RFC v1:
-- Remove stray ";" in kernel-doc comment.
-
-Changes since RFC v2:
-- Rewrite changelog, shorten subject.
-- Rework comment instead of copy&paste the original.
-- Rename property to be more specific now that it does not need to aim
-  for generic resctrl filesystem support.
----
- arch/x86/kernel/cpu/resctrl/core.c     | 7 ++++---
- arch/x86/kernel/cpu/resctrl/internal.h | 3 +++
- arch/x86/kernel/cpu/resctrl/rdtgroup.c | 4 +++-
- include/linux/resctrl.h                | 3 ---
- 4 files changed, 10 insertions(+), 7 deletions(-)
-
-diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
-index 0e34a1c541b9..a251ba657ab7 100644
---- a/arch/x86/kernel/cpu/resctrl/core.c
-+++ b/arch/x86/kernel/cpu/resctrl/core.c
-@@ -441,6 +441,7 @@ static int get_domain_id_from_scope(int cpu, enum resctrl_scope scope)
- 
- static void domain_add_cpu_ctrl(int cpu, struct rdt_resource *r)
- {
-+	struct rdt_hw_resource *hw_res = resctrl_to_arch_res(r);
- 	int id = get_domain_id_from_scope(cpu, r->ctrl_scope);
- 	struct rdt_hw_ctrl_domain *hw_dom;
- 	struct list_head *add_pos = NULL;
-@@ -463,7 +464,7 @@ static void domain_add_cpu_ctrl(int cpu, struct rdt_resource *r)
- 		d = container_of(hdr, struct rdt_ctrl_domain, hdr);
- 
- 		cpumask_set_cpu(cpu, &d->hdr.cpu_mask);
--		if (r->cache.arch_has_per_cpu_cfg)
-+		if (hw_res->qos_cfg_has_cpu_scope)
- 			rdt_domain_reconfigure_cdp(r);
- 		return;
- 	}
-@@ -998,7 +999,7 @@ static __init void rdt_init_res_defs_intel(void)
- 
- 		if (r->rid == RDT_RESOURCE_L3 ||
- 		    r->rid == RDT_RESOURCE_L2) {
--			r->cache.arch_has_per_cpu_cfg = false;
-+			hw_res->qos_cfg_has_cpu_scope = false;
- 			r->cache.min_cbm_bits = 1;
- 		} else if (r->rid == RDT_RESOURCE_MBA) {
- 			hw_res->msr_base = MSR_IA32_MBA_THRTL_BASE;
-@@ -1017,8 +1018,8 @@ static __init void rdt_init_res_defs_amd(void)
- 
- 		if (r->rid == RDT_RESOURCE_L3 ||
- 		    r->rid == RDT_RESOURCE_L2) {
-+			hw_res->qos_cfg_has_cpu_scope = true;
- 			r->cache.arch_has_sparse_bitmasks = true;
--			r->cache.arch_has_per_cpu_cfg = true;
- 			r->cache.min_cbm_bits = 0;
- 		} else if (r->rid == RDT_RESOURCE_MBA) {
- 			hw_res->msr_base = MSR_IA32_MBA_BW_BASE;
-diff --git a/arch/x86/kernel/cpu/resctrl/internal.h b/arch/x86/kernel/cpu/resctrl/internal.h
-index e3cfa0c10e92..861151f008fa 100644
---- a/arch/x86/kernel/cpu/resctrl/internal.h
-+++ b/arch/x86/kernel/cpu/resctrl/internal.h
-@@ -125,6 +125,8 @@ struct msr_param {
-  * @mon_scale:		cqm counter * mon_scale = occupancy in bytes
-  * @mbm_width:		Monitor width, to detect and correct for overflow.
-  * @cdp_enabled:	CDP state of this resource
-+ * @qos_cfg_has_cpu_scope:	True if MSR_IA32_L{2,3}_QOS_CFG has CPU scope,
-+ *				false if the scope matches the associated cache.
-  * @mbm_cntr_assign_enabled:	ABMC feature is enabled
-  * @sdciae_enabled:	SDCIAE feature (backing "io_alloc") is enabled.
-  *
-@@ -140,6 +142,7 @@ struct rdt_hw_resource {
- 	unsigned int		mon_scale;
- 	unsigned int		mbm_width;
- 	bool			cdp_enabled;
-+	bool			qos_cfg_has_cpu_scope;
- 	bool			mbm_cntr_assign_enabled;
- 	bool			sdciae_enabled;
- };
-diff --git a/arch/x86/kernel/cpu/resctrl/rdtgroup.c b/arch/x86/kernel/cpu/resctrl/rdtgroup.c
-index 5ffa39fa86fa..6e4eeccd4891 100644
---- a/arch/x86/kernel/cpu/resctrl/rdtgroup.c
-+++ b/arch/x86/kernel/cpu/resctrl/rdtgroup.c
-@@ -131,6 +131,7 @@ static void l2_qos_cfg_update(void *arg)
- 
- static int set_cache_qos_cfg(int level, bool enable)
- {
-+	struct rdt_hw_resource *hw_res;
- 	void (*update)(void *arg);
- 	struct rdt_ctrl_domain *d;
- 	struct rdt_resource *r_l;
-@@ -151,8 +152,9 @@ static int set_cache_qos_cfg(int level, bool enable)
- 		return -ENOMEM;
- 
- 	r_l = &rdt_resources_all[level].r_resctrl;
-+	hw_res = resctrl_to_arch_res(r_l);
- 	list_for_each_entry_rcu(d, &r_l->ctrl_domains, hdr.list, lockdep_is_cpus_held()) {
--		if (r_l->cache.arch_has_per_cpu_cfg)
-+		if (hw_res->qos_cfg_has_cpu_scope)
- 			/* Pick all the CPUs in the domain instance */
- 			for_each_cpu(cpu, &d->hdr.cpu_mask)
- 				cpumask_set_cpu(cpu, cpu_mask);
-diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
-index 66dc9813c888..b6b4519a5190 100644
---- a/include/linux/resctrl.h
-+++ b/include/linux/resctrl.h
-@@ -215,8 +215,6 @@ struct rdt_l3_mon_domain {
-  * @shareable_bits:	Bitmask of shareable resource with other
-  *			executing entities
-  * @arch_has_sparse_bitmasks:	True if a bitmask like f00f is valid.
-- * @arch_has_per_cpu_cfg:	True if QOS_CFG register for this cache
-- *				level has CPU scope.
-  * @io_alloc_capable:	True if portion of the cache can be configured
-  *			for I/O traffic.
-  */
-@@ -225,7 +223,6 @@ struct resctrl_cache {
- 	unsigned int	min_cbm_bits;
- 	unsigned int	shareable_bits;
- 	bool		arch_has_sparse_bitmasks;
--	bool		arch_has_per_cpu_cfg;
- 	bool		io_alloc_capable;
- };
- 
--- 
-2.55.0
-
+Thanks.
