@@ -1,91 +1,115 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C4A941379A
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:03:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05ACC388E7A
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:03:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788429802; cv=none; b=boZujqKdui5DvAbPCxyhjFb2X97KCymbd3kb02thWNDYSDLC95RhQkUIvs4DRYe/y5JK0tpfqEaNs6KrifDmj5J3FM2Fqys8ie/3dUMczXvOmw+4PtDHdLJEV0+V1JsBz9ZtA30tbM4SrCh8f3csFkb0iy5iWCOOXTxreAz3MBQ=
+	t=1788429812; cv=none; b=sxLkypFiPED7xtVA4M+3Vybtvi13zXz7KG/q7pXvnzWNYACqoL2Seu0BFRr5CNVBsms+y9FgcBPB1RN0aAL0fpwiWpYUn1z7W+cWV3gNC1wMJLIZdSL5g312bXAJVSjGtR2ShprlV2A+c7DXy3VZDMyGbw7aqSyQ9ncaLhYXhms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788429802; c=relaxed/simple;
-	bh=mXvzaTzqMqFmqIfIE+ID/4lSzXdcbNgs5wDNDwkuixc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sQvjDOUheAytxayG1g+jxc3K6KEuZVzSQqESNIqZuiJfcoHtvCbqt3L8UBP//XiGTM6oEWLhLDntL3ilfLlO/kLAKGeU5JS30VsxKuXIB9Otxb4Khz6Tzz56liYn1SOJmy3qeGjldvnE/NN0O7SY8kso10XrJa/xWWRNrThVNWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=x4AXSsvZ; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788429812; c=relaxed/simple;
+	bh=ntB9fs616qYfrLPBRKjSLmOUV5UErT3QQloiRYYK6Sk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d0C+K4kIZ+1FiFFGdUOGaBH4ZsXev4rSFVNSuePHzr0/6d4XdS2WmhXRzcDRS3fBvTxHWyYsy+pY35MHIRs0iluGN1dCUAMl2IH4EY+f7iXuyf5tZMZbunj3C9//j8gZfBNYVbnqrMGLgPeImXKVBJHJkScyePorL137LRxtHEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=N2yP0L5n; arc=none smtp.client-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="x4AXSsvZ"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 5B62D4E414EB;
-	Thu,  3 Sep 2026 10:03:11 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2D78F602B8;
-	Thu,  3 Sep 2026 10:03:11 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 48A6011C792CB;
-	Thu,  3 Sep 2026 12:03:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788429790; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=54Vyq7TkdJY+5dYhg6T/6D6Toheh277V8fD+wL38QnM=;
-	b=x4AXSsvZ1D+R4c+aolY13sCLKa6WA/pwdy1pAL5Sy9PLHUH+gUdEKst4zJ/Wy8lw7zzGm2
-	Z8aOQEQB4uX33I1lcn6VUBB3/ABL2kylBoUmdYeUOe1CzZwZXfSxGlMKpvizWwdRn8WltI
-	ZCLPzJG/Yt03UoZ/wb4DiDCKoe+lRDqs2Z3/30O8pxTfd7C6WezbkA+CowfdRQ5PNeV7fN
-	uwxWofKipwi1IwzQLE2wfTl3kgd0XG0nfua/9n9MYenTeuBZ7odHXDQGBEcmntrXnj4DvA
-	4X4ESajCdmQZkz56KuPRzShP7NfepAh7qsIdzAJ3S/R///7BnriFaQeMIwCY6Q==
-Message-ID: <f24fd4ca-dc49-4008-a482-db6f30e46131@bootlin.com>
-Date: Thu, 3 Sep 2026 12:03:01 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="N2yP0L5n"
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a623987d32so3553182a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 03:03:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788429799; x=1789034599; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NTFqZaE5WeXzEFHRWSBbenebslM+9RuyFvHTxQmSgMQ=;
+        b=N2yP0L5nTY/nWVm0VWA89oNldW+PU1Jt3gfaVqOXAnY9bB/QeHSmFFmdQbe3Cz+by3
+         7KB1TJjTLdkvGM+Bvi7mzxou2UrcFixYxnRqvFlso9KU/Xd5h2TZ3S9ySvrJXAzCmZNY
+         yLfJWqwCouYKU758pymZ/e5DL+Tj0Hd7Rh8MKCO1PJoI/tdwXntU7PMoY29SCXncN12q
+         365ER75fZuiMk1b5+SInrsIGov1Dxl1NqKqs4y+61JrLi2DGY5s9Zx7rz7K+kgBApyYb
+         KlBrpoweG+JLXLAQVj4vOAst8SN0DsdoBaSVISG+dmIYoaeowS1oL4ZFIs0ujBxy2ZD/
+         HvLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788429799; x=1789034599;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NTFqZaE5WeXzEFHRWSBbenebslM+9RuyFvHTxQmSgMQ=;
+        b=epOrDUvhxd26w1IH5omQ74cp3aa9l0tlVzeL+fkXraOcUiYGOQyyr9fwYMazdxpslJ
+         G2QKcS8KfB/wQwsG8shAcoAytLPqspJPYpbSxMN/dILA1sa4YPCn2Ed890jT+FzL8wHn
+         LsFIowhNttst87sIG+i1dBt7ld/SxYnfq3dAViDvda1LRI8UY7CLGN/lQ+2mGmMOi94b
+         flqNoX2OegBkO+tn9sU+C4gD5Z0bl/P3uP8yO8PIB/+/gxw+Jtt1gRkKHo/Umc4jCJkt
+         LMtiHNkse9aOQk8YwCqWQUFQRoxLiMTH91GK63uP33HHSRXSi9cc/ef/VJ5foZmnPvLP
+         MdZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxS6EQPVkdI94N9QjckkHgVPIPLLQBC9oDSgNxQjbL1BRVYbCLAs7fC7QZ5AkcYl9ZmJ666YoaWI6c899Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++kvm1LWWF6ZmpviX0+r6pVTOARL5s6yhgzD0ON7t0dBUywlIxLc
+	BETaynGW+ZOrOMqTmK1vNCi5a41eFS2/dT/INbyZSVCcWjrbTJ20mH1H8qhzMr4uqA==
+X-Gm-Gg: AYBFou1EkX8iqLiaLcsdK/K57beUxze6JtPSsE8WCWD7nAsU6qP2Iqydzfkamu754Dr
+	2tpxfTgkhH0U5wgEFm+IVmQPPoHqpz6kYMr9rE+h07PtNZ/iHlTUBJY0EUrk7qSfY2Qoy6+ZHKu
+	xaGbERDw32R8nNOnrKjRqso8SKuBlxTnFg2d+D7Lx2bFj8mFipfvxkR+rQc8xnu0BUVqw546MX3
+	IEFaFQVxtTWqeZ6DuzQZlIAIT9zr8XBei1udJ8LDTgJIbfQ/KUttejbuDHuJx4wwS7XRNcDD80b
+	aHScjI2ZMwsnyp/TUYWFjgRn5+OYweNwiYQ7mb01QwvVYWrKk60w+woK7OB0/f+kXZlnnXOL2CE
+	4ubb2ksfY14W2HL7JyeU67Y3RhgQ1xZCbwNU+wqneUNnSv1iGpWnF2LBYkq2T3EnUFNmie0VA+b
+	7sSHQC4zWHJblRj1jD9l8FAoL7kfV7tXCjVaNyZidou4Ot5aYnmUqeaj17yK3ULqUH7DZcM6aZH
+	TCPb0AmUz1MMpq4Xw==
+X-Received: by 2002:a05:6402:1ed1:b0:6a5:f4f4:5c0e with SMTP id 4fb4d7f45d1cf-6a6829afd97mr6824116a12.14.1788429798174;
+        Thu, 03 Sep 2026 03:03:18 -0700 (PDT)
+Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a67f8b47f7sm2104420a12.9.2026.09.03.03.03.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 03:03:16 -0700 (PDT)
+Date: Thu, 3 Sep 2026 11:03:12 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Rob Herring <robh@kernel.org>
+Cc: catalin.marinas@arm.com, will@kernel.org, rppt@kernel.org,
+	akpm@linux-foundation.org, sudeep.holla@kernel.org,
+	jenswi@kernel.org, mark.rutland@arm.com, sumit.garg@kernel.org,
+	ardb@kernel.org, thierry.reding@kernel.org, david@kernel.org,
+	danielmentz@google.com, linux-arm-kernel@lists.infradead.org,
+	linux-mm@kvack.org, op-tee@lists.trustedfirmware.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 02/10] of: reserved_mem: Introduce "ll-map" property
+Message-ID: <aplF4NaoFk73d-c5@google.com>
+References: <20260902104712.2399797-1-vdonnefort@google.com>
+ <20260902104712.2399797-3-vdonnefort@google.com>
+ <20260902172436.GB1440252-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v4 1/2] net: stmmac: dwxgmac2: add XGMAC
- timestamp interrupt support
-To: Zxyan Zhu <zxyan0222@gmail.com>, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com
-Cc: mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- richardcochran@gmail.com, muhammad.nazim.amirul.nazle.asmade@altera.com,
- rohan.g.thomas@altera.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260902131441.322167-1-zxyan0222@gmail.com>
- <20260902131441.322167-2-zxyan0222@gmail.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260902131441.322167-2-zxyan0222@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902172436.GB1440252-robh@kernel.org>
 
-Hi,
-
-On 9/2/26 15:14, Zxyan Zhu wrote:
-> DWXGMAC2 uses XGMAC_TIMESTAMP_STATUS at offset 0xd20, while the
-> generic stmmac PTP handler reads the dwmac4 offset GMAC_TIMESTAMP_STATUS
-> (0xb20).  Before this change, the DWXGMAC2 and DWXLGMAC2 hwif entries
-> used &stmmac_ptp, whose timestamp_interrupt callback read the wrong
-> register and whose config_hw_tstamping callback never enabled the
-> XGMAC timestamp interrupt (XGMAC_TSIE was not in XGMAC_INT_DEFAULT_EN).
-> As a result, auxiliary snapshot events were never reported on XGMAC
-> platforms.
+On Wed, Sep 02, 2026 at 12:24:36PM -0500, Rob Herring wrote:
+> On Wed, Sep 02, 2026 at 11:47:04AM +0100, Vincent Donnefort wrote:
+> > Keeping last-level mappings is interesting on some architectures as it
+> > allows mapping/unmapping pages from the kernel direct map without the
+> > risk of splitting blocks which, under the break-before-make rule, may
+> > trigger page-faults the kernel can't handle.
+> > 
+> > Add an "ll-map" property for reserved-memory regions. When set, it
+> > splits the underlying memblock and sets the MEMBLOCK_LLMAP flag.
 > 
-> Add a dedicated DWXGMAC2 timestamp interrupt handler that:
-> - reads XGMAC_TIMESTAMP_STATUS before checking
->   STMMAC_FLAG_EXT_SNAPSHOT_EN, so that the timestamp interrupt status is
->   cleared even when auxiliary snapshots are disabled
-> - derives the pending auxiliary snapshot count from the persistent
->   ATSNS field instead of the transient AUXTSTRIG status bit
-> - generates the corresponding PTP_CLOCK_EXTTS events
+> Where is this documented? Any DT property must have a schema.
+
+Ack.
+
 > 
-> Also enable XGMAC_TSIE in XGMAC_INT_DEFAULT_EN and hook the new
-> handler into the DWXGMAC2 and DWXLGMAC2 hwif entries.
+> Though I'm not thrilled about more flag properties. Handling all the 
+> combinations of properties has proven to be painful. Can this be implied 
+> from the compatible string instead?
 > 
-> Signed-off-by: Zxyan Zhu <zxyan0222@gmail.com>
+> Rob
 
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+We need this before the kernel direct map has been created (paging_init()).
 
-Maxime
+I would have moved that directly into the driver lend_pool.c, but then it is
+probed too late (unflatten_device_tree()).
 
+-- 
+Vincent
