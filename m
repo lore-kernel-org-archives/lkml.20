@@ -1,110 +1,82 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7697541D11E
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:27:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62253377006
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:27:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788424051; cv=none; b=cpf5LpskIe6HblfUF8qarMqa7uVjTdW9Hu4P4VD9NAnJ35N/1rtAPp48kjz8l/yMcKnPTLY6Ual8D56zyawOGsdwpFK7AcTxXeycJb/omkW9PaWpf1aj8zu9vj+qCxDgqaSpiyEwOIfjNOFz9C1aUeIeD/jNkJT7MQpLbkW25ro=
+	t=1788424072; cv=none; b=PNOLKJ4F3aaNphgsYrUnSxOwHmZg1MQ1gizScisbqCtRfKybSZTXrw+7VVda7GCZVwJp3RGy7eRWNzBgFtGWdUHOIdIKj5xd9HM7DXCfs7+pp3z7CMdhRuHukx7RTDiCdRN0W4+Xc8VO/73HJlqgMbcP/cTL849lJoFp62oUO40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788424051; c=relaxed/simple;
-	bh=67/91FpklvfDsnTt3gW3LRXC7Q4MrhTlEM2ATgBsutM=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
-	 References:In-Reply-To; b=fyW4Pu2g32kgPJ5SrRyJmx7z/0i+hFq900l1qjsh30+FS+Yz5NYrlg5D1ERbT4Q1jcY/XtqI9PwFbkpXP4jeKh94PwZGGyf4aNSddsFpVURzmc0zNUn13iJTiyKQKI/p8dWI4mwQnRLsjAwsQQHT4l7IeFsyIG59Xr6Fz0/sMH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=TUdfXqNl; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788424072; c=relaxed/simple;
+	bh=TrJxAmxvRZ+OJcEmvKu0mS/aQ9NNqWTYt4WrKIdYpSg=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Az6KIyJZb1kM42CYYftV6nmiwx6tKCKiLkYV/0T3oG1uq+KJOXTcrRKHSZYRRCTopm7mzNVQaEqrlLDKm2KY/3Vob5L/0obVHxL3h8QOOzHCNYFJvS5aqzfzlZuengdy67wmdGo4gT13bgI9s7PIQo+DGWA8saLpfKe4udrr0NY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eN4byHVI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="TUdfXqNl"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 99C994E414E3;
-	Thu,  3 Sep 2026 08:27:26 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5F268602B8;
-	Thu,  3 Sep 2026 08:27:26 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7DCBD11C79EFB;
-	Thu,  3 Sep 2026 10:27:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788424041; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=SiOl0TmdJANJFeVHr7GBo8ro7wF7gFtpcORo8twwUpM=;
-	b=TUdfXqNlUrI8/DL5Md0y88/hJ9tptWYCZ/7H4AbYl5vpOdq+lWd+b7GH/jHqcxwViiO4LH
-	1Q/WrMIGN22dnaUxI9tUswRNlho/mwMZsR3CM9EsRQPYO96frTZ8zbR2sggFPg05ka1e7i
-	KF2oi5JHcfPknduoAzdaeM1uo8sHWSjH6RJNsXpMjD29kb7R0nv5kuKp4qdCP51YXu5SBB
-	jdTEwY174TJUUVi/WNG624vQxXJhm6LLp6o1syVHt06eb/wXjR8lt3DsI5ufycG9xpcuyK
-	2gUoWjf4++hrJLxs4oKx4zy6QgtllU3Xb+SkV+FGY97omEqrImIFdVmCa08bwQ==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eN4byHVI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14A961F00ADF
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:27:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788424071;
+	bh=TrJxAmxvRZ+OJcEmvKu0mS/aQ9NNqWTYt4WrKIdYpSg=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=eN4byHVINY477RELA3fjOr6yDISO0XcJew2kZlR/o8fzM0xRlYSD1WKxj52rTpnYB
+	 AX4OQxOBfc9sQjP78nRL1i+kNxzIlzzi2vM7i1Radyzr3MIZUjbpKKaDy4KU1tN1gi
+	 lLqb7+EedyhSo4BkiZTSgXMPTNrR4ELoHNvxCWlPogjeMzOMMW4eoPFn+ShRTax7PT
+	 UfbQwlR36UgkpJ+5aAiuzrafbg79oOSpAWEDgOG0Zp7a5ekv86BR/68VgjBKjC33qT
+	 EWbjoigeLNGV7fjnGl/GAa76lv9gBBG1YrcBI6j5p5WDBc5TripzediaKfjmw7Y3jK
+	 CTFvOejdZiHow==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b0115b9e17so1835976e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 01:27:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzh+TApDR3t2G+d6C0QrONJYPsPC3MeDbnX85ga4/UbNOgnp08kgp6IxQUDkMnB7FpiKFVak9J60k8ag24=@vger.kernel.org
+X-Gm-Message-State: AFuF++npC+u2+SFMnktbvSfrJPaYGl58UEJKbC9VPBOjX2KJo+VWtW4h
+	kCCE9RSBxb+HlizlUnPrxXMw9kmAbK6Xf96Ws29bv+0uK5/g+54FtFsODZG5NqPPTxMR5Ghmyom
+	AMnLOtabD2rLwQSwvsGRDVXtudPN5o91B5GfYzlxEYA==
+X-Received: by 2002:a05:6512:2246:b0:5b6:4ad:77b5 with SMTP id
+ 2adb3069b0e04-5b6087dc220mr3260661e87.29.1788424069613; Thu, 03 Sep 2026
+ 01:27:49 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 3 Sep 2026 01:27:47 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 3 Sep 2026 01:27:47 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260903075940.2089367-1-mehmet.fide@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 03 Sep 2026 10:27:17 +0200
-Message-Id: <DL5JESSS9JQK.2EV7XV479M0UW@bootlin.com>
-Cc: <git@amd.com>, <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-To: "Vineeth Karumanchi" <vineeth.karumanchi@amd.com>,
- <conor.dooley@microchip.com>, <andrew+netdev@lunn.ch>,
- <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
- <pabeni@redhat.com>
-From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Subject: Re: [PATCH net] net: macb: fix NULL pointer dereference on unbind
- with fixed-link
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260902102836.2019355-1-vineeth.karumanchi@amd.com>
-In-Reply-To: <20260902102836.2019355-1-vineeth.karumanchi@amd.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+References: <20260903075940.2089367-1-mehmet.fide@gmail.com>
+Date: Thu, 3 Sep 2026 01:27:47 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mc3u+2ApzMfFFM1L5MJROaQMSifKReJ-3T+9EX3Zdqzfw@mail.gmail.com>
+X-Gm-Features: AcwNN1V5FdQ_WXfM8AqBAuAps-0ep9MiWg8pjvabZULokJ8aU7j9fqMb0CzLSlw
+Message-ID: <CAMRc=Mc3u+2ApzMfFFM1L5MJROaQMSifKReJ-3T+9EX3Zdqzfw@mail.gmail.com>
+Subject: Re: [PATCH v5 0/3] gpio: mmio: report the line direction on chips
+ without direction registers
+To: Mehmet Fide <mehmet.fide@gmail.com>
+Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>, 
+	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, imx@lists.linux.dev, 
+	linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Mehmet Fide <mehmet.fide@screeningeagle.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Hello Vineeth,
-
-On Wed Sep 2, 2026 at 12:28 PM CEST, Vineeth Karumanchi wrote:
-> When the device tree describes a fixed-link and has no "mdio" child
-> node, macb_mii_init() returns early without allocating the MDIO bus,
-> leaving bp->mii_bus as NULL.
+On Thu, 3 Sep 2026 09:59:37 +0200, Mehmet Fide <mehmet.fide@gmail.com> said:
+> From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 >
-> Two cleanup paths then dereference this NULL bus:
+> Hi Bartosz, Linus,
 >
-> 1. On driver unbind, macb_remove() unconditionally calls
->    mdiobus_unregister(bp->mii_bus), which oopses:
+> this replaces the gpiolib guard patch [1], along the lines Bartosz
+> suggested there: instead of teaching gpiod_get_direction() to stay quiet
+> when a chip has no get_direction(), give gpio-mmio one and let the pin
+> controller tell it what the pad does.
 >
->   Unable to handle kernel NULL pointer dereference at virtual address 000=
-00000000004a8
->   pc : mdiobus_unregister+0x14/0xa4
->   lr : macb_remove+0x38/0xa4
->   Call trace:
->    mdiobus_unregister+0x14/0xa4 (P)
->    macb_remove+0x38/0xa4
->    platform_remove+0x20/0x30
->    device_release_driver_internal+0x1c8/0x224
->    unbind_store+0xb4/0xbc
->
-> 2. On the probe error path in macb_probe(), reached when
->    macb_mii_init() has succeeded but a subsequent step fails, the
->    err_out_unregister_mdio label runs the same unconditional cleanup.
->
-> mdiobus_unregister() and mdiobus_free() do not guard against a NULL
-> bus, so guard the calls in both macb_remove() and the probe error
-> path.
 
-Agreed on the patch! However as we are there, I looked at all
-bp->mii_bus usage and macb_phylink_connect() might crash if bp->mii_bus
-is NULL.
+Why are you spamming the list with multiple versions per day? You're sending
+a v5 as I'm looking at v4 and I really don't like to have my time wasted like
+this. Please limit yourself to one iteration a week unless you get a set of
+comments in which case try to stay at two iterations a week at most.
 
-bp->mii_bus is NULL if
- - no children mdio DT node AND
- - DT declared fixed-link, see of_phy_is_fixed_link()
-
-In macb_phylink_connect(), phy_find_first(bp->mii_bus) will be called if
- - phylink_of_phy_connect() fails AND
- - we have no phy-handle phandle prop
-
-Those two overlap right?
-
-Thanks,
-
---
-Th=C3=A9o Lebrun, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+Bartosz
