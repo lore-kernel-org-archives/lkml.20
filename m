@@ -1,122 +1,135 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D3E648BD24
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:32:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2518948D897
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:32:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788431553; cv=none; b=lwIv6XlNmeS2Dl96KMm3EjPnY4KD/tjaoksqTKNqk9U5FgSdfqQ8Xb2rzI195Y2A9GFrPkwzZY3KDqu4CwLN1RFc5rW/0sOt6vK4p3RmOlkl781KhKhAdclFq6PaZGgcYH7C/s2aIfCzzJ0a2b5/w8fjX7od7i0Ojy+mXYajfrk=
+	t=1788431580; cv=none; b=ulXbmWiD/hl2ALtSq3DrdAv1Ql87d2OPmjxTTKPecNPSw587QlXQEFpTKLxtnvPSlArX3oPsU2Rl8BGbMgYHvFut/heqMmTHwqKmipEr00pZjnMHsvFjLZCvmDcOj4DzvSgEm59wE9YgLpP7t6yJPNhpZHeahWn4N+1mrjRPCB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788431553; c=relaxed/simple;
-	bh=UTWEEMTIdKTL982VQSfBJWW2fta0VT/gkHpdezrQf2U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=efJpMdgp9qnsHxUl/KqBDpXIB9YTpkKFh24keNIliTv4wnbmsu6r0aSt121MTh9kajyACJX6enRZbh9u0bH+zAPJKIRnXT/u3mb3X8BftRdWCu44vMwzmBG6Q37QQbhK0wCuQVljNxrJNqNZlwT5RKflHbRWheu9Ltgg83LDINo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZLAiTh8c; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=qpuOUr5b; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788431580; c=relaxed/simple;
+	bh=1pg5bjnnTADzEUkOaTVelG4SX/AoNaaGBLV125Jc5LI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g4mcTc9dW2AOKgMvGDKkeAJi7+6iHZaJi6kqb1PlQsKW3Yyoj9k8bVAbyZE8F6dCZVlzzMf22BR2uq/xEaOsiBJQqf632W/LSCr5jajq+UAF3dRj2xoRDbpPSn8191DodzbLrty6LwcSRIGb+c6PXYcKW3Z1gZxeNCWlOUX5QGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=KGOFzSc1; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZLAiTh8c";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="qpuOUr5b"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788431538;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=P1S4jDPBcWhcjpcEN8bURyLjdL/4D6hTstVl8KFuzFw=;
-	b=ZLAiTh8cf3Z0L3yzT/Ht2xJnmt/5deZtpwCZGwGDxQV1jio6wNItgWXd1z+VSkPDRRWJcN
-	MmwFkx71jThr+RYIR/FTYp1DGybzlp/7EpgOJuxthgRed2s3TmwNI3RQYHtOtlKPd1s99t
-	W6psqHW+9vtI67cZPCo65Tcr0r+INE0=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-313-up9tCkmYNf6UxKn6VW-efA-1; Thu, 03 Sep 2026 06:32:17 -0400
-X-MC-Unique: up9tCkmYNf6UxKn6VW-efA-1
-X-Mimecast-MFC-AGG-ID: up9tCkmYNf6UxKn6VW-efA_1788431536
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-482ea386bf6so1021139f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 03:32:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788431536; x=1789036336; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=P1S4jDPBcWhcjpcEN8bURyLjdL/4D6hTstVl8KFuzFw=;
-        b=qpuOUr5bUd8lFpNtDrfNd8GD9ABYnCgP0+ukoKvuyiv+2dAWzMGXe9p7dW1N9V/zrg
-         eWXOiH249PPXneZ8sczfw0ALM42vREVhSm6mive0LiOcMIEIb39LRWU2s4mfzeHHK5Xv
-         UZAdHwuzyGSI4RwUcTX+EF0Z2a4DgyKvCz3KyZlo2EcZMf3sZP80cn96XdXQLrg9ncPy
-         QHp6/7MDMAeRYlPbYJn7FtglYVUPf0V2Od2050NzArq5nfcXHDGVP7c4U8uJJcZJksCL
-         Csn9gJd93dtjKA7Cj4J08pRRfo5QYYNGsr2l2O1kRbuOghcV078MKzeukMDK5IjjAtpd
-         fbOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788431536; x=1789036336;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=P1S4jDPBcWhcjpcEN8bURyLjdL/4D6hTstVl8KFuzFw=;
-        b=A/4jS0YNy+AulYcdMNJJXmyLousrfh3CAatlNNMFbtIZfpjryfBDUylYhF9x1PE/PO
-         45colDIErytTj8IwZ5ZzQJhsulJ4seRHIbfsyXzNo3N96e2YnoihweCARhe4cTvmgzNy
-         a9Yx8dKg3IULkrzd/utYH9h17ZILan+XfKJB/JyM5q9PiBO/q3yjMyu8SqR3bWEghnkM
-         xn+0zpY3qudMEIdX5Jvdvcud/m9qn2F0rA8MzjWMi1dTl83Jaf0Vy2kdtX87caZjsHm0
-         ya0o/grwPpDav5xbIwvVEsMK1CfXNry7U42YKyPuKsBVCmgY0JKlpbDPLosLumzBqeLU
-         7viw==
-X-Forwarded-Encrypted: i=1; AKwUvBzpT/Tk0gAKSTOgKFG5RHNYWUwdH1nOm4aA/5gGb9wsn+JAuTIEdJoABer3aSRoPcD5b068IaV2+HgLeMs=@vger.kernel.org
-X-Gm-Message-State: AFuF++m9zlq76myYzcF7tyh3uwALcBTqSY6RsomGARMlyN/J6EHDg9d7
-	TM/WCP9j+RjQi0TlM/Aw/YvS9fXSAUtH3s6tqd2lwpRtVd8f/i4w3gtmIeLvoHt13qDf7mZOz4I
-	SBpbIitwBAVQ16FYGmUOmNILE4JJUnGctXgANBdrgtbryW/d7IzFdtaOZNiGFJu1fLw==
-X-Gm-Gg: AYBFou2fD3VyIHMUXTfBVcLkOqyc+Sjhn4GGuWmV3h/1k880TYJ/x8pA6xOcTDTfgou
-	NO++oM8RUUvHyNgUEl5hqr5hteGfYEtjhdNqFpsZjv5SpnnyBqt46TIKZkn0D4y1Z7V9erRRyja
-	cJGvFyb1uFveexHPlmxAM7X5bSEXOmSQbPyCs6HmgIXN8Fg8pdqGMPPlgWgAQog53FpQNCGish6
-	POIomx2yPrFuk/uEVOVdjF6NDaoNScKz5nud4ihG/vHxo6+UFXfC0tFuI80bp0TMR8gIAW5H2nu
-	+nQbEy2W0rW5BUl/j/BmnW7FmWdk2U9e+8Gp7lmdBcSYRL/avvi8m4TdRCfrZeeZd5D9OgKmRd6
-	w+opB7rBGvuxto5eZny1gYm5bRkYfAhRnhNT5j9fpbNVQYO+TzvnmfIsj+XDEbSOaMbUlz7dOsQ
-	==
-X-Received: by 2002:a05:600c:1c29:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-49ce584c93amr189606835e9.16.1788431536336;
-        Thu, 03 Sep 2026 03:32:16 -0700 (PDT)
-X-Received: by 2002:a05:600c:1c29:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-49ce584c93amr189606265e9.16.1788431535877;
-        Thu, 03 Sep 2026 03:32:15 -0700 (PDT)
-Received: from [192.168.188.218] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce55259ecsm84231465e9.2.2026.09.03.03.32.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 03:32:13 -0700 (PDT)
-Message-ID: <0d041c08-1deb-40c3-b05a-e4657844b3a4@redhat.com>
-Date: Thu, 3 Sep 2026 12:32:12 +0200
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="KGOFzSc1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=7xyv
+	c+hzDyQkOoghz8pVOPfk8aNeYZ8rq5mea95KcSM=; b=KGOFzSc1mBTA4l09xwha
+	iMOZmpa6LjXs+wEWICouWWqEW/CZphVEAUMq2gtSUS8iEyPnP+zDlYBvOXGjJYv1
+	Fy4+phKoua+514wB/5xxodELGbJ6x+Oj/5ZAHC7xNi0TPoTW2vjcMqMN/DIDm7u7
+	CNLoAa3Z+ET3uSnlDMQCGVZPHoENVmoa18rR2a8QlE3kieR67E7wMoGpbepc+ff+
+	Pqj5Q7fVD8Tbwv6jVd85thMoyL2OcsVWLWFxzyTQC5SOQrVOpRrzffNZ7UWxhDjM
+	rLD//XBoFbtkhLIEXhjuUNhsBRZuJUGCoQa8cfRF++NmEdQr/kZ1Y2LdHEaHz4V4
+	AQ==
+Received: (qmail 1010148 invoked from network); 3 Sep 2026 12:32:52 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 3 Sep 2026 12:32:52 +0200
+X-UD-Smtp-Session: l3s3148p1@EuiWrJFaVOgujntC
+Date: Thu, 3 Sep 2026 12:32:52 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Biju <biju.das.au@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>,
+	linux-mmc@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v24 10/15] mmc: renesas_sdhi: Add write32_hook for
+ CTL_SD_CARD_CLK_CTL register writes
+Message-ID: <aplM1LLFJ4eo4YJ3@shikoro>
+References: <20260820171657.62815-1-biju.das.jz@bp.renesas.com>
+ <20260820171657.62815-11-biju.das.jz@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [net-next,v2] octeontx2-pf: Add NIXLF error and poison interrupt
- handlers
-To: netdev-bot+sashiko@kernel.org, nshettyj@marvell.com
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- naveenm@marvell.com, sgoutham@marvell.com, gakula@marvell.com,
- rkannoth@marvell.com, sbhatta@marvell.com, bbhushan2@marvell.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org
-References: <20260831062600.839203-1-nshettyj@marvell.com>
- <178842771187.3394541.7325489363068011329@kernel.org>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <178842771187.3394541.7325489363068011329@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vyt5JrzZ0I2IKlXI"
+Content-Disposition: inline
+In-Reply-To: <20260820171657.62815-11-biju.das.jz@bp.renesas.com>
 
-On 9/3/26 11:28 AM, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider:
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 1
-> 
-> - [Medium] The patch bundles undisclosed VF-side changes that the commit
->   message (subject "octeontx2-pf: Add NIXLF error and poison interrupt…
+--vyt5JrzZ0I2IKlXI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-IMHO this comment is borderline relevant, but addressing it requires a
-level of effort that would offset the benefit, as this is only for code
-archeology's sake and we already have the lore link in the changelog.
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [High] tmio_mmc_host_probe() clears write16_hook when TMIO_MMC_HAS_IDLE=
+_WAIT is not set, but fails to clear the newly added write32_hook.
+> --
+>=20
+> --- Patch [10]: [PATCH v24 10/15] mmc: renesas_sdhi: Add write32_hook for=
+ CTL_SD_CARD_CLK_CTL register writes ---
+> commit 57d55ff6257b421b4e27c4306c5ee441c02c3087
+> Author: Biju Das <biju.das.jz@bp.renesas.com>
+>=20
+> mmc: renesas_sdhi: Add write32_hook for CTL_SD_CARD_CLK_CTL register writ=
+es
+>=20
+> This patch introduces a write32_hook for the Renesas SDHI driver to wait
+> for the SD bus to become idle before 32-bit writes to the
+> CTL_SD_CARD_CLK_CTL register. Writes are skipped if the hook returns an
+> error.
+>=20
+> > diff --git a/drivers/mmc/host/renesas_sdhi_core.c b/drivers/mmc/host/re=
+nesas_sdhi_core.c
+> > --- a/drivers/mmc/host/renesas_sdhi_core.c
+> > +++ b/drivers/mmc/host/renesas_sdhi_core.c
+>=20
+> [ ... ]
+>=20
+> > @@ -1203,6 +1211,7 @@ int renesas_sdhi_probe(struct platform_device *pd=
+ev,
+> >  	}
+> > =20
+> >  	host->write16_hook =3D renesas_sdhi_write16_hook;
+> > +	host->write32_hook =3D renesas_sdhi_write32_hook;
+>=20
+> [Severity: High]
+> Should write32_hook also be conditionally cleared in tmio_mmc_host_probe()
+> when TMIO_MMC_HAS_IDLE_WAIT is missing?
+>=20
+> Looking at drivers/mmc/host/tmio_mmc_core.c:tmio_mmc_host_probe(),
+> write16_hook is actively cleared for devices without this flag:
+>=20
+>         if (!(pdata->flags & TMIO_MMC_HAS_IDLE_WAIT))
+>                 _host->write16_hook =3D NULL;
+>=20
+> If write32_hook remains set on older or fallback configurations lacking t=
+his
+> flag, polling for TMIO_STAT_SCLKDIVEN will time out after 1ms.=20
+>=20
+> The hook would then return -EBUSY, causing sd_ctrl_write32() to skip the
+> register write entirely, which ultimately fails SD controller initializat=
+ion.
 
-/P
+Please check this, too.
 
+
+--vyt5JrzZ0I2IKlXI
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqZTNQACgkQFA3kzBSg
+KbYz/w//Ygoql5hp0Ff/kU2y+OC73vExZpvK242pR83m0q23+e0SLcm3awgvwiwy
+nTNczWYoq5e5/+KRWov5XIVYeHfNXYsAiVy4cg1JSW65P2TFDLnYgbdHBEXsNp91
+fglKUrh/s2hI0zGx7wY7m7M1stZKmWTPlgqmG0rchJTbPlpvkiHeTPOWGAjTI5S0
+f3lzbj+wTKiXqXu2BUY7AzqKTkFdpRr3n5C7bvO52ixyCOVF0RtdLvdFPG97r/l8
+WATXcxwmHDZ1+t82NktojOE29JQQ8CS8/Wvv/DCur80LYHWSHvRXjJAt5tslcKav
+k/bM4ZmFe0Jz0JHKUNCs+wByKfzew7iWFbM8UbIya/D92/1gALb0G3/kdRsFy8Db
+tU1Tha9c6OT74UMSxOxIrjJiQG5VTrt27Ke1d7tR2L4/XO2kPZsZJKMJZaYdjWB7
+0Wjg8d1EfjyT5q32aI3/Ci8c6wR+imH4u8L9VpGQLYAYVUkGN2FK1cs8FknCYKmn
+3MSHFX3fSTb5RV5HZq1qO2YM7YCqlv9h2HfTHTaS46wrSSBPEF4byIMAdLBWY5bV
+EzoCGIc4BaRJ64FBndMTGzpngVXUbWO/fcWL16GRUNhrRQrBu1GEc6TbbpqsweVQ
+NFiuH21VAdEMtJv3b04t9NpJjlbcZszERp92TCxjLO7C42nGCmc=
+=3HZj
+-----END PGP SIGNATURE-----
+
+--vyt5JrzZ0I2IKlXI--
