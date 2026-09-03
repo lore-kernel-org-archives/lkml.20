@@ -1,115 +1,168 @@
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AEF5360EEE;
-	Thu,  3 Sep 2026 09:54:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3008D360EEE;
+	Thu,  3 Sep 2026 09:54:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788429261; cv=none; b=pBPO9IbPNSQk+LYGQ7k3vUH1IGqLUBHGFluuiDwnZF2YtK9muZpifH/1PEC5ERCxJuAZ0ofnJ9QjEYKglwa/Xp2dEJQ0AimshFbnGBWLrLSF3RmWiZs2fh0DWAH22SM5FFyul5OBrLX1crn/gIu31PruWw1LpXIqGxpmvswqAFw=
+	t=1788429271; cv=none; b=Ux6SYIfaLGrl+1CsRmV8p8OgaDICij05nncXOIxaMawHZu5TGDgtEtdtV1tXuwdCCgUhiwUmKgW6DNsDj5Eas/wiYRAM7y6H/rv+jFUyzVAV6fQNgtqvGJJQ56cXhCGxK1HIKtkIAaI0pqW17UnwArgh1/VqkybqVafTfHV/SHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788429261; c=relaxed/simple;
-	bh=fNcUNlfnWxPl9ohgFql4///teT3N8Pfs1Yc5cH/uBV0=;
-	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=roAjkV7uWUzWin7U4vS9LD+WCmNd/ut1lJvttxr5QEnJh9t90JkXLcLz4JBTuqGMyV6tCaG9n89GrANfYFe9MzJDwkv0c1meUypv+CBJ0NGRykxSbaK7E7HyPTUwJj6esLAu8BrithWqd8UK2X9SvhVtn9GeXoxC5DLHQnZLGBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=NBMW2MDO; arc=none smtp.client-ip=113.46.200.219
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="NBMW2MDO"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=D191mRiW4Ai2eSzoB8c9z+UK6Oit5vvaURV2uNRno4Y=;
-	b=NBMW2MDOwYACzE9UeW6rA7LydoObVxOn5hgg+ibYsXhevRrq28CEGmMFEeRNOXHmZXaCer7ez
-	Cx/1YT1AVE4fySggBLU0NXLU0Zkawlvx3NVD7drhYQ9+CpXV3MKT6V2SgfjdDjZdl/WZOxl2iJQ
-	EPsisV2AswARAIlEPj0lFHU=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4hbF5h5NVKz1prPv;
-	Thu,  3 Sep 2026 17:43:20 +0800 (CST)
-Received: from whupemk200014.china.huawei.com (unknown [7.152.185.79])
-	by mail.maildlp.com (Postfix) with ESMTPS id 176374056D;
-	Thu,  3 Sep 2026 17:54:13 +0800 (CST)
-Received: from [10.174.179.24] (10.174.179.24) by
- whupemk200014.china.huawei.com (7.152.185.79) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 3 Sep 2026 17:54:11 +0800
-Subject: Re: [PATCH v2 1/2] RAS: Fix inverted context info bounds check in ARM
- processor errors
-To: Abbott Liu <liuwenliang@huawei.com>, <tony.luck@intel.com>,
-	<bp@alien8.de>, <jic23@kernel.org>, <ardb@kernel.org>,
-	<rafael.j.wysocki@intel.com>, <mchehab+huawei@kernel.org>,
-	<luoshengwei@huawei.com>, <jason@os.amperecomputing.com>,
-	<danielf@os.amperecomputing.com>, <linux-edac@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <yangzhuohao1@huawei.com>, <douzhaolei@huawei.com>,
-	<zouyipeng@huawei.com>, <wangbing6@huawei.com>, <nixiaoming@huawei.com>
-References: <20260825134323.4181892-1-liuwenliang@huawei.com>
- <20260825134323.4181892-2-liuwenliang@huawei.com>
-From: Hanjun Guo <guohanjun@huawei.com>
-Message-ID: <001d4025-1b48-56ca-af5e-b1bda83eddf9@huawei.com>
-Date: Thu, 3 Sep 2026 17:54:10 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+	s=arc-20240116; t=1788429271; c=relaxed/simple;
+	bh=EUJoHar3fsxYOKNovivQg730mDMBg0/uZC5chqSYztQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Cm9LIy+y+Q3fNh3yUD2LCF/57j61A2YsYUZFoKjHSbtEwj0jOTcGQGWkEvr0r6Kosu2ENJtZkiCL3Lh3cdDfBN/W4VlD0DQj5MRqTQOqIjCX3/VRYVr/cji3KykGi+skGKptv34SONXE3C34yjXtNxRdj0YfWLCDk0bF9wgiw0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ECD71F000E9;
+	Thu,  3 Sep 2026 09:54:28 +0000 (UTC)
+From: Geert Uytterhoeven <geert+renesas@glider.be>
+To: Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>
+Cc: arm-scmi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>
+Subject: [PATCH] firmware: arm_scmi: Merge scmi_reset_proto_ops.name_get() and .latency_get()
+Date: Thu,  3 Sep 2026 11:54:25 +0200
+Message-ID: <77c9651a11715013c0eaa8a56dbbc7dc3d9ddeec.1788429130.git.geert+renesas@glider.be>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260825134323.4181892-2-liuwenliang@huawei.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- whupemk200014.china.huawei.com (7.152.185.79)
+Content-Transfer-Encoding: 8bit
 
-Hi Abbott,
+The SCMI reset domain protocol operations structure does not provide a
+.info_get() method, unlike most other protocols.  Instead, it provides
+two separate methods to get a domain's name and reset latency.
 
-On 2026/8/25 21:43, Abbott Liu wrote:
-> Commit 87880af2d24e ("APEI/GHES: ARM processor Error: don't go past
-> allocated memory") added bounds checks for malformed ARM processor
-> error records but contained a bug:
-> 
->    In log_arm_hw_error(), the ctx_info bounds check is inverted. The
->    condition `sz + (long)ctx_info - (long)err >= err->section_length`
->    adds ctx_info->size when the context header is already past the end
->    of the section instead of when it is within bounds. So change the
->    comparison to <=.
-> 
-> Fixes: 87880af2d24e ("APEI/GHES: ARM processor Error: don't go past allocated memory")
-> 
+Merge the .name_get() and .latency_get() methods into a single
+.info_get() method, to increase uniformity.
 
-This empty line is not needed.
+Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+---
+There are no callers of the .name_get() and .latency_get() methods.
+---
+ drivers/firmware/arm_scmi/reset.c | 36 ++++++++++---------------------
+ include/linux/scmi_protocol.h     | 13 ++++++-----
+ 2 files changed, 19 insertions(+), 30 deletions(-)
 
-> Signed-off-by: Abbott Liu <liuwenliang@huawei.com>
-> ---
->   drivers/ras/ras.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/ras/ras.c b/drivers/ras/ras.c
-> index 03df3db62334..2540538a16a8 100644
-> --- a/drivers/ras/ras.c
-> +++ b/drivers/ras/ras.c
-> @@ -74,7 +74,7 @@ void log_arm_hw_error(struct cper_sec_proc_arm *err, const u8 sev)
->   	for (n = 0; n < err->context_info_num; n++) {
->   		sz = sizeof(struct cper_arm_ctx_info);
->   
-> -		if (sz + (long)ctx_info - (long)err >= err->section_length)
-> +		if (sz + (long)ctx_info - (long)err <= err->section_length)
->   			sz += ctx_info->size;
+diff --git a/drivers/firmware/arm_scmi/reset.c b/drivers/firmware/arm_scmi/reset.c
+index 4bc5c24c2d72d398..2cdddc28ba47a2b4 100644
+--- a/drivers/firmware/arm_scmi/reset.c
++++ b/drivers/firmware/arm_scmi/reset.c
+@@ -60,8 +60,7 @@ struct scmi_reset_issued_notify_payld {
+ struct reset_dom_info {
+ 	bool async_reset;
+ 	bool reset_notify;
+-	u32 latency_us;
+-	char name[SCMI_MAX_STR_SIZE];
++	struct scmi_reset_domain_info info;
+ };
+ 
+ struct scmi_reset_info {
+@@ -134,10 +133,10 @@ scmi_reset_domain_attributes_get(const struct scmi_protocol_handle *ph,
+ 		if (pinfo->notify_reset_cmd)
+ 			dom_info->reset_notify =
+ 				SUPPORTS_NOTIFY_RESET(attributes);
+-		dom_info->latency_us = le32_to_cpu(attr->latency);
+-		if (dom_info->latency_us == U32_MAX)
+-			dom_info->latency_us = 0;
+-		strscpy(dom_info->name, attr->name, SCMI_SHORT_NAME_MAX_SIZE);
++		dom_info->info.latency_us = le32_to_cpu(attr->latency);
++		if (dom_info->info.latency_us == U32_MAX)
++			dom_info->info.latency_us = 0;
++		strscpy(dom_info->info.name, attr->name, SCMI_SHORT_NAME_MAX_SIZE);
+ 	}
+ 
+ 	ph->xops->xfer_put(ph, t);
+@@ -149,7 +148,7 @@ scmi_reset_domain_attributes_get(const struct scmi_protocol_handle *ph,
+ 	if (!ret && PROTOCOL_REV_MAJOR(ph->version) >= 0x3 &&
+ 	    SUPPORTS_EXTENDED_NAMES(attributes))
+ 		ph->hops->extended_name_get(ph, RESET_DOMAIN_NAME_GET, domain,
+-					    NULL, dom_info->name,
++					    NULL, dom_info->info.name,
+ 					    SCMI_MAX_STR_SIZE);
+ 
+ 	return ret;
+@@ -162,28 +161,16 @@ static int scmi_reset_num_domains_get(const struct scmi_protocol_handle *ph)
+ 	return pi->num_domains;
+ }
+ 
+-static const char *
+-scmi_reset_name_get(const struct scmi_protocol_handle *ph, u32 domain)
++static const struct scmi_reset_domain_info *
++scmi_reset_info_get(const struct scmi_protocol_handle *ph, u32 domain)
+ {
+ 	struct reset_dom_info *dom_info;
+ 
+ 	dom_info = scmi_reset_domain_lookup(ph, domain);
+ 	if (IS_ERR(dom_info))
+-		return "unknown";
+-
+-	return dom_info->name;
+-}
+-
+-static int scmi_reset_latency_get(const struct scmi_protocol_handle *ph,
+-				  u32 domain)
+-{
+-	struct reset_dom_info *dom_info;
+-
+-	dom_info = scmi_reset_domain_lookup(ph, domain);
+-	if (IS_ERR(dom_info))
+-		return PTR_ERR(dom_info);
++		return NULL;
+ 
+-	return dom_info->latency_us;
++	return &dom_info->info;
+ }
+ 
+ static int scmi_domain_reset(const struct scmi_protocol_handle *ph, u32 domain,
+@@ -241,8 +228,7 @@ scmi_reset_domain_deassert(const struct scmi_protocol_handle *ph, u32 domain)
+ 
+ static const struct scmi_reset_proto_ops reset_proto_ops = {
+ 	.num_domains_get = scmi_reset_num_domains_get,
+-	.name_get = scmi_reset_name_get,
+-	.latency_get = scmi_reset_latency_get,
++	.info_get = scmi_reset_info_get,
+ 	.reset = scmi_reset_domain_reset,
+ 	.assert = scmi_reset_domain_assert,
+ 	.deassert = scmi_reset_domain_deassert,
+diff --git a/include/linux/scmi_protocol.h b/include/linux/scmi_protocol.h
+index fd2d648964f68f53..06914851c4620979 100644
+--- a/include/linux/scmi_protocol.h
++++ b/include/linux/scmi_protocol.h
+@@ -528,22 +528,25 @@ struct scmi_sensor_proto_ops {
+ 			  u32 sensor_id, u32 sensor_config);
+ };
+ 
++struct scmi_reset_domain_info {
++	char name[SCMI_MAX_STR_SIZE];
++	u32 latency_us;
++};
++
+ /**
+  * struct scmi_reset_proto_ops - represents the various operations provided
+  *	by SCMI Reset Protocol
+  *
+  * @num_domains_get: get the count of reset domains provided by SCMI
+- * @name_get: gets the name of a reset domain
+- * @latency_get: gets the reset latency for the specified reset domain
++ * @info_get: gets the information of the specified reset domain
+  * @reset: resets the specified reset domain
+  * @assert: explicitly assert reset signal of the specified reset domain
+  * @deassert: explicitly deassert reset signal of the specified reset domain
+  */
+ struct scmi_reset_proto_ops {
+ 	int (*num_domains_get)(const struct scmi_protocol_handle *ph);
+-	const char *(*name_get)(const struct scmi_protocol_handle *ph,
+-				u32 domain);
+-	int (*latency_get)(const struct scmi_protocol_handle *ph, u32 domain);
++	const struct scmi_reset_domain_info __must_check *(*info_get)
++		(const struct scmi_protocol_handle *ph, u32 domain);
+ 	int (*reset)(const struct scmi_protocol_handle *ph, u32 domain);
+ 	int (*assert)(const struct scmi_protocol_handle *ph, u32 domain);
+ 	int (*deassert)(const struct scmi_protocol_handle *ph, u32 domain);
+-- 
+2.43.0
 
-sz is an int and ctx_info->size is u32, if ctx_info->size is big enough
-for example over 0x7fffffff, the sz will be negative.
-
->   
->   		ctx_info = (struct cper_arm_ctx_info *)((long)ctx_info + sz);
-
-if the sz is negative, the ctx_info may pointer to a wrong place.
-
-ctx_info->size will not over 0x7fffffff in practical but should we
-consider the overflows?
-
-Thanks
-Hanjun
-
-> 
