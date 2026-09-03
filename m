@@ -1,87 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BE984B2CDE;
-	Thu,  3 Sep 2026 14:13:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78AFB4AA01D;
+	Thu,  3 Sep 2026 14:14:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444846; cv=none; b=iJHvNUQw2zuoIVpNIA5+Lce9YGKKAUBz66rnxlHdrt7rSumFtGN0FpxqvPyHB3jFub91cVxetjcg1FLpzQdEy/jmKK1rh//OCh7fPa+TcbjZVE2zOFKzClDv+A3GsymO/zH4lMWbj9Eb8FWL+PLlZIoI08O6sVMLPrzqsi6cJfw=
+	t=1788444867; cv=none; b=XcQCZyVMzzCjlKTUl38Pefs/vuU+94rxnkIFhkEGaQaslqO0ntH9N3oXO/Lc5OMZQtyDNjuQJus3rllaDwIsXgho2VByAvst9bx0y5vnc3CPrctW6RxXXrOUpfn8d4aE3cnZAm+d3zk6jDQu6OVGbkHgGA5xtp59MY145Mw71TQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444846; c=relaxed/simple;
-	bh=6ycPb0MDs+0BC6sS5YbYZNBMPwbVziAJpVdopwJpy70=;
+	s=arc-20240116; t=1788444867; c=relaxed/simple;
+	bh=J0bvimGPAN2X30p/5wm2vkA1BzgImHC4FAJ/QZbPY/k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uyKnXaMadgRexOI8Nupteem2uBnXqRU2Tnn1jJnrtDiPoGTDKpD0ce52UIuhWC2ICZ0wgB3vsV92OtmEFgKuyPnlyQ7XM6vAJEfhYCa8EehcLCMqiiQYPhaaIiG2T0JPyoaIadknHDvJDfV6SPghkBJpg+e/v6lZ9uJd6RNeNJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gpG5mfyH; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=eBE89m7HNaj5J0i9Oh7Pz2SUIssYGD7aLxnr26s4Ui8dv1WAbA2/WbRUeCmCb/CI62ldqCR4ercRG+NmdXXIcGT64yw1hSwEiHxLbVk6Lc9Ozy0FrH8v5NqgQOv2vNkXce+DJv+/XVcUiICrZjhE6L3eoh/l+1bYS95k9wSFI2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=hQef+cIZ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=2j9ImPhK; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gpG5mfyH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A5211F00A3A;
-	Thu,  3 Sep 2026 14:13:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788444830;
-	bh=8X9GwG70UHNRj33Xkhsz17g3PyiEIZVcdUidNwrtGYA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gpG5mfyH6G7y3dW3qwtCJq/N6sA2Wh378+wkUXiHC+B58GxdCkEbH4SJ5uMPBU2Kr
-	 A7mXBWYFlJWsTak8dnr2iroIZnRwK1a2ntHKCCMF+73bsiU5WGfUMIl2NT2DrdawTz
-	 mz6s7CqKO5DvHpphXyGYkcXrRFuY9C0BdcaZMjT1qokTbYnbFMpwpecwBoKQadXxqp
-	 jVUfyLfWhMAS6jr9p0waXe3CJMwk6UQN7q1BX1dKFjTwF1rHcv6MXfsAyrE6a1Qhkv
-	 /uNi6OA1V53au6xKA7w/KOdM2QXTICKocfQatkHC0U8aLXOhNAk6dtPSNPkECbfDmc
-	 8RKw2gJX3t42g==
-Date: Thu, 3 Sep 2026 15:13:45 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Jeremy Linton <jeremy.linton@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>, Will Deacon <will@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [PATCH v9 1/7] firmware: smccc: Add an Arm SMCCC bus
-Message-ID: <20260903-pistachio-tiger-of-sufficiency-eaadcf@sudeepholla>
-References: <20260805063255.1638614-1-aneesh.kumar@kernel.org>
- <20260805063255.1638614-2-aneesh.kumar@kernel.org>
- <178794567779.4159892.8785590655735217125.b4-review@b4>
- <yq5ay0diyavw.fsf@kernel.org>
- <20260903125718.GI4157646@nvidia.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="hQef+cIZ";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="2j9ImPhK"
+Date: Thu, 3 Sep 2026 16:14:03 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788444845;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uxueduM2jdpHpFUA5itz4EXdilGmVrtEHz4rhg8u9T8=;
+	b=hQef+cIZdKQ0Q3jkwKG8zUbKIdkgj9a0EPC2xOvVUCEW2vd8qGsbwgC+RGhipC57ysg7d+
+	7XQUF5vKGQE3X9tfjbfDoR96xyML77P1wklHhxH4eyDEKaiJpFuCA1BOhpU+RIHg0JpgS7
+	NkrsQL6A2KPwSRMzaaxG0Bpl0AkHcDi+z6izxoqnyMYGjMkqD7IGuGaHiwOTWrUzS3fpsQ
+	TlpM7q6OQeQfqddPmOknixHkvaZXVOUE4haXQtPjkZqnTCmsqSzIVqEjJEC3e7XkWQEh9t
+	8Jct1HQ4dpWbGMG8h9TXZE7l3OEZFZFbj2ioZ79wGN3oSv9ZXYa0ad0vDr0yew==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788444845;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uxueduM2jdpHpFUA5itz4EXdilGmVrtEHz4rhg8u9T8=;
+	b=2j9ImPhK3/So43hE3QV25Jr9ScBylZdCxnq+KoGBJeEMIr6+2tWu7WsK5gZTkQVlKXekZQ
+	hRNHEiMXD7qAb/Cg==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Marek Szyprowski <m.szyprowski@samsung.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Chunfeng Yun <chunfeng.yun@mediatek.com>,
+	Steven Rostedt <rostedt@goodmis.org>
+Subject: Re: [PATCH] USB: mtu3: tracing: fix pointers dereferencing
+Message-ID: <20260903141403.3bNG0z7l@linutronix.de>
+References: <CGME20260804100540eucas1p24c59c891e91eeeeea8032d1c80312ea3@eucas1p2.samsung.com>
+ <20260804100531.88576-1-m.szyprowski@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260903125718.GI4157646@nvidia.com>
+In-Reply-To: <20260804100531.88576-1-m.szyprowski@samsung.com>
 
-On Thu, Sep 03, 2026 at 09:57:18AM -0300, Jason Gunthorpe wrote:
-> On Thu, Sep 03, 2026 at 02:22:51PM +0530, Aneesh Kumar K.V wrote:
+On 2026-08-04 12:05:30 [+0200], Marek Szyprowski wrote:
+> Commit b5cc230af5e5 ("tracing: Warn when an event dereferences a pointer
+> in TP_printk()") added a warning then printing an event dereferences
+> a pointer, because it might be already freed that time.
 > 
-> > I have updated the bus to match devices using func_id.
+> MTU3 driver is one of the drivers triggering this warning. Fix it by
+> storing also the DMA address in the event structure to avoid
+> dereferencing gpd_ring pointer during event printing.
 > 
-> Did you have any thoughts on how to handle ARM's versioning scheme
-> too?
-> 
-> I'm not sure what the rules are but it seems like if the major changes
-> then the API is incompatible? So shouldn't every driver advertise a
-> supported major, and the major be in the modalias and checked by match
-> too?
-> 
+> Fixes: 83374e035b62 ("usb: mtu3: add tracepoints to help debug")
+> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
 
-Just curious as how this should work with any v1.x firmwares in the wild
-once the driver updates the supported major version to say v2.0
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-Is there a way to set the supported major version in the driver via
-some module parameter that the old systems then can make use of. Just
-random thoughts/queries to understand how they all fit it eventually for
-the wild variety of f/w we need to support irrespective of what is the
-supported max major version the driver advertises.
+Just run into this, made the same fix :)
 
--- 
-Regards,
-Sudeep
+Sebastian
