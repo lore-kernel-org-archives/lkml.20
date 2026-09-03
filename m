@@ -1,47 +1,47 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE2A63B4EA9
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 21:19:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 925FA25B0B8
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 21:19:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788470376; cv=none; b=n+oMoAIs5r+xCC+pMYz6sGoMca79JzzdLIdPPgbmx/bbsg/LwsbLZU69jUQZLipZ0VyYg4zQvvr39pSpIVjFoRacuibpZgc6SzCzlEaXFW+1QvVyKd+dUvCVo/ZuiLE87qHEFK1CKJhT+2jTQFnXprWfM2yFBwormwRX4bUxYEA=
+	t=1788470374; cv=none; b=mL8P5GKExOMxPVCKtSWBOXpXLeJGbCkSrjhSniJtm3C+sUkJLt9ms6+RpuQq1Kf8VqHHLjzMuLlVt1ASYQzNV7ose+/LIlxegP8eSDKmTy+xeNTef1wDRxm1yu8WbO+UGApDel/HpP4yagB2BvA8CWLrLIBd3KwHXAqrSPVh7AA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788470376; c=relaxed/simple;
-	bh=U8QJTmdnLaqYVlpKHH/UnFiG45Vt1+yL/5DpLYVKBUc=;
+	s=arc-20240116; t=1788470374; c=relaxed/simple;
+	bh=REy89PXGUMAwBFAst7loyqllkqdZtkEQu0QGt9d0S1A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O87F7u/cGh5erDLMDh12wGemjCUX5cVy/OzARDPE6cvCwESMNQaxgKxODJqyqFwgIWU8jxEAoKqZ+AMvSIPgkPZ0Fao5yXIVz2umRNHXFem7M6+QzF8LWsImHpiGRbBQ+rdCRb/KUBHzNT7TloY4rTbc40NDqsL6jnTg24UnndI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=i9q93nM0; arc=none smtp.client-ip=170.10.129.124
+	 MIME-Version; b=uSQmjjWp6+Zl8v4WvPEBjtWc9l0l5Nzcvbu0YnsoJK9R6J2tFEfxspkWzDUQ2PlsR8Rzm0HboFrRFt9fc1Sh7INNjSXTR115dsQ6d47CJZ+TDx8xbT3Tgx/IBLG/h2+kuoTK+0wPrOkWUG/OXsh1YXFg4I13bLiFK/8GHVtjmjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PFTZo35I; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="i9q93nM0"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PFTZo35I"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788470369;
+	s=mimecast20190719; t=1788470366;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=oisNWoIp7gQlNLE50911kRCMJdf5POJVWw1vlhgc66I=;
-	b=i9q93nM0/7Bfmko9c0WITkGjZcZif+c1oktxj0UZbp+zcoHeXuDiO9C7RJikrwco9yPO0j
-	bJY1NwxBv4rozvN4ex5X2vDHhqJmiVW2jp7ijQblYofx775YEK4xbNg4vQILqfx/Mbl5c5
-	y/kufDyahSkl6PBr9sAxtpsR/mdmsJs=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+	bh=P6wdYDVz/iY+alwXjGKwrS1eyvjuEX5rquxAFWMQOOc=;
+	b=PFTZo35ISXmNDCvNu89r4fCNspgsA5j0tDCChH6GPomIGIWoWF7eDEh0KybyF80SZSpfp1
+	HAT2iNYKjJe1LvmBhf4Ioq5qRMsFU8ur54sdwNwSMvqkSDwjeBP/jySzjMxX6GriUzv+/n
+	BZ9SkdNtKlbX/g/Z7IoHL+1qPmpEOIo=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-637-qxb0LdXEOjGu7NNr3YTmzg-1; Thu,
- 03 Sep 2026 17:19:25 -0400
-X-MC-Unique: qxb0LdXEOjGu7NNr3YTmzg-1
-X-Mimecast-MFC-AGG-ID: qxb0LdXEOjGu7NNr3YTmzg_1788470364
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-647-tButmvDpNsmYRZS04qoxDQ-1; Thu,
+ 03 Sep 2026 17:19:22 -0400
+X-MC-Unique: tButmvDpNsmYRZS04qoxDQ-1
+X-Mimecast-MFC-AGG-ID: tButmvDpNsmYRZS04qoxDQ_1788470361
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B9DB1187E5CE;
-	Thu,  3 Sep 2026 21:19:23 +0000 (UTC)
-Received: from GoldenWind.redhat.com (unknown [10.22.64.12])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id AB0291955F70;
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1DD4E185FDA2;
 	Thu,  3 Sep 2026 21:19:21 +0000 (UTC)
+Received: from GoldenWind.redhat.com (unknown [10.22.64.12])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0C8DD1955F70;
+	Thu,  3 Sep 2026 21:19:18 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: dri-devel@lists.freedesktop.org,
 	virtualization@lists.linux.dev,
@@ -56,9 +56,9 @@ Cc: Christian Hergert <christian@sourceandstack.com>,
 	"Thomas Zimmermann" <tzimmermann@suse.de>,
 	"Maxime Ripard" <mripard@kernel.org>,
 	"Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH 2/2] drm/virtio: Recalculate ignore_damage_clips on every update
-Date: Thu,  3 Sep 2026 17:15:52 -0400
-Message-ID: <20260903211914.1109100-3-lyude@redhat.com>
+Subject: [PATCH 1/2] drm/virtio: preserve damage clips for rendered resources
+Date: Thu,  3 Sep 2026 17:15:51 -0400
+Message-ID: <20260903211914.1109100-2-lyude@redhat.com>
 In-Reply-To: <20260903211914.1109100-1-lyude@redhat.com>
 References: <20260903211914.1109100-1-lyude@redhat.com>
 Precedence: bulk
@@ -72,35 +72,54 @@ X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
 From: Christian Hergert <christian@sourceandstack.com>
 
-Plane state duplication preserves ignore_damage_clips. Once fbdev sets
-it for a dumb buffer, later updates using rendered resources continue to
-ignore damage because the flag is never cleared.
+virtio_gpu_plane_atomic_check() unconditionally ignores FB_DAMAGE_CLIPS
+when the framebuffer changes. This forces a full resource flush on every
+page flip when a compositor rotates through multiple framebuffers, even
+when userspace supplies accumulated per-buffer damage.
 
-Assign ignore_damage_clips on every atomic check so rendered resources
-can use supplied damage after an earlier dumb-buffer update.
+The full update is required for dumb buffers because their contents are
+uploaded per buffer. Rendered resources are already coherent on the host,
+so replacing their damage with the full plane only discards useful
+information.
+
+Restrict ignore_damage_clips to dumb buffers. This allows damage-aware
+compositors to propagate partial updates through RESOURCE_FLUSH while
+preserving the existing full-upload behavior for dumb buffers.
 
 Signed-off-by: Christian Hergert <christian@sourceandstack.com>
 Reviewed-by: Lyude Paul <lyude@redhat.com>
 Signed-off-by: Lyude Paul <lyude@redhat.com>
 ---
- drivers/gpu/drm/virtio/virtgpu_plane.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/virtio/virtgpu_plane.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
-index d9579a4b4714c..95ec688690d3a 100644
+index 1d1b27ece62a7..d9579a4b4714c 100644
 --- a/drivers/gpu/drm/virtio/virtgpu_plane.c
 +++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
-@@ -119,8 +119,8 @@ static int virtio_gpu_plane_atomic_check(struct drm_plane *plane,
- 	 * so preserve userspace's accumulated per-buffer damage for those.
+@@ -103,6 +103,7 @@ static int virtio_gpu_plane_atomic_check(struct drm_plane *plane,
+ 										 plane);
+ 	struct drm_plane_state *old_plane_state = drm_atomic_get_old_plane_state(state,
+ 										 plane);
++	struct virtio_gpu_object *bo;
+ 	bool is_cursor = plane->type == DRM_PLANE_TYPE_CURSOR;
+ 	struct drm_crtc_state *crtc_state;
+ 	int ret;
+@@ -113,9 +114,12 @@ static int virtio_gpu_plane_atomic_check(struct drm_plane *plane,
+ 	/*
+ 	 * Ignore damage clips if the framebuffer attached to the plane's state
+ 	 * has changed since the last plane update (page-flip). In this case, a
+-	 * full plane update should happen because uploads are done per-buffer.
++	 * full plane update should happen for dumb buffers because uploads are
++	 * done per-buffer. Rendered resources are already coherent on the host,
++	 * so preserve userspace's accumulated per-buffer damage for those.
  	 */
- 	bo = gem_to_virtio_gpu_obj(new_plane_state->fb->obj[0]);
--	if (old_plane_state->fb != new_plane_state->fb && bo->dumb)
--		new_plane_state->ignore_damage_clips = true;
-+	new_plane_state->ignore_damage_clips =
-+		old_plane_state->fb != new_plane_state->fb && bo->dumb;
+-	if (old_plane_state->fb != new_plane_state->fb)
++	bo = gem_to_virtio_gpu_obj(new_plane_state->fb->obj[0]);
++	if (old_plane_state->fb != new_plane_state->fb && bo->dumb)
+ 		new_plane_state->ignore_damage_clips = true;
  
  	crtc_state = drm_atomic_get_crtc_state(state,
- 					       new_plane_state->crtc);
 -- 
 2.55.0
 
