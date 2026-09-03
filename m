@@ -1,109 +1,115 @@
-Received: from mail-24425.protonmail.ch (mail-24425.protonmail.ch [109.224.244.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-80.mta0.migadu.com [91.218.175.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99FCA332EC1
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:58:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9332F39448F
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:58:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788418697; cv=none; b=axB/vNUs9uQxCXVza5CcltYWivDUvoa2crI1XDhUxZr/FM7FVgV+g/oEfYug6CKqYvD8rh9yKcREjLrPKQzHDDgxrKyub79BmiY6cjqRP3p545ZDXciCjoEdsLOmbmj4/WX5kE0lEhO5nV/g9SKEeHbIEXHmA5ybIx4HL0i+VKk=
+	t=1788418740; cv=none; b=aoXhMW7eE5C7Hc+VSUKz2tNnMFSW2WG24/2P8DmiayhXZoVxv8bBTUADvJhUwaFMvni5XPlA6t5ntkT34l5HhiwRsCiEHX70DC4/LcS3gRdn20eo6MDLYksiTQwxdyrq4xffaPGZXEGKlPUV9jmfeCLiTe0111WH47QHnbiVIsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788418697; c=relaxed/simple;
-	bh=Nqcf39p16wOhcPNfwTObS3nJ5vWSPjXa2hIkzFkQ1eI=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FGKgw9Nc7ibbCA3CBhqKYjDRHuHF62PjSNRhEbFvWi2m/ZI2lRIMz1IlxJL0yEXCeqtkQlyfa7BsFvhcUmo/nLIOip2wZANWjmhSfdBnkGBelInGdiVxoJgbqOGc1eV+gGGrbdCZn0/ajOxzsOjxKzRjo9tKcDo0eDxf4XDBtoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=Ez1tnr+Z; arc=none smtp.client-ip=109.224.244.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1788418740; c=relaxed/simple;
+	bh=o8BUeq3Tc6Gx1WZx0lieJxRX6+dzsYla4Obyg7G5q/g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PdIWR+UuDKSVKKBNVJIXvp79wKcqa1TGflJX5KGYU90yDM8xU6qCt1TCZX5foe70pLaOCIZZkYhZE2pxlM8WqJiabKVk6WBpunpPsMvBi4OPvOuncFlXDySk8cm+C8fmg0GIwl1aj3L9fRE0tYdon+4r/7mM1PrH39jddlRQcy4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OgzCsGXR; arc=none smtp.client-ip=91.218.175.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="Ez1tnr+Z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=ofgevln3gndg5pw64ndm4aaegm.protonmail; t=1788418681; x=1788677881;
-	bh=xlNfBWyxLeaZeOhAjIUuyj9Pnb/osqZGOp4mRSgnE48=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Ez1tnr+ZuDBnfVMQlsJ2SXrwbhrj6eYTjKFzw31xtzxGputQs8WXaZ5e9UYxs2+ee
-	 bPxX691wSOzwo9ps8ocuhUCZWw/nLECppdP8NKn8k0VfI4ZPbMNoZjbsP0bHoJTsc7
-	 O/gwyWBPlSOGllcpfpGJCVc7Qxxt2gpQOfhQYJO/daO3M2Ef0SJDBU0LD20TTnYSbi
-	 FtdsAxtHIPDrYdE1NLoeLz8bKtFiQ77JyAitXHmQVt4PuwjyyqsV8Ym90Ek1P3Nlqj
-	 m8OGeVubEd1Akt25BlGXWSGfjTjPsM8UVwITfeGccB4RuxYRc/y8IL2JsOQ6/QzVPL
-	 RQ1btGDEDnsJA==
-Date: Thu, 03 Sep 2026 06:57:54 +0000
-To: Thomas Zimmermann <tzimmermann@suse.de>
-From: Aditya Garg <gargaditya08@proton.me>
-Cc: Aditya Garg <aditya.garg@linux.dev>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>, Aditya Garg <gargaditya08@live.com>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH] MAINTAINERS, mailmap: use Aditya Garg's linux.dev account
-Message-ID: <txsiv43u7qv-Pc_dRDdbgiUHVP54rhl5g-xLzQU457o0E29MYkL9FX-zdozYxVySvTed10VduLizWQw3zNDJTGxTIfFLX71G3U_Kj3qnJao=@proton.me>
-In-Reply-To: <27a31a37-688d-427b-a0ba-c3133db19c97@suse.de>
-References: <20260723100136.14467-1-aditya.garg@linux.dev> <27a31a37-688d-427b-a0ba-c3133db19c97@suse.de>
-Feedback-ID: 145777226:user:proton
-X-Pm-Message-ID: bdf5f16474591009c906f0f2402f43902894299f
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OgzCsGXR"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=o8BUeq3Tc6Gx1WZx0lieJxRX6+dzsYla4Obyg7G5q/g=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788418735; v=1; x=1789023535;
+ b=OgzCsGXRz2zEtCr+NoWbRIhw6dzGOqVKT6bG7QZIcF/+vjxcIsayyLWFMwWTgWSDh7SGK0DA
+ OgNMpmaki0LdnMRTDfSCD7ukum/ZmWASUk+Zkxq2QXLaFd57Rti7udCE3Ug+Lvbpj99B6orNjcn
+ T7ZD1T381nEP+z2uRYJ9YpKM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id d042a3bd066a7172;
+	Thu, 03 Sep 2026 06:58:55 +0000
+X-Mizu-Trace-ID: d042a3bd066a7172
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <0f9653d1-2467-4e32-ae8c-d5cf7bdf92dd@linux.dev>
+Date: Thu, 3 Sep 2026 14:58:42 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] migrate: Skip hwpoisoned hugetlb folios during migration
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Mel Gorman <mel@csn.ul.ie>,
+ Andi Kleen <ak@linux.intel.com>, Muchun Song <muchun.song@linux.dev>,
+ Jun'ichi Nomura <j-nomura@ce.jp.nec.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Kaitao Cheng <chengkaitao@kylinos.cn>
+References: <20260701105544.97059-1-kaitao.cheng@linux.dev>
+ <20260902193438.232552868db3af5d54ae3fa1@linux-foundation.org>
+From: Kaitao Cheng <kaitao.cheng@linux.dev>
+In-Reply-To: <20260902193438.232552868db3af5d54ae3fa1@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi
 
->=20
-> Am 23.07.26 um 12:01 schrieb Aditya Garg:
-> > From: Aditya Garg <gargaditya08@live.com>
-> >
-> > Due to non standard IMAP and SMTP protocols by Proton Mail, the account
-> > was giving trouble. Since my linux.dev account has been approved, all
-> > communication related to Linux development shall now be done there.
-> >
-> > Signed-off-by: Aditya Garg <aditya.garg@linux.dev>
->=20
-> Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-Can someone please merge this. I am still receiving mails on my old email w=
-hich I do not use for dev work anymore.
+在 2026/9/3 10:34, Andrew Morton 写道:
+> On Wed,  1 Jul 2026 18:55:44 +0800 Kaitao Cheng <kaitao.cheng@linux.dev> wrote:
+> 
+>> Date: Wed,  1 Jul 2026 18:55:44 +0800
+> 
+> Well.
+> 
+>> Hugetlb migration does not check whether the source folio contains
+>> hwpoisoned memory before trying to move it.  After the folio is unmapped,
+>> the move path can reach hugetlbfs_migrate_folio() and then
+>> migrate_huge_page_move_mapping(), which copies the source folio into the
+>> new folio.
+>>
+>> That copy uses folio_mc_copy(), so architectures with recoverable
+>> machine-check copy support can fail the copy with -EHWPOISON.  However,
+>> there is no reason to attempt the move once the source folio is already
+>> known to contain poisoned memory.  Architectures without such copy_mc
+>> support also fall back to a normal copy, which can consume the poison.
+>>
+>> Check folio_contain_hwpoisoned_page() after locking the source hugetlb
+>> folio and fail the migration with -EHWPOISON before unmapping or copying
+>> it.  This covers both a hwpoisoned hugetlb head folio and large folios
+>> that only have the has_hwpoisoned summary flag set.
+> 
+> As always: please provide a description of the userspace-visible
+> runtime effects of the bug.
+> 
+> Even better if you can present a reproducer.
+> 
+>> Fixes: 290408d4a250 ("hugetlb: hugepage migration core")
+> 
+> Oct, 2010.  So I'm assuming this isn't super-urgent.
+> 
+> otoh, now it's out there and known about, perhaps Bad Guys can find a
+> way of triggering this, so the urgency becomes higher.
 
->=20
-> > ---
-> >   .mailmap    | 3 ++-
-> >   MAINTAINERS | 2 +-
-> >   2 files changed, 3 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/.mailmap b/.mailmap
-> > index 501d858cb..baea6ba4d 100644
-> > --- a/.mailmap
-> > +++ b/.mailmap
-> > @@ -19,7 +19,8 @@ Abhinav Kumar <quic_abhinavk@quicinc.com> <abhinavk@c=
-odeaurora.org>
-> >   Ahmad Masri <quic_amasri@quicinc.com> <amasri@codeaurora.org>
-> >   Adam Oldham <oldhamca@gmail.com>
-> >   Adam Radford <aradford@gmail.com>
-> > -Aditya Garg <gargaditya08@proton.me> <gargaditya08@live.com>
-> > +Aditya Garg <aditya.garg@linux.dev> <gargaditya08@live.com>
-> > +Aditya Garg <aditya.garg@linux.dev> <gargaditya08@proton.me>
-> >   Adriana Reus <adi.reus@gmail.com> <adriana.reus@intel.com>
-> >   Adrian Bunk <bunk@stusta.de>
-> >   Ajay Kaher <ajay.kaher@broadcom.com> <akaher@vmware.com>
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 1ab873685..f32e63428 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -7970,7 +7970,7 @@ F:=09drivers/gpu/drm/sun4i/sun8i*
-> >
-> >   DRM DRIVER FOR APPLE TOUCH BARS
-> >   M:=09Aun-Ali Zaidi <admin@kodeit.net>
-> > -M:=09Aditya Garg <gargaditya08@proton.me>
-> > +M:=09Aditya Garg <aditya.garg@linux.dev>
-> >   L:=09dri-devel@lists.freedesktop.org
-> >   S:=09Maintained
-> >   T:=09git https://gitlab.freedesktop.org/drm/misc/kernel.git
->=20
-> --
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
-> GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG N=C3=BCrnberg)
+In the subsequent discussion of the v2 patch, it became clear that the
+current fix can only narrow the race window and cannot fully resolve
+the issue. I do not currently have a complete solution in mind, so this
+issue is blocked for now.
+
+v2: https://lore.kernel.org/all/20260707090136.52904-1-kaitao.cheng@linux.dev/#t
+
+> Anyway, please consider the Sashiko report
+> (https://sashiko.dev/#/patchset/20260701105544.97059-1-kaitao.cheng@linux.dev)
+> then update the changelog with the above info.  Decide whether we
+> should cc:stable (and describe why) then resend?
+> 
+> Thanks.
+
+-- 
+Thanks
+Kaitao Cheng
 
