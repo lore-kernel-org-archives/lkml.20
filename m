@@ -1,64 +1,49 @@
-Received: from mta1.migadu.com (out-222.mta1.migadu.com [95.215.58.222])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail3-166.sinamail.sina.com.cn (mail3-166.sinamail.sina.com.cn [202.108.3.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 422062E7F20
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 03:20:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.222
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A82582749C1
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 03:21:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788405652; cv=none; b=Enboqs/UCwJAVngXlODdsMD3nW4Sac8fC4fRvgM/HwssVWGmfvrMut3z8JC5Q4Xvwf7t8DC1BcCQ8QD+tsMA/Ho+8ovSC4ouBAwo1BP9GiuxmOjCOP6qx4lMqAObKKkuWccSLd56i5mRnl3p8F4mXheoVap4AWkoz3XzZ4Z41lo=
+	t=1788405711; cv=none; b=HW5ajbgexYBzR7TRoyYa7KVWDJFpAfHAPuDiFB0dzDRKuDByO422zdxdCbxQHwGk5nBUQ+w1zj3SNfxR0r3y8XVc3ew5F6aomO7IGntbpfiL7EDWKjKpr6AscJ+OUH5HTFQRV40sbkVeQ/eom30jOm4ff1JA/VXZwBaZDhf751Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788405652; c=relaxed/simple;
-	bh=gV2iAlnyroIqHvYCikGMSiDdJzetMM/dbS3MYN3DzYc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=pRUhN1dw4UE+4Q5HrD8okX0dBmzd55qie6ZGD57KmQ/zjf94ZdJcPAp4pVPdPJsYTD5sYscA+y4xVvGtAAP4iNWqlfQxQR227+m6hmgAryzhtm5/XTNgHOGGPvMuJXx5R0aY3SpDEExf4SM2HGtylQI/VlL4aaoorUDyrZIbcXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=j76dF2sJ; arc=none smtp.client-ip=95.215.58.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788405711; c=relaxed/simple;
+	bh=S8B7iDZbCM9zmGsk43sdlTxIipSqOJMUjc4CzZcsk30=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Y3vYJmy7PVZ2yGD+xRn/cu9+h8uuFzvZQDc+O44RGtRL6soTq+Pspyk9QXvAxwwZLpFljk8Qq9b54xBhdN/pLy07zioEqyoKJ1IiooqldGpQ3rUdDQvTWc8nGvIKJbWvT4vMuMN33SYPZj5VN6RIS/vB2JiSqQ564f8xyOYmk0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=MN8YTGXA; arc=none smtp.client-ip=202.108.3.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="j76dF2sJ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=gV2iAlnyroIqHvYCikGMSiDdJzetMM/dbS3MYN3DzYc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788405648; v=1; x=1789010448;
- b=j76dF2sJAXKSqCq3t+oFQZwG7Vrk+zPxk+JPRNrYlblKR2bv4gZ4O223kIWkUAVr+wUNIu+9
- niu7mT+ZCGCAMhN3gtaD682/95Ms7OjFpdTAClFH2TZvz4aR7BQB0uuV9hWXDinGdHEvAiZAg3B
- Vg3aIyEn0a0S8pOBPU8bNRC0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0f653951e6c46c55;
-	Thu, 03 Sep 2026 03:20:48 +0000
-X-Mizu-Trace-ID: 0f653951e6c46c55
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Muchun Song <muchun.song@linux.dev>,
-	Kairui Song <kasong@tencent.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Chris Down <chris@chrisdown.name>,
-	Tejun Heo <tj@kernel.org>,
-	Yu Zhao <yuzhao@google.com>,
-	cgroups@vger.kernel.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
-	linux-mm@kvack.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
-	linux-kernel@vger.kernel.org,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Ridong Chen <chenridong@xiaomi.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] mm/mglru: fix ineffective memory protection for non-kswapd reclaim
-Date: Thu,  3 Sep 2026 11:19:52 +0800
-Message-Id: <20260903031952.1120321-3-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260903031952.1120321-1-ridong.chen@linux.dev>
-References: <20260903031952.1120321-1-ridong.chen@linux.dev>
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="MN8YTGXA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1788405707;
+	bh=rOdn3/KFG/7AMDHJCTgWP9Cm9DosmeW7Y0PaSXA8A6k=;
+	h=From:Subject:Date:Message-ID;
+	b=MN8YTGXAUgpfedqPiCpZONU1Qw+GV+g4ukDnx32BNxn33iLG1CNf2HFgjfgdBzIw6
+	 uUWqQNsZZBVjBC2I34MBxxNeLPo/R8mjkwfCKp6o8yBCnrkqtWZo7OcqC91DZ4fZpq
+	 G6RddXQQ9RIomORK1VQNIdAfRaAT6NUmDFiKliHs=
+X-SMAIL-HELO: lxu-ped-host..
+Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
+	by sina.com (10.54.253.31) with ESMTP
+	id 6A98E7BC000029B4; Thu, 3 Sep 2026 11:21:36 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 671976816075
+X-SMAIL-UIID: 6CB2EF81E8974ED0AC7423EC3188A5A2-20260903-112136-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: syzbot+832ce9fa3face1b7d44d@syzkaller.appspotmail.com
+Cc: linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [usb?] KASAN: slab-use-after-free Write in usb_free_urb
+Date: Thu,  3 Sep 2026 11:21:32 +0800
+Message-ID: <20260903032132.511309-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <6a97af8d.27a413cd.1e878c.0004.GAE@google.com>
+References: <6a97af8d.27a413cd.1e878c.0004.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,159 +52,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ridong Chen <chenridong@xiaomi.com>
+From: Edward Aadm Davis <eadavis@sina.com>
 
-For MGLRU, memory.min/low is not honored during global proactive reclaim
-(writing to the root memory.reclaim) and global direct reclaim, because
-these paths shrink memcgs using stale or effective protection (emin/elow).
-It can be reproduced as follows:
+#syz test: upstream 786262be6048
 
-  # echo 7 > /sys/kernel/mm/lru_gen/enabled
-  # cd /sys/fs/cgroup
-  # mkdir -p a/b
-  # echo 100M > a/memory.min
-  # echo +memory > a/cgroup.subtree_control
-  # echo 100M > a/b/memory.min
-  # echo $$ > a/b/cgroup.procs
-  # dd if=/dev/zero of=/tmp/testfile bs=1M count=200
-  # cat a/b/memory.current
-  222650368
-  # echo 500M > memory.reclaim
-  -bash: echo: write error: Resource temporarily unavailable
-  # cat a/b/memory.current
-  6070272
-
-memory.min is 100M, yet reclaim drops a/b down to 6M, breaking the
-protection. The traditional LRU path is not affected because
-shrink_node() calls mem_cgroup_calculate_protection() for each memcg it
-visits during a top-down tree walk.
-
-Commit 30d77b7eef01 ("mm/mglru: fix ineffective protection calculation")
-moved the protection computation into lru_gen_age_node(), which only
-runs for kswapd. Non-kswapd global reclaim reaches shrink_one() through
-lru_gen_shrink_node() -> shrink_many() without any protection
-computation, so emin/elow are whatever a previous kswapd run left behind
-- or zero if kswapd never ran on this node. Relying on a prior kswapd
-pass is not correct either: a memcg's emin/elow are derived from its
-ancestors' memory.min/low settings and from children_min_usage, both of
-which change over time, so emin/elow go stale even after kswapd has run
-and must be recomputed at the point of reclaim.
-
-Introduce mem_cgroup_calculate_protection_path() which computes emin/elow
-along the root-to-target path only, by iterating through the cgroup
-ancestors array top-down. This avoids the full tree traversal that would
-be needed with mem_cgroup_calculate_protection(), limiting the cost to
-O(depth) per memcg - typically 3-5 levels.
-
-Call it from shrink_one() for the non-kswapd path so that each memcg
-about to be shrunk has correct protection values.
-
-Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
----
- include/linux/memcontrol.h | 10 +++++++++
- mm/memcontrol.c            | 45 ++++++++++++++++++++++++++++++++++++++
- mm/vmscan.c                |  8 ++++++-
- 3 files changed, 62 insertions(+), 1 deletion(-)
-
-diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index f227348a3f24..a65a516adc66 100644
---- a/include/linux/memcontrol.h
-+++ b/include/linux/memcontrol.h
-@@ -1885,6 +1885,16 @@ static inline bool memcg_is_dying(struct mem_cgroup *memcg)
- }
- #endif /* CONFIG_MEMCG */
+diff --git a/sound/usb/caiaq/device.c b/sound/usb/caiaq/device.c
+index a16e59248480..138b58914f1c 100644
+--- a/sound/usb/caiaq/device.c
++++ b/sound/usb/caiaq/device.c
+@@ -192,8 +192,8 @@ static void usb_ep1_command_reply_dispatch (struct urb* urb)
+ 		break;
+ 	}
  
-+#if defined(CONFIG_MEMCG) && defined(CONFIG_LRU_GEN)
-+void mem_cgroup_calculate_protection_path(struct mem_cgroup *root,
-+					  struct mem_cgroup *memcg);
-+#else
-+static inline void mem_cgroup_calculate_protection_path(struct mem_cgroup *root,
-+							struct mem_cgroup *memcg)
-+{
-+}
-+#endif
-+
- #if defined(CONFIG_MEMCG) && defined(CONFIG_ZSWAP)
- bool obj_cgroup_may_zswap(struct obj_cgroup *objcg);
- void obj_cgroup_charge_zswap(struct obj_cgroup *objcg, size_t size);
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 256b68ffca70..ae568fc68813 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -5214,6 +5214,51 @@ void mem_cgroup_calculate_protection(struct mem_cgroup *root,
- 	page_counter_calculate_protection(&root->memory, &memcg->memory, recursive_protection);
+-	cdev->ep1_in_urb.actual_length = 0;
+-	ret = usb_submit_urb(&cdev->ep1_in_urb, GFP_ATOMIC);
++	cdev->ep1_in_urb->actual_length = 0;
++	ret = usb_submit_urb(cdev->ep1_in_urb, GFP_ATOMIC);
+ 	if (ret < 0)
+ 		dev_err(dev, "unable to submit urb. OOM!?\n");
+ }
+@@ -408,6 +408,8 @@ static void card_free(struct snd_card *card)
+ #endif
+ 	snd_usb_caiaq_audio_free(cdev);
+ 	usb_put_dev(cdev->chip.dev);
++	usb_free_urb(cdev->ep1_in_urb);
++	cdev->ep1_in_urb = NULL;
  }
  
-+#ifdef CONFIG_LRU_GEN
-+/**
-+ * mem_cgroup_calculate_protection_path - compute protection along a path
-+ * @root: the top ancestor of the sub-tree being checked (NULL for root_mem_cgroup)
-+ * @memcg: the target memory cgroup
-+ *
-+ * Walk the ancestor path from @root down to @memcg and compute the effective
-+ * protection at each level.  This is safe for isolated queries because it
-+ * ensures parents are computed before children.
-+ */
-+void mem_cgroup_calculate_protection_path(struct mem_cgroup *root,
-+					  struct mem_cgroup *memcg)
-+{
-+	bool recursive_protection =
-+		cgrp_dfl_root.flags & CGRP_ROOT_MEMORY_RECURSIVE_PROT;
-+	struct cgroup *cg;
-+	int root_level, i;
-+
-+	if (mem_cgroup_disabled())
-+		return;
-+
-+	if (!root)
-+		root = root_mem_cgroup;
-+
-+	if (memcg == root)
-+		return;
-+
-+	root_level = root->css.cgroup->level;
-+	cg = memcg->css.cgroup;
-+
-+	rcu_read_lock();
-+	for (i = root_level + 1; i <= cg->level; i++) {
-+		struct mem_cgroup *cur;
-+
-+		cur = mem_cgroup_from_css(cgroup_css(cg->ancestors[i],
-+						     &memory_cgrp_subsys));
-+		if (cur)
-+			page_counter_calculate_protection(&root->memory,
-+							  &cur->memory,
-+							  recursive_protection);
-+	}
-+	rcu_read_unlock();
-+}
-+#endif /* CONFIG_LRU_GEN */
-+
- static int charge_memcg(struct folio *folio, struct mem_cgroup *memcg,
- 			gfp_t gfp)
- {
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index b4c9b8f3dfe9..500cc2051d13 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -5111,7 +5111,13 @@ static int shrink_one(struct lruvec *lruvec, struct scan_control *sc)
- 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
- 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+ static int create_card(struct usb_device *usb_dev,
+@@ -457,10 +459,11 @@ static int init_card(struct snd_usb_caiaqdev *cdev)
+ 		return -EIO;
+ 	}
  
--	/* lru_gen_age_node() called mem_cgroup_calculate_protection() */
-+	/*
-+	 * For kswapd, lru_gen_age_node() has already called
-+	 * mem_cgroup_calculate_protection()
-+	 */
-+	if (!current_is_kswapd())
-+		mem_cgroup_calculate_protection_path(NULL, memcg);
-+
- 	if (mem_cgroup_below_min(NULL, memcg))
- 		return MEMCG_LRU_YOUNG;
+-	usb_init_urb(&cdev->ep1_in_urb);
++	cdev->ep1_in_urb = usb_alloc_urb(0, GFP_KERNEL);
++	usb_init_urb(cdev->ep1_in_urb);
+ 	usb_init_urb(&cdev->midi_out_urb);
  
--- 
-2.34.1
-
+-	usb_fill_bulk_urb(&cdev->ep1_in_urb, usb_dev,
++	usb_fill_bulk_urb(cdev->ep1_in_urb, usb_dev,
+ 			  usb_rcvbulkpipe(usb_dev, 0x1),
+ 			  cdev->ep1_in_buf, EP1_BUFSIZE,
+ 			  usb_ep1_command_reply_dispatch, cdev);
+@@ -471,7 +474,7 @@ static int init_card(struct snd_usb_caiaqdev *cdev)
+ 			  snd_usb_caiaq_midi_output_done, cdev);
+ 
+ 	/* sanity checks of EPs before actually submitting */
+-	if (usb_urb_ep_type_check(&cdev->ep1_in_urb) ||
++	if (usb_urb_ep_type_check(cdev->ep1_in_urb) ||
+ 	    usb_urb_ep_type_check(&cdev->midi_out_urb)) {
+ 		dev_err(dev, "invalid EPs\n");
+ 		return -EINVAL;
+@@ -480,7 +483,7 @@ static int init_card(struct snd_usb_caiaqdev *cdev)
+ 	init_waitqueue_head(&cdev->ep1_wait_queue);
+ 	init_waitqueue_head(&cdev->prepare_wait_queue);
+ 
+-	if (usb_submit_urb(&cdev->ep1_in_urb, GFP_KERNEL) != 0)
++	if (usb_submit_urb(cdev->ep1_in_urb, GFP_KERNEL) != 0)
+ 		return -EIO;
+ 
+ 	err = snd_usb_caiaq_send_command(cdev, EP1_CMD_GET_DEVICE_INFO, NULL, 0);
+@@ -530,7 +533,7 @@ static int init_card(struct snd_usb_caiaqdev *cdev)
+ 	return 0;
+ 
+  err_kill_urb:
+-	usb_kill_urb(&cdev->ep1_in_urb);
++	usb_kill_urb(cdev->ep1_in_urb);
+ 	return err;
+ }
+ 
+@@ -576,7 +579,7 @@ static void snd_disconnect(struct usb_interface *intf)
+ #endif
+ 	snd_usb_caiaq_audio_disconnect(cdev);
+ 
+-	usb_kill_urb(&cdev->ep1_in_urb);
++	usb_kill_urb(cdev->ep1_in_urb);
+ 	usb_kill_urb(&cdev->midi_out_urb);
+ 
+ 	snd_card_free_when_closed(card);
+diff --git a/sound/usb/caiaq/device.h b/sound/usb/caiaq/device.h
+index 743eb0387b5f..a5f7dada25d8 100644
+--- a/sound/usb/caiaq/device.h
++++ b/sound/usb/caiaq/device.h
+@@ -60,7 +60,7 @@ struct snd_usb_caiaq_cb_info;
+ struct snd_usb_caiaqdev {
+ 	struct snd_usb_audio chip;
+ 
+-	struct urb ep1_in_urb;
++	struct urb *ep1_in_urb;
+ 	struct urb midi_out_urb;
+ 	struct urb **data_urbs_in;
+ 	struct urb **data_urbs_out;
