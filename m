@@ -1,148 +1,131 @@
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE1B42594BD
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 00:52:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CBD526AC5;
+	Thu,  3 Sep 2026 00:56:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788396769; cv=none; b=rkleGVJLO3vQoUCOPuPfFOKQd5Uzn6fEpNiGs6ELZnh+FUtFKWA2tu2RfqExPop1r20VH3Hoka7xL29kppiT/P7Kl9FpNn9dzMtFC8CqPjMqZQn3E8JIkIJ/sMz8B5VPXUn76odez9EFtJ/ac/ZHbx6dqdKVdgEYxxm/uUUhv/Q=
+	t=1788396964; cv=none; b=ZJakPw58fpQ1Jp+bGr9g5dB94t2ejYEX+qL/2fSWvgAwWQypbrMphcXiEpfsgYgC+ZIKeq1NoPoTDAPQHcB6SRWsKjrTniPWGHql2Q0Gw9iHYNmplBCbBjmZcWaPquNV5y6Vw8km8QncmlhR0Hyea/5LBI3DoPoXOZNOuUrVQkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788396769; c=relaxed/simple;
-	bh=E1KnhYl1vseAGA2a1YjLHXlwpoHA5xlkvU5SzwMaMvs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=btkROILA4EZlGBJhgc/OmXI8KY1OE/QlKBmVSWNymNMQyTCXcE8BLYFEuRJrHrwkUgMORHivuwLaxfq3f5//TWgj+xhl+erWLtX4AJCkSR0fwb8YtANnWDg+kUb33OkudLvSqIUHx8KidXFrTAWxJfM3agKp5bJEVqv4UhDGRbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=vTDEgKQU; arc=none smtp.client-ip=209.85.160.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1788396964; c=relaxed/simple;
+	bh=qtVlNxCnVzLzBM9Vf+e2JmadYkECyr8fqlB/cwj1NvQ=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Gj87+KH1dPFxoEipFl12YkbreSqpDGMoSq/g2vlQi+I8PYJKeyM8IVxEz4MKVJMVscA4DB+u5pG2uvcDo7ZkgFbg0uyzfn8RcUIo2GOompp6Tby/Krxfe7UIhKU13NwcGCeG+elZCaYL4gm6ftfMXMJmBG4QNCu3Y+v4NLW8ATY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=norbZ+og; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="vTDEgKQU"
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-5218927884fso26884161cf.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 17:52:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1788396767; x=1789001567; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PJgfeG9OkO77dXNQBRcYGcD7KsQqp8aI0V+XoArsabk=;
-        b=vTDEgKQUkWW/MIp57nZKg0tuHgB/f5KizttIMvgJ2/wpjueRKdGLxqaefOafkMEi9m
-         y1sXxTH/V0GRguo6pWn23p2ihhmApFGzMsFmd7panq2l724unbGPjY/ylubgXZzijsbu
-         rHRxgX7erlQ1cWdtc2OH1GnNpN3HgK3nZG4ozjcLM5FwIK/srwpafXyCA19Ezni24e64
-         hqOZ01DWI/e5PdlXCzpyR6TRyMAXVD6XyXg3g88N0ZwY3JdrZZYlpkLPgP5IAsRa3Q8H
-         N22EqxYbphV6Hp8pHJBWPZfb1PYOuTcL+GrKFKj6ywO3bmK89pZmOywtJT4SkkVnAHaA
-         eU/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788396767; x=1789001567;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PJgfeG9OkO77dXNQBRcYGcD7KsQqp8aI0V+XoArsabk=;
-        b=IQBi0kJlmz+DlfMYRVV3lsQrv80w8CBdgVVqlag+1KzT1Er2HWZY0BR2no73euIhM3
-         l6cSW77sOy6BuzLe72RV1Apx0KPNk5Rw4tK0yQamft5vlLY9n0b9jwlZsC9Gd62uwDe9
-         Ml5v3bmThM6JQVm2YiQVcufp16nARLvAupmQcHdDj7o4nxMEgkE+M/zF3lZauwPJR3aw
-         vNjsg4jz8kdS86Op8DocnhR8ZKqKfsxaFE4pNNv6pzK7YmMtdeTPV6Xr0wSlSkGn62vN
-         d6vZllJZJ4DaJeUoTA6MODD2djXRkFH1FZ1xBqn5POI1izRqE5ybuorq6Qh0qW3iMtKt
-         Tg0w==
-X-Forwarded-Encrypted: i=1; AKwUvBzs1C4jc5QkE44ufkLBTa/M+WHZz6bsUOmDIS415k5ZcyVrt5krW2dU89THfs0+bZbgeArQ7hu/fAt+Vqk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nld78YwaotgKf+H1wxKk5pyV3QHi4sUNZoEDKY75aJjRGfKE+n
-	vB3FcSBRlij2AtlOcU6IHb+Suwn6jjjMs2GOKWA+3lk2dSGKiS+AxNhNENrLJCWBC8I=
-X-Gm-Gg: AYBFou3nP9LJDymhFRCDaMxZgWSDZ9oCGb3eC1oBmaFibp9sJdk2o+CvqaKPsaA8tPb
-	+mCoBc6Ks6uCkXqvnVMf/VuBKsZ9YADLnrHYDzMpN7C9Yv2g8O8lzsCweUpjJWqez3GMiU8m3Mg
-	Y6AXZgVsRURZAZcTYhuHYtq0kPVYPMh4siGJ59CNEy2EUDmmOb26EYgd88V7lIp5CK06IAxKQFV
-	6az0kD97PppkWl5yZCy/hCxwVjJ7naJJGIUMSSiAZwegGguPWg8wBz4cKUf7RCiR8L8KZLqnTiE
-	zI6JNj5bu9g7mwwSXBXGFFPa2ZijwQJJpJBxm4A3UVnIdcGgv2L8q6U6MqkFuSB809ocnvMyWTu
-	rkAtuLEpIKF+WGD3sWqtliBkknIeOClm/89KqGrAuMbZRw4/TmipTcoal5febHNAPdIkmB7SMUL
-	1uriMjNeXsmvk65ykD0ZvHLXqGifzGPWOTHeitQsh9dMvfPOWLM8xDFBO+UyFYJ4RTJuj2QU1nJ
-	OX+z/0AF176pgBiti7Jc+XNmTOb/Iy513YsOUiUPsHfD/60M1BFdH4=
-X-Received: by 2002:a05:622a:1906:b0:52d:918b:92e1 with SMTP id d75a77b69052e-53036b93351mr100930171cf.5.1788396761900;
-        Wed, 02 Sep 2026 17:52:41 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530331dc460sm31323441cf.18.2026.09.02.17.52.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 17:52:41 -0700 (PDT)
-Date: Wed, 2 Sep 2026 20:52:39 -0400
-From: Gregory Price <gourry@gourry.net>
-To: linux-mm@kvack.org
-Cc: linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kernel-team@meta.com, david@kernel.org, osalvador@suse.de, akpm@linux-foundation.org
-Subject: Re: [PATCH] mm/memory_hotplug: factor out node_is_memoryless()
-Message-ID: <apjESMmhP61ovLuu@gourry-fedora-PF4VCD3F>
-References: <20260902195507.88655-1-gourry@gourry.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="norbZ+og"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1168F1F000E9;
+	Thu,  3 Sep 2026 00:56:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788396962;
+	bh=XqHrAGcUd2P6zGJxD2gyGcw4Dr0oavq/XJn+jXJPwuo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=norbZ+ogNZ8U6sL39LN07dZ1Xh90iqTjXcGcM4iEw9w0pxz0OgittRG1cUVb8kUa8
+	 CyrS8gmOXzVwfXILdnCW1A7DjY4HFgKE49fBL/kJ6MdmJJc0RqDhaxvYlIjZDT4qhD
+	 rRV7dnmCUiaEPT22mNL4jTTzfWY5ZM20dOQV0Uh1kK7Uuld7ZpaJDFUIC8UbBfLS2T
+	 wOiTCUs1wDjSaxkdE17C/1qXxddZO0MvMwpXP7CJGnM7+WCGtgXDjyzmpKLqxP8wcF
+	 nlvzyBpguoXbM3CTYxpbNuhDfl09EgyuZZgInNi4V1Lud/Chh7PI/rubBNtYqiv8b+
+	 XrjOBYlkT03SA==
+Subject:
+ Re: [net-next,v6,1/3] dt-bindings: net: wiznet,w5100: convert to DT schema
+From: netdev-bot+sashiko@kernel.org
+To: arthur@marmottus.net
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, arnd@arndb.de, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Thu, 03 Sep 2026 00:56:01 +0000
+Message-ID: <178839696151.3394541.8695572250360907851@kernel.org>
+In-Reply-To: <20260831-wiznet-link-gpio-v6-1-abee6c5c966e@marmottus.net>
+References: <20260831-wiznet-link-gpio-v6-1-abee6c5c966e@marmottus.net>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902195507.88655-1-gourry@gourry.net>
 
-On Wed, Sep 02, 2026 at 03:55:07PM -0400, Gregory Price wrote:
-> A memoryless node neither spans present pages (populated or ZONE_DEVICE)
-> nor has an offline-but-added memory block still linked to it in sysfs.
-> 
-> try_offline_node() presently open-codes this memoryless check.
-> 
-> Pull that into a node_is_memoryless() helper and pull the existing
-> check_no_memblock_for_node_cb() helper ahead of the add/online path
-> so it's clearer what is happening here.
-> 
-> No functional change.
-> 
-> Signed-off-by: Gregory Price <gourry@gourry.net>
-> ---
->  mm/memory_hotplug.c | 60 +++++++++++++++++++++++----------------------
->  1 file changed, 31 insertions(+), 29 deletions(-)
-> 
-> diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
-> index 226ab9cb078ad..d0e94057682af 100644
-> --- a/mm/memory_hotplug.c
-> +++ b/mm/memory_hotplug.c
-> @@ -1491,6 +1491,36 @@ static int create_altmaps_and_memory_blocks(int nid, struct memory_group *group,
->  	return ret;
->  }
->  
-> +static int check_no_memblock_for_node_cb(struct memory_block *mem, void *arg)
-> +{
-> +	int nid = *(int *)arg;
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
+
+Critical: 0 · High: 0 · Medium: 0 · Low: 1
+
+- [Low] The new schema enforces one `spi-max-frequency: maximum:
+  80000000` for all three compatibles (wiznet,w5100, wiznet,w5200,…
+
+--
+
+dt-bindings: net: wiznet,w5100: convert to DT schema
+
+This converts the Wiznet w5x00 SPI Ethernet controller binding from plain
+text to a YAML DT schema, covering the wiznet,w5100, wiznet,w5200 and
+wiznet,w5500 compatibles. The old wiznet,w5x00.txt file is removed.
+
+> diff --git a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+> new file mode 100644
+> index 0000000000000..601d828bae927
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+> @@ -0,0 +1,66 @@
+
+[ ... ]
+
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - wiznet,w5100
+> +      - wiznet,w5200
+> +      - wiznet,w5500
 > +
-> +	/*
-> +	 * If a memory block belongs to multiple nodes, the stored nid is not
-> +	 * reliable. However, such blocks are always online (e.g., cannot get
-> +	 * offlined) and, therefore, are still spanned by the node.
-> +	 */
-> +	return mem->nid == nid ? -EEXIST : 0;
-> +}
+> +  interrupts:
+> +    maxItems: 1
 > +
-> +/* Caller must hold the memory hotplug lock for this check. */
-> +static bool node_is_memoryless(int nid)
-> +{
-> +	/*
-> +	 * A node still spanning pages (especially ZONE_DEVICE) is not
-> +	 * memoryless.  A node spans memory after move_pfn_range_to_zone(),
-> +	 * e.g. once a memory block has been onlined.
-> +	 */
-> +	if (node_spanned_pages(nid))
-> +		return false;
+> +  reg:
+> +    maxItems: 1
+> +
+> +  spi-max-frequency:
+> +    description:
+> +      According to the w5500 datasheet, the chip allows a maximum of 80 MHz,
+> +      however, board designs may need to limit this value.
+> +    maximum: 80000000
 
-browsing sashiko feedback:
+[Severity: Low]
+Should the 80 MHz limit be conditional on the compatible string?
 
-[Severity: High]
-This is a pre-existing issue and was not introduced by this patch, but can
-this lockless read of node_spanned_pages() race with ZONE_DEVICE memory
-hotplug?
+The description scopes the number to the w5500 datasheet, but the maximum
+applies to all three compatibles enumerated just above, including
+wiznet,w5100 and wiznet,w5200, whose SPI slave interfaces are rated lower
+(the W5100 SPI timing figures are in the tens of MHz, not 80 MHz).
 
----
+With a single top-level maximum, a device tree that clocks a wiznet,w5100
+at 80000000 passes dt_binding_check without a complaint, and the value is
+then handed straight to spi->max_speed_hz for the register accesses done by
+w5100_spi_read()/w5100_spi_write() in
+drivers/net/ethernet/wiznet/w5100-spi.c, which use a different opcode
+protocol from the w5200/w5500 ops.
 
-This seems legit and worth addressing (other notes are addressible as
-well, but this is maybe noteworthy).
+Would per-variant limits be more accurate here, for example:
 
-I actually have some old patches sandbagged that tried to marry the
-ZONE_DEVICE hotplug pattern through mm/memory_hotplug.c rather than its
-separare entry-point.  Might be worth a revisit.
+    allOf:
+      - if:
+          properties:
+            compatible:
+              contains:
+                enum:
+                  - wiznet,w5100
+        then:
+          properties:
+            spi-max-frequency:
+              maximum: <w5100 limit>
 
-I don't know that I want to predicate this particular fix on this patch
-but it's worth a think.
+Note the exact W5100 and W5200 fSCLK ratings are not derivable from the
+tree, so this is based on the schema's own statement that the number comes
+from the w5500 datasheet.
 
-~Gregory
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260831-wiznet-link-gpio-v6-0-abee6c5c966e%40marmottus.net
