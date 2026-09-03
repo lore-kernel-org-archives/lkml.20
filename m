@@ -1,151 +1,180 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011031.outbound.protection.outlook.com [52.101.52.31])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B35E2C11D9;
-	Thu,  3 Sep 2026 07:46:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.31
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788421570; cv=fail; b=tFUyPHgglqi88XDlQDKJtKm2AvsmAo/cxhOu4cHjCjpZSMOq6dr1sI0nTm7y94aZSaDtDKo7nm/bgdfYYSBqAv/P6Y/nZCm8Q2okoI5t76aAhrMy5h5I29v03lH0Y/ayozMiVhbOBBWYNGmNwj9PhtGYF8G7PTk7QEMBWDUDid0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788421570; c=relaxed/simple;
-	bh=itZuLPXbm9hPsHJ3Anfxwx+p6o7CwvTU7WQn8Gyk7v0=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=L9nV8b+nbmoJ1ge2DdDEQ4WAK1ZY/YRUy8vZUPe+tK67zxyyvK8EANvvY8jnbkifg9waiS3bI3ScTLb7TYtLFg2j4kiJHwPFDns5XNWWabjwcGyhP1cN9ZbM0H8t9/tCW3n2b/0ZnR01rY8jjCPIuS0f9qdHsjZ1zw+Zc7Uv+cA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=UATjB+qM; arc=fail smtp.client-ip=52.101.52.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B25C3C9EE9;
+	Thu,  3 Sep 2026 07:46:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788421575; cv=none; b=QEOIQaBTk/UrWcRZP2s6ELKdYjp4cNAaBPBAIy/d52YlnYZakJRzMONz6nHnDTSJ3EsLEwVDdLjD+ZgrcNdYUsKbe7QrlitAY497PWO/36EcwvCqWzu74igiUhyovbpBOoadhcBDSDP2KDdboedn5NKzjYJhav1pJoEQXR9lZ5s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788421575; c=relaxed/simple;
+	bh=TusS9N1RR7He/Kk9YZXjKMBjbTd6i5U/DANrCr8zito=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dDCrHU4uC9d0KPVW5zS2JCrA3o0coLT4io40x6ChuDP2aLGKuoZb5ktr53xW7T1PSswHivBpea8y6Q4RGSo5sDMUAnaXWUWKsv5BSkiEzFpPI3iIUufB2i9V9dv+OUzIFSpitXomtgSXtZO3ZAXaC0xYAARS62De8n43xtYGICc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=TSlU0VVE; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="UATjB+qM"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=su8Vn784Tvv1p1qI1jngkoUDF6ToZZQPbCXRREvhw3mh4eUvZnwmA7NemEV3rszmTbzlJhK7LWTAY1nPkqtS1LmByj2c1CAI5bF1CGC74lW2VVbqIqWiqV5aFLhcv70Cn9YOgHAImzfEZiP5PFKLw0smkeVgkMyBUZiAp3JfNt5cDzg3FBrTo2Ggi46rBo/YFXwgPhgMraX1Sk1WVhNqCwnk/k8HiyGVtyuaRRlAM/zPGykmhtpx4Wm+qly72iZXo/N8InFAiwhUa8N1I0b5s3w3AzsjAJZH5lsvrey7qy4AJNdUWNol+/sefX1d+5vCtkuorNnKSxa3BWCyJdZycQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NNZA/nVZOyblzz1O7eICD5g4p3+pd3k/1uq8RmatpUI=;
- b=M9xtJ9gCXQ/jMIM0ulf99WRW/D69wnluW+vYAWye+ALqWwO3y97hSwHjXLlaF4z8m/FvHFuXvk+gYeUEom6ecXjYtaaWg1O7NkmBUX+ChcoCl1PtDkOWddqGmsSjhpuaKmtcR9AnvFleWQ2VBeHsuDdKaLGzBYOqcj6boOxT8NpLPppFKerad6L29GiKnJhuLQfgjOeM0pfdAcBRQX5bBNUt2EddeFGNgRFSjYbSgrMR/okXHcvenqVXmNH/LDdrxx9IBeLIRhGDctnSvdzgqxWZ1l3GLNFZgVLCnoMcZW4SdQ6VYcIk6+TQY6udroc15mOukNWs08FFOOt0Da3uxg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=linuxfoundation.org
- smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NNZA/nVZOyblzz1O7eICD5g4p3+pd3k/1uq8RmatpUI=;
- b=UATjB+qMRetyjJMa0DLcloaOE2+vP9zsw73ZUQb17lhpGgmpT+KVmXrIk0B4XhHmU/W3BnVYHJXd3MECBYdMXguuP2LuoeHqrqk7KXJeyU7IRLMgzet7g/vDBY7/djInoLyeuiSZ7GAx9RzUBMMZeSwXEzFrCqHQHyH3JVyG2f1UzIPG5Gve0UH1NggK/YPeF/IHyQYZjE7Rq7RsaPdjG5JuTTWtl6rES7uIJeLqFQHcswGiGpZB1xAun7YBHH2q/mEuIaFfNIbWDCpYZHIA8dusjFm+EM7cJTybhITij4q7nDCSwK2TbeouooHIwY7GpZMFOuWSAYt7ChNUIchRxg==
-Received: from CH0PR13CA0035.namprd13.prod.outlook.com (2603:10b6:610:b2::10)
- by DS0PR12MB7746.namprd12.prod.outlook.com (2603:10b6:8:135::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Thu, 3 Sep
- 2026 07:46:03 +0000
-Received: from CH2PEPF0000009B.namprd02.prod.outlook.com
- (2603:10b6:610:b2:cafe::aa) by CH0PR13CA0035.outlook.office365.com
- (2603:10b6:610:b2::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.3 via Frontend Transport; Thu, 3
- Sep 2026 07:46:03 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- CH2PEPF0000009B.mail.protection.outlook.com (10.167.244.23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Thu, 3 Sep 2026 07:46:03 +0000
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
- 2026 00:45:45 -0700
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail202.nvidia.com
- (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
- 2026 00:45:44 -0700
-Received: from waynec-Precision-5760.nvidia.com (10.127.8.13) by
- mail.nvidia.com (10.129.68.7) with Microsoft SMTP Server id 15.2.2562.46 via
- Frontend Transport; Thu, 3 Sep 2026 00:45:42 -0700
-From: Wayne Chang <waynec@nvidia.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Mathias Nyman
-	<mathias.nyman@intel.com>, Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-CC: <linux-usb@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-tegra@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Wayne Chang
-	<waynec@nvidia.com>
-Subject: [PATCH V3 0/3] usb: host: xhci-tegra: Add Tegra264 XHCI support
-Date: Thu, 3 Sep 2026 15:45:36 +0800
-Message-ID: <20260903074539.613220-1-waynec@nvidia.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="TSlU0VVE"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68361ecM2239326;
+	Thu, 3 Sep 2026 07:46:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=7f2Wki
+	fVw0NguaifgmPtUXuEgHUauSvNBua3tTJ+apc=; b=TSlU0VVEOYZvXLfjWYV8Oa
+	HAVJ0k5OVz6Xe7WtELfQ65d7sEz+FNNVJ/8tXoyULUfL9rgSbcpTTqTGaf0fYbhg
+	QFjrGh7XhiIclcRsj17T9uKRluGDv8ScVcuJBg+lgFPDMsZ+vzaA+eplEuMsnTIe
+	xGxEgZ1jAbnIm3jKkSEEQynbBOPl7YXHZ8rVwNkxHqeTT1UiykVZVJVwDACJ1KYJ
+	dQSFnHw1iQP+vpNgfa34d5nwEUXej31i1sfc2JmwA7Wt5EahI3ihF5TD9YaT4wKO
+	VPDGBHY8eu6bjPmHCdfX+SIWDHGu9ANs7KQkWT64GB3CXu8D9LtZx84to/rwg3dQ
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq2tk44f-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 07:46:08 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6837fLDC028596;
+	Thu, 3 Sep 2026 07:46:07 GMT
+Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gecjaq03q-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 07:46:07 +0000 (GMT)
+Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com [10.39.53.233])
+	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6837k56s30212708
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 3 Sep 2026 07:46:06 GMT
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id CF30558054;
+	Thu,  3 Sep 2026 07:46:05 +0000 (GMT)
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 78DFC5803F;
+	Thu,  3 Sep 2026 07:46:03 +0000 (GMT)
+Received: from [9.61.240.230] (unknown [9.61.240.230])
+	by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  3 Sep 2026 07:46:03 +0000 (GMT)
+Message-ID: <b9f8c317-f919-47f2-8988-e57e22176a82@linux.ibm.com>
+Date: Thu, 3 Sep 2026 13:16:01 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-NVConfidentiality: public
+User-Agent: Mozilla Thunderbird
+Subject: Re: scsi: ibmvfc: Add Kconfig dependency on NVME_FC to prevent link
+ failure
+To: Tyrel Datwyler <tyreld@linux.ibm.com>, pavrampu <pavrampu@linux.ibm.com>
+Cc: linux-scsi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+        brking@linux.ibm.com, linux-kernel@vger.kernel.org,
+        davemarq@linux.ibm.com
+References: <327877a29337aa526cc50ac88fbddb86@linux.ibm.com>
+ <afd6fdc7-0fae-4fcf-b30a-a69294d26576@linux.ibm.com>
+ <9873559a-59df-4f4c-b653-6930636096a6@linux.ibm.com>
+Content-Language: en-GB
+From: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+In-Reply-To: <9873559a-59df-4f4c-b653-6930636096a6@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000009B:EE_|DS0PR12MB7746:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6ab82336-b252-4280-5b96-08df098f67c2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|23010399003|7416014|376014|10067099003|56012099006|11063799006|18002099003|13003099007|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	21abMLZunBWEMMU/R+DxSLoGxE4l996c1Chks87I9pQcxJrk3B7qhcmG0ZdV0AKBb3KyibVIR9WEcYTTgh3KhJKsqGAVTO1ONvvcDzhSLCzPCaLMZW8fihxwmfXYcujtpGrTfXeePFWrmvSRRVj1tX4PBjoVxz8XmH/HuMcOuf3Hbk8MbZQVaLZJBRHKL2bWh22Y9ahTjYaNOLt64q3V90Mr3ItvnfaFSOMjJCHnOkm+UshYl1PjBzadoyOXLap2jL+86D3Pek4zU7oSDmyT6NX8g/UBgj8z4B5ovQLpueYxNPMeywmuxWOEUfUjQJGMZoGB2nuhXsltyzUkyWVa5sM08D9bPzfUqqPupE08+7c9AZzGF3tQ+km0Fv524bKC8GPKjW9J+hxQTRI74lMaFqy67fILFetAOsJscAi6f/F2ivsR2Cp6OCnbO7tFS7WZ3ZG7rtRiOa8a3z1XPA532GAz9/dObYIA0U4t23Y7Tx4rdowgw2AUVkML2LageVVJ/MJ4/rGjhxjLfcCDH3M0k3FnMbPBFRPHnx0B+inixifGVxa+56KlEnJ0NUtVDe647JU4mwUBVV6P1Ku2HmX3JBtuWbzR/M6y4vca9+Lnk2sxec/Um7bunnYhdeuObsfrfGNnaQ32HTh1DdBd47mBoBaekp1U1+JWVOkdd996STgKiaGSXFyyhfG/aK7ZIN6DMeMf3fi3cy3+5EbFXyc7yA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(23010399003)(7416014)(376014)(10067099003)(56012099006)(11063799006)(18002099003)(13003099007)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	mmZssloMFoWz2iOiRHBGmmECVKjNEJArlO2E8Ot4+wvt2yLneQYpO1RH6BkJaCFUgb/0OHasnEmszbNLFl5wIVj8W/RwgI3BzEpNuOfgy1mo4yurYwewo7NWQHXpKdH7fv/X4xtqHvIybeRdQU77Lbybuz+J3DsWE7s9ZpfEW5Y1LXK4qFKbn7euZZ1baJ4kulDyx2qf5JUZRQvzah3GZksj2yZkoxL58TOz6y7LDC59R3yiKqi+LCADMxVg/IbDUfkW0lvtznxi6N6wNWyBt3er6nu4pwWifjYonL6TJ4pnAGUq9Lh897OCWu3KZ0MO1MIP8mMvjV0AkN80csInI8sCd5iS2x2g60YF2EMNB15aUYAkQyLBNOw7o7rQ0gs4eYynPFpd2JAp1cwArPNhZ1AGMsxHTtYSkm8S661K2rs/34rE9aFv39YcBgUiyv17
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 07:46:03.4030
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ab82336-b252-4280-5b96-08df098f67c2
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF0000009B.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7746
-
-Add Tegra264 support to the Tegra XUSB host (xhci-tegra) driver and
-its binding, as part of enabling USB host functions on the Tegra264
-Jetson AGX Thor platform.
-
-This series was previously posted as part of a single 8-patch series
-covering phy, USB host and arm64 DTS changes together [1]. Per review
-feedback, it has been split by subsystem so each maintainer can pick
-up only what belongs to their tree:
-
-- usb: host: xhci-tegra + its dt-bindings/usb: this series
-- phy: tegra: xusb + its dt-bindings/phy: separate series [2], sent
-  ahead of this one
-- arm64: tegra DTS enablement: separate series, to be sent once the
-  binding patches from this series and [2] have landed, since it
-  depends on both
-
-Patch 1/3 (dt-bindings: usb) also addresses Krzysztof's V2 review
-comments: the iommus entries are now listed individually, and Tegra264
-gets its own allOf conditional pinning interrupts to 10 and iommus to 5,
-instead of inheriting Tegra234's wider top-level bounds unconstrained.
-
-[1] https://lore.kernel.org/linux-tegra/20260831185835.3732707-1-waynec@nvidia.com/
-[2] https://lore.kernel.org/linux-tegra/20260903071937.533646-1-waynec@nvidia.com/
-
-Wayne Chang (3):
-  dt-bindings: usb: Add Tegra264 XUSB host support
-  usb: host: xhci-tegra: Skip MBOX MSG_ENABLED on Tegra264
-  usb: host: xhci-tegra: Add Tegra264 XHCI support
-
- .../bindings/usb/nvidia,tegra234-xusb.yaml    | 52 ++++++++++++++++++++---
- drivers/usb/host/xhci-tegra.c                 | 37 ++++++++++++++++
- 2 files changed, 84 insertions(+), 5 deletions(-)
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=bc1bluPB c=1 sm=1 tr=0 ts=6a9925c0 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=gCSP5jI7dXej6UQmhssA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA2NiBTYWx0ZWRfX9jLg9A4OksDW
+ XLvMiPP3ON5x+lQ2s4+SG9wYnSQZyXphFPQYG8ZGaQMtpBxGQahEfM8eV39SYlg/l4cLj5kPvbw
+ 6wrizuOvcRq1BTSESrCFnckZQ3tGSJI=
+X-Proofpoint-ORIG-GUID: rLt_s67DKpB8sDS9buZinlg1K1nrPOmZ
+X-Proofpoint-GUID: rLt_s67DKpB8sDS9buZinlg1K1nrPOmZ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA2NiBTYWx0ZWRfX+Pg0Dmh3W035
+ /O4BFQ2PBsHDaNJ6Vs/rvt83WF9Y40i8yRDEjRrWg9jLsqqyFV9xCACSaDNYM6lFOGdso0kS90I
+ AN/5KOgafIVvWNYxfm9/QOWQ+Uyw9HBW5KQ5IpFshQgLbf5mdiPLJMet2bXZT6pmJF1wSQHqbhx
+ pmRiRGY+kVR44jhD/eO+F9ByqweQczD2iV8njE65nXReE5cuNlT5hJnj/Mug9wiwGehSQDKdtYK
+ p2V73G+PULTk3ugnWCuW1feLiHgwtCEWWDqRSwYYXZwv1QPzhv2tjIyxcSEKvtC4TkxDIvX8NVU
+ E9N0GvL5J+eTcUHf89GPYHVLRLqAQVociBqvVRiqfXZ7bHNEqM1awR2w7YGSFattxKuc6RNFPI/
+ 6i6FAQZHpwnA7mVWkV1DdRpxQNnOTFACfe8TA1z6JScQ7I6qFFSWFg9kXiLfDCNXiZCUPQO5x6n
+ TULLHzmYpj77PpcDcyQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_02,2026-09-02_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0 adultscore=0 malwarescore=0 spamscore=0
+ lowpriorityscore=0 phishscore=0 clxscore=1015 priorityscore=1501
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609030066
 
 
-base-commit: 940de590b839f71d6dc846160534bf202401b8b7
---
-2.25.1
+On 03/09/26 6:57 am, Tyrel Datwyler wrote:
+> On 9/2/26 1:40 AM, Venkat Rao Bagalkote wrote:
+>> On 02/09/26 1:55 pm, pavrampu wrote:
+>>> Hi,
+>>>
+>>> I am seeing below build failure with latest linux-next repo.
+>>>
+>>> Description:
+>>>
+>>> Building the kernel with CONFIG_SCSI_IBMVFC=y and CONFIG_NVME_FC=m results in
+>>> a link failure when building vmlinux:
+>>>
+>>> Build failure logs:
+>>>
+>>> ld: drivers/scsi/ibmvscsi/ibmvfc-nvme.o: in function
+>>> `ibmvfc_nvme_register_remoteport':
+>>> ibmvfc-nvme.c:488: undefined reference to `nvme_fc_register_remoteport'
+>>> ld: drivers/scsi/ibmvscsi/ibmvfc-nvme.o: in function
+>>> `ibmvfc_nvme_unregister_remoteport':
+>>> ibmvfc-nvme.c:515: undefined reference to `nvme_fc_unregister_remoteport'
+>>> ld: drivers/scsi/ibmvscsi/ibmvfc-nvme.o: in function `ibmvfc_nvme_register':
+>>> ibmvfc-nvme.c:536: undefined reference to `nvme_fc_register_localport'
+>>> ld: drivers/scsi/ibmvscsi/ibmvfc-nvme.o: in function `ibmvfc_nvme_unregister':
+>>> ibmvfc-nvme.c:565: undefined reference to `nvme_fc_unregister_localport'
+>>> ld: drivers/scsi/ibmvscsi/ibmvfc-nvme.o: in function `ibmvfc_nvme_unregister':
+>>> ibmvfc-nvme.c:565: undefined reference to `nvme_fc_unregister_localport'
+>>> ld: drivers/scsi/ibmvscsi/ibmvfc-core.c:6798: undefined reference to
+>>> `nvme_fc_rescan_remoteport'
+>>
+>> Below simple check in Kconfig fixes the build failure.
+>>
+>> If this is acceptable, then I will send a formal patch.
+> Yep, need to force ibmvfc to be a module when NVME_FC isn't builtin, or NVME_FC
+> must be disabled.
 
+
+Thank you for confirming.
+
+Link to Patch: 
+https://lore.kernel.org/all/20260903074329.6705-1-venkat88@linux.ibm.com/
+
+
+Regards,
+
+Venkat.
+
+>
+> -Tyrel
+>> # git diff
+>> diff --git a/drivers/scsi/Kconfig b/drivers/scsi/Kconfig
+>> index 4a2af0f702e1..6612d5d445e2 100644
+>> --- a/drivers/scsi/Kconfig
+>> +++ b/drivers/scsi/Kconfig
+>> @@ -753,6 +753,7 @@ config SCSI_IBMVFC
+>>          tristate "IBM Virtual FC support"
+>>          depends on PPC_PSERIES && SCSI
+>>          depends on SCSI_FC_ATTRS
+>> +      depends on NVME_FC || NVME_FC=n
+>>          help
+>>            This is the IBM POWER Virtual FC Client
+>>
+>>
+>> Regards,
+>>
+>> Venkat.
+>>
+>>> If you happen to fix this, please add below tag.
+>>>
+>>> Reported-by: Pavithra <pavrampu@linux.ibm.com>
+>>>
+>>> Thanks,
+>>> Pavithra
