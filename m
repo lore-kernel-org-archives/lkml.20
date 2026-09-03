@@ -1,171 +1,198 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99AF542A7A8
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:35:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788431724; cv=pass; b=Ta0ROeNKmBN3iYIqOzipGZosMn2QJefwWSQ8oLGxaKgXgzr2QBnCz7T0FYDOHGdBpSUDiWBvlvmB9ujbQd+bjuAYzb65TnM1i6uipbCKH0CNUi1R/N77x42UigdbgBpTDEfktGirgoZWQgqhcyxoO5I78hKUCv7m1ur17WtqLqw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788431724; c=relaxed/simple;
-	bh=/zyYtEZmFhhQgOsgXNLJ+e0A/ltm9fi9IENg+VYRnRo=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 640143B42F6
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:35:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788431745; cv=none; b=OPPlTLWYP/60Tgtu+TaAX3tcjucNO9FMD3jV5J2T5sqdnPL5joXVVZ+Zg+MtjhCJsskBsR2O6aU6r+nXk/1iat2VwBpi0jAr3+2I8+Yz+X3PFJiXfX/bd4Z9Bi8bbYokij4AKCKznaBfDUOH9N6TJ8L+kBnqJz+ot+ECpcdLCZg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788431745; c=relaxed/simple;
+	bh=ZePdFWReb/TXc0/dLbi31llGXB2xvKwF/KGOjRhd1vE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=olW1tXcpWQ4GilAwiNkfwykx+lu8o9muEU0hTIK8aqwFb+rWrBakh8H3UzzQMYBICRPsqPW/6dibvo3iG9URmrFOIM6krfUQS0yQJaOD3wHjXWHa35/+wtbAkh8FjgAHg2jsaDqCeWw4WyayE/WlLJ4q2Y/hxMkBFRWM6BPNcrs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lE/ZWT5v; arc=pass smtp.client-ip=209.85.215.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 To:Cc:Content-Type; b=TjrxF5F1Wsrob+xhtFSmHoP6uI4JRCuLLcNiZ83Y1vhE6AnLmMGwPUDY8XLjCvsEqj/EYz7AgBNuqNtOE2ENqFPX+YYV9doBV+4o2NAoavGe8ozKXxkN/oT2IG2tUhuw7PTJ5bvFB2PvuMNpTr+RHYCTdAOl9LLocDwsZMpjAig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KcIHOY71; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lE/ZWT5v"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-c9e7391839cso2322191a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 03:35:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788431712; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PTVbcktg6pBqTRxf31oph5VRcu6f96JsC1L4QxEYyNc16op1GrHvyVVe+3h08GSFGL
-         YtnwTcsbw2Wlb3TMDABRClXSBgTGydgVTkVQVxE7zLMNDDtxrvXDhPkAB6QZr7GVbbWF
-         t9EeV2gF2tI2dS0Q5oFpYgb6nE4bLyN3f6HoM+ZgvqgZLJbj8NVxtCqGaBmbAVNTL2MY
-         ByFScpiz+q5OCK/TtDsYPk00ysy4TZ5myR3Gg4blj4CAdSDSOZ6DcsSvgotfh4DQkQ+z
-         hXgTmJFWoUUrm2gwORy7I4iZfU+pxtiFpsfWQb7HQ3uR04vxbK0z044iNhc5HPiwaRTN
-         y9wA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=A1wiUzfIxqJZYxMHbVMwIllXO/kuz3RAjcv5fqZ/QkY=;
-        fh=Z5ne2N+VC6cuZqK1dymMqW8LPRSFpD5lq+Acqdf07nk=;
-        b=nYlUTYqLwAO++g7DFyS5zGqcHQkXxkbzcUR24vf6zZ3RncX7TcLupfavKjyfD1FJMM
-         fVMBhuvQNtesP6f1GtxOfl3odteQfSfbURFrjRkNaWbA2oYcrgOD0t30ZJkUW4ZeYMib
-         9nZUgMjlEaPzLrN+H6qVCF9009posT9Wj2YqBEeAO+uMptB8Uscq1tVho7FfQmwy2tz1
-         /IV4V5/w629Wa2OPZPkZvPJdXStM+CwDKDxGsxrtW6mSFoEHpcxXiiwgVQtFxaRGB4bR
-         PEYe0m/PwDt8V8c/hbWATcKT3nzG3bCoyAYOlZ8Vu/w8Za0BZXh8KiSX9bEXvQQWB8EL
-         wE3w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788431712; x=1789036512; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=A1wiUzfIxqJZYxMHbVMwIllXO/kuz3RAjcv5fqZ/QkY=;
-        b=lE/ZWT5vVhGhIftgyHocZbvleVWCk6i8HMIpDwRkqRHYL2WYH4ywyqPSkj8CCVZrEo
-         qM6ZAjznBnVQsfHyIKm9r4maGVGzZLcXsKUX7Fhmoh2HSXJIc24PLWQRsJxXcknuPrT+
-         krvl/QQQuFF+mA+BnnRgMA9OR/HbpkR6WIWHOPcFs4Mq9PPOQLNsbWL1snwKuuiNLDpw
-         PO4W/Phcd/vuevy3m7l/mRhQwBGXrZeHrK+P9fcOr2eRMjFHm7rODhcBoeTaiKG6D2g1
-         o/CBPQuJcaxhNMCi+JSyj/2RTqTam9akqVkwRUBUxu3dh7QHimyL4fSpwo1Xl6fBfc15
-         Noyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788431712; x=1789036512;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=A1wiUzfIxqJZYxMHbVMwIllXO/kuz3RAjcv5fqZ/QkY=;
-        b=ORgiGy6s23HfRp+u/XZYwKMsaGvPDgOhTA2E8F9aD8FQPr8kdrgPZYuQB5EPCMQOLJ
-         FY298apOy2TDHG6xelWoOAokUi2nNZdgyMM9qXC4llYRgRXxjub+p7r7IOPioro9rSMM
-         XQWU7CMQJWwIGwx7XpLGKy6M6mYJRP4QKqiMqHYEuWihfZ0MXkw3kFSGZyxNYOPc45bs
-         0Fe1UiyDAH8xPUFMSkoZktT1vVsdkYhKVlhvlbkYFn3t2nXDAHmlYPmvCwbl8/tJvB5N
-         /fXQ+BabRhGev8fGGyMGVbXRrCthVdvmwsdxfKLIo6tbvSIhC+fsL0jTSssC6yuHLQFe
-         bcng==
-X-Forwarded-Encrypted: i=1; AKwUvBybhc53O6aMt1dYdUXZp8fBfo2a4N1lOZunfTGRpxQOa82k/RXK3qXcH3h9cR1D3AkTlNKszyVSuyHnV0I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lAWCbQ4+8CrX9322zWixx7FZosseF3/jnSk90rTQ1TiAtDcoIo
-	ws6EdU4HrIZ5MHne+F/OYkw6sOsB+yWwvTvA8r9R5tIyvF5UgdIsjriUZ+TPRpVBg2bvX8+kHbx
-	DbQivZJp3EiTMn0wv2iXH9+dr+ZqZOnY4hS43hgJckQ46Kjey44AJ403bFeg=
-X-Gm-Gg: AYBFou1MPXbhaA1aWu0uIFv9w6YAZq/MJ9gBEzxuLeOl7CvjW8vfPSvZ/eXT69wUFAE
-	KjeMZF110YxoNeX/QYVjeCpoO6jCqwVRW/SApeztl/i6y4g+gfg+a+07dLfk9BYPjvWUbjSZQNj
-	+nOPILTroMnKsbwBGyyw9sfRPJIGQgxsNWkRqaYY0YjigDlNCXVNZuWpAFUkqUodPuUSwkuf73G
-	cL4A136658RHbVaqhNQZHKhewoo/79JTVLLJyCrNxPI8rRWk2GWMKNbsj/+fMv45M9iKfv1gdI1
-	Swc3FdWLVB594fxB5X45dasuQ+HtXcc1xlS5Z/Juk7cDYz2B+sm5yO7QJcynTXbRw5KnRNm7E+O
-	P
-X-Received: by 2002:a17:90b:2785:b0:398:9be5:b41e with SMTP id
- 98e67ed59e1d1-39aee285570mr19268361a91.25.1788431711616; Thu, 03 Sep 2026
- 03:35:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KcIHOY71"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41DDE1F00A3A
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:35:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788431736;
+	bh=2DmMIO1ElFEdHdnzG6JsJd7rREUzvxjOyIHl3mgXY84=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=KcIHOY71Lxm7IiSLojJ3tzy5vSnMyc/vEN7u45R8OQ6GgGW6KGz8tY0EbyuTf0vep
+	 U4mNC5XFHcNyIoAX7RJpC/SBujvNO7tSlvt1wiGJYr0sG7303SuSXRQrUE4WpZbTcx
+	 fbrKrtgw4+QcI669G1dmAT06QY/kV/VDUaZV205d/TAAqy+lGoZiH5HgGaZ9YPfxR4
+	 En5GD8AVnHxo5g6Ofzp1fNTdzcNIKSmteAlelZ/Qff5JdaxridZq9wD90el8z2+FTo
+	 jJTmCFYklnC7TIissR0+niRjAaasRqMxnKZD7CcVHTpmrVsag3QHvGUkYVNyWB0B6H
+	 WkGrutyiCKFTw==
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-90cd43bd740so22602356d6.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 03:35:36 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwc1ABZCAdGPcOnIGnYBB33DDM0HtIOnUJZ24RyyK5DNOBkrCerVfHI4tn5Bxhf1/308DT9I7fyxmqVJzo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lc5PiOITXjMzMj69ZiIEXHqLymvokArRzjIm68Bm7rmHzNm7xj
+	cJWwZd8urfLcfm6xxcV7JsEaRhHapgEbfpVkDOdbGkxgDfpv63Sjzde6MyZ5qBx0/mo8WQA20gy
+	WQHIa732WUvR9QRhTgPv9qHluZPTEJ10=
+X-Received: by 2002:a05:622a:1452:b0:51c:1132:c80d with SMTP id
+ d75a77b69052e-53036d20556mr117183501cf.28.1788431735642; Thu, 03 Sep 2026
+ 03:35:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260811160336.782342-1-timday@thelustrecollective.com>
- <xiymqvu5la6h63umrp6upnzbl3xjjcacuyxg76xp4labnrioyj@xowfpjlhfrzh> <20260903072759.GA1750084@ax162>
-In-Reply-To: <20260903072759.GA1750084@ax162>
-From: Marco Elver <elver@google.com>
-Date: Thu, 3 Sep 2026 12:34:34 +0200
-X-Gm-Features: AcwNN1UBcaXn6RBIaclwnjVOGuTZ1dRp4jV_o2Hi5QwVrPsWTxTE-agnX7TT9dM
-Message-ID: <CANpmjNNWiX51UU064+P823sDX42=O6ChSHrUux1aNqLj60mfUg@mail.gmail.com>
-Subject: Re: [PATCH v2 0/8] Support Clang context analysis for ext2
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Jan Kara <jack@suse.cz>, Timothy Day <timday@thelustrecollective.com>, 
-	linux-ext4@vger.kernel.org, Jan Kara <jack@suse.com>, Theodore Tso <tytso@mit.edu>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260903040131.4016290-1-zhangbo56@xiaomi.com>
+In-Reply-To: <20260903040131.4016290-1-zhangbo56@xiaomi.com>
+From: Barry Song <baohua@kernel.org>
+Date: Thu, 3 Sep 2026 18:35:24 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4z+SgetmjVD8bcOFisKNd9CFqe6kNcYcFtVd-PijYJ04Q@mail.gmail.com>
+X-Gm-Features: AcwNN1Ux8M4d6A_TmjKucxqe-u61smpIYGpG5JYtI1eeT8wYBXmf61kss7VaqpQ
+Message-ID: <CAGsJ_4z+SgetmjVD8bcOFisKNd9CFqe6kNcYcFtVd-PijYJ04Q@mail.gmail.com>
+Subject: Re: [RFC PATCH] mm: vmscan: avoid anon scanning for GFP_NOIO with low swapcache
+To: Bo Zhang <zhangbo0325@gmail.com>
+Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, kasong@tencent.com, 
+	qi.zheng@linux.dev, shakeel.butt@linux.dev, david@kernel.org, 
+	mhocko@kernel.org, ljs@kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Bo Zhang <zhangbo56@xiaomi.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 3 Sept 2026 at 09:28, Nathan Chancellor <nathan@kernel.org> wrote:
-> On Tue, Aug 18, 2026 at 11:58:20AM +0200, Jan Kara wrote:
-> > On Tue 11-08-26 12:03:28, Timothy Day wrote:
-> > > This description is mostly copied from v1:
-> > >
-> > > This series adds annotations for Clang's context analysis to ext2.
-> > > Clang context analysis was recently added in a series by Marco
-> > > Elver [1]. This allows the compiler to validate different
-> > > locking patterns at compile time.
-> > >
-> > > This series enables context analysis, fixes pre-existing warnings,
-> > > and adds new annotations. It is inspired by similar series in the
-> > > block layer (NVMe host driver, for example [2]).
-> > >
-> > > I'm starting with ext2 since it's smaller and simpler compared to
-> > > ext4/btrfs/etc. After ext2, I'd be interested in converting the
-> > > other filesystems and infrastructure code in fs/. I think the ultimate
-> > > goal would be to enable this by default across all of fs/.
-> > >
-> > > The series was built and tested with Clang 23 with
-> > > CONFIG_WARN_CONTEXT_ANALYSIS enabled. I based on 7.2-rc7.
-> >
-> > Thanks for the patches! They look good to me. Once the merge window is over
-> > I'll queue them to my tree. The only thing I'm not fully sure is how much I
-> > like the spinlock_init scoped guards - they looked quite confusing to me at
-> > the first sight (as much as I understand the convenience, conceptually how
-> > can initialization of a global lock be scoped?). I'll sleep over it, maybe
-> > I'll change them to just spinlock_init() + scoped_guard for the lock itself
-> > or maybe I'll get used to them. Anyway, no action on your side needed :).
+On Thu, Sep 3, 2026 at 12:02=E2=80=AFPM Bo Zhang <zhangbo0325@gmail.com> wr=
+ote:
 >
-> This series is now in -next, where I see the following warnings (or errors with
-> CONFIG_WERROR=y / W=e) with various configurations, such as ARCH=arm
-> allmodconfig, when building with LLVM 23.1.0
+> We have observed some cases where memory is allocated with GFP_NOIO, so
+> we cannot reclaim any anon folios unless they are in swapcache. We can
+> end up spending more than 150 ms looping in `shrink_folio_list()` scannin=
+g
+> non-swapcache folios without reclaiming a single folio. This is pure
+> overhead.
 >
->   fs/ext2/xattr.c:825:6: error: rw_semaphore 'EXT2_I().xattr_sem' is not held on every path through here [-Werror,-Wthread-safety-analysis]
->     825 |         if (WARN_ON_ONCE(!down_write_trylock(&EXT2_I(inode)->xattr_sem)))
->         |             ^
->   include/asm-generic/bug.h:180:2: note: expanded from macro 'WARN_ON_ONCE'
->     180 |         DO_ONCE_LITE_IF(condition, WARN_ON, 1)
->         |         ^
->   include/linux/once_lite.h:30:7: note: expanded from macro 'DO_ONCE_LITE_IF'
->      30 |                 if (__ONCE_LITE_IF(__ret_do_once))                      \
->         |                     ^
->   include/linux/once_lite.h:23:3: note: expanded from macro '__ONCE_LITE_IF'
->      23 |                 unlikely(__ret_once);                                   \
->         |                 ^
->   include/linux/compiler.h:77:22: note: expanded from macro 'unlikely'
->      77 | # define unlikely(x)    __builtin_expect(!!(x), 0)
->         |                         ^
->   fs/ext2/xattr.c:825:20: note: rw_semaphore acquired here
->     825 |         if (WARN_ON_ONCE(!down_write_trylock(&EXT2_I(inode)->xattr_sem)))
->         |                           ^
 
-This one can be fixed with (should also be a bit more efficient):
-https://lore.kernel.org/all/20260903101843.3462767-1-elver@google.com/
+Yes. The coexistence of `GFP_NOIO` and anon rmap scanning seems
+nasty. We might also want to do something like the following, but
+the side effect is that it might keep a folio while preserving its
+PTE young state, indirectly making the folio semantically hotter.
+So this may not be a good option. Skipping anon scanning in the first
+place seems more sensible.
 
->   fs/ext2/super.c:1149:3: error: calling function 'ext2_rsv_window_add' requires holding spinlock 'EXT2_SB(sb).s_rsv_window_lock' exclusively [-Werror,-Wthread-safety-precise]
->    1149 |                 ext2_rsv_window_add(sb, &sbi->s_rsv_window_head);
->         |                 ^
->   fs/ext2/super.c:1149:3: note: found near match '_res->s_rsv_window_lock'
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index ba7adf36e69f..f15aa3573030 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -1248,6 +1248,19 @@ static unsigned int shrink_folio_list(struct
+list_head *folio_list,
+                        }
+                }
 
-sbi was just allocated, and EXT2_SB(sb) and sbi are pointing to the
-same object (unless I misread the code), but the compiler can't tell
-since aliases can't be tracked through non-local objects. So that
-scoped_guard could just become:
++               /*
++                * Don't waste time doing rmap and scanning PTE access for
++                * non-reclaimable folios.
++                */
++               if (!do_demote_pass && folio_test_anon(folio) &&
++                   folio_test_swapbacked(folio) &&
++                   !folio_test_swapcache(folio)) {
++                       if (!(sc->gfp_mask & __GFP_IO))
++                               goto keep_locked;
++                       if (folio_maybe_dma_pinned(folio))
++                               goto keep_locked;
++               }
++
+                if (!ignore_references)
+                        references =3D folio_check_references(folio, sc);
 
-  scoped_guard(spinlock, &EXT2_SB(sb)->s_rsv_window_lock) {
-  ...
+@@ -1281,10 +1294,6 @@ static unsigned int shrink_folio_list(struct
+list_head *folio_list,
+                                !folio_test_swapcache(folio)) {
+                        int ret;
 
-But I'll leave that to Jan and Tim.
+-                       if (!(sc->gfp_mask & __GFP_IO))
+-                               goto keep_locked;
+-                       if (folio_maybe_dma_pinned(folio))
+-                               goto keep_locked;
+                        if (folio_test_large(folio)) {
+                                /* cannot split folio, skip it */
+                                if (folio_expected_ref_count(folio) !=3D
 
-Thanks,
--- Marco
+> This is particularly true on systems using zRAM, where swapcache is
+> relatively rare. So let's check whether anon reclaim is allowed by
+> GFP_IO and whether there is enough swapcache to make it worthwhile. If
+> the swapcache is extremely low, we're essentially searching for a
+> needle in a haystack, so let's avoid scanning anon in the first place.
+>
+> Signed-off-by: Bo Zhang <zhangbo56@xiaomi.com>
+> ---
+>  mm/vmscan.c | 62 ++++++++++++++++++++++++++++++++++-------------------
+>  1 file changed, 40 insertions(+), 22 deletions(-)
+>
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 56708d1d2dfd..192bd0980121 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -339,6 +339,42 @@ static bool can_demote(int nid, struct scan_control =
+*sc,
+>         return !nodes_empty(allowed_mask);
+>  }
+>
+> +static struct lruvec *get_lruvec(struct mem_cgroup *memcg, int nid)
+> +{
+> +       struct pglist_data *pgdat =3D NODE_DATA(nid);
+> +
+> +#ifdef CONFIG_MEMCG
+> +       if (memcg) {
+> +               struct lruvec *lruvec =3D &memcg->nodeinfo[nid]->lruvec;
+> +
+> +               /* see the comment in mem_cgroup_lruvec() */
+> +               if (!lruvec->pgdat)
+> +                       lruvec->pgdat =3D pgdat;
+> +
+> +               return lruvec;
+> +       }
+> +#endif
+> +       VM_WARN_ON_ONCE(!mem_cgroup_disabled());
+> +
+> +       return &pgdat->__lruvec;
+> +}
+> +
+> +static inline bool reclaimable_anon_is_low(struct mem_cgroup *memcg,
+> +               int nid, struct scan_control *sc)
+> +{
+> +       struct lruvec *lruvec =3D get_lruvec(memcg, nid);
+
+https://sashiko.dev/#/patchset/20260903040131.4016290-1-zhangbo56%40xiaomi.=
+com
+sashiko says:
+
+"Will this cause a kernel panic during global reclaim when memory cgroups a=
+re
+enabled?
+When can_reclaim_anon_pages() is called for global reclaim, memcg is NULL.
+Since get_lruvec() is called unconditionally with this NULL memcg, it will
+trigger the VM_WARN_ON_ONCE(!mem_cgroup_disabled()) and return the raw
+node lruvec (&pgdat->__lruvec).
+When lruvec_page_state() is then called with this non-memcg lruvec:
+mm/memcontrol.c:lruvec_page_state() {
+    ...
+    pn =3D container_of(lruvec, struct mem_cgroup_per_node, lruvec);
+    x =3D READ_ONCE(pn->lruvec_stats->state[i]);
+    ...
+}
+Because the lruvec is actually embedded in pglist_data rather than
+mem_cgroup_per_node, won't container_of() produce a wild pointer, leading
+to a fatal out-of-bounds memory access when trying to read the stats?"
+
+it seems we could just use mem_cgroup_lruvec() instead:
+
+ static inline bool reclaimable_anon_is_low(struct mem_cgroup *memcg,
+                int nid, struct scan_control *sc)
+ {
+-       struct lruvec *lruvec =3D get_lruvec(memcg, nid);
++       struct lruvec *lruvec =3D mem_cgroup_lruvec(memcg, NODE_DATA(nid));
+        unsigned long anon_pages, swapcache;
+
+        if (!sc || (sc->gfp_mask & __GFP_IO))
+
+I applied your patch on my PC with the above change. I didn't see any
+panic or run into any problems.
+
+Best Regards
+Barry
