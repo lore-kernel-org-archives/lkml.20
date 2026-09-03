@@ -1,193 +1,92 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010054.outbound.protection.outlook.com [40.93.198.54])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F5131DDC33
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 18:22:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788459734; cv=fail; b=m5hrx5vC+BpX3c0IiqtSxOpkw1NoajGwt6V9sfgb2PfvcfY8Ta4DALmB1RCfyUOPim0fWpTS72ytWHGPYCtDkaDse+flcB0cMnuEmUhA7wa5t3So36gaeNv+WgeC8gIQjofrUlukS0u1iFhcud1p0Uqy8U8v2b/wooOqGMfi/6c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788459734; c=relaxed/simple;
-	bh=9LOePPaQzFehX6DiMiJa0GHVyvgU5B7B7448aHTxchE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=tv6CWatWiAE1EZQkWY4aKENyUv1yupiqj7RhVh0mmW6N9U6BTwSxPhtjKIE0y85jcKitBmVp0FtKwSKCcvQO+1OvSQCRjMtsuE07HSpJZnkl+D0wVm3QldAq3VNitPx70LgkTlzhTKw96lqhNvmgzZ5UBW8kpeDxiwJJ/u0hoGQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=EO/ErnT6; arc=fail smtp.client-ip=40.93.198.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC0B1DDC33;
+	Thu,  3 Sep 2026 18:22:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788459773; cv=none; b=O4bPVzcOjOfOB7pmwgjsO+3tEl9auJxAeZxamc17AitU6FqfEEHXBhdJvvJ8cSYRzfP4EziM0U/oHs747xjj4qu5bjRelHyLFxVDOZt5O3OQO4p9umqW4km4IQRIxJtQJU179OUTBp+ijQ9cnW8jLSd71fhN6JpVAlDR3KqLDuo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788459773; c=relaxed/simple;
+	bh=if1pQRZYUHU13lF/e3EruiKqRjX34bboC2WAykT2rWY=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=W9RUaFdC3Hd8+9SSgP1htkjlKY33r8LgKOHMG3D63POhPURJPCJ2E2OoBqexyBQUV9tUiUktVLLSsuSY9IbeMVdhBD7EwXUL3mEwx2+aOP9Q8Bq9/JS3c1kWNSvu00c9nDGpaOew2nxBjtvAB53XRGiHOemA2tcTc9Fap9SN42s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=wPq43bzI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="EO/ErnT6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MbHpNHtMt53FasVxblWQ8WiHqSpb6UKsstsmM3Ff43G4w6s4XjGOzPHBdAHrfMid+njYIzJBCVutm/l45ACYU6j+4JkRi5x7cQoHdH+EqCtRyo2APBuqfuZxuvHvY/RwSyuDPHZvM/3WYCa80mHkxnnBAs1hKyxH+yc3JY6/lrKpICeG6vJM3uTd3sAaSrGjYkZQ5q1NeDY0/sgfvZDJdhel7IgKJQXXVEA/6nX4sqqHST/IC9+gMHt+2wdtqrtX+mKyr6kq89lP/Wp380p8QzMYZTPV6nPibaO5c11e8W+JfrVYCto+0HQ/IZzFEUDkzpWG6XdED+G58xi90ETyGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cptW1QHwDr7ociRA0ReHiumlKZ0zB1blA4+y1XqZe+c=;
- b=QV2x3TFn0w7miOz77WAyTJzVGpsaBpem6Z5OwEZXQggeQvEhzI02paAZJ8bxdI3Bn6sXsnnU7r2WkzIrV6VueAnCsfVlY45h6jtO4uha3+It6nFUcNEptZo78J6HeAlGnbG40GnOjL5A8liWfCe/sFeQAWgIwkoZ9gc6/dzeqncqtOM6p6RP/wB2/CjURHraadr8KYEJSTFQKgvZK1qAKYQmc9BSSfHcBuNQ2kVuZB3qdXxPKqBCuSnhOeEOafIRA4qJvaZmXMVFvXZNc6Ck4w64+DWF/LtwHl9Z3uJF/rbtm7BR/YqJumy1xOnvGlHM2C42UTg4n2Ijbd0ZFTpNvA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cptW1QHwDr7ociRA0ReHiumlKZ0zB1blA4+y1XqZe+c=;
- b=EO/ErnT67Knu8P3w7VpQgf9qDUKd8gma6FhM7QXXeov6Jmfp3RXFvIvXQfvKxE6Yfwor9q+4A3t6zDVUDniMgOQ7VrXcmOFacikPE1BlJM6H2ENtfRXv4sVtLN9qSEsUJz1jJyWjMgS2ViFpAGLli5eKnnTN/7dO40lJO/CSSwPRRnJSSHcgYSweu90OR+PREKOEZhKkD9Wi5cwNVAqOxcmPMr3WSzuvNXG8nLnjEl5pOmC8u2Oh9tPyhTLDpuG7c/SnDmJx+Z8o3ZZ2BDcfljublITyz3i2upZM0Dc4oarn5GiUDtcaCwKE0pAcWT+KiHREoo4HY/riXNqlkvZSIQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
- by SN7PR12MB7812.namprd12.prod.outlook.com (2603:10b6:806:329::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 18:21:53 +0000
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 18:21:53 +0000
-Date: Thu, 3 Sep 2026 15:21:52 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Sudeep Holla <sudeep.holla@kernel.org>
-Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Jeremy Linton <jeremy.linton@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>, Will Deacon <will@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [PATCH v9 1/7] firmware: smccc: Add an Arm SMCCC bus
-Message-ID: <20260903182152.GN4157646@nvidia.com>
-References: <20260805063255.1638614-1-aneesh.kumar@kernel.org>
- <20260805063255.1638614-2-aneesh.kumar@kernel.org>
- <178794567779.4159892.8785590655735217125.b4-review@b4>
- <yq5ay0diyavw.fsf@kernel.org>
- <20260903125718.GI4157646@nvidia.com>
- <yq5av78mxv0j.fsf@kernel.org>
- <20260903154626.GL4157646@nvidia.com>
- <20260903-nonchalant-capable-parrot-539c8b@sudeepholla>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903-nonchalant-capable-parrot-539c8b@sudeepholla>
-X-ClientProxiedBy: YT4P288CA0084.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d0::18) To LV8PR12MB9620.namprd12.prod.outlook.com
- (2603:10b6:408:2a1::19)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="wPq43bzI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6A1A1F000E9;
+	Thu,  3 Sep 2026 18:22:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788459772;
+	bh=BH9198rK799MJYuMQnII0Ud2Ndbo/vSNpauNbEwkaPY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=wPq43bzInk5PeSp03yEN+aaBk6/3zIf+7JLmixWEffRb5kBY3W1GcGa93mnUjUzXg
+	 Hz16ZsLD6o3bVbGZX4OZUfNz4QCUyhqGdY1anzkvlaOC2h+ggDk3KjZZ3hnvkpn+5y
+	 lrk+hARIF5FuzcZ1IukI/fdIPXcztqFvwINX0ybI=
+Date: Thu, 3 Sep 2026 11:22:51 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "syzbot" <syzbot@kernel.org>
+Cc: syzkaller-bugs@googlegroups.com, Krystian Kaniewski
+ <krystianmkaniewski@gmail.com>, <linux-fsdevel@vger.kernel.org>,
+ <linux-mm@kvack.org>, "Matthew Wilcox" <willy@infradead.org>,
+ linux-kernel@vger.kernel.org, syzbot@lists.linux.dev
+Subject: Re: [PATCH] xarray: fix index jumping backwards in xas_find()
+Message-Id: <20260903112251.6114f91af953412d2355e5b3@linux-foundation.org>
+In-Reply-To: <2992424b-2120-489e-9010-f45f46ed52c8@mail.kernel.org>
+References: <2992424b-2120-489e-9010-f45f46ed52c8@mail.kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|SN7PR12MB7812:EE_
-X-MS-Office365-Filtering-Correlation-Id: 11f3b6b6-b6e0-49d0-4ff0-08df09e83aa0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|10067099003|56012099006|11063799006|5023799004|4143699003|3023799007|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	GpJqQJwbkt6Zl8/x34XEGB3uc0msbSLx35aXnfUyy50wssu8yF9tga0/fljwXdczmEAabKw35YVuSbxOJWZvjcnmdJh+mjTloY0VC/OS6dWkj1YeoRFQP5RBR+lky6cP67fA85Im2cVBb7sE1Q9fL0fnKIse1osP86325KVBUrxYsNkj7dSFj9+RoL3ynBQ+lHhZLpFQBK/srEwDHvVPTCg/fSZ4VYOYutZJHpgpbxRv18s+mVkJqxRX2lNNxXgHxUEF5m9dn7Nj3P6JHOzCGhlF5LnrLUmaZa9xK4CEGhKry/iYRShvDkH4J8KEDTjzu/v1Z85SPONkWGRbJSv5gnaMJbj6ik5N7T1Z3eK7xUiHQ0uBrB9gDscQUMZNltXweUM6lqTfelxhO4BeUWM8UxOrIgt1qkg3neHiJQ1IIdWeGGyjdc0NLNHdjp48i3xzQvJvrzbBHS8uwp6bSntAyV7gQGKmoohhFOrQ8TXA56rAaHF5/prZjGTI7j/uBaC1qthKbIFddJ/w4/ZZwgdYTge8WlWI4fW1TlYo1sxvPMaERi0Q75+i3gwmbkJLqfv/3LR2DyXi3jIM9w8GXzcUwCv5xLDwi9/w2Yg+t3Hmwo9gG6cx5wiOVW+39n0exdAonG+p8q6xeHCU8jeh4cbCwYIBktE7I3Gd4zylVijLNZ4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(5023799004)(4143699003)(3023799007)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Y4h4O/pLgnFIiMxbx7pUb0vZfuEl97n9LVEYaja4n3+OUoT4AcxyDLmZB+se?=
- =?us-ascii?Q?gepl+Huvzq9D4y96GbS81KgewMN3YAWed8wJE4RMGePVkVtC1lBEO++UymI6?=
- =?us-ascii?Q?2e/mknYWZyk/IiZiE06F3iekmdNTrErTIJHJVEwp8jtvn2gJe+m7W/QoRPGK?=
- =?us-ascii?Q?QWqEfC8qTsdqSN0NEjMRXTOXUol1lJoa1UcgBa1K0b0gdXeHnkdqY9787bJm?=
- =?us-ascii?Q?tsEh2WWPkm+B5Es4R6mmClZAATuKHXpxxiO9pV90YtVDe4oMIXw9LLOiTWhC?=
- =?us-ascii?Q?pztYypJjIXxWcyeq56l5EDqNjT5EsHOz7eW4eJAjK1Hy89jfzbuhw2G7+i4D?=
- =?us-ascii?Q?cvPTOaf2npf0zYSQAAW2wOv7fMC4XO43djwOxXMbGDJOFEW3Ba/FutF6R6eN?=
- =?us-ascii?Q?VVCx+iJlBJQ779H7YzHUNXuN/emIlwJjwyR1Hqtp5EG9JdzZ1HsQoSWU72jg?=
- =?us-ascii?Q?hY1fkZ8P46pvumpEjMe6rJ7WraWU7z62eN60MozB2lxrFy9TGbRL/XwHZmF1?=
- =?us-ascii?Q?ozSRfiUzA1pVyKk3paZDHRCQ6DKP4hPlFiCwrhCr+5Bd4Ii4NyObmBlFRKbf?=
- =?us-ascii?Q?xn8oe7//rxdojfjWlndiV10Gx6UcuL1GKBfPqbBo/7LBp8wPe94iaN2WjYYM?=
- =?us-ascii?Q?n9F/rTTIo5nKy6s1BZp+EVnGqMK407uFOGrlbkRIFF9VOLNENcRKYdE2Z2jM?=
- =?us-ascii?Q?aavpWAQ8iyNeaCgbyh65u1yNkfgcEYAWWY0txnW+f1tJ3M6p+HduzLZUNwXJ?=
- =?us-ascii?Q?0xLkSm+RI1rHwnDW8QpRhkozg2ET6z8cNTnHUznh5nA3ufykFgEKHNIaxIXo?=
- =?us-ascii?Q?3WOesdmh8h4qp0L4eOgbMsuvZocAOi1aAbiHx4kCAm+YpN0VO7lh2apswN5V?=
- =?us-ascii?Q?mM4WA8kKuJ4Ap+hXKcXZbA/sLlqEq1ZE7PUHvPQA6wijHgBbQ87SVea/yEoX?=
- =?us-ascii?Q?vQbJltVIhLquvaNmg6OH8OqW7iwwEcI0sITXpluh2GQSu1a4C4UCUltqfQ1X?=
- =?us-ascii?Q?l97Xjl3IkflMVcRa+bzL5RmEt5fSu7pjh1tvBahVRJvQgojxrDEuoTKCXW1X?=
- =?us-ascii?Q?+Ga3yRtZ+HQSfszCUeGoMfORdT9cOT+LkG6idhN36NL5NACQGrI1zlFCBFL+?=
- =?us-ascii?Q?tdSCmyoUQ58R3QVKhO9J65R/a5n1nZGW9EDRi24d8QnXlIVzOvC2Vlss7qak?=
- =?us-ascii?Q?sCDNadhfjZ4Fu/oyjZY+MIRbQzSHsfH8ewKSb41LcZlnxQgp3HBWRC6wJ0Uk?=
- =?us-ascii?Q?hvb3w7uS9iPztcu7djLJcgLBZma3EFxdzA+/kS+WtFJy4hmmfubLq7+agJ2d?=
- =?us-ascii?Q?viUlyxk1DYDoeXXMwodudHhZVqEl/XfQqSlkGELYQecyF8l7lO0OIglXR1Vn?=
- =?us-ascii?Q?FGlazc6QitQYCJPHIk0cFcedeaDISabyrfYoy9UQyLVOOp0Hyywddg8SfNxe?=
- =?us-ascii?Q?c1cXAywu/T6x5sicc/GsIamWN17nfRm43KJM5VyyOMoVIJoeLjg7au3eriQ1?=
- =?us-ascii?Q?yym0zUaEKr9BVEYCtEha3RmlsJGHowO7F6/ZxBNIwuTBDgTI77+QjZm3MuL5?=
- =?us-ascii?Q?SkcOu7fqTQDKHN/u91WgRbBZr8Wlz22lKM2436eGxi4lCfDE1CqmsF2OyJJS?=
- =?us-ascii?Q?+cy+9wRc8k+kChhv3e0Rvz6vjgbap/gG8kQ2kmiBJCdUyKuV+rxGxdtPuAfA?=
- =?us-ascii?Q?6SuX8T/vn/SGQ/TX1W+2FRkefi6LaGtl2nbJC/jw5Q0mhz45?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11f3b6b6-b6e0-49d0-4ff0-08df09e83aa0
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 18:21:53.5046
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7qmQU//Hl7wQDf5dOUl6V1kY9kYqTrYAjD8h+IQrVJId2aNOuiTdJU5ryYm0cge9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7812
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 03, 2026 at 05:18:16PM +0100, Sudeep Holla wrote:
+On Thu,  3 Sep 2026 13:48:55 +0000 (UTC) "syzbot" <syzbot@kernel.org> wrote:
 
-> Oh yes, we need this whatever you term as "duplication". I would argue
-> against terming it as duplications as if you look at the various SMCCC
-> based specification, we have zero consistency in how the VERSION command
-> is expected to work.
-
-Okay, then that pretty much settles it. Nothing to do
-
-> > Missing a check means FW upgrades might become Linux breaking. 
+> From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
 > 
-> Are you referring to the SMCCC bus code or RSI in particular above. I don't
-> see any issue with SMCCC bus code check as that is the least we can do and
-> must not change with future versions of the firmware as well.
+> A bug in the XArray iterator xas_find() causes the iterator's index
+> (xas->xa_index) to jump backwards when iterating over a multi-index entry
+> (like a THP) that resides in a non-leaf node and is concurrently split.
+> 
+> When iterating over a multi-index entry in a non-leaf node, xas_load() sets
+> xas->xa_offset to the base offset of the entry, but leaves xas->xa_index at
+> the requested index. When the caller subsequently wants to advance to the
+> next entry, xas_find() is called. xas_find() attempts to synchronize
+> xas->xa_offset with xas->xa_index before advancing. However, the fixup
+> logic was incorrectly restricted to leaf nodes (!xas->xa_node->shift).
+> Because the THP resides in a non-leaf node, the fixup is skipped.
+> 
+> As a result, xas_find() simply increments xas->xa_offset and recalculates
+> xas->xa_index based on this new offset. This causes xas->xa_index to jump
+> backwards. If the THP was concurrently split, the entry at the new offset
+> is a node pointer, so xas_find() descends into it and returns the folio at
+> the backwards index. The caller (filemap_map_pages()) then calculates the
+> PTE pointer based on this backwards index, resulting in an invalid memory
+> access such as an out-of-bounds read or use-after-free on a page-table page
+> freed via tlb_remove_table_rcu().
+> 
+> To fix this, check if xas->xa_offset matches get_offset(xas->xa_index,
+> xas->xa_node). If it does not and the node is a non-leaf node, set
+> xas->xa_offset to get_offset(xas->xa_index, xas->xa_node) before advancing.
+> Also add test cases in test_xarray to verify xas_find() behavior when
+> iterating over and splitting multi-index entries.
 
-Just in general, SMCCC drivers have to do something smart with the
-version.
+Thanks.  But the changelog omits vital information: a description of
+the userspace-visible runtime effects of the bug.
 
-Like, is this OK:
+> Fixes: b803b42823d0 ("xarray: Add XArray iterators")
+> Assisted-by: Gemini:gemini-3.7-flash syzbot
+> Reported-by: syzbot+b72767277f29b6407083@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=b72767277f29b6407083
 
-#define ARM_SMCCC_TRNG_MIN_VERSION	0x10000UL
+I see from there that it was a use-after-free, detected by KASAN.  I'll
+update the changelog and I'll add cc:stable.
 
-static inline bool smccc_probe_trng(void)
-{
-	struct arm_smccc_res res;
+I'll queue the patch for testing while awaiting review input.
 
-	arm_smccc_1_1_invoke(ARM_SMCCC_TRNG_VERSION, &res);
-	if ((s32)res.a0 < 0)
-		return false;
+> Link: https://syzkaller.appspot.com/ai_job?id=a01c56bd-74d0-411c-afb4-ee6f0cb6cb61
 
-	return res.a0 >= ARM_SMCCC_TRNG_MIN_VERSION;
-}
-
-?
-
-It means you can never publish a version 2 that is ABI breaking
-because linux doesn't check for that. Was that ARM's intention with
-the version API? It's basically a completely pointless check that
-doesn't effectively do anything.
-
-My broader, more general point is that if SMCC is being made into a
-discoverable bus, that's great, but it would be even better if ARM
-could find a way to progmatically enumerate all the ABIs present on
-the SMCC interface to populate the bus. That would necessarily include
-some consistent treatment of versioning for consistent
-interoperability.
-
-> If lower is also set at v3.0, then I would argue it is firmware upgrade
-> issue expecting old kernel with old RSI version supported to work. If
-> that returns v2.0, the driver must work IIUC. Aneesh, hopefully I got this
-> right ?
-
-There was many long conversations about this and I think the
-conclusion was RSI will broadly not use versions for any kind of ABI
-control. It is too coarse to really work in the real world and we must
-have strong forward/backwards interoperability inside VMs forever.
-
-Jason
