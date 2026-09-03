@@ -1,275 +1,156 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011057.outbound.protection.outlook.com [40.93.194.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0794F30D4;
-	Thu,  3 Sep 2026 19:19:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788463172; cv=none; b=Hbc/iSdoUUt6+TtffefTb0QjywAuzHA3MbtCjRYy8ykO8IcdDJ+pMiu4I7pENr/DtDfpvW+BR/A3xfbDJnICEJTiroyhNmEPFPmnCOVElX70L49b+oNqrSVhaZOVUXKDHv2J+QOiw9/ssUBq5MivoHWl8cJlqdWTh4zIxWM1ehI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788463172; c=relaxed/simple;
-	bh=PlFzrKm+Ru+2/+E6exxz8A0VNdYsRRHqwIQg8mG5aU0=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=KzdA3yPhfzm0eqIk5zlwzSDHxcAk59mDdSax9LQzVYSFfjfkQmWqV3MDCTDaUjQgCB5VOp/eJx3qKzhsR33zPIB1f046BVRabPtR/QRPH6VnTjYdk1W2SdzUSbgWW0UNoek0M+rX/VMhbN1f6wBpV+yuzCcLY3fZv2/hZhqjbSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KIKohKdg; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 108413EEAD8;
+	Thu,  3 Sep 2026 19:20:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.57
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788463265; cv=fail; b=oMffOrmiIIsfb4Qnr9IiUG1DyKYgPP5iEz9Yytms5o4rfYhB0fVOvDVXp+2ya0d+3q8XbvFUoG9DHcMZtZ4pPvWqeuv98nZ5mq9MNcSRdHvPD0CDHHs6fzZAn42syUWSZF4m/CpM+lTLVjvA2Jabu1II9T2kNsvMpBERtFOIDQM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788463265; c=relaxed/simple;
+	bh=kBG7JB1HUHF9YGiGJUkQWPVBXNvzJ+Sbu+LsrhRdJfY=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OeSoShFLvpojG89J1FkoCt68/4g20NLK6KzwNdWU544i0EYfynkuvfUrCszuc/sCyaVre7A9HLIk96yY/KU5Ox4y5/iUeSSu/LdruNiAvkYcXCBazPAb2iyznYy1VewWQVOHoj1NAJS3FGcPy9tfC8PnL3Z4+N053O3gWTSmy/I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=kFwRwOLU; arc=fail smtp.client-ip=40.93.194.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KIKohKdg"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683G38JC927725;
-	Thu, 3 Sep 2026 19:18:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ra7IVCkWuPaYE58YBy2u4tVccX4wVFTrsAKPrrP920Q=; b=KIKohKdgCpsbEAQd
-	Lj+o5+B9ZsBQdPo+6YbkYtQHxiMG/pPZEpmxi+7I0v6ZiwXOJ7xvC62iRZGmcR6d
-	xfGSOgAXjpFPxyM5wJ7d2yUr0kxuch6JAKnPc8cRB0w4yH7U98s0W7AFutMfqf7S
-	1dZs1m+DszcLoK8F6EkQKCOaV7inI316+4pBjYXyY+1AOyGCC/OinQR5JoGcCgMC
-	I7/QzS4LgOtRERikpS18xAIhaLgmSEj2Wdd0Bnqnonsi0K7JqtQkzEigoojpX4nV
-	p8ttGCMmB3RNCTX+cGZ++pWIdKMtjLUtxrOPLpaHyoXPn57AdrRa4TfxCLzf7PDQ
-	kf1Xow==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf6tx2f6e-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 03 Sep 2026 19:18:36 +0000 (GMT)
-Received: from pps.filterd (nalasppmta05.qualcomm.com [127.0.0.1])
-	by NALASPPMTA05.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 683JIZTZ3214824;
-	Thu, 3 Sep 2026 19:18:35 GMT
-Received: from hu-devc-lv-u24-a.qualcomm.com (hu-jcameron-lv.qualcomm.com [10.81.84.69])
-	by NALASPPMTA05.qualcomm.com (PPS) with ESMTPS id 683JIZXM3214814
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 03 Sep 2026 19:18:35 +0000 (GMT)
-Received: from hu-jcameron-lv.qualcomm.com (localhost [127.0.0.1])
-	by hu-devc-lv-u24-a.qualcomm.com (Postfix) with ESMTP id 633FE22A92;
-	Thu,  3 Sep 2026 12:18:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="kFwRwOLU"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=viUbpLB9yg6jE51d2EVnxozgqlAXo3uWl67NhATlEXhTt62i6U4QctGHNg980/FHAC81gUm01F/M6FKjmnc6CugZUzzd22ASZWn6GYmfinryH2+LPXVjD9gWnabGJhRXMteR+FpqsTC+h5uZIqen5N9IU8Lk4G9KBd7rSwOxmjIHgWoP0UA2wuhVH22EdCwT5Vkg8SrZ1uGlkNrYXxu78wPokG9Dl5Yc3q863SEZXxpi9xxgdPecjIoHXa8UmjswTeu8Z7cL02gidhX9LHjCJnJCYoxRAEKuFANCsYm0aYR4vT+nkCvTd65KBDDs/g0hngwBJo4wo0hCrKFDQEbwTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5NoZDDKdZAQt3LVexNxELn34Es3F/PegtKn6o7HV3F0=;
+ b=cFNEsR2bnO1O11EKFN3bQUJ0DyWfkbgKzw0cF3U60nCnbxaWJUaIq8CQzlg4nqwn+T9Z3FQ1BqtmRR5kf+O6W7udO1TswpirMyL9v8455XuQVjjeHjwJ/3bhMbOvjMkO1ed1+3HVBvKY0sgQWwwYMYav+G0K+aCmC2zS2ynGm1d1tdIk6cLsbf3X/MlsAWYY7yWMFqkvX9jGmLe/392Kb0EdWX+B0IeYSJVzemcIsYqRp7w10UpWUV8JbFCfKMCIhVqEEZuz+JDlpoQNDw+PeM3hTibRX2hq1aHJAk49eV7GqG7lotRljfO9EEpPbXZWzGcKdAhb9YJS33Sua3hPsg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5NoZDDKdZAQt3LVexNxELn34Es3F/PegtKn6o7HV3F0=;
+ b=kFwRwOLUrVS1Nk7Dimsk18STIOcVTJvsh28ASB8CCONgqZBbPyGzMUP/AJOInw2ON6moB2SeDc9mctlvzfLCgzGm61J85fzxrW4+Nx+nYbfHnSfnHHYS4/YbBqOKvYoRaEyIkpiNYTZxYjko3U2adYXaf/Xy9ZmWS5V4YFZrmOKnIh5RihqivqYYBKxdpUsllJkakjuzJlvpLrX9G5iFpLzW45aFhLfAVn2Rj1QHbG2vKz0IbphlJQuDclKXrbbNq31Vn9S1junp9BMohYQYGPLpojDAVl+7gM/e0Gj5Om8obuckCAeSxTdfqq+Gwh5/GPABdeBYNpKhREnXlRllwg==
+Received: from CH5PR05CA0017.namprd05.prod.outlook.com (2603:10b6:610:1f0::7)
+ by LV2PR12MB5918.namprd12.prod.outlook.com (2603:10b6:408:174::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 19:20:47 +0000
+Received: from BN2PEPF0000449E.namprd02.prod.outlook.com
+ (2603:10b6:610:1f0:cafe::59) by CH5PR05CA0017.outlook.office365.com
+ (2603:10b6:610:1f0::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.4 via Frontend Transport; Thu, 3
+ Sep 2026 19:20:47 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BN2PEPF0000449E.mail.protection.outlook.com (10.167.243.149) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Thu, 3 Sep 2026 19:20:47 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
+ 2026 12:20:19 -0700
+Received: from vdi.nvidia.com (10.126.231.37) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
+ 2026 12:20:18 -0700
+From: Chris Babroski <cbabroski@nvidia.com>
+To: <andi.shyti@kernel.org>, <linux-i2c@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+CC: <cbabroski@nvidia.com>, <davthompson@nvidia.com>
+Subject: [PATCH v1 3/3] i2c: mlxbf: Remove unused slave GW PEC handling
+Date: Thu, 3 Sep 2026 15:20:01 -0400
+Message-ID: <20260903192001.114263-4-cbabroski@nvidia.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260903192001.114263-1-cbabroski@nvidia.com>
+References: <20260903192001.114263-1-cbabroski@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 03/13] iommu/arm-smmu-v3: Drain in-flight fault
- events on domain detach
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: will@kernel.org, robin.murphy@arm.com, jgg@nvidia.com, joro@8bytes.org,
-        bhelgaas@google.com, praan@google.com, kevin.tian@intel.com,
-        kees@kernel.org, smostafa@google.com, baolu.lu@linux.intel.com,
-        linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-        linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
-        skaestle@nvidia.com, mmarrid@nvidia.com, skolothumtho@nvidia.com,
-        bbiber@nvidia.com, harsha.v@oss.qualcomm.com
-In-Reply-To: <8717f3329313f40308cff20006066283ebbb3a56.1788222485.git.nicolinc@nvidia.com>
-References: <cover.1788222485.git.nicolinc@nvidia.com>
- <8717f3329313f40308cff20006066283ebbb3a56.1788222485.git.nicolinc@nvidia.com>
-Date: Thu, 03 Sep 2026 12:18:33 -0700
-Message-Id: <178846311316.1308030.6266899352044838554.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-GUID: P8CdFX83cmwPHD-hm_KK9XDm2mq3yTJq
-X-Authority-Analysis: v=2.4 cv=TqjWQjXh c=1 sm=1 tr=0 ts=6a99c80c cx=c_pps
- a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
- a=Ikd4Dj_1AAAA:8 a=EUspDBNiAAAA:8 a=5E8cN6LfZOETjOzBigwA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: P8CdFX83cmwPHD-hm_KK9XDm2mq3yTJq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDE2OCBTYWx0ZWRfX/x7ObPDJp0pN
- Av+qnrblfs97f0jRMbVhfDkHmtlf2pInT3XzjatGXW2L7YQ+PdIEO9ku+IJqawcBo2qg0INxyuP
- qWByYrFtUXPboGEZzFzMzPC+BAf05LhPIXnHqLuxF4oApVsg4DqGAh0vyeYpMLc2zf+I2ErGfoD
- BbVJPq3vpSwysJ2opnULWs3eYMgZPeVFcpEsClaNiiPmZfjlh0quCoOa2KbQ0/J9+v0CcFBfVvC
- Curo4a6JJxlAmIOwdE+9PEpKr/RtOvQ2gq/GIdal6utLLS4ikNj/BYbyrr9Bt5abtx/AIfro+Nk
- jY5ywvz3vYHSCx9g+a0DoFWWVm5nPU8y3EYO+/eCMfMad7Kw4od2Dz9grHKGyce7eJKsSfbfXS+
- ZeJZy3JiYsG9OCb1O35jHATpWNJf2+u4rIWLzb+ZFjcWI+TeYtrDXRE84AnB/Isc8Rw7+ze11ny
- yNiYV5thHjQh6cR+zIQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDE2OCBTYWx0ZWRfX5mppCfGFpokC
- DU6CAlWJMg8fb0uq5atRDH6smQ2YmkQYPZAGcF1sDUFilkjGN5FjJyUMjWcB/mZ9OXyIM53I9Gp
- GJ4NdF4ZbPFBwN0eyOKvRjkcrnb4s2I=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_05,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 suspectscore=0 lowpriorityscore=0 adultscore=0
- clxscore=1011 malwarescore=0 spamscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030168
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000449E:EE_|LV2PR12MB5918:EE_
+X-MS-Office365-Filtering-Correlation-Id: c78fef5c-2076-4044-bbf1-08df09f0756a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|10067099003|11063799006|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	+7VZk0a7sej5K/QMS5HYqhdmMfqnNU+Vu9CtPh6sGoFvomyaYbwR0sBypl9mUqiMftehboP28dwqS0skFIdMJrdBBtrc9V5FW8XADJQBbU8GpolkaT7fZZllfXD5GTqHEU0+y3wObsRJATx4PXoojeGJQycH7yir+7NFN+9eaZAdcwkSmXaXYHxuAEFNRdUzyPz0MlCQrgEuw3ikERZ9CreMnXMzde6RcSvFfG9JVZqCSGVLzYXv3/jSGWXsc78OKTZftWmL57OfOmIx2CIQnQVbnGzVKCE/BscMqkwxvbwACqo2/ELMGyxcbx+iWj0hn5g6kZbsVBlbjvkyc2n0Tt9Omfr1MJsi/nyJokL/j15NV7GXEWoje8lb3sdHC/5tVdaTU6J/4vHk9zSFDm8L9WHmv32MPFPVo+aw5jhUuptG4lkfY1Z819lDGIRL0Z1sk3fMh9Dp0ET/nRZxjDjxNgFx9bBkUefgagGwMRXgl2X1sdANyaq92ECXHa6VgsMsAP0InAdrTBtKbSrOo92+jYDmii65THaPHXXOb667D8aQ6oVI1m6Zh+y0olr4t3ZqIfvc19Kd42qxtbcaVvKj/HCXYVq3RbYIe9WSMyav1imCSLyzktodjzYc/I0MBePeHgdSgkBC3h4Y8oZCHlitCjJc7NhrC+wVVjNCxz/eYo5yhGjfkmEEKmC5yQoSms9zLy5kMfgfzTrEXzFbyzxRJg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	f7F0+BGXGakmkBuKCY3gxrj4Gtoj93oTS8SA0SDe7ZqvaLlrHSlxuSX1iAuAyvPvUP9YJbkPghEkv7YtgUKb2mYBHkGwtLyH5s7ivrhjPPV8z6+mN6FQBVMNxflwI4u9t1og59nxj/Ah3SHyNFsmY6ykt0ldSAv2c5gdKc/E9iN51wAPTf+Wdisfsx/pyIFOvhl1BtmbBZ6sK9GNR+1gu4mtnfOE9gtFcJqro9JFkTsAsf7z2i/IwqQPYILnPE5TAytPzVxkzKiVDsViWyBMzyFmemNrnyx5RiYf+RFT7Cu/heuGY+3S1kvmP/eSupKBZf/Sz+FdZzdhNTCm7Cg9+A/w58UOMsrXTS5qv3Rr5b8Zzrh6TPI/AAmGYCMLj6kHYjQtiyQH1irNpgyBB0Ol0ljOqJ6LvWpxn9bsfKqs+eEBDjJ31/28469ytGXP0Ki3
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 19:20:47.4801
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c78fef5c-2076-4044-bbf1-08df09f0756a
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF0000449E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5918
 
-> When a device is switching away from a domain, either through a detach or a
-> replace operation, in-flight stall events for the old domain might still be
-> on the SMMU's hardware event queue or on the IOMMU core's IOPF queue. Thus,
-> if the IOMMU core swaps the device's attach_handle and frees the old domain
-> before those handlers complete, the IOPF work might hit use-after-free.
-> 
-> Two queues need to be drained: the SMMU hardware event queue and the IOMMU
-> core IOPF software workqueue. Start with the former: add a counting-based
-> arm_smmu_drain_queue() helper, and poll the evtq on a domain detach, so a
-> pending IRQ won't let the threaded handler run after the drain and queue a
-> fault referencing the domain being freed. Its until_empty mode serves the
-> suspend and runtime PM routines that would drain the CMDQ. Any timed-out
-> drain fires a WARN_ON as well, since reaching the timeout would take some
-> stuck consumer in any realistic case.
-> 
-> The existing queue_poll() API is not reusable for such a drain: it is the
-> atomic busy-wait for the command issuing paths, and it assumes a hardware
-> consumer making progress. A drain caller is sleepable, in contrast, while
-> the EVTQ/PRIQ consumer is a threaded IRQ handler that needs the CPU: such
-> a busy wait would starve the handler throughout an entire timeout, whenever
-> the waiter and the handler shared one CPU on a non-preemptible kernel. So,
-> this new sleeping helper is marked with a might_sleep() as well, given that
-> an atomic-context misuse would otherwise hide behind an empty queue.
-> 
-> Note that a drained event is dequeued, but not necessarily handled, since
-> queue_remove_raw() moves the MMIO CONS before the threaded IRQ handler gets
-> to push the event onto the IOPF workqueue. A subsequent change will invoke
-> synchronize_irq() and iopf_queue_flush_dev() to close that gap, and it will
-> act on the errno of a timed-out drain too.
-> 
-> The drain runs before the IOMMU core swaps the device's attach handle, so a
-> fault event generated on the new STE during this window resolves to the old
-> handle, completing with IOMMU_PAGE_RESP_INVALID that resumes the stall with
-> abort: the impact is bounded to that one failed transaction.
-> 
-> Also run the drain for every stall-capable master, even when the departing
-> attachment did not enable IOPF: such a stall event has to be aborted while
-> it still resolves to the old attach handle, otherwise the threaded handler
-> could pick it up right after the handle swap, mistakenly resuming it as if
-> it were a valid page fault against a new domain.
->
+The slave gateway control word write always cleared its SEND_PEC bit,
+since PEC is not supported on the slave path. Remove the dead pec_en
+local variable, the corresponding register write, and the now-unused
+MLXBF_I2C_SLAVE_SEND_PEC_SHIFT definition.
 
-Useful perhaps to call out if this has been seen in real systems or
-not. I agree with the analysis but would rather hope drivers are
-well behaved in ensuring all traffic is done, adn this is hardeninging
-/ handling of naught hardware activity (all good if so!)
+Signed-off-by: Chris Babroski <cbabroski@nvidia.com>
+---
+ drivers/i2c/busses/i2c-mlxbf.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-> Fixes: cfea71aea921 ("iommu/arm-smmu-v3: Put iopf enablement in the domain attach path")
-> Cc: stable@vger.kernel.org # v6.16
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
->
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> index e00b6c88214f..d255ff2519f9 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> @@ -948,6 +948,86 @@ static int arm_smmu_cmdq_batch_submit(struct arm_smmu_device *smmu,
->  					   cmds->num, true);
->  }
->  
-> +/**
-> + * arm_smmu_drain_queue - Drain an SMMU queue
-> + * @smmu: the SMMU device
-> + * @q: the queue to drain
-> + * @until_empty: target selection
-> + *
-> + * With @until_empty == true (for CMDQ), exit once the queue is observed empty:
-> + *
-> + *   cons0                cons                                prod
-> + *     |                   |                                   |
-> + *  ---+###################+=====================+=============+--->
-> + *                         |<--------- undrained==0? --------->|
-                                                    ^
-What is the + indicating?  Seems where prod0 that isn't relevant here
-would have been - that is a little confusing so maybe drop?
-
-> + *
-> + * With @until_empty == false (for EVTQ/PRIQ), exit once "drained" reaches its
-> + * target: "pending" (i.e. prod0 - cons0, frozen at the entry time):
-> + *
-> + *   cons0                cons                 prod0         (prod)
-> + *     |<---- drained ---->|                     |             |
-> + *  ---+###################+=====================+=============+--->
-> + *     |<--------------- pending --------------->|
-> + *
-> + * Note that a drained entry is dequeued, but not necessarily handled: the
-> + * EVTQ/PRIQ callers must follow up with a synchronize_irq() to wait for the
-> + * threaded IRQ handler to finish handling the dequeued entries.
-> + *
-> + * Context: Process context; may sleep.
-> + * Return: 0 on success or a negative errno on timeout.
-> + */
-> +static int arm_smmu_drain_queue(struct arm_smmu_device *smmu,
-> +				struct arm_smmu_queue *q, bool until_empty)
-
-That name suggests this is doing the draining rather than waiting
-for it to happen elsewhere.
-
-> +{
-> +	ktime_t timeout = ktime_add_us(ktime_get(), ARM_SMMU_POLL_TIMEOUT_US);
-> +	u32 cons, prod, prev, undrained;
-> +	u32 drained = 0, pending;
-
-Pet irritation. Prefer splitting the elements that assign and those
-that don't onto seeprate lines.  Here that just means moving pending
-up one line.
-
-> +
-> +	might_sleep();
-> +
-> +	cons = readl_relaxed(q->cons_reg);
-> +	prod = readl_relaxed(q->prod_reg);
-> +	/* The exit target: the number of entries in the queue at entry */
-> +	pending = Q_POS(&q->llq, prod - cons);
-
-Applying a macro called Q_POS to a difference is a bit confusing to
-me given the output isn't a position of anything. Maybe just needs
-a wrapper Q_DIFF(q->llq, prod, cons)  Can use Q_POS underneath
-but avoid that naming out here well away from the macro definitions.
-
-> +
-> +	while (true) {
-
-Maybe pull defintion of prev and undrained in here so it is clear
-they aren't state maintained across iternations.
-
-> +		/* Accumulate the entries consumed since the last poll */
-> +		prev = cons;
-> +		cons = readl_relaxed(q->cons_reg);
-> +		drained += Q_POS(&q->llq, cons - prev);
-> +
-> +		prod = readl_relaxed(q->prod_reg);
-> +		undrained = Q_POS(&q->llq, prod - cons);
-> +
-> +		/* Exit on an empty queue, regardless of until_empty */
-> +		if (!undrained)
-
-Given you don't use undrained again (maybe in later patches, in which
-case ignore me.)
-		if (Q_DIFF(&q->llq, prod, cons) == 0)
-perhaps.  This one entirely up to you as maybe the named local does
-help with readability a little.
-
-> +			return 0;
-> +
-> +		/* Snapshot mode: exit once the pending entries are drained */
-> +		if (!until_empty && drained >= pending)
-> +			return 0;
-> +
-> +		/*
-> +		 * A timeout means the consumer might be stuck. In theory, if it
-> +		 * moves 2 * qsize entries or more within a single poll interval
-> +		 * Q_POS() would wrap and undercount drained: that could trigger
-> +		 * a spurious warning too, if the queue was never once observed
-> +		 * empty. Yet, that much consumption in such a short interval is
-> +		 * unrealistic. WARN it only, as a stuck consumer is a real bug.
-
-I don't like 'unrealisitic' based defenses (even though I agree it is pretty
-unlikely).  Is there a way to bound this?  Maybe future systems will
-be much quicker.
-
-> +		 */
-> +		if (WARN_ON(ktime_compare(ktime_get(), timeout) > 0))
-
-Why WARN_ON here then a dev_warn_ratelimited() below? 
-
-> +			break;
-> +
-> +		/* The consumer might be a threaded IRQ handler. Yield to it */
-> +		usleep_range(100, 200);
-
-fsleep() perhaps then we don't get to argue why that slack.
-
+diff --git a/drivers/i2c/busses/i2c-mlxbf.c b/drivers/i2c/busses/i2c-mlxbf.c
+index 2d2dc234db7a..deaf22df68d0 100644
+--- a/drivers/i2c/busses/i2c-mlxbf.c
++++ b/drivers/i2c/busses/i2c-mlxbf.c
+@@ -288,7 +288,6 @@
+ 	(MLXBF_I2C_SLAVE_BUSY_BIT | MLXBF_I2C_SLAVE_WRITE_BIT)
+ 
+ #define MLXBF_I2C_SLAVE_WRITE_BYTES_MASK  GENMASK(28, 22) /* Number of bytes to write. */
+-#define MLXBF_I2C_SLAVE_SEND_PEC_SHIFT    21 /* Send PEC byte shift. */
+ 
+ /* SMBus slave GW Data descriptor. */
+ #define MLXBF_I2C_SLAVE_DATA_DESC_ADDR   0x80
+@@ -1822,7 +1821,7 @@ static struct i2c_client *mlxbf_i2c_get_slave_from_addr(
+ static int mlxbf_i2c_irq_send(struct mlxbf_i2c_priv *priv, u8 recv_bytes)
+ {
+ 	u8 data_desc[MLXBF_I2C_SLAVE_DATA_DESC_SIZE] = { 0 };
+-	u8 write_size, pec_en, addr, value, byte_cnt;
++	u8 write_size, addr, value, byte_cnt;
+ 	struct i2c_client *slave;
+ 	u32 control32, data32;
+ 	int ret = 0;
+@@ -1888,12 +1887,9 @@ static int mlxbf_i2c_irq_send(struct mlxbf_i2c_priv *priv, u8 recv_bytes)
+ 	mlxbf_i2c_smbus_write_data(priv, data_desc, byte_cnt,
+ 				   MLXBF_I2C_SLAVE_DATA_DESC_ADDR, false);
+ 
+-	pec_en = 0; /* Disable PEC since it is not supported. */
+-
+ 	/* Prepare control word. */
+ 	control32 = MLXBF_I2C_SLAVE_ENABLE;
+ 	control32 |= FIELD_PREP(MLXBF_I2C_SLAVE_WRITE_BYTES_MASK, write_size);
+-	control32 |= rol32(pec_en, MLXBF_I2C_SLAVE_SEND_PEC_SHIFT);
+ 
+ 	writel(control32, priv->slv->io + MLXBF_I2C_SMBUS_SLAVE_GW);
+ 
 -- 
-Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+2.34.1
+
