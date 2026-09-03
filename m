@@ -1,83 +1,77 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286554C9003
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:05:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFDD641DE13
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:06:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788447960; cv=none; b=keSRCWpHJsmzGDSvYafCUdmIatmNCb3JHRJwNH8iLleZO4FGnoMC+H6RH1CdjVV/bnRI16JfB2c939hZ0SW5B9vxUyVqqd1IUSX3JcYsOKnF5GAE6q/GToTzgAC+DGQfMaiczyKETvA3EyC12+KytU8yeYBFMwwKdnaqai8xCRg=
+	t=1788447996; cv=none; b=hhjWkNTRoP7PZOjzOM7sTugJjPwJRNKqfgawJE9H1tnq7F7X6Y0tOGRnqGR815IxhRiR+drJskQHmb0Pj4kKZc8m8nnBDk71K7YK8g1+fy0HMTmEu2QvD8uEu+KyRTd86I0n99++3IssojVUI8WTjLdN5QL79hgrTrUvdtBKGT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788447960; c=relaxed/simple;
-	bh=w92MawKkkHyqj+j4V9THNwhrPMydRPMGaLtM9WLIOwE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=HIyRbcu8NNp1AZrvrfzSHl6zfRn/XXsytUEh9dl7ln+vk5eExJOw3QsZ1PZv6IHo3LDB1AeOVohCgfsHRTFOpfrMWjkDJypnByEBaiJ9SiAvbs7LfVqnddH5v9DGGZBPHGyfqMrqUeVKTkM09by6aC0PmCbOzCyTy3cQReuZ8+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mpt/RDc2; arc=none smtp.client-ip=209.85.128.46
+	s=arc-20240116; t=1788447996; c=relaxed/simple;
+	bh=WH0QTFAGkBASqEUK10naybiWkASY5mU9qZY1XfCsA78=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ATOCPkAs5ncCi+kciCaBdezX81+hJuXtvRWEvJixzaaEjPz6DDQo/C55HdjMaKG+7//253Fa19TyidrhFU3Z3J+78RPB2kBoM6LgMKq6MQDcg+9ww9NUlQ2OO9yFJvF5fk1NVzQFu6Zm0xaB2MoVHFRDooFUc5wMeL0Rs+fVsk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NTINs6bA; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mpt/RDc2"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4957eefd361so17891355e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:05:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NTINs6bA"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso26374305e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:06:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788447956; x=1789052756; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788447993; x=1789052793; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3jJG+BikQhyyhKOerozrYKC8uiImTn5ykntBkDa6aSc=;
-        b=Mpt/RDc2EGK7IZHG7V2yXpIlibUlc8G2twPQedcB+p25HDMYpWCYwstgLHM/XsCkRY
-         IHgIIQmNO+7Z5rCjyyLpGwA4KC3UtcV0zOyVFAZEK7mncrvIUPm0UpSB80BjE3C05ZuZ
-         TGIuWxe0L8GA1lGx/SScaznL+dlGTiXBcu9DR6qUHsXPts0PbP+7cIUhaGaw1XUQQsNR
-         8WewNcfpPBrAVGfyYc/JMU7E3hQm46gtmmmDK5GfBxXMBx9mv4Aw6a770FbsOOFnGjhS
-         i1eoFYQaQ/yY86+cDIOgGy1+mB5k6rgYE4BdN85kAnVoFocbY/4oP8v7brufw5JEGUsj
-         UJfw==
+        bh=THzjvy5iGboyhx98aFSf1bvAFTvgaD3XGcWeB3Rn6lc=;
+        b=NTINs6bA3GqiKjFdJsMJUj4OFjHB2BjLZMANp0fpKNE3ooFguHaq8AEbHwdAK1tl/E
+         ziNIuH7atdzqKBvRl8x0rNdbZ0vBTuWl1e7Mxem3MDTqYG+m5O4GrkWZVBHdAl3boJVc
+         jNRwt/nNd/LVeXZh8l+eoLnC6NvwGIILMbdTQzT3GnL2Shme0RpDdr73hVOpTKiqRLKo
+         UFs5wF8G8bTVvW5vvsxnSUv/0ZAOLVU1hVWV9VN6QFm1M7qUmF/O8NG5k2wfTKJejWsv
+         /A1sJMO0X/SL5b/SLS8J3kDCrcsOzhCIyS01KxsiFDozHv9gckBfIg88XirtGTxXTv9R
+         yLCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788447956; x=1789052756;
+        d=1e100.net; s=20251104; t=1788447993; x=1789052793;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=3jJG+BikQhyyhKOerozrYKC8uiImTn5ykntBkDa6aSc=;
-        b=J2VIaOivd4INDUI8bOo72ynjKpGSGxZ2c27uyi3hkn1wSrR0VTCwFdfmB8hVLGze2s
-         vwSo/91/+CrIgacRlGX/nLaqZAvtc5MdCMUW0NbBlfoygpUx5FCEDCWcfPXjrBy7s9uG
-         OXd+HEZJFZTTjeLEtVKn2f6ZP9y4LZnJ7gR7KeKVPGR9BP52ZdTMlmsTd8JdKNUXsNrO
-         9nN+dmCnP3563U/sIPhFN7SOkSNHrIaCG7Y4LKbRIR5HirdSzQZeMiM0L0gP1uBufHHH
-         YWogmCqbt/YTwAERDDjxD0sgsCBjnbI++1P2rCSO0zZ988v2yHL1DN3X4yNjlFb94dz2
-         rujA==
-X-Forwarded-Encrypted: i=1; AKwUvBz2KG4D/ij/4qUKXwOn2Nb06E3PkfYWEsfctvGBM4MHmgaKqtpE8DaYwkM9DljQtC/YZz/qOMDMadXr1bk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lRP8QVNfO5tq9eviIgbB4JklMRL8wsz619TYdkYqa9bHxdUUaH
-	RrMy/SNLoyQROavXeptKzA4LqCfaUFKplC/Uk+Ayq3VpWq4bFhITzfEa
-X-Gm-Gg: AYBFou1BkPRjM35dMgJbv1dk5h595lxnYPvBNB4ZzEcUpTvupUGuLTLxgUWCfoa9+aZ
-	ksNhyE5NyV39J7wVx4aP43X48g6Vj89X4S5trtd+eUFL+3il+7LmWxxCm2lT7ZNCDFUpBP/DGrA
-	LDsnxbKcapPAEG7sOcKRn3O3sjI3kNwM2aIwDC/jJiKlnBKzazzD4FIUUl4WDuBL+1tUyQGcD2l
-	t3ZPq2qGYYaUO83DCpTW3xo4P1AIrD+Sx2e4ZLVG0xUIJhCdcuA6kmOE2s797DcTMe63HJgpA5Q
-	/W+Hx4oPovNnu7sGvuQ+dbh0NqyI/iuK9L70vViadwHW3D4Hm4sV0m8l1x5DU/EhTFAk95LxeoZ
-	xYkRnQiYZmNDjQkiUVescDwHkW/4OcOU00+kNIhTrfhGg6r89A+fQr0c/KsCfZ2mKARcUbPyH9S
-	0PpjZAaKQR4nVUlb46uGzj4Ac+RmXbd99icXsK36woo3BRMX31Rv2mjWxAZA==
-X-Received: by 2002:a05:600c:1f84:b0:496:c9cd:e7ab with SMTP id 5b1f17b1804b1-49cf5bc7986mr8421325e9.5.1788447955968;
-        Thu, 03 Sep 2026 08:05:55 -0700 (PDT)
-Received: from localhost ([5.83.201.220])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e6f604sm14353038f8f.2.2026.09.03.08.05.55
+        bh=THzjvy5iGboyhx98aFSf1bvAFTvgaD3XGcWeB3Rn6lc=;
+        b=Lj6Aegm9Xwt0Yqmo89dQAr2GdKMrxJkuG5C6U6P9AFunSJQjcDkjBfulTvNCPYFt7s
+         HfLJ7DMqaCw8L7gJgQ4mvF55ISrMEDG+LKdZx/jQCEU4TNkVxEx0UVOoPC7ad3SOEiMD
+         xFGA1pkq/5kGK1+SOYi12GlCn1g2NfVvtsuKLYr0M6jWWdvsL3XTTRacF+Mup4y0r0Yf
+         G9SqJtmV6/MtPYrJmrsHnNzwmLUzzLEPzrFugPPH6hFY2q2T0sAtM8jfUzhLN6PZBlff
+         h8l1U/VD6SRVM71fSOezoT6oV/edN7jhTGEF+4xSG7o2h/mMPGBPcXLN20937ACJz/Cb
+         78sg==
+X-Forwarded-Encrypted: i=1; AKwUvBxuZXs/qGu5vtAeZ6zWBbcywhgp3bTesLhg4ZJUToOIJjbb/WDx9LcS4TvFnVJu0OIaRghKgP1MTo3cqfM=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0RJmh44DZFwvEsOHojumMYXiV23DUZaGWa4pznn8otQXo/HSc
+	Xw4aCqu2wU1xq+fsDtws15VqoxLLAcYwo645/eXVseaMMplUA4RAvJuI
+X-Gm-Gg: AYBFou1w6qehhlM+25cX23qz6uW+kX1197Yx517eqILaQ67ow0Jt4/NsAeSSRplw7h8
+	pbILtTobVejkU49002gCdAbsTegj+QTjoRh+kaWzR9pc/nZZYE1lM4ziKwr+FWpnmXBrg7Ttm3d
+	SYKJyk7AWfar9yVNlJJonwweKL2Pdjjxjrs31SkddFHSZr7XS/lg15t/1k6XdKPeuOd7eqOVGCb
+	x4K5nP+KxAu7cF+5Dr8kmJgTiHNGYtidBRmyb4S/rHtV7wkBk7QZsJvC5oZZM9f6MLk3Elrw+Ai
+	7bx30+kPts7X82VEw1EiibbfuJ5hemp2tfUFoZPahF90FRfeTEkWbCqo4J1YH3q2A2pGwoycCJw
+	Rl+UPw73ulFmCnTp12Nwh0mt2YBm10mxZA/yk1nHPedWbVR1cw3dHb4/7dexgK48tEF3KV2eO9F
+	bpVm2pVPgIhLX2sSaYYJHa3nrav8IEBJxCjtNmGLKk2oSvYDTh5RtrjYV4Xw==
+X-Received: by 2002:a05:600c:4712:b0:496:bbce:fc with SMTP id 5b1f17b1804b1-49ce5843aa9mr215052115e9.12.1788447992569;
+        Thu, 03 Sep 2026 08:06:32 -0700 (PDT)
+Received: from metepc ([46.197.185.71])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5e589bsm71318925e9.13.2026.09.03.08.06.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 08:05:55 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
-	Bastien Curutchet <bastien.curutchet@bootlin.com>,
-	bpf@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Cc: kernel-janitors@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH][next] selftests/bpf: test_xsk: Fix spelling mistake "conigure" -> "configure"
-Date: Thu,  3 Sep 2026 16:03:51 +0100
-Message-ID: <20260903150351.12725-1-colin.i.king@gmail.com>
+        Thu, 03 Sep 2026 08:06:32 -0700 (PDT)
+From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
+To: linux-wireless@vger.kernel.org
+Cc: johannes@sipsolutions.net,
+	kvalo@kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>,
+	syzbot+adeb8550754921fece20@syzkaller.appspotmail.com,
+	syzbot+101224300649c3eb8af4@syzkaller.appspotmail.com,
+	syzbot+8141dcbd23a8f857798a@syzkaller.appspotmail.com,
+	syzbot+b0ae8f1abf7d891e0426@syzkaller.appspotmail.com,
+	syzbot+d6bbe0f5705cb8a5aa2b@syzkaller.appspotmail.com
+Subject: [PATCH] wifi: cfg80211: avoid holding rtnl_mutex across all cfg80211_leave() calls
+Date: Thu,  3 Sep 2026 18:05:53 +0300
+Message-ID: <20260903150608.485390-1-omermetekaya0@gmail.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -85,29 +79,75 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-There is a spelling mistake in an assert message. Fix it.
+reg_check_chans_work() holds rtnl_mutex for the entire duration of
+iterating over all registered devices and calling cfg80211_leave() on
+each invalid wdev. cfg80211_leave() can be slow (disconnect, stop AP,
+leave mesh), causing rtnl_mutex starvation when many wireless interfaces
+are present. This results in tasks waiting for rtnl_mutex for longer
+than hung_task_timeout_secs:
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+  INFO: task hung in inet_rtm_newaddr
+  INFO: task hung in inet6_rtm_newaddr
+  INFO: task hung in nsim_destroy
+  INFO: task hung in tun_chr_close
+  INFO: task hung in switchdev_deferred_process_work
+
+Fix by walking cfg80211_rdev_list under RCU and acquiring rtnl per-device,
+so other rtnl waiters get a chance to run between devices.
+
+I could not add the Fixes: tag because this patch addresses five separate
+hung task reports whose cause bisections all failed, making it impossible
+to identify a single introducing commit.
+
+Reported-by: syzbot+adeb8550754921fece20@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=adeb8550754921fece20
+Reported-by: syzbot+101224300649c3eb8af4@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=101224300649c3eb8af4
+Reported-by: syzbot+8141dcbd23a8f857798a@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=8141dcbd23a8f857798a
+Reported-by: syzbot+b0ae8f1abf7d891e0426@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=b0ae8f1abf7d891e0426
+Reported-by: syzbot+d6bbe0f5705cb8a5aa2b@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=d6bbe0f5705cb8a5aa2b
+Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
 ---
- tools/testing/selftests/bpf/prog_tests/xsk.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/wireless/reg.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/xsk.c b/tools/testing/selftests/bpf/prog_tests/xsk.c
-index 6e2f63ee2a6c..772f3dd7ce64 100644
---- a/tools/testing/selftests/bpf/prog_tests/xsk.c
-+++ b/tools/testing/selftests/bpf/prog_tests/xsk.c
-@@ -75,7 +75,7 @@ static void test_xsk(const struct test_spec *test_to_run, enum test_mode mode)
- 	if (!ASSERT_OK_PTR(ifobj_rx, "create ifobj_rx"))
- 		goto delete_tx;
+diff --git a/net/wireless/reg.c b/net/wireless/reg.c
+index a8336baf85dc..a2e0d1cf8317 100644
+--- a/net/wireless/reg.c
++++ b/net/wireless/reg.c
+@@ -2466,12 +2466,21 @@ static void reg_check_chans_work(struct work_struct *work)
+ 	struct cfg80211_registered_device *rdev;
  
--	if (!ASSERT_OK(configure_ifobj(ifobj_tx, ifobj_rx), "conigure ifobj"))
-+	if (!ASSERT_OK(configure_ifobj(ifobj_tx, ifobj_rx), "configure ifobj"))
- 		goto delete_rx;
+ 	pr_debug("Verifying active interfaces after reg change\n");
+-	rtnl_lock();
+-
+-	for_each_rdev(rdev)
++	/*
++	 * Acquire rtnl per-device instead of holding it for the entire loop;
++	 * cfg80211_leave() can be slow and starve other rtnl waiters otherwise.
++	 * wiphy_unregister() holds rtnl across list_del_rcu() + synchronize_rcu(),
++	 * so rdev cannot be freed while we hold rtnl_lock() below.
++	 */
++	rcu_read_lock();
++	list_for_each_entry_rcu(rdev, &cfg80211_rdev_list, list) {
++		rcu_read_unlock();
++		rtnl_lock();
+ 		reg_leave_invalid_chans(&rdev->wiphy);
+-
+-	rtnl_unlock();
++		rtnl_unlock();
++		rcu_read_lock();
++	}
++	rcu_read_unlock();
+ }
  
- 	ret = get_hw_ring_size(ifobj_tx->ifname, &ifobj_tx->ring);
+ void reg_check_channels(void)
 -- 
 2.55.0
 
