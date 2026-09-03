@@ -1,103 +1,121 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B4B127456
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 00:02:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8499D86329
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 00:02:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788393726; cv=none; b=NzGp/EznSivTu2TPPnzjtAp6rjGbt87guPyGL1o3C9V6gzymbPwwCjpmYCcyrT+f5UpuKVRC2P4KJc5nTvnGfJ1cQtZ6L4m68jbZ9Zj4+FRf/3EUorg3zZvo5ysu/SPyAimGigPfVT/9KbmF9NBAXKcLuPRKt7FgL2PYRbEOJ+0=
+	t=1788393733; cv=none; b=UXMS43Ok06MRLMfMUJAk2uqupV4Hf9nqCXoS1Y9geo5tl71Qs6FNDaIpr/FasfUGB6khpwAxU+JUrRaIFBkfISSbNtqMPM3wsziv0lL4Zrxjn22OqFlA+0q0XNSvBbHyC3+zsZ0brdO1/LJL0/ORiqgnogPyNIY+g8+gpVP7Ixw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788393726; c=relaxed/simple;
-	bh=8gBUgJnesu/NKw/hFhLhH5+OPPbUMTW/du4dLqG5G2E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GGd+7Pm1+VPC3MGNYniHhAQ0h81cJHfMQTqEZr6BBXNWOHUCpvp9uw2byLxBX25/vWNGzroS6YfNJvJrgz4Ywb0nYOEWAiAvr8RRBn/nv1ibJrl07kUw06tn0lQiFAAnbOPOboV1SyciXVA/o1thah68xew1d+kDVPQNtVEqJQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=D4ycekOh; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1788393733; c=relaxed/simple;
+	bh=Qwq4xH4RXX38/yUw7ob05IofPIA+zT0HtjEJqKAVLK8=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=eYe+M+tnPWZ/mKgpz/0IJ/lcz/yAp+hsoCQoMVBSMuR2LNAc0FFmsoLGYSAxUHAShmTEix+p5eqoTu7FSK70fMucw6bIS01m2Yp2PWMxM5U/7AN6Rdkqi4XJYpQ7dr29spKfzkm0FzvWp6+G46h8t1yMcfA08jhYw11M1QhP1b0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oKx6/C4e; arc=none smtp.client-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="D4ycekOh"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id EEE2340E027F;
-	Thu,  3 Sep 2026 00:02:01 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id zOm-ALuwUT36; Thu,  3 Sep 2026 00:01:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1788393712; bh=4IXlQHsFzyYYmBoAO8JkyrUh/FaLtn8cSNtt98cWPCs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=D4ycekOh9nFddyT3xYovjLl+9n/5GpQAwZAaLHsBu2LdD/ckNO6uvomUTXRhSfDot
-	 g50QK8yvxH+hzcEZES9PIf9B/cGuSpXMxmYGK+/fAut2ZMC5il0LuFbE1TvQGTPUUZ
-	 a2ZmDg3mZzjAbZX2ygOLxIQG6tLRCTNAO93O3PgFHoeH8gcYnzsvi8l6I/VyblxpTe
-	 oMvckUCteRmBNHvCNL3r2x0oAMFrWTHuLctsilE90m2s97cYEInPCIOBwzcznJeQ8K
-	 bN+aWumHgEAh0iJZxmEJJQM5I6FXrz+nkk8S8BZqkBq5APu+24YV20LgF7lOp+kkQl
-	 HjiiMhfbRBjfCRhbKaoiidwb0lUZAcIGR1NCqbxmQfMYrfw3p/8evU0Qze+OH2eXqC
-	 y3tVRX9WREXjYxl4QtLzSiDA/4yO1eVDiB3RwgLqHiKBuVAIwBU2eynDmsiM+YMNBE
-	 9wfKiIfScHM+GnDuF4/c/G75DrBHAUAC4R+fD7QLtux7yfL32rtKBqoqYQz3NtiFoe
-	 xrTs2HYgALrpp/QISUMuRgHdLsMDkNQ1LcXV/nQvwwEKQHD/K6JSxgwA5sFK1G0F7z
-	 yeKWOc2WVRWAPVDTzMKuGfgs+OylP9NdrFXeVNxOHe3aJgn52ySIg6k/aSwOBYyGoW
-	 Dfb4ubLZb6GOtdVx+CvgclsA=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 38A5740E016C;
-	Thu,  3 Sep 2026 00:01:35 +0000 (UTC)
-Date: Wed, 2 Sep 2026 17:01:32 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Mauricio Faria de Oliveira <mfo@igalia.com>
-Cc: Michael Matz <matz@suse.de>, Richard Biener <rguenther@suse.de>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Juergen Gross <jgross@suse.com>,
-	Alexey Dobriyan <adobriyan@gmail.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Jan Beulich <jbeulich@suse.com>, Brian Gerst <brgerst@gmail.com>,
-	kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v9 1/5] x86/boot: Remove "cc" clobber from memcmp()
-Message-ID: <20260903000132.GGapi43JjGh-8sj65Q@fat_crate.local>
-References: <20260822-pvh-kasan-inline-v9-0-e70ef3b75b6a@igalia.com>
- <20260822-pvh-kasan-inline-v9-1-e70ef3b75b6a@igalia.com>
- <20260902023129.GGapeKgVlL2WgHcJcb@fat_crate.local>
- <57b0d188-b256-bde4-43e6-99dae4f59d60@suse.de>
- <05896397667d66a2969259298bcebb7f@igalia.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oKx6/C4e"
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-ca8aee88725so2555436a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 17:02:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788393732; x=1788998532; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=kGme/u2oCJe3dBqVl8KpUZIhrW/oGCvo4aO0aEkxBgU=;
+        b=oKx6/C4eFmhydm6odAcqVE+acO3y9nhPGEV+554d13vc735nFj9L+KV8XMruX9Hmzm
+         iha1thBx8Xe1ZymvotFi27ix+N6gumbz0VDM/w5zKjQnQKjp4D8QrVf50cj/Pb4FH1Rs
+         Kdo8EAKfd4uJ5cyT7zkQDvjTcJOYEftn8ZHAbeCGZF/wMuAebMp+1wxo23D639FUyPMr
+         m5MhrfphT62Ua/3+iaFRKidfmF3Xo1yp2wbWN1M1Jw/6XPXX4J1M3kxYYdFOSOTofQW8
+         NfHAQPJW8R2ZYj3luKNfdxCyqaSKTgQb9vn52pqKoQgc9dz1/IHylVCnyT71hrC5s2n4
+         up2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788393732; x=1788998532;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kGme/u2oCJe3dBqVl8KpUZIhrW/oGCvo4aO0aEkxBgU=;
+        b=Ol1D8uHAytQQkDufvyFIlr102VAws5TjAJO2RkAIMb1+NTBy3E3LcG1j0FNnyQa3QS
+         mVha3pkDCRiRXsguZsm0OyLoCClastk4kzF6QcBixhz6dHQch7/pFBEKxr2zeZWXuim9
+         R6d3FhYBzAxfCZDbLuVVduWz9IMMltV9EZqrH3e/POlVdsT+cAlxgW9xMRqYe4ZOqIlp
+         6ChEr6fnZ1H+1Y9eeI1vijaxEWIRGH/xEfKhLA3ksJIntmUyT+21oEH+iPBPQuU0ZDfB
+         Umxcdgq8C56oGfCyyy4iU3M1DXBhgPPC3LiCv5lZINnY859GTA6zyTbbnHz3vNnTRgr+
+         g5LA==
+X-Forwarded-Encrypted: i=1; AKwUvBz2PVPHsco7y0lFAac4CYUB69qLXt33Nj6SlXxGRQsOFDvW2d229zIJGkBgloUEBtMdzyWCus7dQWz7Zoc=@vger.kernel.org
+X-Gm-Message-State: AFuF++klfL7iURcVuR1RamZS1H4qzR+J07poGtDCc8vCT8kevlJmPirM
+	SUh8idwOd39dUN/Z8sweLTWdfu8Fqeg52yQyCO2USACVqJI6ZYEZj1Nu/a/hGmz/PrLCigjoDRd
+	6bLx2eg==
+X-Received: from pfbbd36.prod.google.com ([2002:a05:6a00:27a4:b0:847:80b6:4862])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:4c11:b0:848:2e7e:353a
+ with SMTP id d2e1a72fcca58-85ece92cce9mr12682343b3a.0.1788393731269; Wed, 02
+ Sep 2026 17:02:11 -0700 (PDT)
+Date: Wed, 2 Sep 2026 17:02:10 -0700
+In-Reply-To: <CAO9r8zPEqnp6Hcs9M8dz_n1MwSvH4H+kfr7EJfrMMqLgQ7fM4w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <05896397667d66a2969259298bcebb7f@igalia.com>
+Mime-Version: 1.0
+References: <20260902232028.2767071-1-seanjc@google.com> <20260902232028.2767071-3-seanjc@google.com>
+ <CAO9r8zPEqnp6Hcs9M8dz_n1MwSvH4H+kfr7EJfrMMqLgQ7fM4w@mail.gmail.com>
+Message-ID: <api5AjDG2dByAnXi@google.com>
+Subject: Re: [PATCH v2 2/5] KVM: nSVM: Ignore EFER.LMA if EFER.LME=0 when
+ preparing L2 state
+From: Sean Christopherson <seanjc@google.com>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 02, 2026 at 10:48:14AM -0300, Mauricio Faria de Oliveira wrote:
-> Boris, I guess this may be added as clarification in the commit message.
-> Would you prefer another version with it?
+On Wed, Sep 02, 2026, Yosry Ahmed wrote:
+> On Wed, Sep 2, 2026 at 4:20=E2=80=AFPM Sean Christopherson <seanjc@google=
+.com> wrote:
+> >
+> > Force EFER.LMA=3D0 if EFER.LME=3D0 when preparing L2 state for VMRUN, i=
+.e.
+> > mimic real hardware's behavior of ignoring EFER.LMA if EFER.LME=3D0.  V=
+MRUN
+> > unfortunately allows the nonsensical combination, i.e. doesn't fail, bu=
+t
+> > KVM itself has an invariant EFER.LMA can be set et if and only if EFER.=
+LME
+> > is set.   Breaking that invariant can lead to a variety of issue,
+> > particularly in MMU code that keys off EFER.LMA when determining whethe=
+r to
+> > emulate/virtualization 4/5-level paging versus PAE paging.
+> >
+> > Cc: stable@vger.kernel.org
+> > Cc: Yosry Ahmed <yosry@kernel.org>
+> > Signed-off-by: Sean Christopherson <seanjc@google.com>
+> > ---
+> >  arch/x86/kvm/svm/nested.c | 4 ++++
+> >  1 file changed, 4 insertions(+)
+> >
+> > diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+> > index 49fb10ad1f9f..23d29597d6bf 100644
+> > --- a/arch/x86/kvm/svm/nested.c
+> > +++ b/arch/x86/kvm/svm/nested.c
+> > @@ -789,6 +789,10 @@ static void nested_vmcb02_prepare_save(struct vcpu=
+_svm *svm)
+> >
+> >         kvm_set_rflags(vcpu, save->rflags | X86_EFLAGS_FIXED);
+> >
+> > +       /* SVM ignores EFER.LMA if EFER.LME=3D0 (instead of failing VMR=
+UN). */
+> > +       if (!(svm->nested.save.efer & EFER_LME))
+> > +               svm->nested.save.efer &=3D ~EFER_LMA;
+>=20
+> We sanitize control fields in __nested_copy_vmcb_control_to_cache().
+> Should we similarly sanitize this in __nested_copy_vmcb_save_to_cache()?
 
-Yeah, I'd actually prefer it in the code itself so that we can find it easier.
-This file is as good as any.
-
-Something like this:
-
-/*
- * Summarized explanation that "cc" clobbers don't have a meaning
- *
- */
- 
-and leave the "cc" clobber there but commented out:
-
- /* "cc" ... */
-
-so that we can grep for it easier later.
-
-Thanks!
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Ideally, yes?  In practice, it doesn't work because svm_set_nested_state() =
+loads
+state from "save", not from "save_cached".  And even if we fixed that, it w=
+ould
+then allow userspace to pass in garbage (that is then ignored), i.e. would =
+undo
+patch 1, and I don't want to do that.
