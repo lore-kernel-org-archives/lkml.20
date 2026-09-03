@@ -1,387 +1,295 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012013.outbound.protection.outlook.com [52.101.48.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D45346D2B9;
-	Thu,  3 Sep 2026 08:54:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788425673; cv=none; b=JgTOiAgfdt6ePmCPYQapGInhfGkDZRelQAwmJZX89z4rin8ECL3Ir4WI4Cz6PyAtUyZTHTSsUPHhGTjScrZB0CEfwWRqPZSpgPbyBLyXgzOX4o3yKsolFToY7YSR9mk4tZGL8rah2IECXEGkNu32D/MlPtJE3P3Lm2pBhvjCkFw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788425673; c=relaxed/simple;
-	bh=awiFEh24zTOp/HyrT+jVeeqPiVNdtIPJtvQG/POrSmA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=MRDHB3LGm3v/2XTlla2Obm2XCz/QnEeGLZmXYUTQidlf9O1HdT+rArHbzeE+qDjGI0O7TJ6zR5HYEku/hvYZh0cwONjNcqedRP/qpnCGPFt/BSN4UptPNVuKzLkMvrJ7TlxTkPFDQkKQPplTsZcV8AcM2ho2uyHAHu/BrdKeZno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=MhKqhME4; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9AFE466AE6;
+	Thu,  3 Sep 2026 08:54:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788425677; cv=fail; b=ExdbKW4mF1nFhY4LE3XLfNQDaPBoF1x6npi+KHgzuiOrAAncB9Mhxu7o/fUIu9wVqLTuOny+QJ0CYQ+N/BGT5gaz2uNPD+miKhDTC80ATl79911yjzsQZK2noEin995f8LESE5inkZVrZlc5mR6wJ/rzMEJb2O6QQ6URTTryryk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788425677; c=relaxed/simple;
+	bh=rBWmReSdVwZI5ijc+3QvE+SuAt8O7x42qoj/Hkv1up0=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OeNE6wof+Q+2DjGHYc9MnQlPUdl1On31RLtCr5110m5Kyj/Le4DULtVj5V7ffgrn6R+CoT/YFlP6U21fqiBrYZ0eBXSF0iUijpmOqigi+RAGidNdvZQlVLPRVL5ERdwVgZu/3gHIe/uTJBMryy3kDwQLgpRrmKTWjE4jtmgnxxE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=WwH659Nn; arc=fail smtp.client-ip=52.101.48.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="MhKqhME4"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260903085426euoutp0126e2eeae739fc11060973a0b7ba3555e~Rw6sV3hs02164721647euoutp017;
-	Thu,  3 Sep 2026 08:54:26 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260903085426euoutp0126e2eeae739fc11060973a0b7ba3555e~Rw6sV3hs02164721647euoutp017
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1788425666;
-	bh=LOkYxz3Oezfh1yuw0xzCd8pYE55TvVzXagNAQsIRoy0=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=MhKqhME4b5F32bicau4K2jzSEq3wIsEIb5MwjlwFt3U8gckjylOcOhsyGgtydmFMn
-	 7hKX6KuKGngVtIGY6WXos3x5vtepLkZ+Z5fK7JQEblrXSVYB+mE5Rp2qQF0SCP9BMn
-	 rvX+W9Dv3cPgLWA2YwkMBcJCeOAZ3E1uT5NkqwEk=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260903085426eucas1p1713eec26146a98505e28a101e05d802a~Rw6sH43dC2977729777eucas1p1q;
-	Thu,  3 Sep 2026 08:54:26 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260903085424eusmtip2c180ef4b2dc77c593da322a763d8ace6~Rw6qbbnE42884428844eusmtip28;
-	Thu,  3 Sep 2026 08:54:24 +0000 (GMT)
-Message-ID: <0a2524af-b6fa-4570-b959-b4bdabee5ad7@samsung.com>
-Date: Thu, 3 Sep 2026 10:54:24 +0200
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="WwH659Nn"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xA9j4c6GbG1c5F/rJY1KG1zuRK7rcRPOFddtrw+BnngS4Z3Nr8v2aSoB4W5Mt/6qC36d4DRT/TMve7ya4uFxAMpiqxbHrTW0gZc8PkZRtfqAb7fBPFne5YMpsUGr3u4Ec4ZSMyKZQRilq7gwaLTgqxh4tj0OJTFTh8mtWsP6cvwYwqn820vZhMZXoL1wE6qPXfv2w+FYpyD3C5DwM78fdgaPqQCHAOYYUwnYOmbiJQdkHKwxttFn/lyuIpPmaBmBJ9jMHHPt5n/DfWlh5L7yqgSlMOfC6PuX8umqchLNpU4j2DTK4b3Tgb+S1eypAFUbUz2B3ZNaKTVQRAkLqerJKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/doE5+9l4oz7tieVzks1j2FPEqxiziktJczC8tCNBIk=;
+ b=Jq2vngY+gxhlNkp+5oUUNr1G0PWgaAMjEvmxLyZirJRCMBMjbmZPVtpROsa3Z0cQNeMUSwfc1iD59okOXAfzLTuzGo4/KYg3ix3dkyZIDk9UgQQj1/M/HgtRcRKS6MLQ0uvJjbgte32MpxebGqep8uCqrJ5u3OXcL0vRtpaedG+IqS32ucUVQfqvPgcxawUrF/tolQa2W6jpO8rOkxxGSZcmQnquON2abLAZU3XGeoPYSPQA4hxAKKlmB+/tVUT+TdrLV5D/y3qTyC4FO7pnHTp7JLKP3mmMxmJ+pWFtbDhnJ94bYJ7aSWlxEFhyT4QmZzQvesoHaSBCZCDxMxJTUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/doE5+9l4oz7tieVzks1j2FPEqxiziktJczC8tCNBIk=;
+ b=WwH659Nnam5RsiVRFtZKkr6gIMI0iNHKawlmGdVPyBZDL6mV12LHv+gk892ojqPNJ338El73SEjx4QswJqUld9A3+AOQHqPefGSDog0QDKrsh2d7eIkAWyU3mGTKFr1Hlbsswt7bCtsBnZrZlbQHWXjR4DzTidfQRGkuSENkpAK/gdQtdI0dqlsMzIl/FxVs/3Kpl2IyllGLEeOP3h6tUNJ7jmA7tODKlIX01o32Wz7EvpgBZ2EPnEg+gKxrSJmwYCbWm3pdP3ZwFxbPo4Yryr0P5cMP+Z0b6TuKfd/jJd69C2cZSvzCabPxNdpCYgjMhapXgc4E25fPmH0ZdBUGbQ==
+Received: from BN9PR03CA0655.namprd03.prod.outlook.com (2603:10b6:408:13b::30)
+ by SJ1PR12MB6124.namprd12.prod.outlook.com (2603:10b6:a03:459::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 08:54:30 +0000
+Received: from BN2PEPF0000A804.namprd02.prod.outlook.com
+ (2603:10b6:408:13b:cafe::ad) by BN9PR03CA0655.outlook.office365.com
+ (2603:10b6:408:13b::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Thu, 3
+ Sep 2026 08:54:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BN2PEPF0000A804.mail.protection.outlook.com (10.167.245.168) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Thu, 3 Sep 2026 08:54:29 +0000
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
+ 2026 01:54:11 -0700
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail204.nvidia.com
+ (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
+ 2026 01:54:11 -0700
+Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.7)
+ with Microsoft SMTP Server id 15.2.2562.46 via Frontend Transport; Thu, 3 Sep
+ 2026 01:53:59 -0700
+From: Tariq Toukan <tariqt@nvidia.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Sabrina Dubroca <sd@queasysnail.net>
+CC: Aleksandr Loktionov <aleksandr.loktionov@intel.com>, Alexei Lazar
+	<alazar@nvidia.com>, Alexei Starovoitov <ast@kernel.org>, Allison Henderson
+	<allison.henderson@oracle.com>, Antonio Quartulli <antonio@openvpn.net>,
+	Anubhav Singh <anubhavsinggh@google.com>, Bobby Eshleman
+	<bobbyeshleman@meta.com>, Boris Pismenny <borisp@nvidia.com>,
+	<bpf@vger.kernel.org>, Carolina Jubran <cjubran@nvidia.com>, Chris Mi
+	<cmi@nvidia.com>, Cosmin Ratiu <cratiu@nvidia.com>, Daniel Borkmann
+	<daniel@iogearbox.net>, Daniel Zahka <daniel.zahka@gmail.com>, David Wei
+	<dw@davidwei.uk>, Doruk Tan Ozturk <doruk@0sec.ai>, Dragos Tatulea
+	<dtatulea@nvidia.com>, Gal Pressman <gal@nvidia.com>, Jacob Keller
+	<Jacob.e.keller@intel.com>, Jesper Dangaard Brouer <hawk@kernel.org>, "Jianbo
+ Liu" <jianbol@nvidia.com>, John Fastabend <john.fastabend@gmail.com>, "Kees
+ Cook" <kees@kernel.org>, Lama Kayal <lkayal@nvidia.com>, Leon Romanovsky
+	<leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
+	<linux-kselftest@vger.kernel.org>, <linux-rdma@vger.kernel.org>, Mark Bloch
+	<mbloch@nvidia.com>, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	Patrisious Haddad <phaddad@nvidia.com>, Petr Machata <petrm@nvidia.com>,
+	"Raed Salem" <raeds@nvidia.com>, Rahul Rameshbabu <rrameshbabu@nvidia.com>,
+	"Richard Gobert" <richardbgobert@gmail.com>, Saeed Mahameed
+	<saeedm@nvidia.com>, "Shuah Khan" <shuah@kernel.org>, Shuah Khan
+	<skhan@linuxfoundation.org>, Simon Horman <horms@kernel.org>, Stanislav
+ Fomichev <sdf@fomichev.me>, Stanislav Fomichev <sdf.kernel@gmail.com>, Tariq
+ Toukan <tariqt@nvidia.com>, Willem de Bruijn <willemb@google.com>, Willem de
+ Bruijn <willemdebruijn.kernel@gmail.com>
+Subject: [PATCH net-next V3 06/15] net/mlx5e: ipsec: Move RX marker from ft_metadata to flow_tag
+Date: Thu, 3 Sep 2026 11:52:06 +0300
+Message-ID: <20260903085215.3691657-7-tariqt@nvidia.com>
+X-Mailer: git-send-email 2.44.0
+In-Reply-To: <20260903085215.3691657-1-tariqt@nvidia.com>
+References: <20260903085215.3691657-1-tariqt@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 12/15] phy: rockchip: inno-hdmi: Use the common
- Innosilicon PHY helpers
-To: Jonas Karlman <jonas@kwiboo.se>
-Cc: Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>, Neil
-	Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss
-	<rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
-	<luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, Simona Vetter
-	<simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
-	Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, Philipp
-	Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Hal
-	Feng <hal.feng@starfivetech.com>, Michael Turquette
-	<mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
-	<bmasney@redhat.com>, Conor Dooley <conor@kernel.org>, Paul Walmsley
-	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
-	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
-	Belhachemi <db@domibel.de>, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Icenowy
-	Zheng <uwu@icenowy.me>, Andy Yan <andyshrk@163.com>, Marek Szyprowski
-	<m.szyprowski@samsung.com>, Maud Spierings <maudspierings@gocontroll.com>,
-	Graham Markall <hello@big-grey.co.uk>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <cddc47a2-81de-4978-9009-bdefeda2d3b5@kwiboo.se>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260903085426eucas1p1713eec26146a98505e28a101e05d802a
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260828134835eucas1p27736632121c17e11f554e295994a7d8d
-X-EPHeader: CA
-X-CMS-RootMailID: 20260828134835eucas1p27736632121c17e11f554e295994a7d8d
-References: <20260828-jh7110-clean-send-v2-0-331680c8b9d1@samsung.com>
-	<CGME20260828134835eucas1p27736632121c17e11f554e295994a7d8d@eucas1p2.samsung.com>
-	<20260828-jh7110-clean-send-v2-12-331680c8b9d1@samsung.com>
-	<cddc47a2-81de-4978-9009-bdefeda2d3b5@kwiboo.se>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A804:EE_|SJ1PR12MB6124:EE_
+X-MS-Office365-Filtering-Correlation-Id: a28f014a-13ca-4792-6053-08df0998f728
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|23010399003|7416014|376014|18002099003|6133799003|22082099003|3023799007|56012099006|10067099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	IC5N9Hp/SbFlcVEHmzYiQNGPsdRQqkwf2YqD8/P13zYQzUIgZ2bTKpVIYiTJSyW4fJMCQGkvCpVg4LjZB6Kz2SEjbHN5jbAqyf6Ckhvc6qcrgF9d+7jF6ipAJG84/qwALOPfMa7aStR4nICn0K8gZVlvmquJs6bfpIGdjUi83RIcnbBsAOGIyZmwUZAErabMpX5rNX87r/OQKWzmAt4ibq8I+50lSz5gCXlCApEMLiQ33htpZVhMa0q6UwRtfX+tOqstF/me/PrDDySI2AVAeMO9bPk/yZWkKX3YAehxW/i85rz2suLJqR4xTvo7RXpQ0bRCGJUIuxN6ejbIEQRVAXTghlNxYMW+gE+Hp3LjsjxaImatBQodaulP8j/OUk4+djuWGYf0x6PlnR2+0ldKIraU/az/Im7sMsBHg9uTJia0KsnRIsmESzCsHOVopdv85d3AB6LWxAL+CPlUs5DqNTCn3yHfLQVgzTbiqDZCFSVGmxEL5CVE9cwjFLqljTTUR5sFcb6VcedAyjlB5eW2GMtKi3Oioq63azmT5phaPfAzgx9jw/AAaJ5m8k08/evLqVJGWvaPSZUc66cqd4qFyJofWrFN7A4NvdiE5NuIN636ydOn6Z+ujsb15P+XOHNwIK/mago2T6EG1YtlmgMKUxsL0sORCE8at9VvnpyAebpr+GGOPrWMCdDGvDxFeQn0Tziz7lZq4IWbfIEfWbPz0Q==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(7416014)(376014)(18002099003)(6133799003)(22082099003)(3023799007)(56012099006)(10067099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	WqAADZLuFgVPwoM40E6xmYbjhGrDeKRrzm4DBeSb+SVxjnhVCJxayQp93u6s6WBOK0Lz2qQFv3C0Yp2jL5y42qrje0z/ODcdiW9Z2egFHHBczXk7YS46kyL1KTXprOoxtyD1RBqe24yjtG2VcjzPEt7OUxSBfTZM3iNUMw9y1uVHqK2kWQYJxgrjRWGX4QeR1Voe9gH4ReKPR9We7pkl+Ofqu1+YTbpQjmOU6Z6GgcJOKe3wOYt/MjR/9PMBF+Xt+fwFR2TA3tY8WNCbjJls3EibRZrqPmqlIe0TaiyXhuqeOfezrNgG+aj0kV2fwH/XOeMIt4mmHs2nHF0eDpNhaQQsowrO45g5PTo9/LS90gXVzk62ij3vcohYSTbzWbu8XzfZbRa89X0xY9vn92vJgntvP8Gtb19KkXf5KaEcp3V9p90WwECeRrBILg0805f/
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 08:54:29.4714
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a28f014a-13ca-4792-6053-08df0998f728
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF0000A804.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6124
 
+From: Cosmin Ratiu <cratiu@nvidia.com>
 
+IPsec used BIT(31) in cqe.ft_metadata as a marker for ingress
+IPsec-decrypted packets. This will conflict with PSP which stores SPI
+in ft_metadata - an SPI with bit 31 set would falsely trigger
+mlx5_ipsec_is_rx_flow().
 
-On 9/1/26 20:14, Jonas Karlman wrote:
-> Hi Michal,
-> 
-> On 8/28/2026 3:47 PM, Michal Wilczynski wrote:
->> The RK3328 pre-PLL programming, its table lookup and its recalc_rate and
->> determine_rate implementations are the generic Innosilicon ones, so drop
->> the local copies and use the shared helpers instead.
-> 
-> RK3528 and RK3538/RK3539 also seems to use the generic Innosilicon ones,
-> so we should hopefully also be able to use the helpers for those SoCs.
+Define a new marker for IPsec in flow_tag and use it in steering rules.
+The obj_id stays in ft_metadata bits[23:0].
+Remove the unused MARKER and SYNDROM (sic) macros.
 
-Good to know, I've left them alone for now since I don't have the board
-to test it, but it should be fairly easy to convert them as well.
+This is only done for IPsec NIC RX flows. The esw path uses a different
+mechanism and is unaffected: RX handling in mlx5e_rep_tc_receive() makes
+use of a few bits in ft_metadata to detect and hand off IPsec packets to
+mlx5e_ipsec_offload_handle_rx_skb().
 
-> 
->>
->> The RK3228 pre-PLL sits at different register addresses, so it keeps its
->> own register level code and only shares the table lookup.
->>
->> The register writes, their order and the values written are unchanged.
->> No functional change intended.
->>
->> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
->> ---
->>  drivers/phy/rockchip/Kconfig                  |   1 +
->>  drivers/phy/rockchip/phy-rockchip-inno-hdmi.c | 127 +++++---------------------
->>  2 files changed, 25 insertions(+), 103 deletions(-)
->>
->> diff --git a/drivers/phy/rockchip/Kconfig b/drivers/phy/rockchip/Kconfig
->> index 14698571b607590dc0e7a29f3b39eb9a5d4e3d25..9732c5be87717dc3ddbea1c60080952336a07af9 100644
->> --- a/drivers/phy/rockchip/Kconfig
->> +++ b/drivers/phy/rockchip/Kconfig
->> @@ -34,6 +34,7 @@ config PHY_ROCKCHIP_INNO_HDMI
->>  	depends on COMMON_CLK
->>  	depends on HAS_IOMEM
->>  	select GENERIC_PHY
->> +	select PHY_INNO_HDMI
->>  	help
->>  	  Enable this to support the Rockchip Innosilicon HDMI PHY.
->>  
->> diff --git a/drivers/phy/rockchip/phy-rockchip-inno-hdmi.c b/drivers/phy/rockchip/phy-rockchip-inno-hdmi.c
->> index 1483907413faa5ce1dc8614db05e6e929410404d..fae766607b0ea120b3adb36001387062f39a5c00 100644
->> --- a/drivers/phy/rockchip/phy-rockchip-inno-hdmi.c
->> +++ b/drivers/phy/rockchip/phy-rockchip-inno-hdmi.c
->> @@ -17,6 +17,7 @@
->>  #include <linux/of.h>
->>  #include <linux/platform_device.h>
->>  #include <linux/regmap.h>
->> +#include <linux/phy/inno-hdmi-phy.h>
->>  #include <linux/phy/phy.h>
->>  #include <linux/slab.h>
->>  
->> @@ -240,6 +241,8 @@ struct inno_hdmi_phy {
->>  	const struct inno_hdmi_phy_drv_data *plat_data;
->>  	int chip_version;
->>  
->> +	struct inno_hdmi_phy_pre_pll pre_pll;
->> +
->>  	/* clk provider */
->>  	struct clk_hw hw;
->>  	struct clk *phyclk;
->> @@ -247,21 +250,6 @@ struct inno_hdmi_phy {
->>  	unsigned long tmdsclock;
->>  };
->>  
->> -struct pre_pll_config {
->> -	unsigned long pixclock;
->> -	unsigned long tmdsclock;
->> -	u8 prediv;
->> -	u16 fbdiv;
->> -	u8 tmds_div_a;
->> -	u8 tmds_div_b;
->> -	u8 tmds_div_c;
->> -	u8 pclk_div_a;
->> -	u8 pclk_div_b;
->> -	u8 pclk_div_c;
->> -	u8 pclk_div_d;
->> -	u8 vco_div_5_en;
->> -	u32 fracdiv;
->> -};
->>  
->>  struct post_pll_config {
->>  	unsigned long tmdsclock;
->> @@ -290,7 +278,7 @@ struct inno_hdmi_phy_drv_data {
->>  	const struct phy_config		*phy_cfg_table;
->>  };
->>  
->> -static const struct pre_pll_config pre_pll_cfg_table[] = {
->> +static const struct inno_hdmi_phy_pre_pll_config pre_pll_cfg_table[] = {
->>  	{ 25175000,  25175000,  3,  125, 3, 1, 1,  1, 3, 3,  4, 0, 0xe00000},
->>  	{ 25175000,  31468750,  1,   41, 0, 3, 3,  1, 3, 3,  4, 0, 0xf5554f},
->>  	{ 27000000,  27000000,  1,   36, 0, 3, 3,  1, 2, 3,  4, 0,      0x0},
->> @@ -673,20 +661,12 @@ static const struct phy_ops inno_hdmi_phy_ops = {
->>  };
->>  
->>  static const
->> -struct pre_pll_config *inno_hdmi_phy_get_pre_pll_cfg(struct inno_hdmi_phy *inno,
->> -						     unsigned long rate)
->> +struct inno_hdmi_phy_pre_pll_config *inno_hdmi_phy_get_pre_pll_cfg(struct inno_hdmi_phy *inno,
->> +								   unsigned long rate)
->>  {
->> -	const struct pre_pll_config *cfg = pre_pll_cfg_table;
->>  	unsigned long tmdsclock = inno_hdmi_phy_get_tmdsclk(inno, rate);
->>  
->> -	for (; cfg->pixclock != 0; cfg++)
->> -		if (cfg->pixclock == rate && cfg->tmdsclock == tmdsclock)
->> -			break;
->> -
->> -	if (cfg->pixclock == 0)
->> -		return ERR_PTR(-EINVAL);
->> -
->> -	return cfg;
->> +	return inno_hdmi_phy_pre_pll_lookup(&inno->pre_pll, rate, tmdsclock);
-> 
-> Please fully remove the local inno_hdmi_phy_get_pre_pll_cfg() helper and
-> call inno_hdmi_phy_pre_pll_lookup() in its place.
+An additional complication is that mlx5e_cqe_regb_chain() used the high
+order bits of ft_metadata to differentiate between TC chains and
+protocol markers. With the IPSec marker moving to flow_tag, this would
+falsely trigger mlx5e_cqe_regb_chain() to believe the chain is set, when
+in fact, ft_metadata is something completely different. Solve that by
+requiring that the new flow_tag proto is NONE, since only those packets
+can carry a chain id in ft_metadata.
 
-will do in v3
+Signed-off-by: Cosmin Ratiu <cratiu@nvidia.com>
+Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
+Reviewed-by: Carolina Jubran <cjubran@nvidia.com>
+Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+---
+ .../ethernet/mellanox/mlx5/core/en_accel/flow_tag.h   |  4 +++-
+ .../ethernet/mellanox/mlx5/core/en_accel/ipsec_fs.c   | 11 +++++++++--
+ .../ethernet/mellanox/mlx5/core/en_accel/ipsec_rxtx.h |  8 ++++----
+ drivers/net/ethernet/mellanox/mlx5/core/en_tc.h       |  7 +++++--
+ 4 files changed, 21 insertions(+), 9 deletions(-)
 
-> 
->>  }
->>  
->>  static int inno_hdmi_phy_rk3228_clk_is_prepared(struct clk_hw *hw)
->> @@ -752,7 +732,7 @@ unsigned long inno_hdmi_phy_rk3228_clk_recalc_rate(struct clk_hw *hw,
->>  static int inno_hdmi_phy_rk3228_clk_determine_rate(struct clk_hw *hw,
->>  						   struct clk_rate_request *req)
->>  {
->> -	const struct pre_pll_config *cfg = pre_pll_cfg_table;
->> +	const struct inno_hdmi_phy_pre_pll_config *cfg = pre_pll_cfg_table;
->>  
->>  	req->rate = (req->rate / 1000) * 1000;
->>  
->> @@ -773,7 +753,7 @@ static int inno_hdmi_phy_rk3228_clk_set_rate(struct clk_hw *hw,
->>  					     unsigned long parent_rate)
->>  {
->>  	struct inno_hdmi_phy *inno = to_inno_hdmi_phy(hw);
->> -	const struct pre_pll_config *cfg;
->> +	const struct inno_hdmi_phy_pre_pll_config *cfg;
->>  	unsigned long tmdsclock = inno_hdmi_phy_get_tmdsclk(inno, rate);
->>  	u32 v;
->>  	int ret;
->> @@ -870,39 +850,11 @@ unsigned long inno_hdmi_phy_rk3328_clk_recalc_rate(struct clk_hw *hw,
->>  						   unsigned long parent_rate)
->>  {
->>  	struct inno_hdmi_phy *inno = to_inno_hdmi_phy(hw);
->> -	unsigned long frac;
->> -	u8 nd, no_a, no_b, no_d;
->> -	u64 vco;
->> -	u16 nf;
->> -
->> -	nd = inno_read(inno, 0xa1) & RK3328_PRE_PLL_PRE_DIV_MASK;
->> -	nf = ((inno_read(inno, 0xa2) & RK3328_PRE_PLL_FB_DIV_11_8_MASK) << 8);
->> -	nf |= inno_read(inno, 0xa3);
->> -	vco = parent_rate * nf;
->> -
->> -	if (!(inno_read(inno, 0xa2) & RK3328_PRE_PLL_FRAC_DIV_DISABLE)) {
->> -		frac = inno_read(inno, 0xd3) |
->> -		       (inno_read(inno, 0xd2) << 8) |
->> -		       (inno_read(inno, 0xd1) << 16);
->> -		vco += DIV_ROUND_CLOSEST(parent_rate * frac, (1 << 24));
->> -	}
->>  
->> -	if (inno_read(inno, 0xa0) & RK3328_PCLK_VCO_DIV_5_MASK) {
->> -		do_div(vco, nd * 5);
->> -	} else {
->> -		no_a = inno_read(inno, 0xa5) & RK3328_PRE_PLL_PCLK_DIV_A_MASK;
->> -		no_b = inno_read(inno, 0xa5) & RK3328_PRE_PLL_PCLK_DIV_B_MASK;
->> -		no_b >>= RK3328_PRE_PLL_PCLK_DIV_B_SHIFT;
->> -		no_b += 2;
->> -		no_d = inno_read(inno, 0xa6) & RK3328_PRE_PLL_PCLK_DIV_D_MASK;
->> -
->> -		do_div(vco, (nd * (no_a == 1 ? no_b : no_a) * no_d * 2));
->> -	}
->> +	inno->pixclock = inno_hdmi_phy_pre_pll_recalc_rate(&inno->pre_pll,
->> +							   parent_rate);
->>  
->> -	inno->pixclock = DIV_ROUND_CLOSEST((unsigned long)vco, 1000) * 1000;
->> -
->> -	dev_dbg(inno->dev, "%s rate %lu vco %llu\n",
->> -		__func__, inno->pixclock, vco);
->> +	dev_dbg(inno->dev, "%s rate %lu\n", __func__, inno->pixclock);
-> 
-> VCO should be between 1.4-3.2 GHz, we now loose this debug information.
-> This is a change that probably should be noted in the commit message.
-
-I think I can restore this debug info in the helper for v3
-
-> 
->>  
->>  	return inno->pixclock;
->>  }
->> @@ -910,20 +862,9 @@ unsigned long inno_hdmi_phy_rk3328_clk_recalc_rate(struct clk_hw *hw,
->>  static int inno_hdmi_phy_rk3328_clk_determine_rate(struct clk_hw *hw,
->>  						   struct clk_rate_request *req)
->>  {
->> -	const struct pre_pll_config *cfg = pre_pll_cfg_table;
->> -
->> -	req->rate = (req->rate / 1000) * 1000;
->> -
->> -	for (; cfg->pixclock != 0; cfg++)
->> -		if (cfg->pixclock == req->rate)
->> -			break;
->> -
->> -	if (cfg->pixclock == 0)
->> -		return -EINVAL;
->> -
->> -	req->rate = cfg->pixclock;
->> +	struct inno_hdmi_phy *inno = to_inno_hdmi_phy(hw);
->>  
->> -	return 0;
->> +	return inno_hdmi_phy_pre_pll_determine_rate(&inno->pre_pll, req);
->>  }
->>  
->>  static int inno_hdmi_phy_rk3328_clk_set_rate(struct clk_hw *hw,
->> @@ -931,9 +872,8 @@ static int inno_hdmi_phy_rk3328_clk_set_rate(struct clk_hw *hw,
->>  					     unsigned long parent_rate)
->>  {
->>  	struct inno_hdmi_phy *inno = to_inno_hdmi_phy(hw);
->> -	const struct pre_pll_config *cfg;
->> +	const struct inno_hdmi_phy_pre_pll_config *cfg;
->>  	unsigned long tmdsclock = inno_hdmi_phy_get_tmdsclk(inno, rate);
->> -	u32 val;
->>  	int ret;
->>  
->>  	dev_dbg(inno->dev, "%s rate %lu tmdsclk %lu\n",
->> @@ -946,35 +886,11 @@ static int inno_hdmi_phy_rk3328_clk_set_rate(struct clk_hw *hw,
->>  	if (IS_ERR(cfg))
->>  		return PTR_ERR(cfg);
->>  
->> -	inno_update_bits(inno, 0xa0, RK3328_PRE_PLL_POWER_DOWN,
->> -			 RK3328_PRE_PLL_POWER_DOWN);
->> -
->> -	/* Configure pre-pll */
->> -	inno_update_bits(inno, 0xa0, RK3328_PCLK_VCO_DIV_5_MASK,
->> -			 RK3328_PCLK_VCO_DIV_5(cfg->vco_div_5_en));
->> -	inno_write(inno, 0xa1, RK3328_PRE_PLL_PRE_DIV(cfg->prediv));
->> -
->> -	val = RK3328_SPREAD_SPECTRUM_MOD_DISABLE;
->> -	if (!cfg->fracdiv)
->> -		val |= RK3328_PRE_PLL_FRAC_DIV_DISABLE;
->> -	inno_write(inno, 0xa2, RK3328_PRE_PLL_FB_DIV_11_8(cfg->fbdiv) | val);
->> -	inno_write(inno, 0xa3, RK3328_PRE_PLL_FB_DIV_7_0(cfg->fbdiv));
->> -	inno_write(inno, 0xa5, RK3328_PRE_PLL_PCLK_DIV_A(cfg->pclk_div_a) |
->> -		   RK3328_PRE_PLL_PCLK_DIV_B(cfg->pclk_div_b));
->> -	inno_write(inno, 0xa6, RK3328_PRE_PLL_PCLK_DIV_C(cfg->pclk_div_c) |
->> -		   RK3328_PRE_PLL_PCLK_DIV_D(cfg->pclk_div_d));
->> -	inno_write(inno, 0xa4, RK3328_PRE_PLL_TMDSCLK_DIV_C(cfg->tmds_div_c) |
->> -		   RK3328_PRE_PLL_TMDSCLK_DIV_A(cfg->tmds_div_a) |
->> -		   RK3328_PRE_PLL_TMDSCLK_DIV_B(cfg->tmds_div_b));
->> -	inno_write(inno, 0xd3, RK3328_PRE_PLL_FRAC_DIV_7_0(cfg->fracdiv));
->> -	inno_write(inno, 0xd2, RK3328_PRE_PLL_FRAC_DIV_15_8(cfg->fracdiv));
->> -	inno_write(inno, 0xd1, RK3328_PRE_PLL_FRAC_DIV_23_16(cfg->fracdiv));
->> +	inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, true);
->> +	inno_hdmi_phy_pre_pll_configure(&inno->pre_pll, cfg);
->> +	inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, false);
->>  
->> -	inno_update_bits(inno, 0xa0, RK3328_PRE_PLL_POWER_DOWN, 0);
-> 
-> This should likely also remove all now unused RK3328 pre_pll related
-> macros.
-
-will do for v3.
-
-Thank you for your review, as mentioned before I don't have rockchip
-hardware so a Tested-by tag for after v3 is sent would be very welcome.
-
-> 
-> Regards,
-> Jonas
-> 
->> -
->> -	/* Wait for Pre-PLL lock */
->> -	ret = inno_poll(inno, 0xa9, val, val & RK3328_PRE_PLL_LOCK_STATUS,
->> -			1000, 10000);
->> +	ret = inno_hdmi_phy_pre_pll_wait_locked(&inno->pre_pll, 10000);
->>  	if (ret) {
->>  		dev_err(inno->dev, "Pre-PLL locking failed\n");
->>  		return ret;
->> @@ -1373,6 +1289,11 @@ static int inno_hdmi_phy_probe(struct platform_device *pdev)
->>  	if (IS_ERR(inno->regmap))
->>  		return PTR_ERR(inno->regmap);
->>  
->> +	/* The PHY block starts the register space on these SoCs. */
->> +	inno->pre_pll.regmap = inno->regmap;
->> +	inno->pre_pll.offset = 0;
->> +	inno->pre_pll.table = pre_pll_cfg_table;
->> +
->>  	/* only the newer rk3328 hdmiphy has an interrupt */
->>  	inno->irq = platform_get_irq(pdev, 0);
->>  	if (inno->irq > 0) {
->>
-> 
-> 
-
-Best regards,
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/flow_tag.h b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/flow_tag.h
+index b6fcd4b63031..cf30096d6a37 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/flow_tag.h
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/flow_tag.h
+@@ -14,8 +14,9 @@
+  *
+  *   [23:21] = protocol ID (3 bits):
+  *              0 = none (default)
++ *              1 = IPsec
+  *              3 = PSP (HW decrypted, PSP header present)
+- *              1,2,4-7 = reserved
++ *              2,4-7 = reserved
+  *   [20:16] = reserved
+  *   [15:0]  = used by other subsystems (e.g. TC).
+  */
+@@ -24,6 +25,7 @@
+ 
+ enum {
+ 	MLX5E_ACCEL_FLOW_TAG_PROTO_NONE		= 0,
++	MLX5E_ACCEL_FLOW_TAG_PROTO_IPSEC	= 1,
+ 	MLX5E_ACCEL_FLOW_TAG_PROTO_PSP		= 3,
+ };
+ 
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_fs.c b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_fs.c
+index f236672d3a2a..5565c385258c 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_fs.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_fs.c
+@@ -5,6 +5,7 @@
+ #include "en.h"
+ #include "en/fs.h"
+ #include "en_accel/en_accel.h"
++#include "en_accel/flow_tag.h"
+ #include "eswitch.h"
+ #include "ipsec.h"
+ #include "fs_core.h"
+@@ -190,7 +191,7 @@ static void ipsec_rx_rule_add_match_obj(struct mlx5e_ipsec_sa_entry *sa_entry,
+ 				 misc_parameters_2.metadata_reg_c_2);
+ 		MLX5_SET(fte_match_param, spec->match_value,
+ 			 misc_parameters_2.metadata_reg_c_2,
+-			 sa_entry->ipsec_obj_id | BIT(31));
++			 sa_entry->ipsec_obj_id);
+ 
+ 		spec->match_criteria_enable |= MLX5_MATCH_MISC_PARAMETERS_2;
+ 	}
+@@ -2066,7 +2067,7 @@ static int rx_add_rule(struct mlx5e_ipsec_sa_entry *sa_entry)
+ 	if (!attrs->drop) {
+ 		if (rx != ipsec->rx_esw)
+ 			err = setup_modify_header(ipsec, attrs->type,
+-						  sa_entry->ipsec_obj_id | BIT(31),
++						  sa_entry->ipsec_obj_id,
+ 						  XFRM_DEV_OFFLOAD_IN, &flow_act);
+ 		else
+ 			err = mlx5_esw_ipsec_rx_setup_modify_header(sa_entry, &flow_act);
+@@ -2099,6 +2100,12 @@ static int rx_add_rule(struct mlx5e_ipsec_sa_entry *sa_entry)
+ 		flow_act.action |= MLX5_FLOW_CONTEXT_ACTION_DROP;
+ 	else
+ 		flow_act.action |= MLX5_FLOW_CONTEXT_ACTION_FWD_DEST;
++	if (!attrs->drop && rx != ipsec->rx_esw) {
++		spec->flow_context.flags |= FLOW_CONTEXT_HAS_TAG;
++		spec->flow_context.flow_tag =
++			FIELD_PREP(MLX5E_ACCEL_FLOW_TAG_PROTO_MASK,
++				   MLX5E_ACCEL_FLOW_TAG_PROTO_IPSEC);
++	}
+ 	dest[0].type = MLX5_FLOW_DESTINATION_TYPE_FLOW_TABLE;
+ 	dest[0].ft = rx->ft.status;
+ 	dest[1].type = MLX5_FLOW_DESTINATION_TYPE_COUNTER;
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_rxtx.h b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_rxtx.h
+index 45b0d19e735c..57aabd5e61ec 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_rxtx.h
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_rxtx.h
+@@ -38,10 +38,9 @@
+ #include <net/xfrm.h>
+ #include "en.h"
+ #include "en/txrx.h"
++#include "en_accel/flow_tag.h"
+ 
+-/* Bit31: IPsec marker, Bit30: reserved, Bit29-24: IPsec syndrome, Bit23-0: IPsec obj id */
+-#define MLX5_IPSEC_METADATA_MARKER(metadata)  ((((metadata) >> 30) & 0x3) == 0x2)
+-#define MLX5_IPSEC_METADATA_SYNDROM(metadata) (((metadata) >> 24) & GENMASK(5, 0))
++/* IPsec obj id in ft_metadata bits[23:0] */
+ #define MLX5_IPSEC_METADATA_HANDLE(metadata)  ((metadata) & GENMASK(23, 0))
+ 
+ struct mlx5e_accel_tx_ipsec_state {
+@@ -74,7 +73,8 @@ static inline unsigned int mlx5e_ipsec_tx_ids_len(struct mlx5e_accel_tx_ipsec_st
+ 
+ static inline bool mlx5_ipsec_is_rx_flow(struct mlx5_cqe64 *cqe)
+ {
+-	return MLX5_IPSEC_METADATA_MARKER(be32_to_cpu(cqe->ft_metadata));
++	return mlx5e_accel_flow_tag_proto(cqe) ==
++		MLX5E_ACCEL_FLOW_TAG_PROTO_IPSEC;
+ }
+ 
+ static inline bool mlx5e_ipsec_eseg_meta(struct mlx5_wqe_eth_seg *eseg)
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_tc.h b/drivers/net/ethernet/mellanox/mlx5/core/en_tc.h
+index e1b8cb78369f..53b6043e33d2 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_tc.h
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_tc.h
+@@ -36,6 +36,7 @@
+ #include <net/pkt_cls.h>
+ #include "en.h"
+ #include "eswitch.h"
++#include "en_accel/flow_tag.h"
+ #include "en/tc_ct.h"
+ #include "en/tc_tun.h"
+ #include "en/tc/int_port.h"
+@@ -370,11 +371,13 @@ struct mlx5e_tc_table *mlx5e_tc_table_alloc(void);
+ void mlx5e_tc_table_free(struct mlx5e_tc_table *tc);
+ static inline bool mlx5e_cqe_regb_chain(struct mlx5_cqe64 *cqe)
+ {
+-	u32 chain, reg_b;
++	u32 flow_tag, reg_b, chain;
+ 
++	flow_tag = mlx5e_accel_flow_tag_proto(cqe);
+ 	reg_b = be32_to_cpu(cqe->ft_metadata);
+ 
+-	if (reg_b >> (MLX5E_TC_TABLE_CHAIN_TAG_BITS + ESW_ZONE_ID_BITS))
++	if (flow_tag != MLX5E_ACCEL_FLOW_TAG_PROTO_NONE ||
++	    (reg_b >> (MLX5E_TC_TABLE_CHAIN_TAG_BITS + ESW_ZONE_ID_BITS)))
+ 		return false;
+ 
+ 	chain = reg_b & MLX5E_TC_TABLE_CHAIN_TAG_MASK;
 -- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+2.44.0
+
