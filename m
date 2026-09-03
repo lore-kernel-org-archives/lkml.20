@@ -1,108 +1,165 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B063138A725
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:35:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0FE426D0A
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:36:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788428157; cv=none; b=Ud1YoVqacVT6tdI4qXdlymcFbBOl77jzsa9w3SnQEvWuP59uLdsBSOE1o/92gR/UR+qbarElepol1/X+ejzsr4aNNHGAzVWk2gSMrrx7GkbEhUCuy5goIvfzRAHwkstvRqtI6b5E1pn5gogLkOC4BGldRR/6DB/2zflTPoOijaY=
+	t=1788428163; cv=none; b=PXkFxH+bIAjdV7HtzEU9K3fqFpPnX/bjcER0ZZknBJR0LgAqLHjJXnW0DiXXTrtQ+t0+k76EwC86IufeDcmW564cUym/0oVeAlVqgkS5Dws4/TAFKN5AxLHzYnVWHUMBSeWNzmIy42PLnvKax8FIPLVuwzyhrnFAD5pEDmqtwVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788428157; c=relaxed/simple;
-	bh=6dxSwnVMhBQ6QrxcI00aXBMeMsbJMY0TD4I+y+LKu/c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gk+f5/S+YUMYiH3JpB3iDc8P6Suzw65t8KvP1SkWVD4Pm4sjyhgKvMufznIe6TiJ1ICbNEynzirHQiNoBR5LpCGYJxxdYRvmhT+ECcEC/8uGaoFPGi6qGImT09WRheE2Z+VNDkcrF+sqgprBLDrhKRu1Z2bpHfTNwMcWAFq+FsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=exUGNFig; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788428163; c=relaxed/simple;
+	bh=oPVsqXoZyPeTg36URmaN5Iw3DnLJlzjYxHnkAlYg7Uc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=Gjiw+bVD7vCKuYGieAJ4D2+pVLeIuUCMQzuF207725+3b9NtNIlQwww5bUNvML8pHIbp+uB2TdQ65gcxCPBDP2o1+cICz1ES/NRcXwovfXzU0RUEulLTgHuktnDadSBhUBwlkk9Pq/DnKnL9UQrqAndTGf6pOxaY+PVl514dfCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PLkOi2Mp; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=hgAhsGox; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="exUGNFig"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so17518255e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 02:35:55 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PLkOi2Mp";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="hgAhsGox"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788428160;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UIVrwf02TP+O59kLnBOVNF6PWYsBEmmPNbrz+e5p2HQ=;
+	b=PLkOi2MplsqDOUDIt7pNf4JE3Pofp6e6YbLbn5ZhCqJO/lBWX/crAx4TZmmQCDbxA6xsqq
+	/nHovelAvRBjwmlTUEA6aDfUVlgL3GydKQcxyAQUwSOcrrl1X++DxVZOdGb5StE8qJkbci
+	POcEtiw5rymYys3Pyp5v9BFGt8/LJ2Y=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-375-X6TqrPbQMH-9VfRy4pWTNg-1; Thu, 03 Sep 2026 05:35:59 -0400
+X-MC-Unique: X6TqrPbQMH-9VfRy4pWTNg-1
+X-Mimecast-MFC-AGG-ID: X6TqrPbQMH-9VfRy4pWTNg_1788428158
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-495529a93f9so20015405e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 02:35:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788428154; x=1789032954; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SA0YMkKZrk5pHRtNM6ynurrEGkiVyx5dwe1u190lCDo=;
-        b=exUGNFigLqG7qUWyYpfXvNYjTx/7yDbbBtTm/KWAsQhVB4CYbGOUHDf8wYBy6sCAhw
-         1FsCyDToJJWi/T0jsZNlAx3vvXNG7Umlr7QMUFHTTI3mOo8KAeea+M6yYNAM6351/4zc
-         aqC0Qfekez5FKPZGgqI15mgdQuvmbNhWV3abWKd2ZaJTjJbU/+aoUq9BRIP77f9llJA3
-         luOztfFpL9WqdtmXjpeJdq/oUTTTMYS3iZMXq1YK0RjtJO+IwREWyyWNTat31yeU2+mw
-         e5pYvFaMROzMXnmWB7CYfHoKJ9+GwdyjNB2t1tLB1Q/1KXNjvOTRtx85yPKJcUSLKF3w
-         HdLQ==
+        d=redhat.com; s=google; t=1788428158; x=1789032958; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UIVrwf02TP+O59kLnBOVNF6PWYsBEmmPNbrz+e5p2HQ=;
+        b=hgAhsGoxKmxmL0DZ/XDJeOFCA7BGVxLu8PasuoWft+zNfwfAkd3Gqg3RUXgHklV97v
+         zeLZbDrXP57HoJ7MON4I89MGw/5I7bPzfGmR4ZMmkJcFGRw0vm62kIL7k4QF03Z6NS3D
+         gM8yFK/X8U8NNzYgJWk4oOeehnsatu8z1y/jlVGmAJXL3mXgJ7FyBCvencL0vEwVfsmS
+         awPYRIdJWJ6Ses4T5E+RbdgVdzgY4CBpyAt0dJtM8OmbEawpePJZsOOCufsiu2f8kl1L
+         YKhmHZF7N0j7hy3t+O6vJu1N/Mec3laRonAFDUvI3x0A/wI6UYkFQemSxZq4G+U3FJ1m
+         Torg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788428154; x=1789032954;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SA0YMkKZrk5pHRtNM6ynurrEGkiVyx5dwe1u190lCDo=;
-        b=gsXiwui51HZ/WqoMaLZfgY/vv2gyQ6sk4FsxVDbq9XG64qpyr9EmMkGrdAbjRdQf+L
-         mYq6b/dU8x8v7gW3MMRvn7HtJHKmAs+KViICli1YD0/WgS3DZofAPVp8Ezt+LmHA+toV
-         zOK27jnwSmjKF+Ir/E+qpsBJYATbMjIJPX7tOVyjaEgj8J/VIv9kFAMoPJX9+1Zwdhta
-         oTaUpcVppS/aAHsmwJb4pinDoMIwiCjvnHfL7Cz2IZoPOm+B9TFsXvcczIWzyYynjBJ4
-         TrWYtRJYimZtEJplNqfiKKnMAZF/+LyeGhoSwJa8PeKs2zenz/dwHGESSkNL95PBP6vg
-         biHA==
-X-Forwarded-Encrypted: i=1; AKwUvBzqZPDmwJAvU+Qcqg/mO7+fpzIhzceSrlABQMPs+CH0DjzEH68kiZyu2uFIoNHV/jdp3bO4qwcmZceYq3Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQ5ntAfWECaM76iKDDfHqylbXveunvtxVCUx9ToUfOqOi5yLxc
-	/4Zy4elztAy7KaL1g1nvQRN3vG2oT00WNLbzQLw0wobIHRz2kTpg7PG1hpGVTVsThA==
-X-Gm-Gg: AYBFou2Drz3IOjr6E6Yes7qZhhA7RH9SCqs9HeFUQQsHMkoePUZET+30NqtdtbVbwNw
-	07mzZC6adaI+mVzg7vNGnzEuKl/QlALaxN+tz7LT0tPNdF/D++FGK+3GHk9dCWBwKu+hNXxMI//
-	ceycnDjhJDkn9ffj4ELmPEHUeZ5Un96J/MkA08w1ofBw1Nkc4ZHmEjpcJUHSYiIGGdb4rI1oVPv
-	aX8BZ39+wEZC8hgTgxCtzDnO1VZ1stEuf1NIy73YEK41gsXmB7Oenl4OcSDqB9c/LGOxOoyQzv5
-	BS85JS0yLKEgdG0MZIB5z03TLSwrq9NjXrIESOYyHKY+Omc5iKrdrclN/q7uPeWVDlZXLrI17Bz
-	slsKRtruFak+o2dxkc4Iil+2I4IW1wwvxzKvmCjUI5MeTGZco2s0LKe/leQZGjJxNz+BrmFGtg9
-	PYJx5KG6dfh7VKwqoONeAAhzHzMQHkieNn7gzT4FFQpNEShFm05nU2O4aiIobQ1YQwfFVo7854O
-	GHD4wJkeen7O4gXOVsFnj7VAm/KYZnU
-X-Received: by 2002:a05:600c:4ed0:b0:499:726a:a017 with SMTP id 5b1f17b1804b1-49ce57ec163mr200889865e9.1.1788428153444;
-        Thu, 03 Sep 2026 02:35:53 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee80eda4sm55247145e9.15.2026.09.03.02.35.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 02:35:52 -0700 (PDT)
-Date: Thu, 3 Sep 2026 10:35:49 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, rostedt@goodmis.org, mhiramat@kernel.org,
-	linux-trace-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com,
-	kernel-team@android.com, linux-kernel@vger.kernel.org,
-	Lee Jones <lee@kernel.org>
-Subject: Re: STABLE REQ: [PATCH v5 06/10] tracing: Fix subbuf resize races
- with trace_pipe_raw readers
-Message-ID: <apk_dQ4Q6msdw_Ub@google.com>
-References: <20260901123444.GA1350131@google.com>
- <20260902-daily-reply-0006-tracing-subbuf-resize-7-2@kernel.org>
+        d=1e100.net; s=20251104; t=1788428158; x=1789032958;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UIVrwf02TP+O59kLnBOVNF6PWYsBEmmPNbrz+e5p2HQ=;
+        b=k2Y1864ZfuCbslaVcRuX0W4d+vIjVRLUyA67Gb0ty7XogtUOoQ5ZMEnwCvo5Jw3U+m
+         oAliKqboObZ5tkOp2hj81r8nAeDltUZP9QHKHLmgwpxdiX4aAobbx8Gif76DdzA28IIJ
+         9ve+mnAa321g59Wk2MnFgNrUJ+BnL0TXKRq3yFyfpEkXwH8UIDAZasdXni/jWJE1UFaP
+         CkJIqHooKYZ1v8sWEwna21xa5vPcpqqMhhvEhopB8h2dFoBSsFTRiWIy1RxUKsaRCW6K
+         O4VuzQxeyN6VF/zS9rv1EHWIavbMB3PB5e9Ulzogj2yhhyVwCwZe+mg4d2Tvk9ZO3bR+
+         sV7A==
+X-Forwarded-Encrypted: i=1; AKwUvBwavbf/3oXjyHOBnEp0mBxB2sREl/eqdabO1A8xGva08rm/GdLqiwmGhwPWVII+6w9G3uMp+WBcFn5pPz4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lesWKXnwNakx+rUrdWsZ8ORDIgQ/L8jJxx9VZOt7rTva3hQ5Xx
+	3h997Ho7mML3los85vewJYc4wA8zdkP2bWh0RWkvw1bFMGAiyNUju6I+z2NHWFJZ7YZnxNNhqwQ
+	UXFNSy8EBBRg6bv63iZvLyFf37p/8cTAtLd6IVazS0JpnDgUn8ylr9Wj2QPPOsmemoQ==
+X-Gm-Gg: AYBFou3QMORZAiChh8APfSmW2PGznc1bsS97XZ7yvHks8tZMsL/7vYQbV9sAxdMTVQO
+	xpYKAkuo2dYfJZOZYAkv5U0xw+NvWpDBIHG74+ZriOHudL7/Qq8+25NP0xRU1Un4d5bC0LYRao3
+	kY9nawPJn/FxHlR4yNu3BRpsg/xHo3MWIYdKMUrYhXic2kMFMzAuIcctg+x0iHxah9c56hHpE3p
+	9AxjRPVVoomP/vqO2lM/ht8WpzRMJISvUEcKJQ4Y/2el37fwwhPMFB3XpGoFXU4b+/a3B0ZjhZS
+	7wfHyCzhIfbrvYkCGtkeB+mTnzuSeenIOliACx73j8hix1e0XIyry7z+w+r02DytqRPoBSm+t1s
+	mYiGjj2lURe50j41Fi7HDcV17EazKEuS0uUS8Jxi9xIvbxoE30bb5NJYp/CSGeiDmCZ80XMZE2A
+	==
+X-Received: by 2002:a05:600c:4693:b0:499:484a:81d0 with SMTP id 5b1f17b1804b1-49ce5817d63mr163904725e9.9.1788428158014;
+        Thu, 03 Sep 2026 02:35:58 -0700 (PDT)
+X-Received: by 2002:a05:600c:4693:b0:499:484a:81d0 with SMTP id 5b1f17b1804b1-49ce5817d63mr163904005e9.9.1788428157541;
+        Thu, 03 Sep 2026 02:35:57 -0700 (PDT)
+Received: from [192.168.188.218] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce55259ecsm81914915e9.2.2026.09.03.02.35.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 02:35:56 -0700 (PDT)
+Message-ID: <8f1c4df1-726e-4bcb-addc-b1fcf329013f@redhat.com>
+Date: Thu, 3 Sep 2026 11:35:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902-daily-reply-0006-tracing-subbuf-resize-7-2@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v4] bnxt_en: Bound SW TPA IDs to prevent crashes
+To: Joe Damato <joe@dama.to>, netdev@vger.kernel.org,
+ Michael Chan <michael.chan@broadcom.com>,
+ Pavan Chebbi <pavan.chebbi@broadcom.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
+ Rukhsana Ansari <rukhsana.ansari@broadcom.com>, horms@kernel.org,
+ colin.winegarden@broadcom.com, linux-kernel@vger.kernel.org,
+ raphaelcf@meta.com, stable@vger.kernel.org, llvm@lists.linux.dev
+References: <20260828190900.1767611-1-joe@dama.to>
+ <1c87458d-7d76-4da4-9981-51756cef391b@redhat.com>
+ <apa9qofhuatqGTra@devvm20253.cco0.facebook.com>
+ <b8b6db7b-353d-4d6a-b0b6-3b5e1be22008@redhat.com>
+ <apbpWrfu3VQu+CUz@devvm20253.cco0.facebook.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <apbpWrfu3VQu+CUz@devvm20253.cco0.facebook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 02, 2026 at 06:14:05PM -0400, Sasha Levin wrote:
-> > Concurrent subbuffer resizes may crash trace_pipe_raw readers or leak
-> > uninitialized memory to userspace due to stale size values.
-> >
-> > Fixes: bce761d75745 ("ring-buffer: Read and write to ring buffers with custom sub buffer size")
-> > Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
-> >
-> > Not sure if this is the latest version or not?
-> >
-> > I see review comments, but no v6.  Anyway, no matter, it'll do.
+Hi,
+
+sorry for the latency here.
+
+On 9/1/26 5:03 PM, Joe Damato wrote:
+> On Tue, Sep 01, 2026 at 02:10:04PM +0200, Paolo Abeni wrote:
+>> On 9/1/26 1:57 PM, Joe Damato wrote:
+>>> On Tue, Sep 01, 2026 at 10:16:54AM +0200, Paolo Abeni wrote:
+>>>> On 8/28/26 9:08 PM, Joe Damato wrote:
+>>>>>   - Moved bp->max_tpa_roundup_size init out of the early return path and
+>>>>>     documented that TPA is unsupported there, as suggested by Michael.
+>>>>
+>>>> Clashiko quite convincingly elaborates that the above is not enough:
+>>>>
+>>>> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260828190900.1767611-1-joe%40dama.to
+>>>>
+>>>> Could you please have a look?
+>> [...]
+>>> 3.) "The new assignment sits after the max_tpa_v2 == 0 early return, so on a P5+
+>>> device whose firmware reports max_aggs_supported == 0, does
+>>> bp->max_tpa_roundup_size stay 0 while BNXT_FLAG_TPA is set? ..."
+>>>
+>>> Michael commented in the v3 that this is a false positive, hence why I changed
+>>> the code from what it was in the v3 to this.
+>>
+>> This is the comment I referred to.
+>>
+>> AFAICS the problem is that the driver sets
+>>
+>> 	bp->dev->hw_features |= NETIF_F_LRO;
+>>
+>> regardless of the supported capabilities, and that seams to disagree
+>> with Michael.
 > 
-> Queued for 7.2, thanks.
+> OK, after re-reading this here's what I see: NETIF_F_LRO gets added with no
+> capability check and bnxt_fix_features() won't strip it afterwards. I think
+> the fix there is to add a BNXT_SUPPORTS_TPA() test, as a Fixes for
+> f0aa6a37a3db ("eth: bnxt: always recalculate features after XDP clearing, fix
+> null-deref").
 > 
-> -- 
-> Thanks,
-> Sasha
+> I can send a separate patch for that, but it is unrelated to this patch which
+> fixes a crash on boot for Thor2 devices.
 
-This isn't the last version of this patch, I have just posted a v9 [1] and
-Steven hasn't reviewed it yet.
+With my limited knowledge of this driver, I thought the report being
+more strictly related to this patch, and the fix for them should land
+together.
 
-[1] https://lore.kernel.org/all/20260901155445.1475405-3-vdonnefort@google.com/
+I'm fine with v5 approach.
 
--- 
-Vincent
+/P
+
