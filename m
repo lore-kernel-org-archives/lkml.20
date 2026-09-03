@@ -1,110 +1,117 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA684B0484;
-	Thu,  3 Sep 2026 13:55:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA7FC4AFE38
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:56:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788443716; cv=none; b=C1DcXKXiMezdb8R1gdzEhmxOGLyPKrvs5VwPEqWks84zrNJ6AY8hAqHzq6qaU0HKY0BzWSD2TOU9LAiHKBnXXI9BWJnyyMRg3TeDRhXCriZ939k6V1jOcvxmUs4KQ7wPbQdddI898zkLvgDTcK9scp4JGZmP4CPYpaDSyk5TYnU=
+	t=1788443816; cv=none; b=isrMvRXJAnG8Y0fdlmXo4pDCWGo4D5UYotdayrIxRZ9usUb7zlb2aBoG//xV//gBbaink3pwxXz9Q4YUiIAUcMz3/MyYRY+yhm0VAWdfrwRLAmcNnD7oc7cC8MNwUWk6p/2YyXDyNvdND5L/AjkbIkoB0g77RInXwWqY1aqpSDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788443716; c=relaxed/simple;
-	bh=N3i3seY2GMXtNf2ZOYxwxY0s0SsTSpvuFoYOdBYcYAs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hMiBO0z0JB5fYBv4m2v2rLE6TVwkmWF3brAg4JmmcmqEiL9Mgf57h8XSA5QGnpj2Viodt5VhxnYpmf0v40VTjndwJZFPQ/bfLAQMxyI6Rb+PK2l1fYNCAUlHrxCRoib01+bZmD52QvgWmL6tkdEXLLPOk1BDVMQEGnQrMpsUBLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=GoWyJgjE; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788443816; c=relaxed/simple;
+	bh=tH84jB1SQvYfsu4BoMGMY3To7AhVTpXgX9TrSUDtRoI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=eYM+KIEQY7yV7cjZqlKQSwCackywnna3j7mT1JDgrUsmz8hefWWTYSxpcWcB42BEvVTi5r3P8AqFc106AhroBo7iTZ12Iq5XRAx3hiR3MbLHBKGsRl3TyOCLKnI1D3YBZIwQJkEA6lcQ/GD41WPhiL3i+NYAuMtNQ4zl4hub7pU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LUR5+Oi6; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="GoWyJgjE"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=T0+z8MZQqEl7S1DDfmkPFQ4iRR8dJTk53FtzHDBKGno=; b=GoWyJgjEWYlotQLFi/Z2OB04zz
-	wq0/SDO4WicKuKYqfpBj4QyTCMqyG2urfEZofPmPLy7n62BqgT7ZCqgD7lRXzw4S7s/MLkQ9rRTRS
-	ZHnsdiG/3ELHjb1mzL4MttK1Fmp6WGPw8a58GV6PT8HydSVXoxjE35P25K4kPV1GW/dg=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x27tu-002jiE-Q6; Thu, 03 Sep 2026 15:54:46 +0200
-Date: Thu, 3 Sep 2026 15:54:46 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, hkallweit1@gmail.com,
-	linux@armlinux.org.uk, netdev@vger.kernel.org,
-	UNGLinuxDriver@microchip.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 2/3] net: ethernet: oa_tc6: deliver the PHY
- interrupt to phylib
-Message-ID: <b7386bf3-dfd0-4ddf-8a14-76c29cb8ac9b@lunn.ch>
-References: <20260901130948.212914-1-parthiban.veerasooran@microchip.com>
- <20260901130948.212914-3-parthiban.veerasooran@microchip.com>
- <dbb77cce-b574-42d9-8a26-a12a0446d1b9@lunn.ch>
- <28cf906d-cd94-4497-9641-6220d57da3dd@microchip.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LUR5+Oi6"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-39682983a0fso3064111a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 06:56:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788443802; x=1789048602; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=U5QSQqPQNQQf5u4kt0k5Ugm7eSjsSUE+ivZY0S0TJ0o=;
+        b=LUR5+Oi6Dx2utD3A4lcogL1uXb65RojPOANb+KypjkGkhI/4dS3BvMwMWm2i2vDhrJ
+         S77/tjN6f+CmWtPXot78InPxrE9R/R+YcAYLeQw4hiIN1qnDrsAd44LJ1uiTbHFrAdl0
+         HbeoFvjPIHSmSCuoCuJj+JKr0voTKCarvMD21a1/qHFiAzDJXvMVEtBXbTNgo6y+u/Cz
+         F7crlkuAnhVSy9ydwasjG+4Ruri8y9Qtkmi8b7HIShZdhgqPI+YiUOZFWWi5t1bkxNNy
+         8ubVCziveN55qL7ro2eEyncsjry0KseCpjbGnzJX4bPn3bYiJenDb67xxvSqLE2zRgnq
+         kDbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788443802; x=1789048602;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=U5QSQqPQNQQf5u4kt0k5Ugm7eSjsSUE+ivZY0S0TJ0o=;
+        b=Waqe3QHnfSySY3dIiQu+1Dh8KwpnZHm5mK12UWyAFZ1Rq8A0cwfUYB/8S3+k5U3qe/
+         pRAE0lrEcfVkiBm72aCNRGdYt6XPpskxAJVnbTOPfSX2Y70Z4HlBXqyB5AcddlVtKdmr
+         1FSrBhwObDhPab93dT6q3sifJkVu2iM+kDUddGK7PF/mgj+g+8KSOwfS2oHZuUfsvs/v
+         q6qTyVzg+sCtvVBe8uvS2/lOueZgopAcXT8pqWEDr+xWp5Wd5J/uv2dFk1O7Zf3rIayc
+         twgVlUQa6KyJ6z2Hq6i9ie9j3BvQ+ZL8435n2PjrYrJvraT3l0s7KVYc1NjqFA06DtJi
+         6b0w==
+X-Forwarded-Encrypted: i=1; AKwUvBz759FD73Bd5q7WBn/2e9rcWuiZ1JPHubg3LAe+OXG/RTaeZU7zrGCR/qeTRvknAA9PF+2dhr79mMWD/qY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mGglOzBnw8TBKUM1/K8vD2M6fcyVbr3q7eFBSfvBq6xuxrbExp
+	TV4cT4KhLyoAMzAjaGUiB8TpGXJvL5+APf1M6hxRJb/o7Yc2QJtIh85k
+X-Gm-Gg: AYBFou3aid8FC+/nPrgCe6aDZncKwfLDFu6GdSVAg0V7guTau6axGqsTEFkQl3ulMVk
+	7BPZyx8XvLRuFTZuKwX4tirC0trmjQIUguML1mZ08SGL8fOKToz4n9j4vZQ14x8QhEP7BIBLlW1
+	m9YtMxZocivykKO2HQEpWIk/0LVvrIp+3NquXOjNRxAWxLLmgflSuvocrgDyyQhU2AApT+gU/Z8
+	zR5wIZx4JQ+KTdy/yRSzuxnrCk7vyijgI3k4scuGWAQr5oGpBGm6MV5XUEolcjoH09Hskw+lU1J
+	FhSb9ZDQ5b58BtUtg+IBIELxOXv89mp2+7cjmTAE5QvdlVFA2lfo3iJt9WCQJxA9v1NyXH0+R04
+	PN9/ThAAQKVXG8H5Cv1yWbpsLTs5ebEylQcfKGd9DdKgh71CQkr3pH1HYuqbTOibVEVgk28e9iU
+	vyJnjZHcBlnkMkRaQpusyTj1tKYAWZ+fcSfO+MYwocRYnh168TaiR8HcoU4HsDLenAFlSAOea+g
+	GooEQ==
+X-Received: by 2002:a17:90b:4fc6:b0:398:c315:fa6f with SMTP id 98e67ed59e1d1-39aee04acdamr21381384a91.14.1788443802462;
+        Thu, 03 Sep 2026 06:56:42 -0700 (PDT)
+Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b0832b85bsm5726614a91.4.2026.09.03.06.56.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 06:56:42 -0700 (PDT)
+From: Bo Zhang <zhangbo0325@gmail.com>
+X-Google-Original-From: Bo Zhang <zhangbo56@xiaomi.com>
+To: xueyuan.chen21@gmail.com
+Cc: akpm@linux-foundation.org,
+	vbabka@kernel.org,
+	david@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	brendan.jackman@linux.dev,
+	hannes@cmpxchg.org,
+	ziy@nvidia.com,
+	ljs@kernel.org,
+	liam@infradead.org,
+	rppt@kernel.org,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	kasong@tencent.com,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	zhaonanzhe@xiaomi.com,
+	lipengfei28@xiaomi.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 4/4] mm: adjust free_pages to make __zone_watermark_ok() mTHP-aware
+Date: Thu,  3 Sep 2026 21:56:16 +0800
+Message-Id: <20260903135616.4106443-1-zhangbo56@xiaomi.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260903024629.574484-1-xueyuan.chen21@gmail.com>
+References: <20260903024629.574484-1-xueyuan.chen21@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <28cf906d-cd94-4497-9641-6220d57da3dd@microchip.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 03, 2026 at 06:32:26PM +0530, Parthiban Veerasooran wrote:
-> Hi Andrew,
-> 
-> Thank you for reviewing this patch series.
-> 
-> On 02/09/26 6:13 am, Andrew Lunn wrote:
-> > EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
-> > 
-> > On Tue, Sep 01, 2026 at 06:39:47PM +0530, Parthiban Veerasooran wrote:
-> > > The integrated PHY has no dedicated interrupt line; its interrupt is
-> > > delivered in-band as the PHYINT bit in STATUS0, which raises the MAC-PHY
-> > > SPI interrupt via the extended status. phy_mac_interrupt() only triggers
-> > > a link-status re-read and cannot make the PHY driver read and acknowledge
-> > > its interrupt source registers, so expose the PHY interrupt to phylib as a
-> > > nested virtual IRQ instead.
-> > > 
-> > > Use dummy_irq_chip as the irqchip, map a virtual IRQ and assign it to
-> > > phydev->irq before phy_connect_direct() so phylib enters interrupt mode
-> > > and uses the PHY driver's config_intr/handle_interrupt. Unmask PHYINT in
-> > > INT_MASK0, and when it is seen in the extended status, dispatch
-> > > handle_nested_irq() synchronously from the sleepable threaded IRQ. PHYINT
-> > > is level triggered, so acking the PHY source there clears it before the
-> > > next data chunk, avoiding a storm.
-> > 
-> > 
-> >     9.2.8.7 PHYINT
-> > 
-> >     Physical Layer Interrupt. When set, this bit indicates a service
-> >     request from the underlying physical layer block.  Many physical
-> >     layer implementations support an interrupt output for signaling
-> >     events to the station controller. This bit is optional and will be
-> >     implemented only if the underlying physical layer supports
-> >     generating interrupts to a higher level. When implemented, this bit
-> >     shall be cleared by acknowledging the underlying physical layer
-> >     interrupt source(s). When not implemented, this bit shall be
-> >     reserved with a read- only value of zero.
-> > 
-> > At the moment, phylib is polling the PHY. That is guaranteed to work.
-> > 
-> > The standard indicates this interrupt is optional. It might not be
-> > implemented. phylib assumes that if there is an interrupt, the
-> > interrupt works, and it does not poll. So any hardware which does not
-> > implement this interrupt is now broken.
-> > 
-> > Please find a way not to break other devices.
-> Thank you for pointing it out. PHYINT is optional per the OA TC6 standard
-> (section 9.2.8.7), and unconditionally setting up the virtual IRQ breaks
-> devices that do not implement it.
-> 
-> I checked both the OA TC6 standard (V1.1) and the LAN8650/1 datasheet, and
-> there is no capability register bit to detect PHYINT support at runtime.
+On Thu, Sep 03, 2026 at 10:46:03AM +0800, Xueyuan Chen wrote:
+> >+		free_pages = zone_effective_free_pages(zone, order,
+> >+						       defrag_mode & order);
+>
+> "&" should be "&&". defrag_mode is 0 or 1, so this is just order & 1:
+> works for order-3 by accident, always 0 for order-2.
+>
+> Same for the zone_page_state_snapshot() call below.
 
-I also did a quick check of the standard and could not find an
-indication if interrupts were support. So a quirks flag does seem to
-be the correct solution.
+Good catch, thanks. You're right - this should be a logical "&&".
+The bitwise "&" accidentally disables the block accounting for even
+orders like order-2, which is exactly the mTHP case this series targets.
 
-   Andrew
+I'll fix both occurrences in v2.
+
+Thanks,
+Bo
