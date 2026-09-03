@@ -1,87 +1,67 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA31B3F8257
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:42:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCBE9402B8F
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:43:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788428560; cv=none; b=atx36JywMtNOTyPj+YbVDlJm7qVqGOtDmsggPL23MrvTYdo9/JhligP3vShcTywn7vyMuUGzu3dAvtlC9X0taogcyG3c7iUMbiioznXwAVS1r1t1ASuuqVmfovSazlUZZ5gvToGlTl1Qe9ZD+8NAX4IrGEFeV5sVtobsqkKOhwg=
+	t=1788428590; cv=none; b=Rafv3JHYiIF0V9PocXRC1W/Qq485t5DiAkgho1+CKJpIRodR4rpdCapVoqfn+2Zkt/9/x84z3HxqMsM4M05RW2YSzf3DgMhPsZdMlP5RDZU+u3ThaCNczKkynnktcq+RdDrkWNADPd8Tj1+3yOyxO1IQSN2dHCVj50pcWr9V5Uc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788428560; c=relaxed/simple;
-	bh=W2pM+s6RZdTdONP2DLs0my1ASvHPk5ZTKKrIo3pXhzw=;
+	s=arc-20240116; t=1788428590; c=relaxed/simple;
+	bh=eeQmjVkVna13xNvuP7KXsaAPQ0j3npYARLOdxRgDqJ0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NAQXj/r0fQN4x/4LwqTcWRsFapugHMIjlG3lpDSkidMKhsQG32YvVXwDroPT+cpVa9sZBA6tLzJbOrv7VuzfzxkTQkt7yVSBwjR+RUISBXoCPydOGOfxTponhMMiOxn00/rjyZiaSb4N5XRnfJATVYZQLYUeFErc50WWZuL8lbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=D05honEv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b371duus; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=fjCe/ocW8kzi/8H+7AiNeCwYPPg74m/Zk68J4e9gnf6RdPFsfNZJlEe07ofbZfO22PE/gIw1yE6+pmbzh5EgYQplRKZ6PKUyjOdw04Af0yLrZ94IWqQ+x5mzRAAzExVkEA8RzmScw18FhsfuTb4znMF6hjTk8HB4f5LKdn09hO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y+NLkCR3; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="D05honEv";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b371duus"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683923fN3035540
-	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 09:42:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	EbC/aiEXygGDz6MUoegwJCLvCP5wYlDG/NMXYLQigks=; b=D05honEvlt/nGR9t
-	r29iJ6NAyWEB18MiFWj9gMAS5/nx9Dk6xn+LRhkPKDWGU1mMbVZGAMKHDsIdVElk
-	Om7SM8d+cSqjC61s0NqH6abHWs2Do3zQD1fVzb0U6buks0rMNxetuRV1RGI5B4AO
-	rYuR4heamylZcLbIHOmMtEXZP9vyFWfkltFyXHFi54NhC4Fbx+fcDhHCF8GzwReH
-	asSbTVD64xOoRTkPggzBaAsoVrb7x1o7EeD04cL8xSBmnIFErio0+XLAPrFd+xaf
-	R+1EzeNtWdZF/v7FGa0W/x2nZ+HiErccLb4ALQHzcYC8WKDp+xtSLBablp2synTY
-	C604Rg==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf5d10a4w-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 09:42:37 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc18ced1a5aso4063077a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 02:42:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y+NLkCR3"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-c9aea40d799so1308035a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 02:43:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788428557; x=1789033357; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EbC/aiEXygGDz6MUoegwJCLvCP5wYlDG/NMXYLQigks=;
-        b=b371duus8Nosv32vzbkBqdqTDIcU3Uoqp9mfWe/yST9Eci/W4cl5QpB+vzKyEXKIxu
-         hnYGSFYJpOaDEQuYPTFP17FuBFtVvtBf02PC0AoV5Lrc12XAiqf0uirha3oOsNj34yz/
-         BlYVVNMzNuH9M6NE7LW5tRBnqv1jAp9Q0X1gTEJN4T3z3gVDA0bGZIHd4ccjRHe1On8q
-         Qr8hlNZREsNA306c9cCXf1wbO5oM1IR24q/ZtcguNHHionbu7Qqw4JUFGiCnw9MvrkIp
-         yDJRTEjl4PRNhlV2A0v1wyPm0/t0h9zPj5Wl0DyL9ZLigvhQsys/zBplOUcSYJbKln3d
-         smbQ==
+        d=gmail.com; s=20251104; t=1788428588; x=1789033388; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=eeQmjVkVna13xNvuP7KXsaAPQ0j3npYARLOdxRgDqJ0=;
+        b=Y+NLkCR3SusfEsWA5r9PkRW2cCVpV/j97tQTuHHPjPX+rGw/QXrhOpsqquofCMfPyV
+         NA/8RJAIC6YriHHi/LpshJarti95LBiHpcE8pTCKdmW11Ujv9HLxAOTrPdWdAeX2DDgt
+         gT6ZxMhkRcrNpiuYhZuZxOHu8fVuFD/RCHm2ulNtgjhPVlUoOU8fd0IOH2LP5rdSLo8y
+         RDIsfJBNDL0MjWn+VPDjhl2HwlA8rqSs9Y7F0fZ66sKMq2P2LAAn81VZNO87N1+blNns
+         ZR1eEv5jnJ5q9H0ddaupr2okPKFr7WXVUIxr1FBR2V1i4io9eY66YgSI1J0844xYcRlF
+         LV5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788428557; x=1789033357;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EbC/aiEXygGDz6MUoegwJCLvCP5wYlDG/NMXYLQigks=;
-        b=ZG/1JcbW3ePhze0u3Mnx4h2kV+SZG/tSig1xxwf8vDFrdrNbA3CKWMXfb5eJytHeNk
-         fIbF6chmQ0x+UNpyMPvNqsie7/1gSfCIRUNmLGcpT01dcqa1aVRLF0hmuyd8kCbiLChw
-         hIdc5XIJZICsxr79ElXvc3c2MCwquULHxuU4XOUZtOaicUZiJ+u9zAOqk4z0IlVY1WDg
-         YOcMlQwTaEKH35ZEXHVgbTJAenCTDk7E1p9CL95U7GMyQN4wrdMsLAsGkwbgGpc5msGM
-         cA4Hys2adknjIRZoousqT8wdKL5RYPZSlvJU2X5Y98o6lBatlDGmYetoHgeew9hZRRVp
-         pEeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxxm/twriBOUptVnoJlLUzoqWzIke3SSbS74BmmhLBcVsZk1uA2iYN4bVujtwr/MTzKV1FYqkLitqsYqug=@vger.kernel.org
-X-Gm-Message-State: AFuF++npD89GWZQetNto8CF4iiNfnWJVeS9TARte2ymNdGw6NRnxVu1E
-	v4rlV33i7GbDHDHY3lydw5yYk9pFzYb1VUTm7QEr3ahNNRt6HFpHAJRHLI+sDQfNudxtwQVzQX1
-	wUPzUh11Pcx8AuY/cpNDNCGJIRmiq3YFd3JloieEtu/oZ/+di+FaXSja80mi4gU/jPnw=
-X-Gm-Gg: AYBFou3UMZ76Q7n5h37dbocQxurXkEiy7RX9p0ZWNWUSRBeHL7bbFHjhn3/3IWMZbz7
-	7hUuyLTT5JblA+E+4nWnYPwrFlf1/JLYBrqYL+y1PB20nY1hRFlgMjiw50ewVveIlRNbLDkaNHv
-	OwVpSdDtrC4WC7cA3KYC/4/0OUryap7+27n9vsHDIqd5vYQMURGlxG4/Z718lk8Rwr77FRgdq+Y
-	fhS6sCX8FuEtizHOYCUwHNdmtsuiurEqzICe4D0q4QoT/rADuIT7mes//0rGPm1EahFgxmZTqie
-	EsHcqWL83yfEqSA9kHZtk+1ixe+Zs/mZYFmuwJeboIsLcHiz5uEK35DoPmTznB0Nc43PL++g17X
-	evXONmBkB6pXr7X9+zA==
-X-Received: by 2002:a05:6a21:3947:b0:3c4:396d:4a6c with SMTP id adf61e73a8af0-3d9afafc369mr17369083637.5.1788428556831;
-        Thu, 03 Sep 2026 02:42:36 -0700 (PDT)
-X-Received: by 2002:a05:6a21:3947:b0:3c4:396d:4a6c with SMTP id adf61e73a8af0-3d9afafc369mr17369002637.5.1788428556313;
-        Thu, 03 Sep 2026 02:42:36 -0700 (PDT)
-Received: from [10.64.71.54] ([114.94.8.21])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc43d39c899sm754924a12.9.2026.09.03.02.42.29
+        d=1e100.net; s=20251104; t=1788428588; x=1789033388;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eeQmjVkVna13xNvuP7KXsaAPQ0j3npYARLOdxRgDqJ0=;
+        b=kcHWNblevLhTiuDzdrT4e4JBMLuKmUMbgG0a95plyUGYLdcYrJYn3SAsXVtFv6GgRR
+         t+Qnyqo4X4SPfI9sT2BtTtn/gNfaO1BroQ1esqOP/hm+hHImMYkB3iXUJE27coTlWk0n
+         pG8flGPDu/lo8Wtc4IiI9qQx9mxIn7p4Ql7P/KXuUeAFDbSl9+hh9EvxoYNhUBPDxNYr
+         +AX+QD4NQ6m19FypE6+K01c3QrvA0+TS7ngStU7bq3gSg8X5zVLmtaGj9kq7ktzR1Xxl
+         1Ui72e9GBE+gawm4Rotn474HMVEKKtx3/lGMt37TjKmC+pBXqGiDE03uKwNKCDLhIALQ
+         Iv4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzAK0ReTE7WW/EYwt/S9AjzAa7HYeFAjiaqnQmDQ4RARVivmxD0RcpJ5k520xHjB/+qjB+surH4UZDkSUY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOnC5UdoNScHqseV9UuiuMkLL8vQiogKnm40fIlm9d69T4AyZK
+	tkc+NZ2gsbBcIXQ/dPMRL+coz/A6IejUIHLSWFKzRGSG4SBMQ71qu9bc
+X-Gm-Gg: AYBFou34WJm74a4tEXN2T8atHFXt+Dn+nO4sbiOv08d9RkDfXBNZR/uVgUB4Mi66V/k
+	C5HGbJGfRGIbiSNkg83OiClztAeXzZP5xSqpArKVlFhvgxTeIuZ+16Elh7QfEx6nF6C8NUHFjbl
+	v14Ozs925Ooqgvgfii1f/A6mUmRPqpY0NuTGt6n4uYAdYJZERau5ch34OzB9OOv/CJerJY3bsTW
+	irEfUxFAd85IqT/lBLUPJ125vFd0DeI3L1OsZgFxgSO/h51utmus8u04XNvif8Ut76lDyypgDQQ
+	KGSTGB5ShqXnkJ9KD1yYTO8+Xu6qfx5u/hbtf/udR/DITKzczsNGiETc+qwjco1GUye7fzkYVXf
+	NYdVMx1MEYPs+e1OsrqE6N/h/s86pS7Iqa/aqd0FTgKT6OhJhkBPxLWfPneQuUxuVoaNtSNOVPa
+	L/pxJRW3yDL4kRv3MFcTYDMCxw7hPjyZNq5FnjuE9HJfDTOIgiipEY9aftGE9X0xF24rV0l1hak
+	luDMJ9v2dk2SpyfWEX90lepsfqgTI1KCQ==
+X-Received: by 2002:a17:90b:2552:b0:38e:c232:9d3f with SMTP id 98e67ed59e1d1-39aedec7bbbmr17515317a91.5.1788428588043;
+        Thu, 03 Sep 2026 02:43:08 -0700 (PDT)
+Received: from [192.168.255.10] ([43.132.141.21])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b0832c14fsm4421347a91.3.2026.09.03.02.43.05
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 02:42:35 -0700 (PDT)
-Message-ID: <b6463a78-9aed-4e17-b044-83b734cc0f9a@oss.qualcomm.com>
-Date: Thu, 3 Sep 2026 17:42:27 +0800
+        Thu, 03 Sep 2026 02:43:07 -0700 (PDT)
+Message-ID: <906239c1-e78c-435c-954f-1198595d62b2@gmail.com>
+Date: Thu, 3 Sep 2026 17:43:04 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,171 +69,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 08/15] arm_mpam: Fix ris_idx type to prevent range
- check bypass on truncation
-To: Andre Przywara <andre.przywara@arm.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Shanker Donthineni <sdonthineni@nvidia.com>,
-        Conor Dooley <conor+dt@kernel.org>, Fenghua Yu <fenghuay@nvidia.com>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Reinette Chatre <reinette.chatre@intel.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-arm-msm@vger.kernel.org, ganapatrao.kulkarni@oss.qualcomm.com,
-        trilok.soni@oss.qualcomm.com, devicetree@vger.kernel.org,
-        driver-core@lists.linux.dev,
-        Srivathsa L Rao
- <srivathsa.rao@oss.qualcomm.com>,
-        Huang Yiwei
- <huang.yiwei@oss.qualcomm.com>, aiqun.yu@oss.qualcomm.com,
-        linux-kernel@vger.kernel.org
-References: <20260811-mpam-resctrl-dt-knp-support-v1-0-ea6397bead59@oss.qualcomm.com>
- <20260811-mpam-resctrl-dt-knp-support-v1-8-ea6397bead59@oss.qualcomm.com>
- <bca22f76-4fc0-4a99-8648-4f148de7246d@arm.com>
-Content-Language: en-US
-From: Yin Li <yin.li@oss.qualcomm.com>
-In-Reply-To: <bca22f76-4fc0-4a99-8648-4f148de7246d@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH] mtd: inftl: validate MediaHeader partition geometry
+ before allocating tables
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: linux-mtd@lists.infradead.org, richard@nod.at, vigneshr@ti.com,
+ linux-kernel@vger.kernel.org, Aohan Mei <henrymei@tencent.com>,
+ TencentOS Corvus AI <corvus@tencent.com>, stable@vger.kernel.org
+References: <20260902124044.3942821-1-henrymei@tencent.com>
+ <87h5k67ocd.fsf@bootlin.com>
+From: =?UTF-8?B?5p6X5L2z6bmP?= <ljp1205831794@gmail.com>
+In-Reply-To: <87h5k67ocd.fsf@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA4MyBTYWx0ZWRfX7JNjGcPyj6+G
- vL7zwiXG+fOBR/3nZJ1uTk6TmB1pdYT+pJrTuflfykcuo/whB4yHJUM0Pii+qzciD7VUSHy5ZKn
- X/ti/Hlf2WEY5klskikDhg2FLQOPUHA/HMrUfEpSDIJe/YIiWs7HbKCn8sxSS88idxZPu9QCcYa
- iF5ZwJAnunmp1mBdqQWddgKkF6BQxQLb5Ut175JwVYXEUqYF8cf2xDIl7p+/uIn1O7kPtF5DIZG
- tsvLGuQBg/tLLOAamDwbv0qGt3yfGpRjEBxHRrP5E1NE7+X527ixzdxMN8EzgEZQOibXJp8TxQt
- vPo/AUdT4Rk8jttqocWyv8Y07b/ld8LwWI7kwKRyZOlqYg47K7/5x2PzDdKKDlp+mkEnVLTu+7w
- OAreG//OPqW8ZZZJhM3M8I2f3EkBPMgrZvqPhKP4i2Oj9+YKOvkU7tTaeMpLPDFmJqkULaFckRD
- 4q3RfTScctKnpsQGmXQ==
-X-Proofpoint-ORIG-GUID: A1v4WKrlKSWTcJQAYrQDm7brXuX2CAVe
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA4MyBTYWx0ZWRfX8X6TASmmTeSq
- nVfIGM5jfPpLSZFcF7VjNEDUDY4khQS8CNEsGcwnNIBRBKJQ05g8co+IeO2aSgEAhYo9NJ+/pQl
- VQztleiS/ubJjdfV0uuQv55xAfqbhgA=
-X-Proofpoint-GUID: A1v4WKrlKSWTcJQAYrQDm7brXuX2CAVe
-X-Authority-Analysis: v=2.4 cv=J4GaKgnS c=1 sm=1 tr=0 ts=6a99410d cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=cCZmPfQC1jL7EaltuNIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_02,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 suspectscore=0 phishscore=0 clxscore=1015
- spamscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030083
 
+Hi Miquèl,
 
+On 02/09/2026, Miquel Raynal wrote:
+> > is evaluated in unsigned 32-bit arithmetic.  With lastUnit < firstUnit
+> 
+> lastUnit < firstUnit? Did you even read that sentence?
 
-On 9/3/2026 12:22 AM, Andre Przywara wrote:
-> Hi,
-> 
-> On 8/11/26 15:30, Yin Li wrote:
->> The RIS index is read from device tree as u64 via of_property_read_reg(),
-> 
-> what does it do that using an u64, actually? Do you refer to the reg 
-> property of the ris subnode, which has a limit of 0xf in the DT binding? 
-> So shouldn't it be an u8 all along, and we fix the types up at the 
-> sources, rather than widening everything needlessly to u64?
-> 
+I should have made the arithmetic explicit in the first place.
+All three fields are __u32 (struct INFTLPartition), so with the
+crafted header used in testing (firstUnit=7000, lastUnit=3,
+virtualUnits=100):
 
-Hi Andre,
+    (3 - 7000 + 1) == 4294960300    /* u32 wrap */
+    4294960300 < 100 == false    /* sanity check passes */
 
-Thanks for the review.
+Execution then continues with nb_boot_blocks=7000 as the loop
+bound against a kmalloc_array(lastUnit + 1 = 4, 2) = 8-byte
+PUtable, and the boot-block marking loop writes ~14 KB past
+the object.  Reproduced on v7.2-rc4 with a RAM-backed fake
+DiskOnChip MTD device carrying that header:
 
-Yes, this is the reg property of the ris subnode. The reason it starts
-as u64 is that it's read via of_property_read_reg(), whose API takes a
-u64* for the value — so ris_idx has to be u64 at that point, regardless
-of the 0xf limit in the binding.
+    BUG: KASAN: slab-out-of-bounds in find_boot_record
+    Write of size 2 ... 0 bytes to the right of allocated 8-byte region
 
-If ris_idx were narrowed to u8 before reaching the range check in
-mpam_ris_create_locked() (ris_idx >= MPAM_MSC_MAX_NUM_RIS), an
-out-of-range value such as 0x100 would be truncated to 0x00 and silently
-bypass that check. Keeping the wider type through the chain lets that
-check see the real value and reject invalid indices.
+That said, the reachability is admittedly narrow: this is a
+mount-time path, so triggering requires root (device
+registration) or physical control of the flash contents;
+unprivileged users cannot reach it.  The intent is only
+hardening of the MediaHeader parser, in the same spirit as
+the sanity checks already in find_boot_record().
 
-If you feel an explicit check right after of_property_read_reg() (with
-the downstream types kept as u8) is cleaner, I'm glad to go that way —
-whichever you prefer.
+One fair point about v1: the new check runs on every partition
+entry during the scan, while only the selected BDTL entry's
+fields are actually used for the allocations.  If entries with
+lastUnit < firstUnit can legitimately appear in other slots
+on real media, I can respin to validate only the selected
+partition (and drop the boot-record-unit check if preferred).
 
+Happy to send a v2 along those lines if you think the
+hardening is worthwhile; otherwise I will drop it.  Either
+way, thanks for the time.
 
-> Cheers,
-> Andre
-> 
->> but was narrowed to u32 when passed to mpam_dt_parse_resource() and
->> further to u8 when passed to mpam_ris_create(). A value exceeding
->> MPAM_MSC_MAX_NUM_RIS could be silently truncated to a small index that
->> passes the range check in mpam_ris_create_locked(), leading to incorrect
->> RIS creation.
->>
->> Widen the ris_idx parameter through mpam_dt_parse_resource(),
->> mpam_ris_create_locked(), and mpam_ris_create() to u64 so the value
->> is preserved until the range check in mpam_ris_create_locked() rejects
->> out-of-range indices.
->>
->> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
->> ---
->>   drivers/resctrl/mpam_devices.c | 6 +++---
->>   include/linux/arm_mpam.h       | 4 ++--
->>   2 files changed, 5 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/ 
->> mpam_devices.c
->> index cc9fa1d78925..1e082fb60e30 100644
->> --- a/drivers/resctrl/mpam_devices.c
->> +++ b/drivers/resctrl/mpam_devices.c
->> @@ -260,7 +260,7 @@ static int mpam_dt_count_msc(void)
->>   }
->>   static int mpam_dt_parse_resource(struct mpam_msc *msc, struct 
->> device_node *np,
->> -                  u32 ris_idx)
->> +                  u64 ris_idx)
->>   {
->>       int err = 0;
->>       u32 class_id = 0;
->> @@ -712,7 +712,7 @@ static int mpam_ris_get_affinity(struct mpam_msc 
->> *msc, cpumask_t *affinity,
->>       return 0;
->>   }
->> -static int mpam_ris_create_locked(struct mpam_msc *msc, u8 ris_idx,
->> +static int mpam_ris_create_locked(struct mpam_msc *msc, u64 ris_idx,
->>                     enum mpam_class_types type, u8 class_id,
->>                     int component_id)
->>   {
->> @@ -799,7 +799,7 @@ static void mpam_ris_destroy(struct mpam_msc_ris 
->> *ris)
->>           mpam_vmsc_destroy(vmsc);
->>   }
->> -int mpam_ris_create(struct mpam_msc *msc, u8 ris_idx,
->> +int mpam_ris_create(struct mpam_msc *msc, u64 ris_idx,
->>               enum mpam_class_types type, u8 class_id, int component_id)
->>   {
->>       int err;
->> diff --git a/include/linux/arm_mpam.h b/include/linux/arm_mpam.h
->> index f92a36187a52..30461cd71199 100644
->> --- a/include/linux/arm_mpam.h
->> +++ b/include/linux/arm_mpam.h
->> @@ -39,10 +39,10 @@ static inline int acpi_mpam_count_msc(void) 
->> { return -EINVAL; }
->>   #endif
->>   #ifdef CONFIG_ARM64_MPAM_DRIVER
->> -int mpam_ris_create(struct mpam_msc *msc, u8 ris_idx,
->> +int mpam_ris_create(struct mpam_msc *msc, u64 ris_idx,
->>               enum mpam_class_types type, u8 class_id, int component_id);
->>   #else
->> -static inline int mpam_ris_create(struct mpam_msc *msc, u8 ris_idx,
->> +static inline int mpam_ris_create(struct mpam_msc *msc, u64 ris_idx,
->>                     enum mpam_class_types type, u8 class_id,
->>                     int component_id)
->>   {
->>
-> 
-
--- 
-Thx and BRs,
-Yin
+Thanks,
+Aohan
 
