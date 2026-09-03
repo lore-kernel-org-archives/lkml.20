@@ -1,175 +1,139 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBDB442E43B
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 21:05:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 884823DA7D9
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 21:08:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788469552; cv=none; b=E2IKxMOkj6q2MOwYul19J2bGC7oTibUqEBCFToOkHMxSk3VfUSR4nWO8pX6dYHq9TiXAOGiOB3qh5qU9W1HmbJyzvtTlHs8K9j6N+ZhanMM5XuwlN2YP/ZfoRttEDj+KGese+8T9SQ1o0HLt7FV5/K69aZbJnTXXVlAMO7UqHMY=
+	t=1788469689; cv=none; b=hM7433aKJHaRcTqX8n5lwpVenDjolMjmMYt2ZN9hOSR2ey6+g3j19v+M+KvALT+Hra2jmMpp6czoyxO/leyPUiheZIi5zeLfR29I1IHLuONtthGE0Q4np4I+pu3WZ2svY5FlrpuW2vI/aJLHhPWIMSy9+uJsZmG489msz3FrUzg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788469552; c=relaxed/simple;
-	bh=SOR9fOIt3kBxiRpEZhQdRNk36+I0q9GbOCdrTRgTeWc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=utkq/I9jbVGr5kfIwxZ/sZSzKEnN9T/LNp6vmx66puiJtvktbDzVPZ+Utm7Nje5hdo7H7qkB1zKf08h8y3D1oIV2xtwcCzGpm/JxxjEKVr8pYVtPk/YyFjIBE5S4N3YywVoGoP8ZZ8eECv8VR0Ce4hEr+KIN2dmH6E+pNEx9i1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VPW9DXMz; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1788469689; c=relaxed/simple;
+	bh=EkwA7aGDJfEGjmuteNX1FzlNd7OD3Fs0oBxnoz5r7wQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=HcOrXNt4631WngWXxPCqc4RSDOSJQ/zXj1V5yLHYCS/fmWpuo2M2FAbx9HTqPvOe/RPfSh2UD3R30InoPlzl6o3Knf6HbYsWX8/a4zZ33F+icoUEeBTnQ3rCBjcTP5deeumwDcDEakRqjVKCHNu4vFYUjD61cqpp6geWlGTtJuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hyRb5afD; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VPW9DXMz"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38e58034d05so220400a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 14:05:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hyRb5afD"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-398b3c37877so312085a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 14:08:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788469550; x=1789074350; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=60P5FvTjKGMcVafsSO2v7sG3m4btNPCdvxmW+oE/rmM=;
-        b=VPW9DXMzVc6TdQ5J0hItX8ZBoaz/F6mE0HfxplBk8APZt5oUVc23qD4U/KLHeoTbWd
-         ouhr+bU8nHIBZHklWHd/6NpXrQ0Fuoyp5RPHI3WZoLUfHFVNE9beuFaXM/sAY+Hf5kaH
-         n0NcRbAIfYZCz/m8SGlvBL4MTv1a61L5RpSKHn6eAEY5OkGWk43BbiKTikH4XyDoK52Q
-         WCZjEEFgt1f/CAsBr7OJ6wiu9kO6KZCwyBE7UUxZlCMrehwyi5mH76EHszEwJ8G9P0TL
-         beaRoKepjw8PQ4cp2K7T3furmTGME+GBXZgbpOdH8WO9k2HmGdBY2ibxe7GzRV0ukUvc
-         trEg==
+        d=gmail.com; s=20251104; t=1788469688; x=1789074488; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=n9qMk88WNjm6tym9wKNjhsNjwQfstK6W3opdEkr+jUE=;
+        b=hyRb5afDcndWjRrqjNfYef3ocGoANWp9JC4gtLq0qdTvITjYu+g0G4qgA6LBjXf+vl
+         hxVpt7OVCKRTwDVt4UyM41FX7nSOejp859C1YiSdJmo6Q8H2Uu8u7aHkF3+aL9VYybDx
+         ymOLzQQBh7LMGLgOvwu2Jngf7PPksVn7c1kae/zp2ZESaGPaai3WRp0wz7ogIsNa0+yq
+         BM29J3xiu8twZx+fnzFA2zUL5TgO6XLBq+sVxU/1JpjVLFKn2x3cS1DJJ5i5Xraa5KM9
+         gxMsYFyCQ8VSLChrTD85tvWlwV99hLROVG1s/Eo/zR0QF2D3YlxXQmvHjwcCJ4PXjDsc
+         mBPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788469550; x=1789074350;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=60P5FvTjKGMcVafsSO2v7sG3m4btNPCdvxmW+oE/rmM=;
-        b=c6Gy3tBf50eYgNzT8oOCAPr94ujGt0HdgJSV6zzRuvEESzmGMlHQsEdin8BSZlw85O
-         apnrESdLEywmQCeNPy2Zf0eDZODol5gWsclotSB3gh4Gqcn+gZEGKOREcR/aFDgwsydt
-         JVlT76kJ7VirP0GdOLR+jjzp6nk5uT4BRRNWU4rfnNK7N4r3h5nS6yqyrYT5PGaG49U4
-         Yq8p1O2fn4gg/zmZi4Jf7xbl/SAGw5qBJjPa38yNOkjYcdDzB6JpxDuNYBlEtCDwT2Na
-         iy/aJ+P0TJQUfvHobf7OjinAHdrco2PITgvs0eHH4LniAGAgixhUZTXKaXWxkFVspvw6
-         W3xg==
-X-Forwarded-Encrypted: i=1; AKwUvBySZwuMHz+3pH12yPwApan/zaGW4crQU759VU9Zwg+AelEOzmhEgxWRpO6WEEAnvidRl4seNUn0/Gu3/ZU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKeC8Xi6gTF7psgfy9icIjFgbKJwDpZKmE0slLGdjoJ0cIM8m/
-	qAvt14MXoyR+NNjLp3UtbsFIg880Nc89t/hGRdkxhJO5lesf6qDLk/qn
-X-Gm-Gg: AYBFou149A4yFvdoyZVXlp0hLoZrjBTF1XmyS4vwdfiVynewTR/2KyNdbuBnxMd3ynM
-	ah26eYcjpdfLrHaaJH7ioSMFOICFFgjb4qQhV9KYSp6b1LY6srXDBODdQp1yLmfNxVGN0UAeXjs
-	akybKr8drb/Ekw332RZb3+GoO+WdT2PF3NkGAMlRSrTH31E7msucsGYVrn+LUY+QsCmeavyQHO+
-	Ei9I2GSPfSmRUh4m+w1SBbe8TPLr8ty9DLQ9M1XTui3ANIw+6XdJ7jUtvCYqhN/0oGWm/hu/TvV
-	MCWdrKdwiP+lglU0PedIfvw9KNEqtOtZg0U0qtKsCdyeneZouCbx9QJ5RxyRHjbMsEveNUWLZRQ
-	oegiO01e6YFgxzMbffmsUu9o+VDE2qvCGsQEyN90KxhKHQcp77b5fRCGH0RGlpTlUhqPf+mw3ru
-	a6TOdgw5Gpjemkdas66OX23UrGvongme/uOX5PKag+E8snd7fsxGebxAjcr2dUJAIk773iMuLdi
-	y+QPolLeA5cKQeFoYvyOLdIcbyeCrkTxEdq1A==
-X-Received: by 2002:a17:90b:564c:b0:37f:e326:6557 with SMTP id 98e67ed59e1d1-39b2612338dmr2047120a91.4.1788469549990;
-        Thu, 03 Sep 2026 14:05:49 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260cd2aasm767627a91.3.2026.09.03.14.05.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 14:05:49 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <5480c69c-8e98-443e-96d7-30e64e886373@roeck-us.net>
-Date: Thu, 3 Sep 2026 14:05:48 -0700
+        d=1e100.net; s=20251104; t=1788469688; x=1789074488;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=n9qMk88WNjm6tym9wKNjhsNjwQfstK6W3opdEkr+jUE=;
+        b=SYqzsE6aQSNw+EVsgd3FLYTkfydLmigBXAC/VIK6vqaV3mpuEcS9ea4/qaBqsH3Yox
+         GeSgrrlKN3VhRrVcAlFApmaRYZqa3s8myzzS6/U0YUxk9ZwZH2FqZb3UieYZFgQ70CKW
+         TAd9ufyZbrarlhhwuebRXjEA3Mcqmyqmjt0Nw0twtsSVd12WiWh2l23Y8SpGdnq0c9LX
+         08fLgKzX53nanl+v+2Ib35VdYwHAabBAfNY5QiWte1o+A1FxEJyqGmpS5J7fGCIZ7a7J
+         rveYDgbuBhPlowmpTtB+eYnxIAlDqKzrtFOfHfHT7Q0aLWAV3MCKvm4SsSFqC44pHPYY
+         R+Cg==
+X-Forwarded-Encrypted: i=1; AKwUvBzvZh6iIDMIIwdTGCA5c5Hxk/71rykPAuaKRC+22ky7q8NN4ql680lOnIRWCSmmxxWpsFAyJKfFnsKbc2I=@vger.kernel.org
+X-Gm-Message-State: AFuF++kVIgs1XDEMPg/Rs1tqbWzCkjEXzLm7IKJTq/DZaTYdA+cuptWc
+	Dwq2HfysTy0k2xRxAoW9WVzyH5b2y+KJMzDWO1zOTlRyJk6FCRvjvI4B
+X-Gm-Gg: AYBFou0OxMr7VjniAQxWow8Mh8egtL3AbGi6t2SIEgZ+03dhZwi6GajjhsvUnn5PslC
+	U02+O+qsK5M40gkW0DyLXsDDBSTW02vlf6wLFzWlgCxrxJXTytfxFxpNNesQbwljSHChPUNdDA5
+	EKFuKy4GvW1PZq02uRzPWsltkEWlxHx0oxGtkgnHaupbuUyGFPHoICZ/yHqMJVHfzxQUR6S9KHj
+	j6L9PH6cqvy5BDlw+6tppso/LiYjY4pd36NjG7mUecK2HO+abQMJIhusH/39QzbtOY+Z48VQGtK
+	W5W4TSZnDwQe3iQuarZtIwrD9w+qFSbbgZnbsoeTuIRVkHkO0pmyH1WPUFvs6Pt9byiZCEaZ2co
+	M63go0mhNRheRY9XOLQp+7oGCz4kmtFvD36CrwvVKJkKArTpD7CdgmQZKRu0LKPKB8N8a6RxSH5
+	JzBO1Cww62/Ek/VLAk8C1XUMkRokV7KCUGL5IrevHreRFVcGt4e4hHSyXGk1D/NqQUp6PGx/+9o
+	MmUyuw/MJ1llQIAkbZm/AZ7N7iDZ6XDmgs=
+X-Received: by 2002:a17:90b:5289:b0:398:e96a:8999 with SMTP id 98e67ed59e1d1-39b261d0d83mr2193919a91.16.1788469687526;
+        Thu, 03 Sep 2026 14:08:07 -0700 (PDT)
+Received: from lza-virtual-machine.localdomain ([223.160.226.115])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c39227sm7023324a91.9.2026.09.03.14.08.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 14:08:07 -0700 (PDT)
+From: Zhian Liang <liangzhan5dev@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Zhian Liang <liangzhan5dev@gmail.com>
+Subject: [PATCH v2] Input: tca8418_keypad -  Add devm cleanup to disable interrupts on unload
+Date: Fri,  4 Sep 2026 05:06:39 +0800
+Message-Id: <20260903210639.22472-1-liangzhan5dev@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260903192942.21906-1-liangzhan5dev@gmail.com>
+References: <20260903192942.21906-1-liangzhan5dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG] SPD5118 Intermittent MR11 Corruption During Suspend/Resume
-To: Matthew Bettencourt <matthew.bettencourt@gmail.com>
-Cc: Armin Wolf <W_Armin@gmx.de>, linux-hwmon@vger.kernel.org,
- linux-kernel@vger.kernel.org, "Rafael J. Wysocki" <rafael@kernel.org>,
- "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>
-References: <46191fa9-fa4a-4c16-b618-2c0c6dc09102@gmx.de>
- <531be24a-bad0-40f6-8e30-3d4da565afcb@gmail.com>
- <a2efdc40-c73c-4892-9fea-9470c0f9823b@gmx.de>
- <0388506d-9ddc-4825-bf28-95c8eef219b6@gmail.com>
- <57a05dea-3cce-4ecf-bbe1-ab7464f8c224@gmx.de>
- <a5d32ab5-f545-4e11-bf0b-88d3eaa68890@gmail.com>
- <474a37bb-0774-4710-8458-ea28d7c54c89@gmx.de>
- <c81e7caf-d3e4-4212-be9b-ec35d0a04086@gmail.com>
- <c096b0d7-90c2-4d91-9776-9f109679c309@gmx.de>
- <7ca2e621-e0a1-4eee-bcd1-2ded610f1beb@gmail.com>
- <cff09168-9a88-494d-bc82-d9a5e4de22a7@roeck-us.net>
- <e1a6a91d-d03e-4e7a-ba7b-9268284ce7e8@gmail.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <e1a6a91d-d03e-4e7a-ba7b-9268284ce7e8@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Matthew,
+tca8418_configure() enables TCA8418 interrupts by writing the CFG
+register.  If input_register_device() fails afterwards, probe returns
+an error and devres releases the IRQ handler, but the hardware is
+left with interrupts still enabled.
 
-On 9/3/26 11:25, Matthew Bettencourt wrote:
-> Hello Guenter,
-> 
->  > This system [MSI PRO B850M-A WIF/7600x3d] does _not_ have a problem, or did I misunderstand the above ?
-> 
-> That is correct. I was unable to replicate the issue with the MSI PRO B850M-A WIF and 7600x3d. The MR11 registered never got corrupted during sleep/resume and I never saw any piix4 errors logged when using my piix4 driver with the additional logging enabled.
-> 
-> I never swapped the CPUs as that was more hassle than I was willing to do right now, but if it something that might be useful I can probably try that at some point.
-> 
-I don't think that would help. From all the reports I browsed through
-so far, the common denominator seems to be that the affected systems use
-a X870 or X870E chipset.
+Fix it by registering a devm action that clears the CFG register
+ when the device is released, disabling
+all interrupts on both probe failure and driver unbind.
 
-Anyway, couple of ideas:
+Signed-off-by: Zhian Liang <liangzhan5dev@gmail.com>
 
-- Do you have the latest BIOS installed on your system ?
-   Some statements online seem to suggest that the problem
-   _may_ be fixed with the latest BIOS on at least some
-   of the affected systems.
+---
+Changes in v2:
+- Fixed typo: tca84818_write_byte -> tca8418_write_byte
+- Fixed typo: tca8418_diable_hw -> tca8418_disable_hw
+---
+ drivers/input/keyboard/tca8418_keypad.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-- Please boot the affected system with "usbcore.autosuspend=-1"
-   kernel command line parameter.
-   There are some claims online that this might resolve the problem.
-   I have no idea why that would be the case, but I guess it does
-   not hurt trying. Of course, if that _does_ work, we have yet another
-   mystery to solve.
-
-- Do you have memory with RGB-anything in the affected system ? If so,
-   is it controlled by the BIOS ? If yes, please disable the functionality
-   if that is possible.
-
-Thanks,
-Guenter
+diff --git a/drivers/input/keyboard/tca8418_keypad.c b/drivers/input/keyboard/tca8418_keypad.c
+index 36d4a7c38bb1..413b404a08ba 100644
+--- a/drivers/input/keyboard/tca8418_keypad.c
++++ b/drivers/input/keyboard/tca8418_keypad.c
+@@ -270,6 +270,20 @@ static int tca8418_configure(struct tca8418_keypad *keypad_data,
+ 	return error;
+ }
+ 
++static void tca8418_disable_hw(void *data)
++{
++	struct tca8418_keypad *keypad_data = data;
++	int error;
++
++	error = tca8418_write_byte(keypad_data, REG_CFG, 0);
++	if (error)
++		dev_warn(&keypad_data->client->dev, "unable to disable interrupts: %d\n", error);
++
++	error = tca8418_write_byte(keypad_data, REG_INT_STAT, 0xff);
++	if (error)
++		dev_warn(&keypad_data->client->dev, "unable to clear interrupt status: %d\n", error);
++}
++
+ static int tca8418_keypad_probe(struct i2c_client *client)
+ {
+ 	struct device *dev = &client->dev;
+@@ -356,6 +370,10 @@ static int tca8418_keypad_probe(struct i2c_client *client)
+ 	if (error < 0)
+ 		return error;
+ 
++	error = devm_add_action_or_reset(dev, tca8418_disable_hw, keypad_data);
++	if (error)
++		return error;
++
+ 	error = input_register_device(input);
+ 	if (error) {
+ 		dev_err(dev, "Unable to register input device, error: %d\n",
+-- 
+2.34.1
 
