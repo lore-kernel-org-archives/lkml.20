@@ -1,107 +1,107 @@
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D96D4DF4D5
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:33:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C004DC550
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:34:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449641; cv=none; b=lkEnFjrN4se65g8iBL72TyHMutCFTXdTnNNJaeRFbbAJlXPDxIaaD7FcsX/ynU2pBR1YtTG0R9rGFY7OOCwUcjEx9Nsk8JqfWLW7OyYMbyT1CO+H7K8aZCbbDtRdmtTOrfr38BW/VlQBIOwP0j/+VpMuRejR66UFCHRZhhGlH2k=
+	t=1788449672; cv=none; b=kQ4izgnfGNiUNzKkCsoDIyS2QxXbDzER5trNwfuSw5ZC+6vA9tLKe8BWbqkBGp+vv2IM3oqzF+S5b2qdHLDZkmff0/u6W2S6rbRHo/jlKswQefCozMhlTxvkXkmfwTXxqdXhiY/+DT4r9rmifqTfIzsSLA//gWZnzIL1BKCuO2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449641; c=relaxed/simple;
-	bh=4ISs0p4OZ8p6JtAb2NqQCn3Ms3bwI1uZBinFoY6Hif8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=s9ZgV0o4Hy5QCv/DKmDTHi+Mmo/eUgCNxeXK0ooydXO+JjwzjnhehKpb3p0Kr5Dpeobgppe0lHrWne7obpw8lvfV6Y58Vukd3+Q/pBui5/ZTW25Zl0MtA1npq2ZuViXGaRb2fp+Ir82iyadMjlrLfdP1Y1iPcOmxKw7oxZ/Dv/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	s=arc-20240116; t=1788449672; c=relaxed/simple;
+	bh=goQu9Jgo/wzgznFj295FQUjpYm7lou0KSDavxxBHM4o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nhb3B5WcgjrtSvGrqIKes/nz+Bzjpvx/qtR3HNP51uVsqWT7phV48WSQnqN/7U3On5Oqc82WI01fh1I9NLGtuFXGiN4MKQAmllXACTwSpiiznoc5wIbWuUGXeWSYHtT9rDIGzMY6+zD0LrUK8VBAaABOeDDkrh5NLwb4XFei3Mk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c5YzhmG0; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-78a338fe106so738778137.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:33:59 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c5YzhmG0"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4956d1d9fb2so17395e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:34:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788449669; x=1789054469; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PkuD/BaHiKXvm0lMtMhPcQ74061Sh7KqlPSpTfAlPBU=;
+        b=c5YzhmG0iCa23d24uSd6m+g6IkU1md52auNHBYMj0Kjru3WkRd3lvgm8kol+Bsc48+
+         L/P0o4+EudylRbkfVEsOsYh62WyVbwv2L7T7sgOZaH/DoEtLAn1T3oS0JEfYgmLtRMNL
+         A9R6tEWPcs1lwineMinWSGq6VXeg23d+w9WqUwdwviiE6julWfOWEuhJ8RTZrMKD5NQR
+         6HUnzS4aezIUtLEnDj8GOTgENdCC97t2ixzOrJUlBJVLJO1RxMqMlL4y4yxvoKgXjYN9
+         ay4BEDeXH3bQ2q45rUiZsaYJZR1UlDJMRHM2uEAmukKDJTzJvHRmcKrQIxsF1VIbLjsM
+         ZDdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788449638; x=1789054438;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Q4co215V8cCcryKl+ePptL3AZAP9ssa33MB98SUpHXE=;
-        b=tT4KlhH7CpOA4rIpjy9PTVj7u+vXK0a883m4H27s9vUaxYiYlO8J1e/1Mbvcyujc7B
-         BcVdjRTCWKoAQ3hm8DnvHE7gjnASArRd7V6y3U5YnzBRNtNndPbB+NrkdHJ3DVvCjsDR
-         NYcwOTilDc4gkMZrls/cu8GuTdgsW4VRvA1RMcYuv3vD8rIYdPb50YYUMgCi5WDm94sp
-         82GEwho8qxm+UKj/MyRIk3oxGTdnT1wH+BggerAdzpR5K9pfS0R9RXs01oCBYAAz5DG/
-         sYtEP6vZzhvCLIh44OUC3PYUlAasE5mT8LFW+EH9IQnZQq24iWPQs9dIEQH3HCsx+ra6
-         h/mw==
-X-Forwarded-Encrypted: i=1; AKwUvBzjXYCcGeUm/9DcON4hA9Gq/KHn8HeKmJLOhUnt7e0RbWO9dDlug6mKfrcM0USh41HbCyPellhUPD43uiM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nm+5oMZpwequhzFxETtCKGuDPa7w3TmO8ECX0l5VyBbEBYTx3i
-	Qa33OMUbaLaIfLta2koMQeR8y7e2ELZBM2+mKSLJ3ABmOIL825AXWIWVxYPdHa8wrGI=
-X-Gm-Gg: AYBFou2V7mdTHw5iewTyZkyeU5o0SbPRPZ5OZR2FzaivGKCYFHgHRHAlOrWRBXmwynt
-	c8evznfikiLNPGd276pYRpJbR56AwThasfspZYcWVUklUC0NsvPQFGlw/ffxTY1igZQBimS/Hua
-	dilyuRv9hQtRy256ZiWwBV4okCPS1J3wjscFn+sLcGNFE6tbrZfJwr7sRssPZN0lmawKZvxf6IH
-	h1EW88c49Y81TB68e4keotQn6FwLFVGY00m4AoOtNtLixVWlkDkcHYgWqoSnyjs4NXnF2cKfiYc
-	3Mz5+50oWB/ZQ0e4GiojFUANaZ0X4afvsS94jlHitjORS7Or2817aEpADo9b/3oOG/FM1M3SReM
-	t60FFw1vAyy6qCRYknJ5heclffpYJ9WUuPAmWsoQ7ksNQsyWQyoJZ1oEp/P03jub14kLpt6EZEf
-	sXHHZdOCkJanUp65u0fiB3tzTZmJb2KGyH6aKHVWrojDQEAuKCO3Ytg0w5qJchQU/mAqL2PGPHA
-	EhQdjT5/RnA3h4YMo7kOO46jGG5p9IrWbJzRQ==
-X-Received: by 2002:a05:6102:2388:b0:784:ffbe:64bd with SMTP id ada2fe7eead31-78a2ed7c976mr1389100137.5.1788449637653;
-        Thu, 03 Sep 2026 08:33:57 -0700 (PDT)
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com. [209.85.217.52])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9808ac0326dsm411763241.4.2026.09.03.08.33.55
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 08:33:56 -0700 (PDT)
-Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-78a220b5778so1099174137.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:33:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx33ys7+8852ueawYhn2bJzbyCmmpqq7Ap1CmN2hu8EyaIcEKX3gEfNsat9VPKk7HFaGqGPR6WnHQ88JjY=@vger.kernel.org
-X-Received: by 2002:a05:6102:8345:20b0:777:2e1b:1e2e with SMTP id
- ada2fe7eead31-78a2ed7ca4fmr1596359137.3.1788449635039; Thu, 03 Sep 2026
- 08:33:55 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788449669; x=1789054469;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PkuD/BaHiKXvm0lMtMhPcQ74061Sh7KqlPSpTfAlPBU=;
+        b=hn/PYD0LXNum6xIDsL4g+CrmZZt9+ZSJCDhvkuXP8XBTXZclmjm8D7wpH/5ElA0w5Y
+         eHdH73du4IO6lPnJgG71Sa31f31p+czxC6AWKNaRHmxmzAfcTZNnQnzx6pQMZ+w3jT5o
+         AciT1EazDxTNnvT+zEtTRaik7CJvP3165lOQJ6PNfDRTXtBd7YGkvkXlhtMKrn1lBWdF
+         OrkQBbycclbZeRzGK4Os5LyWKwyMyalRBHok0V85K3OEnmDBbfqIt3aFGydESzP33G3m
+         +eigxfJaNCEiApAE/99yVRHT8Wn8KUSaKKSD42dxtdsKpPaAXNaPV33EBGShX1lB8Gjv
+         O/KA==
+X-Forwarded-Encrypted: i=1; AKwUvBzN66PnIFGAKjYtoDam3NL5thm3cpX8EqFH+QEXOGG//iIFjwBHjPYsWrxIl203Zfu2o3r5tA98mtAGxy8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mptqvC84zFbFpf97Jc/byptcUN82up5KjUthvb1fruVjg0hpvb
+	Qtb4EPPm3E7dCpcpLmjXhrJ5zX2hBMHsCI1DScCTg6yz3EkUWtSomCgX
+X-Gm-Gg: AYBFou21DHlrcHSnI2eGiWFk4Ry4D8AWfhHBC4kXkmu03aGbSq4j6NXUbPY1x2+uZ3m
+	9E++yZDH5qgkA/CGCWMZjmpYO32y4uXa0aQ7KKRPoEA6fLKx+vIR5BVjQYECOcixizeHBNRrq2p
+	CdI63K3Lgw5DhfQJO/okGON5ZXF64yH/j5UpjV/yxw7FIO8ftX5BPXqcQnbSd4Pi0UANbikDujX
+	WS+QfZ8DodW2DV0rkVK6Wx5KvE7VMcoUXqGPPn9KJALQP0tgwld1B7cSMTimnkeTCKhOLgW0iGR
+	xyzwp+4CnIGJqnkp+NH1cElL+45gtP7R120xry6oZ0ufMfoYM0SLArMnRaI+J9f2RQDouPxnbua
+	AaudcAwvKHqMOS3WYiuCMHQiC8qlozN3odVc+8LAmk7MMqUIyMPBpP2CaPo7mYJNCzJ5gcnpnzn
+	FXEuXIQRiYnhGS2hvyPHUaM4RZGlyY7rqbXXrvvDtw3JePjCtvqES9D8B0bP0FsfyHDWWGgPfJW
+	YHeUJMkGvUQ3VxYw6O6o77Cu2SJi072HX/0OfLh7SuICjkDlz4Q2W6cr70JVoK2hddQDueelrip
+	e9Mu7h4ybsdj3ImBG3hyUIfZ
+X-Received: by 2002:a05:600c:83c4:b0:49c:e363:c66e with SMTP id 5b1f17b1804b1-49ce580365emr105280595e9.1.1788449669019;
+        Thu, 03 Sep 2026 08:34:29 -0700 (PDT)
+Received: from pop-os.. (98.102.222.87.dynamic.jazztel.es. [87.222.102.98])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5d476esm87754845e9.1.2026.09.03.08.34.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 08:34:28 -0700 (PDT)
+From: Miguel Garcia <miguelgarciaroman8@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: hdegoede@redhat.com,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] staging: rtl8723bs: remove unused phal variable
+Date: Thu,  3 Sep 2026 17:34:23 +0200
+Message-ID: <20260903153423.1814932-1-miguelgarciaroman8@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903113327.1217457-1-claudiu.beznea+renesas@tuxon.dev> <20260903113327.1217457-6-claudiu.beznea+renesas@tuxon.dev>
-In-Reply-To: <20260903113327.1217457-6-claudiu.beznea+renesas@tuxon.dev>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 3 Sep 2026 17:33:44 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWGCdFH4-+-0Cws402jvHO7YBAELUeobp1BbDpeAZguZw@mail.gmail.com>
-X-Gm-Features: AcwNN1VsYZsO5o2pygHZnaCq-bQizs6Zsc1Hfv4_iBmyRo69jsaq1nCLJ4t6av0
-Message-ID: <CAMuHMdWGCdFH4-+-0Cws402jvHO7YBAELUeobp1BbDpeAZguZw@mail.gmail.com>
-Subject: Re: [PATCH v6 5/5] pinctrl: renesas: rzg2l: Add RZ/G3S support for
- selecting the I3C power source
-To: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
-Cc: linusw@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, magnus.damm@gmail.com, 
-	prabhakar.mahadev-lad.rj@bp.renesas.com, claudiu.beznea@tuxon.dev, 
-	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Thu, 3 Sept 2026 at 13:41, Claudiu Beznea
-<claudiu.beznea+renesas@tuxon.dev> wrote:
-> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->
-> The Renesas RZ/G3S I3C pins can be powered at either 1.8V or 1.2V. The
-> pin controller provides a register to select between these two options.
-> Update the Renesas RZ/G2L pin controller driver to allow selecting the
-> I3C power source on RZ/G3S SoC.
->
-> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-> ---
->
-> Changes in v6:
-> - used bit 23 to define PIN_CFG_IO_VMC_I3C
-> - described the I3C power sources according to the new method; due
->   to this didn't collect the Wolfram's Tb tag.
+Removing SdioTxFIFOFreePageLock also removed the only use of phal in
+rtl8723bs_init_xmit_priv(), leaving the variable set but unused.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Remove the dead declaration and assignment.
 
-Gr{oetje,eeting}s,
+Fixes: e9b50a2821bb ("staging: rtl8723bs: remove unused spinlock 'SdioTxFIFOFreePageLock'")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202608310749.mheatdIW-lkp@intel.com/
+Signed-off-by: Miguel Garcia <miguelgarciaroman8@gmail.com>
+---
+ drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-                        Geert
-
+diff --git a/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c b/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
+index 7f55448d544e8..0441e84ea87da 100644
+--- a/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
++++ b/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
+@@ -525,9 +525,6 @@ s32	rtl8723bs_hal_xmitframe_enqueue(
+ s32 rtl8723bs_init_xmit_priv(struct adapter *padapter)
+ {
+ 	struct xmit_priv *xmitpriv = &padapter->xmitpriv;
+-	struct hal_com_data *phal;
+-
+-	phal = GET_HAL_DATA(padapter);
+ 
+ 	init_completion(&xmitpriv->SdioXmitStart);
+ 	init_completion(&xmitpriv->SdioXmitTerminate);
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.43.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
