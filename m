@@ -1,76 +1,140 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE394E80BF
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:42:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CD4B4E3EFA
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:42:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788450139; cv=none; b=eD5ncMyKJ3c9FGBA4P/tM93qAJKcUl7cutuRS5pNgOtSV6mF/t1RLmUHNkawj5Nxdll++wlahq2Zf1kl+Df6L6X6eeRgQSO0LsfOyDQ2b86njRjKyTLgq+WWIQW0v7075nH7pKuyCE+uNW/nsIBwUTQhN8FQ32G2OoGDYeeGJVY=
+	t=1788450154; cv=none; b=b23dSDuwN00wDvjH+e23N3NFaPWHlO49nG7hANWFcgYlSGd92gmzoCXalNbVXUY0fuOgutp3PTIR2ljeb8TkAkPUQMApo3/pQD8taY7651pJxNTcju59L+Twlq8JqNa6DeMJvLqwP9JsReE2NjhHM4i+0B6E1iw8KKYA0O+X1cA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788450139; c=relaxed/simple;
-	bh=ZY114NPCijjp/00AgobEMStIusDtmvV76rhBGJ4v4c0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
-	 References:In-Reply-To; b=EJzyBBOVIU2StwrpLgALD0Ai8TgvyIFIIuEGSz/BvZpvaYRTi+bj7NJ0i2UAJlADrRW1wLJz2rSWplcAHG42bDYFxqpsYiNAkpeXcKfRZe1FHDCESJSRgxKxyQyM7x/Fl4gr1ZS7YDUpNUT/mM83eIdGkWPJJufZSYKmA8qVp40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ZONWW2y3; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788450154; c=relaxed/simple;
+	bh=7fppAZeChUxooPl+rWGwhu1bfVHc8dwbjHhvmyHa0gc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Otfos42Nakrj1o/vfscgYnTOyFQQzFYosD5O3ORXzR2eRI/rttHAGI+8ca/BZNhtSfdpNd4X/Tfow/D8iAyyH8GnQh5p2LYAqwrLih6QekUyyc+nSg4wylLXl2p/4gu1olJocJ9PaAW0aY/cTgg+IatrU5do1J2tmTCQWAVM/xI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=C7amkO7B; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ZONWW2y3"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id EF42B1A197E;
-	Thu,  3 Sep 2026 15:42:14 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id BBF3E602B8;
-	Thu,  3 Sep 2026 15:42:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 62E9511C7A332;
-	Thu,  3 Sep 2026 17:42:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788450134; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ZY114NPCijjp/00AgobEMStIusDtmvV76rhBGJ4v4c0=;
-	b=ZONWW2y3GI6zQzbfOTRbhwcZEq5FPYfJLwAxuDiOluaQkN00HTFhyHCQZSGLdlrScK2J1i
-	BRdh0pEEyETJ+m8TLTvAFVyqXYPNewicgPgW4Jpx1z4/vcQanHlrrbYcbyLQxjNTpXfPmQ
-	12RdHONULPJRni3+3Wqs37GZ45pH2faIugS9cgpqQJlN8S9899CgLbjVfqmggQOhu2I+iM
-	wLNu0ZS2wQBqJazV5v8a+/YEJsMvcnENGFaMeZOiJO3XPaB2O/g+3TGG6ziuZKx9E8E7G3
-	IrlHMZBablDUWZwPbXo5EjjjOLtAHLVz5dzrfTmUL9Lht4YHRa5Kj7HUDlDEOA==
+	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="C7amkO7B"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-381b831d535so4092449a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:42:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1788450152; x=1789054952; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Q7VpLbdfdRaMXmxM4Mf8jv+lQMVFUzyhevVNALl44og=;
+        b=C7amkO7B4w7aX7uiGHO4Uj4JL0+QZ458uGkRN5GXjJ4JYUq/uClQeYAHWKz8ckuJr0
+         Q/9ycw6jmFx/gkUiYBEyFYOG99z5qn2p3gIqbi9WlITw3Qy35UCiKzChKnJHe70SGHXk
+         xTy/motZ39tUTSX98pRDVO/usay1eJYuOOj8NAl0RezRRC++n5B22kwHoFsr0bk53j/K
+         kNJg4vwpJVOUhJwcyeLMEazZ67IQqHceP4oLck2tHKBtbf4e0hYKKaGznbA0xtfT21Kw
+         uq4aV3Tig2WH4h/7bA5VjB7I5nM7BayTZPH6vi7r65AQQXJEqu9hjh+aWL4bJ5DvQFxN
+         Rbqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788450152; x=1789054952;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Q7VpLbdfdRaMXmxM4Mf8jv+lQMVFUzyhevVNALl44og=;
+        b=LN2G31gZyHsmRG9ZIPs1gCkpTgngB4cpQcrfYhY3Ra4YRQvWXSO3RglartWFFTYpai
+         bXrER0HMweUeHK0HAGNv5wsAqgS64tkSjY0Aaq32g7+jMDRGaxIH9MM5WDZUlLBuBSvF
+         irYnSCgqPeQdv0i/P8+oAewJm+cjoD5sP/R+LllJ4gfhGtGeC/P1x0qw94td4DLexQKZ
+         5K5y6rSuoOqhOX2e5zlOK3ntLA4KaCCXr4sSKM4kE4x1wTUaS0Dyz86/PURBdYg0TwTk
+         RjtOOzBJiVQy/2I81ymdx9E2CYq3iV7EWASNkRSsTVtu3Jx5h5Nucmk+vl8qn7lnN5iT
+         bSRw==
+X-Forwarded-Encrypted: i=1; AKwUvBz5tYWT/7uRSxc9vPinFjhtRtcgGoENsApK+ZYuQfCDUUCeVK3VdbPoMCgLVhxutY5srZrFUntTPawY2/U=@vger.kernel.org
+X-Gm-Message-State: AFuF++mz5E3TufTHuBk/YYswdlSvckLSwxIIUVYX0syF02Qqvow+T57V
+	T1qw0bbAFYrstUydjjd69qmgzVLmIZbd5Wd3V2XnoOVXm2K6LoK02nddpkxUZrTJvBA=
+X-Gm-Gg: AYBFou31UJNjl3KYFppBfItpeRWhi7fbTjA5w2qGGmjy7NciVW2BUA5cW84xYNVeQ2S
+	Cb/S7Z+P0qy3k3nutpXmwkxIV8C3DJ8uQcUgjxmkbYi1F8dk8WhVC2+BQYr3KJAzSlXIGKzWawZ
+	xRiVumK1W9FFrvUoYUHxk0u6qZMn/6kdKvB10RvwrIQSAP6cHeekpF0dI0tbbkGv1w/Y/RWdzX/
+	SxCkrJVGkB04TqmbeBdMUjUFvLNE7Y1D4inCH64PVsKLUFE9zOLb55wiFwtrRS/O9HPWaMFhyO9
+	4bCfix9HAwfS+xBP9JO4MsmkOG/kxL8fiHUWkfNF/roEG8W3KAS3xKnbv9I+aeKYwuGaKZ/5+uu
+	+bdoRcqy9GvjJNLKgXHSDwj2pVbOxHv6F/lxVAJcYbkpD6XN6th1MAgTBj0hseF6igLKlcRg0XR
+	Q+rRAvjREtc9uoBfFL/BiLcONDQ/WLnXWoefuqqJ2e7bQg0X7CWEWLk1sKXnKTHfAjTgZCHJ6yu
+	96Hlg==
+X-Received: by 2002:a17:90b:1c07:b0:398:9be5:b41e with SMTP id 98e67ed59e1d1-39b232e2f86mr724416a91.25.1788450151857;
+        Thu, 03 Sep 2026 08:42:31 -0700 (PDT)
+Received: from [10.42.0.1] ([2a00:23c7:1d1a:9c01:521a:d95c:2f1e:64be])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14324356931sm522926c88.4.2026.09.03.08.42.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 08:42:31 -0700 (PDT)
+From: "Pawel Zalewski (The Capable Hub)" <pzalewski@thegoodpenguin.co.uk>
+Subject: [PATCH 0/2] crypto: use designated initializers for acpi_device_id
+Date: Thu, 03 Sep 2026 16:42:15 +0100
+Message-Id: <20260903-acpi-crypto-v1-0-253cc6fd9836@thegoodpenguin.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 03 Sep 2026 17:42:11 +0200
-Message-Id: <DL5SNS2DPT1J.2JKTUMFT0YXZQ@bootlin.com>
-Cc: <linux-media@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-To: "Aleksandr Chubuchnyi" <chubuchnyi@gmail.com>, "Thierry Reding"
- <thierry.reding@kernel.org>, "Jonathan Hunter" <jonathanh@nvidia.com>,
- "Sowjanya Komatineni" <skomatineni@nvidia.com>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH] MAINTAINERS: add Tegra CSI bindings to TEGRA VIDEO
- DRIVER
-X-Mailer: aerc 0.22.0
-References: <20260903135058.2598642-2-chubuchnyi@gmail.com>
-In-Reply-To: <20260903135058.2598642-2-chubuchnyi@gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFeVmWoC/yXMQQ5AMBBA0avIrDWZlki4ilgwBmNB0yKkcXfF8
+ i3+D+DZCXuokgCOD/GyLhE6TYCmdhlZSR8NBk2BJWaqJSuK3GW3VZEu+hyzQaMxEAvreJDzu9X
+ Nb793M9P2LuC+H6zk/FtvAAAA
+X-Change-ID: 20260903-acpi-crypto-c16d403f1022
+To: Tom Lendacky <thomas.lendacky@amd.com>, John Allen <john.allen@amd.com>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ "David S. Miller" <davem@davemloft.net>
+Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ "Pawel Zalewski (The Capable Hub)" <pzalewski@thegoodpenguin.co.uk>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788450148; l=2070;
+ i=pzalewski@thegoodpenguin.co.uk; s=20260430; h=from:subject:message-id;
+ bh=7fppAZeChUxooPl+rWGwhu1bfVHc8dwbjHhvmyHa0gc=;
+ b=iGtdnQej8tebA3hOpURWq045vZyBw8e23H2zOCZMV9bxp4YnlyPwbfMhXA3Mb3sSbFR0qh2VO
+ aygW4aab4E5CEaX9nt9nMOCb8oiX1/rXgbray7OkOIh0fcshBJQ9mq/
+X-Developer-Key: i=pzalewski@thegoodpenguin.co.uk; a=ed25519;
+ pk=vHq4n9IonORH2GTzLv8r6CWAFHzgfBuNkQPXA8NSly0=
 
-On Thu Sep 3, 2026 at 3:50 PM CEST, Aleksandr Chubuchnyi wrote:
-> The tegra20 and tegra210 CSI bindings are not listed in any MAINTAINERS
-> entry, so get_maintainer.pl does not match TEGRA VIDEO DRIVER for changes
-> to them and reports neither linux-media nor two of the four maintainers
-> of that entry.
->
-> The entry already covers the VI and VIP bindings, and csi.c binds to the
-> compatibles documented by both files. Add them as well.
->
-> Signed-off-by: Aleksandr Chubuchnyi <chubuchnyi@gmail.com>
+This series is converting lists that contain the acpi_device_id
+struct, which is defined in the include/linux/device-id/acpi.h
+to make use of named initializers (which they do not use currently).
+This work is part of the on going effort in the kernel associated
+with device-ids [1]
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+The plan is to convert acpi_device_id::driver_data to have an anonymous
+union, similarly to what was introduced for PCI and I2C device ID tables.
+The goal is to increase type-safety (as most of the existing casts are gone),
+to improve readability and to make use intent a bit more clear:
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+```
+union {
+	kernel_ulong_t driver_data;
+	const void *driver_data_ptr;
+}
+```
+
+But for that to work all lists containing the structs need to use named
+initializers first to avoid triggering -Wmissing-braces. I already have
+patches that implement this and touching a lot of kernel subsystmes that
+use the acpi_device_id struct and that list keeps on growing. Therefore, 
+I have decided to split the series per every subsystem into:
+- pre-clean-ups that convert the lists to use named initializers (this series)
+- actual implementations that make some of the modules use the new driver_data_ptr
+
+That way the task can be fragmented into manageable and independent
+chunks of work and makes this effort easier to review.
+
+Tested builds on x86-64 and a64 in Yocto using 7.3-rc1.
+
+[1] https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre.com/
+
+Signed-off-by: Pawel Zalewski (The Capable Hub) <pzalewski@thegoodpenguin.co.uk>
+---
+Pawel Zalewski (The Capable Hub) (2):
+      crypto: ccp: use named initializers for acpi_device_id
+      crypto: hisilicon/sec: use named initializers for acpi_device_id
+
+ drivers/crypto/ccp/sp-platform.c       | 4 ++--
+ drivers/crypto/hisilicon/sec/sec_drv.c | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+---
+base-commit: 940de590b839f71d6dc846160534bf202401b8b7
+change-id: 20260903-acpi-crypto-c16d403f1022
+
+Best regards,
+--  
+Pawel Zalewski (The Capable Hub) <pzalewski@thegoodpenguin.co.uk>
+
