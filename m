@@ -1,227 +1,246 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com [209.85.167.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 417DB370D61;
-	Thu,  3 Sep 2026 05:28:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788413298; cv=none; b=NK1Mh0JQL4ZlhheAPbcthDSLMsfiBsWmKkLNhHulO+8i40W/RMkUJ58AzR+Lwd6Wg/wRtzYTtMdIBnhr3u6z0mJw+S49uN2KokP1Rha+ER2yuuM87T4FJlQx4GN/j7SuHBzGfr6EakJt7j8F5WdqCtKARtopATVenHADEWFDr48=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788413298; c=relaxed/simple;
-	bh=txaTssFR9L+FuhZcCgxOrz7O9X4L9kSObDEoea5xmt8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=gqZ3kaQYCeIWPIJFrsad/xLNcSlkUrS9kAHD2BSXW5A3jhRJy71OKzH7eeTV6Ia7WbbEDONcERn3gHMUvEkQ8NpSYGRF2WGDTwnh6hMQN2Lm/xbo+NHjZNoEp+UvImwSaYPpf9U8R7vsUcvWbRT4cGPG/IfMkyO8naIQi05CqV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vn0LIuvy; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D565E332EBB
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 05:29:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788413361; cv=pass; b=iNjaoA+YklQ3/LCbkZz//eWlyIfP36RIrCbI0NQ7z91LQDkCwIPyOvUnQbR4VoOeNEGfWXlf4cxMhPhgxbBiWy2cG2HF3tcqtHYT2CJI5LlA/aTk7efSTAv69tWxZRqTZG4fbP9DfZ7BZImHO0VnxTHsvZtOk7QbBBe9PkhPaTA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788413361; c=relaxed/simple;
+	bh=xTw/AKqw9lQ3vl5u8L3lQjNutmW6u2P0Ksxmef5zCDU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=l3ZFTjj1/t8F5mOwM2kVIUJMGr3g3m6iDGTziHjozh6dwKcgIobbSbBxTCdqdvTK7ConOOKyyBG29RyEmFmvwN9YIZ/HFSk4G0vy+xvkgzQf6hk2tWaNqH4sCd/uv3WGvBswUOc9MspMN8XA6jz8/ytEzsW0ld4gpcwwdeBS/tQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o/tnk8th; arc=pass smtp.client-ip=209.85.167.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vn0LIuvy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38F451F000E9;
-	Thu,  3 Sep 2026 05:28:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788413296;
-	bh=JVxkLaQT4T/vmJg4DPi96Zlumzz3/QNy4dvXOiGy+xY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=Vn0LIuvybbznKaVVTOU5d9OPD4sBTUuFDC63Qy5Wl+VX0M4oRhgBBnmo53RitRShT
-	 c7z03wmwZBrTzJfrXaCtVShWaL8TR6idp1sgjVL9rq0yZxoLMr/T2uEW+YAfzNF9zS
-	 5A3PZVxn3sLOHTx1eJ4R5I9xbJxKfHOtJ0DNjpP7UO/vMGVsJcrEez0qHW+/H8ewrX
-	 xh0jzW2womVcJB5iUAB2zxIuZhDeocWCLNa0Df3uVTbgTvPssrni2LkhEfBAAS2p1T
-	 F1vr7KzeOWS8srrLF8GdvOEj1szbNN90v3hDyCH5/HV1ArwEwQksvNfbsQ2VAkMT8x
-	 oCDwwtJGPl0mQ==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Nicolin Chen <nicolinc@nvidia.com>, linux-coco@lists.linux.dev,
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Pranjal Shrivastava <praan@google.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Xu Yilun <yilun.xu@linux.intel.com>
-Subject: Re: [RFC PATCH v4 03/16] iommu/arm-smmu-v3: Add initial pSMMU realm
- viommu plumbing
-In-Reply-To: <20260902193014.GF2890729@ziepe.ca>
-References: <20260427085344.941627-1-aneesh.kumar@kernel.org>
- <20260427085344.941627-4-aneesh.kumar@kernel.org>
- <apM6dOHcEI2ztWS0@nvidia.com> <yq5a8q5lz5yn.fsf@kernel.org>
- <yq5aecfdnv4i.fsf@kernel.org> <20260901143445.GC56830@ziepe.ca>
- <yq5a8q5kkoz3.fsf@kernel.org> <20260902121700.GC2890729@ziepe.ca>
- <yq5aik4nztdt.fsf@kernel.org> <20260902193014.GF2890729@ziepe.ca>
-Date: Thu, 03 Sep 2026 10:58:06 +0530
-Message-ID: <yq5abjaezyxl.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o/tnk8th"
+Received: by mail-oi1-f179.google.com with SMTP id 5614622812f47-495c49f8eccso1401814b6e.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 22:29:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788413358; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gF1Q4IL18GauDS8q+IM9wQ3J1Ra6ucC7lUAKhozNT3LXTnWPDCvTbmkP/S4VAobsor
+         CYiV/btBhcZ1TNxhINTZzUfdM+53yjBsqJHaHQ9ejXaPwJnPpoQhfv9muFcZx4a/o3D3
+         jQm3mpZg1VZTXyB8ACTsnVx710OpiA5RCjzx7FqWuHYifrECCyalm5FHYtc3OPyXK5Ru
+         9ZBd2PwAlsmqZ2+XTtFAR45PhG7YEyb8owrTCh9gZ9MSkPdsrqOE5dckrCWPPgMpt2La
+         CTMovQXlboKN+BcbmE8pmKCaqqn5jSTpTGlVh3Rb7t44LOOge2huLic7XZEqEfN89kG3
+         Dlug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=eaizby62g8UPtzxLcn0sE8bIasG1h+ypC0y8Ds7psy0=;
+        fh=DYeeGbUeyoo66eIWa/Qb/WROm0uVt79GCZ/G8EbYm1g=;
+        b=JWfR7Yo0sXBInU2nZoZ9M0Rl98gvdxDpwQeBvp1WzolqxmQBwHdPcKl3FKRWa4H695
+         nxu1BtJS8wAjUY0sDfGMlYJ0R7dt3i4RUO2HqqqCQaZ4GNRUC9L9uuzvqUxdMDwIE34H
+         x2gCesWp4yTZshJe61mFLKuPcEA9Er2N3btsqNsrZOg3N7K6MdJUe8fCtlE4R439Nr/r
+         P8j/Rlu8Y+45lwA9wovBb2GkqK6x0HoMb3+Xymo02u+ZKcFyzLY1S6Jrf5A5KVIIvmO4
+         xFtSL6LdOgDfj/BITZVnTFafZma+zRgWTptG2nB/elao0ot0RhFqCYvW6ab3ZgIEdLIC
+         VOIA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788413358; x=1789018158; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eaizby62g8UPtzxLcn0sE8bIasG1h+ypC0y8Ds7psy0=;
+        b=o/tnk8thVHfmcePzQtFrZbcRfLWQXjTRIYiodu+SIM2TMudGnhsNF9V+Kq2/KIM54P
+         qt3zPpE0pEZeq5Jq9qnORW/B6t9/ltHPx0ZE1K2wk2a5VwVDkhxvauPyt0OvI9sG8bvw
+         UBqozdqocynp/tKLSQNqSuvSC43kHJAfr8P6i+9Sc1+/EjVBQXxxLrdaXHs76ZvGcCx/
+         w82LD9p6fMKLrfNG1IyaycTVWORqU1apqkCTPdIfcVpiPdUMVTrRAiec892+1ZTfXoQi
+         j/cCxv5jjx8sa1PjV8KaOEh9PGF6cmfiGcuBSJqh3dbxQIoqzat7aC+JA+XcDX/VIHBZ
+         ti/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788413358; x=1789018158;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eaizby62g8UPtzxLcn0sE8bIasG1h+ypC0y8Ds7psy0=;
+        b=UWmedOuTKpzsLRFpCqS3QhrBD42mUIEjtIuk4dC1ccTfNcSx9wwMRmWJhqfq0gFGCI
+         jehndrHS07O8krr3bT02O3R7rubeBpkedDdo5Rtr6dP9rz7ovhrtTGgIOieaJtfDZORw
+         3jubIhakGJRNv1tCOw+diV4v8ivgxs8XHh7TWZbiqhId/7ozPmryAr+8+s8DbjR5CKWx
+         84nW21wmU88X7Gd4DEAkzj74j+45a06qQWFA780jod1yaOQc39560RULFUIt8VePt1rC
+         ShzlQQ1d+7z/fXX0AgW+BmZuuna7g4dcDvhzlTnnCDO917WI0MHBTFPCIHguPLBPC/Ar
+         +XEg==
+X-Forwarded-Encrypted: i=1; AKwUvByiE6dFvXI6CWWapRs4owI44VYltX6F5UtIq/OMWB49l4HNsFU8JYkLLCdDkp57R70wqYXIuEqWyZ2loaY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kJ4cwbvUyLeZ2bILcBBnEgNtDmIg/cCjNMIJ76aUdlgLhDEPue
+	OJ7BvGzAdBFQLbac0rw1X0EdfGzdlnLPE3RXdW0jppsIlauZp1fmpS8sob4TX31yy39aQoPdmrC
+	iLkhd+YtZpTrqM+e6VF09MGQhMLuyhjw=
+X-Gm-Gg: AYBFou0/YpEhhttda0OVBWGEiOqZcQ0+NyHTZEeHGaL4TRb+p6q3OgV/iJcOEPG4fEI
+	HMyKgu0MPMnRRZeNG7nhRHj6nvT9/Cd5jwY2XrtXOCOg469STqJidu7jWwY0Mo+e/U1dJAtRgJR
+	m5eduxh6vCsRik/Rzn/BeSMqTwwA+2c+nJbaJ4WOHwVJZ3gZzVwpMhWzN9QY70hyYiwoJGiluNq
+	cl6VHm42TbDHRf9wYIFJRi5SxFiYVK6BU52JP7jNreZXhEliKtxvsLeruB2wGOEGBiENYV9vTzg
+	s6UZ7nLYVcvO39gVE7sb5GakEBZ7gtPVPy0WU0CxkvDFKY7d2xdwznkngHFQMMxerHxWRhRUXGL
+	+3EnUKsp9PA==
+X-Received: by 2002:a05:6808:c1e3:b0:4b3:3e1:4a25 with SMTP id
+ 5614622812f47-4b6beb4a5c1mr9010080b6e.11.1788413357610; Wed, 02 Sep 2026
+ 22:29:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20260901141954.29449-1-suchitkarunakaran@gmail.com> <CAEf4Bza6wQb1mSiKA_6U7FovYivcZvf3MCvU9NMdt01w-wAZPQ@mail.gmail.com>
+In-Reply-To: <CAEf4Bza6wQb1mSiKA_6U7FovYivcZvf3MCvU9NMdt01w-wAZPQ@mail.gmail.com>
+From: Suchit Karunakaran <suchitkarunakaran@gmail.com>
+Date: Thu, 3 Sep 2026 10:59:06 +0530
+X-Gm-Features: AcwNN1Vj42vaxl6KZiy5Wu478IV--ErhxAsq2YiX6zyNT3u27g3E8SGExrefwB4
+Message-ID: <CAO9wTFiA6BHbTtP8Y8GCNnEQqXgsOzecuibK3zsjBKfyN8Nfkw@mail.gmail.com>
+Subject: Re: [PATCH] selftests/bpf: Fix map_lookup_percpu_elem on sparse CPU IDs
+To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Cc: andrii@kernel.org, ast@kernel.org, daniel@iogearbox.net, eddyz87@gmail.com, 
+	memxor@gmail.com, shuah@kernel.org, emil@etsalapatis.com, 
+	ihor.solodrai@linux.dev, jolsa@kernel.org, martin.lau@linux.dev, 
+	song@kernel.org, yonghong.song@linux.dev, zhoufeng.zf@bytedance.com, 
+	bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Jason Gunthorpe <jgg@ziepe.ca> writes:
+On Thu, 3 Sept 2026 at 06:02, Andrii Nakryiko <andrii.nakryiko@gmail.com> w=
+rote:
+>
+> On Tue, Sep 1, 2026 at 7:20=E2=80=AFAM Suchit Karunakaran
+> <suchitkarunakaran@gmail.com> wrote:
+> >
+> > libbpf_num_possible_cpus() returns the number of possible CPUs, which i=
+s
+> > appropriate for sizing packed per-CPU map value buffers. It is not the
+> > upper bound for logical CPU IDs.
+> >
+> > For a possible CPU mask such as 0,2-3, the test loops over CPU IDs 0
+> > through 2. This incorrectly visits CPU 1 and misses CPU 3. It also
+> > initializes packed per-CPU slots using their slot indexes rather than
+> > the corresponding logical CPU IDs.
+> >
+> > Parse the possible CPU mask and keep the packed slot count separate
+> > from the logical CPU ID range. Populate each dense per-CPU slot with
+> > its logical CPU ID, calculate the corresponding expected sum, and make
+> > the BPF program iterate over the full CPU ID range.
+> >
+>
+> Is this the issue you ran into in practice or it's just another of
+> those found by AI reading code?
+>
+>
+> > Fixes: 7aa424e02a04bba5ecc84afe9b58b16e9e0b34f8 ("selftests/bpf: Fix so=
+me bugs in map_lookup_percpu_elem testcase")
+> >
+> > Signed-off-by: Suchit Karunakaran <suchitkarunakaran@gmail.com>
+> > ---
+> >  .../bpf/prog_tests/map_lookup_percpu_elem.c   | 34 ++++++++++++++-----
+> >  .../bpf/progs/test_map_lookup_percpu_elem.c   |  8 ++---
+> >  2 files changed, 30 insertions(+), 12 deletions(-)
+> >
+> > diff --git a/tools/testing/selftests/bpf/prog_tests/map_lookup_percpu_e=
+lem.c b/tools/testing/selftests/bpf/prog_tests/map_lookup_percpu_elem.c
+> > index bfb1bf3fd427..849f33259c00 100644
+> > --- a/tools/testing/selftests/bpf/prog_tests/map_lookup_percpu_elem.c
+> > +++ b/tools/testing/selftests/bpf/prog_tests/map_lookup_percpu_elem.c
+> > @@ -2,29 +2,45 @@
+> >  /* Copyright (c) 2022 Bytedance */
+> >
+> >  #include <test_progs.h>
+> > +#include "bpf/libbpf_internal.h"
+> >  #include "test_map_lookup_percpu_elem.skel.h"
+> >
+> >  void test_map_lookup_percpu_elem(void)
+> >  {
+> >         struct test_map_lookup_percpu_elem *skel;
+> > -       __u64 key =3D 0, sum;
+> > -       int ret, i, nr_cpus =3D libbpf_num_possible_cpus();
+> > +       bool *possible =3D NULL;
+> > +       __u64 key =3D 0, sum =3D 0;
+> > +       int cpu, nr_cpu_ids, nr_cpus, ret, slot =3D 0;
+> >         __u64 *buf;
+> >
+> > -       buf =3D malloc(nr_cpus*sizeof(__u64));
+> > -       if (!ASSERT_OK_PTR(buf, "malloc"))
+> > +       ret =3D parse_cpu_mask_file("/sys/devices/system/cpu/possible",=
+ &possible,
+> > +                                 &nr_cpu_ids);
+> > +       if (!ASSERT_OK(ret, "parse possible CPU mask"))
+> >                 return;
+> >
+> > -       for (i =3D 0; i < nr_cpus; i++)
+> > -               buf[i] =3D i;
+> > -       sum =3D (nr_cpus - 1) * nr_cpus / 2;
+> > +       nr_cpus =3D libbpf_num_possible_cpus();
+> > +       if (!ASSERT_GT(nr_cpus, 0, "libbpf_num_possible_cpus"))
+> > +               goto free_mask;
+> > +
+> > +       buf =3D malloc(nr_cpus * sizeof(*buf));
+> > +       if (!ASSERT_OK_PTR(buf, "malloc"))
+> > +               goto free_mask;
+> > +
+> > +       for (cpu =3D 0; cpu < nr_cpu_ids; cpu++) {
+> > +               if (!possible[cpu])
+> > +                       continue;
+> > +               buf[slot++] =3D cpu;
+> > +               sum +=3D cpu;
+> > +       }
+> > +       if (!ASSERT_EQ(slot, nr_cpus, "possible CPU mask weight"))
+> > +               goto exit;
+> >
+> >         skel =3D test_map_lookup_percpu_elem__open();
+> >         if (!ASSERT_OK_PTR(skel, "test_map_lookup_percpu_elem__open"))
+> >                 goto exit;
+> >
+> >         skel->rodata->my_pid =3D getpid();
+> > -       skel->rodata->nr_cpus =3D nr_cpus;
+> > +       skel->rodata->nr_cpu_ids =3D nr_cpu_ids;
+> >
+> >         ret =3D test_map_lookup_percpu_elem__load(skel);
+> >         if (!ASSERT_OK(ret, "test_map_lookup_percpu_elem__load"))
+> > @@ -55,4 +71,6 @@ void test_map_lookup_percpu_elem(void)
+> >         test_map_lookup_percpu_elem__destroy(skel);
+> >  exit:
+> >         free(buf);
+> > +free_mask:
+> > +       free(possible);
+> >  }
+> > diff --git a/tools/testing/selftests/bpf/progs/test_map_lookup_percpu_e=
+lem.c b/tools/testing/selftests/bpf/progs/test_map_lookup_percpu_elem.c
+> > index ca827b1092da..d8da0696b97c 100644
+> > --- a/tools/testing/selftests/bpf/progs/test_map_lookup_percpu_elem.c
+> > +++ b/tools/testing/selftests/bpf/progs/test_map_lookup_percpu_elem.c
+> > @@ -7,7 +7,7 @@
+> >  __u64 percpu_array_elem_sum =3D 0;
+> >  __u64 percpu_hash_elem_sum =3D 0;
+> >  __u64 percpu_lru_hash_elem_sum =3D 0;
+> > -const volatile int nr_cpus;
+> > +const volatile int nr_cpu_ids;
+> >  const volatile int my_pid;
+> >
+> >  struct {
+> > @@ -57,17 +57,17 @@ int sysenter_getuid(const void *ctx)
+> >
+> >         map_ctx.map =3D &percpu_array_map;
+> >         map_ctx.sum =3D 0;
+> > -       bpf_loop(nr_cpus, read_percpu_elem_callback, &map_ctx, 0);
+> > +       bpf_loop(nr_cpu_ids, read_percpu_elem_callback, &map_ctx, 0);
+> >         percpu_array_elem_sum =3D map_ctx.sum;
+> >
+> >         map_ctx.map =3D &percpu_hash_map;
+> >         map_ctx.sum =3D 0;
+> > -       bpf_loop(nr_cpus, read_percpu_elem_callback, &map_ctx, 0);
+> > +       bpf_loop(nr_cpu_ids, read_percpu_elem_callback, &map_ctx, 0);
+> >         percpu_hash_elem_sum =3D map_ctx.sum;
+> >
+> >         map_ctx.map =3D &percpu_lru_hash_map;
+> >         map_ctx.sum =3D 0;
+> > -       bpf_loop(nr_cpus, read_percpu_elem_callback, &map_ctx, 0);
+> > +       bpf_loop(nr_cpu_ids, read_percpu_elem_callback, &map_ctx, 0);
+> >         percpu_lru_hash_elem_sum =3D map_ctx.sum;
+> >
+> >         return 0;
+> > --
+> > 2.55.0
+> >
 
-> On Wed, Sep 02, 2026 at 06:45:42PM +0530, Aneesh Kumar K.V wrote:
->
->> To reiterate, for this configuration:
->> 
->> - The viommu will use a stage-1 bypass configuration.
->> - A new IOMMU_VIOMMU_TYPE_ARM_REALM_SMMUV3 type will create the viommu.
->>   The psmmu will be activated at this point to avoid creating psmmu
->>   objects early. We will reference-count it to ensure that the same
->>   psmmu is shared across realm guests.
->> - Creating a vdevice will invoke SMC_RMI_PSMMU_ST_L2_CREATE.
->> 
->> I am unclear about the vdev_create suggestion. Creating a vdevice
->> requires an RD, which is created later in the flow above. How do you
->> suggest linking vdevice_alloc to vdev_create?
->
-> I was thinking we'd make sure the KVM is associated with the viommu
-> and/or possibly the S2 domain. That was always sort of broadly the
-> idea in this space. There are several topics unrelated to CC that
-> needed this.
-> In any case, when you create the iommufd viommu you should also do
-> VSMMU_CREATE which needs the RD. It seems reasonable to assume the RD
-> is available during vdevice create.
->
-> [There is an aside here I will mention: several other use cases need
-> this idea of an "external" domain where the HWPT would be created but
-> not controlled by iommufd or the iommu subsystem. Xen and Hyperv for
-> example. There is probably some merit in thinking more about exactly
-> what the nested parent domain should be for this viommu, but it isn't
-> critical.]
->
->> From the RMM's perspective, the sequence is as follows:
->>
->> viommu alloc
->>
->> [   rmm ] SMC_RMI_PSMMU_ACTIVATE            2b400000 8819bb000 > RMI_INCOMPLETE 0 10008
->> [   rmm ]       SMC_RMI_OP_MEM_DONATE       0 881bac098 1 > RMI_INCOMPLETE 2 10004
->> [   rmm ]       SMC_RMI_OP_MEM_DONATE       0 881bac098 1 > RMI_INCOMPLETE 1 10004
->> [   rmm ]       SMC_RMI_OP_MEM_DONATE       0 881bac098 1 > RMI_INCOMPLETE 1 0
->> [   rmm ] L1 StrTab: PA 0x881baa000 VA 0x80003c0000 size 0x2000
->> [   rmm ] CMDQ: PA 0x88066a000 VA 0x80003c2000
->> [   rmm ] EVTQ: PA 0x8815c5000 VA 0x80003c3000
->> [   rmm ] PSMMU 0x2b400000 activated
->> [   rmm ]       SMC_RMI_OP_CONTINUE         0 0 > RMI_SUCCESS 0 0
->>
->> [   rmm ] SMC_RMI_PSMMU_ST_L2_CREATE        2b400000 300 > RMI_INCOMPLETE 0 10004
->> [   rmm ]       SMC_RMI_OP_MEM_DONATE       0 881bac098 1 > RMI_INCOMPLETE 1 0
->> [   rmm ] smmu->strtab_base[12] 0x0 @0x80003c0060
->> [   rmm ] L1STD[12] 0x8819bb007 for SID 0x300: L2 table VA 0x80003d0000 PA 0x8819bb000
->> [   rmm ]       SMC_RMI_OP_CONTINUE         0 0 > RMI_SUCCESS 0 0
->
-> What was this one for during viommu alloc?
->
->> vdevice alloc
->> 
->> [   rmm ] SMC_RMI_PSMMU_ST_L2_CREATE        2b400000 200 > RMI_INCOMPLETE 0 10004
->> [   rmm ]       SMC_RMI_OP_MEM_DONATE       0 882648098 1 > RMI_INCOMPLETE 1 0
->> [   rmm ] smmu->strtab_base[8] 0x0 @0x80003c0040
->> [   rmm ] L1STD[8] 0x882506007 for SID 0x200: L2 table VA 0x80003cc000 PA 0x882506000
->> [   rmm ]       SMC_RMI_OP_CONTINUE         0 0 > RMI_SUCCESS 0 0
->> 
->> RD gets allocated here
->> 
->> [   rmm ] SMC_RMI_REALM_CREATE              881b03000 8819a1000 > RMI_INCOMPLETE 0 24
->> [   rmm ]       SMC_RMI_OP_MEM_DONATE       0 881605098 9 > RMI_INCOMPLETE 9 0
->> [   rmm ]       SMC_RMI_OP_CONTINUE         0 0 > RMI_SUCCESS 0 0
->
-> Why? The VMM needs to create the kvm before starting the iommu stuff.
->
-> I would expect that KVM knows it is going to a realm very early on? I
-> had assumed the RD would also be created early by KVM?
->
-> What triggers RD creation? Why can't the VMM do it earlier?
->
-> Your followup said:
->   - The realm is created during viommu allocation, ensuring that the
->     vSMMU can be created here.
->
-> Do you mean the SMMUv3 driver triggers RD creation? That feels
-> wrong. Did you mean the VMM just does it earlier?
->
-
-Currently, CCA creates the realm lazily as part of another operation.
-Realm creation is triggered by kvm_arm_rmi_populate() or
-kvm_arch_vcpu_run_pid_change()
-
-The change looks like this:
-
-modified   arch/arm64/include/asm/kvm_rmi.h
-@@ -102,6 +102,14 @@ u64 kvm_realm_reset_id_aa64dfr0_el1(const struct kvm_vcpu *vcpu, u64 val);
- bool kvm_rmi_supports_sve(void);
- 
- int kvm_init_realm(struct kvm *kvm);
-+#ifdef CONFIG_KVM
-+int kvm_realm_ensure_created(struct kvm *kvm);
-+#else
-+static inline int kvm_realm_ensure_created(struct kvm *kvm)
-+{
-+	return -EOPNOTSUPP;
-+}
-+#endif
- int kvm_activate_realm(struct kvm *kvm);
- void kvm_destroy_realm(struct kvm *kvm);
- int kvm_realm_teardown_stage2(struct kvm *kvm);
-modified   arch/arm64/kvm/rmi.c
-@@ -1120,6 +1120,20 @@ static int realm_ensure_created(struct kvm *kvm)
- 	return realm_create_rd(kvm);
- }
- 
-+int kvm_realm_ensure_created(struct kvm *kvm)
-+{
-+	int ret;
-+
-+	if (!kvm_is_realm(kvm))
-+		return -EINVAL;
-+
-+	guard(mutex)(&kvm->arch.config_lock);
-+	ret = realm_ensure_created(kvm);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(kvm_realm_ensure_created);
-+
- int kvm_arm_rmi_init_ripas(struct kvm *kvm,
- 			   struct kvm_arm_rmi_init_ripas *args)
- {
-modified   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-realm.c
-@@ -253,8 +253,9 @@ int arm_realm_smmu_v3_init(struct iommufd_viommu *viommu,
- 		return -EINVAL;
- 
- 	kvm = viommu->kvm_file->private_data;
--	if (!kvm_is_realm(kvm))
--		return -EINVAL;
-+	ret = kvm_realm_ensure_created(kvm);
-+	if (ret)
-+		return ret;
- 
- 	if (!(smmu->features & ARM_SMMU_FEAT_RME))
- 		return -EOPNOTSUPP;
-
-
->
-> The draft in the next message looks promising, did you discover any
-> other gotchas when exploring it?
->
-
-Nothing significant. I still have questions about moving TDI flows such
-as vdev creation and guest requests into the SMMU driver instead of
-keeping them in arm-cca-host.ko, but I will follow up in the other
-thread.
-
->
-> When you repost this can you take some care to explain the general
-> idea of this modelling in the commit messages so AMD and Intel can
-> confirm they can use it for both their non-viommu and viommu cases?
->
-> Thanks,
-> Jason
-
--aneesh
+Hi Andrii, I did use AI to find this. I often go through recent
+commits and then ask AI to check whether the related selftests have
+been updated and that's how I found this.
