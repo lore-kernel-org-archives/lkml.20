@@ -1,28 +1,28 @@
 Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 347853E168F;
-	Thu,  3 Sep 2026 06:21:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E41F93E3169;
+	Thu,  3 Sep 2026 06:21:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788416486; cv=none; b=aMUsIDrYqUiGvn7wJ2gcTIuoy2yXoxHXOhZJJ5YWCbwEmRakS8s2RxGpoSAFILLGcQ9qMwb1F7aioHjw/14vf/M0j1itaFLUxZcR77szdEgpnU4pJRelAXO/nw+ZvG6LkWK4t4gA6tFqLxQnZjmuk+O/qxXQEVu3hE3SeDWgGCI=
+	t=1788416488; cv=none; b=lc8qwmNg5tcl2g4rnIzdF6wGEzziIfXxFwWH/DHqZqAFYMdIlb9l+Ml2Gy+j11mIYDapWg5mHCAqvKR8OXiTuFzUNGeBwlgBn1wel6082SM+EKVyVSt91PHrII7LRpvojQdY6lMroPb8G4if2/8+utfRjfhx2XB7zUpUVQLqEGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788416486; c=relaxed/simple;
-	bh=ob43G58GOcy2q73A+pu3SKP9O+LCh4RMVTHE0gDYYlE=;
+	s=arc-20240116; t=1788416488; c=relaxed/simple;
+	bh=WS81HR7Ch1/ewqkcIGrC1cMGGicACwN1Laf9spN3v5E=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=k7MUVOsht6lZelBX0K+7Ck1RGJwH0MPod8r1GjMaw6sz5W1LAUxJqz9Yrl50YlyE8Obw3Vi1htQH/bfku6d+KO462Cxao0dR7Apaunjj/rg+Rfd95uNNlKIoK/5BxUa1XawbHJEe76pBePrag9VJ9qc4IXtBd5Q5udtgjamLTB4=
+	 MIME-Version; b=Ej+xUMk3vfiJCmFMmkKw4P/0ilCxBsGPIUUvCa25ifHGMd5SiXxCHlptB1qOXrfSDXTQV4LP9a69bbbbnom+t0hiHLVyV0TXgMJqr/jMJAGx2SVCxv0SlJvj9axciyd8UX/M5zS02MefKT3wzHxpyETL93TUkkoHKx3S70/xnZ4=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Received: from inva020.nxp.com (localhost [127.0.0.1])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 8E0A41A036E;
-	Thu,  3 Sep 2026 08:21:22 +0200 (CEST)
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id DA0401A023A;
+	Thu,  3 Sep 2026 08:21:23 +0200 (CEST)
 Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 2CB321A023A;
-	Thu,  3 Sep 2026 08:21:22 +0200 (CEST)
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 78EAB1A036D;
+	Thu,  3 Sep 2026 08:21:23 +0200 (CEST)
 Received: from lsv03900.swis.in-blr01.nxp.com (lsv03900.swis.in-blr01.nxp.com [10.12.177.15])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id BAAC9180006C;
-	Thu,  3 Sep 2026 14:21:20 +0800 (+08)
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 141BC18000BA;
+	Thu,  3 Sep 2026 14:21:22 +0800 (+08)
 From: Lakshay Piplani <lakshay.piplani@nxp.com>
 To: linux-kernel@vger.kernel.org,
 	linux-i3c@lists.infradead.org,
@@ -39,9 +39,9 @@ Cc: vikash.bansal@nxp.com,
 	priyanka.jain@nxp.com,
 	aman.kumarpandey@nxp.com,
 	Lakshay Piplani <lakshay.piplani@nxp.com>
-Subject: [PATCH v18 2/8] i3c: master: Add controller-only device operation helpers
-Date: Thu,  3 Sep 2026 11:51:02 +0530
-Message-Id: <20260903062108.2712296-3-lakshay.piplani@nxp.com>
+Subject: [PATCH v18 3/8] dt-bindings: i3c: Add NXP P3H2x4x i3c-hub support
+Date: Thu,  3 Sep 2026 11:51:03 +0530
+Message-Id: <20260903062108.2712296-4-lakshay.piplani@nxp.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260903062108.2712296-1-lakshay.piplani@nxp.com>
 References: <20260903062108.2712296-1-lakshay.piplani@nxp.com>
@@ -54,459 +54,451 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-The generic I3C device attach and IBI paths perform both core-level
-bookkeeping and controller-specific operations. An I3C hub, however,
-maintains a logical device descriptor on the virtual downstream bus and
-a separate parent-facing descriptor used by the physical parent
-controller.
+From: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
 
-Add controller-only helpers that invoke the controller callbacks
-without updating the bus device list, address-slot state, or generic IBI
-lifecycle. This allows the hub framework to keep the logical descriptor
-associated with the virtual controller while using a permanent
-parent-facing descriptor for operations handled by the physical
-controller.
+Add bindings for the NXP P3H2x4x (P3H2440/P3H2441/P3H2840/P3H2841)
+multiport I3C hub family. These devices connect to a host via
+I3C/I2C/SMBus and allow communication with multiple downstream
+peripherals.
 
-Add helpers for:
-  - attaching, reattaching, and detaching a device from a controller;
-  - requesting and freeing controller IBI resources;
-  - enabling and disabling IBIs at the controller;
-  - recycling controller IBI slots.
-
-Refactor the existing generic core paths to use these helpers, keeping
-the current behaviour unchanged for regular I3C devices.
-
-Also release the generic IBI workqueue and state when the controller
-request callback fails.
-
-The helpers are declared in the I3C internal header because they are
-intended for use by the generic I3C hub framework rather than by
-individual controller drivers.
-
-Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
 Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
 Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
+Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
 ---
 Changes in v18:
  - Rebased onto v7.3-rc1; no intended driver behaviour changes
 
 Changes in v17:
- - Document the calling context of i3c_dev_recycle_ibi_slot_controller():
-   it runs in workqueue context without the bus lock held, while the 
-   controller owns and synchronizes its IBI pool
- - Retain the request_ibi capability check to preserve the pre-series
-   behaviour for regular I3C devices
+ - Explain in the binding description that all variants share the same register
+   interface, software reads the target-port count from DEV_CAPAB, and
+   the x0/x1 variants differ only in power-up defaults that the driver
+   overrides
 
 Changes in v16:
- - Rename the controller-only device helpers with a "_locked" suffix to make
-   the locking contract explicit (caller must hold the parent bus lock)
- - Route i3c_master_handle_ibi() through i3c_dev_recycle_ibi_slot_controller()
-   instead of calling master->ops->recycle_ibi_slot() directly
- - Destroy the generic IBI workqueue when the controller request_ibi()
-   callback fails, avoiding a workqueue leak on the request error path
+ - Add an allOf/if-then block for the 4-port variants (nxp,p3h2440 and
+   nxp,p3h2441) that limits i3c@[0-3]/smbus@[0-3] and disallows target
+   ports [4-7], so DTs describing nonexistent ports fail validation
+ - Add #address-cells and #size-cells to the required list, since the hub
+   is a parent bus to the target-port child node
+ - Add an explicit minimum of 0 to the target-port reg constraints, retain
+   the maximum of 7, and restrict the maximum to 3 for four-port variants
 
 Changes in v15:
- - Rework the patch to introduce controller-only attach, reattach and detach
-   helpers for use by the I3C hub core
- - Add controller-only helpers for requesting, freeing, enabling, disabling
-   and recycling IBI resources
----
----
- drivers/i3c/internals.h |  14 +++
- drivers/i3c/master.c    | 239 +++++++++++++++++++++++++++++++++++-----
- 2 files changed, 225 insertions(+), 28 deletions(-)
+ - Add compatible strings for the P3H2440, P3H2441, P3H2840 and P3H2841
+   variants
+ - Fix the target-port reg schema to describe the single-cell port index
 
-diff --git a/drivers/i3c/internals.h b/drivers/i3c/internals.h
-index 86a36b951e0d..416c37e2f75a 100644
---- a/drivers/i3c/internals.h
-+++ b/drivers/i3c/internals.h
-@@ -22,6 +22,20 @@ int i3c_dev_setdasa_locked(struct i3c_dev_desc *dev);
- int i3c_dev_do_xfers_locked(struct i3c_dev_desc *dev,
- 			    struct i3c_xfer *xfers,
- 			    int nxfers, enum i3c_xfer_mode mode);
+Changes in v14:
+ - No change
+
+Changes in v13:
+ - Fix mismatch between example unit-address and reg property by correcting the reg value
+   to match the node name
+
+Changes in v12:
+ - No change, added Reviewed-By tag
+
+Changes in v11:
+ - No change
+
+Changes in v10:
+ - No change, added Reviewed-By tag
+
+Changes in v9:
+ - Referenced i3c.yaml and i2c-controller.yaml for child nodes
+ - Dropped unnecessary #address-cells and #size-cells from child nodes
+
+Changes in v8:
+ - Add compatible in i3c example
+
+Changes in v7:
+ - Fix schema validation issues
+ - Adjust required properties
+ - Add I2C example
+
+Changes in v6:
+ - Use a vendor prefix for the attributes
+
+Changes in v5:
+ - Removed SW properties: cp0-ldo-microvolt,cp1-ldo-microvolt,
+   tp0145-ldo-microvolt, tp2367-ldo-microvolt
+ - Changed supply entries and its descriptions
+
+Changes in v4:
+ - Fixed DT binding check warning
+ - Removed SW properties: ibi-enable, local-dev, and always-enable
+
+Changes in v3:
+ - Added MFD (Multi-Function Device) support for I3C hub and on-die regulator
+ - Added Regulator supply node
+
+Changes in v2:
+ - Fixed DT binding check warning
+ - Revised logic for parsing DTS nodes
+---
+---
+ .../devicetree/bindings/i3c/nxp,p3h2840.yaml  | 328 ++++++++++++++++++
+ MAINTAINERS                                   |   9 +
+ 2 files changed, 337 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+
+diff --git a/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml b/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+new file mode 100644
+index 000000000000..6b0076b4487f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+@@ -0,0 +1,328 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright 2025-2026 NXP
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/i3c/nxp,p3h2840.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+int i3c_master_attach_i3c_dev_controller_locked(struct i3c_dev_desc *dev);
-+int i3c_master_reattach_i3c_dev_controller_locked(struct i3c_dev_desc *dev,
-+						  u8 old_dyn_addr);
-+void i3c_master_detach_i3c_dev_controller_locked(struct i3c_dev_desc *dev);
++title: NXP P3H2X4X I3C HUB
 +
-+int i3c_dev_disable_ibi_controller_locked(struct i3c_dev_desc *dev);
-+int i3c_dev_enable_ibi_controller_locked(struct i3c_dev_desc *dev);
-+int i3c_dev_request_ibi_controller_locked(struct i3c_dev_desc *dev,
-+					  const struct i3c_ibi_setup *req);
-+void i3c_dev_free_ibi_controller_locked(struct i3c_dev_desc *dev);
-+void i3c_dev_recycle_ibi_slot_controller(struct i3c_dev_desc *dev,
-+					 struct i3c_ibi_slot *slot);
++maintainers:
++  - Aman Kumar Pandey <aman.kumarpandey@nxp.com>
++  - Vikash Bansal <vikash.bansal@nxp.com>
++  - Lakshay Piplani <lakshay.piplani@nxp.com>
 +
- int i3c_dev_disable_ibi_locked(struct i3c_dev_desc *dev);
- int i3c_dev_enable_ibi_locked(struct i3c_dev_desc *dev);
- int i3c_dev_request_ibi_locked(struct i3c_dev_desc *dev,
-diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index 9ea4726495ff..b864fcbb1a59 100644
---- a/drivers/i3c/master.c
-+++ b/drivers/i3c/master.c
-@@ -1898,6 +1898,30 @@ static int i3c_master_get_i3c_addrs(struct i3c_dev_desc *dev)
- 	return -EBUSY;
- }
++description: |
++  P3H2x4x (P3H2440/P3H2441/P3H2840/P3H2841) is a family of multiport I3C
++  hub devices that connect to:-
++  1. A host CPU via I3C/I2C/SMBus bus on upstream side and connect to multiple
++     peripheral devices on the downstream  side.
++  2. Have two Controller Ports which can support either
++     I2C/SMBus or I3C buses and connect to a CPU, BMC or SOC.
++  3. P3H2840/ P3H2841 are 8 port I3C hub with eight Target Ports.
++  4. P3H2440/ P3H2441 are 4 port I3C hub with four Target Ports.
++     Target ports can be configured as SMBus or I3C and connect to
++     peripherals.
++
++  All variants use the same register interface. Software reads the number
++  of target ports from DEV_CAPAB. The x0/x1 variants differ in their
++  power-up defaults, which the driver replaces with the DT configuration.
++
++properties:
++  compatible:
++    enum:
++      - nxp,p3h2440
++      - nxp,p3h2441
++      - nxp,p3h2840
++      - nxp,p3h2841
++
++  reg:
++    maxItems: 1
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 0
++
++  assigned-address:
++    maximum: 0x7f
++
++  nxp,tp0145-pullup-ohms:
++    description:
++      Selects the pull up resistance for target Port 0/1/4/5, in ohms.
++    enum: [250, 500, 1000, 2000]
++    default: 500
++
++  nxp,tp2367-pullup-ohms:
++    description:
++      Selects the pull up resistance for target Port 2/3/6/7, in ohms.
++    enum: [250, 500, 1000, 2000]
++    default: 500
++
++  nxp,cp0-io-strength-ohms:
++    description:
++      Selects the IO drive strength for controller Port 0, in ohms.
++    enum: [20, 30, 40, 50]
++    default: 20
++
++  nxp,cp1-io-strength-ohms:
++    description:
++      Selects the IO drive strength for controller Port 1, in ohms.
++    enum: [20, 30, 40, 50]
++    default: 20
++
++  nxp,tp0145-io-strength-ohms:
++    description:
++      Selects the IO drive strength for target port 0/1/4/5, in ohms.
++    enum: [20, 30, 40, 50]
++    default: 20
++
++  nxp,tp2367-io-strength-ohms:
++    description:
++      Selects the IO drive strength for target port 2/3/6/7, in ohms.
++    enum: [20, 30, 40, 50]
++    default: 20
++
++  vcc1-supply:
++    description: Controller port 0 power supply.
++
++  vcc2-supply:
++    description: Controller port 1 power supply.
++
++  vcc3-supply:
++    description: Target port 0/1/4/5 power supply.
++
++  vcc4-supply:
++    description: Target port 2/3/6/7 power supply.
++
++  regulators:
++    type: object
++    additionalProperties: false
++
++    properties:
++      ldo-cp0:
++        type: object
++        $ref: /schemas/regulator/regulator.yaml#
++        unevaluatedProperties: false
++
++      ldo-cp1:
++        type: object
++        $ref: /schemas/regulator/regulator.yaml#
++        unevaluatedProperties: false
++
++      ldo-tpg0:
++        type: object
++        $ref: /schemas/regulator/regulator.yaml#
++        unevaluatedProperties: false
++
++      ldo-tpg1:
++        type: object
++        $ref: /schemas/regulator/regulator.yaml#
++        unevaluatedProperties: false
++
++required:
++  - reg
++  - '#address-cells'
++  - '#size-cells'
++
++patternProperties:
++  "^i3c@[0-7]$":
++    type: object
++    $ref: /schemas/i3c/i3c.yaml#
++    unevaluatedProperties: false
++
++    properties:
++      reg:
++        description:
++          The I3C HUB Target Port number.
++        items:
++          - minimum: 0
++            maximum: 7
++
++      nxp,pullup-enable:
++        type: boolean
++        description:
++          Enables the on-die pull-up for Target Port.
++
++    required:
++      - reg
++
++  "^smbus@[0-7]$":
++    type: object
++    $ref: /schemas/i2c/i2c-controller.yaml#
++    unevaluatedProperties: false
++
++    properties:
++      reg:
++        description:
++          The I3C HUB Target Port number.
++        items:
++          - minimum: 0
++            maximum: 7
++
++      nxp,pullup-enable:
++        type: boolean
++        description:
++          Enables the on-die pull-up for Target Port.
++
++    required:
++      - reg
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - nxp,p3h2440
++              - nxp,p3h2441
++    then:
++      patternProperties:
++        "^i3c@[0-3]$":
++          properties:
++            reg:
++              items:
++                - maximum: 3
++        "^smbus@[0-3]$":
++          properties:
++            reg:
++              items:
++                - maximum: 3
++        "^i3c@[4-7]$": false
++        "^smbus@[4-7]$": false
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i3c {
++        #address-cells = <3>;
++        #size-cells = <0>;
++
++        hub@70,236153000c2 {
++            reg = <0x70 0x236 0x153000c2>;
++            compatible = "nxp,p3h2840";
++            #address-cells = <1>;
++            #size-cells = <0>;
++            assigned-address = <0x50>;
++
++            nxp,tp0145-pullup-ohms = <1000>;
++            nxp,tp2367-pullup-ohms = <1000>;
++            nxp,cp0-io-strength-ohms = <50>;
++            nxp,cp1-io-strength-ohms = <50>;
++            nxp,tp0145-io-strength-ohms = <50>;
++            nxp,tp2367-io-strength-ohms = <50>;
++            vcc3-supply = <&reg_tpg0>;
++            vcc4-supply = <&reg_tpg1>;
++
++            regulators {
++                reg_cp0: ldo-cp0 {
++                    regulator-name = "ldo-cp0";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                };
++
++                reg_cp1: ldo-cp1 {
++                    regulator-name = "ldo-cp1";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                };
++
++                reg_tpg0: ldo-tpg0 {
++                    regulator-name = "ldo-tpg0";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                };
++
++                reg_tpg1: ldo-tpg1 {
++                    regulator-name = "ldo-tpg1";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                };
++            };
++
++            smbus@0 {
++                reg = <0x0>;
++                #address-cells = <1>;
++                #size-cells = <0>;
++                nxp,pullup-enable;
++            };
++
++            smbus@1 {
++                reg = <0x1>;
++                #address-cells = <1>;
++                #size-cells = <0>;
++                nxp,pullup-enable;
++            };
++
++            i3c@2 {
++                reg = <0x2>;
++                #address-cells = <3>;
++                #size-cells = <0>;
++                nxp,pullup-enable;
++            };
++        };
++    };
++
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        hub@70 {
++            reg = <0x70>;
++            compatible = "nxp,p3h2840";
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            nxp,tp0145-pullup-ohms = <1000>;
++            nxp,tp2367-pullup-ohms = <1000>;
++            nxp,cp0-io-strength-ohms = <50>;
++            nxp,cp1-io-strength-ohms = <50>;
++            nxp,tp0145-io-strength-ohms = <50>;
++            nxp,tp2367-io-strength-ohms = <50>;
++            vcc3-supply = <&reg_tpg0_i2c>;
++            vcc4-supply = <&reg_tpg1_i2c>;
++
++            regulators {
++                reg_cp0_i2c: ldo-cp0 {
++                    regulator-name = "ldo-cp0";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                };
++
++                reg_cp1_i2c: ldo-cp1 {
++                    regulator-name = "ldo-cp1";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                };
++
++                reg_tpg0_i2c: ldo-tpg0 {
++                    regulator-name = "ldo-tpg0";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                };
++
++                reg_tpg1_i2c: ldo-tpg1 {
++                    regulator-name = "ldo-tpg1";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                };
++            };
++
++            smbus@0 {
++                reg = <0x0>;
++                #address-cells = <1>;
++                #size-cells = <0>;
++                nxp,pullup-enable;
++            };
++
++            smbus@1 {
++                reg = <0x1>;
++                #address-cells = <1>;
++                #size-cells = <0>;
++                nxp,pullup-enable;
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3a19da74d00c..203e6e8ae2f9 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -19763,6 +19763,15 @@ L:	linux-wireless@vger.kernel.org
+ S:	Maintained
+ F:	drivers/net/wireless/nxp/
  
-+/**
-+ * i3c_master_attach_i3c_dev_controller_locked() - Attach device state to
-+ *						   controller
-+ * @dev: I3C device descriptor
-+ *
-+ * Invoke the current controller's attach callback without changing address
-+ * slot state or adding the device to the controller's device list.
-+ *
-+ * Context: The caller must hold the bus lock.
-+ *
-+ * Return: 0 on success, or a negative error code returned by the controller.
-+ */
-+int i3c_master_attach_i3c_dev_controller_locked(struct i3c_dev_desc *dev)
-+{
-+	struct i3c_master_controller *master = i3c_dev_get_master(dev);
++NXP P3H2X4X I3C-HUB DRIVER
++M:	Vikash Bansal <vikash.bansal@nxp.com>
++M:	Aman Kumar Pandey <aman.kumarpandey@nxp.com>
++M:	Lakshay Piplani <lakshay.piplani@nxp.com>
++L:	linux-kernel@vger.kernel.org
++L:	linux-i3c@lists.infradead.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
 +
-+	/* Do not attach the master device itself. */
-+	if (master->this != dev && master->ops->attach_i3c_dev)
-+		return master->ops->attach_i3c_dev(dev);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(i3c_master_attach_i3c_dev_controller_locked);
-+
- static int i3c_master_attach_i3c_dev(struct i3c_master_controller *master,
- 				     struct i3c_dev_desc *dev)
- {
-@@ -1915,12 +1939,10 @@ static int i3c_master_attach_i3c_dev(struct i3c_master_controller *master,
- 		return ret;
- 
- 	/* Do not attach the master device itself. */
--	if (master->this != dev && master->ops->attach_i3c_dev) {
--		ret = master->ops->attach_i3c_dev(dev);
--		if (ret) {
--			i3c_master_put_i3c_addrs(dev);
--			return ret;
--		}
-+	ret = i3c_master_attach_i3c_dev_controller_locked(dev);
-+	if (ret) {
-+		i3c_master_put_i3c_addrs(dev);
-+		return ret;
- 	}
- 
- 	list_add_tail(&dev->common.node, &master->bus.devs.i3c);
-@@ -1928,6 +1950,31 @@ static int i3c_master_attach_i3c_dev(struct i3c_master_controller *master,
- 	return 0;
- }
- 
-+/**
-+ * i3c_master_reattach_i3c_dev_controller_locked() - Reattach controller
-+ *						     device state
-+ * @dev: I3C device descriptor
-+ * @old_dyn_addr: Previous dynamic address
-+ *
-+ * Invoke the current controller's reattach callback without modifying the
-+ * controller's address-slot state.
-+ *
-+ * Context: The caller must hold the bus lock.
-+ *
-+ * Return: 0 on success, or a negative error code returned by the controller.
-+ */
-+int i3c_master_reattach_i3c_dev_controller_locked(struct i3c_dev_desc *dev,
-+						  u8 old_dyn_addr)
-+{
-+	struct i3c_master_controller *master = i3c_dev_get_master(dev);
-+
-+	if (master->ops->reattach_i3c_dev)
-+		return master->ops->reattach_i3c_dev(dev, old_dyn_addr);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(i3c_master_reattach_i3c_dev_controller_locked);
-+
- /**
-  * i3c_master_reattach_i3c_dev_locked() - reattach an I3C device with a new address
-  * @dev: I3C device descriptor to reattach
-@@ -1958,25 +2005,39 @@ int i3c_master_reattach_i3c_dev_locked(struct i3c_dev_desc *dev,
- 						     I3C_ADDR_SLOT_FREE);
- 	}
- 
--	if (master->ops->reattach_i3c_dev) {
--		ret = master->ops->reattach_i3c_dev(dev, old_dyn_addr);
--		if (ret) {
--			i3c_master_put_i3c_addrs(dev);
--			return ret;
--		}
-+	ret = i3c_master_reattach_i3c_dev_controller_locked(dev, old_dyn_addr);
-+	if (ret) {
-+		i3c_master_put_i3c_addrs(dev);
-+		return ret;
- 	}
- 
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(i3c_master_reattach_i3c_dev_locked);
- 
--static void i3c_master_detach_i3c_dev(struct i3c_dev_desc *dev)
-+/**
-+ * i3c_master_detach_i3c_dev_controller_locked() - Detach device state from
-+ *						   controller
-+ * @dev: I3C device descriptor
-+ *
-+ * Invoke the current controller's detach callback without releasing address
-+ * slots or removing the device from the controller's device list.
-+ *
-+ * Context: The caller must hold the bus lock.
-+ */
-+void i3c_master_detach_i3c_dev_controller_locked(struct i3c_dev_desc *dev)
- {
- 	struct i3c_master_controller *master = i3c_dev_get_master(dev);
- 
- 	/* Do not detach the master device itself. */
- 	if (master->this != dev && master->ops->detach_i3c_dev)
- 		master->ops->detach_i3c_dev(dev);
-+}
-+EXPORT_SYMBOL_GPL(i3c_master_detach_i3c_dev_controller_locked);
-+
-+static void i3c_master_detach_i3c_dev(struct i3c_dev_desc *dev)
-+{
-+	i3c_master_detach_i3c_dev_controller_locked(dev);
- 
- 	i3c_master_put_i3c_addrs(dev);
- 	list_del(&dev->common.node);
-@@ -3520,7 +3581,6 @@ static void i3c_master_handle_ibi(struct work_struct *work)
- 	struct i3c_ibi_slot *slot = container_of(work, struct i3c_ibi_slot,
- 						 work);
- 	struct i3c_dev_desc *dev = slot->dev;
--	struct i3c_master_controller *master = i3c_dev_get_master(dev);
- 	struct i3c_ibi_payload payload;
- 
- 	payload.data = slot->data;
-@@ -3529,7 +3589,7 @@ static void i3c_master_handle_ibi(struct work_struct *work)
- 	if (dev->dev)
- 		dev->ibi->handler(dev->dev, &payload);
- 
--	master->ops->recycle_ibi_slot(dev, slot);
-+	i3c_dev_recycle_ibi_slot_controller(dev, slot);
- 	if (atomic_dec_and_test(&dev->ibi->pending_ibis))
- 		complete(&dev->ibi->all_ibis_handled);
- }
-@@ -3640,6 +3700,29 @@ i3c_generic_ibi_alloc_pool(struct i3c_dev_desc *dev,
- }
- EXPORT_SYMBOL_GPL(i3c_generic_ibi_alloc_pool);
- 
-+/**
-+ * i3c_dev_recycle_ibi_slot_controller() - Recycle an IBI slot through
-+ *					   the current controller
-+ * @dev: I3C device descriptor
-+ * @slot: IBI slot to recycle
-+ *
-+ * Invoke the current controller's IBI slot recycling callback.
-+ *
-+ * Context: Called from the generic IBI work handler in workqueue context.
-+ * No bus lock is taken here: the controller owns its IBI pool and is
-+ * responsible for synchronizing access to it. The generic pool
-+ * implementation uses its own spinlock.
-+ */
-+void i3c_dev_recycle_ibi_slot_controller(struct i3c_dev_desc *dev,
-+					 struct i3c_ibi_slot *slot)
-+{
-+	struct i3c_master_controller *master = i3c_dev_get_master(dev);
-+
-+	if (master->ops->recycle_ibi_slot)
-+		master->ops->recycle_ibi_slot(dev, slot);
-+}
-+EXPORT_SYMBOL_GPL(i3c_dev_recycle_ibi_slot_controller);
-+
- /**
-  * i3c_generic_ibi_get_free_slot() - Get a free slot from a generic IBI pool
-  * @pool: the pool to query an IBI slot on
-@@ -3951,6 +4034,32 @@ int i3c_dev_do_xfers_locked(struct i3c_dev_desc *dev, struct i3c_xfer *xfers,
- }
- EXPORT_SYMBOL_GPL(i3c_dev_do_xfers_locked);
- 
-+/**
-+ * i3c_dev_disable_ibi_controller_locked() - Disable IBI in the controller
-+ * @dev: I3C device descriptor
-+ *
-+ * Invoke the current controller's IBI disable callback without waiting for
-+ * pending IBIs or updating the generic IBI enabled state.
-+ *
-+ * Context: The caller must serialize access to @dev->ibi and the generic
-+ * IBI lifecycle.
-+ *
-+ * Return: 0 on success, or a negative error code.
-+ */
-+int i3c_dev_disable_ibi_controller_locked(struct i3c_dev_desc *dev)
-+{
-+	struct i3c_master_controller *master = i3c_dev_get_master(dev);
-+
-+	if (!dev->ibi)
-+		return -EINVAL;
-+
-+	if (!master->ops->disable_ibi)
-+		return -EOPNOTSUPP;
-+
-+	return master->ops->disable_ibi(dev);
-+}
-+EXPORT_SYMBOL_GPL(i3c_dev_disable_ibi_controller_locked);
-+
- /**
-  * i3c_dev_disable_ibi_locked() - Disable IBIs coming from a specific device
-  * @dev: device on which IBIs should be disabled
-@@ -3963,14 +4072,9 @@ EXPORT_SYMBOL_GPL(i3c_dev_do_xfers_locked);
-  */
- int i3c_dev_disable_ibi_locked(struct i3c_dev_desc *dev)
- {
--	struct i3c_master_controller *master;
- 	int ret;
- 
--	if (!dev->ibi)
--		return -EINVAL;
--
--	master = i3c_dev_get_master(dev);
--	ret = master->ops->disable_ibi(dev);
-+	ret = i3c_dev_disable_ibi_controller_locked(dev);
- 	if (ret)
- 		return ret;
- 
-@@ -3984,6 +4088,32 @@ int i3c_dev_disable_ibi_locked(struct i3c_dev_desc *dev)
- }
- EXPORT_SYMBOL_GPL(i3c_dev_disable_ibi_locked);
- 
-+/**
-+ * i3c_dev_enable_ibi_controller_locked() - Enable controller IBI resources
-+ * @dev: I3C device descriptor
-+ *
-+ * Invoke the current controller's IBI enable callback without updating the
-+ * generic IBI enabled state.
-+ *
-+ * Context: The caller must serialize access to @dev->ibi and the generic
-+ * IBI lifecycle.
-+ *
-+ * Return: 0 on success, or a negative error code.
-+ */
-+int i3c_dev_enable_ibi_controller_locked(struct i3c_dev_desc *dev)
-+{
-+	struct i3c_master_controller *master = i3c_dev_get_master(dev);
-+
-+	if (!dev->ibi)
-+		return -EINVAL;
-+
-+	if (!master->ops->enable_ibi)
-+		return -EOPNOTSUPP;
-+
-+	return master->ops->enable_ibi(dev);
-+}
-+EXPORT_SYMBOL_GPL(i3c_dev_enable_ibi_controller_locked);
-+
- /**
-  * i3c_dev_enable_ibi_locked() - Enable IBIs from a specific device (lock held)
-  * @dev: device on which IBIs should be enabled
-@@ -4000,13 +4130,9 @@ EXPORT_SYMBOL_GPL(i3c_dev_disable_ibi_locked);
-  */
- int i3c_dev_enable_ibi_locked(struct i3c_dev_desc *dev)
- {
--	struct i3c_master_controller *master = i3c_dev_get_master(dev);
- 	int ret;
- 
--	if (!dev->ibi)
--		return -EINVAL;
--
--	ret = master->ops->enable_ibi(dev);
-+	ret = i3c_dev_enable_ibi_controller_locked(dev);
- 	if (!ret)
- 		dev->ibi->enabled = true;
- 
-@@ -4014,6 +4140,35 @@ int i3c_dev_enable_ibi_locked(struct i3c_dev_desc *dev)
- }
- EXPORT_SYMBOL_GPL(i3c_dev_enable_ibi_locked);
- 
-+/**
-+ * i3c_dev_request_ibi_controller_locked() - Request controller IBI resources
-+ * @dev: I3C device descriptor
-+ * @req: IBI setup request
-+ *
-+ * Invoke the current controller's IBI request callback without allocating the
-+ * generic IBI object or workqueue. The caller must ensure that @dev->ibi has
-+ * already been initialized.
-+ *
-+ * Context: The caller must serialize access to @dev->ibi and the generic
-+ * IBI lifecycle.
-+ *
-+ * Return: 0 on success, or a negative error code.
-+ */
-+int i3c_dev_request_ibi_controller_locked(struct i3c_dev_desc *dev,
-+					  const struct i3c_ibi_setup *req)
-+{
-+	struct i3c_master_controller *master = i3c_dev_get_master(dev);
-+
-+	if (!dev->ibi)
-+		return -EINVAL;
-+
-+	if (!master->ops->request_ibi)
-+		return -EOPNOTSUPP;
-+
-+	return master->ops->request_ibi(dev, req);
-+}
-+EXPORT_SYMBOL_GPL(i3c_dev_request_ibi_controller_locked);
-+
- /**
-  * i3c_dev_request_ibi_locked() - Request an IBI
-  * @dev: device for which we should enable IBIs
-@@ -4056,8 +4211,15 @@ int i3c_dev_request_ibi_locked(struct i3c_dev_desc *dev,
- 	ibi->num_slots = req->num_slots;
- 
- 	dev->ibi = ibi;
--	ret = master->ops->request_ibi(dev, req);
-+	ret = i3c_dev_request_ibi_controller_locked(dev, req);
- 	if (ret) {
-+		/*
-+		 * The controller request callback failed, so tear down the
-+		 * workqueue allocated above before freeing the IBI object.
-+		 * This is the owner of the workqueue, so it must destroy it
-+		 * here to avoid leaking it on the error path.
-+		 */
-+		destroy_workqueue(ibi->wq);
- 		kfree(ibi);
- 		dev->ibi = NULL;
- 	}
-@@ -4066,6 +4228,27 @@ int i3c_dev_request_ibi_locked(struct i3c_dev_desc *dev,
- }
- EXPORT_SYMBOL_GPL(i3c_dev_request_ibi_locked);
- 
-+/**
-+ * i3c_dev_free_ibi_controller_locked() - Free controller IBI resources
-+ * @dev: I3C device descriptor
-+ *
-+ * Invoke the current controller's IBI free callback without destroying the
-+ * generic IBI workqueue or freeing @dev->ibi.
-+ *
-+ * Context: The caller must serialize access to @dev->ibi and the generic
-+ * IBI lifecycle.
-+ */
-+void i3c_dev_free_ibi_controller_locked(struct i3c_dev_desc *dev)
-+{
-+	struct i3c_master_controller *master = i3c_dev_get_master(dev);
-+
-+	if (!dev->ibi)
-+		return;
-+
-+	master->ops->free_ibi(dev);
-+}
-+EXPORT_SYMBOL_GPL(i3c_dev_free_ibi_controller_locked);
-+
- /**
-  * i3c_dev_free_ibi_locked() - Free all resources needed for IBI handling
-  * @dev: device on which you want to release IBI resources
-@@ -4096,7 +4279,7 @@ void i3c_dev_free_ibi_locked(struct i3c_dev_desc *dev)
- 			dev_err(&master->dev, "Failed to disable IBI before freeing\n");
- 	}
- 
--	master->ops->free_ibi(dev);
-+	i3c_dev_free_ibi_controller_locked(dev);
- 
- 	if (dev->ibi->wq) {
- 		destroy_workqueue(dev->ibi->wq);
+ NXP PF5300/PF5301/PF5302 PMIC REGULATOR DEVICE DRIVER
+ M:	Woodrow Douglass <wdouglass@carnegierobotics.com>
+ S:	Maintained
 -- 
 2.25.1
 
