@@ -1,278 +1,149 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875673CB8FF
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 19:01:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788462104; cv=pass; b=P68GOMCbA7cY1GdWiVa/p8KpSrC/7DezIm3Oteuhl6EIZJC57uN1t664cQwdn8P1zKcOQQYtz1Ej7X8enlEg7tQ/aNctJwogF+hzPk02YT92T30bprFDJLcYGVjYZRlN4g2CnyzszJNrF5pmw1nwJRG7NB+PoZDcqZ9/rlLccEM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788462104; c=relaxed/simple;
-	bh=nO7P5MOWf5n75hGIclRBq3mBx37PZnx6Ncqnx419+RY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nx7eRA2+N0E5T00JPkV17WuYtBcHbfz6nNL6iALub1Mz8TgU/11wuUHBLsHDOMfoObUEcf/tilqPj9Atx/vRGgYC/BefNhh4DIbcN+aLgn3DA7M9WkZnbwV5o+iL4JNAIMDaUlIvYWOGflw371fM9O7G4YoZvUisyB+4J98Ygew=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hy3qmigA; arc=pass smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E60FA3CF032
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 19:02:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788462166; cv=none; b=FjAPJNLVMoUZsDU6nYglumya4vV9huyvGFa3vAjYf6DW3nZmtm4oy8H1UhjfgzqRDmZIVtEPkJ7Q67nRq5Q5WJbwAFyx3jpEPXiQubZ6q8vt93Cm+1UOo9tAG28FIT3Ig6tas67uiAyIObgPLGL33vB9hvpLuFS5LjzobK4cN3c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788462166; c=relaxed/simple;
+	bh=KsSzZJoUo3eRJL+QMF1QT1S6rvVdOYkCPLndC+Wx3Rc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=rVbjf95KnwRI0quaRK2Zg7SFcQqMkhSbZtMDniSWBuoDcpoFQbblBmjajCtuu9hyqcF2nZ+kw0O63WXIq46EMfV9ri9E9DiX0Mdc9tP6TVljP07f9s6EjYKIo1tJcRqNCNk65+2jTTz7MYGJEDq4nt6/WGUW9IgJlCwNwdfeA/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=U+fKCQI5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FM+ZdzUo; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hy3qmigA"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48586861639so133433f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 12:01:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788462095; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Bitq4RF2YizzvuZTuEOra54uFFywocTd4W4oA12fKqFUhdELWG/mDCwn8AgcDYipKs
-         hAeWLH/OWwemoNn+yGo8DCGQLhz0i86b63bK2uiY2LnI3ZuDPb9xQNmrqISFanoQ1BoZ
-         5aYrneISJLfIk8l9vSpyBcV9sKyT96KzQvq5HVxqdKXyWZ8aPEP6GVMs3UrinWA1brKo
-         TLM/02qEw/HUt/35+xW4BTwEHy1bkzoJXICNj5FZXgMuRW4D6SiIc3pMI+n7vrGeoPQO
-         MknTVJxwUz+poVQeRHAzPgEVaGXsNhyEIRnNLeg9yAHXAP84Dwa+51gSAWiRY5PyjCB9
-         y9eg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4k6051qYGqcOE0IbvTlu78LucmjSeHvrRypj52NEgg0=;
-        fh=FbTZhghXJQuciqr2xM5LbjK72q6gvFEEyjGZRql20Hc=;
-        b=p2RNYevHoBLiTsriWLzJJuxvFd2sM2pYk0PmgAMvIrNDCUH4OzyelyH6aJpzKY32zV
-         CNFFJ6u5FoxDtF9+mm5MZWmlmcyed06yhe1t2PqAPPDZrLEP0f/q0EftcB5G+WmoDQ9h
-         evvkEjSkQxvNxNfdweqQJe4hgaH83x5wWWQnMuSlRTy40Sot25YL7yzmNrferJZBqQ7J
-         oUEV86xbiTkd42bl6qKf9V4W8/okwT+wnM7diCsV0fddRAFPV2wroka73pr/8vEjpcz7
-         BgzsosZst7tdjMb2Lf5SBHJkE4HN6sEyi/mWGqsjEZIP3pqvDyvXwnAGmLOuvCPBPQf6
-         Eh8Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="U+fKCQI5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FM+ZdzUo"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683IJXcj2002766
+	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 19:02:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	wWafkb7CS909dTCbVmWblMfgmqDyzgj5Ms8qb4F3WRk=; b=U+fKCQI5Xh6sbJFD
+	gbSHXz77ap6DOuqUB+TaB0HOzyYAV7+yhQubQ9TYeA/0ZRBu2Si0btef3haw/8rg
+	hcJ5rJ5GgCBPthIozH4o73NZ1I9DNKMoLjeDQNprilll8Qm3dNkKi2AS5DorK11n
+	oxOtDSUHzRTig1RVJVlDun5iY+RRI7Yo/kLHEVYhORBuwHWZI9QrjPDDBOzDZZD9
+	K7zW+rdesCxuwqdR9lKUvpZ3bMeKMwMUSxLtEpw5r3FnL4yFR7OI6VnpgpQAsOM2
+	YA2js7ztzzsB2Ms/6feJQbM63S/R7Wa1NxkBDB5PorDsg9hCCtvSO+NcVbTzPV7q
+	4iyBhg==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gfbyvgyxk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 19:02:37 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d7151120d6so2254945ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 12:02:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788462095; x=1789066895; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4k6051qYGqcOE0IbvTlu78LucmjSeHvrRypj52NEgg0=;
-        b=Hy3qmigAP91kBmiZ/NcBxXvBu7TS3L4LREM6KRRtk6Snv9xEbXxpfSuEFEexsr8Jle
-         afvGYmxuSE9zWLO36hBTtOHj96fB9f8Nz5dBWxm1LScuIiHm22IJmhsTilYuVM1KXaqg
-         xMg2S4c1UlvEpF7B2MvUplvmVE5ma7ovkcmX61jNW+23pZWPYAGgJ0TX4VWYoGNl5BqX
-         nSzAPApuErPNTAza8ZQdRkRmaXq/SZqcSaKbjF/8oF5Q1DbdPi6DjdqMjBKaVe7t5IO5
-         Ld5VHCx8zFskyH36vkz1qMDoYK2zMXX1WLsQMD/nvgVJh05Qxd5bpkBjDNY/jHhQmNms
-         uWXg==
+        d=oss.qualcomm.com; s=google; t=1788462157; x=1789066957; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wWafkb7CS909dTCbVmWblMfgmqDyzgj5Ms8qb4F3WRk=;
+        b=FM+ZdzUo020PfcFbnqmxfPfIMtB/80dHFhdjlmiRSDt0N7xxBUzBQp47k08r2IqjuT
+         Pnj7QdS2Y10sUdQXp6y5c3p0aF+IgSCzjdWsy2gDsz404mgmGqcrh+tNGS3HYpEjqqzL
+         aCeaH90puSv/qAUrTc/A0c7PUa/GciD7x5rX8BM3a5HY88h/Nz/B+Yl9VlDrBjCcQElH
+         xPoQPlxaZs89ARjuKesjH8Hu3NYpWl3G5VG86YHTU/fJRx/P4fWNBYNhV5SrBhBT1cSc
+         vyLkSM2FQ2vKypP7H5Gb/Jwa0DplClwn/QPUOqEjVcz+3wGD4YcVEKEeGhn+13ZXPUCP
+         7V5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788462095; x=1789066895;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788462157; x=1789066957;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4k6051qYGqcOE0IbvTlu78LucmjSeHvrRypj52NEgg0=;
-        b=Vv2e17H8CzzwkpH9ycJPHTlXtCaH9ADVOeh1ppcvAHmMSBpDfT80Kvyj+yweIMM78S
-         nwv/BdD3o8Q3CVdRng2xi26ENSJmfWTApI+lYKeAMb1+7Ytpjm3Je+gvK0vw+RMKCXco
-         ClpOi+JS+e9iG2nNDC0R4J7qla+nVSLxE6Hc22zowXIjXU96PDZvD4Iy0ZRb4am9sPsR
-         AKBTSLf4GA5g/IzKFWFW0Xtbkb1ps/3U2IKUE62RJqSWtKYarQe27ao9h5m+lCBpXBVM
-         4hDtYN1A+FthTEZIxqWd2r4vWMvVQDyb55inmevt3a1qfBYE2DrAQl+XbKpJAnlq0PRj
-         iAJg==
-X-Forwarded-Encrypted: i=1; AKwUvBz4MvPNtVh3i29Mr09WzRqrDzJesXDBoMbeXzJWCPjprxAU9v5wM7VsxcDkJOytZ5YlpOLFhjU5GCh+Vd4=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6A5c4PSyzWKuNlNDS6SK/K9UF1ndCBweI1JuCj0pYGDn7DnCH
-	pRNxWVEDLoMKvzdbLPkWdOKQQYEvS9MDwyAezDdH077DcQEOtqNCGo/DkegBd7XSyQBCRe7mBE0
-	fkoAXcEuZGLSc5W1+mUgS4IJ0a3Q4FDo=
-X-Gm-Gg: AYBFou0RjiH/Gf5aS0i8Vt3+XPP7z8A+qK5SwnhgnwWI7E0+LXpNdJGCwtj5S5yP/tk
-	EIpoldpus6c0msCJxwPhJgMaqWMUNwDOYImmgd5Y/oyZQ3El+OqG4tMnlQUFKlQuVvEg9ITTLW/
-	VCz2svt2Ji/Y8AJgTkXyZAREdH9pOAuD/pTRx8+yte7CnFO8Pi/jkTUZ5YawcqXZwn//wdSXo2m
-	YFF+wyp/aSvHDpWfUvqudeosT7J/8/re1UNsPp7WF2eCFmKNq9zeXF+yc1x52gBoClMq3Xdlr2G
-	rfF37QKySotPU5zsBcD73ifLQD3DAQE+B2+Fjku1wQW8Pk1j+X6G9a2JIOsZe0wb1PtBdiqZ+Z7
-	FrOGLp/2XTFXqFoEYk+d2YAemtMU=
-X-Received: by 2002:a5d:64c4:0:b0:485:7d6d:e0e0 with SMTP id
- ffacd0b85a97d-48582315f07mr6561895f8f.3.1788462094628; Thu, 03 Sep 2026
- 12:01:34 -0700 (PDT)
+        bh=wWafkb7CS909dTCbVmWblMfgmqDyzgj5Ms8qb4F3WRk=;
+        b=pK2d6iZl72Wp7JoUTm1HIz7ICAZQuU/vawkrqL4yIcHRtx5zuSHGenqwPY+Llr8hCK
+         poBuLFZZvXSMQu3bmXygFZBnT8t7Y5BOfefIOOGCUBGd8RVPP44Ygzb4DVQQIxV2pXHo
+         /l7R8a+9l4SrdSJCiBb5NDCDdp4jQiMPF96T9alw2HQxptzlYT7OJ2YGpd30YTOvqIpw
+         yiEMABqHwXoSj6kq5KsCi5BmzJBkHGBahkLN/0R3Fp29roZ2agmL9Gqh/2JC4M8JGZTX
+         YaQ60cPSLP4p/+sffRCCCDCUDy3BCJJWZ7bV/soJM4+0nfRMMltDGWAS351Ws8gPUdQq
+         Nddg==
+X-Forwarded-Encrypted: i=1; AKwUvBzKWT1w7Se6XgVhFiAZ62TIaE4+GK/3S08xLDiLtBQaZKEQ8lIRzVwYv1i7xaWtgAZK4d75jfJ5eVOfiNg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwmttBw0na8uF3vKNYIRW3JbemRAzE82YhXynpjXISV8ut6AX5
+	Rvz3UTq0tk43WmOwM1meyWz6fn7LM8L5VLcXhvookSmOppDRp5mObRQJ3u3jb+9oW+iFwFwpr+0
+	gr09GXgx0xt4BnB/eVj2rgx8lPCQpUXqoIiD6C79iiqo6JCWBNpRaD+E1Mop6+FH6uRI=
+X-Gm-Gg: AYBFou2h8kHqFQk3JF24sIkYj32MEBwJKkTR7lwzcUj4W026JFAlZ6V7LV/QRNzGFr1
+	fyeMaYjzJ0/HXhr4r4gBUCmRitjzTDNl+5Q220IEyVBcmngIKphvx0QAivUPYZWuQzQN3HnWKdU
+	MUofPE0dAR0gdhwu7Liv3yyrQG+Fg8iB7n6XVA92b1DIEYIZUoDo2w5hht5wMWPIkAaPQ5KC07j
+	Kr6OukfWkiZGYo4sYlZCnDYfq1DJNfelcIXXhsscniWg/Kf3iBlRbGREsizOPGGtjL/gd/ymurd
+	9pWvv2JW1P/QFyq/mb4+qSJgiHhoErhfUH5IWgDi4Nbl31UNxD9IoEkejLHFbicAfJg4HuG3p15
+	kFMBn3DtfH9p2f5sMHNtsxQrBvCNkrT+TYc04gNqgPFs2fMQ94xyBFGE=
+X-Received: by 2002:a17:90b:3b8c:b0:398:9bd4:d13 with SMTP id 98e67ed59e1d1-39b26242a75mr658752a91.18.1788462156452;
+        Thu, 03 Sep 2026 12:02:36 -0700 (PDT)
+X-Received: by 2002:a17:90b:3b8c:b0:398:9bd4:d13 with SMTP id 98e67ed59e1d1-39b26242a75mr658662a91.18.1788462155797;
+        Thu, 03 Sep 2026 12:02:35 -0700 (PDT)
+Received: from hu-jjohnson-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243bfbe3sm1230164c88.11.2026.09.03.12.02.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 12:02:35 -0700 (PDT)
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+To: Jeff Johnson <jjohnson@kernel.org>,
+        Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Cc: linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+        linux-kernel@vger.kernel.org
+In-Reply-To: <20260728-ath12k_wmi_process_tpc_stats-skb-check-v1-1-01b7d09be20d@oss.qualcomm.com>
+References: <20260728-ath12k_wmi_process_tpc_stats-skb-check-v1-1-01b7d09be20d@oss.qualcomm.com>
+Subject: Re: [PATCH ath-next] wifi: ath12k: remove skb->data check in
+ ath12k_wmi_process_tpc_stats()
+Message-Id: <178846215507.824911.1946775956361257237.b4-ty@oss.qualcomm.com>
+Date: Thu, 03 Sep 2026 12:02:35 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903115018.2034541-1-yi.zhang@huaweicloud.com>
-In-Reply-To: <20260903115018.2034541-1-yi.zhang@huaweicloud.com>
-From: Joanne Koong <joannelkoong@gmail.com>
-Date: Thu, 3 Sep 2026 12:01:22 -0700
-X-Gm-Features: AcwNN1Xq1z0FxsQ9zPWn4QO4ZTMRixlUUwLEJLuKQWt5XQuIf6s3hWHxYB2ovjw
-Message-ID: <CAJnrk1ZLzNQxrSLQx7TsLK89QC_=9cDfoDcyKNBNde0CiDGoNg@mail.gmail.com>
-Subject: Re: [RFC PATCH] mm/truncate: fix data loss when splitting fails in truncate_inode_partial_folio()
-To: Zhang Yi <yi.zhang@huaweicloud.com>
-Cc: linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org, 
-	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
-	mhocko@suse.com, hughd@google.com, baolin.wang@linux.alibaba.com, 
-	willy@infradead.org, jack@suse.cz, ziy@nvidia.com, bfoster@redhat.com, 
-	djwong@kernel.org, yi.zhang@huawei.com, yizhang089@gmail.com, 
-	yangerkun@huawei.com, chengzhihao1@huawei.com, wangkefeng.wang@huawei.com, 
-	yukuai@fnnas.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
+X-Proofpoint-ORIG-GUID: qIim6K0GPFvctFm_mK85PyrWL4Nmxq0n
+X-Proofpoint-GUID: qIim6K0GPFvctFm_mK85PyrWL4Nmxq0n
+X-Authority-Analysis: v=2.4 cv=C8vZDwP+ c=1 sm=1 tr=0 ts=6a99c44d cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=tcO1i5LuZZfHbVICEYIA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDE2NiBTYWx0ZWRfX+TLyOmFnAq4e
+ uQKMAZYAEP2D9f7Mmi2cxniCqQQa0T/b8cnXTuf/RT+eWGT0CIp2WtxICQQWa9ppHNz05fch4Xy
+ wuGuMphBO24ZPz3q1qKCQEVWz9eOA7r+FKu/kxqeJ38rU6DDv7WW8H1M87vmvE3VfA5zIVU85su
+ 8aMhTt/7fRCi7XV4Cm8Sb8KXkk0PWG+iGsGhdSEwkG49udqMj4B4Q0UFzieN7VtRr2Sbfh0qbHD
+ KaX7PfC0hjTtaZXh4G384oq/XvUVOqLXNBk5YSq7F61lfBJazwdF57oW6QHdOZ060p51JRdBqCJ
+ 9WBCV1GMQNoI/zu0uq7GFiu2QnG88Vz7GmuH/TauMiDyY2md+AAxVqQt7bAXGTigtAciQiOaVMV
+ ll2CGUZM9pz1GEh1cYUu2rcVl9G8PmKni5Xrk1FcUw3N/FHs1F4zB5nQlFe653VGzwe7jdwmzLm
+ 0uttcLoA77LRaj173Mw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDE2NiBTYWx0ZWRfXxQ0K6YIwPafk
+ N0c0WEjQSngWmzPzvkqrT4j8mAzs0z5hUarpL616qDFxPbYK9MSvYXvZR0yZwcX8r4cbBmM93AQ
+ g3nSht+BZobgIHzmOhnjdBX944rrlsQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_05,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 bulkscore=0 adultscore=0 suspectscore=0
+ lowpriorityscore=0 impostorscore=0 malwarescore=0 spamscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030166
 
-On Thu, Sep 3, 2026 at 5:01=E2=80=AFAM Zhang Yi <yi.zhang@huaweicloud.com> =
-wrote:
->
-> From: Zhang Yi <yi.zhang@huawei.com>
->
-> truncate_inode_partial_folio() splits a large folio so that the caller's
-> truncate loop can drop the in-range sub-folios while keeping the
-> out-of-range tail. The first split at the punch start edge is
-> non-uniform, which leaves the sub-folio at the truncation end edge as
-> large as possible, this means it may still straddle the range, holding
-> both zeroed in-range and valid out-of-range data. The function then
-> attempts a second split at offset + length to isolate that tail.
->
-> If the second split fails the straddling sub-folio stays merged. The
-> function returned true unconditionally on all exit paths of the success
-> block, telling the caller it was fully handled. The caller kept its
-> default end and the truncate loop truncated every sub-folio below it,
-> including the merged straddler, discarding the valid out-of-range tail.
->
-> For example, a 4-page order-2 folio punched from offset 0 to the middle
-> of the last page:
->
->   truncate_inode_pages_range()
->     truncate_inode_partial_folio()      # same_folio =3D=3D true
->       1st split at page0 -> [p0, p1, p2-3]   # non-uniform, success
->       folio2 =3D p2-3 # straddles: p2 zeroed, p3 tail valid
->       2nd split of folio2 fails / cannot lock
->       return true                       # BUG: caller keeps default end
->     end =3D 3
->     loop truncates p0, p1, p2-3        # p3's valid tail is lost
->
-> This became reachable after commit 7460b470a131 ("mm/truncate: use
-> folio_split() in truncate operation") replaced the atomic split_folio()
-> with folio_split(), whose non-uniform split can partially split a folio
-> and leave the end edge merged.
->
-> It has gone unnoticed because a dirty large folio normally carries the
-> filesystem's private data, for example buffer_head, so
-> filemap_release_folio() -> iomap_release_folio() returns false on a
-> dirty folio and folio_split() aborts with -EBUSY before any split,
-> leaving the straddler safely unsplit. The bug is only reachable on paths
-> that produce dirty large folios without filesystem private data, and it
-> was caught on the upcoming ext4 iomap buffered I/O path when no ifs is
-> attached.
->
-> Rework the contract so the caller is told where to stop instead of
-> silently truncating the straddler:
->
->   - Return true only when a split occurred, false otherwise. This
->     clarifies the existing confusing return value semantics.
->
->   - Add an optional out-parameter pgoff_t *end, set to the index of the
->     folio that contains @lend and must be kept by the caller's loop. It
->     is only written when the folio actually straddles @lend. On the
->     success path it defaults to the page index of the end edge and is
->     refined to folio2->index when the second split fails to isolate the
->     tail.
->
->   - Rename the byte-range parameters start/end to lstart/lend to avoid
->     clashing with the new @end output and to separate byte offsets from
->     folio indices.
->
-> Callers in truncate_inode_pages_range() and shmem_undo_range() pass &end
-> only when the folio straddles lend. After all, no caller discards a
-> straddling folio anymore, the in-range cleanly-split sub-folios below it
-> are still dropped.
->
-> Suggested-by: Brian Foster <bfoster@redhat.com>
-> Link: https://lore.kernel.org/linux-fsdevel/anH-WKA1coW6wtfG@bfoster/
-> Fixes: 7460b470a131 ("mm/truncate: use folio_split() in truncate operatio=
-n")
-> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
-> ---
->  mm/internal.h |  4 ++--
->  mm/shmem.c    | 12 +++++------
->  mm/truncate.c | 57 ++++++++++++++++++++++++++++++---------------------
->  3 files changed, 41 insertions(+), 32 deletions(-)
->
-> diff --git a/mm/truncate.c b/mm/truncate.c
-> index b58ba940be47..2ebb00f6c379 100644
-> --- a/mm/truncate.c
-> +++ b/mm/truncate.c
-> @@ -206,15 +206,18 @@ static int folio_split_or_unmap(struct folio *folio=
-, struct page *split_at,
->  /*
->   * Handle partial folios.  The folio may be entirely within the
->   * range if a split has raced with us.  If not, we zero the part of the
-> - * folio that's within the [start, end] range, and then split the folio =
-if
-> + * folio that's within the [lstart, lend] range, and then split the foli=
-o if
->   * it's large.  split_page_range() will discard pages which now lie beyo=
-nd
->   * i_size, and we rely on the caller to discard pages which lie within a
->   * newly created hole.
->   *
-> - * Returns false if splitting failed so the caller can avoid
-> - * discarding the entire folio which is stubbornly unsplit.
-> + * When @end non-NULL, set to the index of the folio that contains @lend
-> + * and must be kept by the caller's truncate loop.  Return %true if the
-> + * folio was split, %false otherwise, in which case the folio is dropped=
- or
-> + * may still straddle the range, so the caller must not discard it.
->   */
-> -bool truncate_inode_partial_folio(struct folio *folio, loff_t start, lof=
-f_t end)
-> +bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
-> +                                 loff_t lend, pgoff_t *end)
->  {
->         loff_t pos =3D folio_pos(folio);
->         size_t size =3D folio_size(folio);
-> @@ -222,19 +225,22 @@ bool truncate_inode_partial_folio(struct folio *fol=
-io, loff_t start, loff_t end)
->         struct page *split_at, *split_at2;
->         unsigned int min_order;
->
-> -       if (pos < start)
-> -               offset =3D start - pos;
-> +       if (end && pos + size > (u64)lend)
-> +               *end =3D folio->index;
-> +
-> +       if (pos < lstart)
-> +               offset =3D lstart - pos;
->         else
->                 offset =3D 0;
-> -       if (pos + size <=3D (u64)end)
-> +       if (pos + size <=3D (u64)lend)
->                 length =3D size - offset;
->         else
-> -               length =3D end + 1 - pos - offset;
-> +               length =3D lend + 1 - pos - offset;
->
->         folio_wait_writeback(folio);
->         if (length =3D=3D size) {
->                 truncate_inode_folio(folio->mapping, folio);
-> -               return true;
-> +               return false;
->         }
->
->         /*
-> @@ -248,7 +254,7 @@ bool truncate_inode_partial_folio(struct folio *folio=
-, loff_t start, loff_t end)
->         if (folio_needs_release(folio))
->                 folio_invalidate(folio, offset, length);
->         if (!folio_test_large(folio))
-> -               return true;
-> +               return false;
->
->         min_order =3D mapping_min_folio_order(folio->mapping);
->         split_at =3D folio_page(folio, PAGE_ALIGN_DOWN(offset) / PAGE_SIZ=
-E);
-> @@ -259,6 +265,10 @@ bool truncate_inode_partial_folio(struct folio *foli=
-o, loff_t start, loff_t end)
->                  * for shmem truncate
->                  */
->                 struct folio *folio2;
-> +               bool tail_isolated =3D true;
-> +
-> +               if (end)
-> +                       *end =3D (pos + offset + length) >> PAGE_SHIFT;
 
-If I'm understanding it correctly, based on how
-truncate_inode_pages_range() uses the end value (eg the "while (index
-< end)" loop condition and the find_get_entries(..., end - 1, ...)),
-end needs to point to the start of the folio if the tail folio from
-the split is a large folio, in order to exclude that folio from then
-being truncated. But with the (pos + offset + length) >> PAGE_SHIFT
-calculation here, does that result in some cases in it pointing to the
-middle of a large folio? Maybe some logic is needed to make sure that
-it points to the start?
+On Tue, 28 Jul 2026 18:15:24 -0700, Jeff Johnson wrote:
+> Currently, ath12k_wmi_process_tpc_stats() has a !skb->data check.  This
+> check is pointless since skb->data is accessed by ath12k_wmi_op_rx() in
+> order to dispatch the message to this function, therefore it is always
+> non-NULL.
+> 
+> Remove the pointless check and its associated warning message.
+> 
+> [...]
 
-Thanks,
-Joanne
+Applied, thanks!
+
+[1/1] wifi: ath12k: remove skb->data check in ath12k_wmi_process_tpc_stats()
+      commit: bd3e260f496adb0123076a237e5e72598dee0404
+
+Best regards,
+-- 
+Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+
