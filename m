@@ -1,103 +1,205 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A923244C664
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:35:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A58A437456
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:36:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788435349; cv=none; b=Myes5abHofSSd7qEuSWHLP9d2FAc1TFymOzRuf1M4tJa7T/EYqkR4auEcjpzalnvL1gnU/dtwKCeG8FcEXFoduX9LR40f3+r35jcCPvvSwnvbO/t0A1M4V101Stvoc+FsmY+0pnHXPq8k9pVZ2JR9DTEvUcNd+jxRjAWQfPyrq0=
+	t=1788435379; cv=none; b=sZNJzc2cPhUuDWjJex/S+wJmkpRl3P7AzvVmLBBsxgGbfJdbQhD6y3tHFOFX8T3gyU6AL32VnOzD2katahdxOB3q2AeNDI2cSZkdjJ7A7vfLRkA4piwkgHjrIKLCm/zK0mrfdqR4Q0WRXtyvNfo6wqy+daje1tKIMG8TxguZ8Uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788435349; c=relaxed/simple;
-	bh=V2f6t8seqAYkXoLsq8Jw1lCadHvMCV2oEh8bq+oPOqU=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=M0q2TjaBDR4gWHeJlis3W4BtTe4XO8oIdfsJTtmnOzeO8uMULjFHR7rAIZsbnc4Z/DtsdUOkzXEWp8c2IHLlWISlQONIBBPSvE834eC3yOonQDRcTN5nmQZyZeniJi/V3nXn6nUyxxf7Woh9yMpVVdow+308K5krMNEM2gUChxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gUd1MO6+; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788435379; c=relaxed/simple;
+	bh=UFsZXVipqlvfpx450PhI4oHqd1cKHwae0vZq/h7tgvg=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=L1xA5E/zk2RWy5SrEX7PJa80r02orEWk5Y7IQLNsKlovXsZ/jAD4pD8iAYKEfIDdubv3aVNYsVoKejr29BtdjYMD7NlWIb+Pyh/j+XR0Qwdto+3w4IEOxGyBBdJ6PwGaX0eDgdlEllvxYFYNCV1XgrSfmFuJMb3LtiXpnkpHXIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XQgRczGI; arc=none smtp.client-ip=209.85.128.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gUd1MO6+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788435341; x=1819971341;
-  h=date:from:to:cc:subject:message-id;
-  bh=V2f6t8seqAYkXoLsq8Jw1lCadHvMCV2oEh8bq+oPOqU=;
-  b=gUd1MO6+zGTB/p0gv/42qzApffogGtUbnmaMgogQb5VDgtuE0LtutecM
-   caUqu2NL5AJN86fW54SJWAU30vyCy2dcHV5QKE3PqutKRFVmFW7DEPdee
-   E6ZOT+n7IS8Z7lCdpJ+aRPuWj+LNZ+3TLexoyJGVdoAiUkl7Jtw4TsDFd
-   Ub9xhyWbZfRG2yhKJ5/rmJfROTUQqoq1l/SSGvtGfQEAiEwgrKcPC53DB
-   DHAULCdnk7/YCKJVuAkOiSEd/WDaZ9zGTqN5Swkk5ImsWZ0331RWHd4RV
-   4xVbw5NrhFs9L9WEVNu67YLXOR+7mznG8Nc9a94RF+DSqm7twtnz1fovz
-   g==;
-X-CSE-ConnectionGUID: gviso1c2RH6XC74oqmsw2Q==
-X-CSE-MsgGUID: Krjd0w+mT+qiYnKTJqO4nw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="100073955"
-X-IronPort-AV: E=Sophos;i="6.25,259,1779174000"; 
-   d="scan'208";a="100073955"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 04:35:37 -0700
-X-CSE-ConnectionGUID: inmjmNR1TuGK4KQ+K33bWA==
-X-CSE-MsgGUID: E023yWpYS82GoAdlPlJVng==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,259,1779174000"; 
-   d="scan'208";a="274972850"
-Received: from lkp-server01.sh.intel.com (HELO bfac249b2189) ([10.239.97.150])
-  by fmviesa005.fm.intel.com with ESMTP; 03 Sep 2026 04:35:35 -0700
-Received: from kbuild by bfac249b2189 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x25jA-000000004j8-3Akp;
-	Thu, 03 Sep 2026 11:35:32 +0000
-Date: Thu, 03 Sep 2026 19:35:10 +0800
-From: kernel test robot <lkp@intel.com>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Jinjie Ruan <ruanjinjie@huawei.com>
-Subject: include/linux/irq-entry-common.h:218: undefined reference to
- `syscall_enter_audit'
-Message-ID: <202609031938.ZvZZaRQy-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XQgRczGI"
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49cf4cc2125so1371785e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 04:36:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788435373; x=1789040173; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tZ4bhp8LPRdPf3uVYkffJK0IPibPFHXYOnRk0Sytprk=;
+        b=XQgRczGIwNPAwsso9w8BMMnffq4kRt3V5+TFKRdaE3AYw1o7Wu9HU6Mbmq1bEDe2EZ
+         rkMPLGHy08wlCB+HUndOOMw3USyFxgEcqT8gKOlbLLcHHgV+r0BbaXtHtGfl9cuWGAO9
+         cnSrV8gxdK/slx5bCWYFaezmAs3cwlhSH83VC1QjDAG1RcVqGzAQvlCHKIT+Gyq3hTUt
+         AzWEhR0UkKkOngy1hbn7k/7PPZ8Ht/1CcrRvMhcR/lPGlUSdCGynYMsjgA5/XnYuQqjr
+         kMmu01SC9Ue7myOfGCRduLDygvsa7nTbWipnhdYn27cMC+bYTegl5wKlfiwBDkrbJb27
+         IZig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788435373; x=1789040173;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tZ4bhp8LPRdPf3uVYkffJK0IPibPFHXYOnRk0Sytprk=;
+        b=S5wXcB4MciV27yWbtlZPW6ebQprL0mIzgaSX5RhpU/P5R+hFOtp1PkdoOccTYO3n5y
+         Rqi7Ypo90laHxXHnig++UbL1pCCiA40RKy/xhwZEfT8ehz3GRP5HcOb2OwCEgivh7yqI
+         bHziP4tp4mZZ1xu4xM65blTHIwpejwYWjMBShcGhPpd7kFfhNNC2RVYYM/krNHXynTO1
+         5uLM41P6wrXyhMn2PsTpAjBtHKR1tw+4o3lF1rYiv3I/q8vzvFYO8c0kShwa5FY9Dr4A
+         avjbO5/JH/V1i2ZxIi9Kms6Gv29QLTAT03a24HEli18touka3QPtDi9dwoFYhnTEHLt4
+         JNtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzkPINURZg3s9au4hpqAZ2ctscaYY6JznNZt+mp18pbEzpj0BKPX/RjdqZgjqJl3FjDS4XbK/FKJSO25D4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kEwqKA8B7yCayxWzSfGuQi7ElsNzI5EgtISLpQniNWkabU8QE8
+	A/lhO7TKzvXRgwrp7nbDJClpcdk/h3ECE2zvrS1S9h6V3cuhNikSSCLoBGS+YsTxL3GUkY7Z5lM
+	Ykjm0btjnyxjkt1n5Tg==
+X-Received: from wmoo1.prod.google.com ([2002:a05:600d:101:b0:499:dd7e:7848])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:1e0a:b0:49c:f518:252d with SMTP id 5b1f17b1804b1-49cf5182689mr18521135e9.14.1788435372573;
+ Thu, 03 Sep 2026 04:36:12 -0700 (PDT)
+Date: Thu, 03 Sep 2026 11:36:03 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAKJbmWoC/x3MQQqDQAxG4atI1gamExTaq5QuRvOr2YwlIyKId
+ 3dw+S3eO6nADYU+zUmO3YqtueLVNjQuKc9g02qKIfbhHYQHywrnbXEkZRy2cV4VrNKJ6ChDiol q/XdMdjzn7++6btxVjC5pAAAA
+X-Change-Id: 20260903-binder-thread-exit-node-d3533dc3ba2a
+X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4861; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=UFsZXVipqlvfpx450PhI4oHqd1cKHwae0vZq/h7tgvg=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqmVumOdC5zbeu0NqQvVL+RXhOyXWae9RJ43i6/
+ Iqk9k938RaJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCaplbpgAKCRAEWL7uWMY5
+ RiQVD/9ofPBPixot/tPTNbLyXvza5QF9N/ks8lPVTsS141zvuZXnBPa5Q8XL7WQDVyy76fRneGh
+ 7laXZr21OuKXg8dF3SvGwpVYNZ5TWXdvOizYBF9rkyWSkOzN/nC8qZW8YFrVfaf2H4hiG3kZE7S
+ 4LlJKky7m+hw1kfnkmT4ibTioYXkzHbW5lvnchiRmDt5/QnM0Mgu7Im1K+QqMGcnOqxToCcaMr5
+ CheJH9PfqUcKVz/sv/mH2WzOXJLKGHXWpTHGf3ehlN95JNm5HATFhx7IAbdLmuAAgqMQxLMOfTq
+ WKCEkQ1N+4ZDrVKPvRx9fmAi85LDzsnBtMwg69Y6UpxEKQECv8RWQxVB7iaR7EWmAICixiJ2AM2
+ d08PRX1DoNFy8VwGOxm7202wUsgDUdj8CuZiUiLoPdx2coszmIXwgiqYP2IHbx5UtJXWfc95E4I
+ GzySEli/OsbZPlhmf7vquHVD9mRcdSv5/Eek44brrq/RFIpjt8iPAXQ2gFLp88Kil3qxg6HlagT
+ 4yH1En69qGeBF6flhkVKEXMadjBuJGc7OPbPXLqQuyP3RqLAOioj3CyH2Gq3YVNABBgT6ZMQZBN
+ roRb1id4HE8VCDjY7KN15FZCPZ9Ft/XR52AhJRgPAfjIfz6JVObLxWLoYi1HlmFp747BPG4GOjU BZYxjlQX2HKvEbg==
+X-Mailer: b4 0.14.3
+Message-ID: <20260903-binder-thread-exit-node-v1-1-be09ff14f6a4@google.com>
+Subject: [PATCH] rust_binder: reschedule node refcount update on thread exit
+From: Alice Ryhl <aliceryhl@google.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos Llamas <cmllamas@google.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	"=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Alice Ryhl <aliceryhl@google.com>
+Content-Type: text/plain; charset="utf-8"
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   940de590b839f71d6dc846160534bf202401b8b7
-commit: 6f25517010ddd3f8080d7e06b9b1cb1b64b73772 entry: Rework syscall_audit_enter()
-date:   6 weeks ago
-config: riscv-randconfig-r052-20260903 (https://download.01.org/0day-ci/archive/20260903/202609031938.ZvZZaRQy-lkp@intel.com/config)
-compiler: riscv64-linux-gcc (GCC) 8.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260903/202609031938.ZvZZaRQy-lkp@intel.com/reproduce)
+When a thread exits via BINDER_THREAD_EXIT, its pending work items are
+cancelled. If a thread exits while holding a pending node refcount
+increment (e.g. pushed as deferred work to that thread), the refcount
+increment was previously dropped because Node::cancel() and
+NodeWrapper::cancel() were no-ops.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 6f25517010dd ("entry: Rework syscall_audit_enter()")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609031938.ZvZZaRQy-lkp@intel.com/
+Dropping the refcount update leaves the node's delivery state and count
+state desynchronized, and userspace will not receive the notification,
+which can cause the node to never be freed from the process's nodes tree
+when all external references are dropped.
 
-All errors (new ones prefixed by >>):
+Fix this by implementing DeliverToRead::cancel() for Node and NodeWrapper
+to move the pending refcount update to the process's work queue on thread
+exit so another thread can deliver it to userspace.
 
-   riscv64-linux-ld: arch/riscv/kernel/traps.o: in function `__exit_to_user_mode_validate':
->> include/linux/irq-entry-common.h:218: undefined reference to `syscall_enter_audit'
+Cc: stable@vger.kernel.org
+Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
+Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+---
+ drivers/android/binder/node.rs         | 20 +++++++++++++++++---
+ drivers/android/binder/node/wrapper.rs | 34 +++++++++++++++++++++++++++++++++-
+ 2 files changed, 50 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/android/binder/node.rs b/drivers/android/binder/node.rs
+index 0a82af14cda3..8dc3e3f2b834 100644
+--- a/drivers/android/binder/node.rs
++++ b/drivers/android/binder/node.rs
+@@ -51,9 +51,9 @@
+ ///   about to drop the weak reference, then the strong increment could be processed after the
+ ///   other thread has already exited, which would be too late.
+ ///
+-/// Note that trying to create a `ListArc` to the node can succeed even if `has_normal_push` is
++/// Note that trying to create a `ListArc` to the node can succeed even if `has_pushed_node` is
+ /// set. This is because another thread might just have popped the node from a todo list, but not
+-/// yet called `do_work`. However, if `has_normal_push` is false, then creating a `ListArc` should
++/// yet called `do_work`. However, if `has_pushed_node` is false, then creating a `ListArc` should
+ /// always succeed.
+ ///
+ /// Like the other fields in `NodeInner`, the delivery state is protected by the process lock.
+@@ -738,7 +738,21 @@ fn do_work(
+         self.do_work_locked(writer, owner_inner)
+     }
+ 
+-    fn cancel(self: DArc<Self>) {}
++    fn cancel(self: DArc<Self>) {
++        let _drop_outside_lock;
++        let mut owner_inner = self.owner.inner.lock();
++
++        // We only do something on BINDER_THREAD_EXIT, not process exit.
++        if owner_inner.is_dead {
++            return;
++        }
++
++        // If BINDER_THREAD_EXIT is invoked on a thread with a pending node refcount update, we
++        // should move ourselves to ensure the refcount update is still delivered.
++        if let Some(node) = ListArc::try_from_arc_borrow(self.as_arc_borrow()) {
++            _drop_outside_lock = owner_inner.push_work(&self.owner, node);
++        }
++    }
+ 
+     fn should_sync_wakeup(&self) -> bool {
+         false
+diff --git a/drivers/android/binder/node/wrapper.rs b/drivers/android/binder/node/wrapper.rs
+index 6e4ca01c941a..886626ca0d42 100644
+--- a/drivers/android/binder/node/wrapper.rs
++++ b/drivers/android/binder/node/wrapper.rs
+@@ -57,7 +57,39 @@ fn do_work(
+         node.do_work_locked(writer, owner_inner)
+     }
+ 
+-    fn cancel(self: DArc<Self>) {}
++    fn cancel(self: DArc<Self>) {
++        let _drop_outside_lock;
++        let node = &self.node;
++        let mut owner_inner = node.owner.inner.lock();
++
++        // We only do something on BINDER_THREAD_EXIT, not process exit.
++        if owner_inner.is_dead {
++            return;
++        }
++
++        // We transfer the responsibility of the node refcount update to the scheduled Node because
++        // NodeWrapper has no way to re-create the ListArc.
++        let inner = node.inner.access_mut(&mut owner_inner);
++
++        let ds = &mut inner.delivery_state;
++        assert!(ds.has_pushed_wrapper);
++        assert!(ds.has_strong_zero2one);
++        ds.has_pushed_wrapper = false;
++
++        // We are changing the state to one where the Node is the strong zero2one update instead of
++        // the wrapper.
++        ds.has_weak_zero2one = false;
++
++        if !ds.has_pushed_node {
++            if let Some(node2) = ListArc::try_from_arc_borrow(node.as_arc_borrow()) {
++                ds.has_pushed_node = true;
++                _drop_outside_lock = owner_inner.push_work(&node.owner, node2);
++            } else {
++                // This can't actually happen.
++                ds.has_strong_zero2one = false;
++            }
++        }
++    }
+ 
+     fn should_sync_wakeup(&self) -> bool {
+         false
 
-vim +218 include/linux/irq-entry-common.h
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260903-binder-thread-exit-node-d3533dc3ba2a
 
-a70e9f647f501e3 Jinjie Ruan     2025-06-24  212  
-70fe25a3bc53a89 Thomas Gleixner 2025-10-27  213  static __always_inline void __exit_to_user_mode_validate(void)
-70fe25a3bc53a89 Thomas Gleixner 2025-10-27  214  {
-a70e9f647f501e3 Jinjie Ruan     2025-06-24  215  	/* Ensure that kernel state is sane for a return to userspace */
-a70e9f647f501e3 Jinjie Ruan     2025-06-24  216  	kmap_assert_nomap();
-a70e9f647f501e3 Jinjie Ruan     2025-06-24  217  	lockdep_assert_irqs_disabled();
-a70e9f647f501e3 Jinjie Ruan     2025-06-24 @218  	lockdep_sys_exit();
-a70e9f647f501e3 Jinjie Ruan     2025-06-24  219  }
-a70e9f647f501e3 Jinjie Ruan     2025-06-24  220  
+Best regards,
+-- 
+Alice Ryhl <aliceryhl@google.com>
 
-:::::: The code at line 218 was first introduced by commit
-:::::: a70e9f647f501e36a6a092888b1ea7386b7c5664 entry: Split generic entry into generic exception and syscall entry
-
-:::::: TO: Jinjie Ruan <ruanjinjie@huawei.com>
-:::::: CC: Thomas Gleixner <tglx@linutronix.de>
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
