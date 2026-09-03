@@ -1,218 +1,85 @@
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+Received: from mta0.migadu.com (out-82.mta0.migadu.com [91.218.175.82])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FBBC377016
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 05:00:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC653839BA
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 05:02:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.82
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788411632; cv=none; b=QFK1VWSk5P5kNaUwNrdQOs8HsNhaGcLOq1p5zhmTt/VYTfeldj32+MBRiD/HXu+42vlnjVyJqiKpZsndVBaU+jMCx6U7URNf4Qw+Orhc3QXVcZzxZ9Si02sCwPE1O6SwBq3ftHush7IUa0oxmtniwNxfYEoUW6K277/kIW3h8hw=
+	t=1788411755; cv=none; b=Fq0VV4369fJN9xhR0J/7OPJ3gPdmxzh3QBTWcTK1IoDFokO2jExzPkTM3COt/qGfAXdzTNQRU3yfvPIbTPN4XOqeJ7lBkIh1FNLUX6MBuqe+kbHmVOqep7UcUffHa/h85zeUh24lwpFqeaINdobBpjNZK1p69N2UT20aOijJ28o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788411632; c=relaxed/simple;
-	bh=Do6DIyYheb72ubQenuc39X/h+3c0RITXfqxUusCBwQ0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fVst6JiYK3Yi7Qrmm0D9rNYOwYtSfL4txsE2PdUnJ2d3kJFm3+lNP5h8zKgfCO77IUYRrZFY210bt5gtd1UCCmBoTkN2E4+y5ePuX6kMeUPGjbBgmtGht42mJJnBjyUqp+i+c8cbpUS2VXNvSb5Ayoo9y5DNVyRlGxBWd/+Z9og=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=My0FBi5E; arc=none smtp.client-ip=209.85.167.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788411755; c=relaxed/simple;
+	bh=DrMHlZMozqyndKpLSTkuk0p4rmxGy43whNlgBg2HojY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VZtPPgissXcBw47Yc01FiahK0lyyoAWMUHHnoCSoOYlbidDCQ1x1B+dBOytOLJp58LK6/YENVJbIOuzAj2sf5NYM8nSvgs6Gqwwv8nLIl0F3RJP//NmhwlJZ8Ftf2njyxkYYv75gHrW81Ieh8Ic8bTqsZ9D8uNIgKnVMrWAoE6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=UBhr9U4l; arc=none smtp.client-ip=91.218.175.82
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="My0FBi5E"
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b4ae0b3308so1396271e87.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 22:00:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788411629; x=1789016429; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Aw9gpVGru8xiZcUq3dSpmW3TOUrgw1owBT+0w2fdvGo=;
-        b=My0FBi5E6ceep2eAoKtxAwze+bPhLRYCaPXTsjOaQqVZ8ryTz+lRaxOnfXEt+284B5
-         U7n/U6MzfdDFFohQTuaH0IOnEuwciKck08RiW19oW1b9BbQxqqS+7CLNBg0NJRQV66KZ
-         GeT8bgS69DdHa2eUqXBtwS4eQfnQVXIpjhYBo05l4bk72Nfb/8ZoDr6n/bLRDXc45xgY
-         qh2ywezmDvFCQu6Lkai2TZfZyOs1dXf9V1w4uXKnoQ6/emjl8zpf0utEcJMl6ZLavcXa
-         85arZA43rRRHYxcYZIrOIo0a7VQVgrEQMlURageYQiagMm0G74u2ih509vZuKvL/Fede
-         jaQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788411629; x=1789016429;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Aw9gpVGru8xiZcUq3dSpmW3TOUrgw1owBT+0w2fdvGo=;
-        b=Hs919caCnPt7v4PdhsuqEIWXnaSmnQ/QQkdxosccwgCG6/SCGQxmGPool/x7A4KwT3
-         zgrKStELAjmMb2467if08+h0VZW6TSZmDkVqQDkr4knDqA9cpjd1NR7XrjsA2mLZWrXQ
-         c2/dT2qjxWuAycxFwlJEo0jLhdhBTP22Ax/BM+xSktS2cK1w2MRL3TdTZtgIZ53HKKQI
-         0YKBjwa1S5+adOyLdxY4XV1TtW+emsqQPbaUrmmg3qyUfIKtZduWmt6E+NFLzAXhN7Gj
-         4m4yANanHHcksCtFgqa4uRf450Odnx6jCTyRw+jFceypBTxjxbK4uL6Vtj5x7iWB2qvZ
-         GVAg==
-X-Forwarded-Encrypted: i=1; AKwUvBxpcSoen9Xioi1YIT5Yhh1Z2yn+3u1p/jP34//G06VZSBmaCMceVO1xIjopFeaA99lNDHTFBbR0RSJtle8=@vger.kernel.org
-X-Gm-Message-State: AFuF++k5k+OEU/3WGBBQa9HxMEVM4MhF6Z4oBaByz7ExEK8y76a+RmV6
-	aB+Slpoy/gnJrBSCrBy3vZOt4L9mmqHJN6oXr7+v/Z5e9pq3PI761n6L
-X-Gm-Gg: AYBFou35Jkhj3VUHsMJRUJ66rrOSpY23POBtrQa+lCMBtDk6KxWLgWkdchUSJCBVqTg
-	uHHxm9Exr2dp0lR1i6OuT93/iq2Uc/7YQQAYrLYDz0Y2PRjW1Bttz/5ecao6F4d8V9vdxm4FQm0
-	CwEjATyKqQqVDt7Pt2YZeA8GtsLQ5BITMnn6nKXs1awhRRtUcK08xzvISzrWtrPlmLDg5XUv+Sh
-	aOUnUjq8ZyuphX7llDjg1nqhqnvUkh+deheDMphAi3pSgeQDdmNSHQop1WoC7qstlM4EB98slmY
-	fA2Cw7p927xKQ6nwocgZzB2G7vD1gEvVGbtwdSk80j1dcUEoWT1FR4d2nr/G41S3XAsxL7zn0lD
-	KzIo8itysKutXZVk/267neqAgx+rPjzz0ESZM/TP9JVBPV3FYDwcujj803rINJNTM+qshi5vNnh
-	Mm7xyajeMmgiAffYrVk/VxIGD0QyCPIIxMu7yiI0V7XLj4C2raAJMufmZlzWEGusU8t9dQ7tnfL
-	GX+1awOIiVXM5jQCWpCnsqzvoV/ya3xKuUyHnhTwwEa
-X-Received: by 2002:ac2:5685:0:b0:5b5:e393:2284 with SMTP id 2adb3069b0e04-5b60832fcfemr3051273e87.3.1788411628714;
-        Wed, 02 Sep 2026 22:00:28 -0700 (PDT)
-Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a350e4caacsm7622581fa.21.2026.09.02.22.00.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 22:00:26 -0700 (PDT)
-Message-ID: <57832670-6066-424d-a75f-4eb1f1f0cf73@gmail.com>
-Date: Thu, 3 Sep 2026 08:00:24 +0300
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="UBhr9U4l"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=DrMHlZMozqyndKpLSTkuk0p4rmxGy43whNlgBg2HojY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788411750; v=1; x=1789016550;
+ b=UBhr9U4l70Ia6v4yKYX+BTYZmM64gYTfy7XFSE7748EO9XzWxGOCtqaJwuZYRERfHVTI+Jge
+ A0yMgk8y6gLOzBW69bl0zPVh0ejg+RYCMjAtnV2oH4XFQEN1/EjIkI3HDK/FffzYbXfH/4GQ+dl
+ WV8QljyKHNsMkIVXFs5Wt5ZY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id df70ff5a37511f08;
+	Thu, 03 Sep 2026 05:02:20 +0000
+X-Mizu-Trace-ID: df70ff5a37511f08
+X-Migadu-Flow: FLOW_OUT
+From: Kaitao Cheng <kaitao.cheng@linux.dev>
+To: Dan Williams <djbw@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>,
+	linux-fsdevel@vger.kernel.org,
+	nvdimm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Kaitao Cheng <chengkaitao@kylinos.cn>
+Subject: [PATCH] fs/dax: Remove redundant deferred list initialization
+Date: Thu,  3 Sep 2026 13:02:07 +0800
+Message-ID: <20260903050207.7015-1-kaitao.cheng@linux.dev>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 09/10] gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Linus Walleij <linusw@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-rtc@vger.kernel.org,
- Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>
-References: <cover.1788346553.git.mazziesaccount@gmail.com>
- <5eb294e68b8d5d2c1d3a12b14a55dd2a9c075a09.1788346553.git.mazziesaccount@gmail.com>
- <CAMRc=MchpaOib+jgMniG7=BBYwB1yqLvJG1sMkjXfRaMFPodgA@mail.gmail.com>
-Content-Language: en-US, en-AU, en-GB, en-BW
-From: Matti Vaittinen <mazziesaccount@gmail.com>
-In-Reply-To: <CAMRc=MchpaOib+jgMniG7=BBYwB1yqLvJG1sMkjXfRaMFPodgA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi dee Ho Bartosz,
+From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
-Thanks for the reviews!
+prep_compound_page() calls prep_compound_head(), which initializes
+folio->_deferred_list for compound folios with an order greater than one.
+Therefore, dax_folio_init() initializes the list twice for large DAX
+folios.
 
-On 02/09/2026 15:58, Bartosz Golaszewski wrote:
-> On Wed, 2 Sep 2026 13:07:32 +0200, Matti Vaittinen
-> <matti.vaittinen@linux.dev> said:
->> From: Matti Vaittinen <mazziesaccount@gmail.com>
->>
->> The ROHM BD73800 PMIC has 4 pins (named GPIO1, CLKOUT, FAULT_B and
->> EXTEN_OUT) which might have been set to operate as a GPI or GPO when OTP
->> (One Time Programmable memory) is written at device manufacturing.
->> Support the GPI/GPO use-case via GPIO framework.
->>
->> The default OTP for these pins is to not use any of them as GPI or GPO.
->> (The GPIO1 defaults as an ADC input regardless the naming). Hence the
->> driver assumes none of these pins is a GPI/GPO unless explicitly pointed
->> as GPI or GPO via device tree.
->>
->> Furthermore, pin's direction can't be changed after OTP configuration is
->> done. Also the default drive type for a GPO (CMOS / Open Drain) is set
->> by the OTP configuration. The BD73800 has a set of undocumented test
->> registers which should allow changing the drive type. Access to the test
->> register area or the test registers aren't documented and so this driver
->> does not support configuring the drive type even though it might be
->> doable.
->>
->> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
->>
+Remove the redundant initialization from dax_folio_init(). This leaves
+the behavior unchanged and keeps compound folio initialization
+centralized in prep_compound_head().
 
-//snip
+Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
+---
+ fs/dax.c | 2 --
+ 1 file changed, 2 deletions(-)
 
->> +
->> +static const char * const bd73800_gpio_properties[BD73800_GPIO_MAX_PINS] = {
->> +	"rohm,pin-gpio1", "rohm,pin-clkout", "rohm,pin-fault_b", "rohm,pin-exten"
-> 
-> Can you put the properties on separate lines?
-
-Sure, no problem, thanks. I just wonder if I should re-spin the whole 
-series for this. I suppose I'll wait until the next week, to see if I'll 
-get any other comments.
->> +};
->> +
-
-//snip
-
->> +
->> +static int gpo_bd73800_probe(struct platform_device *pdev)
->> +{
->> +	struct gpio_regmap_config config = { };
->> +	struct bd73800_gpio *data;
->> +	struct device *parent, *dev;
->> +	struct gpio_regmap *gpio;
->> +	int ret;
->> +
->> +	dev = &pdev->dev;
->> +	/* The device-tree and regmap come from MFD => use parent for that */
->> +	parent = dev->parent;
->> +
->> +	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
->> +	if (!data)
->> +		return -ENOMEM;
->> +
->> +	data->dev = dev;
->> +	data->regmap = dev_get_regmap(parent, NULL);
->> +	if (!data->regmap)
->> +		return dev_err_probe(dev, -ENODEV, "no parent regmap\n");
->> +
->> +	ret = bd73800_gpio_get_pins(data);
->> +	if (ret)
->> +		return ret;
->> +
->> +	if (bitmap_empty(data->valid_mask, BD73800_GPIO_MAX_PINS)) {
->> +		/*
->> +		 * The BD73800 may or may not have pins allocated for GPIO
->> +		 * depending on the OTP used at manufacturing.
->> +		 * If there are no pins, then we have nothing to do.
->> +		 */
->> +		dev_dbg(dev, "no GPIO pins\n");
->> +		return -ENODEV;
->> +	}
->> +
->> +	config.parent = parent;
->> +	config.regmap = data->regmap;
->> +	config.label = "bd73800";
->> +	config.ngpio = BD73800_GPIO_MAX_PINS;
->> +	config.reg_dat_base = BD73800_REG_INT_5_SRC;
->> +	config.reg_set_base = BD73800_REG_GPO_OUT;
->> +	config.reg_mask_xlate = bd73800_gpio_reg_mask_xlate;
->> +	config.init_valid_mask = bd73800_gpio_init_valid_mask;
->> +	/* All pins that are valid GPIO lines also have a fixed direction */
->> +	config.fixed_direction_mask = data->valid_mask;
->> +	config.fixed_direction_output = data->output_mask;
->> +	config.drvdata = data;
->> +
->> +	gpio = devm_gpio_regmap_register(dev, &config);
->> +
->> +	return PTR_ERR_OR_ZERO(gpio);
-> 
-> Why not return PTR_ERR_OR_ZERO(devm_gpio_regmap_register())?
-
-How strongly do you feel about it? It's not a big deal, but I always 
-find it a bit harder to read when functions / macros are called inside a 
-parameter list. Thus I'd rather keep it like this, just for the sake of 
-my own eyes :)
-
->> +}
->> +
-
-> 
-> With that:
-> 
-> Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-
-Yours,
-	-- Matti
-
+diff --git a/fs/dax.c b/fs/dax.c
+index 6ba50142eeb2..dad4efea7964 100644
+--- a/fs/dax.c
++++ b/fs/dax.c
+@@ -469,8 +469,6 @@ static void dax_folio_init(void *entry)
+ 
+ 	if (order > 0) {
+ 		prep_compound_page(&folio->page, order);
+-		if (order > 1)
+-			INIT_LIST_HEAD(&folio->_deferred_list);
+ 		WARN_ON_ONCE(folio_ref_count(folio));
+ 	}
+ }
 -- 
-Matti Vaittinen
-Linux kernel developer at ROHM Semiconductors
-Oulu Finland
+2.50.1 (Apple Git-155)
 
-~~ When things go utterly wrong vim users can always type :help! ~~
