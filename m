@@ -1,132 +1,165 @@
-Received: from sg-2-3.ptr.blmpb.com (sg-2-3.ptr.blmpb.com [71.18.227.3])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FED05111B4
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 20:16:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.3
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788466580; cv=none; b=eeatrpQU4C2tpvuIqLZ+0RnftPAkyOKeq1Mm+Rt27eVx14Kjm3S76ri2r4ZHH2qt1a9B3M79BRg7xPfCYk0m6dRjkYXPbe6G6xBUPCZEtsvINahBSRsWvwFq8hvxu85Lfd+wew8fVQJVMZkQ+TfYIEuIqP6sbgb2325J/x/9EdQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788466580; c=relaxed/simple;
-	bh=77M/velDp7X7l0MvBb4bkvo6NbiSoZE+zbFrKfeB8UI=;
-	h=Content-Type:Date:References:In-Reply-To:From:To:Cc:Mime-Version:
-	 Subject:Message-Id; b=rrGPynit4LMs6278Ub1Eim6W1zXCZw8Ld01TLI/yJ+MidcEP9MkJ78Yr+PjeXGLwoFbJOOYO9no5i5QtuBG+p1A0xU4VYCG4UJU26L3qe1iOL+81TD8m9gywvCaeBR/2xwZTR+VMDKNJPvnxM6Y08iwba/w2d4OC4Wf9cgORjuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=r5paMQA6; arc=none smtp.client-ip=71.18.227.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 874AC50EC1F
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 20:19:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788466789; cv=pass; b=ieCMtJ2xGRMwx7Fw+1Fsm+dHuaWCfJska9F+fKfRaXJ23rQo8SXEOhhkKX/9LI8ZInKWqbqrPJ+x41IlLfwUKA/9pL+HMkiCyx8Z0uNdf75sNMpyPdBwrqHCQaJz1nbApmAV0tIAvMN+j5EFs2vxJHvqJx6OefXRKo99+UxOaZ4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788466789; c=relaxed/simple;
+	bh=61uMKuI3tXO8Qfl6r6fbs0W9TlQX4bskjeLyIhYPqIw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=N1z3WJI5P/A+Li9NXkzZLaihG9dNtgcu5eWW19fnOhizMIW/a2bsVxs99sA05kvkQNJf04PhdESjL30CNl+49WKQCMyTB4jutUcrcK/mjvS7UjgMQ8w95wUfw3tMQvNRlcXS/J5kBaUnNs4uDTeiHVk5jUhixopiJONrDOiXrls=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mj84xjK9; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="r5paMQA6"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1788466555; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=ldLrh1H+v+HY/oP7X4m3JBwZjgD1X/VmJUpYnEeKWmo=;
- b=r5paMQA6eu2cL89pd8I4ySqItuvupzR/B/CacjvNpztDHwJUEVz3fOmshzZ3khENWZVIpp
- JRepyNlPzWjhgAKHZOzGMow1nOXEpgxE1c6nzEIeQHwLkkNFY9mM0ExZrkdi8qTQFuK0Nu
- Ve2TChn/UPe0MTMsHcWYvB00u8X+UC7CnkWFzM0O9ML2AUjSRc4Xk5caokf/drlUrCP5Dl
- RhpaAR99fpRyAxAM7U2Bf8AX6tEBXPGCVGahG8SBICkbyBrQH+lixLsag+ui3AU413czCY
- 7MR//1l9vGvmL0F+Ct/bQq5wb1DqJIrESxzFnqXY5HNstfHl5hm4gWEKcsqiEw==
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 04 Sep 2026 04:15:46 +0800
-References: <20260904-fec-ptp-pps-event-uaf-v1-0-9af446be4a11@cherr.cc>
-X-Mailer: b4 0.16.0
-In-Reply-To: <20260904-fec-ptp-pps-event-uaf-v1-0-9af446be4a11@cherr.cc>
-From: "Shengzhuo Wei" <me@cherr.cc>
-Received: from [192.168.9.107] ([111.42.148.30]) by smtp.feishu.cn with ESMTPS; Fri, 04 Sep 2026 04:15:53 +0800
-X-Lms-Return-Path: <lba+26a99d57a+f7c2a7+vger.kernel.org+me@cherr.cc>
-To: "Wei Fang" <wei.fang@nxp.com>, "Frank Li" <frank.li@nxp.com>, 
-	"Shenwei Wang" <shenwei.wang@nxp.com>, 
-	"Andrew Lunn" <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, 
-	"Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, 
-	"Paolo Abeni" <pabeni@redhat.com>, 
-	"Richard Cochran" <richardcochran@gmail.com>, 
-	"Troy Kisky" <troy.kisky@boundarydevices.com>, 
-	"Fugang Duan" <fugang.duan@nxp.com>, 
-	"Lucas Stach" <l.stach@pengutronix.de>, 
-	"Fugang Duan" <B38611@freescale.com>
-Cc: <imx@lists.linux.dev>, <netdev@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
-	"Shengzhuo Wei" <me@cherr.cc>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mj84xjK9"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52e3de6309cso399101cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 13:19:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788466760; cv=none;
+        d=google.com; s=arc-20260327;
+        b=S+EsnEyMYeVPd95JHQuNDonEAzCpYyVw6AmZZbb0hJlQMPQHRB456gFnWzB9bIvqAD
+         Sq/ERVINplSozZ6fHSrQRz3yT6XSAwLlS9xvztITSV6wbqhvGVPJXgxX9o8fkRZ5EHJG
+         7pcKe4e0R0wKA1bPb7oH7HFyYN3WwoH9Ih+XVmZMDOM4LPF051w/axsXSyJH92x0eu7D
+         9qgYXjpQc97oH5XJOgNVK9L50jd3U9tnw8WN51oHSri5Azx59/P6kOQfx/tA6hZ9/bqK
+         BtAOJsCVpZCqB4+aq5WAdsbl3x15Hpie+2cp+s9HmB9BkfW2SKOt0TFrnlU4+zg4oSMb
+         dn7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=LtHhJLDBEdXHkKgeUK5VSuThCr817qPTzSy2D/lDgsM=;
+        fh=SfYGNEamAGWJGNQP/FdDJ+sRJneX+GrbsrKASjzPmGU=;
+        b=Ts9Ab2SBXkYS+EX8TH0i2usRV+j1kLC7XDCOeF1wRjHbzppSKFHJL66OFY5wHDPgXB
+         AtSw3ITKXj4Fk7k7MQvZiA8KVWMfcCHmBKoBcsDYJ9MB6G1PNBtpmuE7VKNXTd5coq9k
+         SGq0fW1KODb5dTfasFjkVeyfLEIn2LGvh4G3BkBykjuARMBn3MgpEtF/XGfQV8+Yn9Np
+         F1avNED4e7JiE33RNuTo55uwwUJGsjFc74JspCT9BKubLDyfZs7FganIEwXXNL/ZPmbC
+         KQS3FYdz+jhDs8yH6UGsnOkboSny6yJ8r7iwlHVQB0t3XRHKvPzvTZgD/Qraor9RXEOP
+         09Pw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788466760; x=1789071560; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LtHhJLDBEdXHkKgeUK5VSuThCr817qPTzSy2D/lDgsM=;
+        b=mj84xjK9zlACYEaL8oaVI2GK3Wt+uUKCj0Y5gnoM4Pd0YwHLNjmw9jZf4hdaZHVDmZ
+         JmfxQWo9qqxRgUawSaKgJTID4sy+KMctKuGspRXG6mIjcUI0BaSjXNpdsCluXgHsZHFh
+         BSmuLcPzi3DF2sUI6RBIsLKjNQlvLbvGNW+gafYMhcfT+j6Wg2V5K0jjnHMydSfJFvdN
+         QgQQg2lNW3UvWoq/Nk8n2M/8ztInp0O4a1fkL7zy8KVR0e8qJ+Ycmaen3Nwdm28O35px
+         5oLvfqbz2rRx8pEH9UivmM1hg0Ew/sXp+6uvht2moJiPDJVDkMSCMTiEmo/av5QLoaV3
+         mn2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788466760; x=1789071560;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LtHhJLDBEdXHkKgeUK5VSuThCr817qPTzSy2D/lDgsM=;
+        b=SE5bt8HR5R9Tmf/AmoK6G68v2CMYoViaOdoiLzSw4zud8wvyS5uBKsYTQWsEohqR2n
+         KEzKSmDgFEhAIYQwAUkRkebT06wvq6saYAODAR4qtF3CJTqeBfu7UjDBxcQ1Jjf21Foy
+         fGwZ7C/D4t8aGwOBCZ7kqEgvcReE4FRSTjnpkmoqqCI5scu5rEQRjnd4mqd1SiksQrGS
+         vLYk40NdB4YZQHPKISc/clBbhh01EJ81iHKwuOAGO6XHQ+zjKajdAbjnlL2HNfN/VwQl
+         anVzFvIDA8HD/JD7DXuEM6dM43sgpn6uZjpONv7fuFWI2osEGfM8/CfgbgOhUpidtQ8Y
+         0Jqw==
+X-Forwarded-Encrypted: i=1; AKwUvByYMyx5Xirm1Sa28PeR6UKtjJeziNwxmMtfCxGyF55sRN7YElOmpBdow7zGTU9J6IxbJEW3zmR84MZXti8=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3tMStTdNsUzeYqj+Zxg1mh3MqNpStpfrmJP7p4SMdnEueVqp0
+	+v7jLk3r0M+ELj+34rx/lBA7yyofbTLijUhC7vzsITx6eG8/XoUPaGdAAL6mBdtOkfvWzpBnQjf
+	uv2XdA1PMMnrHwYJIvSeaY83afKaKtxpQd9MXHyn7
+X-Gm-Gg: AYBFou3+JiUN81HCVmydsZtNDSsV5Jkrbfgdrb82gW78kscApX223j58nkLCcqur387
+	Y6f2qQAdGrKtCmmZDOT6D6oBmMvFM5mvjraVNIg3HXYoTTLM738ETJnVMkT5MU5Nf9ifE+Jgcez
+	WRqBD8Xsrt/TG4Cjb6sSIAagn7Umqnuw5sTTIQuIPn1XGMN1f/MLrHyKg01HDotmayNgamidrpH
+	XflKUO5QSg/SnPCyk56X+1WfOFvAQYnMAqftNg5L+O8vEhpF+Ugqe1dSgJUH3PTGbbKSf1+UY2j
+	C250+l1wlpYhduCQzqrfT9O7huQUspn+7uRx0uHBNIpFgZKdHABbR/4FxLZ7EorXt6dkpevVwA=
+	=
+X-Received: by 2002:a05:622a:903:b0:52d:9d62:6163 with SMTP id
+ d75a77b69052e-53055c4f251mr1561611cf.9.1788466759468; Thu, 03 Sep 2026
+ 13:19:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: [PATCH net 2/2] net: fec: free the PPS interrupt before tearing down the PHC and netdev
-Message-Id: <20260904-fec-ptp-pps-event-uaf-v1-2-9af446be4a11@cherr.cc>
+MIME-Version: 1.0
+References: <20260903-sympwn-linux-002-final-v2-v2-0-0aee1fca1f95@gmail.com>
+In-Reply-To: <20260903-sympwn-linux-002-final-v2-v2-0-0aee1fca1f95@gmail.com>
+From: Ian Rogers <irogers@google.com>
+Date: Thu, 3 Sep 2026 13:19:07 -0700
+X-Gm-Features: AcwNN1XK-N7twBaAZhkaw9Vegqsfjdmj6p3WSSQYw1RpFRIiubtAAmV8NKIVXjE
+Message-ID: <CAP-5=fW5uHsW0wgffWgc8f5ibDf8ArF8qJW6sWzrorL44CqnNw@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] perf evsel: Validate cross-endian samples before
+ byte swapping
+To: markdamirkan@gmail.com
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The dedicated PPS interrupt is devm-managed, so its handler remains
-registered until device-managed resources are released after the remove
-callback returns.  It therefore outlives both fec_ptp_stop() and
-free_netdev().
+On Thu, Sep 3, 2026 at 4:05=E2=80=AFAM Mark Amirkan via B4 Relay
+<devnull+markdamirkan.gmail.com@kernel.org> wrote:
+>
+> Two paths in __evsel__parse_sample() use values from an
+> opposite-endian perf.data record to modify the record before checking tha=
+t
+> the data fits within event->header.size.
+>
+> Patch 1 checks the complete branch stack before swapping entry flags.
+> Patch 2 checks the RAW payload and the complete 64-bit words touched by
+> mem_bswap_64() before swapping the data.
+>
+> The malformed branch-stack and RAW records reproduce as out-of-bounds
+> reads and writes. Each patch adds a Sample parsing regression test that
+> checks rejected records do not modify data past the declared event.
+>
+> Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
 
-A handler already in flight can observe pps_enable before fec_ptp_stop()
-clears it and call ptp_clock_event() concurrently with
-ptp_clock_unregister().  A handler invoked after free_netdev() but before
-device-managed cleanup dereferences the freed netdev.
+Reviewed-by: Ian Rogers <irogers@google.com>
 
-Record the IRQ after a successful request and release it explicitly in
-fec_ptp_stop(), before unregistering the PHC.  devm_free_irq() removes the
-handler and waits for any running instance, so none can still execute when
-PHC teardown begins.  The IRQ is requested without IRQF_SHARED, so its
-release does not affect another handler.
+Thanks,
+Ian
 
-Fixes: 4ad1ceec05e4 ("net: fec: Let fec_ptp have its own interrupt routine")
-Cc: stable@vger.kernel.org
-Assisted-by: GLM:5.3
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
----
- drivers/net/ethernet/freescale/fec.h     |  1 +
- drivers/net/ethernet/freescale/fec_ptp.c | 11 ++++++++++-
- 2 files changed, 11 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/freescale/fec.h b/drivers/net/ethernet/freescale/fec.h
-index 7176803146f3..960b9f01c531 100644
---- a/drivers/net/ethernet/freescale/fec.h
-+++ b/drivers/net/ethernet/freescale/fec.h
-@@ -670,6 +670,7 @@ struct fec_enet_private {
- 
- 	/* pps  */
- 	int pps_channel;
-+	int pps_irq;
- 	unsigned int reload_period;
- 	int pps_enable;
- 	unsigned int next_counter;
-diff --git a/drivers/net/ethernet/freescale/fec_ptp.c b/drivers/net/ethernet/freescale/fec_ptp.c
-index 0036549974fd..5b1d58c85fcd 100644
---- a/drivers/net/ethernet/freescale/fec_ptp.c
-+++ b/drivers/net/ethernet/freescale/fec_ptp.c
-@@ -787,9 +787,12 @@ void fec_ptp_init(struct platform_device *pdev, int irq_idx)
- 	if (irq >= 0) {
- 		ret = devm_request_irq(&pdev->dev, irq, fec_pps_interrupt,
- 				       0, pdev->name, ndev);
--		if (ret < 0)
-+		if (ret < 0) {
- 			dev_warn(&pdev->dev, "request for pps irq failed(%d)\n",
- 				 ret);
-+		} else {
-+			fep->pps_irq = irq;
-+		}
- 	}
- 
- 	fep->ptp_clock = ptp_clock_register(&fep->ptp_caps, &pdev->dev);
-@@ -861,6 +864,12 @@ void fec_ptp_stop(struct platform_device *pdev)
- 
- 	cancel_delayed_work_sync(&fep->time_keep);
- 	hrtimer_cancel(&fep->perout_timer);
-+
-+	if (fep->pps_irq > 0) {
-+		devm_free_irq(&pdev->dev, fep->pps_irq, ndev);
-+		fep->pps_irq = 0;
-+	}
-+
- 	if (fep->ptp_clock) {
- 		ptp_clock_unregister(fep->ptp_clock);
- 		fep->ptp_clock = NULL;
-
--- 
-2.47.3
+> ---
+> Changes in v2:
+> - Add the adjacent PERF_SAMPLE_RAW fix found during v1 review.
+> - Keep the branch-stack fix unchanged.
+> - Link to v1: https://patch.msgid.link/20260903-sympwn-linux-002-final-v2=
+-v1-1-7c6e4166b814@gmail.com
+>
+> To: Peter Zijlstra <peterz@infradead.org>
+> To: Ingo Molnar <mingo@redhat.com>
+> To: Arnaldo Carvalho de Melo <acme@kernel.org>
+> To: Namhyung Kim <namhyung@kernel.org>
+> To: Mark Rutland <mark.rutland@arm.com>
+> To: Alexander Shishkin <alexander.shishkin@linux.intel.com>
+> To: Jiri Olsa <jolsa@kernel.org>
+> To: Ian Rogers <irogers@google.com>
+> To: Adrian Hunter <adrian.hunter@intel.com>
+> To: James Clark <james.clark@linaro.org>
+> Cc: linux-perf-users@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+>
+> ---
+> Mark Amirkan (2):
+>       perf evsel: Validate branch stack before byte swapping
+>       perf evsel: Validate RAW sample before byte swapping
+>
+>  tools/perf/tests/sample-parsing.c | 109 ++++++++++++++++++++++++++++++++=
+++++++
+>  tools/perf/util/evsel.c           |  20 +++----
+>  2 files changed, 120 insertions(+), 9 deletions(-)
+> ---
+> base-commit: aadea57f532882d8bab444646863c7ef8a778ff1
+> change-id: 20260903-sympwn-linux-002-final-v2-e30a8df210c1
+>
+> Best regards,
+> --
+> Mark Amirkan <markdamirkan@gmail.com>
+>
+>
