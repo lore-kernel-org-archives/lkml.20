@@ -1,145 +1,143 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43D2B455199;
-	Thu,  3 Sep 2026 08:45:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E9C3793A2
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:45:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788425118; cv=none; b=E9QfVJqRwW3JcuNS4z4FlLjd17rs5dxjiCFMpf0j6173NMdn1acWRfU4ahut+OsNFl0JwhRBT92FrnK/+rsT3/nwmmtlkxlIf9PnKKj61M70KnFYfYhEFfI0FHlXOyk95IBDn5bgUThplmVpetgwYEDnh23tAgtzvGDmSnO+OzI=
+	t=1788425158; cv=none; b=iXPPHyqQcKzkDo4oDv1AGNtpEK36BiZ37GBNFDyUM7dNWIJbXtqLKTfYHqQTUvCPa2ew8jRQ3u+idW1ZCTi7O33fxpyvX6cFc+n/A0s6XX0TgooTVos1hEiO/Ax3xNsDsNatMTKw1aKLZ35cnJ7ZQOTp/uik54jPLjqMn2Ct+WQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788425118; c=relaxed/simple;
-	bh=3CkF/JSHjoWe06mwIEXtiMCqRfi8kLlB7paGwD8F9NM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CexhmIltGH8jsQmdKsV5z7/UIU4AGNKwvZSyZag1tGqOqYFqfbMz7oIUxcz/2sHUWKf1O67PlDvbbLc78IBeJfxjciPYaH+1Qgp+JE5TN/9kxnS70vGhze9If4cYW31rUm43x/GIf3gZunn8zeWRRnsd9Ja9hC88Hsk2BdcipjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=AmBlqR4y; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788425158; c=relaxed/simple;
+	bh=tpyUzXZw87JQOB2A0BtVRjrqgVQvcnGOu2KYNihB4wE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fSTKksj3D2DgEz+YkSkSY52ss3fLzXXBlK5f4ycN02Q8iEPrJlN2iufQaUgVkz20LOTYsGSwPHXspCc7D2v++hi2mKhHA4x0g+X/BsnohHrKZHdoyMbH+tB0nEXiJ+f/Adlmv+9gMx+1rSw8Eo+aiwmaH7q7duqTUQ3Kfu0TKNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EXbL89DH; arc=none smtp.client-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="AmBlqR4y"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 132F71A1977;
-	Thu,  3 Sep 2026 08:45:09 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D597F602B8;
-	Thu,  3 Sep 2026 08:45:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C649D11C791C9;
-	Thu,  3 Sep 2026 10:44:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788425103; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=I3POSKf1l//awqxiJqBaWGp6u9Aetu6Ug9QJG/mcoxA=;
-	b=AmBlqR4yi+H5GQeKIjxkNzi6kZX3aEWZ8QCr/EcPduO6XYg/IwNnZ9vkAQYzDyyCDXAs47
-	JazVtt8sceaDeIRUwWVCPt9E528QZaJe3GlSuqVINZM7WrVNuyeyeERvZS2/YGk3gfc6Yx
-	Fm9rOEZpk7lg11HFl/1AY6veXzz7lycr9VBy1ymsWzEyl5SoiUtTRnZHFU88cIwelGlMJe
-	YLXI2aost0tfd5vmQdRuJeJtSbVke7QmyfJadI3wDFUkIEAHsMCAOCx6Yjn6jGSmWC1t4Z
-	6zokH2E1Xc+OQgDcM1pOHBxVZ0S0jMzeMdCetjn3vRV8Gns4xE/jPDQtQENm9Q==
-Message-ID: <2711c2ec-3e3c-4cfd-bda6-cfc832a873c2@bootlin.com>
-Date: Thu, 3 Sep 2026 10:44:53 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EXbL89DH"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-84830c774a0so2330402b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 01:45:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788425155; x=1789029955; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RIa1KcxtKlzePvmdnnhCHyjrKBpT+nlLmPKgX7ZVzsY=;
+        b=EXbL89DH86K9Q/xBSWhqNdc1sWketkV4MZJaJRdqayK94TMtbc+VeZ5cez/Hvz1bX9
+         3B1tdExzyreKdZDptsiEeOMsKAI+P/1QTuoWJmcK2eudKLOFjiB64fzwaeG/lr/8vjx1
+         /CDuOvCOyJQj/XS0ZhgGPoB8RjD+yziG2puvTE9vd9Kay4OIhqIdMTqv9KuV9v3AtoMO
+         rSChWBngw95V6y86vm36VyF9gkOAKRG3vbml/KDxQa8T0iOcByVnMZEa+CA7J2aCdpJ8
+         42iyny+Cu4zubgyEpOmGwY0IkIs6V9jOEQEAHh9CI0319hlbbeoEwP1Om1SwOevpdi/h
+         8NIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788425155; x=1789029955;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RIa1KcxtKlzePvmdnnhCHyjrKBpT+nlLmPKgX7ZVzsY=;
+        b=mjdWmw9U7dSB+UAgB8MZtZVP3INod4r7XOOze0G2xIsu1AIEj4VOEfuRddVhH4XSpN
+         bZ4GRK8H7RQiMShy3GQPJW941mlOGT2x0Qo2ET0gv61wVYp1EUMybLLA7DnNuVF3qvhp
+         qXLhnKbde78jGrYQkbn4ToIgv8z42PphOCg2JSM5nq3222w3jbM9zQf+g8g+AmKNi7/o
+         4j6aT1RbMnGbimDhsuv4rEdQ8ljGb/BaeEYEnh+w69yAIV+n+NXRb7hyf1JTaegX/6i2
+         B0FpwM+HNbjreFlB+oh1OqW7PgJy6uUCMwK3oCeSKo0xMzbh0nM3lYek5t0bvFe5xaIO
+         tgNg==
+X-Forwarded-Encrypted: i=1; AKwUvBz4QuHRpDHsve4kz1ar5xqy6erqSN5ndkfdwMXzQMn3qegxsVQAAVcvbz7RR0QYN1kwK8rtjrWjOHTf0cI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mkXd3e6AuVytNFUpDSAsQrZVpJgaNxcmRNxKeKVPOpBhhpRofE
+	zg6QdE3/I6QjS8pmJtcOs7c40/NzlMpbavzTv4xDrctTsf/DSNFci2OU
+X-Gm-Gg: AYBFou0EhfqZi7dxM+xrlKgXN8TcJZG5tRWlrWqxVvxn4bUKHCM47W9RCrGIot+edjd
+	l6EwC1/1r1NGjQGac4Yd9/2ShNYkDLHRtDc1SCpENLfDCKtvxYxicK6bWORMpQmODH9wub3vZQN
+	wqxctC8BPb9UIsiAaKI9o3DCo+9Wj1C4y81CkNV6MOB4+/tNcobkxUsOIcQ2BoVH1migOmDWtGd
+	JLzxW4ftovOR8QpsVBkTVXtUHE+1Ho1Gfhuiq/b9J+Qhf5q+OM1wATAlyh+MNOymN+3y5Ucr6MY
+	R/mzCMZ1OJLbD0vRjmJeoQtb3CvKEZi0iNlQKCC1rGdh0b1n+/uzwpZp9FRVBm5LlJWRsCBAmGl
+	bv4L9Auw4dYCnB7wDKcSBL2L0nDY1AsdMRWSph29LVN+NsbqaY6SkJZHfuyNwaBQQYGVms6KJ0O
+	TSU0lIGkaEfLF5H+WmXAwOXRDnjL9ytClOxr3EnKRzx96rrSbNnaMcMBL4cts=
+X-Received: by 2002:a05:6a00:3696:b0:845:e8b5:8c49 with SMTP id d2e1a72fcca58-85ed24e33ebmr16410228b3a.10.1788425154963;
+        Thu, 03 Sep 2026 01:45:54 -0700 (PDT)
+Received: from gmail.com ([185.220.238.35])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db24f2e82sm2494935b3a.3.2026.09.03.01.45.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 01:45:54 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
+To: SJ Park <sj@kernel.org>
+Cc: Kunwu Chan <kunwu.chan@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	stable@vger.kernel.org,
+	Ravi Jonnalagadda <ravis.opensrc@gmail.com>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: Re: [PATCH 3/4] mm/damon/core: copy nid for eligible_mem_bp damos quota goal commit
+Date: Thu,  3 Sep 2026 16:45:45 +0800
+Message-ID: <20260903084547.960584-1-kunwu.chan@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260902002725.108635-4-sj@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v3 08/10] net: stmmac: dwmac-rk: add SGMII
- support for RK3568
-To: Coia Prant <coiaprant@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Romain Gantois <romain.gantois@bootlin.com>,
- Heiner Kallweit <hkallweit1@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Russell King <linux@armlinux.org.uk>, Shawn Lin <shawn.lin@rock-chips.com>,
- David Heidelberg <david@ixit.cz>, netdev@vger.kernel.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-renesas-soc@vger.kernel.org
-References: <20260901150111.141037-1-coiaprant@gmail.com>
- <20260901150111.141037-9-coiaprant@gmail.com>
- <f07c64b4-3018-4e9d-8aea-12454f132419@bootlin.com>
- <CALj3r0hxSOrtRwOmAQ4Vw=nEkTfA+x93KzpAdG9m=xWFYbOuTw@mail.gmail.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <CALj3r0hxSOrtRwOmAQ4Vw=nEkTfA+x93KzpAdG9m=xWFYbOuTw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Hi,
+On Tue,  1 Sep 2026 17:27:22 -0700 SJ Park <sj@kernel.org> wrote:
 
->>> gmac_clk_enable() is now called before any register access, including
->>> the SGMII mode setup path.  Previously SGMII mode would bypass the
->>> clock enable via a goto, which could cause synchronous external abort
->>> when accessing MAC registers with the clock domain disabled.
->>>
->>> Also clean up the error handling in rk_gmac_powerup() by using a
->>> unified clk_disable label, and add error handling for the default
->>> (unhandled interface) case.
->>>
->>> SGMII In-band vs Out-of-band
->>> ============================
->>> On RK3568, the MAC clock is fixed at 125 MHz and cannot be dynamically
->>> changed by the stmmac core's set_clk_tx_rate callback.  In-band mode
->>> works because the PCS handles rate adaptation internally.  Out-of-band
->>> mode does not work because the MAC would need to change the clock rate
->>> to 125/12.5/1.25 MHz for 1000/100/10 Mbps respectively, and the clock
->>> is fixed.
->>>
->>> Enable default_an_inband for SGMII and disable the generic stmmac
->>> set_clk_tx_rate callback.  This forces phylink to use in-band mode,
->>> where the PCS is responsible for speed/duplex negotiation.  Without
->>> this, the stmmac core would attempt to change the clock rate on speed
->>> changes, causing TX to work but RX to fail.
->>>
->>> Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%20Part1%20V1.1-20210301.pdf (Page 386)
->>> Signed-off-by: Coia Prant <coiaprant@gmail.com>
->>
->> [...]
->>
->>> +static int rk_pcs_init(struct stmmac_priv *priv)
->>> +{
->>> +     struct device_node *np = priv->device->of_node;
->>> +     struct device_node *pcs_node;
->>> +     struct dw_xpcs *xpcs;
->>> +
->>> +     pcs_node = of_parse_phandle(np, "pcs-handle", 0);
->>> +     if (!pcs_node)
->>> +             return -ENODEV;
->>
->> Here aswell you make it mandatory to have a PCS, as the generic pcs logic
->> introduced in patch 1 doesn't handle -ENODEV, it treats it as any other
->> error.
->>
->> So, either you return 0 when there's no PCS (so that we don't break platforms
->> that don't have one), or you handle -ENODEV gracefully in patch 1.
->>
->> Maxime
->>
+> damos_commit_quota_goal_union() is not updating the ->nid union field
+> when the goal metric is DAMOS_QUITA_NODE_ELIGIBLE_MEM_BP.  Hence, if a
+> DAMOS quota goal of the type is online committed in a way that it will
+> reuse other quota goal's memory space, the new goal will work with a
+> garbage nid value.  As a result, the DAMOS scheme can show unexpected
+> aggressiveness.  Do the update.
 > 
-> Hi,
+> The user impact is not catastrophic.  No leak or crash happens.  Doing
+> the quota goal online commit that can reproduce the issue is expected to
+> be not common.  This issue was not found by real users but the AI
+> review.  That said, the issue can reliably be reproduced.
 > 
-> Currently, `rk_pcs_init` is called only for SGMII, which requires a PCS.
+> This issue was discovered [1] by Sashiko.
 > 
-> As it stands, only the RK3568 supports SGMII, so we won't break anything here.
+> [1] https://lore.kkernel.org/20260827045035.94611-1-sj@kernel.org
 
-Ah yes, it's protected by
+Hi SJ,
 
-if (plat_dat->phy_interface == PHY_INTERFACE_MODE_SGMII) {
- ...
-}
+The fix is consistent with the other node-based quota metrics. I also 
+checked that damos_get_node_eligible_mem_bp() directly uses goal->nid 
+when calculating the current value.
 
-My bad, this is fine then :)
+One minor typo: the [1] has an extra k (kkernel should be kernel).
 
-the intel thing from patch 1 is still standing though from what I can see ? or have
-I made the same error there ?
+Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
 
-Maxime
+Thanks,
+Kunwu
+
+> 
+> Fixes: 9138e27a3bc3 ("mm/damon: add node_eligible_mem_bp goal metric")
+> Cc: <stable@vger.kernel.org> # 7.2.x
+> Signed-off-by: SJ Park <sj@kernel.org>
+> ---
+>  mm/damon/core.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/mm/damon/core.c b/mm/damon/core.c
+> index 20748b0a71026..53c3f97e3f126 100644
+> --- a/mm/damon/core.c
+> +++ b/mm/damon/core.c
+> @@ -1143,6 +1143,9 @@ static void damos_commit_quota_goal_union(
+>  		dst->nid = src->nid;
+>  		dst->memcg_id = src->memcg_id;
+>  		break;
+> +	case DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP:
+> +		dst->nid = src->nid;
+> +		break;
+>  	default:
+>  		break;
+>  	}
+> -- 
+> 2.47.3
+> 
+
+Sent using hkml (https://github.com/sjp38/hackermail)
