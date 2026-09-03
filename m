@@ -1,193 +1,306 @@
-Received: from mail-yw1-f196.google.com (mail-yw1-f196.google.com [209.85.128.196])
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EC01314B77
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:00:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.196
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444028; cv=none; b=k+vCiwNsgHnEagDkxDraqzZB27+iXiREJ7icqEHzT6tYvq9KImIVn02ALXCwjUdvImeTia1/2TF8Bw8kK/uMhSmjVn/Y1mR8jYfLQRoPKMjSAElMLpRRBdxTMtzeU6yinbW0cb3NTCzlNEMK2Bp4E7Tr9L5uTZco0kMOfOZb+6Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444028; c=relaxed/simple;
-	bh=FjtcxQDS3soBj9IDfIhk0j1GKjqT9WRyMUwdeko7VUs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lax/Wpyi8FtWNKgbCypeNtYhDhoHV2+Zvcrqhn7lDaQ9HY3fe/ARQQcZQ4zXqP41lYbsbdtY6mHznznV9/5C9VeC8pI0IBL1zqrVCtEzpPrV/fBCO2EmzF5lV7qeHEx0FAUi5coJuZwUYoDAyeDQVJutkUdyy3d5EJVWWRfTnmw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=i+mWn83B; arc=none smtp.client-ip=209.85.128.196
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D8804AD4DB
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:00:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788444049; cv=pass; b=EPzyQgLYJJa/htVe9diO/38cLdmH935UnqU1jjRwj4DO570B0zziwHZBpYWWAUce+450a+BGXy+6eXDMxsMhX0GAPxai+dBdiHotxaJsxXYdfuhMtoEY0l8EmqtCQeOHr2o8XT/swcTot1LLsiCLlYpDyuiWRBshf19w1tRmt3I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788444049; c=relaxed/simple;
+	bh=d+nV/y5gzHZQbqpaWid3gzG6rgbMOVarLaEROjaG5PM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XWL5VyIfMb4cHoByzHV1djMjosreWV/oLooH9ghkSCjArKlveN5qNsE/D9jC4VqTlE0HtB7dsjnUPcGv4wV4LL9tMFj6S+p4JLnceEunB81J6572t3PnkXh6j/wNNWuSavVHSHOVh4MY1NcLkuFYRv80P/P/aeNtQpP3cnr0KdI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r8p5L1OD; arc=pass smtp.client-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="i+mWn83B"
-Received: by mail-yw1-f196.google.com with SMTP id 00721157ae682-864cd11a932so11588247b3.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:00:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r8p5L1OD"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-852c481415fso2757761b3a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:00:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788444039; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZZSksqDtA37pA3TjZheuCPVDP6pmaVPeXVqTssjdfGhkPx0Luy+krzH/PzSZqgC8Ch
+         ykX0r/8/FrINe+VzXg2mwAg5cbm9/s/pUwxigp7lSbwdVseyVlz/5JlJicvsqgB8bOtG
+         z2wDwHypv6dn7SAmYdBTorGN2+18qVHM7GmCC7/KN26Q5IX1HnzyNHKSqkPNnR+QPrtY
+         M4djb5w+VT780Z725kQUkma66rx6J0GtZPwB4RagJz3FdUfUgAGnxyh/u8T7909r/zeD
+         Ni3ghGZozBEPtloKJy7EAaAi352V7DkRWF6+u8ICeBtjc2XgA423ma7JAsflfUR0qwAA
+         T6bg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=EZlAVxnc61vhxXdUOKLatLp9Jvhf8iA3Pl5Y4/hX8c0=;
+        fh=qxCrlB3BU9+4SIA5Jjd1iShBtdcTpHjtlOtMAr2Wiic=;
+        b=WeucGE8IiAs4RArHAocPxH/QWfPNMuOSfgmiIshN63iKa8qK14QkpB/hzH48SjToBU
+         Kpj7VqTKwM4O97lb9/Zfkb2bq2bZBYu3b7haZSFlyLCldzdwNHkelYEE77IadLx7GzZL
+         zcgpi2vVcCJbNCVBRlNLmn0xJaDznz+1M2vReVOfccSyrOMHztRSY6p+Cq98JmkdKEfW
+         DNHICf9xOuE9TSGcHxmuHF8bP9HsYVpYAMKQJSankho4qAlWIprpB0M3vrTybx/FsNtg
+         eRKZb0eWk581GuRykjEM3jRdx70udJwwT3xUFS3gO6szU8WRW/1I4Fej3crMofimRkIb
+         KnhQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1788444010; x=1789048810; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788444039; x=1789048839; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Q6ffg0EsM9Oq53XXehfd0nBgBXlCf1MLMwzSPDpkFdE=;
-        b=i+mWn83BU/HWsqbUv4DI1g+BtYxIXy+uxw3xAtuZjBjuoZwUUymRn3K0ArjuuQFeJF
-         Z4ybYB56Kku2XDJf3WUTzkjpl2G8TtBOdNxTpZkLA5WenBaLBiXKzC3+jHSuRgqL4uQI
-         XoFxkmSgAQtl+m2NmxGUDYnBr2dnOamGtId2sYNBSlRuDLgmLsUdUz9nOOqmKa33GMab
-         t4VTDSPEYQ1Ulz7LAg/qYprc/Q1ZW0DEhit6VpOj7/FwX0ldz9frFCfOVn8TL2M48det
-         2IXiTUxZbiSCQB/VrUPjr7ikgFycdKsN50YCduVVb3cnwmTgXDcQyQCSXJa4+va5vXUi
-         x4Sg==
+        bh=EZlAVxnc61vhxXdUOKLatLp9Jvhf8iA3Pl5Y4/hX8c0=;
+        b=r8p5L1OD1zg2BEvoWoFE6FQelMcJX4eTXDhsmg8c4+zW9SFVHqTMj460yDYBK9546Y
+         EZOVuowRo6oSWMcJBSxiIIrKdUwDgRMxQfVK83+v54CGvvmjSBee4yUsW+WwNtNRIO7l
+         didwu6gogazquktaeH4IHhe2udrlidgvPZ4yAzu+wK8GVNauEe6DAxF1LMPR0r/JRD8L
+         6rhaLKwktFgSGat8Lf701vYST43eJeh2XcL4oqHeFtc9T28ErP5jWV61jrElGdhIxI5p
+         XdJVaWqO82yPTVsHPf2cuT0IEiwhh4P/NqziedbtcN7XhfbC3E0nCCMqNDSlvZOfUKxo
+         fF9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788444010; x=1789048810;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788444039; x=1789048839;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Q6ffg0EsM9Oq53XXehfd0nBgBXlCf1MLMwzSPDpkFdE=;
-        b=lOEbVwriEPWTN5/ufRbUvnRDzgZglocJVyQG2sSDR8wbXMfSWS5YnGz42CtGvrO9DG
-         VCAm7etNGmClAgcCluItLmr4xU0wM28guP2VU7qCyjyaZ0JNwqHGWP2z04TVU3htyl99
-         e/wBZozWVdxvb+fTFw8uKn34+RRjRsLRz9rd5jfwinEFBvVdznY9nKZipJ0tv1KyjCXd
-         Jt7iBP9cpKcsscqInlMiASBhvzGo7ztdELgRd+2xatoQ4spsaTqjOBqHhML85HV7N8j7
-         hVfGrLoBmA8sl75fn8c+UprciYrvz7BEk9IeKwmlcXCaQJb/f58OIHb8/ikkmWBrBxzk
-         AYww==
-X-Forwarded-Encrypted: i=1; AKwUvBwJynlik2bM2HzJ+zwr3+99vLe/7WBDiEMm5R7he3eCllZv2YzeFW7aFeOXi4O7BDdHxrIDE5eVuEXkxUM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lTcqnGxmRw0fc+D8kGhvP8Qs7eb/kiak0cHIXm3hJVjRIoH6xb
-	7UnDcIxyfJLPOFWYuifsW8TLyr2eJ/1d1CU8U8qVfoHuGUV4mXiym9eHbYNGp8mByfU=
-X-Gm-Gg: AYBFou2hSYJI8sgN8+KvAbXymPM9uvKqCG/u8fz7DMdg3qw5JtbkIf4O+GDJt1Zskwa
-	/0syjyiDpRg1OQOMAXPCFiohXPNlpRoDDK0q5XFFgWEi1KcykhVMfgcoprRxQMalpXtbGeS9gr0
-	kMRjulvG5/HmZyWhIWeFiqLko41wlK0WgBvYaaNMrTR3UNCG1tQ675LI9bTSz5PIs99z83ft3qu
-	bgQU6uyju9b5yVZKDbX06gWdWANaWddF+5XYFx3nzVKjbs6/qvPhlsXs5g+HGi4CqCb2SP2IJVb
-	mbNlQjrfSNJwOQMaSpp6GKW3gHmEDc6y1UNCdqKtsWmpFYqmv4YlB4V5yHczzuo+wI3frWvHpaB
-	UB/6s3pF6Ty7fioH7ToB32rG+BfZ+1OOjw3kmoyAvg+wk+gm9+lbnS5bZJ6b7Uk2i1MXJ8Tmrsx
-	Hh3SsKYIlaoUl6q4Bn5PyErpP64iKyWpEVpyFl1kDzxI/nwdsswYLZXXB+F0b+
-X-Received: by 2002:a05:690c:a84:b0:7f0:38f7:6ca6 with SMTP id 00721157ae682-86e6d7905ccmr34387887b3.5.1788444009533;
-        Thu, 03 Sep 2026 07:00:09 -0700 (PDT)
-Received: from localhost ([2605:8600:200:1a83:fe59:7385:2855:8588])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-86c12d92d9esm40198227b3.22.2026.09.03.07.00.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 07:00:08 -0700 (PDT)
-Date: Thu, 3 Sep 2026 10:00:03 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Ridong Chen <ridong.chen@linux.dev>
-Cc: Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Chris Down <chris@chrisdown.name>,
-	Tejun Heo <tj@kernel.org>, Yu Zhao <yuzhao@google.com>,
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <linux-mm@kvack.org>,
-	linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] mm/page_counter: avoid integer overflow in
- effective_protection()
-Message-ID: <20260903140003.GR3004@cmpxchg.org>
-References: <20260903031952.1120321-1-ridong.chen@linux.dev>
- <20260903031952.1120321-2-ridong.chen@linux.dev>
+        bh=EZlAVxnc61vhxXdUOKLatLp9Jvhf8iA3Pl5Y4/hX8c0=;
+        b=sn3Y6WvhvRfdp/7jUJ9mZ1cFvXfoaU7IRnzbsi1FR/F52Xg2dEiLHH2dz72Bie8nHz
+         uMbI4lYDYKRNle82k4n9GduOvvj1pXZkcBtXtpHP1LsIgdFx5V8r7sZluRFjzi2/QYXh
+         TrXIrN3oofOIeqIN/y31bJfSPcKNjuXEyriz0Al5eqM449QHnXNt7UjFBFKf5Rg/FJ2M
+         wPH7Axy7g2Jk3dW7Ln8ojIO9dtEsdrv5JCjM8QpQjQkToWBOnr4q98yk2uCk5VWiXxx1
+         /Poi8ZqkYuK6FxrUjYhd21mDReR1Fk4qrXuqLlZuJI3mrQ4RS4Kn0E/n26na6rQ5Sza7
+         3HcQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx+XR4i8Ezre2gXmPcXq5HO2U3djS1y4Q+g8H2m+u3a/MCewLtcnjRhzBi49YlFspIRNO93L0i6dOuOUuk=@vger.kernel.org
+X-Gm-Message-State: AFuF++l1Hq/OMJK8ikBfo96SyATynE+inFZzEmQN1DlpYXWGDjUFAGUP
+	WANaPgfSjKTVGtRwWh8QnD89t86ZTnrJc53WAKhE/IxRYFWpajxHuoN/Nns8MneToC2S9q1tof9
+	Rg/wWSvE7IkVFI3CrR09M0YYlm/5FeQM=
+X-Gm-Gg: AYBFou1h+NLE0PX85ZxbAovSG6J3kGabiLFc81Pp7o7XG3+ddowIjTD6jLzVK0LIAlr
+	+/7u+mRMMKbBZ0QUHQDeo5TDwzdYPaW3QUnQ3dO4CrBDp0nVcIf11QIXA2+iO6RZn+oUy27hFlG
+	s8SsNRFOPKzkpLM7Ub7IF0IfY5BComTeEhsM7J+QhltQxhWmtOHwmxIHw/qGignHU94yg4Y9x/B
+	U5zrhKzdpCSsWM7v0diZxn3U5AVutoV2HIPlJkQEg2iQFgtOQlZrKu2CPz+SrReNtR5cf6o/z+x
+	F1VVsHCMDqdjyoQ4Ddi8U2ZAn5VwyF0QELEKFSBuLQNAePk1rA3Om8/09Cl04up5Vgl0ELdI+NB
+	/e4wPhZef+R/pB+doygPOmewLGRkGjrOZ2dev0trSSRYW
+X-Received: by 2002:a05:6a00:88a:b0:848:56ff:6ced with SMTP id
+ d2e1a72fcca58-85ed7d20475mr15597002b3a.8.1788444038911; Thu, 03 Sep 2026
+ 07:00:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903031952.1120321-2-ridong.chen@linux.dev>
+References: <6a7d8773.c5ad36c8.12f49d.002e.GAE@google.com> <68cb4941-3668-44f1-a889-6b2f023b2a08@h-partners.com>
+ <CADvbK_eY4S1HbdNHuNq9b=Va-TA_6rNFvnCvtOUZ0sF-AWN67A@mail.gmail.com>
+ <20260901153524.3e92df3a@pumpkin> <CADvbK_esKpvPWK0xipKeiDr6KDiAL2_uPOhrREOMMVjJ_ndK7A@mail.gmail.com>
+ <20260901224645.7c5bd2e6@pumpkin> <057c057f-be11-4bf7-9403-f454bb2864c9@h-partners.com>
+In-Reply-To: <057c057f-be11-4bf7-9403-f454bb2864c9@h-partners.com>
+From: Xin Long <lucien.xin@gmail.com>
+Date: Thu, 3 Sep 2026 10:00:27 -0400
+X-Gm-Features: AcwNN1XUrJ_FTmvwVEbrN9-ZuqD8a_Bm6_RE7fP6GlRGhmJiGfJcoIWsRw_q3mI
+Message-ID: <CADvbK_eBx0AicxxWXE1ZOqeNUJtU2YPgTynthBkhq3_1jks9iw@mail.gmail.com>
+Subject: Re: [syzbot] [sctp?] WARNING: refcount bug in sctp_transport_put (6)
+To: xietangxin <xietangxin@h-partners.com>
+Cc: David Laight <david.laight.linux@gmail.com>, 
+	syzbot+80dfcb1a2235b3efc877@syzkaller.appspotmail.com, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Simon Horman <horms@kernel.org>, Jakub Kicinski <kuba@kernel.org>, marcelo.leitner@gmail.com, 
+	Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org, 
+	linux-sctp@vger.kernel.org, netdev@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com, gaoxingwang <gaoxingwang1@huawei.com>, 
+	huyizhen2@huawei.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 03, 2026 at 11:19:51AM +0800, Ridong Chen wrote:
-> From: Ridong Chen <chenridong@xiaomi.com>
-> 
-> effective_protection() scales a parent's protection by a ratio of page
-> counts, e.g. for recursive protection:
-> 
-> 	(parent_effective - siblings_protected) * (usage - protected)
-> 		/ (parent_usage - siblings_protected)
-> 
-> The multiply is done at unsigned long width before dividing. On systems
-> with >= 16TB RAM the product can exceed 2^64 and wrap, giving a bogus
-> protection value and silently breaking memory.min/low enforcement.
-> 
-> Use mul_u64_u64_div_u64() to multiply in a 128-bit intermediate. Because
-> usage and parent_usage are not read atomically (a child is charged
-> before its parent), usage - protected can briefly exceed the divisor,
-> making the quotient overflow 64 bits and trap (#DE on x86). Cap it so
-> the ratio stays <= 1.
-> 
-> Reported by the sashiko review tool [1].
-> 
-> [1] https://sashiko.dev/#/patchset/20260826133054.88529-1-ridong.chen@linux.dev?part=1
-> 
-> Fixes: bc50bcc6e00b ("mm: memcontrol: clean up and document effective low/min calculations")
-> Fixes: 8a931f801340 ("mm: memcontrol: recursive memory.low protection")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-4-8
-> Reviewed-by: Barry Song <baohua@kernel.org>
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> ---
->  mm/page_counter.c | 19 +++++++++++++------
->  1 file changed, 13 insertions(+), 6 deletions(-)
-> 
-> diff --git a/mm/page_counter.c b/mm/page_counter.c
-> index 661e0f2a5127..e8bd512069c5 100644
-> --- a/mm/page_counter.c
-> +++ b/mm/page_counter.c
-> @@ -8,6 +8,7 @@
->  #include <linux/page_counter.h>
->  #include <linux/atomic.h>
->  #include <linux/kernel.h>
-> +#include <linux/math64.h>
->  #include <linux/string.h>
->  #include <linux/sched.h>
->  #include <linux/bug.h>
-> @@ -356,7 +357,8 @@ static unsigned long effective_protection(unsigned long usage,
->  	 * otherwise get a smaller chunk than what they claimed.
->  	 */
->  	if (siblings_protected > parent_effective)
-> -		return protected * parent_effective / siblings_protected;
-> +		return mul_u64_u64_div_u64(protected, parent_effective,
-> +					   siblings_protected);
->  
->  	/*
->  	 * Ok, utilized protection of all children is within what the
-> @@ -397,13 +399,18 @@ static unsigned long effective_protection(unsigned long usage,
->  	if (parent_effective > siblings_protected &&
->  	    parent_usage > siblings_protected &&
->  	    usage > protected) {
-> -		unsigned long unclaimed;
-> +		unsigned long unclaimed = parent_effective - siblings_protected;
-> +		unsigned long unprotected = usage - protected;
-> +		unsigned long parent_unprotected = parent_usage - siblings_protected;
->  
-> -		unclaimed = parent_effective - siblings_protected;
-> -		unclaimed *= usage - protected;
-> -		unclaimed /= parent_usage - siblings_protected;
-> +		/*
-> +		 * The usages aren't read atomically, so a child can transiently
-> +		 * appear to use more than its parent, making the ratio exceed 1
-> +		 * and the quotient overflow 64 bits (#DE on x86).  Cap it.
-> +		 */
-> +		unprotected = min(unprotected, parent_unprotected);
+On Wed, Sep 2, 2026 at 11:23=E2=80=AFPM xietangxin <xietangxin@h-partners.c=
+om> wrote:
+>
+>
+>
+> On 9/2/2026 5:46 AM, David Laight wrote:
+> > On Tue, 1 Sep 2026 11:06:31 -0400
+> > Xin Long <lucien.xin@gmail.com> wrote:
+> >
+> >> On Tue, Sep 1, 2026 at 10:35=E2=80=AFAM David Laight
+> >> <david.laight.linux@gmail.com> wrote:
+> >>>
+> >>> On Tue, 1 Sep 2026 09:45:42 -0400
+> >>> Xin Long <lucien.xin@gmail.com> wrote:
+> >>>
+> >>>> On Mon, Aug 31, 2026 at 11:47=E2=80=AFPM xietangxin <xietangxin@h-pa=
+rtners.com> wrote:
+> >>>>>
+> >>>>> Hi,
+> >>>>>
+> >>>>> I have analyzed this issue and successfully reproduced locally.
+> >>>>> The race occurs between the timer callback (`sctp_generate_heartbea=
+t_event`) and
+> >>>>> the transport cleanup path (`sctp_transport_free`):
+> >>>>>
+> >>>>> Task 1(Timer Softirq)               Task 2(sctp_transport_free)
+> >>>>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D              =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >>>>> sctp_generate_heartbeat_event()
+> >>>>>   refcnt =3D 2
+> >>>>>
+> >>>>>   bh_lock_sock(sk)
+> >>>>>   sock_owned_by_user(sk)
+> >>>>>   mod_timer(&hb_timer) -> returns 0
+> >>>>>                                           sctp_transport_free()
+> >>>>>                                             transport->dead =3D 1
+> >>>>>                                             del_timer(&hb_timer) ->=
+ returns 1!
+> >>>>>                                               sctp_transport_put() =
+(2 -> 1)
+> >>>>>                                             sctp_transport_put() (1=
+ -> 0)
+> >>>>>                                               sctp_transport_destro=
+y()
+> >>>>>
+> >>>>>   sctp_transport_hold()
+> >>>>>     -> refcnt is 0, increment fails
+> >>>>
+> >>>> This should not be 0, as the transport must hold a refcnt to start t=
+he
+> >>>> hb_timer.
+> >>>
+> >>> Isn't there one hold sctp_generate_heartbeat_event() and a second for
+> >>> whatever 'task 2' is doing.
+> >> Right,
+> >>
+> >>> When hb_timer is started it is given another hold (does it actually n=
+eed one??).
+> >> You mean mod_timer() in sctp_generate_heartbeat_event()?  Yes, as it w=
+ill
+> >> release the last one in out_unlock, it must hold a new one.
+> >
+> > But can that ever be the last 'hold' that actually calls sctp_transport=
+_destroy().
+Sorry, by =E2=80=9Crelease the last one=E2=80=9D above, I meant releasing t=
+he previous
+=E2=80=9Chold.=E2=80=9D
 
-Looks correct to me. But a few nits on readability, since this code
-already is quite painfully complicated.
+If the hold succeeds after mod_timer(), it can never be the last/final hold
+that calls sctp_transport_destroy().
 
-Please don't do math in the declaration block.
+However, in the current code, there's a window between mod_timer() and
+sctp_transport_hold() at [1], sctp_transport_destroy() can be called
+to  delete the newly enqueued timer and release the previous hold.
+The hold at [2] for the newly enqueuing has not been taken yet.
 
-`unclaimed` made a bit more sense when it held *this group's* final
-share of the unclaimed protection. As an intermediate, it's *the
-parent's* unclaimed protection.
+  if (!mod_timer(&transport->hb_timer, jiffies + (HZ/20))) {
+          mdelay(1);  /* [1] */
+          sctp_transport_hold(transport); /* [2] */
+  }
 
-Put together, it should look something like this:
+> > It the timer is always deleted (as task 2 above) it doesn't need one it=
+self.
+> > Might need to be del_timer_sync() so that it waits for the completion f=
+unction
+> > to terminate.
+> >
+Unfortunately, del_timer_sync() can only be used in sleepable contexts.
 
-		unsigned long parent_unclaimed, parent_unprotected, unprotected;
+> >>
+> >>> So when hb_timer is deleted it's hold is removed.
+> >>> But the del_timer() is happening before the the extra hold is obtaine=
+d.
+> >>>
+> >> Ahh, I can see the race now.
+> >>
+> >> I remember you mentioned holding it before mod_reduce() in a previous
+> >> patch, maybe it will work here, like:
+> >>
+> >>                 sctp_transport_hold(transport);
+> >>                 if (mod_timer(&transport->hb_timer, jiffies + (HZ/20))=
+)
+> >>                         sctp_transport_put(transport);
+> >>
+> >> Does it make sense?
+> >
+> > That should close the timing window, but is probably inefficient.
+> > Rather depends on how often the 'put' ends up being done.
+> >
+Each timer enqueue must have a corresponding hold. As long as we take the
+hold before enqueueing the timer, there is no race.
 
-		parent_unclaimed = parent_effective - siblings_protected;
-		parent_unprotected = parent_usage - siblings_protected;
-		unprotected = usage - protected;
+> > David
+> >
+> >>
+> >> Thanks.
+> >>
+> >>> The RHS (task 2) would need to hold bh_lock_sock().
+> >>>
+> >>> Try giving sctp_generate_heartbeat_event() two holds.
+> >>>
+> >>> David
+> >>>
+> >>>
+> >>>>
+> >>>> Also, the delay below is under bh_lock_sock(), so it should not be t=
+he
+> >>>> real cause of the issue.
+> >>>>
+> >>>> Could you share the PoC for this issue?
+> >>>>
+> >>>> Thanks.
+> >>>>
+> >>>>>   out_unlock:
+> >>>>>     sctp_transport_put() (0 -> -1)
+> >>>>>     -> refcount underflow warning!
+> >>>>>
+> >>>>>
+> >>>>>
+> >>>>> Adding a small delay  after `mod_timer()` increases the reproductio=
+n rate:
+> >>>>>
+> >>>>> --- a/net/sctp/sm_sideeffect.c
+> >>>>> +++ b/net/sctp/sm_sideeffect.c
+> >>>>> @@ -373,8 +373,10 @@ void sctp_generate_heartbeat_event(struct time=
+r_list *t)
+> >>>>>                 pr_debug("%s: sock is busy\n", __func__);
+> >>>>>
+> >>>>>                 /* Try again later.  */
+> >>>>> -               if (!mod_timer(&transport->hb_timer, jiffies + (HZ/=
+20)))
+> >>>>> +               if (!mod_timer(&transport->hb_timer, jiffies + (HZ/=
+20))) {
+> >>>>> +                       mdelay(1);
+> >>>>>                         sctp_transport_hold(transport);
+> >>>>> +               }
+> >>>>>                 goto out_unlock;
+> >>>>>         }
+> >>>>>
+> >>>>> Any feedback or guidance would be greatly appreciated.
+> >>>>>
+> >>>>> --
+> >>>>> Best regards,
+> >>>>> Tangxin Xie
+> >>>>>
+> >>>>
+> >>>
+> >>
+> >
+>
+> Hi Xin, David,
+>
+> I have a syzkaller execution log that can trigger this issue.
+> Please let me know if there is anything else I can do.
 
-		/* overflow comment */
-		unprotected = min(usage - protected, parent_unprotected);
-		ep += mul_u64_u64_div_u64(parent_unclaimed, unprotected, parent_unprotected);
+Hi, Tangxin,
 
-With that,
+Can you try if the change below will fix the race?
+(You may add mdelay() back for reproducing)
 
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+diff --git a/net/sctp/sm_sideeffect.c b/net/sctp/sm_sideeffect.c
+index 94716406d602..c0fddd5e8097 100644
+--- a/net/sctp/sm_sideeffect.c
++++ b/net/sctp/sm_sideeffect.c
+@@ -378,8 +378,9 @@ void sctp_generate_heartbeat_event(struct timer_list *t=
+)
+                pr_debug("%s: sock is busy\n", __func__);
+
+                /* Try again later.  */
+-               if (!mod_timer(&transport->hb_timer, jiffies + (HZ/20)))
+-                       sctp_transport_hold(transport);
++               sctp_transport_hold(transport);
++               if (mod_timer(&transport->hb_timer, jiffies + (HZ/20)))
++                       sctp_transport_put(transport);
+                goto out_unlock;
+        }
+
+Thanks.
