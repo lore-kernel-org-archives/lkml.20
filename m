@@ -1,188 +1,374 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010029.outbound.protection.outlook.com [52.101.201.29])
+Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com [192.19.144.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE6434FDE4E;
-	Thu,  3 Sep 2026 17:48:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.29
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788457721; cv=fail; b=dDxOfD1RPOnaJ268h9zIjV9h+SGN8Jkh09KUqI6ImLFxqfF7ManOG6GJN+lKSRZy/txKcBMLVt0IwCn8hwunc5f6xxZXUO5K3BORuP+k86GNpCfg6Gx1QRkqjeeUgCEnpGlM1cbFnU6oOgjbeLTPJ4G3mqJlN9pk2oqehkZFxus=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788457721; c=relaxed/simple;
-	bh=24EE3Ip4zjHo7gdrLM0HaiU3NUlyvbabrbNlePKJbdc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IjlKhfeT1c/0niIG8H1hT2Fu+Sec8pT0nw/BVlrMPsMo2YShv38obIdCSWQGB4R7rvQK+BtfQ1puKxcoD++C2k0FcQlM1pnEZP/qy8bGvotyPz7ybyeU7UC6FapE+KbZlvS2qiuoOavnT5CHOJMO5OyNH3C3KxgR9AP2bB14R6c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=A4ssdWpT; arc=fail smtp.client-ip=52.101.201.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C364D90D4;
+	Thu,  3 Sep 2026 17:49:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.144.205
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788457798; cv=none; b=IUQSoWzjv6zk/2YJXBfTcmgvIQEirDOIvc6o8yLrby+d712n13P61yEqIADk/X4ieaRWTdtYqagtBVhMTCHs3zJHHMQ1bg0IhNxpaJKM6zE2sUuwZy1lXhY/Qub+mM0IMv4yZO7xTnSR7jbRK3VYk6lzwoCI1qirEVNo9ncBoXk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788457798; c=relaxed/simple;
+	bh=UuLIBGLM6kpyCorOzcsTXbcPsM7DrcwoF0cy7pxh2uQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dG1APO5peJ6adMxgUgXpWFlc5rqv/OIKRNRoi30Ktiduha3zUClkBPhMVZnXoCKrmW9hMfvEfDiFKYjBqQ/F0byWwcTdroefbIr7US81mxkFisSrX+CV+2L3Tv93fuPkEPCpHSW9MMWK0pBVvg46I18ssxD+o/rV+79ZJw4+zPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=Stc+UtvJ; arc=none smtp.client-ip=192.19.144.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="A4ssdWpT"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Qtnjf1h/dkumpLomjHWyLELMY0cskbG58dahGZ9FDEe7PuYWithwaFKleVE5Bl+fYj8953gi1Hb5alvr6yhHk9+OcS5mcc3uDswvqQrHoHb3NdyMFsufkQvtfTii2granX3HvFU16k8KWqWM5CD2lUXwUtXy4UiwB/ojgi0+J9b8W2VD59uHyg1bImY70q4VSvNlV/2hLbPGnVAwR1uln6nR2N0xWSCyjOkY799uDU632MjUtdIejx9+cRY8wApgmVlOKuJvoQLv6BSIGLUZI08ZE3n66ZfuaL5DPb7WnW4det5If2ZXmH7yfx8bfWOPqO1bQMqq9nwjjcIAhc41kQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BHKjyuSH1PTR2Oqk1vYZM3bjLuzxmdPtRc5zl3vPneQ=;
- b=qCXtkx6FnLurKur3fmr18dMGdZFkPi5oAHHpxiYxIpHnKi2qlpy6zf1fCsiIq5q4Es5EiJaJq56VNsU/faCBREMzgFp3jnt6hARjtr3e9VPy7jK78X/q32GvS7nAOMYn26lZpahtNySRaiqRPGdiB0OQFaKPASvu1jY4uOpK60CWl6HRPaSRqA06EMyqw4G2EkV2r74Jl5EZ98UV+RCRUb43MvLMkozHmR3mVNYCzvCTrWN/78PBINHBV1sgb8OsLNjiqEFPd2rF9gqY7MEDC9cJ7JI+PmDv8xmsT6Qbear5Yv0/AuzkKE+vQs9bxKiXTbeGCUcqpeCHl/Zo9YT+Lg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BHKjyuSH1PTR2Oqk1vYZM3bjLuzxmdPtRc5zl3vPneQ=;
- b=A4ssdWpTa/pxNmZwEHVs4nT2an0nATl6p37Z8c0agwE/h5yX/pQ8bBZxSoX9wYBCowCjv6zF3EnbtuDE9ylA+ftg3TuVcNJ5LhjoTYquuuYiJpo3KXz5dv8bkcJwkfev7IiBAnHuK9lGjducyW1DAMJOHBNlEGT7jBjo5SBnonqZ44G7npZs6kWfmz9zcG0cZVqwSUwW+JcFk7VSNd/z9qokkHy4cociWbl9B1dfOYyb8Uu6txl4d13L11bwTOyE4+pSDb5X9G7iYmZICC0hGsoHcG9BlpGJHabehdIdceeAttcWc8cHEoADe9qm0fK7ID9DwE4thNkdOikIDR3cJA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from DM8PR03MB6230.namprd03.prod.outlook.com (2603:10b6:8:3c::13) by
- DM6PR03MB4972.namprd03.prod.outlook.com (2603:10b6:5:1e4::20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.13; Thu, 3 Sep 2026 17:48:36 +0000
-Received: from DM8PR03MB6230.namprd03.prod.outlook.com
- ([fe80::abad:9d80:7a13:9542]) by DM8PR03MB6230.namprd03.prod.outlook.com
- ([fe80::abad:9d80:7a13:9542%3]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 17:48:35 +0000
-From: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-To: dinguyen@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 3/3] arm64: dts: socfpga: stratix10: replace clocks reference with clock-frequency for dw-apb-timer
-Date: Fri,  4 Sep 2026 01:41:07 +0800
-Message-ID: <71ff1636b37995398e6eddccc77251269cffa669.1788457041.git.adrian.ho.yin.ng@altera.com>
-X-Mailer: git-send-email 2.49.GIT
-In-Reply-To: <cover.1788457041.git.adrian.ho.yin.ng@altera.com>
-References: <cover.1788457041.git.adrian.ho.yin.ng@altera.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2PR01CA0004.apcprd01.prod.exchangelabs.com
- (2603:1096:4:191::22) To DM8PR03MB6230.namprd03.prod.outlook.com
- (2603:10b6:8:3c::13)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="Stc+UtvJ"
+Received: from mail-acc-it-01.broadcom.com (mail-acc-it-01.acc.broadcom.net [10.35.36.83])
+	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 79A2AC0000E2;
+	Thu,  3 Sep 2026 10:40:19 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 79A2AC0000E2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
+	s=dkimrelay; t=1788457219;
+	bh=UuLIBGLM6kpyCorOzcsTXbcPsM7DrcwoF0cy7pxh2uQ=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Stc+UtvJT41XsNSq+MvocCIFd7wfZ2sVXYbd2FlK8yWKNeKCGl0TgkF23F0PXjb8S
+	 hixkJYlyrnUk0wVODZ9YetZF7BIfHz8bRpug+m9ns58t0mzOlwRVC/6biqJ7G+/dwe
+	 qrzNb7gPln08MkDWXQC8y1zfnfqZRIq2szwaYtnM=
+Received: from stbirv-lnx-1.igp.broadcom.net (stbirv-lnx-1.igp.broadcom.net [10.67.48.32])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail-acc-it-01.broadcom.com (Postfix) with ESMTPSA id 5C5C0AEA2;
+	Thu,  3 Sep 2026 13:40:18 -0400 (EDT)
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+To: stable@vger.kernel.org
+Cc: Eric Dumazet <edumazet@google.com>,
+	syzbot+937b5bbb6a815b3e5d0b@syzkaller.appspotmail.com,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Neal Cardwell <ncardwell@google.com>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Mat Martineau <martineau@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	netdev@vger.kernel.org (open list:NETWORKING [GENERAL]),
+	linux-kernel@vger.kernel.org (open list),
+	mptcp@lists.linux.dev (open list:NETWORKING [MPTCP]),
+	bcm-kernel-feedback-list@broadcom.com
+Subject: [PATCH stable 6.12] tcp: fix potential race in tcp_v6_syn_recv_sock()
+Date: Thu,  3 Sep 2026 10:40:16 -0700
+Message-Id: <20260903174016.689839-1-florian.fainelli@broadcom.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM8PR03MB6230:EE_|DM6PR03MB4972:EE_
-X-MS-Office365-Filtering-Correlation-Id: bbec03cd-ece9-4d9b-0ca2-08df09e3941e
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|10067099003|11063799006|18002099003|55112099003|56012099006|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	2SyU+ATTgXERf1yfRcpQp1cvZwlUpZmsUVK6V4U20VBxBh4QDITYI1sMNQ6ey1T6cXfgwTnUfv0JdCRpuNJr4fVYVbMSeF4eCzKRKhociooyIVGh68N3YP8aTVobl43DbpC4yFLqm7AiS9Tn69027LQM1Xwl2kSR6Run1p1Y1NY7oIIuj+XZMILJd44CUwHi9PispleMr8N/4Y1sz8PNVbvWDuR2V1e1kb7Eq9XMM7WW82bEwTqitj1cGXggBbA2cYptCfPt7YYxNcL0u2l2ePMhSxxpd+zrDvFmi7FBzqoaqzSKmvB/ViedoZF7UF4Q6PhNPD3qorqFsCLvx6bjyO8EnmIB1co+sMSj1zC30ycAhHuXRwCIAscAMZIILuMe+7eyPcSI8RjJcykqM/WiRd0t4IXLifKg7GcLAIrhgPWzPD5o9e2Wfvoioppz1qGPvycvQ/KK9pq0lS8eCovch2GEctu/wjPGX4q5L2okyuUhVln1Nm1tD8enrTjvtpsk4it0DRTQOz/BP5BdThDHiw1ZfuUGjoNi1XiUm5uc6G9kaHsidxphCE0gQomMWhzdTx8C7sH/KAUfQPo1bihnHUmLqJDgFzWbPUYMgewXRUMWbEt5v6HOE/hr/q5mTKDFoIYVI7t9vdFvLGh4jbP45nKbKYZwxIbDixtMFiNN2t0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM8PR03MB6230.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(10067099003)(11063799006)(18002099003)(55112099003)(56012099006)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?VrPfwrEeXDmJHMggB4q7XffkhygelTovyF+jIzEC+FaMy9lH/+RnsAEdN+SV?=
- =?us-ascii?Q?jzbj0i2Viw09rwtuWGITrMS4IBkSpG5KOcGJkOjzMtrwo8RL81L4Vic5kzUO?=
- =?us-ascii?Q?0SAmjk1ZiezWFkBGoauFzPvI5fvKz/i/Mz1ep+Lcds7jYAC+i1hXs3BslxZ8?=
- =?us-ascii?Q?uSKyU5CagyYz4NQlxdU4xteXuZ42oExlxxcD0xe5kUja87yu3txMqipRgz3P?=
- =?us-ascii?Q?/aloxHewit5IvoPKvH/xPd8oN4zKLc/0sGu0HLZbyovYtJudmYs+xVrg0sIE?=
- =?us-ascii?Q?PlSjZZBHwMRDRCyoYhrduksB7k7pRRobG3kTft8wBR+06IheD7TzHUVtPKdZ?=
- =?us-ascii?Q?j3SGj7SG+DL8SoqPWkQLvgYna7iFylLgakKdp7MMSrdf7beNqyIgIFIeJa8p?=
- =?us-ascii?Q?cpCEKJZYigGb8uBVzWL34d3sIXg/SZGZIy05qyID/KsZC9MYt76llW9JpqJc?=
- =?us-ascii?Q?VaqYmI6YgrTC1UxfaitI6xNq2qiaEjJ/PVLPvfiDdinY2BWa6+eJ/Z4e9Y8H?=
- =?us-ascii?Q?yXlA8MhFwGkuC1q/EVHpluPoxghxduB2+BFIzn5bBapGXd8VobZF6+CO3Sgz?=
- =?us-ascii?Q?D/PwzARE9qTWwA19YusY55rptzMvAojaVlhnbpXNoR4DXRyneJwNlN0Y8pBr?=
- =?us-ascii?Q?wPwgvWqMLwad/Ea32kvydZ6VLo5gdlj/JHYS3ga+w2FA2WD38CJ0wdKLh87z?=
- =?us-ascii?Q?lAjBkxiK4BELHTqj9Am/71cJdM+RDNLk3MaAGMqx2s2uR4fpYZauifMk40/F?=
- =?us-ascii?Q?9bNqodTIGeUVXoC0nzAYf/ZTtCZ299ZXbQ2uipOA/A5mJ6V2u+6zVDT9nC/T?=
- =?us-ascii?Q?hzNqFHI+8Fo9NDhxrOHztR4zUFGHvDuRaJOPf4+ZxLIJ/hIG/FyBGpy91+Am?=
- =?us-ascii?Q?ns/plo8bXrdYGaGbGXt7GQBSKCm/AKfKfQuJUxHq1dWgwAy7EAkIPI3QUEK4?=
- =?us-ascii?Q?bqpUV1FNZSWdGZUCF42X++x27kgDD5nPZEh+Oaez+6ZoMgHTtwekvDTK70RJ?=
- =?us-ascii?Q?UhL20arlRQv0vj1sV9ZAIWCYCnOyjlUb9x8qsyTb9x5mcZj6U7OFh+VbawAg?=
- =?us-ascii?Q?rrQ8b4oqsVTMD/IkDrKqIgBjBBnicifxDwShPkDt5ntMkWIWCD1rol8Utipn?=
- =?us-ascii?Q?fTrRUdIo1JFB6jaslZ5EKkWHVl2FCpJWwJOKAIsyEBgcpIMfUafAgAjCHAgw?=
- =?us-ascii?Q?787oMPxDaOA2569gtVJ+EkkVMpZ0Rm+ArgJ4+thuK65o0vaIBwu2ONdDkc1y?=
- =?us-ascii?Q?eQ+/8G0M46+hGVlSMCjMdXB6PTYR7sZtXdpT9fx59d6/OW4Ugyei9uAQVmCS?=
- =?us-ascii?Q?NzElRWUE+Mt1gOEJk27deS+KIE0LSXmdr/iGWqkciPrhkMti4SPbqoE1JnTP?=
- =?us-ascii?Q?5Nk/r/jkigWrKbv8D552iXt4ExqdZNhqotrewwAAnoo885SmwuT0ckOa7GdM?=
- =?us-ascii?Q?fvaKfYyZQn80BI6JvLMuL7+rlexg5bZFCMlD/sIhPG2xUjJRWLkOrlH2G8wp?=
- =?us-ascii?Q?3XFzh1uFmTYpeHhz3HQYVIf/IXbzxIyjw5dmfpFlsZ9ApAWtlgMkxzq8Db7L?=
- =?us-ascii?Q?rRzyLXDk9GEGjLacrq1cNG9zoFAdXER1+I9+yGon0VU6efraFmcmvjDkrSW9?=
- =?us-ascii?Q?UcnfO1qlShRWx4Pcc317UtFuew8f4wb27/pKFR4YTsKOrIa6qpiJgZns+gSx?=
- =?us-ascii?Q?1h/eNPsPOO+fqYraeNxRUjVESW2R63VIVycNS+IzDyw7ViHT4WhmVPSgd517?=
- =?us-ascii?Q?7Ezftu/+wBwzfX/sysNteT10wDryHqo=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bbec03cd-ece9-4d9b-0ca2-08df09e3941e
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR03MB6230.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 17:48:35.8217
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wCqG0dcSMWCMkt2gtZovP8OMl4stRaEhwJziWqEczEOQPaWK5wng3D0sVQ5KfzRYtkzUXQxZxer6z6PreZ2SEldnqNcBvspVZbmsJQQ8MSU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4972
+Content-Transfer-Encoding: 8bit
 
-The Stratix10 clock manager is a platform driver initialised at
-core_initcall, after time_init() where TIMER_OF_DECLARE callbacks run.
-The timer cannot defer its probe, so clk_get() fails and the timer is
-never brought up.
+From: Eric Dumazet <edumazet@google.com>
 
-With clock-frequency, the tick rate is read directly from the DT node
-without involving the clock framework, allowing the timer to initialise
-regardless of when the clock manager is ready.
+Code in tcp_v6_syn_recv_sock() after the call to tcp_v4_syn_recv_sock()
+is done too late.
 
-Replace clocks/clock-names with a static clock-frequency of 100 MHz,
-which is the L4_SP clock rate configured by the bootloader.
+After tcp_v4_syn_recv_sock(), the child socket is already visible
+from TCP ehash table and other cpus might use it.
 
-Fixes: d93101abe41e ("arm64: dts: stratix10: use clock bindings for the Stratix10 platform")
-Cc: stable@vger.kernel.org
-Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+Since newinet->pinet6 is still pointing to the listener ipv6_pinfo
+bad things can happen as syzbot found.
+
+Move the problematic code in tcp_v6_mapped_child_init()
+and call this new helper from tcp_v4_syn_recv_sock() before
+the ehash insertion.
+
+This allows the removal of one tcp_sync_mss(), since
+tcp_v4_syn_recv_sock() will call it with the correct
+context.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: syzbot+937b5bbb6a815b3e5d0b@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/netdev/69949275.050a0220.2eeac1.0145.GAE@google.com/
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/20260217161205.2079883-1-edumazet@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+(cherry picked from commit 858d2a4f67ff69e645a43487ef7ea7f28f06deae)
+[florian:
+ - net/ipv6/tcp_ipv6.c:
+   - Set `newnp->ipv6_fl_list = NULL` instead of `newinet->ipv6_fl_list = NULL`,
+     as `ipv6_fl_list` is in `struct ipv6_pinfo`.]
+Assisted-by: Cursor:gemini-3.7-flash
+Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
 ---
- arch/arm64/boot/dts/altera/socfpga_stratix10.dtsi | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+ include/net/inet_connection_sock.h |  4 +-
+ include/net/tcp.h                  |  4 +-
+ net/ipv4/syncookies.c              |  2 +-
+ net/ipv4/tcp_fastopen.c            |  2 +-
+ net/ipv4/tcp_ipv4.c                |  8 ++-
+ net/ipv4/tcp_minisocks.c           |  2 +-
+ net/ipv6/tcp_ipv6.c                | 97 +++++++++++++-----------------
+ net/mptcp/subflow.c                |  6 +-
+ net/smc/af_smc.c                   |  6 +-
+ 9 files changed, 66 insertions(+), 65 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/altera/socfpga_stratix10.dtsi b/arch/arm64/boot/dts/altera/socfpga_stratix10.dtsi
-index 0d9cad0c0351..efae7b06e3fb 100644
---- a/arch/arm64/boot/dts/altera/socfpga_stratix10.dtsi
-+++ b/arch/arm64/boot/dts/altera/socfpga_stratix10.dtsi
-@@ -462,32 +462,28 @@ timer0: timer0@ffc03000 {
- 			compatible = "snps,dw-apb-timer";
- 			interrupts = <0 113 4>;
- 			reg = <0xffc03000 0x100>;
--			clocks = <&clkmgr STRATIX10_L4_SP_CLK>;
--			clock-names = "timer";
-+			clock-frequency = <100000000>;
- 		};
+diff --git a/include/net/inet_connection_sock.h b/include/net/inet_connection_sock.h
+index bcc138ff087b..fe4f8261c443 100644
+--- a/include/net/inet_connection_sock.h
++++ b/include/net/inet_connection_sock.h
+@@ -42,7 +42,9 @@ struct inet_connection_sock_af_ops {
+ 				      struct request_sock *req,
+ 				      struct dst_entry *dst,
+ 				      struct request_sock *req_unhash,
+-				      bool *own_req);
++				      bool *own_req,
++				      void (*opt_child_init)(struct sock *newsk,
++							     const struct sock *sk));
+ 	u16	    net_header_len;
+ 	u16	    sockaddr_len;
+ 	int	    (*setsockopt)(struct sock *sk, int level, int optname,
+diff --git a/include/net/tcp.h b/include/net/tcp.h
+index 1cc25e0b3bde..64c300659a8e 100644
+--- a/include/net/tcp.h
++++ b/include/net/tcp.h
+@@ -464,7 +464,9 @@ struct sock *tcp_v4_syn_recv_sock(const struct sock *sk, struct sk_buff *skb,
+ 				  struct request_sock *req,
+ 				  struct dst_entry *dst,
+ 				  struct request_sock *req_unhash,
+-				  bool *own_req);
++				  bool *own_req,
++				  void (*opt_child_init)(struct sock *newsk,
++							 const struct sock *sk));
+ int tcp_v4_do_rcv(struct sock *sk, struct sk_buff *skb);
+ int tcp_v4_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len);
+ int tcp_connect(struct sock *sk);
+diff --git a/net/ipv4/syncookies.c b/net/ipv4/syncookies.c
+index facf0fa7d659..66d5272c5abb 100644
+--- a/net/ipv4/syncookies.c
++++ b/net/ipv4/syncookies.c
+@@ -202,7 +202,7 @@ struct sock *tcp_get_cookie_sock(struct sock *sk, struct sk_buff *skb,
+ 	bool own_req;
  
- 		timer1: timer1@ffc03100 {
- 			compatible = "snps,dw-apb-timer";
- 			interrupts = <0 114 4>;
- 			reg = <0xffc03100 0x100>;
--			clocks = <&clkmgr STRATIX10_L4_SP_CLK>;
--			clock-names = "timer";
-+			clock-frequency = <100000000>;
- 		};
+ 	child = icsk->icsk_af_ops->syn_recv_sock(sk, skb, req, dst,
+-						 NULL, &own_req);
++						 NULL, &own_req, NULL);
+ 	if (child) {
+ 		refcount_set(&req->rsk_refcnt, 1);
+ 		sock_rps_save_rxhash(child, skb);
+diff --git a/net/ipv4/tcp_fastopen.c b/net/ipv4/tcp_fastopen.c
+index 947109f01db6..5378ef3b6ab5 100644
+--- a/net/ipv4/tcp_fastopen.c
++++ b/net/ipv4/tcp_fastopen.c
+@@ -247,7 +247,7 @@ static struct sock *tcp_fastopen_create_child(struct sock *sk,
+ 	bool own_req;
  
- 		timer2: timer2@ffd00000 {
- 			compatible = "snps,dw-apb-timer";
- 			interrupts = <0 115 4>;
- 			reg = <0xffd00000 0x100>;
--			clocks = <&clkmgr STRATIX10_L4_SP_CLK>;
--			clock-names = "timer";
-+			clock-frequency = <100000000>;
- 		};
+ 	child = inet_csk(sk)->icsk_af_ops->syn_recv_sock(sk, skb, req, NULL,
+-							 NULL, &own_req);
++							 NULL, &own_req, NULL);
+ 	if (!child)
+ 		return NULL;
  
- 		timer3: timer3@ffd00100 {
- 			compatible = "snps,dw-apb-timer";
- 			interrupts = <0 116 4>;
- 			reg = <0xffd00100 0x100>;
--			clocks = <&clkmgr STRATIX10_L4_SP_CLK>;
--			clock-names = "timer";
-+			clock-frequency = <100000000>;
- 		};
+diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
+index 40b73e97d5fb..2b7c580e3728 100644
+--- a/net/ipv4/tcp_ipv4.c
++++ b/net/ipv4/tcp_ipv4.c
+@@ -1742,7 +1742,9 @@ struct sock *tcp_v4_syn_recv_sock(const struct sock *sk, struct sk_buff *skb,
+ 				  struct request_sock *req,
+ 				  struct dst_entry *dst,
+ 				  struct request_sock *req_unhash,
+-				  bool *own_req)
++				  bool *own_req,
++				  void (*opt_child_init)(struct sock *newsk,
++							 const struct sock *sk))
+ {
+ 	struct inet_request_sock *ireq;
+ 	bool found_dup_sk = false;
+@@ -1798,6 +1800,10 @@ struct sock *tcp_v4_syn_recv_sock(const struct sock *sk, struct sk_buff *skb,
+ 	}
+ 	sk_setup_caps(newsk, dst);
  
- 		uart0: serial@ffc02000 {
++#if IS_ENABLED(CONFIG_IPV6)
++	if (opt_child_init)
++		opt_child_init(newsk, sk);
++#endif
+ 	tcp_ca_openreq_child(newsk, dst);
+ 
+ 	tcp_sync_mss(newsk, dst_mtu(dst));
+diff --git a/net/ipv4/tcp_minisocks.c b/net/ipv4/tcp_minisocks.c
+index 7149ddb09840..f6657c571fb7 100644
+--- a/net/ipv4/tcp_minisocks.c
++++ b/net/ipv4/tcp_minisocks.c
+@@ -859,7 +859,7 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
+ 	 * socket is created, wait for troubles.
+ 	 */
+ 	child = inet_csk(sk)->icsk_af_ops->syn_recv_sock(sk, skb, req, NULL,
+-							 req, &own_req);
++							 req, &own_req, NULL);
+ 	if (!child)
+ 		goto listen_overflow;
+ 
+diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
+index 085fc97c5a5b..84efaf846f07 100644
+--- a/net/ipv6/tcp_ipv6.c
++++ b/net/ipv6/tcp_ipv6.c
+@@ -1341,11 +1341,48 @@ static void tcp_v6_restore_cb(struct sk_buff *skb)
+ 		sizeof(struct inet6_skb_parm));
+ }
+ 
++/* Called from tcp_v4_syn_recv_sock() for v6_mapped children. */
++static void tcp_v6_mapped_child_init(struct sock *newsk, const struct sock *sk)
++{
++	struct inet_sock *newinet = inet_sk(newsk);
++	struct ipv6_pinfo *newnp;
++
++	newinet->pinet6 = newnp = tcp_inet6_sk(newsk);
++
++	memcpy(newnp, tcp_inet6_sk(sk), sizeof(struct ipv6_pinfo));
++
++	newnp->saddr = newsk->sk_v6_rcv_saddr;
++
++	inet_csk(newsk)->icsk_af_ops = &ipv6_mapped;
++	if (sk_is_mptcp(newsk))
++		mptcpv6_handle_mapped(newsk, true);
++	newsk->sk_backlog_rcv = tcp_v4_do_rcv;
++#if defined(CONFIG_TCP_MD5SIG) || defined(CONFIG_TCP_AO)
++	tcp_sk(newsk)->af_specific = &tcp_sock_ipv6_mapped_specific;
++#endif
++
++	newnp->ipv6_mc_list = NULL;
++	newnp->ipv6_ac_list = NULL;
++	newnp->ipv6_fl_list = NULL;
++	newnp->pktoptions  = NULL;
++	newnp->opt	   = NULL;
++
++	/* tcp_v4_syn_recv_sock() has initialized newinet->mc_{index,ttl} */
++	newnp->mcast_oif   = newinet->mc_index;
++	newnp->mcast_hops  = newinet->mc_ttl;
++
++	newnp->rcv_flowinfo = 0;
++	if (inet6_test_bit(REPFLOW, sk))
++		newnp->flow_label = 0;
++}
++
+ static struct sock *tcp_v6_syn_recv_sock(const struct sock *sk, struct sk_buff *skb,
+ 					 struct request_sock *req,
+ 					 struct dst_entry *dst,
+ 					 struct request_sock *req_unhash,
+-					 bool *own_req)
++					 bool *own_req,
++					 void (*opt_child_init)(struct sock *newsk,
++								const struct sock *sk))
+ {
+ 	struct inet_request_sock *ireq;
+ 	struct ipv6_pinfo *newnp;
+@@ -1361,60 +1398,10 @@ static struct sock *tcp_v6_syn_recv_sock(const struct sock *sk, struct sk_buff *
+ #endif
+ 	struct flowi6 fl6;
+ 
+-	if (skb->protocol == htons(ETH_P_IP)) {
+-		/*
+-		 *	v6 mapped
+-		 */
+-
+-		newsk = tcp_v4_syn_recv_sock(sk, skb, req, dst,
+-					     req_unhash, own_req);
+-
+-		if (!newsk)
+-			return NULL;
+-
+-		inet_sk(newsk)->pinet6 = tcp_inet6_sk(newsk);
+-
+-		newnp = tcp_inet6_sk(newsk);
+-		newtp = tcp_sk(newsk);
+-
+-		memcpy(newnp, np, sizeof(struct ipv6_pinfo));
+-
+-		newnp->saddr = newsk->sk_v6_rcv_saddr;
+-
+-		inet_csk(newsk)->icsk_af_ops = &ipv6_mapped;
+-		if (sk_is_mptcp(newsk))
+-			mptcpv6_handle_mapped(newsk, true);
+-		newsk->sk_backlog_rcv = tcp_v4_do_rcv;
+-#if defined(CONFIG_TCP_MD5SIG) || defined(CONFIG_TCP_AO)
+-		newtp->af_specific = &tcp_sock_ipv6_mapped_specific;
+-#endif
+-
+-		newnp->ipv6_mc_list = NULL;
+-		newnp->ipv6_ac_list = NULL;
+-		newnp->ipv6_fl_list = NULL;
+-		newnp->pktoptions  = NULL;
+-		newnp->opt	   = NULL;
+-		newnp->mcast_oif   = inet_iif(skb);
+-		newnp->mcast_hops  = ip_hdr(skb)->ttl;
+-		newnp->rcv_flowinfo = 0;
+-		if (inet6_test_bit(REPFLOW, sk))
+-			newnp->flow_label = 0;
+-
+-		/*
+-		 * No need to charge this sock to the relevant IPv6 refcnt debug socks count
+-		 * here, tcp_create_openreq_child now does this for us, see the comment in
+-		 * that function for the gory details. -acme
+-		 */
+-
+-		/* It is tricky place. Until this moment IPv4 tcp
+-		   worked with IPv6 icsk.icsk_af_ops.
+-		   Sync it now.
+-		 */
+-		tcp_sync_mss(newsk, inet_csk(newsk)->icsk_pmtu_cookie);
+-
+-		return newsk;
+-	}
+-
++	if (skb->protocol == htons(ETH_P_IP))
++		return tcp_v4_syn_recv_sock(sk, skb, req, dst,
++					    req_unhash, own_req,
++					    tcp_v6_mapped_child_init);
+ 	ireq = inet_rsk(req);
+ 
+ 	if (sk_acceptq_is_full(sk))
+diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
+index 26ea58691f79..4fc9a5a78876 100644
+--- a/net/mptcp/subflow.c
++++ b/net/mptcp/subflow.c
+@@ -812,7 +812,9 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
+ 					  struct request_sock *req,
+ 					  struct dst_entry *dst,
+ 					  struct request_sock *req_unhash,
+-					  bool *own_req)
++					  bool *own_req,
++					  void (*opt_child_init)(struct sock *newsk,
++								 const struct sock *sk))
+ {
+ 	struct mptcp_subflow_context *listener = mptcp_subflow_ctx(sk);
+ 	struct mptcp_subflow_request_sock *subflow_req;
+@@ -859,7 +861,7 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
+ 
+ create_child:
+ 	child = listener->icsk_af_ops->syn_recv_sock(sk, skb, req, dst,
+-						     req_unhash, own_req);
++						     req_unhash, own_req, opt_child_init);
+ 
+ 	if (child && *own_req) {
+ 		struct mptcp_subflow_context *ctx = mptcp_subflow_ctx(child);
+diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
+index 8e95839161aa..98b4449131d7 100644
+--- a/net/smc/af_smc.c
++++ b/net/smc/af_smc.c
+@@ -125,7 +125,9 @@ static struct sock *smc_tcp_syn_recv_sock(const struct sock *sk,
+ 					  struct request_sock *req,
+ 					  struct dst_entry *dst,
+ 					  struct request_sock *req_unhash,
+-					  bool *own_req)
++					  bool *own_req,
++					  void (*opt_child_init)(struct sock *newsk,
++								 const struct sock *sk))
+ {
+ 	struct smc_sock *smc;
+ 	struct sock *child;
+@@ -150,7 +152,7 @@ static struct sock *smc_tcp_syn_recv_sock(const struct sock *sk,
+ 
+ 	/* passthrough to original syn recv sock fct */
+ 	child = smc->ori_af_ops->syn_recv_sock(sk, skb, req, dst, req_unhash,
+-					       own_req);
++					       own_req, opt_child_init);
+ 	/* child must not inherit smc or its ops */
+ 	if (child) {
+ 		rcu_assign_sk_user_data(child, NULL);
 -- 
-2.49.GIT
+2.34.1
 
