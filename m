@@ -1,218 +1,154 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 727174D8DB8;
-	Thu,  3 Sep 2026 15:29:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449384; cv=fail; b=CZoa3wtkyXdbkqdAbiF3DVHJWWRwlCey4sT41Bumd9RJYfNHrQK55CR75ElX6AmfEKLDb5EdHV0LTUX6BDl1M9MOxj4oPy8sJUrMKcY9G1XoYAnlFdlVQBn5tnFPYvcRV9aOGTZcLuOOuj6UdccFqrmh9vvgXz351BDa7lVmHdU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449384; c=relaxed/simple;
-	bh=YR3tZyX8yMuUhCpnrARZUjoFqmA9e7ObKrkLBF21Bbw=;
-	h=From:To:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=PFrIQyHlicnMd2w3iyYuLdkJ2gB6WYsVrxrB2mW0zGZiqkbDh+uhhTHBotMeBPYVCR4GTpIbaN+MP+y9WqZzx+XzQqraIKxhEeVaNgmixQU0Df9BJDN4HkGJ8gUYRcji4eFWfYdpr1BTH0FswGYaekTa/8vJjIiV/TgVZrx8rMM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=e4a7Dtn9; arc=fail smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 470F64DC52B
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:30:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788449405; cv=none; b=oquSdcYnLCk4SOBU2YvQgl4MdHhlzlOaRGFTiPWakHscbcnD/RUN25EBosC3lYT+oKkqaH0ileUTUz4/ZLkVWQJwqdx30zX0Sl4GD6zr631s7qGxqDSYEKKaiDUXXILQ8inTkjMbKvARW25uGY4MxVLWuuFzfJUvexO6FkjKEz0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788449405; c=relaxed/simple;
+	bh=V65lDMJi4pB0ovS/PwcrWiReO5oAmLVmduccTtJtLR8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nGimlIGSr3ERiXnawGXLV7KsiLgDs17oEkLUSRbDHQd6W52kuU/3sfDTchYtfvYBExyhUk6I+bmh4WRbq5uTBrwiCdhEXZ43kX/zcssMtkjbqK/tEHmscI/QTGtWNE1c/FXBs6o/5hvLLUIV6DEGGiBrcJbTO7jp0H3dxeDm3+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=KouNON8K; arc=none smtp.client-ip=209.85.160.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="e4a7Dtn9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788449381; x=1819985381;
-  h=from:to:subject:date:message-id:references:in-reply-to:
-   content-transfer-encoding:mime-version;
-  bh=YR3tZyX8yMuUhCpnrARZUjoFqmA9e7ObKrkLBF21Bbw=;
-  b=e4a7Dtn9auSI6e5ld3OK3J7d3lJl40b3pf4Sua1kfRE63GOc9+5Upfkm
-   uegTrqZ6ZFQJOi+3/Qlvurf4Cz8sAokPXHozbxtENUxYxYg5ehe4ZZulZ
-   yU2w2QiMStoKYa1Q+/B2IEstDwiSkaE6F9x4HCHKhT+JpL2Y3JcgyepD5
-   fjsvd70CagW5ooUmTmV07da44kFOWkA3ixv/3BLF8ycgZvCHipE0FUOqo
-   UyVVsRnpshj7QfG4uAYl7Wd3XVLx4GqtpI1hDF6i9MESxjoyWMa5C/wIq
-   v5ksnhjEcRNNqugGGhWH0ROmdsjiVucelRwCSOlbz8UPocHue432iTLAj
-   Q==;
-X-CSE-ConnectionGUID: +EPq3rWCTTS4gzpu/e4scQ==
-X-CSE-MsgGUID: i/93W0xxRA29HquqoJ2QfA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="100450988"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="100450988"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 08:29:41 -0700
-X-CSE-ConnectionGUID: ordnmjVkRbSFiIt9vo0UzQ==
-X-CSE-MsgGUID: xU93eZ55T2yNweNRcUG9Fg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="270296055"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 08:29:41 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 3 Sep 2026 08:29:40 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Thu, 3 Sep 2026 08:29:40 -0700
-Received: from CY7PR03CU001.outbound.protection.outlook.com (40.93.198.54) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 3 Sep 2026 08:29:40 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Pu3Fq0oFZ9aGB7uJUy5jWsVBIeq0StDNiiAYqF2BDosrTtyvic2fjiNjJPAjSnDFMNdyQqJyBLbatAmp4dddnruio0gg82LjK46Hne20/CAEN8oc0h+b1775IXwgl4EZZZ6mi5tOzvakaJGDx12YfFzbkh8wXyVLeQIDTmc66sfVx2JqvcI+/Bh33AiSAXRzFbzJHkVdfsi894VQcH7KWNf2WvNJu+zIM+1/SC5EA9PSGB+6mlHX7OLSlnjPIViCyFkG+lxciPcIB/guIYTYghnbhKY2kjczaN8LoVLrunvbTxPDFyKXTAGnddZfAP7BwP4Yrg0eiI3h72Hd8jJGug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s0kQL4BDiLlN55IgKiCoBAasdT7UV08qxGlTvTf11Cw=;
- b=zF6SoqONHXs8nxbRuzkq2vQFyGmQsQiZGSduMxGAhKv0uBjlEddzwTkiJSfoKQ993yjwOuPFPZuH1o0fyiR7EBtX4CLS4uynpe3fTpPIzU7Sk6KsiK4AINsMuPFu6wLfvW6YnZmYCBfbG1UuGLVqoVGOHg1WtFP7Y7U1nysI2lr3aqpF8Mj9+O03vJFsaROnW8d4Pj6G/Fgk3ZZ1XaZiHf5mrqVvSxdEx1xMhPP80Q4HvaATB6Ach6dfNn4+BPJJOw8nWW3Pax7xap8/GsnLK6PGeAXcVyqEy3LLY63GNnHEy7R8INKfg1M8zts8tj3GmYa1zrs2c55vI2P4vEkiGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from MW4PR11MB6864.namprd11.prod.outlook.com (2603:10b6:303:21b::16)
- by IA0PR11MB7910.namprd11.prod.outlook.com (2603:10b6:208:40d::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 15:29:35 +0000
-Received: from MW4PR11MB6864.namprd11.prod.outlook.com
- ([fe80::3cb9:afc2:1be5:5d7b]) by MW4PR11MB6864.namprd11.prod.outlook.com
- ([fe80::3cb9:afc2:1be5:5d7b%6]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 15:29:35 +0000
-From: "Temerkhanov, Sergey" <sergey.temerkhanov@intel.com>
-To: Yury Norov <ynorov@nvidia.com>, "Nguyen, Anthony L"
-	<anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
-	<przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
- S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	"intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, open list
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH 2/2] ice: drop pf == NULL check in
- ice_pf_state_is_nominal()
-Thread-Topic: [PATCH 2/2] ice: drop pf == NULL check in
- ice_pf_state_is_nominal()
-Thread-Index: AQHdO6cpuxzxPOr6nEeiXshlL4xdnra8+orw
-Date: Thu, 3 Sep 2026 15:29:35 +0000
-Message-ID: <MW4PR11MB6864F8E60A0E8587D6F6590980B62@MW4PR11MB6864.namprd11.prod.outlook.com>
-References: <20260903132037.81346-1-ynorov@nvidia.com>
- <20260903132037.81346-3-ynorov@nvidia.com>
-In-Reply-To: <20260903132037.81346-3-ynorov@nvidia.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW4PR11MB6864:EE_|IA0PR11MB7910:EE_
-x-ms-office365-filtering-correlation-id: 6b177e2a-e690-446a-76f2-08df09d028dd
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|38070700021|921020|11063799006|10067099003|4143699003|56012099006|18002099003|22082099003;
-x-microsoft-antispam-message-info: t7Pe1Ud0ySvGrhlG1eJYl4qSNOLDozarywQg2nZufldWxeskCEH+iJ3Q+D3V6MHU8J8P1N5WNAwDYq2tAHSjcXHdtCUCZ6cR3FRtk64ST3Xtxj2coV5GQd4h3/mZ37L3/LW4pop0+ndYanVIGQ3nPKaVedOW/3H+CxQjmgehZXka1S/y0XO8DtbrnIo2fodH7n+QdjfxEYNlSpDhVBDndNqELpKchzWJxV90qSKBuzSGho5izkW+fZtQDByGevdbFp5EZCYEa9EuluIun2WlT7YDqcFHuh9Q6vGfdzFs4STj1bCwa64D7+COevboHPw04BpgGnQvYLNcgqCWJi11C8hPGNy97wOTi4t8S/7I7TF7v/6vlbXrlyK2AEePKQ+NGcw5Soap5PQQY8f8gYn1e41qLvj1IgWCqKBjcqBIHKShiUR+J3PjBnKek9UYY+pIhj6agybqS8/00+MfY07LlUTpLePfKQSnVpWqC0F9hNpCeop4I5WhsIwLyDdZNibUrwS1P2Gd3U6+nppbTTi1313KD6YzOh2WBEA0MF893zZ1355bzd4aQailiq053hsJ9f/GLYhth9iSxK1iMeWKa3VcCUx7qDs4viStsT3OIZRXoI8M0j0UyrLEjOFE6nZxLVDcI3CCwHlbquTKLxVM2IxbjXgGWWOuN56OlxxBu8w1LXEyWd2e82/WxSh6P1z0LWArxkTwEO+7bOYnqh+qkLFPM7jRiYmk7aQy1mM26Ss=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR11MB6864.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(38070700021)(921020)(11063799006)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Tq6ng7L/96K6IENwjBuJ+lvqSEcxHt/jJT1sBVj2aKjVMVkFzET6WIgRBhgs?=
- =?us-ascii?Q?hD33yxA4yxAk2osl/wWNI/pocGYcxI22snXru4T4l+a4rBQzo2I8mmjekuCW?=
- =?us-ascii?Q?kCBrlrdinCJT+V0gvayoMqaDxBHBD6Yh3C7t54vEc5uTEd307p7fuD6lszyL?=
- =?us-ascii?Q?1tGXfuaZoFBJghP1/BDhxGYXCmE+yP0I31dpGqcmwnjoQcrhdBfjvKP/xea+?=
- =?us-ascii?Q?3ohDKdy61JzySsfHb7YcrZqSE4V8e8RdAro5B1fHWXq/LDp2NMt2o7NPNrm6?=
- =?us-ascii?Q?KIBMyju+NgS4iLTm0O7UYC6szCkWWwwfSgY/UM2ADCSYtzcjcyclCi3GsOaw?=
- =?us-ascii?Q?/qcu7qz3fWzTCjHXOu2xGOMMYVZSWipe0x9KUT1HyHEsxByPPOV1X/pnyxJk?=
- =?us-ascii?Q?jAqEYrJehnySbpyImF8JRJ70zg80ng5G5AeL1pilvvcv2Kz7zXjdaHbU54GS?=
- =?us-ascii?Q?MI5mgaNlhfwr5gKRiH7HytYLojGj/6Op9q7uGPsHe1frjByf666bs9DUezHG?=
- =?us-ascii?Q?VDwMf4fd5usxcaVWnVDpUHvz1cDCRvMdMsv725yCE6/v/pWpidWAecDaE3qT?=
- =?us-ascii?Q?oGPrlGDm0VWnb/Uu1T2Du3YHe++jE1s9z3LYUQ6q4/btf8cNAlhL3wHIJIqI?=
- =?us-ascii?Q?HbIoIXaxlZF+7RQvrfpwVSU91nja3g9LSRackrf6n8zuJ72414olwK4I7nNG?=
- =?us-ascii?Q?5T0na+OPGm4FKrxj9wGDhzbeHB0D6s9j9UdEJzGwdpkP0TR/TYILlXcR9B8H?=
- =?us-ascii?Q?fSixbxac8a4T6DmsXt6oXTqLsOqshFdl7j+90ozETzV6JJHbfY+GUecJOYDZ?=
- =?us-ascii?Q?kDHQzVPDdfvwDfVJ3Ozijb5vQB0KTg9xc0wcTAwBDuEEbKvZVffL1sSd2yo0?=
- =?us-ascii?Q?Kj8nSV4e0eoVmAr2WSvLsAggmG5DX4lzDDjDdvJV0tbh48ttQ2Urf+b93Vvk?=
- =?us-ascii?Q?vmoqWPDF/TjGOYrsiLrKxjisXMDLgdwiyjRxIMOjRFGarhwp1XUk5hK8VybH?=
- =?us-ascii?Q?Jk68vCO1DAOuGqoafJ3rUQtHn07uMjxnlYrPFR0daliMf58j1h/L0OuDRCBY?=
- =?us-ascii?Q?Ta1jrH8daMHooTNjqrzC/VLUlScDc7rhHhpVz2r3bmpcRzMFHr/4tKau9FtR?=
- =?us-ascii?Q?vwuTbsQeOUsGlPtuHmwkKySPlDXSYOpHoORkzx9DmWCT/RcloMLI0y6Wfa3z?=
- =?us-ascii?Q?faiNAb0HN+zziWTVQ5bEtQy5IFNHx8MlllqJ2NXVpBqlogNW4si2tG0vUbyy?=
- =?us-ascii?Q?ap1Yg2JEPEd/FHR8CCe3bHIrEnJObfc36VdobSP4mb77sBG8HO5Fzz7CnG1Z?=
- =?us-ascii?Q?u5rGy/mA+DvEFtd9WEGRtw+jEV0d6CWNfEGC2VSpIh6zKiNceyeSR3/cDCbL?=
- =?us-ascii?Q?M0QWQZKafqmCjnX1IDBOojxU5H5GURxoKL4gU0IU5uQtXzyuobDmDvnPZePy?=
- =?us-ascii?Q?M4jpBRBtfzUWQApMe7UvNEOtOgXnQtDXgNevheqTDIK+hBq/UiswyMulPtr9?=
- =?us-ascii?Q?sWyGoYIv6rCKMdpEhsCBatyU0Y3t74FCs2Hkje5mGWThCru3bIJF30MPDisl?=
- =?us-ascii?Q?f140Lbp5T+wYMyBKclLUkbi0KNIWX4CsK8ee+YdUbMETyEx3tNQRL239uisu?=
- =?us-ascii?Q?JPqxLQHIVsEoFgPKn09h12pmHpHEysth1BLI3XszxcuKZYCy94WQ6DFrKijO?=
- =?us-ascii?Q?C/SJzHNvu91Quu0/I241hSJgzkwg8oLEBMkRBb6PBwerCpH6poZnF50f5Ior?=
- =?us-ascii?Q?wMBgxQOjeA=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="KouNON8K"
+Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-46ad7304688so1158420fac.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:30:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1788449403; x=1789054203; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xLiFaZ2E/NhzIjkyqhk0xpKIELhAH9ZpSaji+KDMIeg=;
+        b=KouNON8KR+MtWPdB1YNPqf/YDOk/xWk+QSjARjyFno/oURjCiLi9Jr+T+UqIiTiALH
+         /INrXb1m69DDbaMSGlAPeIkjb9CwT02KPbegfs4H9FLlcMRUPfjF2/8ophoSTHjJ8EWl
+         oUQALiIWfJymm7y8i/xlFLuiTJRkaX8J5n+UDiDJ4eLhT79FX1I1dbpAtDHPyo5kn7At
+         Y1mq1AsgcANuIwuZ19OnF1Haobq9tyQDfvbTesq9OreDKQTjAbPltoAjW0jLi58q9BMy
+         +vsaOinTYjfPyf0xmLehzRWOviWp363hhjxZZ+WqbRqQkhuH1AHscy50F12unu9GBJRe
+         xq0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788449403; x=1789054203;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xLiFaZ2E/NhzIjkyqhk0xpKIELhAH9ZpSaji+KDMIeg=;
+        b=qawCrolrG7QBT0agYU6QD09Lppi3SRM4o6g48EQVup7U3Ca24uF8NArrTllnST5cQT
+         BAwDdsQN4ftb9HOWJTYwVRt02wI00lyJSgnmCQGM8YrYL/WXp1LXOlDuVfjByqW4M1YZ
+         sKwPsZsEZ8LXKCB88Fo2gpESD1+gMoMycbtcawoKCAusbO+lzoyHtPaOu9RggXflw9UT
+         2xfNFAvks/ZK1BtJRkdF9JrqAB8y4ybMG4+j6yMy6pDi1+eLHjpMZae0x9akLkDse9Q5
+         2qbVwU6NM9cKps3OFov8FPMp1jxIDdYNe4FOM8KwGnFgCdkfgeao3uaD3U4lQb0ZaF93
+         1h5A==
+X-Forwarded-Encrypted: i=1; AKwUvBxKolAJge6PCJEwvF2s2AgOdMzPmeJshqKA+eIvhC2KnqXnCBaPG1j2X5OoY7NtyQVlqIkoXhvXzVLxD0w=@vger.kernel.org
+X-Gm-Message-State: AFuF++kOLDOKY74A06p+wP/2DtB86LzjVLA/KUpABSCEb4EMKXX2GmWS
+	fT2jQ9uMdufywNb6OxyKWjCg8/w3RVW58g797+ckid9oZMCDeJqjavIujknrAYWfwKo=
+X-Gm-Gg: AYBFou3QPLUAaWNGHVTNl94QldV63PpgHOAFyY2HSG2lSLZeFL7nxVlBiCXHxYo8eR0
+	8d6rhaMogy1xZbLiknnzJ8YMws2wAgdJP4OnpucxTZpTYrPvLXF+Bv26OmfhoKRgycGk/e+vXTk
+	FHxVr6avpVVLjYfCtLzU6MbrAFp4CaHC2mX8caYsNE6fmQsIz+g0QORU4kWgvWQV6HmMJFPFdcE
+	MK+6Zc9K8TQEwlcear3c0uAY/IKabFDXbSo/o3sKg7G/QC8t0U5xYz1nwIoWM8TNsdvhXeJKJ0l
+	jOZuVjPkfsmsB9VZIyNe0aFDofRAvsW5doHlG44gL1PGwmgguxF3d2Je/YssRv9D+wIuu8auWwr
+	/t70Moj2wtR1uhJ+mK85gln6PCA48hjnj8/hCZ2COfTfbi/lHTR/18dDg6i6cNmStDohM/trRR1
+	z4rTC9mbQxOkmRI0A6qdZztZGxVYGcrVXscuUyjFdGaYJAexglnG6ENCl8INDPcXCV26VYOb1nF
+	ssXO9HHDpaPTBGcRQW6mMJUibW1uyRe84aeTH9O+5C1VPA=
+X-Received: by 2002:a05:6820:810:b0:6b1:aa44:fc27 with SMTP id 006d021491bc7-6b5ef34b541mr1496418eaf.5.1788449402980;
+        Thu, 03 Sep 2026 08:30:02 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:e24:471f:c835:8147? ([2600:8803:e7e4:500:e24:471f:c835:8147])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b6dbedc38bsm137817eaf.4.2026.09.03.08.30.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 08:30:02 -0700 (PDT)
+Message-ID: <61d64649-603d-4a55-a789-babe655a2de8@baylibre.com>
+Date: Thu, 3 Sep 2026 10:30:01 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: AH78OE1loruQifwVU7HSYLlR7CpXaAZ7FvN0TwsSbjniK5dCS81PmtAkayRTbPYBIV6Qy84+amdh/h7V8NLlfEsNU1v2VPLu5WxbPyv/AeN+HjiAN3pU9jScHlcS7BVUnn/vWiunKIDxGKroaDzNYju1Acyvarz3oVByFC0npgVf+uAzk9K+klIMdIstFwq1zegN9JSm4QQYhI8/lmNYWx7uYu665DDROHk32UOtiqRQyFsg6WJLsHH/h16GkuJCKNLYB3PwzmCRW7OtGdKkjetXOxvgCzbySEVcj9EEW40/R8ZaQuQOklXOWo75D/JNoMjdKLid+atxZNJIS9zJSw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR11MB6864.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b177e2a-e690-446a-76f2-08df09d028dd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Sep 2026 15:29:35.2827
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +ZADZKD5Z4ryszZnKSgtyj9US7z3ggYK7b8kH5uuxwxbehVzYAKxAS7hg42r5mHGSSGZcvc0l6UPOXmKa+Qm3HTl9iV3jcAjpdxrxx1jXus=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB7910
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: iio: adc: ti,ads1015: Add label
+ property
+To: Flaviu Nistor <flaviu.nistor@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ Nuno Sa <nuno.sa@analog.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Daniel Baluta <daniel.baluta@nxp.com>,
+ Antoniu Miclaus <antoniu.miclaus@analog.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org
+References: <60dc58c6-dfe2-4377-9a73-f65cda56179c@baylibre.com>
+ <20260903151939.5117-1-flaviu.nistor@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260903151939.5117-1-flaviu.nistor@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-> -----Original Message-----
-> From: Yury Norov <ynorov@nvidia.com>
-> Sent: Thursday, September 3, 2026 3:21 PM
-> To: Nguyen, Anthony L <anthony.l.nguyen@intel.com>; Kitszel, Przemyslaw
-> <przemyslaw.kitszel@intel.com>; Andrew Lunn <andrew+netdev@lunn.ch>;
-> David S. Miller <davem@davemloft.net>; Eric Dumazet
-> <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
-> <pabeni@redhat.com>; intel-wired-lan@lists.osuosl.org;
-> netdev@vger.kernel.org; open list <linux-kernel@vger.kernel.org>
-> Cc: Yury Norov <ynorov@nvidia.com>
-> Subject: [PATCH 2/2] ice: drop pf =3D=3D NULL check in ice_pf_state_is_no=
-minal()
->=20
-> The function has 3 callers, all except one explicitly require pf !=3D NUL=
-L. Add the
-> corresponding check to the remaining caller, and remove it from the
-> ice_pf_state_is_nominal(). It makse the fun function a one-liner.
->=20
-> Signed-off-by: Yury Norov <ynorov@nvidia.com>
-> ---
->  drivers/net/ethernet/intel/ice/ice_lib.c  | 3 ---
-> drivers/net/ethernet/intel/ice/ice_main.c | 2 +-
->  2 files changed, 1 insertion(+), 4 deletions(-)
->=20
-> diff --git a/drivers/net/ethernet/intel/ice/ice_lib.c
-> b/drivers/net/ethernet/intel/ice/ice_lib.c
-> index 73996e3022ef..6d5b8acc4764 100644
-> --- a/drivers/net/ethernet/intel/ice/ice_lib.c
-> +++ b/drivers/net/ethernet/intel/ice/ice_lib.c
-> @@ -1705,9 +1705,6 @@ static void ice_vsi_set_rss_flow_fld(struct ice_vsi
-> *vsi)
->   */
->  bool ice_pf_state_is_nominal(struct ice_pf *pf)  {
-> -	if (!pf)
-> -		return false;
-> -
->  	return bitmap_empty(pf->state, ICE_STATE_NOMINAL_CHECK_BITS);
-> }
->=20
-> diff --git a/drivers/net/ethernet/intel/ice/ice_main.c
-> b/drivers/net/ethernet/intel/ice/ice_main.c
-> index d88835482d3a..168d85f9477f 100644
-> --- a/drivers/net/ethernet/intel/ice/ice_main.c
-> +++ b/drivers/net/ethernet/intel/ice/ice_main.c
-> @@ -5521,7 +5521,7 @@ static int ice_suspend(struct device *dev)
->=20
->  	pf =3D pci_get_drvdata(pdev);
->=20
-> -	if (!ice_pf_state_is_nominal(pf)) {
-> +	if (!pf || !ice_pf_state_is_nominal(pf)) {
->  		dev_err(dev, "Device is not ready, no need to suspend it\n");
->  		return -EBUSY;
->  	}
-> --
-> 2.53.0
+On 9/3/26 10:19 AM, Flaviu Nistor wrote:
+> On Wed, Sep 2, 2026 at 9:31 PM, David Lechner wrote:
+>> On 9/2/26 12:22 PM, Flaviu Nistor wrote:
+>>> Add support for an optional label property per channel similar to other adc
+>>> chips. This allows assigning distinct names for each channel which can
+>>> match the schematic signal name.
+>>>
+>>> Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
+>>> ---
+>>>  Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml | 6 ++++++
+>>>  1 file changed, 6 insertions(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml
+>>> index 718f633c6e04..777a75c21d7f 100644
+>>> --- a/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml
+>>> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml
+>>> @@ -66,6 +66,11 @@ patternProperties:
+>>>            - minimum: 0
+>>>              maximum: 7
+>>>  
+>>> +      label:
+>>> +        $ref: /schemas/types.yaml#/definitions/string
+>>> +        description:
+>>> +          A descriptive name for this channel, like "vcc_ram" or "CH3".
+>>> +
+>>
+>> Apparently this chip has quite old dt-bindings. Normally, we would have
+>> included adc.yaml to get this and other channel properties.
+>>
+>> And we would have used diff-channels and single-channel from that to
+>> describe which pins are associated with which channel rather than having
+>> a magic number for reg. And the ti,datarate looks suspicious as sampling
+>> frequency is usually we control at runtime.
+>>
+>> Anyway, none of that is really relevant to this patch. We'll see what
+>> Jonathan says about using adc.yaml here vs. adding a label property.
+>>
+> 
+> Thanks for your feedback. I can also use:
+> 
+> $ref: adc.yaml
+> unevaluatedProperties: false
+> 
+> and move additionalProperties: false at the end of patternProperties block.
 
-Reviewed-by: Sergey Temerkhanov <sergey.temerkhanov@intel.com>
+It can't have both unevaluatedProperties and additionalProperties (hopefully
+the dt_binding_check would catch that).
+
+> Any other idea?
+> 
+> Best regards,
+> Flaviu Nistor
+> 
+>>>        ti,gain:
+>>>          $ref: /schemas/types.yaml#/definitions/uint32
+>>>          minimum: 0
+>>> @@ -125,6 +130,7 @@ examples:
+>>>                  reg = <4>;
+>>>                  ti,gain = <3>;
+>>>                  ti,datarate = <5>;
+>>> +                label = "CH3";
+>>>              };
+>>>          };
+>>>      };
+
