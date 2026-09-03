@@ -1,84 +1,114 @@
-Received: from mail-m49204.qiye.163.com (mail-m49204.qiye.163.com [45.254.49.204])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB954B3379;
-	Thu,  3 Sep 2026 14:17:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C8354B2CC8
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:18:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445061; cv=none; b=Ar9RWFbmbhVSKm1EER8oBsldoHY7BzSchyXmipUym/iLZngLcMiKJgrx8eUWfOCGMQWEWD0TzDtccvBsOvHVFiisjZ8oEdXowEaUkS1JQXWQrHxYszeHIICn/ZDo5qjJ0Ir+pZQ24JG7DzSoMvZP8Tz7/xfsG8fRBTuja58Dy88=
+	t=1788445132; cv=none; b=nid/r4s5JngHEpiOssMo03kowBiPZvIHUYk2a7F35tBh+RKHWVVA00ypvNTcwSbmJVULLz4EQn9mNYLV5b9ZwNFA4hOu+ofBV+RQ8NI4JqG6Mn/f21kRZw4Nuou4igIY5/j1Htm8t1fhZtwPrYVfu2sRicNA97mJJ6HrfGLEov0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788445061; c=relaxed/simple;
-	bh=JO1y5pdutmTvqovLl+SMOHQkgHGXSiEs+j2euU0g30Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=dm+evK6KD9BB9lqHdr+Cd+RzTBTtHofUnuVnnTAVvJ79o1lDvbMqNYUUChCfL7kY5uosmp4bZl31EectDu/CzIEfBIBht/PHVMKQ6LqyWYvNzfteZHpZf2/ZIoDBpImWtzSXBCNYvunHLpomEglukWCjs4x5nobz5z0hE7cMC4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnics.com; spf=pass smtp.mailfrom=resnics.com; arc=none smtp.client-ip=45.254.49.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnics.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnics.com
-Received: from localhost.localdomain (unknown [115.220.204.6])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4c6c1495a;
-	Thu, 3 Sep 2026 19:54:51 +0800 (GMT+08:00)
-From: Ruizhe Zhou <zhouruizhe@resnics.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Frank Li <Frank.Li@kernel.org>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ruizhe Zhou <zhouruizhe@resnics.com>
-Subject: [PATCH 3/3] dmaengine: sprd: Remove obsolete 32-bit DMA mask fallback
-Date: Thu,  3 Sep 2026 19:54:41 +0800
-Message-Id: <20260903115441.912500-4-zhouruizhe@resnics.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20260903115441.912500-1-zhouruizhe@resnics.com>
-References: <20260903115441.912500-1-zhouruizhe@resnics.com>
+	s=arc-20240116; t=1788445132; c=relaxed/simple;
+	bh=Lb0Sv9j60k9cRcuQ0s/kgADg4wOv/tJaz3ryo/vRWaM=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=b4aaWupN9Wjvwt6Boe1MTAsN6t5YKJ/qgUEZxviBZuGG7ScrzWGu7Pkx2BGnLOlK95fyrCUGN1AejhhqL8fe8+IUnG7aGiV4RoMm9OfLNeBOc9BI1OugNfNqrTuv/XpqhLuGkhm4og5BrZaLd4xD4lKHf1Dt1I8AHFe65JYO2WQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gaXVR+5c; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gaXVR+5c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5E821F00ACA;
+	Thu,  3 Sep 2026 14:18:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788445125;
+	bh=h+cwkYP6l09COUwE6LeNOPyCUXGnqmwGDMQzclGBPQM=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=gaXVR+5cCOh4ZW3d6F1HMCduNDGlFxK9JaV3PLnHwo96J+S2L9syABXxSHlVSyZi+
+	 s/8N4QeUvNUHoB3SxtlzagIT1ppVUKBZhaDLYSrpA3jnvuGL8GJ0XddQIFzv9iOd38
+	 hP/NJB8Zyzlb1VQEb8LiqQST+i3A9o0+0ccxSwhUCHjothI6Fo7gmqpMKi5ggZd6Ej
+	 mYIPouVkwYYwhLM641OL/9NO/5VNXMb6wevqyUXQtrHTXrPtTI5i8tDCUKIfI2UqiR
+	 5humff4EQAT1JLExamn091DjSw8PnbJJzbTi2H9Kl/cmVY1XLup3kLAcM7qynbojul
+	 mlh4Y4RBh89Ig==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 876411980052;
+	Thu,  3 Sep 2026 10:18:43 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Thu, 03 Sep 2026 10:18:43 -0400
+X-ME-Sender: <xms:wYGZavwFIG8hyvoz3AS9HE5hUNNLAAbSIb55qP8WoOoh7u86shbN3g>
+    <xme:wYGZaiHI4f0jLcDg26_PJcEfeofAinsFN9ZbQik1EMog-tkj5k8mbF14mF_75aJFC
+    hQVVrr-jEz5P6FWCikteuW3d8W6_2t16lK46TozGnTFWK4BGfy0GweB>
+X-ME-Proxy-Cause: dmFkZTFJJgOg0lpliFrBucK2YjdINdfA+pdBd/bwWV3nCrK3y9sk2Nt1UgXhh+MMo9hhx6
+    FJhES3wAAjk/XtbUK7M864xV1UKVeFDouC9acH7fVkZ5/4wcsC9TN5y6jnRAVTrqXl4Jz6
+    pfUcdKGlFbTCFRX+bt5dvUmHZLCd5MRBcAPky8DQ51jl5wntsKA4CZH2cPjAhMMDE+99cl
+    K4bnEn+08nT/Ixygd7JMj4RT/fAajL5F0BPVyba/QSo19v40KMwqJysnN8bNCjzH7IucWa
+    qOVw9nDWbvVXiwTmzUeFmuelAQmFagh8+UphV4b40bmk2QGX/PNyqkN/cfKZ841Nb5ddaQ
+    b7V22afHAtoglULx6Spu7e8fa59iT8OsOTHOA1Iel0AUdBxNmUjHfx7L5bTVv2/PSG9TAx
+    PnmADPorXvCiwahN0L1j2afEp1hm/KuW6eJIAQtPBqiWoWM19gyvlGS7A7LCVLLQicVpnq
+    5ih3Afcr4ACHNSB5eZHStQeB1saN+T0Lqg3bYqpXguB0V55ORkSyd0vgmMvHxScb74zlT0
+    jzKDaSFk18yq0MJ8hWvcxkiYBg+CZXHR/kZLTSFhYT+6P5g0SVzCniO0G50a7OCbS60LhV
+    fmEhUoO5lQLOEKHDwXfczKnXQikNPUKwkwbB3dRosbFUn5UXrpqaKFbVwHVQ
+X-ME-Proxy: <xmx:w4GZaiinmz2NBdK1Q5YRwUYvJnssMqAqNwDB3I2EdbuS8yvocwngPg>
+    <xmx:w4GZaln8Bw-UVGuFnw_bRJRNiQ8h25zqcmti3Ri3C9OMt2b9dT8Wkg>
+    <xmx:w4GZats8SOo6kg3JZgu_tOxIu0VEEtK2_CxpaOSNmy6FKBWXlSrqyQ>
+    <xmx:w4GZarZg37iH4TnBV8AMMtFRA0lakkL9rfn8tFz8nVGXzjG1U0fNbw>
+    <xmx:w4GZalDhR-UoMRqwEq2SlkZvMgWAlKrg2hj99SPVwcWovwc0skEapjRp>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 957C7F8007A; Thu,  3 Sep 2026 10:18:41 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0671f2e7e03ackunma38d057f6ea6d
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGk5PVhgZHx1PQx9ISENJTFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKSk5VSUlLVUlLT1VNWVdZFhoPEhUdFFlBWU9LSFVKS0
-	lPT09IVUpLS1VKQktLWQY+
+Date: Thu, 03 Sep 2026 16:18:21 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Jasmeet (Jazz) Bhatia" <jasmeet.bhatia.us@gmail.com>
+Cc: "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, "Pavel Machek" <pavel@ucw.cz>,
+ linux-efi@vger.kernel.org, linux-pm@vger.kernel.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <a9e23066-aa75-44be-ac3b-9a15f4cf6047@app.fastmail.com>
+In-Reply-To: <cover.1788259938.git.jasmeet.bhatia.us@gmail.com>
+References: <cover.1788259938.git.jasmeet.bhatia.us@gmail.com>
+Subject: Re: [PATCH v1 0/2] efi/tpm: Preserve event log without changing x86 E820
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-The DMA API guarantees support for masks of 32 bits or wider and
-explicitly identifies retrying a 32-bit mask after a wider request as
-incorrect:
-https://docs.kernel.org/core-api/dma-api-howto.html#dma-addressing-capabilities
+Hi Jazz,
 
-Remove the obsolete fallback while retaining the error check so that a
-genuine DMA setup failure is still reported and aborts initialization.
+On Tue, 1 Sep 2026, at 13:34, Jasmeet (Jazz) Bhatia wrote:
+> The EFI stub currently allocates the TPM event log as
+> EFI_ACPI_RECLAIM_MEMORY. On x86, this becomes an ACPI data entry
+> in the E820 map.
+>
+> On a Framework Laptop 16 (AMD Ryzen AI 300 Series), the EFI allocator
+> can place this allocation at different physical addresses across boots.
+> Since x86 hibernation validates architecture-specific data from
+> the firmware E820 map, this causes an otherwise valid hibernation image
+> to be rejected on resume with the following error:
+>
+>   Hibernate inconsistent memory map detected!
+>   PM: hibernation: Image mismatch: architecture specific data
+>
+> Allocating the event log as EFI_LOADER_DATA avoids changing the E820
+> map, but doing that alone would regress the kexec corruption issue fixed
+> by commit 77d48d39e991 ("efistub/tpm: Use ACPI reclaim memory for event
+> log to avoid corruption").
+>
 
-Signed-off-by: Ruizhe Zhou <zhouruizhe@resnics.com>
----
- drivers/dma/sprd-dma.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+As I replied in the other thread, I am not convinced preserving the TPM
+event log across a kexec makes sense to begin with. This is the firmware's
+view of the state of the TPM PCRs when it handed over the system to the
+first OS.
 
-diff --git a/drivers/dma/sprd-dma.c b/drivers/dma/sprd-dma.c
-index 087fea3af2e4..b9f705dd80e5 100644
---- a/drivers/dma/sprd-dma.c
-+++ b/drivers/dma/sprd-dma.c
-@@ -1117,11 +1117,8 @@ static int sprd_dma_probe(struct platform_device *pdev)
- 
- 	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(36));
- 	if (ret) {
--		ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
--		if (ret) {
--			dev_err(&pdev->dev, "unable to set coherent mask to 32\n");
--			return ret;
--		}
-+		dev_err(&pdev->dev, "unable to set 36-bit DMA mask\n");
-+		return ret;
- 	}
- 
- 	/* Parse new and deprecated dma-channels properties */
--- 
-2.27.0
+If the first OS boots, loads a kexec kernel and then boots it without
+measuring any of that into the TPM, the TPM event log will match the
+TPM state, but this is meaningless because of the missing measurements,
+and the attestation chain is broken.
 
+If the first OS does perform TPM measurements, it would need to record
+them into a log and pass that on to the kexec'ed in some implementation
+specific way - it cannot use the existing TPM event log for that.
+
+TL;DR perhaps we should just discard the TPM event log reference from
+the EFI config tables after consuming it. Or add a special case to the
+kexec code to disregard it.
