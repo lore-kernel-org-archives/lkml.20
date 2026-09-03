@@ -1,150 +1,107 @@
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86BF934D384
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:48:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0ECE36A008;
+	Thu,  3 Sep 2026 06:49:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788418133; cv=none; b=ZTtC6KdfwSymTLiynMCo1Ovfnalgx5R0CYo6/Qdz6tgpW40HledhNb5E2924RwKDSF/ijNiOpphixLE5oToM3/fmA1DuYZlr8EENw3rE2HE3E2vZbDo1eBWJJLZ5zh1HNBbzG0xa0Wv42U8EyUp2ybl95A5Lfc2Qg5yr/5zSMDk=
+	t=1788418154; cv=none; b=AWi1vrtiPbx77gtrVCOn8vWrlkjm7ka4i51s1MPXmOCINR/rFsgBb7dc8huICk/vMEvQnBlCe+lP81hpm7vtSrPJj5U5gtu7XU+q36dvQg3TtTjmmDUWzNA+2d1HnfayRgFPcAS1E9gI6m/QmxAZmpWKwPd354iuP1UDukf6YMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788418133; c=relaxed/simple;
-	bh=ozWeUu07+rRSsL9Z/I1s9i3gdiN5NEabBfpX1MwRDeQ=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=SaDYYTqDldvV+79GJBG56/pHp9t3jGCqUP7/tvxwEPPlsX+jysD1G7G+5T6ksVCjTz3CW4lF+KlKEe7YuHk1RyytEQXYoLcEAErcyczDiLc0dFN7S5w0M27I/YIr1x+mbQ2WKWITStrxHwfSb0yj0563Ultcl9QQS6Kk2Amun2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-7eb6a8c61deso1426590a34.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 23:48:52 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788418131; x=1789022931;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Gfy9Abt4a8wpGKWqanZvV2uiaSDAzCm5cJZvierLkFI=;
-        b=r/xS0CGCoVu7XDAqIKE4Zcj9GsqAhKA2WVSPtdcrwUsFvI/8q5EyVZNSGx7w3nO9pu
-         d9I41h2m9L35lHl8CowesppRiNaTQkHGC9rCzVM1Gv9ljzkU35wonHaC9PbAgu0jesxo
-         TPujLYA+CcZvqkaaXM98fWvxFzG8PNl8fhysfUZMRRa/qhZcwVKWxxmiPhgtryMbL0NW
-         uY5YiOg5e8nMrIHsaHADf0qESvO1yNmDk9+ekbQbMvmFXTHpFU1CXAH6fggAYwJH63nL
-         hr7qXAEUTmB1w10NiMohJPoflodqhkZDGs8GV3VS5vLl4C/bdHsR3wHzlK/AhtaORxWz
-         u/yg==
-X-Gm-Message-State: AFuF++kFy+yE4hH7hgdihmrZiWPJJjKF5OcwCnXmKVSvBTqT+Nq82h6/
-	Rovh1ZLfHV957bdITYr2qppyWOeVzyYD7nYckYFoFLVc51zh92OYnVebegTN+zGXcYlltanH5Q2
-	jtF6lckm3w2QwQj10gfGdJyKH5WVkl3QYUWzVF8ZO101d7jGGSWa5IuZDorA=
+	s=arc-20240116; t=1788418154; c=relaxed/simple;
+	bh=6xnMMLfsVxc7WnsEWz1hGVwcZmIPai/otpTglS+zVKU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iMsiVv9GJIoVBeEdiu/Ze+cCSpaSL1rX3qAR45v22MGbIwclsS2rsMUjWwPCc3p9lENJN1+uwaXVuZuPCs6grnXaDvoTtJq3XOIAchPBsjdg5mdVCT8neBb8HKoVzdDyeN1uSrxKHgqfCJXzGX++CQ2HHhI2Cfl/r0qiI1xTZqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 8c9f3f64a76311f19a56ed5b684f684d-20260903
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CHARSET
+	HR_CHARSET_NUM, HR_CTE_8B, HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD
+	HR_DATE_ZONE, HR_FROM_NAME, HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN
+	HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS
+	HR_TO_CHARSET, HR_TO_CHARSET_NUM, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NAME
+	IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED, SA_EXISTED
+	SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_GOOD
+	CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD
+	ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:1e3b3cf3-5d1a-4273-ade3-fe79fbf4ce55,IP:10,
+	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:10
+X-CID-INFO: VERSION:1.3.19,REQID:1e3b3cf3-5d1a-4273-ade3-fe79fbf4ce55,IP:10,UR
+	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+	elease,TS:10
+X-CID-META: VersionHash:7db8b62,CLOUDID:f6857fe78b674252f7a60b75cd8ebc38,BulkI
+	D:260903144905T21CXXHH,BulkQuantity:0,SF:10|38|66|78|81|82|102|127|865|898
+	,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil
+	,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 8c9f3f64a76311f19a56ed5b684f684d-20260903
+X-User: sunshaojie@kylinos.cn
+Received: from sunshaojie-pc [(223.70.159.239)] by mailgw.kylinos.cn
+	(envelope-from <sunshaojie@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1319152534; Thu, 03 Sep 2026 14:49:02 +0800
+From: Shaojie Sun <sunshaojie@kylinos.cn>
+To: Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Jan Kara <jack@suse.cz>,
+	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
+	cgroups@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shaojie Sun <sunshaojie@kylinos.cn>
+Subject: [PATCH v2 0/3] drop BUG_ON() NULL checks in namespace copy helpers
+Date: Thu,  3 Sep 2026 14:48:25 +0800
+Message-ID: <20260903064828.126643-1-sunshaojie@kylinos.cn>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <aphwXq5bEQwKhqx2@localhost.localdomain>
+References: <aphwXq5bEQwKhqx2@localhost.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1992:b0:6a3:8738:4106 with SMTP id
- 006d021491bc7-6b48193dfbfmr8146757eaf.26.1788418131508; Wed, 02 Sep 2026
- 23:48:51 -0700 (PDT)
-Date: Wed, 02 Sep 2026 23:48:51 -0700
-In-Reply-To: <6a85e576.f7a79266.2f965f.003f.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a991853.27a413cd.1e878c.0015.GAE@google.com>
-Subject: Forwarded: Re: [PATCH] usb: core: fix GPF on disconnect when
- interface claimed before registration
-From: syzbot <syzbot+87188222c77c0dbbdb4d@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+v2:
+- Reworked into a 3-patch series that simply drops the BUG_ON()s
+  instead of replacing them with WARN_ON_ONCE() + error return,
+  following the discussion with Tejun. Now also covers copy_utsname()
+  and copy_mnt_ns() so that all copy_*_ns() helpers behave
+  consistently.
 
-***
+The copy_*_ns() helpers are inconsistent in how they handle a NULL
+namespace pointer. copy_mnt_ns(), copy_utsname() and copy_cgroup_ns()
+have a BUG_ON() on the pointer, while copy_time_ns(), copy_pid_ns(),
+copy_ipcs() and copy_net_ns() don't check it at all.
 
-Subject: Re: [PATCH] usb: core: fix GPF on disconnect when interface claimed before registration
-Author: khiemtranzo532001@gmail.com
+The sole caller, create_new_namespaces(), always passes the
+corresponding namespace pointer from the task's nsproxy, so the checks
+can never trigger and the helpers dereference the pointer right away
+anyway.
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-master
+Drop the BUG_ON()s so that all copy_*_ns() helpers behave consistently.
+The maintainers of the respective subsystems are on Cc.
 
-diff --git a/drivers/usb/core/driver.c b/drivers/usb/core/driver.c
-index f63004417..59e74872b 100644
---- a/drivers/usb/core/driver.c
-+++ b/drivers/usb/core/driver.c
-@@ -562,7 +562,6 @@ int usb_driver_claim_interface(struct usb_driver
-*driver,
-        if (!iface->authorized)
-                return -ENODEV;
+Shaojie Sun (3):
+  cgroup: namespace: drop BUG_ON() in copy_cgroup_ns()
+  uts: drop BUG_ON() in copy_utsname()
+  fs: namespace: drop BUG_ON() in copy_mnt_ns()
 
--       dev->driver = &driver->driver;
-        usb_set_intfdata(iface, data);
-        iface->needs_binding = 0;
+ fs/namespace.c            | 2 --
+ kernel/cgroup/namespace.c | 2 --
+ kernel/utsname.c          | 1 -
+ 3 files changed, 5 deletions(-)
 
-@@ -580,11 +579,19 @@ int usb_driver_claim_interface(struct usb_driver
-*driver,
-        else
-                pm_runtime_set_active(dev);
+-- 
+2.50.1
 
--       /* if interface was already added, bind now; else let
--        * the future device_add() bind it, bypassing probe()
--        */
--       if (device_is_registered(dev))
-+       if (device_is_registered(dev)) {
-+               dev->driver = &driver->driver;
-                retval = device_bind_driver(dev);
-+       } else {
-+               /*
-+                * Interface not yet registered: record the claim without
-+                * setting dev->driver.  usb_set_configuration() will call
-+                * device_bind_driver() explicitly after device_add(), which
-+                * skips ->probe() and attaches knode_driver so teardown is
-safe.
-+                */
-+               iface->claimed = 1;
-+               iface->claimed_driver = driver;
-+       }
-
-        if (retval) {
-                dev->driver = NULL;
-diff --git a/drivers/usb/core/message.c b/drivers/usb/core/message.c
-index 75e2bfd74..73c630750 100644
---- a/drivers/usb/core/message.c
-+++ b/drivers/usb/core/message.c
-@@ -2269,8 +2269,23 @@ int usb_set_configuration(struct usb_device *dev,
-int configuration)
-                if (ret != 0) {
-                        dev_err(&dev->dev, "device_add(%s) --> %d\n",
-                                dev_name(&intf->dev), ret);
-+                       intf->claimed = 0;
-+                       intf->claimed_driver = NULL;
-                        continue;
-                }
-+               if (intf->claimed) {
-+                       intf->dev.driver = &intf->claimed_driver->driver;
-+                       ret = device_bind_driver(&intf->dev);
-+                       if (ret) {
-+                               dev_err(&dev->dev,
-+                                       "device_bind_driver(%s) --> %d\n",
-+                                       dev_name(&intf->dev), ret);
-+                               intf->dev.driver = NULL;
-+                               intf->condition = USB_INTERFACE_UNBOUND;
-+                       }
-+                       intf->claimed = 0;
-+                       intf->claimed_driver = NULL;
-+               }
-                create_intf_ep_devs(intf);
-        }
-
-diff --git a/include/linux/usb.h b/include/linux/usb.h
-index 1da4ad161..0ec743e76 100644
---- a/include/linux/usb.h
-+++ b/include/linux/usb.h
-@@ -266,6 +266,8 @@ struct usb_interface {
-        unsigned needs_binding:1;       /* needs delayed unbind/rebind */
-        unsigned resetting_device:1;    /* true: bandwidth alloc after
-reset */
-        unsigned authorized:1;          /* used for interface authorization
-*/
-+       unsigned claimed:1;             /* driver claimed before
-device_add() */
-+       struct usb_driver *claimed_driver;      /* driver for deferred bind
-*/
-        enum usb_wireless_status wireless_status;
-        struct work_struct wireless_status_work;
---
-2.34.1
