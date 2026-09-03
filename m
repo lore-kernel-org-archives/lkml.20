@@ -1,401 +1,114 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B132A4EBAF4
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 17:07:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA024F4759
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 17:08:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788455275; cv=none; b=MBiASqguUU+Ez/lMuz4Cn140MkC59W4qBMURUttiFxs5/K9vPBl2y1aOVn3yDNOtMGcutcJIUBoZJK/S83tk5NmJHMQHM8RcgBSCWEmtH6P5SIH4TBVr0iTsIuyN1U9d5DbPNp3jDk1hqOSC+az3/t0kte0QKe0wbMQ43SkeDkM=
+	t=1788455288; cv=none; b=qKkMXhC9Q9PMPtSI3W5ndDYQyHs1ZR1PrVaynakTObx6DtGjDzgA5m5KnfjysVtAYbS9ZdwoDpdLvuCVnvWzZ7bhin9OBeDf0Pe2X1UiFKpyLAZbBGj5mOKpAyaPAzCnThj4L53fje34sR+p50SbOytfpUV8/ZIufybMq2/F5Wg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788455275; c=relaxed/simple;
-	bh=1mAusGE2WjZjp2lU0prL79NM/ZtzNKAJZRVPuIeOUmE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fE8gWraxEB2r/RcWweWds1KNq379tjYzlS0XDRmPwGxWHG2gMhDzoend7UZB+XmO/TYdLAZ7Imbdz0ankYTiKs5VUV5C7uVlgrne7FUtGFc9LgWauD6KT1pqpV+eCf1ZgFpKFbAjBey8bMLTPAC7XWvRHOyx9gok66v0+f1urII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FHDldI3Z; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788455288; c=relaxed/simple;
+	bh=8lvDWbK+uMGm7vhd8Ln53UrwdC+utMFwdIt6V9HHNHs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=VH8Nl5+RDwh9GJ3tBCdkdspOa10T4Y18ALzcJyhOMnK197Gm3jbLhfASeRWHIXkLXjgv9GfsMpvhHdtVDdDoMm1OlHwYazRR4FdIBWp+mG1SXyYom9+BztV/q0ZLlhtt49hxUpMRMnYiyp57LJJPahLutQZsEJDBOPbhBg4f/CY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g1PPcJaD; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FHDldI3Z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788455271;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=s+EZtMHgeGqsFph8/8MM9BHrlRmIxU3w55YSmxrBHfs=;
-	b=FHDldI3ZIrTSuP0yLl2UDPKMWY2x5w28/Ia2fJD2E9VtrCTkDLaAkBny3bmHhHVBatN17t
-	WsR9WEB0y138OVkiaPZAFSycJQJBZyixdJU5tVtHaS3xBQM4iUY/k/lx+/voQ7DAgfGykt
-	k/SeklYpdH0NyMjKY9GXTw6899Fy7sc=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-5-2BKyY_5PNFaO6Zd2PaDL9g-1; Thu,
- 03 Sep 2026 13:07:46 -0400
-X-MC-Unique: 2BKyY_5PNFaO6Zd2PaDL9g-1
-X-Mimecast-MFC-AGG-ID: 2BKyY_5PNFaO6Zd2PaDL9g_1788455265
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DED3119792DD;
-	Thu,  3 Sep 2026 17:07:44 +0000 (UTC)
-Received: from gerbillo.redhat.com (unknown [10.44.32.4])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 194701800643;
-	Thu,  3 Sep 2026 17:07:42 +0000 (UTC)
-From: Paolo Abeni <pabeni@redhat.com>
-To: torvalds@linux-foundation.org
-Cc: kuba@kernel.org,
-	davem@davemloft.net,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL] Networking for v7.3-rc2
-Date: Thu,  3 Sep 2026 19:07:35 +0200
-Message-ID: <20260903170735.107840-1-pabeni@redhat.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g1PPcJaD"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49b8eeb3ff2so900015e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 10:08:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788455285; x=1789060085; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ldFa7oMAa77O6P3elMvA8a20lvnsyT7s/QBQvG18bbc=;
+        b=g1PPcJaDEBREL+qGdYQ8DUYK8wafsjVgqpimYaJ4gdAqEcl7PSHPq5gW7vfIEC+jj/
+         t244kWJjpq5gLBe/IWo9EAVKI5KEehp5UOknr3ynNK8RpeotUGOePtJdUeOcOhUd2IuF
+         76UKHcebPNlQv8ZyUieX2JPD7Av4ISGeNiHRpq0A7P+XmcKNo5LmX93wcrNdA7UpB75M
+         An48gFPOZrWt5aVZf+r0+0qjDystuNpW+6ZNAgiW7tvOYzcO59JcMsFAels31hY/JxWo
+         BLDnSA8OPS0tiqklwEWgFNjmba2YpNvVeCueD2+G0HeHPerCHQ+NHbjxTXTRTP0H5oCT
+         PW4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788455285; x=1789060085;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ldFa7oMAa77O6P3elMvA8a20lvnsyT7s/QBQvG18bbc=;
+        b=RQGlShxn66CnntjZY7ssoHtDPdlDHUckelbf3x8olLN98TW7d7YJchoe5KtNz6rFsS
+         nz8aWB/jfFyF4XKn0dnyoTjIKmH+7IpT2qpOlg665awsGOL0XCLO+acHUO/lVvd7BRah
+         ENtmV0EjDsgp8regIIUJ/PpPwT3fGhlspt9fV6XoJPk9fpYdVE3AezRV8nwUcbm+BwCb
+         KUi7GOz2+Xs8umejm6OKXHsjIFA9eh0PIaH7pMPyqQQe3tW3VgmKfHj9mWAqCHt4101m
+         Kvj3yuV0gWAcJvDWFKRpFSAdZk6uGsXwi+VFer6IgN5LAmsEj5Yf7o5NcTqZpk5VhAtU
+         SQCg==
+X-Forwarded-Encrypted: i=1; AKwUvBzllTkJ7cGP6jMAbt4y75wChYnCpNnwYjry+jyLs1Pw216wg97ptIHC3sXGoYPFFav4/xH2fLR6JLezizY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mcXopBc/mLsdkBIuxhsa4nLvhqU7xqGyZAs/uN89hPAUvt4VPv
+	PYam2EJkbt+yK8ujViXuqN6hellTIQArrfnzmh3X45AHYyHoVjmNaFbf
+X-Gm-Gg: AYBFou3duLHWfTGJRfRrxOszwIPJMmieHtiyS1IaOFNA/d/3fdiBmuTCNJcDDi1r8Bh
+	ytCaRpy8UPU5dJQEnxk4fKs1NWM9Lv+unXY1mX72B193m1r58cZUhA6XCCKUouy40WddeZZO03d
+	reMfBzfITrWwc3onyCkyYOm5fXMwl8ILaHjeuG3FBy2WRTRDq0+c3OlktgNMEX1x5/2YMwIxkjj
+	rye43yDgFKWmUVYaJMX2tHh9bhr+FnL7Ci8SRLpWym3NJITAwx+dP2PwjHk7H7pkOFgoax1z64I
+	v30oE9ww77TVdOzsgFvRKCebXTtPwh/vEuND5dSeOd+myjfoTM2yMkWmfr1R7OV7wJbK7T3DG95
+	Xmx040Qv4f36oXx+WP7rGhpajLeutlj10lTOj7+Ax0ra9lSvlHcMoUgQXlTaoL6SFxPETzgUTxt
+	84N1SLHeUURpJ5l9/pL6GAR0ebStAjUDv63XhOQrIYwOotv9t7xftK4bpaq4WL73tyk7KBjkWfT
+	boSgX1i+BClggDq42rnxxkw5ISd3OzmLZgijHxxS9XIE/3BWTpFnRH0piq+d/PRCunuq7vmxkYe
+	wtYDIqqiReE3RbngVobISjTzUKmOPgRJVFSwPKTODsgagUsTQA==
+X-Received: by 2002:a05:600c:698d:b0:49c:f4e1:4c2d with SMTP id 5b1f17b1804b1-49cf4e14cb9mr86335745e9.16.1788455284516;
+        Thu, 03 Sep 2026 10:08:04 -0700 (PDT)
+Received: from [127.0.1.1] (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5533ffbsm107799565e9.3.2026.09.03.10.08.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 10:08:04 -0700 (PDT)
+From: Franz Schnyder <fra.schnyder@gmail.com>
+Subject: [PATCH 0/2] arm64: dts: freescale: imx95: Add ENETC port 2 in
+ SGMII mode on Toradex boards
+Date: Thu, 03 Sep 2026 19:08:00 +0200
+Message-Id: <20260903-add-enetc-port2-v1-0-2a21139d7a7c@toradex.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
-
-Hi Linus!
-
-The following changes since commit 1b78070aaef63512688aebfbc82365ef9d6660f1:
-
-  Merge tag 'net-7.3-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net (2026-08-27 13:53:43 -0700)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git tags/net-7.3-rc2
-
-for you to fetch changes up to 66817a9794263cd2a5dc4e99bf8e5fcc5ff7181e:
-
-  net: gro: Fix nesting of TCP GSO SKBs in skb_gro_receive_list() (2026-09-03 12:20:38 +0200)
-
-----------------------------------------------------------------
-Including fixes from bluetooth.
-
-Previous releases - regressions:
-
-  - page_pool: keep frag_offset aligned for odd-sized requests
-
-  - sched: fix u32 duplicate handle when node ID pool is exhausted
-
-  - udp: create exceptions before socket matching
-
-  - igmp: convert struct ip_sf_list to RCU
-
-  - ip6_gre: check tunnel info before xmit in ip6gre_tunnel_xmit
-
-  - rds: acquire the fastpath locks in rds_conn_shutdown()
-
-  - tipc:
-    - protect node reset trace dump with node lock
-    - fix NULL deref in tipc_named_node_up() on empty publication list
-
-  - bluetooth:
-      L2CAP: fix out-of-bounds write in l2cap_ecred_connect
-      hci_core: fix race condition during device registration
-
-  - eth: mlx5e: prevent stale XSK buffer release on refill retries
-
-  - eth: bridge: don't truncate the port group walk on teardown
-
-Previous releases - always broken:
-
-  - gro: fix nesting of TCP GSO SKBs in skb_gro_receive_list()
-
-  - sched: fix skb sizing and action leak on reoffload delete
-
-  - tcp: fix use-after-free in do_tcp_getsockopt()
-
-  - af_packet: don't cast tpacket_hdr.tp_len to int in tpacket_parse_header().
-
-  - sctp: fix soft lockup from unpadded ASCONF-ACK parameter iteration
-
-  - iptunnel: fix stale transport header during tunnel decapsulation
-
-  - eth: vxlan: fix use-after-free in vxlan_mdb_remote_src_del()
-
-  - eth: bonding: fix uninitialized transport header access in alb_determine_nd()
-
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-
-----------------------------------------------------------------
-Aleksandr Nogikh (1):
-      Bluetooth: hci_core: Fix race condition during device registration
-
-Allison Henderson (5):
-      net/rds: use wq_has_sleeper() in release_in_xmit()
-      net/rds: use clear_bit_unlock() in release_refill()
-      net/rds: clear cp_flags bits individually in rds_conn_path_reset()
-      net/rds: acquire RDS_IN_XMIT in rds_tcp_reset_callbacks()
-      net/rds: don't let rds_conn_shutdown() consume a concurrent drop
-
-Aohan Mei (1):
-      net/sched: cls_flower: validate mask pointer after nla_next()
-
-Aswin Karuvally (1):
-      s390/ctcm: Prevent XID null dereference
-
-Baul Lee (1):
-      vxlan: mdb: Fix use-after-free in vxlan_mdb_remote_src_del()
-
-Bryam Vargas (1):
-      net/iucv: fix the recvmsg window update
-
-Cen Zhang (Microsoft Security FORGE Labs) (2):
-      tcp: fix use-after-free in do_tcp_getsockopt(TCP_CONGESTION)
-      tcp: fix use-after-free in do_tcp_getsockopt(TCP_CC_INFO)
-
-Charles Vosburgh (1):
-      sctp: validate chunk length in the inqueue parser
-
-Chengfeng Ye (1):
-      tipc: protect node reset trace dump with node lock
-
-Chris Lew (1):
-      net: qrtr: Send HELLO message on endpoint register
-
-Daehyeon Ko (2):
-      vsock/virtio: validate packet source for connected sockets
-      vsock/vmci: validate packet source for connected sockets
-
-David Laight (1):
-      tipc: Dont send random pad bytes in RESET/ACTIVATE messages
-
-Dong Chenchen (1):
-      net: iptunnel: fix stale transport header during tunnel decapsulation
-
-Eric Dumazet (13):
-      net: icmp: avoid invalid transport header access in icmp_send tracepoint
-      tcp: use GFP_ATOMIC in tcp_send_active_reset()
-      igmp: convert struct ip_sf_list to RCU
-      ipv6: mcast: fix RCU list diversion in ip6_mc_del1_src()
-      ipv6: mcast: use copy-on-write RCU updates in ip6_mc_source()
-      ipv6: mcast: fix delay calculation in igmp6_join_group()
-      ipv6: mcast: use rcu_assign_pointer() for __rcu list updates
-      ipv6: mcast: use jiffies_delta_to_clock_t() in igmp6_mc_seq_show()
-      ip6_gre: check tunnel info before xmit in ip6gre_tunnel_xmit
-      ipv6: sr: restore network header before routing and forwarding
-      net: bonding: annotate lockless writes with WRITE_ONCE()
-      bonding: alb: fix uninitialized transport header access in alb_determine_nd()
-      bonding: do not clear curr_active_slave prematurely when releasing all slaves
-
-Florian Schauer (1):
-      page_pool: keep frag_offset aligned for odd-sized requests
-
-Gerd Rausch (1):
-      net/rds: tcp: don't force RDS_CONN_RESETTING over a concurrent shutdown
-
-Gongwei Li (1):
-      Bluetooth: hci_mrvl: Fix wrong return value check of wait_on_bit_timeout()
-
-HW He (1):
-      net: gro: Fix nesting of TCP GSO SKBs in skb_gro_receive_list()
-
-Henry Martin (1):
-      sctp: fix soft lockup from unpadded ASCONF-ACK parameter iteration
-
-Håkon Bugge (1):
-      net/rds: acquire the fastpath locks in rds_conn_shutdown()
-
-Ian Lin (1):
-      net: usb: qmi_wwan: add Compal EXM-G1x support
-
-Ido Schimmel (4):
-      ipv6: Fix redirect exception creation for UDP/RAW sockets
-      ipv4: udp: Create exceptions before socket matching
-      ipv6: udp: Create exceptions before socket matching
-      selftests: net: Add exception cache tests
-
-Ilya Maximets (2):
-      netlink: specs: fix the conntrack filter type
-      netlink: specs: add missing mask attributes for conntrack dump
-
-Jakub Kicinski (10):
-      Merge branch 'netlink-specs-fixes-for-conntrack-dump-filtering'
-      Merge branch 'net-mlx5e-prevent-stale-xsk-buffer-release-on-refill-retries'
-      Merge branch 'net-sched-fix-remaining-actions-notification-accounting-issues'
-      Merge branch 'tcp-fix-use-after-free-in-do_tcp_getsockopt'
-      Merge branch 'fix-to-possible-skb-leak-due-to-race-condtion-in-tx-path'
-      Merge branch 'vsock-validate-packet-sources-after-bound-lookup-fallback'
-      Merge tag 'for-net-2026-08-31' of git://git.kernel.org/pub/scm/linux/kernel/git/bluetooth/bluetooth
-      Merge branch 'ipv6-mcast-rcu-and-timer-fixes'
-      Merge branch 'mitigate-a-side-channel-in-routing-exception-caches'
-      Merge branch 'net-rds-own-the-fastpath-locks-across-connection-teardown'
-
-Jamal Hadi Salim (2):
-      net/sched: cls_u32: fix duplicate handle when node ID pool is exhausted
-      selftests: tc-testing: add u32 node ID pool exhaustion test
-
-James Nugraha (1):
-      net: amd-xgbe: discard rx packets with bad FCS
-
-Jerome Tollet (2):
-      net/mlx5e: Prevent stale XSK buffer release on refill retry
-      net/mlx5e: Prevent stale XSK buffer release on MPWQE refill retry
-
-Jun Yang (1):
-      net: bridge: mcast: don't truncate the port group walk on teardown
-
-Kaiwen Shi (1):
-      mac802154: fix data race and NULL deref on local->assoc_dev
-
-Kiran K (1):
-      Bluetooth: btintel_pcie: Clear automask on spurious interrupts
-
-Kiran Kumar K (1):
-      octeontx2-af: fix CN20K default MCAM rule removal on port cleanup
-
-Koichiro Den (1):
-      net: ntb_netdev: Fix statistics races
-
-Kuniyuki Iwashima (2):
-      af_packet: Don't cast tpacket_hdr.tp_len to int in tpacket_parse_header().
-      net: Remove conflicting altnames for dying netns in __dev_change_net_namespace().
-
-Laxman Acharya Padhya (3):
-      Bluetooth: btintel: validate version TLV value lengths
-      Bluetooth: btintel: bound firmware ID by TLV length
-      Bluetooth: btintel: propagate version TLV parsing errors
-
-Lorenzo Bianconi (3):
-      net: stmmac: fix dma mapping leak in stmmac_tso_xmit()
-      net: airoha: enable RX_DONE interrupt for RX queue 31
-      net: stmmac: reconfigure RX packet parser table in stmmac_hw_setup() after reset
-
-Maciej Fijalkowski (1):
-      ipvlan: unregister upper devices outside pnodes_lock
-
-Nicolai Buchwitz (1):
-      net: macb: exclude software FCS from TX byte statistics
-
-Norbert Szetei (1):
-      net: psp: do not inherit the Rx association on clone
-
-Pauli Virtanen (3):
-      Bluetooth: L2CAP: fix chan mode for LE_CONN_REQ + EXT_FLOWCTL pchan
-      Bluetooth: L2CAP: fix out-of-bounds write in l2cap_ecred_connect
-      Bluetooth: L2CAP: clear FLAG_DEFER_SETUP only for same PID/PSM
-
-Qingfang Deng (2):
-      ppp: ppp_async: simplify tty disc_data access
-      ppp: ppp_synctty: simplify tty disc_data access
-
-Selvamani Rajagopal (4):
-      net: ethernet: oa_tc6: Protect skb pointer used by two different kernel instances
-      net: ethernet: oa_tc6: Improve the error recovery
-      net: ethernet: oa_tc6: Disable tx queues on fatal error
-      net: ethernet: oa_tc6: Fix for the wrong data type
-
-Sunil Goutham (1):
-      octeontx2-af: Fix limiting SRIOV VF count logic
-
-Tung Nguyen (1):
-      tipc: fix NULL deref in tipc_named_node_up() on empty publication list
-
-Victor Nogueira (3):
-      net/sched: act_api: budget all shared attributes in notify skbs
-      net/sched: act_api: size the RTM_GETACTION reply from the actions
-      net/sched: act_api: fix skb sizing and action leak on reoffload delete
-
-Xin Long (1):
-      sctp: fix a TOCTOU race in SCTP_CMD_TIMER_START
-
-Xuanqiang Luo (1):
-      raw: annotate disconnect-side IPv4 match writers
-
-Zihan Xi (1):
-      ipv4: avoid divide by zero in fib_rebalance
-
- Documentation/netlink/specs/conntrack.yaml         |  21 +-
- drivers/bluetooth/btintel.c                        |  44 +-
- drivers/bluetooth/btintel_pcie.c                   |   3 +
- drivers/bluetooth/hci_mrvl.c                       |   3 +-
- drivers/net/bonding/bond_alb.c                     |  15 +-
- drivers/net/bonding/bond_main.c                    |  18 +-
- drivers/net/bonding/bond_options.c                 |   4 +-
- drivers/net/ethernet/airoha/airoha_eth.h           |   2 +-
- drivers/net/ethernet/amd/xgbe/xgbe-dev.c           |   3 +-
- drivers/net/ethernet/cadence/macb.h                |   3 +
- drivers/net/ethernet/cadence/macb_main.c           |  21 +-
- drivers/net/ethernet/marvell/octeontx2/af/rvu.c    |  33 +-
- .../net/ethernet/marvell/octeontx2/af/rvu_npc.c    |   5 +-
- .../net/ethernet/mellanox/mlx5/core/en/xsk/rx.c    |   2 +
- drivers/net/ethernet/mellanox/mlx5/core/en_rx.c    |   7 +-
- drivers/net/ethernet/oa_tc6.c                      | 258 +++++++---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |  61 ++-
- drivers/net/gtp.c                                  |   5 +
- drivers/net/ipvlan/ipvlan_main.c                   |   4 +-
- drivers/net/ntb_netdev.c                           |  47 +-
- drivers/net/ppp/ppp_async.c                        |  82 +---
- drivers/net/ppp/ppp_synctty.c                      |  83 +---
- drivers/net/usb/qmi_wwan.c                         |   1 +
- drivers/net/vxlan/vxlan_mdb.c                      |   8 +
- drivers/s390/net/ctcm_mpc.c                        |   3 +-
- include/linux/igmp.h                               |   7 +-
- include/linux/skbuff.h                             |   5 +
- include/net/af_vsock.h                             |   3 +
- include/net/if_inet6.h                             |   2 -
- include/net/ip.h                                   |   3 +-
- include/net/tcp.h                                  |   3 +-
- include/trace/events/icmp.h                        |  13 +-
- net/bluetooth/hci_core.c                           |   4 +-
- net/bluetooth/l2cap_core.c                         |  33 +-
- net/bluetooth/msft.c                               |   2 +-
- net/bridge/br_multicast.c                          |  13 +-
- net/core/dev.c                                     |  25 +-
- net/core/gro_cells.c                               |   2 +
- net/core/page_pool.c                               |   3 +-
- net/core/sock.c                                    |   3 +
- net/ipv4/fib_semantics.c                           |   2 +-
- net/ipv4/igmp.c                                    | 210 +++++----
- net/ipv4/tcp.c                                     |  32 +-
- net/ipv4/tcp_cong.c                                |   4 +-
- net/ipv4/tcp_dctcp.c                               |   4 +-
- net/ipv4/tcp_minisocks.c                           |   2 +-
- net/ipv4/tcp_offload.c                             |  22 +-
- net/ipv4/tcp_output.c                              |   6 +-
- net/ipv4/tcp_timer.c                               |   6 +-
- net/ipv4/udp.c                                     |  15 +-
- net/ipv6/exthdrs.c                                 |   4 +-
- net/ipv6/ip6_gre.c                                 |   6 +-
- net/ipv6/mcast.c                                   | 148 +++---
- net/ipv6/route.c                                   |   2 +-
- net/ipv6/tcpv6_offload.c                           |  15 +-
- net/ipv6/udp.c                                     |  13 +
- net/iucv/af_iucv.c                                 |  42 +-
- net/mac802154/ieee802154_i.h                       |   7 +-
- net/mac802154/main.c                               |   1 +
- net/mac802154/scan.c                               |  51 +-
- net/mptcp/protocol.c                               |   3 +-
- net/mptcp/protocol.h                               |   2 +-
- net/packet/af_packet.c                             |   5 +-
- net/qrtr/af_qrtr.c                                 |  66 ++-
- net/qrtr/ns.c                                      |  35 +-
- net/rds/connection.c                               |  89 +++-
- net/rds/ib_recv.c                                  |   9 +-
- net/rds/send.c                                     |  14 +-
- net/rds/tcp.c                                      | 101 ++--
- net/rds/tcp_listen.c                               |   6 +-
- net/sched/act_api.c                                |  37 +-
- net/sched/cls_flower.c                             |   5 +
- net/sched/cls_u32.c                                |  32 +-
- net/sctp/inqueue.c                                 |   6 +-
- net/sctp/sm_make_chunk.c                           |  14 +-
- net/sctp/sm_sideeffect.c                           |  11 +-
- net/tipc/link.c                                    |   6 +-
- net/tipc/name_table.c                              |  30 +-
- net/tipc/node.c                                    |   2 +
- net/vmw_vsock/af_vsock.c                           |  32 ++
- net/vmw_vsock/virtio_transport_common.c            |   3 +-
- net/vmw_vsock/vmci_transport.c                     |  34 +-
- tools/testing/selftests/net/Makefile               |   1 +
- tools/testing/selftests/net/exception_cache.sh     | 521 +++++++++++++++++++++
- tools/testing/selftests/net/test_vxlan_mdb.sh      |   6 +
- .../selftests/tc-testing/tc-tests/filters/u32.json |  23 +
- 86 files changed, 1839 insertions(+), 703 deletions(-)
- create mode 100755 tools/testing/selftests/net/exception_cache.sh
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHCpmWoC/yXMQQqDMBBG4avIrB2IU7ToVcRFmvy24yJKkpaCe
+ PdGu/wW7+2UEBWJhmqniI8mXUNBU1fkXjY8weqLSYx0pjfC1ntGQHa8rTEL329tK53tMYujUm0
+ Rs36v4zj9nd6PBS6fGzqOHxKkxIZzAAAA
+X-Change-ID: 20260902-add-enetc-port2-735526a9ef2c
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Franz Schnyder <franz.schnyder@toradex.com>
+X-Mailer: b4 0.15.2
+
+Add the ENETC port 2 on Toradex SMARC and Aquila iMX95. The port
+is connected as an SGMII Ethernet interface.
+
+Enable the reference clock on the modules and enable the PHY connections
+on the supported carrier boards.
+
+Signed-off-by: Franz Schnyder <franz.schnyder@toradex.com>
+---
+Franz Schnyder (2):
+      arm64: dts: freescale: imx95-toradex-smarc: Add ENETC port 2 in SGMII mode
+      arm64: dts: freescale: imx95-aquila: Add ENETC port 2 in SGMII mode
+
+ arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts  | 18 ++++++++++++++++++
+ arch/arm64/boot/dts/freescale/imx95-aquila-dev.dts     | 18 ++++++++++++++++++
+ arch/arm64/boot/dts/freescale/imx95-aquila.dtsi        |  7 +++++++
+ .../boot/dts/freescale/imx95-toradex-smarc-dev.dts     |  8 ++++++++
+ arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi |  7 +++++++
+ 5 files changed, 58 insertions(+)
+---
+base-commit: ff1bb9ccce43cd06c766c3ddef796a7e40e623fe
+change-id: 20260902-add-enetc-port2-735526a9ef2c
+
+Best regards,
+--  
+Franz Schnyder <franz.schnyder@toradex.com>
 
