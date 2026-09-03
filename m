@@ -1,164 +1,200 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF19F33ADAF
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:34:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788424464; cv=none; b=hh6Wp/+Bo4apRmcboBrXoSEZwi3mlaSK4w3Eo5uJSI8y/UwGlmthoSD/9CQh75jNNcgR+F/iuZ6EckrbYcFS29t5ohGtwJuWbTEYs1T4jJba+lYfZfYZUyXvveWi2EI8BPmEl5/gRfKZXypbqQoxjFYFXAyMFWExJR/2eS66Fv8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788424464; c=relaxed/simple;
-	bh=2wtGcDixD5YVV1h3eEW9F9Cx5WliZAPePh5dF/UV8r4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MMWAonUIblezOTlePLU9nK3kOIAVyH3E5oQXj7EnCGMJEZ+b2VPEwD+YS6ZALtlntQCgNanvbA4208rGhN9vD/QN0djYs/vF/M7HeFxt77dOJSgxKQkfYWrJkCshNh14T668ZV1c5bgZ+aR5pSRgyPkHxz2ftzlqDDYgxizb11c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bLWNM8/y; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Im7eP4OK; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 635AD43FD0B
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:34:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788424480; cv=pass; b=BoXAafbtx/6mJoOAORBbStCiDzJ1FzxO08DgAvhxl+hnsdf+KGo1m07BCeSWSNJMcIfOw2waVI4A3Rbmpo1W+TgxLCJhKImrQLB9Vv73ZJXE+oRMEG+vipFhk4PioZAbncz/quwlBq7jUFwuvfY//oxvSmOzEJ9oAqLF7DWRANc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788424480; c=relaxed/simple;
+	bh=etd187TpI0PP1zkb6tbrAxzEXe26dhX7HU1+umSCHVk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=g6DfwgkhAa+4M1sM4/BB1QEY3yKLddABXUYyQX4ht+MUQYztDY5CpmEgVzYCrVh7oNvouiOnTY2vx0wD2vWWYlFvkQmOhlkbAQeU23UJvP59bO9JkRT4a2aivoQTTwZfGiFrp4Llkt7VZxO+n/3Xk7Cqq079JeDlPNe+Aekx1+s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S2ijmpn6; arc=pass smtp.client-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bLWNM8/y";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Im7eP4OK"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6835lLVD3113940
-	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 08:34:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=nolidgfVOoM/xTB4yJhQPfIO
-	/30el8PQJoP5vakcvB0=; b=bLWNM8/y08vRNOQ5XWWerJo5HBp3jbUvYWJ8+t9A
-	u1yOegjvFZk89YcIIr10e99xsEy+bVubtvet35lRmcUY16CVlG5d9w48qfieIZGn
-	bPR3AVT9wzgfR8ggtNocFdVgrpdCTCO32e4H+PYUnD9c3madT6gq0MC4OykAPDRs
-	Qz3yaG2EhnLVX4v7OErHOVe2uHhN3NcMv9ZQ12GEAibvFmp0bcXelnIowH8MZQh+
-	Vbh/ZJG70OA1mlGFATaEXaVI+hEjDjzEK643zVwON99yB+kqIuiw36cvHg+ubpi4
-	N/KeqTB2t0nWVyg55J6ZDl4t4w0aNtFG1uyH0Vs7qQtDdA==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf0gjs63f-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:34:21 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-9102f07f2fdso13237406d6.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 01:34:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S2ijmpn6"
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-69c108fee7fso3332541a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 01:34:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788424476; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ARqdxoyyVKgy5LbXYa7sCl72ylCRmzqzpJ0arw3roamNuhRL1f6lUu63uurevF0urV
+         ArTfqNxjtmozjivhuGMS8WFoY+WfT/wvi82Zqpd4a26731Bb5roHLK0DowOklBE4qHy5
+         keh/479/H/AykdoqsaldEr/gpTYVL+fi5W8loaYX/J91/pDZS1ZAIBWYvmcpq6wtT2Nm
+         gl1N6GFNeU87lQrnb6ByKymGPZd/3R1dAEFZZ3fx8spp2KwcJ2AAbqU7SF0E0SiNzlo4
+         6iN8nvXaYbbprxraWV8047F7SXqoLKYZkhunWCo7JDi3YGCrO9twgXnvXd+d8mUXIbAs
+         Ffxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Dolvj6C6tALOBaQBqhpP7VTgcMtPNpSrLqCXlLOQM/k=;
+        fh=1OM/MVIlsLbQIBECEwuGb5vAOEp1EWltyfDnyvQZKZU=;
+        b=XwQYo9u06harp0/lZkC5i3h8QzL8dmGuGEvW4ATjD5fXd9DIda64zSnanrudvq7UGg
+         RQcbQSNy56VmlVTwPyj25V7Hh4JsLNfN0MTqccFFUhrjGBwoQCg4Znxhz3WGUt+CITaz
+         /h5YQqBDo9oh+SntuELtn4bcli6D4qTTQ6604JeXWGYYuDRZZaLiCWVQ0SZmPH7SNUbm
+         OwmbmGfcVFgKAj3qGz9n53XOr1KS6ecm76Rm60ZN2Sbew8lJJIjZYtf6wDo0lcVBbOuA
+         kgBjjZFf5g3E/7GlROdK7UTybMQaBqDYd0GZC8qNW1S8fCryO2zC+L3C6LzA2RVlztjJ
+         Jb1Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788424461; x=1789029261; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788424476; x=1789029276; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=nolidgfVOoM/xTB4yJhQPfIO/30el8PQJoP5vakcvB0=;
-        b=Im7eP4OKsNTHYVmSarL659baJgvaZUBnHo8jrRJ4UWq5GXN/6nNWzT68CJKA+AM2FR
-         8HaaZe+knbQHm4t22wdyBtPttQlBuWezt/Oi7ohgGHK8RHHTSIpFlQV+g/kQ7koyM3X6
-         MsLTwA775R2dgWg0CbPWi+urI6a3C+T31XNtXvkR9/vdRZ535HoFqtzr6hmW9Foch5dk
-         uZ2z39lEl5iWEEiwCozC1yJLQcC0PxvrhEl82sAc/bygg8DgZXDSraZ3XRnxBy4hvlrp
-         E3GL6yg5Xr2CckYbg9lXI2+OOHOqq8fq6bkojgXFyFme8fSMr3w/xmF17GwE2N0vaXv5
-         pvaQ==
+        bh=Dolvj6C6tALOBaQBqhpP7VTgcMtPNpSrLqCXlLOQM/k=;
+        b=S2ijmpn6XQlC1B61kQMoEx+4+WWnDwtAbnhEpJkai1nvl8VGvjaoTkJonykVgDVuNI
+         ec0ufjDQNuaycu20mqKmutMsJUmf9h60aE8Y/rLirnaRVQoDCaG1Nzkyp+J2Ay7qUJQz
+         QZFzHGGqTqTrG/8Xx/ElHMp4EUNOE2Rfmx7sImA8ET6GgRD1P6zJ73iogLBd4JnOUHvO
+         pNNXuJ0RwC0NOX0wW8ZUXfWWCCLfYlS6Gpnp+fyH4Irn0vgv1FHolPBjrtEr7dhmskJx
+         Eec1M0QcXO24OpjU62X0vFd0wj0OcDK0nZSWQ1VQuhztnLxEeh/Rcaind98VDX7xxwvh
+         QEZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788424461; x=1789029261;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788424476; x=1789029276;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=nolidgfVOoM/xTB4yJhQPfIO/30el8PQJoP5vakcvB0=;
-        b=mmR2+ZmIKrYrQHF8bO0jqHeY2E5BWGRnjUdzW3MRXRhpt6I5fDEcWhkyqf5oUzI3dw
-         HcHDGuIUlPzczUhX/C3cekaeDmc4zbiMpdtli2Wn0CP3NhJS8pIXsSVwGJjZfg/iOHcN
-         ePFXslWYdmHs4W8vlperZ/JM/MXgrhs2pViQs81PPJKtXymJLa84GjP5PxxKc3ik+X72
-         E29XCGyQ2JA7XL7B9SH59w5JMhw5wG6m/0LefbYXtut5OJI6xcc2tsOk01ZyykRb6oxj
-         8T2V0v0vZYXTeqZhq1wW19q0VJcsV9koSwHmHbifEUuhgkdW678X9dOlevHo42f+1HvD
-         gnVw==
-X-Forwarded-Encrypted: i=1; AKwUvBwFanyLAzxu5e1zz9frqOZI2tfcxRWbm4DSwUan+H0nrRTI4NL42omeS8MPSHP0L5lPc2CQxMmkgZmUDmM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mCGOEwvCUkz9SSN4YlO005CwPoF1wST/nqwMCk8fEF0I78f9pB
-	FI2Expt9Ww5/ibmwZtsst1cLGQP8/fOaH3rHwEnDa+sXXr5VnW6aXC3xjbhpq2iWJK82GG5tqXU
-	bEUNA7QzYeChGARVkST5qrAlTweWJsUs9KWq1AZQuG/WjE83X2ySKWXiZ1PC06Nz0ygg=
-X-Gm-Gg: AYBFou0GMko1J2Z9TPlUNygl7Z6SDfv5XdASmSrvtwqo8lKpbK9t5OyKU3BSlf/W0NW
-	bHjuO/Dlm/V6glwhtSfvKVz7XFQHW15wRx1nQx6DkcifS4lLRAoCNvqPJ6FiyrwdKhIVwsUKje8
-	tsXlkvUhtvSyGQ4FkakDHj7D3qKgV/B3NPVALUR1tglFBEuA5EVru/mYlb9HZpvhwXFZ2850vF9
-	nCOHWK1+GsXbyjUtqTOBCkn+yPuJZLArOIAjSXD2V8B1mo8W8PGdc0e9n7LNZlxo6dQUwLQoUYX
-	5lLXKaJTcKDrkEVB5JhV8C4MOMVsQ5RVYGSojxbfZys5EnoGqvXrBDQ21lBcRBeOgk3aimisKNm
-	Km32XIIYD3lxhsw==
-X-Received: by 2002:a05:620a:9149:b0:936:78c8:91f3 with SMTP id af79cd13be357-9396e00a9damr362813085a.11.1788424460931;
-        Thu, 03 Sep 2026 01:34:20 -0700 (PDT)
-X-Received: by 2002:a05:620a:9149:b0:936:78c8:91f3 with SMTP id af79cd13be357-9396e00a9damr362809785a.11.1788424460331;
-        Thu, 03 Sep 2026 01:34:20 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5d2019sm52402355e9.2.2026.09.03.01.34.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 01:34:19 -0700 (PDT)
-Date: Thu, 3 Sep 2026 11:34:16 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Rajendra Nayak <quic_rjendra@quicinc.com>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Marc Zyngier <maz@kernel.org>,
-        Aleksandrs Vinarskis <alex.vinarskis@gmail.com>,
-        Konstantin Shabanov <mail@etehtsea.me>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Ettore Chimenti <ettore.chimenti@linaro.org>,
-        Georg Gottleuber <ggo@tuxedocomputers.com>,
-        Xilin Wu <wuxilin123@gmail.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Val Packett <val@packett.cool>,
-        Laurentiu Tudor <laurentiu.tudor1@dell.com>,
-        Jens Glathe <jens.glathe@oldschoolsolutions.biz>,
-        Dale Whinham <daleyo@gmail.com>,
-        =?utf-8?B?SsOpcsO0bWU=?= de Bretagne <jerome.debretagne@gmail.com>,
-        Harrison Vanderbyl <harrison.vanderbyl@gmail.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Konrad Dybcio <quic_kdybcio@quicinc.com>
-Subject: Re: [PATCH v2 01/16] arm64: dts: qcom: x1-crd: Mark the EC reset
- gpio as reserved
-Message-ID: <ygyu3t7o2p2xvm3j5wrxp4svzo2rzymvzgod2szhz4z57elc7a@hznrw2e35oen>
-References: <20260901-dts-qcom-hamoa-reserve-ec-reset-gpio-v2-0-f4ab7e4bb75d@oss.qualcomm.com>
- <20260901-dts-qcom-hamoa-reserve-ec-reset-gpio-v2-1-f4ab7e4bb75d@oss.qualcomm.com>
- <3f26bf2d-19de-4cc3-8af2-c26601da2576@oss.qualcomm.com>
+        bh=Dolvj6C6tALOBaQBqhpP7VTgcMtPNpSrLqCXlLOQM/k=;
+        b=IPjzc8x87uB1jtUUsOB869lArxFvc0HNtRaphGHWFnhrD37z/W8HrBreUA8uOGwjpT
+         3Vd6nrvnVAi9OiUuzoYNQw/riHAAKiwp5j9d3NqcqbZ/Tq6B89TD9GrkAqG6UbdoqFB9
+         TEA5/AUN+RtItoODEwMfQ7JfLMWQcyrG6peilDwmWPhzil/mNhXewqe2GydHp6I2s1s+
+         oXH7R35/PCfjSh5FwlPAOeYG8MrWmfl2ftYbVAGwCOH/uoqDAeKSs9c59F+ecqQd0OlY
+         hLUDUqfF+u8OeOU93UP1TPjVRJd4iLWR5/cW7aimt9sVHwkMZpuC8D72yRDJhzKLaXot
+         Fpog==
+X-Forwarded-Encrypted: i=1; AKwUvBwYUt3bxdrCx30dNVG1Sd0FxhVCOoNU8jrGznhcIpjkyfNKSM5z9b3qThsXF/XeUwj8Mo3ytYgIJYKq7QY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nOmXiKexYhmshxNEi1zOeunOGEjKAUsMwPLyiBX2KtX1s47EtP
+	ui+LMN9QZnD305r84XaKXjmb+W1XxgiIHtqByGRYQmy6owf8bWmc8gayzzHQuHqcg85NkS/fv/o
+	5/L1rdvPBGy0oJ99QztkXV52QybDeEs8=
+X-Gm-Gg: AYBFou20nuWtim+DB9tSVASuaMpJ1ISkl+Bsm4LJNh4veEG9SrvP+JITNieLb189Bs5
+	ERKvg1970lnsEQh+mX/FW+rzonLvfbUcIud5L2Ofy1bhpxq/SomikjraafbtCqXzJZeTmbW21Zj
+	qedzT8GhfdFgVTVEWX6X7n5Ae6vxdc0S0JQ2HCJ/5n/XML9VGwg+pCfXe3mYG7gSbRf/m1PYw6c
+	2kKPEPf8F2FsLoNXA5bxbu9PRmYEjxdJTN9QsKpTV3ko5trciBLR+hVTv++JOsxUWCu0EjpZi3B
+	JzIrvzHZ57tM8IDHEZGSHXSRsWW1oi1TKITOjAfaBtPWdw==
+X-Received: by 2002:a05:6402:218a:b0:6a5:f912:b092 with SMTP id
+ 4fb4d7f45d1cf-6a68257bd75mr7434639a12.6.1788424475997; Thu, 03 Sep 2026
+ 01:34:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3f26bf2d-19de-4cc3-8af2-c26601da2576@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA3MyBTYWx0ZWRfXyfDEt8l5DPA6
- SBB0U4hpKuHRp8I1Jys9iBppATz5WBXM5buJd92PmmZCBpmELMUT8Zvj6rYS0Om0AoUUqA2d/7x
- yutHffotiAAFAzuW4cArwtXlqyRPavFT42E97eFl7ehckxd5ub9GNlvsv8SX6mXBEU5ySULuJst
- vWy0sQfO3VJ0hQm2Vx77uoXJz79wrvbTO1JZs43iKTtlL8VlVAdZ0bQvaM1R65f63e5iaNeTZki
- /aIfUv1HRh3AUc/72CwKqcFHrC8f+NclmaL2h37BlxeTUFcoENJfFx/E547YKfUNaitm0X/z1c9
- h/irT6A2NUMtpeKiTQaCVRzJqdIwNpa1WnpkPlwoglgxIcdPsd2AfO2HyynRSjhMNkzWsSgQUlA
- y0I80zRtA+bfU4lVZl2emvAaex4Ry7pV250fmO7cipA5AoQZ6NzcCXM9ferCwtuVI5osxlC634N
- 8HN0RaXASkve/gR4bsA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA3MyBTYWx0ZWRfX7tv7nZMnqOC2
- rZZFDk3ex4kosUfpnrdr3DCdDGW7UWcRhlm2cZmZJ/5ZZcatjPDyvE5li/C/Gpz0ANBTxnBBgnr
- mz4hFpmEbBAlAmwvh4ah0olx02ZcIlI=
-X-Proofpoint-GUID: xDUc5WWvcGgr0cI4aaIjFQOoi0J1Tm07
-X-Proofpoint-ORIG-GUID: xDUc5WWvcGgr0cI4aaIjFQOoi0J1Tm07
-X-Authority-Analysis: v=2.4 cv=LZ4MLDfi c=1 sm=1 tr=0 ts=6a99310e cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=q7XEBjOi5DRkXzmV0jSBjQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=0yKSSKOl38yrq87U628A:9 a=CjuIK1q_8ugA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_02,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
- bulkscore=0 priorityscore=1501 impostorscore=0 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030073
+References: <20260903033359.1042529-1-cui.tao@linux.dev>
+In-Reply-To: <20260903033359.1042529-1-cui.tao@linux.dev>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Thu, 3 Sep 2026 10:34:24 +0200
+X-Gm-Features: AcwNN1XgB3axVosVAZNnl8gVMfhfG0JIK2RYjsYKflkRqfw1XG5URS6oXQXwP0Y
+Message-ID: <CAOQ4uxgyPhJQueqUJuwS8=4wGxTAC1Nhy+gfFxrEfaL5A5-EOw@mail.gmail.com>
+Subject: Re: [PATCH] overlayfs.rst: document cross-layer file lock and lease semantics
+To: Tao Cui <cui.tao@linux.dev>
+Cc: linux-unionfs@vger.kernel.org, miklos@szeredi.hu, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	brauner@kernel.org, jlayton@kernel.org, Tao Cui <cuitao@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 26-09-02 17:53:23, Konrad Dybcio wrote:
-> On 9/1/26 10:06 AM, Abel Vesa wrote:
-> > GPIO 65 from TLMM is used by the embedded controller as its reset line.
-> > 
-> > On some devices, toggling the embedded controller reset line makes the
-> > device not power up at all, unless the battery is unplugged.
-> 
-> Have you confirmed that behavior on the CRD?
+On Thu, Sep 3, 2026 at 5:34=E2=80=AFAM Tao Cui <cui.tao@linux.dev> wrote:
+>
+> From: Tao Cui <cuitao@kylinos.cn>
+>
+> Locks and leases taken through an overlay attach to the overlay inode,
+> while opens of the same on-disk file through its real upper/lower path
+> operate on the underlying inode.  The two do not conflict, so an
+> "exclusive" flock/POSIX/OFD lock or a write lease held via the overlay
+> is silently bypassed by anyone reaching the file through the layers
+> directly, e.g. backup tools walking a container's upperdir or another
+> overlay mount over the same layers.
+>
+> Locking through the overlay succeeds and appears to work, so the lack
+> of mutual exclusion only shows up as data corruption when the two
+> sides write concurrently.  Document the semantics, the affected
+> scenarios and the recommended practice.
+>
+> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+> ---
+>  Documentation/filesystems/overlayfs.rst | 27 +++++++++++++++++++++++++
+>  1 file changed, 27 insertions(+)
+>
+> diff --git a/Documentation/filesystems/overlayfs.rst b/Documentation/file=
+systems/overlayfs.rst
+> index 16c35b491dad..546b77e66016 100644
+> --- a/Documentation/filesystems/overlayfs.rst
+> +++ b/Documentation/filesystems/overlayfs.rst
+> @@ -884,6 +884,33 @@ The "-o userxattr" mount option forces overlayfs to =
+use the
+>  useful for unprivileged mounting of overlayfs.
+>
+>
+> +File locks and leases
+> +---------------------
+> +
+> +File locks (flock, POSIX record locks and OFD locks) and file leases
+> +taken on a file through the overlay attach to the overlay inode.  The
+> +same on-disk file opened through its real upper or lower path is a
+> +different inode object, so locks and leases acquired through one path
+> +do not conflict with locks and leases acquired through the other.
+> +
 
-Toggling it does nothing observable.
+Hi Tao,
 
-However, the documentation says this GPIO is actually tied to EC reset.
+Thanks for your contribution, but it is not acceptable as it is.
 
-I still think we should reserve it, just to be safe.
+Everything written above may be true, but a document needs to be coherent
+and this text was written without regard to the context of the document.
 
-What do you think?
+The most relevant context is:
+
+  Changes to underlying filesystems
+  ---------------------------------
+
+  Changes to the underlying filesystems while part of a mounted overlay
+  filesystem are not allowed.  If the underlying filesystem is changed,
+  the behavior of the overlay is undefined, though it will not result in
+  a crash or deadlock.
+
+TBH I am not enthusiastic about documenting what may happen
+on changes of the underlying layer beyond this statement.
+
+I am fine with clarifying a bit about the lock scope, but not as much
+as you did -
+keep it to bare minimum which is useful.
+
+Also when writing text in this document you need to use terminology of
+the document, for example, "same on-disk file" is incoherent with how
+this document refers to underlying layers.
+
+> +An "exclusive" lock or a write lease held by a task that opened the
+> +file through the overlay does not prevent another task from acquiring
+> +the same lock or opening the file if the latter reaches the file
+> +through the underlying layer directly, e.g.:
+> +
+> +- a tool running outside the container accesses the container's
+> +  upperdir/workdir or the image layers below it directly,
+> +- a second overlay mount is stacked over the same upperdir,
+
+This is really a disaster setup. I won't even discuss what could go
+wrong with sharing an uperdir
+
+> +- the same layers are shared between different overlay mounts.
+
+This is obviously normal so not sure why it is relevant
+
+> +
+> +Locks and leases do provide mutual exclusion between tasks that all
+> +reach the file through the same overlay mount, and a lease taken
+> +through the overlay is broken by opens through that overlay.
+> +
+> +Do not rely on file locking for mutual exclusion between overlay
+> +users and anything that may touch the underlying layers directly.
+> +
+> +
+
+These two statements are the only ones that seem relevant to me
+and I would add them in the context of
+"Changes to underlying filesystems" not as a separate section.
+
+Thanks,
+Amir.
