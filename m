@@ -1,77 +1,94 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 646A14C77D5;
-	Thu,  3 Sep 2026 15:08:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF0454C9548
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:09:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448109; cv=none; b=hJPo5ehccBr31O6bHV3THh1dLOAoyQQqBaMzbIcwMQ41uenoiE0oSFdCNJFATu5xp2213dcmZAA9qAK6J+drtpsMc5se2OxzHE8vp2ru1Dk+GXw41cVb4jod3jU5Cn95ovUzEysxv+JVOoWG8w86q1bU3ScpOVReXX3QXPo7mV4=
+	t=1788448174; cv=none; b=dDEv+gjwvoG6q1dug0xCm7PVCbp0XVk0Kquw6xq2XTZFgzBX5UNtVGF0+cwSdO2SGQV7JciQDlbb/v7GD2gpY6umCYrd0ipN0XwRXe4sQAOLjxtgDZQDFvz+n/jkkAObqOrUVJvOuVw/zS6+kNzRJxLpVeFNNEUITFu34aqFe+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448109; c=relaxed/simple;
-	bh=dv4/qn4nx2++bbjwRGUc4f7yY00pFeA8FolBZJf67JA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Oe7y7WGuvWuHsZe8KmEd2Qwt2c6AKGmxVwj73LKFlHyo2YvDhZrLcAkSs7s3nH6EKOMu8lUHaCqhlTt5WsVrgP2i7csiW1jtIUtTgIdjBnMccsjHVMoN6M4m762vFHVIM0XyIJf6TjRJHcGVEEDgih5gbjuj7HcG1ZQHXtJNoC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=fjfsNDxI; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=x44kAsc7; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=RF8Wy01o; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ECpbuIa9; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788448174; c=relaxed/simple;
+	bh=WLq5Ho22bmD7v6KZE3c4vo4tWl6YYYaL+ylKWHH1z3U=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=UrYG60QywkvBs+ZV9nf6+vP0S3X6HtUQE1/g9jq+Tq7JK0TSqlX6pDYUZ/qP3kC7Hfj+568lT+FzsDgwhbOpgfwV6COo2rqDXSlxHMdYOHbv7/iulGlPwqn24UJjGuKwsCIsr/IiNHM0QZpovbnGOlXlTJLsseU243puTg/rXuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZbXnyCvN; arc=none smtp.client-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="fjfsNDxI";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="x44kAsc7";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="RF8Wy01o";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ECpbuIa9"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 6B91521EF9;
-	Thu,  3 Sep 2026 15:08:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788448102; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=NNng1xi7wnGZOTn8LdAzNwBMYqT5fQMJKIW9obh2AUk=;
-	b=fjfsNDxIAXaN3RL+M96qH0XhXUtVwLu0etC+o088PJLrOerttPyjT/wa+DtOvnsOgl496i
-	gxAJ8ufYM0tO1HTfFPlQvSiq4H65uaEM8zJEcA0YIjXSNPPHbtVZyed6PlZgWsi0QwYhtB
-	WeBbf8JIjnO+bUm7PUYyf8EYYdB/kNU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788448102;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=NNng1xi7wnGZOTn8LdAzNwBMYqT5fQMJKIW9obh2AUk=;
-	b=x44kAsc7MAipC/tWxE8GvNS8v+RmwpsFF4wcbvb+tnYvwKkXhiln9uUPXpjkSvipL/UR+a
-	PPMh9PSinrEdJyBg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=RF8Wy01o;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=ECpbuIa9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788448098; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=NNng1xi7wnGZOTn8LdAzNwBMYqT5fQMJKIW9obh2AUk=;
-	b=RF8Wy01o4ONUhMrGjDiMJag5xfkutq9NCGP6KJtqwSSiw1x/nqV09rnF4F2LOiqd8vxW1F
-	dODdxLXW/vri3DFYjdViVQHtKd/hYo+9IleiLumkjj1bL4pPqHCVADbO6BUtuVKKnEAzU/
-	X/1vm6//y+6tJmbWlZKKf3QrXL7zLFc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788448098;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=NNng1xi7wnGZOTn8LdAzNwBMYqT5fQMJKIW9obh2AUk=;
-	b=ECpbuIa9Vd6l+jVBBz8LTsx4X9Ln76Ob62kLaA5YG2NZI2CPIXi1E+uAHgXpiIgYN4cVi4
-	kXA40p8z/LtgltAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3640A136D9;
-	Thu,  3 Sep 2026 15:08:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 6iT5C2KNmWpUPAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 03 Sep 2026 15:08:18 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: linux-sound@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v2] ALSA: rawmidi: Add a proper disconnect handling
-Date: Thu,  3 Sep 2026 17:08:13 +0200
-Message-ID: <20260903150816.1917831-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZbXnyCvN"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8485b358552so2314149b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:09:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788448172; x=1789052972; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WLq5Ho22bmD7v6KZE3c4vo4tWl6YYYaL+ylKWHH1z3U=;
+        b=ZbXnyCvNln74VouIHm+SJeWD9gifEcSd36Nw4o4hmYS6OdGxlHoUj1ZxPO2pgqVulU
+         oJHsZujnO6830bMb3M8GdtN7ZKRQf1LTrGVofCmSkeXE4iwxztmCsaHuUBFZCm9FW2o8
+         R6mIZVHW61aIJzlXLLoTYiMf0pGGqzW7kr0inDCDnSt9dwzHYGd+ugmtEbbg+8GSCV8V
+         YRdIA2B8ixsr8W4rbBrK3lUKCrJfwC9eFE/0EJ5f6rATLyptm1+TgSVnDlDImulfSW84
+         gRsomebg+XX6eHClARNJkKORBh8ibx9Jc+k7i0+CvFf+5e2JHw7x851f9U2jJgJmjj/k
+         LktQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788448172; x=1789052972;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WLq5Ho22bmD7v6KZE3c4vo4tWl6YYYaL+ylKWHH1z3U=;
+        b=qznpozoT8P47kHj/3j+BdtsDuOOPqamDTDMnzYd+b/JPvASGJ7TnK83G4HUZAQZA7+
+         3j+nYbBDAu0YtkZWITfJLfvxnEPIuvowt5lWESvcxGvaFz1sy3UXIOnv1cyU6dD/6R0e
+         mHsGoiqD35pd2A+1m1+IRaLk0RWIGxw3B+zARIL+6dXkP6NaK5wrYloRMhe6lI6twAni
+         dRXWUlMsFQ0RsIMywVLpkC600h5kFZ9yury38dIUSfo5IFxUWkkmD0yqGRbU5UcLBSKO
+         lMv0h0rJkpoHMmoLIvIi9WUVH6k7BrMZfv3OvhCkjwqYDN4pgrLB3BV9nMv80Y3szsOz
+         XxdQ==
+X-Forwarded-Encrypted: i=1; AKwUvByQi9WYwzT/myl4ZML/YC88jN4CTzKwzS529At8iC4kOt9k51FtjKnUpI4buVuYCsAMYMoYmONuQWbeglo=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8+uY6CQUGtDV/5g7s5L7npqiMMFwbFCLq8g0IN/OmeYU1E4Zt
+	ZGFFAKFJF4GIk4At4/9ekO1lT5tsgMHTdWfPBXnxV+3b6waqw379Tkqu
+X-Gm-Gg: AYBFou3s6BlUlVPHMUCtN9gkemxs8+F+B7iTCdwzPDXEoLH43x8KKYUv3PaS0rAIrGx
+	lPOLQXorP6r1JMvXJn4sazAOCS6GIc2fY3B98WT/RiAa2acBIuojpSifr7m1owWZlUY2S6PL+WP
+	IY6RxAnbqsDg61R0LL/yCaq8mXAzaGdzZ65oL3OIO3Fd9QoX32ko/loRwd2f4468XnSojroap+7
+	snjS4AWwlEXtRmnnX6BSEShRp8PPSS4MA51S1RSvxrzFzSK64sATk/+0Q9kwFNkjsvMSJB7ukmK
+	fy3JgSK0pbZULgy97A3t4GdXkDnlEveOo/ehqCybKWbtUJ++gjb3Ww1Mr5WUxHPJJ0yFHU7qF3q
+	AI6Lu88jsBI3PaFUWJDpcOQMwbnK6AmODjKL33s3XSYpovh7vgQyb7w9/xpFBZMde07Isu57VHr
+	GZRNqfqoTfoh75O/tQeJnvjWJVitI6PAlySjRsqFckWgTBTJ7pvl9zJjRVWpdcI5hXXSoQrC2GP
+	2gnxQ==
+X-Received: by 2002:a05:6a00:301f:b0:852:355b:2430 with SMTP id d2e1a72fcca58-85ed23e043emr19151323b3a.10.1788448171946;
+        Thu, 03 Sep 2026 08:09:31 -0700 (PDT)
+Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8614f871fc6sm70289b3a.7.2026.09.03.08.09.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 08:09:31 -0700 (PDT)
+From: Bo Zhang <zhangbo0325@gmail.com>
+X-Google-Original-From: Bo Zhang <zhangbo56@xiaomi.com>
+To: akpm@linux-foundation.org,
+	vbabka@kernel.org,
+	david@kernel.org
+Cc: surenb@google.com,
+	mhocko@suse.com,
+	brendan.jackman@linux.dev,
+	hannes@cmpxchg.org,
+	ziy@nvidia.com,
+	ljs@kernel.org,
+	liam@infradead.org,
+	rppt@kernel.org,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	kasong@tencent.com,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	zhaonanzhe@xiaomi.com,
+	lipengfei28@xiaomi.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 4/4] mm: adjust free_pages to make __zone_watermark_ok() mTHP-aware
+Date: Thu,  3 Sep 2026 23:09:17 +0800
+Message-Id: <20260903150917.4112784-1-zhangbo56@xiaomi.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260825043833.2659350-5-zhangbo56@xiaomi.com>
+References: <20260825043833.2659350-5-zhangbo56@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,128 +96,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spam-Score: -3.01
-X-Rspamd-Queue-Id: 6B91521EF9
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_NONE(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email,suse.de:mid];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCPT_COUNT_TWO(0.00)[2];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
 
-The rawmidi core detaches only exposed devices at disconnection, but
-it doesn't deal with the pending bytes or gate the further unexpected
-accesses, leaving naively to each driver dealing with such situations.
+Thanks for the review. (The "defrag_mode & order" bitwise bug was already
+covered in the reply to Xueyuan Chen; it will use "&&" in v2.) Replying to
+the other two points below.
 
-Let's try to restrict it in the core side for more safety: introduce
-the disconnected flag to each substream, set it at disconnection call,
-then trigger down &  cancel the pending event work.
+1) mTHP count discarded by the percpu_drift_mark fallback
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
-v1->v2: cover the forgotten snd_rawmidi_receive(), too
+Sashiko says
 
- include/sound/rawmidi.h |  1 +
- sound/core/rawmidi.c    | 18 ++++++++++++------
- 2 files changed, 13 insertions(+), 6 deletions(-)
+"The restricted mTHP free_pages count is being compared against
+zone->percpu_drift_mark, which is tuned for the total number of free pages
+... won't this condition almost always evaluate to true under memory
+pressure? If so, it would unconditionally overwrite free_pages with the
+snapshot of NR_FREE_PAGES, bypassing the new mTHP logic entirely."
 
-diff --git a/include/sound/rawmidi.h b/include/sound/rawmidi.h
-index 4154035af414..d812f70725bd 100644
---- a/include/sound/rawmidi.h
-+++ b/include/sound/rawmidi.h
-@@ -86,6 +86,7 @@ struct snd_rawmidi_substream {
- 	bool opened;			/* open flag */
- 	bool append;			/* append flag (merge more streams) */
- 	bool active_sensing;		/* send active sensing when close */
-+	bool disconnected;		/* already disconnected */
- 	unsigned int framing;		/* whether to frame input data */
- 	unsigned int clock_type;	/* clock source to use for input framing */
- 	int use_count;			/* use counter (for output) */
-diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
-index 34b4c7d6dbe6..2e582688923d 100644
---- a/sound/core/rawmidi.c
-+++ b/sound/core/rawmidi.c
-@@ -208,14 +208,14 @@ static int snd_rawmidi_runtime_free(struct snd_rawmidi_substream *substream)
- 
- static inline void snd_rawmidi_output_trigger(struct snd_rawmidi_substream *substream, int up)
- {
--	if (!substream->opened)
-+	if (!substream->opened || substream->disconnected)
- 		return;
- 	substream->ops->trigger(substream, up);
- }
- 
- static void snd_rawmidi_input_trigger(struct snd_rawmidi_substream *substream, int up)
- {
--	if (!substream->opened)
-+	if (!substream->opened || substream->disconnected)
- 		return;
- 	substream->ops->trigger(substream, up);
- 	if (!up)
-@@ -254,7 +254,8 @@ int snd_rawmidi_drain_output(struct snd_rawmidi_substream *substream)
- 
- 	scoped_guard(spinlock_irq, &substream->lock) {
- 		runtime = substream->runtime;
--		if (!substream->opened || !runtime || !runtime->buffer)
-+		if (!substream->opened || !runtime || !runtime->buffer ||
-+		    substream->disconnected)
- 			return -EINVAL;
- 		snd_rawmidi_buffer_ref(runtime);
- 		runtime->drain = 1;
-@@ -537,7 +538,7 @@ static void close_substream(struct snd_rawmidi *rmidi,
- 	if (--substream->use_count)
- 		return;
- 
--	if (cleanup) {
-+	if (cleanup && !substream->disconnected) {
- 		if (substream->stream == SNDRV_RAWMIDI_STREAM_INPUT)
- 			snd_rawmidi_input_trigger(substream, 0);
- 		else {
-@@ -1151,7 +1152,7 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
- 	struct snd_rawmidi_runtime *runtime;
- 
- 	guard(spinlock_irqsave)(&substream->lock);
--	if (!substream->opened)
-+	if (!substream->opened || substream->disconnected)
- 		return -EBADFD;
- 	runtime = substream->runtime;
- 	if (!runtime || !runtime->buffer) {
-@@ -2063,8 +2064,13 @@ static int snd_rawmidi_dev_disconnect(struct snd_device *device)
- 		struct snd_rawmidi_substream *s;
- 
- 		list_for_each_entry(s, &rmidi->streams[dir].substreams, list) {
--			if (s->runtime)
-+			scoped_guard(spinlock_irq, &s->lock)
-+				s->disconnected = true;
-+			if (s->runtime) {
-+				s->ops->trigger(s, 0);
-+				cancel_work_sync(&s->runtime->event_work);
- 				wake_up(&s->runtime->sleep);
-+			}
- 		}
- 	}
- 
--- 
-2.55.0
+Right. percpu_drift_mark is calibrated against total free pages. Under
+fragmentation or memory pressure - exactly when pgdat_balanced() matters -
+the >= mTHP-order free blocks shrink relative to total free pages, so the
+mTHP subset drops below percpu_drift_mark and the snapshot overwrites it,
+bypassing the mTHP value. In any case the drift correction shouldn't apply
+to the mTHP path: it reads free_area directly, which is already exact and
+not subject to per-cpu drift.
 
+2) Restricted subset can go negative in __zone_watermark_ok()
+
+Sashiko says
+
+"Since __zone_watermark_unusable_free() includes all order-0 cma and
+highatomic pages across the entire zone, subtracting the global unusable
+total from the heavily restricted subset can push free_pages negative. This
+fails the watermark check permanently and can cause kswapd to spin
+endlessly."
+
+The operand mismatch is a pre-existing pattern, not something this patch
+introduces: the existing defrag_mode path already feeds a subset
+(NR_FREE_PAGES_BLOCKS, only >= pageblock_order) into __zone_watermark_ok()
+the same way, and my mTHP subset (>= order-2) is actually a superset of
+that, so it's larger and less likely to go negative. Going negative would
+require an extreme case - near-zero free blocks of the target order plus a
+non-trivial amount of free CMA/highatomic. If the existing order-9 subset
+path doesn't need special handling here, the order-2 subset doesn't either,
+so I don't plan to change this behavior in the series.
+
+For point 1, the initial free_pages goes through zone_effective_free_pages()
+(three paths: blocks / mTHP subset / total), but the percpu_drift snapshot
+fallback only has two paths and has no mTHP case, so the mTHP subset falls
+into the NR_FREE_PAGES total path and gets overwritten. In v2 I'll make the
+snapshot fallback symmetric with zone_effective_free_pages() so the mTHP
+path stays consistent (the mTHP count is read directly from free_area and
+isn't subject to per-cpu drift anyway). Point 2 is an existing property of
+the subset-based watermark check rather than something specific to this
+patch. Suggestions welcome if a different overall shape is preferred.
+
+Bo
