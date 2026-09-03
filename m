@@ -1,142 +1,138 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 508174B5CD1
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:30:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822DF4B7148
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:30:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445845; cv=none; b=Ws/KlvUwr/gV/xVglh4RLVpPC/8ox2ddSDM2Wlthz6v7P4w489z79CLpbMIl7c6+EjfgMgzDaFg96OiVnmpRSOp6JBQQdjwLkvPTg3yOfeHEE9lm8sTAKEdXw+XjyE62h+1BiH7QjrqMI0+BT0d9t3LD6hyKKqCdanmJUrEqfSk=
+	t=1788445863; cv=none; b=IkCtKIgGASzBEFtGNPGS/aQwkkZZqjDacCOo6fBVNTgBMnLIubgNKcubPhjpTPP76v2OC6ktra1p8CWX4U6UZQ0I7rxho+6fvIqv37bGbNNSyJkWGToxCy8vIOM8pBlqz3p894kXNd/7bG1IyRVWQ7kJmWL2HJkp+n3tAAD6qqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788445845; c=relaxed/simple;
-	bh=3R9vIM4cAXIPD4Q/16hXtxH6BOgrzmLkcWxwv41qCrc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=osgP8KQwZTljVs1jN0HOr8yLyCGWPQoFdLlrVgcQlom9I7QitCtLUOshJuLT4xvabbubmlTMQs0EZ2ON4xM1PyDHF3g6Kj0FmE18+XNZmsFdtaaqdNmXmkpI1nOpZrfhl7G13Mj7/xh86emad87qK6RM3qSd8YVQdatReeqlsnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=qMP/9M1J; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1788445863; c=relaxed/simple;
+	bh=nqFrkxbwZnIGD0jt6PBMdWC/YYiKHoC8Dbvm0EmPTSA=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=Rb2pk4/H/uoqJjVHCVYXml7Vmy1yKviYmdVGbBY0aTNtGwLfQV99vXvqtyYHRlCPzYuEjhpwyoRbUX0m5nV1R/WuC/wO4LX3vJ3gZ1+r5YkzooeiKOqiX3xGH8tNwCbLH5vjRowXiPuhw/wgTpdTmyVZBTu1uw5fsnqv6lVGZFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LTFRg1tT; arc=none smtp.client-ip=209.85.210.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="qMP/9M1J"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cbe827e3cb4so2898649a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:30:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LTFRg1tT"
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8535db07af9so1262675b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:30:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788445833; x=1789050633; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VvQUB0nrb39Z1KnOkiEgTk3LEVt0IMBJ5IPyGGTW/6M=;
-        b=qMP/9M1JkvhnuKkdMkTnCzyMEMrpz8+KBwpgXp566zpsrrYjgHvKUx6vIWy0mJs9WL
-         EjUn0ZvSIeaSLElZgP8nS35xW4wExetp+qkDOeSxNNMi0IJwAtTh/hgj08awVRtmzQg/
-         yZ9fVTyOG4X66k7CrMBEM5jf4zxGqgUywhFa0H0ygtc80RNDvp9+70L42UdF7DODAd0S
-         D8Fg3vMIy1wHsnafkcJw1ENshQG4VLexS67/aSfisxzEumzRYpMUd3lPKZMUlKgFE0el
-         GkdqWIjLrrVlhbFBq7dsofAYFG78iGgwNHxLPEm6QzSYSpgnkoZf1H0d5Qcx1yYlm6NO
-         FNxA==
+        d=google.com; s=20251104; t=1788445837; x=1789050637; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KU72ElW/WJuvWFFEt8qn0cRYWtv7/uUdQgw0J+lE/vo=;
+        b=LTFRg1tTdsTxAzBabBRjIWOvV1FKMSeCKNg8WlA7IdHkRXijCYXbMVxF+gTN3KU0Gl
+         FPSidD1OqgUvWq4wBSdHh/EkXqmYHjf2YRg5eR/kIGNku5L3HJ3GdBo9/ke7VvvIg1/v
+         0u+jKiM1XkCyONYdstSnMRXf3nKR2UTBFcjgOaQuDEhP1h1FsFBpYm65FvRg1DB8bT/d
+         VVbWsnkVcVXufD9wZ89z5a0T8j3PbBfi/PLiMtxyyyRNJXAYRI4vGcCbq1K/jjxIRWPt
+         nHFkR25kHZcc7O0jEsLbwpIb4rAkVbCFhTCygsCPHLEhX0zBoqMOXAafuCm6JDAa+URZ
+         5fow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788445833; x=1789050633;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788445837; x=1789050637;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VvQUB0nrb39Z1KnOkiEgTk3LEVt0IMBJ5IPyGGTW/6M=;
-        b=QXzemlMMVrV4pfyIwMyzRLymnAPVTTVGT3e3Pcz2c64AXKG5uvLaoULIwHqAyTBI/8
-         JRWz+m0vTf6e0tN14fxo0O/RzRfHboUo9iNnwX4+2BNsi0+gkDgx//JJVu1HY7ODT/RV
-         /+T3bCMe4dpumVyS4JI0sS4t+gHnLV38bZsTFrDGKFe0W/eObg8geduwHAsLkOsJ8OKh
-         DLtL6t5RJdztrffyfSVkGQNxZl2cqt8+x4F9RUiZzeYBXDde1Ed7kDmBT5AVT9L58wFp
-         rU+oiiRLRMpUYzIujR8//uupYB6LF4SlE/dY5BCWSf7gCevIpqujA4tyZOxeP1x2kaiF
-         ypLA==
-X-Forwarded-Encrypted: i=1; AKwUvBwGpmZu2bPuoQ/O+bmaTXHeUeBTBG4ineFBUVxhdw/oh8I8MsnGYqPIzIM0H2K/CcTj681vggv5+DvKgJo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFTLMXVfIllLw5SmEU9h9XCVc5jnqPflk+o2kKswew8HhJOv2/
-	KEswYATyvnuzJ4L+CBZOU3AdJPz0mPGAfDd3DS83xyYai1L0xZQ4IzRLCn/6a3RUt6w=
-X-Gm-Gg: AYBFou2Snv9Q+sFBYCtrY0FwKvXuVLVFwo0Dj0c6Vm/UJVUwmOdYC7LdoqTdYWaith8
-	ZRAHCU/R9PE6sQ7VCi+RjeEOEd6IYTTBEZH/LWB1W/T5lJcqhEwNClQidkb85FOax/l+VWqxMEA
-	YUKiU9zRnqqOQVzWZ/tQc7CK6WeXyFobcCd3B++ZyzwG1xw7feoYJPnAu5p3ZR1oRd04PlybLsr
-	g98TLnkdIBAXBI+4RoReVYAmzFlQX7eouXGN0iqeh4gR/EeYDJNt9u48U3566eCXBLFuN0JnDqT
-	XRsgOVh4kq23laxJTsUd8Dl7+Jd7nUaNc2DUaKEMwSwvy9WCt2idJjiX3oM8RkIaxonLfSeS9bZ
-	YIlWypsePHV+A+qYribnMAiZpIWOmOT5Bafr18A+yL6XKXmKgZRrb+SCauJVscBXG8HKMGsPVaV
-	VccmOLfvogdOu4f0gGUKVFJ21WmhDDBou23DHaZ+qbtY87nY1cMOzUTi0=
-X-Received: by 2002:a05:6a21:4613:b0:3c3:7ac4:dac0 with SMTP id adf61e73a8af0-3d9af9ff7a9mr20557828637.13.1788445832582;
-        Thu, 03 Sep 2026 07:30:32 -0700 (PDT)
-Received: from niej-t14p ([112.64.60.233])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc43d42b3b1sm1032759a12.25.2026.09.03.07.30.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 07:30:31 -0700 (PDT)
-From: Jun Nie <jun.nie@linaro.org>
-To: 
-Cc: Jun Nie <jun.nie@linaro.org>,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Teguh Sobirin <teguh@sobir.in>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/msm/dpu: delete timeout timer when encoder is not busy
-Date: Thu,  3 Sep 2026 22:29:42 +0800
-Message-ID: <20260903143004.1026181-1-jun.nie@linaro.org>
-X-Mailer: git-send-email 2.53.0
+        bh=KU72ElW/WJuvWFFEt8qn0cRYWtv7/uUdQgw0J+lE/vo=;
+        b=mCmEuAi7/Ctiv7zkgkZH5J4+hcxoARaDuLD9TsUriJ2oaCpjfsIQy/Q5CGs6+Js98N
+         M6pVSuRFb4WP00srkpeLUwRlvK2nRSC/VRNy8NwcSglM8stjyveIZCY6qZgzb3SIxzNh
+         zukF6iOvowKWf9Ad6xwIWKvoqYaIPl5lAZn3UHrskcJ2XktwB3Dvi2YTwlF8in7iRrJk
+         1phtPggS3u6nsQ0Kdr2KZsU4oNmyvn1/8E21WEsiv/mMupAD7EQqS2KgGyUJE8JjfBkE
+         YWPvScdvBMCk82m5u+SvF6vI2BlUV4QCzWqRY4HRWDro1EoMaANJJaTCarSWZ42ul9v+
+         Mp7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxOuK8HHs6Aa//aFK727Yryi8zKr0sRNJ8tL1P6JXho1TSQYyvQmcaFbXFpVBtmP4P3jpIkPCIVsi5JeQg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mOFIAQTIdsttsyr4hV+/AaxUlUpo8ZWrhW1049jvASCpXdUStm
+	6wMrq0B7mIifScmazMkRo5zO8VTHOmdiKW5qLh1WJFCY2PHNLKPmLC4SunVNgXDO8qrBPq7R6RV
+	WWIzw+Q==
+X-Received: from pfll28.prod.google.com ([2002:a05:6a00:159c:b0:84d:f9cf:1f3d])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:4106:b0:847:8449:2ba6
+ with SMTP id d2e1a72fcca58-85ed23def83mr20907159b3a.8.1788445836362; Thu, 03
+ Sep 2026 07:30:36 -0700 (PDT)
+Date: Thu, 3 Sep 2026 07:30:35 -0700
+In-Reply-To: <20260903114241.33034-C-seiden@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260831144802.834315-1-seiden@linux.ibm.com> <20260831144802.834315-3-seiden@linux.ibm.com>
+ <apdweRfqt4dTxcU9@google.com> <20260902075028.231001-D-seiden@linux.ibm.com>
+ <aphLXQL1H2zYZgTi@google.com> <20260903114241.33034-C-seiden@linux.ibm.com>
+Message-ID: <apmEi1NmOUvmUBFP@google.com>
+Subject: Re: [PATCH v7 02/23] KVM: Make device name configurable
+From: Sean Christopherson <seanjc@google.com>
+To: Steffen Eiden <seiden@linux.ibm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, David Hildenbrand <david@kernel.org>, 
+	Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>, 
+	Gautam Gala <ggala@linux.ibm.com>, Hariharan Mari <hari55@linux.ibm.com>, 
+	Heiko Carstens <hca@linux.ibm.com>, Hendrik Brueckner <brueckner@linux.ibm.com>, 
+	Ilya Leoshkevich <iii@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+	Joey Gouly <joey.gouly@arm.com>, Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>, 
+	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>, Oliver Upton <oupton@kernel.org>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Sven Schnelle <svens@linux.ibm.com>, Ulrich Weigand <Ulrich.Weigand@de.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>, Zenghui Yu <yuzenghui@huawei.com>
+Content-Type: text/plain; charset="us-ascii"
 
-There is a spurious timeout error message under the following reproduction
-steps:
-1. Run "modetest -M msm -r" and press CTRL+Z to pause it.
-2. Run "while true; do rtcwake -m mem -s 3 -v; sleep 2; done"
+On Thu, Sep 03, 2026, Steffen Eiden wrote:
+> On Wed, Sep 02, 2026 at 09:14:21AM -0700, Sean Christopherson wrote:
+> > And taking things a few steps further, we can solve the MMIO issue in a more
+> > elegant way, and eliminate the runtime string building in this patch (after looking
+> > more closely, that code needs to be jettisoned no matter what, there's simply no
+> > reason to specify the names at runtime since they're separate compilation units).
+> > 
+> > Rather than splatter #defines throughout header files, deal with the bulk of the
+> > pain in Makefile.kvm.  By feeding conditionals into Makefile.kvm, the s390+arm64
+> > build can easily omit coalesced_mmio.o and async_pf.o, define __KVM_HAVE_ARCH_MMIO
+> > programatically without having to change other architectures, and solve the naming
+> > stuff.
+> 
+> Yes, this is a great idea. Thank you. I second you, this looks more clean
+> and stable than the stuff we came up with :) 
 
-Resulting error message:
-[  124.018206] [drm:dpu_encoder_virt_atomic_disable:1425] [dpu error]enc35 timeout pending
+Looking more at arch/s390/kvm/Kconfig and virt/kvm/Kconfig, we might need/want to
+to build out infrastructure to handle this sort of thing in a more generic fashion?
 
-dpu_crtc_commit_kickoff() calls dpu_encoder_kickoff() to set frame busy
-bits, and then arms the frame done timer. If the frame done IRQ fires
-between these two steps, the IRQ handler clears the busy bits before the
-timer is armed. As a result, the timer runs with busy bits already cleared
-and is never cancelled by subsequent IRQ handlers, leading to a false
-timeout warning.
+Which probably isn't that much infrastructure?  It's more just changing how arch
+code communicates with common KVM?  I.e. instead of providing boolean configs in
+virt/kvm/Kconfig, formalize communicating HAVE-type macros through the Makefile.
+That might even be a net positive in the long run, as it will make it easier to
+provide defaults for the common cases.
 
-Delete the pending timer when all busy bits are cleared in the frame done
-callback to prevent false timeouts.
+I say that because unless there's magic I'm unaware of these Kconfigs also needs
+to be configured per-KVM, not per-kernel:
 
-Fixes: 95bbde1d0d07 ("drm/msm/dpu: Start frame done timer after encoder kickoff")
-Signed-off-by: Jun Nie <jun.nie@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+  - KVM_MMU_LOCKLESS_AGING, otherwise aging on arm64 will unintentionally be done
+    outside of mmu_lock.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 1f20695f81e3..d83d38797331 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -1573,6 +1573,21 @@ void dpu_encoder_frame_done_callback(
- 			| DPU_ENCODER_FRAME_EVENT_PANEL_DEAD)) {
- 
- 		if (!dpu_enc->frame_busy_mask[0]) {
-+			/*
-+			 * dpu_crtc_commit_kickoff calls dpu_encoder_kickoff to
-+			 * mark busy bits, starts the framedone timer next.
-+			 * It is possibile that irq happens between the 2
-+			 * operations. Thus timer is running with busy bits
-+			 * cleared by irq handler and timer will not be deleted
-+			 * anymore. Then false timeout introduces unnecessary
-+			 * confusion and visual defect.
-+			 * delete the timer here to fix it.
-+			 */
-+			if (atomic_read(&dpu_enc->frame_done_timeout_ms)) {
-+				atomic_set(&dpu_enc->frame_done_timeout_ms, 0);
-+				timer_delete(&dpu_enc->frame_done_timer);
-+			}
-+
- 			/**
- 			 * suppress frame_done without waiter,
- 			 * likely autorefresh
--- 
-2.53.0
+  - KVM_GENERIC_PRE_FAULT_MEMORY, so that arm64 doesn't need to provide a stub
+    for something it doesn't support
 
+  - HAVE_KVM_MSI, because presumably it's needed for arm64 support.
+
+  - HAVE_KVM_READONLY_MEM, same story as HAVE_KVM_MSI.
+
+Which isn't _that_ many knobs, but add in KVM_MMIO, KVM_ASYNC_PF, and
+KVM_ASYNC_PF_SYNC, and it's enough that I think we should think about the big
+picture and not play whack-a-mole.
+
+Actually, thinking about this more, what I've proposed here, plus the pattern of
+#define-ing macros in arch-specific kvm_host.h files, should suffice.  For things
+like __KVM_HAVE_ARCH_VM_FREE, it absolutely makes sense to #define the macro in
+kvm_host.h since it's very directly tied to an arch callback.  Whereas with KVM_MIO
+and KVM_ASYNC_PF, because they enable compilation of C files, it makes sense to
+define them in Makefiles.
+
+So I think the "gap" is purely that the four knobs listed above need handling
+(and arguably KVM_MMU_LOCKLESS_AGING is ok as-proposed).  But I do think we should
+try our best to be more thoughtful than we usually are when deciding how to enable
+common code, because obviously s390+arm64 is adding wrinkles no one has had to deal
+with before.
