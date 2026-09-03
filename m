@@ -1,194 +1,173 @@
-Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021133.outbound.protection.outlook.com [52.101.95.133])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61303358AD;
-	Thu,  3 Sep 2026 19:18:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.133
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788463129; cv=fail; b=CwH2vG1zN3b2RQ3kqfq2NZLzWO0NBA1WvvSkSZ66gnfsKQfS5ZP4z+WrjuB+whiU7+pWPSZGCKWOK1/pDoV86kZTiAOn31eprwNYsOTNs+ZO90vFqIyl4Hws3EsG6uQ7BcWj/NAxRJxawqdPCGdtvF0HCAkDXeBPMXHY2sETFCI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788463129; c=relaxed/simple;
-	bh=ORZlGBCZswQcFZWd6zqZhWCy9maAZlYfX1c7zsVAiAg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Z3T5QXTzYoxLHxx99Gtn5CzqTW/sR+NeQla7S7l731epoiTBYnMuU6OX0rKxO21KslFbrZetukpV8S3Nug3D9RTPfRwZThtEIsEhXAzAwID7744BYxFlSTL6vqXmZ4kG5x7kEXbdTAStEZNJ1GPIXciu39spV8yheR8FcZJppOQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.95.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XT1T12lMhzSiwcnGYY81LA1FI1QeOp8XkiGHC2RSd1w3lhzOJA4lkxe2Ps4sdsQqS++6O/G8Ew+iu6GV8QD3G8ytiTqEF3dWKwwWn3CrKvG4Xrz0pGRgDigmtxCAVpozc0aYC2MXHxY+46zuQT69bzGMH9+GOFimS44a0V+46JkBLXJ/1ilLQPOd4QZ6EaxszpcDd5lniuuBT9vk8GYHwTgIZRqX6JYYdfTJ2js13VkZoDxrGwy4SbZk1iIh+T3Mj83JZYGvo5Bn3sw+2vAPFTBigZG3hbZBrljW5kqU8u1eStXyu2c1J4mFSYlk9t/6UB45xfgfHE4ySRmWpO7Tzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=oPxzzG7T7Lev/SNXHcqgh63Rno3QDOnHVGO5ssSvbAQ=;
- b=X+1D5zmVwP7kcp+sfTIU/Y+XCUIAZkOQrqOdXyHiiDwIIE/OzSMG3HLEhOnnotfVSbi/REInqv/u8UrVn1SzTforSNNEpQZ+M23aFhqiVL0Y0VN5H9lZCv4W0ROBDX3sx/sVyKuZBhJQAZuai+xraLNi77+uREeui/S37F6FxOyDYjIrQ2sXLznh/Kcb2juyk4SYFvA2608qTLZ4/sY+HbO2ZeBZEqs4lqI6bvDOWYfG/j5HsFo2JJRPDFsY+yEv5DYhua7pJKdnhEdsEA8MjWSfWLAVhNyGrzHBvRqJnjcCUExguBUyuq6E2+uuF9/ZZiouJrMjQmSdoZtzGk03dA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by LO4P123MB6726.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:2e4::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 19:18:33 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 19:18:33 +0000
-Date: Thu, 3 Sep 2026 15:18:30 -0400
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: Marco Crivellari <marco.crivellari@suse.com>
-Cc: tony.luck@intel.com, bp@alien8.de, tglx@kernel.org, mingo@redhat.com, 
-	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, frederic@kernel.org, 
-	neelx@suse.com, sean@ashe.io, chjohnst@gmail.com, mproche@gmail.com, 
-	nick.lange@gmail.com, linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] x86/mce: Avoid arming periodic polling timer when
- not required
-Message-ID: <meco6huj6tnwozht5h3zrp22f5ljtvyulphesu7csou7y64uoz@4zkit3wvrtea>
-References: <20260903041320.179965-1-atomlin@atomlin.com>
- <20260903041320.179965-3-atomlin@atomlin.com>
- <CAAofZF7rNbEZuiGJXyjn+wwtdF0Y9vDEo2hGhJak6CCkP8YB-g@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAofZF7rNbEZuiGJXyjn+wwtdF0Y9vDEo2hGhJak6CCkP8YB-g@mail.gmail.com>
-X-ClientProxiedBy: BN8PR04CA0046.namprd04.prod.outlook.com
- (2603:10b6:408:d4::20) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A37A44F30FE;
+	Thu,  3 Sep 2026 19:19:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788463148; cv=none; b=Z0IJpaNcabaTjq84ME11vCKAnsddD8docVhfFPwbfdHsA0fImDBEVF6kkqkznbz0XUc9FhTNRlzEy7DX/t/lY+J50g4XakybU+ebYNA0i7POn4+R/wOO4NE8U3lh41GYYf7q8BIgcMSDiIjwTmHQrl08L40a62F87Lht90GlZUc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788463148; c=relaxed/simple;
+	bh=+xGEaWDAQnk2irc5itHenNo9rPTdQoSjxtjJaClKROw=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=PG1uWsVToHvJ9M8mQH8boJRPyjH/pPVX7OdGOVwsQPn5eTFKYgxH6Ch9F+L9O7VKte1EyIuVluLTWZ5oXJIy6t9ar9o145RfaZs509GQRIq347ZNH8ha+hfLlHo0RNqtJXblnkJ7suu1As4pNUiKHeqCaO54SFxPaOo6Vx3Y6qQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OZJ77l8M; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OZJ77l8M"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683G3Ge1417609;
+	Thu, 3 Sep 2026 19:18:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	USrZhzBciZQ8U7KPxAoC/B0dynwx1W1kbw5c5TVLEQg=; b=OZJ77l8Mp1HSGX48
+	CMDsiqfmT98vqj4aYoXco+ELWQUJRQz0scoJbu5RVlVLmt439VcaTK6Fey9jnT1U
+	P8GvvTpPMNsMmcaxI6OC7r7XS9L+KJVxt8lvDn/imYQkgHqFexKjjiNTYu7/hASn
+	x9+kVJWxAU6Lb/cuMqr78/nTc7ipUo6vgumAszSbWfqD2/llimZ1nrjOL/1FXzJF
+	T6FCLb8zl8zT1o22gge5/VPLncQx+vAATK7eMszEOfagEyTO+uuONHeOiZZapabL
+	EcvQQdBg0UI7yaeiFhY7wtWm3GmABV2wPHQ3wjlPG3otGnpG2ELve77IYPvuKCA7
+	TlT9QA==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf51m31a0-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 19:18:36 +0000 (GMT)
+Received: from pps.filterd (nalasppmta04.qualcomm.com [127.0.0.1])
+	by NALASPPMTA04.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 683JIaWe3200063;
+	Thu, 3 Sep 2026 19:18:36 GMT
+Received: from hu-devc-lv-u24-a.qualcomm.com (hu-jcameron-lv.qualcomm.com [10.81.84.69])
+	by NALASPPMTA04.qualcomm.com (PPS) with ESMTPS id 683JIZtU3200051
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 19:18:35 +0000 (GMT)
+Received: from hu-jcameron-lv.qualcomm.com (localhost [127.0.0.1])
+	by hu-devc-lv-u24-a.qualcomm.com (Postfix) with ESMTP id 6820224CD6;
+	Thu,  3 Sep 2026 12:18:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO4P123MB6726:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4bc241c1-cc48-439d-fd60-08df09f0255c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|13003099007|10067099003|56012099006|18002099003|22082099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	8GKoeV53Wgrrr2HmpqkNcDVlxrK6wgoettN/0XjezgIyOpObqxrRhNBxWzobL7G2rgqnj+LZEYeEadxUiXdYJgZclDJR+YMuVGHtMwIA4SmqoAEXoM+ibcYXXB26E/Ubl0M1Wm2cDztZe81VQ5V/Ak2guu8kzcKf4QTFv8PF1W61EkU80HSagQmkF3M0vYzgztn6Xw6jI1MX50MMnpBctUOC6KY9VVBtbsXU6nro4TFZprqwaKs3rDanuCrCTQ7YHToDbOyI5vqCEw3qk2xNjAdW89m/OSEqopKrZUJwEzu7zzUfLynPGEoSYZucsjuSe3hdsFvdu00f3/rN7pr3FLDijpkZOt/IB+rNm9CsZLj3r87BhTpvGPbujyFnawJ3nPJ5RV0oS1wTF2EjxEuYWW5iOn9cQTTyvoQg4mq3F7sMUD9Zodv5oqE4bHc6/Nj9sNVRoX2MWdw/X3PXwGHig02dJCMGU6F4uFlicolfgQClcPCkClJrzY9vcsdYuWGRm723XBtd7fT0XJlRtnzHHJq6GgbiphxXFHY6qmpcnILWE2ifqR3rXRN5qSyRRnZm4O/M8J2BXrKL4NXsDl87MIxjFBMunZds1SU2I48atDo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(13003099007)(10067099003)(56012099006)(18002099003)(22082099003)(4143699003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SUlDeGpMU2FoTjU1dFpKSldwa2JFUjJPc1NMMGh4T0FvelF6YW50a0x2NjJ2?=
- =?utf-8?B?b2d6b3gveDkrR1JXOHJYYzh3TlVsVUx3bFJNVlk2Q2xhUTYvS0ljS3FxM2x1?=
- =?utf-8?B?dE5WYm5sNmNINlRVZ0ZkcmI2NmR4MTlQK2dYRDQ2ZlQ2RURIUXIwNjBBdVEx?=
- =?utf-8?B?S2xqMUtudnRoZHVIb0wwRkhtOHR5MkNlMWxjZGlMZkVhN0NuZmtaQlVoZDBv?=
- =?utf-8?B?ZzNWYmo2RTlRNHZZbFdmTHAycHNEWFp6Wk9WSE9PVzlRVDNJWXAwTHVKcXN0?=
- =?utf-8?B?NlJKWW5kYSs4UGpnbWt3ejRtWEpWRDdvMUovYlYvWXZMUWlPZmRtYllzc2VK?=
- =?utf-8?B?eVNuQ0UveU9qa3l1WElPZmpqcnFhZ2l4aUlRTjgyM29RRmdJZFVhNlB3S2NY?=
- =?utf-8?B?enVKa20yQWlPQVcwak5vY0owdTM0dmZob1FTOEJtK050Zlp1bTloQ04zQTlE?=
- =?utf-8?B?dzlUTDc4c0FLL2x2ZWdSaFQ4Yno2TWR5WjBLb09DM0cwc3FKVUZpWFdVTVVW?=
- =?utf-8?B?bkM4QXNWM29SNGNIdEpMWDh0ZlhzYmNrMEJuYngreWdsY2VmTmNieFdRaDdP?=
- =?utf-8?B?QlJRUXl5Q3FTOFJwZFB3YWJ3NzNRZGQvTDZMdmxQV2pmRUxJZFdwSEdWSjVJ?=
- =?utf-8?B?WFgxZzVNaWVReTl1NU1oZWM2T29ITVI1NGxUdC9nYkZmN1BYTkRLNUdlWGVJ?=
- =?utf-8?B?cjdjaUFmUnFrOHNENHExRVpDZktISGYvR08yVFRkMThLN3QxT1hBcDIySWs2?=
- =?utf-8?B?NFlPc3JYQnUvb1h5OUdxdVllWlMyY3h3MlZUYm5RZTFZZldKQzQ1M21xNk9M?=
- =?utf-8?B?cUppTTlibWJRa081aGlISkZld05TbG1OWDhHWS8xcGJFcGwydmR6ZnRjMVJU?=
- =?utf-8?B?SW1kbjVhRDVhNHFLMWo0TlBWbHBteHpDKzBwVFF5ZmljNHVDUnRJaGpiR2E3?=
- =?utf-8?B?OUNVNFRFVUVnYXJna1RMUDVkTCt1anBJbzRETWp6QllDRmVNWDdubFZPOVpK?=
- =?utf-8?B?UEthTWxqYmdmV21NWkJ5dzVseGU4Q0hKVHp5V0RjMXlSQnVyY3FqMXN0Sm9F?=
- =?utf-8?B?VEV5bTd5RGxxUWRka082M0lNWmgrSWhtTkpjTDRSb3lwY205Nm9CODFyQk5Y?=
- =?utf-8?B?b082NmlkaTNOeXZCT1R2NEUwdFRQR3NBSjZlUlZwa3pDOGpMZUc3ZkFqN1Ew?=
- =?utf-8?B?R1NkT2pueFBoQ2lKb3RiV1JsZGsvaGZBdXNSNGRXaFI2SWtkV29BMzRseTFm?=
- =?utf-8?B?czh6NmNyMnFwM09WZW5QdVdWR3NiYjA0WHFhMjdTaE43bno5T0NlTmc1UW5C?=
- =?utf-8?B?WlpkYVFScjN3aEZQQzkyTTk1QkZwa0xkcUhWZzBlL0RKVWM2ZFBUOG4xNFkw?=
- =?utf-8?B?aU94R0kvZXBxYjJ5MFFGZno2ZXVYMUhkN0Y2bHhrL1JEakN2Q2RpWk1EbStu?=
- =?utf-8?B?QVRnRmZ3MDJFTm5ieGQrRyt3Wjljc0JkSHFKTDJlQVRlc3luSVQ2c3JTYURT?=
- =?utf-8?B?WDV3L1dhVGlmc0pzNFExTDBYRWRFT1dlTjZPeDdwOWVlYkVzaXBlTTZzSEZr?=
- =?utf-8?B?SkczWEQ4MGNsZ1lEK3R2aFFRNlVBNlRDcGdTcWc5Skg1czF2dFpPRWdtUSt6?=
- =?utf-8?B?N1Vhb0JIVE1zKzM4elNZVWdpejZ1dlJsTGpBM2hCQWNZTmM1UW1aVmdacXd5?=
- =?utf-8?B?TmxNKzBsQnpJRXdhZzF2dnFqbFlOTEl5VW9iR3lkajN6M3ZoYzdHR2hFTlVy?=
- =?utf-8?B?d1NkbGVBc0tad2NBeGEvcVY0NkFZRkczM2E5T3BMUVAwSm0zS0lMMXBSMDM2?=
- =?utf-8?B?VjNzQVduZ0djWWRncXdUenZoa0V2eU5Wa3ZWZ3hBb0hnVndnM1ByRlU0VVFj?=
- =?utf-8?B?VVcydkhreFpudEphR2hHRTgvcmhwRWJpaU1VQVRVNlY3RjBNTWM2akFOUVhN?=
- =?utf-8?B?bVBqcEx6WUlpOFpYeDNQYUlydEk1eU5tN2xQZDEySUlTenBNdzFCOVk0aHJT?=
- =?utf-8?B?UFp3SDFpQnROMTVxekNTR3lMaWhla015dzk3MnFoYytPa2k0cGFBWjN6Y2pw?=
- =?utf-8?B?ODY2RmxIVlVLZW1zRFN5MnJJTkFiRUNZRUtwNUlER01MamFBdzVlbkFCdFNl?=
- =?utf-8?B?bGRMUitRUUpaRUswR1NLR3lsNHk4TExadUE0SHRHK2kxV0hjZWZaM3JCb3Ba?=
- =?utf-8?B?UW1JWWVieE4yK0U4V0dNYnNWQWpDKzZtNDI1Vjg5QVVkRFNCanBoZ3FlNEdl?=
- =?utf-8?B?U3puNmx1a0ZRWkpZUG9NMXRCeDdqcEpYVFNrNXM5cDVmQzlidGNFVnB0SlUv?=
- =?utf-8?B?RWhBTzg0ck40di9aclJCNmV3NFR3MXMvZDJ6YjlRWkVBRCtOSXRBUT09?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4bc241c1-cc48-439d-fd60-08df09f0255c
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 19:18:33.4455
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uwxbMEJxAK2Uxw/HpOshLbn4nC0/nrjOAzHiQmYvoTk+MAf/xHmWKLQDbXT86xNXV0bUGWBRbaEVdhJPoHdvlA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P123MB6726
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 06/13] iommu/arm-smmu-v3: Submit CMDQ_OP_PRI_RESP
+ for IOPF event
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Nicolin Chen <nicolinc@nvidia.com>
+Cc: will@kernel.org, robin.murphy@arm.com, jgg@nvidia.com, joro@8bytes.org,
+        bhelgaas@google.com, praan@google.com, kevin.tian@intel.com,
+        kees@kernel.org, smostafa@google.com, baolu.lu@linux.intel.com,
+        linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+        linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+        skaestle@nvidia.com, mmarrid@nvidia.com, skolothumtho@nvidia.com,
+        bbiber@nvidia.com, harsha.v@oss.qualcomm.com
+In-Reply-To: <9280aea7ae7197eca3f223ef5b998aa25afb29d6.1788222485.git.nicolinc@nvidia.com>
+References: <cover.1788222485.git.nicolinc@nvidia.com>
+ <9280aea7ae7197eca3f223ef5b998aa25afb29d6.1788222485.git.nicolinc@nvidia.com>
+Date: Thu, 03 Sep 2026 12:18:33 -0700
+Message-Id: <178846311317.1308030.4335813024474016483.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: 9G37ujsOx84etlvoi9xdDPmP1fbjZaPq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDE2OCBTYWx0ZWRfX3t71EamZFxDU
+ ZAkMkBO1ip7/gxCcjAtl29CYiRJ6VQz72G84/NKsSunYbrz5qEJhg9LPbrY71V6QXlbicQ4QWQN
+ ZTlTcjM2PEFJHXe06Hba/+Lb6x5raS2ohw9Jb66rOm37VUHEpH5gTZM6g4qXxeuqfifOmvs7H6j
+ 8STeRr9Si85JTDvPuVYP+6xKfQsu8JqwB8Icvj3JKDjagpt3u3A8Jneln7SuWmv8DMxW4vdMlum
+ w5CcFFDioa7N0h+W2n/4t3T64BoIOd3VpP43UV+JLzuCc0GMQvXJVrr6SgPuTlxBFrbYu921IUV
+ MjbwKKSZzk7Gq9qodFoeuxMTR7xSS5qgAH9vitGMfGCMYxnMu750M4Xjn+fAa7vMBY1iFeV8PAG
+ rZXAH+oZ0IeoG4yYvTct+uFV5HlyESzGiDNctTWhOEkj87n3vlhfwcC2dV8NWw5hxZoHekOKJyh
+ 095efZNjfiEyRjwE8TA==
+X-Authority-Analysis: v=2.4 cv=X8Ji7mTe c=1 sm=1 tr=0 ts=6a99c80c cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=Ikd4Dj_1AAAA:8
+ a=EUspDBNiAAAA:8 a=PE7_2P9x3socOyUVfT8A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDE2OCBTYWx0ZWRfX2Ke/NNUxS59a
+ qbX2i4QNnKV9ITuckOlMdmXuRDxfEPS3e2sHn7gzDK17GolO9eR/zQabR4k+eQ89vragx2jVRYw
+ jU6O/z1rcI1fM+znfDKj5eYKYk8Rznw=
+X-Proofpoint-ORIG-GUID: 9G37ujsOx84etlvoi9xdDPmP1fbjZaPq
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_05,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
+ priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030168
 
-On Thu, Sep 03, 2026 at 10:49:34AM +0200, Marco Crivellari wrote:
-> Hi Aaron,
+> To handle IOMMU_FAULT_PAGE_REQ from the PRI queue, arm_smmu_page_response()
+> must issue a CMDQ_OP_PRI_RESP back to the SMMU.
 > 
-> On Thu, Sep 3, 2026 at 6:13 AM Aaron Tomlin <atomlin@atomlin.com> wrote:
-> >
-> > +++ b/arch/x86/kernel/cpu/mce/intel.c
-> > @@ -229,16 +229,17 @@ static u64 cmci_pick_threshold(u64 val, int *bios_zero_thresh)
-> >   */
-> >  static void cmci_claim_bank(int bank, u64 val, int bios_zero_thresh, int *bios_wrong_thresh)
-> >  {
-> > -       struct mca_storm_desc *storm = this_cpu_ptr(&storm_desc);
-> > -
-> >         val |= MCI_CTL2_CMCI_EN;
-> >         wrmsrq(MSR_IA32_MCx_CTL2(bank), val);
-> >         rdmsrq(MSR_IA32_MCx_CTL2(bank), val);
-> >
-> > -       /* If the enable bit did not stick, this bank should be polled. */
-> > +       /*
-> > +        * If the enable bit did not stick, this bank does not support CMCI
-> > +        * and no corrected or UCNA errors will be reported on this bank
-> > +        * (SDM Vol 3B 18.5). No polling is needed.
-> > +        */
-> >         if (!(val & MCI_CTL2_CMCI_EN)) {
-> > -               WARN_ON(!test_bit(bank, this_cpu_ptr(mce_poll_banks)));
-> > -               storm->banks[bank].poll_only = true;
-> > +               __clear_bit(bank, this_cpu_ptr(mce_poll_banks));
-> >                 return;
-> >         }
-> 
-> Not sure Sashiko's review it makes sense but to me it could make sense [1].
-> In short:
-> 
-> > cmci_storm_begin()
-> >    __set_bit(bank, this_cpu_ptr(mce_poll_banks));
-> > cmci_storm_end()
-> >    __clear_bit(bank, this_cpu_ptr(mce_poll_banks));
-> >
-> > Since __clear_bit() and __set_bit() are non-atomic read-modify-write operations
-> > and softirqs run with hardirqs enabled, will the hardirq's modification be
-> > overwritten and lost when the softirq resumes and writes back its value?
-> 
-> Sashiko's suggestion is to use the atomic versions, "clear_bit()" and
-> "set_bit()".
-> 
-> Thanks!
-> 
-> - [1] https://sashiko.dev/#/patchset/20260903041320.179965-1-atomlin%40atomlin.com
-> 
-> -- 
-> 
-> Marco Crivellari
-> 
-> SUSE Labs
+> A stall event in the EVTQ and a PRI request in the PRIQ both surface to the
+> IOPF infrastructure with fault.type == IOMMU_FAULT_PAGE_REQ. SMMUv3 forbids
+> the Stall model on PCIe streams (PCIe must use Terminate), and PRI is only
 
-Hi Marco,
+There are those systems that annoy some because they smell like PCIe
+(present PCIe software interfaces) but aren't and use stall mode. However, it
+is nonsense to use PRI with stall mode. So, instead I'd just argue that for
+stall the fault handling is done synchronously from a device point of
+view so a PRI request makes no sense rather htan associating this with
+PCIe as such.
 
-Thank you for your review!
+Hopefully someone with such a system (Huawei folk) are testing this
+and can confirm nothing breaks.
 
-Yes, the per-CPU variable mce_poll_banks can indeed be modified across
-different execution contexts on the same CPU.
+> enabled on PCIe masters, so stall_enabled and pri_enabled never co-occur on
+> a single master. arm_smmu_page_response() can therefore key on the master
+> state: CMDQ_OP_RESUME for stall_enabled, CMDQ_OP_PRI_RESP for pri_enabled,
+> mapping IOMMU_PAGE_RESP_* to the PRI response codes.
+> 
+> Note that a CMD_PRI_RESP.Resp encodes 0b00 as ResponseFailure (a permanent
+> non-paging error), 0b01 as InvalidRequest (page-in unsuccessful), and 0b10
+> as Success. So IOMMU_PAGE_RESP_FAILURE maps to PRI_RESP_DENY (0b00) while
+> IOMMU_PAGE_RESP_INVALID maps to PRI_RESP_FAIL (0b01), following the codes
+> rather than the similarity of the enum names.
+> 
+> Extend arm_smmu_enable_iopf() to also proceed for a PRI-enabled master, so
+> that attaching a fault-capable domain would set up IOPF for it. Note that
+> a later change will set master->pri_enabled, once all PRI paths are ready.
+> 
+> Note: streams[0].id remains the RID because arm_smmu_enable_iopf() rejects
+> num_streams != 1.
+> 
+> Co-developed-by: Barak Biber <bbiber@nvidia.com>
+> Signed-off-by: Barak Biber <bbiber@nvidia.com>
+> Co-developed-by: Stefan Kaestle <skaestle@nvidia.com>
+> Signed-off-by: Stefan Kaestle <skaestle@nvidia.com>
+> Signed-off-by: Malak Marrid <mmarrid@nvidia.com>
+> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+One trivial comment inline.  Given I've mostly forgotten how all this
+works, this tag might not worth that much!
 
-Tony, I will address what Sashiko [1] reported in the next iteration.
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-[1]: https://sashiko.dev/#/patchset/20260903041320.179965-1-atomlin%40atomlin.com
+>
+> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> index 352c916b2a57..64540cfb7324 100644
+> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> @@ -1028,32 +1028,69 @@ static int arm_smmu_drain_queue(struct arm_smmu_device *smmu,
+>  	return -ETIMEDOUT;
+>  }
+>  
+> -static void arm_smmu_page_response(struct device *dev, struct iopf_fault *unused,
+> +static void arm_smmu_page_response(struct device *dev, struct iopf_fault *evt,
+>  				   struct iommu_page_response *resp)
+>  {
+...
+> +	} else if (master->pri_enabled) {
+> +		enum pri_resp pri_resp;
+> +		bool ssv;
+> +
+> +		/* PCIe allows only one PRG Response per group */
+> +		if (!(evt->fault.prm.flags &
+> +		      IOMMU_FAULT_PAGE_REQUEST_LAST_PAGE))
 
-Kind regards,
+Go long on that line.  It is worth it for readability and it's only 81
+chars.
+
 -- 
-Aaron Tomlin
+Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
