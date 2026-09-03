@@ -1,139 +1,147 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7640E306746
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:37:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A76E14052DC
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:37:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788428268; cv=none; b=k1fWifDnSSDTn33IFG0Xn6BG+2ijucVxxEXpv+x3+AxV/8qW4s96RK4sokx+wzfRHZF834jpdwmlGSBiu8r+VTONRxa954G2H8GhGXiLUKT+u1gdUWMQnjbwQLb0H74sk896kjfBNCH4zYC38xtem44qjUnHPwiB/D2D0KiDf18=
+	t=1788428280; cv=none; b=pStOdRwEGkGth+PV66fnVxS0DW9a9erhJ8URcNwR/TXf0vP8sIr5OsKLmdYt8MmlGOPr+oKaTkNiIedQ2C+FqpcKwTUwVUTERcUhTt2xyTd491m86OdMPItIM0UukrXsPxWvebpwgN1pkSiCVOtr6lZb4tnDs719cWCLz73ICLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788428268; c=relaxed/simple;
-	bh=AgOOQ/X8FuhHbRJqDZqNm6FH9w9WhULgA91rRXqTtc0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sFOv+MD2s8uxWiX188n6MyK3VglnY4nkbGjtXHUZ1W6eJx3Pk54PfJrvAJNEm7YwAZAa9/pxhVgRvZ2cEQHwd9daQnGGt99abjTlQVvfxwwjYtkuFnMN7Z3H46/C68bsIGa2/IqoKdS6tSwY8lxlxv7k93BPHO3JpLgBJg9Q0tc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KhEBxtGW; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=N7CPT5Wa; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788428280; c=relaxed/simple;
+	bh=Fkd399WWImd9KJdZfl07eo+eynmLZQVkJf6NdqrDObA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aBnjq44GvYm+3LS2Bm+fNfYERJ0jU2aX4qnAUnLrW04e/WZHErnK1LzRAIFC7oVpef4BQo5+A3LBUCz4iaNkl8oPuBcHa8cng5h3aA7Cn+wOjyPu8dlbyUt4O8+Y/rEwZ/4ewnLpsvdF73fmNq9RcQrLHPdBUu9BGEKnMtI+h4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=hWdwpaeS; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KhEBxtGW";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="N7CPT5Wa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788428265;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lqyLfPimaSH505OA2sugMY0JdybunaldflNnBPDaYSM=;
-	b=KhEBxtGWpZbJbgIVYiy7gwdV59R+PFJAP8jPaeNsJbxdqdR2u19WIn+Iq9jsO8pB9JlJ5t
-	g+qBs5eLX62zaxoz9oioDhdhfJwGthylurm8ZoRL4KQR2j+ITTlAqcMWv6Ei+BCiTUYNDr
-	upcZV6KeOlSNbVpPw2zRjCS2fILUmik=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-77-ql1J3HfyP4GRFW0j4eDayA-1; Thu, 03 Sep 2026 05:37:37 -0400
-X-MC-Unique: ql1J3HfyP4GRFW0j4eDayA-1
-X-Mimecast-MFC-AGG-ID: ql1J3HfyP4GRFW0j4eDayA_1788428256
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49cd55ee2f7so17424275e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 02:37:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788428256; x=1789033056; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lqyLfPimaSH505OA2sugMY0JdybunaldflNnBPDaYSM=;
-        b=N7CPT5Watp6i9uSYGFDRuQD4VrZiilmfeRRuGzbmtQa2ZVRwtcRxhxgJxvs+AIDuh5
-         jZObeFqSQuozTkdvGYsTeCO3RMgdQa+4ECB9/EOkSeusY7XVKGwlUhi5dG8V4vLGX4IC
-         wxomQQbgaCpZIJGskjHp0vLFZc1OCkZeTSMIiUb0Bpksz3U5hl6ItsLG3PdYinWRL9Yc
-         rT7UKExQ0TaP7td6p/9mK6QzXzoPu82b3hNMhLVF+0pG5yeIEKkv8bpcAirUTYYu43xq
-         tZeYeAYJDeOGTmKC4cQf+uYRhg4aQkaNDl0Is1DfdgXorKvhySqoP3LmrCCzny6ffApX
-         /yAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788428256; x=1789033056;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lqyLfPimaSH505OA2sugMY0JdybunaldflNnBPDaYSM=;
-        b=DFZXHaJOd5vtRmLxw5g0hJe074vNIQC+7XtJnX8Zrhytaxhzum64+w+4so4Gg1Cud4
-         sNDpb8eOt8AsbYJJ7PyqWncN71vbzcjQe0w3gkS8Pry3IehmNccu6L/OT1hm7ghXIvai
-         CsUxliX7FfKT+JUoFdMnBFOu2V3+4el4OyE/Qst7Nk9oRkJ5fhuBXdR7qAoFf3H7akDG
-         7oFc6qW5EXnt274SPCeSxxVvd8JctxQWhiWYj35QA+jH4CcD+WKNwN6h6zW4ADIzYLp4
-         4q70xHDaOhLGln3zlV+ENnQnlfU4sKpB4EoaozOGXHgWBhUy2QDONnRnKaG+24tSTTVH
-         hArw==
-X-Forwarded-Encrypted: i=1; AKwUvBwUGOrMBChuTuAtds9B+mIzQrYTL9hXri/Cxl/pckvR2MjjUuKKyduCpnjur9n6Sr5HNp2jqQ9t10gpY2w=@vger.kernel.org
-X-Gm-Message-State: AFuF++mzGbiXi2lkMUVkmQGmeQ/Mr8pNNhNkr5ZMADhQvHdWn4wOR2Mt
-	XS0eSQoeJhHILEPi9mKIPI6sa9v1b9IxLj0QEKk8pbJIkM2BHMtS4EhlOVGFii/s36lPPUnFveu
-	HUBGMF/TgKXYXMcy3HB2CLiu4E01VIufZXsQc4m95dpU3m88cd0KBUdL05POBLDX97A==
-X-Gm-Gg: AYBFou1JUJEgrxH4UtfQYxyqzBEJAGodIAhzDew3v9WeW1+PiRkMLLiqroFqU/8jnhS
-	rDHk6G+UP25URt7KqJQTYdXGatMOZF66qz//MbYYqflyHrqn5hg0/yqRjL/jkbTka3GE/Q0CcST
-	kykvudIcG6eV1uesw12pNZxLu2qcSrgmgkGkRUVnnfSzEKYRUuwBB8H5DjUq+CzAtzxF/g82IPj
-	sEk/bvst0+0mdhFS9nFGEusJnf2vp3wzH9HimJWi8hRziWFmhxds/My9P5Ani+EsrKtEHUKiMB5
-	Gbi+6B6jVJEhoDl2xxdelqKtzS9yWhjDAmuH/IroACuYdB4hQwXalB+iV2vMKsDjUUZGzX8lCJP
-	AGdCi7NJ00J3itxcqStwS49lQrB4A8TKf/LlS+meZGQEzY8ylJr/5ywqqZeaWy/tQN40SjavFRw
-	==
-X-Received: by 2002:a05:600c:8b88:b0:49c:e1cd:536 with SMTP id 5b1f17b1804b1-49ce584b899mr189686015e9.12.1788428256067;
-        Thu, 03 Sep 2026 02:37:36 -0700 (PDT)
-X-Received: by 2002:a05:600c:8b88:b0:49c:e1cd:536 with SMTP id 5b1f17b1804b1-49ce584b899mr189685115e9.12.1788428255660;
-        Thu, 03 Sep 2026 02:37:35 -0700 (PDT)
-Received: from [192.168.188.218] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5f914bsm68349605e9.3.2026.09.03.02.37.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 02:37:35 -0700 (PDT)
-Message-ID: <bb4ae7c9-e705-4eff-9813-065ea4bd9514@redhat.com>
-Date: Thu, 3 Sep 2026 11:37:34 +0200
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="hWdwpaeS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=FSjT
+	ZhC7WnhgkLy/1e6nyfPpclYviSuIuUmpThZjZ1A=; b=hWdwpaeSPBANUJFZ9zjy
+	ieojamlI6bO1mC869hJgGOFmUPV6XlWc0tHzEzTiyL1pmb2P4FaI93aTfk0DXcYe
+	hq7MqQ2g/tpjQuAzp6BwuOLkNuWLs/N++uakZEUm7U/ufEVawfEdv48RGMsq1dGA
+	A/sK3PlZ9l7Yoep/3iwOvETtDIAKj7571FelyksThNRjQ+BwCZaQ17IM0MR4kMJ7
+	Z9BSD7K+bwoIli18RxzTsTBxiljJcf1LmmCnO2BPd/mrWXcu8KsYlF8ElkOeU5G5
+	bdg8Cvhys1S7tzXjjVmdF9UaiQ2WyxTAxJQa3urGgDhSow5gXB6N+ggKbRpqGx+z
+	iQ==
+Received: (qmail 993007 invoked from network); 3 Sep 2026 11:37:56 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 3 Sep 2026 11:37:56 +0200
+X-UD-Smtp-Session: l3s3148p1@Tp4c6JBaIKUujntC
+Date: Thu, 3 Sep 2026 11:37:55 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Biju <biju.das.au@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>,
+	linux-mmc@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v24 08/15] mmc: renesas_sdhi: Add
+ TMIO_MMC_INTERNAL_DIVIDER flag
+Message-ID: <apk_81IYqxrWZyJK@shikoro>
+References: <20260820171657.62815-1-biju.das.jz@bp.renesas.com>
+ <20260820171657.62815-9-biju.das.jz@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v5 0/6] Fix a variety of TPA bugs
-To: Joe Damato <joe@dama.to>, netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, horms@kernel.org, michael.chan@broadcom.com,
- pavan.chebbi@broadcom.com, kalesh-anakkur.purayil@broadcom.com,
- colin.winegarden@broadcom.com, rukhsana.ansari@broadcom.com,
- linux-kernel@vger.kernel.org, raphaelcf@meta.com
-References: <20260902015652.2421609-1-joe@dama.to>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20260902015652.2421609-1-joe@dama.to>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="1HOCjPIa4TORl4Ez"
+Content-Disposition: inline
+In-Reply-To: <20260820171657.62815-9-biju.das.jz@bp.renesas.com>
 
-On 9/2/26 3:56 AM, Joe Damato wrote:
-> I am sending this series as an extension to my v4 [1] which was just 1 patch.
-> 
-> Note that patch 5 of this series can now cause the device to fail closed if
-> memory is tight; bnxt_init_nic propagates an error that was previously
-> swallowed and fails closed instead of succeeding in a degraded state. If the
-> maintainers want the device to come up with a partially populated rx_tpa[],
-> then patch 5 can be dropped and this series can still be applied
-> and will otherwise work as intended.
-> 
-> This series addresses a variety of bugs orbiting the TPA code in the bnxt
-> driver that Sashiko (or Clashiko or whatever) pointed out and the series ends
-> with the patch from the v4 [1].
-> 
-> A lot of the noise generated by the AIs while reviewing my v4 are unrelated
-> bugs with different fixes tags that, IMHO, distract a bit from the crash at
-> boot that is currently occurring with Thor2 hardware on recent kernels.
-> 
-> That said, I've tried to wrangle this series together which I hope will solve
-> most of the important bugs the AIs are feeling something about.
-> 
-> I do not know what other rabbit holes the AIs will find when I submit this
-> series, but if there is some reasonable stop-gap that we can get applied to
-> fix the crashes on Thor2 (while I iterate on the rest of the bugs at the
-> pleasure of the AIs) that would be excellent.
-> 
-> I boot tested this on a Thor1 and a Thor2 machine and there were no crashes at
-> boot.
-Waiting for Michael's ack here. Note that I think that the AI report on
-patch 5 is not a blocker.
+--1HOCjPIa4TORl4Ez
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-/P
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] Fallback `f_max` and `f_min` initialization fails to account f=
+or the internal clock divider.
+> --
+>=20
+> --- Patch [8]: [PATCH v24 08/15] mmc: renesas_sdhi: Add TMIO_MMC_INTERNAL=
+_DIVIDER flag ---
+> commit c4a63c19303286f5b383bdabaa2a3f3827a8c5c5
+> Author: Biju Das <biju.das.jz@bp.renesas.com>
+>=20
+> mmc: renesas_sdhi: Add TMIO_MMC_INTERNAL_DIVIDER flag
+>=20
+> This commit introduces the TMIO_MMC_INTERNAL_DIVIDER flag to support SoCs
+> like RZ/G3L that have a fixed internal /2 clock divider. It adds a helper
+> function to fold this division into the reported clock rate and uses it in
+> the clock update path.
+>=20
+> > diff --git a/drivers/mmc/host/renesas_sdhi_core.c b/drivers/mmc/host/re=
+nesas_sdhi_core.c
+> > index ff428b6187bbd..b5f2ff68db758 100644
+> > --- a/drivers/mmc/host/renesas_sdhi_core.c
+> > +++ b/drivers/mmc/host/renesas_sdhi_core.c
+> > @@ -125,6 +125,27 @@ static int renesas_sdhi_clk_enable(struct tmio_mmc=
+_host *host)
+> >  	return 0;
+> >  }
+> > =20
+>=20
+> [Severity: Medium]
+> Since this patch introduces an internal /2 clock divider, should
+> renesas_sdhi_clk_enable() (which is just above this hunk) also be updated
+> to account for it?
+>=20
+> If the device tree omits the max-frequency property, f_max defaults to
+> the raw parent clock rate:
+>=20
+> drivers/mmc/host/renesas_sdhi_core.c:renesas_sdhi_clk_enable() {
+>     ...
+> 	if (!mmc->f_max)
+> 		mmc->f_max =3D clk_get_rate(priv->clk);
+>=20
+> 	/*
+> 	 * Minimum frequency is the minimum input clock frequency
+> 	 * divided by our maximum divider.
+> 	 */
+> 	mmc->f_min =3D max(clk_round_rate(priv->clk, 1) / host->pdata->max_divid=
+er, 1L);
+>     ...
+> }
+>=20
+> For hardware with the internal divider, this advertises double the actual
+> achievable bus frequency. If the clock provider cannot scale up to 4x the
+> requested frequency, the MMC core might negotiate a high-speed mode that =
+the
+> hardware cannot satisfy, resulting in a mode mismatch where the bus silen=
+tly
+> runs at half the expected speed.
+>=20
+> Could mmc->f_max and mmc->f_min calculation be adjusted when the
+> TMIO_MMC_INTERNAL_DIVIDER flag is set?
+
+Looks valid from a glimpse. Please comment if you think this report
+makes sense or not.
 
 
+--1HOCjPIa4TORl4Ez
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqZP/MACgkQFA3kzBSg
+KbazUg/8D5L45wtGNn85UOEWoJ0hr1plRyJQCvAQlwPj9Ngr1mjo8WWHaPmNYRTs
+z1zDKUJQSfs632hnr2C2pwVBIaJ1LCY4Ug4sOwnb/ugCSnkDDTCApbBP++VutDOV
+vzsqZMAFPq9F20pgbVynWjARJLcgwIs72dYVv8dDqL5J6LHModbidopxwxYDlK5t
+vEiPSwoLPpttHqsDnSR3uieh3E6Ty5pFqbyj/+gPbhxk9C3/5caEBuRx10IK7B3f
+Chw6eIAeuZk1y9XKIh4yWysPOCeavfCw33ufA0FvPSgqrKmEewCJk9nqmYoUsLLM
+QWcGWEq5EsKo1E1/8ywW5GsopM0bY6gedl6WWd0bvQSTXpZ7XvLNhhvGb/T8TKYV
+1XE9a2z7OEpyaz86JAfv6zUV5hbQOzMwZOPtI0b49a6fsIK2LXe5xST6i2gonMhX
+JkTdA/0o7jglhu0DvfuQ2kLeoduu+0qYSz0t7m/YDUWawrrfNaxZgtVOEtICx0Zn
+FrXjKQfWKYRjqONsoRlupqF9SSPiJIDFy6BaVbEKw+oSqgZid5SWLXSDYRysK1LL
+PMuw6KvRG4qmw0lFfduKhv6DhxhNqh0LfHvJGQNwv7VnrsToLC7orta5sWvGRXq1
+FEQWRQkyJ9COhcTTt6pjgiwT9s7ncaagbUwIdGqaF+69FjhhmPI=
+=qsww
+-----END PGP SIGNATURE-----
+
+--1HOCjPIa4TORl4Ez--
