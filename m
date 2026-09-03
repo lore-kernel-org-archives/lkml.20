@@ -1,170 +1,205 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C168237DEAA;
-	Thu,  3 Sep 2026 21:26:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B1E40F731
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 21:28:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788470810; cv=none; b=LqRM/1651BN1PqlpGaIiVlKxj1w+dR8MTte6ExddKIYmIXg6XUHQICY8zi46fX8sBBssMAuLwglA+CwjWnv0qOf2lr4wvDva5oqpv5G0SzUJK8M5nb1nUROiGdDdh8lVeFAzOlCIjrAawVN11e1TWXwa1VjC+hKe35jrRQzuAFg=
+	t=1788470916; cv=none; b=rD1GmARng4+FchiYguvGzEE9LtFmMthHVx3VmvqNEvhbMfILdiQOVQauANnPVfVYCrq2Lxcs/U5WZmfdRPgYAYdNMQ1CXDFuydhvjuyU6h2oIQrDL80Bw+x3rpUSvMgInrRddA/OmzseAWpwhUmhb7SKkvNHxk+8EzLCRMaqBIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788470810; c=relaxed/simple;
-	bh=E4zdXifS6EabLM823BiURpyWhwByvuK1FT9JjXB8iqo=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iF5GaQIf0mztIDXnwEV01UyJXfPWkVMfBTOWWnQZbX8a71KhDt/43l15KQPv/5mduzR74LXt3M+lE+EG5mstLw6qQEeuAANhAirY8emdIcBwxetjr06D54grtDENqF0hIKhsArJ0PT0J9PtGbKfCJ4G2kJHGgU+nCkbX/eUded8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iO5v8yG8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788470916; c=relaxed/simple;
+	bh=nok8G7oxwUEBJDJKwyMkjMRptrnZ4yc3CBKyB4ujpZE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hFI1eKdf6XvXy8B0Hxz3mS9jGF+K/MSIFHt8CMXLRWMFxudp8zRaUC5knTVGgFcs7CnE6ruUxO+EV42ZCtmcx/BgJAq5obXEHGfXn1gYjSBPZf6+Grmr1Uk4d1TGWjq4oPs5UI5vvuBzsqcoZKayJB2Q3Y2+UJ5/COCXKFYL9/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=epaPrEld; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iO5v8yG8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F2021F000E9;
-	Thu,  3 Sep 2026 21:26:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788470808;
-	bh=TmxsF8YocUAG377pTVG/evM7jZ0vLFh1Ti8Z3d5fFms=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=iO5v8yG8NQ3lPQeodQ0avBL0C2ByzjBGsJNuX0YlNIsgNAti5aob/JOJu0/u0i4sN
-	 i4bkkzl+3nwHtTrJyDCVxb81/aEsoJs6OrSPaxkpF2LGA9MFth5RpK7fGM5dCxR8qT
-	 RVvyFa0pDWYtbSEhXLm7bnmSnWCjredc/TIIvLt4PndpauR6fDMNZL2QlIV6RFA4UT
-	 yML52aZlfNuNXG0zJV/gwNXH5ZMkb4GZbbYBiHX9IQwcySArxPkHF5tl+OkC7wtpdf
-	 PVez815qpvGrQ8wmb7AFe5kDF/9Xjd0eXuwQWGRHQ0lYhJuIZ6+dkAUro0rP61IR9g
-	 X+bDxMYef2qPQ==
-Subject:
- Re: [net-next] net: dsa: offer a flowtable to the switch before the conduit
-From: netdev-bot+sashiko@kernel.org
-To: julius@bairaktaris.de
-Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 03 Sep 2026 21:26:47 +0000
-Message-ID: <178847080758.3394541.9994313358533592398@kernel.org>
-In-Reply-To: <20260901092546.369232-1-julius@bairaktaris.de>
-References: <20260901092546.369232-1-julius@bairaktaris.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="epaPrEld"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4956869750eso2853545e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 14:28:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788470913; x=1789075713; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dWXttQx2iDCjHaH8p4UqIGs6d00YewL+6MGN7cegYBM=;
+        b=epaPrEldT9/kEWJ58yENBYKJmgWSMjhAA0ohEvKvodrR5MOWPdRmhrpDFlE0J5GzaS
+         dYPpkKy4KVc84KQq8q1AoVVZrXsorAPr1KNJNP8I6/zzeqXKnI69c9JuQVIUQ/oiSDsl
+         h996WkiQ3BdLEbwyifXy8+L655Vao1OS5HGSfjkthb7rkEhhXgOLrovuaHiTiO6hGtMV
+         9c9EuYi7NiS/WYpAimA59Z/BNtWeMeihqUNL2AnBDszkdebbEE5705n/gGHOH0wCzWcM
+         dPxP48YwiqFSmqfoy1tZtggSfRH01Fb8QlBtF848NVel3fRSLswlSRMo+KW0EovowSYZ
+         cX0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788470913; x=1789075713;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dWXttQx2iDCjHaH8p4UqIGs6d00YewL+6MGN7cegYBM=;
+        b=FUzZzf52bAXOeoYoPLCKdY8KVN6SDWDpRgTMzICwhlHYqdvqYqcQ+WGxpeZACUC7LW
+         g4CfxNtD8TM8dYOmPK9MNcBJIMZBngh2jxOAp65HHo/W7O83IxcRUTd80dvCEQmlrc5p
+         fvYZifa6KK/IdStgqg34zvvTd22b/t1OdTEzeaGc9mW2sUg+XTVcDON+xYBOT+8fpEDg
+         w+GBeu7VcntZYDkBOeRLaOo3RLSsomjv42rtTA/u8ixN/hskl9VGGA1X09AZ4IifSj/g
+         5noXmC5eDID1h6zE6bLW6XF1ygUmNpnc0etVjKkNFXEk8hjotdwEynKbQHB27On0kyOU
+         dSUg==
+X-Forwarded-Encrypted: i=1; AKwUvBwhL1aJzEHk+eOkYyAfKSgVpp6+utDv348fk6RVbJihTp4iRxGYSfi8HMOYW+VN4PeIBlPLvGcIvlcJAEc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lhlJB2eVLUkS0uZXedhpB7E+ri6voKRfXWwoCeCiiL59uGJNFj
+	bn1j0vpVYvwD9ohnwbKl3p2lNZectQV0P0Ctv78fYiv2iDnnJQzMRXOR
+X-Gm-Gg: AYBFou23x4PzUFivKKQw2UEPLx0fVDOu47TFqkGllfP4mmEO5oka/hbG8DCp4jQ38Hv
+	NZPZHUB7Ai0wPOhci5mJuAl10+eEfgcv73v2YP5WgDXm3S0uwH7ClH5mLaDzan9LfV8by332ro7
+	sqhcTLqYd1RE69npfCruxOnnhBksflx1JVDZjHO2rC1EUT1SVTuoUbC/kOELU4Q18kH9Y4dDaAp
+	rFDx8V36BKMkQS23GDZSYourdpnol0Cpcoe/YwzHpYSAft85V+Vqe7bUGo5KD7XIvkvo2PXJpBu
+	DOEvZR5Bzd1C/hCRtMjUJvKgkTZS47WcezDBCFjORj3bkOiO1P3nQSdaDbBnSamGQfIhRgDIsH0
+	s4tZyqEaLgwaIGZQKXhQmDsjEZqnHnMci4DfNzdSSSLY0X0cYmob5LtFZsR0mdU780vCbB4YEyF
+	Ub8mvheRkil9ZP0BASNcyWCX99YW0ixOmgizxtAaeHr/xOwg5SSmjVBNCgZDoeGC2u53945bMqo
+	D8Yj8cRDI8PZ2Cnpf+4aNQ36gbT1+bV2ptrBfnCZ59Y+ubq
+X-Received: by 2002:a05:600c:3115:b0:49c:e1b5:b2bf with SMTP id 5b1f17b1804b1-49cf7f48645mr14077965e9.0.1788470912493;
+        Thu, 03 Sep 2026 14:28:32 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee6023d6sm100551075e9.8.2026.09.03.14.28.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 14:28:32 -0700 (PDT)
+Date: Thu, 3 Sep 2026 22:28:30 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: "Ard Biesheuvel" <ardb@kernel.org>
+Cc: "Jonggeun Park" <jakejgpark@gmail.com>, "Jeremy Kerr" <jk@ozlabs.org>,
+ "Kees Cook" <kees@kernel.org>, "Tony Luck" <tony.luck@intel.com>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, "Ilias Apalodimas"
+ <ilias.apalodimas@linaro.org>, linux-efi@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] efi: vars: commonize the 512-byte name buffer quirk
+Message-ID: <20260903222830.213089de@pumpkin>
+In-Reply-To: <5b13119c-105a-4197-8f5c-711acc47ac0c@app.fastmail.com>
+References: <20260815074844.1330-1-jakejgpark@gmail.com>
+	<20260903115516.32495-1-jakejgpark@gmail.com>
+	<5b13119c-105a-4197-8f5c-711acc47ac0c@app.fastmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider:
+On Thu, 03 Sep 2026 22:03:18 +0200
+"Ard Biesheuvel" <ardb@kernel.org> wrote:
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+> Thanks for respinning this.
+> 
+> Some additional thoughts below.
+> 
+> On Thu, 3 Sep 2026, at 13:55, Jonggeun Park wrote:
+> > Some old UEFI implementations reject GetNextVariableName() calls with
+> > a name buffer size larger than 512 bytes. Both efivar_init() and
+> > efi_pstore_read() open-code the same workaround of resetting the size
+> > to 512 on every iteration.
+> >
+> > Move this workaround into efivar_get_next_variable(), which keeps this
+> > quirk in one place, resolving the TODO in efi-pstore.c.
+> >
+> > No functional change intended.
+> >
+> > Signed-off-by: Jonggeun Park <jakejgpark@gmail.com>
+> > ---
+> > v2:
+> > - Move the workaround into the existing efivar_get_next_variable().
+> > ---
+> >  drivers/firmware/efi/efi-pstore.c | 10 ----------
+> >  drivers/firmware/efi/vars.c       |  7 +++++++
+> >  fs/efivarfs/vars.c                | 12 +-----------
+> >  3 files changed, 8 insertions(+), 21 deletions(-)
+> >
+> > diff --git a/drivers/firmware/efi/efi-pstore.c 
+> > b/drivers/firmware/efi/efi-pstore.c
+> > index a5db3534f..4f2594d08 100644
+> > --- a/drivers/firmware/efi/efi-pstore.c
+> > +++ b/drivers/firmware/efi/efi-pstore.c
+> > @@ -164,16 +164,6 @@ static ssize_t efi_pstore_read(struct 
+> > pstore_record *record)
+> >  	efi_status_t status;
+> > 
+> >  	for (;;) {
+> > -		/*
+> > -		 * A small set of old UEFI implementations reject sizes
+> > -		 * above a certain threshold, the lowest seen in the wild
+> > -		 * is 512.
+> > -		 *
+> > -		 * TODO: Commonize with the iteration implementation in
+> > -		 *       fs/efivarfs to keep all the quirks in one place.
+> > -		 */
+> > -		varname_size = 512;
+> > -
+> >  		/*
+> >  		 * If this is the first read() call in the pstore enumeration,
+> >  		 * varname will be the empty string, and the GetNextVariable()
+> > diff --git a/drivers/firmware/efi/vars.c b/drivers/firmware/efi/vars.c
+> > index 3700e9869..0f95fc60d 100644
+> > --- a/drivers/firmware/efi/vars.c
+> > +++ b/drivers/firmware/efi/vars.c
+> > @@ -191,11 +191,18 @@ EXPORT_SYMBOL_NS_GPL(efivar_get_variable, 
+> > "EFIVAR");
+> >  /*
+> >   * efivar_get_next_variable() - enumerate the next name/vendor pair
+> >   *
+> > + * A small set of old UEFI implementations reject sizes above a certain
+> > + * threshold, the lowest seen in the wild is 512. Set the name buffer 
+> > size
+> > + * to 512 on each call.
+> > + *
+> >   * Must be called with efivars_lock held.
+> >   */
+> >  efi_status_t efivar_get_next_variable(unsigned long *name_size,
+> >  				      efi_char16_t *name, efi_guid_t *vendor)
+> >  {
+> > +	BUILD_BUG_ON(EFI_VAR_NAME_LEN < 512);
+> > +	*name_size = 512;
+> > +  
+> 
+> This should really be
+> 
+>   *name_size = min(*name_size, 512UL);
 
-- [Medium] dsa_user_setup_tc() now selects the TC_SETUP_FT offload target
-  (switch vs. conduit) independently on every call, by probing…
-- [Low] The new comment at net/dsa/user.c:1743-1746 says '... only a
-  conduit-side flow engine needs the block forwarded, and that forward…
+You don't need the UL suffix.
 
---
+> 
+> so that a smaller buffer size provided by the caller is respected.
+> 
+> That also removes the need for the BUILD_BUG_ON().
+> 
+> No need to send a v3, I can fix that up when applying.
+> 
+> >  	return __efivars->ops->get_next_variable(name_size, name, vendor);
+> >  }
+> >  EXPORT_SYMBOL_NS_GPL(efivar_get_next_variable, "EFIVAR");
+> > diff --git a/fs/efivarfs/vars.c b/fs/efivarfs/vars.c
+> > index 6833c3d24..5a01833a6 100644
+> > --- a/fs/efivarfs/vars.c
+> > +++ b/fs/efivarfs/vars.c
+> > @@ -391,18 +391,8 @@ int efivar_init(int (*func)(efi_char16_t *, 
+> > efi_guid_t, unsigned long, void *),
+> >  	if (err)
+> >  		goto free;
+> > 
+> > -	/*
+> > -	 * A small set of old UEFI implementations reject sizes
+> > -	 * above a certain threshold, the lowest seen in the wild
+> > -	 * is 512.
+> > -	 */
+> > -
+> >  	do {
+> > -		variable_name_size = 512;
+> > -		BUILD_BUG_ON(EFI_VAR_NAME_LEN < 512);
+> > -
+> > -		status = efivar_get_next_variable(&variable_name_size,
+> > -						  variable_name,
+> > +		status = efivar_get_next_variable(&variable_name_size, variable_name,
+> >  						  &vendor_guid);
+> >  		switch (status) {
+> >  		case EFI_SUCCESS:
+> > -- 
+> > 2.43.0  
+> 
 
-net: dsa: offer a flowtable to the switch before the conduit
-
-TC_SETUP_FT is now offered to the switch driver via
-ds->ops->port_setup_tc() first, and only forwarded to the conduit netdev
-via dsa_user_setup_ft_block() when the switch answers -EOPNOTSUPP. This
-lets a switch that owns its own flow engine see a flowtable bound to one
-of its user ports.
-
-> diff --git a/net/dsa/user.c b/net/dsa/user.c
-> index 041f9060c8ef0..c5adb557056f7 100644
-> --- a/net/dsa/user.c
-> +++ b/net/dsa/user.c
-> @@ -1734,11 +1734,22 @@ static int dsa_user_setup_tc(struct net_device *dev, enum tc_setup_type type,
->  {
->  	struct dsa_port *dp = dsa_user_to_port(dev);
->  	struct dsa_switch *ds = dp->ds;
-> +	int err;
->  
->  	switch (type) {
->  	case TC_SETUP_BLOCK:
->  		return dsa_user_setup_tc_block(dev, type_data);
->  	case TC_SETUP_FT:
-> +		/* A switch that owns the flow tables answers for itself; only
-> +		 * a conduit-side flow engine needs the block forwarded, and
-> +		 * that forward is gone by the time the port is torn down.
-> +		 */
-
-[Severity: Low]
-The comment says "that forward is gone by the time the port is torn
-down", but the statement right below it runs that conduit forward on
-every TC_SETUP_FT command, teardown unbind included. After -EOPNOTSUPP
-from the switch, dsa_user_setup_ft_block() still resolves
-dsa_port_to_conduit() and calls conduit->netdev_ops->ndo_setup_tc().
-Nothing suppresses the forward during teardown.
-
-The changelog's argument is about the other direction — a conduit-side
-handler reaching back through conduit->dsa_ptr, which does not work
-because dsa_tree_teardown() in net/dsa/dsa.c orders the teardown as:
-
-	dsa_tree_teardown_conduit(dst);
-
-	dsa_tree_teardown_ports(dst);
-
-That ordering claim checks out, so this looks like just the comment
-wording talking about a route the patch does not take. Could the comment
-be reworded so it describes the fallback that is actually emitted here?
-
-> +		if (ds->ops->port_setup_tc) {
-> +			err = ds->ops->port_setup_tc(ds, dp->index, type,
-> +						     type_data);
-> +			if (err != -EOPNOTSUPP)
-> +				return err;
-> +		}
->  		return dsa_user_setup_ft_block(ds, dp->index, type_data);
-
-[Severity: Medium]
-TC_SETUP_FT carries a stateful FLOW_BLOCK_BIND / FLOW_BLOCK_UNBIND pair,
-but this picks the offload target fresh on every call from the driver's
-return code. Nothing records which side accepted the bind.
-
-If a switch driver's TC_SETUP_FT verdict differs between the bind and the
-matching unbind — for example its flow engine is unavailable at bind time
-and available later, or offload is toggled at runtime — does the unbind
-then land on the other target?
-
-The target that did not see the bind has no matching block_cb, so its
-flow_block_cb_lookup() fails and it returns -ENOENT. Since -ENOENT is not
--EOPNOTSUPP, dsa_user_setup_tc() propagates it (and the conduit's return
-value is propagated unconditionally by dsa_user_setup_ft_block()).
-
-On the netfilter side that error short-circuits the cleanup in
-net/netfilter/nf_flow_table_offload.c:
-
-nf_flow_table_offload_cmd() {
-	...
-	down_write(&flowtable->flow_block_lock);
-	err = dev->netdev_ops->ndo_setup_tc(dev, TC_SETUP_FT, bo);
-	up_write(&flowtable->flow_block_lock);
-	if (err < 0)
-		return err;
-	...
-}
-
-nf_flow_table_offload_setup() {
-	...
-	if (err < 0)
-		return err;
-
-	return nf_flow_table_block_setup(flowtable, &bo, cmd);
-}
-
-nf_flow_table_block_setup() is the only place an unbind does list_del()
-plus flow_block_cb_free(), so does a misrouted unbind leak the
-flow_block_cb allocated at bind time, leaving it linked on the owner
-driver's private block list with cb_priv pointing at flowtable state that
-is going away?
-
-Worth noting no in-tree .port_setup_tc handles TC_SETUP_FT today — they
-all return -EOPNOTSUPP unconditionally — so this cannot trigger in tree
-right now, and the behaviour of the out-of-tree consumer is unknown.
-Would it make sense to decide the target only for FLOW_BLOCK_BIND and
-remember it on the port, so the unbind always goes back to whoever
-accepted the bind?
-
->  	default:
->  		break;
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260901092546.369232-1-julius%40bairaktaris.de
