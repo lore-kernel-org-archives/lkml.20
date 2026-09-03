@@ -1,164 +1,112 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55704EE849;
-	Thu,  3 Sep 2026 22:07:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788473262; cv=pass; b=q7EEDj7mW/x0RKaG630/pCvjtyIofMO88eYhG3XDs7Yyig+HAhz2OdoGQg6hVerbMWiNBFdL0Yh7PFiHMjHIlDRe+J7s2qW2nW2aMiV5YsQR4CJn6GH8fvcShxd6/3NSoL2EdYxBvu8tKERSjAleYP0I1igXhJdKO6sAZYNkY4g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788473262; c=relaxed/simple;
-	bh=tC09nplv4RU1dR18MCiMlbWJptdYmcrFJ5one10NiXs=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=aGWqufaGM6ijoLgaxQVBbJ+3G5I7E4SzP7CzLBveTS/0jNbd00L1vzBefH4LFeOKp0TQ6FunND5Ee0AT3qTzHWzU8/k133VOo/VNw/sc/VuknXe3x4t6iy69NXkOYFsVXRkySdXc4Vx8jwZY+gTksx7coxGj3HBrmMAaNa9crNA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=C8AufTuH; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12D3C3769FC
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 22:10:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788473442; cv=none; b=SbmHJSREiJecfDLNcE0lzTJ3eauc0TEoiFL1B48GVvDWQzoLslPoGrZllcyWOrGF/8jUSbvcyc7E9Pd6qFV2AVu9C6N4EbnS3FrarFhZB4xg1Isvo6nlSqrnr6TiypzQE7y2KdyN37is7wDFxOVTS4YTW7C9nuI/i9aWj2Ee9uQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788473442; c=relaxed/simple;
+	bh=P64DSby6KpZgBUBzpTOSDQt/Acwoa2cKPfMCX42TtrY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iWwoADdJ7RUL9qLGq2r21jRlGKPFYuImq5TbCW3LtHe6nZlQ+4XmoirR5uAJy9BicIoHGmW8XqAGYQpCklbb63MsISLoF71SIAjuloMwst+1P3gX9UmeO6gcgBmUMIGbvi/u7vvA1JLJN++T99m2Dz0YjdG+ojf7toHiEDHUZOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=A1c/qceP; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="C8AufTuH"
-ARC-Seal: i=1; a=rsa-sha256; t=1788473213; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=R6bG7hdiDiKlEIgrX3xMgWzJwRMGsftITsN+MI8KcXwvHksT/f6eZ+8jr2s7TAvHdrVVzR4+Urpo34vxL5TpFw24bUjI2Fnb73NQkOZW1mJFCkfeR1DZlR56k0zx81GJLzDmeIEyhFUMgqTY/n6v2cJhMphmq8IsVeDuKiywRKI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788473213; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=afA3ax7f9QXcCedQi5bAM/QoI2EIiapIQDf4xdId4Ug=; 
-	b=e03QYNDF1BzCbkp3Z6v8qmmYuONMENPFbUos06vuaYO4Cp8ZtKipFRSSeig4Xav2jk55S4104gDYbDjWBGOB09QyaFmGQT4pEEIuhqqXjHSQKLM9aVNqgvFuMffT7PR1hHX9djHM6jN+3njkRLqsNklXYmGBMTQRfqjNL8ZJqwc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
-	dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788473213;
-	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
-	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
-	bh=afA3ax7f9QXcCedQi5bAM/QoI2EIiapIQDf4xdId4Ug=;
-	b=C8AufTuHLPwUljbA54/aDdNTZQpkZb0OFLwnFnvPnt6ZW8E2u8au1DNCLZpbqCnD
-	Mvh34mx5FVS9mgjYUsToU957PGF05WKA5kM6/zX5+Vrwtz8W1xjBVTxT3dBIF8ukHy/
-	sthFIRJyiU6knD+o6DPFAt+UbTn/LzVzeHZlJKMQ=
-Received: by mx.zohomail.com with SMTPS id 1788473212203626.0025116376753;
-	Thu, 3 Sep 2026 15:06:52 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="A1c/qceP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=P64D
+	Sby6KpZgBUBzpTOSDQt/Acwoa2cKPfMCX42TtrY=; b=A1c/qcePJ57h+N5AxlxW
+	IMmZte7N+vYak2/7WaDGYCD7/HbG0Cqa4UXUjW1EsnKzgHWQ6Q7VuQruOeRSzRVd
+	ZhFOUtwTBV37fZ5c3pX9DttoceRSaAPP/jVx3jqQI6k3eUsndwUyV04KJyO62bvr
+	T9G/+T5L9RiL8IwZpxV4G6oE/33smwmLfhvU3/fO6cYKzCgLpc0/KqUbkFhzlcuu
+	X0XDK1wQQoXhX7l+uH9/gWp/0w8XDS1IiFAi5A8RCyUL79OPsN4sTYMpqVn2633C
+	kHzCe8G/HPX4BJt1aNIVaNyaMr0ZZocd8JTzzjH25wqXhZyX8XTCKtjMHrHAv3Ew
+	IQ==
+Received: (qmail 1198798 invoked from network); 4 Sep 2026 00:10:33 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 4 Sep 2026 00:10:33 +0200
+X-UD-Smtp-Session: l3s3148p1@ZNSxa5tajpYujntC
+Date: Fri, 4 Sep 2026 00:10:33 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
+Cc: geert+renesas@glider.be, linusw@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com,
+	prabhakar.mahadev-lad.rj@bp.renesas.com, claudiu.beznea@tuxon.dev,
+	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Subject: Re: [PATCH v6 3/5] pinctrl: renesas: rzg2l: Unify the power source
+ handling
+Message-ID: <apnwWW8DVzOyyhR2@ninjato>
+References: <20260903113327.1217457-1-claudiu.beznea+renesas@tuxon.dev>
+ <20260903113327.1217457-4-claudiu.beznea+renesas@tuxon.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH 6/9] drm/tyr: add BO creation and lookup helpers
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260902-tyr-ioctls-v1-6-e0fdbf8bd108@kylinos.cn>
-Date: Thu, 3 Sep 2026 19:06:31 -0300
-Cc: rust-for-linux@vger.kernel.org,
- Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- Lyude Paul <lyude@redhat.com>,
- David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org,
- linux-mm@kvack.org,
- dri-devel@lists.freedesktop.org,
- Alvin Sun <alvin.sun@linux.dev>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qDGGuUPwngPg01BD"
+Content-Disposition: inline
+In-Reply-To: <20260903113327.1217457-4-claudiu.beznea+renesas@tuxon.dev>
+
+--qDGGuUPwngPg01BD
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <B6966555-4532-4369-B519-56AD72307553@collabora.com>
-References: <20260902-tyr-ioctls-v1-0-e0fdbf8bd108@kylinos.cn>
- <20260902-tyr-ioctls-v1-6-e0fdbf8bd108@kylinos.cn>
-To: sunke@kylinos.cn
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+
+On Thu, Sep 03, 2026 at 02:33:25PM +0300, Claudiu Beznea wrote:
+> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>=20
+> The previous code handled power sources using a mixture of power
+> source specific definitions and lookups in the available_ps[] array.
+> Unify the power source handling by introducing
+> struct rzg2l_pinctrl_ps_desc, whose purpose is to describe a power
+> source through its power source value, associated register value,
+> associated capabilities (e.g. Ethernet), and associated IOLH index.
+>=20
+> Introduce two new functions, rzg2l_ps_to_desc() and
+> rzg2l_pwr_reg_val_to_desc(), using the
+> RZG2L_PINCTRL_PS_DESC_MEMBER_TO_DESC_FUNC() macro, as their
+> implementations are similar.
+>=20
+> These functions retrieve a power source descriptor based on either a
+> power source value or a power source register value. Other functions
+> that need to perform power source specific operations can call them to
+> retrieve the corresponding power source descriptor.
+>=20
+> The register values for the soft power sources were kept to zero since
+> they are not used across the driver's code.
+>=20
+> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+
+I3C with temp sensors work. SD card on carrier board works also.
+
+Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
 
+--qDGGuUPwngPg01BD
+Content-Type: application/pgp-signature; name=signature.asc
 
-> On 1 Sep 2026, at 13:09, Ke Sun via B4 Relay =
-<devnull+sunke.kylinos.cn@kernel.org> wrote:
->=20
-> From: Alvin Sun <alvin.sun@linux.dev>
->=20
-> Add the new_object() and lookup_handle() helpers.
->=20
-> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
-> ---
-> drivers/gpu/drm/tyr/gem.rs | 29 ++++++++++++++++++++++++++++-
-> 1 file changed, 28 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
-> index 3bf3787f5c3fd..be1affe80db1a 100644
-> --- a/drivers/gpu/drm/tyr/gem.rs
-> +++ b/drivers/gpu/drm/tyr/gem.rs
-> @@ -9,9 +9,11 @@
-> use kernel::{
->     drm::gem::{
->         self,
-> -        shmem, //
-> +        shmem,
-> +        BaseObject, //
->     },
->     prelude::*,
-> +    sizes::SZ_4K,
->     sync::{
->         aref::ARef,
->         Arc, //
-> @@ -23,6 +25,7 @@
->         TyrDrmDevice,
->         TyrDrmDriver, //
->     },
-> +    file::TyrDrmFile,
->     vm::{
->         Vm,
->         VmMapFlags, //
-> @@ -53,6 +56,30 @@ fn new(_dev: &TyrDrmDevice, _size: usize, args: =
-BoCreateArgs) -> impl PinInit<Se
-> /// Type alias for Tyr GEM buffer objects.
-> pub(crate) type Bo =3D gem::shmem::Object<BoData>;
->=20
-> +/// Create a new GEM buffer object.
-> +pub(crate) fn new_object(ddev: &TyrDrmDevice, size: usize, flags: =
-u32) -> Result<ARef<Bo>> {
-> +    if size =3D=3D 0 {
-> +        return Err(EINVAL);
-> +    }
-> +
-> +    let aligned_size =3D =
-size.checked_next_multiple_of(SZ_4K).ok_or(EINVAL)?;
+-----BEGIN PGP SIGNATURE-----
 
-I think this needs to be PAGE_SIZE instead of SZ_4K.
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqZ8FkACgkQFA3kzBSg
+KbZghQ//YrZSwEb7a0wC+whQNYRKANHQG+YFNDEUAEF31kjeargwy/YQwxo92l7u
+BZ4u/xTt+Mro6iy9+nDL25QdYisjsBGG5mKlHE/RQQxxfh9qiPyxE8RLNckRHwFU
+NKnrxi2Ue40lIH7JK9jaiNtP9TJdprEXYpfX0YiS83/GPVL9M8VVtQt1Bruhp/1y
+GhK0fVUR/7CQLQKB43k/jKy3ZDSSr58oJEXS/I2/mapwY/ep9JWanOmfqSCgLTZ9
+M2Y0csagFvSCiKvRZFDIa5wzL/ksDwNI78DHxd7C6iL+1JVeU1uTYayKx0/k23Nv
+yqk0flF54Rfhm36vNa9hw/EsWsiWiH50EWGz6oYl1MyW0q8/+ow/Qbd/WVQzng3c
+cNJCRK4bPci8XGqJC3qcq2ruWaTqJiVLRi5FLZZM2zjGB4rkdufMAe6JGWo5cQwC
+H+JL8J0fEDMSkBzRwXLwVzo9fxOsJuL/tWBizDkwgmwJJuVe9mBER0E0wJioF786
+viDZs3bR55LaW8LqO+wHxvY4S1fAAKWgvbJHhp+fphdajawPgg2uBFi6oEUEZzcR
+0oqsq9eYtv55z7V6mwJMHZY3iG1uShEdt+8mlNMcbtYGa/JlnO62la7gWLSdSmaf
+aZRgW12ggt5b+tV5iJBaQ2JFKUUc/CNrLeoeKdCUL6mh1Aw5H5Y=
+=lAb2
+-----END PGP SIGNATURE-----
 
-> +
-> +    Bo::new(
-> +        ddev,
-> +        aligned_size,
-> +        shmem::ObjectConfig {
-> +            map_wc: true,
-> +            parent_resv_obj: None,
-> +        },
-> +        BoCreateArgs { flags },
-> +    )
-> +}
-> +
-> +/// Look up a GEM object by handle for a DRM file.
-> +pub(crate) fn lookup_handle(file: &TyrDrmFile, handle: u32) -> =
-Result<ARef<Bo>> {
-> +    Bo::lookup_handle(file, handle)
-> +}
-> +
-> /// Creates a dummy GEM object to serve as the root of a GPUVM.
-> pub(crate) fn new_dummy_object(ddev: &TyrDrmDevice) -> =
-Result<ARef<Bo>> {
->     let bo =3D Bo::new(
->=20
-> --=20
-> 2.43.0
->=20
->=20
-
+--qDGGuUPwngPg01BD--
