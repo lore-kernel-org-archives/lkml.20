@@ -1,131 +1,254 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436393D1CA8
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:05:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA693FE363
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:05:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788419160; cv=none; b=Z4FnpvwXIa5G2Xj1pmeH2BIGKhI6jfeWfdPFW4999YWW2df0oDbzYLZU81NfZHx7p0jNhJneGFTFYJouK42ob/ice3Bjd738vTsqPdfRRVctJT5c6r12ORPOCJl6dXTDWQT3c5NrjbBhmHv2++BqEOs7Hc59moogO5bGVzBCWX8=
+	t=1788419161; cv=none; b=YXa85mbJANUbOhhwtE3sDYNJnatG+cLmbeiIUUcZDCo+uqJgz5O0SBg/r0TssJdVEUFtVseose0b6CnHvLfP7ZPTL5Nok51IvGiC9ni+Zy1Bxd1KYF+Cdjj12xWXAjeN6jNB1wmTo/Zyk3m0oMD+0Pr9gXLu6MG43ctlEp94jGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788419160; c=relaxed/simple;
-	bh=h+V6qAtLqeW/WU/IZPbSmtZFHj0DhMBYDtjWmrniU0Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=HmleneMQvqL2OdNCaKEaNTEP17/sR6k4ZLvqmmQXOf4efWumLUtZT160xHK7eKD+gC3AKKhuQEoLsskDRHbBJcPjl0uZ0rK33Bpxo5u4xEcePJiJcfTc2KsYyLfKqKCFXbfSq5rXn2wsYZrs4tLPCXqPv/EJap3g5v1m6awIjhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=agoXyZ6G; arc=none smtp.client-ip=209.85.210.173
+	s=arc-20240116; t=1788419161; c=relaxed/simple;
+	bh=dpwvAG1CZNNRrq9B+EZ+U1jju+T//S6JWYGWkpV5pvM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QXumruNLKR6L1qOuNwpgemxBXxfwGokO/yMXXTXeffvgpVi73L3Ea7pnROWkpWJ7TJ9Vq0VaM6Y8Yj2hMmChCYS5got3ZvWGsNo/fYNe/L+VmLRrbn9uszPVEiLwz/yABxMryyi+X058HysObV2DUdL+wlmBu1m0riYCPzOAicg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N9J+QLce; arc=none smtp.client-ip=74.125.227.133
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="agoXyZ6G"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-84fa3b14ee1so1833035b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:05:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N9J+QLce"
+Received: by mail-pj2-f5.google.com with SMTP id 98e67ed59e1d1-3965683e9e9so1191217a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:05:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788419154; x=1789023954; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=AR8htrDl8qSqroXyJFh5dXqeQpCBckfru3AXsX4Pm8E=;
-        b=agoXyZ6GRTL1rOux0yJMK1YpjkKmWZRX1gZnFsc00IBxfp7hpkHvY4Xhf9SmiIL8OK
-         pGfIqcp0eFor2kWcJJqST841DNTvPCgUiaORo87QuVYtUDKt3Oc2rgS12DIRX4/BuDIM
-         wl/xgWTiCdbpBkVM7rfrajiLGq3AYq0Eqwe64HTEJlV3AZYgKpvDHEhPVNkn7KXhau5M
-         gJ6ApEukrOVbW2cvswfGwyLY4kgczhQNqXWj/iHQwv8h8UCpwz2m/OAvElu3l8SePD3y
-         kIyMXVu38l0KX0/dZqPeP9Vb9dD1k1X1QW7+IRU7mppLWumYFW7Pz5sitVzXHNowN6cQ
-         xnLA==
+        d=gmail.com; s=20251104; t=1788419157; x=1789023957; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bPr0Tiyi9ufsaoMkecG9LBvmdZ8IsvdK2aRx8FqQP84=;
+        b=N9J+QLcejhT4AGsSRwbUFpqKzmhZqnqNygBB8Q/RR8ZL5qNQuARGoUk6F9JVXKBQET
+         9SZMEN8WNwKXEIv8FkjgA82pAClmyCvkiMNvEZHbCf70/Z0slt7LPv+BR1Z6ObWBAFsI
+         wsvU57tZS+t0sj4AsXuPtCjkTbphIKFD2HyjNxtzw/EHY+/lWsYp8r0K7q2pYFq7n428
+         Gyp/5NBBQaiLMgWJN2AW7AZPytah3dyiRLGPWoAALAxnsKeuW2DrzcLIuZtcup44Casq
+         SWjT5db2pd+eg/0wvKgikL9MzFTNfCxYayISYT48Ep1Tn/6z62dC1yd48VFAfUVIczUp
+         0Isg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788419154; x=1789023954;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=AR8htrDl8qSqroXyJFh5dXqeQpCBckfru3AXsX4Pm8E=;
-        b=R3rqeqhpxTebiaP44JtzoaSGyz6EQz1nKwCx0eb6wSdYXIBfkB6noDK/Z+gC283q3M
-         7mn3IqS3HunW6FA+hbrgZ42FABhazCcHaFBBSrLaYyxApEp6B+G7s4nUSKOS3mrXfO97
-         h7OK4Mrwj+0duX0k5Za21spwIoAP3D+NjJYbtUF3O7rGDn1DeeDJcCmmbdTQArGe8ogq
-         u/+wmRCKTAa26I2K9pqv7X8muBA6OzNtUfjfm/h0z10/P3WcU7kvHqskrjX96IwLVfQ3
-         JU1xrqOOLSF5R8gjgvGUkCTCkaiLvKF2JTrt2AvpukM1hMwiAJaPWzk0+GiAuztggka6
-         vvMQ==
-X-Forwarded-Encrypted: i=1; AKwUvByfcKkAtMvZFhRFK+xaNZAI2v+TsiUy9TN8+6GohjVdAVQAVJyuVNyfyLEy48PfKcAUgSeepp9FajRhvtI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nNKevqBpR141+7EUKiR0MVFr6EaC4deRNAonxqux/W+2jdgGAP
-	g8EWEz1RHA2tlxOy3oLBa2Cv3SExvKsccshArr2zGdWvNvTP/hiPtj+G
-X-Gm-Gg: AYBFou0aWlvPkEvdvZlGMNu1aRVQ2wJvd6kwmPrGc0+FEVLRsEisCMeIzUlnQmXT5RE
-	yeXPob4cDQHN5TjrOAluemrhWCsxZl2QXjFjTMaj0drbdU0QSfDeWq3N1cYAdPI6isqa6thPUWd
-	VFSI20FkKa6QoSM6qlYPWRBYMtyHw2udfCWuZob0THpvTj38MDgToW3wWrzaPHbMwosLRxdXJdm
-	6IoJQ+xXkkUFmPhr5bK7+gr7b2fB6VYiOnypvHzHBcMtiShYciYnnSjp9/izZzalZkqDR+DSqP+
-	77ZBvAyZlZ8uuerVZwjB5VU6k/ebSAqbb3PnghLEyMSMYlxVzeBFD4CoayHy1sCGRotbxX/GMyE
-	H41zC/htAw7nyNJr3YUeyVp8tFSL75CBS2RDCiZq1kss7BgHQeXkzj2ZICDsU2SBMunLNLgQYQB
-	T2O28Ap5PaCDG2M91WRnrtV5O/YBIsTUdW50f6s/ulZcARbzxpdT/fbqUWXDoXJ/PfNGuq5nbOR
-	e2H3/ZxqWDpFZm0gvLlGJD2do+A+3gbr9EzLQ==
-X-Received: by 2002:a05:6a21:1145:b0:3d1:be60:2816 with SMTP id adf61e73a8af0-3d9ad47baabmr16383423637.10.1788419154509;
-        Thu, 03 Sep 2026 00:05:54 -0700 (PDT)
-Received: from [192.168.20.42] (115-70-157-242.ip4.superloop.au. [115.70.157.242])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc43d4110aesm513114a12.20.2026.09.03.00.05.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 00:05:54 -0700 (PDT)
-From: Tsz Shan Chan <tsz.chan.dev@gmail.com>
-X-Google-Original-From: Tsz Shan Chan <tchan@jacques.com.au>
-Date: Thu, 03 Sep 2026 17:05:35 +1000
-Subject: [PATCH v2] iio: light: apds9306: fix default sampling frequency
- definition
+        d=1e100.net; s=20251104; t=1788419157; x=1789023957;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bPr0Tiyi9ufsaoMkecG9LBvmdZ8IsvdK2aRx8FqQP84=;
+        b=Tj4f94r6JVm7K5jkHl+6zTkehsL1aB+6PYokTaMfrWhrhJF9E5I6zl3ZrD8yiG2Cid
+         11x6jwwxdjcNcAdshcNYYzUPY9ylF1PDuSOWwB6rGu0QyvHlbdCWrF/+a5JpLOqMJ752
+         Tq8N3cUahoxcBo1l18fVJAU0dLrib8aG/VftHLvLj6Cz0cpQCP06aTegni/vsc0nux1M
+         C9rXZnBuyZxwN7ryN9hANJ6sVXzOpABym7GL9ojGj17/0d/BfAvzE62Q4slvHRESYW6Y
+         keizmDcifL0GAtvGXVDYaWchUZaF7m6hcUdS245D1hF+QFP9G/ZpS2+StX02NuARSNzT
+         1ylQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwrYtvdoDPgR4YRhRJvUAYc833oleS6++kheyRcOAuKqKVQvALiRQIDG8yP1z7vjZZrKRonl2TrPvJ/8wg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mLJmEyWgmcvHGbyssnX50ouMXDgRaW956zrMyeK9yLYAmzPbmM
+	fiOx8jeg7FrQcOKMdyWGb3JDSO7zpJhbxXwOWA14ZFLKr2a50RgmU0Ua
+X-Gm-Gg: AYBFou1IpngFP1/taz0HLpKfoXXhlf4crViffYcx2etJmg4D1LZegbgZtouAIAWgIkt
+	KInenrOOyhjUFXUZuO6HT2soMsTCbmVFNFuqsnjgqV8CuohHxEzHGLjKF2NR7bp8z+19nyqG6p1
+	AjJKhlim2bT44wYYFp7+TfOL/rCLLPBXd6Y5j/3UCudWLDW631+1XKsxtO8ttVmqSH2V6nASDF7
+	bvNnykB0D6eFH5s+r63WYmPnT9/7AypRriT1NLV//5Nk7S1qozN/3XWN1OYxuVInB0hAu2/MI7F
+	Ms3u8bePHQIuVQBHEohJr6rfb4oXfCCoZ60TEA3nFGNPycclpRVB4Qa6qInKaFjKGcYA/icDnuy
+	YAWt0cPYPzt331+S3QT9Ghb/PHxawtt4ZWKyzMZjYmaaZmUhy84VhGCliXEM3L/80vHPUq8hH73
+	HTI7hDBWJoztMYX/Ia8ldxsl2n6ICDC+oyX13kwLjfmgjip9pCIjCjnEsu+vR+JF/d1fEwfCwyq
+	U/Fmg4=
+X-Received: by 2002:a17:90b:2b46:b0:39a:e002:f192 with SMTP id 98e67ed59e1d1-39aee26d6c3mr16239819a91.22.1788419157335;
+        Thu, 03 Sep 2026 00:05:57 -0700 (PDT)
+Received: from [10.125.112.20] ([122.11.210.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b07b197a9sm3382844a91.0.2026.09.03.00.05.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 00:05:56 -0700 (PDT)
+Message-ID: <6aef2f48-1cc5-408d-a5a2-2b4b4d45ad7b@gmail.com>
+Date: Thu, 3 Sep 2026 15:05:44 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 00/10] kdump: reduce vmcore size and capture time
+To: Baoquan He <baoquan.he@linux.dev>
+Cc: catalin.marinas@arm.com, will@kernel.org, chenhuacai@kernel.org,
+ pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, tglx@kernel.org,
+ mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
+ robh@kernel.org, saravanak@kernel.org, akpm@linux-foundation.org,
+ rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org,
+ m.szyprowski@samsung.com, mark.rutland@arm.com, kernel@xen0n.name,
+ alex@ghiti.fr, hpa@zytor.com, ruirui.yang@linux.dev, robin.murphy@arm.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+ devicetree@vger.kernel.org, kexec@lists.infradead.org, linux-mm@kvack.org,
+ iommu@lists.linux.dev
+References: <20260902073116.802752-1-chenwandun1@gmail.com>
+ <apfkDlcMYrgiuGYA@fedora>
+Content-Language: en-US
+From: Wandun <chenwandun1@gmail.com>
+In-Reply-To: <apfkDlcMYrgiuGYA@fedora>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-apds9306-v2-1-e8673986ae56@jacques.com.au>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23MSw6CMBSF4a2QO7akDx6WkfswDG7prdREiq0QD
- WHvVsYO/5OTb4NE0VOCrtgg0uqTD1MOeSpgGHG6EfM2N0guG665YjjbpBVvmCFrsDVtRbWGfJ8
- jOf8+qGufe/TpFeLnkFfxW/8gq2CCKXfWErFyom4udxyeC6VyCI8SF+j3ff8CLxe9RKUAAAA=
-X-Change-ID: 20260903-apds9306-bedba7b74e59
-To: Subhajit Ghosh <subhajit.ghosh@tweaklogic.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jonathan Cameron <jic23@kernel.org>, Tsz Shan Chan <tchan@jacques.com.au>
-X-Mailer: b4 0.14.3
 
-APDS9306_SAMP_FREQ_10HZ is defined as 0.
 
-According to the datasheet (Broadcom AV02-4755EN,
-https://docs.broadcom.com/doc/AV02-4755EN, page 11, ALS_MEAS_RATE),
-bits[2:0] set the measurement rate:
-- 000: 25ms  (40Hz)
-- 001: 20ms  (20Hz)
-- 010: 100ms (10Hz)
 
-Change APDS9306_SAMP_FREQ_10HZ from 0 to 2 to write the correct value
-for 10Hz.
+On 9/2/26 16:53, Baoquan He wrote:
+> Hi Wandun,
+> 
+> On 09/02/26 at 03:31pm, Wandun Chen wrote:
+>> From: Wandun Chen <chenwandun@lixiang.com>
+>>
+>> On SoCs that carve out large firmware-owned reserved memory (GPU,
+>> camera ISP, ...), kdump currently dumps those carveouts as part of
+>> system RAM even though their contents are firmware state that is not
+>> useful for kernel crash analysis.
+>>
+>> This series introduces a MEMBLOCK_NODUMP flag in memblock to filter
+>> reserved memory on DT-based architectures (arm64, riscv, loongarch).
+>> Reserved regions default are marked MEMBLOCK_NODUMP so kdump omits them;
+>> reusable CMA regions are different because their pages are handed back
+>> to the buddy allocator and may carry crash-relevant data.
+>>
+>> ACPI systems already filter reserved memory out of the vmcore through
+>> their existing path; only DT-based systems currently fail to filter these
+>> regions, which is what this series addresses. The flag lives in memblock
+>> itself rather than in a DT-only structure, so the mechanism is generic and
+>> both ACPI and DT systems can benefit from it (suggested by Rob, thanks) [1].
+> 
+> Thanks for the effort. I am not against this patchset, and I haven't
+> went through it carefully. Just from the cover letter, you mentioned
+> generic, I am wondering if this can be generic for excluding other
+> memory regions. Asking this because I try to find a way to exclude
+> unwanted memory regions too, please check below link where there's
+> the relevant discussion. We definitely don't like inventing wheels
+> time after time. Do you think this memblock region excluding can
+> be used in other places of kernel?
+> 
+> https://lore.kernel.org/all/aoLFai0gzzH2bGgy@MiWiFi-R3L-srv/T/#u
 
-Fixes: 620d1e6c7a3f ("iio: light: Add support for APDS9306 Light Sensor")
-Signed-off-by: Tsz Shan Chan <tchan@jacques.com.au>
----
-Changes in v2:
-- Add datasheet link to commit message
-- Remove blank line in the tag block
-- Link to v1: https://lore.kernel.org/r/20260903-apds9306-v1-1-3f892aa4f156@jacques.com.au
----
- drivers/iio/light/apds9306.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/iio/light/apds9306.c b/drivers/iio/light/apds9306.c
-index f681b02e4922..7dd41136734f 100644
---- a/drivers/iio/light/apds9306.c
-+++ b/drivers/iio/light/apds9306.c
-@@ -61,7 +61,7 @@
- #define APDS9306_NUM_REPEAT_RATES	7
- #define APDS9306_INT_SRC_CLEAR	0
- #define APDS9306_INT_SRC_ALS	1
--#define APDS9306_SAMP_FREQ_10HZ	0
-+#define APDS9306_SAMP_FREQ_10HZ	2
- 
- /**
-  * struct part_id_gts_multiplier - Part no. and corresponding gts multiplier
+Thanks for taking a look, and for the pointer to the crash-wipe thread.
 
----
-base-commit: 940de590b839f71d6dc846160534bf202401b8b7
-change-id: 20260903-apds9306-bedba7b74e59
+To answer your question directly: the exclusion mechanism in this series
+is already generic, memblock_mark_nodump() is the entry point. Any code
+that wants a region out of the vmcore just marks it MEMBLOCK_NODUMP, when
+preparing vmcore elf header by walking memblock, these regionss are skipped;
+This series is simply one caller, marking the DTS /reserved-memory and
+/memreserve/ regions with MEMBLOCK_NODUMP.
 
-Best regards,
--- 
-Tsz Shan Chan <tchan@jacques.com.au>
+x86 currently builds the vmcore elf header from iomem_resource, not
+memblock; it could be switched to memblock, but that would bring no
+benefit for the problem this series solves, so this series makes no
+x86 change. I'd personally be in favor of switching to memblock for
+a unified implementation across architectures.
+
+Best regards
+Wandun
+
+
+> 
+>>
+>> Since the reserved memory regions are filtered out, the vmcore is
+>> smaller in size and faster to produce. 
+>>
+>> The series is based on linux-next and is organized as follows:
+>>
+>> Patches 1-4: Preparation and bugfixes: fix the missing HugeTLB
+>>              flagname, switch riscv crash_mem to memblock, fold the
+>>              duplicated per-arch memblock walks into the weak
+>>              defaults, and serialize crash header preparation against
+>>              memory hotplug.
+>> Patches 5-9: NODUMP infrastructure: switch crash_core to
+>>              for_each_mem_region(), introduce the MEMBLOCK_NODUMP
+>>              flag, add a dumpable flag to struct reserved_mem, and
+>>              mark /reserved-memory and /memreserve/ entries with
+>> 	     MEMBLOCK_NODUMP flag.
+>> Patch 10:    Exclude MEMBLOCK_NODUMP regions from the vmcore ELF
+>>              header.
+>>
+>> In v5, Sashiko found some pre-existing issues related to reserved-memory,
+>> and has no dependency on this series, so these issues have been addressed
+>> in a separate series [2].
+>>
+>> v5 --> v6:
+>> 1. Serialize crash header preparation against memory hotplug to avoid
+>>    out-of-bounds or use-after-free issues.
+>>
+>> 2. MEMBLOCK_NODUMP marking is now done after memblock allows resizing,
+>>    avoiding a panic from too few regions before resize is permitted.
+>>
+>> 3. Reordered the patches, put pre-existing bugfixes earlier in the series.
+>>
+>>
+>> v4 --> v5:
+>> 1. Rework the mechanism around a memblock-level MEMBLOCK_NODUMP flag
+>>    (suggested by Rob) instead of the v4 opt-in 'dumpable' flag on
+>>    DT-only struct reserved_mem.
+>> 2. Switch the riscv vmcore elf header preparation to use memblock
+>>    instead of the resource tree, aligning it with arm64 and loongarch,
+>>    so riscv also can exclude reserved memory from vmcore.
+>> 3. Deduplicate the vmcore elf header preparation: arm64, riscv and
+>>    loongarch open-coded the same logic, so fold it into shared
+>>     __weak defaults in crash_core.
+>> 4.  Drop the v4 patch that saved /memreserve/ entries into the
+>>     reserved_mem array; /memreserve/ is now marked MEMBLOCK_NODUMP
+>>     directly.
+>>
+>> v3 --> v4:
+>> 1. Rebase this series on v7.2-rc1.
+>> 2. Add two cleanup patches (patch 02/03).
+>> 3. Simplify patch 03 to avoid checking whether initial_boot_params is
+>>    NULL multiple times, suggested by Rob.
+>>
+>> v2 --> v3:
+>> 1. Fix out-of-bounds issue if device tree lacks /reserved-memory node.
+>> 2. Fix UAF issue when alloc_reserved_mem_array() fails.
+>> 3. Add some prepare patches.
+>>
+>> v1 --> v2:
+>> 1. v1 added an opt-out DT property ('linux,no-dump'). Per Rob's
+>>    feedback [3], v2 drop that property and exclude reserve memory
+>>    by default.
+>> 2. Split some prepared patches from the original patches.
+>> 3. Address coding-style comments on patch 5 from Rob.
+>>
+>> [1] https://lore.kernel.org/lkml/20260723234126.GA3253409-robh@kernel.org/
+>> [2] https://lore.kernel.org/lkml/20260818092420.2859026-1-chenwandun1@gmail.com/
+>> [3] https://lore.kernel.org/lkml/20260506144542.GA2072596-robh@kernel.org/
+>>
+>> Meijing Zhao (1):
+>>   mm: memblock: add missing HugeTLB flag name
+>>
+>> Wandun Chen (9):
+>>   riscv: build crash_mem ranges from memblock instead of resource tree
+>>   crash_core: fold duplicated memblock arch hooks into the weak default
+>>   crash_core: serialize crash header preparation against hotplug
+>>   crash_core: replace for_each_mem_range() with for_each_mem_region()
+>>   memblock: introduce MEMBLOCK_NODUMP flag
+>>   of: reserved_mem: add dumpable flag to opt-in vmcore
+>>   of: reserved_mem: mark /reserved-memory entries with MEMBLOCK_NODUMP
+>>   of: reserved_mem: mark /memreserve/ entries as MEMBLOCK_NODUMP
+>>   crash_core: skip MEMBLOCK_NODUMP regions when building vmcore ELF
+>>     header
+>>
+>>  arch/arm64/kernel/machine_kexec_file.c     | 29 ------------
+>>  arch/loongarch/kernel/machine_kexec_file.c | 27 ------------
+>>  arch/riscv/Kconfig                         |  2 +-
+>>  arch/riscv/kernel/machine_kexec_file.c     | 33 --------------
+>>  arch/x86/kernel/crash.c                    |  2 +-
+>>  drivers/of/fdt.c                           |  2 +
+>>  drivers/of/of_private.h                    |  2 +
+>>  drivers/of/of_reserved_mem.c               | 48 ++++++++++++++++++++
+>>  include/linux/crash_core.h                 |  2 +
+>>  include/linux/memblock.h                   |  9 ++++
+>>  include/linux/of_reserved_mem.h            |  1 +
+>>  kernel/crash_core.c                        | 51 ++++++++++++++++++++--
+>>  kernel/dma/contiguous.c                    |  1 +
+>>  mm/memblock.c                              | 17 ++++++++
+>>  14 files changed, 131 insertions(+), 95 deletions(-)
+>>
+>> -- 
+>> 2.43.0
+>>
 
