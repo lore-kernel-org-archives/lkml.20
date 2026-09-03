@@ -1,41 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A6FD451997;
-	Thu,  3 Sep 2026 10:42:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10BE244239E;
+	Thu,  3 Sep 2026 10:43:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788432179; cv=none; b=FR68mu/0pQl+U9PXV5oSRxNJQ64rlfDSqAP+XzEnHDkk6jt7kDVtFz+N3qWr9jKGb/TSD2O0LTAxgoeVAWgWmi2cIJoQrqnxJZBh7WAtf029n53V0ui+C+fgXOsW8nyX9VCeRAY7Pm2n8o4eHMWoBUvSgtb1pFLa96ePQSSTwg8=
+	t=1788432234; cv=none; b=Dddexw/3DE29oMzSmJAanuplog+qVeUUcaMTVtCOLvYUJri4DXEOVZJ2U+VCo5c18j3TxJTdjgnE6ddVgumhlySGIdNLgk8y2gHb9rIDKU/UMbA1kmA639WcZK91BblaAhyy/Zsa6Q137zfqpAp3zB4+bOvhiIL9sAEsIq+pug8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788432179; c=relaxed/simple;
-	bh=gs88Hmq4jcgellzfayjZ1vc2/9UeiYEvVrYiIF8EmNU=;
+	s=arc-20240116; t=1788432234; c=relaxed/simple;
+	bh=9bwFkXE/f9SR0xge/C4Ui8DJt0PBN+jcuUwCspL0Bmk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iF02dbsD/SFBwr9NeCTYSxWVDSuEZnyAnZOEqKz4TmqQh8KNpDFhK8tRVQ5/KrCcNVYCNtgQeBQR1hd6H4dA0tX3CuSRwrWqa+2+Fz8NFw5aCtGKyAKzp/IwEJyoW5aPz5A6std2Vec0OF6o2X8iEX9S7AKo9rcfoVpUnxzCgHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PxL45h+n; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=spAFaZzn27QUEne6jNCZZsBjM27bR2w4Hi4bjLShqSGnxPbDSdcHLuUlHI8EgnJ52hPgkLv5sa6mHG/lpl8IMPjJwiZFF+c2OzMhSzjN2peKJUjfCwOhlSwPpDfLpxMnIKijuE0t/rbHQesDTMhrbQpFreAQRmvrA3hNseWsjS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=KwL+d+VN; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=G/wkuO+8; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=rN6OBiun; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=cZzDFwux; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PxL45h+n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D057D1F000E9;
-	Thu,  3 Sep 2026 10:42:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788432176;
-	bh=yHr2PAZ53abmK/CyHbM2lL4kYKOCpr4nXWcSBZfUT44=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PxL45h+nQFFZLxjowt2CIQhRtWDOR/eY5vfraH5yVrmWWEJr0EUNvHtZT3rsQbjcX
-	 M8DgmNzaIiI23KL+loplOHIRfOeweDmh+psYov53Xcjm3PJuKwzEd6UW4Dffk9Ljao
-	 /dB4J8c03q7Y01lTvG5Y6Z1tkNLWnBMoGzWAu+p3T+BgPzif1Zn5MRnVuIqTLUSoG2
-	 BT024jNrhTF1cpr4uenhLz1ORRApjsDte5Mt4xAUEcYPlBmqMogvcDnyqrOkSRryl5
-	 ML/f0cQTUWFmXjmk5X0JkujWzSsI0pUccIXbxjYC+Gh7JdJ/j6rZebamdFED4FPra+
-	 GTP6B1LZAe/tg==
-Date: Thu, 3 Sep 2026 11:42:53 +0100
-From: Lee Jones <lee@kernel.org>
-To: a0282524688@gmail.com
-Cc: Ming Yu <tmyu0@nuvoton.com>, linux-kernel@vger.kernel.org,
-	mfd@lists.linux.dev
-Subject: Re: [PATCH v7 05/10] mfd: nct6694: Extract core device management
- into a separate module
-Message-ID: <20260903104253.GM2133376@google.com>
-References: <20260821033505.4017901-1-a0282524688@gmail.com>
- <20260821033505.4017901-6-a0282524688@gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="KwL+d+VN";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="G/wkuO+8";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="rN6OBiun";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="cZzDFwux"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 9D7AD1FE40;
+	Thu,  3 Sep 2026 10:43:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788432226; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5bOHKYQ2W0tgyQ7zeKH/M5xbbFFDIk0NaxeQdsh/AfU=;
+	b=KwL+d+VN9hYaG8WlrCiRLaX5pPMCsd5IdXQs41gkgFlwdp2sDsXnLsARi+kVxYCbNMuBxe
+	6OTCA+IUGtBDP187VfOHXJ7Tkr+tEp56wb9W3bJFEw08/lAvgQJzXPQVIlCXGvtkMfiOqI
+	nkabSjYTt7j0qYvC6ob+2n9sb3oB/Jg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788432226;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5bOHKYQ2W0tgyQ7zeKH/M5xbbFFDIk0NaxeQdsh/AfU=;
+	b=G/wkuO+85R9pQpdp/KaF+eU3Ux5E+URH540hO4PCT10TP8usSilS+rpV9pPACW5GP4bRgF
+	BTKAW0hSPThV0XBw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=rN6OBiun;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=cZzDFwux
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788432222; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5bOHKYQ2W0tgyQ7zeKH/M5xbbFFDIk0NaxeQdsh/AfU=;
+	b=rN6OBiunbfADzwCCzo9S2Jbgt65ss+Sa65NwSPtNFoghWfifxwaZx4z+0pmaG3BwSJhiNx
+	M6sRdU61hRvPjksfDFi4fH2PJ+PpRg6/leXERzbVLdyT4b0BhehaP+Hdusb+htnEfHtvIn
+	YQamkkrUCackf7Gen7RvUSCUm2TLUKY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788432222;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5bOHKYQ2W0tgyQ7zeKH/M5xbbFFDIk0NaxeQdsh/AfU=;
+	b=cZzDFwuxFc3J8HCMTI68idXANFsqI+aofJEJ7z5gKtGOQJTsmyNeZAzbDNSVd+XAsNvQQQ
+	VybOXDcn1nhAaHCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5CA33136E6;
+	Thu,  3 Sep 2026 10:43:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id DsqXFV5PmWqoMAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 03 Sep 2026 10:43:42 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id E1FB2A13AC; Thu, 03 Sep 2026 12:43:41 +0200 (CEST)
+Date: Thu, 3 Sep 2026 12:43:41 +0200
+From: Jan Kara <jack@suse.cz>
+To: Shaojie Sun <sunshaojie@kylinos.cn>
+Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, Christian Brauner <brauner@kernel.org>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, cgroups@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] fs: namespace: drop BUG_ON() in copy_mnt_ns()
+Message-ID: <nqedakm2hzmzbuu26l6dnnhkyc25k7tls5bognyvcfy7z5oc42@r3bso7zdins4>
+References: <aphwXq5bEQwKhqx2@localhost.localdomain>
+ <20260903064828.126643-1-sunshaojie@kylinos.cn>
+ <20260903064828.126643-4-sunshaojie@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,419 +93,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260821033505.4017901-6-a0282524688@gmail.com>
+In-Reply-To: <20260903064828.126643-4-sunshaojie@kylinos.cn>
+X-Spam-Score: -4.01
+X-Rspamd-Queue-Id: 9D7AD1FE40
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:dkim,suse.cz:email,suse.com:email];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Flag: NO
 
-On Fri, 21 Aug 2026, a0282524688@gmail.com wrote:
+On Thu 03-09-26 14:48:28, Shaojie Sun wrote:
+> The sole caller, create_new_namespaces(), always passes a valid mount
+> namespace pointer from the task's nsproxy. The other copy_*_ns()
+> helpers, e.g. copy_time_ns() and copy_pid_ns(), don't perform such a
+> check either. Drop the BUG_ON() for consistency with them.
+> 
+> Signed-off-by: Shaojie Sun <sunshaojie@kylinos.cn>
 
-> From: Ming Yu <a0282524688@gmail.com>
-> 
-> Extract the transport-agnostic core logic, including IRQ domain setup,
-> IDA initialization, and MFD sub-device registration, from the USB driver
-> into a new nct6694-core.c module.
-> 
-> The core routines are exported as nct6694_core_probe() and
-> nct6694_core_remove() to be consumed by the transport drivers. The USB
-> driver is updated to pass its specific MFD cells to the core probe
-> routine.
-> 
-> This completes the transport abstraction, ensuring that the shared
-> device management logic is cleanly separated from the underlying I/O
-> implementation, and is fully ready for new transport backends
-> (e.g., HIF).
-> 
-> Signed-off-by: Ming Yu <a0282524688@gmail.com>
+It's indeed pointless. Feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
 > ---
-> Changes in v7:
+>  fs/namespace.c | 2 --
+>  1 file changed, 2 deletions(-)
 > 
-> Changes in v6:
-> - Reordered to sit before the transport-abstraction patch; no functional
->   change.
-> 
-> Changes in v5:
-> - Split from the monolithic v4 patch to follow the single logical change
->   principle.
-> 
->  MAINTAINERS                 |   2 +-
->  drivers/mfd/Makefile        |   1 +
->  drivers/mfd/nct6694-core.c  | 136 ++++++++++++++++++++++++++++++++++++
->  drivers/mfd/nct6694-usb.c   |  91 ++----------------------
->  include/linux/mfd/nct6694.h |   9 ++-
->  5 files changed, 153 insertions(+), 86 deletions(-)
->  create mode 100644 drivers/mfd/nct6694-core.c
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 89d7339f3613..f1894e88ba62 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -19356,7 +19356,7 @@ S:	Supported
->  F:	drivers/gpio/gpio-nct6694.c
->  F:	drivers/hwmon/nct6694-hwmon.c
->  F:	drivers/i2c/busses/i2c-nct6694.c
-> -F:	drivers/mfd/nct6694-usb.c
-> +F:	drivers/mfd/nct6694-*.c
->  F:	drivers/net/can/usb/nct6694_canfd.c
->  F:	drivers/rtc/rtc-nct6694.c
->  F:	drivers/watchdog/nct6694_wdt.c
-> diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-> index 48caac64f3d8..10c19a19541e 100644
-> --- a/drivers/mfd/Makefile
-> +++ b/drivers/mfd/Makefile
-> @@ -124,6 +124,7 @@ obj-$(CONFIG_MFD_MC13XXX_I2C)	+= mc13xxx-i2c.o
+> diff --git a/fs/namespace.c b/fs/namespace.c
+> index 1ecd96c918b3..0f35c8c14027 100644
+> --- a/fs/namespace.c
+> +++ b/fs/namespace.c
+> @@ -4247,8 +4247,6 @@ struct mnt_namespace *copy_mnt_ns(u64 flags, struct mnt_namespace *ns,
+>  	struct mount *new;
+>  	int copy_flags;
 >  
->  obj-$(CONFIG_MFD_PF1550)	+= pf1550.o
->  
-> +obj-$(CONFIG_MFD_NCT6694)	+= nct6694-core.o
->  obj-$(CONFIG_MFD_NCT6694_USB)	+= nct6694-usb.o
->  
->  obj-$(CONFIG_MFD_CORE)		+= mfd-core.o
-> diff --git a/drivers/mfd/nct6694-core.c b/drivers/mfd/nct6694-core.c
-> new file mode 100644
-> index 000000000000..36dfaa2e327f
-> --- /dev/null
-> +++ b/drivers/mfd/nct6694-core.c
-> @@ -0,0 +1,136 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2026 Nuvoton Technology Corp.
-> + *
-> + * Nuvoton NCT6694 MFD core driver.
-> + *
-> + * This provides common registration for IRQ domain, IDA pools,
-> + * and MFD sub-devices shared by all transport drivers.
-> + */
-> +
-> +#include <linux/idr.h>
-> +#include <linux/irq.h>
-> +#include <linux/irqdomain.h>
-> +#include <linux/kernel.h>
-> +#include <linux/mfd/core.h>
-> +#include <linux/mfd/nct6694.h>
-> +#include <linux/module.h>
-> +#include <linux/spinlock.h>
-> +
-> +static void nct6694_irq_enable(struct irq_data *data)
-> +{
-> +	struct nct6694 *nct6694 = irq_data_get_irq_chip_data(data);
-> +	irq_hw_number_t hwirq = irqd_to_hwirq(data);
-> +
-> +	guard(spinlock_irqsave)(&nct6694->irq_lock);
-> +
-> +	nct6694->irq_enable |= BIT(hwirq);
-> +}
-> +
-> +static void nct6694_irq_disable(struct irq_data *data)
-> +{
-> +	struct nct6694 *nct6694 = irq_data_get_irq_chip_data(data);
-> +
-> +	guard(spinlock_irqsave)(&nct6694->irq_lock);
-> +
-> +	nct6694->irq_enable &= ~BIT(hwirq);
-> +}
-> +
-> +static const struct irq_chip nct6694_irq_chip = {
-> +	.name = "nct6694-irq",
-> +	.flags = IRQCHIP_SKIP_SET_WAKE,
-> +	.irq_enable = nct6694_irq_enable,
-> +	.irq_disable = nct6694_irq_disable,
-> +};
-> +
-> +static int nct6694_irq_domain_map(struct irq_domain *d, unsigned int irq,
-> +				  irq_hw_number_t hw)
-> +{
-> +	struct nct6694 *nct6694 = d->host_data;
-> +
-> +	irq_set_chip_data(irq, nct6694);
-> +	irq_set_chip_and_handler(irq, &nct6694_irq_chip, handle_simple_irq);
-> +
-> +	return 0;
-> +}
-> +
-> +static void nct6694_irq_domain_unmap(struct irq_domain *d, unsigned int irq)
-> +{
-> +	irq_set_chip_and_handler(irq, NULL, NULL);
-> +	irq_set_chip_data(irq, NULL);
-> +}
-> +
-> +static const struct irq_domain_ops nct6694_irq_domain_ops = {
-> +	.map	= nct6694_irq_domain_map,
-> +	.unmap	= nct6694_irq_domain_unmap,
-> +};
-> +
-> +/**
-> + * nct6694_core_probe() - Register IRQ domain, IDAs, and MFD sub-devices
-> + * @dev: parent device (USB interface or platform device)
-> + * @nct6694: initialized nct6694 structure with its transport regmap set
-> + *
-> + * This function completes the common probe steps shared by all transport
-> + * drivers: IRQ domain creation, IDA initialization, and MFD cell registration.
-> + *
-> + * The caller must have already set nct6694->dev, nct6694->priv, and
-> + * nct6694->regmap before calling this.
-> + *
-> + * Return: 0 on success or negative errno on failure.
-> + */
-> +int nct6694_core_probe(struct device *dev, struct nct6694 *nct6694,
-
-You can put nct6694 into the device's private struct attribute which
-means that you no longer have to pass it around.
-
-I'm not particularly keen on passing mfd_cells around.  Why not call
-mfd_add_*() from the transport's probe?
-
-> +		       const struct mfd_cell *cells, int n_cells)
-> +{
-> +	int ret;
-> +
-> +	spin_lock_init(&nct6694->irq_lock);
-> +
-> +	ida_init(&nct6694->gpio_ida);
-> +	ida_init(&nct6694->i2c_ida);
-> +	ida_init(&nct6694->canfd_ida);
-> +	ida_init(&nct6694->wdt_ida);
-> +
-> +	nct6694->domain = irq_domain_create_simple(NULL, NCT6694_NR_IRQS, 0,
-> +						   &nct6694_irq_domain_ops,
-> +						   nct6694);
-> +	if (!nct6694->domain) {
-> +		ret = -ENODEV;
-
-Should we return '-ENOMEM' here instead of '-ENODEV', as this represents
-a resource allocation failure?
-
-> +		goto err_ida;
-> +	}
-> +
-> +	ret = mfd_add_hotplug_devices(dev, cells, n_cells);
-> +	if (ret)
-> +		goto err_domain;
-> +
-> +	return 0;
-> +
-> +err_domain:
-> +	irq_domain_remove(nct6694->domain);
-> +err_ida:
-> +	ida_destroy(&nct6694->wdt_ida);
-> +	ida_destroy(&nct6694->canfd_ida);
-> +	ida_destroy(&nct6694->i2c_ida);
-> +	ida_destroy(&nct6694->gpio_ida);
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(nct6694_core_probe);
-> +
-> +/**
-> + * nct6694_core_remove() - Unregister MFD sub-devices and free core resources
-> + * @nct6694: nct6694 structure previously passed to nct6694_core_probe()
-> + */
-> +void nct6694_core_remove(struct nct6694 *nct6694)
-
-Should we also rename 'nct6694' to 'ddata' here?
-
-> +{
-> +	mfd_remove_devices(nct6694->dev);
-> +	irq_domain_remove(nct6694->domain);
-> +	ida_destroy(&nct6694->wdt_ida);
-> +	ida_destroy(&nct6694->canfd_ida);
-> +	ida_destroy(&nct6694->i2c_ida);
-> +	ida_destroy(&nct6694->gpio_ida);
-> +}
-> +EXPORT_SYMBOL_GPL(nct6694_core_remove);
-> +
-> +MODULE_DESCRIPTION("Nuvoton NCT6694 MFD core driver");
-> +MODULE_AUTHOR("Ming Yu <tmyu0@nuvoton.com>");
-> +MODULE_LICENSE("GPL");
-> diff --git a/drivers/mfd/nct6694-usb.c b/drivers/mfd/nct6694-usb.c
-> index 7c6b986db7f7..2289ebfde7fa 100644
-> --- a/drivers/mfd/nct6694-usb.c
-> +++ b/drivers/mfd/nct6694-usb.c
-> @@ -10,7 +10,6 @@
->   */
->  
->  #include <linux/bits.h>
-> -#include <linux/idr.h>
->  #include <linux/interrupt.h>
->  #include <linux/irq.h>
->  #include <linux/irqdomain.h>
-> @@ -19,7 +18,6 @@
->  #include <linux/mfd/nct6694.h>
->  #include <linux/module.h>
->  #include <linux/slab.h>
-> -#include <linux/spinlock.h>
->  #include <linux/usb.h>
->  
->  #define NCT6694_VENDOR_ID	0x0416
-> @@ -246,57 +244,9 @@ static void nct6694_usb_int_callback(struct urb *urb)
->  resubmit:
->  	ret = usb_submit_urb(urb, GFP_ATOMIC);
->  	if (ret)
-> -		dev_warn(nct6694->dev, "Failed to resubmit urb, status %pe",  ERR_PTR(ret));
-> +		dev_warn(nct6694->dev, "Failed to resubmit urb, status %pe", ERR_PTR(ret));
->  }
->  
-> -static void nct6694_irq_enable(struct irq_data *data)
-> -{
-> -	struct nct6694 *nct6694 = irq_data_get_irq_chip_data(data);
-> -	irq_hw_number_t hwirq = irqd_to_hwirq(data);
+> -	BUG_ON(!ns);
 > -
-> -	guard(spinlock_irqsave)(&nct6694->irq_lock);
-> -
-> -	nct6694->irq_enable |= BIT(hwirq);
-> -}
-> -
-> -static void nct6694_irq_disable(struct irq_data *data)
-> -{
-> -	struct nct6694 *nct6694 = irq_data_get_irq_chip_data(data);
-> -	irq_hw_number_t hwirq = irqd_to_hwirq(data);
-> -
-> -	guard(spinlock_irqsave)(&nct6694->irq_lock);
-> -
-> -	nct6694->irq_enable &= ~BIT(hwirq);
-> -}
-> -
-> -static const struct irq_chip nct6694_irq_chip = {
-> -	.name = "nct6694-irq",
-> -	.flags = IRQCHIP_SKIP_SET_WAKE,
-> -	.irq_enable = nct6694_irq_enable,
-> -	.irq_disable = nct6694_irq_disable,
-> -};
-> -
-> -static int nct6694_irq_domain_map(struct irq_domain *d, unsigned int irq, irq_hw_number_t hw)
-> -{
-> -	struct nct6694 *nct6694 = d->host_data;
-> -
-> -	irq_set_chip_data(irq, nct6694);
-> -	irq_set_chip_and_handler(irq, &nct6694_irq_chip, handle_simple_irq);
-> -
-> -	return 0;
-> -}
-> -
-> -static void nct6694_irq_domain_unmap(struct irq_domain *d, unsigned int irq)
-> -{
-> -	irq_set_chip_and_handler(irq, NULL, NULL);
-> -	irq_set_chip_data(irq, NULL);
-> -}
-> -
-> -static const struct irq_domain_ops nct6694_irq_domain_ops = {
-> -	.map	= nct6694_irq_domain_map,
-> -	.unmap	= nct6694_irq_domain_unmap,
-> -};
-> -
->  static int nct6694_usb_probe(struct usb_interface *iface,
->  			     const struct usb_device_id *id)
->  {
-> @@ -330,35 +280,19 @@ static int nct6694_usb_probe(struct usb_interface *iface,
->  
->  	udata->udev = udev;
->  
-> -	nct6694->priv = udata;
-> -
-> -	nct6694->domain = irq_domain_create_simple(NULL, NCT6694_NR_IRQS, 0,
-> -						   &nct6694_irq_domain_ops,
-> -						   nct6694);
-> -	if (!nct6694->domain) {
-> -		ret = -ENODEV;
-> -		goto err_urb;
-> -	}
-> -
->  	nct6694->dev = dev;
-> -
-> -	ida_init(&nct6694->gpio_ida);
-> -	ida_init(&nct6694->i2c_ida);
-> -	ida_init(&nct6694->canfd_ida);
-> -	ida_init(&nct6694->wdt_ida);
-> -
-> -	spin_lock_init(&nct6694->irq_lock);
-> +	nct6694->priv = udata;
->  
->  	ret = devm_mutex_init(dev, &udata->access_lock);
->  	if (ret)
-> -		goto err_ida;
-> +		goto err_urb;
->  
->  	interface = iface->cur_altsetting;
->  
->  	int_endpoint = &interface->endpoint[0].desc;
->  	if (!usb_endpoint_is_int_in(int_endpoint)) {
->  		ret = -ENODEV;
-> -		goto err_ida;
-> +		goto err_urb;
->  	}
->  
->  	usb_fill_int_urb(udata->int_in_urb, udev, usb_rcvintpipe(udev, NCT6694_INT_IN_EP),
-> @@ -367,11 +301,11 @@ static int nct6694_usb_probe(struct usb_interface *iface,
->  
->  	ret = usb_submit_urb(udata->int_in_urb, GFP_KERNEL);
->  	if (ret)
-> -		goto err_ida;
-> +		goto err_urb;
->  
->  	usb_set_intfdata(iface, nct6694);
->  
-> -	ret = mfd_add_hotplug_devices(dev, nct6694_usb_devs, ARRAY_SIZE(nct6694_usb_devs));
-> +	ret = nct6694_core_probe(dev, nct6694, nct6694_usb_devs, ARRAY_SIZE(nct6694_usb_devs));
->  	if (ret)
->  		goto err_mfd;
->  
-> @@ -379,12 +313,6 @@ static int nct6694_usb_probe(struct usb_interface *iface,
->  
->  err_mfd:
->  	usb_kill_urb(udata->int_in_urb);
-> -err_ida:
-> -	ida_destroy(&nct6694->wdt_ida);
-> -	ida_destroy(&nct6694->canfd_ida);
-> -	ida_destroy(&nct6694->i2c_ida);
-> -	ida_destroy(&nct6694->gpio_ida);
-> -	irq_domain_remove(nct6694->domain);
->  err_urb:
->  	usb_free_urb(udata->int_in_urb);
->  	return ret;
-> @@ -395,13 +323,8 @@ static void nct6694_usb_disconnect(struct usb_interface *iface)
->  	struct nct6694 *nct6694 = usb_get_intfdata(iface);
->  	struct nct6694_usb_data *udata = nct6694->priv;
->  
-> -	mfd_remove_devices(nct6694->dev);
-> +	nct6694_core_remove(nct6694);
->  	usb_kill_urb(udata->int_in_urb);
-> -	ida_destroy(&nct6694->wdt_ida);
-> -	ida_destroy(&nct6694->canfd_ida);
-> -	ida_destroy(&nct6694->i2c_ida);
-> -	ida_destroy(&nct6694->gpio_ida);
-> -	irq_domain_remove(nct6694->domain);
->  	usb_free_urb(udata->int_in_urb);
->  }
->  
-> diff --git a/include/linux/mfd/nct6694.h b/include/linux/mfd/nct6694.h
-> index 43b51f243e8e..853b1530755d 100644
-> --- a/include/linux/mfd/nct6694.h
-> +++ b/include/linux/mfd/nct6694.h
-> @@ -10,10 +10,13 @@
->  #define __MFD_NCT6694_H
->  
->  #include <linux/idr.h>
-> -#include <linux/mutex.h>
->  #include <linux/spinlock.h>
->  #include <linux/types.h>
->  
-> +struct device;
-> +struct irq_domain;
-> +struct mfd_cell;
-> +
->  #define NCT6694_HWMON_MOD	0x00
->  #define NCT6694_PWM_MOD		0x01
->  #define NCT6694_I2C_MOD		0x03
-> @@ -94,6 +97,10 @@ struct nct6694 {
->  	void *priv;
->  };
->  
-> +int nct6694_core_probe(struct device *dev, struct nct6694 *nct6694,
-> +		       const struct mfd_cell *cells, int n_cells);
-> +void nct6694_core_remove(struct nct6694 *nct6694);
-> +
->  int nct6694_usb_read_msg(struct nct6694 *nct6694,
->  			 const struct nct6694_cmd_header *cmd_hd,
->  			 void *buf);
+>  	if (likely(!(flags & CLONE_NEWNS))) {
+>  		get_mnt_ns(ns);
+>  		return ns;
 > -- 
-> 2.34.1
+> 2.50.1
 > 
-
 -- 
-Lee Jones
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
