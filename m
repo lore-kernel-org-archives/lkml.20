@@ -1,195 +1,102 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F5362BDC1C;
-	Thu,  3 Sep 2026 06:23:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D8D3C13F9;
+	Thu,  3 Sep 2026 06:26:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788416615; cv=none; b=lJUw0YMQ14P2FU3znmxPfh05X64MozRREr1RWscf6q4MymihkHrP+da03+vbQWTlHidT7LJfUcuSjPF6SsJqQ7B9SOhIMVygXVoSziSxfG4s6TUiKF/FCia2lxnO5o+Arbfy1+C1j4EFLPV/y4R+xGmxF4MPPP98QA3C0hTT5q4=
+	t=1788416772; cv=none; b=LQR5o4jv740JnrJMP/MFJ/hxvx1IRmwdNZCenD34fmy+C+LO19RrujoZ02UGM/XE/MkLUNO5vYx+M/pVLhdYWqFonqvmu8zErlnptADWDKrcVCpShqEfxUj+kVwIS3QpLAFzSHAcDLmNIFjROT1rlzQVvql9XXg23KpznF3plAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788416615; c=relaxed/simple;
-	bh=0t4SnB+S0ybvtQvhutv6dDJUnDmQA8XgTKf82VCqI9c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZXRaDt361YA6EGNK+9dyacrn08ninkNNcUXQIWNDYr5vKSwGOvisQBt9wUA6fuBXUof70567KWYyVMw1wU0AtXoDIlwqG1qKH2lJHRmstWJLRPCgE3dIpF1pOQvHy1z5Jh7oe0H6jorLl3gonjYZAOBPtNXGuthMLK7GC3tPl8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=DCVNfkHl; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=Nj/fSERK; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788416772; c=relaxed/simple;
+	bh=XDns49MqTmXT/gYb6wNEuXJgGazq2MKUCvqx79q7NAw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rX+HY2NRXIvV8xPVP9yUKmAXRKnnsjI/Sbe4iNAABeH/mi7snegcJnCmoARwfeE9yVJO3KJagQ0vVjSh4nH7jMBU4DHpaAY8XxgDkNMI5izzfA/lo+NM0sXGkINSnKaxi8mgauF6YCZRe+or7LI18/b4Vee851oacxoS0UrgLA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Y9ddF7xO; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="DCVNfkHl";
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="Nj/fSERK"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 217A821E07;
-	Thu,  3 Sep 2026 06:23:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1788416608; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sfXDvErAVYiffVsYFRcL1awa1CCQQAqkDQEPuekIlFo=;
-	b=DCVNfkHlO/Pi8fbzT8tx1EitbXLdXk/XHUpwM3rWD7gY4XZjUngMXTlPpp0Ns3kAyv6/4o
-	I9BFUwuDgMiZf1oB1uuR5Rh9ShRiU72UI71Przb7KUUFSfF7Qh4X2nqDYd4eySc5M5v+0F
-	/TJeRkLtbBV/uXWzIT+ekF7osHktbLE=
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1788416604; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sfXDvErAVYiffVsYFRcL1awa1CCQQAqkDQEPuekIlFo=;
-	b=Nj/fSERKZ8tSAhnthbC5hdtY98LtmCB0qkJPNpk93PI8gYzmcX8VD+qJlnzQFtLi4InzGj
-	/xYQ+Zfj6xHEupfo/ucybxVjTlHcyb8bty7To/pUfgAyz8NJqfTVpMiR76LNexWOnMmwpc
-	dC7EcGQPtK13OOGsjEq/vxK5o/upHzg=
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C53EC13738;
-	Thu,  3 Sep 2026 06:23:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id eGybL1sSmWoVKwAAD6G6ig
-	(envelope-from <neelx@suse.com>); Thu, 03 Sep 2026 06:23:23 +0000
-From: Daniel Vacek <neelx@suse.com>
-To: David Sterba <dsterba@suse.com>,
-	Chris Mason <mason@kernel.org>
-Cc: Daniel Vacek <neelx@suse.com>,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Qu Wenruo <wqu@suse.com>
-Subject: [PATCH v2 2/3] btrfs: use bio::remaining for async checksumming synchronization
-Date: Thu,  3 Sep 2026 08:23:15 +0200
-Message-ID: <20260903062317.3928665-3-neelx@suse.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260903062317.3928665-1-neelx@suse.com>
-References: <20260903062317.3928665-1-neelx@suse.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Y9ddF7xO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788416770; x=1819952770;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=XDns49MqTmXT/gYb6wNEuXJgGazq2MKUCvqx79q7NAw=;
+  b=Y9ddF7xOtrqTf+eGY9HWm2S6ChTpOzagnSaifgoEUX5nCgewJ+VOiJyW
+   CcdSYzYqgctwZbahzN0XLSDuUtJ8SNFgHyOW7fnM76EEHt/W60/OgWrfJ
+   d5AT0Z8Ln8UF/VMe4CVxE3VIdTHP2K29Pt2UnKOaHQMLOcedjg1aITWdX
+   0LaaBz4HtBmQHS5iIndPVu+RqBUPuCHU97o8f2E5gPzZ4ZfEi9Cnz4NxA
+   61PYEuCeH/EzdY6704Th7YsxrAq7MFOKIjWU6gqfyOVZKKJD1ht+GUiNR
+   kGkChfyJPYBXeIeqHpCwSIggiVU6fZy8ZxGtteENUsJJhoHuFcmgsp1oe
+   A==;
+X-CSE-ConnectionGUID: aoaDIS65RGyH+s6rGi/C2A==
+X-CSE-MsgGUID: s0TVQdJZTpyBSj6DLpSzgA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="100243498"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="100243498"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 23:26:09 -0700
+X-CSE-ConnectionGUID: Zo9a0di6Ssui+FMN1Pq9mw==
+X-CSE-MsgGUID: X0LJ4lslSKaennE2NY7fuA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="266375521"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 23:26:05 -0700
+Date: Thu, 3 Sep 2026 09:26:03 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@analog.com, jic23@kernel.org,
+	nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
+	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
+	marcelo.schmitt1@gmail.com
+Subject: Re: [PATCH v1 03/13] iio: adc: ad4134: Update include list to comply
+ with IWYU principles
+Message-ID: <apkS-zZGmELmDzQi@ashevche-desk.local>
+References: <cover.1788368334.git.marcelo.schmitt@analog.com>
+ <22e82ed7b6d6c04f6347f8cdd0c675ea35fcc22f.1788368334.git.marcelo.schmitt@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -6.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-6.80 / 50.00];
-	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.997];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:mid,suse.com:email];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Flag: NO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <22e82ed7b6d6c04f6347f8cdd0c675ea35fcc22f.1788368334.git.marcelo.schmitt@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-We can use bio::remaining counter to sync the offloaded checksuming.
-As a result we can slim down the btrfs_bio structure by 24 bytes
-and simplify the code a bit.
+On Wed, Sep 02, 2026 at 02:22:16PM -0300, Marcelo Schmitt wrote:
+> Add includes that were missing (according to include-what-you-use tool)
+> to comply with include what is used principles. Namely, add bits.h for
+> BIT and GENMASK, and time64.h for USEC_PER_SEC.
+> 
+> Remove time.h which is covered by time64.h and iio/types.h which is
+> covered by iio/iio.h.
+> 
+> While updating the list, organize it to follow current IIO include list
+> convention.
 
-$ pahole | diff
--	/* size: 328, cachelines: 6, members: 15 */
-+	/* size: 304, cachelines: 5, members: 14 */
+...
 
-Moreover this will allow us enabling async checksumming with encryption
-where we need to checksum the bounce bio instead of our regular one
-embedded in btrfs_bio. And so we need to extend it's lifetime. This is
-the preffered way to do so.
+> @@ -7,6 +7,7 @@
+>  #include <linux/array_size.h>
+>  #include <linux/bitfield.h>
+>  #include <linux/bitops.h>
+> +#include <linux/bits.h>
 
-Signed-off-by: Daniel Vacek <neelx@suse.com>
-Reviewed-by: Qu Wenruo <wqu@suse.com>
----
+No need, bitops.h implies it.
 
-No change since v1
----
- fs/btrfs/bio.c       | 4 ----
- fs/btrfs/bio.h       | 4 ----
- fs/btrfs/file-item.c | 6 ++----
- 3 files changed, 2 insertions(+), 12 deletions(-)
+...
 
-diff --git a/fs/btrfs/bio.c b/fs/btrfs/bio.c
-index 19b4855969f5..771b7d598aee 100644
---- a/fs/btrfs/bio.c
-+++ b/fs/btrfs/bio.c
-@@ -103,7 +103,6 @@ static struct btrfs_bio *btrfs_split_bio(struct btrfs_fs_info *fs_info,
- 	bbio->can_use_append = orig_bbio->can_use_append;
- 	bbio->is_scrub = orig_bbio->is_scrub;
- 	bbio->is_remap = orig_bbio->is_remap;
--	bbio->async_csum = orig_bbio->async_csum;
- 
- 	atomic_inc(&orig_bbio->pending_ios);
- 	return bbio;
-@@ -114,9 +113,6 @@ void btrfs_bio_end_io(struct btrfs_bio *bbio, blk_status_t status)
- 	/* Make sure we're already in task context. */
- 	ASSERT(in_task());
- 
--	if (bbio->async_csum)
--		wait_for_completion(&bbio->csum_done);
--
- 	bbio->bio.bi_status = status;
- 	if (bbio->bio.bi_pool == &btrfs_clone_bioset) {
- 		struct btrfs_bio *orig_bbio = bbio->private;
-diff --git a/fs/btrfs/bio.h b/fs/btrfs/bio.h
-index b7bd377a0162..bbf362b8668b 100644
---- a/fs/btrfs/bio.h
-+++ b/fs/btrfs/bio.h
-@@ -58,7 +58,6 @@ struct btrfs_bio {
- 			struct btrfs_ordered_extent *ordered;
- 			struct btrfs_ordered_sum *sums;
- 			struct work_struct csum_work;
--			struct completion csum_done;
- 			struct bvec_iter csum_saved_iter;
- 			u64 orig_physical;
- 			u64 orig_logical;
-@@ -93,9 +92,6 @@ struct btrfs_bio {
- 	/* Whether the bio is coming from copy_remapped_data_io(). */
- 	bool is_remap:1;
- 
--	/* Whether the csum generation for data write is async. */
--	bool async_csum:1;
--
- 	/* Whether the bio is written using zone append. */
- 	bool can_use_append:1;
- 
-diff --git a/fs/btrfs/file-item.c b/fs/btrfs/file-item.c
-index 4a7681557ec1..0fed4e0d32d5 100644
---- a/fs/btrfs/file-item.c
-+++ b/fs/btrfs/file-item.c
-@@ -818,9 +818,8 @@ static void csum_one_bio_work(struct work_struct *work)
- 	struct btrfs_bio *bbio = container_of(work, struct btrfs_bio, csum_work);
- 
- 	ASSERT(btrfs_op(&bbio->bio) == BTRFS_MAP_WRITE);
--	ASSERT(bbio->async_csum == true);
- 	csum_one_bio(bbio);
--	complete(&bbio->csum_done);
-+	bio_endio(&bbio->bio);
- }
- 
- /*
-@@ -854,8 +853,7 @@ int btrfs_csum_one_bio(struct btrfs_bio *bbio, bool async)
- 		csum_one_bio(bbio);
- 		return 0;
- 	}
--	init_completion(&bbio->csum_done);
--	bbio->async_csum = true;
-+	bio_inc_remaining(bio);
- 	INIT_WORK(&bbio->csum_work, csum_one_bio_work);
- 	schedule_work(&bbio->csum_work);
- 	return 0;
+With that being addressed
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+
 -- 
-2.53.0
+With Best Regards,
+Andy Shevchenko
+
 
