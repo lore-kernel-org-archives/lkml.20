@@ -1,118 +1,174 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2900A4BB81C
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:12:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 442864B5150
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:13:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448342; cv=none; b=PMsW5fCw6YuhLmQhwgdQMNsLMteTYA5iPakLfVVrhA7a0AsUxd0PnuylE05tcmSUpzjjjaTKv/Whso8WP7asjhgsEljjocmiGEwbmfiwBllmlkw9NS/hEHhY+cy6Og93cnQ8Y1RRqCcKXibOeT/IbJiB3+dhjbJYkyiS9iDq2Wg=
+	t=1788448382; cv=none; b=hj6xU1DFy4GfX+0ZL8WsJESqTviGtNkxM7AEf/QltsiVNO+BAdTyrKGyMf8s0sQ7tURGUFYUEBpM8xYFNdJwHpL/L1Ufxr+bcVYuc8V9hYkK7+6r+Lf3pwy/m5lfsXK9C1ikSt2Igkq4GyZqlIfrMR4mGD4ZAIV07X1SqTCU6Ag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448342; c=relaxed/simple;
-	bh=VpEbJQjG2ydTUAD+hbDXgHW+pjuX6tuwuTErQEEiBs8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GysExYZ1mzQ9yvkAVx7G83WyUcMu/giCMcsZbeg1Rk0cKIIdFH7jwG2nJOVBp205xpF3KyZhSy+Z0rrHtG8eL3dfyMC8AyFAwZGLZ3ey2kzZFa9Pl3xujbAU08FgS+rKV1gDMOVbTr/hx6/cBIj5I3TZ1ZItwug36RR4c1ia7aM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=TLDBITNR; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1788448382; c=relaxed/simple;
+	bh=pFn+8lzB9TchkFoaG/Zxl2sUGOgulez6aeHdDcljBiE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RbwX+UvkpLcejLwE7bke+fD48VDV0q3A2k+Va1kOYNPeDZ89CxqeaYRG9WXeW+FDzFj+gPq1imDrffpHY+4zRytfgOAtVT8f+SuhYzF+Hy0KaX/2zNkvuUSDbi0LYYfeyJ6rEvyskB4XEPwdzMJUhyu1a84uzlh3x/63O+ZnbL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=WRPdTR6T; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="TLDBITNR"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=uWKbj06GMxVM1AmFAtNOW8Qq7f96OKxmUAD1isOqei0=; b=TLDBITNR1KF/EL7KvbL44EZnS9
-	TzA/Ndl1x7WVjwCVMd5kR8ifD3PzJsBsYgLZZHVYp/sr5iUMlaTZRMiX71hXoxQpEn4cPN/KtxYeG
-	nOcLmRoDFMKcRk3Zw1ZwZ8M8q6ot5H6H9OQPjpgV4DADjNzRZVtcwkMIOkrsH1s4QEAKTL4hKtLtL
-	wbi9+Yzrw59C88C/SJdVcMAgBY/P+RDbSd7+79n6ivpWHpFjfju0Ba2iioznX8OfzLHf7pE/Ye0As
-	1aQeDLw92XgmkD40iZS8vSPrsH1PV5ZaDlM216ASOBIrxA5KXFwbgD9v7A6YPzONlQ/VpytHxsvXU
-	N0U7IpgQ==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- jbx6244@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- =?UTF-8?B?SMO8c2V5aW4=?= BIYIK <boogiepop@gmx.com>,
- Johan Jonker <jbx6244@gmail.com>
-Subject:
- Re: [PATCH v2] drm/rockchip: rk3066_hdmi: convert to devm_drm_bridge_alloc()
- API
-Date: Thu, 03 Sep 2026 17:12:02 +0200
-Message-ID: <2814844.6tgchFWduM@diego>
-In-Reply-To: <20260824-drm-v2-1-7f9273c6020b@gmail.com>
-References: <20260824-drm-v2-1-7f9273c6020b@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WRPdTR6T"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D02281596;
+	Thu,  3 Sep 2026 08:12:55 -0700 (PDT)
+Received: from e143914.arm.com (e143914.arm.com [10.2.213.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B30C73F7D8;
+	Thu,  3 Sep 2026 08:12:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788448379; bh=pFn+8lzB9TchkFoaG/Zxl2sUGOgulez6aeHdDcljBiE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WRPdTR6Tfsl6kjrQK7+PKOVQPM/bANn7UhLKM+YEw7lrw7rQqG4CNPqBeZroiWbqg
+	 LnaN92KhavA9OsIDnVF+QOW3dMaATHKJs2GLJO9ksLUrBHJ21ME9RNVr6wbUVOf6Zm
+	 27OyLdDeoAEdHIEgFVpvD7is2stHzygp4Vf0U4ko=
+Date: Thu, 3 Sep 2026 16:12:55 +0100
+From: Joey Gouly <joey.gouly@arm.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Quentin Perret <qperret@google.com>, Fuad Tabba <tabba@google.com>
+Subject: Re: [PATCH 08/17] KVM: arm64: Implement HVC handling for protected
+ guests at EL2
+Message-ID: <apmOd-KTA3dSp30S@e143914.arm.com>
+References: <20260831163421.272420-1-fuad.tabba@linux.dev>
+ <20260831163421.272420-9-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831163421.272420-9-fuad.tabba@linux.dev>
 
-Am Montag, 24. August 2026, 12:21:19 Mitteleurop=C3=A4ische Sommerzeit schr=
-ieb Johan Jonker via B4 Relay:
-> From: H=C3=BCseyin BIYIK <boogiepop@gmx.com>
->=20
-> The function devm_drm_bridge_alloc() is the new API for allocating DRM br=
-idges.
-> This conversion was missed during the initial conversion of all bridges to
-> the new API.
->=20
-> Signed-off-by: H=C3=BCseyin BIYIK <boogiepop@gmx.com>
-> Signed-off-by: Johan Jonker <jbx6244@gmail.com>
+On Mon, Aug 31, 2026 at 05:34:12PM +0100, Fuad Tabba wrote:
+> Extend kvm_handle_pvm_hvc64() to handle SMCCC_VERSION,
+> SMCCC_ARCH_FEATURES and the vendor hypervisor call UID at EL2, so
+> these queries do not reach the host. ARCH_FEATURES is mandatory from
+> SMCCC 1.1, the version EL2 reports: it returns SUCCESS for itself and
+> for SMCCC_VERSION, and NOT_SUPPORTED for anything else.
+> 
+> Add handle_pvm_entry_hvc64() and handle_pvm_exit_hvc64(), which
+> forward a protected guest's HVCs to the host and return the reply; a
+> later patch wires them into the per-EC dispatch tables.
+
+These two functions are unused in this commit, and are modified in the
+next commit, while still being unused. Then handle_pvm_entry_hvc64()
+becomes a wrapper for handle_pvm_entry_psci() (which was the whole body
+of handle_pvm_entry_hvc64). It's quite hard to follow. If these
+functions are really unused and then modified, maybe it's just better to
+remove them from this commit?
+
+Thanks,
+Joey
+
+> 
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 > ---
->  drivers/gpu/drm/rockchip/rk3066_hdmi.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/rockchip/rk3066_hdmi.c b/drivers/gpu/drm/roc=
-kchip/rk3066_hdmi.c
-> index f28d6a883e09..39c65ee07caa 100644
-> --- a/drivers/gpu/drm/rockchip/rk3066_hdmi.c
-> +++ b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
-> @@ -703,7 +703,6 @@ rk3066_hdmi_register(struct drm_device *drm, struct r=
-k3066_hdmi *hdmi)
->  			 DRM_MODE_ENCODER_TMDS, NULL);
-> =20
->  	hdmi->bridge.driver_private =3D hdmi;
-> -	hdmi->bridge.funcs =3D &rk3066_hdmi_bridge_funcs;
->  	hdmi->bridge.ops =3D DRM_BRIDGE_OP_DETECT |
->  			   DRM_BRIDGE_OP_EDID |
->  			   DRM_BRIDGE_OP_HDMI |
-> @@ -747,9 +746,10 @@ static int rk3066_hdmi_bind(struct device *dev, stru=
-ct device *master,
->  	int irq;
->  	int ret;
-> =20
-> -	hdmi =3D devm_kzalloc(dev, sizeof(*hdmi), GFP_KERNEL);
-> -	if (!hdmi)
-> -		return -ENOMEM;
-> +	hdmi =3D devm_drm_bridge_alloc(dev, struct rk3066_hdmi, bridge,
-> +				     &rk3066_hdmi_bridge_funcs);
-> +	if (IS_ERR(hdmi))
-> +		return PTR_ERR(hdmi);
-
-If I'm reading things correctly, the parts in rk3066_hdmi_register setting
-hdmi->bridge.driver_private (should use the container field of struct
-drm_bridge instead) and hdmi->bridge.funcs are redundant by this change?
-
-
-Heiko
-
-
-
-> =20
->  	hdmi->dev =3D dev;
->  	hdmi->drm_dev =3D drm;
->=20
-> ---
-> base-commit: 2709dd5ae32f0828f386327c76bba9f39f63a1c6
-> change-id: 20260824-drm-e4689f65ab8c
->=20
-> Best regards,
->=20
-
-
-
-
+>  arch/arm64/kvm/hyp/nvhe/hyp-main.c | 28 ++++++++++++++++++++++++++++
+>  arch/arm64/kvm/hyp/nvhe/pkvm.c     | 29 +++++++++++++++++++++++++++++
+>  2 files changed, 57 insertions(+)
+> 
+> diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+> index d4b0f69ff130c..62864db1e099a 100644
+> --- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+> +++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+> @@ -4,6 +4,8 @@
+>   * Author: Andrew Scull <ascull@google.com>
+>   */
+>  
+> +#include <kvm/arm_hypercalls.h>
+> +
+>  #include <hyp/adjust_pc.h>
+>  #include <hyp/switch.h>
+>  
+> @@ -33,6 +35,32 @@ void __kvm_hyp_host_forward_smc(struct kvm_cpu_context *host_ctxt);
+>  
+>  typedef void (*hyp_entry_exit_handler_fn)(struct pkvm_hyp_vcpu *);
+>  
+> +static void __maybe_unused handle_pvm_entry_hvc64(struct pkvm_hyp_vcpu *hyp_vcpu)
+> +{
+> +	int i;
+> +
+> +	for (i = 0; i < 4; i++) {
+> +		u64 ret =
+> +			READ_ONCE(hyp_vcpu->host_vcpu->arch.ctxt.regs.regs[i]);
+> +		vcpu_set_reg(&hyp_vcpu->vcpu, i, ret);
+> +	}
+> +}
+> +
+> +static void __maybe_unused handle_pvm_exit_hvc64(struct pkvm_hyp_vcpu *hyp_vcpu)
+> +{
+> +	struct kvm_vcpu *host_vcpu = hyp_vcpu->host_vcpu;
+> +	int i;
+> +
+> +	WRITE_ONCE(host_vcpu->arch.fault.esr_el2,
+> +		   hyp_vcpu->vcpu.arch.fault.esr_el2);
+> +
+> +	/* Pass the HVC function id (r0) and its arguments. */
+> +	for (i = 0; i < 8; i++) {
+> +		WRITE_ONCE(host_vcpu->arch.ctxt.regs.regs[i],
+> +			   vcpu_get_reg(&hyp_vcpu->vcpu, i));
+> +	}
+> +}
+> +
+>  static void handle_vm_entry_generic(struct pkvm_hyp_vcpu *hyp_vcpu)
+>  {
+>  	vcpu_copy_flag(&hyp_vcpu->vcpu, hyp_vcpu->host_vcpu, PC_UPDATE_REQ);
+> diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> index af334318d0a03..0fe11f95e2e26 100644
+> --- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> +++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> @@ -1144,8 +1144,37 @@ bool kvm_handle_pvm_hvc64(struct kvm_vcpu *vcpu, u64 *exit_code)
+>  {
+>  	u64 val[4] = { SMCCC_RET_INVALID_PARAMETER };
+>  	bool handled = true;
+> +	u32 feature;
+> +	uuid_t uuid;
+>  
+>  	switch (smccc_get_function(vcpu)) {
+> +	case ARM_SMCCC_VERSION_FUNC_ID:
+> +		/* Nothing to be handled by the host. Go back to the guest. */
+> +		val[0] = ARM_SMCCC_VERSION_1_1;
+> +		val[1] = 0;
+> +		val[2] = 0;
+> +		val[3] = 0;
+> +		break;
+> +	case ARM_SMCCC_ARCH_FEATURES_FUNC_ID:
+> +		/* SUCCESS only for the architecture calls EL2 implements. */
+> +		feature = smccc_get_arg1(vcpu);
+> +		switch (feature) {
+> +		case ARM_SMCCC_VERSION_FUNC_ID:
+> +		case ARM_SMCCC_ARCH_FEATURES_FUNC_ID:
+> +			val[0] = SMCCC_RET_SUCCESS;
+> +			break;
+> +		default:
+> +			val[0] = SMCCC_RET_NOT_SUPPORTED;
+> +			break;
+> +		}
+> +		break;
+> +	case ARM_SMCCC_VENDOR_HYP_CALL_UID_FUNC_ID:
+> +		uuid = ARM_SMCCC_VENDOR_HYP_UID_KVM;
+> +		val[0] = smccc_uuid_to_reg(&uuid, 0);
+> +		val[1] = smccc_uuid_to_reg(&uuid, 1);
+> +		val[2] = smccc_uuid_to_reg(&uuid, 2);
+> +		val[3] = smccc_uuid_to_reg(&uuid, 3);
+> +		break;
+>  	case ARM_SMCCC_VENDOR_HYP_KVM_FEATURES_FUNC_ID:
+>  		val[0] = BIT(ARM_SMCCC_KVM_FUNC_FEATURES);
+>  		val[0] |= BIT(ARM_SMCCC_KVM_FUNC_HYP_MEMINFO);
+> -- 
+> 2.39.5
+> 
