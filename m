@@ -1,129 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ECCB4FECC1;
-	Thu,  3 Sep 2026 19:23:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 116934FECDA
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 19:23:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788463400; cv=none; b=t9H/IPxtVM6EHjmccA/zEuTS48W2Se3IxJ/vNbLjfHTJ0DfW9rbgoZYTsd7Z1HFXhpv8JkPvSmYrXnymF5Zfa2xl9mQDKAeYf12dtOZnXNCzRSYSXWG9aq8lj0pLuHYyhUsYuHTygCb8z8LHtvxVMDSFJrs+RhwyIIvu8/JqLT8=
+	t=1788463400; cv=none; b=Uzilq23d97vYQCltiie51UhYP8V+6NWV9xW5kcdAPo1AZSVS64Be7IjNW9KoxfGWF0/j7XZEstatkenyK+rPreKTTevAUxyvo/fiMPEZ7Ee98oUi66FBIQyZJ9fL0G8QBxQRlJGhGc98nqfjf6xfvYlwcZqtq74lhKWvARBPxZg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788463400; c=relaxed/simple;
-	bh=SC12UwwV5la5+z9xpG2T1lhISLeO3GCXp9Z+NUbIUV4=;
+	bh=+gV9X8jzdQo5p8du54Z/UpbSj1HoijZrBrvmD8rwfjc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=davlOM/B4kVAGy/AFumyin4n68cmulqCbVU4cB3jvkeZSJ4FTjW8U2cN/QL8kIaSs14OPt8Q0SRELYK9Db66iZNTxUXwd3JZotBBQ3/xaNbwzXtftLo1QJ3hHj+xXs3Y9Y1hpdDEQrX2CeuMHtIm03+NIDBRMGInlLj5eEK8+Cw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IUVHrE1N; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AvePHCuqSrOjDAwvwi/DZ2oHl84VrojNNHcP6tQUXeA0BDgnowVhQZvV88/cyWMB6W8aluDYnbzvV76v6XOPdWSprUcIf/N1XVTLH0eOeIRxRptvA6DIejYb4MWQF4sOlK7v9w7BdU7CbEX2ju26+Cn7r3IfhXsiwjWDe/dQs3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H2C2HrCI; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IUVHrE1N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E81151F000E9;
-	Thu,  3 Sep 2026 19:23:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788463390;
-	bh=M//v4OlN6lA74lYfatdtwp/pjR6qLsg6V+uG4pDwqbs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IUVHrE1Nu8l8phRUdBa7pS6Vop9cvMyvheupOvgqzSdmM7Q6iK42Y9rjOvwNZnxum
-	 YbrkOhKwCTh8iIsQm9KBckb13pEN2GUQAHuffDsopuP6KUu3Qk/zbPJQF/YIsHBwO3
-	 +eNnAGS+xPWHudkGGDjK835IluKjBMbP+qW3e4niEqeVkLRTXzq4/dxVZHfXwnsJwq
-	 7ZBp2NqODTvwKYmLHa3GiyuL1fdUEvD+CdM3j75ptc04mLKQSfD26rWh9XfacoGOvz
-	 gRkJzUlcZ2GKhTM7WwN+FKlX6hRhOViqDwQrL+RBl6MXcbMXSc4yFDABiwyDSaU3SB
-	 VGu3zxKId5rBQ==
-From: Danilo Krummrich <dakr@kernel.org>
-To: Gary Guo <gary@garyguo.net>
-Cc: Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	driver-core@lists.linux.dev,
-	rust-for-linux@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H2C2HrCI"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49557167508so2809525e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 12:23:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788463388; x=1789068188; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GsH6SOw+USyQpDA8nRvyjRstt1W5VyT+6ln1zJ94T1Q=;
+        b=H2C2HrCITgBoVoj47lvawAKPbVLjRUydbr+3FBGvuSC9j7t9STB/A3pgpTor++h71S
+         mlAawN0UAqdSv5zVo2s5hgLizXV4rs8HoG0vhZqlhmatN+2zIOeZo5gdCdCPGkxxyjRd
+         LPNxVppbrX41FQkFLya77ZXDZSlQVDjUPXHEnSXxI5kqYZE92UESZUG2L/SCZER+6093
+         pnteSwRGeyJPBMR/JYiNU9hQOg9VKdVth7+lQGq8tibSgMDH/3gDVpPnVQOqXgMjLURK
+         G4Va0Hj5bkiVsqFRMWz7IxqXlmml8m+gWb7gA4HVXE3O2QAelxLQtWcwkTV6itKyuB73
+         Ckjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788463388; x=1789068188;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GsH6SOw+USyQpDA8nRvyjRstt1W5VyT+6ln1zJ94T1Q=;
+        b=qvueV+X9jyE2tkBvCZjnsYQJCD5UfWYWoNE4FeyDTn9twubFTLxpm9DRsA8HLWSqGg
+         o/OzxK+MK81+VgPQw+8mF2kz2/sq/WOLWcqaCbrorV9pu7AVhsRvt4oj2ZuymFr+GnzG
+         5ZuTD4t/CsjbPQEYTF7xSYCi97T6pMZljmamdQoJFSkhaXcrhNYg7C/zgTXjYH/YagkS
+         jFNvikbGL02vD3EwxcoySFdX+uciYg6oBHpeIQbCNJP5d1QGRH4R0CY+AT5HoZX+dlpz
+         GV6sGPOzcyaOusSyu6Nzif9jR5riWMSwedD4Ch5oApp977JT1PTABTPsHu5/nx2oCn1t
+         ctUg==
+X-Forwarded-Encrypted: i=1; AKwUvBxmPi89c1ynLuKHCz4zKXEDMDyck8uxyIzwXvGYU+Uw2bgdsoOjB8FkNPG3QLFezi3KMNZGKy3u+P6sAcg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lYn6n1idcjU0wUFKUFwd0QuXxla44bbDqBtxvI0HoKnEpkWurk
+	a+OgmX2+ytFCz/BUYoBAwN8oQamyZ4p0bN1xVlwUUSL6eH1Lt6maQN5A
+X-Gm-Gg: AYBFou0e2R+4vuqi6rlQOKV0053lcMsd0BQVriKjtpwmWI80egiGADpHeNzF5p+hjbx
+	FQKzY1IRHm6rgbaoGh85h8Yjw6DQ9mEHETU/AQNIerc4norY4DpPauUgmJRlgw8o8Mp6tGkWgNt
+	xyf6wxXUtpUaLL8jO6FiliGyLnqyIfRdvkwREB+sqnxVxeb6Dk/MU4z+Ebimb5dSkcJ4yKhvzzd
+	BSJCMgBHj4W0w1+cKEuLVHH0TCF7z/Y5ivAoSIky5sm09oHVvvYJzYlEntTqbZePODnSwQmpbn+
+	3SvdK2si+14X4STTGorODRY0bWg4oNtv12nbO2mwyqbX0kfzMMC4Vp4OXx7Pd+kylNF+aduR/Pn
+	VEz4TSjYxTycAZsDcVtxETygfN4Q79EVepGfjE1XruEtSiJb1F96dgGnx6ip7Bw+ymhW9qXK9s2
+	g+sJyq2arvc+FD7EKHFvrloaDoSUZJSDWtSYUQJRN5FWXi5g9C4OWB0hPcYNKwFuYNpSOQwMaND
+	BM/16Z5JW64ck4mngz3QtmQ1kJOjOTSs/cfbN60OiIHe1RPYzdKvimTenAlarpyr6SDO5Q=
+X-Received: by 2002:a05:600c:4e0e:b0:49c:c9ac:a4f3 with SMTP id 5b1f17b1804b1-49cf7fdc20emr4647525e9.1.1788463387879;
+        Thu, 03 Sep 2026 12:23:07 -0700 (PDT)
+Received: from cdev ([2a02:8071:68c3:bd00::8998])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7703cc7sm8009355e9.4.2026.09.03.12.23.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 12:23:06 -0700 (PDT)
+From: "Vladimir V. Kondratyev" <vladimirkondratyev2@gmail.com>
+To: marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	pmenzel@molgen.mpg.de,
+	chandrashekar.devegowda@intel.com,
+	arnd@arndb.de,
+	kiran.k@intel.com,
+	linux-bluetooth@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	linux-pci@vger.kernel.org
-Subject: Re: [PATCH v4 00/16] rust: io: support register projections and remove relative registers
-Date: Thu,  3 Sep 2026 21:22:48 +0200
-Message-ID: <20260903192248.2248560-1-dakr@kernel.org>
+	lsa.uz@pm.me
+Cc: "Vladimir V. Kondratyev" <vladimirkondratyev2@gmail.com>
+Subject: [PATCH v4] Bluetooth: btintel_pcie: fix stale cache in set_dxstate fallback check
+Date: Thu,  3 Sep 2026 21:22:38 +0200
+Message-ID: <20260903192245.135310-2-vladimirkondratyev2@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
-References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
-X-Patch-Reply: applied
+In-Reply-To: <20260507203426.128975-1-vladimirkondratyev2@gmail.com>
+References: <20260507203426.128975-1-vladimirkondratyev2@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Tue, 01 Sep 2026 17:50:24 +0100, Gary Guo wrote:
-> [PATCH v4 00/16] rust: io: support register projections and remove relative registers
+btintel_pcie returns -16 (EBUSY) during suspend, causing the entire
+suspend operation to abort on Intel Lunar Lake hardware. The system
+immediately resumes
+after every suspend attempt:
+  Bluetooth: hci0: Timeout (200 ms) on alive interrupt for D2 entry,
+retry count 0
+  Bluetooth: hci0: Timeout (200 ms) on alive interrupt for D2 entry,
+retry count 1
+  Bluetooth: hci0: Timeout (200 ms) on alive interrupt for D2 entry,
+retry count 2
+  btintel_pcie 0000:00:14.7: PM: pci_pm_suspend(): btintel_pcie_suspend
+[btintel_pcie] returns -16
+  btintel_pcie 0000:00:14.7: PM: dpm_run_callback(): pci_pm_suspend
+returns -16
+  btintel_pcie 0000:00:14.7: PM: failed to suspend async: error -16
+  PM: Some devices failed to suspend, or early wake event detected
 
-Applied, thanks!
+btintel_pcie_set_dxstate() falls back to checking the controller state via
+btintel_pcie_in_d3/d0() when the alive interrupt is missed. However, these
+helpers read boot_stage_cache, which is only updated by the interrupt
+handler. As such, if the interrupt was missed, the cache is stale and the
+fallback check always fails, exhausting all retries and returning -EBUSY,
+causing suspend to abort.
 
-  Branch: topic/rust-io
-  Tree:   git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git
+The fix involves re-reading the hardware register before the fallback state
+check, consistent with btintel_pcie_resume().
 
-[1/16] rust: io: register: reimplement as proc macro
-      commit: 63b2578517df
+Fixes: e57362f4911b ("Bluetooth: btintel_pcie: Add support for _suspend() / _resume()")
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=221481
+Link: https://lore.kernel.org/linux-bluetooth/20260830151550.44687-1-lsa.uz@pm.me/
+Signed-off-by: Vladimir V. Kondratyev <vladimirkondratyev2@gmail.com>
+Tested-by: Sergey Lebedev <lsa.uz@pm.me>
+---
+ drivers/bluetooth/btintel_pcie.c | 8 +++++---
+ drivers/bluetooth/btintel_pcie.h | 1 +
+ 2 files changed, 6 insertions(+), 3 deletions(-)
 
-      [ Fix typo in module-level doc comment and fix ArrayDef syntax
-        description to match the actual macro syntax. - Danilo ]
+diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel_pcie.c
+index 30923eaabed7..44ad31a5d7ed 100644
+--- a/drivers/bluetooth/btintel_pcie.c
++++ b/drivers/bluetooth/btintel_pcie.c
+@@ -3538,10 +3538,12 @@ static int btintel_pcie_set_dxstate(struct btintel_pcie_data *data, u32 dxstate)
+ 					  BTINTEL_PCIE_CSR_MSIX_HW_INT_CAUSES,
+ 					  BTINTEL_PCIE_MSIX_HW_INT_CAUSES_GP0);
+ 
+-		/* A hardware bug may cause the alive interrupt to be missed.
+-		 * Check if the controller reached the expected state and retry
+-		 * the operation only if it hasn't.
++		/* A hardware bug may cause the alive interrupt to be missed. Refresh
++		 * boot_stage_cache from hardware, since only the interrupt handler
++		 * updates it. Finally retry only if the state check still fails.
+ 		 */
++		data->boot_stage_cache = btintel_pcie_rd_reg32(data,
++							       BTINTEL_PCIE_CSR_BOOT_STAGE_REG);
+ 		if (dxstate == BTINTEL_PCIE_STATE_D0) {
+ 			if (btintel_pcie_in_d0(data))
+ 				return 0;
+diff --git a/drivers/bluetooth/btintel_pcie.h b/drivers/bluetooth/btintel_pcie.h
+index 9baa214d9bbe..a7f4e590af5e 100644
+--- a/drivers/bluetooth/btintel_pcie.h
++++ b/drivers/bluetooth/btintel_pcie.h
+@@ -51,6 +51,7 @@
+ #define BTINTEL_PCIE_CSR_BOOT_STAGE_DEVICE_HALTED	(BIT(14))
+ #define BTINTEL_PCIE_CSR_BOOT_STAGE_MAC_ACCESS_ON	(BIT(16))
+ #define BTINTEL_PCIE_CSR_BOOT_STAGE_ALIVE		(BIT(23))
++/* Reflects live D-state. Updated by hardware on every D-state transition. */
+ #define BTINTEL_PCIE_CSR_BOOT_STAGE_D3_STATE_READY	(BIT(24))
+ 
+ #define BTINTEL_PCIE_CSR_DOORBELL_MBOX_READ_CONFIRM	(BIT(4))
+-- 
+2.55.0
 
-[2/16] rust: mem: add `transmute` with deferred size check
-      commit: 82591c20bcb3
-
-      [ Fix doc heading to use plural "Examples" and add missing closing code
-        block delimiter. - Danilo ]
-
-[3/16] rust: mem: add `AsRepr` and `AsReprMut`
-      commit: 968f30ade612
-
-      [ Fix grammar in from_repr_unchecked() documentation and rephrase
-        confusing safety comment. - Danilo ]
-
-[4/16] rust: io: perform conversions using `AsRepr`
-      commit: 1e707b76716a
-[5/16] rust: io: support register projections
-      commit: 34b6dc471749
-[6/16] rust: io: register: allow explicit base type specification
-      commit: 70a122d5a342
-
-      [ Remove unnecessary #[allow(unused)] from the 'base' field. - Danilo ]
-
-[7/16] gpu: nova-core: specify base type for registers
-      commit: a07fa2c979c1
-[8/16] drm/tyr: specify base type for registers
-      commit: 573228e75c33
-[9/16] samples: rust: pci: specify base type for registers
-      commit: 54b04b9fc0ea
-[10/16] rust: io: register: make register have a typed base
-      commit: 35c21468c294
-[11/16] rust: io: register: support fixed offset register without bitfield
-      commit: ddeaaa3a0fbb
-[12/16] gpu: nova-core: use projection for PFALCON and PFALCON2 registers
-      commit: 6d5f14077811
-[13/16] gpu: nova-core: convert hshub0 from relative register to projection
-      commit: 4a7a27bd1947
-
-      [ Split nested import into kernel vertical style. - Danilo ]
-
-[14/16] rust: io: register: remove relative registers
-      commit: b6af037d9499
-[15/16] rust: io: register: remove `Register` trait and cleanup macro
-      commit: dfec6f41d053
-[16/16] rust: io: register: unify handling of register with/without bitfields
-      commit: 35423e8fd718
-
-The patches are in the topic/rust-io topic branch and will be merged into the
-corresponding target branch soon.
