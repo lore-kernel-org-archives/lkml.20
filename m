@@ -1,104 +1,139 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D0BC4078F9
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:48:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD053F1659;
+	Thu,  3 Sep 2026 09:49:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788428909; cv=none; b=LIhChth8fXT9rbtkrqG9qx2yP1/isOyyzMk0GcHlSbXNJuNGtmlSym6KOm1CPYCEc3Gs1UfG1wIP+3UbCPdMVGPgc/JgZTxk2cxiWj0ETQPqIhLdI2zODSKEIt/hwCf0Lr40PLgI/r5yC9CbhukmQTnCmCEIuHg5iZyrKVx7ULE=
+	t=1788428952; cv=none; b=YbO0yQAMpacM4TYDUkmZPax68v/f7Fcw30O/dpWqVKTKzQ67SpSkRL9PJWMlYLFYYo914h0x3t8DwTK36YeXtLEUkv9dUBqQidYsuWj/uuHLOcrNBoFIaMfc6ER/9EiMlIPgBcSVUog2p7HwVShOhRzk0xpZcez5LjR4aHIT5qI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788428909; c=relaxed/simple;
-	bh=BTEgKy4Gh25q2th/WQQ2Pct7aAu5yVuumnbiBDrNuQ8=;
+	s=arc-20240116; t=1788428952; c=relaxed/simple;
+	bh=4LypXbaEzcZ8NAtmQXIJrEROpUNpdcQr0YW9LJ5DGfk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GHwYxNy2mNyshO3vMeIK79BzYqIOt5ANw2BnLdMlg/zTTZ2jE9aD6zmL8/BXRpai5AIVLfNgFkVkgOIYrPR+dbbgznHZOvuaLxYMwnA0HM+074b6EHrME0TpXJk3tGdjyluzyuBgi+zZKW+rK4QgjCHu8p1SPz6XbIoHkQ8wmqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=DWqB0iUA; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=qg1B93qxqp44X7saiX4o2BXpdcI09cUV1ItR89G1HOXo4fLPQCLqcjqSuQcl5qarKrRJqjLxFZLBsenws+fhugnJ0a0ZXFWVCzJ/7oVLuHHkhJlQ46FArh1BZtbx+4XMmT1QnubN/z+alUzxZs1lPy4Au+v06ET17U6kk/4YFps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gWVJTPf7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="DWqB0iUA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=BTEg
-	Ky4Gh25q2th/WQQ2Pct7aAu5yVuumnbiBDrNuQ8=; b=DWqB0iUABLBuZXBe+a7x
-	JUhJASLwo9ftBdII60oxcvM4VK3z3bgFibtgfimyYikPrz+99QYGu1AoLSJ6Ncm3
-	4lvCx02yhbgvNIy0gkebuqIE16yOfgU+/F/RkzwuuAgzo8FZRtzADMOAGPlrXyC7
-	OeiABg0ymlzsbW/8LNR4z6v35QUfjnp1BKJjT5K8BqzN0dpkOGMXizInUD8h4J4f
-	/WGIs2yDbzOF0MFwuuV86ZGANBCKt4jQ0gSCmqhDegPGnPR6MUr0Gz5O2yXzfF2x
-	bk7LL7dRABvtpdgtJC6CjgoqcGDH9bjOaGBkTYgf9C8pdA00m5JF1nLDwIHre+1F
-	zw==
-Received: (qmail 995934 invoked from network); 3 Sep 2026 11:48:25 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 3 Sep 2026 11:48:25 +0200
-X-UD-Smtp-Session: l3s3148p1@gf6WDZFaCIIujntC
-Date: Thu, 3 Sep 2026 11:48:24 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Biju <biju.das.au@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
-	Biju Das <biju.das.jz@bp.renesas.com>, linux-mmc@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v24 09/15] mmc: renesas_sdhi: Add optional axis/axim
- reset controls
-Message-ID: <aplCaNKX5nr8AqXB@shikoro>
-References: <20260820171657.62815-1-biju.das.jz@bp.renesas.com>
- <20260820171657.62815-10-biju.das.jz@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gWVJTPf7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D2171F00A3A;
+	Thu,  3 Sep 2026 09:49:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788428950;
+	bh=00q18c3KntaOUA+b/Diunhes4MPW5phqrovziaQZ6Yc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gWVJTPf7cSO+E2gr+KQFaLOyvjoPxugrYOvJdnUidVYYlpCqE1wIl316NmxPxnmDJ
+	 vPmqZmV2Dq3LKDD9Qz3ghUvvG5Eb/rlwzSK7qYqcBxo3L7dvfPjzxL2vp0uBiO8Jum
+	 tsbtOXgjAZzvlpDDNPT7LtnmvlZTrUys++VsTV3KHt1cgOrjClajn8QyoVmXdvGdRu
+	 7gqTByYR5xPKSkG2Pyq12z4rArMNAihvxW8LXDMMbG+ogJrODhcVaRYnlpQCCB4Y62
+	 YG+KJL26sUr5R6XhsK9SQaHgP74TR4qd4HGO3XePmY0nOH/xcZsBKKlsqt+CKyGq0t
+	 O4McKQ0HVxSAQ==
+Date: Thu, 3 Sep 2026 12:49:07 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Serhat Kumral <serhatkumral1@gmail.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] RDMA/core: Reject CQE counts above max_cqe in
+ ib_cq_pool_get()
+Message-ID: <20260903094907.GA24140@unreal>
+References: <20260831171354.72140-1-serhatkumral1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tVq6OMIMLm0yDqZH"
-Content-Disposition: inline
-In-Reply-To: <20260820171657.62815-10-biju.das.jz@bp.renesas.com>
-
---tVq6OMIMLm0yDqZH
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260831171354.72140-1-serhatkumral1@gmail.com>
 
-On Thu, Aug 20, 2026 at 06:16:39PM +0100, Biju wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->=20
-> The RZ/G3L SoC has axis/axim resets compared to other SoCs.
->=20
-> Add two optional reset controls, rstc_axis and rstc_axim, to the
-> renesas_sdhi struct. Both are acquired at probe time using
-> devm_reset_control_get_optional_exclusive_deasserted() with the
-> "axis" and "axim" reset names respectively.
->=20
-> Include them alongside the existing rstc in bulk reset/assert/deassert
-> operations: triggered together in renesas_sdhi_reset(), and managed
-> via reset_control_bulk_assert/deassert() in the suspend and resume
-> paths, replacing the previous single-control calls.
->=20
-> Being optional, these resets are a no-op on platforms that do not
-> provide them, so existing behaviour is preserved.
->=20
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+On Mon, Aug 31, 2026 at 08:13:54PM +0300, Serhat Kumral wrote:
+> ib_cq_pool_get() does not validate nr_cqe against the device limit,
+> while ib_alloc_cqs() caps the size passed to ib_alloc_cq() at
+> dev->attrs.max_cqe:
+> 
+> 	nr_cqes = min(dev->attrs.max_cqe, max(nr_cqes, IB_MAX_SHARED_CQ_SZ));
+> 
+> If nr_cqe is larger than max_cqe, ib_alloc_cqs() cannot ask the device
+> for that many entries. A device that reports the size it was asked for
+> therefore returns a CQ smaller than nr_cqe, and the fit test skips
+> every CQ in the pool:
+> 
+> 	if (cq->cqe_used + nr_cqe > cq->cqe)
+> 		continue;
+> 
+> 'found' remains NULL and each iteration calls ib_alloc_cqs() again,
+> adding another batch of CQs to dev->cq_pools[]. The CQs stay in the
+> pool, so each walk under cq_pools_lock gets longer. The loop ends only
+> when an allocation fails, i.e. once the device or the system has run
+> out of resources.
+> 
+> ib_srpt can reach this path when a privileged user configures
+> srp_sq_size through configfs. ib_srpt accepts values up to 65535 and
+> requests ch->rq_size + sq_size CQEs while establishing a connection. If
+> that sum exceeds max_cqe, a valid connection request from a remote
+> initiator can trigger the allocation loop.
+> 
+> Reproduced with ib_srpt over rxe, which reports max_cqe = 32767, after
+> setting srp_sq_size to 65535. In a 1 GB guest, a login attempt
+> requesting 65663 CQEs caused 115 allocation rounds in 185 ms, followed
+> by:
+> 
+>   Out of memory and no killable processes...
+>   Kernel panic - not syncing: System is deadlocked on memory
+>   Workqueue: ib_cm cm_work_handler
+>   Call Trace:
+>    __vmalloc_node_range_noprof
+>    vmalloc_user_noprof
+>    rxe_queue_init
+>    rxe_cq_from_init
+>    rxe_create_cq
+>    __ib_alloc_cq
+>    ib_cq_pool_get
+>    srpt_cm_req_recv.cold
+>    srpt_rdma_cm_req_recv
+>    cma_cm_event_handler
+>    cma_ib_req_handler
+>    cm_process_work
+>    cm_work_handler
+> 
+> Reject oversized requests before entering the allocation loop. With the
+> check in place, the same test allocates no CQs and ib_srpt rejects the
+> login:
+> 
+>   ib_srpt failed to create CQ cqe= 65663 ret= -EINVAL
+> 
+> Requests for max_cqe entries or fewer behave as before.
 
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Please fix ib_srpt to honor device capabilities.
 
+Thanks
 
---tVq6OMIMLm0yDqZH
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqZQmgACgkQFA3kzBSg
-KbaA6A//apbP6oGXAaySC7bDf9qEa83VCT+SIn0lF1qMkdR5FXj0mLL/Db9poGj1
-XCrjOPYhSH7XowpZaH0LhBn2HQViEgCS2b8PkbxdaHPW/qKbpmbablDKQIrswpAE
-9z9ySdC48MHKy+yaGyt2thEBNd+RrCxX2iwI8biEmvSGm0XshBn/dp1LUbk2DCwJ
-i2MeoVfjwjky1pQoOx+XodHwUeGdZvwK9TgDt/s+dWmH6nIzbACpvlZuZB0YQNFN
-vLBQV/Ct+4MzkrRXNv7Xd/6M+wZgZQJVjXkyw95Garp5olutuvAg+E1W2pSnGkQt
-wJviWAwJ8gKyIfP4fs5V9RGJRAK0jGmMDkchDsA3tqqpyPWjLTy+N1QDCO7NN0GR
-NzVnoPpGNEbREmknhrCy7uGSrawVUKrwLzb91QlFpXf5mqHKEHdBX1TXl8EkOkYJ
-nrVNb3K21bymsx8qycL/+AD7H5PVBJNvusoFZlK8Rr+w6w/f+Jkw1DLcQ3sOLuVt
-herAUocmtnrsLXFTORxDGVxsvOrpkkXsqu06iKzHTRDf//8G7xDw+iWo2Ny2aeT8
-MzmafCpd5sceUXjazgRrpnqXBdN9neF4Nl5uHbh6AuUv5B73Lx6M3rbHEwojFhwc
-gKA1vtutKFYZ0drzJHL6XIciZvzzW5W6MIcqcbcjj7PnLLkKK4c=
-=/cUB
------END PGP SIGNATURE-----
-
---tVq6OMIMLm0yDqZH--
+> 
+> Fixes: c7ff819aefea ("RDMA/core: Introduce shared CQ pool API")
+> Signed-off-by: Serhat Kumral <serhatkumral1@gmail.com>
+> ---
+>  drivers/infiniband/core/cq.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/infiniband/core/cq.c b/drivers/infiniband/core/cq.c
+> index 12304c9a9403..1205e9b28897 100644
+> --- a/drivers/infiniband/core/cq.c
+> +++ b/drivers/infiniband/core/cq.c
+> @@ -449,6 +449,13 @@ struct ib_cq *ib_cq_pool_get(struct ib_device *dev, unsigned int nr_cqe,
+>  		return ERR_PTR(-EINVAL);
+>  	}
+>  
+> +	/*
+> +	 * ib_alloc_cqs() caps CQ size at max_cqe, so a larger request would
+> +	 * keep allocating CQs that never fit until allocation fails.
+> +	 */
+> +	if (nr_cqe > dev->attrs.max_cqe)
+> +		return ERR_PTR(-EINVAL);
+> +
+>  	num_comp_vectors =
+>  		min_t(unsigned int, dev->num_comp_vectors, num_online_cpus());
+>  	/* Project the affinty to the device completion vector range */
+> 
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> -- 
+> 2.53.0
+> 
