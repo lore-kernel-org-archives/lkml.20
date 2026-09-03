@@ -1,138 +1,131 @@
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822DF4B7148
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:30:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75EB64B714F
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:30:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445863; cv=none; b=IkCtKIgGASzBEFtGNPGS/aQwkkZZqjDacCOo6fBVNTgBMnLIubgNKcubPhjpTPP76v2OC6ktra1p8CWX4U6UZQ0I7rxho+6fvIqv37bGbNNSyJkWGToxCy8vIOM8pBlqz3p894kXNd/7bG1IyRVWQ7kJmWL2HJkp+n3tAAD6qqk=
+	t=1788445865; cv=none; b=ifz/PdNw8sg0JEpf5HhmBccL27O1STraRf3/ifdaYxX7H/LsfGRUU9xqAw7UqABcrkeh36io+msMcPtPm2vxwKxoKYWbM9P0uUsJ1sml4Og5kumpd/deX3jup4sSMX1zVde7/+9c1FLJ7heFExwqPPVJXF5J+z2BCtjksuj1zMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788445863; c=relaxed/simple;
-	bh=nqFrkxbwZnIGD0jt6PBMdWC/YYiKHoC8Dbvm0EmPTSA=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Rb2pk4/H/uoqJjVHCVYXml7Vmy1yKviYmdVGbBY0aTNtGwLfQV99vXvqtyYHRlCPzYuEjhpwyoRbUX0m5nV1R/WuC/wO4LX3vJ3gZ1+r5YkzooeiKOqiX3xGH8tNwCbLH5vjRowXiPuhw/wgTpdTmyVZBTu1uw5fsnqv6lVGZFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LTFRg1tT; arc=none smtp.client-ip=209.85.210.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1788445865; c=relaxed/simple;
+	bh=4RmvyYzsnNP3pW0btebvjEbTtN5cAxfs/47s7tajBZo=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=ZTulVaEwNlKl3EbzOI5wqrGtclkyGE0zyzKcbAcR15fCHK7U6+d/lWbieqqD4AU85X6IQkP6LWIZcQbqo71W5VIhbQCYTOrB6D2w5Zh0N8OuX5GAXSrgJlcgV6SeQm1c5SKRrjviWvrbyzfBPGSNlBGQITcPZjk+1Eh5Q7PxTPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c4El62E2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LTFRg1tT"
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8535db07af9so1262675b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:30:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788445837; x=1789050637; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KU72ElW/WJuvWFFEt8qn0cRYWtv7/uUdQgw0J+lE/vo=;
-        b=LTFRg1tTdsTxAzBabBRjIWOvV1FKMSeCKNg8WlA7IdHkRXijCYXbMVxF+gTN3KU0Gl
-         FPSidD1OqgUvWq4wBSdHh/EkXqmYHjf2YRg5eR/kIGNku5L3HJ3GdBo9/ke7VvvIg1/v
-         0u+jKiM1XkCyONYdstSnMRXf3nKR2UTBFcjgOaQuDEhP1h1FsFBpYm65FvRg1DB8bT/d
-         VVbWsnkVcVXufD9wZ89z5a0T8j3PbBfi/PLiMtxyyyRNJXAYRI4vGcCbq1K/jjxIRWPt
-         nHFkR25kHZcc7O0jEsLbwpIb4rAkVbCFhTCygsCPHLEhX0zBoqMOXAafuCm6JDAa+URZ
-         5fow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788445837; x=1789050637;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KU72ElW/WJuvWFFEt8qn0cRYWtv7/uUdQgw0J+lE/vo=;
-        b=mCmEuAi7/Ctiv7zkgkZH5J4+hcxoARaDuLD9TsUriJ2oaCpjfsIQy/Q5CGs6+Js98N
-         M6pVSuRFb4WP00srkpeLUwRlvK2nRSC/VRNy8NwcSglM8stjyveIZCY6qZgzb3SIxzNh
-         zukF6iOvowKWf9Ad6xwIWKvoqYaIPl5lAZn3UHrskcJ2XktwB3Dvi2YTwlF8in7iRrJk
-         1phtPggS3u6nsQ0Kdr2KZsU4oNmyvn1/8E21WEsiv/mMupAD7EQqS2KgGyUJE8JjfBkE
-         YWPvScdvBMCk82m5u+SvF6vI2BlUV4QCzWqRY4HRWDro1EoMaANJJaTCarSWZ42ul9v+
-         Mp7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxOuK8HHs6Aa//aFK727Yryi8zKr0sRNJ8tL1P6JXho1TSQYyvQmcaFbXFpVBtmP4P3jpIkPCIVsi5JeQg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOFIAQTIdsttsyr4hV+/AaxUlUpo8ZWrhW1049jvASCpXdUStm
-	6wMrq0B7mIifScmazMkRo5zO8VTHOmdiKW5qLh1WJFCY2PHNLKPmLC4SunVNgXDO8qrBPq7R6RV
-	WWIzw+Q==
-X-Received: from pfll28.prod.google.com ([2002:a05:6a00:159c:b0:84d:f9cf:1f3d])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:4106:b0:847:8449:2ba6
- with SMTP id d2e1a72fcca58-85ed23def83mr20907159b3a.8.1788445836362; Thu, 03
- Sep 2026 07:30:36 -0700 (PDT)
-Date: Thu, 3 Sep 2026 07:30:35 -0700
-In-Reply-To: <20260903114241.33034-C-seiden@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c4El62E2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4374D1F00ACA
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:30:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788445847;
+	bh=yr9VEKF3amJuy7pbkO0vq+lPvoLFNuFDsi5DRMmpSVk=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=c4El62E2uNuqjnfuo77sgR+QUkmrq2a/P8WBso+WUW1nU9B4SSmaU56Gnz8FfGD7E
+	 BJ5RqwSZQFFdrZ/RtkG+cbQ18sGQKuWPhtuFUQGx81dIHYgByV3FLlGQg0fb4HEDp2
+	 695wujgm4csUFRi+CwJ6IO4MKq6s6fwS+aMPldz7JTEHpaeEDkhDAj1Ff4e9NQ+BOQ
+	 4M5/0f+1cmAvuf0uL17w39Bo/+Ej05dPO3M7WQBEkr5WOeLHico5nc8xpXQK6Rlzu4
+	 057WswzWVcfsb78YnMpxtMa13omdybgOCtB/xUYid5qOrx2Ty1BK/qLYfl9pLVBotD
+	 5GJGo8wYJ4bHQ==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id E56C8198003A;
+	Thu,  3 Sep 2026 10:30:45 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Thu, 03 Sep 2026 10:30:45 -0400
+X-ME-Sender: <xms:lISZauISCXxwrlqf-LS7Vb-pfts7YmSieSMzZV0RdrpJD_y0UaUmhQ>
+    <xme:lISZag_qujYKPkEGitu10YBR6FNfMRjypHW6vCmsZLsTfvb0rOQCDPeJOrm2fVEQg
+    Jn3KBGT0644MaYyx-lKzisaODxE4kwsIcg9lb_yV0jTv28xCuiA6yZgTg>
+X-ME-Proxy-Cause: dmFkZTGqH/m0k0GH0fPGqch2QPbBB9gnBhhGEEYIr/OjFY0atwaSaAzTSkP9nFUNronmya
+    GKw8Em9qcH3YggllhOgeGV//fscvhyXTLTswaEffnsT7/WNKNJeYRQWCpU6rK5aA3KqkST
+    9DRFLEHj+x4B5ZlClyjO2SYNV7cAvtHG9o+Gp1yVACxy/tOpQirFO47wSr9Azs888WkO+Q
+    2i2U57utOQEXhrKVJG3b+u4gNzAz/N8csFhR3xB8xWsA7Itt22PdLObEAKy7ymN+gCWOUI
+    YqmE5Vd5Ih1dz/NEA72uEvDX930T561WmoLhw496YLiRK3YAEXojcluiuUoszKGstBzkbp
+    ROqoeCOmCW4VuRxRaveuqwEnU52AVCPSyExe5hXB90qnCTkmvTd5AC+ze3wX/NBXaDgklk
+    u753b+eek8NVP6Dm1U2O3XjPPGKPC5LAfqHyQdqUJ3H+34OgX4zDkRZ9zaZpwjuKVoNlgo
+    6J3QyqOwEtKiiO4NYbSy9HlBoEeLemyvlnfRT+B7RIXBorsiRYDpUk9LbLL7ZPaLAsCn7c
+    TOxKrvK4LXBaMwZi1FR5MsdvB76y4xUuM1euEPe8pjqzTwk4aSryanSRLO9ee9LqqwSiOy
+    y8Q2n9EyGIDvL3K6UlBLeV8wZPYDZsnQpYbbEdKuYETxHh9qDktp+tosar1Q
+X-ME-Proxy: <xmx:lYSZalLnYrfEPaTP4eGZMK7p5Q-LhHJJuANgG5JnzeJ5iid0iUqEbw>
+    <xmx:lYSZasFIuNvprPc387mhRfUmdP5Li3ukrhjCnLUuRdqDfgJ9qdwQrw>
+    <xmx:lYSZasvWyJya8mH8lUy-A1D1g-tOXC4cfF1M1BHfg10JSogCSqTYow>
+    <xmx:lYSZarvabz6o_JfGvSDFcBaBafR4Qg0BBiuv9Q_PYdvRbIiAsgFkjQ>
+    <xmx:lYSZaqD_y834MkBRdsIyrAf89uTYtyZAaRv6cJFXNG8VuvINW3H9R4O3>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 9E24DF8007B; Thu,  3 Sep 2026 10:30:44 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260831144802.834315-1-seiden@linux.ibm.com> <20260831144802.834315-3-seiden@linux.ibm.com>
- <apdweRfqt4dTxcU9@google.com> <20260902075028.231001-D-seiden@linux.ibm.com>
- <aphLXQL1H2zYZgTi@google.com> <20260903114241.33034-C-seiden@linux.ibm.com>
-Message-ID: <apmEi1NmOUvmUBFP@google.com>
-Subject: Re: [PATCH v7 02/23] KVM: Make device name configurable
-From: Sean Christopherson <seanjc@google.com>
-To: Steffen Eiden <seiden@linux.ibm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Claudio Imbrenda <imbrenda@linux.ibm.com>, David Hildenbrand <david@kernel.org>, 
-	Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>, 
-	Gautam Gala <ggala@linux.ibm.com>, Hariharan Mari <hari55@linux.ibm.com>, 
-	Heiko Carstens <hca@linux.ibm.com>, Hendrik Brueckner <brueckner@linux.ibm.com>, 
-	Ilya Leoshkevich <iii@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
-	Joey Gouly <joey.gouly@arm.com>, Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>, 
-	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>, Oliver Upton <oupton@kernel.org>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Ulrich Weigand <Ulrich.Weigand@de.ibm.com>, 
-	Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>, Zenghui Yu <yuzenghui@huawei.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Date: Thu, 03 Sep 2026 16:30:24 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Yeoreum Yun" <yeoreum.yun@arm.com>
+Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
+ "Breno Leitao" <leitao@debian.org>,
+ "sami.mujawar@arm.com" <Sami.Mujawar@arm.com>
+Message-Id: <23ce2fb0-1002-409f-bb84-f592db9d0b89@app.fastmail.com>
+In-Reply-To: <44097058-9fdc-4e9f-a277-d63e3876b035@app.fastmail.com>
+References: <20260903113238.2291844-1-yeoreum.yun@arm.com>
+ <960e985e-b338-4648-a29b-1f8a31e00599@app.fastmail.com>
+ <apl_29t7Jxr2mv9C@e129823.arm.com>
+ <44097058-9fdc-4e9f-a277-d63e3876b035@app.fastmail.com>
+Subject: Re: [PATCH] firmware: efi: add a separate timeout for UpdateCapsule()
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 03, 2026, Steffen Eiden wrote:
-> On Wed, Sep 02, 2026 at 09:14:21AM -0700, Sean Christopherson wrote:
-> > And taking things a few steps further, we can solve the MMIO issue in a more
-> > elegant way, and eliminate the runtime string building in this patch (after looking
-> > more closely, that code needs to be jettisoned no matter what, there's simply no
-> > reason to specify the names at runtime since they're separate compilation units).
-> > 
-> > Rather than splatter #defines throughout header files, deal with the bulk of the
-> > pain in Makefile.kvm.  By feeding conditionals into Makefile.kvm, the s390+arm64
-> > build can easily omit coalesced_mmio.o and async_pf.o, define __KVM_HAVE_ARCH_MMIO
-> > programatically without having to change other architectures, and solve the naming
-> > stuff.
-> 
-> Yes, this is a great idea. Thank you. I second you, this looks more clean
-> and stable than the stuff we came up with :) 
 
-Looking more at arch/s390/kvm/Kconfig and virt/kvm/Kconfig, we might need/want to
-to build out infrastructure to handle this sort of thing in a more generic fashion?
 
-Which probably isn't that much infrastructure?  It's more just changing how arch
-code communicates with common KVM?  I.e. instead of providing boolean configs in
-virt/kvm/Kconfig, formalize communicating HAVE-type macros through the Makefile.
-That might even be a net positive in the long run, as it will make it easier to
-provide defaults for the common cases.
+On Thu, 3 Sep 2026, at 16:29, Ard Biesheuvel wrote:
+> On Thu, 3 Sep 2026, at 16:10, Yeoreum Yun wrote:
+>> Hi Ard,
+>>
+>>> Hello Yeoreum Yun,
+>>> 
+>>> On Thu, 3 Sep 2026, at 13:32, Yeoreum Yun wrote:
+>>> > On platforms that allows to update firmware in runtime, UpdateCapsule()
+>>> > may immediately write a firmware image to persistent storage.
+>>> > This operation can take longer than EFI_RTS_TIMEOUT.
+>>> >
+>>> > Use a separate timeout for the UpdateCapsule() runtime service. By
+>>> > default, wait indefinitely to avoid interrupting an ongoing firmware
+>>> > update. Administrators may configure an appropriate timeout, in seconds,
+>>> > through /sys/firmware/efi/capsule_update_timeout.
+>>> >
+>>> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+>>> > ---
+>>> >  drivers/firmware/efi/efi.c              | 41 +++++++++++++++++++++++++
+>>> >  drivers/firmware/efi/runtime-wrappers.c | 14 +++------
+>>> >  include/linux/efi.h                     | 10 ++++++
+>>> >  3 files changed, 55 insertions(+), 10 deletions(-)
+>>> >
+>>> 
+>>> Given that UpdateCapsule() is rarely used these days at runtime, I
+>>> wonder if we should just call it synchronously instead of via the
+>>> EFI workqueue.
+>>> 
+>>> I assume that would also solve the timeout issue?
+>>
+>> Might be. But it would make *non-preemptible* for UpdateCapsule().
+>> AFAIK the purpose of running runtime service with efi_queue to
+>> run it in indepdent context and to be preemtible in case of arm64.
+>>
+>
+> No.
+>
+>> Since most of UpdateCapsule() will be called via capsule-loader's misc
+>> device, if UpdateCaspule() is called synchronously, It would be
+>> non-preemtible in arm64 platform.
+>>
+>> But, some platform could be preemptible while updating firmware so
+>> I think it would be better that it would be called via EFI workqueue.
+>>
+>
+> EFI runtime service invocations are preemptible on arm64, so this is
+> not a problem.
 
-I say that because unless there's magic I'm unaware of these Kconfigs also needs
-to be configured per-KVM, not per-kernel:
+Ah wait - you're right, they are only preemptible when invoked from the
+work queue.
 
-  - KVM_MMU_LOCKLESS_AGING, otherwise aging on arm64 will unintentionally be done
-    outside of mmu_lock.
-
-  - KVM_GENERIC_PRE_FAULT_MEMORY, so that arm64 doesn't need to provide a stub
-    for something it doesn't support
-
-  - HAVE_KVM_MSI, because presumably it's needed for arm64 support.
-
-  - HAVE_KVM_READONLY_MEM, same story as HAVE_KVM_MSI.
-
-Which isn't _that_ many knobs, but add in KVM_MMIO, KVM_ASYNC_PF, and
-KVM_ASYNC_PF_SYNC, and it's enough that I think we should think about the big
-picture and not play whack-a-mole.
-
-Actually, thinking about this more, what I've proposed here, plus the pattern of
-#define-ing macros in arch-specific kvm_host.h files, should suffice.  For things
-like __KVM_HAVE_ARCH_VM_FREE, it absolutely makes sense to #define the macro in
-kvm_host.h since it's very directly tied to an arch callback.  Whereas with KVM_MIO
-and KVM_ASYNC_PF, because they enable compilation of C files, it makes sense to
-define them in Makefiles.
-
-So I think the "gap" is purely that the four knobs listed above need handling
-(and arguably KVM_MMU_LOCKLESS_AGING is ok as-proposed).  But I do think we should
-try our best to be more thoughtful than we usually are when deciding how to enable
-common code, because obviously s390+arm64 is adding wrinkles no one has had to deal
-with before.
