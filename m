@@ -1,110 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7063BCD2E
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:59:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8B6E637267A
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:00:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788433144; cv=none; b=QPp/x9gJBpJ1lWFS1ibwBlIhItoZljH/U2wHBpYEzLzRKYVqdxSGDJwyoiE2L/ZpG3ociLeDcO/s4nd/JlSxFMjfIy0A1tztf+U2werBlEvohh232tQFQB/YMuog+mmdlbNfi8bqwPJuBtvMVvVqbwaaY7f5WCaoEoIhN5hY89E=
+	t=1788433210; cv=none; b=QdMPys4Iz4/43Qkmjy0e/7KptilPtu/KGUa39+Bs7nftJh47JFWmuAfFENhuDC5UT3h26uJdAOYLOLnnHc7BNOa/fX8dK9k4erDFw8k3PNT1ucUKYNsazCMGKAVLLwMX9ZBA+doDyqXwpNsmJPEdGeAJD3RkPSdvgduVO6Va82U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788433144; c=relaxed/simple;
-	bh=LIVQ/zATHkNeaQ8snZdXFXnpMsJjj9QtCbz0bdZwQCg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sG/oDtRxc53vKay0RRFPKzD6nKV75+1fdYhp2Jt8KA1wPF39iBPu+iviWEEJoNM32jRVlq7Vgh0NmjkHaKuYaxJAdvhofRaLyCDluPZM38mRaqVbTiGTk7b9GVXQc0hG/yAUvIvGnAy870LrFnA4CQ3I7VJwFtPnhY7LOj1Cj5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W3DBQ7d1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788433210; c=relaxed/simple;
+	bh=l/WLiFAWZGavTCOOkKCUj7KqObYJmvameChFjiTD1Yw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ImiM7lTi0/UHt80SXmCD16Crrnkj7Rm1HfvHhnCcV62C38rHevhVF5MT7Po8tx+580w+1gOyKozMwAOHeZE2gqxGYZND+3iCkMmVTJw2nRcrE/u4hSKpBC6NPagAExKD9aTo+yG91mRKSscVN9Qax/vG8k6TLVldyJIUOINaog0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Pt6UJRbW; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W3DBQ7d1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B89A1F00A3A
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:59:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788433142;
-	bh=M07kDTC7RtEIRUc0/L8LW/ve834ZWk+Wk3XUWfU3fPE=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=W3DBQ7d1TfNSquzPg1iFhiXHXhfMnUomVJWNYs++GckW/+qNye9ifJsBI8S12zkcz
-	 DICqExkd/0l1l6GoEWD9tYLsd02TeWe5TBU8G7CiZEcLBwaughs+pzkMOeFJiJwVUY
-	 X7Kcb2eEeXAIZ1CtKU4CO0E9pBsc08ztTg8itSN47cOQgch38OT5NxEdS6QMJ02odb
-	 VsPnclvdsFM2IRPzHWA5AQvEpAmLN9FZ0g+MPvmXvSo1NKnkKh1RAJyttgCnMxzER4
-	 X+xmCnkRN23DvJWqGrsmA9Mo6Z79Y4n7SsjIJklyYwhhOqGJN7Qsjs1U3vGq0mjF9K
-	 XH2UjZP15TQ3A==
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3a33307ecd9so21178741fa.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 03:59:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBybhUH+eAHPydA0eA8JmYJCK7K93sHi/VOT8hn/1N05yFsgBp9WEmS0LEnGhwiJuqZJOF2+aI07YUgkMkg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nL+zQvI22tcJCKjPbduclrAvyUHUWggqZ3CbkS1fkKHBzEIFxC
-	0w88xOJAOfMSUUFKCswWlnhmMCU6isS2brUKX2us1stM6pkaItQSAP1dpTxiydckw0oI8V1QtuV
-	v0syRZWcmofQRrDUK/YBgzDGgT+dgvCE=
-X-Received: by 2002:a05:651c:43d2:10b0:3a2:fd1:8a8 with SMTP id
- 38308e7fff4ca-3a34fa3aeacmr17663261fa.1.1788433140763; Thu, 03 Sep 2026
- 03:59:00 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Pt6UJRbW"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 13F611596;
+	Thu,  3 Sep 2026 04:00:04 -0700 (PDT)
+Received: from [192.168.178.6] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 37EB83F673;
+	Thu,  3 Sep 2026 04:00:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788433207; bh=l/WLiFAWZGavTCOOkKCUj7KqObYJmvameChFjiTD1Yw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Pt6UJRbW6eyrmqq6KoqUnuw1zRAmNRf5RDLIQWQvl9LUSJ4SZxmf5cHJWIUaXPzOB
+	 G6sWHKuAEo7iSNg4v1RWHFia1nDmCrn/12ZRhuzy2cyMflWa8/mhAUyyS5erPl+XKP
+	 O8gOun+PhScYTZ2Mfq812xj+BTLWJxV0LawkjFlo=
+Message-ID: <0d02e284-9a07-4f54-bf63-8edaa5e224e5@arm.com>
+Date: Thu, 3 Sep 2026 12:59:59 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903063142.3770509-1-wenst@chromium.org> <85ce561d-fd2b-4705-9136-0173670e9148@ideasonboard.com>
-In-Reply-To: <85ce561d-fd2b-4705-9136-0173670e9148@ideasonboard.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Thu, 3 Sep 2026 18:58:46 +0800
-X-Gmail-Original-Message-ID: <CAGb2v64NJK8PjVm90ZPK+g_cFkWAroE9en+GBA5_iQdKR0p3PQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XR4J3kogo-3-MbXQMUkJLelnEON8rYbcq9wGhIdrfNVZ2Czmm2UzMWnps
-Message-ID: <CAGb2v64NJK8PjVm90ZPK+g_cFkWAroE9en+GBA5_iQdKR0p3PQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/tidss: dispc: Switch to drm_fb_dma_get_gem_addr() for
- framebuffer addresses
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Jyri Sarha <jyri.sarha@iki.fi>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] sched/fair: Honor asymmetric SMT priority in idle
+ selection
+To: Andrea Righi <arighi@nvidia.com>, Ingo Molnar <mingo@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>, Mark Rutland
+ <mark.rutland@arm.com>, Christian Loehle <christian.loehle@arm.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld <pauld@redhat.com>,
+ Breno Leitao <leitao@debian.org>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260831181800.1668646-1-arighi@nvidia.com>
+ <20260831181800.1668646-3-arighi@nvidia.com>
+Content-Language: en-GB
+From: Dietmar Eggemann <dietmar.eggemann@arm.com>
+In-Reply-To: <20260831181800.1668646-3-arighi@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 3, 2026 at 6:53=E2=80=AFPM Tomi Valkeinen
-<tomi.valkeinen@ideasonboard.com> wrote:
->
-> Hi,
->
-> On 03/09/2026 09:31, Chen-Yu Tsai wrote:
-> > dispc_plane_state_dma_addr() and dispc_plane_state_p_uv_addr() are
-> > basically the same as drm_fb_dma_get_addr(), without the support for
->
-> drm_fb_dma_get_gem_addr()
->
-> > formats with block parameters. Since the driver doesn't support any of
-> > those formats, the result is the same.
-> >
-> > Switch to drm_fb_dma_get_gem_addr() for getting the framebuffer address=
-es.
-> > Drop the const modifier on "struct drm_plane_state *state" for
-> > dispc_plane_setup() so that the state can be passed to
-> > drm_fb_dma_get_gem_addr().
->
-> Or add const modifier to drm_fb_dma_get_gem_addr(). But it's ok either wa=
-y.
+On 31.08.26 20:10, Andrea Righi wrote:
+> SD_ASYM_PACKING orders CPUs that share an SMT core, but idle CPU
+> selection does not consult that order. A task can therefore wake on an
+> arbitrary sibling and remain there until load balancing corrects the
+> placement. On SMT implementations where changing the active sibling
+> repartitions core resources, that initial choice can cause a large and
+> persistent performance loss.
 
-I felt changing it here was the smaller change. Also, returning a DMA
-address that one can then do anything to didn't feel completely const to
-me.
+I assume this sentence refers to Olympus/Vera and Power7?
 
-> > Using the helper also future proofs the driver in case block parameters
-> > are added for more formats, especially the common sub-sampled YUV
-> > formats.
-> >
-> > Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
-> > ---
-> >   drivers/gpu/drm/tidss/tidss_dispc.c | 38 +++-------------------------=
--
-> >   drivers/gpu/drm/tidss/tidss_dispc.h |  2 +-
-> >   2 files changed, 4 insertions(+), 36 deletions(-)
->
-> Looks good to me. I can pick this up and fix the above typo while
-> applying, or wait for v2 if you want to do something about the const.
->
-> Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
->
->   Tomi
+[...]
 
-Thanks. Please apply and fix the typo.
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 8dff37059faf7..3c49aa63742cb 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -8587,6 +8587,65 @@ static inline bool test_idle_cores(int cpu)
+>  	return false;
+>  }
+>  
+> +/*
+> + * Return true when @cpu has a higher asymmetric-packing priority than @other in their SMT
+> + * scheduling domain.
+> + */
+> +static bool sched_smt_asym_prefer(int cpu, int other)
+> +{
+> +	struct sched_domain *sd;
+> +
+> +	for_each_domain(cpu, sd) {
+> +		/*
+> +		 * Only honor priorities declared at shared-capacity SMT levels.
+> +		 * SD_ASYM_PACKING at higher levels may describe core ordering.
+> +		 */
+> +		if (!(sd->flags & SD_SHARE_CPUCAPACITY))
+> +			break;
+> +
+> +		if ((sd->flags & SD_ASYM_PACKING) && cpumask_test_cpu(other, sched_domain_span(sd)))
 
+Looks like 'other' is always part of the mask?
 
-ChenYu
+> +			return sched_asym_prefer(cpu, other);
+> +	}
+> +
+> +	return false;
+> +}
+
+SMT will always the lowest SD, so for_each_domain() is not necessary:
+
+static bool sched_smt_asym_prefer(int cpu, int other)
+{
+        struct sched_domain *sd = rcu_dereference_all(cpu_rq(cpu)->sd);
+
+        if (sd && ((sd->flags & (SD_SHARE_CPUCAPACITY |
+SD_ASYM_PACKING)) == (SD_SHARE_CPUCAPACITY | SD_ASYM_PACKING)))
+                return sched_asym_prefer(cpu, other);
+
+        return false;
+}
+
+[...]
+
+> @@ -8668,7 +8727,7 @@ static int select_idle_smt(struct task_struct *p, struct sched_domain *sd, int t
+>  		if (!cpumask_test_cpu(cpu, sched_domain_span(sd)))
+>  			continue;
+>  		if (choose_idle_cpu(cpu, p))
+> -			return cpu;
+> +			return select_idle_smt_priority(p, cpu);
+
+This one is weird for SMT2. AFAICS, select_idle_smt() is called when
+there are no idle cores. So if you find an idle CPU this is what you
+will return anyway.
+
+I guess your tests on Olympus/Vera do wakeups via select_idle_capacity()
+so you haven't touched this one.
+
+[...]
