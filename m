@@ -1,147 +1,304 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020111.outbound.protection.outlook.com [52.101.196.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68F824CA79B;
-	Thu,  3 Sep 2026 15:16:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448613; cv=none; b=aoi0n/8bk7ML7BxCeHkdgwjfdExPSlJH4EEm9AoUDhpP1TQZLFtQST017KvjyCsPcnyRb8JyhG9BsEBc0HNSLXZbEdig0qR9QdF+MreMnkUMfgC2oBbBqfNYN8cl2jP/Ieea4H6yXwlIw+Uq2nfRvXGxvBj81uRoml/Ga6/mSe8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448613; c=relaxed/simple;
-	bh=3QjZsNW3GegBoFeYEVAx1Oqrt2Sw0ac2MiJNC8I4pTI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rF9OF+xAmlH6olK4somnSdLH/npGNHDkeeJ2XknZCm4J15KYwrTtOCrTY7gJQvr8seN9IsLe1cFPWW2enggmqGskqOrnIbYlJTQ7PzCJFfc4Y8cL/mU0AWDZOGzkXdmxntI3qmOEEHK9vuh8fscbgAu33r/6rWm6C3xg1Ck3uBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=gwwXz0bY; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D434CB8AC;
+	Thu,  3 Sep 2026 15:16:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.111
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788448615; cv=fail; b=VIHtX79BT6r0pLPnDvT0FJHaSE8wVHrHdvJmkjvjVklFf57Na2yAVPFxQeAOZcS/Tyii4spW7/SUVkTRwP4wuzs0jWd7PrJvnU3PsuO5kpUlrjWpOWiVPCPAKdJos/mZnSyfI2/F6YzEz58UTHaWCN5wJSmr/m776rwnSjwTTfA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788448615; c=relaxed/simple;
+	bh=gTyb7FT9b+6ez+/URshTJ6AbTlCfOyhaIAMYXS4dXNs=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=MeFX0qSBCq1kHUDDeo5kPo242GKOukkJNLWe26jWOxRgXC7ubfIzaZNms3wQShKq98MHffIQBOccNCKpgo6WViSz1YTO2kBeBMQs52ratj4w16wLIBefOyrtSZDdm4wfmHzPhWqpwBe1qPIBqPxvFAodoWduoK89GE4fiwOeVDY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=z1Mj/uER; arc=fail smtp.client-ip=52.101.196.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="gwwXz0bY"
-Received: from [10.0.0.152] (unknown [10.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id B17F05340233;
-	Thu, 03 Sep 2026 17:16:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1788448608;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=GXAovTc9YTHtjLoeVbWGg8GE9X9Rna9HT3d4PbtrVuM=;
-	b=gwwXz0bYspQPWjy1N8yvwqlWO6JJdl3jUQ+OdpfsRaNGk6XRRlu83bkAklvTwH6OAcLTgb
-	ord7YjdLVFrY2PbZlE0bT7EFHts3ALko8GZm4VtuunFVDpeXQ64fx25+LYL830ZGeAaae9
-	ViXDdQsqQynpR78SpRyRRCSiOZ9Oyrs=
-Message-ID: <628ad2b7-d509-45d1-a9ab-e3cbedac9a92@ixit.cz>
-Date: Thu, 3 Sep 2026 17:16:48 +0200
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="z1Mj/uER"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Q5hrN6jQM63ymD+cUOEnk1vE6bsTJtnIIs19TLksWH72naEh33pWn2YaPyEDqGGmXTPMEKnjbEButM4JYXeuLwuh7lXkCMWtsEXSZCNLrGbKKdlLrMDim6igD91OrvXo+9kdCtW4IgoqCuhHIIJGHeIZrCqTpRBvK6yQDlyZNCoBhGhchYw4cML22dMEXrvcZb7nVu/S6bmwzkE6M6F2mgwB/27XelEritkrDjZrD674mlUbmzIQqeva2Fkws9rCqsadCNrVNOTba2/lsVnPS9nlf5dPJfd9okGEi4Eq/5lUxlI6eHOIvF/V0lJzE+rWyx6BvjFRk6IKITmQ7D63Dw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zm2wWVsSQ5YUG55eYH6MZLF2Ns6l/0nbprFcwtjEKNo=;
+ b=itlFCBuujMhOuYx2q/6JmdstX4fnTmD1LaFJKhl1po2OB9rhRugsH+4iD8x9Y0IHwglgUDMGU1FBAcNZKot2Y28OVH0rTbj+wYfJ40POBPHae+Nk5TFRGGzeksFA2R3RIK79MOx1igM5HnWLFwsD7oAhf2AajzZ4AErGkgnMfYM0nT0eAWdiT2lmM8SadktM38MI8Lcl1rcWdZYjGBOmsoKzjVA0ekbpQls/YImaw9yypunDQeo32n/k6HMgkXSbKSXecnodnd9fAQTz02bDuUUEqWUimEOcyNMLG9cXhLVLDkYLW3rbchzVBV4D5Y2dTt/YJEuAE9CFUHigZ0FKRg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zm2wWVsSQ5YUG55eYH6MZLF2Ns6l/0nbprFcwtjEKNo=;
+ b=z1Mj/uERrnudvDP+uPIeLm62cKbypMsGlmu6ixYBUW7T16Y/20HvqPqCvmhyFqKJ9zBB5uxwrhOCX2ORg2nrpuMYTnUCIHEatU1lLji8f3hVRDZk1SBtuI1pddrOO9jEFcgE5b2A2ZTMMIWhogkzwAjck1lxG1U65emGuAKb2tA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO4P265MB6982.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:34d::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 15:16:43 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 15:16:43 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 03 Sep 2026 16:16:42 +0100
+Message-Id: <DL5S49RMWZ8B.MI5VAR7NVSQ3@garyguo.net>
+Cc: <abdiel.janulgue@gmail.com>, <daniel.almeida@collabora.com>,
+ <robin.murphy@arm.com>, <a.hindborg@kernel.org>,
+ <gregkh@linuxfoundation.org>, <rafael@kernel.org>, <aliceryhl@google.com>,
+ <acourbot@nvidia.com>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <tmgross@umich.edu>,
+ <tamird@kernel.org>, <work@onurozkan.dev>, <mmaurer@google.com>,
+ <driver-core@lists.linux.dev>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH 1/4] rust: debugfs: drop 'static bound from ScopedDir
+ file creation methods
+From: "Gary Guo" <gary@garyguo.net>
+To: "Danilo Krummrich" <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>
+X-Mailer: aerc 0.22.0
+References: <20260830193824.471089-1-dakr@kernel.org>
+ <20260830193824.471089-2-dakr@kernel.org>
+ <DL5PH2S8AP7E.25CW1PZIQ8BM3@garyguo.net>
+ <DL5RXJCC43FY.CACM7A2UNBCI@kernel.org>
+In-Reply-To: <DL5RXJCC43FY.CACM7A2UNBCI@kernel.org>
+X-ClientProxiedBy: LO2P265CA0481.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:13a::6) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mfd: wcd934x: Unroll regmap and irqchip on removal
-To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
- Lee Jones <lee@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260309-wcd934x-unroll-regmap-v1-1-9a5fb305540e@oss.qualcomm.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260309-wcd934x-unroll-regmap-v1-1-9a5fb305540e@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO4P265MB6982:EE_
+X-MS-Office365-Filtering-Correlation-Id: ca5d9ac0-62de-4ae2-6f86-08df09ce5cc7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|10070799003|376014|7416014|366016|3023799007|6133799003|10067099003|56012099006|4143699003|17002099007|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	YsYdp69Uwm5V3wQj3iI7uFPPo8xlvWqtjnSEIKuVjtZneb1hHJ5tLEYwSCJUdHgVVLXGSHW6uM3//qS//GlzvvCmfvSFk/NKpCN3ERsYOOObNlJ1am1TIbDnSHwI0RWEedsPgxVvEyQKh2/lr4tH8j0s3pduF4nmcnC0DjO4PsRwDqLWKttwM9WfybdAJdrMsooZZ/RE2FsXnBqXmV8hE2hAPawBb7b6ii9QHo+f+5BSKsn5ry0RlV5K9G34ZcFAMaZTYJbfvqbsdqVdPzj+P8Vfj1gAbG4Krb0LIDgTLZtZT5L2NY18Q5xMncGdFcRQSNbm50sMXNQQncjNexMJTc6xXkuUQ5AbLWzShKXhFDh9BqF/cdpFiZ5Q4a4rWNcjmzRYJCpyEh6vZzSGJdDacZ7yVcn5osC37tyDiL+cqHK5R3qv2bGlFF5BxSjb/T5Pgst+0L/Yav7iH5ibk3nMPdw/Z1w3GEbWtBjfPE8c5QqtGwrpeqd57iCQclEUxGRKRZaY07an78IehvPW4Mz4a1DTHsIHDM0HQtn9OvzxljPbA+Zu4/NjEldkf8QlsBNG4TrrgX36YvWA6+VGNp9DNgPz/FAQDP6iXmKt/uDbAqnyeqFYFde7302queFI2Snf5GNfVpYENM560P5D2z8+ltCtSJWTlZ6FAiLEeEneNv0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(10070799003)(376014)(7416014)(366016)(3023799007)(6133799003)(10067099003)(56012099006)(4143699003)(17002099007)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U1lzREZySnFzcEJIZkFBb1NQS3Y3Vm16b0p4UmpEWEN3MjgyMFlWN0JVSWlE?=
+ =?utf-8?B?Vi9HbzdmWVEwUTRGYVB4dlJaZ0tJSzErb3krODM0WnkyWnBCa2hzNGlBT3pR?=
+ =?utf-8?B?eXM5OGRFRGZ0cHU0SjAzTkxNUWx0Y0VJdk5rcEhrdkcyTjVYZUQ5SHRpWUNk?=
+ =?utf-8?B?cnMzT1pxMXQyRlUzMG5aSXIyNVQwbnY1M1Z5V0xuNFNITlZMZGRsdGVRdEEz?=
+ =?utf-8?B?S2VXdEw5TWhORm5TMGdOWUFqUGd0UnJGOCsyN0FzMTBYaUNkUGVoSUtKTjZz?=
+ =?utf-8?B?cUs5eThXZHpZTTF1R1I2czNWZFJEZ3RxRU1BMjVmeWdmWUZkWTFHZlNmeWdX?=
+ =?utf-8?B?ZmUvWHhmY3VaSXBaR2d5YUdXa1pwMERzWWVHNW9qQ2t5cittMVdYTk5ncmZB?=
+ =?utf-8?B?cURmQlRMNm11MHdOUDJ2UlJ4cGp0Q21ncWZZcVRIRk1nL1dNa0NLWENmcExi?=
+ =?utf-8?B?Y3NMZTZkc0xOaFdhZHp6NE95eURnQ0ExQmhDM29yRWg5YzlSZmJyNDFTWDFu?=
+ =?utf-8?B?UFBZOHFDdzl1MzVldU9iTDh4YloyVStUODVzblNPMkR2dktBWmdSd1hZZGdQ?=
+ =?utf-8?B?V0w3UTBzWHVwRVI3c0hjY2VIZG5iNS9YUVFTODdRY2Q5WmZGREl3QTE3UkV1?=
+ =?utf-8?B?cUJjU2JaaDJqdEJzVmhCRWcxeWpsNzdCcVBsdTNoSVFMYWNNSVVYVWhLWDd3?=
+ =?utf-8?B?UnFoS3hIVVVuRHBsTlhHd2dzRHpZWmMrMmdUUURReE9hSTIwNVl1VXJueEgv?=
+ =?utf-8?B?TFNROHZlbGV0Z1prMHJCWmZIUTcrV0ZBYWJFWHN4cjkrYnBuaFFvY0J2TUVX?=
+ =?utf-8?B?S05lbVRqMjBPNXVhV0RXV09GdUxTMHRoYk5XOElIS0ErT3lINXg4VVBhcjdh?=
+ =?utf-8?B?VGRybDF2V3JpUVR4VURUVWljQjlOL0pESnpmbTZyVmVLNjdCYlRjZUhiM3hS?=
+ =?utf-8?B?eFVhM0NodkZDd3NYbTFJcnQ4Q0xRaVlNaGtOYmpGNGpKaDMwcnZycXpuNTY4?=
+ =?utf-8?B?RDRQZWVIa2g2QXpzOFJlc2FNNlhPajNOaENQa1dlT2hQbVZaMjlheXg2bzl3?=
+ =?utf-8?B?U0VqVlF0ZXlkUEs4eGFUUDNSRlhVOGpmd1B3bnpVa3R5dFdyajNXUkFBUVB3?=
+ =?utf-8?B?WVg5WVZvb2ZQQWk1OE13eG5jbXRjN1lUbURncEVSWjF5YmZyK1FyaW5ST0or?=
+ =?utf-8?B?aVlQZmZRYjZjZ2EzUDdBR0hhRmczVS9DaGVwRGZRUTM5RVRKMTVxb2Rad3J4?=
+ =?utf-8?B?YkpOcnF0NE1sT1NvdkxUTHhtTUlUMi8rTUlDSkRlWWFOL0w1SnB6U1Fxa3dw?=
+ =?utf-8?B?SlBrb2d6MFRpZkpLeUNYMzY2K2NqSk1hUW5PSXppd1FjZE9qZFYrcWg2THIw?=
+ =?utf-8?B?bTdwTDJIajlhYjNzZVY1aDF1Z3YvU2tCd1JvTlBudlU3M3JEWGY4ZFJWd3dp?=
+ =?utf-8?B?dUc2VVFVeDZicXZUNzcvUjYwdFdIY1Fhc1MxeVcwajBJZDNzNm5LMzdQSXNy?=
+ =?utf-8?B?UDVIU09ENVRTSmlmL01VbTNsK1EvcndNcE56bW15aHM0djNWeC9ZUHNGS3R4?=
+ =?utf-8?B?SytTcXVjR3NTUE5jakRWcEI1TGg2M1MvNk40c1JRaW9FTnhHWVZRb1F4Tjd6?=
+ =?utf-8?B?czhkYlhRL2NTSHVTSlZFRWtzQjZCQXpMMGQ5UG1GTk9JK2o0VDd3MDZFQTM3?=
+ =?utf-8?B?QTZWd0MzR0pFd20waE91RnRETjJhM0NEalFGS09xWS8vN2JpYXZ6WUNRcmlD?=
+ =?utf-8?B?UmlMK3hBTTJEdlZ2NVFqSGZWWVFXcUpkSUZEUjB6S05LVTY4TFBjRXZyMHJK?=
+ =?utf-8?B?L01CRm9meHc5Qys5amsxU2pPR0xVMzdwN0VFenhxeVE2REVCa0xvLzdQTWlv?=
+ =?utf-8?B?UWdFeHZCSzBtMU5MQkhmUUZWalFVYnFoT2RwRkRaN1BHZDBEaERmTUZVWm1x?=
+ =?utf-8?B?RWt4RDhTNjVpd1MzNHpmL3ZXQ2FkcXpGOEpZd0hRWjhjUzlxenN2RkozdDNw?=
+ =?utf-8?B?dEJnQlowWURHL0tKZUFWMnk3N2F1U2JmRGF4dWtaMitBbWY2RzliRU9BQU1B?=
+ =?utf-8?B?dkpVVjlLYWdrN00vM3k0Zmk5bGU2MktTTTZySWZjQnM0cWF5cTlOY21oemQ5?=
+ =?utf-8?B?ZnZCTTZPdm4zamtjVFltcHdCdTgzR0p3WWVrZDc4R2R5R2VuaXdkNTFseHph?=
+ =?utf-8?B?NG92UlRzQWV4MWJmV1VVRDI0bzk5N0RQelEyQklkcnFGcFdEdzR3TGdqNHV3?=
+ =?utf-8?B?ckVQVFQyc1hIcXBpOHBleS9oMitUamxWclYzUUN0MTd5bkxjcjVvVUtjbGFI?=
+ =?utf-8?B?WW9pblVpOTJha3pyUEFGOGRmVjNJaTBWWUNwUDVoc3NCbFpqR2ZpQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca5d9ac0-62de-4ae2-6f86-08df09ce5cc7
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 15:16:43.5597
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jU1jjshPJ/wEx0TURjQOk0Im/z+eJstwtejt5ly8+pfmCOIbWwiTnF6tTUdC4FnZmbHzdclBeZfdn0bjXYeflA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB6982
 
-On 10/03/2026 04:53, Bjorn Andersson wrote:
-> When the slimbus-up event is handled a new regmap is created, an IRQ
-> chip is registered on this regmap and then the MFD devices are added.
-> 
-> But the regmap is left dangling if either any of those operations are
-> failing or if the slimbus-down event ever comes. Which manifest itself
-> as an error print from debugfs once the next slimbus-up event happens.
-> 
-> Likewise, if for some reason a slimbus-down event would be followed by
-> a slimbus-up event without the MFD being torn down by the slimbus
-> controller inbetween, we're going to have a dangling irq_chip.
-> 
-> Add cleanup of the registered resources on failure and on removal.
-> 
-> Fixes: 6ac7e4d7ad70 ("mfd: wcd934x: Add support to wcd9340/wcd9341 codec")
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-> ---
->   drivers/mfd/wcd934x.c | 49 ++++++++++++++++++++++++++++++++++++++-----------
->   1 file changed, 38 insertions(+), 11 deletions(-)
-> 
-What is final thought on this series?
+On Thu Sep 3, 2026 at 4:07 PM BST, Danilo Krummrich wrote:
+> On Thu Sep 3, 2026 at 3:12 PM CEST, Gary Guo wrote:
+>> This can be better done by storing `&'static bindings::file_operations` =
+in
+>> `FileOps<T>` instead of just by value. That is actually better than the =
+current
+>> impl, IMO, because `mode` for example doesn't have to be in static stora=
+ge. (You
+>> can also then make `FileOps<T>` `Copy`).
+>
+> That's a great suggestion, thanks. It simplifies the patch to:
+>
+> Author: Danilo Krummrich <dakr@kernel.org>
+> Date:   Sat Aug 29 14:42:54 2026 +0200
+>
+>     rust: debugfs: drop 'static bound from ScopedDir file creation method=
+s
+>
+>     Drop the T: 'static bound from ScopedDir's file creation methods
+>     (read_binary_file(), read_only_file(), etc.) to support registering
+>     debugfs files backed by types that contain non-'static references, su=
+ch
+>     as dma::Coherent<'a, T>.
+>
+>     The previous 'static bound existed because ScopedDir::create_file() t=
+ook
+>     &'static FileOps<T>, and &'static requires T: 'static for well-
+>     formedness. However, this was overly conservative: the file_operation=
+s
+>     pointer passed to the C debugfs API just needs to be 'static, not the
+>     entire FileOps<T>.
+>
+>     Store &'static bindings::file_operations in FileOps<T> instead of the
+>     file_operations by value. In each trait impl, take a reference to the
+>     file_operations struct within the const block; since
+>     bindings::file_operations does not mention T, the reference is promot=
+ed
+>     to 'static regardless of T's lifetime parameters.
+>
+>     Replace the Deref impl with an explicit fops() method that returns th=
+e
+>     stored &'static reference.
+>
+>     Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-I have feeling Sashiko pointed the problem with devm double registration still 
-exist, see below:
+Reviewed-by: Gary Guo <gary@garyguo.net>
 
-[Severity: High]
-This is a pre-existing issue, but does the use of managed devres functions in
-wcd934x_slim_status_up() cause memory leaks and double registrations?
+Some nits below.
 
-drivers/mfd/wcd934x.c:wcd934x_slim_status_up() {
-     ...
-	ret = devm_regmap_add_irq_chip(dev, ddata->regmap, ddata->irq,
-				       IRQF_TRIGGER_HIGH, 0,
-				       &wcd934x_regmap_irq_chip,
-				       &ddata->irq_data);
-     ...
-}
+>
+> diff --git a/rust/kernel/debugfs.rs b/rust/kernel/debugfs.rs
+> index d7b8014a6474..2beb55d444ca 100644
+> --- a/rust/kernel/debugfs.rs
+> +++ b/rust/kernel/debugfs.rs
+> @@ -538,7 +538,7 @@ pub fn dir<'dir2>(&'dir2 self, name: &CStr) -> Scoped=
+Dir<'data, 'dir2> {
+>          }
+>      }
+>
+> -    fn create_file<T: Sync>(&self, name: &CStr, data: &'data T, vtable: =
+&'static FileOps<T>) {
+> +    fn create_file<T: Sync>(&self, name: &CStr, data: &'data T, vtable: =
+&FileOps<T>) {
 
-wcd934x_slim_status_up() is called when the SLIMbus transitions to
-SLIM_DEVICE_STATUS_UP. If the bus goes DOWN, mfd_remove_devices() is called,
-but the IRQ chip added via devm_regmap_add_irq_chip() is not removed because
-devres cleanup only happens on driver unbind, not on bus status changes.
+I suppose this doesn't need to use reference anymore, but you want to keep =
+the
+diff small.
 
-When the bus transitions UP again, wouldn't the driver attempt to re-register
-the IRQ chip and fail with -EBUSY, leaving the device in an unusable state?
+>          #[cfg(CONFIG_DEBUG_FS)]
+>          core::mem::forget(Entry::file(name, &self.entry, data, vtable));
+>      }
+> @@ -550,7 +550,7 @@ fn create_file<T: Sync>(&self, name: &CStr, data: &'d=
+ata T, vtable: &'static Fil
+>      /// This function does not produce an owning handle to the file. The=
+ created
+>      /// file is removed when the [`Scope`] that this directory belongs
+>      /// to is dropped.
+> -    pub fn read_only_file<T: Writer + Send + Sync + 'static>(&self, name=
+: &CStr, data: &'data T) {
+> +    pub fn read_only_file<T: Writer + Send + Sync>(&self, name: &CStr, d=
+ata: &'data T) {
+>          self.create_file(name, data, &T::FILE_OPS)
+>      }
+>
+> [snip]
+>
+> diff --git a/rust/kernel/debugfs/file_ops.rs b/rust/kernel/debugfs/file_o=
+ps.rs
+> index f15908f71c4a..5c16a3196ca2 100644
+> --- a/rust/kernel/debugfs/file_ops.rs
+> +++ b/rust/kernel/debugfs/file_ops.rs
+> @@ -20,9 +20,6 @@
+>
+>  use core::marker::PhantomData;
+>
+> -#[cfg(CONFIG_DEBUG_FS)]
+> -use core::ops::Deref;
+> -
+>  /// # Invariant
+>  ///
+>  /// `FileOps<T>` will always contain an `operations` which is safe to us=
+e for a file backed
+> @@ -30,7 +27,7 @@
+>  /// into a reference.
+>  pub(super) struct FileOps<T> {
+>      #[cfg(CONFIG_DEBUG_FS)]
+> -    operations: bindings::file_operations,
+> +    operations: &'static bindings::file_operations,
+>      #[cfg(CONFIG_DEBUG_FS)]
+>      mode: u16,
+>      _phantom: PhantomData<T>,
+> @@ -41,7 +38,7 @@ impl<T> FileOps<T> {
+>      ///
+>      /// The caller asserts that the provided `operations` is safe to use=
+ for a file whose
+>      /// inode has a pointer to `T` in its private data that is safe to c=
+onvert into a reference.
+> -    const unsafe fn new(operations: bindings::file_operations, mode: u16=
+) -> Self {
+> +    const unsafe fn new(operations: &'static bindings::file_operations, =
+mode: u16) -> Self {
+>          Self {
+>              #[cfg(CONFIG_DEBUG_FS)]
+>              operations,
+> @@ -65,11 +62,11 @@ pub(super) const fn adapt(&self) -> &FileOps<T::Inner=
+> {
+>  }
+>
+>  #[cfg(CONFIG_DEBUG_FS)]
+> -impl<T> Deref for FileOps<T> {
+> -    type Target =3D bindings::file_operations;
+> -
+> -    fn deref(&self) -> &Self::Target {
+> -        &self.operations
+> +impl<T> FileOps<T> {
+> +    /// Returns a `'static` reference to the inner `file_operations`.
+> +    #[inline]
+> +    pub(crate) fn fops(&self) -> &'static bindings::file_operations {
+> +        self.operations
+>      }
+>  }
+>
+> @@ -130,11 +127,11 @@ pub(crate) trait ReadFile<T> {
+>
+>  impl<T: Writer + Sync> ReadFile<T> for T {
+>      const FILE_OPS: FileOps<T> =3D {
+> -        let operations =3D bindings::file_operations {
+> +        let operations =3D &bindings::file_operations {
+>              read: Some(bindings::seq_read),
+>              llseek: Some(bindings::seq_lseek),
+>              release: Some(bindings::single_release),
+> -            open: Some(writer_open::<Self>),
+> +            open: Some(writer_open::<T>),
 
-https://lore.kernel.org/mfd/20260903145651.AC1311F00ACA@smtp.kernel.org/
+Is this change needed?
 
-David
+Best,
+Gary
+
+>              ..pin_init::zeroed()
+>          };
+>          // SAFETY: `operations` is all stock `seq_file` implementations =
+except for `writer_open`.
+
