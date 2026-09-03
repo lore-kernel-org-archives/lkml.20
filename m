@@ -1,123 +1,154 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E15BA3EB104
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:33:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0546B3EF67D
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:33:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788427998; cv=none; b=Fs8P0T8wZD9psCOxHEaDi966VZbe5wduttojBnH0TOQzEutAVGlMH1MbBDFOaXnuXYgTH8e5qi1B8ujVt6lIEICu9kfVyJMNiBBJ/ua0uG2N1zD53MEOjlUBmN7rsRcpUGUeZn1bZHNKa5lLMVsbiVXyzmbfPlDwfY6Bj7X4FDw=
+	t=1788428040; cv=none; b=m95r67JVmo2/n9ZN3Zj90//16xvJ8D1d+02oQOFBND0By9O5rXgyap9tP10nqOLud3cQeWbENF7CzxuS+iU0eM0d9zal+Wlazw5okCLXo3JrlEsVw08OS82qTF0ol5I45rGnD5XMP2y+3ec5Yvbs0lJqYaJKyZafBtjdiJZSLHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788427998; c=relaxed/simple;
-	bh=uaPMukZM29DUPOLoFf9OMfBsXPcZTZ6jF8H01MrSHTg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=lHN0oYjLhtFaZcsDYGHsX6f0jzV3S9RC8+aGHGZ7r/232NY4Skt2JzzD3YoRnLv17wiM7PLyQTwq5yatyZOGg7YEKLu76IU0JXci+9TG/3wVdSOC4bjILlNwoLgUfnnbqFYDks9wP0E9ANQrrJorxGVV2K1Jcj4jdSJgs3vo6C8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=fGocsu5w; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788428040; c=relaxed/simple;
+	bh=JjaM8Q8pbXhUf77DZRM/RB98M4kYQ/sqUEXUiWhIolw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dEdTxBh0wsFoDGgpqjr7ozt8Ml/gUZoxwi8/gxu1YrWMrfW2Ucbk01pDEqgyePJztU23xgPjBNmGgsEGMkQN1gOkQ0ZOkHJZj3b9G5/37SZflc5YpC/EohWPG8WZVOf3X9yG1xi4iYMMcqcK8mmI/UUvOfPEygYubgHwmkbftIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WUPyg5mh; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="fGocsu5w"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hbDsx3BKmzKvtc;
-	Thu, 03 Sep 2026 11:33:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788427989; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yfeHUrWXbmTmlR2tQBN/VW8zgSXE4jauar5OH20Fibk=;
-	b=fGocsu5wjuLUI2zEq3IoMVsLwDmq78NNjUmneZ/Yyl/z741Z+uW3jrD2BAgnSSgK4gwLve
-	TePsv6iqOK/1JBwdocdxUP9P3UL+soaifcY+l/54GX4RQaJ9/OMZlBNc98F7DQdjEUS0gr
-	oEQTU7uCp3HyDv/W/c1Q7IZ80xBlZIn0BWkHDk5wW2QOg+h7FwaQitK5C/7YUM9ZD/909o
-	T5UXUGYvahwxyXCSghFpCKJ9ixMdOxk7igsdzZfuATRsgFRas8lHb5dKJTNKzSb2sqnsgg
-	pJVuebMh5a5Tjtf5e+HnDm2Do2w/kvtqD1MKWM+kQZUOwNtjfZoOiXgC2F8Nng==
-Message-ID: <b9d46dbb2f84d0bb601d5e0586f2e63f618d416b.camel@mailbox.org>
-Subject: Re: [PATCH RESEND] drm/sched: Create faux device for KUnit tests
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: oushixiong1025@163.com, Matthew Brost <matthew.brost@intel.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
-  Christian =?ISO-8859-1?Q?K=F6nig?=	 <ckoenig.leichtzumerken@gmail.com>,
- Maarten Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Shixiong Ou	
- <oushixiong@kylinos.cn>
-Date: Thu, 03 Sep 2026 11:33:02 +0200
-In-Reply-To: <20260903090256.552317-1-oushixiong1025@163.com>
-References: <20260903090256.552317-1-oushixiong1025@163.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WUPyg5mh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788428038; x=1819964038;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=JjaM8Q8pbXhUf77DZRM/RB98M4kYQ/sqUEXUiWhIolw=;
+  b=WUPyg5mhVsXl92vlSTEuwqR42P1+gsIke05hIBxDGbq+81EcO0Dw05zC
+   VHmkROD7NM8+VEiMVsxOmM9GRTua0sL5nsUttOgSLMiCVnFmC/pSdPJ+P
+   VwMsm+A1Y2TEoqvKTR3O1y4P00XbaaUu1NiA4DC7aWTF5t0TW4Mq/ehIx
+   /dIQeoppGbaJ310nQdLkBPUc1dC+Ti0hYhKavdbqoCewr1l9StLVHMzT7
+   CDzig9O3gswCY5b1nzk7mz67Khu0n4aOMh9YSKJL+tvTNNW7wq6qozKoe
+   674BLTur9l2TKgTL8Xt0jZqRb28PU9Frq0lgAccpnM2qcj4OZ0zVJuQKb
+   w==;
+X-CSE-ConnectionGUID: /LDIzYQwSleUjtXmk/eRMw==
+X-CSE-MsgGUID: +j40Lv1ZSjKFbUpAVylf2w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="114450463"
+X-IronPort-AV: E=Sophos;i="6.25,259,1779174000"; 
+   d="scan'208";a="114450463"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 02:33:57 -0700
+X-CSE-ConnectionGUID: fSQA+ubEQ12sRtiu4LMmhQ==
+X-CSE-MsgGUID: ozEUE560Qwyi/XTLAJGsBA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,259,1779174000"; 
+   d="scan'208";a="270210511"
+Received: from gklab-103a-104.igk.intel.com ([10.91.103.104])
+  by orviesa009.jf.intel.com with ESMTP; 03 Sep 2026 02:33:54 -0700
+From: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
+To: Baolu Lu <baolu.lu@linux.intel.com>,
+	Ning Sun <ning.sun@intel.com>,
+	Thomas Gleixner <tglx@kernel.org>
+Cc: Michal Camacho Romero <michal.camacho.romero@intel.com>,
+	x86@kernel.org,
+	iommu@lists.linux.dev,
+	tboot-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Mateusz Mowka <mateusz.mowka@intel.com>,
+	Adam Pawlicki <adamx.pawlicki@intel.com>,
+	Pawel Randzio <pawel.randzio@intel.com>,
+	Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
+Subject: [PATCH v3 2/2] iommu/vt-d: Disable PMRs and skip force-IOMMU when TXT TPRs are active
+Date: Thu,  3 Sep 2026 11:33:53 +0200
+Message-ID: <20260903093353.415170-1-michal.camacho.romero@linux.intel.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <d32d505b-5985-4139-86da-97d902c9aeb9@linux.intel.com>
+References: <d32d505b-5985-4139-86da-97d902c9aeb9@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: uuqo5a4chxgw66oc5c5dmmdqxp5a5p6x
-X-MBO-RS-ID: b2c58434078d8a0c136
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2026-09-03 at 17:02 +0800, oushixiong1025@163.com wrote:
-> From: Shixiong Ou <oushixiong@kylinos.cn>
->=20
-> The DRM scheduler KUnit tests currently pass NULL for the dev field in
-> drm_sched_init_args, which causes a NULL pointer dereference in the
-> drm_sched_job trace event when it calls dev_name() on sched->dev.
->=20
-> Use faux_device_create() to create a fake device for the mock scheduler,
-> so the scheduler always has a valid device pointer. This avoids the
-> trace event crash without requiring the production code to accept a NULL
-> device pointer, which conceptually makes no sense for a scheduler.
->=20
-> An atomic counter is used to generate unique device names, since
-> multiple mock schedulers can exist simultaneously across different
-> test suites.
->=20
-> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+When Intel TXT Protection Regions (TPRs) are present in the DTPR table,
+hardware-level DMA protection is already enforced by the SINIT ACM.
+In this case:
 
-Didn't you address a fault / bug with that?
+- Skip forcing IOMMU enablement in tboot_force_iommu(), since TPRs
+  already provide DMA protection.
+- Tear down PMRs during intel_iommu_init() when TPRs are active,
+  while PMRs are redundant with TPR-based protection.
+- Call tboot_parse_dtpr_table() from parse_dmar_table() to disable
+  TPR regions early, allowing the kernel to manage DMA protection
+  prior to the OS boot.
 
-Cc: stable =E2=80=A6
-Fixes:
+Link: https://uefi.org/sites/default/files/resources/633933_Intel_TXT_DMA_Protection_Ranges_rev_0p73.pdf
+Link: https://cdrdv2-public.intel.com/315168/315168_TXT_MLE_DG_rev_017_7.pdf
+Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
+Signed-off-by: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
+---
+ drivers/iommu/intel/dmar.c  | 13 +++++++++++++
+ drivers/iommu/intel/iommu.c |  9 ++++++++-
+ 2 files changed, 21 insertions(+), 1 deletion(-)
 
-?
+diff --git a/drivers/iommu/intel/dmar.c b/drivers/iommu/intel/dmar.c
+index ba675b08cd20..c98a44487706 100644
+--- a/drivers/iommu/intel/dmar.c
++++ b/drivers/iommu/intel/dmar.c
+@@ -635,6 +635,8 @@ static int __init
+ parse_dmar_table(void)
+ {
+ 	struct acpi_table_dmar *dmar;
++	struct acpi_table_dtpr *dtpr;
++	void *txt_heap;
+ 	int drhd_count = 0;
+ 	int ret;
+ 	struct dmar_res_callback cb = {
+@@ -670,6 +672,17 @@ parse_dmar_table(void)
+ 		return -EINVAL;
+ 	}
+ 
++	dtpr = tboot_get_dtpr_table(&txt_heap);
++	if (dtpr) {
++		/*
++		 * TPR is enabled. This will also tell not to establish IOMMU
++		 * PMRs.
++		 */
++		tboot_parse_dtpr_table(dtpr);
++		iounmap(txt_heap);
++	}
++
++	txt_heap = NULL;
+ 	pr_info("Host address width %d\n", dmar->width + 1);
+ 	ret = dmar_walk_dmar_table(dmar, &cb);
+ 	if (ret == 0 && drhd_count == 0)
+diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
+index 2e3b3ab216f8..ce40b1bf0296 100644
+--- a/drivers/iommu/intel/iommu.c
++++ b/drivers/iommu/intel/iommu.c
+@@ -2563,6 +2563,13 @@ static __init void tboot_force_iommu(void)
+ 	if (!tboot_enabled() || intel_iommu_tboot_noforce)
+ 		return;
+ 
++	/*
++	 * If TPR is enabled we don't need to force IOMMU, TPR set by SINIT
++	 * ACM will take care of DMA protection.
++	 */
++	if (tboot_is_tpr_enabled())
++		return;
++
+ 	if (!dmar_can_force_on(DMAR_FORCEON_TBOOT))
+ 		panic("tboot: Failed to force IOMMU on\n");
+ 
+@@ -2623,7 +2630,7 @@ int __init intel_iommu_init(void)
+ 		 * calling SENTER, but the kernel is expected to reset/tear
+ 		 * down the PMRs.
+ 		 */
+-		if (intel_iommu_tboot_noforce) {
++		if (intel_iommu_tboot_noforce || tboot_is_tpr_enabled()) {
+ 			for_each_iommu(iommu, drhd)
+ 				iommu_disable_protect_mem_regions(iommu);
+ 		}
+-- 
+2.55.0
 
-> ---
->=20
-
-[=E2=80=A6]
-
-> =C2=A0
-> +static atomic_t drm_mock_sched_instance =3D ATOMIC_INIT(0);
-> +
-> =C2=A0/**
-> =C2=A0 * drm_mock_sched_entity_new - Create a new mock scheduler entity
-> =C2=A0 *
-> @@ -296,11 +300,20 @@ struct drm_mock_scheduler *drm_mock_sched_new(struc=
-t kunit *test, long timeout)
-> =C2=A0		.name		=3D "drm-mock-scheduler",
-> =C2=A0	};
-> =C2=A0	struct drm_mock_scheduler *sched;
-> +	char name[64];
-> =C2=A0	int ret;
-> =C2=A0
-> =C2=A0	sched =3D kunit_kzalloc(test, sizeof(*sched), GFP_KERNEL);
-> =C2=A0	KUNIT_ASSERT_NOT_NULL(test, sched);
-> =C2=A0
-> +	snprintf(name, sizeof(name), "drm-mock-scheduler-%d",
-
-You could use args.name here.
-
-> +		 atomic_inc_return(&drm_mock_sched_instance));
-
-Couldn't that atomic be a `static unsigned int` inside this function?
-Is simpler and limits the scope. And I wouldn't expect that we'll ever
-call drm_mock_sched_new() multi-threaded, or would we?
-
-
-Besides looks cool, thx
-
-P.
