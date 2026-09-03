@@ -1,127 +1,119 @@
-Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A0C126AC5;
-	Thu,  3 Sep 2026 00:08:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA39513DDAE
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 00:10:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788394112; cv=none; b=Wp4rMYhrMWWPeM3SB8vNZKRyjpU2YGWKbK/7sPSjeWLbdxFUWjFJm8C2xve6Km/j81z2kcKhACssP0/5w27PCD05X3DhBbaF4PBtfyYBpNRES6zyvseNUMRqm9cPzW5R3pz5ik1woAawl6HRZMKbikvcfRlgXhqHzwKXngC1CZ8=
+	t=1788394243; cv=none; b=i+DPOXatGIwW0N+JKxdzjGrbz5B6S37hYEM/49rnH46BOcej6DI6qniPCjxhSJA1PCAtgrHt0HWQmww2Ts+gdSHe82GNU6FfrCdApsNEg3pKRwTRNADP4HEmWqZIMos6tsiUTCSnMu3H1pxKKmKIz1UcoUBUoAtPheID+Bcm6cc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788394112; c=relaxed/simple;
-	bh=4IWgXvoJwCaMjMBvWmnY5yakz7j3ORyKCxeakBXB0nc=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=Q93NqNOYgTS/AC2o+mEJEQIpEjCbfy3+cGGPC16Lk/lXnV428wqhsuSR6iWWpiBr9mK97uylqQErZ5pHjp1EUG2iy7nbAWUdxK9/E7QiHg8kORQnlHR58fvtefXPN3nQEC0+mHxx0Uu9S8EYEcZaZmb12VUZ81JMScUdXI8tVg8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.com; spf=pass smtp.mailfrom=fastmail.com; dkim=pass (2048-bit key) header.d=fastmail.com header.i=@fastmail.com header.b=MIH0ahMO; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=sZX0gfcv; arc=none smtp.client-ip=202.12.124.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.com
+	s=arc-20240116; t=1788394243; c=relaxed/simple;
+	bh=zEVE4VkRXoGtq5FLEuRQNOYsVnaBElMxxCZxBZwqS34=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hZQdf6KFnTbINc4EsbhRVmzEOvAdIOYqunHVqih9nhT2aWC5X4i//I7XxD91UMPbVbuG4szWuueAbAMdJhiM9izYs8+H1JfoDWMVa87ANYpuIxk+nctW71ow7Jx/KTfDDS6ZzGlolzRhRfuOhMC3N0uJnc9F+wSM1v22ywS1Oe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q5LaSGJC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fastmail.com header.i=@fastmail.com header.b="MIH0ahMO";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="sZX0gfcv"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id F3F037A0064;
-	Wed,  2 Sep 2026 20:08:29 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Wed, 02 Sep 2026 20:08:30 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1788394109;
-	 x=1788480509; bh=eLwqsaFT/7/jsEC3Jwx/ALIBHbXxlyRexC2ts2yKUqA=; b=
-	MIH0ahMOnwoISX5iyM7WR6aHJfO1cNLQ+fATckZKBZ8ufW9QMn0MpHUSXg+8yu+T
-	aI8sn3aMiG4uDaHod++LLWk4J4pWGKcb8zk0iW5q1iPv/NH7vFgO+G3f4G7qVI/X
-	dyQqMMEz2B5fvRNnumE30lzXHt0amcCPZ9Ay2ZkwY6GJIAsS2HkrbL+bOhGNrK5D
-	kIubjqcdIFB3C4YwF6lj6MA5d5G8XD1jlixJveKOcFiRg1KWxxiXjVem5//Wkbi9
-	a4eijPMu4bi9Exh1htBt+4AOMDlp7IlKdpbJCtiRSaD1JgBIEl0aaJWVkE8hyQub
-	Ofgip1Cgb1tLnsUOZ4GuOA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788394109; x=
-	1788480509; bh=eLwqsaFT/7/jsEC3Jwx/ALIBHbXxlyRexC2ts2yKUqA=; b=s
-	ZX0gfcvPgAutlepq0BBWtI3+uAOqcpYBaW0dQ7goiYx/XsLUnAg7ROq8t5CR4x8f
-	aONDvpG0CaOpxWrLyrS4gBty8Chw84UPMenankLsMcT7vufKsyh2h2Y4Z/vDfYWM
-	HCD6RlsPseUv541y5RrbxYlNh9Zco135k4lFoa473oNXpP8A8B25FcEjf9S4NYhK
-	+VrOl1XWOJY3NzPYd4XhQ+rnpltGP19CEInPFIHw0rLCB9eMij/F6DQzbSlB0/OM
-	qHAiFPPUVxrgZyaq5e5goidEwovYhntBT/0KWUAAHDnwI/sCkSF9s9zZEkgwFDPO
-	WzPw6fLZg8d3iW5qsSsHQ==
-X-ME-Sender: <xms:fbqYalTw-aB8OAGT1sO0P7FdEUOVoS2-obUzlwJDuSwcZIDto9BwPQ>
-    <xme:fbqYajuBU4uJtQXIf2L-RnZyExTw1zfN8beYxZm_rtVC2BJ0aG2hTCEzGU7FeJKTi
-    WSb6M-jd8RNe9raz3BTUyDmbY8n2ygM4MBSKKc86miLLp6FwIJcYaQ>
-X-ME-Received: <xmr:fbqYavE3jSaQLnRJ0HP5Uq1vcAroWNhH2Gl7YquD8xJOU1Y33O4SR54asJuu8La6jX-eZr9E>
-X-ME-Proxy-Cause: dmFkZTE2DRjhSHsxqDc/IeheCF1GLEJmY0Ce8Hm2KpCOC7bFLbKG6aL7bd0kkdKRJn6wgX
-    Jksb66tsv21sAaNmOLea/K7XNcnvENk2I+Mp2/kswqe8VqKyhLY26+lT6Wa3gMAHwF5boA
-    8nS+/bXlhUXHs06yyBmumSyi54cLrhpOys8JDtKs0Kc/WW0MpK5k6t2mVmV5qX1CCKY75U
-    i/EKPcf5wS3wWu+lr6PkA+947/pG6oGFHvtR18nEIpPdWl9W1nbf3g/2QjxKdiLhKg9WAT
-    riuHSNYqARRmIYNqKoc1szuzdBFSCdZWljnUk1ZqP6PVL6BFFdgGc49+aP28HnDjy14GoE
-    RajVwc2XteBK3IXKUxUXpLX3PMb32ixOmDr+waiYx79IMRTxwy5ZFJPoiFQU3vnRyclP8q
-    zDW5RSNMpaU5zMwb2t5iGuUlINXX2BuqIXI3gpYxjMrfZV+oXWNECdBCugNc+T3W5eU+iS
-    Q6KrV2vv5BxteFU1LwZ5Q5D8m2ERYPGbJbib8cxFpYKGJA9auKeE62xotsdZHZw9hj1Vs4
-    +b2q6M9zebz19fII1HmLoJx79msKkYJiYgdoiQCG2l713M6PtcY7FqgUpRD9vYrgWOpXRp
-    tWf/OH71WPhSzDu2lOi2lPfx4JLNWwXwGlsmFIEvH4SXyDDBsLFAVFAFfIcQ
-X-ME-Proxy: <xmx:fbqYaswNMeyx3q2fYWSzltu2NpAtFt_We47KT7ODJMAV4PonuR6pgg>
-    <xmx:fbqYah0kXwxhwp62SVPkAnqXKED5WCY-PbAyeLwUkz_1alCr5_npuQ>
-    <xmx:fbqYakpVfKcHMkA_WOFAue6hosb2Sew2fnTaA_rzNuyy4y2puoMsbQ>
-    <xmx:fbqYamUFb0T2sVqrVPz8L_zw0mUUkdIQKFZt5gUfOGKcwnvTzd-wRQ>
-    <xmx:fbqYaij4BAY3aeipq3v7HYZXG2NedsutiLG6VpRgXFNAC-iXNQD_zbGD>
-Feedback-ID: ia30e4b44:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 2 Sep 2026 20:08:29 -0400 (EDT)
-Date: Wed, 02 Sep 2026 17:08:28 -0700
-From: Jonathan Cameron <jic23@fastmail.com>
-To: Dave Jiang <dave.jiang@intel.com>, linux-cxl@vger.kernel.org,
- linux-kernel@vger.kernel.org
-CC: dave@stgolabs.net, jonathan.cameron@huawei.com, alison.schofield@intel.com,
- icheng@nvidia.com, Jonathan Cameron <jic23@kernel.org>,
- Vishal Verma <vishal.l.verma@intel.com>
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_MAINTAINERS=3A_Add_Richard?=
- =?US-ASCII?Q?_Cheng_to_CXL_subsystem_as_a_Reviewer?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <20260902235348.3563444-1-dave.jiang@intel.com>
-References: <20260902235348.3563444-1-dave.jiang@intel.com>
-Message-ID: <8E3BF784-0F86-4591-8599-64A0E0443DD2@fastmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q5LaSGJC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5830C1F00A3A
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 00:10:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788394242;
+	bh=1HG4jQs0H27MEa+W+zQe3T3ePi8+ljHDYVpGxBtOdVI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Q5LaSGJCe2idLRH2WJZZO6S54oc4NaoPX3sEAidEG/0o58oOz+g+jXRWiXem9sHOC
+	 9a4G9FbrtMyuqhTWzMTTQ5AsHcwpJ28othvNREwSoaop4dv8XUGCs7yF0DGOwkatYD
+	 mAC7kmwcGI1Dp1UOihJJQQ9RwfCt+mfC+gaTjj4KvZJnSYnhgRhL2MLUkF2R7VQkwV
+	 KGk9A9ZFEmqbycmgy8nbnugMYQxbA5MxxRpOSzSs9z+/Y1skurocAHZAj5zJtATVPg
+	 EqreB2S5euSqK85oAgV8q8X19pzzoSN5JN9KBKsaNxdqF8mFEAhwQm4jQiJpBJMe95
+	 ADZPrWwMM2PyQ==
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c160420289bso216802766b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 17:10:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzyE37eWgRVtwlSFSXAWFWMTs0bLYveHSEB6mHDrQREOJMbKZ/gY1D8AzP0ojiRKE72dAwc/chSaxEzXh0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mD3+N+jXWlkxkEpL3K5MrsqJVofYjSMGUj3CzRiSi7CHKhZsYz
+	JRtSlyrTQSv4x401agK9isli9tHDQW12poRAPONXTCp2tHcr4r3b7SNh9fO/Pxj9ZHyOqMQG0Xs
+	Y7rtoWnaFoT1U8g0QZ+P+utusiEClL8M=
+X-Received: by 2002:a17:907:928b:b0:c16:12ff:dc93 with SMTP id
+ a640c23a62f3a-c25d5509d65mr490835466b.18.1788394241271; Wed, 02 Sep 2026
+ 17:10:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+References: <20260902232028.2767071-1-seanjc@google.com> <20260902232028.2767071-3-seanjc@google.com>
+ <CAO9r8zPEqnp6Hcs9M8dz_n1MwSvH4H+kfr7EJfrMMqLgQ7fM4w@mail.gmail.com> <api5AjDG2dByAnXi@google.com>
+In-Reply-To: <api5AjDG2dByAnXi@google.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Wed, 2 Sep 2026 17:10:28 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zMWdNLDot27LxM=j4ijXSYariMHtkFYwtd6eObp5LFa8g@mail.gmail.com>
+X-Gm-Features: AcwNN1VHRefv4Wo9edOaW6QwykwSjr0USw1UZG0JP6FPppQiuOQ6yXSUJvHDbhA
+Message-ID: <CAO9r8zMWdNLDot27LxM=j4ijXSYariMHtkFYwtd6eObp5LFa8g@mail.gmail.com>
+Subject: Re: [PATCH v2 2/5] KVM: nSVM: Ignore EFER.LMA if EFER.LME=0 when
+ preparing L2 state
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-
-
-On September 2, 2026 4:53:48 PM PDT, Dave Jiang <dave=2Ejiang@intel=2Ecom>=
- wrote:
->Add Richard as a reviewer for CXL subsystem=2E
+On Wed, Sep 2, 2026 at 5:02=E2=80=AFPM Sean Christopherson <seanjc@google.c=
+om> wrote:
 >
->Cc: Davidlohr Bueso <dave@stgolabs=2Enet>
->Cc: Jonathan Cameron <jic23@kernel=2Eorg>
->Cc: Alison Schofield <alison=2Eschofield@intel=2Ecom>
->Cc: Vishal Verma <vishal=2El=2Everma@intel=2Ecom>
->Cc: Richard Cheng <icheng@nvidia=2Ecom>
->Signed-off-by: Dave Jiang <dave=2Ejiang@intel=2Ecom>
-
-Acked-by: Jonathan Cameron <jonathan=2Ecameron@oss=2Equalcomm=2Ecom>
-
-
->---
-> MAINTAINERS | 1 +
-> 1 file changed, 1 insertion(+)
+> On Wed, Sep 02, 2026, Yosry Ahmed wrote:
+> > On Wed, Sep 2, 2026 at 4:20=E2=80=AFPM Sean Christopherson <seanjc@goog=
+le.com> wrote:
+> > >
+> > > Force EFER.LMA=3D0 if EFER.LME=3D0 when preparing L2 state for VMRUN,=
+ i.e.
+> > > mimic real hardware's behavior of ignoring EFER.LMA if EFER.LME=3D0. =
+ VMRUN
+> > > unfortunately allows the nonsensical combination, i.e. doesn't fail, =
+but
+> > > KVM itself has an invariant EFER.LMA can be set et if and only if EFE=
+R.LME
+> > > is set.   Breaking that invariant can lead to a variety of issue,
+> > > particularly in MMU code that keys off EFER.LMA when determining whet=
+her to
+> > > emulate/virtualization 4/5-level paging versus PAE paging.
+> > >
+> > > Cc: stable@vger.kernel.org
+> > > Cc: Yosry Ahmed <yosry@kernel.org>
+> > > Signed-off-by: Sean Christopherson <seanjc@google.com>
+> > > ---
+> > >  arch/x86/kvm/svm/nested.c | 4 ++++
+> > >  1 file changed, 4 insertions(+)
+> > >
+> > > diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+> > > index 49fb10ad1f9f..23d29597d6bf 100644
+> > > --- a/arch/x86/kvm/svm/nested.c
+> > > +++ b/arch/x86/kvm/svm/nested.c
+> > > @@ -789,6 +789,10 @@ static void nested_vmcb02_prepare_save(struct vc=
+pu_svm *svm)
+> > >
+> > >         kvm_set_rflags(vcpu, save->rflags | X86_EFLAGS_FIXED);
+> > >
+> > > +       /* SVM ignores EFER.LMA if EFER.LME=3D0 (instead of failing V=
+MRUN). */
+> > > +       if (!(svm->nested.save.efer & EFER_LME))
+> > > +               svm->nested.save.efer &=3D ~EFER_LMA;
+> >
+> > We sanitize control fields in __nested_copy_vmcb_control_to_cache().
+> > Should we similarly sanitize this in __nested_copy_vmcb_save_to_cache()=
+?
 >
->diff --git a/MAINTAINERS b/MAINTAINERS
->index 3a19da74d00c=2E=2E25d61ce9506a 100644
->--- a/MAINTAINERS
->+++ b/MAINTAINERS
->@@ -6567,6 +6567,7 @@ M:	Vishal Verma <vishal=2El=2Everma@intel=2Ecom>
-> M:	Dan Williams <djbw@kernel=2Eorg>
-> R:	Ira Weiny <iweiny@kernel=2Eorg>
-> R:	Li Ming <ming=2Eli@zohomail=2Ecom>
->+R:	Richard Cheng <icheng@nvidia=2Ecom>
-> L:	linux-cxl@vger=2Ekernel=2Eorg
-> S:	Maintained
-> F:	Documentation/driver-api/cxl
->
->base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> Ideally, yes?  In practice, it doesn't work because svm_set_nested_state(=
+) loads
+> state from "save", not from "save_cached".
+
+I was gonna say let's just pass save_cached to svm_copy_vmrun_state()
+instead of "save", but then I realized the SMM Code also uses it. We
+can make it work for both (macro time!), but maybe that's not worth
+doing. Sigh.
+
+> And even if we fixed that, it would
+> then allow userspace to pass in garbage (that is then ignored), i.e. woul=
+d undo
+> patch 1, and I don't want to do that.
+
+I don't think so, patch 1 specifically performs the check on "save".
