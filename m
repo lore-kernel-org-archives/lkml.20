@@ -1,282 +1,412 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010022.outbound.protection.outlook.com [52.101.69.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BDA4423A9B;
-	Thu,  3 Sep 2026 11:54:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60557485507
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:54:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788436476; cv=fail; b=D5azXxBcDb/nGyUW0GBNgEnIKxQIuThSxEoS9+RlMWDEsTc/EizDN2sOJxdP3GyMjUMhfYYl5n4G9KcJNJXeWcqLQ1PafSpY+8aG8dLEqjXubRaa+pxd2FUjIsHHPpyBcCdNROhSQCkTEe52KUWU/Iy4+wmxe0yGZUX3k6UNfhQ=
+	t=1788436483; cv=pass; b=qqjLPd6dqZtJ1qxAo5V/cwD52p/3Hsxvf/43ReLAjKXcvesOKYaN+WZz/WhA0D39EYaTjShSsGWWy8FrkNQDoC5qmC9SD+go8wpqINxGdxKMywK91VWjwvvsnGOh7N9CzOURg+4RWDMU0QRLY8uS7ZtufPInc/f3escPQ2ehI8E=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788436476; c=relaxed/simple;
-	bh=LZ/oOAfWv3qfH86D6A2Zfpwe3bYCZFflySBalfVkLjQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=KgqOpU3XMfQJy3NLSB1nGx4EVOHPaETaOBIpm5+FGp/XGIN8ygd0DzeYiiFoYmds3fpqt+rDQ7Kgp2Xsgf7utlf42VkprS5bZvmcdbWvAnM4x3n6rmb8lDW1zJKVm6ZZnUFp/Q8COKSTDHb8ZrQk9rivquqvrBk6xiz5DtDUcRA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech; spf=pass smtp.mailfrom=est.tech; dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b=AFMncd0e; arc=fail smtp.client-ip=52.101.69.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=est.tech
+	s=arc-20240116; t=1788436483; c=relaxed/simple;
+	bh=gHAbW6wIQAOgircilBDDKDXMDhXhvTa/oibSBhPS/GE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IsTg/dPqGTfkM8ZYOCfv9k+46APgILB6ImuAEaOE8gbYygX4zvQu9ImyYcKgKZntKDiJ649NHBLAe2VvS7L2WHy9LFPywWjY9SXqe0A+66KpVGLsVjL2wq/FIO2iz41q0oYKPtnU3n7DpjvgnEiuAEkYjG/mMgqT9UOG5eAyYO0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=C/UgoQp6; arc=pass smtp.client-ip=209.85.161.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b="AFMncd0e"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gQTMT98ezeW6e9f/Fhqzqo1P1LfLrAGBlJYausuOAnUnGn+sDi+H55bYPaXHDbiMGfEPDbZUXv2F2vji5/zYVPaOwh0Q31mst1MokkotixKsjxGFnyTvmbY9WzLkQlEdi5aftNdvDG3CAf31rNz8OX6dMbEVOOZwwPJTLwcacXUtDR1pSjKbCDXoEI2tRnvMupvpXbZxdx5yELHZlmECgCXxZpfE1HCI3/qAUJJgbTcVclb/2DyCDwA7POrPFcRTq7PjVNoSPeoh8Cgx40I2rgtkVjukoVi7dqKgN8cEVVejo3xcsHLKYxYlZz4WrHbmU97cNcJ/wJ4fphRfmQfD8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZyjesXBFKcAdNEIbrl1beOzdjn+ExurT2wd9/szd9PM=;
- b=e3Js2tneRp3HSOh+2yVItMXs48l059HEsZf/3bLGUjBM6xjazyGTLPWmxKdm95mv84vsxCUwW+md+pJac5HjQtZ+BWapsGbx4eIQWEC+WjJFkxjVn32cmKf9zKBhidj6KET/1lRY76eoQFVfGHwM2IQKfdR+y+l2GH3hyUuJe4iCByh786C7PCIivEH/IthnFnbYh6OoHuwr6HNGc4eMe3MOFPJj/ACaSg9r5bwEP7uRGWh6COuWTSXg4msxQTkUUNfYxcca3H56NT/GDQpUVQIpHkSJjcIKDDvg77n0LMM9Sg+67QL0AfTCIheJrLllkj088yqDfPGD2q9NY73ecQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=est.tech; dmarc=pass action=none header.from=est.tech;
- dkim=pass header.d=est.tech; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=est.tech; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZyjesXBFKcAdNEIbrl1beOzdjn+ExurT2wd9/szd9PM=;
- b=AFMncd0e07TyeP6kGjS60jC9audD/C82XmXfyW3Jtt7KTE/Pl5mbCEV3IlaRN86sendt27XDj8xrPmaeQ7QSogimCNaJuG2jw+zkQwx9dzwNUXdWlwwhtfnAkq5FOyWiU8Zbs2qW5ANJykyHiO3IOS/yszHW3S4JEjspcgjcv5RnhFqE2OsnYVbzVO/BYQhhTyf+hQ6YdRNvpVyh0b5YIQQfrtozxl1L90C9gPU9ro25HVcyrV1tfyc4IyX18NLMPqYK35uXAk5ZYyO4BgxsfwS8CqNcEn4uWftUfdFXQMouvrW7PX9vlMdtIsFZW/vBUnRcJm4R7HsPQo6ZSvkYOg==
-Received: from GV1P189MB1988.EURP189.PROD.OUTLOOK.COM (2603:10a6:150:63::5) by
- VI0P189MB2725.EURP189.PROD.OUTLOOK.COM (2603:10a6:800:236::22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.13; Thu, 3 Sep 2026 11:54:27 +0000
-Received: from GV1P189MB1988.EURP189.PROD.OUTLOOK.COM
- ([fe80::bfff:5391:8a49:21b7]) by GV1P189MB1988.EURP189.PROD.OUTLOOK.COM
- ([fe80::bfff:5391:8a49:21b7%6]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 11:54:26 +0000
-From: Tung Quang Nguyen <tung.quang.nguyen@est.tech>
-To: Ajith P V <ajithpv.linux@gmail.com>
-CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"tipc-discussion@lists.sourceforge.net"
-	<tipc-discussion@lists.sourceforge.net>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "jmaloy@redhat.com" <jmaloy@redhat.com>,
-	"davem@davemloft.net" <davem@davemloft.net>, "edumazet@google.com"
-	<edumazet@google.com>, "kuba@kernel.org" <kuba@kernel.org>,
-	"pabeni@redhat.com" <pabeni@redhat.com>, "horms@kernel.org"
-	<horms@kernel.org>
-Subject: RE: [PATCH net-next v4] tipc: replace deprecated strcpy with strscpy
- in tipc_bearer_get_name()
-Thread-Topic: [PATCH net-next v4] tipc: replace deprecated strcpy with strscpy
- in tipc_bearer_get_name()
-Thread-Index: AQHdOpxCFz9cdu5+c0CIi+PwW/t9iba8vdoQ
-Date: Thu, 3 Sep 2026 11:54:26 +0000
-Message-ID:
- <GV1P189MB1988D6E8CFCA2EA0A3BCB4EBC6B62@GV1P189MB1988.EURP189.PROD.OUTLOOK.COM>
-References: <20260902053043.1483895-1-ajithpv.linux@gmail.com>
-In-Reply-To: <20260902053043.1483895-1-ajithpv.linux@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=est.tech;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV1P189MB1988:EE_|VI0P189MB2725:EE_
-x-ms-office365-filtering-correlation-id: 96bbdd3a-36d5-40fb-557f-08df09b21ab3
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|38070700021|56012099006|10067099003|22082099003|18002099003|11063799006;
-x-microsoft-antispam-message-info:
- dS4c5faq+QhfnmoozU2YBvnvmzEcnbIHHGD4ab8Lu711Qw8rNza1M43rug0VMqdER4K9J8c1anko1kpJSktpGT09EVzuMq++UUNMd7kxD5HwVjO4hvKayoVX9mfJcbcAFbrv46tbvxiJkIVQnUUa70zVdlMEGhXu3xkyBR69j9ha+eshj/T5O/z1F9WubhEyhxy0SoQlNihag1kmmC5mpmMU+LfH3VWYm5sl9fINa4pETBw9Gf3Ab9TJ+EZ263+wvpq6KgOue6Y2xi5XJD4EvSaBWLC/Q+ljhlZkxZj5ykhBz044H9+n5cM7ErvOMnFAj1hZzoLqjh/6BRHwaR4iRxZuf2G9jzALXUahoTsgf3c7hz7FyqQ/iOpax2nlPp9OQYqo8lV2r10MFFcD+Ye00pAD+gOtxMky+JQKO9DCn81CR50DlT+TJPGcyDiJ4Vuu2IAljZpqIxI0H+sVpCyLMND9RZh6qQGo+L6akYX4AWmEnLpvjQIqtR8edCJUV29q4uLlHPJiYoo3V0los6NNwSWt3uFcoFIC1v6e8bItzX8f2US615YddddAzs3X39LUiNGPNBpKMv5o2XS4Omol1l7TcEcY+qIFelioYPP5OWEBmZInFxSIWfvwJl5sx7zYnDzESgK5M9Oh4V20nYeEXuXM0NrHgxcQ1/ltxjugQQU=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1P189MB1988.EURP189.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(38070700021)(56012099006)(10067099003)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?A6dZPOVNUYxGGEmx3xbzMO+vmOJzp2vslx9NyF5zq9LFD/SEvzFD67NV0wvV?=
- =?us-ascii?Q?SsoY5LZrUtDqdH+XM827SdlswhvnxTbBz0FgPSr+qwzTixCYFruuCUOWChS1?=
- =?us-ascii?Q?Md+9n8CeS0gMUH7x4N24QCsBgpxDsq+hqwPpE587ZAccBuUaBZ58LMCwHaX6?=
- =?us-ascii?Q?dnDGOMUYFSSLJ+Hiri2Ao49zeinOZaZsVn+0okHDYMevSdPcEFcJ0pyc6/jP?=
- =?us-ascii?Q?R2+nK7gvpZ+kvgLyxlsbkOrM6Sr6H+QUbhQI4D4VAoZfLc/rJX6lVuoXUtVt?=
- =?us-ascii?Q?DX1/OFquhvf3wHNnYVRM+4EUf81dILoF//V6+KWNe3pEGmxzdw+k7IUUk+8J?=
- =?us-ascii?Q?Av+/SkSGgn05SYy+1pR37H2gg2itK4jioS9eOP2KCHEsokYLhqgmPhiWozvH?=
- =?us-ascii?Q?mNlVysc1W0EsZ+C1/u5i2kPNiyAiJndbq/J6QG0wGKAaMTBD6GHYnxH5nZZI?=
- =?us-ascii?Q?UqEZStJsjJIot3dvKvNyUWY/npdhTphoVKrMNhPr1kiSoPYtoYB+BBg3aRQt?=
- =?us-ascii?Q?BzEBu2PUZsyZvwdYVRqfk2xROtR7/KDqJPoUADISYLW6T0w+ZowfMDy8Iizb?=
- =?us-ascii?Q?YSQTFN8lcfQDa/4E0YhDNo44BYEfy28ZcCtarokKiNvEOXg1OjmUsEVzlSDo?=
- =?us-ascii?Q?1qN2Nc2LF8ueNWjuJDeEz2C8M94EEk6HqfzIzb2E34kkQgokN8/X4tgesYmZ?=
- =?us-ascii?Q?2/jiLNiZR/AdT5sR1sbtutuXHs9HWEL4mZXT/HKj0pWRBVTwPz79XaZeOT6N?=
- =?us-ascii?Q?EW4fsoFiPVH50LTMfh4yM6jcnUMfK5a9+1KaCtXkLcLKvXBJzOHPAtwA4/l0?=
- =?us-ascii?Q?a5lCn6FvBr3Vso2Wjlyu3dLbmNLnAyjPaf/YXSNp83EOoo+B5G4UpIAIZE6k?=
- =?us-ascii?Q?jdNVoujTHOy0ueha5bVb1I3GdSfdteVZSNUhmcpb1zl3HcDr7faWmBG2VeBa?=
- =?us-ascii?Q?z/cz5KBesXySF2rGx1hepKpyNEWwMxQ3t4BWFrrDOJGJRLmQWp/aiPOwIHMI?=
- =?us-ascii?Q?Re4kB3DZ31zke9XoT4pUqoR1stbtBKjX6PDvEruDIte/ozvIucfDVTahV0QV?=
- =?us-ascii?Q?4Wm1YaUVEXmy3vewf2g6NraFQS4WZLVrQ/qctAR5clWwzKrHsAVU/fOx2Nd/?=
- =?us-ascii?Q?VtTAn0Ps/KUFw1BJN95E/Lm84SYojrrZPSTt7/qZY/LW7HgIyc+cmcijFMEQ?=
- =?us-ascii?Q?isE3/yaEhCSZkBFnB4HN8F6w1eVpOEpuauzCDgfoY9UIGKOcjUCwtaM+jXeU?=
- =?us-ascii?Q?YFahorPMggAo0xDDtDHKvMc3q4gwMXa7HtYfA2C+hEFZSlB0UG+oFGhVPwFl?=
- =?us-ascii?Q?VjhwZduz1SDeesvkzV8zRqu4nfaJoSO2bplHIGSCQG2YUgL6s373t8K7oUhd?=
- =?us-ascii?Q?0VrZyCDv+iK9FfiwIzoE4zymZXQKqTA8ZNLU6xBoRTnr2VZplIN5UAksKfYX?=
- =?us-ascii?Q?NxAOJ8ZxxILco5HaNPLhMw6fSs56EMIPuPom8g9mf3tVUA7fUdHh+0DK0rMS?=
- =?us-ascii?Q?mqaXNXAj1dGSRQfh3HlLo02foDBpIF44DLA2uCOwrwQcQHZp4NXHCPP/Q7kQ?=
- =?us-ascii?Q?PlDJPO2YvZESHbrFd+Ge+PANpppPnjVeUR5+Chyg9Pfqoqi7eBAglDnxCWbj?=
- =?us-ascii?Q?cDuwFKiqgpyyt9Wzf74S/TB3Il5lAC3Qjzjc5Sl/h4LsgpUstN+92PAJATOP?=
- =?us-ascii?Q?LzvTdidsXlosqLaTP/y7SiR7lMKQLKedQm5bQED+n/xsZXIVhMBx2Z7ZJmVz?=
- =?us-ascii?Q?m4wjzWjf0Q=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="C/UgoQp6"
+Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6b0496f4bbcso1424031eaf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 04:54:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788436477; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JwE0SAq3Bng84cp38T95O978TTAPjzjVqndtQ0goTeHQH7HGhw66CfPhBUAtp41ZGC
+         s03IsSVOX0efrE4ec5syiB6ggvgelDJzRXk8Iq+SOnSpV3KXxj0SoCUByXrpOaApJ13b
+         NjWLUt7MRni2LOrI0J1ihTlsqWFRf3tBq1IK3yU3Ws4Uh0rtGUVWUyDo71z7RLo+x1bo
+         +VxiWC+3e9jadXjkJ1fbAc7NYIO0QNkPDFQxVgOyc0t7ev7wyzyAcDl4e7D6/doYRWMR
+         tiDtObdpIhpXvBNs+UJumvcAbPskKHr5thjBjRv1XJnJpV/dvoQPCDJCtSJ269P6lph5
+         vzbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tG8aNzzaKVpd1oQICpnTjkqoBtjprmAy6CZLg1VWzM4=;
+        fh=j38RmixOp2LbUtIMaDoBstTBAQouUtKiTKaBl9eZILo=;
+        b=Ez4P5zkazs9pGTTIhG9DxS4QJSFYqyqHvATtEEJ+Z5tBL7LCl2hzo1hQb/PDqF66Dw
+         Lg2NUKIHPPAmobBqq3pcqXhvqO1JWqFQe+9PaPHC5jJeCIqXQ0WWARmRKSNzQd6+g64t
+         cNO0J5mBeMobCGBMO4Woz8LJMrlXprrRF87CE4yG1rUl2pLuSG7ku7ZLBGhaoZdI56DX
+         zx48hgZIF7boRGubBO88XLZ/EizRQi5qjreEn0Bf7fRwPhpYoy2szTuPWudYOanuvaRL
+         D4uE2bHgXo/0Fl853oAOMZbL2Qyb+iGs7ofqk+I6vO7T86tBD8LosU4P+GHlp7YtmLGF
+         E74w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1788436477; x=1789041277; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tG8aNzzaKVpd1oQICpnTjkqoBtjprmAy6CZLg1VWzM4=;
+        b=C/UgoQp6/0MKC+uiBhDIFo+95dcr5Pg5+iT3xMqqNmcSWztMd0XlI6783L4jwXaDS2
+         ny76T5oUAbt9g0uEnJgYWrH/UbB56aRnu90vObSnGB+B8J0nYGO6Pt2Sr32iTSigEBfZ
+         vQijFGCABHHq4bNpMM74p+X62rcOBuXNhpLvKhuxWDUSXdbjZtJ/pXw6nsSDnLh193yP
+         9YfI2lIXMVRw6o8k5WfA1k6GKI4wtQiBTRNLoAPIHJu1DK5EJn8spbsCd+goKu5hF47F
+         MaO2K1ZSfQ/aD0gBzdlOPo9JGloxv8xuitnAfrtbxnWrFtcMyvFpbSx+9KbyQ5fbzUwx
+         OI4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788436477; x=1789041277;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tG8aNzzaKVpd1oQICpnTjkqoBtjprmAy6CZLg1VWzM4=;
+        b=SX78WE6OVF+5JbMswR5YH5nCYNHiCWZIHlfb863zbqOAy048ZOc5wibeqY8a6FJhhw
+         xzjylVvk4DKsHZRrxOqTh0/rPGmEqPqLrLdjifc9PUEO67p8x13O6VxX+lL4LSJfZooE
+         y2eCP8khEuoz8kNPP7ucH0fRr+Bh0cwDdLgXyLupfgzQPiXcVGjTNU429rtC1X5oj3wv
+         IaYrA+NK7Nr0lzshc4Cn0XvGYz7/rsvcLm+5AY8EQ8+MEpPvzGQrMTmXNr0PZ5tSE+1B
+         P7wMiXEJSYAmbqrY89SAtW6UAobY5fUY/s1RNNgD6lcDXouAJj4YiDWroNM8XIUl3Y54
+         lo/g==
+X-Forwarded-Encrypted: i=1; AKwUvBzZp921HmNioY32hZ1IHrNCQK/wthmWkayZzpBtX3+/p2Zn+1eg/tw/hKXl+ekAOVAfP8IY1KeBlTpBkIw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mw0VsKaFSHazHuU6UCcsqYAmfH6lFTyAleyAUrmzms64iYEK59
+	cpepCgD8RFaUKFNaVIKqyJJ8S94zEXpgoDq2qMUiUnl/HOqRK4fFtqzVmu2UAMGybncm6oFYLdo
+	fjai6aRbLA8u5TdU6R7S6OvUwYkR4C6zxUNjO1xDoFg==
+X-Gm-Gg: AYBFou05dpGD6abH5lAFqvOEDpiSLD/sgeP7xvZTXDy7971lHgTBSdhcvz1NK9s4Kz6
+	j5GCftYOpUF3upHzRtpwExiMOcLUKxUfBTx7An5uDNlwyhfccMxcKCDkPm1cKV78PsY0Fyj/2QH
+	0FCChETpJKCMfaPxYFaQtccr8Dm41xbANUYoFmmprqe2H9DXnmaDOWkFG7wK3Tiw4YuTTzOFobI
+	GhOIW+Mtx2r8EHZnjiu0wk6LRrd/DPgfI81UmxUU+u3hFDq62ZBJ9rOKbfghjGVs0pZ+Kab7U4X
+	d+KHanZyeIZJa89pyTOKVJoNG6y54z4nO1K2XNOfTLBZyK4uyGjJvNpChsDrn/xrh5mZJZYTIcW
+	CLqzDsFmez4BX9bwqahhYgvQGa2ZXTOFDb4bOBurz5eTQiLxmye/mUjPcvreVig==
+X-Received: by 2002:a05:6820:298f:b0:6b0:ab1f:ec11 with SMTP id
+ 006d021491bc7-6b47eac1288mr8752261eaf.29.1788436477103; Thu, 03 Sep 2026
+ 04:54:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: est.tech
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV1P189MB1988.EURP189.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 96bbdd3a-36d5-40fb-557f-08df09b21ab3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Sep 2026 11:54:26.6353
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: d2585e63-66b9-44b6-a76e-4f4b217d97fd
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bci8dbiiuAEqa7MhenGE9C7W74EsxjSMrC/BM/XUYWZXkHs5FTjl+r/fU0t4jxP/w+6KELB9EPMmnHpxBSs3t1CXOnQs9aexda6HiJ/xHNw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0P189MB2725
+References: <20260805-media-starvis2-v1-0-91e8e4eae44f@raspberrypi.com>
+ <20260805-media-starvis2-v1-4-91e8e4eae44f@raspberrypi.com> <178840935437.11722.581815298725172345@freya>
+In-Reply-To: <178840935437.11722.581815298725172345@freya>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Thu, 3 Sep 2026 12:54:19 +0100
+X-Gm-Features: AcwNN1VdrRkuRy_rjt36H8K_XmrlY74SkAhK6SYkA9sk5Fx4sd6TrQFPclt--MY
+Message-ID: <CAPY8ntBpR6vjP4Yd8ErVMuLjLshWb+rpfV=dzRNkhLN=K59rnw@mail.gmail.com>
+Subject: Re: [PATCH RFC 4/4] media: i2c: imx678: Add imx675 support to the driver
+To: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
->Subject: [PATCH net-next v4] tipc: replace deprecated strcpy with strscpy =
-in
->tipc_bearer_get_name()
->
->The `strcpy()` function is deprecated and moving towards code-tree
->elimination. Replacing it with `strscpy()` fixes potential buffer overflow=
- vectors
->by ensuring safe NULL-termination based on the destination buffer size lim=
-it
->[1][2].
->
->To make the interface safer and more robust for future callers, refactor
->`tipc_bearer_get_name()` to accept a destination buffer length parameter.
->Replace `strcpy()` with `strscpy()` and pass through any potential `-E2BIG=
-`
->truncation error code up to the caller. Update the existing caller in
->`net/tipc/monitor.c` to pass its array size.
->
->Link: https://www.kernel.org/doc/html/latest/process/deprecated.html#strcp=
-y
->[1]
->Link: https://github.com/KSPP/linux/issues/88 [2]
->
->Signed-off-by: Ajith P V <ajithpv.linux@gmail.com>
->---
->v4:
->  - Avoid hard-coding TIPC_MAX_BEARER_NAME in the function body.
->  - Pass size_t len from the caller down to strscpy().
->  - Forward strscpy()'s -E2BIG error up through the existing int return ty=
-pe.
->  - Updated function documentation comment block.
->v3:
->  - Fix patch title as suggested by Tung Quang Nguyen.
->  - No code changes from v2.
->v2:
->  - Target net-next tree instead of standard net tree as requested by Tung
->Quang Nguyen.
->  - No code changes from v1.
->
-> net/tipc/bearer.c  | 8 ++++++--
-> net/tipc/bearer.h  | 2 +-
-> net/tipc/monitor.c | 2 +-
-> 3 files changed, 8 insertions(+), 4 deletions(-)
->
->diff --git a/net/tipc/bearer.c b/net/tipc/bearer.c index
->05dcd2f9e887..abd90e6bde09 100644
->--- a/net/tipc/bearer.c
->+++ b/net/tipc/bearer.c
->@@ -195,12 +195,14 @@ struct tipc_bearer *tipc_bearer_find(struct net *net=
-,
->const char *name)
-> /*     tipc_bearer_get_name - get the bearer name from its id.
->  *     @net: network namespace
->  *     @name: a pointer to the buffer where the name will be stored.
->+ *     @len: size of the destination buffer
->  *     @bearer_id: the id to get the name from.
->  */
->-int tipc_bearer_get_name(struct net *net, char *name, u32 bearer_id)
->+int tipc_bearer_get_name(struct net *net, char *name, size_t len, u32
->+bearer_id)
-> {
-> 	struct tipc_net *tn =3D tipc_net(net);
-> 	struct tipc_bearer *b;
->+	int ret;
->
-> 	if (bearer_id >=3D MAX_BEARERS)
-> 		return -EINVAL;
->@@ -209,7 +211,9 @@ int tipc_bearer_get_name(struct net *net, char *name,
->u32 bearer_id)
-> 	if (!b)
-> 		return -EINVAL;
->
->-	strcpy(name, b->name);
->+	ret =3D strscpy(name, b->name, len);
->+	if (ret < 0)
->+		return ret; /* Returns -E2BIG if destination buffer is too small
->*/
-Line length exceeds 80 columns as reported at:
-https://netdev-ctrl.bots.linux.dev/logview.html?f=3D/logs/build/1155826/147=
-83036/checkpatch/stdout
+Hi Jai
 
-Also, the changes can be made simpler as follows (I help you fix all warnin=
-gs):
+On Thu, 3 Sept 2026 at 05:22, Jai Luthra <jai.luthra@ideasonboard.com> wrot=
+e:
+>
+> Hi Dave,
+>
+> Quoting Dave Stevenson (2026-08-05 21:39:19)
+> > The IMX675 is a 5MPix Starvis2 sensor that follows the same
+> > programming pattern as IMX678 and IMX662, so add it into the
+> > driver.
+> >
+> > FIXME: Validate common_regs against Sony documentation.
+> >
+> > Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> > ---
+> >  drivers/media/i2c/imx678.c | 222 +++++++++++++++++++++++++++++++++++++=
+++++++++
+> >  1 file changed, 222 insertions(+)
+> >
+> > diff --git a/drivers/media/i2c/imx678.c b/drivers/media/i2c/imx678.c
+> > index 9083f2744510..4b82823c260e 100644
+> > --- a/drivers/media/i2c/imx678.c
+> > +++ b/drivers/media/i2c/imx678.c
+> > @@ -714,6 +714,205 @@ const struct imx678_variant imx662_variant_def =
+=3D {
+> >         .hmax_min =3D imx662_min_hmax_4lane,
+> >  };
+> >
+> > +static const struct cci_reg_sequence imx675_common_regs[] =3D {
+> > +       { CCI_REG8(0x301B), 0x00 },
+>
+> nit: Maybe run a quick grep to turn the hex values to lower case like res=
+t
+>      of the driver?
 
----
- net/tipc/bearer.c  | 6 ++++--
- net/tipc/bearer.h  | 3 ++-
- net/tipc/monitor.c | 3 ++-
- 3 files changed, 8 insertions(+), 4 deletions(-)
+Already done for the next version
 
-diff --git a/net/tipc/bearer.c b/net/tipc/bearer.c
-index 05dcd2f9e887..65fa18928fe3 100644
---- a/net/tipc/bearer.c
-+++ b/net/tipc/bearer.c
-@@ -195,9 +195,10 @@ struct tipc_bearer *tipc_bearer_find(struct net *net, =
-const char *name)
- /*     tipc_bearer_get_name - get the bearer name from its id.
-  *     @net: network namespace
-  *     @name: a pointer to the buffer where the name will be stored.
-+ *     @len: size of the destination buffer
-  *     @bearer_id: the id to get the name from.
-  */
--int tipc_bearer_get_name(struct net *net, char *name, u32 bearer_id)
-+int tipc_bearer_get_name(struct net *net, char *name, size_t len, u32 bear=
-er_id)
- {
-        struct tipc_net *tn =3D tipc_net(net);
-        struct tipc_bearer *b;
-@@ -209,7 +210,8 @@ int tipc_bearer_get_name(struct net *net, char *name, u=
-32 bearer_id)
-        if (!b)
-                return -EINVAL;
+> > +       { CCI_REG8(0x301C), 0x00 },
+> > +       { CCI_REG8(0x301E), 0x01 },
+> > +
+> > +       { CCI_REG8(0x3060), 0x95 },
+> > +       { CCI_REG8(0x3061), 0x00 },
+> > +       { CCI_REG8(0x3062), 0x00 },
+> > +       { CCI_REG8(0x3064), 0x56 },
+> > +       { CCI_REG8(0x3065), 0x00 },
+> > +       { CCI_REG8(0x3066), 0x00 },
+> > +
+> > +       { CCI_REG8(0x3072), 0x00 },
+> > +       { CCI_REG8(0x3073), 0x00 },
+> > +       { CCI_REG8(0x3074), 0x00 },
+> > +       { CCI_REG8(0x3075), 0x00 },
+> > +       { CCI_REG8(0x3081), 0x00 },
+> > +       { CCI_REG8(0x30A4), 0xAA },
+> > +       { CCI_REG8(0x30A6), 0x0F },
+> > +       { CCI_REG8(0x30CC), 0x00 },
+> > +       { CCI_REG8(0x30CD), 0x00 },
+> > +       { CCI_REG8(0x30CE), 0x02 },
+> > +       { CCI_REG8(0x3400), 0x01 },
+> > +
+> > +       { CCI_REG8(0x3400), 0x01 },
+> > +       { CCI_REG8(0x3460), 0x22 },
+> > +       { CCI_REG8(0x3492), 0x08 },
+> > +       { CCI_REG8(0x3B1D), 0x17 },
+> > +       { CCI_REG8(0x3B44), 0x3F },
+> > +       { CCI_REG8(0x3B60), 0x03 },
+> > +       { CCI_REG8(0x3C03), 0x04 },
+> > +       { CCI_REG8(0x3C04), 0x04 },
+> > +       { CCI_REG8(0x3C0A), 0x00 },
+> > +       { CCI_REG8(0x3C0B), 0x00 },
+> > +       { CCI_REG8(0x3C0C), 0x00 },
+> > +       { CCI_REG8(0x3C0D), 0x00 },
+> > +       { CCI_REG8(0x3C0E), 0x00 },
+> > +       { CCI_REG8(0x3C0F), 0x00 },
+> > +       { CCI_REG8(0x3C30), 0x73 },
+> > +       { CCI_REG8(0x3C3C), 0x20 },
+> > +       { CCI_REG8(0x3C7C), 0xB9 },
+> > +       { CCI_REG8(0x3C7D), 0x01 },
+> > +       { CCI_REG8(0x3C7E), 0xB7 },
+> > +       { CCI_REG8(0x3C7F), 0x01 },
+> > +       { CCI_REG8(0x3CB0), 0x00 },
+> > +       { CCI_REG8(0x3CB2), 0xFF },
+> > +       { CCI_REG8(0x3CB3), 0x03 },
+> > +       { CCI_REG8(0x3CB4), 0xFF },
+> > +       { CCI_REG8(0x3CB5), 0x03 },
+> > +       { CCI_REG8(0x3CBA), 0xFF },
+> > +       { CCI_REG8(0x3CBB), 0x03 },
+> > +       { CCI_REG8(0x3CC0), 0xFF },
+> > +       { CCI_REG8(0x3CC1), 0x03 },
+> > +       { CCI_REG8(0x3CC2), 0x00 },
+> > +       { CCI_REG8(0x3CC6), 0xFF },
+> > +       { CCI_REG8(0x3CC7), 0x03 },
+> > +       { CCI_REG8(0x3CC8), 0xFF },
+> > +       { CCI_REG8(0x3CC9), 0x03 },
+> > +       { CCI_REG8(0x3E00), 0x1E },
+> > +       { CCI_REG8(0x3E02), 0x04 },
+> > +       { CCI_REG8(0x3E03), 0x00 },
+> > +       { CCI_REG8(0x3E20), 0x04 },
+> > +       { CCI_REG8(0x3E21), 0x00 },
+> > +       { CCI_REG8(0x3E22), 0x1E },
+> > +       { CCI_REG8(0x3E24), 0xBA },
+> > +       { CCI_REG8(0x3E72), 0x85 },
+> > +       { CCI_REG8(0x3E76), 0x0C },
+> > +
+> > +       { CCI_REG8(0x3E77), 0x01 },
+> > +       { CCI_REG8(0x3E7A), 0x85 },
+> > +       { CCI_REG8(0x3E7E), 0x1F },
+> > +       { CCI_REG8(0x3E82), 0xA6 },
+> > +       { CCI_REG8(0x3E86), 0x2D },
+> > +       { CCI_REG8(0x3EE2), 0x33 },
+> > +       { CCI_REG8(0x3EE3), 0x03 },
+> > +       { CCI_REG8(0x4490), 0x07 },
+> > +       { CCI_REG8(0x4494), 0x19 },
+> > +       { CCI_REG8(0x4495), 0x00 },
+> > +       { CCI_REG8(0x4496), 0xBB },
+> > +       { CCI_REG8(0x4497), 0x00 },
+> > +       { CCI_REG8(0x4498), 0x55 },
+> > +       { CCI_REG8(0x449A), 0x50 },
+> > +       { CCI_REG8(0x449C), 0x50 },
+> > +       { CCI_REG8(0x449E), 0x50 },
+> > +       { CCI_REG8(0x44A0), 0x3C },
+> > +       { CCI_REG8(0x44A2), 0x19 },
+> > +       { CCI_REG8(0x44A4), 0x19 },
+> > +       { CCI_REG8(0x44A6), 0x19 },
+> > +       { CCI_REG8(0x44A8), 0x4B },
+> > +       { CCI_REG8(0x44AA), 0x4B },
+> > +       { CCI_REG8(0x44AC), 0x4B },
+> > +       { CCI_REG8(0x44AE), 0x4B },
+> > +       { CCI_REG8(0x44B0), 0x3C },
+> > +       { CCI_REG8(0x44B2), 0x19 },
+> > +       { CCI_REG8(0x44B4), 0x19 },
+> > +       { CCI_REG8(0x44B6), 0x19 },
+> > +       { CCI_REG8(0x44B8), 0x4B },
+> > +       { CCI_REG8(0x44BA), 0x4B },
+> > +       { CCI_REG8(0x44BC), 0x4B },
+> > +       { CCI_REG8(0x44BE), 0x4B },
+> > +       { CCI_REG8(0x44C0), 0x3C },
+> > +       { CCI_REG8(0x44C2), 0x19 },
+> > +       { CCI_REG8(0x44C4), 0x19 },
+> > +       { CCI_REG8(0x44C6), 0x19 },
+> > +       { CCI_REG8(0x44C8), 0xF0 },
+> > +       { CCI_REG8(0x44CA), 0xEB },
+> > +       { CCI_REG8(0x44CC), 0xEB },
+> > +       { CCI_REG8(0x44CE), 0xE6 },
+> > +       { CCI_REG8(0x44D0), 0xE6 },
+> > +       { CCI_REG8(0x44D2), 0xBB },
+> > +
+> > +       { CCI_REG8(0x44D4), 0xBB },
+> > +       { CCI_REG8(0x44D6), 0xBB },
+> > +       { CCI_REG8(0x44D8), 0xE6 },
+> > +       { CCI_REG8(0x44DA), 0xE6 },
+> > +       { CCI_REG8(0x44DC), 0xE6 },
+> > +       { CCI_REG8(0x44DE), 0xE6 },
+> > +       { CCI_REG8(0x44E0), 0xE6 },
+> > +       { CCI_REG8(0x44E2), 0xBB },
+> > +       { CCI_REG8(0x44E4), 0xBB },
+> > +       { CCI_REG8(0x44E6), 0xBB },
+> > +       { CCI_REG8(0x44E8), 0xE6 },
+> > +       { CCI_REG8(0x44EA), 0xE6 },
+> > +       { CCI_REG8(0x44EC), 0xE6 },
+> > +       { CCI_REG8(0x44EE), 0xE6 },
+> > +       { CCI_REG8(0x44F0), 0xE6 },
+> > +       { CCI_REG8(0x44F2), 0xBB },
+> > +       { CCI_REG8(0x44F4), 0xBB },
+> > +       { CCI_REG8(0x44F6), 0xBB },
+> > +       { CCI_REG8(0x4538), 0x15 },
+> > +       { CCI_REG8(0x4539), 0x15 },
+> > +       { CCI_REG8(0x453A), 0x15 },
+> > +       { CCI_REG8(0x4544), 0x15 },
+> > +       { CCI_REG8(0x4545), 0x15 },
+> > +       { CCI_REG8(0x4546), 0x15 },
+> > +       { CCI_REG8(0x4550), 0x11 },
+> > +       { CCI_REG8(0x4551), 0x11 },
+> > +       { CCI_REG8(0x4552), 0x11 },
+> > +       { CCI_REG8(0x4553), 0x11 },
+> > +       { CCI_REG8(0x4554), 0x11 },
+> > +       { CCI_REG8(0x4555), 0x11 },
+> > +       { CCI_REG8(0x4556), 0x11 },
+> > +       { CCI_REG8(0x4557), 0x11 },
+> > +       { CCI_REG8(0x4558), 0x11 },
+> > +       { CCI_REG8(0x455C), 0x11 },
+> > +       { CCI_REG8(0x455D), 0x11 },
+> > +       { CCI_REG8(0x455E), 0x11 },
+> > +       { CCI_REG8(0x455F), 0x11 },
+> > +       { CCI_REG8(0x4560), 0x11 },
+> > +       { CCI_REG8(0x4561), 0x11 },
+> > +       { CCI_REG8(0x4562), 0x11 },
+> > +       { CCI_REG8(0x4563), 0x11 },
+> > +       { CCI_REG8(0x4564), 0x11 },
+> > +
+> > +       { CCI_REG8(0x4569), 0x01 },
+> > +       { CCI_REG8(0x456A), 0x01 },
+> > +       { CCI_REG8(0x456B), 0x06 },
+> > +       { CCI_REG8(0x456C), 0x06 },
+> > +       { CCI_REG8(0x456D), 0x06 },
+> > +       { CCI_REG8(0x456E), 0x06 },
+> > +       { CCI_REG8(0x456F), 0x06 },
+> > +       { CCI_REG8(0x4570), 0x06 },
+> > +};
+> > +
+> > +static const u16 imx675_min_hmax_4lane[] =3D {
+> > +       [IMX678_LINK_FREQ_297MHZ] =3D 1125,
+> > +       [IMX678_LINK_FREQ_360MHZ] =3D 1125,
+> > +       [IMX678_LINK_FREQ_445MHZ] =3D 1125,
+> > +       [IMX678_LINK_FREQ_594MHZ] =3D 1125 / 2,
+> > +       [IMX678_LINK_FREQ_720MHZ] =3D 1125 / 2,
+> > +       [IMX678_LINK_FREQ_891MHZ] =3D 1125 / 2,
+> > +       [IMX678_LINK_FREQ_1039MHZ] =3D 1125 / 2,
+> > +       [IMX678_LINK_FREQ_1188MHZ] =3D 1125 / 2,
+> > +};
+> > +
+> > +const struct imx678_variant imx675_variant_def =3D {
+> > +       .name =3D "imx675",
+> > +       .id_reg =3D IMX678_REG_MODULE_ID,
+> > +       .id_value =3D 0x296,
+> > +       .native_area =3D {
+> > +               .top =3D 0,
+> > +               .left =3D 0,
+> > +               .width =3D 2609,
+> > +               .height =3D 1984,
+> > +       },
+> > +       .active_area =3D {
+> > +               .top =3D 0,
+> > +               .left =3D 0,
+> > +               .width =3D 2608,
+> > +               .height =3D 1984,
+> > +       },
+> > +       .pixel_rate =3D 594000000,
+> > +       .pix_per_clk =3D 8,
+> > +       .common_regs =3D imx675_common_regs,
+> > +       .num_common_regs =3D ARRAY_SIZE(imx675_common_regs),
+> > +       .vmax_default =3D 1984 + 40,
+>
+> Same doubt for the VBLANK =3D 40 here as IMX662, although I don't have a
+> datasheet for IMX675.
 
--       strcpy(name, b->name);
-+       if (strscpy(name, b->name, len) < 0)
-+               return -E2BIG;
-        return 0;
- }
+Datasheet lists
 
-diff --git a/net/tipc/bearer.h b/net/tipc/bearer.h
-index 41eac1ee0c09..9ccc9ffa925a 100644
---- a/net/tipc/bearer.h
-+++ b/net/tipc/bearer.h
-@@ -226,7 +226,8 @@ int tipc_l2_send_msg(struct net *net, struct sk_buff *b=
-uf,
- void tipc_bearer_add_dest(struct net *net, u32 bearer_id, u32 dest);
- void tipc_bearer_remove_dest(struct net *net, u32 bearer_id, u32 dest);
- struct tipc_bearer *tipc_bearer_find(struct net *net, const char *name);
--int tipc_bearer_get_name(struct net *net, char *name, u32 bearer_id);
-+int tipc_bearer_get_name(struct net *net, char *name,
-+                        size_t len, u32 bearer_id);
- struct tipc_media *tipc_media_find(const char *name);
- int tipc_bearer_setup(void);
- void tipc_bearer_cleanup(void);
-diff --git a/net/tipc/monitor.c b/net/tipc/monitor.c
-index a94b9b36a700..a8a088fc2a2c 100644
---- a/net/tipc/monitor.c
-+++ b/net/tipc/monitor.c
-@@ -829,11 +829,12 @@ int __tipc_nl_add_monitor(struct net *net, struct tip=
-c_nl_msg *msg,
- {
-        struct tipc_monitor *mon =3D tipc_monitor(net, bearer_id);
-        char bearer_name[TIPC_MAX_BEARER_NAME];
-+       size_t name_len =3D sizeof(bearer_name);
-        struct nlattr *attrs;
-        void *hdr;
-        int ret;
+VTTL (1farame line length or VMAX) =E2=89=A5 PIX_VWIDTH + 70
+Set VTTL to 940 or more.
+VTTL =E2=89=A5 940
 
--       ret =3D tipc_bearer_get_name(net, bearer_name, bearer_id);
-+       ret =3D tipc_bearer_get_name(net, bearer_name, name_len, bearer_id)=
-;
-        if (ret || !mon)
-                return 0;
+But verified as working at +40. (I have a module from Soho Enterprises).
+We can go for the more conservative values if preferred. From memory,
+on IMX662 it'll lose about 10% (66fps at 40, ~60fps at 70).
+
+  Dave
+
+> Thanks,
+>     Jai
+>
+> > +       .hmax_min =3D imx675_min_hmax_4lane,
+> > +};
+> > +
+> >  struct imx678_model_info {
+> >         enum imx678_type type;
+> >         const u32 *codes;
+> > @@ -764,6 +963,26 @@ static const struct imx678_model_info imx662_autod=
+etect_info =3D {
+> >         .auto_detect_mono =3D &imx662_aamr_info,
+> >  };
+> >
+> > +static const struct imx678_model_info imx675_aaqr_info =3D {
+> > +       .type =3D IMX678_COLOR,
+> > +       .codes =3D codes_bayer,
+> > +       .num_codes =3D ARRAY_SIZE(codes_bayer),
+> > +       .variant =3D &imx675_variant_def,
+> > +};
+> > +
+> > +static const struct imx678_model_info imx675_aamr_info =3D {
+> > +       .type =3D IMX678_MONOCHROME,
+> > +       .codes =3D codes_monochrome,
+> > +       .num_codes =3D ARRAY_SIZE(codes_monochrome),
+> > +       .variant =3D &imx675_variant_def,
+> > +};
+> > +
+> > +static const struct imx678_model_info imx675_autodetect_info =3D {
+> > +       .variant =3D &imx675_variant_def,
+> > +       .auto_detect_colour =3D &imx675_aaqr_info,
+> > +       .auto_detect_mono =3D &imx675_aamr_info,
+> > +};
+> > +
+> >  static const char * const imx678_supply_name[] =3D {
+> >         "avdd",  /* Analog (3.3V) supply */
+> >         "dvdd",  /* Digital Core (1.1V) supply */
+> > @@ -1533,9 +1752,12 @@ static const struct of_device_id imx678_of_match=
+[] =3D {
+> >         { .compatible =3D "sony,imx678-aaqr", .data =3D &imx678_aaqr_in=
+fo },
+> >         { .compatible =3D "sony,imx662-aamr", .data =3D &imx662_aamr_in=
+fo },
+> >         { .compatible =3D "sony,imx662-aaqr", .data =3D &imx662_aaqr_in=
+fo },
+> > +       { .compatible =3D "sony,imx675-aamr", .data =3D &imx675_aamr_in=
+fo },
+> > +       { .compatible =3D "sony,imx675-aaqr", .data =3D &imx675_aaqr_in=
+fo },
+> >         /* for non-conforming DTs that rely on runtime check */
+> >         { .compatible =3D "sony,imx678", .data =3D &imx678_autodetect_i=
+nfo },
+> >         { .compatible =3D "sony,imx662", .data =3D &imx662_autodetect_i=
+nfo },
+> > +       { .compatible =3D "sony,imx675", .data =3D &imx675_autodetect_i=
+nfo },
+> >         { /* sentinel */ }
+> >  };
+> >
+> >
+> > --
+> > 2.34.1
+> >
