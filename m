@@ -1,188 +1,82 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C2524248A1
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:23:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A59A36606E;
+	Thu,  3 Sep 2026 08:23:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788423788; cv=none; b=TGPWGRx5eEqMvxb53eT3BF4xigdcKrI6pHxyB6kvj6qQR4MS4GEAAT3yPETtSXHcFpeL2scA92eSFfcQz76F4lSRV41HTK7n46avGDkNivnpqY+q+MGiR81/7fxnsuWoQlPeCHD2l0/WbZ86C9cpu53XvxYoJuev2VmQpS9BNAI=
+	t=1788423791; cv=none; b=X7EFBdu/c5D5Ls39f2KByHdU1pPrI0bog1PUXfmYcjD0+AgqjdmREjvx+1JTDlUajo+fUsqnrkVoPtDnFFw8jOLupcnrPGXdrX6tW0VNXcX6w9kteNdelvjtw/+5xkQkoaY42eOWFtq11i73SAaHycmc4zX+mbYsUogawntPfWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788423788; c=relaxed/simple;
-	bh=CoPjRai4bpFjpoO1hLKHz2e2vlHftvEQRd7hfXf92Ag=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=pcCfuRuA350lvXisglh+YyL/z80CDy7M018kUmVi1zRr0F7po7QR8GbqP7S2aF8g4d6Wv6CsDeklRJDKwfx2NfcMkew8xeCBmDafh42r+MAVlv2EGeENvGdKZhtLouoVjlil+x6lTkwB7lOk1FTdcXyL2OxyeAtV01KqbyLo9KQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S3ZocCh5; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S3ZocCh5"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-39647184c73so711982a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 01:23:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788423787; x=1789028587; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=xhPbHg14H3tGTjrunsG8Oim1GGIOwgeAe8+HMzV8sU8=;
-        b=S3ZocCh5rBnlA4UjvTcXJd4h2VyexIKbjqBTMJ7xem2CX94uA4E8LwVAbNDu8kpAhE
-         /HXBZx08LN/Dj9aKXqhasYvan3xZZuvdFfFs3hH3qVBzRJ3Tj/mj1V29JHGU8AzjfHx5
-         3v4AsGH5f89EKtmZnzbwMfXtytMpIJCSrvf0JMU+cCz4EIOvTQUMgfg6thwPlkrFPSfi
-         KYL9X/ScPc3IzUwbFeaFNCU3Pbc7GZCsvfAHirIGNoMBnFRmbvGK/8jXuUkOPdquG/tw
-         VA0L0oG4rfujJuILFjyuSCxKFrgD58rfUa+ZHk+rU9/qgMEstGmagyJVJzqgjdXfDqaH
-         limA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788423787; x=1789028587;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=xhPbHg14H3tGTjrunsG8Oim1GGIOwgeAe8+HMzV8sU8=;
-        b=C+T0Ej77sL7PqDxRSc4zUQf+dJtFbTJcpXosIMMeQquuUqmjPB1BzpVHT5lrgJRUbW
-         4jbdUElNU1lfTaDR5fMX9AQZ/uZ7sErNe2iH2Lpku9xQ88qTVjJS2pqAORbRLs9zqlUV
-         ZlJoGeYIm59gMmgidddePTSWrZH5fErc5uk+0rvzzz73NZS9JcmGB0mHjRA4y9DnSF8U
-         9cDjzfDMPauLiEkQl0wF2kKu8aMamr0kUyaeW27fZEAdDMWo8S6j3le+Z9SgqsI+0GjC
-         sCF9TvgZvpwR5WWrgh49tIfS0PYrjaHF3/oo9pSFb8Q+fkZLOl49vJIykgDR27FGWiKx
-         28XA==
-X-Forwarded-Encrypted: i=1; AKwUvBwcZJ0S2E9nvlqyG+BM4TXzHv7pHg31YJbuGoVEM8JMGdFDzFox8Rx0lmEZ9OBUKML5NZkCqPyZoK+b5eg=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0tRJaI39BJNmahm8+v7ge+u3/CwEHPaR3lRAMoIyLVkn3Go63
-	rPk7Pq5LaRaZyWDkQGRJJRtRHeBGyM4OASthROKLPhkpBnhDD55vvbb3
-X-Gm-Gg: AYBFou3GYGl/Sv//SVFOCCyGoragEaExkwmKOtoh0qjFdLRBQ224KpoYMP+sqUawa0M
-	Lf9qVdPEDD9BEnyM7JcjtZw7BpICdHRpJjbgvkSq7aCuQeHKLD/0tM7j7/u/bfPetgMMBz3HAWO
-	Xeev6ICWcOz0h/3dHulAMlZsUTMG8rS5fvm8klonuyrPVVveAzkUhUX7bdnGcgRQJkfGS1Bf4af
-	eboLVUasArHH+X9Sk5LZrAhavEsOPdfDzRQ0EVFXpTXHWA6eVgIFIP0tzsQmpTpSBPZ2/n3XX5y
-	WwlbLnjfeDN8wCdTKkkUdXa0ldTRdjBtWaYLRkeRUSpsI9hM1+Ykg1qYNTr/9Q9ehk0p8gfnOUM
-	cjK8xE3XgNB9/fV+KJ0EGsNoIC5Ir++zWE5HzRRVJwqrI5qYdEhe9DOPk8RphhgJm/YVejt54gE
-	pFNVhT4BimWTmw/WjZWau6B2gaTSV5VWkapc0/sVU4vCCED8GR36rWeCJafyNG+aDIjOPhZmXFE
-	68TqcC9JW1ACxFqJaB5BuU=
-X-Received: by 2002:a17:90b:3a43:b0:398:9bd3:d6d2 with SMTP id 98e67ed59e1d1-39b132c749amr1858214a91.12.1788423786715;
-        Thu, 03 Sep 2026 01:23:06 -0700 (PDT)
-Received: from [163.43.103.131] ([163.43.103.131])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b083e7167sm3935106a91.5.2026.09.03.01.23.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 01:23:05 -0700 (PDT)
-From: Yuya Kusakabe <yuya.kusakabe@gmail.com>
-Date: Thu, 03 Sep 2026 17:23:03 +0900
-Subject: [PATCH net-next v2] seg6: reallocate the skb head on L2
- encapsulation only when needed
+	s=arc-20240116; t=1788423791; c=relaxed/simple;
+	bh=DTZf/qr5XqlPzT0pBotUmpGqe24WWGYMYkUMVZbrME8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BYkAh5DRIGVpaAHCn7f5rpijDryhl6w27d0M9cp/pLBNyu5kV70RWiJieuszhRnBn/U04T/lEA7PqaPOkMMDgFuq2P3CtiGd2PzdK/FXtuHhu1HCT/i5W92pwShT8U6M/CbxqqEOj56QfDu7zrLp2TST3svbL6efHwH7+Ha2xkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: add38782a77011f19a56ed5b684f684d-20260903
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:574c5547-360e-4ef3-85c2-2f763e115f0b,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:93548bb909c7ef7119ba57ae45b6915b,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50,EDM:-3|
+	-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
+	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: add38782a77011f19a56ed5b684f684d-20260903
+X-User: gonglinkai@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <gonglinkai@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 457689175; Thu, 03 Sep 2026 16:23:01 +0800
+From: Linkai Gong <gonglinkai@kylinos.cn>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Xin Ji <xji@analogixsemi.com>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	gonglinkai@kylinos.cn
+Subject: [PATCH] usb: typec: anx7411 - stop the IRQ before destroying the workqueue
+Date: Thu,  3 Sep 2026 16:22:54 +0800
+Message-Id: <20260903082254.1540271-1-gonglinkai@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-seg6-l2cow-v2-1-f37b3b35416f@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAGYumWoC/22NwQ6CMBBEf4Xs2TV0QVBO/ofhAGWFNdCatiKG8
- O8CXj2+zMybGTw7YQ9FNIPjUbxYswIdItBdZVpGaVYGiimLLzGh5zbDnrR9Y543OqmrVFFCsA6
- eju8y7bIbGA5oeApQ/hL/qh+sw+baup34YN1n/x3Vvvh3MSpUyGdKNJPK0lN6bYdK+qO2A5TLs
- nwBVxxA1sAAAAA=
-X-Change-ID: 20260902-seg6-l2cow-77dc3ba41232
-To: Andrea Mayer <andrea.mayer@uniroma2.it>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Yuya Kusakabe <yuya.kusakabe@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3182;
- i=yuya.kusakabe@gmail.com; h=from:subject:message-id;
- bh=CoPjRai4bpFjpoO1hLKHz2e2vlHftvEQRd7hfXf92Ag=;
- b=owEBbQKS/ZANAwAIASrX0XUqXRtNAcsmYgBqmS5nq5bTFbnbILmPv6FT2+yXLmmrErSttIPg5
- FtGyPvpU06JAjMEAAEIAB0WIQTaB7usAfxNKMeqa6Yq19F1Kl0bTQUCapkuZwAKCRAq19F1Kl0b
- TVAiEADWnPbScQ4WTCY18T9nAQTjMDNhqU7GEV160rNxffYKl0pYpvrGRD9bqH81nOngIbnVBQr
- rMVGu6g9BqmFFwTRrVK9dmqKUUtD5ZHsUdJgQz503kTgsVHhga9VBGhxiEHDT4/bTmdnEz/D7PR
- 3WUZpMqdcxyaizjDNyx/K4k/rVGl9AdpeM+Ju+0SUQQgEbvbhkzK1HxK6dT5APSGgP+J0SBlC2m
- PBCkDQyXBBfzxypYQYuf4QqUcDuaALga7n8u8zB0MWYSUe+PswGsuYjTXeYkv6nKUAqLi9pq4gd
- Dc0vsANWPECbgICxZY49nFZT/FgJntXpjw8Yf/XothBhx9X/DpZMh8er50kPeO7BIti09oLWat+
- SnDVp53uBnp0lChMQJG/Tq87+ZsK+dDqJL8N+h49XtZo/FbDwQXnHxe5Ec5cTf1C0RvTzVEDUTt
- GpQU18nSjy91kt84X9XymIbMFgbAraHJhz6R79z/bpzu5+zuJc9DEnZ/bmqqdrOaDpwIPERAFBU
- XBx82cmo2y8ETkjsSf2SKwmHX/0iKgMjJdT0C8l6dd7uF1VgthSkXdpXvahsBpsDlAceKSttePC
- UBcgitID3KuH5OJCgaEueRwGeKcnAiHeJ+VGlROHdGI1b7ujzxfEtwNDiXvQhYxmGFeeGQjkMLt
- /OZTc96ZResZULw==
-X-Developer-Key: i=yuya.kusakabe@gmail.com; a=openpgp;
- fpr=DA07BBAC01FC4D28C7AA6BA62AD7D1752A5D1B4D
+Content-Transfer-Encoding: 8bit
 
-The L2 encapsulation modes of the seg6 lwtunnel reallocate the skb head
-on every packet, where the IPv6 encapsulation modes reallocate only when
-they have to.  Ask for the whole encapsulation up front instead, so that
-the reallocation happens at most once and only when the headroom really
-is too small:
+The IRQ is devm-managed, so it can still queue plat->work while
+remove() is tearing the queue down. Disable it first.
 
-  skb->mac_len + sizeof(struct ipv6hdr) + ipv6_optlen(tinfo->srh)
-  + dst_dev_overhead(cache_dst, skb)
-
-__seg6_do_srh_encap() then finds the room it needs and its own
-skb_cow_head() becomes a no-op.
-
-Drivers reserve more than that on the forwarding path, so the
-reallocation usually disappears altogether.  A single-segment policy
-on ixgbe needs
-
-  14 (mac_len) + 40 (ipv6hdr) + 24 (SRH) + 16 (LL_RESERVED_SPACE) = 94
-
-against the 206 bytes the driver leaves.  Where the headroom is
-smaller, as on a veth pair, pskb_expand_head() is called once per
-forwarded packet instead of twice.  Asking only for skb->mac_len would
-still take two whenever the skb is header-cloned, because the cow that
-unclones it does not also make room for the outer header.
-
-The cost is amplified by CONFIG_INIT_ON_ALLOC_DEFAULT_ON, which many
-distributions enable: every new head is zeroed in full, and that memset
-alone accounts for 16% of the datapath profile.
-
-Throughput at 0.5% packet loss, 64-byte frames forwarded through one
-2.30 GHz core (Xeon E5-2650 v3, ixgbe 82599ES), offered by TRex and
-binary-searched over 10 runs of 10 s:
-
-  Before: 654.6 kpps
-  After:  965.7 kpps
-
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Yuya Kusakabe <yuya.kusakabe@gmail.com>
+Fixes: fe6d8a9c8e64 ("usb: typec: anx7411: Add Analogix PD ANX7411 support")
+Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
 ---
-Changes in v2:
-- Ask for the whole encapsulation headroom at once, so that a cloned
-  skb no longer takes a second reallocation inside
-  __seg6_do_srh_encap() [Eric]
-- Re-measure against unpatched net-next rather than an older base
-- Link to v1: https://lore.kernel.org/r/20260902-seg6-l2cow-v1-1-e823ce216454@gmail.com
----
- net/ipv6/seg6_iptunnel.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/usb/typec/anx7411.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/net/ipv6/seg6_iptunnel.c b/net/ipv6/seg6_iptunnel.c
-index 61c6a27bf202..ecd8146089ee 100644
---- a/net/ipv6/seg6_iptunnel.c
-+++ b/net/ipv6/seg6_iptunnel.c
-@@ -400,6 +400,7 @@ static int seg6_do_srh(struct sk_buff *skb, struct dst_entry *cache_dst)
- 	struct dst_entry *dst = skb_dst(skb);
- 	struct seg6_iptunnel_encap *tinfo;
- 	struct seg6_lwt *slwt;
-+	unsigned int headroom;
- 	int proto, err = 0;
+diff --git a/drivers/usb/typec/anx7411.c b/drivers/usb/typec/anx7411.c
+index 41df115912b9..c3d36da692e4 100644
+--- a/drivers/usb/typec/anx7411.c
++++ b/drivers/usb/typec/anx7411.c
+@@ -1566,8 +1566,11 @@ static void anx7411_i2c_remove(struct i2c_client *client)
+ 	anx7411_partner_unregister_altmode(plat);
+ 	anx7411_unregister_partner(plat);
  
- 	slwt = seg6_lwt_lwtunnel(dst->lwtstate);
-@@ -446,8 +447,13 @@ static int seg6_do_srh(struct sk_buff *skb, struct dst_entry *cache_dst)
- 		if (!skb_mac_header_was_set(skb))
- 			return -EINVAL;
+-	if (plat->workqueue)
++	if (plat->workqueue) {
++		disable_irq(plat->intp_irq);
++		cancel_work_sync(&plat->work);
+ 		destroy_workqueue(plat->workqueue);
++	}
  
--		if (pskb_expand_head(skb, skb->mac_len, 0, GFP_ATOMIC) < 0)
--			return -ENOMEM;
-+		headroom = skb->mac_len + sizeof(struct ipv6hdr) +
-+			   ipv6_optlen(tinfo->srh) +
-+			   dst_dev_overhead(cache_dst, skb);
-+
-+		err = skb_cow_head(skb, headroom);
-+		if (unlikely(err))
-+			return err;
+ 	i2c_unregister_device(plat->spi_client);
  
- 		skb_mac_header_rebuild(skb);
- 		skb_push(skb, skb->mac_len);
-
----
-base-commit: c8ea08ba34f2a2e9bfb18ff3d69eb2d69b324f49
-change-id: 20260902-seg6-l2cow-77dc3ba41232
-
-Best regards,
---  
-Yuya Kusakabe <yuya.kusakabe@gmail.com>
+-- 
+2.25.1
 
