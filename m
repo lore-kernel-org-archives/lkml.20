@@ -1,123 +1,107 @@
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com [209.85.208.178])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3102D3FF8B9
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:09:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788422960; cv=pass; b=M9gr5fL9wWuqR5jSg1HgVJU8fRWfjSFeJpnO0zwIEA9dZurnCNeewknUDisBZCpDzKoL31bADk8njoG+ZGfo6PHhF7GTKj/2zOWXkebmjnBIznprMaSRX1eGeeLcbN1k6ey8XoG9QWlurLNu6IMQaAsDIDFa45yHi5ndlcPnpAQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788422960; c=relaxed/simple;
-	bh=dWEo3mp7frOFVKITzORF+6HHk5U6mbYoC8XrjT44of8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dVubYV+oYBGbsnL1HsfcpsPTcsXMqHJn6juoXcyKNbCAOyd8YxFqVn9ywtDfS9HCgE2kLJpPSau9VZUzIWEpof+rtQc19YRwOz8iMSBMhUICK7uOLFebai34DV11y8/75vpiciG5pLV7dkbOs7sxEUFFZLeN1U+YiOfC1nXDbn8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=k+HhOoMk; arc=pass smtp.client-ip=209.85.208.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1404139281B
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:09:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788422981; cv=none; b=H0zTimjXtQ09z3IDF3ULGUXRuo7m20n16crPO+gSooHVvxHIVKKA1oQJMikxSjct4jzDd5yeFS+slh2q+EN2WqqGPylMDvS2yMP8ObttSYFkQg5J+3nNEqlYPNQqtvMpFOB36i70k6aCsT761f0Co/3sNFfuYuQ0tj3m2vNcGa8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788422981; c=relaxed/simple;
+	bh=wddQWovUxe2uKJyvwdvKzdgZhQJpx+9myOGJmM3ZFx4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AfmLmRSUhqvAJ4sacbJ0inDPgp1mBhLhqFHnTG7MxwaCPzvOjXzNiM6p2udiBDbCh6xMwoYjwkM10aVLTcandIJqrBat9unHOmciUPcLCRlnu8/xpGRlgUNOqWgBGujfrON2nPxTRwZ0e53v0S7ce502UOht6swTJpt1Y+UuYJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YQga4iYN; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="k+HhOoMk"
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-39faf9e2c62so14089381fa.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 01:09:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788422956; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EIA7RrecXFlPfAmAIMlMHnhFyzwLFGkhynx2JY0OnLTW/jzlBSxJcC3R3L/6352/tW
-         +HBbsA7PYnqFgbWK2AGhj7UnZBhuoAJuUQo0dc4geS1sU9uw5fQ4mo2Cubc3PD+JkzmC
-         uB7viGI1V19XW7YGTqGDmO4S83SmyYl5pnMqO51vrS3mfkKcnz3gOPrBrQ3yINkf9PVb
-         Am/m9woksCEU9F8lzUrX5qxTE9CsYpWKG/rYyQbEX28gpfZ62HQVZDvZh9cK1Q0AjNDK
-         n1WLkPrGADgUNTdinBSoj/b/4vv95u0bL22lN6R2gvtOyr7Td50OL7SBEMHNLw3BOC9t
-         HDzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XTfy45raSGSmQ3CPJ+k8R7TpaweRcKOSHtZadmJbOaM=;
-        fh=73y8uOkyYZ1Ymlh5DSheddl0xFOLMH/J5CI9q39WaYU=;
-        b=EACZxVuFaQidmYzCBhEPY2abS9PfANjhHoytEBAAW1L9WZCCaV187KxTVkaoxGxNYH
-         T1VE10A1qgNLPR/HSZ5nDQ0Mplgp7ByzYhYLbkeUTVgWtX1JA90qnATUTlRXP0Z53eMk
-         U9DvzJMq2CzOrUvt9d5UiGvvUgvFayXCjw1sHMlh/pfcSYvAXoIt7+5viTtOfk2cCbZD
-         7S7nHKTx8XHznT6iEmGOWltrQ6qs3lQuB5pzNuF+FbWmkjOjzPZDah6/8yYI0Wpo6yBW
-         tnf9bxxajlgJ68xHCyNVNbT+lKsAw24hHUvqasjQS+9NLHpH4j4akX/hEZJPT/2xoO8X
-         DBoA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YQga4iYN"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d6d28aa26cso13350895ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 01:09:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788422956; x=1789027756; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XTfy45raSGSmQ3CPJ+k8R7TpaweRcKOSHtZadmJbOaM=;
-        b=k+HhOoMk6tLRoMus9fcYwhdY69VwLNTc+4p+IDImaI4AoiK3BLP67bD4OJY3x17luV
-         tZDTqDifOEFMu4J4vHkZwLZMr+HsyumkVqzkU6ZI3pMB9g8U0ltgFtrlxD2e2/OxHa0+
-         iO6VWeVs5t2Yg9zM0mVufn79jPdTNOC/ffoVl0tSVHCYcm+oEHePv4JGolDmo7ARLW7s
-         eDNd/OkC703ZRdRC0/T7I+OwjmecjtMnyHyvq6E2rbRLgW9o3YmVn654PbY1CDt+8NTB
-         WMItEVfAcnlyzJkdSY6t2/9TlgxJtmbjfOXDXgRHiSAe4U3nJf0XZjZgTkFQqC2nsnJw
-         0jkQ==
+        d=gmail.com; s=20251104; t=1788422979; x=1789027779; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wddQWovUxe2uKJyvwdvKzdgZhQJpx+9myOGJmM3ZFx4=;
+        b=YQga4iYNatyLZQjJHgBJzVK0jpXBhAFsGsc4tFC/2UpSo2cZi09jPMGO5YbwniO7Rg
+         62iUyWA9BLCoozK/yDQNhecoNINgh4Aed4+4JMgPs/WYjQ03/NMA+/1yi9YWyJpp8uA9
+         icspvsiZ6ZIz36xylflmddcZ3galj7v1gGDiObSn0adgPv62PsxUWwNyr7llxS+Ys8Be
+         mpRzaT8MUUk2fpuMBsJRvNkqf7bqi4z/NxbNSATall4k+wndGQyp0FMi0KZiubM7eEZS
+         aIVeA16HbmqoTML9FtmiW4uOMu+J3ipcTNiM/uvJf5kdjZ0qTcHwKzgaV4k0fI1Sk/NN
+         KJ/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788422956; x=1789027756;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XTfy45raSGSmQ3CPJ+k8R7TpaweRcKOSHtZadmJbOaM=;
-        b=s/hthHhZA5SSirCwPdWmfwmcn64XHOyteX1nBsl1SRABvweHzu4LeyjWFt1ENMEK3z
-         MC3iigV83HDDSIA+LAKAUPYDeUf+LEYWIWppbdYW0gW+or9Ga+MWjpRwVsSGX9h74YyC
-         ZwK4uR7LVfeTUFBWj0Nw60THhUxkQslfrHkml9mALN7XdrayMoDfvg7OMheVEOUxrt2F
-         iD3TKyhWE7YvheCUt2LZOGu4k/h9y0THl+dVfU78CNROa7ddu3mgI0+/gZO8fit44SlS
-         6+B8LjYlE6rbawjhQcq9HFKDRS7PLbdJ90zn21ZZiARIeQ3nHzkHSweP231pJBSigJfF
-         UDtA==
-X-Forwarded-Encrypted: i=1; AKwUvBwGRUtRpwaBoHGS1vQFfVxKEHQ9OCe7vKRQpfkoOZwUwAJ8DuE34UD3KZcfA2PRVEAWtqfLmAO18xuWfZ0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYQWIKZpgK7I3C4gqISH7vJ/Nvyt+tdJFI5GUr1+mU+lKvUtn+
-	budZ4SWVoKIZcDns3uoMmHrMlX2ZTeIQUfhrI2Fqg6ERxjGzQyx9TcOm3q1tSuWHN4QoK/1vH/B
-	9D5L0VdXEpQUVXPv22RIcde6v6D40HyT5TKN1rqw6u+w=
-X-Gm-Gg: AYBFou3ZeGyUvJgim7ltVlS6j5/COFcpHbzMlprgjZFWiN4iJ2rhtPAKzPoLponccbl
-	TycUqEKQKDMRYKc9hMhzoQR89xXKuPrPhbKj+ClbmD+a+hE/00ReUPUq3DE/bRk18T4lPGXcK6T
-	gEXCXIgLodIVxks0/WgxIC7jZqgom98dEz9Ul+e4rYOhHrCVTXtZn/hHddjzgOOL3iAYOMwL7zj
-	BtDggIjJE4jon7PTaZztN1SZe/Jw6jk9fTIUu2QfOmhgwqjmk+5RpJ+sqws36PcUeoFra1c2yt4
-	XGkjD6aIluzk8ya/sxjwRwrW4MvQBRYKuVbYIWDOhObOBbOhcLY+KCqZm9XjnHGhIJlNGr1CKTE
-	=
-X-Received: by 2002:a05:651c:4ca:b0:3a3:115d:daf0 with SMTP id
- 38308e7fff4ca-3a35008931dmr18616021fa.6.1788422955902; Thu, 03 Sep 2026
- 01:09:15 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788422979; x=1789027779;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wddQWovUxe2uKJyvwdvKzdgZhQJpx+9myOGJmM3ZFx4=;
+        b=G/6Ju8K8Lc7bE9DsjjskSmy/fQjPdguIhsBQihmo8KenSXWbYXOJfFlzsI/NE1LeQY
+         M3y8D+hfaQqEWn+8/Orvz7SXvRbWZrtynnJwB+dcK/aR+ey+9jg5j1yyB3x5fK66pasD
+         wp2/X7ONDLcOtjtomGn9uvmxT5X1N4WIq102taZaxFN4e/50BEkfdPB3tMnWm0usySHr
+         xHuwkXkIl3Iunlrn4X9W/XMlnxYbJmusq0I60KPrYq0Wkyc4KwsWI1YXiQN5jri/z+Kn
+         QA642bgB7SgjSTQUQRcF0u2mkpJhuI0Z6ZAdGPnjliiMJ3cEszc3k0Ip22p01bLlt8gT
+         p+mg==
+X-Forwarded-Encrypted: i=1; AKwUvByb4D3M0Ss/1s/b+1SsLKSNSBg3ZvsLqLbMMgKiGZS9uaOEpJh532Z2PjSp/q/HYiJYyHosauDeLOJXdV4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nRFEqzTyf9EnS3GBOa3Fhth2sjRcl74C12fu1QFKCV3pKe82wA
+	KPu5CVv3xFTNEdsD63hKY3ITMCrZc0a4S9M7UCsqDUWWU7FppGJ0/ZdR
+X-Gm-Gg: AYBFou3hxdadzBxC0CALRPGkj7PYUmtnehHWgWZuAsMu50Jbp6LuLAr6j+uaShJhtdO
+	IdD0e7fw6N8f95I7mIxHDFcJGz0P5QJSJgCUTDS5Da/6L8rvk8BwKkyTG50W3nMuqPkD9di/UxZ
+	OwHA8xYuoPAdW4GnkvxX9mlbTpDvG+m7Xzr7TQBg6KwtCFJkoIgVALFFWCGnf4+NvQ/yC6KalIt
+	vlsu4cuJ78j6VGVrbU/jH7mh7aPVl9Z4wFA11E/a9/dD9Ghz5ZflLDEI1b1edz0goin3PR/wX8G
+	pQtLYOxgQNhEjNjHn9BecxVN/mH+ueMNSqJfDHevjdeqQVekDzeGjiiv5hxmdJhiyYPqy4YV0Hq
+	sznUO98AMluh5ip/Gb0dUypQgm5uIFngmXEtUDDczu3hUVfXdRZTjRJpxIOMEMPhyW9Rh9kWU8D
+	Puf5Z2rEWucLA1LVNvresOzlEzXi12so3mJrxhw8vyAzoYbDuoDQ+IUpDp4fjl1+oiPDkEva1S7
+	brPRzkVyyoCIysFhVC84jzhH4lvUf/FX0VOzX+dhAhNG9V6nw==
+X-Received: by 2002:a17:90b:3f84:b0:381:25ce:bcc2 with SMTP id 98e67ed59e1d1-39aedf1922dmr16176799a91.6.1788422979169;
+        Thu, 03 Sep 2026 01:09:39 -0700 (PDT)
+Received: from WR5220G5-Peking-BMC.labs.lenovo.com ([103.244.59.5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b087b59a0sm4004345a91.17.2026.09.03.01.09.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 01:09:38 -0700 (PDT)
+From: Yuqi Xu <xuyuqiabc@gmail.com>
+To: Sasha Levin <sashal@kernel.org>,
+	patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Yifan Wu <yifanwucs@gmail.com>,
+	Juefei Pu <tomapufckgml@gmail.com>,
+	Yuan Tan <yuantan098@gmail.com>,
+	Xin Liu <bird@lzu.edu.cn>,
+	Ren Wei <n05ec@lzu.edu.cn>,
+	Johannes Berg <johannes.berg@intel.com>,
+	johannes@sipsolutions.net,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH AUTOSEL 6.18-6.12] wifi: cfg80211: reject duplicate wiphy cipher suite entries
+Date: Thu,  3 Sep 2026 16:09:32 +0800
+Message-ID: <20260903080932.92286-1-xuyuqiabc@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260831133314.4125787-367-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org> <20260831133314.4125787-367-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1787903722.git.zihanx@nebusec.ai> <8e45ea5d0cf764267a90d959fa40f0f831aabf08.1787903722.git.zihanx@nebusec.ai>
- <apKl65BbdyWCtre7@strlen.de> <CAANe3eT8ycDkomgpzZmni7hMrUX1fr2dE4QvQOcKCPEcw=J=2A@mail.gmail.com>
- <apkahwSdQhuE6gRV@strlen.de>
-In-Reply-To: <apkahwSdQhuE6gRV@strlen.de>
-From: zihan xi <zihanx@nebusec.ai>
-Date: Thu, 3 Sep 2026 16:09:03 +0800
-X-Gm-Features: AcwNN1Wd0FgsqLjcXjqWHA6w1DrMXZKkBLBFaJpau8ih4FBDSOgZEW2Xg9zNQoQ
-Message-ID: <CAANe3eS22cFoqz1DWAkLXkskZqO3istpX6ARSKvBKBBVKKKdtQ@mail.gmail.com>
-Subject: Re: [PATCH nf 1/1] netfilter: nf_dup: prevent asynchronous duplicate recursion
-To: Florian Westphal <fw@strlen.de>
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Phil Sutter <phil@nwl.cc>, Simon Horman <horms@kernel.org>, netfilter-devel@vger.kernel.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, coreteam@netfilter.org, 
-	stable@vger.kernel.org, Vega <vega@nebusec.ai>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 3, 2026 at 2:58=E2=80=AFPM Florian Westphal <fw@strlen.de> wrot=
-e:
->
-> zihan xi <zihanx@nebusec.ai> wrote:
-> > If you do prefer to keep a small nf_dup-only change, I can prepare eith=
-er:
-> >
-> > 1. disable IPv4/IPv6 dup in network namespaces owned by a non-initial u=
-ser
-> >    namespace; or
->
-> I think this is the better option, someone would have to explain
-> the use-case for DUP in a user netns.
+On Mon, Aug 31, 2026 at 09:26:35AM -0400, Sasha Levin wrote:
+> [PATCH AUTOSEL 6.18-6.12] wifi: cfg80211: reject duplicate wiphy cipher suite entries
 
-Thanks. I will take this option and send a v2 that skips IPv4/IPv6
-duplication when the network namespace is owned by a non-initial user
-namespace.
+ACK for 6.18.y and 6.12.y.
 
-Best regards,
-Zihan Xi
+I'm the author of the upstream commit. This AUTOSEL backport matches
+7187d145d904, which has been in mainline since v7.2-rc1.
+
+The change is a small wiphy_register() sanity check: reject duplicate
+cipher suite entries, and reject n_cipher_suites > 0 with a NULL
+cipher_suites pointer. Duplicate WEP entries can overflow the fixed
+iw_range::encoding_size array in cfg80211_wext_giwrange(). In-tree
+drivers already advertise unique cipher lists, so this should not
+affect legitimate hardware.
+
+Johannes preferred this over adding a bounds check in the WEXT compat
+path, which is why the fix lives in core.c rather than wext-compat.c.
+
+Acked-by: Yuqi Xu <xuyuqiabc@gmail.com>
