@@ -1,240 +1,128 @@
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9E51F875A
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 01:02:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788397334; cv=pass; b=JEYqBlh+Sys5sNy4jV54rApwRLIrAXeBg1m3puXCHFAVOgNOurEOYE7x1wMQDFF4UOUUQ+tohvZZFdsSOaG8EuBEcxAmDEa7fzuWhPrHc05QpJSETtHLjU3W5WtxFfmV0w8SIZa4p/3KpgfBLG2bwsigsRH1TN5zBYsWXrCfnPk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788397334; c=relaxed/simple;
-	bh=2in/ibJ6DnVvRIaERbWNROa6RNT8uBB8AiXm+8vWTlk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qEGo0gYtCLtdGFUEIjv6gCagu3M/QfIhivBmIl4dr+6Bk4gHAawNPw/iNlQNlsQndhIlA7bnp0DfbDUYhrCk3xbTBMiCX1EbQbS58KLbds06Ybp8sVcJFhKjbvwGOMqcbj0Fg/8KrZfDlgRA4zRCeK+L9rOWwFinDbUO0oNjZqM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hIaVAXOP; arc=pass smtp.client-ip=209.85.167.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B62D2D7DEA
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 01:02:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788397338; cv=none; b=A/9B/XaogWfPH9kNo+1cx8u8G7H5t0Pb1ZQedkuBOmg/jo2EpIlkV4mPm7f/VOrqQKmT+PbmNpISoMIWyPAqCJTNH8kNbgD40a82lmXaM590jgAuP0UwrRdHffpXzqSvAOpTxVMcn8H3UpHg0wVfBmsD7P8b68gF0iEmLgXT4+E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788397338; c=relaxed/simple;
+	bh=mzpSld7mMa2pmAPMO+GjddAFb56G5K3CVJzRqKJvnr4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HmXC0cQ0loP1sYvsQCVZapnq7PoDCt9Hj+6vn3GlEDqg6LkHyqdfWkiTn81YA9xXh2EuPMZ/OF5x2dxDinjZPrZlgxSd0PYA/Xxsr3OgZRWNHBufWkm3Hm7a1qgGZ9nGauZJPLqkQGcCmTTnk4/41rg1uOzK7hukDWvfCQBi81M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=B+/siKuV; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hIaVAXOP"
-Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-4b28d9537bcso417405b6e.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 18:02:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788397332; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HIZZl6VRs28Y2fImxI/XYPdESXctHuutJZzzmKe4aPY4AN81n919urGRhOp+0fFsr8
-         YDeA8Df9uzvvwUk27ytTI1sI/XtDxHqO5meiDoTRN8VDIE3XKvg/Iu6+Aqx5Jeq8Nizy
-         Fd1OT8Xz8xga4pk8cGsmN0012yl2yXA1QzADl1XEWZ+Zmcz8cJyV4JgW4gAx3GUCMPkM
-         CA+1uD8Mpndzn7VPvb1N6ZlM6J3Ce9dRG06cWHMQj+pR3z7qL23z64S+NbI+6L6nJD45
-         pYRqOigrebJ6QO/c1xkMLUZHxx4y9WKI+M+mTPSVbvQ77kD/EjdzxjIONXpGzq18LoqH
-         jDYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=v3T+l4YHBD5H35beFOk9ofILa5eFdJ/R8b9xIj6tzhc=;
-        fh=4xcYpM+csii1QvwWjqn43hhXYTwT5uUd6xBj63i9Utg=;
-        b=gzyj8Xv1U7pzQbt0DOxEDtrjjyhcX2lU3RZbqLlsRJvwqIXEtdBR+mAstTvRkkYiyy
-         bcVgxXk1aFD38Trnj4WrgBxH+ZR7CjER95fIG2p1p51+XIT4e32UFjiFvFUGdJ6iYzBV
-         5o/wIXJICP+nYJZkNNi/IC34J0PEW0QR3qlYsnYzEfHf5fjO6uP38kjRGDq4HKQw6iz8
-         FusAXYf9JIbwlSbu4rLxxd1I7sjTN2y9J04ENvT2Y6otzkRFSjh/T0xw1UQI9f5y86za
-         TO1A2Bk10GjQc+/Bug+c+IdoKfPvfh2mKnkaJCezV860UxT3N2dAkpdJNthmX+tBwquz
-         e22w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788397332; x=1789002132; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=v3T+l4YHBD5H35beFOk9ofILa5eFdJ/R8b9xIj6tzhc=;
-        b=hIaVAXOPc3oR/9FAmJQjB/IP6g1RyRfkd3KgypBYIwPlWCNPb6IBhwdLGua3ohQXrs
-         TWfDeEqh4gFy3GBpzuOhcXUJoVn6R3kzu2KW/6ireEQFoSLCVCcjfCmXSXb8PwpFNYJE
-         MfqUIywr3FzhiKtnZDAhY6X6BHdZFbHcSUaGRXODihqCG9ZCdghqmyHfhQN0FcS4CE/t
-         6lAMSw8Q0X580eXET6YiudKtZGdPXJ6JPo3V+ho+McA+fDImqRaadh2T1JrhLJFsaeu0
-         5amG2kVISzwoFKM7x8ULbErAH9WwS7vRvBkRo0fTMpzjHaM7z9ciyeOMeDCRb5dLR4aQ
-         C/yQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788397332; x=1789002132;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=v3T+l4YHBD5H35beFOk9ofILa5eFdJ/R8b9xIj6tzhc=;
-        b=Ea5A++zRJzusqQcRgVwnzcQXvaJ2OjOEKLmKm1OHcOzCavN10X81zzD3PYi1XCl5ar
-         qaAWGuAxR5rHG1SF4+J/S+N5Z/H46DLhV+k4gfkDBHRg3IOs4kLCdjQ2NPvYjZZGpAW5
-         bsIhu2tQAjnzeIrHCN+qpoZ6RgHkWC9KPvzGvsbJHnYJVftvmc5apBGLlcE/YNwN0JXp
-         L7O/N6IjRRDNYTbOsV7qvC9CleP6RndmmEYn/YsrnNlvPlUt2HnSaByh98YgZIDuvRq6
-         hpdTW0E7DkN1nNgNjd3TiktP4E5ELWz4Mf2lbOuHR953yT9Yf/dAgCMdBmApcpxfLIKC
-         LxtA==
-X-Forwarded-Encrypted: i=1; AKwUvBxe3gJps2OAA+y47zC7avXgOmZbloVNMVYQIluQzJ1EiYElQrXA3Sfq3YBaAvKDppACbXhMQAv/qI3Qn+Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++l13ofIHTvdIAxwUv8HtoB6csTNDjD4pxqleKN1Y6hRj69NCNrm
-	UZQIzTbSXovWzDAHvPiFGQLi/aNNoM5pT7BI9mRFm0imyNn03+dXiKrPBGsNSUSuMntK2pvuFFO
-	g6CRe/Tf9gGiNCZZEk93AVkl3Xbao3S8=
-X-Gm-Gg: AYBFou0MtEcAbi0jLDUyYA1+A1JNAwZLRV+yBhT5RSxLJlm8kRABm3iht0klOVS+hgs
-	lDn/U8H593mRgl2SrKl1E9chOQu3uf28Y9nIO3Nv+2aR+uF/w2z+DSZwB3ddXD3jg2SrGy6bRhh
-	OGWaKs8+IRXHtZQ8abFD1OXnUwxsaMwXr6mbGPN/K86A3Irr9yljDgMeE+n0LUpXFBT4imU47pG
-	Mkj+9wC2JpKkMNRr5uIuUbpSYhRCMFG8MgIFYsZmdWRxS3IEzwjnjvBLe648GIhL7W5w1y41QPq
-	EiTXJT+mpU+WsX0cXfNmoIZuSxPLpxCxD29siuaeNl1bv5oH16CYHVI4jfva3xgWGKuutqsiYQ8
-	wuDfr8RwD7b1o/z8xJ7FDzD6pLOlFeDESoP7t21PQnryJ
-X-Received: by 2002:a05:6808:d4f:b0:4b2:6691:b019 with SMTP id
- 5614622812f47-4b7db1bb378mr2124405b6e.3.1788397331712; Wed, 02 Sep 2026
- 18:02:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="B+/siKuV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788397337; x=1819933337;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=mzpSld7mMa2pmAPMO+GjddAFb56G5K3CVJzRqKJvnr4=;
+  b=B+/siKuVZ0QvzITu1JPp5lI4yU88oemQf2ig4n6Th3wbIQfttPPQ0sMZ
+   rMHMPBWNxh8C2vcdq5+2qpMJtkv5eLZEdqCDGMh8txkJJfCTA0Q3l+7Qk
+   TY/x0L/MCSkuHJphRZKsFqpVwnUmoHrLBivm8nfvq/mxshQxd6aJZ92WJ
+   9OC7wJxkDiIWeCq9o90z0pMh6CQBEHm0PQn7/nxH27maaMvRfsWs7cAS4
+   qzCMAjkOGDXZxi5ONiH8DqunT6rV0Iu3KP2rbj+fb/TXRuX0X1UUsTsy8
+   WBhdj6zfITiyzy4uQ8xurqF46O9MKfjI/vNbP/IcVmbxD8gWNVe+rzvJs
+   A==;
+X-CSE-ConnectionGUID: bERczqPPSLqK6bb8rVAe+g==
+X-CSE-MsgGUID: 7elWuUwSRYam1Q3OorS4Iw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="114408464"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="114408464"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 18:02:16 -0700
+X-CSE-ConnectionGUID: 8+64UIlRQ3q9hk5+K2gTbA==
+X-CSE-MsgGUID: eP+Ms3VfSEiuKnN71Ga68g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="263398749"
+Received: from lkp-server01.sh.intel.com (HELO bfac249b2189) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 02 Sep 2026 18:02:14 -0700
+Received: from kbuild by bfac249b2189 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x1vqF-000000003Yg-2w60;
+	Thu, 03 Sep 2026 01:02:11 +0000
+Date: Thu, 3 Sep 2026 09:01:53 +0800
+From: kernel test robot <lkp@intel.com>
+To: Bradley Morgan <include@grrlz.net>,
+	Peter Oberparleiter <oberpar@linux.ibm.com>
+Cc: oe-kbuild-all@lists.linux.dev, akpm@linux-foundation.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] gcov: use memcpy for counter value dump in
+ convert_to_gcda
+Message-ID: <202609030814.OqCixUGW-lkp@intel.com>
+References: <20260901090622.18431-1-include@grrlz.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902225708.2379840-1-csander@purestorage.com> <20260902225708.2379840-2-csander@purestorage.com>
-In-Reply-To: <20260902225708.2379840-2-csander@purestorage.com>
-From: Ming Lei <tom.leiming@gmail.com>
-Date: Wed, 2 Sep 2026 20:02:00 -0500
-X-Gm-Features: AcwNN1XykAeHlzgy4hM5DgNnLtYyOjWT7Rx-kVQ9tsCtGV9ZFST9dEGoIbiXETQ
-Message-ID: <CACVXFVOKGOEmefHmZpsBX-7uxGjzbaJiueYMvka8TDjccOuFjg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] io_uring/cmd: split io_uring_cmd_set_res() from io_uring_cmd_done()
-To: Caleb Sander Mateos <csander@purestorage.com>
-Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, 
-	Sagi Grimberg <sagi@grimberg.me>, Joanne Koong <joannelkoong@gmail.com>, 
-	linux-nvme@lists.infradead.org, io-uring@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901090622.18431-1-include@grrlz.net>
 
-On Wed, Sep 2, 2026 at 6:05=E2=80=AFPM Caleb Sander Mateos
-<csander@purestorage.com> wrote:
->
-> In preparation for setting the io_uring NVMe passthru CQE results from
-> the blk-mq request completion rather than the task work callback, split
-> out functions io_uring_cmd_set_res{,32}() from __io_uring_cmd_done().
-> io_uring_cmd_done{,32}() now call io_uring_cmd_set_res{,32}() and then
-> __io_uring_cmd_done(). This allows __io_uring_cmd_done() to be made
-> CQE-size-agnostic, with 3 fewer arguments.
->
-> Signed-off-by: Caleb Sander Mateos <csander@purestorage.com>
-> ---
->  include/linux/io_uring/cmd.h | 23 +++++++++++++++++------
->  io_uring/uring_cmd.c         | 33 ++++++++++++++++++---------------
->  2 files changed, 35 insertions(+), 21 deletions(-)
->
-> diff --git a/include/linux/io_uring/cmd.h b/include/linux/io_uring/cmd.h
-> index 331dcbefe72f..67f2ef700c43 100644
-> --- a/include/linux/io_uring/cmd.h
-> +++ b/include/linux/io_uring/cmd.h
-> @@ -50,19 +50,21 @@ int io_uring_cmd_import_fixed_vec(struct io_uring_cmd=
- *ioucmd,
->                                   const struct iovec __user *uvec,
->                                   size_t uvec_segs,
->                                   int ddir, struct iov_iter *iter,
->                                   unsigned issue_flags);
->
-> +void io_uring_cmd_set_res(struct io_uring_cmd *, s32 ret);
-> +void io_uring_cmd_set_res32(struct io_uring_cmd *, s32 ret, u64 res2);
-> +
->  /*
->   * Completes the request, i.e. posts an io_uring CQE and deallocates @io=
-ucmd
->   * and the corresponding io_uring request.
->   *
->   * Note: the caller should never hard code @issue_flags and is only allo=
-wed
->   * to pass the mask provided by the core io_uring code.
->   */
-> -void __io_uring_cmd_done(struct io_uring_cmd *cmd, s32 ret, u64 res2,
-> -                        unsigned issue_flags, bool is_cqe32);
-> +void __io_uring_cmd_done(struct io_uring_cmd *, unsigned issue_flags);
->
->  void __io_uring_cmd_do_in_task(struct io_uring_cmd *ioucmd,
->                             io_req_tw_func_t task_work_cb,
->                             unsigned flags);
->
-> @@ -105,12 +107,19 @@ static inline int io_uring_cmd_import_fixed_vec(str=
-uct io_uring_cmd *ioucmd,
->                                                 int ddir, struct iov_iter=
- *iter,
->                                                 unsigned issue_flags)
->  {
->         return -EOPNOTSUPP;
->  }
-> -static inline void __io_uring_cmd_done(struct io_uring_cmd *cmd, s32 ret=
-,
-> -               u64 ret2, unsigned issue_flags, bool is_cqe32)
-> +static inline void io_uring_cmd_set_res(struct io_uring_cmd *cmd, s32 re=
-t)
-> +{
-> +}
-> +static inline void io_uring_cmd_set_res32(struct io_uring_cmd *cmd, s32 =
-ret,
-> +                                         u64 res2)
-> +{
-> +}
-> +static inline void __io_uring_cmd_done(struct io_uring_cmd *cmd,
-> +                                      unsigned issue_flags)
->  {
->  }
->  static inline void __io_uring_cmd_do_in_task(struct io_uring_cmd *ioucmd=
-,
->                             io_req_tw_func_t task_work_cb, unsigned flags=
-)
->  {
-> @@ -171,17 +180,19 @@ static inline void *io_uring_cmd_ctx_handle(struct =
-io_uring_cmd *cmd)
->  }
->
->  static inline void io_uring_cmd_done(struct io_uring_cmd *ioucmd, s32 re=
-t,
->                                      unsigned issue_flags)
->  {
-> -       return __io_uring_cmd_done(ioucmd, ret, 0, issue_flags, false);
-> +       io_uring_cmd_set_res(ioucmd, ret);
-> +       __io_uring_cmd_done(ioucmd, issue_flags);
->  }
->
->  static inline void io_uring_cmd_done32(struct io_uring_cmd *ioucmd, s32 =
-ret,
->                                        u64 res2, unsigned issue_flags)
->  {
-> -       return __io_uring_cmd_done(ioucmd, ret, res2, issue_flags, true);
-> +       io_uring_cmd_set_res32(ioucmd, ret, res2);
-> +       __io_uring_cmd_done(ioucmd, issue_flags);
->  }
->
->  int io_buffer_register_bvec(struct io_uring_cmd *cmd, struct request *rq=
-,
->                             void (*release)(void *), unsigned int index,
->                             unsigned int issue_flags);
-> diff --git a/io_uring/uring_cmd.c b/io_uring/uring_cmd.c
-> index 726a659f38c3..917b32a921e6 100644
-> --- a/io_uring/uring_cmd.c
-> +++ b/io_uring/uring_cmd.c
-> @@ -136,40 +136,43 @@ void __io_uring_cmd_do_in_task(struct io_uring_cmd =
-*ioucmd,
->         req->io_task_work.func =3D task_work_cb;
->         __io_req_task_work_add(req, flags);
->  }
->  EXPORT_SYMBOL_GPL(__io_uring_cmd_do_in_task);
->
-> -static inline void io_req_set_cqe32_extra(struct io_kiocb *req,
-> -                                         u64 extra1, u64 extra2)
-> +void io_uring_cmd_set_res(struct io_uring_cmd *cmd, s32 ret)
->  {
-> -       req->big_cqe.extra1 =3D extra1;
-> -       req->big_cqe.extra2 =3D extra2;
-> +       struct io_kiocb *req =3D cmd_to_io_kiocb(cmd);
-> +
-> +       if (ret < 0)
-> +               req_set_fail(req);
-> +       io_req_set_res(req, ret, 0);
->  }
-> +EXPORT_SYMBOL_GPL(io_uring_cmd_set_res);
-> +
-> +void io_uring_cmd_set_res32(struct io_uring_cmd *cmd, s32 ret, u64 res2)
-> +{
-> +       struct io_kiocb *req =3D cmd_to_io_kiocb(cmd);
-> +
-> +       if (ret < 0)
-> +               req_set_fail(req);
-> +       io_req_set_res32(req, ret, 0, res2, 0);
-> +}
-> +EXPORT_SYMBOL_GPL(io_uring_cmd_set_res32);
+Hi Bradley,
 
-Both the two helpers can be inline, can't they?
+kernel test robot noticed the following build warnings:
 
-Thanks,
+[auto build test WARNING on akpm-mm/mm-everything]
+[also build test WARNING on linus/master v7.3-rc1 next-20260902]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Bradley-Morgan/gcov-use-memcpy-for-counter-value-dump-in-convert_to_gcda/20260901-090622
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
+patch link:    https://lore.kernel.org/r/20260901090622.18431-1-include%40grrlz.net
+patch subject: [PATCH] gcov: use memcpy for counter value dump in convert_to_gcda
+config: alpha-randconfig-r061-20260903 (https://download.01.org/0day-ci/archive/20260903/202609030814.OqCixUGW-lkp@intel.com/config)
+compiler: alpha-linux-gcc (GCC) 10.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260903/202609030814.OqCixUGW-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609030814.OqCixUGW-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   kernel/gcov/gcc_4_7.c: In function 'convert_to_gcda':
+>> kernel/gcov/gcc_4_7.c:389:15: warning: unused variable 'cv_idx' [-Wunused-variable]
+     389 |  unsigned int cv_idx;
+         |               ^~~~~~
+
+
+vim +/cv_idx +389 kernel/gcov/gcc_4_7.c
+
+5f41ea0386a534 Frantisek Hrbata 2013-11-12  375  
+5f41ea0386a534 Frantisek Hrbata 2013-11-12  376  /**
+5f41ea0386a534 Frantisek Hrbata 2013-11-12  377   * convert_to_gcda - convert profiling data set to gcda file format
+5f41ea0386a534 Frantisek Hrbata 2013-11-12  378   * @buffer: the buffer to store file data or %NULL if no data should be stored
+5f41ea0386a534 Frantisek Hrbata 2013-11-12  379   * @info: profiling data set to be converted
+5f41ea0386a534 Frantisek Hrbata 2013-11-12  380   *
+5f41ea0386a534 Frantisek Hrbata 2013-11-12  381   * Returns the number of bytes that were/would have been stored into the buffer.
+5f41ea0386a534 Frantisek Hrbata 2013-11-12  382   */
+7a1d55b987dfcb Johannes Berg    2021-05-06  383  size_t convert_to_gcda(char *buffer, struct gcov_info *info)
+5f41ea0386a534 Frantisek Hrbata 2013-11-12  384  {
+5f41ea0386a534 Frantisek Hrbata 2013-11-12  385  	struct gcov_fn_info *fi_ptr;
+5f41ea0386a534 Frantisek Hrbata 2013-11-12  386  	struct gcov_ctr_info *ci_ptr;
+5f41ea0386a534 Frantisek Hrbata 2013-11-12  387  	unsigned int fi_idx;
+5f41ea0386a534 Frantisek Hrbata 2013-11-12  388  	unsigned int ct_idx;
+5f41ea0386a534 Frantisek Hrbata 2013-11-12 @389  	unsigned int cv_idx;
+5f41ea0386a534 Frantisek Hrbata 2013-11-12  390  	size_t pos = 0;
+5f41ea0386a534 Frantisek Hrbata 2013-11-12  391  
+5f41ea0386a534 Frantisek Hrbata 2013-11-12  392  	/* File header. */
+5f41ea0386a534 Frantisek Hrbata 2013-11-12  393  	pos += store_gcov_u32(buffer, pos, GCOV_DATA_MAGIC);
+5f41ea0386a534 Frantisek Hrbata 2013-11-12  394  	pos += store_gcov_u32(buffer, pos, info->version);
+5f41ea0386a534 Frantisek Hrbata 2013-11-12  395  	pos += store_gcov_u32(buffer, pos, info->stamp);
+5f41ea0386a534 Frantisek Hrbata 2013-11-12  396  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
