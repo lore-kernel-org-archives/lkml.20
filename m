@@ -1,396 +1,404 @@
-Received: from esa4.hc555-34.eu.iphmx.com (esa4.hc555-34.eu.iphmx.com [207.54.77.171])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010063.outbound.protection.outlook.com [52.101.56.63])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7117B394EB7;
-	Thu,  3 Sep 2026 05:40:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.54.77.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788414011; cv=none; b=QNdyMu+i61PzmHfo9Soamk0mzulWMbxs7vfLE/WfYoUjC/GhKqB6c4ik2Jn0E57NCBeL8GqhWjmd8yOx0qqOfNUJCAd0Wyz9IzHVclq8Nv+s/nvbnYl3XsDCpsBcfF0IA27zmBKd7LDipkDEdbhyA2hV4IafIuw9bMQEmGXc97Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788414011; c=relaxed/simple;
-	bh=tXlRbGYQCwCA4tGfxwjozAwepNU3isVDrniH+0t54+o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=U7J6Pbm5hP/RL+fQ+62uzupuILQPbk6pFRkFqla5LNls6WzK5VpM1248xs0vdQYejv11WcKVywk6AD6TN3I6X6lSvFTt4WNCpF05tY78uU76/yBmrzetFDk4J3cWpPwUlT22pZxviZgpbqQSUrfloUUcX3r3QyyiIF/RClvWaFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com; spf=pass smtp.mailfrom=mobileye.com; dkim=fail (0-bit key) header.d=mobileye.com header.i=@mobileye.com header.b=s/KtWBUH reason="key not found in DNS"; arc=none smtp.client-ip=207.54.77.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2C063911CF;
+	Thu,  3 Sep 2026 05:42:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.63
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788414129; cv=fail; b=SzI5t3eY9wCyykk7NI91hkrainip2hOWDRUNjIbAuuIPQDMtxH7AA5z5ZwXpkvnLie5NH5XZc/kLumRALV+jzVN3Jo2m4XqjBnrA3cFGb9dMblnHJAm126SB3JyZG5smQF96+6zphCoTlEHm7nqYfimpzf3//M5bJtfl3law9A8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788414129; c=relaxed/simple;
+	bh=V8OYKhgFqw+c1tmYDao0G+y+lCqUKwoZ18HfJR8BFz8=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=VEB+kilHKLh2n3ucdbfdnz/rT6LLu/iYQt5Qlpghsl+EAM9aDyerPBQocDYSLLoEvG+oV//dgHVqG6cwdyOJvk7DbXPUYoC6Dw7Lbz3WBh2ZSuune5iNP79+ncQjFY5qeZeH1N56YgW+wVJ3KfZB7/++8lNZ1YlKYVneA4/LZUM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=SjAVmyNo; arc=fail smtp.client-ip=52.101.56.63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=mobileye.com header.i=@mobileye.com header.b="s/KtWBUH"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
-  t=1788414009; x=1819950009;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=tXlRbGYQCwCA4tGfxwjozAwepNU3isVDrniH+0t54+o=;
-  b=s/KtWBUH/zNi4v+hu0BnpUGx5yKhC9IZQhcqotZEsQNxVRNQL7Mee/bh
-   nFRsD/YKRzI0B9mswzb+7LJOsv43aaBsF8T/wUeHrhLP6We63DLeQZ14I
-   HgGWz+rfm7gnzYDV4hNSS05cmWWTf6lRyZIeEjj6d88OAc5llGWi1M5LY
-   fmgEe9MP9g7mACwGtDsA2N9NdKaApmPAF2YhyFQG8qNolDtoTFpY5eEpp
-   BGqhDkbi2HWghp+X6NUrWK3lZr6sesrqqsSXZ+yf85+PFff3thtmEJC8d
-   F2ZFw+F6vLRf1r+BUs8ePrVcUIASoGov4FxjDa4su+3EL4dDep1sH47Lc
-   g==;
-X-CSE-ConnectionGUID: LeSvuKNkTvCHYJTaVILy1w==
-X-CSE-MsgGUID: x46MnQXlRn+HJ/pnMlD2PQ==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from unknown (HELO ces04_data.me-crop.lan) ([146.255.191.134])
-  by esa4.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 08:38:50 +0300
-X-CSE-ConnectionGUID: Uo2BT8XQTdyTw2Hv0XhF0w==
-X-CSE-MsgGUID: SzSF1Hd3QDCPUsxPczmgbw==
-Received: from unknown (HELO epgd056.me-corp.lan) ([10.154.54.2])
-  by ces04_data.me-crop.lan with SMTP; 03 Sep 2026 08:45:25 +0300
-Received: by epgd056.me-corp.lan (sSMTP sendmail emulation); Thu, 03 Sep 2026 08:38:48 +0300
-From: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
-Date: Thu, 03 Sep 2026 08:38:19 +0300
-Subject: [PATCH v2 12/12] i2c: designware: add support for I2C_XFER_V2 -
- detailed fault reporting
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="SjAVmyNo"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=e3plT2t3GocH5ip8UxfQIklU11hgyuEz9posoSaWvmDKOd6xLpeHGdrDaxM8i84gyYlsSG2bwfXei+TsB4yh1K9LBtV+TLYph5dE+pAfUmKYHx2bWtjN5jaJI6WsFaCyqu3O4dECL1swfPaoeELsumLAUy0kEX3IWAhFMEIWHh2g/StESDuvJXlQ4aQMMtO5hOH9zqYSkgxG0Z/oJrnx28XD3R3ZHkpPt2YTRHZPlQCbcDUym4rsAo1b4gArdZITLdNMe1mHSTfbOVMzl5VNiDCRARfPKexoGD+g3GvhXmjIGh+qt9i1YbyepZ8FDyTGIBpTdZVbdMCLyyn7Qg1MLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OEzZGOLz8G3arvO8hbKNzz6nmhaNeEdyxgySt/Oa3gU=;
+ b=WaOQRoBlGK6d4aPc1x9w37WQ/ruAJH0ECbHA6DCdinOG2eRTKfCPuOS8VMa0J7hcf+oK+uGQnJPhqSvByjb8rGzjw9AKQtbPz88MRJJv7R3zz4g9ERcwjWnSuAAmCUlianCFlXbgkPx/W+4SDENWfRVfE4lf1UfJR8NGS75bENrm/SmF45r1qqrU7znnjtXM5nSJPRF2niPknOv5b7xWHidwBobxvcd1TlYm8RUMR93yuyMKRIQ1qh3jCQwPowYH2TZJaFw3WjK6glXpJJc2cg6/CQ44xT+FjHg3UB6GGYqhXgcMYviW7otFRNrSAKXMGpYJe8r2WOb9IZe4jzCYtQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OEzZGOLz8G3arvO8hbKNzz6nmhaNeEdyxgySt/Oa3gU=;
+ b=SjAVmyNohXeAuR7242XlqZApGIna/f/6sLul+gbfW15CTMvyghemSWmJIvSYNtaHib91yp0Shkr7sJo9c3wKTG/ett17DL0uLM40G4erOVahjI8hCeTgA+zd5wk74kUd21LCCZ8NpX8Supc/3NuPYHn732h5SJPsqKYv4CLyfn4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS2PR12MB9567.namprd12.prod.outlook.com (2603:10b6:8:27c::8) by
+ PH7PR12MB5976.namprd12.prod.outlook.com (2603:10b6:510:1db::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 05:42:02 +0000
+Received: from DS2PR12MB9567.namprd12.prod.outlook.com
+ ([fe80::636:1b52:24ca:d7e5]) by DS2PR12MB9567.namprd12.prod.outlook.com
+ ([fe80::636:1b52:24ca:d7e5%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 05:42:02 +0000
+Message-ID: <1fdd17c6-a0ab-42de-8362-8e1374d42fac@amd.com>
+Date: Thu, 3 Sep 2026 11:11:06 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG] ASoC/AMD ACP70/RT721: ASUS TUF Gaming A14 FA401EA speakers
+ silent and headphone jack buzzes on playback
+To: Cristian Timohi <cristiantimohi@gmail.com>
+Cc: venkataprasad.potturu@amd.com, linux-sound@vger.kernel.org,
+ oder_chiou@realtek.com, vkoul@kernel.org, yung-chuan.liao@linux.intel.com,
+ pierre-louis.bossart@linux.dev, broonie@kernel.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, Syed Saba Kareem <syed.sabakareem@amd.com>,
+ "Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>
+References: <CAAAbPi4w+YO=W8vFr63wy6++1WQ2mHUDVfUDKyWR8xcTWKXCKw@mail.gmail.com>
+Content-Language: en-US
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <CAAAbPi4w+YO=W8vFr63wy6++1WQ2mHUDVfUDKyWR8xcTWKXCKw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN4P287CA0124.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:2b2::10) To DS2PR12MB9567.namprd12.prod.outlook.com
+ (2603:10b6:8:27c::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-i2c-fault-reporting-v2-12-fedeb91792e6@mobileye.com>
-References: <20260903-i2c-fault-reporting-v2-0-fedeb91792e6@mobileye.com>
-In-Reply-To: <20260903-i2c-fault-reporting-v2-0-fedeb91792e6@mobileye.com>
-To: Andi Shyti <andi.shyti@kernel.org>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Linus Walleij <linusw@kernel.org>, 
- Mika Westerberg <mika.westerberg@linux.intel.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
- Dmitry Guzman <Dmitry.Guzman@mobileye.com>
-X-Mailer: b4 0.14.2
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PR12MB9567:EE_|PH7PR12MB5976:EE_
+X-MS-Office365-Filtering-Correlation-Id: e7eee151-c138-4c4c-8963-08df097e145e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|10067099003|11063799006|6133799003|56012099006|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	QvY2b+nYztLNqxrPhFEZiWpWKdWsuyrG9qiqJ/GLSrD11HMYmESt3HZJB4yjavbM6YVQOwkPoqFkKol6iOAisr/UqyTE3Uco9Al9bmPoOXnVDuR44rn4RJEw45TdOFTVILaY5e0vKvrqlftgDDoX+/x2dC+EBjmL4D/AcO48TtZfdpk6R1UjOh4z+4xxSQ69Qp3/y57dICVYxj5Eq6FjcKgXHVmuXsUbi5rNF07xgSVCe/sD0mosSTpWC0tVYHjnxsQjvPUVJ6gszj+3flQM7BnosOjVO7oGfq0Yov7hOjOn4v+YhL4eBVBEeDWbjHj7igG6Uo4Xt9fvDGSe7SjGj8+WcqGT/yFpIvY9Y+BGUK5fMjdHwW+CaUHVm+ZqC+4yen5659rRTAE59G7yYtjZJivygocRiteJaE9tMSGXs774z/Y7ezXr+R6zzwD1oRErl6s+T3IkvzbPBL6bJXbTpHF20yBfuMKfa2s89EJH7+rvIbP9x47vYqte0xZdI4A4NAk8GEZft3ArrIpwCM1Ihkh6Gbi+v7YcW/diYFcvVbJo6/y7pKJ/FYhp+tmxO9GknEDFKM3h8alCUuhM4eReoTiOjStXSVAO6+gTMHRsKB6nU2oeHdXJWPv9294SMFg73Jq7Ubz+ehazMjIB86+JIj179iMi5iKw9h/886wxT+g=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS2PR12MB9567.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(11063799006)(6133799003)(56012099006)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Kzk2Q1laN0loZUhJUmdvdXA0NEg0dG41WmUzQmJ2Y1JhNE5nYkN5ZUFuVGNE?=
+ =?utf-8?B?UFc1VGFNeU4zcnQ4SHJrcWJBSGorampKMm56YW1mU2ZFODlnZ0tPVUt2bldP?=
+ =?utf-8?B?MkdiZFFBaEJvdVBYRUVtd2dNbUdYVFVydjEwR3BpblpJd0pnNmVhbjhFaWZt?=
+ =?utf-8?B?c2U3NGZ0Q2RIWHJJS3FidG02TXkrL2g5bWlLTGZ6MHQ0bkJldUZGT3B6bEh5?=
+ =?utf-8?B?QXdRcjgvYnROaXNKckhGY0RoN1J6N0haMnRXeXBVMWpIbjArbFVTRm0xeS9n?=
+ =?utf-8?B?NThnNkRPUnJQYklRdWRwenBkYk1aM2M2Y0JhZEtkcldZL3o3OGRwZTVCYXRT?=
+ =?utf-8?B?dXZob0FDVjRvdml4djI1TG5DaEUyOERTMnV3aDRYNTRRVlY2aUtUbmZzUXZn?=
+ =?utf-8?B?YTgrbmpWVFhkci85MDc4Q0tGVHBxWmxIekpNNVFlL2loc3p5b0Fma1RrSEFq?=
+ =?utf-8?B?RllzZkYxZnRxdWdCNWFGaVU3a1k4dlUyOUxjamtuYjJCUlJJYmV3Z04vQ2Z5?=
+ =?utf-8?B?TitjeU9UQ2tUd1lZR2J6clhFTjY1NGw4RDdTMGR2SVF2M204OTdvekhQQXIy?=
+ =?utf-8?B?c0pYYktBRFpKT0Zmb0JWMUFYdWdycnZqSmNrcVZWbzhndncvR1lnV1pocmo4?=
+ =?utf-8?B?RjRrN3BjWGZmZUNTRC9vWnR3bURPMDMwRUNzUUxsWHJUZmxDYmhLaHlrOU4v?=
+ =?utf-8?B?WWh4d0VodjBrclZlaFc2Vm5FbW1nK1ZIOVZXbHlDRUJxREpoQ2hiTG9pcGJq?=
+ =?utf-8?B?V3dWbUhaSHJhU3QyTGxRQ1pVeTJIZnhmYzRvTDVGeDRidyt0amRhcUNTL2s2?=
+ =?utf-8?B?VEM5SVJtU0NJUVpYYXZLdjhqUVZKRi9yWE1PWkZtVU5CcVNJbWt4a0xZN1JQ?=
+ =?utf-8?B?am9rdUliUTFQTEwvZlBOSWV3bWduNWZzd2daR3NoWVZrVGM0TWVHbU5HVExD?=
+ =?utf-8?B?Z1ZJYnBwMmEwU1hnTXNBdTFWb256OW5ZT1FEWDVHdFZUSzFRTTdqR0tKZEpF?=
+ =?utf-8?B?UU5YdmJSR05aem1jZ3VFTVRKdWtaUWMycEVmcmZvNE5hWDg2Q3Z6YXY0K2ND?=
+ =?utf-8?B?VEpRZ2hsKzN1TG5sY0Y2SzJueDlQMEU1Q29TM0tsSU5jT3ZMeWNReXV6OGJD?=
+ =?utf-8?B?MFRnUlVkYzJFS0pSTFlRbkU1Nm1vMXdMSzkvTTlsM3k3ajAvNHVpWDZwOWpL?=
+ =?utf-8?B?WCtTNDRSMzlkY0FqTWFHd3VsWGxFTlhlTVBjL0o1YllRblBUd3ZERkZmSnNs?=
+ =?utf-8?B?RFp6T2J6L1NNdTYyTDcvbXdvTnhSR1B5K21qM3U3NXhSd21aSllIaFRVcEw4?=
+ =?utf-8?B?ZjJKaEsvNXJkZTQ5ODRZMFRpdFJFQ2pBdkFEVEpoaGxqL1gzZFc3czdWYmlt?=
+ =?utf-8?B?VzZPNkNWYnVTa1hqYmRyeS9uMUtOQnk2bUpxaGdlLzlJSno5QUx5T2ZzRzNN?=
+ =?utf-8?B?SmFjZHBuaVNLSDkvbXJEKzcxOFIzZjhIZlJPVFhNeXB3WW5HK1hwSHY5eGNH?=
+ =?utf-8?B?Z3dtLzZYZXM3OEhvNTJHZXhjVU9ESG9MQUFQcDQ2aVZwZWFrVkx0OHZwOG43?=
+ =?utf-8?B?OUdwc1FQMFVqT2t3L3kvaUNUSVBZMWFmdVVPOFZpSmZ6bEpnZWMwQ0svOG1V?=
+ =?utf-8?B?aThvVzRLbEtlaUVKc1ppWXVwOUszblE0L0xrNk9RSCtQSEdMVG0vSHlxUFBk?=
+ =?utf-8?B?TjllT0tlWDN4ZmlhRXovbWxadkJxOCt0d3ozUHMrQWtKK3RUQmRsZGxzWkR1?=
+ =?utf-8?B?aDB6aVh2eVp4WGVTL21RWlROTFJtZVl6UHFJZFlreHgwQ2JJeHQ3VjN2elB0?=
+ =?utf-8?B?QVZUclcrbkZWb3pZdGNNakYxd2dpUVo2T3h5b0owRGZhMVRiZnpwWEhraDAy?=
+ =?utf-8?B?OVhvRGkweHk2RElYdUIvVVBnY1dpdDNXSkpRM2hVbjdmajhFUmIvR09seitD?=
+ =?utf-8?B?K2lZWCtBNHp6RVExd3pKd3V5ZXZPNHRycTREQzdvcDlnRkt5ZGZKWk5lY2Yx?=
+ =?utf-8?B?STZLTmpHZWNPT3FSamNaSlFadW9GbGNWNDV6NVZVKzVWZEdJS2xCRGJSLzJD?=
+ =?utf-8?B?VVZrTXNJaWZNYUMzenVjU2I0NUxHQ05HTFJBRXEvejFnbSt3M2pSb0hUVHFY?=
+ =?utf-8?B?WWN4eGl1c1pqd0lGQmpQUEI4Ri8rcG9tQUhiZHIyQ1hYSlhBVXgvS0syM1hW?=
+ =?utf-8?B?Sjd2VWdPZTVHUENoUTJKcnZubFAxc3ZhdlQyaTgyRHBkek5pQTBjcy9Qa2RR?=
+ =?utf-8?B?R2FqNXJhdEYrN3h2VUhKeVI3NWhrdG5Bd1FOVGYzUHExUndaS25YRFlDazRS?=
+ =?utf-8?B?c1B0cFBLNnBpT2xKOUI2TlphUWJ4RHpwa2dTMFR2Y0hvLzVubjZEQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7eee151-c138-4c4c-8963-08df097e145e
+X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9567.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 05:42:02.3350
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jyF8XT9ZbM/hXFI6Jnq34QjgK9r6wKjeHmk1O7wFwR664Q8s6s3IWDBGgSRZ6BLAfl4j+uAW+gQel/X18ngFCg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5976
 
-I2C_XFER_V2 is a new API that allows I2C clients to get the detailed
-report in case of transmission failure. Previously, the only information
-returned by I2C bus controller was the error code; there was no way to
-find out how many messages or bytes in a certain message have been sent
-or received until the fault condition occurred, or to receive the data
-read before the fault.
 
-This patch introduces support for this feature in i2c-designware driver.
-For AMD_NAVI_GPU model that has its own `xfer` callback function, this
-feature is currently not implemented.
 
-The driver uses FLUSH_CNT field of ABORT_SOURCE register to detect
-how many command/data bytes written to FIFO were not actually sent.
+On 9/2/26 22:13, Cristian Timohi wrote:
+> [You don't often get email from cristiantimohi@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> ****
+> Resending as plain text, as the previous message was rejected by the
+> vger.kernel.org mailing list due to an HTML MIME part.
+> Apologies to recipients who received the previous copy directly.
+> ***
+>
+> Hello,
+>
+> I'm reporting an audio issue on an ASUS TUF Gaming A14 FA401EA
+> (Ryzen AI MAX+ 392) using AMD ACP70 SoundWire and a Realtek RT721
+> SDCA codec.
+>
+> I have reproduced the issue on a clean current vanilla 7.3-rc1
+> kernel, so this does not appear to be Fedora-, PipeWire-, or
+> desktop-specific.
+>
+> Current clean test environment
+> ==============================
+>
+> Distribution:
+>      Fedora 45
+>
+> Kernel:
+>      7.3.0-0.rc1.260901.786262be.417.vanilla.fc45.x86_64
+>
+> snd_acp_sdw_legacy_mach quirk:
+>      -1
+>
+> There are no remaining custom snd_acp_sdw_legacy_mach/modprobe
+> overrides in the current reproduction environment.
+>
+> Hardware
+> ========
+>
+> Laptop:
+>      ASUS TUF Gaming A14 FA401EA
+>
+> DMI product:
+>      TUF Gaming A14 FA401EA
+>
+> DMI board:
+>      FA401EA
+>
+> BIOS:
+>      FA401EA.304
+>
+> CPU/APU:
+>      AMD Ryzen AI MAX+ 392
+>
+> Audio:
+>      AMD ACP70 SoundWire
+>      Realtek RT721 SDCA
+>
+> The SoundWire bus exposes one peripheral:
+>
+>      sdw:0:1:025d:0721:01: Attached
+>
+> I do not see TAS2783 devices enumerated on this unit.
+>
+> Known-good cases
+> ================
+>
+> The laptop's built-in speakers worked correctly under the
+> factory-installed Windows 11.
+>
+> USB audio also works correctly under Linux. I tested Corsair
+> Virtuoso USB headphones and normal audio playback works.
+>
+> Therefore the issue appears specific to the internal
+> AMD ACP70 -> SoundWire -> RT721 audio path.
+>
+> Actual behavior
+> ===============
+>
+> Internal speakers:
+>      Completely silent.
+>
+> 3.5 mm headphone jack:
+>      No intelligible audio is produced.
+>      When the analog audio path becomes active, the headphones produce
+>      a continuous buzzing noise. The buzz stops when the playback/path
+>      is deactivated.
+>
+> Opening the desktop sound control panel can also trigger the buzzing
+> while the analog audio path is active.
+>
+> ALSA playback devices
+> =====================
+>
+> The amd-soundwire card exposes:
+>
+>      device 0:
+>      SDW1-PIN0-PLAYBACK-SimpleJack rt721-sdca-aif1-0
+>
+>      device 2:
+>      SDW1-PIN1-PLAYBACK-SmartAmp rt721-sdca-aif2-2
+>
+> Direct ALSA reproduction
+> ========================
+>
+> Internal speakers:
+>
+>      speaker-test -D hw:CARD=amdsoundwire,DEV=2 \
+>          -c 2 -r 48000 -F S16_LE -t wav
+>
+> The PCM stream starts normally without an ALSA error, but there is
+> no physical speaker output.
+>
+> Analog headphones:
+>
+>      aplay -D plughw:CARD=amdsoundwire,DEV=0 \
+>          /usr/share/sounds/alsa/Front_Left.wav
+>
+> No speech is heard. The headphone output only buzzes while the
+> audio path is active.
+>
+> Zero-PCM test
+> =============
+>
+> I also sent only zero-valued PCM samples:
+>
+>      timeout 10s bash -c '
+>      dd if=/dev/zero bs=192000 2>/dev/null |
+>      aplay -D hw:CARD=amdsoundwire,DEV=0 \
+>            -t raw -f S16_LE -r 48000 -c 2
+>      '
+>
+> The headphone jack still buzzes while the zero-PCM stream is active.
+>
+> Therefore the buzz does not appear to represent corrupted application
+> audio; merely activating playback is sufficient to produce it.
+>
+> Mixer / UCM
+> ===========
+>
+> Speaker:
+>
+>      Speaker Switch = on
+>      rt721 FU06 Playback Volume = 87,87
+>
+> Headphones:
+>
+>      Headphone Switch = on
+>      rt721 FU05 Playback Volume = 87,87
+>
+> I also explicitly enabled the corresponding Speaker and Headphones
+> UCM devices. This did not change the result.
+>
+> ASoC DAPM during speaker playback
+> =================================
+>
+> I inspected debugfs while speaker-test on the SmartAmp PCM was
+> actively running.
+>
+> All relevant widgets were ON:
+>
+>      Speaker: On
+>      rt721 DP3 Speaker Playback: On
+>          stream DP3 Speaker Playback active
+>      rt721 DP3RX: On
+>      rt721 FU 21: On
+>      rt721 FU 23: On
+>      rt721 PDE 41: On
+>      rt721 SPK: On
+>
+> The DAPM graph therefore appears to activate the entire expected
+> speaker path:
+>
+>      DP3 Speaker Playback
+>        -> DP3RX
+>        -> FU 21 / FU 23
+>        -> SPK
+>        -> Speaker
+>
+> but the physical speakers remain silent.
+>
+> Kernel messages
+> ===============
+>
+> RT721 attaches successfully.
+>
+> I see:
+>
+>      rt721-sdca sdw:0:1:025d:0721:01:
+>      Driver needs fixing: Unsorted reg_defaults, sorting the copy
+>
+> On an earlier 7.2.x boot I also observed:
+>
+>      soundwire sdw:0:1:025d:0721:01:
+>      PARITY error detected before INT mask is enabled
+>
+> I did not observe additional SoundWire/RT721 errors when starting
+> or stopping playback.
+>
+> Kernels tested
+> ==============
+>
+> The same issue was reproduced on:
+>
+>      Fedora 44:
+>      7.2.2-300.fc44.x86_64
+>
+>      Fedora 45:
+>      7.2.2-300.fc45.x86_64
+>
+>      Vanilla mainline:
+>      7.3.0-0.rc1.260901.786262be.417.vanilla.fc45.x86_64
+>
+>      CachyOS kernel:
+>      7.2.2-cachyos1.fc45.x86_64
+>
+> The current reproduction is on the clean vanilla 7.3-rc1 kernel.
+>
+> Previous experiments
+> ====================
+>
+> Before testing clean mainline, I also built a Fedora 7.2.2 kernel
+> locally and experimentally changed the RT721 speaker endpoint in:
+>
+>      sound/soc/amd/acp/amd-acp70-acpi-match.c
+>
+> from:
+>
+>      .aggregated = 0
+>      .group_id = 0
+>
+> to:
+>
+>      .aggregated = 1
+>      .group_id = 1
+>
+> This did not change the behavior.
+>
+> I also tested that custom kernel with:
+>
+>      options snd_acp_sdw_legacy_mach quirk=32768
+>
+> The kernel reported:
+>
+>      amd_sdw amd_sdw: Overriding quirk 0x1 => 0x8000
+>
+> but there was still no speaker output.
+>
+> Those experimental overrides have been removed. The current vanilla
+> 7.3-rc1 reproduction uses quirk=-1 and no custom modprobe options.
+>
+> Question
+> ========
+>
+> Could this FA401EA variant require a different RT721-only topology,
+> ACP70 configuration, SoundWire setup, or codec initialization quirk?
+>
+> The fact that all-zero PCM causes the analog headphone output to buzz
+> while the stream is active may be particularly relevant.
+>
+> I'm happy to test patches or provide register/debug output.
+>
+> I can also provide full alsa-info, kernel journal, lspci output,
+> SoundWire sysfs state, mixer state, and DAPM debugfs output.
 
-Also, if the detailed fault report is required, the driver checks
-status after each read/write from/to FIFO. If ABORT flag is set, the
-driver cannot detect what happened first - FIFO read/write or
-communication abort, so it assumes that abort happened first, otherwise
-it either falsely reports one extra byte sent or returns the byte read
-from FIFO flushed after abort as a valid read byte. So, in unfortunate
-conditions, the fault report may be too pessimistic by one byte.
-
-This check increases amount of time spent in interrupt handler, so if
-client doesn't need detailed fault report, this check should be avoided.
-Because of this, both `xfer` and `xfer_v2` callbacks are implemented in
-struct i2c_algorithm: the former does not generate detailed fault
-report, while the latter does.
-
-Signed-off-by: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
----
- drivers/i2c/busses/i2c-designware-common.c |   1 +
- drivers/i2c/busses/i2c-designware-core.h   |  10 +++
- drivers/i2c/busses/i2c-designware-master.c | 139 +++++++++++++++++++++++++++--
- 3 files changed, 145 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/i2c/busses/i2c-designware-common.c b/drivers/i2c/busses/i2c-designware-common.c
-index 4274bf809b3f4bff90139d186447256b01317951..42fc5989c917686a89802d7ef027a6d89aea6213 100644
---- a/drivers/i2c/busses/i2c-designware-common.c
-+++ b/drivers/i2c/busses/i2c-designware-common.c
-@@ -879,6 +879,7 @@ static irqreturn_t i2c_dw_isr(int this_irq, void *dev_id)
- 
- static const struct i2c_algorithm i2c_dw_algo = {
- 	.xfer = i2c_dw_xfer,
-+	.xfer_v2 = i2c_dw_xfer_v2,
- 	.functionality = i2c_dw_func,
- #if IS_ENABLED(CONFIG_I2C_SLAVE)
- 	.reg_slave = i2c_dw_reg_slave,
-diff --git a/drivers/i2c/busses/i2c-designware-core.h b/drivers/i2c/busses/i2c-designware-core.h
-index 9f3492717e18fe104d307cfc65293ae4b41251f0..108fc1d1132c0aa91723de83198204a0dde42484 100644
---- a/drivers/i2c/busses/i2c-designware-core.h
-+++ b/drivers/i2c/busses/i2c-designware-core.h
-@@ -117,6 +117,8 @@
- 						 DW_IC_TX_ABRT_10ADDR2_NOACK | \
- 						 DW_IC_TX_ABRT_GCALL_NOACK)
- 
-+#define DW_IC_TX_ABRT_SOURCE_FLUSH_CNT_MASK	GENMASK(31, 23)
-+
- struct clk;
- struct device;
- struct reset_control;
-@@ -180,6 +182,9 @@ struct reset_control;
-  *	to generate the high period and low period of SCL line.
-  * @emptyfifo_hold_master: true if the controller acting as master holds
-  *	the clock when the Tx FIFO is empty instead of emitting a stop.
-+ * @need_precise_report: true if client needs precise fault report
-+ * @bytes_written: number of bytes written to FIFO. Used only for precise
-+	fault report.
-  *
-  * HCNT and LCNT parameters can be used if the platform knows more accurate
-  * values than the one computed based only on the input clock frequency.
-@@ -239,6 +244,8 @@ struct dw_i2c_dev {
- 	u32			bus_capacitance_pF;
- 	bool			clk_freq_optimized;
- 	bool			emptyfifo_hold_master;
-+	bool			need_precise_report;
-+	u32			bytes_written;
- };
- 
- #define ACCESS_INTR_MASK			BIT(0)
-@@ -318,6 +325,9 @@ extern int i2c_dw_probe_master(struct dw_i2c_dev *dev);
- int i2c_dw_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num);
- int amd_i2c_dw_xfer_quirk(struct i2c_adapter *adap, struct i2c_msg *msgs, int num_msgs);
- 
-+int i2c_dw_xfer_v2(struct i2c_adapter *adap, struct i2c_msg *msgs, int num,
-+		   struct i2c_transfer_report *report);
-+
- #if IS_ENABLED(CONFIG_I2C_SLAVE)
- extern void i2c_dw_configure_slave(struct dw_i2c_dev *dev);
- irqreturn_t i2c_dw_isr_slave(struct dw_i2c_dev *dev);
-diff --git a/drivers/i2c/busses/i2c-designware-master.c b/drivers/i2c/busses/i2c-designware-master.c
-index f029aa1eadbf83d304fc73b038e92f258e2148a1..bc23c3fdaaf2e0629e02016aef428cc9f8bffda2 100644
---- a/drivers/i2c/busses/i2c-designware-master.c
-+++ b/drivers/i2c/busses/i2c-designware-master.c
-@@ -11,6 +11,7 @@
- 
- #define DEFAULT_SYMBOL_NAMESPACE	"I2C_DW"
- 
-+#include <linux/bitfield.h>
- #include <linux/delay.h>
- #include <linux/err.h>
- #include <linux/errno.h>
-@@ -33,6 +34,16 @@
- #define AMD_TIMEOUT_MAX_US	250
- #define AMD_MASTERCFG_MASK	GENMASK(15, 0)
- 
-+static int i2c_dw_fault_report(struct dw_i2c_dev *dev, struct i2c_transfer_report *report);
-+
-+static inline bool i2c_dw_check_abort_flag(struct dw_i2c_dev *dev)
-+{
-+	u32 stat;
-+
-+	regmap_read(dev->map, DW_IC_RAW_INTR_STAT, &stat);
-+	return (!!(stat & DW_IC_INTR_TX_ABRT));
-+}
-+
- static int i2c_dw_set_timings_master(struct dw_i2c_dev *dev)
- {
- 	unsigned int comp_param1;
-@@ -198,6 +209,8 @@ static void i2c_dw_xfer_init(struct dw_i2c_dev *dev)
- 
- 	i2c_dw_set_mode(dev, DW_IC_MASTER);
- 
-+	dev->rx_buf_len = 0;
-+
- 	/* If the slave address is ten bit address, enable 10BITADDR */
- 	if (msgs[dev->msg_write_idx].flags & I2C_M_TEN) {
- 		ic_con = DW_IC_CON_10BITADDR_MASTER;
-@@ -451,6 +464,21 @@ i2c_dw_xfer_msg(struct dw_i2c_dev *dev)
- 					     cmd | *buf++);
- 			}
- 			tx_limit--; buf_len--;
-+
-+			/* If precise fault reporting is required, check if the transfer
-+			 * is aborted after writing each byte.
-+			 * Otherwise, if it is aborted during filling FIFO, there is no way
-+			 * to know how many bytes was written to FIFO after transfer abort
-+			 * and thus are not counted in FLUSH_CNT.
-+			 * If we are checking abort flag after each byte, we can lose only 1 byte.
-+			 */
-+			if (dev->need_precise_report) {
-+				if (i2c_dw_check_abort_flag(dev)) {
-+					dev_warn_ratelimited(dev->dev, "Transfer aborted during FIFO writing. Report may be imprecise.");
-+					break;
-+				}
-+				dev->bytes_written++;
-+			}
- 		}
- 
- 		dev->tx_buf = buf;
-@@ -542,6 +570,13 @@ i2c_dw_read(struct dw_i2c_dev *dev)
- 
- 		for (; len > 0 && rx_valid > 0; len--, rx_valid--) {
- 			regmap_read(dev->map, DW_IC_DATA_CMD, &tmp);
-+			if (dev->need_precise_report) {
-+				if (i2c_dw_check_abort_flag(dev)) {
-+					dev_warn_ratelimited(dev->dev, "Transfer aborted during FIFO reading. Data byte may be lost");
-+					/* It is unknown if the read byte is valid. Drop it. */
-+					break;
-+				}
-+			}
- 			tmp &= DW_IC_DATA_CMD_DAT;
- 			/* Ensure length byte is a valid value */
- 			if (flags & I2C_M_RECV_LEN) {
-@@ -568,8 +603,10 @@ i2c_dw_read(struct dw_i2c_dev *dev)
- 			dev->rx_buf_len = len;
- 			dev->rx_buf = buf;
- 			return;
--		} else
-+		} else {
- 			dev->status &= ~STATUS_READ_IN_PROGRESS;
-+			dev->rx_buf_len = 0;
-+		}
- 	}
- }
- 
-@@ -765,6 +802,7 @@ __i2c_dw_xfer_one_part(struct dw_i2c_dev *dev, struct i2c_msg *msgs, size_t num)
- 	dev->status = 0;
- 	dev->abort_source = 0;
- 	dev->rx_outstanding = 0;
-+	dev->bytes_written = 0;
- 
- 	ret = i2c_dw_wait_bus_not_busy(dev);
- 	if (ret < 0)
-@@ -868,12 +906,25 @@ i2c_dw_msg_is_valid(struct dw_i2c_dev *dev, const struct i2c_msg *msgs, size_t i
- }
- 
- static int
--i2c_dw_xfer_common(struct dw_i2c_dev *dev, struct i2c_msg msgs[], int num)
-+i2c_dw_xfer_common_v2(struct dw_i2c_dev *dev, struct i2c_msg *msgs, int num,
-+		      struct i2c_transfer_report *report)
- {
- 	struct i2c_msg *msgs_part;
--	size_t cnt;
-+	int msgs_in_prev_parts = 0;
-+	size_t cnt = 0;
- 	int ret;
- 
-+	if (!report) {
-+		dev->need_precise_report = false;
-+	} else {
-+		dev->need_precise_report = true;
-+		report->msgs_cplt = -EOPNOTSUPP;
-+		report->bytes_cplt = -EOPNOTSUPP;
-+		report->fault_msg_idx = -EOPNOTSUPP;
-+	}
-+
-+	dev->msg_read_idx = 0;
-+
- 	dev_dbg(dev->dev, "msgs: %d\n", num);
- 
- 	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev->dev, pm);
-@@ -889,6 +940,8 @@ i2c_dw_xfer_common(struct dw_i2c_dev *dev, struct i2c_msg msgs[], int num)
- 	 * we do one transaction for each part up to the STOP.
- 	 */
- 	for (msgs_part = msgs; msgs_part < msgs + num; msgs_part += cnt) {
-+		/* Count previously transferred messages*/
-+		msgs_in_prev_parts += cnt;
- 		/*
- 		 * Count the messages in a transaction, up to a STOP or
- 		 * the end of the msgs. The last if below guarantees that
-@@ -897,6 +950,15 @@ i2c_dw_xfer_common(struct dw_i2c_dev *dev, struct i2c_msg msgs[], int num)
- 		 */
- 		for (cnt = 1; ; cnt++) {
- 			if (!i2c_dw_msg_is_valid(dev, msgs_part, cnt - 1)) {
-+				if (report) {
-+					report->fault_msg_idx = msgs_in_prev_parts + cnt - 1;
-+					report->msgs_cplt = msgs_in_prev_parts;
-+					report->bytes_cplt = 0;
-+					/* Reset report pointer to avoid
-+					 * calling i2c_dw_fault_report later
-+					 */
-+					report = NULL;
-+				}
- 				ret = -EOPNOTSUPP;
- 				break;
- 			}
-@@ -918,16 +980,83 @@ i2c_dw_xfer_common(struct dw_i2c_dev *dev, struct i2c_msg msgs[], int num)
- 
- 	i2c_dw_release_lock(dev);
- 
--	if (ret < 0)
-+	if (ret < 0) {
-+		if (report) {
-+			i2c_dw_fault_report(dev, report);
-+			report->msgs_cplt += msgs_in_prev_parts;
-+			report->fault_msg_idx += msgs_in_prev_parts;
-+		}
- 		return ret;
-+	}
-+	if (report) {
-+		report->msgs_cplt = num;
-+		report->fault_msg_idx = num;
-+		report->bytes_cplt = 0;
-+	}
-+
- 	return num;
- }
- 
-+int i2c_dw_xfer_v2(struct i2c_adapter *adap, struct i2c_msg *msgs, int num,
-+		   struct i2c_transfer_report *report)
-+{
-+	struct dw_i2c_dev *dev = i2c_get_adapdata(adap);
-+
-+	return i2c_dw_xfer_common_v2(dev, msgs, num, report);
-+}
-+
- int i2c_dw_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
- {
- 	struct dw_i2c_dev *dev = i2c_get_adapdata(adap);
- 
--	return i2c_dw_xfer_common(dev, msgs, num);
-+	return i2c_dw_xfer_common_v2(dev, msgs, num, NULL);
-+}
-+
-+static int i2c_dw_fault_report(struct dw_i2c_dev *dev, struct i2c_transfer_report *report)
-+{
-+	int idx;
-+	int n_flushed = FIELD_GET(DW_IC_TX_ABRT_SOURCE_FLUSH_CNT_MASK, dev->abort_source);
-+
-+	report->msgs_cplt = -1;
-+
-+	if (n_flushed <= dev->bytes_written)
-+		dev->bytes_written -= n_flushed;
-+	else
-+		dev->bytes_written = 0;
-+
-+	/* The last byte that the transmission was interrupted on is not counted as "flushed".
-+	 * We should not reported it as transferred successfully, so decrement the counter.
-+	 */
-+	if (dev->bytes_written)
-+		dev->bytes_written--;
-+
-+	for (idx = 0; idx < dev->msg_write_idx; idx++) {
-+		if (dev->msgs[idx].len <= dev->bytes_written)
-+			dev->bytes_written -= dev->msgs[idx].len;
-+		else
-+			break;
-+	}
-+
-+	report->fault_msg_idx = idx;
-+	for (int i = dev->msg_read_idx; i <= idx && i < dev->msgs_num; i++) {
-+		if (dev->msgs[i].flags & I2C_M_RD) {
-+			report->msgs_cplt = i;
-+			if (!(dev->rx_buf_len))
-+				report->bytes_cplt = 0;
-+			else
-+				report->bytes_cplt = dev->rx_buf - dev->msgs[i].buf;
-+			if ((i < idx) || (report->bytes_cplt < dev->bytes_written))
-+				dev_warn_ratelimited(dev->dev, "Read data lost due to FIFO flush");
-+			break;
-+		}
-+	}
-+
-+	if (report->msgs_cplt < 0) {
-+		report->msgs_cplt = idx;
-+		report->bytes_cplt = dev->bytes_written;
-+	}
-+
-+	return idx;
- }
- 
- void i2c_dw_configure_master(struct dw_i2c_dev *dev)
-
--- 
-2.43.0
+Could you please log a Bugzilla ticket adding ACPI dump, dmi information
+and along with alsa info output?
+>
+> Thank you.
+> Cristian
 
