@@ -1,159 +1,155 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7929D1A681C
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 00:40:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788396049; cv=pass; b=aMcnn0X+/Ob4YcGgtDFY12FoVh1VDxEhk43ehvTDI3fx9pvg/ht60uY1cmxcmIe3tiBz/hlvvE12V8M/S4BmBoGt8V0wW7o9NQcAYq6wQC4/VTVWpIdaDXIi2rK2ht2AhgVZTORY6A0REVWlFCQvF2S0XAauSUG1mW04hgcWr58=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788396049; c=relaxed/simple;
-	bh=ummikDaVeCHW0JPhyX90qry89JcKzSQE2CkFya5vVbM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KJor7JWix5FYSw1p8wQ1rfLV5CoR6H6MPaLqGRXejgXNfLvPDoxytLxqkccTXZfQdX8M7lTruPtA3QJ07KSUiL7LqakDcAZUtIxk7tIRhTIIy2qcRBYv/1NY7hXrutoUYBu6rTIEO+O+4lYpvpEkQpygGiCGpLDDGYapficdHOU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n25efLp7; arc=pass smtp.client-ip=209.85.210.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B71227AC45
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 00:41:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788396074; cv=none; b=IC3Ett45kS3mJXRlVq2j6fU7yab0X8H9gw9zHVEziMjrC61vrtrZbuTx3ry1iMWd/1v6u/gMnFgFRibsuoPeaq8LRB1ULnVj2KJqMqTYX/rTZthcW1Mc1GE6jFCtyw44pqKtMSUxC5IiWG6+3qhfCyCIyiAPV8U7yMFrl0bdxDE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788396074; c=relaxed/simple;
+	bh=O3TQq4A5rX9f1yvF4DkCKPUCSm2FMHIrce9wen45HNA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LXGKlm87GjVo2bQJwg4um7bGTvHZArtDPTgnHQUyzJt8SeN2DXpBDHalLtFULbiiW8zsIONR49z+BkiVBpKZXPGeHoV7LTwQP7omtC+SoN7/30bHqRzwDWz8Kr83V2C9nvrruLNf3cwy08EOq3KLF6sEKq6OZ6P0XivfkXhDA0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aFvVa10E; arc=none smtp.client-ip=209.85.160.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n25efLp7"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8556ec44e9aso1691817b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 17:40:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788396048; cv=none;
-        d=google.com; s=arc-20260327;
-        b=MwEvTUHlfgV/2w8qnkBCP4KOy1ZdGny+DMK9jjGh9bXcmKcPE9HAjpxEwfBBjlCSGe
-         pLLvIY9gHiyzKXHpRSQHp6cCpF8SaSKvupBEmAmXk2Ac8v6RPwYVDKfnxdHHd4BMHIHn
-         eZLgf5IhsGKAv895+Mw8UEPCx6aYHFgM96PoBa9ZfihCuJ/8OtuvoK+8ZdkirY8g6UuU
-         i0t85b+weHu8Hrc0rT4fkCTateJqECr9415QXpbOrHH7xZ5ad6/vXXHVoYspHrtus+1t
-         Yp66XBwyoychzXeZv3LvAWjqR0g8PQSpUwE7HtnLeBSoZADMYLw6kh9HUyp5McL7zKqU
-         h19g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ll3GLAxigapk8vQrhDFtbMqJYnX3ubAR8duvzc6SrcI=;
-        fh=RK6wNgzIfmI8OMzePPBTIWt7+ow0FYKH+RFqLMn36I8=;
-        b=pLaz/T0QKfz3PDUiCFUkmzocGwusNM2bPEARyGC9Pa6B1q7Ye6+TKT6gksGw/lDpv1
-         BJz7SMev2iYlzLt08jFld4Zj8JSetfofmV98uaF4S7wPLIfumH7tpKsJQasAdXiaeyZl
-         djBx7gkwvJl2i0DpW3ol5Ngq8vt1JGlfuiK7vFAFx8BsjnDRZ+TmfvvoT3W4dAWN0O9o
-         4BCrTckhWh2zz+kYl45DGKqN0hYU7UyQbuVSY6y+AebfxoQqV1XMMz7DpkQssKI3IbUK
-         nNoV5DIyXQMq3H9Nk9ssYBTpPF8DwV1Z5rKpj6s8X1jPHtdfJNmBN/CT3X/MZxdqfLoi
-         EY/g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aFvVa10E"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-52ff0b7c98aso16252031cf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 17:41:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788396048; x=1789000848; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ll3GLAxigapk8vQrhDFtbMqJYnX3ubAR8duvzc6SrcI=;
-        b=n25efLp7McjhmpeTM9eoOznGkE3xN616qRCctvLLI9vfZdqDs68OH5cz2/cLw1pkJL
-         bMEfgpqd6yHfBsS5/yOVMCWLuQMfP/pgkAekGxV1YkzWfZlnysGHNbQSCbu2F0T7pCZG
-         AmUKtm9dBgUvIf7xvwFtFQ0tNKVp3hg7jOalHEQMoMDzRKNok8zImOtOe9ltAlcU5Gcy
-         qPax6nzyVRt8TY5Wq0/XeyIgdTHEGCd7IsHWrCPuPo8jmwib5KqUW/gXT/DT+B2usUXg
-         IoYgepQqh1BC236bVe1udBzOicguI7DkpnWxsTwyvs82Qyg8UdIODZEtBoeqKC9hcdhK
-         tQ7g==
+        d=gmail.com; s=20251104; t=1788396072; x=1789000872; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YiZZY9+C0sK8isY9Ljf0XKem2w9pAuwvHHUN/mOpXUE=;
+        b=aFvVa10E+tWJOS388wbrJ4I1JyUs6ZkROqaNv71cOI3Dy32qmB/F5JG9CUFAXvj+wF
+         tg7/FhJ/TVX4EnZZjN5/rYbzitdVw6OLMMcpMdX/IR9vrlAofY6xX3D8w0vGzUJ0rCrv
+         8JG+b5FwjNvq0+/NJneEywzLhiW9wgcMjqdIqud4a9RpKxWqcvhUrftNTRaiCIi5O0CV
+         lbDfKasXCrMVqxGN3rraDu6acU8C8cXpv+o9HljE+HZqGqIs9d97t3vpohJInXuHrype
+         LQeEv2nGBhvRiGYHrZdtMEIisgq7dOJpXHbxWP0dQaFovSCcypMXetTbn8wzLKkQrgwM
+         rIeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788396048; x=1789000848;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ll3GLAxigapk8vQrhDFtbMqJYnX3ubAR8duvzc6SrcI=;
-        b=F64Yux1ibwywUyzpQyQnsq1Uw6VrqnRm0KPQvD8oO2mjGJ4N7QaNv5qcFYuHPggXWE
-         nRpb9CxAoRfhInTy8VITfXs5yvN5WlNlQCbBFhyLxhtUWHigcEejI/+rhAbGPuVnpI2F
-         BgzXzhGOMF5KhNuv4iRW45eauc0VRBmpy1LBiOnScc+wgKvoju2Mv6wvp8ZrKzH3g7aQ
-         y2lV1GRCFc1jnkkZsaGRjRYcY+fb/7qcZz5VaTx1iQKUkJLfL+Wjg9xzO3IsYaJv0eDs
-         Cf++PaX5mhlNo0w6/T9bEl/Q6fM/rrXbI2e4UeYYnfliEAKO5E1YicpmqrPKezdCadOV
-         nbTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw9GO0ySodF3VOCPOomMHDD94VVXaqdsvtmrdf/1V56se8NdBQ+AJzs8Ln7Z6nQFLTrGx1K952ggGpeO9g=@vger.kernel.org
-X-Gm-Message-State: AFuF++lardfzcolMm9D+JIvF4QYQFhstD5zjOQ0eNZtimVXsQWJ/Egca
-	tPlJPpY/alDH+4B3TikP3T/XbH/JZm8xqkOIcvDFDytq2cDARQJdbWokOgUqZPVIC0eQ7oCAiM1
-	oyK8N3oOzu3v1rIG/ZhU+IP9Erbb1Arw=
-X-Gm-Gg: AYBFou0ZgaTbxvaQT1zXT/aaHx9FGRbqn1LqUXyooy3Xh+rPI28BuZIipwoKHXVu/w6
-	aK2DQ4Uu5vuadULtgc9EHVaCaJk8qgtrBV9m4xfLzIlq4FrU5eE9ut1sIyjyg69tn73jpdUaeTx
-	zwNsHEUgHtnApHBstb00SDx7mvXOtd7oeL6oWagTenfWGGA2ai3TxFJNsdtM9rbm7E9ZED9pD7n
-	TTWcRavAeZPD2qpjdJnq/cbGWQELq2n2KvBox8chPS0HMwMrUm2loC97OxoUjLddCsLbSDDjDK1
-	CPcvPeJ/ICqwsMUkBSXKxlBfpI/dW4oroGmfBed06pLxPA4fOJSTT5jdosYPxhj9T/1iH6DT+vA
-	IrMv2ptAz9YsJWSLMY6ZcoGNbHg==
-X-Received: by 2002:a05:6a00:4c86:b0:847:9015:e68c with SMTP id
- d2e1a72fcca58-85ed3f70278mr13510128b3a.17.1788396047600; Wed, 02 Sep 2026
- 17:40:47 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788396072; x=1789000872;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YiZZY9+C0sK8isY9Ljf0XKem2w9pAuwvHHUN/mOpXUE=;
+        b=HHAKKXPNPW1+TrMCKfJGm+j05StluWNX7ebxN/rjUE17OJPYtxcASiTxkUzwASsEb0
+         LMhzrw1nyYgQZ6cgRi7tx6pEBNwN4P5VAAqjjHgLIvh7lzxadtihaarziGFy8gtjWudx
+         iDf8EEs1yWaEqZBQfrGvvadYA+Pc1TTatr05ICbqq5F1uPAFSNo2yhaMYTJ7WFfjXAlU
+         2E0KqL+NUbRZDibCmOc0RoJOIHxbbltf3W8z1pPQX7DW42H00cNv4RfPG+Z31qRnJrB6
+         Cvz8Y9gm/IBarAs+jmpcI4PO/NHUon9ph39esCzF0QlPDRZRNRhCQEf5cR/Z6Ap34qE5
+         Sz9g==
+X-Forwarded-Encrypted: i=1; AKwUvBy2kvpuSgZ591mowGCzyBfIqlO0vZj8TuTo1iTubXo6mAqBemZTvTUy0RhUwqoX54Y2hpAoSrMDtS+ptw8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nXZj6bkqblQ1zSS5TxnVmE3b3R3pOBHwn9eBd2vejzy1STldFM
+	rFy6t2glgAG4ehYS42aEn/2ZMhmWOXwLICHzIDlgdJFHaeELBwpitxNQ
+X-Gm-Gg: AYBFou0rionm1839165LpswS3Jl/JaBblmRRi6e2enLOrFKqWZpEH6kRe1hMU2rHCS3
+	sou/dVd9tvryavbXvVmF0Gnd0ZzIle6aOGIkbC2gfdPZWAuKD6cVGqfLz3nSqTZAKTAqYl46zZy
+	syYjIsX1nrHF2usqRe2KPc3gdUUkZsKfRTTeZmAOAwIPDGJsCzVtRV8k7I9f9PB8BXSg67N5s5U
+	UDdpQRruqPZhvXitwdrumVOmeyrHm2SEyvMHUXUgx3XDgcW0w7zsjHDGi3zdDXoFBAY7O0pm/1d
+	7Yg3PQbGR3H28oUBR1oeOtEc1hNWeeT21jXbdfy6hYa6dPEC+O7WegiPxM5Liqx6A2giZSHJjyt
+	Sv5LhPHrpJ0hYbrrNSnRO/UaNVIGvg4z5JmLI76k4D9iJb15wmt8CO9Tf9E3xlMENr0I94rEo2v
+	DaYpBEM9vD/y376hfmaX/r7BXIT4ZboPWH7Vxw3Tc5D+9Mtq7Ennei9npsRtMogyNDzt49Xj1fg
+	luik/nNv6ZWvx5/T4KUNCZqHb19I+n5F+3fDFs+2epv0V99Nbata+A=
+X-Received: by 2002:a05:622a:1354:b0:52e:1e5:4754 with SMTP id d75a77b69052e-53036cc5520mr89907741cf.24.1788396072113;
+        Wed, 02 Sep 2026 17:41:12 -0700 (PDT)
+Received: from Z-System.tailddad04.ts.net (c-68-83-199-219.hsd1.mi.comcast.net. [68.83.199.219])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9eef50c4sm30837506d6.33.2026.09.02.17.41.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 17:41:10 -0700 (PDT)
+From: Zac Lanzon <lanzonza@gmail.com>
+To: linux-hwmon@vger.kernel.org
+Cc: Guenter Roeck <linux@roeck-us.net>,
+	Jean Delvare <jdelvare@suse.com>,
+	Aleksa Savic <savicaleksa83@gmail.com>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zac Lanzon <lanzonza@gmail.com>
+Subject: [PATCH] hwmon: (asus_rog_ryujin) Add ROG Ryujin III 360
+Date: Wed,  2 Sep 2026 20:40:54 -0400
+Message-ID: <20260903004054.502171-1-lanzonza@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902091126.59281-1-markdamirkan@gmail.com>
-In-Reply-To: <20260902091126.59281-1-markdamirkan@gmail.com>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Wed, 2 Sep 2026 17:40:34 -0700
-X-Gm-Features: AcwNN1WhcKJO8-PyXPVycu3bHFJ0XG2h_wkDwdZhBHP-rTVF3QHwBAawos6jWAk
-Message-ID: <CAEf4BzbATmY=yzdKsQwAV5hXwZsahxcYVqtT0+7GoG+N2eFTLg@mail.gmail.com>
-Subject: Re: [PATCH bpf-next] libbpf: Reject oversized unknown BTF type records
-To: Mark Amirkan <markdamirkan@gmail.com>
-Cc: bpf@vger.kernel.org, andrii@kernel.org, eddyz87@gmail.com, 
-	ihor.solodrai@linux.dev, ast@kernel.org, daniel@iogearbox.net, 
-	memxor@gmail.com, martin.lau@linux.dev, song@kernel.org, 
-	yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com, 
-	shuah@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 2, 2026 at 2:11=E2=80=AFAM Mark Amirkan <markdamirkan@gmail.com=
-> wrote:
->
-> btf_type_size_unknown() returns an int, but calculates the type record
-> size using unsigned operands.  With a 24-bit vlen, an unknown kind whose
-> vlen is 0xffffff and whose info and element sizes are both 252 has a
-> record size of 0xfc00000c.  Converting this value to int produces
-> -67108852.
->
-> btf_parse_type_sec() returns the negative value, and btf_new() encodes it
-> with ERR_PTR().  Since the value is outside the error-pointer range,
-> libbpf_ptr() does not recognize it as an error.  On a 64-bit system, a
-> 129-byte raw BTF input makes btf__new() return 0xfffffffffc00000c while
-> libbpf_get_error() returns zero and errno remains zero.  Calling
-> btf__type_cnt() or btf__free() on the result crashes.  The same input
-> makes bpftool's "btf dump file" command terminate with SIGSEGV.
->
-> Calculate the record size as size_t and reject values above INT_MAX
-> before converting it to int.  Add a regression test for the maximum-vlen
-> unknown kind.
->
-> Fixes: cacd6729c092 ("libbpf: Adjust btf_vlen() to return a __u32")
-> Assisted-by: Symbolic
-> Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
-> ---
-> Testing:
-> - normal builds of libbpf and bpftool, plus an ASan/UBSan libbpf build;
-> - the reproducer through btf__new() and bpftool;
-> - the added btf_kind test and the existing encoding/decoding subtests;
-> - identical bpftool output before and after the fix for all 60 BTF blobs
->   under /sys/kernel/btf on the test system.
->
-> The complete BPF selftest suite was not run locally because clang was not
-> available.
+Add the USB product ID of the base ASUS ROG RYUJIN III 360 (0b05:1aa2,
+USB product string "ROG RYUJIN III"). It uses the same status report
+layout and cooler duty channel as the RYUJIN III EXTREME, EVA and
+WHITE editions, so it can share rog_ryujin_iii_info.
 
-that's ok, I hope AI wasn't too stressed about this unfortunate state
-of things...
+Tested on a ROG RYUJIN III 360: coolant temperature, pump speed and
+internal fan speed report plausible values that track load, and the
+internal fan follows pwm2 (30% -> 870 RPM, 40% -> 1590 RPM).
 
-we are not going to harden libbpf against any possible malicious
-corruption of BTF contents. If you don't trust the source of data,
-don't pass it to libbpf (or do it in a VM or some such).
+Assisted-by: Claude:claude-fable-5-1
+Signed-off-by: Zac Lanzon <lanzonza@gmail.com>
+---
+One firmware behavior observed while testing duty writes on this unit,
+kept out of the commit message since it is not about the ID itself.
 
-pw-bot: cr
+The first duty write, a pwm2 write that re-sends the current 40% pump
+duty alongside the new fan duty, takes the cooler out of automatic
+mode and the pump runs at maximum while still reporting 40%. Writing
+40% back does not apply; only a different pwm1 value does. liquidctl
+behaves the same with the hwmon driver unloaded, so this is firmware
+behavior. Only a reboot returns the cooler to automatic mode.
 
->
-> This fixes code present in Linux v7.2; please consider it for stable.
->
+Measured with liquidctl 1.16 (pump-fan is pwm2, pump is pwm1):
 
-Do you use libbpf in practice? and where do you get its source code from, i=
-f so?
+  automatic mode        pump 40% / 1710 RPM   fan 30% /  870 RPM
+  set pump-fan 40       pump 40% / 3690 RPM   fan 40% / 1590 RPM
+  set pump-fan 30       pump 40% / 3660 RPM   fan 30% /  870 RPM
+  set pump 60           pump 60% / 2400 RPM
+  set pump 40           pump 40% / 1740 RPM
+  set pump-fan 40, 30   pump stays 1740 RPM   fan follows
 
->  tools/lib/bpf/btf.c                           | 11 +++++-
->  .../selftests/bpf/prog_tests/btf_kind.c       | 39 +++++++++++++++++++
->  2 files changed, 49 insertions(+), 1 deletion(-)
->
+So the firmware applies a pump duty only when the stored value changes,
+and leaving automatic mode does not apply the stored one. Does the
+EXTREME or EVA do the same? If so, the driver's read-then-rewrite of
+the pump duty on a pwm2 write may deserve a documentation note.
 
-[...]
+ Documentation/hwmon/asus_rog_ryujin.rst | 1 +
+ drivers/hwmon/asus_rog_ryujin.c         | 3 +++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/Documentation/hwmon/asus_rog_ryujin.rst b/Documentation/hwmon/asus_rog_ryujin.rst
+index b0d7ce8dd..3ebab230e 100644
+--- a/Documentation/hwmon/asus_rog_ryujin.rst
++++ b/Documentation/hwmon/asus_rog_ryujin.rst
+@@ -6,6 +6,7 @@ Kernel driver asus_rog_ryujin
+ Supported devices:
+ 
+ * ASUS ROG RYUJIN II 360
++* ASUS ROG RYUJIN III 360
+ * ASUS ROG RYUJIN III EXTREME
+ * ASUS ROG RYUJIN III EVA EDITION
+ * ASUS ROG RYUJIN III WHITE EDITION
+diff --git a/drivers/hwmon/asus_rog_ryujin.c b/drivers/hwmon/asus_rog_ryujin.c
+index 702edb831..4b9859351 100644
+--- a/drivers/hwmon/asus_rog_ryujin.c
++++ b/drivers/hwmon/asus_rog_ryujin.c
+@@ -20,6 +20,7 @@
+ #define USB_PRODUCT_ID_RYUJIN_III_EXTREME	0x1bcb
+ #define USB_PRODUCT_ID_RYUJIN_III_EVA		0x1ade
+ #define USB_PRODUCT_ID_RYUJIN_III_WHITE		0x1ada
++#define USB_PRODUCT_ID_RYUJIN_III		0x1aa2
+ 
+ struct rog_ryujin_device_info {
+ 	u8 temp_offset;
+@@ -593,6 +594,8 @@ static const struct hid_device_id rog_ryujin_table[] = {
+ 	  .driver_data = (kernel_ulong_t)&rog_ryujin_iii_info },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_ASUS_ROG, USB_PRODUCT_ID_RYUJIN_III_WHITE),
+ 	  .driver_data = (kernel_ulong_t)&rog_ryujin_iii_info },
++	{ HID_USB_DEVICE(USB_VENDOR_ID_ASUS_ROG, USB_PRODUCT_ID_RYUJIN_III),
++	  .driver_data = (kernel_ulong_t)&rog_ryujin_iii_info },
+ 	{ }
+ };
+ 
+-- 
+2.53.0
+
