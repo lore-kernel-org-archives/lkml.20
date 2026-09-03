@@ -1,79 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 148674EA394
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:11:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5554B4EBACA
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:11:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788451870; cv=none; b=Vwk3PcR5tj/3GmFXAY5owF2h1ETDIxbr9vpPxmN9nlhOeMqbWpqPo4PuIRC2tS7ihNgx4vGeEceQj4O75wL4H7IwFGqH8aee91xOXJB9HbA4j0n/1shSTcBbyjhnJwq2M1E6TG3uSCw9XpprvSpv0Au0vbV+JhsA4mZtP+tCGqM=
+	t=1788451870; cv=none; b=ND1j3E24iEmR1CFkxyjTTHVEhI4U3f5j/jTDwgea09GoHtUCD2Ej7DUNWBApfS4VTbC1TAe7t0x4Wbr6Jg+xD3jtFwEq2XQb/o7YszWELkPBqrRe1nGCfOBPm+ISqY45+WD7h9T3QKIw6sKyneOpYIl7K2lzbvvQeAiIBcH6A80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788451870; c=relaxed/simple;
-	bh=yhq9mMGLjV9UfUHyvbb9Ko4VH3mQNNAPehyJiBjawpI=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=XuWcZhyEPG96gX+1D5OUwXppH5golArTLr2fwPgA+ZWlNcbbKdWCYNKFE/6CVp53HYlLnxFgU9vHZhnE+MlftncRSfL91tw241UumEEdtbseEu9qCsWAkdcBSarhZVJazoSNLTG6Mb8pqFwHSkxO5SCFrrouCA2wrM6cDfGNFXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P3ZN+Kh+; arc=none smtp.client-ip=100.103.45.18
+	bh=oZCzF7U/pNqSGCBx7Lc2XFggzKryAdR7EYUb7XoIkuY=;
+	h=From:To:Cc:Date:Message-ID:Subject:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=sJiQY7hUHbBFQK3aO+d+4de5UoBrseRnZ+2wxIZglURlmfkWInZ1ErZa6f426Mkr+S2Ft+Y8FXRV+IjqlVyZ0MxOo92Mvp1+DoTbxgeZXrAc1J7GeXURqQo64V5A4ut17itzDBgVswZas8fCMwh1VK2OU3Gmo8qqtq7j6q5jvGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CYrQwO7Y; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P3ZN+Kh+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8907B1F00A3D;
-	Thu,  3 Sep 2026 16:11:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788451867;
-	bh=szYR7Ma1mbriTcSwoUhkTC/Hc9tKuWEAhNgqLZbdKx8=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=P3ZN+Kh+TV6V9T6HxFv960PkRoA3O+xcpyTu+eRwp1Pp9woU/C69bl1RZCHf6rSA3
-	 ywAU4y3wHlrqPCORpmVrqM39S1BTnZR3Xbb42j9upHN9ZB265yCTHmefzb3bz6S5yM
-	 FRlV4ukx3VfY+ozAftsnKHoZpdhz+ZDHZ60YrynMtePXSlG6oleI/j6IvGvRpPmFgn
-	 oSSbOJvl+g+xWd2A8d5baz7SB+y1aIIUCm1qLusz8YltGpHW538xxHuUj/mhjIZRi5
-	 BVjjbUgQV8WZCwPWe9eNk3+gljIDmEQLNdvnhfsqdanyn5FOHuRTaAKEsZHJdfixEg
-	 FWC7L5/49CQYQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 199E838119CB;
-	Thu,  3 Sep 2026 16:10:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CYrQwO7Y"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-484361a8e38so5287f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 09:11:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788451866; x=1789056666; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:message-id:date:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oZCzF7U/pNqSGCBx7Lc2XFggzKryAdR7EYUb7XoIkuY=;
+        b=CYrQwO7YRxSLIGtdoSpREAm7iPBHFgW0/rW/+b0MgADVl61csPLfOWE+W2wRwBLR6v
+         ted+Ev4szN2BlL7fQPcS60ZWYgRnidYnViDpQJW1mzVgVsVTEG4H0mhhwtzGoLVeSyj3
+         qIGtqzFOToMPXGSzVOlbU6RhgY75tTrG6UvB6U3kG40f9ho2M/1eZHZCV7gjY8NwD3oI
+         AMiY1Bkm3r+ICLqS19pQXZn1WA7krrjQLn26uRk9c1QhBHUb06CrKiegXqzwgZx04Iux
+         kPov6gpUrOTNK0q5osgcJwDcMjQb0QLSvOLbI0v8VHpSyG94NS3OHcQ/RINveIfYrmkh
+         H9ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788451866; x=1789056666;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:message-id:date:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oZCzF7U/pNqSGCBx7Lc2XFggzKryAdR7EYUb7XoIkuY=;
+        b=XEOiMN4sgNjZD/zY38lWXVjfHC/pFmhnomRN2uXZLEKf3b2aexnP6hhAblAIbmqJ+p
+         lJKtYWBaPkV40DoGkfJGWMKjBeM2mL4bFAoM7vq3UpTevfyrnzStWcZYH7EmyS9CqEiM
+         erHGtpZSy0hsleRfSDyJdlxLoGghBLw0enkE7H/gKefwaJ+vyrj6FabXY/9PQaPwRGtO
+         cvIsHkibxyk4151CqnBZ6WEdernFqB4qbp+0grUSfXw8lTUKidgMZPkmkEHPWy7eCbw1
+         efbm8KZ6iQV1yoPOo7lcjpVd6NxkUWOcLX4F1LpbLV6nH+37RWfcNdYkRO88gQJm4ShJ
+         8dng==
+X-Forwarded-Encrypted: i=1; AKwUvBzZ8mh0Ro/BLpKoyhZaTy3YMNmv0lX/8G7fvOo4hUU3u5PlBySta7KiNwpalYoD15r7UpDn2bmpQ9O4me0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lUBDgexHEbVEHu8FiAWFuZBi/FxyEvfORwNzDL7x4AQ/o/ZdXN
+	zj1LxYnAGQmUoZgCbU4VgoK1f9zpOkkPIUEZMdON3cl7566I5V44KT2TRhGoSRmi8hg=
+X-Gm-Gg: AYBFou1EF6uu5sYsbZ8S2D1xFKqhn1l037dppRLwfjSruYICKV/Q9Mi7B7YsEZr0csI
+	VglRgGnI9TvkPAlls9xP/fMI/qyVD0o4YhgkWMMB55J6vGGXOsLPDFKSlkiI0xJkejwGSquXQnn
+	dbNGsgGd3pws4fmzvSS+PVShkxd8H1pJnAVdSFoXBtx8qmukGvo4gbUjx0EmWHd1oaciwsDefJ+
+	12mjtsDBPNtr+gTLpQOQe2DECxi2s1j6UC4dZGhH18c966OmvFl14Ew8614nBiqb7OKUvRIQEZR
+	wmYzv2qTVdpdxlftYpb/osMmk8a2Lp9Qjvm7v5GeoVmKHtwDQtstHovsJNPwvfDcGHiWnjwDyyE
+	PPVxwhD9/cWKxr/lfF0smsWQnNfI2jsfDKcYtEWe8vNJ/Ygs4JhOqWMFM4dU//hb6Cqz7w1LNbj
+	1BMqx243FdXHBigmk+Y3jNNTGUt6IhMogteqzwTj2edQolCgForb3DwBGMCTc/F5eHLcX8NkQLn
+	4adLfRNJtuyx1jyUUmLYjht0Sfry4JeATWgVnzXoDuDiN+s255YieVJdtqzilTeeOETGboMxut2
+	psjQ+ZlZGYaqHi6Fq+iL3eI=
+X-Received: by 2002:a05:600c:530c:b0:499:cef6:104c with SMTP id 5b1f17b1804b1-49ce58369f4mr111926625e9.1.1788451866233;
+        Thu, 03 Sep 2026 09:11:06 -0700 (PDT)
+Received: from [192.168.1.144] (98.102.222.87.dynamic.jazztel.es. [87.222.102.98])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf2abe1basm49686565e9.10.2026.09.03.09.11.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 09:11:05 -0700 (PDT)
+From: Miguel Garcia <miguelgarciaroman8@gmail.com>
+To: stable@vger.kernel.org
+Cc: pvmohammedanees2003@gmail.com, akpm@linux-foundation.org,
+ joseph.qi@linux.alibaba.com, mark@fasheh.com, jlbec@evilplan.org,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+Date: Thu, 03 Sep 2026 18:11:04 +0200
+Message-ID: <178845186455.1865019.8043691693828475058@gmail.com>
+Subject: Re: [PATCH 6.1.y] ocfs2: fix deadlock in ocfs2_get_system_file_inode
+In-Reply-To: <20260903152421.1801322-1-miguelgarciaroman8@gmail.com>
+References: <20260903152421.1801322-1-miguelgarciaroman8@gmail.com>
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [f2fs-dev] [PATCH v3] f2fs: wait for inode record work before
- clearing ino bitmaps
-From: patchwork-bot+f2fs@kernel.org
-Message-Id: 
- <178845180865.3423963.18175372043780250753.git-patchwork-notify@kernel.org>
-Date: Thu, 03 Sep 2026 16:10:08 +0000
-References: <20260902090611.564876-1-qiwenjie@xiaomi.com>
-In-Reply-To: <20260902090611.564876-1-qiwenjie@xiaomi.com>
-To: Wenjie Qi <qwjhust@gmail.com>
-Cc: jaegeuk@kernel.org, chao@kernel.org, qiwenjie@xiaomi.com,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net
 
-Hello:
-
-This patch was applied to jaegeuk/f2fs.git (dev)
-by Jaegeuk Kim <jaegeuk@kernel.org>:
-
-On Wed,  2 Sep 2026 17:06:11 +0800 you wrote:
-> APPEND/UPDATE inode state recording was moved to the inode eviction
-> workqueue. These entries were later converted to bitmap values stored in
-> XArrays, but the workqueue drain was left behind in the list cleanup loop
-> where it is now a no-op.
-> 
-> During unmount, inode eviction work can therefore remain queued when
-> f2fs_release_ino_entry() destroys the bitmap XArrays. A delayed worker can
-> repopulate them before the workqueue is finally destroyed, leaking newly
-> allocated XArray nodes when the F2FS superblock is freed.
-> 
-> [...]
-
-Here is the summary with links:
-  - [f2fs-dev,v3] f2fs: wait for inode record work before clearing ino bitmaps
-    https://git.kernel.org/jaegeuk/f2fs/c/56bcda97b38a
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Please drop this patch. This branch already contains e79c0fc4f61e, a backport=
+ of upstream f5b1910e23f1 that removes system_file_mutex and fixes the lock i=
+nversion. The older trylock change is unnecessary and can cause failed direct=
+ory lookups. Sorry for the noise.
