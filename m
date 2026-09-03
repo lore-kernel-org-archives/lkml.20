@@ -1,412 +1,130 @@
-Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60557485507
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:54:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788436483; cv=pass; b=qqjLPd6dqZtJ1qxAo5V/cwD52p/3Hsxvf/43ReLAjKXcvesOKYaN+WZz/WhA0D39EYaTjShSsGWWy8FrkNQDoC5qmC9SD+go8wpqINxGdxKMywK91VWjwvvsnGOh7N9CzOURg+4RWDMU0QRLY8uS7ZtufPInc/f3escPQ2ehI8E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788436483; c=relaxed/simple;
-	bh=gHAbW6wIQAOgircilBDDKDXMDhXhvTa/oibSBhPS/GE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IsTg/dPqGTfkM8ZYOCfv9k+46APgILB6ImuAEaOE8gbYygX4zvQu9ImyYcKgKZntKDiJ649NHBLAe2VvS7L2WHy9LFPywWjY9SXqe0A+66KpVGLsVjL2wq/FIO2iz41q0oYKPtnU3n7DpjvgnEiuAEkYjG/mMgqT9UOG5eAyYO0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=C/UgoQp6; arc=pass smtp.client-ip=209.85.161.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB02024CEEA;
+	Thu,  3 Sep 2026 11:54:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788436494; cv=none; b=Ke6uGLZQLbHYiBP3c7mkHaYCQgHzzoTQ954eWQnzHSujZ5eIxCtwYeHkI9Bgj/kHLSA1bKFQoMvcec+6j4Ye/oIhhGwJil+bj5Y9A1tPu89fIyS6oLNIXSVZrnR5FSzkr05iZ6CxWQBUXmXvuvXQUbps3H2/zbZcSJqeYa1IXCI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788436494; c=relaxed/simple;
+	bh=Z5z37XkEsb61zGtLR1enwRiogwfaCgfOpyuB25jZx64=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KynWqsF2EOBXozgpUFRqANuqm1abKIHGFbAj1DYDoN1xYcEAkGNzBfXIGYen5sWjwr/UbxyNd/H9gjrK7kV9g/HkODMolx78h/gpr/qCZQqov3/fFfGR4zatmmvZwxovYKx2YPkk4IOwJ1zzI6dRTcrTqyGNBgXkp0mY3V6XSCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JZwBmM0T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="C/UgoQp6"
-Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6b0496f4bbcso1424031eaf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 04:54:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788436477; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JwE0SAq3Bng84cp38T95O978TTAPjzjVqndtQ0goTeHQH7HGhw66CfPhBUAtp41ZGC
-         s03IsSVOX0efrE4ec5syiB6ggvgelDJzRXk8Iq+SOnSpV3KXxj0SoCUByXrpOaApJ13b
-         NjWLUt7MRni2LOrI0J1ihTlsqWFRf3tBq1IK3yU3Ws4Uh0rtGUVWUyDo71z7RLo+x1bo
-         +VxiWC+3e9jadXjkJ1fbAc7NYIO0QNkPDFQxVgOyc0t7ev7wyzyAcDl4e7D6/doYRWMR
-         tiDtObdpIhpXvBNs+UJumvcAbPskKHr5thjBjRv1XJnJpV/dvoQPCDJCtSJ269P6lph5
-         vzbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tG8aNzzaKVpd1oQICpnTjkqoBtjprmAy6CZLg1VWzM4=;
-        fh=j38RmixOp2LbUtIMaDoBstTBAQouUtKiTKaBl9eZILo=;
-        b=Ez4P5zkazs9pGTTIhG9DxS4QJSFYqyqHvATtEEJ+Z5tBL7LCl2hzo1hQb/PDqF66Dw
-         Lg2NUKIHPPAmobBqq3pcqXhvqO1JWqFQe+9PaPHC5jJeCIqXQ0WWARmRKSNzQd6+g64t
-         cNO0J5mBeMobCGBMO4Woz8LJMrlXprrRF87CE4yG1rUl2pLuSG7ku7ZLBGhaoZdI56DX
-         zx48hgZIF7boRGubBO88XLZ/EizRQi5qjreEn0Bf7fRwPhpYoy2szTuPWudYOanuvaRL
-         D4uE2bHgXo/0Fl853oAOMZbL2Qyb+iGs7ofqk+I6vO7T86tBD8LosU4P+GHlp7YtmLGF
-         E74w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1788436477; x=1789041277; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tG8aNzzaKVpd1oQICpnTjkqoBtjprmAy6CZLg1VWzM4=;
-        b=C/UgoQp6/0MKC+uiBhDIFo+95dcr5Pg5+iT3xMqqNmcSWztMd0XlI6783L4jwXaDS2
-         ny76T5oUAbt9g0uEnJgYWrH/UbB56aRnu90vObSnGB+B8J0nYGO6Pt2Sr32iTSigEBfZ
-         vQijFGCABHHq4bNpMM74p+X62rcOBuXNhpLvKhuxWDUSXdbjZtJ/pXw6nsSDnLh193yP
-         9YfI2lIXMVRw6o8k5WfA1k6GKI4wtQiBTRNLoAPIHJu1DK5EJn8spbsCd+goKu5hF47F
-         MaO2K1ZSfQ/aD0gBzdlOPo9JGloxv8xuitnAfrtbxnWrFtcMyvFpbSx+9KbyQ5fbzUwx
-         OI4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788436477; x=1789041277;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tG8aNzzaKVpd1oQICpnTjkqoBtjprmAy6CZLg1VWzM4=;
-        b=SX78WE6OVF+5JbMswR5YH5nCYNHiCWZIHlfb863zbqOAy048ZOc5wibeqY8a6FJhhw
-         xzjylVvk4DKsHZRrxOqTh0/rPGmEqPqLrLdjifc9PUEO67p8x13O6VxX+lL4LSJfZooE
-         y2eCP8khEuoz8kNPP7ucH0fRr+Bh0cwDdLgXyLupfgzQPiXcVGjTNU429rtC1X5oj3wv
-         IaYrA+NK7Nr0lzshc4Cn0XvGYz7/rsvcLm+5AY8EQ8+MEpPvzGQrMTmXNr0PZ5tSE+1B
-         P7wMiXEJSYAmbqrY89SAtW6UAobY5fUY/s1RNNgD6lcDXouAJj4YiDWroNM8XIUl3Y54
-         lo/g==
-X-Forwarded-Encrypted: i=1; AKwUvBzZp921HmNioY32hZ1IHrNCQK/wthmWkayZzpBtX3+/p2Zn+1eg/tw/hKXl+ekAOVAfP8IY1KeBlTpBkIw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mw0VsKaFSHazHuU6UCcsqYAmfH6lFTyAleyAUrmzms64iYEK59
-	cpepCgD8RFaUKFNaVIKqyJJ8S94zEXpgoDq2qMUiUnl/HOqRK4fFtqzVmu2UAMGybncm6oFYLdo
-	fjai6aRbLA8u5TdU6R7S6OvUwYkR4C6zxUNjO1xDoFg==
-X-Gm-Gg: AYBFou05dpGD6abH5lAFqvOEDpiSLD/sgeP7xvZTXDy7971lHgTBSdhcvz1NK9s4Kz6
-	j5GCftYOpUF3upHzRtpwExiMOcLUKxUfBTx7An5uDNlwyhfccMxcKCDkPm1cKV78PsY0Fyj/2QH
-	0FCChETpJKCMfaPxYFaQtccr8Dm41xbANUYoFmmprqe2H9DXnmaDOWkFG7wK3Tiw4YuTTzOFobI
-	GhOIW+Mtx2r8EHZnjiu0wk6LRrd/DPgfI81UmxUU+u3hFDq62ZBJ9rOKbfghjGVs0pZ+Kab7U4X
-	d+KHanZyeIZJa89pyTOKVJoNG6y54z4nO1K2XNOfTLBZyK4uyGjJvNpChsDrn/xrh5mZJZYTIcW
-	CLqzDsFmez4BX9bwqahhYgvQGa2ZXTOFDb4bOBurz5eTQiLxmye/mUjPcvreVig==
-X-Received: by 2002:a05:6820:298f:b0:6b0:ab1f:ec11 with SMTP id
- 006d021491bc7-6b47eac1288mr8752261eaf.29.1788436477103; Thu, 03 Sep 2026
- 04:54:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JZwBmM0T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65D121F00A3D;
+	Thu,  3 Sep 2026 11:54:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788436483;
+	bh=lrsApyRAlrAEXb8oYNM0e4ki57YGn/dS7fq9ucKxGg0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JZwBmM0T8rEezI81rzPOtSKsc80CaL0qZizFtL+7BYIla5SMnNJZL1ZxJjRMEwgqb
+	 gR4JmwhGNnvMat1WcDCGZqu7ugwvVJniCdnA6UhbsOMP9uqja/6lqWPA5P0+bTISZ2
+	 iYoC9SwyK9kQeJxNYiAA40wW0wHu2XS+FjcP3KT8B0uJj5nqmZpICVU9QWKONsL/Y3
+	 paVGcie002Aj4ei1NEzGgFXNeJytaSUITaXeUQIHuwISBbexfo5nkDtfxHgItV1Uy1
+	 71giNJZPbXLuwvmZAmOD8nVNFOaOIb2w/nO5gDXg49SeKvBzyniUe7DWM0U9QA6hJ2
+	 aw5YXbYyerxvA==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.ams.internal (Postfix) with ESMTP id C09CB1980050;
+	Thu,  3 Sep 2026 07:54:37 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Thu, 03 Sep 2026 07:54:41 -0400
+X-ME-Sender: <xms:_V-Zaq-oLXG_tbRV5SL17ux8ZZWIWBI5lch0m-ICKJSNYjW1Kqxdcw>
+    <xme:_V-Zam649lsVdZSxRBe8Y4Fkv8iPQl4xoKF8yi7-uhpSI4N_82rXYncBjTcOcrgdl
+    jru2YnK1iltr_y3MKD6_bDjGKrjFVmUrmke9Ez28f6iFIpVUGTzVKo>
+X-ME-Received: <xmr:_V-ZanLB9z9pZZPNfG871FvzpdzBWebIxdafXCmQk9tqTj5p2-gfcwKhRxA>
+X-ME-Proxy-Cause: dmFkZTGRROi4E2jYkPmHGn8HmsKJK+DNhzW0iFBovk5qrcANvc/cyAdiFz8Bf10UjHIIr2
+    OCiNRxEcjH1fCCFWSCLqPb2F/nchosJWO+1x6Hoz+5AHWYM5O+CqFcxplyHcG2m0w7RAOJ
+    RUZ+jd9/a47JGJrOI5YRYubkQnZiRkL/W1JEXFNtY6qVzb0v768ExU2eXwalE45ySiF3R2
+    U4Z7aVpbGLrcxzX2HU/qf4+p9hJ62k5bAdwGbkZvc5vvqB0dtHm9E81ImbEPYAPyYZDO3Z
+    xZhLFBqWVSekOwAehorhA1EfjVwqRxpVeLw0fgGTvb/gfBm6l0b+TMrVkfw0ctulats7oK
+    wGlwKgXrS8Ti3z540MLDbn7ePC2qI/c2MtU5JUF+dLTMXiRyJivzXiYAn/9wsa0PY1oHXu
+    JzW2v+S/SSoVTcbO1JuhD4Nyd0FGNc3o4UObcbk6f1jbDrRJpNJ0EXmUmTp1mwjyGtksB+
+    E2wuRcH8c/rtBeyz+MDkuxCE+hb+/e2KAncEfo3PsPYjNhQU6LKaewoSsGySzAeR3lLM5U
+    GWx4Tu8ac0h3jZKjFsfGmSSulZ+hKt7eqz9x9VzuosBEqTQAVTDsESwXOF2SwVzeHoF5VZ
+    xwz0bboXiq1kvRifcmh7pN2ZbSSOgVvpoezUhaLz0B8RRjYLfKmMTOap1iWA
+X-ME-Proxy: <xmx:_V-ZauAr7fM7WQUuNYCB2wNA2X60UGgz1puUga-gXmYLooLrqGZshg>
+    <xmx:_V-ZagiOWoUgQIkkfpkSxwqFHXG16Z4VbZnV2_hDIOY49EB37rOr7Q>
+    <xmx:_V-ZaiN_RjR92LznnJrMHPgOIsfRfnKwP9OeVFLO-_u5WtWMYA1ElA>
+    <xmx:_V-ZasXGbsML7uAsQ1LEveq9goQh64MBgn9PW56oEWw-3GsSNWHk-w>
+    <xmx:_V-ZanCiw98vjCVwwHH4u5kXCgv2ETVbsI4nOpwXxgN_C3BUMY9LCzWE>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 3 Sep 2026 07:54:36 -0400 (EDT)
+Date: Thu, 3 Sep 2026 12:54:35 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Vernon Yang <vernon2gm@gmail.com>, rick.p.edgecombe@intel.com
+Cc: tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
+	dave.hansen@linux.intel.com, akpm@linux-foundation.org, david@kernel.org, hpa@zytor.com, 
+	rmclure@linux.ibm.com, andrew+kernel@donnellan.id.au, pasha.tatashin@soleen.com, 
+	tj@kernel.org, rppt@kernel.org, yu-cheng.yu@intel.com, orsonpeters@gmail.com, 
+	linux-kernel@vger.kernel.org, x86@kernel.org, linux-mm@kvack.org, 
+	Vernon Yang <yanglincheng@kylinos.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH] x86/mm: Fix pmd_modify() dropping the dirty bit
+Message-ID: <aplfcTfjeQUgnrvH@thinkstation>
+References: <20260903031608.1194238-1-vernon2gm@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260805-media-starvis2-v1-0-91e8e4eae44f@raspberrypi.com>
- <20260805-media-starvis2-v1-4-91e8e4eae44f@raspberrypi.com> <178840935437.11722.581815298725172345@freya>
-In-Reply-To: <178840935437.11722.581815298725172345@freya>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Thu, 3 Sep 2026 12:54:19 +0100
-X-Gm-Features: AcwNN1VdrRkuRy_rjt36H8K_XmrlY74SkAhK6SYkA9sk5Fx4sd6TrQFPclt--MY
-Message-ID: <CAPY8ntBpR6vjP4Yd8ErVMuLjLshWb+rpfV=dzRNkhLN=K59rnw@mail.gmail.com>
-Subject: Re: [PATCH RFC 4/4] media: i2c: imx678: Add imx675 support to the driver
-To: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903031608.1194238-1-vernon2gm@gmail.com>
 
-Hi Jai
+On Thu, Sep 03, 2026 at 11:16:08AM +0800, Vernon Yang wrote:
+> From: Vernon Yang <yanglincheng@kylinos.cn>
+> 
+> pmd_modify() masks the old value with (_HPAGE_CHG_MASK & ~_PAGE_DIRTY),
+> silently discarding the hardware dirty bit.  The subsequent
+> pmd_mksaveddirty() call is supposed to transfer _PAGE_DIRTY into
+> _PAGE_SAVED_DIRTY when write-protecting, but the dirty bit was already
+> stripped from the value, so there is nothing left to transfer.
+> 
+> Contrast with pte_modify(), which keeps _PAGE_DIRTY_BITS in its mask,
+> and pud_modify(), which keeps _HPAGE_CHG_MASK untouched: pmd_modify()
+> is the odd one out.  Any pmd_modify() on a writable, dirty PMD loses
+> the dirty state.
+> 
+> One visible consequence is data loss with MADV_FREE on PMD-mapped THP:
+> 
+>     memset(buf, 0x5A, size);          // PMD-mapped THP, PMD dirty
+>     madvise(buf, size, MADV_FREE);    // PMD cleaned but left writable,
+>                                       // folio marked lazyfree
+>     memset(buf, 0x5A, size);          // hardware sets _PAGE_DIRTY again
+>     mprotect(buf, size, PROT_READ);   // pmd_modify() drops the dirty bit
+>     mprotect(buf, size, PROT_READ|PROT_WRITE);
+>     // ... memory pressure ...
+> 
+> Reclaim (e.g. under memcg pressure) then finds the lazyfree folio with
+> no dirty bit set anywhere and frees it in
+> __discard_anon_folio_pmd_locked(), even though the data was rewritten
+> after MADV_FREE; subsequent reads fault in fresh zero pages.  NUMA
+> hinting alone can trigger the same loss, as do_huge_pmd_numa_page()
+> restores the PMD through pmd_modify() as well.
+> 
+> PMD-mapped file THPs are affected too: mprotect()/NUMA hinting dropping
+> the dirty bit means rewritten data is never written back.
+> 
+> Fix it by keeping _PAGE_DIRTY in the preserved mask, exactly like
+> pte_modify() and pud_modify() do.  The existing
+> pmd_mksaveddirty()/pmd_clear_saveddirty() pair then performs the
+> hardware-dirty <-> saved-dirty transition based on the write bit,
+> preserving the shadow-stack encoding rules.
+> 
+> Closes: https://lore.kernel.org/r/CAJxLxMUGu1-L+O_nAONOwOXnS=cNbNApCWqdthRjd76LThtSPg@mail.gmail.com/
+> Fixes: bb3aadf7d446 ("x86/mm: Start actually marking _PAGE_SAVED_DIRTY")
 
-On Thu, 3 Sept 2026 at 05:22, Jai Luthra <jai.luthra@ideasonboard.com> wrot=
-e:
->
-> Hi Dave,
->
-> Quoting Dave Stevenson (2026-08-05 21:39:19)
-> > The IMX675 is a 5MPix Starvis2 sensor that follows the same
-> > programming pattern as IMX678 and IMX662, so add it into the
-> > driver.
-> >
-> > FIXME: Validate common_regs against Sony documentation.
-> >
-> > Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> > ---
-> >  drivers/media/i2c/imx678.c | 222 +++++++++++++++++++++++++++++++++++++=
-++++++++
-> >  1 file changed, 222 insertions(+)
-> >
-> > diff --git a/drivers/media/i2c/imx678.c b/drivers/media/i2c/imx678.c
-> > index 9083f2744510..4b82823c260e 100644
-> > --- a/drivers/media/i2c/imx678.c
-> > +++ b/drivers/media/i2c/imx678.c
-> > @@ -714,6 +714,205 @@ const struct imx678_variant imx662_variant_def =
-=3D {
-> >         .hmax_min =3D imx662_min_hmax_4lane,
-> >  };
-> >
-> > +static const struct cci_reg_sequence imx675_common_regs[] =3D {
-> > +       { CCI_REG8(0x301B), 0x00 },
->
-> nit: Maybe run a quick grep to turn the hex values to lower case like res=
-t
->      of the driver?
+Hm. I don't understand why would this commit explicitly exclude
+_PAGE_DIRTY from the mask:
 
-Already done for the next version
+-       val &= _HPAGE_CHG_MASK;
++       val &= (_HPAGE_CHG_MASK & ~_PAGE_DIRTY);
 
-> > +       { CCI_REG8(0x301C), 0x00 },
-> > +       { CCI_REG8(0x301E), 0x01 },
-> > +
-> > +       { CCI_REG8(0x3060), 0x95 },
-> > +       { CCI_REG8(0x3061), 0x00 },
-> > +       { CCI_REG8(0x3062), 0x00 },
-> > +       { CCI_REG8(0x3064), 0x56 },
-> > +       { CCI_REG8(0x3065), 0x00 },
-> > +       { CCI_REG8(0x3066), 0x00 },
-> > +
-> > +       { CCI_REG8(0x3072), 0x00 },
-> > +       { CCI_REG8(0x3073), 0x00 },
-> > +       { CCI_REG8(0x3074), 0x00 },
-> > +       { CCI_REG8(0x3075), 0x00 },
-> > +       { CCI_REG8(0x3081), 0x00 },
-> > +       { CCI_REG8(0x30A4), 0xAA },
-> > +       { CCI_REG8(0x30A6), 0x0F },
-> > +       { CCI_REG8(0x30CC), 0x00 },
-> > +       { CCI_REG8(0x30CD), 0x00 },
-> > +       { CCI_REG8(0x30CE), 0x02 },
-> > +       { CCI_REG8(0x3400), 0x01 },
-> > +
-> > +       { CCI_REG8(0x3400), 0x01 },
-> > +       { CCI_REG8(0x3460), 0x22 },
-> > +       { CCI_REG8(0x3492), 0x08 },
-> > +       { CCI_REG8(0x3B1D), 0x17 },
-> > +       { CCI_REG8(0x3B44), 0x3F },
-> > +       { CCI_REG8(0x3B60), 0x03 },
-> > +       { CCI_REG8(0x3C03), 0x04 },
-> > +       { CCI_REG8(0x3C04), 0x04 },
-> > +       { CCI_REG8(0x3C0A), 0x00 },
-> > +       { CCI_REG8(0x3C0B), 0x00 },
-> > +       { CCI_REG8(0x3C0C), 0x00 },
-> > +       { CCI_REG8(0x3C0D), 0x00 },
-> > +       { CCI_REG8(0x3C0E), 0x00 },
-> > +       { CCI_REG8(0x3C0F), 0x00 },
-> > +       { CCI_REG8(0x3C30), 0x73 },
-> > +       { CCI_REG8(0x3C3C), 0x20 },
-> > +       { CCI_REG8(0x3C7C), 0xB9 },
-> > +       { CCI_REG8(0x3C7D), 0x01 },
-> > +       { CCI_REG8(0x3C7E), 0xB7 },
-> > +       { CCI_REG8(0x3C7F), 0x01 },
-> > +       { CCI_REG8(0x3CB0), 0x00 },
-> > +       { CCI_REG8(0x3CB2), 0xFF },
-> > +       { CCI_REG8(0x3CB3), 0x03 },
-> > +       { CCI_REG8(0x3CB4), 0xFF },
-> > +       { CCI_REG8(0x3CB5), 0x03 },
-> > +       { CCI_REG8(0x3CBA), 0xFF },
-> > +       { CCI_REG8(0x3CBB), 0x03 },
-> > +       { CCI_REG8(0x3CC0), 0xFF },
-> > +       { CCI_REG8(0x3CC1), 0x03 },
-> > +       { CCI_REG8(0x3CC2), 0x00 },
-> > +       { CCI_REG8(0x3CC6), 0xFF },
-> > +       { CCI_REG8(0x3CC7), 0x03 },
-> > +       { CCI_REG8(0x3CC8), 0xFF },
-> > +       { CCI_REG8(0x3CC9), 0x03 },
-> > +       { CCI_REG8(0x3E00), 0x1E },
-> > +       { CCI_REG8(0x3E02), 0x04 },
-> > +       { CCI_REG8(0x3E03), 0x00 },
-> > +       { CCI_REG8(0x3E20), 0x04 },
-> > +       { CCI_REG8(0x3E21), 0x00 },
-> > +       { CCI_REG8(0x3E22), 0x1E },
-> > +       { CCI_REG8(0x3E24), 0xBA },
-> > +       { CCI_REG8(0x3E72), 0x85 },
-> > +       { CCI_REG8(0x3E76), 0x0C },
-> > +
-> > +       { CCI_REG8(0x3E77), 0x01 },
-> > +       { CCI_REG8(0x3E7A), 0x85 },
-> > +       { CCI_REG8(0x3E7E), 0x1F },
-> > +       { CCI_REG8(0x3E82), 0xA6 },
-> > +       { CCI_REG8(0x3E86), 0x2D },
-> > +       { CCI_REG8(0x3EE2), 0x33 },
-> > +       { CCI_REG8(0x3EE3), 0x03 },
-> > +       { CCI_REG8(0x4490), 0x07 },
-> > +       { CCI_REG8(0x4494), 0x19 },
-> > +       { CCI_REG8(0x4495), 0x00 },
-> > +       { CCI_REG8(0x4496), 0xBB },
-> > +       { CCI_REG8(0x4497), 0x00 },
-> > +       { CCI_REG8(0x4498), 0x55 },
-> > +       { CCI_REG8(0x449A), 0x50 },
-> > +       { CCI_REG8(0x449C), 0x50 },
-> > +       { CCI_REG8(0x449E), 0x50 },
-> > +       { CCI_REG8(0x44A0), 0x3C },
-> > +       { CCI_REG8(0x44A2), 0x19 },
-> > +       { CCI_REG8(0x44A4), 0x19 },
-> > +       { CCI_REG8(0x44A6), 0x19 },
-> > +       { CCI_REG8(0x44A8), 0x4B },
-> > +       { CCI_REG8(0x44AA), 0x4B },
-> > +       { CCI_REG8(0x44AC), 0x4B },
-> > +       { CCI_REG8(0x44AE), 0x4B },
-> > +       { CCI_REG8(0x44B0), 0x3C },
-> > +       { CCI_REG8(0x44B2), 0x19 },
-> > +       { CCI_REG8(0x44B4), 0x19 },
-> > +       { CCI_REG8(0x44B6), 0x19 },
-> > +       { CCI_REG8(0x44B8), 0x4B },
-> > +       { CCI_REG8(0x44BA), 0x4B },
-> > +       { CCI_REG8(0x44BC), 0x4B },
-> > +       { CCI_REG8(0x44BE), 0x4B },
-> > +       { CCI_REG8(0x44C0), 0x3C },
-> > +       { CCI_REG8(0x44C2), 0x19 },
-> > +       { CCI_REG8(0x44C4), 0x19 },
-> > +       { CCI_REG8(0x44C6), 0x19 },
-> > +       { CCI_REG8(0x44C8), 0xF0 },
-> > +       { CCI_REG8(0x44CA), 0xEB },
-> > +       { CCI_REG8(0x44CC), 0xEB },
-> > +       { CCI_REG8(0x44CE), 0xE6 },
-> > +       { CCI_REG8(0x44D0), 0xE6 },
-> > +       { CCI_REG8(0x44D2), 0xBB },
-> > +
-> > +       { CCI_REG8(0x44D4), 0xBB },
-> > +       { CCI_REG8(0x44D6), 0xBB },
-> > +       { CCI_REG8(0x44D8), 0xE6 },
-> > +       { CCI_REG8(0x44DA), 0xE6 },
-> > +       { CCI_REG8(0x44DC), 0xE6 },
-> > +       { CCI_REG8(0x44DE), 0xE6 },
-> > +       { CCI_REG8(0x44E0), 0xE6 },
-> > +       { CCI_REG8(0x44E2), 0xBB },
-> > +       { CCI_REG8(0x44E4), 0xBB },
-> > +       { CCI_REG8(0x44E6), 0xBB },
-> > +       { CCI_REG8(0x44E8), 0xE6 },
-> > +       { CCI_REG8(0x44EA), 0xE6 },
-> > +       { CCI_REG8(0x44EC), 0xE6 },
-> > +       { CCI_REG8(0x44EE), 0xE6 },
-> > +       { CCI_REG8(0x44F0), 0xE6 },
-> > +       { CCI_REG8(0x44F2), 0xBB },
-> > +       { CCI_REG8(0x44F4), 0xBB },
-> > +       { CCI_REG8(0x44F6), 0xBB },
-> > +       { CCI_REG8(0x4538), 0x15 },
-> > +       { CCI_REG8(0x4539), 0x15 },
-> > +       { CCI_REG8(0x453A), 0x15 },
-> > +       { CCI_REG8(0x4544), 0x15 },
-> > +       { CCI_REG8(0x4545), 0x15 },
-> > +       { CCI_REG8(0x4546), 0x15 },
-> > +       { CCI_REG8(0x4550), 0x11 },
-> > +       { CCI_REG8(0x4551), 0x11 },
-> > +       { CCI_REG8(0x4552), 0x11 },
-> > +       { CCI_REG8(0x4553), 0x11 },
-> > +       { CCI_REG8(0x4554), 0x11 },
-> > +       { CCI_REG8(0x4555), 0x11 },
-> > +       { CCI_REG8(0x4556), 0x11 },
-> > +       { CCI_REG8(0x4557), 0x11 },
-> > +       { CCI_REG8(0x4558), 0x11 },
-> > +       { CCI_REG8(0x455C), 0x11 },
-> > +       { CCI_REG8(0x455D), 0x11 },
-> > +       { CCI_REG8(0x455E), 0x11 },
-> > +       { CCI_REG8(0x455F), 0x11 },
-> > +       { CCI_REG8(0x4560), 0x11 },
-> > +       { CCI_REG8(0x4561), 0x11 },
-> > +       { CCI_REG8(0x4562), 0x11 },
-> > +       { CCI_REG8(0x4563), 0x11 },
-> > +       { CCI_REG8(0x4564), 0x11 },
-> > +
-> > +       { CCI_REG8(0x4569), 0x01 },
-> > +       { CCI_REG8(0x456A), 0x01 },
-> > +       { CCI_REG8(0x456B), 0x06 },
-> > +       { CCI_REG8(0x456C), 0x06 },
-> > +       { CCI_REG8(0x456D), 0x06 },
-> > +       { CCI_REG8(0x456E), 0x06 },
-> > +       { CCI_REG8(0x456F), 0x06 },
-> > +       { CCI_REG8(0x4570), 0x06 },
-> > +};
-> > +
-> > +static const u16 imx675_min_hmax_4lane[] =3D {
-> > +       [IMX678_LINK_FREQ_297MHZ] =3D 1125,
-> > +       [IMX678_LINK_FREQ_360MHZ] =3D 1125,
-> > +       [IMX678_LINK_FREQ_445MHZ] =3D 1125,
-> > +       [IMX678_LINK_FREQ_594MHZ] =3D 1125 / 2,
-> > +       [IMX678_LINK_FREQ_720MHZ] =3D 1125 / 2,
-> > +       [IMX678_LINK_FREQ_891MHZ] =3D 1125 / 2,
-> > +       [IMX678_LINK_FREQ_1039MHZ] =3D 1125 / 2,
-> > +       [IMX678_LINK_FREQ_1188MHZ] =3D 1125 / 2,
-> > +};
-> > +
-> > +const struct imx678_variant imx675_variant_def =3D {
-> > +       .name =3D "imx675",
-> > +       .id_reg =3D IMX678_REG_MODULE_ID,
-> > +       .id_value =3D 0x296,
-> > +       .native_area =3D {
-> > +               .top =3D 0,
-> > +               .left =3D 0,
-> > +               .width =3D 2609,
-> > +               .height =3D 1984,
-> > +       },
-> > +       .active_area =3D {
-> > +               .top =3D 0,
-> > +               .left =3D 0,
-> > +               .width =3D 2608,
-> > +               .height =3D 1984,
-> > +       },
-> > +       .pixel_rate =3D 594000000,
-> > +       .pix_per_clk =3D 8,
-> > +       .common_regs =3D imx675_common_regs,
-> > +       .num_common_regs =3D ARRAY_SIZE(imx675_common_regs),
-> > +       .vmax_default =3D 1984 + 40,
->
-> Same doubt for the VBLANK =3D 40 here as IMX662, although I don't have a
-> datasheet for IMX675.
+Rick, could you comment? It doesn't look like a typo.
 
-Datasheet lists
-
-VTTL (1farame line length or VMAX) =E2=89=A5 PIX_VWIDTH + 70
-Set VTTL to 940 or more.
-VTTL =E2=89=A5 940
-
-But verified as working at +40. (I have a module from Soho Enterprises).
-We can go for the more conservative values if preferred. From memory,
-on IMX662 it'll lose about 10% (66fps at 40, ~60fps at 70).
-
-  Dave
-
-> Thanks,
->     Jai
->
-> > +       .hmax_min =3D imx675_min_hmax_4lane,
-> > +};
-> > +
-> >  struct imx678_model_info {
-> >         enum imx678_type type;
-> >         const u32 *codes;
-> > @@ -764,6 +963,26 @@ static const struct imx678_model_info imx662_autod=
-etect_info =3D {
-> >         .auto_detect_mono =3D &imx662_aamr_info,
-> >  };
-> >
-> > +static const struct imx678_model_info imx675_aaqr_info =3D {
-> > +       .type =3D IMX678_COLOR,
-> > +       .codes =3D codes_bayer,
-> > +       .num_codes =3D ARRAY_SIZE(codes_bayer),
-> > +       .variant =3D &imx675_variant_def,
-> > +};
-> > +
-> > +static const struct imx678_model_info imx675_aamr_info =3D {
-> > +       .type =3D IMX678_MONOCHROME,
-> > +       .codes =3D codes_monochrome,
-> > +       .num_codes =3D ARRAY_SIZE(codes_monochrome),
-> > +       .variant =3D &imx675_variant_def,
-> > +};
-> > +
-> > +static const struct imx678_model_info imx675_autodetect_info =3D {
-> > +       .variant =3D &imx675_variant_def,
-> > +       .auto_detect_colour =3D &imx675_aaqr_info,
-> > +       .auto_detect_mono =3D &imx675_aamr_info,
-> > +};
-> > +
-> >  static const char * const imx678_supply_name[] =3D {
-> >         "avdd",  /* Analog (3.3V) supply */
-> >         "dvdd",  /* Digital Core (1.1V) supply */
-> > @@ -1533,9 +1752,12 @@ static const struct of_device_id imx678_of_match=
-[] =3D {
-> >         { .compatible =3D "sony,imx678-aaqr", .data =3D &imx678_aaqr_in=
-fo },
-> >         { .compatible =3D "sony,imx662-aamr", .data =3D &imx662_aamr_in=
-fo },
-> >         { .compatible =3D "sony,imx662-aaqr", .data =3D &imx662_aaqr_in=
-fo },
-> > +       { .compatible =3D "sony,imx675-aamr", .data =3D &imx675_aamr_in=
-fo },
-> > +       { .compatible =3D "sony,imx675-aaqr", .data =3D &imx675_aaqr_in=
-fo },
-> >         /* for non-conforming DTs that rely on runtime check */
-> >         { .compatible =3D "sony,imx678", .data =3D &imx678_autodetect_i=
-nfo },
-> >         { .compatible =3D "sony,imx662", .data =3D &imx662_autodetect_i=
-nfo },
-> > +       { .compatible =3D "sony,imx675", .data =3D &imx675_autodetect_i=
-nfo },
-> >         { /* sentinel */ }
-> >  };
-> >
-> >
-> > --
-> > 2.34.1
-> >
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
