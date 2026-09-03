@@ -1,50 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF2894AE139;
-	Thu,  3 Sep 2026 13:59:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 919CF4B048A
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:59:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788443983; cv=none; b=ROjvLf6fp4eMYUA0GrTc7jeUNVomEKnTv0AAuvt7FhhoYo6t9QmHXIZCvOl/EDew4NjjmOu5wSsvfZ6Eq4RjxslOuTrOKMiUWuI96bUyb3dXTP80JhwCQtGo29tL2mmtkaRM3au3sZF624U2P87JaLzWh0HasYR6a6oy1Z6b8Zg=
+	t=1788443985; cv=none; b=M2Id5lFwVEFmVXZa3Yr+kZn2i9u/JkykfKBeVyRh/D+F6YmuPNdb4JaIJ1crOYk4Hg34QZWFyFpxRy+0ULWSoB+N8m4yjePa4xLOd43P1uk07+5obFUiFTL/u7nWbs7XodKekcKrO8hQLIu/AClRMEpohobew5z/LLK6Y8JUO5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788443983; c=relaxed/simple;
-	bh=RzLnX5tAhAwLZuTbkxAbt+T3B6GjhLewgBFcmYwg4tg=;
+	s=arc-20240116; t=1788443985; c=relaxed/simple;
+	bh=RREp9X4feeJJjLQoQPBUAM1qPXfcC5rz+hdNVo/Gu1g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=I/ODCK9Q1AtPPeeuw1xjGcLtCUgWmMkhujclv2htC+Zx1L3ExiAVNlDhvbJabr9j/DqaWJOMaJOS6zZiYJ9E88K4cT7oRaRxW2/26LC/GPZa4lHXqH/QG+I+wgfXrkj/Dsr3vSrzGpZn5srWiBlt0Od81drfsyiKS9Wc4CEmDk0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CzrLb7FO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ML0rkFtA23ktQmvQITv+qQsuXEAx0dHvIWwwrxrLXGC9/bSv0YMQff0VbB50B53OvG4U0M0rsG7K6kivi2gKNoo3pm8oDkOM5JI9LsC28bed1yCTJoQNG1tPfEtcdqB/xIQo6I1F8LhZquLBd7RcyDX627D12Smz/Nhz9l+XMms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fwc6+cOF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CzrLb7FO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAE5F1F00A3E;
-	Thu,  3 Sep 2026 13:59:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fwc6+cOF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADF701F00AC4;
+	Thu,  3 Sep 2026 13:59:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788443966;
-	bh=Z9R75c4B3rs0HbxR41cROos6qACJLvEn0XkD6Iroq3k=;
+	s=k20260515; t=1788443973;
+	bh=0GHlpZjfbjH0Zch5AMd58KrvSY6G7xu6Z9gu+flHuC4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CzrLb7FOXo7LE9TEMuSOSpVB1Bk0Syd308DdfBN+D+WxXqIBZmlJZA+P+JT97RuGk
-	 NGli60ocgfW0acoqKWsxvuZf6MaWVynSQS8Xqf69N29HQPF7yOhC2+XBkBTstMZucL
-	 htMuf7dTWabNK+9vb9Bz6ZebYnWRBIqESwPYy1wcYQnhnGSHpCzEg+rsBHHHEZTf0G
-	 tWNZdvZ+tldcU5SnCCjxWE8gdt/Jw9Xk5sdzDBtsoooyZd00tnotF3CyhJWHtbTDD/
-	 UNprbj82ekQUWATlwBIDphH+jcANINIDP+a7v17tsziAPh1BRp1PmAAp+vB8Ty99E1
-	 lr7TobbkZhifA==
+	b=fwc6+cOFW4oYHmvSGh/miUqeEF5R/qMCnirDUCEFBrBMqZ9Arcxt0keICcT8cm175
+	 heMvQmCN0ltVOKhxX48u65Cf/lOZOl5QzjnqyiabNPNMGrRhrmsB7DVwfNuaZHcJBh
+	 NbezFbViBaKrqvXEiIftJbATfp29ScyxeMBfTT1k0jMYmXZhZceV5mKLM0D6vG0HKw
+	 QEl7Hb2eyIgWLrixQZZs3AtbntVtJO1Oy+rE2zPXmoS10KYvGyqiqnKwtkabo+dzLO
+	 sMH7CeA2mk4/gMZewGzcXNoDPIwUkqjXcxxdvkO0Am9TA2/aLH24lVS2+RxqqJ7x6/
+	 3HMjnFjzmFctQ==
 From: Will Deacon <will@kernel.org>
 To: Catalin Marinas <catalin.marinas@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
-	Fuad Tabba <fuad.tabba@linux.dev>
+	Ard Biesheuvel <ardb@kernel.org>,
+	Breno Leitao <leitao@debian.org>
 Cc: kernel-team@android.com,
 	Will Deacon <will@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mark Brown <broonie@kernel.org>,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] arm64: Don't read GMID_EL1 when MTE is disabled
-Date: Thu,  3 Sep 2026 14:59:15 +0100
-Message-ID: <178844061613.4163758.10275612375567336111.b4-ty@kernel.org>
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: Re: [PATCH] arm64: trans_pgd: clone only the linear map that exists at runtime
+Date: Thu,  3 Sep 2026 14:59:18 +0100
+Message-ID: <178844047586.4162266.2394578462363547662.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260827185937.1369099-1-fuad.tabba@linux.dev>
-References: <20260827185937.1369099-1-fuad.tabba@linux.dev>
+In-Reply-To: <20260828-b4-arm64-trans-pgd-va52-v1-1-a66644372673@debian.org>
+References: <20260828-b4-arm64-trans-pgd-va52-v1-1-a66644372673@debian.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,22 +50,24 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On Thu, 27 Aug 2026 19:59:37 +0100, Fuad Tabba wrote:
-> __cpuinfo_store_cpu() gates the GMID_EL1 read on the raw
-> ID_AA64PFR1_EL1, so it reads the register even when the kernel has
-> disabled MTE (CONFIG_ARM64_MTE=n or arm64.nomte). KVM sets HCR_EL2.TID5
-> in that case, and pKVM injects an UNDEF the host cannot handle:
+On Fri, 28 Aug 2026 02:28:18 -0700, Breno Leitao wrote:
+> kexec_file_load() fails on arm64 if we have CONFIG_ARM64_VA_BITS_52 but
+> it runs on a !FEAT_LPA2 host (such as my loving Grace machine).
 > 
->   Internal error: Oops - Undefined instruction: 0000000002000000 [#1]  SMP
->   pc : __cpuinfo_store_cpu+0xf4/0x264
->   Kernel panic - not syncing: Attempted to kill the idle task!
+> That is because trans_pgd_create_copy() uses the compile time
+> PAGE_OFFSET (VA 52) instead of the actual VA size (48 -- due to the lack
+> of LPA2). With the fifth level folded, pgd_none() is always false, so
+> the walk cannot skip the 15 extra PGDIR_SIZE slots, and they all alias
+> back to the same table: the whole kernel page table gets cloned 16
+> times, KASAN shadow included. Without KASAN it does not blow up, it just
+> wastes ~RAM/32 in page tables.
 > 
 > [...]
 
 Applied to arm64 (for-next/fixes), thanks!
 
-[1/1] arm64: Don't read GMID_EL1 when MTE is disabled
-      https://git.kernel.org/arm64/c/5445d6419962
+[1/1] arm64: trans_pgd: clone only the linear map that exists at runtime
+      https://git.kernel.org/arm64/c/1537e55728ec
 
 Cheers,
 -- 
