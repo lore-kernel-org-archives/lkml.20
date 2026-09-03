@@ -1,128 +1,96 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B47B5349CE7
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:46:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD99A249EB;
+	Thu,  3 Sep 2026 07:46:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788421612; cv=none; b=D4TRLjf7+Tu7Mghm6uun8LKoEI0DOj6gzpcCuEqZJUZ4IPYbeGHFmr4NhWLF37uFWz8GhA6s9o7kqnmBRfhTE4PK1uhBNgrNI3S1X1UX/FxrMi7+c4neVn54rb/+Rin4fmhc7GsF9VB+m7WR8idhN1cTiNOlGPbbf/rqSII4O/8=
+	t=1788421618; cv=none; b=oUS8UD6P6EizrLl5//z1qJn3MGphvDf44dnMRMFijmDT/n3mlAUO297bqbae9l6oU2hl+jdXppipOH2gUuAxCEBzPDHZL5vKLFfyc9pnHnEsXu4JXrJKFNzngY90hhdsSMpmWsVMUdKMS3SfkPA1580u4Zw598d5bTT/7q58RL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788421612; c=relaxed/simple;
-	bh=ERP8aMixBISGoQkd88g9WXK3waX3DgHuj1l3pft8+F8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sbzeS4NlaXY0y0/cCSXCH9DswAJ4ZWu6q4ApkUDSRm5VnAHRGIHYsES0QK4Zyjn6GvDW2QNWuK9vtHLoIUmvlGrnhI/uJST+D5JEgREoT1EuW/wnnXKqgcB1i/U1XymTHR1n8by3m8+yKlxQ4SomCcELXP2C3bT5wP9PLf+/cRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tBdbPbLg; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788421618; c=relaxed/simple;
+	bh=0alexXOhZ3pe8wwcPjr1HedjSmNCRv9G8JVAkGbb1Pk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=RMyY/kRw1+kb7mAUQSO++19NYduo/WbuDQoJARKvAJbvTNDr4A1QxI13TuIMKeih52E+Xu9FdZ1k7PpQcjfwTNf0q25cJ2Z6Y/kPATRglpy5f4p2YeLH4b4hYvxjE7WfMWS53/yHC/ONjCQlpmps3CCMuiNRTSU+bW6x0HXrQwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=n6VXsavR; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=w+UmEGJu; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tBdbPbLg"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-398e9698a70so1957654a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:46:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788421611; x=1789026411; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Yk7M6QWeNfPTqVmroV2JxHOvmGW6NOpOKei4EsE+LhY=;
-        b=tBdbPbLgS20+EYsOtKJUG9vNxwsb/pA0U0vPRqmgEOUuhlZ22YPhWv7y5HtEOgv+ou
-         7YTxCYfJtL5W4DTs92JXGD/o4TcU4ebKuorIiJ6zyvk9wsCkMXDeaoPwgPho5ajpqrHK
-         Zb7Z2K7a/U8g4OCCMo8zpfzYNatWZ1CKHyVWEO68x2KnRfYrzTLKZ/vQeI56U1Trq355
-         F+HVUXx3zZALH+VyhGZULMgIX9VyPQ0Vxh7c2IUQK6Sv/pLGe2ryKD+/nZOW1CvZ8glu
-         9vunwjQ9rMkTfStyiXlUJkeDac7/nL1knB1qRB19UloHmvs1YVxkQRhwU/2sxL/BUh07
-         dDtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788421611; x=1789026411;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Yk7M6QWeNfPTqVmroV2JxHOvmGW6NOpOKei4EsE+LhY=;
-        b=PCQPHBVfzNSWFwLyKNG9mDMXJZzR+5Vxzl3XOEY19zKlUqrO+rBbVMH38L/s8JJyij
-         AS7HLG8F4Bax7OFMdXhBRRRPUaoa6I56Ic1UvMiaFkTIXP1McvWE6U4qA/HTPkCA6hzG
-         zmdOL25E1sTrGt6w2Bra28NhZMiaqibfUoEHaDlPYraaF2gFaR4TZlV77vL712Crauie
-         EEvVDgArj2As96C2K7zV8zF2av4/thpF0Ply5C3BQ/e1kV45abdmppKbXsJP83GEbFeh
-         0v50gLQbVpVse6Z2YN2eeftqZC7tzCZcMmPZrql3YL/YfAxwlW5HIp9HF4n4Oiz6ob9p
-         MmMw==
-X-Forwarded-Encrypted: i=1; AKwUvByva/I7bHi/Zt9FuyUwpojxM/E08WyvXrn4m7FwaHeFW5mbUxxjkHC+V6VYLt+B7CJpuiFJUoxx36IcwhI=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndxaroAd0h2FoUrFMrKqQfW5FK1Cn/cK8OZVMcLhrZEeSi3pXV
-	jxg7VxSRf0VNdUm8WcRZJkweYRXkFiZ41w0TqI3AYLx1C7zHkc6tig7lQiq23Q==
-X-Gm-Gg: AYBFou00VTLFzgkvBSdXbolODKvlDcEZ4XYwAoKeU9tz8IpEQdt8Zl+BqAb8UNtcKa7
-	setbfh0s6iidAWGxy4Bxdmd0oXv5bd/Jz8sh5jEoZLnoG3XajyPH/SRnu4+0XKXzQiwScbyo+mF
-	xbuUktER8sFUEayW/ogwYxON8Q/hY2/hCMnagAt125NzdMhV1stQ4OcEj75I0F9FC+/FEc/eJoq
-	d2NNWCSLpjgp6eYtjXitn0KD3B0h/Q6yp207iT3RegQuL2ScyetgO20XUdHIHODPNp6Q9M/YjGE
-	S3wNMOWFICREwzJtLwLAm+DiIj6ZXkgqmz6a8yCWb3YGzpQsh2wB87mzxoJmOpGPG0TZ4cIXbWP
-	sh03ojDuujjnWGTNLTB5vGNktKf+rT3wuIDNR4AZN3XBiIupFZ2AhYqjaKW+GveNEUry6Up1GOa
-	kxD6oMvXe3kfmghji3pDOfyg2+vLy7kPYzHECQUyjJBHMG7zc1cV81QZLHO6966muIRvWIgvVnL
-	5EJ2Zkob2yi67Ki32/c6MqQHTxJb9bF/qELaCut5E/xkp5tz2p2O92vVT0WrtqoHDiiNqlLNMlR
-	HNoMlcII0Y5VxBwZ
-X-Received: by 2002:a17:90a:1602:b0:398:a2a3:b631 with SMTP id 98e67ed59e1d1-39b19bbbd90mr441821a91.19.1788421610920;
-        Thu, 03 Sep 2026 00:46:50 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08cacba5sm3832735a91.12.2026.09.03.00.46.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 00:46:50 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	u.kleine-koenig@baylibre.com,
-	Chris Packham <chris.packham@alliedtelesis.co.nz>,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH net-next v2] net: marvell: mvmdio: Handle errors from optional IRQ lookup
-Date: Thu,  3 Sep 2026 14:46:38 +0700
-Message-ID: <20260903074638.345952-1-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="n6VXsavR";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="w+UmEGJu"
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh_=28Schneider_Electric=29?= <thomas.weissschuh@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788421614;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=xol/V+/hywJjcXli4Mhoxh/JGosWE3k6n8FZuFhDHPM=;
+	b=n6VXsavRSqljJ+gYz5Z/HOJECVFMmfmZWjJWUh63VMG8uBZ5qqB1MvaOUnAmC/Ptxn5yVI
+	NRoQF2REwmFImiBjSt/sRwon2O55DTR4kYJqArMnHcr0/KJfdnUzblKzBkk7ykrrlDB4bH
+	xoFbOQJP761eFDE7wGgPNFgWiwiN6PlzofbTSRjilSj0D93Q4nAZqKCAI0xAhHpxJkWj/i
+	Gtmf8on6GtMT/nYq4eO6eHztiTNNNi/uTici7gruSrgczYHZCtoTdQ9GID3MtrqiDkCqvS
+	kLLSIUMEq1ykN+qrEx3F7ftXJ0ZMV9MYYv19YxxTsblveUsvPy5ahV+2TecEkA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788421614;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=xol/V+/hywJjcXli4Mhoxh/JGosWE3k6n8FZuFhDHPM=;
+	b=w+UmEGJuonaTsrz29FDKj0Voj8v82wHlaa2v0j9D86vK/JMpdpNTKJLU2U9EctJGCpmsHn
+	FZLtJjzTEZC8tnAw==
+Subject: [PATCH 0/4] time: time64_to_tm() cleanups
+Date: Thu, 03 Sep 2026 09:46:49 +0200
+Message-Id: <20260903-time-time64-to-tm-v1-0-660be972adfc@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDC2ND3ZLM3FQwYWaiW5KvW5Kra2lmkJhskZScYm6YpgTUV1CUmpZZATY
+ zOra2FgCqd0B+YwAAAA==
+X-Change-ID: 20260831-time-time64-to-tm-960ac8bcd71f
+To: John Stultz <jstultz@google.com>, Thomas Gleixner <tglx@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788421614; l=1158;
+ i=thomas.weissschuh@linutronix.de; s=20240209; h=from:subject:message-id;
+ bh=0alexXOhZ3pe8wwcPjr1HedjSmNCRv9G8JVAkGbb1Pk=;
+ b=j0JPZ6MToVAa8JONORlC+2a2H2bW576vTZQYxIz6pC3844++UjNG8fKupPKikaizIoHgYa3Ep
+ zIxeYIsUBW7DNrCGHr6t5IzYJc5WSQM6cGrIy//fEGiJo5/5Yq88+tn
+X-Developer-Key: i=thomas.weissschuh@linutronix.de; a=ed25519;
+ pk=pfvxvpFUDJV2h2nY0FidLUml22uGLSjByFbM6aqQQws=
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+Speed up time64_to_tm() and its tests a bit.
+Also simplify drop the custom implementation of rtc_time64_to_tm()
+and the test for it.
 
-platform_get_irq_optional() returns a positive IRQ number on success or
-a negative error code on failure. For an optional IRQ, -ENXIO indicates
-that no optional IRQ is available. Other errors should be propagated so
-that the caller can handle them appropriately.
+The series could be split. Then patches 1 and 2 go through timekeeping
+while 3 and 4 go through RTC.
 
-The existing code propagates -EPROBE_DEFER, but ignores other negative
-errors. Propagate negative errors other than -ENXIO.
-
-Found by manual code inspection.
-
-Fixes: e1f550dc44a4 ("net: mvmdio: avoid error message for optional IRQ")
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
 ---
+Thomas Weißschuh (Schneider Electric) (4):
+      time: Avoid 64-bit by 64-bit division in time64_to_tm()
+      time: test: Avoid unnecessary divisions in time64_to_tm() test
+      rtc: lib: Implement time64_to_tm() in terms of time64_to_tm()
+      rtc: test: Remove test_rtc_lib.c
 
-Changes in v2:
- - Add a Fixes tag.
- - Add net-next to the --subject-prefix.
+ drivers/rtc/Kconfig        |   9 ----
+ drivers/rtc/Makefile       |   2 -
+ drivers/rtc/lib.c          | 117 ++++++---------------------------------------
+ drivers/rtc/test_rtc_lib.c | 106 ----------------------------------------
+ kernel/time/time_test.c    |   6 +--
+ kernel/time/timeconv.c     |   4 +-
+ 6 files changed, 20 insertions(+), 224 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260831-time-time64-to-tm-960ac8bcd71f
 
-
- drivers/net/ethernet/marvell/mvmdio.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/marvell/mvmdio.c b/drivers/net/ethernet/marvell/mvmdio.c
-index 2ccb8c8f5feb..d59cf332d1ec 100644
---- a/drivers/net/ethernet/marvell/mvmdio.c
-+++ b/drivers/net/ethernet/marvell/mvmdio.c
-@@ -373,8 +373,8 @@ static int orion_mdio_probe(struct platform_device *pdev)
- 		writel(MVMDIO_ERR_INT_SMI_DONE,
- 			dev->regs + MVMDIO_ERR_INT_MASK);
- 
--	} else if (dev->err_interrupt == -EPROBE_DEFER) {
--		ret = -EPROBE_DEFER;
-+	} else if (dev->err_interrupt < 0 && dev->err_interrupt != -ENXIO) {
-+		ret = dev->err_interrupt;
- 		goto out_mdio;
- 	}
- 
--- 
-2.43.0
+Best regards,
+--  
+Thomas Weißschuh <thomas.weissschuh@linutronix.de>
 
