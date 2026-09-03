@@ -1,141 +1,165 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D357531716D;
-	Thu,  3 Sep 2026 14:02:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24FE231716D
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:03:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444182; cv=none; b=oUIWWwx+apn6CB837F7/4c5GePGO0UhEONqbnM/X/l482jqCNwPakZ3yfBVjcnQt+eTfzquV0v9KKxGW6o5O0DoWvBY/AualCZfcJu8VAtJbFxWf3Vf7S8I/nwhCjMlpjKxm4InTAcv/e1KCB1S7nnYss+Qo+5/tfcMfIy0wjtQ=
+	t=1788444248; cv=none; b=H5Tfd8pOxBNSoSmtrgjwmSRwA8vJsC7MIcKE+Bubjvll5dKbmKRc2mZ6BJ3GsvRCoqTgqKXXgbnKi2Dc7EOWOyt4OeKd/UM+PuhePJ381OIEwoU8mlGfcWKTQankLsNMi6TBxenh8F6d4j6uRg/XFuuVCXVFjLBOV7maJrk/67o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444182; c=relaxed/simple;
-	bh=hIcl5o7Ira9qzxp/5zL0DAYmfSYbKzPxXoCZUyyLSpw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OsLYIUafRq70zOiWYANKEbr3mnsVhDverl0O+49Kc3muasJ8Y7WyKfJL2RO7fIDTOEBF4RAEXbbOsZt2j0pR8U/FeQZMY3j9Roxlmlj+4u+I1tiFsZECaoQkzDSMSNeLnGzKwmrJvT/vYkYWjhdSdL2Bnuknf9iO3YB/io95COI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kRKesSy/; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788444248; c=relaxed/simple;
+	bh=H8k/JurwcVNu7DRkWrrbuDfL0eOQ/gndxF7xLu0BWFc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=F4+0tJwJuI+v0pCwAvljKs4Bw3LqZmkJsCYyIVRD4ttX5JPMVChrFtVP86WArgxzK98etaxhqEeMmmrmNZm3dvTviJpCe+bIRyWa1N4xVhqFtn4nZNn3S4xSXw8E2gca3+yeMe8AO4Aa8RdReP4w9hxgENt13xwBlEwvnuTpC00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MKcvgfMp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kRKesSy/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788444175; x=1819980175;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=hIcl5o7Ira9qzxp/5zL0DAYmfSYbKzPxXoCZUyyLSpw=;
-  b=kRKesSy/SA/eINPn7AIt579Q8DqUzkjehYwiZwmUtRbxbwr2wPAnVqTS
-   fxNhM9JacVlHYnHozJ5FUlLaTuKFHgGmTJqAXURF81YBpy7SshgxOeaig
-   62lQZHG76DMllMKK97GLyDaqQfocx4PzzlUrasB4x5hu2Ugq7bMUcb54m
-   b2LOeEPTGc7aq2GvJmT11HP2VnqmzKNZy/YydvTzBeQfhRNH/ZBV3CBUC
-   5VVbXmIW1iv1aLhiQ5YC+3gZ5cLxYUXBTmhhwj43GAnyT05b4SBeALnZt
-   DrAsB1ViTZ1MYv9IvUNB/9HM6vh8/pj5JEWTDBH1zjl1RNswPIqfAJZIi
-   A==;
-X-CSE-ConnectionGUID: YpQBuSnXTbe6CoChSGsUvw==
-X-CSE-MsgGUID: p6VvE/e0SkayK8ja0/eGpA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="88951185"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="88951185"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 07:02:48 -0700
-X-CSE-ConnectionGUID: UhWqvqaeSwSjNBIJklvgNg==
-X-CSE-MsgGUID: F1ys3m5BRnK/OyVkga8VdQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="299603472"
-Received: from lkp-server01.sh.intel.com (HELO bfac249b2189) ([10.239.97.150])
-  by orviesa002.jf.intel.com with ESMTP; 03 Sep 2026 07:02:45 -0700
-Received: from kbuild by bfac249b2189 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x281a-000000004tK-0tHD;
-	Thu, 03 Sep 2026 14:02:42 +0000
-Date: Thu, 3 Sep 2026 22:01:42 +0800
-From: kernel test robot <lkp@intel.com>
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Elad Nachman <enachman@marvell.com>
-Cc: oe-kbuild-all@lists.linux.dev, Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] net: prestera: avoid overreading a short firmware tail
-Message-ID: <202609032140.39rhcpus-lkp@intel.com>
-References: <20260830142404.37663-1-pengpeng@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MKcvgfMp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 924891F00ACA
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:03:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788444226;
+	bh=SIkCVMXueZug7Awhe2bDRHsi+uaKaNMKk8EAPzdMILM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=MKcvgfMpi72qQpfUBJdR6W1lHzc/2rNRHq0b0XCtBRAHeStSFPGp9K4F6s6o711he
+	 Hl29qtTtA6faFKUb4JZtyrBdX8Ht1RrFF3+j8O8Dd8zRycPEb3pgPCumQ0HQwaiUGm
+	 2nuz3JfDsa9vbXSb0BRKfeov+LvsmIlmRsMiKejnjW5C3nlICchVu9SZ+XGb+8SJZh
+	 KEU/Y+JQX9DKwpiVZm0b8VdU8BJ567YPPauQzwUiA06AKyPQqIcldyKKHzfFCbSy6j
+	 1l1gIG70zoXuS0jtcNW//96UEnEcFVe7mfHa03SwITbF+EJbu1DJfeg+2eI+lFbNnc
+	 meHyLfNnc2SZw==
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c2569aa5116so170383766b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:03:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwzMJEqbMHUT8PRwGYa4DHKIKJtGMbrkQ2WlfO1Mvfb5tX3oj5XJWXfXbQTMiiO+NJDxEDiGClF6KYVOYI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPlJI6JOFQqYxG6aNbjoYBuN4TkJKCLk6PD/PFHnlYzXe/i4p2
+	ywNDgzTp9dop4ppuOaCpLl6B6amARxwkIxSk/uclnql56o+Mj1/pVtsyQL70VhiL5Uw4TnJ6Dic
+	QTd6DyT1R6oMCgkFQzZH0Ff8vv4Km1fA=
+X-Received: by 2002:a17:907:8323:b0:c25:f7dc:2e0 with SMTP id
+ a640c23a62f3a-c25f7dc0985mr100970266b.33.1788444225414; Thu, 03 Sep 2026
+ 07:03:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260830142404.37663-1-pengpeng@iscas.ac.cn>
+References: <cover.1699104759.git.quic_charante@quicinc.com>
+ <a8e16f7eb295e1843f8edaa1ae1c68325c54c896.1699104759.git.quic_charante@quicinc.com>
+ <aphSYFTd12oia8K2@google.com> <apkhSHr3by5Bf8jW@tiehlicka>
+In-Reply-To: <apkhSHr3by5Bf8jW@tiehlicka>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 3 Sep 2026 07:03:33 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zPCYNmJbkQEA62z75AB=ziWqGb38_E-ee_6o40Sz=zHXA@mail.gmail.com>
+X-Gm-Features: AcwNN1Vh9NEyJMK2-RqtsSvN7Ew3MbvuJfwRRlZGGsd6gh2ct7StqfMzBcy6rzk
+Message-ID: <CAO9r8zPCYNmJbkQEA62z75AB=ziWqGb38_E-ee_6o40Sz=zHXA@mail.gmail.com>
+Subject: Re: [PATCH V3 3/3] mm: page_alloc: drain pcp lists before oom kill
+To: Michal Hocko <mhocko@suse.com>
+Cc: Charan Teja Kalla <quic_charante@quicinc.com>, akpm@linux-foundation.org, 
+	mgorman@techsingularity.net, david@redhat.com, vbabka@suse.cz, 
+	hannes@cmpxchg.org, quic_pkondeti@quicinc.com, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Pengpeng,
+On Thu, Sep 3, 2026 at 12:27=E2=80=AFAM Michal Hocko <mhocko@suse.com> wrot=
+e:
+>
+> On Wed 02-09-26 16:49:48, Yosry Ahmed wrote:
+> > On Sun, Nov 05, 2023 at 06:20:50PM +0530, Charan Teja Kalla wrote:
+> > > pcp lists are drained from __alloc_pages_direct_reclaim(), only if so=
+me
+> > > progress is made in the attempt.
+> > >
+> > > struct page *__alloc_pages_direct_reclaim() {
+> > >     .....
+> > >    *did_some_progress =3D __perform_reclaim(gfp_mask, order, ac);
+> > >    if (unlikely(!(*did_some_progress)))
+> > >       goto out;
+> > > retry:
+> > >     page =3D get_page_from_freelist();
+> > >     if (!page && !drained) {
+> > >         drain_all_pages(NULL);
+> > >         drained =3D true;
+> > >         goto retry;
+> > >     }
+> > > out:
+> > > }
+> > >
+> > > After the above, allocation attempt can fallback to
+> > > should_reclaim_retry() to decide reclaim retries. If it too return
+> > > false, allocation request will simply fallback to oom kill path witho=
+ut
+> > > even attempting the draining of the pcp pages that might help the
+> > > allocation attempt to succeed.
+> > >
+> > > VM system running with ~50MB of memory shown the below stats during O=
+OM
+> > > kill:
+> > > Normal free:760kB boost:0kB min:768kB low:960kB high:1152kB
+> > > reserved_highatomic:0KB managed:49152kB free_pcp:460kB
+> > >
+> > > Though in such system state OOM kill is imminent, but the current kil=
+l
+> > > could have been delayed if the pcp is drained as pcp + free is even
+> > > above the high watermark.
+> > >
+> > > Fix this missing drain of pcp list in should_reclaim_retry() along wi=
+th
+> > > unreserving the high atomic page blocks, like it is done in
+> > > __alloc_pages_direct_reclaim().
+> > >
+> > > Signed-off-by: Charan Teja Kalla <quic_charante@quicinc.com>
+> >
+> > [Sorry for thread necromancy]
+> >
+> > Hi Charan,
+> >
+> > Are you planning to respin this patch?
+> >
+> > I know that Michal was questioning the need for it. While doing some
+> > stress testing I came across a couple of OOM kills that had significant
+> > amount of memory in pcplists. Something that would have been prevented
+> > by this patch.
+>
+> Could you share some numbers to see the scale of the problem?
 
-kernel test robot noticed the following build errors:
+Sure, here's a sample from an OOM log (ignore mapped/free_mapped, it's
+from the ALLOC_UNMAPPED series):
 
-[auto build test ERROR on 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72]
+[   40.336188] Mem-Info:
+[   40.336195] active_anon:96 inactive_anon:1540181 isolated_anon:0
+                active_file:51 inactive_file:0 isolated_file:0
+                unevictable:382720 dirty:43 writeback:0
+                slab_reclaimable:20339 slab_unreclaimable:26597
+                mapped:382858 shmem:153 pagetables:8291
+                sec_pagetables:0 bounce:0
+                kernel_misc_reclaimable:0
+                free:17264 free_pcp:16890 free_cma:0
+[   40.336199] Node 0 active_anon:384kB inactive_anon:6160724kB
+active_file:204kB inactive_file:0kB unevictable:1530880kB
+isolated(anon):0kB isolated(file):0kB mapped:1531432kB dirty:172kB
+writeback:0kB shmem:612kB shmem_thp:0kB shmem_pmdmapped:0kB
+anon_thp:10240kB kernel_stack:2576kB pagetables:33164kB
+sec_pagetables:0kB all_unreclaimable? yes Balloon:0kB gpu_active:0kB
+gpu_reclaim:0kB
+[   40.336202] DMA32 free:34808kB boost:0kB min:11028kB low:13784kB
+high:16540kB reserved_highatomic:0KB free_highatomic:0KB
+free_mapped:11032KB active_anon:0kB inactive_anon:1487720kB
+active_file:52kB inactive_file:20kB unevictable:393252kB
+writepending:4kB zspages:0kB present:2096760kB managed:1991156kB
+mlocked:393252kB bounce:0kB free_pcp:42404kB local_pcp:2460kB
+free_cma:0kB
+[   40.336205] lowmem_reserve[]: 0 5976 5976
+[   40.336210] Normal free:34248kB boost:0kB min:34024kB low:42528kB
+high:51032kB reserved_highatomic:0KB free_highatomic:0KB
+free_mapped:34028KB active_anon:384kB inactive_anon:4672764kB
+active_file:180kB inactive_file:0kB unevictable:1137628kB
+writepending:168kB zspages:0kB present:6291456kB managed:6120144kB
+mlocked:1137628kB bounce:0kB free_pcp:25156kB local_pcp:764kB
+free_cma:0kB
+[   40.336213] lowmem_reserve[]: 0 0 0
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Pengpeng-Hou/net-prestera-avoid-overreading-a-short-firmware-tail/20260830-222403
-base:   08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
-patch link:    https://lore.kernel.org/r/20260830142404.37663-1-pengpeng%40iscas.ac.cn
-patch subject: [PATCH] net: prestera: avoid overreading a short firmware tail
-config: i386-allyesconfig (https://download.01.org/0day-ci/archive/20260903/202609032140.39rhcpus-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260903/202609032140.39rhcpus-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609032140.39rhcpus-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   In file included from include/linux/io.h:12,
-                    from include/linux/iopoll.h:14,
-                    from drivers/net/ethernet/marvell/prestera/prestera_pci.c:8:
-   drivers/net/ethernet/marvell/prestera/prestera_pci.c: In function 'prestera_ldr_send':
->> drivers/net/ethernet/marvell/prestera/prestera_pci.c:603:32: error: implicit declaration of function 'get_unaligned'; did you mean 'get_cmdline'? [-Wimplicit-function-declaration]
-     603 |                 writel_relaxed(get_unaligned((u32 *)(buf + i)),
-         |                                ^~~~~~~~~~~~~
-   arch/x86/include/asm/io.h:88:39: note: in definition of macro 'writel_relaxed'
-      88 | #define writel_relaxed(v, a) __writel(v, a)
-         |                                       ^
-
-
-vim +603 drivers/net/ethernet/marvell/prestera/prestera_pci.c
-
-   589	
-   590	static int prestera_ldr_send(struct prestera_fw *fw, const u8 *buf, size_t len)
-   591	{
-   592		size_t write_len = ALIGN(len, sizeof(u32));
-   593		size_t i;
-   594		int err;
-   595	
-   596		err = prestera_ldr_wait_buf(fw, write_len);
-   597		if (err) {
-   598			dev_err(fw->dev.dev, "failed wait for sending firmware\n");
-   599			return err;
-   600		}
-   601	
-   602		for (i = 0; i + sizeof(u32) <= len; i += sizeof(u32)) {
- > 603			writel_relaxed(get_unaligned((u32 *)(buf + i)),
-   604				       prestera_ldr_wr_ptr(fw));
-   605			prestera_ldr_wr_idx_move(fw, 4);
-   606		}
-   607		if (i < len) {
-   608			u32 last = 0;
-   609	
-   610			memcpy(&last, buf + i, len - i);
-   611			writel_relaxed(last, prestera_ldr_wr_ptr(fw));
-   612			prestera_ldr_wr_idx_move(fw, 4);
-   613		}
-   614	
-   615		prestera_ldr_wr_idx_commit(fw);
-   616		return 0;
-   617	}
-   618	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+As far as I can tell there's about ~65M of free memory stranded on
+pcplists (in an 8G VM), which would have kept the amount of free
+memory above the watermarks and prevented that specific OOM kill.
+Although, as I mentioned before, this is a synthetic stress test.
+Perhaps in practice it doesn't matter all that much in practice, but
+it seems like the logical thing to do.
