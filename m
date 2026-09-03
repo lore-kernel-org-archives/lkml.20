@@ -1,110 +1,132 @@
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3177D3A5440
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 03:43:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13257381E88
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 03:43:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788407025; cv=none; b=jqSEYZKY7uTDgfmL+QqYq5Xizy/swGKbTtvYL5l15NUKIZnCv8mH67+ic4+d2jDZdQ7VOYRRv+6GdzuG/3wUl12h1xy1/Tcu+2tefpNk7Th7k+RoWNkK71KvfPrIgWsD3k09iKWMYwqT/p24pErTkIQqE0NhCfPg4/khPUSBEp4=
+	t=1788407032; cv=none; b=LFowx5d6liaM/hamiWXBuqnZD1lHbdsDp9P+yIGIgU37cZsfGdp9clDX7WaLQ20eICxGAmmh7lC/nQ9RHkCjzQamxO/8Kq3lHeVeKpsdU0p0QcUr02PQG4TXLN6PynjiRi4qSwKtVdEZGu/YziNDO+NoAjhq53SX034Tm9huIwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788407025; c=relaxed/simple;
-	bh=tlD/300mTCgE6kv08vNQaKy92eCVQTGkxSaMGZ++ryA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=GcVtYJGezv6DnHGjoHfem+mkX7Dy58ceTz3jy99KtJYwZAdhe96MAgPtYJeGFnLxNhZoeOic3rRJguaul9Hv6NwxvBWfO6i/mp1GP5qwn/E84Q+jNPzZL8O5GfhXRM3qXxyo/IV7SB/37JQ0ay+uMzlhxk99k5ALh/s+XX5aDYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=X55mDB+o; arc=none smtp.client-ip=203.254.224.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1788407032; c=relaxed/simple;
+	bh=URtMABNXxfDs9rVLzPk4e0EloHpc6n9IORh1n8CJQQw=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=aVCj/+zrMsL4i0rmkEcnJvmIUaQZAE34bjJidFQ3rHA9yA5905CF1pZFQk9va+xJaZnSe6dUhGrXG6rKOG7LOqktSfgxicz47rB8wADLguL00bK/fsP9WFt/oE6qzIXBe/lQENZLU81H1TX8sLMIWn84eG3TvJnIbBDjgs8SpPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JrSY25Gs; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="X55mDB+o"
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20260903034328epoutp02779ed33d0c476c2712b6aa2b27c2a79d~RsrLtiMmY1953319533epoutp02e
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 03:43:28 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20260903034328epoutp02779ed33d0c476c2712b6aa2b27c2a79d~RsrLtiMmY1953319533epoutp02e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1788407008;
-	bh=hxQCmTNMct1DRhOL2zkVSmPzrkHNVIa3V+xEsZNmDLo=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=X55mDB+o3vq/x9sQQI0kgJmccvhvqmrDBVLetGnJ5rysGFps+x9Z5pg7e7DEXHRPL
-	 2/0SyS3NM44wZzXZXqvahQaKVflAHUL/zLeWNphMMxl2hTsWm6SPg144C/7xDZOZAj
-	 sP9cSdln4Wrv0RDmhF5uwlfamEGNLhGR+3orqEH0=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
-	20260903034328epcas5p2d368d9a3526cfa324b3ace3ce9cf3757~RsrLRYlZE1311513115epcas5p2y;
-	Thu,  3 Sep 2026 03:43:28 +0000 (GMT)
-Received: from epcas5p3.samsung.com (unknown [182.195.38.90]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4hb56R0c1hz6B9m5; Thu,  3 Sep
-	2026 03:43:27 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
-	20260903034326epcas5p380022fb00e655b8b4462fe862ccf6c45~RsrJ4OnTk0546505465epcas5p3j;
-	Thu,  3 Sep 2026 03:43:26 +0000 (GMT)
-Received: from [107.122.5.126] (unknown [107.122.5.126]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260903034324epsmtip19d32848c86f1eb6807590d3a4e492a0c~RsrHrhGP81548715487epsmtip1D;
-	Thu,  3 Sep 2026 03:43:24 +0000 (GMT)
-Message-ID: <a258af80-c15c-4adf-84ea-c5b0067e5247@samsung.com>
-Date: Thu, 3 Sep 2026 09:13:13 +0530
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JrSY25Gs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788407027; x=1819943027;
+  h=date:from:to:cc:subject:message-id;
+  bh=URtMABNXxfDs9rVLzPk4e0EloHpc6n9IORh1n8CJQQw=;
+  b=JrSY25GsfbWgES2Kv72ea/pL6bNgUWm1cm7Fwbc7Y00Al+PK6oqz2LOC
+   yP5gtrCfmfKMfE1aRruO7BX8uW6pPpoMpCuxYQWO8P8DrbA+W4ARxd/By
+   pIkQiWTlX3FvIKhm/n/7yBTjuWJjjH0vTfz+oAIjdwzIkopmXb1vVGvma
+   zJP/JwhRU2joEBxQNh5vmVS6pEX+6l42IiQ4s8Jk2PrAxUno2HAxvCwmO
+   PyU1z0KqNv6FF1mNZiIBM6NUQeC4NUKSM1B1NNC0F/QpRHqQ3wWXGYDl5
+   qIlhzycVqwcglhQWoGHKvJOkuu+iZFH5QfiY1cb0OhUvmcC6/x9BUakPc
+   g==;
+X-CSE-ConnectionGUID: +y17IxNRTbeDbasaOPUvNQ==
+X-CSE-MsgGUID: 7YCp1a2UQwS7J7GgGFuGfw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="87813249"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="87813249"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 20:43:43 -0700
+X-CSE-ConnectionGUID: NlJvmcORTkeh7c+A6ug48w==
+X-CSE-MsgGUID: 6BVET9+cR4mVznAvDpU5og==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="293095553"
+Received: from lkp-server01.sh.intel.com (HELO bfac249b2189) ([10.239.97.150])
+  by fmviesa002.fm.intel.com with ESMTP; 02 Sep 2026 20:43:43 -0700
+Received: from kbuild by bfac249b2189 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x1yMX-000000003vi-1Jg4;
+	Thu, 03 Sep 2026 03:43:41 +0000
+Date: Thu, 03 Sep 2026 11:43:07 +0800
+From: kernel test robot <lkp@intel.com>
+To: "x86-ml" <x86@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [tip:x86:bugs] BUILD SUCCESS
+ ae1d2082d93bc04604dc08e9b7f9cdba5e0c28e6
+Message-ID: <202609031103.ZiQ7X91p-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] phy: exynos5-usbdrd: Use dynamic phy_cfg size to
- prevent OOB access
-To: =?UTF-8?B?xYF1a2FzeiBMZWJpZWR6acWEc2tp?= <kernel@lvkasz.us>
-Cc: akash.m5@samsung.com, alim.akhtar@samsung.com, andre.draszik@linaro.org,
-	dh10.jung@samsung.com, jh0801.jung@samsung.com, krzk@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
-	muhammed.ali@samsung.com, neil.armstrong@linaro.org,
-	peter.griffin@linaro.org, pritam.sutar@samsung.com, thiagu.r@samsung.com,
-	vkoul@kernel.org
-Content-Language: en-US
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-In-Reply-To: <20260902000439.25379-1-kernel@lvkasz.us>
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260903034326epcas5p380022fb00e655b8b4462fe862ccf6c45
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260903034326epcas5p380022fb00e655b8b4462fe862ccf6c45
-References: <20260831070309.158069-1-selvarasu.g@samsung.com>
-	<20260902000439.25379-1-kernel@lvkasz.us>
-	<CGME20260903034326epcas5p380022fb00e655b8b4462fe862ccf6c45@epcas5p3.samsung.com>
 
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86/bugs
+branch HEAD: ae1d2082d93bc04604dc08e9b7f9cdba5e0c28e6  x86/bugs: Adapt SRSO mitigation to Zen6
 
-On 9/2/2026 5:34 AM, Łukasz Lebiedziński wrote:
-> I tested this on my Samsung Galaxy A6 (Exynos7870) with this patch applied
-> on top of mainline. I wanted to verify the OOB read first before trusting
-> this fix, so I forced the device tree to request PHY index 1
-> (phys = <&usbdrd_phy 1>;) - this index does not exist for this SoC,
-> because the phy_cfg_exynos7870[] array contains only one entry. I added
-> a temporary pr_info() call after assigning phy_cfg in the probe loop to
-> display the phy_isol/phy_init values using %pS:
->
->    i=0 phy_isol=exynos7870_usbdrd_phy_isol+0x0/0x60
->        phy_init=exynos7870_usbdrd_utmi_init+0x0/0x260
->    i=1 phy_isol=exynos5_usbdrd_phy_isol+0x0/0x50
->        phy_init=exynos5_usbdrd_utmi_init+0x0/0xc8
->
-> For i=1, both function pointers resolve to the exynos5_* variants
-> instead of the exynos7870 ones - the OOB read lands right on
-> the adjacent phy_cfg_exynos5[] array in .rodata. No crash occurs, since
-> these garbage pointers happen to point to valid (though unrelated)
-> kernel functions rather than something invalid.
->
-> With the patch applied, the same debug print shows the loop correctly
-> stopping at n_phy_cfg=1; i=1 is never reached. Boot and USB both work
-> fine on the actual PHY index (0).
->
-> Tested-by: Łukasz Lebiedziński <kernel@lvkasz.us>
+elapsed time: 1518m
 
-Thanks for your testing and update.
+configs tested: 55
+configs skipped: 30
 
-Thanks,
-Selva
->
+The following configs have been built successfully.
+More configs may be tested in the coming days.
+
+tested configs:
+alpha         allnoconfig    gcc-16.1.0
+alpha        allyesconfig    gcc-16.1.0
+arc          allmodconfig    clang-24
+arc           allnoconfig    gcc-16.1.0
+arc          allyesconfig    clang-24
+arm           allnoconfig    gcc-16.1.0
+arm          allyesconfig    clang-24
+arm64        allmodconfig    clang-24
+arm64         allnoconfig    gcc-16.1.0
+csky         allmodconfig    gcc-16.1.0
+csky          allnoconfig    gcc-16.1.0
+hexagon      allmodconfig    gcc-16.1.0
+hexagon       allnoconfig    gcc-16.1.0
+i386         allmodconfig    clang-22
+i386          allnoconfig    gcc-16.1.0
+i386         allyesconfig    clang-22
+loongarch    allmodconfig    clang-24
+loongarch     allnoconfig    gcc-16.1.0
+m68k         allmodconfig    gcc-16.1.0
+m68k          allnoconfig    gcc-16.1.0
+m68k         allyesconfig    clang-24
+microblaze    allnoconfig    gcc-16.1.0
+microblaze   allyesconfig    gcc-16.1.0
+mips         allmodconfig    gcc-16.1.0
+mips          allnoconfig    gcc-16.1.0
+mips         allyesconfig    gcc-16.1.0
+nios2        allmodconfig    clang-20
+nios2         allnoconfig    clang-24
+openrisc     allmodconfig    clang-20
+openrisc      allnoconfig    clang-24
+parisc       allmodconfig    gcc-16.1.0
+parisc        allnoconfig    clang-24
+parisc       allyesconfig    clang-17
+powerpc      allmodconfig    gcc-16.1.0
+powerpc       allnoconfig    clang-24
+riscv        allmodconfig    clang-24
+riscv         allnoconfig    clang-24
+riscv        allyesconfig    clang-24
+s390         allmodconfig    clang-17
+s390          allnoconfig    clang-24
+s390         allyesconfig    gcc-16.1.0
+sh           allmodconfig    gcc-16.1.0
+sh            allnoconfig    clang-24
+sh           allyesconfig    clang-17
+sparc         allnoconfig    clang-24
+sparc64      allmodconfig    clang-20
+um           allmodconfig    clang-17
+um            allnoconfig    clang-24
+um           allyesconfig    gcc-16.1.0
+x86_64       allmodconfig    clang-22
+x86_64        allnoconfig    clang-24
+x86_64       allyesconfig    clang-22
+x86_64      rhel-9.4-rust    clang-22
+xtensa        allnoconfig    clang-24
+xtensa       allyesconfig    clang-20
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
