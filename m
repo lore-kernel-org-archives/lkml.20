@@ -1,322 +1,178 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazolkn19010047.outbound.protection.outlook.com [52.103.7.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1033769F8
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 04:56:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788411370; cv=none; b=f+PrTUyNHplXPK336fpU+J9qjVpvCVwL5p8qUsxnxb7bYhM6XBbhrzG3CPGm11ciJ02MXK8wMvbBEFJjaFhK9MYGD6znxV6KmyhXVXzOBC9DTi8NAELdQwpqsFgOzGFD03HN8eVddhqp0V2hz7wZpIkz2n6y932vTvIABDHoKdM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788411370; c=relaxed/simple;
-	bh=9d5bJTZoze3EweLxHCAQDp4r/qheSO1cRUlgaXuIQLY=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=XBSIVb/WDqcwtE8LvjkC8yjTI2XbdQXDdSqZlLP3AKKODftRDle2Hro8Orh2x1gyQRGdfGhtRMWGnyBQXwHanaKICzB8pOUXE8yQU9TkoY2rCHuOzVxAdemk8nmff3ni+lnYC4SsxooyADWkcNsuCiADle+BfUdEUS9RXV63FHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oE/TFvqS; arc=none smtp.client-ip=209.85.216.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC7D202F71;
+	Thu,  3 Sep 2026 04:57:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.7.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788411441; cv=fail; b=FENSPatZfrmOjWzDWDxTzG5lWOnYLCLRT+HNpV4WNRxDW4/BYv2qO/cWgQUKwYGodB1aC0yoaXBiqxZKJG7W/tgs7o29LVwo8qzFLJ+AbHm6IpjnIByB/ccPaDK/LBkaA17rqf9WwJOhfb7pMc21sekDJgWEYyJuY9aYHOKrlMk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788411441; c=relaxed/simple;
+	bh=JdWMcoUPH+gsuu8339Tg6JO8NrzLZtb/wzmBWhT/uOc=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=Drlgf8S9+MD9fLsPvACBQzmdwlVH/oWDG1YZSVDqaTTa5biZsqEmRqxIeNR452wSn01QR9NGYHHo3MJdDk+dxq7fRrRaWDbIDsrlOver6vmPb3cdhDCWrxU280ZHH8Mo0RkjSh5KwIW626hzyG0Hypjvg4QDz4R3VinVCogMj9k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=VPNaA9Vx; arc=fail smtp.client-ip=52.103.7.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oE/TFvqS"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38f283baf1fso2705603a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 21:56:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788411367; x=1789016167; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TAJRiyqxDNbqNovLMx0HCQdku/X8Sgrg7Q1N4V/JMDI=;
-        b=oE/TFvqSVPXniKMcSYd1UI8fvuSVvH7BickME5oNo9lsrrIH83iUqyGsJa960zXWgP
-         iRv6HrgDBKcLr7F0sEjWkLVQud6wMEkSrqeWxRxKz0zuXghfm7/FCdjyN58YA47cE4OM
-         MCNjluk+DyV1/ObxBPc/MHmzJAmC9RcKWetB0hfBgZEmIHIPQn8rQRHvJJ75j5dJTScO
-         NCS5zB26T6xGm3/7rRbld25PLEmQj+ptmdzkOGhJyvFgYQ0iyJ+Khiy/SlhIMaIYRc1k
-         lM5+Hv31Y6kR6Y9QmdNLSlhtg6SU/xLlil5oQPWzbUj3+xG/nhnFZtwA7LaQs71amLZ3
-         gnOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788411367; x=1789016167;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TAJRiyqxDNbqNovLMx0HCQdku/X8Sgrg7Q1N4V/JMDI=;
-        b=ejOC4JrTuMwCGPpICM1sLiZwleJg4dEUqeo9t6pNP6LjXeWZhM17+Z6hFz3jmFH36O
-         pREh1ha1fC5XzaY+4qg2hL1xyLUmq56t9w3Uyz+EwMe9zxUh0UN/0Y4lelrPRX3uTiXG
-         dMQS7CXZHvUFDkMGvMhbcMQ4RXRPh49dkTGxi+k6D/pTWlrYSqarM4HfqJW01imPAfHG
-         DdC74lCSSyKdRS8CE4O5bA2X0+/o3ZnsAhjLkLvM9LogLK+gLNVRM5ZckrTT/BbKt1kp
-         qj9T5T9fX1BmlgCyw9ZTR/2Y/lGWp2zoXFGL+/0TCwGzo5XBqBZ1BOs8Us7Yu2gMHWBj
-         LV5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwfrXqChKB/xZkQYItKhsxFVkdVV3xNPs/YKFM0/RDtQJHLr6wAUSCBUUEfkYPSyot14vz2BQX8ur1X3FA=@vger.kernel.org
-X-Gm-Message-State: AFuF++m2QXWr9ODeaV6QbjlJjlJ4Wlwh7cLN6yj7x2Sw5zt09XKc2nnt
-	tBWyG0MtEsDPCa5O2AzfA/hFf/U7gL5Ex2hQg03kFnkRDiz8mSoCBgmIT6Goay4UnDp/pJU1hQi
-	livsURZRJjg==
-X-Received: from dlag28.prod.google.com ([2002:a05:701b:251c:b0:141:4cd7:9d61])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:5908:b0:38e:5b59:c2ff
- with SMTP id 98e67ed59e1d1-39aedec4caamr15609087a91.3.1788411367246; Wed, 02
- Sep 2026 21:56:07 -0700 (PDT)
-Date: Wed,  2 Sep 2026 21:56:03 -0700
-In-Reply-To: <20260902153135.2067365-1-irogers@google.com>
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="VPNaA9Vx"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bc6FihQJAVA0GVizYvK0aMerHZqUHYrd3DJ/qSKfevadHqY1LesYjpvQ8ODvuRLtKcvayxDgpoVmDJKKRN+fcWAR7XLaZVIB5rmpGq2yS2o/WBdZozZRAKO1tNgf2i6/Fm3N+MXJxfb/UGowTedeRMBmVjIXKqMfxps+kZPaOZuqDxTT3e4tvmf8NYX3O9xCAC6qi5Y2mSm0J+ROyThIDS4rI7zahxpOJq4zMdRes4VhAKZP4syOq+QwAU59gDIJu0XmMALOiKCwVJOXVC/c5/+M3UosdXwqrvlUStKw4i31c7wJlINhzSQ3998QvSpEQhhhimSAWmiYFo1DDE1MIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=F+r4t3tTHtd8SQevr/iYFMipAtIu9zOnZyiE/FZT2nY=;
+ b=cZKKdYMJ2UIlYfy85eUFE02CaNd2DMX4p0OlPuRhuSlGBlqDDk7lsahqOFjW3SRdSGUHyoDdx8+ulSLL1OlgWDEKOT4nYL0hAYTdWweRciq/FOPQlOri3F5TpBtAxnJ2V2hN2Q4W4cdWnlaUgvY1iT+GxBYjx8YkGtHjJddgv8txEuXUvLQtiUiuzezOVTF5FJD9nD9tfLd3eIm6ecDu++64Q8LxEn3M2VcwfLOFpGV2GPDBSbP3I//UMZWjpNGlruxshIbep5YDsJcaXBhxdPBMZ99bgIjkpq51fMfe5+t1/sDvkgaPY/MbX8KJmviyyFf/aHmlss6XgZ628/qIkQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=F+r4t3tTHtd8SQevr/iYFMipAtIu9zOnZyiE/FZT2nY=;
+ b=VPNaA9VxmyxvFPSXtRAHWiikcQkot8QdiUq4hVEA35OmaCHRrRzJn3+FmJ3HAxMWXwFZXrKIvZAW/8/lmEXjrKINH/b8Iht3BcKZkvYoiKMik6LKso70kLSOd6Ba8VNiSa0FzKoBS9A8/y+nypvp9V48ncNLWb5hVMa6DzkShG4nBh5E7+0bY0RqcnRV2CvgbJ0hqBjViocSxWK1ODUBKmlEj6GUHW+cK1mXyDcKbf4taw3S5bQr63cPJEhJOMuyYlHlUxr1ZLM3Ox5HVB8TA/e/PEj+AvqKU3em1FFutKtZQEshcqP3jt8XZuHY6ftTj214Rl42rMzdsAwPlLQ/DA==
+Received: from SN7PR19MB6736.namprd19.prod.outlook.com (2603:10b6:806:263::12)
+ by CO1PR19MB5048.namprd19.prod.outlook.com (2603:10b6:303:f2::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Thu, 3 Sep
+ 2026 04:57:17 +0000
+Received: from SN7PR19MB6736.namprd19.prod.outlook.com
+ ([fe80::4b6c:b84f:b71c:d0a]) by SN7PR19MB6736.namprd19.prod.outlook.com
+ ([fe80::4b6c:b84f:b71c:d0a%3]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 04:57:17 +0000
+Message-ID:
+ <SN7PR19MB673630544FB38F78BE5800359DB62@SN7PR19MB6736.namprd19.prod.outlook.com>
+Date: Thu, 3 Sep 2026 08:57:07 +0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 12/12] arm64: dts: qcom: ipq5018: Enable USB
+ Super-Speed PHY
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Praveenkumar I <praveenkumar.i@oss.qualcomm.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+ Nitheesh Sekar <quic_nsekar@quicinc.com>,
+ Wesley Cheng <quic_wcheng@quicinc.com>,
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org
+References: <20260825-ipq5018-usb3-v3-0-39be0955a6aa@outlook.com>
+ <20260825-ipq5018-usb3-v3-12-39be0955a6aa@outlook.com>
+ <3c34164f-08cb-4e33-af8d-c5d19012a1ff@oss.qualcomm.com>
+Content-Language: en-US
+From: George Moussalem <george.moussalem@outlook.com>
+In-Reply-To: <3c34164f-08cb-4e33-af8d-c5d19012a1ff@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DX0P273CA0013.AREP273.PROD.OUTLOOK.COM
+ (2603:1086:300:26::18) To SN7PR19MB6736.namprd19.prod.outlook.com
+ (2603:10b6:806:263::12)
+X-Microsoft-Original-Message-ID:
+ <ae3833c3-3a54-4c6d-b69c-f0aa7dcbdc6e@outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260902153135.2067365-1-irogers@google.com>
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-Message-ID: <20260903045603.3611902-1-irogers@google.com>
-Subject: [PATCH v2] perf tests: Improvements to build-test performance
-From: Ian Rogers <irogers@google.com>
-To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
-Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
-	leo.yan@arm.com, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, mingo@redhat.com, mjeanson@efficios.com, 
-	peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN7PR19MB6736:EE_|CO1PR19MB5048:EE_
+X-MS-Office365-Filtering-Correlation-Id: 128639c2-29f7-4887-0d10-08df0977d3c8
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|25010399006|19110799012|6090799003|5072599009|15080799012|8060799015|23021999003|37011999003|24021099003|51005399006|440099028|3412199025|40105399003|2607281247196008;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?RHZNWUpPc3VEQ3NuaEVLU2hCQ0FsemxaQjgvdUtETDUxZU9GNm1mQ1N3UnJT?=
+ =?utf-8?B?N0NjZGF1cWNlTHJCY1E5QzZRM1VxdEttTGt5M2haVXNDczg4dFVlUDZ1cTI3?=
+ =?utf-8?B?VitES2Y1TlFuRG9Ccjd0R1Fwa09sRnJFTzlPdmc4dVd2MjRBQnZXd0xSdS9z?=
+ =?utf-8?B?WTR1Wlp0T24xTmQrS2syL1h2cHZKVEk1dVFsS2JuSHNlZjdMazN1NlBadWhW?=
+ =?utf-8?B?YUxGNWROVFNuY2JEVms5QUZhVWtBaEwxVlM1bWtZQVVDMzNyRlNoU0xGKy9k?=
+ =?utf-8?B?VXBGVG9uMEZEWkVFajJZdnV6VHg3VlZhWXJiMnZKMXFTMGYwcVJSQS82b1du?=
+ =?utf-8?B?RU5UdEdEYzlXM1RGajBxWGdkTXJLRzI4dDBLM1Bsd3gxOWdoQXNUaUJSVU80?=
+ =?utf-8?B?MHFvcHRpN0NqT0wzS2crdTRienFTOHJOU1lQRkQ3WE9XTmIyTDJXa0kzcEN5?=
+ =?utf-8?B?WDArcVRjQXZtMzdwaVM0N010Zm81SU50QlY5RFl4S2dxMlZnekZGaERHTTQx?=
+ =?utf-8?B?M3EwTkdjdVdEUWEwWnU5RG42eG9OUDRKOEM1SEtvSlB4UWl1S050cnhneVlz?=
+ =?utf-8?B?cUl3UlVxUFl3NFZkZ01BRWlsSWpESzlENWowRjZsTHdIdk9QTWNMaTBJN3Nx?=
+ =?utf-8?B?cTEvR1E5NkJ3eDR4MlpNNXdCT2FtMlJZZjU1cXZEcjlPRHI5Rk9xM0RpRXJT?=
+ =?utf-8?B?eHNqc0ErS0gxdXl1WXltaUNrMVMvRE40bitLWEpDbDQ0dG11WENiZmc1ai9F?=
+ =?utf-8?B?YjFDMzF3Uy9wOTB1VFlUdVBCeUxJYlNzTVVMaTlNaUZ3ZFpZMG5tazNIMG5J?=
+ =?utf-8?B?UVozTE0yQlkxZmxsUmdkMTlHWjZxbThBL0U3T200RlJ4ZG05S0VFZklYenJM?=
+ =?utf-8?B?anBrOTR3RGtVeXFqWFppZWZPcmRFV21ISUIzMGV4Q3RnNUhPaGNnazNzVXhO?=
+ =?utf-8?B?U2ZBRWthRmoySGYyN0tHc2FxT3I2dkRTY1p6bHpPdGxLSFJaVDlaKzFrblNm?=
+ =?utf-8?B?bWlXbHdqZTNNS243RTBmZlkyeDgzV0gxTE14WEwvSjdVa05ETFQ2QmJNVDVP?=
+ =?utf-8?B?TUZkem5XNitCRndrWDB1blArc2RrdnZaTTV1Ny9MczYyWDJOdEN6MGRXV29V?=
+ =?utf-8?B?QzQ2SXZJcVVSTVVBRko2cHZpY25uUUdIQk8yZFhPZDNIK2dpWVFnTDgvdHRp?=
+ =?utf-8?B?alh3Z25oTGNEaDhIaUp0N21DS2RTdEVjS0o1SldUOWNVTHZCV2VCOFdXL090?=
+ =?utf-8?B?bXFRa0hLWWkzYVcrdEwrWlZkb1lkTTZWWS9vZ0hSNFh2OFJFVnhCdU5ySk9n?=
+ =?utf-8?Q?6RQsHUFiDk1peKIZxtO8sXnF/JfatIoj3g?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MVRnV1QyMDZYMXdaaXE2Qyt3THBnMXBoTnhJbTg3aU9EeUVJSEVLVWJ1NkJX?=
+ =?utf-8?B?TWV3YS93eWNBMWJrQTFoSEd0M0FLdjJIenc4WDZPQ0FuZVdWeC9adkhxRnFC?=
+ =?utf-8?B?SFRXM2ZxYmU5YkF1ckdCU1FGN2V2Z2lxMjF2TCtTK0lKcFlPai81OHozVmla?=
+ =?utf-8?B?cjZ4TEtRcnhRZHZoNWNPUmJPTXEvamV6SFU3UG9lbHllMnlYblpjanlLNWZI?=
+ =?utf-8?B?aWdIbVJyZ0g2azV1MnU4QzYzd3dXb01nYjh1SWFQWUl4NmM0RUFuNGxNT2l1?=
+ =?utf-8?B?aG9WNG9neFdiVm9nUzNEUVNsSi9TLy9OM1RvNnl5d1l5Zk9Xem82YlBlaFVS?=
+ =?utf-8?B?a25GZ203eW9uZWZ2UEkxRmVNU1g5V0c1cDIvaC9CZzdXSjlFVWdub1JJSHVp?=
+ =?utf-8?B?T2RhTTllbXZaTE5rRXhOVU5yV2tsbnVtalY5L2Q1UDB1alB6cjQ4TStaRWZT?=
+ =?utf-8?B?eWU5Y1cwUEE2eSt0YkVqWW9FbGtTajFyYXpEaDM5R1NXSDJJWHd3ZGZYYllo?=
+ =?utf-8?B?Z2xBM1JSenJRYWU1VFgwZFZEdTRoNy9rSEZLR2tVUVVwMlQ2M1RTQ0ZuS1RC?=
+ =?utf-8?B?ZlRFSVQ5WXpmK2MxbWJFbXZyRWFSSDl2SWFJQy9DM0hIRHV5ZVpkNkpXMStp?=
+ =?utf-8?B?aENGMFNHb2MrdjE5WHdPTnB1L29KMCtZWEdYczlESXRpMEtyRmpsSlFXcGRU?=
+ =?utf-8?B?SjAreVkvd2x2SXpLRGZwTm1SVGRnZHp2cXR4VzgvdkFSSml1eWc5enJuY0VH?=
+ =?utf-8?B?Q3BNZFI1VWNaV2RWaHBrVWFUOEJncm9zRTNQZEVWQllobkxDQURNUE90VHVT?=
+ =?utf-8?B?TGlmb2lFMW1Kb1NHdWRSL2ZtNnJTSlhyT0ZQL0lRRWc4b1E4bisreEhtL090?=
+ =?utf-8?B?VzJVNi9jVnJ0VHlsTGZLcXNZNEFLV2luRG5JOTZMTXdWV1BmbHEyb0lvVzZp?=
+ =?utf-8?B?VzFuY09xZlVjZmdOQnB6eHM2VnFuWXRZOUpMN3JPS3lFd1V5OGZKZUgxMVpm?=
+ =?utf-8?B?MGtudkxsZlk4QnYwcFpuaW1XbG4zQVJyc3k5bGRiU1FJZTh1ZXMyM1VIQm9U?=
+ =?utf-8?B?RitRVVJkSGV5U0tiMnpMUERidEJla09FMUZYWDYwYUV3MlJIdzVPODlZL1cr?=
+ =?utf-8?B?cUV0NEJEQzVlVHh3WGkwUGc1TFNqdlRvQjcvUzk3eVkyY1dpU2lEMVRWWFJJ?=
+ =?utf-8?B?N0Z1U2p2a1JMQjNUYThmNk90aU94alhlVnhIVHE3dHl4S2VYWnNjWUpNaHUr?=
+ =?utf-8?B?b2xXSEZNTE9RM1VqbUQ2Sm9iS25UWFYyTTFIWTFFTTZhZEU3S0oxUExpbldk?=
+ =?utf-8?B?TUFoVVprUWpFRkRSUkVYVkh4V1JaSGNXL2FGaDNzajBNdTNZSEpreXNRV3pJ?=
+ =?utf-8?B?U1FOUUVib05GdlI2NnpMa0RURm5YNGYwREhXRDVGS2h1TjFyVG5MSExiVDds?=
+ =?utf-8?B?bVlrUXREWjZDNEhLNGF6SEltVmZBQm1FQjBReWdMVDd3ZDFRYkVlcUtyOUVp?=
+ =?utf-8?B?VnpBQmN2YnlaUkQrQVdvYWpveGtBSk9QY2dSNlh6d2MvcEZ4ZndETmIyN3kr?=
+ =?utf-8?B?NFR2SExDWG9vRmJkVVVYaGYrSGtsUGcrR3Z3NStUSWNudVJPQ0FTWDhGOWE3?=
+ =?utf-8?B?S2pSSzg0Y2xWdzlvSjdvRlEyVS9uR1dHUUN6YVl1SXlTZ0Z6NzJCRFhMOU9q?=
+ =?utf-8?B?WjVic3Rod1NtbTNHWXBHdUxmZ3dPcG1mdXJWeGZrOUlYMGpsN3c5dnhQSkZJ?=
+ =?utf-8?B?UUN2UkxTTFd2M0tCekkreFE2bVlqZDFJOHdocHFNejUvWWx1cmNwYzNsNS9F?=
+ =?utf-8?B?OC9ySVhKWmxOVU41KzFicFA4NjZNMlU4N1dIV2QzdVdzUkRSZ3liSXozR0pN?=
+ =?utf-8?B?TGlYUUlFamxSd3NKLzFiRjNBakZGcFNwNVJsVkd4L012b1E9PQ==?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 128639c2-29f7-4887-0d10-08df0977d3c8
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR19MB6736.namprd19.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 04:57:17.4739
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR19MB5048
 
-Replace hardcoded 'make' calls with '$(MAKE)' within tests/make to
-ensure GNU Make jobserver file descriptors are properly inherited by
-nested builds.
+On 9/1/26 17:24, Konrad Dybcio wrote:
+> On 8/25/26 2:37 PM, George Moussalem via B4 Relay wrote:
+>> From: George Moussalem <george.moussalem@outlook.com>
+>>
+>> Add the 5V supply regulator and enable USB Super-Speed PHY support.
+>>
+>> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+>> ---
+> 
+> subject:
+> 
+> arm64: dts: qcom: ipq5018-rdp432-c2: ...
 
-Additionally, remove the 'unexport MAKEFLAGS' from
-tools/perf/Makefile. This hack was originally added to prevent the
-wrapper's internal '-j$(JOBS)' override from crashing when parent
-jobserver tokens were present. Instead, use proper GNU Make
-conditionals to check for '-j' or 'jobserver' strings within
-MAKEFLAGS. If a jobserver is already orchestrating the build,
-gracefully back off and let GNU Make manage parallelism natively.
+will adjust the commit title, thanks.
 
-Finally, optimize the 'out' target (which processes 'run_O'
-out-of-tree builds) by stripping sequential bottlenecks like $(call
-clean) from isolated tmp directories, and wrapping the target list in
-a parallel sub-make call.
-
-These combined changes enable 'build-test' out-of-tree targets to
-build completely concurrently without severing jobserver tokens.
-
-Unscientifically measured the change lowered the build-test from
-around 15 minutes to 10 minutes on a 28 threaded Alderlake CPU. Fixing
-the jobserver issues meant the machine remained somewhat usable while
-running the test.
-
-Signed-off-by: Ian Rogers <irogers@google.com>
-Assisted-by: Antigravity:gemini-3.1-pro
----
-v2:
- - Re-structured build-test array in tools/perf/Makefile into explicit
-   sequential $(MAKE) passes. This prevents in-tree targets (make_static,
-   etc.) from racing to directory corruption when exposed to native
-   jobservers.
- - Added '+' prefix to recipe modifiers in tests/make to prevent jobserver
-   FDs from being stripped before sub-shell evaluation.
- - Replaced hardcoded -j$(cores) limits in the 'out' sub-make step with
-   dynamic jobserver boundary detection to prevent fork-bomb override
-   collisions.
- - Restored missing $(call clean) steps via O_CLEAN conditionals to prevent
-   in-tree polluted runs from breaking out-of-tree sequences.
- - Removed unconditionally appended $(FEATURES_DUMP_FILE) target restrictions
-   from 'out' that threw "No rule to make target" errors on unhandled tests.
- - Fixed 'test_dest_files' to check [ ! -f ] instead of [ ! -x ], removing
-   long-standing ghost warnings for non-executable mode-644 targets
-   like etc/bash_completion.d/perf.
- - Fixed cosmetic string formatting bugs in GNU Make's print_msg banner
-   output.
----
- tools/perf/Makefile   | 35 ++++++++++++++++++++++-------------
- tools/perf/tests/make | 42 ++++++++++++++++++++++++------------------
- 2 files changed, 46 insertions(+), 31 deletions(-)
-
-diff --git a/tools/perf/Makefile b/tools/perf/Makefile
-index 5b713837eede..2cbf4cb5f093 100644
---- a/tools/perf/Makefile
-+++ b/tools/perf/Makefile
-@@ -14,23 +14,29 @@
- .SUFFIXES:
- 
- #
--# We don't want to pass along options like -j:
-+# If no parallel build was requested, do a parallel build with multiple jobs,
-+# based on the number of CPUs online in this system: 'make -j8' on an 8-CPU
-+# system, etc.
- #
--unexport MAKEFLAGS
--
--#
--# Do a parallel build with multiple jobs, based on the number of CPUs online
--# in this system: 'make -j8' on a 8-CPU system, etc.
-+# If MAKEFLAGS contains '-j' or 'jobserver', JOBS is intentionally left
-+# uninitialized so the native GNU Make jobserver can seamlessly control the
-+# parallel bounds of the build.
- #
- # (To override it, run 'make JOBS=1' and similar.)
- #
--ifeq ($(JOBS),)
--  JOBS := $(shell (getconf _NPROCESSORS_ONLN || grep -E -c '^processor|^CPU[0-9]' /proc/cpuinfo) 2>/dev/null)
--  ifeq ($(JOBS),0)
--    JOBS := 1
-+ifeq ($(findstring -j,$(MAKEFLAGS)),)
-+  ifeq ($(findstring jobserver,$(MAKEFLAGS)),)
-+    ifeq ($(JOBS),)
-+      JOBS := $(shell (getconf _NPROCESSORS_ONLN || grep -E -c '^processor|^CPU[0-9]' /proc/cpuinfo) 2>/dev/null)
-+      ifeq ($(JOBS),0)
-+        JOBS := 1
-+      endif
-+    endif
-+    PARALLEL_OPT := -j$(JOBS)
-   endif
- endif
- 
-+
- #
- # Only pass canonical directory names as the output directory:
- #
-@@ -58,11 +64,11 @@ else
- endif
- 
- define print_msg
--  @printf '  BUILD:   Doing '\''make \033[33m-j'$(JOBS)'\033[m'\'' $(BUILD_TYPE) build\n'
-+  @printf '  BUILD:   Doing '\''make\033[33m%s\033[m'\'' $(BUILD_TYPE) build\n' "$(if $(JOBS), -j$(JOBS),)"
- endef
- 
- define make
--  @$(MAKE) -f Makefile.perf --no-print-directory -j$(JOBS) O=$(FULL_O) $(SET_DEBUG) $@
-+  @$(MAKE) -f Makefile.perf --no-print-directory $(PARALLEL_OPT) O=$(FULL_O) $(SET_DEBUG) $@
- endef
- 
- #
-@@ -106,7 +112,10 @@ clean:
- # make -C tools/perf -f tests/make
- #
- build-test:
--	@$(MAKE) SHUF=1 -f tests/make REUSE_FEATURES_DUMP=1 MK=Makefile SET_PARALLEL=1 --no-print-directory tarpkg make_static make_with_gtk2 out
-+	@$(MAKE) SHUF=1 -f tests/make REUSE_FEATURES_DUMP=1 MK=Makefile SET_PARALLEL=1 --no-print-directory tarpkg
-+	@$(MAKE) SHUF=1 -f tests/make REUSE_FEATURES_DUMP=1 MK=Makefile SET_PARALLEL=1 --no-print-directory make_static
-+	@$(MAKE) SHUF=1 -f tests/make REUSE_FEATURES_DUMP=1 MK=Makefile SET_PARALLEL=1 --no-print-directory make_with_gtk2
-+	@$(MAKE) SHUF=1 -f tests/make REUSE_FEATURES_DUMP=1 MK=Makefile SET_PARALLEL=1 --no-print-directory out
- 
- build-test-tarball:
- 	@$(MAKE) -f tests/make REUSE_FEATURES_DUMP=1 MK=Makefile SET_PARALLEL=1 --no-print-directory out
-diff --git a/tools/perf/tests/make b/tools/perf/tests/make
-index d2c2f526e1db..d1d99f5a85ae 100644
---- a/tools/perf/tests/make
-+++ b/tools/perf/tests/make
-@@ -28,15 +28,17 @@ endif
- 
- PARALLEL_OPT=
- ifeq ($(SET_PARALLEL),1)
--  ifeq ($(JOBS),)
--    cores := $(shell (getconf _NPROCESSORS_ONLN || grep -E -c '^processor|^CPU[0-9]' /proc/cpuinfo) 2>/dev/null)
--    ifeq ($(cores),0)
--      cores := 1
-+  ifeq ($(findstring jobserver,$(MAKEFLAGS))$(findstring -j,$(MAKEFLAGS)),)
-+    ifeq ($(JOBS),)
-+      cores := $(shell (getconf _NPROCESSORS_ONLN || grep -E -c '^processor|^CPU[0-9]' /proc/cpuinfo) 2>/dev/null)
-+      ifeq ($(cores),0)
-+        cores := 1
-+      endif
-+    else
-+      cores=$(JOBS)
-     endif
--  else
--    cores=$(JOBS)
-+    PARALLEL_OPT="-j$(cores)"
-   endif
--  PARALLEL_OPT="-j$(cores)"
- endif
- 
- # As per kernel Makefile, avoid funny character set dependencies
-@@ -230,7 +232,7 @@ test_make_util_pmu_bison_o := test -f $(PERF_O)/util/pmu-bison.o
- 
- define test_dest_files
-   for file in $(1); do				\
--    if [ ! -x $$TMP_DEST/$$file ]; then		\
-+    if [ ! -f $$TMP_DEST/$$file ]; then		\
-       echo "  failed to find: $$file";		\
-     fi						\
-   done
-@@ -310,7 +312,7 @@ clean := @(cd $(PERF); $(MAKE_F) -s $(O_OPT) clean >/dev/null && $(MAKE) -s $(O_
- 
- $(run):
- 	$(call clean)
--	@TMP_DEST=$$(mktemp -d); \
-+	+@TMP_DEST=$$(mktemp -d); \
- 	cmd="cd $(PERF) && $(MAKE_F) $($@) $(PARALLEL_OPT) $(O_OPT) DESTDIR=$$TMP_DEST"; \
- 	printf "%*.*s: %s\n" $(max_width) $(max_width) "$@" "$$cmd" && echo $$cmd > $@ && \
- 	( eval $$cmd ) >> $@ 2>&1; \
-@@ -320,7 +322,7 @@ $(run):
- 
- make_with_gtk2:
- 	$(call clean)
--	@TMP_DEST=$$(mktemp -d); \
-+	+@TMP_DEST=$$(mktemp -d); \
- 	cmd="cd $(PERF) && $(MAKE_F) $($@) $(PARALLEL_OPT) $(O_OPT) DESTDIR=$$TMP_DEST"; \
- 	printf "%*.*s: %s\n" $(max_width) $(max_width) "$@" "$$cmd" && echo $$cmd > $@ && \
- 	( eval $$cmd ) >> $@ 2>&1; \
-@@ -330,7 +332,7 @@ make_with_gtk2:
- 
- make_static:
- 	$(call clean)
--	@TMP_DEST=$$(mktemp -d); \
-+	+@TMP_DEST=$$(mktemp -d); \
- 	cmd="cd $(PERF) && $(MAKE_F) $($@) $(PARALLEL_OPT) $(O_OPT) DESTDIR=$$TMP_DEST"; \
- 	printf "%*.*s: %s\n" $(max_width) $(max_width) "$@" "$$cmd" && echo $$cmd > $@ && \
- 	( eval $$cmd ) >> $@ 2>&1; \
-@@ -339,8 +341,10 @@ make_static:
- 	rm -rf $@ $$TMP_DEST || (cat $@ ; false)
- 
- $(run_O):
-+ifneq ($(O_CLEAN),0)
- 	$(call clean)
--	@TMP_O=$$(mktemp -d); \
-+endif
-+	+@TMP_O=$$(mktemp -d); \
- 	TMP_DEST=$$(mktemp -d); \
- 	cmd="cd $(PERF) && $(MAKE_F) $($(patsubst %_O,%,$@)) $(PARALLEL_OPT) O=$$TMP_O DESTDIR=$$TMP_DEST"; \
- 	printf "%*.*s: %s\n" $(max_width) $(max_width) "$@" "$$cmd" && echo $$cmd > $@ && \
-@@ -363,18 +367,18 @@ endif
- make_kernelsrc:
- 	@echo "- make -C <kernelsrc> $(PARALLEL_OPT) $(K_O_OPT) tools/perf"
- 	$(call clean); \
--	(make -C ../.. $(PARALLEL_OPT) $(K_O_OPT) tools/perf) > $@ 2>&1 && \
-+	($(MAKE) -C ../.. $(PARALLEL_OPT) $(K_O_OPT) tools/perf) > $@ 2>&1 && \
- 	test -x $(KERNEL_O)/tools/perf/perf && rm -f $@ || (cat $@ ; false)
- 
- make_kernelsrc_tools:
- 	@echo "- make -C <kernelsrc>/tools $(PARALLEL_OPT) $(K_O_OPT) perf"
- 	$(call clean); \
--	(make -C ../../tools $(PARALLEL_OPT) $(K_O_OPT) perf) > $@ 2>&1 && \
-+	($(MAKE) -C ../../tools $(PARALLEL_OPT) $(K_O_OPT) perf) > $@ 2>&1 && \
- 	test -x $(KERNEL_O)/tools/perf/perf && rm -f $@ || (cat $@ ; false)
- 
- make_libperf:
- 	@echo "- make -C lib";
--	make -C lib clean >$@ 2>&1; make -C lib >>$@ 2>&1 && rm $@
-+	$(MAKE) -C lib clean >$@ 2>&1; $(MAKE) -C lib >>$@ 2>&1 && rm $@
- 
- FEATURES_DUMP_FILE := $(FULL_O)/BUILD_TEST_FEATURE_DUMP
- FEATURES_DUMP_FILE_STATIC := $(FULL_O)/BUILD_TEST_FEATURE_DUMP_STATIC
-@@ -383,20 +387,22 @@ all: $(run) $(run_O) tarpkg make_kernelsrc make_kernelsrc_tools
- 	@echo OK
- 	@rm -f $(FEATURES_DUMP_FILE) $(FEATURES_DUMP_FILE_STATIC)
- 
--out: $(run_O)
-+out:
-+	$(call clean)
-+	@$(MAKE) -f tests/make $(run_O) PARALLEL_OPT= O_CLEAN=0 $(if $(findstring jobserver,$(MAKEFLAGS))$(findstring -j,$(MAKEFLAGS)),,$(if $(cores),-j$(cores)))
- 	@echo OK
- 	@rm -f $(FEATURES_DUMP_FILE) $(FEATURES_DUMP_FILE_STATIC)
- 
- ifeq ($(REUSE_FEATURES_DUMP),1)
- $(FEATURES_DUMP_FILE):
- 	$(call clean)
--	@cmd="cd $(PERF) && make FEATURE_DUMP_COPY=$@ $(O_OPT) feature-dump"; \
-+	@cmd="cd $(PERF) && $(MAKE) FEATURE_DUMP_COPY=$@ $(O_OPT) feature-dump"; \
- 	echo "- $@: $$cmd" && echo $$cmd && \
- 	( eval $$cmd ) > /dev/null 2>&1
- 
- $(FEATURES_DUMP_FILE_STATIC):
- 	$(call clean)
--	@cmd="cd $(PERF) && make FEATURE_DUMP_COPY=$@ $(O_OPT) LDFLAGS='-static' feature-dump"; \
-+	@cmd="cd $(PERF) && $(MAKE) FEATURE_DUMP_COPY=$@ $(O_OPT) LDFLAGS='-static' feature-dump"; \
- 	echo "- $@: $$cmd" && echo $$cmd && \
- 	( eval $$cmd ) > /dev/null 2>&1
- 
--- 
-2.55.0.979.g7e5102b832-goog
+> 
+> please
+> 
+> Konrad
 
