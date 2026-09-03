@@ -1,132 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 083C7402B8F
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:43:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C99B24CEEA
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:43:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788428617; cv=none; b=uR4AyjxDe83L+I7oGol2OdXF0ozKmHIky3YQBuH7UzH0vb5XMMcgoVcYcYpK7lhSl74ezbXadRAgGx38FPB+CaeQMYoSMqx/oQuWmpoEa2KLZO6krtT68TaPTXt0T+lI64GNTWIhDJwL5egONX4giO87BArJoZFegO9Rlwh4IzI=
+	t=1788428624; cv=none; b=fUuIVwXvxjx7vKt1BZnJMrmt22qSyCDwaQxSII+swm8dzIbNDB0MO6BNSKiNqNWbW9Tq1W78mjxQkvTQguFRTbJTN4m3JmSQWkLABR7q0CmkDjsnZTwV9ZpCxso55qB390unxA09IKqXSzXEhXoNxLpabzcG/bFaO257Z80jSfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788428617; c=relaxed/simple;
-	bh=WnDpUf/0qRRSrjQGlCg+80jR+cwhqcfusHopMcK4vcg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NJBtMdRLlk0pUAvPhzTO5XE8ggr6TIdAhvc8Aqz4mi/u/ngM/l+gh3F6HeaZeKijCIxTpt9zT2zksr0L25riqbAE0vZa3djJNM+7DDj2OYf3b22KwEeA0o/1Joh4VX3nGgvBTEb+eYMpUJt4gykYrMUqeuRBdDipkdWk1bk5cC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PQm2T7q1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788428624; c=relaxed/simple;
+	bh=zVRZ9YB2jZg4NspjMBUhfg4hNV05y/D1ChD368Bh1eA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dXdcoDgKLZ28TdfMDIx81H3vvlbzLFt22Ql7OGSnxkaboxgtUMkzbofSCtMzMKIsUnUN9LiL2Gt034rPwwH+4lxDv1fFJK5tYXiNyvmbl1w2WXnyN092w7rFbcDgwsMIGYlQbYsfHUXZpqw20iqNppztDq+ZJyoieNuTlmM6Mi4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=JZc2MiSs; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PQm2T7q1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A844B1F000E9;
-	Thu,  3 Sep 2026 09:43:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788428615;
-	bh=eldXMd4hqRZkPJl7i6tyydiUfeNUbbeC/21E1NKLLUM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=PQm2T7q1sFBEZXzrTXsvySGsWdMAs3OwaNgKiY/BCwm3f+E7VHtDESnkCXMDLR3FY
-	 Bn2APwdb5qNikT3TxprobcmAZ0KW0vMQAHmtInQQ/gf1qsAgwofqbrxSXM4Zcxgqib
-	 TtKdqgxaS6eVdI7IaiN0jwr6sdv+kWugk3uBIZgQQZKNE0Qf6YBeByrgG4F1x4/MJA
-	 ELyo/UOtC7fDzJ6k6HQl2TvmhXUXdgUA+8x0C6FBvGmUWhxv9GzSIhlj+TgtzBWQSZ
-	 oklp+CyGoVf5WbUaE8ulxzaU16qL0MlU5pc33UuEBfW5Ryo6Rt9vOLdvCVhUYyNCmv
-	 n0IlnbMvxe19g==
-Message-ID: <87a29ae1-6a4f-4083-bd4f-7ff0295ff046@kernel.org>
-Date: Thu, 3 Sep 2026 11:43:31 +0200
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="JZc2MiSs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=LY9A
+	uxdY0YgAtitZHhuxf78G9rjwrzekgyOQQDK/Gqs=; b=JZc2MiSsgJIy4r/9Uo4M
+	SLryPfnRs2esjfpXwImw1LAPCxySom2Gh1UMRJekL05lmItQszh37t2UStNlHrnz
+	06iZ1ITyQr2D6K+0ArLMdKGNExzkNx9ihceDPLIeampWg8YvhKBxdhqymoX2fqH3
+	+usp6Q5BhlDxqiVykjhGlgvVSvzX5G3nOuAQw/e6i3IeIMh772F1etDSLHA5mkvv
+	H0fnen7XvB7CqYFvXUyurcCxSK6ky6ndmcvo8r/l0c3CLbPNjcax7Wbnqjjpwgid
+	MhLmJyMhNBwIsj9gyHw5kZfCM7XhUTfPSMS4Q5qaZIurkE4kpV6J7NhpDzE8Dlon
+	CA==
+Received: (qmail 994618 invoked from network); 3 Sep 2026 11:43:40 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 3 Sep 2026 11:43:40 +0200
+X-UD-Smtp-Session: l3s3148p1@nH2j/JBa5NUujntC
+Date: Thu, 3 Sep 2026 11:43:40 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Biju <biju.das.au@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>,
+	linux-mmc@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v24 08/15] mmc: renesas_sdhi: Add
+ TMIO_MMC_INTERNAL_DIVIDER flag
+Message-ID: <aplBTMnnF1V71BDL@shikoro>
+References: <20260820171657.62815-1-biju.das.jz@bp.renesas.com>
+ <20260820171657.62815-9-biju.das.jz@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/page_owner: preserve original free_pid/free_tgid
- during folio migration
-Content-Language: en-US
-To: Hongfu Li <hongfu.li@linux.dev>, akpm@linux-foundation.org,
- surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev,
- hannes@cmpxchg.org, ziy@nvidia.com
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Hongfu Li <lihongfu@kylinos.cn>
-References: <20260903092126.24685-1-hongfu.li@linux.dev>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20260903092126.24685-1-hongfu.li@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="E99sx6PRJK2Yhpw5"
+Content-Disposition: inline
+In-Reply-To: <20260820171657.62815-9-biju.das.jz@bp.renesas.com>
 
-On 9/3/26 11:21, Hongfu Li wrote:
-> From: Hongfu Li <lihongfu@kylinos.cn>
-> 
-> __update_page_owner_free_handle() accepts pid and tgid, but ignores
-> them, always storing current->pid and current->tgid.
-> 
-> __folio_copy_owner() forwards the original free pid/tgid during folio
-> migration, yet these values were overwritten by the migrating task.
-> 
-> Store the passed-in pid/tgid so the migrated folio keeps the original
-> free attribution.
-> 
-> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+--E99sx6PRJK2Yhpw5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: ea4b5b33bf8a ("mm,page_owner: update metadata for tail pages")
 
-(not critical enough stable@ imho)
+> +static bool renesas_sdhi_is_internal_divider_enabled(struct tmio_mmc_hos=
+t *host)
+> +{
+> +	bool enable =3D false;
+> +
+> +	if (host->pdata->flags & TMIO_MMC_INTERNAL_DIVIDER)
+> +		enable =3D true;
+> +
+> +	return enable;
+> +}
+> +
+> +static unsigned int renesas_sdhi_clk_get_rate(struct tmio_mmc_host *host,
+> +					      struct clk *clk)
+> +{
+> +	unsigned int freq =3D clk_get_rate(clk);
+> +
+> +	if (renesas_sdhi_is_internal_divider_enabled(host))
+> +		freq /=3D 2;
+> +
+> +	return freq;
+> +}
 
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+???
 
-Thanks!
+static unsigned int renesas_sdhi_clk_get_rate(struct tmio_mmc_host *host,
+					      struct clk *clk)
+{
+	unsigned int freq =3D clk_get_rate(clk);
 
-> ---
->  mm/page_owner.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mm/page_owner.c b/mm/page_owner.c
-> index 3fc37d9b908e..cfc31c92d765 100644
-> --- a/mm/page_owner.c
-> +++ b/mm/page_owner.c
-> @@ -307,8 +307,8 @@ static inline void __update_page_owner_free_handle(struct page *page,
->  			page_owner->free_handle = handle;
->  		}
->  		page_owner->free_ts_nsec = free_ts_nsec;
-> -		page_owner->free_pid = current->pid;
-> -		page_owner->free_tgid = current->tgid;
-> +		page_owner->free_pid = pid;
-> +		page_owner->free_tgid = tgid;
->  	}
->  	rcu_read_unlock();
->  }
+	return host->pdata->flags & TMIO_MMC_INTERNAL_DIVIDER ? freq / 2 : freq;
+}
 
+Was this AI generated?
+
+> @@ -184,10 +205,14 @@ static unsigned int renesas_sdhi_clk_update(struct =
+tmio_mmc_host *host,
+> =20
+>  	clk_set_rate(ref_clk, best_freq);
+> =20
+> -	if (priv->clkh)
+> +	if (priv->clkh) {
+> +		if (host->pdata->flags & TMIO_MMC_INTERNAL_DIVIDER)
+> +			clkh_shift =3D 1;
+
+No, this needs to be handled a bit above where clkh_shift is initially
+set up, so we have it all in one block.
+
+
+--E99sx6PRJK2Yhpw5
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqZQUwACgkQFA3kzBSg
+Kbbp/g//RPqRM7wsWLv3lCIY+qTDPlkd06UoszyERYrrKruEVVp90sLIXqCbIFMq
+hGV7xSzWjY7UZWialAhIYYcqvGKT4YyKC0X19TaVcGtn1xxEcH3cEMGEcG8YHzfy
+V9ZJ7uFKahINTYDbH+8fWUquf69ikFrg21wwodc/NN1lbK2mPsEw2Pro/slKgtnl
+65WeH46PrfG3djq8ldgB64cnNN6ng3yzKdxxukFQSYllNhfrzF0LnMshqBWtllkI
+EIPMDzB/ayeLi1khwJOLyL219kU6/LMxi1LEuomXHh/K/qbQnisQe4TFGwsYoTR8
+bZmGruaZnH9dnKJkOSXknwJ/ZvIgLjFFssoA6hKo8Z3ZxeuFp6IK0YPSFk22KgqL
+fjENVX6onGyEssi2IBJWuHP5JDtAX981Ga51JMr74wuok9vk7MgVr2od9uAwD1YT
+246iZPANVHq+E9oSjGV3T/A2p1ikiCgfieR0JKJszk42uuzWt/DWgNIuKhvfWUrR
+FNULm7Pj3xtvjtZPd8HzRKOyk9Ud9bFxOTCxQ6QspXcZKrSyiPCsIlwoQrysP6zk
+kdBYIkEoJY4JeRdhaFKaEIRC0DZ9rhP1TkhpzuBLIjziq65KAEn873cKQFT+siWD
+zF0gBzHa+VdXL6w7IrTUicW7bUKUM5AF7lVX4EWMuyPXN8PFEp4=
+=SpLs
+-----END PGP SIGNATURE-----
+
+--E99sx6PRJK2Yhpw5--
