@@ -1,73 +1,73 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8181C4E2349
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:36:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4ABC4E3EC4
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:36:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449802; cv=none; b=na/J7uXKOFC8QtUyIycqvaPJIMTTFelvB0q2MNZFwseTNmssbIjh0AA48rpXRKEz5CQQAl1wOJMS/27Z7vO3AYW7GJ4Z+4tlCDgfXZa1FlDYYmiWh1pmehDoh1tCj1hbk/Nuly2O0pqzW1BiPAOvsdrlaOqa50BRzFKmc0JMimM=
+	t=1788449805; cv=none; b=F4zRsfMpJ074ngtwc1IOkX4em5s2BHpry50LqMdY8P4z7Sg/igb7JQajD1nT+JkZ/s0bKP0M1VheKSlOQ/UQIAuMK6a4RSZOye/Z5CoFjRqcMXSokDLYnaoPT3GsjJQhfhIQJZQUyaESIt5+NH1DnF6iTMvXsOODQj6JpEW4i/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449802; c=relaxed/simple;
-	bh=tT3Q8k3SBGvhCW+ypFai1zo8VCC9N3bTDH1szrukFBo=;
+	s=arc-20240116; t=1788449805; c=relaxed/simple;
+	bh=qsFwjBfu2NKtEcsDviKHxw63ntmppkT8r3P6UxlkbOc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Y7eNAJNO2v9P/dwNxkwIGxS8OMI5mYW9XnPT7O3W9Na79z+lVl/PDeEML1FqF399vSzF9XIhRNGEQc+M3WVdj9uUbYD39AU5iwYsC7CVTGOGULU5kGbTYNdQLbkFvxyXHkhyst1Ti5cyZlany6D1E9KTjnGutqPwKy9WFnYoasw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R2KEiPET; arc=none smtp.client-ip=209.85.128.52
+	 MIME-Version:Content-Type; b=qokWk90z/BdyHizRdn/3qk/KZ9ZhxgQ8pmhN/mIdNb3Z4Q6Xj7xe+bthVMS1effKWSChxN6MGxONRy7iSDiGgMmK1vCdNeridOANTtXRvCHptPND1X1b/XkpxNO99AB+UkckjuosGwg51a3vnLslGhNbEdHQkLG1/Sn7ker59bw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VvpVhIdC; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R2KEiPET"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49cd9add88aso16348165e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:36:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VvpVhIdC"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so22435e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:36:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788449798; x=1789054598; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788449800; x=1789054600; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:sender:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=XFFCN85pDa3U+auxuvcaHapqvCSCEcU+9fOdA+AcD88=;
-        b=R2KEiPETiX6HOLiotv02anrRukY6a5PRjBYiLxZ2rg/H8S2BmMnA3UBm4W/RIch02K
-         tV+KsnCKIYLWtW/CN2bDOdVOh+NvVwcJL5yEtR4Vi+NFeRrI34dzfT58Mfaem9XP4vJD
-         qr0INPJ1quJjgFpO2RgJUnNnXG1jzVV4pSCsBxYlMLgc5lq39jfwSxKbBTxpECKO6JRn
-         MbXXlLMs6wUz1V1dD7ROq2D2CnBVU30T/HfGEUESCD0rRGuE/3ssYI5QcUUfQO6GNZZw
-         IEt/tH/lDb7JF5ETY2Dp/j4ITn/PNk2+P+udM9liPwwYUsfdB9e8U5Q1NqEofcylgGMa
-         dRRw==
+        bh=ShvhKa6MyfZ1jEWheQQ6SuhEnn7upG8Sh84fZvzR0n8=;
+        b=VvpVhIdCDu+E+q9D3ZMVDm1AVd6kHCs8u0qRwDmqS02aZUnA7DlhlUPPj6QjbNNkC3
+         a+ImcYMOjILsuXRZ6hJUOFHTcyBnqhQH/TxOaYKBs0qhUuK3R04YL9oa7zp1HiT9Yzjq
+         5x9JkMwVTPgUcFbNdq8I9gUSH+rPfLEZgk+3scg/AQ3W/4tYr60jkTWurl6ozeAo2jzM
+         khFaxl5svuz8sNmDY9yug7HyKgx4NpgsjkIXP0bYPrEJqA9h1uDlZ8lM/P/tBy4Ugt2n
+         C/k6OGdKx54xCJZ6kePdrBgxzp5Kv0RzPQwr0erX1g+ClUEwZpbhbjQIxGVvl5HW7KRa
+         37yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788449798; x=1789054598;
+        d=1e100.net; s=20251104; t=1788449800; x=1789054600;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XFFCN85pDa3U+auxuvcaHapqvCSCEcU+9fOdA+AcD88=;
-        b=ggvJ1cuPOEEPp9F2lCNNQ0Ls9Si/UZw0vVjmM90U0wTwK28w8BrcakqeHtBvOokUaV
-         Tbu4T8bisEyaDBzyirVizf5spz/XerHBET+xbm+nafg2ef78PZN/OcbGoDkKtJL1KmqE
-         ErdHKCHjZr63aPbTzoiMm4PVu8Gt1d+V6RHld+vK1WwWSbqNRXW0c+CeMBN6zkH3ey3P
-         /zTego8NsdeA/SZRPKrUIkmcW1nf1FmW9lPndufzsTNgyBqP2muCd4iTNbEgov1Vjw78
-         WA+KLzOgo2AlaYgO5nzEauy+zJjQx2F85IJhyk/p6ATWDmAGO2IG2ph9cM/dI1u30Dvb
-         wNCQ==
-X-Gm-Message-State: AFuF++lE5f0Hd4+VDralv/MQ555D4QXasUkf23vNxc/1ueMumkeHb91u
-	vCnr5UHstbgeuJ5+RRGBA7SdjVnp3/0iYc87LFL+uLIZyd34VcLzqxo=
-X-Gm-Gg: AYBFou0KjtJy64sbX+hNbdCRbYyJxtlAcX3kzNLkY3RFkYRoksm5lBtKFwB0GUrEhXK
-	nDahKFEWr2zSpvQU7zMMwOfZInnNqQj/PoUDdk3U6F8UqurhsdTIjDE0bs1PaSjqtI6bessip7U
-	M66OnELgHw7BsnoK/PpiJeyXfaaIQD02bohWUdWiMT7s8NIkNWNXq7Q198QOea5UY5BNmaEZcYb
-	IGnZlrU3SBi/qiFg2VcleQSWLWG57qxQfLoSLOdnf57AvPCvM8WpYIynT+xiwWT2rqfiFtf7FcV
-	OhVqqUKCeDkJOt0PPjGHaGeHa266l9venmON4CF9P9usoa8zPVNwVlPUATdFh+FQun3Si04DuwG
-	ycd4D/sW5ktvNmC5buGGbG/ctEUNnbdZNdAunG4Fm5h3PtJLKgpOLQlLizP8iKSfyxeZVKCUJCn
-	pXhFb1ZpmN7teadkHiblXbyk9Y5/Q8Dg9Ge1il3zj4//0g8ypCuHA48RA6gTJO0fSKSiLXuhKL4
-	x05D0bA6c1TYWwZvh4YmZNnqM8piPkrZaa5F1/rgDkV5WgzwcQFXgm+TSRmC5O6fLp4BSZ42wc0
-	cGI/PDVho4YZtjmO
-X-Received: by 2002:a05:600c:1394:b0:499:db27:7b1 with SMTP id 5b1f17b1804b1-49cf5bafa7bmr13645245e9.15.1788449797712;
-        Thu, 03 Sep 2026 08:36:37 -0700 (PDT)
+        bh=ShvhKa6MyfZ1jEWheQQ6SuhEnn7upG8Sh84fZvzR0n8=;
+        b=U0fa2E1ZE5l+VXh4VD8uJjFcLh1+kC4zxQK/6pihoXELpDu1at9kyR+gPdjYOQnCt5
+         sZBkE5AZxWgSdU3FIiAZ5dnD5CwSIRuAl/XCB6Pe+S1AYho6scKtTNn/LdivSEgJqOm4
+         58y35UFot9a3gNUV2dZ2+GdjUKClw9Lk+m7Vqmp4WeWhtHWy3kZorBxEEjjSymEo07B3
+         ffUF0x8gw7DFBAkMp47SsV8t4+Q2enMEGrlIh+4u9avO1cgViSYdQFBI2iFeXhELrdEC
+         Krv4JxW6mMyZOJmNyUq8ym7E4+7Mqau7a8czx9vdrhEfO+WRNuaKZFgx88DD+SBug7hS
+         w2Fw==
+X-Gm-Message-State: AFuF++miIVC7oTAlcLiFeSoB6UrdySXuB3TVnxDKCxwsl3nU6xI7GRdD
+	qTTMgqKcRcwBxklIJXotCv/rIn4EAUNUDlDt/3/Lm92JNDUhQNELSIY=
+X-Gm-Gg: AYBFou3x3KMmoYIHOjasS2xkn9K+HGi4J/7OENNdwGYAiJapcZZcCkbxt+c8ag4e+k6
+	TdhW1+M8DBqN8ipTXknQQshpP3ZfliA6B3fagpl1KIcvgn+v8EWzVVUED6VNcnjz7EEbOQMOG8X
+	Knok1HNCGr93MSg7bSexeNyKZiIvTvwnLVb8sRqXqyyU3fcRR+VEyT9S34H3XEJGjEmQP93OYdw
+	F5gtB4DNw+YKPxjDAeWmwa3IMXdFsEAgMZVltjKRe2f3ZNoACDe9Kncw/SpbGI8adhzEldnVIvx
+	PvK32wBvn6ZTu+LvJiNpiIjTkFBBGeJ7zpHcjYb7UEPEE4FIXWOVRZus6N3KxFLrSGFJ8UtZBUP
+	cFoJ6A5I5YmVRUKksDh7NYIWrVEkeobxg/IGaunNDKG9MbwB06JKvrdqP3CyYn2e3AAJuako9/O
+	XqgBk6f+O37h8TqF0bDagCuy+WQN19ovILJE3s0pYTMkpTNBGCQnUWGpk3sClk3lurwiJ/JIYoz
+	07Ud/TlijUmpZW/Lbzd7zGPzORxAtqUTdssZAiPSHVpgkDH2WxP2znr0xvimxr1m1VuaERlRVHf
+	p9TlW+MBBlkvsCc=
+X-Received: by 2002:a05:600c:3495:b0:49c:ee36:10fc with SMTP id 5b1f17b1804b1-49cee361162mr166580795e9.8.1788449799511;
+        Thu, 03 Sep 2026 08:36:39 -0700 (PDT)
 Received: from nn ([2001:1ab8:1003:0:5454:f357:ba89:4e22])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce831af89sm75568425e9.1.2026.09.03.08.36.36
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce831af89sm75568425e9.1.2026.09.03.08.36.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 08:36:37 -0700 (PDT)
+        Thu, 03 Sep 2026 08:36:39 -0700 (PDT)
 Sender: N B <gen.benner@gmail.com>
 From: =?UTF-8?q?Nerijus=20Bend=C5=BEi=C5=ABnas?= <nerijus.bendziunas@gmail.com>
 To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
 	linux-wireless@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/5] wifi: ath9k: check all tx queues with one multi-read
-Date: Thu,  3 Sep 2026 18:36:15 +0300
-Message-ID: <20260903153617.990995-4-nerijus.bendziunas@gmail.com>
+Subject: [PATCH v2 5/5] wifi: ath9k: skip the departing channel's noise floor on USB fast changes
+Date: Thu,  3 Sep 2026 18:36:17 +0300
+Message-ID: <20260903153617.990995-6-nerijus.bendziunas@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260903153617.990995-1-nerijus.bendziunas@gmail.com>
 References: <20260903153617.990995-1-nerijus.bendziunas@gmail.com>
@@ -80,117 +80,42 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Before a channel change ath9k_hw_channel_change() asks
-ath9k_hw_numtxpending() about each of the ten queues in turn, and each
-call reads AR_QSTS and then AR_Q_TXE, so confirming a drained radio
-takes up to twenty register reads. On the USB devices those are twenty
-synchronous WMI round trips, paid on every hop before any tuning starts.
+ath9k_hw_reset() reads the noise floor of the channel it is leaving so
+that channel's calibration history stays current. The readout is several
+register reads, which on the USB devices are as many synchronous WMI
+round trips, and a frequency-hopping monitor pays them on every hop for
+a value that only matters if the radio returns to that channel later.
 
-Collect the ten queue status registers and AR_Q_TXE through
-REG_READ_MULTI() instead, split into chunks the transport can carry, and
-apply the same pending test to the results. PCI implements the
-multi-read as a loop of ordinary reads, so it sees no change beyond the
-loop moving.
+Leave the readout out when a fast channel change is asked for on a USB
+device. Periodic calibration refreshes the history while a channel is in
+use, and the arriving channel's noise floor is loaded either way, so
+only a channel that is left and revisited without calibrating in between
+sees an older history.
 
 Signed-off-by: Nerijus Bendžiūnas <nerijus.bendziunas@gmail.com>
 ---
- drivers/net/wireless/ath/ath9k/hw.c  | 13 +++++-----
- drivers/net/wireless/ath/ath9k/mac.c | 38 ++++++++++++++++++++++++++++
- drivers/net/wireless/ath/ath9k/mac.h |  1 +
- 3 files changed, 45 insertions(+), 7 deletions(-)
+ drivers/net/wireless/ath/ath9k/hw.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/net/wireless/ath/ath9k/hw.c b/drivers/net/wireless/ath/ath9k/hw.c
-index e08ab73fcacb..d204cdf3fa8f 100644
+index d204cdf3fa8f..64fefbec46d5 100644
 --- a/drivers/net/wireless/ath/ath9k/hw.c
 +++ b/drivers/net/wireless/ath/ath9k/hw.c
-@@ -1547,7 +1547,7 @@ static bool ath9k_hw_channel_change(struct ath_hw *ah,
- 	struct ath9k_hw_capabilities *pCap = &ah->caps;
- 	bool band_switch = false, mode_diff = false;
- 	u8 ini_reloaded = 0;
--	u32 qnum;
-+	int qnum;
- 	int r;
+@@ -1878,7 +1878,13 @@ int ath9k_hw_reset(struct ath_hw *ah, struct ath9k_channel *chan,
+ 	if (!ath9k_hw_setpower(ah, ATH9K_PM_AWAKE))
+ 		return -EIO;
  
- 	if (pCap->hw_caps & ATH9K_HW_CAP_FCC_BAND_SWITCH) {
-@@ -1556,12 +1556,11 @@ static bool ath9k_hw_channel_change(struct ath_hw *ah,
- 		mode_diff = !!(flags_diff & ~CHANNEL_HT);
- 	}
+-	if (ah->curchan && !ah->chip_fullsleep)
++	/*
++	 * Over USB the departing channel's noise-floor readout costs several
++	 * round trips and only feeds its history; the fast path reloads the
++	 * arriving channel's noise floor regardless.
++	 */
++	if (ah->curchan && !ah->chip_fullsleep &&
++	    !(fastcc && common->bus_ops->ath_bus_type == ATH_USB))
+ 		ath9k_hw_getnf(ah, ah->curchan);
  
--	for (qnum = 0; qnum < AR_NUM_QCU; qnum++) {
--		if (ath9k_hw_numtxpending(ah, qnum)) {
--			ath_dbg(common, QUEUE,
--				"Transmit frames pending on queue %d\n", qnum);
--			return false;
--		}
-+	qnum = ath9k_hw_first_txpending(ah);
-+	if (qnum >= 0) {
-+		ath_dbg(common, QUEUE,
-+			"Transmit frames pending on queue %d\n", qnum);
-+		return false;
- 	}
- 
- 	if (!ath9k_hw_rfbus_req(ah)) {
-diff --git a/drivers/net/wireless/ath/ath9k/mac.c b/drivers/net/wireless/ath/ath9k/mac.c
-index b070403e083f..49f59ce92133 100644
---- a/drivers/net/wireless/ath/ath9k/mac.c
-+++ b/drivers/net/wireless/ath/ath9k/mac.c
-@@ -77,6 +77,44 @@ u32 ath9k_hw_numtxpending(struct ath_hw *ah, u32 q)
- }
- EXPORT_SYMBOL(ath9k_hw_numtxpending);
- 
-+/*
-+ * Asking ath9k_hw_numtxpending() about each queue in turn costs up to two
-+ * register reads per queue, and on the USB devices every one of those is a
-+ * synchronous WMI round trip. Collect the queue status registers and AR_Q_TXE
-+ * with the multi-read op instead, in chunks the transport can carry. A
-+ * multi-read that fails over USB reads as all ones, which counts as pending,
-+ * so a WMI timeout still refuses the fast channel change.
-+ *
-+ * Returns the first queue that still has frames pending, or -1 if they are
-+ * all drained.
-+ */
-+int ath9k_hw_first_txpending(struct ath_hw *ah)
-+{
-+	u32 addr[AR_NUM_QCU + 1];
-+	u32 val[AR_NUM_QCU + 1];
-+	u32 q, txe, done = 0;
-+
-+	for (q = 0; q < AR_NUM_QCU; q++)
-+		addr[q] = AR_QSTS(q);
-+	addr[AR_NUM_QCU] = AR_Q_TXE;
-+
-+	while (done < ARRAY_SIZE(addr)) {
-+		u32 count = min_t(u32, ARRAY_SIZE(addr) - done,
-+				  ATH9K_MULTI_READ_MAX);
-+
-+		REG_READ_MULTI(ah, addr + done, val + done, count);
-+		done += count;
-+	}
-+
-+	txe = val[AR_NUM_QCU];
-+	for (q = 0; q < AR_NUM_QCU; q++) {
-+		if ((val[q] & AR_Q_STS_PEND_FR_CNT) || (txe & BIT(q)))
-+			return q;
-+	}
-+
-+	return -1;
-+}
-+
- /**
-  * ath9k_hw_updatetxtriglevel - adjusts the frame trigger level
-  *
-diff --git a/drivers/net/wireless/ath/ath9k/mac.h b/drivers/net/wireless/ath/ath9k/mac.h
-index 16203e7ecf29..5b94ce087be2 100644
---- a/drivers/net/wireless/ath/ath9k/mac.h
-+++ b/drivers/net/wireless/ath/ath9k/mac.h
-@@ -721,6 +721,7 @@ u32 ath9k_hw_gettxbuf(struct ath_hw *ah, u32 q);
- void ath9k_hw_puttxbuf(struct ath_hw *ah, u32 q, u32 txdp);
- void ath9k_hw_txstart(struct ath_hw *ah, u32 q);
- u32 ath9k_hw_numtxpending(struct ath_hw *ah, u32 q);
-+int ath9k_hw_first_txpending(struct ath_hw *ah);
- bool ath9k_hw_updatetxtriglevel(struct ath_hw *ah, bool bIncTrigLevel);
- bool ath9k_hw_stop_dma_queue(struct ath_hw *ah, u32 q);
- void ath9k_hw_abort_tx_dma(struct ath_hw *ah);
+ 	ah->caldata = caldata;
 -- 
 2.55.0
 
