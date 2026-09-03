@@ -1,80 +1,82 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B284B1B22
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:07:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19304B2032
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:07:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444439; cv=none; b=hf7PnbUSnecotVHsNtLbq6VP8mEhrChmYllbZgg9e93YDYGKlxw/x1RPRPf2C10tIfhAmwTwiqrc1Mk543aJPOTpfL7i2wzGEvyQbOSXRc3H6BhmIVKHQnhTXMQI8p9kxnTlOK/Y3aEyRyCoLeNcz4pD0BKHBpSQ5I5EiMD7No0=
+	t=1788444469; cv=none; b=bv6rNs70Rpv8JBUolTaj6NW9Twt0gmqdV1iSa8lYPBC4pLDkRvYHAAA0u8XBAwN/ETfFjiSIFq006gQE/u2Fk/lNG7OddJvVNOuNjVyqeERlr9BdWc2DBgDpvIxBd4eoh+Uk0la37k6lUntB6hrHoHNvNYbrIFiIFxmrsOb8A38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444439; c=relaxed/simple;
-	bh=Ipn103QnOJj+g5+2vV3eK6EdSjIrlX1AnfeKc7VfOI4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=u+vZkyCYnoDS4ziN1Oi1Znprc4koeNOj3u4XNkgUHuALUL+HxXg1YaqNKR0hGf2zHF/n8wVfZKCk416lKjhNlE3geQgZBmgQIA0y0kXzid5vDnb6CDP98RnLTqUyhd+B8Ww9neSnJWMo3hBYGyqUo0a6j/TbkR/v/e9pnCmoIfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jQYYPLPC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Hu8YYAkC; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1788444469; c=relaxed/simple;
+	bh=irQo3icUiia52VMaX/Rf+vvFkeel82rEo8nIJdwP4hI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IVL1EXWAC8lo5Dh3pzX73BE//r6p0kn7zI1wOG8AH9QhCFf2VbL6IoC5RG8ebYJkxe7q8ut0qKXVm5bx535CyPrkLFD8sJ6B/NkMPjGojmR7oMZXHCKuiz7zzpZEzL2o0oRtJYbSNNuLmtVuoeri+6IRouMHQ+5wXDNG/46D+II=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gAoduQ1J; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=T11NKiTf; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jQYYPLPC";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Hu8YYAkC"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683DAcAs822639
-	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 14:07:08 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gAoduQ1J";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="T11NKiTf"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683DA61U1704805
+	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 14:07:35 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=m/l87Qv7rBaF1nYJ87j6T7Dv0oGuyZFmxug
-	NhyaL1vU=; b=jQYYPLPCtEIvflCxXp3Y2UK0JrlChvgzgSj+KMd/S5KF8CtV3yE
-	hFQnkMA8mcMWGMlj/9VV3YM0W3iLOZx/6h5hdak+J9oT0Bdv6YtdJKGyOLD7n6++
-	mnmHN0L6xafHN2b2/twlWJNBQpIkWwpfvcExEWl9CTJplH6NX1LZGW2MlebuGctw
-	XDh2W3Im2WrYxaGovQgBqlJ2jX5tmG54O+AVbomrp8HUIw5uh+PS0TIhy3mcDwPS
-	khWoP1WtV0jMjmKdTyewNXghBOXgVFqLH96x11qyGewrfWzYtT4e7NRZ6fWacC2l
-	xShwepaDA5SxiswByKoNQV0Qdj3ECUkPA7A==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf6p710mn-1
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=EZM+TFCkrxk
+	33iVEdleTA4Oed2R+EN8/tz4eEc8QWcs=; b=gAoduQ1J9/mHcNCNK7RO9Q3PeYZ
+	CWS+YSnZymXEKaz3IEa+O4yvHnm5BnPkoXYwiSefNBw09M87wXVSrCf3oIe7WAq/
+	iBplD1whLDIz0bn8Xnu+YCtdOhzRDkJWH8LDnv8BTKfpvLDJx/JDvF9eEnaHjxBx
+	fT/AxPY+8m9XqWAOOPW87OwmEF1ztYWQMo0Jn01x/FPlGtuhikB6mb2UVroYJUQM
+	YDbkz69vtrmVEBcLZUVsnCIWICXYBBwT1F28k8c5MjmNG0PFFuRP9P2CVZlFUU65
+	3zOCkLhBJqG+qJ9GjnIJSved5NJa7IBIxki2Bw95WGRAkRM+o45Oe6VxJrA==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf9b189pm-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 14:07:07 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d6f80c76e6so40658515ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:07:07 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 14:07:34 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2db050d469fso8231115ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:07:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788444427; x=1789049227; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m/l87Qv7rBaF1nYJ87j6T7Dv0oGuyZFmxugNhyaL1vU=;
-        b=Hu8YYAkC0043fOC8PHNT38GhSJJDCqt4vwmLf185caBz0R2u1rnv9KUIxpP4O0cSAA
-         cizbeO6+uqhigBSjqqyWL10UT6NVG/e+EI3gv9sV5o6N/O7r/OShJxpoomll7wAdPedO
-         E654F9mQCZFF/tJbV8kq46qMNIbGOXVM1/gZNtLAlLolrBbq4cVzyS3+cqjICk/NQaZb
-         ihMWlklK/9UUTfNXoG161sC/swAtT39UNJYNDouXVx9HwfEwTQs41csi7A2/wtG92ki5
-         SxznWO70ul2ezsXhZ+rGeqXv08Z+oZYcF2//9kuWiBt2Gph/QYKkbPdfwwEkDVl9jgZQ
-         elWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788444427; x=1789049227;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1788444454; x=1789049254; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=m/l87Qv7rBaF1nYJ87j6T7Dv0oGuyZFmxugNhyaL1vU=;
-        b=pDb1viKYQz6WOHlHIy+O32LUV3eMXwp8UcZvGiiCp1xSF2Ykwapjwsc7hAYw9uOmGV
-         9nZfjA6udyeTSAVFYVJtv9Cac0zh5j91veUfe2j3OU/Lmynv7QxtrDhGr62Xs1HwqOGj
-         BKmZNWN5FkVNRro3i3HzjczMr/rw9HfPXPnQ4jNM/TW5QRPN71QnhJJmS4N80/Zg0Ovd
-         qSayd3ZffuVZCgLJqgGOzvRe70J2irRnpaRuuy83oGOwDsevO188NkUNYYnuhgiXIqeb
-         RkcNSXQtMlzD/2VsaEtI7KamtGmuybXl0a9Xh5/PXx/5PtMgQNBVK32W0tNYYSXiRp/L
-         B2TA==
-X-Forwarded-Encrypted: i=1; AKwUvBxojLhtk7SyhJiwT/BPCZ2gac8DDTqE+sD2E+lWSFznrAq1JfzTRnI0+ilC6hrbPAAoI3wIqDSLLUOO3qo=@vger.kernel.org
-X-Gm-Message-State: AFuF++llwb6Y0fNKs5rC7/GbJDs+152IQmBYwQDW5VgatBqO1eFm2/+q
-	bBjj/onmrwYKcCDkoQWpIRyvNl6V3yi/A6UsaRcD+ACB/bDdRvb8meZFgdWS9iNkxxkRVmu/MtZ
-	6mPAVuvMUYEEVmaXmr3dq4MpPHAn3tozt1zJ4GemsZEG2LI5V+1mKq08V8C3GMdsbyGU=
-X-Gm-Gg: AYBFou0ruGHbZ/tAGenJI8ybZQIDQKKwkvH32Jgo9AR9GfSa65IOoEVaUiqNmMbjsKB
-	jvSbrfwsfnIARol3AUj3ygHIbHkfYqsXZfJmTg+2Z/wJtOIJ93ndh+rtsl/LfCBCAaK6ZqCWAxh
-	htdH+MSJADuLtxpneUNvn+eA1M6gbv5s7bRzN/7UZ87GwNUI2bdduYFPagIKTNnZlYpNEuFl5PF
-	pwqAT3jYDMtfUOOGYM7OG/BAtRid1UDAbmftr7gh2mrceDE7aFHEqfvQgETfrgcYGr3uKFcByKZ
-	altFDzmBjsRzE6DSfe5EGAROb8bUo4saOZoF8EMYdAnuSlEL1Ag8xR/uK6yJpn8XWhTqCcPtWB3
-	EhMCcMOg5cemK0L1ftMonB2YZNvaTUY7twiKh5gWFARXvFaIMrq4QLLbKMjvI
-X-Received: by 2002:a17:90a:e7c9:b0:395:4290:46e0 with SMTP id 98e67ed59e1d1-39aedf5da48mr18097206a91.5.1788444426265;
-        Thu, 03 Sep 2026 07:07:06 -0700 (PDT)
-X-Received: by 2002:a17:90a:e7c9:b0:395:4290:46e0 with SMTP id 98e67ed59e1d1-39aedf5da48mr18097054a91.5.1788444425562;
-        Thu, 03 Sep 2026 07:07:05 -0700 (PDT)
+        bh=EZM+TFCkrxk33iVEdleTA4Oed2R+EN8/tz4eEc8QWcs=;
+        b=T11NKiTfWJHivq+ad4wTF/qBwzcka3plSteJ8RFQn57qXucNPHxxTKjxC8U6x8p24s
+         FtgVtUIhQjHfIBNFafhnKf8r+jr9zgGW9Cq/TJlvNXA7SpgYemBDDMYAZCve6bzeEDsx
+         2d6obp3gYVqr9swa8fxcPKQjQWXc/9FnKqUyjbBQ+GG+/g5JAGjwR+ikLgnlQuYH3lLj
+         CPdywevfSu0IEKsZTlfzqfBOLfZaLXYzXxI+zQ+hTVZGaNbm3SPoW87gnCtN180vHI0m
+         UGGh2k2AW5A00avsXJXR5CJTO/TQZgvzBKJjXxury6J4pzJs0on9717OuayMz1WTogAr
+         uw5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788444454; x=1789049254;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EZM+TFCkrxk33iVEdleTA4Oed2R+EN8/tz4eEc8QWcs=;
+        b=pwOr3JTs8cPk0wy1pcvcdv8gOdy8OFsStEy7n1N+QBVGOFQO/J678FYzNVFPo01AAt
+         jsBCb8ab6MPE9jfjWPxhPIRPqQyBDtw1LZH5kT75B+k+ZWV+CHG8vU/HJ8fqzvispyvz
+         nAgcdnW0ykpWvKxyEMVOin4E/3AwJmZs/OdinaQMGLCeLENj5zrg6xnfLV176VeBH8h8
+         C0ZT1PHociJUKKzFJvha3CUfrWtGn5ecQzZ0DQMNSafxO52c/Zsp6u5N2dcMhjK8K4D2
+         7xWnPOWLRzFOpmlLZHGLVRSJDItaFtqlwf/JybuYFEzY9jOiJ2arvisAv00YxeWuyGs4
+         GnBw==
+X-Forwarded-Encrypted: i=1; AKwUvBzZ+2H5mGsn0L4dG5NaDayHdqxu942dqopKLzaZGv3Sei7F8Rlft16CMuGlQ8grlGuo0loXWI+AVdSVpzw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzJCvPtDRDfCzNc8KDfYOW8gzdTrs5vJNUu0KoLZNCXJRfo8M0
+	e2iNWHgswvDUQzWjO1DKFW6Bi1F4B4XxpwwjDr476b/Oh8ivmpWMNyY4i40tY/YR/Zcwh1ThhAU
+	1HVi6eKfQS01a80bLywbI/2mgceON2PIsTiUnBn52ZfQ4GBlez04gEeh7ROE7/hcUh3A=
+X-Gm-Gg: AYBFou3Ahos5eiOZzvlQQvpcnlrillJHIG22BPqqAJ3/+AsqlGCYDDyo9VhHwFirnKp
+	ZeVNvSy7msKk2Ud26F4udHRCoFjLK9ZedUm+tonxa794oCffwk8fk/+mXuvDtKEgeuJmlqfyjz9
+	/clt/gWo9LLmhKNIqjymqwwnmNRNyjlrMEUgGRS25i2eAkYjb1z1hcDx4XJaLo9LlzDcwSCXr1W
+	WTLn/yOobbGnsvU09+vffViQdOHF3dB0yIs7HuM1+ImjuDWe4B6qenCghu6ho0+bxFmd5C1QCbw
+	fP6HaR4dUouswBFRMQXCeP5p6kAY+cZlKEj2+eDK892eOppxTY7wegYjagcegbMCYctBU6fomaP
+	baSfYrNzoA8dhUwMdRveefI+45qJ5H40FgmGIaZRHKjwDaPT3a4QmoAUERe/h
+X-Received: by 2002:a17:90b:3cc7:b0:398:b1b8:4719 with SMTP id 98e67ed59e1d1-39b0881dca0mr6763944a91.29.1788444454093;
+        Thu, 03 Sep 2026 07:07:34 -0700 (PDT)
+X-Received: by 2002:a17:90b:3cc7:b0:398:b1b8:4719 with SMTP id 98e67ed59e1d1-39b0881dca0mr6763799a91.29.1788444453469;
+        Thu, 03 Sep 2026 07:07:33 -0700 (PDT)
 Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1431994fdd7sm6809098c88.10.2026.09.03.07.07.01
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1431994fdd7sm6809098c88.10.2026.09.03.07.07.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 07:07:05 -0700 (PDT)
+        Thu, 03 Sep 2026 07:07:33 -0700 (PDT)
 From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>
 Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -87,11 +89,14 @@ Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
         Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
         Abel Vesa <abel.vesa@oss.qualcomm.com>, devicetree@vger.kernel.org,
         linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
         Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH v14 0/6] Add initial device trees for Nord platform
-Date: Thu,  3 Sep 2026 22:06:11 +0800
-Message-ID: <20260903140617.441111-1-shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH v14 5/6] arm64: dts: qcom: Add device tree for Nord Ride board
+Date: Thu,  3 Sep 2026 22:06:16 +0800
+Message-ID: <20260903140617.441111-6-shengchao.guo@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260903140617.441111-1-shengchao.guo@oss.qualcomm.com>
+References: <20260903140617.441111-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -99,185 +104,328 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: dBdB-x0H7izjbi74Gv3Fc0PbFQIHk7G_
-X-Proofpoint-ORIG-GUID: dBdB-x0H7izjbi74Gv3Fc0PbFQIHk7G_
-X-Authority-Analysis: v=2.4 cv=OZyoyBTY c=1 sm=1 tr=0 ts=6a997f0b cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+X-Proofpoint-ORIG-GUID: lCs_guaWmtMeXk0YHnHgYShvyZveic-U
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEyMyBTYWx0ZWRfXwIfQskeqvijR
+ /lLlAsnKMw8Da+k043rfH1+3tOVVeUijNlRUd6A8YvxqSDpgTtKMh9UhO3cWsAfILW2yfaHCRJ1
+ LNnaTtJZjoJbDAdK2r7tdXWkL9CeL38=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEyMyBTYWx0ZWRfX0vu2ry5sK9lI
+ XUOgwxhhGD2Okwtko/squNvR4klDyQARho2ZLRvY+F+9EqsVOE9sjyh+YIFIsQo7zCwuv7Lm2z8
+ mKaBB8KobwtgzYEegrD1Kc5AtEdf1gBHu9SP9+EisLTi7E5NKEiWwG5jhP3re1CqkgLEU4OqW6g
+ WDERKmvPirkmNsqtcEo+Kh+yriN5lDNCr3uffidBE3FLzjMsC23n+MOelIXZIBBiWziRRt8zDxx
+ McEQvweEWJmRiunSHAkbGJ2KGxVn/wPBw2TOtP9XsMSbYs6GDf6pdgfAoVaaPhE4yswBkzqUJtN
+ 3URkumLyTTQaNeK9vlHpW/k6YlnLxHyxacQn5O8y1KWi/8eoSSTqOvEoYJh+5SyiDoBiC3UhsBp
+ KrSegyvbFkACuAAHQBJeMVrfQCnCc0gi/tcxDssFXRx7x5QN6ctPCjvKuxcc7XFUgLSN9AwvbFH
+ q1YxXSV4S990HxhK6Xg==
+X-Authority-Analysis: v=2.4 cv=NNTlPU6g c=1 sm=1 tr=0 ts=6a997f26 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=zn26RzM0P8J-Jt8AhNEA:9 a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEyMyBTYWx0ZWRfXwEnOz4vusyyf
- JUerWrPVCwQ/fWMOAyxG7Q9SYPZZ9s3kDV9jsavjogswNPz8zrAJLbviU3DF0Sa3wFka3LuxKCa
- vg1j7BrmSfj+RSKsjnwPD43tnOmGPKU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEyMyBTYWx0ZWRfXxOx3n7iZosr0
- qYCUaNT1PnEnLtY3v2qAF2iVS4ilIn+PDIofBH0O6n8xEXqcYF+Ge77xS1khgqIkN6R1kzjNitk
- Xgr7lwlgP9Vu8vAfqik/nD2tGysr4N3pUW/bsRFUmiYmqvBAT5FYDRR8zd22vAPz7xsHTFACunj
- KTFEYGpFq0HTJ9QXEHPzmjijG5cRkTtTTYJDZBS/75mB62MAqntX8NAzlxCLvochNiSRGOiDH46
- a2SR+UGYfhLXzHVOk9xvFzVnQEu6xoov8scCEwAt8jL3GUrft2ji5A18ewI98bnqB+FcWBRP86k
- Rno/eYfrN51tNkthokUZwya+lqKMLFLjK8g4tsjqmzv7s4B5ffGdWm5Dg9iJ+boeUG6PDYuY2hZ
- yW/dUzjbnSKoGk12cS6t82sox2aJp9K3PzInXMrXea6s4UGDnHsiR0C98TgBYT/R8QfCyHHnOBi
- VYvdL71CBOQJcK48SQQ==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=F1QlHIOeo1lq4PqRBw0A:9 a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-GUID: lCs_guaWmtMeXk0YHnHgYShvyZveic-U
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-03_04,2026-09-03_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 phishscore=0 priorityscore=1501 bulkscore=0
- suspectscore=0 impostorscore=0 clxscore=1015 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030123
+ phishscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 adultscore=0
+ malwarescore=0 clxscore=1015 suspectscore=0 impostorscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609030123
 
-This series adds initial device tree support for Qualcomm's Nord SoC
-and the reference design boards, SA8797P RIDE for Automotive and IQ10 RRD
-for Robotics.
+From: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
 
-Nord includes two variants, GearVM and Embedded. The GearVM variant has
-platform resources (clocks, regulators, powerdomains, etc.) controlled
-by SCMI server running on a VM. And the Embedded variant has the resources
-directly controlled by the operating system.
+Add initial device tree for the Qualcomm SA8797P Ride reference board,
+which is built on Nord GearVM variant.
 
-SA8797P RIDE board is built on GearVM variant, while IQ10 RRD is built
-on Embedded variant.
+ - Configure UART15 as the primary console and UART4 as the secondary
+   serial port
+ - Enable UFS storage support
+ - Define thermal zones for PMIC dies, UFS, and two SDRAM sensors,
+   all sourced from SCMI sensor protocol on channel 23
 
-Tested on next-20260831.
-
-Changes for v14:
-- Drop SMPS regulators from from nord-rrd.dts, as the resources are
-  already managed as RPMh power domains (Thanks Konrad!)
-- Link to v13: https://lore.kernel.org/all/20260828034958.3165-1-shengchao.guo@oss.qualcomm.com/
-
-Changes for v13:
-- Update commit log of patch 2/6 to reflect SCMI channels for I2C/SPI/UART
-- Include qcom,rpmhpd.h instead of qcom-rpmpd.h in nord-embedded.dtsi
-- Link to v12: https://lore.kernel.org/all/20260826041200.528588-1-shengchao.guo@oss.qualcomm.com/
-
-Changes for v12:
-- Update interconnect-names to be one-line-per-string style in
-  nord-embedded.dtsi
-- Fix SCMI channel for I2C and SPI in nord-gearvm.dtsi
-- Correct cpu_perf node in nord.dtsi to be a power-domain provider
-- Link to v11: https://lore.kernel.org/all/20260816125413.1635150-1-shengchao.guo@oss.qualcomm.com/
-
-Changes for v11:
-- Use hyphen in rpmhpd OPP node names (opp2/opp3 - copy & paste from
-  lemans.dtsi)
-- Link to v10: https://lore.kernel.org/all/20260810114313.776563-1-shengchao.guo@oss.qualcomm.com/
-
-Changes for v10:
-- Fix reg size for ICE to match hardware specification (Thanks Kuldeep!)
-- Link to v9: https://lore.kernel.org/all/20260806081554.448531-1-shengchao.guo@oss.qualcomm.com/
-
-Changes for v9:
-- Re-add UFS support for gearvm variant as the binding dependency is
-  resolved on linux-next
-- Add #cooling-cells for cpus to make cpu cooling devices available for
-  userspace to control
-- Include CTS/RTS into UART17 pinctrl state to ease the Bluetooth
-  enabling
-- Link to v8: https://lore.kernel.org/all/20260729010022.875799-1-shengchao.guo@oss.qualcomm.com/
-
-Changes for v8:
-- Drop UFS support from gearvm variant to clear binding dependency
-- Link to v7: https://lore.kernel.org/all/20260721044005.2882803-1-shengchao.guo@oss.qualcomm.com/
-
-Changes for v7:
-- Do not paste the comment of bootloader updating IRQ number for each of
-  the 64 SCMI instances
-- Correct crypto status to be "okay" in nord-embedded.dtsi
-- Drop scmi15 from nord-ride.dts as there is no consumers
-- Drop unneeded LDO/SMPS regulators comment from nord-rrd.dts
-- Drop regulator ufs_vdd_hba and ufs_vccq2 which do not exist on RRD
-- Drop always-on/boot-on flag for vreg_l3e_1p8 and vreg_l2i_1p2 in
-  nord-rrd.dts
-- Drop untested I2C device and add tested EPSON RX8900 RTC for
-  nord-rrd
-- Restrict nord-rrd UFS PHY regulators as HPM only to avoid potential
-  intermittent failures
-- Link to v6: https://lore.kernel.org/all/20260716142605.2398433-1-shengchao.guo@oss.qualcomm.com/
-
-Changes for v6:
-- Move ufs_mem_hc reg/reg-names from nord-embedded.dtsi into nord.dtsi
-- Enable crypto by default only for nord-embedded variant 
-- Add a comment above each SCMI 'interrupts' property to clarify that
-  the IRQ number is expected to be updated by the bootloader
-- Improve commit log of Embedded variant patch to be "directly controlled
-  by the operating system"
-- Merge two board binding patches into one
-- Rename sa8797p-ride.dts to nord-ride.dts, iq10-rrd.dts to nord-rrd.dts
-- Expand RRD acronym in DTS patch commit log
-- Fix copyright in RRD DTS file
-- Add firmware path for qupv3 nodes
-- Link to v5: https://lore.kernel.org/all/20260709132013.4096850-1-shengchao.guo@oss.qualcomm.com/
-
-Changes for v5:
-- Rename nord-sa8797p.dtsi to nord-gearvm.dtsi
-- Merge scmi-common.dtsi to nord-gearvm.dtsi
-- Drop "qcom,sa8797p" compatible
-- Add Nord Embedded variant and IQ10 RRD board support
-- Link to v4: https://lore.kernel.org/all/20260707123902.3868016-1-shengchao.guo@oss.qualcomm.com/
-
-Changes for v4:
-- Rebase on next-20260706
-- 1/4: Drop useless comments from arm,gic-v3 reg property
-- 1/4: One triple per line for qcom,pdc-ranges
-- 2/4: Improve commit log as suggested by Konrad
-- 4/4: Drop 0 polling-delay as that's the default value
-- 4/4: Name PMIC thermal zones with prefix "pmic" rather than "pm"
-- 4/4: Drop 135 C trip point from PMIC thermal zones as hardware will shutdown
-  at 125 C
-- 4/4: Have trip0 at 105 C as passive and trip1 at 115 C as critical for UFS
-  and SDRAM thermal zones
-- Link to v3: https://lore.kernel.org/all/20260526051300.1669201-1-shengchao.guo@oss.qualcomm.com/
-
-Changes for v3:
-- Rebase on next-20260525 and drop patches/dependencies that hit linux-next
-- Improve commit log of "Document SA8797P Ride board" to explain the need
-  of SA8797P model compatible
-- Fix the real issues reported by sashiko-bot
-  - Fix unit address of pdp0_a2p node
-  - Add missing compatible for i2c15 and spi15
-  - Drop GIC_CPU_MASK_SIMPLE(8) from arch_timer interrupts property
-  - Update commit log of "Add device tree for Nord SA8797P SoC" to match
-    code change
-  - Sort sa8797p-ride thermal trips in ascending order of temperature
-  - Fix sa8797p-ride thermal zones with identical trip0 and trip1
-- Link to v2: https://lore.kernel.org/all/20260519063505.883379-1-shengchao.guo@oss.qualcomm.com/
-
-Changes for v2:
-- Rebase on next-20260518 and drop dependencies that hit linux-next
-- Include SoC ID changes into the series
-- Include ICE binding change into the series as the prerequisite change
-  from Harshal [1] was merged to qcom soc tree instead of crypto
-- Improve commit log of SA8797P Ride binding change
-- Use label in nord-sa8797p.dtsi for referencing nodes defined in
-  the base nord.dtsi
-- Link to v1: https://lore.kernel.org/all/20260427023455.236410-1-shengchao.guo@oss.qualcomm.com/
-
-[1] https://lore.kernel.org/all/20260416-qcom_ice_power_and_clk_vote-v5-1-5ccf5d7e2846@oss.qualcomm.com
-
-Deepti Jaggi (2):
-  arm64: dts: qcom: Add device tree for Nord GearVM variant
-  arm64: dts: qcom: Add device tree for Nord Ride board
-
-Shawn Guo (4):
-  arm64: dts: qcom: Add device tree for Nord SoC series
-  arm64: dts: qcom: Add device tree for Nord Embedded variant
-  dt-bindings: arm: qcom: Document Nord reference boards
-  arm64: dts: qcom: Add device tree for Nord RRD board
-
- .../devicetree/bindings/arm/qcom.yaml         |    6 +
- arch/arm64/boot/dts/qcom/Makefile             |    2 +
- arch/arm64/boot/dts/qcom/nord-embedded.dtsi   | 1820 +++++++
- arch/arm64/boot/dts/qcom/nord-gearvm.dtsi     | 2848 ++++++++++
- arch/arm64/boot/dts/qcom/nord-ride.dts        |  254 +
- arch/arm64/boot/dts/qcom/nord-rrd.dts         |  424 ++
- arch/arm64/boot/dts/qcom/nord.dtsi            | 4605 +++++++++++++++++
- 7 files changed, 9959 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/nord-embedded.dtsi
- create mode 100644 arch/arm64/boot/dts/qcom/nord-gearvm.dtsi
+Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Tested-by: Yadu M G <yadu.mg@oss.qualcomm.com>
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/Makefile      |   1 +
+ arch/arm64/boot/dts/qcom/nord-ride.dts | 254 +++++++++++++++++++++++++
+ 2 files changed, 255 insertions(+)
  create mode 100644 arch/arm64/boot/dts/qcom/nord-ride.dts
- create mode 100644 arch/arm64/boot/dts/qcom/nord-rrd.dts
- create mode 100644 arch/arm64/boot/dts/qcom/nord.dtsi
 
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 1c86e7e98f55..d05920a0d5eb 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -160,6 +160,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-sony-xperia-yoshino-lilac.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-sony-xperia-yoshino-maple.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-sony-xperia-yoshino-poplar.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-xiaomi-sagit.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= nord-ride.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= purwa-iot-evk.dtb
+ 
+ purwa-iot-evk-el2-dtbs	:= purwa-iot-evk.dtb x1-el2.dtbo
+diff --git a/arch/arm64/boot/dts/qcom/nord-ride.dts b/arch/arm64/boot/dts/qcom/nord-ride.dts
+new file mode 100644
+index 000000000000..1af4117d24d7
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/nord-ride.dts
+@@ -0,0 +1,254 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++/dts-v1/;
++
++#include "nord-gearvm.dtsi"
++
++/ {
++	model = "Qualcomm Technologies, Inc. SA8797P Ride";
++	compatible = "qcom,sa8797p-ride", "qcom,nord";
++
++	aliases {
++		i2c18 = &i2c18;
++		serial0 = &uart15;
++		serial1 = &uart4;
++		spi16 = &spi16;
++	};
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
++
++	clocks {
++		xo_board_clk: xo-board-clk {
++			compatible = "fixed-clock";
++			clock-frequency = <38400000>;
++			#clock-cells = <0>;
++		};
++
++		sleep_clk: sleep-clk {
++			compatible = "fixed-clock";
++			clock-frequency = <32000>;
++			#clock-cells = <0>;
++		};
++	};
++};
++
++&i2c18 {
++	status = "okay";
++};
++
++&scmi3 {
++	status = "okay";
++};
++
++&scmi9 {
++	status = "okay";
++};
++
++&scmi10 {
++	status = "okay";
++};
++
++&scmi11 {
++	status = "okay";
++};
++
++&scmi23 {
++	status = "okay";
++};
++
++&spi16 {
++	status = "okay";
++};
++
++&thermal_zones {
++	pmic_kobra_thermal: pmic-a-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 3>;
++
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++		};
++	};
++
++	pmic_kai_0_thermal: pmic-e-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 4>;
++
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++		};
++	};
++
++	pmic_kai_1_thermal: pmic-f-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 5>;
++
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++		};
++	};
++
++	pmic_kai_2_thermal: pmic-g-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 6>;
++
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++		};
++	};
++
++	pmic_kai_3_thermal: pmic-h-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 7>;
++
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++		};
++	};
++
++	pmic_kai_4_thermal: pmic-i-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 8>;
++
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++		};
++	};
++
++	pmic_kai_5_thermal: pmic-j-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 9>;
++
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++		};
++	};
++
++	pmic_kai_6_thermal: pmic-k-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 10>;
++
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++		};
++	};
++
++	pmic_kai_7_thermal: pmic-l-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 11>;
++
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++		};
++	};
++
++	pmic_kai_ufs_thermal: ufs-thermal {
++		polling-delay-passive = <0>;
++		thermal-sensors = <&scmi23_sensor 0>;
++
++		trips {
++			trip0 {
++				temperature = <105000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++
++			trip1 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "critical";
++			};
++		};
++	};
++
++	pmic_kai_sdram0_thermal: sdram0-thermal {
++		polling-delay-passive = <0>;
++		thermal-sensors = <&scmi23_sensor 1>;
++
++		trips {
++			trip0 {
++				temperature = <105000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++
++			trip1 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "critical";
++			};
++		};
++	};
++
++	pmic_kai_sdram1_thermal: sdram1-thermal {
++		polling-delay-passive = <0>;
++		thermal-sensors = <&scmi23_sensor 2>;
++
++		trips {
++			trip0 {
++				temperature = <105000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++
++			trip1 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "critical";
++			};
++		};
++	};
++};
++
++&uart4 {
++	status = "okay";
++};
++
++&uart15 {
++	status = "okay";
++};
++
++&ufs_mem_hc {
++	status = "okay";
++};
 -- 
 2.43.0
 
