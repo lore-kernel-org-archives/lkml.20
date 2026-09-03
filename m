@@ -1,190 +1,183 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C6139A4D6
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:12:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788437538; cv=none; b=DdSNhOqc588/X7+ONZaRKyqFyCtyZ0GV+Z+zJYS/1VkhCYhkhe4uQch76yGSSpAQbpmqW+OHy6m2dWZJCfjoNSFz8IdWKmjInvA2BEl3ARo+P5nnakj4/kqGL9atYyrD4nH79JW4rCXLNni6UfwOVw+gFwqblW82PIKEbgZBUXA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788437538; c=relaxed/simple;
-	bh=56+I37CAmNf4CelGNtFiICat1Q7M8dA45WGA6QLWtJM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NWC56YF7MasS4hgMhIsEXqM2IMYzalzOyJvc2TQx1D+7B7vibPvInACbW8pO/r/W1mhhL6eplmPENOGH1hmcAeJSfB8slDkNClFb7bA61nkLrsr6HGsqe9EBBNoQHMuxTGqO0CMZxOQ7TjjURqrQgDa+iZpWBZs7updKRDZIHbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jj7pdjWP; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AA4143CECB
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:13:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788437589; cv=pass; b=NTkWRFZsDXM4gCncZezazm7e3Nf+HpbSX9B8UtiaXmMSYeL8duGr09kbfgBTvsqrgDOMOLYUuV17OVAq6jcwe2PtGnn85PCEoC1a12PE6Dw/Tk4wS7jbq1cBQ5LPIb6tbzXhRYYNbgqkUo/xriFXW2s9ToZzs5yjVXuwLdqwDuI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788437589; c=relaxed/simple;
+	bh=rCAsFqPyObwtdPuK7mooJ6bECLcZM9KoaNHChmdp/NQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=buiHOkQrnV0+I3bdIuiD1yFwKOGB8yTuVjAE4ZBccWiQxRcJkS0WAc+rsyKYtefpW3cs/W9uTOiwXgCTqBXjMYAvSBafAxw5EHWY7oYHfS7+vjJcGhLWm1hnxQQBsylLV84oHqu34snzC6T0qM9n15U3sqT4l8NqvtWn0a22YH4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SiPv4OR+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=W6pURTlZ; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jj7pdjWP"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8525efa7274so1793532b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:12:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SiPv4OR+";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W6pURTlZ"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683BTNGc210415
+	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 12:13:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	rCAsFqPyObwtdPuK7mooJ6bECLcZM9KoaNHChmdp/NQ=; b=SiPv4OR+84hEgH6l
+	RPDmsXUNwVS4Vz7tInAaqyOFtAWWmW/Mq53+MMoW+ppSEyHti73UEj+894ftwZTL
+	ZQdL2iCEsYxQ3wfF5+F4ZNAQfJ38Qp3rlb7p5uSzige/fReEKt9tMyc4ICm8s80M
+	GOXJ0gUS9XtKZpZ0JYlmIc90m7k+5RoS5AE2lZ8hUPRTnU339LhruDV2SCfAuURo
+	QhX3fLJjP+DifKMlYSPEWu4gfqkcPsGf6QESbpJD1vLRl03dphAR8fUY8TGBqvdC
+	JwZZRlXUo4mdUzcBS8cwxEU4pwTtxspFVkB6Ay9QpG1UlyOhTOsJqnxfWXjluawH
+	3hW3kQ==
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf82k85eq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 12:13:06 +0000 (GMT)
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b12abf0e49so3150506eaf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:13:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788437586; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PC6MospzncjhDmjYywyO2IrDH7KCdDVKkH6X8Wrn7e63RdQDWlTbfNI0ZX7V7x5g0g
+         zWG9ANO2tPmnMHgs8F4ST2gcnHCybWAy0kGzamrRfgJASiDlsiZLDOdOCJ/HueCRxZwQ
+         VWUAu+7wUbKaowa41kLZ5ItwFywycNzgaJq4J9hcMQqMtr3Va6eESpdRNEg47ZFZESxy
+         FdJiC9+FNcfYs6tnLaIl3ODZo7/M4amvwgLNmWNXa9bYu41OI2L01wOlf/rqsJS9w2Mm
+         y75/fSF1+yM269tpPJUS07URVcibAwCGA4kcADRqtphrL6zjhVM227qsJSZUMxl95vwn
+         pIjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rCAsFqPyObwtdPuK7mooJ6bECLcZM9KoaNHChmdp/NQ=;
+        fh=c0FVTwqOr75dcM2gTOb7C6oIttIGytys34e0AuZORBQ=;
+        b=nt9CbK39DWqeDtMp0OiMlR4v07of1qzeeTYjVOuRBq1OnyckcEWKIVGsNinG51ksb8
+         wdoEYG41c63L2wEbi9eW5U/LWEgsNdZBa/frkIZIVT9VAOLIHGv+hLRT+NyGToejAprA
+         DqQmx0ZiOkzcAV0/8BeZ5wFOqYSyh3cMgN1ARkuC1E4EGAHLjZWi9CxzvZDSxbbb8a5f
+         eUIa+sAzLkhUv/bFcZOgxfyK33fzqr3zBiN8i5HpA6dOderklXqZ5GxAbXsnL2ePbxgJ
+         QzgSOIruwKuMCeYwMStm169Q9flUa3+R3IQFbWXS4xtNz6PD3DMoNL4kiH0x8szeiQKx
+         wqUw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788437537; x=1789042337; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HAnTfZ+uyXvnMZO7sfUerYlqL7ZR6YBm7QziJYa0EhA=;
-        b=jj7pdjWPWOhR/F9n6EqFW+1yP/xwp5gA8+SoaDtODTCnCYKNyQ3LaGr/Tdcs9hY4RN
-         0H7GjjI8TmpKZwdECGEpDP4SGxHGnKt+1Ml4sMmXOyCAJh2G5kQjgXSkDvjDpncECzgo
-         yKtVK0EF2sx1SLvVkfIVF5yHBQ5Vr8vE8NfZ+xIzbyldBFzU3W6KGkm0eCxxgIqWTKxt
-         P9TrONRbk9w8C7CXgx2nlQpU6ClbUsYjrtMB+kG+rSJyeiOZxq9JhFNDRXDM3i23gmgJ
-         dilfnzagyqW8WpHhtNJtfOXAeUI+DTTj+SCWFFMfsNlnEiD39xnCrdjE2ll/+usloBqW
-         Vupg==
+        d=oss.qualcomm.com; s=google; t=1788437586; x=1789042386; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rCAsFqPyObwtdPuK7mooJ6bECLcZM9KoaNHChmdp/NQ=;
+        b=W6pURTlZf3b3uJnaOP/MUFdsMve15giipOaMoCfjg1O6lzZJQ/YCeKojhv9QxjL41I
+         9gM06nDWiZQx3xgTlpSbqmGDdq6GOvE070ckMjfg2Tfrh1JnNVKH1mmkw7vr/wgOhiGz
+         aIRCyiBPFWkKsZlCJBNCa1bYXcPq2ECdJMSO2A5IpXovtdwxLq/2bDdFl7YpxRi/XOJc
+         PZuFYdI4pAM6eY9k4SQ330CJeGTKse3scqH8B8S7eJr+OvPdm2HNfYKwjLOHmX/F8dZM
+         WjG/8kG2Va3rNCnKHTnQh6gV69+K4VIEEfqvBq0I17Q9ciXjgOqlIKGReJfssqnknWr3
+         qc8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788437537; x=1789042337;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HAnTfZ+uyXvnMZO7sfUerYlqL7ZR6YBm7QziJYa0EhA=;
-        b=VdgMicuxVN5w3VK+6u+lXRqlw8/2JxaRtrpff6fjC2ToTpaiPH9CA18DE2jca3LkXF
-         iKOc+Gwa3Uxi6v3j2J9cF6Gq0VvUBshtrF/N4FcStdm/1gqQUxMkfm/RJUnxmEf8UjW8
-         xkqzwP8VhawFzFtZ0BbDUU0vGSXxq5Rzwx45sGGPc9HDP/her+fV/p8o/puCAa2tk2T2
-         fN0qSZSCXdQWrNR5Jh6z7r4+MfBz+ZIopk4eLdVa80vtbrm9n/aT7mLtydR71lyzLHxf
-         oPIX3n8zIV4dth7vBvX7jyD7B7dB6j7wKar8N+VdYIYenn2bVcQr013LDvdmNdcjVnCb
-         b9cw==
-X-Forwarded-Encrypted: i=1; AKwUvByQc4UAASSOH5u9rG0E3fuUavXbjbMF0nNSLLlZFyiLDzZSQQYtN89SmEZzEcMXWsnVEZu9TVa/y/ehW/s=@vger.kernel.org
-X-Gm-Message-State: AFuF++l1+cTcGzrhHnRy4BZWMiNdACpFLZnoy6gwNYx6aIlPMMdqctr6
-	RsuKCDFLnENVaPwYfL2IzkiK7tCUfOwkUYbDhW6A01niwvJitZrLjhLd
-X-Gm-Gg: AYBFou2nekgV+MaXFOrL0ee3XcRCwBBqliD4s7zTH2/UNF0HRNdB5++7y7GbPiW0ojv
-	nxEsAdlEL/gmRs8dbPGR7Mjov+4Z7GVt2vxPhhQrtcKQkJAozgP9XcWbMwRdtQWLmZnyDb/h8Lu
-	NXB7izeqorjZfG5Fvu0rLOZ0D1CiuXcpA4sHj0b6m4gPWpZGLgPR9mZdmNTrHqB7soMxq/OIpB/
-	DOhK1mf8kl+0QOHqOLoWT1oBoaFmwaxNzJvXpnkPXrIEal9bNhXZl0sqbks7q0Pho2V2cDDd+NN
-	HHPtSUYlmgOCidKL3Kepd5e8MncQ96bhftF/kMj6s7TbTRYmOIkJM34W+DCbZSmMvkRSTDjH7+6
-	k+c4yJkrLi8zhARvBZ/bLlyHAOrd/ETOQqyS+WT/wL73CM4sMF5bgayQS6o8jmIcBTw7k1Hj806
-	g5+aLCZevAT/IwI/nLl7sxF+LidGAmSnwQ5+PavkDuD8BULO99hmlgZ8r6hCWv6hP4IK+x79jFi
-	N2ZeZy/yqPE8QaoYyL455VJa9Mul9MXpdW1X+wvkx1V1uktkzRBsw==
-X-Received: by 2002:a05:6a00:1c90:b0:853:59ed:5539 with SMTP id d2e1a72fcca58-85ed3793128mr18904299b3a.16.1788437536341;
-        Thu, 03 Sep 2026 05:12:16 -0700 (PDT)
-Received: from deepanshu-Legion-Pro-5-16AFR10.. ([2405:201:682f:383f:d01b:7a44:ef5d:7899])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc11fbc41sm2731135b3a.60.2026.09.03.05.12.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 05:12:15 -0700 (PDT)
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-To: erazor_de@users.sourceforge.net,
-	jikos@kernel.org,
-	bentiss@kernel.org
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Deepanshu Kartikey <kartikey406@gmail.com>,
-	syzbot+c492a9e154f81127551f@syzkaller.appspotmail.com
-Subject: [PATCH] HID: roccat: fix use-after-free and uninitialized-mutex races
-Date: Thu,  3 Sep 2026 17:42:06 +0530
-Message-ID: <20260903121206.6893-1-kartikey406@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1788437586; x=1789042386;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rCAsFqPyObwtdPuK7mooJ6bECLcZM9KoaNHChmdp/NQ=;
+        b=HZxm/EVRgvy96CXdYkDJJwO59eE1B+dsDSB52Y2qhhJylpbDiJuSXt82ym8IR+uCI3
+         xKSAwY71Rg1W4FDShXa0tXjZ3pA/aw1IlVvF/olEYt7dtGTJYkTcydAxpF0uUIRL0kXR
+         NoUGYWwec+ThUkQ+2u2D9iBPnXChkcHVg+PnXJZt2k8FsgVlUa4cLrq2CbGXRnRgYP8Q
+         E3l6SFr/7yRxbQhex6DEHspnLFi/70sD9ApKthUuNXUPcKhhO11Cc9oexwZ0VJyyVOmH
+         XpOSn9B6rkhl4QJzY1OIdDTxoKHw5CNeBhNWnYScUw236p4wJXJ0kEUXY7ObAK7TQAWd
+         siBw==
+X-Forwarded-Encrypted: i=1; AKwUvBw8CtFlRUDWy8Vtsrum9rZ/mCnF1ttoXmrMzA4KIKrK55l4TSIv+DJ6Wui4xH8OVcl9jB1sb3xRZOPAZ0U=@vger.kernel.org
+X-Gm-Message-State: AFuF++kqB31+z5tXwBe8C7/x8RXBLds2cLKk4uor9c0jHbk6kKgwI4F/
+	52g9GNyYETxDkxAAXGvrV0mH2ZRLyc/hcP9xL+V/eEDnn9hQ/QxAG8yIRgqsgATyjrG0+Wz9rnD
+	Qy351dQU/ckM+Vx6UD96rVHG8t4uXVdSDQQKvD2A07lwDFzZjn/6J0LQjfHgkmNjp7L5Uw2kiNe
+	xDx8nzG0q6e1mIPABaPKiUE8AhyskQekL2eob4xXQheg==
+X-Gm-Gg: AYBFou34PCz5KPPtZfl6MV0u8VihnTC92YN519ijvGrs1M0AvICbUlijnjPfjXKOuZH
+	3RZnm9aJPtCoJaL6lbtBwqd6pTjaq5vZX9bQqpnnMIxUnxe995Y55c5/8hd0BwUAvIHAuSHCYgv
+	mETCqCxmWY0Iq8a8WZp8Ci5Tabea610OhGLz2boofeYUQXblpFMcPHR30Syg==
+X-Received: by 2002:a05:6820:2d08:b0:6a3:92f8:96ab with SMTP id 006d021491bc7-6b47ecce067mr9305166eaf.1.1788437586051;
+        Thu, 03 Sep 2026 05:13:06 -0700 (PDT)
+X-Received: by 2002:a05:6820:2d08:b0:6a3:92f8:96ab with SMTP id
+ 006d021491bc7-6b47ecce067mr9305119eaf.1.1788437585657; Thu, 03 Sep 2026
+ 05:13:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260831-skip_suspend-v1-1-ba2d877e22b1@oss.qualcomm.com> <5bsz2arpufrnbglizghlr3ztkjeqhvsc5pr2qmgmkhj3n6l6ia@atgkmc2igd7r>
+In-Reply-To: <5bsz2arpufrnbglizghlr3ztkjeqhvsc5pr2qmgmkhj3n6l6ia@atgkmc2igd7r>
+From: Mrinmay Sarkar <mrinmay.sarkar@oss.qualcomm.com>
+Date: Thu, 3 Sep 2026 17:42:53 +0530
+X-Gm-Features: AcwNN1Xjdf69rGqtBAINnrwGBccYKfXH5cndtne3yrRdPJSmPRATyngrRU3ToFs
+Message-ID: <CAMyL0qOSUzMjqMgVuhbHAT3oCfAQ_n2mtq+9iU=ZDC=y_n438w@mail.gmail.com>
+Subject: Re: [PATCH] PCI: qcom: Skip system suspend/resume for
+ firmware-managed PCIe
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Bjorn Helgaas <bhelgaas@google.com>, linux-arm-msm@vger.kernel.org,
+        linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+        Rama Krishna <rama.krishna@oss.qualcomm.com>,
+        Rashmi A N <ayiluri.rashmi@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: IGHMY-CddfDuUaaoGhaQKRfyTXLj5sz_
+X-Proofpoint-ORIG-GUID: IGHMY-CddfDuUaaoGhaQKRfyTXLj5sz_
+X-Authority-Analysis: v=2.4 cv=OuJ/DS/t c=1 sm=1 tr=0 ts=6a996452 cx=c_pps
+ a=V4L7fE8DliODT/OoDI2WOg==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8 a=Nm-cwpUMS-KaPtIAedgA:9
+ a=QEXdDO2ut3YA:10 a=WZGXeFmKUf7gPmL3hEjn:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEwNiBTYWx0ZWRfXztDQIdRv60Xd
+ KmW+lLsRU21NJfVczC+eei/C8ZMNG702AuqNncgBy9PJS5L4XshgvfqvAXx1UzcNhCpecJmsCMp
+ AcRZOeI/r59NGw1HDOl7duKUgb6Xs4qE6h/ylEjfANaFNIe9hJ8vOPqU+vfHAzRkLGNQcoibjIn
+ TVMqg3/9UwcAIF2Y4E0WIgqSnIWHr0qrVjwUrRlcASo8oK21U6DwSKy6Blwnf2CoZwQ3L1QDyp+
+ ygbIwEmBon5m6hROxA1vwjQrWIQgaNfXERnVSgLprhFzv2CG0VIxSVEI09yBX8iaRLzKgCW1Uu6
+ tiUqG4Kcj7ZDDklwHdTig0n2yzumNdPkngaNDZwo1z3/O9o7lkKd3v14TEMrnBeVP7BpyyZDvqf
+ RUqQgqiWcSSS/fiATcRR4uaYG31LyPhb+rLi+GuBPiOv/ItvshBOfOrhJ9HJZorFCIKpcN9Xi/P
+ 4pSv5hoC6ytd1Z/edCw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEwNiBTYWx0ZWRfX4E7TkHummewI
+ 4egHPRGk5CuLtBu3dp/P0mNVnLA3ieeWWYgm6UkqpPUl/ANuHsftcrDHawzIsER5ZoYA8++VEVp
+ fivepZR37qYC9JLgh1eyklzzeHkG9Ps=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_03,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015
+ priorityscore=1501 spamscore=0 adultscore=0 bulkscore=0 malwarescore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609030106
 
-roccat_disconnect() dropped devices_lock between reading device->exist
-and later checking device->open to decide whether to free the device,
-letting a concurrent roccat_release() free it first and turning the
-later check into a use-after-free. Fix by keeping the whole lookup,
-state update, and free-or-keep decision inside one devices_lock
-critical section.
+On Thu, Sep 3, 2026 at 5:05=E2=80=AFPM Manivannan Sadhasivam <mani@kernel.o=
+rg> wrote:
+>
+> On Mon, Aug 31, 2026 at 07:07:02PM +0530, Mrinmay Sarkar wrote:
+> > For firmware-managed PCIe controllers, all resources, including clocks,
+> > regulators, resets, PHYs and link state, are owned and managed by
+> > firmware. The host driver must not attempt to manage these resources
+> > during system suspend or resume.
+> >
+> > Skip the suspend and resume operations for firmware-managed controllers=
+.
+> > The associated power domain transitions are handled independently by th=
+e
+> > genpd framework through its own system suspend/resume callbacks, so no
+> > explicit action is required by the PCIe driver.
+> >
+>
+> What about the D3Cold sequence like broadcasting PME_Turn_Off? Is it also
+> handled by the fw?
+>
+> - Mani
 
-roccat_connect() also published the device via devices[minor] and
-device_create() before initializing device->readers_lock and
-device->cbuf_lock, letting a racing open() on the newly created node
-take an uninitialized mutex. Fix by completing all initialization
-before publishing the device.
+Thanks, Mani for the review.
+Yes. The firmware sends PME_Turn_Off as part of its port
+deinitialization flow and
+waits for the link to enter L2/L3 Ready before powering down the controller=
+.
 
-Reported-by: syzbot+c492a9e154f81127551f@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=c492a9e154f81127551f
-Tested-by: syzbot+c492a9e154f81127551f@syzkaller.appspotmail.com
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
----
- drivers/hid/hid-roccat.c | 32 +++++++++++++++-----------------
- 1 file changed, 15 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/hid/hid-roccat.c b/drivers/hid/hid-roccat.c
-index 4f15eb951039..1d57f8a44a3d 100644
---- a/drivers/hid/hid-roccat.c
-+++ b/drivers/hid/hid-roccat.c
-@@ -316,6 +316,14 @@ int roccat_connect(const struct class *klass, struct hid_device *hid, int report
- 	if (!device)
- 		return -ENOMEM;
- 
-+	init_waitqueue_head(&device->wait);
-+	INIT_LIST_HEAD(&device->readers);
-+	mutex_init(&device->readers_lock);
-+	mutex_init(&device->cbuf_lock);
-+	device->hid = hid;
-+	device->exist = 1;
-+	device->cbuf_end = 0;
-+	device->report_size = report_size;
- 	mutex_lock(&devices_lock);
- 
- 	for (minor = 0; minor < ROCCAT_MAX_DEVICES; ++minor) {
-@@ -324,37 +332,28 @@ int roccat_connect(const struct class *klass, struct hid_device *hid, int report
- 		break;
- 	}
- 
--	if (minor < ROCCAT_MAX_DEVICES) {
--		devices[minor] = device;
--	} else {
-+	if (minor >= ROCCAT_MAX_DEVICES) {
- 		mutex_unlock(&devices_lock);
- 		kfree(device);
- 		return -EINVAL;
- 	}
- 
-+	device->minor = minor;
-+
- 	device->dev = device_create(klass, &hid->dev,
- 			MKDEV(roccat_major, minor), NULL,
- 			"%s%s%d", "roccat", hid->driver->name, minor);
- 
- 	if (IS_ERR(device->dev)) {
--		devices[minor] = NULL;
- 		mutex_unlock(&devices_lock);
- 		temp = PTR_ERR(device->dev);
- 		kfree(device);
- 		return temp;
- 	}
- 
--	mutex_unlock(&devices_lock);
-+	devices[minor] = device;
- 
--	init_waitqueue_head(&device->wait);
--	INIT_LIST_HEAD(&device->readers);
--	mutex_init(&device->readers_lock);
--	mutex_init(&device->cbuf_lock);
--	device->minor = minor;
--	device->hid = hid;
--	device->exist = 1;
--	device->cbuf_end = 0;
--	device->report_size = report_size;
-+	mutex_unlock(&devices_lock);
- 
- 	return minor;
- }
-@@ -369,15 +368,12 @@ void roccat_disconnect(int minor)
- 
- 	mutex_lock(&devices_lock);
- 	device = devices[minor];
--	mutex_unlock(&devices_lock);
- 
- 	device->exist = 0; /* TODO exist maybe not needed */
- 
- 	device_destroy(device->dev->class, MKDEV(roccat_major, minor));
- 
--	mutex_lock(&devices_lock);
- 	devices[minor] = NULL;
--	mutex_unlock(&devices_lock);
- 
- 	if (device->open) {
- 		hid_hw_close(device->hid);
-@@ -385,6 +381,8 @@ void roccat_disconnect(int minor)
- 	} else {
- 		roccat_free_device(device);
- 	}
-+
-+	mutex_unlock(&devices_lock);
- }
- EXPORT_SYMBOL_GPL(roccat_disconnect);
- 
--- 
-2.43.0
-
+-Mrinmay
+>
+> --
+> =E0=AE=AE=E0=AE=A3=E0=AE=BF=E0=AE=B5=E0=AE=A3=E0=AF=8D=E0=AE=A3=E0=AE=A9=
+=E0=AF=8D =E0=AE=9A=E0=AE=A4=E0=AE=BE=E0=AE=9A=E0=AE=BF=E0=AE=B5=E0=AE=AE=
+=E0=AF=8D
