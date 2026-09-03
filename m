@@ -1,241 +1,193 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f196.google.com (mail-yw1-f196.google.com [209.85.128.196])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 632334B1283
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:59:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444012; cv=pass; b=St1s8an6RBPDkhiL5ZM63FK0ksBQiugbz3Hkr565m2o3e2kO6Af41xEbXMLcSj81Zc7uHLrvZNgU4YFUKAQOf2zTWhdFAxV05BeYoNrANPqiV9+dyT6JQFIggh0on3iyZnBCFU8ZKFUDutraeRl4g4Ej+23L0yq1JrVhZb5it3E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444012; c=relaxed/simple;
-	bh=DP8nKiHz81rw7lPgX5oO0GiiObYLyVNzr60U8P2c65k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Q8aqzKzxvu6VCQhNN8+ZZlxI992laW/cgjpwqNSC1XR6iUP+kvBNtV+LRYm2D2f3tCt39oBjDal0EP/4tPDILAjJYIJHgLrfI4aWJdGlhKY4xNbJNeVyZcWrbO/aWBOWGNFnRPBgML8+TuMCiC3Fh9jkTtQ4qg/raJo8K/pDHNc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=exfYE1Jo; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=uC+zKrgc; arc=pass smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EC01314B77
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:00:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.196
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788444028; cv=none; b=k+vCiwNsgHnEagDkxDraqzZB27+iXiREJ7icqEHzT6tYvq9KImIVn02ALXCwjUdvImeTia1/2TF8Bw8kK/uMhSmjVn/Y1mR8jYfLQRoPKMjSAElMLpRRBdxTMtzeU6yinbW0cb3NTCzlNEMK2Bp4E7Tr9L5uTZco0kMOfOZb+6Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788444028; c=relaxed/simple;
+	bh=FjtcxQDS3soBj9IDfIhk0j1GKjqT9WRyMUwdeko7VUs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lax/Wpyi8FtWNKgbCypeNtYhDhoHV2+Zvcrqhn7lDaQ9HY3fe/ARQQcZQ4zXqP41lYbsbdtY6mHznznV9/5C9VeC8pI0IBL1zqrVCtEzpPrV/fBCO2EmzF5lV7qeHEx0FAUi5coJuZwUYoDAyeDQVJutkUdyy3d5EJVWWRfTnmw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=i+mWn83B; arc=none smtp.client-ip=209.85.128.196
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="exfYE1Jo";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="uC+zKrgc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788443993;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Vm+o51d5AAhWwdhCJ9D5D6GwJZ5w7R0MImR238UNQLM=;
-	b=exfYE1Joj3YeTjfFrIpMivsMuj+++84tprELr4vL9k7PEKp1fJ6v6wFE7sTdH1iMbUJpHt
-	pC91hCie2QBR78evme1AiwRAiYfYlBV9eXokKQKNRqBDHGENBJRgk0pJ1qHabZ/2W7oFbH
-	ciaGnPCPjrjv0kzbaqrDI8CrKhBUCjY=
-Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com
- [209.85.128.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-258-Ku6N_sYyMemTUb7JNwO2sQ-1; Thu, 03 Sep 2026 09:59:51 -0400
-X-MC-Unique: Ku6N_sYyMemTUb7JNwO2sQ-1
-X-Mimecast-MFC-AGG-ID: Ku6N_sYyMemTUb7JNwO2sQ_1788443991
-Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-820111eb28aso35253737b3.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 06:59:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788443991; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TUraWOMYKBxQ3O5uZ7J78oDBN+wMtnFtzAdu1O65+89Y0zONa22PtEDzSL2hJldMcO
-         M2EMw1gtkYvYxJK7N/wcuEpo95ocoaHQLmn8tr7Z43cFwZIrEMFkqHR/FJm/vmSCSTGg
-         1SusTq3a3XKgVmLa7wXVhjHRZna1I5Fco+oMlyYlbzxx23GnbfYzvKyc8c2kj9RLgh2M
-         GpQ1l3rryjt1anhzQdRxaG+8BdkXJ22Q/qAbGwnBgzYvXtv07YpjQAfrd920wcKpxejo
-         Py6X+bAxEKb7muuNRqOGU/aKC2NRMAwn8jrV97eTla4UXSXznYJfrLZGR8WSSz2tK4yV
-         0Vig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Vm+o51d5AAhWwdhCJ9D5D6GwJZ5w7R0MImR238UNQLM=;
-        fh=PbEJfuVV67NPF16x3Abxrty49u3ZNUgGCLt2y46x7Hs=;
-        b=qkT3vGtdRVnivtrrklNTm/FaVg6lnOzbM0Xk7dyg2k17VTfBKOLbJYV2isGs9gCZ+9
-         IIDeNdD14/NkQT1wNMH7h+0evjy3JI4StP9Gf3hn61Id7fs/a0AcJM4k5f7Qe53T+oIh
-         YS8+Zb0yDeBY2EnwXC2bad6iW4gISRlWvWjMwE47kFPsuNLfKundqrcqSgylPWGT2zdI
-         Kk/SwVqaREOB1uQR3tAtpA2W3fPd0uLXOAvFcDf58sDDFMEOX46Ph97uXHd2hvpBQxFZ
-         H0HLQyYkRVtlq7j76gsoSciMUPn/tnRmdGXLXkBpEGLeRe/JVt/N2ISDVDHcdt+f5tp0
-         xF4g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="i+mWn83B"
+Received: by mail-yw1-f196.google.com with SMTP id 00721157ae682-864cd11a932so11588247b3.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:00:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788443991; x=1789048791; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=cmpxchg.org; s=google; t=1788444010; x=1789048810; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Vm+o51d5AAhWwdhCJ9D5D6GwJZ5w7R0MImR238UNQLM=;
-        b=uC+zKrgcgyepPmURqVSEOQd8iZFm+CktE5dvpdyb8Yc+IhBqrxlZGSIuvwAg2AVCPc
-         ALhNAOSfnIeZc3jV74nYW5R2E3SUb49rVtI7tQZZ0OHfHDqxS5pA8i8Wk/d1eq5wAaLP
-         nZvuZcHtKUC8QDuCX2usW2u0wWZ7nlilWF+bCF5doa83YlBKuOw30WCxiaBF1HEwHmKA
-         bKVyJzroRs2T1d/9/7X3xQhY7/eyBcvtosD9oLaR1AD4FqgMHWVC4WX5xPwIUED8cTxu
-         dFgVAQhNF3qhDI8pjCOYl5rxZx915Q/XIg/1E+eborAqx49tKIFUEGHmKKpAnTmSLzbe
-         tv2g==
+        bh=Q6ffg0EsM9Oq53XXehfd0nBgBXlCf1MLMwzSPDpkFdE=;
+        b=i+mWn83BU/HWsqbUv4DI1g+BtYxIXy+uxw3xAtuZjBjuoZwUUymRn3K0ArjuuQFeJF
+         Z4ybYB56Kku2XDJf3WUTzkjpl2G8TtBOdNxTpZkLA5WenBaLBiXKzC3+jHSuRgqL4uQI
+         XoFxkmSgAQtl+m2NmxGUDYnBr2dnOamGtId2sYNBSlRuDLgmLsUdUz9nOOqmKa33GMab
+         t4VTDSPEYQ1Ulz7LAg/qYprc/Q1ZW0DEhit6VpOj7/FwX0ldz9frFCfOVn8TL2M48det
+         2IXiTUxZbiSCQB/VrUPjr7ikgFycdKsN50YCduVVb3cnwmTgXDcQyQCSXJa4+va5vXUi
+         x4Sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788443991; x=1789048791;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788444010; x=1789048810;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Vm+o51d5AAhWwdhCJ9D5D6GwJZ5w7R0MImR238UNQLM=;
-        b=A6P0qH5EGoisfN2rPOxoJ/1xVMqn3peSwkbAZke4gx7xObPTGY2kNGj66Dt+FfMjQ5
-         97Vxfbsgf68bgtSR5jGr0CbodNrtHH2/YIyL+2n5n3blTBuEogkb2AzWerq9plW5bwd4
-         gA/YDOnSyT2fBt0n/WdFMoOtglQOFhO63ys0TRdRi/h/V27sV/m16hoOJBcnqGDMOSP1
-         whbOKWOH7N1+7sRFP9NhkS0DWWM6XhsaIM/Zb9ftaul0K7IZgHORc1vX3dzjmeB0TKm/
-         BgtSs/Wl6bIEM7KWfyuOSoVn64gJPW6Cl2YosasQc0Gae2wHxQd21q7cJH0ez0YLIS5o
-         G21g==
-X-Forwarded-Encrypted: i=1; AKwUvBxakMY6oMxTtYOzmIYW4h2qm3e14nsRr+MKhZt5eazkSXW7qTFHQiPbPiptA5olR/6vl18x/R/sQG9gKus=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0H5jMf8ypQLQQWHhY9cCYbId62yGQGdwUjs8CQSQovdcnnV6T
-	7wq/jTlTpIOr3w4YcJmFOZ4I+qmUchCMCczRWYRrw8o2DLSb2yjqdUtqA7BQto8viHBCW82WQq8
-	i/ts0F5Mi8/st4VeY3KhIndEpfRZXSONFUyRDASi+zcGVbGMj8obgO1IJyOhnJTro1n66sF9+Dz
-	3JPfWk67sUHQeNCL2Zgs+f8zj7OJgqaAr+vjRqBoKI
-X-Gm-Gg: AYBFou0sejCpZLuLJcmdHv2EKP/eAsGDQ9pkN8yMTg78ua30fVyrD0N48DXLjJXbXA3
-	QrnRd2QfStctv2GdM9eCOnhavN62UqUpdtzc+Hk4Sk7XqkzuZiPtmfQnJWlQ+J09i3PvC4zKhDt
-	K4uU7oSVt6Fq9RR/P+AXpqvzbyhKjAt3khx7BJNROaNwvj+8lRPCMHog0=
-X-Received: by 2002:a05:690c:ed6:b0:870:c600:686c with SMTP id 00721157ae682-870c60071f3mr2545687b3.18.1788443990667;
-        Thu, 03 Sep 2026 06:59:50 -0700 (PDT)
-X-Received: by 2002:a05:690c:ed6:b0:870:c600:686c with SMTP id
- 00721157ae682-870c60071f3mr2545057b3.18.1788443990118; Thu, 03 Sep 2026
- 06:59:50 -0700 (PDT)
+        bh=Q6ffg0EsM9Oq53XXehfd0nBgBXlCf1MLMwzSPDpkFdE=;
+        b=lOEbVwriEPWTN5/ufRbUvnRDzgZglocJVyQG2sSDR8wbXMfSWS5YnGz42CtGvrO9DG
+         VCAm7etNGmClAgcCluItLmr4xU0wM28guP2VU7qCyjyaZ0JNwqHGWP2z04TVU3htyl99
+         e/wBZozWVdxvb+fTFw8uKn34+RRjRsLRz9rd5jfwinEFBvVdznY9nKZipJ0tv1KyjCXd
+         Jt7iBP9cpKcsscqInlMiASBhvzGo7ztdELgRd+2xatoQ4spsaTqjOBqHhML85HV7N8j7
+         hVfGrLoBmA8sl75fn8c+UprciYrvz7BEk9IeKwmlcXCaQJb/f58OIHb8/ikkmWBrBxzk
+         AYww==
+X-Forwarded-Encrypted: i=1; AKwUvBwJynlik2bM2HzJ+zwr3+99vLe/7WBDiEMm5R7he3eCllZv2YzeFW7aFeOXi4O7BDdHxrIDE5eVuEXkxUM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTcqnGxmRw0fc+D8kGhvP8Qs7eb/kiak0cHIXm3hJVjRIoH6xb
+	7UnDcIxyfJLPOFWYuifsW8TLyr2eJ/1d1CU8U8qVfoHuGUV4mXiym9eHbYNGp8mByfU=
+X-Gm-Gg: AYBFou2hSYJI8sgN8+KvAbXymPM9uvKqCG/u8fz7DMdg3qw5JtbkIf4O+GDJt1Zskwa
+	/0syjyiDpRg1OQOMAXPCFiohXPNlpRoDDK0q5XFFgWEi1KcykhVMfgcoprRxQMalpXtbGeS9gr0
+	kMRjulvG5/HmZyWhIWeFiqLko41wlK0WgBvYaaNMrTR3UNCG1tQ675LI9bTSz5PIs99z83ft3qu
+	bgQU6uyju9b5yVZKDbX06gWdWANaWddF+5XYFx3nzVKjbs6/qvPhlsXs5g+HGi4CqCb2SP2IJVb
+	mbNlQjrfSNJwOQMaSpp6GKW3gHmEDc6y1UNCdqKtsWmpFYqmv4YlB4V5yHczzuo+wI3frWvHpaB
+	UB/6s3pF6Ty7fioH7ToB32rG+BfZ+1OOjw3kmoyAvg+wk+gm9+lbnS5bZJ6b7Uk2i1MXJ8Tmrsx
+	Hh3SsKYIlaoUl6q4Bn5PyErpP64iKyWpEVpyFl1kDzxI/nwdsswYLZXXB+F0b+
+X-Received: by 2002:a05:690c:a84:b0:7f0:38f7:6ca6 with SMTP id 00721157ae682-86e6d7905ccmr34387887b3.5.1788444009533;
+        Thu, 03 Sep 2026 07:00:09 -0700 (PDT)
+Received: from localhost ([2605:8600:200:1a83:fe59:7385:2855:8588])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-86c12d92d9esm40198227b3.22.2026.09.03.07.00.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 07:00:08 -0700 (PDT)
+Date: Thu, 3 Sep 2026 10:00:03 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Ridong Chen <ridong.chen@linux.dev>
+Cc: Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Chris Down <chris@chrisdown.name>,
+	Tejun Heo <tj@kernel.org>, Yu Zhao <yuzhao@google.com>,
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <linux-mm@kvack.org>,
+	linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] mm/page_counter: avoid integer overflow in
+ effective_protection()
+Message-ID: <20260903140003.GR3004@cmpxchg.org>
+References: <20260903031952.1120321-1-ridong.chen@linux.dev>
+ <20260903031952.1120321-2-ridong.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com> <20260903-drm-bridge-every-panel-v2-4-2ab8ee24538e@bootlin.com>
-In-Reply-To: <20260903-drm-bridge-every-panel-v2-4-2ab8ee24538e@bootlin.com>
-From: Albert Esteve <aesteve@redhat.com>
-Date: Thu, 3 Sep 2026 15:59:38 +0200
-X-Gm-Features: AcwNN1XDl-Ni_DEe3erHCFfPAz2cykoqMGRy_g6UAaZH6jri9FS6U46r-qkzR3A
-Message-ID: <CADSE00+n4XQ+Xj-TG4KtbPq4asR6GH9=+fC0MdQUycM2_DXiNg@mail.gmail.com>
-Subject: Re: [PATCH RFC v2 04/19] drm/bridge: panel: rename
- drm_bridge_is_panel() -> drm_bridge_is_panel_bridge()
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Linus Walleij <linusw@kernel.org>, 
-	Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Anusha Srivatsa <asrivats@redhat.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
-	Ian Ray <ian.ray@gehealthcare.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903031952.1120321-2-ridong.chen@linux.dev>
 
-On Thu, Sep 3, 2026 at 10:12=E2=80=AFAM Luca Ceresoli <luca.ceresoli@bootli=
-n.com> wrote:
->
-> Work is in progress for every drm_panel to embed a drm_bridge, and for th=
-at
-> a function will be needed in the drm_panel API to tell whether a bridge
-> represents a panel or something else. The ideal name for that will be
-> drm_bridge_is_panel(), which however is already in use by the panel_bridg=
-e.
->
-> Rename the current function in the panel_bridge API to
-> drm_bridge_is_panel_bridge(), which is more precise and frees up the
-> drm_bridge_is_panel() for future use in the drm_panel API.
->
-> No functional changes, just renaming a function treewide.
->
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+On Thu, Sep 03, 2026 at 11:19:51AM +0800, Ridong Chen wrote:
+> From: Ridong Chen <chenridong@xiaomi.com>
+> 
+> effective_protection() scales a parent's protection by a ratio of page
+> counts, e.g. for recursive protection:
+> 
+> 	(parent_effective - siblings_protected) * (usage - protected)
+> 		/ (parent_usage - siblings_protected)
+> 
+> The multiply is done at unsigned long width before dividing. On systems
+> with >= 16TB RAM the product can exceed 2^64 and wrap, giving a bogus
+> protection value and silently breaking memory.min/low enforcement.
+> 
+> Use mul_u64_u64_div_u64() to multiply in a 128-bit intermediate. Because
+> usage and parent_usage are not read atomically (a child is charged
+> before its parent), usage - protected can briefly exceed the divisor,
+> making the quotient overflow 64 bits and trap (#DE on x86). Cap it so
+> the ratio stays <= 1.
+> 
+> Reported by the sashiko review tool [1].
+> 
+> [1] https://sashiko.dev/#/patchset/20260826133054.88529-1-ridong.chen@linux.dev?part=1
+> 
+> Fixes: bc50bcc6e00b ("mm: memcontrol: clean up and document effective low/min calculations")
+> Fixes: 8a931f801340 ("mm: memcontrol: recursive memory.low protection")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-4-8
+> Reviewed-by: Barry Song <baohua@kernel.org>
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
 > ---
->  drivers/gpu/drm/bridge/panel.c                 | 8 ++++----
->  drivers/gpu/drm/display/drm_bridge_connector.c | 2 +-
->  include/drm/drm_bridge.h                       | 4 ++--
->  3 files changed, 7 insertions(+), 7 deletions(-)
+>  mm/page_counter.c | 19 +++++++++++++------
+>  1 file changed, 13 insertions(+), 6 deletions(-)
+> 
+> diff --git a/mm/page_counter.c b/mm/page_counter.c
+> index 661e0f2a5127..e8bd512069c5 100644
+> --- a/mm/page_counter.c
+> +++ b/mm/page_counter.c
+> @@ -8,6 +8,7 @@
+>  #include <linux/page_counter.h>
+>  #include <linux/atomic.h>
+>  #include <linux/kernel.h>
+> +#include <linux/math64.h>
+>  #include <linux/string.h>
+>  #include <linux/sched.h>
+>  #include <linux/bug.h>
+> @@ -356,7 +357,8 @@ static unsigned long effective_protection(unsigned long usage,
+>  	 * otherwise get a smaller chunk than what they claimed.
+>  	 */
+>  	if (siblings_protected > parent_effective)
+> -		return protected * parent_effective / siblings_protected;
+> +		return mul_u64_u64_div_u64(protected, parent_effective,
+> +					   siblings_protected);
+>  
+>  	/*
+>  	 * Ok, utilized protection of all children is within what the
+> @@ -397,13 +399,18 @@ static unsigned long effective_protection(unsigned long usage,
+>  	if (parent_effective > siblings_protected &&
+>  	    parent_usage > siblings_protected &&
+>  	    usage > protected) {
+> -		unsigned long unclaimed;
+> +		unsigned long unclaimed = parent_effective - siblings_protected;
+> +		unsigned long unprotected = usage - protected;
+> +		unsigned long parent_unprotected = parent_usage - siblings_protected;
+>  
+> -		unclaimed = parent_effective - siblings_protected;
+> -		unclaimed *= usage - protected;
+> -		unclaimed /= parent_usage - siblings_protected;
+> +		/*
+> +		 * The usages aren't read atomically, so a child can transiently
+> +		 * appear to use more than its parent, making the ratio exceed 1
+> +		 * and the quotient overflow 64 bits (#DE on x86).  Cap it.
+> +		 */
+> +		unprotected = min(unprotected, parent_unprotected);
 
-Reviewed-by: Albert Esteve <aesteve@redhat.com>
+Looks correct to me. But a few nits on readability, since this code
+already is quite painfully complicated.
 
-Thanks for cc'ing me :)
-Very curious to see how this series will unravel.
+Please don't do math in the declaration block.
 
-Albert
+`unclaimed` made a bit more sense when it held *this group's* final
+share of the unclaimed protection. As an intermediate, it's *the
+parent's* unclaimed protection.
 
->
-> diff --git a/drivers/gpu/drm/bridge/panel.c b/drivers/gpu/drm/bridge/pane=
-l.c
-> index 40e3970e8b76..0582c708957c 100644
-> --- a/drivers/gpu/drm/bridge/panel.c
-> +++ b/drivers/gpu/drm/bridge/panel.c
-> @@ -221,17 +221,17 @@ static const struct drm_bridge_funcs panel_bridge_b=
-ridge_funcs =3D {
->  };
->
->  /**
-> - * drm_bridge_is_panel - Checks if a drm_bridge is a panel_bridge.
-> + * drm_bridge_is_panel_bridge - Checks if a drm_bridge is a panel_bridge=
-.
->   *
->   * @bridge: The drm_bridge to be checked.
->   *
->   * Returns true if the bridge is a panel bridge, or false otherwise.
->   */
-> -bool drm_bridge_is_panel(const struct drm_bridge *bridge)
-> +bool drm_bridge_is_panel_bridge(const struct drm_bridge *bridge)
->  {
->         return bridge->funcs =3D=3D &panel_bridge_bridge_funcs;
->  }
-> -EXPORT_SYMBOL(drm_bridge_is_panel);
-> +EXPORT_SYMBOL(drm_bridge_is_panel_bridge);
->
->  /**
->   * drm_panel_bridge_add - Creates a &drm_bridge and &drm_connector that
-> @@ -321,7 +321,7 @@ void drm_panel_bridge_remove(struct drm_bridge *bridg=
-e)
->         if (!bridge)
->                 return;
->
-> -       if (!drm_bridge_is_panel(bridge)) {
-> +       if (!drm_bridge_is_panel_bridge(bridge)) {
->                 drm_warn(bridge->dev, "%s: called on non-panel bridge!\n"=
-, __func__);
->                 return;
->         }
-> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu=
-/drm/display/drm_bridge_connector.c
-> index 00feb73e63d7..5de9b76f345b 100644
-> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
-> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-> @@ -983,7 +983,7 @@ struct drm_connector *drm_bridge_connector_init(struc=
-t drm_device *drm,
->                 if (bridge->ddc)
->                         ddc =3D bridge->ddc;
->
-> -               if (drm_bridge_is_panel(bridge)) {
-> +               if (drm_bridge_is_panel_bridge(bridge)) {
->                         drm_bridge_put(panel_bridge);
->                         panel_bridge =3D drm_bridge_get(bridge);
->                 }
-> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-> index 9f2294957669..b29096d624d5 100644
-> --- a/include/drm/drm_bridge.h
-> +++ b/include/drm/drm_bridge.h
-> @@ -1474,7 +1474,7 @@ void drm_bridge_hpd_notify(struct drm_bridge *bridg=
-e,
->                            enum drm_connector_status status);
->
->  #if IS_ENABLED(CONFIG_DRM_PANEL_BRIDGE)
-> -bool drm_bridge_is_panel(const struct drm_bridge *bridge);
-> +bool drm_bridge_is_panel_bridge(const struct drm_bridge *bridge);
->  struct drm_bridge *drm_panel_bridge_add(struct drm_panel *panel);
->  struct drm_bridge *drm_panel_bridge_add_typed(struct drm_panel *panel,
->                                               u32 connector_type);
-> @@ -1490,7 +1490,7 @@ struct drm_bridge *drmm_panel_bridge_add(struct drm=
-_device *drm,
->                                              struct drm_panel *panel);
->  struct drm_connector *drm_panel_bridge_connector(struct drm_bridge *brid=
-ge);
->  #else
-> -static inline bool drm_bridge_is_panel(const struct drm_bridge *bridge)
-> +static inline bool drm_bridge_is_panel_bridge(const struct drm_bridge *b=
-ridge)
->  {
->         return false;
->  }
->
-> --
-> 2.55.0
->
+Put together, it should look something like this:
 
+		unsigned long parent_unclaimed, parent_unprotected, unprotected;
+
+		parent_unclaimed = parent_effective - siblings_protected;
+		parent_unprotected = parent_usage - siblings_protected;
+		unprotected = usage - protected;
+
+		/* overflow comment */
+		unprotected = min(usage - protected, parent_unprotected);
+		ep += mul_u64_u64_div_u64(parent_unclaimed, unprotected, parent_unprotected);
+
+With that,
+
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
