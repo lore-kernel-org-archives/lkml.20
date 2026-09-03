@@ -1,227 +1,175 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011064.outbound.protection.outlook.com [52.101.52.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF7ED422533
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:46:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788421582; cv=none; b=Fdbl+DtfBIlWq6FNepD2nojWju2Y0s1fYKVCmXJNGAeucZTI5zpJP0dYvgf6LgCI0FWJVjX8nNFW4aNBNeyg4fClL5JlFoTAoEzwDXdwDpnU95Xkwx2GYW5eCPvMIW7koucXpjOwGEjAxddQCUjxL6Qr/bAKWUotPw11aZM6pow=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788421582; c=relaxed/simple;
-	bh=X6hhfdvI27MobBn1muEJ56TQpK6E/X6iZjs0sNvolLE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=r3cdLMwKPLdxEl4b2Yumt6FD2sWZUc7KkmtKrio12wLujoTZBD2qxu+Z/k6Ur7yjmsvWc6V5RbcHOuBosgxUYN59WAHYPzWj3OJD8+Xqe9bRB54BpUxyGhu07whX5zjIDk0r9GZ3IYL5EXRJ+d5EcJpuVZ3V7ozA4+KWUbkOerQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=W1yVGfwF; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=X2vdBHja; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=r+NmorXc; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=mPfgZEWK; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BFFA41CB5E;
+	Thu,  3 Sep 2026 07:46:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.64
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788421583; cv=fail; b=ove/muJepyyI0vONxAPVaup8skXE5R8yk3tjSddHnRAITjvnP0AGzgsWgIQoyb8u+SGM4JhUwV7Uk6EUoCkOWX8mB00T/11l/Si5rWpxeAmpkvKTY48zhbysw2lAN5Fx4il6stSfJk37ulAHUYNbl/4htXskD6+zCayIT+kxL5w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788421583; c=relaxed/simple;
+	bh=xRrRTzSxNTuC8++In9Pa8w2o1JiJVpUUC4b8E0cybbY=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=A4ChxOz6l/HMiTC2B0GVtK9xsvkRthsZI0zRAiff5TeyLaMtVoDUT33s7ZUHL/c9ZrpqS7apv9RxesipNSRC/bYdzZcx8qV9Ua9G+J4BLsaiSKhIcBkHlOA0bt21MhHidmWueFh+NE/JKys7n9uRpCS4T9h5ZwyY0vlo9FWWOR4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=fzQY51LJ; arc=fail smtp.client-ip=52.101.52.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="W1yVGfwF";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="X2vdBHja";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="r+NmorXc";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mPfgZEWK"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 85CE61FDDE;
-	Thu,  3 Sep 2026 07:46:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788421574; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=jc2J7r34xSDu3DCmuxHGBooyKpDUQA2h1EtnYalQRc8=;
-	b=W1yVGfwFtthJEy1IwZyfhPko9DLasU836WZC8R8GVOcsqV0055c3SqNOv70PSgM0hW8qyK
-	C8wBTTbPTVC520T+Wtk8NYy3gYjQQwuhIqLVEfARDkOoeHToLFjCLJQ0Qgi47SxedewfjX
-	ofz+eZhmvpq0Eyqwt2ORlIKaNRHqxG0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788421574;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=jc2J7r34xSDu3DCmuxHGBooyKpDUQA2h1EtnYalQRc8=;
-	b=X2vdBHja3vCo++gUvbFKkcwngVza0JyQGslF9PR2F8TiNdrp+ot23ayo5HDnIourXOczhp
-	gZXFpCYhSqmbI3Aw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=r+NmorXc;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=mPfgZEWK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788421570; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=jc2J7r34xSDu3DCmuxHGBooyKpDUQA2h1EtnYalQRc8=;
-	b=r+NmorXcOjQb4rGpborqtYV2n/WTEpzqQ3IpPU0zcrslBdJd69M5wuqo52xaiAeqAMVGNC
-	QUhDhbRpt362RsoOY/0yYxLnB+VkCN2VxzdeNojqoGQeiwKy2egRmcK5ELE6ifCD+iumjg
-	HclzXLRLiAkg2e++AT+NHHh+yYms+mI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788421570;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=jc2J7r34xSDu3DCmuxHGBooyKpDUQA2h1EtnYalQRc8=;
-	b=mPfgZEWKKOtgHusiW4zz9Zszh5F7NoR081SIndgWLesEjAfcqqynna3czB4gsHinT5TYoi
-	hSQWjJNQOgq8T1Cg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3134B136D9;
-	Thu,  3 Sep 2026 07:46:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Pb6pCsIlmWpSfAAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Thu, 03 Sep 2026 07:46:10 +0000
-Message-ID: <47df26aa-a160-4306-84f0-510584c3e8e0@suse.de>
-Date: Thu, 3 Sep 2026 09:46:09 +0200
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="fzQY51LJ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Phai3YXk0jkgGFb9HWD+1NDHffhIA5QFevbGL8pzWp05tv7lz8dWRJopMeD4Nhv7h40rVP+MUKIZO6UE+gYcZrClipRwkIis/i0Fy+z8N0eSPZx9JgCHQ9O2Qb5bwpbQnrNkDPfHQPtcyKWnYayZxnLkFS/zINFF+b9hBGstlx8DhUcfXQLLj4IYw2cZ+DYy3BrtZ0BYj8CypW+1HI5XFpFwa4+HhGxe3HiYs06nyMRTn/brYmAbqfLwXWpaMEjFTuScCoE3UnfpIPXggAcN278ghMUKYH3LMNbWfOgxBWZVYApIHSeDBe7NuzK6PzncXa2s0ZVcLEw9CHquXibbDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1uZWANCSAAMqU1VrJwZR3XJ6OLJQJG459xCCWgcc4W0=;
+ b=Y5sIKRo6ztxGUP0RD70kxdkozfU7IJqQKM8XmvHkuTBeb76lj7Mw65Bu9LRdrx3dwE2MGzw5V9Zit3PvKvUy368dO8mT+RfXimqEL4F+cS6cIVp23M78j6Q7t5Q7BVi5SDo32DND170f1lVTfiA3fB7iUXqvfdjKSjLhkvTRtGNuCcKixekbMVmTC5q1+q3D92oy8sG1d/EF05wHrRv8sP5Be/eio4yI+6lXge4TuCkbZ4Eivt1Z706hpTzossBTaj8tHsRyMdQsL9iXbcE2DB8lKKyvVCGTVWUZcmpGXHo8diHUlgWgpX+9k1BlyGDCdmRYAjM8kozfsTpq4d4gBw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=linuxfoundation.org
+ smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1uZWANCSAAMqU1VrJwZR3XJ6OLJQJG459xCCWgcc4W0=;
+ b=fzQY51LJOx+OWEVHzSyCfac99zMSc7siMg0+gHTlvLegHqJ4MuIsQ7s+CRA7Ue2L/8cJd5hee9izDo1isanQy+o2J5yarUObb5d6mV6xuIRaGbUiS4TaO0DOQIiDY4t/ztYIT8cbTNElhgmXr4tFirnDfNKjjkEG6cRJ6ToByZkOxvYNyc25sjifrj0rjZ1C1kxwVMvNnteC48rbbyn2iDzP4KB+gsuGBKL8BgEnVCRcBufMdN98gjhkt/Evm92n9TngWOKbZej7UrWuhOKRgojwb9ZPz61kTtNf1tHsOucKSBZCjyMr1mwdVfezRGzUBpzEf0XbOktwXpeEMjsZvw==
+Received: from BN9PR03CA0974.namprd03.prod.outlook.com (2603:10b6:408:109::19)
+ by CH2PR12MB4197.namprd12.prod.outlook.com (2603:10b6:610:ab::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 07:46:15 +0000
+Received: from BN1PEPF0001854C.namprd05.prod.outlook.com
+ (2603:10b6:408:109:cafe::97) by BN9PR03CA0974.outlook.office365.com
+ (2603:10b6:408:109::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Thu, 3
+ Sep 2026 07:46:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BN1PEPF0001854C.mail.protection.outlook.com (10.167.248.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Thu, 3 Sep 2026 07:46:14 +0000
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
+ 2026 00:45:56 -0700
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail202.nvidia.com
+ (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
+ 2026 00:45:56 -0700
+Received: from waynec-Precision-5760.nvidia.com (10.127.8.13) by
+ mail.nvidia.com (10.129.68.7) with Microsoft SMTP Server id 15.2.2562.46 via
+ Frontend Transport; Thu, 3 Sep 2026 00:45:53 -0700
+From: Wayne Chang <waynec@nvidia.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Mathias Nyman
+	<mathias.nyman@intel.com>, Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: <linux-usb@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-tegra@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Wayne Chang
+	<waynec@nvidia.com>
+Subject: [PATCH V3 3/3] usb: host: xhci-tegra: Add Tegra264 XHCI support
+Date: Thu, 3 Sep 2026 15:45:39 +0800
+Message-ID: <20260903074539.613220-4-waynec@nvidia.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260903074539.613220-1-waynec@nvidia.com>
+References: <20260903074539.613220-1-waynec@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS, mailmap: use Aditya Garg's linux.dev account
-To: Aditya Garg <gargaditya08@proton.me>
-Cc: Aditya Garg <aditya.garg@linux.dev>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>, Aditya Garg <gargaditya08@live.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <20260723100136.14467-1-aditya.garg@linux.dev>
- <27a31a37-688d-427b-a0ba-c3133db19c97@suse.de>
- <txsiv43u7qv-Pc_dRDdbgiUHVP54rhl5g-xLzQU457o0E29MYkL9FX-zdozYxVySvTed10VduLizWQw3zNDJTGxTIfFLX71G3U_Kj3qnJao=@proton.me>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <txsiv43u7qv-Pc_dRDdbgiUHVP54rhl5g-xLzQU457o0E29MYkL9FX-zdozYxVySvTed10VduLizWQw3zNDJTGxTIfFLX71G3U_Kj3qnJao=@proton.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
-X-Spam-Score: -4.51
-X-Rspamd-Queue-Id: 85CE61FDDE
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,live.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[linux.dev,linux.intel.com,kernel.org,ffwll.ch,gmail.com,live.com,vger.kernel.org,lists.freedesktop.org];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF0001854C:EE_|CH2PR12MB4197:EE_
+X-MS-Office365-Filtering-Correlation-Id: f168f218-5a2f-497b-5540-08df098f6e7f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|1800799024|82310400026|376014|36860700016|18002099003|22082099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	M0xQzzljPWtp3Mamj3QfZGRrW03gt03YKDifVkaA1jYXQUKEWHdNuDMIRV769U+8ZJKqT6Ow5LDjXTx6ZRqWzHOzrJfuWNNuTEuOsdcFbeaHk2Vcc5CRvxS6B1GlmE7iN7iWTRPh3RZS8D1uVcbWpYXdlPL/uLSC1hw/HIZNBPXtGoPy8yTV+n+iF8JuP1sInBPM79tDRJ+ozQacfm7xvLkbR/Wmqrd+3Walv7fp2uVwR1MTHNSnZFwpZl7sNEW3E99sbFdV2FwZOFHy29wqoTqtPVLLt7nXOtF54Rfqu7bEWIvxyHp3Z2WkwNcHlIruw/UVXpOgd46J5TGlDILf/QOax7GnOEACTidui9Jdz++KtO4T82VSs0RYqzozK0y22jzu6NJ+J76/AgI588hVdceogMuMAr2JdufsCOjxyyMMJVFsVaTo456uRGsJEQkni/L7a2FSj1ZJZ9qhbKFp5X0Gsl9YYohJr83fLNc57qef+DXy5h6s4BlmWjZL/IC59YPmb0wjBX6xYUXgOwm525x6iND1jqnLVoGLstC/JJr+hLVxvQ4imV+PAMv4DFaEyKXXbkcquZB2O3M897xA+/94O8hRpMupGAuP7OmzUWGD2iFK7cu8vMpB755nrZanvKAt38lp0BivcQG9CsLMMuLOSs6emb7it9DJRgasS2CCyRXMSv/aj2QWSFFOX1CzCeSC8zyHQw4ND+UuOjHgzQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(1800799024)(82310400026)(376014)(36860700016)(18002099003)(22082099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	nI23L9fF2T6AeSOBbQ5atp64t0s+IBBeQ5iXveSDLFA5diKm35RKqfreEQ2yIZXnMQ/2IAeqTjlp5BTi9Iv4MBOmdLUAod0j46W3gWF0On+qBqKjML5xO5zBATSzVii17EjT0KY66O4QPhCRI801YQR29FvIVLUClk6kWW6QKGBVqGup8HMGjVQ8w8WDiTuMT9Pw/80Saw3VYM3wqG2z2DOUx9Sec6t/1A7/NHnTjis0lNRAHCqJfKTLk4IIjgCCM2B6w/oc/uKgu+DfPtDxKEh8iBBR3eotAmMACF8jmGB0MsysKxC/3gma25IeCPsMAmqU1zjcBScyz2GZrowfngh7KzbG607rubRbqzOYoOisfXcnbN/B+4xlG/F8ZcYvvcdmjebj78BDs5lgrURO6IDXXwj7V7afMgApZQIqs40WMS22XQPypu6Xv8bD6cEV
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 07:46:14.6875
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f168f218-5a2f-497b-5540-08df098f6e7f
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF0001854C.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4197
 
-Hi
+This change adds Tegra264 XUSB host mode controller support.
+The host controller is very similar to the existing Tegra234 XHCI,
+except the number of max_num_wakes.
 
-Am 03.09.26 um 08:57 schrieb Aditya Garg:
-> Hi
->
->> Am 23.07.26 um 12:01 schrieb Aditya Garg:
->>> From: Aditya Garg <gargaditya08@live.com>
->>>
->>> Due to non standard IMAP and SMTP protocols by Proton Mail, the account
->>> was giving trouble. Since my linux.dev account has been approved, all
->>> communication related to Linux development shall now be done there.
->>>
->>> Signed-off-by: Aditya Garg <aditya.garg@linux.dev>
->> Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Can someone please merge this. I am still receiving mails on my old email which I do not use for dev work anymore.
+Signed-off-by: Wayne Chang <waynec@nvidia.com>
+---
+V2 -> V3: No change
+V1 -> V2: No change
+ drivers/usb/host/xhci-tegra.c | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-Done now. The update will go out with the next drm-misc-fixes.
-
-Best regards
-Thomas
-
->
->>> ---
->>>    .mailmap    | 3 ++-
->>>    MAINTAINERS | 2 +-
->>>    2 files changed, 3 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/.mailmap b/.mailmap
->>> index 501d858cb..baea6ba4d 100644
->>> --- a/.mailmap
->>> +++ b/.mailmap
->>> @@ -19,7 +19,8 @@ Abhinav Kumar <quic_abhinavk@quicinc.com> <abhinavk@codeaurora.org>
->>>    Ahmad Masri <quic_amasri@quicinc.com> <amasri@codeaurora.org>
->>>    Adam Oldham <oldhamca@gmail.com>
->>>    Adam Radford <aradford@gmail.com>
->>> -Aditya Garg <gargaditya08@proton.me> <gargaditya08@live.com>
->>> +Aditya Garg <aditya.garg@linux.dev> <gargaditya08@live.com>
->>> +Aditya Garg <aditya.garg@linux.dev> <gargaditya08@proton.me>
->>>    Adriana Reus <adi.reus@gmail.com> <adriana.reus@intel.com>
->>>    Adrian Bunk <bunk@stusta.de>
->>>    Ajay Kaher <ajay.kaher@broadcom.com> <akaher@vmware.com>
->>> diff --git a/MAINTAINERS b/MAINTAINERS
->>> index 1ab873685..f32e63428 100644
->>> --- a/MAINTAINERS
->>> +++ b/MAINTAINERS
->>> @@ -7970,7 +7970,7 @@ F:	drivers/gpu/drm/sun4i/sun8i*
->>>
->>>    DRM DRIVER FOR APPLE TOUCH BARS
->>>    M:	Aun-Ali Zaidi <admin@kodeit.net>
->>> -M:	Aditya Garg <gargaditya08@proton.me>
->>> +M:	Aditya Garg <aditya.garg@linux.dev>
->>>    L:	dri-devel@lists.freedesktop.org
->>>    S:	Maintained
->>>    T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
->> --
->> --
->> Thomas Zimmermann
->> Graphics Driver Developer
->> SUSE Software Solutions Germany GmbH
->> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
->> GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
+diff --git a/drivers/usb/host/xhci-tegra.c b/drivers/usb/host/xhci-tegra.c
+index 7d56f35ec9e7..9a55d5818efb 100644
+--- a/drivers/usb/host/xhci-tegra.c
++++ b/drivers/usb/host/xhci-tegra.c
+@@ -2752,12 +2752,40 @@ static const struct tegra_xusb_soc tegra234_soc = {
+ 	.enable_firmware_messages = true,
+ };
+ 
++static const struct tegra_xusb_soc tegra264_soc = {
++	.supply_names = tegra194_supply_names,
++	.num_supplies = ARRAY_SIZE(tegra194_supply_names),
++	.phy_types = tegra194_phy_types,
++	.num_types = ARRAY_SIZE(tegra194_phy_types),
++	.max_num_wakes = 8,
++	.context = &tegra186_xusb_context,
++	.ports = {
++		.usb3 = { .offset = 0, .count = 4, },
++		.usb2 = { .offset = 4, .count = 4, },
++	},
++	.scale_ss_clock = false,
++	.has_ipfs = false,
++	.otg_reset_sspi = false,
++	.ops = &tegra234_ops,
++	.mbox = {
++		.cmd = XUSB_BAR2_ARU_MBOX_CMD,
++		.data_in = XUSB_BAR2_ARU_MBOX_DATA_IN,
++		.data_out = XUSB_BAR2_ARU_MBOX_DATA_OUT,
++		.owner = XUSB_BAR2_ARU_MBOX_OWNER,
++		.smi_intr = XUSB_BAR2_ARU_SMI_INTR,
++	},
++	.lpm_support = true,
++	.has_bar2 = true,
++	.enable_firmware_messages = false,
++};
++
+ static const struct of_device_id tegra_xusb_of_match[] = {
+ 	{ .compatible = "nvidia,tegra124-xusb", .data = &tegra124_soc },
+ 	{ .compatible = "nvidia,tegra210-xusb", .data = &tegra210_soc },
+ 	{ .compatible = "nvidia,tegra186-xusb", .data = &tegra186_soc },
+ 	{ .compatible = "nvidia,tegra194-xusb", .data = &tegra194_soc },
+ 	{ .compatible = "nvidia,tegra234-xusb", .data = &tegra234_soc },
++	{ .compatible = "nvidia,tegra264-xusb", .data = &tegra264_soc },
+ 	{ },
+ };
+ MODULE_DEVICE_TABLE(of, tegra_xusb_of_match);
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
+2.25.1
 
