@@ -1,234 +1,117 @@
-Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BD833DD500
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 20:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 313143515CF;
+	Thu,  3 Sep 2026 21:01:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788469180; cv=none; b=fz8nOSgIf9MVZ772SBID90zI4He1nj+m84ZD8LjsRK9gxtri2PBLiriboDNrjGD7EUHqARgrkOupKrPcXjkUaAaREV2HGyMWnMxuYiDqoyG0GO1/sRxoDVu2h3nU6kGE+7sPpk7eMvsqW62oGzbTAgMPR4SHFt+ur7IpAhFOlu4=
+	t=1788469278; cv=none; b=Zbfi7F4Pmh1zWJ4Ixogqz3EEqkPtklv2y/duGtYUTnb9D/b3zS3ougfDOpXx5qnYYFTiKkOkhXedVbSMQHzlNsMtkwn7ds1bVrHjfWvFeEQW1vgg0AJoF9/fjzkZBVhjOXfL24yg0hdfyluEdbaJ4FbubtGh/AWzy89PZc8xO/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788469180; c=relaxed/simple;
-	bh=uuuDftWEtW1qFHxqtnhvjsGxPJjeQoFDiGsEqX6vzhk=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=KR7PW+xxwrfIYXRf1vCcL37QVe/zbZp5UBrueT6sb1D1Iuh/u85+j5umd4hFGYeybzH2Do45MlaF9rMbyW9GS0/KJ2FYFnBdPllFQdRUJenmiDPLCSPRlxpJ1vEdIfh4rWhBmK8remTLwMNW1Hf4BWApjMsGA1PwDqmo/5znfMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f11.google.com with SMTP id 006d021491bc7-6aaf6076546so81448eaf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 13:59:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788469171; x=1789073971;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yMC1/2CRu6w8oyeK+QAGBB/5FTYZSuHpWHz9c0PCyIo=;
-        b=XLpW+17da/zhDTvADhPgJETdx23brh8gKf/eQwtqCbhKhv68Z3X35hbluu+YdQHZtn
-         VsE7CjUR1kW00HR/yrlHtinx6gRz5TQolOwRzs96eEz6MOQAxsXjFKesRvNpUNgLo2IP
-         qG8LTluygS78HpjGhVSP37VTaawqOeaseH0ttjzgO4UFL6A63gn2TGvW9njooDGC+LO8
-         PSj/pFtCEnKN4SJL5zmG4omr7GJiQ2LV155FT0RdViYACnRnNf6tNUj0ue/+btal3vLq
-         S8PpCJE3C1da//wsZXHtKMgfyy2YYKCGPChJ5D2Grw+eH4RqxY0pTuKWm4P33Mrn9fj6
-         i/4g==
-X-Forwarded-Encrypted: i=1; AKwUvBx414Zxr7PyCnsz77BDxGt2OIY8BvA7X8HO6FmoGtfcQBrQtY8TXHaRYwc57f/2xRv5WTJhGjj1EJ2b9Uc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOf+4oNAH6V59dwbsWNUk2z4sf6V61lYyqDjNqphe7vjPYMmMv
-	HcBbB3WS6BGKsUTFL+0dGCtTkRVS88qGOkYiSc2EoJelfS9ZWJ4d0lWIAo3KLUbI7DH9VmnRLci
-	TppBXidGfchtBjDX5yzaz20K856GS3mX3DVAXsetGlXDmzY2+fP141g9uls0=
+	s=arc-20240116; t=1788469278; c=relaxed/simple;
+	bh=YYxuBmZAH47wgXQP9XeaVmlhdYRTXofjQ1oQ/sIshac=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fj+w54Szbv7PdVZQKp1gzO8o4Xg/ar1Jv4dnTI13axcjsetLf4qsBfVa5dtTkE5K2Y89datbVyXnCRsoU9haFksZdAFBu6TY1xd5z+fRBTADVauV0Cu5sSaz9DTJSXSzyomeIisWtYW1Xh/hgt7IJ3NmOfrlI00gIs+DUqg6NsU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FCl9wfTi; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FCl9wfTi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CDC91F000E9;
+	Thu,  3 Sep 2026 21:01:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788469267;
+	bh=Uv8ZzIHycIvf6yeL4vgkmrAt3UAxDnPLrH4lIK6QkvE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FCl9wfTilfdE1Ux2g/CYVVtvAQ3OD4ice2Ynu8cIiKzAaO46I1GdKOWUtMA9WHzk1
+	 3U5iryqL/7rPwvCcsLyEXL99ciO4qIvdxQmXMbkEQFo66Kka1THf+DoeLoJFIDl8en
+	 EFqrLypie86VuvRlaLPHRs9QGjXbkPnhgyJKAkkahDeghSpRj/slTWZpTfcsoCHIf7
+	 QpliT+m3Q4lNwyWdExztwk0RZCToYH3m9gjxvGbAEYf4eaNcrBusw8zKH+q6YGMWuD
+	 RYajAmAo+CMG9aKyfbj6IiO/G8AW75/43++pPMcM2Sy51XKmWdo5l+8Lm09SJBvNii
+	 IgD/jUox910vA==
+Date: Thu, 3 Sep 2026 22:01:02 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Diogo Ivo <diogo.ivo@bootlin.com>, Oder Chiou <oder_chiou@realtek.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Animesh Agarwal <animeshagarwal28@gmail.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-tegra@vger.kernel.org, Ben Zhang <benzh@chromium.org>
+Subject: Re: [PATCH 1/2] ASoC: dt-bindings: realtek,rt5677: Add clock property
+Message-ID: <12b9d08f-e773-49a9-8b36-2088c8e13cf6@sirena.org.uk>
+References: <20260903-rt5677-mclk-v1-0-b71a5a3533f9@bootlin.com>
+ <20260903-rt5677-mclk-v1-1-b71a5a3533f9@bootlin.com>
+ <aplEfd33wSz59iLS@sirena.org.uk>
+ <0746f828-a424-4001-8054-1e52ed07139b@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:614:b0:6b1:9e75:6fe2 with SMTP id
- 006d021491bc7-6b6fa3ddf94mr1334769eaf.12.1788469170902; Thu, 03 Sep 2026
- 13:59:30 -0700 (PDT)
-Date: Thu, 03 Sep 2026 13:59:30 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a99dfb2.9266084e.bf0d7.027d.GAE@google.com>
-Subject: [syzbot] [kernfs?] possible deadlock in location_store
-From: syzbot <syzbot+ab46e65f9ffd10729c79@syzkaller.appspotmail.com>
-To: driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, tj@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-
-Hello,
-
-syzbot found the following issue on:
-
-HEAD commit:    cee9395acd80 Linux 7.3-rc1
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
-console output: https://syzkaller.appspot.com/x/log.txt?x=1036139e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=56ed23170c168d4c
-dashboard link: https://syzkaller.appspot.com/bug?extid=ab46e65f9ffd10729c79
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-userspace arch: arm64
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=14634b49580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=11412125580000
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/3bd9f0104cfb/disk-cee9395a.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/299da4fc0246/vmlinux-cee9395a.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/bf81ecd32215/Image-cee9395a.gz.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+ab46e65f9ffd10729c79@syzkaller.appspotmail.com
-
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Not tainted
-------------------------------------------------------
-syz.0.59/5099 is trying to acquire lock:
-ffff0000d0d54358 (&mddev->reconfig_mutex){+.+.}-{4:4}, at: mddev_lock drivers/md/md.h:713 [inline]
-ffff0000d0d54358 (&mddev->reconfig_mutex){+.+.}-{4:4}, at: mddev_suspend_and_lock drivers/md/md.h:1019 [inline]
-ffff0000d0d54358 (&mddev->reconfig_mutex){+.+.}-{4:4}, at: location_store+0xb8/0x938 drivers/md/md-bitmap.c:2636
-
-but task is already holding lock:
-ffff0000d04efb48 (kn->active#62){++++}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
-ffff0000d04efb48 (kn->active#62){++++}-{0:0}, at: kernfs_fop_write_iter+0x1f0/0x3b8 fs/kernfs/file.c:337
-
-which lock already depends on the new lock.
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="M0WeFJ5o30F4cSnU"
+Content-Disposition: inline
+In-Reply-To: <0746f828-a424-4001-8054-1e52ed07139b@bootlin.com>
+X-Cookie: One picture is worth 128K words.
 
 
-the existing dependency chain (in reverse order) is:
+--M0WeFJ5o30F4cSnU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
--> #1 (kn->active#62){++++}-{0:0}:
-       kernfs_drain+0x1cc/0x4d0 fs/kernfs/dir.c:532
-       __kernfs_remove+0x354/0x718 fs/kernfs/dir.c:1579
-       kernfs_remove_by_name_ns+0x70/0xd0 fs/kernfs/dir.c:1797
-       kernfs_remove_by_name include/linux/kernfs.h:644 [inline]
-       remove_files+0x90/0x184 fs/sysfs/group.c:28
-       sysfs_remove_group+0x98/0x160 fs/sysfs/group.c:328
-       md_bitmap_sysfs_del drivers/md/md.c:707 [inline]
-       md_bitmap_destroy+0x1b0/0x230 drivers/md/md.c:6635
-       __md_stop+0x54/0x154 drivers/md/md.c:7089
-       do_md_stop+0x284/0xe6c drivers/md/md.c:7193
-       array_state_store+0x6ac/0xce8 drivers/md/md.c:-1
-       md_attr_store+0x304/0x438 drivers/md/md.c:6158
-       sysfs_kf_write+0xe0/0x108 fs/sysfs/file.c:145
-       kernfs_fop_write_iter+0x260/0x3b8 fs/kernfs/file.c:345
-       new_sync_write fs/read_write.c:595 [inline]
-       vfs_write+0x51c/0xa0c fs/read_write.c:687
-       ksys_write+0x12c/0x228 fs/read_write.c:739
-       __do_sys_write fs/read_write.c:750 [inline]
-       __se_sys_write fs/read_write.c:747 [inline]
-       __arm64_sys_write+0x84/0x98 fs/read_write.c:747
-       __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
-       invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
-       el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
-       do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
-       el0_svc+0x64/0x260 arch/arm64/kernel/entry-common.c:758
-       el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:777
-       el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:590
+On Thu, Sep 03, 2026 at 03:26:46PM +0200, Diogo Ivo wrote:
+> On 9/3/26 11:57 AM, Mark Brown wrote:
+> > On Thu, Sep 03, 2026 at 12:11:00AM +0200, Diogo Ivo wrote:
 
--> #0 (&mddev->reconfig_mutex){+.+.}-{4:4}:
-       check_prev_add kernel/locking/lockdep.c:3181 [inline]
-       check_prevs_add kernel/locking/lockdep.c:3300 [inline]
-       validate_chain kernel/locking/lockdep.c:3924 [inline]
-       __lock_acquire+0x1600/0x2a6c kernel/locking/lockdep.c:5254
-       lock_acquire+0x150/0x370 kernel/locking/lockdep.c:5908
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x164/0xf14 kernel/locking/mutex.c:821
-       mutex_lock_interruptible_nested+0x24/0x30 kernel/locking/mutex.c:899
-       mddev_lock drivers/md/md.h:713 [inline]
-       mddev_suspend_and_lock drivers/md/md.h:1019 [inline]
-       location_store+0xb8/0x938 drivers/md/md-bitmap.c:2636
-       md_attr_store+0x304/0x438 drivers/md/md.c:6158
-       sysfs_kf_write+0xe0/0x108 fs/sysfs/file.c:145
-       kernfs_fop_write_iter+0x260/0x3b8 fs/kernfs/file.c:345
-       new_sync_write fs/read_write.c:595 [inline]
-       vfs_write+0x51c/0xa0c fs/read_write.c:687
-       ksys_write+0x12c/0x228 fs/read_write.c:739
-       __do_sys_write fs/read_write.c:750 [inline]
-       __se_sys_write fs/read_write.c:747 [inline]
-       __arm64_sys_write+0x84/0x98 fs/read_write.c:747
-       __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
-       invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
-       el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
-       do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
-       el0_svc+0x64/0x260 arch/arm64/kernel/entry-common.c:758
-       el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:777
-       el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:590
+> > > +  clock-names:
+> > > +    items:
+> > > +      - const: mclk
 
-other info that might help us debug this:
+> > The driver code has a reference to MCLK1 which implies multiple MCLKs,
+> > unfortunately no pinout seems to be available and other references in
+> > the driver are just to MCLK so it could be cut'n'paste.
 
- Possible unsafe locking scenario:
+> Thanks for raising this point, I had missed it completely. In fact,
+> looking at rt5677.h there are two places where MCLK2 is mentioned:
 
-       CPU0                    CPU1
-       ----                    ----
-  rlock(kn->active#62);
-                               lock(&mddev->reconfig_mutex);
-                               lock(kn->active#62);
-  lock(&mddev->reconfig_mutex);
+> #define RT5677_MCLK_SRC_SFT                     10
+> #define RT5677_MCLK1_SRC                        (0x0 << 10)
+> #define RT5677_MCLK2_SRC                        (0x1 << 10)
 
- *** DEADLOCK ***
+> and
 
-locks held by syz.0.59/5099: 4, last CPU#1:
- #0: ffff0000d7577970 (&f->f_pos_lock){+.+.}-{4:4}, at: fdget_pos+0x100/0x144 fs/file.c:1259
- #1: ffff0000c5cac460 (sb_writers#6){.+.+}-{0:0}, at: file_start_write include/linux/fs.h:2753 [inline]
- #1: ffff0000c5cac460 (sb_writers#6){.+.+}-{0:0}, at: vfs_write+0x248/0xa0c fs/read_write.c:683
- #2: ffff0000d89ad480 (&of->mutex){+.+.}-{4:4}, at: kernfs_fop_write_iter+0x1b0/0x3b8 fs/kernfs/file.c:336
- #3: ffff0000d04efb48 (kn->active#62){++++}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
- #3: ffff0000d04efb48 (kn->active#62){++++}-{0:0}, at: kernfs_fop_write_iter+0x1f0/0x3b8 fs/kernfs/file.c:337
+> #define RT5677_PLL2_PR_SRC_SFT                  15
+> #define RT5677_PLL2_PR_SRC_MCLK1                (0x0 << 15)
+> #define RT5677_PLL2_PR_SRC_MCLK2                (0x1 << 15)
 
-stack backtrace:
-CPU: 1 UID: 0 PID: 5099 Comm: syz.0.59 Not tainted syzkaller #0 PREEMPT 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/14/2026
-Call trace:
- show_stack+0x2c/0x3c arch/arm64/kernel/stacktrace.c:499 (C)
- __dump_stack+0x30/0x40 lib/dump_stack.c:94
- dump_stack_lvl+0xd8/0x12c lib/dump_stack.c:120
- dump_stack+0x1c/0x28 lib/dump_stack.c:129
- print_circular_bug+0x328/0x330 kernel/locking/lockdep.c:2059
- check_noncircular+0x158/0x174 kernel/locking/lockdep.c:2191
- check_prev_add kernel/locking/lockdep.c:3181 [inline]
- check_prevs_add kernel/locking/lockdep.c:3300 [inline]
- validate_chain kernel/locking/lockdep.c:3924 [inline]
- __lock_acquire+0x1600/0x2a6c kernel/locking/lockdep.c:5254
- lock_acquire+0x150/0x370 kernel/locking/lockdep.c:5908
- __mutex_lock_common kernel/locking/mutex.c:646 [inline]
- __mutex_lock+0x164/0xf14 kernel/locking/mutex.c:821
- mutex_lock_interruptible_nested+0x24/0x30 kernel/locking/mutex.c:899
- mddev_lock drivers/md/md.h:713 [inline]
- mddev_suspend_and_lock drivers/md/md.h:1019 [inline]
- location_store+0xb8/0x938 drivers/md/md-bitmap.c:2636
- md_attr_store+0x304/0x438 drivers/md/md.c:6158
- sysfs_kf_write+0xe0/0x108 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x260/0x3b8 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x51c/0xa0c fs/read_write.c:687
- ksys_write+0x12c/0x228 fs/read_write.c:739
- __do_sys_write fs/read_write.c:750 [inline]
- __se_sys_write fs/read_write.c:747 [inline]
- __arm64_sys_write+0x84/0x98 fs/read_write.c:747
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x64/0x260 arch/arm64/kernel/entry-common.c:758
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:777
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:590
+> so to me it _looks_ like there are indeed two MCLK inputs, both of which
+> can drive the MCLK clock and can also be the input of PLL2. However, as
+> you mentioned I also wasn't able to find the pinout/datasheet and I have
+> no way of testing this. I think the safest bet here is that I send a v2
+> where I rename "mclk" to "mclk1" that we know for a fact exists, and
+> then later on if someone with access to the actual datasheet comes along
+> and confirms the existence of "mclk2" we can add it to the binding.
 
+> Let me know what you think!
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+That would be safe, but let's add the Realtek maintainer (who I'm
+surprised you didn't CC...).  I've also added Ben Zhang who did a bunch
+of work on the device for Chrome and might be able to check too.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+--M0WeFJ5o30F4cSnU
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+-----BEGIN PGP SIGNATURE-----
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqZ4A0ACgkQJNaLcl1U
+h9CCOQf9GzylS/V+CerOOxwbKCvbewffQbRcRgiXPgxRIhzHXEtGzmH4mOCrB5al
+lSBM3Sxkmg3FYsXOs6ZGjwYAj5gPuoruOu3ITBwTCieymS19GPfGNMLSzg+5FQL/
+nBb9V4nU5tnhbQP4Q4hHYXaVdqM/fAs7FdNCFBlMcMeUQIGfiZT3aJdqACkxh/DO
+oED1guanpd06xtdFrpN+S3UOv4+p76lB8MXlp/S0x6Lk9JAm0QRdVhCqngjP6Wuo
+BT5riCffnQdpLI2b3FMzqhZeik7YFAJfUYc8mmqbvWjzzdDqKUwgTNjcMu2sw2//
+OlBy7hSOXrqaocNlfaMyCsIIdNnMMA==
+=czcJ
+-----END PGP SIGNATURE-----
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+--M0WeFJ5o30F4cSnU--
