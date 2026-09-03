@@ -1,353 +1,104 @@
-Received: from mail-pz2-f9.google.com (mail-pz2-f9.google.com [74.125.228.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B94493F4128
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:48:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D0BC4078F9
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:48:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788428906; cv=none; b=uhyEYoctc0m/Rg1PaDIgeLe2I7ZotX0Iohbs15h1z471MqtyBL/5B/Fy8ehvaC6NMTg/3fyqaMcciBV8/hCCF9dK0XC9DD332aBKW+LDcP7kX82ZjLWtBNENpOWsVls6SvQmd8JDFJEmpGFjA0LJQ+hpmxUUnWtztke6IsZHBtg=
+	t=1788428909; cv=none; b=LIhChth8fXT9rbtkrqG9qx2yP1/isOyyzMk0GcHlSbXNJuNGtmlSym6KOm1CPYCEc3Gs1UfG1wIP+3UbCPdMVGPgc/JgZTxk2cxiWj0ETQPqIhLdI2zODSKEIt/hwCf0Lr40PLgI/r5yC9CbhukmQTnCmCEIuHg5iZyrKVx7ULE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788428906; c=relaxed/simple;
-	bh=hF3aba3OkkGR6nT7aAbji+fGNkeAzhptQNwpXYG6dpc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XbM7Mjhxcf6y8UVO5UN1tuVtr/lyZalmy156hLI7D/H7MPp07z6X23kdbPUxjiebzlO/O6WcnJYJ2Q/6EmmevaQ7h/esJfZ+MzSeAw0Vo8Hq3nT6KRdDTw1PmpVCwv8Qi9XZoWQO6QCVhlM/ygBMIEPwu/KH0N1AqtLDrcykoZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=gQiH/qMm; arc=none smtp.client-ip=74.125.228.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	s=arc-20240116; t=1788428909; c=relaxed/simple;
+	bh=BTEgKy4Gh25q2th/WQQ2Pct7aAu5yVuumnbiBDrNuQ8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GHwYxNy2mNyshO3vMeIK79BzYqIOt5ANw2BnLdMlg/zTTZ2jE9aD6zmL8/BXRpai5AIVLfNgFkVkgOIYrPR+dbbgznHZOvuaLxYMwnA0HM+074b6EHrME0TpXJk3tGdjyluzyuBgi+zZKW+rK4QgjCHu8p1SPz6XbIoHkQ8wmqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=DWqB0iUA; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="gQiH/qMm"
-Received: by mail-pz2-f9.google.com with SMTP id 41be03b00d2f7-cc1cb94b583so749178a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 02:48:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788428903; x=1789033703; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hF3aba3OkkGR6nT7aAbji+fGNkeAzhptQNwpXYG6dpc=;
-        b=gQiH/qMm6Fcj/TrOKMDZR5rQ7vmlQQ4FOeuTyKlMjY+ePmqdlsJbK5gqemlYpIXPnS
-         ZZ29YbxzNvZa+sO6KLDdRvqCERX7D3R1x9FBq32CK9jraNkViewBypxwy+BT1PeU34cK
-         s04Uar8ovMDrXioW8pCgOOIJygtsFqRvlKgO/2Qo3STEHjV5+KU2VAsAozdR+M9w1fOh
-         lhL20HRhg6LW6gHQ3LGdDThPavteJGMuSavMH1zjKRhh7NHdMR+dkV/dIS8dIq4QCW0s
-         PoteBgDsbEY6uaWe60R8zDp0DOFPgCFfpFS6vtTKZHIYKtXH0xml9GSjvGX+gv7rUmwt
-         e64A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788428903; x=1789033703;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hF3aba3OkkGR6nT7aAbji+fGNkeAzhptQNwpXYG6dpc=;
-        b=KQ3OdRbwsQ9HTH62wOZBJCyjCq19Dk6e8exS7I68tqGlnWcNtV0p4ORqd4zoJDR9gD
-         pHpHVEWKnk24hyEyN4qoq93WDynGe8Id9zjLro8r6E3QNGRDpVFLKko9QEMUJ5iAtCIP
-         1+UtlszJeJj4CUN1s+0yoM6jBDhjkgkk1hxeV2mIYHavGhquU5Q/ud9LZz98h3TPGMIq
-         i+dRFbUUpmimniX+rXsz+YPeEMRHYIXBej1HncNP1GLimT4XtFFE/KLe7/cCEa2pwKyi
-         mpadKyPr4Ir99dkZV7DKOMf0XUb1i0gIP8iVCfxQkEx4CZP7aAQFdt9px9wtTGuGmBAC
-         g09g==
-X-Gm-Message-State: AFuF++lX7ZzBge4Kvu51STyp7myKsMCDGpXQy1UFszWSmNO6JIGJeUUk
-	XUxL3BMDD1Ll0iGjp7thgMnfG7Iv2VeUfEpbLlwHvDMEC6uL5RJ6dVGSBgYx10bdJf6T
-X-Gm-Gg: AYBFou30Ww2noQAarLsc+aPrRwIf0ZzdhHQRxpgx2cTLivPHqXEMEDk1iRp9FwDSJyI
-	OgRk3UuMKPSJxlXOj3TTmnXHcfgvqistSEyfL63CQzTdiLE7uxbI1qjdQhUsyK3Z1fdBpzRE5ok
-	wAe5TsOBhdW/4x/2mOBj/r3B9cU7KuZrmoxZgB1eNp5q8LdbU3IWJV73GR6ViO8mpeLl0HtQquz
-	pDkbekevdISchxK6MgxWUzIgcv0eYkoLS1o3huYb3hbNZKtpJNuricc0ZasbclVafTHkDIbEGTp
-	BqO5LPX8+s0dydYz8TRBLFZkYyjiPjrZ409wznGegS29TGOZ3kQsXhjQnIRPVju54p6Nx1UgK7P
-	9uxrS2wU+1EByp4EgrC+8CkDKOGxXPT7rVOrmEeP8BqlCgQ3lsmyUk945E/A72jqURdk2Brohio
-	epfO8DY52a7soZKNEn+0nNNFXylbGhrFJ1IoO7zstni9XxZPoZV8yOIeEvmQku3uGGKLlc31aT+
-	EDp2QzcLumqwSBOEAALFM4NveCLNO42U0yREsv9QDTZQ3W+Gwm64kTYGQDA/7efOA==
-X-Received: by 2002:a05:6a21:3944:b0:3b4:5ff3:45cb with SMTP id adf61e73a8af0-3d9ad99cf80mr18333091637.8.1788428902766;
-        Thu, 03 Sep 2026 02:48:22 -0700 (PDT)
-Received: from [192.168.4.59] (c-73-93-246-205.hsd1.ca.comcast.net. [73.93.246.205])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33256414c60sm5194889eec.24.2026.09.03.02.48.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 02:48:22 -0700 (PDT)
-Message-ID: <70c7fe22-d879-41c8-b154-25049818953b@nebusec.ai>
-Date: Thu, 3 Sep 2026 02:48:20 -0700
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="DWqB0iUA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=BTEg
+	Ky4Gh25q2th/WQQ2Pct7aAu5yVuumnbiBDrNuQ8=; b=DWqB0iUABLBuZXBe+a7x
+	JUhJASLwo9ftBdII60oxcvM4VK3z3bgFibtgfimyYikPrz+99QYGu1AoLSJ6Ncm3
+	4lvCx02yhbgvNIy0gkebuqIE16yOfgU+/F/RkzwuuAgzo8FZRtzADMOAGPlrXyC7
+	OeiABg0ymlzsbW/8LNR4z6v35QUfjnp1BKJjT5K8BqzN0dpkOGMXizInUD8h4J4f
+	/WGIs2yDbzOF0MFwuuV86ZGANBCKt4jQ0gSCmqhDegPGnPR6MUr0Gz5O2yXzfF2x
+	bk7LL7dRABvtpdgtJC6CjgoqcGDH9bjOaGBkTYgf9C8pdA00m5JF1nLDwIHre+1F
+	zw==
+Received: (qmail 995934 invoked from network); 3 Sep 2026 11:48:25 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 3 Sep 2026 11:48:25 +0200
+X-UD-Smtp-Session: l3s3148p1@gf6WDZFaCIIujntC
+Date: Thu, 3 Sep 2026 11:48:24 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Biju <biju.das.au@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+	Biju Das <biju.das.jz@bp.renesas.com>, linux-mmc@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v24 09/15] mmc: renesas_sdhi: Add optional axis/axim
+ reset controls
+Message-ID: <aplCaNKX5nr8AqXB@shikoro>
+References: <20260820171657.62815-1-biju.das.jz@bp.renesas.com>
+ <20260820171657.62815-10-biju.das.jz@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [ANNOUNCE] A Syzbot-style Platform for Verifying and Fixing
- LLM-reported Bugs
-To: Guenter Roeck <linux@roeck-us.net>, netdev@vger.kernel.org,
- netfilter-devel@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, workflows@vger.kernel.org,
- frankw@nebusec.ai, jhs@mojatatu.com, ksummit@lists.linux.dev,
- kuba@kernel.org, pabeni@redhat.com, kerneljasonxing@gmail.com,
- roman.gushchin@linux.dev, jgg@nvidia.com, mchehab+huawei@kernel.org,
- torvalds@linux-foundation.org, ben.copeland@linaro.org,
- gregkh@linuxfoundation.org, yuantan098@gmail.com
-References: <20260830115546.3942129-1-yuantan098@gmail.com>
- <98d4603b-0559-46ea-8b76-1f0245b3b266@roeck-us.net>
-Content-Language: en-US
-From: Yuan Tan <yuant@nebusec.ai>
-In-Reply-To: <98d4603b-0559-46ea-8b76-1f0245b3b266@roeck-us.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tVq6OMIMLm0yDqZH"
+Content-Disposition: inline
+In-Reply-To: <20260820171657.62815-10-biju.das.jz@bp.renesas.com>
+
+--tVq6OMIMLm0yDqZH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Aug 20, 2026 at 06:16:39PM +0100, Biju wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>=20
+> The RZ/G3L SoC has axis/axim resets compared to other SoCs.
+>=20
+> Add two optional reset controls, rstc_axis and rstc_axim, to the
+> renesas_sdhi struct. Both are acquired at probe time using
+> devm_reset_control_get_optional_exclusive_deasserted() with the
+> "axis" and "axim" reset names respectively.
+>=20
+> Include them alongside the existing rstc in bulk reset/assert/deassert
+> operations: triggered together in renesas_sdhi_reset(), and managed
+> via reset_control_bulk_assert/deassert() in the suspend and resume
+> paths, replacing the previous single-control calls.
+>=20
+> Being optional, these resets are a no-op on platforms that do not
+> provide them, so existing behaviour is preserved.
+>=20
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
 
-On 8/31/26 12:08, Guenter Roeck wrote:
-> On 8/30/26 04:55, Yuan Tan wrote:
->>
->> Hi all,
->>
->> A month ago, I posted an RFC[1] to the mailing list proposing an
->> automated
->> platform that validates AI-reported bugs and prepares draft fixes, and
->> later discussed the idea at the Netdev conference. After further
->> development, it is finally ready.
->>
->> While preparing to send this email, I noticed that Roman has since
->> started
->> a related discussion:
->> [MAINTAINERS SUMMIT] The place of AI code review in the Linux Kernel
->> process
->>
->> It turns out this platform already addresses several of the needs raised
->> there.
->>
->> The platform is available at:
->> https://bugtracker.nebusec.ai
->>
->> It is currently hosted under my company's domain for convenience. I
->> would
->> prefer to move it to a neutral, community-oriented domain once the
->> project
->> name is settled.
->> Access is currently restricted to maintainers whose email addresses are
->> listed in the Linux kernel MAINTAINERS file.
->> For now, only bug reports from the net subsystem have been fully
->> imported
->> and processed.
->>
->> -------------------------------------------------------------------------
->>
->>
->> LLM-powered tools such as Sashiko and Claskiko produce a significant
->> number
->
-> Is "Claskiko" misspelled ? I don't find a reference to it.
->
->> of false positives. Pre-existing bugs uncovered by these tools are
->> also not
->> collected in one place and they remain scattered across individual
->> review
->> reports.
->>
->> To address this, like syzbot for fuzzer-found bugs, this platform
->> provides
->> an **automated** tracking layer for AI-reported bugs, but goes
->> further by
->> generating PoCs, running them in QEMU to produce crash logs, triaging
->> severity, and drafting patches. This requires no extra effort from
->> maintainers; instead, it may helps them understand and fix these bugs
->> more
->> efficiently.
->>
->>
->> The platform offers the following capabilities:
->>
->> 1. Collect and Deduplicate
->>
->> The platform ingests bug reports from multiple sources, including
->> Sashiko,
->> Claskiko, and others. It deduplicates them and monitors mailing lists
->> and
->> git history to track whether they have been fixed.
->>
->> It also provides visibility into the Sashiko/Claskiko ingestion
->> queue, so
->> users can see which reports are waiting to be collected and processed.
->>
->>
->> 2. Verify by generating PoC and running it in QEMU
->>
->> An agent attempts to generate a proof-of-concept for each bug to
->> determine
->> whether it is a false positive. According to paper Patch-to-PoC[2] and
->> follow-up research, GPT-5.4 achieves up to a 95% success rate in
->> generating
->> PoCs for genuinely exploitable bugs.
->>
->> This makes PoC generation a strong signal: if a bug has no PoC, it is
->> very
->> likely a false positive. And even in cases where a real bug is
->> missed, the
->> difficulty of generating a PoC suggests it is unlikely to be practically
->> exploitable.
->>
->
-> I think it is a mistake to claim that "Not exploitable / No PoC --> false
-> positive". Not all bugs are vulnerabilities, much less exploitable ones.
->
-> Guenter
->
+--tVq6OMIMLm0yDqZH
+Content-Type: application/pgp-signature; name=signature.asc
 
-Thanks, that is a good distinction. I think my wording here was misleading.
+-----BEGIN PGP SIGNATURE-----
 
-By “PoC”, I do not mean an exploit demonstrating security impact or
-privilege escalation. The PoC generated at this stage is only intended
-to reproduce the reported bug. For example, by triggering a KASAN
-report, a kernel crash, or another observable runtime failure.
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqZQmgACgkQFA3kzBSg
+KbaA6A//apbP6oGXAaySC7bDf9qEa83VCT+SIn0lF1qMkdR5FXj0mLL/Db9poGj1
+XCrjOPYhSH7XowpZaH0LhBn2HQViEgCS2b8PkbxdaHPW/qKbpmbablDKQIrswpAE
+9z9ySdC48MHKy+yaGyt2thEBNd+RrCxX2iwI8biEmvSGm0XshBn/dp1LUbk2DCwJ
+i2MeoVfjwjky1pQoOx+XodHwUeGdZvwK9TgDt/s+dWmH6nIzbACpvlZuZB0YQNFN
+vLBQV/Ct+4MzkrRXNv7Xd/6M+wZgZQJVjXkyw95Garp5olutuvAg+E1W2pSnGkQt
+wJviWAwJ8gKyIfP4fs5V9RGJRAK0jGmMDkchDsA3tqqpyPWjLTy+N1QDCO7NN0GR
+NzVnoPpGNEbREmknhrCy7uGSrawVUKrwLzb91QlFpXf5mqHKEHdBX1TXl8EkOkYJ
+nrVNb3K21bymsx8qycL/+AD7H5PVBJNvusoFZlK8Rr+w6w/f+Jkw1DLcQ3sOLuVt
+herAUocmtnrsLXFTORxDGVxsvOrpkkXsqu06iKzHTRDf//8G7xDw+iWo2Ny2aeT8
+MzmafCpd5sceUXjazgRrpnqXBdN9neF4Nl5uHbh6AuUv5B73Lx6M3rbHEwojFhwc
+gKA1vtutKFYZ0drzJHL6XIciZvzzW5W6MIcqcbcjj7PnLLkKK4c=
+=/cUB
+-----END PGP SIGNATURE-----
 
-So the purpose of this step is primarily to validate reachability:
-whether there exists a concrete execution path that causes the reported
-bug to manifest at runtime.
-
-This is substantially easier than exploit generation, especially with
-sanitizer feedback available. More importantly, if the LLM has explored
-all reachable paths relevant to the reported bug and none of them can
-trigger the reported behavior, then we consider the report very likely
-to be a false positive. 
-
-In practice, of course, failure to generate a PoC is not formal proof
-that the bug does not exist, but failing to find a triggering path after
-exploring the relevant reachable paths still provides useful evidence
-that the report may be a false positive.
-
-I should change the text to distinguish a reproduction PoC from an
-exploit PoC and avoid equating “not exploitable” with “false positive.”
-
-Separately, we have also built a system for analyzing exploitability,
-primarily whether a bug can be turned into a local privilege escalation.
-This is a different stage from the reproduction PoC described above. We
-can integrate that analysis into the platform as well, although it will
-take some additional time to do so. In the meantime, we should be able
-to import some of the existing analysis results first.
-
-Yuan
-
->>
->> 3. Draft Patch
->>
->> The platform produces a draft patch to give maintainers a starting point
->> and suggested fix direction. These still require human review.
->> Patches can
->> be downloaded via b4 am.
->>
->> These patches are not sent to mailing lists to avoid adding AI-generated
->> noise.
->>
->>
->> 4. Triage
->>
->> Based on the PoC, the agent evaluates the conditions required to trigger
->> the bug, for example, whether it requires a namespace, root
->> privileges, or
->> can be triggered by an unprivileged user.
->>
->> Bugs that require root are generally less important, while those
->> reachable
->> by unprivileged users are more likely to have real security impact.
->>
->> If a bug can be triggered from namespace, it is still worth
->> paying attention to.
->> In particular, a bug should not be considered root-only merely because
->> triggering it requires CAP_NET_ADMIN in a network namespace. On systems
->> that allow unprivileged user namespaces, an ordinary user may be able to
->> create a user namespace, create a network namespace owned by it, and
->> obtain
->> capabilities such as CAP_NET_ADMIN with respect to that namespace. Such
->> bugs may therefore still be reachable by an otherwise unprivileged local
->> user.
->>
->> For example, this configuration has historically been available by
->> default
->> on distributions such as Ubuntu 22.04 LTS and earlier.
->>
->> Jamal previously offered some suggestions on this severity
->> classification
->> scheme which I have not yet had time to implement; that will come in a
->> future update.
->>
->>
->> 5. Chat with agent
->>
->> Each bug page includes a chat interface for discussing the bug and
->> its fix
->> with the agent.
->>
->>
->>
->> Based on earlier feedback, the system is not fully public. Only email
->> addresses listed in the MAINTAINERS file are eligible to register, to
->> prevent bugs with potential security impact from being exposed publicly.
->>
->> Jason’s idea of delegating fixes could also be implemented on this
->> platform. This is essentially what my volunteer bug-fixing team and I
->> have
->> been doing over the past six months: anyone interested can pick up an
->> issue
->> and try to fix it.
->> Each subsystem’s maintainers could choose whether to make its issues
->> public. Making them public would also let potential reporters check
->> whether
->> an issue is already known before submitting a new report.
->>
->> Bugs are also categorized by subsystem, so after logging in, maintainers
->> see only the bugs relevant to the modules they maintain.
->>
->>
->> Welcome any suggestions:)  I will continue maintaining this system and
->> adding more features, not only out of personal interest, but also our
->> bug-fixing volunteer team is using it too.
->>
->> We periodically burn tokens and run state-of-the-art models against the
->> full kernel source code, with the goal of finding security
->> vulnerabilities
->> before attackers do. While I am not an expert in the net subsystem and
->> cannot review patches myself at this time, I still hope this platform
->> can
->> be of help to the community.
->>
->> If this system proves genuinely useful, I am happy to transfer project
->> ownership to the Linux Foundation or another neutral host.
->>
->> Going forward, the platform will expose a public API so that other bug
->> finding research teams can submit their findings here for centralized
->> processing. We also plan to ingest syzbot-found bugs to provide them
->> with
->> the same triage workflow.
->>
->> P.S. I have been struggling to come up with a good name for this
->> platform. A
->> few candidates I am considering are Palomar, Tengu, FixArc, and
->> Ephemeris.
->> If anyone has a preference or a better suggestion, I would love to
->> hear it.
->>
->>
->> Current Limitations
->>
->> - For a tracked bug, the system currently only knows that a fix
->> exists; it
->> does not yet distinguish between a patch that has been posted to the
->> mailing list and one that has already been merged.
->>
->> - PoC generation and false-positive verification are not yet
->> supported for
->> driver-related bugs.
->>
->> - Unable to scrape Sashiko/Clashiko review reports that are still
->> under embargo.
->>
->> - Only net subsystem bugs from Sashiko and Claskiko have been
->> imported with
->> a fully automated fix-detection pipeline so far. Bugs from other
->> subsystems
->> are shown but may already be fixed. If other subsystem maintainers are
->> interested, I will prioritize adding support.
->>
->>
->> [1]
->> https://lore.kernel.org/all/20260708092247.4188498-1-yuantan098@gmail.com/
->> [2] Juefei Pu, Xingyu Li, Zhengchuan Liang, et al. "Patch-to-PoC: A
->> Systematic Study of Agentic LLM Systems for Linux Kernel N-Day
->> Reproduction." arXiv:2602.07287, 2026. https://arxiv.org/abs/2602.07287
->>
->>
->> Thanks,
->> Yuan
->
+--tVq6OMIMLm0yDqZH--
