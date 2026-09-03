@@ -1,192 +1,166 @@
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E70A849EC4C
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:56:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788436569; cv=pass; b=Hftt4XrVl+mjUeN1XONAW8tekiJdme5bW5NfE6DKtKqG8UizBs/MGhEiZgKYehC2uczu2YAxT5jxpl1H+n6kkUxciiurFMBLNQjgddONhxLr+brSevCJ/FgrZiZ+67wpNyI8q2f08mLjpQoOiGRmlGj0Kq5CrjKm52y89VfEDTg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788436569; c=relaxed/simple;
-	bh=Z8f1lYw8YSAp0NXR2PLP/QCz31/oSQWmPuMnoePqCp0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=H0BtFGyyipJK+Z0DMI+G/wAcc4f+R1DaTqF316POoPMt8nI92lFG2AkbXnEbBkDMW/IIYKrXsqhNbxe/Lp5vU62XgPP89gLKGRtDhgzCZJ41O9S3/wEdrko5Z/QmPt50yHtWaDMCa3aOH1rVZmn+3r0YXiTVbhOEi6bCWxlNc9o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=fsxi3i+y; arc=pass smtp.client-ip=209.85.210.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A636E49DB86
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:56:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788436614; cv=none; b=SUK8GtlDGdO/Xt4n849Z/6SUQQ+1OCJa6nSSAREyxA7nSTnLTrXm10D+EMf9ZwGf4mtt/jeH0CTfFR3qxfeUEXbuLl9BjFWydnlVZjN0RMmVrUV6x281otKKp4IEelJv7vbSjafrwQsJ78nVyg41IPCQZzhEBY6D/Z+T1DpqdH8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788436614; c=relaxed/simple;
+	bh=l2mBviIzjsxDrCGYmNf6Y/ZxROvtLAzlD3i0LYSPYDI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ar/hGUk/G23n5r+IfQ8a+GP/9WcEQ/8OyEuTqrFeZthApNDu0E1HtDtmU5WGFW82uwFRegELU8ez2Uv1+SCNEpn70E/GOHgDTp9PTDrhMKiRkRTLjPBEdpdsG8MrqvNmCH9z9sDHlOwawsAhtWGPCZZYiuHDuJ46VO+FqYK3imk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=V/Pl7Lyu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ILzmJBHA; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="fsxi3i+y"
-Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-7f4f824de5dso1071633a34.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 04:56:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788436560; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BK5wo2Cthh+FG9NllNTCphut65uT5j/fdhjrLHcfRC6CLfJFxp6bzSxQTir7DwUtgk
-         f7vgqfjTCKU8ptTui9Rygrky5Lz1T8ztrgHPuQ8FW4qirwaJESvFMkgfhSohWwMzWERq
-         J/ZkBCCD7ke8eF5VB0IDntk7PchBRFe+u51U8M0wJTqikGypMEY0ITVaylCkFC4FXrai
-         PS9XFn86WMgsg5HxAmL4jtmQRhfdEgTICvg1y1hf1fjCDR+yuJpJHN3PUmNxRxkkE7Ql
-         7+pz8hXeh5p0l4tdqA9zUUh4WmIclmqbMn7YY910Dl8El4l3avp8Y0MgnpbET6wTWfvJ
-         FwMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=NYEZxpw9sUDkB/b/BTLw+VA6simRyFgSBVC6L/2gbWM=;
-        fh=RsXhgMJBdf/+dZHDle/jsksC+HIFSr0tmdOwDpDlFds=;
-        b=VxKjh2JCq9/1n5djUGsLsGCgkQInVkCoc47vh1t/r3AKP1wK3OLm38KulWRD3+Ko10
-         Lu1ExeAjlY+sSrVGANJZUQCjkb2RuRT3luegFn9JBAV+q/wuF2zf8boMI/bIS8wiIEjx
-         DtMTRUefYh1uPTNgh/GhxmjyjgTnEilB+Of3RF/1jAzdnBqebLR5RtBB4Z/DKjUVOhJV
-         50273J7a9NDAMxA7ID3sbPuEK92GySXRls0ikP7oDEa4Kq3GiV0r8eXXjBoMXwXI01Mx
-         /fECkl2uPE+p+uutwoIDqbdTwdn60MyRpWhX+0pGvOPu3HYeQVQ6jp3ZFJKfXCBaNbBZ
-         ySMQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="V/Pl7Lyu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ILzmJBHA"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683AHA6c935180
+	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 11:56:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	10SeU9Ko5vWjSXjWQQR8N3iT1EL+d0CVdPeApdvEE90=; b=V/Pl7Lyu3cX9mZzb
+	8uTCS3kaV5siO1pTkeEPItBh6+P23hiW0JDfw7kKeUTcy69kPJdnZXRkqsYtDtV6
+	ypQqwuz+LH44O/RS2BVCUbzbrvpf2ykxZgtzbWUswKHzVpuW4OSuGaJKcinpfaOQ
+	RJKXvjXlYXtXAajMLQr1AFysd8cegYUTVnzSqOpyl5S+MoQk4CpgOj/VMT+UefwN
+	xqH4K+jI74ma7JSqf5ciHrpSkv9FPE/HNNYmj68TNB3UA8NhUOfR9b1r9t3yLhQU
+	tnAXpd1/iZrWQQRMNIemXi51NguX9axokjeT1h5vjPSMQJBn11r63glTI6Mucd0H
+	S5oxtQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gerdnc502-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 11:56:47 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-930bd2bfc45so63892885a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 04:56:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1788436560; x=1789041360; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1788436606; x=1789041406; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NYEZxpw9sUDkB/b/BTLw+VA6simRyFgSBVC6L/2gbWM=;
-        b=fsxi3i+yRr8FqwlIYmPiWBdxUTj4t2vpm6S8d8hSrVNvbyHQp+I3hqYPFxmCADmnhs
-         ugGS+bbYfkhQBuUFzEx37prG1cZkB0pdWZXDy0gNrHXSwaFuDAeNYKDG+WIpmvP4POwH
-         6QdeKASr7HWYWaS/wa/8y73UqfFy88Bbksb5MMBAv8UOTb4FWhCryOBW58yk7hu/zyFY
-         f4kvYM47eeZ0FVyUTc/2I8HqeDcBkP8ErBcfGn1HFxdZSTAhsnWlQUQ9wDuT9ImVG4iH
-         eGLHNqb573NOh1mnb1xhDd1u5B7anXc/hn6xu4o1oanwi9jamTNOib/mnt7TYToiuUuD
-         Bwhg==
+        bh=10SeU9Ko5vWjSXjWQQR8N3iT1EL+d0CVdPeApdvEE90=;
+        b=ILzmJBHAeLLDw7hSPJ3h8HWvuWy06/ncNoeiqEvBAAgoR0FMd1cDd3MnRhu39Ocp6B
+         cw/yz3JziOr3JAG6BvAYi/0/wDUiFGExCmKqXd7pEieUN1bkxNmPPtCE3JK5815oIOwk
+         ed6cGEf5HW2q11wcXHTHN8zvEHFMmapb6vdKgvEhRXfqdmlATcpr9kuNeD7R8PRDLjeE
+         7Z/Log+I6peX0I8fJWK4kJgvGDjnBpiWq/ojXZYZETdaRwBdX0AABlw0Dvto9vcipaEn
+         fyCp2D+IW/6+uB786e2eLvzWkbRzC5oWnvYNDUVdn96ESA/66lB/I4GrddmOjYOiOnka
+         X4NQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788436560; x=1789041360;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=NYEZxpw9sUDkB/b/BTLw+VA6simRyFgSBVC6L/2gbWM=;
-        b=isVcrNInWtng6bKsJbxbwfwh5gqN3omGDoKWviPZWaA0QlBIrrsj1BIuS0Km3FMc6q
-         LFS5ELs8urt+PudniBD1nfX1mCADCi/2OXjg/Y5pq5h6e8Aceog5GtaDOlJM6XZpr3kn
-         2FXLQJkyUvIZzMH4xO/nuhkq7D53W4at9JnLjQOwB3I+ZERo0Q65RYzvoeEUPAWVy83e
-         5hyYOJXpryEs84olo4K1O3QCI6+6g5ZswYJw0jqJqOjkSqxQWwo3bOIr//CwgMzbkdvm
-         LikJP33Vi+9MDQw3sV9gA+b1z9jln1PYSg1D9uk/P1xARmm/XT4fa5PCuomuct/4nDT+
-         uq3A==
-X-Forwarded-Encrypted: i=1; AKwUvBzNfc5aSxVuMptcxjreErxOOm8GmtCrZxFK5FfiXmvzOUWTnR9sxRJRlwV7Z6CCb9z5unav5iqCGKiessI=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndjQmLogxZPyMbPLKxp8BZjQdyE/XFUWvJ5BvsBof8IeduaWxl
-	GfP9RCN5SBzx1vZSODksP1x5mt3hS/cIZ/FJhukXGtEgMt8dgVVKtT/WUL7p8meCok7FhotASMs
-	rx44KxKWFnjgIY7jpTombdS6MGXlBwMDx9CGxHj5EqQ==
-X-Gm-Gg: AYBFou0SKBro82ZLNp/aREEpqz0wddsV6xGM8cNkaotrhTWJmmjahMJKwX1jtshFZwO
-	FNcUC1TR4uo6BGVKoF3akRBohqlQnHyFlcTEj/DKWiNN00OwYQ1huINNi4jExApODy8tsQkaWOT
-	GWeOMT+VdqpAHQ+5jdURjJnRwa6D+QwhVPrQs+h9edtpWSVCttgTVfEPyaBThRCRLxXx5xCYVu6
-	S3HbU2epJNwDrd4sB3P8HzaQqI/D3Vp/FI3n864HQUp7D7yWGs9vtR1C4xMfH5knf+fWHRm6ar4
-	+hHeJzLAW9HBNGKp93SlJPLEdjJWpWIjdDxvZuq2371o5Z0EWVzIFe0r4K0S16Fo1BF1f+AhEpk
-	oF3KASALH/1/JtUBlLRuzTpp3OBKmMlJq7cP6WJhp+2ehJkaw6sl/MB9OEXF/pa6KVGf2wPTiqw
-	==
-X-Received: by 2002:a05:6830:258b:b0:7e9:cce4:803b with SMTP id
- 46e09a7af769-7f78002427fmr11346560a34.8.1788436560160; Thu, 03 Sep 2026
- 04:56:00 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788436606; x=1789041406;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=10SeU9Ko5vWjSXjWQQR8N3iT1EL+d0CVdPeApdvEE90=;
+        b=FmdpXn3OjRfXKH4E4NebGfTo7dnRKz3m30HK8W9AZ9fT43KwD/1zNcR8303Mn2VUeI
+         twILfkWz54Y5bYaLTkSyQRH7TDPvmfQTxPBZyYNjnUlKoGYCY5iDEHdGN8i9UZwH5qD4
+         rjq7/v9DGzd+SCEykfJ2vXLOOD47O32s0g1UFNhyfKzJ32WHtqUDw59vCsKF5cFPhaIe
+         M+WIPxb3svC0EzZCOHmmt0OJbp4C7cLpZz6SsCudVkY7SENpxbZNM3ayGYjIAnfiJohG
+         iX/zrpyQGsGYn/sw11lobdkKDU/WKj1N/DiQfDuYKTk1zcqnClDdpSADtNoO/i9Tylol
+         u9+A==
+X-Forwarded-Encrypted: i=1; AKwUvBzHoe30I5QC9qpsxjZV1i9KCWhmKPzqfD+IrWVVWMUsSEJHB2Epyn2cmY6KGxKEkt8//s0X57gnGGRZuNo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLfJ5Eubvuj0Cetc82i5BFdGJ7V3jwLaxVvDp17dcbzRozrkIv
+	Uix339lYWMm/X2C2hwHVtcceIC9HLQFlxPsC42OmKZUfOwlBRtBulf28umoi2BvEPTuuXxVy3Pm
+	2ioayNPfwdzipNf/HV8b4YiIqTQ5INfpELOG4MpWtA/NpJVQsX1hukZXHbJ4WMI1ZERU=
+X-Gm-Gg: AYBFou1gK2r7ZRX9/z7rLIpSDxU66m4lbWucXF4OIzg+Xdos9BjeOoJRXmr0ntbV3Za
+	w7rtVIygzuHbW0VXtaT4r/4t2S/nGrcFI/nb67greXhYe6EtgPPlPba0O+A8kXkfvlQLBtrSoIZ
+	QS1kTvzdDzFMYfvvQuRX7N9MGXSvDLWvSdt7FVA0zqKJsDDs2ZYBRF5n6bTtc8G3DXSTiO0Abfd
+	X5yUfWNpg6TV0Tuvv6Pl1fmooCSAKJZK8hsv4N0+jX9oY3DY99QIsSaiBmc6v1SEiIA2uTxxaWu
+	dNYUBSEH65TtHeFZOcOw8xQLvz/jIrk1AwkBEFVr7nC0vMaARL2RLEOqshAqfojMCrThLbu6RYX
+	+f1icIynToxpDKAPx8UBdrw==
+X-Received: by 2002:a05:620a:a2cb:10b0:939:6b7d:9941 with SMTP id af79cd13be357-9396b7d9994mr435187885a.2.1788436606038;
+        Thu, 03 Sep 2026 04:56:46 -0700 (PDT)
+X-Received: by 2002:a05:620a:a2cb:10b0:939:6b7d:9941 with SMTP id af79cd13be357-9396b7d9994mr435184585a.2.1788436605551;
+        Thu, 03 Sep 2026 04:56:45 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25f41a104fsm88275066b.28.2026.09.03.04.56.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 04:56:44 -0700 (PDT)
+Message-ID: <9e6a0e54-d16c-4b8c-9034-1e682a420e7c@oss.qualcomm.com>
+Date: Thu, 3 Sep 2026 13:56:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260805-media-starvis2-v1-0-91e8e4eae44f@raspberrypi.com> <178840879109.11722.9212352209191978851@freya>
-In-Reply-To: <178840879109.11722.9212352209191978851@freya>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Thu, 3 Sep 2026 12:55:42 +0100
-X-Gm-Features: AcwNN1ViaJDjIjQDa7Vs5xoi2HJS3rOgswfXSy4lZ1VLn3-O0UxK2SzpXn8uyrM
-Message-ID: <CAPY8ntChzSsnbXcNi6rPhzWsrS-uL_odbVZoSpj0byFQnhYOZQ@mail.gmail.com>
-Subject: Re: [PATCH RFC 0/4] Update imx678 to act as a common Sony Starvis 2 driver.
-To: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 05/12] clk: qcom: ipq-cmn-pll: Add NSS clock support
+To: Luo Jie <jie.luo@oss.qualcomm.com>,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        quic_kkumarcs@quicinc.com, quic_linchen@quicinc.com,
+        quic_leiwei@quicinc.com, quic_suruchia@quicinc.com
+References: <20260814-qcom_ipq5210_cmnpll-v3-0-21c3db378611@oss.qualcomm.com>
+ <20260814-qcom_ipq5210_cmnpll-v3-5-21c3db378611@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260814-qcom_ipq5210_cmnpll-v3-5-21c3db378611@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=YcmNIQRf c=1 sm=1 tr=0 ts=6a99607f cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=QFuAlUpucN9v7rsm42sA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEwNCBTYWx0ZWRfX7SodA2OMTt6B
+ ckW5sAl33KZ5Y5dbTkLgjcqEDAtGiiihDd3lZZHh9rjeOp/jcl6shq9e6Qx2xZzvvfS/kD+EmNG
+ TUZvZ9UF0oDOb+lgFfFrdwJ2Ll31WzE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEwNCBTYWx0ZWRfXzKL5eYSKolP7
+ 7pPyoK36XY0K3HB+9KGDNurZaFLPwb/mvg1AJ5uhAhpcgTnTw5TatNUgiMh7DnEZi43H/LHpsq0
+ SoefJwpQMHAAFVACKhPkAcTXAxcS/I/uJbLXlQXHHiejc3IaqFAqRjQIUG71hf6VGJFEwBDH253
+ Jy9uk+iOdF3EfY43CM+pxknQPlMBeFuP9KM4DtlwzFvC+g8ESftP2E2uaZN5OQG1pbcXNznj4tm
+ c6HAbxfHN/TqjbxapHo7lXH0bM4LsTz1goilL/1MUIu7qd7jTyuUHEJlcHho+Fn1n96yfbDkuQq
+ wqltVcaFaDJzjkQN4U8KEux61/UImhDviPfh5tSahF92WXE6JTjICzXkkVCW8Z8snSvIEVOr6oK
+ GrsdR0YAcqfRa8FN8En+OZKf19lkl0JXKskqF8KKrWt4Yzk+OA+mITOfWPThCUg5Yz+QfTR2z/K
+ fBuGFC0dNvAZSNjhqBA==
+X-Proofpoint-GUID: m_ZAvFd7D9raw2fBMU21YW6UQtsYSKKw
+X-Proofpoint-ORIG-GUID: m_ZAvFd7D9raw2fBMU21YW6UQtsYSKKw
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_03,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 priorityscore=1501 lowpriorityscore=0
+ adultscore=0 phishscore=0 impostorscore=0 spamscore=0 suspectscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609030104
 
-Hi Jai
+On 8/14/26 2:48 PM, Luo Jie wrote:
+> The NSS (network subsystem) clock's parent is cmn_pll_div2 (CMN PLL
+> rate / 2); it is then further divided by a configurable 6-bit divider.
+> 
+> Register the NSS clock through a new ipq_cmn_pll_regmap_div_register()
+> helper, built as a plain struct clk_regmap_div instance instead of
+> hand-rolling recalc_rate/set_rate. The helper takes the register field
+> mask and clock name as parameters so that the upcoming PPE clock, which
+> shares the same register with a different field, can reuse it.
+> 
+> Signed-off-by: Luo Jie <jie.luo@oss.qualcomm.com>
+> ---
 
-Thanks for looking at the series.
+[...]
 
-On Thu, 3 Sept 2026 at 05:13, Jai Luthra <jai.luthra@ideasonboard.com> wrote:
->
-> Hi Dave,
->
-> Thank you, I'm glad this turned out quite clean :-)
->
-> Quoting Dave Stevenson (2026-08-05 21:39:15)
-> > The IMX678 (8MPix) driver has been accepted.
-> >
-> > Whilst preparing a patchset for IMX662 (1080p), I observed such
-> > commonality between the two that it seemed sensible to attempt
-> > a common driver rather than submitting a separate IMX662 series
-> > again.
-> >
-> > On checking my box of sensors, I found I had an IMX675 (5MPix) as
-> > well, so that has been incorporated.
-> >
-> > This set proposes a common driver that is working with all 3 of
-> > those sensors.
-> > It's sent as an RFC to gather confirmation that the resulting driver
-> > structure is acceptable as implied by [1].
-> >
->
-> Overall structure looks good to me, I was able to stream with the Soho
-> IMX662 module I have.
->
-> > If it is viewed as acceptable then there is still a modest amount
-> > of tidying up required:
-> > - DT binding updates for the extra compatibles.
-> > - Rename the common functions so that the model references are
-> >   only on the model specific parts.
-> > - Add the Sony init sequence for IMX662.
->
-> I added most of the registers I could see were different from the default
-> values:
-> https://github.com/jailuthra/linux/commit/9ecb2d905581e9cf7ca61aa45c3b440fe7042307
+> +static struct clk_hw *ipq_cmn_pll_regmap_div_register(struct platform_device *pdev,
+> +						      struct regmap *regmap,
+> +						      struct clk_hw *parent_hw,
+> +						      const char *name,
+> +						      u32 field_mask)
 
-I just hadn't had the time to analyse the Sony docs when I sent the
-first stab. I've now done so from their magic spreadsheet, so
-hopefully our values match.
+Since we're doing clk_regmap now, you can just use the clk/qcom/common.c
+infrastructure instead of NIH-ing it..
 
-I've now got docs for all of them from Sony, so will check through them.
-And I've just been told IMX832 (new 2MPix) also matches this scheme,
-so that'll be another variant.
-
-If you're on board with this, I'll do a wholesale replacement of
-imx678 with starvis2 in common defines, function names, and the file
-to starvis2.c as a first patch?
-
-  Dave
-
-> Thanks,
->     Jai
->
-> > - Check the init sequence for IMX675 (I'm waiting on a datasheet).
-> > - Update the 2 lane mode handling of HMAX. IMX662 can achieve the
-> >   same maximum framerate in 2 lane mode with a link freq of 594MHz
-> >   or greater, and I suspect others can do so too.
-> > - Hopefully add IMX585 (8MPix) to the supported list, and Jai has
-> >   mentioned IMX676 (12MPix) as well.
-> >
-> > I wanted to confirm that there aren't any major objections before
-> > doing those cleanups though.
-> >
-> > For anyone testing on a Pi, I've thrown a branch at [2] which includes
-> > overlays for each. I've tested with modules from Soho Enterprises,
-> > but there seem to be a few different vendors around.
-> >
-> > [1] https://lore.kernel.org/linux-media/20260312150437.1091195-1-eagle.alexander923@gmail.com/T/#md6a186b4abd05fb035d020ce0bc562455ef5bed1
-> > [2] https://github.com/6by9/linux/tree/rpi-7.2.y-starvis
-> >
-> > Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> > ---
-> > Dave Stevenson (4):
-> >       media: i2c: imx678: Always program the sensor in window mode
-> >       media: i2c: imx678: Parameterise the configuration to allow for other models
-> >       media: i2c: imx678: Add imx662 support to the driver
-> >       media: i2c: imx678: Add imx675 support to the driver
-> >
-> >  drivers/media/i2c/imx678.c | 451 +++++++++++++++++++++++++++++++++++++++------
-> >  1 file changed, 393 insertions(+), 58 deletions(-)
-> > ---
-> > base-commit: 31152f5b0f8719f92063b8c6196cd5e34106c73d
-> > change-id: 20260804-media-starvis2-65a5bc405b74
-> >
-> > Best regards,
-> > --
-> > Dave Stevenson <dave.stevenson@raspberrypi.com>
-> >
+Konrad
