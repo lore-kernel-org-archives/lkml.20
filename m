@@ -1,166 +1,183 @@
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11021106.outbound.protection.outlook.com [52.101.125.106])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D76B349CE2;
-	Thu,  3 Sep 2026 06:46:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.106
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788417964; cv=fail; b=U+f41xiUkLcMrNPZFooOvf3srqLvBs/8eUVuLPC/nZrmVLywGrzq8wrB2mj5ybzivRXO4uEpSM8QwWjTAKiS0pppjzhpIfJ5uwjZXx09Ris5xc2KKiT3kKyTPMRYZ17TB/SS6cP7fNp/imxQR00ckDKlEAxt089z4bbWIEFyBlw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C8A64CCDE0
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:46:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788417964; cv=none; b=C4DxyXK3OPXYFffDLeL8zGMZKDAvsG/ofSsVqtq3w/UWtwJjarSSS1J608iryNdoxicwRVxERg0c4Wx8TnJw38U9Vrbyxi3YG+Etxm6+4IysShfqTdrCf8dXH8W/VZguGTuIJEs0oX+NcEGyzYfdl7q0n9fmja7x8W7l5qdumeM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788417964; c=relaxed/simple;
-	bh=bGfwnlJqK8X5PqsNMmh33A8vGn2VuAdEIVZNODKTno4=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=b9tp12pcRacevzYhapMgiTvdcBbNpm8mb90n0wOzkQnP8s5kJv1TvcqoP7PI2II4dYqEjZJH58KjCbDwICM2gcxYWl6IsURpkYv5sBpIOIvX7DOa6zeFgKsjdqzmy70s6y9N5IdQs6JiAb7AAEXsfh/Y2DOWC1hu32tciQPRGlk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=CuKuk+ki; arc=fail smtp.client-ip=52.101.125.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
+	bh=grvph8If3lzlAPYT4Gy+DR3UaTxrnwsGsahzCiaJkgw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GOcMEkn+1ngGJhFZBWdqOC0O05oTmJZ4NzmdQVCs/EH7YicHbZMp/vh+5Ov3thCZAV0blPpC7ixeqUYm2vlxx8qO3oPGXaQXGVgzI7UOIOu9b7vfWFAaOQOSTVBCjBsez0eFVMSLeRB2rhbcRQs0eYyJgRY+BKrOXK7fMTqBOMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=UUPOPmka; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="CuKuk+ki"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kiE5gpwYHNofQrefD0KIpQQj+9OOUQX7fQR5FCkEi3B5fteLSnbEtLi2pTlLX52++tapeLL5AL13hkHD7xj5s12cExXJCvl6SBI1tdY3vcw0Z9paU6RHDUSwG4ZEKm3t9RBzmY9+lOXMeRAYO1LsgMiDoZk2YuN3qFww3+VJEmM0C86DAdMEb3VUMkzmr8qNUOQwc9nSiEe8TyZQkXdregnQogqOWeL2EZRL2WU7hXAnwcU3ZsPsDzvRlPNqfNOykj0Wdp5NfJehmcaVIwcaR/zooBJgecMQZhCSXAP3kJlqYoKszjzYhWPlQ0TlHJ883CQSyVRWBOs0f8fhErdNsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2lZ5KwBpWmqZiNWiApuuBp0dvsXQpCYFAp5HQ9QvStg=;
- b=ala0KFxv85ogxHY8qnJTFhTa3kThtmSiKbZ/gmyCb+cnokt5GL1C8uKDnv1alw6YvGTBb0U05B6woqkOjK/6yPNcI1Pz/grWBjojestEpZfYDnfaVi5PvpqLrcNIo+2pUmLaDlWN+iculxscEpAyuHWY1mk7QBwF5Eh6QG6hnr7Rf6hmfjiFvx+WAzW9TUCwyNItv2kxZMsVKg7OyWPNWxt0+htZhZPeGfBk7jPXmV8upRWSGpQQkDw/cCt5k7NS4XnGt8GtRnFsi9Rmc73zd/dgV+lZftM/y0IxCqsmz9pwSu4m5uDVErLxu/5P3hwlU9JwjwBFtLFkZ2vBADfO4g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2lZ5KwBpWmqZiNWiApuuBp0dvsXQpCYFAp5HQ9QvStg=;
- b=CuKuk+kiuwrGTt71xr2p//l5ZSRk87FjO4arClxuqPBxAM5KdhnQEzuwquwVC4EbZX+Aggn2NcNhCw1bJ6SJPpHaIhAAcqzvwlGOUXEeX7/dDmiaBcNYuecsnpon0DJZOcNDQ+iTwwI5pAQEBw/TbXzWOfGBJ9FxaMH4mykw60Y=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
- by OSOP286MB7980.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:479::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 06:45:57 +0000
-Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- ([fe80::2305:327c:28ec:9b32%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 06:45:57 +0000
-From: Koichiro Den <den@valinux.co.jp>
-To: Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>
-Cc: Devendra K Verma <devverma@amd.com>,
-	dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/3] dmaengine: dw-edma: Prepare channels for remote use
-Date: Thu,  3 Sep 2026 15:45:30 +0900
-Message-ID: <20260903064533.2269557-1-den@valinux.co.jp>
-X-Mailer: git-send-email 2.51.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TYCPR01CA0170.jpnprd01.prod.outlook.com
- (2603:1096:400:2b2::10) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:38f::10)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="UUPOPmka"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49556f97a9dso15511545e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 23:46:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788417960; x=1789022760; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2fbpGmqELrmjcqUZI6/pjcd+E3CRw7Dc23xtKRKM6wo=;
+        b=UUPOPmkaQFiHC+fEGaFagmBii8kfSVyvPN7S1vtnHxUAOza4vDjeaa7sgt0bnlh7YF
+         lY9p7hu5DAYnGAAsjxUOIfdO6ma+cgeLn87b0xKBAvqSvCM0ppKEnL+hUTvhQNTvTgso
+         5d+8wRoCTQaD3EQguKHCD7dK9ZjyhrteB5Xt2Gp14lBubhq8jwLVKHST9ZbtwQtflazb
+         vXpxFkhkaRJ9KLivqTgCuyXGLlsnmTR5/+puNDnf16Mg+7Af30veWnrLZAEGewFWA9xz
+         Ks+37XgBsi5h2TFzGqJ0T/fRa9Bpq3tXjc621GUd6DTn4JGnWn5Am/rWA2dHl81EcBqV
+         4I/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788417960; x=1789022760;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2fbpGmqELrmjcqUZI6/pjcd+E3CRw7Dc23xtKRKM6wo=;
+        b=Ow886MuRZRM2i84a1qkBy5seB9+FKy/I1DA06IbRCUzHRH1LLyHConpgU+r1xZ8/LN
+         P0PJ3fYdUoWID/xAxmopEaCkkycfHn+83x4ZbnUge12ZDD0+lKLEDNSeR3ycU8LoD1nD
+         8xpO0nJsEjOUOAiFL0Vw8bbdarlMPtl2yyJeTgSaIXO1R1gtwIGi8sIFBmUx9oqY6Hio
+         B/ISFXbVMxLWGjUqsh9UzlIOIPBeNVrd39IX3WuQRzFfZa8j44naCGlO0oKz2RE9bvvm
+         g3Ws145Xsegb16Zi8ELr41DaDmXuyjOmHlXoYS9UdcLtVcFFHAN1RhYFFW8l619I5mIa
+         EuIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxXsWZ2HQEmDjs381P7UZQO9QdMieZv5W/pg8ANcLHW1LIkRb89GuX0D0ZXNbo14VLx7BQVsXtYd3vsstg=@vger.kernel.org
+X-Gm-Message-State: AFuF++llTa92Jvw0hnSb2QTM+oWuhYgTJnzrDtlXC6ZZnoD1XikFAisJ
+	zGz7xDXaHROW3SxJQUjSrfF8K7hPsiP69Mf5rvVupH3i6MPKH5H7fGr7BMpTNNf0Wtw=
+X-Gm-Gg: AYBFou1DXpqOXMoWxp1NScFCr8OQhjkQObnQwJvZqGEqms86nofIZwMv+gXYG7BUXwG
+	NFbhKqpCvFWDPQ4e1Hkw/F1pcqWNcqyazEkmCTT5ykrqyCL29LNiRK2A/754G0MwEOHF4ImPCN7
+	6hiVZAuJovIRm+arF0l2NEH5wFrlRbdUzUgdvtgTL1VH98705WeWw5BsCIh+5lnr+Zg6ChHkw4a
+	QJ5drAnjxJ2c4kyNge2GAADLE+A8bf6h7LpHpWpkeO9FvTjuigVuxOQccaQiIGzr2/mL2U4xljU
+	L53Zh9SZOQ5jzPiRF1VoEmt2ymoDwXyuZ+KDZZFWSvSUqNaymfO9U1LPvVeSh/UnBJE7RglyjYF
+	VmTi3H7LHhzfuk8gYEpZ0HbUJsqsOgdvo25y3uoLmtAKMeFN9/pDIlAkBzLx8r1ib7rYqvARzFH
+	sGsLFrf4CJA/9O/PzN50zXeWoPz7V/yE//X15D/SCN/uHVP7I4RS5X
+X-Received: by 2002:a05:600c:4e16:b0:49c:ee06:9c58 with SMTP id 5b1f17b1804b1-49cee069c79mr92774505e9.4.1788417959140;
+        Wed, 02 Sep 2026 23:45:59 -0700 (PDT)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1431990a39bsm3119881c88.3.2026.09.02.23.45.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 23:45:58 -0700 (PDT)
+Message-ID: <0aafc618-0cc4-4b4f-b5a4-99581b6fff5a@suse.com>
+Date: Thu, 3 Sep 2026 16:15:52 +0930
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|OSOP286MB7980:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1b5ab4ad-441a-4af4-0f85-08df09870277
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|10070799003|376014|1800799024|6133799003|10067099003|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	/mAoXbZVx16bupgsW13aZAL5aJYMWDuExCRHNtZHKhN35B41lN8CMDQ7EDKkXASK2V0sYvXxwUvd6gwWCKbDl/2WTR27Ku3tEqFDmcHrA+W2kru5fBq0AWB5Rc8P+ZwD3mQOiOFrAhBPsrBKxZzGdC/HPJ1IUg6YyoukakAIbpOsTm2eQOWUh5QKbySXWJZfqaNmVIklF/PFRzMbYWCwt+0mMeDEqQAZO1cD9Z6foAPzsaXId3FQiny35XPaxr06V1UgYW3lp0lp6aN5hbQvYZBOmxL7f1eVddub2WdO/Xm2fbFHHLGKQ1TMHmSyQhlDNqfMtrIMZ+FsMqmIVxwfuyBu7vIAZXsetOY65OzvlDmFixO5vaHlJfxUySaqjzgUWqbplSgv28IHl4wz9TUoewZZ4p7nntQ2AWvtA2tfr2DGUy7gNFGMP8Nc/6AX3tnKnE8qwkaZvPo35pE1mdLYI/Pov2wbbIdiXbmj2hgmLcWvqOavincLFu1WzUKNUfckEPz/GF8PrKIDn9eZaNeEOL+64YPcjs78K/P+r9nFAAWMoLFlFl/0yOilKHIkzA5za9S9gFesb+2lGDkv33Vl1tDUcrXowJpd4jiFowaWBgUCuT3cqajkSbELH2KjrMPd
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(10070799003)(376014)(1800799024)(6133799003)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?FMi4AZFDkPOQkuc2r73Ea70YlJbVnvnx++QkbTII8ceLRRGGLvSkeGOw9fY1?=
- =?us-ascii?Q?iDq7y9cK8kURfttbXNjXJ1Zu/fryvfjaoHQ+UGqzemz2JXtRdb28vdYvrX9U?=
- =?us-ascii?Q?lOx1j9TrX2IRNNF+UWRCWzqgTbp2XFIbcHrhEhwPjW4m1JdUZ9CHzuDyHQzd?=
- =?us-ascii?Q?5zcijcfOL0rTx7IzZjKpY+73Ab0g8NJyNkgPovTjkCAUo24mGTnn99YW/Pn0?=
- =?us-ascii?Q?nU137DRQ75IU+dC7xhYYtuqohoT6Dtt7+ilbz2UVKP78LhNSXRRsJ5ylhLoY?=
- =?us-ascii?Q?wGY195uYzC1nkddw5SMNqb/vvK7y3aCj7SRuoAO0jDaAkk0milA/4+NmkQUw?=
- =?us-ascii?Q?tCXEePq4g92hW/sQhvtLsuuZcIG9SqLj9VOkcYtTBNGqLoWRt1RUDTc8kT+B?=
- =?us-ascii?Q?s50Nh80sRp1AD7UqA+EPBYtLq9ODQeCdjudCXAaQVK3wCsJgs15mDuwyn3g7?=
- =?us-ascii?Q?iwWX7iqo+YSOkCWh8oafXu8aBZUjqFalchYVT4lk7KlddmUqex9tGnRsE4rS?=
- =?us-ascii?Q?Wa0+CKhUSGR2jOeTvaxn7b+O1Sii1TNNFISj18jfL5IIDt6imrLLSDS+ervn?=
- =?us-ascii?Q?Czi9149bXncvXbL06XrWIIr00k8M3f2OdBpd/WPWrSQBeziqPkeaUK969LnB?=
- =?us-ascii?Q?E5LuPyOBeaLz+ID98OCTmNGnZIoxZbPGiqHh1Cu+4xhus4m9riQMrzXP6eh2?=
- =?us-ascii?Q?d46CUAKhrqbDYIM66E8OhVlfUc+r+bBMO+ss84ffNJw5Z1vnhQVY91i0EIyC?=
- =?us-ascii?Q?jM4AeOqwSCltq3gxRGHGfUh+nGTVKY24Ets8VsA4N/HKlrYk2VJUhjX7zv/j?=
- =?us-ascii?Q?tDmqp7S3s2mAtH0jOQSiYE3Yxyc4qs9toru9OyPNiFMJ0b5Gl+wwpCFEm1r9?=
- =?us-ascii?Q?WChAl5keu1n8Sm6/BtECy8vpkN8yJQAVWxOXGVVyaLDCt6aX6FgdzbIrcw1I?=
- =?us-ascii?Q?STb4NI97xkF/0mhkBd0o8CszXTHQz9FxIt06XOw6FGA3TjkLPTU1zeDY6049?=
- =?us-ascii?Q?SSqfbcRc6/chiZN6FWefH6zl9O4RvZPuBTBLpXEvQGhuhWlmANURU7YId8wI?=
- =?us-ascii?Q?CDIU5QRiDl8TEaBMulYsKO/hzCJXkDRb6t2q3VyC7zQ8X5sGcXQ3GxpsHVlH?=
- =?us-ascii?Q?zze1n8AQ49wHjS/UsTMPuXEzQ42yc8nuFA82l5JCN/S7zCpJasArQHZ3KHBp?=
- =?us-ascii?Q?CExJd0VbCZznWIeevWzcWUJodR++4QEcShURf0/8MIybBOM8v3jVvLn2XVWr?=
- =?us-ascii?Q?MgizoDDGvgxRVENQmrfhlWu22/zHBP+lR9fnBRs8onA8Ihih96lTdLrwyT8w?=
- =?us-ascii?Q?ejxxAEoJ/Uq7AddEZ5SkYdk40tP5WFwfng1jsonLf2pe7hzpD+O8cvvap9U8?=
- =?us-ascii?Q?a2+bbMXXTRqP/z8tdkF/e+W7Q0n5TD6e3eFnex+nDYCeYQAQt61cnxjZ1q29?=
- =?us-ascii?Q?/iA2SwUvWzhExxUW4atSD0wJGPfTcaFkjlh52gLA9oSO2mKDem2YIewAHFao?=
- =?us-ascii?Q?mm4v1zMgLqupVEdei7VJib9ylUUkVpKzRjhMc+lsvmIbqaJVmXXAU9srOdP9?=
- =?us-ascii?Q?4PIZSCIobZkyowoWEjWlJkVQ373zQxDG1out0XA1FCL8bZB78UezQKtxYAnJ?=
- =?us-ascii?Q?cYrRTUIb21/yLRxbSSfXRUNPppzRuCv17zT7T0MecMViUCPWP89RCPteb7cB?=
- =?us-ascii?Q?4YM0scVuTq0oNFBMaUrNy429js1yKDiXauxICNTIJEzpdqMuXELaP0V2ZE8R?=
- =?us-ascii?Q?SPhjZ9pA3gV/7Kai4q2EqT2Za+mqD35wFsCEvDbSf9PHPDhKPHa2?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b5ab4ad-441a-4af4-0f85-08df09870277
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 06:45:57.7655
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NmMe8mHzsMfzYsjGT+sArKbM4fA4erOoXkhOLM2+UZVa0i0bTHVWH0SRiIj0EJhssKsynT3uMHXdTyNVGmCGbA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSOP286MB7980
-
-Hi,
-
-This small series contains standalone refactoring and new infrastructure
-for dmaengine and dw-edma.
-
-It prepares PCIe EPC-local DMA channels for remote use. The upcoming
-vNTB-embedded DMA support [1] will be the first user and depend on this
-series.
-
-[1] https://lore.kernel.org/r/20260831182657.329614-1-den@valinux.co.jp/
-    (This is v3. I will send v4 shortly.)
-
-Best regards,
-Koichiro
----
-Changes in v3:
-  - Rework patch 2 to use a common channel configuration, retain generic
-    dma_slave_config fields, and close the shared-IRQ routing race.
-    (Frank, Sashiko)
-  - No code changes in patches 1 and 3.
-
-Changes in v2:
-  - Split and rework vNTB v1 patches 1, 4, and 5 into this prerequisite
-    series.
-  - Fold in the relevant PCI DMA EPF v7 review.
-
-v2: https://lore.kernel.org/r/20260828163611.2691264-1-den@valinux.co.jp/
-v1: https://lore.kernel.org/r/20260312165005.1148676-1-den@valinux.co.jp/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] btrfs: consume the given iter directly instead of
+ copying in csum_one_bio()
+To: Daniel Vacek <neelx@suse.com>, David Sterba <dsterba@suse.com>,
+ Chris Mason <mason@kernel.org>
+Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260903062317.3928665-1-neelx@suse.com>
+ <20260903062317.3928665-2-neelx@suse.com>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXVgBQkQ/lqxAAoJEMI9kfOh
+ Jf6o+jIH/2KhFmyOw4XWAYbnnijuYqb/obGae8HhcJO2KIGcxbsinK+KQFTSZnkFxnbsQ+VY
+ fvtWBHGt8WfHcNmfjdejmy9si2jyy8smQV2jiB60a8iqQXGmsrkuR+AM2V360oEbMF3gVvim
+ 2VSX2IiW9KERuhifjseNV1HLk0SHw5NnXiWh1THTqtvFFY+CwnLN2GqiMaSLF6gATW05/sEd
+ V17MdI1z4+WSk7D57FlLjp50F3ow2WJtXwG8yG8d6S40dytZpH9iFuk12Sbg7lrtQxPPOIEU
+ rpmZLfCNJJoZj603613w/M8EiZw6MohzikTWcFc55RLYJPBWQ+9puZtx1DopW2jOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
+ cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
+ qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
+ /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
+ o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
+ JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
+In-Reply-To: <20260903062317.3928665-2-neelx@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
-Koichiro Den (3):
-  dmaengine: Allow drivers to assign static channel IDs
-  dmaengine: dw-edma: Configure remote interrupt routing
-  dmaengine: dw-edma: Account for the MSI vector offset
 
- drivers/dma/dmaengine.c            |  13 ++-
- drivers/dma/dw-edma/dw-edma-core.c | 160 +++++++++++++++++++++--------
- drivers/dma/dw-edma/dw-edma-core.h |   5 +-
- include/linux/dma/edma.h           |  19 ++++
- include/linux/dmaengine.h          |  20 ++++
- 5 files changed, 170 insertions(+), 47 deletions(-)
+在 2026/9/3 15:53, Daniel Vacek 写道:
+> This is just a small cleanup to avoid copying the iter twice in async case.
+> We already have a copy csum_one_bio() can consume directly. No need to copy
+> again the second time.
+> We can use this copy also in the sync case and get rid of the parameter.
+> 
+> Signed-off-by: Daniel Vacek <neelx@suse.com>
 
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
--- 
-2.51.0
+Reviewed-by: Qu Wenruo <wqu@suse.com>
+
+Thanks,
+Qu
+
+> ---
+> 
+> v2: Use the bbio::csum_saved_iter in both cases and simplify even further.
+> ---
+>   fs/btrfs/file-item.c | 15 +++++++--------
+>   1 file changed, 7 insertions(+), 8 deletions(-)
+> 
+> diff --git a/fs/btrfs/file-item.c b/fs/btrfs/file-item.c
+> index 581ca5653be9..4a7681557ec1 100644
+> --- a/fs/btrfs/file-item.c
+> +++ b/fs/btrfs/file-item.c
+> @@ -797,18 +797,17 @@ int btrfs_lookup_csums_bitmap(struct btrfs_root *root, struct btrfs_path *path,
+>   	return ret;
+>   }
+>   
+> -static void csum_one_bio(struct btrfs_bio *bbio, struct bvec_iter *src)
+> +static void csum_one_bio(struct btrfs_bio *bbio)
+>   {
+>   	struct btrfs_inode *inode = bbio->inode;
+>   	struct btrfs_fs_info *fs_info = inode->root->fs_info;
+>   	struct btrfs_ordered_sum *sums = bbio->sums;
+> -	struct bvec_iter iter;
+> +	struct bvec_iter *iter = &bbio->csum_saved_iter;
+>   	const u32 blocksize = fs_info->sectorsize;
+>   	int index = 0;
+>   
+> -	for (iter = *src; iter.bi_size; bio_advance_iter(&bbio->bio, &iter, blocksize)) {
+> -		btrfs_csum_one_bio_block(fs_info, &bbio->bio, &iter,
+> -					 sums->sums + index);
+> +	for (; iter->bi_size; bio_advance_iter(&bbio->bio, iter, blocksize)) {
+> +		btrfs_csum_one_bio_block(fs_info, &bbio->bio, iter, sums->sums + index);
+>   
+>   		index += fs_info->csum_size;
+>   	}
+> @@ -820,7 +819,7 @@ static void csum_one_bio_work(struct work_struct *work)
+>   
+>   	ASSERT(btrfs_op(&bbio->bio) == BTRFS_MAP_WRITE);
+>   	ASSERT(bbio->async_csum == true);
+> -	csum_one_bio(bbio, &bbio->csum_saved_iter);
+> +	csum_one_bio(bbio);
+>   	complete(&bbio->csum_done);
+>   }
+>   
+> @@ -850,13 +849,13 @@ int btrfs_csum_one_bio(struct btrfs_bio *bbio, bool async)
+>   	bbio->sums = sums;
+>   	btrfs_add_ordered_sum(ordered, sums);
+>   
+> +	bbio->csum_saved_iter = bio->bi_iter;
+>   	if (!async) {
+> -		csum_one_bio(bbio, &bbio->bio.bi_iter);
+> +		csum_one_bio(bbio);
+>   		return 0;
+>   	}
+>   	init_completion(&bbio->csum_done);
+>   	bbio->async_csum = true;
+> -	bbio->csum_saved_iter = bbio->bio.bi_iter;
+>   	INIT_WORK(&bbio->csum_work, csum_one_bio_work);
+>   	schedule_work(&bbio->csum_work);
+>   	return 0;
 
