@@ -1,165 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A3714A99DC;
-	Thu,  3 Sep 2026 13:41:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D2B4AFE19;
+	Thu,  3 Sep 2026 13:41:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788442909; cv=none; b=HNJLQ1WGmsqbZhK7u73kBB9NTWi38jCpcDBRCZEuDTUY/7FWTY9vBFO7aM6LpIJZbVKjWFgPPTaSjjYPYbtYzPSjW4QyXu5ozEBl+QcljeUw9mRF81NSg91oRqsSRkkKbxTaGLae8C9rZKoTaXs8UwziuEzsNVnmq55FIjqPY9Y=
+	t=1788442930; cv=none; b=B9ZoQxk4gzOOpimfBm4IDtuYs/zBz/wsbHZNrPlDPcFh1DivD0hD6bk2G9Cn6Wht013CTr+jE/QID+/yos9FVYhT3t67aExQONA6I6dlmhXIV2YGlYHLsXmbuitWg5DZ6dyi4UyRS6Gv7EIBJoTscFXJUgrIywa22Mph2r4/ZGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788442909; c=relaxed/simple;
-	bh=OlDlBU8H6Yr40egOlPOoZqoQpqfWfvNnjvU6Bx3JZrw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZBVKqlNGWX17dAu8WD+nBUBLT8WcCX/Sdl+wmYDtfp+k4JMJ4xCg1NAj1AKxo3JcvSA9Dd+U7ttophiU1zfKSe8Q+IgPXoRyEQYsjKMbfxJeqlqcqPMGn2OUYshIhZWqtgB+ORUvQ8S+EsLw7AWde9hXlG7zfXMtqTE/btivuL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DqHeLJdi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788442930; c=relaxed/simple;
+	bh=wfAQ8E+IKgFGyC/cVeyKjEYkid2jrjWD9NP/PX8wz64=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=C5fClXkPAnW5k0QVlONtigDV2ReyZg5OVT3k9FoB5z6D1Z6tDaLp7lHlVbiug7SnUaepM5VinlS41n1j4Q5dcjpGRsMm/ywUq1xER2ufjE0KfyfDZnKSIUPnFeLFvP/MN1PBQLqauyjqbEVKWNIfjoltgNMn2zw1lQtIfbux4KI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nbFrnCNk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DqHeLJdi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87A781F000E9;
-	Thu,  3 Sep 2026 13:41:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nbFrnCNk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 888771F00ADE;
+	Thu,  3 Sep 2026 13:41:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788442892;
-	bh=EVbRQyeXxqDgCKuWHkI0ecDEbiaP5D0ljFlaLjBe0RI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DqHeLJdiMo9GzZodhWltEv8yDRF+m9zNQgC5U/lkUY3vj/fqX/NRMxA87Ly8BF8wc
-	 NjQvtIUJMlfEh2e5yKugk6iV+mVAHw/inhH1gNjpTiXNuPwv3+hl4O1QrgC5G/nYGp
-	 X3IWtfnQFNZsYuPRIA1+XG7qR5uNCB25/er6ojIEyFBKL09MNgIO94npa9oUbKBvRC
-	 KBIoPxE7OEXce7UiHb4ZNDZi5jNzv4Sueo2efaoDNbEdRDPQIeDSuI2Mu92Y9UQSK5
-	 gF8/6Z8MJuTbO8JIkak24X7/vFEu7hjcZRAnrNgDiKtAcULjqqt0Vx5S6KZ8NtMTHh
-	 /yBk5SuJ3naag==
-Date: Thu, 3 Sep 2026 15:41:29 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Peter Marshall <pm@petermarshall.ca>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
-	Sylvain Petinot <sylvain.petinot@foss.st.com>, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH 5/7] media: i2c: st-vd55g: Add generic driver and VD55G0
- support
-Message-ID: <20260903-gainful-mellow-mantis-f436cf@quoll>
-References: <20260902204549.657228-1-pm@petermarshall.ca>
- <20260902204549.657228-6-pm@petermarshall.ca>
+	s=k20260515; t=1788442915;
+	bh=geF6WALf7xC0WTU/xL5vCeQU4cild6GxbwLKnsro0qo=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=nbFrnCNkHw6aY19TTU8t06idTyAJp8sjQpIrjIrXOWFAcIO4Tq4ldv3IicKOXRhba
+	 F7V7dxBc3sSWT5zLD9xro5zmSAX8+LQueiFqXhmspQhXEr3hKfHADMccZCgQTjeXAM
+	 WcT72Nvx6IdLJQwdGaEO8aJlk52D4uJCWbSpTm4epxuyvUPajRF9ja1QFgBKcuICqF
+	 K6JykQjftr8dnRjs80nWbSs3Lbceae3vOHkQWVCtw6D+L1k1/l98/9ajv3be+p1Rpx
+	 mugcZ3xa7QDWt9qmUJegZ3DqwClW5IJavoVR2kDXfqrnerouANIONd/dHXIXeVl0OX
+	 TY5OTl8iwcjLg==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id ACF33F40066;
+	Thu,  3 Sep 2026 09:41:54 -0400 (EDT)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Thu, 03 Sep 2026 09:41:54 -0400
+X-ME-Sender: <xms:InmZao6W0C7NzE7ywIrM2UqwEQvFCEGuwSk_dqXIRweaqLVm6-pMrg>
+    <xme:InmZakuCiiAEniZh7XvYbZtTCIjIqMPprG6uHnD57c5zlkFmuOW_q6ZWrHyW3U4E8
+    0-2UoOwb9GlXh6UWjTNN52JlStnjt3BxotkXepFas9SphDw4bV7Ks4c>
+X-ME-Proxy-Cause: dmFkZTE53fCEih77ubYil0PnVXNTDMewFXnj9ZnynhIhwXaO4LHUiH1n+lNk2du0CVeHat
+    JBFQODxa9bJKXoUunpv7uBPFH3jz/DtaGCyq3+b68m9mym93HV9yE03SZvmXgY/VDmq9wN
+    6CjH48hmGKAN4yNjv5bdbSCipfwxvwqrhM1W+2t9VwK3JBw448tGmc/S7QyuMUWfY7z+oj
+    6KMJ2nvLYaQxzSQ+AXe1E/qtfYZK4nRxILKZuBt2+b+wYylDFtVqQoplWfJTfasR2eNPQL
+    AuWq8IJtSiN1OhGmr+s+X+WR0XcZTFujz9pppinHDJbyQrqZ8MIhkc5RWphgSFaxFZeYmH
+    yS6DQ20yXq4ltZl2zeLn1wynUHhV9ph+9gmSyfCW9R/Tt0Qxp1fK6KMzObUODm7CYCbAYy
+    HoA3Tnpre3GB3rutQ2RcMHGD8uUO1FqbdZwo/6ETDTLcXheADxTxbqy0u3KEFIVhTf6L/n
+    8M+q4FYM01bon/IbOoWnyBcj7IiovIFVOQj/M3g7Ph//o/No+GF5q0tdDBft1+r8Qa/mJo
+    rqqvFRq6XTANIcVy6doF9MFfEPLO0O/oDeIJtYfNpqfVEDlHA3Ugg9r7918u6jMpfZJNz6
+    tkY3uEHMStfAdTzrrRqFVtaQs43PoaJhD874KmQ/DwTePHy+7G7uA+ki3TVA
+X-ME-Proxy: <xmx:InmZal48htpUTb0SxjvL95nxnIfCL3pGx0whPlNj1RYcU_yBwquuFg>
+    <xmx:InmZat1GPF9vTEYq_in3ZJH3duYtbSR_OHbzqzHlPizj_OaLz9WzEw>
+    <xmx:InmZarcwGbzO_OnVTg1gK4IyK-alaLVdlE0_htiMaQGqDookeYTWEQ>
+    <xmx:InmZajcsAFK3I3fNnCBKZNY508qYVfBy71jgZxF4oHCgpwGKxqwxDw>
+    <xmx:InmZamwZxHFotsmF3MdKZkTfquOt-plPXbtHT9bF8EktbFKS-wAFtnNj>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 908DF7811F0; Thu,  3 Sep 2026 09:41:54 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260902204549.657228-6-pm@petermarshall.ca>
+X-ThreadId: AD3fe1Cggn43
+Date: Thu, 03 Sep 2026 09:41:38 -0400
+From: "Chuck Lever" <cel@kernel.org>
+To: "Tejun Heo" <tj@kernel.org>
+Cc: "Trond Myklebust" <trondmy@kernel.org>,
+ "Anna Schumaker" <anna@kernel.org>, "Lai Jiangshan" <jiangshanlai@gmail.com>,
+ linux-nfs@vger.kernel.org, "open list" <linux-kernel@vger.kernel.org>
+Message-Id: <d9bde347-6ca2-48e7-b0d2-768bfb7c653a@app.fastmail.com>
+In-Reply-To: <aph6yYag8LeZxmyn@slm.duckdns.org>
+References: <20260902-performance-v2-0-b71c0c082f9d@kernel.org>
+ <20260902-performance-v2-5-b71c0c082f9d@kernel.org>
+ <aph6yYag8LeZxmyn@slm.duckdns.org>
+Subject: Re: [PATCH RFC v2 5/8] workqueue: add workqueue_set_affn_scope()
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 02, 2026 at 04:45:44PM -0400, Peter Marshall wrote:
-> +static int vd55g_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct vd55g *sensor;
-> +	int ret;
-> +
-> +	sensor = devm_kzalloc(dev, sizeof(*sensor), GFP_KERNEL);
-> +	if (!sensor)
-> +		return -ENOMEM;
-> +	sensor->dev = &client->dev;
-> +
-> +	v4l2_i2c_subdev_init(&sensor->sd, client, &vd55g_subdev_ops);
-> +
-> +	ret = vd55g_parse_dt(sensor);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to parse Device Tree\n");
 
-Isn't vd55g_parse_dt() printing errors already? How many times same error
-should be printed?
 
-> +
-> +	/* Get (and check) resources : power regs, ext clock, reset gpio */
-> +	ret = vd55g_get_regulators(sensor);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to get regulators\n");
-> +
-> +	sensor->xclk = devm_v4l2_sensor_clk_get(dev, NULL);
-> +	if (IS_ERR(sensor->xclk))
-> +		return dev_err_probe(dev, PTR_ERR(sensor->xclk),
-> +				     "Failed to get xclk\n");
-> +
-> +	sensor->xclk_freq = clk_get_rate(sensor->xclk);
-> +
-> +	sensor->reset_gpio =
-> +		devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
-> +	if (IS_ERR(sensor->reset_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(sensor->reset_gpio),
-> +				     "Failed to get reset gpio\n");
-> +
-> +	sensor->regmap = devm_cci_regmap_init_i2c(client, 16);
-> +	if (IS_ERR(sensor->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(sensor->regmap),
-> +				     "Failed to init regmap\n");
-> +
-> +	/* Detect if sensor is present and if its revision is supported */
-> +	ret = vd55g_power_on(dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Enable pm_runtime and power off the sensor */
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_get_noresume(dev);
-> +	pm_runtime_enable(dev);
-> +	pm_runtime_set_autosuspend_delay(dev, 4000);
-> +	pm_runtime_use_autosuspend(dev);
-> +	pm_runtime_put_autosuspend(dev);
-> +
-> +	ret = vd55g_subdev_init(sensor);
-> +	if (ret) {
-> +		dev_err(dev, "V4l2 init failed: %d\n", ret);
-> +		goto err_power_off;
-> +	}
-> +
-> +	ret = v4l2_async_register_subdev(&sensor->sd);
-> +	if (ret) {
-> +		dev_err(dev, "async subdev register failed %d\n", ret);
-> +		goto err_subdev;
-> +	}
-> +
-> +	return 0;
-> +
-> +err_subdev:
-> +	vd55g_subdev_cleanup(sensor);
-> +err_power_off:
-> +	pm_runtime_disable(dev);
-> +	pm_runtime_put_noidle(dev);
-> +	pm_runtime_dont_use_autosuspend(dev);
-> +	vd55g_power_off(dev);
-> +
-> +	return ret;
-> +}
-> +
-> +static void vd55g_remove(struct i2c_client *client)
-> +{
-> +	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-> +	struct vd55g *sensor = to_vd55g(sd);
-> +
-> +	vd55g_subdev_cleanup(sensor);
-> +
-> +	pm_runtime_disable(&client->dev);
-> +	if (!pm_runtime_status_suspended(&client->dev))
-> +		vd55g_power_off(&client->dev);
-> +	pm_runtime_set_suspended(&client->dev);
-> +	pm_runtime_dont_use_autosuspend(&client->dev);
-> +}
-> +
-> +static const struct acpi_device_id vd55g_acpi_match[] = {
-> +	{ "SMO55F0", (kernel_ulong_t)&vd55g0_chip_info },
+On Wed, Sep 2, 2026, at 3:36 PM, Tejun Heo wrote:
+> On Wed, Sep 02, 2026 at 03:28:50PM -0400, Chuck Lever wrote:
+>> An unbound workqueue's affinity scope can be changed only through
+>> sysfs. A module whose workqueue contends on the pool lock at the
+>> default scope has no in-kernel way to select a finer one, because
+>> alloc_workqueue_attrs() and apply_workqueue_attrs() are not
+>> exported. Exporting them would also invite a caller to apply freshly
+>
+> BTW, please feel free to export them.
+>
+>> +int workqueue_set_affn_scope(struct workqueue_struct *wq,
+>> +			     enum wq_affn_scope affn_scope)
+>
+> No need for the line break.
+>
+>> +{
+>> +	struct workqueue_attrs *attrs;
+>> +	int ret = -ENOMEM;
+>> +
+>> +	if ((unsigned int)affn_scope >= WQ_AFFN_NR_TYPES)
+>> +		return -EINVAL;
+>> +
+>> +	mutex_lock(&wq_pool_mutex);
+>> +	attrs = alloc_workqueue_attrs();
+>
+> Maybe alloc outside mutex and use alloc and mutex guards?
+>
+> Thanks.
+>
+> -- 
+> tejun
 
-Use named initializers, like in the OF table.
+All applied to v3 (still unposted). Sorry all this has taken so long.
 
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(acpi, vd55g_acpi_match);
-> +
-> +static const struct of_device_id vd55g_dt_ids[] = {
-> +	{ .compatible = "st,vd55g0", .data = &vd55g0_chip_info },
-> +	{ .compatible = "st,vd55g1", .data = &vd55g1_chip_info },
-> +	{ .compatible = "st,vd65g4", .data = &vd65g4_chip_info },
-> +	{ /* sentinel */ }
 
-Best regards,
-Krzysztof
-
+-- 
+Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
