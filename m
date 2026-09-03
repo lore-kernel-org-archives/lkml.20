@@ -1,95 +1,125 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09334DF4C7;
-	Thu,  3 Sep 2026 15:55:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B4CD4E8DF5
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:56:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788450950; cv=none; b=RsT68snG/LrLPyrFRNMC7A+tQIoStJ8/mJmczew+PT4A3xQTYkWA6aaxHNvJiPr95jduzG97y3vAXv7cMGh2WVfpCBMXj8ag+VuJkWdtw8s4E4qRWkMLyRx3SMAOLjbWvkq/irtyOwndXx2cbBZoslWeT21i+GScHq2+f4Zky7o=
+	t=1788450983; cv=none; b=oPGltcsct+vp2eJDPII7Db/m0DK0gYlWCsTdfQJinkds2ayHBLOnfDjNR5Wn4mk/SjLInh4ty9NagKEYR9O+hS0bh2BKlaZBbXQERg6Ljx42itfg1AlyyJ0D4ZisG2u9Qw1buUuDcVjB/9/YVt6FJtKKZbGwAKPZB91NPTM3W7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788450950; c=relaxed/simple;
-	bh=LgeelbVKSm5sk7+lSiVeSDJzQG9WZu9cPjkOzcdgPZc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mXVerCuzQ0OT9dSrJopIBkWdw+tP8dxazVVsPwhRdRbjmA+GxnhyzPOXfYVNB9o4NGCMnnOtNvLpDulSZaJFAjFwkIWP1a5aVnJ8TfH/dQA5Tp/wbBzy44NUfD4KmcItffJJQoVsMTsTxtySoxXsxcvtmVjG/j2IPhz4LIJeAfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=XrLmbpg+; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=aI1URO8r; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788450983; c=relaxed/simple;
+	bh=9BK1kyxk5Z0/CaDbriSQ++DzrreFQG+kLaclcVYwGN0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=o9ESAQRDew+HdO/0ZsbyTvBkov2EonTT/y/5/k4C7e+7Wio+h6aYTiTT7LsWImmUsG6iHxCTQxcw7JcnLROIbFTDA++LFhonILw91H8+b8TNr3Gy0V2vTy1a/uL3pXrCSI5s6Yn9YGnL/XeHYsBroQ+KTb2nPRJPF61N2dQRo4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=btkRkqlf; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="XrLmbpg+";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="aI1URO8r"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hbPMK0J5LzKvv6;
-	Thu, 03 Sep 2026 17:55:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788450941;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=gqMbHiSzzKPHp90VgyMlKPKExPNihmb7zR3T0IjUqH8=;
-	b=XrLmbpg+OwSfV259lA0s0Qo+MRFJfCCNc08Rm2EGOxyS519OUtYJ3P0iC7Qgp2ZVCFBUOk
-	V6FMoxf9HhOCtBMFHDSnsKMkdykYjTm3m68JPS34SOOoI0P2zdFeZgRKuS7EoAgffy1OFZ
-	uZ1Ss/3dSGdHgWt+TVITw/x9GO5FGWE7ZtgaPdO2uC+5DGWwIq/S6KtTSbhjEK2p49JH7r
-	0n5eKS8cCXdUVgkIvxrMdWnW5OKud28EGFXGfaRv22w6CCmGyAmcg+oG9ndLDwZ2y9PeAq
-	fug0mfEHzZEp1zB2CROC3s8RestrLYqp8UcDDJLdkrrc+mbkeUeBL+9M5jDr0A==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=aI1URO8r;
-	spf=pass (outgoing_mbo_mout: domain of manuelebnerli@mailbox.org designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=manuelebnerli@mailbox.org
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788450939;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=gqMbHiSzzKPHp90VgyMlKPKExPNihmb7zR3T0IjUqH8=;
-	b=aI1URO8rH9YQHQjVLsBxeplmzB9N6YtJLhQQ3blxXs5PoYH/ABCW7i1g7N4fnvSCLrVyRs
-	bGTsWwbJzWOXJpgdHgL7XOoRuAxNkXYk8CW5AfSwWiIET32AecaDpJc+vcD6yywbuzo59e
-	hBtCnOtHNGivjBZlFQll9HJsgcFaSJs4Rmblqy5MtwxvJ7pSbkv1MCxesAr1Rr4V/aGjgQ
-	ZrxdOM6kRV7lqKQvWbjCDHI64T3ELGHO8i01gai6lVocBRr/OpaRGE0KsZOONwHfDeMfHZ
-	6/V/qrCZ3vOlRoxRwCYI+cnPJJXi+WjDzo8Qx/kwdXahtAoa92A3lkK4mggf8g==
-To: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
-	linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="btkRkqlf"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-482e2fdf5abso9375f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:56:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788450979; x=1789055779; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Qf5A2iWXrze7f/WQGCmLESIXScEzdMF2bet/pRtY3Is=;
+        b=btkRkqlfotTbaNJJyaxS4LwL7rBuN8VRekBWvzMifhXVTv7st8iBwhg2et4/seMKtS
+         5kuo1D/4VmvPntokf67cJPDTL4LNAz+SGUysGEw3s5N98UdMU1ZtwhVAvhi+ugahidtT
+         jfSwJQ7pt+GVLsXUHRvvPtjmuMziLsx0F1yEEAC8PWrg/W1mpyacXoyLgZGqnQVA273r
+         n2i5GatRaL7j9G+lbpjzzjimD0AMbaXAu3o3KhOAfahyW52IJHcUxKg0SCr+TeVFtSYl
+         LGlpsCEQRtO0rJ3q7SZbTqvR4ugigRDWDeGnU0OgmVdqIfW8u//Ii3evKOY6AJACEg0S
+         DACw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788450979; x=1789055779;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Qf5A2iWXrze7f/WQGCmLESIXScEzdMF2bet/pRtY3Is=;
+        b=CLOL6SQBTkaAT/ADPX8aC7e0Ra5LwZTRopbpT3iMY6oj7YlZszFcwOC3nTOZM0n69w
+         bzb8nZwLCyEYuKnZvZEAh708bwpO0nW8YLNHgrQffrrKPA6KYNGDfTls2pM4gVzN0J0T
+         kN6R1YOseB/q2miu7eXdqar4LADoe7eF+56K+j3Y66sNAB5SI4pXimSam8ClK0qr1uEq
+         Vem2T3lyMfewES9O2BKrPKfYtVBQMwngPs1+xCa/wm95l+cVQVFwHHm7pFdQblrN72X6
+         wwah9hxuxcwNMRajQaqUtw2TdPvmJ7BumotDq64CQDEYS4ojCTdt9Syju2T8kf/OPlLU
+         keJw==
+X-Forwarded-Encrypted: i=1; AKwUvBzrRvQOXxzk4+YDKZcVjEtioGWHIRekWam5Zp4IKaAhd16OFzj8MV9KqXdntGQq42gsPsuodbFYbH90Ow0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMq97k2P/g594TzrYmpyXPKeOXUQo0tkjUFspKuPNIdDX/yknA
+	5eG3xEPKyuiXh9xLIsmASzndKwmoEYyN0ST/tihyGxFniLTZk18KWUwt
+X-Gm-Gg: AYBFou3zkuZ2cVyay1j+wmA8PiRp5MrPpMLvi2ogJf6yO3lyNdhQJeZvhFb1UzX4PDG
+	SEI6pg51a/++5K3G1tq6aq2ODhGBt8UPrvUwEX5cI2aCOio0dAgOC/rDcjSWU5fCURm+UT///W0
+	CrI0yAtn0kHkfGLoSSbCSxMjS2GHE3UaQbaiXqFRfQfhbHjp6TAGI6HaMdL5fYtrosvxLVgVyvb
+	ZS80oZgS8IeCZ6noM6NYsHWbwzTYHjJNxhFwQ615cCIHGLwFUtlEK4jAsQLAA5vdZ/fkO3qW45F
+	14060T8WPW1+rzSz/xWaGBzshL04f/nr+SkrspFkU1C2zampz+OHsuLuUtRJ9EE6d3iiA82uIs2
+	hpyxHFIcae4bmA1NwSot3mDdBDNPAj2i+iYNRHUvpLN9oV7LPPCV7paFCDLK0S54xyPNdIV+aYZ
+	0uZV43FAXarf4AP66AEit6byP+FFqH1D0MBqJ7VyPZ+OWpBfPeC/cMvIlBt1xDlcWdeltU31Tip
+	pTLWZePo0EExvFH/8/yNHX4AiTPrQrKc44xEQ==
+X-Received: by 2002:a05:600c:354b:b0:49b:d03:8d3a with SMTP id 5b1f17b1804b1-49ce58180bbmr220232615e9.11.1788450978626;
+        Thu, 03 Sep 2026 08:56:18 -0700 (PDT)
+Received: from omos-acer (109-81-21-204.rct.o2.cz. [109.81.21.204])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee6024a8sm80527185e9.6.2026.09.03.08.56.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 08:56:17 -0700 (PDT)
+From: =?UTF-8?q?Ondrej=20Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
+To: Paul Moore <paul@paul-moore.com>
+Cc: selinux@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] Documentation: gpio: Fix bracket
-Date: Thu,  3 Sep 2026 17:53:44 +0200
-Message-ID: <20260903155345.733244-2-manuelebnerli@mailbox.org>
+Subject: [PATCH] =?UTF-8?q?MAINTAINERS,=20mailmap:=20update=20email=20addr?= =?UTF-8?q?ess=20for=20Ondrej=20Mosn=C3=A1=C4=8Dek?=
+Date: Thu,  3 Sep 2026 17:56:15 +0200
+Message-ID: <20260903155615.516010-1-omosnacek@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: k55dxrp9mzpghfmeotqox7aegew16sxq
-X-MBO-RS-ID: 0fe043b500e8bc56f5e
-X-Rspamd-Queue-Id: 4hbPMK0J5LzKvv6
 
-Balance parentheses.
+I'm going to use my personal email for kernel contributions from now on.
+Update MAINTAINERS and .mailmap to reflect this.
 
-Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+Also switch to use proper spelling with diacritics, since I normally use
+the full Unicode name with my personal email address. I'm leaving
+in-code occurences unchanged though, as that would be just unnecessary
+churn.
+
+Link: https://lore.kernel.org/lkml/CAFqZXNvOGbzy8-ZnJtKi94jfu2H173Tz7VYpK8KuseMQS-9tNA@mail.gmail.com/
+Signed-off-by: Ondrej Mosnáček <omosnacek@gmail.com>
 ---
- Documentation/driver-api/gpio/board.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/driver-api/gpio/board.rst b/Documentation/driver-api/gpio/board.rst
-index 4ac1e12cf..83b74843e 100644
---- a/Documentation/driver-api/gpio/board.rst
-+++ b/Documentation/driver-api/gpio/board.rst
-@@ -55,7 +55,7 @@ looked up by the gpiod functions internally) used in the device tree. With above
- 
- Internally, the GPIO subsystem prefixes the GPIO suffix ("gpios" or "gpio")
- with the string passed in con_id to get the resulting string
--(``snprintf(... "%s-%s", con_id, gpio_suffixes[]``).
-+(``snprintf(... "%s-%s", con_id, gpio_suffixes[])``).
- 
- ACPI
- ----
+Hoping for this to get picked up via the SELinux tree, since the main
+change is in the SELinux MAINTAINERS entry.
+
+ .mailmap    | 1 +
+ MAINTAINERS | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/.mailmap b/.mailmap
+index 6803f3bd2865..0e672a60afdc 100644
+--- a/.mailmap
++++ b/.mailmap
+@@ -699,6 +699,7 @@ Oliver Hartkopp <socketcan@hartkopp.net> <oliver.hartkopp@volkswagen.de>
+ Oliver Hartkopp <socketcan@hartkopp.net> <oliver@hartkopp.net>
+ Oliver Upton <oupton@kernel.org> <oupton@google.com>
+ Oliver Upton <oupton@kernel.org> <oliver.upton@linux.dev>
++Ondrej Mosnáček <omosnacek@gmail.com> <omosnace@redhat.com>
+ Ondřej Jirman <megi@xff.cz> <megous@megous.com>
+ Oza Pawandeep <quic_poza@quicinc.com> <poza@codeaurora.org>
+ Pali Rohár <pali@kernel.org> <pali.rohar@gmail.com>
+diff --git a/MAINTAINERS b/MAINTAINERS
+index fc320b373656..875d0baed8b9 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24772,7 +24772,7 @@ K:	\bsecurity_[a-z_0-9]\+\b
+ SELINUX SECURITY MODULE
+ M:	Paul Moore <paul@paul-moore.com>
+ M:	Stephen Smalley <stephen.smalley.work@gmail.com>
+-R:	Ondrej Mosnacek <omosnace@redhat.com>
++R:	Ondrej Mosnáček <omosnacek@gmail.com>
+ L:	selinux@vger.kernel.org
+ S:	Supported
+ W:	https://github.com/SELinuxProject
 -- 
 2.54.0
 
