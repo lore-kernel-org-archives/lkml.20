@@ -1,126 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDFC503BCF;
-	Thu,  3 Sep 2026 21:10:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E68B3B6BFD
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 21:13:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788469844; cv=none; b=QK5jL5pjB5kYGSXPi4G6OKgQk6TDomxAa1ycYiH7P/SN7hTwLqdaiu1X42n5RKgdl7uXa67EgJqemylac5j/O0LmUO0A3NkU3q7oXMW5TVj4S1q3gbFdzPPe3TGaH5ErafkxRiL5TfbOM55/PNyfnVDfGA6RDJnpSvHGF+3pR8s=
+	t=1788469987; cv=none; b=kbw8a4ipWiWTJ7Bly98w396DxWm2AEwkzkOAHhWIRnuxvPju0GS2RgxdkG6dXUmSgyIYW8MG87xptYN/Ljmstg1ByK4oSLwmnfDm3UI8KH8mbluaszYItKwvEMg3rAVaaIoA/8IMGFmZzm4xHc8nKOyN8YMSH1Wqweky+u2vii0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788469844; c=relaxed/simple;
-	bh=0Cb2eNZMcOeloN0iBVNmGPSquG8IxZZ6t5T2eT3wTy0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KkUzheDaB5OXVxb9p6uGYyW7RZd8h5tRGsFgEGvkdEZOLMIhGbZXBCl7AieLIsKZdKDQgBrJjt6GBqo4LwKDqij9tZwIp7+nshBOiLN1pxoqOiUFczF0OJjCR3LGTLBS7gpenEH16xOK5hpUHgRKCriBGj6M1gsnrFf3S+trvWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B+60M1SI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788469987; c=relaxed/simple;
+	bh=/SXNaYAzOtG1exBAfYMsRpUkcMovgrlxcT5oK0UNJoY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nwNLVLYm14K+PevpXGz6R6OlKYYcEdD9teFMufKPwfFvKRa3JBWXnjDJa9w3M88W5RCnUm1BrtSoaXeaqMWm6UwykZk0rRHZMX5z6sh++sT+66MnreeluXaovvsPAAP9xo5alb1Y/Lwt5SN3MWblEm1KUO32GSC96EsNapFsTVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H30SvNco; arc=none smtp.client-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B+60M1SI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46C011F000E9;
-	Thu,  3 Sep 2026 21:10:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788469840;
-	bh=6oeSnVhtmyqj21FKsdZ1xnSqIFIro7Jqz0lXnsWJ9fA=;
-	h=From:To:Cc:Subject:Date;
-	b=B+60M1SII7FskWzBefV8lkrasipN5K7VBshmb8NLRrh2ZlyJ7w8jUhX5C4093hTUx
-	 6z5HrR51BIRhK4pckfbjL3T9C/6TcNQ3zxgKgRZ3oEVluJd3mIqkuJG0GqbfU5H8fI
-	 iBAxvt0LNBhKTyYFUS75oa8IpwsTHgDh/i/QZ6VD0a/PCYIJ/7H9PGB5Sn1I0JhzFd
-	 N64UvZ+QgfUPYlgJkKHvFx0aslpzMVmxSk2HGmuv3umI7Ktp34Vaqw31rCt7AMlq6N
-	 P+hEODQTFrFys+a54FAeC+2nHjI4MrgHFz8UAggH6zb9LexZK9Neg/NcQUYt3+RkL/
-	 eQ9j66bOTjXmQ==
-From: Thorsten Blum <blum@kernel.org>
-To: Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Cc: Thorsten Blum <blum@kernel.org>,
-	linux-crypto@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] crypto: atmel-tdes - simplify DMA buffer initialization
-Date: Thu,  3 Sep 2026 23:08:46 +0200
-Message-ID: <20260903210845.162790-2-blum@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H30SvNco"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-84830c774a0so304677b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 14:13:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788469986; x=1789074786; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/mj3IVRmoCFRi1EC9+dVyk39SNMUGyb4URbFkvdpey0=;
+        b=H30SvNcoJr0RF6gresCkpTwoVVzuNC0pjaGGpreHTSKfprQVVizSNpBk7PIJPoyGBr
+         y3ER69pQ4v1MFrHU3rL3JcMni/gf0wGTkGc8yQR9PlMvAWPg3voccltIbSSdrFBl0jqV
+         +ocsF0mphFV2DpehV1Cnvx7lNUHHfFmntxNrTUbKtnbWuGeXq/sJR8QEGIHcovlLh9Gz
+         GXMymmZo8C/RBUln+VbkpQszrTrTphj+5jD8gV2noZLFBymR1gu79WBMbiElzH1AuPTQ
+         EtisAgESzDsz1Uhs9Ahu6A+6XoGR6rwALRphtoqzuhCaK81fQwR+WEVnUUkygDJlbIbF
+         zSWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788469986; x=1789074786;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/mj3IVRmoCFRi1EC9+dVyk39SNMUGyb4URbFkvdpey0=;
+        b=VbdLC2Sd+bZUHHENFmoMvaBOqvQ1pk7sxIpJRaFuBHHGLTMps4Xkdp1ecVZ9cXHnAK
+         6JbF2vJMDXC64UXziQW7KEgtYOizqIWQZe0OoTOvcNOxYiugVhJl4wrLQpRdug/daeYe
+         PS+ByBbHC9yxBz5EOewMy7OeltP9qOW79xDWQhhQS0+gN0yNo8wanR3z+crebjz0fP6S
+         3lOzfi6Gx0RsTTZftYCW5PEtENYhHhS1PJnohIuHWqLgTmr8uQJ/wlS4GCgilLLQJK8E
+         2GyRboOaz20Hc2spbNE4rya+ewuULP0YO+Cq7rBqigx6hH4PtT5DQTgMzNRft6PYB52X
+         YV9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzWIgtmDv1dYvbuTa4jXCtmng1RfUFmZRp5PSWP4tRyc0f1aGumdyu3L0wohYyRTvc0eS9yWoBYIuqdFDs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nvVIhehytzbq5SaXbyjN/+e1yNoq2I9VkDDqHPabhUNVf81LIc
+	P2wBRfnIsC5TdmDV1lu5KXYAgWrhsRJmPCyt5S7YehLJbjrTmpzQtrkz
+X-Gm-Gg: AYBFou2ZpZoTeX1yUhgqVFXFhTEANPB45KHqYb2z/NWlLyPLR2sn9CLbnZhhdcBm3sT
+	jp/0fnweUoXTQWVwz9FXmNQi+HN+mfQOrXvPIxoGRGeJy3UkujxLa3elm7Xnj0MmciIuPL3l1Fx
+	zb+fbATq3SVkRUOSMgbal6g96bWdUNg31wo9pzRcRvA+VFpPUDIvUUFfpHbWRCk7zERMr4GDGob
+	7ZLqkLQkOIF11irPXtYVxweGEY9WoYFCCUgH51DWRo7PNLq2d/hnEknkoIPNyxF9F5rg0i1VJtz
+	a31r8q/FQ4SbTHIzHDFSK/gWx+HtXJIZ+zTYkfDGkCJW2XCsXDTCmniuyAP5J4RIz4uYf2IIu+P
+	pOmf3Ld3uQLOS4nHELjxQaONL5uBDFdNTXl95L2xoQRHTJhrb0GitOBJkZ7BgGgDXuTpaqMedhs
+	FEKyjBW182ZmrL1sMgc8QTP5oOAdP+xb6jMCr1sKFH9QUCdYMRwB96iemNkQKjYXqZVxVKYCOZ7
+	Sl7sIHfSRewSy2sMAiPCFaGJhMyuejfJN/GirS5Zid6xp22Dcg7Xk8=
+X-Received: by 2002:a17:90b:2d0b:b0:398:c794:ca26 with SMTP id 98e67ed59e1d1-39b263167f7mr1956509a91.25.1788469985477;
+        Thu, 03 Sep 2026 14:13:05 -0700 (PDT)
+Received: from skinsburskii (c-98-225-44-182.hsd1.wa.comcast.net. [98.225.44.182])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae633be61sm3479083a91.1.2026.09.03.14.13.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 14:13:04 -0700 (PDT)
+Date: Thu, 3 Sep 2026 14:13:02 -0700
+From: Stanislav Kinsburskii <skinsburskii@gmail.com>
+To: Paul Moore <paul@paul-moore.com>
+Cc: Shuah Khan <shuah@kernel.org>, Eric Paris <eparis@redhat.com>,
+	Al Viro <viro@zeniv.linux.org.uk>, Amy Griffis <amy.griffis@hp.com>,
+	Frank Hofmann <hofmann@deshaw.com>,
+	Noah Orlando <orlandon@deshaw.com>, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, audit@vger.kernel.org
+Subject: Re: [PATCH 1/3] selftests/audit: Add syscall overhead benchmark
+Message-ID: <apni3p2JBQmc5IZQ@skinsburskii>
+References: <20260806-audit-v1-1-ddd0d94ff0b6@gmail.com>
+ <580b5af8293cea8dc0a13e044b52280c@paul-moore.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2615; i=blum@kernel.org; h=from:subject; bh=0Cb2eNZMcOeloN0iBVNmGPSquG8IxZZ6t5T2eT3wTy0=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFkzH96VXyMy6eKyG89fGazorDdWNbtdHrkyYtFd4QN/1 7762Z7k21HKwiDGxSArpsjyYNaPGb6lNZWbTCJ2wsxhZQIZwsDFKQATeZDNyHDwkNXBi04Zyvyz ftXVcIjylwkI9tv0v2OysHnn1X/kihbDfy/TGf5qYvt3N86Wllf9we897V+SxbJ9j752TbBf5PB 1FhcA
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <580b5af8293cea8dc0a13e044b52280c@paul-moore.com>
 
-Calculate the buffer length in a single statement and simplify the error
-handling. Inline the dma_mapping_error() checks and return -ENOMEM from
-the common error path. If mapping the output buffer fails, unmap the
-previously mapped input buffer first.
+On Tue, Sep 01, 2026 at 05:35:12PM -0400, Paul Moore wrote:
+> On Aug  6, 2026 Stanislav Kinsburskii <skinsburskii@gmail.com> wrote:
+> > 
+> > Add a microbenchmark which repeatedly invokes getpid(2) and reports the
+> > per-operation latency across multiple repetitions. The workload avoids
+> > filesystem and other syscall-specific work so the fixed audit syscall
+> > overhead remains visible.
+> > 
+> > The benchmark deliberately leaves audit policy management to the caller.
+> > This permits comparisons with increasing numbers of unrelated exit rules
+> > and with automatically removed watch or tree rules without modifying an
+> > existing policy unexpectedly.
+> > 
+> > Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
+> > ---
+> >  MAINTAINERS                                 |   1 +
+> >  tools/testing/selftests/Makefile            |   1 +
+> >  tools/testing/selftests/audit/.gitignore    |   2 +
+> >  tools/testing/selftests/audit/Makefile      |   9 ++
+> >  tools/testing/selftests/audit/README        |  30 ++++
+> >  tools/testing/selftests/audit/audit_bench.c | 227 ++++++++++++++++++++++++++++
+> >  6 files changed, 270 insertions(+)
+> 
+> Thanks for this Stanislav, but I'm not certain that we want to merge this
+> into the kernel and have this become the defacto standard for audit
+> performance.  It's a simple, easy to understand test, but I worry that it
+> might be too simplistic to properly characterize audit performance.
+> 
+> ... and no, I'm sorry, but I don't have a better suggestion off the top
+> of my head :)
+> 
+> However, audit_bench might be useful as part of the manual_tests in the
+> audit-testsuite?
+> 
+>  https://github.com/linux-audit/audit-testsuite
+> 
 
-Also use dev_err() to log errors and %zu to format size_t, and clarify
-the error messages.
+Sure, here is a PR: https://github.com/linux-audit/audit-testsuite/pull/129
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- drivers/crypto/atmel-tdes.c | 36 ++++++++++++------------------------
- 1 file changed, 12 insertions(+), 24 deletions(-)
+Thanks,
+Stanislav
 
-diff --git a/drivers/crypto/atmel-tdes.c b/drivers/crypto/atmel-tdes.c
-index 7d17cdf9eef4..5cef4e2793f0 100644
---- a/drivers/crypto/atmel-tdes.c
-+++ b/drivers/crypto/atmel-tdes.c
-@@ -308,45 +308,33 @@ static int atmel_tdes_crypt_pdc_stop(struct atmel_tdes_dev *dd)
- 
- static int atmel_tdes_buff_init(struct atmel_tdes_dev *dd)
- {
--	int err = -ENOMEM;
--
- 	dd->buf_in = (void *)__get_free_page(GFP_KERNEL);
- 	dd->buf_out = (void *)__get_free_page(GFP_KERNEL);
--	dd->buflen = PAGE_SIZE;
--	dd->buflen &= ~(DES_BLOCK_SIZE - 1);
-+	dd->buflen = PAGE_SIZE & ~(DES_BLOCK_SIZE - 1);
- 
- 	if (!dd->buf_in || !dd->buf_out) {
--		dev_dbg(dd->dev, "unable to alloc pages.\n");
-+		dev_err(dd->dev, "failed to allocate DMA buffers\n");
- 		goto err_alloc;
- 	}
- 
--	/* MAP here */
--	dd->dma_addr_in = dma_map_single(dd->dev, dd->buf_in,
--					dd->buflen, DMA_TO_DEVICE);
--	err = dma_mapping_error(dd->dev, dd->dma_addr_in);
--	if (err) {
--		dev_dbg(dd->dev, "dma %zd bytes error\n", dd->buflen);
--		goto err_map_in;
--	}
-+	dd->dma_addr_in = dma_map_single(dd->dev, dd->buf_in, dd->buflen, DMA_TO_DEVICE);
-+	if (dma_mapping_error(dd->dev, dd->dma_addr_in))
-+		goto err_map;
- 
--	dd->dma_addr_out = dma_map_single(dd->dev, dd->buf_out,
--					dd->buflen, DMA_FROM_DEVICE);
--	err = dma_mapping_error(dd->dev, dd->dma_addr_out);
--	if (err) {
--		dev_dbg(dd->dev, "dma %zd bytes error\n", dd->buflen);
--		goto err_map_out;
-+	dd->dma_addr_out = dma_map_single(dd->dev, dd->buf_out, dd->buflen, DMA_FROM_DEVICE);
-+	if (dma_mapping_error(dd->dev, dd->dma_addr_out)) {
-+		dma_unmap_single(dd->dev, dd->dma_addr_in, dd->buflen, DMA_TO_DEVICE);
-+		goto err_map;
- 	}
- 
- 	return 0;
- 
--err_map_out:
--	dma_unmap_single(dd->dev, dd->dma_addr_in, dd->buflen,
--		DMA_TO_DEVICE);
--err_map_in:
-+err_map:
-+	dev_err(dd->dev, "failed to map %zu bytes for DMA\n", dd->buflen);
- err_alloc:
- 	free_page((unsigned long)dd->buf_out);
- 	free_page((unsigned long)dd->buf_in);
--	return err;
-+	return -ENOMEM;
- }
- 
- static void atmel_tdes_buff_cleanup(struct atmel_tdes_dev *dd)
+> --
+> paul-moore.com
