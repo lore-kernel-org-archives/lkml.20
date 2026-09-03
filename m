@@ -1,155 +1,182 @@
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012019.outbound.protection.outlook.com [52.101.53.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B71227AC45
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 00:41:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788396074; cv=none; b=IC3Ett45kS3mJXRlVq2j6fU7yab0X8H9gw9zHVEziMjrC61vrtrZbuTx3ry1iMWd/1v6u/gMnFgFRibsuoPeaq8LRB1ULnVj2KJqMqTYX/rTZthcW1Mc1GE6jFCtyw44pqKtMSUxC5IiWG6+3qhfCyCIyiAPV8U7yMFrl0bdxDE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788396074; c=relaxed/simple;
-	bh=O3TQq4A5rX9f1yvF4DkCKPUCSm2FMHIrce9wen45HNA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LXGKlm87GjVo2bQJwg4um7bGTvHZArtDPTgnHQUyzJt8SeN2DXpBDHalLtFULbiiW8zsIONR49z+BkiVBpKZXPGeHoV7LTwQP7omtC+SoN7/30bHqRzwDWz8Kr83V2C9nvrruLNf3cwy08EOq3KLF6sEKq6OZ6P0XivfkXhDA0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aFvVa10E; arc=none smtp.client-ip=209.85.160.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E09321D00A
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 00:41:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788396090; cv=fail; b=aCJ0lB7XgHvQCqyYE6xdwyE8zOAqpCgxBinT3WxSHwNvxJpGg4RyZVt3wNmZxZzJ8xSoRC2OHMcMB4PUkrov9QkbuD74aHOAeNTIdoIu5qix0d2glyX3Sg60RIK8QpQqCJ3AHBHuk7IsxqwUV0VrLtLJXoeBbWDSFaD9M1tFT9o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788396090; c=relaxed/simple;
+	bh=4MKf5U75DywIrqp8MhvHb8j7QV4zFbMo5R2Yq9obpOo=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=WZVpCqmtxpQ3cBaPreg8MP7/rZRBiJrpZCjxhvaNX5Sr8ZemLv2iS+kBVJI3KFTZ2mtHx5OSJORkNgF7FeSttWbLkBvsSildh8bLl4wKQ1snnZUSsGfX7cpD7NOYjRvnvELuDuX0oJvIUz4SYOlYnzmPOCqHjdqLjKCiDUlr9x0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=OLJbwVbj; arc=fail smtp.client-ip=52.101.53.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aFvVa10E"
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-52ff0b7c98aso16252031cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 17:41:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788396072; x=1789000872; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YiZZY9+C0sK8isY9Ljf0XKem2w9pAuwvHHUN/mOpXUE=;
-        b=aFvVa10E+tWJOS388wbrJ4I1JyUs6ZkROqaNv71cOI3Dy32qmB/F5JG9CUFAXvj+wF
-         tg7/FhJ/TVX4EnZZjN5/rYbzitdVw6OLMMcpMdX/IR9vrlAofY6xX3D8w0vGzUJ0rCrv
-         8JG+b5FwjNvq0+/NJneEywzLhiW9wgcMjqdIqud4a9RpKxWqcvhUrftNTRaiCIi5O0CV
-         lbDfKasXCrMVqxGN3rraDu6acU8C8cXpv+o9HljE+HZqGqIs9d97t3vpohJInXuHrype
-         LQeEv2nGBhvRiGYHrZdtMEIisgq7dOJpXHbxWP0dQaFovSCcypMXetTbn8wzLKkQrgwM
-         rIeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788396072; x=1789000872;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YiZZY9+C0sK8isY9Ljf0XKem2w9pAuwvHHUN/mOpXUE=;
-        b=HHAKKXPNPW1+TrMCKfJGm+j05StluWNX7ebxN/rjUE17OJPYtxcASiTxkUzwASsEb0
-         LMhzrw1nyYgQZ6cgRi7tx6pEBNwN4P5VAAqjjHgLIvh7lzxadtihaarziGFy8gtjWudx
-         iDf8EEs1yWaEqZBQfrGvvadYA+Pc1TTatr05ICbqq5F1uPAFSNo2yhaMYTJ7WFfjXAlU
-         2E0KqL+NUbRZDibCmOc0RoJOIHxbbltf3W8z1pPQX7DW42H00cNv4RfPG+Z31qRnJrB6
-         Cvz8Y9gm/IBarAs+jmpcI4PO/NHUon9ph39esCzF0QlPDRZRNRhCQEf5cR/Z6Ap34qE5
-         Sz9g==
-X-Forwarded-Encrypted: i=1; AKwUvBy2kvpuSgZ591mowGCzyBfIqlO0vZj8TuTo1iTubXo6mAqBemZTvTUy0RhUwqoX54Y2hpAoSrMDtS+ptw8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXZj6bkqblQ1zSS5TxnVmE3b3R3pOBHwn9eBd2vejzy1STldFM
-	rFy6t2glgAG4ehYS42aEn/2ZMhmWOXwLICHzIDlgdJFHaeELBwpitxNQ
-X-Gm-Gg: AYBFou0rionm1839165LpswS3Jl/JaBblmRRi6e2enLOrFKqWZpEH6kRe1hMU2rHCS3
-	sou/dVd9tvryavbXvVmF0Gnd0ZzIle6aOGIkbC2gfdPZWAuKD6cVGqfLz3nSqTZAKTAqYl46zZy
-	syYjIsX1nrHF2usqRe2KPc3gdUUkZsKfRTTeZmAOAwIPDGJsCzVtRV8k7I9f9PB8BXSg67N5s5U
-	UDdpQRruqPZhvXitwdrumVOmeyrHm2SEyvMHUXUgx3XDgcW0w7zsjHDGi3zdDXoFBAY7O0pm/1d
-	7Yg3PQbGR3H28oUBR1oeOtEc1hNWeeT21jXbdfy6hYa6dPEC+O7WegiPxM5Liqx6A2giZSHJjyt
-	Sv5LhPHrpJ0hYbrrNSnRO/UaNVIGvg4z5JmLI76k4D9iJb15wmt8CO9Tf9E3xlMENr0I94rEo2v
-	DaYpBEM9vD/y376hfmaX/r7BXIT4ZboPWH7Vxw3Tc5D+9Mtq7Ennei9npsRtMogyNDzt49Xj1fg
-	luik/nNv6ZWvx5/T4KUNCZqHb19I+n5F+3fDFs+2epv0V99Nbata+A=
-X-Received: by 2002:a05:622a:1354:b0:52e:1e5:4754 with SMTP id d75a77b69052e-53036cc5520mr89907741cf.24.1788396072113;
-        Wed, 02 Sep 2026 17:41:12 -0700 (PDT)
-Received: from Z-System.tailddad04.ts.net (c-68-83-199-219.hsd1.mi.comcast.net. [68.83.199.219])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9eef50c4sm30837506d6.33.2026.09.02.17.41.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 17:41:10 -0700 (PDT)
-From: Zac Lanzon <lanzonza@gmail.com>
-To: linux-hwmon@vger.kernel.org
-Cc: Guenter Roeck <linux@roeck-us.net>,
-	Jean Delvare <jdelvare@suse.com>,
-	Aleksa Savic <savicaleksa83@gmail.com>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zac Lanzon <lanzonza@gmail.com>
-Subject: [PATCH] hwmon: (asus_rog_ryujin) Add ROG Ryujin III 360
-Date: Wed,  2 Sep 2026 20:40:54 -0400
-Message-ID: <20260903004054.502171-1-lanzonza@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="OLJbwVbj"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wFJgkgMroM3I0ss8R+cc77O1A7dIjuEt2VjvqXrX6ztDTrq8WIWbM/dEpx16BpcIcwLzW4FM68x2eYSffXi7rD7wfsCfU2A29EWrPkI0wLWfzkS+ZjLsl7S93cl31F1AeRou49sHrFfJRnoHVPHR7TgxpxFpV4xkk/kNNnk7D+mPhFwa2veWHfFsyeLvRb70eICEQsQXOfs/V1fnIVl/leeZv2vCbG8VjjTQ4fYiFx6UifYiQqNVhsYwchSKsjGpAc0dqLAAsz9rIubpkWP7vpjQqeR1AifLPmfjWxRJqLCSRadd/rKIG7vXtjQZG89I41fcP2ordkoijyrMTyWfwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yeejGKKH57Ez6cFONA1Mlhai5PQoKACZu6JVlaCZJz4=;
+ b=mmCaeaCaI2B2VWv085gZGQ5Wcf7QYrbaDdP9FyRGRuHbD2zISmKTrlUegeHbWibJk4j/r187hWmHu5Ad1jjpIbsgOFzc1iX/k+sxfyunpBtnFBnz5MV8r3exlZNtOWxvnhrPE4bYVvS/MM7npdPN7QFrkxst2D6916DUXwt5mqoDexFyt7dc/LOAuDc9qzqPItYscqsOUgVI5iTgCoDctx20cVCLZRz/41KPEHIs35Lr4J8T/I2z4opMdGwT6YU9S0x4ScL7keUhntwq03K5nkowIUYDEDlyl0Blk/7B63o1a9FaMSI7SUu9uR/g5+9SUf4x+mfC08DhBIe2SkApaw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yeejGKKH57Ez6cFONA1Mlhai5PQoKACZu6JVlaCZJz4=;
+ b=OLJbwVbjYNoaK2ZxFjItLyuX1aEgjx7SBLDcTZT2HzzsiNHOeyN0sFnEijMagolqqyIoPhOtlpTUiHdf8ksF+gOhHCkaA5qqxsaTf81ns0a+pKKzJdp2BKcOoB+T7r+Hr0cB6KTQdhyeQ4l2k41w9VP48qJJwVIuvT/CeeamvwE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DSVPR12MB999171.namprd12.prod.outlook.com (2603:10b6:8:388::22)
+ by DS7PR12MB5864.namprd12.prod.outlook.com (2603:10b6:8:7b::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 00:41:23 +0000
+Received: from DSVPR12MB999171.namprd12.prod.outlook.com
+ ([fe80::b7ec:f444:4560:9f19]) by DSVPR12MB999171.namprd12.prod.outlook.com
+ ([fe80::b7ec:f444:4560:9f19%4]) with mapi id 15.21.0382.007; Thu, 3 Sep 2026
+ 00:41:23 +0000
+Message-ID: <3b84605b-9437-4941-8df7-caebbd5e1ff6@amd.com>
+Date: Thu, 3 Sep 2026 07:41:14 +0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 15/24] iommu/amd: Add helper functions to manage DevID /
+ DomID mapping tables
+To: "guanghuifeng@linux.alibaba.com" <guanghuifeng@linux.alibaba.com>,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, joro@8bytes.org,
+ jgg@nvidia.com
+Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
+ vasant.hegde@amd.com, jon.grimm@amd.com, santosh.shukla@amd.com,
+ Sairaj.K@amd.com, jay.chen@amd.com, wvw@google.com, wnliu@google.com,
+ dantuluris@google.com, chriscli@google.com, kpsingh@google.com,
+ alejandro.j.jimenez@oracle.com, joao.m.martins@oracle.com
+References: <20260727132913.22475-1-suravee.suthikulpanit@amd.com>
+ <20260727132913.22475-16-suravee.suthikulpanit@amd.com>
+ <fb4f14d0-3c80-4a77-880a-e28be558fa4d@linux.alibaba.com>
+Content-Language: en-US
+From: "Suthikulpanit, Suravee" <suravee.suthikulpanit@amd.com>
+In-Reply-To: <fb4f14d0-3c80-4a77-880a-e28be558fa4d@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SI2PR01CA0029.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:192::8) To DSVPR12MB999171.namprd12.prod.outlook.com
+ (2603:10b6:8:388::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DSVPR12MB999171:EE_|DS7PR12MB5864:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5a434039-e1d5-4af9-3536-08df09541429
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|22082099003|18002099003|56012099006|11063799006|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	/zKrrldVOUab+q/axHeh/L61WTPn29WOuKJ5tiMGO/IQSBjPK8n3DpIfJUknqFOWYdlU20lIKpXXw2D4+Io5h5SruhOy0fjnoztGHOsFmJ+wWdoo34NwfhVRANTmS3Omht2+33H+lhNAnk5lxNaA39naJOIfqAAcG66pLDaoofh+0uvQos1iBwulOGKpeGiIelfS7LvjeyAkNpBj9uDEX+7oIvFaoF1Pk4hzZllGqAkQKX6cLgmm2h20FINC+hkGzGQE/Gwlr6mITQuZ9IRk+3RfjhSQCEwYphPPqJCuBPzjFEDhC6TAJwFSWeRzUZjn1IYY7/kpo5Gcf00Q8yjGbNTuaBObJgtcnr2MpNdxeaPK+JC2iBffb3FpiJzaK9yDFwyPvQHA1PckvBHKIoAw5qHIFbMfVaMtpOmLB+jFoVIPkNyu2nSEsiMMeh8vKaitV0i/Msl54xX2zi4SOo5RyfvW91HZfkHQlrzhWJ8Umb5njX87e28w42hqa6g7o1eiG0avJ7xNX6lnz7AoXquQNiSKHZ5RA7ppnS/EcnZFsmLTUUI2FrfKj0OqMqtKoOPOEmOdXxpbrw00w8mDp1UP2A9v2MSnXlKek/gQlCs1YT368pmu+X80BqsxHcO//GesTS2avSacwnHfwTUhqwzIEZIRTkCIDLhM0u3h4rdAIsg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DSVPR12MB999171.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UE0zaDg2MlZsc1hqNHRLMjlyb0tGNXVjdHB5SGZlUXBsVlNhWTEwTjBjYWpE?=
+ =?utf-8?B?SEE0WGF2Z0VUdzBTc29LOE54THNJaFp6RzRxbnR6WjFTZkcwcWt1ckJUSndB?=
+ =?utf-8?B?eGZ1MWJnSWhPdU1TT3hpdkJaSFVVL21TSGhzemI3dEo0UENrMVhDOXgzTURN?=
+ =?utf-8?B?L3NxKzlvNjFGRzE2SmYwQmk0QmQvWWVwZWJ5YnRYa0tXTW1tazdzVUpWRlV2?=
+ =?utf-8?B?UmhzQmhwNEpNTWtUWmEvUndYb1JhS2taVG9vd3J5bnE3Qmp1dkhpaFNMNkt4?=
+ =?utf-8?B?ajNKVWoxY2hlOXFESHg5UWRGZSt4R2RjdTIzN216TkFGUWNkcE54SERSckZv?=
+ =?utf-8?B?OFNZejRmMUdheFBSZVU3OXE0bm5zV00yZTVjdW1QVnpNb2E4bjIrSlBialFY?=
+ =?utf-8?B?S3p3RmlaZ1AzNUdGUXhDTGtSQVhtZmppdmczc3UrR0lxM0RiMWg5YUFkeTBl?=
+ =?utf-8?B?anMvS0lqaHk1VEFCT2pvVklCUXAyeXMyMmVHYU1JM2dqYU1IdUlSL3hDSGYv?=
+ =?utf-8?B?cFE0NDBIRFc3NFZnYzd5alJYUjNCOVFWbGN1RDRqd1JUQlJNbXd6dUk5cEll?=
+ =?utf-8?B?Ujh3cjZvUEFuMVcwWHBaQlVkcGRrZXdxQmJlNnRZWjBJZ0Q0TGg1d3Z1bm04?=
+ =?utf-8?B?dCtXY1ZTY3ZBYXZkM0tHOGlEcHFqU3p6Z3FuS25hZjlmRjJRclpBOGFNSHhq?=
+ =?utf-8?B?dktFZ2VLQ05HUitQNVZod2xnVkpSUUU5ZGdTUXhNV1lmbndYcFp1MG16U0sv?=
+ =?utf-8?B?amFxRlE4NzFOSzdlV3o1T3VWTzliUU85ZGY0aDgxb1hMWTdDVVQyamY5Qkta?=
+ =?utf-8?B?TGFjdnp5N2MxLzZLZnRtQ0NoVkxVUUFCQUtuSzJGd3kvRG82Y2xsRFQ2QWdY?=
+ =?utf-8?B?NmwxcFJmODlTd3RjLzkzNHFHajdTamx6VGNiakpxUFpqVi91d2toclROM3E3?=
+ =?utf-8?B?STZYcUlxbC9yQ3g5d0xvUEZKODFxb3U0TlFodmRFaWpybzR3eUhBcUdXL1Vv?=
+ =?utf-8?B?NG13ODZQUE0zL2FRNXlINjFTTVdicEdETjREa2tvMCtXWmJ3aThqZlNOYWha?=
+ =?utf-8?B?aUcxNHRBTGZQVUtPd3ZkSW9paWIwZVhvYkZ5U1BxNUsrZjVlanZ3ZGFPeFhj?=
+ =?utf-8?B?K0Y3VDNta09ET3hOVktSWFNJR2ZmYUV5NTd1WFh4cURhVnFYN1NlZXg4dzQ1?=
+ =?utf-8?B?eXNMMTN4NGx4THdoeHZwajhLS1liV3V1RVJCQTJnbHlSRDNVVFhQa295V09B?=
+ =?utf-8?B?RVNHckM4RE5ub3FjQWVKemNPYnJkOUhkMlUzUnBZQ3g5b0lTbDYwTmpyLzhq?=
+ =?utf-8?B?UFIrcmphcGFpV1VSMmd3NWpoRktYSEVMbUlzbjNkTlFEbGtoWTNWN2NsRGpM?=
+ =?utf-8?B?YzFmdzlzSnFzdDEyZGFDMVhYdFRtL0VuNEpTb1dvbTFXOGdGV045bVd6eXU3?=
+ =?utf-8?B?THoxVU9jQkh3R2w5elZXbGJSUEJkYzFRZHM5bExDRkZXVkQyU0wxS0V3dXZ3?=
+ =?utf-8?B?K3BKaDJnUXFJeVoxeXNBem4wYlZkWDhuaVBUV2FkSkxSK0RvOUJYaFd1b2gx?=
+ =?utf-8?B?WCtvNUwwYWFOdGZSWVNoNzlNQndzOGFudmRsOThPOTEvaCtEOHJtZVhXbnkw?=
+ =?utf-8?B?ZElZYTlCdHgxeTJ5MWl0RHR5T2tMa0Z1Y24xYmJRbVpGZCt5eXdaYVYzZXRk?=
+ =?utf-8?B?YkpUWjhhSlFRWDZNTFZOdUNYTnVUbkFoN3M2RC84S1FOU01wbnRsMXNDR0pE?=
+ =?utf-8?B?SnNTNmFieDhxU05WbzJpbGdGYlhNbHBJb01xNFVKc2d2OEZoK1B5VE5FTVVF?=
+ =?utf-8?B?OVNlUG9naXVOV0NKVTBGQmhkd04vcWlOKzBjeVYwazV6UDVSTE9ta2NwYkNn?=
+ =?utf-8?B?ZGoyS0ZtUUxDZ3R1TTFad0V0ajg4UkwzWWZSNkNBckNIOFRlZmhOd0dobW1r?=
+ =?utf-8?B?MVlteVpVaStQS2pQc3NWY3ZSS1ZWRjBHdUZjVGVueFVPSkN3NUE4clNqSkVq?=
+ =?utf-8?B?TVVma3pQKys2dXpQV2I2alZoeUkwREN2OEMzcC9mMmdGTnAxbHI5NWFNNCtE?=
+ =?utf-8?B?RTN3MmFZTnlKQTdob2NQaFpGbU1rbjVwQ3RDSUxDckJJSThyNUNFb1lmYnlR?=
+ =?utf-8?B?WUEySnZzVFVHSmxZT2lMb2dlZDVaeUxlVXorWjk1MjFOc1pldk45QzZpTk8w?=
+ =?utf-8?B?aDJYSVV0Y2pMY0xLck1jbmlCSTVYTFVPNTdjbVpNSFJPWWsrR292ZU1ocWJ6?=
+ =?utf-8?B?RDk4Z3JCWmFSWHlLNm5lRHFkRVhlMlBmZ1NVK096N2gwQXlNN0VHV0xOa3ZB?=
+ =?utf-8?Q?eBvl4go32Hn4WCC6d2?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5a434039-e1d5-4af9-3536-08df09541429
+X-MS-Exchange-CrossTenant-AuthSource: DSVPR12MB999171.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 00:41:23.3411
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RIVHYVZkTBJN/AsNiocC0pBW5pe2GnHZjMt+8z+04JDHRO+d5Rz3Ys3xnsp+C+MTsKVqYu1DJJGJtDvx1vkVPA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5864
 
-Add the USB product ID of the base ASUS ROG RYUJIN III 360 (0b05:1aa2,
-USB product string "ROG RYUJIN III"). It uses the same status report
-layout and cooler duty channel as the RYUJIN III EXTREME, EVA and
-WHITE editions, so it can share rog_ryujin_iii_info.
 
-Tested on a ROG RYUJIN III 360: coolant temperature, pump speed and
-internal fan speed report plausible values that track load, and the
-internal fan follows pwm2 (30% -> 870 RPM, 40% -> 1590 RPM).
 
-Assisted-by: Claude:claude-fable-5-1
-Signed-off-by: Zac Lanzon <lanzonza@gmail.com>
----
-One firmware behavior observed while testing duty writes on this unit,
-kept out of the commit message since it is not about the ID itself.
+On 8/19/2026 8:30 PM, guanghuifeng@linux.alibaba.com wrote:
+>> diff --git a/drivers/iommu/amd/viommu.c b/drivers/iommu/amd/viommu.c
+>> index 2c1a267826dc..91d0dd3ac912 100644
+>> --- a/drivers/iommu/amd/viommu.c
+>> +++ b/drivers/iommu/amd/viommu.c
+>> @@ -26,6 +26,20 @@
+>>
+>> ...
+>>
+>> +int amd_viommu_init_one(struct amd_iommu *iommu, struct 
+>> amd_iommu_viommu *viommu)
+>> +{
+>> +    int ret;
+>> +
+>> +    ret = alloc_private_vm_region(iommu, &viommu->devid_table,
+>> +                      VIOMMU_DEVID_MAPPING_BASE,
+>> +                      VIOMMU_DEVID_MAPPING_ENTRY_SIZE,
+>> +                      viommu->gid);
+>> +    if (ret)
+>> +        goto err_out;
+>> +
+>> +    ret = alloc_private_vm_region(iommu, &viommu->domid_table,
+>> +                      VIOMMU_DOMID_MAPPING_BASE,
+>> +                      VIOMMU_DOMID_MAPPING_ENTRY_SIZE,
+>> +                      viommu->gid);
+>> +    if (ret)
+>> +        goto err_out;
+>> +
+>> +    return 0;
+>> +err_out:
+>> +    amd_viommu_uninit_one(iommu, viommu);
+>> +    return -ENOMEM;
+>> +}
+> 
+> The err_out label overwrites the real error with -ENOMEM.
+> alloc_private_vm_region() (via viommu_priv_alloc_map()) can also
+> return -EINVAL when the pdom is not set up, and that information
+> gets lost on the way to iommufd. Please just "return ret;" here.
 
-The first duty write, a pwm2 write that re-sends the current 40% pump
-duty alongside the new fan duty, takes the cooler out of automatic
-mode and the pump runs at maximum while still reporting 40%. Writing
-40% back does not apply; only a different pwm1 value does. liquidctl
-behaves the same with the hwmon driver unloaded, so this is firmware
-behavior. Only a reboot returns the cooler to automatic mode.
+Ok. I'll fix this in v5.
 
-Measured with liquidctl 1.16 (pump-fan is pwm2, pump is pwm1):
-
-  automatic mode        pump 40% / 1710 RPM   fan 30% /  870 RPM
-  set pump-fan 40       pump 40% / 3690 RPM   fan 40% / 1590 RPM
-  set pump-fan 30       pump 40% / 3660 RPM   fan 30% /  870 RPM
-  set pump 60           pump 60% / 2400 RPM
-  set pump 40           pump 40% / 1740 RPM
-  set pump-fan 40, 30   pump stays 1740 RPM   fan follows
-
-So the firmware applies a pump duty only when the stored value changes,
-and leaving automatic mode does not apply the stored one. Does the
-EXTREME or EVA do the same? If so, the driver's read-then-rewrite of
-the pump duty on a pwm2 write may deserve a documentation note.
-
- Documentation/hwmon/asus_rog_ryujin.rst | 1 +
- drivers/hwmon/asus_rog_ryujin.c         | 3 +++
- 2 files changed, 4 insertions(+)
-
-diff --git a/Documentation/hwmon/asus_rog_ryujin.rst b/Documentation/hwmon/asus_rog_ryujin.rst
-index b0d7ce8dd..3ebab230e 100644
---- a/Documentation/hwmon/asus_rog_ryujin.rst
-+++ b/Documentation/hwmon/asus_rog_ryujin.rst
-@@ -6,6 +6,7 @@ Kernel driver asus_rog_ryujin
- Supported devices:
- 
- * ASUS ROG RYUJIN II 360
-+* ASUS ROG RYUJIN III 360
- * ASUS ROG RYUJIN III EXTREME
- * ASUS ROG RYUJIN III EVA EDITION
- * ASUS ROG RYUJIN III WHITE EDITION
-diff --git a/drivers/hwmon/asus_rog_ryujin.c b/drivers/hwmon/asus_rog_ryujin.c
-index 702edb831..4b9859351 100644
---- a/drivers/hwmon/asus_rog_ryujin.c
-+++ b/drivers/hwmon/asus_rog_ryujin.c
-@@ -20,6 +20,7 @@
- #define USB_PRODUCT_ID_RYUJIN_III_EXTREME	0x1bcb
- #define USB_PRODUCT_ID_RYUJIN_III_EVA		0x1ade
- #define USB_PRODUCT_ID_RYUJIN_III_WHITE		0x1ada
-+#define USB_PRODUCT_ID_RYUJIN_III		0x1aa2
- 
- struct rog_ryujin_device_info {
- 	u8 temp_offset;
-@@ -593,6 +594,8 @@ static const struct hid_device_id rog_ryujin_table[] = {
- 	  .driver_data = (kernel_ulong_t)&rog_ryujin_iii_info },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ASUS_ROG, USB_PRODUCT_ID_RYUJIN_III_WHITE),
- 	  .driver_data = (kernel_ulong_t)&rog_ryujin_iii_info },
-+	{ HID_USB_DEVICE(USB_VENDOR_ID_ASUS_ROG, USB_PRODUCT_ID_RYUJIN_III),
-+	  .driver_data = (kernel_ulong_t)&rog_ryujin_iii_info },
- 	{ }
- };
- 
--- 
-2.53.0
-
+Thanks,
+Suravee
