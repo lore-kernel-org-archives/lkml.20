@@ -1,71 +1,101 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C5FC4D90A1;
-	Thu,  3 Sep 2026 15:25:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18A244E1405
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:25:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449103; cv=none; b=h8/BfSifWzoFwXN60i8abq7//7SxytsvBmxfhn2J/vkebAOiskFX9Qp4IC4thk38Wodb6INWdoS7SsKf+TLep4cJt2di4rPZpFUUVhFLN3tgUItvd9U2eHsC4BwJWV036rFIVQ/21XXlhKSkw5jsakIq8jLJaCWl+yfNFENTqrs=
+	t=1788449133; cv=none; b=boNKe3pvzQtAvQokrLYHa541qIqrYAduFynO7kb2L9CvXlLspoADxkbFPgL4fELF9NSQNLmyNJnmsuyPQW/EBUOShBCwNH8DHGOWnXKMVwzGbgBFNOXhm0X2uVYloR6FeIxQRxv8FuZmz/FtHiso0+qMOOKtpezwKmCG0J/QwcI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449103; c=relaxed/simple;
-	bh=NyGRGuF29kh00jfQ2fPtYHGG5EzkxZsLU4p5OGSPGbw=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 MIME-Version:Content-Type; b=s7TfJ03tZIxKj8FJrgimdoLb9V45uJLmZzm7EOPDFfDEG8ilNoYGwKYQXcKnftSlgyszN1LEstYCL/BpLfJpDSLrQ2cNeJlYtop5yUdqYdlqqKELmqIhG5DLcwz559Hzb66XYNZcdINlKS3qb7jmcCHVVZOxTM7S1n1FxjBR3kM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=iVnNLjXy; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	s=arc-20240116; t=1788449133; c=relaxed/simple;
+	bh=7x6k3CoQtycsyrx00Mon8kDDGXAjBXWuI79x9y09/hU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=IDUacqbpfgSA/X9PMaD5ca2HZ3lC3e1pyLrF51pvwzwh6MMzz8CDhZ3FM2IF0j8Cwdjt6eyySWQ779wFxDZn9zWbN0VYMlSkSOTfo3fpGVrXoFsNkdztMduL00mMNfTRLqfItvfPUYlSha43Z2l9/eOInkMnCICVj2WaKtliiB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rLFzdNuF; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="iVnNLjXy"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
-	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=gdD8YZUJOHzVP6iYQpDhL1RKn07IE/n9VzVU+dGrWlk=; b=iVnNLjXyD97SfJLtrL0mmTIePY
-	zeftMWP3VCg5REpIYs1JsSZvYViat2bVVEJh4iJVkTUgDFlNJynU6R7Oj3235HXwn8CDYLvH5Z55r
-	XZupoDkKo2v/dGjy05g2sKUfY6bvogowSML2Vb42cIiVXr+w646oFg/jjTMUN9+o9dsCcdcK6wDGU
-	h8bKCI9FVBapfQZo4tjgkmae21HNc5j1zy/RETj0M6XAp9CHU/cWvBX5abUPGheeZU5Uzu7ED3qr8
-	MeGWfwN6EZ+itq9DRyNyen7+eb3vibl7k9bV4ms+1NbtBSzCOKQBXebcyVQn0e3XFBS4GIlcwoPKu
-	RXqEa6FQ==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1x29JD-00000000cDh-2t6P;
-	Thu, 03 Sep 2026 12:24:59 -0300
-Message-ID: <9aa7600f65742727d7588941599394c3@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>, Namjae Jeon
- <linkinjeon@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>, Ronnie Sahlberg
- <ronniesahlberg@gmail.com>, Shyam Prasad N <sprasad@microsoft.com>, Tom
- Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>,
- linux-cifs@vger.kernel.org, samba-technical@lists.samba.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] smb: client: pin DFS superblock in iterator callback
-In-Reply-To: <20260902182814.25700-1-kmehltretter@gmail.com>
-References: <20260902182814.25700-1-kmehltretter@gmail.com>
-Date: Thu, 03 Sep 2026 12:24:59 -0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rLFzdNuF"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49b8687630fso21892195e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:25:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788449129; x=1789053929; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RJ0eJNAdxkEACL4i1LkrRsC16NHPzemhDd0NbgM2FuQ=;
+        b=rLFzdNuF+VH/qrjJa+Yz5hBrq3j3PxpCtBYtDeTm/6uZyBRcPLEJ4quXkdUPjn8I+m
+         VU8iv0A1YbeIKwtRuSdBTp2wtPIqSYcqIOkrR1T+OOVmiCiwzqkusQ+U8JdjZFxpnI/t
+         2tWinf64tPsXJqPk5sEjdfWTZiWaNqLLI2DhbaV2b9O/io+S90sYGhiy8/YcStU07ytW
+         WjoVFb1SiyXFWKeHoHsTvPasjkZ03EH4kjTGyytZpjnRadcgbj6gXN5KiedaRy4bmkAx
+         TKpqd5e4msOmr/qK/1hYCYBvkt/gkaVTmH7/1FRP+Cs+c+11Zx8+As6sN+NOX+5LyaN2
+         GAPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788449129; x=1789053929;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RJ0eJNAdxkEACL4i1LkrRsC16NHPzemhDd0NbgM2FuQ=;
+        b=oz5iugcGUyK+/k3NUnaXUODoZzv1AOEzlH4HgqXVaZAnxfMXylPGh1sJOMGMrU5092
+         n5yeCl1dpd+guEBfPM4ivF0M8RC7HggdPorFm95WWFIEei1CtGyaYi3zFKe4naTp2vLP
+         UESq9uvKftq1eJRY3+rTGiU0PtGS1H9lmwwe7YxAv0GQhGIKX0q/wemCq36uZt1GjnI5
+         sUW+AveOnkf8EUyq39jSIklTCRcfYkmJazAdLGNWHjUox9lPmD8K45RT/uMtf2QcEOU1
+         bGVPxKXtmdXDd84RKoNqijufSaiekOS+zGxY2LP4E90TBjj02zLTBg6kO683lCQlLwwX
+         4g/w==
+X-Forwarded-Encrypted: i=1; AKwUvByD9TfKjXWPk1OJsRdLl5z4JoB0Pbi9VQWd8/4byISoboQyp+G4Vn/z2B+f9MLNuvsrRx8DPegkCIoBiW0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lXwothbjnF63IwYnxzC5cKCsCtYnwyw7cUhxiS6lHZ9AKcf4Kc
+	LT0/Xy+IVlZpm2+QI3lPlMa3WRj81lDKXRAsJ0OOPOWXVO+ZMDJdn9zm
+X-Gm-Gg: AYBFou2o//Sqfkd/uKJk8WlmB+aXS7lJ8c/fNmCUsfTFHKBug9BDEZVZqEND+pg7eC7
+	zBo2rlGp5oAYFuB5IRS41UJORK1e5hzufjRf1nC31qG4nSqKseW4lIr2hxf6Qzo3Gt9+dgQb2E9
+	K75wUDraUGLObplQg6HJbmybpyj99lWdhEQeWzXzMbw1mUiLkZe0rkMFOTZlHbYORUEIFQqcyiA
+	EeMDGopt2VnVW9hOm2h4JtrRktPIX+NwP692NNmFUptYMxG80g6ScEQMg3diU/1t7v/kZdWIfnA
+	sFStr8QZ8oaD+NvJTsFOqVEbcS1o36VxFj+kMKeqFLMzpEdHBJH/Xv30KCyWJ0rbFrZqn+5UVcj
+	aAwcucA/LrURQ8qPyGVvMaC62O42UPrPL0vbl5KBmEcGm3te1rldvXPJo3fMRAOizLRyjwK1VPj
+	zzWujtvtelTaj4oYK35+lr/ib4Eb+aPZEq+fIfvOOIOo/hY0JDR+2+UdenKCE=
+X-Received: by 2002:a05:600c:1d11:b0:49c:c0d4:53d9 with SMTP id 5b1f17b1804b1-49ce582a54amr228971615e9.14.1788449128877;
+        Thu, 03 Sep 2026 08:25:28 -0700 (PDT)
+Received: from localhost ([5.83.201.220])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5dec54sm93729425e9.12.2026.09.03.08.25.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 08:25:28 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Matthew Sakai <msakai@redhat.com>,
+	dm-devel@lists.linux.dev
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH][next] dm vdo: Fix spelling mistake "postive" -> "positive"
+Date: Thu,  3 Sep 2026 16:23:25 +0100
+Message-ID: <20260903152325.16304-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Karl Mehltretter <kmehltretter@gmail.com> writes:
+There is another spelling mistake in a vdo_log_error message that
+I somehow overlooked last time. Fix it.
 
-> tcon_super_cb() stores a raw superblock pointer, but __cifs_get_super()
-> takes its active reference only after iterate_supers_type() has dropped
-> s_umount and its passive reference. Concurrent DFS automount expiry can
-> therefore free the superblock before cifs_sb_active() uses it.
->
-> A deterministic KASAN test reproduces the race as:
->
->   BUG: KASAN: slab-use-after-free in cifs_sb_active+0x77/0x80
->
-> The same test passes with this change applied.
->
-> Take the active reference in the callback while iterate_supers_type()
-> still holds s_umount shared. cifs_put_tcp_super() remains the matching
-> release.
-> ...
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ drivers/md/dm-vdo/dm-vdo-target.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Applied.
+diff --git a/drivers/md/dm-vdo/dm-vdo-target.c b/drivers/md/dm-vdo/dm-vdo-target.c
+index 1d8375cc3c3e..043549b1fc2e 100644
+--- a/drivers/md/dm-vdo/dm-vdo-target.c
++++ b/drivers/md/dm-vdo/dm-vdo-target.c
+@@ -443,7 +443,7 @@ static int __must_check parse_slab_size(const char *slab_str, block_count_t *sla
+ 
+ 	result = kstrtoull(slab_str, 10, &value);
+ 	if (result) {
+-		vdo_log_error("optional parameter error: invalid slab size, must be a postive integer");
++		vdo_log_error("optional parameter error: invalid slab size, must be a positive integer");
+ 		return -EINVAL;
+ 	}
+ 
+-- 
+2.55.0
+
