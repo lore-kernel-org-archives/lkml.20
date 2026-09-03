@@ -1,207 +1,236 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010021.outbound.protection.outlook.com [52.101.56.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EDA6446825;
-	Thu,  3 Sep 2026 11:46:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B06845562F
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:47:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.47
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788436021; cv=fail; b=Ck0yf2WRun9WmM6BF1bZfZk8n5/o7R370mIePZoQbSJeDdE5ZIXceq14dp3rV4gVYjVTk9JiUM4py+MfbfzcuZ6BG01TDFXOyLVSeIqR4vKcQZwVedeUyhbgEiXPRRUzsHPzrfqLt7G9Qh/L687IPjfOS1yzloAu/4aWHHDJKfo=
+	t=1788436038; cv=pass; b=OQQuUcDXxdwhv1vOEo097thSaUwmtBEENkCXqiDJKi0x3ya/WIcNMo6P2lM6JLcSuPl+jGaC1R0jvVlObMCw/o55xbdYbfX3EDzhyqGq18hpaegn+Eh4w0DYfsJ8UZ1/5tfiJKHUSUtsOgin9jiqwNgvKYTfQ4+gLh3KkUE5Qz8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788436021; c=relaxed/simple;
-	bh=O9wpAcdwR7cMGAwGYghKdCwmMBPwbKnKMvqpK1tWQ1s=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=hGthX+xELcLJqCfCZi4E+FUOm+MaRRoB8V+N8RNLVe4tFXI8mGeHLcBzM+pl6fQ+qDUb7HEBU42Rc4+aBVYdhf0cC7SNnfyiiEAB7J7WIPJ5xabYmKM1HLg28ZiqQ6FMzU1IgfHcdBD6jK5/IOWSiAr5F0VaL6aXXxHVqjVT2H8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=l5+DiYlt; arc=fail smtp.client-ip=52.101.56.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1788436038; c=relaxed/simple;
+	bh=5yzaVabpPxw5RXtOFZG6OegQNvc0fKUaFe2aJ4JqkjY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MSu3YEE0ZysmbBtOvVWRnanwzQd6zAGMLOH1hVwePL8LYPynRjZuZz05DVIdg0tGPUAlyDoXah1dPhsehmxQI799djtg2U/IDg8CRZ2gyByoKnvOSbNBsSsx9U0K+GanS//IyhXgXwAgJrvhNDkmRUvhp5UcD2PTQcFscyTSJ3Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=kYjHylo+; arc=pass smtp.client-ip=209.85.160.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="l5+DiYlt"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Nj0du++BlVG9PF08pHREegVafh1se15Bq3e36tRxGxr0Ygr1UDEhLzUzFEThQFBD/3pyLbpD8QqMRtCqGxesX+cD8+07NZi7AOIXI3t/k8eOzSULodEskvOTPbK5qGbHF/s65L7oRgE0/HJ5m9omEHavfuogufODPBeaIFaCUmHBxax4VN7RWLm5Mis7xvvKuFwRnnaD44Bckovfah2VxO7a+cn1qItz3u4LGJbSbHDiHsj6KemSf39u83mrdyXDZHcOPDluXGZiDNoOkGUxafKOTjKW6CteCQErLgmVq0MzTOrqyd2hr5rxBE7+fX62JjRhxW639R8Imylj13zoTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rFi1iUMh3e9QxGt8uTsnhuavQgn5q+R4DOVTBTcZrmU=;
- b=TsMbjIwJkj6UDgd2p5XyueCdm3pO8f8QI9b/jUqfPBAMKOaNfwOK/qPt64/SVkDyvyZJdNKhcONdHz29ZyxxKU0SisLRjksxYgjzszK8Qz3dbrMjFv9k9mgpnrip8JnlU4pSzDN7gglSKyT27Eqo+mYJMUt4Tzu6p25fLtISudmcBUbaTK1zS/cuDcBzKF/8YUt34CGm0VuexaGOzaRsURA1fRGPoBfv4EVfbChzVTOAByYHnbmGwTKVukbxTp2IWDHPy6MBgtwCa05V7bMDqp26kx5BUGmq4Qvw4OdKXynwSs+/r0WdvxzPpnzvAA6lNKhlkaH6WtIUycoFElF5xA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rFi1iUMh3e9QxGt8uTsnhuavQgn5q+R4DOVTBTcZrmU=;
- b=l5+DiYltDnrwL/udXcLr3EIKtRNfxBUYQ0pX67pthFcRoLacIAJgMaKYNiNuB2TM7Bjhj9RIVO4i3ZBsGO1HWqHh8O0h6MKUODQXalDC4v9Cqjf3jPlzobsEDxP9ORJdMMTlOnp/rP+WzXWp27g0CcVxzJSYfEZxDHrn4rlRP+NeXmzKln9IPdvSWZSPT2ecVITVzSItH2vUaQIk+z+4MEs5ErzONKkML+MOtAG5yfhfhUy6SbQ4ZyeT5NVIwgQ08w3SNGmkr4U+wEPIZm4x9RBxwroy8xLybpPg2Wq77aAjn8c2aIA1FiD/cKVUnIRGn2UvgdYqTulO+injEihlrg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by PH7PR12MB9150.namprd12.prod.outlook.com (2603:10b6:510:2eb::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 11:46:48 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0382.007; Thu, 3 Sep 2026
- 11:46:47 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 03 Sep 2026 20:46:44 +0900
-Message-Id: <DL5NNIC77DYS.2BS3GZ701XIY5@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH v4 01/16] rust: io: register: reimplement as proc macro
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>
-Content-Transfer-Encoding: quoted-printable
-References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
- <20260901-typed_register-v4-1-5552b1d59525@garyguo.net>
-In-Reply-To: <20260901-typed_register-v4-1-5552b1d59525@garyguo.net>
-X-ClientProxiedBy: TY4P286CA0025.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:2b0::7) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="kYjHylo+"
+Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-459281bc13bso1561279fac.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 04:47:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788436026; cv=none;
+        d=google.com; s=arc-20260327;
+        b=it3hNmffLv9JHxu8i2Bs2zWi6bGRHjhryVhKznVl6qZvNVmVzkTFKMAV1qj/NduiXq
+         mIaa53zIg/o8O24pxRWglraOoVyKcPUrmxIKMVem3Llp6VhXVn3D/JAhQGdHKo4GGj5t
+         0p82nvgCzbTppOBkiGgcASFer5DOpzIraG57FVMsTNdjtTPoTWK54BZGP39dCexYZj1j
+         W6PmnbG1frCtqYOZJaKaDBJ2exWWTJh9K9zBgWvq+z5mdIO6KZN/QGbHXyn0u50Pu2f5
+         JjQJZUbthCobaIl0Mm3I03qds3IcIDtRiH67OB/VkTTiWqLO7geFlysOxiDvgO205a8Z
+         99UQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=RBEbqnMOR/S2Zl8aGgmKKnttxc/jbqek/oBPL6ncjNM=;
+        fh=OQMqNTkONCRXohIU6WrvSptqMWfP4mZg5Wld5h+8ljE=;
+        b=UcflGx9oGQKWK6Pk9o+dk4eYHqAj8AY4ERgjAYmKnMSA/bMaDlkLIegtA91wrR/sM7
+         5RzPiFvzd1TxMc+C08XPCGl5+ENKy0hVxOgo9MYwVA4sf4QTBvLv+/eYPPo2ZMpN8VM7
+         jhafILFlU452QJOskHksRmM8xtHmKQU4g1/6HkzAr66Wum5xaXLklt8idLtD0zuSJxNH
+         tRknUjwuMA1rpIT750bDiN6MCAX57/dkCOf/5Jya/ddtu2idkB2qV/UJFpLwjFURq1nI
+         YaAZv33zd1NaAXF+Jw6ZnRpNGFmWqDtoCNZ6jBn+JONOFPlM0SI2cdxeSXeKyAGYIZR6
+         TZXw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1788436026; x=1789040826; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RBEbqnMOR/S2Zl8aGgmKKnttxc/jbqek/oBPL6ncjNM=;
+        b=kYjHylo+ex1HszaofgBXyyVB+T/8rEM4tHaEz/5GJrNwxO4j8q2D8TFA7vW8CGpIUJ
+         Ii6Hy9VdLdzYSTu6DjEnIX4aahzvbg0H5Qk+JpV4R5fWTMU6MNA0g5ucQtOEkKI9g3p/
+         RDn0m90CE71BtPbDGNcDJsVn31nQj0Ur+7MP44N/Y4bUml7PwAAAWjJpxfCtMR3tA+K5
+         H7bjiq2A/5SXAp3iXALUp+Xkm5JgHvipLtm0yyhW+G1ujOA9RbBShIlKRpfCKyk0NH62
+         jqDU0HMsL20zZFinL/VyjDYFgiZ12NxDaHUpUbGiRz/b7WYqKPvTd7rZ84hGT7j7ySVi
+         DPqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788436026; x=1789040826;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=RBEbqnMOR/S2Zl8aGgmKKnttxc/jbqek/oBPL6ncjNM=;
+        b=sNemRofUXT5IhwXOHfGWcQEoG+TXW8N4Zh9nqzzxcSSKK4i5fKj1b0BLCF29z3Ha5U
+         +beAheZj+dPR8rdsH3jbqPgTVOMkGbHe6uLqaMD+x9Bh5qXnGp5BN9YwSz4EiXHK0RLJ
+         TBeWQVit8WTcWy8G5HTKurot5EwBYS52bND5swErUwWtIClDOt8RpFKpyHJBiywthV7K
+         qmxs4GrHvD66j1iGYARTWyGdpfWecVEDdY27vUGI6WwTdFCKe251kwRijrlaxHrfa/B6
+         1NvFGScebH1VCVHXshL8+HoiRaLbkjdI/McJfuKwXQKkR1dhRq5hA2j26kkWhfW1unxr
+         XGUA==
+X-Forwarded-Encrypted: i=1; AKwUvBzk19Z1MPXLIssqx+vJ5fb6BJZxvYbHa19+oJr58JHjlLCOi6nnaqjUwImB8FR7v/hczT/zpJOBODclv8Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/OI5aDVCqXDb3zz+nf6x0zb8KQ6GtHPqC68oxwo/tXAxDfasu
+	WO3oBTjm1TwcB1wY6V4QVFvXcbsa00V8ZTmDbj73KdfFyQSW13lDst3aMfUPg63uqmeFJxCXo2+
+	MG4QhshVx9e/Ei7mMOjlvqYH3Vn7mIyKiR3zurRdjkA==
+X-Gm-Gg: AYBFou3LZpC6Q3W4a0wjZZysxBrF6Fqxiy2M4M0MxOjxhwwXsvnHPHUtTD/dmfRD5um
+	7zosicHQWxVdC/WdHvTjNVgk+xfuulGft4CWpGhJdUeHBbRvJ8iHncPbAOsyrrENda/JnYdUSpN
+	Gw123aZoUMyFVyQUqXpeLhgErd0vQ+IWvVfk+yUnAb7xGR8CWFZ0xSZ6CMwkWKo3/Mez66pNV6T
+	vDHFEXDHsSPxS4AjmNF0u28EnVA/egQnAy1BcyLqXzFaMXE7sf+OZswcw3MtNi7eMyc7kVImEPM
+	0qjIGKbBVqIFX0ivOIa8HR/JmzAPTpbVxkU/s0R/qIbRx62dxjKPXBX4sL8ZXIF4OoJbfiC3xhu
+	8iRoETlSx2HztDtDWw5ytNvUFbAn4Mdk0OisKD9RI4vNpPIYTcDLb1dH84OM/RQ==
+X-Received: by 2002:a05:6871:c921:b0:442:175:cea7 with SMTP id
+ 586e51a60fabf-46f85e01f72mr10128824fac.1.1788436026484; Thu, 03 Sep 2026
+ 04:47:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH7PR12MB9150:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7812706c-891d-4341-2e72-08df09b108d3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|10070799003|366016|11063799006|10067099003|4143699003|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	X4aeJ108YhpdIG+fNxQYVI7pnSATEnnlWMie4ER1pV94cD62G4o1xMjNrqAtVgKl6Bpfn2e5z/6qmjle0do+U7i90WLBWT8Nrrs+QOAHK+AfKORgvMHPPsg2vQKq6U1zihnSShq+MhdlsSBRkFpU/t73fZsAVzeMhTOt99Hf2YzLf9WVI7AK0Rnd7WtVSj1Q9cw64HgJ9iZpLbXDfSKXAqIcFj4cvh7Cf8+g3DwXO1HtY7XMC5kQIhXq028nw7AG59L5w+gHJodJyCjbE9IzZ7m/2dNip9UmFNB7lCVIxUVzdGyfedtasrOfYVZlkEwKiFCqcWtHg379LOpw1ubuNOYvwrj4YBhX0sWM6XkHR+lt8xw2VeKkBTwJADSeDY3FPxPhmwRzhx21Rihv1w+j4+r5H+g8LKz/+U23EF3EHgqrt7iruAnt1JlHRd5vt6fGgcKKKeWwQp1GDGuizh3P24hMsTIqIOvlPSbT8viJZd/eXQK9wH5PMRBXRFMUQ51tBcQb0nxiqe1g6CMI5afwiDHhEIO01S5olvTjD2RIlRLNs9U62RqC55oQIjmHYtmMfyX7THHAdIy8UWlmdBMo7xDKW3f4pD7caMSdCdNvbQ79+YinCMHSw+aSd7B2enqMJ0l0BFzuvQ1S5HY3UiY3Cm14lzWvR+XmzlmCgLtC0Wg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(10070799003)(366016)(11063799006)(10067099003)(4143699003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eU1HT095Sk1FalNQaC9FRElDVEhYbkVXbTBWbExUUFlrSFVRL3FJdkY4ek9B?=
- =?utf-8?B?Y0d4cjQwRUs0YmZZaXJjTlpoS0JlTmtzREViOXo0aEcweDQ4NW5SUTFNS0JY?=
- =?utf-8?B?SFhlZlJlOFdtU2lkWS9OQTl3NDgzLzExQmgxdmNFR0pJSVFtQnk4cytKeXY2?=
- =?utf-8?B?MGI1OUU2QkNTZzdDNlJFVklrY1BFVm04WUJEQlhQdXIyVWc1VXNoRGRqZE54?=
- =?utf-8?B?TEdnemd1OUxwekxpZ0VacFJUcEIzbG0rd3pOck85ZUJTODQ4L0JOVmlqK1hj?=
- =?utf-8?B?VnV3Vm1vQ2VVdk92MGZRc0hsUEF2NktINGtHS3cwc2RkZUUrREVFYTkyeGRs?=
- =?utf-8?B?WEN6SC80ZzBpSk4xSjd1THN3cHphUnBtamRzY01zM0M5Uk5mYmdLLzFUdTVq?=
- =?utf-8?B?U3kyZUV6MFRHNVdNYUVyTEJjNWlRVXBId2NhbzVzNktZdmVEZmtMU1p5a3VB?=
- =?utf-8?B?OEZvcXRmTXZ4MFluN2dPNnRHNmFYYnAwb0pwbVo4RG5MampxZHVSaVNCYkhn?=
- =?utf-8?B?NTdhbFhRM214RFE1V3Exakx0QllDdFh2NVpOUUUrWlh2R1V3TENQeDZ0eGNV?=
- =?utf-8?B?eWV4STdNeFNhVmI3UmpxdDFvNTV5UHRzcGd4WE9qUmF0aFROa3BkL0RXYkM1?=
- =?utf-8?B?dlVUR2hWN09qM2kvUCtpcE9QY3dxcVhsRjJybDZ0UUQyWTRsZ0JUckVmclkz?=
- =?utf-8?B?UXR3UWFEVHZzZ0J1cGpIdWFKS3ZoaTlOU0tIUkxsUEdKazlqT2VoaGRCWlg0?=
- =?utf-8?B?djh6UmkxOUVxdXRTZklKTmZLVHFWN281bVU1eGRQSWUwY2hYQ2FHUUM1aE9R?=
- =?utf-8?B?OTJEa1JocUNyNFBOcHd3cW1HSzR4MEV3RDNoc3d1dWErelJnYSs0b3BQVVha?=
- =?utf-8?B?UklTQS9sU1g0N0g2Q1dmcHBzdFVIU1p3RGF2NTlWRmFiakwyVlQxV3dGMFpa?=
- =?utf-8?B?OUkvRnNSVWVWR1V2ZllTZkQ1MWlVelFpcE5ZWWlHWkNWWi9jcVYvTm1rbysx?=
- =?utf-8?B?SWJ6Z1B3NzRSZFdOOS9jTXB4WWwvR0xvYmljQ0xVUWRhbHg3Z0JMK0ltVDNW?=
- =?utf-8?B?SEcxdk1PQmNxZzF4UkFuaTVwUkw5RitFdHhmYXBaVnVKTHh0UG5LTTJ3Q3N6?=
- =?utf-8?B?UkpiQ3diYlNtUGZMRy9EVmg0bE1Td2NjbVE4ZUhNRVlzZE00R1lTOXlMSFlY?=
- =?utf-8?B?Nk1EZmJXNFJqaFVSR2xhdEdJYmlOSVBlUm9kbzVDZjFrTnpSc2FzVkM3NkZR?=
- =?utf-8?B?QWswTU1TekozN0ZQSkxLS3lMSHRaVG40QVBCdUdsQjcwc0NwbGpGQ3Z2ZVJu?=
- =?utf-8?B?NENndDVWdk9Qc0xYM3lWZ21mN2lxUEdOZjVxYk1jYjA5eUJtVXFlTU1sZ0NJ?=
- =?utf-8?B?ZDUwSm83Ly9lSnpJeGhHSGlxZS9VUmV3SC9VTi9yTHAyQ0hFaG5DbVN5eHcx?=
- =?utf-8?B?YXYwQkUwWkFtUmhkR0UvYzE5UUNteDI0S211d3JIT1IxcnF6OE5peG1YN0Vn?=
- =?utf-8?B?a010bW9CRlZTaFR0bDMrWVhTcTlJbE5BUVhHdWtabjhFN1NwL1U1M3J4dTB6?=
- =?utf-8?B?bzliUTE5N1pDNnVaOFR1RjRaNzNKZTFLd25EejVkMlN0bHRZVVJuOUxHNnBn?=
- =?utf-8?B?Q0h5a1ZUU016OXJnVk1MNHB2YU9mQkZLQXFIWjlkVk0xYkFaaWJhMFY0Uy9Z?=
- =?utf-8?B?YTBIUTN5M2pJM1RkbzJtVlowc2ZRbStIWldvVHpuYmcrVEtTaGxrRlVQL1Nw?=
- =?utf-8?B?MVRtOXliM2JBVHAzallaVHcvU1NQQ1U4M2hDZStZZGV2dWRTNHd5Q2syZXoz?=
- =?utf-8?B?SmEyV1J5ZHJTQXVBZkZxMk5YOXFHTHlqNU9JS0Q3N0YrcmdVdWhEUXZmQzNU?=
- =?utf-8?B?Z1lhZ3ZOMUFIL3RHcTdhaVFtNXdVb0E2SmZ3Y2ZuRjJXbDdjS1BCMUhpcGZO?=
- =?utf-8?B?bmlGbXFnRnJpbEtNQXArVU91K3JHSUdsaEc0RWU5Ukhza3dQbURQTFhhN1c4?=
- =?utf-8?B?dVA2YS9QZFpqeG4rbCtBRlRtb1MrdUdOZzFEckdNRWZISWc1YitDSEp6MTAx?=
- =?utf-8?B?NFpWWXd1Wm5pNGQ3NDBBeWdGZERDcnFoU3VlNWV2elBLMWFOZElxQWJtWVpJ?=
- =?utf-8?B?K2VaaktWU3d5ZURJblFCbHNVZE9SbERLVENGR1JkNnd5T2Y1UEFSV01XSTJ2?=
- =?utf-8?B?d1Z6TTFiaEVQWXQ3ZTgvYXBHTm9sYVMvVVNFc2RDdE5GTFdPbW91L1YyODJh?=
- =?utf-8?B?SnovTWh4WExCYndPc2dKN3REL3FWNGJPSDA4MDVmZ0xJcmxQcnRyUmJBTU9x?=
- =?utf-8?B?cWxoSnNMdCtFS25VdTk2L2FmWG5Lcmw4VlRIeC9KeXU1RG9TclBTSGxMZStY?=
- =?utf-8?Q?YrW2B+xVvGqgTQYoO6k8zI8VflI6uCUd46FCyoazic7Z+?=
-X-MS-Exchange-AntiSpam-MessageData-1: MuLGsAjcRVkzKA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7812706c-891d-4341-2e72-08df09b108d3
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 11:46:47.3144
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0X26DnXJit+oGMG/6QhUQ66mDVKuSWqYmcEIMyjA2RwPVTDZ4Lp2oB97JpKUyQzoAyEw7kAByoBReU8w9pcFJQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9150
+References: <20260805-media-starvis2-v1-0-91e8e4eae44f@raspberrypi.com>
+ <20260805-media-starvis2-v1-3-91e8e4eae44f@raspberrypi.com> <178840924662.11722.12680340547715469059@freya>
+In-Reply-To: <178840924662.11722.12680340547715469059@freya>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Thu, 3 Sep 2026 12:46:48 +0100
+X-Gm-Features: AcwNN1V_rdED1LTqBqth4XivSuKPAiq1rGIGwj4L0ffVbXE0kyqHxqrMRNIHSmk
+Message-ID: <CAPY8ntCQQhPiGoJFOADY-0q7QtKbi3XiCYHz1A6qogwhUdnL6A@mail.gmail.com>
+Subject: Re: [PATCH RFC 3/4] media: i2c: imx678: Add imx662 support to the driver
+To: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed Sep 2, 2026 at 1:50 AM JST, Gary Guo wrote:
-<...>
-> diff --git a/rust/macros/io/mod.rs b/rust/macros/io/mod.rs
-> new file mode 100644
-> index 000000000000..87f7742f4619
-> --- /dev/null
-> +++ b/rust/macros/io/mod.rs
-> @@ -0,0 +1,3 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +pub(crate) mod register;
-> diff --git a/rust/macros/io/register.rs b/rust/macros/io/register.rs
-> new file mode 100644
-> index 000000000000..83ba4dd75ab3
-> --- /dev/null
-> +++ b/rust/macros/io/register.rs
-> @@ -0,0 +1,276 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +//! Documention and usage example of the macro can be found at `rust/ker=
-nel/io/register.rs`.
+Hi Jai
 
-s/Documention/Documentation
+On Thu, 3 Sept 2026 at 05:20, Jai Luthra <jai.luthra@ideasonboard.com> wrote:
+>
+> Hi Dave,
+>
+> Quoting Dave Stevenson (2026-08-05 21:39:18)
+> > IMX662 is a 1080p Starvis 2 sensor that follows the same programming
+> > pattern as IMX678, so add it to the newly parameterised driver.
+> >
+> > FIXME: Update the common registers based on the Sony spreadsheet.
+> >
+> > Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> > ---
+> >  drivers/media/i2c/imx678.c | 64 ++++++++++++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 64 insertions(+)
+> >
+> > diff --git a/drivers/media/i2c/imx678.c b/drivers/media/i2c/imx678.c
+> > index 40ba6661b366..9083f2744510 100644
+> > --- a/drivers/media/i2c/imx678.c
+> > +++ b/drivers/media/i2c/imx678.c
+> > @@ -673,6 +673,47 @@ const struct imx678_variant imx678_variant_def = {
+> >         .hmax_min = imx678_min_hmax_4lane,
+> >  };
+> >
+> > +static const struct cci_reg_sequence imx662_common_regs[] = {
+> > +       { IMX678_REG_WDMODE, 0x00 },
+> > +       { IMX678_REG_MDBIT, 0x01 },
+> > +       { IMX678_REG_XXS_DRV, 0x00 },
+> > +};
+> > +
+> > +static const u16 imx662_min_hmax_4lane[] = {
+> > +       [IMX678_LINK_FREQ_297MHZ] = 990,
+> > +       [IMX678_LINK_FREQ_360MHZ] = 990,
+> > +       [IMX678_LINK_FREQ_445MHZ] = 990,
+> > +       [IMX678_LINK_FREQ_594MHZ] = 990,
+> > +       [IMX678_LINK_FREQ_720MHZ] = 990,
+> > +       [IMX678_LINK_FREQ_891MHZ] = 990,
+> > +       [IMX678_LINK_FREQ_1039MHZ] = 990,
+> > +       [IMX678_LINK_FREQ_1188MHZ] = 990,
+> > +};
+> > +
+> > +const struct imx678_variant imx662_variant_def = {
+> > +       .name = "imx662",
+> > +       .id_reg = IMX678_REG_MODULE_ID,
+> > +       .id_value = 0x296,
+> > +       .native_area = {
+> > +               .top = 0,
+> > +               .left = 0,
+> > +               .width = 1937,
+> > +               .height = 1101,
+> > +       },
+> > +       .active_area = {
+> > +               .top = 0,
+> > +               .left = 0,
+> > +               .width = 1936,
+> > +               .height = 1096,
+> > +       },
+> > +       .pixel_rate = 222750000,
+> > +       .pix_per_clk = 3,
+> > +       .common_regs = imx662_common_regs,
+> > +       .num_common_regs = ARRAY_SIZE(imx662_common_regs),
+> > +       .vmax_default = 1096 + 40,
+>
+> From the IMX662 SRM I see the following constraints for minimum:
+>
+>     VTTL >= PIX_VWIDTH + 70
+>     VTTL >= 820
+>
+> And the table giving round FPS numbers like 30/60/90 assumes VMAX = 1250.
 
-> +
-> +use proc_macro2::{
-> +    Group,
-> +    Literal,
-> +    Span,
-> +    TokenStream, //
-> +};
-> +use quote::{
-> +    quote,
-> +    quote_spanned, //
-> +};
-> +use syn::{
-> +    bracketed,
-> +    parenthesized,
-> +    parse::Parse,
-> +    spanned::Spanned,
-> +    token,
-> +    Attribute,
-> +    Expr,
-> +    Ident,
-> +    Path,
-> +    Result,
-> +    Token,
-> +    Type,
-> +    Visibility, //
-> +};
-> +
-> +mod kw {
-> +    syn::custom_keyword!(stride);
-> +}
-> +
-> +/// Definition of a register array.
-> +///
-> +/// Specify a size, and optionally a stride. Syntax is of form `[size: E=
-XPR, $(stride =3D EXPR)?]`.
+I find it weird that Sony's datasheets fix the number of vertical
+lines and extend horizontal blanking for frame rate control. That'll
+give you the worst case for the rolling shutter effect, so why would
+you want to do that?
 
-IIUC the syntax is actually `[EXPR $(, stride =3D EXPR)?]`.
+> Did you manually verify that setting blanking to 40 also works?
 
-With these fixed,
+Yes, I've verified that vblank of 40 works.
+This is why I queried the values in the IMX908 driver that Lachlan
+sent, as the datasheets always seem overly conservative. There may be
+further restrictions if you enable the various HDR modes, but we're
+not there yet.
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+  Dave
+
+> Thanks,
+>     Jai
+> > +       .hmax_min = imx662_min_hmax_4lane,
+> > +};
+> > +
+> >  struct imx678_model_info {
+> >         enum imx678_type type;
+> >         const u32 *codes;
+> > @@ -703,6 +744,26 @@ static const struct imx678_model_info imx678_autodetect_info = {
+> >         .auto_detect_mono = &imx678_aamr_info,
+> >  };
+> >
+> > +static const struct imx678_model_info imx662_aaqr_info = {
+> > +       .type = IMX678_COLOR,
+> > +       .codes = codes_bayer,
+> > +       .num_codes = ARRAY_SIZE(codes_bayer),
+> > +       .variant = &imx662_variant_def,
+> > +};
+> > +
+> > +static const struct imx678_model_info imx662_aamr_info = {
+> > +       .type = IMX678_MONOCHROME,
+> > +       .codes = codes_monochrome,
+> > +       .num_codes = ARRAY_SIZE(codes_monochrome),
+> > +       .variant = &imx662_variant_def,
+> > +};
+> > +
+> > +static const struct imx678_model_info imx662_autodetect_info = {
+> > +       .variant = &imx662_variant_def,
+> > +       .auto_detect_colour = &imx662_aaqr_info,
+> > +       .auto_detect_mono = &imx662_aamr_info,
+> > +};
+> > +
+> >  static const char * const imx678_supply_name[] = {
+> >         "avdd",  /* Analog (3.3V) supply */
+> >         "dvdd",  /* Digital Core (1.1V) supply */
+> > @@ -1470,8 +1531,11 @@ static const struct dev_pm_ops imx678_pm_ops = {
+> >  static const struct of_device_id imx678_of_match[] = {
+> >         { .compatible = "sony,imx678-aamr", .data = &imx678_aamr_info },
+> >         { .compatible = "sony,imx678-aaqr", .data = &imx678_aaqr_info },
+> > +       { .compatible = "sony,imx662-aamr", .data = &imx662_aamr_info },
+> > +       { .compatible = "sony,imx662-aaqr", .data = &imx662_aaqr_info },
+> >         /* for non-conforming DTs that rely on runtime check */
+> >         { .compatible = "sony,imx678", .data = &imx678_autodetect_info },
+> > +       { .compatible = "sony,imx662", .data = &imx662_autodetect_info },
+> >         { /* sentinel */ }
+> >  };
+> >
+> >
+> > --
+> > 2.34.1
+> >
