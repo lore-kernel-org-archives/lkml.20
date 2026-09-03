@@ -1,121 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-169.mta1.migadu.com [95.215.58.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE4BD44C4EA;
-	Thu,  3 Sep 2026 09:29:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A4F7401A2C
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:29:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788427760; cv=none; b=USH4aDbcvODQx+iwM5RK42eMa57pQmGYT+8jLYc1ajmQ4Lxnbn5gZiCwXjCfwulsYZUm3ViOPGFNgxsH6dtv2RreuizevXJyVw5a6+TjM1f3eC5KEfJBdquGT5dQhp/pG+CFIL8YXx5Lo9mclWdgAI1GOKWyULaIE7F1xIcQOHs=
+	t=1788427768; cv=none; b=r297rFwwRLYb3GlJ3OZBn50lxPZVVL9vtuKibTK0PH7w+onRNUlLdhlMWDKVQX/hWqSu3/iFqS7RC+uNsbmyBLupqsWGZdNGDZj5O+U/da3ZbEU8k6AvdJM5zNIYBzUrEH3+9KBlbAjf9vHJUEfpL/u3rUpPBudl0uSR0EcuGWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788427760; c=relaxed/simple;
-	bh=nn6iME8vaNp2UgCAoNFVxRTydFn/sut+ZKMPmrBTGcY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JFqEdqNuqbbWYIt0trpJgSH7RWt3SUVk74dD+hRpZ8XeV6oOZOxdWesijVUzX8cxdMxMbpa163C9WkgbowKbaHr6q6viGZatumWSTKe6VbQDyk7wvbqooxzOdPYnQdC/ZC63NjfrP5wFerrx+1Nh7eCenvt8lzM76AZ+E6hJKRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dc6BWw33; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788427768; c=relaxed/simple;
+	bh=35eiEfOrRizRYoh1kXYmiQrZmmBDpud87PGHldNlF4I=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=HVH9R/z3P3+oITe8tlK6VqqBkc//Bdp0YV7pGcy1pOljsRbeqrtRxObbiiMjdiTfPiKOB37xOdpxEI7pBHYWud5XnZDxbQc0vDT6YES0t2HstStOsX4Gz5kvlJCW+/KBNhkW6qLnM6rHPnPJwMfHJqoeUN39xat6Yf4UJQk2Edo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AQU8U2n2; arc=none smtp.client-ip=95.215.58.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dc6BWw33"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68CC71F00A3A;
-	Thu,  3 Sep 2026 09:29:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788427758;
-	bh=Vh6C9475l7fwGbJW046+hBcY6H+bSMsG/gNT4fxLjjs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Dc6BWw33eFqwAnKvbc/2ePznb+TuDl0/311Ux4UcmLpxp+Q7abEWleHxCmOOjQISw
-	 oxCvkgwUnvtbnN1PkSRcDoVvsxlVhC+tVD0ujqYa0LKTnJBa1Lxkpx/clqx1AifPrg
-	 89KPF1umm9Vn3HD8boxt8mlCJEBKSPLFszutpFOFbMTY0woer4WLnp/ulHkGjUvo65
-	 byO2lSGgdZd2gn6wbRjX2cmc6YakGRyG6RGGlMcDzz4zQ3AjxSuDeNrUrFMYvkfXow
-	 Ssj5NCfXrndepmRJnJTTmdkwbXvvAPcREhb15+xSkqIijaAybqP3yKMoF8SGTPEpxF
-	 QgQ0M0o4xuRvg==
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Thu, 03 Sep 2026 12:28:30 +0300
-Subject: [PATCH v3 4/6] mm/vmalloc: make set_area_direct_map HUGE_VMAP
- friendly
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AQU8U2n2"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=35eiEfOrRizRYoh1kXYmiQrZmmBDpud87PGHldNlF4I=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788427763; v=1; x=1789032563;
+ b=AQU8U2n2od0tqwdwItKt/jYtpJXfQ2aTy0Wyu/ScwKACUBPIK9ndaJinEBgSXGcz9LPdPB/q
+ esZplpwcCnXEK7EshhVr8r1CeM1xKtKJeuUcqrn7WtMuI+M98IUYxcyW/h7YrVuzSWxd2Da+nMX
+ 7i7w97pd0fmyJ5USDX7zkJww=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1762dd09795c5969;
+	Thu, 03 Sep 2026 09:29:22 +0000
+X-Mizu-Trace-ID: 1762dd09795c5969
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <8ef29e46-4edd-43ce-a3cc-0bb4794e861e@linux.dev>
+Date: Thu, 3 Sep 2026 17:29:15 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-execmem-set-vm-perms-v0-2-v3-4-949b64a9f755@kernel.org>
-References: <20260903-execmem-set-vm-perms-v0-2-v3-0-949b64a9f755@kernel.org>
-In-Reply-To: <20260903-execmem-set-vm-perms-v0-2-v3-0-949b64a9f755@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: =?utf-8?q?Adrian_Barna=C5=9B?= <abarnas@google.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, Alexandre Ghiti <alex@ghiti.fr>, 
- Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>, 
- Brendan Jackman <brendan.jackman@linux.dev>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Dave Hansen <dave.hansen@linux.intel.com>, 
- David Hildenbrand <david@kernel.org>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Huacai Chen <chenhuacai@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Len Brown <lenb@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Paul Walmsley <pjw@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, "H. Peter Anvin" <hpa@zytor.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Ryan Roberts <ryan.roberts@arm.com>, Sven Schnelle <svens@linux.ibm.com>, 
- Thomas Gleixner <tglx@kernel.org>, Uladzislau Rezki <urezki@gmail.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, WANG Xuerui <kernel@xen0n.name>, 
- Will Deacon <will@kernel.org>, x86@kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-mm@kvack.org, linux-pm@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, 
- loongarch@lists.linux.dev
-X-Mailer: b4 0.17-dev
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, Jan Kara <jack@suse.cz>,
+ Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, cgroups@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] fs: namespace: drop BUG_ON() in copy_mnt_ns()
+To: Shaojie Sun <sunshaojie@kylinos.cn>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Christian Brauner <brauner@kernel.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>
+References: <aphwXq5bEQwKhqx2@localhost.localdomain>
+ <20260903064828.126643-1-sunshaojie@kylinos.cn>
+ <20260903064828.126643-4-sunshaojie@kylinos.cn>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <20260903064828.126643-4-sunshaojie@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-set_area_direct_map() always updates direct map alias permissions in
-single page increments.
 
-For HUGE_VMAP areas it's suboptimal. Not only the loop in
-set_area_direct_map() needlessly has more iterations (e.g times 512 on
-x86), but it also causes fragmentation of the direct map that could be
-avoided for the HUGE_VMAP areas populated with large pages.
 
-All pages in an area are always of the same order: either same-order
-large pages when VM_ALLOW_HUGE_VMAP is set and all huge pages were
-successfully allocated, or order-0 page when VM_ALLOW_HUGE_VMAP is
-cleared or when huge pages allocation fails and fallback path is taken.
-
-Instead of updating the direct map permissions for every order-0 page in
-an area, use the area's page_order as the loop increment and update the
-large pages in one call to set_direct_map_{invalid,default}_noflush().
-
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
----
- mm/vmalloc.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
-
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index 5506b180f5c27..6ed6c160abed7 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -3367,12 +3367,15 @@ static inline void set_area_direct_map(const struct vm_struct *area,
- 				       int (*set_direct_map)(struct page *page,
- 							     unsigned int nr))
- {
--	unsigned long i;
-+	unsigned int nr = (1U << vm_area_page_order(area));
-+
-+	for (unsigned long i = 0; i < area->nr_pages; i += nr) {
-+		if (page_address(area->pages[i])) {
-+			int err = set_direct_map(area->pages[i], nr);
- 
--	/* HUGE_VMALLOC passes small pages to set_direct_map */
--	for (i = 0; i < area->nr_pages; i++)
--		if (page_address(area->pages[i]))
--			set_direct_map(area->pages[i], 1);
-+			WARN_ON_ONCE(err);
-+		}
-+	}
- }
- 
- /*
-
--- 
-2.53.0
+在 2026/9/3 14:48, Shaojie Sun 写道:
+> The sole caller, create_new_namespaces(), always passes a valid mount
+> namespace pointer from the task's nsproxy. The other copy_*_ns()
+> helpers, e.g. copy_time_ns() and copy_pid_ns(), don't perform such a
+> check either. Drop the BUG_ON() for consistency with them.
+> 
+> Signed-off-by: Shaojie Sun <sunshaojie@kylinos.cn>
+> ---
+>  fs/namespace.c | 2 --
+>  1 file changed, 2 deletions(-)
+> 
+> diff --git a/fs/namespace.c b/fs/namespace.c
+> index 1ecd96c918b3..0f35c8c14027 100644
+> --- a/fs/namespace.c
+> +++ b/fs/namespace.c
+> @@ -4247,8 +4247,6 @@ struct mnt_namespace *copy_mnt_ns(u64 flags, struct mnt_namespace *ns,
+>  	struct mount *new;
+>  	int copy_flags;
+>  
+> -	BUG_ON(!ns);
+> -
+>  	if (likely(!(flags & CLONE_NEWNS))) {
+>  		get_mnt_ns(ns);
+>  		return ns;
+Reviewed-by: Tao Cui <cuitao@kylinos.cn>
 
