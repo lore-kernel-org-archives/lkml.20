@@ -1,52 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 128794A2A69;
-	Thu,  3 Sep 2026 12:34:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46FCC37E5CD;
+	Thu,  3 Sep 2026 12:35:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788438882; cv=none; b=ByMA7YgeO0Cm2A3OGukeFqsjgzXR5LG2LDv+iw0wf2/ISLN8fszCIl1Wd1jj4PpWv6bJqjSkdg0F57AIQ+O7cwA9w61P2xPDDdSvoIvCSTH69IoW8bL3Hn8eF4yJ08p8nUYsSu/O4A4uB/lZ8o9LYJyCZEQ5waj64Mpn06UjxzI=
+	t=1788438901; cv=none; b=jc5+jplzhd5EkbWIODbCfo9APA7SC6GmEY2KIIP5vdcgB6AnjYc4LrchRImkOHYsRYCiflveMcuWJ71Jc68E+5wRHVJGpal9H2pUeXTHP998ky6qcNoTrpmnnUk2PkIB95TIYtBwBWHCU1iKGHaVHSEUS/4TJ/U4r3DVpyjYhG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788438882; c=relaxed/simple;
-	bh=skbac+Av+j+XXQu0zANubUepDTRGwgFnB7+UzSNHOFc=;
+	s=arc-20240116; t=1788438901; c=relaxed/simple;
+	bh=fuBAGqqUDOqetB2V/lzjUNoB/11ynai98RY5zv5kmM4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bWNH5eTIbqLq1ia7B3SsMb88pWsX7+2aOksoiUol9cz2WxXCbwJF8mZ0K71OlLUargvYLxjvPyOCABgShWJPoSxcbPAHKCxchxuPtCMSr7fBn5hdEk03QBjTCy/CCBTFy5SlmPrJVKBgEff++Jlf1BV0T6Ruf2fVS8iLS8nx0rg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G0/zDgEF; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=tzNNw+U9AGK4HJFF26YLFQ5u+P3v/x8CS7deWC4gyXIt0gIen13P9I2CL8kct7S5dbmXNOh9Mzl7Xyqxl/tcRYXfzmDM5yGH+TjFk+9aMzkPA9S59HhA73/YsAUDxv2rV1xx+lJMFOGtoZaodCn/KkEWvCVPVVLr0vZkjXnizdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hvHP23vb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G0/zDgEF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED6C31F000E9;
-	Thu,  3 Sep 2026 12:34:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hvHP23vb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19C671F000E9;
+	Thu,  3 Sep 2026 12:34:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788438880;
-	bh=uK0Hbb1faKPkbn+cU/4RsAvsMY58CotR+cwVfIyfMWY=;
+	s=k20260515; t=1788438900;
+	bh=LkHyojIiqDTwswEf0pCBO7d+LqykZSReJx6ZH4c8vlY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=G0/zDgEFJRV3Fd3FiL6VOiv71LC5tt6dpsEVZ+vUTmxM+NIkfCgQmQCBmUR3efDGs
-	 d03+lO5Yzimj4JcFaVVzO2IW2X1IZvoSXrXgIixcVXqV+kWrONGDmqqBS7QC0sjhln
-	 8O4USSEsQKziD64eJ0j+N0yOZs67H6km3FbL+OuFzFso7aU11hik0VgMO6mPSJiarf
-	 096aqgZsssYcV4yinnALs/mSWYagEgscsV1LbY9kDPbwwxtRqGD+2PZJ53dAh4qbJv
-	 2gRW6Hk+qGBW8JNr09rbNX0I9Jkemeaq98CSNtqYud1iuXkknhUDVS9iSXRPLZW8PR
-	 OBW163lQPJ7Lw==
-Date: Thu, 3 Sep 2026 15:34:31 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	David Hildenbrand <david@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH 1/6] mm: move drivers/char/mem.c to mm/char-mem.c
-Message-ID: <aplpV4lLpDuHQ7pG@kernel.org>
-References: <20260902-map-private-dev-zero-v1-0-a578c730cec7@kernel.org>
- <20260902-map-private-dev-zero-v1-1-a578c730cec7@kernel.org>
+	b=hvHP23vbG9IiqSRn4lxC6hbe1z2w6jX7yKRajvDm8CYyw7qtAzs2GKMuoeulyrCZD
+	 50CrgXsfTLYRZ0/Xh5DGU6Ts9RyXEOuzdwzxISxdXgP4ibYzaJJCQm74BP2bG3zBis
+	 FMPWBib8khhEm4efo00Bly60KuFlugbnp99YtmqRqJh1nHtFCw80pVk3TGGWCsnkod
+	 ncvG3tQjzaZfF0RgHXrg2urDhQoV9IIHJFnuKJz8eh7g2NSEyvFa8yNHpDrvqiP4Yg
+	 52fMOU8q/ZYpTb5ssWQYYxvW3zsexK51HIpEXal4IhBKTin2nOQFMX5ax4wZrS8F8V
+	 xDXeF39Z42zgw==
+Date: Thu, 3 Sep 2026 13:34:55 +0100
+From: Lee Jones <lee@kernel.org>
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org,
+	rostedt@goodmis.org, mhiramat@kernel.org,
+	linux-trace-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com,
+	kernel-team@android.com, linux-kernel@vger.kernel.org
+Subject: Re: STABLE REQ: [PATCH v5 06/10] tracing: Fix subbuf resize races
+ with trace_pipe_raw readers
+Message-ID: <20260903123455.GS2133376@google.com>
+References: <20260901123444.GA1350131@google.com>
+ <20260902-daily-reply-0006-tracing-subbuf-resize-7-2@kernel.org>
+ <apk_dQ4Q6msdw_Ub@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,36 +47,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260902-map-private-dev-zero-v1-1-a578c730cec7@kernel.org>
+In-Reply-To: <apk_dQ4Q6msdw_Ub@google.com>
 
-On Wed, Sep 02, 2026 at 07:00:18PM +0100, Lorenzo Stoakes (ARM) wrote:
-> The memory character driver implements several mm-specific features and is
-> always compiled into the kernel, so move it to mm/ where it belongs.
-> 
-> Among other things the driver implements /dev/mem which provides raw access
-> to physical memory, and /dev/zero which either allows mapping of a shmem
-> region (if mapped with MAP_SHARED) or, uniquely, anonymous memory (if
-> mapped MAP_PRIVATE).
-> 
-> This change lays the foundations to allow MAP_PRIVATE-/dev/zero to be
-> mapped precisely the same as anonymous memory is mapped as currently it is
-> an edge case within mm.
-> 
-> Also update a couple of comments that reference 'drivers/char/mem.c' to
-> reference 'mm/char-mem.c'.
-> 
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+On Thu, 03 Sep 2026, Vincent Donnefort wrote:
 
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> On Wed, Sep 02, 2026 at 06:14:05PM -0400, Sasha Levin wrote:
+> > > Concurrent subbuffer resizes may crash trace_pipe_raw readers or leak
+> > > uninitialized memory to userspace due to stale size values.
+> > >
+> > > Fixes: bce761d75745 ("ring-buffer: Read and write to ring buffers with custom sub buffer size")
+> > > Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+> > >
+> > > Not sure if this is the latest version or not?
+> > >
+> > > I see review comments, but no v6.  Anyway, no matter, it'll do.
+> > 
+> > Queued for 7.2, thanks.
+> > 
+> > -- 
+> > Thanks,
+> > Sasha
+> 
+> This isn't the last version of this patch, I have just posted a v9 [1] and
+> Steven hasn't reviewed it yet.
+> 
+> [1] https://lore.kernel.org/all/20260901155445.1475405-3-vdonnefort@google.com/
 
-> ---
->  MAINTAINERS                         | 4 ++--
->  drivers/char/Makefile               | 2 +-
->  mm/Makefile                         | 3 ++-
->  drivers/char/mem.c => mm/char-mem.c | 2 +-
->  mm/shmem.c                          | 2 +-
->  5 files changed, 7 insertions(+), 6 deletions(-)
+The confusion  is mine to own.  I responded to the wrong patch mail, sorry!
+
+  `ring-buffer: Fix subbuf resize race with ring buffer readers`
+
+Which is in Mainline with the immutable SHA 8a5f63637890.  My assumption
+is that Sasha queued the correct commit or the tools would have
+complained loudly.
 
 -- 
-Sincerely yours,
-Mike.
+Lee Jones
