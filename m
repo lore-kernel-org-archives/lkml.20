@@ -1,67 +1,60 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEC7D397937
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:31:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86F8C2E7F20;
+	Thu,  3 Sep 2026 09:31:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788427916; cv=none; b=sv8g9Z2HJG7pmH7Ge1bcletiUs3XRkjLjcierQtxFf+l1PBPks7AFxE9OZx7xCdYgvg6bcehp32+RHUEg/9eWsErwEx21vv6OHN5HpnjxjsIyE0J+d7Pm+PpEV3DaEIZx4L8uDaYrSJTtpIqbraBvYefoD02/OOaWs0PokR4hZA=
+	t=1788427917; cv=none; b=DCJsULOs9cHtsKahSQ8YZpiByHH+5JRv6K+Dt+uljkmOasSF3khQuqHKTYhI3JPwGn1pyhalwgMp09sHKIp0ZEWhzy9weYvvyFTHUJUefZfaDmoZJCfyRx5nG8/bUyhRDtNHJKaZcB+5fnU6LdDRhb5O+c9P3zdW8ll9+g5OfmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788427916; c=relaxed/simple;
-	bh=lI2mxNE9KnVCsl0teA51X5qx5kUoJhxl9QfZ4/JhFr0=;
+	s=arc-20240116; t=1788427917; c=relaxed/simple;
+	bh=M1GuArPDszQqhtRbvFDsXyR6Fc3gKdDpC4liGH6u+fk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nHrYn7rKrBD6/zK39Poyjol/OuJDZM56ATUjGiocZl0J0FQe1SUmRXQxgVxA5DggbFp+3SzyviPwcyEWpsghh9KuOm6VFMmMIWqc0WPb/SY/lawC0qV2ldUSx/DvRqDVVDpPghiNSUUKr9OznR2BRMi+zgLQfSvKEhwbBL08ESQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org; spf=none smtp.mailfrom=blackwall.org; dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b=DCvhpAVG; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=blackwall.org
+	 In-Reply-To:Content-Type; b=YA9YBIf2jpdm0xK+k9xRComvlAGCpzS4R92qVvp3T9tOIK1RYcTLfVwfYuk4Vc6CvMa4gaKBpfudHCkyav2Wzjy592BdwVSueRcO8xn6o1oeH8n/2HvkcsWpHIo3KGh2+jG4MT8vYBUCxR+L8oCzGdEQDL0yRz5CTJtzxPXwL7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=j04Ou6le; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b="DCvhpAVG"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49b8687630fso17753695e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 02:31:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blackwall.org; s=google; t=1788427913; x=1789032713; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+YoJRVDKsxA+JZQB/DUL9Ib2BpXMsLJBJ11fKOwMq4g=;
-        b=DCvhpAVGDLRLPpY8mcQsF9vKis843htQECInKdLB+q92oUwr8+UwC4X0kzBmf2Zjmn
-         HsxpK7OvxR+ZCviQJJHw0XhrCKcBgGtpz+1fdOttH2a3C2FGxKLwjTyGXzXlzcqQnphY
-         WRdqO4bSabUXnWwi34d3E6Evm7Qd7lecHKpN84zmjI4w5RBUnWxAfNacrV8MUiIicks3
-         kIAhQQX5iDueTW/C/VfoDGKlgbyWpLto91kpHJuK52Sg+qR+CJyhv7vR67kt4PiNWPU7
-         4jFntZf36Qfs3CsC/JZYzXPEIb7bF4N+bJ8xaskCY+ITp+CainrBV04etEaHfjMzGS4Z
-         2VgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788427913; x=1789032713;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+YoJRVDKsxA+JZQB/DUL9Ib2BpXMsLJBJ11fKOwMq4g=;
-        b=U0OP8cmNcG5Lg9gMj1MZiCS4lq2aclikas4Ks+nPQtHoekOUGmCsv6Cb6qM4B4N4Yu
-         R5ZaNG/3OKgJN95FRrQdXn82JtNMghcio5/xHNFgVJHehP7PuwSuHA61IfY2R4dgmLjs
-         WDwr5avh6LcpVFWLVkHGCA1A3iOXdYmqsOZNyTtBIfLH0gwDiEqN+xViBJqm5luKfXLQ
-         L45MiwWWL50pNZKagYQAW68kkmsZkSrUKn35krm1AVhyIMW5jwAP+krvL8j08b0H6AHK
-         GnAPdUegyQLbAxGamUBreiKi4XVqFqpZthCVV6Uo3ba6m6xDuQ8hzC4BdxoPdLj/B/1Z
-         jGqA==
-X-Forwarded-Encrypted: i=1; AKwUvByY3ov+dk9SogCzxPD9qe2A4NvJjh23WGB/nvSOUdXSZqmM8FAt+7f7yOPl0nSZCdiDyVbjiBrWhyixg60=@vger.kernel.org
-X-Gm-Message-State: AFuF++lVRDw+coN+t31idQQgICmUZcxiEGc9TSuzB+zqUmFcdIdNmijB
-	4cvVRhJ78I5K6f9CZjv2wAIcl7G0hJryKrOnb6ZjJSRUXEJX01qCXfzWKHSm7sOD3DQ=
-X-Gm-Gg: AYBFou1ZWHH5KHODGGX5H//jyitR/+FyTTIH6Ojcm2LhzAFpfNKW+Wqr9XLdNzIVicE
-	KNoKk8aBFr4u1f1Kue9toGkqCnjYleGceQDKp//M1HxpyZJGLIdiLMcpNqG66pG2dMp1MX/BFJd
-	+p/DViE1Aa1u2A8otQ7bcpU+lwvh9l74lQsFujIp6cl9/VE6ix1/n1muKraPF6YvQlheecm+2R1
-	/WHMBvgrvQIYrMXrDeRMukOr5zNeTCucmyn5t4lEIVwi4r/d1/CRKe4OkjjKKiKncykmpB7A1N+
-	aGfaX3uCOQnct7rYt+pIUs+ljEIdLIfVQ7+PnTtS3yBZ04gJdq8gMNEhJhIr35frnmUzOLpmRfG
-	Nl3CmpTmhG9KOwGR/wnCeL8z0+ResWG8ZmO8mafRh/BOSygQorhidHffMvHaMJKxIolsSxchdyw
-	d//plN/1QpTbPu2khMdzq7rDjKzYSeexaHGgXhovWtKouPDbU/RwhRz3dzWN59ec6JLPhzxWDng
-	KViTu7exMnNF+3dV0M=
-X-Received: by 2002:a05:600c:4e8f:b0:499:bf0e:95c8 with SMTP id 5b1f17b1804b1-49ce57f5647mr162091905e9.1.1788427912710;
-        Thu, 03 Sep 2026 02:31:52 -0700 (PDT)
-Received: from [192.168.0.161] (78-154-15-182.ip.btc-net.bg. [78.154.15.182])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e80020sm12835333f8f.10.2026.09.03.02.31.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 02:31:52 -0700 (PDT)
-Message-ID: <80d9e50b-fdc6-4337-9adb-8db1bd194ce4@blackwall.org>
-Date: Thu, 3 Sep 2026 12:31:51 +0300
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="j04Ou6le"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68392MD92554949;
+	Thu, 3 Sep 2026 09:31:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=Oes1IY
+	6tLtZP0ojS7F9/jWz9DNW2mLJCHP801lQkmNk=; b=j04Ou6leVZz1OLXCqueA/W
+	Yyi7Ijyufw8f64/1JYtjIehAT6UG94yxol4bLznNmbqz9AJqRNOxSckjNcQck1uE
+	IzL40AKywC9ZV0ZFRFQ02dOh3uLrFok8h5483SKoKyvS6Pb6Q3kJ8MCVpHUtrDob
+	wuwF3qdoMxvanfVgrHJw7818MBnyIWBRTTtD67rJ0SpYie6g9eTjoL6Oznr1KgMq
+	o/tRa/bjf2VuA5Mw2zkQrNTj2xnC6jMT0+t+NNXWsAUSCMj7yyNM6NK5U+Hu7VRS
+	seWSbJsxXacS0EYDfme/E8fa77s8/1K85wFCpXK4vn52FAFEFuQ57O+kdbYT49tA
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbpx5v37e-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 09:31:22 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6839QKxr027721;
+	Thu, 3 Sep 2026 09:31:21 GMT
+Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gecjaqc9f-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 09:31:21 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
+	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6839VKig56361414
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 3 Sep 2026 09:31:20 GMT
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 076FE58061;
+	Thu,  3 Sep 2026 09:31:20 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6B2C558059;
+	Thu,  3 Sep 2026 09:31:14 +0000 (GMT)
+Received: from [9.123.14.23] (unknown [9.123.14.23])
+	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  3 Sep 2026 09:31:14 +0000 (GMT)
+Message-ID: <44129fcb-e898-4567-b328-693c3b25b84d@linux.ibm.com>
+Date: Thu, 3 Sep 2026 15:01:12 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,60 +62,127 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] bonding: fix slave_cnt leak on XDP error paths
-Content-Language: en-US, bg
-To: Hangbin Liu <hangbin.liu@linux.dev>
-Cc: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Daniel Borkmann <daniel@iogearbox.net>, Jussi Maki <joamaki@gmail.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Hangbin Liu <liuhangbin@kylinos.cn>
-References: <20260903-bond_slave_cnt-v2-1-02e27304ca36@kylinos.cn>
- <30c405c0-d17b-4107-a4f4-d2595c661892@blackwall.org>
- <apk9eDWX069eRKCF@fedora>
-From: Nikolay Aleksandrov <razor@blackwall.org>
-In-Reply-To: <apk9eDWX069eRKCF@fedora>
+Subject: Re: [PATCH] KEYS: trusted: Fix tpm2_load_cmd() boundary check
+To: Jarkko Sakkinen <jarkko@kernel.org>, linux-integrity@vger.kernel.org
+Cc: stable@vger.kernel.org, co+6a581c4284f721d4@bugs.sh,
+        James Bottomley <James.Bottomley@HansenPartnership.com>,
+        Mimi Zohar <zohar@linux.ibm.com>, David Howells <dhowells@redhat.com>,
+        Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+        "Serge E. Hallyn" <serge@hallyn.com>,
+        Jonathan McDowell <noodles@meta.com>,
+        Ross Philipson <ross.philipson@gmail.com>,
+        Stefan Berger <stefanb@linux.ibm.com>,
+        Stefano Garzarella <sgarzare@redhat.com>, keyrings@vger.kernel.org,
+        linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260901205809.2028454-1-jarkko@kernel.org>
+Content-Language: en-US
+From: Srish Srinivasan <ssrish@linux.ibm.com>
+In-Reply-To: <20260901205809.2028454-1-jarkko@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=PPc/P/qC c=1 sm=1 tr=0 ts=6a993e6b cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=9NdF306EAAAA:8
+ a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8 a=w0kG7cfk7OnRNx5R66wA:9 a=QEXdDO2ut3YA:10
+ a=rgq1sGBS9uhxkUNMdZk6:22
+X-Proofpoint-GUID: vIX0nz_Oxt4zQ4BLL0BIgl3RrLAIh53g
+X-Proofpoint-ORIG-GUID: 1ZJ0Rqam87dI5LDuAG4CJt-2a3_NwCbG
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA4MiBTYWx0ZWRfX+BCe6WQL3AXn
+ YS2g/5qL1e6W2Hot4135EYWaUXwzM9mBpoj6RC3dPMOSrOnsJjoCJH48u98CAaTWz4D6cbqdUWG
+ P47GfeVFmULHERpuZrOcliqBflC9GiY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA4MiBTYWx0ZWRfX3Ut2khEE/1PZ
+ H6vC3iAWiTw6ZhaPXTRtQRko3VB1G+5Gul5uh3ChRiLFdLp+qZMSykbfpl6/1WUJZXeckiqFUEY
+ f04xEhsBTGyxrsllFFrZieqxCROuD6V4wNR/a1tINopVcCc3y55CBoQDV1TR+PzsDD5Qr+sEvoO
+ 3wcbAQlKQ+ek3SxBAjSQ4zonSEI/MybHNpV0y96jr8UD4Sj+XNjIeoZHkNns1vNrlavGfgxhnVd
+ vGj2rASbeNb0zNNkVVRGhHuQLPk6ngOvXDq0iE80QageoXZqh02YERi1RI2rS0P2EQgHwUA5SoF
+ 4Qi+iKJcQdla2sMytB92RwKahZLz2QoVbLG8/1pXrXxzrNCZek6HUDg4/pejp3vIwCmehWKv/Lb
+ 3wdbDIZCJbv0D4/9iVSj438yYHCgGmiMggruB9Zu8fqn0YJzuIaLP6PjF/YblR/dB8FjW4Pkb4J
+ NoMQSFWjjMrSiklp+Jw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609030082
 
-On 03/09/2026 12:27, Hangbin Liu wrote:
-> On Thu, Sep 03, 2026 at 11:18:32AM +0300, Nikolay Aleksandrov wrote:
->>> diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
->>> index 947d92a669b6..f3290aee50d1 100644
->>> --- a/drivers/net/bonding/bond_main.c
->>> +++ b/drivers/net/bonding/bond_main.c
->>> @@ -2284,7 +2284,6 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
->>>    		}
->>>    	}
->>> -	WRITE_ONCE(bond->slave_cnt, bond->slave_cnt + 1);
->>>    	netdev_compute_master_upper_features(bond->dev, true);
->>>    	bond_set_carrier(bond);
->>> @@ -2339,6 +2338,8 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
->>>    	bond_xdp_set_features(bond_dev);
->>> +	WRITE_ONCE(bond->slave_cnt, bond->slave_cnt + 1);
->>> +
->>>    	slave_info(bond_dev, slave_dev, "Enslaving as %s interface with %s link\n",
->>>    		   bond_is_active_slave(new_slave) ? "an active" : "a backup",
->>>    		   new_slave->link != BOND_LINK_DOWN ? "an up" : "a down");
->>>
->>> ---
->>> base-commit: 70f3995830d3f1e79faa14eb0605914f778feca9
->>> change-id: 20260807-bond_slave_cnt-88e78c5f0ab9
->>>
->>> Best regards,
->>
->> Thanks, looks good to me. One minor nit if there's another version - mention
->> also the WRITE_ONCE() in the commit message or better yet do it in a separate
->> commit that properly annotates slave_cnt everywhere.
-> 
-> The WRITE_ONCE() change is made by Eric's recent fix
-> bc93419130bb ("net: bonding: annotate lockless writes with WRITE_ONCE()").
-> 
-> Do you mean add a comment for all the slave_cnt usage?
-> 
-> Thanks
-> Hangbin
 
-Oops, my tree was older, forgot to sync it, my bad.
-All looks good.
+On 9/2/26 2:28 AM, Jarkko Sakkinen wrote:
+> tpm2_load_cmd() does boundary checks against the ASN.1 size i.e.,
+> payload->blob_len. Address this by passing the decoded blob size to
+> tpm2_load_cmd(), and use it for the boundary checks.
+>
+> Cc: stable@vger.kernel.org # v5.13+
+> Fixes: f2219745250f ("security: keys: trusted: use ASN.1 TPM2 key format for the blobs")
+> Reported-by: co+6a581c4284f721d4@bugs.sh
+> Closes: https://bugs.sh/b/6a581c4284f721d4/
+> Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+
+
+Tested-by: Srish Srinivasan <ssrish@linux.ibm.com>
+
+
+> ---
+>   security/keys/trusted-keys/trusted_tpm2.c | 12 +++++++-----
+>   1 file changed, 7 insertions(+), 5 deletions(-)
+>
+> diff --git a/security/keys/trusted-keys/trusted_tpm2.c b/security/keys/trusted-keys/trusted_tpm2.c
+> index 67225dd562a9..01f18bb37047 100644
+> --- a/security/keys/trusted-keys/trusted_tpm2.c
+> +++ b/security/keys/trusted-keys/trusted_tpm2.c
+> @@ -99,7 +99,7 @@ struct tpm2_key_context {
+>   
+>   static int tpm2_key_decode(struct trusted_key_payload *payload,
+>   			   struct trusted_key_options *options,
+> -			   u8 **buf)
+> +			   u8 **buf, unsigned int *blob_len)
+>   {
+>   	int ret;
+>   	struct tpm2_key_context ctx;
+> @@ -120,6 +120,7 @@ static int tpm2_key_decode(struct trusted_key_payload *payload,
+>   		return -ENOMEM;
+>   
+>   	*buf = blob;
+> +	*blob_len = ctx.priv_len + ctx.pub_len;
+>   	options->keyhandle = ctx.parent;
+>   
+>   	memcpy(blob, ctx.priv, ctx.priv_len);
+> @@ -384,10 +385,11 @@ static int tpm2_load_cmd(struct tpm_chip *chip,
+>   	int rc;
+>   	u32 attrs;
+>   
+> -	rc = tpm2_key_decode(payload, options, &blob);
+> +	rc = tpm2_key_decode(payload, options, &blob, &blob_len);
+>   	if (rc) {
+>   		/* old form */
+>   		blob = payload->blob;
+> +		blob_len = payload->blob_len;
+>   		payload->old_format = 1;
+>   	} else {
+>   		/* Bind for cleanup: */
+> @@ -399,17 +401,17 @@ static int tpm2_load_cmd(struct tpm_chip *chip,
+>   		return -EINVAL;
+>   
+>   	/* must be big enough for at least the two be16 size counts */
+> -	if (payload->blob_len < 4)
+> +	if (blob_len < 4)
+>   		return -EINVAL;
+>   
+>   	private_len = get_unaligned_be16(blob);
+>   
+>   	/* must be big enough for following public_len */
+> -	if (private_len + 2 + 2 > (payload->blob_len))
+> +	if (private_len + 2 + 2 > blob_len)
+>   		return -E2BIG;
+>   
+>   	public_len = get_unaligned_be16(blob + 2 + private_len);
+> -	if (private_len + 2 + public_len + 2 > payload->blob_len)
+> +	if (private_len + 2 + public_len + 2 > blob_len)
+>   		return -E2BIG;
+>   
+>   	pub = blob + 2 + private_len + 2;
