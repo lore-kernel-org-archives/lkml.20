@@ -1,303 +1,219 @@
-Received: from ironport.ite.com.tw (hc210-202-87-179.vdslpro.static.apol.com.tw [210.202.87.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F221F411FB4;
-	Thu,  3 Sep 2026 10:16:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3803448CD46
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:16:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788430595; cv=none; b=p8i8/4WMMcJ8c0MRPbgxDnfQhspaY+uHrmXw/LivHPqbYKhZfcKRFY/f9oBFFpfYkKFCSclouCnNaQ+U0aiKSnMiKQ7pnBuODo3XxAeIjGuN8kEjt9cVWUsrvWNsWzt7VijpMfuhoOt5+JbrsasPGA9B9wDKklCkKv3zUsIXuDQ=
+	t=1788430616; cv=none; b=mUQrYeGuhGXXC2I8y7it36PCRyZMCEaDSUhZ5ATwG1BoqpLXOBkXk2kvG/nvJgeR3RHzhh5bEccUC4X2nP14cpqIX6PEiN/xQ4poH6jtiuawJ8DTP6+NK9S85WMhAOdv7X/I2DpfVcu+zRvFk3nFTHxfmHj0KBzFJjP7e0pA+wA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788430595; c=relaxed/simple;
-	bh=ldipukv9pusXhp9hjPoYFCaQL2MpzifOv0fcA7Ty/os=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fk6N1w5FViUwBa6esb4Tw3ezK5LPvAIGYSb3OXXi8obo6vw/7h64mQ5zdWCP3Ej9pczhv7HCmmn+N3ow7TTPp9Ih8K9mg0umHK1D1P9qe6JBp5BDERQiIMaeLVacRg0zbKn/MIGryGl7+aPd0beeUiG+fe1R+u0JfBf2GSUAdVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=XFGn+v+2; arc=none smtp.client-ip=210.202.87.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+	s=arc-20240116; t=1788430616; c=relaxed/simple;
+	bh=mD0w9PyHBMxoxqF6XVYQQejMxEJKovyykRbdXl95mn0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HmaI5evan62VoaKH3g9jZ08blu8a61lW3T/mq11qhK+5tOtDr6GFMjHl/gdqXVOiCsqIxMVhiJAaBd9CKfsoM18RvKM87D2g5xbO9jm/G4ifF2XRbEiQdzQOTPDACBCfnopbEZdHOo7d9GVkYGSqD3JU/9adbdBxg4qxfX+RIbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=NTzwLKD+; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=oLjPRRc/; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=aJte7QtF; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=aHIbijI/; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="XFGn+v+2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=ite.com.tw; s=dkim;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=76WSQpuQ/Dm4bFaRITCmBuN1RDkcqDthNRxUFzeBojA=;
-  b=XFGn+v+2g4nntFm0q/DEhAYCmfl4ZnD9BSeROhy9Hhn3XV6ORQN5vbei
-   +JqxHlvADT3aASEcf4cOdHbTxZf8OBeodNuHA/ACumCjmPk9k0z8jeGq4
-   cfYpgX74tq709u22Q1BnJh/xsaDKcmE3L68uzYgO7n0AgE0cDDdPB7hUK
-   TLYVhvYVQDzjuV6ZPdgzhSaymFfJ6KodE2e63MFr46A3DYBVGq2+fFAJv
-   S/XOzDuNrhL75M0l25A4PN9IsY2vNd290P85Mz4mITM0us1RSc4ohPAby
-   1CnYDJYlBjSpd4r6Hwq9to+Ljr+zjgc5TLtkTVvm6bBWooJLw3ngwk4fk
-   A==;
-X-CSE-ConnectionGUID: 0Vdxsr9sQzS3Zh9W1mtSig==
-X-CSE-MsgGUID: 8JRtMXdkRryh2McOQCveuw==
-Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
-  by ironport.ite.com.tw with ESMTP; 03 Sep 2026 18:15:07 +0800
-Received: from jiraproxy.ite.com.tw (jira.internal.ite.com.tw [192.168.35.200])
-	by mse.ite.com.tw with ESMTP id 683AF3hR042979;
-	Thu, 3 Sep 2026 18:15:03 +0800 (+08)
-	(envelope-from ite_pd@ite.com.tw)
-Received: from [127.0.1.1] (ITE01791W10.internal.ite.com.tw [192.168.37.107])
-	by jiraproxy.ite.com.tw (Postfix) with ESMTP id B180D2D58;
-	Thu,  3 Sep 2026 18:15:02 +0800 (CST)
-From: Amber Kao <ite_pd@ite.com.tw>
-Date: Thu, 03 Sep 2026 18:15:43 +0800
-Subject: [PATCH] dt-bindings: usb: Add ITE IT5271/IT5272/IT5273/IT5274
- support
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="NTzwLKD+";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="oLjPRRc/";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="aJte7QtF";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="aHIbijI/"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 7F23B21D98;
+	Thu,  3 Sep 2026 10:16:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788430579; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wU+icT/0o0sXokPTmYo+cIrdFZ6mQDn0bo8ALtSgFRk=;
+	b=NTzwLKD+7sze+b+VPaFwt9kEhn1GForP+EG6QD2o6Hjub5yXPDKiENPm84bxfDQ/iAnk3h
+	HRshkABQyEB3/TLgf6KEDqJCsD1dbX/ndnP01PcLDlJHq4faTNbwsdLXHVmGHsHxLaQnNQ
+	85sb1fXcZ9KDnAmp3QqoqwVGfLwoO2g=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788430579;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wU+icT/0o0sXokPTmYo+cIrdFZ6mQDn0bo8ALtSgFRk=;
+	b=oLjPRRc/Nnt9TGNZ8UVo4K2/xbxnOWPF2EMt2El1RAm2JlYNRC7copQKRjGTw0ykcA9Nzq
+	xZqYXqgcIR+RcwDA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=aJte7QtF;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="aHIbijI/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788430575; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wU+icT/0o0sXokPTmYo+cIrdFZ6mQDn0bo8ALtSgFRk=;
+	b=aJte7QtFOFMFstk6q6l0u12FREBxIgI5eVLGCZFUCSbe8vZjlI6nUsB4sd5RDKUdXiHIzk
+	HicF7RLo7T3Xh4Ogb2+Pkjgh2EiZtuXbXbOuMQhPFjB2lwZ6hwttpcXr7Kz2HdXkD8Ie5v
+	pcYoMgFYlaeM4ANdaqIhjsDy7O0oqt4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788430575;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wU+icT/0o0sXokPTmYo+cIrdFZ6mQDn0bo8ALtSgFRk=;
+	b=aHIbijI/hKfJxeHz7Ds81kSSD7BOykPJuj43m1t5x0QjAuq9A+2IWe5a8qvEPbmdNVxJfF
+	76fw3WobiTCd2pCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 60219136D9;
+	Thu,  3 Sep 2026 10:16:15 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Jvd2F+9ImWp0FQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 03 Sep 2026 10:16:15 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id F1587A13AC; Thu, 03 Sep 2026 12:16:14 +0200 (CEST)
+Date: Thu, 3 Sep 2026 12:16:14 +0200
+From: Jan Kara <jack@suse.cz>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Paulo Alcantara <pc@manguebit.org>, 
+	linux-fsdevel@vger.kernel.org, linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] super: make iterate_supers_type() deletion-safe
+Message-ID: <32afuwcqxfzvc2qwsvx6ecpyvbunr45wnvmezbbqzz25qtfn35@tvotjvtm3soe>
+References: <20260903013336.92081-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-it5271-binding-v1-1-1abd2c8cea85@ite.com.tw>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ5AMBBA4avIrDXpDxWuIhbKtMaipEUk4u6K5
- bd474KIgTBCk10Q8KBIi08QeQbD1HuHjMZkkFxqXnPFaCtlJZghP5J3rFC9qrTlphYWUrQGtHR
- +w7b7HXcz47C9F7jvB3PNnsFyAAAA
-X-Change-ID: 20260903-it5271-binding-43a376f0b91f
-To: Amber Kao <amber.kao@ite.com.tw>, Jeson Yang <jeson.yang@ite.com.tw>,
-        Yaode Fang <Yaode.Fang@ite.com.tw>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Amber Kao <ite_pd@ite.com.tw>
-X-Mailer: b4 0.15.2
-X-MAIL:mse.ite.com.tw 683AF3hR042979
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903013336.92081-1-kmehltretter@gmail.com>
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 7F23B21D98
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Flag: NO
+X-Spam-Score: -4.01
 
-Add device tree binding documentation for the ITE IT527x series
-(IT5271, IT5272, IT5273, and IT5274) I2C-based USB Type-C Power
-Delivery (PD) controllers.
+On Thu 03-09-26 03:33:36, Karl Mehltretter wrote:
+> iterate_supers_type() drops sb_lock while invoking the callback and keeps
+> only a passive reference to the current superblock. That reference keeps
+> the object allocated, but does not keep its s_instances node linked.
+> 
+> After the callback releases s_umount, final teardown can unlink the current
+> s_instances node. The iterator then advances through a reinitialized node.
+> With the current hlist it stops without visiting the remaining superblocks.
+> The unlink moved from generic_shutdown_super() to kill_super_notify(), but
+> the cursor lifetime has been unsafe since the helper was introduced.
+> 
+> The CIFS DFS lookup can consequently miss a matching superblock and return
+> -EINVAL.
+> 
+> Walk the global superblock list in reverse and filter it by filesystem
+> type. A passive reference keeps its s_list node linked, and reverse
+> traversal preserves newest-first visitation. Superblocks removed from
+> fs_supers remain on the global list, but teardown marks them SB_DYING
+> before unlinking them, so the existing filter excludes them.
+> 
+> This broadens the scan from superblocks of one type to all superblocks.
+> The only in-tree caller is the CIFS DFS lookup, so the broader scan is
+> limited to that path.
+> 
+> Fixes: 43e15cdbefea ("new helper: iterate_supers_type()")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-The series comprises four variants differing by port count and
-Power Range support:
-- IT5271: single-port, SPR (Standard Power Range)
-- IT5272: two-port, SPR
-- IT5273: single-port, EPR (Extended Power Range)
-- IT5274: two-port, EPR
+Good spotting! But what I'm wondering about is whether we just shouldn't
+move where we delete sb from fs_supers. Currently we do that in
+kill_super_notify() to hide the sb from sget_fc() (which would otherwise
+permanently retry and call test() for S_DEAD sb which can cause problems).
+But if we just skipped S_DEAD superblocks in sget_fc(), we could move
+removal from fs_supers list to put_super() (make it symmetric with the
+handling of super_blocks list) and that would also fix
+iterate_supers_type(). Christian, what do you think?
 
-Signed-off-by: Amber Kao <ite_pd@ite.com.tw>
----
-The driver for this device family is shared with ITE IT8851/IT8853,
-currently under review as a separate series:
-https://patchwork.kernel.org/project/linux-usb/patch/20260807-ucsi-itepd-v7-2-998ac11ed0ef@ite.com.tw/
+								Honza
 
-This binding is submitted independently so it can be reviewed on
-its own; once the driver series lands, IT527x support will be
-wired into it there.
----
- .../devicetree/bindings/usb/ite,it5271.yaml        | 176 +++++++++++++++++++++
- MAINTAINERS                                        |   8 +
- 2 files changed, 184 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/usb/ite,it5271.yaml b/Documentation/devicetree/bindings/usb/ite,it5271.yaml
-new file mode 100644
-index 000000000000..29cd7add9bde
---- /dev/null
-+++ b/Documentation/devicetree/bindings/usb/ite,it5271.yaml
-@@ -0,0 +1,176 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/usb/ite,it5271.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: ITE IT5271/IT5272/IT5273/IT5274 USB Type-C Power Delivery Controller
-+
-+maintainers:
-+  - Amber Kao <amber.kao@ite.com.tw>
-+
-+description: |
-+  The ITE IT527x series are I2C-based USB Type-C Power Delivery (PD)
-+  controllers.
-+  All variants support DFP/UFP/DRP roles, USB PD 3.1, Fast Role Swap,
-+  USB4, and TBT3/TBT4 alternate modes.
-+
-+  The series comprises four ordering part numbers built on identical
-+  silicon; port count and PD power range support are configured via
-+  firmware/OTP rather than differing in the register interface itself:
-+    - IT5271: single-port variant, SPR
-+    - IT5272: two-port variant, SPR
-+    - IT5273: single-port variant, EPR
-+    - IT5274: two-port variant, EPR
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: ite,it5271
-+      - items:
-+          - const: ite,it5272
-+          - const: ite,it5271
-+      - items:
-+          - const: ite,it5273
-+          - const: ite,it5271
-+      - items:
-+          - const: ite,it5274
-+          - const: ite,it5271
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  wakeup-source: true
-+
-+  '#address-cells':
-+    const: 1
-+
-+  '#size-cells':
-+    const: 0
-+
-+patternProperties:
-+  '^connector@[01]$':
-+    $ref: /schemas/connector/usb-connector.yaml#
-+    properties:
-+      reg:
-+        maxItems: 1
-+    required:
-+      - reg
-+    unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+anyOf:
-+  - required:
-+      - connector@0
-+  - required:
-+      - connector@1
-+
-+allOf:
-+  - if:
-+      not:
-+        properties:
-+          compatible:
-+            contains:
-+              enum:
-+                - ite,it5272
-+                - ite,it5274
-+    then:
-+      properties:
-+        connector@1: false
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        /* IT5274: two-port, EPR variant */
-+        typec@26 {
-+            compatible = "ite,it5274", "ite,it5271";
-+            reg = <0x26>;
-+            interrupts-extended = <&tlmm 129 IRQ_TYPE_EDGE_FALLING>;
-+            wakeup-source;
-+
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            connector@0 {
-+                compatible = "usb-c-connector";
-+                reg = <0>;
-+                label = "USB-C-0";
-+                power-role = "dual";
-+                data-role = "dual";
-+
-+                ports {
-+                    #address-cells = <1>;
-+                    #size-cells = <0>;
-+
-+                    port@0 {
-+                        reg = <0>;
-+                        endpoint {
-+                            remote-endpoint = <&eud_con>;
-+                        };
-+                    };
-+
-+                    port@1 {
-+                        reg = <1>;
-+                        endpoint {
-+                            remote-endpoint = <&redriver_ss_out>;
-+                        };
-+                    };
-+
-+                    port@2 {
-+                        reg = <2>;
-+                        endpoint {
-+                            remote-endpoint = <&dp_phy_out>;
-+                        };
-+                    };
-+                };
-+            };
-+
-+            connector@1 {
-+                compatible = "usb-c-connector";
-+                reg = <1>;
-+                label = "USB-C-1";
-+                power-role = "dual";
-+                data-role = "dual";
-+
-+                ports {
-+                    #address-cells = <1>;
-+                    #size-cells = <0>;
-+
-+                    port@0 {
-+                        reg = <0>;
-+                        endpoint {
-+                            remote-endpoint = <&usb1_hs_con>;
-+                        };
-+                    };
-+
-+                    port@1 {
-+                        reg = <1>;
-+                        endpoint {
-+                            remote-endpoint = <&redriver1_ss_out>;
-+                        };
-+                    };
-+
-+                    port@2 {
-+                        reg = <2>;
-+                        endpoint {
-+                            remote-endpoint = <&dp_phy1_out>;
-+                        };
-+                    };
-+                };
-+            };
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 4dfc1fb14ef7..1a35242257fc 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -13940,6 +13940,14 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
- F:	Documentation/devicetree/bindings/display/bridge/ite,it66121.yaml
- F:	drivers/gpu/drm/bridge/ite-it66121.c
- 
-+ITE IT5271 TYPE-C PD CONTROLLER DRIVER
-+M:	Amber Kao <amber.kao@ite.com.tw>
-+M:	ITE PD TEAM <ite_pd@ite.com.tw>
-+R:	Yaode Fang <Yaode.Fang@ite.com.tw>
-+L:	linux-usb@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/usb/ite,it5271.yaml
-+
- IVTV VIDEO4LINUX DRIVER
- M:	Andy Walls <awalls@md.metrocast.net>
- L:	linux-media@vger.kernel.org
-
----
-base-commit: 786262be6048deab760f68c8acc2c85607165894
-change-id: 20260903-it5271-binding-43a376f0b91f
-
-Best regards,
---  
-Amber Kao <ite_pd@ite.com.tw>
-
+> ---
+> Testing: x86_64 QEMU deterministic KUnit A/B using the actual CIFS lookup
+> callback over temporary VFS superblocks. Baseline skipped the surviving
+> match after teardown of the preceding nonmatch and returned -EINVAL. With
+> only this patch applied, the same test passed.
+> 
+> A real Samba DFS server and the kernel CIFS client were then run in the
+> same QEMU guest over loopback. Baseline and patch-only kernels both followed
+> the referrals and completed 20 reconnects while two workers repeatedly
+> mounted and unmounted independent CIFS superblocks. The patch-only run
+> successfully mounted, read from, and unmounted CIFS shares 95 times. Kprobes
+> recorded 110 DFS lookup calls and 60 iterate_supers_type() calls. There were
+> no unmount failures, kernel warnings, oopses, or sanitizer reports. The
+> natural network stress did not hit the narrow race on baseline.
+> 
+> Stable is requested because concurrent DFS automount teardown can make a
+> reconnect lookup miss a live matching superblock.
+> 
+> Backport note: before dc3216b14160 ("super: ensure valid info"), the
+> s_instances unlink is in generic_shutdown_super(). Before 3ec9800c2d33
+> ("super: convert s_count to refcount_t s_passive"), the passive reference is
+> named s_count.
+> 
+>  fs/super.c | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/super.c b/fs/super.c
+> index 05e4431730387..c8accd144bad2 100644
+> --- a/fs/super.c
+> +++ b/fs/super.c
+> @@ -1026,11 +1026,18 @@ void iterate_supers_type(struct file_system_type *type,
+>  	struct super_block *sb, *p = NULL;
+>  
+>  	spin_lock(&sb_lock);
+> -	hlist_for_each_entry(sb, &type->fs_supers, s_instances) {
+> +	/*
+> +	 * The passive reference keeps the s_list cursor valid while sb_lock
+> +	 * is dropped. Entries are added at the tail. Walk backwards to retain
+> +	 * newest-first visitation.
+> +	 */
+> +	list_for_each_entry_reverse(sb, &super_blocks, s_list) {
+>  		bool locked;
+>  
+>  		if (super_flags(sb, SB_DYING))
+>  			continue;
+> +		if (sb->s_type != type)
+> +			continue;
+>  
+>  		if (!refcount_inc_not_zero(&sb->s_passive))
+>  			continue;
+> -- 
+> 2.53.0
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
