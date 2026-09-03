@@ -1,218 +1,145 @@
-Received: from mail-m1973182.qiye.163.com (mail-m1973182.qiye.163.com [220.197.31.82])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 445013E8357;
-	Thu,  3 Sep 2026 06:41:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.82
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D7DF3F44CD;
+	Thu,  3 Sep 2026 06:41:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788417672; cv=none; b=rX5q4tgr4sIMTlR/bTepv9Orc1PUWgOesJjdxcVX5K42az5l4vWGrWBR62RARsH9efvVLOfIs1JCyHAhrLymO2TAJ128cOXUMaoItpoS+LlsCaXyhABrYmR+upCs+qdPjWrkrYjMS2YmzkjlKEjdSnYXm3d1rc2PPfiTIN5FoFo=
+	t=1788417691; cv=none; b=jsKvyMPU+rzI8PfHFJOaOGjt8RAkF0BwQcsRl60E2aT7hclFNb5d3kq1Hox2JoWfC+8JBp9WpYL0hAdBo23qcQbaVqzhvaK4R09ofWsaGfBMS3HXLUUle995yet4gonM3WYJNqot2PFxY4P6NItkrPRC+dpI0rFI8C3YbODKhhw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788417672; c=relaxed/simple;
-	bh=vWpOAIIHlVVP2/TQZ3O+zuDEMXP6aVJbAIhcQvhTW74=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=UvpoRvnWewTzAKG9Saoe8agJk1/Z7efwPSl7VIh8v43aeg3iNCkmJvnx6e4fypQKtYmRDgtNbA+7iQbGFN1sBo5AQwkupm4CkM4YN6JNzSNzFi1Jp6LiG4XK/Naz4UTmgt6ph9ZdPpHY2ImasTkuirbbsP38BmIcI2NrmSIv+S4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=220.197.31.82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
-Received: from localhost.localdomain (unknown [218.94.118.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 1ea3ea3b4;
-	Thu, 3 Sep 2026 12:18:35 +0800 (GMT+08:00)
-From: Zhen Ni <zhen.ni@easystack.cn>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Zi Yan <ziy@nvidia.com>,
-	linux-mm@kvack.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhen Ni <zhen.ni@easystack.cn>
-Subject: [PATCH v2 4/8] mm/page_owner: Refactor memcg handling for cgroup filter support
-Date: Thu,  3 Sep 2026 12:18:15 +0800
-Message-Id: <20260903041819.1776630-5-zhen.ni@easystack.cn>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20260903041819.1776630-1-zhen.ni@easystack.cn>
-References: <20260903041819.1776630-1-zhen.ni@easystack.cn>
+	s=arc-20240116; t=1788417691; c=relaxed/simple;
+	bh=7GxDPpxCFoi/zD06jpD4gdECRwZHaLkRj3vxwB1a7xw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AAbK5Yic/3fAKVgSUZHtvYSOzxMibLG/d65VAi+irHS5uIlR1pjZZn4tXkJkmQJ3nCM7bCoX5JIOvc9Ul5rJyqWLNO9gKQINQ0SjBZYpIMwe8GBV44e/iOy6VgjrD0lORpfNvW7HaYLD4b37aylxN85LovsEvkQ5VWYwduB/yRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bEtuke5g; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bEtuke5g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AD771F00A3A;
+	Thu,  3 Sep 2026 06:41:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788417685;
+	bh=4QSeOmomxfLkXiHY928g9Cb/0fnESd4LICWyT6M5V/k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=bEtuke5gdgutAmLFNiepWZuhRylUA+fY7PE4kQ8mUfQa7OuajPFZ/TAo6+4N0baca
+	 swrDnozTsxdrmTQnNfj/kY/90FuZ+faIjv0V/8KmcbkwJ0fxLo6ndqv3BIRmvTkLGg
+	 XQH4M58X5L4/uaKqBQxuoW05RbFz4qMfzXQoMqf7teEDDcM2f0rmKlRdPIvugqNoNN
+	 9d7EBKqVqFFRCQQuvMWP9efsW20tRdu33PkkJa7f8z2HdSoAHfPpIyiAlPydMfSbRN
+	 f1U95kp/lCAYVdRQRm5d+f3fHnvQeRwiDlJVJ+r8z6Ieb80BPi2qIy3vzzaI0BqM73
+	 TU8eK8D1Aum8g==
+Message-ID: <3574212b-1a4b-486a-97df-1d6ae7895097@kernel.org>
+Date: Thu, 3 Sep 2026 08:41:18 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0657d74aa0229kunm7336907a330b5
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTENKVkpCQ0JIQk9DGkwYGVYVFA
-	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
-	lPT09IVUpLS1VKQktLWQY+
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dt-bindings: usb: qcom,snps-dwc3: Fix glymur binding
+ for non-MP controllers
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Wesley Cheng <wesley.cheng@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260828081542.52796-1-krishna.kurapati@oss.qualcomm.com>
+ <20260831-messy-ebony-warthog-cfd727@quoll>
+ <ce5bf06b-8284-4355-94bb-416a8e34bd5b@oss.qualcomm.com>
+ <cc52ff33-3da4-492e-80cd-ba2b1711bfed@kernel.org>
+ <6af2e860-ba7a-4f86-a0e7-872a312b47e4@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <6af2e860-ba7a-4f86-a0e7-872a312b47e4@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Extract memcg information retrieval from printing logic to prepare for
-cgroup filtering support. Introduce struct memcg_info to hold cgroup
-data that can be reused for both display output and filtering
-decisions.
+On 02/09/2026 16:10, Konrad Dybcio wrote:
+> On 8/31/26 2:29 PM, Krzysztof Kozlowski wrote:
+>> On 31/08/2026 11:03, Krishna Kurapati wrote:
+>>>
+>>>
+>>> On 8/31/2026 2:07 PM, Krzysztof Kozlowski wrote:
+>>>> On Fri, Aug 28, 2026 at 01:45:42PM +0530, Krishna Kurapati wrote:
+>>>>> Currently for Glymur non-multiport USB controllers, number of interrupts
+>>>>> are limited to a maximum of "5". Either hs_phy_irq or ss_phy_irq are to be
+>>>>> present.
+> 
+> [...]
+> 
+>>>>>                 - qcom,eliza-dwc3
+>>>>> +              - qcom,glymur-dwc3
+>>>>>                 - qcom,ipq4019-dwc3
+>>>>>                 - qcom,ipq8064-dwc3
+>>>>>                 - qcom,kaanapali-dwc3
+>>>>
+>>>> This changes the ABI without an explanation.
+>>>>
+>>> As per the harware specification, the controllers do have both 
+>>> hs_phy_irq and ss_phy_irq. Hence wanted the binding to capture that 
+>>> info. Will update the commit message accordingly.
+>>>
+>>
+>> So the change in 99df63d20dabda8d7ae01bcca7cdb1e92110a555 was
+>> incomplete? Lack of context here is not helping.
+>>
+>> If they have these IRQs but it does not matter, then it is not a good
+>> reason to change ABI and you should just add the clock as optional to
+>> the end. Was this binding already released? I think yes.
+> 
+> IIUC the intent of the patch is to allow specifying the currently
+> missing hs_phy_irq on non-multiport controllers (i.e. usb3_[012]).
+> Bundling the DT change would have made that easier.
 
-No functional change - output behavior unchanged.
+This does not answer my concerns. So repeating: patch is changing ABI
+without an explanation. This means contributor needs to provide
+explanation for the ABI change in terms of actual impact.
 
-Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
----
-Changes in v2:
-- No change.
 
-v1: https://lore.kernel.org/linux-mm/20260828031339.1270699-5-zhen.ni@easystack.cn/
----
- mm/page_owner.c | 62 +++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 44 insertions(+), 18 deletions(-)
-
-diff --git a/mm/page_owner.c b/mm/page_owner.c
-index b8319bc3a368..ca9dd8ed9f77 100644
---- a/mm/page_owner.c
-+++ b/mm/page_owner.c
-@@ -69,6 +69,13 @@ static const char * const page_owner_print_mode_strings[] = {
- 	[PAGE_OWNER_PRINT_STACK_HANDLE]	= "stack_handle",
- };
- 
-+struct memcg_info {
-+	char name[80];
-+	bool is_slab;
-+	bool is_objcg;
-+	bool is_online;
-+};
-+
- /* PID_MAX_LIMIT = 4,194,304 (7 decimal digits) */
- #define PID_MAX_DIGITS  	7
- #define MAX_FILTER_PIDS 	16
-@@ -573,16 +580,13 @@ void pagetypeinfo_showmixedcount_print(struct seq_file *m,
- 
- #ifdef CONFIG_MEMCG
- /*
-- * Looking for memcg information and print it out
-+ * Get memcg information from page
-  */
--static inline int print_page_owner_memcg(char *kbuf, size_t count, int ret,
--					 struct page *page)
-+static void get_page_memcg_info(struct page *page, struct memcg_info *info)
- {
- 	unsigned long memcg_data;
- 	struct obj_cgroup *objcg;
- 	struct mem_cgroup *memcg;
--	bool online;
--	char name[80];
- 
- 	rcu_read_lock();
- 	memcg_data = READ_ONCE(page->memcg_data);
-@@ -590,8 +594,7 @@ static inline int print_page_owner_memcg(char *kbuf, size_t count, int ret,
- 		goto out_unlock;
- 
- 	if (memcg_data & MEMCG_DATA_OBJEXTS) {
--		ret += scnprintf(kbuf + ret, count - ret,
--				"Slab cache page\n");
-+		info->is_slab = true;
- 		goto out_unlock;
- 	}
- 
-@@ -600,21 +603,38 @@ static inline int print_page_owner_memcg(char *kbuf, size_t count, int ret,
- 	if (!memcg)
- 		goto out_unlock;
- 
--	online = css_is_online(&memcg->css);
--	cgroup_name(memcg->css.cgroup, name, sizeof(name));
--	ret += scnprintf(kbuf + ret, count - ret,
--			"Charged %sto %smemcg %s\n",
--			(memcg_data & MEMCG_DATA_KMEM) ? "(via objcg) " : "",
--			online ? "" : "offline ",
--			name);
-+	info->is_objcg = (memcg_data & MEMCG_DATA_KMEM) != 0;
-+	info->is_online = css_is_online(&memcg->css);
-+	cgroup_name(memcg->css.cgroup, info->name, sizeof(info->name));
- out_unlock:
- 	rcu_read_unlock();
-+}
-+
-+/*
-+ * Print memcg information from memcg_info
-+ */
-+static inline int print_page_owner_memcg(char *kbuf, size_t count, int ret,
-+					 const struct memcg_info *info)
-+{
-+	if (!info)
-+		return ret;
-+
-+	if (info->is_slab)
-+		ret += scnprintf(kbuf + ret, count - ret,
-+				"Slab cache page\n");
-+
-+	if (info->name[0])
-+		ret += scnprintf(kbuf + ret, count - ret,
-+				"Charged %sto %smemcg %s\n",
-+				info->is_objcg ? "(via objcg) " : "",
-+				info->is_online ? "" : "offline ",
-+				info->name);
- 
- 	return ret;
- }
- #else
- static inline int print_page_owner_memcg(char *kbuf, size_t count, int ret,
--					 struct page *page)
-+					 const struct memcg_info *info)
- {
- 	return ret;
- }
-@@ -624,7 +644,8 @@ static ssize_t
- print_page_owner(char __user *buf, size_t count, unsigned long pfn,
- 		struct page *page, struct page_owner *page_owner,
- 		depot_stack_handle_t handle,
--		struct page_owner_filter_state *state)
-+		struct page_owner_filter_state *state,
-+		const struct memcg_info *memcg_info)
- {
- 	int ret, pageblock_mt, page_mt;
- 	char *kbuf;
-@@ -674,7 +695,7 @@ print_page_owner(char __user *buf, size_t count, unsigned long pfn,
- 			migrate_reason_names[page_owner->last_migrate_reason]);
- 	}
- 
--	ret = print_page_owner_memcg(kbuf, count, ret, page);
-+	ret = print_page_owner_memcg(kbuf, count, ret, memcg_info);
- 
- 	ret += snprintf(kbuf + ret, count - ret, "\n");
- 	if (ret >= count)
-@@ -777,6 +798,7 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- 		 * user through copy_to_user() or GFP_KERNEL allocations.
- 		 */
- 		struct page_owner page_owner_tmp;
-+		struct memcg_info memcg_info = {};
- 
- 		/*
- 		 * If the new page is in a new MAX_ORDER_NR_PAGES area,
-@@ -876,13 +898,17 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- 				goto ext_put_continue;
- 		}
- 
-+#ifdef CONFIG_MEMCG
-+		get_page_memcg_info(page, &memcg_info);
-+#endif
-+
- 		/* Record the next PFN to read in the file offset */
- 		*ppos = pfn + 1;
- 
- 		page_owner_tmp = *page_owner;
- 		page_ext_put(page_ext);
- 		return print_page_owner(buf, count, pfn, page,
--				&page_owner_tmp, handle, state);
-+				&page_owner_tmp, handle, state, &memcg_info);
- ext_put_continue:
- 		page_ext_put(page_ext);
- 		cond_resched();
--- 
-2.20.1
-
+Best regards,
+Krzysztof
