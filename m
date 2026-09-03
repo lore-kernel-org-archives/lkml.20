@@ -1,119 +1,122 @@
-Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C6194BB81D;
-	Thu,  3 Sep 2026 14:40:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788446405; cv=none; b=h4zoFvXaj8k3w7hLiLWYBI+TuK+MHvVOyfpTO6FnCKAYu4KFK9yOvdxaQ4ymdIwbig3HR3jxk+YfGryO2EJYya5GcXgeiTFILr0X1N1nqXoMcf2N/hac6aXq+OX5hYNJuHR7UKY2b8di6qRv9bj44bo7gxn56vAEBsRhjYeVaHk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788446405; c=relaxed/simple;
-	bh=xAk7yYw9wHlpOkMNFd+zn1jHV0oYDrRvbsThv1HC2rk=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Yg57AEr2IZABWzuG5NwiyK7+ydcHY9KS6nAPz0gna6zCH7xuLKSqNp1+YUHzrD6GSRpo/Un3erjyVkjGHhdyzanzKlrDoc2nGSmQrvKRTKUI5JaKK15kQzmSGxM1Vms2cTfwOud9II1hS+xByih3ePoOw0dVoKX5AMpVXor62wc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=BTIc9hTy; arc=none smtp.client-ip=67.231.156.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 313BF4C0427
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:40:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788446452; cv=pass; b=GIEahQEFwmExrq4z+7NL0btT/SxJ1zo+i3RGIEkmaoOsSOCnMznHU4zjMszC+rWeNDspB+yTrvZ670N1n18Ts2M+P52msV6HRCMOfBWylgHzjE53vcnNdxssGWb4nHbx25piNmS1RjqpMLy0KZwQKAgCRCBmo+CJs989QjSw3JY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788446452; c=relaxed/simple;
+	bh=DMcoFPAWdEiA47YKBPP9R2w1Up2IfyxuLdA+slJYpIs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=c7DQKmc/mTgP2+DVm7UPbyAg2e3CrsvLTEvlqAPQWDk5JZAt8WCCBdh7IQoa87r+ScmkR3MHbFa9YGLt0kgA/Not2Sqjxj+/LqX6AYnGL10MpyJ5OnLeAWE432zv6LWUYF4cvP7USMWwvu5S7NB4AQZduq9K2JSrSDvgTVwj9To=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hvz++bd8; arc=pass smtp.client-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="BTIc9hTy"
-Received: from pps.filterd (m0431383.ppops.net [127.0.0.1])
-	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683D6c0V227832;
-	Thu, 3 Sep 2026 07:39:49 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pfpt0220; bh=sDc4adbets5AxfpSI5I3S5R
-	9XJk2wufDTvrEe0jgql8=; b=BTIc9hTyYhHsLrm625jZr+C2qhxpINXTN45uC0s
-	diIIhqIMuHBvoqxGF759RqyrZYiXH6XZM7FCAxp66TlvJ1sDXZinFAUT/Gstt7F7
-	kXWqIYQJ5OqIngLPPOn20Fx9zjyUIzxxcPaSB0nn3WG2xpowUZLalouhQVcnXdDm
-	Av+9UOxeVJ5kZr/mdOtzsiB2qAU9Q5hNuQw6oQ6hR2sy2g56Y8a2gbFf3FDfM/vl
-	I0ZnaEtbp+z/iYur1x4iV/a6++cmAosZn+V7Tmcpr3/2BezeOj88NQMBW9slZhxF
-	5kJoCvv+8z07rWZZp3Id5iLdwjSvQLvDqqS57DHQbApVwQw==
-Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
-	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4gef5b539q-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 03 Sep 2026 07:39:49 -0700 (PDT)
-Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
- DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Thu, 3 Sep 2026 07:39:48 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
- (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Thu, 3 Sep 2026 07:39:48 -0700
-Received: from kernel-ep2.caveonetworks.com (unknown [10.29.36.53])
-	by maili.marvell.com (Postfix) with ESMTP id A8BBB3F7052;
-	Thu,  3 Sep 2026 07:39:44 -0700 (PDT)
-From: <nshettyj@marvell.com>
-To: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: Geetha sowjanya <gakula@marvell.com>,
-        Nitin Shetty J
-	<nshettyj@marvell.com>,
-        Sunil Goutham <sgoutham@marvell.com>,
-        "Ratheesh
- Kannoth" <rkannoth@marvell.com>,
-        Subbaraya Sundeep <sbhatta@marvell.com>,
-        Bharat Bhushan <bbhushan2@marvell.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>
-Subject: [PATCH net] octeontx2-pf: fix invalid aura pointer free
-Date: Thu, 3 Sep 2026 20:09:41 +0530
-Message-ID: <20260903143941.2698880-1-nshettyj@marvell.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hvz++bd8"
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-865bdc6ed72so41744657b3.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:40:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788446443; cv=none;
+        d=google.com; s=arc-20260327;
+        b=syhm+aYpTqOSqsc+Z+Xf40YZzZrT8dKdL3FXmXUerw0CuNXtSlQOqK6q1p5ictzDuc
+         0rK/ZjPXWFPOnhG4aHh337PAxK9zizt8Pj7Usbrtb1IWlZnuobdnLmffzzOCelISJYwP
+         zTpuE5BvlT5rvhal4HF09hPVF75z4IyysZeGltArURMmbzerOkxkrWq8m/cApX02gYdy
+         +RoOlkTa467TOjTUzaAa56b38K1hrErSxue5Id1sTWOPBVdI/aeFWnT9adnLGnw8sr7I
+         5XSvkk8q1AYb9SKKGjBZZfbMg4YT9raNxArHSPUVu9T3KMd39cSt50fBu6+Z5RJSsGsA
+         HkEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=DMcoFPAWdEiA47YKBPP9R2w1Up2IfyxuLdA+slJYpIs=;
+        fh=HSh0FSYBTUibP/yZriN99jLVv3CSepOA4O13znJ8r0M=;
+        b=kH5szn8kqmxtQ7DUQi6MPZhjhsoV10AffmVnBB1TL6zAtpwPwcC+OCN9T1R19Mytph
+         lgAJODn29auVl1Fxxwc9Vmr4fX14Pklj8/QJ8HPZcveeYDFUA1jGYcTu4gpqK5rm9Oau
+         acoohZbi4UiEEJWp4FTqR3rcKDkO51z3gSAlTp9my8AkJ23Gb4ZmqJvTm1KqFHx2bZ9a
+         HoTlo5IBAJiXwo8jHv+60a9LTFVpbGhPeNG7XE5Fe3QyHE4Yfe8L+1m+t4/8LJBp3mr9
+         KxMaZn/8q6+7nrcLlNjjCFX4eOiOtgnytyqQgnske+Ljy0i54JK0djr2arkd8A1dSfNK
+         ikrw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788446443; x=1789051243; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DMcoFPAWdEiA47YKBPP9R2w1Up2IfyxuLdA+slJYpIs=;
+        b=Hvz++bd8+eYQunNClH2gjduGXicxU7Dxf9RUQf91Lt7mmlCNFJBKNsC5TXFqAX2ksE
+         KwP1DHKm0mpdNGAGNJgcDLmvLxrAf8KvNg2+oUqTjO7nSEKVjyJReCI4gAaHwfbYUSAw
+         IHvyXLBr7UhhT2Q/4PCFEwo61s+0zXpm/p/2pUaMJq0IPc4UM7MZwd3YSqeS2IvhN2GF
+         Cr9xZTW2ewL2WfKNfI85Oi/A3HRcMpQWKz9ST2POrBj7DvX+fQSd9K0WzFyGfhd85tt+
+         eFZnM6vvgMEv1YHJAgHzmOML+iF1b+rgvY6mA3M0wUoEkS1iHy02lpQbNvuYBxYhiDRP
+         X5Lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788446443; x=1789051243;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DMcoFPAWdEiA47YKBPP9R2w1Up2IfyxuLdA+slJYpIs=;
+        b=tQGoa2EruKCzxjFPD7EvBXMqJj0khfI9EZIHDAWJmx2QMxPdJSvpbVjE1nd3ebdeyo
+         L5XTIeNH08K5vGvpe6tvyDwzOw+A8ydm2K0EBitbPN7+W4Ayk5TlqJetnlkHMru3CX23
+         AVfGnkKpXiqvB8ZbxG9vV+kO1JaYEgnD3lSXC5XmFodhiBymwc6JMBEANTSbmrYOnTfO
+         2l48tsKHuSWUQuvXaYvlKhY4bNzZy/KMd+/zEAYA5vGamEYBZSxEvqnWRAFhoHQSvYfr
+         9Jese/tfu7lPoc66ZgAHJYOleyIhM7/jZESqtH/7kp5yDkD8Y+WBHYOQ2WnZRprKQ4U5
+         ub0Q==
+X-Forwarded-Encrypted: i=1; AKwUvByiZgJaGUCAc3d/r0ex/Zt5NRCoJDSuMPgkeCPzywnTQ47pT7+ULPNVl9LUdPDLydXlQOkceZi7BMKs7D0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lHZOAF7rogbpr45QosNyCeLvGTuPz9nDyVeNh+kOIfDZw+ldVM
+	1zQTZf2fQOgIn6A9VILA5YziXTYrDIYscs7QCyYTCmTo+f2gdWlLOUayb26dgkpzkwli2FE5I5H
+	m2a1eYKEX5g6go5XtS+eDnzla9EHS0u/NO2+wfy0TMw==
+X-Gm-Gg: AYBFou1EJyzmu0QZ6SaCnMigWCNEl7/9SQ9l3YY0Ja98sgHZUOeGkmlPSM8Qc/hN+qo
+	HMwBCdZSFYED3v6maer5N/oscoK6E9rlX/OkKP3iYwHUW8/jKareUErtUH3dEHAdHHwRiw9lTab
+	gG6YCAmpnNdNkfRJIjmUzpD/9xGgZS1Q6ECBybWaEIatWZXjUzWWcDZbSmFjZtgNqcnl24fV3jF
+	6MrL80ZAhDD7C+TwKhWV4iJge3pdtQM8I2ACLCXQvZe3ywLZquwGtCJaMvIHHPjXFHlsGcUAJkM
+	oOpTbG/IMGDARY+A4hRdWtPZMblCaO0g5CH5TJ+vfNmDFQDRHL1xJTagBU1TMzgA4HtMi1tzgaq
+	TjL0iH+Ced5nzYsXQYrr8OcWAiTvzpZ8=
+X-Received: by 2002:a05:690c:e211:10b0:80c:5ce9:8f1a with SMTP id
+ 00721157ae682-86c54b242fbmr50652107b3.34.1788446442940; Thu, 03 Sep 2026
+ 07:40:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEyNyBTYWx0ZWRfX7tJv76KrnfJR
- FTo8z6Of6X2sA3XbGRZVCEp1xfKz2OrB/gjt/smNCdsCAbtf8j5Xs+jF+O5M3eKMGTd7GPMvzco
- 3cXVjrO47lhufn7133n+g8UqseuRqGs3HP0nwuDnvLw6P4ZuXFfsrC+7P3gqNPcGr2FEv9STSN0
- K7BoCAbTpT/in9gsJ3SvfU8Sqt776Y3Bg2pVXbkIUpeDosUP3oQJStFVEBAWdyNK2jfJA9+5D4b
- d8fe8TE9QJlXCS5UEmCP+EX1758iG/h2bnUkF7YsUer9sfg11mTAQfWc0S5zVDwijmUoPUFDIEd
- ZuwT1AIraYisJ9cgki4MuJRY/jH9kwDTiDevPzCsIE/BsqXxz6qkuOy9IJ+InpkcLbanb8xAx5s
- CAV8AXFKDLRYYsumTDqpq50KnNseW8l5TaIXLP/eWRM3W2r3fcnrLV0y9f+WFjuACnUe+/Nfn/0
- S94RhPN8dGIaAujOl+g==
-X-Proofpoint-GUID: A2JPyXzbd3xMIV1M3k_ezvsCLpLURsAE
-X-Authority-Analysis: v=2.4 cv=e6Y2j6p/ c=1 sm=1 tr=0 ts=6a9986b5 cx=c_pps
- a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
- a=qit2iCtTFQkLgVSMPQTB:22 a=M5GUcnROAAAA:8 a=4WQ1D3Iku-DGc2y9b3MA:9
- a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-ORIG-GUID: A2JPyXzbd3xMIV1M3k_ezvsCLpLURsAE
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEyNyBTYWx0ZWRfX3Lb2PRjY573A
- bPe4sdebjReeecHWJ55B8S8xagWMHg0aITAEl9k8lNTOueGUWHV5Vw6yVLYxy+FEJ3lUx9V31dd
- s/5v2BPFgrNUDsJWuEZD9r+nMKovO2w=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_04,2026-09-03_01,2025-10-01_01
+References: <5be7vkmpzmizgmvqxyefubgi3epnlo2uf7mabcgsapvia4ckpm@ixwfppk5z5e5> <A4C1EAB3A67613DC+20260903132714.2538118-1-raoxu@uniontech.com>
+In-Reply-To: <A4C1EAB3A67613DC+20260903132714.2538118-1-raoxu@uniontech.com>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Thu, 3 Sep 2026 10:40:31 -0400
+X-Gm-Features: AcwNN1W2_JiObyW5To0IffDILn7tLdHOJXWxugOC4ExywC4Uofa9xPpYfNG3_Bo
+Message-ID: <CABBYNZL2QcodKofLFbHbDJZBcjA+mRDSYi2QFZ_XvyphJYg_yg@mail.gmail.com>
+Subject: Re: [PATCH] Bluetooth: btqcomsmd: destroy RPMsg endpoints before
+ freeing hci_dev
+To: raoxu <raoxu@uniontech.com>
+Cc: dmitry.baryshkov@oss.qualcomm.com, brgl@kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, marcel@holtmann.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Geetha sowjanya <gakula@marvell.com>
+Hi Xu,
 
-Do not free empty or uninitialized buffer addresses to the aura.
-This avoids freeing bad pointers during receive buffer cleanup.
+On Thu, Sep 3, 2026 at 9:27=E2=80=AFAM raoxu <raoxu@uniontech.com> wrote:
+>
+> Hi Luiz, Marcel,
+>
+> A gentle ping on this fix.
+>
+> It has already received:
+>
+> Reviewed-by: Dmitry Baryshkov
+> Acked-by: Bartosz Golaszewski
+>
+> and the Bluetooth CI passed. The original teardown ordering is still
+> present in the current Bluetooth tree.
+>
+> Please let me know if any further changes or testing are needed.
 
-Fixes: ef6c8da71eaf ("octeontx2-pf: cn10K: Reserve LMTST lines per core")
-Signed-off-by: Nitin Shetty J <nshettyj@marvell.com>
-Signed-off-by: Geetha sowjanya <gakula@marvell.com>
----
- drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Please resend.
 
-diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.h b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.h
-index eecee612b7b2..231fd8586b42 100644
---- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.h
-+++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.h
-@@ -845,7 +845,7 @@ static inline void __cn10k_aura_freeptr(struct otx2_nic *pfvf, u64 aura,
- static inline void cn10k_aura_freeptr(void *dev, int aura, u64 buf)
- {
- 	struct otx2_nic *pfvf = dev;
--	u64 ptrs[2];
-+	u64 ptrs[2] = {0};
- 
- 	ptrs[1] = buf;
- 	get_cpu();
--- 
-2.48.1
-
+--=20
+Luiz Augusto von Dentz
