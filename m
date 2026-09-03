@@ -1,183 +1,229 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11021106.outbound.protection.outlook.com [52.101.125.106])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C8A64CCDE0
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:46:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788417964; cv=none; b=C4DxyXK3OPXYFffDLeL8zGMZKDAvsG/ofSsVqtq3w/UWtwJjarSSS1J608iryNdoxicwRVxERg0c4Wx8TnJw38U9Vrbyxi3YG+Etxm6+4IysShfqTdrCf8dXH8W/VZguGTuIJEs0oX+NcEGyzYfdl7q0n9fmja7x8W7l5qdumeM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788417964; c=relaxed/simple;
-	bh=grvph8If3lzlAPYT4Gy+DR3UaTxrnwsGsahzCiaJkgw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GOcMEkn+1ngGJhFZBWdqOC0O05oTmJZ4NzmdQVCs/EH7YicHbZMp/vh+5Ov3thCZAV0blPpC7ixeqUYm2vlxx8qO3oPGXaQXGVgzI7UOIOu9b7vfWFAaOQOSTVBCjBsez0eFVMSLeRB2rhbcRQs0eYyJgRY+BKrOXK7fMTqBOMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=UUPOPmka; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87DE03B0AC6;
+	Thu,  3 Sep 2026 06:46:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.106
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788417966; cv=fail; b=iBTGp2uwGQAFyxPpO9SFdeAMgm0Ddz6QrsJQtKn8IfK//rnuQnE3Ooi022UGvusFmvebu+vCAoiXa8ZqOBQJQoLtR5K0WRQMEPiBMXnVbrzhjIjaewMoZp4ETqEwRv45/drOIW+I/BD9vFlJ7JhNfY6hNLtgMz9FneZyvVGZgFY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788417966; c=relaxed/simple;
+	bh=OixtRfX4BjSWCvkCTf1q09FZ/x9Oq2hS6jJNpICXI2c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=KphCAOgViFGDr9ogNL/9vO6mhe+33lMVs2Z3TBhpn6xttRBk9LJyw33DccABqtQngXdETYt/KsdQPiZ5PcbbDL2RONgQfb1c2HdLkgLK7lXnSwIqVcy3LKuA5H4QyhfvlLTU0bXcFHwdxKWU6djjlB43y9+tiA0ql8kj3mVHH3U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=bc9NZ6cZ; arc=fail smtp.client-ip=52.101.125.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="UUPOPmka"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49556f97a9dso15511545e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 23:46:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788417960; x=1789022760; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2fbpGmqELrmjcqUZI6/pjcd+E3CRw7Dc23xtKRKM6wo=;
-        b=UUPOPmkaQFiHC+fEGaFagmBii8kfSVyvPN7S1vtnHxUAOza4vDjeaa7sgt0bnlh7YF
-         lY9p7hu5DAYnGAAsjxUOIfdO6ma+cgeLn87b0xKBAvqSvCM0ppKEnL+hUTvhQNTvTgso
-         5d+8wRoCTQaD3EQguKHCD7dK9ZjyhrteB5Xt2Gp14lBubhq8jwLVKHST9ZbtwQtflazb
-         vXpxFkhkaRJ9KLivqTgCuyXGLlsnmTR5/+puNDnf16Mg+7Af30veWnrLZAEGewFWA9xz
-         Ks+37XgBsi5h2TFzGqJ0T/fRa9Bpq3tXjc621GUd6DTn4JGnWn5Am/rWA2dHl81EcBqV
-         4I/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788417960; x=1789022760;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2fbpGmqELrmjcqUZI6/pjcd+E3CRw7Dc23xtKRKM6wo=;
-        b=Ow886MuRZRM2i84a1qkBy5seB9+FKy/I1DA06IbRCUzHRH1LLyHConpgU+r1xZ8/LN
-         P0PJ3fYdUoWID/xAxmopEaCkkycfHn+83x4ZbnUge12ZDD0+lKLEDNSeR3ycU8LoD1nD
-         8xpO0nJsEjOUOAiFL0Vw8bbdarlMPtl2yyJeTgSaIXO1R1gtwIGi8sIFBmUx9oqY6Hio
-         B/ISFXbVMxLWGjUqsh9UzlIOIPBeNVrd39IX3WuQRzFfZa8j44naCGlO0oKz2RE9bvvm
-         g3Ws145Xsegb16Zi8ELr41DaDmXuyjOmHlXoYS9UdcLtVcFFHAN1RhYFFW8l619I5mIa
-         EuIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxXsWZ2HQEmDjs381P7UZQO9QdMieZv5W/pg8ANcLHW1LIkRb89GuX0D0ZXNbo14VLx7BQVsXtYd3vsstg=@vger.kernel.org
-X-Gm-Message-State: AFuF++llTa92Jvw0hnSb2QTM+oWuhYgTJnzrDtlXC6ZZnoD1XikFAisJ
-	zGz7xDXaHROW3SxJQUjSrfF8K7hPsiP69Mf5rvVupH3i6MPKH5H7fGr7BMpTNNf0Wtw=
-X-Gm-Gg: AYBFou1DXpqOXMoWxp1NScFCr8OQhjkQObnQwJvZqGEqms86nofIZwMv+gXYG7BUXwG
-	NFbhKqpCvFWDPQ4e1Hkw/F1pcqWNcqyazEkmCTT5ykrqyCL29LNiRK2A/754G0MwEOHF4ImPCN7
-	6hiVZAuJovIRm+arF0l2NEH5wFrlRbdUzUgdvtgTL1VH98705WeWw5BsCIh+5lnr+Zg6ChHkw4a
-	QJ5drAnjxJ2c4kyNge2GAADLE+A8bf6h7LpHpWpkeO9FvTjuigVuxOQccaQiIGzr2/mL2U4xljU
-	L53Zh9SZOQ5jzPiRF1VoEmt2ymoDwXyuZ+KDZZFWSvSUqNaymfO9U1LPvVeSh/UnBJE7RglyjYF
-	VmTi3H7LHhzfuk8gYEpZ0HbUJsqsOgdvo25y3uoLmtAKMeFN9/pDIlAkBzLx8r1ib7rYqvARzFH
-	sGsLFrf4CJA/9O/PzN50zXeWoPz7V/yE//X15D/SCN/uHVP7I4RS5X
-X-Received: by 2002:a05:600c:4e16:b0:49c:ee06:9c58 with SMTP id 5b1f17b1804b1-49cee069c79mr92774505e9.4.1788417959140;
-        Wed, 02 Sep 2026 23:45:59 -0700 (PDT)
-Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1431990a39bsm3119881c88.3.2026.09.02.23.45.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 23:45:58 -0700 (PDT)
-Message-ID: <0aafc618-0cc4-4b4f-b5a4-99581b6fff5a@suse.com>
-Date: Thu, 3 Sep 2026 16:15:52 +0930
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="bc9NZ6cZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DL0a09dRm2X7gZloqnZhvQWsAkmzzHQsG9uTw5uVPyuslmxENwMe754fMhXPYVjq2ax4tKrlmbRdAUxwrZUnDgfxcwjuUFo0gUmc8QI/Yl4qibGqdgLxzq1sYlo/iKKx5eM5/hiwcWGWbVIMfQ6slE9UQXh36JwCx40EtTj/yupzNLnq8SqoH4lrE+NAcvoqX/S8hDhYn3YormXTpSIY/bGKxyNtCRxMi+7Op0C/+3o1bYS3L7oEFixj0KpHajQx/cJYZlTYeW8P2Y0/zk9wAdnLT1YMGbdCyhOV6UuGHc7moZcRtibAPpmGLKwmE7zlwzB/TQ/4QTJtaL4GrQlQ/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ioIo6zrlVaE+Qxf1RTeh8uv7oD2OEIGlD5hBBebFBsY=;
+ b=FyCOUhe5yku+VHRLJUGR9LFG+/XhiVtyO1pS0XxUm9+7ha2KVqVcjLF4aWn8CraEqaxLUGBt3CWAg+ZbJNcpVO7JPkrm8Et6NJcqMEGwvzUSS7v2NB+MormINmpgnc60unevPPKXrpQjnd6JpojpU04Laa9n3AytuL8nta+PUIXnlBHEA228ZTTPjnN+rTkAGRAUfiKC6rTn9gEmFYDKAFVNzF9L7w49jWKCT+bd69XqDbdz7W4bla5DfxAcLx8T85NuK4zJDmbTTN70iDo/T/+7RJR17Ez8W4A63MSfychv7caDxTVZho1hntXPmUBBlKJSTHjVYSsxf2pKlOawxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ioIo6zrlVaE+Qxf1RTeh8uv7oD2OEIGlD5hBBebFBsY=;
+ b=bc9NZ6cZmQuL6oVs+jj53MCBD+ubvGTT9wZy5NAlWr2+KNREaJahR+1RlmT/RG9H7Rm/ebUCubqcKceZJQJn58cPiD5AXQ5B5slSSqzf8as0YCWo29AXXzSSDhBPwJPxhYbki1YIKbLs95YAykefzPwucVQOyKj6mQx9i/fwatc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
+ by OSOP286MB7980.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:479::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 06:45:58 +0000
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 06:45:58 +0000
+From: Koichiro Den <den@valinux.co.jp>
+To: Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>
+Cc: Devendra K Verma <devverma@amd.com>,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/3] dmaengine: Allow drivers to assign static channel IDs
+Date: Thu,  3 Sep 2026 15:45:31 +0900
+Message-ID: <20260903064533.2269557-2-den@valinux.co.jp>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260903064533.2269557-1-den@valinux.co.jp>
+References: <20260903064533.2269557-1-den@valinux.co.jp>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TYCP286CA0140.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:31b::14) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:38f::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] btrfs: consume the given iter directly instead of
- copying in csum_one_bio()
-To: Daniel Vacek <neelx@suse.com>, David Sterba <dsterba@suse.com>,
- Chris Mason <mason@kernel.org>
-Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260903062317.3928665-1-neelx@suse.com>
- <20260903062317.3928665-2-neelx@suse.com>
-Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXVgBQkQ/lqxAAoJEMI9kfOh
- Jf6o+jIH/2KhFmyOw4XWAYbnnijuYqb/obGae8HhcJO2KIGcxbsinK+KQFTSZnkFxnbsQ+VY
- fvtWBHGt8WfHcNmfjdejmy9si2jyy8smQV2jiB60a8iqQXGmsrkuR+AM2V360oEbMF3gVvim
- 2VSX2IiW9KERuhifjseNV1HLk0SHw5NnXiWh1THTqtvFFY+CwnLN2GqiMaSLF6gATW05/sEd
- V17MdI1z4+WSk7D57FlLjp50F3ow2WJtXwG8yG8d6S40dytZpH9iFuk12Sbg7lrtQxPPOIEU
- rpmZLfCNJJoZj603613w/M8EiZw6MohzikTWcFc55RLYJPBWQ+9puZtx1DopW2jOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
- cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
- qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
- /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
- o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
- JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
-In-Reply-To: <20260903062317.3928665-2-neelx@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|OSOP286MB7980:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1e2c4715-a988-45bf-86c3-08df09870303
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|10070799003|376014|1800799024|10067099003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	ivFglbRXR90g+eLNyigxDwxlGk0zdSARQKTEelVQpgcf6TQsOnXySeGnCGerJW9vdBYBdyJs4KQGgA4vOQfRJ0TRQrSRKKOhp/2LX14/1RvY2L18/OgOQ55pG5dal+zD1QTusgZOUDJ7EKol7o5f6X2T0FVc1ij9LUtMtscWuTqp8OaJihPqocijPJo4331Q+l2nXwwUd1kW8FjPntUQjX44K2MLtRYadQ34FVDNRY8yN00+bj36UNZRyhHOKCeN30YeVdgikrGFMqe1CoG7E8gh1EsbuLkNFw3wYzbY66hgkMnSZvQ0MFfAg6Ikjl/z4zTc124MqaE+xUdC84c/w2bH5bjlE3GnyJnOcxPhl0uWpIXAX3HSPZ41Puowt+Dsw8qDjuki6i7icoxY1k10X4PPrzwIXMgaaPSIL026kiutujjLVdBq+iGbTmsBzPN9fsjEaQ5C7YhFXQniaNZS4P3HzH9CKurvoz+7eMwDBCFdBAjfjgWz5jb3OcTM9OMoqce2i6zobcBY3IdjJe7hbAz8DOdcc8C1Vo2k8dJgPaW27Q6bZkKQz+9FMD7dHCmuvBO5ujw6fv9CSmeBNtafHZIvtPI8pHJakE39/YQl9uFx4Zk+X5oXuxt+bAilvHIGRrhqG0PUwg8ER/ejDGqINgO7abxXHKnv5knRsJUG/+M=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(10070799003)(376014)(1800799024)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?zrTWtn3iErPrYzDW5HGe7IEedQ5SJFWxjb47Xa8inZYSWS4ORd41afSSIgap?=
+ =?us-ascii?Q?iyVSTUIHjd+Lx5pO/gpoK5/YQ5koAYlksGydTmqsI3qr4alYOdw6i2sgAZe8?=
+ =?us-ascii?Q?f2W0+BlfLU9X63bi1Kib/I6YRDASP1AUVSfLcK1/OiOmtgLXqLuY/wS7011V?=
+ =?us-ascii?Q?KDxXq1FiOhMpXXsraeWVd7hpA9KlorciJvyZNn/5VfCWOBrkHjtLdAYXMJK5?=
+ =?us-ascii?Q?RtvrvI0U7aTazaH8agssXU1n2tuhDnwcTWFyShlENaEkNW/sWyOgkXDI0ioz?=
+ =?us-ascii?Q?vIJZMh2ZfCtsykFF10BfsPMSLwzMA0z76G/5saLsUgwzObEFz3VOeZ3HZReA?=
+ =?us-ascii?Q?VWgmlRv6xNPth0JY3PfNkiHcaHuptHSyMohC7YwifgvpHHvF8QVSDZOEY6dn?=
+ =?us-ascii?Q?a3rNaG6Qlkc6GfWqU9NAmX0oRpa5zOhf+tom95xMCErW+9zyO+t0Pc4CLyAW?=
+ =?us-ascii?Q?kXx1DgZpOKAwA0uxZvAX7gA9Tte5HmVABldkHXPX6/dhzz2e9+wV3qq6wzBf?=
+ =?us-ascii?Q?1dz7c6QifdfSS0biOW9JVaz5PpS7pqVGYDLnIeMY/KhbdWAbenZpCHPAoDwd?=
+ =?us-ascii?Q?uOWyS8hWVqKL/nT+08K2gjzYj7ckoqmW4UISWYp5f5aXJHFthxZetWPw0O7q?=
+ =?us-ascii?Q?79zNjvJv0hRgNfue5hgpS2WzyuS9EFBnIfAYsr1RAJAZGa3yYes7Ba24619u?=
+ =?us-ascii?Q?lJC8DvxhxkE0yRpDsl0O0tBSdT7EPFd7ub/9YHmaVl7zTitQlX3lTd0Dt+hd?=
+ =?us-ascii?Q?mcC/by2r1luTNeQ6SDwGwRoY7DOPTOH6KCq7fMWt4/UssrqT9M7VPLdQ51OS?=
+ =?us-ascii?Q?uXa22QijZ0pUIEEwHmXk57vBpbn82rb9AHYrcgIf1BxWU1OkEgNtq+anIM8w?=
+ =?us-ascii?Q?MEjGx82d6hEDN3/4CRvNI5nCIfxgMLGYv2oTWJGXOclJY2u3kSL7s2L9Dv6s?=
+ =?us-ascii?Q?tDh/LNyE8oaqcdFexYa9x41CIaNoGIPwr9kWudAfkiT1cdn36cKi1BpPebqs?=
+ =?us-ascii?Q?drxqIp/A6YmzHXi0R26APJTbmAJjqZ6ZIL5TmVoZfEK3pzmn2OyzSic5J0qK?=
+ =?us-ascii?Q?NSPqeMU6BGTTri/bVRcc9WV+DLkOEu1lFGTBVDYSPMdoaKeHLwutS27vaTOZ?=
+ =?us-ascii?Q?Hx4DBHoNdr4e6526FLTV10l8A5ek+jcfh5t99X5lTRm2VOdHlzfApyjC2EKj?=
+ =?us-ascii?Q?5dN48iKlIMApldFRz9P8/mQlfnf7UlK1Ye6qyOp4e0urfM+mNeLm8q5mjcVH?=
+ =?us-ascii?Q?bNKqjmy+mzH5d87l5zp8A78/hPHSsGP3i2ahM9kNP0GMKVuXHNDEaj6Mu/e5?=
+ =?us-ascii?Q?MBnDXG/L+57EsOuLIkIu3dFGCNts7rn3FlFWT8ZLETFeOQANLW7ujgyP78ZK?=
+ =?us-ascii?Q?/W6aT+N7FJ/ZCKxC/TGP3jHIriCKMfcUoJfc4eoU0zGS6pNAwLrGt3RixhwR?=
+ =?us-ascii?Q?BNbm3hisUo8Ts+7Sl8C4lgKkUIDuMAiipTXmR4zYDcFxDAk7qgYEMMmwwpnb?=
+ =?us-ascii?Q?dVe/3vwSL+0UICbR+NnwgfXtZNAkKd5j/lgBtxiWru+uT3L8AEK7IkY4LkS/?=
+ =?us-ascii?Q?XiEUCWfw+GcMPLTmMxHNW3AKCpeZuqsUNr5ijxKD4V3t2MxvfYQXXE2kpefn?=
+ =?us-ascii?Q?SRLoQVB8lZMyeuabIJF9HB6K8CifoyFjVfwr1J31hxzPh7nCreNIqN4f8/71?=
+ =?us-ascii?Q?2oN7HfY7JanPRRct0246eYh5RKwI4nl+Te6OHgIUCeghhbaeN1ZC+JgvEtHB?=
+ =?us-ascii?Q?ObNR/rpcVJMQ6LL5RUZhiagLaWM1Xs+jGCWXjwV2HM+NIxxfLcYm?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e2c4715-a988-45bf-86c3-08df09870303
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 06:45:58.6475
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5dOASx6kSoAgW4GUxzaIcW0Bg6mBG7zwewK46WorUv0YoDvkQ2beZw4KE8oFyVUOvdd4AkKXngZcCgBdSk5EIg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSOP286MB7980
 
+The dmaengine core assigns channel IDs in registration order. If a driver
+skips a hardware channel, chan_id can differ from the hardware numbering
+and a client cannot reliably correlate a requested channel with hardware
+resources.
 
+Let a driver request an exact channel ID before device registration.
+Reserve static IDs through the existing IDA so they remain unique, while
+retaining automatic IDA allocation as the default.
 
-在 2026/9/3 15:53, Daniel Vacek 写道:
-> This is just a small cleanup to avoid copying the iter twice in async case.
-> We already have a copy csum_one_bio() can consume directly. No need to copy
-> again the second time.
-> We can use this copy also in the sync case and get rid of the parameter.
-> 
-> Signed-off-by: Daniel Vacek <neelx@suse.com>
+For example, idma32 uses chan_id to select DMA_CTL_CH() and
+DMA_XBAR_SEL(), so it relies on ascending registration order to match
+chan_id with the hardware channel number.
 
-Reviewed-by: Qu Wenruo <wqu@suse.com>
+Use direction-flattened IDs for dw-edma channels. Unlike the
+direction-local hardware channel number, these IDs are unique within the
+DMA device.
 
-Thanks,
-Qu
+Suggested-by: Frank Li <Frank.Li@nxp.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
+---
+Changes in v3:
+  - No changes.
 
-> ---
-> 
-> v2: Use the bbio::csum_saved_iter in both cases and simplify even further.
-> ---
->   fs/btrfs/file-item.c | 15 +++++++--------
->   1 file changed, 7 insertions(+), 8 deletions(-)
-> 
-> diff --git a/fs/btrfs/file-item.c b/fs/btrfs/file-item.c
-> index 581ca5653be9..4a7681557ec1 100644
-> --- a/fs/btrfs/file-item.c
-> +++ b/fs/btrfs/file-item.c
-> @@ -797,18 +797,17 @@ int btrfs_lookup_csums_bitmap(struct btrfs_root *root, struct btrfs_path *path,
->   	return ret;
->   }
->   
-> -static void csum_one_bio(struct btrfs_bio *bbio, struct bvec_iter *src)
-> +static void csum_one_bio(struct btrfs_bio *bbio)
->   {
->   	struct btrfs_inode *inode = bbio->inode;
->   	struct btrfs_fs_info *fs_info = inode->root->fs_info;
->   	struct btrfs_ordered_sum *sums = bbio->sums;
-> -	struct bvec_iter iter;
-> +	struct bvec_iter *iter = &bbio->csum_saved_iter;
->   	const u32 blocksize = fs_info->sectorsize;
->   	int index = 0;
->   
-> -	for (iter = *src; iter.bi_size; bio_advance_iter(&bbio->bio, &iter, blocksize)) {
-> -		btrfs_csum_one_bio_block(fs_info, &bbio->bio, &iter,
-> -					 sums->sums + index);
-> +	for (; iter->bi_size; bio_advance_iter(&bbio->bio, iter, blocksize)) {
-> +		btrfs_csum_one_bio_block(fs_info, &bbio->bio, iter, sums->sums + index);
->   
->   		index += fs_info->csum_size;
->   	}
-> @@ -820,7 +819,7 @@ static void csum_one_bio_work(struct work_struct *work)
->   
->   	ASSERT(btrfs_op(&bbio->bio) == BTRFS_MAP_WRITE);
->   	ASSERT(bbio->async_csum == true);
-> -	csum_one_bio(bbio, &bbio->csum_saved_iter);
-> +	csum_one_bio(bbio);
->   	complete(&bbio->csum_done);
->   }
->   
-> @@ -850,13 +849,13 @@ int btrfs_csum_one_bio(struct btrfs_bio *bbio, bool async)
->   	bbio->sums = sums;
->   	btrfs_add_ordered_sum(ordered, sums);
->   
-> +	bbio->csum_saved_iter = bio->bi_iter;
->   	if (!async) {
-> -		csum_one_bio(bbio, &bbio->bio.bi_iter);
-> +		csum_one_bio(bbio);
->   		return 0;
->   	}
->   	init_completion(&bbio->csum_done);
->   	bbio->async_csum = true;
-> -	bbio->csum_saved_iter = bbio->bio.bi_iter;
->   	INIT_WORK(&bbio->csum_work, csum_one_bio_work);
->   	schedule_work(&bbio->csum_work);
->   	return 0;
+ drivers/dma/dmaengine.c            | 13 ++++++++-----
+ drivers/dma/dw-edma/dw-edma-core.c |  1 +
+ include/linux/dmaengine.h          | 20 ++++++++++++++++++++
+ 3 files changed, 29 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
+index 6ffd8bd82154..cc64a4679e6f 100644
+--- a/drivers/dma/dmaengine.c
++++ b/drivers/dma/dmaengine.c
+@@ -1078,6 +1078,7 @@ static int __dma_async_device_channel_register(struct dma_device *device,
+ 					       struct dma_chan *chan,
+ 					       const char *name)
+ {
++	unsigned int id;
+ 	int rc;
+ 
+ 	chan->local = alloc_percpu(typeof(*chan->local));
+@@ -1089,11 +1090,13 @@ static int __dma_async_device_channel_register(struct dma_device *device,
+ 		goto err_free_local;
+ 	}
+ 
+-	/*
+-	 * When the chan_id is a negative value, we are dynamically adding
+-	 * the channel. Otherwise we are static enumerating.
+-	 */
+-	chan->chan_id = ida_alloc(&device->chan_ida, GFP_KERNEL);
++	if (chan->chan_id & DMA_CHAN_ID_STATIC) {
++		id = chan->chan_id & ~DMA_CHAN_ID_STATIC;
++		chan->chan_id = ida_alloc_range(&device->chan_ida, id, id,
++						GFP_KERNEL);
++	} else {
++		chan->chan_id = ida_alloc(&device->chan_ida, GFP_KERNEL);
++	}
+ 	if (chan->chan_id < 0) {
+ 		pr_err("%s: unable to alloc ida for chan: %d\n",
+ 		       __func__, chan->chan_id);
+diff --git a/drivers/dma/dw-edma/dw-edma-core.c b/drivers/dma/dw-edma/dw-edma-core.c
+index 03b2c2188351..a678c70a78fe 100644
+--- a/drivers/dma/dw-edma/dw-edma-core.c
++++ b/drivers/dma/dw-edma/dw-edma-core.c
+@@ -988,6 +988,7 @@ static int dw_edma_channel_setup(struct dw_edma *dw, u32 wr_alloc, u32 rd_alloc)
+ 					&dw->chip->dt_region_rd[chan->id];
+ 
+ 		vchan_init(&chan->vc, dma);
++		dmaengine_set_static_chan_id(&chan->vc.chan, i);
+ 
+ 		dw_edma_core_ch_config(chan);
+ 	}
+diff --git a/include/linux/dmaengine.h b/include/linux/dmaengine.h
+index fe33a20abc61..f669b79d7731 100644
+--- a/include/linux/dmaengine.h
++++ b/include/linux/dmaengine.h
+@@ -369,6 +369,26 @@ struct dma_chan {
+ 	void *private;
+ };
+ 
++#define DMA_CHAN_ID_STATIC	BIT(30)
++
++/**
++ * dmaengine_set_static_chan_id - request an exact DMA engine channel ID
++ * @chan: DMA channel
++ * @id: channel ID, unique within the DMA device
++ *
++ * Drivers may call this after initializing @chan and before registering its
++ * DMA device. The dmaengine core reserves @id from the device IDA instead of
++ * assigning the next available ID.
++ */
++static inline void dmaengine_set_static_chan_id(struct dma_chan *chan,
++						unsigned int id)
++{
++	if (WARN_ON_ONCE(id >= DMA_CHAN_ID_STATIC))
++		return;
++
++	chan->chan_id = DMA_CHAN_ID_STATIC | id;
++}
++
+ /**
+  * struct dma_chan_dev - relate sysfs device node to backing channel device
+  * @chan: driver channel device
+-- 
+2.51.0
 
