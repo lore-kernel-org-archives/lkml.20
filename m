@@ -1,134 +1,191 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CCBB4DF4A2;
-	Thu,  3 Sep 2026 15:22:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 054ED4DF4BD;
+	Thu,  3 Sep 2026 15:22:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448939; cv=none; b=XK0z0eQvdIfKC4lSOC2wnnpFPJgFp6zM1WZD4nx/59nAb8/deqjtWiXmyjDVHPcpF6+FuKmCuUrqqPmconznClABOO/L1vgDhRg0A3zXB6WkBpHHylpb4uc5VSI7T6mzRrfMzHiSnkTbfV51sH/s7WQXa09Sk40a5sthXxUKra0=
+	t=1788448947; cv=none; b=AV5Lhh4rk8hDuRX79WnPRRcT3DSYFFBPI/EV1opXlJwbd9R67RhUAyaEwnO7Z5Mmc1kt9LdbeRwxdRUcZGHONZgCytSDFMLHil+3YFMakhVee6y4/KhswKEJf/H6yjksv30TCa2ldhH4nrrAqKKcwQ02Uk4TuOy0dQnkP25OQYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448939; c=relaxed/simple;
-	bh=PcXxxwCTnzehzGMzQoqnWWgaMatnZIxaOQ2uYpkUAbE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
-	 References:In-Reply-To; b=hHmn3pwTUMCV8rQa93K1xQfb0F5uXfgZZLIr6NMtEQtICLuMadaHDgLTlWiklf8FGbuEE/JDsDLa/HeOnAQUvTfw9UZw7TD8eQ35sm8QDWWX1zi6aMMGW9uasvviRnFnYeViuiikIOstBMNyHFM620bEJHyumxVPAAN5xcsYv/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XBinxCR1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788448947; c=relaxed/simple;
+	bh=TMtYzgrpSdHvJiolBo1cD5SrbKicrTZIvKVO8zzOy+I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=al48FFQ+BbrsTtwjZWjtqfHal6l5Z5bfrlcczv+4JbSig0KZziCnO5Yd6pQCoPZ0YcRrPioioCZULNr1GhdGm5O/0LX/XYxklZK3FGEoaR+N0FiXEh9bwKala2XAyYDbm8v0Oo+YcskGRahN4Ln1+INYHpp0Rir0O334q5GIz3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vc9oqVsW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XBinxCR1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2942E1F00A3D;
-	Thu,  3 Sep 2026 15:22:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vc9oqVsW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47F751F00A3D;
+	Thu,  3 Sep 2026 15:22:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788448936;
-	bh=97e7qrSzX/ZtIU5zWdvsLVLhVR/0e5d9mRjt9LLxTdg=;
-	h=Date:From:Subject:Cc:To:References:In-Reply-To;
-	b=XBinxCR1UD+x0sekijLE69dkySTfSbrP3sWqa66IukpE32zQg1ga+2a6+C9/8JmZc
-	 67hf0YLkfESvYO8IUlgSEvfOEqLmHRtnWk3Z98YpF0Ppg3FyzPEGDDfTarh+HziT33
-	 LyIHYMcqz3ZtnLInmpQpvLLfOZ25ULoQDWRylgD3F3rZlLiyZ+u3YzuSaezGWKhfwT
-	 MUSZc8wGmP6B+D3IMoAezVdZ2YQv0u1zGfVwoR/S1qmzzD3dgFVJyzRbnk9HmbpGO5
-	 AY3TdHs1C7HEJk5DVFOH9xCj3EyoTrvTPzYWb9bIKuqbqtVdKoWBRCdaKIaRYWaYoT
-	 NFDC+9eNm1qeA==
+	s=k20260515; t=1788448944;
+	bh=ilm2t067fCG9Kf82aPXhlS3s3xhdYNrMre1PxcoIAto=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Vc9oqVsWekXn3cZudgd6cwl9RwQLq5SIyCrHSUFInoznjAB7fYe9pDULppKbRaBsC
+	 xvQMcztkM2AyPhJ1jITBGe4K0Sv/D8LhjQbhjlJxMaxLH0vTpSmsTYert7Ol/rfnku
+	 m5/8Wi0QWVg23uWpjmd5bBP0ZMnmg3unpFcIF7nT9ioPMJW9BwaMaND+OkHpEMMCdb
+	 /0oes0LpaL4xHIsU8bE6t/BrBzMAR8ANzdogAEPt4okg9yjpzd1wijXXU75rnrnpLm
+	 E4bA/2pxQI41fQtFzm13yEvGiPAn4ju+iP2q+izcVR1KPqiUmiA8zOdowhfnosEJlh
+	 jiqYDNwj/63Pg==
+Date: Thu, 3 Sep 2026 17:22:21 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>, Boqun Feng <boqun@kernel.org>,
+	Lyude Paul <lyude@redhat.com>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Alexander Potapenko <glider@google.com>,
+	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
+Subject: Re: [PATCH] softirq: Preserve interrupt context during IRQ exit
+Message-ID: <apmQrTzP0sTSReI1@localhost.localdomain>
+References: <20260903112737.49551-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 03 Sep 2026 17:22:10 +0200
-Message-Id: <DL5S8GFKETAW.1UD50XK77ZPA6@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH 4/4] rust: dma: tie Coherent and CoherentBox to the
- device's bound lifetime
-Cc: <abdiel.janulgue@gmail.com>, <daniel.almeida@collabora.com>,
- <robin.murphy@arm.com>, <a.hindborg@kernel.org>,
- <gregkh@linuxfoundation.org>, <rafael@kernel.org>, <aliceryhl@google.com>,
- <acourbot@nvidia.com>, <ojeda@kernel.org>, <boqun@kernel.org>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <tmgross@umich.edu>,
- <tamird@kernel.org>, <work@onurozkan.dev>, <mmaurer@google.com>,
- <driver-core@lists.linux.dev>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>
-To: "Gary Guo" <gary@garyguo.net>
-References: <20260830193824.471089-1-dakr@kernel.org>
- <20260830193824.471089-5-dakr@kernel.org>
- <DL5PMZZO1S7X.3BMZVKVUMYVM0@garyguo.net>
-In-Reply-To: <DL5PMZZO1S7X.3BMZVKVUMYVM0@garyguo.net>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260903112737.49551-1-kmehltretter@gmail.com>
 
-On Thu Sep 3, 2026 at 3:20 PM CEST, Gary Guo wrote:
-> The rust/kernel code looks good to me. Haven't checked nova part in detai=
-l, but
-> it looks like a mechanical conversion, so would be fine if it builds.
->
-> Reviewed-by: Gary Guo <gary@garyguo.net>
->
-> Sashiko points out that the `Coherent` could be leaked -- what's the impl=
-ication
-> when that happens? I think it's not going to be as problematic like
-> registrations because coherent allocation carries no callbacks, so we pro=
-bably
-> don't need this to be unsafe, but I do wonder how'd DMA subsystem handle =
-this.
+Le Thu, Sep 03, 2026 at 01:27:37PM +0200, Karl Mehltretter a écrit :
+> __irq_exit_rcu() drops HARDIRQ_OFFSET before deferred hrtimer rearm,
+> softirq dispatch, and timersd wakeup. This work is still on the IRQ
+> return path, but in_task() reports task context.
+> 
+> Context-sensitive code called from this window therefore sees task
+> context. ftrace records normal-context flags and selects its normal
+> recursion slot. KCSAN attributes IRQ-exit accesses to the interrupted
+> task, while KMSAN can select and modify that task's metadata.
+> 
+> Keep HARDIRQ_OFFSET until the IRQ-exit work is done. For direct softirq
+> handling, replace it with SOFTIRQ_OFFSET and restore it afterwards. Other
+> __do_softirq() call paths keep their existing accounting.
+> 
+> With hardirq context retained, ftrace records hardirq context, KCSAN uses
+> interrupt attribution, and KMSAN no longer uses the interrupted task's
+> state.
+> 
+> Since softirq eligibility is now tested before HARDIRQ_OFFSET is removed,
+> use irq_count() == HARDIRQ_OFFSET. This preserves the old !in_interrupt()
+> semantics, including PREEMPT_RT's task-local softirq-disable state.
+> 
+> Drop HARDIRQ_OFFSET before tick_irq_exit(), as before.
+> 
+> Suggested-by: Peter Zijlstra <peterz@infradead.org>
+> Link: https://lore.kernel.org/r/20260813130826.GW687043@noisy.programming.kicks-ass.net
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+> I reworked Peter's draft linked above into this version and tested it.
+> 
+> Changes:
+> - Use in_hardirq() in softirq_handle_begin() instead of ksirqd, since
+>   __do_softirq() also has task-context callers, including ktimerd.
+> - Use irq_count() for the eligibility test so PREEMPT_RT's task-local
+>   BH-disabled state remains part of the decision.
+> 
+> Tested with non-RT, threadirqs and PREEMPT_RT x86-64 QEMU boot/stress.
+> The QEMU kernels had lockdep and IRQ tracing enabled and reported no new
+> warnings.
+> 
+> A focused RT test rejected every BH-disabled IRQ-exit observation. The
+> old-mask negative control admitted every one.
+> 
+> ftrace marked direct IRQ-exit work as hardirq rather than normal context.
+> 
+> A separate A/B changed printk caller attribution from task to CPU,
+> in_task() from 1 to 0 and interrupt_context_level() from 0 to 2. Fault
+> injection no longer consumed the interrupted task's fail_nth state.
+> 
+> KCSAN attributed all 16 target reports to interrupt context.
+> 
+> KMSAN did not select or change task state in 64K IRQ-exit windows. All
+> 28 KMSAN KUnit tests passed.
+> 
+> The exact TIP source also passed A/B boot/stress on a Pi 400
+> (Cortex-A72, arm64).
+> 
+> For additional coverage, the mainline adaptation passed A/B boot/stress
+> on a Microchip SAM9X75 Curiosity (ARM926EJ-S/ARMv5TEJ).
+> 
+> vmlinux linked successfully for arm64, ARM, RISC-V and s390.
+> 
+>  kernel/softirq.c | 48 ++++++++++++++++++++++++++++++++++++------------
+>  1 file changed, 36 insertions(+), 12 deletions(-)
+> 
+> diff --git a/kernel/softirq.c b/kernel/softirq.c
+> index 5d02c36c40e3..63aeaa5f62e9 100644
+> --- a/kernel/softirq.c
+> +++ b/kernel/softirq.c
+> @@ -350,8 +350,8 @@ static inline void ksoftirqd_run_end(void)
+>  	local_irq_enable();
+>  }
+>  
+> -static inline void softirq_handle_begin(void) { }
+> -static inline void softirq_handle_end(void) { }
+> +static inline bool softirq_handle_begin(void) { return false; }
+> +static inline void softirq_handle_end(bool from_hardirq) { }
+>  
+>  static inline bool should_wake_ksoftirqd(void)
+>  {
+> @@ -481,15 +481,35 @@ void __local_bh_enable_ip(unsigned long ip, unsigned int cnt)
+>  }
+>  EXPORT_SYMBOL(__local_bh_enable_ip);
+>  
+> -static inline void softirq_handle_begin(void)
+> +static inline bool softirq_handle_begin(void)
+>  {
+> -	__local_bh_disable_ip(_RET_IP_, SOFTIRQ_OFFSET);
+> +	bool from_hardirq = in_hardirq();
+> +
+> +	if (!from_hardirq) {
+> +		__local_bh_disable_ip(_RET_IP_, SOFTIRQ_OFFSET);
+> +		return false;
+> +	}
+> +
+> +	/* Replace the retained hardirq context with normal softirq context. */
+> +	__preempt_count_add((int)SOFTIRQ_OFFSET - (int)HARDIRQ_OFFSET);
 
-The implication if leaked is the same as if it is kept alive past driver un=
-bind,
-which is why I changed the TODO comment accordingly in the hunk below.
+So it skips the whole RT locking and processing because softirqs don't
+happen anyway on hard IRQ tail there. Looks good.
 
-If you look for a specific example, there's [1] for instance. So, it is
-problematic, which is why I added the TODO comment back then.
 
-But, we did accept this soundness hole from the get-go for both, keeping a
-coherent allocation alive beyond driver unbind and for leaking it.
+> +	if (softirq_count() == SOFTIRQ_OFFSET)
 
-With this patch it is now impossible to keep it alive beyond driver unbind,=
- so
-switching to unsafe now would be a bit odd. :)
+Any other value should be forbidden here.
+It should just warn.
 
-(The fact that we did accept this for coherent allocations is also one reas=
-on
-why I was recently arguing that we can also make the forget() issue an acce=
-pted
-soundness hole for registrations.)
+> +		lockdep_softirqs_off(_RET_IP_);
+> +	return true;
+>  }
+>  
+> -static inline void softirq_handle_end(void)
+> +static inline void softirq_handle_end(bool from_hardirq)
+>  {
+> -	__local_bh_enable(SOFTIRQ_OFFSET);
+> -	WARN_ON_ONCE(in_interrupt());
+> +	if (!from_hardirq) {
+> +		__local_bh_enable(SOFTIRQ_OFFSET);
+> +		WARN_ON_ONCE(in_interrupt());
+> +		return;
+> +	}
+> +
+> +	if (softirq_count() == SOFTIRQ_OFFSET)
+> +		lockdep_softirqs_on(_RET_IP_);
 
-[1] https://lore.kernel.org/all/6a7910da.9c11d2ce.289b96.00da.GAE@google.co=
-m/
+Same here, you should warn if softirq_count() != SOFTIRQ_OFFSET
 
-@@ -588,26 +587,20 @@ fn from(value: CoherentBox<T>) -> Self {
- ///   to an allocated region of coherent memory and `dma_addr` is the DMA =
-address base of the
- ///   region.
- /// - The size in bytes of the allocation is equal to size information via=
- pointer.
--// TODO
- //
--// DMA allocations potentially carry device resources (e.g.IOMMU mappings)=
-, hence for soundness
--// reasons DMA allocation would need to be embedded in a `Devres` containe=
-r, in order to ensure
--// that device resources can never survive device unbind.
--//
--// However, it is neither desirable nor necessary to protect the allocated=
- memory of the DMA
--// allocation from surviving device unbind; it would require RCU read side=
- critical sections to
--// access the memory, which may require subsequent unnecessary copies.
--//
--// Hence, find a way to revoke the device resources of a `Coherent`, but n=
-ot the
--// entire `Coherent` including the allocated memory itself.
--pub struct Coherent<T: KnownSize + ?Sized> {
--    dev: ARef<device::Device>,
-+// The lifetime parameter ties DMA allocations to the device's bound scope=
-, ensuring they are freed
-+// before the device is unbound under normal circumstances. However, if a =
-`Coherent` is leaked (e.g.
-+// via `mem::forget`), device resources such as IOMMU mappings will not be=
- released.  Making all
-+// constructors `unsafe` to prevent this is considered too restrictive for=
- the common case; this
-+// soundness hole is accepted for now.
-+pub struct Coherent<'a, T: KnownSize + ?Sized> {
-+    dev: &'a device::Device<Bound>,
-     dma_addr: DmaAddress,
-     cpu_addr: NonNull<T>,
-     dma_attrs: Attrs,
- }
+> +	__preempt_count_sub((int)SOFTIRQ_OFFSET - (int)HARDIRQ_OFFSET);
+> +	WARN_ON_ONCE(!in_hardirq());
+>  }
+
+Thanks!
+
+-- 
+Frederic Weisbecker
+SUSE Labs
