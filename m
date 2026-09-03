@@ -1,127 +1,157 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07CB34CC270
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:43:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F3174F0533
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:43:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788453809; cv=none; b=Rhsq0ulXT6Nsr1/PEXa2FcStMDLtdQZ7K8BGpH+vanKYioFrMVYih20g+/GMuoecyqpjjynRdOySZdt776zwKx/h91VUVGkkRc/jkXUpF7I3J00qB+k3mRM/IIfpd/MbKwgxTWfeaOB7F6QTYkGqKOnnm9nhu9cYYfUJGPfqFGA=
+	t=1788453814; cv=none; b=s76WRrHgthPzFF8Zg2/O4orxRYW0eH2Kfjf769bPsRYmOmSu6nA/sjlKVRJ81mePkEweI0ab4m/hhwk0MLJVaKp1ohT21CcIWSXned8dN7lyixerrrBRN4GQOWDyGTpj/JPdZp5bPATnexoRnrQSsro5g4wQ2m6ZEhoarXopaBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788453809; c=relaxed/simple;
-	bh=CXulU9ugcVs/yCyjMFB12dfhXuE9IH7phZFtkCoFrBI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=fLMXYG2MHIXRdep+qoBWfa9wy4WV3G0wO3d9A2Kitd+Bm6oppWXbBmzhaL5WXwLtFmjZBN+LURR44mWNK3rGFKaFxnwFHucA/PWdVjkGCPc6PqnlcGw3KlMr3/MWxswz/mynZpPeXLF/ixRHYKUuCEMbaSuq7dp+eoUe/XhDapU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AZBf8kMJ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=NVW9GEVf; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788453814; c=relaxed/simple;
+	bh=+r9hLk2SPOmyAvshuN0IagagVfA7a/hC3JMXKL35W1Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bxBzAHw3JJu2gNcJPTzy9CH9b5T7kWcwJkZU90Kr4T7EIkaRreUhBci67cGBqX3MHAdNFDtstVSJ5p/uHBBt0WFD4EpWh0I71lMkQfbPk2mo2aiXo0lmLbBhBaB2RtFaphwShjh419CtbQb7BaiwNe529K66UUYu7/yausODHzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fCUjCDtf; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AZBf8kMJ";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="NVW9GEVf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788453807;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=V8sg4Ic+uUI0uGmJLbnp+7IK0wyVe9CAzpqU2xH+Oy4=;
-	b=AZBf8kMJCtONmXIgwta5xY1AOYHUHlZCULkcHF3C/Q3bLd1ai/KKtozVkGjE0x5+C3meOk
-	vYb4Aqh4lte6L+8qEaPggJFi33Luu7+X/QN2aiLBHZF+nUa6KhMjaFIjH/jWA9MbntsYzN
-	yLnTmqn+Ry2LJjpnN7aeXTz4OsjFnus=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-41-JSTcTtggOPONZ_OnXtTtlw-1; Thu, 03 Sep 2026 12:43:26 -0400
-X-MC-Unique: JSTcTtggOPONZ_OnXtTtlw-1
-X-Mimecast-MFC-AGG-ID: JSTcTtggOPONZ_OnXtTtlw_1788453805
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92ec3146553so717802185a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 09:43:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fCUjCDtf"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c250f28f1cdso716466b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 09:43:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788453805; x=1789058605; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=V8sg4Ic+uUI0uGmJLbnp+7IK0wyVe9CAzpqU2xH+Oy4=;
-        b=NVW9GEVfN8LNsJcDUxITXOQ/bcHsNPrtQoSWpU65z5HnuJBLmlJhXzLgMamVh8XeQO
-         7c+AcIBw/OYg63F4HEit7ffyy3FnwR0aRTefdPdhDzR+ub+j4C3nl7i7/IzxRIJ3lGEa
-         9iT10r+Y8jf8dCoG+nIffwGZuN6TfhqAS8pqB98OWqSasQS9iIN8Vxf/D/vA7q3jJNFN
-         1FH77GzgEKiESQpUgZyR4LbeY83ckoBsMUItn0YuFYyLatZM7JHDZ2lXCAOgb8IiaxMW
-         0n6ZAvQloMFbXuv1J2VS6tGzasqJInWfYypse7Y1R1014yftSsRfq/UntkAeiR0lq7CS
-         Oa4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788453805; x=1789058605;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788453810; x=1789058610; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=V8sg4Ic+uUI0uGmJLbnp+7IK0wyVe9CAzpqU2xH+Oy4=;
-        b=sRdzN8RDwMNyt55gVBTJ7OyWtMeMZu953lvBwysIeZbKfH89NqQnRxdOdEDj6s3q4D
-         K8/4l9Y4rwSrMUdl7l91wEKaO9zkcfnxuC05hiW8UbnQWf/NyB1TDmeUopQ7kPzzzScH
-         OaBnZBaFKZiI7xFip7BythQWe02r46auGiKuoE0zGDKX5X4nvp/R21NbEvVFPct/DgNh
-         vyIWtejxdad29IEvSTo0xHKau/Wz+hVcaxND+Ik3qmapgh2xCh/DEJ6u6pjAA5Ol8Gbp
-         Yi8Dw8WFNP0YHlP1vD/ZXou1QeVQY2hMBEwEjl9dwXCEs4g5DY1Tkldi7upIP0yYaQY4
-         Ecmg==
-X-Forwarded-Encrypted: i=1; AKwUvBzdvD6lMOxa+hd/VcxldXjPpY8oH8s37UEJjB4KCMrd6FlzMAChmqnNrtCZewooTEsvUvYpOeaikbEZL6U=@vger.kernel.org
-X-Gm-Message-State: AFuF++mFW01viMuYRQ1MUPI6xgP2BgmSMc+9uVghuy/YZxUHy+gy3TFR
-	7cugdJVLnk+HQsFn/e3Ybats57yypAkTVhCk/d4WpenGLF8kuncrCEE/3h3wxoXWoPTlqQaDIbM
-	KU/G8DXqhKjgzQkib9lkUdl2nG1uBL2SzfMeciLZe88Fg6+b8J8vaCuFdl9+NgCN8TA==
-X-Gm-Gg: AYBFou3uOllrvLmFU/ek6/GddPfilCrOj9DpHRUm0PQ5epeurQqeXISuDfpOG+BW0MN
-	qFIkECaMIppZo3fjtUHnoosfb3O/EW3QUXxSuetmqH+Oxzi6CAnQ3o/bhxXXKCcxH+0qfz7h7Pp
-	5K9wV7QlwtKdhYfkLll/Ahpo5PI3X5nJgk4zg9YKe/C3mh9D+2MlqKRB39/79NV3XcyL+uOCFno
-	WPSnFfeh1yYoyK20tfL1P1d3hv9DJwAVeiSNJ/v7H/VhlCIJbcPRWYwBSHDrJ+A3jM1l93Ipik4
-	1kIGX8VCpJkJijMBpczttR0BV+Ssy7bM2L+s9z2w7Vs25wBn2oa7OC49FQBXVhJbyJ2R7H4jIbu
-	Vhno7dv+L4lTosMvpzjuBNPes9u+vDxoZ5EQP5Cs=
-X-Received: by 2002:a05:620a:6187:b0:939:6df3:d7f6 with SMTP id af79cd13be357-9396df3de25mr992454485a.49.1788453805439;
-        Thu, 03 Sep 2026 09:43:25 -0700 (PDT)
-X-Received: by 2002:a05:620a:6187:b0:939:6df3:d7f6 with SMTP id af79cd13be357-9396df3de25mr992386285a.49.1788453801386;
-        Thu, 03 Sep 2026 09:43:21 -0700 (PDT)
-Received: from [192.168.1.3] (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9ee270d0sm47491336d6.18.2026.09.03.09.43.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 09:43:20 -0700 (PDT)
-From: Brian Masney <bmasney@redhat.com>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Chen-Yu Tsai <wenst@chromium.org>, Ricardo Ribalda <ribalda@chromium.org>
-Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- stable@vger.kernel.org
-In-Reply-To: <20260831-common_clk_mt8173-v1-1-2d7241f70379@chromium.org>
-References: <20260831-common_clk_mt8173-v1-1-2d7241f70379@chromium.org>
-Subject: Re: [PATCH] clk: mediatek: Add missing depend for
- COMMON_CLK_MT8173
-Message-Id: <178845378565.22448.12859439275506649984.b4-ty@b4>
-Date: Thu, 03 Sep 2026 12:43:05 -0400
+        bh=Wjfdopz1N1hWehGtY1xAg4wK0Ims0sicB7CXr04O9bM=;
+        b=fCUjCDtf3DUvCktyOi7f0h40JphcHQHqXKbM5MD1pLWM2Z/b2QCKxqouFFHEi1fSDn
+         0n4kqEDMRqS9TxXP/KG0uhS2D4ewr0k7dJ6N+N4cMeO8NPDAALn36bGQGNWrM8jN1P1h
+         4QkwBnnPOiMVLN4hIU2a6pYeuD3imrIIV3JkQWKssdj7i5PSmkuWgfEmyzNuCl5juYJ2
+         ZodPFcGYrbTsa2XJIDecYjnC3hpMvqCZ0vplkqbCfu7t4+fhqE6i6hjKmt/BLuvfa/2q
+         4Exb5gaTWUQa9NJrxlH2ehvOfWrsm/rJ5v5nE3wSMBzWMRpJ76wEeOXkmJibbG+SBoLC
+         Xaig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788453810; x=1789058610;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Wjfdopz1N1hWehGtY1xAg4wK0Ims0sicB7CXr04O9bM=;
+        b=McFAaEswx8jZXDafdufQKtCj3YwAnX5NaT/HgKiOwJ6FFVE/18XGNwS9UpzIQi0wf1
+         3nxMY3zdof9ye0Z19L4w2dCp+aJp5slSwNoYPtVRoYXOnFeGm9xlnbYQPMLS53NgIb8m
+         C+uziY0yNhA3Yw4qhDbrAFpVP8z0C2q5d8ASbBnc/8jjmMdpDSfzfqB6iAo+kA/TOlFv
+         18uWIsLIh15EMjNgMZ4bqSZGyYBonliqmqNghDLg+9R3x9Mhki9utRkU6dCRnn/9fEDB
+         Su3gDrNJr7xviVCn7oy9B1ymtUvJUH+Qs6gUK0YG1990K+9oXvR/Ps4l0LZFiUZan6Jz
+         WX6A==
+X-Forwarded-Encrypted: i=1; AKwUvBwG5uAS58c/l33M5uGZIFgf56QclK4hVEWfPSMGs+LARIA5tjOlMj/i6tFOsUExGmhPw9H8yACbGeKWdZY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kFx9PGpctlDcf6wZQ1zJzy61T5SyTBpPgVGdCSemFAR3vF8uHK
+	ye4AoMH9hL/mywGXXc3S5OyQRhRn54OSqWrE4WAzTmsZOvc/UusWBzs3
+X-Gm-Gg: AYBFou2QVBv5QemR9IBLhWTAx6S2Bz6+AWPSULZOL+UiQX11WRUGv1O0oAp1QJuBp+s
+	SZBAin5yfpD/ZdcYUVlTzR0PnX1Oqfv5Vtay8N22mlgg+VOUeZTFxaAjem7U4mRpcnB2KW+GVuw
+	xUCFyLisyzzdQJjtterPG0cqIZtk0oGaemkcKlr8EN+D/UX17clwmhYrKQhvob1RPYItWR2L2Mh
+	2D0J3fdulWbUydc5tmMOz7zWBj9+uiIutiodkI4znVxCqok0HEwkI/aqIgy8mCAqfywkEPaam5z
+	fHvCUOJ2oz/Fz2zu5bQbTbKhnCI+pZl9JJxiPUj+suMiXgDVPeE3AHjfmwcNW0g4lB43whkBH29
+	Mvq++tW52+/4Vpy5Hxc89xcmoGfvK58AX3VJmPqNn+FVPtgng4wAdaK4fJZu7P+4eiHYc0Lxznc
+	U4Vv7JVOEadd2+8GkisRK5ssY4vT0l+maMWxc5ReVELwayV6ouezRSIT1aZd+yGKKXmBRssG67s
+	rHOMFM7GuS3gSOFTKYJT1iQzQAMnlNEVQSPMS5vJ3RDJio=
+X-Received: by 2002:a17:907:7290:b0:c25:89fa:5a8e with SMTP id a640c23a62f3a-c260c7ac978mr1632566b.10.1788453810166;
+        Thu, 03 Sep 2026 09:43:30 -0700 (PDT)
+Received: from ?IPV6:2a02:8109:a307:d900:c0df:8063:3b00:b779? ([2a02:8109:a307:d900:c0df:8063:3b00:b779])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25f4244e45sm127018266b.60.2026.09.03.09.43.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 09:43:29 -0700 (PDT)
+Message-ID: <7c741628-c259-4ae6-8d67-d92910183526@gmail.com>
+Date: Thu, 3 Sep 2026 17:43:28 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf v2 1/2] bpf: bound resizable hash map iteration
+To: Hui Su <sh_def@163.com>, bpf@vger.kernel.org
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
+ eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
+ yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
+ ihor.solodrai@linux.dev, shuah@kernel.org, yatsenko@meta.com,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20260831140132.117755-1-sh_def@163.com>
+Content-Language: en-US
+From: Mykyta Yatsenko <mykyta.yatsenko5@gmail.com>
+In-Reply-To: <20260831140132.117755-1-sh_def@163.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=317; i=bmasney@redhat.com;
- s=20250903; h=from:subject:message-id;
- bh=Y+oggqG3Z8L+JxkjNpwIvq7dXqEwG7Da2Hajvvt/Msg=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJmLp4vln/w9uWnFpMnBh3+s5IzyCRo3jTeQ88mBbj8y
- GR/EvCgvqOUhUGMi0FWTJFlSa5RQUTqKtt7dzRZYOawMoEMYeDiFICJ3Ahg+O86/dGb5RGeNw8x
- nv+Y6dMhWWrzZE5A6oGlMo+NmKP7Cl8y/PfOydx3s8egMeH7vrvRv2R+z3jEeTuj8P9/m8aGvU3
- r23kB
-X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
+On 8/31/26 3:01 PM, Hui Su wrote:
+> rhashtable_next_key() provides a best-effort walk that may revisit
+> entries and is not guaranteed to terminate under sustained rehashing.
+> Callers performing a full iteration are expected to bound the walk
+> externally.
+> 
+> bpf_each_rhash_elem() currently loops until rhashtable_next_key()
+> returns NULL, leaving callback execution without a finite bound. Sample
+> rhashtable's current element count and use it as the iteration budget.
+> This keeps the bound proportional to current occupancy instead of the
+> potentially much larger map capacity.
+> 
+> Duplicate visits may consume the budget and cause the walk to stop before
+> all keys are observed, but RHASH iteration already permits missed
+> elements under concurrent mutation.
+> 
+> This is reproducible with concurrent updates and deletes triggering
+> rehash. With max_entries=4096, one walk invoked the callback 5239 times
+> on an unpatched kernel. With the bound in place, callback invocations did
+> not exceed 4096 in the same stress test.
+> 
+> Fixes: 818e00848227 ("bpf: Implement iteration ops for resizable hashtab")
+> Signed-off-by: Hui Su <sh_def@163.com>
+> ---
+> Changes in v2:
+> - Bound the walk by the sampled rhashtable element count instead of
+>   map->max_entries, keeping the budget proportional to occupancy.
+> 
+> Link: https://lore.kernel.org/bpf/20260828183326.3330530-1-sh_def@163.com/
+> ---
 
-On Mon, 31 Aug 2026 08:50:56 +0000, Ricardo Ribalda wrote:
-> clk: mediatek: Add missing depend for COMMON_CLK_MT8173
+Thanks for sending the patch. I'm not sure if this change fixes anything,
+the main issue of walking concurrently modified rhashtable is not changed: you
+still may miss elements or visit same elements multiple times. In some scenarios
+this can make things worse: imagine you start iterating with small map 
+(visit_budget = 10), then 1000000 elements are inserted concurrently with walk,
+so you'll miss at least 1000000 - 10. To me this is a trade off/taste 
+thing, rather than bug fix.
+The change is compact, though, I'm not against it.
 
-Applied, thanks!
-
-[1/1] clk: mediatek: Add missing depend for COMMON_CLK_MT8173
-      commit: 84964d0ce3faed815e1b8e048ce5ce1c93badb18
-
-Best regards,
--- 
-Brian Masney <bmasney@redhat.com>
+>  kernel/bpf/hashtab.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/kernel/bpf/hashtab.c b/kernel/bpf/hashtab.c
+> index d40cb5dd446c..2cad67c90154 100644
+> --- a/kernel/bpf/hashtab.c
+> +++ b/kernel/bpf/hashtab.c
+> @@ -3198,7 +3198,8 @@ static long bpf_each_rhash_elem(struct bpf_map *map, bpf_callback_t callback_fn,
+>  	struct bpf_rhtab *rhtab = container_of(map, struct bpf_rhtab, map);
+>  	void *prev_key = NULL;
+>  	struct rhtab_elem *elem;
+> -	int num_elems = 0;
+> +	u32 visit_budget;
+> +	u32 num_elems = 0;
+>  	u64 ret = 0;
+>  
+>  	cant_migrate();
+> @@ -3212,7 +3213,9 @@ static long bpf_each_rhash_elem(struct bpf_map *map, bpf_callback_t callback_fn,
+>  	 * elements are deleted/inserted, there may be missed or duplicate
+>  	 * elements visited.
+>  	 */
+> -	while ((elem = rhashtable_next_key(&rhtab->ht, prev_key))) {
+> +	visit_budget = atomic_read(&rhtab->ht.nelems);
+> +	while (num_elems < visit_budget &&
+> +	       (elem = rhashtable_next_key(&rhtab->ht, prev_key))) {
+>  		if (IS_ERR(elem))
+>  			break;
+>  		num_elems++;
+> 
+> base-commit: c20313e98b04ce543936431b6122dd639d3a8346
 
