@@ -1,61 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB8A7381B1A
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 18:42:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E8A283B3C0E;
+	Thu,  3 Sep 2026 18:46:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788460964; cv=none; b=SRImuHeUJ0RETeu3/4KQEXQdvh3dQC8aiYH9XRCPRidjx9y9eK4QJneB7D13mnZ3pmiWZnL38FhjwrXGRMRHdnv5UKhXT8/bMsXIcQAqcY/u5f3CScd98AufPFgdWnVx8dw+3v3hMnwFQJ+NMdVByOZDiEDHBT7iTyyYK8PTxOM=
+	t=1788461220; cv=none; b=X216jm8R2xk37i4n1LJ1YC1lV6pOtPErNu0MOSuW3280zIw5JHv4G6PJMar3bn3DlExwRXGD7LOUDlHeG5hns/xSoWhytTC0D8XnVDQ2WzUta1x1TJGF3O7hH4kYp41Gh7fvzSrEenoGqELEu0x0PwXk89BKY72XFI+Hq/4AUmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788460964; c=relaxed/simple;
-	bh=ydILn2tH86ABgtZGZW5BVnzCB8twiQzVH3NV54IP/AE=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=nbZPqFzveYppiX0IIUOPWTTZoqfjwU941gKir/gZ65O6qsQEFO+lYOawTcqJU27uVyc15tRa6iBj0KZ5Dv77G6pfnC9nQZ614lFOzs+kY6o9TWIam5KDbjzL9bJJWdO31+TDJ6iLRUK/5pypkHxFMLTcVL9dDWusEtG4vKepQg8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GXDf8L9R; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788461220; c=relaxed/simple;
+	bh=AAOBbTX//dnshYHVuCrRy4d3uSMcIR6W5SJrVT1ox6M=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kCP91qtO7gNr3aOUtFAs97Ayi9mIdRGWZCkdUsO5EcWqXICwPLPUE6kTllpOBSr1vWUChTR442ZvtRNelfjvLzc3OEJi3DxtUhdkSQpOgi+yUt7z1RZ4Sjj/IcXSF5kFRvAewiE3Ut85mxai7yhCj1gu885SPI8fZf7q6gDdDY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=GWoHdprR; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GXDf8L9R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AF9D1F000E9;
-	Thu,  3 Sep 2026 18:42:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788460962;
-	bh=nbldedxtnDAVHRfmn4fqo5vEq9ymjuTTfNdltkP/+ds=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=GXDf8L9RSgpvkZMb0t+14L5oXmmto92EqyruVh9+DJrFPe3/G3INEoGJdIum53oZ7
-	 5lhgD/q4hXIT9WZeAf4HSyrBqHdTEk5G5vOldlMfepohyPkp7+Pcj1rvbPs5yZJO0w
-	 4QeJhQXiCdXeGsyzwgJIN33UhCwrgGv9kZPUu9v7qGc2V8LsRq4xMFsVeh7nDOA4qM
-	 EfZYDTmO+eTvgLWGa09g/0zDzcjR7Xcki4VCADrS00EVSDKXLi2v3jth9Xj2kskiXr
-	 YwaG8L8Dpmz+bUgSWPP6Gjf3vqIBfDJcXrHPfAdU4g/Rpjnfv5SL04/9jIQWeM74UQ
-	 MWszKnU6+bzBw==
-Date: Thu, 03 Sep 2026 08:42:41 -1000
-Message-ID: <c02681b23c71737d9a84dea194b24691@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Marco Crivellari <marco.crivellari@suse.com>
-Cc: linux-kernel@vger.kernel.org, Lai Jiangshan <jiangshanlai@gmail.com>,
- Frederic Weisbecker <frederic@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Michal Hocko <mhocko@suse.com>, Breno Leitao <leitao@debian.org>
-Subject: Re: [PATCH v2 1/2] workqueue: Make alloc_workqueue() unbound by
- default
-In-Reply-To: <20260903165251.481362-2-marco.crivellari@suse.com>
-References: <20260903165251.481362-1-marco.crivellari@suse.com>
- <20260903165251.481362-2-marco.crivellari@suse.com>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="GWoHdprR"
+Received: from localhost (unknown [20.191.74.188])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 72A4D20B712B;
+	Thu,  3 Sep 2026 11:46:11 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 72A4D20B712B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1788461172;
+	bh=9417ftu6LLY+NWWmPrsJiSQmjQu6hJFyUo3Wc4rbzQ0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=GWoHdprR5u3g4iaUJw+ld4P0JfeaC8Zb35w8iS2kUbDkaZLOIqjnNUGhg/ccvjyZY
+	 mmtysBBIBD9xgJhoDgH5h8Z3gWvBzY61WsCRVuofFgYyI0XOB491W7t/B1v6jREMjn
+	 iCIC9tR1wosLiHfhUmIryXgNj0z5VXRKmXlv69Es=
+Date: Thu, 3 Sep 2026 11:46:47 -0700
+From: Jacob Pan <jacob.pan@linux.microsoft.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Wei Liu <wei.liu@kernel.org>, Mukesh R <mrathor@linux.microsoft.com>,
+ Alex Williamson <alex@shazbot.org>, hpa@zytor.com, robin.murphy@arm.com,
+ robh@kernel.org, mhklinux@outlook.com, muislam@microsoft.com,
+ namjain@linux.microsoft.com, magnuskulke@linux.microsoft.com,
+ anbelski@linux.microsoft.com, linux-kernel@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, iommu@lists.linux.dev,
+ linux-pci@vger.kernel.org, linux-arch@vger.kernel.org, kys@microsoft.com,
+ haiyangz@microsoft.com, decui@microsoft.com, longli@microsoft.com,
+ tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, x86@kernel.org, joro@8bytes.org,
+ will@kernel.org, lpieralisi@kernel.org, kwilczynski@kernel.org,
+ bhelgaas@google.com, arnd@arndb.de, "Aneesh Kumar K.V"
+ <aneesh.kumar@kernel.org>, jacob.pan@linux.microsoft.com
+Subject: Re: [PATCH v5 3/9] mshv: Introduce basic mshv bridge device for
+ VFIO to build upon
+Message-ID: <20260903114647.00005a1f@linux.microsoft.com>
+In-Reply-To: <20260903174014.GM4157646@nvidia.com>
+References: <20260731223427.2554388-1-mrathor@linux.microsoft.com>
+	<20260731223427.2554388-4-mrathor@linux.microsoft.com>
+	<20260902111905.000079d4@linux.microsoft.com>
+	<20260903144236.GK4157646@nvidia.com>
+	<20260903161328.GA3102631@liuwe-devbox-debian-v2.local>
+	<20260903174014.GM4157646@nvidia.com>
+Organization: LSG
+X-Mailer: Claws Mail 3.21.0 (GTK+ 2.24.33; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello, Marco.
+Hi Jason,
 
-On Thu, Sep 03, 2026 at 06:52:50PM +0200, Marco Crivellari wrote:
-> +	if (unlikely(!(flags & (WQ_UNBOUND | WQ_PERCPU)))) {
-> +		flags |= WQ_UNBOUND;
-> +		wq_unbound_by_default = true;
+On Thu, 3 Sep 2026 14:40:14 -0300
+Jason Gunthorpe <jgg@nvidia.com> wrote:
 
-WQ_BH without WQ_PERCPU passes the __WQ_BH_ALLOWS check above and then gets
-WQ_UNBOUND here, putting a BH workqueue on an unbound pool. WQ_BH should
-imply WQ_PERCPU.
+> On Thu, Sep 03, 2026 at 09:13:28AM -0700, Wei Liu wrote:
+> > > Does mshv use KVM at all? Can a kvm fd describe the partition?  
+> > 
+> > No. MSHV doesn't use KVM. We don't have a kvm fd. We have an mshv
+> > fd to describe the partition. They are different virtualization
+> > solutions.
+> > 
+> > In the ideal world, the fd should be hypervisor agnostic, not tied
+> > to kvm.  
+> 
+> There is a patch generalizing vfio to work on FDs instead of KVM
+> structures:
+> 
+>  https://patch.msgid.link/20260903-vfio-v2-1-ef4cd4190ae7@linux.ibm.com 
+> 
+> That's probably a good step long that line.
+Yeah, ideally, it would be removing/rename device/group->kvm to
+something like group/device->vm_file?
 
-Thanks.
-
--- 
-tejun
