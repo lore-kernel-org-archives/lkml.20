@@ -1,474 +1,594 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C1E44A2045
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:09:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788437343; cv=none; b=HqACfnl4jbkZeg4i3ghlWGxHF+Tzl1O6pue0tBAxEqwqQg3Ew7bmc0UYMW8XzdoVrzstczBpS6BV5o8MhWadMgTn3YKyA/QhGicsrm5TgntORlAKnK2W2Kamx2Mnoa+BKzPlZ1A4mWjq/wNg11xjoZmIyafa/t4gMdZGI3nRWfY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788437343; c=relaxed/simple;
-	bh=8zMCCFt2kdkh0qFuujHEFl/TvTjceg+rp/SOE5piDdA=;
-	h=Subject:Date:Message-ID:In-Reply-To:References:From:To:Cc:
-	 Content-Type:MIME-Version; b=rMtXqVudQK7avyWidhumD1Ug4eWPJll4IOLU3RfLRDhWTZsa8VSUR+dIkFf+l2/ZVkob58mXc1LQM98O43hO1jgo91AhzpIoiUcCZ4xWoOp8f0uZqqa+z4VpOm6oc8J7HRF/VCgGcsDmtEqi5UvDOzrYjw9l97N/z+hewRZXQCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F5mlLBFb; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C134A0EED;
+	Thu,  3 Sep 2026 12:09:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788437344; cv=pass; b=ZQVC5wBHA/+wYwIaFvDumKf1mLuqWnrRL79PKzO6E0HMoMJifkCYU0eup9P305pTci4NUFE/Ybpd2OQfkLZcPkK1VoD/C1In3nMIGcl7mcOoKwcStJdaieVeO2FNdI4oSQdkNH8eXbdqSFg3buq7OCLxnMUA97JZrX3LJNWTWgs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788437344; c=relaxed/simple;
+	bh=rX55GGfXsDXJoZPuL1Fm1SFRGf9o4ipPkAEVo1jh288=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=KiFg8i+iMbaV1P0IStS/9kORGdTUezBJJoDw+7hjuWuKmlwuOx1ONJejY0kNuTVTAek8dfF32V8NQtX3KkcICXd0SIlh54yg9inFiaBAS49XsjSdoyccNMt7wLVPHtKWd5izlmz/cW5OV+FXWIQf0Iez4SMdHjMILsLHk/SEQZM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=Z3NNrYox; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F5mlLBFb"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d6f9e2f681so24464645ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:09:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788437341; x=1789042141; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:cc:to:from
-         :references:in-reply-to:message-id:date:subject:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=c/a03k/MuPRlTmtB5F3YuX+O633+V86tiPMiBZLx+n8=;
-        b=F5mlLBFbhnWpTE0eLM1PRpZ/mrBDkq6w2oNlEBQyX3fvmmgd4wuHmWs9dcu27ufGqQ
-         6/FEKvUwRuM6mTd6zIOkufmxhCWsTQBtEkewwO3tiA5kyB8/7qlj2ZyAdl+c1zSxlhWQ
-         Ar+wHt1oRW/yDV9UqgiiPWn0QtRd3ZbwkQXCo4s2gZnc3XDsVrv+xqWOY318zGDrrHuA
-         7U25QYjmx4k41uT3mNsDp8G7OdTi/M4Lf6HVG3jI65lrm3XDaTZuopTItbJGFC+njd/O
-         OPj5qO2BD4NJr6LaSrvsv76Zb2Ua5BYBgolP5P1XrO2/aoo64G+LIhmm9eFgBcTSJCcZ
-         jbhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788437341; x=1789042141;
-        h=mime-version:content-transfer-encoding:content-type:cc:to:from
-         :references:in-reply-to:message-id:date:subject:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c/a03k/MuPRlTmtB5F3YuX+O633+V86tiPMiBZLx+n8=;
-        b=i3vzma8cznl44sH6GjZWClGoJ/+GL0BbvgAlrsE4THP9ggi+uI6dOXFi1liNaxrM2g
-         Nv9Ubu+tcQ7XCssMvBIoRr2EWgNOYlHKqE5+7yujJRh2VA/yczu9c5K08XB88oJJlX9W
-         sUlKvS/QHfKqkqWAzFb5QpknGPYHhofgz/gEY1LY7U+UB0ISg5pkbPlHTUDtA85HofkG
-         SEEa9WPdQkEdODVW/Z93U8UXjlCBsfqKMxNy3a/0bO498HdOjs917mP0YInaacHUviO/
-         RjBuLvt3mvQWD++1IeTy71bMRH3s+8c36NPMhoGmisdpx2zZburgIA1InIjWaz3GUl/v
-         X/Fw==
-X-Forwarded-Encrypted: i=1; AKwUvByZdIrK43HON5qX3Jz1flm9UlJscS5DOZuAsqKCBp0bdktdxU0nYlgitb+IXYKZS61dgV9PZNIW82lL5sw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kDSkcfDxNX4556sTttKinml7U/QDr1+/Xu6mS7tMfbt7ibiNNt
-	2ijSHikqmnF2lRdAon0DQNX4uh/0F6ng4uU0UdrSWllGLzfg1rissZRAfSfl6+F9S4k=
-X-Gm-Gg: AYBFou20BfcxEKneJSfClgawhGf3ENeSIFqQA454uBG1hHXaBEWx2IBtvWgzPrZ5Vna
-	ff+Sb7FvhF1VVPr0tOm3uXw/8Dv1cj5D+8QPCxkm1wp16ZVKLl2jIK1sJEqLgwc9IPE+i3opmo/
-	accFTie+w0Ur0rRunRXDieZ0Pi80mPulbKVyH4HBldzYYmZnxc/gte8jxpJuy60o1fqaCbrI70M
-	FHFVw/3YIvgIDvKvRZoJrluQYG24v9Z7OWlQp+ucy4+fbjT80SdLkt2HQexj2fBKti55uEgCD4u
-	pO0aC8mrgWrSDQ5gmvLJgU564W9T+6Ds7MtAMspj/zy1Rgg4a+l852MjGkG/XwRD1aNsfg3TOCH
-	fm9xOSDxcnYNZBxP0IcIP7KWamZFJeSWCiqEkbRfXfQ/hcwIt7DsOLZC65UkLdhrnNDt0zXHyi4
-	EISndM0OZRRBske9s16bqZk5aBa7563ipJ2QpNPsMa3QOtuJrGh7bCZxTiLSRjXg41uQ==
-X-Received: by 2002:a17:90b:33c4:b0:38e:9045:bac0 with SMTP id 98e67ed59e1d1-39aedf644damr16055891a91.5.1788437340066;
-        Thu, 03 Sep 2026 05:09:00 -0700 (PDT)
-Received: from [192.168.71.146] ([240e:b8f:91e2:d400:ec2a:b15e:fef8:70a])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc43d424edesm869853a12.22.2026.09.03.05.08.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 05:08:59 -0700 (PDT)
-Subject: [PATCH RFC v2 1/1] leds: asus-aura-scsi: Add ASUS Aura RGB LED driver
- for ROG NVMe enclosures
-Date: Thu, 03 Sep 2026 20:00:00 +0800
-Message-ID: <202609032000.RFCv2-1.lhw@gmail.com>
-In-Reply-To: <202609012200.RFC0.lhw@gmail.com>
-References:
- <202609012200.RFC0.lhw@gmail.com> <202609012200.RFC1.lhw@gmail.com>
-From: Liang Haowen <nbg2974@gmail.com>
-To: linux-leds@vger.kernel.org
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Martin K. Petersen <mkp@kernel.org>, linux-scsi@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
- Denis Benato <denis.benato@linux.dev>, Armin Wolf <W_Armin@gmx.de>,
- Hans de Goede <hansg@kernel.org>,
- Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="Z3NNrYox"
+ARC-Seal: i=1; a=rsa-sha256; t=1788437300; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=WzoqmzNw6gKNA2X+QB01ANc0mvhxUrftIFL7kJGY1A/6rzZA5mNKxoipPWNdGDYL24hnm7aHlLFDWDhPrVsxRpojSANT62aXhW671OQuuU2Smms2OTYCsa7M8pOxvsm/jkZjXcC6p08+8Ced+TGmY4W8jfEJrs9S9XjTmtQ7boY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788437300; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=iwMAkCD0RcmKVfoSuKy9lBJqcRb9khWXwRY8bg45kSM=; 
+	b=QygDsNjCQfRRDCqfSGIrZWwqBK/UXPxNJzvOZU2kO3b7p0sWVeOPb5fiz5e2FN32G8PjDH8kyDaKsyNMsBtNzojkCCUQuhhXw99rlkFL0xFKfq5/1hLyOrBnsbeVGUTARjdHzOow1GxDQR28GrjOakz1laHy0RjBV999u6dbzQ0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=icenowy.me;
+	spf=pass  smtp.mailfrom=uwu@icenowy.me;
+	dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788437300;
+	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=iwMAkCD0RcmKVfoSuKy9lBJqcRb9khWXwRY8bg45kSM=;
+	b=Z3NNrYoxPIZNwwt8pkBvBisQYQgiMUNE02r0MTecABe8CiIYpAQeIoDCzGuENcl2
+	D+MjGqty10wR6hrtW+23PzPpyUHTzZjxnrzHyG635f3koxxi/fLjKg/CZJbLHln/i0j
+	5DUcvqZXMST5+z8BuKxLycX3d8w6QZJA5U+b7mW3NbyAcOWfZbk3+rNlkHArlZXBBMI
+	PKE976oE8CSvtVvnG4YqIt3gHoeCLtz2GKOqEvJWf3jwUaUP6Kt+5GOFoMv/1xHtfm4
+	nT5mq8HqURTyE+PtNIdRJL3rE3VdjXEnm9kJW361jgCIqNiUpDWCAbqPI3FVRdMjLrs
+	DH11X5UvlQ==
+Received: by mx.zohomail.com with SMTPS id 1788437298187433.9861181594147;
+	Thu, 3 Sep 2026 05:08:18 -0700 (PDT)
+Message-ID: <edd7ae1b38ebc687d0b2bfb2509c40fb8a45e625.camel@icenowy.me>
+Subject: Re: [PATCH v2 07/17] drm/spacemit: add Saturn DPU register model
+From: Icenowy Zheng <uwu@icenowy.me>
+To: codykang.hk@gmail.com, David Airlie <airlied@gmail.com>, Simona Vetter	
+ <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Yixun Lan	
+ <dlan@kernel.org>, Vinod Koul <vkoul@kernel.org>, Neil Armstrong	
+ <neil.armstrong@linaro.org>, Haylen Chu <heylenay@4d2.org>, Michael
+ Turquette	 <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney	 <bmasney@redhat.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Paul Walmsley	 <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou	 <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Yao Zi
+ <me@ziyao.cc>,  Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=	
+ <u.kleine-koenig@baylibre.com>, Guodong Xu <docular.xu@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org, 
+	devicetree@vger.kernel.org, spacemit@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-clk@vger.kernel.org
+Date: Thu, 03 Sep 2026 20:08:10 +0800
+In-Reply-To: <20260809-k3-display-v2-7-327d7910bf71@gmail.com>
+References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
+	 <20260809-k3-display-v2-7-327d7910bf71@gmail.com>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-ZohoMailClient: External
 
-ASUS ROG external NVMe enclosures (ROG STRIX Arion, USB 0b05:1932) are
-plain USB mass-storage devices with no HID interface: the Aura LEDs
-hang off an ENE controller driven by vendor SCSI commands on the same
-LUN as the disk. The enclosure has 4 independently addressable LEDs,
-verified on hardware.
+=E5=9C=A8 2026-08-09=E6=97=A5=E7=9A=84 21:14 +0800=EF=BC=8CCody Kang via B4=
+ Relay=E5=86=99=E9=81=93=EF=BC=9A
+> From: Cody Kang <codykang.hk@gmail.com>
+>=20
+> The Saturn display processing unit is programmed through a set of
+> register blocks (composer, RDMA, timing generator, cmdlist engine,
+> display MMU) laid out identically in both SoC instances. Add the
+> block
+> address map, the per-field word offset and mask tables consumed by
+> the
+> field accessors, the interrupt bit layout and the compositor and
+> output-format ID encodings. The address map describes the whole
+> IP block on purpose, including blocks the driver does not touch; the
+> field tables carry the fields the driver programs, with each block's
+> full word count kept as its NWORDS extent.
+>=20
+> Consumers arrive with the following patches; the driver only becomes
+> buildable once the final patch adds the Kconfig and Makefile glue.
+>=20
+> Signed-off-by: Cody Kang <codykang.hk@gmail.com>
+>=20
+> ---
+> v2:
+> - no change
+> ---
+> =C2=A0drivers/gpu/drm/spacemit/dpu/saturn_regs/dpu_int.h |=C2=A0 25 ++
 
-Register a scsi_device_handler matched by INQUIRY (vendor "ROG",
-model "ESD-S1C"); it does not claim the sdev (sd keeps owning the
-disk) and exposes each LED as a multicolor LED class device,
-/sys/class/leds/asus-arion:led0 through led3.
+Is the slightly different K1 Saturn DPU registers considered?
 
-Protocol: a 16-byte vendor CDB (opcode 0xec, 'A' 'S' signature,
-register index, argument count in cdb[13]). MODE 0x8021 (Static) must
-be written first in every sequence or the device ignores it; colours
-go to 0x8160 + 3 * led and 0x8100 + 3 * led (3 bytes, order R, B, G;
-both tables are written because firmware revisions pull from one or
-the other); APPLY 0x80a0 takes 0x01 to apply and 0xaa to save.
+Thanks,
+Icenowy
 
-The CDB cannot go through scsi_execute_cmd(): it sizes the command
-via scsi_command_size(opcode), which maps vendor opcode 0xec to
-10 bytes, so cdb[13] is dropped and the device silently ignores the
-write (GOOD status, no error). The request is built with
-scsi_alloc_request() instead, which fully initializes the scsi_cmnd,
-with cmd_len forced to 16, mirroring what SG_IO does from userspace.
-
-brightness_set only caches the colour and marks the LED in a per-zone
-dirty bitmap; a single work item per zone then runs one ENE sequence
-for all pending LEDs (MODE, colour slots, APPLY, SAVE). Funneling
-every update through one work item keeps the sequences from
-interleaving between concurrent LED updates and batches multi-LED
-updates into a single APPLY/SAVE.
-
-This is the monolithic out-of-tree version as verified on hardware;
-the Kconfig/Makefile/MAINTAINERS wiring lands with the agreed split
-into a SCSI transport helper and a shared ASUS Aura LED interface.
-
-Signed-off-by: Liang Haowen <nbg2974@gmail.com>
----
- drivers/leds/leds-asus-aura-scsi.c | 332 +++++++++++++++++++++++++++++
- 1 file changed, 332 insertions(+)
- create mode 100644 drivers/leds/leds-asus-aura-scsi.c
-
-diff --git a/drivers/leds/leds-asus-aura-scsi.c b/drivers/leds/leds-asus-aura=
--scsi.c
-new file mode 100644
-index 0000000..4dd559a
---- /dev/null
-+++ b/drivers/leds/leds-asus-aura-scsi.c
-@@ -0,0 +1,332 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * ASUS Aura RGB over SCSI for ROG external NVMe enclosures
-+ * (e.g. ROG STRIX Arion, USB 0b05:1932).
-+ *
-+ * USB mass-storage device, no HID; the ENE LED controller is driven via
-+ * vendor SCSI commands. Matched by INQUIRY (vendor "ROG", model "ESD-S1C"),
-+ * does NOT claim the sdev (sd keeps owning the disk).
-+ *
-+ * The Arion exposes 4 independently addressable LEDs (verified on hardware):
-+ * each is a multicolor LED class device (asus-arion:led0..led3). A colour
-+ * change writes that LED's slot only: EFFECT 0x8160 + 3*led, DIRECT
-+ * 0x8100 + 3*led (3 bytes, byte order R, B, G), then APPLY (0x01) and
-+ * SAVE (0xaa). MODE (0x8021 =3D Static) is written first in every sequence;
-+ * skipping it makes the device ignore the whole sequence.
-+ *
-+ * Scheduling: brightness_set (LED core fast path) caches the colour and
-+ * marks the LED in a per-zone dirty bitmap; a single work item per zone
-+ * runs one ENE sequence for all pending LEDs (MODE once, colour slots,
-+ * APPLY, SAVE). Funneling every update through that one work item also
-+ * serializes the sequences: the MODE/colour/APPLY/SAVE chain must never
-+ * interleave between concurrent LED updates.
-+ *
-+ * CDB length: scsi_execute_cmd() sizes the CDB via COMMAND_SIZE(opcode),
-+ * which maps vendor opcode 0xec to 10 bytes. The ENE protocol uses a 16-byte
-+ * CDB with the data length in cdb[13], so scsi_execute_cmd() drops cdb[13]
-+ * and the device silently ignores the write. ene_write() therefore mirrors
-+ * scsi_execute_cmd() on top of scsi_alloc_request() and forces cmd_len =3D =
-16
-+ * (what SG_IO does from userspace).
-+ *
-+ * Attach manually until a notifier lands:
-+ * echo asus_aura > /sys/block/sdX/device/dh_state
-+ */
-+
-+#include <linux/module.h>
-+#include <linux/slab.h>
-+#include <linux/string.h>
-+#include <linux/leds.h>
-+#include <linux/led-class-multicolor.h>
-+#include <linux/blk_types.h>
-+#include <linux/blkdev.h>
-+#include <linux/blk-mq.h>
-+#include <linux/workqueue.h>
-+#include <scsi/scsi.h>
-+#include <scsi/scsi_cmnd.h>
-+#include <scsi/scsi_device.h>
-+#include <scsi/scsi_dh.h>
-+
-+#define ARION_INQ_VENDOR	"ROG"
-+#define ARION_INQ_MODEL		"ESD-S1C"
-+
-+#define ENE_OPCODE		0xec
-+#define ENE_REG_MODE		0x8021	/* AuraMode value: Static=3D1, Breathe=3D2, ...=
- */
-+#define ENE_REG_APPLY		0x80a0
-+#define ENE_REG_COLORS		0x8160	/* + 3*led, 3 bytes per LED, order R,B,G */
-+#define ENE_REG_COLORS_DIRECT	0x8100	/* + 3*led, same layout */
-+#define ENE_APPLY		0x01
-+#define ENE_SAVE		0xaa
-+#define ENE_MODE_STATIC		1
-+#define ENE_CDB_LEN		16
-+#define ENE_RGB_LEN		3
-+#define ENE_TIMEOUT		(10 * HZ)
-+
-+/*
-+ * Verified on hardware: the enclosure has 4 independently settable LEDs.
-+ * (The colour table reserves 16 slots; only the first 4 drive anything.)
-+ */
-+#define ARION_NUM_LEDS		4
-+
-+struct asus_aura_led {
-+	struct asus_aura_zone	*zone;
-+	int			index;
-+	struct led_classdev_mc	mc_cdev;
-+	struct mc_subled	subled[3];
-+	u8			rgb[ENE_RGB_LEN];
-+};
-+
-+struct asus_aura_zone {
-+	struct scsi_device	*sdev;
-+	struct asus_aura_led	leds[ARION_NUM_LEDS];
-+	unsigned long		dirty;	/* bit i: led i needs a colour write */
-+	struct work_struct	work;
-+};
-+
-+static void ene_build_cdb(u8 *cdb, u16 reg, u8 arg_count)
-+{
-+	memset(cdb, 0, ENE_CDB_LEN);
-+	cdb[0] =3D ENE_OPCODE;
-+	cdb[1] =3D 'A';
-+	cdb[2] =3D 'S';
-+	cdb[3] =3D (reg >> 8) & 0xff;
-+	cdb[4] =3D reg & 0xff;
-+	cdb[13] =3D arg_count;
-+}
-+
-+/*
-+ * scsi_execute_cmd() with cmd_len forced to 16. scsi_alloc_request()
-+ * initializes the scsi_cmnd fully (scsi_initialize_rq(): zeroed cmnd, sense
-+ * and rcu head, retries), which a raw blk_mq_alloc_request() does not.
-+ */
-+static int ene_write(struct scsi_device *sdev, u16 reg,
-+		     const void *data, u8 arg_count)
-+{
-+	struct request *rq;
-+	struct scsi_cmnd *scmd;
-+	u8 cdb[ENE_CDB_LEN];
-+	int ret;
-+
-+	ene_build_cdb(cdb, reg, arg_count);
-+
-+	rq =3D scsi_alloc_request(sdev->request_queue, REQ_OP_DRV_OUT, 0);
-+	if (IS_ERR(rq))
-+		return PTR_ERR(rq);
-+
-+	if (arg_count) {
-+		ret =3D blk_rq_map_kern(rq, (void *)data, arg_count, GFP_NOIO);
-+		if (ret)
-+			goto out;
-+	}
-+
-+	scmd =3D blk_mq_rq_to_pdu(rq);
-+	scmd->cmd_len =3D ENE_CDB_LEN;
-+	memcpy(scmd->cmnd, cdb, ENE_CDB_LEN);
-+	scmd->allowed =3D 1;
-+	rq->timeout =3D ENE_TIMEOUT;
-+	rq->rq_flags |=3D RQF_QUIET;
-+
-+	blk_execute_rq(rq, true);
-+	ret =3D scmd->result;
-+out:
-+	blk_mq_free_request(rq);
-+	return ret;
-+}
-+
-+/*
-+ * Sleepable: runs on the system workqueue. One ENE sequence for every LED
-+ * marked in the dirty bitmap. test_and_clear_bit() pairs with the set_bit()
-+ * in asus_aura_set(): a colour cached while this runs requeues the work and
-+ * is picked up by the next sequence.
-+ */
-+static void asus_aura_zone_work(struct work_struct *work)
-+{
-+	struct asus_aura_zone *zone =3D
-+		container_of(work, struct asus_aura_zone, work);
-+	struct scsi_device *sdev =3D zone->sdev;
-+	u8 apply =3D ENE_APPLY;
-+	u8 save =3D ENE_SAVE;
-+	u8 mode =3D ENE_MODE_STATIC;
-+	int i, ret;
-+
-+	if (!scsi_device_online(sdev))
-+		return;
-+
-+	/* Mode first: without it the device ignores the whole sequence. */
-+	ret =3D ene_write(sdev, ENE_REG_MODE, &mode, 1);
-+	if (ret)
-+		goto err;
-+
-+	for (i =3D 0; i < ARION_NUM_LEDS; i++) {
-+		struct asus_aura_led *led =3D &zone->leds[i];
-+
-+		if (!test_and_clear_bit(i, &zone->dirty))
-+			continue;
-+
-+		ret =3D ene_write(sdev, ENE_REG_COLORS + i * ENE_RGB_LEN,
-+				led->rgb, ENE_RGB_LEN);
-+		if (ret)
-+			goto err;
-+
-+		/*
-+		 * Cover the DIRECT colour set too; some firmware revisions
-+		 * pull from 0x8100 instead of 0x8160.
-+		 */
-+		ret =3D ene_write(sdev, ENE_REG_COLORS_DIRECT + i * ENE_RGB_LEN,
-+				led->rgb, ENE_RGB_LEN);
-+		if (ret)
-+			goto err;
-+	}
-+
-+	ret =3D ene_write(sdev, ENE_REG_APPLY, &apply, 1);
-+	if (ret)
-+		goto err;
-+
-+	/*
-+	 * The change only takes effect after SAVE (0xaa). NOTE: saving on
-+	 * every brightness change writes flash each time; revisit for wear
-+	 * once confirmed.
-+	 */
-+	ret =3D ene_write(sdev, ENE_REG_APPLY, &save, 1);
-+	if (ret)
-+		goto err;
-+
-+	return;
-+err:
-+	dev_err(&sdev->sdev_gendev,
-+		"asus_aura: colour update failed: %d\n", ret);
-+}
-+
-+/* Non-blocking LED callback (LED core fast path). Cache colour, defer SCSI.=
- */
-+static void asus_aura_set(struct led_classdev *cdev,
-+			  enum led_brightness brightness)
-+{
-+	struct led_classdev_mc *mc =3D lcdev_to_mccdev(cdev);
-+	struct asus_aura_led *led =3D
-+		container_of(mc, struct asus_aura_led, mc_cdev);
-+
-+	led_mc_calc_color_components(mc, brightness);
-+	/* ENE colour register byte order is R, B, G. */
-+	led->rgb[0] =3D led->subled[0].brightness;
-+	led->rgb[1] =3D led->subled[2].brightness;
-+	led->rgb[2] =3D led->subled[1].brightness;
-+
-+	set_bit(led->index, &led->zone->dirty);
-+	schedule_work(&led->zone->work);
-+}
-+
-+static int asus_aura_register_led(struct asus_aura_zone *zone, int index)
-+{
-+	struct asus_aura_led *led =3D &zone->leds[index];
-+	struct led_classdev *cdev =3D &led->mc_cdev.led_cdev;
-+	int ret;
-+
-+	led->zone =3D zone;
-+	led->index =3D index;
-+
-+	led->subled[0].color_index =3D LED_COLOR_ID_RED;
-+	led->subled[1].color_index =3D LED_COLOR_ID_GREEN;
-+	led->subled[2].color_index =3D LED_COLOR_ID_BLUE;
-+	led->mc_cdev.num_colors =3D 3;
-+	led->mc_cdev.subled_info =3D led->subled;
-+
-+	cdev->name =3D kasprintf(GFP_KERNEL, "asus-arion:led%d", index);
-+	if (!cdev->name)
-+		return -ENOMEM;
-+	cdev->max_brightness =3D 255;
-+	cdev->brightness_set =3D asus_aura_set;
-+
-+	led_mc_calc_color_components(&led->mc_cdev, cdev->brightness);
-+
-+	/*
-+	 * Register with NULL parent: parenting the LED to the sdev takes a
-+	 * device reference, which blocks the sdev's final release on unplug,
-+	 * which is what calls scsi_dh_release_device() -> our .detach() that
-+	 * unregisters the LEDs. That reference cycle leaked the LED nodes and
-+	 * the module refcount on every hot-unplug.
-+	 */
-+	ret =3D led_classdev_multicolor_register(NULL, &led->mc_cdev);
-+	if (ret)
-+		kfree(cdev->name);
-+	return ret;
-+}
-+
-+/*
-+ * Unregister the LED devices before cancelling the work: unregistering
-+ * removes the sysfs attributes, so no new brightness_set can schedule the
-+ * zone work afterwards, and it waits for in-flight sysfs callbacks.
-+ * Cancelling first would leave a window where a brightness write requeues
-+ * the work after cancel_work_sync() returned, and the work would then run
-+ * on freed memory.
-+ */
-+static void asus_aura_release(struct asus_aura_zone *zone, int num_leds)
-+{
-+	int i;
-+
-+	for (i =3D 0; i < num_leds; i++)
-+		led_classdev_multicolor_unregister(&zone->leds[i].mc_cdev);
-+	cancel_work_sync(&zone->work);
-+	for (i =3D 0; i < num_leds; i++)
-+		kfree(zone->leds[i].mc_cdev.led_cdev.name);
-+	kfree(zone);
-+}
-+
-+static int asus_aura_attach(struct scsi_device *sdev)
-+{
-+	struct asus_aura_zone *zone;
-+	int i, ret;
-+
-+	if (strncmp(sdev->vendor, ARION_INQ_VENDOR, strlen(ARION_INQ_VENDOR)) ||
-+	    strncmp(sdev->model, ARION_INQ_MODEL, strlen(ARION_INQ_MODEL)))
-+		return SCSI_DH_DEV_UNSUPP;
-+
-+	zone =3D kzalloc_obj(*zone, GFP_KERNEL);
-+	if (!zone)
-+		return SCSI_DH_NOMEM;
-+	zone->sdev =3D sdev;
-+	INIT_WORK(&zone->work, asus_aura_zone_work);
-+
-+	for (i =3D 0; i < ARION_NUM_LEDS; i++) {
-+		ret =3D asus_aura_register_led(zone, i);
-+		if (ret) {
-+			asus_aura_release(zone, i);
-+			return SCSI_DH_NOMEM;
-+		}
-+	}
-+
-+	sdev->handler_data =3D zone;
-+	return SCSI_DH_OK;
-+}
-+
-+static void asus_aura_detach(struct scsi_device *sdev)
-+{
-+	struct asus_aura_zone *zone =3D sdev->handler_data;
-+
-+	if (!zone)
-+		return;
-+	asus_aura_release(zone, ARION_NUM_LEDS);
-+	sdev->handler_data =3D NULL;
-+}
-+
-+static struct scsi_device_handler asus_aura_dh =3D {
-+	.name	=3D "asus_aura",
-+	.module	=3D THIS_MODULE,
-+	.attach	=3D asus_aura_attach,
-+	.detach	=3D asus_aura_detach,
-+};
-+
-+static int __init asus_aura_init(void)
-+{
-+	return scsi_register_device_handler(&asus_aura_dh);
-+}
-+
-+static void __exit asus_aura_exit(void)
-+{
-+	scsi_unregister_device_handler(&asus_aura_dh);
-+}
-+
-+module_init(asus_aura_init);
-+module_exit(asus_aura_exit);
-+
-+MODULE_DESCRIPTION("ASUS Aura RGB over SCSI for ROG NVMe enclosures (per-LED=
-)");
-+MODULE_AUTHOR("Liang Haowen");
-+MODULE_LICENSE("GPL");
---=20
-2.55.0
-
-
+> =C2=A0.../gpu/drm/spacemit/dpu/saturn_regs/reg_map_hee.h |=C2=A0 64 +++++
+> =C2=A0.../drm/spacemit/dpu/saturn_regs/saturn_fields.h=C2=A0=C2=A0 | 298
+> +++++++++++++++++++++
+> =C2=A0drivers/gpu/drm/spacemit/spacemit_dpu_ids.h=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0 22 ++
+> =C2=A04 files changed, 409 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/spacemit/dpu/saturn_regs/dpu_int.h
+> b/drivers/gpu/drm/spacemit/dpu/saturn_regs/dpu_int.h
+> new file mode 100644
+> index 0000000000000..2c7fa00ba31e9
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/dpu/saturn_regs/dpu_int.h
+> @@ -0,0 +1,25 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
+> + *
+> + */
+> +
+> +#ifndef DPU_INT_REG_H
+> +#define DPU_INT_REG_H
+> +
+> +#include <linux/bits.h>
+> +
+> +#define DPU_INT_CMDLIST_CH_FRM_CFG_DONE_MASK	(0xff)
+> +#define
+> DPU_INT_CMDLIST_CH_FRM_CFG_DONE		(DPU_INT_CMDLIST_CH_FRM_CFG_DONE_MASK<<1=
+1)
+> +#define DPU_INT_FRM_TIMING_UNFLOW		BIT(8)
+> +#define DPU_INT_CFG_RDY_CLR			BIT(5)
+> +#define DPU_INT_FRM_TIMING_CFG_LINE		BIT(4)
+> +#define DPU_INT_FRM_TIMING_CFG_EOF		(BIT(2) | BIT(3))
+> +#define DPU_INT_FRM_TIMING_EOF			BIT(1)
+> +#define DPU_INT_FRM_TIMING_VSYNC		BIT(0)
+> +#define
+> DPU_REST_INT_BITS			(DPU_INT_FRM_TIMING_CFG_EOF | \
+> +					=09
+> DPU_INT_FRM_TIMING_CFG_LINE | \
+> +					=09
+> DPU_INT_FRM_TIMING_EOF | \
+> +					=09
+> DPU_INT_CMDLIST_CH_FRM_CFG_DONE)
+> +
+> +#endif
+> diff --git a/drivers/gpu/drm/spacemit/dpu/saturn_regs/reg_map_hee.h
+> b/drivers/gpu/drm/spacemit/dpu/saturn_regs/reg_map_hee.h
+> new file mode 100644
+> index 0000000000000..9490021cdb918
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/dpu/saturn_regs/reg_map_hee.h
+> @@ -0,0 +1,64 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
+> + *
+> + */
+> +
+> +#ifndef _SATURN_REG_MAP_hee_H_
+> +#define _SATURN_REG_MAP_hee_H_
+> +
+> +#include "dpu_int.h"
+> +
+> +/* Base address, then bit definitions */
+> +
+> +#define DPU_TOP_BASE_ADDR 0x0
+> +#define DPU_CTRL_BASE_ADDR 0x3c0 /* dpu_ctl_top start address */
+> +#define CMDLIST_BASE_ADDR 0x500
+> +#define DPU_INT_BASE_ADDR 0x700
+> +
+> +#define DPU_ONLINE_IRQ_MSK	(3 * 4)
+> +#define DPU_ONLINE_IRQ_STS	(12 * 4)
+> +
+> +#define DMA_TOP_BASE_ADDR (RDMA0_BASE_ADDR + 0x280)
+> +
+> +#define RDMA0_BASE_ADDR (0x00001000)
+> +#define RDMA1_BASE_ADDR (RDMA0_BASE_ADDR + 0x1000)
+> +#define RDMA2_BASE_ADDR (RDMA0_BASE_ADDR + 0xa000)
+> +#define RDMA3_BASE_ADDR (RDMA0_BASE_ADDR + 0xb000)
+> +
+> +#define MMU_BASE_ADDR (0x1100)
+> +#define MMU_TOP_BASE_ADDR (MMU_BASE_ADDR + 0x100)
+> +
+> +#define TBU0_ADDR 0x1100
+> +#define TBU1_ADDR 0x1180
+> +#define TBU2_ADDR 0x2100
+> +#define TBU3_ADDR 0x2180
+> +#define TBU4_ADDR 0xb100
+> +#define TBU5_ADDR 0xb180
+> +#define TBU6_ADDR 0xc100
+> +#define TBU7_ADDR 0xc180
+> +
+> +#define CMP0_BASE_ADDR 0x00018000
+> +#define CMP1_BASE_ADDR (CMP0_BASE_ADDR + 0x18000)
+> +#define CMP2_BASE_ADDR (CMP0_BASE_ADDR + 0x30000)
+> +
+> +#define PREPIPE_SCAL0_BASE_ADDR 0x14000
+> +#define PREPIPE_SCAL1_BASE_ADDR 0x14400
+> +#define PREPIPE_SCAL2_BASE_ADDR 0x14800
+> +#define PREPIPE_SCAL3_BASE_ADDR 0x14c00
+> +
+> +#define POST_PIPE_ADDR (CMP1_BASE_ADDR + 0x300)
+> +
+> +#define EE_ADDR (CMP1_BASE_ADDR + 0xd00)
+> +
+> +#define DPU_SCENE_CTL_BASE_ADDR (0x300)
+> +#define DPU_SCENE_CTL_SIZE 0x40
+> +#define DPU_SCENE_CTL_ADDR(i) (DPU_SCENE_CTL_BASE_ADDR + (i) *
+> DPU_SCENE_CTL_SIZE)
+> +
+> +#define TMG0_BASE_ADDR (0x00051000 + 0x200)
+> +
+> +#define CMDLIST_CH_Y=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x188
+> +#define CMDLIST_CH_START_CMPS_Y=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x90
+> +#define CMDLIST_CFG_READY=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 0x34
+> +
+> +#endif
+> diff --git a/drivers/gpu/drm/spacemit/dpu/saturn_regs/saturn_fields.h
+> b/drivers/gpu/drm/spacemit/dpu/saturn_regs/saturn_fields.h
+> new file mode 100644
+> index 0000000000000..f745dfdaa83de
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/dpu/saturn_regs/saturn_fields.h
+> @@ -0,0 +1,298 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
+> + *
+> + * Saturn DPU register field map: word offset and mask per field,
+> consumed by
+> + * the dpu_write()/dpu_read() accessors.
+> + */
+> +
+> +#ifndef SATURN_FIELDS_H
+> +#define SATURN_FIELDS_H
+> +
+> +#include <linux/bits.h>
+> +
+> +/* CMDLIST_REG: 128 x 32-bit registers */
+> +#define CMDLIST_REG__NWORDS	128
+> +#define
+> CMDLIST_REG__cmdlist_reg_0__cmdlist_ch_start_addrl_WORD(i)	(0 + (i))
+> +#define
+> CMDLIST_REG__cmdlist_reg_0__cmdlist_ch_start_addrl_MASK	GENMASK(31,
+> 4)
+> +#define
+> CMDLIST_REG__cmdlist_reg_16__cmdlist_ch_start_addrh_WORD(i)	(16 +
+> (i))
+> +#define
+> CMDLIST_REG__cmdlist_reg_16__cmdlist_ch_start_addrh_MASK	GENMASK(5,
+> 0)
+> +#define
+> CMDLIST_REG__cmdlist_reg_48__cmdlist_ch_y_first_WORD(i)	(48 + (i))
+> +#define
+> CMDLIST_REG__cmdlist_reg_48__cmdlist_ch_y_first_MASK	GENMASK(24, 12)
+> +
+> +/* CMPS_X_REG: 146 x 32-bit registers */
+> +#define CMPS_X_REG__NWORDS	146
+> +#define CMPS_X_REG__module_enable_WORD	0
+> +#define CMPS_X_REG__module_enable_MASK	GENMASK(0, 0)
+> +#define CMPS_X_REG__dst_w_WORD	1
+> +#define CMPS_X_REG__dst_w_MASK	GENMASK(15, 0)
+> +#define CMPS_X_REG__dst_h_WORD	1
+> +#define CMPS_X_REG__dst_h_MASK	GENMASK(31, 16)
+> +#define CMPS_X_REG__bg_color_r_WORD	2
+> +#define CMPS_X_REG__bg_color_r_MASK	GENMASK(9, 0)
+> +#define CMPS_X_REG__bg_color_g_WORD	3
+> +#define CMPS_X_REG__bg_color_g_MASK	GENMASK(9, 0)
+> +#define CMPS_X_REG__bg_color_b_WORD	4
+> +#define CMPS_X_REG__bg_color_b_MASK	GENMASK(9, 0)
+> +#define CMPS_X_REG__bg_color_a_WORD	5
+> +#define CMPS_X_REG__bg_color_a_MASK	GENMASK(7, 0)
+> +#define CMPS_X_REG__layer00_area_left_WORD	8
+> +#define CMPS_X_REG__layer00_area_left_MASK	GENMASK(15, 0)
+> +#define CMPS_X_REG__layer00_area_right_WORD	8
+> +#define CMPS_X_REG__layer00_area_right_MASK	GENMASK(31, 16)
+> +#define CMPS_X_REG__layer00_area_top_WORD	9
+> +#define CMPS_X_REG__layer00_area_top_MASK	GENMASK(15, 0)
+> +#define CMPS_X_REG__layer00_area_bottom_WORD	9
+> +#define CMPS_X_REG__layer00_area_bottom_MASK	GENMASK(31, 16)
+> +#define CMPS_X_REG__layer00_solid_color_r_WORD	10
+> +#define CMPS_X_REG__layer00_solid_color_r_MASK	GENMASK(9, 0)
+> +#define CMPS_X_REG__layer00_solid_color_g_WORD	11
+> +#define CMPS_X_REG__layer00_solid_color_g_MASK	GENMASK(9, 0)
+> +#define CMPS_X_REG__layer00_solid_color_b_WORD	12
+> +#define CMPS_X_REG__layer00_solid_color_b_MASK	GENMASK(9, 0)
+> +#define CMPS_X_REG__layer00_solid_color_a_WORD	13
+> +#define CMPS_X_REG__layer00_solid_color_a_MASK	GENMASK(7, 0)
+> +#define CMPS_X_REG__layer00_blend_mode_WORD	13
+> +#define CMPS_X_REG__layer00_blend_mode_MASK	GENMASK(15, 14)
+> +#define CMPS_X_REG__layer00_colorkey_en_WORD	13
+> +#define CMPS_X_REG__layer00_colorkey_en_MASK	GENMASK(18, 18)
+> +#define CMPS_X_REG__layer00_en_WORD	14
+> +#define CMPS_X_REG__layer00_en_MASK	GENMASK(0, 0)
+> +#define CMPS_X_REG__layer00_blend_sel_WORD	14
+> +#define CMPS_X_REG__layer00_blend_sel_MASK	GENMASK(2, 1)
+> +#define CMPS_X_REG__layer00_solid_en_WORD	14
+> +#define CMPS_X_REG__layer00_solid_en_MASK	GENMASK(3, 3)
+> +#define CMPS_X_REG__layer00_dma_id_WORD	14
+> +#define CMPS_X_REG__layer00_dma_id_MASK	GENMASK(7, 4)
+> +#define CMPS_X_REG__layer00_layer_alpha_WORD	14
+> +#define CMPS_X_REG__layer00_layer_alpha_MASK	GENMASK(15, 8)
+> +#define CMPS_X_REG__layer00_alpha_ratio_WORD	14
+> +#define CMPS_X_REG__layer00_alpha_ratio_MASK	GENMASK(23, 16)
+> +#define CMPS_X_REG__layer01_en_WORD	21
+> +#define CMPS_X_REG__layer01_en_MASK	GENMASK(0, 0)
+> +#define CMPS_X_REG__layer02_en_WORD	28
+> +#define CMPS_X_REG__layer02_en_MASK	GENMASK(0, 0)
+> +#define CMPS_X_REG__layer03_en_WORD	35
+> +#define CMPS_X_REG__layer03_en_MASK	GENMASK(0, 0)
+> +#define CMPS_X_REG__layer04_en_WORD	42
+> +#define CMPS_X_REG__layer04_en_MASK	GENMASK(0, 0)
+> +#define CMPS_X_REG__layer05_en_WORD	49
+> +#define CMPS_X_REG__layer05_en_MASK	GENMASK(0, 0)
+> +#define CMPS_X_REG__layer06_en_WORD	56
+> +#define CMPS_X_REG__layer06_en_MASK	GENMASK(0, 0)
+> +#define CMPS_X_REG__layer07_en_WORD	63
+> +#define CMPS_X_REG__layer07_en_MASK	GENMASK(0, 0)
+> +#define CMPS_X_REG__layer08_en_WORD	70
+> +#define CMPS_X_REG__layer08_en_MASK	GENMASK(0, 0)
+> +#define CMPS_X_REG__layer09_en_WORD	77
+> +#define CMPS_X_REG__layer09_en_MASK	GENMASK(0, 0)
+> +#define CMPS_X_REG__layer10_en_WORD	84
+> +#define CMPS_X_REG__layer10_en_MASK	GENMASK(0, 0)
+> +#define CMPS_X_REG__layer11_en_WORD	91
+> +#define CMPS_X_REG__layer11_en_MASK	GENMASK(0, 0)
+> +#define CMPS_X_REG__layer12_en_WORD	98
+> +#define CMPS_X_REG__layer12_en_MASK	GENMASK(0, 0)
+> +#define CMPS_X_REG__layer13_en_WORD	105
+> +#define CMPS_X_REG__layer13_en_MASK	GENMASK(0, 0)
+> +#define CMPS_X_REG__layer14_en_WORD	112
+> +#define CMPS_X_REG__layer14_en_MASK	GENMASK(0, 0)
+> +#define CMPS_X_REG__layer15_en_WORD	119
+> +#define CMPS_X_REG__layer15_en_MASK	GENMASK(0, 0)
+> +
+> +/* DMA_TOP_REG: 25 x 32-bit registers */
+> +#define DMA_TOP_REG__NWORDS	25
+> +#define DMA_TOP_REG__image_rr_ratio_WORD	1
+> +#define DMA_TOP_REG__image_rr_ratio_MASK	GENMASK(7, 0)
+> +#define DMA_TOP_REG__pixel_num_th_WORD	1
+> +#define DMA_TOP_REG__pixel_num_th_MASK	GENMASK(14, 9)
+> +#define DMA_TOP_REG__rdma_timeout_limit_WORD	2
+> +#define DMA_TOP_REG__rdma_timeout_limit_MASK	GENMASK(15, 0)
+> +#define DMA_TOP_REG__wdma_timeout_limit_WORD	2
+> +#define DMA_TOP_REG__wdma_timeout_limit_MASK	GENMASK(31, 16)
+> +
+> +/* DPU_CTL_REG: 15 x 32-bit registers */
+> +#define DPU_CTL_REG__NWORDS	15
+> +#define DPU_CTL_REG__nml_rch_en_WORD	0
+> +#define DPU_CTL_REG__nml_rch_en_MASK	GENMASK(9, 0)
+> +#define DPU_CTL_REG__nml_scl_en_WORD	0
+> +#define DPU_CTL_REG__nml_scl_en_MASK	GENMASK(13, 10)
+> +#define DPU_CTL_REG__nml_outctl_en_WORD	0
+> +#define DPU_CTL_REG__nml_outctl_en_MASK	GENMASK(18, 18)
+> +#define DPU_CTL_REG__nml_frm_timing_en_WORD	0
+> +#define DPU_CTL_REG__nml_frm_timing_en_MASK	GENMASK(25, 23)
+> +#define DPU_CTL_REG__both_cfg_rdy_WORD	2
+> +#define DPU_CTL_REG__both_cfg_rdy_MASK	GENMASK(0, 0)
+> +#define DPU_CTL_REG__video_mod_WORD	3
+> +#define DPU_CTL_REG__video_mod_MASK	GENMASK(0, 0)
+> +#define DPU_CTL_REG__dbg_mod_WORD	3
+> +#define DPU_CTL_REG__dbg_mod_MASK	GENMASK(1, 1)
+> +#define DPU_CTL_REG__timing_inter0_WORD	3
+> +#define DPU_CTL_REG__timing_inter0_MASK	GENMASK(7, 2)
+> +#define DPU_CTL_REG__timing_inter1_WORD	3
+> +#define DPU_CTL_REG__timing_inter1_MASK	GENMASK(13, 8)
+> +#define DPU_CTL_REG__sw_start_WORD	4
+> +#define DPU_CTL_REG__sw_start_MASK	GENMASK(0, 0)
+> +#define DPU_CTL_REG__nml_rch_vrt_reuse_WORD	7
+> +#define DPU_CTL_REG__nml_rch_vrt_reuse_MASK	GENMASK(9, 0)
+> +
+> +/* DPU_CTL_TOP_REG: 53 x 32-bit registers */
+> +#define DPU_CTL_TOP_REG__NWORDS	53
+> +#define
+> DPU_CTL_TOP_REG__dpu_ctl_top_reg_0__cmdlist_rch_en_WORD(i)	(0 + (i))
+> +#define
+> DPU_CTL_TOP_REG__dpu_ctl_top_reg_0__cmdlist_rch_en_MASK	GENMASK(0, 0)
+> +#define
+> DPU_CTL_TOP_REG__dpu_ctl_top_reg_10__cmdlist_cmps_other_en_WORD(i)
+> 	(10 + (i))
+> +#define
+> DPU_CTL_TOP_REG__dpu_ctl_top_reg_10__cmdlist_cmps_other_en_MASK	GENM
+> ASK(0, 0)
+> +#define
+> DPU_CTL_TOP_REG__dpu_ctl_top_reg_10__cmdlist_cmps_top_en_WORD(i)
+> 	(10 + (i))
+> +#define
+> DPU_CTL_TOP_REG__dpu_ctl_top_reg_10__cmdlist_cmps_top_en_MASK	GENM
+> ASK(1, 1)
+> +
+> +/* DPU_INTP_REG: 50 x 32-bit registers */
+> +#define DPU_INTP_REG__NWORDS	50
+> +
+> +/* EE_REG: 51 x 32-bit registers */
+> +#define EE_REG__NWORDS	51
+> +#define EE_REG__m_benable_WORD	0
+> +#define EE_REG__m_benable_MASK	GENMASK(0, 0)
+> +
+> +/* MMU_TBU_REG: 21 x 32-bit registers */
+> +#define MMU_TBU_REG__NWORDS	21
+> +#define MMU_TBU_REG__tbu_base_addr0_low_WORD	1
+> +#define MMU_TBU_REG__tbu_base_addr0_low_MASK	GENMASK(31, 0)
+> +#define MMU_TBU_REG__tbu_base_addr0_high_WORD	2
+> +#define MMU_TBU_REG__tbu_base_addr0_high_MASK	GENMASK(11, 0)
+> +#define MMU_TBU_REG__tbu_base_addr1_low_WORD	3
+> +#define MMU_TBU_REG__tbu_base_addr1_low_MASK	GENMASK(31, 0)
+> +#define MMU_TBU_REG__tbu_base_addr1_high_WORD	4
+> +#define MMU_TBU_REG__tbu_base_addr1_high_MASK	GENMASK(11, 0)
+> +#define MMU_TBU_REG__tbu_base_addr2_low_WORD	5
+> +#define MMU_TBU_REG__tbu_base_addr2_low_MASK	GENMASK(31, 0)
+> +#define MMU_TBU_REG__tbu_base_addr2_high_WORD	6
+> +#define MMU_TBU_REG__tbu_base_addr2_high_MASK	GENMASK(11, 0)
+> +#define MMU_TBU_REG__tbu_va0_WORD	7
+> +#define MMU_TBU_REG__tbu_va0_MASK	GENMASK(31, 0)
+> +#define MMU_TBU_REG__tbu_va1_WORD	8
+> +#define MMU_TBU_REG__tbu_va1_MASK	GENMASK(31, 0)
+> +#define MMU_TBU_REG__tbu_va2_WORD	9
+> +#define MMU_TBU_REG__tbu_va2_MASK	GENMASK(31, 0)
+> +#define MMU_TBU_REG__tbu_size0_WORD	10
+> +#define MMU_TBU_REG__tbu_size0_MASK	GENMASK(15, 0)
+> +#define MMU_TBU_REG__tbu_size1_WORD	11
+> +#define MMU_TBU_REG__tbu_size1_MASK	GENMASK(15, 0)
+> +#define MMU_TBU_REG__tbu_size2_WORD	12
+> +#define MMU_TBU_REG__tbu_size2_MASK	GENMASK(15, 0)
+> +#define MMU_TBU_REG__vsync_update_en_WORD	13
+> +#define MMU_TBU_REG__vsync_update_en_MASK	GENMASK(1, 1)
+> +
+> +/* MMU_TOP_REG: 23 x 32-bit registers */
+> +#define MMU_TOP_REG__NWORDS	23
+> +#define MMU_TOP_REG__rdma_timelimit_WORD	0
+> +#define MMU_TOP_REG__rdma_timelimit_MASK	GENMASK(31, 16)
+> +#define MMU_TOP_REG__sram0_tlb_axi_port_sel_WORD	1
+> +#define MMU_TOP_REG__sram0_tlb_axi_port_sel_MASK	GENMASK(1,
+> 0)
+> +#define MMU_TOP_REG__sram1_tlb_axi_port_sel_WORD	1
+> +#define MMU_TOP_REG__sram1_tlb_axi_port_sel_MASK	GENMASK(3,
+> 2)
+> +#define MMU_TOP_REG__dmac0_rd_outs_num_WORD	2
+> +#define MMU_TOP_REG__dmac0_rd_outs_num_MASK	GENMASK(7, 0)
+> +#define MMU_TOP_REG__dmac1_rd_outs_num_WORD	3
+> +#define MMU_TOP_REG__dmac1_rd_outs_num_MASK	GENMASK(7, 0)
+> +
+> +/* POSTPIPE_REG: 50 x 32-bit registers */
+> +#define POSTPIPE_REG__NWORDS	50
+> +#define POSTPIPE_REG__m_inwidth_WORD	13
+> +#define POSTPIPE_REG__m_inwidth_MASK	GENMASK(15, 0)
+> +#define POSTPIPE_REG__m_inheight_WORD	13
+> +#define POSTPIPE_REG__m_inheight_MASK	GENMASK(31, 16)
+> +
+> +/* RDMA_PATH_X_REG: 60 x 32-bit registers */
+> +#define RDMA_PATH_X_REG__NWORDS	60
+> +#define RDMA_PATH_X_REG__layer_mode_WORD	0
+> +#define RDMA_PATH_X_REG__layer_mode_MASK	GENMASK(1, 0)
+> +#define RDMA_PATH_X_REG__layer_cmpsr_id_WORD	0
+> +#define RDMA_PATH_X_REG__layer_cmpsr_id_MASK	GENMASK(15, 13)
+> +#define RDMA_PATH_X_REG__is_two_layers_WORD	1
+> +#define RDMA_PATH_X_REG__is_two_layers_MASK	GENMASK(0, 0)
+> +#define RDMA_PATH_X_REG__is_offline_WORD	1
+> +#define RDMA_PATH_X_REG__is_offline_MASK	GENMASK(1, 1)
+> +#define RDMA_PATH_X_REG__base_addr0_low_ly0_WORD	9
+> +#define RDMA_PATH_X_REG__base_addr0_low_ly0_MASK	GENMASK(31,
+> 0)
+> +#define RDMA_PATH_X_REG__base_addr0_high_ly0_WORD	10
+> +#define RDMA_PATH_X_REG__base_addr0_high_ly0_MASK	GENMASK(1,
+> 0)
+> +#define RDMA_PATH_X_REG__base_addr1_low_ly0_WORD	11
+> +#define RDMA_PATH_X_REG__base_addr1_low_ly0_MASK	GENMASK(31,
+> 0)
+> +#define RDMA_PATH_X_REG__base_addr1_high_ly0_WORD	12
+> +#define RDMA_PATH_X_REG__base_addr1_high_ly0_MASK	GENMASK(1,
+> 0)
+> +#define RDMA_PATH_X_REG__base_addr2_low_ly0_WORD	13
+> +#define RDMA_PATH_X_REG__base_addr2_low_ly0_MASK	GENMASK(31,
+> 0)
+> +#define RDMA_PATH_X_REG__base_addr2_high_ly0_WORD	14
+> +#define RDMA_PATH_X_REG__base_addr2_high_ly0_MASK	GENMASK(1,
+> 0)
+> +#define RDMA_PATH_X_REG__rdma_stride0_layer0_WORD	15
+> +#define RDMA_PATH_X_REG__rdma_stride0_layer0_MASK	GENMASK(15,
+> 0)
+> +#define RDMA_PATH_X_REG__rdma_stride1_layer0_WORD	15
+> +#define RDMA_PATH_X_REG__rdma_stride1_layer0_MASK	GENMASK(31,
+> 16)
+> +#define RDMA_PATH_X_REG__img_width_ly0_WORD	16
+> +#define RDMA_PATH_X_REG__img_width_ly0_MASK	GENMASK(15, 0)
+> +#define RDMA_PATH_X_REG__img_height_ly0_WORD	16
+> +#define RDMA_PATH_X_REG__img_height_ly0_MASK	GENMASK(31, 16)
+> +#define RDMA_PATH_X_REG__bbox_start_x_ly0_WORD	17
+> +#define RDMA_PATH_X_REG__bbox_start_x_ly0_MASK	GENMASK(15, 0)
+> +#define RDMA_PATH_X_REG__bbox_start_y_ly0_WORD	17
+> +#define RDMA_PATH_X_REG__bbox_start_y_ly0_MASK	GENMASK(31, 16)
+> +#define RDMA_PATH_X_REG__bbox_end_x_ly0_WORD	18
+> +#define RDMA_PATH_X_REG__bbox_end_x_ly0_MASK	GENMASK(15, 0)
+> +#define RDMA_PATH_X_REG__bbox_end_y_ly0_WORD	18
+> +#define RDMA_PATH_X_REG__bbox_end_y_ly0_MASK	GENMASK(31, 16)
+> +#define RDMA_PATH_X_REG__pixel_format_WORD	29
+> +#define RDMA_PATH_X_REG__pixel_format_MASK	GENMASK(5, 0)
+> +#define RDMA_PATH_X_REG__uv_swap_WORD	29
+> +#define RDMA_PATH_X_REG__uv_swap_MASK	GENMASK(6, 6)
+> +#define RDMA_PATH_X_REG__rot_mode_ly0_WORD	29
+> +#define RDMA_PATH_X_REG__rot_mode_ly0_MASK	GENMASK(10, 8)
+> +
+> +/* TMG_REG: 30 x 32-bit registers */
+> +#define TMG_REG__NWORDS	30
+> +#define TMG_REG__split_en_WORD	0
+> +#define TMG_REG__split_en_MASK	GENMASK(0, 0)
+> +#define TMG_REG__cmd_screen_WORD	0
+> +#define TMG_REG__cmd_screen_MASK	GENMASK(1, 1)
+> +#define TMG_REG__fm_timing_en_WORD	0
+> +#define TMG_REG__fm_timing_en_MASK	GENMASK(2, 2)
+> +#define TMG_REG__cmd_wait_en_WORD	0
+> +#define TMG_REG__cmd_wait_en_MASK	GENMASK(3, 3)
+> +#define TMG_REG__cmd_wait_te_WORD	0
+> +#define TMG_REG__cmd_wait_te_MASK	GENMASK(4, 4)
+> +#define TMG_REG__disp_ready_man_en_WORD	0
+> +#define TMG_REG__disp_ready_man_en_MASK	GENMASK(5, 5)
+> +#define TMG_REG__hsp_WORD	0
+> +#define TMG_REG__hsp_MASK	GENMASK(7, 7)
+> +#define TMG_REG__vsp_WORD	0
+> +#define TMG_REG__vsp_MASK	GENMASK(8, 8)
+> +#define TMG_REG__user_WORD	2
+> +#define TMG_REG__user_MASK	GENMASK(15, 12)
+> +#define TMG_REG__hfp_WORD	3
+> +#define TMG_REG__hfp_MASK	GENMASK(27, 16)
+> +#define TMG_REG__hsync_width_WORD	4
+> +#define TMG_REG__hsync_width_MASK	GENMASK(9, 0)
+> +#define TMG_REG__hbp_WORD	4
+> +#define TMG_REG__hbp_MASK	GENMASK(27, 16)
+> +#define TMG_REG__vfp_WORD	5
+> +#define TMG_REG__vfp_MASK	GENMASK(15, 0)
+> +#define TMG_REG__vsync_width_WORD	5
+> +#define TMG_REG__vsync_width_MASK	GENMASK(25, 16)
+> +#define TMG_REG__vbp_WORD	6
+> +#define TMG_REG__vbp_MASK	GENMASK(11, 0)
+> +#define TMG_REG__h_active_WORD	6
+> +#define TMG_REG__h_active_MASK	GENMASK(29, 16)
+> +#define TMG_REG__v_active_WORD	7
+> +#define TMG_REG__v_active_MASK	GENMASK(13, 0)
+> +#define TMG_REG__background_r_WORD	9
+> +#define TMG_REG__background_r_MASK	GENMASK(11, 0)
+> +#define TMG_REG__background_g_WORD	9
+> +#define TMG_REG__background_g_MASK	GENMASK(27, 16)
+> +#define TMG_REG__background_b_WORD	10
+> +#define TMG_REG__background_b_MASK	GENMASK(11, 0)
+> +#define TMG_REG__eof_1st_ln_dly_num_WORD	11
+> +#define TMG_REG__eof_1st_ln_dly_num_MASK	GENMASK(15, 0)
+> +#define TMG_REG__eof_2nd_ln_dly_num_WORD	11
+> +#define TMG_REG__eof_2nd_ln_dly_num_MASK	GENMASK(31, 16)
+> +#define TMG_REG__sof_pre_ln_num_WORD	14
+> +#define TMG_REG__sof_pre_ln_num_MASK	GENMASK(16, 0)
+> +
+> +#endif /* SATURN_FIELDS_H */
+> diff --git a/drivers/gpu/drm/spacemit/spacemit_dpu_ids.h
+> b/drivers/gpu/drm/spacemit/spacemit_dpu_ids.h
+> new file mode 100644
+> index 0000000000000..41014dda927b9
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/spacemit_dpu_ids.h
+> @@ -0,0 +1,22 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
+> + */
+> +
+> +#ifndef _SPACEMIT_DPU_IDS_H_
+> +#define _SPACEMIT_DPU_IDS_H_
+> +
+> +/* Saturn online compositor instance ids (hardware IRQ-table
+> indices). */
+> +#define COMPOSER0	0
+> +#define COMPOSER1	1
+> +#define COMPOSER2	2
+> +#define COMPOSER3	3
+> +
+> +/* DPU output-format field encoding (dpuctrl out-format register).
+> */
+> +#define OUTFMT_RGB121212	0
+> +#define OUTFMT_RGB101010	1
+> +#define OUTFMT_RGB888		2
+> +#define OUTFMT_RGB666		12
+> +#define OUTFMT_RGB565		13
+> +
+> +#endif /* _SPACEMIT_DPU_IDS_H_ */
