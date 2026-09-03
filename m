@@ -1,96 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3795509EF0
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 20:22:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3D034EF04
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 20:23:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788466933; cv=none; b=N7FGwbv8oYAEqNQRoVEndtksvs6rrqH19a9w62jS9s5iGBXbWnKtUA+Xv3fxtkuxLt98/8HmAdRGHmnTGdpqLaCrv6Poir/JCH1p3Inbq/Il8xpcFN6CfZFMCpOdCQzH6CCOKawHtB1wkIYxlneOBASgD2TJ+424vcGmyZWpQP0=
+	t=1788466995; cv=none; b=ATw32OJIwNQTUMLMnt56bfVGeWE8BZ8+Cfvjc/BG3UGhuEGuVcD1lySXwlRPIRAMyvDPyhnLZnF8gD6ljDuZZkBba8437tHn1r1xc3tANtSKb07EP3Nz+kXXcNyVkcnO/M302vTPrBFb7snqfaYEQWrWd0g7BBA9qA1RhdZBuUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788466933; c=relaxed/simple;
-	bh=Xw/QCmGsiPhHe4vbjLjTQ/7AhKKMRSwKftYe5nN/Mo0=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=IXwhzRTI3PVo9s1trQ/O+CHoR6IYFEbYPf4//o3GNOid6W8rmSdP2dJ63Mwei9BO/mnhNsewzLbhxHEsJphmZi1lrBopQ92qre7UKehBNDjbgz9/LKcx+IXXjhmU6rgmB6FmAg3xpemFso3qBQhkJmtiRLdaSiK9DtslXnzb74s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=wCbSM/uE; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="wCbSM/uE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CF7E1F00A3D;
-	Thu,  3 Sep 2026 20:21:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788466918;
-	bh=yky/f0WiCrxErR0j6vYpCOZ1PkjzKLIdBoCOJhOCRD8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=wCbSM/uE1oD6985EqHCqBqSnG48CDKxjN7yXXCahMDkRVLlrzMMOFyfx68wlnDvq7
-	 bW6uTyvqsmNt7n9oH1y90q/o2uADoC6HmWE/UkyV80dpYgv0eQ6QmQovitbA0xVHu3
-	 Tleif4F4rJHF6eL7YS2htB0nylm0rIYx973Eh0/0=
-Date: Thu, 3 Sep 2026 13:21:58 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Hongfu Li <hongfu.li@linux.dev>
-Cc: hughd@google.com, baolin.wang@linux.alibaba.com,
- vivek.kasireddy@intel.com, muchun.song@linux.dev, osalvador@suse.de,
- david@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, Hongfu
- Li <lihongfu@kylinos.cn>
-Subject: Re: [PATCH v2] mm/memfd: fix hugetlb reservation accounting in
- error paths
-Message-Id: <20260903132158.a2d6f965477220838d884bae@linux-foundation.org>
-In-Reply-To: <20260903030134.7407-1-hongfu.li@linux.dev>
-References: <20260903030134.7407-1-hongfu.li@linux.dev>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1788466995; c=relaxed/simple;
+	bh=gtDtVgb03NhbBfi0jqqxfX9akkPlxNgcHpmkyNqQG5Y=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=AifXqjlTbGDaPLEOavXcvPb9emeGl0K81L6a3TRLUT6mVOy3PYOZJ03EkvHSJ1rMJwUk+eLrn2XcsQ+AIsMvpV1JhSzMJ8BJh+jFcAllumaVidF0iDmQkbgnjb7RYpUEBaPKUH4wTJERgP1njK7wEjkZVwul/WlZCAs5LPRO/Ik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b13d095a33so245420eaf.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 13:23:07 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788466984; x=1789071784;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Ww81hJhCRRyXUdaUtWUtQEttWdGhVpJjenFHmNQFR+Y=;
+        b=mqpCEFXlX2SWwWMhiwMMrkZu7WsJa3Bu5sdH9ClIIIn9OX+Y+8t2ijhurCUNjrFEjt
+         kUqe0ZEPszoXTXmERG29ATtcvhdvb6RbjXs+IW328pjyjSkdmifGcYmTl6JXDRDBwqgl
+         WNAUtZGy8wTlgE1e0kwAnw1eOYb5ePrBM55JM0Fv+bBobiniyiHXjq/a1z/XYMjQ3qxR
+         RRn7T+IAyuw/dph+9wR7ooVsFx2UTIXgJUPTVEXVbcYdVB5aHYv/r0ybQO6Prcxpa/S0
+         WbbW8XQ9+X4q11J5e+XErAxU6G7+Bt83hWNP/CAKHj7j+rBcdyDyFcKNgOmiGB4xlCBJ
+         uPPQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwVIqRVgGRg6pfXQHJtb1tPiQuBa0TohKELq8OvApTP6ri0rZ34iG1f9uNK/ziSvxd1NHZt6d2Yecn5neQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nI9WDQ1qvG+DI+PDJ16T7sXsPHW/SEPcatMSv5zJaFH9Gipqc6
+	5bIfKWG9fojM1OYG/SYq/E0lN6hTW8RKvGANPhKjiSoZ/oC5EjSwcO0gjJXEYjVjnqJ7MKim1JJ
+	kb7MrTxzEEHM6vIJP0VzXVwxIhgzB8V+w4bnzlVmKab5oVM226N5J1Z050lM=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+X-Received: by 2002:a05:6820:179b:b0:6b1:6136:956a with SMTP id
+ 006d021491bc7-6b6fccdb1c9mr1289079eaf.15.1788466983891; Thu, 03 Sep 2026
+ 13:23:03 -0700 (PDT)
+Date: Thu, 03 Sep 2026 13:23:03 -0700
+In-Reply-To: <20260903200806.155310-1-adrianox@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a99d727.2e567484.299ffc.000b.GAE@google.com>
+Subject: Re: [syzbot] [trace?] [block?] KASAN: slab-use-after-free Read in blk_log_remap
+From: syzbot <syzbot+4dfd96209d744263a972@syzkaller.appspotmail.com>
+To: adrianox@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu,  3 Sep 2026 11:01:34 +0800 Hongfu Li <hongfu.li@linux.dev> wrote:
+Hello,
 
-> From: Hongfu Li <lihongfu@kylinos.cn>
-> 
-> If hugetlb_add_to_page_cache() in memfd_alloc_folio() fails with
-> -EEXIST, a concurrent fault has already instantiated the folio in the
-> page cache, and the reservation now belongs to that folio. Calling
-> hugetlb_unreserve_pages() in that case incorrectly removes the region
-> backing the cached folio. A later truncate or inode eviction then passes
-> a negative (chg - freed) into hugepage_subpool_put_pages(), corrupting
-> subpool and resv_huge_pages accounting.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Ho hum.
+Reported-by: syzbot+4dfd96209d744263a972@syzkaller.appspotmail.com
+Tested-by: syzbot+4dfd96209d744263a972@syzkaller.appspotmail.com
 
-I've asked so many times "what are the userspace-visible runtime
-effects of this bug".  Nowadays I often just ask Gemini instead.  It
-told me:
+Tested on:
 
+commit:         841e384b Merge tag 's390-7.3-2' of git://git.kernel.or..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1182fc15580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=4dfd96209d744263a972
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=17d4d0f9580000
 
-  Over time, these corrupted counters would leak huge page reservations. 
-  Applications using hugetlb memfds would eventually find themselves
-  unable to allocate huge pages, receiving unexpected ENOMEM errors even
-  though system memory and pool capacities appeared free and healthy.
-
-and
-
-  The corrupted accounting caused hugepage_subpool_put_pages() to
-  receive a negative value during a later file truncation or inode
-  eviction.
-
-  While this typically manifests as kernel logs (WARN traces or
-  badness flags regarding subpool page counts), it could cause
-  misbehaved resource tracking that impacts subsequent system
-  operations, unmounts, or process teardowns interacting with that
-  hugetlb file descriptor.
-
-All of which sounds rather unpleasant, so I suggest a cc:stable here.
-
-
-To help people understand why we propose a backport and to help others
-understand the impact the fix will have upon their system, I'll paste
-the above into the changelog.  Please send any necessary corrections.
-
-
-Please also update your prompts (if using them) to ensure that the
-changelogging includes this info in the future.
-
-
-I'll queue it for testing and shall await maintainer review.
+Note: testing is done by a robot and is best-effort only.
