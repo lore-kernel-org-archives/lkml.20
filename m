@@ -1,120 +1,61 @@
-Received: from mta1.migadu.com (out-252.mta1.migadu.com [95.215.58.252])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E114EA394
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:20:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.252
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF504EA396;
+	Thu,  3 Sep 2026 16:21:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788452460; cv=none; b=hmgXbkDZrFSKNzZukBcqnVk/CIANVeBr92BGtNhQM5OK2t3pCVfscEJTR1uS7H6HgIfqF0FaaPtGOsUc5tEpWeWBN3FzKVk4NDis9QM+MZ5G81wUmY3XRIsVP3RYYB+A3IuZqtWj6WMORFHL103JhyxJb75+czRQobmj1V7yOMk=
+	t=1788452461; cv=none; b=gyZMuMidD3j/vU5b9f7MmR8Dr+gSjcKaWbJklvioHLK56HoBtHB6chT1PGWO/6kFGwB3zhvcRSMiharpBz/LtUU1NYjRXgFfrBM208qb19lkaZj1JqrMtfxzUed8hYitb+2lhFvtSFx72Nyl4hTZfn9izMN4T8IU/vumAGK5S2w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788452460; c=relaxed/simple;
-	bh=AkJG1cubqnvO8sxUYeb9Y8S45m7KFZON1Zp+P7kN8ZI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Co9+gqbFBU6GRSTGfc1/49Ww8EE6zWiCTLMdcowIc164zLTaG+yLhoVQNDexAC/MuTbj62k1CujlqWePCHcwBas/3LIuyba4AUsM5Jj/dX3PBZXs+0Qx2NTHF77WZUhjzTREl8NitS2NOZhTNVb4p2Pof8neah8SX1oB3iDfptk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FDhaXeRU; arc=none smtp.client-ip=95.215.58.252
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788452461; c=relaxed/simple;
+	bh=82oBLQtaAZdfTJ+WwkbrcGdaqBz6bS1zsIPgAJpQdKI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=V8uDQi/W++G8coGE8haI98v9/I3wbwWNcAse2ATGxs7wISHcbHs7WMxxq/xjemzkndrgJNi8NmLZTJ2+75P2/7vfC3dTapxyJyAit1fVkeJapuNOe/bbYtSUJM3PIkO7kp0gVQzY/H0obcOc1Qt4j66CajYaKK2+IHohyWb2wT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YfflLE5n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FDhaXeRU"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=AkJG1cubqnvO8sxUYeb9Y8S45m7KFZON1Zp+P7kN8ZI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788452455; v=1; x=1789057255;
- b=FDhaXeRU50pKuP8NliSPlwEraupAgYC0+JJmeaGQxvHWYTEt2BCXvrLy5cqrP3gJgQad2kO/
- /Vh7ur63AcockLbIOJUBee9H9di++RXR3drLekKj1gBSc5kQT8et5kp2b+b+ZhBf0MDSsGkXGay
- 3ptPAzuCN7+G+HfClK0Z1+KA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1537d81e6cc724e8;
-	Thu, 03 Sep 2026 16:20:45 +0000
-X-Mizu-Trace-ID: 1537d81e6cc724e8
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b17359so7893e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 09:20:45 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx1Ju96wwEAGRu7fu3m5lBVoyYqwm+vNTmm2mAJbHGH+VbicXA+q3a5Iz4qDdFL3xe02u1ET0y/s+zZ2iQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kwgz/7MtA10cCSaW/WmBRWGapR4YzG8VD4+DZ9su0oe3HkfBsR
-	JW/HNodNi93MI2gznHtJdMxBliuJBEmGMPjpnvj1B3l8wswnel5/ZDWY4aBPSixN1UNUJlnZwWV
-	U8cnauW+jOReO793KeYxe+Kq2n5k0LAcObrfSpqpo
-X-Received: by 2002:a05:6512:3b8e:b0:5b1:4fd9:ac with SMTP id
- 2adb3069b0e04-5b60f98abf0mr143016e87.3.1788452444151; Thu, 03 Sep 2026
- 09:20:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YfflLE5n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3BA01F000E9;
+	Thu,  3 Sep 2026 16:20:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788452460;
+	bh=cBMjI/btxhScWSFb4l2oCtthKIhGMk3qojhSzMixR60=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YfflLE5nF/A21l9dO02u+tw+k5tfpt0xMTGlbNVYzzPrgpHzHzJnCqdY+liNr8wwZ
+	 FtMd6+7jgPCeW4nSMG5KerIGmukmPZDp32hJ6400IY744Fifh3qWkuHttY4uI+cOzq
+	 zqxMaxF779mDXykmDo4PC9BdueQSw9gd0n2ywGkJe7TQ72YN7nD9SWKlrBz0x9HmZC
+	 oadMCxh2erWRFgp1kXbXU60Fxb5bDVPxbkNeKg+NIq25YMs1LweGykZYipVsALDj2z
+	 UEpjXsEkut7q0krJf/zNXXf1nR9MTsanQiOt5BFX1t1JIxoqs4YEfLKpK4xRA1F70p
+	 nWLf+UCaFGaTA==
+Date: Thu, 3 Sep 2026 21:50:56 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Devendra K Verma <devverma@amd.com>
+Cc: mani@kernel.org, frank.li@kernel.org, den@valinux.co.jp,
+	dmaengine@vger.kernel.org, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, michal.simek@amd.com
+Subject: Re: [PATCH v5 0/2] CPM6 Channel Separation Support
+Message-ID: <apmeaBVeVVQ0nCMi@vaman>
+References: <20260820091025.683506-1-devverma@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831163421.272420-1-fuad.tabba@linux.dev> <20260831163421.272420-3-fuad.tabba@linux.dev>
- <apgjJVg0PmS3OudU@google.com>
-In-Reply-To: <apgjJVg0PmS3OudU@google.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Thu, 3 Sep 2026 17:20:07 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTzkUqmso49_XV2pPLBDbgqOe5Xnk=2+mWuX55NB2Nospw@mail.gmail.com>
-X-Gm-Features: AcwNN1UhKtG9WhVNbYyetZAICUndgBZHs9WEb955L7xRcf_KFNgwRj6BJQ8GY38
-Message-ID: <CA+EHjTzkUqmso49_XV2pPLBDbgqOe5Xnk=2+mWuX55NB2Nospw@mail.gmail.com>
-Subject: Re: [PATCH 02/17] KVM: arm64: Advertise the capabilities that
- protected VMs support
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Quentin Perret <qperret@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260820091025.683506-1-devverma@amd.com>
 
-On Wed, 2 Sept 2026 at 14:22, Vincent Donnefort <vdonnefort@google.com> wrote:
->
-> On Mon, Aug 31, 2026 at 05:34:06PM +0100, Fuad Tabba wrote:
-> > kvm_pkvm_ext_allowed() denies every capability it does not name, so a
-> > protected VM reports 0 for interfaces it implements: KVM_CHECK_EXTENSION
-> > denies KVM_CAP_ONE_REG while KVM_{GET,SET}_ONE_REG stage the guest's
-> > boot state.
-> >
-> > Allow the capabilities that work for a protected guest, the vGIC and
-> > the I/O bus being host-managed, subject to the restrictions the rest of
-> > this series adds.
-> >
-> > Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> > ---
-> >  arch/arm64/include/asm/kvm_pkvm.h | 9 +++++++++
-> >  1 file changed, 9 insertions(+)
-> >
-> > diff --git a/arch/arm64/include/asm/kvm_pkvm.h b/arch/arm64/include/asm/kvm_pkvm.h
-> > index beea00e693a0a..c4c834d55e503 100644
-> > --- a/arch/arm64/include/asm/kvm_pkvm.h
-> > +++ b/arch/arm64/include/asm/kvm_pkvm.h
-> > @@ -42,6 +42,15 @@ static inline bool kvm_pkvm_ext_allowed(struct kvm *kvm, long ext)
-> >       case KVM_CAP_ARM_VM_IPA_SIZE:
-> >       case KVM_CAP_ARM_PTRAUTH_ADDRESS:
-> >       case KVM_CAP_ARM_PTRAUTH_GENERIC:
-> > +     case KVM_CAP_ONE_REG:
->
-> Shouldn't we bring the VCPU_PKVM_FINALIZED restriction in kvm_arch_vcpu_ioctl()
-> first before we allow SET_ONE_REG/GET_ONE_REG?
+On 20-08-26, 14:40, Devendra K Verma wrote:
+> 'Designware Cores PCI Express DM Controller - Reference
+> Manual', section 3.2.34.3, VSEC for DEVICE INFORMATION supports
+> the channel separation mechanisms. Basically, the HDMA IP allows
+> the user to configure the separation between DMA channel
+> registers and retrieve it via the VSEC capability mentioned
+> above.
+> In order to use the VSEC functionality following changes have
+> been made:
 
-KVM_{GET,SET}_ONE_REG don't go through kvm_pkvm_ext_allowed(), so
-they're as reachable before this patch as after it.
+This does not apply for me, can you please rebase
 
-The ordering is wrong though, and there are a few more capabilities
-advertised here and restricted later. I'll fix it for all of them in
-v2.
-
-Thanks,
-/fuad
-
->
-> > +     case KVM_CAP_MP_STATE:
-> > +     case KVM_CAP_VCPU_EVENTS:
-> > +     case KVM_CAP_VCPU_ATTRIBUTES:
-> > +     case KVM_CAP_IMMEDIATE_EXIT:
-> > +     case KVM_CAP_IOEVENTFD:
-> > +     case KVM_CAP_IRQFD_RESAMPLE:
-> > +     case KVM_CAP_ARM_IRQ_LINE_LAYOUT_2:
-> > +     case KVM_CAP_ARM_INJECT_SERROR_ESR:
-> >               return true;
-> >       case KVM_CAP_ARM_MTE:
-> >               return false;
-> > --
-> > 2.39.5
-> >
+-- 
+~Vinod
