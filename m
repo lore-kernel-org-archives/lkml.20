@@ -1,159 +1,115 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63E573FDBE8
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:02:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE740415F23
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:02:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788433335; cv=none; b=ezT9eCEvFtBJfJKcqHmdiyMd7YjciKHRUE5q2bVqOmgCw8JUada6lmWvyd+KJ2J/J90eX4KY5R0V2KKPG+vki5EXlKdSwzxwEXAfx4L5zsLAFBWM9lH4QZJBslu8j3tXajD9655vP558Siubp7k2IrU4pY2stq6t4+b2Najp6ro=
+	t=1788433359; cv=none; b=Ps0EGCmmvUdE55sRug3Wjz5MwMkq53xlyTUaNemsOl2o1eoYgUfhwZPIEBc3dW5R6DCzp4e3ZoSkPzUpQq5UjX8qG0F8wRQBsD43AKIGGJRrINZj9lGDGnO9pA1Rq9wedXyRhbdSAif2CD278LUnTo+zTKb0VffDmJVouTa/0ZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788433335; c=relaxed/simple;
-	bh=YDZo9ZYZE772bcwSFVYQA0GZbNjBirUfMskrV/SyAes=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TeYvOWoXLLkJ6U571GaX6N+ZwXYu7mUwFzjI9Gtb2TxGoOrCDHSjzNNvOl0efG/G4eon4uoJkrA0u7RysKoicS1a1+qFUwZqxu/4mwESg27miTzvDn/fv7OOYQq8Z8LSKIyM8RQNjuPYDtz04Kr7PoVK7Vxj0j8B5u13mrW2qPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FwGhCqL8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ESKBF4GU; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788433359; c=relaxed/simple;
+	bh=QWMidPirRXa6F9fmIzFknlhgq28okBEJEXkXiaxIc28=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=MMssxu/2Z0X9Mwp8GJmxzUDaj9XmBziMhFxyzJAb1oSp4sIWp1AayCO19FrNn35XJHdItsaA3S+0Fc2GVQSbN6Izi6weZVfilGxLLo3b6hidQeSBC35nElwXtFDoAju6/dDmHuqoLoCMg15nL7Xfp+CvKTr1NZ+OTJ6iuzFDcFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Eubt7svM; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FwGhCqL8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ESKBF4GU"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683AHCv83204013
-	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 11:02:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=hVNPU6fgZysvc0v3TCWPIkZk
-	yK6aKEYh3Zspk9Nl3dA=; b=FwGhCqL8gDoy3nnOW3pYn7MpEvH9cdUpcuicy9W4
-	yu2ddue2Rl0BAB71QMNtpNLXEODgyI+KcDxPy67+wDO2laZ3NoeHmyM3PMtU0iBU
-	dWWNZTfh46Tpm/NRKn490LONcWCLIhJeeGg7vVZSoCxzSZyxXMb81Wto2XLGMJJx
-	ut9e+Uv4jEs4W/0c+iIETEXC1h/1fiHe+Uu14XJSG2+euq+L6QQfC7cRmsB/v+/j
-	JWVoB4tkCgFCkvkUY4gyEOmDlJ1MHBh3rxy7dsTTjvWoy+6JPCkVkzPgbeenyy7M
-	QS4lvlaOB422yRglPd85NZxs64uc1X/eSmQ/oOWscfTInw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf5d10k8g-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 11:02:13 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9375d92d8cdso495652885a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 04:02:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788433332; x=1789038132; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hVNPU6fgZysvc0v3TCWPIkZkyK6aKEYh3Zspk9Nl3dA=;
-        b=ESKBF4GURWrcnr6D3PbT4qg7C2Ff+eNUYV9QGE2kp62znYJFRdMrnhdJifxle/y15C
-         mBtsxH68soBGdbZy6JtMzxQ4njQuB1D8e/2KQmxRcaYCeJHARpRjf5hBB/zNPKBY+U/2
-         aXNVS2bF1N2WcSJfQoevHbUgY8ipmuHdKR6cgQeDtOYgT+YL2eF3S0ygkIcHcX+Ghnbx
-         Hv+mdFEk0lVPt1Yx3OfN7ULW4JZjAoUBsjpFza5scdNRVmIb9IbgrGjsQuIhliYTMCLI
-         5DGJgfVe7eut1zRRLWIOo/EoWnx3vn5cKlkBAXSiHwbd7yXu9UVbE6Vqu/IrW7UxoFid
-         764g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788433332; x=1789038132;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hVNPU6fgZysvc0v3TCWPIkZkyK6aKEYh3Zspk9Nl3dA=;
-        b=Ytyz5WpXdC+zorYIg8aJ12xkPPY/JOxSNcvCnKTRPM/wv5rQfZYsp6DaAW44mX/hJi
-         nZEeL2kB2aFZldcSHr42uQtMvv/dt/MM2CTlAu7cJhHw/RDaLobF5e3UDphi/m0jZuhi
-         956GDQwmrHYDamldwhbZ+9Zj4fR4TnSWUbyP3bC0TuhYg7+5KWAQwlwIJoelJNbK0XPb
-         6YkjR+CP0rxla64cfvm772f3cf+USf2sX3tEXuguXyVfzLLCuwnR1gCLGXWrakaom5iV
-         oz95tjy4nfyUvcHEXTc/fWDoyS6ivIDsUkN8/n5c/u4EQBx/AJxNuHkkH0PCRQ2W+esB
-         xm/A==
-X-Forwarded-Encrypted: i=1; AKwUvBzAhbnugS8hsTmG+6AOPRyD+qgvrb7PIpdwKgPgNm455S2TruzM5QSU9246rXCnPAc+sKI0lqyLkYCt1to=@vger.kernel.org
-X-Gm-Message-State: AFuF++nl7WvIKkxQI0b1280flb1W15UFYQ4ICDW8A+1LcoNcOjsjK45b
-	WkKrEGhTthCvUBsCrB9CcIwdjsbPrcBuWsW4Gsn161Q17WxyovjkZZ0Mi7/FmpjTHoJ41pHUbrZ
-	AwQwEcBsiBJDx1cXO9hq9t8yQbbi0Er744UFr5w6wLs8Xm++GpF6jSDZScLCZ0Rq36VU=
-X-Gm-Gg: AYBFou3sM+Sd+Pq7R+PyePg6Ey4muZLq6zlF55h+2mKHPRT2SM7Ueu7fABb++Y8FpK4
-	AYlY4kNnfH7aODtQhTSig9HP6I3lFMRrhvg2DJ75WK+QKt72+bYlBIEDXAiVbxc0NHbbtu0mHMF
-	wMyICiTfQb8OLOSY/KL0B7PM3YqihEQd9GrmYLfQvljv2RZ50k4m7MWi5r43IP0Qs9YFC6Ssvfm
-	3BmOho6GLm25UpWbnvoA//U2AIAUkn05dtB3vqLVAcMhk5Wd045SJ4RUqZSKA9i1+eMITTL9eDX
-	QTQhg+YmRX/Vd6Dz4KidE6K6uSZPE/cuGeh/fKEWxn0plZJurt/RhgOsBPScBQH8VQ1SADmwP6B
-	9fafP97mmyfA3
-X-Received: by 2002:a05:620a:6f9b:20b0:939:124c:b7d1 with SMTP id af79cd13be357-93960f85fafmr1094908085a.30.1788433332507;
-        Thu, 03 Sep 2026 04:02:12 -0700 (PDT)
-X-Received: by 2002:a05:620a:6f9b:20b0:939:124c:b7d1 with SMTP id af79cd13be357-93960f85fafmr1094899285a.30.1788433331910;
-        Thu, 03 Sep 2026 04:02:11 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5dadddsm72432615e9.9.2026.09.03.04.02.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 04:02:10 -0700 (PDT)
-Date: Thu, 3 Sep 2026 14:02:09 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: eliza-cqs-evk: Add power and volume
- keys
-Message-ID: <ebhtzlovapjnznxk5qckfk2uoj3qqilm3rqq66skifm4tiep3q@euzv5r64kcky>
-References: <20260824-dts-qcom-eliza-evk-add-volume-up-v1-1-0cee16886d43@oss.qualcomm.com>
- <bb5e86d2-2525-4abb-8ebf-75ba7780bbd5@oss.qualcomm.com>
- <nl4lhbhbz7i5pohlenlbnp2odqybcbgv5n6aeulh7hkhq7s5nn@7ylcarl2fkil>
- <e5292ac2-ed2c-4f9d-b74e-adafc0a77cbf@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Eubt7svM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788433357; x=1819969357;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=QWMidPirRXa6F9fmIzFknlhgq28okBEJEXkXiaxIc28=;
+  b=Eubt7svMsaN3Fx3F+jn0f6wk6a0e8DlvtHppbVTZ03+QHcGdWa9BvcHd
+   M5GzPJaAIAKfUVtNOUcZecdojI5KwOUt1JZNDNs//INt9aLAea75uVvkO
+   Lczs0VFIICehcGG4hk2WFTg8sJdp0SVDnkm77BrWpsf7YqIvhY9N4R1RA
+   8XNYnjYfOM2YvXGEv6p0Hq6lhMm/6jREcs41DQ+6TINQrSBqTOMji3X7A
+   ykoJ9KKjr+DgsXm9/PbcDfclkl2QFsXozA+peTv+G0MBSjs2iGE45bK/d
+   pAP1VpTnEAZStOGw5hSfgq8PN/CM4quEw7RZ/0xY6tfC0RuaBIibpKYYG
+   A==;
+X-CSE-ConnectionGUID: /jYvxgECSeaizW4tf+Vlbw==
+X-CSE-MsgGUID: dz0mePjGQya0BEi7daWPOg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="89033552"
+X-IronPort-AV: E=Sophos;i="6.25,259,1779174000"; 
+   d="scan'208";a="89033552"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 04:02:17 -0700
+X-CSE-ConnectionGUID: ULxSbh1DSgeVIm2OtMKFVg==
+X-CSE-MsgGUID: JE/+53GlQqyA4fJUOyV/KQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,259,1779174000"; 
+   d="scan'208";a="267098636"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.119])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 04:02:13 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Thu, 3 Sep 2026 14:02:09 +0300 (EEST)
+To: kernel test robot <lkp@intel.com>, James Morse <james.morse@arm.com>
+cc: Ben Horgan <ben.horgan@arm.com>, oe-kbuild-all@lists.linux.dev, 
+    LKML <linux-kernel@vger.kernel.org>, Zeng Heng <zengheng4@huawei.com>, 
+    Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>, 
+    Jonathan Cameron <jonathan.cameron@huawei.com>, 
+    Gavin Shan <gshan@redhat.com>
+Subject: Re: drivers/resctrl/mpam_devices.c:1860:35-38: WARNING: Suspicious
+ code. resource_size is maybe missing with msc_res
+In-Reply-To: <202609030809.ObirDhR3-lkp@intel.com>
+Message-ID: <555e6b9d-cff8-ef10-42e9-5e469550292b@linux.intel.com>
+References: <202609030809.ObirDhR3-lkp@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e5292ac2-ed2c-4f9d-b74e-adafc0a77cbf@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA5NiBTYWx0ZWRfXx6AZ8DYpW76R
- vu0r34pij/7lxgQMzbgjqWd/LdaBgP4APyfzf4wAnjpDSiHtGx2C4AktiSVwuqoKeDk9/hX6hFY
- 6dPcBGrHO8AtGMdBoHbFQkjDBv3LUFpC1JC8Il4GGTXHaS+ovS0Jzl2necT7rQbA2r7PFH/2ZlM
- hRZhPRt9pHqP8mti7glIpirPUf0vg77UMkuG0ZOBWnZ64iLGT8l1KlBMN3L5NPj9rCtQj1UCI7l
- FyVlo6luyj2On01FSsTGtvXaDw4I3g2v6aCjcjyDrMxSOwmTDhOzWTnsIcTpdsrMbxcJabYYD1X
- PS0Hkxmk9Xj3edtqjQsTGUFpLPgDRLGG+5PSw3HayRka76UWQ5PIjQW03Wt1E/8NnEscW1KJhTd
- nxByP4HCHx00KP7yLg1gKhTrgaihJEkrApWwvl+BqdW6kkZbi9b6NBOkW1/zAu0lZxNlTowzp1h
- SLkr0AUmeyFj5jR/QAw==
-X-Proofpoint-ORIG-GUID: 2SOTdp8EhTP2Hur7Z85QFhiwwuaqCGhD
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA5NiBTYWx0ZWRfX6WJDB6MwSxtI
- rnXDYvRQZlnfBH3EYN4TTl3Nqam9uGmjjLE55WnRqXcljPcGf/vmrxsflRKquRT81EVzErIPtPO
- CwDPcfI66GrLcaq13uNa8QPjEkoVgl4=
-X-Proofpoint-GUID: 2SOTdp8EhTP2Hur7Z85QFhiwwuaqCGhD
-X-Authority-Analysis: v=2.4 cv=J4GaKgnS c=1 sm=1 tr=0 ts=6a9953b5 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=q7XEBjOi5DRkXzmV0jSBjQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=dILcdvjvUJ3AZP_D2AkA:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_03,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 suspectscore=0 phishscore=0 clxscore=1015
- spamscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030096
+Content-Type: text/plain; charset=US-ASCII
 
-On 26-09-03 09:26:29, Konrad Dybcio wrote:
-> On 9/2/26 10:52 AM, Abel Vesa wrote:
-> > On 26-09-02 10:30:38, Konrad Dybcio wrote:
-> >> On 8/24/26 3:45 PM, Abel Vesa wrote:
-> >>> The Eliza CQS EVK has three tactile switches: SYS_ON, Volume Down,
-> >>> and Volume Up.
-> >>>
-> >>> Enable the existing PMK8550 PON power and resin keys for SYS_ON and
-> >>> Volume Down. Describe Volume Up, which is connected to PM7550 GPIO6.
-> >>>
-> >>> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> >>> ---
-> >>
-> >> Can this go to eliza-evk.dtsi instead?
-> > 
-> > They can, but what happens if the CQM variant remaps them to some
-> > different gpio? I don't know what CQM looks like.
+On Thu, 3 Sep 2026, kernel test robot wrote:
+
+> Hi Ben,
 > 
-> Can you find out?
+> First bad commit (maybe != root cause):
+> 
+> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+> head:   89a312991dc6e638a36adc43ccb91dbc25504c04
+> commit: c544f00a473239835d22e7109b403314d8b85974 arm64: mpam: Drop the CONFIG_EXPERT restriction
+> date:   5 months ago
+> config: arm64-randconfig-r051-20260902 (https://download.01.org/0day-ci/archive/20260903/202609030809.ObirDhR3-lkp@intel.com/config)
+> compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 2c2cffa015e9549aafba9e514384b08204c7cc4b)
+> 
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+> the same patch/commit), kindly add following tags
+> | Fixes: c544f00a4732 ("arm64: mpam: Drop the CONFIG_EXPERT restriction")
+> | Reported-by: kernel test robot <lkp@intel.com>
+> | Closes: https://lore.kernel.org/oe-kbuild-all/202609030809.ObirDhR3-lkp@intel.com/
+> 
+> cocci warnings: (new ones prefixed by >>)
+> >> drivers/resctrl/mpam_devices.c:1860:35-38: WARNING: Suspicious code. resource_size is maybe missing with msc_res
+> 
+> vim +1860 drivers/resctrl/mpam_devices.c
+> 
+> f04046f2577a5c James Morse 2025-11-19 @1860  		msc->mapped_hwpage_sz = msc_res->end - msc_res->start;
 
-Just discussed it with the HW engineer. It is the same on CQM.
+> :::::: The code at line 1860 was first introduced by commit
+> :::::: f04046f2577a5c76167333ca99d3903ee5331ba0 arm_mpam: Add probe/remove for mpam msc driver and kbuild boiler plate
+> 
+> :::::: TO: James Morse <james.morse@arm.com>
+> :::::: CC: Catalin Marinas <catalin.marinas@arm.com>
 
-So I'll move it to eliza-evk.dtsi instead.
+Hi all,
 
-Thanks for reviewing.
+This report has some validity but the code doesn't look buggy as is, just 
+off-by-one errors correcting each other. The variable is called "..._sz" 
+(~ size), but the resource size calculation is off-by-one because trying 
+to do it by hand instead of using the resource_size() helper.
 
-Abel
+The mapped_hwpage_sz value is only used for register write offset 
+sanity checks, which use > countering the off-by-one error.
+
+IMO, it would be better to use resource_size() and change those sanity 
+checks to use >= instead of > but this doesn't look a major problem by 
+any means.
+
+-- 
+ i.
+
