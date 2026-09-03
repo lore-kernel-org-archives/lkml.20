@@ -1,45 +1,48 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 98E7E3B995B;
-	Thu,  3 Sep 2026 11:13:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC477446075
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:13:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788434024; cv=none; b=iSbavYth/KR/wuzXzn+et1MgW0cXZjAcl1i4zjdsUMaEueJLiBJTb21bZ75PxRVHsmE4zkjF2CJb8Z/aqVGXFiY+PsZMhVeH+kE+ftWNoUMUICxvjbvGweEFTAQd+Jw3rxPwV259ki1695ycX048eGiQkXb45FUlo4zXZSVPTGg=
+	t=1788434031; cv=none; b=Nup0iFRZ9PmD3pY86KHU3j/yAX9pEx6Jpw4hv4CgTtldRzK9Huu8uuB1hluLYHuENuADdBTQrB5PJky22ICO/+ZufZaekJcRzNADXrRHxJ5LESN3Tw1huRmjOzLbraTTN9+d5+6wlAYYfR87gNY0Has82GTU/cunxBuQq1fmsy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788434024; c=relaxed/simple;
-	bh=U89IzzFoft7TfRALsnG7ekJ7+A8yWu1YKalPzY817Mo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=PozY37NsHvP4WEgcW7uIR8sMntXf1/EzFrf1udderWgBiRu5FDV8TzSedLC17hova0KG6RVvPSJ2RvfEBgYfpi3rMczJiL7qMgfV4br8s6doTNx8U091a6diAKJCdTUNzhzhAKe9C1JrWcvMd4IUKmY7J215oLtzpFVdZLpdncY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=VGyr7SRp; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788434031; c=relaxed/simple;
+	bh=hd6vzKJsOJbmZPpx1u6g0M8XRXCofaxgyOa/SVCy7KI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YWflfT7stf8f0A2TO8LXe2WhEg5hptLTBKBJNgl45lvArxT+caswYgGqixhIh7FbsKkHwQDRKNFuqSWjnFNq+fctv8Ia0xI+GBike0nZIfCAfcNstWoAHPaDCv8KmXW6d43/Hfe7xE9P9dBiWYtB5CXmps2IQYX/DK6QZhcNSrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=p4SKM6UA; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="VGyr7SRp"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 20FD11596;
-	Thu,  3 Sep 2026 04:13:38 -0700 (PDT)
-Received: from e127648.cambridge.arm.com (e127648.arm.com [10.1.39.91])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 540B53F7D8;
-	Thu,  3 Sep 2026 04:13:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788434021; bh=U89IzzFoft7TfRALsnG7ekJ7+A8yWu1YKalPzY817Mo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=VGyr7SRpN7I3wrB0yR+yGl8aH4MKlyOc/B5S1YfKsM4/tIyE3QGbP/fYOudUrKKL7
-	 H7ARoqqwhqH+3ytHuL+nl7duxHVT5LSiwyrx/vz0rAEWVblTA1KnaIckaC8VdwRtAj
-	 dXivUMLm8dfy8/wSGXanBM4oG0367UIcKjywUDBM=
-From: Christian Loehle <christian.loehle@arm.com>
-To: Sudeep Holla <sudeep.holla@kernel.org>,
-	Jassi Brar <jassisinghbrar@gmail.com>
-Cc: breno Leitao <leitao@debian.org>,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Christian Loehle <christian.loehle@arm.com>
-Subject: [PATCH 2/2] mailbox: pcc: Serialize channel updates with shared memory teardown
-Date: Thu,  3 Sep 2026 12:13:28 +0100
-Message-Id: <20260903111328.805352-3-christian.loehle@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260903111328.805352-1-christian.loehle@arm.com>
-References: <20260903111328.805352-1-christian.loehle@arm.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="p4SKM6UA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Zq
+	2lLvo2jJEdzhkyFKofBzs52vepQTWKLiIjF0jovNo=; b=p4SKM6UA0AgCkruqOD
+	HZiV27VIaO/Wq0Jd9gnIKOUHySulOAKtveztiC7+ZR50qUrha+q+zdTYvKiItcw5
+	+ZN2anh0kXG+7m2CrfJdErbl4Z9iHo8ioPNCliCD+Wbpgi1yqjEfH5j77VYsST7/
+	BJzC5kn/d0VgloWx01dZWeclA=
+Received: from localhost (unknown [])
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgCHjMwvVplq2Ee1Pg--.51302S2;
+	Thu, 03 Sep 2026 19:12:47 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: linux-kernel@vger.kernel.org
+Cc: peterz@infradead.org,
+	juri.lelli@redhat.com,
+	mingo@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	jstultz@google.com,
+	connoro@google.com,
+	Hui Su <sh_def@163.com>
+Subject: [PATCH] sched/rt: Fix RT watchdog accounting for proxy execution
+Date: Thu,  3 Sep 2026 19:12:47 +0800
+Message-ID: <20260903111247.3538976-1-sh_def@163.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,58 +50,88 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:QCgvCgCHjMwvVplq2Ee1Pg--.51302S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXw48Kr1fXr4rJFW3XrW3trb_yoW5WF4Upr
+	Z0gasxJw4DKa4jqas7Zws8u3yrWw1fJ342qr4DJryrArn8KF1Fgr1vqa4avF909ry2vFya
+	vr1vv3y2ya1jyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi_b1UUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwg+hAWqZVi-3KQAA35
 
-mbox_free_channel() makes a PCC channel available before the subsequent
-shared-memory unmap. Without serialization, a concurrent request can bind a
-new client and replace the mapping, which the old release then unmaps.
+With proxy execution, task_tick_rt() is invoked for the scheduling
+context in rq->donor, while rq->curr identifies the task that is
+actually executing.
 
-Serialize PCC channel acquisition and release. Keep the channel unavailable
-until the old shared-memory mapping has been removed.
+The RT watchdog looks up RLIMIT_RTTIME through its task argument and
+updates that task's rt.timeout and posix_cputimers state. Runtime
+accounting, however, charges execution time to rq->curr, and
+run_posix_cpu_timers() checks current after the scheduler tick. Pass
+rq->curr to watchdog() so these state updates follow the actual execution
+context.
 
-Suggested-by: Sudeep Holla <sudeep.holla@kernel.org>
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+Reset rt.timeout when a non-RT execution task blocks while using an RT
+donor, or resumes with a non-RT scheduling context. This ties the timeout
+lifecycle to the execution and scheduling contexts, handles nested proxy
+chains, and preserves the timeout across scheduler preemption. Native RT
+tasks retain their existing behavior.
+
+Tested with a proxy-execution reproducer using SCHED_FIFO and
+SCHED_RR donors. The unpatched kernel charges rt.timeout to the donor,
+while the patched kernel charges the execution task and delivers SIGXCPU
+to it. Nested proxy chains, blocking and non-RT context transitions,
+scheduler preemption, and donor cancellation were also exercised.
+
+Fixes: 7de9d4f94638 ("sched: Start blocked_on chain processing in find_proxy_task()")
+
+Signed-off-by: Hui Su <sh_def@163.com>
 ---
- drivers/mailbox/pcc.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ kernel/sched/core.c | 13 +++++++++++++
+ kernel/sched/rt.c   |  2 +-
+ 2 files changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/mailbox/pcc.c b/drivers/mailbox/pcc.c
-index db30812c5051..14dc4a187bfc 100644
---- a/drivers/mailbox/pcc.c
-+++ b/drivers/mailbox/pcc.c
-@@ -53,6 +53,7 @@
- #include <linux/interrupt.h>
- #include <linux/list.h>
- #include <linux/log2.h>
-+#include <linux/mutex.h>
- #include <linux/platform_device.h>
- #include <linux/mailbox_controller.h>
- #include <linux/mailbox_client.h>
-@@ -113,6 +114,7 @@ struct pcc_chan_info {
- #define to_pcc_chan_info(c) container_of(c, struct pcc_chan_info, chan)
- static struct pcc_chan_info *chan_info;
- static int pcc_chan_count;
-+static DEFINE_MUTEX(pcc_chan_mutex);
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index f78275192036..c429e410f6dc 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -6746,6 +6746,11 @@ static bool try_to_block_task(struct rq *rq, struct task_struct *p,
+ 		return false;
+ 	}
  
- /*
-  * PCC can be used with perf critical drivers such as CPPC
-@@ -392,6 +394,8 @@ pcc_mbox_request_channel(struct mbox_client *cl, int subspace_id)
- 	if (subspace_id < 0 || subspace_id >= pcc_chan_count)
- 		return ERR_PTR(-ENOENT);
- 
-+	guard(mutex)(&pcc_chan_mutex);
++	/* End the current proxy execution episode when the owner blocks. */
++	if (sched_proxy_exec() && !rt_prio(p->prio) &&
++	    rt_prio(rq->donor->prio))
++		p->rt.timeout = 0;
 +
- 	pchan = chan_info + subspace_id;
- 	chan = pchan->chan.mchan;
- 	if (IS_ERR(chan) || chan->cl) {
-@@ -434,6 +438,8 @@ void pcc_mbox_free_channel(struct pcc_mbox_chan *pchan)
- 	struct pcc_chan_info *pchan_info;
- 	struct pcc_mbox_chan *pcc_mbox_chan;
+ 	p->is_blocked = 1;
  
-+	guard(mutex)(&pcc_chan_mutex);
+ 	/*
+@@ -7221,6 +7226,14 @@ static void __sched notrace __schedule(int sched_mode)
+ 		rq_set_donor(rq, next);
+ 	}
+ 
++	/*
++	 * End a previous RT proxy interval when a non-RT execution task is
++	 * selected with a non-RT scheduling context.
++	 */
++	if (sched_proxy_exec() && !rt_prio(next->prio) &&
++	    !rt_prio(rq->donor->prio) && next->rt.timeout)
++		next->rt.timeout = 0;
 +
- 	if (!chan || !chan->cl)
- 		return;
- 	pchan_info = chan->con_priv;
+ picked:
+ 	clear_tsk_need_resched(prev);
+ 	clear_preempt_need_resched();
+diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+index e6e5f8a2caaf..bdcfc4fa8922 100644
+--- a/kernel/sched/rt.c
++++ b/kernel/sched/rt.c
+@@ -2545,7 +2545,7 @@ static void task_tick_rt(struct rq *rq, struct task_struct *p, int queued)
+ 	update_curr_rt(rq);
+ 	update_rt_rq_load_avg(rq_clock_pelt(rq), rq, 1);
+ 
+-	watchdog(rq, p);
++	watchdog(rq, rq->curr);
+ 
+ 	/*
+ 	 * RR tasks need a special form of time-slice management.
 -- 
-2.34.1
+2.54.0
 
