@@ -1,92 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-177.mta1.migadu.com [95.215.58.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB0CC4AF14B;
-	Thu,  3 Sep 2026 13:23:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A75F4AF172
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:23:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788441808; cv=none; b=i7KZTLKzHUAqRLEu6iJRHsCzAYfPUapS1dnZm34Q4z9SJunrUlGyOESF+Yg7ltQLteagvjOoMbeIAb+ogomDW0nhLIvmGrTTDz45K/9ybQfa6v8OqJDmTEVcrTJBSYHh/na8LV6MWc+4bmh36WS29z9SekM5SEYMkB9YNc0icdg=
+	t=1788441822; cv=none; b=R3y7hFAVtxvT47FF8SzD0FK9qn02mQUHOFGj4x8RQwA4z07yOg11aN8ofLzuggkdYqqRPxlp1lHbLZfF4hbkuUa1+AlSOfC7Jkg1v2snqWOLsFjfvY8aiH5gUoNviHlVTf7DMJard9rHH4Z6QZoAL2vSzVrW3XkAtZ/9YiTplMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788441808; c=relaxed/simple;
-	bh=5hEhJUAi/thyWbcDgFlB22m8l2sq4GBoKIV1ou5jN8Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W48B695l/rglF7nN3Jhk5A69jFQlUSlHOaJhbRaz3+rb9SaHzOKCLHf1yR+lD7EKRvjHy+/XIgHfTszbqUC02v+npXCo9sC1cNQ1xJzXazXAyCWEfGPwlHyee/D7m9KL3yGI61Vf6x7ZTbG6Eg2oDkF8fG8nFY2hWB9LESGMIWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HcdFtvPz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788441822; c=relaxed/simple;
+	bh=D9au2msUHhUO2wo307uzVLESszAMWmcvxM7FV+tmCEE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=l7mxZZvKPRNGIvPh4MvhCKJ4A29PXq/NmjmO1wCfg03nOfJ1HkTRrVYoi32dX0lZgJUfXmRT+gy/Uv4bEU7IQZzucwa2Cc6TH4PkfSWqewd4dNaHIjZROktTAKUxAmdpvcH5FjqXEcs0QcSSLej/Q2WZEcaMAYrkihe2KMTUagE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nqRCtZue; arc=none smtp.client-ip=95.215.58.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HcdFtvPz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32D1A1F00ACF;
-	Thu,  3 Sep 2026 13:23:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788441786;
-	bh=FFS9RizjkOWavg/h9KaPhTtsqZ2GndXNrlnfx0cHXJE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HcdFtvPzB5hCqDDBCFV6Z/QffAatGji4Mox2ousLXJ8BEvQ4WWFce0ioL6b0cXf8q
-	 PtV+ry2zGMhSzM+UTaqetV8JI19Dv7QMeXKV9V4q8qLGx6BPYKYnbcHgANXJWaA98z
-	 60c9ZteFHU3GYlIW70ecZsg5Spi9t27KkpBGE4UPP+8Nb9TlI9cHN1F1BC8aaLpPJS
-	 rLeNLNWT+EwH8fP77i1B2Wt9bOYThYlGvUz5ZyVyFo4r0ICCem7H+U7EBlr4FTDVwF
-	 RuxRZjWCbdmnl272zwUo3/MXU9/jJF2fYKaKP4E0DcbE7vg+nZqOqDtHqbJEx0Ql71
-	 U4wWF5qWDKYLw==
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	sashiko-bot <sashiko-bot@kernel.org>,
-	Stephane Eranian <eranian@google.com>
-Subject: [PATCH 3/5] perf jitdump: Free unwinding data even when eh_frame_hdr_size is zero
-Date: Thu,  3 Sep 2026 10:22:49 -0300
-Message-ID: <20260903132251.237029-4-acme@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260903132251.237029-1-acme@kernel.org>
-References: <20260903132251.237029-1-acme@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nqRCtZue"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=D9au2msUHhUO2wo307uzVLESszAMWmcvxM7FV+tmCEE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788441796; v=1; x=1789046596;
+ b=nqRCtZueyCyfZ7Sd5AIGSwjt6Qt9HB29f6kcVe28o8QKJMkWd3qUhl/7F5bZAG7xOp+7xx6Z
+ HhUh8vqspFgqwl7shSIgaSn3CvK01bjd609W1G77bbr4Fiw6bPsqXxZkWNCGzqGY4eOACeKljTp
+ ODgV/rt7eE+4SD+oe5wN1vdQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 28a49aae88f5ebc0;
+	Thu, 03 Sep 2026 13:23:16 +0000
+X-Mizu-Trace-ID: 28a49aae88f5ebc0
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <bc489900-c67f-4b93-940a-86e16ba1cfdf@linux.dev>
+Date: Thu, 3 Sep 2026 21:23:10 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6.y] cgroup/cpuset: Fix misplaced DL migration reset
+To: Karl Mehltretter <kmehltretter@gmail.com>, stable@vger.kernel.org
+Cc: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Guopeng Zhang <zhangguopeng@kylinos.cn>,
+ Chen Ridong <chenridong@huaweicloud.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sasha Levin <sashal@kernel.org>, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260901122642.11571-1-kmehltretter@gmail.com>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <20260901122642.11571-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-jit_repipe_code_load() only cleared the unwinding state when both
-unwinding_data and eh_frame_hdr_size were set.  When a record carries
-unwinding data but eh_frame_hdr_size is 0, the cleanup condition fails
-and the unwinding state persists in jd, being applied to all subsequent
-JIT_CODE_LOAD and JIT_CODE_MOVE records, duplicating unwinding sections
-in the generated ELF files and inflating their event->mmap2.len.
 
-The record is validated upstream so eh_frame_hdr_size <= unwinding_size
-always holds.  Free the unwinding data based on the data pointer alone.
+在 2026/9/1 20:26, Karl Mehltretter 写道:
+> Mainline commit 4a39eda5fdd8 ("cgroup/cpuset: Reset DL migration state
+> on can_attach() failure") puts the common error cleanup in
+> cpuset_can_attach().  The 6.6.y backport instead placed that hunk at
+> cpuset_can_fork()'s similarly named out_unlock label, while removing
+> cpuset_can_attach()'s two existing targeted resets.
+> 
+> If cpuset_can_attach() fails after accounting a SCHED_DEADLINE task,
+> cgroup_migrate_execute() does not call cpuset_cancel_attach() for the
+> failing subsystem.  The temporary migration fields remain set, and a
+> later successful migration can consume the stale state and corrupt
+> deadline-task and pending-bandwidth accounting.
+> 
+> Move the reset to cpuset_can_attach()'s common error exit.  It is not
+> needed in cpuset_can_fork(), which never accumulates migration DL state.
+> 
+> Fixes: 14897ef9341c ("cgroup/cpuset: Reset DL migration state on can_attach() failure")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+> Applies to Linux 6.6.155 and 6.6.156-rc1.
+> 
+> A controlled QEMU A/B on 6.6.155 forced an attach error after accounting a
+> real SCHED_DEADLINE task.  The affected kernel returned with
+> nr_migrate_dl_tasks=1 and sum_migrate_dl_bw=104857; both fields were zero
+> with this patch.
+> 
+> The equivalent 6.1.y correction is submitted separately.
+> 
+>  kernel/cgroup/cpuset.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index f9c7178f51ada..bb413045d1744 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -2630,6 +2630,8 @@ static int cpuset_can_attach(struct cgroup_taskset *tset)
+>  	 */
+>  	cs->attach_in_progress++;
+>  out_unlock:
+> +	if (ret)
+> +		reset_migrate_dl_data(cs);
+>  	mutex_unlock(&cpuset_mutex);
+>  	return ret;
+>  }
+> @@ -3462,8 +3464,6 @@ static int cpuset_can_fork(struct task_struct *task, struct css_set *cset)
+>  	cs->attach_in_progress++;
+>  
+>  out_unlock:
+> -	if (ret)
+> -		reset_migrate_dl_data(cs);
+>  	mutex_unlock(&cpuset_mutex);
+>  	return ret;
+>  }
 
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Cc: Stephane Eranian <eranian@google.com>
-Assisted-by: LLM
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
----
- tools/perf/util/jitdump.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/tools/perf/util/jitdump.c b/tools/perf/util/jitdump.c
-index e0d5cc9a828189a2..efb40d93e33ae664 100644
---- a/tools/perf/util/jitdump.c
-+++ b/tools/perf/util/jitdump.c
-@@ -530,7 +530,7 @@ static int jit_repipe_code_load(struct jit_buf_desc *jd, union jr_entry *jr)
- 		jd->nr_debug_entries = 0;
- 	}
- 
--	if (jd->unwinding_data && jd->eh_frame_hdr_size) {
-+	if (jd->unwinding_data) {
- 		zfree(&jd->unwinding_data);
- 		jd->eh_frame_hdr_size = 0;
- 		jd->unwinding_mapped_size = 0;
--- 
-2.55.0
-
+Acked-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
