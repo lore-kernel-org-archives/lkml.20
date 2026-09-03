@@ -1,55 +1,64 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38AF402B8F;
-	Thu,  3 Sep 2026 07:29:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F514340A57;
+	Thu,  3 Sep 2026 07:29:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788420576; cv=none; b=t4omkMQX63/Eny3AC61b1za1N2aDWuz/BsEeBHfu9KOqjBXYqnuLfMZeeTO8cQOSgfD/mgj6bD1CUQEbgLV9bLHyCqEPMcvhIh8jcFl/RRR3/i8a0hwZlj5dfYtbk+BTlYCp30+JyqqKVkZLUgpobXurj0aGhJl6N/wvW9bD0y0=
+	t=1788420580; cv=none; b=OIv0HzkeoG9STxrYMZay6XDZj0LUlOXs6o6h5M/3ThSvTPkJmtVdY8Pqph2Si3RHNjqBfOz6SWeYp7j5LuYC2yXeVgtrjGwE3dQt7UNPwWH0HE8i4Y/oSVgaGefKbW3uerjUNRkPRWBTjEvJMtFQHA3yD/GGxim25NjR0+pn7Zg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788420576; c=relaxed/simple;
-	bh=6jO8JkCWUKMZf/kOgi+aUN2QmvSuq5hRs48MdpALM1I=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Vb7c6FZ1VsLcDx8aDV8Sqghoh9kw2du1/G9o07WEZ4RCaALvLE5sdsCvNbNHUS1Uny7QO2msESTi2WL263CZrNQqZabfFBsqEUcIW9zWYdZBzts2PN+4QYfkQCnT6yeWeE1DsTVCeKiHexGR5H0KEVy61h8rYlZgjKVN1I+w3RU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=m2KzI9Vp; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1788420580; c=relaxed/simple;
+	bh=9WAxf82kEphoGK4ToXuXIt8Uka/m42uQyqKu99VIEA0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=u1iC759uaQi3A4JeZtD3wxVsTrGVT/pRYHKAuBm//P1adhO5ieqULbO2WHEIfcazbxXIyGqIBpCEfSqi5t61J2zldEempUwjJ43u/nC2zGKcd65sK4lxx7ur0EiqFUS3UFLg6gJI3qGwUqnNAPyVeNn2ALgFbPWEc5ZSMuvM7sA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XNkWWm8G; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="m2KzI9Vp"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6837Ssy163295537, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1788420534; bh=E6ieuSsm+hANOPJBstRTnJb/TrKOfWu0lL+EcfCRCvU=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	b=m2KzI9VpuG2Ti9FYW47+8tL9lN9gWSIrCF6AgFtJFpka/EQuFZOLo3AVI//6OImRx
-	 T+CmB93QC45vmD/DWWwlfcyXNBIa8LHYGkgILWfhbFcfNlIfdOYTZH1hsqm6nygvDW
-	 id47e65JghJI/lH8yY0z2B9UgG8rFxVN5ORteMs5EQGFo/Hy5wlNvfCEndK5ELmJkz
-	 tV6OnqC3JVnl3pRk2mNS9DBFvGl6Sk5a2KDtv5XLWLQvtc20wqjzvRFDwnsJxQMsf/
-	 yFnRW1a7zKzt5aGZoYuD69d9SnJIL8ensMNl53aea2lJyefhYQD3qbdY5ZAs2JeQE4
-	 k647WhzhaGD6g==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6837Ssy163295537
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 3 Sep 2026 15:28:54 +0800
-Received: from RTKEXHMBS04.realtek.com.tw (10.21.1.54) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 3 Sep 2026 15:28:54 +0800
-Received: from fc44.realtek.com.tw (172.22.241.7) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server id
- 15.2.2562.43 via Frontend Transport; Thu, 3 Sep 2026 15:28:54 +0800
-From: Chih Kai Hsu <hsu.chih.kai@realtek.com>
-To: <davem@davemloft.net>, <kuba@kernel.org>
-CC: <netdev@vger.kernel.org>, <nic_swsd@realtek.com>,
-	<linux-kernel@vger.kernel.org>, <linux-usb@vger.kernel.org>,
-	<edumazet@google.com>, <bjorn@mork.no>, <pabeni@redhat.com>,
-	<hsu.chih.kai@realtek.com>, <andrew+netdev@lunn.ch>
-Subject: [PATCH net-next v2 3/8] r8152: refactor rtl8156_enable, rtl8156_up, and rtl8156_down
-Date: Thu, 3 Sep 2026 15:28:47 +0800
-Message-ID: <20260903072852.58695-4-nic_swsd@realtek.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260903072852.58695-1-nic_swsd@realtek.com>
-References: <20260903072852.58695-1-nic_swsd@realtek.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XNkWWm8G"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6835le7c079891;
+	Thu, 3 Sep 2026 07:29:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=YnZoW8uBkOp
+	pPb6YWpqA15JUduJ+/T3GtxYii+2VlT4=; b=XNkWWm8G3Qz/FuDe/uhPlNOc2PX
+	QK48Yav3aRhhOZGLo+obRW3WOC8q3Pxf6guNVoAMPq/VBxF5Xw7A8B/1RiW06pJy
+	E6FviScL9CsFcVwOChCpvc4pS5Mll27D0WNVbTw7I+Xf8jNLhhSNOQQ11OsuPagk
+	+SSKx7Hh3ry5oX+eCqHFPzJESwHW/MPwYqElFVikLTUFGMC5b33ihDLDgEvWFVth
+	5LGZkOObRuBApS6qtZ3t4E+UubHJ9s8wyKnBRgAKIXkLyyswCjLHMwLAKCphqfDh
+	PgpO6wFo/MGRGwu3C7MpEkTYTv/voSmLVY6HqGZdxzYjvVJj0IofZqKBhRg==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf1j4gpfu-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 07:29:13 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6837TAMS4174488;
+	Thu, 3 Sep 2026 07:29:10 GMT
+Received: from hu-hgautam-hyd.qualcomm.com (hu-hgautam-hyd.qualcomm.com [10.147.247.91])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 6837T4OR4174384;
+	Thu, 03 Sep 2026 07:29:10 +0000 (GMT)
+From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
+        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Subject: [PATCH v4 04/10] ASoC: qcom: Add QAIF CPU DAI ops, regmap, DT parsing and platform init
+Date: Thu,  3 Sep 2026 12:58:55 +0530
+Message-Id: <20260903072902.3870009-5-harendra.gautam@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260903072902.3870009-1-harendra.gautam@oss.qualcomm.com>
+References: <20260903072902.3870009-1-harendra.gautam@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,355 +66,934 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Authority-Analysis: v=2.4 cv=dufrzVg4 c=1 sm=1 tr=0 ts=6a9921c9 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8 a=IKOdykDz4KF-cjZmJaIA:9
+X-Proofpoint-GUID: MC40UuW6h9r-R61NIKTTBZNoVCWoINMh
+X-Proofpoint-ORIG-GUID: MC40UuW6h9r-R61NIKTTBZNoVCWoINMh
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA2NSBTYWx0ZWRfX/O6FMDPUbEiI
+ zy/KjvDkZ6RQNFoD4LzAYLR47JslqdGRNKVyYa8NStwOSCk8Ml0KS4N3exAse2Fzk1Ba8QAVppe
+ jLoQ3EL9H7CiqfGZNzpveR/jj78T65o=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA2NSBTYWx0ZWRfXyz9YUx8WnzxB
+ 7O4bvNH1miZxSbYYBheqmvmLKRlzsfExqBcN0/RI+DEwgTX8YbebrBbQcKWaNXQzAGSIQJtD8tQ
+ BV/GHPKmPFzywJePW45N20ZEj2bUluHDAoYZqZ15muEP8q2QoX6FdXXT9WzTI3cCeApxsLNqWPO
+ IMk5jHHCuTk0BDL8sz6C+TiP45qOv6u/mt2DYooteL/oM6C6mUbYdmF9OS+Mm5VvSUOyr0UCH0G
+ pzBI4UH8qLQ2MzI5/1agw1PnxDgB02nehtbOJrRdlBZ949333FzS1P2aWPy/h5ZTK3aRqIyG9Ac
+ MCEfcvGLk4bS3mGIxAQph1HmtgBK1R3Slyqwc6DP5Gh/P/2fkmZVb5AChGRwLmhJoijHP1/HC/N
+ 8rTP0zJxRZjcT40Y7EnHVP9tyTmlEcoA2IthNBijp8ikj+6BfX8dg9J/qht/KeSRECFmYhUR8VP
+ h3401vgDbAbrnzgfOAQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_02,2026-09-02_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 malwarescore=0 bulkscore=0 suspectscore=0
+ clxscore=1011 spamscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030065
 
-RTL8156B and RTL8157/8159 have different enable, up, and down sequences
-from RTL8156. Add dedicated rtl8156b_enable (VER_12/13/15),
-rtl8157_enable, rtl8157_up, and rtl8157_down (VER_16/17) instead of
-handling per-version differences with inline version guards.
 
-Signed-off-by: Chih Kai Hsu <hsu.chih.kai@realtek.com>
+Add the QAIF CPU DAI driver to support Qualcomm audio interface paths
+used for CDC DMA and serial AIF audio links.
+
+Implement CIF DAI operations for CDC DMA paths, including channel mask
+programming and dynamic clock control. Implement AIF DAI operations for
+MI2S, TDM and PCM paths, including format setup, slot and lane
+configuration, bit clock management and stream enable handling.
+
+Also add the QAIF MMIO regmap setup, parse per-interface configuration
+from devicetree, manage required clocks and register the CPU DAI
+component.
+
+Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
 ---
- drivers/net/usb/r8152.c | 235 ++++++++++++++++++++++++++++++++--------
- 1 file changed, 189 insertions(+), 46 deletions(-)
+ sound/soc/qcom/qaif-cpu.c | 874 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 874 insertions(+)
+ create mode 100644 sound/soc/qcom/qaif-cpu.c
 
-diff --git a/drivers/net/usb/r8152.c b/drivers/net/usb/r8152.c
-index 080b5890efb4e..aee8d57684205 100644
---- a/drivers/net/usb/r8152.c
-+++ b/drivers/net/usb/r8152.c
-@@ -6440,31 +6440,16 @@ static int rtl8156_enable(struct r8152 *tp)
- 	if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
- 		return -ENODEV;
- 
--	if (tp->version < RTL_VER_12)
--		r8156_fc_parameter(tp);
--
-+	r8156_fc_parameter(tp);
- 	set_tx_qlen(tp);
- 	rtl_set_eee_plus(tp);
- 
--	switch (tp->version) {
--	case RTL_VER_10:
--	case RTL_VER_11:
--		break;
--	default:
--		ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_RX_AGGR_NUM,
--				  RX_AGGR_NUM_MASK);
--		break;
--	}
--
- 	r8153_set_rx_early_timeout(tp);
- 	r8153_set_rx_early_size(tp);
- 
- 	speed = rtl8152_get_speed(tp);
- 	rtl_set_ifg(tp, speed);
- 
--	if (tp->version >= RTL_VER_16)
--		return rtl_enable(tp);
--
- 	if (speed & _2500bps)
- 		ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL4,
- 				  IDLE_SPDWN_EN);
-@@ -6472,12 +6457,10 @@ static int rtl8156_enable(struct r8152 *tp)
- 		ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL4,
- 				  IDLE_SPDWN_EN);
- 
--	if (tp->version < RTL_VER_12) {
--		if (speed & _1000bps)
--			ocp_write_word(tp, MCU_TYPE_PLA, PLA_EEE_TXTWSYS, 0x11);
--		else if (speed & _500bps)
--			ocp_write_word(tp, MCU_TYPE_PLA, PLA_EEE_TXTWSYS, 0x3d);
--	}
-+	if (speed & _1000bps)
-+		ocp_write_word(tp, MCU_TYPE_PLA, PLA_EEE_TXTWSYS, 0x11);
-+	else if (speed & _500bps)
-+		ocp_write_word(tp, MCU_TYPE_PLA, PLA_EEE_TXTWSYS, 0x3d);
- 
- 	if (tp->udev->speed == USB_SPEED_HIGH) {
- 		/* USB 0xb45e[3:0] l1_nyet_hird */
-@@ -6502,6 +6485,67 @@ static void rtl8156_disable(struct r8152 *tp)
- 	rtl8153_disable(tp);
- }
- 
-+static int rtl8156b_enable(struct r8152 *tp)
+diff --git a/sound/soc/qcom/qaif-cpu.c b/sound/soc/qcom/qaif-cpu.c
+new file mode 100644
+index 000000000000..c75b139ecb2a
+--- /dev/null
++++ b/sound/soc/qcom/qaif-cpu.c
+@@ -0,0 +1,874 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ *
++ * qaif-cpu.c -- ALSA SoC CPU-Platform DAI driver for QTi QAIF
++ */
++
++#include <linux/clk.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/of_device.h>
++#include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
++#include <linux/regmap.h>
++#include <sound/pcm.h>
++#include <sound/pcm_params.h>
++#include <sound/soc.h>
++#include <sound/soc-dai.h>
++#include "qaif-reg.h"
++#include "qaif.h"
++
++/* CIF INTF CFG register bit positions */
++#define QAIF_CIF_INTF_16BIT_UNPACK_BIT	BIT(0)
++#define QAIF_CIF_INTF_DYNCLK_BIT	BIT(2)
++#define QAIF_CIF_INTF_FS_SEL_MASK	GENMASK(7, 4)
++#define QAIF_CIF_INTF_ACTIVE_CH_MASK	GENMASK(27, 12)
++#define QAIF_CIF_INTF_ACTIVE_CH_SHIFT	12
++
++/* AIF CTL register (QAIF_AUD_INTF_CTL_REG) bit positions */
++#define QAIF_AIF_CTL_ENABLE_BIT		BIT(0)
++#define QAIF_AIF_CTL_ENABLE_TX_BIT	BIT(4)
++#define QAIF_AIF_CTL_ENABLE_RX_BIT	BIT(8)
++
++/* AIF SYNC CFG register (QAIF_AUD_INTF_SYNC_CFG_REG) bit positions */
++#define QAIF_AIF_SYNC_SRC_BIT		BIT(0)
++#define QAIF_AIF_SYNC_MODE_MASK		GENMASK(5, 4)
++#define QAIF_AIF_SYNC_MODE_SHIFT	4
++#define QAIF_AIF_SYNC_DELAY_MASK	GENMASK(9, 8)
++#define QAIF_AIF_SYNC_DELAY_SHIFT	8
++#define QAIF_AIF_SYNC_INV_BIT		BIT(12)
++
++/* SYNC_MODE field values */
++#define QAIF_AIF_SYNC_MODE_SHORT	0
++#define QAIF_AIF_SYNC_MODE_ONE_SLOT	1
++#define QAIF_AIF_SYNC_MODE_LONG		2
++
++/* SYNC_DELAY field values */
++#define QAIF_AIF_SYNC_DELAY_SAME	0
++#define QAIF_AIF_SYNC_DELAY_ONE		1
++
++/* AIF BIT WIDTH CFG register (QAIF_AUD_INTF_BIT_WIDTH_CFG_REG) bit positions */
++#define QAIF_AIF_SLOT_WIDTH_TX_MASK	GENMASK(4, 0)
++#define QAIF_AIF_SLOT_WIDTH_RX_MASK	GENMASK(12, 8)
++#define QAIF_AIF_SLOT_WIDTH_RX_SHIFT	8
++#define QAIF_AIF_SAMPLE_WIDTH_TX_MASK	GENMASK(20, 16)
++#define QAIF_AIF_SAMPLE_WIDTH_TX_SHIFT	16
++#define QAIF_AIF_SAMPLE_WIDTH_RX_MASK	GENMASK(28, 24)
++#define QAIF_AIF_SAMPLE_WIDTH_RX_SHIFT	24
++
++/*
++ * slot_width is programmed 0-based into the 5-bit SLOT_WIDTH field and the
++ * frame length (slots * slot_width) 0-based into the 10-bit BITS_PER_LANE
++ * field, so these are the largest values the registers can represent.
++ */
++#define QAIF_AIF_SLOT_WIDTH_MAX		32
++#define QAIF_AIF_FRAME_BITS_MAX		1024
++
++/* AIF FRAME CFG register (QAIF_AUD_INTF_FRAME_CFG_REG) bit positions */
++#define QAIF_AIF_BITS_PER_LANE_MASK	GENMASK(9, 0)
++
++/* AIF LANE CFG register (QAIF_AUD_INTF_LANE_CFG_REG) bit positions */
++#define QAIF_AIF_LANE_DIR_MASK		GENMASK(7, 0)
++#define QAIF_AIF_LANE_EN_MASK		GENMASK(15, 8)
++#define QAIF_AIF_LANE_EN_SHIFT		8
++#define QAIF_AIF_CTRL_DATA_OE_BIT	BIT(16)
++#define QAIF_AIF_LOOPBACK_EN_BIT	BIT(31)
++
++/* AIF MI2S CFG register (QAIF_AUD_INTF_MI2S_CFG_REG) bit positions */
++#define QAIF_AIF_MONO_MODE_TX_BIT	BIT(0)
++#define QAIF_AIF_MONO_MODE_RX_BIT	BIT(1)
++
++/* AIF CFG register (QAIF_AUD_INTF_CFG_REG) bit positions */
++#define QAIF_AIF_FULL_CYCLE_EN_BIT	BIT(0)
++
++static int qaif_cif_daiops_hw_params(struct snd_pcm_substream *substream,
++				     struct snd_pcm_hw_params *params,
++				     struct snd_soc_dai *dai)
 +{
-+	u16 speed;
++	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
++	struct qaif_drv_data *drvdata = snd_soc_dai_get_drvdata(dai);
++	const struct qaif_variant *v = drvdata->variant;
++	unsigned int dai_id = dai->driver->id;
++	unsigned int regval;
++	u32 reg;
++	int idx;
 +
-+	if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
-+		return -ENODEV;
-+
-+	set_tx_qlen(tp);
-+	rtl_set_eee_plus(tp);
-+
-+	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_RX_AGGR_NUM, RX_AGGR_NUM_MASK);
-+
-+	r8153_set_rx_early_timeout(tp);
-+	r8153_set_rx_early_size(tp);
-+
-+	speed = rtl8152_get_speed(tp);
-+	rtl_set_ifg(tp, speed);
-+
-+	if (speed & _2500bps)
-+		ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL4,
-+				  IDLE_SPDWN_EN);
-+	else
-+		ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL4,
-+				  IDLE_SPDWN_EN);
-+
-+	if (tp->udev->speed == USB_SPEED_HIGH) {
-+		/* USB 0xb45e[3:0] l1_nyet_hird */
-+		if (is_flow_control(speed))
-+			ocp_word_w0w1(tp, MCU_TYPE_USB, USB_L1_CTRL, 0xf, 0xf);
-+		else
-+			ocp_word_w0w1(tp, MCU_TYPE_USB, USB_L1_CTRL, 0xf, 0x1);
-+	}
-+
-+	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_FW_TASK, FC_PATCH_TASK);
-+	usleep_range(1000, 2000);
-+	ocp_word_set_bits(tp, MCU_TYPE_USB, USB_FW_TASK, FC_PATCH_TASK);
-+
-+	return rtl_enable(tp);
-+}
-+
-+static int rtl8157_enable(struct r8152 *tp)
-+{
-+	u16 speed;
-+
-+	if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
-+		return -ENODEV;
-+
-+	set_tx_qlen(tp);
-+	rtl_set_eee_plus(tp);
-+
-+	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_RX_AGGR_NUM, RX_AGGR_NUM_MASK);
-+
-+	r8153_set_rx_early_timeout(tp);
-+	r8153_set_rx_early_size(tp);
-+
-+	speed = rtl8152_get_speed(tp);
-+	rtl_set_ifg(tp, speed);
-+
-+	return rtl_enable(tp);
-+}
-+
- static int rtl8152_set_speed(struct r8152 *tp, u8 autoneg, u32 speed, u8 duplex,
- 			     u32 advertising)
- {
-@@ -6862,8 +6906,7 @@ static void rtl8156_up(struct r8152 *tp)
- 		return;
- 
- 	r8153b_u1u2en(tp, false);
--	if (tp->version < RTL_VER_16)
--		r8153_u2p3en(tp, false);
-+	r8153_u2p3en(tp, false);
- 	r8153_aldps_en(tp, false);
- 
- 	rxdy_gated_en(tp, true);
-@@ -6876,8 +6919,7 @@ static void rtl8156_up(struct r8152 *tp)
- 
- 	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, PLA_OOB_CTRL, NOW_IS_OOB);
- 
--	if (tp->version >= RTL_VER_16)
--		ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_RCR1, BIT(3));
-+	ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_RCR1, BIT(3));
- 
- 	ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_SFF_STS_7, MCU_BORW_EN);
- 
-@@ -6899,11 +6941,11 @@ static void rtl8156_up(struct r8152 *tp)
- 	ocp_word_w0w1(tp, MCU_TYPE_PLA, PLA_RXFIFO_FULL, RXFIFO_FULL_MASK,
- 		      0x08);
- 
--	ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL3, PLA_MCU_SPDWN_EN);
-+	ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL3,
-+			  PLA_MCU_SPDWN_EN);
- 
--	if (tp->version < RTL_VER_16)
--		ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_SPEED_OPTION,
--				  RG_PWRDN_EN | ALL_SPEED_OFF);
-+	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_SPEED_OPTION,
-+			  RG_PWRDN_EN | ALL_SPEED_OFF);
- 
- 	ocp_write_dword(tp, MCU_TYPE_USB, USB_RX_BUF_TH, 0x00600400);
- 
-@@ -6913,10 +6955,19 @@ static void rtl8156_up(struct r8152 *tp)
- 	}
- 
- 	r8153_aldps_en(tp, true);
--	if (tp->version < RTL_VER_16)
--		r8153_u2p3en(tp, true);
-+	r8153_u2p3en(tp, true);
- 
--	if (tp->version < RTL_VER_16 && tp->udev->speed >= USB_SPEED_SUPER)
-+	switch (tp->version) {
-+	case RTL_VER_13:
-+	case RTL_VER_15:
-+		/* Enable Clear_SDR */
-+		ocp_word_set_bits(tp, MCU_TYPE_USB, 0xd3ca, BIT(15));
++	switch (params_channels(params)) {
++	case 1:
++		regval = QAIF_CIF_DMA_INTF_ONE_CHANNEL;
++		break;
++	case 2:
++		regval = QAIF_CIF_DMA_INTF_TWO_CHANNEL;
++		break;
++	case 4:
++		regval = QAIF_CIF_DMA_INTF_FOUR_CHANNEL;
++		break;
++	case 6:
++		regval = QAIF_CIF_DMA_INTF_SIX_CHANNEL;
++		break;
++	case 8:
++		regval = QAIF_CIF_DMA_INTF_EIGHT_CHANNEL;
 +		break;
 +	default:
-+		break;
++		dev_dbg(rtd->dev, "unsupported channel count %u\n",
++			params_channels(params));
++		return -EINVAL;
 +	}
 +
-+	if (tp->udev->speed >= USB_SPEED_SUPER)
- 		r8153b_u1u2en(tp, true);
- }
- 
-@@ -6929,12 +6980,9 @@ static void rtl8156_down(struct r8152 *tp)
- 
- 	ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL3,
- 			  PLA_MCU_SPDWN_EN);
--
- 	r8153b_u1u2en(tp, false);
--	if (tp->version < RTL_VER_16) {
--		r8153_u2p3en(tp, false);
--		r8153b_power_cut_en(tp, false);
--	}
-+	r8153_u2p3en(tp, false);
-+	r8153b_power_cut_en(tp, false);
- 	r8153_aldps_en(tp, false);
- 
- 	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, PLA_OOB_CTRL, NOW_IS_OOB);
-@@ -6956,7 +7004,102 @@ static void rtl8156_down(struct r8152 *tp)
- 	 */
- 	ocp_write_word(tp, MCU_TYPE_PLA, PLA_TEREDO_WAKE_BASE, 0x00ff);
- 
--	ocp_byte_set_bits(tp, MCU_TYPE_PLA, PLA_OOB_CTRL, NOW_IS_OOB);
-+	ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_BDC_CR, ALDPS_PROXY_MODE);
++	idx = v->get_dma_idx(dai_id);
++	if (idx < 0) {
++		dev_err(rtd->dev, "Invalid DMA index: %d\n", idx);
++		return -EINVAL;
++	}
 +
-+	ocp_byte_set_bits(tp, MCU_TYPE_PLA, PLA_OOB_CTRL,
-+			  NOW_IS_OOB | DIS_MCU_CLROOB);
++	reg = substream->stream == SNDRV_PCM_STREAM_PLAYBACK ?
++		QAIF_CDC_RDDMA_INTF_CFG_REG(v, idx) :
++		QAIF_CDC_WRDMA_INTF_CFG_REG(v, idx);
 +
-+	ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_SFF_STS_7, MCU_BORW_EN);
-+
-+	rtl_rx_vlan_en(tp, true);
-+	rxdy_gated_en(tp, false);
-+
-+	ocp_dword_set_bits(tp, MCU_TYPE_PLA, PLA_RCR,
-+			   RCR_APM | RCR_AM | RCR_AB);
-+
-+	r8153_aldps_en(tp, true);
++	return regmap_update_bits(drvdata->audio_qaif_map, reg,
++				  QAIF_CIF_INTF_ACTIVE_CH_MASK,
++				  regval << QAIF_CIF_INTF_ACTIVE_CH_SHIFT);
 +}
 +
-+static void rtl8157_up(struct r8152 *tp)
++static int qaif_cif_daiops_trigger(struct snd_pcm_substream *substream,
++				   int cmd, struct snd_soc_dai *dai)
 +{
-+	if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
-+		return;
++	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
++	struct qaif_drv_data *drvdata = snd_soc_dai_get_drvdata(dai);
++	const struct qaif_variant *v = drvdata->variant;
++	unsigned int dai_id = dai->driver->id;
++	struct regmap *map = drvdata->audio_qaif_map;
++	u32 reg;
++	int idx, ret;
 +
-+	r8153b_u1u2en(tp, false);
-+	r8153_aldps_en(tp, false);
-+
-+	rxdy_gated_en(tp, true);
-+	r8153_teredo_off(tp);
-+
-+	ocp_dword_clr_bits(tp, MCU_TYPE_PLA, PLA_RCR, RCR_ACPT_ALL);
-+
-+	rtl8152_nic_reset(tp);
-+	rtl_reset_bmu(tp);
-+
-+	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, PLA_OOB_CTRL, NOW_IS_OOB);
-+
-+	ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_RCR1, BIT(3));
-+
-+	ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_SFF_STS_7, MCU_BORW_EN);
-+
-+	rtl_rx_vlan_en(tp, tp->netdev->features & NETIF_F_HW_VLAN_CTAG_RX);
-+
-+	rtl8156_change_mtu(tp);
-+
-+	/* share FIFO settings */
-+	ocp_word_w0w1(tp, MCU_TYPE_PLA, PLA_RXFIFO_FULL, RXFIFO_FULL_MASK,
-+		      0x08);
-+
-+	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_SPEED_OPTION,
-+			  RG_PWRDN_EN | ALL_SPEED_OFF);
-+
-+	ocp_write_dword(tp, MCU_TYPE_USB, USB_RX_BUF_TH, 0x00600400);
-+
-+	if (tp->saved_wolopts != __rtl_get_wol(tp)) {
-+		netif_warn(tp, ifup, tp->netdev, "wol setting is changed\n");
-+		__rtl_set_wol(tp, tp->saved_wolopts);
++	idx = v->get_dma_idx(dai_id);
++	if (idx < 0) {
++		dev_err(rtd->dev, "Invalid DMA index: %d\n", idx);
++		return -EINVAL;
 +	}
 +
-+	r8153_aldps_en(tp, true);
++	reg = substream->stream == SNDRV_PCM_STREAM_PLAYBACK ?
++		QAIF_CDC_RDDMA_INTF_CFG_REG(v, idx) :
++		QAIF_CDC_WRDMA_INTF_CFG_REG(v, idx);
 +
-+	/* Clear_SDR */
-+	ocp_byte_set_bits(tp, MCU_TYPE_USB, 0xd378, BIT(7));
-+	ocp_word_clr_bits(tp, MCU_TYPE_USB, 0xcd06, BIT(15));
++	switch (cmd) {
++	case SNDRV_PCM_TRIGGER_START:
++	case SNDRV_PCM_TRIGGER_RESUME:
++	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++		ret = regmap_update_bits(map, reg,
++					 QAIF_CIF_INTF_DYNCLK_BIT,
++					 QAIF_CIF_INTF_DYNCLK_BIT);
++		if (ret)
++			return ret;
++		ret = regmap_update_bits(map, reg, QAIF_CIF_INTF_FS_SEL_MASK, 0);
++		if (ret)
++			return ret;
++		return regmap_update_bits(map, reg,
++					  QAIF_CIF_INTF_16BIT_UNPACK_BIT,
++					  QAIF_CIF_INTF_16BIT_UNPACK_BIT);
++	case SNDRV_PCM_TRIGGER_STOP:
++	case SNDRV_PCM_TRIGGER_SUSPEND:
++	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++		ret = regmap_update_bits(map, reg, QAIF_CIF_INTF_DYNCLK_BIT, 0);
++		if (ret)
++			return ret;
++		return regmap_update_bits(map, reg,
++					  QAIF_CIF_INTF_16BIT_UNPACK_BIT, 0);
++	default:
++		dev_err(rtd->dev, "invalid trigger cmd %d\n", cmd);
++		return -EINVAL;
++	}
 +}
 +
-+static void rtl8157_down(struct r8152 *tp)
++static int qaif_cif_daiops_startup(struct snd_pcm_substream *substream,
++				   struct snd_soc_dai *dai)
 +{
-+	if (test_bit(RTL8152_INACCESSIBLE, &tp->flags)) {
-+		rtl_drop_queued_tx(tp);
++	struct qaif_drv_data *drvdata = snd_soc_dai_get_drvdata(dai);
++	int ret;
++
++	ret = clk_prepare_enable(drvdata->aud_dma_clk);
++	if (ret) {
++		dev_err(dai->dev, "error enabling aud_dma clk: %d\n", ret);
++		return ret;
++	}
++
++	ret = clk_prepare_enable(drvdata->aud_dma_mem_clk);
++	if (ret) {
++		dev_err(dai->dev, "error enabling aud_dma_mem clk: %d\n", ret);
++		clk_disable_unprepare(drvdata->aud_dma_clk);
++		return ret;
++	}
++	return 0;
++}
++
++static void qaif_cif_daiops_shutdown(struct snd_pcm_substream *substream,
++				     struct snd_soc_dai *dai)
++{
++	struct qaif_drv_data *drvdata = snd_soc_dai_get_drvdata(dai);
++
++	clk_disable_unprepare(drvdata->aud_dma_mem_clk);
++	clk_disable_unprepare(drvdata->aud_dma_clk);
++}
++
++/*
++ * asoc_qcom_qaif_cif_dai_ops - DAI ops for QAIF CIF (CDC DMA) paths
++ *
++ * Provides startup, shutdown, hw_params and trigger callbacks for the
++ * Codec Interface DMA (CIF) DAI. startup/shutdown enable and disable the
++ * audio DMA clocks. Used by Shikra machine drivers for Bolero CDC DMA
++ * RX, TX and VA TX paths.
++ */
++const struct snd_soc_dai_ops asoc_qcom_qaif_cif_dai_ops = {
++	.startup	= qaif_cif_daiops_startup,
++	.shutdown	= qaif_cif_daiops_shutdown,
++	.hw_params	= qaif_cif_daiops_hw_params,
++	.trigger	= qaif_cif_daiops_trigger,
++};
++EXPORT_SYMBOL_GPL(asoc_qcom_qaif_cif_dai_ops);
++
++static int qaif_aif_cpu_daiops_startup(struct snd_pcm_substream *substream,
++				       struct snd_soc_dai *dai)
++{
++	struct qaif_drv_data *drvdata = snd_soc_dai_get_drvdata(dai);
++	const struct qaif_variant *v = drvdata->variant;
++	int idx, ret;
++
++	idx = v->get_dma_idx(dai->driver->id);
++	if (idx < 0) {
++		dev_err(dai->dev, "Invalid DMA index: %d\n", idx);
++		return -EINVAL;
++	}
++
++	ret = clk_prepare_enable(drvdata->aud_dma_clk);
++	if (ret) {
++		dev_err(dai->dev, "error enabling aud_dma clk: %d\n", ret);
++		return ret;
++	}
++
++	ret = clk_prepare_enable(drvdata->aud_dma_mem_clk);
++	if (ret) {
++		dev_err(dai->dev, "error enabling aud_dma_mem clk: %d\n", ret);
++		clk_disable_unprepare(drvdata->aud_dma_clk);
++		return ret;
++	}
++
++	ret = clk_prepare_enable(drvdata->mi2s_bit_clk[idx]);
++	if (ret) {
++		dev_err(dai->dev, "error enabling mi2s bit clk: %d\n", ret);
++		clk_disable_unprepare(drvdata->aud_dma_mem_clk);
++		clk_disable_unprepare(drvdata->aud_dma_clk);
++	}
++	return ret;
++}
++
++static void qaif_aif_cpu_daiops_shutdown(struct snd_pcm_substream *substream,
++					 struct snd_soc_dai *dai)
++{
++	struct qaif_drv_data *drvdata = snd_soc_dai_get_drvdata(dai);
++	const struct qaif_variant *v = drvdata->variant;
++	const struct qaif_aif_config *cfg;
++	unsigned int enable_bit;
++	int idx = v->get_dma_idx(dai->driver->id);
++	int ret;
++
++	if (idx < 0) {
++		dev_err(dai->dev, "Invalid DMA index: %d\n", idx);
 +		return;
 +	}
 +
-+	r8153b_u1u2en(tp, false);
-+	r8153_aldps_en(tp, false);
++	cfg = &drvdata->aif_intf_cfg[idx];
++	if (cfg->loopback_en)
++		enable_bit = QAIF_AIF_CTL_ENABLE_BIT;
++	else if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
++		enable_bit = QAIF_AIF_CTL_ENABLE_TX_BIT;
++	else
++		enable_bit = QAIF_AIF_CTL_ENABLE_RX_BIT;
 +
-+	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, PLA_OOB_CTRL, NOW_IS_OOB);
++	ret = regmap_update_bits(drvdata->audio_qaif_map,
++				 QAIF_AUD_INTF_CTL_REG(idx), enable_bit, 0);
++	if (ret)
++		dev_err(dai->dev, "error clearing AIF enable bit: %d\n", ret);
 +
-+	/* RX FIFO settings for OOB */
-+	ocp_write_word(tp, MCU_TYPE_PLA, PLA_RXFIFO_FULL, 64 / 16);
-+	ocp_write_word(tp, MCU_TYPE_PLA, PLA_RX_FIFO_FULL, 1024 / 16);
-+	ocp_write_word(tp, MCU_TYPE_PLA, PLA_RX_FIFO_EMPTY, 4096 / 16);
++	clk_disable_unprepare(drvdata->mi2s_bit_clk[idx]);
++	clk_disable_unprepare(drvdata->aud_dma_mem_clk);
++	clk_disable_unprepare(drvdata->aud_dma_clk);
++}
 +
-+	rtl_disable(tp);
-+	rtl_reset_bmu(tp);
++static int qaif_aif_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
++					 struct snd_pcm_hw_params *params,
++					 struct snd_soc_dai *dai)
++{
++	struct qaif_drv_data *drvdata = snd_soc_dai_get_drvdata(dai);
++	const struct qaif_variant *v = drvdata->variant;
++	const struct qaif_aif_config *cfg;
++	struct regmap *map = drvdata->audio_qaif_map;
++	snd_pcm_format_t format = params_format(params);
++	unsigned int channels = params_channels(params);
++	unsigned int slot_width;
++	int bitwidth, idx, ret;
 +
-+	ocp_write_word(tp, MCU_TYPE_PLA, PLA_RMS, 1526);
-+	ocp_write_byte(tp, MCU_TYPE_PLA, PLA_MTPS, 10 * 1024 / 64);
++	idx = v->get_dma_idx(dai->driver->id);
++	if (idx < 0) {
++		dev_err(dai->dev, "Invalid DMA index: %d\n", idx);
++		return -EINVAL;
++	}
 +
-+	/* Clear teredo wake event. bit[15:8] is the teredo wakeup
-+	 * type. Set it to zero. bits[7:0] are the W1C bits about
-+	 * the events. Set them to all 1 to clear them.
++	cfg = &drvdata->aif_intf_cfg[idx];
++
++	bitwidth = snd_pcm_format_width(format);
++	if (bitwidth < 0) {
++		dev_err(dai->dev, "invalid bit width given: %d\n", bitwidth);
++		return bitwidth;
++	}
++
++	/*
++	 * The sync, lane and frame configuration and the MI2S bit clock are
++	 * shared by both directions of an AIF. Concurrent playback and
++	 * capture on the same interface are therefore expected to use a
++	 * compatible format, rate and slot configuration.
 +	 */
-+	ocp_write_word(tp, MCU_TYPE_PLA, PLA_TEREDO_WAKE_BASE, 0x00ff);
++	ret = regmap_update_bits(map, QAIF_AUD_INTF_SYNC_CFG_REG(idx),
++				 QAIF_AIF_SYNC_SRC_BIT |
++				 QAIF_AIF_SYNC_MODE_MASK |
++				 QAIF_AIF_SYNC_DELAY_MASK |
++				 QAIF_AIF_SYNC_INV_BIT,
++				 (cfg->sync_src ? QAIF_AIF_SYNC_SRC_BIT : 0) |
++				 (cfg->sync_mode << QAIF_AIF_SYNC_MODE_SHIFT) |
++				 (cfg->sync_delay << QAIF_AIF_SYNC_DELAY_SHIFT) |
++				 (cfg->invert_sync ? QAIF_AIF_SYNC_INV_BIT : 0));
++	if (ret)
++		return ret;
 +
-+	ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_BDC_CR, ALDPS_PROXY_MODE);
++	ret = regmap_update_bits(map, QAIF_AUD_INTF_LANE_CFG_REG(idx),
++				 QAIF_AIF_LANE_DIR_MASK |
++				 QAIF_AIF_LANE_EN_MASK |
++				 QAIF_AIF_CTRL_DATA_OE_BIT |
++				 QAIF_AIF_LOOPBACK_EN_BIT,
++				 cfg->lane_dir_mask |
++				 (cfg->lane_en_mask << QAIF_AIF_LANE_EN_SHIFT) |
++				 (cfg->ctrl_data_oe ? QAIF_AIF_CTRL_DATA_OE_BIT : 0) |
++				 (cfg->loopback_en ? QAIF_AIF_LOOPBACK_EN_BIT : 0));
++	if (ret)
++		return ret;
 +
-+	ocp_byte_set_bits(tp, MCU_TYPE_PLA, PLA_OOB_CTRL,
-+			  NOW_IS_OOB | DIS_MCU_CLROOB);
- 
- 	ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_SFF_STS_7, MCU_BORW_EN);
- 
-@@ -10084,7 +10227,7 @@ static int rtl_ops_init(struct r8152 *tp)
- 		tp->eee_adv		= MDIO_EEE_1000T | MDIO_EEE_100TX;
- 		tp->eee_adv2		= MDIO_EEE_2_5GT;
- 		ops->init		= r8156b_init;
--		ops->enable		= rtl8156_enable;
-+		ops->enable		= rtl8156b_enable;
- 		ops->disable		= rtl8153_disable;
- 		ops->up			= rtl8156_up;
- 		ops->down		= rtl8156_down;
-@@ -10123,10 +10266,10 @@ static int rtl_ops_init(struct r8152 *tp)
- 		tp->eee_adv		= MDIO_EEE_1000T | MDIO_EEE_100TX;
- 		tp->eee_adv2		= MDIO_EEE_2_5GT | MDIO_EEE_5GT;
- 		ops->init		= r8157_init;
--		ops->enable		= rtl8156_enable;
-+		ops->enable		= rtl8157_enable;
- 		ops->disable		= rtl8153_disable;
--		ops->up			= rtl8156_up;
--		ops->down		= rtl8156_down;
-+		ops->up			= rtl8157_up;
-+		ops->down		= rtl8157_down;
- 		ops->unload		= rtl8153_unload;
- 		ops->eee_get		= r8153_get_eee;
- 		ops->eee_set		= r8152_set_eee;
-@@ -10146,10 +10289,10 @@ static int rtl_ops_init(struct r8152 *tp)
- 		tp->eee_adv		= MDIO_EEE_100TX | MDIO_EEE_1000T | MDIO_EEE_10GT;
- 		tp->eee_adv2		= MDIO_EEE_2_5GT | MDIO_EEE_5GT;
- 		ops->init		= r8159_init;
--		ops->enable		= rtl8156_enable;
-+		ops->enable		= rtl8157_enable;
- 		ops->disable		= rtl8153_disable;
--		ops->up			= rtl8156_up;
--		ops->down		= rtl8156_down;
-+		ops->up			= rtl8157_up;
-+		ops->down		= rtl8157_down;
- 		ops->unload		= rtl8153_unload;
- 		ops->eee_get		= r8153_get_eee;
- 		ops->eee_set		= r8152_set_eee;
++	ret = regmap_update_bits(map, QAIF_AUD_INTF_CFG_REG(idx),
++				 QAIF_AIF_FULL_CYCLE_EN_BIT,
++				 cfg->full_cycle_en ? QAIF_AIF_FULL_CYCLE_EN_BIT : 0);
++	if (ret)
++		return ret;
++
++	if (qaif_is_aif_mi2s_port(dai->driver->id) && !cfg->slot_width) {
++		slot_width = bitwidth;
++		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
++			drvdata->aif_intf_cfg[idx].slot_en_tx_mask =
++						GENMASK(channels - 1, 0);
++		else
++			drvdata->aif_intf_cfg[idx].slot_en_rx_mask =
++						GENMASK(channels - 1, 0);
++		drvdata->aif_intf_cfg[idx].slot_num = QAIF_MI2S_SLOTS;
++	} else {
++		slot_width = cfg->slot_width;
++		if (!slot_width || !cfg->slot_num) {
++			dev_err(dai->dev, "invalid TDM slot config: width=%u num=%u\n",
++				slot_width, cfg->slot_num);
++			return -EINVAL;
++		}
++	}
++
++	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
++		ret = regmap_update_bits(map, QAIF_AUD_INTF_BIT_WIDTH_CFG_REG(idx),
++					 QAIF_AIF_SLOT_WIDTH_TX_MASK |
++					 QAIF_AIF_SAMPLE_WIDTH_TX_MASK,
++					 QAIF_AIF_SLOT_WIDTH(slot_width) |
++					 (QAIF_AIF_SAMPLE_WIDTH(bitwidth) <<
++					  QAIF_AIF_SAMPLE_WIDTH_TX_SHIFT));
++		if (ret)
++			return ret;
++		ret = regmap_write(map, QAIF_AUD_INTF_ACTV_SLOT_EN_TX_REG(idx),
++				   cfg->slot_en_tx_mask);
++		if (ret)
++			return ret;
++		ret = regmap_update_bits(map, QAIF_AUD_INTF_MI2S_CFG_REG(idx),
++					 QAIF_AIF_MONO_MODE_TX_BIT,
++					 (channels < 2) ? QAIF_AIF_MONO_MODE_TX_BIT : 0);
++	} else {
++		ret = regmap_update_bits(map, QAIF_AUD_INTF_BIT_WIDTH_CFG_REG(idx),
++					 QAIF_AIF_SLOT_WIDTH_RX_MASK |
++					 QAIF_AIF_SAMPLE_WIDTH_RX_MASK,
++					 (QAIF_AIF_SLOT_WIDTH(slot_width) <<
++					  QAIF_AIF_SLOT_WIDTH_RX_SHIFT) |
++					 (QAIF_AIF_SAMPLE_WIDTH(bitwidth) <<
++					  QAIF_AIF_SAMPLE_WIDTH_RX_SHIFT));
++		if (ret)
++			return ret;
++		ret = regmap_write(map, QAIF_AUD_INTF_ACTV_SLOT_EN_RX_REG(idx),
++				   cfg->slot_en_rx_mask);
++		if (ret)
++			return ret;
++		ret = regmap_update_bits(map, QAIF_AUD_INTF_MI2S_CFG_REG(idx),
++					 QAIF_AIF_MONO_MODE_RX_BIT,
++					 (channels < 2) ? QAIF_AIF_MONO_MODE_RX_BIT : 0);
++	}
++	if (ret)
++		return ret;
++
++	ret = regmap_update_bits(map, QAIF_AUD_INTF_FRAME_CFG_REG(idx),
++				 QAIF_AIF_BITS_PER_LANE_MASK,
++				 (slot_width * cfg->slot_num) - 1);
++	if (ret)
++		return ret;
++
++	return 0;
++}
++
++static int qaif_aif_cpu_daiops_trigger(struct snd_pcm_substream *substream,
++				       int cmd, struct snd_soc_dai *dai)
++{
++	struct qaif_drv_data *drvdata = snd_soc_dai_get_drvdata(dai);
++	const struct qaif_variant *v = drvdata->variant;
++	const struct qaif_aif_config *cfg;
++	unsigned int enable_bit;
++	int idx, ret;
++
++	idx = v->get_dma_idx(dai->driver->id);
++	if (idx < 0) {
++		dev_err(dai->dev, "Invalid DMA index: %d\n", idx);
++		return -EINVAL;
++	}
++
++	cfg = &drvdata->aif_intf_cfg[idx];
++	if (cfg->loopback_en)
++		enable_bit = QAIF_AIF_CTL_ENABLE_BIT;
++	else if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
++		enable_bit = QAIF_AIF_CTL_ENABLE_TX_BIT;
++	else
++		enable_bit = QAIF_AIF_CTL_ENABLE_RX_BIT;
++
++	switch (cmd) {
++	case SNDRV_PCM_TRIGGER_START:
++	case SNDRV_PCM_TRIGGER_RESUME:
++	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++		ret = regmap_update_bits(drvdata->audio_qaif_map,
++					 QAIF_AUD_INTF_CTL_REG(idx), enable_bit, enable_bit);
++		if (ret)
++			dev_err(dai->dev, "error setting AIF enable bit: %d\n", ret);
++		return ret;
++	case SNDRV_PCM_TRIGGER_STOP:
++	case SNDRV_PCM_TRIGGER_SUSPEND:
++	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++		ret = regmap_update_bits(drvdata->audio_qaif_map,
++					 QAIF_AUD_INTF_CTL_REG(idx), enable_bit, 0);
++		if (ret)
++			dev_err(dai->dev, "error clearing AIF enable bit: %d\n", ret);
++		return ret;
++	default:
++		dev_err(dai->dev, "invalid trigger cmd %d\n", cmd);
++		return -EINVAL;
++	}
++}
++
++static int qaif_aif_cpu_daiops_set_tdm_slot(struct snd_soc_dai *dai,
++					    unsigned int tx_mask,
++					    unsigned int rx_mask, int slots,
++					    int slot_width)
++{
++	struct qaif_drv_data *drvdata = snd_soc_dai_get_drvdata(dai);
++	const struct qaif_variant *v = drvdata->variant;
++	int idx = v->get_dma_idx(dai->driver->id);
++	struct qaif_aif_config *cfg;
++
++	if (idx < 0)
++		return -EINVAL;
++
++	if (slots <= 0 || slot_width <= 0)
++		return -EINVAL;
++
++	if (slot_width > QAIF_AIF_SLOT_WIDTH_MAX ||
++	    slots * slot_width > QAIF_AIF_FRAME_BITS_MAX)
++		return -EINVAL;
++
++	cfg = &drvdata->aif_intf_cfg[idx];
++	cfg->slot_num = slots;
++	cfg->slot_width = slot_width;
++	cfg->slot_en_tx_mask = tx_mask;
++	cfg->slot_en_rx_mask = rx_mask;
++
++	return 0;
++}
++
++static int qaif_aif_cpu_daiops_set_sysclk(struct snd_soc_dai *dai,
++					  int clk_id, unsigned int freq,
++					  int dir)
++{
++	struct qaif_drv_data *drvdata = snd_soc_dai_get_drvdata(dai);
++	const struct qaif_variant *v = drvdata->variant;
++	int idx = v->get_dma_idx(dai->driver->id);
++
++	if (idx < 0)
++		return -EINVAL;
++
++	/*
++	 * The bit clock is prepared and enabled for the lifetime of the
++	 * stream by startup()/shutdown(); only the rate is set here.
++	 */
++	return clk_set_rate(drvdata->mi2s_bit_clk[idx], freq);
++}
++
++static int qaif_aif_cpu_daiops_set_fmt(struct snd_soc_dai *dai,
++				       unsigned int fmt)
++{
++	struct qaif_drv_data *drvdata = snd_soc_dai_get_drvdata(dai);
++	const struct qaif_variant *v = drvdata->variant;
++	int idx = v->get_dma_idx(dai->driver->id);
++	struct qaif_aif_config *cfg;
++
++	if (idx < 0)
++		return -EINVAL;
++
++	cfg = &drvdata->aif_intf_cfg[idx];
++
++	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
++	case SND_SOC_DAIFMT_I2S:
++		cfg->sync_mode = QAIF_AIF_SYNC_MODE_LONG;
++		cfg->sync_delay = QAIF_AIF_SYNC_DELAY_ONE;
++		break;
++	case SND_SOC_DAIFMT_DSP_A:
++		cfg->sync_mode = QAIF_AIF_SYNC_MODE_ONE_SLOT;
++		cfg->sync_delay = QAIF_AIF_SYNC_DELAY_ONE;
++		break;
++	case SND_SOC_DAIFMT_DSP_B:
++		cfg->sync_mode = QAIF_AIF_SYNC_MODE_SHORT;
++		cfg->sync_delay = QAIF_AIF_SYNC_DELAY_SAME;
++		break;
++	default:
++		dev_err(dai->dev, "unsupported format 0x%x\n",
++			fmt & SND_SOC_DAIFMT_FORMAT_MASK);
++		return -EINVAL;
++	}
++
++	switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
++	case SND_SOC_DAIFMT_CBP_CFP:
++		cfg->sync_src = 1;
++		break;
++	case SND_SOC_DAIFMT_CBC_CFC:
++		cfg->sync_src = 0;
++		break;
++	default:
++		dev_err(dai->dev, "unsupported clock provider mode\n");
++		return -EINVAL;
++	}
++
++	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
++	case SND_SOC_DAIFMT_NB_NF:
++	case SND_SOC_DAIFMT_NB_IF:
++		cfg->invert_sync = (fmt & SND_SOC_DAIFMT_INV_MASK) ==
++				   SND_SOC_DAIFMT_NB_IF;
++		break;
++	default:
++		dev_err(dai->dev, "bit clock inversion is not supported\n");
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++/*
++ * asoc_qcom_qaif_aif_cpu_dai_ops - DAI ops for QAIF AIF (MI2S/TDM/PCM) paths
++ *
++ * Provides startup, shutdown, hw_params and trigger callbacks
++ * for the Unified Audio Interface (AIF) DAI. Used by Shikra machine
++ * drivers for MI2S, TDM and PCM serial audio paths.
++ */
++const struct snd_soc_dai_ops asoc_qcom_qaif_aif_cpu_dai_ops = {
++	.set_fmt	= qaif_aif_cpu_daiops_set_fmt,
++	.set_tdm_slot	= qaif_aif_cpu_daiops_set_tdm_slot,
++	.set_sysclk	= qaif_aif_cpu_daiops_set_sysclk,
++	.startup	= qaif_aif_cpu_daiops_startup,
++	.shutdown	= qaif_aif_cpu_daiops_shutdown,
++	.hw_params	= qaif_aif_cpu_daiops_hw_params,
++	.trigger	= qaif_aif_cpu_daiops_trigger,
++};
++EXPORT_SYMBOL_GPL(asoc_qcom_qaif_aif_cpu_dai_ops);
++
++static const struct snd_soc_component_driver qaif_cpu_comp_driver = {
++	.name = "qaif-cpu",
++};
++
++static const struct regmap_config audio_qaif_regmap_config = {
++	.name		= "audio_qaif_cpu",
++	.reg_bits	= 32,
++	.reg_stride	= 4,
++	.val_bits	= 32,
++	.cache_type	= REGCACHE_NONE,
++};
++
++static int of_qaif_parse_aif_intf_cfg(struct device *dev,
++				      struct qaif_drv_data *data)
++{
++	const struct qaif_variant *v = data->variant;
++	struct device_node *np = dev->of_node;
++	struct device_node *intf_np;
++	struct qaif_aif_config *cfg;
++	int ret;
++	u32 dai_id;
++	int intf_idx;
++	int num_interfaces = 0;
++	u32 val_buf[QAIF_MAX_LANES];
++	int j, n;
++	unsigned long configured_intf_mask = 0;
++
++	for_each_child_of_node(np, intf_np) {
++		if (!of_property_present(intf_np, "reg"))
++			continue;
++
++		if (num_interfaces >= QAIF_MAX_AIF_CFG_CNT) {
++			dev_warn(dev, "Too many AIF interfaces, limiting to %d\n",
++				 QAIF_MAX_AIF_CFG_CNT);
++			of_node_put(intf_np);
++			break;
++		}
++
++		ret = of_property_read_u32(intf_np, "reg", &dai_id);
++		if (ret) {
++			dev_err(dev, "Missing reg for interface %pOFn\n", intf_np);
++			of_node_put(intf_np);
++			return ret;
++		}
++
++		intf_idx = v->get_dma_idx(dai_id);
++		if (intf_idx < 0) {
++			dev_err(dev, "Invalid DAI ID %d for interface %pOFn\n",
++				dai_id, intf_np);
++			of_node_put(intf_np);
++			return -EINVAL;
++		}
++		if (intf_idx >= ARRAY_SIZE(data->aif_intf_cfg)) {
++			dev_err(dev, "DAI ID %d maps to out-of-range intf_idx %d\n",
++				dai_id, intf_idx);
++			of_node_put(intf_np);
++			return -EINVAL;
++		}
++
++		if (configured_intf_mask & BIT(intf_idx)) {
++			dev_err(dev, "Duplicate reg %d for interface %pOFn\n",
++				dai_id, intf_np);
++			of_node_put(intf_np);
++			return -EINVAL;
++		}
++		configured_intf_mask |= BIT(intf_idx);
++
++		cfg = &data->aif_intf_cfg[intf_idx];
++		if (v->aif_full_cycle_en)
++			cfg->full_cycle_en = v->aif_full_cycle_en[intf_idx];
++		if (v->aif_ctrl_data_oe)
++			cfg->ctrl_data_oe = v->aif_ctrl_data_oe[intf_idx];
++		if (v->aif_loopback_en)
++			cfg->loopback_en = v->aif_loopback_en[intf_idx];
++
++		switch (snd_soc_daifmt_parse_format(intf_np, NULL) &
++			SND_SOC_DAIFMT_FORMAT_MASK) {
++		case SND_SOC_DAIFMT_I2S:
++			cfg->sync_mode = QAIF_AIF_SYNC_MODE_LONG;
++			cfg->sync_delay = QAIF_AIF_SYNC_DELAY_ONE;
++			cfg->invert_sync = true;
++			break;
++		case SND_SOC_DAIFMT_DSP_A:
++			cfg->sync_mode = QAIF_AIF_SYNC_MODE_ONE_SLOT;
++			cfg->sync_delay = QAIF_AIF_SYNC_DELAY_ONE;
++			break;
++		case SND_SOC_DAIFMT_DSP_B:
++			cfg->sync_mode = QAIF_AIF_SYNC_MODE_SHORT;
++			cfg->sync_delay = QAIF_AIF_SYNC_DELAY_SAME;
++			break;
++		default:
++			break;
++		}
++
++		if (!qaif_is_aif_mi2s_port(dai_id)) {
++			ret = of_property_read_u32(intf_np, "dai-tdm-slot-width",
++						   &cfg->slot_width);
++			if (ret || !cfg->slot_width) {
++				dev_err(dev, "Missing/invalid dai-tdm-slot-width for %pOFn\n",
++					intf_np);
++				of_node_put(intf_np);
++				return ret ? ret : -EINVAL;
++			}
++			ret = of_property_read_u32(intf_np, "dai-tdm-slot-num",
++						   &cfg->slot_num);
++			if (ret || !cfg->slot_num) {
++				dev_err(dev, "Missing/invalid dai-tdm-slot-num for %pOFn\n",
++					intf_np);
++				of_node_put(intf_np);
++				return ret ? ret : -EINVAL;
++			}
++			snd_soc_of_get_slot_mask(intf_np, "dai-tdm-slot-rx-mask",
++						 &cfg->slot_en_rx_mask);
++			snd_soc_of_get_slot_mask(intf_np, "dai-tdm-slot-tx-mask",
++						 &cfg->slot_en_tx_mask);
++			if (!cfg->slot_en_rx_mask && !cfg->slot_en_tx_mask) {
++				dev_err(dev, "No active TDM slots for %pOFn\n",
++					intf_np);
++				of_node_put(intf_np);
++				return -EINVAL;
++			}
++		}
++
++		n = of_property_read_variable_u32_array(intf_np,
++							"qcom,qaif-aif-lane-map",
++							val_buf, 1, QAIF_MAX_LANES);
++		if (n < 0) {
++			dev_err(dev, "Missing qcom,qaif-aif-lane-map for %pOFn\n",
++				intf_np);
++			of_node_put(intf_np);
++			return n;
++		}
++		for (j = 0; j < n; j++) {
++			if (val_buf[j] > 1) {
++				dev_err(dev, "Invalid lane-map value %u for %pOFn\n",
++					val_buf[j], intf_np);
++				of_node_put(intf_np);
++				return -EINVAL;
++			}
++			cfg->lane_en_mask |= BIT(j);
++			if (val_buf[j])
++				cfg->lane_dir_mask |= BIT(j);
++		}
++
++		num_interfaces++;
++	}
++
++	return 0;
++}
++
++/**
++ * asoc_qcom_qaif_cpu_platform_probe - Probe the QAIF CPU and platform driver
++ * @pdev: Platform device
++ *
++ * Initialises the QAIF regmap, parses DT, sets up clocks and registers
++ * the CPU DAI component and PCM platform.
++ *
++ * Return: 0 on success, negative error code on failure.
++ */
++int asoc_qcom_qaif_cpu_platform_probe(struct platform_device *pdev)
++{
++	struct regmap_config regmap_cfg = audio_qaif_regmap_config;
++	struct qaif_drv_data *drvdata;
++	struct resource *res;
++	const struct qaif_variant *variant;
++	struct device *dev = &pdev->dev;
++	const struct of_device_id *match;
++	int ret, i, dai_id, idx;
++
++	drvdata = devm_kzalloc(dev, sizeof(*drvdata), GFP_KERNEL);
++	if (!drvdata)
++		return dev_err_probe(dev, -ENOMEM, "Failed to allocate driver data\n");
++	platform_set_drvdata(pdev, drvdata);
++
++	match = of_match_device(dev->driver->of_match_table, dev);
++	if (!match || !match->data)
++		return dev_err_probe(dev, -EINVAL, "No matching device data\n");
++
++	drvdata->variant = match->data;
++	variant = drvdata->variant;
++
++	if (!variant->get_dma_idx)
++		return dev_err_probe(dev, -EINVAL,
++				     "variant is missing get_dma_idx callback\n");
++
++	ret = of_qaif_parse_aif_intf_cfg(dev, drvdata);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to parse aif interfaces\n");
++
++	drvdata->audio_qaif = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(drvdata->audio_qaif))
++		return dev_err_probe(dev, PTR_ERR(drvdata->audio_qaif),
++				     "Failed to ioremap QAIF registers\n");
++
++	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	if (!res)
++		return dev_err_probe(dev, -EINVAL, "Failed to get MMIO resource\n");
++
++	regmap_cfg.max_register = resource_size(res) - regmap_cfg.reg_stride;
++	drvdata->audio_qaif_map = devm_regmap_init_mmio(dev, drvdata->audio_qaif,
++							&regmap_cfg);
++	if (IS_ERR(drvdata->audio_qaif_map))
++		return dev_err_probe(dev, PTR_ERR(drvdata->audio_qaif_map),
++				     "Failed to init regmap\n");
++
++	drvdata->aud_dma_clk = devm_clk_get(dev, "aud_dma");
++	if (IS_ERR(drvdata->aud_dma_clk))
++		return dev_err_probe(dev, PTR_ERR(drvdata->aud_dma_clk),
++				     "Failed to get aud_dma clock\n");
++
++	drvdata->aud_dma_mem_clk = devm_clk_get(dev, "aud_dma_mem");
++	if (IS_ERR(drvdata->aud_dma_mem_clk))
++		return dev_err_probe(dev, PTR_ERR(drvdata->aud_dma_mem_clk),
++				     "Failed to get aud_dma_mem clock\n");
++
++	for (i = 0; i < variant->num_dai; i++) {
++		dai_id = variant->dai_driver[i].id;
++		if (qaif_is_cif_port(dai_id))
++			continue;
++		idx = variant->get_dma_idx(dai_id);
++		if (idx < 0)
++			continue;
++
++		drvdata->mi2s_bit_clk[idx] =
++			devm_clk_get(dev, variant->dai_bit_clk_names[idx]);
++		if (IS_ERR(drvdata->mi2s_bit_clk[idx]))
++			return dev_err_probe(dev, PTR_ERR(drvdata->mi2s_bit_clk[idx]),
++					     "Failed to get bit clock %d\n", idx);
++	}
++
++	drvdata->num_clks = variant->num_clks;
++	drvdata->clks = devm_kcalloc(dev, drvdata->num_clks,
++				     sizeof(*drvdata->clks), GFP_KERNEL);
++	if (!drvdata->clks)
++		return dev_err_probe(dev, -ENOMEM, "Failed to allocate clocks\n");
++
++	for (i = 0; i < drvdata->num_clks; i++)
++		drvdata->clks[i].id = variant->clk_name[i];
++
++	ret = devm_clk_bulk_get(dev, drvdata->num_clks, drvdata->clks);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to get clocks\n");
++
++	ret = devm_pm_runtime_enable(dev);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to enable runtime PM\n");
++
++	ret = devm_snd_soc_register_component(dev, &qaif_cpu_comp_driver,
++					      variant->dai_driver, variant->num_dai);
++	if (ret)
++		return dev_err_probe(dev, ret, "error registering cpu driver\n");
++
++	return asoc_qcom_qaif_platform_register(pdev);
++}
++EXPORT_SYMBOL_GPL(asoc_qcom_qaif_cpu_platform_probe);
++
++static int asoc_qcom_qaif_runtime_suspend(struct device *dev)
++{
++	struct qaif_drv_data *drvdata = dev_get_drvdata(dev);
++
++	clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
++	return 0;
++}
++
++static int asoc_qcom_qaif_runtime_resume(struct device *dev)
++{
++	struct qaif_drv_data *drvdata = dev_get_drvdata(dev);
++
++	return clk_bulk_prepare_enable(drvdata->num_clks, drvdata->clks);
++}
++
++EXPORT_GPL_DEV_PM_OPS(asoc_qcom_qaif_pm_ops) = {
++	RUNTIME_PM_OPS(asoc_qcom_qaif_runtime_suspend,
++		       asoc_qcom_qaif_runtime_resume, NULL)
++	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
++};
++
++MODULE_DESCRIPTION("Qualcomm Audio Interface (QAIF) CPU DAI driver");
++MODULE_AUTHOR("Harendra Gautam <harendra.gautam@oss.qualcomm.com>");
++MODULE_LICENSE("GPL");
 -- 
 2.34.1
 
