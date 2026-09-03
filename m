@@ -1,72 +1,77 @@
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3D034EF04
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 20:23:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B703B4499AA;
+	Thu,  3 Sep 2026 20:23:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788466995; cv=none; b=ATw32OJIwNQTUMLMnt56bfVGeWE8BZ8+Cfvjc/BG3UGhuEGuVcD1lySXwlRPIRAMyvDPyhnLZnF8gD6ljDuZZkBba8437tHn1r1xc3tANtSKb07EP3Nz+kXXcNyVkcnO/M302vTPrBFb7snqfaYEQWrWd0g7BBA9qA1RhdZBuUc=
+	t=1788467014; cv=none; b=SKYy97mzG8sGSSNQGNX4hNgpMn5RbahpJXROOdfslZ7BfCCSYJJyjM3gnF3yL2vonnbsn2WADVDxQUGBsexg9jRCnBwb76+Rp3EObZ7BZR4HShWoEHDnMfWV/3GuBJnMUt3z377r8sBIovTPWSJ3Co0p9xUG+w0HOHYgwe02xMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788466995; c=relaxed/simple;
-	bh=gtDtVgb03NhbBfi0jqqxfX9akkPlxNgcHpmkyNqQG5Y=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=AifXqjlTbGDaPLEOavXcvPb9emeGl0K81L6a3TRLUT6mVOy3PYOZJ03EkvHSJ1rMJwUk+eLrn2XcsQ+AIsMvpV1JhSzMJ8BJh+jFcAllumaVidF0iDmQkbgnjb7RYpUEBaPKUH4wTJERgP1njK7wEjkZVwul/WlZCAs5LPRO/Ik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b13d095a33so245420eaf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 13:23:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788466984; x=1789071784;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Ww81hJhCRRyXUdaUtWUtQEttWdGhVpJjenFHmNQFR+Y=;
-        b=mqpCEFXlX2SWwWMhiwMMrkZu7WsJa3Bu5sdH9ClIIIn9OX+Y+8t2ijhurCUNjrFEjt
-         kUqe0ZEPszoXTXmERG29ATtcvhdvb6RbjXs+IW328pjyjSkdmifGcYmTl6JXDRDBwqgl
-         WNAUtZGy8wTlgE1e0kwAnw1eOYb5ePrBM55JM0Fv+bBobiniyiHXjq/a1z/XYMjQ3qxR
-         RRn7T+IAyuw/dph+9wR7ooVsFx2UTIXgJUPTVEXVbcYdVB5aHYv/r0ybQO6Prcxpa/S0
-         WbbW8XQ9+X4q11J5e+XErAxU6G7+Bt83hWNP/CAKHj7j+rBcdyDyFcKNgOmiGB4xlCBJ
-         uPPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwVIqRVgGRg6pfXQHJtb1tPiQuBa0TohKELq8OvApTP6ri0rZ34iG1f9uNK/ziSvxd1NHZt6d2Yecn5neQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nI9WDQ1qvG+DI+PDJ16T7sXsPHW/SEPcatMSv5zJaFH9Gipqc6
-	5bIfKWG9fojM1OYG/SYq/E0lN6hTW8RKvGANPhKjiSoZ/oC5EjSwcO0gjJXEYjVjnqJ7MKim1JJ
-	kb7MrTxzEEHM6vIJP0VzXVwxIhgzB8V+w4bnzlVmKab5oVM226N5J1Z050lM=
+	s=arc-20240116; t=1788467014; c=relaxed/simple;
+	bh=j+pvwsdyhzjCX1eedu9mc60L+kRl8XJVqBWhSIgjcok=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cz/jwLdzNzhCZUdC+YsPWvuiYRHLnQLVmiFEP8aWMRe/kJwj/QRZcQpn0/P44GZTmxGO5RgNX8dm8w+diLsExMDUF5ZzH/xdDIFTo0MwcE7mTgGGS7mNHIXNuqM3k1CM6RtDETft2CrNA9HstfhX5ZJVT65H0knpCX1mJLEgmPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ipuvEXVg; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ipuvEXVg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 295051F000E9;
+	Thu,  3 Sep 2026 20:23:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788466996;
+	bh=3hcY7l/WLZ3KeGR9R/3IfG9dtd2405bpZ6BhoNotYLk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ipuvEXVgU6AwBhz1wpX6a8Xi40JbzJY8+06bwVpgqIGrWFD5zRO9gneYV6BCR6POf
+	 URRoYyao+8PGv1+P+kYAsRKIsO16QwOdz9wxwKV8XD8JND69IDvgYvQoOK/hj9ozvq
+	 Tk2BWAIOEP/7H5oHgk0o13EzP6NTo+k342C9N/clp1BTRtEsQtEK1wewdOcGt1H4X3
+	 +BjIQbDRxAvhsFaroWiT5a0viUlO3mnwYO/obbXGYFTYsMNPLJ1iZ1/DJMvb59qUa7
+	 jGI7/UgFfb7J3JiPgCf3/up3dyVkBEIEXQpwlTAT0TwOO4mDEX7zRpaxFXyKzBsna4
+	 TD7Q8zOla5o6w==
+Date: Thu, 3 Sep 2026 10:23:15 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Christian Brauner <christian@brauner.io>,
+	Meta kernel team <kernel-team@meta.com>,
+	linux-kselftest@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/3] kernfs: don't lose IN_DELETE_SELF when decoding a
+ file handle
+Message-ID: <apnXMzZO5wcFIInw@slm.duckdns.org>
+References: <20260903040253.670020-1-shakeel.butt@linux.dev>
+ <20260903040253.670020-2-shakeel.butt@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:179b:b0:6b1:6136:956a with SMTP id
- 006d021491bc7-6b6fccdb1c9mr1289079eaf.15.1788466983891; Thu, 03 Sep 2026
- 13:23:03 -0700 (PDT)
-Date: Thu, 03 Sep 2026 13:23:03 -0700
-In-Reply-To: <20260903200806.155310-1-adrianox@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a99d727.2e567484.299ffc.000b.GAE@google.com>
-Subject: Re: [syzbot] [trace?] [block?] KASAN: slab-use-after-free Read in blk_log_remap
-From: syzbot <syzbot+4dfd96209d744263a972@syzkaller.appspotmail.com>
-To: adrianox@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903040253.670020-2-shakeel.butt@linux.dev>
 
-Hello,
+On Wed, Sep 02, 2026 at 09:02:52PM -0700, Shakeel Butt wrote:
+> __kernfs_remove() clears i_nlink on the inode each superblock holds for
+> the node, and finds those inodes with ilookup().  A lookup that has
+> pinned the node but has not put its new inode in the inode hash yet is
+> invisible to that pass:
+> 
+>   CPU0                                    CPU1
+>   open_by_handle_at()
+>     kernfs_find_and_get_node_by_id()
+>       pins the node, still active
+>                                           rmdir()
+>                                             marks the subtree removing
+>                                             ilookup() finds no inode
+>     kernfs_get_inode()
+>       hashes an inode with i_nlink 1
+...
+> Fixes: eea5d2bb34ba ("kernfs: Send IN_DELETE_SELF and IN_IGNORED")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+Acked-by: Tejun Heo <tj@kernel.org>
 
-Reported-by: syzbot+4dfd96209d744263a972@syzkaller.appspotmail.com
-Tested-by: syzbot+4dfd96209d744263a972@syzkaller.appspotmail.com
+Thanks.
 
-Tested on:
-
-commit:         841e384b Merge tag 's390-7.3-2' of git://git.kernel.or..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1182fc15580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=4dfd96209d744263a972
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=17d4d0f9580000
-
-Note: testing is done by a robot and is best-effort only.
+-- 
+tejun
