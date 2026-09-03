@@ -1,202 +1,286 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11020113.outbound.protection.outlook.com [52.101.69.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17CF1389107;
-	Thu,  3 Sep 2026 09:23:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.113
-ARC-Seal:i=4; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788427445; cv=fail; b=sOGfpSC4TkKkMbcyoHabA1knjM0GkTg3lT3pTP75YUjtWkEPj6B5VEjlIwUwR3D2vmbJX9LDdDKFFyrxHjeqtK4+DGloFvOFPeos2BusX/Wy6F9TUCDUQgg49egGxrmxfgn0CPuCI4YdoEsyls/L4bBp0FoVM7Kax9PPy4Nh/rY=
-ARC-Message-Signature:i=4; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788427445; c=relaxed/simple;
-	bh=SK1opXBraoqkmNBXv11XcK3g1XwitKHpJzre8GncT0w=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=KI5yj115WfT3BR6TxEhuvHCyWDUaU44kGOPUt/IzfZFvinFN0bIkPH6W/3PO+/yjfH9jSkt7RapZ365Wh9T5JhiBsgkzCKhrVn4cP1L4lsscU4l1wlxPUlB1o+NNJIwb0w1/fWV3slaQNVPTPFDiMkHGjKl0KVyfyonNDfZxgP4=
-ARC-Authentication-Results:i=4; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com; spf=pass smtp.mailfrom=solid-run.com; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=CqHljwBe; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=CqHljwBe; arc=fail smtp.client-ip=52.101.69.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=solid-run.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 345B233F59E
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:24:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788427470; cv=none; b=pBiofmvGvaYZQcs3VDCB1G/tO+8u7EdkMUWyFDWftcj7s07y1YH6sRuj7r1uzfecZGgpVvbd6rnrvsUgy12LCp7+YY5zIq14FNGap9EZuTyyBYi7VYQ7H0D1hiVsfoPwLEoaWlzHGA9qn8VURHWiu56u2fbVlOZ9gnlWnyYDhPs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788427470; c=relaxed/simple;
+	bh=61hznhQcwmZjzK3YKmEG6XfvPXr75t4QMWhIxe6VGig=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=l2WDeAEyRO6ZXRWFYf4xFYK5+2k6tVRE9TJWFxjJPK+hIRlxoIS/9NpVZgFVU1PQV9gWAfLaxxFlMkmg3tP4pa/95STYpLjMZpAld9OTntZDsn0ceGY8/u2gG03A4AuOfcl9yO2Z/DUP2P1kwVDpeg54dLyuaVOh/y/XboVsOxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=evuQSrH1; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="CqHljwBe";
-	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="CqHljwBe"
-ARC-Seal: i=3; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=YnAxCz1suSh4dQiD60zsI1fG7AZsT8/OnM508eXpO2kQk6T8S1+0PN/U/nLlGWlVqER4rXjmkoWbA4j1xMsg6hofA8pXYGtJUc3bC27SAFp/GcKX1iFwE7Rqujd+DgTvBYDuQ3PirPaWzNaWDy3TJQirkyCAyBFsBQKCHQ24sbGQ1CsSvKRgjUmEvC748WZcVZH5b+/PsKXrzesFA2Y35BPS4rahx/RrrhL9+tBfBEcwAn3ep+4qDXspC9P0aD1+d0irX6MzZTdARKbaY2TyjvKlMWvFQ0Zwv2rdSTMch/B4Fvvlt5BszWAYUZ3rW4spcMXp/68PCYwnE5/JIUVy1A==
-ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SK1opXBraoqkmNBXv11XcK3g1XwitKHpJzre8GncT0w=;
- b=O/b2vqHS3EByd8YKMXFq4po1QaFy64EmBEU2j6Wue+9v3cr9QspNwUwMurl50XkabSix/6rbvqtqoFduODoEDcLqD+CBL1r0nWriTxEpw9g1FHofndFd/CnXAf4fAqraIHVP0qLpro+oJd2NzzstT8s0Kzcfp0q0C02h4B8HmZwyX57HiCqUfx+UIv+wlphekVtFO5Jm2vdGmuCad5xMxDS2dTtKdbXanWVJLbj5pSD653dSDBpcHsigmm2Tm3An32DWMw2QKI0VwRDKBZqYEZmbg6Buno07zp5PochYQRxVyYzkd28bBEz637+M68SDD2eNN0Szcn3vDzUwLk22iw==
-ARC-Authentication-Results: i=3; mx.microsoft.com 1; spf=fail (sender ip is
- 52.17.62.50) smtp.rcpttodomain=bp.renesas.com smtp.mailfrom=solid-run.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=solid-run.com; dkim=pass (signature was verified)
- header.d=solid-run.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=solid-run.com] dkim=[1,1,header.d=solid-run.com]
- dmarc=[1,1,header.from=solid-run.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SK1opXBraoqkmNBXv11XcK3g1XwitKHpJzre8GncT0w=;
- b=CqHljwBejqVxQNtCG8v6esbiR0+ImpUl05rvIw9LdIhifnddSUTAmD+gUgS/NIN/oqXOxHN+A709Xubsvt4H7fdjgWe5O3mwHCjY4jHu9l7/cByszh2orJMB7KG5Q4CnXNjYwfY66ajNp06HhsahvvLBwGlqUjmDJrKGsgJEcyp12SvNZcnDUVt8K1aX01tJWoot90Q2QLbnBCPCD/w8zspXdQB19o/Xk7ypjtkyC3NW799aBMNFb+fe1GDg28H8dpRRhZYxYNfR0jPob27NlaetOuq2K7PThlyKglQxEq75Iehqnl7fYCAGuB/7ycdnhUxa4HmlC8uQbpJ5Dm0g7g==
-Received: from AM0PR02CA0149.eurprd02.prod.outlook.com (2603:10a6:20b:28d::16)
- by VI2PR04MB10218.eurprd04.prod.outlook.com (2603:10a6:800:22b::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 09:23:50 +0000
-Received: from DB5PEPF00014B92.eurprd02.prod.outlook.com
- (2603:10a6:20b:28d:cafe::57) by AM0PR02CA0149.outlook.office365.com
- (2603:10a6:20b:28d::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Thu, 3
- Sep 2026 09:23:50 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 52.17.62.50)
- smtp.mailfrom=solid-run.com; dkim=pass (signature was verified)
- header.d=solid-run.com;dmarc=pass action=none header.from=solid-run.com;
-Received-SPF: Fail (protection.outlook.com: domain of solid-run.com does not
- designate 52.17.62.50 as permitted sender) receiver=protection.outlook.com;
- client-ip=52.17.62.50; helo=eu-dlp.cloud-sec-av.com;
-Received: from eu-dlp.cloud-sec-av.com (52.17.62.50) by
- DB5PEPF00014B92.mail.protection.outlook.com (10.167.8.230) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.8
- via Frontend Transport; Thu, 3 Sep 2026 09:23:49 +0000
-Received: from emails-2220808-12-mt-prod-cp-eu-2.checkpointcloudsec.com (ip-10-20-6-87.eu-west-1.compute.internal [10.20.6.87])
-	by mta-outgoing-dlp-517-mt-prod-cp-eu-2.checkpointcloudsec.com (Postfix) with ESMTPS id C774C80351;
-	Thu,  3 Sep 2026 09:23:49 +0000 (UTC)
-ARC-Seal: i=2; cv=pass; a=rsa-sha256; d=checkpointcloudsec.com;
- s=arcselector01; t=1788427429;
- b=HF2X93yNqzOZQigce/ZKQYEzmJmTXC+dj6A2jHwShJojlAJM96S4tvMIVCCsmKxAXYCtS
- 1rmS1AIgJy8I/Q3Si579s583/SCHlJblAJOyQPss+Aj20aWJP1QT+9BuZSGuRHNIy3gM3gL
- Py4dYUbMS74N6W8JrGQa/L05YZ4JcLo=
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed;
- d=checkpointcloudsec.com; s=arcselector01; t=1788427429; h=from : to :
- subject : date : message-id : content-type : mime-version;
- bh=SK1opXBraoqkmNBXv11XcK3g1XwitKHpJzre8GncT0w=;
- b=WiLhqyMyRA4iac8O7vAoGOt9JwLlnUFGGGIJpffR4oQV9Wj4F9D33RtxbWSeUlH+oMoIE
- RrPHEn9YmQ+CbJQ8C65a87DckDnuVCMqAmkI24yBotdykyPyYKccsyNNWuuMDfHdJ4YNPg2
- uBzaCE192ZjbpCusCJPiQjf9AOrYjOI=
-ARC-Authentication-Results: i=2; mx.checkpointcloudsec.com;
- arc=pass;
- dkim=none header.d=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SK1opXBraoqkmNBXv11XcK3g1XwitKHpJzre8GncT0w=;
- b=CqHljwBejqVxQNtCG8v6esbiR0+ImpUl05rvIw9LdIhifnddSUTAmD+gUgS/NIN/oqXOxHN+A709Xubsvt4H7fdjgWe5O3mwHCjY4jHu9l7/cByszh2orJMB7KG5Q4CnXNjYwfY66ajNp06HhsahvvLBwGlqUjmDJrKGsgJEcyp12SvNZcnDUVt8K1aX01tJWoot90Q2QLbnBCPCD/w8zspXdQB19o/Xk7ypjtkyC3NW799aBMNFb+fe1GDg28H8dpRRhZYxYNfR0jPob27NlaetOuq2K7PThlyKglQxEq75Iehqnl7fYCAGuB/7ycdnhUxa4HmlC8uQbpJ5Dm0g7g==
-Received: from MMZPR04MB400504.eurprd04.prod.outlook.com (2603:10a6:190:28::8)
- by DB9PR04MB8284.eurprd04.prod.outlook.com (2603:10a6:10:25e::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Thu, 3 Sep
- 2026 09:23:39 +0000
-Received: from MMZPR04MB400504.eurprd04.prod.outlook.com
- ([fe80::2f52:2d22:c7b3:4292]) by MMZPR04MB400504.eurprd04.prod.outlook.com
- ([fe80::2f52:2d22:c7b3:4292%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 09:23:37 +0000
-From: Josua Mayer <josua@solid-run.com>
-To: Linus Walleij <linusw@kernel.org>
-CC: Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm
-	<magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Benjamin Bara <benjamin.bara@skidata.com>, Lad
- Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, Jon Nettleton
-	<jon@solid-run.com>, Mikhail Anikin <mikhail.anikin@solid-run.com>, Yazan
- Shhady <yazan.shhady@solid-run.com>, "linux-renesas-soc@vger.kernel.org"
-	<linux-renesas-soc@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-usb@vger.kernel.org"
-	<linux-usb@vger.kernel.org>, "linux-gpio@vger.kernel.org"
-	<linux-gpio@vger.kernel.org>
-Subject: Re: [PATCH v4 2/7] dt-bindings: pinctrl: renesas,rzg2l-pinctrl: Allow
- input-enable pinconf
-Thread-Topic: [PATCH v4 2/7] dt-bindings: pinctrl: renesas,rzg2l-pinctrl:
- Allow input-enable pinconf
-Thread-Index: AQHdOtE+gVzmYmXL+Ea9R+ytXkurZ7a7P8yAgAFWXAA=
-Date: Thu, 3 Sep 2026 09:23:37 +0000
-Message-ID: <0435939c-2836-480d-9ba2-8de4c5e22cc2@solid-run.com>
-References: <20260902-rzg2-sr-boards-v4-0-4a456a422fee@solid-run.com>
- <20260902-rzg2-sr-boards-v4-2-4a456a422fee@solid-run.com>
- <CAD++jL=fGonMHd0jitwAE8+w=JYPX_6YFW6CzS9kRZLbx3045Q@mail.gmail.com>
-In-Reply-To:
- <CAD++jL=fGonMHd0jitwAE8+w=JYPX_6YFW6CzS9kRZLbx3045Q@mail.gmail.com>
-Accept-Language: de-DE, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=solid-run.com;
-x-ms-traffictypediagnostic:
-	MMZPR04MB400504:EE_|DB9PR04MB8284:EE_|DB5PEPF00014B92:EE_|VI2PR04MB10218:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5b4ef92b-89ec-4bc4-452e-08df099d1067
-x-cloud-sec-av-info: solidrun,office365_emails,sent,inline
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|4143699003|10067099003|56012099006|18002099003|22082099003|38070700021;
-X-Microsoft-Antispam-Message-Info-Original:
- Xk+bUo4oImiDEZ28wFcTC702NDy+fvCWwytDP3mro0Pmkcc9g5aa3gXqDby0hHgDkepb0uIdQe+FkrFQWBD8rosaFdM2y9awVN4x3qywlcCfW6b6CraXKdXeFzmBKoG7lqUrPmpCMdaqraOj1L0lDf3FhxzDRQ60RSRs9HqJzG7e/HLpG983oE8CpCmbfoco6s7BAISlcX2clc/rZg5q40mTGB1IQYof7/odPu/ns/T2tcFgDFby4neY4JFcdaKUhtdEuC2yg25wFvC4TjY4iH5Lx+LZBh0MX2avzKmpnPch85WejAhC9eje8WUiS/oBjXaFE0THK46dNBmZ127dLXp158QRM0axbTm5/JfyIWfqDdMBzJ2rFH0xxup8k516BqBG5FOECv7fEcYJx7AAXvqJVbDdHMc6SFB1jvpfS/ppZnR88dQ0QZ+yBz9d/bklHJRFR92W4BNwj/SAKzjPyQpJwCbvOoUsMCH6N2wdF96o8giztnnLv4uXWfw96arQMQa6W90JJNQX62NGtGJO9ghWG+Ep2aH/sGgl2lwgMsgISqnFCrmrojgWSGEWAd3JTCi3dIChKpP/KpkTjTZhPsOktGiOKOE2gMfRR64AVrAAO0GmVW6g/rRqn0vY99ZL1c44vP7lXBTqb34Goj7mBp9WPiJZeF3BxKrY7/ENIJJUMU79ZddqrS+vu/hljeiHo2vmu2IMCrQejR2k9UJ+LgotrW17CpeJ0XRk5xpPV4Q=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MMZPR04MB400504.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(4143699003)(10067099003)(56012099006)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1102;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <055E4995037181428A528B7CE2F21C30@eurprd04.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="evuQSrH1"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48431648f33so536049f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 02:24:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788427463; x=1789032263; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=I4bRmfkn+NWvN5fS6qgsY/lQMFXFNzNIr1ZeJlMXD3I=;
+        b=evuQSrH1SxAy8K9WFKJ5sQ/aN9QSnEflu2nFV7dk7DWFuUDTfle+XS9yE7now1JTN8
+         wbYpTs1FbSMvYlzeX7FTC7baddCX1HaJiBjIqYrzAUEPEcm1tL+yPkI0rsSnkZiDdibC
+         /7gCgOMnpP27B3+7QdE/tVQPrr2R0bcVrGa1XSsf3/B95/K7n3HP5YZDR0C29W12q+qk
+         h2N4/StD13AqjMRzUdWKAjUoaIiwkliPAgCy2fTdGfN1zD/p+x1q3fy+RKo3x+n3CqBP
+         mdBWvim9hbzJADKp4xSLt4KvpCzC7PAX6wv7dRdADa1sDJRAzxzSRrnJy9vqcECfzq4c
+         XDfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788427463; x=1789032263;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I4bRmfkn+NWvN5fS6qgsY/lQMFXFNzNIr1ZeJlMXD3I=;
+        b=O4FZG1+fGBtdyjf4tl6g18h/TDF5qpQVnD0LMYnCyLePXNWWd7Y4c7mfYbVMaIbBP/
+         E7Q/xznZv2EM1EH2gF58cNxFtNQP6hde4Cma72H0lMhTnzmPTRlRGwvzf+SxkvAzJTJU
+         rOE94DYiJlqZeuGAuLaGwJJ3fKEatiVOZ9eIrIDwdBTBm92Ut4uWEH6eHeYcZTUq11Ik
+         nqcWO5U/FuKdXB/MllGiMDmo+xoaFl052fjJd38fG27XvWt+Zq+jGnG5Zornx4GTR56V
+         UimpNA/q7GoRe0LTRznkIApZeO7zcyaSiOEjMxLqAl/Y37zBZzxGQlMkOQtMHVuolvNn
+         u29A==
+X-Forwarded-Encrypted: i=1; AKwUvBxzPrsAdB7MpiC6uctK5xLALzsHBwkq+OmvnArHnilYLmQArhB2/2XcRwfsGQKvuhnNHngEOe+UjvEZPtQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++n0rboTOvLBkWNDNbTmthxF1rYa+hdpAsvRDPf8Z/+rM0HMSL6E
+	V/KC3aMqEj63ZZMVp1mLj3k75Qo/jh+Ywe2poytTXA2fmSgPhPyyITcr
+X-Gm-Gg: AYBFou3oweIbWshqN02gO1lImxp/BI02tY+ettkSWPYDO/jNmwPtpJBSORNQYaC37nD
+	0T83JpRUCCozenbkicriEPEMidoqYeTkVt9Z7qhs0QUNSA2Rj2mPuw1bdAd7/1jQ9it13Ce5+nD
+	tk9B9xTJ9si1zGcBukvxwk4d8q9jcCYb6sUKDDPG7mpbGvnjtxz5HvKeWESP7hbw3ACSDPh/KvE
+	MJba1+i/v2iPMM0gA8wlpC/xmWtuf1pFDtxW7/GhADPvd/euDKO51ZEVPDlYFFeM0GdKnqYsmPK
+	C1YzuM48c+Yf0JHJD6+TTpuwFfRC0sleP6niwIHjTbpSlRg1bDXKyznEiGdZonYvQfB1C2/OwoE
+	dKqRI2cfpJjFmOg4hY9UqLIb9cxpaVsluY5IEw+LRQLgSdlZO42fGm9KWSFT4YuTh51Tv94fSrn
+	g85OaMIGPxkjBVD3l8f2Dwul76FHvuje/loXATvpNarOjjJARploY7lE5yJBl0wytFpNdaV+jHc
+	ecb7hfQSoc=
+X-Received: by 2002:a05:6000:22c2:b0:484:3147:49c9 with SMTP id ffacd0b85a97d-48582315a47mr2809717f8f.2.1788427463132;
+        Thu, 03 Sep 2026 02:24:23 -0700 (PDT)
+Received: from foxbook (bfg95.neoplus.adsl.tpnet.pl. [83.28.44.95])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e80745sm12599197f8f.15.2026.09.03.02.24.21
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Thu, 03 Sep 2026 02:24:22 -0700 (PDT)
+Date: Thu, 3 Sep 2026 11:24:17 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: syzbot <syzbot+832ce9fa3face1b7d44d@syzkaller.appspotmail.com>
+Cc: bolewara@gmail.com, devnull@kernel.org, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-usb@vger.kernel.org, mchehab@kernel.org,
+ syzkaller-bugs@googlegroups.com, Daniel Mack <zonque@gmail.com>, Takashi
+ Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org
+Subject: Re: [syzbot] [usb?] KASAN: slab-use-after-free Write in
+ usb_free_urb
+Message-ID: <20260903112417.21b76017.michal.pecio@gmail.com>
+In-Reply-To: <6a97af8d.27a413cd.1e878c.0004.GAE@google.com>
+References: <6a6e9502.f794c993.27aeb.0018.GAE@google.com>
+	<6a97af8d.27a413cd.1e878c.0004.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
- BP8LhK2BpML4ioB3rUZj+BcwkSapMEaAzLfRgft7cxK3IrO5TNmOJ2YgddXSWaAjTfrnLJiwByZEp2iD/wWMkReyfKgxIq9rDFlsIqKgYMKnkR8gcm+4zTwbdbjuw8rzFvAZdq70ovcCie3lrUAeC74CP9WQL+k47MsrTtjD1k93B2d0y6fjUp5RSeyRHVqceMauzWRqvRBbczO9UH3jLSX7NnaiR6L6Q6UPMzEPHN53gv78zfZKWgiWP6R6sSvQSdRibh10vEyy0JdAJRNI23dfxJYNmwhZV+ONegBT53uMYW0W534YIr0/7YJKgauXhknJgaN7pXXSOLDnPz8NIQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8284
-X-CLOUD-SEC-AV-INT-Relay: sent<mta-outgoing-dlp-mt-prod-cp-eu-2.checkpointcloudsec.com>
-X-CLOUD-SEC-AV-UUID: fceb8f525a4c47a48fdee76ddab5b8d9:solidrun,office365_emails,sent,inline:f444e51eca3fe390ef06f1392570d17a
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RNiytTLLO9Ofs2WBFsQEdZ8j2rRXK6CHeuHosEToUw+GOuWNTzjLQwFtqJ4l6uwVEARIVrRS46O61XEledlbNS8yMnku8dKUom31RrC8FCObe4hgCNfyDVqFkuG0hv7t5qgvuBc3aXwgNvTgMIkjrAEsLGFR2ZZ5KKdlq7IKu3i2YgXskjBXjv+QNov/LMwefl/zVM7KUkqttluEgsmITrocmmErHG9vN226SlixmN8G0072nJVfI9Pb0nQQhvrWSiLGl5ZqYd2kM3/f0mD0pZTs5/swshF9t5mSRf7pLia86V/ADae4n36o+e5YIAEYW3lBgeASk3gQIXjs+dl5oA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SK1opXBraoqkmNBXv11XcK3g1XwitKHpJzre8GncT0w=;
- b=ZvZi8jI5XjyZDD8aRFnWpFby+Dh2ilqI90mLik7EjAkfPAivv66ZBUtckmZblErqA9f6dluQbw0Zw4ec27I+oe0igL3hvgGPLXk62IBkxTyDJ405dJCq+gkfqnhJwBfHHcz9mr4q7sqt970oq++JZPatR+nbRPR7HwV7e2dx1GeUTBxfuvJgkTWnMVz2keUI4hXCPTnfUF+ZMoCKPUNJftM2GKBoTDQxiqZwvsDYPWYHSzosc1BGkPJTMXHCQSI8/yE5EDL9EUU4Fwv2gxh9UCqi+L0zutCFjJMWc9cZbIlcGlhwr+Wmd3iE/l3mq8DsCcsMpzPHX/5ilS9Va45zQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=solid-run.com; dmarc=pass action=none
- header.from=solid-run.com; dkim=pass header.d=solid-run.com; arc=none
-Authentication-Results-Original: mx.checkpointcloudsec.com; arc=pass;
- dkim=none header.d=none
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5PEPF00014B92.eurprd02.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	813139b0-c7cf-416f-ed1f-08df099d08e7
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|14060799003|1800799024|35042699022|23010399003|376014|7416014|22082099003|18002099003|56012099006|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	GL1obytMGgBp/R+S9nQrZbCbrsxBTXF88bBM7CNPqA7qNfmmudWfMe70lg9YgYBlVjjVPMBfBoKEiOVn8BO+M0sMGJqKU7R9Sc1T71JdJv71oH3Zaop3GrM7wx6+/U03mGj7NX0t1gFLCdn9z3NNz11NuMBSODvScMhddN4zEshw3lsW8F4rHZNEbTM0kEAw8/HY6KU8ADnMbw2rN09c3sRxUHxSq+iaAqiYEvHBcVzL0tOo/MFVP0fYdahB6y292qBOBevF2GKCzbJAGjKV9zhXYUjJPe8hT5zZYOYk6tNYWpjvwjWxP23jdt6J0kvna/48MwUS8XnnPlRmdaEB7+UCiXiwh7dzPUn0k5oVBz9aqNVG9VbJL4374xhpjDY6bCOLlZdPDK4+NkNnPGV0absaDBCHNbrSFo/8FYtju6X329gihY6OvYrGVcItJbliti6+6zzJlvPsdtaRpjW5fyoS6YvmcfIGX+jXlWoAi3COCJmxjFEGYjhlxT/hopptDdQ2otnjSIj74SCRzT/YSGjnEkKFWTy2YfKysDkYAWS/rGC5vaKH1sga3q2IUoZ56Zos7fUgXHZBHFIVMn9gK21txA9AGOSlDQLTfHut9Jwv2cnFQzdSYDP3BOMkrJom2oVd9LImk9nn/DmpwplGKRSTuRxGwOJ5ZaYeT1SAAWUhxjOl+hUG8JZ9bui2NW77AGskm9sNv0XNfvCsfExT0g==
-X-Forefront-Antispam-Report:
-	CIP:52.17.62.50;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:eu-dlp.cloud-sec-av.com;PTR:eu-dlp.cloud-sec-av.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(14060799003)(1800799024)(35042699022)(23010399003)(376014)(7416014)(22082099003)(18002099003)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	FlRuGBBNDLZHznG+bNvsuHjtDvU3HFRYJkTWUXpfhMVg4pPVcqw4X8jt8BHz3O2kyRr0WcwtCI/MknzQVN3Oj700lWRY5htFXJh5nLWPHcIOYBC9ipKhlF85cBXq4qwQziNaEFa+BaqrvECLBMYgzLcrdDpus7PY0kOGgKZVKXah0qVaq2cjpyanTVVNJcdFypRnKJeNFzCSSZ+4gwT2GohDtIMSouSMznxsVIQuYUe9xxocghnHILbZjd0by6L19DoQmY3f/eIkHlYHBXh2De6aVBBlXwrTFekP1fTqKnonOYv7RFJ29z7lRnYfKQg7B/7ZxZ6eQBTsU4qbssiDXzXrX/k/HAKwXgedJO5s3bNtdfIk2T1e8ORGX6302WsH297rT6CT4Q1TwJjl+7r8RXn673vox5XkXJmrDYtiL8YFQbuva7WZF4EbiVbXPVuQ
-X-OriginatorOrg: solid-run.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 09:23:49.9202
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5b4ef92b-89ec-4bc4-452e-08df099d1067
-X-MS-Exchange-CrossTenant-Id: a4a8aaf3-fd27-4e27-add2-604707ce5b82
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a4a8aaf3-fd27-4e27-add2-604707ce5b82;Ip=[52.17.62.50];Helo=[eu-dlp.cloud-sec-av.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB5PEPF00014B92.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10218
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-QW0gMDIuMDkuMjYgdW0gMTQ6NTggc2NocmllYiBMaW51cyBXYWxsZWlqOg0KPiBIaSBKb3NodWEs
-DQo+DQo+IHRoYW5rcyBmb3IgeW91ciBwYXRjaCENCj4NCj4gT24gV2VkLCBTZXAgMiwgMjAyNiBh
-dCAxOjUw4oCvUE0gSm9zdWEgTWF5ZXIgPGpvc3VhQHNvbGlkLXJ1bi5jb20+IHdyb3RlOg0KPg0K
-Pj4gVGhlIGxpc3Qgb2YgYWxsb3dlZCBwaW5jb25mIHByb3BlcnRpZXMgYWxyZWFkeSBpbmNsdWRl
-cyBpbnB1dC1lbmFibGUsDQo+PiBidXQgaGFzIG9taXR0ZWQgaW5wdXQtZGlzYWJsZS4NCj4+DQo+
-PiBCb3RoIHJlZmVyIHRvIHRoZSBzYW1lIGhhcmR3YXJlIHByb3BlcnR5LCBzZXR0aW5nIGFuZCBj
-bGVhcmluZyBpbnB1dC1lbmFibGUuDQo+Pg0KPj4gQWRkIGlucHV0LWRpc2FibGUgdG8gdGhlIGxp
-c3QuDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogSm9zdWEgTWF5ZXIgPGpvc3VhQHNvbGlkLXJ1bi5j
-b20+DQo+ICguLi4pDQo+PiArICAgICAgICBpbnB1dC1kaXNhYmxlOiB0cnVlDQo+IFRoZSBTdWJq
-ZWN0IG9mIHRoaXMgcGF0Y2ggaXMgICJBbGxvdyBpbnB1dC1lbmFibGUgcGluY29uZiIuDQo+DQo+
-IEJ1dCB3aGF0IHlvdSBhcmUgZG9pbmcgaXMgYWxsb3dpbmcgaW5wdXQtZGlzYWJsZS4NCj4NCj4g
-V2l0aCB0aGUgc3ViamVjdCBmaXhlZDoNCj4gUmV2aWV3ZWQtYnk6IExpbnVzIFdhbGxlaWogPGxp
-bnVzd0BrZXJuZWwub3JnPg0KVGhhbmtzIQ0KSSdsbCBmaXggdGhlIHN1YmplY3QgLi4uICENCg0K
-KCJkdC1iaW5kaW5nczogcGluY3RybDogcmVuZXNhcyxyemcybC1waW5jdHJsOiBBbGxvdyBpbnB1
-dC1kaXNhYmxlIHBpbmNvbmYiKQ0K
+On Tue, 01 Sep 2026 22:09:33 -0700, syzbot wrote:
+> syzbot has found a reproducer for the following issue on:
+> 
+> HEAD commit:    786262be6048 Merge tag 'edac_updates_for_v7.3_rc2' of git:..
+> git tree:       upstream
+> console+strace: https://syzkaller.appspot.com/x/log.txt?x=12a28125580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
+> dashboard link: https://syzkaller.appspot.com/bug?extid=832ce9fa3face1b7d44d
+> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1735af79580000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=135b7f79580000
+> 
+> Downloadable assets:
+> disk image: https://storage.googleapis.com/syzbot-assets/c3e528ebf709/disk-786262be.raw.xz
+> vmlinux: https://storage.googleapis.com/syzbot-assets/46f3418d2828/vmlinux-786262be.xz
+> kernel image: https://storage.googleapis.com/syzbot-assets/60ab8a27c4f7/bzImage-786262be.xz
+> 
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+832ce9fa3face1b7d44d@syzkaller.appspotmail.com
+> 
+> usb 1-1: received EP1 urb->status = -2
+> ==================================================================
+> BUG: KASAN: slab-use-after-free in instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
+> BUG: KASAN: slab-use-after-free in atomic_fetch_sub_release include/linux/atomic/atomic-instrumented.h:400 [inline]
+> BUG: KASAN: slab-use-after-free in __refcount_sub_and_test include/linux/refcount.h:389 [inline]
+> BUG: KASAN: slab-use-after-free in __refcount_dec_and_test include/linux/refcount.h:432 [inline]
+> BUG: KASAN: slab-use-after-free in refcount_dec_and_test include/linux/refcount.h:450 [inline]
+> BUG: KASAN: slab-use-after-free in kref_put include/linux/kref.h:64 [inline]
+> BUG: KASAN: slab-use-after-free in usb_free_urb+0x24/0x120 drivers/usb/core/urb.c:96
+> Write of size 4 at addr ffff88803cee1050 by task ktimers/1/29
+> 
+> CPU: 1 UID: 0 PID: 29 Comm: ktimers/1 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+> Call Trace:
+>  <TASK>
+>  dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+>  print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+>  print_report+0x58/0x70 mm/kasan/report.c:482
+>  kasan_report+0x117/0x150 mm/kasan/report.c:595
+>  check_region_inline mm/kasan/generic.c:-1 [inline]
+>  kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
+>  instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
+>  atomic_fetch_sub_release include/linux/atomic/atomic-instrumented.h:400 [inline]
+>  __refcount_sub_and_test include/linux/refcount.h:389 [inline]
+>  __refcount_dec_and_test include/linux/refcount.h:432 [inline]
+>  refcount_dec_and_test include/linux/refcount.h:450 [inline]
+>  kref_put include/linux/kref.h:64 [inline]
+>  usb_free_urb+0x24/0x120 drivers/usb/core/urb.c:96
+>  dummy_timer+0xaac/0x4d50 drivers/usb/gadget/udc/dummy_hcd.c:2019
+>  __run_hrtimer kernel/time/hrtimer.c:2067 [inline]
+>  __hrtimer_run_queues+0x3eb/0xaf0 kernel/time/hrtimer.c:2124
+>  hrtimer_run_softirq+0x1e1/0x2e0 kernel/time/hrtimer.c:2141
+>  handle_softirqs+0x1da/0x6d0 kernel/softirq.c:645
+>  __do_softirq kernel/softirq.c:679 [inline]
+>  run_ktimerd+0x6a/0x100 kernel/softirq.c:1183
+>  smpboot_thread_fn+0x565/0xa70 kernel/smpboot.c:160
+>  kthread+0x38b/0x470 kernel/kthread.c:436
+>  ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+>  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+>  </TASK>
+
+[Adding sound people]
+
+So what happens here is that USB core continues to use a URB after
+completion to implement things like usb_kill_urb(), so URBs are
+reference counted. Then core decrements the count - one more use.
+
+If a driver waits for completion or even usb_kill_urb() to return
+and then proceeds to free the URB's storage, this becomes a UAF.
+This driver embeds 2 URBs in its priv and does just that.
+
+A URB can only exist as an independent allocation, core will free
+it if upon finding zero reference count in such case.
+
+This is a mechanical conversion, untested. I don't have the HW.
+
+#syz test
+
+diff --git a/sound/usb/caiaq/device.c b/sound/usb/caiaq/device.c
+index a16e59248480..3587794207d4 100644
+--- a/sound/usb/caiaq/device.c
++++ b/sound/usb/caiaq/device.c
+@@ -192,8 +192,7 @@ static void usb_ep1_command_reply_dispatch (struct urb* urb)
+ 		break;
+ 	}
+ 
+-	cdev->ep1_in_urb.actual_length = 0;
+-	ret = usb_submit_urb(&cdev->ep1_in_urb, GFP_ATOMIC);
++	ret = usb_submit_urb(cdev->ep1_in_urb, GFP_ATOMIC);
+ 	if (ret < 0)
+ 		dev_err(dev, "unable to submit urb. OOM!?\n");
+ }
+@@ -403,6 +402,8 @@ static void card_free(struct snd_card *card)
+ {
+ 	struct snd_usb_caiaqdev *cdev = caiaqdev(card);
+ 
++	usb_free_urb(cdev->ep1_in_urb);
++	usb_free_urb(cdev->midi_out_urb);
+ #ifdef CONFIG_SND_USB_CAIAQ_INPUT
+ 	snd_usb_caiaq_input_free(cdev);
+ #endif
+@@ -457,22 +458,24 @@ static int init_card(struct snd_usb_caiaqdev *cdev)
+ 		return -EIO;
+ 	}
+ 
+-	usb_init_urb(&cdev->ep1_in_urb);
+-	usb_init_urb(&cdev->midi_out_urb);
++	cdev->ep1_in_urb = usb_alloc_urb(0, GFP_KERNEL);
++	cdev->midi_out_urb = usb_alloc_urb(0, GFP_KERNEL);
++	if (!cdev->ep1_in_urb || !cdev->midi_out_urb)
++		return -ENOMEM;
+ 
+-	usb_fill_bulk_urb(&cdev->ep1_in_urb, usb_dev,
++	usb_fill_bulk_urb(cdev->ep1_in_urb, usb_dev,
+ 			  usb_rcvbulkpipe(usb_dev, 0x1),
+ 			  cdev->ep1_in_buf, EP1_BUFSIZE,
+ 			  usb_ep1_command_reply_dispatch, cdev);
+ 
+-	usb_fill_bulk_urb(&cdev->midi_out_urb, usb_dev,
++	usb_fill_bulk_urb(cdev->midi_out_urb, usb_dev,
+ 			  usb_sndbulkpipe(usb_dev, 0x1),
+ 			  cdev->midi_out_buf, EP1_BUFSIZE,
+ 			  snd_usb_caiaq_midi_output_done, cdev);
+ 
+ 	/* sanity checks of EPs before actually submitting */
+-	if (usb_urb_ep_type_check(&cdev->ep1_in_urb) ||
+-	    usb_urb_ep_type_check(&cdev->midi_out_urb)) {
++	if (usb_urb_ep_type_check(cdev->ep1_in_urb) ||
++	    usb_urb_ep_type_check(cdev->midi_out_urb)) {
+ 		dev_err(dev, "invalid EPs\n");
+ 		return -EINVAL;
+ 	}
+@@ -480,7 +483,7 @@ static int init_card(struct snd_usb_caiaqdev *cdev)
+ 	init_waitqueue_head(&cdev->ep1_wait_queue);
+ 	init_waitqueue_head(&cdev->prepare_wait_queue);
+ 
+-	if (usb_submit_urb(&cdev->ep1_in_urb, GFP_KERNEL) != 0)
++	if (usb_submit_urb(cdev->ep1_in_urb, GFP_KERNEL) != 0)
+ 		return -EIO;
+ 
+ 	err = snd_usb_caiaq_send_command(cdev, EP1_CMD_GET_DEVICE_INFO, NULL, 0);
+@@ -530,7 +533,7 @@ static int init_card(struct snd_usb_caiaqdev *cdev)
+ 	return 0;
+ 
+  err_kill_urb:
+-	usb_kill_urb(&cdev->ep1_in_urb);
++	usb_kill_urb(cdev->ep1_in_urb);
+ 	return err;
+ }
+ 
+@@ -576,8 +579,8 @@ static void snd_disconnect(struct usb_interface *intf)
+ #endif
+ 	snd_usb_caiaq_audio_disconnect(cdev);
+ 
+-	usb_kill_urb(&cdev->ep1_in_urb);
+-	usb_kill_urb(&cdev->midi_out_urb);
++	usb_kill_urb(cdev->ep1_in_urb);
++	usb_kill_urb(cdev->midi_out_urb);
+ 
+ 	snd_card_free_when_closed(card);
+ }
+diff --git a/sound/usb/caiaq/device.h b/sound/usb/caiaq/device.h
+index 743eb0387b5f..1c6f34693fa8 100644
+--- a/sound/usb/caiaq/device.h
++++ b/sound/usb/caiaq/device.h
+@@ -60,8 +60,8 @@ struct snd_usb_caiaq_cb_info;
+ struct snd_usb_caiaqdev {
+ 	struct snd_usb_audio chip;
+ 
+-	struct urb ep1_in_urb;
+-	struct urb midi_out_urb;
++	struct urb *ep1_in_urb;
++	struct urb *midi_out_urb;
+ 	struct urb **data_urbs_in;
+ 	struct urb **data_urbs_out;
+ 	struct snd_usb_caiaq_cb_info *data_cb_info;
+diff --git a/sound/usb/caiaq/midi.c b/sound/usb/caiaq/midi.c
+index c656d0162432..18529484c8dc 100644
+--- a/sound/usb/caiaq/midi.c
++++ b/sound/usb/caiaq/midi.c
+@@ -43,7 +43,7 @@ static int snd_usb_caiaq_midi_output_close(struct snd_rawmidi_substream *substre
+ {
+ 	struct snd_usb_caiaqdev *cdev = substream->rmidi->private_data;
+ 	if (cdev->midi_out_active) {
+-		usb_kill_urb(&cdev->midi_out_urb);
++		usb_kill_urb(cdev->midi_out_urb);
+ 		cdev->midi_out_active = 0;
+ 	}
+ 	return 0;
+@@ -64,9 +64,9 @@ static void snd_usb_caiaq_midi_send(struct snd_usb_caiaqdev *cdev,
+ 		return;
+ 
+ 	cdev->midi_out_buf[2] = len;
+-	cdev->midi_out_urb.transfer_buffer_length = len+3;
++	cdev->midi_out_urb->transfer_buffer_length = len+3;
+ 
+-	ret = usb_submit_urb(&cdev->midi_out_urb, GFP_ATOMIC);
++	ret = usb_submit_urb(cdev->midi_out_urb, GFP_ATOMIC);
+ 	if (ret < 0)
+ 		dev_err(dev,
+ 			"snd_usb_caiaq_midi_send(%p): usb_submit_urb() failed,"
