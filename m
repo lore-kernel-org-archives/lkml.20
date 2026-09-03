@@ -1,191 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB2037F739;
-	Thu,  3 Sep 2026 10:08:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE1347D464;
+	Thu,  3 Sep 2026 10:08:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788430133; cv=none; b=OJi1XxK/qRFZC+xrNKKwq9a4QDdWBLqHh3ZgkBIU5eg1rfGnBlQ5+pI0De3IDsegiuylDzfhKMrcq0ET05lJ/mJ0fcysAjpGWqKkqe3tg8ljrbH4Wj91H3Ugdv+0D+xry6hIx2sHuHmBjq2cEj853B4E9nlUGpkzZpO+gjMS++I=
+	t=1788430144; cv=none; b=M4E6YJtCsay99Cnz6IUfzEJ8XysW+V/XHohC94HzFJMHrbHuCmnAzE3BlgmHV9GkW5f7SJairp+778rP7XRqGz1sMPKma2LZEfGvfP8riItL9stBg1X9lOwXOnGWAVczcCgO6zl1xQYNMr6jclVLGUBZ2uqxYhQ1Tt1FH1gHDg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788430133; c=relaxed/simple;
-	bh=RrPukmqqWKZqZW3YdUJoOHS/lLlJKqX4D91o/6td3os=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Y4MEIxw32YpX/fngnon+1azv2p+JjcyqdU0nQj0g9KtDl3O8OG8fM04n+gjL21qic1HNthkSw1rgKDJMW8s7pqa+ibBKI5SZHPWTsxU+hhUNp182o54b4qkes8yDjMRDkyNgiuGjiWdBXe/mjpuHRpxuv+BSHAJyxHwbrtTSuGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UD3ZPLmN; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788430144; c=relaxed/simple;
+	bh=eLiA+dfqzAKYKV8yKHzqWUpb8kkjZfPVAUu41IzUDBs=;
+	h=MIME-Version:Date:From:To:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=rVmko3FTwbpbj4Fsx2o28GIUCJJuxOOiZo3zMb0zI763pncEiGbKHVIfv4h3Bsp09+9yLH71ehKGUtDu6teDJCLqTio86Ma++xeXJuxny4wccQPKk7rmyyf6I6xLnm+An90FxkzvTL6vy9/s9cLsz0hiru6soSCTK61obdRMgaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FZycu/qB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UD3ZPLmN"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 17415C2BCC7;
-	Thu,  3 Sep 2026 10:08:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788430132;
-	bh=RrPukmqqWKZqZW3YdUJoOHS/lLlJKqX4D91o/6td3os=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=UD3ZPLmNcnKyfNbb6n1z20DfBCdbz5jtxnTdq+YgjdJTD36LOQ3zJJc9xUGHx4AMS
-	 08PY+LotXPEcF0xJsgykbTTnQU4otAoBHKnq6q6ydsmVmQeUEcfWGrc3cy2xtP59tB
-	 M0c3a4Xr6KIJnFwAgsLcNqlA7rIBvMHD5gBr1h0YmBEQmXybYyCiYadm+Mj1hv0+lp
-	 dqsW/S5Q/TRrp/y1JhVsarj7XUkBqF2v16QPdHScWu8tA9onaMeE0tbQTpN96Nourv
-	 +vcSO8iWHEOyXcRLVbKwx8dA+KT+AFAOolvfaGY2UFuDE1kXcPuyjoO9xU4MHcqTUm
-	 nzqYTRISfN4rw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E5A3FC61DD3;
-	Thu,  3 Sep 2026 10:08:51 +0000 (UTC)
-From: Mark Amirkan via B4 Relay <devnull+markdamirkan.gmail.com@kernel.org>
-Date: Thu, 03 Sep 2026 03:08:19 -0700
-Subject: [PATCH] perf evsel: Validate branch stack before byte swapping
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FZycu/qB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E46E01F00A3A;
+	Thu,  3 Sep 2026 10:08:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788430135;
+	bh=7GZpEYA1fzOE0or0jFhZas3y3yHVIbVDr7LtGH35Nxo=;
+	h=Date:From:To:In-Reply-To:References:Subject;
+	b=FZycu/qB7z2MxAtm4snw84F5W7cREL2VRw3U0peDO4BNP3Hpmb1oKCTs4xo+yXwPt
+	 P5d1o9bsvrVMNTs19xs2CJOYHCqU0fVAdSQXsC/8YHVg08O8MLgL2CX963fWd78QRH
+	 op0W6xUfAxtsuQCNYUnIeDgzWrzY8TPhDEVY2RWpmRz56ErFtG91rbDio9l8K7yhNk
+	 dtD6xWzKFztzFVsFYx39OYLbbYvN2MljEHp4JvHZ4jsIxyCHZRNEqQujxTGKUc4G54
+	 SNrsQVqw5iOL+Of1sLqHKG9wY14fKZ7TlbWaNNs4NiyYLah9cVxkT9tNWPoU5XxZkm
+	 WPgIhQuHbkfsw==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 876D11980060;
+	Thu,  3 Sep 2026 06:08:53 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Thu, 03 Sep 2026 06:08:53 -0400
+X-ME-Sender: <xms:NEeZak27UzLJVXp3U5JDe5Nv8Mg66icJmb-609lrL-ubmPm2CYjX3Q>
+    <xme:NEeZap7BePTLcXkzf_Jor39qcOJBT7mukIh7KEpi7veL0pkCR9c60G7pith1PFGXP
+    yb2P8nfUuaJQk7NjLPMfYkvasbdj_ZK_QjQ-xtpeGwrYGTjEBAO5RA6>
+X-ME-Proxy-Cause: dmFkZTFP4LVkGs/6Eiz4ZWjuAu6PeA18gXzhVOzmUmVLlvNYCU1KYv8NnXrdaXPnwk7D3P
+    wcArjmGwpfnDSsgJvtf71KxLi5eZjOeEo+9h4W7BvSji9MAVn31b0XsH3V0F/cKN1KeXx6
+    gVO83HMADDlyKCKGg9gCprVStjAM2oKXdYoYUU8DWf6iQu3V9JhtU1S8p03cF4mfK+3OYT
+    7rYmz4W22pkuuMhzG6ZouE2Nk+YBWREpgUJjPgNTgbngqkql6/8+48qH3+ZGQ2XXzvPhbL
+    yEcGGJI3lrKKpFGBHcyLeTaiNzXk7subvLXvBZep4PMceh+ow1cIGetPr5Ave5HYRQJrks
+    Mv/zwATDdfIJYBB8iKiA7wgBpciwx097Eb6iZfM30UA5Ovgt0oM0p4fNluTYjLp3ovhQ3r
+    +ktVijxXZ6yLwG3vUwMm7b6Ges9BM331hu3XrQ6GOod45cAqnrV1AVtqddMFca7HOwUZSO
+    rw1posppYWuSy0fzVxscZARry4QTCfbVTF0bzoV6l+wsWKPBYNBMJOV5157O/HjL+pCEst
+    lKfx1VJslf2OhHGHwLz2dPZAb3MPOg8iLJwi3XdyLjAfuhK5C5yW/uPjqtNKQI/TV5o3kx
+    WD+d6/t1kjZYW2kfnoa4RkC9H2SrfIo2tsZMJxALOln56oeSXVj5CmS8fDjg
+X-ME-Proxy: <xmx:NUeZahA3Xou0EyZ_aibInu-K2q6U7eLJ-g36794umVlnfMXXe_8o6Q>
+    <xmx:NUeZaocrUqP4yDXyaj1JkBBchQ2uJE2zcVqGghUhAAtLfkDb6XgsJA>
+    <xmx:NUeZaoIaxeVxb3Icdx0iYBJ5Ztl3AGh9ol3kqz7GB7vqNdEBzIRyVw>
+    <xmx:NUeZar1WBg5xRtVyrlnj_Ti4PbGxx1NLVAspPhgvQimIbg4cLpdH_w>
+    <xmx:NUeZaigXoM8udZhW_1NTPPW_AAnr4EGulAgdAiPkDIQPzjV3eAs0gg1a>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 4131DF8007A; Thu,  3 Sep 2026 06:08:52 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Date: Thu, 03 Sep 2026 12:08:31 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Junxiao Chang" <junxiao.chang@intel.com>,
+ "Ilias Apalodimas" <ilias.apalodimas@linaro.org>, linux-efi@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ "Sebastian Andrzej Siewior" <bigeasy@linutronix.de>
+Message-Id: <be731d49-398b-4b5b-9de5-b94d53177f94@app.fastmail.com>
+In-Reply-To: <20260815095057.2461943-1-junxiao.chang@intel.com>
+References: <20260704003341.3923900-1-junxiao.chang@intel.com>
+ <20260815095057.2461943-1-junxiao.chang@intel.com>
+Subject: Re: [PATCH] efi: add dynamic control interface for EFI runtime services
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-sympwn-linux-002-final-v2-v1-1-7c6e4166b814@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCQAxA0auUrA1kUhD1KuJinGY0UmOZ2Fopv
- bujLt/i/wVciorDoVmgyKSuD6sImwbSNdpFULtqYOIt7alFf9+Hl2GvNs5IxJjVYo8To7QUd13
- mQClA7YciWeff+3j628fzTdLzO4R1/QCPldH3fQAAAA==
-X-Change-ID: 20260903-sympwn-linux-002-final-v2-e30a8df210c1
-To: namhyung@kernel.org, acme@kernel.org
-Cc: jolsa@kernel.org, peterz@infradead.org, 
- alexander.shishkin@linux.intel.com, adrian.hunter@intel.com, 
- linux-kernel@vger.kernel.org, mark.rutland@arm.com, james.clark@linaro.org, 
- mingo@redhat.com, linux-perf-users@vger.kernel.org, irogers@google.com
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788430131; l=3854;
- i=markdamirkan@gmail.com; s=pscsi-20260818; h=from:subject:message-id;
- bh=1QaosPwDGDLYOEtRj7PUXBnmCUkFKdpxpXkSjRMNBI4=;
- b=yx86HJ7Wmyz1M6NZHzsIok9mDkvy04ZT1MoIBHP15SF+miQwCAlyZrfHhILE1DPbmIL1eiJsU
- 418RUu9pdcTCOfCYJI7N/6RKv7pMhkOT15NjQPYYRYkaLo2d2vC+Nsg
-X-Developer-Key: i=markdamirkan@gmail.com; a=ed25519;
- pk=/wb49ibt4gZFDncmhFQBYtjPvzT1tfJtvK4Mqt1P2Wc=
-X-Endpoint-Received: by B4 Relay for markdamirkan@gmail.com/pscsi-20260818
- with auth_id=961
-X-Original-From: Mark Amirkan <markdamirkan@gmail.com>
-Reply-To: markdamirkan@gmail.com
-
-From: Mark Amirkan <markdamirkan@gmail.com>
-
-When perf reads an opposite-endian branch stack, __evsel__parse_sample()
-swaps each entry before checking whether all entries fit in the event. A
-truncated sample can therefore make the swap loop read and write past the
-event boundary.
-
-A truncated perf.data file makes perf report crash with SIGSEGV. ASan
-reports an out-of-bounds read. A regression test puts an entry just past
-the declared end and shows that its flags are changed before the parser
-returns -EFAULT.
-
-Move the bounds check before the byte-swap loop. Valid samples are handled
-as before.
-
-Fixes: 63c12ae2f246 ("perf evsel: Add bitfield_swap() to handle branch_stack endian issue")
-Cc: stable@vger.kernel.org
-Assisted-by: Symbolic
-Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
----
- tools/perf/tests/sample-parsing.c | 48 +++++++++++++++++++++++++++++++++++++++
- tools/perf/util/evsel.c           |  3 ++-
- 2 files changed, 50 insertions(+), 1 deletion(-)
-
-diff --git a/tools/perf/tests/sample-parsing.c b/tools/perf/tests/sample-parsing.c
-index 32dbc484487a..583951534937 100644
---- a/tools/perf/tests/sample-parsing.c
-+++ b/tools/perf/tests/sample-parsing.c
-@@ -1,5 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- #include <stdbool.h>
-+#include <errno.h>
- #include <inttypes.h>
- #include <stdlib.h>
- #include <string.h>
-@@ -417,6 +418,49 @@ static int do_test(u64 sample_type, u64 sample_regs, u64 read_format)
- 	return ret;
- }
- 
-+static int test_truncated_branch_stack(void)
-+{
-+	struct perf_event_attr attr = {
-+		.sample_type = PERF_SAMPLE_BRANCH_STACK,
-+	};
-+	struct {
-+		struct perf_event_header header;
-+		u64 nr;
-+		struct branch_entry entry;
-+	} input = {
-+		.header = {
-+			.type = PERF_RECORD_SAMPLE,
-+			.size = sizeof(input.header) + sizeof(input.nr),
-+		},
-+		.nr = 1,
-+	};
-+	struct perf_sample sample;
-+	struct evsel *evsel;
-+	u64 flags = 1;
-+	int err;
-+
-+	input.entry.flags.value = flags;
-+	evsel = evsel__new(&attr);
-+	if (!evsel)
-+		return -1;
-+
-+	evsel->sample_size = __evsel__sample_size(attr.sample_type);
-+	err = __evsel__parse_sample(evsel, (union perf_event *)&input,
-+				    &sample, /*needs_swap=*/true);
-+	perf_sample__exit(&sample);
-+	evsel__put(evsel);
-+
-+	if (err != -EFAULT) {
-+		pr_debug("truncated branch stack returned %d, expected -EFAULT\n", err);
-+		return -1;
-+	}
-+	if (input.entry.flags.value != flags) {
-+		pr_debug("truncated branch stack modified data past the event\n");
-+		return -1;
-+	}
-+	return 0;
-+}
-+
- /**
-  * test__sample_parsing - test sample parsing.
-  *
-@@ -433,6 +477,10 @@ static int test__sample_parsing(struct test_suite *test __maybe_unused, int subt
- 	size_t i;
- 	int err;
- 
-+	err = test_truncated_branch_stack();
-+	if (err)
-+		return err;
-+
- 	/*
- 	 * Fail the test if it has not been updated when new sample format bits
- 	 * were added.  Please actually update the test rather than just change
-diff --git a/tools/perf/util/evsel.c b/tools/perf/util/evsel.c
-index d4cb455f4a7d..cc0bc0857754 100644
---- a/tools/perf/util/evsel.c
-+++ b/tools/perf/util/evsel.c
-@@ -3639,6 +3639,8 @@ int __evsel__parse_sample(struct evsel *evsel, union perf_event *event,
- 			e = (struct branch_entry *)&data->branch_stack->hw_idx;
- 		}
- 
-+		OVERFLOW_CHECK(array, sz, max_size);
-+
- 		if (swapped) {
- 			/*
- 			 * struct branch_flag does not have endian
-@@ -3654,7 +3656,6 @@ int __evsel__parse_sample(struct evsel *evsel, union perf_event *event,
- 				e->flags.value = evsel__bitfield_swap_branch_flags(e->flags.value);
- 		}
- 
--		OVERFLOW_CHECK(array, sz, max_size);
- 		array = (void *)array + sz;
- 
- 		if (evsel__has_branch_counters(evsel)) {
-
----
-base-commit: aadea57f532882d8bab444646863c7ef8a778ff1
-change-id: 20260903-sympwn-linux-002-final-v2-e30a8df210c1
-
-Best regards,
---  
-Mark Amirkan <markdamirkan@gmail.com>
 
 
+On Sat, 15 Aug 2026, at 11:50, Junxiao Chang wrote:
+> Add an interface for PREEMPT_RT kernels to dynamically enable or
+> disable EFI runtime services.
+>
+> EFI runtime services are typically disabled on RT systems using
+> kernel parameters such as "noefi" or "efi=disable" to avoid
+> long latency caused by firmware calls. However, this permanently
+> disables EFI runtime services, preventing operations such as UEFI
+> firmware updates.
+>
+> With this change, EFI runtime services can be disabled while
+> real-time workloads are running and re-enabled afterwards,
+> providing low-latency operation without permanently sacrificing
+> firmware functionality.
+>
+> Signed-off-by: Junxiao Chang <junxiao.chang@intel.com>
+> ---
+>  drivers/firmware/efi/efi.c              | 31 +++++++++++++++++++++++++
+>  drivers/firmware/efi/runtime-wrappers.c | 28 ++++++++++++++++++++++
+>  include/linux/efi.h                     |  1 +
+>  3 files changed, 60 insertions(+)
+>
+
+I've queued this up now - thanks.
