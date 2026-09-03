@@ -1,221 +1,201 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8021F54763
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:07:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE6E3C1D5F;
+	Thu,  3 Sep 2026 06:07:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.96.220.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788415641; cv=none; b=EFL0979O1EHaboyml0unoDSjUGhRlJYmM2qwCWdhI6oOoXZXo57bCvhWt3mSvmMz9oSmO0YRKHDYc/RjCB71KgBAeXiuQDtdzhaTkzO19aezBqaVXuGCUwxN+a4KwZqpBnyYlGKZqUN9UXtNGagMR7bEWFJE83RT5LrSXRtdBGM=
+	t=1788415651; cv=none; b=G/ra705eZySDJfd738tQCBQKCvVOSMPebz1XHR3/EiA0EuGS2m+Ru8VF2hPuO+ollPMzIMPn+zFIHIwIJMCX/u10ErUCfqULwEf4/sc1d2w728bCqaiwkuitKRB+ZOSust3p2SzvfkEBXlHM74skZBdO5Y7vuEAey3rM8C2eQy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788415641; c=relaxed/simple;
-	bh=RRCvk8AHwrIHgucZgMeo3d4bx61Rqtuocq+rKtw+8mg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HnIHCFFzlTyHF572LygzilNQQu+uDhf5XDLhgKxwXrjbGVqKunpw1MdV2+W0V4w8R4fY7h8Av/ktcrmFncq2gZuZLlgeG0oPQTCePn6+uGCHf1wPkH0J5CB48oLRgfMBcemidFXQO002urEvLDU70dYbyR949HUzA9LByJu+vds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=POYwD2pH; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788415651; c=relaxed/simple;
+	bh=Dw4T8oyIJ9dUjmMyM0CRlAcvu18ZuSgPODD/vESvRg8=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:CC:Content-Type; b=AlPiBUjK66+8fkJdrumusvN0URYPTEitCAKiN5OyYidOVUSI7AGxM4q9HoMT4hRSu6AXTUkqwp5Lx7/g+48PgZIRAWkCMCpY66lBRx+Ozf/jzeLscrj/1ajbMOSA+a/vzfC+OUIYkZv+JoeysmLzVcvrsPFNl4QS2kRg9iLqEPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com; spf=pass smtp.mailfrom=secunet.com; dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b=pgreyXly; arc=none smtp.client-ip=62.96.220.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="POYwD2pH"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0A4761596;
-	Wed,  2 Sep 2026 23:07:13 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1104C3F673;
-	Wed,  2 Sep 2026 23:07:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788415636; bh=RRCvk8AHwrIHgucZgMeo3d4bx61Rqtuocq+rKtw+8mg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=POYwD2pHXvaRovzg3w2novbaLV6mxbra4fzmXVQndnqcPZhve86LX/IlapM6s5yH8
-	 EUcecmvxZqpITQkrexEGxv8S6W5XVZ6/y/5y+qnbwg1Cd3xmEx9G8WtOJqiQSZpU/X
-	 6a/ICrlsqCvE41Mxqx5Ee06q6dG2rcaveCQaMW/o=
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Linu Cherian <linu.cherian@arm.com>,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	kasan-dev@googlegroups.com
-Subject: [PATCH 4/4] arm64/mm: Convert READ_ONCE() as pgdp_get() while accessing PGD
-Date: Thu,  3 Sep 2026 11:36:57 +0530
-Message-ID: <20260903060657.2717457-5-anshuman.khandual@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260903060657.2717457-1-anshuman.khandual@arm.com>
-References: <20260903060657.2717457-1-anshuman.khandual@arm.com>
+	dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b="pgreyXly"
+Received: from localhost (localhost [127.0.0.1])
+	by mx1.secunet.com (Postfix) with ESMTP id 545BB207A4;
+	Thu,  3 Sep 2026 08:07:18 +0200 (CEST)
+X-Virus-Scanned: by secunet
+Received: from mx1.secunet.com ([127.0.0.1])
+ by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id DW6ZSawYHaoL; Thu,  3 Sep 2026 08:07:17 +0200 (CEST)
+Received: from EXCH-04.secunet.de (r14.secunet.de [10.32.0.244])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.secunet.com (Postfix) with ESMTPS id 7739820799;
+	Thu,  3 Sep 2026 08:07:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com 7739820799
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
+	s=202301; t=1788415637;
+	bh=f4hMe1q30p2gbP3auk02fRJ3H/NM80t/K1KCIZ6MrbY=;
+	h=Date:From:Subject:To:CC:From;
+	b=pgreyXly0m3ChxpI3DQz7ur0AXplUjQKUE+tzdCIU1NMVoJFYd5JOEIJGfLTa5nJK
+	 V41YytZIjt2+WmHNYugdqM4YyVYGPfRMJ2GK5pmDF6avKEyhxkXS8U+bX8dL3JpMhZ
+	 lnNbD9/Jn588x57aEsAOU8viw3JKbNdThGHJj7dsVhDvb+D44j+Nv/A4c0wyFsvleL
+	 clGx53LsS/WU+pz20fIfrG+/lKtK7c9BPp/XsJqDeghbXD6rkedej91H9A/Wu09X/V
+	 5hnN2ZywTQ8OxJS6wmpwhZStQnOqbk+a2DEFih7aZHjcf+gZ2MivalmsOuAGxgeZPM
+	 qgVds83X1jd/Q==
+Received: from [172.18.150.65] (172.18.150.65) by EXCH-04.secunet.de
+ (10.32.0.184) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 3 Sep
+ 2026 08:07:16 +0200
+Message-ID: <f2e43015-19ca-4e58-9b86-bdd855ff6496@secunet.com>
+Date: Thu, 3 Sep 2026 08:07:15 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Torsten Hilbrich <torsten.hilbrich@secunet.com>
+Content-Language: en-US, de-DE
+Subject: [PATCH] PCI: fix use-after-free in pci_pme_list_scan()
+To: Bjorn Helgaas <bhelgaas@google.com>
+CC: <linux-pci@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Autocrypt: addr=torsten.hilbrich@secunet.com; keydata=
+ xsBNBFs5uIIBCAD4qbEieyT7sBmcro1VrCE1sSnV29a9ub8c0Xj0yw0Cz2N7LalBn4a+YeJN
+ OMfL1MQvEiTxZNIzb1I0bRYcfhkhjN4+vAoPJ3q1OpSY+WUgphUbzseUk/Bq3gwvfa6/U+Hm
+ o2lvEfN2dewBGptQ+DrWz+SPM1TQiwShKjowY/avaVgrABBGen3LgB0XZXEH8Q720kjP7htK
+ tCGRt1T+qNIj3tZDZfPkqEVb8lTRcyn1hI3/FbDTysletRrCmkHSVbnxNzO6lw2G1H61wQhw
+ YVbIVNohY61ieSJFhNLL6/UTGHtUE2IAicnsUAUKR8GiI1+3cTf233O5HaWYeOjBmTCLABEB
+ AAHNL1RvcnN0ZW4gSGlsYnJpY2ggPHRvcnN0ZW4uaGlsYnJpY2hAc2VjdW5ldC5jb20+wsB3
+ BBMBCAAhBQJbObiCAhsDBQsJCAcCBhUICQoLAgQWAgMBAh4BAheAAAoJEJ7rXZh78/h8+tIH
+ +QFYRQH4qh3WagcmjbG/zCe2RmZZePO8bmut2fAxY04aqJZGYUBxb5lfaWaHkstqM5sFD8Jo
+ k1j5E7f1cnfwB21azdUO8fzYL889kdVOzatdT/uTjR7OjR59gpJMd4lx7fwFuZUg8z6rfWJ3
+ ImjxxBgaJRL6pqaZ9lOst82O0qJKEFBR+HDUVvgh4n8TTOfKNv/dGPQhaed+2or98asdYRWo
+ S/zc4ltTh4SxZjLd98pDxjlUyOJoMJeWdlMmLgWV3h1qjy4DxgQzvgATEaKjOuwtkCOcwHn7
+ Unf0F2V9p4O7NFOuoVyqTBRX+5xKgzSM7VP1RlTT4FA9/7wkhhG+FELOwE0EWzm4ggEIAL9F
+ IIPQYMx5x+zMjm8lDsmh12zoqCtMfn9QWrERd2gDS3GsORbe/i6DhYvzsulH8vsviPle4ocU
+ +PaTwadfnEqm0FS7xCONYookDGfAiPS4cHWX7WrTNBP7mK3Gl1KaAOJJsMbCVAA9q4d8WL+A
+ e+XrfOAetZq5gxLxDMYySNI1pIMJVrGECiboLa/LPPh2yw4jieAedW96CPuZs7rUY/5uIVt0
+ Dn4/aSzV+Ixr52Z2McvNmH/VxDt59Z6jBztZIJBXpX3BC/UyH7rJOJTaqEF+EVWEpOmSoZ6u
+ i1DWyqOBKnQrbUa0fpNd3aaOl2KnlgTH9upm70XZGpeJik/pQGcAEQEAAcLAXwQYAQgACQUC
+ Wzm4ggIbDAAKCRCe612Ye/P4fEzqB/9gcM/bODO8o9YR86BLp0S8bF73lwIJyDHg5brjqAnz
+ CtCdb4I+evI4iyU9zuN1x4V+Te5ej+mUu5CbIte8gQbo4cc9sbe/AEDoOh0lGoXKZiwtHqoh
+ RZ4jOFrZJsEjOSUCLE8E8VR1afPf0SkFXLXWZfZDU28K80JWeV1BCtxutZ39bz6ybMbcCvMS
+ UfwCTY0IJOiDga1K4H2HzHAqlvfzCurqe616S4S1ax+erg3KTEXylxmzcFjJU8AUZURy/lQt
+ VElzs4Km1p3v6GUciCAb+Uhd12sQG2mL05jmEems9uRe3Wfke/RKp8A+Yq+p6E0A0ZOP+Okm
+ LXB2q+ckPvZG
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: EXCH-02.secunet.de (10.32.0.172) To EXCH-04.secunet.de
+ (10.32.0.184)
 
-Convert all READ_ONCE() based PGD accesses as pgdp_get() instead which will
-support both D64 and D128 translation regime going forward. That is because
-READ_ONCE() would need 128 bit single copy atomic guarantees, while reading
-128 bit page table entries which is currently not supported on arm64. Build
-fails for READ_ONCE() while accessing beyond 64 bits.
+struct pci_pme_device holds a raw, non-refcounted pointer to the
+pci_dev it tracks. A device is added to pci_pme_list by pci_pme_active()
+only while its pme_poll flag is set, but that flag can be cleared by the
+various PME wakeup paths (pci_acpi_wake_dev(), pcie_pme_handle_request(),
+pcie_pme_walk_bus(), pci_pme_wakeup()) without removing the entry from the
+list.
 
-Load Pair/Store Pair (ldp/stp) are only single copy atomic if FEAT_LSE128
-is supported (which is required when FEAT_D128 is supported). Currently 128
-bit pgtables is a compile time decision - so we could have chosen to extend
-READ_ONCE()/WRITE_ONCE() to allow 128 bit for this configuration. But then
-it's a general purpose API and we were concerned that other users might
-eventually creep in that expect 128 and then fail to compile in the other
-configs.
+On device teardown, pci_stop_dev() -> pci_pme_active(dev, false) skips
+the list removal whenever pme_poll has already been cleared, so the entry
+is left behind. pci_destroy_dev() then frees the pci_dev while its entry
+is still on the list, and the periodic pci_pme_list_scan() work
+dereferences the freed structure, causing a use-after-free (observed as a
+general protection fault on a PaX 0xfe-poisoned pointer).
 
-But worse, we are considering eventually making D128 a boot time option, at
-which point we'd have to make READ_ONCE() always allow 128 bit at compile
-time but then it might silently tear at runtime.
+Take a reference to the pci_dev for each list entry (pci_dev_get() when
+adding) and drop it when the entry is removed, both in pci_pme_list_scan()
+and in pci_pme_active(). This keeps the device alive as long as its entry
+is on the list, regardless of the pme_poll state or teardown ordering.
 
-So our preference is to standardize on these existing helpers, which we can
-override in arm64 to give the 128 bit single copy guarantee when required.
+Patch is based on v7.3-rc1.
 
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Mark Rutland <mark.rutland@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: kasan-dev@googlegroups.com
-Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
+The problem was found when using PaX memory free poisoning (0xfe). Here
+is the panic from a v6.18.45 test run. It happened after disconnecting
+a TB4 dock with 2 displays connected.
+
+<6>[66245.416348] usb 5-1.4.4.4: USB disconnect, device number 19
+<6>[66245.448107] [drm] drm_dp_dpcd_access card0-DP-4 via AMDGPU DM aux hw bus 5: Too many retries, giving up. First error: -5, First reply: 0x0, Last reply: 0x0, Request: 0x9, Address: 0x111, Size: 0x1
+<6>[66245.485882] [drm] drm_dp_dpcd_access card0-DP-4 via AMDGPU DM aux hw bus 5: Too many retries, giving up. First error: -5, First reply: 0x0, Last reply: 0x0, Request: 0x8, Address: 0x111, Size: 0x1
+<4>[66245.930686] Oops: general protection fault, probably for non-canonical address 0xfefefefefefeff36: 0000 [#1] SMP NOPTI
+<4>[66245.931209] CPU: 0 UID: 0 PID: 21940 Comm: kworker/0:4 Tainted: P           O        6.18.45-grsec+ #1 PREEMPT(voluntary) 
+<4>[66245.931623] Tainted: [P]=PROPRIETARY_MODULE, [O]=OOT_MODULE
+<4>[66245.931890] Hardware name: LENOVO 21QKS01V00/21QKS01V00, BIOS R2XET42T (1.21 ) 08/20/2026
+<4>[66245.932213] Workqueue: events_freezable pci_pme_list_scan
+<4>[66245.932475] RIP: 0010:[<ffffffff818f09ec>] pci_pme_list_scan+0x4c/0x1f0
+<4>[66245.932761] Code: 1f 03 4c 8b 23 48 89 df 48 81 fb c0 64 ae 84 0f 84 36 01 00 00 48 8b 6b 10 f6 85 9d 00 00 00 20 0f 84 88 00 00 00 48 8b 45 10 <48> 8b 58 38 48 85 db 0f 84 b2 00 00 00 49 89 de 49 81 c6 c0 00 00
+<4>[66245.933346] RSP: 0018:ffffc9002109bee8 EFLAGS: 00010202
+<4>[66245.933607] RAX: fefefefefefefefe RBX: ffff8901040c10e0 RCX: ffff8907dca25828
+<4>[66245.933916] RDX: ffff890181762940 RSI: 0000000000000000 RDI: ffff8901040c10e0
+<4>[66245.934227] RBP: ffff8905fe998000 R08: ffffffffffffffff R09: ffff89010000d4c0
+<4>[66245.934538] R10: ffff89046b63ff40 R11: fefefefefefefeff R12: ffff8901040c1a60
+<4>[66245.934848] R13: ffff8907dca25800 R14: ffff8901000a3205 R15: 0000000000000000
+<4>[66245.935172] RBX: kmalloc-32+0x0/0x20 [slab object]
+<4>[66245.935433] RCX: cpu_worker_pools+0x28/0x640 [percpu0 25828]
+<4>[66245.935718] RDX: task_struct[kworker/0:4+events_freezable 21940 21940]+0x0/0xdc0 [slab object]
+<4>[66245.936076] RDI: kmalloc-32+0x0/0x20 [slab object]
+<4>[66245.936339] RBP: kmalloc-4k+0x0/0x1000 [slab object]
+<4>[66245.936609] RSP: vm[ffffc90021098000 4002 kernel_clone+0xcc/0x450]+0x3ee8/0x4000 [vmalloc]
+<4>[66245.936958] R08: -EPERM
+<4>[66245.937166] R09: kmalloc-512+0xc0/0x200 [slab object]
+<4>[66245.937437] R10: kmalloc-192+0x80/0xc0 [slab object]
+<4>[66245.937706] R12: kmalloc-32+0x0/0x20 [slab object]
+<4>[66245.937972] R13: cpu_worker_pools+0x0/0x640 [percpu0 25800]
+<4>[66245.938261] R14: pool_workqueue+0x5/0x200 [slab object]
+<4>[66245.938542] FS:  0000000000000000(0000) GS:ffff890856bdd000(0000) knlGS:0000000000000000
+<4>[66245.938893] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+<4>[66245.939187] CR2: ffff9a8a2c97d000 CR3: 0000000182794000 CR4: 0000000000740ef0 shadow CR4: 0000000000740ef0
+<4>[66245.939581] PKRU: 55555554
+<4>[66245.939807] Stack:
+<4>[66245.940015]  ffff89046b63fec0 ffffffff84ae6440 ffff8901000a3200 ffff8907dca25800
+<4>[66245.940355]  ffff8901000a3205 ffffffff812f497a ffff8907dca25800 ffff89046b63ff00
+<4>[66245.940697]  ffff8907dca25828 ffff89046b63fec0 ffff8907dca25800 0000000000000000
+<4>[66245.941045] Call Trace:
+<4>[66245.941269]  <TASK>
+<4>[66245.941484]  [<ffffffff812f497a>] process_one_work+0x1ca/0x4b0 ffffc9002109bf10
+<4>[66245.941829]  [<ffffffff812f569c>] worker_thread+0x16c/0x2f0 ffffc9002109bf48
+<4>[66245.942165]  [<ffffffff812f5530>] ? __pfx_worker_thread+0x10/0x10 ffffc9002109bf68
+<4>[66245.942513]  [<ffffffff812fe89f>] kthread+0x12f/0x270 ffffc9002109bf80
+<4>[66245.942837]  [<ffffffff812fe770>] ? __pfx_kthread+0x10/0x10 ffffc9002109bf88
+<4>[66245.943174]  [<ffffffff812fe770>] ? __pfx_kthread+0x10/0x10 ffffc9002109bf98
+<4>[66245.943508]  [<ffffffff81265203>] ret_from_fork+0x173/0x190 ffffc9002109bfc8
+<4>[66245.943842]  [<ffffffff812fe770>] ? __pfx_kthread+0x10/0x10 ffffc9002109bfd0
+<4>[66245.944175]  [<ffffffff81221639>] ret_from_fork_asm+0x29/0x50 ffffc9002109bfe8
+<4>[66245.944512]  </TASK>
+<4>[66245.944727] Modules linked in: vtx(O) vboxdrv(O) pl2303 ftdi_sio usbserial modstop_test_unload(O) mcd_drv(O) wacom mac_passthrough(O) dm_crypt_sina(O) chiasmus(PO) cryptoapi_plugger(O) dm_mod
+<4>[66245.945340] ---[ end trace 0000000000000000 ]---
+
+Assisted-by: LLM opencode
+Signed-off-by: Torsten Hilbrich <torsten.hilbrich@secunet.com>
 ---
- arch/arm64/mm/fault.c       | 2 +-
- arch/arm64/mm/hugetlbpage.c | 2 +-
- arch/arm64/mm/kasan_init.c  | 6 +++---
- arch/arm64/mm/mmu.c         | 6 +++---
- arch/arm64/mm/pageattr.c    | 2 +-
- arch/arm64/mm/trans_pgd.c   | 4 ++--
- 6 files changed, 11 insertions(+), 11 deletions(-)
+ drivers/pci/pci.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
-index 95d044cf04d4..1de76ced0403 100644
---- a/arch/arm64/mm/fault.c
-+++ b/arch/arm64/mm/fault.c
-@@ -160,7 +160,7 @@ static void show_pte(unsigned long addr)
- 		 mm == &init_mm ? "swapper" : "user", PAGE_SIZE / SZ_1K,
- 		 vabits_actual, mm_to_pgd_phys(mm));
- 	pgdp = pgd_offset(mm, addr);
--	pgd = READ_ONCE(*pgdp);
-+	pgd = pgdp_get(pgdp);
- 	ptval_to_str(pgd_str, pgd_val(pgd));
- 	pr_alert("[%016lx] pgd=%s", addr, pgd_str);
- 
-diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
-index 5771bf49e1fe..e05e5b41ae50 100644
---- a/arch/arm64/mm/hugetlbpage.c
-+++ b/arch/arm64/mm/hugetlbpage.c
-@@ -284,7 +284,7 @@ pte_t *huge_pte_offset(struct mm_struct *mm,
- 	pmd_t *pmdp, pmd;
- 
- 	pgdp = pgd_offset(mm, addr);
--	if (!pgd_present(READ_ONCE(*pgdp)))
-+	if (!pgd_present(pgdp_get(pgdp)))
- 		return NULL;
- 
- 	p4dp = p4d_offset(pgdp, addr);
-diff --git a/arch/arm64/mm/kasan_init.c b/arch/arm64/mm/kasan_init.c
-index 4dd8c1186471..f61f5bc09467 100644
---- a/arch/arm64/mm/kasan_init.c
-+++ b/arch/arm64/mm/kasan_init.c
-@@ -102,7 +102,7 @@ static pud_t *__init kasan_pud_offset(p4d_t *p4dp, unsigned long addr, int node,
- static p4d_t *__init kasan_p4d_offset(pgd_t *pgdp, unsigned long addr, int node,
- 				      bool early)
- {
--	if (pgd_none(READ_ONCE(*pgdp))) {
-+	if (pgd_none(pgdp_get(pgdp))) {
- 		phys_addr_t p4d_phys = early ?
- 				__pa_symbol(kasan_early_shadow_p4d)
- 					: kasan_alloc_zeroed_page(node);
-@@ -256,7 +256,7 @@ static int __init root_level_idx(u64 addr)
- static void __init clone_next_level(u64 addr, pgd_t *tmp_pg_dir, pud_t *pud)
- {
- 	int idx = root_level_idx(addr);
--	pgd_t pgd = READ_ONCE(swapper_pg_dir[idx]);
-+	pgd_t pgd = pgdp_get(swapper_pg_dir + idx);
- 	pud_t *pudp = (pud_t *)__phys_to_kimg(__pgd_to_phys(pgd));
- 
- 	memcpy(pud, pudp, PAGE_SIZE);
-@@ -280,7 +280,7 @@ static int __init next_level_idx(u64 addr)
-  */
- static void __init clear_next_level(int pgd_idx, int start, int end)
- {
--	pgd_t pgd = READ_ONCE(swapper_pg_dir[pgd_idx]);
-+	pgd_t pgd = pgdp_get(swapper_pg_dir + pgd_idx);
- 	pud_t *pudp = (pud_t *)__phys_to_kimg(__pgd_to_phys(pgd));
- 
- 	memset(&pudp[start], 0, (end - start) * sizeof(pud_t));
-diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-index 6f38e3618d26..46ff9a92e73a 100644
---- a/arch/arm64/mm/mmu.c
-+++ b/arch/arm64/mm/mmu.c
-@@ -434,7 +434,7 @@ static int alloc_init_p4d(pgd_t *pgdp, unsigned long addr, unsigned long end,
- {
- 	int ret;
- 	unsigned long next;
--	pgd_t pgd = READ_ONCE(*pgdp);
-+	pgd_t pgd = pgdp_get(pgdp);
- 	p4d_t *p4dp;
- 
- 	if (pgd_none(pgd)) {
-@@ -1649,7 +1649,7 @@ static void unmap_hotplug_range(unsigned long addr, unsigned long end,
- 	do {
- 		next = pgd_addr_end(addr, end);
- 		pgdp = pgd_offset_k(addr);
--		pgd = READ_ONCE(*pgdp);
-+		pgd = pgdp_get(pgdp);
- 		if (pgd_none(pgd))
- 			continue;
- 
-@@ -1827,7 +1827,7 @@ static void free_empty_tables(unsigned long addr, unsigned long end,
- 	do {
- 		next = pgd_addr_end(addr, end);
- 		pgdp = pgd_offset_k(addr);
--		pgd = READ_ONCE(*pgdp);
-+		pgd = pgdp_get(pgdp);
- 		if (pgd_none(pgd))
- 			continue;
- 
-diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
-index 826856ef64a8..dfa1356daac2 100644
---- a/arch/arm64/mm/pageattr.c
-+++ b/arch/arm64/mm/pageattr.c
-@@ -399,7 +399,7 @@ bool kernel_page_present(struct page *page)
- 	unsigned long addr = (unsigned long)page_address(page);
- 
- 	pgdp = pgd_offset_k(addr);
--	if (pgd_none(READ_ONCE(*pgdp)))
-+	if (pgd_none(pgdp_get(pgdp)))
- 		return false;
- 
- 	p4dp = p4d_offset(pgdp, addr);
-diff --git a/arch/arm64/mm/trans_pgd.c b/arch/arm64/mm/trans_pgd.c
-index 7afe2beca4ba..06470d690f9f 100644
---- a/arch/arm64/mm/trans_pgd.c
-+++ b/arch/arm64/mm/trans_pgd.c
-@@ -134,7 +134,7 @@ static int copy_p4d(struct trans_pgd_info *info, pgd_t *dst_pgdp,
- 	unsigned long next;
- 	unsigned long addr = start;
- 
--	if (pgd_none(READ_ONCE(*dst_pgdp))) {
-+	if (pgd_none(pgdp_get(dst_pgdp))) {
- 		dst_p4dp = trans_alloc(info);
- 		if (!dst_p4dp)
- 			return -ENOMEM;
-@@ -164,7 +164,7 @@ static int copy_page_tables(struct trans_pgd_info *info, pgd_t *dst_pgdp,
- 	dst_pgdp = pgd_offset_pgd(dst_pgdp, start);
- 	do {
- 		next = pgd_addr_end(addr, end);
--		if (pgd_none(READ_ONCE(*src_pgdp)))
-+		if (pgd_none(pgdp_get(src_pgdp)))
- 			continue;
- 		if (copy_p4d(info, dst_pgdp, src_pgdp, addr, next))
- 			return -ENOMEM;
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index b2879a6be5f80..b3a4b710d7c8d 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -2410,6 +2410,7 @@ static void pci_pme_list_scan(struct work_struct *work)
+ 				pm_runtime_put(bdev);
+ 		} else {
+ 			list_del(&pme_dev->list);
++			pci_dev_put(pdev);
+ 			kfree(pme_dev);
+ 		}
+ 	}
+@@ -2497,7 +2498,7 @@ void pci_pme_active(struct pci_dev *dev, bool enable)
+ 				pci_warn(dev, "can't enable PME#\n");
+ 				return;
+ 			}
+-			pme_dev->dev = dev;
++			pme_dev->dev = pci_dev_get(dev);
+ 			mutex_lock(&pci_pme_list_mutex);
+ 			list_add(&pme_dev->list, &pci_pme_list);
+ 			if (list_is_singular(&pci_pme_list))
+@@ -2510,6 +2511,7 @@ void pci_pme_active(struct pci_dev *dev, bool enable)
+ 			list_for_each_entry(pme_dev, &pci_pme_list, list) {
+ 				if (pme_dev->dev == dev) {
+ 					list_del(&pme_dev->list);
++					pci_dev_put(pme_dev->dev);
+ 					kfree(pme_dev);
+ 					break;
+ 				}
 -- 
-2.43.0
+2.47.3
 
