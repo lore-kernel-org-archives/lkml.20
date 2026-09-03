@@ -1,288 +1,246 @@
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 790D84DF4D1
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:23:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E41D44E3779;
+	Thu,  3 Sep 2026 15:23:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448986; cv=none; b=QIimgEAokIbSEGdNRRBUIiqXPpPuObAxX66a2w5bjYucriOpNLG0+uAq1DgHLv/gOEkt5c69rARgJAX0xUfN96H6e6Hg6uAAlL/bs3x+vwDLTllMXGxjfhb1Yqtz3tDx7lMuRwtgImRfwVuUr6S2Kv4QsBglwJJ1SGEtCiLUJUg=
+	t=1788449001; cv=none; b=UP5nICITX1FGcEFPZgEEU+795G7FjYfiNQrcGbrl5GTFfs7JgxXWI2Hkyi8Ou2NSJ+NoZN+tDc5QT/7k1yGOBY3CjO1K3mBcRiweNZ8QYB/feZRA1lnFZn1W6nVUIWr2gMf6EANNSVnQpILXr1o3ASEo7ubY2uABmg/E9ijur2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448986; c=relaxed/simple;
-	bh=Dq92LeGuEvRxePiTJp8aN+dljPkwrZpGCE34Qr6Z8eE=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=NfPhOPrmGgb6F/v39PKKvpVPDfcbAeO0gaN6gPWa9MW5lX/DA3JjNuxLaxGsRmiPBfg2Qe/XAssi+tPhec1TNiK6X11c0E3FuOCsWlwG+OL9d3LxagpEKiR/Cbl9DsiTW/KM25u0yQiJ6cwmgRqqHCWCLmtUfESLwytENYANfn0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=SjGZM1W8; arc=none smtp.client-ip=209.85.218.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
+	s=arc-20240116; t=1788449001; c=relaxed/simple;
+	bh=o2+jE7zMGV521nI3uzRtLApGCI55D68YCg4DPbBy104=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jWF37EpX7oavJUFbJ+BiucE+0Tv56q2jOu6+r2hDeEZxfjE144Lrsr9tL2cccXF5sfZe7vh4qnsigehqgSPExuq8psaTGVDeTFvG8dUDa6yeeurd+0nrsaSXbJAogHhaXTAK5LLOkz647spCrvHguxC87hgSNbdOkYdMzRd9Qb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dj/wJPv8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="SjGZM1W8"
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c252686999cso213625766b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:23:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788448981; x=1789053781; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GmFek9macUO7lb98mH13+DwSxNV0cpAjOXbf35SyPVg=;
-        b=SjGZM1W8C82xFGwdpfbr53+Ce9c1lP0jqV0ZK6DwDH710f80NFhmMEratIEBSLCIvo
-         syg1ibK5XAoE/yFSuUdVsFGUq92CKg3GX0R1rGMsacxTuXbvFjW196MWEytTCBPi78u7
-         cN/uC9hDKCjiZeyP7BqAA9CHGnVoMUzBUb3NIy+FMGf2V21J+oU+da86uB5LNA4N0ebR
-         gles7dyfsp5Qtp+BVCIs7b7qanoD2MkZW8nKxnej/khtqH6/fmmTM5ULth8Uew3V8FHX
-         b/I8gjDivO+gcxfK/ph3tuBAyeW6cuA82QBqPju9aN0Y0VReYCar/eeIN0L/3v3Tv5up
-         MJbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788448981; x=1789053781;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GmFek9macUO7lb98mH13+DwSxNV0cpAjOXbf35SyPVg=;
-        b=dTU+K1tq6qUC8rG6/Z6EKd5YSvA61MPckxD5WbFtMmIj6WbCA6jwy2QNlHdiscdu17
-         ndqLhJW/Rf3vUmFmT1HDOFye/JLUd5LLFZ8xSMxseoTrDEJgh9TrpJpVIFDBdpxXIPEx
-         oIG6lKhCqsDnXCsft5aTmxVkQqIJHaY2OafRDukBGvCa0PfZqfdAr5T6SlIOatX2yhl0
-         TUYst1JPtgRvcOza0LCOqFJa70T8nIqUSWJVOOlVBhDiDSDmLHZ+BYRSaGxhXJw4BdrP
-         V70FS8dnhno4Y38XQs1n4TjI2bYG5hDYH7iIOiPrKQA21JK2AWQittpyP2Ubzm99KnyY
-         u6lw==
-X-Forwarded-Encrypted: i=1; AKwUvBygISyYDmOTl6JekqwQlv6Ih8DRGsSqxxEZP9eCYXxa8gc0d6FP+DwqW1cB6D+MksoSgOesUHoPCeVvfu8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lkrIK3P8GKOYZtkdy01A21EHL5HDRlpSR/SnYBSlwXGPqHJDMI
-	NRe0Z6z571ZMHQFX0SKpsdRotR4eeEJciX6cFcEkiB8tNF4meR5rDi7Rh5+OFkRxPsXRmT3kgCP
-	5X2No5zdqP0IFxF6PGg==
-X-Received: from ejctj4.prod.google.com ([2002:a17:907:c244:b0:c25:127e:8e75])
- (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:d508:b0:c16:13e7:fd63 with SMTP id a640c23a62f3a-c260436b4e0mr108793366b.0.1788448981126;
- Thu, 03 Sep 2026 08:23:01 -0700 (PDT)
-Date: Thu, 03 Sep 2026 15:23:00 +0000
-In-Reply-To: <aohwGv6TRqPg9Dwx@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dj/wJPv8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC9251F00A3E;
+	Thu,  3 Sep 2026 15:23:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788448998;
+	bh=XkCXKilCOc9Ih+HiuXfcOSyP8S6gCoctHhMqE3KtinY=;
+	h=From:To:Cc:Subject:Date;
+	b=Dj/wJPv8N4PcTP5EXHvhHOrZN+YatDBBir29FpcnTVGSNXzos7H5BozqwqSpPp4Be
+	 hISsQBdHlxiaRCDJ/am+kcC4hqnuNRx3uBwibdKg1YgvImdJT8fPipKyAGeMBTv9Qp
+	 T+4dahwF+Fo3ohhsMSmgyGr0U5GM97QGwGgh8iDeiVNKkEKnFx3irIn0lH8iurtTKF
+	 4FxhsFoBdNNsgdoJoHVyzGmAFimQbQhzUWGbRDc1BBUISRKGMHjfyNbhZeBnDn3aDd
+	 iyg8F6Dwdhu54zAAFw+DRbz7z9Et5/bZIfaKYJjr+GQlql9Cn5y9K9nJAxUB98vp3I
+	 c4ndTNmUazfqA==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Masami Hiramatsu <mhiramat@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>
+Cc: Breno Leitao <leitao@debian.org>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org
+Subject: [PATCH v3] bootconfig: Skip printing early params to cmdline from bootconfig
+Date: Fri,  4 Sep 2026 00:23:15 +0900
+Message-ID: <178844899530.263905.7707547252181797215.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+User-Agent: StGit/0.19
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <anphyjFv3FhF61iB@google.com> <2vxzpkzo51wg.fsf@kernel.org>
- <anssOQFNZ2LfihbU@google.com> <2vxzik5f311e.fsf@kernel.org>
- <anyObKiZIhfok5mk@google.com> <2vxzqzjz1x5f.fsf@kernel.org>
- <aoMcqp0gr06YXAPU@google.com> <2vxzy0e3zgqz.fsf@kernel.org>
- <aoSCCTTBn9D5hqzk@google.com> <2vxzy0dzy4gn.fsf@kernel.org> <aohwGv6TRqPg9Dwx@google.com>
-Message-ID: <9huzv78m2wbv.fsf@tarunix.c.googlers.com>
-Subject: Re: [PATCH v4 05/11] KVM: LUO: Support VM preservation across live updates
-From: tarunsahu@google.com
-To: Sean Christopherson <seanjc@google.com>, Pratyush Yadav <pratyush@kernel.org>
-Cc: ackerleytng@google.com, fuad.tabba@linux.dev, 
-	Andrew Morton <akpm@linux-foundation.org>, dmatlack@google.com, 
-	Shuah Khan <skhan@linuxfoundation.org>, Jonathan Corbet <corbet@lwn.net>, david@redhat.com, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, sagis@google.com, 
-	Paolo Bonzini <pbonzini@redhat.com>, Mike Rapoport <rppt@kernel.org>, Alexander Graf <graf@amazon.com>, 
-	linux-kselftest@vger.kernel.org, andre.przywara@arm.com, michael.roth@amd.com, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, will@kernel.org, 
-	vannapurve@google.com, maz@kernel.org, fvdl@google.com, kvm@vger.kernel.org, 
-	oliver.upton@linux.dev, kvmarm@lists.linux.dev, alexandru.elisei@arm.com, 
-	skhawaja@google.com, aneesh.kumar@kernel.org, linux-doc@vger.kernel.org, 
-	David Hildenbrand <david@kernel.org>, yan.y.zhao@intel.com, kexec@lists.infradead.org, 
-	suzuki.poulose@arm.com
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Sean Christopherson <seanjc@google.com> writes:
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-> On Fri, Aug 21, 2026, Pratyush Yadav wrote:
->> Hi Sean,
->> 
->> On Tue, Aug 18 2026, Sean Christopherson wrote:
->> >> Does this idea of "backwards compatibility" sound acceptable to you, at
->> >> least at a high level?
->> >
->> > No.
->> >
->> > It's probably fine for Google and other large companies that tightly control their
->> > kernels and use cases, and have the resources to juggle the resulting complexity,
->> > e.g. have kernel engineers on staff to track feature and dependencies, coordinate
->> > and plan kernel upgrades, etc.
->> >
->> > It's not acceptable for upstream, where downstream consumers often run a distro
->> > kernel, have much more varied use cases, and don't always have a horde of kernel
->> > engineers on staff to help them thread the needle you describe above.  And if
->> > supporting live update as a general feature for all users of the kernel isn't
->> > being factored into design considerations, then that needs to change, otherwise
->> > this is all dead in the water.
->> >
->> > I also don't see the point.  Maintaining a rigid save/restore ABI is annoying,
->> > but it's not _hard_ (or at least, not _that_ hard), especially if there's a set
->> > of well-documented best known practices that subsystems can follow, e.g. so that
->> > individual subsystems don't need to learn painful lessons first-hand.  I genuinely
->> > believe that maintaining the version hell you describe above would be more costly
->> > in the long run than simply committing to full backwards compatibility within a
->> > given subsystem.  I can imagine that enumerating what subsystems' information is
->> > in the payload will require a different scheme, but for a given subsystem, I don't
->> > see any reason to aim for anything less than full backwards compatibility.
->> 
->> Let's say for argument's sake that we commit for a fully stable
->> backwards compatible ABI. Even then, you have to deal with multiple ABI
->> versions.
->> 
->> Live update's ABI is more complex compared to KVM's save/restore ABI.
->> For the KVM save/restore uAPI, you are largely describing architectural
->> state like CPU registers, etc. These things don't evolve as fast and
->> more or less stay the same.
->
-> Right, because nothing meaningful has changed in any architecture in the 20+
-> years since KVM has provided save/restore support, whereas guest_memfd looks
-> nothing like it did when it was introduced three years ago.
->
->> Live update needs to describe the state of kernel objects. These are
->> more complex
->
-> LOL, you might be the first to claim x86 virtualization isn't all that complex.
->
->> and evolve faster.
->
-> The speed at which things change doesn't automatically mean we shouldn't strive
-> for backwards compatibility.  Yes, providing backwards compatibility requires
-> additional care and planning, and over time *might* lead to an ABI that is
-> difficult to maintain.  But IMO, that just makes it all the more important to
-> get the design right the first time, not that we shouldn't even try because it's
-> hard.
->
->> For example, say you merge guest_memfd preservation today. Some time
->> later, someone comes up with a more efficient data structure to track
->> the folios in the file. You _have_ to make a backwards-incompatible ABI
->> change to use this data structure.
->
-> Only if those details bleed into the ABI/contract.  I actually have a concrete
-> KVM (well, virtualization) example for this.
->
-> Intel's VMX architecture disallows direct memory accesses to the VMCS, and instead
-> requires software to access the VMCS via dedicated ISA, using architectural encoding
-> numbers to reference VMCS fields.  I.e. VMX decouples how data is stored in memory
-> (the data structures) from the ABI/contract with software (VMCS field encodings).
->
-> This allows Intel to optimize the data structures to be more efficient and performant
-> for each microarchitecture based on the features and properties of each uarch, all
-> without breaking backwards/forwards compatibility with software.
->
-> My favorite esoteric example is AR_BYTES packing.  For Haswell, Intel added an
-> optimization in ucode to allow saving/loading segment register state in a single
-> uop (IIRC).  The optimization was especially valuable for virtualization as it
-> shaved cycles off the VM-Enter/VM-Exit hot paths.  A key piece of the optimization
-> was it required the AR_BYTES metadata to be stored in 16 bits, but existing CPUs
-> stored AR_BYTES using 32 bits in an "unpacked" format.
->
-> Fortunately, because the in-memory representation was decoupled from the contract
-> with software, Intel could pack AR_BYTES into 16 bits for Haswell+ and pack/unpack
-> the data on VMWRITE/VMREAD, so that the format presented to software remained
-> unchanged.
->
-> Does VMX's decoupling of the in-memory represntation of a VMCS have downsides?
-> Absolutely.  Most notably, it incurs extra complexity (in software and hardware)
-> to achieve comparable performance to directly accessible data structures (AMD's
-> VMCB and Hyper-V's eVMCS) for nested virtualization.  And I'm sure it has placed
-> contraints on Intel's designs, and obviously introduces complexity into the
-> overall system by adding a layer of indirection.  But IMO the VMX architecture
-> has been a huge win overall for Intel.
->
->> Or say you add a new memory backend (like the HugeTLB patches in
->> flight). That likely will need a different ABI to describe the state of
->> the guest_memfd.
->> 
->> So you will end up with multiple ABI versions that aren't always
->> backwards compatible.
->
-> No, you end up with *features* that aren't backwards compatible.  I can't imagine
-> anyone will argue that we should never add new features because then we can't
-> rollback to an older kernel.
->
-> But adding a new feature shouldn't break the existing ABI.  E.g. adding support
-> for HugeTLB in guest_memfd shouldn't prevent rolling back to an older kernel when
-> the HugeTLB functionality isn't being used.
->
-> Using AMD's VMCB and Intel's VMCS as examples, literally every major new AMD/Intel
-> uarch extends the VMC{B,S} in some way, but without fail it's always done in a way
-> that is backwards compatible with existing software.  I.e. AMD and Intel ship new
-> features, but existing software continues to work, and VMs continue to be migratable
-> across CPU generations[*], with the obvious restriction that migrating a VM using
-> a feature introduced on generation N to a generation N-1 CPU isn't a smart idea.
->
-> [*] There are exceptions.  E.g. Intel removed MPX, and so VMs with MPX can't be
->     migrated to newer CPUs.  Migrating between CPUs with different MAXPHYADDR is
->     sketchy (and simply not done by some CSPs) because neither AMD nor Intel
->     virtualizes MAXPHYADDR.  But those exceptions are absolutely Big Deals that
->     undergo significant scrutiny, from all parties involved.
->
->> If you refuse that idea too, then KVM live update will be dead in the
->> water for a different reason. It will be damn near useless because it
->> can't keep up with an evolving subsystem.
->> 
->> Now once you get multiple ABI versions and you can seamlessly go from
->> old to new one, say you have a version that was superseded 5 years ago.
->> It would be completely reasonable to say that this version is old enough
->> and no one should be going from a 5 year old kernel to a modern one.
->
-> LOL, Google literally does this.  Granted, the extreme cases only happen for
-> stragglers, and I think we do force VMs to bounce through a "middle" kernel in
-> those cases, but I doubt Google is the only company that runs frankenkernels
-> for an absurd number of years for a variety of reasons.  E.g. 4.4 LTS was officially
-> supported for 6 years, and I'll bet dollars to donuts people ran it for much longer
-> than that.
->
->> So you deprecate this ABI. Deprecating old unused uAPIs is not unprecedented.
->
-> When there are provably no users, or we can convince existing userspace to migrate
-> to an alternative.
->
->> I think we are better off formalizing this deprecation period from the
->> get go.
->
-> Why?  What does it buy us?  Because all I see is potential abuse and an excuse
-> for not spending time getting the designs right.
->
->> A somewhat tangential example is BPF kfuncs. My BPF program that works
->> in kernel X might not work in kernel Y because the kfunc has changed or
->> been removed.
->> 
->> The argument they make in kfuncs.rst is that kfuncs "provide a kernel
->> <-> kernel API, and thus are not bound by any of the strict stability
->> restrictions associated with kernel <-> user UAPIs".
->
-> BPF's documentation isn't arguing anything, it's merely reiterating Linux's
-> long-standing policy that there is no such thing as a stable kernel ABI (in upstream).
->
->> For LUO as well, this is a kernel -> kernel API.
->
-> Stating the obvious, I disagree with this.  As I said before, if this is the
-> stance LUO wants to take, then so be it, but my NAK stands.
->
->> Users can also still do a regular kexec or reboot. They just won't get the
->> performance optimization of LUO.
->
-> The amount of time, energy, and money poured into minimizing VM downtime on live
-> migration suggests the overwhelming majority of LUO's targeted users aren't going
-> to take kindly to this stance.
->
->> Regardless of if you agree with the last bit about deprecating old
->> versions, ABIs evolving with the subsystem is a ground reality of live
->> update and it would be foolish to think we can do with only
->> backwards-compatible ABI changes forever.
->
-> I never said the ABI is immutable, I said it needs to be backwards/forwards
-> compatible.
+If user configures `kernel.key` in bootconfig, the 'key' is shown
+in kernel cmdline (/proc/cmdline) and kernel boot parameter
+handler associated with 'key' is invoked. However, since the
+bootconfig does not support the parameter defined with early_param,
+those keys are shown in '/proc/cmdline' but not handled by kernel.
 
+This could easily mislead users who expected to be able to specify
+early parameters via the boot configuration, leading them to wonder
+why it doesn't work.
 
-Thanks Sean, Pratyush. @loganodell has recently sent the RFC[1] on
-backward compatibility for liveupdate. This discussion is important
-so I propose to move the backward compatibility discussion on [1].
+Let's skip printing out early params to cmdline buffer, and warn
+if there is such parameters in bootconfig.
 
-For guest_memfd preservation, I will sent v5 soon with the following
-changes:
-1. Suggestions from across the patches
-2. tentative Plan for future Guest_memfd preservation
-3. tentative Plan for VM preservation.
-4. Backward compatibility built on top of RFC [1]
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+---
+Changes in v3:
+ - Add xbc_snprint_cmdline_filter() for filter support.
+ - Fix param matching for dual early/late params (e.g. console=) and
+   module parameters so they are not incorrectly dropped.
+ - Print warning for skipped parameter.
+---
+ include/linux/bootconfig.h |   10 +++++-
+ init/main.c                |   73 ++++++++++++++++++++++++++++++++++++++++----
+ lib/bootconfig.c           |   16 +++++++---
+ 3 files changed, 87 insertions(+), 12 deletions(-)
 
-What do you think?
-
-[1]: https://lore.kernel.org/all/20260903023452.721732-1-loganodell@google.com/
-
-
-
-
-
-
+diff --git a/include/linux/bootconfig.h b/include/linux/bootconfig.h
+index deda507500da..1f929034d42f 100644
+--- a/include/linux/bootconfig.h
++++ b/include/linux/bootconfig.h
+@@ -266,7 +266,15 @@ int __init xbc_node_compose_key_after(struct xbc_node *root,
+ 			struct xbc_node *node, char *buf, size_t size);
+ 
+ /* Render key/value pairs under @root as a flat cmdline string */
+-int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root);
++typedef bool (*xbc_cmdline_filter_fn)(struct xbc_node *node, const char *key, void *data);
++
++int __init xbc_snprint_cmdline_filter(char *buf, size_t size, struct xbc_node *root,
++				      xbc_cmdline_filter_fn filter, void *data);
++
++static inline int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root)
++{
++	return xbc_snprint_cmdline_filter(buf, size, root, NULL, NULL);
++}
+ 
+ /**
+  * xbc_node_compose_key() - Compose full key string of the XBC node
+diff --git a/init/main.c b/init/main.c
+index 2613d3f9b3ce..aaee5625e123 100644
+--- a/init/main.c
++++ b/init/main.c
+@@ -325,9 +325,64 @@ static void * __init get_boot_config_from_initrd(size_t *_size)
+ 
+ #ifdef CONFIG_BOOT_CONFIG
+ 
++/* Check if a parameter name matches an obs_kernel_param entry */
++static bool __init match_obs_param(const char *param, const char *pattern)
++{
++	size_t n = strlen(pattern);
++
++	if (n > 0 && pattern[n - 1] == '=')
++		return parameqn(param, pattern, n - 1) && param[n - 1] == '\0';
++
++	return parameq(param, pattern);
++}
++
++/* Return true if the given param is only defined by early_param(). */
++static bool __init is_early_only_param(const char *param)
++{
++	const struct obs_kernel_param *p;
++	const struct kernel_param *kp;
++	bool has_early = false;
++
++	/* If handled by a regular module_param, it is not early-only */
++	for (kp = __start___param; kp < __stop___param; kp++) {
++		if (parameq(param, kp->name))
++			return false;
++	}
++
++	/* Check __setup / early_param table */
++	for (p = __setup_start; p < __setup_end; p++) {
++		if (match_obs_param(param, p->str)) {
++			if (!p->early)
++				return false;
++			has_early = true;
++		}
++	}
++	return has_early;
++}
++
++struct xbc_filter_data {
++	bool warn;
++};
++
++static bool __init xbc_kernel_param_filter(struct xbc_node *node,
++					   const char *key, void *data)
++{
++	struct xbc_filter_data *fdata = data;
++
++	if (is_early_only_param(key)) {
++		if (fdata && fdata->warn)
++			pr_warn("bootconfig: early_param 'kernel.%s' cannot be applied from bootconfig, skipping\n",
++				key);
++		return false;
++	}
++	return true;
++}
++
+ /* Make an extra command line under given key word */
+-static char * __init xbc_make_cmdline(const char *key)
++static char * __init xbc_make_cmdline(const char *key, bool is_kernel)
+ {
++	struct xbc_filter_data fdata = { .warn = true };
++	xbc_cmdline_filter_fn filter = is_kernel ? xbc_kernel_param_filter : NULL;
+ 	struct xbc_node *root;
+ 	char *new_cmdline;
+ 	int ret, len = 0;
+@@ -336,8 +391,12 @@ static char * __init xbc_make_cmdline(const char *key)
+ 	if (!root)
+ 		return NULL;
+ 
+-	/* Count required buffer size */
+-	len = xbc_snprint_cmdline(NULL, 0, root);
++	/*
++	 * Pass 1: Count required buffer size. Emit warnings for skipped early
++	 * params in this pass so they are logged even if all parameters under
++	 * @key are skipped and len becomes 0.
++	 */
++	len = xbc_snprint_cmdline_filter(NULL, 0, root, filter, &fdata);
+ 	if (len <= 0)
+ 		return NULL;
+ 
+@@ -347,7 +406,9 @@ static char * __init xbc_make_cmdline(const char *key)
+ 		return NULL;
+ 	}
+ 
+-	ret = xbc_snprint_cmdline(new_cmdline, len + 1, root);
++	/* Pass 2: Render into buffer with warnings suppressed */
++	fdata.warn = false;
++	ret = xbc_snprint_cmdline_filter(new_cmdline, len + 1, root, filter, &fdata);
+ 	if (ret < 0 || ret > len) {
+ 		pr_err("Failed to print extra kernel cmdline.\n");
+ 		memblock_free(new_cmdline, len + 1);
+@@ -427,9 +488,9 @@ static void __init setup_boot_config(void)
+ 		 * before this series.
+ 		 */
+ 		if (!from_embedded || !xbc_embedded_cmdline_applied())
+-			extra_command_line = xbc_make_cmdline("kernel");
++			extra_command_line = xbc_make_cmdline("kernel", true);
+ 		/* Also, "init." keys are init arguments */
+-		extra_init_args = xbc_make_cmdline("init");
++		extra_init_args = xbc_make_cmdline("init", false);
+ 	}
+ 	return;
+ }
+diff --git a/lib/bootconfig.c b/lib/bootconfig.c
+index 89c88e359179..820f6cf28456 100644
+--- a/lib/bootconfig.c
++++ b/lib/bootconfig.c
+@@ -539,18 +539,21 @@ static char xbc_namebuf[XBC_KEYLEN_MAX] __initdata;
+ #define rest(dst, end) ((end) > (dst) ? (end) - (dst) : 0)
+ 
+ /**
+- * xbc_snprint_cmdline() - Render bootconfig keys under @root as a cmdline string
++ * xbc_snprint_cmdline_filter() - Render bootconfig keys as cmdline string
+  * @buf: Destination buffer (may be NULL when @size is 0 to query the length)
+  * @size: Size of @buf in bytes
+  * @root: Subtree root whose key=value pairs should be rendered
++ * @filter: Filter callback (returns true to include, false to skip; may be NULL)
++ * @data: Private context passed to @filter
+  *
+  * Walk all key/value pairs under @root and emit them as a space-separated
+  * cmdline string into @buf. Values containing whitespace are quoted with
+- * double quotes. Returns the number of bytes that would be written if @buf
+- * were large enough (matching snprintf semantics), or a negative errno on
+- * failure.
++ * double quotes. Keys for which @filter returns false are omitted.
++ * Returns the number of bytes that would be written if @buf were large enough
++ * (matching snprintf semantics), or a negative errno on failure.
+  */
+-int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root)
++int __init xbc_snprint_cmdline_filter(char *buf, size_t size, struct xbc_node *root,
++				      xbc_cmdline_filter_fn filter, void *data)
+ {
+ 	struct xbc_node *knode, *vnode;
+ 	const char *val, *q;
+@@ -582,6 +585,9 @@ int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root)
+ 		if (ret < 0)
+ 			return ret;
+ 
++		if (filter && !filter(knode, xbc_namebuf, data))
++			continue;
++
+ 		vnode = xbc_node_get_child(knode);
+ 		if (!vnode) {
+ 			ret = snprintf(buf ? buf + len : NULL, rest(len, size),
 
