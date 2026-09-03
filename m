@@ -1,221 +1,346 @@
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023132.outbound.protection.outlook.com [52.101.127.132])
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD46443B6F5
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:57:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.132
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788436665; cv=fail; b=cNUzl0zdSaAyJEF80e+cC8PEceozJcGakyWUxRIshDh7p7JhURYGld8LG0oRbC+g9XOoWyv7yCrjVp+4nki36Dd7JLqx0x4/J2SYPplEDFL4n2lNuW7WXqhq5D94fi535QjQhBdzKPvXkSnwmC8Eekjvn37M3Z0Sxr8CzobOPf0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788436665; c=relaxed/simple;
-	bh=Du1RON49YmlOgksD4bB3g+/JL2sqFvAy4ybq2bPaZX0=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=sQB4iTWHT2DQRYWRWWtztrG4cR5983IoakeJedzNzBycfPf0lt8iE6p6DmWZhi1hoKfKxaPN9ezl2rd2F+CDsZkyHmmmdvS3ZPAnPUfrfwWt+p5g3lpruUAZDZZu1pV945zYlHK5O9E4xHghpSyJd08/HQPCEjtPGDcRADbA0ZE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=transsion.com; spf=pass smtp.mailfrom=transsion.com; dkim=pass (1024-bit key) header.d=transsion.com header.i=@transsion.com header.b=OSwB1nCN; arc=fail smtp.client-ip=52.101.127.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=transsion.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=transsion.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=transsion.com header.i=@transsion.com header.b="OSwB1nCN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dIY2Yl2gGCd2PDJZcPpihen1n+Q5bRm/4I58ghOLAqMMdP3j+fnQKv5gSljrQ+6EMWkyhtLxxlT/5WrGIXntziElNMvgD3KYIloCOPE/U0gIKuQk2CA6z579WZ9toZwwWHPztKKE1L8NaQU4lT35Gbm7wwjaecFSThcQirvsj9/1+c4Bdzz25eceHyX5zp2HR5HcenizqB1R005GE6FB+4dFFKuDuIrRt6wRXavWwN8DI+P3R/mbxnT1j6+MUqlCsIQsUYbq6WevVwnlrmlH7CAf8YFteoVwS6me4pr9BKqy45ybfqo0vM+xdLIA033fY2lvqWlrUPOAseiEiNkoJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dHRtCLNCkfzAXocZnziOsjCvdr49IzGqoMVPXOKajuU=;
- b=LUwtzqI6I17N1Bbf4oOJDyqv8JKHfzbqTtE/cNOYl5r7imu8LDYEvOHxOvN6zyRYLMCLGj5G8AAwqP7HwiI95gxfNjj4mdsyoTVPxCJ4QnOTRvuzu10dDA5NvcKCYaypWA4vVtXoO8PtGpveqHF3JLDWnabj9lPcPSMrWonT7676RNWHn7XW2QOdUlZ5YAFQLYywYjTqs3DPshAOaobGDyowpYRmuGa5Yw3e46c36QXL1MZo7N5J1CGTPKpIFuqLKEcKGlu1v5gKC6mYCFIC2kA2aHyJ6JOTab48Ri/9yz4VVeUWpcinLaypwYmhPJ5oQZwZvxy95EBsORS5oWmsPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=transsion.com; dmarc=pass action=none
- header.from=transsion.com; dkim=pass header.d=transsion.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=transsion.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dHRtCLNCkfzAXocZnziOsjCvdr49IzGqoMVPXOKajuU=;
- b=OSwB1nCNTN0aZ5+L1h1Bnr+Jo+Qab91dYG8Ln70A1mCYF1vYGLOfZcdDch8JDdDTrEBgzijj7NqRiFr5j7Jd+gdqApbJPDdHRQwVp0bFDEkMUHw0soocZRR11KNXd0Vd2/zALo4DgIGCB+SWPTscEk1oZKmlT8r/Fd3d7ryRqH4=
-Received: from KL1PR0401MB6196.apcprd04.prod.outlook.com
- (2603:1096:820:c7::13) by TYSPR04MB7036.apcprd04.prod.outlook.com
- (2603:1096:400:47b::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 11:57:35 +0000
-Received: from KL1PR0401MB6196.apcprd04.prod.outlook.com
- ([fe80::f2ee:1e28:9022:99f3]) by KL1PR0401MB6196.apcprd04.prod.outlook.com
- ([fe80::f2ee:1e28:9022:99f3%3]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 11:57:35 +0000
-From: Hongyan Xia <hongyan.xia@transsion.com>
-To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
-	<vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel
- Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek
- Nayak <kprateek.nayak@amd.com>
-CC: Jiazi Li <jiazi.li@transsion.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v2] sched: Convert last bits of deprecated static key usage
-Thread-Topic: [PATCH v2] sched: Convert last bits of deprecated static key
- usage
-Thread-Index: AQHdO5to2npikgiau0Ogb4Mq2LQMJQ==
-Date: Thu, 3 Sep 2026 11:57:35 +0000
-Message-ID: <20260903115728.11864-1-hongyan.xia@transsion.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=transsion.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: KL1PR0401MB6196:EE_|TYSPR04MB7036:EE_
-x-ms-office365-filtering-correlation-id: e6de09e4-d69d-4995-c998-08df09b28b1c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|921020|38070700021|6133799003|10067099003|11063799006|56012099006|18002099003;
-x-microsoft-antispam-message-info:
- ACjIr03qjN/WJnfMzCmeaS0lrdlwEOWrnrar0IOFoMIjvDh1Qoh0ULFPL0AC/Zvs9zOrjcz2eFEtvRLooHBRdzjjNgHltxSjvA0CuERpP3rAxWKeFN32emK/S0c3sefO11mKpaP+C46ZYgukqlgchuZZNDBxbqwsU6XtdcmdyRxlRnw2hSSuiq5YRza1MgaUEhngNZKp4vk+f6q/HJ1VPAEOqGUXUVsXjNWzcspaRPNMCKeep048JdBM7bz2w2GjOH+EraNCU7uBUrWrqAJrPuLoy3+IozyDSFYJaZCbyZkvLKPM/d97G76iholCTpJ9OUdZ5nkDyE5h4dn56TmhircooQIrikYdi+YzOUpcFVJPeu0+USZoz6Kuese7B3TwHuBQe99DmtZCKlooYSLOiTPZ9eo01G/AxHDvejoxSXRbFljS2J1LFFfJMykkXGq8PjAEYZM+HB1IudVt1ctkLVCnHmmRBpcjodIp+B+y2T42E9naLXbaMlr6Asii6arEqCW+2/KnQZ3ugex+lvLmEKF+2mvCUDCgmo6P5EldYVsRPYCv1YaMkJ/IwfbSlZDah7IwI8tcQ1xMSQPZcQJDU5W6mwKjCiFHetuqN8hjU5Aup9/mt7f8B2QpLNs+gP6fFHYquRuWmfpri2FWq0x8hyegUh2xfZx9kifrI2YSR9EtnwrNSqh9glZrDpo0zRm9t6B0TxGKVCLKgQXN561VlnnuLhqsRZsYsLAoWfepQyWsFvGDn3Ztb1vf0M1+rMqR
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR0401MB6196.apcprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(921020)(38070700021)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?L8a/bsz9HQefruxRByeASniTXVtgC/zRjaS6xqRswxDv5KjVcrruEcUGBh?=
- =?iso-8859-1?Q?g78cKcMvEh/9Gjfhz/1LqNn/u+CE16IZMgnIBGTkSN1vWZPJXEa7VmVM5K?=
- =?iso-8859-1?Q?B1sIrUAqHID1njsOIqSeo3kGfQLP8fPp3Egm1mttETFjXo+rZRXg8L/0vt?=
- =?iso-8859-1?Q?xituhldKPsJQVVN4JlIc9OxQbVtSynYVXiOgdDKlnyYW66P5mQhfy/m1Tq?=
- =?iso-8859-1?Q?jpW0C6pNsfYCfXZl89AOzTYNRa++5weCy61jQNROmfUphGB80ZXotprWkA?=
- =?iso-8859-1?Q?Acx1nrDqipzRcLcuHE4ZUfxOQs7YEmlA778rQRzbJdq4v8vRohWjgIi0b+?=
- =?iso-8859-1?Q?KM08xgJWPiTb4vZ8RxY+QjUSg0vwcOQx5IVPBvvKb936GNVKUEQsmfUu6v?=
- =?iso-8859-1?Q?vl8NWiE572xuuhRoa+w+qpM1W6I94rAdaVGuZXYe0MiNcV/pSeXfZedhjp?=
- =?iso-8859-1?Q?nVkjUsr9iZFYRbfuwcDE9eKhKfnpD6dbgMHHfLQga5Khf9zTzu6TWlyMAK?=
- =?iso-8859-1?Q?Er0o3ZM7FNArgMxSeSr2wZCsEcKODVwrF/tTVC+NZ8sttt8CpNnNaIBrdy?=
- =?iso-8859-1?Q?0fQT+kbXHOrQXEBoumLKkn0QrebID5vvUhlVCG2ZrisSZgqx/NIyhwNETG?=
- =?iso-8859-1?Q?m0GiRgpAfrTs974zVpQuJRH333LRaZsR+dZswK8kCBBZpPw5+eQPLyg3jW?=
- =?iso-8859-1?Q?M7SFcVbiygAO1fu1icMOKVZQcanxCfpuOCDijWc15jj80vr75mz3AXtZU1?=
- =?iso-8859-1?Q?Mc8NfzQvsjij+c5vmwExDa20HyVVVNUFskO+3mKA2FC4HVcGv5pfEcsyE4?=
- =?iso-8859-1?Q?CSZ4308U9zdL7hNBMzbmSwIt4uTpc8tkNY4DecxoM69C7Cl4ntSW0WJcXs?=
- =?iso-8859-1?Q?42asu/NO4UsJfWBBll951RsWC4gUPyLH5CiscXHEQo1hemw0CH3cFrYezk?=
- =?iso-8859-1?Q?HbwWcO2dBz1wxeLXJGZh37+P7KBxYvGkHJyNs4QlMPdG2CdjWqCf/9dfNW?=
- =?iso-8859-1?Q?ScaNcURkzL0zrlZZyx0Y1ipZveoWqbIJ50C+kUZHP1nKT72KjybM25BhIa?=
- =?iso-8859-1?Q?aHeNmC4EZ1iDR7uKyf+33sq73D/R6Nn6iK1ilcZI8mV0rFjcIXhojyj+LI?=
- =?iso-8859-1?Q?jKIiyiTDrTrp1d/87O4mpVNk+Ep+G9nUcsMVX6x3Gr6BAfc1pNbXIkAWkP?=
- =?iso-8859-1?Q?dZOUQAQlS3IdAzRS8Ne8wuwe3qlhMjtQQ9opshaXzNycp9fiijScybax5A?=
- =?iso-8859-1?Q?dPQd74xmRyazn7RBGw1AfB4VL/+5XiNRotj9q+sawHd4H4tIwczxfGNSl1?=
- =?iso-8859-1?Q?CLuYQAVMzMEKz6jN40klt+yElLYDkIAWMGDp8f3+Y0x76pcPIp2KfzTfAk?=
- =?iso-8859-1?Q?gvpziqYchXLVGRLgqlRjutpVjrAwKRCqb+p0bwfMAcjusajPv9w0NWuz1j?=
- =?iso-8859-1?Q?Hw2lZ9zj5py4ogPco5/xbxLSZSOzRdAmziLq2ttd1HLRV434E8POL0DDZt?=
- =?iso-8859-1?Q?Ev3alyeunpyEz7NEHbUeTKQcrHVtnY7dgJQcl0aYhfgW8kFHGkYEnDd59G?=
- =?iso-8859-1?Q?Ipv3+uyHtRpIVQCbNFb5+TYygajI1nep6zPED8x5iyIVOXfbRu+6b2c0ld?=
- =?iso-8859-1?Q?OMMb5cbHft1J1vKripCllv++VQP2VFBmXEbt48D9yridZULh+uoVio7Xff?=
- =?iso-8859-1?Q?fivnFug+mBVMsuOUfSCn+HLQmxhvEeq+F/NmjOxWLJKX9G6T2aSoZ5gVS/?=
- =?iso-8859-1?Q?X48e3hCYMC2/sAuyvkiBYlvs91DKOKVoLAtmnYvZxX8UWpsYMhSM7ZDfGV?=
- =?iso-8859-1?Q?vt6i0xhe0w=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84A0B49DB86;
+	Thu,  3 Sep 2026 11:57:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788436672; cv=none; b=pzkMviej7SqTrmLRpAsAVvaGRClVVXskzGiUWHpZHOa6kRmS+a91dtD2xMdt8rXVcSPlURNRA3HTq/v622ZP9QS4hcmO3N9eQ2IIXsdw4+qnhusUOnWVFqPho8VFWavke0Wx3D1Buv+aSl87R8kqSEh4FyPz6eKmlqRNQYXOUqM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788436672; c=relaxed/simple;
+	bh=Ym9cZQCQXaA1mhOA+5Wx6YDq8hSLJZXE6XlfgcEbzC8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZF5v8Lh1BgRCmcHTp/iJugqcdKFTP1pAPutOwHLHXQgh8I4p3M6APF/Da0kame/pSMSnWMLXfPOJsiN1mIs1ZyoJLMz1YpopnTaDxx+YtpQYsxvpkuoRutejHN6J0XXZXB2u4Bn8uL2WiWe59OskR++iAIbqLGwkw91ayoi3tcs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.177])
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hbJ3R6FxTzKHMZZ;
+	Thu,  3 Sep 2026 19:56:35 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+	by mail.maildlp.com (Postfix) with ESMTP id 7855F4058D;
+	Thu,  3 Sep 2026 19:57:29 +0800 (CST)
+Received: from huaweicloud.com (unknown [10.50.85.155])
+	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgAnDgmeYJlqCapnAg--.29796S4;
+	Thu, 03 Sep 2026 19:57:29 +0800 (CST)
+From: Zhang Yi <yi.zhang@huaweicloud.com>
+To: linux-mm@kvack.org
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	hughd@google.com,
+	baolin.wang@linux.alibaba.com,
+	willy@infradead.org,
+	jack@suse.cz,
+	ziy@nvidia.com,
+	bfoster@redhat.com,
+	djwong@kernel.org,
+	yi.zhang@huawei.com,
+	yi.zhang@huaweicloud.com,
+	yizhang089@gmail.com,
+	yangerkun@huawei.com,
+	chengzhihao1@huawei.com,
+	wangkefeng.wang@huawei.com,
+	yukuai@fnnas.com
+Subject: [RFC PATCH] mm/truncate: fix data loss when splitting fails in truncate_inode_partial_folio()
+Date: Thu,  3 Sep 2026 19:50:18 +0800
+Message-ID: <20260903115018.2034541-1-yi.zhang@huaweicloud.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: transsion.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR0401MB6196.apcprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e6de09e4-d69d-4995-c998-08df09b28b1c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Sep 2026 11:57:35.2039
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 2e8503a6-2d01-4333-8e36-6ab7c8cd7ae2
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: dB9TyDzvNm2cKtMbDBDRZt7lRbgO5hWxK5uwRgb2VZhKAXBLFqzLf+7AwmW1r/OTU28vpYIhCOp2T/iGFh+pgUUUrrK4a6qxfj3XmRO4R5M=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR04MB7036
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:cCh0CgAnDgmeYJlqCapnAg--.29796S4
+X-Coremail-Antispam: 1UD129KBjvJXoW3ur45XFWxWFWrAr15ZF1kZrb_yoWDCry5pa
+	yUK3sxJrZ5Ww4jkr17uF4UXw4Yyas3XFWUAFyxGwnxCFn0qw17KF1Ut3W8KFW3Jr97Za4F
+	qF1jyFW7W3WUJFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9014x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+	67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
+	VFxhVjvjDU0xZFpf9x0JUUl1kUUUUU=
+X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
 
-From: Hongyan Xia <hongyan.xia@transsion.com>=0A=
-=0A=
-Raw static keys have no type information and do not prevent mis-matches=0A=
-(like static_key_false() on a default TRUE key). The helper names=0A=
-static_key_{true/false}() are also confusing, hence the deprecation.=0A=
-=0A=
-We have already converted other sites in previous patches. Convert the=0A=
-last sites of deprecated static key APIs. After this fix, scheduler code=0A=
-has zero deprecated static key APIs now.=0A=
-=0A=
-sk_dynamic_* uses static_key_{enable/disable}(), which aren't really=0A=
-deprecated, but take the opportunity to move to the new static_branch_*=0A=
-APIs to be consistent.=0A=
-=0A=
-No functional change.=0A=
-=0A=
-Signed-off-by: Hongyan Xia <hongyan.xia@transsion.com>=0A=
----=0A=
-Changed in v2:=0A=
-- Explain why old ones are deprecated.=0A=
-- Rebase and fix a big conflict in core.c.=0A=
-=0A=
- kernel/sched/core.c | 8 ++++----=0A=
- kernel/sched/fair.c | 8 ++++----=0A=
- 2 files changed, 8 insertions(+), 8 deletions(-)=0A=
-=0A=
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c=0A=
-index 5a61650f12b7..792931f5ef13 100644=0A=
---- a/kernel/sched/core.c=0A=
-+++ b/kernel/sched/core.c=0A=
-@@ -7881,8 +7881,8 @@ int sched_dynamic_mode(const char *str)=0A=
- 	return -EINVAL;=0A=
- }=0A=
- =0A=
--# define preempt_dynamic_key_enable(f)	static_key_enable(&sk_dynamic_##f.k=
-ey)=0A=
--# define preempt_dynamic_key_disable(f)	static_key_disable(&sk_dynamic_##f=
-.key)=0A=
-+# define preempt_dynamic_branch_enable(f)	static_branch_enable(&sk_dynamic=
-_##f)=0A=
-+# define preempt_dynamic_branch_disable(f)	static_branch_disable(&sk_dynam=
-ic_##f)=0A=
- =0A=
- static DEFINE_MUTEX(sched_dynamic_mutex);=0A=
- =0A=
-@@ -7890,13 +7890,13 @@ static void __sched_dynamic_update(int mode)=0A=
- {=0A=
- 	switch (mode) {=0A=
- 	case preempt_dynamic_full:=0A=
--		preempt_dynamic_key_disable(preempt_lazy);=0A=
-+		preempt_dynamic_branch_disable(preempt_lazy);=0A=
- 		if (mode !=3D preempt_dynamic_mode)=0A=
- 			pr_info("Dynamic Preempt: full\n");=0A=
- 		break;=0A=
- =0A=
- 	case preempt_dynamic_lazy:=0A=
--		preempt_dynamic_key_enable(preempt_lazy);=0A=
-+		preempt_dynamic_branch_enable(preempt_lazy);=0A=
- 		if (mode !=3D preempt_dynamic_mode)=0A=
- 			pr_info("Dynamic Preempt: lazy\n");=0A=
- 		break;=0A=
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c=0A=
-index b8bd308c2d5b..d8abc940ab0f 100644=0A=
---- a/kernel/sched/fair.c=0A=
-+++ b/kernel/sched/fair.c=0A=
-@@ -6575,21 +6575,21 @@ entity_tick(struct cfs_rq *cfs_rq, struct sched_ent=
-ity *curr, int queued)=0A=
- #ifdef CONFIG_CFS_BANDWIDTH=0A=
- =0A=
- #ifdef CONFIG_JUMP_LABEL=0A=
--static struct static_key __cfs_bandwidth_used;=0A=
-+static DEFINE_STATIC_KEY_FALSE(__cfs_bandwidth_used);=0A=
- =0A=
- static inline bool cfs_bandwidth_used(void)=0A=
- {=0A=
--	return static_key_false(&__cfs_bandwidth_used);=0A=
-+	return static_branch_unlikely(&__cfs_bandwidth_used);=0A=
- }=0A=
- =0A=
- void cfs_bandwidth_usage_inc(void)=0A=
- {=0A=
--	static_key_slow_inc_cpuslocked(&__cfs_bandwidth_used);=0A=
-+	static_branch_inc_cpuslocked(&__cfs_bandwidth_used);=0A=
- }=0A=
- =0A=
- void cfs_bandwidth_usage_dec(void)=0A=
- {=0A=
--	static_key_slow_dec_cpuslocked(&__cfs_bandwidth_used);=0A=
-+	static_branch_dec_cpuslocked(&__cfs_bandwidth_used);=0A=
- }=0A=
- #else /* !CONFIG_JUMP_LABEL: */=0A=
- static bool cfs_bandwidth_used(void)=0A=
--- =0A=
-2.47.3=0A=
-=0A=
+From: Zhang Yi <yi.zhang@huawei.com>
+
+truncate_inode_partial_folio() splits a large folio so that the caller's
+truncate loop can drop the in-range sub-folios while keeping the
+out-of-range tail. The first split at the punch start edge is
+non-uniform, which leaves the sub-folio at the truncation end edge as
+large as possible, this means it may still straddle the range, holding
+both zeroed in-range and valid out-of-range data. The function then
+attempts a second split at offset + length to isolate that tail.
+
+If the second split fails the straddling sub-folio stays merged. The
+function returned true unconditionally on all exit paths of the success
+block, telling the caller it was fully handled. The caller kept its
+default end and the truncate loop truncated every sub-folio below it,
+including the merged straddler, discarding the valid out-of-range tail.
+
+For example, a 4-page order-2 folio punched from offset 0 to the middle
+of the last page:
+
+  truncate_inode_pages_range()
+    truncate_inode_partial_folio()      # same_folio == true
+      1st split at page0 -> [p0, p1, p2-3]   # non-uniform, success
+      folio2 = p2-3 # straddles: p2 zeroed, p3 tail valid
+      2nd split of folio2 fails / cannot lock
+      return true                       # BUG: caller keeps default end
+    end = 3
+    loop truncates p0, p1, p2-3        # p3's valid tail is lost
+
+This became reachable after commit 7460b470a131 ("mm/truncate: use
+folio_split() in truncate operation") replaced the atomic split_folio()
+with folio_split(), whose non-uniform split can partially split a folio
+and leave the end edge merged.
+
+It has gone unnoticed because a dirty large folio normally carries the
+filesystem's private data, for example buffer_head, so
+filemap_release_folio() -> iomap_release_folio() returns false on a
+dirty folio and folio_split() aborts with -EBUSY before any split,
+leaving the straddler safely unsplit. The bug is only reachable on paths
+that produce dirty large folios without filesystem private data, and it
+was caught on the upcoming ext4 iomap buffered I/O path when no ifs is
+attached.
+
+Rework the contract so the caller is told where to stop instead of
+silently truncating the straddler:
+
+  - Return true only when a split occurred, false otherwise. This
+    clarifies the existing confusing return value semantics.
+
+  - Add an optional out-parameter pgoff_t *end, set to the index of the
+    folio that contains @lend and must be kept by the caller's loop. It
+    is only written when the folio actually straddles @lend. On the
+    success path it defaults to the page index of the end edge and is
+    refined to folio2->index when the second split fails to isolate the
+    tail.
+
+  - Rename the byte-range parameters start/end to lstart/lend to avoid
+    clashing with the new @end output and to separate byte offsets from
+    folio indices.
+
+Callers in truncate_inode_pages_range() and shmem_undo_range() pass &end
+only when the folio straddles lend. After all, no caller discards a
+straddling folio anymore, the in-range cleanly-split sub-folios below it
+are still dropped.
+
+Suggested-by: Brian Foster <bfoster@redhat.com>
+Link: https://lore.kernel.org/linux-fsdevel/anH-WKA1coW6wtfG@bfoster/
+Fixes: 7460b470a131 ("mm/truncate: use folio_split() in truncate operation")
+Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+---
+ mm/internal.h |  4 ++--
+ mm/shmem.c    | 12 +++++------
+ mm/truncate.c | 57 ++++++++++++++++++++++++++++++---------------------
+ 3 files changed, 41 insertions(+), 32 deletions(-)
+
+diff --git a/mm/internal.h b/mm/internal.h
+index 68db5abd0a4c..db7d9d9fb5c9 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -627,8 +627,8 @@ unsigned find_lock_entries(struct address_space *mapping, pgoff_t *start,
+ unsigned find_get_entries(struct address_space *mapping, pgoff_t *start,
+ 		pgoff_t end, struct folio_batch *fbatch, pgoff_t *indices);
+ int truncate_inode_folio(struct address_space *mapping, struct folio *folio);
+-bool truncate_inode_partial_folio(struct folio *folio, loff_t start,
+-		loff_t end);
++bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
++		loff_t lend, pgoff_t *end);
+ long mapping_evict_folio(struct address_space *mapping, struct folio *folio);
+ unsigned long mapping_try_invalidate(struct address_space *mapping,
+ 		pgoff_t start, pgoff_t end, unsigned long *nr_failed);
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 89a1495e55f7..cc1548ff509a 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -1175,11 +1175,9 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+ 	if (folio) {
+ 		same_folio = lend < folio_next_pos(folio);
+ 		folio_mark_dirty(folio);
+-		if (!truncate_inode_partial_folio(folio, lstart, lend)) {
++		if (!truncate_inode_partial_folio(folio, lstart, lend,
++						  same_folio ? &end : NULL))
+ 			start = folio_next_index(folio);
+-			if (same_folio)
+-				end = folio->index;
+-		}
+ 		folio_unlock(folio);
+ 		folio_put(folio);
+ 		folio = NULL;
+@@ -1189,8 +1187,7 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+ 		folio = shmem_get_partial_folio(inode, lend >> PAGE_SHIFT);
+ 	if (folio) {
+ 		folio_mark_dirty(folio);
+-		if (!truncate_inode_partial_folio(folio, lstart, lend))
+-			end = folio->index;
++		truncate_inode_partial_folio(folio, lstart, lend, &end);
+ 		folio_unlock(folio);
+ 		folio_put(folio);
+ 	}
+@@ -1258,7 +1255,8 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+ 
+ 				if (!folio_test_large(folio)) {
+ 					truncate_inode_folio(mapping, folio);
+-				} else if (truncate_inode_partial_folio(folio, lstart, lend)) {
++				} else if (truncate_inode_partial_folio(folio,
++							lstart, lend, NULL)) {
+ 					/*
+ 					 * If we split a page, reset the loop so
+ 					 * that we pick up the new sub pages.
+diff --git a/mm/truncate.c b/mm/truncate.c
+index b58ba940be47..2ebb00f6c379 100644
+--- a/mm/truncate.c
++++ b/mm/truncate.c
+@@ -206,15 +206,18 @@ static int folio_split_or_unmap(struct folio *folio, struct page *split_at,
+ /*
+  * Handle partial folios.  The folio may be entirely within the
+  * range if a split has raced with us.  If not, we zero the part of the
+- * folio that's within the [start, end] range, and then split the folio if
++ * folio that's within the [lstart, lend] range, and then split the folio if
+  * it's large.  split_page_range() will discard pages which now lie beyond
+  * i_size, and we rely on the caller to discard pages which lie within a
+  * newly created hole.
+  *
+- * Returns false if splitting failed so the caller can avoid
+- * discarding the entire folio which is stubbornly unsplit.
++ * When @end non-NULL, set to the index of the folio that contains @lend
++ * and must be kept by the caller's truncate loop.  Return %true if the
++ * folio was split, %false otherwise, in which case the folio is dropped or
++ * may still straddle the range, so the caller must not discard it.
+  */
+-bool truncate_inode_partial_folio(struct folio *folio, loff_t start, loff_t end)
++bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
++				  loff_t lend, pgoff_t *end)
+ {
+ 	loff_t pos = folio_pos(folio);
+ 	size_t size = folio_size(folio);
+@@ -222,19 +225,22 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t start, loff_t end)
+ 	struct page *split_at, *split_at2;
+ 	unsigned int min_order;
+ 
+-	if (pos < start)
+-		offset = start - pos;
++	if (end && pos + size > (u64)lend)
++		*end = folio->index;
++
++	if (pos < lstart)
++		offset = lstart - pos;
+ 	else
+ 		offset = 0;
+-	if (pos + size <= (u64)end)
++	if (pos + size <= (u64)lend)
+ 		length = size - offset;
+ 	else
+-		length = end + 1 - pos - offset;
++		length = lend + 1 - pos - offset;
+ 
+ 	folio_wait_writeback(folio);
+ 	if (length == size) {
+ 		truncate_inode_folio(folio->mapping, folio);
+-		return true;
++		return false;
+ 	}
+ 
+ 	/*
+@@ -248,7 +254,7 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t start, loff_t end)
+ 	if (folio_needs_release(folio))
+ 		folio_invalidate(folio, offset, length);
+ 	if (!folio_test_large(folio))
+-		return true;
++		return false;
+ 
+ 	min_order = mapping_min_folio_order(folio->mapping);
+ 	split_at = folio_page(folio, PAGE_ALIGN_DOWN(offset) / PAGE_SIZE);
+@@ -259,6 +265,10 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t start, loff_t end)
+ 		 * for shmem truncate
+ 		 */
+ 		struct folio *folio2;
++		bool tail_isolated = true;
++
++		if (end)
++			*end = (pos + offset + length) >> PAGE_SHIFT;
+ 
+ 		if (offset + length == size)
+ 			goto no_split;
+@@ -273,24 +283,28 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t start, loff_t end)
+ 		if (!folio_test_large(folio2))
+ 			goto out;
+ 
+-		if (!folio_trylock(folio2))
++		if (!folio_trylock(folio2)) {
++			tail_isolated = false;
+ 			goto out;
++		}
+ 
+ 		/* make sure folio2 is large and does not change its mapping */
+ 		if (folio_test_large(folio2) &&
+-		    folio2->mapping == folio->mapping)
+-			folio_split_or_unmap(folio2, split_at2, min_order);
++		    folio2->mapping == folio->mapping &&
++		    folio_split_or_unmap(folio2, split_at2, min_order))
++			tail_isolated = false;
+ 
+ 		folio_unlock(folio2);
+ out:
++		if (!tail_isolated && end)
++			*end = folio2->index;
+ 		folio_put(folio2);
+ no_split:
+ 		return true;
+ 	}
+-	if (folio_test_dirty(folio))
+-		return false;
+-	truncate_inode_folio(folio->mapping, folio);
+-	return true;
++	if (!folio_test_dirty(folio))
++		truncate_inode_folio(folio->mapping, folio);
++	return false;
+ }
+ 
+ /*
+@@ -413,11 +427,9 @@ void truncate_inode_pages_range(struct address_space *mapping,
+ 	folio = __filemap_get_folio(mapping, lstart >> PAGE_SHIFT, FGP_LOCK, 0);
+ 	if (!IS_ERR(folio)) {
+ 		same_folio = lend < folio_next_pos(folio);
+-		if (!truncate_inode_partial_folio(folio, lstart, lend)) {
++		if (!truncate_inode_partial_folio(folio, lstart, lend,
++						  same_folio ? &end : NULL))
+ 			start = folio_next_index(folio);
+-			if (same_folio)
+-				end = folio->index;
+-		}
+ 		folio_unlock(folio);
+ 		folio_put(folio);
+ 		folio = NULL;
+@@ -427,8 +439,7 @@ void truncate_inode_pages_range(struct address_space *mapping,
+ 		folio = __filemap_get_folio(mapping, lend >> PAGE_SHIFT,
+ 						FGP_LOCK, 0);
+ 		if (!IS_ERR(folio)) {
+-			if (!truncate_inode_partial_folio(folio, lstart, lend))
+-				end = folio->index;
++			truncate_inode_partial_folio(folio, lstart, lend, &end);
+ 			folio_unlock(folio);
+ 			folio_put(folio);
+ 		}
+-- 
+2.52.0
+
