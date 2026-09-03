@@ -1,57 +1,248 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4414FC8EB;
-	Thu,  3 Sep 2026 17:57:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788458239; cv=none; b=BVj2/npRI0s4ixi/LQ4Ztv8sS583ptuMlGVbuwqe3gDoKCIEnM9qYKs0fu5TsYmq04s1uv82dZZeEl7vI/hyGCEaeuoK/WkRe8tBtJvWJNAi1jcNb/gteZW920sw6LR/4b0EariDGjkF3rg7ZTG5VFCmuJF6Ew/LZxTQRjAflDs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788458239; c=relaxed/simple;
-	bh=3C5q+FfFUjSQPHAIrkGd1W6Mhz6H0x0ruaNven2JREc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bnFZoNvYOThQPHJwipmP7jNtD57zejBO5OV2YYIgV563JlE2AnzArOHSy8Uw0IC+6U6VlNQsl5u1rZPXzNurR+uXb47HP78+uKSo4GW6iFwMU3jaulUjDDPh8BYnbEbqUicehnuu1UCMK4qNMCphWZSLhiGXNSPj65nZ5FIvRNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cS/ABNXE; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0DF54EC667
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 17:58:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788458298; cv=fail; b=MiZF9jFhVR17WEaLB8OcHuC8uuxLdOljHPGi3g2tv5QhuFiHBQHwOxyH/m2Li0e/PknkrlKgffmmYAAYt/ZRIsVKkwZZ+xGXQZvCRVSyt4LteIqq76HLrz4LY6vg5mgWc4+XxRPJG9zFzo9cM5rx9s6n8LApwjtCJdx5DcPl2DQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788458298; c=relaxed/simple;
+	bh=ivFP/CqzJy5BcJ7wk6VYBrwGQWwDogY4h0V5hmlgqLc=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fZA12n7oHdSvinsDYqqvSR3eXmx9/OOFiGt2wJlfixK3VFxznVWJHTex6uAHydRgIQDpP85ctrB9GHzG5UnWxhP6HwQUOLJxC6A0NFRr4KqAxrZKGY8zOtELRNQj4rkJaF2w85idIA4JRDnS1N2Kic0kEp6fuzuvqZ/Eil39HoE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=i2YTd44x; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=pXZQ8qB0; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cS/ABNXE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AACB1F000E9;
-	Thu,  3 Sep 2026 17:57:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788458238;
-	bh=3EWQPWKg7sfms1mg1X9s670G/ih2iu5XcrsXL4FiDco=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=cS/ABNXEL+Tfq8F/jtZolacIb5ZGIWaNHTZUIahubFBsektM2lTQikMt0QBjduaVE
-	 aYsoJbCLe0atJGuHgDZDg1oV1EzZGWqPmx6tQq461//36bzM0LC1QT9GPSd83lPT/A
-	 j92efWWzfQ2hw5p3lD4wF2nuVs3EYYKkHP2FMfIkFg1GQyqCfBcFsgE49ezwX7wJSq
-	 vOGMt0tA+0nmbrYoSfNSMOAw/FLEr6/+fIqe9C81ImMeXUfvE3xVO1LY277BNyYIyP
-	 nUz0AaDbndE9Ti5XdAKWaduWBiqSqNfxuGKQqCwO7CIJTGHmHbIHJ6xTFxQmfhUUPV
-	 /k1kPRrCpZULQ==
-Date: Thu, 3 Sep 2026 10:57:16 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: patchwork-bot+netdevbpf@kernel.org
-Cc: David Yang <mmyangfl@gmail.com>, netdev@vger.kernel.org, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
- pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v12 0/5] net: dsa: motorcomm: Add LED support
-Message-ID: <20260903105716.5c163da2@kernel.org>
-In-Reply-To: <178840621563.3072235.4183497708325455365.git-patchwork-notify@kernel.org>
-References: <20260903031630.356840-1-mmyangfl@gmail.com>
-	<178840621563.3072235.4183497708325455365.git-patchwork-notify@kernel.org>
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="i2YTd44x";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="pXZQ8qB0"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 683G0iOM1342874;
+	Thu, 3 Sep 2026 12:58:11 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=proofpoint-05-2026; bh=AmL4MP/ECjN6y
+	afYgBXuVXAIA1vtIeDpjSVz2RBOGJ0=; b=i2YTd44x77+T93RN+l1aAJ0mBArKe
+	qnNBmk4JFW/BUgtNdmcUPCTzBzfI5g1myHG7Jl63Ma4Fa3kKohWGeU+s1WQmn89E
+	ls6/vQb4u75R8jDV9FM4v0lIHI9VnJ9bOG3n/SMzU4XsKcfcg9MCt1otw+EEsR3j
+	OLXx/TKi6eMZ4P+vR0Mz61lHYVrwJj6II5FR9ukQuX4J6i7KBUpHTIQUFPsJv6OT
+	9neMwg6m8D6II9eYqDV8/RbHCrg41Wxjw+eTSDh8Xwo86lZWEnAHT3f0N0RZNPrw
+	+ZXbhmXjYaCBtzf8iwuTlMIwg7XmhV4jbnSTw5fpPWMk/gCXjefu1XBCA==
+Received: from sj2pr03cu001.outbound.protection.outlook.com (mail-westusazon11012041.outbound.protection.outlook.com [52.101.43.41])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4gewt8p2dd-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 12:58:11 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZCMDTa5STWUUkqkKA8jLi3Kb4YYC28wIF/Y//cJTzkW0fdv7OQrKUHeWQMV9kuHDoeFLr5bv0dzkaIhung63DqxRVk/2guE1XaG13o6SFWW+QRIZDZRsQeCHvOeJz5+GdKQj2zO6Hgt6/5iPUqm3Dp/vKftyC5JPYU2WqPyYUgIDBGzoXdxhRVvdyP4mRvMy9oF2TGejZ6bo4rDaAl2FEYuhWmN00qqO4VZCzJvXg7zLMMBPZAVs1tq5S/fL2cxbM2JGiE7soO/JdII6BjEm+D7I0vsoaM/mSqTyOwH6P2sdJ0E/AUzd63l6E+UuUYWtaom7sTZKD6S2eIKs8eYpYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AmL4MP/ECjN6yafYgBXuVXAIA1vtIeDpjSVz2RBOGJ0=;
+ b=NUgGmNRy+vGNeZhh3OhXKg957r3IE2cBRhmYs/pMsDw5AB9ASYlLTucKQry49J+JcrnvkEWi2cZ3N6nPjPcOzdm9mX8JNmJjNYdhHRjg7Do2u9bNgzgvqQs4tuJu25MIirQ0NhUVsdwTf0jCQKLNJoTa3Hu+MH4mbPgLHwchRsrCIl1FZ8w4Q7EkUIEskkWAlPR4iPFLfP/gIF82wUQ36WrJxfXy4kVcf6BoJ8Cc8ZJRjd0FpjELsYsjAuvLzruhRTxOEshfUI8waHVkZ2C8XljdlQ/N/j+mJKV6QPjvHbgfTgfMMe9aGLqWkOTy+jyb1gA82O9/sGpf+Vb9smtojw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AmL4MP/ECjN6yafYgBXuVXAIA1vtIeDpjSVz2RBOGJ0=;
+ b=pXZQ8qB0F6T+3n1ZR8/wtvrQb3828tBA5eGqzm/6qc79OfyulSMVlxTDipgsLRD0ZTfIXUuN0UZ23G/EBO6H1XcyGR9bLlmegdDkakt6E+HJq67ZYWi7ztICtAsbFmQv4eNuz0nN5cxvHR4CJi2+lxn7hCEgV2MhUyj1bT1e7fg=
+Received: from SJ0PR13CA0114.namprd13.prod.outlook.com (2603:10b6:a03:2c5::29)
+ by DM3PPF40B0653BC.namprd10.prod.outlook.com (2603:10b6:f:fc00::c22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Thu, 3 Sep
+ 2026 17:57:56 +0000
+Received: from CO1PEPF000075F3.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c5:cafe::3f) by SJ0PR13CA0114.outlook.office365.com
+ (2603:10b6:a03:2c5::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Thu, 3
+ Sep 2026 17:57:55 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ CO1PEPF000075F3.mail.protection.outlook.com (10.167.249.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Thu, 3 Sep 2026 17:57:55 +0000
+Received: from DLEE210.ent.ti.com (157.170.170.112) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 3 Sep
+ 2026 12:57:31 -0500
+Received: from DLEE211.ent.ti.com (157.170.170.113) by DLEE210.ent.ti.com
+ (157.170.170.112) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 3 Sep
+ 2026 12:57:31 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE211.ent.ti.com
+ (157.170.170.113) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Thu, 3 Sep 2026 12:57:31 -0500
+Received: from ula0226330.dhcp.ti.com ([10.249.36.221])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 683HvVEc1984710;
+	Thu, 3 Sep 2026 12:57:31 -0500
+From: Andrew Davis <afd@ti.com>
+To: Jens Wiklander <jens.wiklander@linaro.org>,
+        Sumit Garg
+	<sumit.garg@linaro.org>,
+        <op-tee@lists.trustedfirmware.org>, <linux-kernel@vger.kernel.org>
+CC: Andrew Davis <afd@ti.com>
+Subject: [PATCH] tee: move tee_ioctl_shm_register_data to above IOCTL definition
+Date: Thu, 3 Sep 2026 12:57:30 -0500
+Message-ID: <20260903175730.1909952-1-afd@ti.com>
+X-Mailer: git-send-email 2.39.2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000075F3:EE_|DM3PPF40B0653BC:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7be9fbde-1023-4cdb-1bad-08df09e4e201
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|23010399003|1800799024|82310400026|10067099003|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Kfnj2eBmoqMNdzsTA8CkdPCjnA/pNqtC4/OGsuydR5gHIeiPpsx3l/j7kUAV3byK9tYC4kjK3PJIjzF7vk44HvQJ2Xlo/wm2iM3y63ftg8tbuJGRexWGwDQyr+uBnICWLKoau76CJPczKajUf6+jhQcWDUZm/UnnM64+VQiui1SJnPCWO2aPawLOMP9TVVK4kspuQ53BtBM3iNn7jU0X8LaD+Fm9twxvTRHm5ta4RveZIHOiRqyuSGsGlc3kEqRA3rz+bpcu6Olh34v1dEOjxu5TeEQMQtpiw6vL11Ts/07nd/+dR5bk9P55v0UplxtJWurdf38JUo1PMaRNHlWUY7nJ6lRTECpZZko2lMeQRXVOOsiXxs5BBBgnWfBUyzTOxbmqC6TVZzz01fkAxZKb6o5WxtK4frcNwQyNQiNIUNrzvri8Owo1CKt+RSWlRCX4R/Q9GSnFgx1g40ajqbd7Qt55BMo3J5NYtz0zYTtaKkOD8RWXYgolsk9HedQmsyF97SPPx0/3W0/bkIFwzcxDH1xppdYkcpgmBDdp1+vDZydRjiyP7H2JL+0cnEn/5V6sY8bwLY1fsL7D4KMBlFp4uXvOgy9/1iIN292yQpWnn5MD6HOVgROpv6ge4LOXQOwtsotxPSKP+7TTbZhgniVw6jv9GDGM817RVwA3YGIPXW5Hc+Txzy1dL4YaYxbtxSmVArpEmcRUbvXOEspvd/HzMQ==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(23010399003)(1800799024)(82310400026)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	3zXPu9c/zbOdzo+YyWoedyQnQBHyJNkOlXvStZLoHFOERUwjiA07z1+IR6J7qhVEqPzAwnbzYu+DJ5rBqNk547Swl4IlQ7onmXjL0mAkpC9b4jzYOUY074xohAYUo2i6QVl949kKCLNNGTA0dlF3+TNnA/BisJs30ONnyDhOZ2fnSeEz2E/kwHWsazSeFRfzIxOLkdWa3QVWKi50St1WLrdSOwmFcTw3Qp/aM1Q4EpYKeyfFZVwj6RWP2ScCwKsmU5uZPBNszKNfyiySIDHJjaQ3IdHIZn6uv3u52w988vQgIIV3pvvaYFVfId+mNQ+OaHY4SRqVF5vT/48D47f7Ax+FaAeYyQSNsqb7M6bqIw5XIrhX+NU+oRl+f1N1sauOWttiqevvmGxE4/4w1Zx3dsgmbL1vk8NyLT8u4csH+WgfJNVkT74Qzba/j1OCW+ik
+X-Exchange-RoutingPolicyChecked:
+	0Bisk40dvWWvA6zpjyackZrOx6r0c9krmAbcx/b03xzHmcOrrQhEcR3hxHwfGCkhMY+nzaqDsBtJ85+dfQozUNe9vexOedg6MXybApouGbMAUIOs/FxHEnAP2P9uDYwSqNnv8v+/QpxVFKEaCiwhZSS5czKACT1DqTrY2k38EWFusgqrTeok/R5KM3pScf1PUJUHPPbjrec32YS5Yk1jb3fDb5FdsoQ7ztz92y1ygCG2y35Yo5eSnfJjZzncTNnLfTTzVhbJAOXb1rgazkoYsYQGlkQMh0rKWPGmjgqTY7FJSVJ00VwtA8vN1YOKJb8AQtTJpVOhJRl7+la7aYo06w==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 17:57:55.7525
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7be9fbde-1023-4cdb-1bad-08df09e4e201
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF000075F3.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPF40B0653BC
+X-Authority-Analysis: v=2.4 cv=de+wG3Xe c=1 sm=1 tr=0 ts=6a99b533 cx=c_pps
+ a=zZ5onIKbzmoLkk/LR1Usmw==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=gO1vWkAQAl3rybz1DQOp:22 a=sozttTNsAAAA:8 a=yf5ehZLxDqhilrAfVTIA:9
+X-Proofpoint-ORIG-GUID: 7lYq-xqbnhsfowXoMFELCUu8iFbj0Vdg
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDE1NyBTYWx0ZWRfXxSuR7dEO/WCO
+ h21+WGqnrW9TsjGG8KldDfYLM4QJEl9WgVYaI3rzYUJ5nU8Sz4Qn20s91u+G7bSWvjDX5OxSR50
+ IvM12GvR1tWryF360YXb7EHBo0OnfD8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDE1NyBTYWx0ZWRfXx0ey2KB2HPhy
+ xCMhEt5o/+8WpdtNv3e7/5ZgHFodb74TZxxcTTVo0Rmwaw5RGaHQz9v+fju6grtCADPOCVMjmG/
+ V8pgGR+28+RqHnKBseLlZeidIKw2AYsHxmWH8yYDQHeOic3OACOjhWeb/LoT0ecg8c5ksYSh4x+
+ rf+GxxNUzjCUm0806gripuntx85UEe/DruACcpYP3gQh7ubKzrss9xkMDegwGJL8rfORDIvYg20
+ UnaN2jQARi4JUhcA658jGRcDfAqjKXvnNfOx9fZKN622Z7STf2lxe3PD2n9neLX8c+835cmp4ZS
+ WAtjH3bHbn2PLlaoC6ktTnZSTenEah5D5ZEEoQDqsJ/v31c12ZUfzov0L1w1qeRxtlsHYEkQa7N
+ J/htvvvedjNpanYdynezrt4jg74ktXzw7/T7cK5ltkoo7CXwooIBVCJlApCbzd7x6J4i+6GDw7d
+ FUqMDfGLnvDTNaHJwiQ==
+X-Proofpoint-GUID: 7lYq-xqbnhsfowXoMFELCUu8iFbj0Vdg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_05,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0
+ impostorscore=0 adultscore=0 bulkscore=0 clxscore=1011 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030157
 
-On Thu, 03 Sep 2026 03:30:15 +0000 patchwork-bot+netdevbpf@kernel.org
-wrote:
->   - [net-next,v12,4/5] net: dsa: motorcomm: Add LED support
->     (no matching commit)
+Most of the struct definitions for a given IOCTL definition immediately
+preceded that definition. The struct tee_ioctl_shm_register_data is an
+exception as it is placed above the TEE_IOC_SHM_REGISTER_FD definition,
+not the TEE_IOC_SHM_REGISTER one it is to be used with. Move it down
+to match the others.
 
-Sigh, I thought you said all the issues on v11 were false positives.
-I merged v11, please send an incremental fix.
+This is a non-functional change for consistency and to help prevent
+someone from accidentally using the wrong struct with the wrong IOCTL
+based on the struct's location.
+
+Fix a couple small spelling issues while here.
+
+Signed-off-by: Andrew Davis <afd@ti.com>
+---
+ include/uapi/linux/tee.h | 40 ++++++++++++++++++++--------------------
+ 1 file changed, 20 insertions(+), 20 deletions(-)
+
+diff --git a/include/uapi/linux/tee.h b/include/uapi/linux/tee.h
+index 5203977ed35d1..76815b0f4b665 100644
+--- a/include/uapi/linux/tee.h
++++ b/include/uapi/linux/tee.h
+@@ -384,24 +384,6 @@ struct tee_iocl_supp_send_arg {
+ #define TEE_IOC_SUPPL_SEND	_IOR(TEE_IOC_MAGIC, TEE_IOC_BASE + 7, \
+ 				     struct tee_ioctl_buf_data)
+ 
+-/**
+- * struct tee_ioctl_shm_register_data - Shared memory register argument
+- * @addr:      [in] Start address of shared memory to register
+- * @length:    [in/out] Length of shared memory to register
+- * @flags:     [in/out] Flags to/from registration.
+- * @id:                [out] Identifier of the shared memory
+- *
+- * The flags field should currently be zero as input. Updated by the call
+- * with actual flags as defined by TEE_IOCTL_SHM_* above.
+- * This structure is used as argument for TEE_IOC_SHM_REGISTER below.
+- */
+-struct tee_ioctl_shm_register_data {
+-	__u64 addr;
+-	__u64 length;
+-	__u32 flags;
+-	__s32 id;
+-};
+-
+ /**
+  * struct tee_ioctl_shm_register_fd_data - Shared memory registering argument
+  * @fd:		[in] File descriptor identifying dmabuf reference
+@@ -426,13 +408,31 @@ struct tee_ioctl_shm_register_fd_data {
+  * Returns a file descriptor on success or < 0 on failure
+  *
+  * The returned file descriptor refers to the shared memory object in the
+- * kernel. The supplied file deccriptor can be closed if it's not needed
++ * kernel. The supplied file descriptor can be closed if it's not needed
+  * for other purposes. The shared memory is freed when the descriptor is
+  * closed.
+  */
+ #define TEE_IOC_SHM_REGISTER_FD	_IOWR(TEE_IOC_MAGIC, TEE_IOC_BASE + 8, \
+ 				     struct tee_ioctl_shm_register_fd_data)
+ 
++/**
++ * struct tee_ioctl_shm_register_data - Shared memory register argument
++ * @addr:      [in] Start address of shared memory to register
++ * @length:    [in/out] Length of shared memory to register
++ * @flags:     [in/out] Flags to/from registration.
++ * @id:                [out] Identifier of the shared memory
++ *
++ * The flags field should currently be zero as input. Updated by the call
++ * with actual flags as defined by TEE_IOCTL_SHM_* above.
++ * This structure is used as argument for TEE_IOC_SHM_REGISTER below.
++ */
++struct tee_ioctl_shm_register_data {
++	__u64 addr;
++	__u64 length;
++	__u32 flags;
++	__s32 id;
++};
++
+ /**
+  * TEE_IOC_SHM_REGISTER - Register shared memory argument
+  *
+@@ -440,7 +440,7 @@ struct tee_ioctl_shm_register_fd_data {
+  *
+  * Returns a file descriptor on success or < 0 on failure
+  *
+- * The shared memory is unregisterred when the descriptor is closed.
++ * The shared memory is unregistered when the descriptor is closed.
+  */
+ #define TEE_IOC_SHM_REGISTER   _IOWR(TEE_IOC_MAGIC, TEE_IOC_BASE + 9, \
+ 				     struct tee_ioctl_shm_register_data)
+-- 
+2.39.2
+
