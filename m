@@ -1,50 +1,35 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25EF3369D61
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 03:30:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 638D1305693;
+	Thu,  3 Sep 2026 03:31:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788406213; cv=none; b=DET0XaPc4WJmmrHCKWKwpWwyZJJ/ZZPWNVpWQRixnZdEIvWtC3nDasP7afB3pS4PROzE7nALKJZlqjgpEZReQAYD6c8+6lrM5E4uT67U/8aDH++M4u9qWl5C4csbg6t8GIf2htXsviNHytI2XJnyMo+L+3YCx6HvoFSThjUjbok=
+	t=1788406274; cv=none; b=RrZepkKzOsDOB7aInB4S84du0tZ4+QLKn9m2ZRnq7qVPq0Z8TKhYa2+ujl76OEgdHgki3IximUDAv98l8qn5LonDtJl4Rtywp166ASU3eNMiD4pAH0FanQ4FWRzi0QWnHTUc16MfY9YnLYJzrB2kOJpi1nc7XozgG05OiU8cXK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788406213; c=relaxed/simple;
-	bh=eXya5nlr3+zA4EDNnHy8itBISYAMhMCrW69Q+K9z3+w=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DsVtBuEx3KximpNlYaeTTecZ5Gvjf/Xt97BozPoKrK331x5tZR9KmJpdKJ6n0MCls33/2y5lBQ4/BvRGKdCFr8uOBMZy79TwJ57Y+zknZizovIkjt6ZTSs7ZkDnGWb93qF8iE3nEnBj84u8BwTCmrYIs/h0Q7FnOCLO8JJDMiow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: bca13634a74711f19a56ed5b684f684d-20260903
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:2e91eb2d-9e09-408f-9667-1d9f4c398891,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:08f6ef09610bb2fe696fea773d2164b1,BulkI
-	D:nil,BulkQuantity:0,SF:102|865|898,TC:nil,Content:0|15|50,EDM:5,IP:nil,UR
-	L:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,S
-	PR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: bca13634a74711f19a56ed5b684f684d-20260903
-X-User: liwanwu@kylinos.cn
-Received: from kylinos.cn [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <liwanwu@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1644833514; Thu, 03 Sep 2026 11:29:57 +0800
-From: Wanwu Li <liwanwu@kylinos.cn>
-To: tj@kernel.org,
-	arighi@nvidia.com,
-	void@manifault.com,
-	changwoo@igalia.com,
-	emil@etsalapatis.com
-Cc: liwanwu@kylinos.cn,
-	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] sched_ext: two more context-safety fixes found in the NMI kfunc audit
-Date: Thu,  3 Sep 2026 11:29:51 +0800
-Message-Id: <20260903032953.659847-1-liwanwu@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1788406274; c=relaxed/simple;
+	bh=Ya3PcIfbrCKZPqwxMjzvPSvOUKEktdy/4yOrCRSvo2U=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=FUrowp9NFeZbDLdUsFRc0uQ9MZ3cmEw9zPYYcKFe9HayZG9IO2cVzsBnqRH2agbHaGJt/nm4WtRQs0oe3EQaBZewJ7YeQ/9DEjKOWfmNr4/z2m9nQNFNvFeeTLeD8GMWYfOr4CSdjzehrZn+WgZtoVxGd0yv580kfe5XEQNUJMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AJStVjH9; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AJStVjH9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAFEF1F000E9;
+	Thu,  3 Sep 2026 03:31:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788406272;
+	bh=15D7ziCqyOLDogPczVEc95HI709Ep4DKrGi2eP/m4eI=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=AJStVjH9/z7F8Meeek8k4DaXWLWyl2/B3AXacmT2xxF+vdyF1jvuw7Qy5GPFaiizJ
+	 YGzACivA/a491pu0xcr+RuEK8QjeKrQyWz1tf/meWyuv6duLhuWFXVuM/FKcL/ccvR
+	 4H/lVp6Q2lu9eiuLGFKTsBL6x+UVYhElphKQaX7amR92e9jmiKdvuU3EKKppYDnCMF
+	 +RSz1uhpY4coE0Ixxi0GlMdxzXum1jGy7xGhcHRL7s+4B71gPzTJZJjqVKWPCgCpm9
+	 J2Q1QcOd+YGaG3bf81SB6ZZ8YhriD08bdMtSvwr2hJj88J5v/+UbZwCuFEKgFsSytC
+	 MKxpI/NJA/nKg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93C0D392705C;
+	Thu,  3 Sep 2026 03:30:15 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,31 +37,72 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v11 0/5] net: dsa: motorcomm: Add LED support
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178840621439.3072235.8474333977107368724.git-patchwork-notify@kernel.org>
+Date: Thu, 03 Sep 2026 03:30:14 +0000
+References: <20260831044818.4103477-1-mmyangfl@gmail.com>
+In-Reply-To: <20260831044818.4103477-1-mmyangfl@gmail.com>
+To: David Yang <mmyangfl@gmail.com>
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 
-Continuing the audit that the sashiko bot kicked off on the NMI-reject
-series, I went through every kfunc exposed to BPF_PROG_TYPE_TRACING
-(the any / idle / cid context-filter sets). Two more context-safety
-issues came out of it; this pair addresses both.
+Hello:
 
- - Patch 1 fixes the scx_locked_rq() class (three "any"-category kfuncs
-   read scx_locked_rq() and take an unsafe fast path on a non-NULL
-   return from NMI). scx_locked_rq() gains an in_nmi() test at the
-   source that returns NULL from NMI, so the three callers fall onto
-   their unlocked paths. This supersedes guarding them individually.
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
- - Patch 2 fixes an IRQ re-entrancy race on the per-CPU
-   per_cpu_unvisited nodemask scratch in the idle path. The search
-   scratch is protected only by preempt_disable(), which doesn't mask
-   IRQs; switch to irqsave instead. The NMI case is left as-is (a
-   misuse with no legitimate use and no crash risk).
+On Mon, 31 Aug 2026 12:38:53 +0800 you wrote:
+> LEDs can be described in the device tree using the standard LED node
+> notation. Currently, only parallel mode and strict 1:1 mapping (i.e. the
+> HW default) are supported.
+> 
+> v10: https://lore.kernel.org/r/20260816193905.218112-1-mmyangfl@gmail.com
+>   - new patch to fix lock status check
+>   - LED control block redesigned
+> v9: https://lore.kernel.org/r/20260726162731.1005803-1-mmyangfl@gmail.com
+>   - LED initialization sequence adjusted
+>   - add DT description
+> v8: https://lore.kernel.org/r/20260725045008.858692-1-mmyangfl@gmail.com
+>   - limit the led port number
+> v7: https://lore.kernel.org/r/20260723195335.806002-1-mmyangfl@gmail.com
+>   - rebase
+> v6: https://lore.kernel.org/r/20260709014812.1158178-1-mmyangfl@gmail.com
+>   - per-port initialization support
+> v5: https://lore.kernel.org/r/20260707064752.1030345-1-mmyangfl@gmail.com
+>   - improve trigger selection
+> v4: https://lore.kernel.org/r/20260703165241.542195-1-mmyangfl@gmail.com
+>   - fix some reg op typos
+> v3: https://lore.kernel.org/r/20260701155519.273212-1-mmyangfl@gmail.com
+>   - fix null pointer dereference
+>   - support polarity auto-configuration
+> v2: https://lore.kernel.org/r/20260629183137.541341-1-mmyangfl@gmail.com
+>   - allocate LED structures only
+>   - eliminate double locking
+> v1: https://lore.kernel.org/r/20260618202716.2166450-1-mmyangfl@gmail.com
+>   - set up polarity correctly
+>   - do not set up .brightness_get() to prevent dead lo
+> 
+> [...]
 
-Wanwu Li (2):
-  sched_ext: Make scx_locked_rq() return NULL from NMI
-  sched_ext: Protect the idle-search scratch nodemask with irqsave
+Here is the summary with links:
+  - [net-next,v11,1/5] net: dsa: yt921x: Check lock status with lockdep_assert_held_once()
+    https://git.kernel.org/netdev/net-next/c/b1950d0426aa
+  - [net-next,v11,2/5] net: dsa: motorcomm: Move to subdirectory
+    https://git.kernel.org/netdev/net-next/c/9c472a0d7c38
+  - [net-next,v11,3/5] net: dsa: motorcomm: Split SMI module
+    https://git.kernel.org/netdev/net-next/c/e9423a64d382
+  - [net-next,v11,4/5] net: dsa: motorcomm: Add LED support
+    https://git.kernel.org/netdev/net-next/c/9af9a8168213
+  - [net-next,v11,5/5] dt-bindings: net: dsa: yt921x: Add LEDs definition example
+    https://git.kernel.org/netdev/net-next/c/5f28f63c5d19
 
- kernel/sched/ext/idle.c     | 14 ++++++++++++--
- kernel/sched/ext/internal.h |  9 +++++++++
- 2 files changed, 21 insertions(+), 2 deletions(-)
-
+You are awesome, thank you!
 -- 
-2.25.1
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
