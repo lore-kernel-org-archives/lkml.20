@@ -1,178 +1,338 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F333F58E9
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:36:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B01AF3F12E0
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:37:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788417386; cv=none; b=RaavG+HuH5QbjJD0TmwiuYeeUeOwJPTse9iG88QE/vLkZegnGUwhpFKWLWo1Znp+b9BagLcY6gVzZeImQx9pwF8/9DKbZ0YgOonTL7awotdddywhtYxCvHMtoHe0fuD5HfMFc9XdPonz3cKAufOLZcVJr9/biQMxbEmWKWo6MXQ=
+	t=1788417442; cv=none; b=opckQA+pAqx4hprHykwgaEu6BdswiibEcIx6vLxHwaTUMi99+BIgi3ok6j7RM94qK0K40CjrFLePWS5XHvSGYk9Mt6YKhbEHTFYhfrWZDyQq+XIcYDTCURRI2N07WSgB1ljA+lTrUKj22GF73ouS8ZYxFR5NFDbcyLG4l2HNjVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788417386; c=relaxed/simple;
-	bh=FfwkxEfilE86BNfAlLpk7Wh2Jy69VGToG2IRN4Qqqqw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eojp6r7YvEuNY2Oh/ChGsq4AiUzZ/HBsnGu9AJuY1sM237dl1hdpvU42r10zr35Tck9YfS+AdkzatxlQ0v3hjhvAp/lLjqZ4684eo26JczsIVZggyjwkeZMrpcWm6EwcbhAVhJwttdWon+HUnmcT8ITMnym10HFNokGVQ1hQtOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=enNaZKAL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hMUtYN7w; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="enNaZKAL";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hMUtYN7w"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6835lOh73113986
-	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 06:36:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=6vG8IUyMgWi+NM+7asSaQVtS
-	tMEa/DOfKPbDlIqaadE=; b=enNaZKALYY7Lcg2+BRZ+Wvyk+B4pcvlzWMrbcyib
-	lExhVZCU4VRs1ZIRTaTp10fJ3BdsGzciWvB5lE1i2e9UjLiFd4f07sH6fFmRSfcU
-	epkdfARqe26b/VCtW+ZhAOcjEFOGnzPODymRUIxhJf7v7LKIfUJWVvbqwHYjKC81
-	r/cms3K+WFZdch8xMsyf1HmqmDN+a2MQ3bwhqvWZAJkq6bByZnQM26xclsH1poAj
-	zyzIwYHPaPw4nmEHZ7SMvKveQx9Wrc95JL1tjxZB0VyJGeJnM5H7naTVaLKctBYf
-	mTvhhuRYKpJ3Pbjdu2e+MseRFnxd57U7ztjlQooI1CJDzA==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf0gjrpu8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 06:36:21 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d02df2bf09so18932045ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 23:36:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788417381; x=1789022181; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6vG8IUyMgWi+NM+7asSaQVtStMEa/DOfKPbDlIqaadE=;
-        b=hMUtYN7wagtSQcUnCIQ8Dqo2KR8OJ2ahs2dl3qQRbI1BoQRp2bFy/8xBxCltZbgo5D
-         JuOGUAqw7ehCZGNtpc22sZI7WQ8xLgod21AWxzrkL99DmdRqsblhM4XVUEwm9wxQR1Vd
-         ueR8WhysPzRWdoLotRXHlUhRs+rZlQZ99248dg9iQ2exquNxd5dmPYMYE31A/ERbMOdQ
-         Ff2H6A6iG+E0TGqsYX7eOr2a0YONYezZIfyGBJF5sRKqjCdQIqI9jiaquEGdPCHM/It1
-         qDDcMic0XDX/pJMSauOyXl7dI1M4PRkNE+8jY6GQXiAOyi98SVcTwzNfsVOaac+cFmOd
-         a01w==
+	s=arc-20240116; t=1788417442; c=relaxed/simple;
+	bh=uY0Zv1T/baiotleUXV4DKaghI72bcOgY+AY9ZbTFw0g=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=BvUrbnUG+ehbk5N4m0ZHNdwb5bMp3Nqpfij9U+tZiNK/ho0tKs9z5UbRWYj7l4x3yaDYqxsb3ol2SG6dtFLwb9JaHeF+e0fgKYA4wAz/B24VhJMhWsGPuU1r9sIiQFkZyqd1mrKSRFQNIl76AjE9mlV6kbNGLEv6h/ND2SklGjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b3516c87fcso1149335eaf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 23:37:19 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788417381; x=1789022181;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6vG8IUyMgWi+NM+7asSaQVtStMEa/DOfKPbDlIqaadE=;
-        b=L7hl0pkeOXpxlRHij6W5kTUElP37cJ3h78jZnyZMIc0J5723XdYQpC8xgxhLAmU0bf
-         2BHIRWkuzcVjZ9ncsf0y+1dZccqcE2t29QV4uBO2mP7Zs5FPMa4UedkhTCSxCYJyoxeu
-         gITsFooRxJ475TyulbsodSAnf29WZr8bAZjwPxp+turb4mFTZBdWuTgaLTdl+/aE1OIe
-         llQalYD7oIdAuPJz17hjI4l+Ww8+5jmAirC9koBhQniWjxpMenScDxd3jbam+sjX2jAy
-         fGeiRg6SAcIU+f6Amz4cFXOx+fawzfqY194+c3cjHESrLpZ1LpwsX5kamnnfAEj9u0HR
-         8jwA==
-X-Forwarded-Encrypted: i=1; AKwUvBw9gpuhSmJ0CqRK8GJipl49GL0aLOlwe9oHzHdYmVlQgomMAnMxCGXYZHJSPa1aIweRZig7iFzhl/0TSLw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lpQ6W63kmO6s5Cawzo1wqCtdPwbu2mzZQpAU7ktVKT/U03Ltwp
-	eDNKMyPMsTrf6JxuoVGBY90QC/29C59SLaUsmGbi5RpR/w4x0UdbiIomthTDoS2VRsomL3x4oHu
-	LdZq/2Zotmzlg6YVszIhr0QyaohE+4RRO9nJEQopWsBx0fmJvcxCuqZigwy3+XRE2D0c=
-X-Gm-Gg: AYBFou0wSvwlcrbEG/PFHEfQ9AvALoJqPuonu+5XvYsK7kB+Uw+xjRzcsm99iDEjleD
-	7Jfq+lWrq8/rc01SAvlG1jqiqtdWlW2j7juM8wfIYV1i6ZXs0ipUdICJw6Nx7NqmIl0k/DU8ATR
-	S/gHWjAPNo7K2Xdfi0NUf4ZG70cxNKOPKpJ7xbOrFCNRC15ZNP840YAl+MNovtvOpKFHSL/8p6b
-	2rd8fFD//SbgycWaUmcF1T7+4PQncMmkISdOhGigFaubKjmfG+hbYO/gxxKdUU/o1FD1cncIY9B
-	b7NYJTaLqU/yytMCpkciItf44+c8Z+UKuOzvktUzo6LZkJgjhIk2vjfee4DHDs/or6IneRt5b8z
-	2GMIEIdGUI2LN+n1gsl/WHACJRgq9aKhCLmn8KUmByHM=
-X-Received: by 2002:a17:90b:164d:b0:398:c16e:69d3 with SMTP id 98e67ed59e1d1-39aedeb9aecmr15404623a91.1.1788417380680;
-        Wed, 02 Sep 2026 23:36:20 -0700 (PDT)
-X-Received: by 2002:a17:90b:164d:b0:398:c16e:69d3 with SMTP id 98e67ed59e1d1-39aedeb9aecmr15404520a91.1.1788417380155;
-        Wed, 02 Sep 2026 23:36:20 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3325592ebb3sm3645854eec.14.2026.09.02.23.36.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 23:36:19 -0700 (PDT)
-Date: Thu, 3 Sep 2026 14:36:14 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
-        Anandu Krishnan E <anandu.e@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/6] arm64: dts: qcom: nord: Add PMAU0102 and PMM8650AU
- PMIC support
-Message-ID: <apkVXuacPMqg9I8n@QCOM-aGQu4IUr3Y>
-References: <20260831032103.341633-1-shengchao.guo@oss.qualcomm.com>
- <20260831032103.341633-5-shengchao.guo@oss.qualcomm.com>
- <b3ca88cc-ff00-4a6e-9335-e39bebedd548@oss.qualcomm.com>
+        d=1e100.net; s=20251104; t=1788417438; x=1789022238;
+        h=content-transfer-encoding:content-type:to:from:subject:message-id
+         :in-reply-to:date:mime-version:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IhRHg4pZQxQUGpGvtMOBZ2g/LToNyEGvFT7skHJJXNw=;
+        b=ozrznwGHDkvwzxYzwOeTE8fEFw7ITCKU6NdtQkRM1bhPaoq7x06d/gHkj4E3xYRdZg
+         JhWaQys5Bw1OhYextWdvD3WMK/PCydK/gZa67+JvlUcKdULRU469VwK/aswFyvtvj/t5
+         HHF3j5J/3rraZSHq3A9wOENDHHfOeaTFiXAS6LX4JKkKBp3RNK8/lCCUJiaud60Tdze1
+         kuDndH2pEvs+eLAD5wJSvsIT2nmxTTtgHI1Vj7LgeFNypjrvey4WZX5WoYGhqfQNtFmU
+         GxCqWw1GmrNcmKe2Otp5tdsOGiHtSAy6H89GJC0RdK22hNpBY5GhIei73GjsZKuzdO5t
+         IGVA==
+X-Gm-Message-State: AFuF++nX2IxCKESg8B3PBswchW1v17hGzAXhr/GVbFUFnnJ/wdBTJOsv
+	w10bdH2h/uTF80f/Ubk8IzDO1es51QP/J7SWvUy5OnSf5Ev+smemim+qh+/DEN1SQlY33VEFxSz
+	7XOA3e76tsRi8/57w7GCoP6WA/pk7XGrqRtBJ+OVGN9xLlSqD1tvfZ6I1ez0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b3ca88cc-ff00-4a6e-9335-e39bebedd548@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA1NyBTYWx0ZWRfX1H1tH6GWajLP
- rORta8FFAWEvmgTEpczw8PjDlo6pbuSK+RsKjifMToAndz/b5rEAEZANjwAOHPBuEq9wJ2sH0S/
- 3i9HL7Of0+2HfJVQLKxarEpf8T87qrvz3kHkcu+scN3weS1AIZKhj5g3oNpQ+4GUr04niCOknc3
- 9USOMa7g4CcuqAAaJ7ONc0UUFWvufODTppIMOJ3dgQ7b3AvvqlA96BvyatDpS73mpsWeoxJV505
- dppfSGq40JorCB4v5Z+NqKtu6phAdE+Omx7GhmyyDtIK4o2IzRyjmrt+ahyifTGslvjzyb9G6rj
- 271Xp7h91r1q8w7D8CWKbiuCyZUDSULGMl7WiIfJDfnOqhCh+nEezZ2L+BSf3q85ElbINgjdkWU
- Q7CMT744xhHJOpGGdkHZYu1QPQMvS91yvSk0T90NIZ1ky6Jte7zw30PaE7T9Z/81MoCnuhycy1u
- jbCwBh1XeDnh67hovDg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA1NyBTYWx0ZWRfXyV5tvemV/hOC
- j7eACE+ubz3onNLRAznOSjmdANECdjeMbGfTVeCQlthBW3xQkjch2S3bt2meS5tL8nE0BkZMj4R
- BZ19F+H7xYj057kZDOoe+tdbbOOC9uY=
-X-Proofpoint-GUID: R1gp0wA5mLy69kPyn5YAHwLEwmIZwPU1
-X-Proofpoint-ORIG-GUID: R1gp0wA5mLy69kPyn5YAHwLEwmIZwPU1
-X-Authority-Analysis: v=2.4 cv=LZ4MLDfi c=1 sm=1 tr=0 ts=6a991565 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KicveIkL9BD13D6TIKoA:9 a=CjuIK1q_8ugA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_02,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
- bulkscore=0 priorityscore=1501 impostorscore=0 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030057
+X-Received: by 2002:a05:6820:189a:b0:6b3:68a9:79e5 with SMTP id
+ 006d021491bc7-6b47edceea1mr7557964eaf.6.1788417437854; Wed, 02 Sep 2026
+ 23:37:17 -0700 (PDT)
+Date: Wed, 02 Sep 2026 23:37:17 -0700
+In-Reply-To: <6a85e576.f7a79266.2f965f.003f.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a99159d.27a413cd.1e878c.0014.GAE@google.com>
+Subject: Forwarded: Re: [PATCH] usb: core: fix GPF on disconnect when
+ interface claimed before registration
+From: syzbot <syzbot+87188222c77c0dbbdb4d@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 02, 2026 at 04:17:26PM +0200, Konrad Dybcio wrote:
-> On 8/31/26 5:21 AM, Shawn Guo wrote:
-> > From: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
-> > 
-> > The Nord platform is supplied by two families of PMICs on the SPMI bus:
-> > eight PMAU0102 devices on USIDs 4 to 11, and one PMM8650AU on USID 0.
-> > Add one dtsi per PMIC type, following the established one-file-per-PMIC
-> > convention, and include both of them from nord-rrd.dts.
-> > 
-> > The eight PMAU0102 instances are labelled pmau0102_e through pmau0102_l
-> > after their board designators. Each one provides a GPIO controller, an
-> > ADC, and an MBG (Master Bandgap) temperature monitor that reads its die
-> > temperature through a DIE_TEMP ADC channel. The monitors use the
-> > qcom,pmau0102-mbg-tm compatible with qcom,pm8775-mbg-tm as fallback, and
-> > each is hooked up to a thermal zone.
-> > 
-> > PMM8650AU is the same die as PMM8654AU, so pmm8650au_a reuses the
-> > existing qcom,pmm8654au and qcom,pmm8654au-gpio compatibles while the
-> > file is named after the part actually populated on the board. It provides
-> > PON with a power key, an RTC, and a GPIO controller. The resin
-> > is described but left disabled, for boards that wire it up to enable.
-> > 
-> > Signed-off-by: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
-> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> > ---
-> 
-> [...]
-> 
-> > +		pmm8650au_a_pon: pon@1200 {
-> > +			compatible = "qcom,pmk8350-pon";
-> 
-> I think this may fall into the same bucket
-> 
-> https://lore.kernel.org/all/20260724-b4-add_pwrkey_and_resin-v6-1-41acc214d93a@oss.qualcomm.com/
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Ah, thanks for the pointer! I missed that.
+***
 
-Since PMM8650AU is the same die as PMM8654AU, I would reuse pmm8654au
-compatibles, e.g.
+Subject: Re: [PATCH] usb: core: fix GPF on disconnect when interface claime=
+d before registration
+Author: khiemtranzo532001@gmail.com
 
-	compatible = "qcom,pmm8654au-pon", "qcom,pmk8350-pon";
+#syz test
 
-Shawn
+usb_driver_claim_interface() sets dev->driver unconditionally before
+checking device_is_registered(dev).  When called from usb_audio_probe()
+during configuration, the interface device has not been added to the
+driver core yet (device_add() is called later in usb_set_configuration()).
+
+As a result, knode_driver is never attached to the driver's klist, but
+dev->driver is set.  On subsequent disconnect, bus_remove_device() calls
+__device_release_driver(), which calls klist_remove(&dev->p->knode_driver)
+unconditionally on the uninitialized node, causing a general protection
+fault:
+
+  BUG: kernel NULL pointer dereference
+  RIP: klist_remove+0x...
+  Call Trace:
+   __device_release_driver
+   bus_remove_device
+   device_del
+   usb_disable_device
+   usb_disconnect
+
+Fix this by deferring the assignment of dev->driver for interfaces that
+are not yet registered.  Instead, record the claim via two new fields in
+struct usb_interface: a claimed bitflag and a claimed_driver pointer.
+After device_add() completes in usb_set_configuration(), call
+device_bind_driver() explicitly for claimed interfaces.
+
+device_bind_driver() skips ->probe() (which is exactly what usb_audio
+needs =E2=80=94 PCM and MIDI devices are created before bind), but it does
+attach knode_driver to the driver's klist, making teardown safe.
+
+The else-if branch in dd.c that handles dev->driver already set at
+device_add() time (used by w1, usb_port, ccwgroup, pata_parport, and
+others) is intentionally left untouched.
+
+Reported-by: syzbot+87188222c77c0dbbdb4d@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3D87188222c77c0dbbdb4d
+Signed-off-by: Nguyen Quang Le Kien <khiemtranzo532001@gmail.com>
+---
+ drivers/usb/core/driver.c  | 19 ++++++++++++++-----
+ drivers/usb/core/message.c | 15 +++++++++++++++
+ include/linux/usb.h        |  2 ++
+ 3 files changed, 31 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/usb/core/driver.c b/drivers/usb/core/driver.c
+index f63004417..59e74872b 100644
+--- a/drivers/usb/core/driver.c
++++ b/drivers/usb/core/driver.c
+@@ -562,7 +562,6 @@ int usb_driver_claim_interface(struct usb_driver
+*driver,
+        if (!iface->authorized)
+                return -ENODEV;
+
+-       dev->driver =3D &driver->driver;
+        usb_set_intfdata(iface, data);
+        iface->needs_binding =3D 0;
+
+@@ -580,11 +579,19 @@ int usb_driver_claim_interface(struct usb_driver
+*driver,
+        else
+                pm_runtime_set_active(dev);
+
+-       /* if interface was already added, bind now; else let
+-        * the future device_add() bind it, bypassing probe()
+-        */
+-       if (device_is_registered(dev))
++       if (device_is_registered(dev)) {
++               dev->driver =3D &driver->driver;
+                retval =3D device_bind_driver(dev);
++       } else {
++               /*
++                * Interface not yet registered: record the claim without
++                * setting dev->driver.  usb_set_configuration() will call
++                * device_bind_driver() explicitly after device_add(), whic=
+h
++                * skips ->probe() and attaches knode_driver so teardown is
+safe.
++                */
++               iface->claimed =3D 1;
++               iface->claimed_driver =3D driver;
++       }
+
+        if (retval) {
+                dev->driver =3D NULL;
+diff --git a/drivers/usb/core/message.c b/drivers/usb/core/message.c
+index 75e2bfd74..73c630750 100644
+--- a/drivers/usb/core/message.c
++++ b/drivers/usb/core/message.c
+@@ -2269,8 +2269,23 @@ int usb_set_configuration(struct usb_device *dev,
+int configuration)
+                if (ret !=3D 0) {
+                        dev_err(&dev->dev, "device_add(%s) --> %d\n",
+                                dev_name(&intf->dev), ret);
++                       intf->claimed =3D 0;
++                       intf->claimed_driver =3D NULL;
+                        continue;
+                }
++               if (intf->claimed) {
++                       intf->dev.driver =3D &intf->claimed_driver->driver;
++                       ret =3D device_bind_driver(&intf->dev);
++                       if (ret) {
++                               dev_err(&dev->dev,
++                                       "device_bind_driver(%s) --> %d\n",
++                                       dev_name(&intf->dev), ret);
++                               intf->dev.driver =3D NULL;
++                               intf->condition =3D USB_INTERFACE_UNBOUND;
++                       }
++                       intf->claimed =3D 0;
++                       intf->claimed_driver =3D NULL;
++               }
+                create_intf_ep_devs(intf);
+        }
+
+diff --git a/include/linux/usb.h b/include/linux/usb.h
+index 1da4ad161..0ec743e76 100644
+--- a/include/linux/usb.h
++++ b/include/linux/usb.h
+@@ -266,6 +266,8 @@ struct usb_interface {
+        unsigned needs_binding:1;       /* needs delayed unbind/rebind */
+        unsigned resetting_device:1;    /* true: bandwidth alloc after
+reset */
+        unsigned authorized:1;          /* used for interface authorization
+*/
++       unsigned claimed:1;             /* driver claimed before
+device_add() */
++       struct usb_driver *claimed_driver;      /* driver for deferred bind
+*/
+        enum usb_wireless_status wireless_status;
+        struct work_struct wireless_status_work;
+--
+2.34.1
+
+On Thu, Sep 3, 2026 at 1:30=E2=80=AFPM Akihiko Kai <khiemtranzo532001@gmail=
+.com>
+wrote:
+
+> usb_driver_claim_interface() sets dev->driver unconditionally before
+> checking device_is_registered(dev).  When called from usb_audio_probe()
+> during configuration, the interface device has not been added to the
+> driver core yet (device_add() is called later in usb_set_configuration())=
+.
+>
+> As a result, knode_driver is never attached to the driver's klist, but
+> dev->driver is set.  On subsequent disconnect, bus_remove_device() calls
+> __device_release_driver(), which calls klist_remove(&dev->p->knode_driver=
+)
+> unconditionally on the uninitialized node, causing a general protection
+> fault:
+>
+>   BUG: kernel NULL pointer dereference
+>   RIP: klist_remove+0x...
+>   Call Trace:
+>    __device_release_driver
+>    bus_remove_device
+>    device_del
+>    usb_disable_device
+>    usb_disconnect
+>
+> Fix this by deferring the assignment of dev->driver for interfaces that
+> are not yet registered.  Instead, record the claim via two new fields in
+> struct usb_interface: a claimed bitflag and a claimed_driver pointer.
+> After device_add() completes in usb_set_configuration(), call
+> device_bind_driver() explicitly for claimed interfaces.
+>
+> device_bind_driver() skips ->probe() (which is exactly what usb_audio
+> needs =E2=80=94 PCM and MIDI devices are created before bind), but it doe=
+s
+> attach knode_driver to the driver's klist, making teardown safe.
+>
+> The else-if branch in dd.c that handles dev->driver already set at
+> device_add() time (used by w1, usb_port, ccwgroup, pata_parport, and
+> others) is intentionally left untouched.
+>
+> Reported-by: syzbot+87188222c77c0dbbdb4d@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D87188222c77c0dbbdb4d
+> Signed-off-by: Nguyen Quang Le Kien <khiemtranzo532001@gmail.com>
+> ---
+>  drivers/usb/core/driver.c  | 19 ++++++++++++++-----
+>  drivers/usb/core/message.c | 15 +++++++++++++++
+>  include/linux/usb.h        |  2 ++
+>  3 files changed, 31 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/usb/core/driver.c b/drivers/usb/core/driver.c
+> index f63004417..59e74872b 100644
+> --- a/drivers/usb/core/driver.c
+> +++ b/drivers/usb/core/driver.c
+> @@ -562,7 +562,6 @@ int usb_driver_claim_interface(struct usb_driver
+> *driver,
+>         if (!iface->authorized)
+>                 return -ENODEV;
+>
+> -       dev->driver =3D &driver->driver;
+>         usb_set_intfdata(iface, data);
+>         iface->needs_binding =3D 0;
+>
+> @@ -580,11 +579,19 @@ int usb_driver_claim_interface(struct usb_driver
+> *driver,
+>         else
+>                 pm_runtime_set_active(dev);
+>
+> -       /* if interface was already added, bind now; else let
+> -        * the future device_add() bind it, bypassing probe()
+> -        */
+> -       if (device_is_registered(dev))
+> +       if (device_is_registered(dev)) {
+> +               dev->driver =3D &driver->driver;
+>                 retval =3D device_bind_driver(dev);
+> +       } else {
+> +               /*
+> +                * Interface not yet registered: record the claim without
+> +                * setting dev->driver.  usb_set_configuration() will cal=
+l
+> +                * device_bind_driver() explicitly after device_add(),
+> which
+> +                * skips ->probe() and attaches knode_driver so teardown
+> is safe.
+> +                */
+> +               iface->claimed =3D 1;
+> +               iface->claimed_driver =3D driver;
+> +       }
+>
+>         if (retval) {
+>                 dev->driver =3D NULL;
+> diff --git a/drivers/usb/core/message.c b/drivers/usb/core/message.c
+> index 75e2bfd74..73c630750 100644
+> --- a/drivers/usb/core/message.c
+> +++ b/drivers/usb/core/message.c
+> @@ -2269,8 +2269,23 @@ int usb_set_configuration(struct usb_device *dev,
+> int configuration)
+>                 if (ret !=3D 0) {
+>                         dev_err(&dev->dev, "device_add(%s) --> %d\n",
+>                                 dev_name(&intf->dev), ret);
+> +                       intf->claimed =3D 0;
+> +                       intf->claimed_driver =3D NULL;
+>                         continue;
+>                 }
+> +               if (intf->claimed) {
+> +                       intf->dev.driver =3D &intf->claimed_driver->drive=
+r;
+> +                       ret =3D device_bind_driver(&intf->dev);
+> +                       if (ret) {
+> +                               dev_err(&dev->dev,
+> +                                       "device_bind_driver(%s) --> %d\n"=
+,
+> +                                       dev_name(&intf->dev), ret);
+> +                               intf->dev.driver =3D NULL;
+> +                               intf->condition =3D USB_INTERFACE_UNBOUND=
+;
+> +                       }
+> +                       intf->claimed =3D 0;
+> +                       intf->claimed_driver =3D NULL;
+> +               }
+>                 create_intf_ep_devs(intf);
+>         }
+>
+> diff --git a/include/linux/usb.h b/include/linux/usb.h
+> index 1da4ad161..0ec743e76 100644
+> --- a/include/linux/usb.h
+> +++ b/include/linux/usb.h
+> @@ -266,6 +266,8 @@ struct usb_interface {
+>         unsigned needs_binding:1;       /* needs delayed unbind/rebind */
+>         unsigned resetting_device:1;    /* true: bandwidth alloc after
+> reset */
+>         unsigned authorized:1;          /* used for interface
+> authorization */
+> +       unsigned claimed:1;             /* driver claimed before
+> device_add() */
+> +       struct usb_driver *claimed_driver;      /* driver for deferred
+> bind */
+>         enum usb_wireless_status wireless_status;
+>         struct work_struct wireless_status_work;
+> --
+> 2.34.1
+>
