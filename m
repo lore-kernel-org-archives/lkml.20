@@ -1,104 +1,411 @@
-Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-204.mta0.migadu.com [91.218.175.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADBB4402BAB;
-	Thu,  3 Sep 2026 07:35:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.96.220.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0D6417BE9
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:35:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788420912; cv=none; b=ptwN4pASUdYUHRMpQzM9CDm2XmnzgTObHAGmF1+Yzc/XIRlVp1ZlXuVEwhkoMcxTa31C8HGFEeQpCBPdkh1h+beY1LkBzIqm9buOtXY/+GAZc3SACv+QNY0kbFIw52Da/RVbyJ0unpZ7w9e6V7ny5+SoJJ/dtSsmCcxR5FR1hPc=
+	t=1788420942; cv=none; b=HCMyRY2ZjuoDpAnhVXyjWyvX0Z9nZwGXSOIcAZwgZBX7KuAupNuR5JpHj4IJl6XsBFGCcQRJBFIvQqhRuWJX0Vv0TR+bzbl7oFpTMNwoxCXxVrNL3baPv1xolKCjvY9SSqjBS33PSXiRfIWJdzDkYZTwojfFXER5n8i60tFVJPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788420912; c=relaxed/simple;
-	bh=y6Vy9A6wVPLLPALeOj8WWs+XDRSs8mCIOs7Co2Kv4bI=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OrALxW8MD8c3unTceGE9QXzmWsRkT4ZQNiVU45ZJa+r8NI7vKF9Tes2udxdDe/1obrQHeOwOJuGXy/63ZdFp5T1MrEIJd9sClGRIJnrlKSyQTqnzNM2ULL1xpqKdI3Rrxz9o6pY51li7Z13KwEKVrn2apywXYfBi2lSo4SY43BE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com; spf=pass smtp.mailfrom=secunet.com; dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b=x98INcOd; arc=none smtp.client-ip=62.96.220.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
+	s=arc-20240116; t=1788420942; c=relaxed/simple;
+	bh=u3Ile/OYKX4kP8lluygtrG5IPVka1AQyFIVtj+OD9x8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AUqDXMzXufAfVBe9ULE5YNsbu7Xr4V1FsAZXFXH9SwYKWdSCDhuofynXKbcWtEXTgbqCOMa4uz1RSJhbWSIrxBoVgSiHp/0xJ6hpzjYVWf3Ewr5RuBvSbLC6olfc9DccyXb4d4HlUKXIaY+BcQ6znN+G9k8N5AgSLqsX/zzcD5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=aEvcO//4; arc=none smtp.client-ip=91.218.175.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b="x98INcOd"
-Received: from localhost (localhost [127.0.0.1])
-	by mx1.secunet.com (Postfix) with ESMTP id 882BD2058E;
-	Thu,  3 Sep 2026 09:35:07 +0200 (CEST)
-X-Virus-Scanned: by secunet
-Received: from mx1.secunet.com ([127.0.0.1])
- by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id Wr7H04nmi7FM; Thu,  3 Sep 2026 09:35:06 +0200 (CEST)
-Received: from EXCH-01.secunet.de (rl1.secunet.de [10.32.0.231])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mx1.secunet.com (Postfix) with ESMTPS id 8778D207E4;
-	Thu,  3 Sep 2026 09:35:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com 8778D207E4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
-	s=202301; t=1788420906;
-	bh=qLkK7xo26NgXVWEASB3FlJ++J8k8espZ4kCXrwapU+0=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:From;
-	b=x98INcOdGLyxR7j+ex+miCEttT+2ZCjQeYqXpbMyXPHXFqc2Q5FhTQ7dKlO8Uu+pN
-	 x7ojNuaiTaZwozxAdCr1r8oi0/YxndZfGSmc5KjfWUhYibr7I9rMtgs4XQunzflsD4
-	 CUjwJqVBdDY30XuRPZC7T1fe0n8Gf6FdO/mVU/LA7JnOL4u+urUoLh770A5xRWFgGF
-	 owIyYGUvVnFNypI3OOYRnetaXJaVRSXJ28dkqGVWWIV1glpjCQsjpnIIvmXCMv/wH5
-	 kPUeGsGPFj/JoTkeKE4WTxH7N2kEiQSvU8WiGI05YLxCNXfFqu1iuIT4TRWUxj3R3F
-	 0+c45vzw15DyA==
-Received: from secunet.com (10.182.7.193) by EXCH-01.secunet.de (10.32.0.171)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 3 Sep
- 2026 09:35:05 +0200
-Received: (nullmailer pid 1407955 invoked by uid 1000);
-	Thu, 03 Sep 2026 07:35:04 -0000
-Date: Thu, 3 Sep 2026 09:35:04 +0200
-From: Steffen Klassert <steffen.klassert@secunet.com>
-To: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
-CC: <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
-	<edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
-	<horms@kernel.org>, <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<AutonomousCodeSecurity@microsoft.com>, <xmei5@asu.edu>,
-	<tgopinath@linux.microsoft.com>, <kys@microsoft.com>
-Subject: Re: [PATCH net v2] xfrm: hold net_device reference under RCU in
- bundle creation
-Message-ID: <apkjKMgkC35QKnHq@secunet.com>
-References: <20260826201745.43267-1-blbllhy@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="aEvcO//4"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=u3Ile/OYKX4kP8lluygtrG5IPVka1AQyFIVtj+OD9x8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788420937; v=1; x=1789025737;
+ b=aEvcO//44VE7Q+jkpWJ7QlUXAtmEgsWCgJ90alEEP3WlrzxnsKkiqb6Q9QyYYKpP81KtIrOa
+ wkt2wAn9bRcHpCl8N9cLh5FY/OtqnRlA9Wf7XrZQNBQo2+5o0od5fI8rYGYsQYBokYerYxXuWki
+ W+rW6zAEP3x0PJ/Lv+otDFAc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 14c2f6911cc44582;
+	Thu, 03 Sep 2026 07:35:37 +0000
+X-Mizu-Trace-ID: 14c2f6911cc44582
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: Michal Koutny <mkoutny@suse.com>,
+	Suren Baghdasaryan <surenb@google.com>
+Cc: Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Shuah Khan <shuah@kernel.org>,
+	cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ziyang Men <ziyang.meme@gmail.com>,
+	Tao Cui <cuitao@kylinos.cn>,
+	cui.tao@linux.dev
+Subject: [PATCH v6] selftests/cgroup: add PSI pressure trigger and validation tests
+Date: Thu,  3 Sep 2026 15:35:23 +0800
+Message-ID: <20260903073523.1055584-1-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260826201745.43267-1-blbllhy@gmail.com>
-X-ClientProxiedBy: EXCH-04.secunet.de (10.32.0.184) To EXCH-01.secunet.de
- (10.32.0.171)
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 04:17:45PM -0400, Cen Zhang (Microsoft) wrote:
-> From: "Cen Zhang (Microsoft Security FORGE Labs)" <blbllhy@gmail.com>
-> 
-> xfrm_bundle_create() and xfrm_create_dummy_bundle() read dst->dev into
-> a local pointer without taking a device reference, then pass it to
-> xfrm_fill_dst(). A concurrent RTM_DELLINK replaces dst->dev via
-> dst_dev_put() and frees the old net_device, causing a use-after-free
-> when xfrm6_fill_dst() later dereferences the stale dev pointer.
-> 
->   BUG: KASAN: slab-use-after-free in xfrm6_fill_dst+0x82c/0x860
->   (net/ipv6/xfrm6_policy.c:86 netdev_hold())
->   Read of size 8 at addr ffff8880142fe588 by task exploit/153
->   Call Trace:
->    xfrm6_fill_dst+0x82c/0x860
->    xfrm_resolve_and_create_bundle+0x21d4/0x2bd0
->    xfrm_lookup_with_ifid+0x485/0x1640
->    ip6_dst_lookup_flow+0x19b/0x1e0
->    udpv6_sendmsg+0x1443/0x2dd0
-> 
-> Fix this by reading dst->dev via dst_dev_rcu() and keeping the RCU
-> read-side critical section active until xfrm_fill_dst() has taken the
-> required device references.
-> 
-> Fixes: 25ee3286dcbc ("[IPSEC]: Merge common code into xfrm_bundle_create")
-> Fixes: a0073fe18e71 ("xfrm: Add a state resolution packet queue")
-> Suggested-by: Steffen Klassert <steffen.klassert@secunet.com>
-> Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
-> Link: https://lore.kernel.org/all/20260820200245.44312-1-blbllhy@gmail.com/
-> Cc: AutonomousCodeSecurity@microsoft.com
-> Assisted-by: GitHub-Copilot:claude-opus-4.6
-> Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <blbllhy@gmail.com>
+From: Tao Cui <cuitao@kylinos.cn>
 
-Applied, thanks a lot!
+The cgroup selftests have no PSI coverage. Add test_psi.c: per-resource
+trigger smoke tests (one trigger per fd, IRQ full-only), a
+cgroup.pressure hide/show toggle test, and two CPU-pressure trigger
+tests using over-subscription: one expects the trigger to fire at a
+tiny threshold, the other expects it not to fire at a whole-window
+threshold. Skips when PSI is disabled or a resource is absent.
+
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+
+---
+Changes since v5 (Michal Koutny review):
+- Terminate trigger writes with a newline instead of a NUL. The parser
+  (psi_write()) overwrites the last byte of the write with a NUL, so a
+  plain strlen()-sized write silently truncates the last digit for
+  privileged users (e.g. a 2000000us window becomes 200000us) and
+  fails with EINVAL for unprivileged ones. The newline keeps the
+  payload intact and drops the reliance on the undocumented NUL
+  convention.
+- Keep pressure_open() silent: the SKIP message already reports why a
+  resource is unavailable and strace accompanies these tests anyway.
+  This replaces the ksft_perror() added on review of v4, which
+  duplicated the SKIP reason.
+- Treat a test cgroup creation failure in FIXTURE_SETUP() as a failure
+  instead of a SKIP.
+- Drop the unprivileged-minimum remark from the fire test comment and
+  the duplicate sysconf() error report.
+- Add cgroup_trigger_no_fire, the false-trigger side of the firing
+  test: with the threshold equal to the whole window, ncpus+1 hogs must
+  not fire it. Under this oversubscription the measured cpu.pressure
+  "some" stays in the 2-17% range on 2- and 16-CPU machines, so the
+  margin is comfortable.
+
+Changes since v4 (Suren Baghdasaryan review):
+- Report pressure_open() errors with ksft_perror() instead of a raw
+  fprintf.
+- Create the test cgroup in FIXTURE_SETUP() so that setup and teardown
+  are symmetric, and drop the per-test creation and the NULL guard in
+  the teardown.
+- Factor the identical bodies of proc_trigger_io/memory/cpu into
+  test_psi_write(); the helper takes _metadata so that its ASSERTs
+  attribute to the calling test, following the seccomp selftests
+  precedent.
+- Drop the now-unneeded NULL init of self->cg and the stale stdbool.h
+  include left over from the restructuring.
+
+Changes since v3 (Suren Baghdasaryan review):
+- Convert to the kselftest harness: each case is a TEST_F(psi, ...)
+  with the cgroup root/PSI availability checks in FIXTURE_SETUP() and
+  the teardown (kill hogs, destroy cgroup) in FIXTURE_TEARDOWN(),
+  which also removes the "ret"/"created" bookkeeping.
+- A trigger that does not fire within the poll timeout is now a FAIL
+  instead of a SKIP: ncpus+1 hogs with a 1usec threshold must stall,
+  so a timeout indicates a real problem.
+- Treat a poll() timeout and a poll() error uniformly via ASSERT.
+- Check sysconf(_SC_NPROCESSORS_ONLN) only for -1 and report
+  strerror(errno); declare variables one per line; for(;;) {}.
+- Make hog_cpu() die with the runner via PR_SET_PDEATHSIG so an
+  interrupted run does not leave orphaned hogs pinning every CPU.
+
+Changes since v2 (Suren Baghdasaryan, Michal Koutny review):
+- Restructure the trigger test into per-resource cases (io, memory, cpu,
+  irq) so a failure points at the specific resource; irq is skipped when
+  /proc/pressure/irq is absent.
+- Spawn the CPU hogs with cg_run_nowait() instead of open-coding fork(),
+  and arm the trigger with a 2s window so unprivileged users can set it.
+- Address the remaining review comments on cleanup and robustness:
+  guard teardown with a "created" flag, use cg_read_strcmp() instead of
+  atoi(), report strerror() on errors, and fix the unused-parameter and
+  sign-compare nits.
+
+Changes since v1 (Michal Koutny, sashiko review):
+- Keep trigger tests smoke-level; switch the firing test from memory to
+  CPU pressure; drop churn_memory().
+- Keep the runner out of the cgroup; add PSI/IRQ skip-guards and a
+  .gitignore entry.
+
+v1: https://lore.kernel.org/all/20260724025826.504586-1-cui.tao@linux.dev/
+v2: https://lore.kernel.org/all/20260728083742.2359320-1-cui.tao@linux.dev/
+v3: https://lore.kernel.org/all/20260813133723.1663605-1-cui.tao@linux.dev/
+v4: https://lore.kernel.org/all/20260824085913.546741-1-cui.tao@linux.dev/
+v5: https://lore.kernel.org/all/20260902040725.877155-1-cui.tao@linux.dev/
+---
+ tools/testing/selftests/cgroup/.gitignore |   1 +
+ tools/testing/selftests/cgroup/Makefile   |   2 +
+ tools/testing/selftests/cgroup/config     |   1 +
+ tools/testing/selftests/cgroup/test_psi.c | 219 ++++++++++++++++++++++
+ 4 files changed, 223 insertions(+)
+ create mode 100644 tools/testing/selftests/cgroup/test_psi.c
+
+diff --git a/tools/testing/selftests/cgroup/.gitignore b/tools/testing/selftests/cgroup/.gitignore
+index 952e4448bf070..ce2b907c57ea3 100644
+--- a/tools/testing/selftests/cgroup/.gitignore
++++ b/tools/testing/selftests/cgroup/.gitignore
+@@ -8,5 +8,6 @@ test_kill
+ test_kmem
+ test_memcontrol
+ test_pids
++test_psi
+ test_zswap
+ wait_inotify
+diff --git a/tools/testing/selftests/cgroup/Makefile b/tools/testing/selftests/cgroup/Makefile
+index e01584c2189ac..a8c69e37332a4 100644
+--- a/tools/testing/selftests/cgroup/Makefile
++++ b/tools/testing/selftests/cgroup/Makefile
+@@ -16,6 +16,7 @@ TEST_GEN_PROGS += test_kill
+ TEST_GEN_PROGS += test_kmem
+ TEST_GEN_PROGS += test_memcontrol
+ TEST_GEN_PROGS += test_pids
++TEST_GEN_PROGS += test_psi
+ TEST_GEN_PROGS += test_zswap
+ 
+ LOCAL_HDRS += $(selfdir)/clone3/clone3_selftests.h $(selfdir)/pidfd/pidfd.h
+@@ -32,4 +33,5 @@ $(OUTPUT)/test_kill: $(LIBCGROUP_O)
+ $(OUTPUT)/test_kmem: $(LIBCGROUP_O)
+ $(OUTPUT)/test_memcontrol: $(LIBCGROUP_O)
+ $(OUTPUT)/test_pids: $(LIBCGROUP_O)
++$(OUTPUT)/test_psi: $(LIBCGROUP_O)
+ $(OUTPUT)/test_zswap: $(LIBCGROUP_O)
+diff --git a/tools/testing/selftests/cgroup/config b/tools/testing/selftests/cgroup/config
+index 39f979690dd3b..8a3ef479e83d3 100644
+--- a/tools/testing/selftests/cgroup/config
++++ b/tools/testing/selftests/cgroup/config
+@@ -4,3 +4,4 @@ CONFIG_CGROUP_FREEZER=y
+ CONFIG_CGROUP_SCHED=y
+ CONFIG_MEMCG=y
+ CONFIG_PAGE_COUNTER=y
++CONFIG_PSI=y
+diff --git a/tools/testing/selftests/cgroup/test_psi.c b/tools/testing/selftests/cgroup/test_psi.c
+new file mode 100644
+index 0000000000000..95dcb8a9f1843
+--- /dev/null
++++ b/tools/testing/selftests/cgroup/test_psi.c
+@@ -0,0 +1,219 @@
++// SPDX-License-Identifier: GPL-2.0
++#define _GNU_SOURCE
++#include <errno.h>
++#include <fcntl.h>
++#include <poll.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <unistd.h>
++#include <sys/prctl.h>
++#include <linux/limits.h>
++
++#include "../kselftest_harness.h"
++#include "cgroup_util.h"
++
++#define PSI_POLL_TIMEOUT_MS	5000
++
++/*
++ * The kernel parser overwrites the last byte of a trigger write with a
++ * NUL, so terminate with a newline to keep the payload intact.
++ */
++static ssize_t write_trigger(int fd, const char *trigger)
++{
++	char buf[64];
++
++	snprintf(buf, sizeof(buf), "%s\n", trigger);
++
++	return write(fd, buf, strlen(buf));
++}
++
++static int pressure_open(const char *resource)
++{
++	char path[PATH_MAX];
++
++	snprintf(path, sizeof(path), "/proc/pressure/%s", resource);
++	return open(path, O_RDWR);
++}
++
++FIXTURE(psi)
++{
++	char root[PATH_MAX];
++	char *cg;
++};
++
++FIXTURE_SETUP(psi)
++{
++	int psi_fd;
++
++	if (cg_find_unified_root(self->root, sizeof(self->root), NULL))
++		SKIP(return, "cgroup v2 isn't mounted");
++
++	/* PSI must be enabled (CONFIG_PSI=y, not disabled on the cmdline). */
++	psi_fd = open("/proc/pressure/memory", O_RDONLY);
++	if (psi_fd < 0)
++		SKIP(return, "PSI unavailable (CONFIG_PSI=n or psi=0)");
++	close(psi_fd);
++
++	self->cg = cg_name(self->root, "psi_trigger_test");
++	ASSERT_NE(NULL, self->cg);
++	ASSERT_EQ(0, cg_create(self->cg));
++}
++
++FIXTURE_TEARDOWN(psi)
++{
++	cg_killall(self->cg);
++	cg_destroy(self->cg);
++	free(self->cg);
++}
++
++/*
++ * /proc/pressure/<resource> accepts exactly one trigger per file
++ * descriptor. Verify that a "some" trigger arms and that a second
++ * trigger on the same fd is rejected with EBUSY.
++ */
++static void test_psi_write(struct __test_metadata *_metadata,
++			   const char *filename)
++{
++	int fd;
++
++	fd = pressure_open(filename);
++	ASSERT_GE(fd, 0);
++	ASSERT_GT(write_trigger(fd, "some 150000 2000000"), 0);
++	ASSERT_EQ(-1, write_trigger(fd, "full 150000 2000000"));
++	ASSERT_EQ(EBUSY, errno);
++	close(fd);
++}
++
++TEST_F(psi, proc_trigger_io)
++{
++	test_psi_write(_metadata, "io");
++}
++
++TEST_F(psi, proc_trigger_memory)
++{
++	test_psi_write(_metadata, "memory");
++}
++
++TEST_F(psi, proc_trigger_cpu)
++{
++	test_psi_write(_metadata, "cpu");
++}
++
++/*
++ * irq only tracks "full", so a "some" trigger must be rejected while a
++ * "full" trigger arms. irq is optional -- it only exists with IRQ-time
++ * accounting -- so a missing /proc/pressure/irq is SKIP, not FAIL.
++ */
++TEST_F(psi, proc_trigger_irq)
++{
++	int fd;
++
++	fd = pressure_open("irq");
++	if (fd < 0)
++		SKIP(return, "/proc/pressure/irq unavailable");
++
++	ASSERT_EQ(-1, write_trigger(fd, "some 150000 2000000"));
++	ASSERT_GT(write_trigger(fd, "full 150000 2000000"), 0);
++	close(fd);
++}
++
++/*
++ * cgroup.pressure gates visibility of the per-resource *.pressure files
++ * inside a cgroup: writing 0 hides them, writing 1 shows them again.
++ * Drive one hide/show cycle and check that memory.pressure appears and
++ * disappears along with it.
++ */
++TEST_F(psi, cgroup_pressure_toggle)
++{
++	char buf[BUF_SIZE];
++
++	ASSERT_EQ(0, cg_write(self->cg, "cgroup.pressure", "0"));
++	ASSERT_EQ(0, cg_read_strcmp(self->cg, "cgroup.pressure", "0\n"));
++	ASSERT_LT(cg_read(self->cg, "memory.pressure", buf, sizeof(buf)), 0);
++
++	ASSERT_EQ(0, cg_write(self->cg, "cgroup.pressure", "1"));
++	ASSERT_EQ(0, cg_read_strcmp(self->cg, "cgroup.pressure", "1\n"));
++	ASSERT_GE(cg_read(self->cg, "memory.pressure", buf, sizeof(buf)), 0);
++}
++
++/*
++ * A child that burns CPU forever; stopped by cg_killall() on teardown.
++ * It also dies with the runner, so an interrupted run (e.g. Ctrl-C
++ * during poll()) does not leave orphaned hogs pinning every CPU.
++ */
++static int hog_cpu(const char *cgroup, void *arg)
++{
++	prctl(PR_SET_PDEATHSIG, SIGKILL);
++	for (;;) {}
++	return 0;
++}
++
++/*
++ * Arm a "some" trigger on a cgroup's cpu.pressure, oversubscribe the
++ * cgroup with more spinning hogs than there are CPUs, and check that the
++ * trigger fires once the cgroup stalls on CPU.
++ */
++TEST_F(psi, cgroup_trigger_fire)
++{
++	char *cpupress;
++	struct pollfd pfd = { .events = POLLPRI };
++	long ncpus;
++	int fd;
++	int i;
++
++	cpupress = cg_control(self->cg, "cpu.pressure");
++	ASSERT_NE(NULL, cpupress);
++	fd = open(cpupress, O_RDWR);
++	free(cpupress);
++	ASSERT_GE(fd, 0);
++	pfd.fd = fd;
++
++	/* 1usec threshold over a 2s window: any CPU stall fires it. */
++	ASSERT_GT(write_trigger(fd, "some 1 2000000"), 0);
++
++	ncpus = sysconf(_SC_NPROCESSORS_ONLN);
++	ASSERT_NE(-1, ncpus);
++
++	/* ncpus+1 hogs guarantee CPU contention inside the cgroup. */
++	for (i = 0; i < ncpus + 1; i++)
++		ASSERT_GE(cg_run_nowait(self->cg, hog_cpu, NULL), 0);
++
++	ASSERT_EQ(1, poll(&pfd, 1, PSI_POLL_TIMEOUT_MS));
++	ASSERT_NE(0, pfd.revents & POLLPRI);
++	close(fd);
++}
++
++/*
++ * The flip side of cgroup_trigger_fire: with the threshold equal to the
++ * whole window, even ncpus+1 hogs must not accumulate enough stall to
++ * fire the trigger.
++ */
++TEST_F(psi, cgroup_trigger_no_fire)
++{
++	char *cpupress;
++	struct pollfd pfd = { .events = POLLPRI };
++	long ncpus;
++	int fd;
++	int i;
++
++	cpupress = cg_control(self->cg, "cpu.pressure");
++	ASSERT_NE(NULL, cpupress);
++	fd = open(cpupress, O_RDWR);
++	free(cpupress);
++	ASSERT_GE(fd, 0);
++	pfd.fd = fd;
++
++	ASSERT_GT(write_trigger(fd, "some 2000000 2000000"), 0);
++
++	ncpus = sysconf(_SC_NPROCESSORS_ONLN);
++	ASSERT_NE(-1, ncpus);
++
++	for (i = 0; i < ncpus + 1; i++)
++		ASSERT_GE(cg_run_nowait(self->cg, hog_cpu, NULL), 0);
++
++	ASSERT_EQ(0, poll(&pfd, 1, PSI_POLL_TIMEOUT_MS));
++	close(fd);
++}
++
++TEST_HARNESS_MAIN
+-- 
+2.43.0
+
