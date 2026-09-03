@@ -1,113 +1,84 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 53CCC3E316B
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:05:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B2729B799;
+	Thu,  3 Sep 2026 08:06:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788422737; cv=none; b=LM/KLlb/FxpFCOcItH38BM0CLSrtpynOGGx8fwsBLMkKG6hdyQv9tSGLIHSSKjPQ0x0ZXr76cd/YWt5UQH3hGL37tOFTbdymtSelJW822Old0htXOIjzRWRjv7Sp7h2T5I85IZuLFifda9/GeXhpGPQ0H3/arBa+lRN9hsFqPNo=
+	t=1788422777; cv=none; b=un1xF1rm8B0Fl4LLrRqgJ+m5m3LzbjVWT7dSAV4BIO7FhOZybnmU4v10Srrs+DklWK/oBUzyc375ladIkUD+aWgpkhNn7L+Zf+j/ZtLyWpcyDvYwK3psJKjdPfVGl2DUWm0zuRMpTDsa0payEX+chRkrNVUJwAFjTkresTkbYGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788422737; c=relaxed/simple;
-	bh=GbhEIVGgcDEBp+ENZY3w0EoFcoKRrRGUmUW5cMurLm8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=sMV6gNgItNSt2rPO++zXj7gvsl0ck3K8e9+6h8InkVRU8iPjSw7qCaAWwBxc3N8tmcL/BVurkI0RVJHBZnmjJVP13/924k1Cp5HfviMQXkdCO8sePeG+btyfAGwU+yfls9LFlrvtrd/ZWn3AIMqwhsrpMsV39M5VxYgJak4oGJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=tFt04i6A; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788422777; c=relaxed/simple;
+	bh=TfEMK0a33NS2jaUvlauAHM7l7SnnnIidRASqMeaGC3E=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=WeDzMcPgGO/qepHe862BqtE0FLCdeIt4JAWcAvuTCTIpmO9Aeu4H9YyLYCSpfDpcMMQG31D5B4tjs3nGX+RLFqScA2O3Km7/U1ZwbdcsgENfNgEvl1Ssdu14xvMMKrAzFN1eNRSsniWw4ZpnNOywnp4moipn/g9DQsgIXeKAwWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=B3MGEt7o; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="tFt04i6A"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3B2221596;
-	Thu,  3 Sep 2026 01:05:29 -0700 (PDT)
-Received: from [10.1.39.91] (unknown [10.1.39.91])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5A6AC3F673;
-	Thu,  3 Sep 2026 01:05:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788422732; bh=GbhEIVGgcDEBp+ENZY3w0EoFcoKRrRGUmUW5cMurLm8=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=tFt04i6AoMjJNvaoAQqUB9pn83HtexiVknPZ1wg+oQbb45v343E9bb/BgZ0NG7+Ps
-	 DXrUpyzXL7JI9zHuYSeIB2C8G3ZovA3giV6avKL2jQe+vbHut3ZobXUUiP8gPj4PD/
-	 +lpse7I9UyUhIZuyJGzov81respIEq0QcYHnVJDI=
-Message-ID: <17c7fd25-9cc6-44c0-8e9a-43fa6f6aa451@arm.com>
-Date: Thu, 3 Sep 2026 09:05:30 +0100
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="B3MGEt7o"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id C4D3A4E4146F;
+	Thu,  3 Sep 2026 08:06:13 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 97DCF602B8;
+	Thu,  3 Sep 2026 08:06:13 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1907411C79B6F;
+	Thu,  3 Sep 2026 10:06:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788422772; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=TfEMK0a33NS2jaUvlauAHM7l7SnnnIidRASqMeaGC3E=;
+	b=B3MGEt7o91rWgG+OB/jZ1KGIDkbGvXO5at21Ffhuhwy1BLzE7/eEvyCrcrZCz3B6PmJYwI
+	c2Kbsow6FPwqH6sYJflF0L917opYPsrVJEsRKMdIc0/3e2Wv1Ze0laRume828yiEgzxFVN
+	UBPjeyIziLfZJv7MggpfPWQIVKVKHgUxSlXqAL5vD2/yNgtNGXMvQ+IJJavF6S0cn4A6pT
+	4xolGMxPMlR0m/S4/mpwcwUThfNmj1pykbu5gApMlog13rrejTdvNibxWewkwdVg/avr4Z
+	mV9svE0JBMYT05Gj0Ay4yAPcbTPABP4VJyLxL8rZRhcelcHfjOubopJnlJClAA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Alexey Charkov <alchark@flipper.net>
+Cc: Srinivas Kandagatla <srini@kernel.org>,  Rob Herring <robh@kernel.org>,
+  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
+ <conor+dt@kernel.org>,  Heiko Stuebner <heiko@sntech.de>,  Michael Walle
+ <michael@walle.cc>,  Finley Xiao <finley.xiao@rock-chips.com>,  Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>,  devicetree@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  linux-rockchip@lists.infradead.org,
+  linux-arm-kernel@lists.infradead.org,  stable@vger.kernel.org
+Subject: Re: [PATCH 1/4] nvmem: rockchip-otp: Serialize reads
+In-Reply-To: <CAKTNdwF_wY8JSoQs=auK_9YNGT+hwQ=dAhcRVsf1E1CVvFs-XA@mail.gmail.com>
+	(Alexey Charkov's message of "Wed, 2 Sep 2026 16:40:16 +0400")
+References: <20260901-rk3576-otp-cpuid-mac-v1-0-ea9135270fc2@flipper.net>
+	<20260901-rk3576-otp-cpuid-mac-v1-1-ea9135270fc2@flipper.net>
+	<87ecfc81e9.fsf@bootlin.com>
+	<CAKTNdwH5S3MxgR=5s2LXPquCFRXE-61LTTsZoHP9+YmXo_P4Ag@mail.gmail.com>
+	<87y0dk6jpn.fsf@bootlin.com>
+	<CAKTNdwF_wY8JSoQs=auK_9YNGT+hwQ=dAhcRVsf1E1CVvFs-XA@mail.gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Thu, 03 Sep 2026 10:06:08 +0200
+Message-ID: <87bjae7o9b.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Question about quantifying Linux kernel functional growth across
- releases
-To: =?UTF-8?B?6ZmI6ZGr?= <isxinchen@gmail.com>, linux-kernel@vger.kernel.org
-References: <CAHoDJCR6pTNtp6zbZ7V3ewsmqH38h7O-thjaHEYTE8hAhKjuQA@mail.gmail.com>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <CAHoDJCR6pTNtp6zbZ7V3ewsmqH38h7O-thjaHEYTE8hAhKjuQA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 9/3/26 06:13, 陈鑫 wrote:
-> Hello,
-> 
-> I am analyzing how the Linux kernel evolves across releases, for
-> example 4.19, 5.4, 5.10, 5.15, 6.1, and 6.6.
-> 
-> I am looking for a technically meaningful and reproducible way to
-> quantify changes in the kernel's functional scope over time.
-> 
-> I understand that there is no well-defined concept of a "number of
-> features" in the Linux kernel. One metric I am considering is the
-> number of unique Kconfig symbols in each release, since Kconfig
-> represents a broad range of configurable kernel capabilities,
-> including subsystems, device drivers, architecture support,
-> filesystems, networking, security features, and so on.
-> 
-> For example, I am considering collecting statistics such as:
-> 
-> * total number of unique Kconfig symbols in each release;
-> * number of symbols added and removed between releases;
-> * changes grouped by major areas such as drivers, networking,
-> filesystems, security, and architecture.
-> 
-> I would appreciate the community's views on the following questions:
-> 
-> 1. Is the number of Kconfig symbols a reasonable proxy for comparing
-> the functional scope of different kernel releases?
-> 
+Hi Alexey,
 
-My intuition would be no, many subsystems even try to reduce the number
-of Kconfigs (with steady or increasing features), as long as cost is
-justifiable.
+>> I haven't seen Sashiko's answer but isn't the goal of guards to just be
+>> released whatever the actual return path?
+>
+> I believe it's based on the guidance in [1]. In this particular case,
+> gotos don't jump outside the scope where I put the guard, so the
+> scope-based guard is still correct. However, stylistically, it is
+> indeed uncommon to see scope-based guards in functions using gotos.
+> Explicit lock/unlock is easy in this case, anyway.
+>
+> [1] https://elixir.bootlin.com/linux/v7.2.2/source/include/linux/cleanup.=
+h#L148-L153
 
-> 2. What are the main limitations or pitfalls of using Kconfig symbols
-> for this purpose?
+I never read that paragraph before, but okay, makes sense.
 
-It'll be vastly dominated by drivers?
-Is this really part of 'functional scope'/features?
-
-> 
-> 3. Are there other quantitative metrics that kernel developers
-> consider more meaningful for describing the growth or evolution of
-> kernel capabilities?
-
-Maybe syscalls? sysfs writable knobs?
-
-> 
-> 4. Are there existing tools, kernel.org statistics, or
-> community-maintained datasets that track this kind of evolution across
-> releases?
-
-I'm not aware of a functional scope tracking.
-
-> 
-> My intention is not to claim an exact "feature count" for Linux. I am
-> trying to identify a metric, or preferably a combination of metrics,
-> that is technically defensible, reproducible, and suitable for
-> comparing kernel evolution over time.
-> 
-> Any suggestions, references, or pointers to previous discussions would
-> be greatly appreciated.
-> 
-> Thanks,
-> Xin Chen
-> 
-
+Thanks,
+Miqu=C3=A8l
