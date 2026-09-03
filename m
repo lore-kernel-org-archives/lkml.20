@@ -1,139 +1,98 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010039.outbound.protection.outlook.com [52.101.46.39])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B49E5371D1E
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 04:38:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788410283; cv=fail; b=sDWkyq72ktEmL2KuQFLGLsRtUavTk19mz8oajsRRG77X15xeNhWxZFea7k8530q4BLODfBJSpM4kH9vTfeFR7mj1+bNASQg2wrVUdmSPq+hvWl2+fldjvPcvKsdsg6/z9e/UY67rLFGX8IuzKv/GzmzKe6DfmI0ZIW+e6gb7IoU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788410283; c=relaxed/simple;
-	bh=qMUmyo1UKsIX9P8YBRTHUWQJBdxA5zQ5LLaFwHTtKAk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=TZTyJ95hcfFNjMUFfj0WYluPSK6wyK0psBEbAtXNZMUcikVXNbR54hUU198de+ogdRUf7G/8lyzKP95d59E4KzckwC4Qu5LHwYHMJnCy0uNZrdj37hz+ch1P6uthM+WP9UDuqu0WeTjsWVRM91uqlCX0s5yosKtS8TIaaq0CeKo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Df8eKvSW; arc=fail smtp.client-ip=52.101.46.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F0961E1A3D;
+	Thu,  3 Sep 2026 04:38:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788410327; cv=none; b=gcLmrA94QhXT27x6okFOI8RW7eqQYoc27bC0qETCgBLwxJdxzcjK5eKlICqtwn9s+qiRQnChAVBnAKzPF8bFqi/8IoZZxZlWY67ciRS8xl7vyIqHbGiBV0OlySer4mY7IBqWtFuAVJ+QtEGsCnwiDCPc5rqFYY2m6avgRBJqdeg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788410327; c=relaxed/simple;
+	bh=5HcDPVvfU/QGdKBl23/4a6+keo0j28eZUB+Jw9j5WWM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P6JXs0LoLGTlNimtrQWUj2BwWjdFvvMJUprCI4mOHLzeRT1RAhDN2ffmorl/x9EjRPg3gv5Izc2rCe8nPTLzevJ/0mYa28htYOers78HgXOCGkAQBI1SGwJvOnKwIG3ZtrSiXH8giSE98+PXuO/QXVfODcnXcupBp6NPueHIMW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SEK2SxIL; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Df8eKvSW"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UaKBQG7BqGzIAz8VUr+wLZahmaDI7RI8fuat2udm6wJPpKH4R3XY8Nmlc7+qpXR1xMzl01zg2yoCoBPqjNfq5uSnbIiQKUY6jbdg/krH4/+mKOQ3Z9xtQSBc5jkI/twnaAF+EPR3S+iXs1xgLDf+6qh+b3+NvRM6vGQFXzVFPSzJlmOEorkaft0rAHew0YQgqiXeLS0YMSGhUhQosMERe8gpmD8wGI+FFH5O4jzQabPAYmjwRe2mhZJjYuBPzssfv+zdyTyTUZtSj4swWNtOBBmkCYTfMCyxFU/VxvtBIy3RWj4e9VtQstqlTmxXkK4vS+Mrt4LIwSrfVq+JPaBRXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TfWo8A1JTkTUjuJpJOlD8RUOEABkmhEiYpGBI04sv+Q=;
- b=A8gAEVOdd7jY2rVVJYvJOirjDFLWiHMYdJmF+TEPauE2BAPMU8JkDABnayc5HnEPEtJB45GQd9dmEe8/cq4CezDMQ7QNSeLRM8cANsmdt8i8wpYlRyIGXTasLnsWBo6B1fg12Yv5vgduBKZ5jixthMDPNYkuqoSwzpEMnOABKl0CcOez/uvc1ReVU28oohs6/HvfKXEqvw2/UgVDVHL219CZiPDlZsdHuHg9bRbOJk15bFmBwousCOziawQK7AqP8EtLj2wua7NxVdBWvdfiCs8XeSZUHJxU8P/ts+H/di+hPbM7lLFLwdSQnZmjacUV2fVpmULYmgu9yf2xNqVMTg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=163.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TfWo8A1JTkTUjuJpJOlD8RUOEABkmhEiYpGBI04sv+Q=;
- b=Df8eKvSWUEANEzclxc13q7iT3UZsEMS0hU/yEDTAjJ7DTR1IRoTZpXdAahmjffO1+ug4RzJW//6QWWPhpU/YEONBtcQEeGdA4+3i3HHV6USGz3Y8MpB/CnhOS4q6DY+bRQrNaxSw01MZ55FTvwUkgxyubq/X7RvsBLt39rZ76Dg=
-Received: from BLAPR05CA0021.namprd05.prod.outlook.com (2603:10b6:208:36e::17)
- by BL3PR12MB6620.namprd12.prod.outlook.com (2603:10b6:208:38f::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 04:37:53 +0000
-Received: from BN3PEPF0000B071.namprd04.prod.outlook.com
- (2603:10b6:208:36e:cafe::84) by BLAPR05CA0021.outlook.office365.com
- (2603:10b6:208:36e::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Thu, 3
- Sep 2026 04:37:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B071.mail.protection.outlook.com (10.167.243.116) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Thu, 3 Sep 2026 04:37:52 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
- 2026 23:37:52 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
- 2026 23:37:52 -0500
-Received: from [10.85.40.73] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Wed, 2 Sep 2026 23:37:49 -0500
-Message-ID: <2bd1be66-25c6-455f-94d7-a44a147dba9a@amd.com>
-Date: Thu, 3 Sep 2026 10:07:48 +0530
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SEK2SxIL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788410326; x=1819946326;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=5HcDPVvfU/QGdKBl23/4a6+keo0j28eZUB+Jw9j5WWM=;
+  b=SEK2SxILrfR0a0clhO9gdAaAivjtRSijj5s/MTZBUPSTpH8ZB+xW2cBN
+   FDzej2suxx/5L08Z0fBF+hEyZwHte2TPDjRKib2k1jgkGpMw+RWETVowU
+   D0S+sedL/UAmiGWjVozIaNrNZ9nIRZP6Cl1HcWffqEu46bduJSIWwDLD0
+   DGfAzvvaQnn7fwx4nJmBoVp4T3D0iIoSFevKACfCPzsqHfvRyZYqCIa4t
+   hFrKJpqK1yGPn0WGdvWB1cTzmlvahqaswpiUoZFKCo880QAxydRmJOzpk
+   vEP1tZQJtSwG3Bg5J4+ddHbSjMt1tYFTdS0MWUNbM8Z7sivPkjAt+tFvb
+   g==;
+X-CSE-ConnectionGUID: v5hraVgcTtiytRi0Y4n2xQ==
+X-CSE-MsgGUID: jpcyvTLlTtGv4CapwyMSmg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="100236626"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="100236626"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 21:38:45 -0700
+X-CSE-ConnectionGUID: on50LPqaTlWvRvH42F2lxg==
+X-CSE-MsgGUID: TGzr+IolSGWZxWN/iANwOg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="273103789"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 21:38:41 -0700
+Date: Thu, 3 Sep 2026 07:38:39 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
+	sakari.ailus@linux.intel.com, bingbu.cao@amd.com,
+	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
+	andy@kernel.org, hansg@kernel.org, gregkh@linuxfoundation.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 14/16] media: atomisp: Use struct v4l2_area for padding
+Message-ID: <apj5z0HtoNaqMoFn@ashevche-desk.local>
+References: <cover.1788286339.git.mauriziocasciano7@gmail.com>
+ <d1367eb59cf00cd1b41af2d85d4d33eb58e91b5e.1788286339.git.mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] sched/cache: Drive cache task tick from execution
- context
-To: Hui Su <sh_def@163.com>, Peter Zijlstra <peterz@infradead.org>, "Ingo
- Molnar" <mingo@redhat.com>
-CC: Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
-	<vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Valentin Schneider <vschneid@redhat.com>, John Stultz <jstultz@google.com>,
-	Chen Yu <yu.c.chen@intel.com>, Tim Chen <tim.c.chen@linux.intel.com>,
-	<linux-kernel@vger.kernel.org>
-References: <20260903041154.2479761-1-sh_def@163.com>
- <20260903041154.2479761-3-sh_def@163.com>
-Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <20260903041154.2479761-3-sh_def@163.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B071:EE_|BL3PR12MB6620:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb7ec5f6-8fdc-47b4-dcf0-08df09751de6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|82310400026|36860700016|1800799024|11063799006|4143699003|10067099003|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	Ft00SDDOLG5Aks8pzIl/Ty7vyV9qtfilsm9nhgllmwU1RTNOGfo365QCxyvmuQN9d5oFSKPUaRL/n9Lq3MGNhA8f0PDuf4oQrz5oJ7052d9nGxX/FWnBKjvng/0att18pJNhCL7YodKo8IzDFarhEwDYNSIufS0GqIGWYlfEHVgWqSqMkEs4JSWcRTKswRiVJK5wkW/+rpFRv0s1DTzgIa5eSSLQx41Qll0FPnI7sGiy+H/E95+P7du7aGnbjy7Gi6ZMipyMTfTHavD11gkHDQFzsCF5BYgj7Uojnd9jd5ICOuMComgv30LPW0IrsxTHdU149CWBtsa6rDlfEoIcG6C3EdRYvRJeReQtmvG4T9FR9vyXPrqfWnMO4f4NoDG/+AV35TD6zuJRXBULlDDg7RlRXcHNIkx3S1xc7iZdikqyVHH6uadPvpCV91jgIj0tHgL0WVM0hi2vJmredZScJT3DBrI3EZBzNWBFrE8LbABkjmo79V+odBZhDjYWPajZLwkXxXzhB95v+nt60/ewS8dtNKGLJuPCkidlat6Pb31oqagcVGivkiLcyzJqXL/x6lvZBcERkfpBwnmvEEGVxvDSw+MC8HFkCqXvQRlN5pjda7TqbwGHUjVBcZulhzSN6RByPHRK1/9omk55Z8nasZnTB7qndqjRavxyVjS4oBfO/Sr8iDdjTSB7lAraJAMy
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(82310400026)(36860700016)(1800799024)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	4pYCyiYIqUnsDfIdVNjILtEdsRwzp9rmKHF8BgwSOKsXBDNzP20CUasbrvASAJGrK6k460G6tE7+ms5Rz7+sLxLEi0NXbrsZMtOeFj/XbTj4FZAvJajq/+7pPUaEGLGgdjtiECcdDreMA8H8SepdphpWmBEtnMAVx8ZC4FwjadQhjGhkbrUmC/P7Up0DRMAbZCsN+m81qxNkJvu9Os0tBqOK5pS4N1yLxex4lwJkSTUerf9uOfmyrNJKNkoxxDlstIIRzZjFI/CbTB5sSwCi6T+abo2sDNKIa+O9QbuevoNplqBqa3zA5/RJA/ngF511b/V0iiMhfYn3Af26VRIfLPBuvOG2DYh1Fe7ERrytcl5EuOHoRfBiTPeXE4G09n5foi8irpYsKA/81qdXWiNzteDHUFv0rKysSiSoMp4Tbu0ha52D5neBc714eEn3BmSB
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 04:37:52.6961
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb7ec5f6-8fdc-47b4-dcf0-08df09751de6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B071.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6620
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d1367eb59cf00cd1b41af2d85d4d33eb58e91b5e.1788286339.git.mauriziocasciano7@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hello Hui,
+On Tue, Sep 01, 2026 at 09:04:36PM +0200, Maurizio Casciano wrote:
+> The padding helper passes width and height as four separate scalar
+> arguments even though they form two logical dimensions.
+> 
+> Pass the requested size and returned padding as struct v4l2_area values.
+> This makes the dimensions explicit and simplifies all three callers.
 
-On 9/3/2026 9:41 AM, Hui Su wrote:
->  			curr->sched_class->task_tick(rq, curr, 0);
->  
-> -			if (curr->sched_class == &fair_sched_class &&
-> -			    static_branch_unlikely(&sched_numa_balancing))
-> -				task_tick_numa(rq, curr);
-> +			if (curr->sched_class == &fair_sched_class) {
-> +				if (static_branch_unlikely(&sched_numa_balancing))
-> +					task_tick_numa(rq, curr);
-> +				task_tick_cache(rq, curr);
-> +			}
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-nit.
+...
 
-Might be worthwhile to extract the above into a task_tick(rq, curr, donor)
-helper instead of duplicating in two places.
+>  	dev_dbg(isp->dev, "s_mbus_fmt: ask %ux%u (padding %ux%u, dvs %ux%u)\n",
+> -		ffmt.width, ffmt.height, asd->sink_pad_padding_w, asd->sink_pad_padding_h,
+
+> +		ffmt.width, ffmt.height, asd->sink_pad_padding.width,
+> +		asd->sink_pad_padding.height,
+
+Split logically
+
+		ffmt.width, ffmt.height,
+		asd->sink_pad_padding.width, asd->sink_pad_padding.height,
+
+>  		dvs_env_w, dvs_env_h);
 
 -- 
-Thanks and Regards,
-Prateek
+With Best Regards,
+Andy Shevchenko
+
 
