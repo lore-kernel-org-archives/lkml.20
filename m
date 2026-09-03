@@ -1,69 +1,69 @@
-Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com [209.85.217.54])
+Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com [209.85.222.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27EE03890EC
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 05:19:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2589735E1D5
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 05:19:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788412760; cv=none; b=NzppdYh/TIXAuNosP86svMWBZnPNS2/V+HXTLdKSev1MvDn2UR/iQ56zC2Q0nwxRNDfW000r+qxSwi8hXvEe+plKw8GzsvyDuqc1OgoXvW8lQduA5kQxeDMyGMht4dgJv697Csd1/XM/YJk/2cyqS/47GD0ZlcC0RW1hqZEN+8g=
+	t=1788412763; cv=none; b=kyBs2zDw1mYCgq0LYCEfROlX+4PTNb5cVOlIu0zTHuGW/SV3vvd6G2Z/WtwEnwhrgpPXcylbjrxJtjIFrSwGH6lIdsQ3PPw54qHBetWKkQeCkl2QF90qMv9ySBOYxckJIrxmorYDzD/7ZlcycpJZVYaqX5CG6+Ub7RCeCpXsEn4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788412760; c=relaxed/simple;
-	bh=fgw7dDrWS9xg2FXbO7pVBYf6+iPn4WqQ5ONzYmDhIJE=;
+	s=arc-20240116; t=1788412763; c=relaxed/simple;
+	bh=RjV75e0edVLLWrOZCmYRLID4W3QVW6Ml3ZdPj8Zuth8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=XdLcJ2aEYa2leK+Y+hmOYy+T8e9LsyE17u/YKRqpybfXSr1Cd5f1FaIgxkdHGaWYALJhsK1R4SldbFhkjVagDcZZfDoUD8FDzv6U8kvPkUMpedSvG1wZV7RYwX8keOe8qqhQjsU9917brncv7mDWo5c4nq4lKoH35csOkO1OkUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TIqZF4DC; arc=none smtp.client-ip=209.85.217.54
+	 In-Reply-To:To:Cc; b=inD1lkFOMPrfdWaZTeXXYSJ9cS7WQlz9LZvkieyjMAZfEqr0DKWPd6Ahbv5ttltn94jrAI7fMtqD9YzANWXdyVr4rPZ+n5UxyhCC+3XtRGF+2iwSvJtZ2lzzr82dIMGqFwc1oo/DB1KymHNUTXbVIbt+tPnygblC5jcNc8VRpxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NPcoXwis; arc=none smtp.client-ip=209.85.222.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TIqZF4DC"
-Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-7841b831381so461764137.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 22:19:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NPcoXwis"
+Received: by mail-ua1-f54.google.com with SMTP id a1e0cc1a2514c-97e9c0da212so1024496241.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 22:19:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788412758; x=1789017558; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788412761; x=1789017561; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nam/WqXZfDnfOqNPwp5yTp1tZrC4y3zmMd78/CGgK+4=;
-        b=TIqZF4DCbfl6nKvkEFU1arVVuRJJLks2ZWvnt0+Vu2RwEIeepDAiNKp+RQRYbc0nC2
-         YAqp0L2h4l6gxlBvXvlyl+kPIy8RqzjWN9sqvWrgkFMfo7FdHmBwg5DE94+cWfhirm3u
-         fftaQEqqOFepRqVPOGnjQP8Xfge/TmwPHlosJ9HDc0IVaMVSKCKG9mVucU6+3zmlfcUV
-         cWEkoHd7jUHMOgjLaedP6h0tah0Ifl0Cnn2Z95QhPVJn9EO7Sde5TWYi2MjsW/WBY4he
-         TN/+gwGbjZ5dnRGmmgjZBVAeeyom80fHHGs868eqyzZSvSLEBmi5IZNkybQEWcBiwKtn
-         yt4w==
+        bh=dne05icjM1GcTXr7Nj/It1xKe5YRpUo/x6ms7nUN/D0=;
+        b=NPcoXwisS3J39gziJqC3zRQ7ue3wGwebLsfoIz2JQ1zOctEtUOt4EYmjlUcEn+Mu8m
+         kNnbw7fu47UrpFyhqLIIfG2G8acxslfuPuxlblfmIT2YD7JHLrt0ZlAJKZJObyLvuWKX
+         RE7/Qly3r7oIItlp6nRon9uaCQuMA5O9nRtlvgLOiiQL4rD5BhudXutkOWHX56EUZxMe
+         ztAQtYHHcl+yx2XYey86V7tVnTLKYlcXaMPcIgzHot7PG9JkuR6MkeS9MPR8NpNl1YZN
+         IoVby90KtYKaNvEklB/qyOOYzVJCmb5tMuudRWRDeuKi9r53fUc6cn8lrt1drseTM1+v
+         fLdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788412758; x=1789017558;
+        d=1e100.net; s=20251104; t=1788412761; x=1789017561;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=nam/WqXZfDnfOqNPwp5yTp1tZrC4y3zmMd78/CGgK+4=;
-        b=Lxaa4HfkU2/R5peVTHnKSa6weFeHZdLs+zYsBXgnZuTxbAavLB0/4DUf3VKgzpNsE3
-         5vBSxjftCIiCq3rP2m+ZzbhKU+Cy9thl2XXkIrJNaYhzCrZG0/YFnHNaKRgG/z0nrRGP
-         nin0Xc/hKVmLsvp2+fUK3pfRisX4k8ffiWVvhIahmwrNoG8JDNzAww3zyTqh5OPtEB1B
-         25oEnglpZtgSmjNwAYiwaW0ih3SweDep6yiUl5hcx9/8IdDKG5QTa3ODCI0deYoj5W1c
-         wccpARYH4mEJR3J6v2Ljc6ETyrTFXRowkQ1NdPZyafZiVkv/8WW5yG8symzzF6GGEEDJ
-         AzBA==
-X-Forwarded-Encrypted: i=1; AKwUvBxTWkKrEy/11dZNrZCqYbmMPtFSY38yMPimSf5/+7+nRQ1YAOD8LY4THUDfi9zOfh9sNgJyRnRGf96VGlQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++myhY/OMyZRlbV5W/+jZH1oLVTvOnQnu0mp8IB8xm8j7rXEWbwy
-	4HQP1RCwq4DG8tdjnDjjEHhpyW+3oJKT9ywPESvkuOvpSF5iFQJbSbmkCNZ33g==
-X-Gm-Gg: AYBFou0lKyG2uejWjGtx4l1AT01gk1DcsPZZsreYLZ0XtiyhYaZdflcFXgm0qiS1SGz
-	8ns3Cbt44oEn0YBbnN3H5FT7nY603VoWPRD0NrlUaShbMYnLxxNKqqTmZLfmGFXAkV3XhEoB/LG
-	ZQG2brf3Q7o0NOB/qJOXCcYTYC+1eeAJh1OfAnu9cStGLsjYk/EVmOzDXdFsdoHpT81RCjUv4fi
-	3/P47AX4+1m+qVTmMdwS5nfvMqekszhOEwm1Z5NdfLrpyR+VM7fY4WZKRAG5WL6qVd4EGYjz6vx
-	swdjGrj0w995N3qGzfo0n0yj/V6/j+JAnblMqDGCUrcRAS1Ko6MW86h+UTQEwal1BR0EhM0386d
-	je1xXeKw/afyWfut0LTTaIyk9ynrJgOKz7nV2XF1TDshEDjDqxBgUfQPKTMRkS0w4ezKjLEKTbU
-	NuTKYJmtwRQQhVtY/M6mX1VvnGWICex8VbgxevdD5Uh6RTv69N2bnt8ReKmbclRuDPe/nH+fXzl
-	5sQIQ==
-X-Received: by 2002:a05:6102:3a06:b0:781:9922:78f8 with SMTP id ada2fe7eead31-78a1f34dd1dmr3768941137.13.1788412757878;
-        Wed, 02 Sep 2026 22:19:17 -0700 (PDT)
+        bh=dne05icjM1GcTXr7Nj/It1xKe5YRpUo/x6ms7nUN/D0=;
+        b=O5d/6OqT9s6oU2YmrYkQ2SH3HsNlZiQP9sAhd08FEKETT3Xng1z9L2CfFymbNOp3+N
+         325LAeRqADv0pGfHJjnQc3VoDa+fRmnt6UYChOWMmQhZYnDfqCikLd+3CncaSQwLBPTX
+         PsidIBAaR15YEKzImj1qspEDCWB79WXBOredCH59WEBLIO066GP7QCKKReCV3uFeh+/m
+         YdG/MIsfwz8uWj5xEGAgHareNBIRntcTiQLdWV3C0Y3IJw3Y4aespPrP1HQCSrmVuJxD
+         KN8f2oC8kZ+50PoXYZEjhTrKNWKfN+3GMfSiZ096rAChlyukQaKQGtBR+IcHSARIhGOB
+         EV2A==
+X-Forwarded-Encrypted: i=1; AKwUvBwikY7Xw90EEUQlFu5GHziL6Uf4uRX5ea2ljsgGesVfZRBOzeeM8inrgrHYSXcBv3IBsYjBxHvkbHVEhlU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mgovseDUBSOGuWsBBEsQPqfWfpJEa2MnmsDDKY7HCIFDXpBYFF
+	wckUKy6lLx8wLoKupg9uiRaxVqTIIHtc5EssVbRzAruyf77IGnmuwfTn
+X-Gm-Gg: AYBFou1WqsLdNR/Vvef4Y7Jm6W+EDv5SASVXJuh95OnI1h5BxyEgZJ5cujgVhu2K29n
+	eDTQGaoMFP0G1xm0ijfLhAF21b6WdJWC8qZQ7BYDzSc3/DRd0yQnZ7wfcKkuM+YE/aNltOFlE8t
+	ZpUO7xl5pN5ZejkkvQPIqHWsTCn5FyJPjarfYdrnSyxZnjAgFdhkjhSu47oKOwIX0wQnw7Rm9nP
+	0RkJZUaimQuQkvzwA6y1P3Hg/axxLCJML8QYRMdNQnXYqkQVXYKK/JfOvdPH8RzHGBeuB6nLDrY
+	08fSbLQned0OQxILoB91xC+CgmN2jH1LQhgKgfVF6b+XdzuY9I5CIacBXpPBbUqZmI7xdbHwGm/
+	Rzq7KimF8Q9Q4rAz/5Old63RAT/OA+g97gCmO2JT2Jq6jZ/KcjYgIU11stkG98WiA60fxNJAzS2
+	V1m+Xaxnr0IuQKmfhWFyd5R1dSddBcwP5h7Nh2A//EWOI0fcB+argW3J5qbkQxK+VKB61IrpZTP
+	C0=
+X-Received: by 2002:a05:6122:d28:b0:5bf:8c77:e89a with SMTP id 71dfb90a1353d-5c7d24e4500mr4931981e0c.2.1788412760982;
+        Wed, 02 Sep 2026 22:19:20 -0700 (PDT)
 Received: from [127.0.1.1] ([2804:14d:9ea1:8718:4ce2:18a3:3335:cf81])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7cd8ce88dsm3618080e0c.9.2026.09.02.22.19.14
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7cd8ce88dsm3618080e0c.9.2026.09.02.22.19.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 22:19:17 -0700 (PDT)
+        Wed, 02 Sep 2026 22:19:20 -0700 (PDT)
 From: Leonardo Martins Martins <dev.lmmrtns@gmail.com>
-Date: Thu, 03 Sep 2026 02:18:07 -0300
-Subject: [PATCH 1/4] staging: rtl8723bs: remove invariant parameters from
- issue_probereq_ex()
+Date: Thu, 03 Sep 2026 02:18:08 -0300
+Subject: [PATCH 2/4] staging: rtl8723bs: change issue_probereq return types
+ to void
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,116 +72,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-issue_probereq-v1-1-82f153d157a1@gmail.com>
+Message-Id: <20260903-issue_probereq-v1-2-82f153d157a1@gmail.com>
 References: <20260903-issue_probereq-v1-0-82f153d157a1@gmail.com>
 In-Reply-To: <20260903-issue_probereq-v1-0-82f153d157a1@gmail.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
  Leonardo Martins Martins <dev.lmmrtns@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788412751; l=4591;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788412751; l=3846;
  i=dev.lmmrtns@gmail.com; s=20260813; h=from:subject:message-id;
- bh=fgw7dDrWS9xg2FXbO7pVBYf6+iPn4WqQ5ONzYmDhIJE=;
- b=tNhCCn4n/qmfbOw8/d9EsLYndee3oQ1sqzYNIIpCV3OL72Ns/qw+BpMSe+S4A3tgOz8nlo1em
- AtbWh62sUQ2AQCIMISG9UKJ3BS+zl0GL/qlUZP/KHDSoT1CGjAPPdp8
+ bh=RjV75e0edVLLWrOZCmYRLID4W3QVW6Ml3ZdPj8Zuth8=;
+ b=DT23L4rB+jKi88uXsejROS+viTgdTm5h+i0oK6bpgQYH3w0mU5OJ9Jif2Gs4IPPOZFVq5FstU
+ 126hkD1cGAtBUW0/OpRA/MRbHAClrAo+EWgXDAmcK+jY5YeLt8yWeAN
 X-Developer-Key: i=dev.lmmrtns@gmail.com; a=ed25519;
  pk=dOFSCpUL7hbyVftAaUGDebsgsSl9Uk/Tx0Aqpd4Bcng=
 
-The parameters ch, append_wps, try_cnt and wait_ms are 0 in all usages
-of issue_probereq_ex(), remove them. With try_cnt always being 0, the
-condition (i < try_cnt) is always false, so the do-while statement is
-redundant and the msleep() call is unreachable, (wait_ms > 0) is also
-always false, and without the do-while and msleep() the conditional
-break is also redundant, remove all this dead code.
+The return values of issue_probereq_ex() and _issue_probereq() are never
+used anywhere, change their return types to void to reflect this.
 
 Signed-off-by: Leonardo Martins Martins <dev.lmmrtns@gmail.com>
 ---
- drivers/staging/rtl8723bs/core/rtw_mlme_ext.c    | 33 +++++++-----------------
+ drivers/staging/rtl8723bs/core/rtw_mlme_ext.c    | 31 ++++++------------------
  drivers/staging/rtl8723bs/include/rtw_mlme_ext.h |  2 +-
- 2 files changed, 10 insertions(+), 25 deletions(-)
+ 2 files changed, 8 insertions(+), 25 deletions(-)
 
 diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-index 0c00be09fbf346aeff82be31aae801ae9265a9b0..4bdd2ae24d274cdc4b2c6496f385856c6039c55c 100644
+index 4bdd2ae24d274cdc4b2c6496f385856c6039c55c..d3c87d25fab1108adde15d959e0b890b2180f20d 100644
 --- a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
 +++ b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-@@ -2499,25 +2499,11 @@ inline void issue_probereq(struct adapter *padapter, struct ndis_802_11_ssid *ps
+@@ -2401,11 +2401,10 @@ void issue_probersp(struct adapter *padapter, unsigned char *da, u8 is_valid_p2p
+ 	dump_mgntframe(padapter, pmgntframe);
+ }
+ 
+-static int _issue_probereq(struct adapter *padapter,
+-			   struct ndis_802_11_ssid *pssid,
+-			   u8 *da, u8 ch, bool append_wps, bool wait_ack)
++static void _issue_probereq(struct adapter *padapter,
++			    struct ndis_802_11_ssid *pssid,
++			    u8 *da, u8 ch, bool append_wps, bool wait_ack)
+ {
+-	int ret = _FAIL;
+ 	struct xmit_frame		*pmgntframe;
+ 	struct pkt_attrib		*pattrib;
+ 	unsigned char *pframe;
+@@ -2420,7 +2419,7 @@ static int _issue_probereq(struct adapter *padapter,
+ 
+ 	pmgntframe = alloc_mgtxmitframe(pxmitpriv);
+ 	if (!pmgntframe)
+-		goto exit;
++		return;
+ 
+ 	/* update attribute */
+ 	pattrib = &pmgntframe->attrib;
+@@ -2484,14 +2483,10 @@ static int _issue_probereq(struct adapter *padapter,
+ 	pattrib->last_txcmdsz = pattrib->pktlen;
+ 
+ 	if (wait_ack) {
+-		ret = dump_mgntframe_and_wait_ack(padapter, pmgntframe);
++		dump_mgntframe_and_wait_ack(padapter, pmgntframe);
+ 	} else {
+ 		dump_mgntframe(padapter, pmgntframe);
+-		ret = _SUCCESS;
+ 	}
+-
+-exit:
+-	return ret;
+ }
+ 
+ inline void issue_probereq(struct adapter *padapter, struct ndis_802_11_ssid *pssid, u8 *da)
+@@ -2499,21 +2494,9 @@ inline void issue_probereq(struct adapter *padapter, struct ndis_802_11_ssid *ps
  	_issue_probereq(padapter, pssid, da, 0, 1, false);
  }
  
--int issue_probereq_ex(struct adapter *padapter, struct ndis_802_11_ssid *pssid, u8 *da, u8 ch, bool append_wps,
--	int try_cnt, int wait_ms)
-+int issue_probereq_ex(struct adapter *padapter, struct ndis_802_11_ssid *pssid, u8 *da)
+-int issue_probereq_ex(struct adapter *padapter, struct ndis_802_11_ssid *pssid, u8 *da)
++void issue_probereq_ex(struct adapter *padapter, struct ndis_802_11_ssid *pssid, u8 *da)
  {
- 	int ret;
--	int i = 0;
+-	int ret;
 -
--	do {
--		ret = _issue_probereq(padapter, pssid, da, ch, append_wps,
--				      wait_ms > 0);
- 
--		i++;
+-	ret = _issue_probereq(padapter, pssid, da, 0, 0, false);
 -
--		if (padapter->driver_stopped || padapter->bSurpriseRemoved)
--			break;
+-	if (ret != _FAIL) {
+-		ret = _SUCCESS;
+-		#ifndef DBG_XMIT_ACK
+-		goto exit;
+-		#endif
+-	}
 -
--		if (i < try_cnt && wait_ms > 0 && ret == _FAIL)
--			msleep(wait_ms);
--
--	} while ((i < try_cnt) && ((ret == _FAIL) || (wait_ms == 0)));
-+	ret = _issue_probereq(padapter, pssid, da, 0, 0, false);
+-exit:
+-	return ret;
++	_issue_probereq(padapter, pssid, da, 0, 0, false);
+ }
  
- 	if (ret != _FAIL) {
- 		ret = _SUCCESS;
-@@ -3768,7 +3754,9 @@ void site_survey(struct adapter *padapter)
- 					if (padapter->registrypriv.wifi_spec)
- 						issue_probereq(padapter, &(pmlmeext->sitesurvey_res.ssid[i]), NULL);
- 					else
--						issue_probereq_ex(padapter, &(pmlmeext->sitesurvey_res.ssid[i]), NULL, 0, 0, 0, 0);
-+						issue_probereq_ex(padapter,
-+								  &pmlmeext->sitesurvey_res.ssid[i],
-+								  NULL);
- 
- 					issue_probereq(padapter, &(pmlmeext->sitesurvey_res.ssid[i]), NULL);
- 				}
-@@ -3778,7 +3766,7 @@ void site_survey(struct adapter *padapter)
- 					if (padapter->registrypriv.wifi_spec)
- 						issue_probereq(padapter, NULL, NULL);
- 					else
--						issue_probereq_ex(padapter, NULL, NULL, 0, 0, 0, 0);
-+						issue_probereq_ex(padapter, NULL, NULL);
- 					issue_probereq(padapter, NULL, NULL);
- 				}
- 			}
-@@ -4899,16 +4887,13 @@ void linked_status_chk(struct adapter *padapter)
- 					if (pmlmeext->retry == 0) {
- 						issue_probereq_ex(padapter,
- 								  &pmlmeinfo->network.ssid,
--								  pmlmeinfo->network.mac_address,
--								  0, 0, 0, 0);
-+								  pmlmeinfo->network.mac_address);
- 						issue_probereq_ex(padapter,
- 								  &pmlmeinfo->network.ssid,
--								  pmlmeinfo->network.mac_address,
--								  0, 0, 0, 0);
-+								  pmlmeinfo->network.mac_address);
- 						issue_probereq_ex(padapter,
- 								  &pmlmeinfo->network.ssid,
--								  pmlmeinfo->network.mac_address,
--								  0, 0, 0, 0);
-+								  pmlmeinfo->network.mac_address);
- 					}
- 				}
- 
+ /*  if psta == NULL, indicate we are station(client) now... */
 diff --git a/drivers/staging/rtl8723bs/include/rtw_mlme_ext.h b/drivers/staging/rtl8723bs/include/rtw_mlme_ext.h
-index 70fb161afd09efc197e3f59c72972d9a611cbf01..acea9cef7756e158c7ab9e357a06a7aab300943f 100644
+index acea9cef7756e158c7ab9e357a06a7aab300943f..8e35aabb0ccf96a2bb0c1208db8ad74598a687e0 100644
 --- a/drivers/staging/rtl8723bs/include/rtw_mlme_ext.h
 +++ b/drivers/staging/rtl8723bs/include/rtw_mlme_ext.h
 @@ -542,7 +542,7 @@ void issue_assocreq(struct adapter *padapter);
  void issue_asocrsp(struct adapter *padapter, unsigned short status, struct sta_info *pstat, int pkt_type);
  void issue_auth(struct adapter *padapter, struct sta_info *psta, unsigned short status);
  void issue_probereq(struct adapter *padapter, struct ndis_802_11_ssid *pssid, u8 *da);
--s32 issue_probereq_ex(struct adapter *padapter, struct ndis_802_11_ssid *pssid, u8 *da, u8 ch, bool append_wps, int try_cnt, int wait_ms);
-+s32 issue_probereq_ex(struct adapter *padapter, struct ndis_802_11_ssid *pssid, u8 *da);
+-s32 issue_probereq_ex(struct adapter *padapter, struct ndis_802_11_ssid *pssid, u8 *da);
++void issue_probereq_ex(struct adapter *padapter, struct ndis_802_11_ssid *pssid, u8 *da);
  int issue_nulldata(struct adapter *padapter, unsigned char *da, unsigned int power_mode, int try_cnt, int wait_ms);
  s32 issue_nulldata_in_interrupt(struct adapter *padapter, u8 *da);
  int issue_qos_nulldata(struct adapter *padapter, unsigned char *da, u16 tid, int try_cnt, int wait_ms);
