@@ -1,150 +1,75 @@
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch [79.135.106.30])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C13493654
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 17:20:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B994F646E
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 17:20:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788456042; cv=none; b=aVgvJjKHKrddoEZFOs9gCdEVgR3WU76g61k8uTduBKFRN7r0zQrUi9stjEvND78cIAebtx14GlNWWQeqIyEZdOQ3AaZ5jsUL2bOCqw81bI4o0xfz8ibcwHibj1mMgBtnUHV73yumlJ/6lIMLt+J9QIvfu0U98LfRx6gvP6GtaEM=
+	t=1788456045; cv=none; b=i7zMDwif6870TCUK0Y3BSTPFNNuSDDCSn71W7Z8mDIJ3LajkPeyNa7uyotmQk7a4xN7lMwGMekI7Q9OhMII3nxa4OUAlPJJrnJoMYr1Qxn4NrEc9y8YiODRVqDVbIUhGq0U2K9ovsoC1n1NqhSR4kl3cp96nc27FuhtOQdXaXpY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788456042; c=relaxed/simple;
-	bh=/OTLAlcDX/VYmq2Sx2Hf2JVMKnw2hyeEfeoAFuc3tlM=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=TT1uSeTmC7dtOCAvT7BC8Y5WIDZRkoQ375gDH2oI4QzoLibabi+j1sGyXYIyUzB3prnSOXtiLFekZgZcp13gS1nDRfxsiZt7O3G4e2ol0gFmVysn8Jy9MoZg9U4eZviWbpZzGHIRdpmgQnuulJ5dsdJsymu0tYOpcs2jWOXmTso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ipg3pJPQ; arc=none smtp.client-ip=209.85.214.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1788456045; c=relaxed/simple;
+	bh=6QBoq/pfbjK8hNJHvcynYsRCEv5M/wG0+h6tSZ9YVa4=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=k1HAqryl8O0uSOhbRbESs0tbul9iR6G3ug+ahTjJ1+LQ1paKhvC9XTvRWxOH8Vl/aqGgPeh60sfyItUqZIXWyrP0PYsddthsryxikP5YDeLDUDkL+71+qhyLKptUocSyvZdqveahC16jVgx0OhdoW6m/UfXMxeVLX0lmV7N/IlA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=IxAtYKL3; arc=none smtp.client-ip=79.135.106.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ipg3pJPQ"
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2ce8a76df2dso766835ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 10:20:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788456041; x=1789060841; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=abT7Pvw9efwpChS8BOp+LMmzEtc1Cbt9UKhqN1YGeyU=;
-        b=ipg3pJPQKLjDGM+FglLiVy7Ss2oYHCoCctsTQobNxb3Qc4Dkkh8aJ9xAvBQlSdBvDv
-         pYshF6iOJga6p9tAtmem+4PvOLbfY7pSR7XXk9Veq8Odt1pzsZA+hNgcSNe+8ykoj9Ne
-         KyB9d8pzXYikWQ8iO0y2SIPGIPPJX0UNDL40KcNWuh02vpAfq89HHXLR1beeSL8W3Zd1
-         t281jLXKqk1Nsb9IrlkvJHzUA8LMns6ew9Jxt8W1KwgcQ7NWME/rhO9n+YAOTuy8Gn3x
-         9zUkn4rQeEV85kn0WyOQr4jpe52DOyiXgb/vPCEVmYZd2TAf5XITn3uDjr2z7DVgdY0+
-         Wwqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788456041; x=1789060841;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=abT7Pvw9efwpChS8BOp+LMmzEtc1Cbt9UKhqN1YGeyU=;
-        b=kk66RdNTU0YQQV8KiOisvTATCqCvqxCHzFDC4E5x01+EihhfSJ3sjzR9TBaQ81xnUm
-         cVJXv0HSlrmeQ2E5gyl8KDhTnCwnKRw6XrElxR/zk0yg5gG+BOYfa3IjnP7xL6guj34V
-         1+gcRk+oiKoITObsM8ImH5gA4fa8c+PT/r1OkDQXf/DAga2qy+0Ptxn3Dx3LABQwcUbk
-         pPkNEKMg44C3F3ORuULitV7Ddu2TZUodTp3kH/fyOHgff9zuufN2RMfUF0+ql5L8oJ1+
-         S935IVWj+KYTU03UPEF6AGSH7+//knvpOiR6etyl/Xy/+DgyUW07IEbUVai7Co4GLb+T
-         8w2g==
-X-Forwarded-Encrypted: i=1; AKwUvBwehZn2jpwcYaZkTXh+GT72L5R0v8Xgz0J70fghp6LaszciuitgtKOxCkyMiFakEIB35L3k1jxM1Avi9M4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mdg+quCSyW540NEW9mR2L8JixFddM/Z9412W7mohj7CW5xYUDH
-	2ge8qUnywjt7y84ogEdQ6YDHgzTBuetSNYMdrxJPlDpPHn1hG6eom0Xz7Yi9sp89z0K3kayTVFd
-	r2UpXCw==
-X-Received: from plhz14.prod.google.com ([2002:a17:902:d9ce:b0:2d8:fd05:fde6])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:37d0:b0:2d7:344f:4a6f
- with SMTP id d9443c01a7336-2db1248d2f8mr7559625ad.8.1788456040506; Thu, 03
- Sep 2026 10:20:40 -0700 (PDT)
-Date: Thu, 3 Sep 2026 10:20:39 -0700
-In-Reply-To: <20260903-vfio-v2-1-ef4cd4190ae7@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="IxAtYKL3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1788456038; x=1788715238;
+	bh=6QBoq/pfbjK8hNJHvcynYsRCEv5M/wG0+h6tSZ9YVa4=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=IxAtYKL3ZoeM13GMOnzw4+soq7pJ0g8OpCcENLgE85TAlyInNpaXE+WpkSJyZD9XT
+	 K2qIGNBrgrP53eV9fg1AnYUwWQnLdvNrXcmlUN6Z6gpYZP0jd4QT6uaSxd32PzNp5r
+	 5Ig0n4BnLLtzNB7y/5VMUD/q8N/WeK//CGZra5vnRuhvddWu4go4btqRTQMVJT69mI
+	 PoCIiTJW3LgiRitoA+QA4pZqLn2MOuEIs+03T7jC3YHaw5zJLOMniheihASDP4nXFE
+	 DGVDsHW2ttamNWoc/RLE/q+3L9H+aj2JbmTH0itkgbpP/+sVX85P7loMtAhMxmBAiX
+	 H6Loz2XpvZejA==
+Date: Thu, 03 Sep 2026 17:20:31 +0000
+To: "Vladimir V . Kondratyev" <vladimirkondratyev2@gmail.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Paul Menzel <pmenzel@molgen.mpg.de>, Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>, Kiran K <kiran.k@intel.com>, Arnd Bergmann <arnd@arndb.de>, linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] Bluetooth: btintel_pcie: fix stale cache in set_dxstate fallback check
+Message-ID: <20260903172021.98799-1-lsa.uz@pm.me>
+In-Reply-To: <20260903153521.130258-2-vladimirkondratyev2@gmail.com>
+References: <20260507203426.128975-1-vladimirkondratyev2@gmail.com> <20260903153521.130258-2-vladimirkondratyev2@gmail.com>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: f6ba5ccdc55df8cb7517f421eca9736a0b22bf9f
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260903-vfio-v2-1-ef4cd4190ae7@linux.ibm.com>
-Message-ID: <apmsZ3j0mtZq4Lp9@google.com>
-Subject: Re: [PATCH v2] vfio: Use file-based reference counting for KVM
-From: Sean Christopherson <seanjc@google.com>
-To: Steffen Eiden <seiden@linux.ibm.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-s390@vger.kernel.org, x86@kernel.org, 
-	Alex Williamson <alex@shazbot.org>, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Andreas Grapentin <gra@linux.ibm.com>, Borislav Petkov <bp@alien8.de>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Eric Farman <farman@linux.ibm.com>, 
-	Farhan Ali <alifm@linux.ibm.com>, "H. Peter Anvin" <hpa@zytor.com>, Halil Pasic <pasic@linux.ibm.com>, 
-	Harald Freudenberger <freude@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
-	Holger Dengler <dengler@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>, 
-	Janosch Frank <frankja@linux.ibm.com>, Jason Herne <jjherne@linux.ibm.com>, 
-	Matthew Rosato <mjrosato@linux.ibm.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Tony Krowiak <akrowiak@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Jason Gunthorpe <jgg@ziepe.ca>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 03, 2026, Steffen Eiden wrote:
-> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> index 65eb26a0520d..34b4c43908b3 100644
-> --- a/virt/kvm/kvm_main.c
-> +++ b/virt/kvm/kvm_main.c
-> @@ -1314,7 +1314,7 @@ void kvm_get_kvm(struct kvm *kvm)
->  {
->  	refcount_inc(&kvm->users_count);
->  }
-> -EXPORT_SYMBOL_GPL(kvm_get_kvm);
-> +EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_get_kvm);
->  
->  /*
->   * Make sure the vm is not during destruction, which is a safe version of
-> @@ -1324,14 +1324,14 @@ bool kvm_get_kvm_safe(struct kvm *kvm)
->  {
->  	return refcount_inc_not_zero(&kvm->users_count);
->  }
-> -EXPORT_SYMBOL_GPL(kvm_get_kvm_safe);
-> +EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_get_kvm_safe);
->  
->  void kvm_put_kvm(struct kvm *kvm)
->  {
->  	if (refcount_dec_and_test(&kvm->users_count))
->  		kvm_destroy_vm(kvm);
->  }
-> -EXPORT_SYMBOL_GPL(kvm_put_kvm);
-> +EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_put_kvm);
+Vladimir, Paul,
 
-Please isolate the export changes.  They don't *need* to happen at the same time
-as the VFIO changes, i.e. can be done on top.
+Thank you for the quick turnaround, and for putting the D-state note in the
+header =E2=80=94 it says in one line what took me a paragraph.
 
->  /*
->   * Used to put a reference that was taken on behalf of an object associated
-> @@ -1352,6 +1352,8 @@ static int kvm_vm_release(struct inode *inode, struct file *filp)
->  
->  	kvm_irqfd_release(kvm);
->  
-> +	WRITE_ONCE(kvm->file, NULL);
+Two things about v3, since my Tested-by rides on it.
 
-Please move tracking the file in "struct kvm" to its own patch as well.
+The tag still holds for this revision, and not only by inspection. Between
+the revision I tested and v3, the only changes are the comment wording in
+btintel_pcie.c and the new comment in btintel_pcie.h. Built out of tree
+from the same 7.0.0 driver, both revisions produce a .text section of
+21048 bytes with the same MD5, and btintel_pcie_set_dxstate disassembles
+to the same 116 instructions; only debug sections differ, by 8 bytes, from
+the shifted line numbers. So the object code I exercised on the hardware
+is the object code v3 produces.
 
-> +
->  	kvm_put_kvm(kvm);
->  	return 0;
->  }
-> @@ -5496,6 +5498,15 @@ bool file_is_kvm(struct file *file)
->  }
->  EXPORT_SYMBOL_FOR_KVM_INTERNAL(file_is_kvm);
->  
-> +struct kvm *file_to_kvm(struct file *file)
-> +{
-> +	if (!file_is_kvm(file))
+The CI failure in this thread is against the 14:29 posting, whose header
+hunk was cut at line 53. The 15:35 resend applies cleanly to
+bluetooth-next at 6696072ffe07 =E2=80=94 checked with git apply, and it pro=
+duces
+the diffstat the patch declares. As of 17:15 UTC the resend has had no CI
+reply, where the earlier posting had one within eighteen minutes, so it
+may be worth confirming it was picked up as a new revision.
 
-file_is_kvm() should exist at the end of this series.  The only reason to ever
-use file_is_kvm() is in advance of getting at "struct kvm", i.e. this should be
-open coded in file_to_kvm().  Though as I suggested in the other subtread, it
-woudl be kvm_file_to_kvm_fn(), i.e. kvm_file_to_kvm_x86() or kvm_file_to_kvm_s390().
+Sergey
 
-And those changes can and should be done as prep work, i.e. in separate patches,
-e.g. to end up with something like:
-
-  1. Add kvm_file_to_kvm_fn() and use it on x86, i.e. replace the use of
-     file_is_kvm() in arch/x86/kvm/svm/sev.c.
-  2. Add kvm->file tracking.
-  3. Switch VFIO to tracking the file.
-  4. s/EXPORT_SYMBOL_GPL/EXPORT_SYMBOL_FOR_KVM_INTERNAL on the get/put APIs.
-  5. Enable kvm_file_to_kvm_fn() on s390 and use kvm_file_to_kvm_s390() in the
-     relevant code to prepare for s390+arm64.
