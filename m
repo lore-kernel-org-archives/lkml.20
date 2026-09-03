@@ -1,96 +1,106 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98EF23F4116;
-	Thu,  3 Sep 2026 06:42:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DD23F44CE
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:42:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788417733; cv=none; b=VqVYDXCbdTlwPprKuNO2W29U8IBfpjV2ts2K9kwmRKDk9k5Ev9SKo6pNCZAt4pGofRJg05s4vDkgETdKpDyHWqwOR2F3g5Q0JvP5BgYQ2NDZJDgtdq+xldW4iYr4bPp+sQg1xnInzmVEAy0Zza4jh4Wtw/2jUnaJX7MYW7ilHEk=
+	t=1788417747; cv=none; b=guL/92JFn/BwIQW0vNOFUtlTbwNP4J6O8KtLLIx48tsXPqmudsgwqmdAKvjSCl6LmOJ+uVBtwootGOstyXNR+L3InHW1PqnV7C0ixMkKZWzKdEVi47jHox1V/RLSqORzmG1B3fmBV+vvv6QyC7gBRvIB6erMcmInJ//0MxIwQvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788417733; c=relaxed/simple;
-	bh=rKjlUhkG9OUPx5gt60ZDwzbWV37eFgaTykNZ8LQQnLw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SqMZ9LeXwP3KBSnh6s2xI/ALlP/hOEpaBn4dF4ptITquIcOBUsNe07fvYPedLCyuaJyTmLiiKuv+rmlLqtL+Omgs605fqGDO5Iee1huAbvhoIyZR5NWB5K/a+u3lhKGYs1JhlRCBdFS9whPJNorg/K3PRipiX/phRAIBnAAZB5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=d0Ei2bb3; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788417747; c=relaxed/simple;
+	bh=CGgEjsoKzFVj+GcGxAp4hHB8AFwDGB8jPl/K/LpFdz4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=kdpxbJbDb2OgXPzQD0hZXdRg/dSeCem2iQcMjzB0Rif7KMzDwt8xMwH9+XLIcMxXUmlvPCApJFQLkezUMgvGxK/rgk9u5KAF4KWHxMn9G6U4gi+CObAQHI+udrdlZA7If+9tD1J5/KYzwElaTAxRa4FbttPrstBLqOzaLfIaMb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nm/CcY9O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="d0Ei2bb3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788417730; x=1819953730;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=rKjlUhkG9OUPx5gt60ZDwzbWV37eFgaTykNZ8LQQnLw=;
-  b=d0Ei2bb3JsZRGLVNKHW9W8PyIUcw+AdtGmUY0gfnQhfvIp1B5BgCQFC6
-   83SP7dScJrwehllSnq0lSrmrStI5wMJZBY7J0Hv10wSnDG7qHEB+EtGL1
-   nSQ7OyjidEj9fxb4s/ADepkLTllDjl7d6eQfvMsqj4HSDjUBvKwLEPGsd
-   6+Dv8PjYe5GYuT+YkLEmFBPxte84NYWRxCT5EK1cyRInGjLvo1eG96NY+
-   +NkxnWLBKDVs5iv70VHdj0do3qZL7patchccNqGwWEIC0OWmqYhA/MqcV
-   SKUaCSqB50i8XxM8G3Ac9PuLzQsfS28y1Qcxk83CulmbSb7Lew5WT7Y0T
-   w==;
-X-CSE-ConnectionGUID: ZIUhldXOTAqyV6zZu49BjA==
-X-CSE-MsgGUID: clI8MelsRBSaVR5Ca0j0RA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="88912532"
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="88912532"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 23:41:32 -0700
-X-CSE-ConnectionGUID: JNd4TXHwQjeO72DTSF7faw==
-X-CSE-MsgGUID: 0HHHqd5wSLawS2Pmm2GiwQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="267870850"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 23:41:29 -0700
-Date: Thu, 3 Sep 2026 09:41:27 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Tsz Shan Chan <tsz.chan.dev@gmail.com>
-Cc: Subhajit Ghosh <subhajit.ghosh@tweaklogic.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Tsz Shan Chan <tchan@jacques.com.au>
-Subject: Re: [PATCH] iio: light: apds9306: fix default sampling frequency
- definition
-Message-ID: <apkWlzZZIIzVDz4C@ashevche-desk.local>
-References: <20260903-apds9306-v1-1-3f892aa4f156@jacques.com.au>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nm/CcY9O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 213B71F000E9;
+	Thu,  3 Sep 2026 06:42:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788417736;
+	bh=SQS+yOKJydeR277npXj6PZ+MIa4NneM3XeRmFudAoJo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=Nm/CcY9O5o1WIxmaSBn1ZsI4b/bzQ9eCH0tV5inuuCWGYBFcCNMuq9P9SvP1Gm4sB
+	 xIjeU97m8q3t8hMBqXtHJirGsCBu7TetTRNGYeFaKls3S1LE1zlnZMWgbAUv5kVkRk
+	 WbWDaE5krFFi6PO2lkwlGUA0HkOg4+H33McZOE03/WMkaOKQGzVrbDn2OLpXvsAUjJ
+	 Hhu8PdaOL/BCeMtyXnCEnuCukX7WR9pofDfqGiZmowueQ8zFCnMZGOUoL2l/zVPuNb
+	 Fp4BP9N9v5nuoUOasPXefBwwrXwR4F5ackFCTVc0eEm2jZIH5ErsOAQYZ9K5cnbOgO
+	 X/3mjq3jX4O/w==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: "Eric W. Biederman" <ebiederm@xmission.com>, Frederic Weisbecker
+ <frederic@kernel.org>, Hyunwoo Kim <imv4bel@gmail.com>,
+ brauner@kernel.org, peterz@infradead.org, anna-maria@linutronix.de,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH V2] signal: Prevent exec() race
+In-Reply-To: <apgwWTwG_oq3ij8n@redhat.com>
+References: <87mru7h09e.fsf@email.froward.int.ebiederm.org>
+ <87tsofdvf2.ffs@fw13> <871pbfeaiv.ffs@fw13>
+ <87zey3fep2.fsf@email.froward.int.ebiederm.org> <87pkyyd39l.ffs@fw13>
+ <87h5kad0mx.ffs@fw13> <87bjaie2gc.fsf@email.froward.int.ebiederm.org>
+ <87wlt5aybr.ffs@fw13> <87qzjcdh06.fsf@email.froward.int.ebiederm.org>
+ <87ecfcbyt1.ffs@fw13> <apgwWTwG_oq3ij8n@redhat.com>
+Date: Thu, 03 Sep 2026 08:42:13 +0200
+Message-ID: <8733vqbzui.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903-apds9306-v1-1-3f892aa4f156@jacques.com.au>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain
 
-On Thu, Sep 03, 2026 at 03:38:47PM +1000, Tsz Shan Chan wrote:
-> APDS9306_SAMP_FREQ_10HZ is defined as 0.
-> 
-> According to the datasheet (page 11, ALS_MEAS_RATE), bits[2:0] set the
+On Wed, Sep 02 2026 at 16:19, Oleg Nesterov wrote:
+> This is subjective and mostly cosmetic, but what do you think
+> about the alternative change below?
+>
+> I won't insist, but to me both the patch and resulting code look
+> a bit simpler this way.
 
-Can you add a Datasheet link? (Or at least the version and name)
+Yeah, though if we restructure the code then I rather prefer to get rid
+of the gotos and also move the cgroup...end() part out of the sighand
+lock held region to make that as short as possible.
 
-> measurement rate:
-> - 000: 25ms  (40Hz)
-> - 001: 20ms  (20Hz)
-> - 010: 100ms (10Hz)
-> 
-> Change APDS9306_SAMP_FREQ_10HZ from 0 to 2 to write the correct value
-> for 10Hz.
+void exit_signals(struct task_struct *tsk)
+{
+	LIST_HEAD(sigq_list);
+	int group_stop = 0;
 
-> Fixes: 620d1e6c7a3f ("iio: light: Add support for APDS9306 Light Sensor")
-> 
-> Signed-off-by: Tsz Shan Chan <tchan@jacques.com.au>
+	/*
+	 * @tsk is about to have PF_EXITING set - lock out users which
+	 * expect a stable threadgroup.
+	 */
+	cgroup_threadgroup_change_begin(tsk);
 
-No blank lines in the tag block (at the end of the commit message).
+	scoped_guard(spinlock_irq, &tsk->sighand->siglock) {
+		tsk->flags |= PF_EXITING;
 
--- 
-With Best Regards,
-Andy Shevchenko
+		sigqueue_dequeue_pending(&tsk->pending, &sigq_list);
 
+		if (task_sigpending(tsk) && !thread_group_empty(tsk) &&
+		    !(tsk->signal->flags & SIGNAL_GROUP_EXIT)) {
+			sigset_t unblocked = tsk->blocked;
 
+			signotset(&unblocked);
+			retarget_shared_pending(tsk, &unblocked);
+
+			if (unlikely(tsk->jobctl & JOBCTL_STOP_PENDING) &&
+			    task_participate_group_stop(tsk))
+				group_stop = CLD_STOPPED;
+		}
+	}
+
+	cgroup_threadgroup_change_end(tsk);
+
+	flush_sigqueue_list(&sigq_list);
+
+	/*
+	 * If group stop has completed, deliver the notification.  This
+	 * should always go to the real parent of the group leader.
+	 */
+	if (unlikely(group_stop)) {
+		read_lock(&tasklist_lock);
+		do_notify_parent_cldstop(tsk, false, group_stop);
+		read_unlock(&tasklist_lock);
+	}
+}
