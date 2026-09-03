@@ -1,87 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3588B3672A0;
-	Thu,  3 Sep 2026 22:38:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C589C3672A0;
+	Thu,  3 Sep 2026 22:39:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788475131; cv=none; b=ceHfE+nr0cUVmxGaK4kq5iTF1H97fSm75XrjR0YQVKDyM3zBkod7fyPFyYJ3jEzseNPSlA0NNQNERZROa5RTPRUTMnAOyTyiBFMmNnSCSsSPnP+uGU0haOc3BuM6lceZI0UPgGaEoIoAvkOET0Rt5zTKX6f1KYoAqiHBurzj/MM=
+	t=1788475162; cv=none; b=Rg2uJW1uEFpAG9boM7WzQsiNHL7icJvYKi1qYTGffvIv9FAB81r4YiIP1+E3YywPwUYh28cdz4aW46iFCM8Y1GDKEW8a3fA2eXowyemu0K51dfTHO19zZ7nbqIy3+KEzjEmMcN3rWXhnTAjk62wil7cm60EyjqhJv7vx8TlXTj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788475131; c=relaxed/simple;
-	bh=sAj/ZS4rKZLVdCOrvFUXxc8QGX2v3BUL121uNDdOn2s=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TGTCt7d20lB4pmqIRNQpYe9IJW7XQTjn1I9CE13kCQBY0mXIlC8q901pRcyfXhU13PlEJpZatnCTvUGv+hJWLGIglcvsH3Le8G3MTwAuImPB5cNS7TAdtFttGhcjVk90p9E3GITfp92BCfgfNbxhHtqwsOexZSAxESHmJ4zNmkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SPifHQ5m; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788475162; c=relaxed/simple;
+	bh=gbxOt26bQoeAwt5cGsuB/OnGgpoiR0U3lXzQXWTFMsw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NTa+XssjyHAs3/yFf1A8wcI0b806k3mwaGkNGRbKl8tyOagCWkaPmgHue7vzfi/6EpfzKYageztc0R+nCxi9jDixF3QDDkArTa+UrDEzLDS8ojN6ok14JjLBV/qadI/+AwICRonQJfx0EfLTSOjRgWrrmj8h075804N1N+MQK9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oqtSJ0SL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SPifHQ5m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5F101F000E9;
-	Thu,  3 Sep 2026 22:38:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oqtSJ0SL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57E591F00A3E;
+	Thu,  3 Sep 2026 22:39:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788475129;
-	bh=W+Kesxd/6+UM7OT4+5QmDjgPKogkomsffHalxmd8hlo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=SPifHQ5mqoYpzXtNW4Pv61MYw0Bb7mnESq3ZmZAlormMyrXvCE3QQw86jnOgSSwAJ
-	 Y7XdG1ic0KYLIu0k3tXV9tcXF39Y5W7HaPnj0wGghLdafAR0PwNaxOO9SrGduPNfv4
-	 25Tcyg67XTeARdmPI1u7VguZbaVKQFKzvVglSBymhfvUsHUT+II0sdf9xBqZh7jf31
-	 JjdluJX7TdoE8O0ejwyijHnS1Nw4ZlLxwMx5oD8A+//m5vHLyaq6I1Qbc5H9pZy0UG
-	 kY2qaLx0yGvbbGiFYb/aZHVlRREtUJUvQmzI26Wm1jiHU4yB0ePeHGCjCh+MRC88Nk
-	 Q7L2AkE8/TlJg==
-Date: Thu, 3 Sep 2026 15:38:48 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: =?UTF-8?B?w43DsWlnbw==?= Huguet <ihuguet@riseup.net>
-Cc: David Ahern <dsahern@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Neal Cardwell
- <ncardwell@google.com>, Ido Schimmel <idosch@nvidia.com>, Pablo Neira Ayuso
- <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>, Willem de Bruijn
- <willemdebruijn.kernel@gmail.com>, dcaratti@redhat.com, ihuguet@redhat.com,
- Simon Horman <horms@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>,
- Phil Sutter <phil@nwl.cc>, Daniel Borkmann <daniel@iogearbox.net>, Junseo
- Lim <zirajs7@gmail.com>, Martin KaFai Lau <martin.lau@kernel.org>,
- Xuanqiang Luo <luoxuanqiang@kylinos.cn>, Fernando Fernandez Mancera
- <fmancera@suse.de>, Leon Hwang <leon.hwang@linux.dev>, Willem de Bruijn
- <willemb@google.com>, Kees Cook <kees@kernel.org>, Jeff Layton
- <jlayton@kernel.org>, Christian Brauner <brauner@kernel.org>, Qi Tang
- <tpluszz77@gmail.com>, Joe Damato <joe@dama.to>, Breno Leitao
- <leitao@debian.org>, Li RongQing <lirongqing@baidu.com>,
- netdev@vger.kernel.org (open list:VRF), linux-kernel@vger.kernel.org (open
- list), netfilter-devel@vger.kernel.org (open list:NETFILTER),
- coreteam@netfilter.org (open list:NETFILTER), bpf@vger.kernel.org (open
- list:BPF [MISC]:Keyword:(?:\b|_)bpf(?:\b|_))
-Subject: Re: [PATCH net v2] net/ipv6: don't route packets with unknown
- source address
-Message-ID: <20260903153848.20b90f77@kernel.org>
-In-Reply-To: <20260903121057.80006-1-ihuguet@riseup.net>
-References: <20260903121057.80006-1-ihuguet@riseup.net>
+	s=k20260515; t=1788475161;
+	bh=FE7CoZIim/AFNristn24Z3J5voTLVFaS6R+eRkc4Q84=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oqtSJ0SLqwvGnWqla3hph4AhrUDQWj6AZkdpGJan3zK/p6bICbp6flNa9u47isRl9
+	 Uzcs4Ni42FI5myOEvVJwdMWMgvZ4ekOsjm0iaZ9Ft+Jd52i2cow+okXagyLAxSvQe8
+	 QmmEAvEvtSMwWASd13hIvxPD+AFh83E16c9sbFvtR4dvmRk54hj3a4hlwhiIbqnjfk
+	 kAO1HWe8FZVl5Pj+zwkDJuQkUL1o11JJAfqjdCljuoMPSbG46Vn8RGP3LSOR+L1rL+
+	 kaskdIL8NeBW2x7yPrr23HqKBPsRYqmZ0SfD+h+AxGjSVgb0efUJiI3M8WrS5uWx4x
+	 q9GxH8S3bT83A==
+Date: Thu, 3 Sep 2026 12:39:20 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Andrea Righi <arighi@nvidia.com>
+Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>,
+	Lee Trager <ltrager@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+	Koba Ko <kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
+	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 12/18] sched_ext: Generalize the reject DSQ reenqueue path
+Message-ID: <apn3GHPzhPZtGbSs@slm.duckdns.org>
+References: <20260831134338.1531664-1-arighi@nvidia.com>
+ <20260831134338.1531664-13-arighi@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831134338.1531664-13-arighi@nvidia.com>
 
-On Thu,  3 Sep 2026 14:10:40 +0200 =C3=8D=C3=B1igo Huguet wrote:
-> Don't allow routing packets with a source address that is not configured
-> in the host. Allow it only in certain cases like when using a
-> transparent socket, by setting the ANYSRC flag in flowi_flags.
+Hello,
 
-breaks a bunch of selftests, too, FWIW
-Please make sure to mend those if you want to forge ahead as a non-fix
+Nits follow.
 
-  - selftests/net/xfrm_state.sh:
-      "IPv6 unreachable from IPsec gateway s2" [FAIL]
-      "IPv6 MTU exceeded from IPsec gateway s2" [FAIL]
-    (the equivalent IPv4 cases still pass)
+On Mon, Aug 31, 2026 at 03:42:22PM +0200, Andrea Righi wrote:
+> @@ -1599,11 +1599,10 @@ static void scx_dispatch_enqueue(struct scx_sched *sch, struct rq *rq,
+>  				 struct scx_dispatch_q *dsq, struct task_struct *p,
+>  				 u64 slice, u64 vtime, u64 enq_flags)
+>  {
+> -	bool is_rq_owned = false;
+> +	bool is_rq_owned = dsq_is_rq_owned(dsq);
+>  
+>  	if (dsq->id == SCX_DSQ_LOCAL) {
+>  		dsq = scx_resolve_local_dsq(sch, rq, p, &enq_flags);
+> -		is_rq_owned = true;
+>  	}
 
-  - selftests/net/vrf_route_leaking.sh:
-      "VRF ICMP local IPv6" [FAIL]
-      "VRF tcp local connection IPv6" [FAIL]
-      "VRF udp local connection IPv6" [FAIL]
+No need for {}.
 
-  - selftests/net/srv6_encap_lookup_l3vpn_test.sh:
-      "IPv6 connectivity: rt-1 -> rt-2 (tenant 100/200)" [FAIL]
-      "IPv6 connectivity: rt-2 -> rt-1 (tenant 100/200)" [FAIL]
-    (again, the IPv4 variants of the same tests pass)
-...
+> @@ -2017,6 +2016,7 @@ void scx_do_enqueue_task(struct rq *rq, struct task_struct *p, u64 enq_flags,
+>  			__scx_exit(sch, SCX_EXIT_ERROR_REENQ, 0, cpu_of(rq),
+>  				   "%s[%d] reenqueued %u times without running",
+>  				   p->comm, p->pid, p->scx.reenq_cnt);
+> +			p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
+>  			return;
+>  		}
+>  	}
+> @@ -2067,6 +2067,8 @@ void scx_do_enqueue_task(struct rq *rq, struct task_struct *p, u64 enq_flags,
+>  
+>  	SCX_CALL_OP_TASK(sch, enqueue, rq, p, enq_flags);
+>  
+> +	/* The reason is input to ops.enqueue(), not to the resulting placement. */
+> +	p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
+>  	*ddsp_taskp = NULL;
+>  	if (p->scx.ddsp_dsq_id != SCX_DSQ_INVALID)
+>  		goto direct;
+> @@ -2085,9 +2087,11 @@ void scx_do_enqueue_task(struct rq *rq, struct task_struct *p, u64 enq_flags,
+>  	return;
+>  
+>  direct:
+> +	p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
+>  	direct_dispatch(sch, p, enq_flags);
+>  	return;
+>  local_norefill:
+> +	p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
+>  	scx_dispatch_enqueue(sch, rq, &rq->scx.local_dsq, p, 0, 0, enq_flags);
+>  	return;
+>  local:
+> @@ -2101,6 +2105,7 @@ void scx_do_enqueue_task(struct rq *rq, struct task_struct *p, u64 enq_flags,
+>  	goto enqueue;
+>  
+>  enqueue:
+> +	p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
+>  	refill_task_slice_dfl(sch, p);
+>  	clear_direct_dispatch(p);
+>  	scx_dispatch_enqueue(sch, rq, dsq, p, 0, 0, enq_flags);
+
+This is too messy. The clearing is scattered all over and sometimes done
+twice. Can't you add one label that everyone jumps to for exit and clear it
+there?
+
+Thanks.
+
+-- 
+tejun
