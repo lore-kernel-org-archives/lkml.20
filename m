@@ -1,49 +1,68 @@
-Received: from esa2.hc555-34.eu.iphmx.com (esa2.hc555-34.eu.iphmx.com [23.90.104.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA384CCDC6;
-	Thu,  3 Sep 2026 05:38:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.90.104.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3ECE35A925
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 05:39:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788413936; cv=none; b=g+yOSKqZKxnC05kRkNyEOpV0q1S708J4Fs36vcYXcazSLCLYVuOCM7vhcgqF5QA6QqK8+5S3l1w7OgHH6ojn2bZedtIK5PjGYykFDQxzyAkAFzCBCpRD1NhjYU1D46GR1POYZ0GcxHcNJKghu4vvEmlbXPxJQoEkoOskUAdU0AE=
+	t=1788413946; cv=none; b=qgHcPylo//f3Ox6NgHYXhh3D4W0jezOcDYSJDwQ6rCPPVAeOHt/dG0JeU86J96SFF3JXtDtDyHFEU3FOnQDi3QzazRdbByPUd3Fafki88b+/S1I5sedKGjyzPXiedgyw+ZCA7JtYKz9cNtfSJ12QMhTl9PWATddI4H73e1DJkGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788413936; c=relaxed/simple;
-	bh=eHmFtsWU5LjiwnO3niytJNP8sUYds/84ZFFIoQLM9gk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Hl+e/AW2Czxo7fKtiuKNrhawtsonPk+5bijFsjCdkx+yZ8FM6wzBOeddO1+h6/ySCfzfA6rz0cRXtJISnkvXhnMR7a1WQFXZ9/As1/JA1KkvptsutF+NHPrvQg68Blc6M1e0CyJShOLtFLqhBSuSOS4yGba+FN7ynoB8PyTsIkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com; spf=pass smtp.mailfrom=mobileye.com; dkim=fail (0-bit key) header.d=mobileye.com header.i=@mobileye.com header.b=SabPrrm7 reason="key not found in DNS"; arc=none smtp.client-ip=23.90.104.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
+	s=arc-20240116; t=1788413946; c=relaxed/simple;
+	bh=b3b6gfesD/os7apgK4gtFisoUHeK/sYTDMIjbfHch5g=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=HsLIbeDRRKkNjNsHBvXhQzV2BJ/9wD5X/XugglQU+zlWcfO4jvRvqZoKd0f4NIaXvBGI3yeWOw0en0dL0ZPFwxjHtU9BHKWaOeYksvFCdlnxwtREvu3Sk57IxYgzaJqmiKcZx6A42H5zmyVRMBDWCJHOrRupDt8kM6ZFQR+KIVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P/2JVReG; arc=none smtp.client-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=mobileye.com header.i=@mobileye.com header.b="SabPrrm7"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
-  t=1788413934; x=1819949934;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=eHmFtsWU5LjiwnO3niytJNP8sUYds/84ZFFIoQLM9gk=;
-  b=SabPrrm7km3DMvlwkSM5tPQhXRXkkcN0xrGvJBLnXSL+gwESb/g+sn2B
-   qcZgeZv9UAn9XFgBGv4FWC5a9Xzwl3oYVmAU33iSalCvdJ8aokr7qR64C
-   avYinIxW2i07pQjnupi+1so08BWm2TfwvQ4SXdpo1whpfgQz5m2OADqHn
-   qeRBSmSvwNVs3UjcpN2nwXWHM9qWA1wiRDXBgl80igvlQpELkDh4DryjN
-   GrHxoe19TXa0HrypYoBY3y72wjxkv3furM+PPoOKVj+M29QDGxjkoHv5p
-   4om6oXhSD0ZVE/XI6GKtyhZ2SI8zeaxFhtu3X6h5Q7CoUZ4xv3oyNbqG0
-   A==;
-X-CSE-ConnectionGUID: cXTfemmQQHW5DE+hyRYMiQ==
-X-CSE-MsgGUID: lO8lWGNRSHmUZbba1rI0gA==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from unknown (HELO ces01_data.me-corp.lan) ([146.255.191.134])
-  by esa2.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 08:38:48 +0300
-X-CSE-ConnectionGUID: 5S1lyqeURkuJKJFGaAW5FQ==
-X-CSE-MsgGUID: IQLGvVf4RLesE2UPXjvhPA==
-Received: from unknown (HELO epgd056.me-corp.lan) ([10.154.54.3])
-  by ces01_data.me-corp.lan with SMTP; 03 Sep 2026 08:45:29 +0300
-Received: by epgd056.me-corp.lan (sSMTP sendmail emulation); Thu, 03 Sep 2026 08:38:47 +0300
-From: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
-Date: Thu, 03 Sep 2026 08:38:18 +0300
-Subject: [PATCH v2 11/12] i2c: designware: use separate `i2c_algorithm` for
- AMD_NAVI_GPU
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P/2JVReG"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-c9b373d5af0so1518056a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 22:39:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788413944; x=1789018744; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ZPmOa6ZX8GipLr+aIS+ts/201Kh9WrJNcUfS+NBI5Ec=;
+        b=P/2JVReGm6cbKAZpWPXYbSWfujzFRkcsHCR/JOzeen1XAGcOSBmUD4jpNaaO9AguZI
+         ypeJmwWUu6U6wNrV2GIXaDfG8E2kAdVVoAw8bXG/b87D3mfVPeHIAyUsvVHa/X4R0ufi
+         2JsTIvZRvBAN1zUx64v610jE6mxJUtAEIby5525n62+p3W5fzi6zG/w5oOMcTX0Uu11/
+         3t8y2u6aj5wd4l+R4Zl3k1MhvyAL2OjeDVC4kSe6WRwawHNhU0dmBFv/K8W9ipBTM9vt
+         o65QMIA5xZ9ETBKdwUyAoDlEVzD3sZ9IyKtSzikT+w8S26peuUZwXGp4nNulo4ZgtBDq
+         wTSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788413944; x=1789018744;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ZPmOa6ZX8GipLr+aIS+ts/201Kh9WrJNcUfS+NBI5Ec=;
+        b=ME7RA9jrBXj6kk8Ef46goPlBqYGbQN0sJ8iSx1VU2k7iMGgi7piRSJniXDKWM3CU89
+         XBjALwa2dkSBA49y1ktusU7X258xzxKStyHZdbDNrnSQtZ1ILouqK+qetH71PNv2d4w8
+         ETfjPRPoe1sFEo/Il4Z430wmU23aRfoMj/Xp+OEM10Aw+DsmoXN3zmSzcxLkYJS13Gme
+         iQQMu5uLetLrA50lr1cVJGH8NBLvbr+gWTWJu89dyvI0197EboqscUmAzzLnbRnS2yxm
+         Q78npwiWFY1iaSgPCMlkdq1qVvz/k85WKJbluLne732XyHA/Zs1VTy0Ghp6SZWlVigSK
+         ihuA==
+X-Forwarded-Encrypted: i=1; AKwUvBw31f32PjJD5iFSYnp8ggekeVBCX2m2JH48Cr3sgJxesF4nCogIr0DrkDvqwIeRncfkwdx8XMpLFaW5KL4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqgmpi8qh9l6tyAXMUBJQkJQPJm/Mt2Znh6OtppwCFLS9FKnOd
+	WTJRkSMHr0mO3k1AjFtx5tFv9M2hNGma/DgzzCI9kP/pcVx/yQSI0wYM
+X-Gm-Gg: AYBFou0Mx94viam9KwpubI8VKFBC9QAAk+cnyn+u85B1J/2S37Ltuc5AGTIkwUU3loK
+	njxOnB3KRcOu4zHEEqk7u8POgajhXHsEjx2BVqm7Fy03WLFYq/ZIyIaAyoEfFF+ielJZjoNuX+A
+	CwT/X+ihuxItr2lx3K/6Y59uO2GBXj/GTSgbUCy8cKa7r8FbXjxV7kMJWFmst8KxyLEqEyv9jFj
+	A/8RRDjPAW3ZO1bdsiUxmUsL2+GddIp8/ryX6IFG8eht3zu1pmw0hu1rhDJmYo7ozOpjhudLpN6
+	KvK+g2y0PXW2Z2uPwB7fhFEuwdSZOKmRxBsPXy4t+63L7jmZ01JxshG/e1ddUA9gPMVUQuwvLuR
+	M0z0KvZl+RE6oChNWJlHdFJVkWDBixAWXVBo1IdLa0rG1he+Pj5l6nkfMQ0BWjD+eV3zQY8qJ2M
+	8f+OV/m7BMN+nqYLvY0znCTFiJVYQFtfeHE3B3t7kIwlHLZ9QqczJijbagjcCJEljiu33ddmAy7
+	aj+s9HZ3jjkU/8A9m0s1kQZjcs=
+X-Received: by 2002:a17:90b:3b52:b0:396:d28e:bd8 with SMTP id 98e67ed59e1d1-39aedf61001mr14096928a91.3.1788413944106;
+        Wed, 02 Sep 2026 22:39:04 -0700 (PDT)
+Received: from [192.168.20.42] (115-70-157-242.ip4.superloop.au. [115.70.157.242])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08ce4221sm3253082a91.14.2026.09.02.22.39.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 22:39:03 -0700 (PDT)
+From: Tsz Shan Chan <tsz.chan.dev@gmail.com>
+X-Google-Original-From: Tsz Shan Chan <tchan@jacques.com.au>
+Date: Thu, 03 Sep 2026 15:38:47 +1000
+Subject: [PATCH] iio: light: apds9306: fix default sampling frequency
+ definition
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,104 +71,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-i2c-fault-reporting-v2-11-fedeb91792e6@mobileye.com>
-References: <20260903-i2c-fault-reporting-v2-0-fedeb91792e6@mobileye.com>
-In-Reply-To: <20260903-i2c-fault-reporting-v2-0-fedeb91792e6@mobileye.com>
-To: Andi Shyti <andi.shyti@kernel.org>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Linus Walleij <linusw@kernel.org>, 
- Mika Westerberg <mika.westerberg@linux.intel.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
- Dmitry Guzman <Dmitry.Guzman@mobileye.com>
-X-Mailer: b4 0.14.2
+Message-Id: <20260903-apds9306-v1-1-3f892aa4f156@jacques.com.au>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSwNj3cSClGJLYwMz3aTUlKRE8yRzk1RTSyWg8oKi1LTMCrBR0bG1tQD
+ lNLVoWgAAAA==
+X-Change-ID: 20260903-apds9306-bedba7b74e59
+To: Subhajit Ghosh <subhajit.ghosh@tweaklogic.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jonathan Cameron <jic23@kernel.org>, Tsz Shan Chan <tchan@jacques.com.au>
+X-Mailer: b4 0.14.3
 
-AMD_NAVI_GPU variant of designware I2C controller uses its own
-implementation of `xfer` method. Instead of checking flags in runtime,
-create a separate `i2c_algorithm` structure and put pointer to
-`amd_i2c_dw_xfer_quirk` directly into it.
+APDS9306_SAMP_FREQ_10HZ is defined as 0.
 
-Signed-off-by: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+According to the datasheet (page 11, ALS_MEAS_RATE), bits[2:0] set the
+measurement rate:
+- 000: 25ms  (40Hz)
+- 001: 20ms  (20Hz)
+- 010: 100ms (10Hz)
+
+Change APDS9306_SAMP_FREQ_10HZ from 0 to 2 to write the correct value
+for 10Hz.
+
+Fixes: 620d1e6c7a3f ("iio: light: Add support for APDS9306 Light Sensor")
+
+Signed-off-by: Tsz Shan Chan <tchan@jacques.com.au>
 ---
- drivers/i2c/busses/i2c-designware-common.c | 14 +++++++++++++-
- drivers/i2c/busses/i2c-designware-core.h   |  1 +
- drivers/i2c/busses/i2c-designware-master.c |  6 ++----
- 3 files changed, 16 insertions(+), 5 deletions(-)
+ drivers/iio/light/apds9306.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/i2c/busses/i2c-designware-common.c b/drivers/i2c/busses/i2c-designware-common.c
-index e934bcbe766042483874b3e43d10ffff30c59e04..4274bf809b3f4bff90139d186447256b01317951 100644
---- a/drivers/i2c/busses/i2c-designware-common.c
-+++ b/drivers/i2c/busses/i2c-designware-common.c
-@@ -886,6 +886,15 @@ static const struct i2c_algorithm i2c_dw_algo = {
- #endif
- };
+diff --git a/drivers/iio/light/apds9306.c b/drivers/iio/light/apds9306.c
+index f681b02e4922..7dd41136734f 100644
+--- a/drivers/iio/light/apds9306.c
++++ b/drivers/iio/light/apds9306.c
+@@ -61,7 +61,7 @@
+ #define APDS9306_NUM_REPEAT_RATES	7
+ #define APDS9306_INT_SRC_CLEAR	0
+ #define APDS9306_INT_SRC_ALS	1
+-#define APDS9306_SAMP_FREQ_10HZ	0
++#define APDS9306_SAMP_FREQ_10HZ	2
  
-+static const struct i2c_algorithm i2c_dw_amd_navi_gpu_algo = {
-+	.xfer = amd_i2c_dw_xfer_quirk,
-+	.functionality = i2c_dw_func,
-+#if IS_ENABLED(CONFIG_I2C_SLAVE)
-+	.reg_slave = i2c_dw_reg_slave,
-+	.unreg_slave = i2c_dw_unreg_slave,
-+#endif
-+};
-+
- static const struct i2c_adapter_quirks i2c_dw_quirks = {
- 	.flags = I2C_AQ_NO_ZERO_LEN,
- };
-@@ -922,7 +931,10 @@ int i2c_dw_probe(struct dw_i2c_dev *dev)
- 		strscpy(adap->name, "Synopsys DesignWare I2C adapter");
- 
- 	adap->retries = 3;
--	adap->algo = &i2c_dw_algo;
-+	if ((dev->flags & MODEL_MASK) == MODEL_AMD_NAVI_GPU)
-+		adap->algo = &i2c_dw_amd_navi_gpu_algo;
-+	else
-+		adap->algo = &i2c_dw_algo;
- 	adap->quirks = &i2c_dw_quirks;
- 	adap->dev.parent = dev->dev;
- 	i2c_set_adapdata(adap, dev);
-diff --git a/drivers/i2c/busses/i2c-designware-core.h b/drivers/i2c/busses/i2c-designware-core.h
-index 025311c8662c612aaaf772fb223af38278217c90..9f3492717e18fe104d307cfc65293ae4b41251f0 100644
---- a/drivers/i2c/busses/i2c-designware-core.h
-+++ b/drivers/i2c/busses/i2c-designware-core.h
-@@ -316,6 +316,7 @@ extern void i2c_dw_configure_master(struct dw_i2c_dev *dev);
- extern int i2c_dw_probe_master(struct dw_i2c_dev *dev);
- 
- int i2c_dw_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num);
-+int amd_i2c_dw_xfer_quirk(struct i2c_adapter *adap, struct i2c_msg *msgs, int num_msgs);
- 
- #if IS_ENABLED(CONFIG_I2C_SLAVE)
- extern void i2c_dw_configure_slave(struct dw_i2c_dev *dev);
-diff --git a/drivers/i2c/busses/i2c-designware-master.c b/drivers/i2c/busses/i2c-designware-master.c
-index 936b9150754e85a1bac2d17a0fa65f6963e4ef3e..f029aa1eadbf83d304fc73b038e92f258e2148a1 100644
---- a/drivers/i2c/busses/i2c-designware-master.c
-+++ b/drivers/i2c/busses/i2c-designware-master.c
-@@ -291,8 +291,9 @@ static int i2c_dw_status(struct dw_i2c_dev *dev)
-  * Initiate and continue master read/write transaction with polling
-  * based transfer routine afterward write messages into the Tx buffer.
-  */
--static int amd_i2c_dw_xfer_quirk(struct dw_i2c_dev *dev, struct i2c_msg *msgs, int num_msgs)
-+int amd_i2c_dw_xfer_quirk(struct i2c_adapter *adap, struct i2c_msg *msgs, int num_msgs)
- {
-+	struct dw_i2c_dev *dev = i2c_get_adapdata(adap);
- 	int msg_wrt_idx, msg_itr_lmt, buf_len, data_idx;
- 	int cmd = 0, status;
- 	u8 *tx_buf;
-@@ -926,9 +927,6 @@ int i2c_dw_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
- {
- 	struct dw_i2c_dev *dev = i2c_get_adapdata(adap);
- 
--	if ((dev->flags & MODEL_MASK) == MODEL_AMD_NAVI_GPU)
--		return amd_i2c_dw_xfer_quirk(dev, msgs, num);
--
- 	return i2c_dw_xfer_common(dev, msgs, num);
- }
- 
+ /**
+  * struct part_id_gts_multiplier - Part no. and corresponding gts multiplier
 
+---
+base-commit: 940de590b839f71d6dc846160534bf202401b8b7
+change-id: 20260903-apds9306-bedba7b74e59
+
+Best regards,
 -- 
-2.43.0
+Tsz Shan Chan <tchan@jacques.com.au>
 
