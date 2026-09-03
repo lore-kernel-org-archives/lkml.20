@@ -1,354 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 710F14052A7;
-	Thu,  3 Sep 2026 09:53:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AEF5360EEE;
+	Thu,  3 Sep 2026 09:54:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788429224; cv=none; b=H5SmDgyxj6K5D0CUMEhzmuGmpUK2OTtFZkiEbnO5U8DuaObqqEN5R+YWBv00HKKhDQ4Z1RnjE6La34B2HE8YfjyQ4exGzC4bPmzj3iyma+eXFj4x4XfDvQ3NObrIVcWgVgdfvxUjsMD9Wyl34SzKg0Hx0h9ZLbekOREZ9Jqoezk=
+	t=1788429261; cv=none; b=pBPO9IbPNSQk+LYGQ7k3vUH1IGqLUBHGFluuiDwnZF2YtK9muZpifH/1PEC5ERCxJuAZ0ofnJ9QjEYKglwa/Xp2dEJQ0AimshFbnGBWLrLSF3RmWiZs2fh0DWAH22SM5FFyul5OBrLX1crn/gIu31PruWw1LpXIqGxpmvswqAFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788429224; c=relaxed/simple;
-	bh=Wc5TdIv8uRrn38ASAmyF99oVNglEKJfgoFK11okp56U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mXKPbU4dI8q6diyerY4euvyRKgqx9sHVjFl7j3rxxiDCzk+SHD5kbY2kzew1ahVXtWsoGZCv6CFKK/wv1uVoq3yrzCpqI5e6NFdFsP1yOkPlgeqaDTF4nQ3jZi2BVfv68JWNhuyzU1uCJkjIoOKu3Vhz3WaY70LZWlsRBab6xtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kdZkLTdy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788429261; c=relaxed/simple;
+	bh=fNcUNlfnWxPl9ohgFql4///teT3N8Pfs1Yc5cH/uBV0=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=roAjkV7uWUzWin7U4vS9LD+WCmNd/ut1lJvttxr5QEnJh9t90JkXLcLz4JBTuqGMyV6tCaG9n89GrANfYFe9MzJDwkv0c1meUypv+CBJ0NGRykxSbaK7E7HyPTUwJj6esLAu8BrithWqd8UK2X9SvhVtn9GeXoxC5DLHQnZLGBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=NBMW2MDO; arc=none smtp.client-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kdZkLTdy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FE7D1F00A3A;
-	Thu,  3 Sep 2026 09:53:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788429222;
-	bh=HnQbaAtYhKE0E+XADRG2xsLeZ3cDcrLqIfeiOr9AQNU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kdZkLTdy16EejRFRwT7hzGjpS7HgGJt0LuxCmYZNhOxPtfmvkMN+qgVVZliHUJIN4
-	 FV9X/JU6GYuVAnwRzJQrgtMZMVFEr20qeaBJRZUTwRpHDOgP+FWwZHBD7rId3LIIDp
-	 TBHe6OAjWzmzSmMDV6wT0r8SlRKjF0PFBWyCjTAHobiuEOne0HoyjfmLBRy1lTRfxM
-	 mlyNJU0hkR6Otj1I1NgRRh1Uw08vnZImCOWCGTXtOzmfkyplKQ4LNhoIWH4mtFreeW
-	 p2WdeIDAoTotb3qJhEeZdmgvND0tcZxh6o9HvfvSA9FXo1DKPRWNvZqRRhwpRiTjvC
-	 GTT0LUANE4AzA==
-Date: Thu, 3 Sep 2026 10:53:38 +0100
-From: Lee Jones <lee@kernel.org>
-To: a0282524688@gmail.com
-Cc: Ming Yu <tmyu0@nuvoton.com>, linux-kernel@vger.kernel.org,
-	mfd@lists.linux.dev
-Subject: Re: [PATCH v7 02/10] mfd: nct6694: Refactor USB-specific data into
- nct6694_usb_data
-Message-ID: <20260903095338.GK2133376@google.com>
-References: <20260821033505.4017901-1-a0282524688@gmail.com>
- <20260821033505.4017901-3-a0282524688@gmail.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="NBMW2MDO"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=D191mRiW4Ai2eSzoB8c9z+UK6Oit5vvaURV2uNRno4Y=;
+	b=NBMW2MDOwYACzE9UeW6rA7LydoObVxOn5hgg+ibYsXhevRrq28CEGmMFEeRNOXHmZXaCer7ez
+	Cx/1YT1AVE4fySggBLU0NXLU0Zkawlvx3NVD7drhYQ9+CpXV3MKT6V2SgfjdDjZdl/WZOxl2iJQ
+	EPsisV2AswARAIlEPj0lFHU=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4hbF5h5NVKz1prPv;
+	Thu,  3 Sep 2026 17:43:20 +0800 (CST)
+Received: from whupemk200014.china.huawei.com (unknown [7.152.185.79])
+	by mail.maildlp.com (Postfix) with ESMTPS id 176374056D;
+	Thu,  3 Sep 2026 17:54:13 +0800 (CST)
+Received: from [10.174.179.24] (10.174.179.24) by
+ whupemk200014.china.huawei.com (7.152.185.79) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 3 Sep 2026 17:54:11 +0800
+Subject: Re: [PATCH v2 1/2] RAS: Fix inverted context info bounds check in ARM
+ processor errors
+To: Abbott Liu <liuwenliang@huawei.com>, <tony.luck@intel.com>,
+	<bp@alien8.de>, <jic23@kernel.org>, <ardb@kernel.org>,
+	<rafael.j.wysocki@intel.com>, <mchehab+huawei@kernel.org>,
+	<luoshengwei@huawei.com>, <jason@os.amperecomputing.com>,
+	<danielf@os.amperecomputing.com>, <linux-edac@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+CC: <yangzhuohao1@huawei.com>, <douzhaolei@huawei.com>,
+	<zouyipeng@huawei.com>, <wangbing6@huawei.com>, <nixiaoming@huawei.com>
+References: <20260825134323.4181892-1-liuwenliang@huawei.com>
+ <20260825134323.4181892-2-liuwenliang@huawei.com>
+From: Hanjun Guo <guohanjun@huawei.com>
+Message-ID: <001d4025-1b48-56ca-af5e-b1bda83eddf9@huawei.com>
+Date: Thu, 3 Sep 2026 17:54:10 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260821033505.4017901-3-a0282524688@gmail.com>
+In-Reply-To: <20260825134323.4181892-2-liuwenliang@huawei.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ whupemk200014.china.huawei.com (7.152.185.79)
 
-On Fri, 21 Aug 2026, a0282524688@gmail.com wrote:
+Hi Abbott,
 
-> From: Ming Yu <a0282524688@gmail.com>
+On 2026/8/25 21:43, Abbott Liu wrote:
+> Commit 87880af2d24e ("APEI/GHES: ARM processor Error: don't go past
+> allocated memory") added bounds checks for malformed ARM processor
+> error records but contained a bug:
 > 
-> Separate USB transport-specific fields from the core nct6694 structure
-> into a new nct6694_usb_data structure. This decouples the shared MFD
-> core from the USB transport layer, preparing the driver for potential
-> support of alternative transport backends in the future.
+>    In log_arm_hw_error(), the ctx_info bounds check is inverted. The
+>    condition `sz + (long)ctx_info - (long)err >= err->section_length`
+>    adds ctx_info->size when the context header is already past the end
+>    of the section instead of when it is within bounds. So change the
+>    comparison to <=.
 > 
-> The following fields are moved into nct6694_usb_data:
->   - access_lock
->   - int_in_urb
->   - udev
->   - usb_msg
->   - int_buffer
+> Fixes: 87880af2d24e ("APEI/GHES: ARM processor Error: don't go past allocated memory")
 > 
-> The core nct6694 structure now holds a void *priv pointer to reference
 
-priv is a terrible name.  Please improve it.
+This empty line is not needed.
 
-Even 'transport_data' is better, but I'm sure you can improve on it still.
-
-> the transport-specific data. USB-only definitions (vendor/product IDs,
-> endpoint addresses, URB timeout, and the USB message union) are also
-> moved from the shared header into the USB driver source file.
-> 
-> Signed-off-by: Ming Yu <a0282524688@gmail.com>
+> Signed-off-by: Abbott Liu <liuwenliang@huawei.com>
 > ---
-> Changes in v7:
+>   drivers/ras/ras.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> Changes in v6:
+> diff --git a/drivers/ras/ras.c b/drivers/ras/ras.c
+> index 03df3db62334..2540538a16a8 100644
+> --- a/drivers/ras/ras.c
+> +++ b/drivers/ras/ras.c
+> @@ -74,7 +74,7 @@ void log_arm_hw_error(struct cper_sec_proc_arm *err, const u8 sev)
+>   	for (n = 0; n < err->context_info_num; n++) {
+>   		sz = sizeof(struct cper_arm_ctx_info);
+>   
+> -		if (sz + (long)ctx_info - (long)err >= err->section_length)
+> +		if (sz + (long)ctx_info - (long)err <= err->section_length)
+>   			sz += ctx_info->size;
+
+sz is an int and ctx_info->size is u32, if ctx_info->size is big enough
+for example over 0x7fffffff, the sz will be negative.
+
+>   
+>   		ctx_info = (struct cper_arm_ctx_info *)((long)ctx_info + sz);
+
+if the sz is negative, the ctx_info may pointer to a wrong place.
+
+ctx_info->size will not over 0x7fffffff in practical but should we
+consider the overflows?
+
+Thanks
+Hanjun
+
 > 
-> Changes in v5:
-> - Split from the monolithic v4 patch to follow the single logical change
->   principle.
-> 
->  drivers/mfd/nct6694.c       | 76 ++++++++++++++++++++++++++-----------
->  include/linux/mfd/nct6694.h | 27 ++++---------
->  2 files changed, 62 insertions(+), 41 deletions(-)
-> 
-> diff --git a/drivers/mfd/nct6694.c b/drivers/mfd/nct6694.c
-> index 308b2fda3055..58c1cbcbe3f2 100644
-> --- a/drivers/mfd/nct6694.c
-> +++ b/drivers/mfd/nct6694.c
-> @@ -10,8 +10,8 @@
->   */
->  
->  #include <linux/bits.h>
-> -#include <linux/interrupt.h>
->  #include <linux/idr.h>
-> +#include <linux/interrupt.h>
->  #include <linux/irq.h>
->  #include <linux/irqdomain.h>
->  #include <linux/kernel.h>
-> @@ -22,6 +22,27 @@
->  #include <linux/spinlock.h>
->  #include <linux/usb.h>
->  
-> +#define NCT6694_VENDOR_ID	0x0416
-> +#define NCT6694_PRODUCT_ID	0x200B
-> +#define NCT6694_INT_IN_EP	0x81
-> +#define NCT6694_BULK_IN_EP	0x02
-> +#define NCT6694_BULK_OUT_EP	0x03
-> +
-> +#define NCT6694_URB_TIMEOUT	1000
-> +
-> +union __packed nct6694_usb_msg {
-> +	struct nct6694_cmd_header cmd_header;
-> +	struct nct6694_response_header response_header;
-> +};
-> +
-> +struct nct6694_usb_data {
-> +	struct mutex access_lock;
-> +	struct urb *int_in_urb;
-> +	struct usb_device *udev;
-
-'udev' is ambiguous in Linux IMHO.  Can you use 'usb_dev' instead?
-
-> +	union nct6694_usb_msg *usb_msg;
-> +	__le32 *int_buffer;
-> +};
-> +
->  static const struct mfd_cell nct6694_devs[] = {
->  	MFD_CELL_NAME("nct6694-gpio"),
->  	MFD_CELL_NAME("nct6694-gpio"),
-> @@ -96,11 +117,12 @@ static int nct6694_response_err_handling(struct nct6694 *nct6694, unsigned char
->   */
->  int nct6694_read_msg(struct nct6694 *nct6694, const struct nct6694_cmd_header *cmd_hd, void *buf)
->  {
-> -	union nct6694_usb_msg *msg = nct6694->usb_msg;
-> -	struct usb_device *udev = nct6694->udev;
-> +	struct nct6694_usb_data *udata = nct6694->priv;
-
-No one knows what udata is.  Be explicit, 'usb_data'?
-
-Then we have; usb_dev, usb_msg and usb_data - which makes my OCD happy!
-
-> +	union nct6694_usb_msg *msg = udata->usb_msg;
-> +	struct usb_device *udev = udata->udev;
->  	int tx_len, rx_len, ret;
->  
-> -	guard(mutex)(&nct6694->access_lock);
-> +	guard(mutex)(&udata->access_lock);
->  
->  	memcpy(&msg->cmd_header, cmd_hd, sizeof(*cmd_hd));
->  	msg->cmd_header.hctrl = NCT6694_HCTRL_GET;
-> @@ -146,11 +168,12 @@ EXPORT_SYMBOL_GPL(nct6694_read_msg);
->   */
->  int nct6694_write_msg(struct nct6694 *nct6694, const struct nct6694_cmd_header *cmd_hd, void *buf)
->  {
-> -	union nct6694_usb_msg *msg = nct6694->usb_msg;
-> -	struct usb_device *udev = nct6694->udev;
-> +	struct nct6694_usb_data *udata = nct6694->priv;
-> +	union nct6694_usb_msg *msg = udata->usb_msg;
-> +	struct usb_device *udev = udata->udev;
->  	int tx_len, rx_len, ret;
->  
-> -	guard(mutex)(&nct6694->access_lock);
-> +	guard(mutex)(&udata->access_lock);
->  
->  	memcpy(&msg->cmd_header, cmd_hd, sizeof(*cmd_hd));
->  	msg->cmd_header.hctrl = NCT6694_HCTRL_SET;
-> @@ -277,6 +300,7 @@ static int nct6694_usb_probe(struct usb_interface *iface,
->  	struct usb_endpoint_descriptor *int_endpoint;
->  	struct usb_host_interface *interface;
->  	struct device *dev = &iface->dev;
-> +	struct nct6694_usb_data *udata;
->  	struct nct6694 *nct6694;
->  	int ret;
->  
-> @@ -284,18 +308,26 @@ static int nct6694_usb_probe(struct usb_interface *iface,
->  	if (!nct6694)
->  		return -ENOMEM;
->  
-> -	nct6694->usb_msg = devm_kzalloc(dev, sizeof(union nct6694_usb_msg), GFP_KERNEL);
-> -	if (!nct6694->usb_msg)
-> +	udata = devm_kzalloc(dev, sizeof(*udata), GFP_KERNEL);
-> +	if (!udata)
-> +		return -ENOMEM;
-> +
-> +	udata->usb_msg = devm_kzalloc(dev, sizeof(*udata->usb_msg), GFP_KERNEL);
-> +	if (!udata->usb_msg)
->  		return -ENOMEM;
->  
-> -	nct6694->int_buffer = devm_kzalloc(dev, sizeof(*nct6694->int_buffer), GFP_KERNEL);
-> -	if (!nct6694->int_buffer)
-> +	udata->int_buffer = devm_kzalloc(dev, sizeof(*udata->int_buffer), GFP_KERNEL);
-> +	if (!udata->int_buffer)
->  		return -ENOMEM;
->  
-> -	nct6694->int_in_urb = usb_alloc_urb(0, GFP_KERNEL);
-> -	if (!nct6694->int_in_urb)
-> +	udata->int_in_urb = usb_alloc_urb(0, GFP_KERNEL);
-> +	if (!udata->int_in_urb)
->  		return -ENOMEM;
->  
-> +	udata->udev = udev;
-> +
-> +	nct6694->priv = udata;
-> +
->  	nct6694->domain = irq_domain_create_simple(NULL, NCT6694_NR_IRQS, 0,
->  						   &nct6694_irq_domain_ops,
->  						   nct6694);
-> @@ -305,7 +337,6 @@ static int nct6694_usb_probe(struct usb_interface *iface,
->  	}
->  
->  	nct6694->dev = dev;
-> -	nct6694->udev = udev;
->  
->  	ida_init(&nct6694->gpio_ida);
->  	ida_init(&nct6694->i2c_ida);
-> @@ -314,7 +345,7 @@ static int nct6694_usb_probe(struct usb_interface *iface,
->  
->  	spin_lock_init(&nct6694->irq_lock);
->  
-> -	ret = devm_mutex_init(dev, &nct6694->access_lock);
-> +	ret = devm_mutex_init(dev, &udata->access_lock);
->  	if (ret)
->  		goto err_ida;
->  
-> @@ -326,11 +357,11 @@ static int nct6694_usb_probe(struct usb_interface *iface,
->  		goto err_ida;
->  	}
->  
-> -	usb_fill_int_urb(nct6694->int_in_urb, udev, usb_rcvintpipe(udev, NCT6694_INT_IN_EP),
-> -			 nct6694->int_buffer, sizeof(*nct6694->int_buffer), usb_int_callback,
-> +	usb_fill_int_urb(udata->int_in_urb, udev, usb_rcvintpipe(udev, NCT6694_INT_IN_EP),
-> +			 udata->int_buffer, sizeof(*udata->int_buffer), usb_int_callback,
->  			 nct6694, int_endpoint->bInterval);
->  
-> -	ret = usb_submit_urb(nct6694->int_in_urb, GFP_KERNEL);
-> +	ret = usb_submit_urb(udata->int_in_urb, GFP_KERNEL);
->  	if (ret)
->  		goto err_ida;
->  
-> @@ -343,7 +374,7 @@ static int nct6694_usb_probe(struct usb_interface *iface,
->  	return 0;
->  
->  err_mfd:
-> -	usb_kill_urb(nct6694->int_in_urb);
-> +	usb_kill_urb(udata->int_in_urb);
->  err_ida:
->  	ida_destroy(&nct6694->wdt_ida);
->  	ida_destroy(&nct6694->canfd_ida);
-> @@ -351,22 +382,23 @@ static int nct6694_usb_probe(struct usb_interface *iface,
->  	ida_destroy(&nct6694->gpio_ida);
->  	irq_domain_remove(nct6694->domain);
->  err_urb:
-> -	usb_free_urb(nct6694->int_in_urb);
-> +	usb_free_urb(udata->int_in_urb);
->  	return ret;
->  }
->  
->  static void nct6694_usb_disconnect(struct usb_interface *iface)
->  {
->  	struct nct6694 *nct6694 = usb_get_intfdata(iface);
-> +	struct nct6694_usb_data *udata = nct6694->priv;
->  
->  	mfd_remove_devices(nct6694->dev);
-> -	usb_kill_urb(nct6694->int_in_urb);
-> +	usb_kill_urb(udata->int_in_urb);
->  	ida_destroy(&nct6694->wdt_ida);
->  	ida_destroy(&nct6694->canfd_ida);
->  	ida_destroy(&nct6694->i2c_ida);
->  	ida_destroy(&nct6694->gpio_ida);
->  	irq_domain_remove(nct6694->domain);
-> -	usb_free_urb(nct6694->int_in_urb);
-> +	usb_free_urb(udata->int_in_urb);
->  }
->  
->  static const struct usb_device_id nct6694_ids[] = {
-> diff --git a/include/linux/mfd/nct6694.h b/include/linux/mfd/nct6694.h
-> index 3c683e317aa3..3f5dd53f38de 100644
-> --- a/include/linux/mfd/nct6694.h
-> +++ b/include/linux/mfd/nct6694.h
-> @@ -2,12 +2,18 @@
->  /*
->   * Copyright (C) 2025 Nuvoton Technology Corp.
->   *
-> - * Nuvoton NCT6694 USB transaction and data structure.
-> + * Nuvoton NCT6694 core definitions shared by all transport drivers
-> + * and sub-device drivers.
->   */
->  
->  #ifndef __MFD_NCT6694_H
->  #define __MFD_NCT6694_H
->  
-> +#include <linux/idr.h>
-> +#include <linux/mutex.h>
-> +#include <linux/spinlock.h>
-> +#include <linux/types.h>
-> +
->  #define NCT6694_HWMON_MOD	0x00
->  #define NCT6694_PWM_MOD		0x01
->  #define NCT6694_I2C_MOD		0x03
-> @@ -17,17 +23,9 @@
->  #define NCT6694_RPT_MOD		0xFF
->  #define NCT6694_GPIO_MOD	NCT6694_RPT_MOD
->  
-> -#define NCT6694_VENDOR_ID	0x0416
-> -#define NCT6694_PRODUCT_ID	0x200B
-> -#define NCT6694_INT_IN_EP	0x81
-> -#define NCT6694_BULK_IN_EP	0x02
-> -#define NCT6694_BULK_OUT_EP	0x03
-> -
->  #define NCT6694_HCTRL_SET	0x40
->  #define NCT6694_HCTRL_GET	0x80
->  
-> -#define NCT6694_URB_TIMEOUT	1000
-> -
->  enum nct6694_irq_id {
->  	NCT6694_IRQ_GPIO0 = 0,
->  	NCT6694_IRQ_GPIO1,
-> @@ -84,11 +82,6 @@ struct __packed nct6694_response_header {
->  	__le16 len;
->  };
->  
-> -union __packed nct6694_usb_msg {
-> -	struct nct6694_cmd_header cmd_header;
-> -	struct nct6694_response_header response_header;
-> -};
-> -
->  struct nct6694 {
->  	struct device *dev;
->  	struct ida gpio_ida;
-> @@ -96,13 +89,9 @@ struct nct6694 {
->  	struct ida canfd_ida;
->  	struct ida wdt_ida;
->  	struct irq_domain *domain;
-> -	struct mutex access_lock;
->  	spinlock_t irq_lock;
-> -	struct urb *int_in_urb;
-> -	struct usb_device *udev;
-> -	union nct6694_usb_msg *usb_msg;
-> -	__le32 *int_buffer;
->  	unsigned int irq_enable;
-> +	void *priv;
->  };
->  
->  int nct6694_read_msg(struct nct6694 *nct6694, const struct nct6694_cmd_header *cmd_hd, void *buf);
-> -- 
-> 2.34.1
-> 
-
--- 
-Lee Jones
