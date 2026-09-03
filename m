@@ -1,1064 +1,173 @@
-Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com [157.90.84.7])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EFAD503BF0;
-	Thu,  3 Sep 2026 20:07:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=157.90.84.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A6C643B4B7
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 20:07:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788466058; cv=none; b=Mq3r7TtbZFe3OZzIPYAs8vCv3043SNwPvFEfYbgNcTUzIa4ojDjaruqJCpOQfBwGndaPwgYZXxPJ3Is2xVnH+1hBa54VMV0Cfgu8nxb/jt91I/HcHgBK9Jn/2sMyyLMcxl5AUaNp5R2tXT1ty/fH0NVbLyUAoBXRqWvElSiN3KI=
+	t=1788466083; cv=none; b=PTNfu6ALHR3Si9CC+d0hL+SsJW0ROtpNz0mCNgZedzY4PtrZKOIYr6g5kmACv9ugzuaSt4zAm8EaBs4RH54MIvuyxG8u1FXf40F4DzUkiCQt3vZ3MB63De4tqjDuGm2XDRo2aDWb5n+SuyweSzmawlJRMGCiY2aIywByEAd/aSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788466058; c=relaxed/simple;
-	bh=7CT4AzyNp3E3fG8wuo5zA8pJciQRC+ltFdV9J/XxGNA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dIZ1cle2gCw56CGIpYxhAm0vuBU0WV7daqtBB33WtUQri94RPGSVnzQ0juVs3eyzKwufd0LTFcdUDB4EkF9Bf42jUkX5xkhUk33Fwm20qEjxS/O4tLRy9xm0JrBSqUgXp7+gLzDFGNf2q6BKcJKd65EW7nxhJYAa0T67Ldh1QVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com; spf=pass smtp.mailfrom=tuxedocomputers.com; dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b=YGmWxPGW; arc=none smtp.client-ip=157.90.84.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxedocomputers.com
+	s=arc-20240116; t=1788466083; c=relaxed/simple;
+	bh=KKQRjTnbbi03SF4QrsbxyQRZEuOt84yDjPrhPIt1HPQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GQbqY26ym71KJW1xRYxlBa+0U+IUTE5jDfuRy2UNfjYE6cltBplpuUPvKcq8Up+G8qkum+5hiUQx/bogHzUmFjmDHn7NR9nFw9Q+DJhA7ZiEWMU4Mcko31FVP1EErFnmkRwahADXAkOAKGTuPQsIfkMFMDRVxiV8RhR8azzZpSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ls+YW+pf; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="YGmWxPGW"
-Received: from [10.10.12.8] (business-24-134-105-141.pool2.vodafone-ip.de [24.134.105.141])
-	(Authenticated sender: wse@tuxedocomputers.com)
-	by mail.tuxedocomputers.com (Postfix) with ESMTPSA id 0864D2FC007A;
-	Thu,  3 Sep 2026 22:07:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
-	s=default; t=1788466032;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=a8VrwGq2VuVrBhGteJhQG8AArhJrzzy9KaMsUBYhLgM=;
-	b=YGmWxPGWORkFbwnAysZQYwrZHE/dgFpu7psP3AswbLjeMiJNYX/R7zb8yTow5Dvs2fkTqx
-	Mp8bKACZmExWEllD7/TbmV+TgARyKBixAeCikNVMbP525cTQFeltm/oBHQnDrOYBLEQVVj
-	YyzNiRIdiePjHUSv57YW88qnRL9qiE8=
-Authentication-Results: mail.tuxedocomputers.com;
-	auth=pass smtp.auth=wse@tuxedocomputers.com smtp.mailfrom=wse@tuxedocomputers.com
-Message-ID: <e56dbeed-6431-434c-95a6-95aab822757a@tuxedocomputers.com>
-Date: Thu, 3 Sep 2026 22:07:11 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ls+YW+pf"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49cdc81f40eso1972285e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 13:07:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788466064; x=1789070864; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e7urBqs1yQ/qOhZ2GYLJeqmnou9jkoySIxXngdzIimQ=;
+        b=ls+YW+pfZ7GyxdxELlYWV95YEIKJN5IsFaDyIWkbtjYroz62MWSP4hqE3CQYoBM0nQ
+         B5uzSCrZvAffTcfDw1Ie8NXseYvD0hB/k4Gh60o1aUFjKc0483+fSVWqimENRKQ6RyPq
+         t55YwzBFCd0IdylZP7lJzR1ZjgpiQY3tSsUQZ2mWXFebRYKFFz/N6/HDAaipGM2O+ysu
+         jn4vHjINlcCK/ks8IGvqNAIJjMeWxV1RXaSv3YVhjm+BxLnoB5mt3wvL32HdR3p181+A
+         xA8zCgWyAH051FpD/JybJIprfmNjBuu6CVv4Z5s6HMN/lnKNGu98Km90rV4Zn4U5W0YV
+         0vgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788466064; x=1789070864;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=e7urBqs1yQ/qOhZ2GYLJeqmnou9jkoySIxXngdzIimQ=;
+        b=C/+wCHX3q0uGbV2FVb6aBmUxZyRPAomOC0Q0UqCiWkREQtwsTVa4hMiAX7CVReuLJB
+         Dg5VOO2QOleBUwuKxsO0L+j9CrQzrYlVVMlSo8u/FUBkAi4NgIuT+RKnzcozynKZsz60
+         6xB7XxFXVRVA2u8v0RsiJ3Kbz7NyHYHiIwxDwGy9sl2KQe1FblXRDohkKGfMJOwoyf4v
+         FQmmpfhoiia1NxLnCdfx+LUFdAlJe/Sh45CJSLvLoXlYytQnFe0vpYlcnhZli0qCRT4R
+         xRaQKni+UiT8sTAZBFs7QlxJDKqUT0FdpnvIz/+FWqrHpP31sHxwJW5+2DhNqA6n6Yze
+         X0jQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwgG2IoZqnsPQlsODx3hU2XilhFC/yKxgc6ApeIWZB1mG6+K/Ogsz/Bx5s81eRzjGYMnqcGDhF5DJGDUTI=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3UeB7bRMTs7CiZ4dmdm7ADdCpSQl+9nseVIDxKfx4ltr/pFOR
+	U4xWCOHafC15N4M2G58iO7L2o0hyAxBNcZfWL9RGVcPxEToegO+viEAb
+X-Gm-Gg: AYBFou2b7WdJlMiivieRpaOV8DotbscxLWBGaas0/X+keJ63arBT+uTmJyTsEdx2gJT
+	cgJM0SBkNDjINYgASW6vgh+XG3wNfbyXRWcdz/QRlbBKg96PlphzM6bP4ZtimiwlaLcBL7g1SKk
+	QAhQfyfq3EWWm0Prr57FzdLPaEq6uY1gASPRD1k4YSpDvlvbQTh5ODnIMVOdSbs5azbZtpA7Cqz
+	D/i+HNCZgLm10dRJfW28ETsRZVC0CnQF0frzgetSfPzNeU4fpacjouDDPEs2wfudyR5vScgASut
+	k8i1m817+Ped2qN26N3pzpsc8FYs+DsKyExxQN05RznPoSClJTjI0L4itve5XjaWUZjPYMMdP5A
+	j1XgpeDDntlOwP4XFE7apC17STab35vc7f0C/da48hriQ7FL0iG5G3ne7SdFtT4sNEv/mPFnd6i
+	/EL027UYdvahl9wJi7kOjPOpRRJMnhFocnMntx04UbUIIaZ5ecby/uDQuaqPIihUU104VWzFB9E
+	ZLG4iofiKF0udAylbAHYZk=
+X-Received: by 2002:a05:600c:3b01:b0:49b:4d64:bbc4 with SMTP id 5b1f17b1804b1-49cf81f1592mr4839615e9.8.1788466064353;
+        Thu, 03 Sep 2026 13:07:44 -0700 (PDT)
+Received: from eldamar.lan (c-82-192-247-196.customer.ggaweb.ch. [82.192.247.196])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce58d1c9esm68315165e9.0.2026.09.03.13.07.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 13:07:43 -0700 (PDT)
+Sender: Salvatore Bonaccorso <salvatore.bonaccorso@gmail.com>
+Received: by eldamar.lan (Postfix, from userid 1000)
+	id A8CE3BE2DE0; Thu, 03 Sep 2026 22:07:41 +0200 (CEST)
+Date: Thu, 3 Sep 2026 22:07:41 +0200
+From: Salvatore Bonaccorso <carnil@debian.org>
+To: Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>
+Cc: Tejun Heo <tj@kernel.org>, cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Dan Schatzberg <dschatzberg@meta.com>,
+	Peter Zijlstra <peterz@infradead.org>, stable@vger.kernel.org,
+	Noah Elias Feldt <N.Feldt@mittwald.de>,
+	Johannes Weiner <hannes@cmpxchg.org>
+Subject: Re: [PATCH] cgroup: Avoid iteration of dying tasks with zero refcount
+Message-ID: <apnTjQvt_FbQfm_r@eldamar.lan>
+References: <20260902161653.1051794-1-mkoutny@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/2] HID: lamparray: add new LampArray helper module
-To: Aaron Erhardt <aer@tuxedocomputers.com>, Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260903073602.3815258-1-aer@tuxedocomputers.com>
- <20260903073602.3815258-2-aer@tuxedocomputers.com>
-Content-Language: en-US
-From: Werner Sembach <wse@tuxedocomputers.com>
-In-Reply-To: <20260903073602.3815258-2-aer@tuxedocomputers.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260902161653.1051794-1-mkoutny@suse.com>
 
+Hi Michal,
 
-Am 03.09.26 um 09:35 schrieb Aaron Erhardt:
-> Add a new hid-lamparray helper module that provides basic support for
-> devices exposing a Lighting/LampArray application collection (usage
-> page 0x59) and registers a single-zone RGB LED representation via the
-> LED subsystem.
->
-> The module can be used as a library in HID drivers to add support for
-> the HID LampArray protocol. While the API is quite basic as of now
-> it could be extended in the future.
->
-> Co-developed-by: Tim Guttzeit <tgu@tuxedocomputers.com>
-> Signed-off-by: Tim Guttzeit <tgu@tuxedocomputers.com>
-> Signed-off-by: Aaron Erhardt <aer@tuxedocomputers.com>
+On Wed, Sep 02, 2026 at 06:16:52PM +0200, Michal Koutný wrote:
+> The commit 260fbcb92bbea ("cgroup: Move dying_tasks cleanup from
+> cgroup_task_release() to cgroup_task_free()") extended the lifetime of
+> tasks on the dying_tasks list.
+> The iterators have provision to go through dying_tasks because of
+> dying threadgroup leaders or explicit CSS_TASK_ITER_WITH_DEAD, however,
+> it was expected that such tasks can obtain a new reference (that is
+> possible before cgroup_task_release()/put_task_struct_rcu_user()).
+> The tasks after cgroup_task_release() and before cgroup_task_free()
+> are subject to race when they may or may not have usage count > 0.
+> The iterator should not attempt to resurrect tasks whose usage count
+> dropped to zero. (When that happens, __put_task_struct_rcu_cb() is
+> already imminent and the returned task_struct would could be used
+> after free.)
+> 
+> As a band-aid, filter tasks returned from css_task_iter_next() only to
+> those that have positive usage count (whose reference's lifetime can be
+> extended).
+> 
+> Rough illustration of the possible race
+> 
+>   R (reader of cgroup.procs)         T (thread)                       L (group leader)
+>   ---------------------------------  -------------------------------- --------------------------------
+>                                                                       L exits, signal->live > 0
+>                                                                       cgroup_task_dead(L)
+>                                                                         css_set_skip_task_iters() // skips only cset->tasks
+>                                                                         list_add_tail(&L->cg_list, &cset->dying_tasks)
+>   css_task_iter_next()
+>     take css_set_lock
+>     css_task_iter_advance()
+>       leader && signal->live != 0
+>       => it->task_pos = &L->cg_list
+>                                      T exits
+>                                      --signal->live == 0
+>                                      release_task(T)
+>                                        cgroup_task_release(T)
+>                                        release_task(L) // zap_leader
+>                                          cgroup_task_release(L)
+>                                          put_task_struct_rcu_user(L)
+>                                          ...RCU...
+>                                          put_task_struct(L)
+>                                            L->usage = 0
+>                                            /* L still on dying_tasks */
+>                                            ...RCU...
+>                                            __put_task_struct(L)
+>     it->task_pos = &L->cg_list
+>     get_task_struct(L)
+>       => addition on 0
+>     drop css_set_lock
+>                                            cgroup_task_free(L)
+>                                              css_set_skip_task_iters() // dying skip comes too late
+>                                            free_task(L)
+>   cgroup_procs_show()
+>     task_pid_vnr(L)
+> 
+> cgroup_task_release() is not synced via css_set_lock hence the race
+> possibility. (I'm not 100% convinced about this LLM-assisted
+> interleaving, multiple css_task_iter_next() calls may be involved with
+> css_set_lock released.)
+> 
+> Fixes: 260fbcb92bbea ("cgroup: Move dying_tasks cleanup from cgroup_task_release() to cgroup_task_free()")
+> Cc: stable@vger.kernel.org # v6.19+
+> Link: https://lists.debian.org/debian-kernel/2026/08/msg00220.html
+> Reported-by: Noah Elias Feldt <N.Feldt@mittwald.de>
+> Reported-by: Salvatore Bonaccorso <carnil@debian.org>
+> Signed-off-by: Michal Koutný <mkoutny@suse.com>
 > ---
->   .../ABI/testing/sysfs-driver-hid-lamparray    |  16 +
->   drivers/hid/Kconfig                           |  17 +
->   drivers/hid/Makefile                          |   2 +
->   drivers/hid/hid-lamparray.c                   | 812 ++++++++++++++++++
->   include/linux/hid-lamparray.h                 |  88 ++
->   5 files changed, 935 insertions(+)
->   create mode 100644 Documentation/ABI/testing/sysfs-driver-hid-lamparray
->   create mode 100644 drivers/hid/hid-lamparray.c
->   create mode 100644 include/linux/hid-lamparray.h
->
-> diff --git a/Documentation/ABI/testing/sysfs-driver-hid-lamparray b/Documentation/ABI/testing/sysfs-driver-hid-lamparray
-> new file mode 100644
-> index 000000000000..795be6c4c368
-> --- /dev/null
-> +++ b/Documentation/ABI/testing/sysfs-driver-hid-lamparray
-> @@ -0,0 +1,16 @@
-> +What:		/sys/bus/hid/devices/<bus>:<vid>:<pid>.<n>/use_leds_uapi
-> +Date:		August 2026
-> +KernelVersion:	7.3
-> +Contact:	aer@tuxedocomputers.com
-> +Description:
-> +        If a driver uses the hid-lamparray module and a device supporting
-> +        LampArray is found, one multicolor LED class device is registered under
-> +        /sys/class/leds/rgb:<function> to expose the single-zone RGB control.
-> +        Every device gets an incremental unique id.
-> +
-> +        Additionally, the use_leds_uapi sysfs attribute to control the LED class
-> +        device is attached directly to the HID device at
-> +        /sys/bus/hid/devices/<bus>:<vid>:<pid>.<n>/use_leds_uapi. Writing 0 to
-> +        use_leds_uapi unregisters the LED class device. The last state is kept
-> +        cached. Writing 1 registers it again and restores the cached state to
-> +        hardware.
-> diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
-> index aa7fa11a0197..4afd80a67b39 100644
-> --- a/drivers/hid/Kconfig
-> +++ b/drivers/hid/Kconfig
-> @@ -92,6 +92,23 @@ config HID_GENERIC
->   
->   	If unsure, say Y.
->   
-> +config HID_LAMPARRAY
-> +	tristate "HID LampArray helper"
-> +	depends on HID
-> +	depends on LEDS_CLASS_MULTICOLOR
-> +	default n
-> +	help
-> +	  Helper for HID devices exposing a Lighting/LampArray collection.
-> +	  Treats LampArray devices as a single-zone device and exposes a sysfs
-> +	  interface for changing color and intensity values. Also exposes a
-> +	  sysfs flag to be disabled e.g. by a userspace driver.
-> +
-> +	  This can be used as library in existing drivers. The generic HID
-> +	  driver is extended by default to handle lamp array devices if this
-> +	  option is enabled.
-> +
-> +	  If unsure, say N.
-> +
->   config HID_HAPTIC
->   	bool "Haptic touchpad support"
->   	default n
-> diff --git a/drivers/hid/Makefile b/drivers/hid/Makefile
-> index 48a863b245ee..f95630fa8bd8 100644
-> --- a/drivers/hid/Makefile
-> +++ b/drivers/hid/Makefile
-> @@ -13,6 +13,8 @@ obj-$(CONFIG_UHID)		+= uhid.o
->   
->   obj-$(CONFIG_HID_GENERIC)	+= hid-generic.o
->   
-> +obj-$(CONFIG_HID_LAMPARRAY)	+= hid-lamparray.o
-> +
->   hid-$(CONFIG_HIDRAW)		+= hidraw.o
->   
->   hid-logitech-y		:= hid-lg.o
-> diff --git a/drivers/hid/hid-lamparray.c b/drivers/hid/hid-lamparray.c
-> new file mode 100644
-> index 000000000000..9a438aa2d305
-> --- /dev/null
-> +++ b/drivers/hid/hid-lamparray.c
-> @@ -0,0 +1,812 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * hid-lamparray.c - HID LampArray helper module (single-zone RGB)
-> + *
-> + * Helper module for HID drivers supporting devices that expose a Lighting and
-> + * Illumination (LampArray) application collection (usage page 0x59).
-> + *
-> + * The module provides a minimal integration with the LED subsystem and treats
-> + * the device as a single zone: all lamps share one RGB value and a global
-> + * brightness level. It does not implement multi-zone layouts or hardware
-> + * effects.
-> + *
-> + * If enabled and a device supporting LampArray is found, one multicolor LED
-> + * class device is registered under /sys/class/leds/<HID-ID>:rgb:LampArray to
-> + * expose the single-zone RGB control.
-> + *
-> + * The use_leds_uapi sysfs attribute is attached directly to the HID device
-> + * under /sys/bus/hid/devices/<HID-ID>/use_leds_uapi. Writing 0 to use_leds_uapi
-> + * unregisters the LED class device. The last state is kept cached. Writing 1
-> + * registers it again and restores the cached state to hardware. State is cached
-> + * as last known RGB + brightness.
-> + *
-> + * The module does not bind to devices on its own. Instead, a HID driver may
-> + * query support via lamparray_is_supported_device() after hid_parse() and
-> + * create an instance using lamparray_register().
-> + *
-> + * Copyright (C) 2026 Tim Guttzeit <tgu@tuxedocomputers.com>
-> + * Copyright (C) 2026 Aaron Erhardt <aer@tuxedocomputers.com>
-> + */
-> +
-> +#include <dt-bindings/leds/common.h>
-> +#include <linux/limits.h>
-> +#include <linux/minmax.h>
-> +#include <linux/hid.h>
-> +#include <linux/leds.h>
-> +#include <linux/sysfs.h>
-> +#include <linux/hid-lamparray.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/container_of.h>
-> +#include <linux/led-class-multicolor.h>
-> +#include <linux/xarray.h>
-> +
-> +/* Constants */
-> +
-> +/* HID usages (LampArray, etc.) */
-> +#define HID_LIGHTING_ILLUMINATION_USAGE_PAGE	0x0059
-> +
-> +/* HID usage types */
-> +#define HID_APPLICATION_COLLECTION_USAGE_TYPE	0x0001
-> +#define HID_LAMPARRAY_ATTRIBUTES_REPORT	0x0002
-> +#define HID_LAMP_ATTRIBUTES_RESPONSE_REPORT	0x0022
-> +#define HID_LAMP_RANGE_UPDATE_REPORT		0x0060
-> +#define HID_LAMPARRAY_CONTROL_REPORT		0x0070
-> +
-> +/* HID attributes */
-> +#define HID_LAIP_LAMP_COUNT			0x0003
-> +#define HID_LAIP_LAMPARRAY_KIND			0x0007
-> +#define HID_LAIP_RED_LEVEL_COUNT		0x0028
-> +#define HID_LAIP_GREEN_LEVEL_COUNT		0x0029
-> +#define HID_LAIP_BLUE_LEVEL_COUNT		0x002a
-> +#define HID_LAIP_INTENSITY_LEVEL_COUNT		0x002b
-> +#define HID_LAIP_RED_UPDATE_CHANNEL		0x0051
-> +#define HID_LAIP_GREEN_UPDATE_CHANNEL		0x0052
-> +#define HID_LAIP_BLUE_UPDATE_CHANNEL		0x0053
-> +#define HID_LAIP_INTENSITY_UPDATE_CHANNEL	0x0054
-> +#define HID_LAIP_LAMP_ID_START			0x0061
-> +#define HID_LAIP_LAMP_ID_END			0x0062
-> +#define HID_LAIP_AUTONOMOUS_MODE		0x0071
-> +
-> +/* LampArrayKind values */
-> +#define HID_LAMPARRAY_KIND_KEYBOARD		0x0001
-> +
-> +/* Helper struct for fields and their indices */
-> +struct hid_field_value {
-> +	struct hid_field *field;
-> +	int index;
-> +};
-> +
-> +/* Helper struct for color fields */
-> +struct lamparray_color_fields {
-> +	struct hid_field_value red;
-> +	struct hid_field_value green;
-> +	struct hid_field_value blue;
-> +	struct hid_field_value intensity;
-> +};
-> +
-> +/* Device state */
-> +struct lamparray_device {
-> +	struct hid_device *hdev;
-> +
-> +	struct lamparray_color_fields color_levels;
-> +	struct lamparray_color_fields color_update;
-> +
-> +	struct hid_field_value autonomous_field;
-> +	struct hid_field_value range_start;
-> +	struct hid_field_value range_end;
-> +	struct hid_field_value lamp_count;
-> +	struct hid_field_value lamparray_kind;
-> +
-> +	u16 lamp_count_value;
-> +	u32 lamparray_kind_value;
-> +
-> +	struct led_classdev_mc mc_cdev;
-> +	struct mc_subled subleds[3];
-> +
-> +	struct mutex dev_lock; /* Protects cached state and HID access */
-> +	struct mutex sysfs_lock; /* Protects sysfs LED (de-)initialization */
-> +
-> +	u8 max_r;
-> +	u8 max_g;
-> +	u8 max_b;
-> +	u8 max_brightness;
-> +
-> +	u8 last_r;
-> +	u8 last_g;
-> +	u8 last_b;
-> +	u8 last_brightness;
-> +
-> +	bool use_leds_uapi;
-> +	bool led_registered;
-> +};
-> +
-> +/*
-> + * Opaque handle exposed to callers via the header.
-> + * Keep the actual state in lamparray_device, but return a stable pointer.
-> + */
-> +struct lamparray {
-> +	struct lamparray_device ldev;
-> +};
-> +
-> +/*
-> + * Mapping for hid_device pointers to their lamparray data.
-> + * Since there is not guarantee of how the driver using this library
-> + * will use its drvdata, the only safe way to retrieve the lamparray
-> + * data from a HID device pointer is using this mapping.
-> + */
-> +static DEFINE_XARRAY(lamparray_by_hdev);
-> +
-> +/* HID helper functions */
-> +
-> +static int get_field_value(struct hid_field_value *field_value)
-> +{
-> +	return field_value->field->value[field_value->index];
-> +}
-> +
-> +static u8 get_field_value_as_u8(struct hid_field_value *field_value)
-> +{
-> +	return clamp_val(get_field_value(field_value), 0, U8_MAX);
-> +}
-> +
-> +static void set_field_value(struct hid_field_value *field_value, int value)
-> +{
-> +	field_value->field->value[field_value->index] = value;
-> +}
-> +
-> +static bool lamparray_color_fields_is_complete(struct lamparray_color_fields *color_fields)
-> +{
-> +	return color_fields->red.field && color_fields->green.field &&
-> +	       color_fields->blue.field && color_fields->intensity.field;
-> +}
-> +
-> +static int lamparray_read_attributes_report(struct lamparray_device *ldev)
-> +{
-> +	struct hid_device *hdev = ldev->hdev;
-> +	struct hid_report *report;
-> +
-> +	if (!ldev->lamp_count.field) {
-> +		hid_dbg(hdev, "No LampCount field found\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	if (!ldev->lamparray_kind.field) {
-> +		hid_dbg(hdev, "No LampArrayKind field found\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	report = ldev->lamp_count.field->report;
-> +
-> +	if (!report) {
-> +		hid_dbg(hdev, "LampCount field has no report\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	mutex_lock(&ldev->dev_lock);
-> +
-> +	/* Update values */
-> +	hid_hw_request(hdev, report, HID_REQ_GET_REPORT);
-> +	hid_hw_wait(hdev);
-> +
-> +	ldev->lamp_count_value = get_field_value(&ldev->lamp_count);
-> +
-> +	if (ldev->lamp_count_value == 0) {
-> +		mutex_unlock(&ldev->dev_lock);
-> +		hid_dbg(hdev, "LampCount is %d (invalid)\n", ldev->lamp_count_value);
-> +		return -EINVAL;
-> +	}
-> +
-> +	ldev->lamparray_kind_value = get_field_value(&ldev->lamparray_kind);
-> +
-> +	mutex_unlock(&ldev->dev_lock);
-> +
-> +	return 0;
-> +}
-> +
-> +static int lamparray_parse_update_report(struct lamparray_device *ldev)
-> +{
-> +	struct hid_device *hdev = ldev->hdev;
-> +	struct hid_report_enum *re;
-> +	struct hid_report *report;
-> +	struct hid_field *field;
-> +	int i, j;
-> +	int ret = 0;
-> +
-> +	mutex_lock(&ldev->dev_lock);
-> +
-> +	re = &hdev->report_enum[HID_FEATURE_REPORT];
-> +
-> +	list_for_each_entry(report, &re->report_list, list) {
-> +		for (i = 0; i < report->maxfield; i++) {
-> +			field = report->field[i];
-> +			if (!field)
-> +				continue;
-> +
-> +			if (!field->usage || !field->maxusage)
-> +				continue;
-> +
-> +			for (j = 0; j < field->maxusage; j++) {
-> +				u32 usage = field->usage[j].hid;
-> +				u32 collection_idx = field->usage[j].collection_index;
-> +				u32 collection_usage = hdev->collection[collection_idx].usage;
-> +
-> +				u16 page = (usage & HID_USAGE_PAGE) >> 16;
-> +				u16 id = usage & HID_USAGE;
-> +				u16 collection_usage_id = collection_usage & U16_MAX;
-> +
-> +				if (page != HID_LIGHTING_ILLUMINATION_USAGE_PAGE)
-> +					continue;
-> +
-> +				if (collection_usage_id == HID_LAMPARRAY_ATTRIBUTES_REPORT) {
-> +					switch (id) {
-> +					case HID_LAIP_LAMP_COUNT:
-> +						ldev->lamp_count.field = field;
-> +						ldev->lamp_count.index = j;
-> +						break;
-> +					case HID_LAIP_LAMPARRAY_KIND:
-> +						ldev->lamparray_kind.field = field;
-> +						ldev->lamparray_kind.index = j;
-> +						break;
-> +					}
-> +				} else if (collection_usage_id ==
-> +					   HID_LAMP_ATTRIBUTES_RESPONSE_REPORT) {
-> +					switch (id) {
-> +					case HID_LAIP_RED_LEVEL_COUNT:
-> +						ldev->color_levels.red.field = field;
-> +						ldev->color_levels.red.index = j;
-> +						break;
-> +					case HID_LAIP_GREEN_LEVEL_COUNT:
-> +						ldev->color_levels.green.field = field;
-> +						ldev->color_levels.green.index = j;
-> +						break;
-> +					case HID_LAIP_BLUE_LEVEL_COUNT:
-> +						ldev->color_levels.blue.field = field;
-> +						ldev->color_levels.blue.index = j;
-> +						break;
-> +					case HID_LAIP_INTENSITY_LEVEL_COUNT:
-> +						ldev->color_levels.intensity.field = field;
-> +						ldev->color_levels.intensity.index = j;
-> +						break;
-> +					}
-> +				} else if (collection_usage_id == HID_LAMP_RANGE_UPDATE_REPORT) {
-> +					switch (id) {
-> +					case HID_LAIP_RED_UPDATE_CHANNEL:
-> +						ldev->color_update.red.field = field;
-> +						ldev->color_update.red.index = j;
-> +						break;
-> +					case HID_LAIP_GREEN_UPDATE_CHANNEL:
-> +						ldev->color_update.green.field = field;
-> +						ldev->color_update.green.index = j;
-> +						break;
-> +					case HID_LAIP_BLUE_UPDATE_CHANNEL:
-> +						ldev->color_update.blue.field = field;
-> +						ldev->color_update.blue.index = j;
-> +						break;
-> +					case HID_LAIP_INTENSITY_UPDATE_CHANNEL:
-> +						ldev->color_update.intensity.field = field;
-> +						ldev->color_update.intensity.index = j;
-> +						break;
-> +					case HID_LAIP_LAMP_ID_START:
-> +						ldev->range_start.field = field;
-> +						ldev->range_start.index = j;
-> +						break;
-> +					case HID_LAIP_LAMP_ID_END:
-> +						ldev->range_end.field = field;
-> +						ldev->range_end.index = j;
-> +						break;
-> +					default:
-> +						break;
-> +					}
-> +				} else if (collection_usage_id == HID_LAMPARRAY_CONTROL_REPORT &&
-> +					   id == HID_LAIP_AUTONOMOUS_MODE) {
-> +					ldev->autonomous_field.field = field;
-> +					ldev->autonomous_field.index = j;
-> +				}
-> +			}
-> +		}
-> +	}
-> +
-> +	if (!ldev->autonomous_field.field ||
-> +	    !lamparray_color_fields_is_complete(&ldev->color_update))
-> +		ret = -ENODEV;
-> +
-> +	mutex_unlock(&ldev->dev_lock);
-> +
-> +	return ret;
-> +}
-> +
-> +static int lamparray_hw_set_autonomous(struct lamparray_device *ldev,
-> +				       bool enable)
-> +{
-> +	struct hid_device *hdev = ldev->hdev;
-> +	struct hid_field *field = ldev->autonomous_field.field;
-> +
-> +	if (!field)
-> +		return -ENODEV;
-> +
-> +	mutex_lock(&ldev->dev_lock);
-> +
-> +	set_field_value(&ldev->autonomous_field, !!enable);
-> +
-> +	hid_hw_request(hdev, field->report, HID_REQ_SET_REPORT);
-> +	hid_hw_wait(hdev);
-> +
-> +	mutex_unlock(&ldev->dev_lock);
-> +
-> +	return 0;
-> +}
-> +
-> +static int lamparray_hw_set_state(struct lamparray_device *ldev, u8 r, u8 g,
-> +				  u8 b, u8 intensity)
-> +{
-> +	struct hid_device *hdev = ldev->hdev;
-> +	struct hid_report *report;
-> +
-> +	if (!lamparray_color_fields_is_complete(&ldev->color_update))
-> +		return -ENODEV;
-> +
-> +	if (ldev->range_start.field && ldev->range_end.field) {
-> +		set_field_value(&ldev->range_start, 0);
-> +		set_field_value(&ldev->range_end, ldev->lamp_count_value - 1);
-> +	}
-> +
-> +	set_field_value(&ldev->color_update.red, r);
-> +	set_field_value(&ldev->color_update.green, g);
-> +	set_field_value(&ldev->color_update.blue, b);
-> +	set_field_value(&ldev->color_update.intensity, intensity);
-> +
-> +	report = ldev->color_update.red.field->report;
-> +	hid_hw_request(hdev, report, HID_REQ_SET_REPORT);
-> +	hid_hw_wait(hdev);
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * Simple helper to read the color information of the first lamp.
-> + * This does not read the state of the whole lamp array since this driver only
-> + * exposes one LED anyway, so one color is sufficient here for now.
-> + */
+>  kernel/cgroup/cgroup.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> Salvatore,
+> I was able to trigger the issue with your reproducer on 7.1.8
+> (occassionally, not always). With the patch on top of v7.3-rc1, I cannot
+> reproduce it (different base though). If you can confirm that in your
+> env, it'd be good.
 
-Just now thought of checking this: We probably should still iterate over all 
-lamps to make sure all behave the same (as a first heuristic, later we could 
-think of grouping the lamps based on weather or not they behave the same and 
-register a led device for each group).
+I tested it with the additional poc which Noah did sent to us (not
+public) and with your patch it survives. 
 
-Also we should check via IsProgrammable and no max value being 0 if it even is 
-an RGB LED.
+Tested-by: Salvatore Bonaccorso <carnil@debian.org>
 
-> +static int lamparray_get_lamp_attributes(struct lamparray_device *ldev)
-> +{
-> +	struct hid_device *hdev = ldev->hdev;
-> +	struct hid_report *report;
-> +
-> +	if (!lamparray_color_fields_is_complete(&ldev->color_levels))
-> +		return -ENODEV;
-> +
-> +	/*
-> +	 * Get value of any lamp.
-> +	 */
-> +	report = ldev->color_levels.red.field->report;
-> +
-> +	mutex_lock(&ldev->dev_lock);
-> +
-> +	hid_hw_request(hdev, report, HID_REQ_GET_REPORT);
-> +	hid_hw_wait(hdev);
-> +
-> +	ldev->max_r = get_field_value_as_u8(&ldev->color_levels.red);
-> +	ldev->max_g = get_field_value_as_u8(&ldev->color_levels.green);
-> +	ldev->max_b = get_field_value_as_u8(&ldev->color_levels.blue);
-> +	ldev->max_brightness = get_field_value_as_u8(&ldev->color_levels.intensity);
-> +
-> +	mutex_unlock(&ldev->dev_lock);
-> +
-> +	return 0;
-> +}
-> +
-> +/* Helper functions */
-> +
-> +static int lamparray_restore_state(struct lamparray_device *ldev)
-> +{
-> +	u8 r, g, b;
-> +	int ret;
-> +	enum led_brightness brightness;
-> +
-> +	mutex_lock(&ldev->dev_lock);
-> +
-> +	if (!ldev->use_leds_uapi) {
-> +		mutex_unlock(&ldev->dev_lock);
-> +		return 0;
-> +	}
-> +
-> +	r = ldev->last_r;
-> +	g = ldev->last_g;
-> +	b = ldev->last_b;
-> +	brightness = ldev->last_brightness;
-> +
-> +	ldev->mc_cdev.subled_info[0].intensity = r;
-> +	ldev->mc_cdev.subled_info[1].intensity = g;
-> +	ldev->mc_cdev.subled_info[2].intensity = b;
-> +	ldev->mc_cdev.led_cdev.brightness = brightness;
-> +
-> +	led_mc_calc_color_components(&ldev->mc_cdev, brightness);
-> +
-> +	ret = lamparray_hw_set_state(ldev, r, g, b, brightness);
-> +
-> +	mutex_unlock(&ldev->dev_lock);
-> +	return ret;
-> +}
-> +
-> +/* LEDs API */
-> +
-> +static int lamparray_led_brightness_set(struct led_classdev *cdev,
-> +					enum led_brightness brightness)
-> +{
-> +	struct led_classdev_mc *mc = lcdev_to_mccdev(cdev);
-> +	struct lamparray_device *ldev =
-> +		container_of_const(mc, struct lamparray_device, mc_cdev);
-> +	u8 r, g, b;
-> +	int ret;
-> +
-> +	/*
-> +	 * Brightness is handled by the LampArray device if supported,
-> +	 * so we can pass the raw intensity values.
-> +	 */
-> +	r = mc->subled_info[0].intensity;
-> +	g = mc->subled_info[1].intensity;
-> +	b = mc->subled_info[2].intensity;
-> +
-> +	mc->led_cdev.brightness = brightness;
-> +	led_mc_calc_color_components(&ldev->mc_cdev, brightness);
-> +
-> +	mutex_lock(&ldev->dev_lock);
-> +	ret = lamparray_hw_set_state(ldev, r, g, b, brightness);
-> +	if (ret) {
-> +		mutex_unlock(&ldev->dev_lock);
-> +		hid_err(ldev->hdev, "Failed to send LampArray update: %d\n",
-> +			ret);
-> +		return ret;
-> +	}
-> +
-> +	ldev->last_r = r;
-> +	ldev->last_g = g;
-> +	ldev->last_b = b;
-> +	ldev->last_brightness = brightness;
-> +	mutex_unlock(&ldev->dev_lock);
-> +
-> +	return 0;
-> +}
-> +
-> +static enum led_brightness
-> +lamparray_led_brightness_get(struct led_classdev *cdev)
-> +{
-> +	struct led_classdev_mc *mc = lcdev_to_mccdev(cdev);
-> +	struct lamparray_device *ldev =
-> +	    container_of_const(mc, struct lamparray_device, mc_cdev);
-> +
-> +	return ldev->last_brightness;
-> +}
-> +
-> +static int lamparray_register_led(struct lamparray_device *ldev)
-> +{
-> +	struct device *dev = &ldev->hdev->dev;
-> +	struct led_classdev *cdev = &ldev->mc_cdev.led_cdev;
-> +	int ret;
-> +
-> +	mutex_lock(&ldev->sysfs_lock);
-> +
-> +	if (ldev->led_registered) {
-> +		mutex_unlock(&ldev->sysfs_lock);
-> +		return 0;
-> +	}
-> +
-> +	if (!cdev->name) {
-> +		/* Fallback value */
-> +		const char *function = LED_FUNCTION_STATUS;
-> +
-> +		/* Some heuristics for choosing a better LED function. */
-> +		if (ldev->lamparray_kind_value == HID_LAMPARRAY_KIND_KEYBOARD)
-> +			function = LED_FUNCTION_KBD_BACKLIGHT;
-> +
-> +		cdev->name = kasprintf(GFP_KERNEL, "rgb:%s", function);
-> +		if (!cdev->name) {
-> +			mutex_unlock(&ldev->sysfs_lock);
-> +			return -ENOMEM;
-> +		}
-> +	}
-> +
-> +	mutex_lock(&ldev->dev_lock);
-> +	/* Setup */
-> +	cdev->max_brightness = ldev->max_brightness;
-> +	cdev->brightness_set_blocking = lamparray_led_brightness_set;
-> +	cdev->brightness_get = lamparray_led_brightness_get;
-> +	cdev->flags |= LED_RETAIN_AT_SHUTDOWN;
-> +
-> +	ldev->subleds[0].color_index = LED_COLOR_ID_RED;
-> +	ldev->subleds[0].max_intensity = ldev->max_r;
-> +	ldev->subleds[1].color_index = LED_COLOR_ID_GREEN;
-> +	ldev->subleds[1].max_intensity = ldev->max_g;
-> +	ldev->subleds[2].color_index = LED_COLOR_ID_BLUE;
-> +	ldev->subleds[2].max_intensity = ldev->max_b;
-> +
-> +	/* Set values */
-> +	ldev->subleds[0].intensity = ldev->last_r;
-> +	ldev->subleds[1].intensity = ldev->last_g;
-> +	ldev->subleds[2].intensity = ldev->last_b;
-> +	cdev->brightness = ldev->last_brightness;
-> +
-> +	ldev->mc_cdev.subled_info = ldev->subleds;
-> +	ldev->mc_cdev.num_colors = ARRAY_SIZE(ldev->subleds);
-> +
-> +	/* Ensure subled_info[].brightness matches intensity + brightness */
-> +	led_mc_calc_color_components(&ldev->mc_cdev, ldev->last_brightness);
-> +	mutex_unlock(&ldev->dev_lock);
-> +
-> +	ret = led_classdev_multicolor_register(dev, &ldev->mc_cdev);
-> +	if (ret) {
-> +		mutex_unlock(&ldev->sysfs_lock);
-> +		return ret;
-> +	}
-> +
-> +	ldev->led_registered = true;
-> +	mutex_unlock(&ldev->sysfs_lock);
-> +
-> +	return 0;
-> +}
-> +
-> +static void lamparray_unregister_led(struct lamparray_device *ldev)
-> +{
-> +	bool was_registered;
-> +	struct led_classdev *cdev = &ldev->mc_cdev.led_cdev;
-> +
-> +	mutex_lock(&ldev->sysfs_lock);
-> +	was_registered = ldev->led_registered;
-> +	ldev->led_registered = false;
-> +
-> +	if (was_registered)
-> +		led_classdev_multicolor_unregister(&ldev->mc_cdev);
-> +
-> +	kfree(cdev->name);
-> +	cdev->name = NULL;
-> +
-> +	mutex_unlock(&ldev->sysfs_lock);
-> +}
-> +
-> +/* Sysfs */
-> +
-> +static struct lamparray_device *
-> +lamparray_ldev_from_sysfs_dev(struct device *dev)
-> +{
-> +	struct hid_device *hdev = to_hid_device(dev);
-> +
-> +	return xa_load(&lamparray_by_hdev, (unsigned long)hdev);
-> +}
-> +
-> +static ssize_t use_leds_uapi_show(struct device *dev,
-> +				  struct device_attribute *attr, char *buf)
-> +{
-> +	struct lamparray_device *ldev = lamparray_ldev_from_sysfs_dev(dev);
-> +
-> +	if (!ldev)
-> +		return -ENODEV;
-> +
-> +	return sysfs_emit(buf, "%d\n", ldev->use_leds_uapi);
-> +}
-> +
-> +static ssize_t use_leds_uapi_store(struct device *dev,
-> +				   struct device_attribute *attr,
-> +				   const char *buf, size_t count)
-> +{
-> +	struct lamparray_device *ldev = lamparray_ldev_from_sysfs_dev(dev);
-> +	int val;
-> +	int old_val;
-> +	int ret;
-> +
-> +	if (!ldev)
-> +		return -ENODEV;
-> +
-> +	ret = kstrtoint(buf, 0, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (val != 0 && val != 1)
-> +		return -EINVAL;
-> +
-> +	mutex_lock(&ldev->dev_lock);
-> +	old_val = ldev->use_leds_uapi;
-> +
-> +	if (val == old_val) {
-> +		mutex_unlock(&ldev->dev_lock);
-> +		return count;
-> +	}
-> +
-> +	ldev->use_leds_uapi = val;
-> +	mutex_unlock(&ldev->dev_lock);
-> +
-> +	if (val == 1) {
-> +		ret = lamparray_register_led(ldev);
-> +		if (ret) {
-> +			mutex_lock(&ldev->dev_lock);
-> +			ldev->use_leds_uapi = old_val;
-> +			mutex_unlock(&ldev->dev_lock);
-> +			return ret;
-> +		}
-> +		ret = lamparray_restore_state(ldev);
-> +		if (ret) {
-> +			hid_err(ldev->hdev, "Could not restore state: %d\n", ret);
-> +			return ret;
-> +		}
-> +
-> +	} else {
-> +		lamparray_unregister_led(ldev);
-> +	}
-> +
-> +	return count;
-> +}
-> +static DEVICE_ATTR_RW(use_leds_uapi);
-> +
-> +static int lamparray_register_sysfs(struct lamparray_device *ldev)
-> +{
-> +	struct device *dev = &ldev->hdev->dev;
-> +	int ret;
-> +
-> +	ret = sysfs_create_file(&dev->kobj, &dev_attr_use_leds_uapi.attr);
-> +	if (ret)
-> +		hid_err(ldev->hdev,
-> +			"Failed to create lamparray sysfs group: %d\n", ret);
-> +
-> +	return ret;
-> +}
-> +
-> +static void lamparray_remove_sysfs(struct lamparray_device *ldev)
-> +{
-> +	sysfs_remove_file(&ldev->hdev->dev.kobj, &dev_attr_use_leds_uapi.attr);
-> +}
-> +
-> +/* Public API */
-> +
-> +bool lamparray_is_supported_device(struct hid_device *hdev)
-> +{
-> +	unsigned int i;
-> +
-> +	hid_dbg(hdev, "lamparray: walking %u collections\n",
-> +		hdev->maxcollection);
-> +
-> +	for (i = 0; i < hdev->maxcollection; i++) {
-> +		struct hid_collection *col = &hdev->collection[i];
-> +		u16 page = (col->usage & HID_USAGE_PAGE) >> 16;
-> +		u16 code = col->usage & HID_USAGE;
-> +
-> +		hid_dbg(hdev,
-> +			"lamparray:  collection[%u]: type=%u level=%u usage=0x%08x page=0x%04x code=0x%04x\n",
-> +			i, col->type, col->level, col->usage, page, code);
-> +
-> +		if (col->type == HID_COLLECTION_APPLICATION &&
-> +		    page == HID_LIGHTING_ILLUMINATION_USAGE_PAGE &&
-> +		    code == HID_APPLICATION_COLLECTION_USAGE_TYPE) {
-> +			return true;
-> +		}
-> +	}
-> +	return false;
-> +}
-> +EXPORT_SYMBOL_GPL(lamparray_is_supported_device);
-> +
-> +struct lamparray *
-> +lamparray_register(struct hid_device *hdev,
-> +		   const struct lamparray_init_state *led_init_state)
-> +{
-> +	int ret;
-> +	struct lamparray *la;
-> +	struct lamparray_device *ldev;
-> +
-> +	if (!hdev)
-> +		return ERR_PTR(-ENODEV);
-> +
-> +	la = kzalloc_obj(*la, GFP_KERNEL);
-> +	if (!la)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	ldev = &la->ldev;
-> +
-> +	mutex_init(&ldev->dev_lock);
-> +	mutex_init(&ldev->sysfs_lock);
-> +	ldev->hdev = hdev;
-> +	ldev->use_leds_uapi = true;
-> +	ldev->led_registered = false;
-> +
-> +	/* Make sure the driver lock gets released for probing. */
-> +	hid_device_io_start(hdev);
-> +
-> +	ret = lamparray_parse_update_report(ldev);
-> +	if (ret) {
-> +		hid_err(hdev, "No LampArray update report found: %d\n", ret);
-> +		goto err_free;
-> +	}
-> +
-> +	ret = lamparray_read_attributes_report(ldev);
-> +	if (ret) {
-> +		hid_err(hdev,
-> +			"Could not determine LampCount: %d\n",
-> +			ret);
-> +		goto err_free;
-> +	}
-> +
-> +	ret = lamparray_get_lamp_attributes(ldev);
-> +	if (ret) {
-> +		hid_err(hdev,
-> +			"Faulty device. Could not query lamp attributes.\n");
-> +		goto err_free;
-> +	}
-> +
-> +	/* Use black (all zeros) as default. */
-> +	if (led_init_state) {
-> +		ldev->last_r = min(led_init_state->r, ldev->max_r);
-> +		ldev->last_g = min(led_init_state->g, ldev->max_g);
-> +		ldev->last_b = min(led_init_state->b, ldev->max_b);
-> +		ldev->last_brightness = min(led_init_state->brightness,
-> +					    ldev->max_brightness);
-> +	}
-> +
-> +	ret = lamparray_register_led(ldev);
-> +	if (ret) {
-> +		hid_warn(hdev, "Failed to register LED UAPI: %d\n", ret);
-> +		ldev->use_leds_uapi = false;
-> +	}
-> +
-> +	ret = xa_err(xa_store(&lamparray_by_hdev, (unsigned long)hdev, ldev,
-> +			      GFP_KERNEL));
-> +	if (ret)
-> +		goto err_unregister_led;
-> +
-> +	ret = lamparray_register_sysfs(ldev);
-> +	if (ret)
-> +		goto err_xa_erase;
-> +
-> +	ret = lamparray_hw_set_autonomous(ldev, false);
-> +	if (ret) {
-> +		hid_err(hdev, "Could not disable autonomous mode: %d", ret);
-> +		goto err_remove_sysfs;
-> +	}
-> +
-> +	hid_info(hdev, "LampArray device registered\n");
-> +
-> +	ret = lamparray_restore_state(ldev);
-> +	if (ret) {
-> +		hid_err(hdev, "Failed to set default state: %d", ret);
-> +		goto err_remove_sysfs;
-> +	}
-> +
-> +	hid_device_io_stop(hdev);
-> +	return la;
-> +
-> +err_remove_sysfs:
-> +	lamparray_remove_sysfs(ldev);
-> +err_xa_erase:
-> +	xa_erase(&lamparray_by_hdev, (unsigned long)hdev);
-> +err_unregister_led:
-> +	lamparray_unregister_led(ldev);
-> +err_free:
-> +	hid_device_io_stop(hdev);
-> +	mutex_destroy(&ldev->dev_lock);
-> +	mutex_destroy(&ldev->sysfs_lock);
-> +	kfree(la);
-> +	return ERR_PTR(ret);
-> +}
-> +EXPORT_SYMBOL_GPL(lamparray_register);
-> +
-> +void lamparray_unregister(struct lamparray *la)
-> +{
-> +	struct lamparray_device *ldev;
-> +
-> +	if (!la)
-> +		return;
-> +
-> +	ldev = &la->ldev;
-> +
-> +	lamparray_hw_set_autonomous(ldev, true);
-> +
-> +	lamparray_remove_sysfs(ldev);
-> +	xa_erase(&lamparray_by_hdev, (unsigned long)ldev->hdev);
-> +	lamparray_unregister_led(ldev);
-> +
-> +	mutex_destroy(&ldev->dev_lock);
-> +	mutex_destroy(&ldev->sysfs_lock);
-> +	kfree(la);
-> +}
-> +EXPORT_SYMBOL_GPL(lamparray_unregister);
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_AUTHOR("Tim Guttzeit <tgu@tuxedocomputers.com>");
-> +MODULE_AUTHOR("Aaron Erhardt <aer@tuxedocomputers.com>");
-> +MODULE_DESCRIPTION("HID LampArray helper module (single-zone RGB)");
-> diff --git a/include/linux/hid-lamparray.h b/include/linux/hid-lamparray.h
-> new file mode 100644
-> index 000000000000..a77869728d12
-> --- /dev/null
-> +++ b/include/linux/hid-lamparray.h
-> @@ -0,0 +1,88 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +
-> +#ifndef _HID_LAMPARRAY_H
-> +#define _HID_LAMPARRAY_H
-> +
-> +#include <linux/hid.h>
-> +#include <linux/err.h>
-> +#include <linux/types.h>
-> +
-> +struct lamparray;
-> +
-> +/*
-> + * Optional initial LED state for lamparray_register().
-> + * Used to define the initial state of a LampArray's LEDs.
-> + */
-> +struct lamparray_init_state {
-> +	u8 r;
-> +	u8 g;
-> +	u8 b;
-> +	u8 brightness;
-> +};
-> +
-> +#if IS_ENABLED(CONFIG_HID_LAMPARRAY)
-> +
-> +/**
-> + * lamparray_is_supported_device() - check whether a HID device supports LampArray
-> + * @hdev: HID device to inspect
-> + *
-> + * Check whether the given HID device exposes a Lighting/LampArray application
-> + * collection as defined by the HID Lighting specification.
-> + *
-> + * This helper can be used by HID drivers to determine whether LampArray
-> + * functionality should be enabled for a device.
-> + *
-> + * Return: %true if LampArray support is detected, %false otherwise.
-> + */
-> +bool lamparray_is_supported_device(struct hid_device *hdev);
-> +
-> +/**
-> + * lamparray_register() - initialize LampArray support for a HID device
-> + * @hdev: HID device
-> + * @led_init_state: Optional LED state at init specification
-> + *
-> + * Allocate and initialize internal LampArray state for the given HID device.
-> + * The function parses required HID reports and fields and registers the
-> + * associated miscdevice and sysfs attributes.
-> + *
-> + * Registers a multicolor LED class device to expose the LampArray functionality
-> + * via the LED subsystem. If specified, the desired initial LED state is
-> + * applied. If led_init_state is NULL, a default state is applied (all LEDs off).
-> + *
-> + * Return: pointer to a LampArray handle on success, or ERR_PTR() on failure.
-> + */
-> +struct lamparray *lamparray_register(struct hid_device *hdev,
-> +				     const struct lamparray_init_state *led_init_state);
-> +
-> +/**
-> + * lamparray_unregister() - tear down LampArray support
-> + * @la: LampArray handle returned by lamparray_register()
-> + *
-> + * Remove all resources associated with a LampArray instance.
-> + *
-> + * This unregisters the LED class device (if present), removes the miscdevice
-> + * and sysfs interfaces and frees all internal state associated with @la.
-> + */
-> +void lamparray_unregister(struct lamparray *la);
-> +
-> +#else /* !CONFIG_HID_LAMPARRAY */
-> +
-> +static inline bool lamparray_is_supported_device(struct hid_device *hdev)
-> +{
-> +	return false;
-> +}
-> +
-> +static inline struct lamparray *
-> +lamparray_register(struct hid_device *hdev,
-> +		   const struct lamparray_init_state *led_init_state)
-> +{
-> +	return ERR_PTR(-EOPNOTSUPP);
-> +}
-> +
-> +static inline void lamparray_unregister(struct lamparray *la)
-> +{
-> +}
-> +
-> +#endif /* CONFIG_HID_LAMPARRAY */
-> +
-> +#endif /* _HID_LAMPARRAY_H */
+Regards,
+Salvatore
