@@ -1,107 +1,74 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from mail3-167.sinamail.sina.com.cn (mail3-167.sinamail.sina.com.cn [202.108.3.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDAB3DD533;
-	Thu,  3 Sep 2026 06:18:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94585349CFF
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:20:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788416320; cv=none; b=KsK55kppk9SAblLoa+cYub9qT4TfJhq5mObJ9itIaJJFu6w+YhnhpdmH3s0z5rYxshEydSfPcOTU2uVwC+NX+mjM0IWuCvgupKu3vrye/mpX//4jdI95PdaHRPKnmBRO0JFbpewy8Oh3tzP76hL157f9Z0f9Fi/APJ6zPZ6CwCQ=
+	t=1788416431; cv=none; b=q5mzjPp5w9apKpVg9k+XI9gG+lwsvEAAX+QH8hEeQg4zIWwTHF8VG/RrHgI+DnPJ2bif0EdwZ+MESpXfSeE6x6nFD4OwdBLtqolQzF1eUwAAv6lv0ym5Hq5g9pI9cl7DZDdBrydYXH9yWSSpRxeGqg6sBZw5iAcPh4azgTgZrgM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788416320; c=relaxed/simple;
-	bh=mpft1NnwMVq1t5m6FqgL2KE/iQcOvbcNiKDdqOq2htg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I1ACy7vf+6JK4rkXkrd+KVQZf/rSXW89iklt/9MyxPVLkh7dxO3FTcgu+Ua652pH4eMHrB5tkMf1dXVLpus2ZxhijwFgWELQLwysWtBuRMssU8mu8ZRNnJOXkNBL2oXQgXLkpji4QHS8jr2r7PNS/fNj19x8wg2wLhsfx3KIdHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OeX4HiEo; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788416431; c=relaxed/simple;
+	bh=LqSxqYiLmJzBjhWRcMK/6K6Tt2nLJpYQHOsAVTQAKbk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oMzYef/2rcR++XbVSsOCCNTq0Y8x12mjB9a0VqogRrBV1DEo9LNAgfecHgRFGxYyPhx733LKWvE7G/mdflE+fjYqonQtYNL6IZEU2P2W/W9csC1Wp4QnPmgISlxXorlcvaz8vNaUhT9/zxuzkq6InX7x0usQ/qc54iWgpFKqzAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=maKuZCZa; arc=none smtp.client-ip=202.108.3.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OeX4HiEo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788416319; x=1819952319;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=mpft1NnwMVq1t5m6FqgL2KE/iQcOvbcNiKDdqOq2htg=;
-  b=OeX4HiEoHl5PwmQt9MCqtzIs82xmYXll08SKfPcy81e+RNV1iL3pcGFP
-   XeiThOgfvJQ2cGNzVsbnEOFt6b3kACUqbbD7rUmedMBi/HVHeuAzyA9hI
-   /GjjmWr9sCuItca73gg5bmfkJVKexr58Vmh3L9z/zS2vAxhfYLnZKQu50
-   RrWESRBtlkXvHSk97kiDBNhDAQG2LASbYpttGEypbioynXqiaj5YYny08
-   uPMjAZnzINu5N0XxqZmzhia+wstoCWRaHLbqegy38dk+CUeQOYuGxR6Qv
-   bIf3r84/zyQCMobR4zwCVzqlpN9Ijg8BNwn3RLG4h5wwtiUbo5jBaQCmX
-   Q==;
-X-CSE-ConnectionGUID: msWbhw8QTQuX+syH1909ig==
-X-CSE-MsgGUID: Zi/4pw1HTfK+HGXviu8k3Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="92705480"
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="92705480"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 23:18:20 -0700
-X-CSE-ConnectionGUID: 38Bw4+YVRE2OE0iv/qoExQ==
-X-CSE-MsgGUID: Iuc2Jm7ZTxuGC3iEosd2Gw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="268292423"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 23:18:17 -0700
-Date: Thu, 3 Sep 2026 09:18:15 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: David Lechner <dlechner@baylibre.com>
-Cc: Flaviu Nistor <flaviu.nistor@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>, Nuno Sa <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: adc: ti-ads1015: Add support for label
-Message-ID: <apkRJ8T-X-HoNiDB@ashevche-desk.local>
-References: <20260902172230.5234-1-flaviu.nistor@gmail.com>
- <20260902172230.5234-2-flaviu.nistor@gmail.com>
- <cf9a0918-3e06-4532-8e72-ccc4d417e6b2@baylibre.com>
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="maKuZCZa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1788416426;
+	bh=15IEfIkJpEjNUZ/friIdMOu0wzTjvH9fZNptG2yvhdk=;
+	h=From:Subject:Date:Message-ID;
+	b=maKuZCZa8+VWS/NMvanYSERwgc1f5AnxVzILRBunYTmfyoxTHcFTbazJqqzDZzx7c
+	 /pry/KMbUXytS7QV9LmBMA2hv/GErVDX2LlcJDyeOTUUpaTL6ro2PAiQtT3mZ5/1sQ
+	 AMjwP0vENFg0NMJisSsg9RW8/LM3VxPjJMzpK9LE=
+X-SMAIL-HELO: lxu-ped-host..
+Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
+	by sina.com (10.54.253.33) with ESMTP
+	id 6A990F6500001906; Thu, 3 Sep 2026 14:10:47 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 6466586685127
+X-SMAIL-UIID: F91EA7994B97459FA1732ADE8B3D34D6-20260903-141047-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: syzbot+df1db6e034b3953e19f5@syzkaller.appspotmail.com
+Cc: linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [autofs?] memory leak in autofs_new_ino
+Date: Thu,  3 Sep 2026 14:10:45 +0800
+Message-ID: <20260903061045.525053-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <6a984fda.27a413cd.1e878c.000a.GAE@google.com>
+References: <6a984fda.27a413cd.1e878c.000a.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cf9a0918-3e06-4532-8e72-ccc4d417e6b2@baylibre.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 02, 2026 at 01:37:45PM -0500, David Lechner wrote:
-> On 9/2/26 12:22 PM, Flaviu Nistor wrote:
+From: Edward Aadm Davis <eadavis@sina.com>
 
-...
+#syz test: upstream 8d3ae59288f1
 
-> > +		if (fwnode_property_present(node, "label")) {
-> > +			ret = fwnode_property_read_string(node, "label", &label);
-> > +			if (ret) {
-> > +				dev_err(dev, "invalid label on %pfw\n", node);
-> > +				return ret;
-
-				return dev_err_probe(...);
-
-> > +			}
-> > +			data->channel_data[channel].label = label;
-> > +		} else {
-> > +			data->channel_data[channel].label = "";
-> 
-> I think the normal way to do this is to return -EINVAL on channels with no
-> label rather than an empty string.
-
-
-In this case the whole dance with property_present is not required.
-(What you are saying sounds like label is mandatory property, but
- how the old DT will work that have no such property?)
-
-> > +		}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+diff --git a/fs/autofs/inode.c b/fs/autofs/inode.c
+index c1e210cec436..6b15a3717ba7 100644
+--- a/fs/autofs/inode.c
++++ b/fs/autofs/inode.c
+@@ -323,8 +323,10 @@ static int autofs_fill_super(struct super_block *s, struct fs_context *fc)
+ 		return -ENOMEM;
+ 
+ 	root_inode = autofs_get_inode(s, S_IFDIR | 0755);
+-	if (!root_inode)
++	if (!root_inode) {
++		autofs_free_ino(ino);
+ 		return -ENOMEM;
++	}
+ 
+ 	root_inode->i_uid = ctx->uid;
+ 	root_inode->i_gid = ctx->gid;
