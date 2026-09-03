@@ -1,85 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E5125F98A;
-	Thu,  3 Sep 2026 01:04:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A46A6282F20;
+	Thu,  3 Sep 2026 01:07:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788397451; cv=none; b=MDDd+BMvmvOQ33jLW58ycTYSqkbQFOIVsfEfWY3IP+6l/sesbdsO7NA1tedhtfUiFYWJIZk6XT0dmFeQ9kv9fpn+86Am3QwLmuTibRxsI4F8VFdIeIqv02bhV6dgL6Tptk3j9TAXWEnnoYiKUj3duzxGPF1U/Ifiw7r3AO1dYbk=
+	t=1788397650; cv=none; b=g06ELPde5udSu5ocNI0fuB/glHIuyI1KLT66JFLhz93bvWXIfuVN8lnVTcmyNXLmAdR75TaYFE6p3rXVsTn6OVAvtqrZKa4CPvuloRX53G04S/7yHS7IKemThQ1oTo/e9PoeAjfIMD64xBjfE1hBOhl1+/cwQgEEcxrfKS1pdAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788397451; c=relaxed/simple;
-	bh=bfrVCWHN1Dv/MDHrzG5R4VEyW2inHXOCByzv7h8fNE4=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=Ab+btkfILBvz4JM+UGo/3HSJCM24hw6eZVG7T+O+cN445UssqahbM880QIXtBAMz9xtXVHWsCBAoAqCNb9a8j0b6oQ+29GBq7pOHdC5jvyxMky9ZWPt2/qGXYqYoYQR9g7Wd3KiD9DGENyRWxGAgjTXjnbUO4YJ2GJAZCXNSwyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Lv6frWmI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788397650; c=relaxed/simple;
+	bh=2yz8Wh+9iL52rMrmr/Wox1uPaC67NPxNvV1yRJ65GMg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PxtG+kvF8fDciiSq6pQGCuzMkL2ZvMRJUJNj+OVmqXDQ2b9apfej/Rhd7Ww4IqCjLsmW53WxN1HrzNRUYoPoHxf/vGVHA1c0GfNJRRZ0PWs98lG4hS881hrYLNU7vO0nOc5dsfRzFCJO4dXKsVUfaOCflegn18s59iwBvcgOCKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ULtb46dv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Lv6frWmI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61D661F000E9;
-	Thu,  3 Sep 2026 01:04:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788397449;
-	bh=kNT7Z2FMxt/nfOQZlUflR3zMw2XOgkeNZiCD6ouunac=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Lv6frWmIMBhsZT2PbPJmz9srQDtxWdSn9v59muHBsrLCyGSrOM4BF+Dwp/XHqJ9Hr
-	 ZIhqg1lFK5NXXOOVJHWCGB3GvpzX42wDAjbROLuEi8b3RvB1druPR2CWA+ZgLTPwzl
-	 XHf38yM4beeoq2eVsBsaiwhmWV0YcnfpmxdTt6Q4=
-Date: Wed, 2 Sep 2026 18:04:08 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Yosry Ahmed <yosry@kernel.org>, Krush Chavan <krushchavan@outlook.com>,
- "Chengming Zhou" <chengming.zhou@linux.dev>, "Tejun Heo" <tj@kernel.org>,
- Michal =?ISO-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>, "Shuah Khan"
- <shuah@kernel.org>, linux-mm@kvack.org, cgroups@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- kernel-team@meta.com
-Subject: Re: [PATCH v2] selftests/cgroup: account for zswap shrinker
- writeback
-Message-Id: <20260902180408.05b925ce05359cd4d7f96894@linux-foundation.org>
-In-Reply-To: <20260902194521.3652178-1-joshua.hahnjy@gmail.com>
-References: <20260902194521.3652178-1-joshua.hahnjy@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ULtb46dv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 132311F000E9;
+	Thu,  3 Sep 2026 01:07:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788397649;
+	bh=Vzm/scJF4B/qwUzRWO3RKybiqI2rNfNYcnSpn8QAXGY=;
+	h=From:To:Cc:Subject:Date;
+	b=ULtb46dv95AH46NihZ+pCkNhjRhJKn9bWs4Ph7oKX/WbclWjZrVOyYrs7rOITU3UA
+	 yEzI4GnKGx/5m32PrvFZ+Di5jEVJNQxlNGXOlg1aqQBkiz6Z7QvEFqVQN34Tn+Z3nJ
+	 5rMDuKtEnnIIC6mSUDDwg/Rd0dnS6EQBP4HnZ4pfOsJI1glcQsr4w/T4ZA3+O6BEDK
+	 SKJyVEbqGdjvMsABDhAu3mFKPx7JKx8y7KwUjG+E6uYozMZ0eULUnTzwAchM72+2uH
+	 WmR6fCndZF0lobx+by8nHpMAfP4MFgCvuN0L861cqah5BC+VHBmY13NXENgRxrDQoL
+	 7ZPzP0VHOWj6w==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH 0/3] mm/damon: move zero damos quota target_value handling to the core layer
+Date: Wed,  2 Sep 2026 18:07:18 -0700
+Message-ID: <20260903010722.94244-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed,  2 Sep 2026 12:45:20 -0700 Joshua Hahn <joshua.hahnjy@gmail.com> wrote:
+Having zero DAMOS quota target value can cause division by zero.  DAMON
+API callers are checking the target value parameters to avoid that.  It
+is easy to make mistakes in some of the multiple API callers.  Move that
+to the core layer.
 
-> The test_no_invasive_cgroup_shrink selftest checks that when a cgroup
-> has zswapped out more memory than memory.zswap.max, it does not
-> trigger writeback for other cgroups. To do this, it compares the
-> writeback count in a control cgroup and makes sure that it is 0,
-> and then checks the writeback count in an aggressor cgroup who does
-> expect to see writeback.
-> 
-> However, when the zswap shrinker is enabled, the victim cgroup can see
-> legitimate writebacks not triggered by the aggressor. In some Meta CI
-> tests, we have seen this failure mode happen.
-> 
-> Instead of checking that the victim cgroup has 0 writeback, compare the
-> writeback values before and after the aggressor runs and check that
-> the victim cgroup did not perform any additional writeback. Note that
-> this can still lead to probabilistic failures if writebacks take longer
-> than 5 seconds, but this should fix the systematic failure case.
-> 
-> Fixes: b5ba474f3f51 ("zswap: shrink zswap pool based on memory pressure")
+Patch 1 adds the corner case handling into the core layer DAMON
+parameters validation logic.  Patches 2 and 3 remove no more needed
+DAMON API callers side handling of the corner case in DAMON_LRU_SORT and
+DMON_SAMPLIE_MTIER, respectively.
 
-Thanks.
+Changes from RFC
+- RFC: https://lore.kernel.org/20260813054432.101197-1-sj@kernel.org
+- Drop RFC tag.
+- Rebase to latest mm-new.
 
-I do support backporting selftests fixes.  We want selftests to work
-well in the kernel with which they are shipped.  But, as ever, we
-should include a clear explanation of the userspace-visible runtime
-effects of the bug.
+SJ Park (3):
+  mm/damon/core: error damos_commit_quota_goal() for zero target_value
+  Revert "mm/damon/lru_sort: error out for >10000 active_mem_bp"
+  Revert "samples/damon/mtier: error out for zero quota goal target
+    values"
 
-Seems the short answer is "false-positive test failures" but we can
-perhaps do a little better than that.  Quoting the failure messages
-would be a good way - very recognizable.
+ mm/damon/core.c       | 22 ++++++++++++++++------
+ mm/damon/lru_sort.c   |  2 --
+ samples/damon/mtier.c |  3 ---
+ 3 files changed, 16 insertions(+), 11 deletions(-)
 
-> Reported-by: Krush Chavan <krushchavan@outlook.com>
 
-Relatedly, is there a Link:/Closes:?
+base-commit: e5bdf22abf33923f4571fae61ef1e184afc7ddf6
+-- 
+2.47.3
