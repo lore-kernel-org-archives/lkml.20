@@ -1,206 +1,279 @@
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C37D2282F20;
-	Thu,  3 Sep 2026 01:08:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788397711; cv=none; b=BpuVcPkJatbuLoMcJTbLsCssuxwkiGw937DdKLoo4BqscclZwVEd5UgcvtOwt8D3/kzmD4qyRU0qEErXWU0m+3Q+PxaG76T0y0m4Btm9qh7A0XJcBQ8Oa+5oc+06IxsRCpdicHOdv1mQajhGXuix24jOZk5DoJiNh273mFw9HaM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788397711; c=relaxed/simple;
-	bh=XpWzIn8Uvb7NNHEaVjshPZhpM82BAdAdxiGWa5vs8rE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=Pvdf27D9w03rQ1cG61mo/EitmnbCxzAD7hNwxKCS2u/1D4SzU1xW6ReTLBuEC0VvqkeMUpvgLHsKGCoLxltjBkaf1bzsZQcAFR591iBi4A2CQxH6kb5+MTHDY5ffABoFsIGIdKJyptuUwUMiCMx/+nmCVmMIFebgBCTf+0qzSFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=RqnpHb89; arc=none smtp.client-ip=54.204.34.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3D271F875A
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 01:12:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788397947; cv=pass; b=nq0dIej36kBHdBW7Wgh1p0+dQciHJJj3iSTBf9Hqxx44UdAf4ZghnKArUPLMsH4tgI4LMhyH1LWy8Ouh3HSHYpfKjOQ6JgzTaQZtqkspGNElVS9oH62i5ZLSx/VGc7WNDP+vhgkXD7fn/bLrm648WXggmNdKDzdGi+2XdmbYE9w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788397947; c=relaxed/simple;
+	bh=lITyG/ugOeRl8PmRk5pIGyxQLnZl/RN4VVvJcS6zP4g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MY7ZJZFiHBi4Btxgvv5sXWIc+ZrK8V7oHWY1g81AifNViUBCDaF+n1s2h0Z8vuaEX/228B6I7B/7q37NJbSHBMS4oRQb/oNhXZcc7BbKLW146yZfJ7RTLLBGzzjp6j6T7Y8wrBWJ5qlcA+yBhR2FnKotxNNvvK5oC16LbxWKlU0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UUuHtaWt; arc=pass smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="RqnpHb89"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1788397596;
-	bh=sn4Zqvuy3iv8MXIhtE8ntlyyLJ+J0+s0jH6g+E8SxjY=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=RqnpHb89/01yM+Bz0hysKu2yS9fOhB/gzyhw2zbf7YZF1TIOGecEq3pHEq1jxf5cW
-	 pptd9UVk0Fn+kfIFE7vEQS9QUo3AUbn6Ulmfes2BldVr2RR9mMtinBM9ILqbbN/hma
-	 JOuQVSvV+g0ouNGQIydZ+ul2tIlU5kW64VEX1P1g=
-X-QQ-mid: zesmtpgz6t1788397590t809805a0
-X-QQ-Originating-IP: VhXi++IEq6mjKwdvVbXNY7Td/lOsJov/j5KV2ygThxU=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 03 Sep 2026 09:06:28 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 15480183741827357636
-EX-QQ-RecipientCnt: 16
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UUuHtaWt"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38e041ea211so1685938a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 18:12:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788397945; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lUAD3fg1rWrfaxdSfcY8rrhZz3f4xnnGUcMfrgO5MwvdK8zY+CMsDlb8mIJg7Oy3nE
+         rEppAwiDKB/Wtm3RBvNsOFBvXmdp/vqt46k/JwY8NEKazPAr+3eL//YsAaAsZ6jOElQq
+         ghWxqMCdp2vy/IOCKjmWk0fWIHmlQxAbkbJSYYhgGZrGhTLn6ql5S1ipkkRg+pMCLlGP
+         hU+Wd/kvzmqbL+Yfvh7HxlTBOYCXqvBMfWmrfjjVRQqYrAGIQNPs2N3slIyw44hT3D9w
+         td4pP7S9XdbRrHlasa+qjiUPs1pnHCjFszpiN6ulagzZB+Vh5CUHDQJB7hBfFW+brjbN
+         XODw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MpHxOT42sl3piuXXJ896Oym4XTgE/f5kuK8w0b2FjU8=;
+        fh=mfI4h7wKxLDKTcHJyc6AdAAZB85r0a4IKlbbdJKEuHI=;
+        b=h2QyhnBu2dqwzNUvfxMvpaS6V8QDAndiBA/fYoqO7JODXXt3pmx8NcbxLYIsaE01PO
+         XwOJftoa+y1VAjfPQkoUdQgGuyF/c4WNx2Vw2tFWyvp2vJxZZeqURaybBJqc1gSr5jM9
+         0n2pPwE8gssgtdCcMv3S9TIoCBmd9behdQYnk+kvvfAJEyfp6GKbRVSLg+m/GFdGNbLO
+         3O37sjGPLmyd2ZgM/DTBFYFqKI/j8IdCtW4DBSjtsgSblSUj5b1Cd1RNBNL+8dJl91tc
+         CcW4WZWLcpE6pmDRlOSPOZYV09eu8J+htHyIOjAEknykf/DVKpg40plNy2QwCAtBztXr
+         8NqA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788397945; x=1789002745; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MpHxOT42sl3piuXXJ896Oym4XTgE/f5kuK8w0b2FjU8=;
+        b=UUuHtaWtl7+ELKlXkcq5WRkQQ2hRWgfjpHHS9hVF7m5rEpt2iGNmXUg01mhsw7xhfp
+         HE4dFRg91KhldYtq0QN6qBcsF3SP+iOvJrXz0PttTLCJj9MJnAgvvjo1Wbb0+vDsVz+8
+         qOXdJomj+jNw/oIJ2va4aqamh839ds+7HZFviRPli3CNUgbemao8j2yeRhUTkB4sQ3h+
+         eBaRKNDSRFoY8ikYt2u3RRY9D5yvJCZdJk/lehKf9EX7aMbDmB+MypYB4DAms3dccHJY
+         M5nF+mZ9NxGW3MwfJ5VUlWNrsOrwzeoceJI81I11cbbeKX/ASE8MZkYIpdo2CZk1PJE1
+         3jiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788397945; x=1789002745;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MpHxOT42sl3piuXXJ896Oym4XTgE/f5kuK8w0b2FjU8=;
+        b=I65i806sYmjmo4DirgoD1ZmqyBKd8mLGqI7XmxtcQsKxEFCAVXfCwMzOgsTAd0ohNB
+         mjsZjX1D6fY+dcsfT60sFJ6RhP3zup3TqrMD2/CxdTG6wiVGVkO3U/FPWud4E5kAD+yy
+         NdhS+H/+QJ592d0yUcrMYa5nNDqVVHnJ+rIvycoiAhErGxW2i6yfA/ElVY3Qg9X42L0p
+         NXftEbCPrDghE+HVfoItdHd+jf567bUxKBm+bQS3DiFAjfLVggWc0eL9NC+9DnutZmL1
+         phCUbU+WYqG22EmGIMa/+OA43sML7lz7idqJBtu1BHM6f5g0uQGr/eUT465WjW3gzo2d
+         iv2w==
+X-Forwarded-Encrypted: i=1; AKwUvBwL/19/6Rs8QAJ4IpOjO79lMeIuVgA/lpT0goAhNqKdSaW2yDrsfbIi9FNkhc7ksqwf2J6kG5bjFFFJuiU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l3IZ4+SOBm3d4yCzD4h76/27MN2PjN8CkQZMldH2SX0Hw4XV5C
+	ozg4YjDGZpTtOexW0n3MUi7GFQiqKggNQfPYFecHiIDm3RuHGWKRVjZ2tLZEZbKBLyfrfccm7Z6
+	UhQvJCQLLEnc9WJ3sDw/E7yAvyCDFhio7dohcFyMd
+X-Gm-Gg: AYBFou1zn12Zuq0SyXDDPSv6c1Wso37fKk2Mv/kfYm4cdOQyg3E9gR1zsUFpH9kziIy
+	Uli+EOF8qXpanJBLhlJidbrU8E+ztRFPj8ElScH5O1FFeF+AXfd76KnjkCXumKfumijrTXbKb28
+	QWJmryrsECAykiVoYrjRUSxl6RoNo97RnxI8EBsO+MQiZNpBBI5hgLgEmINI+QDoH166tdsuw8Y
+	EbXMGDqj31Dcmlp4leN6/Y9T6G5jQ8d7bLdzXgZBEeiyWA5J6ELtT+faVHAmaGnnwmM4x0+Cr4+
+	03zdUzh6aeguRFrdIQzGKQMBEoDDPVe+m8/RRBqd4SaFHjvcFI8iOkFpSE3kO7coR2foMGp/FXR
+	1eIMhR6Xz7JYagxKg/Tl27g2NjKdJ9CntfhDicCfUipol4+iXhJYFLl7SL99KiwSqSLZ1LrSK1X
+	O+1vhhXwL6x7xu
+X-Received: by 2002:a17:90b:2d4d:b0:399:1b64:e0d7 with SMTP id
+ 98e67ed59e1d1-39aee108918mr14077532a91.19.1788397944284; Wed, 02 Sep 2026
+ 18:12:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=5aa6fa5638c6e4ef04b289541629de5e53ccc8327148dde49673ae679c24;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Thu, 03 Sep 2026 09:06:25 +0800
-Message-Id: <DL5A18T0GPB5.32JI7ECB3UCRX@linux.spacemit.com>
-Subject: Re: [BUG] PCI: spacemit-k1: port C probe hard-hangs a CPU with one
- endpoint on Milk-V Jupiter
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Alex Elder" <elder@riscstar.com>, "Manivannan Sadhasivam"
- <mani@kernel.org>, <spacemit@lists.linux.dev>, "Bruno Banelli"
- <bbanelli@gmail.com>, "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-Cc: <linux-pci@vger.kernel.org>, <linux-riscv@lists.infradead.org>, "Yixun
- Lan" <dlan@kernel.org>, "Lorenzo Pieralisi" <lpieralisi@kernel.org>,
- "Krzysztof Wilczynski" <kwilczynski@kernel.org>, "Rob Herring"
- <robh@kernel.org>, "Bjorn Helgaas" <bhelgaas@google.com>, "Danilo
- Krummrich" <dakr@kernel.org>, "Uwe Kleine-Koenig"
- <u.kleine-koenig@baylibre.com>, "Javier Martinez Canillas"
- <javierm@redhat.com>, <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260825052249.66921-1-bbanelli@gmail.com>
- <c24pt2ls62rxxg77xjbng7dmiflgdjlqd3mkoxehc2rvjgh7ai@dcxvmau3ykmt>
- <7a29717b-dc62-4421-b783-7b78e4375268@riscstar.com>
-In-Reply-To: <7a29717b-dc62-4421-b783-7b78e4375268@riscstar.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OegHrGdQ9dQUM4rcL/UVOoWjrJLz5Nzb+TUFTx9WDCS/0LAq3sT6vH3w
-	6AdDiFHcsZrwbamOt53PT02mSiYLUkBPQe8b/i1vkM+DAJweZ7vuGsCaxlUSnkccplSujVi
-	v7wE4m+MjxB5f3VqTNRTS9PfvH7L745KMN1pBngIzRSxNQqQc3lJiKrybCdwhJ7ytb9ASBI
-	SOgGJwAsFwP6S6hIve5vRGRjo9Pq/kGfU3q+zU6Z16icv301xRAD7EoeGMo5amb6nXAoS/u
-	n3jIjX7L46pAMhuFMEOsfcmyoCy3VOZcgdrAy19t+8F2yN4L3di1y492cgD+EVUDpgq70u8
-	06SRwVqeCzXHOxofTq93/osYqdXEvrV0+tAoRzp7CYmtIFLkaIGLy9oH8el8r+v/B0Ih8cU
-	e/pa0ti9LXzZedI9dL8ETMy0+ZOU618H5klM/70jVfJtERUAa3lSCW4XYAKhp6YeYNsLKnq
-	M/Pb6AIrOph3lluQ9ZjHOy6aVbXB6/qmbp2bD3qry2t3GUmGdmhw9lm0W2+0xb0WZ2zXI1k
-	bgHvmJKFtjvP11gLRl3pbvaUwvVAQnwZfxbOEt+YG+vbuUdOKul0rsbq4U5EvuquoMUBj/t
-	WXSPne41/uaZ5D9ZwuOHSQpEUBSNL1JY+9HMKOknAnKppuNQ/JaQNAo39bURWmY7iadMJ9t
-	g6EKdUhT/E9LzN3to3paW5pHSs5fv7fdDTrXAXF1vYii1UCJA/pN1hanKXv1q/zNfQ0yIJ/
-	GnwhIfrmLJ3L3exHyVPvSim4rHTL4VMU7Lke86wfKHJ3wfcNpCrnj+okSL4//2CRN6vBRNl
-	ccw0SJoJNu4BM6SGVfaqB40w37Qi10rhJpZe12m3qNe/ccS62KYze3MMDCp7COAqRLha9Kh
-	I92V3DnbZ4ag5uZkNhxLZn/GGnUg3DpV+BZrgkMpf6YJmTAH7TzBiCi7B2/3dqgQqxmlgic
-	pkozDRFAZD3OmS2m1ftuD4X4xM2D5DEmhKewq2qm9uFGT7Ui6ypjEbgjmeFqi9CYmXSdnJW
-	RouKzzAL2WvVMpofuyjdB/VBJuzTe3rb7CEE419g/3H6OQzw8YHV3Iir89oSr4MA411TnBg
-	rX7p2Ae+JpDOViZCGivtFmZxG/6tZeFb3WQ7OzbZGMN
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
-
---5aa6fa5638c6e4ef04b289541629de5e53ccc8327148dde49673ae679c24
+MIME-Version: 1.0
+References: <CAKT_hvzXo14ER3NOc3pWhNmXbp0suVoQ8D+KmC2YzrfrBhWb+g@mail.gmail.com>
+In-Reply-To: <CAKT_hvzXo14ER3NOc3pWhNmXbp0suVoQ8D+KmC2YzrfrBhWb+g@mail.gmail.com>
+From: Kuniyuki Iwashima <kuniyu@google.com>
+Date: Wed, 2 Sep 2026 18:12:11 -0700
+X-Gm-Features: AcwNN1W56uQoHrTLYe3Lblfc6qZZHWnzS6UFiwHe5mYgxk3-gzZs2Q0kf4Z-l-o
+Message-ID: <CAAVpQUCMxvcsAkcyxLp5D57ztMeH3ZqF7BxsxU9529NHhVGDGQ@mail.gmail.com>
+Subject: Re: [BUG] tcp: NULL f_inode in listening_get_first() leaves listener
+ spinlock held
+To: Ville Poutiainen <villeaj.poutiainen@gmail.com>
+Cc: edumazet@google.com, ncardwell@google.com, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
 
-On Wed Sep 2, 2026 at 9:56 PM +08, Alex Elder wrote:
-> On 9/2/26 8:42 AM, Manivannan Sadhasivam wrote:
->> On Tue, Aug 25, 2026 at 07:22:49AM +0200, Bruno Banelli wrote:
->>> Hi,
->>>
->>> On a Milk-V Jupiter, probing the PCIe controller at ca800000 (port C, t=
-he
->>> card slot) permanently wedges the CPU that runs the probe when one
->>> particular add-in card is installed.  The CPU stops responding to NMI, =
-and
->>> because the probe is asynchronous, kernel_init() then blocks forever in
->>> async_synchronize_full() and the machine never finishes booting.
->>>
->>> The same card, in the same slot, on the same board, does *not* hang the
->>> vendor 6.6 kernel -- it reports "Phy link never came up" and boots norm=
-ally.
->>> Six other cards do not hang mainline either.  So whatever the electrica=
-l
->>> cause, this looks like a robustness problem in pcie-spacemit-k1: an end=
-point
->>> should not be able to hang a host-side DBI register access.
->>>
->>>
->>> HARDWARE
->>> --------
->>>    Milk-V Jupiter v1.1, SpacemiT M1 (socinfo: CPU[M1-8571] REV[C] DRO[1=
-30]),
->>>    16 GiB LPDDR4X.
->>>    Firmware: stock vendor U-Boot 2022.10 (k1-bl-v2.2.9), unmodified.
->>>    Port B (ca400000, M.2) has a Samsung PM9B1 NVMe and works throughout=
-.
->>>    Port C (ca800000) is the card slot -- an x8-length connector, silksc=
-reened
->>>    PCIE_X2, wired x2.
->>>
->>>
->>> REPRODUCED ON
->>> -------------
->>>    v7.1 and v7.2, riscv defconfig (plus PHY_SPACEMIT_K1_USB2, USB_DWC3,
->>>    SPACEMIT_K1_TSENSOR, IGB, IGC, NVMe/ext4 built in).
->>>    gcc 13.3.0 (cross) and gcc 16.2.0 (native, Debian sid).
->>>    Identical failure in all combinations.  Not a regression -- port C h=
-as
->>>    never worked with this card on mainline.
->>>
->>> Command line:
->>>    console=3DttyS0,115200 earlycon root=3D/dev/nvme0n1p2 rootwait rw
->>>    swiotlb=3D65536 clk_ignore_unused pd_ignore_unused
->>>
->>>
->>> SYMPTOM
->>> -------
->>> Port C prints its address ranges and then never speaks again.  (Log bel=
-ow is
->>> from a run with port B disabled in DT, so nothing is interleaved.)
->>>
->>>    [ 1.290074] spacemit-k1-pcie ca800000.pcie: host bridge /soc/pcie-bu=
-s/pcie@ca800000 ranges:
->>>    [ 1.297283] spacemit-k1-pcie ca800000.pcie:       IO 0x00b7002000..0=
-x00b7101fff -> 0x0000000000
->>>    [ 1.312783] spacemit-k1-pcie ca800000.pcie:      MEM 0x00a0000000..0=
-x00afffffff -> 0x00a0000000
->>>    [ 1.326753] spacemit-k1-pcie ca800000.pcie:      MEM 0x00b0000000..0=
-x00b6ffffff -> 0x00b0000000
->>>    [22.348490] rcu: INFO: rcu_sched detected stalls on CPUs/tasks:
->>>    [22.351764] rcu:     4-...0: (12 GPs behind) idle=3D051c/1/0x4000000=
-000000000 softirq=3D43/43 fqs=3D1908
->>>    [22.367040] Sending NMI from CPU 2 to CPUs 4:
->>>    [32.367049] After 10 seconds, these CPUS still haven't responded to =
-the NMI: 4
->>>
->>> The CPU ignoring an NMI for ten seconds is why I read this as an MMIO a=
-ccess
->>> that never receives a completion rather than a spin or a deadlock.
->>>
->>>
->>> LOCALISATION
->>> ------------
->>> I added a dev_info() before each step of k1_pcie_init() (patch at the e=
-nd of
->>> this mail).  The last marker port C prints is the one immediately befor=
-e the
->>> first DBI access:
->>>
->>>    [1.347050] spacemit-k1-pcie ca800000.pcie: K1DBG 1 toggle_soft_reset
->>>    [1.362635] spacemit-k1-pcie ca800000.pcie: K1DBG 2 enable_resources
->>>    [1.370918] spacemit-k1-pcie ca800000.pcie: K1DBG 3 first DBI write (=
-vendor/device ID)
->>>    <nothing further>
->>=20
->> Sounds weird that an endpoint is causing DBI write hang.
->>=20
->> Can Alex or someone from Spacemit look into this issue?
+On Wed, Sep 2, 2026 at 4:54=E2=80=AFPM Ville Poutiainen
+<villeaj.poutiainen@gmail.com> wrote:
 >
-> I think Yixun Lan or maybe Troy Mitchell should investigate.
+> Hi,
 >
-> I have not done anything on the Milk-V Jupiter and have no
-> access to any board of that type.
-This seems to be device-specific. Some of our team members are already look=
-ing into it.
+> I encountered a kernel NULL-pointer dereference in the TCP proc iterator
+> on Fedora 44, followed by a persistent listener-bucket spinlock lockup
+> when another process later read /proc/net/tcp.
+>
+> Fedora bug with sanitized logs, exact kernel configuration, and decoded
+> vmlinux analysis:
+>
+> https://bugzilla.redhat.com/show_bug.cgi?id=3D2527805
+>
+> Affected kernel:
+>   7.1.10-200.fc44.x86_64
+>
+> Architecture:
+>   x86_64
+>
+> Initial failure:
+>
+>   BUG: kernel NULL pointer dereference, address: 0000000000000230
+>   #PF: supervisor read access in kernel mode
+>   Oops: 0000 [#1] SMP NOPTI
+>   CPU: 1 UID: 1000 PID: 1634 Comm: pasta.avx2
+>   RIP: listening_get_first+0xc0/0x120
+>
+> Call path:
+>
+>   listening_get_first
+>   tcp_get_idx
+>   tcp_seq_start
+>   seq_read_iter
+>   seq_read
+>   proc_reg_read
+>   vfs_read
+>   ksys_read
+>
+> The userspace syscall was read(fd=3D16, ...). The process was pasta,
+> performing automatic port discovery by reading /proc/net/tcp.
+>
+> I obtained the exact Fedora debuginfo/vmlinux matching the affected
+> kernel. Its Build ID is:
+>
+>   4c9470ef910bac97b4554b740c84f337cada5950
+>
+> GDB against that exact binary shows:
+>
+>   struct seq_file.file     =3D 0x60
+>   struct file.f_inode      =3D 0x20
+>   struct inode.i_private   =3D 0x230
+>
+> The relevant instructions in listening_get_first are:
+>
+>   +0x8f: call _raw_spin_lock
+>   ...
+>   +0xb8: mov 0x60(%rbp),%rdx
+>   +0xbc: mov 0x20(%rdx),%rdx
+>   +0xc0: mov 0x230(%rdx),%rdx
+>   ...
+>   +0xff: call _raw_spin_unlock
+>
+> At the fault:
+>
+>   RDX =3D 0
+>   CR2 =3D 0x230
+>
+> Thus, as far as I can tell from the exact binary and register state,
+> seq->file->f_inode was NULL while the active /proc/net/tcp read was in
+> progress. The fault occurred when the code then accessed
+> inode->i_private.
 
---=20
-Troy Mitchell
+This seems true based on RPMs from here,
+https://koji.fedoraproject.org/koji/buildinfo?buildID=3D3085139
+
+$ echo "listening_get_first+0xc0/0x120" |
+./scripts/decode_stacktrace.sh
+../usr/lib/debug/lib/modules/7.1.10-200.fc44.x86_64/vmlinux
+listening_get_first (./include/linux/proc_fs.h:125
+net/ipv4/tcp_ipv4.c:3305 net/ipv4/tcp_ipv4.c:2470
+net/ipv4/tcp_ipv4.c:2497)
+
+but it should never happen; at least f_inode should not have
+been NULL in proc_reg_read(), which also uses file_inode()
+for the same file.
+
+[513008.658057] HOST kernel: RIP: 0010:listening_get_first+0xc0/0x120
+...
+[513008.658179] HOST kernel:  tcp_get_idx+0x2d/0xa0
+[513008.658189] HOST kernel:  tcp_seq_start+0x70/0x230
+[513008.658195] HOST kernel:  ? seq_lseek+0x8d/0x110
+[513008.658203] HOST kernel:  seq_read_iter+0x10b/0x4b0
+[513008.658211] HOST kernel:  seq_read+0x12e/0x1c0
+[513008.658218] HOST kernel:  proc_reg_read+0x5a/0xb0
+
+Maybe the third-party module corrupted memory.
+
+Please do not report stack traces with OOT modules.
 
 
---5aa6fa5638c6e4ef04b289541629de5e53ccc8327148dde49673ae679c24
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCapjIEQ0caUB0cm95LXku
-b3JnAAoJEJgJ74D5MzQv/3sA/3cB2V5ShRbpFKlrOGG/ak5AYZnPZSI4Cj9mD/S8
-v+bfAP9TR48gN2ZQ6yxgPavM/EQxD9OF1y6BdJfsu6pnp6BtAA==
-=unDq
------END PGP SIGNATURE-----
-
---5aa6fa5638c6e4ef04b289541629de5e53ccc8327148dde49673ae679c24--
+>
+> The listener hash-bucket spinlock had already been acquired and the
+> Oops occurred before the normal unlock path.
+>
+> The kernel continued after the Oops and reported:
+>
+>   note: pasta.avx2[1634] exited with irqs disabled
+>   note: pasta.avx2[1634] exited with preempt_count 1
+>
+> A few minutes later, "ss" became permanently stuck at 100% system CPU:
+>
+>   native_queued_spin_lock_slowpath
+>   _raw_spin_lock
+>   listening_get_first+0x94
+>   tcp_get_idx
+>   tcp_seq_next
+>   seq_read_iter
+>
+> The listener-bucket lock address in the original pasta Oops was:
+>
+>   ffff8f0d05894ec0
+>
+> The later ss soft-lockup was attempting to acquire the same address:
+>
+>   ffff8f0d05894ec0
+>
+> The watchdog subsequently reported the task stuck for 26, 52, 85, 112,
+> 138, 164, 190, 216, and at least 253 seconds, together with RCU stalls.
+> The machine ultimately became unusable and required a forced reboot.
+>
+> Crash-time userspace configuration:
+>
+>   passt/pasta:  0^20260728.gf8df3f1-2.fc44
+>   RootlessKit:  3.1.0-1.fc44
+>   moby-engine:  29.7.2-1.fc44
+>
+> RootlessKit was running with:
+>
+>   --net=3Dpasta
+>   --port-driver=3Dimplicit
+>
+> which caused pasta to use its automatic TCP/UDP port scanning path.
+>
+> The first Oops was tainted G OE due to the NVIDIA out-of-tree/unsigned
+> modules which were loaded on the system. I have not reproduced this on
+> an untainted or vanilla upstream kernel.
+>
+> This failure has occurred once. I have not deliberately reproduced it,
+> because once the Oops occurs the leaked spinlock can lead to a
+> system-wide lockup.
+>
+> The machine is now running Fedora kernel 7.1.12-200.fc44.x86_64, but I
+> also changed RootlessKit to the pesto port driver. The current pasta
+> instance uses --tcp-ports=3Dnone --udp-ports=3Dnone, so the original scan
+> path is no longer being exercised. Therefore the absence of another
+> failure on 7.1.12 does not establish that the kernel issue is fixed.
+>
+> I have not established whether the underlying cause of the NULL f_inode
+> is a struct file lifetime/reuse problem, other memory corruption, or
+> something else.
+>
+> The Fedora bug linked above contains:
+>
+>   kernel-crash-public.txt
+>   kernel-config.txt
+>   vmlinux-analysis-public.txt
+>
+> The first file contains the complete initial Oops and subsequent
+> soft-lockup/RCU traces. The vmlinux analysis contains the exact
+> disassembly and structure layouts from the matching Fedora debuginfo.
+>
+> I currently do not have enough spare compute resources to run a
+> controlled reproduction on current mainline, but I can provide
+> additional targeted information or perform a specific test later if it
+> would help identify the cause.
+>
+> Regards,
+> Ville Poutiainen
