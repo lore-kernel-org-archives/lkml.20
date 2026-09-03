@@ -1,87 +1,109 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 783764F472D;
-	Thu,  3 Sep 2026 17:22:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B72C4FB9A5
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 17:23:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788456181; cv=none; b=scsuXgpmNq8H6vzXkY2+M/Sp+m7tj0PaHcF9z+YuDwEoTb2kgH31FkcSj1bkWBnVqjLLRAuALjejKSPVPsLj2w4fgoB+1SPZrG2Naa+6v/6OhohiIwv4SC+TSwi+CJ0W2W561kxkHK9ZAWnTUJRr4L8y4syXRoGqBax/s03rf2c=
+	t=1788456189; cv=none; b=AcUT13cT77S+7kTtIst+AfX1lnAF161tis8ZnmgPG03vuGkrPTEUJSTgiWF7th2TfKH+Ivw+4TPoTqFuHBOGhrtsreaqXahnSW2KhdKqgxQf5gep8Uw23MFZBJg665JVEDgP5eYtbtgEzae6efPMyozYRMx+SdDyxjWc9z9q4zk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788456181; c=relaxed/simple;
-	bh=wnMnI6ci0pPe6PHijipJ6bGyR2qKWN512dTM9ouIjPY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OcDg/TmLOFDpvI3SqABSQxgMMIYDOFMzm5Uj7d5Zz0XHPs0FPXjuGN2xTgxISSWagyi3PBIfhtmWs6ElgchNPO3DLxIFddT+uCfg19r5c3CHIySNHsGJuNy92u9ip7Savb0N765AJRAuqY5nmUEb0PF2YDOn7xIBuii6KdCdT9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=dIE8eHlo; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788456189; c=relaxed/simple;
+	bh=2CAytTgZ/VhI8i9KfzuySsfd4wCy9Fxaqy2eJItOw9A=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=fDKkYQ8sfakkEEhr7yaXHmKQF3OFOdCx9YjvH90eiXefg4QFRKT2GEI8pJpV66oE1UV8LxW4aXDSgMhccxb38fiV+pbx5a1WWeo5Ck6l4AO0yhSJezhvRFT7xA8i0Za2VOlNUZY1HyiBlO5GQl6AqnExnQBbA2tUqhR67c30IVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hUzdsHfK; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="dIE8eHlo"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=RyPxf/tSnn2i/XHJ82iz3tN29iMK2WGJcQObym/K8ro=; b=dIE8eHloCTWBu71LdA+KCXWz7o
-	71aiFAjME/e1i+oOwGouQU1f7k6Zmflz/VNtv4ZA+dIPLE09gDpH2c/YQerm1xALopwakl0nFc8BI
-	0HTVqwz3fYpyjmSqERqRi+21xnoj+Yms9BGgjvCuZ+MPbCsEEg1F3difqQVNFG+Jji2x0neoSobiH
-	30RcydH/2fYaiYTtaqFWB8Marr0Sdk+0QgJFVcerhf112qYPlUSFmIu6knkI5k3izPauCZikz4Neu
-	zRmY/qo9COSDNAaZkYQ5OFjFYY8UsK6ChD7bUd/KiyPssrMpfa3+cIIqNRDwA6w5UDDxfON+2y/Wt
-	a3m+rOFg==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x2B9L-00000000Gj5-3Bft;
-	Thu, 03 Sep 2026 17:22:55 +0000
-Message-ID: <3d656f96-c2c6-4783-847c-4a6c0f6398a0@infradead.org>
-Date: Thu, 3 Sep 2026 10:22:54 -0700
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hUzdsHfK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788456187; x=1819992187;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=2CAytTgZ/VhI8i9KfzuySsfd4wCy9Fxaqy2eJItOw9A=;
+  b=hUzdsHfKLKsOO65eGum5xD6zz4SR2N3uy4VM4cq0ICMATfd6qvwp6ogw
+   Eg2qkqyJuiMYNzoRseuont6x1+bj3ACbj9svZwEW6UmvGN+PLpvcsSpJT
+   o4e53X07CS7ruMs+Emy2Y9tWLfBbJ/31iqcHzmHKdD1+bqp9oaRg1CDqH
+   OwhovO8tKQtBf71anQnPhyPm4U8sML958l37tzjD5aLd1005nWl5b48Bs
+   KKdlptC1OWqLgoHEmR12hAao6FF3qHl5WgV79IL2yDJ7IcTI1dKa8piFq
+   sKq6qGsA2J0h3UK0GCe/xlc2ZQ6PJUN/srDGImFWgUkFbRTB5bAPi5jO1
+   g==;
+X-CSE-ConnectionGUID: FcRAfPMgRqOFpJXtXIIdwQ==
+X-CSE-MsgGUID: juVjbaZXTQSpkieO72xO7g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="114492927"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="114492927"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 10:23:06 -0700
+X-CSE-ConnectionGUID: 5X+1Zoe9TDqIenyNirmvgg==
+X-CSE-MsgGUID: FKA/6MVsTFe1YDm5qNzTJQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="263604101"
+Received: from unknown (HELO [10.241.243.185]) ([10.241.243.185])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 10:23:06 -0700
+Message-ID: <0051f02bd8d6f69fa7018b34386ccc22034dffde.camel@linux.intel.com>
+Subject: Re: [PATCH v2 2/2] sched/cache: Drive cache task tick from
+ execution context
+From: Tim Chen <tim.c.chen@linux.intel.com>
+To: Hui Su <sh_def@163.com>, Peter Zijlstra <peterz@infradead.org>, Ingo
+ Molnar	 <mingo@redhat.com>
+Cc: Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot	
+ <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>, Valentin Schneider
+ <vschneid@redhat.com>, John Stultz	 <jstultz@google.com>, Chen Yu
+ <yu.c.chen@intel.com>, 	linux-kernel@vger.kernel.org
+Date: Thu, 03 Sep 2026 10:23:05 -0700
+In-Reply-To: <20260903041154.2479761-3-sh_def@163.com>
+References: <20260903041154.2479761-1-sh_def@163.com>
+	 <20260903041154.2479761-3-sh_def@163.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: thermal: cpu-idle-cooling.rst: Fix bracket
-To: Manuel Ebner <manuelebnerli@mailbox.org>,
- Amit Daniel Kachhap <amit.kachhap@gmail.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Lukasz Luba <lukasz.luba@arm.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-pm@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260903160751.734704-2-manuelebnerli@mailbox.org>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260903160751.734704-2-manuelebnerli@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+
+On Thu, 2026-09-03 at 12:11 +0800, Hui Su wrote:
+>=20
+
+[snip]
+
+>  void init_sched_mm(struct task_struct *p) { }
+> =20
+> -static void task_tick_cache(struct rq *rq, struct task_struct *p) { }
+> +void task_tick_cache(struct rq *rq, struct task_struct *p) { }
+> =20
+>  static inline int get_pref_llc(struct task_struct *p,
+>  			       struct mm_struct *mm)
+> @@ -15042,8 +15042,6 @@ static void task_tick_fair(struct rq *rq, struct =
+task_struct *curr, int queued)
+>  	if (queued)
+>  		return;
+> =20
+> -	task_tick_cache(rq, curr);
+> -
+
+May be worth adding a comment here. Say you consolidate the
+exec context stuff to a new sched_tick_exec_ctx() helper.
+You can say something like the following here to help future
+reader of this code.
+
++       /*
++        * Note: misfit, overutilized and core scheduling state describe th=
+e
++        * entity the load balancer would move, i.e. the scheduling context=
+,
++        * and therefore stay with @curr rather than with rq->curr. See
++        * sched_tick_exec_ctx() for the execution context counterpart.
++        */
+>  	update_misfit_status(curr, rq);
+>  	check_update_overutilized_status(task_rq(curr));
+
+Tim
 
 
-
-On 9/3/26 9:07 AM, Manuel Ebner wrote:
-> Remove needless '(' from equation.
-> 
-> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-
-Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
-Thanks.
-
-> ---
->  Documentation/driver-api/thermal/cpu-idle-cooling.rst | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/driver-api/thermal/cpu-idle-cooling.rst b/Documentation/driver-api/thermal/cpu-idle-cooling.rst
-> index c2a7ca676..b9d4c91a7 100644
-> --- a/Documentation/driver-api/thermal/cpu-idle-cooling.rst
-> +++ b/Documentation/driver-api/thermal/cpu-idle-cooling.rst
-> @@ -161,7 +161,7 @@ tree. So with the idle injection mechanism, we want an average power
->  specific OPP and idle another amount of time. That could be put in a
->  equation::
->  
-> - P(opp)target = ((Trunning x (P(opp)running) + (Tidle x P(opp)idle)) /
-> + P(opp)target = (Trunning x (P(opp)running) + (Tidle x P(opp)idle)) /
->  			(Trunning + Tidle)
->  
->    ...
-
--- 
-~Randy
