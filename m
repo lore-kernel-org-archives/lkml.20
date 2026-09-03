@@ -1,89 +1,82 @@
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.197.177])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D6D3367281;
-	Thu,  3 Sep 2026 03:30:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.154.197.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25EF3369D61
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 03:30:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788406211; cv=none; b=fuIq+NfEAQNkRo1/HpZRw0/j0wxndO6ISxS/1uLh37EEKjWY4HYJNQO/m+DrrENUtIgG1wpd+WJ1s1L+ELWwM/s7f5GYTT7iM6Z4MI7naXG4ISopNRIBXsCCMHFv66ErktvJU0StPzwxlWEpdiXJ1qmYZlDvRMLvB/Hpc7ncvyQ=
+	t=1788406213; cv=none; b=DET0XaPc4WJmmrHCKWKwpWwyZJJ/ZZPWNVpWQRixnZdEIvWtC3nDasP7afB3pS4PROzE7nALKJZlqjgpEZReQAYD6c8+6lrM5E4uT67U/8aDH++M4u9qWl5C4csbg6t8GIf2htXsviNHytI2XJnyMo+L+3YCx6HvoFSThjUjbok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788406211; c=relaxed/simple;
-	bh=WaEq0oRkEcYbCfT8ZdzPK3UROlgtnMIJUAo/u6CFD9M=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=aHzeYTYZj4E5cnRLftSHv6KoPMjUGXTPmJL1OYb161Z/xc8hTlN7aOOT8qy6QL+OmwEMvNTpiCIzeo7OuD3NXZAnujhQ9KXylijIsracXVf3slzuz1U+QDyKbgLdatVZawodStlhiC6vCBPUeOw+yb151xeY4emgNG6CBdOfODg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=C0JwSKyC; arc=none smtp.client-ip=43.154.197.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="C0JwSKyC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1788406145;
-	bh=WaEq0oRkEcYbCfT8ZdzPK3UROlgtnMIJUAo/u6CFD9M=;
-	h=Mime-Version:Date:Message-Id:From:To:Subject;
-	b=C0JwSKyC4SeNkwYfy4C6jHlK58HJbQhNFNc3X1F3sbnzxOejOlvF4/qtbhnHbhVfX
-	 oj3WYUAb/MsXqctZ2L9xdym6bd54SSHDVXT54Ve3+fXd5gxlJauBmNxY0qvqhZ8DB4
-	 9spfEqq/hf0Nu6EsJcu7XlxyqANe7pabgcYlmtRc=
-X-QQ-mid: zesmtpsz4t1788406143t032f900f
-X-QQ-Originating-IP: LJ5LtijfxLyByKUO0WSeF4CNc/Be8prOeq+pDULPaqQ=
-Received: from = ( [183.48.246.134])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 03 Sep 2026 11:29:01 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 17379667977984956232
-EX-QQ-RecipientCnt: 13
+	s=arc-20240116; t=1788406213; c=relaxed/simple;
+	bh=eXya5nlr3+zA4EDNnHy8itBISYAMhMCrW69Q+K9z3+w=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DsVtBuEx3KximpNlYaeTTecZ5Gvjf/Xt97BozPoKrK331x5tZR9KmJpdKJ6n0MCls33/2y5lBQ4/BvRGKdCFr8uOBMZy79TwJ57Y+zknZizovIkjt6ZTSs7ZkDnGWb93qF8iE3nEnBj84u8BwTCmrYIs/h0Q7FnOCLO8JJDMiow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: bca13634a74711f19a56ed5b684f684d-20260903
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:2e91eb2d-9e09-408f-9667-1d9f4c398891,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:08f6ef09610bb2fe696fea773d2164b1,BulkI
+	D:nil,BulkQuantity:0,SF:102|865|898,TC:nil,Content:0|15|50,EDM:5,IP:nil,UR
+	L:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,S
+	PR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: bca13634a74711f19a56ed5b684f684d-20260903
+X-User: liwanwu@kylinos.cn
+Received: from kylinos.cn [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <liwanwu@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1644833514; Thu, 03 Sep 2026 11:29:57 +0800
+From: Wanwu Li <liwanwu@kylinos.cn>
+To: tj@kernel.org,
+	arighi@nvidia.com,
+	void@manifault.com,
+	changwoo@igalia.com,
+	emil@etsalapatis.com
+Cc: liwanwu@kylinos.cn,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] sched_ext: two more context-safety fixes found in the NMI kfunc audit
+Date: Thu,  3 Sep 2026 11:29:51 +0800
+Message-Id: <20260903032953.659847-1-liwanwu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 03 Sep 2026 11:29:00 +0800
-Message-Id: <DL5D2ETDDPX1.3QTJ53KUA3JED@linux.spacemit.com>
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Yixun Lan" <dlan@kernel.org>, "Ulf Hansson" <ulfh@kernel.org>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Adrian Hunter"
- <adrian.hunter@intel.com>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>
-Cc: "Long Wan" <long.wan@linux.spacemit.com>, <linux-mmc@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 3/4] mmc: sdhci-of-k1: Set clock-frequency of io clock
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260902-07-k3-sdhci-dts-v1-0-4e7909cf4233@kernel.org>
- <20260902-07-k3-sdhci-dts-v1-3-4e7909cf4233@kernel.org>
-In-Reply-To: <20260902-07-k3-sdhci-dts-v1-3-4e7909cf4233@kernel.org>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OdN5GnPEc47os4gKIHrz/0HHFqGuQido+5HViesow6Gy6cVF20GSt2pV
-	5uuXrAZLrEDrA8o48XnnGTWlujm4/+pZqLp80MA1Tuofirkn8Pb1p84inEghzSRT55y1M1a
-	HaF18NYNtY9iDK/8MVUvYvKd6Meb9D8UcgpyWF8nYT3N4C5e2o3Lh+vzgAszSIt2kCyyIM6
-	HT4BuqPkeul639/tmr3BDxNVPhf8jz/A6EPtaUwpYuvyRRl5Rko5CFPgLpzdHC0Mj4LPBQw
-	4ahRsUU7gh83lC8x1E57OpyUxrY+daLEneq9R5MGo2IeNpgKG89qsbdA7g/3PI/njW51u+P
-	StB2Q7GN+uEJE4st0XBJ/cCLdoJLmFqMDadNCjagE6W2IZ6rjo1amhuDDyl8le4x/+otfKb
-	Iaf04oM2PYFMJJ0Xz88RBblQuavWdryKbXSpvlO5JaPPYwdBr5YRLuIDwdlJnLHGmK6EUms
-	C4hKlHPDVS6YCFrBA6ACYu+MoIJlG/2SADGdXcsKe+IgODemX5ANxKfrngu6b6U8lYjHm9h
-	fNlrbZkuAHmspFJ3osICTqAeMjdfQUlCWxTdg5ahCSp7AZ+rjCglU3etd74/CpfQ5GcjFei
-	+GCuhBIlMl3hntLhCsUzlKhM8MEsazJWiDco2U5EHgdn5VLK0RLR89Ygm15ZtddpBnxNK0g
-	+1bg5GGa379o0Pmeq9/nwYjbIzZiVrkZ2r542530+OVfNeflFpxS85E4YVt5UXqfHTC6fd5
-	ivfrcY7ZgjzWEATGm+l2AABLMluEdFkPxBC2S6mbrMNLWgkvHkFIU7c2m96WSRT8WKdPA25
-	SWkuwkxpnkzba9sLzR6cDsL3JO8dpXf9BpUfSxZlxLc0UmfFpoTGBnOXJNUyXvvAg6DsFli
-	80XFHDBxdZhSU5jvEvzk6WqYeYJ4O4OHIaAhZUvfL+M8aF2XLMXIP6cgxAYEUmVOi6k9Xet
-	sTfKlQOon5W3ABKlChTFgZbfn4bpI3oJTKX+26Huu1lfotgtlLBx7jhkAUODN3S/VnbWgh7
-	nI5sh0OxFQFQHrFI/J4ufoQdruWpJXNar8UextvPonSYfiL84hzbjuRtrL4CLcmBUF8iitr
-	kTPOTDJUaxyQEuNeHlL0C7YnCaTpw+uJJ4juUWzxIV8hCQNGDUIdVE=
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed Sep 2, 2026 at 3:03 PM +08, Yixun Lan wrote:
-> From: Long Wan <long.wan@linux.spacemit.com>
->
-> Add a clock-frequency property to set the rate of io clock, for SDIO
-> case, a clock frequency need to propagate down early.
->
-> Signed-off-by: Long Wan <long.wan@linux.spacemit.com>
-> Signed-off-by: Yixun Lan <dlan@kernel.org>
-Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Continuing the audit that the sashiko bot kicked off on the NMI-reject
+series, I went through every kfunc exposed to BPF_PROG_TYPE_TRACING
+(the any / idle / cid context-filter sets). Two more context-safety
+issues came out of it; this pair addresses both.
+
+ - Patch 1 fixes the scx_locked_rq() class (three "any"-category kfuncs
+   read scx_locked_rq() and take an unsafe fast path on a non-NULL
+   return from NMI). scx_locked_rq() gains an in_nmi() test at the
+   source that returns NULL from NMI, so the three callers fall onto
+   their unlocked paths. This supersedes guarding them individually.
+
+ - Patch 2 fixes an IRQ re-entrancy race on the per-CPU
+   per_cpu_unvisited nodemask scratch in the idle path. The search
+   scratch is protected only by preempt_disable(), which doesn't mask
+   IRQs; switch to irqsave instead. The NMI case is left as-is (a
+   misuse with no legitimate use and no crash risk).
+
+Wanwu Li (2):
+  sched_ext: Make scx_locked_rq() return NULL from NMI
+  sched_ext: Protect the idle-search scratch nodemask with irqsave
+
+ kernel/sched/ext/idle.c     | 14 ++++++++++++--
+ kernel/sched/ext/internal.h |  9 +++++++++
+ 2 files changed, 21 insertions(+), 2 deletions(-)
+
+-- 
+2.25.1
