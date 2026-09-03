@@ -1,103 +1,144 @@
-Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABC8B4A49B9
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:07:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788440859; cv=none; b=W1/w4FZzSA5O/ZyBWWGDtzH1x1+xiEQzyPwgNsMbBkZA0qeoks6RPHbRVSyz7qyfjv1247df574OSQ+U/OoeJc7JVg/Gnvv196Y+XnLQ5+/ibISv4IgywGW+HvGipNQysuL/6cwfrbWteTbdzXjLLhMHGNyiYj30C758ufDcA4k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788440859; c=relaxed/simple;
-	bh=/hmoURmIl/bUQbh8UOa2R0+uRCpVJKU0vq8AlikjsbU=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BEFB4A8FC1
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:07:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788440858; cv=pass; b=Vj61sRPqmaA6AMAG7+Ah7PED1n+A0mBt+jOc84TaPqZR2rhof6DCkOydrB6fi0oFMG7ZGBNIvZVCIOXH8TdUyJUiFWbt/svl/BHaGLjObTvrYvfu+tht+1hR8eMpF6hVeYpb/Rdd+KnRsisGwIeIbMaeinOKirWu1G4OTQDathc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788440858; c=relaxed/simple;
+	bh=Nd8rHpqZkzQnKuba89VN+LJt6o8911mVett5MRHbbrM=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Uuq8n5My/kEgSEVf/VaAK8Xc9eHbal/PdJVNvvu4D1tFfu8PSVMJYwkc17MGJl0cQ+AfHj8LsOXb6MQV9pXPkFuWw1rdv32DSw8pKnkPi8co7sgk57mpY8CyZ4VxwiZx6gl2VULi6RjwiHP+5xEhAGCz5XKo2kpVoQJryRSRQLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	 To:Cc:Content-Type; b=shoxhqTSI8uJ7FQd2wk3C1sNMr/Gt5pEzcIsSWwR/aFsNAW2DHGLioHyhUTximnjfu9NC7LdxkEmbDZNDXdk+pEioBnfmmhq+D1cfA05CY9+QdMVZsqIeWdRwDLs6+s/TVe1/s1stCKFjowryn6isQ06reu+0sFDLld6n3InvL4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qa/xRcBZ; arc=pass smtp.client-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5c7bf03c4d0so1903361e0c.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 06:07:32 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qa/xRcBZ"
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6a68aaf4840so2410752a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 06:07:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788440846; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HFoh+6Ayabop+HmbroVtF7OIuUWF0WP/5Q1NqiuOPsnjDJ0fKMeadf4MlTNlFzEyIV
+         F6fLfCDktLa8ZQl4nfaedVt9r1OUrYsy274QQIyRP82KSA9n6iBlfD/pAPKapNfR0IqZ
+         pDDnTi9h8W9WRKDfi/w8Q5Dh6u2NASmTYdLDeTMNom28Erd6DSpi8svydNpjRb+SEsVs
+         sxAnt1ZXnunO15VYHmVvQ1fI+ZtPKA4sHpTy7eb06mxMJkD9Yr8GNCZrK9l2GXI5O1TT
+         T9KDba6tyyo5xPuP0RUd7QH/+ZjMcLUOX4sxPDYp7f7fRa5/bTf96O/uoRqLpfEbE0d7
+         vLZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=EUp+GFf63QjLB7Up5vOnqaAVN0sMzMPtRL1Aa1NBkZU=;
+        fh=evm0ztb4zxekd6LYpu46iBPJ3MOAvTB0vHJU+Ww8Ivo=;
+        b=GjCWTv9HexoXTs/2QM4UZs9L84N6RIFGy0HbS1ZYWOtgsQzJZpwFGipIb/4ZZW3Awj
+         7R10TL3Y/atVTHNZhntci0uvn5T/COq1W6GJXqD5DjDKJbeELnmQJoM+SGmKGJN9sAx6
+         G3qWpRJaj9p0MreAMWZWD4T6uCkNoiKvAf7ABjoCYd2I0HatDjEneh7uBaxT7gWQ3W2Q
+         t+Vfky3LJ75IcWvZ4pkYQ9Ppf/ORrd8cVeMwX3cEsSthYmX603nPgA4zzcsLiMd70cAP
+         oq4jy66szPs+S4v56jXX8QGVmPpXWpZGm287E4RFGXg9Io7y+qa1iiEiHg0xov97tter
+         E27w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788440846; x=1789045646; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EUp+GFf63QjLB7Up5vOnqaAVN0sMzMPtRL1Aa1NBkZU=;
+        b=Qa/xRcBZADon0kzqw3wwVTKLqfbXrgiDedpIXkLzRysLyhW8yjnLh5hGFxPj+fHxkO
+         pMOccC/t5RTOzmXJCabUR1HA4ICzuIEONHsMkm3tfcrRoN4IOlLI3u7naIdGcQeICm/9
+         H+h4BIyNHc+B9zsQeajNVaVgEtS7EAhGOQJatPF62gJ4OLWXBBtJ5fSlRUXfihE8daiV
+         KfC0sYN01gFPqa0plblAIXvkFNREEeWX6y4akPDlMXTpZ2fUKvCWQR+TjY8Qd7i1xLR0
+         +NUnaykzc4N3ndqO2qd174aekOiHRMTrz6NkgzEAyuAwQW6UTu2cmlt/3r/3nu+zwkT6
+         yIdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788440850; x=1789045650;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=neL+IFdaoh4oslsqt6WgBGKpzShvTB78/gz0eSfjqO0=;
-        b=CeINlsKb5g9tRR/SqXxuKdx59HAYQ8TtVBFvsbjvM3b9shI3ZVbhuvby8hWV3fn3Ti
-         6125qTUP0z/Uu5Bya3Jk97R0K4f7p0xiMMUSyE0ANoT41UdXrn7d2T+V6uHd/mwAa3M2
-         zVeZRyRwePn/StswBaisvxBMgLG9OfvDq6VuIhRAqXwrVar2um5N7AigKCVUmzUNx/A8
-         Nh23BPCsuWMlLECplP1k6UXZdGBYjaAHTiNAYp16VMbh0SsYeb29mihtYYlhNlX8Qy1m
-         Gw19Ow9l4/zSdMFh1K9R7Fo4YwV+QeJ0dNeDR8Ku5SGFJhqH0VyvEmGkJ0gwGJAu640/
-         KI9g==
-X-Forwarded-Encrypted: i=1; AKwUvBwm1sgt5V1UdWx7UpCfJC/RRJv/p64uR2xRQaUMx/BFO+QTSyBKSgG/+rOjf+A6qQHg4CZMLsq57cbr5P4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mFpLe/w5g8ABZOy1MwuYW3f9OH0jNBCINZeGMxF6Rli+i9k4Qa
-	t6VOCEuJ/rmCq3spkmryt6dC7PJHgB2i0OHWCWJ5lEWdCcT2ZA3W3o2b65bT8SYo4Dc=
-X-Gm-Gg: AYBFou1qoxSuHJjGteV1j8kGnL3y4WkRT/hpfEg3MTH++UHzxF7Y+aGn+1WwoKlEaGQ
-	Tx373vxq/RqC5PYksmqaqqwKG8qHnFB6eRM9tpXrld+UqG21BWuhTTD8pOj8y4HsysRLs1VBKxk
-	HZbe0rNKvTjPDJ9vkTU53V+AKExIu5cw+JONO75K5YVX8Zw7EgFoWqeds4eCYp4Qk0irJS5W78k
-	zsj6Cz1BiW+iKieduSfl9FRjDT2/1+TNtJkP+cZga9trr39XXiADdE22lTDGgJkQWPWMITFS5fp
-	Vy0Xh8STBrLDJwAg39zIQoOQ8x5VUDpGh1fNmtcM/8vYvSxiTzQJr7rH0SQ1BvyvYtXV9prLUbS
-	esz3Y0pVEZy9IkvrILES0wzCRvn3IJ7uueeSoxoNjdieNR8w6PMa/MOig/qLD/f090jFIx8rq0v
-	ZFZFk7+KxUqDIl5/scESsgtE7zsXLLXLe0xtbJodFaqtcD/bHaDwt+qFSD+PUZEobMsLC/NuFje
-	k7hNEg7prQ06TKCOS2cegByYg==
-X-Received: by 2002:a05:6122:e44a:b0:5c6:6189:c756 with SMTP id 71dfb90a1353d-5c7d2489826mr5581145e0c.2.1788440850177;
-        Thu, 03 Sep 2026 06:07:30 -0700 (PDT)
-Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com. [209.85.222.49])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7cd8ce9c1sm4199423e0c.10.2026.09.03.06.07.28
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 06:07:29 -0700 (PDT)
-Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-97622cc1f40so1437771241.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 06:07:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw6k++DrwnfhEf+/ZfQFqGHTTDFpx9IdXh9XpjVVTTwRWzgG4a2ihDRIED0cpyPoulL/VQIv/HPVF0BJkc=@vger.kernel.org
-X-Received: by 2002:a05:6102:3fa8:b0:785:d308:cc2e with SMTP id
- ada2fe7eead31-78a1f363e2cmr4316460137.9.1788440848450; Thu, 03 Sep 2026
- 06:07:28 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788440846; x=1789045646;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EUp+GFf63QjLB7Up5vOnqaAVN0sMzMPtRL1Aa1NBkZU=;
+        b=NIA4t351jVME85Yj8U3Ri8oyoCG+sYgt234RnW2bWFzlb7Q9lPLn4B2zoDOLfnFwHW
+         dTc4h/rVwcfYE1/jxgLALnthHkNQ83qqYZNpG9ltbKYskfx+RIe+PAM1ceQVd45ryYp1
+         bOoBSLJSxuxq+EwdcBsLW1u9/KAkHeWjk+LWaANndVK+iQ817Hd1pU9uYhDBZvbwZ7PT
+         MZDslciPVWO9bPwErAZJogxBGOmdytWQnp3PUbiPyv+Jo8107/G9rJJUD9io/QmDDL+c
+         FFsvCbObbkoD8DFuOHY6Q5t4AWVfzHVn7nh8bLKqVg4k+hm3bW1Z/KNPZW4IPrIvHNsu
+         RCbg==
+X-Forwarded-Encrypted: i=1; AKwUvByI8CEYBdvL3aQdNvFwmktOGqoXSuPxV8kTKJgcjwXhTEzgS9xewG+tUcI77lUCpRIgDUPOVJviox7Oj4I=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmqD6GVhkNyKBX7/JIz9hfOwnBkgo8/53vZRcIPYHZ7J1SBY2d
+	MSWd8wMb70jCppy0FS5TPFzojls8v1YUbOxIWeYH6zqJzDaxZDMremUqFDlmAqIQfqE2FpcG/ib
+	GrgDmp8S4AdU+Lcw7uBLnteBpEtS6SVw=
+X-Gm-Gg: AYBFou1Ize+190wnU9Orymx7iWj/3a3fIk9pX5EpOhB7Rzwouqy1KHSAl13vO4NA73q
+	sFAQnSuTgI5pNQmcgQks7AYML8HMrpwKX7/wQdKuuTVRD18bpUYlpk2DKPX+lZgBtfOEXNwMSP9
+	GaEFJB8El6CJriI6z8CvMCGplDBwvsFC8LmhbI9urUOGs7nMNN+I8GJ2Ftonk9C94B042vHaMLr
+	eQ6GhRZRUvNfKIdS2vYG0jrlsQOZA30ZBqi+HVJ0KDRh6ttMGm0HH8Sl/jDxJZFCDO2wOPB9W4T
+	D2NFwxwZZjEzhK4bnPwIykiYXVvXGddbRLKhlWB+N1q1iH4aHaPfiDYQkg==
+X-Received: by 2002:a05:6402:a246:20b0:69e:2ca5:53bb with SMTP id
+ 4fb4d7f45d1cf-6a6b343441bmr992277a12.0.1788440846228; Thu, 03 Sep 2026
+ 06:07:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902104939.25522-1-ovidiu.panait.rb@renesas.com> <20260902104939.25522-2-ovidiu.panait.rb@renesas.com>
-In-Reply-To: <20260902104939.25522-2-ovidiu.panait.rb@renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 3 Sep 2026 15:07:17 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUR59_-_HB8JcVi77B-Pa4UxPf64QO-cDn1ogQ8shFR7Q@mail.gmail.com>
-X-Gm-Features: AcwNN1U_nOCF9hyFbscO2alVpr_m0LN2_JeCdjkgGXp8PKg9yAEFa13OLTkKydA
-Message-ID: <CAMuHMdUR59_-_HB8JcVi77B-Pa4UxPf64QO-cDn1ogQ8shFR7Q@mail.gmail.com>
-Subject: Re: [PATCH 1/2] clk: renesas: rzv2h: Drop duplicated parent lookup in fixed_mod_status_clk_register()
-To: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, 
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, John Madieu <john.madieu.xa@bp.renesas.com>
+References: <20260827045007.3831259-1-4ncienth@gmail.com> <yjfqzckumtd32dgqidi5sndvth2t67mjwah4kt4jiahlx2a5uf@if55sinfv5o7>
+ <20260828042421.964822-1-4ncienth@gmail.com> <ptco7s5x7tjzp42dzlsitibdigpwucl2whwrq37tknjpo7x2lc@b7q27ldlorak>
+ <CAOQ4uxgB9anyJcWem04w65VCJdxbbb2cQDZ_u8qMusw3xpB9Gw@mail.gmail.com>
+ <63aj7jbfaoamdmcurlge2c2kqpliaifgq4vbythrrxpfyr5vtm@z64myom426zd>
+ <CAOQ4uxh-NZ76hEFoNNGjyhodr9U=dvZuGVmYHVPGZ_=jRxCAsA@mail.gmail.com>
+ <67hq7zqnvp6onwwjp24axucgxbzsko2dphielupdfzmfyk6x57@bdeef7fjkqfa>
+ <CAOQ4uxiQF4M_YSBMW3h8VCKR15GV6g_K5nf=2odtYetEwKHm9A@mail.gmail.com>
+ <6n6r5zvcu5ojihyb52rhejlky7xrn2a2p4l2cgfut5lsscunek@bcnpy7bifjrs>
+ <CAOQ4uxjbEY12XMmfCXTPTpASmECCXcGBQR+bS93k=4vgqzFDZA@mail.gmail.com>
+ <20260902070359.4163607-1-4ncienth@gmail.com> <CAOQ4uxjwGdKhX423KoFxW+T5hc9uzCWSsGwn0-QX=CJipPSaYQ@mail.gmail.com>
+ <20260902215046.1149198-1-4ncienth@gmail.com>
+In-Reply-To: <20260902215046.1149198-1-4ncienth@gmail.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Thu, 3 Sep 2026 15:07:11 +0200
+X-Gm-Features: AcwNN1WUjp1-QCHEtsLKZkQ5zIRcFzgXuNi7fdLVVvXP37pnci0cT-0jS81qlNg
+Message-ID: <CAOQ4uxhuOSyMHnj9JZk6LU9=wpE=BRFXJ3fSEOGGV+6tC_5hfg@mail.gmail.com>
+Subject: Re: [BUG] fanotify: destroy/add race leaves a mark on a detached connector
+To: Daehyeon Ko <4ncienth@gmail.com>
+Cc: Jan Kara <jack@suse.cz>, Miklos Szeredi <mszeredi@redhat.com>, 
+	Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2 Sept 2026 at 12:50, Ovidiu Panait
-<ovidiu.panait.rb@renesas.com> wrote:
-> From: John Madieu <john.madieu.xa@bp.renesas.com>
+On Wed, Sep 2, 2026 at 11:51=E2=80=AFPM Daehyeon Ko <4ncienth@gmail.com> wr=
+ote:
 >
-> rzv2h_cpg_fixed_mod_status_clk_register() looks up priv->clks[core->parent]
-> twice, with an IS_ERR() check after each lookup. The second lookup is a
-> leftover from an earlier refactor: the value cannot have changed between
-> the two reads, so the second IS_ERR() check is dead code.
+> Hi Amir,
 >
-> Drop the duplicated lookup and check.
+> I was able to make the handle-reopen sequence reliable on ext4 and drafte=
+d
+> an LTP test for it.
 >
-> No functional change intended.
+> The test keeps 120 auxiliary inode marks on the victim to widen the inter=
+val
+> after the first FAN_DELETE_SELF, pins the unlink and handle-reopen worker=
+s to
+> different CPUs, and has the reopen worker read the event queue nonblockin=
+g
+> before calling open_by_handle_at().
 >
-> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
-> Signed-off-by: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+> I ran the exact final test for 100 iterations in each of two fresh 2-vCPU
+> KASAN boots per kernel:
+>
+>   - unmodified v7.2: 200/200 iterations reopened the unlinked inode, and
+>     closing the reopened fd generated a second FAN_DELETE_SELF;
+>   - v7.2 with your patch: 200/200 iterations returned ESTALE from
+>     open_by_handle_at(), with no duplicate FAN_DELETE_SELF.
+>
+> The test is based on LTP master commit
+> 12724413534a6d4160ff9694ba6f09daa4ccb6bd. The attached patch adds
+> fanotify26 and the corresponding build and runtest entries.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-clk for v7.4.
+Very nice!
 
-Gr{oetje,eeting}s,
+I think we should wait for Christian to pick up the fix or suggest an
+alternative, but after that please post this test to LTP.
 
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Thanks for following up on this!
+Amir.
