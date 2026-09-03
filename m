@@ -1,34 +1,34 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0654A3D57;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 260C34A3871;
 	Thu,  3 Sep 2026 12:10:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788437440; cv=none; b=gTzfgGi2FlZmWKF8hVKx3ekV2nFCy8zrGJNIV6QJrxmrqBjk6vfdjGAPy7HWklMdsVTZiCmRp9nCM151Z1FW83PiaWBLXUsLxmxA0g0h15zTdkqvFaR+nlqYNDrAEwNOmGDYnnpf9N3EinJNue9Qzb/jvFXa6r+FKHckXCT0eAw=
+	t=1788437440; cv=none; b=JMV8THBs8N7JOkYndw6nPsuoUzClGL8d/G5tx4JgeQ0OAdaPYv6mlkCQA79KOvi0lCQ4AdB9nCyysh6F542IIYO508Gyw9jQ+9eQtN6ZqYcf/8DdKHMKWWDPMiVorSkRoqA0oZQbBLLx7taF2x2HostPtgte2XavNSgPgxr8hsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788437440; c=relaxed/simple;
-	bh=rFvZjO1RFhJRljXnqUwhl6cExIU48JcwgpRoC/z58aQ=;
+	bh=MyFzBf3tjtdNgV/vWPpfQ99bdCRM8Kj6IUXp9pYogAY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=S38rf9hGXSI9aTk90vQ0QHojvctZ/ZLtCVFT0139el8cQMCPABrAltzY2yTRohPzkmdaXjO5mm8WMhyVY+10OF1IhHPA7qq37Ucle399FvPwlQDHaJpWxwUNVJvaQzGaJbyehu5ee4CAJpgdr6ZMZ2d6SY6dN3yreXZfO/94vdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=i7+QzDf7; arc=none smtp.client-ip=213.167.242.64
+	 In-Reply-To:To:Cc; b=tyQBOx75kwwdQrau9+H4gYbBuolGwfhgpjOdXC2BaB1iH16CoZA461xh7Z4xeU/qUWYPGNZ9GPipqSoPo/bc4gE3EHq4c0xsqHdDCoKcH8ykYCGctBQ7VOb0CNnRAjrmFiZyhiVKcgtbr/BcA1MxBAtu5V14e2Tv+M7T40nktwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=EZkkM3wB; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="i7+QzDf7"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="EZkkM3wB"
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B81FA287E;
-	Thu,  3 Sep 2026 14:08:54 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B81CC4C2D;
+	Thu,  3 Sep 2026 14:08:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788437335;
-	bh=rFvZjO1RFhJRljXnqUwhl6cExIU48JcwgpRoC/z58aQ=;
+	s=mail; t=1788437336;
+	bh=MyFzBf3tjtdNgV/vWPpfQ99bdCRM8Kj6IUXp9pYogAY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=i7+QzDf7wuclFjtyJjoL7/eDSpwuyq6LDNhTT2oDpKGKJSDJmEU0oxY8ybTPPXpWl
-	 MsCjUgJWB2sVQe27dTjJH58yqoynJOxQQIwcw6rsE8tBV02eDEaOia3tzY9k0DAO9A
-	 KN+SOjoUuns3MVlFF/vpsoCyDqGqJ6ZyvW9YlyXU=
+	b=EZkkM3wBBkD9CRGcmAbtJk3iGceghnxi051K2QlCwqDiwTCxfN26JAtEO6cOabwlv
+	 dir7vSC/ZGPU0pSsyK+SDUPfr6FqaTIFCHGicNNVqvASmnhWGNgiYnM2ve5szruWdj
+	 gPgyKw8CeG304BgWgfwQ/EaW/mVjvXvQ1KXMkLoM=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Thu, 03 Sep 2026 15:09:58 +0300
-Subject: [PATCH 08/10] drm/tidss: oldi: Fix OLDI signal polarities
+Date: Thu, 03 Sep 2026 15:09:59 +0300
+Subject: [PATCH 09/10] drm/tidss: Drop WARN_ON() from tidss_runtime_put()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,7 +37,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-tidss-pre-beagley-v1-8-93928baa8b12@ideasonboard.com>
+Message-Id: <20260903-tidss-pre-beagley-v1-9-93928baa8b12@ideasonboard.com>
 References: <20260903-tidss-pre-beagley-v1-0-93928baa8b12@ideasonboard.com>
 In-Reply-To: <20260903-tidss-pre-beagley-v1-0-93928baa8b12@ideasonboard.com>
 To: Devarsh Thakkar <devarsht@ti.com>, Swamil Jain <s-jain1@ti.com>, 
@@ -51,153 +51,61 @@ Cc: Tomi Valkeinen <tomi.valkeinen@ti.com>, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5041;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1525;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=rFvZjO1RFhJRljXnqUwhl6cExIU48JcwgpRoC/z58aQ=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqmWOo6IPuNYueS1Ah/DIu22bFN89gjd9h/9P13
- gnmM7y3GxyJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCapljqAAKCRD6PaqMvJYe
- 9S8UEACpuDjIDQXdqmZfabUKJEe4wgXVh9aS9TbMwIdg1ve/ImEVnBhUjx2/OLXUBg7wl1qR++Z
- Vky4h4E53+R7Y8mT9SmBp+gi4DvGn2Ju3Tlfn+vU1MUZ/LvHgbCHByH0MdRFekqleKmrzikr+Zt
- JRY4UgP8oSzKQFg2XlEh3dQSNYhyBqWWthM6Na/V1ChxKzPlsIht4xb+M+9g6ry5tuK6vYMA9OE
- eTBD3oSO07bIP0rTuUU4rXaBXr+4Y4WwJ+Bp/+iAQF4WGEpaBzx5yATjMOjInNGLVypIaTP8Bx3
- CUK1ws0XQhaLAHSXpiKrDjklJseL5Iqqlq1+ZLcH4YVCryihO6aKbCMUZ3x2xWfxx4ivLHkgiNe
- 9Lb86Xw27K1ZwmN+71CU3Las3IhPwj18u0Q29JiU2cw5K2qAb5RWsiV7MiDE6CacWAx+KrytKJb
- wGdrFgytq+WA68WGfXsKCG4+9esBDI1mmuc+TLkNRwyRPobdAq9PC9Iz8Un8Ad0iEFeWa1oGvrt
- CTrm41XO/9tps/jBhw7FykFqlzgIdCeY9/vynpCfxz0XAlfQ2Eisz4noI17jb5s1HtNkvecB3QC
- 6wcpOBtKeRWFovgvM6Y8tqed7LSj1BPAtcdJSwX37s6ikZiX0/XdtmqBXfvExep/fhoJHb+IuFe
- G1AVfSzVFF4Ckkg==
+ bh=MyFzBf3tjtdNgV/vWPpfQ99bdCRM8Kj6IUXp9pYogAY=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqmWOpVyaa2zgD6W512xRZVHqDdcPqc9R+5PFvW
+ PPz0lJ0lzOJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCapljqQAKCRD6PaqMvJYe
+ 9aY7EACx/+vvDDUtn3IoXJJFNivHmmQZb3aCgDu/KZRwp1BTrPV1vRKZqVDV59dCW3MkxUUoc1y
+ 4HHSq8JK+E/qs8RgkpkBpxROh88Es83CQBHHXbornDUMwcu7ekGGkzy8Rj+nBGqI2Uib3qU9Dn5
+ UFMgHL4qkLqIl5goqagU8epmckldHfY8HwjOewN5D/YodCM4zqYAmjscBy5OQ5jPu+aUREWNPFc
+ 5ITwr/Os2zwZo+huwaXMR9e+Hd0sx2oN+VNPFkUvPlWSSU/Mpsa8XO6HwU8dCzd3xiJMg2up9LK
+ V+rTZBWCxPaeZYbP3DIoHx9zt3smntSdw3JH0BNVOh2R0XxBMo5pS2vbsQ2LmsdeHGACQEXEns5
+ ejB6+0jqt3eCaz9OlrX+HVUWpkME7tFKxwVWMGVMoU6QlNV6zL0S5MEAswoLuRjwWEYLoWKmMZR
+ gWpIpoWCNP6up5+ahsoXN2q2nsFe4s+O3YixzyY7xF53shvswoowH7Jjd9I8oTG4+zvNbbN52r7
+ SL0SEj29WQQxIZ9ajKJV8BQLAdsdzl+Z3QT29uLqkvXJn4HF/ECQCj5GLOzQYVKqfwE8tyt2Ml4
+ jFWcQqOt/7Wl9B2hnqpKPJScdwHWzZLAvqpaDIzcA4Pin7YPBw43kfQ93s3/OtRqMQcJDPEzMmB
+ Z2qlbH02qgjIwkA==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-OLDI has a few issues with how it handles the signal polarities:
+At the moment tidss driver has a WARN_ON(r < 0) for the
+pm_runtime_put_autosuspend() return value, to catch unexpected
+situations, and at the moment we never hit that warn. However, with the
+upcoming change in tidss_oldi.c to change the OLDI to an auxiliary
+device, we will get a child-parent relationship between tidss and OLDI.
 
-- It always sets OLDI_DEPOL, which means DE active low
-- It sets DRM_BUS_FLAG_DE_HIGH in struct drm_bridge_timings, i.e.
-  reverse to the OLDI_DEPOL
-- It sets DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE in struct drm_bridge_timings,
-  but the TRM says "The DSS interface is clocked on the rising edge of
-  OLDI_FWD_P_CLK pixel clock", which I read as "OLDI samples on rising
-  edge".
-- But the defined drm_bridge_timings is not actually used anywhere, even
-  if it is set to bridge->timings, so the bus flags are just ignored.
+The OLDI aux devices are children of the DSS device, so when an OLDI is
+active, the DSS's child_count is non-zero, and
+pm_runtime_put_autosuspend() on the DSS device returns -EBUSY. Which
+then triggers the WARN_ON().
 
-However, based on my testing, OLDI_DEPOL bit or the edge on which data
-and syncs are driven doesn't seem to affect the OLDI output. Possibly
-it's not as robust, but I did not see any effect with an oscilloscope.
+To avoid that, drop the WARN_ON. The -EBUSY is not an error, and it's a
+normal situation with parent-child devices. Also, with a quick grep, it
+looks like almost no driver in the kernel checks
+pm_runtime_put_autosuspend()'s return value.
 
-However, the code is still quite broken, so let's fix it:
-- Remove drm_bridge_timings
-- Set the correct input_bus_cfg.flags in tidss_oldi_atomic_check()
-- Set OLDI_DEPOL based on the DE bus flag
-
-Tested-by: Swamil Jain <s-jain1@ti.com>
-Reviewed-by: Swamil Jain <s-jain1@ti.com>
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/tidss/tidss_oldi.c | 38 ++++++++++++++++++++++++++++----------
- 1 file changed, 28 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/tidss/tidss_drv.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
-index 5eb749f495d5..624f1646fb07 100644
---- a/drivers/gpu/drm/tidss/tidss_oldi.c
-+++ b/drivers/gpu/drm/tidss/tidss_oldi.c
-@@ -164,7 +164,8 @@ static void tidss_oldi_tx_power(struct tidss_oldi *oldi, bool enable)
- 	regmap_update_bits(oldi->io_ctrl, OLDI_PD_CTRL, mask, enable ? 0 : mask);
- }
+diff --git a/drivers/gpu/drm/tidss/tidss_drv.c b/drivers/gpu/drm/tidss/tidss_drv.c
+index 5cb3e746aeb3..44b0b009c29a 100644
+--- a/drivers/gpu/drm/tidss/tidss_drv.c
++++ b/drivers/gpu/drm/tidss/tidss_drv.c
+@@ -40,10 +40,7 @@ int tidss_runtime_get(struct tidss_device *tidss)
  
--static int tidss_oldi_config(struct tidss_oldi *oldi)
-+static int tidss_oldi_config(struct tidss_oldi *oldi,
-+			     struct drm_bridge_state *bridge_state)
+ void tidss_runtime_put(struct tidss_device *tidss)
  {
- 	const struct oldi_bus_format *bus_fmt = NULL;
- 	u32 oldi_cfg = 0;
-@@ -183,7 +184,8 @@ static int tidss_oldi_config(struct tidss_oldi *oldi)
- 			 "OLDI%u: DSS port width %d not supported\n",
- 			 oldi->oldi_instance, bus_fmt->data_width);
- 
--	oldi_cfg |= OLDI_DEPOL;
-+	if (bridge_state->input_bus_cfg.flags & DRM_BUS_FLAG_DE_LOW)
-+		oldi_cfg |= OLDI_DEPOL; /* 1 = active low */
- 
- 	oldi_cfg = (oldi_cfg & (~OLDI_MAP)) | (bus_fmt->oldi_mode_reg_val << 1);
- 
-@@ -220,6 +222,22 @@ static int tidss_oldi_config(struct tidss_oldi *oldi)
- 	return ret;
- }
- 
-+static int tidss_oldi_atomic_check(struct drm_bridge *bridge,
-+				   struct drm_bridge_state *bridge_state,
-+				   struct drm_crtc_state *crtc_state,
-+				   struct drm_connector_state *conn_state)
-+{
-+	bridge_state->input_bus_cfg.flags &=
-+		~(DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE |
-+		  DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE);
-+
-+	bridge_state->input_bus_cfg.flags |=
-+		DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
-+		DRM_BUS_FLAG_SYNC_SAMPLE_POSEDGE;
-+
-+	return 0;
-+}
-+
- static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
- 					 struct drm_atomic_commit *state)
- {
-@@ -228,6 +246,7 @@ static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
- 	struct drm_connector_state *conn_state;
- 	struct drm_crtc_state *crtc_state;
- 	struct drm_display_mode *mode;
-+	struct drm_bridge_state *bridge_state;
- 
- 	if (oldi->link_type == OLDI_MODE_SECONDARY_CLONE_SINGLE_LINK)
- 		return;
-@@ -245,10 +264,14 @@ static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
- 	if (WARN_ON(!crtc_state))
- 		return;
- 
-+	bridge_state = drm_atomic_get_new_bridge_state(state, bridge);
-+	if (WARN_ON(!bridge_state))
-+		return;
-+
- 	mode = &crtc_state->adjusted_mode;
- 
- 	/* Configure the OLDI params*/
--	tidss_oldi_config(oldi);
-+	tidss_oldi_config(oldi, bridge_state);
- 
- 	/* Set the OLDI serial clock (7 times the pixel clock) */
- 	tidss_oldi_set_serial_clk(oldi, mode->clock * 7 * 1000);
-@@ -329,7 +352,8 @@ tidss_oldi_mode_valid(struct drm_bridge *bridge,
- }
- 
- static const struct drm_bridge_funcs tidss_oldi_bridge_funcs = {
--	.attach	= tidss_oldi_bridge_attach,
-+	.attach = tidss_oldi_bridge_attach,
-+	.atomic_check = tidss_oldi_atomic_check,
- 	.atomic_pre_enable = tidss_oldi_atomic_pre_enable,
- 	.atomic_post_disable = tidss_oldi_atomic_post_disable,
- 	.atomic_get_input_bus_fmts = tidss_oldi_atomic_get_input_bus_fmts,
-@@ -440,11 +464,6 @@ static int get_parent_dss_vp(struct device_node *oldi_tx, u32 *parent_vp)
- 	return -ENODEV;
- }
- 
--static const struct drm_bridge_timings default_tidss_oldi_timings = {
--	.input_bus_flags = DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE
--			 | DRM_BUS_FLAG_DE_HIGH,
--};
+-	int r;
 -
- void tidss_oldi_deinit(struct tidss_device *tidss)
- {
- 	for (int i = 0; i < tidss->num_oldis; i++) {
-@@ -598,7 +617,6 @@ int tidss_oldi_init(struct tidss_device *tidss)
- 		/* Register the bridge. */
- 		oldi->bridge.of_node = child;
- 		oldi->bridge.driver_private = oldi;
--		oldi->bridge.timings = &default_tidss_oldi_timings;
+-	r = pm_runtime_put_autosuspend(tidss->dev);
+-	WARN_ON(r < 0);
++	pm_runtime_put_autosuspend(tidss->dev);
+ }
  
- 		tidss->oldis[tidss->num_oldis++] = oldi;
- 		tidss->is_ext_vp_clk[oldi->parent_vp] = true;
+ static int __maybe_unused tidss_pm_runtime_suspend(struct device *dev)
 
 -- 
 2.43.0
