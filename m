@@ -1,100 +1,87 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DDED415F22
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:25:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C2B3932E9;
+	Thu,  3 Sep 2026 10:25:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788431125; cv=none; b=RfoBlSh+KlNgB3WrvgFjabZEwlAcyJaewM31yRhDs/Z5E9FPzMkGYnwg2uYXz3c9U5zHaEFXI4D/b/mVD3o64AcxVCDjkjRLB3fTh/mO8kgTuIDm3Wb7F5aQ0i4J+a8Px+JhQvSw/AH/u4faWVt9a+IEtV9YSk0ZUBWvr4HK4VU=
+	t=1788431156; cv=none; b=VHZN15L4CHlNtgzWTcrgVYw06gs3CjR0BqiadENCBUDcDcxhbIwawhGrPAgxFwGdRsA/ezRWQbtPgZEHHRUSEMOnyhjTviAjPAPKDHimee5ogio/p8KLDytdfwqjToNPeSrEEFAGmPINVTV1iwHa2xQ5VwcL7EcEoI1UZ1EGRl4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788431125; c=relaxed/simple;
-	bh=j8cTvjNnfSZmwz0eJZZJYxv6DG8sXpYymw5e7ysyM4E=;
+	s=arc-20240116; t=1788431156; c=relaxed/simple;
+	bh=dn4Sgwmpr5+4wxAlMytNjbzCVUelUT+8zMth4S90I08=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ky+0uO+ctvNPCnofYNGFw7qjo6YkdpgrJ0gPjoITsDgJtg9QjeCuu8527ZrdnFmhftrpG70ZtiyVAOWkuQjctDkkR9Qh/PtLFgOFUaVgYu7zdCk0vpTf8xMWPKEZCQEiGnVo2EiqUK6HYYKgdbBHkowGG2zjZ98ZljblLiW+f00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=m94rEqGG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PXz9rqb1; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Q9Idvq/oT7hmTgjrqvk1j+NeV7Pd63CMYWA1UwLA6sJrAoe1clwcaStr1zOTxkbvOa95YKcQ3+99XsH+JPdRPCBfURIoRJ2ccBn3YuGxZXhGzfb0nOUplQ79bDNiGVIlmWEJIngBWCKcARM9/ow0aLa4YLf4nqj5eTaX/aWGRO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=lOumFYOA; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=aWSieyxQ; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=l1pbuWT4; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=DV1G6IDL; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="m94rEqGG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PXz9rqb1"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683AHMZh327263
-	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 10:25:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=fr5ctLjXEDfEj66Ws0nGVXPs
-	zhPrUrJDK2Jw66ZrASw=; b=m94rEqGGOwB0RGzLiPKJPGkleFcP8qvazkiyG5m0
-	fhXBEBLYRCXdWiK2VCQcRfk3/16X78TkpCX58tRVeGgPzp02cfHx2AYHqUd55vSr
-	Sg9wlO2lV7NR7GTM0tO3PfgoeCdKjWi1bk3zXOn8AXDZQxUH8Nl6Q4/gMp6+nM/p
-	NgXwuow0NlfS6du0A+qXVff/MfS7fIpeVoDZxVZPiY2j9SmtWfq0Zne6Hk4cm6Z9
-	jzkMPek1S+FH+YS9cvjF0uvNgt4GZVwPo7iVsL2DxqyUdh0Rf1XJSSYyrycY5iCq
-	IU3VKZgXT40uM6Mj4QX/EztWJekbBl/lnoJ6MM6wZ3hgcw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf4ekgrdu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 10:25:20 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-934963b2bc0so416765185a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 03:25:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788431120; x=1789035920; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fr5ctLjXEDfEj66Ws0nGVXPszhPrUrJDK2Jw66ZrASw=;
-        b=PXz9rqb1pOgEUphFGylKjexrD4ewNpFbVwISWiR5UC1hl4jYzH1zAhMeI2t+jhQ6Vy
-         ZsD5xPDqde9aWh7LBzgqp+1xq95NYIz8zci3gfel6bjd5GcTgyxI7dsyP7OShJPomSwV
-         AgnU8GEZ0oG4+8ROpNTRMPOQFaiex395z8BAOVAktOtXOF9TbTex3gA47Sqsl6bLvn3V
-         w6zQyBujwvVwAGeHV2FkALbiFuF8uTzwXtjr5o1gbyrxo5MmJr1KXQ4B4AMAfbwgyTcS
-         afehhacgDLfzBBkoZ1OwtEOfGbf8T+0KcAv3gAlNKX9s2S0YmqCprOSpCSU9nVmAieCk
-         Ip/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788431120; x=1789035920;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fr5ctLjXEDfEj66Ws0nGVXPszhPrUrJDK2Jw66ZrASw=;
-        b=grrrrxJrBdWJVAGlT/ObZ4kBRmStm0fTL13vJIzL+NtZdVcS5x4gVN/F9M8oGvr7MW
-         D055oTB7Ut6IjFI3MEhicx6JEQEvxrynw0jX34Zc00PFFXI97SGqJ196/bBXM4cgYlNQ
-         iMqSBgThcVRL6sY8otuAfLEB2OU5VC2roE3iFOJd97vB7UNECn/QA555ACfKlOQXYye7
-         lGWCrr/ZJaG3GMem+ZQfjPqyxPRfWdaCx7wkv8uLuGRJ/YAdDf86/qRSPRZSNIGgEXZD
-         +tlQX9gDwG/7w46koN672drS3FShNK9wAFqDR2q1x364WOU5LS6bCVcVvJe4BdYqdlAj
-         P39w==
-X-Forwarded-Encrypted: i=1; AKwUvBy0iGdZAJDDyaAFAgrMFxcIS4shteQ63ieXLZk84fd0C7XED34LUi8ZHJhz0at5IdyvSE45nehlSTHd/S8=@vger.kernel.org
-X-Gm-Message-State: AFuF++m0Y6JCN55d1OKSmV86RuO6pFfa0q32EP0NW+mpwgi88KOwLaZX
-	jXQ1BEsTcM7pTEpSIdRGvyquVWFtypbcGeDXW28edSzB8i6a6geHhsnw5tHjwxigPQSPYIyx1Rx
-	kGuXuz8PfaH+L3eA8wm+fFqkt3te6POI7q/xsNr+rWdm8R14vR5UggppoufOV0Yx293w=
-X-Gm-Gg: AYBFou1Fu/OcUpxuf/UC3e8s0NFM5v7D8g2whCoxUTmMRbE1In6WwgcpATXl/GteWWy
-	GSOMpWu53p+LRUbrGL+ht5v3zQvSj4DJp/0yWRyogYcVafoErekA2pITiUknB7WC9ClwywA7Pio
-	K7xbYAKR3TjswzBflhZz2yfkiWC6LB0riufBVMHO2zfG0z2Sky+vr9YUHbO1IgqEGDI+W3H8RY+
-	2C+cDzY4svaBvbCM5ngFtBMfyiw8GVK8A/x/N4nhi9Yc5SlFvR/Qiz7nvnqzYOlGNjJRlAhrEn3
-	KI9sylgCOmCOkOUNDssoEqnCzz42XbE/S+kvmGed8Fcbkz4Od3IoPfwnjrIE87BFej+Rnl8YwXC
-	rjZBs12Am8eXZTA==
-X-Received: by 2002:a05:620a:84ca:b0:938:39e7:725 with SMTP id af79cd13be357-93960f52971mr1372663385a.32.1788431119585;
-        Thu, 03 Sep 2026 03:25:19 -0700 (PDT)
-X-Received: by 2002:a05:620a:84ca:b0:938:39e7:725 with SMTP id af79cd13be357-93960f52971mr1372657085a.32.1788431118976;
-        Thu, 03 Sep 2026 03:25:18 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-484492cf550sm12963975f8f.37.2026.09.03.03.25.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 03:25:17 -0700 (PDT)
-Date: Thu, 3 Sep 2026 13:25:15 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>,
-        Manu Gautam <mgautam@codeaurora.org>, Stephen Boyd <sboyd@kernel.org>,
-        Philipp Zabel <pza@pengutronix.de>, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/5] phy: qcom: qmp-usb: Add IPQ9650 USB3 PHY
- configuration
-Message-ID: <z5rdzvlvzwteyh63k4mpkwyryug73vj7trjc5lbzutg3qznrzm@6zbklcre3jup>
-References: <20260901-phy-v2-0-cc93d2f3b1bf@oss.qualcomm.com>
- <20260901-phy-v2-3-cc93d2f3b1bf@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="lOumFYOA";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="aWSieyxQ";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="l1pbuWT4";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="DV1G6IDL"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id ECFA721E69;
+	Thu,  3 Sep 2026 10:25:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788431142; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qg9vXYILjfDtWeW2JNNNrWDGqb+uYP4KptRYOsrAsp4=;
+	b=lOumFYOAIOTc7PemuAZzMQv3/DOgjtwn9NgsJG64GTY3B+gprNonxumjitoV691WmKE9eO
+	Tuhd3IhzuAQPPhFFabYNcygof9wTLxvOMXkT+DL7RP1EQ046WGfSGs+OLgLkJsedmMaJi6
+	4hAvlnSRV1EMIlvrEcm4lEMXeqqXAps=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788431142;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qg9vXYILjfDtWeW2JNNNrWDGqb+uYP4KptRYOsrAsp4=;
+	b=aWSieyxQ1Wtc6k1NU3QszEUMZGxvpNnKbSJzomXr7iBNPvT3G33i6IWmiNYwxOtz/xVxRz
+	45ooSdpqvU7T0pCQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=l1pbuWT4;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=DV1G6IDL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788431138; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qg9vXYILjfDtWeW2JNNNrWDGqb+uYP4KptRYOsrAsp4=;
+	b=l1pbuWT4fC7CrqP9gMNkXSJErlUgR+wj6d3J6EOQTG2xELs7FNpsgEVxJX8gZXHth3bghA
+	z3pHMyzlBFfcG6/++N5jHSMNmi02rfppblTW2N6B/QmgMW0culyqKHj4kSyhWOiA5kr5qs
+	YPSZDMQT+uo9zG9d/N62jd41+c7aI9A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788431138;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qg9vXYILjfDtWeW2JNNNrWDGqb+uYP4KptRYOsrAsp4=;
+	b=DV1G6IDLS1mt2FaPheON/ljeeYAiJ5hG1+9B07ApRgypYQXImIDgLXorM54VC0J1PdeTup
+	4iO7DinFUC8zdtCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CBEF1136D9;
+	Thu,  3 Sep 2026 10:25:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id rX/DMSFLmWqwHgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 03 Sep 2026 10:25:37 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 6A8C4A13AC; Thu, 03 Sep 2026 12:25:37 +0200 (CEST)
+Date: Thu, 3 Sep 2026 12:25:37 +0200
+From: Jan Kara <jack@suse.cz>
+To: JonasZhou-oc <jonaszhou-oc@zhaoxin.com>
+Cc: linux-ext4@vger.kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca, 
+	libaokun@linux.alibaba.com, jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
+	yi.zhang@huawei.com, linux-kernel@vger.kernel.org, jonaszhou@zhaoxin.com, 
+	louisqi@zhaoxin.com, jianhuizzzzz@gmail.com
+Subject: Re: [PATCH] ext4: isolate s_orphan_lock from read-mostly fields
+Message-ID: <tf24u75hmpjhb2iqabyx6n3qur2kyda7vwz2eo5zcc2ek7utwp@m5sepatzqx2x>
+References: <20260903021836.962624-1-jonaszhou-oc@zhaoxin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -103,42 +90,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260901-phy-v2-3-cc93d2f3b1bf@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: B8nepBai-TI8vpQIYrLSdg-2Idy5sFR9
-X-Proofpoint-GUID: B8nepBai-TI8vpQIYrLSdg-2Idy5sFR9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA4OSBTYWx0ZWRfXxWyqhAYutkvK
- 3OZQrtdrKm8FZbsSmXH0L8pzoD4eInpM7jcFYp5sY3fS7xySJjV6piEF+MlHvP2b/Eqlfigrx7O
- ffYq+E5QPYBpY3VnmyqKBSTweKWQy5V3N/bfXVcXpM0WwNS6/OpNOSzi7OzMryeR5lk8hwUHRrv
- HZ9yrWOWlMULlk8u6JlL/nfrJl3/wmx78q66C7QRDlFh+eR38jNAdBtY3+73H2TDnCHdXlwmxCk
- cyB+I5Ln35WX4F8IjY+s+u7ihgTnSdmY5Xv/kRvLGfRu5JyVNCbe+3FN87rtDDC57xud2isrCyk
- LY3FiXkLG4q+ubVZd/Uoryu25Qwu19Ll0GyNLP7HunsuDaRarHuNXyHJ9xDIXKoiFR5Pb/exBMd
- PSB/plgGSaHHI9zH7trvJpHlxT1JUsygVo8qQEkymEn5m4hN7a7bTbdVdvc9bOhK9CaozDhFdAF
- JO7wcRsa7I93v2QS6hw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA4OSBTYWx0ZWRfXyOo1xEVCqLSd
- CwyPabf7MXKUuFpbVcgqjQGfne1aOpUqCOldQzGtZ5aJyOhN9YtCH48WoVyeBNQ3G6CzALrffrf
- YayCTYYIbznuO7B058ph1yTsCrVECTs=
-X-Authority-Analysis: v=2.4 cv=PKc/P/qC c=1 sm=1 tr=0 ts=6a994b10 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=q7XEBjOi5DRkXzmV0jSBjQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=7dPHXdr4Qe62-7ilc7QA:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_03,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 bulkscore=0 clxscore=1015 phishscore=0
- suspectscore=0 priorityscore=1501 spamscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030089
+In-Reply-To: <20260903021836.962624-1-jonaszhou-oc@zhaoxin.com>
+X-Spam-Score: -2.51
+X-Rspamd-Queue-Id: ECFA721E69
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	RCVD_TLS_LAST(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[vger.kernel.org,mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,zhaoxin.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:dkim,suse.com:email];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	MISSING_XM_UA(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from]
+X-Spam-Flag: NO
 
-On 26-09-01 11:34:21, Varadarajan Narayanan wrote:
-> Add the USB3 QMP PHY configuration for IPQ9650, including the SoC-specific
-> init tables and compatible data.
+On Thu 03-09-26 10:18:35, JonasZhou-oc wrote:
+> From: Jonas Zhou <jonaszhou@zhaoxin.com>
 > 
-> IPQ9650 uses settings that do not match any existing supported SoC, so add
-> a dedicated configuration to allow the driver to support it.
+> s_orphan_lock is modified by orphan-list operations, but currently shares
+> a cache line with s_journal and s_ext4_flags.  The latter fields are read
+> from common ext4 paths, so unrelated accesses can cause the line containing
+> the lock to bounce between CPUs.
 > 
-> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+> On a two-socket Intel Xeon Silver 4208 system with 16 workers, throughput
+> improved by 4.6% for stress-ng.dnotify and 1.7% for stress-ng.unlink.  Perf
+> c2c showed that HITM events on the affected fields decreased from 3,699 to
+> 3,125 (-15.5%) for stress-ng.dnotify and from 1,368 to 571 (-58.3%) for
+> stress-ng.unlink.  Remote HITM events decreased by 45.1% and 65.5%,
+> respectively.  The journal/flags line had no remote HITM events after the
+> change; the remaining remote HITM events were on the orphan-lock line.
+> 
+> Signed-off-by: Jonas Zhou <jonaszhou@zhaoxin.com>
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Ok, that makes some sense. But I have some comments:
+
+1) If you used orphan_file filesystem feature, you'd see much larger wins
+(as the orphan lock would get completely out of the picture).
+
+2) You could just place orphan handling related entries to some other place
+in the sb which is not so frequently read. That would reduce the contention
+as well without wasting space for padding in struct ext4_sb_info.
+
+3) Your patch drops a comment at s_orphan_lock.
+
+In particular given point 1) above, I'm not sure this is really worth it -
+if you care about orphan handling scalability, you should just enable
+orphan_file feature.
+
+								Honza
+
+> ---
+>  fs/ext4/ext4.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
+> index 724a27e8be61..a3f16a981664 100644
+> --- a/fs/ext4/ext4.h
+> +++ b/fs/ext4/ext4.h
+> @@ -1644,7 +1644,7 @@ struct ext4_sb_info {
+>  	/* Journaling */
+>  	struct journal_s *s_journal;
+>  	unsigned long s_ext4_flags;		/* Ext4 superblock flags */
+> -	struct mutex s_orphan_lock;	/* Protects on disk list changes */
+> +	struct mutex s_orphan_lock ____cacheline_aligned_in_smp;
+>  	struct list_head s_orphan;	/* List of orphaned inodes in on disk
+>  					   list */
+>  	struct ext4_orphan_info s_orphan_info;
+> -- 
+> 2.25.1
+> 
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
