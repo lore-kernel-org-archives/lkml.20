@@ -1,91 +1,159 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D5C948CFC
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 00:39:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788395978; cv=none; b=nEw+96yEanyk3U/gv+nEQTeQoI1b7kPLD8rAqWBKw3a80eaEcQ046j+70UpHRp/UXxM9FByrzYOaqEiqpHG8fisyFivF2VqzIWsnEBfBuziJW/lgClPp9XE9rVdoegrXXPmSu3FK6EqkufHWjc5Hjxg7PoFn5MghFsV5e7Yqglg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788395978; c=relaxed/simple;
-	bh=+oj3TPiacbt9Zv9wO9q5Sg/d1zqPxaVv0DEDNRmDeBU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eVe1GVSimDs/2RBlGMS+l+YdU/x/g1VTkGp3TTqA0FV+Nwjgmf6Z+n3wS5bEJef1GXALY3xB9ofgx8I6Aqn5I/vsbu0aJxB8tBcT5XJqZ1HSmBJIUg772CMUN8IMmVoQHh/NU5RU+7M1+vXU3Xr9QkBI+nLxY0uBVaSnaQ9XfoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=FZhqPAQe; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7929D1A681C
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 00:40:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788396049; cv=pass; b=aMcnn0X+/Ob4YcGgtDFY12FoVh1VDxEhk43ehvTDI3fx9pvg/ht60uY1cmxcmIe3tiBz/hlvvE12V8M/S4BmBoGt8V0wW7o9NQcAYq6wQC4/VTVWpIdaDXIi2rK2ht2AhgVZTORY6A0REVWlFCQvF2S0XAauSUG1mW04hgcWr58=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788396049; c=relaxed/simple;
+	bh=ummikDaVeCHW0JPhyX90qry89JcKzSQE2CkFya5vVbM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KJor7JWix5FYSw1p8wQ1rfLV5CoR6H6MPaLqGRXejgXNfLvPDoxytLxqkccTXZfQdX8M7lTruPtA3QJ07KSUiL7LqakDcAZUtIxk7tIRhTIIy2qcRBYv/1NY7hXrutoUYBu6rTIEO+O+4lYpvpEkQpygGiCGpLDDGYapficdHOU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n25efLp7; arc=pass smtp.client-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="FZhqPAQe"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id B698040E02C2;
-	Thu,  3 Sep 2026 00:39:34 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id udQ5OzAl84YC; Thu,  3 Sep 2026 00:39:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1788395964; bh=kdWp3DhJemViBu8ZFWfs12pKAz2JlnXNo53LRyH7ixI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FZhqPAQem8gqk0sXhssM2CHkBmYkNbRfO8skWN2H+rthvuEP6NciEwyl9kdedT6ac
-	 4VQ7xyjE+FHpW9sSJom3uHv/j0u6LIJsZTsKxibCAljMQmQvYbyw4wcOcLCicgMplw
-	 NqfdSt2v/+tL/P+6rDaKJjRjxmR+GCXrnEsSH10zkmjuolrtPYFBl9YJkI0EBc7AFa
-	 j5bRPPcArDsDdRL3C3j3/HUcK8JF0SILGIMzGNqydpx0Khuz4IL6O3qkFkKDMqfGuK
-	 8mjdzFW9YQ7XAsRrcVPTd3HAyRS/CgxqKGxpdgIt58Ni4CCYVCmrlrNOgPjxX7X62a
-	 1mr9PEw1irlaHIXdNx5Y1KSSC2dOp5lfq5qvAeFumZhpytpDyKuQpkulgh6nrOpvzi
-	 BS7wQFdJlo8tLuiHDGxEBmbn5MElWBivNonTDmI8pXUkPLyoMHLxNjI7+x8BFRR9pj
-	 ffkR7uYezf5lh4/DeHcXH99eggRPRmTaWrZTDoZmIZIkVDG7w6pBn2E4jt0SKj3zvY
-	 sg5MiMBW1qAbVWipTDS9gJo5IcbgBdUWPzP6dBUahLx/uGfCnTCKwadDdG6KNsngaR
-	 k5oZ+U9+EHcjnelTbKJFgFtDwDgOJXlnM9Bs5DZwYTVkNOvfRHB14Z6CK7Om07DQm+
-	 iOIMxNUOGjiys4M1+sddXZJE=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 0E48440E016C;
-	Thu,  3 Sep 2026 00:39:07 +0000 (UTC)
-Date: Wed, 2 Sep 2026 17:39:04 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Mauricio Faria de Oliveira <mfo@igalia.com>
-Cc: Michael Matz <matz@suse.de>, Richard Biener <rguenther@suse.de>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Juergen Gross <jgross@suse.com>,
-	Alexey Dobriyan <adobriyan@gmail.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Jan Beulich <jbeulich@suse.com>, Brian Gerst <brgerst@gmail.com>,
-	kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v9 1/5] x86/boot: Remove "cc" clobber from memcmp()
-Message-ID: <20260903003904.GIapjBqOSCSrg1e_tY@fat_crate.local>
-References: <20260822-pvh-kasan-inline-v9-0-e70ef3b75b6a@igalia.com>
- <20260822-pvh-kasan-inline-v9-1-e70ef3b75b6a@igalia.com>
- <20260902023129.GGapeKgVlL2WgHcJcb@fat_crate.local>
- <57b0d188-b256-bde4-43e6-99dae4f59d60@suse.de>
- <05896397667d66a2969259298bcebb7f@igalia.com>
- <20260903000132.GGapi43JjGh-8sj65Q@fat_crate.local>
- <c9dd5e5de8484285b71ae62b98610911@igalia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n25efLp7"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8556ec44e9aso1691817b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 17:40:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788396048; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MwEvTUHlfgV/2w8qnkBCP4KOy1ZdGny+DMK9jjGh9bXcmKcPE9HAjpxEwfBBjlCSGe
+         pLLvIY9gHiyzKXHpRSQHp6cCpF8SaSKvupBEmAmXk2Ac8v6RPwYVDKfnxdHHd4BMHIHn
+         eZLgf5IhsGKAv895+Mw8UEPCx6aYHFgM96PoBa9ZfihCuJ/8OtuvoK+8ZdkirY8g6UuU
+         i0t85b+weHu8Hrc0rT4fkCTateJqECr9415QXpbOrHH7xZ5ad6/vXXHVoYspHrtus+1t
+         Yp66XBwyoychzXeZv3LvAWjqR0g8PQSpUwE7HtnLeBSoZADMYLw6kh9HUyp5McL7zKqU
+         h19g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ll3GLAxigapk8vQrhDFtbMqJYnX3ubAR8duvzc6SrcI=;
+        fh=RK6wNgzIfmI8OMzePPBTIWt7+ow0FYKH+RFqLMn36I8=;
+        b=pLaz/T0QKfz3PDUiCFUkmzocGwusNM2bPEARyGC9Pa6B1q7Ye6+TKT6gksGw/lDpv1
+         BJz7SMev2iYlzLt08jFld4Zj8JSetfofmV98uaF4S7wPLIfumH7tpKsJQasAdXiaeyZl
+         djBx7gkwvJl2i0DpW3ol5Ngq8vt1JGlfuiK7vFAFx8BsjnDRZ+TmfvvoT3W4dAWN0O9o
+         4BCrTckhWh2zz+kYl45DGKqN0hYU7UyQbuVSY6y+AebfxoQqV1XMMz7DpkQssKI3IbUK
+         nNoV5DIyXQMq3H9Nk9ssYBTpPF8DwV1Z5rKpj6s8X1jPHtdfJNmBN/CT3X/MZxdqfLoi
+         EY/g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788396048; x=1789000848; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ll3GLAxigapk8vQrhDFtbMqJYnX3ubAR8duvzc6SrcI=;
+        b=n25efLp7McjhmpeTM9eoOznGkE3xN616qRCctvLLI9vfZdqDs68OH5cz2/cLw1pkJL
+         bMEfgpqd6yHfBsS5/yOVMCWLuQMfP/pgkAekGxV1YkzWfZlnysGHNbQSCbu2F0T7pCZG
+         AmUKtm9dBgUvIf7xvwFtFQ0tNKVp3hg7jOalHEQMoMDzRKNok8zImOtOe9ltAlcU5Gcy
+         qPax6nzyVRt8TY5Wq0/XeyIgdTHEGCd7IsHWrCPuPo8jmwib5KqUW/gXT/DT+B2usUXg
+         IoYgepQqh1BC236bVe1udBzOicguI7DkpnWxsTwyvs82Qyg8UdIODZEtBoeqKC9hcdhK
+         tQ7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788396048; x=1789000848;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ll3GLAxigapk8vQrhDFtbMqJYnX3ubAR8duvzc6SrcI=;
+        b=F64Yux1ibwywUyzpQyQnsq1Uw6VrqnRm0KPQvD8oO2mjGJ4N7QaNv5qcFYuHPggXWE
+         nRpb9CxAoRfhInTy8VITfXs5yvN5WlNlQCbBFhyLxhtUWHigcEejI/+rhAbGPuVnpI2F
+         BgzXzhGOMF5KhNuv4iRW45eauc0VRBmpy1LBiOnScc+wgKvoju2Mv6wvp8ZrKzH3g7aQ
+         y2lV1GRCFc1jnkkZsaGRjRYcY+fb/7qcZz5VaTx1iQKUkJLfL+Wjg9xzO3IsYaJv0eDs
+         Cf++PaX5mhlNo0w6/T9bEl/Q6fM/rrXbI2e4UeYYnfliEAKO5E1YicpmqrPKezdCadOV
+         nbTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw9GO0ySodF3VOCPOomMHDD94VVXaqdsvtmrdf/1V56se8NdBQ+AJzs8Ln7Z6nQFLTrGx1K952ggGpeO9g=@vger.kernel.org
+X-Gm-Message-State: AFuF++lardfzcolMm9D+JIvF4QYQFhstD5zjOQ0eNZtimVXsQWJ/Egca
+	tPlJPpY/alDH+4B3TikP3T/XbH/JZm8xqkOIcvDFDytq2cDARQJdbWokOgUqZPVIC0eQ7oCAiM1
+	oyK8N3oOzu3v1rIG/ZhU+IP9Erbb1Arw=
+X-Gm-Gg: AYBFou0ZgaTbxvaQT1zXT/aaHx9FGRbqn1LqUXyooy3Xh+rPI28BuZIipwoKHXVu/w6
+	aK2DQ4Uu5vuadULtgc9EHVaCaJk8qgtrBV9m4xfLzIlq4FrU5eE9ut1sIyjyg69tn73jpdUaeTx
+	zwNsHEUgHtnApHBstb00SDx7mvXOtd7oeL6oWagTenfWGGA2ai3TxFJNsdtM9rbm7E9ZED9pD7n
+	TTWcRavAeZPD2qpjdJnq/cbGWQELq2n2KvBox8chPS0HMwMrUm2loC97OxoUjLddCsLbSDDjDK1
+	CPcvPeJ/ICqwsMUkBSXKxlBfpI/dW4oroGmfBed06pLxPA4fOJSTT5jdosYPxhj9T/1iH6DT+vA
+	IrMv2ptAz9YsJWSLMY6ZcoGNbHg==
+X-Received: by 2002:a05:6a00:4c86:b0:847:9015:e68c with SMTP id
+ d2e1a72fcca58-85ed3f70278mr13510128b3a.17.1788396047600; Wed, 02 Sep 2026
+ 17:40:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <c9dd5e5de8484285b71ae62b98610911@igalia.com>
+References: <20260902091126.59281-1-markdamirkan@gmail.com>
+In-Reply-To: <20260902091126.59281-1-markdamirkan@gmail.com>
+From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Date: Wed, 2 Sep 2026 17:40:34 -0700
+X-Gm-Features: AcwNN1WhcKJO8-PyXPVycu3bHFJ0XG2h_wkDwdZhBHP-rTVF3QHwBAawos6jWAk
+Message-ID: <CAEf4BzbATmY=yzdKsQwAV5hXwZsahxcYVqtT0+7GoG+N2eFTLg@mail.gmail.com>
+Subject: Re: [PATCH bpf-next] libbpf: Reject oversized unknown BTF type records
+To: Mark Amirkan <markdamirkan@gmail.com>
+Cc: bpf@vger.kernel.org, andrii@kernel.org, eddyz87@gmail.com, 
+	ihor.solodrai@linux.dev, ast@kernel.org, daniel@iogearbox.net, 
+	memxor@gmail.com, martin.lau@linux.dev, song@kernel.org, 
+	yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com, 
+	shuah@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 02, 2026 at 09:07:07PM -0300, Mauricio Faria de Oliveira wrote:
-> The rest of this series is OK to you?
-> I can wait for further feedback and combine it with this change.
+On Wed, Sep 2, 2026 at 2:11=E2=80=AFAM Mark Amirkan <markdamirkan@gmail.com=
+> wrote:
+>
+> btf_type_size_unknown() returns an int, but calculates the type record
+> size using unsigned operands.  With a 24-bit vlen, an unknown kind whose
+> vlen is 0xffffff and whose info and element sizes are both 252 has a
+> record size of 0xfc00000c.  Converting this value to int produces
+> -67108852.
+>
+> btf_parse_type_sec() returns the negative value, and btf_new() encodes it
+> with ERR_PTR().  Since the value is outside the error-pointer range,
+> libbpf_ptr() does not recognize it as an error.  On a 64-bit system, a
+> 129-byte raw BTF input makes btf__new() return 0xfffffffffc00000c while
+> libbpf_get_error() returns zero and errno remains zero.  Calling
+> btf__type_cnt() or btf__free() on the result crashes.  The same input
+> makes bpftool's "btf dump file" command terminate with SIGSEGV.
+>
+> Calculate the record size as size_t and reject values above INT_MAX
+> before converting it to int.  Add a regression test for the maximum-vlen
+> unknown kind.
+>
+> Fixes: cacd6729c092 ("libbpf: Adjust btf_vlen() to return a __u32")
+> Assisted-by: Symbolic
+> Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
+> ---
+> Testing:
+> - normal builds of libbpf and bpftool, plus an ASan/UBSan libbpf build;
+> - the reproducer through btf__new() and bpftool;
+> - the added btf_kind test and the existing encoding/decoding subtests;
+> - identical bpftool output before and after the fix for all 60 BTF blobs
+>   under /sys/kernel/btf on the test system.
+>
+> The complete BPF selftest suite was not run locally because clang was not
+> available.
 
-Please wait - I haven't gone through the rest.
+that's ok, I hope AI wasn't too stressed about this unfortunate state
+of things...
 
-Thx.
+we are not going to harden libbpf against any possible malicious
+corruption of BTF contents. If you don't trust the source of data,
+don't pass it to libbpf (or do it in a VM or some such).
 
--- 
-Regards/Gruss,
-    Boris.
+pw-bot: cr
 
-https://people.kernel.org/tglx/notes-about-netiquette
+>
+> This fixes code present in Linux v7.2; please consider it for stable.
+>
+
+Do you use libbpf in practice? and where do you get its source code from, i=
+f so?
+
+>  tools/lib/bpf/btf.c                           | 11 +++++-
+>  .../selftests/bpf/prog_tests/btf_kind.c       | 39 +++++++++++++++++++
+>  2 files changed, 49 insertions(+), 1 deletion(-)
+>
+
+[...]
