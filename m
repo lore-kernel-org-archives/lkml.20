@@ -1,146 +1,342 @@
-Received: from mail-ed2-f9.google.com (mail-ed2-f9.google.com [74.125.228.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35FEA3FD129
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:51:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.73
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788425507; cv=pass; b=gKc+mFpZNP1454uidTDmOiSJPTCzuLXH72Kk5SqZzAF7tl7Ve5XTpQ9ma2x8rzqFTQd2zHrAFGjnFXJBH+MMnd9HoNk0d3hd7zpe18YiqZGW9s8TR8/bCaB++CoL9mOO6dJ75BITwj0ODrNoAwr8IQSfKizat2rKOTAtH7n7iNs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788425507; c=relaxed/simple;
-	bh=edjXy2PN+mcza+3kZSGSQQ3aYOZGZOPTwjWGFZXSb74=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Y/H57IdN6u5T6ejMS2CsT2g7YWCTN099k7gQTT01578FYC1cv/TFYCdBwYQ1RVuHsrWxkiuoizNRbJU5bssKq4fEuIJQj7/8HHRS1b/w9EV7NtoK8WD3xJQrHYIVFQByNOsbKmXBwKN6O7ek7rhNLcfsJQI8rXy/nL9SVUvGKyk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B2bDsdyi; arc=pass smtp.client-ip=74.125.228.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D34389E04
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:52:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788425544; cv=none; b=L9qnRm5P5It/1kF/bB7qk9MHoRWEig5zOQKmm/MWvbicfNk5Spm8ejt3B/yN6WbrbT84zCFalwHO+NHjzglKPzWypqoa840nYZBk+1jOtA1dApwkwLheqLkCJWKv9nTAQWpUDiPlogehXx7JclBpSd2yQIelDEyI1dhczHfRtcA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788425544; c=relaxed/simple;
+	bh=C6MQntouIZRGmwKeVEv7HrxaCSTbmNCiT+JFflqBc5I=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=JaVfDueOvpBqnHNVP0vreQ5wb8Ys2DMehKNyK8fS5nL0y0QKeNtMqeZT3nDb2xcAS3/oPT+aKm+RF9RsNjkE6P8xGkdq0EbTsPz0O0IAcGeaSJ7SoHR7s5hQvNDiIHL1X+8lpUFXlJNNxpcjQcxDX+vyYP5pZdSL+AmzPiSt+qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=j06Z5HR1; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B2bDsdyi"
-Received: by mail-ed2-f9.google.com with SMTP id 4fb4d7f45d1cf-6a64841e8a5so1077435a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 01:51:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788425504; cv=none;
-        d=google.com; s=arc-20260327;
-        b=E35EylqStemScNziqfioAGyiAcDmfe1HVS2zUWQmmsGRBpQNHeRXSAzEdQ7r/akqyQ
-         uaq4UgcOxD1o6BSC7y1P6C7XZGiZyFq8+S+QFl2c8gSwEtj3AdQ2MLFSnPtZGKnnubUR
-         ElyCxDMkHcjkcwT6pUJSuG76CCl87FoZY08ZHgg6LgIHCErTCgyBVnMeP3jZ15kZSBtg
-         cGWfJ2bAZ1Lu5OGmu31+9D1DyVC4hCAHqeh6b2e2FI/kjohki2Wr+wIQUZEP3wg/WFSb
-         ieO35q5Yw4rDurYTISzGhHkaUWBicm9X6nz9CotEnnl0oI9TmjgZ8Uia3GKeSUqs/43Q
-         NA1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=edjXy2PN+mcza+3kZSGSQQ3aYOZGZOPTwjWGFZXSb74=;
-        fh=HtUw4xROiEOk78ArnS49+b8oI6Gz88Ea2gEaKQWWff8=;
-        b=K16a6D7yvy3LXK2Z6fJqCCue7bWkBv/cruzlSQjNikiXVVvFhp5z4tdcw5hGym/CG1
-         guXcP8S2uSbFYrtbhbmXKCUPHoG2IwaWluBdY+x4s8C+h5E4gpsQOamR6zXdcoXjYVYZ
-         ZAiRZptL9INubZGG0jL85LwjESTZtRBpHDnAsxT8A95ccmf+O24lVoD13o5+g0zuW4CM
-         XPn2vHCWVuDROC/10DUi6PwtdzpVdmgunnwRE+lFroCrFSyuvKv7gJ7LuJ9pRbhg6o22
-         OyM2fHvkBgdohzUdcAQKkPkU53Rd9aV+3jGyNR7VDbLNPtWDkqq3vKtI/+P96OYtxK3B
-         awhg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788425504; x=1789030304; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=edjXy2PN+mcza+3kZSGSQQ3aYOZGZOPTwjWGFZXSb74=;
-        b=B2bDsdyie4uFLTSvRBI5G12tsRKBuEEPJP2lgXhdnzVTTLvYhGvF9EJ4Yc57LHB0OQ
-         IBKSyzlieVHR7SzT++4+YZIW5ow82U9CPLW3Ajl7jRT83TQqXLUikvvirIpUzvTCt3lZ
-         IeMapLnCg8QxqKZZaG4PNqZUTVbCxOF4soa/kJjmtmrTmOh00na+Ci1KnpYznJ5TvHWj
-         7UxxIy+S7RSV3zXvLZ+uvjE1XWNnxNi9yeCwi6rrsFXRUxgv4/43OJ4GEA73qzKUnUy8
-         ZoL7PuoGqOCagCNoSpRWdso+efjSz4y5eKXEgB3wPi3xpJwFkcHdog0NZNn+omepYfLu
-         yXWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788425504; x=1789030304;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=edjXy2PN+mcza+3kZSGSQQ3aYOZGZOPTwjWGFZXSb74=;
-        b=CO1D1VlOcG+vuCLsqrG1kM/gZFBq7ja3J6bkDSRZi6Rxb0p7VBANzxuiVMt/nJp2Bs
-         f7OPrlgschwgnELTnMRMS2ged2M2vvv3R5skaoBgCyAvm+7e4OMX0nvrLzGjfbzSegIT
-         pMdoRvt1u9PGNexNNV2nLzNIiUdNDDGNKBeCxAgOEsI4xyFT3FHhsVGKjh1BcbvTIOfb
-         giu3nIW7dOP++9Fx9Q8EtdKTcMkINViAKMhrLy7NLraBH6PFkmfnfu6zg8ugBfhnQrMm
-         hK/+2CAORwcu3g7q73MCZwIp2Iw5JRlVqsDDTMrraZN9QJufq/U6GkkPXEj7eKbET4ZG
-         1QZw==
-X-Forwarded-Encrypted: i=1; AKwUvBwVdTTIkcXtnC1/6j0xJ+oDuQfMLu/E4iJnlLiQtIQjnLMY8Jxfenkz8D5WdmnRKE7HhU8kXccYTK9USII=@vger.kernel.org
-X-Gm-Message-State: AFuF++l/sg8oNk2VOHTIx8v7SfkV8ulytlGtFZ1W9+GQu4DQrAlrcixc
-	+Vw5gfFUO/6YljVmRKDD6R/iqplUbZ0cUXFzc5mZGthEYG4zJZtO+ZM/GwBJ9xhpsgS0La53J9Z
-	b8YDw0B3gw9jxH3m+7nYSNY8rvgr9+8I=
-X-Gm-Gg: AYBFou0y4WWt2+wxeVPZwfN6UlacBKFzbIYsuXkKglwdzSKK0j1DJ1FuA1YbCrDmjRT
-	lUajCaeAHkzz0zkgiRAMBsZQ1w/99mf4YlH79BIaxxifV8TyOOpYPENblYfW6JNgw9XSW3T2Ava
-	4t7ow0CaOFvsFmYYIU7is5M7MC8OoV2k8wRPBbtGeqwI3mfN7ryBQikDArehXJJOz7zhPrTgdOa
-	Fg3DzOaFOiPD2i6Va0jraUncC8PqA3Dt9iO43OyzB2vvHUtdJU/g7ytHZMaDV8JYRSxsQktAqpV
-	gOBzr0DhV+zpwFwMgOI9S5H/k7dZfV7pgYw3SxYple7wWLV2hLkTPPyjazQ=
-X-Received: by 2002:a05:6402:460c:b0:6a3:87b7:b516 with SMTP id
- 4fb4d7f45d1cf-6a68313fb0cmr6808251a12.6.1788425504326; Thu, 03 Sep 2026
- 01:51:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="j06Z5HR1"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hbCrl3Y6WzMl12;
+	Thu, 03 Sep 2026 10:47:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788425223; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lS9F4rIYBzfNdppMZK6a5Tt5Oo2fi4c7dvH/gWrs5Y8=;
+	b=j06Z5HR18ok6cljzKmpyj8R96WwK0C9ecVQiUgpMeEodSP7loQlTVZmb4H/mXD2KfjZM2d
+	m0gPY62S2Lhelr5zCtLVNXVln/+awPDBFkdBTkocAAxYw+5ueCP8rdbCvaXzA/xnqi2Pud
+	8DnN69HVWG1r3iuakULyvou28s4KHPsa4NYMNI3whVAPE2Dfj2Z7jpyVlme+HekhvFdTC5
+	w5aeFUIEWmcutSIv/VC0nkjhj25PhGOAAoFWvcl32a/4bKSFJu1V/E2Ul5ZEClKtUEkk/I
+	71c1iEmDS+NPIlfHdfj6NZnq4YN88JkwgZLCbIyT7fqOLWVdlu+oy8sXJD9+xQ==
+Message-ID: <611c2624e60ea422229e666480da3e504d126682.camel@mailbox.org>
+Subject: Re: [PATCH v3 1/2] drm/sched: fix use-after-free of the fence
+ timeline name
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>, tursulin@ursulin.net, 
+	phasta@kernel.org, matthew.brost@intel.com, dakr@kernel.org
+Cc: christian.koenig@amd.com, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org
+Date: Thu, 03 Sep 2026 10:46:59 +0200
+In-Reply-To: <20260902144204.1843670-2-malhyuk97@gmail.com>
+References: <20260902144204.1843670-1-malhyuk97@gmail.com>
+	 <20260902144204.1843670-2-malhyuk97@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901150111.141037-1-coiaprant@gmail.com> <20260901150111.141037-2-coiaprant@gmail.com>
- <0dec5462-f6d5-4ef9-9d02-5fdf7f3090a0@bootlin.com>
-In-Reply-To: <0dec5462-f6d5-4ef9-9d02-5fdf7f3090a0@bootlin.com>
-From: Coia Prant <coiaprant@gmail.com>
-Date: Thu, 3 Sep 2026 16:51:31 +0800
-X-Gm-Features: AcwNN1VVEgAP8GgA8LdwjKHcWBmFmP5U9Mjud48d0pq7C7tHDzymcLYpjmHugJk
-Message-ID: <CALj3r0i2msRXH-uqA2QX=cRkQwM_H2bFH9GiroEys2NfEbTtCQ@mail.gmail.com>
-Subject: Re: [PATCH net-next v3 01/10] net: stmmac: move XPCS lifetime
- management to platform drivers
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	Romain Gantois <romain.gantois@bootlin.com>, Heiner Kallweit <hkallweit1@gmail.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Russell King <linux@armlinux.org.uk>, 
-	Shawn Lin <shawn.lin@rock-chips.com>, David Heidelberg <david@ixit.cz>, netdev@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MBO-RS-META: id1up75im5je3bazaq1wc7qmnw9wsexp
+X-MBO-RS-ID: f26dfd43d1bfa023aa0
 
-Maxime Chevallier <maxime.chevallier@bootlin.com> =E4=BA=8E2026=E5=B9=B49=
-=E6=9C=883=E6=97=A5=E5=91=A8=E5=9B=9B 16:32=E5=86=99=E9=81=93=EF=BC=9A
->
-> Hi again,
->
-> Sorry I had a second look at that after a good night's sleep, and actuall=
-y here
-> we may regress. The original logic checked for "pcs-handle" presence, the=
-n
-> for the pcs mask, but if no PCS is found we didn't error out, we returned=
- 0.
->
-> This is making it mandatory to have a PCS. Please handle gracefully the "=
-there's no
-> PCS" case :(
->
->
-> Maxime
+On Wed, 2026-09-02 at 23:42 +0900, Jonghyuk Kim(MalHyuk) wrote:
+>=20
 
-Hi,
+[=E2=80=A6]
 
-This change covers all callbacks that use `select_pcs`. Drivers
-without `select_pcs` callbacks will not have their pcs used by
-Phylink.
+>=20
+> The finished fence carried a .release callback solely to drop the
+> scheduled fence's reference. That callback kept the ops attached, leaving
+> get_timeline_name() reachable on a signalled finished fence with a
+> dangling ->sched. Drop the callback and move the reference handling
+> instead:
+>=20
+> =C2=A0- The scheduled fence now holds a reference on the finished fence, =
+so
+> =C2=A0=C2=A0 the finished fence, and with it the shared allocation, is re=
+leased
+> =C2=A0=C2=A0 last. Its release drops the parent fence and that finished-f=
+ence
+> =C2=A0=C2=A0 reference; the finished fence is then freed from dma_fence_f=
+ree().
 
-Currently, only the Intel mgbe driver uses xpcs, and Intel has also
-set a mask for pcs-handle not set.
+The backend doesn't know about this (admittedly weird) shared-
+allocation phenomenon. I suppose the reason why we don't run into
+double-free is that the scheduled-fence does still implement ops-
+>release.
 
-This means that on Intel platforms, the parts that implement
-`select_pcs` always require xpcs to exist.
+If that's the case, that needs to be documented in the code as a
+groundlayer for future cleanups (I suppose we should eliminate that
+shared allocation. If objects have distinct lifetimes, they should have
+distinct memory. It was probably done like that so that drivers can
+access both subfences through container_of()).
 
-I think there shouldn't be any problems here, but I agree with you,
-regression issues can indeed easily occur here.
+a la
 
-Best,
-Coia
+"TODO: this release callback should be removed, too, but can't because
+double-free"
+
+> scheduler. Unlike caching the name string, this also covers drivers whose
+> timeline name is dynamically allocated (drm/panthor, drm/xe).
+
+It's good to have detailed commit messages, but I don't think hinting
+at that alternative solution (caching), which we don't implement, is
+necessary.
+
+>=20
+
+[=E2=80=A6]
+
+> - it is the normal result for a foreign fence - and a signalled fence is
+> an already-satisfied dependency, so the scheduler's dependency-collapsing
+> optimisation is unaffected.
+>=20
+
+I don't understand this phrase. You're saying that someone trying to
+register a dependency won't bother if he sees NULL?
+
+
+>=20
+>=20
+
+[=E2=80=A6]
+
+> =C2=A0
+> -static void drm_sched_fence_free_rcu(struct rcu_head *rcu)
+> -{
+> -	struct dma_fence *f =3D container_of(rcu, struct dma_fence, rcu);
+> -	struct drm_sched_fence *fence =3D to_drm_sched_fence(f);
+> -
+> -	if (!WARN_ON_ONCE(!fence))
+> -		kmem_cache_free(sched_fence_slab, fence);
+> -}
+> -
+> =C2=A0/**
+> =C2=A0 * drm_sched_fence_free - free up an uninitialized fence
+> =C2=A0 *
+> @@ -132,21 +123,12 @@ static void drm_sched_fence_release_scheduled(struc=
+t dma_fence *f)
+> =C2=A0	struct drm_sched_fence *fence =3D to_drm_sched_fence(f);
+> =C2=A0
+> =C2=A0	dma_fence_put(fence->parent);
+> -	call_rcu(&fence->finished.rcu, drm_sched_fence_free_rcu);
+
+@Christian, Tvrtko, opinions on that?
+
+> -}
+> -
+> -/**
+> - * drm_sched_fence_release_finished - drop extra reference
+> - *
+> - * @f: fence
+> - *
+> - * Drop the extra reference from the scheduled fence to the base fence.
+> - */
+> -static void drm_sched_fence_release_finished(struct dma_fence *f)
+> -{
+> -	struct drm_sched_fence *fence =3D to_drm_sched_fence(f);
+> -
+> -	dma_fence_put(&fence->scheduled);
+> +	/*
+> +	 * Drop the reference the scheduled fence holds on the finished fence.
+> +	 * The finished fence is released last and frees the shared allocation
+> +	 * from its dma_fence_free() (see drm_sched_fence_init()).
+> +	 */
+> +	dma_fence_put(&fence->finished);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static void drm_sched_fence_set_deadline_finished(struct dma_fence =
+*f,
+> @@ -189,7 +171,13 @@ static const struct dma_fence_ops drm_sched_fence_op=
+s_scheduled =3D {
+> =C2=A0static const struct dma_fence_ops drm_sched_fence_ops_finished =3D =
+{
+> =C2=A0	.get_driver_name =3D drm_sched_fence_get_driver_name,
+> =C2=A0	.get_timeline_name =3D drm_sched_fence_get_timeline_name,
+> -	.release =3D drm_sched_fence_release_finished,
+> +	/*
+> +	 * No .release callback: dma_fence detaches ->ops on signalling for
+> +	 * fences without .release/.wait, so get_timeline_name() is never calle=
+d
+> +	 * on a signalled finished fence and cannot dereference a freed
+> +	 * scheduler. The shared allocation is freed from dma_fence_free() once
+> +	 * this fence's refcount drops - it is released last, after @scheduled.
+> +	 */
+
+That comment is not necessary. The new code simply complies with the
+current idiomatic fence design. Comments are necessary at tricky bits
+or when one deviates from idiomatic usage.
+
+> =C2=A0	.set_deadline =3D drm_sched_fence_set_deadline_finished,
+> =C2=A0};
+> =C2=A0
+> @@ -233,6 +221,14 @@ void drm_sched_fence_init(struct drm_sched_fence *fe=
+nce,
+> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &fence->lock, entity->fence_=
+context, seq);
+> =C2=A0	dma_fence_init(&fence->finished, &drm_sched_fence_ops_finished,
+> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &fence->lock, entity->fence_=
+context + 1, seq);
+> +
+> +	/*
+> +	 * Hold a reference on the finished fence from the scheduled fence, so
+> +	 * the finished fence (and the shared allocation) outlives @scheduled.
+> +	 * drm_sched_fence_release_scheduled() drops it; the finished fence is
+> +	 * therefore released last and frees the allocation via dma_fence_free(=
+).
+> +	 */
+> +	dma_fence_get(&fence->finished);
+
+So what was the counter-part of this dma_fence_get() before?
+
+> =C2=A0}
+> =C2=A0
+> =C2=A0module_init(drm_sched_fence_slab_init);
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/sch=
+eduler/sched_main.c
+> index 6cb6f9546493..fb238f51c0ed 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -842,6 +842,15 @@ void drm_sched_job_cleanup(struct drm_sched_job *job=
+)
+> =C2=A0		 * been called.
+> =C2=A0		 */
+> =C2=A0		dma_fence_put(&job->s_fence->finished);
+> +		/*
+> +		 * Drop the initial reference on the scheduled fence. It no
+> +		 * longer has a .release callback dropping it (the finished
+> +		 * fence's .release was removed to allow ops-detach on signal),
+
+Same as above, I think the comment should not focus on the past
+situation. The past should be tracked by the commit message; a comment
+should only mention the past if it's still relevant, for example to
+solve an open TODO.
+
+> +		 * so the last put here lets drm_sched_fence_release_scheduled()
+
+Strictly speaking, you don't know whether it's the last put().
+drm_sched_fence is a public object and drivers might have taken various
+references.
+
+> +		 * run, which drops @parent and the scheduled fence's reference
+> +		 * on @finished. @finished is freed last, from dma_fence_free().
+
+finished and scheduled would be freed through dma_fence_free()
+simultaneously, since they still share the allocation.
+
+I think the shared allocation and how things are freed should be
+documented, but is drm_sched_job_cleanup() the right place?
+
+
+> +		 */
+> +		dma_fence_put(&job->s_fence->scheduled);
+> =C2=A0		drm_sched_entity_stats_put(job->entity_stats);
+> =C2=A0	} else {
+> =C2=A0		/* The job was aborted before it has been committed to be run;
+> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+> index 7a64cc11de08..686c3687944f 100644
+> --- a/include/drm/gpu_scheduler.h
+> +++ b/include/drm/gpu_scheduler.h
+> @@ -287,48 +287,58 @@ struct drm_sched_rq {
+> =C2=A0 * struct drm_sched_fence - fences corresponding to the scheduling =
+of a job.
+> =C2=A0 */
+> =C2=A0struct drm_sched_fence {
+>=20
+
+[=E2=80=A6]
+
+> =C2=A0	struct dma_fence		finished;
+> =C2=A0
+> +	/**
+> +	 * @scheduled: this fence is what will be signaled by the scheduler
+> +	 * when the job is scheduled.
+> +	 *
+> +	 * It holds a reference on @finished so that the shared allocation is
+> +	 * released only after @scheduled itself is done; its release drops
+
+Won't it drop the endire drm_sched_fence?
+
+I think this struct's documentation is the right place to document the
+life time and allocation pattern, together with maybe the relevant
+places in sched_fence.c
+
+Then you could be a bit less verbose in the other code places; see
+above.
+
+> +	 * that reference and the @parent one.
+> +	 */
+> +	struct dma_fence		scheduled;
+> +
+> =C2=A0	/**
+> =C2=A0	 * @deadline: deadline set on &drm_sched_fence.finished which
+> =C2=A0	 * potentially needs to be propagated to &drm_sched_fence.parent
+> =C2=A0	 */
+> =C2=A0	ktime_t				deadline;
+> =C2=A0
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /**
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * @parent: the fence re=
+turned by &drm_sched_backend_ops.run_job
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * when scheduling the j=
+ob on hardware. We signal the
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * &drm_sched_fence.fini=
+shed fence once parent is signalled.
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+> +	/**
+> +	 * @parent: the fence returned by &drm_sched_backend_ops.run_job
+> +	 * when scheduling the job on hardware. We signal the
+> +	 * &drm_sched_fence.finished fence once parent is signalled.
+> +	 */
+> =C2=A0	struct dma_fence		*parent;
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /**
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * @sched: the scheduler=
+ instance to which the job having this struct
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * belongs to.
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+> +	/**
+> +	 * @sched: the scheduler instance to which the job having this struct
+> +	 * belongs to.
+> +	 */
+> =C2=A0	struct drm_gpu_scheduler	*sched;
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /**
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * @lock: the lock used =
+by the scheduled and the finished fences.
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+> +	/**
+> +	 * @lock: the lock used by the scheduled and the finished fences.
+> +	 */
+> =C2=A0	spinlock_t			lock;
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /**
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * @owner: job owner for=
+ debugging
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+> +	/**
+> +	 * @owner: job owner for debugging
+> +	 */
+> =C2=A0	void				*owner;
+
+Formatting fixes in a separate patch please, unless you need to modify
+those lines for semantically related reasons.
+
+
+Thanks
+P.
