@@ -1,175 +1,296 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010063.outbound.protection.outlook.com [52.101.85.63])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E36654E56DC
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:43:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.63
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788450223; cv=fail; b=faEP91/rcCvQUwQJmX/TgKDHgJZjioIJpJHLDoSAtH3/udpVrEJ3Thb8DXPvPTCrTFeiR94IT6YaKGPBFLieh5S0Z7u70WgjxCzBBiGaUDHLdNxynRgNKR2+Tmkk1rJFZkG4CAChsX341m1YDp59LQ9meu3q/UuHTmJQ+PDb6Wk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788450223; c=relaxed/simple;
-	bh=ZIIz29TG67LQqa2vbzihhKnyt+xeoZG8MIof08qoeLs=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=phxBsQhPNAo4EPu7Sy/3zhbHtvq/KJSGDqTk0nbVHNDcbm3GmzVAu+EqYFRf3SdpexE4+8zfle8lSZSTiKnEY4Or9ZS80uh7hsFwopzZuOGJ/Zcs9+HJyM2NESlkJUGIeMkajMxnG+zOLbBJMZpcKm+3LEn8Xy9yExV77QVsGeE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=J6ggdML5; arc=fail smtp.client-ip=52.101.85.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2605A4E66D6;
+	Thu,  3 Sep 2026 15:43:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788450230; cv=none; b=ewJARehbPOFPARfvyoxRuvO5MG+maObuJvznj6WTPObM0kD9iQZ7Kj0cNTYMHh7mmZypyZzyxpjHRJ1PLQy6mPXYA7l9xYdJ+ilgFwsirAye7BZXHHsebryJf7ubbLK9XF2c8uWLggtdNaJV1Mnm7sqtRZ6pGysIGKoXwZ4azH0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788450230; c=relaxed/simple;
+	bh=fvUIuDsf+eRAezG3LZxo95EFORPdrXdVcotZ9dhTwnE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TYr/LplPCaoV0dJ2biO2eo0BZ+Xi6uSOAoHWUPmA+RBjYv+LKtIFvisLc0VOo0xe6ZnbHVoCWhIFSyqzqwuFtNcvhCEmU5v+fCqDbH68nOxGnd5/7rfKdZdCg3YiLm/HhVAJEWtDNd+Cs0He6UnjFf6dNRb5i5Wzy/HQhHljadk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qq24X760; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="J6ggdML5"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W70gljkxyfXmBGlOEe9DBepkwTdjvXe4xPwE5jCZj95V5ulbbcD+z6WR2oP1ErzHGO0z6hNo3PD8Af7fx9ywNIu54tgmonWp4c9EHdKaT5wFA7Er5oMWP8x9JFVKC4LQuV63B96iMana9QjXFnI4Obbq9J0scmdlr+umHHHPhAUpRD7Jc6FgjsdgDT8DCHBzUlZolhJYo2iJpqEm6rVvNnF06thJdH4kWBMaZCUlyLk68hOexNl6lOoDxWnXtXCQwkHb3hMA9/254NBVEWaLVLI0TmCT+XBjixcpfIkjEhQAg/E3+s86RnpZdfvRKxInDufCTRD8RgrQnhs5ztmg9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uAluWNCZkz3R2t9nBMhEo2o8aJU/oope6mtOP93Luto=;
- b=EuELIQIDX8cxuTQfhhBdEfFbaoVzuYoUDWU/4Q4LaD+HDXmrBTtPRTUaLWk/L2gkeSwmWRmfdwclHcEiOXQBGQUDKm41qLLjetXGqFgznCQXpo+CRMm3DFXkCVabOwG/SLOmpbL3lcpsSwuVjbE5PP8Hn8ILxuyndm1TvYcrmoBoEb16XMkNw2NBlo+qSEjuTUDQ4TK2+0uRbZyCYn0kRLjXcMx0c/WLdjqoS1h2F8Tupk645tDo1aNvl7HhlluRMu7gDZrcKuku8KGTzc+awpLaZJl/XEFwJFeHsVnqpQ8xnQVURTrvWBgalK00/gwXvTJxnUo6bYARxQwSk1xcpA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uAluWNCZkz3R2t9nBMhEo2o8aJU/oope6mtOP93Luto=;
- b=J6ggdML5MB3myJ/l1n7rRwE2AjRy2snw6WUzelTt8Kkzn0noPEYbChENnIoWlbeaNySfajyblHYSI8bpeyWzc4Be3gUlHX9JqNbHFyTqkljYXbOjuKcRu4K2h3k1PHn1CRahIKKcjYfJK3rxT0kpmqp/1IauyIjfAY+Gd8zmJFs=
-Received: from PH7P221CA0063.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:328::11)
- by MW4PR12MB5604.namprd12.prod.outlook.com (2603:10b6:303:18d::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 15:43:37 +0000
-Received: from BY1PEPF000264B0.namprd02.prod.outlook.com
- (2603:10b6:510:328:cafe::3f) by PH7P221CA0063.outlook.office365.com
- (2603:10b6:510:328::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Thu, 3
- Sep 2026 15:43:37 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF000264B0.mail.protection.outlook.com (10.167.242.119) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Thu, 3 Sep 2026 15:43:36 +0000
-Received: from quartz-7b1chost.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
- 2026 10:43:35 -0500
-From: Yazen Ghannam <yazen.ghannam@amd.com>
-To: <x86@kernel.org>
-CC: <linux-kernel@vger.kernel.org>, Yazen Ghannam <yazen.ghannam@amd.com>
-Subject: [PATCH v2] x86/amd_node: Fix PCI device reference counting in amd_smn_init()
-Date: Thu, 3 Sep 2026 10:43:25 -0500
-Message-ID: <20260903154325.74343-1-yazen.ghannam@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qq24X760"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683DVYJ73109269;
+	Thu, 3 Sep 2026 15:43:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=DWerPAyDUDODY4bzH6HwfhgrgXW1pL
+	fFq/LiqQBYcJs=; b=qq24X760XG8SoNn1gFX3oshVvnMjFEOOpcHiPJvHzMytMk
+	9A1DdWNuD6WTrMor7DuMsBdoyMWRCWsAIFdY5nfUmh8LRDwQ9nxys+JBwydX44Fi
+	31Y0XmohUmw7JDOre5wCb/be6CgpRNRyxkX7K/drbUnYKkWiowPOTbIIyDMpiate
+	EfuuJwqIggzkhsp15O3EZn2OvxOUxvTJxCGjag/SFGyoXZDEMilrnNWCNiDFIg8G
+	LsuVv9XSBU5aQRC1A2MfqzLJWKUCj0CngpB97bOooDf1JpZspwGuDj9HUrdKFGaF
+	9dC+khEmvnMAKnR7RVE/O2/fLS/HvXYqYZAJB6LA==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq555rf0-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 15:43:25 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 683FfOT3022323;
+	Thu, 3 Sep 2026 15:43:24 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcarkgakn-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 15:43:23 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 683FhK5L45285742
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 3 Sep 2026 15:43:20 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E201D20043;
+	Thu,  3 Sep 2026 15:43:19 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E5D5420040;
+	Thu,  3 Sep 2026 15:43:18 +0000 (GMT)
+Received: from osiris (unknown [9.111.48.84])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Thu,  3 Sep 2026 15:43:18 +0000 (GMT)
+Date: Thu, 3 Sep 2026 17:43:17 +0200
+From: Steffen Eiden <seiden@linux.ibm.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
+        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
+        Gautam Gala <ggala@linux.ibm.com>,
+        Hariharan Mari <hari55@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>,
+        Hendrik Brueckner <brueckner@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
+        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
+        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
+        Zenghui Yu <yuzenghui@huawei.com>
+Subject: Re: [PATCH v7 23/23] KVM: s390: arm64: Add KVM_S390_ARM64 Kconfig
+ and Makefile
+Message-ID: <20260903154317.246414-A-seiden@linux.ibm.com>
+References: <20260831144802.834315-1-seiden@linux.ibm.com>
+ <20260831144802.834315-24-seiden@linux.ibm.com>
+ <aphMx5hsoXwIpNjt@google.com>
+ <20260903083857.33034-B-seiden@linux.ibm.com>
+ <apmHrnxRLl9BuVhn@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF000264B0:EE_|MW4PR12MB5604:EE_
-X-MS-Office365-Filtering-Correlation-Id: 25275acb-9477-492a-34ad-08df09d21e95
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|18002099003|13003099007|56012099006|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	XAvGtYsCtTvyBTXrSoKUSC8iTRL3SGWj7Qp+F8UEqinVV+IHb3o8vZ+xVMHcKzGDdJcu2P/dX7Cua59yTlo+5nyKmUxaUY6hUXBa9uzaJn0il5j/9ondm/SoHqbcLQuIWzY6qtH2EV7WyAOawQ1Ks1o+Vc6W+23eq6qsqhJAHZZ74UQuX11D6RNHZlpVSAhk+NvDfWkLwxQk8baPoHVxqXf1a3Mj49TOzkICQTTwXMiT0VPEbDoW7fD+tb3Envw0cfXaFAzXz5iXHSpMigjV9d1S72286R2/c9TLd9oTFuDPiCXQPRXZWdHxcFCLsBER2fKXb4SWEJzEvcyo6e5S18hKwaP61vfGRuE8yZrFOGDlt0W7G+uIJjbulYXb3vdbKWcg9npbqjav6nWKDyofon5I3jpYYuTWaqFsVgCArZXbLpyEosahFBI1S13dNL/4TQc7dSedyG+AjH4afGFDgpkQyfSvdobgguNml/WLCdkrq/O+6c8wOLEUfZaFHkBx/eWNtsRE6q97pvECqclYVrBttfye+C+VXryP+zS+mfKIq04V/SD6FFuw369FDL4uBKk15vO72td/HJHi5WUFuWRxEYK1uGqw7cvj5G3ewT3uWnQ1La6bxCS6wgifHG+GfDOySCu9CNrSIAUvjrUSBA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(18002099003)(13003099007)(56012099006)(10067099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	HU/jbxV78+Socy+84oqsJc+QpwESWk5tD/hHOMfm471qddOeAsSYPDddgW2feOUP2zkx38N+rHMVBSbNAh1PKyDacV+SQrAtxotv9nGFSt/ZyC1u4VTBqc2uPb4xbSZaA7K5gRkne+sCFIQKlb/pAgAxF0t5iaWNyoryO673myMFNNWS2jCguD6llyBm9NrRpkxWaxo7mfctz4REqqlwM71548XyPMNjECsD4LfeIV1kCl9Uw2NhxOTpsLkjLREqMTL3f66S6s9SRpDDMA6dHHgmWQnbx6ZxbtuAC6MosIQHMgGKxixkKAxXvnmHm1hz4qzDkuK5T2uLjRFUdj5TpRLqmfui/22L1yQMiCmc28mpIU5cguEeN1Y0FuhuWVJeJK1vzUrdHjWREL+tSX9saR8m5QAmWN1UfWFaSOvi+X3kJgrf9ZrC1OjM925HI3ZU
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 15:43:36.9513
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 25275acb-9477-492a-34ad-08df09d21e95
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF000264B0.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5604
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apmHrnxRLl9BuVhn@google.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEzNSBTYWx0ZWRfX+tCRhA6sSIdG
+ wH3YsOZWUu6AQ/wbZMy8/8ghxOMLr1JxUYI+F1OuGF3kGMSyFosb1yyEw0Y7SkcdnViRSIGYST3
+ ZKzsuk/yTqkbV86fiBlmnquLGrE/lVjUqJoxxitxftnkHOk9tg0lf6UwUpP94HGjN1haIu/bhvZ
+ vOjQqtsKKo3dH3KxPYftRTR6hCAXVZpNywqL9ZPSpumpJiusj9HVTq0eQdDyz3eQ1Y+gGxJro8l
+ V2dWzLn9xp09A0JVmcSAwV5VZkpGjRK8hm3znkN8FXKMdHOmzNczDGuN9kP/yvuCNwH57VbneZM
+ WEDh5Ny5+ief11kwh0eU7+kEY7iwpp9c1n+1CClsNVzgNsl+fZbs6Pd5fvFvzq6se5TMWk43mLh
+ uszJimiwEQpCccZNeyi83N0rlUhjKo2WddPiM755LR8fWAqvO5pRdcfFJgQxorwDdCF16OL+1fQ
+ UEO/8fVhwbjCETjz5gQ==
+X-Proofpoint-ORIG-GUID: 6z-LCHu0Gt_XtkyXQSEc2p12x2-m7GXw
+X-Authority-Analysis: v=2.4 cv=CNgamxrD c=1 sm=1 tr=0 ts=6a99959d cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=Jmw6T6Sfydnll6L029oA:9
+ a=_V_nbmSO25lDuQpK:21 a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: 06nC8yppQ2lADCC-CvXlhYKMn3c0SHeb
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEzNSBTYWx0ZWRfXwZdhsr6ocdVw
+ ZR7eud7oQqfLtMVdQYGpum3xVFBPSPw1xK66LdD+ib0PYULKbLIrhBbbCd9swU012WkLAvvNJ10
+ yXfvzYmcZAkKdMmaJwVBzlHe/P2gUkw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_04,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 clxscore=1015 impostorscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030135
 
-The local "root" pointer is a temporary variable used during the device
-search. Therefore, refcount related to the search iterators should be
-cleaned up after the search is complete.
+On Thu, Sep 03, 2026 at 07:43:58AM -0700, Sean Christopherson wrote:
+> On Thu, Sep 03, 2026, Steffen Eiden wrote:
+> > On Wed, Sep 02, 2026 at 09:20:23AM -0700, Sean Christopherson wrote:
+> > > On Mon, Aug 31, 2026, Steffen Eiden wrote:
+> > > > diff --git a/arch/s390/kvm/Kconfig b/arch/s390/kvm/Kconfig
+> > > > index 8d3ee17a1bcb..9c69ea16031e 100644
+> > > > --- a/arch/s390/kvm/Kconfig
+> > > > +++ b/arch/s390/kvm/Kconfig
+> > > > @@ -53,4 +53,33 @@ config KVM_S390_UCONTROL
+> > > >  
+> > > >  	  If unsure, say N.
+> > > >  
+> > > > +config KVM_S390_ARM64
+> > > > +	def_tristate y
+> > > > +	prompt "KVM support for hardware accelerated arm64 guests"
+> > > > +	depends on HAS_IOMEM
+> > > > +	depends on KVM
+> > > 
+> > > Is this actually necessary?  I.e. does kvm.ko need to be *loaded* in order for
+> > > kvm-arm64.ko to be loaded?
+> > > 
+> > > If kvm-arm64.ko does indeed have a hard dependency on kvm.ko, then I think it
+> > > makes sense to not have redundant "select" statements below.  As an outsider,
+> > > it's super confusing because the KVM_S390_ARM64 are incomplete, e.g. are lacking
+> > > things like VIRT_XFER_TO_GUEST_WORK (at least, I assume those are lacking), and
+> > > makes it hard to see what is actually unique to kvm-arm64.ko.
+> > > 
+> > > If kvm-arm64.ko doesn't have a dependency on kvm.ko, e.g. to initialize hardware
+> > > or something, then this "depends on" should go away.
+> > 
+> > 
+> > It is a bit more complicated unfortunately. KVM_S390_ARM64 depends on
+> > KVM as there is code around in the kernel & drivers (arch and common)
+> > which depends on CONFIG_KVM we need as well. I did not want to leak arch
+> > local configs to common code if I can avoid that.
+> > I could change it to select KVM ? Do you have another idea on how to
+> > solve this issue?
+> 
+> I would do something similar to what KVM x86 does.
+> 
+> > The two modules are completely independent at compile and runtime. So
+> > kvm does not have to be loaded for kvm-arm64 to work.
+> > 
+> > VIRT_XFER_TO_GUEST_WORK is only lacking for now. I will add it later.
+> > Currently the kvm-arm64 module is incomplete anyways but I did not want
+> > to send a 60+patches series and rather stage the introduction over
+> > multiple series.
+> > 
+> > I will remove the duplicated config selections. Thanks for pointing it
+> > out. In previous series I had an explicit KVM_S390 config. Both KVM_S390
+> > and KVM_ARM64 selected KVM. But this created too much churn around the
+> > whole tech-stack 
+> 
+> LOL, what exactly are you expecting to happen?  You're trying to squeeze support
+> in for a completely different architecture, of course there's going to be churn.
+> 
+> This absolutely needs to be as precisely and correct as possible, otherwise it'll
+> be painfully difficult to maintain,  And to some extent, just for others to review.
+> E.g. as is, it's at all not clear to me which of the IS_ENABLED(CONFIG_KVM) checks
+> in arch/s390 apply to both flavors of virtualization, versus which are specific to
+> "native" s390 virtualization.
+> 
+> I realize this is outside of my immediate scope, but getting this "right" isn't
+> just an s390 thing, because these details bleed into common KVM, and even affect
+> other architectures, e.g. when trying to make "treewide" KVM changes.
 
-Use the __free() cleanup macro to ensure the refcount is decremented
-when the temporary pointer goes out of scope.
+I want to find the 'right' way as well - any ideas are welcome.
 
-Additionally, increment the refcount when caching a root pointer. This
-ensures the in-use refcount is separate from the temporary search
-refcounting.
+> 
+> And FWIW, while it might seem daunting, from my perspective it's not actually that
+> much churn to do things "right".  Provide KVM_S390_NATIVE, and then have KVM reflect
+> the "weakest" of S390_NATIVE vs. S390_ARCH.  I.e. make KVM=m if either of the "real"
+> KVMs will be a module.  That requires some creative shenanigans, but it's not hard,
+> just weird.
 
-Finally, drop the redundant "root = NULL" before the second search
-loop. The pci_get_class() iterator always decrements the refcount of
-its "from" argument, so the first loop can only fall through with
-"root" already NULL.
+FYI the first versions of this series had a 3 configs approach very
+similar to yours. 
 
-Fixes: 0a4b61d9c2e4 ("x86/amd_node: Fix AMD root device caching")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260806160159.230453-1-jason.andryuk%40amd.com
-Assisted-by: Claude-Code:claude-opus-5
-Signed-off-by: Yazen Ghannam <yazen.ghannam@amd.com>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
----
-Link:
-https://lore.kernel.org/r/20260824175003.335196-1-yazen.ghannam@amd.com
+IIRC it was not so much the churn we have in (upstream) kernel code but
+more on the distro side and to everyone building the kernel in their
+favourite architecture (s390 :))
+Suddenly the KVM config changed its behaviour (effectively becoming a noop)
 
-v1->v2:
-* Add SoB from Mario.
-* Remove redundant pointer reset.
+I am starting to think that having no separate config option for arm on
+s390 might be the easisest way. Just KVM and guard both modules behind
+it. It reduces the config space bloat and I do not see a reason why somoeone
+should only compile one KVM module but not the other. kvm-arm64 won't
+load if you do not have the hardware anyways.
 
- arch/x86/kernel/amd_node.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+But I am not opposed to the x86 approach. Just thinking loud.
 
-diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
-index 762585775b5a..b7926ba3610a 100644
---- a/arch/x86/kernel/amd_node.c
-+++ b/arch/x86/kernel/amd_node.c
-@@ -251,7 +251,7 @@ __setup("amd_smn_debugfs_enable", amd_smn_enable_dfs);
- static int __init amd_smn_init(void)
- {
- 	u16 count, num_roots, roots_per_node, node, num_nodes;
--	struct pci_dev *root;
-+	struct pci_dev *root __free(pci_dev_put) = NULL;
- 
- 	if (!cpu_feature_enabled(X86_FEATURE_ZEN))
- 		return 0;
-@@ -262,7 +262,6 @@ static int __init amd_smn_init(void)
- 		return 0;
- 
- 	num_roots = 0;
--	root = NULL;
- 	while ((root = get_next_root(root))) {
- 		pci_dbg(root, "Reserving PCI config space\n");
- 
-@@ -299,14 +298,13 @@ static int __init amd_smn_init(void)
- 
- 	count = 0;
- 	node = 0;
--	root = NULL;
- 	while (node < num_nodes && (root = get_next_root(root))) {
- 		/* Use one root for each node and skip the rest. */
- 		if (count++ % roots_per_node)
- 			continue;
- 
- 		pci_dbg(root, "is root for AMD node %u\n", node);
--		amd_roots[node++] = root;
-+		amd_roots[node++] = pci_dev_get(root);
- 	}
- 
- 	if (enable_dfs) {
+Anyways, I am off for vacation expect a reduced reply frequency from my
+side :) 
 
-base-commit: 7755fae2ea370ee914797c5bcca922836a818c3d
--- 
-2.43.0
-
+	Steffen
+> 
+> > (default config change, s390 is the odd one out for the KVM config meaning, ...).
+> 
+> Nah, x86 is the odd one, where CONFIG_KVM=m doesn't even guarantee kvm.ko gets
+> built :-)
+> 
+> E.g. something like this, which probably doesn't compile and isn't the desired
+> end state, as several of the Kconfig selections need to be reworked into #defines
+> provided by header files, but AFAICT it does what I want/intend.
+> 
+> config KVM
+> 	def_tristate m if (KVM_S390_NATIVE = m || KVM_S390_ARM64 = m)
+> 	select HAVE_KVM_CPU_RELAX_INTERCEPT
+> 	select KVM_COMMON
+> 	select HAVE_KVM_IRQCHIP
+> 	select HAVE_KVM_IRQ_ROUTING
+> 	select KVM_VFIO
+> 	select VIRT_XFER_TO_GUEST_WORK
+> 
+> config KVM_S390_NATIVE
+> 	def_tristate y
+> 	prompt "Kernel-based Virtual Machine (KVM) support"
+> 	select KVM if (y && KVM_S390_ARM64 != m)
+> 	select KVM_ASYNC_PF
+> 	select KVM_ASYNC_PF_SYNC
+> 	select HAVE_KVM_NO_POLL
+> 	select KVM_MMU_LOCKLESS_AGING
+> 	select KVM_GENERIC_PRE_FAULT_MEMORY
+> 	select HAVE_KVM_INVALID_WAKEUPS
+> 	help
+> 	  Support hosting paravirtualized guest machines using the SIE
+> 	  virtualization capability on the mainframe. This should work
+> 	  on any 64bit machine.
+> 
+> 	  This module provides access to the hardware capabilities through
+> 	  a character device node named /dev/kvm.
+> 
+> 	  To compile this as a module, choose M here: the module
+> 	  will be called kvm.
+> 
+> 	  If unsure, say N.
+> 
+> config KVM_S390_UCONTROL
+> 	bool "Userspace controlled virtual machines"
+> 	depends on KVM
+> 	help
+> 	  Allow CAP_SYS_ADMIN users to create KVM virtual machines that are
+> 	  controlled by userspace.
+> 
+> 	  If unsure, say N.
+> 
+> config KVM_S390_ARM64
+> 	def_tristate y
+> 	prompt "KVM support for hardware accelerated arm64 guests"
+> 	depends on HAS_IOMEM
+> 	select KVM if (y && KVM_S390_NATIVE != m)
+> 	select GUEST_PERF_EVENTS if PERF_EVENTS
+> 	select HAVE_KVM_VCPU_RUN_PID_CHANGE
+> 	select HAVE_KVM_IRQ_BYPASS
+> 	select KVM_MMIO
+> 	select SCHED_INFO
+> 	select XARRAY_MULTI
+> 	help
+> 	  Enable support for hosting virtualized, hardware-accelerated arm64
+> 	  virtual machines on s390 systems using the Start ARM Execution (SAE)
+> 	  instruction. This requires hardware models that support the Arm
+> 	  execution facility (AEF).
+> 
+> 	  The module provides a character device named /dev/kvm-arm64 to expose
+> 	  the hardware capabilities.
+> 
+> 	  To compile this driver as a module, choose M here. The module will
+> 	  be called kvm-arm64.
+> 
+> 	  If unsure, say N.
