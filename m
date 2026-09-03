@@ -1,289 +1,203 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80D3B4AA000
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:57:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F2D4A5EA2
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:57:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788440248; cv=none; b=pqh/6yLpz+rnVPKTerZm4xGKZHcALk04Udj09Luh4q/xDLXWRis6djErm3P6vxLrpKlYFCvlLScXTN3xXt7FDVm796fWGs8s0EvUlyVFCkI655Fx9upZgHluwLuQ4EJsweIsIYYNY+1Kq7sfKL/czEKjGdGUQI6K4P2Ye2L+gMA=
+	t=1788440273; cv=none; b=OgWl0G5ZsGT0AKrZB9AvMTgF8TJdpOVzVHpYxs/oW2XXD+DiDgKCN/fG4Fml8NtfN5BBgXBTo5OgDiMvrI2brDPoyRfpa6S+UwS/WXb0Fr9S7igpCt14FleFaKGpa/lZY73WKq1Kx9HchIuDiD814w7tQg/QHGlR0HUzYOg5cek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788440248; c=relaxed/simple;
-	bh=FHY4q3Ys1IpJPYpVWNL4je7qcy0wYqW1jLlS7Bg7pj0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=K2iP2nffTusQ/PWF63FIC/6GkKY5jFTmqxkvpnjcipwN66usQOZxHKA3QUUvv6vLZthGqgYPTkPoKeI+DerQlsJCMCWmv+vVXpqKlmwHGhBKBrg8bL4SHxB1QSmuYXDHH4oi+kRNiwnA56XxFiaBpNbgb0J1rzKRhYHoDKqjSb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W7xzK4Bs; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1788440273; c=relaxed/simple;
+	bh=PiqC4JuMN4P2cFd/qh4yCNEWknfB3j29/4moC6Idl4A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZttGFq05s/gzt6fxbx5UROVaQnFG1Mxrd3eNhpeDeWBDCdY1PzIUr6/9ei9EaEHrdeN1AQ8jK8luEsDRbE6A8m4quDhdawBoTPWEMcpZUPJDyuu/FBdiNzatiMByQNo3RZW63R47xh2ZkfOBJWOXyMGfKqtBKUS0/AD+LpdbzSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dgKGLUom; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W7xzK4Bs"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8534d507f59so2953292b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:57:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dgKGLUom"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49b8687630fso19916735e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:57:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788440246; x=1789045046; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ursPPyuEzxu2ga/4COx+sqCZCJvo88hNEtVmuIQ04eM=;
-        b=W7xzK4Bs8h6xujXG1JOpZLORXGLP5N6Ye+5xzrkAMz5UjtnbhR6/9Jz+BRuM5L13Ie
-         uK9AEKzfUuG8vcYWW6jg711actPAfDrMdlAL8NB1eY0vtzoGqNVthFTRcC6JYiFN5eFf
-         HQDoWoV+L5K3SZpnN08m2as8P01Oq5NNFRfz9mhYddmnFxloxapjjSV/1w2OpX/Y+2DB
-         5sst2kKnitM7hNK6COxg+c6EuZWBgNaPipa3TWEqA2ieTpB0heiiekKRkhUq9jXubai1
-         zVAlcTShdRXLNFfpaTUlKMQ6P9R/oydvw2sU4KAmwCqOCzqR0myqbjy8coF9jjdMf7N8
-         i+VQ==
+        d=gmail.com; s=20251104; t=1788440270; x=1789045070; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dXLhIfYsLXeb4uBk9/T4YBgTRm5mlBNtoFfisfwQ+IU=;
+        b=dgKGLUom/iPcQcWWvmRffwzsKxN0owOir9NnoDREQapv3jLe/7bT5rHawBmuYkdDCI
+         bVRi8A7e6K0Zic9fw7EhGMTQkOVMl25Sc1d+exq3oSi+uotJb1xh1VkHTv9MWQyuqAiB
+         4j4imFmBKNgPwAS5xnF6aSYI9PFkzj/JcgCkNexwpYND2dEw+lnpx4nxwej1jkjXrbND
+         5miZXU3h8SATBISDmiS+GhebCSZXpJTDC0mQzzAg9fNHT0M86spcmu5u9GdcKS5AnfCY
+         hqdLJrjc2wnK/QZFx1ZiAxsKoUz2LwG6mT9YtPePKXamD5pR1uea5JCqFzLHH02EI29f
+         ZKpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788440246; x=1789045046;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ursPPyuEzxu2ga/4COx+sqCZCJvo88hNEtVmuIQ04eM=;
-        b=EhLmsfiTpXMld4oC6XfWpwuZzXnVJL4jVS+bnzUakMyFU7ACvKj07mXTsvj2P1w0rf
-         kPnu2xCBxIXMatjVN8e+xWN634jb5U92E4cu3CfwH7C5TxVjM/IiuV8gNw+BIEFO79x9
-         3iwH9OOrI3ssLk2/hoNht53QDeygL1RAbCud5rJzDKdjhxOA1hzsdtBcEq17N1e4eSD1
-         paWB5YoEGe0+sp6h4FK+IsiEWjuSU+mcsaKvy5dU457tSuchJAA3VqFwE69pINO7n33t
-         3YlccI2MFRt2Hh3D9nv8XdEqLC25OAyixCmb12z+baVOHWiy1f4+lc/aEkzd6Qd2FH3n
-         UoWA==
-X-Forwarded-Encrypted: i=1; AKwUvBxttaV8MZgJKTMgsC/iZb+W3u3wJIvxlOJngDfZHKpe0J1B13snHyexxRhQVWypyRJ8pzwsK5UFpPOJpsc=@vger.kernel.org
-X-Gm-Message-State: AFuF++k7+vyl/WiRmumSTdzL14Y7PmlWVSNf/h8GFeXc2Xt0qU4CkK8V
-	ZhADVjiLkB6TfSy/kOeWR2eQ0Nw6y9VhD8wcFmWdG3bMW2ZwJWiBX5xc
-X-Gm-Gg: AYBFou3Wgzu17kQd634G2s/cfZHjlbDAmFuQIAjaNzx0xM0hO5YP6ujW9pQ34fLHh0m
-	LGw990AmFcro7TQ5vvi1/4YDuWFsMbB3z3ryIN2pi7WRCFLcFYdIrS0tMba7gND2o5ssUyCF6HW
-	2MwardKlOz++L9tDQm+ltJc1F40fYodJJJj4Hsq8SMFVbtx5GxjSQ69jLshnTV1JHwNMqN8AAlW
-	dMzDAnKPTD8oCuVw1q3H2i952+KLX0i4HoJcTO+URKo/IhiE/MI5pLZb0hDtGaarg90zWhy5Q6T
-	4bAyZ5mjreBGfmA6BHj6WFu79JMbTgtgB/6UzJlu0ZJnBxukomOyWYUyAjELlWn4x8MWrX3T0ru
-	HHFZit8jtdeYBpG62vKxH4mkB3kY5npX9kTRjM/Gnv+G8O7jX4jaJK5k2mlIoxFdUD8OswZcxi/
-	OAiabRPSt4AWGfUq29L3ZNyuOK6Utsbn5kQBJPQYDb9SSazo7B71jTdMOmjcEAEbBU1QOKVfmIF
-	CTu0IHc8wOG7j/gtqpvJFqud2JHyc0MHZ/6Zw==
-X-Received: by 2002:a05:6a00:23c1:b0:848:62ab:7b7 with SMTP id d2e1a72fcca58-85ed93bfe5dmr15162601b3a.16.1788440245621;
-        Thu, 03 Sep 2026 05:57:25 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db2fcfe2csm2843012b3a.27.2026.09.03.05.57.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 05:57:24 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <86700f73-530a-48b1-98d6-b3d2a2056645@roeck-us.net>
-Date: Thu, 3 Sep 2026 05:57:24 -0700
+        d=1e100.net; s=20251104; t=1788440270; x=1789045070;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dXLhIfYsLXeb4uBk9/T4YBgTRm5mlBNtoFfisfwQ+IU=;
+        b=LDSPS6wQZJdl0iBfJMw6a1s8k/RPC0wXlPmuQ9fKG+E8Vs6sHsDCCv2sqMEajKvTR4
+         7i5s6i+CHHUkIKAjr5wnPO3dayqzHaT5qAlgPhSiKG/RR26MSF6GDwGC8PxNe6SXuN+x
+         oxAtxjtizhtAGdGhFXRC6puOUqVgXmjBaFEeC1sAFNz5JL/3lFq4vCY+1h48kPpIiSOW
+         3iL98nb8DMLb+GZ8O6jOIJIVEcPSYqlZRI1OiQT4HwR6pGIdiRzLmSOXb8t0bzCU6DmL
+         qP4cQVL+beE48x2zQh9ikkb0p+uESeqpB70SkMCZk006k2o6jK4ECSH422Kz1T8Llqrx
+         AUdw==
+X-Forwarded-Encrypted: i=1; AKwUvBxFMUZqCDbrz01iwrS/TaZd3sIt0D4YXGX57/uFgtqx7PWQ/lOFlv5yBblmv27Ulqi6cdREGVTea+0M1Og=@vger.kernel.org
+X-Gm-Message-State: AFuF++kx4vvj4BoVX/jzZnpn7X6GJIWPSyb0gBC7Im9bcXmOK78TM9N9
+	63oKbPcjbuGtEXsaRs0Syn0P/FK6ZJEWs5J9PLdbL4rQpgXtwMEa8sM=
+X-Gm-Gg: AYBFou2vQqCf59fMNpcUFq4e4/O9F8sC7bo28K2PEGd9fNhHJovkkorplhyLGZj5MxV
+	2Bz9D0cCkuAyXfHLxgHrOS8qHyHmt3SisYldQ2XW4eifvG+sZc4wH84lUdLs0+9tsFCVNWG4saE
+	uxkUL10E08djykvPQXl9WyC8s5+fZ2srwTGUK1lyOrX8sB+DhdglZw+aZP7OhUaRoLln4TG7Vra
+	TaRMlw7NVRG2UEg57a5bMLxnMRK8bGeOGbkwtc/0V8OdgFmecS2IfkmmccPfh249wEllZqogVmk
+	k/VksHEIalJCbVj+rBx+qCQUb0ssGjX+TbBmYjA0lv52ut3iHdppyBumfr6+8d2H2TJODSyrQtr
+	jJ5Oqg8oVwF7mPzucYoAUnGfgBnwFmPqftLNjXDdfgzm8MyMHX/CtdnUOt4y3Ew2uM4lHCqpfEf
+	E/nl/+gf/b4il9ybZKRkZFpg8yySPzx60DSjBGWwwJ69/RgINu5/WS6QoIIYyaaa5wJcAkkq1on
+	NHFUUvhchVOHdAeQApKRhz1fS8HZ3mGE2RKz6dlxJi8
+X-Received: by 2002:a05:600c:8b05:b0:499:b65d:124f with SMTP id 5b1f17b1804b1-49ce5823d9dmr261274455e9.11.1788440269473;
+        Thu, 03 Sep 2026 05:57:49 -0700 (PDT)
+Received: from surface.. (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf0c1728bsm55404005e9.15.2026.09.03.05.57.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 05:57:48 -0700 (PDT)
+From: "D. Manresa" <dmanresa@gmail.com>
+To: Jakob Berg Jespersen <dev@berg.pm>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Kevin Lhopital <kevin.lhopital@bootlin.com>,
+	Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Jean-Michel Hautbois <jeanmichel.hautbois@yoseli.org>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Fernando Rimoli <fernandorimoli11@gmail.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	"D . Manresa" <dmanresa@gmail.com>
+Subject: Re: [PATCH v2 2/2] media: i2c: ov5693: fix horizontal flip polarity and Bayer phase
+Date: Thu,  3 Sep 2026 14:57:47 +0200
+Message-ID: <20260903125747.267745-1-dmanresa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <nCjqoWI6z141hFVhaIJmJKK83OIBg5hmB1uE_5U_sqbA0B_kIEPUmVzPTuOViWOyT0y-dCy5yDo2BpGGXWO99LeEugNunoW0eVooQGFMxrw=@berg.pm>
+References: <20260729-sp7plus-ov-flips-v2-0-91884b81a8f5@berg.pm> <20260729-sp7plus-ov-flips-v2-2-91884b81a8f5@berg.pm> <20260828231805.29790-1-dmanresa@gmail.com> <nCjqoWI6z141hFVhaIJmJKK83OIBg5hmB1uE_5U_sqbA0B_kIEPUmVzPTuOViWOyT0y-dCy5yDo2BpGGXWO99LeEugNunoW0eVooQGFMxrw=@berg.pm>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hwmon: (pmbus/ltc4286) Add runtime shunt_resistor control
-To: Carl Lee <carl.lee@amd.com>,
- Delphine CC Chiu <Delphine_CC_Chiu@Wiwynn.com>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260903-hwmon-pmbus-ltc4286-add-runtime-shunt-resistor-control-v1-1-aca2d49a1418@amd.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
- RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
- nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
- 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
- gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
- IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
- kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
- VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
- jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
- BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
- ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
- CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
- oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
- VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
- 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
- onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
- DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
- rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
- WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
- qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
- 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
- qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
- 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
- pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
- J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
- pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
- 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
- ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
- I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
- nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
- HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
- JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
- H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
- njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
- dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
- j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
- scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
- zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
- RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
- F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
- FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260903-hwmon-pmbus-ltc4286-add-runtime-shunt-resistor-control-v1-1-aca2d49a1418@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/3/26 02:23, Carl Lee wrote:
-> Expose a writable shunt_resistor sysfs attribute for ltc4286/ltc4287.
-> 
-> The driver still initializes rsense from the existing
-> shunt-resistor-micro-ohms firmware property (or 300 uOhm by default).
-> When userspace updates shunt_resistor, validate the value and update the
-> direct-format scaling coefficients used for current and power readings.
-> 
-> This enables runtime calibration without requiring a DT change or reboot.
-> 
+[Resent to the list at Jakob's request: the original, sent 29 Aug, reached
+him alone - a mail tooling error on my side that dropped the Cc headers on
+several replies that week, since fixed. Content unchanged. Jakob: yes, it
+was always meant for the record - thanks for checking before quoting it.]
 
-What is the practical use case ? "to be able to do it" is not a use case.
+On Sat, 29 Aug 2026, Jakob Berg Jespersen wrote:
+> One oddity I cannot explain: the vertical flip moves the phase by a
+> column, not a row. [...] I report it as measured; I have no mechanism to
+> offer for it.
 
-Thanks,
-Guenter
+I think I have the mechanism. All eight of your full-resolution states
+reproduce here exactly - same phases, same two states that will not stream -
+so this is a second unit agreeing with you, and then some extra measurements
+that localise the column shift to one register bit.
 
-> Signed-off-by: Carl Lee <carl.lee@amd.com>
-> ---
->   drivers/hwmon/pmbus/ltc4286.c | 86 +++++++++++++++++++++++++++++++++++++++++--
->   1 file changed, 82 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/hwmon/pmbus/ltc4286.c b/drivers/hwmon/pmbus/ltc4286.c
-> index 8715d380784a..e80c9ecea099 100644
-> --- a/drivers/hwmon/pmbus/ltc4286.c
-> +++ b/drivers/hwmon/pmbus/ltc4286.c
-> @@ -1,6 +1,7 @@
->   // SPDX-License-Identifier: GPL-2.0-or-later
->   
->   #include <linux/err.h>
-> +#include <linux/hwmon-sysfs.h>
->   #include <linux/i2c.h>
->   #include <linux/init.h>
->   #include <linux/kernel.h>
-> @@ -16,6 +17,75 @@
->   
->   #define LTC4286_MFR_ID_SIZE	3
->   
-> +struct ltc4286_data {
-> +	struct pmbus_driver_info info;
-> +	u32 rsense;
-> +	bool vrange_low_enable;
-> +};
-> +
-> +#define to_ltc4286_data(x) container_of((x), struct ltc4286_data, info)
-> +
-> +static ssize_t ltc4286_rsense_show(struct device *dev,
-> +				   struct device_attribute *devattr,
-> +				   char *buf)
-> +{
-> +	struct i2c_client *client = to_i2c_client(dev->parent);
-> +	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
-> +	struct ltc4286_data *data = to_ltc4286_data(info);
-> +
-> +	return sysfs_emit(buf, "%u\n", data->rsense);
-> +}
-> +
-> +static ssize_t ltc4286_rsense_store(struct device *dev,
-> +				    struct device_attribute *devattr,
-> +				    const char *buf, size_t count)
-> +{
-> +	struct i2c_client *client = to_i2c_client(dev->parent);
-> +	const struct pmbus_driver_info *info_ro = pmbus_get_driver_info(client);
-> +	struct ltc4286_data *data = to_ltc4286_data(info_ro);
-> +	struct pmbus_driver_info *info = &data->info;
-> +	u32 rsense;
-> +	int ret;
-> +
-> +	ret = kstrtou32(buf, 10, &rsense);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (rsense == 0)
-> +		return -EINVAL;
-> +
-> +	if (rsense > (INT_MAX / 1024))
-> +		return -EINVAL;
-> +
-> +	ret = pmbus_lock_interruptible(client);
-> +	if (ret)
-> +		return ret;
-> +
-> +	data->rsense = rsense;
-> +	info->m[PSC_CURRENT_OUT] = 1024 * rsense;
-> +	info->m[PSC_POWER] = data->vrange_low_enable ? 4 * rsense : rsense;
-> +
-> +	pmbus_unlock(client);
-> +
-> +	return count;
-> +}
-> +
-> +static SENSOR_DEVICE_ATTR_RW(shunt_resistor, ltc4286_rsense, 0);
-> +
-> +static struct attribute *ltc4286_attrs[] = {
-> +	&sensor_dev_attr_shunt_resistor.dev_attr.attr,
-> +	NULL,
-> +};
-> +
-> +static const struct attribute_group ltc4286_group = {
-> +	.attrs = ltc4286_attrs,
-> +};
-> +
-> +static const struct attribute_group *ltc4286_attribute_groups[] = {
-> +	&ltc4286_group,
-> +	NULL,
-> +};
-> +
->   /*
->    * Initialize the MBR as default settings which is referred to LTC4286 datasheet
->    * (March 22, 2022 version) table 3 page 16
-> @@ -55,6 +125,7 @@ static struct pmbus_driver_info ltc4286_info = {
->   	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_VOUT | PMBUS_HAVE_IOUT |
->   		   PMBUS_HAVE_PIN | PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_VOUT |
->   		   PMBUS_HAVE_STATUS_IOUT | PMBUS_HAVE_STATUS_TEMP,
-> +	.groups = ltc4286_attribute_groups,
->   };
->   
->   static const struct i2c_device_id ltc4286_id[] = {
-> @@ -69,6 +140,7 @@ static int ltc4286_probe(struct i2c_client *client)
->   	int ret;
->   	const struct i2c_device_id *mid;
->   	u8 block_buffer[I2C_SMBUS_BLOCK_MAX + 1];
-> +	struct ltc4286_data *data;
->   	struct pmbus_driver_info *info;
->   	u32 rsense;
->   	int vrange_nval, vrange_oval;
-> @@ -114,11 +186,14 @@ static int ltc4286_probe(struct i2c_client *client)
->   	if (rsense > (INT_MAX / 1024))
->   		return -EINVAL;
->   
-> -	info = devm_kmemdup(&client->dev, &ltc4286_info, sizeof(*info),
-> -			    GFP_KERNEL);
-> -	if (!info)
-> +	data = devm_kzalloc(&client->dev, sizeof(*data), GFP_KERNEL);
-> +	if (!data)
->   		return -ENOMEM;
->   
-> +	data->info = ltc4286_info;
-> +	data->rsense = rsense;
-> +	info = &data->info;
-> +
->   	/* Check MFR1 CONFIG register bit 1 VRANGE_SELECT before driver loading */
->   	vrange_oval = i2c_smbus_read_word_data(client, LTC4286_MFR_CONFIG1);
->   	if (vrange_oval < 0)
-> @@ -126,7 +201,10 @@ static int ltc4286_probe(struct i2c_client *client)
->   				     "Failed to read manufacturer configuration one\n");
->   	vrange_nval = vrange_oval;
->   
-> -	if (device_property_read_bool(&client->dev, "adi,vrange-low-enable")) {
-> +	data->vrange_low_enable =
-> +		device_property_read_bool(&client->dev, "adi,vrange-low-enable");
-> +
-> +	if (data->vrange_low_enable) {
->   		vrange_nval &=
->   			~VRANGE_SELECT_BIT; /* VRANGE_SELECT = 0, 25.6 volts */
->   
-> 
-> ---
-> base-commit: 32b6ef9a5d0eca44f9cd91f52f4faa89f145a0de
-> change-id: 20260903-hwmon-pmbus-ltc4286-add-runtime-shunt-resistor-control-44b1fcc18d38
-> 
-> Best regards,
+Same setup as before: OV5693 at 2-0036 behind an IPU6, raw SBGGR10 off the
+CSI-2 receiver, no ISP, no test pattern, registers written over i2c while
+streaming, 40-frame captures.
 
+1) The VFLIP output is a *pure* vertical mirror. Correlating each state
+   against the reference frame and against its h-flipped, v-flipped and
+   180-rotated copies (on 2x2-block means, so the metric is phase-blind)
+   gives, for 0x3820=0x42 with the FLIP_HORZ bits set: vflip 0.996 against
+   hflip 0.182. Nothing horizontal is being mirrored, so the column shift is
+   not a hidden mirror.
+
+2) The row phase does not move, and that part is correct behaviour. At
+   VFLIP=0 the phase is GBRG, so row 0 is G B G B; at VFLIP=1 it is BGGR, so
+   row 0 is B G B G. Both are the blue row: the sensor's one-row
+   Bayer-preserving compensation is present and works. Only the column phase
+   moves.
+
+3) The sensor does not expose the shift. Reading 0x3800..0x3821 back in every
+   state: CROP_START_X = 0x0010, CROP_START_Y = 0x0006, CROP_END_X = 0x0a30,
+   CROP_END_Y = 0x079e, OFFSET_Y = 0, unchanged throughout.
+
+4) Splitting 0x3820 into its two bits is what localises it. The driver writes
+   FLIP_VERT_ISP_EN (bit 6) and FLIP_VERT_SENSOR_EN (bit 1) together; taken
+   apart, at 0x3821=0x1e, offset 0:
+
+     0x3820 = 0x40 (ISP bit alone):    no flip at all, phase unchanged (GBRG),
+                                       image registers at (0,0) against the
+                                       reference. A complete no-op on its own.
+     0x3820 = 0x02 (sensor bit alone): flips the picture (vflip corr 0.997),
+                                       and does NOT move the column phase -
+                                       but the colour path then delivers R and
+                                       B at the noise floor: plane means
+                                       18.6 / 18.4, std 8.5, against 175 / 173
+                                       and std 251 for the two green planes.
+                                       Unusable alone.
+     0x3820 = 0x42 (both):             flips, R and B are restored, and the
+                                       column phase has moved (BGGR).
+
+   So the ISP-side flip bit is the one that both rescues R/B and carries the
+   spurious column shift. It behaves like the internal pipeline being told the
+   mosaic moved, and moving it one column too far.
+
+5) It really is a one-column window move, and it composes with one as an XOR.
+   Calibrated against a known one-column change, at 2592x1944:
+
+     FLIP_HORZ set (0x3821=0x1e), OFFSET_START_X=0:
+       CROP_START_X 16:  VFLIP=0 GBRG    VFLIP=1 BGGR
+       CROP_START_X 15:  VFLIP=0 BGGR    VFLIP=1 GBRG
+
+     FLIP_HORZ cleared (0x3821=0x18), CROP_START_X=16:
+       OFFSET_START_X 0: VFLIP=0 BGGR    VFLIP=1 GBRG
+       OFFSET_START_X 1: VFLIP=0 GBRG    VFLIP=1 BGGR
+
+   Pixel registration agrees: a per-colour-class-normalised, high-passed,
+   15-frame-averaged correlation gives an envelope centre of -1.15 px for a
+   deliberate CROP_START_X 16->15 move, -0.90 px for VFLIP, and 0.00 px for
+   the self-comparison. Same signature, same magnitude, same sign.
+
+Two by-products that bear on how a v3 could be written:
+
+- Your two non-streaming states are a plain window overrun, not a flip
+  interaction: CROP_END_X - CROP_START_X = 2608 - 16 = 2592, exactly the
+  output width, so OFFSET_START_X=1 runs off the end. With CROP_START_X=15,
+  the state 0x3820=0x42 / 0x3821=0x1e / OFFSET_START_X=1 streams cleanly here
+  (40 frames) and decodes BGGR. Symmetrically, CROP_START_X=17 with
+  OFFSET_START_X=0 stalls. So the state you needed is reachable after all -
+  through the crop window rather than the ISP offset.
+
+- With the FLIP_HORZ bits cleared, CROP_START_X has no effect on the phase at
+  all (the window appears to be anchored at CROP_END_X in the mirrored
+  readout); there, OFFSET_START_X is the knob that works. With the bits set it
+  is the other way round. Any compensation therefore has to pick its register
+  according to the horizontal state.
+
+Measured combinations that give a clean BGGR at 2592x1944 on this unit:
+
+    VFLIP=0, 0x3821=0x1e, CROP_START_X=15, OFFSET_START_X=0
+    VFLIP=0, 0x3821=0x18, CROP_START_X=16, OFFSET_START_X=0
+    VFLIP=1, 0x3821=0x1e, CROP_START_X=16, OFFSET_START_X=0
+    VFLIP=1, 0x3821=0x18, CROP_START_X=16, OFFSET_START_X=1
+
+On your plan: reporting the media bus code as a function of both flip
+controls, with V4L2_CTRL_FLAG_MODIFY_LAYOUT, and inverting the polarity only
+after that, sounds right to me, and matches what the numbers above say - the
+phase is a function of both flips, so no HFLIP-keyed compensation can be
+correct in both vertical states. It also has the advantage of not needing the
+sensor to do anything it does not want to do. If you would rather compensate
+than report, the tables above say it is possible, but it needs both flips as
+inputs and a different register in each horizontal state, which is a lot of
+machinery next to just telling userspace the truth.
+
+For whatever it is worth downstream: my out-of-tree binned mode is unaffected
+either way, since it keys its window offset on the mode rather than on the
+flip controls.
+
+Happy to test a v3, and to re-run any of the above on request - the harness is
+a loop of i2c writes plus raw captures, so extra states are cheap.
+
+D. Manresa <dmanresa@gmail.com>
