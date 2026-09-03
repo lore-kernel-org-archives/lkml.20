@@ -1,74 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BF6C41A926;
-	Thu,  3 Sep 2026 10:29:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEC8D470124
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:30:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788431363; cv=none; b=iKqqjIks2Z3mzFyXrO5O5qMcc7OTM89FeC2AFNmeI1rnmiMccfIoj13cUf5YUQevOXSvlFQUCJZcci+OVtYSGufLre+5Kaf+pHkaCUm45mPDEKbeqrcbVPoctA7UsRmcLaY7ofvNJFNlafijCrYofC8NInoSDZVGRNG+HD/ycNU=
+	t=1788431438; cv=none; b=FunVHjuZzvofFEb7dhUipkP05bN2ceiNyqWGqwe4mPgL3P/CBtLY+i7JMAgwa67UVeD+WhhW+uYq7WRJc1aCaDPqkSk2GxTHBitNlNHn6yi1xNCFPskiVSgFWZU6i8V6nyuuj4HUXOKU3umoSUFn85x1Atw6q5ZZTMkknyqJ7WA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788431363; c=relaxed/simple;
-	bh=uUES7jT5eZabTBh/o4EKa/vSwCX45bquAhYcylBnCvQ=;
+	s=arc-20240116; t=1788431438; c=relaxed/simple;
+	bh=i4XmDCjXkn59ZVUkKiXrN08n8fp2zjPNWvkJx/a1/IE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BwSIc7YOOIP5/hHL10a1PibEK+bfmWdn26qJe4iLRas9TFTCW06IdbSLHVXX5mMD9yN2F2f0n4GiBjeTPZwCzO74EBcMKQy/+k4CdHuje5OPKmV80RRWhDuPyqxSuDK5lSNyyRu/if67wPtapMRti/2sBEw+2hON7t5vr1ggsrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MPm0Qkfu; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=UN4li9zdXEaD4qgx2QdFMlyc/qFtGv6X5X0uMGdG+RowDegjFN/BbRqxc7q1eOfEgBqV+M3sf2A4tALWaUncau16MgVNhgfCJkGW7dW7nJARgYs+TqTc7RHYkDABYcs2I31DEk/AO3P+QopFeGldsK3NfNkPjJVGsuVrrAvFPF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=B0yMxSbv; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MPm0Qkfu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67E421F00A3F;
-	Thu,  3 Sep 2026 10:29:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788431349;
-	bh=7+L2p6qhIKE+7ceVwH3zzKlNP0/TD+mCPjdQVeeYPKg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MPm0Qkfuy6odc1QH6yI2w5BIrTVetrwi8eGNB+J/DQr6JkkWstPfGOxrplEVjhZLU
-	 +8V0W/mekASXE4BKNWcMNargESaqw3hBiDlk7q+C+6FhDzhGO4/aR/E7dHkZCKNGiS
-	 Fo3B55RqvqevkSKmLjM60Fy8J4XomcfF7pWZByQriXvWUotIogYVOZ5zVt7y2OA+OK
-	 AhnlMKgNCoD0xhs/OrkVbSRgK1awavcQRtXTZhnnHucVcpRA9PoswSaIqlO3Cuo3ct
-	 Ey/oHgW+xOj7BEcOeiFTvWxmX9V0B0QNPacqy0JAQvpWLvt3stDksNZIyd0U6mLAsf
-	 nk85yyV/BOfFQ==
-Date: Thu, 3 Sep 2026 12:29:06 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: =?utf-8?B?SsOpcsO0bWU=?= Pouiller <jerome.pouiller@silabs.com>
-Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-devel@silabs.com, 
-	Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Lukas Stockmann <lukas.stockmann@siemens.com>, Gerard Salvatella <gerard.salvatella@siemens.com>
-Subject: Re: [PATCH wireless-next v2 2/2] dt-bindings: net: wireless: wfx:
- discourage OOB IRQ with SDIO
-Message-ID: <20260903-roaring-ibis-of-leadership-99a4ad@quoll>
-References: <20260901083548.113131-1-jerome.pouiller@silabs.com>
- <20260901083548.113131-3-jerome.pouiller@silabs.com>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="B0yMxSbv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=sU0t
+	HS5UGwhb0TZkzSFiUQVjiIgLv8Y7NkvNB3Tv+UM=; b=B0yMxSbvHs23kgSns6cB
+	tbc/HXAj0De7xyVY3CbzvWSFk3v7IS4875KOMW6KQK2JbfWuwqoN3XG6FHIOB/9J
+	2SjKXeyEUc+NyjTxzJ6YtD2ZAFbIJEkfcUomOVQ15LVHh3RKDy4BiWQJwwr3Qws/
+	4rQgO9HhuA8kar5JfOh86NmrNXKnjeWNHBakXkzqw5jc+gXhaJ7wCrSjsMu9zwvg
+	lAz/NevZAMlv5CQv4C6nOjSef1Iw8Oi/EOIi/I+yhGlhqV0gX/c8qqKXLkK7Inyi
+	SXpTVqD5qy4lmjAhJw/AvIm02GG8CJWDhELkYArgbGSvRY3GNYYjeb/iH8XrBh5u
+	9g==
+Received: (qmail 1009339 invoked from network); 3 Sep 2026 12:30:18 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 3 Sep 2026 12:30:18 +0200
+X-UD-Smtp-Session: l3s3148p1@Trxfo5FaxOAujntC
+Date: Thu, 3 Sep 2026 12:30:17 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Biju <biju.das.au@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>,
+	linux-mmc@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v24 10/15] mmc: renesas_sdhi: Add write32_hook for
+ CTL_SD_CARD_CLK_CTL register writes
+Message-ID: <aplMNoRlIYbVZH5-@shikoro>
+References: <20260820171657.62815-1-biju.das.jz@bp.renesas.com>
+ <20260820171657.62815-11-biju.das.jz@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="I9oGEfjpYOistGFg"
+Content-Disposition: inline
+In-Reply-To: <20260820171657.62815-11-biju.das.jz@bp.renesas.com>
+
+--I9oGEfjpYOistGFg
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260901083548.113131-3-jerome.pouiller@silabs.com>
 
-On Tue, Sep 01, 2026 at 10:33:20AM +0200, J=C3=A9r=C3=B4me Pouiller wrote:
-> The WFxxx device provides an SDIO interface. In addition to the usual
-> in-band SDIO IRQ, the device also supports an out-of-band IRQ line.
+On Thu, Aug 20, 2026 at 06:16:40PM +0100, Biju wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
 >=20
-> However, using the OOB IRQ with SDIO requires to poll the control
-> register during the device initialization. This polling is unreliable:
-> if an IRQ is raised while the host reads the control register, the
-> device is lost and only a reset allows to recover it.
+> Add a write32_hook, analogous to the existing write16_hook, so that
+> sd_ctrl_write32() can wait for the SD bus to become idle before
+> certain 32-bit register writes.
 >=20
-> There is no way to fix this in software. So, warn the user that this
-> setup should be reserved to debug.
->=20
-> Signed-off-by: J=C3=A9r=C3=B4me Pouiller <jerome.pouiller@silabs.com>
-> ---
->  Documentation/devicetree/bindings/net/wireless/silabs,wfx.yaml | 3 +++
->  1 file changed, 3 insertions(+)
+> renesas_sdhi_write32_hook() checks whether the target register is
+> CTL_SD_CARD_CLK_CTL and, if so, waits for TMIO_STAT_SCLKDIVEN via
+> renesas_sdhi_wait_idle() before the write proceeds. Other registers
+> are unaffected. As with write16_hook, the write is skipped if the
+> hook returns a non-zero error.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+While technically correct, the commit message is totally not helpful
+because it misses to say WHY the change is needed. It only says WHAT is
+done but I can see that. G3L exceeds the 16-bit width, this is why we
+need to change the code here. I know you use AI to assist with commit
+messages but please keep a suspicious eye on the results.
 
-Best regards,
-Krzysztof
+> +	host->write32_hook =3D renesas_sdhi_write32_hook;
 
+Have you checked that all SoCs handled by this driver support 32-bit
+access to this register?
+
+
+--I9oGEfjpYOistGFg
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqZTDYACgkQFA3kzBSg
+Kbby9A//RumI6iNFibcLj68lexEHIaMWAwDK99MpeSja5J6fOQQiHtqIDI9MD5vI
+Qew4SfFBapqs47od/38urBcHKonWxVqVNCOdKsjO/z3e3Bs2SeIbIp/NFTFeUVeu
+6TTyMzr3z4dfdivay9GwWAG3qGB/1sfP1baRcwE3pajocuSQz3Zt35Y21sDFI/2U
+bnFNrK1OPlpA/ha7Vcdi8fa1xDz9LO871gS+3qS1ZCX4q6nTd7/cwCG5ajKsbzbE
+EtctPgZiuWBhT8mfIZ5XnSeRjNv90fBd4LhuYyJsvPs2QDwjFd5B9c2OG2si8Ua7
+b3N/vss8AiiB1tLjlT41e8MU4Cmiga6vB/ojVPFwD0S3NjyG4eKwEosa4I3m1SNB
+p9Dux895G+m3ixwLHs/5DE/hC3wG0LBf37ZLs9Gfe/eCcHKAKxqOPurZwbnwTH0S
+HujLvkf58P2rf+DOaYXcHe7S6OC5mjB2cOt3Fqo4u7nQ7S/LW20kbaYJq6cIiujP
+xHXdoiC8049AFHOyx4ksRnKnV17zgcB+WpDno3HC1pRA1Xe7PlAuI2J4DpWjTLRz
+T6b/tTi3fIxDDQfsJIirZkiCnNwJgUQ6JNpLTzGwf/7o7HF74IEJ4r1bGFd7xX+p
+TSTMSP6eTjCJTfIVC3XVoQSWbKcrGh1sorZSpuwubFk586uR1lg=
+=3pni
+-----END PGP SIGNATURE-----
+
+--I9oGEfjpYOistGFg--
