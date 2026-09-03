@@ -1,189 +1,188 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D6524CCDC8;
-	Thu,  3 Sep 2026 08:22:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C2524248A1
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:23:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788423780; cv=none; b=SJ/QutIXmPliE/F8BvPEziyWCc7CrcDUCSHv+/xH9GqgLnLFEeSQLjg2Q9SnYGlme5tYv2uREvmnXXIpLSf63qCkHOZrdZLo8DC+kMW22FMsv2x6L+MsvvYN1nKRM6+TCibxNR2tVcQujSYWH2JUAV8LglwtZL5bpoD5TcIL5UM=
+	t=1788423788; cv=none; b=TGPWGRx5eEqMvxb53eT3BF4xigdcKrI6pHxyB6kvj6qQR4MS4GEAAT3yPETtSXHcFpeL2scA92eSFfcQz76F4lSRV41HTK7n46avGDkNivnpqY+q+MGiR81/7fxnsuWoQlPeCHD2l0/WbZ86C9cpu53XvxYoJuev2VmQpS9BNAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788423780; c=relaxed/simple;
-	bh=9P8B/RN6zn0i8bcvOLF7tj5JKQE6TfZq9cp89lUEZew=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=GGfJm6M0M4O60lJ0HHJs8zpeFO9B6/l/RGG5EF6AorE+By5bBxnqKyNUA/ArLsNAvTLhHmkjDAJyUD6Z4p6lEbgzuGFFmuopwBZspaWKa9LUbpcy+Y/chuay0W+/gKRXGTAjJzYk0oIs5e76Eih9VMdiGfuJWTkO6nLGpvNBpUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=NYAc69wF; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788423788; c=relaxed/simple;
+	bh=CoPjRai4bpFjpoO1hLKHz2e2vlHftvEQRd7hfXf92Ag=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=pcCfuRuA350lvXisglh+YyL/z80CDy7M018kUmVi1zRr0F7po7QR8GbqP7S2aF8g4d6Wv6CsDeklRJDKwfx2NfcMkew8xeCBmDafh42r+MAVlv2EGeENvGdKZhtLouoVjlil+x6lTkwB7lOk1FTdcXyL2OxyeAtV01KqbyLo9KQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S3ZocCh5; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="NYAc69wF"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hbCJs2vzzzKvv2;
-	Thu, 03 Sep 2026 10:22:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788423773;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9P8B/RN6zn0i8bcvOLF7tj5JKQE6TfZq9cp89lUEZew=;
-	b=NYAc69wF9Ot6/siRQbABrzSL8rS69JajnQhNsxyIlpbjoyMXRopUE85z5bOkOhjECZwkLx
-	tbvzm38KobNK63zs7rknMOx5xfLNfcpkXya4DLzCtmDqCkZ7QVkVMnbEI6FI4mS5TGKpDH
-	i26OTQrTzdA0/msKEW4BU1LQSAiwVlInOO3hQerk3XdxXnHOjmkRNWXJbCfDFMzs8I6G4s
-	x5X0bObEIxc8TotjOtZGnrDbxDAEozG6Hndy8PTKyiR8neFjhzzAb3gfDbQBdNCDYdwc2F
-	+d2O2q6fpW59MR3XREIZ91O0M17Gi7tkxDK2iUf8PwHvyBBvuhyO/PQhrXot4Q==
-Message-ID: <101613e024851e419e2e19c433a50044ed75b466.camel@mailbox.org>
-Subject: Re: [PATCH v2] docs: verify/bisect: fix typos
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-To: Thorsten Leemhuis <linux@leemhuis.info>, Jonathan Corbet
- <corbet@lwn.net>,  Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 03 Sep 2026 10:22:49 +0200
-In-Reply-To: <c6487243-0cf6-425a-8992-399aa802ed1a@leemhuis.info>
-References: <20260902115121.687986-2-manuelebnerli@mailbox.org>
-	 <c6487243-0cf6-425a-8992-399aa802ed1a@leemhuis.info>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S3ZocCh5"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-39647184c73so711982a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 01:23:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788423787; x=1789028587; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=xhPbHg14H3tGTjrunsG8Oim1GGIOwgeAe8+HMzV8sU8=;
+        b=S3ZocCh5rBnlA4UjvTcXJd4h2VyexIKbjqBTMJ7xem2CX94uA4E8LwVAbNDu8kpAhE
+         /HXBZx08LN/Dj9aKXqhasYvan3xZZuvdFfFs3hH3qVBzRJ3Tj/mj1V29JHGU8AzjfHx5
+         3v4AsGH5f89EKtmZnzbwMfXtytMpIJCSrvf0JMU+cCz4EIOvTQUMgfg6thwPlkrFPSfi
+         KYL9X/ScPc3IzUwbFeaFNCU3Pbc7GZCsvfAHirIGNoMBnFRmbvGK/8jXuUkOPdquG/tw
+         VA0L0oG4rfujJuILFjyuSCxKFrgD58rfUa+ZHk+rU9/qgMEstGmagyJVJzqgjdXfDqaH
+         limA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788423787; x=1789028587;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=xhPbHg14H3tGTjrunsG8Oim1GGIOwgeAe8+HMzV8sU8=;
+        b=C+T0Ej77sL7PqDxRSc4zUQf+dJtFbTJcpXosIMMeQquuUqmjPB1BzpVHT5lrgJRUbW
+         4jbdUElNU1lfTaDR5fMX9AQZ/uZ7sErNe2iH2Lpku9xQ88qTVjJS2pqAORbRLs9zqlUV
+         ZlJoGeYIm59gMmgidddePTSWrZH5fErc5uk+0rvzzz73NZS9JcmGB0mHjRA4y9DnSF8U
+         9cDjzfDMPauLiEkQl0wF2kKu8aMamr0kUyaeW27fZEAdDMWo8S6j3le+Z9SgqsI+0GjC
+         sCF9TvgZvpwR5WWrgh49tIfS0PYrjaHF3/oo9pSFb8Q+fkZLOl49vJIykgDR27FGWiKx
+         28XA==
+X-Forwarded-Encrypted: i=1; AKwUvBwcZJ0S2E9nvlqyG+BM4TXzHv7pHg31YJbuGoVEM8JMGdFDzFox8Rx0lmEZ9OBUKML5NZkCqPyZoK+b5eg=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0tRJaI39BJNmahm8+v7ge+u3/CwEHPaR3lRAMoIyLVkn3Go63
+	rPk7Pq5LaRaZyWDkQGRJJRtRHeBGyM4OASthROKLPhkpBnhDD55vvbb3
+X-Gm-Gg: AYBFou3GYGl/Sv//SVFOCCyGoragEaExkwmKOtoh0qjFdLRBQ224KpoYMP+sqUawa0M
+	Lf9qVdPEDD9BEnyM7JcjtZw7BpICdHRpJjbgvkSq7aCuQeHKLD/0tM7j7/u/bfPetgMMBz3HAWO
+	Xeev6ICWcOz0h/3dHulAMlZsUTMG8rS5fvm8klonuyrPVVveAzkUhUX7bdnGcgRQJkfGS1Bf4af
+	eboLVUasArHH+X9Sk5LZrAhavEsOPdfDzRQ0EVFXpTXHWA6eVgIFIP0tzsQmpTpSBPZ2/n3XX5y
+	WwlbLnjfeDN8wCdTKkkUdXa0ldTRdjBtWaYLRkeRUSpsI9hM1+Ykg1qYNTr/9Q9ehk0p8gfnOUM
+	cjK8xE3XgNB9/fV+KJ0EGsNoIC5Ir++zWE5HzRRVJwqrI5qYdEhe9DOPk8RphhgJm/YVejt54gE
+	pFNVhT4BimWTmw/WjZWau6B2gaTSV5VWkapc0/sVU4vCCED8GR36rWeCJafyNG+aDIjOPhZmXFE
+	68TqcC9JW1ACxFqJaB5BuU=
+X-Received: by 2002:a17:90b:3a43:b0:398:9bd3:d6d2 with SMTP id 98e67ed59e1d1-39b132c749amr1858214a91.12.1788423786715;
+        Thu, 03 Sep 2026 01:23:06 -0700 (PDT)
+Received: from [163.43.103.131] ([163.43.103.131])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b083e7167sm3935106a91.5.2026.09.03.01.23.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 01:23:05 -0700 (PDT)
+From: Yuya Kusakabe <yuya.kusakabe@gmail.com>
+Date: Thu, 03 Sep 2026 17:23:03 +0900
+Subject: [PATCH net-next v2] seg6: reallocate the skb head on L2
+ encapsulation only when needed
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: 85aae325e7554f861cf
-X-MBO-RS-META: giqfbrmihpb1qei4ye97g5egtbkfcih6
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-seg6-l2cow-v2-1-f37b3b35416f@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAGYumWoC/22NwQ6CMBBEf4Xs2TV0QVBO/ofhAGWFNdCatiKG8
+ O8CXj2+zMybGTw7YQ9FNIPjUbxYswIdItBdZVpGaVYGiimLLzGh5zbDnrR9Y543OqmrVFFCsA6
+ eju8y7bIbGA5oeApQ/hL/qh+sw+baup34YN1n/x3Vvvh3MSpUyGdKNJPK0lN6bYdK+qO2A5TLs
+ nwBVxxA1sAAAAA=
+X-Change-ID: 20260902-seg6-l2cow-77dc3ba41232
+To: Andrea Mayer <andrea.mayer@uniroma2.it>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Yuya Kusakabe <yuya.kusakabe@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3182;
+ i=yuya.kusakabe@gmail.com; h=from:subject:message-id;
+ bh=CoPjRai4bpFjpoO1hLKHz2e2vlHftvEQRd7hfXf92Ag=;
+ b=owEBbQKS/ZANAwAIASrX0XUqXRtNAcsmYgBqmS5nq5bTFbnbILmPv6FT2+yXLmmrErSttIPg5
+ FtGyPvpU06JAjMEAAEIAB0WIQTaB7usAfxNKMeqa6Yq19F1Kl0bTQUCapkuZwAKCRAq19F1Kl0b
+ TVAiEADWnPbScQ4WTCY18T9nAQTjMDNhqU7GEV160rNxffYKl0pYpvrGRD9bqH81nOngIbnVBQr
+ rMVGu6g9BqmFFwTRrVK9dmqKUUtD5ZHsUdJgQz503kTgsVHhga9VBGhxiEHDT4/bTmdnEz/D7PR
+ 3WUZpMqdcxyaizjDNyx/K4k/rVGl9AdpeM+Ju+0SUQQgEbvbhkzK1HxK6dT5APSGgP+J0SBlC2m
+ PBCkDQyXBBfzxypYQYuf4QqUcDuaALga7n8u8zB0MWYSUe+PswGsuYjTXeYkv6nKUAqLi9pq4gd
+ Dc0vsANWPECbgICxZY49nFZT/FgJntXpjw8Yf/XothBhx9X/DpZMh8er50kPeO7BIti09oLWat+
+ SnDVp53uBnp0lChMQJG/Tq87+ZsK+dDqJL8N+h49XtZo/FbDwQXnHxe5Ec5cTf1C0RvTzVEDUTt
+ GpQU18nSjy91kt84X9XymIbMFgbAraHJhz6R79z/bpzu5+zuJc9DEnZ/bmqqdrOaDpwIPERAFBU
+ XBx82cmo2y8ETkjsSf2SKwmHX/0iKgMjJdT0C8l6dd7uF1VgthSkXdpXvahsBpsDlAceKSttePC
+ UBcgitID3KuH5OJCgaEueRwGeKcnAiHeJ+VGlROHdGI1b7ujzxfEtwNDiXvQhYxmGFeeGQjkMLt
+ /OZTc96ZResZULw==
+X-Developer-Key: i=yuya.kusakabe@gmail.com; a=openpgp;
+ fpr=DA07BBAC01FC4D28C7AA6BA62AD7D1752A5D1B4D
 
-On Wed, 2026-09-02 at 18:30 +0200, Thorsten Leemhuis wrote:
-> Thx for doing this, much appreciated.
->=20
-> On 9/2/26 13:51, Manuel Ebner wrote:
-> > 'your' -> 'you have'
-> > 'kernel kernel' -> 'kernel'
-> > 'your' -> 'you' twice
-> > 'if is not listed' -> 'if it is not listed'
-> > 'hay attention' -> 'pay attention'
-> > remove needless "'" in sphinx link
-> > 'as disabling then will reduce the consumed disk space'
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 vvvv
-> > 'as disabling them will reduce the consumed disk space'
-> > 'You for example might' -> 'For example you might'
-> > 'and not from a one that' -> 'and not from one that'
->=20
-> Pretty sure the above won't fly as a patch description, as it should
-> describe the changes, not list each of them, as that is visible from the
-> diff already (even if that's slightly hard for text-only files).
+The L2 encapsulation modes of the seg6 lwtunnel reallocate the skb head
+on every packet, where the IPv6 encapsulation modes reallocate only when
+they have to.  Ask for the whole encapsulation up front instead, so that
+the reallocation happens at most once and only when the headroom really
+is too small:
 
-That's true, I got this a couple times as feedback.
+  skb->mac_len + sizeof(struct ipv6hdr) + ipv6_optlen(tinfo->srh)
+  + dst_dev_overhead(cache_dst, skb)
 
-> For typos and grammar fixes there is not much to say, so maybe just
-> state that; but you might want to look at a few recent changes in
-> Documentation/ to see how other developers approach a situation like this=
-.
+__seg6_do_srh_encap() then finds the room it needs and its own
+skb_cow_head() becomes a no-op.
 
-That's a good idea. I did only find slightly more verbose than mine, eg:
-> Fix 'hay attention' -> 'pay attention' in file.rst
-or
-> Replace "an a few" with "and a few" in
-> Documentation/driver-api/media/drivers/zoran.rst.
+Drivers reserve more than that on the forwarding path, so the
+reallocation usually disappears altogether.  A single-segment policy
+on ixgbe needs
 
-> > Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-> > Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
-> > ---
-> > [v2]
-> > =C2=A0+ one more 'your' -> 'you'
-> > =C2=A0- 'it'
-> > =C2=A0+ incorporate Randy's suggestions
-> > =C2=A0=C2=A0=C2=A0 https://lore.kernel.org/all/0475c09c-e165-41a5-b654-=
-5c6aefeaab0b@infradead.org/
-> > =C2=A0+ Reviewed-by: Randy Dunlap
-> >=20
-> > [v1]
-> > =C2=A0https://lore.kernel.org/all/20260829055501.581856-2-manuelebnerli=
-@mailbox.org/
-> >=20
-> > Wouldn't it make sense to add how to skip pure documentation and format=
-ing
-> > commits?
->=20
-> YMMV, but I don't think that's worth it. It is easy to get wrong,
-> doesn't matter much at the early steps of a bisection, and means one
-> more instruction to describe for people that do that for the first time.
+  14 (mac_len) + 40 (ipv6hdr) + 24 (SRH) + 16 (LL_RESERVED_SPACE) = 94
 
-Ok.
+against the 206 bytes the driver leaves.  Where the headroom is
+smaller, as on a veth pair, pskb_expand_head() is called once per
+forwarded packet instead of twice.  Asking only for skb->mac_len would
+still take two whenever the skb is header-cloned, because the cow that
+unclones it does not also make room for the outer header.
 
-> > Commits like this one. Or is it better to keep the document short
-> > and simple - which it already isn't anymore.
->=20
-> Feel free to suggest something to remove or rewrite parts with less
-> words=C2=A0
+The cost is amplified by CONFIG_INIT_ON_ALLOC_DEFAULT_ON, which many
+distributions enable: every new head is zeroed in full, and that memset
+alone accounts for 16% of the datapath profile.
 
-I'll add it to my list, but it's pretty difficult.
+Throughput at 0.5% packet loss, 64-byte frames forwarded through one
+2.30 GHz core (Xeon E5-2650 v3, ixgbe 82599ES), offered by TRex and
+binary-searched over 10 runs of 10 s:
 
-> -- in separate patches of course. I know my writing is pretty
-> verbose, sorry; partly that's my style, partly it might be because I'm
-> not a native speaker, and partly it's like that because I know about too
-> many corner cases that I try to prevent users running into.
+  Before: 654.6 kpps
+  After:  965.7 kpps
 
-That=C2=B4s a feature.
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Yuya Kusakabe <yuya.kusakabe@gmail.com>
+---
+Changes in v2:
+- Ask for the whole encapsulation headroom at once, so that a cloned
+  skb no longer takes a second reallocation inside
+  __seg6_do_srh_encap() [Eric]
+- Re-measure against unpatched net-next rather than an older base
+- Link to v1: https://lore.kernel.org/r/20260902-seg6-l2cow-v1-1-e823ce216454@gmail.com
+---
+ net/ipv6/seg6_iptunnel.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-> > ---
-> > =C2=A0.../verify-bugs-and-bisect-regressions.rst=C2=A0=C2=A0=C2=A0 | 24=
- +++++++++----------
-> > =C2=A01 file changed, 12 insertions(+), 12 deletions(-)
-> >=20
-> > diff --git a/Documentation/admin-guide/verify-bugs-and-bisect-regressio=
-ns.rst
-> > b/Documentation/admin-guide/verify-bugs-and-bisect-regressions.rst
-> > index 7d38393f31f..9296e3f5410 100644
-> > --- a/Documentation/admin-guide/verify-bugs-and-bisect-regressions.rst
-> > +++ b/Documentation/admin-guide/verify-bugs-and-bisect-regressions.rst
-> > @@ -163,7 +163,7 @@ will be considered the 'good' release and used to p=
-repare the .config file.
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 section 'Complementary tasks: cleanup du=
-ring and after the process'
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 below.
-> > =C2=A0
-> > -=C2=A0 d) Once your finished the bisection, put a few things away::
-> > +=C2=A0 d) Once you have finished the bisection, put a few things away:=
-:
-> > =C2=A0
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cd ~/linux/
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 git bisect log > ~/bisect-lo=
-g
-> > @@ -178,8 +178,8 @@ will be considered the 'good' release and used to p=
-repare the .config file.
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ./scripts/config --set-str C=
-ONFIG_LOCALVERSION '-local-cafec0cacaca0-reverted'
-> > =C2=A0
-> > =C2=A0=C2=A0=C2=A0=C2=A0 This is optional, as some commits are impossib=
-le to revert. But if the
-> > -=C2=A0=C2=A0=C2=A0 second command worked flawlessly, build, install, a=
-nd boot one more kernel
-> > -=C2=A0=C2=A0=C2=A0 kernel; just this time skip the first command copyi=
-ng the base .config file
-> > +=C2=A0=C2=A0=C2=A0 second command worked flawlessly, build, install, a=
-nd boot one more kernel;
-> > +=C2=A0=C2=A0=C2=A0 just this time skip the first command copying the b=
-ase .config file
-> > =C2=A0=C2=A0=C2=A0=C2=A0 over, as that already has been taken care off.
->=20
-> I'd move the "over, " to the previous line, as the formatting otherwise
-> looks odd. Not strictly required and makes the patch slightly more
-> complex (so might not be the best idea, but I think it's worth when it's
-> just one line).
+diff --git a/net/ipv6/seg6_iptunnel.c b/net/ipv6/seg6_iptunnel.c
+index 61c6a27bf202..ecd8146089ee 100644
+--- a/net/ipv6/seg6_iptunnel.c
++++ b/net/ipv6/seg6_iptunnel.c
+@@ -400,6 +400,7 @@ static int seg6_do_srh(struct sk_buff *skb, struct dst_entry *cache_dst)
+ 	struct dst_entry *dst = skb_dst(skb);
+ 	struct seg6_iptunnel_encap *tinfo;
+ 	struct seg6_lwt *slwt;
++	unsigned int headroom;
+ 	int proto, err = 0;
+ 
+ 	slwt = seg6_lwt_lwtunnel(dst->lwtstate);
+@@ -446,8 +447,13 @@ static int seg6_do_srh(struct sk_buff *skb, struct dst_entry *cache_dst)
+ 		if (!skb_mac_header_was_set(skb))
+ 			return -EINVAL;
+ 
+-		if (pskb_expand_head(skb, skb->mac_len, 0, GFP_ATOMIC) < 0)
+-			return -ENOMEM;
++		headroom = skb->mac_len + sizeof(struct ipv6hdr) +
++			   ipv6_optlen(tinfo->srh) +
++			   dst_dev_overhead(cache_dst, skb);
++
++		err = skb_cow_head(skb, headroom);
++		if (unlikely(err))
++			return err;
+ 
+ 		skb_mac_header_rebuild(skb);
+ 		skb_push(skb, skb->mac_len);
 
-I'd do the same, prior feedback taught me otherwise. I'll do it.
+---
+base-commit: c8ea08ba34f2a2e9bfb18ff3d69eb2d69b324f49
+change-id: 20260902-seg6-l2cow-77dc3ba41232
 
-The remaining suggestions are good, will incorporate them.
-
-Thanks
- Manuel=20
-
-> > =C2=A0...
-> ...
-> Ciao, Thorsten
+Best regards,
+--  
+Yuya Kusakabe <yuya.kusakabe@gmail.com>
 
