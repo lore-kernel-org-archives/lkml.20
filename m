@@ -1,46 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C31C94B66D2;
-	Thu,  3 Sep 2026 16:13:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A124D9901;
+	Thu,  3 Sep 2026 16:13:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788452009; cv=none; b=AoNVfXakk4KvYqxZnXuYA0x1GD58kZYRJDHhSlvx3LWWxvCgP6ls9O7WReKV9iY4ItLmHuwnuIqHUZVT+cUgJjeXwaToGS7pPsESTUUlcinuq6PUQkDHvpM7jERToGPpXSIz3fszwm6iQtX+X4npSl8fsPQdQyKQ4sSB8YH2jA4=
+	t=1788452011; cv=none; b=thV+InD0nkgrRKOsEK4+0hWjk4E2+a5z9NHeB8fpU9TMCnCTz1yx2PZMwyMJd85V55FEU+C5CAsmzGmND+huHfXFG/yNvaXpX5gRs40AIIJmOYMlxQqXGYb3WaOUY3lP6ETiXEErpXOI8o1h0MwSwciEGtPveMd/h3BOxMhhDfY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788452009; c=relaxed/simple;
-	bh=2py9P2IzpDqnVxJhEiRLK5ke9TxPnb74ODFtFCklILo=;
+	s=arc-20240116; t=1788452011; c=relaxed/simple;
+	bh=PB7Iq2ssFKLaMqNGOCeNlDG2sDFWCM0kB5FjcfQ5eAg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K2pNP+hmGKfrkNQlUsArEFvvu8+faLe0OCl4xpP6fz4yfCGuZZnZqU9F7b4AIHHqPhUS2trsbFTR1tcl1jHWjzZxav2QExN1YLnBnihnQebzzoFBa3z1ixalNJeMbBpxvciRyblFasTG58ZZq0Jn5NRIWZsSKaNcECaHSQhAd14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WMNDaEXl; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=qngccmUXkCYxv24VjZ7QDdzQeNc54bWloJiaxIroPq3LmADRCfR0ICjGBag8gvaxLVgqy0Oozir9P2lT0VNXrXziYt+Zn9kLKYGp9Y4tekO9LB11CKTSm+4Xu1fm584IiHkpigS+ZOGxOW6nHQuw0C+IU1bIw6ebAib+CzEVvl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cKBqdlKQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WMNDaEXl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF2791F00A3D;
-	Thu,  3 Sep 2026 16:13:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cKBqdlKQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A95D41F000E9;
+	Thu,  3 Sep 2026 16:13:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788452007;
-	bh=LCEYAcPt0f1Nu3uSYIZ84TVe2clkjPIhGLMPzYGyrwY=;
+	s=k20260515; t=1788452010;
+	bh=0AqKXgC/ir//xnyE9Qd0oIkiDK0g4G75mrBEzb+49oc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WMNDaEXlUUVMOIy9NaeNd/lxVzlaqXP9tPIKrqrFZ43stGaKkUu1dQuLNWIWSdrAp
-	 V99KeqjLQualWnLjBtuLxKyrxbneST3ce4+cUMLzbJRqCA81U6p2V0/2aQHnEb+HJM
-	 zED0Y3e7BCsph8JK1Msu5ZRWPmdRvTKAIrvrPreuKU+90jZixUehLcR8ViCWH9PiPl
-	 cGQdP7WQYIr4ZvPSdUAyTO6mCyU1Fqf6yTH7QCL9g15y54OYlRXq9KakQ4wPN9QTWn
-	 byilUl9mRTdYmG1qfnsAeQc4UpQ7CBrqa3Vbqgc3MgVuaaIUO3m7wLbc5+ckrdXLKx
-	 17+3VNrY7kI7w==
-Date: Thu, 3 Sep 2026 17:13:23 +0100
-From: Lee Jones <lee@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Vincent Donnefort <vdonnefort@google.com>, stable@vger.kernel.org,
-	rostedt@goodmis.org, mhiramat@kernel.org,
-	linux-trace-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com,
-	kernel-team@android.com, linux-kernel@vger.kernel.org
-Subject: Re: STABLE REQ: [PATCH v5 06/10] tracing: Fix subbuf resize races
- with trace_pipe_raw readers\
-Message-ID: <20260903161323.GW2133376@google.com>
-References: <20260901123444.GA1350131@google.com>
- <20260902-daily-reply-0006-tracing-subbuf-resize-7-2@kernel.org>
- <apk_dQ4Q6msdw_Ub@google.com>
- <20260903123455.GS2133376@google.com>
- <aplrlQbTRxAxMsAF@laps>
+	b=cKBqdlKQNG+MgIqyCdTWZkCc552pzvkklw9sYz13LkySjin8cHqvOu/azYYZfjaOq
+	 zqjcnetKLSBKYNJ+HRDJpwmSdW9xjtp264kd0LYTg86Vz0vnNz+OZ+l/cfcGL9GyN8
+	 jQPPQdDpf/rCXDgXbNPJEggRtFDCGM0BkDwAGR249XYPoYNLy/v2TISkXfoyUDxtq5
+	 DDDioPXlFCI1c2VcAyZ4vSm4bxCI6CIebJyDc6v0weNe6252CQkk/1IvtUg4sFYiFs
+	 ouUuMKCkY90wvG+1oBcTiRdGWZS/JACKtXYCN1WWLciYf9cO2pD11zYYR6Y9Oa7K74
+	 2CginSW6x86UA==
+Date: Thu, 3 Sep 2026 09:13:28 -0700
+From: Wei Liu <wei.liu@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Mukesh R <mrathor@linux.microsoft.com>,
+	Alex Williamson <alex@shazbot.org>, hpa@zytor.com,
+	robin.murphy@arm.com, robh@kernel.org, wei.liu@kernel.org,
+	mhklinux@outlook.com, muislam@microsoft.com,
+	namjain@linux.microsoft.com, magnuskulke@linux.microsoft.com,
+	anbelski@linux.microsoft.com, linux-kernel@vger.kernel.org,
+	linux-hyperv@vger.kernel.org, iommu@lists.linux.dev,
+	linux-pci@vger.kernel.org, linux-arch@vger.kernel.org,
+	kys@microsoft.com, haiyangz@microsoft.com, decui@microsoft.com,
+	longli@microsoft.com, tglx@kernel.org, mingo@redhat.com,
+	bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
+	joro@8bytes.org, will@kernel.org, lpieralisi@kernel.org,
+	kwilczynski@kernel.org, bhelgaas@google.com, arnd@arndb.de,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Subject: Re: [PATCH v5 3/9] mshv: Introduce basic mshv bridge device for VFIO
+ to build upon
+Message-ID: <20260903161328.GA3102631@liuwe-devbox-debian-v2.local>
+References: <20260731223427.2554388-1-mrathor@linux.microsoft.com>
+ <20260731223427.2554388-4-mrathor@linux.microsoft.com>
+ <20260902111905.000079d4@linux.microsoft.com>
+ <20260903144236.GK4157646@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,47 +59,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aplrlQbTRxAxMsAF@laps>
+In-Reply-To: <20260903144236.GK4157646@nvidia.com>
 
-On Thu, 03 Sep 2026, Sasha Levin wrote:
-
-> On Thu, Sep 03, 2026 at 01:34:55PM +0100, Lee Jones wrote:
-> > On Thu, 03 Sep 2026, Vincent Donnefort wrote:
-> > 
-> > > On Wed, Sep 02, 2026 at 06:14:05PM -0400, Sasha Levin wrote:
-> > > > > Concurrent subbuffer resizes may crash trace_pipe_raw readers or leak
-> > > > > uninitialized memory to userspace due to stale size values.
-> > > > >
-> > > > > Fixes: bce761d75745 ("ring-buffer: Read and write to ring buffers with custom sub buffer size")
-> > > > > Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
-> > > > >
-> > > > > Not sure if this is the latest version or not?
-> > > > >
-> > > > > I see review comments, but no v6.  Anyway, no matter, it'll do.
-> > > >
-> > > > Queued for 7.2, thanks.
-> > > >
-> > > > --
-> > > > Thanks,
-> > > > Sasha
-> > > 
-> > > This isn't the last version of this patch, I have just posted a v9 [1] and
-> > > Steven hasn't reviewed it yet.
-> > > 
-> > > [1] https://lore.kernel.org/all/20260901155445.1475405-3-vdonnefort@google.com/
-> > 
-> > The confusion  is mine to own.  I responded to the wrong patch mail, sorry!
-> > 
-> >  `ring-buffer: Fix subbuf resize race with ring buffer readers`
-> > 
-> > Which is in Mainline with the immutable SHA 8a5f63637890.  My assumption
-> > is that Sasha queued the correct commit or the tools would have
-> > complained loudly.
+On Thu, Sep 03, 2026 at 11:42:36AM -0300, Jason Gunthorpe wrote:
+> On Wed, Sep 02, 2026 at 11:19:05AM -0700, Jacob Pan wrote:
 > 
-> Indeed, sorry for the confusion! I've queued 8a5f63637890 ("ring-buffer: Fix
-> subbuf resize race with ring buffer readers") for 7.2.
+> > If we do want to support this kvm-vfio bridge semantics beyond kvm,
+> > maybe this should be abstracted as a generic VFIO "hypervisor
+> > partition" association, with hypervisor-specific get/put callbacks,
+> > rather than adding an MSHV-only copy of the KVM hook.
+> > +Alex
+> 
+> I don't like this patch at all.
+> 
+> I think we should try to harmonize all these sort of "external" cases
+> as best we can. mshv, confidential compute, xen, etc all have a very
+> similar shape.
+> 
+> I am discussing here with Aneesh an approach to use the viommu almost
+> exclusively for this.
+> 
+> https://lore.kernel.org/all/20260902235609.GG2890729@ziepe.ca/
+> 
+> Can you imagine a way to do that for your stuff?
+> 
+> In that case I imagine the iommufd vdevice create is what attaches the
+> vfio device to the partition, not a seperate ioctl over in some other
+> driver. When the viommu is created it knows what partition it is
+> affiliated with because it took in a FD that describes that partition.
+> 
+> Does mshv use KVM at all? Can a kvm fd describe the partition?
 
-Super, thanks bud.
+No. MSHV doesn't use KVM. We don't have a kvm fd. We have an mshv fd to
+describe the partition. They are different virtualization solutions.
 
--- 
-Lee Jones
+In the ideal world, the fd should be hypervisor agnostic, not tied to
+kvm.
+
+Wei
+
+> 
+> Jason
