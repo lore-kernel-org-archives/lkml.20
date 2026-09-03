@@ -1,48 +1,47 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0FC24F30F8
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:57:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853D34E80D4
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:57:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788454640; cv=none; b=sB+Ur/kUSq5sQT7wIz6nq+THYwtn8dtMGYOerXSD13cBAxsV90JwnNHd9GdmLsohxjxTYIfdyQT3oHXE1FsrVqJhVguuIK8C05qsIHBr5G2CyObGJOaCJbjdKf7pLAXmA22je8dKwGyzmJvCUESygsXlohWETo4EFQfMCYQ52Ls=
+	t=1788454641; cv=none; b=QmIko7FbR5uZF3EA9qxqfvfcDrPxf+cOwZRJnYZm7qz/ergAT2l3sNgTbmVGofjL6W3Hd2nLupdOJ1g6YLRTP+VFG9LqoyM6m8Q9VNDCcKohiFdpxsUDU4+HY3uHsUFuk/Q+h14arKlEXz/Vtvwkh62VRicKILgfGgboLWtFdEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788454640; c=relaxed/simple;
-	bh=Q1F+Pt5vvbs7KnFk4LhRxvetCzPXQfzfyDR7LXcDy2Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XJtbR+Mls2GluXyWqLUdcMxS7Wi3NdFSlx60RK4Y1NMEF6LmE/LDJ205fbR9AR1mRRdFSjIrohgx/B48nW+T3WNRDKu5Vdry8tKyP9+db0NvyYQccH7uCZFMfyrJ9QxZbLcElPAtF3ucNvPHRzZRspr4tDV0h/hZCp5as5li1vA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=X6BM9xyL; arc=none smtp.client-ip=198.175.65.13
+	s=arc-20240116; t=1788454641; c=relaxed/simple;
+	bh=YqDDEIlLMHfLW49hrYAJHj/JIRwZMrC9RDUIQ6NbikA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MFskqhTpS6RRG73qAzKwHXkcLYCmyqlTayhCBeQw6NXE+u5V57nAcIowrP7VV3I0PA5FdwAGK/mDDiMKltzir+iQMqajEjOTPgmhX6tYNey93oZgfCGuVhsj84UhOUWgtMMTu//WPJCu8zkyF/oZlrfNm7tn0nf8zdt8ItnIS2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=D7d+zw5a; arc=none smtp.client-ip=198.175.65.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="X6BM9xyL"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="D7d+zw5a"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788454639; x=1819990639;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=Q1F+Pt5vvbs7KnFk4LhRxvetCzPXQfzfyDR7LXcDy2Q=;
-  b=X6BM9xyLzv5Sb2di9rbtJp9+E99PTs496XJqpLpHOpoiPfzj8yc+NirN
-   9szRWx54/Mt6PSZPYjeUMfEymfDJUjIHgXizZa5vwsynd8adYAU1ecXU6
-   6sCDiksb+6X958Tjv/qqZhZgGJ3HhTx7X7TrgA/j/isXXTvYqJYMu5u64
-   2o3NNM0c1eQ2NPoQgzX4XCzYoPPbaZL8vdvzHCJrfrwBum1LHHdnKr4rn
-   /9fI4ve4inpw9aBBin11supNemLwV3/++H38tpKdEbTX1mgs+gqwJEGKv
-   Q16f5J8vWARngfIOXZTsyeqsRSg7Bl73x1YMlD2+P498dxMeO7BLHdAev
-   g==;
-X-CSE-ConnectionGUID: wDg74BY+RO2Qgm/WiPvxZA==
-X-CSE-MsgGUID: R8Pc0m3HRVO6hccnJvZogw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="100103969"
+  t=1788454640; x=1819990640;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=YqDDEIlLMHfLW49hrYAJHj/JIRwZMrC9RDUIQ6NbikA=;
+  b=D7d+zw5apdD+kSjX9D16kS1fuRm3FPsByuVfWKawv64Q27opgATasQuv
+   XMNmDNcY2SNM28puWt5Tq0PsWNjQJmY1hTY/kbpXxRhU5H/Z0VnRLzoB0
+   N1wSt4XB1XggY1v/DAYkFjLCeQX6JE+oNGO/KEPyRykJ2qfQmZwtJcli+
+   kC5iBs0jYfJyQ5d2NTm5vsqPWvZV9mloSOYc52YEMrIWB2RLahGWM4Wl9
+   Mswxn8LsdCjEcyp2FMIMQ69XzRXgaOcSckFXySo4pN5+W5X/pDmyH2avn
+   Tj3C54xERGFuMbWOIOqvdSpqgUDGj9cKX5QuCdjYMQtrhS7b8oG4JqbO4
+   Q==;
+X-CSE-ConnectionGUID: ehyM4GhCQ+KBQ12A9GsoWw==
+X-CSE-MsgGUID: nz3EOkP8RD+BhI9SmcGVSw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="100103959"
 X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="100103969"
+   d="scan'208";a="100103959"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
   by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 09:57:13 -0700
-X-CSE-ConnectionGUID: VopLQFkBSMS6NKC4wa2RVA==
-X-CSE-MsgGUID: OqDpg0l+QReQBEzdVK3fsQ==
+X-CSE-ConnectionGUID: tV/rwvJQRiaAIrLT07Nczg==
+X-CSE-MsgGUID: t/fTLb6RSrOWliDDV8ld7w==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="273554214"
+   d="scan'208";a="273554211"
 Received: from rchatre-desk1.jf.intel.com ([10.165.154.99])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 09:57:13 -0700
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 09:57:12 -0700
 From: Reinette Chatre <reinette.chatre@intel.com>
 To: tony.luck@intel.com,
 	ben.horgan@arm.com,
@@ -61,12 +60,10 @@ Cc: x86@kernel.org,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	reinette.chatre@intel.com
-Subject: [PATCH 1/5] fs/resctrl: Drop support for different bandwidth delay mappings
-Date: Thu,  3 Sep 2026 09:57:03 -0700
-Message-ID: <9d39435847fb26fa7b467c563cf8bc45c314b917.1788452481.git.reinette.chatre@intel.com>
+Subject: [PATCH 0/5] x86,fs/resctrl: Cleanups in preparation for multiple
+Date: Thu,  3 Sep 2026 09:57:02 -0700
+Message-ID: <cover.1788452481.git.reinette.chatre@intel.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1788452481.git.reinette.chatre@intel.com>
-References: <cover.1788452481.git.reinette.chatre@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,94 +72,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The original Intel MBA support added by commit
+Hi Everybody,
 
-05b93417ce5b ("x86/intel_rdt/mba: Add primary support for Memory Bandwidth Allocation (MBA)")
+For resource allocation resctrl assumes there is only one way to allocate
+portions of a resource. That is, every resource supporting allocation has
+a single control in the schemata file that user space can use to allocate
+portions of that resource.
 
-introduced but never used support for different bandwidth delay mappings.
+All architectures supported by resctrl already or will soon support multiple
+controls per resource. For example, the "memory bandwidth" resource may have
+a "maximum bandwidth" as well as a "minimum bandwidth" control.
 
-Intel systems only support linear delay values for which there is a
-direct map to the percentage based memory bandwidth control. There is no
-need to support other bandwidth delay mappings.
+Adding support for multiple controls to resctrl is a major endeavour. [1]
+provides a description of the goals with a summary available in last year's
+plumbers slides [2]. The implementation is in progress with most recent
+PoC at [3].
 
-Remove the unused resctrl_membw::mb_map and the unnecessary bandwidth delay
-mapping function. Perform the direct map to percentage when writing the
-control value to hardware.
+The cleanups included in this series are the preparatory patches from the PoC
+that trickled to the top, thus kicking off the support for multiple controllers
+to resctrl.
 
-Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
----
-Changes since RFC v1:
-- Also drop separate delay_bw_map() and instead integrate the only
-  mapping to when control value is written.
+While this is v1 of the series these patches did make an appearance in both
+RFCs of the PoC. Changes since these postings can be found in the individual
+patches.
 
-Changes since RFC v2:
-- Rework changelog.
----
- arch/x86/kernel/cpu/resctrl/core.c | 23 +++++++----------------
- include/linux/resctrl.h            |  2 --
- 2 files changed, 7 insertions(+), 18 deletions(-)
+[1] https://lore.kernel.org/lkml/aPtfMFfLV1l%2FRB0L@e133380.arm.com/
+[2] https://lpc.events/event/19/contributions/2093/attachments/1958/4172/resctrl%20Microconference%20LPC%202025%20Tokyo.pdf
+[3] https://lore.kernel.org/lkml/d258a32f-12d5-464d-abe9-4720fb3e44b3@intel.com/
 
-diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
-index 55214d6fdc49..65cfde0d6a9b 100644
---- a/arch/x86/kernel/cpu/resctrl/core.c
-+++ b/arch/x86/kernel/cpu/resctrl/core.c
-@@ -323,29 +323,20 @@ static void mba_wrmsr_amd(struct msr_param *m)
- 		wrmsrq(hw_res->msr_base + i, hw_dom->ctrl_val[i]);
- }
- 
--/*
-- * Map the memory b/w percentage value to delay values
-- * that can be written to QOS_MSRs.
-- * There are currently no SKUs which support non linear delay values.
-- */
--static u32 delay_bw_map(unsigned long bw, struct rdt_resource *r)
--{
--	if (r->membw.delay_linear)
--		return MAX_MBA_BW - bw;
--
--	pr_warn_once("Non Linear delay-bw map not supported but queried\n");
--	return MAX_MBA_BW;
--}
--
- static void mba_wrmsr_intel(struct msr_param *m)
- {
- 	struct rdt_hw_ctrl_domain *hw_dom = resctrl_to_arch_ctrl_dom(m->dom);
- 	struct rdt_hw_resource *hw_res = resctrl_to_arch_res(m->res);
- 	unsigned int i;
- 
--	/*  Write the delay values for mba. */
-+	if (!m->res->membw.delay_linear) {
-+		pr_warn_once("Non-linear bandwidth delay not supported\n");
-+		return;
-+	}
-+
-+	/* Program bandwidth percentage mapped to linear delay value. */
- 	for (i = m->low; i < m->high; i++)
--		wrmsrq(hw_res->msr_base + i, delay_bw_map(hw_dom->ctrl_val[i], m->res));
-+		wrmsrq(hw_res->msr_base + i, MAX_MBA_BW - hw_dom->ctrl_val[i]);
- }
- 
- static void cat_wrmsr(struct msr_param *m)
-diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
-index 10dfdca7f4bf..b63dc62690ca 100644
---- a/include/linux/resctrl.h
-+++ b/include/linux/resctrl.h
-@@ -253,7 +253,6 @@ enum membw_throttle_mode {
-  * @throttle_mode:	Bandwidth throttling mode when threads request
-  *			different memory bandwidths
-  * @mba_sc:		True if MBA software controller(mba_sc) is enabled
-- * @mb_map:		Mapping of memory B/W percentage to memory B/W delay
-  */
- struct resctrl_membw {
- 	u32				min_bw;
-@@ -263,7 +262,6 @@ struct resctrl_membw {
- 	bool				arch_needs_linear;
- 	enum membw_throttle_mode	throttle_mode;
- 	bool				mba_sc;
--	u32				*mb_map;
- };
- 
- struct resctrl_schema;
+Reinette Chatre (5):
+  fs/resctrl: Drop support for different bandwidth delay mappings
+  x86,fs/resctrl: Remove "arch_needs_linear"
+  x86,fs/resctrl: Make MSR_IA32_L{2,3}_QOS_CFG scope architecture
+    specific
+  fs/resctrl: Drop unnecessary is_mba_linear() helper
+  fs/resctrl: Drop unnecessary parameter from
+    resctrl_io_alloc_parse_line()
+
+ arch/x86/kernel/cpu/resctrl/core.c     | 69 +++++++-------------------
+ arch/x86/kernel/cpu/resctrl/internal.h |  3 ++
+ arch/x86/kernel/cpu/resctrl/rdtgroup.c |  4 +-
+ fs/resctrl/ctrlmondata.c               | 15 ++----
+ fs/resctrl/rdtgroup.c                  |  7 +--
+ include/linux/resctrl.h                |  7 ---
+ 6 files changed, 29 insertions(+), 76 deletions(-)
+
 -- 
 2.55.0
 
