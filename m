@@ -1,157 +1,148 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A341B47DD79
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:22:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 66F553DA7C3;
+	Thu,  3 Sep 2026 10:23:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788430967; cv=none; b=MbsZtq/PuiBmaUdQSlwd5tVm9lCUsIazVDoeCXf7rgQY9N7LFbvJ+QYiJgcZS1zmNKec78soCLt07MRj71fWSxiKkKcw7W5/SWSE+AlQAfwuVLGLw16lM7RX07LE4E4ikE2747avcjP7IhyjQmG2r6pR6qik7IyJbLXyeX30W18=
+	t=1788430998; cv=none; b=NwdZ6I3A8KPUH4KIWYA6x6kD//7LF1QymRAnSnpD7PIx13vnmRHcKbNRxxlq/2VVNyzoj3iq/huY8GcvQvo0VzDldIWwkmQ3Fmjs41VOyriHMoiuHwAsM7D1QsL3HxWxeXNCzbVFyP57N+V7L0sIUoxzw5UlkvzQwfn0jXlcXDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788430967; c=relaxed/simple;
-	bh=IMVVshXwxDDSJzE0l8MvT/fRHMRPsXvntd5GyUh3aFM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OhxtBNdk+77n70+5CWlTfLr5gar1YqCpNlPgCKbIzwhUUwyrE4EJuVTPtnaKhIa82+lbPw7eRtfoRw9qChGFMkhzijJyQxHvFzdkCQCnMCgNJofUOyPlVHUaxVWkah0UiPFp0ZhOa5HIaWi66p7axYeMPonirOa3Uoz2dMfzTBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=E/t0/AIQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iHCvlG6V; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788430998; c=relaxed/simple;
+	bh=iUywY2IiysJfGPAbilGGDVIEIyRtSo6UGII8tss/bb0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ku0i9v882zQXPdwZdlEeNRFGSuRCM9VP1oS2EEtIDzhSb4Wp3OrjyOsUMSJBaG8EvQ2HxBrWq2docgdI7uwpk6XxWGTkkgGaSdq6SUiIRGELXruCZZGLMbtBfC/jmUGRUgo8jQvKjduInWTF+Wt2eLcEm/puXKljNHP9Y1LG5Rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=EqxlNHGT; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="E/t0/AIQ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iHCvlG6V"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683AH5n3935075
-	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 10:22:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=MWzDrNxzthWPdsVZldsnWvMx
-	9IcczP+HYo1LJtEAQps=; b=E/t0/AIQJNXxavIvF4DSXyZj0XFMxzjyKFoBboju
-	8R6N1Darux0BmyjgQfyvsnYAbW88jDZ7/pMCxRBwQq73SRc0dKaeRXwoRvx4oU69
-	xYnX4LRp+pFaJqQJ/hXZWq7B7/KqK4Haa6o6ClZv4ZzJbrgzFYLuzG86M4ivfKzz
-	XR466xDjYKLFSGmrfvDG21XyL4wP9hQxCmouI8W7tvI6qYo6XovD8cD9inVfgmqg
-	Nio5fA/LHms+iuYTVX9x1HgmlOcKicjFFZhW8nA70nFniMJ5/CFchnI3w7vE1sUW
-	3To+/4/ZTDrHbDajvLFfE0A2Tc1w10AR+/bJy76HS7MFVA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gerdnbtfk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 10:22:44 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92ef13b61bcso492102185a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 03:22:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788430963; x=1789035763; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MWzDrNxzthWPdsVZldsnWvMx9IcczP+HYo1LJtEAQps=;
-        b=iHCvlG6Vp1u7EWzgmoAR3o1n+AIUN1QOoekf8aA8lDEEJDGUyrepvCUUcG4zorY1iG
-         XoPnpmWX1XiHAfNFXNb7wnaX9rf5EQZtU12HBkgbTdOl3zdnJHo1jxlnutaso17Fv0nq
-         bf/fIhdN83dYv8FEcynUG/QnsbXGW2L/KiSOzA368HqaMUVn3jlM+aua5Krug7ZwDsOR
-         tsuheBiNLh5XtFGCwjdLIflsNkjD7/ZguDQg/HeSu1+hwJpx2vY1A+lSSGF9rLmVzanD
-         1DbmR+IOnBuDFbB+dRQeiM376v39lDDo7nMjZYRr/hyjytOxo0dF7CSfGgl2SjmhPftk
-         joXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788430963; x=1789035763;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MWzDrNxzthWPdsVZldsnWvMx9IcczP+HYo1LJtEAQps=;
-        b=hJkwHOrinqyMcB1efU8k0a5DGC6NZFl5ewW+IleagWvnk/ec2Syy1Ua2r+hi21bRk5
-         qshbqT/0bUOCySvUjU8vV5MNOgeEo/QJC22WtA9ofpPbKWDXWCX8DFu6GvEFFhm4ak61
-         F9pV0Kb1AAll+yorhyUTqu4i2fRBw5pVGF1l9TYY3vEnv5ulvF6gVeE1mAymucxwjtAj
-         ijGgong6BezrRLpVuYkJe/lC3NSSbmpz5/aAfsOuWRxMvCRG+5TcmlLQ8ijoJow0GsmN
-         jHaDfNNqIDp6CeXdGQJYw5c7Q9P7ZdjcqDP0TpELtOVAMkL1tce1bTfTbHpTdoFm4z84
-         4I/A==
-X-Forwarded-Encrypted: i=1; AKwUvByqABk8nE0FcNibsic26w/CKIRoqOLaqfKe0QD0fNHG3UsgRHRDC5kYwANVQZ0G8urzCT+XwG5zUsgrbjo=@vger.kernel.org
-X-Gm-Message-State: AFuF++m4Rv+BHLTfZCVZBxnzwvnaPkemF6tDwxGzULZqia5DOGs/vWY+
-	8apRjjgaF40ZoZwfJjDiDWsA78w10wpbChYv/qCjcRjD3vVwKN04Ha4Bw8OaAa3mzDnWxenOS0U
-	HNArDnkZtb1ZcmXWFibMj9JS+CclnnsOlrqtUYZOQkD0y1Hia8PgCYOQkgZ+EqLGBA1E=
-X-Gm-Gg: AYBFou01/QKWgY/EhfKTZ5KXnhwmr486Ei4ITSGuU0O1WIKD862SBZLvKRuplDhQHzn
-	cgYF8DQDrLzxoyKioPHlY+wRI0xn4Pdzd1kppUvqVwjpjEEvh4+tW3wTGirniLmMns1sKdI26G2
-	WaEDRSo0OdMXa70xCD+Znl90NE/GNV7RRljllSPMqvpEmjjg/yZIoVNzd8T6yji2/LL7ciVpZhn
-	fZbljCi4dbQ9KoBUCR73P66xDkhAPTcCLPWvXQd+CjgnKgfIHpQKTuWhIze32JnJrWZ+8hkMp4c
-	1dkoxxptt2q+BMzzApU4e8I8RoIxYCI9ppt0aXV8wufNxnGcBS4ONL5okqx2jWb1YbAGl9LtQaP
-	SYEsFwLqF5owwVg==
-X-Received: by 2002:a05:620a:6010:b0:939:6132:62cc with SMTP id af79cd13be357-93961326388mr1435827085a.27.1788430963430;
-        Thu, 03 Sep 2026 03:22:43 -0700 (PDT)
-X-Received: by 2002:a05:620a:6010:b0:939:6132:62cc with SMTP id af79cd13be357-93961326388mr1435820785a.27.1788430962820;
-        Thu, 03 Sep 2026 03:22:42 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5e589bsm55667075e9.13.2026.09.03.03.22.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 03:22:40 -0700 (PDT)
-Date: Thu, 3 Sep 2026 13:22:37 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Georgi Djakov <djakov@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-gpio@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v5 07/15] interconnect: qcom: Add Kuno interconnect
- provider driver
-Message-ID: <xkyj7x2chonmrovnwaosd7sci2txi7bsbpvv522uzxdonkke7y@5kpqjal3i6nm>
-References: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
- <20260827-kuno-soc-support-v5-7-6d47636a8f09@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="EqxlNHGT"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DEEC01596;
+	Thu,  3 Sep 2026 03:23:10 -0700 (PDT)
+Received: from [10.164.19.53] (unknown [10.164.19.53])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4FE2E3F673;
+	Thu,  3 Sep 2026 03:23:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788430994; bh=iUywY2IiysJfGPAbilGGDVIEIyRtSo6UGII8tss/bb0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=EqxlNHGTD3e9aQqDNFqnK+pMnPi2j8ej/8JGUW+djmFF3bt0d5I2VtIs0GgjASjO3
+	 cxcu8w8nRwPZbX3asa0BnIJkvLxgpsVdKvWfRLKvulXt2387yNxUQU58hZZgNcxGvt
+	 zERHDI1EDorHtjtwpyhBIGPdC5Ajwhh57/jwuGlw=
+Message-ID: <0e9c9426-9b52-485e-b3b6-1fe19c8c2bb2@arm.com>
+Date: Thu, 3 Sep 2026 15:53:02 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827-kuno-soc-support-v5-7-6d47636a8f09@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=YcmNIQRf c=1 sm=1 tr=0 ts=6a994a74 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=q7XEBjOi5DRkXzmV0jSBjQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=pe0felBmJweB1gBNqhwA:9 a=CjuIK1q_8ugA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA4OSBTYWx0ZWRfX10lA15nDZPCL
- //SGmGDcapK5eq6p5ILpswTxI2zXSUc7m7X+fDL54dmIYeQEbh6nPDIdTR+0aX+13sauHE3nXeG
- N6TPBXG/pQHvuT3g88pWJBK1tApbQ3o=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA4OSBTYWx0ZWRfX3eyp2MALWEpj
- 2YFIRDYUrAcAtAJ3tPUp/pvAah8U2srN2FN+jCGNVqBWg4r849Ev11KZxOO/a/RHjTmg/cFnXyx
- gh6m0Ta+yKhIhfGLENslvxRtEcUF0l1I3+yp5XwixNjbLRLFqF+wIvpQ/+p7IalCbK3T4mJ0iej
- IB8HQwQtV/Rh0QPw31LoLzFF4kdozJgPc2BbumMsegLy+/5mF0IoOW5ZTv0sKRDTCLeNgDnk/Lv
- KFYDlYMh5Ijbl5I7U+eT+Ilmp0WIR+vPyrukTuxfeyYaqyWQupPN4gisLDXS4OCIrmU+eheyOhW
- mnW8P2IJFGc2SC1b87rcjqw3xADWgjLW0KRlkdjmNui/eucNsqqd2fwNOHbauJfMgGvz9eVBKOk
- b0k11QxzN0f3rGMTemll6erinkwMdTFqZgjVYZ+kSygsyNdwa4ZBHv41tT9N4LGBqxry6p2CXHH
- eJe7NMBdl45rEth+g9g==
-X-Proofpoint-GUID: U46JJ-HsOqEYZeIrZFXdmA9hmp91N0_7
-X-Proofpoint-ORIG-GUID: U46JJ-HsOqEYZeIrZFXdmA9hmp91N0_7
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_03,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 priorityscore=1501 lowpriorityscore=0
- adultscore=0 phishscore=0 impostorscore=0 spamscore=0 suspectscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609030089
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/6] mm/vmalloc: set area's page_order after allocation
+ succeeds
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: =?UTF-8?Q?Adrian_Barna=C5=9B?= <abarnas@google.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexander Gordeev
+ <agordeev@linux.ibm.com>, Alexandre Ghiti <alex@ghiti.fr>,
+ Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ David Hildenbrand <david@kernel.org>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Huacai Chen <chenhuacai@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Len Brown <lenb@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Ryan Roberts <ryan.roberts@arm.com>, Sven Schnelle <svens@linux.ibm.com>,
+ Thomas Gleixner <tglx@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
+ Vasily Gorbik <gor@linux.ibm.com>, WANG Xuerui <kernel@xen0n.name>,
+ Will Deacon <will@kernel.org>, x86@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, linux-pm@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ loongarch@lists.linux.dev
+References: <20260903-execmem-set-vm-perms-v0-2-v3-0-949b64a9f755@kernel.org>
+ <20260903-execmem-set-vm-perms-v0-2-v3-2-949b64a9f755@kernel.org>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <20260903-execmem-set-vm-perms-v0-2-v3-2-949b64a9f755@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 26-08-27 23:21:10, Hardeep Sharma wrote:
-> Add the interconnect provider driver for the Qualcomm Kuno SoC to
-> enable bus bandwidth voting on the platform. This includes the
-> aggre-noc and cnoc-main NoC instances with their associated BCM
-> nodes.
+
+
+On 03/09/26 2:58 pm, Mike Rapoport (Microsoft) wrote:
+> __vmalloc_area_node() calls set_vm_area_page_order() to set area's
+> page_order before actually allocating pages to populate the area.
 > 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+> If allocation of large pages in HUGE_VMAP case fails midway, this leaves
+> the area with elevated page_order throughout the cleanup path.
+> 
+> There is no actual issue with this because the only place that currently
+> relies on area->page_order on the cleanup path is the loop calculating
+> the direct map alias range in vm_reset_perms() and it anyway skips
+> unpopulated pages.
+> 
+> But having set_vm_area_page_order() in the middle of __vmalloc_area_node()
+> makes things very obscure, hard to reason about and error prone against
+> future changes of the cleanup path.
+> 
+> Move the call to set_vm_area_page_order() just before the successful
+> return from __vmalloc_area_node() where page order is guaranteed.
+> 
+> While on it, initialize local page_order variable with its declaration.
+> 
+> Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> ---
+>  mm/vmalloc.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+> 
+> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+> index 0380917392e68..22aa554d123f5 100644
+> --- a/mm/vmalloc.c
+> +++ b/mm/vmalloc.c
+> @@ -3879,7 +3879,7 @@ static void *__vmalloc_area_node(struct vm_struct *area, gfp_t gfp_mask,
+>  	unsigned long size = get_vm_area_size(area);
+>  	unsigned long array_size;
+>  	unsigned long nr_small_pages = size >> PAGE_SHIFT;
+> -	unsigned int page_order;
+> +	unsigned int page_order = page_shift - PAGE_SHIFT;
+>  	unsigned int flags;
+>  	int ret;
+>  
+> @@ -3907,9 +3907,6 @@ static void *__vmalloc_area_node(struct vm_struct *area, gfp_t gfp_mask,
+>  		goto fail;
+>  	}
+>  
+> -	set_vm_area_page_order(area, page_shift - PAGE_SHIFT);
+> -	page_order = vm_area_page_order(area);
 
-Looks OK now, so:
+vm_area_page_order() returns zero in case !CONFIG_HAVE_ARCH_HUGE_VMALLOC. So
+it may happen that after this patch the page_shift passed to the page-allocator
+is > PAGE_SHIFT but that got rejected by vm_area_page_order.
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+But that won't happen because for page_shift > PAGE_SHIFT to be passed to
+__vmalloc_area_node(), we need "vmap_huge" to be true, which needs
+CONFIG_HAVE_ARCH_HUGE_VMALLOC.
+
+Writing this out because CONFIG_HAVE_ARCH_HUGE_VMALLOC and CONFIG_HAVE_ARCH_HUGE_VMAP
+along with mixing variable names with vmap is extremely confusing.
+
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+
+> -
+>  	/*
+>  	 * High-order nofail allocations are really expensive and
+>  	 * potentially dangerous (pre-mature OOM, disruptive reclaim
+> @@ -3964,6 +3961,7 @@ static void *__vmalloc_area_node(struct vm_struct *area, gfp_t gfp_mask,
+>  		goto fail;
+>  	}
+>  
+> +	set_vm_area_page_order(area, page_order);
+>  	return area->addr;
+>  
+>  fail:
+> 
+
