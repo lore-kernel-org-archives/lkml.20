@@ -1,157 +1,119 @@
-Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021122.outbound.protection.outlook.com [52.101.95.122])
+Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9C74AA1EE;
-	Thu,  3 Sep 2026 13:12:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.122
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788441196; cv=fail; b=EoHf6dZnHxqfQNPywfBEeQxjoV/Z8Gsrhv/dNtG8UDWxQJm/nI0HkUUf4fivw9s0K/Z0iD9jUVUHfE4tYz6e7Ez90vB8Xi5tNxdyMhaVFhIJ54JDeHt8SiBY5cN0fA/ZMuqgVSkSCa68BMgOwu0PC0z2xGXGZCazgiDKMYdDOmY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788441196; c=relaxed/simple;
-	bh=wbbLQdjUy2oesinZ7pc+XEm01UJ/1L0MK5PM6Vcg05A=;
-	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
-	 In-Reply-To:MIME-Version; b=shUV6uv715L+abPACq8R1oFEnM5p2iH36lX5Zt8kuchOs3ErRMdIgkxYr3CHHZKLsR0Zt8EncLReIhlpxIbm7EDl54Wm6jZMUocvoUDrwctZH+/jqYW2GrEBt0Tzb+eBkBlOkPjrumeggDejUPlsVHSvYzLgq6fbqQahNJ+Hh6U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=P5H0Umuq; arc=fail smtp.client-ip=52.101.95.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 997194AA587
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:13:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788441212; cv=none; b=kdwl3kfC16JYJzopQrmuHHYhNjtntHcNoPqMcNRZhqSf87idBa6ua5jWq3oAZflKhcoxyODXLCKEFHsOB6BgdLGTVy4oUhJVKT1tRqCBD2OsexfzynkXcOYvL0ANqjW15PHzuQpsrPtC/Vh3d4FstP9PDoRlpyLkBx5TUZt4A18=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788441212; c=relaxed/simple;
+	bh=PW1aEYp2EBCpok59cbahHhJPmxsO3WMcbauEQwC+1uU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=O0RF14E5Ty6QPq6ZiMrwsvHVTHw3kRsWMi8PkhycGmgxW37TPkHbwc6qGDfdP+ua2BDAHFHtGPCjVLR1NeI9ywFx9HFA80gpvjBJ3sM/WA+MP03WnvKGyXNknoo6CyiQIddZgHMFZHSul1XP8gaQbEt3JTo4Y8ipEQmcpC7x8gg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=kJecAw9C; arc=none smtp.client-ip=115.124.30.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="P5H0Umuq"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=A/iuctHNgWGM9yTFZDv6WcQ6npQUcxn2xp6ZIIoxb2bWEBCQ4ANsWOI+gENWrEz3LiUGH8yZP7VoDJ2qbVTyHb1efOSnQ0f+Eju768SIgwNZ2BInz01B57q7RbRM4k/r5iPffsq2gPNnQI+P0o+JDVuqRmbRBNHr6rp7dccdraenj0RMRZKyJqxn/U9R1Wl+sElJ/N7q6BqBjWUjCd4YG8GQByzsp5pyJfvHzcJDbasIhkBTRSm56AXVucGaBKICFZzwgSrq2/cigWFrrf2A0rR8c09Yw3Pn3oof1dKPHajKo6AgtUj5KK3kShrwzCHPTu1JhDaPZL+P6JdorCo8SA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kgM+ygrXTJNA09wHqLuSxkysYymx9jjYgpUqm1moiLE=;
- b=WQZiAQcgZLuXUcVqSKLTMovxem5pJD0XiO9FmueW+iqfYXxDiuPU9nCNLWcV8Iny0BsKo3ca+02DROLKM08wTR9b6XHaTLB3+JzH+rH4PBwgcneI6/lJBWgLfkMsk2Q0v2xx0c8NGOrhgD4/eMm6rTcKck1Is5JwiYjzwIhKHE7Qoo6AmXXhC8GdgwZJwP7vCdn31+I5inZDy2+OwbKnaN+tIlG03z+oQ6wLs9CIQjUZaTcyLxloil60neBK26oELSysus5ZBOHBG1OpQhDoEMtXQOviOeTC72iecQbBf5sx99bbWuxEaAtVBvEVgGU0FOztDLOD+Xluo08oP+mqLQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kgM+ygrXTJNA09wHqLuSxkysYymx9jjYgpUqm1moiLE=;
- b=P5H0Umuqc7FjNjWTqKy0lYQVO/lb/u0jTf0jtwcftgdGFhyzHGMkT+axGYYff9GPezr0TJk9YYYMw1ViYmD1ei8iCKwZTazjrtTnja4CiZ+CsQnl48D6DGowCkRDO9FHsNadnDRsWSZY/g8+qh9C8wZPxHvuHgHMDp9gUrYwOos=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO7P265MB7602.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:398::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 13:12:50 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 13:12:50 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 03 Sep 2026 14:12:49 +0100
-Message-Id: <DL5PHF5BPGJN.86AWUD4D5BL3@garyguo.net>
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, <abdiel.janulgue@gmail.com>,
- <daniel.almeida@collabora.com>, <robin.murphy@arm.com>,
- <a.hindborg@kernel.org>, <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
- <aliceryhl@google.com>, <acourbot@nvidia.com>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
- <lossin@kernel.org>, <tmgross@umich.edu>, <tamird@kernel.org>,
- <work@onurozkan.dev>, <mmaurer@google.com>
-Cc: <driver-core@lists.linux.dev>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH 2/4] rust: dma: tie CoherentHandle to the device's bound
- lifetime
-X-Mailer: aerc 0.22.0
-References: <20260830193824.471089-1-dakr@kernel.org>
- <20260830193824.471089-3-dakr@kernel.org>
-In-Reply-To: <20260830193824.471089-3-dakr@kernel.org>
-X-ClientProxiedBy: LO4P265CA0166.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:312::10) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="kJecAw9C"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788441196; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=cqWubPGEU/FPOPqgpAtMLiOUZDsKRRTnlyUd+Vcv6eA=;
+	b=kJecAw9CuNNbki9n+DzVfkfX2KQpvcRuMpoLamS4oW5zd9qXyiMncgQoLVlYJPgY/jhe4kBbll1rhpWSG0GtFJ5x5Y8GVmBzWWhLYoaeoTAzEaYOGELHtGV9oc2vO78gYz83gLmnYs+cDEA0A5BDzcpe9zZGrUuHXehcFy/Gk9E=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R511e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XAG3g6q_1788441194;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XAG3g6q_1788441194 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 03 Sep 2026 21:13:15 +0800
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Heming Zhao <heming.zhao@suse.com>
+Cc: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/2] ocfs2: allow xattr bucket entries to span multiple blocks
+Date: Thu,  3 Sep 2026 21:13:12 +0800
+Message-Id: <20260903131313.2396208-2-joseph.qi@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3
+In-Reply-To: <20260903131313.2396208-1-joseph.qi@linux.alibaba.com>
+References: <20260902124109.27775-1-joseph.qi@linux.alibaba.com>
+ <20260903131313.2396208-1-joseph.qi@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO7P265MB7602:EE_
-X-MS-Office365-Filtering-Correlation-Id: 216c52ac-bcd2-4a00-5d8b-08df09bd0e6a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|10070799003|7416014|376014|10067099003|22082099003|56012099006|18002099003|4143699003|921020;
-X-Microsoft-Antispam-Message-Info:
-	xkaR5zHIONucB1m5FgxSuDtbkeyz0NHOZmke/K+39FpdJSqhxVNEYpMCBWpB/rgPsno4hsS8DxO2WFEYaxLcKacLRI3KuKnv5Jd3ZipQxObZWuLuASGIxEJ+UDsIILgCHQDvnA3C2fFg8/b2FqJp5yR3YRulYpu26TrhAy2LRmo1piBereRLm0YcPaBiTod4EB7fNstKdMxGUY/DlO+dTMiqf8dsSTijroxLreBlSWyn8XehXHxQCxsuB828kUpvThKJKeyQzHQfY2jLr4gKWkUC6QME55dzeEj7B0Lp5SKJGPo5ZmlFc+y4barO9fFTpnZffHXRSIGXX/64aJExSC6mi5w/mfomHP/JKaE79oVNwx6+nKWpAjR2/VMa9ST9evvo3J5P2dHhuvmsYbErzyv74pfrRe4eIgPjCQ0O9WZGDb6avBNjhqltlQWA5AAsAjRqlnEJASIefwWA3E1ynPn3VAczSTy0PHhYSzsH8xfl26rM4I1mGX4Wbs9L63a1cfQtBxD/QB8vxu/Ua2+g/bnqwxmtCcbcsl5ZB8ZMOYtDUxETUR4AlwiXIEUpq9JVBgvGCo9UP2tG9CjXtOUWVnSev1yWNJcZ4OdzhZ9NH/1PsTkuiA8zSZuWZ/J/FXOu4lVme3qzR/D6WIGC95JG8Eom2mLC0sVF5tHEs1Q7M0W/Z5KYWUI/l90IGwjO8r65cTgZvGRH8JcT7Lls5pVHHA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(10070799003)(7416014)(376014)(10067099003)(22082099003)(56012099006)(18002099003)(4143699003)(921020);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?b3h4LzljVGpJYjUzK3BOOTFwT2RIaGJ1YitBNWhGOEdqNmlreDhiWFFsdnBB?=
- =?utf-8?B?QkUzRWFzeFM5RG5zMFlham1ZNnR5eWVyRnB2cjNUSUREU2VyOHdlbW40bmFH?=
- =?utf-8?B?cWM4L0p5d0I0aE5NQ01JOVJmVWtIUzZPZzFFdHVnd1Q5QzhnN1VjdFJTMXc4?=
- =?utf-8?B?b20vYUxGRnB3Q0thNkYvbzdKaW1Dblh5VkROeWJxd01WaVR5QzdwUjlOUmRt?=
- =?utf-8?B?S1cwU0N5SVhzb1BxUERnWWQwM0ZCSDMzZ2U4aHBJS0FRaE1IbmFjTUVuVlJa?=
- =?utf-8?B?S3I3TkZ2Tmc5RFRDdlZ6SGRGRGllcUkyejkzUi9tblI0NzZHdnAxeVBFUTRR?=
- =?utf-8?B?ZGM5UXc4Ri9OZlYzaGJMY3d2d01JMWEzRTJpZEV0WjZyd3JwQXMxQUZpd3lW?=
- =?utf-8?B?ampYMlZYZEphb09OaXpmVk5mc1ltZjBkdVVjcHphVmhkWkM0TnVneXE5Y1hC?=
- =?utf-8?B?TEhuVDg5cGQybktZNVdrL01ZZ3NQVHBlMnVPamdJQnlFQnNxVitCTVNsdEZp?=
- =?utf-8?B?Zy9hUDBNelcya0ZVQ0x1TlFjVWphbUtnbXAzYmRWT2ZpN25rLzZVVVU2b2tM?=
- =?utf-8?B?Wkl1bVcrL3IzaUdtcWd6dzFzeXluUWhWYkp5ZHluYW5GeXIrR3MzOXVFbEIw?=
- =?utf-8?B?dTQ5NTV2TkdBK2FiSHBKdkVndjc2bFRGRisyOGZjMlBLTitZUjBTTUh1ZXEw?=
- =?utf-8?B?cXhLMy82WGtXTitzMDBnU0xDbS9oS1ZqajFwQTVMZDdYdnljaUQzeGFQZmxQ?=
- =?utf-8?B?bnM3UXRJT2ZodFNnSTdTc2w4OFUzU0xLMlVhbkkxcmRGaFYreDhZU1hkYTBI?=
- =?utf-8?B?ZGV1Mm5vNndhR3AvaHRaZmNBWWNueWhWL2ZDK05sWHhuOW5McEsrL0ZjMG5O?=
- =?utf-8?B?c0Rob1dPQWNRWUxsN2R6dkZWUEhrcjR0MjlHdFY3MVc3RS92MzNCTTFpdk50?=
- =?utf-8?B?SHUrNlMwNDI0M3Q5K1FWYmFzZDAwZjF3aG9VZEJyRXMrdGxOd2V6aUpON2NW?=
- =?utf-8?B?SnJ2TnF4dS9Ib0J1OVE5OUd4YVcyUW4yYlZKSUxVSHBRY1Z5UDNNL1FEa0ll?=
- =?utf-8?B?dFRPZW1wQTBZS3liQ01jeDdyQzdjUlM0NldReVg4R3VLVC9oN2RFd01ZaUlJ?=
- =?utf-8?B?MWRER1NwVzdxekpDckxUZjNkWW9WcmpHWGlNb3BacUpHWVFRcHhwamlIRUhM?=
- =?utf-8?B?Szh6bXZ1SG5hcERPakxSR2JtT2RxQTRuelhJV2gyZlM4RHN1LzQ0YmMrcFhV?=
- =?utf-8?B?UDRVdzkrQ0M2bFk0bnZPdXg5SEN1eTQ0NjdqR3g0anZJSmVkc1RxU3l3L2tQ?=
- =?utf-8?B?czVRMXd5WWh6NjN0aHdMaWFIR0tmWmdmNDduYkhJZGNYejhtVUVsRFFLUG43?=
- =?utf-8?B?bXFmOFJ6Q2FrTWozVzhmdm5rUFMyaDhITzRDKzlwSTQ4eW9ZczBRdDFybDBv?=
- =?utf-8?B?TnFwK2p0MWkwNkVpWkJKMTIwVDk0OWNieE9XUFZGUVNqL2l3aWZUS0doUXRR?=
- =?utf-8?B?SVRJUmNVeURWN25ENWZWUGhZQUZNc1VTZ2I4K21naGVwVkhDNkdNVHl2VFhF?=
- =?utf-8?B?ZnRGRFRaVkR0d0gzUzRjcHN5ZlBPcWNlenNLaGFUYks4TDJkTW9WZGRXcEM1?=
- =?utf-8?B?ZDJZVnVYOE5kQThDaDBPVHRVMm9OcGlnQmFTRkR1akMvUlNBQmlOUmhFY2dP?=
- =?utf-8?B?Y1pXeFVxcnBCd05NUTVQa3lBN1ZHYy90a1VrWWZaSkZXMjhNRmhaMk92eisv?=
- =?utf-8?B?M3J0elVVYmxET1N6WUg5UjFhUUxQMTFaODlESDBSSE5yZFFWNXV5YjVWNHNV?=
- =?utf-8?B?SE01NWwveUVha0VHTDF2WmZKOXdoR20rVFBUMFlZSDIreHRteUR1WG1mLzNq?=
- =?utf-8?B?L0ZEdENWV1p6V2ZPbTJaZ3NVWjVnbHc1VVMrL3A1ZFBlTHA1eE5Nb1lybCt6?=
- =?utf-8?B?bVR1TGxNS3V3bmlrMDFFeW9rdkJTSnE2OHFXZUUrMWFtTkNHWFgzUmhVWHBM?=
- =?utf-8?B?NmxQMTlVdDNhZ0laYmRPQmFJTms3bjlaZ3RRUFdZUzJQOVNhNnhtaE9NeCta?=
- =?utf-8?B?RG5aSVY2cnFLbWk1UWRaWTRZS3JsZW9LU1doUGRVbGJvRGJPSlN3ZWMyQmpl?=
- =?utf-8?B?VXJzVHBmRURVME1mditDdFpjc28ySkJtbEY2aGt6TXExRzhQTW9Dc2htMEZl?=
- =?utf-8?B?aDI2VE9JNnJFdVdMdUU5blBjWC9UVkVLVnVFQk92L0VqdmNPM2t5eTIzcGF2?=
- =?utf-8?B?MWUvTWRmTkNmd1VsaFUybUtnWFNvdTRuTW1DcitldTl0VjdncCtuOG14enQr?=
- =?utf-8?B?bTdlcUlKRVE1Nmt3ZGdCRE8yTEgzc3MwUjFmSjFLVXZkRTZWYTdkZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 216c52ac-bcd2-4a00-5d8b-08df09bd0e6a
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 13:12:50.6917
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: l32zG7dYw4OC8fffmMTtYK7KHYiVkuRLi7p+C8KoiEVwItVK9t4koQIArlx/8hLlIvPCMj7CvCR0rU/xNHCNTw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO7P265MB7602
+Content-Transfer-Encoding: 8bit
 
-On Sun Aug 30, 2026 at 8:37 PM BST, Danilo Krummrich wrote:
-> Add a lifetime parameter to CoherentHandle that ties the DMA allocation
-> to the device's bound scope, ensuring it is freed before the device is
-> unbound.
->=20
-> DMA allocations carry device resources (e.g. IOMMU mappings) that must
-> not outlive the device's bound lifetime. Without a lifetime parameter,
-> there was no compile-time enforcement that a CoherentHandle is dropped
-> before the device is unbound.
->=20
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+ocfs2_validate_xattr_bucket() limits the entry array to the first
+bucket block, but the write path stores entries across the whole
+OCFS2_XATTR_BUCKET_SIZE region.  With 512-byte blocks a bucket spans
+eight blocks, and a bucket filled with small xattrs places its last
+entries past offset 512.  Reading such a bucket back errors out:
 
-Reviewed-by: Gary Guo <gary@garyguo.net>
+  OCFS2: ERROR (device loop0): ocfs2_validate_xattr_bucket: Invalid xattr bucket 86072: entry count 32 exceeds maximum 31
+  On-disk corruption discovered. Please run fsck.ocfs2 once the filesystem is unmounted.
+  OCFS2: File system is now read-only.
 
-> ---
->  drivers/gpu/nova-core/fb.rs |  2 +-
->  rust/kernel/dma.rs          | 20 ++++++++++----------
->  2 files changed, 11 insertions(+), 11 deletions(-)
+This is reproducible by setting ~33 xattrs with 100-byte values on a
+file on a blocksize-512 volume; fsck.ocfs2 reports the resulting
+image clean.
+
+Check the entry count against the full bucket region instead.  The
+per-block bounds checks for names and values stay as they are, since
+ocfs2_bucket_align_free_start() keeps each name+value pair within a
+single block.
+
+The entry array is one contiguous region, so a bucket from a corrupted
+xattr tree whose first block is not aligned to OCFS2_XATTR_BUCKET_SIZE
+could straddle a page and make the validation loop read out of bounds.
+Buckets allocated within clusters are always aligned, so reject any
+other block number while validating.
+
+Fixes: 2cf82b46d5e4 ("ocfs2: validate external xattr entries when reading metadata")
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+---
+ fs/ocfs2/xattr.c | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
+
+diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
+index 34f102db2a0e..c71fa7983b73 100644
+--- a/fs/ocfs2/xattr.c
++++ b/fs/ocfs2/xattr.c
+@@ -1153,11 +1153,30 @@ static int ocfs2_validate_xattr_bucket(struct ocfs2_xattr_bucket *bucket,
+ 	struct ocfs2_xattr_header *xh = bucket_xh(bucket);
+ 	u16 xattr_count = le16_to_cpu(xh->xh_count);
+ 	size_t region_size = (size_t)sb->s_blocksize * bucket->bu_blocks;
+-	size_t entries_limit = sb->s_blocksize;
++	/*
++	 * The entry array grows up from the header across the whole
++	 * bucket region, so it may extend beyond the first bucket block
++	 * when the blocksize is smaller than OCFS2_XATTR_BUCKET_SIZE.
++	 * Name/value pairs, however, always live within a single block.
++	 */
++	size_t entries_limit = region_size;
+ 	size_t nv_limit = sb->s_blocksize;
+ 	size_t max_entries;
+ 	int i, ret;
+ 
++	/*
++	 * The entry array is one contiguous region that may span the
++	 * bucket's buffer_heads.  Buckets are allocated within clusters,
++	 * so their first block is always aligned to
++	 * OCFS2_XATTR_BUCKET_SIZE and the whole bucket fits in one page.
++	 * A corrupted xattr tree can point a bucket at blocks straddling
++	 * a page, so reject it before touching the entry array.
++	 */
++	if (blkno & (bucket->bu_blocks - 1))
++		return ocfs2_error(sb,
++				   "Invalid xattr bucket %llu: unaligned block number\n",
++				   (unsigned long long)blkno);
++
+ 	if (region_size < sizeof(*xh))
+ 		return ocfs2_error(sb,
+ 				   "Invalid xattr bucket %llu: region size %zu is too small\n",
+-- 
+2.39.3
 
