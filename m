@@ -1,129 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C0E6434E35;
-	Thu,  3 Sep 2026 10:38:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C997243A7FA;
+	Thu,  3 Sep 2026 10:39:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788431901; cv=none; b=KeVyoWREi5TPyoFBSzQXAN3H35gpAC+CcQtzDwZbXh1EqeZGg7FDADMzyTzq8HEF5EqVOx58N1mzy8S0IUQ4F/gPjRh6jPXpF03nV3O5xM9iLqvwufxUuvtVJib2wN2WLJeUp6PNn4jLUgQFwEgcHy96WaM1d8sIhb7Pb/yRMRE=
+	t=1788431949; cv=none; b=O8+SxptInJk/7FxAMnrz9gqZKSaqlphh4yEuGDXegiDmcSd1jWn6Gf2fFn28vH+83q2idpQ/Lqoij/zMDZp6hL7cKKtRCbHvIVV/AbVuHklYm/LP6fW+o0KOOUoKbX0TnRvi3CbHVS7aWFkwjmugqNXAsWthS1jhYtk04mue01Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788431901; c=relaxed/simple;
-	bh=Jbmn8iue3j2+Ifw/z31QpZyXtwV64dy0LQMCF8Z77AY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TqhbmKZXLq1Fq/WeTsS99oot3RCaXV7aYaE6gOH+O54vtirTzkT4pHVQZHaQ9m7tJX26Oj/CzivghtJ+PpZ1NwhGlB6S+E8sLIVCfffJHjLKKwq6v2VMhxwDAZ1sRRkB0iW9KNuVZ5qtTLRBgUeasnR5wxRBO794Dp0LAAeXJhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZBzxg+qR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788431949; c=relaxed/simple;
+	bh=L1hTOT6bZigHFVPmU8OWo5WEiB3xw9tCEvcZvsBTd2I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uxHhXGM/uu0X6lES1OGcAZLauSIfRxuIMfEHJpTJC3Mk77BsWVc3SLtVSPHvrsGUs13bpTgJYsf9OWCUlBahF+K+QtkDmb5Tl0R7qJTq3wDNO2mw/z3Awnkfg6W6aNmoxDGDugD+qOsPUVdrH32EcmI8pkfvIGlQ1d5KZG7mO28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=qWWI9+oU; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=EIikv+EP; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=PFeEwn5P; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=O9aBwfh1; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZBzxg+qR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DD9B1F000E9;
-	Thu,  3 Sep 2026 10:38:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788431899;
-	bh=x4uuW1fhSXVXs1kzDNbywiMDMOAwnh31/DF5gJQsa7g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ZBzxg+qRjeCP/YLcIyP0WF5URoYUA0exhg8mG4HrOcw6UWwjs2jV5WaUUj4zaa/3h
-	 9ZIp0r8J+AQsLNpSpvPFCwRe4OmxMYfd7aogHDSjIoNWhNej8epnZLhqYlb90k7gD7
-	 BJdhVlYOdVMhTLJCJdfDFg/qzkvWvYTpYefw/iZAnwJujZ0wW4hABsv653FQetHMRR
-	 erP8w2yQrBjaJ/FRoRqc2Fgr+kTYG+Hff+Or02XIYmRgJYeaHAwLl2UEclNeLXmuC3
-	 JoUwTSdnms7LepjXKa0aYj2PdHdgE/2c7c5DpSKaB2vZ7kFBrZEhE2Dxt9WfzugWzg
-	 VY/w10Kihp4Ng==
-Message-ID: <62271715-fbd6-4047-9b69-b2bda40db056@kernel.org>
-Date: Thu, 3 Sep 2026 12:38:14 +0200
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qWWI9+oU";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EIikv+EP";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="PFeEwn5P";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="O9aBwfh1"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id ABACA1FE28;
+	Thu,  3 Sep 2026 10:38:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788431941; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=aDnECGRWP8TxIUKlZKMiIpCjMd7UHWunlMZWeSmZc4g=;
+	b=qWWI9+oUUYDjVlN3D0qRV0c0CmFzbM0hq1mpHgX4Xek9xmfm2d0Oq6w+qhprDj0IC8jjBX
+	/UBp6c0XOJNNDQDfULGiCWChlESeRBgQABRetIkJSyUo7O7/H1NzoGSq+JXeBNonE0m7ZI
+	b5sRV/2UqoGy4BdCuE6KqfmXkqdiNKk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788431941;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=aDnECGRWP8TxIUKlZKMiIpCjMd7UHWunlMZWeSmZc4g=;
+	b=EIikv+EP3c+XgOFpkWA3EcLffvJjoiJfpMAuyQ2NMastWNj3jhCBhv7ys3Wpewwj4S3Eyd
+	lfuP1GDUIUWH69CA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=PFeEwn5P;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=O9aBwfh1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788431937; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=aDnECGRWP8TxIUKlZKMiIpCjMd7UHWunlMZWeSmZc4g=;
+	b=PFeEwn5Pyawj5oDvlOFW/Z9NVwfstzVMdAdF5beyi6hfJzQGEIhdv4Up63BWRL5oJ+wkKZ
+	bsPdrDx4R3LDGmNOQWg7nJo+nlk7QXBKg5RKTr0UQrl+GPuUvLYCbdV94lB9eFUHfE0RLs
+	I2USA3w1Z1e/LteZZollDC9rfhuj3zE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788431937;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=aDnECGRWP8TxIUKlZKMiIpCjMd7UHWunlMZWeSmZc4g=;
+	b=O9aBwfh1Qhg0RTa85pu/1OoLHA0GArGeD+GRB4Xb725bCvcoZebV9cKGYMSXUVQ7s6zI8Q
+	0qXr6AWRKvcGYfAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 752B4136D9;
+	Thu,  3 Sep 2026 10:38:57 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id AAZqG0FOmWoNLAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 03 Sep 2026 10:38:57 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: caiaq: Fix potential double-free at error path
+Date: Thu,  3 Sep 2026 12:38:51 +0200
+Message-ID: <20260903103855.1807838-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net v2] bonding: fix slave_cnt leak on XDP error paths
-Content-Language: fr
-To: Hangbin Liu <hangbin.liu@linux.dev>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Hangbin Liu <liuhangbin@kylinos.cn>, Jay Vosburgh <jv@jvosburgh.net>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Daniel Borkmann <daniel@iogearbox.net>, Jussi Maki <joamaki@gmail.com>,
- Nikolay Aleksandrov <razor@blackwall.org>
-References: <20260903-bond_slave_cnt-v2-1-02e27304ca36@kylinos.cn>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <20260903-bond_slave_cnt-v2-1-02e27304ca36@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: ABACA1FE28
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sashiko.dev:url,suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	ARC_NA(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWO(0.00)[2];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -3.01
 
-Hi Hangbin,
+The fix for caiaq driver's resource management to handle the errors
+tries to release the resources in a common destructor call, but as a
+sashiko review for another patch suggested, some of the audio
+resources such as URBs have been already freed, and this may lead to a
+double-free.
 
-On 03/09/2026 10:10, Hangbin Liu wrote:
-> From: Hangbin Liu <liuhangbin@kylinos.cn>
-> 
-> When bond_enslave() succeeds up to the XDP setup stage, slave_cnt is
-> already incremented. If XDP setup subsequently fails, the error paths
-> jump directly to err_sysfs_del, bypassing the slave_cnt decrement.
-> 
-> This causes slave_cnt to drift upward on each failed enslaving attempt,
-> which would lead to unbalanced traffic distribution with round-robin
-> mode.
-> 
-> Fix it by moving the slave_cnt increasement after XDP setup.
-Thank you for the fix, but it looks like it causes multiple KASAN
-issues, see:
+For addressing the double-free, call the common destructor function
+from each place, and assure that the resource pointers get cleared.
 
- - https://netdev.bots.linux.dev/flakes.html?ld-remote=virt-bonding-dbg
+Link: https://sashiko.dev/#/patchset/20260903084747.535367-1-eadavis%40sina.com
+Fixes: 28abd224db4a ("ALSA: caiaq: Handle probe errors properly")
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/caiaq/audio.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
- -
-https://netdev.bots.linux.dev/branch_deltas/net-next-2026-09-03--09-00.html
-
-e.g.
-
-
-https://lore.kernel.org/netdev/20260903-bond_slave_cnt-v2-1-02e27304ca36@kylinos.cn/raw
-
-Cheers,
-Matt
+diff --git a/sound/usb/caiaq/audio.c b/sound/usb/caiaq/audio.c
+index ba3f73455ebe..bb6280aa3533 100644
+--- a/sound/usb/caiaq/audio.c
++++ b/sound/usb/caiaq/audio.c
+@@ -828,16 +828,13 @@ int snd_usb_caiaq_audio_init(struct snd_usb_caiaqdev *cdev)
+ 
+ 	cdev->data_urbs_in = alloc_urbs(cdev, SNDRV_PCM_STREAM_CAPTURE, &ret);
+ 	if (ret < 0) {
+-		kfree(cdev->data_cb_info);
+-		free_urbs(cdev->data_urbs_in);
++		snd_usb_caiaq_audio_free(cdev);
+ 		return ret;
+ 	}
+ 
+ 	cdev->data_urbs_out = alloc_urbs(cdev, SNDRV_PCM_STREAM_PLAYBACK, &ret);
+ 	if (ret < 0) {
+-		kfree(cdev->data_cb_info);
+-		free_urbs(cdev->data_urbs_in);
+-		free_urbs(cdev->data_urbs_out);
++		snd_usb_caiaq_audio_free(cdev);
+ 		return ret;
+ 	}
+ 
+@@ -858,6 +855,9 @@ void snd_usb_caiaq_audio_free(struct snd_usb_caiaqdev *cdev)
+ 
+ 	dev_dbg(dev, "%s(%p)\n", __func__, cdev);
+ 	free_urbs(cdev->data_urbs_in);
++	cdev->data_urbs_in = NULL;
+ 	free_urbs(cdev->data_urbs_out);
++	cdev->data_urbs_out = NULL;
+ 	kfree(cdev->data_cb_info);
++	cdev->data_cb_info = NULL;
+ }
 -- 
-pw-bot: cr
+2.55.0
 
