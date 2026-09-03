@@ -1,110 +1,217 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4254E80BC
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:38:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3132D4E8DF7
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:38:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449942; cv=none; b=FQaqfKyT4JC8VPIMWfG/Cl+zRij4ph1u89KRn9KMl0Tkdu/AjXJscwQ5aXXGmolHG6F0Ty0GkoiNpz+4gxUBro6YtUPVUmslfNFCEx3ywqyWlwcItCXj/PGtMoR+I/f8KpWATW9LPBzRbRB2h1wi8non9VoSJaYo1eIEJDZMgbE=
+	t=1788449942; cv=none; b=bwkSEhNyD/QmR899HXYaldxACLeg4defC9MXrjAyHQP8zLHttYKDsGg9AkGHDv/+AGZ0uGFk8vHePC38IY6yC9dPmfNPhliCWRNxTgHv9yEy49vR1YxSkSNBOg5dZNQeABweKbX2TrWRSaHeRz6kMnE3vZF4tZRaOdaqMrmdW8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788449942; c=relaxed/simple;
-	bh=lSxWeV6eQ9gsvtuEy29EEdGDoPwOWoRNvmRLfQt9SQY=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
-	 References:In-Reply-To; b=H17gqLA9HXI97+1AKbNx2s035Bq3R8ooU6vXqa7fC0hR4UgvZoOo4jSgBr22ESOgpU8kBOMOa1AdVAwzyxMqlVb/vIRq7SmxHCJ5bULIHjHe9UWgab/6+yMpEky4theialZOMjINGcflWcyv4VMfYwd/iGQUzMS4nijwV6tSL/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=F/NqFgGw; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	bh=15hnFVX8Uvkr7PjM1PgJoD/INOFQciMC8zyz7hvP3Mg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=c2++AtJm9+v19+U+BzxzC8JjHjQCLM1Gxf4TAT7fVtEHT058nviJxQawVgXO+4MLp+NNZqPvNK4nxK/kgdnecX8tB7i/J1V+1Ow/YHpE8CIVYIWIUfwKMsnkZrX0Ff5SnnxDIzV/icLK89UZ7lyZA94phQVvj5dqV+dycsXUfY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=EZLK1X4P; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="F/NqFgGw"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 3A9B84E414ED;
-	Thu,  3 Sep 2026 15:38:56 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 05972602B8;
-	Thu,  3 Sep 2026 15:38:56 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3495A11C79776;
-	Thu,  3 Sep 2026 17:38:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788449934; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=2rykjN7hYhjqqGp35APiIYM2znSzNTqcio7WBnw8C7c=;
-	b=F/NqFgGwc26SiygDFUBnXEqmAs+dILuLsA19YqkWX23Wzc2wgfJX9s/KcD+IVmXAzaY5V1
-	/CeTfwY62/521oXbTb3ZrPLcrxuDDNIGTIl4XjngU5+ZB6AyB+1LIiFDu5YL/bXe9F2leD
-	cJPSWYijl68B9CYSMC9DM4Tbv2OuxOyIPn1BwPHY8N19UAdStDcc7WXykzYu2IZgJ1ZjkY
-	L5srqLofNjjMvjbo0TRzI5GypYT3buJS5Co0ce25Tdmk0/RNN+xc1XZv1RkbmYXUeBjU6n
-	O1BsAefK1WQSrAm+Qa4RI3imE56h+f/+/ZklFO171iH+4k6iqp9c57uC1/5zOg==
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="EZLK1X4P"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-47f96c5b722so14962f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:38:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1788449938; x=1789054738; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=waRfo/eMT+qYYnkf6SXoDP5wBnkJd2wqce5jm4IDuSY=;
+        b=EZLK1X4PIL8Qvg0C4jJe13or6g+6jpoBkOPPkli+i8a9cURYyS3coEdN4Do5OkmU0E
+         Q+rdgIu3OjOM+9W3OoohuaNS07N2IZ3I6BIoscs/HvkYGUtGb+zcQtKKcxj+uVBgxBFc
+         IZhsIfQxDMRhD2LUZNiHjHwrmol2ag/LRpNro=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788449938; x=1789054738;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=waRfo/eMT+qYYnkf6SXoDP5wBnkJd2wqce5jm4IDuSY=;
+        b=EqeZRlCMCvDXtlhc+opjJOfYc0g79nauMp/D55Qilqxzy5jyjmW00+Kw6pyQt66neu
+         LO4KZQu3wKjbZFYr7TE5G0wt2CGKLOqH3K6fDnhjv4ImDEb8DbpQZuXMvFqpITiFdGgc
+         F+An4MYvbgr0E9LXDSD0AixqmA/HDN1iiNa/EG3PVr46NsKF9LQPRcgu3EnkUXSpwOSh
+         LMVK4GMgDXBfjfbEmi+DqiV5zp3YmDMfhBV6tA25NEZG1sqPeBxj04p2f4HakHa5+YRn
+         PRT+IzZ3q1GJQubpL72odrP8wZTfFv93KSpMjugdEyXMrUuRCreA/heo9Uk6R52TIdw3
+         jGJg==
+X-Gm-Message-State: AFuF++mGcR3FDD4LwMVFEBe/K+l5j+Bs9IlGceQ2qi+64Yl4fxeipcme
+	ju6vljJUVcKPwu/90eQFfTGtm88kaB0WJYnZlCM9OPzxBkZmGpH4eJ//bJ/L5FRElEeshsgUWn2
+	QmUB7i+o=
+X-Gm-Gg: AYBFou02CDfC+yK8skpyzQYuQMPhok5cMQ40YFzx7aGjhwjpSsknOZhnUSS/px+HZ4G
+	e+jmyC3plI4O4OVh/jpGPzA16IsfcHRXTSOVvCvZyx4dHV2/jvkIUPvK8UeMVNdHl44D5rRMy7l
+	U5wap7J6+/36APBwIwUcCZQ2Iias3YglTC+O8W9XRpcLlJFGsg8l05UNxbgd7JnLzpB5H9NNLgu
+	tRJo7wWBSJ2HOUK0VAVZwE9sK/bcz4XkKxCK+YwI60JnLJCxCfZAlgEFHi5nSYQ75A47GFAaFUh
+	yFNTG9HpCqCufBBb3dk0d60iM2bao/dnPumzFsOAQZknTrnuUAdrhrA5Jyt+H3Wwiwq4A0v9WE/
+	pHX+af+zA9T8rPzPco0RCyHLiSa8oDbCprNHs3Mj6wG/e+dFNo/TdlWXUyS2vyGjRIe63IjClca
+	Q2rR3jIfAW0zNFQNI1RWZe+i1+MBOeukxgfoPCvkGimm7LzX4pE/+dd+M8Go936TKjNPU8K3Pu2
+	BmtXlWwnOidYzwcLTzeoMc/EY7vDa+f0T/rrlnXAc8XIPJvlhilYnqsU4emHjMYFZq8PnxIzN3X
+	S6SWvK5q3To1AEDmM1v9J01g0YXYG0f+/WSWZAOG3qwSr6n2j0DWWQcS9xgokDmnt60=
+X-Received: by 2002:a05:6000:268a:b0:481:5b58:c589 with SMTP id ffacd0b85a97d-48488f0e30emr24641045f8f.10.1788449938221;
+        Thu, 03 Sep 2026 08:38:58 -0700 (PDT)
+Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com (host-95-245-93-90.retail.telecomitalia.it. [95.245.93.90])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e72df2sm15366301f8f.1.2026.09.03.08.38.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 08:38:56 -0700 (PDT)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Cc: michael@amarulasolutions.com,
+	linux-amarula@amarulasolutions.com,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Peng Fan <peng.fan@nxp.com>,
+	Sebin Francis <sebin.francis@ti.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	linux-clk@vger.kernel.org
+Subject: [PATCH v13 3/4] clk: validate spread spectrum configuration
+Date: Thu,  3 Sep 2026 17:32:15 +0200
+Message-ID: <20260903153836.373267-4-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260903153836.373267-1-dario.binacchi@amarulasolutions.com>
+References: <20260903153836.373267-1-dario.binacchi@amarulasolutions.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 03 Sep 2026 17:38:41 +0200
-Message-Id: <DL5SL3NE7UD4.266QMY5S9ZY3T@bootlin.com>
-Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Andrzej
- Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Jessica
- Zhang" <jesszhan0024@gmail.com>, "Linus Walleij" <linusw@kernel.org>, "Inki
- Dae" <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>,
- "Marek Szyprowski" <m.szyprowski@samsung.com>, "Anusha Srivatsa"
- <asrivats@redhat.com>, "Dmitry Baryshkov"
- <dmitry.baryshkov@oss.qualcomm.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>,
- "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-To: "Albert Esteve" <aesteve@redhat.com>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH RFC v2 04/19] drm/bridge: panel: rename
- drm_bridge_is_panel() -> drm_bridge_is_panel_bridge()
-X-Mailer: aerc 0.22.0
-References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
- <20260903-drm-bridge-every-panel-v2-4-2ab8ee24538e@bootlin.com>
- <CADSE00+n4XQ+Xj-TG4KtbPq4asR6GH9=+fC0MdQUycM2_DXiNg@mail.gmail.com>
-In-Reply-To: <CADSE00+n4XQ+Xj-TG4KtbPq4asR6GH9=+fC0MdQUycM2_DXiNg@mail.gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hello Albert,
+The spread spectrum configuration is passed to the provider's
+set_spread_spectrum() callback without any validation, as clk-conf.c
+only skips all-zero triplets from "assigned-clock-sscs". An invalid
+device tree can hand providers a zero modulation frequency or a spread
+ratio above 100%, and each provider would have to add the same checks
+to protect e.g. divisions in its rate computations.
 
-On Thu Sep 3, 2026 at 3:59 PM CEST, Albert Esteve wrote:
-> On Thu, Sep 3, 2026 at 10:12=E2=80=AFAM Luca Ceresoli <luca.ceresoli@boot=
-lin.com> wrote:
->>
->> Work is in progress for every drm_panel to embed a drm_bridge, and for t=
-hat
->> a function will be needed in the drm_panel API to tell whether a bridge
->> represents a panel or something else. The ideal name for that will be
->> drm_bridge_is_panel(), which however is already in use by the panel_brid=
-ge.
->>
->> Rename the current function in the panel_bridge API to
->> drm_bridge_is_panel_bridge(), which is more precise and frees up the
->> drm_bridge_is_panel() for future use in the drm_panel API.
->>
->> No functional changes, just renaming a function treewide.
->>
->> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
->> ---
->>  drivers/gpu/drm/bridge/panel.c                 | 8 ++++----
->>  drivers/gpu/drm/display/drm_bridge_connector.c | 2 +-
->>  include/drm/drm_bridge.h                       | 4 ++--
->>  3 files changed, 7 insertions(+), 7 deletions(-)
->
-> Reviewed-by: Albert Esteve <aesteve@redhat.com>
->
-> Thanks for cc'ing me :)
+The KUnit test data for assigned-clock-sscs uses spread values of 30000
+and 40000 permyriad (300% and 400%), which the new check rejects, as
+reported by Sashiko, so fix them to 300 and 400 (3% and 4%). Also use
+a realistic 6% value for the initial settings of the skip tests, for
+consistency.
 
-You're welcome. Sorry for not having done it since v1.
+Fixes: c86814e70390 ("clk: Introduce clk_hw_set_spread_spectrum")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/r/20260901155657.6A5981F00A3A@smtp.kernel.org
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 
-Luca
+---
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Changes in v13:
+ - Fix the KUnit test data to realistic spread values.
+ - Add the Reported-by/Closes tag for Sashiko.
+
+ drivers/clk/clk.c                      | 14 ++++++++++++++
+ drivers/clk/clk_test.c                 | 12 ++++++------
+ drivers/clk/kunit_clk_assigned_rates.h |  4 ++--
+ 3 files changed, 22 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
+index fef87167a60b..208caf60eeb5 100644
+--- a/drivers/clk/clk.c
++++ b/drivers/clk/clk.c
+@@ -2851,6 +2851,20 @@ int clk_hw_set_spread_spectrum(struct clk_hw *hw, const struct clk_spread_spectr
+ 	if (!hw)
+ 		return 0;
+ 
++	switch (ss_conf->method) {
++	case CLK_SPREAD_NO:
++		break;
++	case CLK_SPREAD_CENTER:
++	case CLK_SPREAD_UP:
++	case CLK_SPREAD_DOWN:
++		if (!ss_conf->modfreq_hz || !ss_conf->spread_bp ||
++		    ss_conf->spread_bp > 10000)
++			return -EINVAL;
++		break;
++	default:
++		return -EINVAL;
++	}
++
+ 	core = hw->core;
+ 
+ 	clk_prepare_lock();
+diff --git a/drivers/clk/clk_test.c b/drivers/clk/clk_test.c
+index 1c5c8b7c1f3c..21e62d68f87f 100644
+--- a/drivers/clk/clk_test.c
++++ b/drivers/clk/clk_test.c
+@@ -3526,7 +3526,7 @@ static const struct clk_assigned_rates_test_param clk_assigned_sscs_skips_test_p
+ 		 */
+ 		.desc = "provider missing assigned-clocks",
+ 		TEST_PARAM_OVERLAY(kunit_clk_assigned_sscs_without),
+-		.sscs = {50000, 60000, 3},
++		.sscs = {50000, 600, 3},
+ 	},
+ 	{
+ 		/*
+@@ -3535,7 +3535,7 @@ static const struct clk_assigned_rates_test_param clk_assigned_sscs_skips_test_p
+ 		 */
+ 		.desc = "consumer missing assigned-clocks",
+ 		TEST_PARAM_OVERLAY(kunit_clk_assigned_sscs_without_consumer),
+-		.sscs = {50000, 60000, 3},
++		.sscs = {50000, 600, 3},
+ 		.consumer_test = true,
+ 	},
+ 	{
+@@ -3545,7 +3545,7 @@ static const struct clk_assigned_rates_test_param clk_assigned_sscs_skips_test_p
+ 		 */
+ 		.desc = "provider assigned-clock-sscs of zero",
+ 		TEST_PARAM_OVERLAY(kunit_clk_assigned_sscs_zero),
+-		.sscs = {50000, 60000, 3},
++		.sscs = {50000, 600, 3},
+ 	},
+ 	{
+ 		/*
+@@ -3554,7 +3554,7 @@ static const struct clk_assigned_rates_test_param clk_assigned_sscs_skips_test_p
+ 		 */
+ 		.desc = "consumer assigned-clock-sscs of zero",
+ 		TEST_PARAM_OVERLAY(kunit_clk_assigned_sscs_zero_consumer),
+-		.sscs = {50000, 60000, 3},
++		.sscs = {50000, 600, 3},
+ 		.consumer_test = true,
+ 	},
+ 	{
+@@ -3564,7 +3564,7 @@ static const struct clk_assigned_rates_test_param clk_assigned_sscs_skips_test_p
+ 		 */
+ 		.desc = "provider assigned-clocks null phandle",
+ 		TEST_PARAM_OVERLAY(kunit_clk_assigned_sscs_null),
+-		.sscs = {50000, 60000, 3},
++		.sscs = {50000, 600, 3},
+ 	},
+ 	{
+ 		/*
+@@ -3573,7 +3573,7 @@ static const struct clk_assigned_rates_test_param clk_assigned_sscs_skips_test_p
+ 		 */
+ 		.desc = "consumer assigned-clocks null phandle",
+ 		TEST_PARAM_OVERLAY(kunit_clk_assigned_sscs_null_consumer),
+-		.sscs = {50000, 60000, 3},
++		.sscs = {50000, 600, 3},
+ 		.consumer_test = true,
+ 	},
+ };
+diff --git a/drivers/clk/kunit_clk_assigned_rates.h b/drivers/clk/kunit_clk_assigned_rates.h
+index d7ae5ec2d25b..c5d9f004ee81 100644
+--- a/drivers/clk/kunit_clk_assigned_rates.h
++++ b/drivers/clk/kunit_clk_assigned_rates.h
+@@ -9,10 +9,10 @@
+ #define ASSIGNED_RATES_1_RATE		9700000
+ 
+ #define ASSIGNED_SSCS_0_MODFREQ		10000
+-#define ASSIGNED_SSCS_0_SPREAD		30000
++#define ASSIGNED_SSCS_0_SPREAD		300
+ #define ASSIGNED_SSCS_0_METHOD		CLK_SSC_CENTER_SPREAD
+ #define ASSIGNED_SSCS_1_MODFREQ		20000
+-#define ASSIGNED_SSCS_1_SPREAD		40000
++#define ASSIGNED_SSCS_1_SPREAD		400
+ #define ASSIGNED_SSCS_1_METHOD		CLK_SSC_UP_SPREAD
+ 
+ #endif
+-- 
+2.43.0
+
