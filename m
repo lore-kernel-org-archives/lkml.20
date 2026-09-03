@@ -1,86 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F6C3546EA
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 23:28:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 252BE30C60D
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 23:33:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788478103; cv=none; b=Be4gN2FDrNoOVjTPAlEWePGxJ4jddJBMh2kp+f1DZSm825ORjQAwUfTk1Scr9VMAL2CLzYsFvgwKpZxyiB3HN9spROOfLxkFquItN6248nbG+Ipga28Ud+MBjHrQ1H7DChCXH91uZ+9vFDTS0lGbpn9lV0OC+Tr0G37CuNwGi00=
+	t=1788478421; cv=none; b=YTjFm81RkhVKc9XQ8WXNYCa3eoioaDK4WhyyW1FPs9eSRDo34TC6lnqX7Er4dIoVSIWBQbRnFBcnlFmtg96x8GJWvoxe+Sf6Wk8Ioyq+G2dtbx0KRQSn8+63sE1WKdJwyvyITnoGMApkcC7eVGehseLZ7fC4gG8CangO7xtacrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788478103; c=relaxed/simple;
-	bh=lAQOBZZNM4HeI6bj49fzqToZ0QpD8Fg87vGSAmZVnYQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=T/vDAgFzAcBriQgGGZtcHLQbwDeb1/tMA08NslRj5WVUHoTjPu21uNugGEBtxprro0YTIDZWubURoluxmPo8fDflBfSq/NpnVhp8OZFEvfv7ScAT/Y+MBJ2fBm5Xpq950Qu3vB7ZdQTZDBuY8QdnaNLr5fRs79tdldWGuL4wy10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aR85jWls; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788478421; c=relaxed/simple;
+	bh=/qWtFqHBkrtLXXAD1XpvUaW1zHKMs9ArEGyHDtyLBkA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Cs0gZApbQwipTZWdPIViOVlYUCUbmNXriPX5dgSK/pvB3mhW4a8xG1Dnwz+XZpEgswmRtAwO8ThFw8Hn9tA40QCxLvmUVQVt4I159IjWWlvNuJgNUX7KzI94etSZ7a4c31Ier7GHzvNbpAzQBsUHdk+M6ZB5alPQp8xfIWMGtwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=JMmAKuRF; arc=none smtp.client-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aR85jWls"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9821B1F000E9
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 23:28:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788478101;
-	bh=J6Siljdub3jnoqDcVJxmjva8tbUcjub/Wa6bS2BFIiw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=aR85jWlsR2hacBYRwAk308Sf+U1zuR82WYL5qgmqWn84j0O7ZAEjzbPkZHmQpcyeV
-	 eb80/2XSoVw7nwcyV1D2LczTyp/Krkcc3oK9JXSULC/ovgSKUiYGHxnHzGj8Qe/poK
-	 u/2rOzi/wFq8XzWuSvk+AeDloqtVjgw5+QKAuzyf5EfAxLAGr2LJlI1Yw+6QOrwp17
-	 0ngsoHQ9azBC7pp1BHpQE4Rhqz/qbWIScu8vOE9THYZGkDtWVLM0lvu31kp9WLnfVJ
-	 SYg3ytQ7pCBQz3/CRBuohHULlLH1eb8tZbYMyv/H0RrJkLpZBB/Dc3LFOWDwd5FcX+
-	 4X+wP/xHB3K2A==
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c15cf78d1a2so35856866b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 16:28:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwnw0JmNv5IHhx6m/iPkS3I+c9giWHs5EU5n/gsTKU3Pj9Pfu9Ikm7b1LTHK2MOSnfzcQ8cUkRlJ/ZywyM=@vger.kernel.org
-X-Gm-Message-State: AFuF++k3VEx1+3VncwFNwoTTqtKOYy1uzjVgbTdTEXX81SNZFwHJ7AwS
-	pn8F7WoU60LmVnfD1/MItoNCQHBkRIuFEF2ChDqQjmQuU6wsUs1WAC6Iy1tLRKw7sCh6puugtX3
-	zwSbm0uD1fYvcAuWvtk9yTVnqnZBBCj4=
-X-Received: by 2002:a17:907:9443:b0:c20:f6d9:d8c7 with SMTP id
- a640c23a62f3a-c260ca24723mr134491066b.24.1788478100271; Thu, 03 Sep 2026
- 16:28:20 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="JMmAKuRF"
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-38d489b6b71so456408a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 16:33:39 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788478419; x=1789083219;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Qy1+fiy5vVG6Fgi2325/mnWQkrttmVDQVIUSqg+HoGM=;
+        b=sI53AZ7JUaxRxgJFidxjsIARPXoxwfE1UiJEbC4MAPF2N4zvbOhSZ4zPgtCW6xZb5V
+         tUjROtkZDgDP8j2yM4LITR/TA3fda5u/CyYlkbaS2AoEpZ6uN0KIO8uMClmtiRXPHr77
+         MgFXJimUHfVEp4kg/kgyO4z65ZSxybDjADV0uTIRzYQa8oG8Zn8oerCVDauvpgEjrxlc
+         dPYyga3tZUqmGbvaQvZFTqUrsNoNsCF7raaFcTboRFnKKEj6WiwaW2k+GGjPqlNa/XrF
+         xHmaDM+d+c04LYQov/nFLbi93H31tupy75EOOys5sxDQggdWeAqK1w6ba0ySeEM1PuTu
+         +Zjw==
+X-Forwarded-Encrypted: i=1; AKwUvBzXULmLeVK+t9xHoX42zMy4iFV0SPWqjQ1Va+LBnaYhpNkLt+DKHkyEOKvLMgXAksq+cLpt1HeyBVW4sfA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwesvam38ObW5rLAvFjxSSVndreB6YNNeZj40leGwHf1YAlKhX
+	sV1U5g+OYqwzPvoavMCk/6bWe9TE/1qXFsr0CLXUSjyn9X+S3kr1bc2ZUeORzkDiR+YOyutKRUt
+	860cqKpkBRl/k8taotS0sZS6pKElr7JhcMdqAN3rgtLo7BdE8oLHKIL4/YfPyeyXDHWuxX9laiH
+	JqGztMigyxkf2HS9N2b3fFDBZgWTurhzDXSivUzMNbk+KS5kHEx3PESdWRMzCg7fcZYP3kqwUNB
+	pdg/1fZOGuD63tTzgxYGbBo
+X-Gm-Gg: AYBFou1NvtxHScvvao9TTxHFToSJ3HOxkWjVSpZlW/on0Ez7STZ7wceiPG3DGWDouwc
+	VKcjOAIuH5kpc6DMahNsDqZ3ZOtwfC9YGoQdXR8cdbNEbJNrS3RgT7HnSr26pWN5cBCV6uHe3De
+	JNr1CZY7Kzi5HXEjNzU38dFdYqHIqDuHgn37LMMNSHYyCLo1IW/rZMDeR7oByCPj8ICiGe9VYze
+	y7m6iM4w73EtC61kkeq3HCgi+OFxKZdy0DFM6PN/gFgV1B7Z8oqFvLMMntm4mOx45kMdiW31HAu
+	8lB/H6gtZUMqfEHcP7Q/uShNUE4GP/4mBfS2O1W0HhBDlRxUEQzBPYIK7x2DuQLJsi6PyOxCMUM
+	qUWxCTQtqE/tXpdlK5+YtLIWkZomNwwFAFzHD7uo5aktBrUD9fzmJBdFPsRAkUGCNp7u7jgsj7C
+	8pDtULlzsJtxcMDWji4a2VqsDH04i9jIt5KUmIlpeuxA8=
+X-Received: by 2002:a17:90b:2ecd:b0:396:40e6:f631 with SMTP id 98e67ed59e1d1-39b2609f306mr3270557a91.3.1788478419383;
+        Thu, 03 Sep 2026 16:33:39 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-39ae608911dsm890080a91.0.2026.09.03.16.33.39
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 03 Sep 2026 16:33:39 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-398d0010cfaso638183a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 16:33:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1788478417; x=1789083217; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Qy1+fiy5vVG6Fgi2325/mnWQkrttmVDQVIUSqg+HoGM=;
+        b=JMmAKuRFekgUrJYITSj2Oh4pgOODAKpC6WpGKRSJ1E5Xf7xrM+C+nsJB0tkBn/FgLQ
+         g3yVsAd7aJx9bVpw1TxrUg4LbCeuHbYLLdzGiXfCFA71rGoop8lOw0ltAjVApisb+uo3
+         POzfwhdmz71O7++zX69EySOrLcev+SWn1/b+g=
+X-Forwarded-Encrypted: i=1; AKwUvBzXHS4t+4ypVP+6MfXaJgHGiiHd6X9H0EEqXnjCGwKfUz6UQ5XONF2UyNN+3a4AnMFbgZ+JnKUEd9T9BLw=@vger.kernel.org
+X-Received: by 2002:a17:90b:1343:b0:38e:9eb2:9d43 with SMTP id 98e67ed59e1d1-39b261b1bcfmr3210963a91.16.1788478417613;
+        Thu, 03 Sep 2026 16:33:37 -0700 (PDT)
+X-Received: by 2002:a17:90b:1343:b0:38e:9eb2:9d43 with SMTP id 98e67ed59e1d1-39b261b1bcfmr3210904a91.16.1788478417146;
+        Thu, 03 Sep 2026 16:33:37 -0700 (PDT)
+Received: from [10.211.247.235] ([192.19.50.250])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885d29esm2238141eec.2.2026.09.03.16.33.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 16:33:36 -0700 (PDT)
+Message-ID: <b858b84b-a1ef-45b4-a7c1-35ba28490e35@broadcom.com>
+Date: Thu, 3 Sep 2026 16:33:42 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903092623.301981-1-chizhiling@163.com>
-In-Reply-To: <20260903092623.301981-1-chizhiling@163.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Fri, 4 Sep 2026 08:28:06 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-YoYZfNGDJs1gjJPHZ4n5oe+r93y32Gyb=p8rUxzDeqg@mail.gmail.com>
-X-Gm-Features: AcwNN1Vz22AcXvYJ9NC1LyAyX1OxPOv_0PS5dygwGrNWUUfYxxuRGrMNkkYRDjE
-Message-ID: <CAKYAXd-YoYZfNGDJs1gjJPHZ4n5oe+r93y32Gyb=p8rUxzDeqg@mail.gmail.com>
-Subject: Re: [PATCH] exfat: clear the volume dirty flag only when remounting read-only
-To: Chi Zhiling <chizhiling@163.com>
-Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Sungjong Seo <sj1557.seo@samsung.com>, Yuezhang Mo <yuezhang.mo@sony.com>, 
-	Chi Zhiling <chizhiling@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] x86/vmware: Fix i386 high-bandwidth hypercall
+ arguments
+To: Zack Rusin <zack.rusin@broadcom.com>, Borislav Petkov <bp@alien8.de>,
+ Ajay Kaher <ajay.kaher@broadcom.com>,
+ Alexey Makhalov <alexey.makhalov@broadcom.com>, x86@kernel.org
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin"
+ <hpa@zytor.com>, virtualization@lists.linux.dev,
+ bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>, llvm@lists.linux.dev
+References: <4ab10678a8f50053934b62b56af81f881c1d3798.1788414669.git.zack.rusin@broadcom.com>
+From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+Content-Language: en-US
+In-Reply-To: <4ab10678a8f50053934b62b56af81f881c1d3798.1788414669.git.zack.rusin@broadcom.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-> diff --git a/fs/exfat/super.c b/fs/exfat/super.c
-> index a9ea36ba2693..268732571837 100644
-> --- a/fs/exfat/super.c
-> +++ b/fs/exfat/super.c
-> @@ -775,9 +775,12 @@ static int exfat_reconfigure(struct fs_context *fc)
->         fc->sb_flags |= SB_NODIRATIME;
->
->         sync_filesystem(sb);
-> -       mutex_lock(&sbi->s_lock);
-> -       exfat_clear_volume_dirty(sb);
-> -       mutex_unlock(&sbi->s_lock);
-> +
-> +       if ((fc->sb_flags & (SB_FORCE | SB_RDONLY)) == SB_RDONLY) {
-Could we also add !sb_rdonly(sb) here?
-            if ((fc->sb_flags & (SB_FORCE | SB_RDONLY)) == SB_RDONLY &&
-                 !sb_rdonly(sb))
-Thanks.
+LGTM!
 
+Reviewed-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 
-> +               mutex_lock(&sbi->s_lock);
-> +               exfat_clear_volume_dirty(sb);
-> +               mutex_unlock(&sbi->s_lock);
-> +       }
->
->         if (new_opts->allow_utime == (unsigned short)-1)
->                 new_opts->allow_utime = ~new_opts->fs_dmask & 0022;
-> --
-> 2.53.0
->
+-- 
+Maaz Mombasawala <maaz.mombasawala@broadcom.com>
