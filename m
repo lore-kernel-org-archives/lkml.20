@@ -1,62 +1,66 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE2A3EAC71;
-	Thu,  3 Sep 2026 06:31:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E1F837A83B;
+	Thu,  3 Sep 2026 06:31:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788417084; cv=none; b=CjSA1oUYm5Gbp1+v9LnaJloH/98yDts8MpzryEj0sw0Fe9VhlrX/u3C/2JiEcaCj3znodrTThWA80ivqME7wCBzTTmsSSXe32MK4ydvJYYPBJHb22pqEIG8Nw4naCReBk3tTvQgJPRDsCJnVbd01Dx9jQwuxOLfPrAIfW3R4hf0=
+	t=1788417104; cv=none; b=hTJEVECVVIpPlRATN4bOvsyYRiSb0WZVh1ptshcFJJWe06o96aa8skrrLLbhrGWzexwo/NmaG6wdnCnfulMmMN2fijx18amXynpYhi0jQmUoKgL8Ep2zaEPReL7ipMGkB06P2QN02Sl7r8escEmaqiWXFwOTUfx/uhsAce+UB10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788417084; c=relaxed/simple;
-	bh=KnGPxRYqa+YU4j0JBli/anSpWWwJeLJkR2/WWMw4sTA=;
+	s=arc-20240116; t=1788417104; c=relaxed/simple;
+	bh=YVucUw3YVfg82zo4PM4SYrWo1aven9VvV41QrSEm9Jo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IBNQ6tpKfzoME6WnLx7EV7q1W5VaHisyLPOp8ymMUNv+m2eSbMZolYcyV9IkeCvWGTY7tuhgsee9h5uWEJp/k7Yt19DkxBUPa4tzlMwihNNbN5/D6mlNZ5Damf6fYE9XD1zOoD126CQqh5qESAIVIRcPph2gW2VJR1hqa4iY0h4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=m3zTTyuv; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Zw0q0PPyCZbSxdFHipN1Nv9m/Dfg0pUv08D2sPmAb6UcHbT5dSRg2MtCjCv2867ZnWkpZi44lppjViahP8OYERNUS1aPeCi8z6uYVIllqAUeUyAjeU9cmjeVBUSofAToxr/W5Pyv/bG0y4Z4knnj4DSyubN2ksQ2k9uVzDI3/Eg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JQ6uqq4i; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="m3zTTyuv"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JQ6uqq4i"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788417083; x=1819953083;
+  t=1788417103; x=1819953103;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=KnGPxRYqa+YU4j0JBli/anSpWWwJeLJkR2/WWMw4sTA=;
-  b=m3zTTyuvBf1WI8AipTiYiJgkrq2/CbdKDZlVY2mTZuYIN5h4RjIlNHHZ
-   3rZAzqMRLCbh0HUNZHdQ60Zde2vpl1aU796yqqh00scn/Zqt6ddgbzW25
-   vDKQC3a3n+kBFWjnYOzy+AXnnyEf8qnFA4UkK9wzrYGL1d7oOq05i6NhW
-   p0329FXIuZS+lsM4mzyeeaOK9Sv0i7fNlplAM+GH0Cba/DLKGAuuCmDPU
-   6+PFXwSgFu2ehMS6CF5cLkyZ6UGi1skMswPY19mY+TDf1SMXQ61CecokS
-   J/CjlD2fVOC0n53rsWowpzWx0pPwM/QNDHeDGy/apyHRAHt4i42zrz5TN
+  bh=YVucUw3YVfg82zo4PM4SYrWo1aven9VvV41QrSEm9Jo=;
+  b=JQ6uqq4iKNA3q33vTLitHXDQPjgTsySsb135wfpZwLtCcfdPz9xSX+Eh
+   E311hTJ1qqTHyKf+xTj6XyCexQsEBQ8qB1izQ/FqxPK/9BTwAl35YjRUI
+   UmWWYB4UDSHgX3GMgT4AXa7LofGWqA7sWAofQ1HIAPv/Oq85ryXxijvJj
+   sr0X6eTZlwlsetjcyLBzVJv9ZFiuh+UCQgtIiTHCB2jI8JGJzz70hm0vJ
+   Du6mZATKcsPD3eKYZ9Ip2c/qyqJAzWAxnnkoWGMylFs38hRyyRLWszQGB
+   dJGMgCT4noR7yBiqjWnSqGAum3YA9wmd9R31SP+t4/8lrBPEfbyoacB0u
    A==;
-X-CSE-ConnectionGUID: O4juEVl8R42tcs2+MwavoA==
-X-CSE-MsgGUID: XIVNHyeLQk++fLOwjfRlCQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="106252730"
+X-CSE-ConnectionGUID: XNuZSCUfSgKicQlc6fzpSA==
+X-CSE-MsgGUID: yAG2ZVqSQWiIXfXBrlSCIg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="76441692"
 X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="106252730"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 23:31:22 -0700
-X-CSE-ConnectionGUID: Zenm2r2LRiKoIs5Vpnc1fg==
-X-CSE-MsgGUID: SUe2Q2yKQD+335Nz2YKkZg==
+   d="scan'208";a="76441692"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 23:31:36 -0700
+X-CSE-ConnectionGUID: WelPxJRuQUekczAxiS3jkQ==
+X-CSE-MsgGUID: /1saqC4PQpivb9WDyq4Eaw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="263451694"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 23:31:19 -0700
-Date: Thu, 3 Sep 2026 09:31:16 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Marcelo Schmitt <marcelo.schmitt@analog.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux@analog.com, jic23@kernel.org,
-	nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
-	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
-	marcelo.schmitt1@gmail.com
-Subject: Re: [PATCH v1 06/13] iio: adc: ad4134: Add support for digital
- filter type selection
-Message-ID: <apkUNH9qCcfTNZqU@ashevche-desk.local>
-References: <cover.1788368334.git.marcelo.schmitt@analog.com>
- <058e82fb421c6794cc3002bde25d9e3485f74be2.1788368334.git.marcelo.schmitt@analog.com>
+   d="scan'208";a="269632159"
+Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.246.231])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 23:31:31 -0700
+Date: Thu, 3 Sep 2026 09:31:28 +0300
+From: Tony Lindgren <tony.lindgren@linux.intel.com>
+To: Peter Fang <peter.fang@intel.com>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org,
+	linux-coco@lists.linux.dev, kvm@vger.kernel.org,
+	Xiaoyao Li <xiaoyao.li@intel.com>,
+	Binbin Wu <binbin.wu@linux.intel.com>
+Subject: Re: [PATCH v3 3/4] virt: tdx-guest: Use a variable to store the
+ Quote buffer size
+Message-ID: <apkUQL5KJ7JQqtpY@tlindgre-MOBL1>
+References: <20260729122939.1340412-1-peter.fang@intel.com>
+ <20260729122939.1340412-4-peter.fang@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,66 +69,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <058e82fb421c6794cc3002bde25d9e3485f74be2.1788368334.git.marcelo.schmitt@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260729122939.1340412-4-peter.fang@intel.com>
 
-On Wed, Sep 02, 2026 at 02:23:22PM -0300, Marcelo Schmitt wrote:
-> AD4134 supports four types of programmable digital filters that allow users
-> to choose between different output data rates and input bandwidths. Enable
-> basic digital filter configuration by providing a way to select which
-> filter type is activated for each channel.
-
+On Wed, Jul 29, 2026 at 05:29:33AM -0700, Peter Fang wrote:
+> In preparation for dynamic Quote buffer sizes, replace the fixed size
+> constant with a variable.
+> 
+> The size is currently a constant sprinkled across several places. Store
+> it in a variable and have all the users read it from there.
 ...
+> --- a/drivers/virt/coco/tdx-guest/tdx-guest.c
+> +++ b/drivers/virt/coco/tdx-guest/tdx-guest.c
+> @@ -417,7 +416,8 @@ static int __init tdx_guest_init(void)
+>  	if (ret)
+>  		goto deinit_mr;
+>  
+> -	quote_data = alloc_quote_buf();
+> +	quote_data_len = GET_QUOTE_BUF_SIZE;
+> +	quote_data = alloc_quote_buf(quote_data_len);
+>  	if (!quote_data) {
+>  		pr_err("Failed to allocate Quote buffer\n");
+>  		ret = -ENOMEM;
 
-> +static const struct iio_chan_spec_ext_info ad4134_filter_type_ext_info[] = {
-> +	IIO_ENUM("filter_type", IIO_SEPARATE, &ad4134_filter_type_enum),
-> +	IIO_ENUM_AVAILABLE("filter_type", IIO_SEPARATE,
-> +			   &ad4134_filter_type_enum),
+I assume the quote_data_len does not need to change after init because
+of a TDX module update. So:
 
-Make it a single line (it's only 82 characters).
-
-> +	{ }
-> +};
-
-...
-
-> +static int ad4134_get_filter_type(struct iio_dev *indio_dev,
-> +				  struct iio_chan_spec const *chan)
-
-int
-
-> +{
-> +	struct ad4134_state *st = iio_priv(indio_dev);
-> +	enum ad4134_filter_type f_type;
-
-enum
-
-> +	unsigned int mask, reg_val;
-> +	int ret;
-> +
-> +	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-> +	if (IIO_DEV_ACQUIRE_FAILED(claim))
-> +		return -EBUSY;
-> +
-> +	ret = regmap_read(st->regmap, AD4134_CHAN_DIG_FILTER_SEL_REG, &reg_val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	mask = AD4134_CHAN_DIG_FILTER_SEL_CH_MASK(chan->channel);
-
-> +	f_type = field_get(mask, reg_val);
-> +
-> +	return f_type;
-
-field_get() macro...
-
-I think you can get rid of temporary variable if it's not used afterwards.
-
-> +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
