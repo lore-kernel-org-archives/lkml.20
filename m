@@ -1,158 +1,152 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A3774CB8B0
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:16:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38C2A4CB8A7
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:16:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448578; cv=none; b=HRPPb5ZZymTu2/k2W/c3twbU+K9a2HN0v3rbsbJU5efa2zdqFzlNZoPvJo9+F8tnNup+WbMVxplFG/Vc+S+ZlPT5grd8E//VyDL80w59e2HSfPIzMBhbVc3AjP1HwLwPU722zi26+IGYRhHuhfQCiYGkr9ppBbKIl6lBs8rkfSo=
+	t=1788448596; cv=none; b=AYbiB5TiHHvRno+2Nb49I3STdlmvq/1aVwSJKntppfTnmwpTX7nzQRCZVEO50NsxVG2bDrCoJxQfJtL9k6+WT4H6V1VOye+d1gdOF4mq1efdkTdQMv+9EjSc8zgysP2duNc2PljJrQkepx6l+mOQSjq+REKMRqMe5bnKd9TsWNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448578; c=relaxed/simple;
-	bh=WH0QTFAGkBASqEUK10naybiWkASY5mU9qZY1XfCsA78=;
+	s=arc-20240116; t=1788448596; c=relaxed/simple;
+	bh=3k0aNco/wk53J9o68OsFWzaMKHfhgDwFOg4q1Ff6mbo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ulkHtAA/qTm40YWcXaoQw3T3/ckjjg0p+PFkSfW7DioACtD3C+AHNlTiPnIcNjyBsyhtUaNsgO7xXVRcit35Yr+yu9pBwSqflYTKjN89gSHbgbln5dUnnPgBSyaq78sW+O0RcErtSMg4KS4RXkugsnmgNhOUuHPY/FnIw1K/LHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q8lyWZr3; arc=none smtp.client-ip=209.85.221.44
+	 MIME-Version; b=OnSspcWZfRlnzAan9A3p6lvvvrGxxBpBzeWkwaMunsYdUDS1J3d6St3wjB/DoHVSXeFcPOiDwxUcChWwKaqUy+fbDz4p7O+/qeHvfxWh/7erzkJmAe47zqPeZLOTdqukdarWrN0RAMzRkeyRvV9F0tuVv/GlupxdkHSuLQHjLqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VmNxRC8s; arc=none smtp.client-ip=209.85.221.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q8lyWZr3"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48442ea8f59so854633f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:16:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VmNxRC8s"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48444ec4fe2so1423668f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:16:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788448575; x=1789053375; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=THzjvy5iGboyhx98aFSf1bvAFTvgaD3XGcWeB3Rn6lc=;
-        b=q8lyWZr3Xabqle0f9H9eOKFn3E8+g7J59Ye3A4mb5saWN1koySi5EalvqQgfpxzM2C
-         /+kOXQs9//0OcH+i8Qm4H6V1JA7etWUxC5wFDyahxX0Ps/hJY2FOCGx1fXuTlbO51wnE
-         ASvQO3C5YZmjOOAaYGDSWguG6cZvyirySi+NiPxZnoV0s9cq+b5ptfY3rzEeSlwSSp83
-         Z/+kA9Gy/iYiWLHy6/6+0oEOMiuflq27JgaCcUaVxba1CS9dcvJz1JEYuPsOqWPiPkZx
-         MW9DXSH6vW1yf1iNcDgb1WsFo21EXFyn9Fc8P8O5H7+5shMs0umBSxEIV3lrT24GG8Ph
-         /mig==
+        d=gmail.com; s=20251104; t=1788448592; x=1789053392; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pjN+r66d4VC/wMvjXwpeTffXWtgz3AZsnsncg2qP2S8=;
+        b=VmNxRC8sgLlWoU6oEyI3si05oltdjgG9W9rt2gy2KSUj80vFmX/phScTGxR9fKZwKd
+         fJs7JiloMoLScBIkadAGBwzPoau9wXPY1GV+IG25TzlDPC+qTp2CiBgkZDT90c9uX5Lp
+         hIaO+vZWa3YJhPsoM5/+eaFHDgdjGBvcz/8x77RlELa2tZxiTh4t0aCs0DPTW4WbbmUb
+         impW2hK+RAY9wFlYwbkAHfG694wjZACcEcgbsaXX5cC/12uvunJA1kMCc5d0RXSNemIt
+         i87QVEaAMln0g0E4nkvYQ1XCcQxr7F8Twofq5BcnTi0oIPVsMQYdjaRCrbOgAHfA0HEm
+         1Rog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788448575; x=1789053375;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=THzjvy5iGboyhx98aFSf1bvAFTvgaD3XGcWeB3Rn6lc=;
-        b=jnhg1AzYU4NPyLDqeYOYti/dFw7tD7waLVIRbaQxqaLvhg6qBHOHloCR8kSpNaQLpF
-         aWA3NdMwbfVdb+KGWsM+0i7umzW0SfZ52u+akBq/Cl2Qn6JOMRfQjC2SQSYzc1wgoN20
-         /7YC6GZ+eH9FAPp+MbojK5WDqDkMlHNW7K/uA7iuujKlHfdnFHEfQnXGMFzT140BVAxx
-         vVaIYe4YDWHy2M+EWteenw+M8BRP36jr/cF17mOmYgcWH/uANnVtSNf6jMeIscCD0RD5
-         MhFI0WW4tHOWz3JuZfy250WiX++fZ2qEJFTUyrDzSb0Z9w9JeExtk/9uUuQVi+IyInBc
-         j7BA==
-X-Forwarded-Encrypted: i=1; AKwUvBxlQ2AVo3KtQmPeJjX+hcNjcve1ZeVLhOmjskAk79HRhA56asP5NOZ3ljay7TKgXO2M6pq2RNIXvPYq/bM=@vger.kernel.org
-X-Gm-Message-State: AFuF++k7APwt9PpvC05wEndzVj0EBpPQ7g8Ro0EJV2Xg2398SGXzgInR
-	NaHRWxDHvLBe79PhO3tXkWu4pVrMPN+DbvuZTv8HeTH6G9TM+3KWfq75
-X-Gm-Gg: AYBFou0xZJ3CiePatCXJo23p7BZVwwfnlibEh6rEFJ0Nm/q0N05vIeUG3HNzIuZC4Wv
-	xEAX3LJNfSGaDZj0A5u7fONxJ53eifDdHeQqm6pZ4m0rTLAdVpCOdZM/ybLS1X6CkzBYditKIfV
-	qjcVqUzc3Da0XGBl2IfO0Dy2v3ynMAbDXK7X7XUp4ZawSwWqf1K+fIchwxn5PdDsfHjKid8/9O1
-	IUO65hWPdJt1Oat8gtnRx28EQz8oQO1hK3CcmuO9ELTdhzQB/IMx5K2075ygdawXEleNaDONwEA
-	FZVBd9HWdZJQVF4I18mNhp2QYTQs6KO3Cszjw3sxOP+5qscVH8gc1y5fT8uFwc0wVHQa/J56IkP
-	f/xauUjgr1e1s4XSEOV34btIg+yhd2kGOQ4sNjwfgSadn2xFihliQ2xL1Ca2f62mcxP3c+iMO/1
-	7EUsl3lj6DsNWu7F+IA6Brcuak+grCu78CumW+isv/4yvNCOE77qw9W3991Q==
-X-Received: by 2002:a05:600c:348a:b0:49c:f13e:e4d with SMTP id 5b1f17b1804b1-49cf15a3672mr43673625e9.10.1788448574919;
-        Thu, 03 Sep 2026 08:16:14 -0700 (PDT)
-Received: from metepc ([46.197.185.71])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee80eda4sm77097075e9.15.2026.09.03.08.16.13
+        d=1e100.net; s=20251104; t=1788448592; x=1789053392;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pjN+r66d4VC/wMvjXwpeTffXWtgz3AZsnsncg2qP2S8=;
+        b=po5xG498cazsPEUDEZiIoWDuapcbpgu/ifXQ1+LRqbTVTlWByoytd/w2L/TEdFA9WJ
+         GKgzlPLOzmTA2gSJfqtK0LWJPpkxg9lfO9kj08ZRsuhN7xlDBQRFALfY0qqx8TYERnnx
+         g9v/HztOuP7aYFTx+4UV4GuLALpgB7JlnWvEki6b5YYhnG51rGxWMsnticdpX1ltmMzC
+         d/Au7TGtieUJf2gOlzZMmjfWVwvI2KnpzxlMkUmZWbF9zipFcpmAhhEppjgUiCoSZyfu
+         5SKj51fJ1AStFwUW6FVJN9XRsw3blFZxMwu2Zu+yxDmC7Ky62YxXJkuBuB0mc7PhrbsD
+         V8sg==
+X-Forwarded-Encrypted: i=1; AKwUvBybkRo/aaGV9rKepCbfMt6ouI8xqvltiCSLcR3neCCQ+aAY1LOjebjXHQ2v8gXJ3wFw5DQDLwBJpwFElyo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lBcsNjRhhuLQ9cbe3g7tJDvR/JPfj/X+uYoj1ybN3kE2iERSrR
+	NtY2Z6dlY00955UAQZxU81bTpkSO1j2FFtraK28qs4xS6259oTVWtjoU
+X-Gm-Gg: AYBFou0/EsXmqy4rWC/RZJjUoU4J9GHM6e1/PLwRk7ovfeR8EKzO85GmZN9nfzY5sg5
+	Fzy7PpTOGuEOL5d0Z+tTbgY3HD53uBhaHp9NGVbn1P4F2Z4dhYOkI/6rQRevjh7CRrniq9zLbR1
+	ccJgBmb4Qjq4+h0Tnr0NIej+fD4X99AovEO6eAc7LSfFFqraHMyrwrjHm1eDAysxUdsa9z09eHQ
+	doWjnmUaAwihNU1S6K1/Pr6Wz/n4PYxqufoUAdFv4CuIU0q8t9IZvuO9ABaYuE4//nnUvF/OXxE
+	POv8Advf+anvK8WTAmLLMLLC086WgOMwYU8O1VagrcgwysRnpTLunwhayZzCAy+I16ZItey052L
+	4z7ggnsHIcfFE36/lZV8Pl3Pj1Tj1TE8kfDrknPOIvyONm5B6NRYr5z0d5GDkZFr6+a7frflOWw
+	xpQH8nKeLzWdbcYIlSlL/vlW7ch+tM0WLIf1O12x3tazcTxKqPuoHlv9Q2BV4vp1BNP+l+ld5d+
+	3EFEJzBhqYz54qorJClABQtAu0gv0VoV3veEw==
+X-Received: by 2002:a05:600c:8012:b0:49a:252d:52f5 with SMTP id 5b1f17b1804b1-49ce583d99bmr267144185e9.11.1788448592068;
+        Thu, 03 Sep 2026 08:16:32 -0700 (PDT)
+Received: from flaviu-Aspire-E5-572G.. ([5.15.67.216])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee80eda4sm77119535e9.15.2026.09.03.08.16.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 08:16:14 -0700 (PDT)
-From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: johannes@sipsolutions.net,
-	kvalo@kernel.org,
-	netdev@vger.kernel.org,
+        Thu, 03 Sep 2026 08:16:31 -0700 (PDT)
+From: Flaviu Nistor <flaviu.nistor@gmail.com>
+To: Andy Shevchenko <andy@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno Sa <nuno.sa@analog.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Flaviu Nistor <flaviu.nistor@gmail.com>,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>,
-	syzbot+adeb8550754921fece20@syzkaller.appspotmail.com,
-	syzbot+101224300649c3eb8af4@syzkaller.appspotmail.com,
-	syzbot+8141dcbd23a8f857798a@syzkaller.appspotmail.com,
-	syzbot+b0ae8f1abf7d891e0426@syzkaller.appspotmail.com,
-	syzbot+d6bbe0f5705cb8a5aa2b@syzkaller.appspotmail.com
-Subject: [PATCH v2] wifi: cfg80211: avoid holding rtnl_mutex across all cfg80211_leave() calls
-Date: Thu,  3 Sep 2026 18:13:11 +0300
-Message-ID: <20260903151542.486376-2-omermetekaya0@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260903151542.486376-1-omermetekaya0@gmail.com>
-References: <20260903111705.472491-1-omermetekaya0@gmail.com>
- <20260903151542.486376-1-omermetekaya0@gmail.com>
+	linux-iio@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iio: adc: ti-ads1015: Add support for label
+Date: Thu,  3 Sep 2026 18:16:27 +0300
+Message-ID: <20260903151627.5011-1-flaviu.nistor@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <apkRJ8T-X-HoNiDB@ashevche-desk.local>
+References: <apkRJ8T-X-HoNiDB@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 
-reg_check_chans_work() holds rtnl_mutex for the entire duration of
-iterating over all registered devices and calling cfg80211_leave() on
-each invalid wdev. cfg80211_leave() can be slow (disconnect, stop AP,
-leave mesh), causing rtnl_mutex starvation when many wireless interfaces
-are present. This results in tasks waiting for rtnl_mutex for longer
-than hung_task_timeout_secs:
-
-  INFO: task hung in inet_rtm_newaddr
-  INFO: task hung in inet6_rtm_newaddr
-  INFO: task hung in nsim_destroy
-  INFO: task hung in tun_chr_close
-  INFO: task hung in switchdev_deferred_process_work
-
-Fix by walking cfg80211_rdev_list under RCU and acquiring rtnl per-device,
-so other rtnl waiters get a chance to run between devices.
-
-I could not add the Fixes: tag because this patch addresses five separate
-hung task reports whose cause bisections all failed, making it impossible
-to identify a single introducing commit.
-
-Reported-by: syzbot+adeb8550754921fece20@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=adeb8550754921fece20
-Reported-by: syzbot+101224300649c3eb8af4@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=101224300649c3eb8af4
-Reported-by: syzbot+8141dcbd23a8f857798a@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=8141dcbd23a8f857798a
-Reported-by: syzbot+b0ae8f1abf7d891e0426@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=b0ae8f1abf7d891e0426
-Reported-by: syzbot+d6bbe0f5705cb8a5aa2b@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d6bbe0f5705cb8a5aa2b
-Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
----
- net/wireless/reg.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
-
-diff --git a/net/wireless/reg.c b/net/wireless/reg.c
-index a8336baf85dc..a2e0d1cf8317 100644
---- a/net/wireless/reg.c
-+++ b/net/wireless/reg.c
-@@ -2466,12 +2466,21 @@ static void reg_check_chans_work(struct work_struct *work)
- 	struct cfg80211_registered_device *rdev;
- 
- 	pr_debug("Verifying active interfaces after reg change\n");
--	rtnl_lock();
--
--	for_each_rdev(rdev)
-+	/*
-+	 * Acquire rtnl per-device instead of holding it for the entire loop;
-+	 * cfg80211_leave() can be slow and starve other rtnl waiters otherwise.
-+	 * wiphy_unregister() holds rtnl across list_del_rcu() + synchronize_rcu(),
-+	 * so rdev cannot be freed while we hold rtnl_lock() below.
-+	 */
-+	rcu_read_lock();
-+	list_for_each_entry_rcu(rdev, &cfg80211_rdev_list, list) {
-+		rcu_read_unlock();
-+		rtnl_lock();
- 		reg_leave_invalid_chans(&rdev->wiphy);
--
--	rtnl_unlock();
-+		rtnl_unlock();
-+		rcu_read_lock();
-+	}
-+	rcu_read_unlock();
- }
- 
- void reg_check_channels(void)
--- 
-2.55.0
-
+On Thu, Sep 3, 2026 at 9:18 AM, Andy Shevchenko wrote:=0D
+>On Wed, Sep 02, 2026 at 01:37:45PM -0500, David Lechner wrote:=0D
+>> On 9/2/26 12:22 PM, Flaviu Nistor wrote:=0D
+>=0D
+>...=0D
+>=0D
+>> > +		if (fwnode_property_present(node, "label")) {=0D
+>> > +			ret =3D fwnode_property_read_string(node, "label", &label);=0D
+>> > +			if (ret) {=0D
+>> > +				dev_err(dev, "invalid label on %pfw\n", node);=0D
+>> > +				return ret;=0D
+>=0D
+>				return dev_err_probe(...);=0D
+>=0D
+>> > +			}=0D
+>> > +			data->channel_data[channel].label =3D label;=0D
+>> > +		} else {=0D
+>> > +			data->channel_data[channel].label =3D "";=0D
+>> =0D
+>> I think the normal way to do this is to return -EINVAL on channels with =
+no=0D
+>> label rather than an empty string.=0D
+>=0D
+>=0D
+>In this case the whole dance with property_present is not required.=0D
+>(What you are saying sounds like label is mandatory property, but=0D
+> how the old DT will work that have no such property?)=0D
+>=0D
+=0D
+I also consider that since label is not a mandatory property it should=0D
+not return -EINVAL just be simply not being used in the device tree for=0D
+that channel. Since the iio core exposes in sysfs the in_volatagex_label=0D
+for all channels, there are 3 situations:=0D
+1. The channel is defined in the dts and has the optional label property=0D
+assigned, in which case a string is returned in the console in user space.=
+=0D
+2. The channel is defined in the dts but has no optional label property=0D
+defined in the dts, in which case it an empty string "" (a default) is=0D
+returned.=0D
+3. The channel is not defined in the dts (in_voltagex_label is still visibl=
+e=0D
+in the sysfs), and reading the label will cause "(null)\n" to be printed in=
+=0D
+the console (as indicated also by Sashiko boot), since the default "" value=
+=0D
+is not assigned during device_for_each_child_node_scoped(). I think this is=
+=0D
+not an issue since is just the way sysfs_emit() handles an NULL string.=0D
+=0D
+My initial version (v1) handeled all 3 cases, for case 2 and 3, an empty st=
+ring=0D
+"" was printed out.=0D
+=0D
+What would you prefer? Any further suggestions?=0D
+=0D
+Best regards,=0D
+Flaviu Nistor=0D
+=0D
+>> > +		}=0D
+>=0D
+>-- =0D
+>With Best Regards,=0D
+>Andy Shevchenko=
