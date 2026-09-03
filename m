@@ -1,42 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29A5F4F55B5;
-	Thu,  3 Sep 2026 17:04:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD3A1531C8;
+	Thu,  3 Sep 2026 17:04:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788455088; cv=none; b=LR/8YKS62YjLDoHCyfROZCVSlfXCdaEiyA9w3WZ/Dhjf/bX1D3CR7ASb/R129HXZN/qZT3eYUBmUJFE04mbnBiyafM3XVnj/suKI3eeoZuZ9JvriPM3ipnFiyxKlC0GYn67xEHHfqTQUJoH4VOAhj03Xa+aSzKhKZ6F8siLGRIw=
+	t=1788455094; cv=none; b=JuGxDql7UMFVdDUVmPuxFRkE2b6tDTuTW0Wi+JH6vw0fjCR5lphdRjs8pjfiVWad6lh4+zLkSVRVHKJyKR4D/Iwhq663J0NsjCW+ZAlD8MJYU9pWK+7Wx4T2UZhO7pcckYgrvV48b+st1679/DLcCcS4c3craj7F6+KWqqu9Fsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788455088; c=relaxed/simple;
-	bh=KHCrNVt85gkOaFVguvlYFi/k1Hvmw9YHUXIHAHNb0Y8=;
+	s=arc-20240116; t=1788455094; c=relaxed/simple;
+	bh=odN4C05I7BsurnbJgb+yDqra3AUbbVShIBlWyLvEPjM=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=dfVn8oHr2DFEaucF6tERYvz9vlNDHitaWIz01siVTfhFURHFFlJElsXiSMoup0VEENQTxxeX2ydRFcL/leWhm7frA0+WBnpWeG2Kk11a1tvl6+09Z/FVLVvmSQuwJ1ftAXS0YW47aAU7eyUJCTi27mF0Ty97G+IUavlfVqta7ME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R2fUU5fz; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=NFq+c39lIizQzsMFik6R5y/O/fBwB53d7/2bda4+9VV7Yf8rWpo+O9YPlwyERqfVFhUNLvuuACks5OOKMTFRHCXP1/ozVsh8i7Wt28r+0jX18UfSweaazrloqBOiMQSisEWmgLbmF24D5DHIkiMQQmxuXVyDyv4JzvjUsl+TLAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jtOJsKw1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R2fUU5fz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 824041F00A3E;
-	Thu,  3 Sep 2026 17:04:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jtOJsKw1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72A211F00A3D;
+	Thu,  3 Sep 2026 17:04:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788455086;
-	bh=hRvLmpXur8hxPRSoc9ySUg1tIeL16hBlpoKHYH9PMVc=;
+	s=k20260515; t=1788455093;
+	bh=DilgdbLi0RvprvJJDhqDDjROWxRbnzwuVzagfLzpeH4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=R2fUU5fzbVnErZCUZ9JTS+Uj6KkqIabTn39MLEotQMSveEMfkhlrIZIYsYeoN2mkx
-	 HhrA6ZDdaHQiCEE25jD6bJPM5RoIf1zq5E2DogRg1qy39JNeyFIk+Px8hjltOq04S8
-	 JDcrbSLxjXdUvorrx8kWYVNCqULtmqCePlQBsg8rGJsuaaomg5d5uj5fUeU9DVZJ4u
-	 4WGVPf7dU1ZzLLzre2gFDjXX2KDettEfenJTYWsCT1dz3UbjbtI1L2ZbSN1Yzo0oKX
-	 3hrYYFJocNW0imKnOBckcP0pBvp0fm5mrVNlFaQLOlkr0q6m8DG3Gn4E0/6DF1Qsv7
-	 TzcOyvBQ9M+JA==
+	b=jtOJsKw1Z6E1n2jwe18GTnTVkKTS2vbKwew94YlpSdbjnegpMFp+73VObcU5yL9bq
+	 gAeS1O+aFWl4/HN1uL0kpq5C+u5SuWU4kB8prn8W9P860OGN4r2HTW4LyXWYscsQIL
+	 yiZvFWdcZazUZgQqvdp1pzQJDUvnEx1cPS6mmXOP22X/vzE9ozU0SZEXM7hN7Ut9dL
+	 n/4gZsX6OeMhdgiUqpO+An/opUPBNL4Cp5uRcb+JumsjijOMhT57j8+Qz0xO/sUn6n
+	 5aeZPXM1JaA0uLv+trQFkCSSb8dHuFoqD3Ol2mGG48048P59DSLu16ZydCP/WdUYCJ
+	 P2WZaoZQCsMQQ==
 From: Vinod Koul <vkoul@kernel.org>
-To: ludovic.desroches@microchip.com, Frank.Li@kernel.org, djbw@kernel.org, 
- nicolas.ferre@microchip.com, maciej.sosnowski@intel.com, 
- Hongling Zeng <zenghongling@kylinos.cn>
-Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
- zhongling0719@126.com, Frank Li <Frank.Li@nxp.com>
-In-Reply-To: <20260727062917.46905-1-zenghongling@kylinos.cn>
-References: <20260727062917.46905-1-zenghongling@kylinos.cn>
-Subject: Re: [PATCH RESEND v2] dma: at_hdmac: Use stored IRQ in error path
-Message-Id: <178845508308.1711546.260840328236827398.b4-ty@kernel.org>
-Date: Thu, 03 Sep 2026 22:34:43 +0530
+To: Sean Wang <sean.wang@mediatek.com>, Frank Li <Frank.Li@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Myeonghun Pak <mhun512@gmail.com>
+Cc: dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Ijae Kim <ae878000@gmail.com>
+In-Reply-To: <20260804153924.49627-1-mhun512@gmail.com>
+References: <aj1RSj5ZXvc-9yu7@lizhi-Precision-Tower-5810>
+ <20260804153924.49627-1-mhun512@gmail.com>
+Subject: Re: [PATCH v2 RESEND] dmaengine: mediatek: hsdma: fix runtime PM
+ leak on init failure
+Message-Id: <178845509001.1711546.16011623641876129813.b4-ty@kernel.org>
+Date: Thu, 03 Sep 2026 22:34:50 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,21 +52,23 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13.0
 
 
-On Mon, 27 Jul 2026 14:29:17 +0800, Hongling Zeng wrote:
-> When request_irq() succeeds but a later error occurs in at_dma_probe(),
-> the error handling path attempts to free the IRQ by calling
-> platform_get_irq() again instead of using the already stored IRQ number
-> in the local variable 'irq'.
+On Wed, 05 Aug 2026 00:39:24 +0900, Myeonghun Pak wrote:
+> mtk_hsdma_hw_init() enables runtime PM and gets a runtime PM reference
+> before enabling the HSDMA clock. It currently ignores failures from
+> pm_runtime_get_sync(); if runtime resume fails, the usage count remains
+> held. If clk_prepare_enable() then fails, the usage count remains held.
 > 
-> Use the stored 'irq' variable directly in free_irq() to make the
-> code clearer and eliminate smatch warnings about potential IRQ leaks.
+> Use devm_pm_runtime_enable() to manage runtime PM enablement, and use
+> pm_runtime_resume_and_get() so resume failures do not leak the usage count.
+> If clk_prepare_enable() fails after a successful runtime resume, drop the
+> runtime PM reference before returning.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] dma: at_hdmac: Use stored IRQ in error path
-      commit: 3d79127509bffc92c9083165ff461de73ec9c568
+[1/1] dmaengine: mediatek: hsdma: fix runtime PM leak on init failure
+      commit: b616eb4ef1e9358296a88a2fa7230dcfac52b53e
 
 Best regards,
 -- 
