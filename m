@@ -1,136 +1,151 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B50794B2021
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:09:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E41434AEBC3
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:09:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444559; cv=none; b=okarVeZR9+Cd8NtnPqUQsoitqQGtZpPtonEr6CHJuy0Z+yXQSOlfNVIhlhLgf+mNRnvr0LSpOsiLWdNm8b7a9iMSfeavxaRLaIw8/cScqx5S5Y2YNq3ekF3Z1xcPiC8G4/w90BTSEuopD8tvkwjX8Uo+9wvL4wrvzNUJOBTUAYg=
+	t=1788444600; cv=none; b=q43u6Gpg+bEuCcwT0s7qwc2qc3baqPPqxmP/P5l3JSFK7RT9tzVVJUk8/7da5L438GgY3Bo92JGyPE8BWJVe41hZpQQtYPErqBfJyZDHiR8jNeqW9Ztb3QUeax4NyytMHXLP9JdhokceG8SpSTYYydH0ff8mgdACKTwSgUtKvrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444559; c=relaxed/simple;
-	bh=OTjNezSxFLwvnnT9iv3PCVJ+8+JAE+Ed7X8Y6VFEHCM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dZzop2N9oi0L4XQkDl7XhSDX81ScZ5A0JFN4Otg5G6xh3OyG6YqM0NNA6FF0aY5WcgTiWLyxRE2ujSbVmkaSx9Dwm6tjhQhk4xBn7whNqLnfputwgaZNiLzSlTXiZR/1m8DAcMEi6mQEPA907X491ialk3gzvqccRncYrHbxcJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XpKfcbyI; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788444600; c=relaxed/simple;
+	bh=+gAcGmt/xxZpDNYTrG7z+20D6m7/JO5BWqC8Lc+Pa+Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LqgJTJIXKO+j6rnu52i2pPILeutDIvT14Vby6L6g40IkUQ8qt8VXa/7thIiwCgJ6gIfI5uzChaLSGlx7s93fZBr4Z8KAL16G1bw62nXpgQOdcpNXGCA9pyZnX4sPCLxSZd0QYkNxi1t0zeJ8Y8y+n8yDAfMngLWNj2IQeNbwnbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=mAZkanw/; arc=none smtp.client-ip=209.85.128.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XpKfcbyI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788444554; x=1819980554;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=OTjNezSxFLwvnnT9iv3PCVJ+8+JAE+Ed7X8Y6VFEHCM=;
-  b=XpKfcbyI3/C0ZqZyKPCq+zS7/SrSIEpfWfkOO3EPKBmvQzZSKB4k9pBm
-   78Dfgh4A/VQ3tBkH2R13qniNFGqZje1cv2e/3rYYq5E2aGj84qgsmgf6x
-   J3CDeU4lRCtR37FDogsrI0EVjyEqtyM/fZax91V9xw/h5EKHyXUbnvU3v
-   3njPIdZjnHsT1frdPT6pSFD2GjNoy5oTQxceXqlWzZM4eKcQ2QQDuwTi7
-   y/z8r1PLEPL859SnO21/chgExJ9ymp9UwS92DgCV1DhrwaTudN5zutjpi
-   ZD13YSanY/ToGwnbdl56GfpTzESIXq8JOb1ekhiNJXWNgrVw3B/PamO3j
-   A==;
-X-CSE-ConnectionGUID: 4Jnqb4MdTtWtoCoPY/4Cpg==
-X-CSE-MsgGUID: CbHSm7/eS2ap2AzUjDNq1A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="88952386"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="88952386"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 07:09:11 -0700
-X-CSE-ConnectionGUID: sqkLtLQkSrG19ohlwpkNug==
-X-CSE-MsgGUID: NhEX0h3dQKKL3kmHczyrDA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="299605415"
-Received: from jmaxwel1-mobl.amr.corp.intel.com (HELO [10.125.110.172]) ([10.125.110.172])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 07:09:10 -0700
-Message-ID: <1aa2b2a6-b068-4856-97ef-91ab848f01c3@intel.com>
-Date: Thu, 3 Sep 2026 07:09:09 -0700
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="mAZkanw/"
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-861145fc841so26709437b3.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:09:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1788444581; x=1789049381; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MdYFxMzLhAsz9CXEVO1o2mt6I0dz9BL/Meo6d0Bb364=;
+        b=mAZkanw/TyIItdAvPxAOx63vpebYVyo8tFKf0jiWPCXmC64pMI6BL+mkilUh0I0kqk
+         xv0p62emWfQ8+8xv079y/F9OUZOCTS3WSVCUcFRF7ZmX4DHKFsiXGYxHz5PuqsygG2j1
+         QOfyEaMsKoZalkSlMmKDgtzTFPImJZdxVcl+L3Y1y9zoJSQd8lWQ027BMWB0VQHlnnno
+         r+f9LtJcRqtWMalX/sDv7SMOo7l/Yvjb7mPG8eLUF/CqUs1TKboaaV1X+V3Cb4X22mxz
+         jdZ9QAPZ8/CO0djf2MD6ghIlPluWl9+F/SyW2y5QYvtPCY+X5bSBJuNWCms3uqAl2Szy
+         C+dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788444581; x=1789049381;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MdYFxMzLhAsz9CXEVO1o2mt6I0dz9BL/Meo6d0Bb364=;
+        b=FQCVZYn+C/qgawkqt+OHw26vWDlJ3oNvGjrj/fRHVacxG9Oy2sGmV5UKu9xiPL+veM
+         V9wUrE06KgtJrv7ztZdj//A/YSBrzdQ2akinLtcsuA1zw1zD//lC5Ys9pU1GPQTJcnAd
+         HVuwfoQEMeBROFTOdtNnaZOmYAe0SGM9UsLpYK6fUqVK+6q9CL9Co3kkpcUALlmQhfTD
+         LwLJJQYzxhV7S+3IgkzWhvfcD4hHy22bm35bYgZjRiI2fSMdgyDOAqMfuGCEJ33Yv4jf
+         CU2KF2QbbBYhDQ1CkrSi9P6jzTvuKwyBqGRgSOkH6EZ4sOlhWrwV37VhjW/QIrnf8NTv
+         V3DA==
+X-Forwarded-Encrypted: i=1; AKwUvBxeuB3pncWGzruw+f0Y14ReyOe0j1ATdtiOTACrgPwrVTEUCtITPn5JzJ9Go+kVAEd8MMhT/mp29Tm/HgY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nvNIQbCakXQwAJ6zF0RF1ZLy1bZSjLqu/pkZStwZljIHfwjXad
+	4M9YXamVCeP76gWHkL1ebdUPIbSqJri3iLUZtiZZREdBZijGFN/TA2Bqd6NXNJS8UpI=
+X-Gm-Gg: AYBFou3HrQH60/7v8RQRiXk4Zj1+Qv58h/1fHaxU5JmU3OHbiK/VgDilGaToD0czLLH
+	LrB667aCAkbmW1eHKygjx3nVpvKiqqZ9IPfy3O6M0pvhZjIs6gKhC7T2Qm6VEjikEnUHLYan+O4
+	gqh9OhzENR7d5pUBWPMInQEqMhbT2PvIFKKU/QNvL6jvfuFORlfeR6W10gF/nRsxvYk+/82OqLr
+	e+FV7w6dd2A1CdLuofC236FUUz34WnBHps0qE4saMJPWjIf0o/BXyBLDsG1X/K71v7BcTctbn1b
+	h/JzDTSIEpXPGc/pSplOsmI3yyJ5GqTa4LryYJNFPIjltOksSngFq5kSA5WfUJy9W9QAmUc5m7D
+	myPKvE+Rs/U19z5bACfEd0Uxa3s9uKX25PYRp+FzC5ohcTONhTRUIxEZTZk+F6GejbzJ1NRHwP/
+	DsTzII9RFNzZg8EEJoJMfAplzDuJkiUsTOsrBfsbft8g1sipRMooWp0k4SXDDp
+X-Received: by 2002:a05:690c:c512:b0:81f:2403:9e70 with SMTP id 00721157ae682-86c51d40664mr58591657b3.19.1788444580869;
+        Thu, 03 Sep 2026 07:09:40 -0700 (PDT)
+Received: from localhost ([2605:8600:200:1a83:fe59:7385:2855:8588])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-86c178435b5sm40369647b3.29.2026.09.03.07.09.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 07:09:39 -0700 (PDT)
+Date: Thu, 3 Sep 2026 10:09:38 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Ridong Chen <ridong.chen@linux.dev>
+Cc: Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Chris Down <chris@chrisdown.name>,
+	Tejun Heo <tj@kernel.org>, Yu Zhao <yuzhao@google.com>,
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <linux-mm@kvack.org>,
+	linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] mm/mglru: fix ineffective memory protection for
+ non-kswapd reclaim
+Message-ID: <20260903140938.GS3004@cmpxchg.org>
+References: <20260903031952.1120321-1-ridong.chen@linux.dev>
+ <20260903031952.1120321-3-ridong.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/3] mm: make persistent huge zero folio read-only
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Xueyuan Chen <xueyuan.chen21@gmail.com>, akpm@linux-foundation.org,
- david@kernel.org, ljs@kernel.org, usama.arif@linux.dev, ziy@nvidia.com,
- baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev,
- ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
- lance.yang@linux.dev, kas@kernel.org, catalin.marinas@arm.com,
- will@kernel.org, mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org,
- tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, luto@kernel.org,
- peterz@infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260901151818.3191443-1-xueyuan.chen21@gmail.com>
- <20260901151818.3191443-2-xueyuan.chen21@gmail.com>
- <5026dbec-0b71-4408-a78a-484a4b8e77dd@intel.com>
- <apk775HfHg_DXpiW@kernel.org>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <apk775HfHg_DXpiW@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903031952.1120321-3-ridong.chen@linux.dev>
 
-On 9/3/26 02:20, Mike Rapoport wrote:
-> On Wed, Sep 02, 2026 at 01:59:15PM -0700, Dave Hansen wrote:
->> On 9/1/26 08:18, Xueyuan Chen wrote:
->>> +static inline int set_direct_map_ro(struct page *page, unsigned int nr)
->>> +{
->>> +	return 0;
->>> +}
->> I still really think the stub here needs to return an error *or* the
->> thing needs to just be void and tell folks that they can't know whether
->> it worked or not.
-> All other stubs return 0 here when an arch does not support set_direct_map.
-> I'm for keeping them all consistent and fixing that technical debt as a
-> whole rather than creating a one-off here.
+On Thu, Sep 03, 2026 at 11:19:52AM +0800, Ridong Chen wrote:
+> From: Ridong Chen <chenridong@xiaomi.com>
+> 
+> For MGLRU, memory.min/low is not honored during global proactive reclaim
+> (writing to the root memory.reclaim) and global direct reclaim, because
+> these paths shrink memcgs using stale or effective protection (emin/elow).
+> It can be reproduced as follows:
+> 
+>   # echo 7 > /sys/kernel/mm/lru_gen/enabled
+>   # cd /sys/fs/cgroup
+>   # mkdir -p a/b
+>   # echo 100M > a/memory.min
+>   # echo +memory > a/cgroup.subtree_control
+>   # echo 100M > a/b/memory.min
+>   # echo $$ > a/b/cgroup.procs
+>   # dd if=/dev/zero of=/tmp/testfile bs=1M count=200
+>   # cat a/b/memory.current
+>   222650368
+>   # echo 500M > memory.reclaim
+>   -bash: echo: write error: Resource temporarily unavailable
+>   # cat a/b/memory.current
+>   6070272
+> 
+> memory.min is 100M, yet reclaim drops a/b down to 6M, breaking the
+> protection. The traditional LRU path is not affected because
+> shrink_node() calls mem_cgroup_calculate_protection() for each memcg it
+> visits during a top-down tree walk.
+> 
+> Commit 30d77b7eef01 ("mm/mglru: fix ineffective protection calculation")
+> moved the protection computation into lru_gen_age_node(), which only
+> runs for kswapd. Non-kswapd global reclaim reaches shrink_one() through
+> lru_gen_shrink_node() -> shrink_many() without any protection
+> computation, so emin/elow are whatever a previous kswapd run left behind
+> - or zero if kswapd never ran on this node. Relying on a prior kswapd
+> pass is not correct either: a memcg's emin/elow are derived from its
+> ancestors' memory.min/low settings and from children_min_usage, both of
+> which change over time, so emin/elow go stale even after kswapd has run
+> and must be recomputed at the point of reclaim.
+> 
+> Introduce mem_cgroup_calculate_protection_path() which computes emin/elow
+> along the root-to-target path only, by iterating through the cgroup
+> ancestors array top-down. This avoids the full tree traversal that would
+> be needed with mem_cgroup_calculate_protection(), limiting the cost to
+> O(depth) per memcg - typically 3-5 levels.
+> 
+> Call it from shrink_one() for the non-kswapd path so that each memcg
+> about to be shrunk has correct protection values.
+> 
+> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
 
-Oof. I didn't realize the set_direct_map_*() functions all did this.
+With Barry's two points of feedback (changelog and comment),
 
-I do think it's generally a bad idea, and I'm also OK if it is not fixed
-up here.
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
