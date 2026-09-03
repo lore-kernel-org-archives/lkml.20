@@ -1,104 +1,97 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C6E3EC81F
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:27:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B5943F3283
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:27:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788427643; cv=none; b=nySbIM4k/XiShaI9VwVZlBp8AIJxIfHI6iuKewNuZiysNtKkyHKeWQgdFZWNGD4Y0gB68b1RbuvG9+hSKZrQrR/5DwrLjGU7sojwTFqt8F5doPFMbeUtOGuAjen9tLZT6P9yuFDOvn2SCjh3cp3jywMeq3ylDGZftsQdO2vbp2o=
+	t=1788427662; cv=none; b=MKGMQr3M2YddldkkNPnUhbUCFfLdlvCjlCdFCyfjpVmwzeGeCKIRi544ggEL8FrKB/ap94KOvhX50wTVHphhquPhQgnl39RdsA/xfvSSq1gtWvhUYHGw3XLeiTKn9wOdrm54PLnbBCuAJ1G1u0C5u1LwQt5LWbHtgRcX+YRugek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788427643; c=relaxed/simple;
-	bh=jPKw7QduCaJBI6bek1bq7fG/2eKp6dEaYhlCkbzbcNE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EtcKSm6cBePifAaQT9htqffhHi35EYC0737C3uWEusQOPbQBuM/K260LAGZf99eg0hc9gHgvxH7O2gKin10zGSUs6/JQhJZWqqjeUJ7ckaXVay0F96myO+rDxsN0u89nMNZKWREd0dd2KYWuo/QJ9tlhuwp/lhkWAJ75+Lr4kD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=T4MypING; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788427662; c=relaxed/simple;
+	bh=XibIeOSWpX+DZUMfWBL2ZIv7odIeN1k1W89wv0bX3pw=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=GBF5Kp7rcXOTctGCGMzC/h8veke8mBt2EQmwr3K1dMDJa/DLS//nW4jhxK8AOv30TfNouQ7DawcNGxuyxYjkxMMoTfYQOdq8CjlqzhjQvg4SvSgWkxQ7GiNBy9xO7qarHoUd6htXmPyIHtaKgSxIaSOKmCOWLhwbAnWjP86x0CQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jENeiXHj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="T4MypING"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=5j
-	SImAzUaatrdCdOJLu38AvNhLHkwQrh0ygEjAW4SFw=; b=T4MypINGGFhAN7j4Kb
-	nvoFJuYPXvUr1e8OlMQrkMugZN6zWkkslfJj2JoQnYsFqrM9TAnHkjJqE6CPILyd
-	Un71u8HPgkq8SK4020ul9jpY6QRgJ36THsdZJJmhH3WgKa/X74rW65KM67VUpvds
-	Q00ZscmEyF9IF83qEm+PC1F4o=
-Received: from czl-pc (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3P0hMPZlqmaJtAQ--.18608S2;
-	Thu, 03 Sep 2026 17:26:37 +0800 (CST)
-From: Chi Zhiling <chizhiling@163.com>
-To: exfat@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Sungjong Seo <sj1557.seo@samsung.com>,
-	Yuezhang Mo <yuezhang.mo@sony.com>,
-	Chi Zhiling <chizhiling@kylinos.cn>
-Subject: [PATCH] exfat: clear the volume dirty flag only when remounting read-only
-Date: Thu,  3 Sep 2026 17:26:23 +0800
-Message-ID: <20260903092623.301981-1-chizhiling@163.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jENeiXHj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFC451F00A3A;
+	Thu,  3 Sep 2026 09:27:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788427651;
+	bh=BtmkQEYIOFuzftiSvZas/3kbN1nxqaqnvOyXFVrkfVc=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=jENeiXHj3DRFXgl2ZRELy7afmPNeyo3DjhxNjP5wd9qs3fLE/D6Inu4GshZqSnFrw
+	 HdrPU9HDW5Lj6Nj5X5NcUsVNwcaz46Yjjb+j7U8WZQhXo1bgYQ0NTdNN1RXJIO072t
+	 XzZqPYDi9N4s0GqVendIoC/r/WahKFEOzRUBy3NWaPBcVPKPApae5L0UeIZJM9EbSG
+	 vIctsKjq2/KxsBmF34xQFVj6ZNCYnC4svk2cHTkXwP8YWIXolsnEo0+J3pdaoXcyVV
+	 VZt2IYppZbLB5yjM531pD4lSFKHD+BeqZsfBYzUoGlxfgU1O947kQAGIgOPzlz08iP
+	 rAyObY9Y8L82Q==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 16595198003A;
+	Thu,  3 Sep 2026 05:27:29 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Thu, 03 Sep 2026 05:27:29 -0400
+X-ME-Sender: <xms:fz2Zau7MWLhU9XB3n9-UCZyIngv3xEW9_rMPD06pOh66gUt_pdKkCQ>
+    <xme:fz2Zaivp43AO6UhHwHM7cdQsmV6dbhRiRtY-0Zz3zqAmr5Gw_hBFLS0piY4S65Sly
+    A9wdnAdiSG7IXsUK9D7zpwbucAsukQ-Xd__h3hE9b_7Zls3OvHceAVm>
+X-ME-Proxy-Cause: dmFkZTEjoeUZn9fs8BThQtUPV37JxisngAiNk6D5zfV44WDVNbk+riElQkXZd2JYz4S3aY
+    tUjah9ZGtx8NSjfrokXlqZ43Stah8G10G33xApL4B2WDsUQ43jbwMUQG2haAv+mGjXhAau
+    def5Ce0/cX5RMLvrV51ucR5OADHlBKx9Ng0//XIv/ZwpAMlNmK0du/XzsXG62v2aO6sB3A
+    C6go7/sSLyHzd/8oehO/dthvXAqvriTyN0jhPIvUzC7Nu/oZc8FYbcnqQ1LRGk+8RUswdt
+    2ejftr4LCrlRXRJqofvyhl5hkoloUxkQ+5TL8xj5DOXTjL7GsLwNzRGZZQLwiU0jzpwwrk
+    3l3qh6lCp5w7guupLDOKQkUq+dMJqwYlCHvGFHo2rKBYqSMBwAw2HJNz2xAQnB/AbDWh9k
+    lX5G75adOotT7jPnDstNBJRjbIFMOFVscKp5zX1XsK/iRM04ZBcV5WxTwlET+I/BmMHwPq
+    Xja4Znh2lYwBQlgXT1fqSXZ6ytOdb+2bo8QN3d5uTIxAOVRUS/wwC0TW5pEPyqcJVHTy2S
+    HvuDisdTyMtb3GB2Xnxoqm+Om960+2CkPHj81bCjqG5DTiIInjR9rWzNZUzfTmrLLFTwxO
+    WNTIVza/Tz1u2cG+/7uxxjnq7QAaiwuT52MgXq8h1rQ1OiqgTutB1G4/dS7g
+X-ME-Proxy: <xmx:gT2ZaljFHd4K5eTf7k3R2Kh7oh8Jj7kUe_BWMrED4GVRai207x3ovQ>
+    <xmx:gT2ZaldksN2XN3sEZYsgZxbJ-r4HckkFpsNqXrzy4LrjzaH-G3NegQ>
+    <xmx:gT2Zaon2X1hE6gMx3EIhK-R_wMpuD7S9BqB7UZG445I_0KeA6ultsw>
+    <xmx:gT2Zauv00wdwnpkrTlVUuH_zT162ZzewTN7VAJv-ri2LyevIed75-g>
+    <xmx:gT2Zau_8APnDvDTk_x_tSdoygSpDI1e1idRCwXfGPh_QLWGYdAYtqmBu>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id C7C14F8007B; Thu,  3 Sep 2026 05:27:27 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3P0hMPZlqmaJtAQ--.18608S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CF48AF17Jw4DZry3Xr18Zrb_yoW8ur4DpF
-	ZakayjgrWkGa18uFsrCF4xWryFk34xCF43Jry8Z3W5Xr98Zr9I9ryavFy5ZF4DZ3s3Ka1F
-	vrW0kFy5XF17GaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j089NUUUUU=
-X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC9w1jAWqZPU2ZOQAA37
+Date: Thu, 03 Sep 2026 11:27:06 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Danish Khateeb" <danishkhateeb03@gmail.com>
+Cc: "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
+ linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-Id: <5c68db64-0647-40f3-b0ad-60aa24246b9b@app.fastmail.com>
+In-Reply-To: <20260902201340.70189-1-danishkhateeb03@gmail.com>
+References: <20260902201340.70189-1-danishkhateeb03@gmail.com>
+Subject: Re: [PATCH] efi/capsule: Replace kmap_atomic() with kmap_local_page()
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-From: Chi Zhiling <chizhiling@kylinos.cn>
 
-exfat_reconfigure() does not hold s_lock while calling
-sync_filesystem(). Therefore, the filesystem can become dirty again
-between the sync and clearing the volume dirty flag, leaving a dirty
-filesystem with a clean volume flag.
 
-Holding s_lock across sync_filesystem() is not an option because it can
-lead to a deadlock: writeback takes s_lock in exfat_write_inode().
-Instead, clear the volume dirty flag only when remounting the filesystem
-read-only, where no writer can modify the filesystem after the sync.
+On Wed, 2 Sep 2026, at 22:13, Danish Khateeb wrote:
+> kmap_atomic() is deprecated in favour of kmap_local_page(), as described
+> in Documentation/mm/highmem.rst.
+>
+> The conversion is safe here: the mapping is created and torn down within a
+> single iteration of the sg_count loop, preserving the strict stack-based
+> ordering that kmap_local_page() requires, and the mapped region is only
+> written to, so neither pagefault_disable() nor preempt_disable() is needed.
+> The surrounding code already sleeps (it allocates the pages with
+> alloc_page(GFP_KERNEL) and later takes capsule_mutex), so there is no
+> atomic context to preserve.
+>
+> Build-tested only.
+>
+> Assisted-by: LLM sparse
+> Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+> ---
+>  drivers/firmware/efi/capsule.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
 
-For a normal read-only remount, reconfigure_super() calls
-sb_prepare_remount_readonly() before ->reconfigure(), which returns
--EBUSY if any writer is still active. Afterwards
-sb_start_ro_state_change() sets sb->s_readonly_remount, so
-mnt_get_write_access() fails with -EROFS and no new writer can start
-until the reconfiguration finishes. Therefore no writer can race with
-the sync and the clearing.
-
-Forced remounts are different: with SB_FORCE, reconfigure_super() skips
-sb_prepare_remount_readonly(), so the writers active at that moment are
-not blocked and can still dirty the filesystem after the sync. Do not
-clear the volume dirty flag in this case.
-
-Signed-off-by: Chi Zhiling <chizhiling@kylinos.cn>
----
- fs/exfat/super.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/fs/exfat/super.c b/fs/exfat/super.c
-index a9ea36ba2693..268732571837 100644
---- a/fs/exfat/super.c
-+++ b/fs/exfat/super.c
-@@ -775,9 +775,12 @@ static int exfat_reconfigure(struct fs_context *fc)
- 	fc->sb_flags |= SB_NODIRATIME;
- 
- 	sync_filesystem(sb);
--	mutex_lock(&sbi->s_lock);
--	exfat_clear_volume_dirty(sb);
--	mutex_unlock(&sbi->s_lock);
-+
-+	if ((fc->sb_flags & (SB_FORCE | SB_RDONLY)) == SB_RDONLY) {
-+		mutex_lock(&sbi->s_lock);
-+		exfat_clear_volume_dirty(sb);
-+		mutex_unlock(&sbi->s_lock);
-+	}
- 
- 	if (new_opts->allow_utime == (unsigned short)-1)
- 		new_opts->allow_utime = ~new_opts->fs_dmask & 0022;
--- 
-2.53.0
-
+Queued up in efi/next - thanks
