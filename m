@@ -1,143 +1,126 @@
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED5374B5CB6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B911331ED2
 	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:32:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445975; cv=none; b=h1SiXCfS2WqTKF7jpPWtngWw+4SqmVFIsif+pOC1iult8tBRb7J1o0VdkAyW6Rwelkjns+plesObuZqEJKXOOZTzC2vnJz9CpS2UFeezJFnNt72I+x740Z2mn33LzTOH0D950wXB5XWP5DwbBcEbpfRoFRwr16nOpVawtcWmYSU=
+	t=1788445978; cv=none; b=mbnFIsyOgj5DSyIqp+L3vaYBIjcVfgxpcAp5BvRda14sINWbNff9Hb74lvqLAL49gIK6CPhTZ9adxsCGUsRJsBy4TPLFNu4i8N0B48+TAxBEg1mHGsX3m2VK1bHQ2ZwoiFtYdnsJOd642FDXCtGF/XHBfx6B1SfKh6X943WggT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788445975; c=relaxed/simple;
-	bh=NevMf3nDQq4VIBy/kjYGDtq3lURnltfIiR+R0CkPfUY=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=AYlL4nPzJNoBBH3DX5LD3Ckot5jmTkg3Nfxd5erE0rbRNK3fmghtzL5xPvI+zjelgtMVKoDoIbePJTEIyagi3QmQ8Nj5xUOES4yy4AI5rncYIAsdljwho44k7gVws/9uy2+rJ260Z5MYx3jrwecF5Cf1WS+zLovjiHypv3YWkAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kDBz3hfl; arc=none smtp.client-ip=209.85.215.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1788445978; c=relaxed/simple;
+	bh=eqXNDrN7ktWPwXh7M+pj32JzWk8pz8LUIInw9vbCHm8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=raOc8Sd48BuhB2U8r4sCwKRZkfb6w4o+WQ/ED1U4j/6455v8UWtM9JUq3eu88mGoY6sylnFzmFR+vxqLAsNGYdDutaDQnqyBgOq0Nq3A6ii/AVTIRbR3cT9IaHWNOr9528zD4dxFACjjq5l0AgNDbJ9Lp690mi7TUFyUWGz6plA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o31TKASU; arc=none smtp.client-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kDBz3hfl"
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1eb205d31so3395856a12.2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o31TKASU"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8541875f596so1137833b3a.0
         for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:32:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788445963; x=1789050763; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jepDX0FobScpvhoQHC25avp5Il/0jZZ+6SCAUX+k/50=;
-        b=kDBz3hflcTDSfbc/9VpRv4ojK1eIUqj78wMfcm68X1EekfGhdcydNIlx9imMBAZ13C
-         JWHjwLjVmEmsV/ABUnOvkhR/4EKxeTzExWRB5iDxyxp6zyIKzjvXbIYnCt75VL4erBRQ
-         RgI+KLZpuQ7yFgTGjrT2DceBX5spQOW0U9Up1UAJLgA60m9nUVE7cTvDM941MAdQ+Kc0
-         L80484umf40fU1B7NHoR6QPcV5rBb6bkWDKD0Sdm/Kzf8PIdTxks3wh1tG0Nm7vHuunf
-         MQakjLY+rCGiQrTiF/S18HOF73mMxjAPYSLAynBBCh1gmCgY3ihDktbFjgJF7j6yD2T2
-         SwKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788445963; x=1789050763;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788445964; x=1789050764; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jepDX0FobScpvhoQHC25avp5Il/0jZZ+6SCAUX+k/50=;
-        b=Khj29YK6imSqGFy3tJJlyVNYKX2VaIUI7KfoazDgLLoPO6Cd92dTbPWKw7MmxjDPc6
-         rAsG3E/747R99MpB7A61Cf84zR8mgIBnKxyksVMXwRssWhy+Hm1Smq/y0rvceUrdLQpl
-         tOi3xUI0Z8PpQx44td4JalCmRzAItxSnWrBp1WkLgGV6Ma+BkjAqk+Zl4sSRS3J/hw/b
-         qENugv/xWvlB8qq0aCxOgNT9trSb5kUPWZt3/KmNYD8IWPzBByd4ZuTOZD5nlJbsSOAh
-         REH930X0KdiSgXsRgp9Cp78hMtXc9j1FCubc7a8NIUYFc9nKt1TV/wbQ9QqYCxLbD6vc
-         G52w==
-X-Forwarded-Encrypted: i=1; AKwUvBx1FFydBpNSJxsiPysLZj/yHbfRAM3IHvjRB0ixNtrdovF8gyQChGR0uKgirFDeyiiZiSrq4mcm1kLPsGQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++k+a5IQ4ch3Kg1l0mGomhVc2LswvURrUEYZVT6dQr4QLuRNfcC7
-	5bBUdkPiEPSYGsHV/pE2sUYrbpTzuWrow4e8KwxXiAROq4/jERoapiONigpqcc2lLrTxsLAhYFI
-	FDHoKnQ==
-X-Received: from pgac2.prod.google.com ([2002:a05:6a02:2942:b0:cc4:37bf:2cab])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:33a8:b0:3d0:6c90:5a33
- with SMTP id adf61e73a8af0-3d9ad9a2a0bmr20468355637.4.1788445963198; Thu, 03
- Sep 2026 07:32:43 -0700 (PDT)
-Date: Thu, 3 Sep 2026 07:32:42 -0700
-In-Reply-To: <apmEi1NmOUvmUBFP@google.com>
+        bh=IacDR4V7VVo1kImUhwmBbgo6FNMbqfDdRV7nbWQPWqI=;
+        b=o31TKASUIWh0JuOd2GWqfwu9z1xdn+zFFxm0V5wCx1pZUuNTko4w+IxDbrSkYEdxQO
+         twbeq16AWqaLfC9VOlLFsygWXPaX0G64rFN0UI8VsLbbvpKgCu2cCE9jy7/u4HpjEzP8
+         ki/YJH9XHO8T0+cXDD1+c52cUXlP/IFytvImB+PwLgbSucpyqn6uKbry3TmVIzsDvied
+         v2yWkcOmeZPsIrl05zFEFRbHoXB2u+YCjA+VM062zEohtWRbBgIxNJb9YpNTTKbm7/oA
+         FOEqZsPLzXNzmzxZLmgdEZJSbo7v+lRSu86KMhja2zjVoaVJ+c9n5J1xVG49LQ06juvP
+         jvLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788445964; x=1789050764;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IacDR4V7VVo1kImUhwmBbgo6FNMbqfDdRV7nbWQPWqI=;
+        b=B6ACl/hfsrN5xhkH9UxynLh1Ax6kvT3urOkZYKzaV+xq/Q4QZAFz+5D8Jiyqm9FAbY
+         NiiaHIFvGbZX32rdnBsTbUWBgEJHi4izewvf7XYZVfGDS1Aa87lOMGyHguM1jOu467qD
+         ua03iPLoXTgsQWmthLTg1UWVubwUCKXs0aImqkxSR+ZRwrYLFlhrLzP3Ogo3rtfFU43z
+         iADeCxzc55xOSf/VIUxNssUups2z2yHBaScZM2S0yVZd6rlIaoB1pdhVyocBqpAv2F1k
+         Idi7xWuvfpLrdVRU5cU/6s9EqChMsrLIQltxZ96qNI7LeIdQO/Q9+O30U2X1swMFwx0K
+         3BxA==
+X-Forwarded-Encrypted: i=1; AKwUvBxMrDiuJCjpi4JC/FpcGYJ+8vkc4IIaMDQU0JcWdub7tBhCd32+h8jssqmD3Fs3M6dSw4cjcvS6V/2bPnY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lSfcS3QWFOESM3EHQaJNP6mz+hDn0OI/ns1yHRibF3gzalBxvr
+	ju9rV7BfRJq8jhhCeNBOvxiMDXdaulv3o0F237NJaRx23CIy7s2hAkiH
+X-Gm-Gg: AYBFou3Evhh8Nh5nvCXpGG1eH89s1OW3L0bcc6cvZpmScJE3Oc36c1fLmyh7KFMwZEG
+	wLB0lMmSyQ+rO4s+RoNIvTh7ZQsH9COkC5bzUJriY5fyyPqBpOxaV9qDrMPvDceNfDwZicfIEdy
+	zNvGDj4rVlUSnxBDNi2vovATmzkPewYTFpPa7qTehDKh7yMoC0KtblxtE4+9i+OmLXn0AvJcWZO
+	DzkJM8EcFdPEjS+Z/ojcbutVptwePnhzIsM4wJwZ4E0sZxtxXEkyx4KHqn3WBQKvB3ZetTa/xmB
+	LkYTnfY3thu7TyFz9czrIJR26noLbWzhToTyYzV3XH8DBHSh5uGcND8F8tj4qfa33VImB1R3LET
+	W84A+Cuh7j2U8ZR7f6Kv9JjDuubrWwwgUV9LHkHVL8ZPh7ImuSv5kOMa78fb61p39m0oLZQVyx/
+	42mwTd5/3QnM1hOujSawEFaqQ6kwRJHoPkze0wBej5S3oFfX7BuHcPjcWBZFTdJGPdiUNgvZImc
+	ja29g==
+X-Received: by 2002:a05:6a00:4408:b0:857:4dea:e2fe with SMTP id d2e1a72fcca58-85ed8ed8414mr20058383b3a.13.1788445962694;
+        Thu, 03 Sep 2026 07:32:42 -0700 (PDT)
+Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc11f80bbsm2941802b3a.57.2026.09.03.07.32.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 07:32:41 -0700 (PDT)
+From: Bo Zhang <zhangbo0325@gmail.com>
+X-Google-Original-From: Bo Zhang <zhangbo56@xiaomi.com>
+To: akpm@linux-foundation.org,
+	vbabka@kernel.org,
+	david@kernel.org
+Cc: surenb@google.com,
+	mhocko@suse.com,
+	brendan.jackman@linux.dev,
+	hannes@cmpxchg.org,
+	ziy@nvidia.com,
+	ljs@kernel.org,
+	liam@infradead.org,
+	rppt@kernel.org,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	kasong@tencent.com,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	zhaonanzhe@xiaomi.com,
+	lipengfei28@xiaomi.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 3/4] mm: compaction: don't skip proactive compaction for non-costly mTHP
+Date: Thu,  3 Sep 2026 22:32:21 +0800
+Message-Id: <20260903143221.4108871-1-zhangbo56@xiaomi.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260825043833.2659350-4-zhangbo56@xiaomi.com>
+References: <20260825043833.2659350-4-zhangbo56@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260831144802.834315-1-seiden@linux.ibm.com> <20260831144802.834315-3-seiden@linux.ibm.com>
- <apdweRfqt4dTxcU9@google.com> <20260902075028.231001-D-seiden@linux.ibm.com>
- <aphLXQL1H2zYZgTi@google.com> <20260903114241.33034-C-seiden@linux.ibm.com> <apmEi1NmOUvmUBFP@google.com>
-Message-ID: <apmFClPZ2WcDINmT@google.com>
-Subject: Re: [PATCH v7 02/23] KVM: Make device name configurable
-From: Sean Christopherson <seanjc@google.com>
-To: Steffen Eiden <seiden@linux.ibm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Claudio Imbrenda <imbrenda@linux.ibm.com>, David Hildenbrand <david@kernel.org>, 
-	Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>, 
-	Gautam Gala <ggala@linux.ibm.com>, Hariharan Mari <hari55@linux.ibm.com>, 
-	Heiko Carstens <hca@linux.ibm.com>, Hendrik Brueckner <brueckner@linux.ibm.com>, 
-	Ilya Leoshkevich <iii@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
-	Joey Gouly <joey.gouly@arm.com>, Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>, 
-	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>, Oliver Upton <oupton@kernel.org>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Ulrich Weigand <Ulrich.Weigand@de.ibm.com>, 
-	Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>, Zenghui Yu <yuzenghui@huawei.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 03, 2026, Sean Christopherson wrote:
-> On Thu, Sep 03, 2026, Steffen Eiden wrote:
-> > On Wed, Sep 02, 2026 at 09:14:21AM -0700, Sean Christopherson wrote:
-> > > And taking things a few steps further, we can solve the MMIO issue in a more
-> > > elegant way, and eliminate the runtime string building in this patch (after looking
-> > > more closely, that code needs to be jettisoned no matter what, there's simply no
-> > > reason to specify the names at runtime since they're separate compilation units).
-> > > 
-> > > Rather than splatter #defines throughout header files, deal with the bulk of the
-> > > pain in Makefile.kvm.  By feeding conditionals into Makefile.kvm, the s390+arm64
-> > > build can easily omit coalesced_mmio.o and async_pf.o, define __KVM_HAVE_ARCH_MMIO
-> > > programatically without having to change other architectures, and solve the naming
-> > > stuff.
-> > 
-> > Yes, this is a great idea. Thank you. I second you, this looks more clean
-> > and stable than the stuff we came up with :) 
-> 
-> Looking more at arch/s390/kvm/Kconfig and virt/kvm/Kconfig, we might need/want to
-> to build out infrastructure to handle this sort of thing in a more generic fashion?
-> 
-> Which probably isn't that much infrastructure?  It's more just changing how arch
-> code communicates with common KVM?  I.e. instead of providing boolean configs in
-> virt/kvm/Kconfig, formalize communicating HAVE-type macros through the Makefile.
-> That might even be a net positive in the long run, as it will make it easier to
-> provide defaults for the common cases.
-> 
-> I say that because unless there's magic I'm unaware of these Kconfigs also needs
-> to be configured per-KVM, not per-kernel:
-> 
->   - KVM_MMU_LOCKLESS_AGING, otherwise aging on arm64 will unintentionally be done
->     outside of mmu_lock.
-> 
->   - KVM_GENERIC_PRE_FAULT_MEMORY, so that arm64 doesn't need to provide a stub
->     for something it doesn't support
-> 
->   - HAVE_KVM_MSI, because presumably it's needed for arm64 support.
-> 
->   - HAVE_KVM_READONLY_MEM, same story as HAVE_KVM_MSI.
+Thanks for the review.
 
-And in the opposite direction, HAVE_KVM_VCPU_RUN_PID_CHANGE also falls into this
-category.  That one is probably better handled as a #define in header files?
+Sashiko says
 
-> Which isn't _that_ many knobs, but add in KVM_MMIO, KVM_ASYNC_PF, and
-> KVM_ASYNC_PF_SYNC, and it's enough that I think we should think about the big
-> picture and not play whack-a-mole.
-> 
-> Actually, thinking about this more, what I've proposed here, plus the pattern of
-> #define-ing macros in arch-specific kvm_host.h files, should suffice.  For things
-> like __KVM_HAVE_ARCH_VM_FREE, it absolutely makes sense to #define the macro in
-> kvm_host.h since it's very directly tied to an arch callback.  Whereas with KVM_MIO
-> and KVM_ASYNC_PF, because they enable compilation of C files, it makes sense to
-> define them in Makefiles.
-> 
-> So I think the "gap" is purely that the four knobs listed above need handling
-> (and arguably KVM_MMU_LOCKLESS_AGING is ok as-proposed).  But I do think we should
-> try our best to be more thoughtful than we usually are when deciding how to enable
-> common code, because obviously s390+arm64 is adding wrinkles no one has had to deal
-> with before.
-> 
+"Does this change miss an entry condition check in
+should_proactive_compact_node() in the same file? If kswapd is already
+active when kcompactd evaluates whether to start,
+should_proactive_compact_node() still unconditionally aborts ... Could this
+prevent proactive compaction from even starting for non-costly orders,
+defeating the updated mid-flight check entirely?"
+
+You're right. I only relaxed the mid-flight check in __compact_finished(),
+but should_proactive_compact_node() still bails out unconditionally when
+kswapd is running, so for non-costly mTHP orders proactive compaction never
+even starts and my change has no effect in the common case (kswapd running
+under memory pressure).
+
+In v2 I'll apply the same non-costly condition at the entry check:
+
+	if (!sysctl_compaction_proactiveness)
+		return false;
+	if (costly && kswapd_is_running(pgdat))
+		return false;
+
+so the entry and mid-flight checks stay consistent.
+
+Bo
