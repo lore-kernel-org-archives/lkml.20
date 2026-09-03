@@ -1,75 +1,77 @@
 Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F167D3876C7
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:47:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60FA3909A5
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:47:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788421653; cv=none; b=slr5WwUEEDOzA8M5HWtn/F5C5FoqcPSVN0jJCbwUQKzljIfilxH3rGPbdmtt8WJhUDOxo/0aNH+l1zfqEzQFtBB6m856CQt159wDWznEHfiZW7qHn71SXAbS3H9HNA21DxvfYSc3/ZccUaUNxZNFbg4XPyU5ZzlZ+gHv8v75wlA=
+	t=1788421656; cv=none; b=DMIk5g+0J33+F4IcCkUl5Dwu5RcWXo+Wz7euIrpr5ysPvkgxC3LrkLkW+TR7c84abgqqSgV/NndcWrM2QCX5SNEzLZrIYOp89j8A7lG0TYW2QoJrhtjA+Abo/a1wHKzS0G7SKeU4PoD3ijfv8Yh/E9qKS1LHmzdlPGWBkIGYLPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788421653; c=relaxed/simple;
-	bh=k5U4shbqXbgtvBujpCTrlH6oLnwb0LssgszpCcCUEFw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WoFNkw1D8TqCqKuUvTCydJjdQ6hce9Riq6U88T42Up0Io3Puie9natbyhS1LFNX6wMnE73BHXxPhhkiKvVgTz2RuppM7mjjFR3oPPV+EetqtPyFt2jYnak7/DCYYg7N8xixS381X+KAlqyt+85tkTd+bM1uHVX1yT4i+ISHjjxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=fB2uTmj6; arc=none smtp.client-ip=185.125.188.123
+	s=arc-20240116; t=1788421656; c=relaxed/simple;
+	bh=WSoJwlIhdcVAUExJcWDP3T0G3Ur8i8N17uAVaL3cxnE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mOP2Uy7vhIomeupZTxjSpIPw7fZHcpsRgoTtO2Vkse6aCXDiaZtRSjWP0/yjh2h5+pQRmxiUSyrUEq18YVZzUls127Eo/PAYiAIXeBFvs2r1YFUOliDNjBq0z57f9/zRQw86uICKzv4ifSrqX0XirCwp95QeMln39hLe3DrLLXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=LXwRqazc; arc=none smtp.client-ip=185.125.188.123
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="fB2uTmj6"
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="LXwRqazc"
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 6BCDF4293B
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:47:28 +0000 (UTC)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 0D6C24293A
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:47:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1788421648;
-	bh=PUZRPUihB4/zYB1wxGPC0vA0+5hiy7QBITAZAVWHgWA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
-	b=fB2uTmj6mXFTTWDoJNRA/4cXiwj0uIeGyY7m8sN0TxHoEImnzNZW6+6ZUh2zhrPnM
-	 gOmJPRaRPQL0OxAcn2D7ZYZEUOPvZL0ivBS68wKW5URlzhwpEse+jA2XzcRWsGLz21
-	 gmNNfNlSF3r/HnZFNE11fD6FB5hZSoMOghPQyqc3ncF0tNdR4XCjhTKDuAfR2x01A4
-	 gO242QeE24Qo88+ooY5UKysW2lLT4IP+ZSsyzK+65mdhxugv5tNetRBYWvdQ0TCk/j
-	 Wx+vqWX4KhwkXpFs7O/qg4yTMV6f63qVa50+D0L0p9oLRjb/C/jtJMl2HLz2iAFvqE
-	 XOPMH5IzNlLwtBS2pJi6Tsrv4k3+UKA34vaF9WzLzvUm6JPNznMuxkfJRuPePDNFpj
-	 +aA2clF1/PijHPWCqEsVmf0A/TYr8ECaU+BeuWyB4QS6U9hELUXNB/miIZo9OwALjh
-	 del0SFN/0n84k7JVJI8kzM/1kqeAnwvVZHCO0zKq6Sn9RLljWLsSx3Vw5JccprfrnD
-	 0oqyM/IQ1fihUT2S2Wml5oJ+Rwc5gPIvAZzPnrrDv5jofKxiIaiX9WnDYj0VMWbuUb
-	 qk+6LdTcBWAtuKZF7C9ZcE8+7tDpHYbHQYx8dQsKZoY9wlTj7aoAnwvF8xxXh99AAS
-	 AsCAONvOOTjtqp0US/v9MvMg=
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39533bb224cso2899709a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:47:28 -0700 (PDT)
+	s=20251003; t=1788421653;
+	bh=5nc9gEzX4k4ArZqgbiRbJBtB4XzQnqrHMx6w0QnIx1U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version;
+	b=LXwRqazc2lQwPP2vH5bo0Q3sPj2vvqAd8xz8y0DH9m/8MxB1wPXD5vXkt2u7+tmVG
+	 82keE0XeAOKGewLSDRxUFboJTkLIzKDQq+rWtkozelFg0neGVFjnSB5eR7Khx3VvKW
+	 XhKn6cRUJ6iBaTyl+a2DfOyybvouuOUAcDmU+MxNNeHO2R6TxbkxI1NbnjnlJBHrWz
+	 XKwWsZrqwgUTuvBZSYKZRMFFCyOceFDbhtvvVuBLar8HXQ3Z8YYR/+C+pz9WjPFxFw
+	 qqXyyWK8/RcVwKwKy8A0st7esZ4KhLIvOxhacg/6A/Wa12E0kC1rJMZiUA8QcM54Ld
+	 bzznJL506n1wTiXiAmQQseqZsBOYQ6j3p6jjEPS/8fN6Dgtbbqgf4AKELKZXEKejmj
+	 tsOhWnHFoRXaXYQJcmD1/CxgkLUF9FrnNTozyEbu55CSCT2KHaO4jT6rUjeDWix0ed
+	 dH/BJ7rXOcAFZiv0oJ9qijTzwgNAnObzPonwl6U26aTBEEntwhgHPwmylEo6DQU4is
+	 +UdqH2iHYLj+FxOI3XW29qZfVmKzfTKJ/41hLnJCBKKINGdC5lchZxSTdlCtC5Ayb+
+	 96TqV1Iby9WvWrI4AGZSQEvgGuDis+R7MeRkT7niMKel/Ant5IBJg2RYYLsyA2tDTZ
+	 fPOgwgjLXz6XGNK27qV2veqI=
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38dc085b0a7so4030688a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:47:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788421647; x=1789026447;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PUZRPUihB4/zYB1wxGPC0vA0+5hiy7QBITAZAVWHgWA=;
-        b=OZW7bBerrEa8//Ryd9jbzFNBsYgk77bU9sLawcimGorosbkCs5z8sZmideC623RIKk
-         XolqV6lLs1O69GMRim9j6M4+6QMapnbkRzAryvgWNXDtqC96Uxv2L9i4CyzAZBVci+bk
-         7i6qW89LFpLUUlAXk8MYSaPx84YGRW3sFrvWU1Ro9x1ofqKYJ6mxDOW2L2sI488QfX9g
-         H0BBW305yz0IbiZBLLVGDCONK4D+rZVRGqoY9l7TuxUeQi7QI6ZWQockOUv2oK3TnLSs
-         QDZgqmSg1ZOxfSpXXN6qtSa/GncFEyqTSk/uut6iiAO4ko51vGi1w3yMzBUWF5yhE9U2
-         +vYA==
-X-Forwarded-Encrypted: i=1; AKwUvBxSCjuttillNmyDyeUA7nMKCTfI07vIJJmxW6cWgg6Sb3+EV4bEgsbfsrRj4VMyL+vxIV0wAyp9jog9nRs=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9fdkgfV582D5e8DOTohJDp2ibtExvO0daqlVsqrGykBF1xuPw
-	ScKkNMxsitY/o5TyWT3gbV3gwuQgnWVNaHMUfBhL3DHK2f+BFoB2r06FcwSdIzeXrqi5OV33D1I
-	cqr1BtukJEYlFqbeLiGuspWwDT+s/04+7fDXnxzp6U83vkUfeCvfNxyfim+Ys+EyZ5aPjQ0/3Wi
-	ZDQPE4Eg==
-X-Gm-Gg: AYBFou0ysdIQc2RBJHKt2RKvLE1Nr/+GUTYWysASE0DIRGpZBANDFvxLFj/qcxL5woB
-	naq1ymVuEuFMD0kwAfsG7DTomxLHHHHKP1P/2adN0NFX4YmeJyF8i25FeiFxF+x7lGCdFP25YdY
-	I1FDwypm5Tfb3kc/Qcyq1qmA7XEEf9nPKK/c1PzZzLB/M+pNc9RAzNQVO0ISbtSqO3oLuMs0Z8j
-	IxksiG/lMRsdM/j5tIOEtaGL5hmZ3/w5H3ls8Eo5z+LboPp2lt6fuLJUXzyAx6oaFz4pM6PB5YC
-	S5Nt5/DAqqpyR1sf7c6l48LUz3KaZeVDph5Ir7lDlVS+Zmws35BESDoRgwkn5DBp+v7xPEqjDn3
-	hfuyHnoT0XKj8vTz4EsErrDCbdXabB/8O9tr6wbleIiQ2uR93zyIHMqmojEwp+cwyLXeSB3wEtj
-	PicrFXamYWKn19z2msWzhSDoRTys366cbZIJhheg==
-X-Received: by 2002:a17:90b:4a8e:b0:38f:18f9:785 with SMTP id 98e67ed59e1d1-39aedf73060mr14440444a91.8.1788421646800;
-        Thu, 03 Sep 2026 00:47:26 -0700 (PDT)
-X-Received: by 2002:a17:90b:4a8e:b0:38f:18f9:785 with SMTP id 98e67ed59e1d1-39aedf73060mr14440335a91.8.1788421646219;
-        Thu, 03 Sep 2026 00:47:26 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788421651; x=1789026451;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5nc9gEzX4k4ArZqgbiRbJBtB4XzQnqrHMx6w0QnIx1U=;
+        b=O4ek9dDdBfLkeadVn4IrIvf+lUGzmweLBnzErLCsp9oDgVe/9YZCkfu5sKa6zCyY8W
+         GBStUWVF//InuzJ2ZtcCI7kYoOJUouEhJEwY3HL486EOmYHQaM3T/ojCejyDIGvPoMvP
+         kIRreoSBssyoJ71oZmnG3aA7pEfulC1XOgeSkQs3hxaTfue4wyjMtNmSNWcaXU1GO8jv
+         ngG7kkxgIbu1cGiMshsA72pb26z5+lxe2OFn39drrQPs8YkrB7XL2qzTKI62DkotxalK
+         11MVUcfS5sc0hHR6BEIQ8tcV1eJWTPg27yG5fO34d6aYwIfxWrYWNwTXFsrdM/q3kjoX
+         c8Mw==
+X-Forwarded-Encrypted: i=1; AKwUvBz596XWcx6CAccXkA30jX1trJgXow1HWlXysgMa8p6660VVprzV0dg2myakIyq3Jp3qf33Xexui8PboDw4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lsmem04HYgWo8GPpEGwSYQcstJ9MJDPf6ObIbKj3uayYGo1DEN
+	ibGcQIMrUR4h8LtrZru56GZrLdDlKg6ADnehOr44IQRzeHUZU41MeE0xBXGaULk3aEEh7RfYa+S
+	/n7GpneALQc/keBca5Sd1VsNnbrP5vBJFFLay5Rs8j93gp6xP4ZazsrXwONH99n8guIk7Hytcpq
+	UX4oH0jw==
+X-Gm-Gg: AYBFou15nS45QRuePiNDKLVVnyNE6pFla2zaU0Dw97D7Gs1FSPLXWt6Xh3KwsYcIWrd
+	ln2TppDit4ij93nmLBWg6bd8DdANhRS+SkwZCEZXJaEYlEiPixewhMl0b50lctxp/noPQkzWJGM
+	ptuHijuFTK0mDR9+RD1qQjt++tAeDocMgaauWOGHmPj5urAF85+2BN95rkeDEu87LYTj8z7xzsb
+	w2J9WHFFXp/c9JdoOM2WAhvo69awTIdCOnzl55qFqSOgCPhdK5iDTeUm0Qg231pcN05/DcNIesA
+	IUUwZ1jECRXl87HAjrTLeavhhK7zuxM0enQEMXeQdtczXq7rHj5QaohSeH+EhMYj+t5qS7fKBD5
+	48Ngd3/r6Bdizv0gj/xvazRwjoKe2qZgMFc139tcJxhDmEG6YuybA1Lwuy5grBKhcQ8mHsYHffb
+	yfGNBoOOi/HYHdHdrzr2JmoqIwtLl7HaeS7aZixQ==
+X-Received: by 2002:a17:90a:ec8c:b0:38e:5964:97a8 with SMTP id 98e67ed59e1d1-39aee04ace5mr17634619a91.16.1788421651491;
+        Thu, 03 Sep 2026 00:47:31 -0700 (PDT)
+X-Received: by 2002:a17:90a:ec8c:b0:38e:5964:97a8 with SMTP id 98e67ed59e1d1-39aee04ace5mr17634557a91.16.1788421651053;
+        Thu, 03 Sep 2026 00:47:31 -0700 (PDT)
 Received: from u-ThinkPad-X1-Extreme-Gen-4i ([103.155.100.1])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae62a54f6sm2991223a91.1.2026.09.03.00.47.20
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae62a54f6sm2991223a91.1.2026.09.03.00.47.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 00:47:25 -0700 (PDT)
+        Thu, 03 Sep 2026 00:47:30 -0700 (PDT)
 From: Aaron Ma <aaron.ma@canonical.com>
 To: Tony Nguyen <anthony.l.nguyen@intel.com>,
 	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
@@ -82,10 +84,12 @@ To: Tony Nguyen <anthony.l.nguyen@intel.com>,
 	linux-kernel@vger.kernel.org
 Cc: Henry Tieman <henry.w.tieman@intel.com>,
 	intel-wired-lan@lists.osuosl.org (moderated list:INTEL ETHERNET DRIVERS)
-Subject: [PATCH 1/2] ice: restore DDP state during PFR recovery
-Date: Thu,  3 Sep 2026 15:47:05 +0800
-Message-ID: <20260903074706.602087-1-aaron.ma@canonical.com>
+Subject: [PATCH 2/2] ice: clear Flow Director entries before reset cleanup
+Date: Thu,  3 Sep 2026 15:47:06 +0800
+Message-ID: <20260903074706.602087-2-aaron.ma@canonical.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260903074706.602087-1-aaron.ma@canonical.com>
+References: <20260903074706.602087-1-aaron.ma@canonical.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -94,166 +98,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The firmware package and switch recipes are shared by all PFs of an
-adapter. However, each PF rebuilds independently after system resume. The
-resulting package downloads and recipe updates can interleave, causing
-firmware timeouts and leaving interfaces unusable.
+Flow Director profiles retain handles to generic flow entries. Reset calls
+ice_clear_hw_tbls() to free those entries, but leaves the Flow Director
+handles unchanged until replay replaces them.
 
-PFR also clears package-derived firmware state on affected devices. The
-existing PFR path only rebuilds the driver's block tables, so VLAN recipe
-programming can fail after the reset.
+If rebuild fails before replay completes, later driver removal follows a
+stale handle and dereferences a freed flow entry in ice_flow_rem_entry().
+KASAN reports a wild access to list poison from
+ice_fdir_erase_flow_from_hw().
 
 The failure is reported as:
 
-  ice 0000:04:00.0: Update pkg failed: err -5
-  ice 0000:04:00.0: package load failed, -12
-  ice 0000:04:00.0: Rebuild failed, unload and reload driver
+  KASAN: maybe wild-memory-access in range [0xdead000000000108-...]
+  RIP: ice_flow_rem_entry+0xaf/0x170 [ice]
+  ice_fdir_erase_flow_from_hw+0x1ee/0x420 [ice]
 
-This was observed on an Intel E810-XXV-2 adapter (PCI ID 8086:159b,
-revision 02) with NVM package 1.0.0.18 and ICE OS Default DDP package
-1.3.43.0.
+Clear the Flow Director handles before the hardware tables free their
+entries. A successful replay installs new handles, while a failed rebuild
+leaves them invalid for later cleanup.
 
-Serialize rebuilds across PFs of the same adapter, while allowing each PFR
-to complete independently. Reload the DDP package from its cached copy and
-restore the default DVM recipes before rebuilding the remaining PF state.
-Abort recovery if either operation fails.
-
-Fixes: 462acf6aca85 ("ice: Enable DDP package download")
+Fixes: 148beb612031 ("ice: Initialize Flow Director resources")
 Signed-off-by: Aaron Ma <aaron.ma@canonical.com>
 ---
- drivers/net/ethernet/intel/ice/ice_adapter.c  |  2 ++
- drivers/net/ethernet/intel/ice/ice_adapter.h  |  3 ++
- drivers/net/ethernet/intel/ice/ice_main.c     | 33 ++++++++++++++-----
- .../net/ethernet/intel/ice/ice_vlan_mode.c    |  2 +-
- .../net/ethernet/intel/ice/ice_vlan_mode.h    |  1 +
- 5 files changed, 32 insertions(+), 9 deletions(-)
+ drivers/net/ethernet/intel/ice/ice.h          |  1 +
+ .../net/ethernet/intel/ice/ice_ethtool_fdir.c | 21 +++++++++++++++++++
+ drivers/net/ethernet/intel/ice/ice_main.c     |  2 ++
+ 3 files changed, 24 insertions(+)
 
-diff --git a/drivers/net/ethernet/intel/ice/ice_adapter.c b/drivers/net/ethernet/intel/ice/ice_adapter.c
-index 2dc3629d6d0f6..7de9223e971a7 100644
---- a/drivers/net/ethernet/intel/ice/ice_adapter.c
-+++ b/drivers/net/ethernet/intel/ice/ice_adapter.c
-@@ -64,6 +64,7 @@ static struct ice_adapter *ice_adapter_new(struct pci_dev *pdev)
- 	spin_lock_init(&adapter->txq_ctx_lock);
- 	for (int i = 0; i < ARRAY_SIZE(adapter->cpi_phy_lock); i++)
- 		mutex_init(&adapter->cpi_phy_lock[i]);
-+	mutex_init(&adapter->rebuild_lock);
- 	refcount_set(&adapter->refcount, 1);
+diff --git a/drivers/net/ethernet/intel/ice/ice.h b/drivers/net/ethernet/intel/ice/ice.h
+index db3c7015c56c4..4739ff882b9ec 100644
+--- a/drivers/net/ethernet/intel/ice/ice.h
++++ b/drivers/net/ethernet/intel/ice/ice.h
+@@ -1029,6 +1029,7 @@ ice_get_fdir_fltr_ids(struct ice_hw *hw, struct ethtool_rxnfc *cmd,
+ 		      u32 *rule_locs);
+ void ice_fdir_rem_adq_chnl(struct ice_hw *hw, u16 vsi_idx);
+ void ice_fdir_release_flows(struct ice_hw *hw);
++void ice_fdir_clear_flow_handles(struct ice_hw *hw);
+ void ice_fdir_replay_flows(struct ice_hw *hw);
+ void ice_fdir_replay_fltrs(struct ice_pf *pf);
+ int ice_fdir_create_dflt_rules(struct ice_pf *pf);
+diff --git a/drivers/net/ethernet/intel/ice/ice_ethtool_fdir.c b/drivers/net/ethernet/intel/ice/ice_ethtool_fdir.c
+index aceec184e89b2..faa16b5a12c0d 100644
+--- a/drivers/net/ethernet/intel/ice/ice_ethtool_fdir.c
++++ b/drivers/net/ethernet/intel/ice/ice_ethtool_fdir.c
+@@ -428,6 +428,27 @@ void ice_fdir_release_flows(struct ice_hw *hw)
+ 		ice_fdir_erase_flow_from_hw(hw, ICE_BLK_FD, flow);
+ }
  
- 	mutex_init(&adapter->ports.lock);
-@@ -77,6 +78,7 @@ static void ice_adapter_free(struct ice_adapter *adapter)
- 	WARN_ON(!list_empty(&adapter->ports.ports));
- 	for (int i = 0; i < ARRAY_SIZE(adapter->cpi_phy_lock); i++)
- 		mutex_destroy(&adapter->cpi_phy_lock[i]);
-+	mutex_destroy(&adapter->rebuild_lock);
- 	mutex_destroy(&adapter->ports.lock);
- 
- 	kfree(adapter);
-diff --git a/drivers/net/ethernet/intel/ice/ice_adapter.h b/drivers/net/ethernet/intel/ice/ice_adapter.h
-index 4f695f32da3d8..f9265de973efc 100644
---- a/drivers/net/ethernet/intel/ice/ice_adapter.h
-+++ b/drivers/net/ethernet/intel/ice/ice_adapter.h
-@@ -37,6 +37,7 @@ struct ice_port_list {
-  * @cpi_phy_lock: Per-PHY mutex serializing CPI REQ/ACK transactions.
-  *               Index 0 = PHY0, index 1 = PHY1. Used on E825C devices.
-  * @ctrl_pf: Control PF of the adapter
-+ * @rebuild_lock: serialize PFR recovery across PFs of the same adapter
-  * @ports: Ports list
-  * @index: 64-bit index cached for collision detection on 32bit systems
-  */
-@@ -48,6 +49,8 @@ struct ice_adapter {
- 	spinlock_t txq_ctx_lock;
- 	/* Serialize CPI REQ/ACK transactions per PHY (E825C only) */
- 	struct mutex cpi_phy_lock[ICE_E825_MAX_PHYS];
-+	/* Serialize PFR recovery touching shared FW global state */
-+	struct mutex rebuild_lock;
- 
- 	struct ice_pf *ctrl_pf;
- 	struct ice_port_list ports;
++/**
++ * ice_fdir_clear_flow_handles - clear handles freed during reset
++ * @hw: pointer to HW instance
++ */
++void ice_fdir_clear_flow_handles(struct ice_hw *hw)
++{
++	int flow;
++
++	for (flow = 0; flow < ICE_FLTR_PTYPE_MAX; flow++) {
++		struct ice_fd_hw_prof *prof = hw->fdir_prof[flow];
++		int tun, i;
++
++		if (!prof)
++			continue;
++
++		for (tun = 0; tun < ICE_FD_HW_SEG_MAX; tun++)
++			for (i = 0; i < prof->cnt; i++)
++				prof->entry_h[i][tun] = 0;
++	}
++}
++
+ /**
+  * ice_fdir_replay_flows - replay HW Flow Director filter info
+  * @hw: pointer to HW instance
 diff --git a/drivers/net/ethernet/intel/ice/ice_main.c b/drivers/net/ethernet/intel/ice/ice_main.c
-index d88835482d3aa..a97a1941cec6a 100644
+index a97a1941cec6a..7aa1235447310 100644
 --- a/drivers/net/ethernet/intel/ice/ice_main.c
 +++ b/drivers/net/ethernet/intel/ice/ice_main.c
-@@ -659,7 +659,9 @@ static void ice_do_reset(struct ice_pf *pf, enum ice_reset_req reset_type)
- 	 */
- 	if (reset_type == ICE_RESET_PFR) {
- 		pf->pfr_count++;
-+		mutex_lock(&pf->adapter->rebuild_lock);
- 		ice_rebuild(pf, reset_type);
-+		mutex_unlock(&pf->adapter->rebuild_lock);
- 		clear_bit(ICE_PREPARED_FOR_RESET, pf->state);
- 		clear_bit(ICE_PFR_REQ, pf->state);
- 		wake_up(&pf->reset_wait_queue);
-@@ -704,7 +706,9 @@ static void ice_reset_subtask(struct ice_pf *pf)
- 		} else {
- 			/* done with reset. start rebuild */
- 			pf->hw.reset_ongoing = false;
-+			mutex_lock(&pf->adapter->rebuild_lock);
- 			ice_rebuild(pf, reset_type);
-+			mutex_unlock(&pf->adapter->rebuild_lock);
- 			/* clear bit to resume normal operations, but
- 			 * ICE_NEEDS_RESTART bit is set in case rebuild failed
- 			 */
-@@ -7674,14 +7678,27 @@ static void ice_rebuild(struct ice_pf *pf, enum ice_reset_req reset_type)
- 		goto err_init_ctrlq;
- 	}
+@@ -601,6 +601,8 @@ ice_prepare_for_reset(struct ice_pf *pf, enum ice_reset_req reset_type)
+ 		netif_device_detach(vsi->netdev);
+ skip:
  
--	/* if DDP was previously loaded successfully */
--	if (!ice_is_safe_mode(pf)) {
--		/* reload the SW DB of filter tables */
--		if (reset_type == ICE_RESET_PFR)
--			ice_fill_blk_tbls(hw);
--		else
--			/* Reload DDP Package after CORER/GLOBR reset */
--			ice_load_pkg(NULL, pf);
-+	if (!ice_is_safe_mode(pf) && reset_type == ICE_RESET_PFR) {
-+		enum ice_ddp_state state;
-+
-+		state = ice_init_pkg(hw, hw->pkg_copy, hw->pkg_size);
-+		ice_log_pkg_init(hw, state);
-+		if (!ice_is_init_pkg_successful(state))
-+			goto err_init_ctrlq;
-+	} else if (!ice_is_safe_mode(pf)) {
-+		/* Reload DDP Package after CORER/GLOBR reset */
-+		ice_load_pkg(NULL, pf);
-+	}
-+
-+	/* PFR can lose DVM recipes after system suspend. */
-+	if (!ice_is_safe_mode(pf) && reset_type == ICE_RESET_PFR &&
-+	    ice_is_dvm_ena(hw)) {
-+		err = ice_dvm_update_dflt_recipes(hw);
-+		if (err) {
-+			dev_err(dev, "failed to restore default DVM recipes: %d\n",
-+				err);
-+			goto err_init_ctrlq;
-+		}
- 	}
- 
- 	err = ice_clear_pf_cfg(hw);
-diff --git a/drivers/net/ethernet/intel/ice/ice_vlan_mode.c b/drivers/net/ethernet/intel/ice/ice_vlan_mode.c
-index fb526cb847764..58fb191903a75 100644
---- a/drivers/net/ethernet/intel/ice/ice_vlan_mode.c
-+++ b/drivers/net/ethernet/intel/ice/ice_vlan_mode.c
-@@ -240,7 +240,7 @@ static struct ice_update_recipe_lkup_idx_params ice_dvm_dflt_recipes[] = {
-  * ice_dvm_update_dflt_recipes - update default switch recipes in DVM
-  * @hw: hardware structure used to update the recipes
-  */
--static int ice_dvm_update_dflt_recipes(struct ice_hw *hw)
-+int ice_dvm_update_dflt_recipes(struct ice_hw *hw)
- {
- 	unsigned long i;
- 
-diff --git a/drivers/net/ethernet/intel/ice/ice_vlan_mode.h b/drivers/net/ethernet/intel/ice/ice_vlan_mode.h
-index a0fb743d08e20..5dc705435f56a 100644
---- a/drivers/net/ethernet/intel/ice/ice_vlan_mode.h
-+++ b/drivers/net/ethernet/intel/ice/ice_vlan_mode.h
-@@ -8,6 +8,7 @@ struct ice_hw;
- 
- bool ice_is_dvm_ena(struct ice_hw *hw);
- int ice_set_vlan_mode(struct ice_hw *hw);
-+int ice_dvm_update_dflt_recipes(struct ice_hw *hw);
- void ice_post_pkg_dwnld_vlan_mode_cfg(struct ice_hw *hw);
- 
- #endif /* _ICE_VLAN_MODE_H */
++	if (hw->fdir_prof)
++		ice_fdir_clear_flow_handles(hw);
+ 	/* clear SW filtering DB */
+ 	ice_clear_hw_tbls(hw);
+ 	/* disable the VSIs and their queues that are not already DOWN */
 -- 
 2.43.0
 
