@@ -1,176 +1,189 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80A95360EF5
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:31:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695F038655D
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:32:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788417111; cv=none; b=uidWxEya2R4CN9rAHgRoAnz+bOMWW/gL3OoqzPitD19PZfVDznvQHKRQoSZsiNJMOgcHUL5lpQMnuhUViLAPmL/Ty+9YV6YAe05jAwVehBMc/MQHcB/S2KMQkcV8bwpp4CKQMFGOGtOZHhzaym2FXxnxWFmTGtPZSeCWBOTMJ74=
+	t=1788417139; cv=none; b=H0GtYFO346AsmQIhfSXsA23mtLfhU7Ux3huCNZyu4iybZWcbrg+ltZfin7YbLTu9GcjgwIPoPkZ/R3eq2Qc6V877aKMICxGUoRHD/mxBktD4/4zJHuNKbiuXhgYMxb2TH42j1fqLgn1pJET3H5RziU7mJgs0StKVpRC3/2o1D4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788417111; c=relaxed/simple;
-	bh=QC0H+qZECm6EZl/wBSVx/tJdT7fPE9pHk3Zk+/F/zV4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F8ScbBKwl/8jVR0eBm+7WlNPvrwJApQaz0XkYFRpQY7Ijs/RGHRcMfi7A4BcjjSzcAZcsbrLG9OAvjqMUrDFk3FRa1GUub/R03Ra+ijb3o/1IaDhZtOmstB/aiAQINFndG+Y3KZpcIs36cKThr7u9clhUguipGkwWbFWcb9Bo/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=jnP1H8os; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1788417139; c=relaxed/simple;
+	bh=P0WZKLIMRk3awVcP4p1cnJX1V2AiQM3ZN8GnwrVM2aQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pddIhuKELLbSgpfDJfMn22zsL4m24479BRlu4RCD/Nf3lCUMaKAwTC88wG7zIy0jfBl7JBRVMHGxz21pbg0+FDc3dJP5ju0+0/wh/arljEg7jBQoje0RjkhN2bVO6huEjyMeRh5jjOMovPxvElM60yQBlY9O3aU+fDU79/FaZsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MUlR7FEP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Mcr/PNPW; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="jnP1H8os"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d8f265cbe6so18699505ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 23:31:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MUlR7FEP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Mcr/PNPW"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6835lMcH324606
+	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 06:32:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	p5iK8zc6JIEJc+8JLHeWXze7Lpfmy72zwCH4OPQazjU=; b=MUlR7FEPb+eazx8t
+	MXpGZLHZouE1kq6uSru1REnxF4yx2fxxUmbNfk03ujx783jlxUAf12dVctyWMoXm
+	G//vEcuKw4/ruysX6FiMIS9jQ+iTlDyL6HB5j3B2Z3HMcAygO4YdpUhM9q7YNC7L
+	B0bXWJVOnnOEJH13iKyRH7C8gpbzxZHRm6IROVuaiBuCeXvnFFdX8M8CZNyfJHxR
+	6HSYD44SYBKa/ogv2/XBp4Di/mUeHP5Bv5lE3wi/I4I6mzMMiRuY4R4P/6eSPK8W
+	MMSe0LbKEIzAJtW1bsdSFv6kTFmCYNlDke1wv8DZ28u3xT4R0BpwKt6VFUCGpxAA
+	KXR28w==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gerdnaunm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 06:32:17 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9390890ae83so42845285a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 23:32:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788417109; x=1789021909; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aiO7Hl1ZhbHbwTakJqGhQbolHtOn10e//zMl8Skl9JQ=;
-        b=jnP1H8oskwTrnjCOL1ZphWlNFwiXgFjwlEFtFo0+MPeskx9GC2Oco9U9aLuVm4IAjD
-         TVbMOzAb3BBrVr+DR9UfEGioPb5zOijDbwZpEYOPoa2T1pT8mCZWn2P6cNAXWLjgjF3f
-         pVL2SD4uVZ6fQeYO/Egl/pVCQCRpNOWebCQ9w=
+        d=oss.qualcomm.com; s=google; t=1788417136; x=1789021936; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=p5iK8zc6JIEJc+8JLHeWXze7Lpfmy72zwCH4OPQazjU=;
+        b=Mcr/PNPWM7ogg9rsjLVxIls+jICwmEgttwgA1vGQoZ8sK/VR9XiaqK+KVAbNLnxyI6
+         KdaKMKSLRZOl7eccz8XelsfxtOti/PfZBQxclNgnqbz/oqMcgYGjY3Cw7rnwEVnFvG4c
+         /EsEH4dPXJRd9PaUJqs/Xx64WPbkrNiSbXbS/bncpDlAfJ8HgNBLTY28Pts/l9+2P8Tp
+         254M2mNt7RBZr3T1zIte5Y9HCcDF10qXVzQYC51zP9BAvxh8Q6hzzmxFEZ/IMIVl9egF
+         7S3iancGXXdXFy3TpDmbE6BKZVejMrp27tHro5wmNotfTfGiBC3X2H8Nh7sSxXWU0Ge+
+         EpVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788417109; x=1789021909;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788417136; x=1789021936;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aiO7Hl1ZhbHbwTakJqGhQbolHtOn10e//zMl8Skl9JQ=;
-        b=l7GZzNAIvxBz3EOKkMV8AcQAJ6fWsZrzPqgyGjWXbHUUyNyQlaN3sasWveqhB6zFAA
-         MS61Yf3tsKBLyem+ghI2zmikVVG3FfQKYpFbB44lxH4l+LXXs5odvKPi+FKvn/taGe6t
-         hUy7i4p11fEbmTmgMY1568uXMTG8LZ/nBF/aQr4qJzaYkABx6QSXVDXkd+JP+vhmRMNV
-         LLizzetoUb54WjibtwhPiGqIKE12W4d9QtKL1ZdozUwpOXN6JHOW7I1k7XzZVIwn01Jg
-         CfkefMShIInAjHLEFqnoWgx5eKymyexnLsuyu5Ashki2lGqsnpPWzE+uqVMUKUkNRVLE
-         rxFw==
-X-Forwarded-Encrypted: i=1; AKwUvBzoH1yCN9mPzGcw4K9QJ72Shj9exTiBAb7MhtGjwyQxaBDA6mIZkHiU5cH9gqyqQyCu4bozVFAkhYuf9Fs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mHQ8W3DzoJgANzQgdi73hkqsIUkF69Kk/Wd5OGGi4kCT/q8p0x
-	6tbYiGhdWJa3XWH47DkoS9RF2Et/l3V713OR0fDHR3u7jF/FN3PSfBqw/gz7in3FLg==
-X-Gm-Gg: AYBFou1CZlkEo6k3Npr5V1I07muEn5IIc+UY4KHmjKGAiCZnird+AbG3u/6l6DC7aKg
-	WWvALfSMzv+npN+6W6xKohdOMUhcHLpIsZUHK9L8uImJVySPAY3KbBmS1qqLMoYxat9W4qSnNh4
-	tlEAt80yHCNI3gH6toIsazR9mIM8BtgKNW5U8LiLGiNff7Uz2yW+Pd9muJTC8BPZmLXEXmr0Rlt
-	hBy2ii+gtWw1JnRliX1zPCG2UkD8mASd4F0SwLW+9GYi+fdnzO884Wxk9q91YzxoNrSkFt0snqT
-	Rl5Q26vbgzaSu3mfqlnMa8UbdPuGrHTt4ilgz9em/i8PBW53pIJaYqRyzuxO65WUlWeUaIspaaY
-	xyQWIcxPlr0AQ2j3sHWNt/COvND0+/WhvfLvTaEjzjyjdzNJT4G4/nwwG6jkjA8hVUjsXqhCrgI
-	JQbBBWk8NEoS36pzxAF7QJiZKaFCvmnJa/iqzN2gVBOFuk1CBmub2+uIYSngXXi+7EJhvaCpW0R
-	P9MlI+DtMaVVv5FNbHjV19k4On04R0aZ+0s8UXIeTOWubovMuzQ7EEV
-X-Received: by 2002:a17:903:1b44:b0:2d3:78c2:1f19 with SMTP id d9443c01a7336-2daec60aefbmr146320265ad.9.1788417108828;
-        Wed, 02 Sep 2026 23:31:48 -0700 (PDT)
-Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:201d:8:59de:d2d:e1ec:bf86])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dafec1d449sm5006775ad.44.2026.09.02.23.31.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 23:31:47 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Jyri Sarha <jyri.sarha@iki.fi>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/tidss: dispc: Switch to drm_fb_dma_get_gem_addr() for framebuffer addresses
-Date: Thu,  3 Sep 2026 14:31:10 +0800
-Message-ID: <20260903063142.3770509-1-wenst@chromium.org>
-X-Mailer: git-send-email 2.55.0.970.g62bdec98f9-goog
+        bh=p5iK8zc6JIEJc+8JLHeWXze7Lpfmy72zwCH4OPQazjU=;
+        b=B+8qE3SylMj/cwmpK4ohzQFEBUP5ueXTrOpkmWQ6y953A7tpjSiTU/wJNLHZ3sMt+5
+         UN+y4TrYwEtKWCH/mNKUrvw7NCJWmOiZ7pIoAmABJlO3gKdbJlClFvC2nVr5672FAEJf
+         neYHXgY/1/mGfJQ3myGPaCL57ShRFaaBQ4S9Kw3/Sj+Ex59ts8GXtBxV/JP1QssqDwMH
+         Yq5SxEiPVY9IqKRdLN3QGL0QQRjCdWfRU0qn1novJw2qgXN9W7YOWOC5afwHAxd6t8vW
+         pyO8evJ/Do7XZccOiB6Ion/Kw4AhLXDbhUjdeIabttpMdxudbXS4VK+1UYS+v+jMPoJ2
+         6uFg==
+X-Forwarded-Encrypted: i=1; AKwUvBxL6GOlCOcJz4Izi3v9QxzXwm6sn2xzLGbxFxBJOia9U3Fm7tYVpf/us9uE4YldGtTV+R1bxuVz0L839Kc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nAQWVdizHVzOezI5INTpJrbQwFYrPs8JDkCT6jKQMZvujfedj6
+	GzQh6yOiZkaXDNx7AqkWpqoicFIMbNcr4+HfNAOh56nmz9CTWLG3KNtQbsq2ah7vp3T9H99wjRQ
+	MhRtxrQTFncFxirnmigI2aV8au9JX9oB/arqdQg19g1+coBLCAtMfM4KUNeHRdoEnb5k=
+X-Gm-Gg: AYBFou3NRBInKHrUw/LtFKi0KbUEp8ZXyRXdU9ctLmLFnOKnlXG9SeVuUvbBiY7kg47
+	PevO1EOWckLRc9iAifJXyqSB+qe+8aD1QxA1H3rqu3gQsWnT9w/QUKJZfp6y2e/DGAoK1x8tqI6
+	dn/1KYQR/+iu+VxhjJXHgPDeah7/1iykIo4NaD6BdgPOCU0V8QZUfdB1r5AJe47PwBEzeqHfhU3
+	U6kfjZJ2q9/kqXJotp9m6ZmhSmRFQFzrmOsdXHjS+N1SEuOn0bX0UgsICLjbWnw1KKEf2estUHy
+	/fvT2wpzXdGjZzcit20eGSnirGhn1/GkvCyjbeJOGVV8GB0esRpvjgvjJz0riabhJ5LuNmnPcGw
+	SGPM9HGjhZzxuXPlM6mjwrw==
+X-Received: by 2002:a05:620a:2682:b0:939:287f:301c with SMTP id af79cd13be357-939610ff47bmr767146785a.6.1788417136523;
+        Wed, 02 Sep 2026 23:32:16 -0700 (PDT)
+X-Received: by 2002:a05:620a:2682:b0:939:287f:301c with SMTP id af79cd13be357-939610ff47bmr767144885a.6.1788417136082;
+        Wed, 02 Sep 2026 23:32:16 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25f4172091sm51776866b.12.2026.09.02.23.32.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 23:32:15 -0700 (PDT)
+Message-ID: <dd3c20f3-89dc-4b5a-935e-e0e142988e4d@oss.qualcomm.com>
+Date: Thu, 3 Sep 2026 08:32:12 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dt-bindings: usb: qcom,snps-dwc3: Fix glymur binding
+ for non-MP controllers
+To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260828081542.52796-1-krishna.kurapati@oss.qualcomm.com>
+ <20260831-messy-ebony-warthog-cfd727@quoll>
+ <ce5bf06b-8284-4355-94bb-416a8e34bd5b@oss.qualcomm.com>
+ <cc52ff33-3da4-492e-80cd-ba2b1711bfed@kernel.org>
+ <6af2e860-ba7a-4f86-a0e7-872a312b47e4@oss.qualcomm.com>
+ <06bce1c2-8498-4988-b5c0-ab42bfba86cb@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <06bce1c2-8498-4988-b5c0-ab42bfba86cb@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=YcmNIQRf c=1 sm=1 tr=0 ts=6a991471 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=hQxA1nNTofH2dBn-U5oA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA1NyBTYWx0ZWRfX/9QoJ9kH4SUU
+ ZCfuyfjFaB5pGh2ObEqLjIA5njcnQJM2YgZmppDoRAyUWyqhpX3LT7EbNVCLN9ShbY+NpyEk1io
+ vNl3u4LRwjmyu6Xi9EaQxQ4S/Qr7oP0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA1NyBTYWx0ZWRfX/NjcN/p0MzcG
+ BxCJSvmLtDpdTxWCJQ2Th2jMGQuO1KlGx0urCpGODg3EAcn/IEx3SMKGPBIKBKzThcU58mrRops
+ z/nTHNeAWNiTx3FLzmEVcrhlG9sBCyY0O/OWaXzzOvx4Tvz0CUcBobHb+sCGcGP709HZd2PIQ7u
+ bB3mB5oJ+L1QYarJPmyCO5mVsMvt2AQF/lt6v45/ZWUitfooLKlOmfWH9Np7o78CWAG5rblEY+k
+ pWLsiymU3niWrMFdrQyz1L0Ghb/T4VQ9x4MvcKJiWTxU/hDPCujLmx+713NYqrP6A90izoAnJbc
+ m7gop904OXArr69LVY61b3QCYPfm/01CZiIfqeKRvR9ds3Lmc7kchydtRxmFktUOuUZqmgbdMaN
+ vnzYjeNQ1KepWXJRGClhSAslVbnDcZCY4cCzlM0zNZ2r1YZeopSDenPIYSXcywoXZ1+uLPj3NkO
+ 3HhOcVuhkX1jQhucWSg==
+X-Proofpoint-GUID: qyo_lq0jTWiYN0-tXHdVJJQ9Buh2W9HV
+X-Proofpoint-ORIG-GUID: qyo_lq0jTWiYN0-tXHdVJJQ9Buh2W9HV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_02,2026-09-02_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 priorityscore=1501 lowpriorityscore=0
+ adultscore=0 phishscore=0 impostorscore=0 spamscore=0 suspectscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609030057
 
-dispc_plane_state_dma_addr() and dispc_plane_state_p_uv_addr() are
-basically the same as drm_fb_dma_get_addr(), without the support for
-formats with block parameters. Since the driver doesn't support any of
-those formats, the result is the same.
+On 9/2/26 6:59 PM, Krishna Kurapati wrote:
+> 
+> 
+> On 9/2/2026 7:40 PM, Konrad Dybcio wrote:
+>> On 8/31/26 2:29 PM, Krzysztof Kozlowski wrote:
+>>> On 31/08/2026 11:03, Krishna Kurapati wrote:
+>>>>
+>>>>
+>>>> On 8/31/2026 2:07 PM, Krzysztof Kozlowski wrote:
+>>>>> On Fri, Aug 28, 2026 at 01:45:42PM +0530, Krishna Kurapati wrote:
+>>>>>> Currently for Glymur non-multiport USB controllers, number of interrupts
+>>>>>> are limited to a maximum of "5". Either hs_phy_irq or ss_phy_irq are to be
+>>>>>> present.
+>>
+>> [...]
+>>
+>>>>>>                  - qcom,eliza-dwc3
+>>>>>> +              - qcom,glymur-dwc3
+>>>>>>                  - qcom,ipq4019-dwc3
+>>>>>>                  - qcom,ipq8064-dwc3
+>>>>>>                  - qcom,kaanapali-dwc3
+>>>>>
+>>>>> This changes the ABI without an explanation.
+>>>>>
+>>>> As per the harware specification, the controllers do have both
+>>>> hs_phy_irq and ss_phy_irq. Hence wanted the binding to capture that
+>>>> info. Will update the commit message accordingly.
+>>>>
+>>>
+>>> So the change in 99df63d20dabda8d7ae01bcca7cdb1e92110a555 was
+>>> incomplete? Lack of context here is not helping.
+>>>
+>>> If they have these IRQs but it does not matter, then it is not a good
+>>> reason to change ABI and you should just add the clock as optional to
+>>> the end. Was this binding already released? I think yes.
+>>
+>> IIUC the intent of the patch is to allow specifying the currently
+>> missing hs_phy_irq on non-multiport controllers (i.e. usb3_[012]).
+>> Bundling the DT change would have made that easier.
+> Yes, I wanted to add the missing hs_phy_irq. I didn't want to bundle in the DT along with the usb binding changes. DT change was posted separately:
+> 
+> https://lore.kernel.org/all/20260803-glymur-dt-usb-fixes-v1-1-0f5f52853102@oss.qualcomm.com/
 
-Switch to drm_fb_dma_get_gem_addr() for getting the framebuffer addresses.
-Drop the const modifier on "struct drm_plane_state *state" for
-dispc_plane_setup() so that the state can be passed to
-drm_fb_dma_get_gem_addr().
+Shipping bindings and DT changes in a _series_ is preferred, what one
+must avoid is changing them within the same _patch_
 
-Using the helper also future proofs the driver in case block parameters
-are added for more formats, especially the common sub-sampled YUV
-formats.
-
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
- drivers/gpu/drm/tidss/tidss_dispc.c | 38 +++--------------------------
- drivers/gpu/drm/tidss/tidss_dispc.h |  2 +-
- 2 files changed, 4 insertions(+), 36 deletions(-)
-
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
-index 58d5eb033bdb..2a0ec11a6c90 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.c
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.c
-@@ -2157,47 +2157,15 @@ int dispc_plane_check(struct dispc_device *dispc, u32 hw_plane,
- 	return 0;
- }
- 
--static
--dma_addr_t dispc_plane_state_dma_addr(const struct drm_plane_state *state)
--{
--	struct drm_framebuffer *fb = state->fb;
--	struct drm_gem_dma_object *gem;
--	u32 x = state->src_x >> 16;
--	u32 y = state->src_y >> 16;
--
--	gem = drm_fb_dma_get_gem_obj(state->fb, 0);
--
--	return gem->dma_addr + fb->offsets[0] + x * fb->format->cpp[0] +
--		y * fb->pitches[0];
--}
--
--static
--dma_addr_t dispc_plane_state_p_uv_addr(const struct drm_plane_state *state)
--{
--	struct drm_framebuffer *fb = state->fb;
--	struct drm_gem_dma_object *gem;
--	u32 x = state->src_x >> 16;
--	u32 y = state->src_y >> 16;
--
--	if (WARN_ON(state->fb->format->num_planes != 2))
--		return 0;
--
--	gem = drm_fb_dma_get_gem_obj(fb, 1);
--
--	return gem->dma_addr + fb->offsets[1] +
--		(x * fb->format->cpp[1] / fb->format->hsub) +
--		(y * fb->pitches[1] / fb->format->vsub);
--}
--
- void dispc_plane_setup(struct dispc_device *dispc, u32 hw_plane,
--		       const struct drm_plane_state *state,
-+		       struct drm_plane_state *state,
- 		       u32 hw_videoport)
- {
- 	bool lite = dispc->feat->vid_info[hw_plane].is_lite;
- 	u32 fourcc = state->fb->format->format;
- 	u16 cpp = state->fb->format->cpp[0];
- 	u32 fb_width = state->fb->pitches[0] / cpp;
--	dma_addr_t dma_addr = dispc_plane_state_dma_addr(state);
-+	dma_addr_t dma_addr = drm_fb_dma_get_gem_addr(state->fb, state, 0);
- 	struct dispc_scaling_params scale;
- 
- 	dispc_vid_calc_scaling(dispc, state, &scale, lite);
-@@ -2229,7 +2197,7 @@ void dispc_plane_setup(struct dispc_device *dispc, u32 hw_plane,
- 	if (state->fb->format->num_planes == 2) {
- 		u16 cpp_uv = state->fb->format->cpp[1];
- 		u32 fb_width_uv = state->fb->pitches[1] / cpp_uv;
--		dma_addr_t p_uv_addr = dispc_plane_state_p_uv_addr(state);
-+		dma_addr_t p_uv_addr = drm_fb_dma_get_gem_addr(state->fb, state, 1);
- 
- 		dispc_vid_write(dispc, hw_plane,
- 				DISPC_VID_BA_UV_0, p_uv_addr & 0xffffffff);
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
-index 739d211d0018..2183254f1ab7 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.h
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.h
-@@ -140,7 +140,7 @@ int dispc_plane_check(struct dispc_device *dispc, u32 hw_plane,
- 		      const struct drm_plane_state *state,
- 		      u32 hw_videoport);
- void dispc_plane_setup(struct dispc_device *dispc, u32 hw_plane,
--		       const struct drm_plane_state *state,
-+		       struct drm_plane_state *state,
- 		       u32 hw_videoport);
- void dispc_plane_enable(struct dispc_device *dispc, u32 hw_plane, bool enable);
- const u32 *dispc_plane_formats(struct dispc_device *dispc, unsigned int *len);
--- 
-2.55.0.970.g62bdec98f9-goog
-
+Konrad
